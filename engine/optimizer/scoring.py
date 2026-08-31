@@ -2269,7 +2269,7 @@ class FormulaScorer:
         eff = fv.effective_ingredients()
         for name, pct in eff.items():
             prof = get_profile(name)
-            if prof:
+            if prof and prof.character:
                 oav = float(oav_data.get(name, 0) or 0)
                 weight = min(oav, 1.0) if oav >= 1.0 else 0.0
                 for d in DIMENSIONS:
@@ -2522,7 +2522,7 @@ class FormulaScorer:
         eff = fv.effective_ingredients()
         for name, pct in eff.items():
             prof = get_profile(name)
-            if prof:
+            if prof and prof.character:
                 for d in DIMENSIONS:
                     dim_sums[d] += prof.character.get(d, 0) * pct
                 total_pct += pct

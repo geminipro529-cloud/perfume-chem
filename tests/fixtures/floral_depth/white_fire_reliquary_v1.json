@@ -1,0 +1,158 @@
+{
+  "schema_version": "white_fire_reliquary_rejected_parent_v1",
+  "case_id": "WFR-FLORAL-WOOD-01",
+  "architecture_state": "REJECTED_UNDERRESOLVED_PARENT",
+  "rejection_reasons": [
+    "The 26-row parent collapsed the wood/base design into three rows rather than resolving target-linked wood registers and interfaces.",
+    "Its preparation and formula geometry no longer matches the accepted current-inventory candidate.",
+    "Ingredient count is not the acceptance criterion; the parent is retained only as a negative regression fixture."
+  ],
+  "superseded_by": "formulas/White_Fire_Reliquary_30mL_Parfum.md",
+  "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+  "target_identity": "White Fire Reliquary",
+  "emotional_tone": "lucid ceremonial calm opening into narcotic intimacy",
+  "floral_scope": "BOUQUET",
+  "floral_subjects": [
+    {"subject_id": "white_champi", "name": "White Champi", "role": "LEAD"},
+    {"subject_id": "jasmine", "name": "Jasmine Grandiflorum", "role": "CO_LEAD"},
+    {"subject_id": "tuberose", "name": "Tuberose", "role": "CO_LEAD"},
+    {"subject_id": "orange_blossom", "name": "Orange Blossom", "role": "CO_LEAD"}
+  ],
+  "realism_target": "Four legible flowers behaving as one spatial organism: volatile White Champi and orange-blossom air reveal jasmine/tuberose flesh without becoming a generic white-floral base.",
+  "strategy": "AUTOGENOUS_POLARITY",
+  "ideal_formula_ref": "formula:white-fire-reliquary:ideal:v1",
+  "current_inventory_build_ref": "formula:white-fire-reliquary:current:v1",
+  "allowed_source_classes": ["ESSENTIAL_OIL", "ABSOLUTE", "KNOWN_CHEMICAL"],
+  "forbidden_drift": [
+    "generic amber chassis",
+    "detergent musk cleanliness",
+    "opaque floral base",
+    "jasmine-only takeover",
+    "tuberose bubblegum wax",
+    "neroli cologne drift",
+    "sandalwood perfume replacing the flowers"
+  ],
+  "evidence_bindings": [
+    {
+      "path": "docs/superpowers/specs/2026-08-27-all-floral-depth-compiler-design.md",
+      "sha256": "f0db146ae3746883c150a01b98f27b276fab113d4886a6c7fc229512a7950a2c"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-08-27-white-fire-reliquary-training-implementation.md",
+      "sha256": "bbe126facc06ebb362aed5b9fdd9fa2801bea9cef6ab9e44f3f52d77d55eda85"
+    }
+  ],
+  "formula": {
+    "batch_volume_ml": 30.0,
+    "raw_concentrate_ul": 7200.0,
+    "ethanol_ml": 22.8,
+    "nominal_concentrate_percent_v_v": 24.0,
+    "ideal_and_current_composition_identical": true,
+    "target_and_build_authority_references_distinct": true,
+    "materials": [
+      {"material_id": "magnolia", "material": "Magnolia EO", "source_class": "ESSENTIAL_OIL", "stock_fraction": 0.1, "raw_ul": 900.0, "active_ul": 90.0, "active_ppm": 12500.0, "subject_owner": "white_champi", "natural_oav_state": "HOLD_LOT_OR_MODEL", "preparation_id": "prep_magnolia_10"},
+      {"material_id": "jasmine_absolute", "material": "Jasmine Absolute", "source_class": "ABSOLUTE", "stock_fraction": 0.1, "raw_ul": 500.0, "active_ul": 50.0, "active_ppm": 6944.4444, "subject_owner": "jasmine", "natural_oav_state": "COMPOSITE_COVERED"},
+      {"material_id": "tuberose_absolute", "material": "Tuberose Absolute", "source_class": "ABSOLUTE", "stock_fraction": 0.1, "raw_ul": 500.0, "active_ul": 50.0, "active_ppm": 6944.4444, "subject_owner": "tuberose", "natural_oav_state": "COMPOSITE_COVERED"},
+      {"material_id": "neroli", "material": "Neroli EO", "source_class": "ESSENTIAL_OIL", "stock_fraction": 0.1, "raw_ul": 350.0, "active_ul": 35.0, "active_ppm": 4861.1111, "subject_owner": "orange_blossom", "natural_oav_state": "COMPOSITE_COVERED"},
+      {"material_id": "hedione", "material": "Hedione", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 1.0, "raw_ul": 1060.0, "active_ul": 1060.0, "active_ppm": 147222.2222, "subject_owner": "SHARED_FLORAL_AIR", "natural_oav_state": "NOT_APPLICABLE"},
+      {"material_id": "linalool", "material": "Linalool", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 1.0, "raw_ul": 100.0, "active_ul": 100.0, "active_ppm": 13888.8889, "subject_owner": "white_champi", "natural_oav_state": "NOT_APPLICABLE"},
+      {"material_id": "linalyl_acetate", "material": "Linalyl Acetate", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 1.0, "raw_ul": 60.0, "active_ul": 60.0, "active_ppm": 8333.3333, "subject_owner": "orange_blossom", "natural_oav_state": "NOT_APPLICABLE"},
+      {"material_id": "methyl_benzoate", "material": "Methyl Benzoate", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 1.0, "raw_ul": 180.0, "active_ul": 180.0, "active_ppm": 25000.0, "subject_owner": "SHARED_FLORAL_BRIDGE", "natural_oav_state": "NOT_APPLICABLE"},
+      {"material_id": "benzyl_acetate", "material": "Benzyl Acetate", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 1.0, "raw_ul": 500.0, "active_ul": 500.0, "active_ppm": 69444.4444, "subject_owner": "jasmine", "natural_oav_state": "NOT_APPLICABLE"},
+      {"material_id": "pea", "material": "Phenethyl Alcohol", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 1.0, "raw_ul": 350.0, "active_ul": 350.0, "active_ppm": 48611.1111, "subject_owner": "SHARED_FLORAL_FLESH", "natural_oav_state": "NOT_APPLICABLE"},
+      {"material_id": "phenyl_ethyl_acetate", "material": "Phenyl Ethyl Acetate", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 1.0, "raw_ul": 150.0, "active_ul": 150.0, "active_ppm": 20833.3333, "subject_owner": "SHARED_FLORAL_BRIDGE", "natural_oav_state": "NOT_APPLICABLE"},
+      {"material_id": "jessemal", "material": "Jessemal", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 1.0, "raw_ul": 100.0, "active_ul": 100.0, "active_ppm": 13888.8889, "subject_owner": "tuberose", "natural_oav_state": "NOT_APPLICABLE"},
+      {"material_id": "cis_jasmone", "material": "Cis Jasmone", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 1.0, "raw_ul": 50.0, "active_ul": 50.0, "active_ppm": 6944.4444, "subject_owner": "jasmine", "natural_oav_state": "NOT_APPLICABLE"},
+      {"material_id": "methyl_anthranilate", "material": "Methyl Anthranilate", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 0.001, "raw_ul": 50.0, "active_ul": 0.05, "active_ppm": 6.9444, "subject_owner": "orange_blossom", "natural_oav_state": "NOT_APPLICABLE", "preparation_id": "prep_methyl_anthranilate_0_1"},
+      {"material_id": "indole", "material": "Indole", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 0.01, "raw_ul": 60.0, "active_ul": 0.6, "active_ppm": 83.3333, "subject_owner": "SHARED_FLORAL_SHADOW", "natural_oav_state": "NOT_APPLICABLE", "preparation_id": "prep_indole_1"},
+      {"material_id": "methyl_salicylate", "material": "Methyl Salicylate", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 1.0, "raw_ul": 20.0, "active_ul": 20.0, "active_ppm": 2777.7778, "subject_owner": "tuberose", "natural_oav_state": "NOT_APPLICABLE"},
+      {"material_id": "nerolin_bromelia", "material": "Nerolin Bromelia", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 0.1, "raw_ul": 60.0, "active_ul": 6.0, "active_ppm": 833.3333, "subject_owner": "orange_blossom", "natural_oav_state": "NOT_APPLICABLE"},
+      {"material_id": "nerolidol", "material": "Nerolidol", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 1.0, "raw_ul": 120.0, "active_ul": 120.0, "active_ppm": 16666.6667, "subject_owner": "SHARED_FLORAL_SKIN", "natural_oav_state": "NOT_APPLICABLE"},
+      {"material_id": "farnesol", "material": "Farnesol", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 1.0, "raw_ul": 30.0, "active_ul": 30.0, "active_ppm": 4166.6667, "subject_owner": "SHARED_FLORAL_SKIN", "natural_oav_state": "NOT_APPLICABLE"},
+      {"material_id": "hexyl_salicylate", "material": "Hexyl Salicylate", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 1.0, "raw_ul": 450.0, "active_ul": 450.0, "active_ppm": 62500.0, "subject_owner": "SHARED_FLORAL_FILM", "natural_oav_state": "NOT_APPLICABLE"},
+      {"material_id": "benzyl_salicylate", "material": "Benzyl Salicylate", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 1.0, "raw_ul": 400.0, "active_ul": 400.0, "active_ppm": 55555.5556, "subject_owner": "SHARED_FLORAL_WAX", "natural_oav_state": "NOT_APPLICABLE"},
+      {"material_id": "benzyl_benzoate", "material": "Benzyl Benzoate", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 1.0, "raw_ul": 300.0, "active_ul": 300.0, "active_ppm": 41666.6667, "subject_owner": "SHARED_FLORAL_MASS", "natural_oav_state": "NOT_APPLICABLE"},
+      {"material_id": "iso_e_super", "material": "Iso E Super", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 1.0, "raw_ul": 350.0, "active_ul": 350.0, "active_ppm": 48611.1111, "subject_owner": "WOOD", "natural_oav_state": "NOT_APPLICABLE"},
+      {"material_id": "javanol", "material": "Javanol", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 1.0, "raw_ul": 20.0, "active_ul": 20.0, "active_ppm": 2777.7778, "subject_owner": "WOOD", "natural_oav_state": "NOT_APPLICABLE"},
+      {"material_id": "ebanol", "material": "Ebanol", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 1.0, "raw_ul": 180.0, "active_ul": 180.0, "active_ppm": 25000.0, "subject_owner": "WOOD", "natural_oav_state": "NOT_APPLICABLE"},
+      {"material_id": "ambrettolide", "material": "Ambrettolide", "source_class": "KNOWN_CHEMICAL", "stock_fraction": 0.1, "raw_ul": 360.0, "active_ul": 36.0, "active_ppm": 5000.0, "subject_owner": "SHARED_FLORAL_SKIN", "natural_oav_state": "NOT_APPLICABLE", "is_musk": true}
+    ]
+  },
+  "preparations": [
+    {"preparation_id": "prep_magnolia_10", "source_material": "Magnolia EO as supplied", "source_stock_fraction": 1.0, "concentration_basis": "v/v", "carrier": "DPG", "source_ul": 200.0, "carrier_ul": 1800.0, "prepared_total_ul": 2000.0, "final_stock_fraction": 0.1, "delivered_ul": 900.0, "delivered_active_ul": 90.0},
+    {"preparation_id": "prep_methyl_anthranilate_1", "source_material": "Methyl Anthranilate neat", "source_stock_fraction": 1.0, "concentration_basis": "v/v", "carrier": "DPG", "source_ul": 10.0, "carrier_ul": 990.0, "prepared_total_ul": 1000.0, "final_stock_fraction": 0.01, "delivered_ul": 100.0, "delivered_active_ul": 1.0},
+    {"preparation_id": "prep_methyl_anthranilate_0_1", "source_material": "Methyl Anthranilate 1% stock", "source_stock_fraction": 0.01, "concentration_basis": "v/v", "carrier": "DPG", "source_ul": 100.0, "carrier_ul": 900.0, "prepared_total_ul": 1000.0, "final_stock_fraction": 0.001, "delivered_ul": 50.0, "delivered_active_ul": 0.05},
+    {"preparation_id": "prep_indole_1", "source_material": "Owned Indole 10% stock", "source_stock_fraction": 0.1, "concentration_basis": "v/v", "carrier": "DPG", "source_ul": 100.0, "carrier_ul": 900.0, "prepared_total_ul": 1000.0, "final_stock_fraction": 0.01, "delivered_ul": 60.0, "delivered_active_ul": 0.6}
+  ],
+  "facets": [
+    {"facet_id": "cool_lucid_shell", "owners": ["white_champi", "orange_blossom"], "function": "volatile petal air and cool tensile relief", "omission_loss": "the perfume loses its lucid pole and front plane"},
+    {"facet_id": "warm_narcotic_flesh", "owners": ["jasmine", "tuberose"], "function": "benzenoid, jasmonate, indolic and salicylate flesh", "omission_loss": "the perfume loses its carnal center and recurrence"},
+    {"facet_id": "pollen_nectar_nucleus", "owners": ["orange_blossom", "tuberose"], "function": "trace methyl-anthranilate/indole living-flower nucleus", "omission_loss": "the floral center becomes polished but inert"},
+    {"facet_id": "flower_skin_afterimage", "owners": ["white_champi", "jasmine", "tuberose", "orange_blossom"], "function": "nerolidol/salicylate/benzoate/ambrettolide continuity", "omission_loss": "the drydown detaches from the flowers"}
+  ],
+  "coupling": {
+    "coupling_id": "white_fire_reciprocal_coupling",
+    "facet_ids": ["cool_lucid_shell", "warm_narcotic_flesh", "pollen_nectar_nucleus", "flower_skin_afterimage"],
+    "shared_recognizers": ["linalool", "benzyl acetate", "methyl benzoate", "phenethyl alcohol", "jasmonates", "salicylates"],
+    "bridge": "Hedione carries the warm nucleus outward while benzoates, phenethyl acetate and salicylates return the cool shell into the heart and drydown.",
+    "controlled_arms": ["CARRIER_MATCHED_BRIDGE_ABLATION", "FULL_FLORAL_COUPLING"]
+  },
+  "temporal_windows": ["OPENING", "5_MIN", "30_MIN", "2_HOUR", "4_HOUR", "8_HOUR"],
+  "wood_texture_contract": {
+    "fixed_spatial_scaffold": "Iso E Super",
+    "factor_a": {"material": "Javanol", "texture": "dry mineral precision", "floral_echo": "cool lucid shell"},
+    "factor_b": {"material": "Ebanol", "texture": "creamy yielding sandalwood", "floral_echo": "warm narcotic flesh"},
+    "failure_mode": "wood takeover or a separate sandalwood perfume",
+    "controlled_arms": ["W00", "WJ", "WE", "WJE"]
+  },
+  "training_trials": [
+    {
+      "trial_id": "trial_floral_coupling",
+      "domain": "FLORAL",
+      "stage_order": 1,
+      "prerequisites": [],
+      "arms": ["CARRIER_MATCHED_BRIDGE_ABLATION", "FULL_FLORAL_COUPLING"],
+      "fixed": ["CONSTANT_TOTAL_RAW_VOLUME", "CONSTANT_TOTAL_ACTIVE_MASS", "WOOD_SYSTEM_FIXED", "MUSK_FIXED"],
+      "endpoints": ["TARGET_IDENTITY", "FLOWER_HIERARCHY", "COOL_WARM_SIMULTANEITY", "FLORAL_DEPTH", "TRANSITION_CONTINUITY", "LIKING"],
+      "failure_endpoints": ["FLOWER_BLUR", "GENERIC_WHITE_FLORAL_DRIFT", "JASMINE_TAKEOVER", "TUBEROSE_TAKEOVER", "NEROLI_COLOGNE_DRIFT"]
+    },
+    {
+      "trial_id": "trial_wood_texture",
+      "domain": "WOOD",
+      "stage_order": 2,
+      "prerequisites": ["trial_floral_coupling:PASS"],
+      "arms": ["W00", "WJ", "WE", "WJE"],
+      "fixed": ["CONSTANT_TOTAL_RAW_VOLUME", "FLORAL_CORE_FIXED", "ISO_E_SUPER_FIXED", "MUSK_FIXED"],
+      "endpoints": ["DRY_CREAMY_WOOD_TEXTURE", "FRONT_CENTER_REAR_SEPARATION", "DEPTH", "LIKING", "FIXED_DISTANCE_DETECTION"],
+      "failure_endpoints": ["WOOD_TAKEOVER", "FLORAL_IDENTITY_LOSS", "MUDDY_REAR_PLANE"]
+    },
+    {
+      "trial_id": "trial_musk_alternative_optional",
+      "domain": "MUSK",
+      "stage_order": 3,
+      "prerequisites": ["trial_wood_texture:PASS"],
+      "arms": ["AMBRETTOLIDE_10", "EQUAL_ACTIVE_ETHYLENE_BRASSYLATE"],
+      "fixed": ["CONSTANT_TOTAL_RAW_VOLUME", "CONSTANT_TOTAL_ACTIVE_MUSK", "FLORAL_AND_WOOD_SYSTEM_FIXED"],
+      "endpoints": ["FLOWER_SKIN_ECHO", "DRYDOWN_IDENTITY", "LIKING"],
+      "failure_endpoints": ["POWDERY_THICKENING", "NATURALISTIC_CHARACTER_LOSS"]
+    }
+  ],
+  "reference_anchor_policy": {
+    "DHP_2025": "BLINDED_GEOMETRY_TEXTURE_PERFORMANCE_ANCHOR_ONLY",
+    "AMOUAGE_OPUS_V": "BLINDED_GEOMETRY_TEXTURE_PERFORMANCE_ANCHOR_ONLY",
+    "flower_realism_reference": false,
+    "similarity_claim_authorized": false
+  },
+  "authority": {
+    "formula": false,
+    "compounding": false,
+    "purchase": false,
+    "sensory": false,
+    "hedonic": false,
+    "safety": false,
+    "stability": false,
+    "performance": false,
+    "release": false,
+    "runtime_admission": false
+  }
+}

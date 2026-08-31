@@ -1,0 +1,258 @@
+{
+  "schema_version": "depth_module_supporting_artifacts_manifest_v1",
+  "manifest_id": "CYPRESS-HARMONIC-DEPTH-SUPPORT-20260831",
+  "created_date": "2026-08-31",
+  "core_manifest": {
+    "path": "data/governance/depth_module_import_manifest_20260831.json",
+    "sha256": "bdd9e09b662b26dffe8ca1a782a774b4c8152d9545866a6af2294c5d42bf6946",
+    "core_file_count": 5,
+    "core_byte_count": 202900
+  },
+  "source": {
+    "worktree": "C:\\Users\\ASUS\\.codex\\worktrees\\3289\\perfume-chem",
+    "observed_head": "b5d0213ddf335a1eb48c4946a6661ffbcec20d0a",
+    "worktree_dirty": true
+  },
+  "destination": {
+    "worktree": "D:\\chatbots\\perfume-chem\\.worktrees\\cypress-harmonic-synthesis-v1",
+    "branch": "codex/cypress-harmonic-synthesis-v1",
+    "base_commit": "af0d126ecf6c0ff84ea928b7b1dfe03b0d8d9e5b"
+  },
+  "scope_note": "These artifacts preserve the complete detailed theory, native tests, fixtures, frozen regression formula, and evidence-bound design records needed to review and execute the five-file depth core without compressing it into a summary.",
+  "transfer_policy": {
+    "byte_exact": true,
+    "rewritten": false,
+    "compressed": false,
+    "flattened": false,
+    "runtime_admission_from_formula_fixture": false
+  },
+  "files": [
+    {
+      "source_path": "docs/depth_architecture/01_construct_boundaries.md",
+      "destination_path": "docs/depth_architecture/01_construct_boundaries.md",
+      "byte_size": 13514,
+      "sha256": "e2239532c99b8ac3eacca55c7a26e810cbc275ac0c0eccf34e68a751dca26784",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "docs/depth_architecture/02_named_object_identity.md",
+      "destination_path": "docs/depth_architecture/02_named_object_identity.md",
+      "byte_size": 10939,
+      "sha256": "bc249cb7037315d8d3e4121c5c7bd8b74dfd6aa96625b462e5545f78b23446da",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "docs/depth_architecture/03_material_information_theory.md",
+      "destination_path": "docs/depth_architecture/03_material_information_theory.md",
+      "byte_size": 11339,
+      "sha256": "cc1d6de5034c0b54a9d31b0797e5fce9631c62e1c0e7c306f7461c9370f06d7a",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "docs/depth_architecture/04_internal_anatomy_resolution.md",
+      "destination_path": "docs/depth_architecture/04_internal_anatomy_resolution.md",
+      "byte_size": 10983,
+      "sha256": "3640ac1ad7b9dfc7bb5f0515f7d40456acbd2842adb7916419e333861bd9e1a5",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "docs/depth_architecture/05_relational_topology.md",
+      "destination_path": "docs/depth_architecture/05_relational_topology.md",
+      "byte_size": 10541,
+      "sha256": "989727ab8465281542e9d154cc67df180e6c1e2087f1579a0b38654895d52f5b",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "docs/depth_architecture/06_contrast_shadow_negative_space.md",
+      "destination_path": "docs/depth_architecture/06_contrast_shadow_negative_space.md",
+      "byte_size": 9919,
+      "sha256": "11d8c5f1fbc49be7bc21f13a0609b31d42535def61a9e26a8b6987a03c65c368",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "docs/depth_architecture/07_texture_materiality.md",
+      "destination_path": "docs/depth_architecture/07_texture_materiality.md",
+      "byte_size": 9309,
+      "sha256": "5686c47805d13d08cc14c2498bb605d88c58041d7a4de219e8114d01557fdfc8",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "docs/depth_architecture/08_temporal_architecture.md",
+      "destination_path": "docs/depth_architecture/08_temporal_architecture.md",
+      "byte_size": 9249,
+      "sha256": "e1d4b9c212234f38d6e6676ba7871b185717b94cbfd7c53d5cd4c7068539c72f",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "docs/depth_architecture/09_spatial_architecture_performance.md",
+      "destination_path": "docs/depth_architecture/09_spatial_architecture_performance.md",
+      "byte_size": 9288,
+      "sha256": "6b381b8931421e89aeca556f72479bf65f8438797cdfe3d769f4e4e938ddcae5",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "docs/depth_architecture/10_hedonic_architecture.md",
+      "destination_path": "docs/depth_architecture/10_hedonic_architecture.md",
+      "byte_size": 10446,
+      "sha256": "d1efd7f854f86f370fae576f025829435e026978595f691cca5f6cec1d433823",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "docs/depth_architecture/11_nonlinear_mixture_behavior.md",
+      "destination_path": "docs/depth_architecture/11_nonlinear_mixture_behavior.md",
+      "byte_size": 9796,
+      "sha256": "f9904f883b1fdb8fe5d959445f4d020fef3eec09eda18a66271ab0e35c6eb781",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "docs/depth_architecture/12_physical_chemistry_constraints.md",
+      "destination_path": "docs/depth_architecture/12_physical_chemistry_constraints.md",
+      "byte_size": 9463,
+      "sha256": "7965d35a409b7dcd085f02795349ef635d5e24dd0bc18bd420990ff79f0b293c",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "docs/depth_architecture/13_family_translations.md",
+      "destination_path": "docs/depth_architecture/13_family_translations.md",
+      "byte_size": 18874,
+      "sha256": "1921cae43a2280b14fe544445f5ebd784f4dfcc2f97c884593fddb360b98ee6c",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "docs/depth_architecture/14_comparison_benchmarking.md",
+      "destination_path": "docs/depth_architecture/14_comparison_benchmarking.md",
+      "byte_size": 13913,
+      "sha256": "56139560ef2d540021c0ef8bd2bc098934ae77caf8772622d5c51a52f962c296",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "docs/depth_architecture/15_experimental_validation.md",
+      "destination_path": "docs/depth_architecture/15_experimental_validation.md",
+      "byte_size": 21803,
+      "sha256": "3bfd7520be76f63da1d88fae41b13d40e55212cace0a6eac9df32f46a9f0a46f",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "docs/depth_architecture/README.md",
+      "destination_path": "docs/depth_architecture/README.md",
+      "byte_size": 7231,
+      "sha256": "c65a1873c6ab18f89de5a518dff6a271a0a2f4bd09ef819dff9db4674f993df5",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "docs/floral_depth_architecture_theory.md",
+      "destination_path": "docs/floral_depth_architecture_theory.md",
+      "byte_size": 14962,
+      "sha256": "878e01098eaabe343adead5523b27b2c05e5e8953865ffeb270f88f19c0a3154",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "docs/superpowers/plans/2026-08-27-white-fire-reliquary-training-implementation.md",
+      "destination_path": "docs/superpowers/plans/2026-08-27-white-fire-reliquary-training-implementation.md",
+      "byte_size": 17918,
+      "sha256": "bbe126facc06ebb362aed5b9fdd9fa2801bea9cef6ab9e44f3f52d77d55eda85",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "docs/superpowers/specs/2026-08-27-all-floral-depth-compiler-design.md",
+      "destination_path": "docs/superpowers/specs/2026-08-27-all-floral-depth-compiler-design.md",
+      "byte_size": 29166,
+      "sha256": "f0db146ae3746883c150a01b98f27b276fab113d4886a6c7fc229512a7950a2c",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "formulas/White_Fire_Reliquary_30mL_Parfum.md",
+      "destination_path": "formulas/White_Fire_Reliquary_30mL_Parfum.md",
+      "byte_size": 76271,
+      "sha256": "b0604a4beb49fa24de34099ef84e4b4a13877684df14b0f7d2395e379a5651c4",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "tests/fixtures/floral_depth/accepted_floral_batch_v1.json",
+      "destination_path": "tests/fixtures/floral_depth/accepted_floral_batch_v1.json",
+      "byte_size": 4857,
+      "sha256": "cfc34ec4a0dd428bf6de8b5a371ce6b82853743f57575278c0c987d35544d80e",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "tests/fixtures/floral_depth/magnolia_de_verre_adaptive_recession_v1.json",
+      "destination_path": "tests/fixtures/floral_depth/magnolia_de_verre_adaptive_recession_v1.json",
+      "byte_size": 12731,
+      "sha256": "2204f5662a91c2d87a3618bc191e821704bf80072a1e718414086e793b79dbf1",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "tests/fixtures/floral_depth/magnolia_de_verre_signed_subject_v5.json",
+      "destination_path": "tests/fixtures/floral_depth/magnolia_de_verre_signed_subject_v5.json",
+      "byte_size": 4333,
+      "sha256": "d6a6080ee1ce45200b8951aeb64a040687b8599fce531e81bac1d649c0705e73",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "tests/fixtures/floral_depth/magnolia_de_verre_signed_subject_v6.json",
+      "destination_path": "tests/fixtures/floral_depth/magnolia_de_verre_signed_subject_v6.json",
+      "byte_size": 3457,
+      "sha256": "7ddbcf8f5b2028391a77eeb47b4aa065223d134de6da16c48a6773f6e611df37",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "tests/fixtures/floral_depth/magnolia_v3_normalized_parent.md",
+      "destination_path": "tests/fixtures/floral_depth/magnolia_v3_normalized_parent.md",
+      "byte_size": 1198,
+      "sha256": "2c29bdce13a57f5c5a4cae48177047c3aa2e05e6410c206f7b8106012955ffc2",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "tests/fixtures/floral_depth/training_directions_v1.json",
+      "destination_path": "tests/fixtures/floral_depth/training_directions_v1.json",
+      "byte_size": 4372,
+      "sha256": "91a76b294cd32c203154eba77f84f3428127c3c1647998118c3ea09bb89e9284",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "tests/fixtures/floral_depth/white_fire_reliquary_v1.json",
+      "destination_path": "tests/fixtures/floral_depth/white_fire_reliquary_v1.json",
+      "byte_size": 14874,
+      "sha256": "1341bb5da6639479fafab04173e1e6655b899d0e0269d9778f9d7ab272796a19",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "tests/test_depth_architecture_docs.py",
+      "destination_path": "tests/test_depth_architecture_docs.py",
+      "byte_size": 3789,
+      "sha256": "27f8d043062dd2e7a9bc17ab04175fa81e203713993b45e46765ac2b7d6deb2e",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "tests/test_depth_architecture.py",
+      "destination_path": "tests/test_depth_architecture.py",
+      "byte_size": 40744,
+      "sha256": "a26f875436fe9b4a82ed431417e1facbfb711bd61396fd2552f2913e8bcfb8d0",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "tests/test_floral_depth.py",
+      "destination_path": "tests/test_floral_depth.py",
+      "byte_size": 36816,
+      "sha256": "78c6c75b165e368aa2fe0d1c2c13caf854b8f1254a3878e8c10ad7df01d0d4fb",
+      "source_destination_match": true
+    }
+  ],
+  "supporting_file_count": 30,
+  "supporting_byte_count": 452095.0,
+  "complete_package_file_count": 35,
+  "complete_package_byte_count": 654995.0,
+  "authority": {
+    "formula_mutation_authorized": false,
+    "physical_execution_authorized": false,
+    "compounding_authorized": false,
+    "purchase_authority": false,
+    "sensory_authority": false,
+    "hedonic_authority": false,
+    "similarity_authority": false,
+    "performance_authority": false,
+    "safety_authority": false,
+    "stability_authority": false,
+    "release_authority": false
+  }
+}

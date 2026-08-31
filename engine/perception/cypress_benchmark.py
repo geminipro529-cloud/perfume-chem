@@ -1,0 +1,655 @@
+"""Frozen fresh-conversation admission pack for the CYP-02 harmonic system.
+
+The pack compares three conditions on six independent cases:
+
+* integrated: the complete operational Cypress harmonic contract;
+* plain: ordinary Sol xhigh with no added module;
+* placebo: neutral perfume-related prose exactly byte-length matched to the
+  integrated contract.
+
+Expected decisions and critical-error checks are retained for root
+adjudication but are not rendered into contestant prompts.  This module does
+not call a model and grants no formula or sensory authority.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from enum import Enum
+from statistics import median
+from typing import Any
+
+from engine.evidence_contracts import canonical_json_bytes, sha256_hex
+
+
+class BenchmarkCondition(str, Enum):
+    INTEGRATED = "INTEGRATED"
+    PLAIN = "PLAIN"
+    PLACEBO = "PLACEBO"
+
+
+class BenchmarkStage(str, Enum):
+    SCREEN = "SCREEN"
+    CONFIRMATION = "CONFIRMATION"
+
+
+_INTEGRATED_CONTRACT = """CYPRESS HARMONIC SYNTHESIS CONTRACT V1
+
+Purpose and construct boundary
+- Complexity means target-linked depth, richness, relations, temporal reveal,
+  and hedonic possibility. It never means ingredient count. Exact simplicity
+  is valid when every retained role is necessary and nonredundant.
+- Treat the named target as the north star. Lock TARGET/IDEAL architecture
+  before mapping current inventory. Missing stock can HOLD a current build but
+  must never rewrite the ideal target.
+- Separate target fidelity, depth, richness, transition quality, and liking.
+  Never average them into beauty, luxury, or one synthetic hedonic number.
+- Predicted volatility, ppm, ODT, OAV, shared constituents, supplier prose,
+  ownership, cost, prestige, and repeated module opinions are not perceived
+  behavior or liking evidence.
+
+Current CYP-02 target
+- The named subject is high-quality French Cypress EO. The design reveals the
+  niceness of that Cypress in a luxurious perfume; it is not a literal tree,
+  forest, spa, cleaner, or aromatherapy study.
+- Cypress must remain the sole named and continuously recognizable subject.
+  Florals are open and desirable when they create relational light, body,
+  intimacy, contrast, or transition without becoming a different perfume.
+- The current strongest exact-scope theory is a newly defined dual-register
+  heart: Magnolia petal-light plus Orris rhizome-shadow. It is Cypress-native,
+  not a reused DHP, Dior Homme, generic iris, or generic white-floral chassis.
+- This theory is not universal. If a different brief explicitly makes another
+  floral identity central, rebuild the target and frontier rather than forcing
+  Magnolia-Orris into it.
+
+Seven non-interchangeable frontier criteria
+1. CYPRESS_SUBJECT_PRESERVATION: does Cypress remain the identity axis?
+2. FLORAL_RELIEF: does the heart make Cypress more bodily, inviting, and
+   beautiful without takeover?
+3. ROOTED_DEPTH: is there a lower tactile register linked to the subject rather
+   than generic darkness or base weight?
+4. TEMPORAL_HANDOFF: are opening, heart, late heart, and drydown related as one
+   evolving object rather than inferred from volatility alone?
+5. DISTINCTIVE_IDENTITY: is the architecture native to the named brief instead
+   of a borrowed model?
+6. CURRENT_INVENTORY_FEASIBILITY: can the current build be executed using the
+   latest exact stock authority, without letting stock define the target?
+7. HEDONIC_MECHANISM_TESTABILITY: can each claimed relation be isolated by a
+   constant-total, carrier-matched omission, ratio, or interaction comparison?
+
+Frontier rule
+- Assess every candidate on every declared criterion. A missing criterion is a
+  HOLD. Use Pareto dominance only: A dominates B when it is no weaker on every
+  criterion and stronger on at least one. Equal or genuinely non-dominated
+  candidates remain FRONTIER; do not break ties by material count, alphabetical
+  order, repetition, or aggregate score.
+- More materials confer no advantage. Decorative padding with no distinct
+  target function is neutral at best and a blur risk at worst.
+
+Relational architecture for the current CYP-02 theory
+- CYPRESS_AXIS: dry-green aromatic wood from opening through drydown.
+- PETAL_LIGHT: Magnolia cream-white petal air around the axis.
+- RHIZOME_SHADOW: cool Orris/irone violet-root depth beneath the axis.
+- RELATIONAL_HANDOFF: Cypress opens the relation; Magnolia expands it; Orris
+  grounds it; the drydown returns to Cypress rather than generic iris or wood.
+- Required relations are Cypress-to-Magnolia tension relief,
+  Magnolia-to-Orris chiaroscuro vertical depth, and Orris-to-Cypress rooted
+  return. For each relation report target link, omission loss, overdose/failure
+  mode, temporal windows, and the exact comparison that could falsify it.
+
+Current-inventory discipline
+- Reparse the authoritative inventory at execution time. Canonical names and
+  bottle strength matter. Do not treat a shorthand or historical formula row
+  as current authority.
+- Current quantitative-ready CYP-02 design materials include Cypress EO,
+  Magnolia EO, Alpha Irone 10% w/w in DEP, Orris Liquid 30% w/w, Hedione,
+  Florol, Alpha Ionone, and Hexyl Salicylate.
+- Benzyl Salicylate is currently unavailable under the latest consolidated
+  stock text even if an older source says owned. Bacdanol is physically owned
+  but quantitative dosing remains HOLD while its exact stock fraction is
+  unspecified. Guaiacwood EO is owned at 33% but its basis and carrier remain
+  unresolved. Ambrofix liquid has visible-crystal homogeneity HOLD and cannot
+  support active-uL, ppm, OAV, or volume-dose math.
+- Tonalide, Macrolide, and Musk Ketone are depleted and exception-only. Zero or
+  one precise musk is the default; multiple musks require distinct functions
+  and nonredundancy evidence.
+- Never invent dilution, carrier, density, purity, supplier, lot, safety, or
+  equivalence. A raw transfer below 10 uL requires an explicitly prepared,
+  measurable, labelled working stock; do not silently round.
+
+Module harmony, not voting
+- Material Atlas reports current capability and knowledge gaps only.
+- Family Depth asks all fourteen construct questions, including identity,
+  anatomy, relations, contrast, texture, temporal and spatial architecture,
+  nonlinear interaction, and hedonic path. Construction count is diagnostic
+  only and cannot pass depth.
+- Architecture Compiler assigns each target function to exactly one strategy
+  and one layer, preserves target/ideal versus current-build separation, and
+  rejects count, predicted-OAV perception, and composition-derived hedonism.
+- Architectural Delta permits zero or one smallest target-linked intervention.
+  Multiple interacting additions require isolated arms and an n-ary contract;
+  pairwise evidence cannot establish layered synergy.
+- Temporal Ledger accepts observed canonical cells only. Cell identity is
+  protocol, sample, assessor, repeat, timepoint, and endpoint. Duplicate cells
+  cause HOLD; missing cells stay missing; predicted volatility is not sensory
+  time behavior; order balance must be audited from realized presentation.
+- Preference Learner fits target fidelity, depth, richness, and liking as
+  separate scopes. Ties remain indifference evidence but are excluded from
+  directional fitting. Sparse, disconnected, order-confounded, unscoped, or
+  baseline-failing results remain WITHHELD or DIAGNOSTIC. A winner requires
+  held-out performance above a declared baseline and uncertainty intervals.
+- Repeated compatible claims are deduplicated with provenance. One exact-scope
+  incompatibility remains a tension even if many modules repeat the other side.
+
+Evidence and authority ceiling
+- Computational design may select the next theory or comparison. It cannot
+  claim actual smell, liking, richness, depth, similarity, longevity, sillage,
+  stability, safety, compounding success, or release.
+- With no complete blinded temporal observations, report temporal truth as
+  WITHHELD/NOT TESTED. With no criterion-scoped, order-balanced preference data,
+  report hedonic truth as WITHHELD/NOT TESTED.
+- Keep formula mutation, physical execution, compounding, purchase, sensory,
+  hedonic, similarity, performance, safety, stability, and release authority
+  false.
+
+Decision behavior
+- THEORY_SELECTED means one complete, inventory-eligible candidate Pareto
+  dominates the alternatives at this computational scope. It does not mean the
+  perfume is proven pleasant.
+- FRONTIER means two or more candidates remain equal/non-dominated and require
+  a controlled comparison.
+- HOLD means required criterion, stock, protocol, lineage, or evidence closure
+  is missing or contradictory.
+- NO_CHANGE is a valid result when the smallest target-faithful architecture is
+  already closed; do not add a module merely to appear sophisticated.
+"""
+
+
+_PLACEBO_SEED = """LENGTH-CONTROL PERFUMERY READING V1
+
+Perfume work is often recorded in notebooks containing dates, bottle labels,
+shelf locations, blotter codes, room notes, and descriptions of packaging.
+Historical studios used many styles of ledger. Some grouped entries by date,
+some by supplier, some by alphabet, and some by the cabinet in which a bottle
+was stored. A clear notebook can make later reading easier. Labels may use
+large type, small type, ruled borders, colored tabs, or plain black ink. Glass
+bottles can be round, square, amber, clear, blue, or green. Caps and droppers
+also vary. Shelves benefit from ordinary housekeeping, legible names, and a
+consistent place for frequently handled objects. This passage is neutral
+background prose used only to control prompt length. It supplies no decision
+rule, inventory fact, target architecture, sensory inference, candidate
+ranking, experimental method, or answer to the attached case.
+
+Museum catalogues sometimes describe perfume vessels by period, region,
+material, decoration, and dimensions. A catalogue entry might note whether a
+container is glass, ceramic, metal, stone, or composite. It may describe a
+stopper, label, box, ribbon, seal, engraving, or printed card. The prose can be
+short or extensive depending on archival practice. Studio photographs likewise
+show tables, balances, pipettes, paper strips, drawers, cupboards, and written
+formula books. These details concern documentation and material culture. They
+do not determine what any mixture smells like or which design should be used.
+
+Repeated neutral text follows solely to occupy the same byte length as the
+active intervention. Reading it should not change the requested technical
+decision. """
+
+
+def _length_matched_placebo() -> str:
+    target = len(_INTEGRATED_CONTRACT.encode("utf-8"))
+    seed = _PLACEBO_SEED
+    repeated = (seed + "\n") * (target // len((seed + "\n").encode("utf-8")) + 2)
+    encoded = repeated.encode("utf-8")[:target]
+    # Both source strings are ASCII, so a byte boundary is always a character boundary.
+    return encoded.decode("ascii")
+
+
+_OUTPUT_CONTRACT = """Return exactly one JSON object and no prose outside it. Use this schema:
+{
+  "case_id": "<exact case id>",
+  "decision": "THEORY_SELECTED|FRONTIER|HOLD|NO_CHANGE",
+  "target_ideal": {
+    "identity": "<locked target independent of inventory>",
+    "primary_subject": "<subject>",
+    "supporting_architecture": ["<explicit relational registers>"],
+    "forbidden_drift": ["<specific failure modes>"]
+  },
+  "current_inventory_build": {
+    "status": "READY|HOLD|NOT_APPLICABLE",
+    "usable_materials": ["<current exact identities only>"],
+    "held_or_unavailable": ["<identity: reason>"],
+    "target_changed_by_inventory": false
+  },
+  "relations": [
+    {
+      "relation": "<source to target and mechanism>",
+      "target_link": "<why required>",
+      "omission_loss": "<specific loss>",
+      "failure_mode": "<takeover or collision>",
+      "temporal_windows": ["<window>"],
+      "controlled_comparison": "<constant-total discriminating arm>"
+    }
+  ],
+  "evidence": {
+    "computational_design": "SUPPORTED|HOLD|NOT_APPLICABLE",
+    "temporal_sensory": "OBSERVED|WITHHELD|NOT_TESTED",
+    "target_fidelity": "VALIDATED|WITHHELD|NOT_TESTED",
+    "depth": "VALIDATED|WITHHELD|NOT_TESTED",
+    "richness": "VALIDATED|WITHHELD|NOT_TESTED",
+    "liking": "VALIDATED|WITHHELD|NOT_TESTED",
+    "critical_uncertainties": ["<scope-specific unknowns>"]
+  },
+  "next_comparison": "<one most discriminating comparison or NONE>",
+  "authority": {
+    "formula_mutation": false,
+    "physical_execution": false,
+    "compounding": false,
+    "purchase": false,
+    "sensory": false,
+    "hedonic": false,
+    "similarity": false,
+    "performance": false,
+    "safety": false,
+    "stability": false,
+    "release": false
+  }
+}"""
+
+
+@dataclass(frozen=True, slots=True)
+class CypressBenchmarkCaseV1:
+    case_id: str
+    stage: BenchmarkStage
+    title: str
+    tags: tuple[str, ...]
+    case_payload: str
+    expected_requirements: tuple[str, ...]
+    case_critical_errors: tuple[str, ...]
+
+    def as_dict(self, *, include_hidden_adjudication: bool) -> dict[str, Any]:
+        payload: dict[str, Any] = {
+            "case_id": self.case_id,
+            "stage": self.stage.value,
+            "title": self.title,
+            "tags": list(self.tags),
+            "case_payload": self.case_payload,
+        }
+        if include_hidden_adjudication:
+            payload["expected_requirements"] = list(self.expected_requirements)
+            payload["case_critical_errors"] = list(self.case_critical_errors)
+        return payload
+
+
+@dataclass(frozen=True, slots=True)
+class CypressXHighAdmissionPackV1:
+    model: str
+    reasoning_effort: str
+    cases: tuple[CypressBenchmarkCaseV1, ...]
+    scoring_dimensions: tuple[tuple[str, int], ...]
+    critical_errors: tuple[str, ...]
+    output_contract: str
+    integrated_contract: str
+    placebo_contract: str
+
+    def __post_init__(self) -> None:
+        if len(self.integrated_contract.encode("utf-8")) != len(
+            self.placebo_contract.encode("utf-8")
+        ):
+            raise ValueError("integrated and placebo interventions must be byte matched")
+        if len(self.cases) != 6:
+            raise ValueError("admission pack requires exactly six cases")
+        if len({case.case_id for case in self.cases}) != len(self.cases):
+            raise ValueError("case IDs must be unique")
+
+    def _case(self, case_id: str) -> CypressBenchmarkCaseV1:
+        for case in self.cases:
+            if case.case_id == case_id:
+                return case
+        raise KeyError(case_id)
+
+    def render_prompt(
+        self,
+        case_id: str,
+        condition: BenchmarkCondition,
+    ) -> str:
+        case = self._case(case_id)
+        condition = BenchmarkCondition(condition)
+        if condition is BenchmarkCondition.INTEGRATED:
+            intervention = self.integrated_contract
+        elif condition is BenchmarkCondition.PLACEBO:
+            intervention = self.placebo_contract
+        else:
+            intervention = ""
+        return (
+            "Independent Perfume-Chem architecture admission case. Use only the case "
+            "facts below; do not browse, assume hidden inventory, or claim physical "
+            "sensory evidence.\n\n"
+            f"CONDITION: {condition.value:<10}\n\n"
+            f"INTERVENTION START\n{intervention}\nINTERVENTION END\n\n"
+            f"CASE START\n{case.case_payload}\nCASE END\n\n"
+            f"{self.output_contract}\n"
+        )
+
+    def prompt_sha256(
+        self,
+        case_id: str,
+        condition: BenchmarkCondition,
+    ) -> str:
+        return sha256_hex(
+            self.render_prompt(case_id, condition).encode("utf-8")
+        )
+
+    def prompt_manifest(self) -> tuple[dict[str, str | int], ...]:
+        rows: list[dict[str, str | int]] = []
+        for case in self.cases:
+            for condition in BenchmarkCondition:
+                prompt = self.render_prompt(case.case_id, condition)
+                rows.append(
+                    {
+                        "case_id": case.case_id,
+                        "stage": case.stage.value,
+                        "condition": condition.value,
+                        "utf8_bytes": len(prompt.encode("utf-8")),
+                        "sha256": sha256_hex(prompt.encode("utf-8")),
+                    }
+                )
+        return tuple(rows)
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": "cypress_xhigh_admission_pack_v1",
+            "model": self.model,
+            "reasoning_effort": self.reasoning_effort,
+            "cases": [
+                case.as_dict(include_hidden_adjudication=True) for case in self.cases
+            ],
+            "scoring_dimensions": [
+                {"criterion": name, "weight": weight}
+                for name, weight in self.scoring_dimensions
+            ],
+            "critical_errors": list(self.critical_errors),
+            "output_contract_sha256": sha256_hex(
+                self.output_contract.encode("utf-8")
+            ),
+            "integrated_contract_sha256": sha256_hex(
+                self.integrated_contract.encode("utf-8")
+            ),
+            "placebo_contract_sha256": sha256_hex(
+                self.placebo_contract.encode("utf-8")
+            ),
+            "intervention_utf8_bytes": len(
+                self.integrated_contract.encode("utf-8")
+            ),
+            "prompt_manifest": list(self.prompt_manifest()),
+            "formula_authority": False,
+            "sensory_authority": False,
+            "hedonic_authority": False,
+            "release_authority": False,
+        }
+
+    @property
+    def record_sha256(self) -> str:
+        return sha256_hex(canonical_json_bytes(self.as_dict()))
+
+
+@dataclass(frozen=True, slots=True)
+class ScoredBenchmarkResponse:
+    case_id: str
+    condition: BenchmarkCondition
+    score: float
+    critical_errors: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "condition", BenchmarkCondition(self.condition))
+        if not 0.0 <= self.score <= 100.0:
+            raise ValueError("benchmark score must be between 0 and 100")
+
+
+@dataclass(frozen=True, slots=True)
+class CypressAdmissionGateResult:
+    stage: str
+    passed: bool
+    case_count: int
+    wins_vs_plain: int
+    wins_vs_placebo: int
+    median_gain_vs_plain: float
+    median_gain_vs_placebo: float
+    integrated_critical_errors: tuple[str, ...]
+    reasons: tuple[str, ...]
+
+
+def evaluate_cypress_admission(
+    pack: CypressXHighAdmissionPackV1,
+    scores: list[ScoredBenchmarkResponse] | tuple[ScoredBenchmarkResponse, ...],
+    stage: BenchmarkStage | None,
+) -> CypressAdmissionGateResult:
+    """Evaluate the locked screening or six-case admission thresholds."""
+
+    if stage is BenchmarkStage.CONFIRMATION:
+        raise ValueError("confirmation cases are adjudicated only in the six-case full gate")
+    selected_cases = (
+        tuple(case for case in pack.cases if case.stage is BenchmarkStage.SCREEN)
+        if stage is BenchmarkStage.SCREEN
+        else pack.cases
+    )
+    selected_ids = {case.case_id for case in selected_cases}
+    by_key: dict[tuple[str, BenchmarkCondition], ScoredBenchmarkResponse] = {}
+    for score in scores:
+        if score.case_id not in selected_ids:
+            raise ValueError(f"unexpected case score: {score.case_id}")
+        key = (score.case_id, score.condition)
+        if key in by_key:
+            raise ValueError(f"duplicate case-condition score: {key}")
+        by_key[key] = score
+
+    expected_keys = {
+        (case.case_id, condition)
+        for case in selected_cases
+        for condition in BenchmarkCondition
+    }
+    missing = expected_keys - set(by_key)
+    if missing:
+        raise ValueError(f"missing case-condition scores: {sorted(missing)}")
+
+    gains_plain: list[float] = []
+    gains_placebo: list[float] = []
+    critical_errors: list[str] = []
+    for case in selected_cases:
+        integrated = by_key[(case.case_id, BenchmarkCondition.INTEGRATED)]
+        plain = by_key[(case.case_id, BenchmarkCondition.PLAIN)]
+        placebo = by_key[(case.case_id, BenchmarkCondition.PLACEBO)]
+        gains_plain.append(integrated.score - plain.score)
+        gains_placebo.append(integrated.score - placebo.score)
+        critical_errors.extend(integrated.critical_errors)
+
+    wins_plain = sum(gain > 0.0 for gain in gains_plain)
+    wins_placebo = sum(gain > 0.0 for gain in gains_placebo)
+    median_plain = float(median(gains_plain))
+    median_placebo = float(median(gains_placebo))
+    reasons: list[str] = []
+    if critical_errors:
+        reasons.append("integrated condition contains at least one critical error")
+
+    if stage is BenchmarkStage.SCREEN:
+        required_wins = 2
+        if wins_plain < required_wins:
+            reasons.append("fewer than 2/3 screening wins versus plain Sol xhigh")
+        if wins_placebo < required_wins:
+            reasons.append("fewer than 2/3 screening wins versus placebo")
+        stage_name = "SCREEN"
+    else:
+        required_wins = 4
+        if wins_plain < required_wins:
+            reasons.append("fewer than 4/6 admission wins versus plain Sol xhigh")
+        if wins_placebo < required_wins:
+            reasons.append("fewer than 4/6 admission wins versus placebo")
+        if median_plain < 5.0:
+            reasons.append("median paired gain versus plain Sol xhigh is below five points")
+        if median_placebo < 5.0:
+            reasons.append("median paired gain versus placebo is below five points")
+        stage_name = "FULL"
+
+    return CypressAdmissionGateResult(
+        stage=stage_name,
+        passed=not reasons,
+        case_count=len(selected_cases),
+        wins_vs_plain=wins_plain,
+        wins_vs_placebo=wins_placebo,
+        median_gain_vs_plain=median_plain,
+        median_gain_vs_placebo=median_placebo,
+        integrated_critical_errors=tuple(critical_errors),
+        reasons=tuple(reasons),
+    )
+
+
+def _cases() -> tuple[CypressBenchmarkCaseV1, ...]:
+    return (
+        CypressBenchmarkCaseV1(
+            case_id="CYP-XH-S1-COUNT-TRAP",
+            stage=BenchmarkStage.SCREEN,
+            title="DHP-level means many materials",
+            tags=("INGREDIENT_COUNT_TRAP", "CYPRESS_SUBJECT", "SAFE_COUNTERCASE"),
+            case_payload="""A client asks for a DHP-level Cypress perfume and insists that depth requires at least forty materials. The desired smell is luxurious, intimate, and floral, with high-quality French Cypress EO as the subject, but not a literal forest. Current ready candidates include Cypress EO, Magnolia EO, Alpha Irone 10% w/w in DEP, Orris Liquid 30% w/w, Hedione, Florol, Alpha Ionone, Hexyl Salicylate, Habanolide, Romandolide, Ambrettolide 10%, and Ethylene Brassylate. No blinded sensory or preference observations exist. Decide the architecture; do not write a dose formula.""",
+            expected_requirements=(
+                "reject ingredient count as depth",
+                "retain Cypress as sole named subject",
+                "select or preserve Magnolia petal-light plus Orris rhizome-shadow on relational grounds",
+                "keep empirical and authority claims withheld",
+            ),
+            case_critical_errors=(
+                "recommends material count as complexity",
+                "claims observed liking or smell",
+                "adds redundant musks for richness",
+            ),
+        ),
+        CypressBenchmarkCaseV1(
+            case_id="CYP-XH-S2-INVENTORY-CONFLICT",
+            stage=BenchmarkStage.SCREEN,
+            title="Older inventory conflicts with current stock",
+            tags=("INVENTORY_MISMATCH", "TARGET_IDEAL_SEPARATION"),
+            case_payload="""The locked ideal target is Cypress with slow floral continuity and a cool rooted heart. An older V5 row says Benzyl Salicylate is owned, but the latest consolidated stock text says DON'T HAVE. Bacdanol is physically owned, but no exact current stock fraction is supplied. Clearwood is owned neat. Guaiacwood EO is owned at 33%, but concentration basis and carrier are unspecified. A colleague proposes changing the ideal target to fit only Clearwood and dosing Bacdanol and Guaiacwood by assumed neat equivalents. Decide target and current-build status; do not write a dose formula.""",
+            expected_requirements=(
+                "preserve the ideal target",
+                "mark Benzyl Salicylate unavailable",
+                "hold quantitative Bacdanol and Guaiacwood dosing",
+                "allow Clearwood only if target-linked",
+            ),
+            case_critical_errors=(
+                "uses stale Benzyl Salicylate as current",
+                "invents Bacdanol or Guaiacwood stock math",
+                "lets inventory rewrite target",
+            ),
+        ),
+        CypressBenchmarkCaseV1(
+            case_id="CYP-XH-S3-INHERITED-IRIS",
+            stage=BenchmarkStage.SCREEN,
+            title="Borrow the DHP iris system",
+            tags=("INHERITED_IRIS_MODEL_TRAP", "DISTINCTIVE_IDENTITY"),
+            case_payload="""The Cypress perfume needs a floral heart. A prior DHP-style system already uses a dense iris/orris, leather, sandalwood, and amberwood grammar. A reviewer suggests copying that proven-looking architecture, replacing only its lead with Cypress EO, and calling the result maximally hedonic. No target-specific comparison or sensory data exists. Decide whether to reuse that model and state the better architecture direction.""",
+            expected_requirements=(
+                "reject direct inherited DHP chassis",
+                "define a Cypress-native relational heart",
+                "prevent generic iris and amberwood-wall drift",
+                "withhold hedonic truth",
+            ),
+            case_critical_errors=(
+                "calls the inherited model proven or hedonic",
+                "demotes Cypress to garnish",
+                "uses prestige as evidence",
+            ),
+        ),
+        CypressBenchmarkCaseV1(
+            case_id="CYP-XH-C1-PRECISE-SIMPLICITY",
+            stage=BenchmarkStage.CONFIRMATION,
+            title="Sparse architecture is already closed",
+            tags=("PRECISE_SIMPLICITY_COUNTERCASE", "NO_CHANGE"),
+            case_payload="""A separate brief named Cypress Silence requires a solitary polished Cypress axis, one faint Magnolia light register, and near-empty mineral space. Orris, musk, sweet base, citrus, and additional woods are explicitly forbidden because the intended beauty is austere precision. Every required function already has one nonredundant role and no deficiency has been identified. No sensory observations exist. Decide whether to add the CYP-02 dual-register heart or any complexity module.""",
+            expected_requirements=(
+                "return NO_CHANGE",
+                "honor exact simplicity",
+                "do not force Orris or extra modules",
+                "retain NOT TESTED evidence state",
+            ),
+            case_critical_errors=(
+                "forces Magnolia-Orris into a changed target",
+                "adds ingredients to increase richness",
+                "claims simplicity is less complex",
+            ),
+        ),
+        CypressBenchmarkCaseV1(
+            case_id="CYP-XH-C2-ORDER-CONFOUNDING",
+            stage=BenchmarkStage.CONFIRMATION,
+            title="Unbalanced preference observations",
+            tags=("ORDER_CONFOUNDING", "MISSING_EVIDENCE", "TEMPORAL_LEDGER"),
+            case_payload="""Four assessors compare CYP-A and CYP-B for liking at 30 minutes. Every assessor receives A first and B second. Three choose A and one reports a tie. There are no repeats, no held-out comparisons, no depth or target-fidelity criterion, and no 2-hour or 4-hour cells. A summary claims A is the hedonic winner and that its predicted lower volatility proves richer drydown. Decide the evidence state and next comparison.""",
+            expected_requirements=(
+                "withhold winner",
+                "diagnose realized order confounding and sparse disconnected evidence",
+                "retain tie as indifference evidence",
+                "require counterbalanced criterion-separated temporal comparison",
+            ),
+            case_critical_errors=(
+                "declares A winner",
+                "uses predicted volatility as perceived richness",
+                "drops the tie",
+            ),
+        ),
+        CypressBenchmarkCaseV1(
+            case_id="CYP-XH-C3-UNSEEN-ORANGE-BLOSSOM",
+            stage=BenchmarkStage.CONFIRMATION,
+            title="Target explicitly changes the floral co-subject",
+            tags=("UNSEEN_TARGET_VARIANT", "TARGET_FIRST", "NEROLI_EXCEPTION"),
+            case_payload="""A new target is not CYP-02. It is named Cypress and Orange Blossom Nocturne. French Cypress EO and orange blossom are explicit co-subjects; the design asks for bitter-green Cypress tension, a living neroli/orange-blossom heart, and a dark resinous return. Magnolia and Orris are not requested. Neroli EO 10% in DPG and Petitgrain EO Paraguay are current and ready. No sensory or preference evidence exists. Decide whether the prior support-only Neroli policy or Magnolia-Orris heart must be enforced.""",
+            expected_requirements=(
+                "rebuild target for explicit orange-blossom co-subject",
+                "allow Neroli to be central under the new brief",
+                "do not force Magnolia-Orris",
+                "design new relational tests and withhold sensory truth",
+            ),
+            case_critical_errors=(
+                "hardcodes prior CYP-02 heart",
+                "keeps Neroli support-only despite explicit central target",
+                "claims exact smell or liking",
+            ),
+        ),
+    )
+
+
+def build_cypress_xhigh_admission_pack() -> CypressXHighAdmissionPackV1:
+    placebo = _length_matched_placebo()
+    return CypressXHighAdmissionPackV1(
+        model="gpt-5.6-sol",
+        reasoning_effort="xhigh",
+        cases=_cases(),
+        scoring_dimensions=(
+            ("TARGET_FIDELITY", 25),
+            ("RELATIONAL_DEPTH", 20),
+            ("INVENTORY_TRUTH", 15),
+            ("EVIDENCE_AND_AUTHORITY", 15),
+            ("EXPERIMENTAL_DISCRIMINATION", 15),
+            ("USABILITY_AND_DETAIL", 10),
+        ),
+        critical_errors=(
+            "ingredient count, prestige, or ownership is treated as complexity or beauty",
+            "current inventory rewrites the locked ideal target",
+            "unavailable or quantitatively held stock is dosed as current-ready",
+            "predicted OAV or volatility is asserted as perceived smell, depth, richness, or liking",
+            "unbalanced, incomplete, unscoped, or baseline-failing evidence produces a winner",
+            "an equal frontier is broken arbitrarily",
+            "formula, compounding, purchase, sensory, safety, stability, or release authority is granted",
+        ),
+        output_contract=_OUTPUT_CONTRACT,
+        integrated_contract=_INTEGRATED_CONTRACT,
+        placebo_contract=placebo,
+    )
+
+
+__all__ = [
+    "BenchmarkCondition",
+    "BenchmarkStage",
+    "CypressAdmissionGateResult",
+    "CypressBenchmarkCaseV1",
+    "CypressXHighAdmissionPackV1",
+    "ScoredBenchmarkResponse",
+    "build_cypress_xhigh_admission_pack",
+    "evaluate_cypress_admission",
+]

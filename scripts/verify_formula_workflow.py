@@ -666,6 +666,57 @@ _PIPELINE_ANALYSIS_MANIFEST_RE = re.compile(
     r"<!--\s*pipeline-analysis-manifest:\s*(\{.*?\})\s*-->",
     flags=re.DOTALL,
 )
+_STOCK_PREPARATION_MANIFEST_RE = re.compile(
+    r"<!--\s*stock-preparation-manifest:\s*(\{.*?\})\s*-->",
+    flags=re.DOTALL,
+)
+_FORMULA_MIXING_PROTOCOL_RE = re.compile(
+    r"<!--\s*FORMULA_MIXING_PROTOCOL_START\s*-->\s*"
+    r"(.*?)"
+    r"\s*<!--\s*FORMULA_MIXING_PROTOCOL_END\s*-->",
+    flags=re.DOTALL | re.IGNORECASE,
+)
+
+
+def _formula_bound_mixing_protocol(
+    body: str,
+    *,
+    formula_name: str,
+    total_materials: int,
+    total_pct: float,
+) -> dict[str, object] | None:
+    """Return an explicit source-bound protocol without reordering it.
+
+    A formula author may need a physical order that encodes bottle layout,
+    pipette-contamination control, or another lab constraint unavailable to the
+    generic note-phase sequencer. The marked source text is therefore copied
+    verbatim. No premixing, reaction, maceration, or compounding authority is
+    inferred from the marker.
+    """
+
+    match = _FORMULA_MIXING_PROTOCOL_RE.search(body or "")
+    if not match:
+        return None
+    source_text = match.group(1).strip()
+    if not source_text:
+        raise ValueError("formula-bound mixing protocol marker is empty")
+    return {
+        "title": formula_name,
+        "total_materials": int(total_materials),
+        "total_pct": round(float(total_pct), 2),
+        "phases": [
+            {
+                "phase": "formula_bound",
+                "instructions": [source_text],
+            }
+        ],
+        "maceration": "NOT AUTHORIZED BY FORMULA-BOUND PROTOCOL",
+        "warnings": [
+            "Source-bound order preserved; no generated premixing or compounding authority."
+        ],
+        "full_text": source_text,
+        "authority": "FORMULA_SOURCE_BOUND_ORDER_ONLY",
+    }
 
 
 def split_generated_pipeline_analysis(text: str) -> tuple[str, str]:
@@ -691,6 +742,32 @@ def parse_pipeline_analysis_manifest(artifact: str) -> dict[str, object] | None:
     if not isinstance(parsed, dict):
         return {"manifest_status": "INVALID_TYPE"}
     return parsed
+
+
+def _parse_stock_preparation_manifest(text: str) -> dict[str, dict[str, object]]:
+    """Parse a formula-bound planned-preparation manifest without authorizing it."""
+
+    match = _STOCK_PREPARATION_MANIFEST_RE.search(text or "")
+    if not match:
+        return {}
+    try:
+        payload = json.loads(match.group(1))
+    except json.JSONDecodeError as exc:
+        raise ValueError("stock-preparation manifest is not valid JSON") from exc
+    if not isinstance(payload, dict):
+        raise ValueError("stock-preparation manifest must be a JSON object")
+    if payload.get("schema_version") != "formula_stock_preparations_v1":
+        raise ValueError("unsupported stock-preparation manifest schema")
+    preparations = payload.get("preparations")
+    if not isinstance(preparations, dict):
+        raise ValueError("stock-preparation manifest requires a preparations object")
+    normalized: dict[str, dict[str, object]] = {}
+    for material, preparation in preparations.items():
+        name = str(material).strip()
+        if not name or not isinstance(preparation, dict):
+            raise ValueError("every stock preparation requires a named object")
+        normalized[name] = dict(preparation)
+    return normalized
 
 
 def _infer_family_archetype(body: str) -> str:
@@ -852,6 +929,7 @@ def _build_formula_record(
     dilutions: dict[str, float],
     stock_specs: dict[str, dict[str, object]],
     embedded_analysis: str = "",
+    stock_preparations: dict[str, dict[str, object]] | None = None,
 ) -> dict:
     total_ul = sum(ingredients_ul.values()) or 1.0
     ingredients_pct = {
@@ -867,6 +945,7 @@ def _build_formula_record(
         "ingredients_pct": ingredients_pct,
         "dilutions": dilutions,
         "stock_specs": stock_specs,
+        "stock_preparations": dict(stock_preparations or {}),
         "concentrate_ml": concentrate_ml,
         "body": body,
         "family_archetype": _infer_family_archetype(body),
@@ -950,6 +1029,7 @@ def parse_formula_markdown(path: Path) -> list[dict]:
     """
     full_text = path.read_text(encoding="utf-8")
     text, embedded_analysis = split_generated_pipeline_analysis(full_text)
+    stock_preparations = _parse_stock_preparation_manifest(text)
     sections = re.split(r"^##\s+(\d+)\.\s+(.+?)$", text, flags=re.MULTILINE)
     formulas: list[dict] = []
 
@@ -969,6 +1049,7 @@ def parse_formula_markdown(path: Path) -> list[dict]:
                 dilutions,
                 stock_specs,
                 embedded_analysis,
+                stock_preparations,
             )
         )
 
@@ -990,6 +1071,7 @@ def parse_formula_markdown(path: Path) -> list[dict]:
             dilutions,
             stock_specs,
             embedded_analysis,
+            stock_preparations,
         )
     ]
 
@@ -1053,10 +1135,17 @@ def build_verification_bundle(formula: dict) -> dict:
     )
 
     prebond = PreBondingAnalyzer().analyze_formula(fv.ingredients)
-    instructions = InstructionGenerator().generate(
-        ingredients=fv.ingredients,
+    instructions = _formula_bound_mixing_protocol(
+        str(formula.get("body") or ""),
         formula_name=formula["name"],
+        total_materials=len(fv.ingredients),
+        total_pct=sum(fv.ingredients.values()),
     )
+    if instructions is None:
+        instructions = InstructionGenerator().generate(
+            ingredients=fv.ingredients,
+            formula_name=formula["name"],
+        )
     blocked_materials = {
         ingredient: blocked_reason(ingredient)
         for ingredient in formula["ingredients_pct"]

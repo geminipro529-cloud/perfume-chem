@@ -1,0 +1,117 @@
+{
+  "schema_version": "accepted_floral_batch_v1",
+  "change_class": "APPROVED_FLORAL_BATCH_NONRUNTIME_EVIDENCE",
+  "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+  "design_disposition": "CONTROLLED_TRIAL_DESIGN_ACCEPTED_PHYSICAL_EXECUTION_NOT_AUTHORIZED",
+  "authority_flags": {
+    "compounding": false,
+    "formula": false,
+    "hedonic": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "scientific": false,
+    "sensory": false
+  },
+  "records": [
+    {
+      "direction_id": "immortelle-sable-diris",
+      "formula_file": "formulas/Immortelle_Sable_dIris_30mL_Parfum.md",
+      "formula_number": 4,
+      "formula_name": "CURRENT-INVENTORY BUILD — Immortelle Sable d'Iris",
+      "formula_definition_sha256": "e0d75cba1d41ee7bbf148d6d10c4b1331458da4d5cbc91a1b2674e0c37b45c3f",
+      "analysis_input_sha256": "de59991a76283ea0ceee420613abf5b74f5078b8153db23a88a1f0a487dd1874",
+      "analysis_sha256": "e86bf8ecc8219e3cf8eb982afd0b718c74880c5bafa2ff03a5a32324338e079a",
+      "artifact_sha256": "e5f0b2ebdfe589f6b2f2db0ee90fada1a1cb2c8a42d7177bb8e83482f378be06",
+      "config_sha256": "9284eedf7eb08811c02869a020c740c8df55cf1593a4b97eb5b070ada0dfc361",
+      "inventory_sha256": "8b4e22abb334ae7264d162952b7972ed3c7c943dfbcbbd6f5f6e45f110196bb4",
+      "scientific_inputs_sha256": "1c2398b44714c47acbd57ae3e6dae8ec053b7b68358dfd6fa7258e33eafaf091",
+      "pipeline_source_sha256": "a52035e6afee3e561b57d085f97edce4791fcbf31b866ab8b76a0cef484ace06",
+      "pipeline_overall": "FAIL",
+      "manifest_authorities": {
+        "claim": [
+          "PASS"
+        ],
+        "headspace_oav": [
+          "MODELED_ACTIVE_CONCENTRATE_SCREEN"
+        ],
+        "quantitative": [
+          "WARN"
+        ],
+        "stock": [
+          "FAIL"
+        ]
+      },
+      "total_raw_ul": 7200.0,
+      "material_row_count": 72,
+      "minimum_raw_delivery_ul": 20.0,
+      "single_musk_material": "Ambrettolide"
+    },
+    {
+      "direction_id": "rain-before-pollen",
+      "formula_file": "formulas/Rain_Before_Pollen_30mL_Parfum.md",
+      "formula_number": 4,
+      "formula_name": "CURRENT-INVENTORY BUILD — Rain Before Pollen",
+      "formula_definition_sha256": "c70824d4b4aac95f5c45882740b03f94f69ea1e901a23ee0376178c13303084d",
+      "analysis_input_sha256": "38068779d84e686d26ab2a83eea8b02d59401813d40c68dbe610b85977484540",
+      "analysis_sha256": "f31833422d4f8413a93ec4e4d57c4222014e0327ca96e5bb0204a500184a9ce6",
+      "artifact_sha256": "a75739163ab2b6db686f8bb16ca045e1bd03ed60d04bb19ddcf202b0c1d91a52",
+      "config_sha256": "9284eedf7eb08811c02869a020c740c8df55cf1593a4b97eb5b070ada0dfc361",
+      "inventory_sha256": "8b4e22abb334ae7264d162952b7972ed3c7c943dfbcbbd6f5f6e45f110196bb4",
+      "scientific_inputs_sha256": "1c2398b44714c47acbd57ae3e6dae8ec053b7b68358dfd6fa7258e33eafaf091",
+      "pipeline_source_sha256": "a52035e6afee3e561b57d085f97edce4791fcbf31b866ab8b76a0cef484ace06",
+      "pipeline_overall": "FAIL",
+      "manifest_authorities": {
+        "claim": [
+          "PASS"
+        ],
+        "headspace_oav": [
+          "MODELED_ACTIVE_CONCENTRATE_SCREEN"
+        ],
+        "quantitative": [
+          "WARN"
+        ],
+        "stock": [
+          "PASS"
+        ]
+      },
+      "total_raw_ul": 7200.0,
+      "material_row_count": 75,
+      "minimum_raw_delivery_ul": 10.0,
+      "single_musk_material": "Romandolide"
+    },
+    {
+      "direction_id": "ivoire-de-seve",
+      "formula_file": "formulas/Ivoire_de_Seve_30mL_Parfum.md",
+      "formula_number": 4,
+      "formula_name": "CURRENT-INVENTORY BUILD — Ivoire de Sève",
+      "formula_definition_sha256": "a0f1e5a13de7d4b52ff2d69f49a0a84ac285da80da13cea50a4b2b029ade28bf",
+      "analysis_input_sha256": "370f5201047d4368df463f3f3a8fd9744d306504fcc549ad152e258d9421e82e",
+      "analysis_sha256": "a4530695670237b50675c77ee9c8af652ebc05fe4d91dd74a284767a0ecf5845",
+      "artifact_sha256": "7bccbc08436dee72b7e079403d229ae02d0972608ad4771b0c12abca650660fa",
+      "config_sha256": "f7437dc7105a47b974b81bbc2161a66381b8b4a00e8296caf9588da52fe23693",
+      "inventory_sha256": "8b4e22abb334ae7264d162952b7972ed3c7c943dfbcbbd6f5f6e45f110196bb4",
+      "scientific_inputs_sha256": "1c2398b44714c47acbd57ae3e6dae8ec053b7b68358dfd6fa7258e33eafaf091",
+      "pipeline_source_sha256": "a52035e6afee3e561b57d085f97edce4791fcbf31b866ab8b76a0cef484ace06",
+      "pipeline_overall": "FAIL",
+      "manifest_authorities": {
+        "claim": [
+          "PASS"
+        ],
+        "headspace_oav": [
+          "MODELED_ACTIVE_CONCENTRATE_SCREEN"
+        ],
+        "quantitative": [
+          "WARN"
+        ],
+        "stock": [
+          "PASS"
+        ]
+      },
+      "total_raw_ul": 7200.0,
+      "material_row_count": 80,
+      "minimum_raw_delivery_ul": 10.0,
+      "single_musk_material": "Ethylene Brassylate"
+    }
+  ]
+}

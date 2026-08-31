@@ -1,0 +1,131 @@
+{
+  "schema_version": "magnolia_de_verre_signed_subject_v6",
+  "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+  "design_disposition": "CONTROLLED_TRIAL_DESIGN_COMPLETE",
+  "inventory_binding": {
+    "status": "CURRENT",
+    "omitted_not_owned": [
+      "Dimethyl Benzyl Carbinol",
+      "Benzyl Salicylate"
+    ],
+    "substitutions": []
+  },
+  "authority_flags": {
+    "compounding": false,
+    "formula_acceptance": false,
+    "hedonic": false,
+    "performance": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "bench_packet": {
+    "status": "BENCH_MEASUREMENT_PACKET_COMPLETE",
+    "measurement_geometry": "VOLUME_BASED_NOMINAL",
+    "physical_compounding_authorized": false,
+    "skin_or_release_authorized": false
+  },
+  "signed_subject": {
+    "material": "Magnolia EO",
+    "raw_ul": 1200.0,
+    "nominal_active_ul": 600.0,
+    "lot_authority": "UNRESOLVED"
+  },
+  "current_build": {
+    "raw_total_ul": 4000.0,
+    "nominal_active_total_ul": 2599.21,
+    "material_rows": 26,
+    "musk_count": 1,
+    "wood_count": 0,
+    "dpg_ul": 580.0,
+    "magnolia_raw_ul": 1200.0,
+    "magnolia_nominal_active_ul": 600.0
+  },
+  "required_controls": [
+    "MAGNOLIA_ALONE",
+    "SUPPORT_ONLY",
+    "FULL_V6",
+    "FIXED_MAGNOLIA_SUPPORT_LADDER",
+    "NATURAL_DOSE_LADDER",
+    "MODULE_OMISSIONS",
+    "AMBRETTOLIDE_ZERO_TARGET",
+    "BACKGROUND_TAKEOVER"
+  ],
+  "required_noncompensatory_endpoints": [
+    "WHITE_CHAMPI_IDENTITY",
+    "WHOLE_NATURAL_IDENTITY_RETENTION",
+    "REALISM",
+    "ANATOMY",
+    "DEPTH",
+    "TEXTURE",
+    "DIFFUSION",
+    "TRANSITION_LIKING",
+    "BACKGROUND_TAKEOVER",
+    "OVERALL_LIKING"
+  ],
+  "trial_geometries": {
+    "support_master_full_scale_ul": 2220.0,
+    "support_master_preparation_ul": 6660.0,
+    "support_ladder_p0_preparation": {
+      "source_ul": 1800.0,
+      "dpg_ul": 1800.0,
+      "prepared_total_ul": 3600.0
+    },
+    "natural_ladder_p0_preparation": {
+      "source_ul": 1790.0,
+      "dpg_ul": 1790.0,
+      "prepared_total_ul": 3580.0
+    },
+    "fixed_magnolia_support_ladder": [
+      {
+        "support_multiplier": 0.9,
+        "magnolia_p0_ul": 1200.0,
+        "support_master_ul": 1998.0,
+        "dpg_ul": 802.0
+      },
+      {
+        "support_multiplier": 1.0,
+        "magnolia_p0_ul": 1200.0,
+        "support_master_ul": 2220.0,
+        "dpg_ul": 580.0
+      },
+      {
+        "support_multiplier": 1.1,
+        "magnolia_p0_ul": 1200.0,
+        "support_master_ul": 2442.0,
+        "dpg_ul": 358.0
+      }
+    ],
+    "natural_dose_ladder": [
+      {
+        "nominal_magnolia_active_ul": 400.0,
+        "magnolia_p0_ul": 800.0,
+        "support_master_ul": 2220.0,
+        "dpg_ul": 980.0
+      },
+      {
+        "nominal_magnolia_active_ul": 600.0,
+        "magnolia_p0_ul": 1200.0,
+        "support_master_ul": 2220.0,
+        "dpg_ul": 580.0
+      },
+      {
+        "nominal_magnolia_active_ul": 790.0,
+        "magnolia_p0_ul": 1580.0,
+        "support_master_ul": 2220.0,
+        "dpg_ul": 200.0
+      }
+    ]
+  },
+  "parent_binding": {
+    "path": "formulas/Magnolia_de_Verre_Signed_Subject_v5_30mL_EdP.md",
+    "bytes": 64164,
+    "sha256": "12767cd6253d224d8717850d81d645f218cedc02cb5cb1011bf86fd688a5ad2f"
+  },
+  "formula_binding": {
+    "path": "formulas/Magnolia_de_Verre_Signed_Subject_v6_30mL_EdP.md",
+    "bytes": 63574,
+    "sha256": "40b1aa881d30ec20925ede2cb4c5dfedcf1bb9249965ca9eb3d9fca0396f517e"
+  }
+}

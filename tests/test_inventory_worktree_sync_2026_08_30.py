@@ -5,12 +5,13 @@ from pathlib import Path
 import pytest
 
 from engine.inventory_parser import (
+    CURRENT_INVENTORY_SNAPSHOT_PATH,
     inventory_counts,
+    load_current_inventory_snapshot,
     load_current_user_inventory_overlay,
     parse_inventory,
 )
 from engine.name_utils import normalize_name
-
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 INVENTORY = PROJECT_ROOT / "inventory.txt"
@@ -25,6 +26,12 @@ SYNC_MANIFEST = (
     / "data"
     / "governance"
     / "inventory_worktree_sync_20260830.json"
+)
+SYNC_SUCCESSOR = (
+    PROJECT_ROOT
+    / "data"
+    / "governance"
+    / "inventory_worktree_sync_20260831.json"
 )
 
 
@@ -131,15 +138,41 @@ def test_existing_hash_pinned_overlay_remains_bound_to_live_inventory():
     assert overlay["authority"] == "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY"
 
 
+def test_pinned_v5_snapshot_accepts_git_checkout_line_endings(tmp_path):
+    """The committed LF payload remains identical after a Windows CRLF checkout."""
+
+    committed_bytes = CURRENT_INVENTORY_SNAPSHOT_PATH.read_bytes().replace(
+        b"\r\n", b"\n"
+    )
+    windows_checkout = tmp_path / CURRENT_INVENTORY_SNAPSHOT_PATH.name
+    windows_checkout.write_bytes(committed_bytes.replace(b"\n", b"\r\n"))
+
+    payload = load_current_inventory_snapshot(windows_checkout)
+
+    assert payload["authority"] == "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT"
+
+
 def test_sync_manifest_hashes_every_distributed_inventory_file():
     payload = json.loads(SYNC_MANIFEST.read_text(encoding="utf-8"))
+    successor = json.loads(SYNC_SUCCESSOR.read_text(encoding="utf-8"))
     assert payload["sync_id"] == "INVENTORY-WORKTREE-SYNC-20260830-001"
+    assert successor["sync_id"] == "INVENTORY-WORKTREE-SYNC-20260831-002"
+    parent_bytes = SYNC_MANIFEST.read_bytes().replace(b"\r\n", b"\n")
+    assert successor["parent"]["sha256"] == hashlib.sha256(parent_bytes).hexdigest()
+    superseded = {
+        record["path"]: record
+        for record in successor["superseded_compatibility_files"]
+    }
     for group in (
         "current_authority_files",
         "frozen_evidence_files",
         "compatibility_files",
     ):
         for record in payload[group]:
+            replacement = superseded.get(record["path"])
+            if replacement is not None:
+                assert replacement["prior_sha256"] == record["sha256"]
+                continue
             path = PROJECT_ROOT / record["path"]
             content = path.read_bytes()
             if path.suffix.lower() == ".xlsx":
@@ -151,6 +184,12 @@ def test_sync_manifest_hashes_every_distributed_inventory_file():
                 # transport-integrity comparison.
                 content = content.replace(b"\r\n", b"\n")
             assert hashlib.sha256(content).hexdigest() == record["sha256"]
+
+    for record in successor["successor_compatibility_files"]:
+        path = PROJECT_ROOT / record["path"]
+        content = path.read_bytes().replace(b"\r\n", b"\n")
+        assert len(content) == record["size_bytes"]
+        assert hashlib.sha256(content).hexdigest() == record["sha256"]
 
 
 def test_authority_receipt_preserves_formula_and_claim_boundaries():

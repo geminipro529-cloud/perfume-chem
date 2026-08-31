@@ -97,6 +97,9 @@ class MaterialProfile:
     or_family: str | None = (
         None  # olfactory-receptor bin: citrus, rose, muguet, musk, amber, iris, green, aldehydic, gourmand, smoky, animalic, woody, aquatic, aromatic, indolic, ozone
     )
+    # Prose retained from intake records that do not yet have evidence-backed
+    # numeric character dimensions.  It must never be coerced into the radar.
+    character_description: str = ""
 
     def dimension_vector(self) -> list[float]:
         """Return ordered vector of character dimensions."""
@@ -4498,9 +4501,15 @@ def _get_profile_uncached(name: str) -> MaterialProfile | None:
         if data is None:
             continue
 
+        raw_character = data.get("character", {})
+        character = dict(raw_character) if isinstance(raw_character, dict) else {}
+        character_description = data.get("character_description", "")
+        if not character_description and isinstance(raw_character, str):
+            character_description = raw_character
+
         return MaterialProfile(
             name=key,
-            character=data.get("character", {}),
+            character=character,
             mw=data.get("mw"),
             vp=data.get("vp"),
             clogp=data.get("clogp"),
@@ -4515,6 +4524,7 @@ def _get_profile_uncached(name: str) -> MaterialProfile | None:
             activity_coef=data.get("activity_coef", 1.0),
             hedonic=data.get("hedonic", 0.0),
             or_family=data.get("or_family"),
+            character_description=character_description,
         )
     return None
 
@@ -4672,7 +4682,7 @@ MATERIAL_INTAKE_BATCH_2026_08_07 = True
 
 _PROFILES.setdefault("nerolidol", {}).update(
     {
-        "character": "woody-floral balsamic sesquiterpene alcohol",
+        "character_description": "woody-floral balsamic sesquiterpene alcohol",
         "note": "floral",
         "role": "heart",
         "texture": "soft, balmy",
@@ -4691,7 +4701,7 @@ _PROFILES.setdefault("nerolidol", {}).update(
 )
 _PROFILES.setdefault("stralyl acetate", {}).update(
     {
-        "character": "green-sweet gardenia-floral ester",
+        "character_description": "green-sweet gardenia-floral ester",
         "note": "floral",
         "role": "heart",
         "texture": "sweet, green",
@@ -4710,7 +4720,7 @@ _PROFILES.setdefault("stralyl acetate", {}).update(
 )
 _PROFILES.setdefault("cypress eo", {}).update(
     {
-        "character": "dry conifer-woody-aromatic natural",
+        "character_description": "dry conifer-woody-aromatic natural",
         "note": "woody",
         "role": "heart",
         "texture": "dry, resinous",
@@ -4729,7 +4739,7 @@ _PROFILES.setdefault("cypress eo", {}).update(
 )
 _PROFILES.setdefault("padma", {}).update(
     {
-        "character": "green-hyacinth floral acetal",
+        "character_description": "green-hyacinth floral acetal",
         "note": "floral",
         "role": "heart",
         "texture": "green, stemmy",
@@ -4748,7 +4758,7 @@ _PROFILES.setdefault("padma", {}).update(
 )
 _PROFILES.setdefault("hay absolute", {}).update(
     {
-        "character": "coumarinic hay, dry, natural",
+        "character_description": "coumarinic hay, dry, natural",
         "note": "hay",
         "role": "base",
         "texture": "dry, powdery",
@@ -4767,7 +4777,7 @@ _PROFILES.setdefault("hay absolute", {}).update(
 )
 _PROFILES.setdefault("cabreuva eo", {}).update(
     {
-        "character": "woody-balsamic nerolidol-rich oil",
+        "character_description": "woody-balsamic nerolidol-rich oil",
         "note": "woody",
         "role": "base",
         "texture": "soft, balsamic",
@@ -4786,7 +4796,7 @@ _PROFILES.setdefault("cabreuva eo", {}).update(
 )
 _PROFILES.setdefault("tuberlia base", {}).update(
     {
-        "character": "tuberose-creamy captive base",
+        "character_description": "tuberose-creamy captive base",
         "note": "floral",
         "role": "heart",
         "texture": "creamy, waxy",
@@ -4805,7 +4815,7 @@ _PROFILES.setdefault("tuberlia base", {}).update(
 )
 _PROFILES.setdefault("caraway seed eo", {}).update(
     {
-        "character": "caraway-seed spicy natural",
+        "character_description": "caraway-seed spicy natural",
         "note": "spice",
         "role": "heart",
         "texture": "sharp, seed",
@@ -4824,7 +4834,7 @@ _PROFILES.setdefault("caraway seed eo", {}).update(
 )
 _PROFILES.setdefault("turkish storax", {}).update(
     {
-        "character": "balsamic-cinnamic resin tincture",
+        "character_description": "balsamic-cinnamic resin tincture",
         "note": "balsamic",
         "role": "base",
         "texture": "warm, resinous",
@@ -4843,7 +4853,7 @@ _PROFILES.setdefault("turkish storax", {}).update(
 )
 _PROFILES.setdefault("benzoin styrax tonkinensis tincture", {}).update(
     {
-        "character": "benzoin-balsamic sweet resin tincture",
+        "character_description": "benzoin-balsamic sweet resin tincture",
         "note": "balsamic",
         "role": "base",
         "texture": "sweet, resinous",
@@ -4862,7 +4872,7 @@ _PROFILES.setdefault("benzoin styrax tonkinensis tincture", {}).update(
 )
 _PROFILES.setdefault("helichrysum eo", {}).update(
     {
-        "character": "immortelle hay-curry-floral natural",
+        "character_description": "immortelle hay-curry-floral natural",
         "note": "floral",
         "role": "heart",
         "texture": "hay, curry",
@@ -4881,7 +4891,7 @@ _PROFILES.setdefault("helichrysum eo", {}).update(
 )
 _PROFILES.setdefault("verdyl acetate", {}).update(
     {
-        "character": "green-floral-woody acetate",
+        "character_description": "green-floral-woody acetate",
         "note": "floral",
         "role": "heart",
         "texture": "green, woody",
@@ -4900,7 +4910,7 @@ _PROFILES.setdefault("verdyl acetate", {}).update(
 )
 _PROFILES.setdefault("sandalwood base x3", {}).update(
     {
-        "character": "creamy-warm sandalwood pre-blend",
+        "character_description": "creamy-warm sandalwood pre-blend",
         "note": "woody",
         "role": "base",
         "texture": "creamy, smooth",
@@ -4919,7 +4929,7 @@ _PROFILES.setdefault("sandalwood base x3", {}).update(
 )
 _PROFILES.setdefault("tuberose eo (volume level grade)", {}).update(
     {
-        "character": "tuberose green-creamy natural",
+        "character_description": "tuberose green-creamy natural",
         "note": "floral",
         "role": "heart",
         "texture": "creamy, green",
@@ -4938,7 +4948,7 @@ _PROFILES.setdefault("tuberose eo (volume level grade)", {}).update(
 )
 _PROFILES.setdefault("elemi eo", {}).update(
     {
-        "character": "elemi pine-citrus-balsamic resin oil",
+        "character_description": "elemi pine-citrus-balsamic resin oil",
         "note": "citrus",
         "role": "top",
         "texture": "fresh, balsamic",

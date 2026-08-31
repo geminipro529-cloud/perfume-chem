@@ -1,0 +1,144 @@
+{
+  "schema_version": "magnolia_de_verre_signed_subject_v5",
+  "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+  "design_disposition": "CONTROLLED_TRIAL_DESIGN_COMPLETE",
+  "inventory_binding": {
+    "status": "STALE",
+    "reason": "DMBC_AND_BENZYL_SALICYLATE_NOT_OWNED_2026_08_30",
+    "successor_required": true
+  },
+  "authority_flags": {
+    "compounding": false,
+    "formula_acceptance": false,
+    "hedonic": false,
+    "performance": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "bench_packet": {
+    "status": "BENCH_COMPOUNDING_PACKET_COMPLETE",
+    "measurement_geometry": "VOLUME_BASED_NOMINAL",
+    "physical_compounding_authorized": false,
+    "skin_or_release_authorized": false
+  },
+  "signed_subject": {
+    "material": "Magnolia EO",
+    "raw_ul": 1200.0,
+    "nominal_active_ul": 600.0,
+    "lot_authority": "UNRESOLVED"
+  },
+  "current_build": {
+    "raw_total_ul": 4000.0,
+    "nominal_active_total_ul": 2789.21,
+    "material_rows": 28,
+    "musk_count": 1,
+    "wood_count": 0,
+    "magnolia_lot_specific_oav": "UNKNOWN",
+    "magnolia_literature_proxy_opening_oav": 75198.6,
+    "magnolia_composite_authority": "LITERATURE_PARTIAL_PROXY;batch_specific=false"
+  },
+  "required_controls": [
+    "MAGNOLIA_ALONE",
+    "SUPPORT_ONLY",
+    "FULL_V5",
+    "FIXED_MAGNOLIA_SUPPORT_LADDER",
+    "NATURAL_DOSE_LADDER",
+    "MODULE_OMISSIONS",
+    "AMBRETTOLIDE_ZERO_TARGET"
+  ],
+  "required_noncompensatory_endpoints": [
+    "WHITE_CHAMPI_IDENTITY",
+    "WHOLE_NATURAL_IDENTITY_RETENTION",
+    "REALISM",
+    "ANATOMY",
+    "DEPTH",
+    "TEXTURE",
+    "DIFFUSION",
+    "TRANSITION_LIKING",
+    "BACKGROUND_TAKEOVER",
+    "OVERALL_LIKING"
+  ],
+  "trial_geometries": {
+    "support_master_full_scale_ul": 2410.0,
+    "support_master_preparation_ul": 7230.0,
+    "support_ladder_p0_preparation": {
+      "source_ul": 1800.0,
+      "dpg_ul": 1800.0,
+      "prepared_total_ul": 3600.0
+    },
+    "natural_ladder_p0_preparation": {
+      "source_ul": 1790.0,
+      "dpg_ul": 1790.0,
+      "prepared_total_ul": 3580.0
+    },
+    "fixed_magnolia_support_ladder": [
+      {
+        "support_multiplier": 0.9,
+        "magnolia_p0_ul": 1200.0,
+        "support_master_ul": 2169.0,
+        "dpg_ul": 631.0
+      },
+      {
+        "support_multiplier": 1.0,
+        "magnolia_p0_ul": 1200.0,
+        "support_master_ul": 2410.0,
+        "dpg_ul": 390.0
+      },
+      {
+        "support_multiplier": 1.1,
+        "magnolia_p0_ul": 1200.0,
+        "support_master_ul": 2651.0,
+        "dpg_ul": 149.0
+      }
+    ],
+    "natural_dose_ladder": [
+      {
+        "nominal_magnolia_active_ul": 400.0,
+        "magnolia_p0_ul": 800.0,
+        "support_master_ul": 2410.0,
+        "dpg_ul": 790.0
+      },
+      {
+        "nominal_magnolia_active_ul": 600.0,
+        "magnolia_p0_ul": 1200.0,
+        "support_master_ul": 2410.0,
+        "dpg_ul": 390.0
+      },
+      {
+        "nominal_magnolia_active_ul": 790.0,
+        "magnolia_p0_ul": 1580.0,
+        "support_master_ul": 2410.0,
+        "dpg_ul": 10.0
+      }
+    ]
+  },
+  "historical_hashes": {
+    "formulas/Magnolia_de_Verre_White_Champi_30mL_EdP.md": "ce2e5b400ee5129e6e990c7c426f55b78f1757632c03ec0dc792fed6f4676185",
+    "formulas/Magnolia_de_Verre_Autogenous_Champi_v3_30mL_EdP.md": "6cfb89f8f5dde43e72b3089e37762355658da19ad0f8768d1d201cc26f3b6884",
+    "formulas/Magnolia_de_Verre_Adaptive_Recession_v4_30mL_EdP.md": "362ba26c9f9e5c27d654add3a3904653dc845999f994eb0c301197ca48b6cff3"
+  },
+  "formula_binding": {
+    "path": "formulas/Magnolia_de_Verre_Signed_Subject_v5_30mL_EdP.md",
+    "bytes": 64164,
+    "sha256": "12767cd6253d224d8717850d81d645f218cedc02cb5cb1011bf86fd688a5ad2f"
+  },
+  "implementation_bindings": [
+    {
+      "path": "tests/test_magnolia_de_verre_signed_subject_v5.py",
+      "bytes": 10671,
+      "sha256": "cb1deaa64359a97c50da37bf4682c58a9d598a35252133780da80217e356b07a"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-08-30-magnolia-de-verre-v5-design.md",
+      "bytes": 4706,
+      "sha256": "03c58af50e4fca676af3c00345f983f51796d89e0df7bfc5c87ef1db2903c0c8"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-08-30-magnolia-de-verre-v5.md",
+      "bytes": 3024,
+      "sha256": "9ab4ea9d443893869078f530f91c1d76bdc3db4ab8eb6e48bac5a8d5e1405f16"
+    }
+  ]
+}

@@ -14,7 +14,7 @@ from engine.solforge.gate_foundation import (
 )
 
 GATE_FOUNDATION_RECEIPT_PATH = Path(
-    "data/governance/solforge_gate_foundation_acceptance_v2.json"
+    "data/governance/solforge_gate_foundation_acceptance_v3.json"
 )
 
 

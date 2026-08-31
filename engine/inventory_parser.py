@@ -340,7 +340,7 @@ def load_current_inventory_snapshot(
         raise InventoryAuthorityError(
             f"current inventory authority is missing: {snapshot_path}"
         )
-    snapshot_sha = _file_sha256(snapshot_path)
+    snapshot_sha = _normalized_text_sha256(snapshot_path)
     if require_pinned_snapshot and snapshot_sha != CURRENT_INVENTORY_SNAPSHOT_SHA256:
         raise InventoryAuthorityError(
             "current inventory snapshot hash drift: "

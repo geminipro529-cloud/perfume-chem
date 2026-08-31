@@ -1,0 +1,56 @@
+{
+  "schema_version": "perfume_chem_inventory_worktree_sync_successor_v1",
+  "sync_id": "INVENTORY-WORKTREE-SYNC-20260831-002",
+  "effective_date": "2026-08-31",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "purpose": "Preserve the 2026-08-30 inventory sync as an immutable provenance tombstone while binding the line-ending-safe V5 authority loader used by later worktrees.",
+  "parent": {
+    "path": "data/governance/inventory_worktree_sync_20260830.json",
+    "sha256": "bcc841a42ded63da783e1f58f7376d4bd5be693294d4c6f3851eba97e8dda3e2"
+  },
+  "superseded_compatibility_files": [
+    {
+      "path": "engine/inventory_parser.py",
+      "prior_sha256": "53064a188f33580599519c104ba26eb1ea665ef1269060497b6b4d94ed9d02bb",
+      "reason": "The prior loader compared the pinned LF digest with raw Windows CRLF checkout bytes, contradicting the parent manifest's checkout-line-ending policy."
+    },
+    {
+      "path": "tests/test_inventory_worktree_sync_2026_08_30.py",
+      "prior_sha256": "bbcbdabfa10a2b7c0384ef4c6c9ddbc70eee4792f291fb9e6e59c64a4b02d7b8",
+      "reason": "The successor regression binds both LF and Windows CRLF materializations while retaining the parent receipt unchanged."
+    }
+  ],
+  "successor_compatibility_files": [
+    {
+      "path": "engine/inventory_parser.py",
+      "size_bytes": 60114,
+      "sha256": "c55af6eab5e7867efd8117e6336b0b4c9634a0909ca21e89383f67307ec9537e",
+      "role": "LINE_ENDING_STABLE_CURRENT_HASH_PIN_AND_PLANNED_PREPARATION_PARSER"
+    },
+    {
+      "path": "tests/test_inventory_worktree_sync_2026_08_30.py",
+      "size_bytes": 7411,
+      "sha256": "03f17a2c2701f038d36e6f92500a0b2430b5c47ffd484449f3752ae6d7688dc9",
+      "role": "LINE_ENDING_STABLE_CURRENT_AUTHORITY_REGRESSION"
+    }
+  ],
+  "mutation_policy": {
+    "parent_manifest_rewritten": false,
+    "inventory_rows_changed": false,
+    "stock_authority_changed": false,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false
+  },
+  "authority_limits": {
+    "sensory_authority": false,
+    "liking_authority": false,
+    "similarity_authority": false,
+    "oav_authority": false,
+    "safety_authority": false,
+    "stability_authority": false,
+    "procurement_authority": false,
+    "preparation_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  }
+}
