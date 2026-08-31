@@ -10,7 +10,7 @@
       "engine/ingredient_intelligence.py",
       "engine/validator.py"
     ],
-    "entry_count": 260
+    "entry_count": 265
   },
   "ingredients": [
     {
@@ -12978,7 +12978,7 @@
       ],
       "aliases": [
         "Alpha Irone",
-        "Alpha Irone (30% in DEP)",
+        "Alpha Irone (10% w/w in DEP)",
         "Alpha-Irone",
         "cis alpha irone",
         "cis-alpha-irone"
@@ -13011,7 +13011,7 @@
         "owned"
       ],
       "observed_forms": [
-        "Alpha Irone (30% in DEP)",
+        "Alpha Irone (10% w/w in DEP)",
         "10% in ethanol",
         "3% w/v in ethanol/DEP/IPM",
         "Neat"
@@ -13058,7 +13058,7 @@
         "arctander_character": "Rich, buttery, powdery-violet, suede-like, warm, precious",
         "carles_position": "HEART — Characterizing (the \"signature\" material)",
         "typical_pct_range": "1-5% of concentrate (= 0.1-0.5% active)",
-        "stock_form": "10% dilution",
+        "stock_form": "10% w/w in DEP",
         "handle_as": "Your MOST PRECIOUS material by functional value. Use sparingly."
       },
       "best_with": [
@@ -22315,22 +22315,24 @@
       ],
       "aliases": [
         "Ambrofix",
-        "Ambrofix (nominal 7.27% w/w in DEP + ethanol; WHOLE BOTTLE INCLUDING SOLID ONLY; HOLD - visible crystals, density unknown, liquid phase non-executable)",
+        "Ambrofix (historical 7.27% w/w nominal whole-bottle including solid in DEP + ethanol) [OUT OF STOCK 2026-08-31 — PROVENANCE ONLY; LIQUID STOCK GONE; NO ACTIVE-UL/PPM/OAV, VOLUME-DOSE, REBASE, OR SUBSTITUTION AUTHORITY]",
         "Ambrofix (30% w/v, 3 g in 10 mL)"
       ],
       "ground_truth_identity": null,
       "category": "woods / amber / structure",
-      "current_status": "hold",
-      "owned_now": true,
+      "current_status": "out_of_stock",
+      "owned_now": false,
       "executable_now": false,
       "was_owned": true,
       "on_buy_list": false,
       "status_flags": [
         "historical_owned",
         "hold",
+        "out_of_stock",
         "ran_out"
       ],
       "observed_forms": [
+        "Ambrofix (historical 7.27% w/w nominal whole-bottle including solid in DEP + ethanol) [OUT OF STOCK 2026-08-31 — PROVENANCE ONLY; LIQUID STOCK GONE; NO ACTIVE-UL/PPM/OAV, VOLUME-DOSE, REBASE, OR SUBSTITUTION AUTHORITY]",
         "Ambrofix (nominal 7.27% w/w in DEP + ethanol; WHOLE BOTTLE INCLUDING SOLID ONLY; HOLD - visible crystals, density unknown, liquid phase non-executable)",
         "nominal 7.27% w/w whole bottle including solid; HOLD visible crystals; density unknown; liquid phase non-executable",
         "Ambrofix (30% w/v, 3 g in 10 mL)",
@@ -22338,7 +22340,7 @@
         "30% in DPG"
       ],
       "notes": [
-        "Current authority 2026-08-29: owned bottle, but 7.27% w/w applies only to the whole bottle including visible solid; liquid phase is non-executable and volume/OAV/rebase authority is withheld.",
+        "Current authority 2026-08-31: the liquid Ambrofix stock is out of stock. The prior 7.27% w/w whole-bottle mass balance, including visible solid, remains historical provenance only; no volume/OAV/rebase/substitution authority is created.",
         "Clean amber, fixative",
         "Clean amber, fixative (higher conc.)"
       ],
@@ -22376,12 +22378,13 @@
         "arctander_character": "Rich amber, warm, musky, slightly woody, precious",
         "carles_position": "BASE — Structure (radiant foundation)",
         "typical_pct_range": "3-10% of concentrate (= 0.3-1% active)",
-        "stock_form": "nominal 7.27% w/w whole bottle including solid; HOLD visible crystals; liquid phase non-executable",
+        "stock_form": "historical 7.27% w/w whole-bottle record including solid; provenance only; out of stock",
         "stock_execution_ready": false,
         "stock_fraction_scope": "whole_bottle_including_solid",
         "stock_homogeneity_state": "hold_visible_crystals",
         "stock_density_g_ml": null,
-        "stock_authority_source": "data/governance/inventory_user_authority_overlay_20260829.json#INV-USER-20260829-017",
+        "stock_authority_source": "data/governance/inventory_user_authority_overlay_20260831.json#INV-USER-20260831-002",
+        "historical_stock_record": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260829-001",
         "handle_as": "Complement to Ambrox Super. Use together at reduced doses for"
       },
       "best_with": [
@@ -22469,15 +22472,11 @@
       "avoid_in": [
         "delicate soliflores if overdosed"
       ],
-      "replacement_options": [
-        "Ambrofix",
-        "Kephalis",
-        "Iso E Super",
-        "Amberwood F"
-      ],
+      "replacement_options": [],
       "pairing_note": "Works especially well with Ambrox Super, musks, iris, woods. Recorded local synergies include Ambrox Super, musks, iris, woods. Watch out for Using at same dose as Ambrox Super — they stack. Halve both.. Local conflict rules flag __avoid__.",
       "source_files": [
-        "data/governance/inventory_user_authority_overlay_20260829.json",
+        "data/governance/inventory_user_authority_overlay_20260828.json",
+        "data/governance/inventory_user_authority_overlay_20260831.json",
         "data/materials/A.yaml",
         "inventory.txt",
         "knowledge/chemical_inventory.md"
@@ -32959,6 +32958,316 @@
       ],
       "pairing_note": "Works especially well with Coumarin, Bergamot, Geraniol, Evernyl, Iris. Ideal for fine perfumery and luxury grooming scents.",
       "source_files": [
+        "inventory.txt"
+      ]
+    },
+    {
+      "name": "Magnolia EO",
+      "identity_key": "magnolia eo",
+      "bottle_labels": ["Magnolia EO"],
+      "aliases": ["Magnolia EO"],
+      "ground_truth_identity": null,
+      "category": "floral materials",
+      "current_status": "owned",
+      "owned_now": true,
+      "executable_now": true,
+      "was_owned": true,
+      "on_buy_list": false,
+      "status_flags": ["owned"],
+      "authority_holds": [
+        "species_plant_part_supplier_lot_unresolved",
+        "material_specific_physics_safety_sensory_evidence_unsupplied"
+      ],
+      "observed_forms": ["neat/as supplied"],
+      "notes": [
+        "Only the physical stock fraction, basis, and empty carrier are resolved. Species, plant part, supplier, lot, chemistry, density, safety, and sensory identity remain unresolved."
+      ],
+      "ifra_status": [],
+      "dates_seen": [],
+      "quantities_seen": [],
+      "buy_list_sections": [],
+      "buy_list_priority": [],
+      "properties": {
+        "cas": null,
+        "chemistry_name": null,
+        "profile_name": null,
+        "mw": null,
+        "vp": null,
+        "clogp": null,
+        "odt": null,
+        "note": null,
+        "role": null,
+        "texture": null,
+        "dominant_character": null,
+        "character_tags": [],
+        "arctander_character": null,
+        "carles_position": null,
+        "typical_pct_range": null,
+        "stock_form": "neat/as supplied",
+        "handle_as": null
+      },
+      "best_with": [],
+      "avoid": [],
+      "pairing_rules": {"synergy": [], "conflict": []},
+      "common_uses": [],
+      "niche_uses": [],
+      "implementation_examples": [],
+      "best_in": [],
+      "avoid_in": [],
+      "replacement_options": [],
+      "pairing_note": "",
+      "source_files": [
+        "data/governance/inventory_user_authority_overlay_20260831.json",
+        "data/materials/M.yaml",
+        "inventory.txt"
+      ]
+    },
+    {
+      "name": "Black Agarwood Artificial",
+      "identity_key": "black agarwood artificial",
+      "bottle_labels": ["Black Agarwood Artificial"],
+      "aliases": ["Black Agarwood Artificial"],
+      "ground_truth_identity": null,
+      "category": "woods / amber / structure",
+      "current_status": "owned",
+      "owned_now": true,
+      "executable_now": true,
+      "was_owned": true,
+      "on_buy_list": false,
+      "status_flags": ["not_owned", "owned"],
+      "authority_holds": [],
+      "observed_forms": [
+        "10% w/w in DPG",
+        "neat stock is not owned; provenance tombstone only"
+      ],
+      "notes": [
+        "Only the 10% w/w in DPG stock is current. Neat Black Agarwood is not owned."
+      ],
+      "ifra_status": [],
+      "dates_seen": [],
+      "quantities_seen": [],
+      "buy_list_sections": [],
+      "buy_list_priority": [],
+      "properties": {
+        "cas": "proprietary",
+        "chemistry_name": null,
+        "profile_name": null,
+        "mw": null,
+        "vp": null,
+        "clogp": null,
+        "odt": null,
+        "note": null,
+        "role": null,
+        "texture": null,
+        "dominant_character": null,
+        "character_tags": [],
+        "arctander_character": null,
+        "carles_position": null,
+        "typical_pct_range": null,
+        "stock_form": "10% w/w in DPG",
+        "handle_as": null
+      },
+      "best_with": [],
+      "avoid": [],
+      "pairing_rules": {"synergy": [], "conflict": []},
+      "common_uses": [],
+      "niche_uses": [],
+      "implementation_examples": [],
+      "best_in": [],
+      "avoid_in": [],
+      "replacement_options": [],
+      "pairing_note": "",
+      "source_files": [
+        "data/governance/inventory_user_authority_overlay_20260828.json",
+        "data/materials/B.yaml",
+        "inventory.txt"
+      ]
+    },
+    {
+      "name": "Castoreum Synthetic",
+      "identity_key": "castoreum synthetic",
+      "bottle_labels": ["Castoreum Synthetic"],
+      "aliases": ["Castoreum Synthetic", "PerfumersWorld SKU 6UP07515"],
+      "ground_truth_identity": null,
+      "category": "leather / smoky / phenolic",
+      "current_status": "hold",
+      "owned_now": true,
+      "executable_now": false,
+      "was_owned": true,
+      "on_buy_list": false,
+      "status_flags": ["hold"],
+      "authority_holds": [
+        "stock_fraction_basis_unspecified",
+        "active_dose_ppm_oav_carrier_displacement_unavailable"
+      ],
+      "observed_forms": [
+        "10% nominal in DEP; fraction basis unspecified; quantitative execution HOLD"
+      ],
+      "notes": [
+        "PW SKU 6UP07515 is a distinct proprietary non-animal castoreum compound and is not Castoreum F-TEC or Fleuressence. The current 10% DEP stock has no declared w/w, w/v, or v/v basis."
+      ],
+      "ifra_status": [],
+      "dates_seen": [],
+      "quantities_seen": [],
+      "buy_list_sections": [],
+      "buy_list_priority": [],
+      "properties": {
+        "cas": "proprietary",
+        "chemistry_name": null,
+        "profile_name": null,
+        "mw": null,
+        "vp": null,
+        "clogp": null,
+        "odt": null,
+        "note": null,
+        "role": null,
+        "texture": null,
+        "dominant_character": null,
+        "character_tags": [],
+        "arctander_character": null,
+        "carles_position": null,
+        "typical_pct_range": null,
+        "stock_form": "10% nominal in DEP; fraction basis unspecified; quantitative execution HOLD",
+        "handle_as": null
+      },
+      "best_with": [],
+      "avoid": [],
+      "pairing_rules": {"synergy": [], "conflict": []},
+      "common_uses": [],
+      "niche_uses": [],
+      "implementation_examples": [],
+      "best_in": [],
+      "avoid_in": [],
+      "replacement_options": [],
+      "pairing_note": "",
+      "source_files": [
+        "data/governance/inventory_user_authority_overlay_20260828.json",
+        "data/materials/C.yaml",
+        "inventory.txt"
+      ]
+    },
+    {
+      "name": "Ambrofix Crystals",
+      "identity_key": "ambrofix crystals",
+      "bottle_labels": ["Ambrofix Crystals"],
+      "aliases": ["Ambrofix Crystals", "Ambrofix solid"],
+      "ground_truth_identity": null,
+      "category": "woods / amber / structure",
+      "current_status": "hold",
+      "owned_now": true,
+      "executable_now": false,
+      "was_owned": true,
+      "on_buy_list": false,
+      "status_flags": ["hold"],
+      "authority_holds": [
+        "solid_stock_volume_dosing_unbound",
+        "material_specific_evidence_unsupplied"
+      ],
+      "observed_forms": ["100% solid/as supplied"],
+      "notes": [
+        "Distinct physically owned crystals; no equivalence to the unavailable liquid Ambrofix bottle or to Ambrox Super."
+      ],
+      "ifra_status": [],
+      "dates_seen": [],
+      "quantities_seen": [],
+      "buy_list_sections": [],
+      "buy_list_priority": [],
+      "properties": {
+        "cas": null,
+        "chemistry_name": null,
+        "profile_name": null,
+        "mw": null,
+        "vp": null,
+        "clogp": null,
+        "odt": null,
+        "note": null,
+        "role": null,
+        "texture": null,
+        "dominant_character": null,
+        "character_tags": [],
+        "arctander_character": null,
+        "carles_position": null,
+        "typical_pct_range": null,
+        "stock_form": "100% solid/as supplied",
+        "handle_as": null
+      },
+      "best_with": [],
+      "avoid": [],
+      "pairing_rules": {"synergy": [], "conflict": []},
+      "common_uses": [],
+      "niche_uses": [],
+      "implementation_examples": [],
+      "best_in": [],
+      "avoid_in": [],
+      "replacement_options": [],
+      "pairing_note": "",
+      "source_files": [
+        "data/governance/inventory_user_authority_overlay_20260831.json",
+        "data/materials/A.yaml",
+        "inventory.txt"
+      ]
+    },
+    {
+      "name": "Guaiacwood EO",
+      "identity_key": "guaiacwood eo",
+      "bottle_labels": ["Guaiacwood EO"],
+      "aliases": ["Guaiacwood EO", "Guaiacwood Essential Oil", "guaiac wood eo"],
+      "ground_truth_identity": null,
+      "category": "woods / amber / structure",
+      "current_status": "hold",
+      "owned_now": true,
+      "executable_now": false,
+      "was_owned": true,
+      "on_buy_list": false,
+      "status_flags": ["hold"],
+      "authority_holds": [
+        "stock_basis_and_carrier_unspecified",
+        "material_specific_evidence_unsupplied"
+      ],
+      "observed_forms": [
+        "33% nominal; fraction basis and carrier unspecified; quantitative execution HOLD"
+      ],
+      "notes": [
+        "Physically owned nominal 33% stock. Active dose, carrier displacement, ppm, OAV, density, safety, equivalence, and release remain unavailable."
+      ],
+      "ifra_status": [],
+      "dates_seen": [],
+      "quantities_seen": [],
+      "buy_list_sections": [],
+      "buy_list_priority": [],
+      "properties": {
+        "cas": null,
+        "chemistry_name": null,
+        "profile_name": null,
+        "mw": null,
+        "vp": null,
+        "clogp": null,
+        "odt": null,
+        "note": null,
+        "role": null,
+        "texture": null,
+        "dominant_character": null,
+        "character_tags": [],
+        "arctander_character": null,
+        "carles_position": null,
+        "typical_pct_range": null,
+        "stock_form": "33% nominal; fraction basis and carrier unspecified; quantitative execution HOLD",
+        "handle_as": null
+      },
+      "best_with": [],
+      "avoid": [],
+      "pairing_rules": {"synergy": [], "conflict": []},
+      "common_uses": [],
+      "niche_uses": [],
+      "implementation_examples": [],
+      "best_in": [],
+      "avoid_in": [],
+      "replacement_options": [],
+      "pairing_note": "",
+      "source_files": [
+        "data/governance/inventory_user_authority_overlay_20260828.json",
+        "data/governance/inventory_user_authority_overlay_20260831.json",
+        "data/materials/G.yaml",
         "inventory.txt"
       ]
     }

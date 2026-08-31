@@ -2284,6 +2284,50 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Guaiacwood EO
+  aliases:
+  - Guaiacwood Essential Oil
+  - guaiacwood eo
+  - guaiac wood eo
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  vp_source: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: "33% nominal; fraction basis and carrier unspecified; quantitative execution HOLD"
+  user_in_inventory: true
+  supplier: null
+  families:
+  - woods / amber / structure
+  character: null
+  notes: >-
+    Physically owned nominal 33% supplied stock. Concentration basis and carrier
+    are unspecified, so active dose, mass, volume conversion, carrier
+    displacement, ppm, OAV, safety, equivalence, and release claims remain
+    unavailable.
+  quantitative_execution_state: HOLD
+  quantitative_execution_hold_reason: FRACTION_BASIS_AND_CARRIER_UNSPECIFIED
+  provenance:
+    current_inventory_successor: data/governance/inventory_user_authority_overlay_20260831.json
+    stock_record: data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260829-003
+    user_in_inventory: inventory.txt
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260829-003
 - canonical_name: Guaiacol
   aliases:
   - guaiacol

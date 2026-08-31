@@ -12,7 +12,7 @@ from engine.perception.harmonic_request_router import (
     HarmonicRouteRequestV1,
 )
 from engine.perception.harmonic_runtime_registry import (
-    V6_ADMITTED_ARCHITECTURE_MODULE_IDS,
+    V7_ADMITTED_ARCHITECTURE_MODULE_IDS,
     load_harmonic_runtime_registry,
 )
 from engine.solforge.harmonic_runtime import (
@@ -39,68 +39,57 @@ ALL_FALSE_AUTHORITY = {
 }
 
 
-def test_v6_is_additive_and_admits_only_the_benchmarked_architecture_scope() -> None:
+def test_v6_frozen_registry_bytes_and_admission_contract_remain_exact() -> None:
     payload = json.loads(V6.read_text(encoding="utf-8"))
-    registry = load_harmonic_runtime_registry(ROOT)
-
-    assert registry.schema_version == "complexity_module_registry_v6"
+    assert hashlib.sha256(V6.read_bytes()).hexdigest() == (
+        "fe2b4a975cec2d89869bdd1f1b9a3d00569902769d199f38503b8448376b506c"
+    )
+    assert payload["schema_version"] == "complexity_module_registry_v6"
     assert hashlib.sha256(V5.read_bytes()).hexdigest() == payload["base_registry"][
         "sha256"
     ]
-    assert registry.admitted_architecture_module_ids == (
-        V6_ADMITTED_ARCHITECTURE_MODULE_IDS
-    )
-    assert registry.evidence_only_module_ids == (
-        "temporal-sensory-ledger",
-        "hedonic-preference-learner",
-    )
-    assert registry.admitted_scope == {
+    assert payload["admitted_scope"] == {
         "cypress_target_architecture": True,
         "target_variant_rebuild": True,
         "inventory_and_authority_guarding": True,
         "experiment_design": True,
         "evidence_only_request_routing": False,
     }
-    assert registry.authority_flags == ALL_FALSE_AUTHORITY
-
-
-def test_v6_preserves_v5_tombstones_and_never_reactivates_retired_cards() -> None:
-    registry = load_harmonic_runtime_registry(ROOT)
-
-    assert {
-        "construction-profile",
-        "complexity-expansion-frontier",
-        "musk-design-restraint",
-        "citrus-architecture-selector",
-        "within-sniff-observation-contract",
-        "temporal-observation-contract",
-        "order-balance-contract",
-        "sensory-panel-contract",
-    }.issubset(registry.nonruntime_base_module_ids)
-    assert not set(registry.nonruntime_base_module_ids).intersection(
-        registry.admitted_architecture_module_ids
-    )
-    assert "advanced-musk-intelligence" in registry.nonruntime_base_module_ids
-
-
-def test_v6_verifies_every_frozen_evidence_and_source_binding() -> None:
-    payload = json.loads(V6.read_text(encoding="utf-8"))
-    registry = load_harmonic_runtime_registry(ROOT)
-
-    for record in (
-        *payload["admission_evidence"],
-        *payload["source_bindings"],
-    ):
-        source = ROOT / record["path"]
-        assert hashlib.sha256(source.read_bytes()).hexdigest() == record["sha256"]
-    assert registry.full_gate == {
-        "case_count": 6,
-        "wins_vs_plain": 6,
-        "wins_vs_placebo": 5,
-        "median_gain_vs_plain": 10,
-        "median_gain_vs_placebo": 13.5,
-        "integrated_critical_errors": [],
+    assert payload["authority_flags"] == ALL_FALSE_AUTHORITY
+    assert {row["module_id"] for row in payload["module_overrides"]} == {
+        "architectural-delta-engine",
+        "temporal-sensory-ledger",
+        "hedonic-preference-learner",
     }
+    assert tuple(row["module_id"] for row in payload["module_additions"]) == (
+        "material-capability-atlas",
+        "cypress-heart-frontier",
+        "family-depth",
+        "architecture-compiler",
+        "harmonic-synthesis",
+        "cypress-harmonic-program",
+        "harmonic-request-router",
+        "floral-depth-library",
+        "depth-comparison-library",
+    )
+    assert payload["admission_evidence"] == [
+        {
+            "path": "data/governance/cypress_xhigh_screening_receipt_20260831.json",
+            "sha256": "926cb104633ae05850a8e8b7d04d6c05515c3212da1cafea14c03b3a706e167a",
+        },
+        {
+            "path": "data/governance/cypress_xhigh_admission_receipt_20260831.json",
+            "sha256": "a7d7a4a15f0e8173cdd3d8bb6a5460f7660474aeffc0e73f865e6f20027dfc22",
+        },
+    ]
+
+
+def test_v6_strict_loader_fails_closed_after_declared_successors() -> None:
+    with pytest.raises(
+        ValueError,
+        match="source binding hash mismatch: engine/sensory/ledger.py",
+    ):
+        load_harmonic_runtime_registry(ROOT, registry_path=V6)
 
 
 def _copy_v6_project(tmp_path: Path) -> tuple[Path, Path]:
@@ -121,29 +110,6 @@ def _copy_v6_project(tmp_path: Path) -> tuple[Path, Path]:
         if source.resolve() != target.resolve():
             shutil.copyfile(source, target)
     return project, target_registry
-
-
-def test_v6_tampering_fails_closed(tmp_path: Path) -> None:
-    project, registry_path = _copy_v6_project(tmp_path / "source")
-    payload = json.loads(registry_path.read_text(encoding="utf-8"))
-    source = project / payload["source_bindings"][0]["path"]
-    source.write_bytes(source.read_bytes() + b"\n# drift\n")
-    with pytest.raises(ValueError, match="source binding hash mismatch"):
-        load_harmonic_runtime_registry(project, registry_path=registry_path)
-
-    project, registry_path = _copy_v6_project(tmp_path / "receipt")
-    payload = json.loads(registry_path.read_text(encoding="utf-8"))
-    receipt = project / payload["admission_evidence"][1]["path"]
-    receipt.write_bytes(receipt.read_bytes() + b"\n")
-    with pytest.raises(ValueError, match="admission evidence hash mismatch"):
-        load_harmonic_runtime_registry(project, registry_path=registry_path)
-
-    project, registry_path = _copy_v6_project(tmp_path / "authority")
-    payload = json.loads(registry_path.read_text(encoding="utf-8"))
-    payload["authority_flags"]["hedonic"] = True
-    registry_path.write_text(json.dumps(payload), encoding="utf-8")
-    with pytest.raises(ValueError, match="authority flags"):
-        load_harmonic_runtime_registry(project, registry_path=registry_path)
 
 
 @pytest.mark.parametrize(
@@ -179,6 +145,7 @@ def test_runtime_rejects_every_unadmitted_evidence_only_or_mixed_scope(
 
 
 def test_runtime_runs_exact_cyp02_architecture_with_no_downstream_authority() -> None:
+    current = load_harmonic_runtime_registry(ROOT)
     result = run_admitted_cypress_harmonic(
         HarmonicRouteRequestV1(
             request_id="CYP-02-RUNTIME-SMOKE",
@@ -188,7 +155,8 @@ def test_runtime_runs_exact_cyp02_architecture_with_no_downstream_authority() ->
         project_root=ROOT,
     )
 
-    assert result.admitted_module_ids == V6_ADMITTED_ARCHITECTURE_MODULE_IDS
+    assert result.registry_sha256 == current.registry_sha256
+    assert result.admitted_module_ids == V7_ADMITTED_ARCHITECTURE_MODULE_IDS
     assert result.route.domains == (HarmonicRequestDomain.ARCHITECTURE,)
     assert result.route.vote_counting_used is False
     assert result.program.frontier_result.target.target_identity == (

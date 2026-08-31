@@ -488,13 +488,19 @@ def _load_expensive_material_substitutes() -> dict[str, dict[str, Any]]:
 
 def _inventory_records() -> list[dict[str, Any]]:
     output: list[dict[str, Any]] = []
-    for record in parse_inventory(unique=True, include_solvents=True, include_unavailable=True):
+    # Preserve all current-inventory rows.  A provenance tombstone for an
+    # unowned form (for example neat Black Agarwood) must coexist with, rather
+    # than replace, an owned working stock of the same canonical material.
+    for record in parse_inventory(unique=False, include_solvents=True, include_unavailable=True):
+        current_status = record.status
+        if current_status in {"owned", "owned_non_executable"} and not record.execution_ready:
+            current_status = "hold"
         output.append(
             {
                 "name": record.name,
                 "raw_name": record.raw_name,
                 "category": record.category,
-                "status": record.status,
+                "status": current_status,
             }
         )
     return output
@@ -573,6 +579,31 @@ def _pick_status(flags: set[str]) -> str:
     if "historical_owned" in flags:
         return "historical_owned"
     return "reference_only"
+
+
+def _authority_holds(display_name: str, aliases: list[str]) -> list[str]:
+    identities = {_identity_key(name) for name in [display_name, *aliases]}
+    if "magnolia eo" in identities:
+        return [
+            "species_plant_part_supplier_lot_unresolved",
+            "material_specific_physics_safety_sensory_evidence_unsupplied",
+        ]
+    if "castoreum synthetic" in identities:
+        return [
+            "stock_fraction_basis_unspecified",
+            "active_dose_ppm_oav_carrier_displacement_unavailable",
+        ]
+    if "guaiacwood eo" in identities:
+        return [
+            "stock_basis_and_carrier_unspecified",
+            "material_specific_evidence_unsupplied",
+        ]
+    if "ambrofix crystals" in identities:
+        return [
+            "solid_stock_volume_dosing_unbound",
+            "material_specific_evidence_unsupplied",
+        ]
+    return []
 
 
 def _category_context(category: str) -> dict[str, Any]:
@@ -726,6 +757,8 @@ def _implementation_examples(
 def _replacement_options(display_name: str, aliases: list[str]) -> list[str]:
     expensive = _load_expensive_material_substitutes()
     identity = _identity_key(display_name)
+    if identity in {"ambrofix", "ambrofix crystals"}:
+        return []
     if identity in expensive:
         data = expensive[identity]
         return _dedupe_keep_order([*data.get("substitutes_owned", []), *data.get("substitutes_new", [])])[:6]
@@ -769,6 +802,7 @@ def build_ingredient_catalog() -> list[dict[str, Any]]:
                 "aliases": [],
                 "category": "",
                 "status_flags": set(),
+                "current_inventory_status_flags": set(),
                 "source_names": {"inventory": [], "history": [], "shopping": [], "spine": []},
                 "observed_forms": [],
                 "historical_forms": [],
@@ -787,6 +821,7 @@ def build_ingredient_catalog() -> list[dict[str, Any]]:
         entry = ensure(key)
         entry["category"] = entry["category"] or record["category"]
         entry["status_flags"].add(record["status"])
+        entry["current_inventory_status_flags"].add(record["status"])
         entry["source_names"]["inventory"].append(record["name"])
         entry["aliases"].extend([record["name"], record["raw_name"]])
         entry["observed_forms"].append(record["raw_name"])
@@ -866,6 +901,15 @@ def build_ingredient_catalog() -> list[dict[str, Any]]:
         best_with = _best_with(prop_record, display_name)
         avoid = _avoid_list(prop_record, display_name)
         pairings = deepcopy(pairing_index.get(key, {"synergy": [], "conflict": []}))
+        authority_holds = _authority_holds(display_name, aliases)
+        suppress_generated_claims = bool(authority_holds)
+        if suppress_generated_claims:
+            best_with = []
+            avoid = []
+            pairings = {"synergy": [], "conflict": []}
+        all_status_flags = set(entry["status_flags"])
+        current_status_flags = set(entry["current_inventory_status_flags"])
+        current_status = _pick_status(current_status_flags or all_status_flags)
         bottle_labels = _dedupe_keep_order(
             [
                 *entry["source_names"].get("inventory", []),
@@ -881,18 +925,16 @@ def build_ingredient_catalog() -> list[dict[str, Any]]:
                 "aliases": aliases,
                 "ground_truth_identity": ground_truth,
                 "category": category,
-                "current_status": _pick_status(set(entry["status_flags"])),
-                "owned_now": bool({"owned", "hold"} & set(entry["status_flags"])),
-                "executable_now": (
-                    "owned" in entry["status_flags"]
-                    and "hold" not in entry["status_flags"]
-                ),
+                "current_status": current_status,
+                "owned_now": current_status in {"owned", "hold"},
+                "executable_now": current_status == "owned",
                 "was_owned": bool(
                     {"owned", "hold", "out_of_stock", "ran_out", "historical_owned"}
-                    & set(entry["status_flags"])
+                    & all_status_flags
                 ),
-                "on_buy_list": "buy_list" in entry["status_flags"],
-                "status_flags": sorted(entry["status_flags"]),
+                "on_buy_list": "buy_list" in all_status_flags,
+                "status_flags": sorted(all_status_flags),
+                "authority_holds": authority_holds,
                 "observed_forms": _dedupe_keep_order(entry["observed_forms"] + entry["historical_forms"]),
                 "notes": _dedupe_keep_order(entry["notes"]),
                 "ifra_status": _dedupe_keep_order(entry["ifra_status"]),
@@ -907,13 +949,13 @@ def build_ingredient_catalog() -> list[dict[str, Any]]:
                     "synergy": _dedupe_keep_order(pairings.get("synergy", []))[:8],
                     "conflict": _dedupe_keep_order(pairings.get("conflict", []))[:6],
                 },
-                "common_uses": _common_uses(properties, category),
-                "niche_uses": _niche_uses(properties, category),
-                "implementation_examples": _implementation_examples(properties, category, best_with, entry["observed_forms"] + entry["historical_forms"]),
-                "best_in": _category_context(category)["best_in"],
-                "avoid_in": _category_context(category)["avoid_in"],
-                "replacement_options": _replacement_options(display_name, aliases),
-                "pairing_note": _pairing_note(best_with, avoid, pairings),
+                "common_uses": [] if suppress_generated_claims else _common_uses(properties, category),
+                "niche_uses": [] if suppress_generated_claims else _niche_uses(properties, category),
+                "implementation_examples": [] if suppress_generated_claims else _implementation_examples(properties, category, best_with, entry["observed_forms"] + entry["historical_forms"]),
+                "best_in": [] if suppress_generated_claims else _category_context(category)["best_in"],
+                "avoid_in": [] if suppress_generated_claims else _category_context(category)["avoid_in"],
+                "replacement_options": [] if suppress_generated_claims else _replacement_options(display_name, aliases),
+                "pairing_note": "" if suppress_generated_claims else _pairing_note(best_with, avoid, pairings),
                 "source_files": sorted(entry["source_files"]),
             }
         )

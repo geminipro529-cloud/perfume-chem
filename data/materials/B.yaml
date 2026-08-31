@@ -1868,7 +1868,7 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: 1.0
+  user_stock_dilution: 10% w/w in DPG
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 6WU07708
@@ -1882,12 +1882,15 @@
   - smoky
   - oud
   character: Dark, smoky, leathery oud-style impact; supplier reconstruction rather than a natural oil.
-  notes: Neat user stock. Composition is undisclosed, so MW/VP/ODT are blend proxies and must not be treated as constituent facts.
+  notes: Only the 10% w/w in DPG user stock is owned. The stale neat-stock row
+    is not current. Composition is undisclosed, so MW/VP/ODT are blend proxies
+    and must not be treated as constituent facts.
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     composition: supplier_undisclosed
     physical_fields: conservative_blend_proxy
     user_in_inventory: inventory.txt
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260830-001
 - canonical_name: Black Pepper EO
   aliases:
   - black pepper eo

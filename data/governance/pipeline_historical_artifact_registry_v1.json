@@ -1,0 +1,55 @@
+{
+  "schema_version": "perfume_pipeline_historical_artifact_registry_v1",
+  "registry_version": 1,
+  "purpose": "Record exact, immutable pipeline artifacts whose original inputs are no longer the current repository inputs without granting current or release authority.",
+  "policy": {
+    "verified_status": "HISTORICAL_VERIFIED",
+    "artifact_binding_status": "HISTORICAL_RECORDED",
+    "formula_file_hash": "UTF8_CRLF_OR_CR_TO_LF_SHA256",
+    "current_repository_bindings": false,
+    "release_authority": false
+  },
+  "records": [
+    {
+      "record_id": "historical-pipeline-artifact:white-fire-reliquary:2026-08-28T07:57:36.980646Z",
+      "formula_path": "formulas/White_Fire_Reliquary_30mL_Parfum.md",
+      "formula_text_lf_sha256": "b0604a4beb49fa24de34099ef84e4b4a13877684df14b0f7d2395e379a5651c4",
+      "formula_source_sha256": "74ecf7bca81969c0084a3f5c9d801f92c01eaaa33f336b82227e4a46a9f5c201",
+      "artifact_text_sha256": "1ab9cfc1568effe2cce168eeb57ab068b8bdd6bf5c609f38bb07c476364a069b",
+      "manifest_sha256": "3cd3ee3a87d5ed972a42a879ab2d9fd3a8dd7c9053bfa1b37645d3948b927778",
+      "manifest_artifact_sha256": "6ca1c96a94475c0094d70903e9eac0cbf911775e7128e3ce1cb907d01f116843",
+      "analysis_sha256": "3a9dba951b5fad47d7ca49a60ca7439e0b881f31627bb3fadb7317bdec3deca6",
+      "analysis_input_sha256": "c2b9e45ab369ef280ed6a68b85f94aaef523d6e4c57613ee5b1288d9cb4a8a77",
+      "formula_definitions": [
+        {
+          "name": "CURRENT-INVENTORY BUILD — parser-visible formula",
+          "number": 4,
+          "sha256": "86a30d52bfe945dffa5a66d982ba7b5693ab55b072a6a0d83058bf1c63892e6e"
+        }
+      ],
+      "g15_parent_formula_definitions": [
+        {
+          "name": "White Fire Reliquary v1 — Historical Compressed Parent",
+          "number": 1,
+          "sha256": "e75a5b8403657f602b22fad16605520e6477b37dc4da67ef484697bec93e79e6"
+        }
+      ],
+      "canonical_records": [
+        {
+          "record_id": "formula:4:current-inventory-build-parser-visible-formula",
+          "record_version": 4,
+          "canonical_content_sha256": "86a30d52bfe945dffa5a66d982ba7b5693ab55b072a6a0d83058bf1c63892e6e"
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "52ce43c61e44e335483e6d16188191ef0b005914213d0451efba3d8d1df03977",
+        "inventory_sha256": "dca7518332d25b235d1dc175363eca533aca13282c6b5aea00485af9068d8c55",
+        "scientific_inputs_sha256": "1c2398b44714c47acbd57ae3e6dae8ec053b7b68358dfd6fa7258e33eafaf091",
+        "pipeline_source_sha256": "b9a5f3bd50d5dddc4811388f7e8c913b9d6c672273d5449a4d5e8951aa9b909d"
+      },
+      "recorded_repository_commit": "9991108157d8b26098974dc4980804f827204e0c",
+      "current_repository_bindings": false,
+      "release_authority": false
+    }
+  ]
+}

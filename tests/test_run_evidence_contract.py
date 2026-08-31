@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pytest
 
+import scripts.formula_release_gate as formula_release_gate
 from engine.calibration.hashing import (
     stable_formula_definition_hash,
     stable_formula_hash,
@@ -37,6 +38,7 @@ from engine.reference_contracts import (
 )
 from scripts.formula_release_gate import (
     _append_pipeline_analysis,
+    _normalized_text_file_hash,
     _run_input_hashes,
     current_repository_evidence_hashes,
     validate_pipeline_analysis_artifact,
@@ -50,6 +52,9 @@ from scripts.verify_formula_workflow import (
     parse_pipeline_analysis_manifest,
     split_generated_pipeline_analysis,
 )
+
+ROOT = Path(__file__).resolve().parents[1]
+WHITE_FIRE_RELIQUARY = ROOT / "formulas" / "White_Fire_Reliquary_30mL_Parfum.md"
 
 
 def _inventory_record(
@@ -100,6 +105,7 @@ def test_stock_parser_preserves_fraction_basis_and_carrier():
     w_v = parse_stock_specification("33% w/v in DEP:EtOH")
     w_w = parse_stock_specification("10% w/w in DPG")
     neat = parse_stock_specification("neat")
+    neat_as_supplied = parse_stock_specification("neat/as supplied")
 
     assert (w_v.fraction, w_v.fraction_basis, w_v.carrier) == (
         0.33,
@@ -112,6 +118,11 @@ def test_stock_parser_preserves_fraction_basis_and_carrier():
         "dpg",
     )
     assert (neat.fraction, neat.fraction_basis, neat.declared) == (1.0, "neat", True)
+    assert (
+        neat_as_supplied.fraction,
+        neat_as_supplied.fraction_basis,
+        neat_as_supplied.declared,
+    ) == (1.0, "neat", True)
 
 
 def test_stock_parser_does_not_invent_carrier_from_preparation_volume():
@@ -686,6 +697,137 @@ def test_bound_analysis_becomes_stale_when_an_input_snapshot_changes(tmp_path):
 
     assert result["status"] == "STALE"
     assert "inventory" in result["stale_issues"]
+
+
+def test_registered_historical_artifact_verifies_without_current_or_release_authority():
+    result = validate_pipeline_analysis_artifact(WHITE_FIRE_RELIQUARY)
+
+    assert result["status"] == "HISTORICAL_VERIFIED"
+    assert result["artifact_binding_status"] == "HISTORICAL_RECORDED"
+    assert result["historical_registry_verified"] is True
+    assert result["current_repository_bindings"] is False
+    assert result["release_authority"] is False
+    assert result["historical_source_sha256"]
+    assert result["stale_issues"]
+
+
+def test_invalid_historical_registry_pin_fails_closed(monkeypatch):
+    monkeypatch.setattr(
+        formula_release_gate,
+        "HISTORICAL_ARTIFACT_REGISTRY_SHA256",
+        "0" * 64,
+    )
+
+    result = formula_release_gate.validate_pipeline_analysis_artifact(
+        WHITE_FIRE_RELIQUARY
+    )
+
+    assert result["status"] == "TAMPERED"
+    assert result["artifact_binding_status"] == "TAMPERED"
+    assert "historical_registry_hash" in result["integrity_issues"]
+    assert result["release_authority"] is False
+
+
+def test_registered_historical_source_mismatch_is_tampering(
+    tmp_path, monkeypatch
+):
+    formula_path = tmp_path / "formulas" / WHITE_FIRE_RELIQUARY.name
+    formula_path.parent.mkdir(parents=True)
+    formula_path.write_bytes(WHITE_FIRE_RELIQUARY.read_bytes())
+    registry_path = (
+        tmp_path
+        / formula_release_gate.HISTORICAL_ARTIFACT_REGISTRY_RELATIVE_PATH
+    )
+    registry_path.parent.mkdir(parents=True)
+    registry_path.write_bytes(
+        (
+            ROOT
+            / formula_release_gate.HISTORICAL_ARTIFACT_REGISTRY_RELATIVE_PATH
+        ).read_bytes()
+    )
+    monkeypatch.setattr(formula_release_gate, "PROJECT_ROOT", tmp_path)
+
+    source, artifact = split_generated_pipeline_analysis(
+        formula_path.read_text(encoding="utf-8")
+    )
+    formula_path.write_text(
+        source.rstrip()
+        + "\n\nRegistered historical source mutation.\n\n"
+        + artifact,
+        encoding="utf-8",
+    )
+    manifest = parse_pipeline_analysis_manifest(artifact)
+    assert isinstance(manifest, dict)
+    repository_hashes = {
+        key: manifest[key]
+        for key in (
+            "inventory_sha256",
+            "scientific_inputs_sha256",
+            "pipeline_source_sha256",
+        )
+    }
+
+    result = formula_release_gate.validate_pipeline_analysis_artifact(
+        formula_path,
+        repository_hashes=repository_hashes,
+    )
+
+    assert result["status"] == "TAMPERED"
+    assert result["artifact_binding_status"] == "TAMPERED"
+    assert (
+        "historical_registry_formula_source_sha256"
+        in result["integrity_issues"]
+    )
+    assert result["release_authority"] is False
+
+
+def test_registered_historical_artifact_requires_versioned_successor_before_write(
+    tmp_path, monkeypatch
+):
+    formula_path = tmp_path / "formulas" / WHITE_FIRE_RELIQUARY.name
+    formula_path.parent.mkdir(parents=True)
+    formula_path.write_bytes(WHITE_FIRE_RELIQUARY.read_bytes())
+    registry_path = (
+        tmp_path
+        / formula_release_gate.HISTORICAL_ARTIFACT_REGISTRY_RELATIVE_PATH
+    )
+    registry_path.parent.mkdir(parents=True)
+    registry_path.write_bytes(
+        (
+            ROOT
+            / formula_release_gate.HISTORICAL_ARTIFACT_REGISTRY_RELATIVE_PATH
+        ).read_bytes()
+    )
+    monkeypatch.setattr(formula_release_gate, "PROJECT_ROOT", tmp_path)
+    original = formula_path.read_bytes()
+
+    def reject_replace(*_args, **_kwargs):
+        raise AssertionError("historical guard must run before os.replace")
+
+    monkeypatch.setattr(formula_release_gate.os, "replace", reject_replace)
+
+    with pytest.raises(RuntimeError, match="versioned successor"):
+        formula_release_gate._append_pipeline_analysis(
+            formula_path,
+            "replacement analysis",
+            {},
+        )
+
+    assert formula_path.read_bytes() == original
+
+
+def test_historical_full_formula_hash_is_eol_portable_but_semantic_tamper_sensitive(
+    tmp_path,
+):
+    lf = tmp_path / "lf.md"
+    crlf = tmp_path / "crlf.md"
+    changed = tmp_path / "changed.md"
+    lf.write_bytes(b"# Formula\n\nexact bytes\n")
+    crlf.write_bytes(b"# Formula\r\n\r\nexact bytes\r\n")
+    changed.write_bytes(b"# Formula\n\nchanged bytes\n")
+
+    assert _normalized_text_file_hash(lf) == _normalized_text_file_hash(crlf)
+    assert _normalized_text_file_hash(lf) != _normalized_text_file_hash(changed)
 
 
 def test_explicit_quarantine_is_nonblocking_but_never_current(tmp_path):

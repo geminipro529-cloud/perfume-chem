@@ -27,7 +27,10 @@ from engine.ifra_safety import (
     RESTRICTED_MATERIALS,
     IFRA_SPECIFICATION_ONLY,
 )
-from engine.inventory_parser import parse_inventory
+from engine.inventory_parser import (
+    materialize_current_inventory,
+    select_material_property_stocks,
+)
 from engine.name_utils import normalize_name
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -213,7 +216,6 @@ CAS_MAP: dict[str, str] = {
 ALIASES = {
     "alpha isomethyl ionone": "Alpha-Isomethyl Ionone",
     "amyl cinnamic aldehyde": "ACA",
-    "ambrofix crystals": "Ambrofix",
     "cardamom eo": "Cardamom EO",
     "cinnamyl alcohol 50% in dpg": "Cinnamyl Alcohol",
     "cyclimal aldehyde": "Cyclamen Aldehyde",
@@ -531,10 +533,12 @@ if MP_PATH.exists():
 # Build all entries
 # ═══════════════════════════════════════════════════════════════════════
 
-inventory = parse_inventory(Path("inventory.txt"))
-inventory_dilutions = {m.name: m.dilution for m in inventory}
-inventory_records = {m.name: m for m in inventory}
-inventory_names = [m.name for m in inventory]
+inventory_records = select_material_property_stocks(
+    materialize_current_inventory().stocks
+)
+inventory = list(inventory_records.values())
+inventory_dilutions = {name: record.dilution for name, record in inventory_records.items()}
+inventory_names = list(inventory_records)
 output = []
 audit_flags: list[dict] = []
 seen_names: set[str] = set()
@@ -691,11 +695,26 @@ for inv_name in sorted(inventory_names):
     entry["in_inventory"] = True
     inventory_record = inventory_records[inv_name]
     if inventory_record.dilution >= 0.999:
-        entry["stock_form"] = "neat"
+        entry["stock_form"] = (
+            "neat/as supplied"
+            if "as supplied" in inventory_record.raw_name.casefold()
+            else "neat"
+        )
     else:
         stock_pct = f"{inventory_record.dilution * 100:g}%"
         carrier = inventory_record.carrier.upper()
         entry["stock_form"] = f"{stock_pct} in {carrier}" if carrier else f"{stock_pct} dilution"
+    entry["stock_fraction_basis"] = (
+        inventory_record.fraction_basis
+        if inventory_record.fraction_basis != "unspecified"
+        else None
+    )
+    entry["stock_carrier"] = inventory_record.carrier or None
+    entry["stock_execution_ready"] = inventory_record.execution_ready
+    entry["stock_execution_hold_reason"] = (
+        inventory_record.execution_hold_reason or None
+    )
+    entry["stock_authority_source"] = inventory_record.source_ref
 
     # ── Remaining fields (null if empty) ─────────────────────────
     for null_field in [
@@ -793,6 +812,92 @@ for inv_name in sorted(inventory_names):
     if entry_flags:
         audit_flags.append({"name": inv_name, "flags": entry_flags})
     entry["audit_flags"] = entry_flags
+
+    if norm == "guaiacwood eo":
+        for held_field in (
+            "cas",
+            "formula_str",
+            "mw",
+            "bp",
+            "vp",
+            "clp",
+            "odt",
+            "odt_ethanol_ppm",
+            "activity_coef",
+            "hedonic",
+            "oav_typical",
+            "oav_dose_pct",
+            "smell_strength",
+            "anosmic_risk",
+            "ifra_cat4_limit_pct",
+            "ifra_banned",
+            "ifra_restricted",
+            "ifra_standard_type",
+            "hill_ec50",
+            "hill_n",
+            "hill_rmax",
+            "odor_family",
+            "odor_profile",
+            "note",
+            "role",
+            "texture",
+            "or_family",
+            "safety",
+            "equivalence",
+        ):
+            entry[held_field] = None
+        entry["synergies"] = []
+        entry["best_with"] = []
+        entry["character_shift"] = []
+        entry["typical_pct_range"] = None
+        entry["max_safe_pct"] = None
+        entry["dilution_pct"] = None
+        entry["nominal_stock_fraction"] = inventory_record.dilution
+        entry["stock_fraction_basis"] = None
+        entry["stock_carrier"] = None
+        entry["stock_form"] = (
+            "33% nominal; fraction basis and carrier unspecified; "
+            "quantitative execution HOLD"
+        )
+        entry["stock_execution_ready"] = False
+        entry["stock_execution_hold_reason"] = (
+            "FRACTION_BASIS_AND_CARRIER_UNSPECIFIED"
+        )
+        entry["stock_authority_holds"] = [
+            "stock_basis_and_carrier_unspecified",
+            "material_specific_evidence_unsupplied",
+        ]
+        entry["current_inventory_successor"] = (
+            "data/governance/inventory_user_authority_overlay_20260831.json"
+        )
+        entry["stock_record"] = (
+            "data/governance/inventory_user_authority_overlay_20260828.json"
+            "#INV-USER-20260829-003"
+        )
+        entry["pubchem_warnings"] = []
+        entry["audit_flags"] = []
+
+    if norm == "castoreum synthetic":
+        # The user declared a nominal 10% DEP stock but not w/w, w/v, or v/v.
+        # Preserve ownership and the nominal label while withholding every
+        # active-fraction consumer until the physical basis is supplied.
+        entry["dilution_pct"] = None
+        entry["nominal_stock_fraction"] = inventory_record.dilution
+        entry["stock_fraction_basis"] = None
+        entry["stock_carrier"] = inventory_record.carrier or None
+        entry["stock_form"] = (
+            "10% nominal in DEP; fraction basis unspecified; "
+            "quantitative execution HOLD"
+        )
+        entry["stock_execution_ready"] = False
+        entry["stock_execution_hold_reason"] = "FRACTION_BASIS_UNSPECIFIED"
+        entry["stock_authority_holds"] = [
+            "active_dose_unavailable",
+            "ppm_oav_unavailable",
+            "carrier_displacement_unavailable",
+        ]
+        entry["oav_typical"] = None
+        entry["oav_dose_pct"] = None
 
     # ── Dedup guard ─────────────────────────────────────────────
     entry_lower = entry.get("name", "").lower()

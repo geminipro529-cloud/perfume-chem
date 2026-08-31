@@ -1,0 +1,247 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_v2",
+  "successor_id": "INVENTORY-USER-AUTHORITY-20260831-001",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-08-31",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260828.json",
+    "normalized_text_sha256": "9d0f3750e897e13758a1180e158adca464449e9d6dfac176460ba18868a17564",
+    "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+    "effective_date": "2026-08-28"
+  },
+  "source": {
+    "kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+    "source_thread_id": "01a02550-f3c8-7390-8aa1-3cd018ddd623",
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 20437,
+    "inventory_text_sha256": "72d5d562be098642bffe11f32033735dc267e0b4c8857d29690cad218d1a4625"
+  },
+  "policy": {
+    "predecessor_immutable": true,
+    "historical_formula_bytes_immutable": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "ambrofix_to_ambrox_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "quantitative_hold_is_not_unavailability": true
+  },
+  "carried_forward_record_ids": [
+    "INV-USER-20260828-001",
+    "INV-USER-20260828-002",
+    "INV-USER-20260828-003",
+    "INV-USER-20260828-004",
+    "INV-USER-20260828-005",
+    "INV-USER-20260828-006",
+    "INV-USER-20260828-007",
+    "INV-USER-20260828-008",
+    "INV-USER-20260828-009",
+    "INV-USER-20260828-010",
+    "INV-USER-20260828-011",
+    "INV-USER-20260828-012",
+    "INV-USER-20260828-013",
+    "INV-USER-20260828-014",
+    "INV-USER-20260828-015",
+    "INV-USER-20260829-002",
+    "INV-USER-20260829-003",
+    "INV-USER-20260830-001",
+    "INV-USER-20260830-002",
+    "INV-USER-20260830-003",
+    "INV-USER-20260830-004",
+    "INV-USER-20260830-005",
+    "INV-USER-20260830-006",
+    "INV-USER-20260830-007",
+    "INV-USER-20260830-008",
+    "INV-USER-20260830-009",
+    "INV-USER-20260830-010",
+    "INV-USER-20260830-011"
+  ],
+  "replaced_canonical_names": [
+    "Ambrofix",
+    "Magnolia EO"
+  ],
+  "delta_records": [
+    {
+      "record_id": "INV-USER-20260831-001",
+      "canonical_name": "Magnolia EO",
+      "aliases": [
+        "Magnolia EO neat",
+        "Magnolia EO as supplied"
+      ],
+      "state": "OWNED",
+      "category": "air_floral",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 165
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 165,
+          "disposition": "OWNED",
+          "status": "HAVE - NEAT / AS SUPPLIED",
+          "actual_stock_text": "Magnolia EO neat / as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-08-31",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_required": false,
+        "species_asserted": false,
+        "plant_part_asserted": false,
+        "supplier_asserted": false,
+        "lot_asserted": false,
+        "chemistry_asserted": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "sensory_identity_asserted": false,
+        "gc_o_asserted": false,
+        "odt_asserted": false,
+        "liking_asserted": false,
+        "release_success_asserted": false,
+        "historical_formula_rebase_authorized": false
+      },
+      "note": "Physical ownership and neat/as-supplied stock fraction are current authority. Species, plant part, supplier, lot, chemistry, density, safety, sensory identity, GC-O, ODT, liking, and release success remain unresolved."
+    },
+    {
+      "record_id": "INV-USER-20260831-002",
+      "canonical_name": "Ambrofix",
+      "aliases": [
+        "Ambrofix liquid stock"
+      ],
+      "state": "UNAVAILABLE",
+      "category": "woods_amber",
+      "stock": null,
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 29,
+          "fraction": 0.3
+        },
+        {
+          "source_row": 255,
+          "fraction": 0.4
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 24,
+          "disposition": "GAP",
+          "status": "GAP — LIQUID AMBROFIX OUT OF STOCK; AMBROX SUPER SUBSTITUTION NOT AUTHORIZED",
+          "actual_stock_text": "",
+          "can_prepare": ""
+        },
+        {
+          "source_row": 29,
+          "disposition": "GAP",
+          "status": "OUT OF STOCK - LIQUID AMBROFIX GONE 2026-08-31",
+          "actual_stock_text": "",
+          "can_prepare": "No substitution, formula rebase, or stock preparation is authorized."
+        },
+        {
+          "source_row": 255,
+          "disposition": "GAP",
+          "status": "OUT OF STOCK - LIQUID AMBROFIX GONE 2026-08-31",
+          "actual_stock_text": "",
+          "can_prepare": "No substitution, formula rebase, or stock preparation is authorized."
+        }
+      ],
+      "effective_date": "2026-08-31",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "historical_record_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260829-001",
+      "authority_limits": {
+        "currently_available": false,
+        "historical_mass_balance_preserved": true,
+        "ambrofix_crystals_unavailable": false,
+        "ambrox_super_substitution_authorized": false,
+        "active_ul_ppm_oav_math_authorized": false,
+        "volume_dose_math_authorized": false,
+        "formula_rebase_authorized": false,
+        "stock_preparation_authorized": false,
+        "compounding_authorized": false,
+        "safety_tested": false,
+        "stability_tested": false,
+        "release_authorized": false
+      },
+      "note": "The liquid Ambrofix stock is gone. Its prior heterogeneous 7.27% whole-bottle mass-balance record remains provenance only. Ambrofix Crystals and Ambrox Super remain distinct identities; no substitution is inferred."
+    },
+    {
+      "record_id": "INV-USER-20260831-003",
+      "canonical_name": "Ambrofix Crystals",
+      "aliases": [
+        "Ambrofix crystals (solid)",
+        "Ambrofix solid"
+      ],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_DISTINCT_SOLID_STOCK_CARRY_FORWARD",
+        "execution_ready": false,
+        "execution_hold_reason": "SOLID_STOCK_VOLUME_DOSING_UNBOUND"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-08-31",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "distinct_from_liquid_ambrofix": true,
+        "distinct_from_ambrox_super": true,
+        "solid_as_supplied_confirmed": true,
+        "volume_dosing_ready": false,
+        "density_asserted": false,
+        "liquid_equivalence_asserted": false,
+        "ambrox_super_equivalence_asserted": false,
+        "safety_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false
+      },
+      "note": "The physically owned solid crystals remain a separate current record. No liquid-volume dosing, density, substitution, safety, sensory equivalence, or release authority is created."
+    }
+  ],
+  "historical_provenance": {
+    "ambrofix_liquid": {
+      "path": "data/governance/inventory_user_authority_overlay_20260828.json",
+      "normalized_text_sha256": "9d0f3750e897e13758a1180e158adca464449e9d6dfac176460ba18868a17564",
+      "record_id": "INV-USER-20260829-001",
+      "prior_state": "OWNED_HELD_HETEROGENEOUS",
+      "current_state": "UNAVAILABLE",
+      "mass_balance": {
+        "empty_bottle_g": 11.45,
+        "final_bottle_g": 14.09,
+        "contents_g": 2.64,
+        "added_ethanol_g": 2.0,
+        "original_30pct_stock_g": 0.64,
+        "ambrofix_g": 0.192,
+        "dep_g": 0.448,
+        "ethanol_g": 2.0,
+        "nominal_whole_bottle_mass_fraction": 0.07272727272727272,
+        "prior_withdrawal": false
+      },
+      "provenance_use": "HISTORICAL_MASS_BALANCE_ONLY_NOT_CURRENT_STOCK"
+    }
+  },
+  "authority_limits": {
+    "sensory_authority": false,
+    "liking_authority": false,
+    "similarity_authority": false,
+    "safety_authority": false,
+    "stability_authority": false,
+    "procurement_authority": false,
+    "preparation_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  }
+}

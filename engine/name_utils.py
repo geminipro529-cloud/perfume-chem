@@ -76,6 +76,8 @@ _ALIASES: dict[str, str] = {
     "cedrat fcf": "cedrat fcf sicilian",
     "blood orange oil sicilian": "blood orange sicilian",
     "bergamot fcf oil sicilian": "bergamot fcf sicilian",
+    "guaiacwood essential oil": "guaiacwood eo",
+    "guaiac wood eo": "guaiacwood eo",
     "methyl ionone pure": "methyl ionone",
     "ylang comoros complete eo": "ylang comoros complete eo f3255",
     "ylang ylang eo (extra grade)": "ylang",

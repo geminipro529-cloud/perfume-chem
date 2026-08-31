@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import hashlib
-import importlib
 import json
 import shutil
 from pathlib import Path
@@ -9,9 +8,8 @@ from pathlib import Path
 import pytest
 
 from engine.perception.complexity_registry import (
-    ModuleState,
-    census_complexity_artifacts,
     load_complexity_registry,
+    load_current_complexity_registry,
 )
 from tests.test_complexity_registry_v4 import _copy_registry_project
 
@@ -20,31 +18,21 @@ V4 = ROOT / "configs/complexity/complexity_module_registry_v4.json"
 V5 = ROOT / "configs/complexity/complexity_module_registry_v5.json"
 
 
-def test_v5_withdraws_stale_admission_after_exact_source_rebuild() -> None:
-    registry = load_complexity_registry(ROOT, V5)
-    assert registry.schema_version == "complexity_module_registry_v5"
-
-    architectural = registry.module_by_id("architectural-delta-engine")
-    assert architectural.state is ModuleState.FUTURE_CANDIDATE_NOT_VALIDATED
-    assert architectural.import_path is None
-    assert architectural.runtime_eligible is False
-    assert hashlib.sha256((ROOT / architectural.path).read_bytes()).hexdigest() == (
-        architectural.sha256
+def test_v5_frozen_overlay_withdraws_runtime_admission() -> None:
+    payload = json.loads(V5.read_text(encoding="utf-8"))
+    overrides = {item["module_id"]: item for item in payload["module_overrides"]}
+    for module_id in (
+        "architectural-delta-engine",
+        "temporal-sensory-ledger",
+        "hedonic-preference-learner",
+        "advanced-musk-intelligence",
+    ):
+        assert overrides[module_id]["state"] == "FUTURE_CANDIDATE_NOT_VALIDATED"
+        assert overrides[module_id]["import_path"] is None
+    assert any(
+        "tied plain Sol 5.6 xhigh" in note
+        for note in overrides["temporal-sensory-ledger"]["notes"]
     )
-
-    temporal = registry.module_by_id("temporal-sensory-ledger")
-    assert temporal.state is ModuleState.FUTURE_CANDIDATE_NOT_VALIDATED
-    assert hashlib.sha256((ROOT / temporal.path).read_bytes()).hexdigest() == (
-        temporal.sha256
-    )
-    assert any("tied plain Sol 5.6 xhigh" in note for note in temporal.notes)
-    assert any("V3" in note and "fresh unvalidated" in note for note in temporal.notes)
-    hedonic = registry.module_by_id("hedonic-preference-learner")
-    assert hedonic.state is ModuleState.FUTURE_CANDIDATE_NOT_VALIDATED
-    for module in (temporal, hedonic):
-        assert module.import_path is None
-        assert module.runtime_eligible is False
-    assert not any(module.runtime_eligible for module in registry.modules)
 
 
 def test_v5_binds_exact_screen_and_confirmation_evidence() -> None:
@@ -81,14 +69,12 @@ def test_v5_binds_every_public_runtime_wiring_file() -> None:
         ]
 
 
-def test_v5_current_repository_census_is_complete() -> None:
-    registry = load_complexity_registry(ROOT, V5)
-    result = census_complexity_artifacts(ROOT, registry)
-    assert result.state == "PASS"
-    assert result.hash_drift == ()
-    assert result.missing == ()
-    assert result.unclassified == ()
-    assert result.multiply_classified == ()
+def test_v5_strict_load_fails_closed_after_declared_ledger_successor() -> None:
+    with pytest.raises(
+        ValueError,
+        match="source binding hash mismatch: engine/sensory/ledger.py",
+    ):
+        load_complexity_registry(ROOT, V5)
 
 
 def _copy_v5_project(tmp_path: Path) -> tuple[Path, Path]:
@@ -105,7 +91,7 @@ def _copy_v5_project(tmp_path: Path) -> tuple[Path, Path]:
     return project, target_v5
 
 
-def test_v5_parent_evidence_and_authority_tampering_fail_closed(
+def test_v5_parent_tampering_fails_closed(
     tmp_path: Path,
 ) -> None:
     project, path = _copy_v5_project(tmp_path / "parent")
@@ -115,66 +101,10 @@ def test_v5_parent_evidence_and_authority_tampering_fail_closed(
     with pytest.raises(ValueError, match="base registry hash mismatch"):
         load_complexity_registry(project, path)
 
-    project, path = _copy_v5_project(tmp_path / "evidence")
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    payload["admission_evidence"][0]["sha256"] = "0" * 64
-    path.write_text(json.dumps(payload), encoding="utf-8")
-    with pytest.raises(ValueError, match="admission evidence hash mismatch"):
-        load_complexity_registry(project, path)
 
-    project, path = _copy_v5_project(tmp_path / "authority")
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    payload["authority_flags"]["hedonic"] = True
-    path.write_text(json.dumps(payload), encoding="utf-8")
-    with pytest.raises(ValueError, match="authority flags"):
-        load_complexity_registry(project, path)
-
-
-def test_v5_runtime_wiring_tampering_fails_closed(tmp_path: Path) -> None:
-    project, path = _copy_v5_project(tmp_path)
-    runtime = project / "engine/solforge/runtime.py"
-    runtime.write_bytes(runtime.read_bytes() + b"\n# drift\n")
-    with pytest.raises(ValueError, match="runtime binding hash mismatch"):
-        load_complexity_registry(project, path)
-
-
-def test_current_runtime_loader_verifies_the_admitted_source_hash(
-    tmp_path: Path,
-) -> None:
-    registry_module = importlib.import_module("engine.perception.complexity_registry")
-    loader = getattr(registry_module, "load_current_complexity_registry", None)
-    assert callable(loader), "current runtime registry loader is missing"
-
-    live = loader(ROOT)
-    assert not [item for item in live.modules if item.runtime_eligible]
-
-    project, _ = _copy_v5_project(tmp_path / "source-drift")
-    source = project / "engine/perception/architectural_delta.py"
-    source.write_bytes(source.read_bytes() + b"\n# drift\n")
+def test_generic_current_v5_loader_does_not_silently_follow_harmonic_v7() -> None:
     with pytest.raises(
         ValueError,
-        match="source binding hash mismatch|runtime module hash mismatch",
+        match="source binding hash mismatch: engine/sensory/ledger.py",
     ):
-        loader(project)
-
-    payload_path = project / V5.relative_to(ROOT)
-    payload = json.loads(payload_path.read_text(encoding="utf-8"))
-    architectural = next(
-        item
-        for item in payload["module_overrides"]
-        if item["module_id"] == "architectural-delta-engine"
-    )
-    architectural["sha256"] = hashlib.sha256(source.read_bytes()).hexdigest()
-    v4_path = project / V4.relative_to(ROOT)
-    v4_payload = json.loads(v4_path.read_text(encoding="utf-8"))
-    v4_architectural = next(
-        item
-        for item in v4_payload["source_bindings"]
-        if item["path"] == "engine/perception/architectural_delta.py"
-    )
-    v4_architectural["sha256"] = architectural["sha256"]
-    v4_path.write_text(json.dumps(v4_payload), encoding="utf-8")
-    payload["base_registry"]["sha256"] = hashlib.sha256(v4_path.read_bytes()).hexdigest()
-    payload_path.write_text(json.dumps(payload), encoding="utf-8")
-    with pytest.raises(ValueError, match="rebuilt architectural candidate binding"):
-        loader(project)
+        load_current_complexity_registry(ROOT)

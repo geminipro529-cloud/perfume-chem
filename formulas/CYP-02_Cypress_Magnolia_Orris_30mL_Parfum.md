@@ -487,20 +487,20 @@ is `HOLD`.
 <!-- PIPELINE_ANALYSIS_START -->
 ## Pipeline Analysis
 
-<!-- pipeline-analysis-manifest: {"analysis_input_sha256":"9b2ce3a7c15d84175a2a786a2c0a7de43a813ac043a087d41e705fbf44aa89cb","analysis_sha256":"53bfde08d18d4f2b10b70fcc087e2e8e2e2713a43ead84e564e75d5f22ef5819","artifact_sha256":"724b013acb43808fb7c70485dbfcfb4bcbebef1c158e0028855ec3168c89d5b6","authorities":{"claim":["PASS"],"headspace_oav":["MODELED_ACTIVE_CONCENTRATE_SCREEN"],"quantitative":["WARN"],"stock":["FAIL"]},"binding_schema":"formula-artifact-binding-v1","canonical_records":[{"canonical_content_sha256":"0cabdcc3594ab297c897bc45e529461381d865d10b4bfa1de6e54a4dad2b57a4","record_id":"formula:4:current-inventory-build-parser-visible-formula","record_version":4}],"config_sha256":"f5706666510e84073b0c8a26c43fb2124c42a2b97c83f4709fb6056ca57273ae","formula_definitions":[{"name":"CURRENT-INVENTORY BUILD — parser-visible formula","number":4,"sha256":"0cabdcc3594ab297c897bc45e529461381d865d10b4bfa1de6e54a4dad2b57a4"}],"g15_parent_formula_definitions":[],"generated_at_utc":"2026-08-31T07:17:46.032739+00:00","inventory_sha256":"eb33c04236a4640413ba5289125f04cfa278bd0614eb9bd12ea1cc4d88379967","legacy_formula_hashes_v1":[{"name":"CURRENT-INVENTORY BUILD — parser-visible formula","number":4,"sha256":"13da11c853602644c31f8f88ac376321747e8beff22c17d2a8e908afaa1246af"}],"overall":"FAIL","pipeline_source_sha256":"0af833309b5735f790e49dc6ab433172dfd4af0fa6cdb1921164e3af9dbbe65c","provenance":{"activity":"formula_release_gate","agent":"perfume-chem pipeline","derivation":"analysis_artifact wasDerivedFrom all input entities","entities":["formula_definition","release_config","inventory_snapshot","scientific_inputs","pipeline_source","analysis_artifact"]},"renderer_version":"formula-release-gate-v1","repository_commit":"af0d126ecf6c0ff84ea928b7b1dfe03b0d8d9e5b","schema":"perfume_pipeline_run_evidence_v1","scientific_inputs_sha256":"2e7f719a7a3f5f4fcf04e3fff164bf0713ea3b215fbab076c219df2f5b7f3db4","semantic_config":{"formula_family_archetypes":[""],"g15_authorized_active_dose_changes":{},"requested":{"allow_preblends":false,"batch_scaling_targets_ml":[],"batch_volume_ml":30,"brief":"generic","commercial_confidence_policy":"block","commercial_mode":false,"concentration_bracket":"EdP","effective_ifra_headroom":1,"expected_concentrate_ul":6000,"expected_retail_price_thb":1500,"family_archetype":"","ifra_headroom":1,"matrix_components_moles":[],"matrix_mass_g":0,"matrix_source":"omitted","max_perceptible_channels":30,"min_confidence_score":25,"min_neat_trace_ul":5,"min_perceptible_materials":3,"price_tier":"auto","quantitative_claim":false,"temperature_K":305}}} -->
+<!-- pipeline-analysis-manifest: {"analysis_input_sha256":"0741a6fda6986fa497ed44606191c32b4657f198664ddf6b31585e2aa6770260","analysis_sha256":"0a0f55525340a2be8bc6c419c07543a286159b042b762d5cc6d30c1a7732ea66","artifact_sha256":"e3de9639699d077a5c932d58aa53c358a1b1b54403dd38f5b165db6c3d130b31","authorities":{"claim":["PASS"],"headspace_oav":["MODELED_ACTIVE_CONCENTRATE_SCREEN"],"quantitative":["WARN"],"stock":["PASS"]},"binding_schema":"formula-artifact-binding-v1","canonical_records":[{"canonical_content_sha256":"761bc8fc204e5496fb8166f97f37dfa54d6805c42d60996e3c11ac171fc2c28b","record_id":"formula:4:current-inventory-build-parser-visible-formula","record_version":4}],"config_sha256":"f5706666510e84073b0c8a26c43fb2124c42a2b97c83f4709fb6056ca57273ae","formula_definitions":[{"name":"CURRENT-INVENTORY BUILD — parser-visible formula","number":4,"sha256":"761bc8fc204e5496fb8166f97f37dfa54d6805c42d60996e3c11ac171fc2c28b"}],"g15_parent_formula_definitions":[],"generated_at_utc":"2026-08-31T18:48:42.368737+00:00","inventory_sha256":"06d5785656ea4eb644dfe9a355d5e98c8b0d8932d76caa24b997a68b4726ad13","legacy_formula_hashes_v1":[{"name":"CURRENT-INVENTORY BUILD — parser-visible formula","number":4,"sha256":"13da11c853602644c31f8f88ac376321747e8beff22c17d2a8e908afaa1246af"}],"overall":"FAIL","pipeline_source_sha256":"d88b32089e128f8f7f18aa53a0abf70356fca54d6048bdaa651b8ba0219f539d","provenance":{"activity":"formula_release_gate","agent":"perfume-chem pipeline","derivation":"analysis_artifact wasDerivedFrom all input entities","entities":["formula_definition","release_config","inventory_snapshot","scientific_inputs","pipeline_source","analysis_artifact"]},"renderer_version":"formula-release-gate-v1","repository_commit":"c89e6a87ae5c9912ff988c758eab2cf8cc7e6582","schema":"perfume_pipeline_run_evidence_v1","scientific_inputs_sha256":"0389a18c2654c2cc3c8b1929090cc8b40249599b617de59a4aa6aa60f700c8bf","semantic_config":{"formula_family_archetypes":[""],"g15_authorized_active_dose_changes":{},"requested":{"allow_preblends":false,"batch_scaling_targets_ml":[],"batch_volume_ml":30,"brief":"generic","commercial_confidence_policy":"block","commercial_mode":false,"concentration_bracket":"EdP","effective_ifra_headroom":1,"expected_concentrate_ul":6000,"expected_retail_price_thb":1500,"family_archetype":"","ifra_headroom":1,"matrix_components_moles":[],"matrix_mass_g":0,"matrix_source":"omitted","max_perceptible_channels":30,"min_confidence_score":25,"min_neat_trace_ul":5,"min_perceptible_materials":3,"price_tier":"auto","quantitative_claim":false,"temperature_K":305}}} -->
 
 ```text
 # Run Evidence Contract
 
-Formula definition SHA-256: #4 0cabdcc3594ab297c897bc45e529461381d865d10b4bfa1de6e54a4dad2b57a4
+Formula definition SHA-256: #4 761bc8fc204e5496fb8166f97f37dfa54d6805c42d60996e3c11ac171fc2c28b
 Config SHA-256: f5706666510e84073b0c8a26c43fb2124c42a2b97c83f4709fb6056ca57273ae
-Inventory SHA-256: eb33c04236a4640413ba5289125f04cfa278bd0614eb9bd12ea1cc4d88379967
-Scientific inputs SHA-256: 2e7f719a7a3f5f4fcf04e3fff164bf0713ea3b215fbab076c219df2f5b7f3db4
-Pipeline source SHA-256: 0af833309b5735f790e49dc6ab433172dfd4af0fa6cdb1921164e3af9dbbe65c
+Inventory SHA-256: 06d5785656ea4eb644dfe9a355d5e98c8b0d8932d76caa24b997a68b4726ad13
+Scientific inputs SHA-256: 0389a18c2654c2cc3c8b1929090cc8b40249599b617de59a4aa6aa60f700c8bf
+Pipeline source SHA-256: d88b32089e128f8f7f18aa53a0abf70356fca54d6048bdaa651b8ba0219f539d
 Exact concentrate ppm w/w: UNAVAILABLE
 Headspace/OAV basis: MODELED_ACTIVE_CONCENTRATE_SCREEN
 Headspace/OAV class: HEURISTIC_NOT_MEASURED (never a sensory-similarity percentage)
-Inventory stock authority: FAIL
+Inventory stock authority: PASS
 Quantitative gate authority: WARN
 Named-reference authority: PASS
 Sensory-equivalence authority: NOT_AUTHORIZED_NOT_MEASURED
@@ -508,14 +508,13 @@ Sensory-equivalence authority: NOT_AUTHORIZED_NOT_MEASURED
 
 ## Gate Summary
 
-**111 PASS** / **27 WARN** / **6 FAIL**
+**112 PASS** / **27 WARN** / **5 FAIL**
 
   FAIL pipeline_preflight: 12 checks; 8 warnings
-  FAIL inventory_stock_contract: 1 material stock contract failure(s): Magnolia EO
   FAIL natural_composite_coverage: Natural mixtures lack required composite GC-O decomposition: Cypress EO, Elemi EO, Magnolia EO
   FAIL physics_data_coverage: {"Magnolia EO": ["mw", "logp", "vp", "odt_air_ppm"]}
   FAIL odt_coverage: Magnolia EO
-  FAIL confidence_minimum: combined confidence 2.9 below 25.0 after preflight evidence penalty 19.0
+  FAIL confidence_minimum: combined confidence 2.8 below 25.0 after preflight evidence penalty 19.0
   WARN quantitative_authority: Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only.
   WARN headspace_scope: Headspace/OAV is an active-concentrate screening model; the finished ethanol-water-solvent matrix is omitted.
   WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 34.1% active mass across 3 materials
@@ -549,12 +548,12 @@ Sensory-equivalence authority: NOT_AUTHORIZED_NOT_MEASURED
 
 | Dimension | Status | Authority |
 |---|---|---|
-| Inventory stock | FAIL | 1 material stock contract failure(s): Magnolia EO |
+| Inventory stock | PASS | Every formula row resolves uniquely to a declared live inventory stock. |
 | Quantitative ppm w/w | UNAVAILABLE | Exact only when the full declared mass and density chain is available. |
 | Headspace/OAV | MODELED_ACTIVE_CONCENTRATE_SCREEN | HEURISTIC_NOT_MEASURED; diagnostic model, not measured odor intensity. |
 | Named reference | PASS () | No named-reference claim detected. |
 | Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | Requires blinded bench comparison; no model score supplies this authority. |
-| Combined confidence | 2.9/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
+| Combined confidence | 2.8/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
 
 
 ## Headspace OAV — Opening (0s)

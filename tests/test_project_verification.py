@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 from hashlib import sha256
 from pathlib import Path
@@ -68,6 +69,25 @@ def test_engine_shards_cover_every_test_file_once():
 
     assert sorted(assigned) == discovered
     assert len(assigned) == len(set(assigned))
+
+
+def test_current_harmonic_registry_has_a_dedicated_quick_verifier() -> None:
+    specs = {spec.name: spec for spec in build_check_specs(PROJECT_ROOT)}
+    harmonic = specs["engine-tests-harmonic-runtime-current"]
+    assert harmonic.command[3:] == (
+        "tests/test_complexity_registry_v7.py",
+        "-q",
+        "--junitxml=verification_runs/engine-harmonic-runtime-current.xml",
+    )
+    assert "engine/perception/harmonic_runtime_registry.py" in specs[
+        "engine-lint"
+    ].command
+    assert "tests/test_complexity_registry_v7.py" in specs["engine-lint"].command
+    assert "engine/perception/harmonic_runtime_registry.py" in specs[
+        "engine-typecheck"
+    ].command
+    quick = project_verification._select_checks(tuple(specs.values()), None, True)
+    assert harmonic in quick
 
 
 def test_verifier_records_pass_fail_skip_and_completion_gate(tmp_path):
@@ -214,21 +234,44 @@ def test_missing_executable_is_reported_as_a_structured_failure(tmp_path):
     assert report.completion_gate == "FAIL"
 
 
-def test_default_runner_routes_child_temp_inside_project(tmp_path):
+def test_default_runner_routes_child_temp_to_platform_safe_location(
+    tmp_path, monkeypatch
+):
+    inherited_tmpdir = tmp_path / "inherited-tmpdir"
+    inherited_tmpdir.mkdir()
+    monkeypatch.setenv("TMPDIR", str(inherited_tmpdir))
     outcome = _default_runner(tmp_path)(
         CheckSpec(
             "temp-contract",
             (
                 sys.executable,
                 "-c",
-                "import os; print(os.environ['TEMP']); print(os.environ['TMP'])",
+                (
+                    "import os, tempfile; print(tempfile.gettempdir()); "
+                    "print(os.environ['TEMP']); print(os.environ['TMP']); "
+                    "print(os.environ['TMPDIR'])"
+                ),
             ),
         )
     )
 
-    expected = str(tmp_path / "output" / "verification-temp")
+    if os.name == "nt":
+        local_app_data = os.environ.get("LOCALAPPDATA")
+        expected_root = (
+            Path(local_app_data) / "Temp"
+            if local_app_data
+            else Path(project_verification.tempfile.gettempdir())
+        )
+        expected_path = expected_root / f"pcv-{os.getpid()}"
+        assert expected_path.is_absolute()
+        assert expected_path.parent == expected_root
+        assert expected_path.name == f"pcv-{os.getpid()}"
+        assert tmp_path not in expected_path.parents
+        expected = str(expected_path)
+    else:
+        expected = str(tmp_path / "output" / "verification-temp")
     assert outcome.returncode == 0
-    assert outcome.stdout.splitlines() == [expected, expected]
+    assert outcome.stdout.splitlines() == [expected, expected, expected, expected]
 
 
 def test_package_and_docker_checks_validate_release_artifacts():

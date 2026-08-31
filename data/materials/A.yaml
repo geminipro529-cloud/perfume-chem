@@ -1841,7 +1841,7 @@
 - canonical_name: Alpha Irone
   aliases:
   - alpha irone
-  - Alpha Irone (30% w/w in IPM)
+  - Alpha Irone (10% w/w in DEP)
   cas: 79-69-6
   smiles: CC1CC=C(C(C1(C)C)/C=C/C(=O)C)C
   inchikey: JZQOJFLIJNRDHK-CMDGGOBGSA-N
@@ -1863,7 +1863,7 @@
   trp_targets: null
   hedonic_valence: 0.65
   ifra_max_pct_edp: null
-  user_stock_dilution: 30% in IPM
+  user_stock_dilution: 10% w/w in DEP
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 8II00243
@@ -1878,8 +1878,9 @@
   families:
   - iris / violet
   character: Soft warm orris-violet, powdery, berry-tinged, highly diffusive.
-  notes: PubChem-backed single-molecule identity. The live stock is the user's 30%
-    w/w IPM preparation; supplier usage guidance is not an IFRA maximum.
+  notes: PubChem-backed single-molecule identity. The live stock is the user's 10%
+    w/w DEP preparation; the stale 30% w/w IPM stock is not owned. Supplier
+    usage guidance is not an IFRA maximum.
   provenance:
     cas: pubchem:alpha-Irone
     smiles: pubchem:alpha-Irone
@@ -1893,8 +1894,8 @@
     stevens_n: engine.odor_thresholds
     logp: pubchem:alpha-Irone
     hedonic_valence: engine.hedonic_model
-    user_in_inventory: inventory.txt (confirmed 2026-07-16)
-    user_stock_dilution: inventory.txt
+    user_in_inventory: inventory.txt (user-authoritative correction 2026-08-28)
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260828-003
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Alpha Irone 10% In Myristic Acid(solid)
   aliases:
@@ -2999,8 +3000,8 @@
   trp_targets: null
   hedonic_valence: 0.6
   ifra_max_pct_edp: null
-  user_stock_dilution: "nominal 7.27% w/w whole bottle including solid; HOLD visible crystals; density unknown; liquid phase non-executable"
-  user_in_inventory: true
+  user_stock_dilution: null
+  user_in_inventory: false
   supplier:
     perfumersworld_sku: 1UW16861
     perfumersworld_price_usd_per_g: 1.87
@@ -3011,10 +3012,11 @@
   - woods / amber / structure
   character: null
   notes: >-
-    Current user authority effective 2026-08-29 supersedes the 30% liquid-stock
-    assumption for current use. The 7.27% w/w fraction applies only to the whole
-    bottle including visible solid. Pipetted liquid is non-executable; no
-    active-uL, ppm, OAV, volume-dose, formula-rebase, or substitution authority.
+    Current user authority effective 2026-08-31 records the liquid stock as out
+    of stock. The prior 7.27% w/w whole-bottle mass balance, including visible
+    solid, is historical provenance only. Ambrofix Crystals and Ambrox Super are
+    distinct records; no active-uL, ppm, OAV, volume-dose, rebase, substitution,
+    or equivalence authority is created.
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -3022,8 +3024,8 @@
     mw_g_mol: engine.skin_interaction
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
-    user_in_inventory: inventory.txt
-    user_stock_dilution: data/governance/inventory_user_authority_overlay_20260829.json#INV-USER-20260829-017
+    user_in_inventory: data/governance/inventory_user_authority_overlay_20260831.json#INV-USER-20260831-002
+    historical_stock_record: data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260829-001
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Ambrox Super
   aliases:
@@ -4326,31 +4328,42 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-- canonical_name: ambrofix crystals (solid)
+- canonical_name: Ambrofix Crystals
   aliases:
-  - Ambrofix Crystals
+  - ambrofix crystals (solid)
   - Ambrofix solid
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 236.4
+  mw_g_mol: null
   density_25c_g_ml: null
-  logp: 4.7
+  logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.066
+  vp_25c_pa: null
   vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: 0.5
-  odt_eth_ppm: 0.005
+  odt_air_ppb: null
+  odt_eth_ppm: null
   stevens_n: null
   or_targets: []
   trp_targets: null
-  user_stock_dilution: 100.0
+  user_stock_dilution: 100% solid/as supplied
   user_in_inventory: true
+  families:
+  - woods / amber / structure
+  character: null
+  notes: >-
+    Physically owned crystalline solid kept distinct from the unavailable
+    historical liquid Ambrofix bottle and from Ambrox Super. Volume dosing,
+    density, substitution, safety, sensory equivalence, and release remain held.
+  provenance:
+    current_stock_authority: data/governance/inventory_user_authority_overlay_20260831.json#INV-USER-20260831-003
+    user_in_inventory: inventory.txt
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20260831.json#INV-USER-20260831-003
 
 - name: Allyl Cyclohexyl Propionate
   aliases:

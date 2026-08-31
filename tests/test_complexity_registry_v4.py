@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from engine.perception.complexity_registry import ModuleState, load_complexity_registry
+from engine.perception.complexity_registry import load_complexity_registry
 
 ROOT = Path(__file__).resolve().parents[1]
 V1 = ROOT / "configs/complexity/complexity_module_registry_v1.json"
@@ -58,40 +58,28 @@ def test_v4_preserves_every_frozen_predecessor_byte() -> None:
         assert hashlib.sha256(path.read_bytes()).hexdigest() == FROZEN[path.name]
 
 
-def test_v4_loads_rebuilds_as_unadmitted_nonruntime_candidates() -> None:
-    registry = load_complexity_registry(ROOT, V4)
-    assert registry.schema_version == "complexity_module_registry_v4"
+def test_v4_frozen_overlay_records_unadmitted_nonruntime_metadata() -> None:
+    payload = json.loads(V4.read_text(encoding="utf-8"))
+    overrides = {item["module_id"]: item for item in payload["module_overrides"]}
     for module_id in (
         "architectural-delta-engine",
         "temporal-sensory-ledger",
         "hedonic-preference-learner",
     ):
-        module = registry.module_by_id(module_id)
-        assert module.state is ModuleState.FUTURE_CANDIDATE_NOT_VALIDATED
-        assert module.import_path is None
-        assert hashlib.sha256((ROOT / module.path).read_bytes()).hexdigest() == module.sha256
-    assert not any(module.runtime_eligible for module in registry.modules)
-
-
-def test_v4_keeps_retired_cards_unreachable() -> None:
-    registry = load_complexity_registry(ROOT, V4)
-    retired = {
-        "construction-profile",
-        "complexity-expansion-frontier",
-        "musk-design-restraint",
-        "complexity-model-admission",
-        "complexity-model-lifecycle",
-        "within-sniff-observation-contract",
-        "temporal-observation-contract",
-        "order-balance-contract",
-        "sensory-panel-contract",
-        "citrus-architecture-selector",
-    }
-    assert all(
-        registry.module_by_id(module_id).state is ModuleState.PROVENANCE_TOMBSTONE
-        and registry.module_by_id(module_id).import_path is None
-        for module_id in retired
+        assert overrides[module_id]["state"] == "FUTURE_CANDIDATE_NOT_VALIDATED"
+        assert overrides[module_id]["import_path"] is None
+    assert overrides["temporal-sensory-ledger"]["sha256"] == (
+        "03b5742e8e66dcf1cc27a94b3e5c4484899ee08893b1b34e006d8890805d0f9f"
     )
+    assert payload["module_additions"] == []
+
+
+def test_v4_strict_load_fails_closed_after_declared_ledger_successor() -> None:
+    with pytest.raises(
+        ValueError,
+        match="source binding hash mismatch: engine/sensory/ledger.py",
+    ):
+        load_complexity_registry(ROOT, V4)
 
 
 def test_v4_parent_and_source_hashes_fail_closed(tmp_path: Path) -> None:

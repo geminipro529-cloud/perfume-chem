@@ -447,16 +447,19 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
+  user_stock_dilution: 100% neat/as supplied
   user_in_inventory: true
   supplier: null
   families:
   - floral materials
   character: null
-  notes: Observed inventory label only; species, plant part, supplier, stock strength,
-    and amount are unrecorded.
+  notes: Current user authority resolves only the physical stock as neat/as supplied.
+    Species, plant part, supplier, lot, chemistry, density, safety, and sensory identity
+    remain unresolved.
   provenance:
     user_in_inventory: inventory.txt
+    current_inventory_successor: data/governance/inventory_user_authority_overlay_20260831.json
+    stock_record: data/governance/inventory_user_authority_overlay_20260831.json#INV-USER-20260831-001
 - canonical_name: Male Concentratem
   aliases:
   - Male ConcentrateM

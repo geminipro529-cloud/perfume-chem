@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import dataclasses
+import hashlib
 import json
 import os
 import re
@@ -101,6 +102,16 @@ SCIENTIFIC_INPUT_FILES = (
     "engine/odor_thresholds.py",
     "engine/pipeline/natural_absolute_decomposition.py",
     "data/knowledge_graph/material_properties.json",
+)
+
+HISTORICAL_ARTIFACT_REGISTRY_RELATIVE_PATH = Path(
+    "data/governance/pipeline_historical_artifact_registry_v1.json"
+)
+HISTORICAL_ARTIFACT_REGISTRY_SCHEMA = (
+    "perfume_pipeline_historical_artifact_registry_v1"
+)
+HISTORICAL_ARTIFACT_REGISTRY_SHA256 = (
+    "02b39c56dd263d548199d119e89f46deb247dea8cc86812dbed510edff22fec9"
 )
 
 
@@ -336,7 +347,30 @@ def _append_pipeline_analysis(
     manifest: dict,
 ) -> None:
     text = formula_path.read_text(encoding="utf-8", errors="replace")
-    formula_source, _old_artifact = split_generated_pipeline_analysis(text)
+    formula_source, old_artifact = split_generated_pipeline_analysis(text)
+    old_manifest = parse_pipeline_analysis_manifest(old_artifact)
+    historical_match = _historical_artifact_registry_match(
+        formula_path,
+        formula_source,
+        old_artifact,
+        old_manifest if isinstance(old_manifest, dict) else {},
+    )
+    historical_state = str(historical_match.get("state", "UNREGISTERED"))
+    if historical_state == "REGISTRY_INVALID":
+        raise RuntimeError(
+            "Historical artifact registry is invalid: "
+            + str(
+                historical_match.get(
+                    "registry_issue",
+                    "historical_registry_invalid",
+                )
+            )
+        )
+    if historical_state != "UNREGISTERED":
+        raise RuntimeError(
+            "Registered historical artifact is immutable; create a versioned "
+            "successor before appending analysis"
+        )
     replacement = formula_source.rstrip() + "\n\n" + _artifact_payload(analysis_text, manifest)
     temporary_path: Path | None = None
     rollback_path: Path | None = None
@@ -402,6 +436,128 @@ def _explicit_formula_quarantine(formula_source: str) -> bool:
     )
     normalized = " ".join(formula_source[:4000].casefold().split())
     return bool(status_declared) and "do not mix or release" in normalized
+
+
+def _normalized_text_file_hash(path: Path) -> str:
+    """Hash exact UTF-8 text after normalizing only platform line endings."""
+
+    text = Path(path).read_bytes().decode("utf-8", errors="strict")
+    normalized = text.replace("\r\n", "\n").replace("\r", "\n")
+    return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+
+
+def _historical_artifact_registry_match(
+    formula_path: Path,
+    formula_source: str,
+    artifact: str,
+    manifest: dict,
+) -> dict[str, object]:
+    """Match one exact old artifact against the pinned, non-promoting registry."""
+
+    try:
+        relative_path = formula_path.resolve().relative_to(PROJECT_ROOT.resolve())
+    except (OSError, ValueError):
+        return {"state": "UNREGISTERED"}
+
+    registry_path = PROJECT_ROOT / HISTORICAL_ARTIFACT_REGISTRY_RELATIVE_PATH
+    try:
+        registry_sha256 = stable_file_hash(registry_path)
+        registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        return {
+            "state": "REGISTRY_INVALID",
+            "registry_issue": f"historical_registry_unreadable:{type(exc).__name__}",
+        }
+
+    expected_policy = {
+        "verified_status": "HISTORICAL_VERIFIED",
+        "artifact_binding_status": "HISTORICAL_RECORDED",
+        "formula_file_hash": "UTF8_CRLF_OR_CR_TO_LF_SHA256",
+        "current_repository_bindings": False,
+        "release_authority": False,
+    }
+    if registry_sha256 != HISTORICAL_ARTIFACT_REGISTRY_SHA256:
+        return {
+            "state": "REGISTRY_INVALID",
+            "registry_issue": "historical_registry_hash",
+            "registry_sha256": registry_sha256,
+        }
+    if (
+        registry.get("schema_version") != HISTORICAL_ARTIFACT_REGISTRY_SCHEMA
+        or registry.get("registry_version") != 1
+        or registry.get("policy") != expected_policy
+        or not isinstance(registry.get("records"), list)
+    ):
+        return {
+            "state": "REGISTRY_INVALID",
+            "registry_issue": "historical_registry_contract",
+            "registry_sha256": registry_sha256,
+        }
+
+    formula_label = relative_path.as_posix()
+    records = [
+        record
+        for record in registry["records"]
+        if isinstance(record, dict) and record.get("formula_path") == formula_label
+    ]
+    if not records:
+        return {"state": "UNREGISTERED", "registry_sha256": registry_sha256}
+    if len(records) != 1:
+        return {
+            "state": "REGISTRY_INVALID",
+            "registry_issue": "historical_registry_duplicate_path",
+            "registry_sha256": registry_sha256,
+        }
+
+    record = records[0]
+    record_id = str(record.get("record_id", ""))
+    source_sha256 = stable_text_hash(formula_source)
+    common = {
+        "registry_sha256": registry_sha256,
+        "record_id": record_id,
+        "historical_source_sha256": record.get("formula_source_sha256"),
+    }
+    if record.get("formula_source_sha256") != source_sha256:
+        return {"state": "SOURCE_MISMATCH", **common}
+
+    recorded_input_hashes = {
+        key: manifest.get(key)
+        for key in (
+            "config_sha256",
+            "inventory_sha256",
+            "scientific_inputs_sha256",
+            "pipeline_source_sha256",
+        )
+    }
+    exact_bindings = {
+        "formula_text_lf_sha256": _normalized_text_file_hash(formula_path),
+        "artifact_text_sha256": stable_text_hash(artifact),
+        "manifest_sha256": stable_json_hash(manifest),
+        "manifest_artifact_sha256": manifest.get("artifact_sha256"),
+        "analysis_sha256": manifest.get("analysis_sha256"),
+        "analysis_input_sha256": manifest.get("analysis_input_sha256"),
+        "formula_definitions": manifest.get("formula_definitions"),
+        "g15_parent_formula_definitions": manifest.get(
+            "g15_parent_formula_definitions"
+        ),
+        "canonical_records": manifest.get("canonical_records"),
+        "recorded_input_hashes": recorded_input_hashes,
+        "recorded_repository_commit": manifest.get("repository_commit"),
+        "current_repository_bindings": False,
+        "release_authority": False,
+    }
+    mismatches = [
+        key for key, value in exact_bindings.items() if record.get(key) != value
+    ]
+    if mismatches:
+        return {
+            "state": "TAMPERED",
+            "integrity_issues": [
+                f"historical_registry_{key}" for key in mismatches
+            ],
+            **common,
+        }
+    return {"state": "VERIFIED", **common}
 
 
 def validate_pipeline_analysis_artifact(
@@ -518,25 +674,81 @@ def validate_pipeline_analysis_artifact(
     if manifest.get("pipeline_source_sha256") != current_hashes["pipeline_source_sha256"]:
         stale_issues.append("pipeline_source")
 
+    historical_match = _historical_artifact_registry_match(
+        formula_path,
+        formula_source,
+        artifact,
+        manifest,
+    )
+    historical_state = str(historical_match.get("state", "UNREGISTERED"))
+    if historical_state == "TAMPERED":
+        for issue in historical_match.get("integrity_issues", []):
+            if issue not in integrity_issues:
+                integrity_issues.append(str(issue))
+    elif historical_state == "REGISTRY_INVALID":
+        registry_issue = str(
+            historical_match.get(
+                "registry_issue",
+                "historical_registry_invalid",
+            )
+        )
+        if registry_issue not in integrity_issues:
+            integrity_issues.append(registry_issue)
+    elif historical_state == "SOURCE_MISMATCH":
+        source_issue = "historical_registry_formula_source_sha256"
+        if source_issue not in integrity_issues:
+            integrity_issues.append(source_issue)
+    historical_verified = historical_state == "VERIFIED"
+
     if integrity_issues:
         artifact_binding_status = "TAMPERED"
         status = "TAMPERED"
+    elif historical_verified:
+        artifact_binding_status = "HISTORICAL_RECORDED"
+        status = "HISTORICAL_VERIFIED"
     elif stale_issues:
         artifact_binding_status = "STALE"
         status = "QUARANTINED" if explicitly_quarantined else "STALE"
     else:
         artifact_binding_status = "CURRENT"
         status = "QUARANTINED" if explicitly_quarantined else "CURRENT"
-    return {
+    result: dict[str, object] = {
         "status": status,
         "artifact_binding_status": artifact_binding_status,
         "issues": integrity_issues + stale_issues,
         "integrity_issues": integrity_issues,
         "stale_issues": stale_issues,
         "artifact_sha256": manifest.get("artifact_sha256"),
-        "release_authority": False if explicitly_quarantined else None,
+        "release_authority": (
+            False
+            if explicitly_quarantined or historical_state != "UNREGISTERED"
+            else None
+        ),
         "quarantine_explicit": explicitly_quarantined,
     }
+    if historical_state != "UNREGISTERED":
+        result["historical_registry_state"] = historical_state
+        if historical_match.get("registry_issue"):
+            result["historical_registry_issue"] = historical_match.get(
+                "registry_issue"
+            )
+    if historical_verified:
+        result.update(
+            {
+                "historical_registry_verified": True,
+                "historical_registry_record_id": historical_match.get("record_id"),
+                "historical_registry_sha256": historical_match.get(
+                    "registry_sha256"
+                ),
+                "historical_source_sha256": historical_match.get(
+                    "historical_source_sha256"
+                ),
+                "historical_is_current": False,
+                "current_repository_bindings": False,
+                "release_authority": False,
+            }
+        )
+    return result
 
 
 def _repository_commit() -> str:

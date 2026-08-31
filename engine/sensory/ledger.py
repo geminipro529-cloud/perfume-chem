@@ -1237,9 +1237,9 @@ class RealizedPresentationAssignment:
         if not isinstance(ordered, (list, tuple)):
             raise TypeError("ordered_sample_ids must be a sequence")
         return cls(
-            assessor_id=value["assessor_id"],
-            repeat_id=value["repeat_id"],
-            sequence_id=value["sequence_id"],
+            assessor_id=_required_text(value["assessor_id"], "assessor_id"),
+            repeat_id=_required_text(value["repeat_id"], "repeat_id"),
+            sequence_id=_required_text(value["sequence_id"], "sequence_id"),
             ordered_sample_ids=tuple(ordered),
         )
 
@@ -1741,15 +1741,19 @@ def _v3_realized_order(
             blockers.append("REALIZED_SEQUENCE_COUNTS_UNBALANCED")
 
     for cell in request.parent.cells:
-        assignment = assignments.get((cell.key.assessor_id, cell.key.repeat_id))
-        if assignment is None:
+        realized_assignment = assignments.get(
+            (cell.key.assessor_id, cell.key.repeat_id)
+        )
+        if realized_assignment is None:
             if request.analysis_plan.require_realized_order:
                 blockers.append("OBSERVATION_WITHOUT_REALIZED_ASSIGNMENT")
             continue
-        if cell.presentation_sequence_id != assignment.sequence_id:
+        if cell.presentation_sequence_id != realized_assignment.sequence_id:
             blockers.append("OBSERVATION_SEQUENCE_ID_MISMATCH")
         try:
-            expected_position = assignment.ordered_sample_ids.index(cell.key.sample_id) + 1
+            expected_position = (
+                realized_assignment.ordered_sample_ids.index(cell.key.sample_id) + 1
+            )
         except ValueError:
             blockers.append("OBSERVATION_SAMPLE_NOT_IN_REALIZED_SEQUENCE")
         else:
@@ -2050,6 +2054,7 @@ def analyze_temporal_evidence_v3(
     else:
         state = TemporalEvidenceState.COMPLETE
 
+    next_discriminator: str | None
     if state is TemporalEvidenceState.HOLD:
         if realized.blockers:
             next_discriminator = "REPAIR_REALIZED_PRESENTATION_ORDER"

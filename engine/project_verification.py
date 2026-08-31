@@ -82,6 +82,7 @@ _ENGINE_TEST_SHARDS = {
         "tests/test_data_spine_loader.py",
         "tests/test_ifra_safety.py",
         "tests/test_inventory_material_additions.py",
+        "tests/test_inventory_authority_successor_2026_08_31.py",
         "tests/test_inventory_authority_join.py",
         "tests/test_inventory_v7_recovered_manifest.py",
         "tests/test_inventory_worktree_sync_2026_08_30.py",
@@ -97,6 +98,9 @@ _ENGINE_TEST_SHARDS = {
         "tests/test_scientific_truth_inventory.py",
         "tests/test_module_intake_ingestion.py",
         "tests/test_module_intake_interaction_registry.py",
+    ),
+    "harmonic-runtime-current": (
+        "tests/test_complexity_registry_v7.py",
     ),
     "gates-families": (
         "tests/test_a1_authoritative_contracts.py",
@@ -421,6 +425,8 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                 "engine/evidence/ledger.py",
                 "engine/safety/regulatory.py",
                 "engine/sensory/ledger.py",
+                "engine/perception/harmonic_runtime_registry.py",
+                "tests/test_complexity_registry_v7.py",
                 "engine/versioning/formula_version.py",
                 "engine/reconstruction/rank_prior.py",
                 "engine/reconstruction/ensembles.py",
@@ -486,6 +492,7 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                 "engine/evidence/ledger.py",
                 "engine/safety/regulatory.py",
                 "engine/sensory/ledger.py",
+                "engine/perception/harmonic_runtime_registry.py",
                 "engine/versioning/formula_version.py",
                 "engine/reconstruction/rank_prior.py",
                 "engine/reconstruction/ensembles.py",
@@ -567,6 +574,7 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                 pytest
                 + (
                     "tests/test_data_spine_loader.py",
+                    "tests/test_inventory_authority_successor_2026_08_31.py",
                     "tests/test_inventory_material_additions.py",
                     "tests/test_property_estimator.py",
                     "-q",
@@ -662,7 +670,18 @@ def _tail(value: str, line_count: int = 30) -> str:
 
 
 def _default_runner(project_root: Path) -> Callable[[CheckSpec], CommandOutcome]:
-    verification_temp = project_root / "output" / "verification-temp"
+    if os.name == "nt":
+        # Keep recursive pytest fixtures below the legacy Windows MAX_PATH limit.
+        # A per-verifier PID suffix also isolates concurrent verification runs.
+        local_app_data = os.environ.get("LOCALAPPDATA")
+        verification_temp_root = (
+            Path(local_app_data) / "Temp"
+            if local_app_data
+            else Path(tempfile.gettempdir())
+        )
+        verification_temp = verification_temp_root / f"pcv-{os.getpid()}"
+    else:
+        verification_temp = project_root / "output" / "verification-temp"
     verification_temp.mkdir(parents=True, exist_ok=True)
     pip_cache = project_root / "output" / "verification-pip-cache"
     pip_cache.mkdir(parents=True, exist_ok=True)
@@ -670,6 +689,7 @@ def _default_runner(project_root: Path) -> Callable[[CheckSpec], CommandOutcome]
     def run(spec: CheckSpec) -> CommandOutcome:
         started = time.monotonic()
         env = dict(os.environ)
+        env["TMPDIR"] = str(verification_temp)
         env["TEMP"] = str(verification_temp)
         env["TMP"] = str(verification_temp)
         env["PIP_CACHE_DIR"] = str(pip_cache)
@@ -776,6 +796,7 @@ def _select_checks(
             "knowledge-rule-validation",
             "golden-formula-regression",
             "golden-api-regression",
+            "engine-tests-harmonic-runtime-current",
         )
         return tuple(by_name[name] for name in quick_names)
     return tuple(checks)

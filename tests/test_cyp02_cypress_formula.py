@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pytest
 
+from engine.pipeline.preflight import resolve_inventory_stock_contract
 from scripts.verify_formula_workflow import (
     _formula_bound_mixing_protocol,
     parse_formula_markdown,
@@ -28,12 +29,25 @@ def test_cyp02_is_a_full_exact_current_inventory_formula() -> None:
 
     assert ingredients["Cypress EO"] == 650.0
     assert ingredients["Magnolia EO"] == 150.0
+    assert dilutions["Magnolia EO"] == pytest.approx(1.0)
+    assert formula["stock_specs"]["Magnolia EO"] == {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "approximate": False,
+        "declared": True,
+        "raw": "neat/as supplied",
+    }
     assert ingredients["Orris Liquid"] == 120.0
     assert dilutions["Orris Liquid"] == pytest.approx(0.30)
     assert ingredients["Alpha Irone"] == 50.0
     assert dilutions["Alpha Irone"] == pytest.approx(0.10)
     assert ingredients["Ambrettolide"] == 320.0
     assert dilutions["Ambrettolide"] == pytest.approx(0.10)
+
+    stock_contract = resolve_inventory_stock_contract(formula)
+    assert stock_contract.status == "PASS"
+    assert stock_contract.data["issues"] == []
 
 
 def test_cyp02_keeps_cypress_as_subject_and_uses_one_precise_musk() -> None:

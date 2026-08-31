@@ -172,3 +172,35 @@ def test_artifact_verify_accepts_explicit_quarantine_as_nonpromoting(
     assert '"status": "PASS"' in captured
     assert '"QUARANTINED": 1' in captured
     assert '"quarantined_release_authority": false' in captured
+
+
+def test_artifact_verify_accepts_registered_history_as_noncurrent_and_nonpromoting(
+    tmp_path, monkeypatch, capsys
+):
+    formulas_dir = tmp_path / "formulas"
+    formulas_dir.mkdir()
+    formula = formulas_dir / "Historical.md"
+    formula.write_text("# Historical\n", encoding="utf-8")
+    monkeypatch.setattr(pipeline_audit, "PROJECT_ROOT", tmp_path)
+    monkeypatch.setattr(
+        pipeline_audit,
+        "validate_pipeline_analysis_artifact",
+        lambda _path, **_kwargs: {
+            "status": "HISTORICAL_VERIFIED",
+            "artifact_binding_status": "HISTORICAL_RECORDED",
+            "issues": ["inventory"],
+            "release_authority": False,
+            "current_repository_bindings": False,
+        },
+    )
+
+    rc = pipeline_audit.main(
+        ["artifact-verify", "--glob", "formulas/*.md", "--json"]
+    )
+
+    captured = capsys.readouterr().out
+    assert rc == 0
+    assert '"status": "PASS"' in captured
+    assert '"HISTORICAL_VERIFIED": 1' in captured
+    assert '"historical_is_current": false' in captured
+    assert '"historical_release_authority": false' in captured

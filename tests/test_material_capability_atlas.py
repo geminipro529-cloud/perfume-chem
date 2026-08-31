@@ -20,7 +20,7 @@ def atlas():
 def test_atlas_reparses_every_current_row_and_v5_requirement(atlas) -> None:
     assert atlas.current_stock_row_count == 279
     assert atlas.current_identity_count == 258
-    assert atlas.v5_stock_count == 227
+    assert atlas.v5_stock_count == 226
     assert atlas.v5_requirement_count == 280
     assert len(atlas.records) == 258
     assert len({record.identity_key for record in atlas.records}) == 258
@@ -45,7 +45,7 @@ def test_latest_user_stock_text_blocks_stale_v5_and_profile_availability(atlas) 
     assert benzyl.hedonic_claims == ()
 
 
-def test_stale_profile_stock_never_overrides_current_alpha_irone_stock(atlas) -> None:
+def test_profile_stock_matches_current_alpha_irone_stock(atlas) -> None:
     irone = atlas.project("Alpha Irone")
 
     assert irone.inventory_state is InventoryCapabilityState.OWNED_EXECUTABLE
@@ -56,7 +56,7 @@ def test_stale_profile_stock_never_overrides_current_alpha_irone_stock(atlas) ->
     assert stock.carrier == "dep"
     assert stock.execution_ready is True
     assert all(item.active_fraction != Decimal("0.3") for item in irone.current_stocks)
-    assert any(conflict.field == "profile_stock" for conflict in irone.conflicts)
+    assert not any(conflict.field == "profile_stock" for conflict in irone.conflicts)
 
 
 def test_owned_but_unresolved_stocks_remain_qualitative_only(atlas) -> None:

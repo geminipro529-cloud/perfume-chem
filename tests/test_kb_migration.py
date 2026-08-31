@@ -5,8 +5,10 @@
 import os
 import sqlite3
 import tempfile
+from pathlib import Path
 
 import pytest
+import yaml
 
 from engine.name_utils import normalize_name
 
@@ -117,6 +119,62 @@ def test_aliases_exist(conn: sqlite3.Connection) -> None:
     """SELECT COUNT(*) FROM material_aliases > 0."""
     count = conn.execute("SELECT COUNT(*) FROM material_aliases").fetchone()[0]
     assert count > 0, "No aliases found in material_aliases"
+
+
+def test_guaiacwood_eo_kb_row_alias_and_fail_closed_lineage(
+    conn: sqlite3.Connection,
+) -> None:
+    row = conn.execute(
+        """
+        SELECT m.mw_g_mol, m.density_25c_g_ml, m.logp, m.vp_25c_pa,
+               m.odt_air_ppb, m.odt_eth_ppm, m.ifra_cat4_limit_pct,
+               m.user_stock_dilution, m.user_in_inventory
+        FROM materials m
+        WHERE m.canonical_name = ?
+        """,
+        ("Guaiacwood EO",),
+    ).fetchone()
+    assert row == (
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        None,
+        "33% nominal; fraction basis and carrier unspecified; quantitative execution HOLD",
+        1,
+    )
+
+    alias = conn.execute(
+        """
+        SELECT m.canonical_name
+        FROM material_aliases a
+        JOIN materials m ON m.id = a.material_id
+        WHERE a.alias_name = ?
+        """,
+        ("Guaiacwood Essential Oil",),
+    ).fetchone()
+    assert alias == ("Guaiacwood EO",)
+    assert normalize_name("Guaiacwood Essential Oil") == "guaiacwood eo"
+
+    yaml_rows = yaml.safe_load(
+        (Path(__file__).parents[1] / "data" / "materials" / "G.yaml").read_text(
+            encoding="utf-8"
+        )
+    )
+    source = next(row for row in yaml_rows if row.get("canonical_name") == "Guaiacwood EO")
+    assert source["provenance"]["current_inventory_successor"] == (
+        "data/governance/inventory_user_authority_overlay_20260831.json"
+    )
+    assert source["provenance"]["stock_record"] == (
+        "data/governance/inventory_user_authority_overlay_20260828.json"
+        "#INV-USER-20260829-003"
+    )
+    assert source["quantitative_execution_state"] == "HOLD"
+    assert source["quantitative_execution_hold_reason"] == (
+        "FRACTION_BASIS_AND_CARRIER_UNSPECIFIED"
+    )
 
 
 # ── Natural decomposition ─────────────────────────────────────────────

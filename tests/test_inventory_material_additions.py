@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 
 from engine.data_spine.loader import load_materials, load_registry
-from engine.ingredient_catalog import load_ingredient_catalog
+from engine.ingredient_catalog import build_ingredient_catalog, load_ingredient_catalog
 from engine.ingredient_intelligence import get_profile
 from engine.inventory_parser import parse_inventory
 from engine.name_utils import names_match, normalize_name
@@ -34,8 +34,8 @@ _JULY_2026_MATERIAL_ADDITIONS = {
         0.10,
         True,
     ),
-    "Black Agarwood Artificial": ("Black Agarwood Artificial", 1.0, False),
-    "Castoreum Synthetic": ("Castoreum Synthetic", 1.0, False),
+    "Black Agarwood Artificial": ("Black Agarwood Artificial", 0.10, False),
+    "Castoreum Synthetic": ("Castoreum Synthetic", 0.10, False),
     "Jasmine Absolute 10% in DPG": ("Jasmine Absolute", 0.10, True),
     "Coffee Absolute Grasse 10% in DPG": (
         "Coffee Absolute Grasse",
@@ -43,6 +43,40 @@ _JULY_2026_MATERIAL_ADDITIONS = {
         True,
     ),
 }
+
+
+@pytest.mark.parametrize("catalog_factory", [build_ingredient_catalog, load_ingredient_catalog])
+def test_current_catalog_exposes_corrected_owned_and_held_stock_records(
+    catalog_factory,
+) -> None:
+    catalog = {item["identity_key"]: item for item in catalog_factory()}
+
+    black_agarwood = catalog["black agarwood artificial"]
+    assert black_agarwood["current_status"] == "owned"
+    assert black_agarwood["owned_now"] is True
+    assert black_agarwood["executable_now"] is True
+    assert any("10% w/w in DPG" in form for form in black_agarwood["observed_forms"])
+    assert any("neat stock is not owned" in form for form in black_agarwood["observed_forms"])
+
+    for identity in ("castoreum synthetic", "guaiacwood eo", "ambrofix crystals"):
+        held = catalog[identity]
+        assert held["current_status"] == "hold"
+        assert held["owned_now"] is True
+        assert held["executable_now"] is False
+
+    assert "stock_fraction_basis_unspecified" in catalog["castoreum synthetic"][
+        "authority_holds"
+    ]
+    assert "species_plant_part_supplier_lot_unresolved" in catalog["magnolia eo"][
+        "authority_holds"
+    ]
+
+    guaiacwood = catalog["guaiacwood eo"]
+    assert guaiacwood["properties"]["mw"] is None
+    assert guaiacwood["properties"]["vp"] is None
+    assert guaiacwood["properties"]["odt"] is None
+    assert guaiacwood["best_with"] == []
+    assert guaiacwood["replacement_options"] == []
 
 
 @pytest.mark.parametrize(
@@ -112,7 +146,21 @@ def test_july_2026_additions_are_synced_to_legacy_material_properties() -> None:
     for canonical_name, expected_dilution, _is_natural in _JULY_2026_MATERIAL_ADDITIONS.values():
         material = by_name[canonical_name.casefold()]
         assert material["in_inventory"] is True
-        assert material["dilution_pct"] == pytest.approx(expected_dilution)
+        if canonical_name == "Castoreum Synthetic":
+            assert material["dilution_pct"] is None
+            assert material["nominal_stock_fraction"] == pytest.approx(
+                expected_dilution
+            )
+            assert material["stock_fraction_basis"] is None
+            assert material["stock_carrier"] == "dep"
+            assert material["stock_execution_ready"] is False
+            assert material["stock_execution_hold_reason"] == (
+                "FRACTION_BASIS_UNSPECIFIED"
+            )
+            assert material["oav_typical"] is None
+            assert material["oav_dose_pct"] is None
+        else:
+            assert material["dilution_pct"] == pytest.approx(expected_dilution)
         assert material["stock_form"]
         for field in (
             "mw",
@@ -138,7 +186,7 @@ def test_violet_leaf_profile_does_not_recommend_itself_as_a_synergy() -> None:
 def test_requested_stock_is_available_at_recorded_dilutions() -> None:
     available = {item.name: item for item in parse_inventory(include_unavailable=False)}
 
-    assert available["Alpha Irone"].dilution == pytest.approx(0.30)
+    assert available["Alpha Irone"].dilution == pytest.approx(0.10)
     assert available["Orris Liquid"].dilution == pytest.approx(0.30)
     assert available["Orris Liquid"].fraction_basis == "mass_fraction"
     assert available["Hydroxycitronellol"].dilution == pytest.approx(1.0)
@@ -195,13 +243,13 @@ def test_inventory_parser_excludes_ambrofix_liquid_phase_on_homogeneity_hold(
     assert all_records["Ambrofix"].dilution == pytest.approx(0.0727)
     assert all_records["Ambrofix"].fraction_basis == "mass_fraction"
     assert all_records["Ambrofix"].carrier == "dep + ethanol"
-    assert all_records["Ambrofix"].status == "hold"
+    assert all_records["Ambrofix"].status == "owned_non_executable"
     assert "Ambrofix" not in available
     assert available["Ambrox Super"].status == "owned"
     assert available["Threshold Marker"].status == "owned"
 
 
-def test_ambrofix_derived_metadata_preserves_hold_and_distinct_solid_identity() -> None:
+def test_ambrofix_derived_metadata_preserves_provenance_and_distinct_solid_identity() -> None:
     registry = load_registry()
     ambrofix = registry.get("Ambrofix")
     ambrox_super = registry.get("Ambrox Super")
@@ -212,20 +260,20 @@ def test_ambrofix_derived_metadata_preserves_hold_and_distinct_solid_identity() 
     assert ambrofix_solid is not None
     assert ambrofix is not ambrox_super
     assert ambrofix is not ambrofix_solid
-    assert ambrofix.user_in_inventory is True
-    assert ambrofix.user_stock_dilution == (
-        "nominal 7.27% w/w whole bottle including solid; HOLD visible crystals; "
-        "density unknown; liquid phase non-executable"
-    )
+    assert ambrofix.user_in_inventory is False
+    assert ambrofix.user_stock_dilution is None
     assert ambrofix.density_25c_g_ml is None
+    assert ambrofix_solid.user_in_inventory is True
+    assert ambrofix_solid.user_stock_dilution == "100% solid/as supplied"
 
     catalog = {item["identity_key"]: item for item in load_ingredient_catalog()}
     catalog_record = catalog["ambrofix"]
-    assert catalog_record["current_status"] == "hold"
-    assert catalog_record["owned_now"] is True
+    assert catalog_record["current_status"] == "out_of_stock"
+    assert catalog_record["owned_now"] is False
     assert catalog_record["executable_now"] is False
-    assert catalog_record["observed_forms"][0].startswith(
-        "Ambrofix (nominal 7.27% w/w"
+    assert catalog_record["was_owned"] is True
+    assert any(
+        "7.27% w/w" in form for form in catalog_record["observed_forms"]
     )
 
 
@@ -353,7 +401,7 @@ def test_legacy_material_properties_mirror_live_stock_and_thresholds() -> None:
     by_name = {material["name"].casefold(): material for material in materials}
 
     expected = {
-        "alpha irone": ("79-69-6", 0.30, 0.9, 0.16),
+        "alpha irone": ("79-69-6", 0.10, 0.9, 0.16),
         "hydroxycitronellol": ("107-74-4", 1.0, 100.0, 20.0),
         "olibanum resinoid": ("8016-36-2", 0.5, 10.0, 3.0),
         "orris liquid": ("8002-73-1", 0.30, 0.9, 0.16),

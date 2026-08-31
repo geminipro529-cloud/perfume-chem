@@ -33,6 +33,12 @@ SYNC_SUCCESSOR = (
     / "governance"
     / "inventory_worktree_sync_20260831.json"
 )
+SYNC_CURRENT_SUCCESSOR = (
+    PROJECT_ROOT
+    / "data"
+    / "governance"
+    / "inventory_worktree_sync_20260831_003.json"
+)
 
 
 def _records(*, include_unavailable: bool = True):
@@ -56,7 +62,6 @@ def test_consolidated_inventory_has_declared_stock_row_count():
         ("Ambrettolide", 0.10),
         ("Habanolide", 1.0),
         ("Romandolide", 1.0),
-        ("Ambrofix Crystals", 1.0),
         ("Diethyl Phthalate", 1.0),
         ("Cinnamon Bark EO - Telvada USDA Organic", 1.0),
     ),
@@ -66,6 +71,17 @@ def test_reconfirmed_stocks_are_present_and_owned(name, dilution):
     assert matches
     assert any(record.status == "owned" for record in matches)
     assert any(record.dilution == pytest.approx(dilution) for record in matches)
+
+
+def test_ambrofix_crystals_are_owned_but_volume_execution_is_held():
+    crystals = next(
+        record for record in _records() if record.name == "Ambrofix Crystals"
+    )
+    assert crystals.status == "owned_non_executable"
+    assert crystals.dilution == pytest.approx(1.0)
+    assert crystals.fraction_basis == "neat"
+    assert crystals.execution_ready is False
+    assert crystals.execution_hold_reason == "LEGACY_TEXT_CURRENT_STOCK_HOLD"
 
 
 def test_evernyl_keeps_owned_and_unprepared_stocks_distinct():
@@ -155,13 +171,29 @@ def test_pinned_v5_snapshot_accepts_git_checkout_line_endings(tmp_path):
 def test_sync_manifest_hashes_every_distributed_inventory_file():
     payload = json.loads(SYNC_MANIFEST.read_text(encoding="utf-8"))
     successor = json.loads(SYNC_SUCCESSOR.read_text(encoding="utf-8"))
+    current = json.loads(SYNC_CURRENT_SUCCESSOR.read_text(encoding="utf-8"))
     assert payload["sync_id"] == "INVENTORY-WORKTREE-SYNC-20260830-001"
     assert successor["sync_id"] == "INVENTORY-WORKTREE-SYNC-20260831-002"
+    assert current["sync_id"] == "INVENTORY-WORKTREE-SYNC-20260831-003"
+    assert current["hash_policy"] == {
+        "text_normalization": "CRLF_TO_LF",
+        "size_bytes": "NORMALIZED_TEXT_BYTES",
+        "sha256": "NORMALIZED_TEXT_BYTES",
+        "bare_cr": "HASH_SIGNIFICANT_NOT_NORMALIZED",
+    }
     parent_bytes = SYNC_MANIFEST.read_bytes().replace(b"\r\n", b"\n")
     assert successor["parent"]["sha256"] == hashlib.sha256(parent_bytes).hexdigest()
-    superseded = {
+    successor_bytes = SYNC_SUCCESSOR.read_bytes().replace(b"\r\n", b"\n")
+    assert current["parent"] == {
+        "path": "data/governance/inventory_worktree_sync_20260831.json",
+        "sha256": hashlib.sha256(successor_bytes).hexdigest(),
+    }
+    successor_superseded = {
         record["path"]: record
         for record in successor["superseded_compatibility_files"]
+    }
+    current_superseded = {
+        record["path"]: record for record in current["superseded_files"]
     }
     for group in (
         "current_authority_files",
@@ -169,7 +201,9 @@ def test_sync_manifest_hashes_every_distributed_inventory_file():
         "compatibility_files",
     ):
         for record in payload[group]:
-            replacement = superseded.get(record["path"])
+            replacement = successor_superseded.get(record["path"])
+            if replacement is None:
+                replacement = current_superseded.get(record["path"])
             if replacement is not None:
                 assert replacement["prior_sha256"] == record["sha256"]
                 continue
@@ -186,6 +220,16 @@ def test_sync_manifest_hashes_every_distributed_inventory_file():
             assert hashlib.sha256(content).hexdigest() == record["sha256"]
 
     for record in successor["successor_compatibility_files"]:
+        replacement = current_superseded.get(record["path"])
+        if replacement is not None:
+            assert replacement["prior_sha256"] == record["sha256"]
+            continue
+        path = PROJECT_ROOT / record["path"]
+        content = path.read_bytes().replace(b"\r\n", b"\n")
+        assert len(content) == record["size_bytes"]
+        assert hashlib.sha256(content).hexdigest() == record["sha256"]
+
+    for record in current["current_files"]:
         path = PROJECT_ROOT / record["path"]
         content = path.read_bytes().replace(b"\r\n", b"\n")
         assert len(content) == record["size_bytes"]

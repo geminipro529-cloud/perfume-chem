@@ -23,12 +23,13 @@ def test_registry_v3_exposes_no_solforge_or_replacement_runtime_imports() -> Non
     assert states["hedonic-preference-learner"] is ModuleState.DIAGNOSTIC_ONLY
 
 
-def test_registry_v4_exposes_no_rebuild_runtime_imports() -> None:
-    registry = load_complexity_registry(ROOT, REGISTRY_V4)
-    assert not any(module.runtime_eligible for module in registry.modules)
-    for module in registry.modules:
-        if module.state is not ModuleState.ADMITTED_RUNTIME:
-            assert module.import_path is None
+def test_registry_v4_frozen_overlay_exposes_no_rebuild_runtime_imports() -> None:
+    payload = json.loads(REGISTRY_V4.read_text(encoding="utf-8"))
+    assert payload["module_additions"] == []
+    assert all(
+        item["state"] != "ADMITTED_RUNTIME" and item["import_path"] is None
+        for item in payload["module_overrides"]
+    )
 
 
 def test_retired_complexity_cards_are_provenance_tombstones() -> None:
