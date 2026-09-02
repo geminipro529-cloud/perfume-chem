@@ -1,0 +1,104 @@
+{
+  "schema_version": "runtime_closure_config_v1",
+  "package_prefix": "engine.formulation_intelligence",
+  "closure_id": "closure:deep-plane-runtime-candidate:v1",
+  "modules": [
+    {
+      "schema_version": "runtime_closure_module_spec_v1",
+      "module_id": "deep-plane-package-init-candidate",
+      "module_name": "engine.formulation_intelligence",
+      "capability_ids": [
+        "stable-structural-package-boundary"
+      ],
+      "schema_artifact_ids": [
+        "schema:deep-plane-runtime-request-v1"
+      ],
+      "resource_artifact_ids": [
+        "config:deep-plane-runtime-candidate-v1"
+      ],
+      "authority_ceiling": "withheld",
+      "exclusions": [
+        "beauty authority",
+        "benchmark execution",
+        "compounding authority",
+        "empirical authority",
+        "formula generation",
+        "formula mutation",
+        "hedonic outcome authority",
+        "inventory mutation",
+        "liking authority",
+        "performance authority",
+        "physical execution",
+        "production runtime admission",
+        "purchase authority",
+        "release authority",
+        "safety authority",
+        "sensory authority",
+        "similarity authority",
+        "stability authority"
+      ]
+    },
+    {
+      "schema_version": "runtime_closure_module_spec_v1",
+      "module_id": "deep-plane-runtime-candidate",
+      "module_name": "engine.formulation_intelligence.deep_plane_runtime",
+      "capability_ids": [
+        "recursive-exact-thirteen-plane-read-only-synthesis"
+      ],
+      "schema_artifact_ids": [
+        "schema:deep-plane-runtime-request-v1"
+      ],
+      "resource_artifact_ids": [
+        "config:deep-plane-runtime-candidate-v1",
+        "data:deep-plane-governing-design-v1"
+      ],
+      "authority_ceiling": "withheld",
+      "exclusions": [
+        "beauty authority",
+        "benchmark execution",
+        "compounding authority",
+        "empirical authority",
+        "formula generation",
+        "formula mutation",
+        "hedonic outcome authority",
+        "inventory mutation",
+        "liking authority",
+        "performance authority",
+        "physical execution",
+        "production runtime admission",
+        "purchase authority",
+        "release authority",
+        "safety authority",
+        "sensory authority",
+        "similarity authority",
+        "stability authority"
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "schema_version": "runtime_closure_resource_spec_v1",
+      "artifact_id": "config:deep-plane-runtime-candidate-v1",
+      "artifact_kind": "config",
+      "relative_path": "configs/formulation_intelligence/deep_plane_runtime_candidate_v1.json",
+      "dependency_ids": [],
+      "content_sha256_of": null
+    },
+    {
+      "schema_version": "runtime_closure_resource_spec_v1",
+      "artifact_id": "data:deep-plane-governing-design-v1",
+      "artifact_kind": "data",
+      "relative_path": "docs/superpowers/specs/2026-08-31-perfume-intelligence-plane-synthesis-design.md",
+      "dependency_ids": [],
+      "content_sha256_of": null
+    },
+    {
+      "schema_version": "runtime_closure_resource_spec_v1",
+      "artifact_id": "schema:deep-plane-runtime-request-v1",
+      "artifact_kind": "schema",
+      "relative_path": "schemas/formulation_intelligence/deep_plane_runtime_request_v1.json",
+      "dependency_ids": [],
+      "content_sha256_of": null
+    }
+  ]
+}

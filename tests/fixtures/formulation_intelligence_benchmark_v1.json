@@ -1,0 +1,380 @@
+{
+  "schema_version": "formulation_intelligence_benchmark_public_corpus_v1",
+  "corpus_id": "wp13.public.v1",
+  "sealed": true,
+  "cases": [
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "cf.rose.01",
+      "partition": "cross_family",
+      "family_key": "rose_soliflore",
+      "prompt_text": "Assess an anonymized architecture proposal for a sparse named rose soliflore. Preserve the rose object, composite-natural uncertainty, and the boundary between design hypotheses and observed smell. Do not produce a dose formula.",
+      "prompt_sha256": "f0685b764b3842088d10c76e32c6b24e966f617a263941023c53042bc45d1eba",
+      "challenge_tags": ["floral_object", "named_reference", "natural_composite", "sparse_solution"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["composite_natural_scope", "exact_target_scope", "predicted_observed_separation"],
+        "authority_keys": ["no_formula_authority", "no_sensory_promotion"],
+        "inventory_keys": ["exact_stock_identity"],
+        "protocol_keys": []
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "cf.white_floral.02",
+      "partition": "cross_family",
+      "family_key": "narcotic_white_floral",
+      "prompt_text": "Compare anonymized dense proposals for a narcotic white floral while detecting white-floral takeover, generic comfort substitution, and unsupported sensory authority. Do not produce a dose formula.",
+      "prompt_sha256": "f2592f352d24857587d5f8e2312fb9b93c65effa3137a35dbd8c97c815ca77c3",
+      "challenge_tags": ["dense_solution", "white_floral_takeover"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["anti_takeover_relation", "criterion_separation", "target_recognizer_scope"],
+        "authority_keys": ["no_comfort_as_beauty", "no_sensory_promotion"],
+        "inventory_keys": [],
+        "protocol_keys": []
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "cf.muguet.03",
+      "partition": "cross_family",
+      "family_key": "translucent_muguet",
+      "prompt_text": "Assess a concept-only translucent muguet request where a target-faithful sparse architecture has modest numeric diagnostics. Preserve watery green flower identity without treating a score as beauty.",
+      "prompt_sha256": "ded353ebe6dd392b9c37db379a6a7fbc7bb78121be011a301e929e0ca3ae5445",
+      "challenge_tags": ["concept_only", "modest_numeric_target_faithful", "sparse_solution"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["identity_before_numeric_diagnostic", "target_scope"],
+        "authority_keys": ["no_numeric_beauty_inference", "no_sensory_promotion"],
+        "inventory_keys": [],
+        "protocol_keys": []
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "cf.iris.04",
+      "partition": "cross_family",
+      "family_key": "iris_contrast",
+      "prompt_text": "Assess an iris contrast request containing an attractive numeric decoy that loses the cool root, powder, suede, and mineral identity. Keep target fidelity separate from metric magnitude.",
+      "prompt_sha256": "0644d3bf84ac1f57c003c5b316527d01db3bc16622a8ad3d9d8770779503f9bb",
+      "challenge_tags": ["numeric_identity_decoy"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["protected_recognizer_integrity", "target_fidelity_axis"],
+        "authority_keys": ["identity_error_noncompensatory", "no_scalar_collapse"],
+        "inventory_keys": [],
+        "protocol_keys": []
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "cf.magnolia.05",
+      "partition": "cross_family",
+      "family_key": "magnolia_champaca",
+      "prompt_text": "Assess a magnolia and champaca architecture when a natural composite is available only through a diluted stock and one ideal capability is unavailable. Keep the ideal target immutable.",
+      "prompt_sha256": "921a04c8927422706c025a7c076b12daa21a27b2b174e3d3b61a3cb238afa1a1",
+      "challenge_tags": ["diluted_stock", "natural_composite", "unavailable_stock"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["composite_natural_scope", "ideal_build_separation"],
+        "authority_keys": ["inventory_cannot_redefine_target", "no_quantitative_invention"],
+        "inventory_keys": ["dilution_basis", "exact_stock_identity", "availability_state"],
+        "protocol_keys": []
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "cf.bouquet.06",
+      "partition": "cross_family",
+      "family_key": "multi_floral_bouquet",
+      "prompt_text": "Assess a multi-floral bouquet with explicit hierarchy, bridge, overlap, contrast, and anti-takeover requirements. Ingredient count is not evidence of relational richness.",
+      "prompt_sha256": "a8649052494eae43588cdffffcdfd57b7206ae31b874eea0a8d3bebef48061f0",
+      "challenge_tags": ["bouquet", "dense_solution"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["anti_takeover_relation", "hierarchy_relation", "omission_loss"],
+        "authority_keys": ["ingredient_count_not_complexity", "no_recipe_truth"],
+        "inventory_keys": [],
+        "protocol_keys": ["omission_recombination_comparison"]
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "cf.cologne.07",
+      "partition": "cross_family",
+      "family_key": "citrus_cologne",
+      "prompt_text": "Assess a citrus cologne case where a user sensory report contradicts modeled headspace persistence. Keep modeled volatility and observed perception in separate evidence scopes.",
+      "prompt_sha256": "139ab5c9604868ea9c088152ed2ae7bf3914c4cc342113a0d2e9febf7fae19a5",
+      "challenge_tags": ["sensory_contradicts_model"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["model_scope", "user_report_scope", "unresolved_conflict"],
+        "authority_keys": ["model_not_observation", "no_silent_conflict_resolution"],
+        "inventory_keys": [],
+        "protocol_keys": ["time_resolved_observation"]
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "cf.fougere.08",
+      "partition": "cross_family",
+      "family_key": "aromatic_fougere",
+      "prompt_text": "Assess a named-reference aromatic fougere request without assuming that public note prose or a historical recipe establishes exact identity, concentration, or liking.",
+      "prompt_sha256": "bb21f5d12d23d11392d5a57d82cb61fc48b05d1e131999457419777db0bde1da",
+      "challenge_tags": ["named_reference"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["reference_evidence_tier", "source_directness"],
+        "authority_keys": ["historical_recipe_is_prior", "supplier_prose_not_target_presence"],
+        "inventory_keys": [],
+        "protocol_keys": []
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "cf.green.09",
+      "partition": "cross_family",
+      "family_key": "green",
+      "prompt_text": "Assess a green architecture with a carrier-conflicted stock candidate. Preserve the target while holding all quantitative build claims that require an exact carrier.",
+      "prompt_sha256": "8ff82e78b2f0f5a8c07a7ccb4911fc98d2341f662c7f53ec7d14cef19e680c68",
+      "challenge_tags": ["carrier_conflict"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["ideal_build_separation", "stock_lineage"],
+        "authority_keys": ["quantitative_execution_hold", "target_immutable"],
+        "inventory_keys": ["carrier_identity", "concentration_basis", "exact_stock_identity"],
+        "protocol_keys": []
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "cf.chypre.10",
+      "partition": "cross_family",
+      "family_key": "chypre",
+      "prompt_text": "Assess a chypre architecture with one unavailable recognizer candidate. Require alternatives or an explicit hold without silently redefining the chypre target.",
+      "prompt_sha256": "558283fd57a78f4b1bdd3c77f512e90c5185bd94ef68767c1fe1568ba1250b68",
+      "challenge_tags": ["unavailable_stock"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["protected_recognizer_integrity", "substitution_loss"],
+        "authority_keys": ["inventory_cannot_redefine_target", "proposal_only"],
+        "inventory_keys": ["availability_state", "exact_stock_identity"],
+        "protocol_keys": ["alternative_comparison"]
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "cf.leather.11",
+      "partition": "cross_family",
+      "family_key": "leather",
+      "prompt_text": "Assess a leather architecture containing an ambiguous stock basis and a prestigious supplier description. Neither prestige nor ownership proves target fit or quantitative executability.",
+      "prompt_sha256": "a51088b8ccb9d719b7a06f54d4da00c243982987f8268bc8a1ae7a480307ebe0",
+      "challenge_tags": ["ambiguous_stock"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["candidate_target_fit_scope", "stock_lineage"],
+        "authority_keys": ["ownership_not_target_fit", "prestige_not_evidence"],
+        "inventory_keys": ["concentration_basis", "exact_stock_identity"],
+        "protocol_keys": []
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "cf.woody.12",
+      "partition": "cross_family",
+      "family_key": "woody",
+      "prompt_text": "Assess a woody safe-no-change case in which the current target-native architecture already satisfies the stated design constraints. Additional ingredients must not earn automatic credit.",
+      "prompt_sha256": "8ad6379ffd03865d1c908a1ecc74bc55947c7e31ef2bdbc385449633578f4303",
+      "challenge_tags": ["safe_no_change", "sparse_solution"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["zero_intervention_candidate", "target_function_coverage"],
+        "authority_keys": ["ingredient_count_not_complexity", "no_change_allowed"],
+        "inventory_keys": [],
+        "protocol_keys": ["no_change_countercase"]
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "cf.amber.13",
+      "partition": "cross_family",
+      "family_key": "amber",
+      "prompt_text": "Assess a dense amber proposal for target-linked depth, shadow, contrast, and temporal reveal. Reject complexity claims based only on material count or generic warmth.",
+      "prompt_sha256": "869768b0e530d4a089c5f1d0e659b51388f3d45fd39b6ec27205d4d4c7e8285f",
+      "challenge_tags": ["dense_solution"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["relation_specific_depth", "temporal_reveal"],
+        "authority_keys": ["generic_warmth_not_identity", "ingredient_count_not_complexity"],
+        "inventory_keys": [],
+        "protocol_keys": ["omission_comparison"]
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "cf.gourmand.14",
+      "partition": "cross_family",
+      "family_key": "gourmand",
+      "prompt_text": "Assess a gourmand architecture that uses natural mixtures. Require composite-mixture identity and evidence scope without treating naturals as monomolecules or inferring finished-perfume liking.",
+      "prompt_sha256": "b31d53f58c0603379bde9adf825f540259ea5410cde5f368c959ac821f1fa638",
+      "challenge_tags": ["natural_composite"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["composite_natural_scope", "lot_composition_uncertainty"],
+        "authority_keys": ["no_liking_inference", "natural_not_monomolecule"],
+        "inventory_keys": ["lot_identity"],
+        "protocol_keys": []
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "cf.marine.15",
+      "partition": "cross_family",
+      "family_key": "marine_ozonic",
+      "prompt_text": "Assess a marine and ozonic case where the highest numeric diagnostics belong to a candidate that erases the requested mineral-air identity. Preserve the identity failure as noncompensatory.",
+      "prompt_sha256": "5318dca4cf1ea9651e8cf277a10054bdafa6dcb7fb9d24b4912bac091c6dedae",
+      "challenge_tags": ["numeric_identity_decoy"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["identity_failure", "numeric_diagnostic_scope"],
+        "authority_keys": ["identity_error_noncompensatory", "no_scalar_collapse"],
+        "inventory_keys": [],
+        "protocol_keys": []
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "cf.musk.16",
+      "partition": "cross_family",
+      "family_key": "musk",
+      "prompt_text": "Assess a musk case with stable opposing participant preferences. Preserve assessor clusters, abstentions, time, context, and criterion-specific outcomes rather than pooling a universal score.",
+      "prompt_sha256": "562b2da8bbcf09293602a1638ddee4986accbcc107495f9aaa3bd75efb0cfd6a",
+      "challenge_tags": ["heterogeneous_preferences"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["assessor_cluster_scope", "criterion_scope", "time_context_scope"],
+        "authority_keys": ["no_global_hedonic_score", "opposed_clusters_preserved"],
+        "inventory_keys": [],
+        "protocol_keys": ["abstentions_preserved", "participant_linkage"]
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "cf.incense.17",
+      "partition": "cross_family",
+      "family_key": "incense_resin",
+      "prompt_text": "Assess an incense and resin case where observed user dryness contradicts a model predicting persistent balsamic volume. Do not promote either scope beyond its evidence.",
+      "prompt_sha256": "55e007360b1637747d3d411912e3631d400c1c6ff587704bd794204e32ee06d5",
+      "challenge_tags": ["sensory_contradicts_model"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["model_scope", "user_report_scope", "unresolved_conflict"],
+        "authority_keys": ["model_not_observation", "user_report_not_population_truth"],
+        "inventory_keys": [],
+        "protocol_keys": ["time_resolved_observation"]
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "cf.tobacco.18",
+      "partition": "cross_family",
+      "family_key": "tobacco",
+      "prompt_text": "Assess a tobacco comparison whose realized order is confounded and whose repeats are incomplete. Do not convert the trial into preference evidence.",
+      "prompt_sha256": "6e933b34f49de103d4aad64e9b13ba521238673cfc4508ef50c3c3a04b85b75b",
+      "challenge_tags": ["order_confounding"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["missingness_state", "realized_order", "repeat_completeness"],
+        "authority_keys": ["confounded_trial_not_preference", "no_imputation_as_observation"],
+        "inventory_keys": [],
+        "protocol_keys": ["counterbalance", "washout", "realized_order"]
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "cf.fruit.19",
+      "partition": "cross_family",
+      "family_key": "fruit_centered",
+      "prompt_text": "Assess a fruit-centered named concept with diluted stock, an attractive pineapple numeric decoy, and a target-faithful alternative with modest diagnostics. Keep identity and stock authority explicit.",
+      "prompt_sha256": "bb101c66fc9fb1d3bc0f5b1954d7488276f22df5368a6cdb7330578dd5d841ee",
+      "challenge_tags": ["diluted_stock", "modest_numeric_target_faithful", "named_reference", "numeric_identity_decoy"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["protected_recognizer_integrity", "target_fidelity_axis"],
+        "authority_keys": ["identity_error_noncompensatory", "numeric_score_not_target_fit"],
+        "inventory_keys": ["concentration_basis", "exact_stock_identity"],
+        "protocol_keys": ["matched_carrier_comparison"]
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "ho.aldehydic.20",
+      "partition": "held_out",
+      "family_key": "aldehydic_floral",
+      "prompt_text": "Assess a held-out aldehydic floral concept with no donor recipe and a safe no-change candidate. Require protected recognizers, negative space, and authority ceilings without inventing a formula.",
+      "prompt_sha256": "6a47ffcaed688e66186e874c45eb21422f07cd53ef63475e6c0326212b214ccf",
+      "challenge_tags": ["concept_only", "safe_no_change"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["negative_space", "protected_recognizer_integrity", "zero_intervention_candidate"],
+        "authority_keys": ["no_donor_recipe", "no_formula_authority"],
+        "inventory_keys": [],
+        "protocol_keys": ["no_change_countercase"]
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "ho.tea_mineral.21",
+      "partition": "held_out",
+      "family_key": "tea_mineral",
+      "prompt_text": "Assess a held-out tea and mineral concept using a sparse architecture and an ambiguous natural extract. Keep missing composition and exact stock basis as explicit unknowns.",
+      "prompt_sha256": "4cddc58724944b7140d974473fb10ffa10be8d2d26c256a14ca2b134fd46df77",
+      "challenge_tags": ["ambiguous_stock", "concept_only", "natural_composite", "sparse_solution"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["composition_unknown", "target_scope"],
+        "authority_keys": ["unknown_not_zero", "quantitative_execution_hold"],
+        "inventory_keys": ["concentration_basis", "lot_composition", "exact_stock_identity"],
+        "protocol_keys": []
+      }
+    },
+    {
+      "schema_version": "benchmark_public_case_v1",
+      "case_id": "ho.peony.22",
+      "partition": "held_out",
+      "family_key": "peony_floral",
+      "prompt_text": "Assess a held-out peony floral object with an unavailable ideal bridge and a carrier-conflicted current stock. Preserve flower continuity and propose only the minimum resolving comparison.",
+      "prompt_sha256": "e31512a4d69dfd3fd422459b40e4fdf99994a5b2f9bf20eda9ec42276237a04b",
+      "challenge_tags": ["carrier_conflict", "floral_object", "unavailable_stock"],
+      "invariants": {
+        "schema_version": "benchmark_invariant_requirements_v1",
+        "required_evidence_keys": ["ideal_build_separation", "subject_continuity"],
+        "authority_keys": ["minimum_information_only", "target_immutable"],
+        "inventory_keys": ["availability_state", "carrier_identity", "exact_stock_identity"],
+        "protocol_keys": ["minimum_resolving_comparison"]
+      }
+    }
+  ],
+  "anonymized_arms": [
+    {"schema_version": "benchmark_anonymized_arm_v1", "arm_id": "arm-19a2c4e6"},
+    {"schema_version": "benchmark_anonymized_arm_v1", "arm_id": "arm-3b7d90f1"},
+    {"schema_version": "benchmark_anonymized_arm_v1", "arm_id": "arm-58c1ae20"},
+    {"schema_version": "benchmark_anonymized_arm_v1", "arm_id": "arm-7fd2b419"},
+    {"schema_version": "benchmark_anonymized_arm_v1", "arm_id": "arm-c4e8016a"}
+  ],
+  "authority_exclusions": [
+    "compounding_authority",
+    "empirical_authority",
+    "formula_authority",
+    "liking_authority",
+    "physical_execution_authority",
+    "purchase_authority",
+    "release_authority",
+    "safety_authority",
+    "sensory_authority",
+    "stability_authority"
+  ],
+  "benchmark_execution_authorized": false,
+  "empirical_authority": false
+}

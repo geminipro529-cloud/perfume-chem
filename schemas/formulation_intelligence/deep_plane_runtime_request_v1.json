@@ -1,0 +1,853 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://perfume-chem.local/schemas/deep_plane_runtime_protocol_v1.json",
+  "title": "Deep Plane Runtime Candidate Protocol",
+  "description": "Strict structural-only request and recursive receipt records for the unadmitted Deep Plane runtime candidate.",
+  "oneOf": [
+    {"$ref": "#/$defs/runtime_request"},
+    {"$ref": "#/$defs/runtime_receipt"}
+  ],
+  "$defs": {
+    "authority_ceiling": {
+      "enum": [
+        "withheld",
+        "structural_only",
+        "hypothesis_only",
+        "design_only",
+        "evidence_limited"
+      ]
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "nonempty_string": {
+      "type": "string",
+      "minLength": 1
+    },
+    "plane_id": {
+      "enum": [
+        "identity",
+        "morphology",
+        "function",
+        "relation",
+        "mixture",
+        "temporal",
+        "spatial_composition",
+        "physicochemical",
+        "biological_sensitivity",
+        "hedonic",
+        "inventory_build",
+        "evidence_authority",
+        "experiment"
+      ]
+    },
+    "string_array": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/nonempty_string"},
+      "uniqueItems": true
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "target_scope",
+        "temporal_scope",
+        "matrix_scope"
+      ],
+      "properties": {
+        "schema_version": {"const": "assessment_scope_v1"},
+        "target_scope": {"$ref": "#/$defs/nonempty_string"},
+        "temporal_scope": {"$ref": "#/$defs/nonempty_string"},
+        "matrix_scope": {"$ref": "#/$defs/nonempty_string"}
+      }
+    },
+    "unit_interval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "lower", "upper"],
+      "properties": {
+        "schema_version": {"const": "unit_interval_v1"},
+        "lower": {"type": "number", "minimum": 0, "maximum": 1},
+        "upper": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "provenance_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "provenance_id",
+        "source_ref",
+        "evidence_class",
+        "independence_key",
+        "source_sha256"
+      ],
+      "properties": {
+        "schema_version": {"const": "plane_provenance_ref_v1"},
+        "provenance_id": {"$ref": "#/$defs/nonempty_string"},
+        "source_ref": {"$ref": "#/$defs/nonempty_string"},
+        "evidence_class": {
+          "enum": [
+            "direct_observation",
+            "instrumental_observation",
+            "primary_source",
+            "official_record",
+            "computational_model",
+            "heuristic",
+            "historical_prior",
+            "user_report",
+            "unknown"
+          ]
+        },
+        "independence_key": {"$ref": "#/$defs/nonempty_string"},
+        "source_sha256": {
+          "oneOf": [
+            {"$ref": "#/$defs/digest"},
+            {"type": "null"}
+          ]
+        }
+      }
+    },
+    "provenance_array": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/provenance_ref"},
+      "uniqueItems": true
+    },
+    "support_interval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "interval_id",
+        "claim_id",
+        "lower",
+        "upper",
+        "provenance_refs",
+        "support_measure"
+      ],
+      "properties": {
+        "schema_version": {"const": "support_interval_v2"},
+        "interval_id": {"$ref": "#/$defs/nonempty_string"},
+        "claim_id": {"$ref": "#/$defs/nonempty_string"},
+        "lower": {"type": "number", "minimum": 0, "maximum": 1},
+        "upper": {"type": "number", "minimum": 0, "maximum": 1},
+        "provenance_refs": {"$ref": "#/$defs/provenance_array"},
+        "support_measure": {
+          "enum": ["evidence_support", "declaration_presence"]
+        }
+      }
+    },
+    "scoped_claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "claim_id",
+        "claim_key",
+        "claim_value",
+        "claim_kind",
+        "authority_ceiling",
+        "provenance_refs",
+        "cardinality",
+        "member_id",
+        "order_index"
+      ],
+      "properties": {
+        "schema_version": {"const": "scoped_claim_v2"},
+        "claim_id": {"$ref": "#/$defs/nonempty_string"},
+        "claim_key": {"$ref": "#/$defs/nonempty_string"},
+        "claim_value": {"$ref": "#/$defs/nonempty_string"},
+        "claim_kind": {
+          "enum": [
+            "requirement",
+            "prohibition",
+            "hypothesis",
+            "observation",
+            "diagnostic"
+          ]
+        },
+        "authority_ceiling": {"$ref": "#/$defs/authority_ceiling"},
+        "provenance_refs": {"$ref": "#/$defs/provenance_array"},
+        "cardinality": {
+          "enum": ["single", "set_member", "ordered_member"]
+        },
+        "member_id": {
+          "oneOf": [
+            {"$ref": "#/$defs/nonempty_string"},
+            {"type": "null"}
+          ]
+        },
+        "order_index": {
+          "oneOf": [
+            {"type": "integer", "minimum": 0},
+            {"type": "null"}
+          ]
+        }
+      }
+    },
+    "criterion_value": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "state", "value", "reason"],
+      "properties": {
+        "schema_version": {"const": "criterion_value_v1"},
+        "state": {"enum": ["known", "unknown"]},
+        "value": {
+          "oneOf": [
+            {"type": "number"},
+            {"type": "null"}
+          ]
+        },
+        "reason": {
+          "oneOf": [
+            {"$ref": "#/$defs/nonempty_string"},
+            {"type": "null"}
+          ]
+        }
+      }
+    },
+    "unknown_fact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "unknown_id",
+        "field_key",
+        "reason",
+        "needed_evidence",
+        "provenance_refs"
+      ],
+      "properties": {
+        "schema_version": {"const": "plane_unknown_v1"},
+        "unknown_id": {"$ref": "#/$defs/nonempty_string"},
+        "field_key": {"$ref": "#/$defs/nonempty_string"},
+        "reason": {"$ref": "#/$defs/nonempty_string"},
+        "needed_evidence": {"$ref": "#/$defs/nonempty_string"},
+        "provenance_refs": {"$ref": "#/$defs/provenance_array"}
+      }
+    },
+    "plane_conflict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "conflict_id",
+        "claim_key",
+        "alternatives",
+        "reason",
+        "claim_ids",
+        "provenance_refs"
+      ],
+      "properties": {
+        "schema_version": {"const": "plane_conflict_v1"},
+        "conflict_id": {"$ref": "#/$defs/nonempty_string"},
+        "claim_key": {"$ref": "#/$defs/nonempty_string"},
+        "alternatives": {
+          "type": "array",
+          "minItems": 2,
+          "items": {"$ref": "#/$defs/nonempty_string"},
+          "uniqueItems": true
+        },
+        "reason": {"$ref": "#/$defs/nonempty_string"},
+        "claim_ids": {"$ref": "#/$defs/string_array"},
+        "provenance_refs": {"$ref": "#/$defs/provenance_array"}
+      }
+    },
+    "pareto_criterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "criterion_id",
+        "direction",
+        "value",
+        "unit",
+        "authority_ceiling",
+        "provenance_refs"
+      ],
+      "properties": {
+        "schema_version": {"const": "pareto_native_criterion_v1"},
+        "criterion_id": {"$ref": "#/$defs/nonempty_string"},
+        "direction": {"enum": ["maximize", "minimize", "preserve"]},
+        "value": {"$ref": "#/$defs/criterion_value"},
+        "unit": {"$ref": "#/$defs/nonempty_string"},
+        "authority_ceiling": {"$ref": "#/$defs/authority_ceiling"},
+        "provenance_refs": {"$ref": "#/$defs/provenance_array"}
+      }
+    },
+    "plane_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "assessment_id",
+        "module_id",
+        "plane_id",
+        "scope",
+        "claims",
+        "support_intervals",
+        "conflicts",
+        "unknowns",
+        "failure_modes",
+        "proposed_experiments",
+        "provenance_refs",
+        "authority_ceiling",
+        "freshness_hashes",
+        "native_criteria"
+      ],
+      "properties": {
+        "schema_version": {"const": "plane_assessment_v2"},
+        "assessment_id": {"$ref": "#/$defs/nonempty_string"},
+        "module_id": {"$ref": "#/$defs/nonempty_string"},
+        "plane_id": {"$ref": "#/$defs/plane_id"},
+        "scope": {"$ref": "#/$defs/scope"},
+        "claims": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/scoped_claim"},
+          "uniqueItems": true
+        },
+        "support_intervals": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/support_interval"},
+          "uniqueItems": true
+        },
+        "conflicts": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/plane_conflict"},
+          "uniqueItems": true
+        },
+        "unknowns": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/unknown_fact"},
+          "uniqueItems": true
+        },
+        "failure_modes": {"$ref": "#/$defs/string_array"},
+        "proposed_experiments": {"$ref": "#/$defs/string_array"},
+        "provenance_refs": {"$ref": "#/$defs/provenance_array"},
+        "authority_ceiling": {"$ref": "#/$defs/authority_ceiling"},
+        "freshness_hashes": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/digest"},
+          "uniqueItems": true
+        },
+        "native_criteria": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/pareto_criterion"},
+          "uniqueItems": true
+        }
+      }
+    },
+    "identity_once": {
+      "contains": {"properties": {"plane_id": {"const": "identity"}}},
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "morphology_once": {
+      "contains": {"properties": {"plane_id": {"const": "morphology"}}},
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "function_once": {
+      "contains": {"properties": {"plane_id": {"const": "function"}}},
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "relation_once": {
+      "contains": {"properties": {"plane_id": {"const": "relation"}}},
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "mixture_once": {
+      "contains": {"properties": {"plane_id": {"const": "mixture"}}},
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "temporal_once": {
+      "contains": {"properties": {"plane_id": {"const": "temporal"}}},
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "spatial_composition_once": {
+      "contains": {
+        "properties": {"plane_id": {"const": "spatial_composition"}}
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "physicochemical_once": {
+      "contains": {"properties": {"plane_id": {"const": "physicochemical"}}},
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "biological_sensitivity_once": {
+      "contains": {
+        "properties": {"plane_id": {"const": "biological_sensitivity"}}
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "hedonic_once": {
+      "contains": {"properties": {"plane_id": {"const": "hedonic"}}},
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "inventory_build_once": {
+      "contains": {"properties": {"plane_id": {"const": "inventory_build"}}},
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "evidence_authority_once": {
+      "contains": {
+        "properties": {"plane_id": {"const": "evidence_authority"}}
+      },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "experiment_once": {
+      "contains": {"properties": {"plane_id": {"const": "experiment"}}},
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "assessment_array": {
+      "type": "array",
+      "minItems": 13,
+      "maxItems": 13,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/plane_assessment"},
+      "allOf": [
+        {"$ref": "#/$defs/identity_once"},
+        {"$ref": "#/$defs/morphology_once"},
+        {"$ref": "#/$defs/function_once"},
+        {"$ref": "#/$defs/relation_once"},
+        {"$ref": "#/$defs/mixture_once"},
+        {"$ref": "#/$defs/temporal_once"},
+        {"$ref": "#/$defs/spatial_composition_once"},
+        {"$ref": "#/$defs/physicochemical_once"},
+        {"$ref": "#/$defs/biological_sensitivity_once"},
+        {"$ref": "#/$defs/hedonic_once"},
+        {"$ref": "#/$defs/inventory_build_once"},
+        {"$ref": "#/$defs/evidence_authority_once"},
+        {"$ref": "#/$defs/experiment_once"}
+      ]
+    },
+    "layer_request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "layer_id",
+        "depth",
+        "parent_layer_id",
+        "assessments"
+      ],
+      "properties": {
+        "schema_version": {"const": "deep_plane_runtime_layer_request_v1"},
+        "layer_id": {"$ref": "#/$defs/nonempty_string"},
+        "depth": {"type": "integer", "minimum": 0, "maximum": 15},
+        "parent_layer_id": {
+          "oneOf": [
+            {"$ref": "#/$defs/nonempty_string"},
+            {"type": "null"}
+          ]
+        },
+        "assessments": {"$ref": "#/$defs/assessment_array"}
+      }
+    },
+    "runtime_request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "layers"],
+      "properties": {
+        "schema_version": {"const": "deep_plane_runtime_request_v1"},
+        "layers": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/layer_request"}
+        }
+      }
+    },
+    "harmonized_member": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "assessment_id",
+        "module_id",
+        "plane_id",
+        "scope",
+        "claim",
+        "support_intervals",
+        "assessment_authority_ceiling"
+      ],
+      "properties": {
+        "schema_version": {"const": "harmonized_plane_claim_member_v2"},
+        "assessment_id": {"$ref": "#/$defs/nonempty_string"},
+        "module_id": {"$ref": "#/$defs/nonempty_string"},
+        "plane_id": {"$ref": "#/$defs/plane_id"},
+        "scope": {"$ref": "#/$defs/scope"},
+        "claim": {"$ref": "#/$defs/scoped_claim"},
+        "support_intervals": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/support_interval"},
+          "uniqueItems": true
+        },
+        "assessment_authority_ceiling": {
+          "$ref": "#/$defs/authority_ceiling"
+        }
+      }
+    },
+    "harmonized_claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "harmonized_id",
+        "scope",
+        "claim_key",
+        "claim_value",
+        "claim_kind",
+        "members",
+        "support_intervals",
+        "conservative_support",
+        "source_claim_ids",
+        "assessment_ids",
+        "module_ids",
+        "plane_ids",
+        "provenance_refs",
+        "authority_ceiling"
+      ],
+      "properties": {
+        "schema_version": {"const": "harmonized_plane_claim_v2"},
+        "harmonized_id": {"$ref": "#/$defs/nonempty_string"},
+        "scope": {"$ref": "#/$defs/scope"},
+        "claim_key": {"$ref": "#/$defs/nonempty_string"},
+        "claim_value": {"$ref": "#/$defs/nonempty_string"},
+        "claim_kind": {
+          "enum": [
+            "requirement",
+            "prohibition",
+            "hypothesis",
+            "observation",
+            "diagnostic"
+          ]
+        },
+        "members": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/harmonized_member"},
+          "uniqueItems": true
+        },
+        "support_intervals": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/support_interval"},
+          "uniqueItems": true
+        },
+        "conservative_support": {
+          "oneOf": [
+            {"$ref": "#/$defs/unit_interval"},
+            {"type": "null"}
+          ]
+        },
+        "source_claim_ids": {"$ref": "#/$defs/string_array"},
+        "assessment_ids": {"$ref": "#/$defs/string_array"},
+        "module_ids": {"$ref": "#/$defs/string_array"},
+        "plane_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/plane_id"},
+          "uniqueItems": true
+        },
+        "provenance_refs": {"$ref": "#/$defs/provenance_array"},
+        "authority_ceiling": {"$ref": "#/$defs/authority_ceiling"}
+      }
+    },
+    "synthesis_conflict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "conflict_id",
+        "scope",
+        "claim_key",
+        "alternatives",
+        "reason",
+        "claim_ids",
+        "assessment_ids",
+        "module_ids",
+        "plane_ids",
+        "provenance_refs",
+        "explicit_conflict_ids"
+      ],
+      "properties": {
+        "schema_version": {"const": "plane_synthesis_conflict_v1"},
+        "conflict_id": {"$ref": "#/$defs/nonempty_string"},
+        "scope": {"$ref": "#/$defs/scope"},
+        "claim_key": {"$ref": "#/$defs/nonempty_string"},
+        "alternatives": {
+          "type": "array",
+          "minItems": 2,
+          "items": {"$ref": "#/$defs/nonempty_string"},
+          "uniqueItems": true
+        },
+        "reason": {"$ref": "#/$defs/nonempty_string"},
+        "claim_ids": {"$ref": "#/$defs/string_array"},
+        "assessment_ids": {"$ref": "#/$defs/string_array"},
+        "module_ids": {"$ref": "#/$defs/string_array"},
+        "plane_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/plane_id"},
+          "uniqueItems": true
+        },
+        "provenance_refs": {"$ref": "#/$defs/provenance_array"},
+        "explicit_conflict_ids": {"$ref": "#/$defs/string_array"}
+      }
+    },
+    "scoped_unknown": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "assessment_id",
+        "module_id",
+        "plane_id",
+        "scope",
+        "unknown"
+      ],
+      "properties": {
+        "schema_version": {"const": "scoped_unknown_v1"},
+        "assessment_id": {"$ref": "#/$defs/nonempty_string"},
+        "module_id": {"$ref": "#/$defs/nonempty_string"},
+        "plane_id": {"$ref": "#/$defs/plane_id"},
+        "scope": {"$ref": "#/$defs/scope"},
+        "unknown": {"$ref": "#/$defs/unknown_fact"}
+      }
+    },
+    "scoped_native_criterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "assessment_id",
+        "module_id",
+        "plane_id",
+        "scope",
+        "criterion"
+      ],
+      "properties": {
+        "schema_version": {"const": "scoped_native_criterion_v1"},
+        "assessment_id": {"$ref": "#/$defs/nonempty_string"},
+        "module_id": {"$ref": "#/$defs/nonempty_string"},
+        "plane_id": {"$ref": "#/$defs/plane_id"},
+        "scope": {"$ref": "#/$defs/scope"},
+        "criterion": {"$ref": "#/$defs/pareto_criterion"}
+      }
+    },
+    "synthesis_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "assessments",
+        "harmonized_claims",
+        "conflicts",
+        "unknowns",
+        "native_criteria",
+        "provenance_refs",
+        "authority_ceiling",
+        "vote_counting_used",
+        "formula_generation_authorized",
+        "formula_mutation_authorized",
+        "inventory_mutation_authorized",
+        "runtime_integration_authorized",
+        "physical_execution_authorized",
+        "compounding_authorized",
+        "purchase_authority",
+        "pass_fail_authority",
+        "sensory_authority",
+        "beauty_authority",
+        "hedonic_score_authorized",
+        "similarity_authority",
+        "performance_authority",
+        "safety_authority",
+        "stability_authority",
+        "release_authority"
+      ],
+      "properties": {
+        "schema_version": {"const": "plane_synthesis_result_v2"},
+        "assessments": {"$ref": "#/$defs/assessment_array"},
+        "harmonized_claims": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/harmonized_claim"},
+          "uniqueItems": true
+        },
+        "conflicts": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/synthesis_conflict"},
+          "uniqueItems": true
+        },
+        "unknowns": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/scoped_unknown"},
+          "uniqueItems": true
+        },
+        "native_criteria": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/scoped_native_criterion"},
+          "uniqueItems": true
+        },
+        "provenance_refs": {"$ref": "#/$defs/provenance_array"},
+        "authority_ceiling": {"const": "withheld"},
+        "vote_counting_used": {"const": false},
+        "formula_generation_authorized": {"const": false},
+        "formula_mutation_authorized": {"const": false},
+        "inventory_mutation_authorized": {"const": false},
+        "runtime_integration_authorized": {"const": false},
+        "physical_execution_authorized": {"const": false},
+        "compounding_authorized": {"const": false},
+        "purchase_authority": {"const": false},
+        "pass_fail_authority": {"const": false},
+        "sensory_authority": {"const": false},
+        "beauty_authority": {"const": false},
+        "hedonic_score_authorized": {"const": false},
+        "similarity_authority": {"const": false},
+        "performance_authority": {"const": false},
+        "safety_authority": {"const": false},
+        "stability_authority": {"const": false},
+        "release_authority": {"const": false}
+      }
+    },
+    "false_authorities": {
+      "type": "object",
+      "required": [
+        "empirical_authority",
+        "formula_generation_authorized",
+        "formula_mutation_authorized",
+        "inventory_mutation_authorized",
+        "runtime_integration_authorized",
+        "production_runtime_admission_authorized",
+        "physical_execution_authorized",
+        "compounding_authorized",
+        "purchase_authority",
+        "pass_fail_authority",
+        "sensory_authority",
+        "liking_authority",
+        "beauty_authority",
+        "hedonic_outcome_authority",
+        "hedonic_score_authorized",
+        "similarity_authority",
+        "performance_authority",
+        "safety_authority",
+        "stability_authority",
+        "release_authority"
+      ],
+      "properties": {
+        "empirical_authority": {"const": false},
+        "formula_generation_authorized": {"const": false},
+        "formula_mutation_authorized": {"const": false},
+        "inventory_mutation_authorized": {"const": false},
+        "runtime_integration_authorized": {"const": false},
+        "production_runtime_admission_authorized": {"const": false},
+        "physical_execution_authorized": {"const": false},
+        "compounding_authorized": {"const": false},
+        "purchase_authority": {"const": false},
+        "pass_fail_authority": {"const": false},
+        "sensory_authority": {"const": false},
+        "liking_authority": {"const": false},
+        "beauty_authority": {"const": false},
+        "hedonic_outcome_authority": {"const": false},
+        "hedonic_score_authorized": {"const": false},
+        "similarity_authority": {"const": false},
+        "performance_authority": {"const": false},
+        "safety_authority": {"const": false},
+        "stability_authority": {"const": false},
+        "release_authority": {"const": false}
+      }
+    },
+    "layer_receipt": {
+      "type": "object",
+      "allOf": [
+        {"$ref": "#/$defs/false_authorities"},
+        {
+          "type": "object",
+          "required": [
+            "schema_version",
+            "layer",
+            "synthesis",
+            "assessment_sha256s",
+            "child_receipt",
+            "child_receipt_sha256",
+            "authority_ceiling"
+          ],
+          "properties": {
+            "schema_version": {"const": "deep_plane_runtime_layer_receipt_v1"},
+            "layer": {"$ref": "#/$defs/layer_request"},
+            "synthesis": {"$ref": "#/$defs/synthesis_result"},
+            "assessment_sha256s": {
+              "type": "array",
+              "minItems": 13,
+              "maxItems": 13,
+              "items": {"$ref": "#/$defs/digest"},
+              "uniqueItems": true
+            },
+            "child_receipt": {
+              "oneOf": [
+                {"$ref": "#/$defs/layer_receipt"},
+                {"type": "null"}
+              ]
+            },
+            "child_receipt_sha256": {
+              "oneOf": [
+                {"$ref": "#/$defs/digest"},
+                {"type": "null"}
+              ]
+            },
+            "authority_ceiling": {"const": "withheld"}
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "runtime_receipt": {
+      "type": "object",
+      "allOf": [
+        {"$ref": "#/$defs/false_authorities"},
+        {
+          "type": "object",
+          "required": [
+            "schema_version",
+            "receipt_id",
+            "request",
+            "root_layer_receipt",
+            "layer_receipt_sha256s",
+            "candidate_state",
+            "authority_ceiling"
+          ],
+          "properties": {
+            "schema_version": {"const": "deep_plane_runtime_receipt_v2"},
+            "receipt_id": {
+              "type": "string",
+              "pattern": "^deep-plane-runtime-candidate:[0-9a-f]{64}$"
+            },
+            "request": {"$ref": "#/$defs/runtime_request"},
+            "root_layer_receipt": {"$ref": "#/$defs/layer_receipt"},
+            "layer_receipt_sha256s": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 16,
+              "items": {"$ref": "#/$defs/digest"},
+              "uniqueItems": true
+            },
+            "candidate_state": {"const": "future_candidate_not_validated"},
+            "authority_ceiling": {"const": "withheld"}
+          }
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  }
+}
