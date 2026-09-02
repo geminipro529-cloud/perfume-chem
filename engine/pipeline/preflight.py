@@ -7,11 +7,24 @@ subsequent OAV/gate analysis.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
+from math import isclose, isfinite
 from typing import Any, Mapping
 
-from engine.calibration.hashing import stable_file_hash
-from engine.inventory_parser import INVENTORY_PATH, parse_inventory
+from engine.calibration.hashing import (
+    formula_hash_from_record,
+    stable_file_hash,
+    stable_json_hash,
+)
+from engine.inventory_parser import (
+    CURRENT_INVENTORY_ALIAS_CROSSWALK_SHA256,
+    CURRENT_INVENTORY_AUTHORITY,
+    CURRENT_INVENTORY_SNAPSHOT_PATH,
+    CURRENT_INVENTORY_WORKBOOK_SHA256,
+    load_current_inventory_alias_crosswalk,
+    parse_current_inventory,
+)
 from engine.knowledge.literature_rules import (
     build_knowledge_rule_quality_contract,
     build_literature_rule_contract,
@@ -30,7 +43,11 @@ class PreflightCheck:
     data: dict[str, Any] = field(default_factory=dict)
 
     def as_dict(self) -> dict[str, Any]:
-        payload = {"check_name": self.name, "status": self.status, "detail": self.detail}
+        payload: dict[str, Any] = {
+            "check_name": self.name,
+            "status": self.status,
+            "detail": self.detail,
+        }
         if self.data:
             payload["data"] = dict(self.data)
         return payload
@@ -50,6 +67,229 @@ class PreflightReport:
             "confidence_penalty": round(float(self.confidence_penalty), 3),
             "warnings": list(self.warnings),
         }
+
+
+_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+_DOSE_RECEIPT_SCHEMA = "formula-dose-receipt-v1"
+
+
+@dataclass(frozen=True, slots=True)
+class FormulaDoseLineReceipt:
+    """One immutable planned-volume dose bound to one exact physical stock."""
+
+    material_name: str
+    raw_ul: float
+    active_ul: float | None
+    stock_fraction: float | None
+    fraction_basis: str
+    carrier: str
+    stock_id: str | None
+    stock_authority: str | None
+    inventory_authority: str | None
+    source_rows: tuple[int, ...]
+    status: str
+    blockers: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        name = str(self.material_name).strip()
+        if not name:
+            raise ValueError("dose receipt material_name must not be blank")
+        raw_ul = float(self.raw_ul)
+        if not isfinite(raw_ul) or raw_ul <= 0.0:
+            raise ValueError(f"{name}: dose receipt raw_ul must be finite and positive")
+        if self.stock_fraction is None:
+            fraction = None
+        else:
+            fraction = float(self.stock_fraction)
+            if not isfinite(fraction) or not 0.0 < fraction <= 1.0:
+                raise ValueError(f"{name}: dose receipt stock_fraction must be in (0, 1]")
+        if self.active_ul is None:
+            active_ul = None
+        else:
+            active_ul = float(self.active_ul)
+            if not isfinite(active_ul) or active_ul < 0.0:
+                raise ValueError(f"{name}: dose receipt active_ul must be finite and nonnegative")
+        status = str(self.status).strip().upper()
+        if status not in {"BOUND", "ABSTAINED"}:
+            raise ValueError(f"{name}: dose receipt line status is invalid")
+        blockers = tuple(sorted({str(item).strip() for item in self.blockers if str(item).strip()}))
+        source_rows = tuple(sorted({int(value) for value in self.source_rows}))
+        if status == "BOUND":
+            required = (
+                fraction,
+                active_ul,
+                str(self.stock_id or "").strip(),
+                str(self.stock_authority or "").strip(),
+                str(self.inventory_authority or "").strip(),
+            )
+            if any(value in {None, ""} for value in required) or not source_rows:
+                raise ValueError(f"{name}: bound dose receipt line lacks stock lineage")
+            if blockers:
+                raise ValueError(f"{name}: bound dose receipt line cannot carry blockers")
+            if fraction is None or active_ul is None or not isclose(
+                active_ul,
+                raw_ul * fraction,
+                rel_tol=0.0,
+                abs_tol=1e-12,
+            ):
+                raise ValueError(f"{name}: dose receipt active quantity is inconsistent")
+        elif not blockers:
+            raise ValueError(f"{name}: abstained dose receipt line requires blockers")
+        object.__setattr__(self, "material_name", name)
+        object.__setattr__(self, "raw_ul", raw_ul)
+        object.__setattr__(self, "active_ul", active_ul)
+        object.__setattr__(self, "stock_fraction", fraction)
+        object.__setattr__(self, "fraction_basis", str(self.fraction_basis).strip())
+        object.__setattr__(self, "carrier", str(self.carrier).strip())
+        object.__setattr__(self, "stock_id", str(self.stock_id).strip() if self.stock_id else None)
+        object.__setattr__(
+            self,
+            "stock_authority",
+            str(self.stock_authority).strip() if self.stock_authority else None,
+        )
+        object.__setattr__(
+            self,
+            "inventory_authority",
+            str(self.inventory_authority).strip() if self.inventory_authority else None,
+        )
+        object.__setattr__(self, "source_rows", source_rows)
+        object.__setattr__(self, "status", status)
+        object.__setattr__(self, "blockers", blockers)
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "material_name": self.material_name,
+            "raw_ul": self.raw_ul,
+            "active_ul": self.active_ul,
+            "stock_fraction": self.stock_fraction,
+            "fraction_basis": self.fraction_basis,
+            "carrier": self.carrier,
+            "stock_id": self.stock_id,
+            "stock_authority": self.stock_authority,
+            "inventory_authority": self.inventory_authority,
+            "source_rows": list(self.source_rows),
+            "status": self.status,
+            "blockers": list(self.blockers),
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class FormulaDoseReceipt:
+    """Content-addressed V5 stock/dose identity for one formula input."""
+
+    formula_name: str
+    formula_input_sha256: str
+    legacy_formula_hash: str
+    inventory_snapshot_sha256: str
+    inventory_source_workbook_sha256: str
+    inventory_authority_sheet: str
+    lines: tuple[FormulaDoseLineReceipt, ...]
+    status: str
+    reasons: tuple[str, ...]
+    receipt_sha256: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        formula_name = str(self.formula_name).strip()
+        if not formula_name:
+            raise ValueError("dose receipt formula_name must not be blank")
+        for value, label in (
+            (self.formula_input_sha256, "formula_input_sha256"),
+            (self.legacy_formula_hash, "legacy_formula_hash"),
+            (self.inventory_snapshot_sha256, "inventory_snapshot_sha256"),
+            (
+                self.inventory_source_workbook_sha256,
+                "inventory_source_workbook_sha256",
+            ),
+        ):
+            if not _SHA256_RE.fullmatch(str(value)):
+                raise ValueError(f"dose receipt {label} must be lowercase SHA-256")
+        lines = tuple(sorted(self.lines, key=lambda row: row.material_name.casefold()))
+        if not lines:
+            raise ValueError("dose receipt requires at least one positive dose line")
+        if len({line.material_name.casefold() for line in lines}) != len(lines):
+            raise ValueError("dose receipt material names must be unique")
+        status = str(self.status).strip().upper()
+        reasons = tuple(sorted({str(item).strip() for item in self.reasons if str(item).strip()}))
+        if status == "BOUND":
+            if reasons or any(line.status != "BOUND" for line in lines):
+                raise ValueError("bound dose receipt cannot contain unresolved lines")
+        elif status == "ABSTAINED":
+            if not reasons:
+                raise ValueError("abstained dose receipt requires a reason")
+        else:
+            raise ValueError("dose receipt status must be BOUND or ABSTAINED")
+        object.__setattr__(self, "formula_name", formula_name)
+        object.__setattr__(self, "inventory_authority_sheet", str(self.inventory_authority_sheet).strip())
+        object.__setattr__(self, "lines", lines)
+        object.__setattr__(self, "status", status)
+        object.__setattr__(self, "reasons", reasons)
+        object.__setattr__(self, "receipt_sha256", stable_json_hash(self._payload()))
+
+    def _payload(self) -> dict[str, Any]:
+        return {
+            "schema": _DOSE_RECEIPT_SCHEMA,
+            "formula_name": self.formula_name,
+            "formula_input_sha256": self.formula_input_sha256,
+            "legacy_formula_hash": self.legacy_formula_hash,
+            "inventory_snapshot_sha256": self.inventory_snapshot_sha256,
+            "inventory_source_workbook_sha256": self.inventory_source_workbook_sha256,
+            "inventory_authority_sheet": self.inventory_authority_sheet,
+            "lines": [line.as_dict() for line in self.lines],
+            "status": self.status,
+            "reasons": list(self.reasons),
+            "quantity_authority": "PLANNED_VOLUME_SCREEN_ONLY",
+            "physical_metrology_authority": False,
+            "release_authority": False,
+        }
+
+    def as_dict(self) -> dict[str, Any]:
+        return {**self._payload(), "receipt_sha256": self.receipt_sha256}
+
+
+def _formula_input_sha256(formula: Mapping[str, Any]) -> str:
+    """Hash the exact caller projection without inventing omitted concentrations."""
+
+    stock_fields = (
+        "fraction",
+        "fraction_basis",
+        "carrier",
+        "approximate",
+        "declared",
+        "stock_id",
+    )
+    stock_specs = {
+        str(name): {
+            field_name: (spec or {}).get(field_name)
+            for field_name in stock_fields
+            if field_name in (spec or {})
+        }
+        for name, spec in sorted(
+            dict(formula.get("stock_specs", {}) or {}).items(),
+            key=lambda item: str(item[0]).casefold(),
+        )
+    }
+    return stable_json_hash(
+        {
+            "schema": "formula-dose-input-v1",
+            "formula_name": str(formula.get("name", "Formula")),
+            "formula_uid": str(formula.get("formula_uid", "")),
+            "ingredients_ul": {
+                str(name): float(value or 0.0)
+                for name, value in sorted(
+                    dict(formula.get("ingredients_ul", {}) or {}).items(),
+                    key=lambda item: str(item[0]).casefold(),
+                )
+            },
+            "explicit_dilutions": {
+                str(name): (None if value is None else float(value))
+                for name, value in sorted(
+                    dict(formula.get("dilutions", {}) or {}).items(),
+                    key=lambda item: str(item[0]).casefold(),
+                )
+            },
+            "input_stock_specs": stock_specs,
+        }
+    )
 
 
 def _status_from_checks(checks: list[PreflightCheck]) -> str:
@@ -334,10 +574,15 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
     """Fail closed unless every formula row identifies one live inventory stock."""
     from collections import defaultdict
 
+    # This is the only compatibility-label choke point in release preflight.
+    # Any missing, stale, or semantically drifted crosswalk raises before a
+    # candidate can be selected; bypassing the optional crosswalk elsewhere
+    # can only leave an alias unresolved and cannot create inventory state.
+    alias_crosswalk = load_current_inventory_alias_crosswalk()
     exact_identity: dict[str, list] = defaultdict(list)
     legacy_identity: dict[str, list] = defaultdict(list)
     literal_identity: dict[str, list] = defaultdict(list)
-    for record in parse_inventory(
+    for record in parse_current_inventory(
         unique=False,
         include_solvents=True,
         include_unavailable=True,
@@ -358,30 +603,85 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
     projected_live_active_ul = 0.0
     live_projection_complete = True
     grouped_active_impact: dict[str, dict[str, Any]] = {}
+    alias_evidence_by_material: dict[str, dict[str, Any]] = {}
     for name in ingredients:
-        norm = normalize_name(name)
+        alias_contract = alias_crosswalk.resolve(str(name))
+        lookup_name = alias_contract.destination if alias_contract else str(name)
+        if alias_contract:
+            alias_evidence_by_material[str(name)] = {
+                "inventory_lookup_label": lookup_name,
+                "identity_crosswalk_contract_id": alias_contract.contract_id,
+            }
+        norm = normalize_name(lookup_name)
         candidates = exact_identity.get(norm) or legacy_identity.get(norm) or []
         if len(candidates) > 1:
-            literal_candidates = literal_identity.get(_literal_inventory_key(name))
+            literal_candidates = literal_identity.get(_literal_inventory_key(lookup_name))
             if literal_candidates:
                 candidates = literal_candidates
         spec = dict(stock_specs.get(name, {}) or {})
-        formula_dil = float(spec.get("fraction", dilutions.get(name, 1.0)) or 1.0)
+        declared = bool(spec.get("declared", name in dilutions))
+        fraction_authority = (
+            spec.get("fraction")
+            if "fraction" in spec
+            else dilutions.get(name)
+        )
+        if (
+            not declared
+            or fraction_authority is None
+            or (isinstance(fraction_authority, str) and fraction_authority.strip() in {"", "-"})
+        ):
+            live_projection_complete = False
+            issues.append({"material": name, "reason": "stock_fraction_not_declared"})
+            continue
+        try:
+            formula_dil = float(fraction_authority)
+        except (TypeError, ValueError):
+            live_projection_complete = False
+            issues.append({"material": name, "reason": "stock_fraction_invalid"})
+            continue
+        if not 0.0 < formula_dil <= 1.0:
+            live_projection_complete = False
+            issues.append({"material": name, "reason": "stock_fraction_out_of_range"})
+            continue
         raw_ul = float(ingredients.get(name, 0.0) or 0.0)
         declared_active_ul += raw_ul * formula_dil
         formula_basis = str(spec.get("fraction_basis", "unspecified"))
         formula_carrier = normalize_name(str(spec.get("carrier", "")))
-        declared = bool(spec.get("declared", name in dilutions))
+        requested_stock_id = str(spec.get("stock_id", "")).strip()
         if spec.get("conflict"):
             live_projection_complete = False
             issues.append({"material": name, "reason": "conflicting_stock_rows"})
             continue
+        if requested_stock_id:
+            stock_id_candidates = [
+                record for record in candidates if record.stock_id == requested_stock_id
+            ]
+            if not stock_id_candidates:
+                live_projection_complete = False
+                issues.append(
+                    {
+                        "material": name,
+                        "reason": "stock_id_not_in_current_inventory",
+                        "stock_id": requested_stock_id,
+                    }
+                )
+                continue
+            candidates = stock_id_candidates
         if not candidates:
             live_projection_complete = False
             issues.append({"material": name, "reason": "not_in_inventory"})
             continue
-        owned = [record for record in candidates if record.status == "owned"]
-        group_label = owned[0].name if owned else candidates[0].name
+        physical_owned = [record for record in candidates if record.status == "owned"]
+        owned = [record for record in physical_owned if record.execution_ready]
+        requirements = [record for record in candidates if record.requirement_state]
+        if physical_owned:
+            group_label = (
+                physical_owned[0].identity_name
+                if physical_owned[0].authority == CURRENT_INVENTORY_AUTHORITY
+                else physical_owned[0].name
+            )
+        else:
+            group_label = candidates[0].identity_name or candidates[0].name
         group = grouped_active_impact.setdefault(
             group_label,
             {
@@ -391,27 +691,50 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
             },
         )
         group["declared_active_ul"] += raw_ul * formula_dil
-        if len(owned) == 1:
-            projected_live_active_ul += raw_ul * owned[0].dilution
-            group["projected_live_active_ul"] += raw_ul * owned[0].dilution
-        else:
-            live_projection_complete = False
-            group["live_projection_complete"] = False
         if not owned:
+            matching_requirements = [
+                record
+                for record in requirements
+                if abs(record.dilution - formula_dil) <= 0.005
+            ]
+            requirement_states = {
+                record.requirement_state for record in matching_requirements
+            }
+            if "PREPARATION_REQUIRED" in requirement_states:
+                reason = "preparation_required"
+            elif "GAP" in requirement_states:
+                reason = "inventory_gap"
+            elif any(record.execution_hold_reason for record in physical_owned):
+                reason = "inventory_stock_non_executable"
+            elif physical_owned:
+                reason = "inventory_stock_metadata_incomplete"
+            else:
+                reason = "inventory_stock_unavailable"
+            if len(owned) == 1:
+                projected_live_active_ul += raw_ul * owned[0].dilution
+                group["projected_live_active_ul"] += raw_ul * owned[0].dilution
+            else:
+                live_projection_complete = False
+                group["live_projection_complete"] = False
             issues.append(
                 {
                     "material": name,
-                    "reason": "inventory_stock_unavailable",
+                    "reason": reason,
                     "statuses": sorted({record.status for record in candidates}),
-                }
-            )
-            continue
-        if not declared:
-            issues.append(
-                {
-                    "material": name,
-                    "reason": "stock_fraction_not_declared",
-                    "inventory_dilutions": sorted({record.dilution for record in owned}),
+                    "source_rows": sorted(
+                        {
+                            row
+                            for record in matching_requirements or physical_owned
+                            for row in record.source_rows
+                        }
+                    ),
+                    "execution_holds": sorted(
+                        {
+                            record.execution_hold_reason
+                            for record in physical_owned
+                            if record.execution_hold_reason
+                        }
+                    ),
                 }
             )
             continue
@@ -420,19 +743,46 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
             record for record in owned if abs(formula_dil - record.dilution) <= 0.005
         ]
         if not fraction_matches:
+            matching_requirements = [
+                record
+                for record in requirements
+                if abs(record.dilution - formula_dil) <= 0.005
+            ]
+            requirement_states = {
+                record.requirement_state for record in matching_requirements
+            }
             live_dilutions = sorted({round(record.dilution, 6) for record in owned})
             multipliers = [
                 round(record.dilution / formula_dil, 4)
                 for record in owned
                 if formula_dil > 0
             ]
+            if "PREPARATION_REQUIRED" in requirement_states:
+                reason = "preparation_required"
+            elif "GAP" in requirement_states:
+                reason = "inventory_gap"
+            else:
+                reason = "stock_fraction_mismatch"
+            if len(owned) == 1:
+                projected_live_active_ul += raw_ul * owned[0].dilution
+                group["projected_live_active_ul"] += raw_ul * owned[0].dilution
+            else:
+                live_projection_complete = False
+                group["live_projection_complete"] = False
             issues.append(
                 {
                     "material": name,
-                    "reason": "stock_fraction_mismatch",
+                    "reason": reason,
                     "formula_dilution": round(formula_dil, 6),
                     "inventory_dilutions": live_dilutions,
                     "active_multiplier_if_live_stock_used": multipliers,
+                    "requirement_source_rows": sorted(
+                        {
+                            row
+                            for record in matching_requirements
+                            for row in record.source_rows
+                        }
+                    ),
                 }
             )
             continue
@@ -455,6 +805,8 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
                 continue
             compatible.append(record)
         if not compatible:
+            live_projection_complete = False
+            group["live_projection_complete"] = False
             issues.append(
                 {
                     "material": name,
@@ -471,15 +823,22 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
             )
             continue
         if len(compatible) > 1:
+            live_projection_complete = False
+            group["live_projection_complete"] = False
             issues.append(
                 {
                     "material": name,
                     "reason": "ambiguous_live_stock",
-                    "variants": [record.raw_name for record in compatible],
+                    "variants": [
+                        {"stock_id": record.stock_id, "raw_name": record.raw_name}
+                        for record in compatible
+                    ],
                 }
             )
             continue
         record = compatible[0]
+        projected_live_active_ul += raw_ul * record.dilution
+        group["projected_live_active_ul"] += raw_ul * record.dilution
         resolved_stock_specs[name] = {
             "fraction": formula_dil,
             "fraction_basis": (
@@ -490,15 +849,31 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
             "carrier": record.carrier or str(spec.get("carrier", "")),
             "approximate": bool(record.approximate or spec.get("approximate", False)),
             "declared": True,
+            "stock_id": record.stock_id,
             "authority": "formula_row+inventory_snapshot",
+            "inventory_authority": record.authority,
+            "source_rows": list(record.source_rows),
+            "identity_crosswalk_contract_id": (
+                alias_contract.contract_id if alias_contract else None
+            ),
+            "identity_crosswalk_sha256": (
+                alias_crosswalk.crosswalk_sha256 if alias_contract else None
+            ),
         }
         matched.append(
             {
                 "material": name,
+                "inventory_lookup_label": lookup_name,
                 "inventory_identity": record.identity_name or record.name,
                 "fraction": record.dilution,
                 "fraction_basis": record.fraction_basis,
                 "carrier": record.carrier,
+                "stock_id": record.stock_id,
+                "authority": record.authority,
+                "source_rows": list(record.source_rows),
+                "identity_crosswalk_contract_id": (
+                    alias_contract.contract_id if alias_contract else None
+                ),
             }
         )
 
@@ -528,18 +903,25 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
         }
         if impact["live_projection_complete"]:
             projected = float(raw_impact["projected_live_active_ul"])
-            declared = float(raw_impact["declared_active_ul"])
+            declared_amount = float(raw_impact["declared_active_ul"])
             impact.update(
                 {
                     "projected_live_active_ul": round(projected, 6),
                     "active_multiplier_if_live_stocks_used": (
-                        round(projected / declared, 6) if declared > 0 else None
+                        round(projected / declared_amount, 6)
+                        if declared_amount > 0
+                        else None
                     ),
                 }
             )
         active_impact_by_inventory_material[material] = impact
+    for issue in issues:
+        issue.update(alias_evidence_by_material.get(str(issue.get("material")), {}))
     data = {
-        "inventory_snapshot_sha256": stable_file_hash(INVENTORY_PATH),
+        "inventory_snapshot_sha256": stable_file_hash(CURRENT_INVENTORY_SNAPSHOT_PATH),
+        "inventory_source_workbook_sha256": CURRENT_INVENTORY_WORKBOOK_SHA256,
+        "inventory_alias_crosswalk_sha256": CURRENT_INVENTORY_ALIAS_CROSSWALK_SHA256,
+        "inventory_authority_sheet": "Current Inventory Master",
         "matched_stocks": matched,
         "resolved_stock_specs": resolved_stock_specs,
         "issues": issues,
@@ -582,6 +964,193 @@ def resolved_stock_specs_for_state(
     for name, spec in dict(contract.data.get("resolved_stock_specs", {}) or {}).items():
         merged[str(name)] = dict(spec or {})
     return merged
+
+
+def build_formula_dose_receipt(
+    formula: Mapping[str, Any],
+    stock_contract: PreflightCheck | None = None,
+) -> FormulaDoseReceipt:
+    """Freeze the exact formula/V5 stock projection into one tamper-evident receipt."""
+
+    contract = stock_contract or resolve_inventory_stock_contract(formula)
+    contract_data = dict(contract.data or {})
+    resolved_specs = {
+        str(name): dict(spec or {})
+        for name, spec in dict(contract_data.get("resolved_stock_specs", {}) or {}).items()
+    }
+    input_specs = {
+        str(name): dict(spec or {})
+        for name, spec in dict(formula.get("stock_specs", {}) or {}).items()
+    }
+    explicit_dilutions = dict(formula.get("dilutions", {}) or {})
+    issues_by_material: dict[str, list[str]] = {}
+    for issue in list(contract_data.get("issues", []) or []):
+        material = str(issue.get("material", "")).strip()
+        reason = str(issue.get("reason", "inventory_stock_contract_failed")).strip()
+        if material:
+            issues_by_material.setdefault(material.casefold(), []).append(reason)
+
+    lines: list[FormulaDoseLineReceipt] = []
+    receipt_reasons: list[str] = []
+    for raw_name, raw_value in sorted(
+        dict(formula.get("ingredients_ul", {}) or {}).items(),
+        key=lambda item: str(item[0]).casefold(),
+    ):
+        name = str(raw_name)
+        raw_ul = float(raw_value or 0.0)
+        if raw_ul <= 0.0:
+            continue
+        resolved = dict(resolved_specs.get(name, {}) or {})
+        fallback = dict(input_specs.get(name, {}) or {})
+        raw_fraction = (
+            resolved.get("fraction")
+            if "fraction" in resolved
+            else fallback.get("fraction")
+            if "fraction" in fallback
+            else explicit_dilutions.get(name)
+        )
+        fraction: float | None
+        try:
+            fraction = None if raw_fraction is None else float(raw_fraction)
+        except (TypeError, ValueError):
+            fraction = None
+        if fraction is not None and (not isfinite(fraction) or not 0.0 < fraction <= 1.0):
+            fraction = None
+
+        blockers = list(issues_by_material.get(name.casefold(), ()))
+        stock_id = str(resolved.get("stock_id", "")).strip() or None
+        stock_authority = str(resolved.get("authority", "")).strip() or None
+        inventory_authority = str(resolved.get("inventory_authority", "")).strip() or None
+        source_rows = tuple(int(value) for value in list(resolved.get("source_rows", []) or []))
+        declared = bool(resolved.get("declared", False))
+        for condition, reason in (
+            (fraction is None, "stock_fraction_not_bound"),
+            (not declared, "stock_declaration_not_bound"),
+            (not stock_id, "stock_id_not_bound"),
+            (
+                stock_authority != "formula_row+inventory_snapshot",
+                "stock_authority_not_bound",
+            ),
+            (not inventory_authority, "inventory_authority_not_bound"),
+            (not source_rows, "inventory_source_rows_not_bound"),
+        ):
+            if condition:
+                blockers.append(reason)
+        blockers = sorted(set(blockers))
+        # Freeze each line at its own evidence grain.  A different material can
+        # hold the formula-wide stock contract without invalidating an exact,
+        # fully resolved line.  The receipt itself still abstains unless every
+        # line is bound.
+        line_status = "BOUND" if not blockers else "ABSTAINED"
+        if blockers:
+            receipt_reasons.extend(f"{name}:{reason}" for reason in blockers)
+        lines.append(
+            FormulaDoseLineReceipt(
+                material_name=name,
+                raw_ul=raw_ul,
+                active_ul=(raw_ul * fraction if fraction is not None else None),
+                stock_fraction=fraction,
+                fraction_basis=str(
+                    resolved.get("fraction_basis", fallback.get("fraction_basis", "unspecified"))
+                ),
+                carrier=str(resolved.get("carrier", fallback.get("carrier", ""))),
+                stock_id=stock_id,
+                stock_authority=stock_authority,
+                inventory_authority=inventory_authority,
+                source_rows=source_rows,
+                status=line_status,
+                blockers=tuple(blockers),
+            )
+        )
+
+    if contract.status != "PASS" and not receipt_reasons:
+        receipt_reasons.append(f"inventory_stock_contract:{contract.status}:{contract.detail}")
+    status = (
+        "BOUND"
+        if contract.status == "PASS"
+        and lines
+        and all(line.status == "BOUND" for line in lines)
+        else "ABSTAINED"
+    )
+    return FormulaDoseReceipt(
+        formula_name=str(formula.get("name", "Formula")),
+        formula_input_sha256=_formula_input_sha256(formula),
+        legacy_formula_hash=formula_hash_from_record(formula),
+        inventory_snapshot_sha256=str(
+            contract_data.get("inventory_snapshot_sha256")
+            or stable_file_hash(CURRENT_INVENTORY_SNAPSHOT_PATH)
+        ),
+        inventory_source_workbook_sha256=str(
+            contract_data.get("inventory_source_workbook_sha256")
+            or CURRENT_INVENTORY_WORKBOOK_SHA256
+        ),
+        inventory_authority_sheet=str(
+            contract_data.get("inventory_authority_sheet") or "Current Inventory Master"
+        ),
+        lines=tuple(lines),
+        status=status,
+        reasons=tuple(receipt_reasons),
+    )
+
+
+def _dose_receipt_binding_check(
+    state: FormulaState,
+    receipt: FormulaDoseReceipt | None,
+) -> PreflightCheck:
+    if receipt is None:
+        return PreflightCheck(
+            "formula_dose_receipt",
+            "FAIL",
+            "Formula state is not bound to an immutable V5 stock/dose receipt.",
+        )
+    data = receipt.as_dict()
+    if receipt.status != "BOUND":
+        return PreflightCheck(
+            "formula_dose_receipt",
+            "FAIL",
+            "Formula stock/dose receipt abstained and cannot support release-mode analysis.",
+            data,
+        )
+    if (
+        state.dose_receipt_sha256 != receipt.receipt_sha256
+        or state.dose_receipt_status != receipt.status
+    ):
+        return PreflightCheck(
+            "formula_dose_receipt",
+            "FAIL",
+            "Formula state and stock/dose receipt identities do not match.",
+            data,
+        )
+    state_rows = {material.name: material for material in state.materials}
+    mismatches: list[str] = []
+    for line in receipt.lines:
+        material = state_rows.get(line.material_name)
+        if material is None:
+            mismatches.append(f"{line.material_name}:missing_state_row")
+            continue
+        if line.stock_fraction is None or line.active_ul is None:
+            mismatches.append(f"{line.material_name}:answerless_bound_line")
+            continue
+        if not isclose(material.raw_ul, line.raw_ul, rel_tol=0.0, abs_tol=1e-12):
+            mismatches.append(f"{line.material_name}:raw_ul")
+        if not isclose(material.dilution, line.stock_fraction, rel_tol=0.0, abs_tol=1e-12):
+            mismatches.append(f"{line.material_name}:stock_fraction")
+        if not isclose(material.active_ul, line.active_ul, rel_tol=0.0, abs_tol=1e-12):
+            mismatches.append(f"{line.material_name}:active_ul")
+    if mismatches:
+        data["state_mismatches"] = mismatches
+        return PreflightCheck(
+            "formula_dose_receipt",
+            "FAIL",
+            "Formula state dose quantities do not replay from the bound receipt.",
+            data,
+        )
+    return PreflightCheck(
+        "formula_dose_receipt",
+        "PASS",
+        "Formula state replays exactly from one V5 stock/dose receipt.",
+        data,
+    )
 
 
 def _quantitative_authority_check(
@@ -723,11 +1292,13 @@ def run_release_preflight(
     require_exact_ppm: bool = False,
     require_exact_finished_product_ppm: bool = False,
     stock_contract: PreflightCheck | None = None,
+    dose_receipt: FormulaDoseReceipt | None = None,
 ) -> PreflightReport:
     checks: list[PreflightCheck] = []
     total_penalty = 0.0
     checks.append(_input_normalization_check(formula))
     checks.append(stock_contract or resolve_inventory_stock_contract(formula))
+    checks.append(_dose_receipt_binding_check(state, dose_receipt))
     checks.append(_schema_check())
     checks.append(_literature_check())
     knowledge_check, knowledge_penalty = _knowledge_rule_quality_check()
