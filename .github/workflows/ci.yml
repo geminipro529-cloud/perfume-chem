@@ -47,6 +47,10 @@ jobs:
         working-directory: backend
         run: poetry run ruff check app
 
+      - name: Lint bridge core
+        working-directory: backend
+        run: poetry run ruff check ../engine/bridge ../tests/test_perfume_chem_bridge.py
+
       - name: Type-check backend
         working-directory: backend
         run: poetry run mypy app --ignore-missing-imports
@@ -54,6 +58,10 @@ jobs:
       - name: Test backend
         working-directory: backend
         run: poetry run pytest --cov=app --cov-report=term
+
+      - name: Test bridge core
+        working-directory: backend
+        run: poetry run pytest ../tests/test_perfume_chem_bridge.py -q
 
       - name: Audit installed third-party dependencies
         working-directory: backend

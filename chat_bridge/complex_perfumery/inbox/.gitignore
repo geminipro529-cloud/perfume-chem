@@ -1,0 +1,3 @@
+# Keep raw, nonce-scoped bridge packets out of Git by default.
+*
+!.gitignore
