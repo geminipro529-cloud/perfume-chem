@@ -1,0 +1,158 @@
+{
+  "schema_version": "2.0",
+  "bridge_id": "complex-perfumery-deepluna-chat",
+  "updated_at": "2026-08-21T16:09:15.391Z",
+  "project": {
+    "label": "Complex Perfumery",
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09"
+  },
+  "latest_sync": {
+    "packet_id": "codex-latest-state-sync-v1",
+    "packet_path": "chat_bridge/complex_perfumery/outbox/20260821T160915Z-codex-latest-state-sync-v1.json",
+    "recorded_at": "2026-08-21T16:09:15.391Z",
+    "decision": "APPEND_ONLY_SYNC_NO_PACKAGE_OR_CODE_PROMOTION",
+    "repository": {
+      "branch": "codex/add-inventory-materials",
+      "head": "a2a25a72277597e07b568c64d3205a1a80a0f165",
+      "origin_head": "a7bacff3539bf5e60c94d1fbe48df3d0f1f90da3",
+      "ahead_by": 4,
+      "behind_by": 0,
+      "status_entries": 280,
+      "dirty_worktree_preserved": true,
+      "scheduler_candidate_head": "5a343d9c74d3f8552139b4ffbf676503776a05a7",
+      "scheduler_candidate_ahead_by": 21,
+      "scheduler_merge_performed": false
+    },
+    "chat_scope": {
+      "registry_snapshot_count": 38,
+      "registry_snapshot_at": "2026-08-09T03:02:17.6165928Z",
+      "registry_snapshot_preserved": true,
+      "current_app_recent_window_project_chats": 6,
+      "current_enumeration_complete": false,
+      "newer_than_registry_snapshot": [
+        "6a762995-0d8c-83ec-aee3-66c90e56811e",
+        "6a77d532-0a30-83ec-9067-555ff6800795"
+      ],
+      "all_transcripts_materialized_locally": false
+    },
+    "validated_local_replay": {
+      "focused_test_files": 15,
+      "focused_tests_passed": 33,
+      "focused_tests_failed": 0,
+      "scope": "V18_V20_CHAT_A_G_FORMULA_PORTFOLIO_DATA_INTEGRATION_AND_G15_RECEIPTS"
+    }
+  },
+  "work_hub": {
+    "label": "Data Integration for Perfume-Chem",
+    "conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+    "role": "DeepLuna Chat work hub"
+  },
+  "orchestrator": {
+    "name": "DeepLuna Chat",
+    "route": "cheapluna-chat / DIRECT_PRO",
+    "fast_only": false,
+    "authority": "Sol is engineer and final acceptor; workers are bounded evidence gatherers"
+  },
+  "linked_codex_task": "019fe3a3-3cca-7462-b8e9-e315015e95df",
+  "work_hub_status_notice": "DELIVERED_2026-08-09T03:25:00.8184047Z",
+  "secure_tunnel": {
+    "tunnel_id": "tunnel_6a76371038e0819187fd46fb04b45977",
+    "local_status": "READY",
+    "healthz": 200,
+    "readyz": 200,
+    "checked_at": "2026-08-09T19:18:23.4918458Z",
+    "write_scope": [
+      "workspace-relative ordinary files under D:/chatbots/perfume-chem"
+    ],
+    "write_guards": [
+      "credential and .env names fenced",
+      "Git and local tool-state directories fenced",
+      "absolute paths and workspace escapes rejected",
+      "symlink traversal rejected",
+      "no shell delete or rename tools",
+      "optional expected_sha256 overwrite precondition"
+    ],
+    "remote_connector_canary": {
+      "status": "PASS_CODEX_APP_WRITE_EDIT_READBACK",
+      "path": "output/chatgpt_tunnel_remote_write_canary.txt",
+      "bytes": 73,
+      "sha256": "6a517a272bcb7d226a2c278b12306ec88f3dd60aa60884ff14609f481774aea8",
+      "protected_path_result": "PASS_DENIED_.env.chatgpt-canary"
+    },
+    "remote_chat_canary": "BROWSER_CHAT_INVOCATION_PENDING_AFTER_TOOL_REFRESH",
+    "remote_canary_note": "The installed Perfume Chem connector reached the live tunnel from Codex and passed create, edit, file_info, and protected-path denial. A signed-in browser ChatGPT project chat should refresh the app and run one read/write canary before the bridge release HOLD is removed."
+  },
+  "chat_registry": {
+    "current_project_ui_count": 38,
+    "enumerated_at": "2026-08-09T03:02:17.6165928Z",
+    "scope": "All chats exposed by the fully expanded signed-in Complex Perfumery project sidebar",
+    "project_instruction_link": "PERSISTED_AND_VERIFIED_AFTER_REOPEN",
+    "notices_sent": 29,
+    "notices_pending_rate_limit": 8
+  },
+  "stable_state": [
+    "Separate chats do not share hidden transcript context.",
+    "Project files, project instructions, and connected sources are the shared cloud context layer.",
+    "ChatGPT can modify ordinary workspace files through the connector when the user explicitly requests it.",
+    "Protected paths remain fenced and successful transfer does not grant scientific or release authority.",
+    "Codex/Sol validates and accepts consequential browser/chat changes."
+  ],
+  "active_workstreams": [
+    "Complete a fresh full-project ChatGPT sidebar enumeration before replacing the 38-chat point-in-time registry",
+    "Acquire original downloadable bytes and manifests for any newer ChatGPT-only artifact before quarantine intake",
+    "Review the 21-commit scheduler candidate against the 280-entry dirty worktree in an isolated clean integration scope",
+    "Refresh the Perfume Chem app in a signed-in browser ChatGPT project chat and run one workspace write/read-back canary",
+    "Stage browser files with immutable provenance, freshness, and replay controls"
+  ],
+  "authoritative_artifacts": [
+    "chat_bridge/complex_perfumery/outbox/20260821T160915Z-codex-latest-state-sync-v1.json",
+    "chat_bridge/complex_perfumery/PROTOCOL.md",
+    "chat_bridge/complex_perfumery/handoff.schema.json",
+    "chat_bridge/complex_perfumery/chat_registry.json"
+  ],
+  "holds": [
+    {
+      "route": "DeepLuna Fast",
+      "status": "TEMPORARILY_RETIRED_BY_USER",
+      "release_condition": "Explicit user re-enable request"
+    },
+    {
+      "scope": "Current Complex Perfumery chat census",
+      "status": "HOLD_INCOMPLETE_ENUMERATION",
+      "reason": "The app recent window exposed six project chats, while the preserved registry is a 38-chat 2026-08-09 snapshot and does not claim future completeness"
+    },
+    {
+      "scope": "Newer ChatGPT artifact pointers",
+      "status": "HOLD_MISSING_EXACT_LOCAL_BYTES",
+      "reason": "The XHIGH hypothesis-validation pointer and planning XLSX stream are not locally materialized with exact original bytes, manifest, and native receipt"
+    },
+    {
+      "scope": "Scheduler candidate integration",
+      "status": "HOLD_DIRTY_WORKTREE_OVERLAP",
+      "reason": "The 21-commit local candidate overlaps five already-modified files and adds 70 absent artifacts; no merge was attempted"
+    },
+    {
+      "scope": "Signed-in browser ChatGPT project-chat canary",
+      "status": "HOLD",
+      "reason": "The connector route passed from Codex, but this task did not invoke it from a browser ChatGPT project chat after the tool-scope refresh"
+    },
+    {
+      "scope": "Remaining reciprocal link notices",
+      "status": "HOLD",
+      "reason": "All 38 chats are linked by verified shared project instructions; 29 of 37 spoke notices are delivered and 8 remain rate-limited"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Chat registry freshness",
+      "state": "POINT_IN_TIME_SNAPSHOT_VERSUS_RECENT_WINDOW",
+      "resolution": "Preserve the 38-chat registry and publish this append-only incomplete delta"
+    },
+    {
+      "scope": "Repository latest version",
+      "state": "CURRENT_DIRTY_HEAD_VERSUS_DESCENDANT_LOCAL_SCHEDULER_CANDIDATE",
+      "resolution": "Do not fast-forward or overwrite overlapping user changes; review in an isolated clean scope"
+    }
+  ],
+  "last_writer": "codex:01a02501-5671-7450-8de2-b7f3bea2da2a"
+}

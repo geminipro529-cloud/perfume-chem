@@ -1,0 +1,114 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "complex-perfumery-latest-state-compilation-20260815",
+  "recorded_at": "2026-08-15T23:30:19+07:00",
+  "package": {
+    "file_name": "Perfume_Chem_Latest_State_Compilation_2026-08-12_v1.zip",
+    "locator": "incoming_review/chatgpt/20260815T233019+0700-post-v9-six-package-recovery-6a7992db-n417f58e1/Perfume_Chem_Latest_State_Compilation_2026-08-12_v1.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 41882040,
+    "sha256": "417f58e1e471b62dc7d04b7dc817a64b8b4b1d1fb343bb243f02e95fb7ae3418",
+    "media_type": "application/zip",
+    "archive_entry_count": 112,
+    "archive_file_count": 112,
+    "declared_payload_count": 109,
+    "package_root": "Perfume_Chem_Latest_State_Compilation_2026-08-12_v1",
+    "embedded_integrity_records": [
+      {
+        "path": "Perfume_Chem_Latest_State_Compilation_2026-08-12_v1/metadata/PAYLOAD_MANIFEST.json",
+        "byte_size": 25099,
+        "sha256": "ec46888653211e4510e41a94b4abc50efe2000c4780fc9637cf9638a999c9623",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "Perfume_Chem_Latest_State_Compilation_2026-08-12_v1/metadata/SHA256SUMS.json",
+        "byte_size": 25199,
+        "sha256": "c104b06f24f938f35973b46a239cf79a6f7451e4b56c09c8370786d84d3fc4ac",
+        "role": "CHECKSUM_LEDGER"
+      },
+      {
+        "path": "Perfume_Chem_Latest_State_Compilation_2026-08-12_v1/metadata/SHA256SUMS.txt",
+        "byte_size": 17474,
+        "sha256": "fcaaff803295f9206b4b473648219262692c2cf840353b6b0a7e6f49dedcfed4",
+        "role": "CHECKSUM_LEDGER"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "SECONDARY_RECONSTRUCTION",
+    "independence_group": "chatgpt:6a7992db-96b8-83ec-aab0-6a7447b97da1:latest-state-compilation-20260812-v1",
+    "conversation_id": "6a7992db-96b8-83ec-aab0-6a7447b97da1",
+    "turn_id": "6e3d0517-7bbd-4a0d-9861-581ac941aeab",
+    "message_id": "d03cb51e-1099-4982-8fc8-3c9c02f6d495",
+    "lineage_resolution": "EXACT_ORIGINAL_FILE_CARD_BYTES_DOWNLOADED_HASH_VERIFIED_AND_CAPTURED_WITHOUT_TRANSFORMATION",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "Exact possession and checksum verification do not establish source admission, redistribution, scientific reuse, package installation, or canonical promotion permission.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "This historical compilation aggregates exact and derived project artifacts. Current native repository records supersede stale current-state prose; nested packages retain independent receipt and authority boundaries."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "HISTORICAL_COMPILATION_PARTIALLY_SUPERSEDED_BY_CURRENT_NATIVE_STATE",
+      "NESTED_ARTIFACTS_REQUIRE_INDEPENDENT_RECEIPTS_AND_NATIVE_DIFF",
+      "NATIVE_GRAPH_INTEGRITY_HOLD_COMPRESSED_BYTE_BOUND_REACHED",
+      "NO_FORMULA_PHYSICAL_SENSORY_SAFETY_OR_RELEASE_AUTHORITY"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [],
+  "evidence_summary": {
+    "classification": "HISTORICAL_LATEST_STATE_COMPILATION_EXACT_BYTES_QUARANTINED",
+    "source_copy_count": 100,
+    "archive_member_count": 112,
+    "ledger_entries_verified": 109,
+    "ledger_coverage_excludes": [
+      "metadata/SHA256SUMS.txt",
+      "metadata/SHA256SUMS.json",
+      "metadata/STAGING_VALIDATION.json"
+    ],
+    "phase_g_locked": true,
+    "authority_mutations_zero": true,
+    "capture_graph_binding": {
+      "capture_manifest_path": "incoming_review/chatgpt/20260815T233019+0700-post-v9-six-package-recovery-6a7992db-n417f58e1/capture_manifest.json",
+      "capture_manifest_byte_size": 13908,
+      "capture_manifest_sha256": "75e9c7283658fce987cef67b3b3dcdfa5da2b3b16d164355d7b7c0563551d39f",
+      "root_package_sha256": "417f58e1e471b62dc7d04b7dc817a64b8b4b1d1fb343bb243f02e95fb7ae3418",
+      "single_status": "QUARANTINE_HOLD",
+      "graph_status": "INTEGRITY_HOLD",
+      "node_count": 20,
+      "edge_count": 69,
+      "max_depth": 2,
+      "all_nodes_terminal": false,
+      "graph_finding_count": 24,
+      "graph_finding_codes": [
+        "GRAPH_COMPRESSED_BYTE_LIMIT_EXCEEDED"
+      ],
+      "promotion_allowed": false
+    },
+    "native_handling": "IMMUTABLE_HISTORICAL_SOURCE_AGGREGATE_ONLY_NO_WHOLESALE_IMPORT",
+    "native_fit": "CURRENT_B1_LABORATORY_BETA_C0_C3_C8_AND_GOVERNANCE_RECORDS_CONTROL"
+  },
+  "receipt_sha256": "911fe82822628e631c0680f37b95637697b0ec70e8cae5752797d472b12606fe"
+}

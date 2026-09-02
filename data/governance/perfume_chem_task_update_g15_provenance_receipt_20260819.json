@@ -1,0 +1,145 @@
+{
+  "schema_version": "chatgpt_local_implementation_provenance_receipt_v1",
+  "receipt_id": "perfume-chem-task-update-g15-20260819",
+  "recorded_at": "2026-08-19T17:30:00Z",
+  "decision": "G15_IMPLEMENTATION_PRESENT_CURRENT_BEHAVIOR_VERIFIED",
+  "provenance": {
+    "conversation_id": "6a7765a9-a50c-83ec-a73e-0dce89b28c55",
+    "message_id": "f8953700-0eeb-48d9-b178-5bd2ee149e75",
+    "source_type": "AI_STATUS_HANDOFF_WITH_EXACT_LOCAL_REPORT",
+    "independence_group": "chatgpt:6a7765a9-a50c-83ec-a73e-0dce89b28c55:g15-status-handoff",
+    "capture_manifest": {
+      "path": "incoming_review/chatgpt/20260819T173000Z-perfume-chem-task-update-6a7765a9/source_manifest.json",
+      "relationship": "BINDS_COMPLETE_RENDERED_CONVERSATION"
+    },
+    "local_report": {
+      "path": "runs/HOURLY_STATUS_AND_G15_COMPLETION_20260809.md",
+      "byte_size": 14102,
+      "sha256": "1104cd55352ad8f49a843905d9b284da7afb10abd0917cef75daff0a1c14eae6",
+      "relationship": "HISTORICAL_POINT_IN_TIME_STATUS_REPORT"
+    }
+  },
+  "admission": {
+    "state": "LOCAL_IMPLEMENTATION_ALREADY_PRESENT_PROVENANCE_RECEIPT_ONLY",
+    "duplicate_implementation_allowed": false,
+    "existing_code_mutated_by_intake": false,
+    "historical_hashes_admitted_as_current": false,
+    "source_rows_admitted": 0,
+    "formula_rows_mutated": 0,
+    "inventory_rows_mutated": 0,
+    "physical_truth_rows_mutated": 0,
+    "release_rows_mutated": 0
+  },
+  "historical_report_bindings": [
+    {
+      "path": "engine/fuckups/pre_mix_guard.py",
+      "sha256": "bbf4be5d2e18babbeaad03e909b99de0969fb31199036451a8f620741649c391"
+    },
+    {
+      "path": "engine/pipeline/gates.py",
+      "sha256": "73ddba794be7cc610998b3677a1b1eecab23950d540cd31e5b36305b48eee6bd"
+    },
+    {
+      "path": "engine/pipeline/audit_log.py",
+      "sha256": "afba24a5e56c7341caa89de440e0d8dcc80235add1007897676b9265c0c5ae04"
+    },
+    {
+      "path": "engine/optimizer/gate_aware.py",
+      "sha256": "4240a4e4ac78bfa63d37c7598fc1cfbc34e735468dae4ba2334a02c0f54d8f0a"
+    },
+    {
+      "path": "scripts/formula_release_gate.py",
+      "sha256": "e178a64cd6408b528026fae79ece46e6d74d58374bc0c9f44ee4b49bbaaaeef4"
+    },
+    {
+      "path": "tests/test_pre_mix_guard.py",
+      "sha256": "639e4ccca7dda4a928cb953ca7124c4eedcdda0cfdf2d0af986d59ec72953dff"
+    }
+  ],
+  "current_live_bindings": [
+    {
+      "path": "engine/fuckups/pre_mix_guard.py",
+      "byte_size": 18052,
+      "sha256": "cd27134d0e350b63e1115d204061c01aa4b7d3ebc3c2e58eeb32cef252e1c967"
+    },
+    {
+      "path": "engine/pipeline/gates.py",
+      "byte_size": 230486,
+      "sha256": "c33699ea011f6b1bb12fec7e7d1156593196dbfad74366fe7976ee921b00ae02"
+    },
+    {
+      "path": "engine/pipeline/audit_log.py",
+      "byte_size": 14374,
+      "sha256": "2109b80790c0d5b0ece79ba239744a0be02a794d70b4c5015c5d5f864b5563f1"
+    },
+    {
+      "path": "engine/optimizer/gate_aware.py",
+      "byte_size": 33651,
+      "sha256": "6b6c125c587e1e7f6c116dab8abfaab68893b87293fd51679bba00bdd0b16258"
+    },
+    {
+      "path": "scripts/formula_release_gate.py",
+      "byte_size": 40045,
+      "sha256": "a461c9e0822c119c16aaa7768853a16df395f957fb8b00d9fd7f977d9973c299"
+    },
+    {
+      "path": "tests/test_pre_mix_guard.py",
+      "byte_size": 10298,
+      "sha256": "23f573f2aba0eb75e77f245471f7cdf1404ea207af806d5775f23f921d53534b"
+    }
+  ],
+  "implementation_boundary": {
+    "g15_hard_gate_wired": true,
+    "same_stock_threefold_active_dose_jump_fails_without_explicit_authority": true,
+    "stock_rebase_active_equivalence_is_hard_blocking": true,
+    "parent_baseline_and_uid_checks_fail_closed": true,
+    "release_cli_passes_parent_and_authority_before_output": true,
+    "optimizer_passes_previous_candidate_as_parent": true,
+    "run_evidence_includes_g15": true,
+    "implementation_recreated_by_this_intake": false
+  },
+  "verification": {
+    "focused_test_path": "tests/test_pre_mix_guard.py",
+    "focused_test_result": "15_PASSED",
+    "ruff_check_result": "PASS",
+    "ruff_format_check_result": "PREEXISTING_FILES_WOULD_BE_REFORMATTED_NOT_MUTATED_BY_INTAKE",
+    "verification_scope": "CURRENT_LOCAL_BEHAVIOR_ONLY_NOT_PHYSICAL_OR_SENSORY_VALIDATION"
+  },
+  "scientific_boundary": {
+    "modeled_oav_use": "ANOMALY_SCREENING_ONLY",
+    "linear_perceived_contribution_inference_allowed": false,
+    "standalone_perfume_verdict_allowed": false,
+    "measured_headspace_claim_allowed": false,
+    "human_threshold_variability_material": true,
+    "odorant_receptor_antagonism_material": true,
+    "mixture_suppression_and_nonadditivity_material": true,
+    "literature_identifiers": [
+      "10.1093/chemse/bjg075",
+      "10.1038/sj.emboj.7600032",
+      "10.1016/j.cub.2020.04.086",
+      "10.1016/j.mcn.2020.103469"
+    ],
+    "literature_urls": [
+      "https://academic.oup.com/chemse/article-abstract/28/9/817/519578",
+      "https://pubmed.ncbi.nlm.nih.gov/14685265/",
+      "https://pubmed.ncbi.nlm.nih.gov/32470365/",
+      "https://pubmed.ncbi.nlm.nih.gov/32061665/"
+    ],
+    "literature_support_scope": "Human threshold variability and receptor-level antagonistic, suppressive and additive mixture behavior support a conservative nonlinear interpretation boundary. These sources do not validate this implementation, its modeled OAV values, a formula, safety or release."
+  },
+  "authority": {
+    "source_authority": false,
+    "code_release_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "physical_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "receipt_sha256": "4127fb567ea6f7343b981155e73552ccbefb52c49afce407feaa03bdd1f4fd0e"
+}

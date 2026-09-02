@@ -1,0 +1,188 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "chat-e-domain-adjudication-v1-2-20260819",
+  "recorded_at": "2026-08-19T17:00:00Z",
+  "package": {
+    "file_name": "CHAT_E_XHIGH_DOMAIN_ADJUDICATION_v1_2.zip",
+    "locator": "incoming_review/chatgpt/20260819T170000Z-xhigh-chat-e-v1-2-6a754c18/CHAT_E_XHIGH_DOMAIN_ADJUDICATION_v1_2.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 120861,
+    "sha256": "8170ac4e7f558698b97a746ac30cd39110b371325b92c542a1ca3b90d2397898",
+    "media_type": "application/zip",
+    "archive_entry_count": 39,
+    "archive_file_count": 39,
+    "declared_payload_count": 38,
+    "package_root": "CHAT_E_XHIGH_DOMAIN_ADJUDICATION_v1_2",
+    "embedded_integrity_records": [
+      {
+        "path": "CHAT_E_XHIGH_DOMAIN_ADJUDICATION_v1_2/SHA256SUMS.json",
+        "byte_size": 6310,
+        "sha256": "29455673127a81057692f1cf519856787aa6593751d2108ca59a193c1c857562",
+        "role": "CHECKSUM_LEDGER"
+      },
+      {
+        "path": "CHAT_E_XHIGH_DOMAIN_ADJUDICATION_v1_2/DOMAIN_CODE_ADJUDICATION.json",
+        "byte_size": 17598,
+        "sha256": "ef07d0d4f2586859c16c8f0339e8d01761092331772884608a2b7d90d6c682ff",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "CHAT_E_XHIGH_DOMAIN_ADJUDICATION_v1_2/LITERATURE_SOURCE_LEDGER.json",
+        "byte_size": 5554,
+        "sha256": "4d8a9e7af5aec9c4b20e1f92ae29444ce1af6687dd3ac76fe62867209ef3ad27",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "CHAT_E_XHIGH_DOMAIN_ADJUDICATION_v1_2/MACHINE_DOMAIN_ADJUDICATION_CLOSURE.json",
+        "byte_size": 945,
+        "sha256": "8a073319075b7aad920f41e14051443d95050279c0235bb96f36830995dde6cb",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "CHAT_E_XHIGH_DOMAIN_ADJUDICATION_v1_2/VALIDATION_REPORT.json",
+        "byte_size": 1714,
+        "sha256": "d8b76c0c9c050a1d817b3a38be7f2e2e1f6745102bfbc4fbf5ac458ca59b5d28",
+        "role": "MANIFEST"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a754c18-a948-83ec-a456-1923b470d0cc:chat-e-domain-adjudication-v1-2",
+    "conversation_id": "6a754c18-a948-83ec-a456-1923b470d0cc",
+    "turn_id": null,
+    "message_id": "3d1dd68d-3d5b-400e-a4c6-03724083b7c9",
+    "lineage_resolution": "EXACT_V1_2_ATTACHMENT_RECOVERED_EMBEDDED_V1_1_BYTE_EXACT_NATIVE_HOST_ADOPTION_HELD",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "The AI-generated package declares no package-level license and cites publisher records with source-specific terms. Exact possession does not authorize code installation, numeric source-table admission, private reference-database use, redistribution, publication or release use.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Conservative project-governance classification, not legal advice. Package code and claimed tests remain unexecuted locally."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN_AT_PACKAGE_LEVEL",
+      "FULL_NUMERIC_SOURCE_TABLES_NOT_PRESENT",
+      "PRIVATE_COMMERCIAL_REFERENCE_DATABASE_NOT_PRESENT",
+      "PACKAGE_CODE_NOT_EXECUTED_OR_INSTALLED",
+      "PACKAGE_TEST_RESULTS_ARE_PACKAGE_CLAIMS_NOT_LOCAL_EXECUTION",
+      "HOST_ADOPTION_EXPLICITLY_HELD",
+      "RUNTIME_PUBLICATION_AND_CI_HELD",
+      "PHYSICAL_AND_EMPIRICAL_RESULTS_HELD",
+      "STRICT_OAV_CALCULATION_HELD",
+      "NATIVE_C3_C8_ALREADY_CONTROL_EXACT_MODEL_DOMAIN_AND_CONTEXT_BINDING",
+      "NATIVE_B5_ALREADY_CONTROLS_ANALYTICAL_IDENTITY_AND_QUANTITATION",
+      "SOURCE_SPECIFIC_CODE_MIGRATION_REQUIRES_HOST_BINDING_RECEIPTS",
+      "NO_FORMULA_RUNTIME_INVENTORY_PHYSICAL_OR_RELEASE_MUTATION"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "incoming_review/chatgpt/20260819T170000Z-xhigh-chat-e-v1-2-6a754c18/source_manifest.json",
+      "byte_size": 4950,
+      "sha256": "afe97e5d4c3baaf848cf23032f1e85b88d0f7d78e39b66bcdf79274f822178a8",
+      "relation": "BINDS_BROWSER_CAPTURE_MANIFEST",
+      "support_scope": "AUTHENTICATED_CONVERSATION_AND_EXACT_ATTACHMENT_CAPTURE_ONLY",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "data/governance/chat_e_postfreeze_hardening_v1_package_receipt_20260819.json",
+      "byte_size": 7385,
+      "sha256": "d311a59a08e6c619e30ac7413c602525a1cd6340e25b2a233b8d0a974354c327",
+      "relation": "BINDS_EXACT_EMBEDDED_V1_1_PARENT_RECEIPT",
+      "support_scope": "BYTE_IDENTITY_AND_NONADMISSION_LINEAGE_ONLY",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "engine/physics/model_interface.py",
+      "byte_size": 81388,
+      "sha256": "d29ec7b6defba2f66160fbf707b17412e61220a216f2baa529ff55ad949797d5",
+      "relation": "DIFFS_NATIVE_C3_MODEL_DOMAIN_CONTROL",
+      "support_scope": "CURRENT_NATIVE_HOST_CONTROL_ONLY",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "engine/physics/headspace_oav.py",
+      "byte_size": 100500,
+      "sha256": "7f9d5b45253ed2f20a11886ec6743a642b95244456c88bda948fb71d945a1e19",
+      "relation": "DIFFS_NATIVE_C8_HEADSPACE_OAV_CONTROL",
+      "support_scope": "CURRENT_NATIVE_HOST_CONTROL_ONLY",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "backend/app/services/lab_analytical.py",
+      "byte_size": 89308,
+      "sha256": "5c72fb4d2fcbcef775a4908c1c3d231fb037b81b7f95fd055bc926fe3e3cdb90",
+      "relation": "DIFFS_NATIVE_B5_ANALYTICAL_CONTROL",
+      "support_scope": "CURRENT_NATIVE_HOST_CONTROL_ONLY",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "EXACT_CHAT_E_V1_2_DOMAIN_ADJUDICATION_QUARANTINED_HOST_ADOPTION_HELD",
+    "archive_scan_status": "GRAPH_COMPLETE_QUARANTINED",
+    "archive_members": 39,
+    "archive_scan_nodes": 3,
+    "internal_checksum_entries_verified": 38,
+    "package_recovered": true,
+    "embedded_v1_1_package_byte_exact": true,
+    "embedded_v1_1_sha256": "0d989b72a2678359b797c5e936c4aebc818e8fca700dcc2f557ae86321a71212",
+    "package_decision": "PASS_BOUNDED_LITERATURE_ADJUDICATION__HOST_ADOPTION_HOLD",
+    "machine_domain_code_adjudication_captured": true,
+    "machine_domain_models_adjudicated": 6,
+    "literature_source_records": 7,
+    "independently_verified_primary_publisher_records": 6,
+    "independently_verified_official_guidance_records": 2,
+    "literature_identifiers": [
+      "10.1021/acs.iecr.5b03852",
+      "10.1002/aic.14106",
+      "10.1002/aic.17351",
+      "10.1002/ffj.3690",
+      "10.1021/acs.jced.7b00116",
+      "10.1002/ffj.3564",
+      "JRC107493",
+      "JRC107494"
+    ],
+    "literature_verification_boundary": "Official publisher and JRC pages support the cited article identities and high-level model domains. They do not supply the complete numeric tables, commercial reference database, licensed software inputs or all method settings required for reproducible host adoption.",
+    "costa_2015_dpg_identity_distinct_from_2017_mineral_oil_study": true,
+    "native_c3_c8_b5_remain_controlling": true,
+    "native_c3_has_exact_applicability_domain_and_context_hashing": true,
+    "native_c8_rejects_cross_matrix_and_condition_mismatch": true,
+    "native_b5_requires_method_matrix_calibration_and_identity_scope": true,
+    "source_specific_codes_review_value": "USEFUL_NONEXECUTABLE_MIGRATION_INPUT",
+    "external_numeric_source_tables_present": false,
+    "private_reference_database_present": false,
+    "package_claimed_tests_passed": 108,
+    "package_claimed_tests_locally_replayed": false,
+    "package_code_imported": false,
+    "package_code_executed": false,
+    "native_runtime_replaced": false,
+    "source_rows_admitted": 0,
+    "formula_rows_mutated": 0,
+    "inventory_rows_mutated": 0,
+    "physical_truth_rows_mutated": 0,
+    "release_rows_mutated": 0,
+    "promotion_allowed": false
+  },
+  "receipt_sha256": "165d8bd009cb505e972276a0f081b69819c3f160941b9dbe79eb7359d185deb1"
+}

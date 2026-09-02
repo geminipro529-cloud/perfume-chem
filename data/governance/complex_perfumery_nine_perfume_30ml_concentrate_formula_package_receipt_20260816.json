@@ -1,0 +1,107 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "complex-perfumery-nine-perfume-30ml-concentrate-formula-20260816",
+  "recorded_at": "2026-08-16T14:45:00+07:00",
+  "package": {
+    "file_name": "Nine_Perfume_All_30mL_Concentrate_Formulas_2026-08-16_v1.zip",
+    "locator": "incoming_review/chatgpt/20260816T144500+0700-v14-post-v13-30ml-formula-scaling-6a79b172-nc01c9bfd/Nine_Perfume_All_30mL_Concentrate_Formulas_2026-08-16_v1.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 289626,
+    "sha256": "c01c9bfd6e18b17968fd2530c7a548f2c3a41c6d4f74e9e64973aef4c950618e",
+    "media_type": "application/zip",
+    "archive_entry_count": 126,
+    "archive_file_count": 126,
+    "declared_payload_count": 125,
+    "package_root": "Nine_Perfume_All_30mL_Concentrate_Formulas_2026-08-16_v1",
+    "embedded_integrity_records": [
+      {
+        "path": "Nine_Perfume_All_30mL_Concentrate_Formulas_2026-08-16_v1/MANIFEST.json",
+        "byte_size": 25670,
+        "sha256": "bc8e9c0609925ab7f0dd45618272c42117edfc1a12488bb7ff33e3b9775e4d64",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "Nine_Perfume_All_30mL_Concentrate_Formulas_2026-08-16_v1/SHA256SUMS.txt",
+        "byte_size": 16580,
+        "sha256": "5fb47162615d753ad12ac9a1da83e8fd5e369d7fa04435e72d21600d52e7be50",
+        "role": "CHECKSUM_LEDGER"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a79b172-0264-83ec-b77a-306a37ecb832:nine-perfume-30ml-concentrate-formulas-20260816-v1",
+    "conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+    "turn_id": "c90871c5-765d-4fb4-96d8-97091b8c7c16",
+    "message_id": "999eceb3-9416-4b59-96ae-87706956bbb1",
+    "lineage_resolution": "EXACT_ORIGINAL_FILE_CARD_BYTES_RECOVERED_HASH_VERIFIED_AND_CAPTURED_AS_A_30ML_SCALING_DESCENDANT_OF_THE_EXACT_MARKDOWN_FORMULA_EXPORT",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "External AI-generated formula-scaling ancestry; exact file possession does not grant source, formula, execution, redistribution, or release authority.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Retain exact raw-volume scaling geometry only. Native target/build, exact-stock, active-dose, Laboratory Beta, C0, safety, OAV, and release gates remain controlling."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "THIRTY_ML_SCALING_IS_NOT_CANONICAL_FORMULA_SELECTION",
+      "RAW_VOLUME_GEOMETRY_NOT_ACTIVE_DOSE_AUTHORITY",
+      "EXACTSTOCKREF_AND_PREPARATION_RECEIPTS_REQUIRED",
+      "NO_PHYSICAL_OR_SENSORY_RESULTS",
+      "NO_SAFETY_OR_RELEASE_AUTHORITY"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "Nine_Perfume_All_MD_Formula_Files_2026-08-16_v1.zip",
+      "byte_size": 364392,
+      "sha256": "8040367862a0a15cf5852dac395a2f630c80898f3ab734755c00299611f9dd17",
+      "relation": "THIRTY_ML_RAW_VOLUME_SCALING_DESCENDANT_OF_EXACT_MARKDOWN_FORMULA_EXPORT",
+      "support_scope": "FORMULA_SCALING_AND_SCREEN_DESIGN_ANCESTRY_ONLY",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "NINE_PERFUME_30ML_CONCENTRATE_FORMULA_EXACT_BYTES_DESIGN_ANCESTRY_ONLY",
+    "package_state": "30ML_CONCENTRATE_SCALING_COMPLETE_NO_CANONICAL_SELECTION",
+    "perfume_books": 9,
+    "individual_arm_formulas": 110,
+    "quick_tables": 1,
+    "archive_ledger_entries_verified": 125,
+    "manifest_payload_records_verified": 124,
+    "formula_index": {
+      "path": "Nine_Perfume_All_30mL_Concentrate_Formulas_2026-08-16_v1/FORMULA_INDEX.json",
+      "byte_size": 60241,
+      "sha256": "06f5f85729d05389ac9084a5ef0f4119ed81053aa662f6f868a54e80c0bfc5a4"
+    },
+    "native_graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "promotion_allowed": false,
+    "capture_manifest": {
+      "path": "incoming_review/chatgpt/20260816T144500+0700-v14-post-v13-30ml-formula-scaling-6a79b172-nc01c9bfd/capture_manifest.json",
+      "byte_size": 5277,
+      "sha256": "6b1fa4540b080470299757e967c4f91398af6107dc21fc1ce6384349e531d834"
+    }
+  },
+  "receipt_sha256": "77129021cc681a4ccfbba373995890bbd4c83360ea25fe405d282267511537e1"
+}

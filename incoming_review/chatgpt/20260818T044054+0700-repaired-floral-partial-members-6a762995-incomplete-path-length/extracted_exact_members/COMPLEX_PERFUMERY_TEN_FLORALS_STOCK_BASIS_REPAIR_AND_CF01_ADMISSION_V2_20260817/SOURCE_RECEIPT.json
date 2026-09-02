@@ -1,0 +1,44 @@
+{
+  "receipt_id": "CP-TEN-FLORALS-STOCK-BASIS-SOURCE-20260817-V2",
+  "generated_at_utc": "2026-08-17T15:05:24+00:00",
+  "sources": [
+    {
+      "filename": "COMPLEX_PERFUMERY_TEN_COMPLEX_FLORALS_V1_20260817.zip",
+      "bytes": 885084,
+      "sha256": "5e3fad87dac2be03f58b44b5ee6c810ca97b6c9a022fcfc052a22a53db5ef6c2",
+      "authority": "immutable ten-formula source package"
+    },
+    {
+      "filename": "TEN_COMPLEX_FLORAL_PORTFOLIO.json",
+      "bytes": 624624,
+      "sha256": "9fc7b9aedef3a1c96cd9101fa2389861168cae794e7537931759e491a2acdbf7",
+      "authority": "formula geometry and original row stock metadata"
+    },
+    {
+      "filename": "TEN_COMPLEX_FLORAL_PORTFOLIO_V1.xlsx",
+      "bytes": 113931,
+      "sha256": "13f6adc842324e00d97285b437b4eeb6192dfa67a9f4301bfc53e7828f6cce14",
+      "authority": "readable portfolio workbook"
+    },
+    {
+      "filename": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5(1).xlsx",
+      "bytes": 199635,
+      "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "authority": "current stock and preparation authority"
+    }
+  ],
+  "mutations": {
+    "source_formula_geometry": 0,
+    "source_formula_hashes": 0,
+    "v5_inventory": 0,
+    "physical_stock": 0,
+    "bottle": 0,
+    "physical_truth": 0,
+    "sensory_truth": 0,
+    "headspace": 0,
+    "strict_oav": 0,
+    "safety": 0,
+    "release": 0,
+    "phase_g": 0
+  }
+}

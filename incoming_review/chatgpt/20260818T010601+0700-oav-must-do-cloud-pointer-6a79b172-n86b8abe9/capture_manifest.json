@@ -1,0 +1,76 @@
+{
+  "schema_version": "chatgpt_cloud_artifact_pointer_capture_v1",
+  "capture_id": "20260818T010601+0700-oav-must-do-cloud-pointer-6a79b172-n86b8abe9",
+  "recorded_at": "2026-08-18T01:06:01+07:00",
+  "state": "MESSAGE_POINTER_CAPTURED_SOURCE_BYTES_NOT_MATERIALIZED",
+  "source": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+    "turn_id": "7d4b15fc-7334-4f03-a6bc-dd1d59f6afec",
+    "assistant_message_id": "86b8abe9-511a-400c-ac54-1f4a4040bde6",
+    "completed_at_utc": "2026-08-17T15:12:48.768Z",
+    "trust_class": "UNTRUSTED_CLOUD_MESSAGE_POINTER_NOT_SOURCE_BYTES"
+  },
+  "claimed_deliverables": [
+    {
+      "file_name": "OAV_MUST_DO_GATE_DESIGN_CONTRACT.md",
+      "exact_bytes_available": false,
+      "byte_size": null,
+      "sha256": null
+    },
+    {
+      "file_name": "OAV_DIAGNOSIS_2026-08-17.md",
+      "exact_bytes_available": false,
+      "byte_size": null,
+      "sha256": null
+    },
+    {
+      "file_name": "oav_gate_reference.py",
+      "exact_bytes_available": false,
+      "byte_size": null,
+      "sha256": null
+    },
+    {
+      "file_name": "CODEX_IMPLEMENTATION_HANDOFF.md",
+      "exact_bytes_available": false,
+      "byte_size": null,
+      "sha256": null
+    }
+  ],
+  "materialization": {
+    "local_chatgpt_project_folder_scanned": true,
+    "repository_scanned": true,
+    "codex_state_scanned": true,
+    "exact_file_objects_found": 0,
+    "attachment_download_tool_available": false,
+    "reconstruction_or_substitution_allowed": false,
+    "canonical_installation_allowed": false
+  },
+  "native_fit_observation": {
+    "repository_head": "a2a25a72277597e07b568c64d3205a1a80a0f165",
+    "verified_existing_contracts": [
+      "G15 is a hard-blocking release gate for exact stock authority, parent lineage, active-dose equivalence, and revision discontinuity.",
+      "The release CLI binds OAV analysis to the gate dose receipt and preserves modeled-versus-strict OAV separation.",
+      "Covered naturals use constituent-composite OAV rather than whole-natural monomolecular OAV.",
+      "Prada citronellol and Lemonile stock-rebase regressions are locally codified.",
+      "Automatic formula mutation and OAV release authority remain false."
+    ],
+    "unverified_possible_delta": "The cloud message describes mandatory PASS_SCREENED, REVIEW_REQUIRED, HOLD, or FAIL disposition for every odor-active row. Exact source bytes are required before deciding whether or how that contract should alter the native release path.",
+    "canonical_files_modified_by_capture": false,
+    "behavior_change_installed": false
+  },
+  "authority": {
+    "source_admission": false,
+    "package_installation": false,
+    "schema": false,
+    "scientific": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "physical_execution": false,
+    "sensory_validation": false,
+    "release": false,
+    "automatic_formula_mutation": false
+  },
+  "next_gate": "MATERIALIZE_EACH_EXACT_FILE_OBJECT_WITH_SIZE_AND_SHA256_THEN_QUARANTINE_VALIDATE_AND_REVIEW_NATIVE_FIT"
+}

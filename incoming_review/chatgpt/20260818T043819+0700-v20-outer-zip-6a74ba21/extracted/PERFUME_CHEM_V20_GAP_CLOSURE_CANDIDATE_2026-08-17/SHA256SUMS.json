@@ -1,0 +1,231 @@
+{
+  "entries": [
+    {
+      "bytes": 573,
+      "path": "AUTHORITY_FLAGS.json",
+      "sha256": "7d4df3efa566c61319e37ee30332cadd8769509200130137b9bea79607823c5d"
+    },
+    {
+      "bytes": 1588,
+      "path": "EXACT_DEPENDENCY_REGISTRY.json",
+      "sha256": "fccfd2892999e346093d82d3bef25a88a352d9fcc83796254a9b3a4876a00114"
+    },
+    {
+      "bytes": 2195,
+      "path": "FORMULA_ARTIFACT_REPAIR_QUEUE.json",
+      "sha256": "48252bbde0f84a4d1ee0902363e5bbcbe9278aac4f0fd90b06352260e5d02462"
+    },
+    {
+      "bytes": 4705,
+      "path": "GAP_CLOSURE_MATRIX.json",
+      "sha256": "a878abf848027af8de6d1330507458f2ccb1ea6f8c9e7d18f31f200215c66ee5"
+    },
+    {
+      "bytes": 8635,
+      "path": "GAP_CLOSURE_REPORT.md",
+      "sha256": "f1d9e1071b89c7cc649148ab1ac60349a41eaf88329ad6f95e50c9ab731e822b"
+    },
+    {
+      "bytes": 2732,
+      "path": "IMPLEMENTATION_HANDOFF.md",
+      "sha256": "58b4164b9fa5c166b0a0d94fceb0129248cb6e6184dfc601817455a445192cb1"
+    },
+    {
+      "bytes": 8143,
+      "path": "PACKAGE_MANIFEST.json",
+      "sha256": "50c2e9b4738823cbe70cbc05102733c68f74fcf2b2aeb1e3da0bef241a01cc93"
+    },
+    {
+      "bytes": 2294,
+      "path": "README.md",
+      "sha256": "f401fdeb18bda2e7cd2a9392e4c11d5fec87934ee2da294ece764699674fc8ec"
+    },
+    {
+      "bytes": 5233,
+      "path": "SOURCE_MANIFEST.json",
+      "sha256": "a9a65a3471ab1471914fba16a939d6adef48e99e5358e3799a3d90de5c5f4035"
+    },
+    {
+      "bytes": 1777,
+      "path": "STOCK_LINEAGE_HOLD_QUEUE.json",
+      "sha256": "a75ac37a1c79c5a43b8d188d9a40e1c96e28787648a0ed9425f51771bcf7eada"
+    },
+    {
+      "bytes": 7229,
+      "path": "VALIDATION_REPORT.json",
+      "sha256": "32bbc1de781f23e43f2fc08eb8157e71238143852ad64c4775d155a98bb0e7cc"
+    },
+    {
+      "bytes": 984,
+      "path": "VALIDATION_REPORT.md",
+      "sha256": "87ff246e75b1469032802fe5a1687ea8b83f45260d75dc6b34e6dfcc2acb2676"
+    },
+    {
+      "bytes": 10151,
+      "path": "VALIDATION_TEST_LOG.txt",
+      "sha256": "0726a0f9b4ad3367698027025fe2badae8ead88b60c763b8acce5cbbd43a6440"
+    },
+    {
+      "bytes": 333,
+      "path": "pyproject.toml",
+      "sha256": "5e965589a951a42b88697ea41bb6242c13b5ac96ce32e87c8175073174b9ad84"
+    },
+    {
+      "bytes": 13630,
+      "path": "reference/legacy_qualification/ENGINE_QUALIFICATION_REFERENCE_RESULTS.json",
+      "sha256": "ea7e7f1f14c78170943a390fc345e581c8d79a362c9774887105fa50b0ff31ca"
+    },
+    {
+      "bytes": 19618,
+      "path": "reference/legacy_qualification/engine_qualification_fixtures.json",
+      "sha256": "6ce9292a2ce98f0bcd6daaa1e98a1fb0d207a748cfe05389b9110c0b700c2b3a"
+    },
+    {
+      "bytes": 5391,
+      "path": "reference/legacy_qualification/reference_gate_checker.py",
+      "sha256": "4feca9af5b758503c927f5f1f722581522348e0202d5c5410b9dcc48300edff5"
+    },
+    {
+      "bytes": 9800,
+      "path": "reference/meaningful_complexity_v3/COMPLEXITY_CLASSIFICATION_RULES.json",
+      "sha256": "08a076c638f3fccffb9bb640cfbe76f1dd294fdc2aa808e4636fba4b3096a374"
+    },
+    {
+      "bytes": 8608,
+      "path": "reference/meaningful_complexity_v3/COMPLEXITY_MODEL_TEST_CASES.json",
+      "sha256": "df6f4d90a4d215aa4790682918f40406b5a08b69ab6359661c47512c09959b46"
+    },
+    {
+      "bytes": 10291,
+      "path": "reference/meaningful_complexity_v3/COMPLEXITY_VECTOR_DEFINITIONS.csv",
+      "sha256": "bb2575af05e3d9c479e47759e135857ae5ea26201208120e7be9f1d89ef8b6c1"
+    },
+    {
+      "bytes": 8949,
+      "path": "reference/meaningful_complexity_v3/V2_TO_V3_GATE_CROSSWALK.csv",
+      "sha256": "fd63237461f1c4fb26e8f87039e21b94443fac52a6d26c3122225c43629972d0"
+    },
+    {
+      "bytes": 8744,
+      "path": "reference/parent_debug/PERFUME_CHEM_V19_V20_DEBUG_VALIDATION_REPORT_2026-08-17.md",
+      "sha256": "d88f3053038154b849a5056a093227f1a9681dfb3860a065c87532215fda614d"
+    },
+    {
+      "bytes": 9455,
+      "path": "reference/parent_debug/PERFUME_CHEM_V19_V20_VALIDATION_MATRIX_2026-08-17.json",
+      "sha256": "3b2bcdd08db07b23b75e6e29e6cb528c214550a96ce841cb7eb6e7aa7ef47d1f"
+    },
+    {
+      "bytes": 9685,
+      "path": "scripts/run_validation.py",
+      "sha256": "097ba05a97094eb69884ba547c4180b40bd4df8fab22c1b42bb2973ccf615081"
+    },
+    {
+      "bytes": 376,
+      "path": "src/perfume_chem_v20_guardrails/__init__.py",
+      "sha256": "04755d80bf74a758809b9feab0cb531883b9984d80ccd55d7ff5cf13ccfe15e7"
+    },
+    {
+      "bytes": 1650,
+      "path": "src/perfume_chem_v20_guardrails/authority.py",
+      "sha256": "a2d6cfeb1756128d0d0dbf616cf3259892ebe3b14f089a876a6fd033636a3553"
+    },
+    {
+      "bytes": 3814,
+      "path": "src/perfume_chem_v20_guardrails/canonical.py",
+      "sha256": "cd489539adb4d8868972b85cbae57c95e5ad8237e799a73bf13bce072b5ac553"
+    },
+    {
+      "bytes": 19657,
+      "path": "src/perfume_chem_v20_guardrails/complexity_dispatch.py",
+      "sha256": "7b5d5a63de5300eecee1d72ecc1f679d7aac8c101aab73c93964b749ccad1ce4"
+    },
+    {
+      "bytes": 6669,
+      "path": "src/perfume_chem_v20_guardrails/exact_bytes.py",
+      "sha256": "eeadc2ccbf7e08f812e8db738c928bda99caff1f6a528aba34802d335d92f414"
+    },
+    {
+      "bytes": 13479,
+      "path": "src/perfume_chem_v20_guardrails/exact_quantities.py",
+      "sha256": "505f758324e242091c532db37b5d2e8ca1105bb3fa6356004bc221a96434b3e0"
+    },
+    {
+      "bytes": 10968,
+      "path": "src/perfume_chem_v20_guardrails/formula_artifact.py",
+      "sha256": "5fdb64187f2d90344aeee0ff5b8fd0f0ac03f242d1670c7c03742e478906de43"
+    },
+    {
+      "bytes": 5826,
+      "path": "src/perfume_chem_v20_guardrails/nary_interactions.py",
+      "sha256": "2e0efbc2221b510b8b847a5d7f44c53f7738bdbe957146ef94c73a691f5cfeb4"
+    },
+    {
+      "bytes": 3289,
+      "path": "src/perfume_chem_v20_guardrails/qualification_adapter.py",
+      "sha256": "6505ec30538860295f7aebe64bdc3c4714c6431fe11d2e99849956293019aea2"
+    },
+    {
+      "bytes": 1967,
+      "path": "src/perfume_chem_v20_guardrails/runtime_policy.py",
+      "sha256": "34ebd736f4963512a1ad7eb266a6afba8dbab04c1ed5ea927ca1cdcd96b8699d"
+    },
+    {
+      "bytes": 3382,
+      "path": "src/perfume_chem_v20_guardrails/source_admission.py",
+      "sha256": "4054bbb5e27035c1d7b24053f9640d28912f1444f351747ee0853bbb04ddfa4e"
+    },
+    {
+      "bytes": 364,
+      "path": "tests/test_authority.py",
+      "sha256": "e363df46af755c4c7270c276231c26de89c2b8b7cecece784adaf28067a301d0"
+    },
+    {
+      "bytes": 1073,
+      "path": "tests/test_canonical.py",
+      "sha256": "f20b0c4c4e7c399472191a0465eb62c8f80c25910532f1ca325e20d1b46049ea"
+    },
+    {
+      "bytes": 8769,
+      "path": "tests/test_complexity_dispatch.py",
+      "sha256": "a11e22747157dc3a53883ed5218a8bf4a1ac9daa26437c472cc78cd143f5c85c"
+    },
+    {
+      "bytes": 4079,
+      "path": "tests/test_exact_bytes.py",
+      "sha256": "da133e684bbc5dd3ed217b9ab0de567281357f5acd894e7f69471a9c3d31556e"
+    },
+    {
+      "bytes": 7188,
+      "path": "tests/test_exact_quantities.py",
+      "sha256": "f3ad22c9af15f83c4871329a029f0aaf25ce6b9171715f7b9f1baf9e81bc9f09"
+    },
+    {
+      "bytes": 5612,
+      "path": "tests/test_formula_artifact.py",
+      "sha256": "33faaf0e71bcb411e00f62984fc28c31081e48c346fd749859e768b45c63d653"
+    },
+    {
+      "bytes": 3773,
+      "path": "tests/test_nary_interactions.py",
+      "sha256": "f5347a73884b38addd0d8998627a26dcb1c2917938542a11f4c62c0fbcd3dbeb"
+    },
+    {
+      "bytes": 3973,
+      "path": "tests/test_qualification_adapter.py",
+      "sha256": "c0fca34bfb3a0f4373f446bbbcdd0dd82373c6cd777cfc26506d7a8df7c07fc9"
+    },
+    {
+      "bytes": 2332,
+      "path": "tests/test_runtime_policy.py",
+      "sha256": "f8c6c35fff5dd2ef7f3b468bcd0e09d8584c509a6b57b848d45659ce48db63de"
+    },
+    {
+      "bytes": 3156,
+      "path": "tests/test_source_admission.py",
+      "sha256": "ef986b9afd693201aabdb2d7157b97724347c12aaa917e97e9a4308a312e54bb"
+    }
+  ],
+  "hash_algorithm": "SHA-256",
+  "schema_version": "SHA256SUMS_v1"
+}

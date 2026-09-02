@@ -1,0 +1,293 @@
+- generic [active] [ref=f1e1]:
+  - generic [ref=f1e2]:
+    - link "Got it!" [ref=f1e3] [cursor=pointer]:
+      - /url: "#null"
+    - paragraph [ref=f1e4]:
+      - text: This website uses cookies to ensure you get the best experience on our website
+      - link "More info" [ref=f1e5] [cursor=pointer]:
+        - /url: https://www.perfumersworld.com/privacy-policy
+  - generic [ref=f1e6]:
+    - banner:
+      - navigation [ref=f1e7]:
+        - generic [ref=f1e8]:
+          - generic [ref=f1e9]:
+            - link "PerfumersWorld":
+              - /url: index.php
+              - img "PerfumersWorld" [ref=f1e10] [cursor=pointer]
+            - link [ref=f1e11] [cursor=pointer]:
+              - /url: index.php
+              - strong [ref=f1e12]: Perfumers
+              - text: World
+            - button "" [ref=f1e13] [cursor=pointer]
+          - text:                
+          - list [ref=f1e16]:
+            - link [ref=f1e17] [cursor=pointer]:
+              - /url: "#translate"
+            - listitem [ref=f1e19]:
+              - link "Tracking" [ref=f1e20] [cursor=pointer]:
+                - /url: cart-tracking.php
+            - listitem [ref=f1e23]:
+              - generic "Login" [ref=f1e24]
+            - listitem [ref=f1e25]:
+              - link "" [ref=f1e26] [cursor=pointer]:
+                - /url: wishlist.php
+            - listitem [ref=f1e28]:
+              - link "" [ref=f1e29] [cursor=pointer]:
+                - /url: cart.php
+      - generic: Fast Track
+      - generic: RM Search 'n Compare
+      - generic: Aroma Chemicals
+      - generic: Natural & Essential Oils
+      - generic: Specialty Bases & Blends
+      - generic: Perfume Kits
+      - generic: Carrier Oils & Bases
+      - generic: Perfumery Equipment
+      - generic: Bottle
+      - generic: Compound To Go
+      - generic: All Courses
+      - generic: Workshops
+      - generic: Online Training - Foundation
+      - generic: FREE
+      - generic: Online Training - Professional Course
+      - generic: PRO
+      - generic: View Formulas Bulletin
+      - generic: Formula Compounding (SOP)
+      - generic: Software All
+      - generic: The Perfumer's Workbook
+      - generic: The Perfumer's Wizard Online Version
+      - generic: The Perfumer's Wizard ("TPW") API Platform
+      - generic: All Resources
+      - generic: My Unique Perfume
+      - generic: FAQ
+      - generic: Reviews
+      - generic: Short Introduction to Perfumery
+      - generic: The ABCs of Perfumery
+      - generic: Raw Materials Overview
+      - generic: A Perfume History Timeline
+      - generic: Videos
+      - generic: Contact
+      - generic: Visit Us (Map)
+      - generic: All Services
+      - generic: Professional-Account-Package
+      - generic: Consultant Perfumer
+      - generic: Custom Signature Perfume Creation
+      - generic: GCMS Analysis
+      - generic: The Perfumer's Studio
+    - generic [ref=f1e31]:
+      - generic [ref=f1e33]:
+        - link "Essential Oil Essential Oil" [ref=f1e35] [cursor=pointer]:
+          - /url: essential-oils.php
+          - img "Essential Oil" [ref=f1e36]
+          - generic [ref=f1e37]: Essential Oil
+        - link [ref=f1e39] [cursor=pointer]:
+          - /url: specialty-bases-blends.php
+          - img "Specialty Bases" [ref=f1e40]
+          - generic [ref=f1e41]: SpecialtyBases
+        - link [ref=f1e43] [cursor=pointer]:
+          - /url: perfume-kits.php
+          - img "Perfumery Kits" [ref=f1e44]
+          - generic [ref=f1e45]: PerfumeryKits
+        - link [ref=f1e47] [cursor=pointer]:
+          - /url: carrier-oils-toiletry-bases.php
+          - img "Toiletry Bases" [ref=f1e48]
+          - generic [ref=f1e49]: ToiletryBases
+        - link "Perfumery Equipment Equipment" [ref=f1e51] [cursor=pointer]:
+          - /url: perfumery-equipment.php
+          - img "Perfumery Equipment" [ref=f1e52]
+          - generic [ref=f1e53]: Equipment
+        - link [ref=f1e55] [cursor=pointer]:
+          - /url: product-search.php
+          - img "Product Search" [ref=f1e56]
+          - generic [ref=f1e57]: ProductSearch
+      - heading "Select Materials By The ABCs of Perfumery" [level=1] [ref=f1e59]
+      - separator [ref=f1e60]
+      - generic [ref=f1e61]:
+        - generic [ref=f1e62]:
+          - textbox "Search by Name, SKU, or Description..." [ref=f1e63]: 8IQ24653
+          - button "" [ref=f1e840] [cursor=pointer]
+        - combobox [ref=f1e64]:
+          - option "All Families" [selected]
+          - option "A-Aliphatic Fatty Waxy Soapy Clean"
+          - option "B-iceBerg Cooling Mint Camphor Borneol"
+          - option "C-Citrus Sour Sharp Citrus"
+          - option "D-Dairy Milky Cream Butter Cheese"
+          - option "E-Edible Vegetable Nut Fish Meat"
+          - option "F-Fruit Sweet & Sour Berry to Banana"
+          - option "G-Green Cut-Grass Leaves Galbanum"
+          - option "H-Herb Cool Herbal Balancing"
+          - option "I-Iris Violet Ionones Orris"
+          - option "J-Jasmine Flowery Heady (see Narcotic)"
+          - option "K-Konifer Pine Pineneedle Juniper"
+          - option "L-Linalool Fresh Crisp Floral Chemical"
+          - option "M-Muguet Lily of the Valley Flowery Green"
+          - option "N-Narcotic Heavy Sweet White Florals"
+          - option "O-Orchid Aromatic Deep Floral Salicylates"
+          - option "P-Phenol Medicinal Honey Cresol"
+          - option "Q-Oriental Queen Exotic Resins Balsams"
+          - option "R-Rose Damascena Tea Rose Geranium"
+          - option "S-Spice Warming Hot Clove Cinnamon Pepper"
+          - option "T-Tar and Smoke Burnt Ashphalt"
+          - option "U-Animal Urine-Fecal Fur Indol Leather"
+          - option "V-Vanilla Sweet As If You Can Eat Notes"
+          - option "W-Wood Cedar Sandal Vetivert Patchouli"
+          - option "X-Musk Sexy, Musk, Sensual Skin-like"
+          - option "Y-Yeast Mossy Fungal Marine Ozone"
+          - option "Z-Zolvent Bases Solvents Additives"
+      - heading [level=5] [ref=f1e842]:
+        - strong [ref=f1e67]:
+          - link "*(Deep Search 8IQ24653 via Google)" [ref=f1e843] [cursor=pointer]:
+            - /url: https://www.google.com/search?q=AI+Mode+PerfumersWorld%3A+8IQ24653
+            - text: "*(Deep Search"
+            - generic [ref=f1e844]: 8IQ24653
+            - text: via Google)
+    - generic [ref=f1e69]:
+      - button "" [ref=f1e70] [cursor=pointer]
+      - button "" [ref=f1e72] [cursor=pointer]
+    - generic [ref=f1e75] [cursor=pointer]:
+      - text: Check All
+      - checkbox "Check All"
+    - generic [ref=f1e845]:
+      - generic [ref=f1e846]:
+        - generic "Hide this item" [ref=f1e847] [cursor=pointer]: ×
+        - generic [ref=f1e848]:
+          - img "Orris Liquid" [ref=f1e849] [cursor=pointer]
+          - generic [ref=f1e850] [cursor=pointer]: 
+          - generic "Select to Compare/Add to Cart" [ref=f1e852]:
+            - generic [ref=f1e855] [cursor=pointer]
+          - button "" [ref=f1e856] [cursor=pointer]
+          - generic "Add to Wishlist" [ref=f1e858] [cursor=pointer]: 
+        - generic [ref=f1e860] [cursor=pointer]: Orris Liquid
+        - generic [ref=f1e861]: 8IQ24653
+        - text: 
+      - generic [ref=f1e862]:
+        - paragraph [ref=f1e864]:
+          - generic [ref=f1e886]:
+            - text: An exquisitely refined, powdery, and floral-woody aroma. It is characterized by its signature violet-like facets, a "lipstick" or cosmetic powdery texture, and subtle undertones of sweet raspberry and carrot seed. The dry-down is creamy, buttery, and slightly suede-like.
+            - link "Show less" [ref=f1e887] [cursor=pointer]:
+              - /url: javascript:void(0);
+        - generic [ref=f1e867]:
+          - generic [ref=f1e868]:
+            - generic [ref=f1e869]: "Impact:"
+            - generic [ref=f1e870]: "150"
+          - generic [ref=f1e871]:
+            - generic [ref=f1e872]: "Life hrs:"
+            - generic [ref=f1e873]: "296"
+          - generic [ref=f1e874]:
+            - generic [ref=f1e875]: "IFRA #4:"
+            - generic [ref=f1e876]: "-"
+      - generic [ref=f1e877]:
+        - generic [ref=f1e878]: US$ 18.00 /gram
+        - generic [ref=f1e879]:
+          - button "" [ref=f1e880] [cursor=pointer]
+          - spinbutton [ref=f1e882]: "10"
+        - generic [ref=f1e883]: "Total: US$ 180.90"
+        - generic [ref=f1e884]: (*includes $0.90 bottling charge / item)
+    - button "End of search for 8IQ24653" [disabled] [ref=f1e885]
+  - generic [ref=f1e755]:
+    - button "Add 0 to Cart" [ref=f1e756] [cursor=pointer]
+    - button "Compare (0)" [disabled] [ref=f1e757]
+    - button "Clear" [ref=f1e758] [cursor=pointer]
+  - contentinfo [ref=f1e760]:
+    - generic [ref=f1e762]:
+      - generic [ref=f1e763]:
+        - heading "Information" [level=3] [ref=f1e764]
+        - list [ref=f1e765]:
+          - listitem [ref=f1e766]:
+            - link "About Us" [ref=f1e767] [cursor=pointer]:
+              - /url: about-us.php
+          - listitem [ref=f1e768]:
+            - link "Our Mission" [ref=f1e769] [cursor=pointer]:
+              - /url: about-us.php
+          - listitem [ref=f1e770]:
+            - link "Shipping Information" [ref=f1e771] [cursor=pointer]:
+              - /url: shipping-information.php
+          - listitem [ref=f1e772]:
+            - link "Frequently Asked Questions" [ref=f1e773] [cursor=pointer]:
+              - /url: frequently-asked-questions.php
+          - listitem [ref=f1e774]:
+            - link "Privacy Policy" [ref=f1e775] [cursor=pointer]:
+              - /url: privacy-policy.php
+          - listitem [ref=f1e776]:
+            - link "Terms and Conditions" [ref=f1e777] [cursor=pointer]:
+              - /url: terms-and-conditions.php
+      - generic [ref=f1e778]:
+        - heading "Products" [level=3] [ref=f1e779]
+        - list [ref=f1e780]:
+          - listitem [ref=f1e781]:
+            - link "Aroma Chemicals" [ref=f1e782] [cursor=pointer]:
+              - /url: aroma-ingredients.php
+          - listitem [ref=f1e783]:
+            - link "Essential Oils & Absolutes" [ref=f1e784] [cursor=pointer]:
+              - /url: essential-oils.php
+          - listitem [ref=f1e785]:
+            - link "Specialty Bases & Blends" [ref=f1e786] [cursor=pointer]:
+              - /url: specialty-bases-blends.php
+          - listitem [ref=f1e787]:
+            - link "Carrier Oils & Toiletry Bases" [ref=f1e788] [cursor=pointer]:
+              - /url: carrier-oils-toiletry-bases.php
+          - listitem [ref=f1e789]:
+            - link "Perfume Kits" [ref=f1e790] [cursor=pointer]:
+              - /url: perfume-kits.php
+          - listitem [ref=f1e791]:
+            - link "Perfumery Equipment" [ref=f1e792] [cursor=pointer]:
+              - /url: perfumery-equipment.php
+      - generic [ref=f1e793]:
+        - heading "Customer Service" [level=3] [ref=f1e794]
+        - list [ref=f1e795]:
+          - listitem [ref=f1e796]:
+            - link "Contact Us" [ref=f1e797] [cursor=pointer]:
+              - /url: contact.php
+          - listitem [ref=f1e798]:
+            - link "Professional-Account-Package" [ref=f1e799] [cursor=pointer]:
+              - /url: professional-account-package.php
+          - listitem [ref=f1e800]:
+            - link "Site Directory" [ref=f1e801] [cursor=pointer]:
+              - /url: sitemap.php
+          - listitem [ref=f1e802]:
+            - link "Safety Guidelines" [ref=f1e803] [cursor=pointer]:
+              - /url: safety-guidelines.php
+          - listitem [ref=f1e804]:
+            - link "Mixing Instructions" [ref=f1e805] [cursor=pointer]:
+              - /url: mixing-instructions.php
+          - listitem [ref=f1e806]:
+            - link "Reviews" [ref=f1e807] [cursor=pointer]:
+              - /url: reviews.php
+      - generic [ref=f1e808]:
+        - heading "Contact Info" [level=3] [ref=f1e809]
+        - list [ref=f1e810]:
+          - listitem [ref=f1e811]:
+            - generic [ref=f1e812]:
+              - generic [ref=f1e813]:
+                - strong [ref=f1e814]: Perfumers
+                - text: World
+              - text: Ltd.
+          - listitem [ref=f1e815]:
+            - link "Address & Contact" [ref=f1e816] [cursor=pointer]:
+              - /url: contact.php
+          - listitem [ref=f1e817]:
+            - link "Google Maps Location" [ref=f1e818] [cursor=pointer]:
+              - /url: https://maps.app.goo.gl/MnQGpXt9QonnCR4d7
+          - listitem [ref=f1e819]: "Tel: +66 (0)2 99-800-80"
+    - list [ref=f1e821]:
+      - listitem [ref=f1e822]:
+        - link "" [ref=f1e823] [cursor=pointer]:
+          - /url: https://www.tiktok.com/@perfumersworld.official
+      - listitem [ref=f1e825]:
+        - link "" [ref=f1e826] [cursor=pointer]:
+          - /url: https://www.facebook.com/PerfumersWorldThailand
+      - listitem [ref=f1e828]:
+        - link "" [ref=f1e829] [cursor=pointer]:
+          - /url: https://twitter.com/perfumersworld
+      - listitem [ref=f1e831]:
+        - link "" [ref=f1e832] [cursor=pointer]:
+          - /url: https://maps.app.goo.gl/7yhgkzrQKZrs9KeC9
+      - listitem [ref=f1e834]:
+        - link "" [ref=f1e835] [cursor=pointer]:
+          - /url: https://www.youtube.com/user/PerfumersWorld
+    - generic [ref=f1e837]:
+      - text: Copyright © 2026
+      - link [ref=f1e838] [cursor=pointer]:
+        - /url: index.php
+        - strong [ref=f1e839]: Perfumers
+        - text: World
+      - text: .  

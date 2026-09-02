@@ -1,0 +1,138 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "chatgpt-refresh-package-recovery-20260811T083224Z",
+  "packet_nonce": "55ed1169-ef72-430f-92bb-6258a1d2a1b9",
+  "created_at": "2026-08-11T08:32:24.2905095Z",
+  "freshness": {
+    "source_observed_at": "2026-08-11T08:32:24.2905095Z",
+    "source_revision": "chat-visible-through:2026-08-11T09:22:00+07:00:assets:e69dff7450ba:7c3951ca3266:051411e3af90",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": null
+  },
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a7a4e15-768c-83ec-b8d2-e1daffa26abd",
+  "source_chat_title": "Refresh and rescan request",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Admit newly recovered Complex Perfumery attachment bytes to append-only quarantine and notify the existing Perfume-Chem integration owner without promoting chat claims.",
+  "summary": "Three exact ChatGPT attachment files were recovered and staged under incoming_review/chatgpt with original bytes and provenance. Their declared sizes and SHA-256 values match the visible chat claims. Native bounded graph scans completed for every ZIP, but all three remain quarantined and promotion is false.",
+  "decisions": [
+    {
+      "decision": "Stage original attachment bytes only; do not install or extract into canonical paths.",
+      "reason": "The bridge separates byte recovery from package admission, scientific authority, inventory authority, formula authority, and release authority."
+    },
+    {
+      "decision": "Keep all three archives quarantined.",
+      "reason": "The native graph scanner returned GRAPH_COMPLETE_QUARANTINED with nested-child-receipt and partial-member-scan findings."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The runtime-authority-cutover attachment is now available as exact bytes.",
+      "evidence": "499200 bytes; SHA-256 e69dff7450ba8fce6c62ed4f3a82f7803570f48a240efd0419aa75d7b18c953e"
+    },
+    {
+      "claim": "The evidence-bound identity-closure attachment is now available as exact bytes.",
+      "evidence": "1452144 bytes; SHA-256 7c3951ca3266b84b1fe5376375f1ca1f5588a589370ece8e21b5ac1000f22205"
+    },
+    {
+      "claim": "The Violet Leaf portfolio attachment is available as exact bytes.",
+      "evidence": "1108147 bytes; SHA-256 051411e3af906a3f2fa06fe996c98ce2d7083b69201c07481c6240a0c24ca999"
+    },
+    {
+      "claim": "All three native archive graph scans reached terminal nodes with no graph-level findings.",
+      "evidence": "Each scan reported all_nodes_terminal=true and promotion_allowed=false; node-level quarantine findings remain."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "path": "incoming_review/chatgpt/20260811T083224Z-refresh-6a7a4e15-aafe1771/capture_manifest.json",
+      "role": "browser capture provenance and validation manifest"
+    },
+    {
+      "path": "incoming_review/chatgpt/20260811T083224Z-refresh-6a7a4e15-aafe1771/COMPLEX_PERFUMERY_V5_RUNTIME_AUTHORITY_CUTOVER_V1_20260811.zip",
+      "role": "untrusted original attachment bytes"
+    },
+    {
+      "path": "incoming_review/chatgpt/20260811T083224Z-refresh-6a7a4e15-aafe1771/COMPLEX_PERFUMERY_V5_EVIDENCE_BOUND_IDENTITY_CLOSURE_V1_20260811.zip",
+      "role": "untrusted original attachment bytes"
+    },
+    {
+      "path": "incoming_review/chatgpt/20260811T083224Z-refresh-6a7a4e15-aafe1771/Violet_Leaf_Complexity_Portfolio_Aug2026_v1_Package.zip",
+      "role": "untrusted original attachment bytes"
+    }
+  ],
+  "constraints": [
+    "No canonical inventory, formula, database, code, bottle, or release state was changed.",
+    "No chat assertion is promoted into physical, sensory, OAV, safety, stability, similarity, or release authority.",
+    "The packages require native receipt review and dependency/portability validation before any installation decision.",
+    "DeepLuna Fast remains retired; no alternate provider or Codex subagent was used."
+  ],
+  "unresolved_questions": [
+    "Do the recovered runtime and identity packages replay without the external directory dependencies reported by the source chat?",
+    "Can the two DHP25 package bytes be recovered from their originating chat or project library?",
+    "Does the Violet package's Polysantol dependency remain blocked after applying the newer user-asserted out-of-stock authority delta?"
+  ],
+  "next_actions": [
+    {
+      "action": "Run the existing native external-package receipt and dependency replay over the staged runtime and identity packages.",
+      "authority": "Sol/Codex quarantine review only"
+    },
+    {
+      "action": "Compare package assumptions against current Inventory V5 authority deltas, including the confirmed Beta Ionone neat plus 0.1% TEC stocks.",
+      "authority": "Sol/Codex validation only"
+    },
+    {
+      "action": "Keep installation and canonical promotion on HOLD until package portability, dependency, and repository CI gates pass.",
+      "authority": "Sol/Codex"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Beta Ionone stock lineage",
+      "state": "LOCAL_DATA_SPINE_CORRECTED_PACKAGE_REPLAY_PENDING",
+      "detail": "The source chat reported conflicting active fractions. The user subsequently confirmed separate neat and 0.1% in TEC stocks, and the local data spine now records active fractions 1.0 and 0.001. The package must still be replayed against current bytes."
+    },
+    {
+      "scope": "Package portability",
+      "state": "HOLD",
+      "detail": "The source chat reports missing external dependency trees in the runtime and identity packages. Exact recovered bytes have not yet been promoted or treated as self-contained."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a7a4e15-768c-83ec-b8d2-e1daffa26abd",
+      "uri": "chatgpt-conversation://6a7a4e15-768c-83ec-b8d2-e1daffa26abd"
+    },
+    {
+      "kind": "codex_task",
+      "id": "019feb17-3324-7623-9eac-3b7e817acd4c",
+      "uri": "codex://threads/019feb17-3324-7623-9eac-3b7e817acd4c"
+    }
+  ],
+  "content_hashes": [
+    {
+      "algorithm": "sha256",
+      "digest": "e69dff7450ba8fce6c62ed4f3a82f7803570f48a240efd0419aa75d7b18c953e",
+      "path": "incoming_review/chatgpt/20260811T083224Z-refresh-6a7a4e15-aafe1771/COMPLEX_PERFUMERY_V5_RUNTIME_AUTHORITY_CUTOVER_V1_20260811.zip"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "7c3951ca3266b84b1fe5376375f1ca1f5588a589370ece8e21b5ac1000f22205",
+      "path": "incoming_review/chatgpt/20260811T083224Z-refresh-6a7a4e15-aafe1771/COMPLEX_PERFUMERY_V5_EVIDENCE_BOUND_IDENTITY_CLOSURE_V1_20260811.zip"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "051411e3af906a3f2fa06fe996c98ce2d7083b69201c07481c6240a0c24ca999",
+      "path": "incoming_review/chatgpt/20260811T083224Z-refresh-6a7a4e15-aafe1771/Violet_Leaf_Complexity_Portfolio_Aug2026_v1_Package.zip"
+    }
+  ],
+  "authority": {
+    "level": "SOURCE_CAPTURE",
+    "accepted_by_codex": false
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

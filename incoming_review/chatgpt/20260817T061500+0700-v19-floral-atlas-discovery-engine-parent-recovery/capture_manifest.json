@@ -1,0 +1,110 @@
+{
+  "schema_version": "complex_perfumery_exact_byte_capture_v1",
+  "capture_id": "20260817T061500+0700-v19-floral-atlas-discovery-engine-parent-recovery",
+  "recorded_at": "2026-08-17T06:15:00+07:00",
+  "state": "EXACT_BYTES_CAPTURED_QUARANTINED_NOT_ADMITTED",
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "artifacts": [
+    {
+      "file_name": "Floral_Heart_Complexity_Discovery_Atlas_Aug2026_v1.xlsx",
+      "locator": "incoming_review/chatgpt/20260817T061500+0700-v19-floral-atlas-discovery-engine-parent-recovery/Floral_Heart_Complexity_Discovery_Atlas_Aug2026_v1.xlsx",
+      "byte_size": 141770,
+      "sha256": "91d9cd54605663c9221210fc4e811e91e776530fd9c3aabd13ca450a1373aa7b",
+      "recovery_method": "EXACT_LOCAL_FILE_OBJECT_COPY",
+      "source_locator": "C:/Users/ASUS/Downloads/Floral_Heart_Complexity_Discovery_Atlas_Aug2026_v1.xlsx",
+      "source_conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+      "source_turn_id": null,
+      "archive_regenerated": false,
+      "artifact_substituted": false,
+      "admitted": false
+    },
+    {
+      "file_name": "Perfume_Complexity_Model_Discovery_Admission_Engine_Aug2026_v1_2.zip",
+      "locator": "incoming_review/chatgpt/20260817T061500+0700-v19-floral-atlas-discovery-engine-parent-recovery/Perfume_Complexity_Model_Discovery_Admission_Engine_Aug2026_v1_2.zip",
+      "byte_size": 826528,
+      "sha256": "108624938e183af41da63f5ef77e31c875b196389f3467d7acd896ccf7b274df",
+      "recovery_method": "EXACT_NESTED_MEMBER_EXTRACTION_WITHOUT_RECOMPRESSION",
+      "source_conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+      "source_turn_id": "44fd988d-c36a-4b7d-a97f-075120718abf",
+      "source_container": {
+        "file_name": "Floral_Heart_Soliflore_Codex_Cloud_Work_Chat_Packet_cf960bcd-fecd-4788-bf75-a18175ff7118.zip",
+        "byte_size": 1693860,
+        "sha256": "e6a083498f350ea8ceaf7ee3a97d725cd394463eebfdf136a95bdc81a65e19aa",
+        "member": "cf960bcd-fecd-4788-bf75-a18175ff7118/artifacts/Perfume_Complexity_Model_Discovery_Admission_Engine_Aug2026_v1_2.zip"
+      },
+      "archive_regenerated": false,
+      "artifact_substituted": false,
+      "admitted": false
+    }
+  ],
+  "validation": {
+    "atlas": {
+      "ooxml_entry_count": 45,
+      "visible_sheet_count": 13,
+      "nonempty_cell_count": 13997,
+      "formula_cell_count": 11,
+      "stored_formula_error_count": 0,
+      "unsafe_paths": 0,
+      "casefold_duplicate_paths": 0,
+      "macros": 0,
+      "external_links": 0,
+      "connections": 0,
+      "custom_xml": 0,
+      "digital_signatures": 0,
+      "encrypted": false,
+      "native_scan_status": "CLEAR_FOR_RECEIPT_REVIEW",
+      "promotion_allowed": false
+    },
+    "discovery_engine": {
+      "archive_entry_count": 137,
+      "archive_file_count": 137,
+      "crc_errors": 0,
+      "unsafe_paths": 0,
+      "casefold_duplicate_paths": 0,
+      "manifest_records_verified": 135,
+      "manifest_mismatches": 0,
+      "checksum_records_verified": 136,
+      "checksum_mismatches": 0,
+      "package_declared_tests_passed": 83,
+      "package_declared_cli_smoke_passed": 28,
+      "native_archive_graph": {
+        "status": "GRAPH_COMPLETE_QUARANTINED",
+        "nodes": 5,
+        "edges": 5,
+        "max_depth": 2,
+        "all_nodes_terminal": true,
+        "promotion_allowed": false
+      }
+    }
+  },
+  "source_projection": {
+    "path": "incoming_review/chatgpt/20260817T061500+0700-v19-floral-atlas-discovery-engine-parent-recovery/source_projection/complexity_engine",
+    "python_file_count": 16,
+    "semantic_sha256": "0a282f86103ac7ccf8b9b82a071d133d104dc550cf9fb979670730183e8b5ef1",
+    "semantic_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_LIST_OF_BASENAME_AND_EXACT_FILE_SHA256",
+    "state": "READ_ONLY_NATIVE_FIT_PROJECTION_NOT_INSTALLATION",
+    "direct_import_allowed": false
+  },
+  "lineage_correction": {
+    "prior_state": "V16_POINTER_ONLY_PARENT_NOT_RECOVERED",
+    "current_state": "EXACT_V1_2_PARENT_BYTES_RECOVERED_FROM_PREEXISTING_CAPTURED_OUTER_ARCHIVE",
+    "sealed_prior_records_mutated": false
+  },
+  "authority": {
+    "source_admission": false,
+    "package_installation": false,
+    "schema": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "physical_execution": false,
+    "sensory": false,
+    "analytical": false,
+    "measured_headspace": false,
+    "strict_empirical_oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "release": false
+  }
+}

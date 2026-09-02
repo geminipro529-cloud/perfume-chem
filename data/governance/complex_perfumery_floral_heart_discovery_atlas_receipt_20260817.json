@@ -1,0 +1,58 @@
+{
+  "schema_version": "external_evidence_artifact_receipt_v1",
+  "receipt_id": "complex-perfumery-floral-heart-discovery-atlas-20260817",
+  "recorded_at": "2026-08-17T06:15:00+07:00",
+  "artifact": {
+    "file_name": "Floral_Heart_Complexity_Discovery_Atlas_Aug2026_v1.xlsx",
+    "locator": "incoming_review/chatgpt/20260817T061500+0700-v19-floral-atlas-discovery-engine-parent-recovery/Floral_Heart_Complexity_Discovery_Atlas_Aug2026_v1.xlsx",
+    "byte_size": 141770,
+    "sha256": "91d9cd54605663c9221210fc4e811e91e776530fd9c3aabd13ca450a1373aa7b",
+    "media_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+    "source_locator": "C:/Users/ASUS/Downloads/Floral_Heart_Complexity_Discovery_Atlas_Aug2026_v1.xlsx",
+    "rights_state": "UNKNOWN",
+    "redistribution_allowed": false
+  },
+  "validation": {
+    "ooxml_entry_count": 45,
+    "visible_sheet_count": 13,
+    "nonempty_cell_count": 13997,
+    "formula_cell_count": 11,
+    "stored_formula_error_count": 0,
+    "unsafe_paths": 0,
+    "casefold_duplicate_paths": 0,
+    "active_candidate_families": 85,
+    "submodels": 680,
+    "mixture_grammars": 40,
+    "priority_zero_gaps": 27,
+    "native_scan_status": "CLEAR_FOR_RECEIPT_REVIEW"
+  },
+  "truth_boundary": {
+    "state": "DISCOVERY_ONLY_NOT_IMPLEMENTED",
+    "formula_or_inventory_mutated": false,
+    "purchase_triggered": false,
+    "physical_or_sensory_results": false,
+    "strict_empirical_oav": false,
+    "repository_import_allowed": false,
+    "promotion_allowed": false
+  },
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "physical_execution": false,
+    "sensory": false,
+    "analytical": false,
+    "measured_headspace": false,
+    "strict_empirical_oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "release": false
+  },
+  "semantic_receipt_sha256": "819cf0a25897df1fd60466da539559a7f8cc789188bab11d63eb208949af88a9"
+}

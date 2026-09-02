@@ -1,0 +1,207 @@
+{
+  "authority_flags": {
+    "analytical_authority": false,
+    "bottle_authority": false,
+    "compounding_authority": false,
+    "formula_authority": false,
+    "inventory_mutation": false,
+    "package_installation": false,
+    "physical_execution": false,
+    "procurement_authority": false,
+    "publication_authority": false,
+    "release_authority": false,
+    "repository_promotion": false,
+    "safety_authority": false,
+    "sensory_authority": false,
+    "source_admission": false,
+    "stock_authority": false,
+    "strict_empirical_oav": false
+  },
+  "candidate_version": "0.1.0-candidate",
+  "compile_state": "PASS",
+  "exact_dependency_registry": [
+    {
+      "expected_bytes": 539050,
+      "expected_members": 27,
+      "expected_sha256": "8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998",
+      "filename": "UNIVERSAL_ACCORD_INTELLIGENCE_MODULE_v1.zip",
+      "stale_sha256": [
+        "8a9cbdfb9f28c489b56a8c6391757854def53feb77e70c2dc3e81cc6696cd05a"
+      ]
+    },
+    {
+      "expected_bytes": 1228587,
+      "expected_members": 198,
+      "expected_sha256": "e9e325bea9117dbe2a97ff67e77d57705a54244591278fac7a34915a7f0ae523",
+      "filename": "PERFUME_CHEM_CANONICAL_CUTOVER_READY_20260808_v2.zip",
+      "stale_sha256": []
+    },
+    {
+      "expected_bytes": 540402,
+      "expected_members": null,
+      "expected_sha256": "8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db",
+      "filename": "Perfume_Chem_Physics_OAV_Decision_Model_v3_4_0_CALIBRATION_READY.zip",
+      "stale_sha256": []
+    },
+    {
+      "expected_bytes": 65724,
+      "expected_members": null,
+      "expected_sha256": "582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5",
+      "filename": "perfume_chem_physics_oav_v3-3.4.0-py3-none-any.whl",
+      "stale_sha256": []
+    }
+  ],
+  "installation_state": "NOT_INSTALLED",
+  "legacy_qualification_adapter": {
+    "current_adapter_receipts": [
+      {
+        "adapter_hash": "7d76f0abf09fca14fda80e844f162c13646f3c68c24fbe951185a11d4f83fcdd",
+        "authority_promoted": false,
+        "current_policy_gate_sets_match": true,
+        "current_policy_state": "CURRENT_POLICY_COMPATIBLE__LEGACY_G14_NON_GOVERNING",
+        "fixture_id": "EQ-02-KNOWN-INVALID",
+        "legacy_fixture_still_quarantined": true,
+        "legacy_state": "REBUILD",
+        "normalized_expected_failed_gates": [
+          "G1",
+          "G10",
+          "G11",
+          "G12",
+          "G13",
+          "G2",
+          "G3",
+          "G4",
+          "G5",
+          "G6",
+          "G7",
+          "G8",
+          "G9"
+        ],
+        "normalized_observed_failed_gates": [
+          "G1",
+          "G10",
+          "G11",
+          "G12",
+          "G13",
+          "G2",
+          "G3",
+          "G4",
+          "G5",
+          "G6",
+          "G7",
+          "G8",
+          "G9"
+        ]
+      },
+      {
+        "adapter_hash": "1c830639273d797787a0702b2736b13552d743ed59484f41e70da162852e3157",
+        "authority_promoted": false,
+        "current_policy_gate_sets_match": true,
+        "current_policy_state": "CURRENT_POLICY_COMPATIBLE__LEGACY_G14_NON_GOVERNING",
+        "fixture_id": "EQ-16-LOW-QUALITY-SCORE",
+        "legacy_fixture_still_quarantined": true,
+        "legacy_state": "CONDITIONAL",
+        "normalized_expected_failed_gates": [],
+        "normalized_observed_failed_gates": []
+      }
+    ],
+    "legacy_package_state": "FAIL_15_OF_16__QUARANTINED",
+    "target_engine_run": false
+  },
+  "mcv3_dispatch_replay": [
+    {
+      "decision_hash": "a31f4e615f936c57174eb069c344679d9e5b71b9bc801a8217681db7daebf6fe",
+      "expected_class": "COMPACT",
+      "expected_state": "PASS_FOR_DECLARED_SCOPE",
+      "g14_state": "NON_GOVERNING",
+      "observed_class": "COMPACT",
+      "observed_state": "PASS_FOR_DECLARED_SCOPE",
+      "test_case_id": "MCV3-TC-001"
+    },
+    {
+      "decision_hash": "da9be5bb6410a072b252659b8581672147cc060a3683e48506ee97499380a369",
+      "expected_class": "UNCLASSIFIED_HOLD",
+      "expected_state": "REBUILD_REQUIRED",
+      "g14_state": "NON_GOVERNING",
+      "observed_class": "UNCLASSIFIED_HOLD",
+      "observed_state": "REBUILD_REQUIRED",
+      "test_case_id": "MCV3-TC-002"
+    },
+    {
+      "decision_hash": "88de5f1cde030b8bdb4262930ebe9e6f8a583bd375065495d6c8db698609ed66",
+      "expected_class": "LAYERED",
+      "expected_state": "CONDITIONAL",
+      "g14_state": "NON_GOVERNING",
+      "observed_class": "LAYERED",
+      "observed_state": "CONDITIONAL",
+      "test_case_id": "MCV3-TC-003"
+    },
+    {
+      "decision_hash": "28ecd7c9f20026ff89585088d1152318bda8e1947796e7c758025e46439c8886",
+      "expected_class": "HIGH_COMPLEXITY",
+      "expected_state": "CONDITIONAL",
+      "g14_state": "NON_GOVERNING",
+      "observed_class": "HIGH_COMPLEXITY",
+      "observed_state": "CONDITIONAL",
+      "test_case_id": "MCV3-TC-004"
+    },
+    {
+      "decision_hash": "c997c239ea1bfc2a1f6be6163c690c3fbe1d23cd4ba94e82fc827aff656678fe",
+      "expected_class": "ORCHESTRAL",
+      "expected_state": "CONDITIONAL",
+      "g14_state": "NON_GOVERNING",
+      "observed_class": "ORCHESTRAL",
+      "observed_state": "CONDITIONAL",
+      "test_case_id": "MCV3-TC-007"
+    }
+  ],
+  "overall_state": "PASS_STANDALONE_CANDIDATE__REPOSITORY_AND_EVIDENCE_HOLDS_PRESERVED",
+  "python_version": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "repository_state": "BRIDGE_BLOCKED",
+  "runtime_policy_provider_failure": {
+    "allowed": false,
+    "fallback_used": false,
+    "reasons": [
+      "provider failure remains failure; silent reroute is prohibited"
+    ],
+    "state": "PROVIDER_FAILURE_NO_FALLBACK"
+  },
+  "schema_version": "PERFUME_CHEM_V20_GAP_CLOSURE_VALIDATION_v1",
+  "source_hash_checks": {
+    "inventory_v5": {
+      "expected_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "observed_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "path": "/mnt/data/Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5(1).xlsx",
+      "state": "PASS"
+    },
+    "legacy_qualification_v1_package": {
+      "expected_sha256": "af2b207bda605058472c868d94f907ea1b6540a8baf1a6458472a55193f7f07d",
+      "observed_sha256": "af2b207bda605058472c868d94f907ea1b6540a8baf1a6458472a55193f7f07d",
+      "path": "/mnt/data/Perfume_Verification_Engine_Qualification_v1_Package(1).zip",
+      "state": "PASS"
+    },
+    "meaningful_complexity_v3_package": {
+      "expected_sha256": "10acff0eb8f9e40dc0bd0e8152e04eb3c6440393c39dc950ccc3e96dccc1f6e1",
+      "observed_sha256": "10acff0eb8f9e40dc0bd0e8152e04eb3c6440393c39dc950ccc3e96dccc1f6e1",
+      "path": "/mnt/data/PCV3_CHAT1_MEANINGFUL_COMPLEXITY_MODEL_V3_COMPLETE.zip",
+      "state": "PASS"
+    }
+  },
+  "synthetic_decimal_export": {
+    "balance_line_id": "C",
+    "canonical_parts_unchanged": true,
+    "exact_total_ul": "4500",
+    "exported_total_ul": "4500",
+    "formula_authority": false,
+    "scope": "SYNTHETIC_REGRESSION_ONLY",
+    "successor_hash": "3b1008d0f62c39941103cd0dff626cfe8248533bd3f5feb177f89229746da20b"
+  },
+  "unit_tests": {
+    "errors": 0,
+    "failed": 0,
+    "passed": 76,
+    "skipped": 0,
+    "state": "PASS",
+    "tests_run": 76
+  }
+}

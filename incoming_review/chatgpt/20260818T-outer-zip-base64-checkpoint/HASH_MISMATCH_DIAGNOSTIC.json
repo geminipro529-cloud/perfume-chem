@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "state": "REJECTED_HASH_MISMATCH_CORRUPTION_LOCALIZED",
+  "v20": {
+    "expected_sha256": "2cd1f5a3894badc0fde11eb3e5edc8c0219525b5a5ed3d3beaeacd6f0e6b6a79",
+    "observed_sha256": "0f959418a68c35430bb4b5b4c60da670534d7925c198fb66a2f168fb37add991",
+    "decoded_bytes": 96905,
+    "zip_entries": 46,
+    "good_entries": 42,
+    "bad_entry_count": 4,
+    "localized_source_range": "1-18000",
+    "corrective_action": "Re-read original attachment characters 1-18000 once; do not regenerate."
+  },
+  "repaired_floral": {
+    "expected_sha256": "d9abe68882edc86dfff47ab2cb4890e11c5bbe3e1e9c37dbd0c22930e628e54e",
+    "observed_sha256": "f8766945a3c02500e7774c1b0ecfa1343a9acaf437c644916ca3f447dd7ec473",
+    "decoded_bytes": 116771,
+    "zip_entries": 22,
+    "ledger_members_exact": 20,
+    "bad_entry": "tests/test_stock_basis_repair_and_admission.py",
+    "bad_entry_base64_cover": "148969-150912",
+    "localized_source_range": "144001-155696",
+    "corrective_action": "Re-read original attachment characters 144001-155696 once; do not regenerate."
+  },
+  "admitted": false,
+  "canonical_installation": false,
+  "authority": false
+}

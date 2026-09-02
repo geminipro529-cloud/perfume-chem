@@ -1,0 +1,10 @@
+[    3054ms] [LOG] 🎬 Hero video loaded @ https://www.perfumersworld.com/:13485
+[    3070ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ https://www.perfumersworld.com/:0
+[    3078ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://www.perfumersworld.com/images/hero-poster.jpg:0
+[    7931ms] TypeError: Cannot set properties of null (setting 'innerHTML')
+    at Object.success (https://www.perfumersworld.com/:13359:66)
+    at j (https://www.perfumersworld.com/js/jquery-2.1.4.min.js:2:26925)
+    at Object.fireWith [as resolveWith] (https://www.perfumersworld.com/js/jquery-2.1.4.min.js:2:27738)
+    at x (https://www.perfumersworld.com/js/jquery-2.1.4.min.js:4:11253)
+    at XMLHttpRequest.<anonymous> (https://www.perfumersworld.com/js/jquery-2.1.4.min.js:4:14765)
+[   10923ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://www.perfumersworld.com/favicon.ico:0

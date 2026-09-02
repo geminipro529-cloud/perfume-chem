@@ -1,0 +1,79 @@
+{
+  "schema_version": "chatgpt_source_claim_manifest_v1",
+  "manifest_id": "complex-perfumery-immortelle-helichrysum-substitution-claim-20260819",
+  "recorded_at": "2026-08-19T14:15:21Z",
+  "conversation": {
+    "conversation_id": "6a818995-0090-83ec-9b8e-22ad37dd42f7",
+    "project_id": "6a74ab83668081919f5cbd0dfe80eb09",
+    "title": "Immortelle Abs to Helichrysum",
+    "url": "https://chatgpt.com/c/6a818995-0090-83ec-9b8e-22ad37dd42f7"
+  },
+  "retrieval": {
+    "method": "AUTHENTICATED_CHATGPT_BROWSER_DOM_READ",
+    "message_text_stored_verbatim": false,
+    "message_text_binding": "UTF8_SHA256_OF_RENDERED_INNER_TEXT",
+    "citation_targets_captured": true,
+    "attachment_downloaded": false
+  },
+  "source_messages": [
+    {
+      "message_id": "3efb0693-cf75-4770-af82-a4a900d0d470",
+      "role": "user",
+      "utf8_byte_count": 79,
+      "sha256": "2ea5b33e6c788283e7da06444a43cef75e1572683898d3cd40452bf309bbc21a",
+      "scope": "IMMORTELLE_ABSOLUTE_10_PERCENT_TO_HELICHRYSUM_EO_VOLUME_EQUIVALENCE_QUESTION"
+    },
+    {
+      "message_id": "a77c6c97-381b-4627-914f-cd7e648b840c",
+      "role": "assistant",
+      "utf8_byte_count": 610,
+      "sha256": "0a8fd8155c12317ea367097db24c7a1a611078376872047a8c249e7d482428d8",
+      "scope": "NOMINAL_10_PERCENT_VOLUME_ARITHMETIC_AND_UNSUPPORTED_MATERIAL_EQUIVALENCE"
+    }
+  ],
+  "citation_targets": [],
+  "source_claims": {
+    "immortelle_stock_volume_ul": "49",
+    "immortelle_nominal_strength_pct": "10",
+    "nominal_neat_volume_ul": "4.9",
+    "helichrysum_eo_equivalent_volume_ul": "APPROXIMATELY_5",
+    "lower_starting_range_ul": [
+      "3",
+      "4"
+    ],
+    "fraction_basis_stated": false,
+    "density_used": false,
+    "stock_identity_equivalence_established": false,
+    "sensory_equivalence_established": false
+  },
+  "local_audit_corrections": {
+    "nominal_arithmetic_valid_only_if_fraction_basis_is_vv": true,
+    "immortelle_absolute_and_helichrysum_eo_are_distinct_local_identities": true,
+    "exact_substitution_volume_calculable": false,
+    "generic_catalog_density_may_fill_user_lot_density": false,
+    "formula_or_inventory_change_authorized": false
+  },
+  "authority": {
+    "source_admission": false,
+    "identity": false,
+    "composition": false,
+    "density": false,
+    "inventory": false,
+    "purchase": false,
+    "cart": false,
+    "stock": false,
+    "formula": false,
+    "compounding": false,
+    "trial_execution": false,
+    "physical_result": false,
+    "sensory_result": false,
+    "analytical_result": false,
+    "strict_oav": false,
+    "safety": false,
+    "installation": false,
+    "publication": false,
+    "release": false
+  },
+  "receipt_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_RECEIPT_SHA256_OMITTED",
+  "receipt_sha256": "0c64e989a0f3332a6be2cccd33ecfd504b3cd27bf4a9a9f3b386fb6682a375b9"
+}

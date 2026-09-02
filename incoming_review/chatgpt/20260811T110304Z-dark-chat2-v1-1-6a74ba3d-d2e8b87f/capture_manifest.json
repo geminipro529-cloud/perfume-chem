@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "capture_id": "20260811T110304Z-dark-chat2-v1-1-6a74ba3d-d2e8b87f",
+  "capture_nonce": "d2e8b87f-07d3-4716-b1e2-8db541f5a9dd",
+  "captured_at": "2026-08-11T11:03:04Z",
+  "source": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "conversation_id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+    "chat_title": "Chat 2 Completion",
+    "source_revision": "local-mirror:2a87c58c9c4a354b3db357e215623f23f9cc655e1679f2f62cf856263741cbb5",
+    "source_reference": "Complex Perfumery local project mirror output"
+  },
+  "transport": {
+    "method": "local ChatGPT project mirror exact-byte copy",
+    "transformation_history": [
+      "Copied the sealed v1.1 ZIP byte-for-byte into a separate Chat 2 quarantine capture.",
+      "No extraction, canonical admission, physical execution, formula mutation, or cross-chat integration was performed."
+    ]
+  },
+  "files": [
+    {
+      "original_name": "ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_1_20260811.zip",
+      "mime_type": "application/zip",
+      "size_bytes": 164814,
+      "sha256": "2a87c58c9c4a354b3db357e215623f23f9cc655e1679f2f62cf856263741cbb5",
+      "source_reference": "outputs/ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_1_20260811.zip",
+      "validation": {
+        "zip_entry_count": 14,
+        "zip_file_count": 14,
+        "crc_error_member": null,
+        "safe_relative_paths": true,
+        "declared_internal_hash_count": 13,
+        "declared_internal_hash_mismatches": 0,
+        "package_validator_passed": 44,
+        "package_validator_failed": 0,
+        "unit_tests_passed": 10,
+        "unit_tests_failed": 0,
+        "archive_graph_status": "GRAPH_COMPLETE_QUARANTINED",
+        "all_nodes_terminal": true,
+        "node_count": 2,
+        "edge_count": 1,
+        "max_depth": 1,
+        "finding_codes": [
+          "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT",
+          "OOXML_PART_SCAN_LIMIT_EXCEEDED",
+          "PARTIAL_MEMBER_SCAN"
+        ],
+        "promotion_allowed": false
+      },
+      "source_claims": {
+        "parent_v1_sha256": "94c6b75573d71189c58b16737a1a5d2b9f7bb6bc8f1b41b9e76ef727e00e3c33",
+        "blank_observation_count": 3750,
+        "decision_state": "NOT_RUN",
+        "physical_state": "NOT_TESTED",
+        "natural_saffron_similarity": "NOT_TESTED",
+        "active_hold_count": 6
+      }
+    }
+  ],
+  "authority": {
+    "level": "UNTRUSTED_LOCAL_MIRROR_CAPTURE",
+    "code_authority": false,
+    "inventory_authority": false,
+    "scientific_authority": false,
+    "formula_authority": false,
+    "physical_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "release_authority": false
+  }
+}

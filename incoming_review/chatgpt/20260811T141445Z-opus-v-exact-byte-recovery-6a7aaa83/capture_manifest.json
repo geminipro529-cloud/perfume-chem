@@ -1,0 +1,240 @@
+{
+  "schema_version": "perfume-chem.chatgpt-exact-byte-capture.v1",
+  "created_at_utc": "2026-08-11T14:14:45Z",
+  "artifact_class": "NON_AUTHORITATIVE_SOURCE_CAPTURE",
+  "source_project_id": null,
+  "source_conversation_id": "6a7aaa83-757c-83ec-866d-33ef347febe6",
+  "source_conversation_title": "Validated Opus V reconstruction package saved",
+  "capture_method": "AUTHENTICATED_CHATGPT_ATTACHMENT_DOWNLOAD_THEN_EXACT_LOCAL_COPY",
+  "accepted_by_codex": false,
+  "admitted": false,
+  "installation_authorized": false,
+  "files": [
+    {
+      "name": "COMPLEX_PERFUMERY_OPUS_V_COMPLEXITY_SYSTEM_V1R2_20260811.zip",
+      "bytes": 165408,
+      "sha256": "cf369b9464be6b661a7fb8c9fc6c2e299c1f82e8bcd60027674aef3232662751",
+      "source_locator_scope": "EXTERNAL_LOCAL_PATH",
+      "source_path": "C:/Users/ASUS/Downloads/COMPLEX_PERFUMERY_OPUS_V_COMPLEXITY_SYSTEM_V1R2_20260811.zip",
+      "capture_path": "incoming_review/chatgpt/20260811T141445Z-opus-v-exact-byte-recovery-6a7aaa83/COMPLEX_PERFUMERY_OPUS_V_COMPLEXITY_SYSTEM_V1R2_20260811.zip",
+      "zip_member_count": 69,
+      "zip_file_count": 69,
+      "zip_uncompressed_bytes": 490541,
+      "zip_crc_clean": true,
+      "safe_normalized_member_names": true,
+      "duplicate_normalized_member_names": false,
+      "controlling_ledgers": [
+        {
+          "member": "COMPLEX_PERFUMERY_OPUS_V_COMPLEXITY_SYSTEM_V1R2_20260811/INTEGRITY_RECEIPT.json",
+          "declared": 68,
+          "matched": 68
+        }
+      ],
+      "native_graph": {
+        "state": "CLEAR_FOR_RECEIPT_REVIEW",
+        "nodes": 1,
+        "edges": 0,
+        "max_depth": 0,
+        "all_nodes_terminal": true,
+        "graph_findings": [],
+        "node_state_counts": {
+          "CLEAR_FOR_RECEIPT_REVIEW": 1
+        },
+        "hold_code_counts": {},
+        "promotion_allowed": false
+      },
+      "package_self_state": "REFERENCE_IMPLEMENTATION_PASS__REPOSITORY_AND_PHYSICAL_GATES_HELD"
+    },
+    {
+      "name": "COMPLEX_PERFUMERY_OPUS_V_V1R2_REPOSITORY_APPLY_QUALIFICATION_V1_20260811.zip",
+      "bytes": 233169,
+      "sha256": "2a5b79f399b51eb6e7bf70ab4da57aab4518a63e044de7abe4b9bfb84116e055",
+      "source_locator_scope": "EXTERNAL_LOCAL_PATH",
+      "source_path": "C:/Users/ASUS/Downloads/COMPLEX_PERFUMERY_OPUS_V_V1R2_REPOSITORY_APPLY_QUALIFICATION_V1_20260811.zip",
+      "capture_path": "incoming_review/chatgpt/20260811T141445Z-opus-v-exact-byte-recovery-6a7aaa83/COMPLEX_PERFUMERY_OPUS_V_V1R2_REPOSITORY_APPLY_QUALIFICATION_V1_20260811.zip",
+      "zip_member_count": 73,
+      "zip_file_count": 73,
+      "zip_uncompressed_bytes": 370914,
+      "zip_crc_clean": true,
+      "safe_normalized_member_names": true,
+      "duplicate_normalized_member_names": false,
+      "controlling_ledgers": [
+        {
+          "member": "COMPLEX_PERFUMERY_OPUS_V_V1R2_REPOSITORY_APPLY_QUALIFICATION_V1_20260811/SHA256SUMS.txt",
+          "declared": 72,
+          "matched": 72
+        }
+      ],
+      "native_graph": {
+        "state": "GRAPH_COMPLETE_QUARANTINED",
+        "nodes": 2,
+        "edges": 1,
+        "max_depth": 1,
+        "all_nodes_terminal": true,
+        "graph_findings": [],
+        "node_state_counts": {
+          "CLEAR_FOR_RECEIPT_REVIEW": 1,
+          "QUARANTINE_HOLD": 1
+        },
+        "hold_code_counts": {
+          "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT": 1
+        },
+        "promotion_allowed": false
+      },
+      "package_self_state": "REPOSITORY_APPLY_QUALIFICATION_ONLY__NO_APPLY_AUTHORITY"
+    },
+    {
+      "name": "OPUS_V_V1R2_EXECUTOR_HANDOFF_20260811.zip",
+      "bytes": 187937,
+      "sha256": "0bdc954d56c1e08e7767db0c21ab09393c142a6d5ad3e5a4c51f3f1e2b25c37e",
+      "source_locator_scope": "EXTERNAL_LOCAL_PATH",
+      "source_path": "C:/Users/ASUS/Downloads/OPUS_V_V1R2_EXECUTOR_HANDOFF_20260811.zip",
+      "capture_path": "incoming_review/chatgpt/20260811T141445Z-opus-v-exact-byte-recovery-6a7aaa83/OPUS_V_V1R2_EXECUTOR_HANDOFF_20260811.zip",
+      "zip_member_count": 9,
+      "zip_file_count": 9,
+      "zip_uncompressed_bytes": 285316,
+      "zip_crc_clean": true,
+      "safe_normalized_member_names": true,
+      "duplicate_normalized_member_names": false,
+      "controlling_ledgers": [
+        {
+          "member": "OPUS_V_V1R2_EXECUTOR_HANDOFF_20260811/EXECUTOR_HANDOFF_MANIFEST_20260811.json",
+          "declared": 8,
+          "matched": 8
+        }
+      ],
+      "native_graph": {
+        "state": "GRAPH_COMPLETE_QUARANTINED",
+        "nodes": 2,
+        "edges": 1,
+        "max_depth": 1,
+        "all_nodes_terminal": true,
+        "graph_findings": [],
+        "node_state_counts": {
+          "CLEAR_FOR_RECEIPT_REVIEW": 1,
+          "QUARANTINE_HOLD": 1
+        },
+        "hold_code_counts": {
+          "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT": 1
+        },
+        "promotion_allowed": false
+      },
+      "package_self_state": "EXECUTOR_TRANSPORT_ONLY__NO_EXECUTION_AUTHORITY"
+    },
+    {
+      "name": "COMPLEX_PERFUMERY_OPUS_V_INCIDENT_RECONSTRUCTION_V1R1_20260811.zip",
+      "bytes": 273754,
+      "sha256": "52aac9f8254c58a6f9268a543d62d486d2a79cbb1b5f14095fa072cdc67e1500",
+      "source_locator_scope": "EXTERNAL_LOCAL_PATH",
+      "source_path": "C:/Users/ASUS/Downloads/COMPLEX_PERFUMERY_OPUS_V_INCIDENT_RECONSTRUCTION_V1R1_20260811.zip",
+      "capture_path": "incoming_review/chatgpt/20260811T141445Z-opus-v-exact-byte-recovery-6a7aaa83/COMPLEX_PERFUMERY_OPUS_V_INCIDENT_RECONSTRUCTION_V1R1_20260811.zip",
+      "zip_member_count": 21,
+      "zip_file_count": 21,
+      "zip_uncompressed_bytes": 696188,
+      "zip_crc_clean": true,
+      "safe_normalized_member_names": true,
+      "duplicate_normalized_member_names": false,
+      "controlling_ledgers": [
+        {
+          "member": "SHA256SUMS",
+          "declared": 19,
+          "matched": 19
+        }
+      ],
+      "native_graph": {
+        "state": "GRAPH_COMPLETE_QUARANTINED",
+        "nodes": 3,
+        "edges": 2,
+        "max_depth": 1,
+        "all_nodes_terminal": true,
+        "graph_findings": [],
+        "node_state_counts": {
+          "CLEAR_FOR_RECEIPT_REVIEW": 2,
+          "QUARANTINE_HOLD": 1
+        },
+        "hold_code_counts": {
+          "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT": 2,
+          "PARTIAL_MEMBER_SCAN": 1
+        },
+        "promotion_allowed": false
+      },
+      "package_self_state": "HOLD_INCIDENT_INPUTS_REQUIRED"
+    },
+    {
+      "name": "COMPLEX_PERFUMERY_OPUS_V_COMPLEXITY_SYSTEM_V1R2_20260811.zip.sha256",
+      "bytes": 127,
+      "sha256": "fc8dd76b028b326220b6b5ef94f7d1bed32296c8c97cf242053203302392e15e",
+      "declares_archive_sha256": "cf369b9464be6b661a7fb8c9fc6c2e299c1f82e8bcd60027674aef3232662751"
+    }
+  ],
+  "source_companions_live_metadata_only": [
+    {
+      "name": "OPUS_V_V1R2_SEALED_VALIDATION_RECEIPT_20260811.json",
+      "bytes": 2020,
+      "sha256": "dfbb2988eae28aa03afb158bb53efbcd59f9198c836271aee0c7298360f100c8"
+    },
+    {
+      "name": "OPUS_V_V1R2_CLEAN_REPLAY_RECEIPT_20260811.json",
+      "bytes": 878,
+      "sha256": "aa2f84d573713b617b79c1fd112969f3f022e880a5eb7977f518414d3c5c8aa6"
+    },
+    {
+      "name": "PERFUME_PROJECT_PLANNING_CHECKPOINT_OPUS_V_V1R2_20260811.md",
+      "bytes": 2021,
+      "sha256": "c930c18cff0a1cf7332101ce863a2c6cce9c4cf9da07a264e233c63c03031b2b"
+    },
+    {
+      "name": "COMPLEX_PERFUMERY_OPUS_V_V1R2_REPOSITORY_APPLY_QUALIFICATION_V1_20260811.zip.sha256",
+      "bytes": 143,
+      "sha256": "4aef0ca39dd930870b17525478aec931fb00acc9d3b037a37f3086a41cb1734c"
+    },
+    {
+      "name": "VALIDATION_REPORT_GENERATED.json",
+      "bytes": 1099,
+      "sha256": "93404e32c265dce5893b2a2d090045f12893109df69563818d65a2888c37dc98"
+    },
+    {
+      "name": "OPUS_V_V1R2_REPOSITORY_APPLY_QUALIFICATION_PUBLISH_RECEIPT_20260811.json",
+      "bytes": 1565,
+      "sha256": "831d617ed8a109b0ad2b8203d25b848b19b68aa4c1ba700ea2701a156cf22fdc"
+    },
+    {
+      "name": "CODEX_HANDOFF.md",
+      "bytes": 4036,
+      "sha256": "5486ba18274658ef17d608bd02bdc38c150950ca84bfc300ae0a78884e5bff95"
+    },
+    {
+      "name": "PERFUME_PROJECT_PLANNING_CHECKPOINT_OPUS_V_V1R2_REPO_QUAL_V1_20260811.md",
+      "bytes": 1982,
+      "sha256": "39853d6d60be353260cc7ffe7da228421e0d65dddff5f45385153847eabb2f02"
+    },
+    {
+      "name": "OPUS_V_INCIDENT_RECOVERY_INTAKE_V1_20260811.xlsx",
+      "bytes": 16502,
+      "sha256": "9ea637f919a1486ad22e4b3da6ae7de216283abc6f0b04deaaae1f1ada26a3cb"
+    }
+  ],
+  "native_fit": {
+    "disposition": "QUARANTINED_DESIGN_AND_TRANSPORT_ANCESTRY_ONLY",
+    "canonical_formula_selected": false,
+    "repository_overlay_authorized": false,
+    "schema_or_migration_required": false,
+    "required_next_action": "FIELD_LEVEL_DIFF_AGAINST_CURRENT_NATIVE_TARGET_BUILD_V5_C10_P3_C0_C3_C8_CONTRACTS",
+    "preserve_conflicting_lineages": true
+  },
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "bottle": false,
+    "physical_execution": false,
+    "sensory": false,
+    "measured_headspace": false,
+    "oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "release": false
+  }
+}

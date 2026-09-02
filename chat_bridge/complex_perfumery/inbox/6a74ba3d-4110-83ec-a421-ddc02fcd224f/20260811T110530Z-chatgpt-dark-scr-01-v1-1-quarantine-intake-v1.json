@@ -1,0 +1,113 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "chatgpt-dark-scr-01-v1-1-quarantine-intake-20260811T110530Z",
+  "packet_nonce": "0ec80af4-fe2c-4855-bb58-e1798882e5e2",
+  "created_at": "2026-08-11T11:05:30Z",
+  "freshness": {
+    "source_observed_at": "2026-08-11T11:03:04Z",
+    "source_revision": "local-mirror:2a87c58c9c4a354b3db357e215623f23f9cc655e1679f2f62cf856263741cbb5",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": null
+  },
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+  "source_chat_title": "Chat 2 Completion",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Acknowledge exact-byte quarantine capture of the sealed DARK-SCR-01 v1.1 package while keeping Chat 2 isolated from Plan, P6, Orris, and canonical integration.",
+  "summary": "The exact 164,814-byte DARK-SCR-01 v1.1 ZIP was copied from the Complex Perfumery mirror into a separate incoming_review capture. Its 14 safe members, 13-entry non-self ledger, 44 structural checks, and 10 tests replay clean. Native graph scanning is terminal with promotion false. All 3,750 observations remain blank, physical and natural-saffron similarity states remain NOT_TESTED, the decision remains NOT_RUN, and six holds remain active.",
+  "decisions": [
+    {
+      "decision": "Preserve v1.1 as an isolated Chat 2 source capture only.",
+      "reason": "The package changes an evidence-hold scope but supplies no observations, decision, physical result, or canonical integration authority."
+    },
+    {
+      "decision": "Do not merge this package into the active Opus, Atlas, P6, inventory, or formula implementation lanes.",
+      "reason": "Its scope, source conversation, experiment identity, and unresolved parent/stock holds are independent."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The sealed DARK-SCR-01 v1.1 source bytes are now in Perfume-Chem quarantine.",
+      "evidence": "164,814 bytes; SHA-256 2a87c58c9c4a354b3db357e215623f23f9cc655e1679f2f62cf856263741cbb5."
+    },
+    {
+      "claim": "Package integrity does not alter scientific state.",
+      "evidence": "3,750 blank observations, physical NOT_TESTED, natural-saffron similarity NOT_TESTED, decision NOT_RUN, six active holds."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "path": "incoming_review/chatgpt/20260811T110304Z-dark-chat2-v1-1-6a74ba3d-d2e8b87f/capture_manifest.json",
+      "role": "isolated Chat 2 capture provenance"
+    },
+    {
+      "path": "incoming_review/chatgpt/20260811T110304Z-dark-chat2-v1-1-6a74ba3d-d2e8b87f/ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_1_20260811.zip",
+      "role": "untrusted sealed v1.1 source bytes"
+    }
+  ],
+  "constraints": [
+    "No extraction into canonical paths, package admission, compounding, observation entry, unblinding, purchase, formula mutation, inventory mutation, or release action is authorized.",
+    "The parent v1 package remains immutable at SHA-256 94c6b75573d71189c58b16737a1a5d2b9f7bb6bc8f1b41b9e76ef727e00e3c33.",
+    "P6, Opus, Atlas, Orris, inventory, and other ChatGPT project lanes remain separate."
+  ],
+  "unresolved_questions": [
+    "Can exact parent bytes and stock/product/lot/preparation receipts be recovered?",
+    "Will an authenticated natural-saffron reference ever be authorized for a separate similarity claim?"
+  ],
+  "next_actions": [
+    {
+      "action": "Keep the captured ZIP quarantined and isolated until an explicitly approved Chat 2 admission review.",
+      "authority": "Plan perfume-chem integration owner"
+    },
+    {
+      "action": "Do not execute the physical protocol until all six holds and stock/product/lot receipts are closed.",
+      "authority": "Sol and authorized physical assessor"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Prior unsealed status",
+      "state": "SUPERSEDED_BY_SEALED_V1_1",
+      "detail": "Only the prior runtime-unavailable/unsealed statement is superseded; scientific and physical holds remain unchanged."
+    },
+    {
+      "scope": "Package integrity versus admission",
+      "state": "QUARANTINED_NOT_ADMITTED",
+      "detail": "Exact bytes and internal ledgers are verified, but no scientific, formula, physical, or integration authority follows."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+      "uri": "chatgpt-conversation://6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+      "title": "Chat 2 Completion"
+    },
+    {
+      "kind": "bridge_packet",
+      "id": "chatgpt-chat2-dark-scr-01-v1-1-completion-20260811T105429Z",
+      "uri": "chat_bridge/complex_perfumery/inbox/6a74ba3d-4110-83ec-a421-ddc02fcd224f/20260811T105429Z-chatgpt-chat2-dark-scr-01-v1-1-completion-v1.json",
+      "title": "source completion packet"
+    }
+  ],
+  "content_hashes": [
+    {
+      "algorithm": "sha256",
+      "digest": "9f526a680158d754729fa9030104d48522319e0416135efb408e81ab914330f6",
+      "path": "incoming_review/chatgpt/20260811T110304Z-dark-chat2-v1-1-6a74ba3d-d2e8b87f/capture_manifest.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "2a87c58c9c4a354b3db357e215623f23f9cc655e1679f2f62cf856263741cbb5",
+      "path": "incoming_review/chatgpt/20260811T110304Z-dark-chat2-v1-1-6a74ba3d-d2e8b87f/ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_1_20260811.zip"
+    }
+  ],
+  "authority": {
+    "level": "SOURCE_CAPTURE",
+    "accepted_by_codex": false
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

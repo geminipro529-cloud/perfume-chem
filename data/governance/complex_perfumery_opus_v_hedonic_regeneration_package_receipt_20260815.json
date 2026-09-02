@@ -1,0 +1,114 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "complex-perfumery-opus-v-hedonic-regeneration-20260815",
+  "recorded_at": "2026-08-15T23:30:19+07:00",
+  "package": {
+    "file_name": "Amouage_Opus_V_Hedonic_Regeneration_2026-08-12_v1.zip",
+    "locator": "incoming_review/chatgpt/20260815T233019+0700-post-v9-six-package-recovery-6a7992db-n417f58e1/Amouage_Opus_V_Hedonic_Regeneration_2026-08-12_v1.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 549190,
+    "sha256": "123575c756a878950d49f71f9bd9dcd420a837b886833b1de57139c8cdc6d81b",
+    "media_type": "application/zip",
+    "archive_entry_count": 21,
+    "archive_file_count": 21,
+    "declared_payload_count": 20,
+    "package_root": "Amouage_Opus_V_Hedonic_Regeneration_2026-08-12_v1",
+    "embedded_integrity_records": [
+      {
+        "path": "Amouage_Opus_V_Hedonic_Regeneration_2026-08-12_v1/MANIFEST.json",
+        "byte_size": 4979,
+        "sha256": "3d1599090e72ce737bcf617d11fdc24539198fc7f5618a74dc8e02b8e91f34f0",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "Amouage_Opus_V_Hedonic_Regeneration_2026-08-12_v1/SHA256SUMS.txt",
+        "byte_size": 1933,
+        "sha256": "9a3aa0cff983b3453f3adc2a5c18904150a831fe42ced9951bc74ebfc2d2199e",
+        "role": "CHECKSUM_LEDGER"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a7992db-96b8-83ec-aab0-6a7447b97da1:opus-v-hedonic-regeneration-20260812-v1",
+    "conversation_id": "6a7992db-96b8-83ec-aab0-6a7447b97da1",
+    "turn_id": "6e3d0517-7bbd-4a0d-9861-581ac941aeab",
+    "message_id": "d03cb51e-1099-4982-8fc8-3c9c02f6d495",
+    "lineage_resolution": "EXACT_ORIGINAL_FILE_CARD_BYTES_DOWNLOADED_HASH_VERIFIED_AND_CAPTURED_WITHOUT_TRANSFORMATION",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "Computational formula hypotheses and public recognizers do not establish manufacturer formula, liking, similarity, safety, or release authority.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Preserve four formula candidates as project hypothesis ancestry only. Native target/build separation and exact current stock, preparation, density, safety, and physical evidence remain mandatory."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "COMPUTATIONAL_FORMULAS_NOT_NATIVE_TARGET_OR_BUILD_VERSIONS",
+      "CURRENT_V5_STOCK_AND_PREPARATION_REBIND_REQUIRED",
+      "LIKING_SIMILARITY_HEADSPACE_OAV_STABILITY_SAFETY_AND_PHYSICAL_RESULTS_NOT_TESTED",
+      "NO_CANONICAL_FORMULA_SELECTED"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [],
+  "evidence_summary": {
+    "classification": "OPUS_V_HEDONIC_REGENERATION_EXACT_BYTES_COMPUTATIONAL_HYPOTHESES_ONLY",
+    "formula_hashes": {
+      "TARGET": "676511cf43df72191cf7c8ad6ddca9a26da9621cde2181f809db881076262257",
+      "HR-A": "3da6837ce08787bc7f7cb00ebcfd3f30f6028178249d0f4885893a369f4d1fa1",
+      "HR-B": "e9c6dc6c580e6d5658b1159335997ed860afe34e33b57dd34f6decdedd7e6ae5",
+      "HR-C": "5090bde6303f4e5697dfca0cd7f6d9f20587b398556ec86e2138a3b97e07aa0b"
+    },
+    "formula_rows": {
+      "TARGET": 87,
+      "HR-A": 77,
+      "HR-B": 80,
+      "HR-C": 77
+    },
+    "physical_state": "HOLD_NOT_PHYSICALLY_VALIDATED",
+    "liking": "NOT_TESTED",
+    "similarity": "NOT_TESTED",
+    "headspace": "NOT_TESTED",
+    "strict_oav": "NOT_TESTED",
+    "stability": "NOT_TESTED",
+    "safety_release": "NOT_TESTED",
+    "capture_graph_binding": {
+      "capture_manifest_path": "incoming_review/chatgpt/20260815T233019+0700-post-v9-six-package-recovery-6a7992db-n417f58e1/capture_manifest.json",
+      "capture_manifest_byte_size": 13908,
+      "capture_manifest_sha256": "75e9c7283658fce987cef67b3b3dcdfa5da2b3b16d164355d7b7c0563551d39f",
+      "root_package_sha256": "123575c756a878950d49f71f9bd9dcd420a837b886833b1de57139c8cdc6d81b",
+      "single_status": "QUARANTINE_HOLD",
+      "graph_status": "GRAPH_COMPLETE_QUARANTINED",
+      "node_count": 2,
+      "edge_count": 1,
+      "max_depth": 1,
+      "all_nodes_terminal": true,
+      "graph_findings": [],
+      "promotion_allowed": false
+    },
+    "native_handling": "IMMUTABLE_PROJECT_FORMULA_HYPOTHESIS_ANCESTRY_ONLY",
+    "native_fit": "EXISTING_TARGET_FORMULA_BUILD_PLAN_STOCK_LINEAGE_C0_AND_RELEASE_GATES_CONTROL"
+  },
+  "receipt_sha256": "ac21c236aa5e2b1fc5170e546853c02cb084035ff799ea6a4128dd3941883b29"
+}

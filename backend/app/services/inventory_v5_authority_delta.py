@@ -1,0 +1,299 @@
+"""Fail-closed, non-promoting Inventory V5 successor delta.
+
+The V5 workbook and generated snapshot remain immutable parent evidence.  This
+module validates one append-only delta receipt and exposes only blocking holds;
+it cannot mint stock, clear a hold, revise a formula, or grant execution.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import re
+from pathlib import Path
+from typing import Any
+
+from app.services.inventory_authority import CURRENT_INVENTORY_AUTHORITY
+
+_ROOT = Path(__file__).resolve().parents[3]
+_DELTA_PATH = _ROOT / "data" / "governance" / "inventory_v5_authority_delta_20260811.json"
+_SUPPLEMENT_PATH = (
+    _ROOT
+    / "data"
+    / "governance"
+    / "inventory_v5_authority_delta_20260811_02.json"
+)
+_SNAPSHOT_PATH = _ROOT / "data" / "governance" / "inventory_v5_current_stock_snapshot.json"
+_EXPECTED_SCHEMA = "perfume-chem.inventory-v5-authority-delta-receipt.v1"
+_EXPECTED_STATE = "ACTIVE_SUPERSEDING_DELTA_FAIL_CLOSED"
+_EXPECTED_SUPPLEMENT_SCHEMA = (
+    "perfume-chem.inventory-v5-authority-delta-supplement.v1"
+)
+_EXPECTED_SUPPLEMENT_STATE = "ACTIVE_SUPPLEMENT_FAIL_CLOSED"
+_EXPECTED_SNAPSHOT_SHA256 = "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99"
+_EXPECTED_BASE_FILE_SHA256 = "0ecbfc09bb826c89d1180006e2eb195c5db87b40bad77f250256e8ef89fd6774"
+_EXPECTED_BASE_SEMANTIC_SHA256 = (
+    "ff79977d59de40d6f7075c56429ef7b2cad577d391fe1271c2d4f5e52617dc5d"
+)
+_EXPECTED_RECORD_IDS = {
+    "INV-V5-DELTA-DBCA-IDENTITY",
+    "INV-V5-DELTA-PEDMCA-LABEL",
+    "INV-V5-DELTA-POLYSANTOL-STOCK",
+    "INV-V5-DELTA-OAKMOSS-LABEL",
+    "INV-V5-DELTA-AMBRETTOLIDE-RECEIPT",
+}
+_EXPECTED_SUPPLEMENT_RECORD_IDS = {
+    "INV-V5-DELTA-ORRIS-LIQUID-STOCK-BASIS",
+}
+_EXPECTED_SUPPLEMENT_SOURCE_PINS = {
+    "data/governance/inventory_v5_current_stock_snapshot.json": (
+        226125,
+        _EXPECTED_SNAPSHOT_SHA256,
+    ),
+    "inventory.txt": (
+        17140,
+        "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+    ),
+    "data/materials/O.yaml": (
+        44686,
+        "d507afde090bf541bb39bc276a9d2723bbe1dca92b3c345a3f1928e47070d911",
+    ),
+}
+_FALSE_AUTHORITY_KEYS = {
+    "formula_authority",
+    "inventory_stock_authority",
+    "physical_execution_authority",
+    "procurement_authority",
+    "release_authority",
+    "safety_authority",
+    "scientific_authority",
+}
+
+
+class InventoryV5AuthorityDeltaError(ValueError):
+    def __init__(self, code: str, message: str) -> None:
+        self.code = code
+        super().__init__(message)
+
+
+def _canonical_sha256(payload: dict[str, Any]) -> str:
+    unsigned = dict(payload)
+    unsigned.pop("semantic_self_sha256", None)
+    encoded = json.dumps(
+        unsigned,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=False,
+        allow_nan=False,
+    ).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def _file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _identity(value: object) -> str:
+    return re.sub(r"[^a-z0-9]", "", str(value).casefold())
+
+
+def _invalid(message: str) -> InventoryV5AuthorityDeltaError:
+    return InventoryV5AuthorityDeltaError(
+        "INVENTORY_V5_AUTHORITY_DELTA_INVALID",
+        message,
+    )
+
+
+def _load_delta() -> dict[str, Any]:
+    try:
+        payload = json.loads(_DELTA_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise InventoryV5AuthorityDeltaError(
+            "INVENTORY_V5_AUTHORITY_DELTA_UNAVAILABLE",
+            "Inventory V5 successor delta is unavailable or invalid.",
+        ) from error
+    if not isinstance(payload, dict):
+        raise _invalid("Inventory V5 successor delta must be a JSON object.")
+    parent = payload.get("parent")
+    authority = payload.get("authority")
+    records = payload.get("records")
+    if (
+        payload.get("schema_version") != _EXPECTED_SCHEMA
+        or payload.get("state") != _EXPECTED_STATE
+        or payload.get("operational_effect") != "FAIL_CLOSED_BLOCK_ONLY"
+        or payload.get("supersedes_scope") != "IDENTITY_AND_STOCK_STATUS_DELTAS_ONLY"
+        or payload.get("clearance_receipts") != []
+        or not isinstance(parent, dict)
+        or not isinstance(authority, dict)
+        or not isinstance(records, list)
+    ):
+        raise _invalid("Inventory V5 successor delta metadata is outside the closed contract.")
+    if set(authority) != _FALSE_AUTHORITY_KEYS or any(authority.values()):
+        raise _invalid("Inventory V5 successor delta cannot grant authority.")
+    if (
+        parent.get("workbook_sha256") != CURRENT_INVENTORY_AUTHORITY.sha256
+        or parent.get("inventory_authority_ref")
+        != CURRENT_INVENTORY_AUTHORITY.snapshot_ref
+    ):
+        raise _invalid("Inventory V5 parent authority pin does not match the live immutable pin.")
+    snapshot = parent.get("generated_snapshot")
+    if (
+        not isinstance(snapshot, dict)
+        or snapshot.get("sha256") != _EXPECTED_SNAPSHOT_SHA256
+        or snapshot.get("size_bytes") != _SNAPSHOT_PATH.stat().st_size
+        or _file_sha256(_SNAPSHOT_PATH) != _EXPECTED_SNAPSHOT_SHA256
+    ):
+        raise _invalid("Generated Inventory V5 snapshot bytes no longer match the delta parent.")
+    record_ids = {
+        item.get("record_id") for item in records if isinstance(item, dict)
+    }
+    if len(records) != len(_EXPECTED_RECORD_IDS) or record_ids != _EXPECTED_RECORD_IDS:
+        raise _invalid("Inventory V5 successor delta must contain exactly the five reviewed records.")
+    for item in records:
+        if not isinstance(item, dict):
+            raise _invalid("Inventory V5 successor delta records must be objects.")
+        if not isinstance(item.get("blocks_executable_mapping"), bool):
+            raise _invalid("Each Inventory V5 successor record needs a closed blocking decision.")
+        target_ids = item.get("affected_target_ids")
+        if not isinstance(target_ids, list) or len(target_ids) != len(set(target_ids)):
+            raise _invalid("Affected target IDs must be a unique list.")
+    expected_self = payload.get("semantic_self_sha256")
+    if expected_self != _canonical_sha256(payload):
+        raise _invalid("Inventory V5 successor delta semantic self-hash does not match.")
+    return payload
+
+
+def _load_supplement(base_payload: dict[str, Any]) -> dict[str, Any]:
+    """Validate the append-only Orris stock-basis supplement and its parent."""
+
+    try:
+        payload = json.loads(_SUPPLEMENT_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise InventoryV5AuthorityDeltaError(
+            "INVENTORY_V5_AUTHORITY_DELTA_UNAVAILABLE",
+            "Inventory V5 successor-delta supplement is unavailable or invalid.",
+        ) from error
+    if not isinstance(payload, dict):
+        raise _invalid("Inventory V5 successor-delta supplement must be a JSON object.")
+    authority = payload.get("authority")
+    records = payload.get("records")
+    supersedes = payload.get("supersedes")
+    source_pins = payload.get("source_pins")
+    if (
+        payload.get("schema_version") != _EXPECTED_SUPPLEMENT_SCHEMA
+        or payload.get("state") != _EXPECTED_SUPPLEMENT_STATE
+        or payload.get("operational_effect") != "FAIL_CLOSED_BLOCK_ONLY"
+        or payload.get("supersedes_scope")
+        != "ORRIS_LIQUID_STOCK_BASIS_AND_PREPARATION_LINEAGE_ONLY"
+        or payload.get("clearance_receipts") != []
+        or not isinstance(authority, dict)
+        or not isinstance(records, list)
+        or not isinstance(supersedes, dict)
+        or not isinstance(source_pins, list)
+    ):
+        raise _invalid(
+            "Inventory V5 successor-delta supplement metadata is outside the closed contract."
+        )
+    if set(authority) != _FALSE_AUTHORITY_KEYS or any(authority.values()):
+        raise _invalid("Inventory V5 successor-delta supplement cannot grant authority.")
+    if (
+        supersedes.get("path")
+        != "data/governance/inventory_v5_authority_delta_20260811.json"
+        or supersedes.get("file_sha256") != _EXPECTED_BASE_FILE_SHA256
+        or supersedes.get("semantic_self_sha256")
+        != _EXPECTED_BASE_SEMANTIC_SHA256
+        or base_payload.get("semantic_self_sha256")
+        != _EXPECTED_BASE_SEMANTIC_SHA256
+        or _file_sha256(_DELTA_PATH) != _EXPECTED_BASE_FILE_SHA256
+    ):
+        raise _invalid("Inventory V5 successor-delta supplement parent pin does not match.")
+    observed_pins = {
+        item.get("path"): item for item in source_pins if isinstance(item, dict)
+    }
+    if set(observed_pins) != set(_EXPECTED_SUPPLEMENT_SOURCE_PINS):
+        raise _invalid("Inventory V5 successor-delta supplement source pins are incomplete.")
+    for relative_path, (expected_size, expected_sha256) in (
+        _EXPECTED_SUPPLEMENT_SOURCE_PINS.items()
+    ):
+        pinned = observed_pins[relative_path]
+        source_path = _ROOT / relative_path
+        if (
+            pinned.get("size_bytes") != expected_size
+            or pinned.get("sha256") != expected_sha256
+            or source_path.stat().st_size != expected_size
+            or _file_sha256(source_path) != expected_sha256
+        ):
+            raise _invalid(
+                "Inventory V5 successor-delta supplement source bytes no longer match."
+            )
+    record_ids = {
+        item.get("record_id") for item in records if isinstance(item, dict)
+    }
+    if (
+        len(records) != len(_EXPECTED_SUPPLEMENT_RECORD_IDS)
+        or record_ids != _EXPECTED_SUPPLEMENT_RECORD_IDS
+    ):
+        raise _invalid(
+            "Inventory V5 successor-delta supplement must contain exactly the reviewed record."
+        )
+    record = records[0]
+    target_ids = record.get("affected_target_ids")
+    workbook = record.get("latest_formula_workbook")
+    if (
+        record.get("blocks_executable_mapping") is not True
+        or record.get("state")
+        != "EXACT_STOCK_AND_PREPARATION_RECEIPT_REQUIRED"
+        or not isinstance(target_ids, list)
+        or len(target_ids) != len(set(target_ids))
+        or not isinstance(workbook, dict)
+        or workbook.get("locator_scope") != "EXTERNAL_LOCAL_PATH"
+        or workbook.get("size_bytes") != 159218
+        or workbook.get("sha256")
+        != "90191bed8d702c023cbbae883a2320b656c6ba47355fe5cee3ecf6a63a619ba0"
+        or workbook.get("admission_authorized") is not False
+    ):
+        raise _invalid(
+            "Orris Liquid successor record is outside the fail-closed reviewed contract."
+        )
+    if payload.get("semantic_self_sha256") != _canonical_sha256(payload):
+        raise _invalid(
+            "Inventory V5 successor-delta supplement semantic self-hash does not match."
+        )
+    return payload
+
+
+def _all_delta_records() -> tuple[dict[str, Any], ...]:
+    base = _load_delta()
+    supplement = _load_supplement(base)
+    return tuple([*base["records"], *supplement["records"]])
+
+
+def inventory_v5_delta_record_for_material(material_name: str) -> dict[str, Any] | None:
+    """Return the immutable reviewed record for an exact canonical name or alias."""
+
+    needle = _identity(material_name)
+    for record in _all_delta_records():
+        names = [record["canonical_name"], *record.get("aliases", [])]
+        if needle in {_identity(name) for name in names}:
+            return dict(record)
+    return None
+
+
+def inventory_v5_execution_hold_for_material(material_name: str) -> dict[str, Any] | None:
+    """Return a blocking record, or None for names with no active execution hold."""
+
+    record = inventory_v5_delta_record_for_material(material_name)
+    if record is None or record["blocks_executable_mapping"] is not True:
+        return None
+    return record
+
+
+__all__ = [
+    "InventoryV5AuthorityDeltaError",
+    "inventory_v5_delta_record_for_material",
+    "inventory_v5_execution_hold_for_material",
+]

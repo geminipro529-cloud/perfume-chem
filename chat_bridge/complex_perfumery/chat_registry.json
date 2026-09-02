@@ -1,0 +1,235 @@
+{
+  "schema_version": "1.1",
+  "generated_at": "2026-08-09T03:02:17.6165928Z",
+  "updated_at": "2026-08-09T03:25:00.8184047Z",
+  "source": {
+    "surface": "Signed-in ChatGPT project sidebar after full expansion, reconciled with Codex list_threads",
+    "enumeration_complete": true,
+    "completion_scope": "All 38 chats exposed by the signed-in Complex Perfumery project UI at this point in time.",
+    "known_gap": "Deleted, inaccessible, separately archived, or future chats are outside this point-in-time UI enumeration."
+  },
+  "project": {
+    "label": "Complex Perfumery",
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09"
+  },
+  "work_hub": {
+    "conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+    "title": "Data Integration for Perfume-Chem",
+    "role": "DeepLuna Chat work hub",
+    "orchestrator": "DeepLuna Chat non-Fast worker delegation; Sol final authority",
+    "reciprocal_link_notice": "DELIVERED_EARLIER_AND_PROJECT_INSTRUCTIONS_VERIFIED",
+    "latest_status_refresh": "DELIVERED_2026-08-09T03:25:00.8184047Z"
+  },
+  "linked_codex_task": "019fe3a3-3cca-7462-b8e9-e315015e95df",
+  "visible_count": 38,
+  "project_instruction_link": {
+    "applied_at": "2026-08-09T03:22:41.9405864Z",
+    "verified_after_reopen": true,
+    "project_chat_count": 38,
+    "original_instruction_chars": 2477,
+    "merged_instruction_chars": 4087,
+    "bridge_block_occurrences": 1,
+    "meaning": "All currently enumerated project chats receive the shared hub/Codex pointer and bridge rules through project instructions; this still does not share hidden transcript context or prove connector attachment."
+  },
+  "link_notice": {
+    "first_wave_sent_at": "2026-08-09T01:43:25.6562652Z",
+    "last_attempt_at": "2026-08-09T03:13:26.7807165Z",
+    "spokes_total": 37,
+    "succeeded": 29,
+    "pending": 8,
+    "last_attempt_result": "PARTIAL_RATE_LIMITED",
+    "meaning": "A reciprocal pointer was posted; it does not prove connector attachment, acknowledgement, or hidden-context sharing."
+  },
+  "chats": [
+    {
+      "conversation_id": "6a770c24-a64c-83ec-9448-9c7972751357",
+      "title": "Aromachemical Recipe Breakdown",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+      "title": "Data Integration for Perfume-Chem",
+      "link_state": "WORK_HUB_LINKED"
+    },
+    {
+      "conversation_id": "6a7768a3-5794-83ec-9670-c8a0aa3fc831",
+      "title": "Parse Chat Logic",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a753afc-c714-83ec-a854-e6fbb3022048",
+      "title": "Human Mixture Datasets",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a74bb71-33fc-83ec-9aad-d9f26b14726a",
+      "title": "Chat 0 Integration Complete",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a753bd1-2584-83ec-b504-fe5ceec183bf",
+      "title": "Chat K Waiting for Workers",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a762632-0808-83ec-99a5-349be9053eaa",
+      "title": "Chat K Complete Review",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a7569a9-f8d8-83ec-a9ab-0aee395337e6",
+      "title": "Repair Sequence Validation",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a71d172-8dd0-83ec-87d4-f8ceaf80551a",
+      "title": "Perfume Data Progress",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a74ba21-0d30-83ec-b211-e80baca66948",
+      "title": "PCV3 Complexity Lane Complete",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a750484-a76c-83ec-87cb-2d2f88fda0c0",
+      "title": "Chat OA Tasks",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a76fbe0-4c80-83ec-ac8e-fba7321b1ba3",
+      "title": "Project status update",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a6edb63-b570-83ec-989e-90720adace20",
+      "title": "Perfume Verification Process",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a75276a-be08-83ec-86d5-47bf97c807cb",
+      "title": "Prada Precision Reconstruction",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a753b7a-5b04-83ec-8e4c-61fcebc1aa50",
+      "title": "Chat H Evidence Upgrade",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a753b22-3490-83ec-bc7b-a0e46c4655c0",
+      "title": "Molecular Perception Execution",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a753b26-53b4-83ec-92ec-02cdc8d63629",
+      "title": "Chat C Summary",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a753b14-8180-83ec-84f9-38e1e13e01ec",
+      "title": "B Lane Validation Complete",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a753b55-a92c-83ec-b6b4-8768db966f5c",
+      "title": "Experiment Intelligence Design",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a753b49-e6dc-83ec-9224-48e24f28e73d",
+      "title": "G Complete Schema Validation",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a753b43-9644-83ec-92ad-7d66d62e7ebe",
+      "title": "Chat F Completion",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a74bc5c-b538-83ec-8d9b-2ebf8a827b80",
+      "title": "Chat 3 Completion",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a753b36-a0b8-83ec-a7cc-bc79f1d37b47",
+      "title": "Chat E Completion Summary",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a77eaa8-edf4-83ec-8fdd-275cbecfd8ab",
+      "title": "Parse and Continue Chat",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a77e596-8e0c-83ec-9883-690ed5a9732d",
+      "title": "Task Scheduling and Reporting",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a74bef7-24d8-83ec-ac0f-dc5cbcd2b242",
+      "title": "Chat 4 Completion",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a74f9c7-7edc-83ec-9964-6ede1e22a069",
+      "title": "Chat 0 Request",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a74bcf2-895c-83ec-97d3-f5d098e9ba91",
+      "title": "Chat 7 complete",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+      "title": "Chat 2 Completion",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a753ba8-a404-83ec-a4bd-0589023c256b",
+      "title": "Chat J Completion",
+      "link_state": "PROJECT_INSTRUCTIONS_LINKED_NOTICE_RATE_LIMITED"
+    },
+    {
+      "conversation_id": "6a74bcb4-ecc0-83ec-85f8-0001f5e4892b",
+      "title": "Chat 6 Floral Expansion",
+      "link_state": "PROJECT_INSTRUCTIONS_LINKED_NOTICE_RATE_LIMITED"
+    },
+    {
+      "conversation_id": "6a74bf01-0734-83ec-8336-8b2c9af00f6a",
+      "title": "Chat 5 Completion",
+      "link_state": "PROJECT_INSTRUCTIONS_LINKED_NOTICE_RATE_LIMITED"
+    },
+    {
+      "conversation_id": "6a73d938-4908-83ec-976f-69d1d1721eb3",
+      "title": "No content provided",
+      "link_state": "PROJECT_INSTRUCTIONS_LINKED_NOTICE_RATE_LIMITED"
+    },
+    {
+      "conversation_id": "6a74a5bb-1ec0-83ec-b093-b39abde51799",
+      "title": "File Retrieval Request",
+      "link_state": "PROJECT_INSTRUCTIONS_LINKED_NOTICE_RATE_LIMITED"
+    },
+    {
+      "conversation_id": "6a73d7be-f608-83ec-a270-ddab5e86dd99",
+      "title": "No content shared",
+      "link_state": "PROJECT_INSTRUCTIONS_LINKED_NOTICE_RATE_LIMITED"
+    },
+    {
+      "conversation_id": "6a74c127-2374-83ec-b94f-580dec46927f",
+      "title": "Complex Perfumery Program",
+      "link_state": "PROJECT_INSTRUCTIONS_LINKED_NOTICE_RATE_LIMITED"
+    },
+    {
+      "conversation_id": "6a74c82b-834c-83ec-8600-43c39d9329e9",
+      "title": "Chat 8 Completion",
+      "link_state": "LINK_NOTICE_SENT"
+    },
+    {
+      "conversation_id": "6a73da1e-1950-83ec-82fe-8eca61c3fb75",
+      "title": "No Content Provided",
+      "link_state": "PROJECT_INSTRUCTIONS_LINKED_NOTICE_RATE_LIMITED"
+    }
+  ]
+}

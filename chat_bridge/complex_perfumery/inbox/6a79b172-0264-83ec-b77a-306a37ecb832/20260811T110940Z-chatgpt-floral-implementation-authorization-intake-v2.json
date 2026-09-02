@@ -1,0 +1,195 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "chatgpt-floral-implementation-authorization-intake-20260811T110940Z",
+  "packet_nonce": "1e971666-1522-47d8-b99d-5613a8d08afb",
+  "created_at": "2026-08-11T11:09:40.9400621Z",
+  "freshness": {
+    "source_observed_at": "2026-08-11T11:09:40.9400621Z",
+    "source_revision": "chatgpt-user-message:41d6ae48-721b-494c-b190-849e5dd2bcf8;chatgpt-assistant-message:1ef8bd08-b96e-4d49-b5d4-c1b06cba7e05",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": "chatgpt-floral-heart-discovery-intake-20260811T101804Z"
+  },
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+  "source_chat_title": "Perfume Making Consultant",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Preserve the user's explicit request to send the expanded floral-heart system to Codex for immediate implementation, together with the chat-declared package identities and implementation scope, without claiming unavailable attachment bytes, repository installation, physical results, or architecture acceptance.",
+  "summary": "The newest completed turn supersedes the earlier review-only state at the intent layer: the user explicitly requested that the floral-heart work be sent to Codex for immediate implementation. The assistant reports staging a nonce-bearing Chat Bridge v2.1 packet containing 19 artifacts and 2,805,089 copied artifact bytes, with PACKET.json SHA-256 8b1124fa6eb9e97c2918488aad7525a610b6d5a23e11f1fb2747add5d5ada368, packet content hash c0ef8354069b727c40d8e67c7eae3e47636e222fd29987e531c7d0d52f7f8483, and packet ZIP SHA-256 e6a083498f350ea8ceaf7ee3a97d725cd394463eebfdf136a95bdc81a65e19aa. The source still reports BRIDGE_BLOCKED, and none of those exact bytes is present in the local conversation inbox. This intake therefore records implementation intent and declared identities only. Any implementation remains subject to exact-byte recovery, quarantine, Inventory V5 reconciliation, P2.2 native-field mapping, architecture review, focused tests, and Sol acceptance.",
+  "decisions": [
+    {
+      "decision": "Treat the user's newest message as authorization to begin governed implementation review, not as approval to bypass exact-byte, inventory, evidence, or architecture gates.",
+      "reason": "The user explicitly said to send the work to Codex for immediate implementation, while the source itself reports that transport remained blocked."
+    },
+    {
+      "decision": "Record the 19-artifact package metadata as declared source identity only.",
+      "reason": "The local inbox contains only the earlier 6,875-byte source-only intake; the newly declared packet bytes, manifest bytes, and ZIP bytes have not been recovered or independently hashed."
+    },
+    {
+      "decision": "Route the expanded floral scope through the sealed P2.2 field catalog and native-reuse decision before creating any schema, migration, registry, CLI, API, or parallel store.",
+      "reason": "The governing Plan found substantial native reuse and requires proof of field loss before a new persistence or schema surface is justified."
+    },
+    {
+      "decision": "Keep ACCORD-INTEL Chat 2 / DARK MATERIALS isolated.",
+      "reason": "The floral implementation request does not authorize modification or final integration of the dark lane."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The user requested immediate Codex implementation via the cloud work chat.",
+      "evidence": "ChatGPT user message 41d6ae48-721b-494c-b190-849e5dd2bcf8."
+    },
+    {
+      "claim": "The source describes an implementation target spanning 64 flower identities, six support lanes, a 32-slot architecture, and 768 flower-specific submodels.",
+      "evidence": "ChatGPT assistant message 1ef8bd08-b96e-4d49-b5d4-c1b06cba7e05."
+    },
+    {
+      "claim": "The requested libraries include evidence-supported pure-flower soliflores, extract-led soliflores for owned floral naturals or product bases, controlled demonstration accords for floral-relevant aroma chemicals, and inventory-wide solinotes or material studies for eligible nonfloral odor materials.",
+      "evidence": "ChatGPT assistant message 1ef8bd08-b96e-4d49-b5d4-c1b06cba7e05."
+    },
+    {
+      "claim": "The requested implementation includes an Inventory V5 crosswalk with every row classified exactly once or placed in an unresolved queue, bouquet roles, mixture topologies, n-ary interaction records, model lineage, controlled-test generation, and a physical chemical-box workflow ordered by mixing group and descending ingredient microliters.",
+      "evidence": "ChatGPT assistant message 1ef8bd08-b96e-4d49-b5d4-c1b06cba7e05."
+    },
+    {
+      "claim": "The source requires target, inventory build, and actual bottle ledger separation; Missing-Chemical Impact; Meaningful Complexity gates; exact-stock enforcement; tests; canary; rollback; and truth-invariance checks.",
+      "evidence": "ChatGPT assistant message 1ef8bd08-b96e-4d49-b5d4-c1b06cba7e05."
+    },
+    {
+      "claim": "The source explicitly distinguishes a single aroma chemical from a flower soliflore, Iris flower from Orris root, and Orris Liquid as an owned product basis with unknown internal active fraction; it describes Ambrettolide as computationally available but physically procurement-pending.",
+      "evidence": "ChatGPT assistant message 1ef8bd08-b96e-4d49-b5d4-c1b06cba7e05."
+    },
+    {
+      "claim": "The source declares a 19-artifact packet with 2,805,089 copied artifact bytes and three packet-level SHA-256 identities.",
+      "evidence": "Declared PACKET.json SHA-256 8b1124fa6eb9e97c2918488aad7525a610b6d5a23e11f1fb2747add5d5ada368; content hash c0ef8354069b727c40d8e67c7eae3e47636e222fd29987e531c7d0d52f7f8483; ZIP SHA-256 e6a083498f350ea8ceaf7ee3a97d725cd394463eebfdf136a95bdc81a65e19aa."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "artifact": "Chat Bridge v2.1 PACKET.json",
+      "declared_sha256": "8b1124fa6eb9e97c2918488aad7525a610b6d5a23e11f1fb2747add5d5ada368",
+      "local_availability": "BYTES_UNAVAILABLE",
+      "validation": "NOT_RUN"
+    },
+    {
+      "artifact": "Chat Bridge packet content set",
+      "declared_sha256": "c0ef8354069b727c40d8e67c7eae3e47636e222fd29987e531c7d0d52f7f8483",
+      "declared_artifact_count": 19,
+      "declared_copied_artifact_bytes": 2805089,
+      "local_availability": "BYTES_UNAVAILABLE",
+      "validation": "NOT_RUN"
+    },
+    {
+      "artifact": "Chat Bridge packet ZIP",
+      "declared_sha256": "e6a083498f350ea8ceaf7ee3a97d725cd394463eebfdf136a95bdc81a65e19aa",
+      "local_availability": "BYTES_UNAVAILABLE",
+      "validation": "NOT_RUN"
+    },
+    {
+      "artifact": "Earlier floral-heart workbook",
+      "declared_sha256": "8b867681174c15debeb632a11eae81efcddda78433ecdc8a7900d5c7b54acdba",
+      "local_availability": "BYTES_UNAVAILABLE",
+      "validation": "NOT_RUN"
+    },
+    {
+      "artifact": "Earlier floral-heart package",
+      "declared_sha256": "e04630c9936fc2da54f7444b0bf085b3ee1d0797fb9aa52518e1f8c5f61e1092",
+      "local_availability": "BYTES_UNAVAILABLE",
+      "validation": "NOT_RUN"
+    }
+  ],
+  "constraints": [
+    "The user authorization changes the requested workflow state but does not establish that the declared files were transported, scanned, validated, installed, or accepted.",
+    "No attachment bytes, formulas, schema files, CLI or API files, tests, canary, rollback file, or manifest from the declared 19-artifact packet is locally available through this intake.",
+    "No generated formula may be treated as a physical bottle, physical observation, hedonic result, target similarity result, or safety release without actual observation and release evidence.",
+    "Inventory Master V5 and the live inventory must be reconciled before exact-stock implementation; chat assertions cannot overwrite inventory state.",
+    "The live inventory currently lists both Beta Ionone neat and Beta Ionone at 0.1% in TEC, while the recent user messages first stated neat availability and then stated 0.1%; this remains an explicit stock-strength conflict, not a resolved fact.",
+    "The live inventory lists Cypress EO and PADMA and marks Ambrettolide 10% in DPG OUT OF STOCK as of 2026-08-07; implementation must preserve those distinct states unless newer authoritative inventory evidence resolves them.",
+    "Orris Liquid remains a 30% w/w owned product basis with extraction and internal composition not specified; it cannot be silently converted into Iris flower or a known pure active.",
+    "A single aroma chemical must not be labeled a pure flower soliflore; nonfloral odor-material studies must remain solinotes or material demonstrations.",
+    "No new schema, migration, registry, subsystem, or parallel store is accepted without field-level proof that the existing P2.2/native contracts cannot represent the required data losslessly.",
+    "ACCORD-INTEL Chat 2 / DARK MATERIALS and all other independent chat lanes remain unchanged."
+  ],
+  "unresolved_questions": [
+    "Where are the exact 19 artifact files, PACKET.json bytes, and packet ZIP bytes declared by the source?",
+    "Does the declared 19-artifact manifest include the exact earlier workbook and package bytes, or only references to them?",
+    "Which proposed floral fields map exactly to existing P2.2/native contracts and which, if any, are provably lossful?",
+    "Which formulas are executable under authoritative Inventory V5 after resolving the Beta Ionone stock-strength conflict and respecting Ambrettolide's out-of-stock state?",
+    "Which subset is the smallest high-value implementation slice that can be validated without creating hundreds of untested formula claims?"
+  ],
+  "next_actions": [
+    {
+      "action": "Recover the exact declared packet bytes through authenticated attachment controls and verify all three packet-level SHA-256 identities.",
+      "authority": "Data Integration for Perfume-Chem owner"
+    },
+    {
+      "action": "Quarantine-scan recovered bytes, replay their manifest, and preserve all source, formula, bottle, physical-state, and release boundaries.",
+      "authority": "Sol/Codex validation"
+    },
+    {
+      "action": "Perform a field-level diff against the sealed P2.2 catalog and native floral, interaction, temporal, spatial, sensory, inventory, formula, and evidence contracts before implementation design.",
+      "authority": "Plan perfume-chem integration owner and Sol"
+    },
+    {
+      "action": "Resolve exact Inventory V5 stock states, especially Beta Ionone preparation, before generating executable dose tables.",
+      "authority": "User and Inventory Master owner"
+    },
+    {
+      "action": "Select and implement one bounded, evidence-supported vertical slice only after exact bytes and native mappings are available; keep all untested formulas and observations explicitly NOT_TESTED.",
+      "authority": "Sol"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Workflow state",
+      "state": "IMPLEMENTATION_REQUESTED_BYTES_UNAVAILABLE",
+      "detail": "The user's newest message authorizes immediate implementation review, superseding the earlier review-only intent, but the source reports BRIDGE_BLOCKED and the exact packet bytes are absent locally."
+    },
+    {
+      "scope": "Architecture",
+      "state": "HOLD_NATIVE_DIFF_REQUIRED",
+      "detail": "The source requests schemas, CLI/API operations, and broad libraries, while the sealed Plan/P2.2 logic requires substantial native reuse and proof of loss before any new data surface."
+    },
+    {
+      "scope": "Beta Ionone stock preparation",
+      "state": "HOLD_USER_CLARIFICATION_REQUIRED",
+      "detail": "The live inventory contains both neat and 0.1% in TEC entries; the recent sequential user statements do not unambiguously establish whether both are owned or the latter corrects the former."
+    },
+    {
+      "scope": "Ambrettolide physical availability",
+      "state": "OUT_OF_STOCK_PRESERVED",
+      "detail": "The source describes computational availability with physical procurement pending, consistent with the live inventory OUT OF STOCK marker; no formula may assume physical dosing."
+    },
+    {
+      "scope": "Attachment identity",
+      "state": "DECLARED_HASHES_BYTES_UNAVAILABLE",
+      "detail": "Five exact SHA-256 identities are visible in chat records, but no matching exact bytes were found in the 452 scanned candidate ZIP/XLSX files or the conversation inbox."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+      "uri": "chatgpt-conversation://6a79b172-0264-83ec-b77a-306a37ecb832",
+      "title": "Perfume Making Consultant"
+    },
+    {
+      "kind": "chatgpt_user_message",
+      "id": "41d6ae48-721b-494c-b190-849e5dd2bcf8",
+      "disposition": "USER_IMPLEMENTATION_REQUEST"
+    },
+    {
+      "kind": "chatgpt_assistant_message",
+      "id": "1ef8bd08-b96e-4d49-b5d4-c1b06cba7e05",
+      "disposition": "UNTRUSTED_SOURCE_INPUT"
+    }
+  ],
+  "content_hashes": [],
+  "authority": {
+    "level": "SOURCE_CAPTURE",
+    "accepted_by_codex": false
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

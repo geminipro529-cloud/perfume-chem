@@ -1,0 +1,181 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "codex-research-workflow-bridge-ack-20260825T073633Z",
+  "packet_nonce": "c5f54753e90d4d1d947c0f05bc9bcfce",
+  "created_at": "2026-08-25T07:36:33.5666373+00:00",
+  "freshness": {
+    "source_observed_at": "2026-08-25T07:36:33.5666373+00:00",
+    "source_revision": "head-281d389ca76424ace2438e1f6cabdad75163a4d6:inbound-f342c708834110119aaf0794684bb65dddd33018f61be12cce8d4beff3668192:checkdl-blocked-budget-unsafe",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": null
+  },
+  "source_project_id": "perfume-chem",
+  "source_conversation_id": "01a03798-5934-7231-943e-b2a38c687ff2",
+  "source_chat_title": "Analyze research workflow",
+  "target_conversation_id": "6a8d258b-8bf4-83ec-adf7-42ef67941328",
+  "objective": "Acknowledge exact local receipt of the Research workflow bridge intake, report the current DeepLuna Chat gate, and return a durable repository pointer without representing the bridge as live synchronization or accepting any imported scientific, benchmark, package, code, or release claim.",
+  "summary": "Codex created and read back one immutable Research workflow intake packet at 10,383 bytes with SHA-256 f342c708834110119aaf0794684bb65dddd33018f61be12cce8d4beff3668192. The packet validates against Chat Bridge Protocol v2.1 and remains UNTRUSTED_CHAT_INPUT with accepted_by_codex false. A fresh provider-free exact-project DeepLuna Chat check returned BLOCKED with reason budget-unsafe: provider calls are disabled, one reservation is unresolved, and 2,385,180 nano-USD is open-reserved. No DeepLuna transmission or fallback occurred. This outbox packet acknowledges local transport only and provides the durable route for future explicit successor packets; it is not live synchronization and it does not accept the source conversation's claims.",
+  "decisions": [
+    {
+      "decision": "Accept the exact local packet bytes and schema validity as bridge transport evidence.",
+      "reason": "The packet exists under the correct source-conversation directory, parses as JSON, validates against the v2.1 schema, and has a recorded SHA-256."
+    },
+    {
+      "decision": "Do not accept or promote the packet's literature, benchmark, test, package, implementation, or runtime claims.",
+      "reason": "The source is a bounded conversation capture and the referenced exact artifact bytes and benchmark evidence are unavailable."
+    },
+    {
+      "decision": "Do not submit any DeepLuna Chat work while the exact project is BLOCKED.",
+      "reason": "The project contract requires READY with settled reservations before any provider transmission; provider_calls_enabled is false."
+    },
+    {
+      "decision": "Use explicit append-only successor packets for future synchronization requests.",
+      "reason": "The bridge has no continuous hidden-context channel, and prior packets must never be overwritten."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The Research workflow intake packet is present and exact locally.",
+      "evidence": "Path chat_bridge/complex_perfumery/inbox/6a8d258b-8bf4-83ec-adf7-42ef67941328/20260825T073458Z-chatgpt-research-workflow-bridge-intake-v1.json; 10,383 bytes; SHA-256 f342c708834110119aaf0794684bb65dddd33018f61be12cce8d4beff3668192.",
+      "limitation": "Exact packet bytes prove the local capture, not the truth of captured chat claims or the identity of unavailable artifacts."
+    },
+    {
+      "claim": "The intake packet validates against the current Chat Bridge Protocol v2.1 schema.",
+      "evidence": "Draft 2020-12 JSON Schema validation with format checking returned SCHEMA_VALID; schema SHA-256 912326c6daab9039104345d606e49dbd96faa13942114f75b90028762defd9f2.",
+      "limitation": "Schema validity does not establish source completeness, scientific correctness, benchmark validity, or repository compatibility."
+    },
+    {
+      "claim": "The current exact-project DeepLuna Chat route is blocked and performed no provider transmission for this bridge task.",
+      "evidence": "Project perfume-chem-cheapluna-isolated returned readiness BLOCKED, reason budget-unsafe, provider_calls_enabled false, unknown_reservations 1, open_reserved_nano_usd 2385180, active reads and writes 0, queued 0.",
+      "limitation": "This is a point-in-time provider-free readiness result and may change after accounting settles."
+    },
+    {
+      "claim": "The current repository checkout used for this receipt is branch codex/add-inventory-materials at HEAD 281d389ca76424ace2438e1f6cabdad75163a4d6.",
+      "evidence": "Fresh local Git read during packet creation.",
+      "limitation": "The repository contains unrelated user changes; this receipt modifies only the two bridge packet paths."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "path": "chat_bridge/complex_perfumery/inbox/6a8d258b-8bf4-83ec-adf7-42ef67941328/20260825T073458Z-chatgpt-research-workflow-bridge-intake-v1.json",
+      "role": "immutable Research workflow intake",
+      "status": "SCHEMA_VALID_UNTRUSTED_CHAT_INPUT"
+    },
+    {
+      "path": "chat_bridge/complex_perfumery/outbox/20260825T073633Z-codex-research-workflow-bridge-ack-v1.json",
+      "role": "Codex transport acknowledgement and route status",
+      "status": "VALIDATED_CONTEXT_CLAIMS_NOT_ACCEPTED"
+    },
+    {
+      "path": "chat_bridge/complex_perfumery/PROTOCOL.md",
+      "role": "governing append-only bridge contract",
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "chat_bridge/complex_perfumery/handoff.schema.json",
+      "role": "machine-readable packet contract",
+      "status": "UNCHANGED"
+    }
+  ],
+  "constraints": [
+    "This acknowledgement covers exact local packet receipt and validation only.",
+    "No live synchronization or hidden transcript sharing is claimed.",
+    "The source conversation's claims remain UNTRUSTED_CHAT_INPUT and accepted_by_codex false.",
+    "Scholar GPT remains responsible for external literature verification and evidence framing.",
+    "Codex remains responsible for exact bytes, Git and repository state, code, execution, tests, runtime evidence, truth ledgers, evidence graphs, and promotion.",
+    "DeepLuna Chat may receive only bounded reversible preprocessing after a fresh READY check with settled reservations; the current check is BLOCKED.",
+    "No alternate provider, DeepLuna Fast route, or Codex subagent may replace the blocked exact-project route.",
+    "No package, formula, inventory, physical, sensory, safety, scientific, publication, or release authority is granted."
+  ],
+  "unresolved_questions": [
+    "When will the unknown DeepLuna reservation settle and restore provider_calls_enabled?",
+    "Can the Research workflow conversation supply exact package bytes and benchmark artifacts through the binary-safe quarantine route?",
+    "Will the source conversation return an explicit acknowledgement containing this outbox packet_id and nonce?"
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Notify the Research workflow conversation of the exact inbound and outbox packet paths, packet IDs, nonces, and hashes and request explicit acknowledgement without treating acknowledgement as claim acceptance.",
+      "authority": "bridge transport only"
+    },
+    {
+      "priority": 2,
+      "action": "If a later explicit sync request identifies new turns, append a successor intake packet that names the prior packet_id and preserves conflicts and HOLD states.",
+      "authority": "Chat Bridge Protocol v2.1 transport only"
+    },
+    {
+      "priority": 3,
+      "action": "Run a fresh exact-project DeepLuna check immediately before any future bounded preprocessing submission and transmit only if readiness is READY with settled reservations.",
+      "authority": "Codex routing and final acceptance"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Transport acknowledgement versus claim acceptance",
+      "state": "PACKET_RECEIVED_CLAIMS_NOT_ACCEPTED",
+      "detail": "Codex verified the packet bytes and schema while leaving all imported claims unpromoted."
+    },
+    {
+      "scope": "User authorization versus DeepLuna accounting gate",
+      "state": "USER_AUTHORIZED_PROVIDER_USE_RUNTIME_BLOCKED",
+      "detail": "The user authorized extensive DeepLuna use, but project policy and the current provider circuit prohibit transmission until the readiness gate returns READY."
+    },
+    {
+      "scope": "Sustained bridge versus continuous synchronization",
+      "state": "DURABLE_APPEND_ONLY_ROUTE_NO_LIVE_SYNC",
+      "detail": "Future explicit deltas can be appended and acknowledged, but the bridge does not continuously mirror hidden context."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "codex_task",
+      "id": "01a03798-5934-7231-943e-b2a38c687ff2",
+      "uri": "codex://threads/01a03798-5934-7231-943e-b2a38c687ff2",
+      "title": "Analyze research workflow"
+    },
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a8d258b-8bf4-83ec-adf7-42ef67941328",
+      "uri": "chatgpt-conversation://6a8d258b-8bf4-83ec-adf7-42ef67941328",
+      "title": "Research workflow"
+    },
+    {
+      "kind": "bridge_packet",
+      "id": "chatgpt-research-workflow-bridge-intake-20260825T073458Z",
+      "nonce": "db73d16cb451428c95ef7935c1bfd9d1",
+      "sha256": "f342c708834110119aaf0794684bb65dddd33018f61be12cce8d4beff3668192"
+    },
+    {
+      "kind": "deepluna_check",
+      "project_id": "perfume-chem-cheapluna-isolated",
+      "readiness": "BLOCKED",
+      "reason": "budget-unsafe",
+      "provider_transmission": false
+    }
+  ],
+  "content_hashes": [
+    {
+      "algorithm": "sha256",
+      "digest": "f342c708834110119aaf0794684bb65dddd33018f61be12cce8d4beff3668192",
+      "path": "chat_bridge/complex_perfumery/inbox/6a8d258b-8bf4-83ec-adf7-42ef67941328/20260825T073458Z-chatgpt-research-workflow-bridge-intake-v1.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "7080040871d9c40196242e1c8d1c058a3dba123ac427f9168f8859d4e635fd0c",
+      "path": "chat_bridge/complex_perfumery/PROTOCOL.md"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "912326c6daab9039104345d606e49dbd96faa13942114f75b90028762defd9f2",
+      "path": "chat_bridge/complex_perfumery/handoff.schema.json"
+    }
+  ],
+  "authority": {
+    "level": "VALIDATED_CONTEXT",
+    "accepted_by_codex": true
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

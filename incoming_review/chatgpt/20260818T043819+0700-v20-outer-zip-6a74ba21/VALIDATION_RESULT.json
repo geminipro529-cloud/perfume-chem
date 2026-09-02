@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-08-18T04:40:18.3805364+07:00",
+  "state": "PASS_EXACT_QUARANTINE_ONLY",
+  "outer_zip": {
+    "filename": "PERFUME_CHEM_V20_GAP_CLOSURE_CANDIDATE_2026-08-17.zip",
+    "bytes": 96905,
+    "sha256": "2cd1f5a3894badc0fde11eb3e5edc8c0219525b5a5ed3d3beaeacd6f0e6b6a79",
+    "base64_characters": 129208
+  },
+  "zip_validation": {
+    "entries": 46,
+    "crc": "PASS",
+    "duplicate_paths": 0,
+    "unsafe_paths": 0
+  },
+  "internal_ledger": {
+    "filename": "SHA256SUMS.json",
+    "entries": 45,
+    "matched": 45,
+    "missing": 0,
+    "mismatched": 0,
+    "disk_reverified": 45,
+    "ledger_self_bytes": 7953,
+    "ledger_self_sha256": "8ceacd1d28f0339e0be2c7c9703ad5c90f84a413d75f983a561d861f8091dd43"
+  },
+  "canonical_installation": false,
+  "release_authority": false,
+  "scientific_authority": false,
+  "formula_authority": false
+}

@@ -1,0 +1,113 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "chatgpt-floral-heart-discovery-intake-20260811T101804Z",
+  "packet_nonce": "137733c1-04f9-4ece-9d51-f9c26b828ffe",
+  "created_at": "2026-08-11T10:18:04.5978689Z",
+  "freshness": {
+    "source_observed_at": "2026-08-11T10:18:04.5978689Z",
+    "source_revision": "chatgpt-assistant-message:fab61e76-f6cf-4cdb-b3fb-dd0d535a2cef",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": null
+  },
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+  "source_chat_title": "Perfume Making Consultant",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Preserve the newest floral-heart discovery output as an explicit source-only intake and route it to Plan perfume-chem integration without implementation, attachment-recovery, or authority claims.",
+  "summary": "The newest Complex Perfumery response proposes a pre-implementation floral-heart expansion from eight true flower identities to 64, a 32-slot architecture, twelve submodels per flower, twelve bouquet roles, sixteen mixture topologies, twenty initial bouquet archetypes, and thirty precedent records. It declares a workbook SHA-256 8b867681174c15debeb632a11eae81efcddda78433ecdc8a7900d5c7b54acdba and package SHA-256 e04630c9936fc2da54f7444b0bf085b3ee1d0797fb9aa52518e1f8c5f61e1092. Neither exact artifact is currently present in the repository, Complex Perfumery mirror, or today's Downloads scan. The source remains PRE-IMPLEMENTATION / USER REVIEW and makes no formula, inventory-build, physical-result, hedonic-score, or repository-mutation claim.",
+  "decisions": [
+    {
+      "decision": "Record the chat-visible design and declared hashes only.",
+      "reason": "The transcript is available but attachment bytes have not been recovered or independently validated."
+    },
+    {
+      "decision": "Do not implement the proposed 64-family, 32-slot, or 768-record model directly.",
+      "reason": "The governing Plan already found substantial native reuse and requires field-level mapping before any new schema, registry, subsystem, or migration."
+    },
+    {
+      "decision": "Keep the source frozen for user review and Plan diff.",
+      "reason": "The source itself leaves eleven design choices open and explicitly stops before implementation."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The source identifies under-modeled floral identity, anatomy, phenology, space, bouquet role, n-ary mixture, hedonic-trajectory, and model-admission dimensions.",
+      "evidence": "ChatGPT assistant message fab61e76-f6cf-4cdb-b3fb-dd0d535a2cef."
+    },
+    {
+      "claim": "The source proposes 64 true flower identities, six support lanes, 32 architecture slots, 768 family-specific submodel records, twelve bouquet roles, sixteen topologies, twenty archetypes, and thirty precedents.",
+      "evidence": "Chat-visible proposed-system and mixture-system tables."
+    },
+    {
+      "claim": "The source declares a workbook and package hash but the bytes are not locally recovered.",
+      "evidence": "Declared workbook SHA-256 8b867681174c15debeb632a11eae81efcddda78433ecdc8a7900d5c7b54acdba; declared package SHA-256 e04630c9936fc2da54f7444b0bf085b3ee1d0797fb9aa52518e1f8c5f61e1092; current local hash/text scans found no match."
+    }
+  ],
+  "active_artifacts": [],
+  "constraints": [
+    "No attachment bytes were recovered, downloaded, copied, extracted, installed, or promoted by this intake.",
+    "All numerical scope counts and literature conclusions remain source claims until exact files and cited sources are independently reviewed.",
+    "The proposed hedonic layer is a design schema, not measured liking or beauty evidence.",
+    "No molecule, dose, formula, inventory build, physical sample, observation, measured headspace, strict empirical OAV, safety result, or release state is created.",
+    "The current Inventory V5, P2.2 field map, native complexity contracts, experiment records, and admission boundaries remain authoritative for implementation decisions.",
+    "ACCORD-INTEL Chat 2 / DARK MATERIALS remains separate and unchanged."
+  ],
+  "unresolved_questions": [
+    "Can the exact workbook 8b867681174c15debeb632a11eae81efcddda78433ecdc8a7900d5c7b54acdba and package e04630c9936fc2da54f7444b0bf085b3ee1d0797fb9aa52518e1f8c5f61e1092 be recovered through authenticated attachment controls?",
+    "Which proposed fields are exact aliases of the sealed P2.2 catalog and existing ConstructionComplexityProfile, floral coverage, interaction, temporal, spatial, sensory, and evidence contracts?",
+    "Which of the eleven user-review decisions are approved, modified, or rejected before any implementation design begins?"
+  ],
+  "next_actions": [
+    {
+      "action": "Recover and hash the exact declared workbook/package bytes before accepting any detailed schema or validation claim.",
+      "authority": "Plan perfume-chem integration owner"
+    },
+    {
+      "action": "If recovered, quarantine-scan the package and perform a field-level native-overlap diff against P2.2 before proposing implementation.",
+      "authority": "Sol/Codex architecture review"
+    },
+    {
+      "action": "Keep the design in PRE-IMPLEMENTATION / USER REVIEW until the user resolves its eleven explicit decisions.",
+      "authority": "User and Sol"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Schema and subsystem necessity",
+      "state": "HOLD_PLAN_DIFF_REQUIRED",
+      "detail": "The source proposes a much larger floral ontology, but current Plan evidence requires native reuse and no parallel schema or store unless exact field-loss proof establishes a gap."
+    },
+    {
+      "scope": "Attachment availability",
+      "state": "DECLARED_HASHES_BYTES_UNAVAILABLE",
+      "detail": "Chat-visible references and hashes exist, but exact workbook and package bytes are not present in current local evidence."
+    },
+    {
+      "scope": "Bridge state",
+      "state": "SOURCE_SCOPE_BRIDGE_BLOCKED_LOCAL_PACKET_AVAILABLE",
+      "detail": "The source says its runtime could not reach the repository. This local packet records the source claim only and does not imply source-side connector access, attachment recovery, or canonical installation."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+      "uri": "chatgpt-conversation://6a79b172-0264-83ec-b77a-306a37ecb832",
+      "title": "Perfume Making Consultant"
+    },
+    {
+      "kind": "chatgpt_message",
+      "id": "fab61e76-f6cf-4cdb-b3fb-dd0d535a2cef",
+      "disposition": "UNTRUSTED_SOURCE_INPUT"
+    }
+  ],
+  "content_hashes": [],
+  "authority": {
+    "level": "UNTRUSTED_CHAT_INPUT",
+    "accepted_by_codex": false
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

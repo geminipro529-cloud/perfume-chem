@@ -1,0 +1,188 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "chatgpt-chat2-dark-scr-01-v1-1-completion-20260811T105429Z",
+  "packet_nonce": "e177277b-863c-4b80-8fd7-cc0c7db1a4ab",
+  "created_at": "2026-08-11T10:54:29.3036350Z",
+  "freshness": {
+    "source_observed_at": "2026-08-11T10:54:29.3036350Z",
+    "source_revision": "local-mirror:2a87c58c9c4a354b3db357e215623f23f9cc655e1679f2f62cf856263741cbb5",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": "chatgpt-chat2-dark-package-intake-20260811T090138Z"
+  },
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+  "source_chat_title": "Chat 2 Completion",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Record the sealed DARK-SCR-01 v1.1 evidence-repair package as validated, isolated Chat 2 context without performing canonical admission, physical execution, or cross-chat integration.",
+  "summary": "The previously unsealed DARK-SCR-01 v1.1 evidence repair is now complete in the Complex Perfumery mirror. It scopes the authenticated-natural-saffron requirement to natural-saffron similarity only, adds a separate non-automatic component-bounded linear challenge supported by a qualified non-peer-reviewed preprint, preserves every stock, identity, parent, and physical-execution hold, and leaves all 3,750 observation values blank. The package passed 44/44 structural checks and 10/10 contract tests. Its 14-member ZIP and 13-entry non-self SHA-256 ledger replay exactly. No physical result, formula, inventory, purchase, package-admission, release, or integration authority is created.",
+  "decisions": [
+    {
+      "decision": "Treat DARK-SCR-01 v1.1 as a sealed evidence-repair successor to the immutable v1 package, not as a physical-result package.",
+      "reason": "The repair changes hold scope and analysis prerequisites only; observations remain uncollected and the decision remains NOT_RUN."
+    },
+    {
+      "decision": "Replace the prior packet's unsealed/runtime-unavailable statement with this exact validated package state.",
+      "reason": "The loader-provided official spreadsheet runtime was callable through its bundled Python facade, and the final workbook was imported, edited, re-imported, inspected, rendered, and validated without installing another library."
+    },
+    {
+      "decision": "Keep this completion outside Plan-owned canonical integration unless the Plan owner deliberately captures it into quarantine.",
+      "reason": "The user's scope is Chat 2 / DARK MATERIALS only, and package integrity does not authorize admission or final integration."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The v1.1 ZIP is sealed and internally consistent.",
+      "evidence": "164,814 bytes; SHA-256 2a87c58c9c4a354b3db357e215623f23f9cc655e1679f2f62cf856263741cbb5; 14 safe members; no CRC, member, or declared-hash mismatch."
+    },
+    {
+      "claim": "The workbook contract is complete without observations.",
+      "evidence": "10 exact sheets, 10 rendered previews, 14 source rows, nine unchanged decision dispositions, one separate linear-challenge block, zero formula-error matches, zero restricted-decode matches in Observations, and zero nonblank observation values."
+    },
+    {
+      "claim": "The package validation and tests pass.",
+      "evidence": "VALIDATION_REPORT status PASS_WITH_EXECUTION_HOLD with 44 passed and 0 failed checks; unittest suite 10 passed."
+    },
+    {
+      "claim": "The parent v1 package remains byte-identical.",
+      "evidence": "Parent v1 ZIP SHA-256 remains 94c6b75573d71189c58b16737a1a5d2b9f7bb6bc8f1b41b9e76ef727e00e3c33."
+    },
+    {
+      "claim": "One bounded DeepLuna Chat audit reviewed evidence boundaries only.",
+      "evidence": "Exact-project job DS-b95dbf23d0fee9cab3de5f017709539a returned ACCEPTED_POSITIVE through cheapluna-chat/DIRECT_PRO after READY with settled reservations; zero fallback and zero authority effect."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/outputs/ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_1_20260811.zip",
+      "role": "sealed isolated Chat 2 v1.1 completion archive"
+    },
+    {
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/outputs/ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_1_20260811/PACKAGE_MANIFEST.json",
+      "role": "version, member, hold, authority, and runtime manifest"
+    },
+    {
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/outputs/ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_1_20260811/VALIDATION_REPORT.json",
+      "role": "44-check machine-readable validation receipt"
+    },
+    {
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/outputs/ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_1_20260811/SHA256SUMS.json",
+      "role": "13-entry non-self package ledger"
+    }
+  ],
+  "constraints": [
+    "Scope remains ACCORD-INTEL Chat 2 / DARK MATERIALS only; Chats 0, 1, and 3-8 and final integration remain untouched.",
+    "Physical evidence is NOT_TESTED, observations are NOT_COLLECTED, decision is NOT_RUN, and natural-saffron similarity is NOT_TESTED.",
+    "HOLD_PARENT_BYTES_UNAVAILABLE, HOLD_PARENT_SCHEMA_CONFORMANCE_UNVERIFIED, HOLD_EXACT_STOCK_REFS, HOLD_SUEDERAL_VERSION_IDENTITY, HOLD_NATURAL_SAFFRON_SIMILARITY_ONLY, and HOLD_PHYSICAL_EXECUTION remain active.",
+    "The component-bounded linear challenge is secondary, descriptive, non-negative, same-session, and non-automatic; it cannot assign a canonical Chat 2 disposition.",
+    "Pellegrino et al. 2026 is PRIMARY_PREPRINT v1 and NOT_PEER_REVIEWED; it does not test Safraleine with Suederal or predict the experiment result.",
+    "No inventory, formula, schema, database, purchase, safety, stability, strict empirical OAV, broad-appeal, package-admission, release, or cross-chat authority is granted.",
+    "DeepLuna Fast and alternate providers remain prohibited; Sol retains final acceptance authority."
+  ],
+  "unresolved_questions": [
+    "Can the exact Chat 2 V2 and DARK-SCR-02 parent bytes be recovered rather than reconstructed?",
+    "Have exact Safraleine, Suederal, and DPG bottle, product/version, lot, carrier, preparation-genealogy, and safety-document references been locked for any future physical execution?",
+    "Will an authenticated natural-saffron reference ever be authorized for a separate natural-saffron similarity claim?"
+  ],
+  "next_actions": [
+    {
+      "action": "Plan owner may capture the exact v1.1 ZIP into quarantine and run the repository's package receipt flow if integration review later requires it.",
+      "authority": "Plan perfume-chem integration owner"
+    },
+    {
+      "action": "Do not compound, unblind, populate observations, assign a disposition, purchase materials, install the package, or promote it from this packet.",
+      "authority": "Sol/Codex and physical-state gates"
+    },
+    {
+      "action": "If physical execution is separately authorized, satisfy all six holds first and record actual observations before any sensory-result claim.",
+      "authority": "Sol and authorized physical assessor"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Prior Chat 2 intake packet",
+      "state": "SUPERSEDED_UNSEALED_STATUS",
+      "detail": "The 09:01 packet correctly withheld v1.1 because it was unsealed and the sanctioned runtime was unavailable in that context. This packet supersedes only that status: v1.1 is now sealed through the loader-provided official Python artifact-tool facade."
+    },
+    {
+      "scope": "Saffron-reference hold",
+      "state": "V1_GLOBAL_V1_1_SIMILARITY_ONLY",
+      "detail": "Immutable v1 retains its global authenticated-saffron hold. The versioned v1.1 successor scopes the reference requirement to a natural-saffron similarity claim while preserving physical-execution holds."
+    },
+    {
+      "scope": "Package integrity versus admission",
+      "state": "VALIDATED_NOT_ADMITTED",
+      "detail": "The archive and ledger are exact and validated, but no canonical admission, installation, release, or cross-chat integration has occurred."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+      "uri": "chatgpt-conversation://6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+      "title": "Chat 2 Completion"
+    },
+    {
+      "kind": "codex_task",
+      "id": "019feb17-3324-7623-9eac-3b7e817acd4c",
+      "uri": "codex://threads/019feb17-3324-7623-9eac-3b7e817acd4c",
+      "title": "Plan perfume-chem integration"
+    },
+    {
+      "kind": "codex_task",
+      "id": "019fe3a3-3cca-7462-b8e9-e315015e95df",
+      "uri": "codex://threads/019fe3a3-3cca-7462-b8e9-e315015e95df",
+      "title": "Data Integration for Perfume-Chem"
+    },
+    {
+      "kind": "deepluna_chat_job",
+      "id": "DS-b95dbf23d0fee9cab3de5f017709539a",
+      "route": "DIRECT_PRO",
+      "disposition": "ACCEPTED_POSITIVE_EVIDENCE_BOUNDARY_ONLY"
+    }
+  ],
+  "content_hashes": [
+    {
+      "algorithm": "sha256",
+      "digest": "2a87c58c9c4a354b3db357e215623f23f9cc655e1679f2f62cf856263741cbb5",
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/outputs/ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_1_20260811.zip"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "dd3dd869456a448b501141fc81325219573102a7c10dabf0e39fcba11f19f027",
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/outputs/ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_1_20260811.zip.sha256.txt"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "3216d2174a4bc045f73645bec0074b170aeb1ab61b175c5c9ef3b0760067f18a",
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/outputs/ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_1_20260811/DARK-SCR-01_EXECUTION_WORKBOOK.xlsx"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "22358c4bfa9c8ddf65b4e1dccbc5c7980ae74a613e992c8136dc1f647a5fdad1",
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/outputs/ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_1_20260811/WORKBOOK_VALIDATION.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "5fdf2509d052f635d1bf482b2f1b3ba7754a0e5e3f8aee13aec21a96ce0afc4e",
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/outputs/ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_1_20260811/PACKAGE_MANIFEST.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "f31697f20acb4f9698724825ee0185d98de45f9da28c5985e916172cfc4856e6",
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/outputs/ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_1_20260811/VALIDATION_REPORT.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "84811a1522ed2483ebadc31a9c048fd20106babf288caf9c3df9ecd9029a6350",
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/outputs/ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_1_20260811/SHA256SUMS.json"
+    }
+  ],
+  "authority": {
+    "level": "VALIDATED_CONTEXT",
+    "accepted_by_codex": true
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

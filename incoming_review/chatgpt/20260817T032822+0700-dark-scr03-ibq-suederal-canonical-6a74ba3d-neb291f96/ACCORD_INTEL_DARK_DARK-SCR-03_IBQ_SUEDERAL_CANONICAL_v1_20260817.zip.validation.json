@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0",
+  "validation_id": "CHAT2-DARK-SCR03-POSTBUILD-ARCHIVE-VALIDATION-20260817",
+  "validated_at": "2026-08-17T03:17:01+07:00",
+  "package": {
+    "file_name": "ACCORD_INTEL_DARK_DARK-SCR-03_IBQ_SUEDERAL_CANONICAL_v1_20260817.zip",
+    "byte_length": 41483,
+    "sha256": "eb291f96fdf6e0ec8805d1f7d82f74e92ee5fa3ca6439a00c19f7e4cc15ef769",
+    "member_count": 11,
+    "unsafe_members": 0,
+    "duplicate_members": 0
+  },
+  "internal_validation": {
+    "verdict": "PASS_WITH_EXECUTION_HOLD",
+    "checks_passed": 30,
+    "checks_failed": 0,
+    "condition_rows": 18,
+    "planned_sample_slots": 36,
+    "observation_template_rows": 2520,
+    "filled_numeric_values": 0,
+    "filled_text_values": 0,
+    "filled_coded_sample_or_condition_ids": 0,
+    "rows_marked_not_collected": 2520
+  },
+  "integrity": {
+    "zip_crc": "PASS",
+    "bad_crc_member": null,
+    "embedded_ledger": "PASS",
+    "embedded_ledger_entries": 10,
+    "embedded_ledger_mismatches": 0,
+    "embedded_ledger_file_sha256": "75a28774383f84ebe18bda8e0a3c45f2bdbe1e97eb0c4da172791ee58286b170"
+  },
+  "native_archive_scanner": {
+    "single_status": "QUARANTINE_HOLD",
+    "single_entry_count": 11,
+    "single_sampled_bytes": 314745,
+    "single_findings": [
+      {
+        "code": "PARTIAL_MEMBER_SCAN",
+        "member": "DARK-SCR-03_OBSERVATION_TEMPLATE.csv",
+        "detail": "Member tail and CRC were not fully inspected; quarantine retained."
+      }
+    ],
+    "graph_status": "GRAPH_COMPLETE_QUARANTINED",
+    "graph_nodes": 1,
+    "graph_edges": 0,
+    "graph_all_nodes_terminal": true,
+    "graph_findings": [],
+    "resource_usage": {
+      "max_depth": 0,
+      "unique_containers": 1,
+      "edge_candidates_seen": 0,
+      "compressed_bytes_seen": 0,
+      "declared_bytes_seen": 0,
+      "child_bytes_read": 0
+    },
+    "promotion_allowed": false
+  },
+  "deepluna_challenge": {
+    "fresh_readiness": "READY",
+    "job_id": "DS-f524f64823e6fd61a7f341b7e1ab976e",
+    "profile": "cheapluna-chat",
+    "route": "DIRECT_PRO",
+    "fallback_policy": "NO_LUNA",
+    "terminal_status": "BLOCKED",
+    "evidence_verdict": "UNRESOLVED",
+    "retry_performed": false,
+    "authority_effect": "NONE"
+  },
+  "physical_evidence_state": "NOT_TESTED",
+  "observations": 0,
+  "physical_batches": 0,
+  "analytical_measurements": 0,
+  "decisions": 0,
+  "authority": {
+    "source_admission": false,
+    "inventory_mutation": false,
+    "stock_identity_completion": false,
+    "compounding": false,
+    "formula": false,
+    "purchase": false,
+    "sensory": false,
+    "mechanism": false,
+    "safety": false,
+    "stability": false,
+    "similarity": false,
+    "strict_oav": false,
+    "headspace": false,
+    "broad_appeal": false,
+    "package_admission": false,
+    "promotion": false,
+    "release": false,
+    "cross_chat_integration": false
+  }
+}

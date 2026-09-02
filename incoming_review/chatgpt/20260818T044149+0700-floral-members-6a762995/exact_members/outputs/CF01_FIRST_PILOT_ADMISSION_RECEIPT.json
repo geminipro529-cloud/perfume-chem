@@ -1,0 +1,28 @@
+{
+  "receipt_id": "CP-CF01-FIRST-PILOT-ADMISSION-20260817-V1",
+  "generated_at_utc": "2026-08-17T15:05:24+00:00",
+  "selected_formula": "CF-01",
+  "selection_method": "Lexicographic readiness only: zero stock-basis repair uses, zero carrier-open rows, zero product-basis rows, all rows current V5, then iris-priority portfolio relevance. No aggregate quality or liking score was used.",
+  "passes": [
+    "target architecture locked before HHP",
+    "formula definition receipt PASS",
+    "computational formula source PASS",
+    "56/56 exact V5 fraction and basis PASS",
+    "56/56 carrier lineage complete",
+    "0 product-basis rows",
+    "planned active-equivalent ledger generated"
+  ],
+  "holds": [
+    "56/56 ExactStockRefs missing",
+    "physical FormulaDoseReceipt not generated",
+    "G12 physical chemistry not run",
+    "coded liking/similarity not run",
+    "measured candidate air missing",
+    "strict empirical OAV missing",
+    "current formula-level safety review missing",
+    "presentation and release withheld"
+  ],
+  "next_action": "Populate the CF-01 ExactStockRef capture sheet from physical bottles and labels. Do not convert registration shares into mg or µL until every row is bound and the remaining gates are independently satisfied.",
+  "physical_execution_authority": false,
+  "phase_g": "LOCKED"
+}

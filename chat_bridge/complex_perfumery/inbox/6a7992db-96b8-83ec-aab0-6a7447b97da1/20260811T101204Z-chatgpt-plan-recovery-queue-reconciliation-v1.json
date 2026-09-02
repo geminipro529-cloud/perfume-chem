@@ -1,0 +1,187 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "chatgpt-plan-recovery-queue-reconciliation-20260811T101204Z",
+  "packet_nonce": "c1db5716-c6e7-4761-91d5-fa7f714f36f1",
+  "created_at": "2026-08-11T10:12:04.9185950Z",
+  "freshness": {
+    "source_observed_at": "2026-08-11T10:12:04.9185950Z",
+    "source_revision": "local-evidence-reconciliation:b0db328ed79b08ab4e66fe0097d5c5a01d1b24dc2fb8f78b94721cf96ec8df5f",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": null
+  },
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a7992db-96b8-83ec-aab0-6a7447b97da1",
+  "source_chat_title": "Perfume Project Planning",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Correct the stale exact-byte recovery queue without changing Plan-owned implementation or weakening quarantine, admission, scientific, or physical-state boundaries.",
+  "summary": "The current successor audit and exact-byte recovery prompt still classify the original b0db planning ZIP as missing. Exact local evidence proves that the same 1,766,574-byte ZIP is present byte-for-byte as a depth-1 child of the verified v3 container and is explicitly recorded as EXACT_BYTES_RECOVERED_AS_V3_NESTED_CONTAINER. Its separate admission state remains QUARANTINED_NOT_ADMITTED. Therefore b0db must be removed from the missing-exact-bytes queue while remaining quarantined and unadmitted. P6 Physics/OAV SHA-256 8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db remains the sole exact-byte blocker identified by the governing Plan.",
+  "decisions": [
+    {
+      "decision": "Remove b0db328ed79b08ab4e66fe0097d5c5a01d1b24dc2fb8f78b94721cf96ec8df5f from the missing-exact-bytes recovery queue.",
+      "reason": "The exact archive exists locally at the declared byte size and hash and is already represented as a verified nested v3 graph node."
+    },
+    {
+      "decision": "Preserve b0db as QUARANTINED_NOT_ADMITTED.",
+      "reason": "Byte recovery proves identity only; it does not grant canonical admission, package installation, formula authority, scientific authority, or release authority."
+    },
+    {
+      "decision": "Do not overwrite the current successor audit or GPT Pro recovery prompt from this lane.",
+      "reason": "Those artifacts are Plan-owner outputs. This immutable packet supplies a superseding evidence correction for the Plan owner to incorporate deliberately."
+    },
+    {
+      "decision": "Keep P6 8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db as the sole remaining exact-byte recovery target visible in the governing Plan.",
+      "reason": "No matching local package bytes or wheel were established, and the governing Plan explicitly names P6 as the remaining byte blocker."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The b0db planning ZIP is not missing at the byte-recovery layer.",
+      "evidence": "Local file is 1,766,574 bytes with SHA-256 b0db328ed79b08ab4e66fe0097d5c5a01d1b24dc2fb8f78b94721cf96ec8df5f."
+    },
+    {
+      "claim": "The verified v3 graph contains b0db as a depth-1 child.",
+      "evidence": "P2_1_CONTAINER_GRAPH lines 213-220 and 417-420 identify the archive, byte size, depth, parent v3 hash, and child hash."
+    },
+    {
+      "claim": "Recovery and admission are separate states.",
+      "evidence": "P2_1_VALIDATION lines 93-98 record recovery_state EXACT_BYTES_RECOVERED_AS_V3_NESTED_CONTAINER and admission_state QUARANTINED_NOT_ADMITTED."
+    },
+    {
+      "claim": "The governing Plan says P6 is the remaining exact-byte blocker.",
+      "evidence": "NEXT_STEPS_DECISION_PLAN line 11 states b0db is a verified nested v3 node and Physics/OAV 3.4 SHA-256 8224f8a1...f97db is the remaining byte blocker."
+    },
+    {
+      "claim": "The bounded DeepLuna Chat review confirmed the recovered and quarantined facts but incorrectly treated non-admission as byte absence.",
+      "evidence": "Job DS-43211808d716cb2c07691d5f9df5017b was ACCEPTED/POSITIVE; Sol accepts its byte-recovery and quarantine observations and rejects its conflation of the exact-byte queue with the admission queue."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "path": "output/GPT_PRO_RECOVERY_SUCCESSOR_AUDIT_2026-08-11.json",
+      "role": "current Plan-owner successor audit containing the stale b0db missing-byte entry"
+    },
+    {
+      "path": "output/GPT_PRO_EXACT_BYTE_RECOVERY_PROMPT_2026-08-11.md",
+      "role": "current GPT Pro recovery prompt that must not be reused unchanged for b0db"
+    },
+    {
+      "path": "output/P2_1_CONTAINER_GRAPH_2026-08-11.json",
+      "role": "verified archive identity and parent-child graph evidence"
+    },
+    {
+      "path": "output/P2_1_VALIDATION_2026-08-11.json",
+      "role": "verified recovery-state and admission-state separation"
+    },
+    {
+      "path": "output/NEXT_STEPS_DECISION_PLAN_2026-08-11.md",
+      "role": "governing Plan decision baseline"
+    },
+    {
+      "path": "output/quarantine/v3_project_plan_343a6f5f/Perfume_Chem_Project_Plan_Implementation_2026-08-10_v3/incoming_review/ancestry/Perfume_Chem_Codex_Implementation_Handoff_2026-08-10_v2.zip",
+      "role": "exact recovered b0db archive bytes, quarantined and unadmitted"
+    }
+  ],
+  "constraints": [
+    "Exact byte recovery is not canonical admission, package installation, schema admission, formula authority, inventory authority, scientific acceptance, or release authority.",
+    "The b0db archive remains QUARANTINED_NOT_ADMITTED even after removal from the missing-exact-bytes queue.",
+    "No existing Plan output, package, database, formula, inventory file, bottle state, migration, Git index entry, or release state is modified by this packet.",
+    "ACCORD-INTEL Chat 2 / DARK MATERIALS remains isolated and is not changed or integrated by this Plan reconciliation.",
+    "No physical observation, liking, similarity, stability, safety, measured headspace, strict empirical OAV, or release result is claimed.",
+    "DeepLuna evidence is advisory; Sol performs the state-layer distinction and final acceptance."
+  ],
+  "unresolved_questions": [
+    "Can the exact P6 Physics/OAV package SHA-256 8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db and its referenced wheel SHA-256 582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5 be recovered from the original GPT Pro source chat?",
+    "Will the Plan owner mint a superseding successor audit and recovery prompt that omit b0db from the exact-byte request while retaining its admission hold?"
+  ],
+  "next_actions": [
+    {
+      "action": "Plan owner incorporates this correction into a superseding recovery audit/prompt; do not request b0db bytes again.",
+      "authority": "Plan perfume-chem integration owner"
+    },
+    {
+      "action": "Continue read-only monitoring of the already-running GPT Pro recovery turn for actual P6 attachments or an explicit unavailable-parent successor statement.",
+      "authority": "Plan perfume-chem integration owner"
+    },
+    {
+      "action": "If P6 bytes materialize, copy them byte-for-byte to incoming_review quarantine, hash them, scan them through the bounded archive graph, and field-diff before any adapter work.",
+      "authority": "Sol/Codex quarantine and architecture review"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Exact-byte recovery queue",
+      "state": "STALE_B0DB_ENTRY",
+      "detail": "The successor audit and recovery prompt include b0db as missing even though the verified graph, validation receipt, governing Plan, and exact local file prove recovery."
+    },
+    {
+      "scope": "Recovery versus admission semantics",
+      "state": "SEPARATE_STATES",
+      "detail": "b0db is recovered exactly but remains quarantined and unadmitted. Non-admission must not be reinterpreted as missing bytes."
+    },
+    {
+      "scope": "DeepLuna advisory verdict",
+      "state": "PARTIALLY_REJECTED_BY_SOL",
+      "detail": "The worker correctly recognized the exact nested recovery and quarantine status but incorrectly concluded b0db remains a missing-byte blocker because it is unadmitted. The governing Plan explicitly contradicts that conflation."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a7992db-96b8-83ec-aab0-6a7447b97da1",
+      "uri": "chatgpt-conversation://6a7992db-96b8-83ec-aab0-6a7447b97da1",
+      "title": "Perfume Project Planning"
+    },
+    {
+      "kind": "codex_task",
+      "id": "019feb17-3324-7623-9eac-3b7e817acd4c",
+      "uri": "codex://threads/019feb17-3324-7623-9eac-3b7e817acd4c",
+      "title": "Plan perfume-chem integration"
+    },
+    {
+      "kind": "deepluna_chat_job",
+      "id": "DS-43211808d716cb2c07691d5f9df5017b",
+      "route": "DIRECT_PRO",
+      "disposition": "ADVISORY_PARTIALLY_ACCEPTED"
+    }
+  ],
+  "content_hashes": [
+    {
+      "algorithm": "sha256",
+      "digest": "1d8aeb36ae91ad16a8c63d3412d0b72eb63b977ea63977869586104e19343594",
+      "path": "output/GPT_PRO_RECOVERY_SUCCESSOR_AUDIT_2026-08-11.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "99134fbec4c5b6f2876a0fff7e5d7eeeb5a4164e5a9bf7c49634e2ebdc043081",
+      "path": "output/GPT_PRO_EXACT_BYTE_RECOVERY_PROMPT_2026-08-11.md"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "a09e1ce748968b81a8bc1c98903daac1a26aecf14f33369faf9a91c24520d2f8",
+      "path": "output/P2_1_CONTAINER_GRAPH_2026-08-11.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "1f7dc8de81c7e989722fdd100da5ab8006345e06c9e803faf8bb4d8aa9b4ed57",
+      "path": "output/P2_1_VALIDATION_2026-08-11.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "6389e256b845b32cea03a1640e3da06576d6a94cdf6e7b6cd27554dd353eb39e",
+      "path": "output/NEXT_STEPS_DECISION_PLAN_2026-08-11.md"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "b0db328ed79b08ab4e66fe0097d5c5a01d1b24dc2fb8f78b94721cf96ec8df5f",
+      "path": "output/quarantine/v3_project_plan_343a6f5f/Perfume_Chem_Project_Plan_Implementation_2026-08-10_v3/incoming_review/ancestry/Perfume_Chem_Codex_Implementation_Handoff_2026-08-10_v2.zip"
+    }
+  ],
+  "authority": {
+    "level": "VALIDATED_CONTEXT",
+    "accepted_by_codex": true
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

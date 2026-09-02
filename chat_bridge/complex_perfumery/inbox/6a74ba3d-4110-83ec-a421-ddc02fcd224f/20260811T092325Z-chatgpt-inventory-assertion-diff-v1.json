@@ -1,0 +1,218 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "chatgpt-inventory-assertion-diff-20260811T092325Z",
+  "packet_nonce": "f5226fb0-9a1d-4c8f-ba43-fbd792cadac2",
+  "created_at": "2026-08-11T09:23:25.9710253Z",
+  "freshness": {
+    "source_observed_at": "2026-08-11T09:23:25.9710253Z",
+    "source_revision": "live-dom:aroma-6a79b2cd+continuation-6a762995;user-clarification:beta-ionone-neat-plus-0.1-percent;repo-head:c876ab128845c2e055251fdce4fb1c3f5d661045",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": null
+  },
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+  "source_chat_title": "Chat 2 Completion",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Record the latest cross-chat ingredient assertions and their exact current Perfume-Chem representation without duplicating inventory mutations or promoting chat text into physical stock authority.",
+  "summary": "A read-only review of the Aroma Chemical Analysis and Complex Perfumery Continuation chats, the current user clarification, Inventory V5-derived snapshot, inventory.txt, material registries, and active authority deltas found that Cypress EO, PADMA, Ambrettolide, and the two Beta Ionone stock forms are already represented operationally. No canonical mutation is needed. Beta Ionone is represented as separate neat and 0.1% in TEC stocks; Ambrettolide remains out of stock/procurement-pending physically but design-available computationally. The remaining formal gap is that the active fail-closed authority-delta service has no dedicated Beta Ionone stock-lineage record.",
+  "decisions": [
+    {
+      "decision": "Do not re-add Cypress EO or PADMA.",
+      "reason": "inventory.txt, the V5 current-stock snapshot, and the structured material registries already preserve both owned identities. Duplicate insertion would create lineage and counting risk."
+    },
+    {
+      "decision": "Keep Ambrettolide physically unavailable.",
+      "reason": "The user's out-of-stock clarification, project instructions, inventory.txt, the V5 snapshot, and the active authority delta converge on planned acquisition/design availability only; bottle receipt and ExactStockRef remain absent."
+    },
+    {
+      "decision": "Preserve two distinct Beta Ionone stock records.",
+      "reason": "The current user clarification and local data spine support neat stock at active fraction 1.0 and a separately prepared 0.1% in TEC stock at active fraction 0.001. They must not be collapsed into a 1% stock."
+    },
+    {
+      "decision": "Do not modify the active authority-delta implementation from this packet.",
+      "reason": "The service and its append-only supplement are concurrent Plan-owned integration work. A dedicated Beta Ionone lineage supplement requires owner review and focused tests."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Cypress EO is already recorded as owned neat/as supplied, with supplier, botanical, and lot details still open.",
+      "evidence": "inventory.txt line 161; inventory_v5_current_stock_snapshot.json source row 88; data/materials/C.yaml alias Cypress EO"
+    },
+    {
+      "claim": "PADMA is already recorded as an owned identity-preserving material.",
+      "evidence": "inventory.txt line 70; inventory_v5_current_stock_snapshot.json source row 205; data/materials/P.yaml alias PADMA"
+    },
+    {
+      "claim": "Ambrettolide 10% in DPG is out of stock for physical compounding and remains procurement pending.",
+      "evidence": "inventory.txt line 199; inventory_v5_current_stock_snapshot.json source rows 27-28; authority record INV-V5-DELTA-AMBRETTOLIDE-RECEIPT"
+    },
+    {
+      "claim": "Beta Ionone neat and Beta Ionone 0.1% in TEC are separate current stocks.",
+      "evidence": "inventory.txt lines 146-147; data/materials/B.yaml user_stock_dilution values 1.0 and 0.001"
+    },
+    {
+      "claim": "The older 1% Beta Ionone representation is not executable as written.",
+      "evidence": "The V5-derived snapshot retains the old row name/prior fraction only as parent lineage while Actual stock(s) says 0.1% and the formula-use policy requires recalculation to 0.1%."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "path": "inventory.txt",
+      "role": "current human-readable owned-stock register"
+    },
+    {
+      "path": "data/materials/B.yaml",
+      "role": "structured Beta Ionone stock-strength representation"
+    },
+    {
+      "path": "data/materials/C.yaml",
+      "role": "structured Cypress EO alias representation"
+    },
+    {
+      "path": "data/materials/P.yaml",
+      "role": "structured PADMA alias representation"
+    },
+    {
+      "path": "data/governance/inventory_v5_current_stock_snapshot.json",
+      "role": "immutable V5-derived stock and formula-impact snapshot"
+    },
+    {
+      "path": "data/governance/inventory_v5_authority_delta_20260811.json",
+      "role": "active fail-closed identity and stock-status delta"
+    },
+    {
+      "path": "data/governance/inventory_v5_authority_delta_20260811_02.json",
+      "role": "active append-only Orris stock-basis supplement; reviewed as integration boundary"
+    },
+    {
+      "path": "chat_bridge/complex_perfumery/inbox/6a79b2cd-028c-83ec-9ed9-70956c462acf/20260811T083224Z-chatgpt-aroma-inventory-reconciliation-v1.json",
+      "role": "earlier source-capture packet for the 25-assertion inventory reconciliation"
+    }
+  ],
+  "constraints": [
+    "No inventory, formula, bottle, preparation, scientific, safety, sensory, procurement, or release authority is granted by this packet.",
+    "Do not infer physical receipt from design availability, a chat statement, a supplier catalog entry, or an inventory alias.",
+    "Do not merge neat Beta Ionone with the 0.1% in TEC working dilution, and do not dose the latter as 1%.",
+    "Do not map PADMA beyond its preserved supplied label without bottle-level identity evidence.",
+    "Cypress EO ownership does not resolve supplier, botanical, lot, oxidation, or safety details.",
+    "No physical result is claimed."
+  ],
+  "unresolved_questions": [
+    "Should the Plan-owned authority-delta service gain a new append-only Beta Ionone stock-lineage supplement that formally binds active fractions 1.0 and 0.001?",
+    "Can PADMA bottle or supplier documentation lock the exact product identity and stock strength?",
+    "Can Cypress EO bottle documentation lock supplier, botanical identity, lot, and as-supplied basis?",
+    "Has Ambrettolide been physically received since the latest explicit out-of-stock/procurement-pending statements?"
+  ],
+  "next_actions": [
+    {
+      "action": "Plan owner reviews whether Beta Ionone lineage needs a third append-only authority-delta supplement and focused service tests.",
+      "authority": "Plan perfume-chem integration owner"
+    },
+    {
+      "action": "Keep Cypress EO and PADMA as represented; request bottle-level evidence only when an executable formula or experiment requires exact stock identity.",
+      "authority": "Sol/Codex validation only"
+    },
+    {
+      "action": "Keep Ambrettolide physical execution blocked until bottle receipt and ExactStockRef exist.",
+      "authority": "Inventory and physical-state gate"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Beta Ionone stock lineage",
+      "state": "RESOLVED_OPERATIONALLY_FORMAL_DELTA_REVIEW_PENDING",
+      "detail": "One Complex Perfumery package states that Beta Ionone is 0.1% current stock, not 1%; the current user also states Beta Ionone is available neat and that it is 0.1%. The least-loss representation, already present locally, is two separate stocks: neat and 0.1% in TEC. A formal authority-delta supplement has not yet been admitted."
+    },
+    {
+      "scope": "Ambrettolide wording in Aroma Chemical Analysis",
+      "state": "RESOLVED_BY_NEWER_USER_CLARIFICATION_AND_PROJECT_RULE",
+      "detail": "The raw phrase 'ambrettolide, polysantal is out of stock' was grammatically ambiguous and the chat initially treated only Polysantol as unavailable. The newer user wording explicitly identifies Ambrettolide as out of stock, while project instructions require procurement-pending physical state."
+    },
+    {
+      "scope": "PADMA identity",
+      "state": "OWNED_LABEL_PRESERVED_EXACT_IDENTITY_OPEN",
+      "detail": "Ownership is represented, but exact bottle-level product identity and stock strength remain unverified."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a79b2cd-028c-83ec-9ed9-70956c462acf",
+      "uri": "chatgpt-conversation://6a79b2cd-028c-83ec-9ed9-70956c462acf",
+      "title": "Aroma Chemical Analysis"
+    },
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a762995-0d8c-83ec-aee3-66c90e56811e",
+      "uri": "chatgpt-conversation://6a762995-0d8c-83ec-aee3-66c90e56811e",
+      "title": "Complex Perfumery Continuation"
+    },
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+      "uri": "chatgpt-conversation://6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+      "title": "Chat 2 Completion"
+    },
+    {
+      "kind": "codex_task",
+      "id": "019fe3a3-3cca-7462-b8e9-e315015e95df",
+      "uri": "codex://threads/019fe3a3-3cca-7462-b8e9-e315015e95df"
+    },
+    {
+      "kind": "codex_task",
+      "id": "019feb17-3324-7623-9eac-3b7e817acd4c",
+      "uri": "codex://threads/019feb17-3324-7623-9eac-3b7e817acd4c",
+      "title": "Plan perfume-chem integration"
+    }
+  ],
+  "content_hashes": [
+    {
+      "algorithm": "sha256",
+      "digest": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "path": "inventory.txt"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "d802369b800d70c3b842f380ee656f0ea841bd6f289c4a4388ef21883c7d3c52",
+      "path": "data/materials/B.yaml"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "6c4b6e8365f751430cd329f1e7546a02649cb48f50794ad71ee752be9f0b486f",
+      "path": "data/materials/C.yaml"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "34078c50c36ea41c7df82a0b61aad6a93fe9ed73fac09232ab4d70b1d7c4dd73",
+      "path": "data/materials/P.yaml"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+      "path": "data/governance/inventory_v5_current_stock_snapshot.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "0ecbfc09bb826c89d1180006e2eb195c5db87b40bad77f250256e8ef89fd6774",
+      "path": "data/governance/inventory_v5_authority_delta_20260811.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "388e25561f679f0c46a2c320b49c3ebfc1c8c00c51aa6dd9e9564fbd60aeee92",
+      "path": "data/governance/inventory_v5_authority_delta_20260811_02.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "9a338bb6ecdba85f4d062d21dde273f2713f9a7747051a48f8585ebb5804d578",
+      "path": "chat_bridge/complex_perfumery/inbox/6a79b2cd-028c-83ec-9ed9-70956c462acf/20260811T083224Z-chatgpt-aroma-inventory-reconciliation-v1.json"
+    }
+  ],
+  "authority": {
+    "level": "SOURCE_CAPTURE",
+    "accepted_by_codex": false
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

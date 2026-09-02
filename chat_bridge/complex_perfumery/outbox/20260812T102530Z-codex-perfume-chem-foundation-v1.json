@@ -1,0 +1,311 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "codex-perfume-chem-foundation-v1",
+  "packet_nonce": "59b79023-b8fe-46ba-b59f-430cb0d0a40b",
+  "created_at": "2026-08-12T17:25:30.6330050+07:00",
+  "freshness": {
+    "source_observed_at": "2026-08-12T10:25:30.6330050+00:00",
+    "source_revision": "foundation-v1:runtime-1390792a3180716a115440b1bebdf7ab2aeabf8e34b5919f55fb4734e89a3290:v5-acceptance-b533b9c52c1623a68517b89233608099a33d5aafb84439ddceb4ffd23a1d2712:v5-successor-99a705720fe915cafc1864902e234a3bc62b3c590eb70a327355451e5180caef",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": null
+  },
+  "source_project_id": "perfume-chem",
+  "source_conversation_id": "019f8b5b-7d64-7fe2-b061-8a4e85a7b64b",
+  "source_chat_title": "Codex Perfume-Chem foundation relay",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Give the Complex Perfumery ChatGPT project a compact, hash-bound foundation for continuing Perfume-Chem research without copying hidden transcripts, mutating canonical state, or promoting computational evidence into formula, physical, safety, scientific, or release authority.",
+  "summary": "This packet points the Complex Perfumery work hub to the current Perfume-Chem runtime, V5 collection-governance receipts, current inventory authority, reconciliation, and literature ledger. DeepLuna Fast is retired from the active project configuration; bounded worker activity is DeepLuna Chat only and Sol remains the architecture, science, provenance, security, and final-acceptance authority. The V5 successor is still quarantined and its collection, implementation, installation, formula, physical, safety, and release authorities remain false. The highest-value next sequence is exact stock-identity closure, then concentration-aware binary-mixture measurements with linear-average and strongest-component baselines, followed by a nonlinear or competitive residual model only if held-out performance justifies it. This is a working foundation and pointer set, not synchronization of source bytes or acknowledgement by the target chat.",
+  "decisions": [
+    {
+      "decision": "Treat the V5 acceptance receipt and current-stock snapshot as the live governance foundation.",
+      "reason": "They supersede older inventory counts while preserving append-only receipts, exact hashes, and fail-closed authority boundaries."
+    },
+    {
+      "decision": "Treat the 2026-08-09 data-integration audit as historical context rather than current inventory truth.",
+      "reason": "The later reconciliation and V5 governance artifacts record subsequent inventory and authority changes."
+    },
+    {
+      "decision": "Resolve stock identity, dilution, carrier, and preparation receipts before fitting mixture models.",
+      "reason": "Uncertain inputs make apparent model improvements scientifically uninterpretable and create avoidable physical-experiment cost."
+    },
+    {
+      "decision": "Use linear-average and strongest-component mixture baselines before nonlinear or competitive models.",
+      "reason": "Recent literature supports simple component-based quality prediction while intensity and antagonism can remain nonlinear and context dependent; held-out comparison is required."
+    },
+    {
+      "decision": "Keep every consequential authority false in this relay.",
+      "authorization_boundary": {
+        "scientific_claim_authorized": false,
+        "formula_change_authorized": false,
+        "physical_result_authorized": false,
+        "safety_claim_authorized": false,
+        "collection_admission_authorized": false,
+        "implementation_authorized": false,
+        "package_installation_authorized": false,
+        "release_authorized": false
+      }
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The active Codex project runtime is Sol xhigh with one DeepLuna Chat MCP route and no configured DeepLuna Fast or alternate-model fallback.",
+      "evidence": ".codex/config.toml SHA256 1390792a3180716a115440b1bebdf7ab2aeabf8e34b5919f55fb4734e89a3290; launcher and contract hashes are included below.",
+      "limitation": "Configuration integrity does not itself prove a particular future worker call will be admitted or scientifically correct."
+    },
+    {
+      "claim": "The Complex Perfumery V5 append was mechanically accepted under its governed test surface.",
+      "evidence": "Acceptance receipt SHA256 b533b9c52c1623a68517b89233608099a33d5aafb84439ddceb4ffd23a1d2712 records 26/26 verification, 42/42 quarantine, and 68/68 combined checks.",
+      "limitation": "The same receipt keeps collection, implementation, source admission, and package installation authority false."
+    },
+    {
+      "claim": "The V5 successor remains a quarantined planning artifact with unresolved source, rights, package, scan, procurement, and physical-validation holds.",
+      "evidence": "Successor SHA256 99a705720fe915cafc1864902e234a3bc62b3c590eb70a327355451e5180caef and native-fit plan SHA256 d85c598af4591db83759cce7d3920f8d9768d972b1e24934e5f3b9134d8bcd47.",
+      "limitation": "No physical, sensory, headspace, strict-OAV, safety, formula, or release result is established."
+    },
+    {
+      "claim": "Current inventory work must preserve exact V5 stock authority and fail closed on unresolved identity or dilution state.",
+      "evidence": "Current-stock snapshot SHA256 f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99 and two authority-delta receipts listed below.",
+      "limitation": "A name match, modeled property, or historical stock row is not proof of current physical ownership or preparation state."
+    },
+    {
+      "claim": "The literature supports testing simple and nonlinear mixture hypotheses as competing models rather than declaring one universal rule.",
+      "evidence": "PMID 42465471 / PMCID PMC13371102 / DOI 10.64898/2026.07.03.736426; PMID 40832259 / DOI 10.1101/2025.08.08.668954; PMID 38876058 / DOI 10.1016/j.foodchem.2024.139951.",
+      "limitation": "The first two sources are preprints, and the maltol result is source- and mixture-specific. None validates a Perfume-Chem formula."
+    },
+    {
+      "claim": "OAV and modeled headspace remain screening features only.",
+      "evidence": "The current reconciliation and literature-verification ledger preserve this boundary.",
+      "limitation": "They are not percent perceived contribution, exact intensity, similarity, beauty, safety, or physical performance."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "path": "data/governance/complex_perfumery_v5_collection_append_acceptance_20260812.json",
+      "role": "current V5 append acceptance and nonpromotion boundary",
+      "status": "VALIDATED_CONTEXT_NONPROMOTING"
+    },
+    {
+      "path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V5_20260812.json",
+      "role": "quarantined successor collection",
+      "status": "QUARANTINE_HOLD"
+    },
+    {
+      "path": "output/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V5_20260812.md",
+      "role": "native-fit and installation plan",
+      "status": "PLAN_ONLY_NOT_AUTHORIZED"
+    },
+    {
+      "path": "data/governance/inventory_v5_current_stock_snapshot.json",
+      "role": "current stock-governance snapshot",
+      "status": "CURRENT_GOVERNANCE_INPUT"
+    },
+    {
+      "path": "docs/research/PERFUME_CHEM_CHATGPT_PROJECT_RECONCILIATION_2026-08-10.md",
+      "role": "cross-project reconciliation and staged work map",
+      "status": "VALIDATED_CONTEXT"
+    },
+    {
+      "path": "incoming_review/PERFUME_CHEM_LITERATURE_VERIFICATION_LEDGER.md",
+      "role": "literature verification and claim-boundary ledger",
+      "status": "REVIEW_INPUT"
+    },
+    {
+      "path": ".codex/config.toml",
+      "role": "current Sol xhigh plus DeepLuna Chat-only Codex routing",
+      "status": "CURRENT_RUNTIME_CONFIGURATION"
+    },
+    {
+      "path": ".opencode/scripts/cheapluna-chat-launcher.mjs",
+      "role": "DeepLuna Chat launcher",
+      "status": "ACTIVE_CHAT_ROUTE"
+    }
+  ],
+  "constraints": [
+    "Use DeepLuna Chat only for bounded mechanical work; DeepLuna Fast and alternate model fallbacks are retired from the active project configuration.",
+    "Sol retains architecture, science, security, provenance, scope, and final acceptance authority.",
+    "Do not treat a packet hash, passing test, model prediction, OAV, or literature mention as formula, physical, safety, collection, installation, or release authority.",
+    "Do not mutate chat_bridge shared_state, governance, output, quarantine, incoming_review, source, or canonical project files while consuming this packet.",
+    "Preserve append-only Chat Bridge v2.1 semantics and acknowledge through a new inbox packet rather than editing this outbox packet.",
+    "Treat source rights, exact identity, concentration, carrier, preparation history, and physical observations as explicit gates.",
+    "Do not copy hidden transcripts or assume the ChatGPT project mirror contains every local source file."
+  ],
+  "unresolved_questions": [
+    "Which five optional identities and P6 package artifacts can be recovered with exact hashes and acceptable rights?",
+    "Which current-stock rows still require exact CAS identity, dilution, carrier, or preparation receipts before experimentation?",
+    "Can a small concentration-aware binary-mixture dataset distinguish linear-average, strongest-component, and competitive or nonlinear predictions on held-out mixtures?",
+    "Which substrate and matrix conditions should be frozen before physical calibration?",
+    "Which V5 successor modules remain valuable after source-rights, SCR02, SCR20B, and installation gates are applied?",
+    "When will the target ChatGPT work hub acknowledge this packet, and which local source pointers are unavailable in its mirror?"
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Acknowledge this packet through a new Bridge v2.1 inbox packet and record any unavailable local paths without editing the outbox packet.",
+      "gate": "Packet ID, nonce, target conversation, freshness, and content hashes validate.",
+      "authority": "acknowledgement only"
+    },
+    {
+      "priority": 2,
+      "action": "Reconcile exact current-stock identity, dilution, carrier, and preparation receipts, beginning with Lemonile, Javanol, Alpha Irone, Beta Ionone, Carrot Seed, Heliotropal, Citronellol, Dihydro Beta Ionone, 2-acetyl pyrazine, Scentanal or Scentenal, Gamma Decalactone, and Nonanal.",
+      "gate": "Every changed assertion is source-bound and no purchase or ownership status is inferred.",
+      "authority": "research and governance recommendation only"
+    },
+    {
+      "priority": 3,
+      "action": "Design the smallest concentration-aware binary-mixture calibration set with frozen matrix, substrate, preparation, randomization, blinding, and replicate rules.",
+      "gate": "Identity closure and physical protocol acceptance are complete before samples are prepared.",
+      "authority": "prospective protocol only"
+    },
+    {
+      "priority": 4,
+      "action": "Compare linear-average and strongest-component baselines on held-out mixtures; add a nonlinear or competitive residual model only if it improves preregistered held-out metrics.",
+      "gate": "No train-test leakage, enough independent mixtures, explicit uncertainty, and negative results preserved.",
+      "authority": "analysis recommendation only"
+    },
+    {
+      "priority": 5,
+      "action": "Revisit lavender recomposition, omission, and replacement experiments only after the binary-mixture calibration establishes a trustworthy local measurement surface.",
+      "gate": "Earlier identity, calibration, and model-selection gates are terminal.",
+      "authority": "future hypothesis only"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Inventory census",
+      "state": "OLDER_SNAPSHOT",
+      "detail": "The 2026-08-09 integration audit contains historical row and unresolved-identity counts. Use the later reconciliation, current-stock snapshot, authority deltas, and V5 acceptance for current decisions."
+    },
+    {
+      "scope": "ChatGPT project mirror",
+      "state": "PARTIAL_SOURCE_MIRROR",
+      "detail": "The target Complex Perfumery project previously reported missing local source files. This packet supplies hash-bound pointers, not copied source bytes or proof that every path is readable remotely."
+    },
+    {
+      "scope": "Remote acknowledgement",
+      "state": "PENDING",
+      "detail": "Writing this outbox packet does not prove the target conversation has read or accepted it. acknowledgement.accepted remains false."
+    },
+    {
+      "scope": "Historical helper surface",
+      "state": "NONCANONICAL_MANUAL_RISK",
+      "detail": "scripts/_delegate_routing_delta.py retains historical alternate-provider logic but is not registered by the active Codex configurations. It was not changed in the bounded Fast-retirement transaction."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "codex_task",
+      "id": "019f8b5b-7d64-7fe2-b061-8a4e85a7b64b",
+      "uri": "codex://threads/019f8b5b-7d64-7fe2-b061-8a4e85a7b64b"
+    },
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+      "uri": "chatgpt-conversation://6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf"
+    },
+    {
+      "kind": "literature",
+      "id": "PMID:42465471",
+      "uri": "https://pubmed.ncbi.nlm.nih.gov/42465471/"
+    },
+    {
+      "kind": "literature",
+      "id": "PMID:40832259",
+      "uri": "https://pubmed.ncbi.nlm.nih.gov/40832259/"
+    },
+    {
+      "kind": "literature",
+      "id": "PMID:38876058",
+      "uri": "https://pubmed.ncbi.nlm.nih.gov/38876058/"
+    }
+  ],
+  "content_hashes": [
+    {
+      "algorithm": "sha256",
+      "digest": "1e39d6aa91cd7e9e13bd7c35aef1793306fc60543e253cd582989d1ef1f2c6c9",
+      "path": "AGENTS.md"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "7080040871d9c40196242e1c8d1c058a3dba123ac427f9168f8859d4e635fd0c",
+      "path": "chat_bridge/complex_perfumery/PROTOCOL.md"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "1390792a3180716a115440b1bebdf7ab2aeabf8e34b5919f55fb4734e89a3290",
+      "path": ".codex/config.toml"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "e6b53cf4839ce9edc3061d1e9f6c8956beff3c97c522490fb0d9c3b351174652",
+      "path": ".opencode/scripts/cheapluna-chat-launcher.mjs"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "dc18599d3b75bb2f2729ad80596e37fd8d22bb14c8079c95fcba86e1b0c63df1",
+      "path": ".opencode/scripts/cheapluna-contract.mjs"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "b533b9c52c1623a68517b89233608099a33d5aafb84439ddceb4ffd23a1d2712",
+      "path": "data/governance/complex_perfumery_v5_collection_append_acceptance_20260812.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "99a705720fe915cafc1864902e234a3bc62b3c590eb70a327355451e5180caef",
+      "path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V5_20260812.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "d85c598af4591db83759cce7d3920f8d9768d972b1e24934e5f3b9134d8bcd47",
+      "path": "output/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V5_20260812.md"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "f45558798f5f141535d95d81d7689a7eefb2a8e43a5bce5923e9505d5cb964d1",
+      "path": "output/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V5_20260812.txt"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "504d62f9693cc8d3eb28461adc36c8b5fa3bf09caa982afe12797b69b20afe4e",
+      "path": "docs/research/PERFUME_CHEM_DATA_INTEGRATION_AUDIT_2026-08-09.md"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "b79fceec56999fbe515970af0353941e9410ebd76756597bf52aa3f10fbb30d7",
+      "path": "docs/research/PERFUME_CHEM_CHATGPT_PROJECT_RECONCILIATION_2026-08-10.md"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "4f2206893d6f8d682aa6df798a3a5c8c9b2a815b8ed2c4025c20cd108544b9e7",
+      "path": "incoming_review/PERFUME_CHEM_LITERATURE_VERIFICATION_LEDGER.md"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+      "path": "data/governance/inventory_v5_current_stock_snapshot.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "0ecbfc09bb826c89d1180006e2eb195c5db87b40bad77f250256e8ef89fd6774",
+      "path": "data/governance/inventory_v5_authority_delta_20260811.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "388e25561f679f0c46a2c320b49c3ebfc1c8c00c51aa6dd9e9564fbd60aeee92",
+      "path": "data/governance/inventory_v5_authority_delta_20260811_02.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "a002ce41d0ee79cec3ebf6d293de2b67363d8e0068daed73d90acdea65ce30c4",
+      "path": "data/governance/chat2_dark_scr20b_namespace_repair_package_receipt_20260812.json"
+    }
+  ],
+  "authority": {
+    "level": "VALIDATED_CONTEXT",
+    "accepted_by_codex": true
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

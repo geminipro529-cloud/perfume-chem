@@ -1,0 +1,167 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "chat-e-postfreeze-hardening-v1-20260819",
+  "recorded_at": "2026-08-19T13:15:08Z",
+  "package": {
+    "file_name": "CHAT_E_XHIGH_POSTFREEZE_HARDENING_v1.zip",
+    "locator": "incoming_review/chatgpt/20260819T131508Z-chat-e-physical-analytical-6a753b36/CHAT_E_XHIGH_POSTFREEZE_HARDENING_v1.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 86646,
+    "sha256": "0d989b72a2678359b797c5e936c4aebc818e8fca700dcc2f557ae86321a71212",
+    "media_type": "application/zip",
+    "archive_entry_count": 52,
+    "archive_file_count": 52,
+    "declared_payload_count": 51,
+    "package_root": "CHAT_E_XHIGH_POSTFREEZE_HARDENING_v1",
+    "embedded_integrity_records": [
+      {
+        "path": "CHAT_E_XHIGH_POSTFREEZE_HARDENING_v1/SHA256SUMS.json",
+        "byte_size": 8344,
+        "sha256": "9f1ab8dc2d1db639b79327ab0a6f0da82f4b27532a96347d19236e64f1311060",
+        "role": "CHECKSUM_LEDGER"
+      },
+      {
+        "path": "CHAT_E_XHIGH_POSTFREEZE_HARDENING_v1/DEFECT_LEDGER.json",
+        "byte_size": 3092,
+        "sha256": "8efdbbffed35ee85012c281a666dd7ff01d24711c95d4c8a7b3dadea5a793ad0",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "CHAT_E_XHIGH_POSTFREEZE_HARDENING_v1/SOURCE_MANIFEST.json",
+        "byte_size": 1149,
+        "sha256": "078a869ec23ef5597c953b9954bf4b9b5143227365f67aeefbdd5082e1e203c5",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "CHAT_E_XHIGH_POSTFREEZE_HARDENING_v1/VALIDATION_REPORT.json",
+        "byte_size": 1592,
+        "sha256": "fa789511c4b3eb9307254eadaa25b8f9c356f146449ad20cf170b254ea81d88f",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "CHAT_E_XHIGH_POSTFREEZE_HARDENING_v1/WORKER_ADDENDUM_MANIFEST.json",
+        "byte_size": 5779,
+        "sha256": "bb5fc530a3296a7211b291cdde6b8f7374d9acea648d2ddc5113f433ac68c719",
+        "role": "MANIFEST"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a753b36-a0b8-83ec-a7cc-bc79f1d37b47:postfreeze-hardening-v1",
+    "conversation_id": "6a753b36-a0b8-83ec-a7cc-bc79f1d37b47",
+    "turn_id": null,
+    "message_id": null,
+    "lineage_resolution": "EXACT_SEPARATE_POSTFREEZE_HARDENING_ATTACHMENT_RECOVERED_EMBEDDED_V1_BYTE_EXACT_LATER_TRANSCRIPT_V1_2_CLAIM_UNRECOVERED",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "The AI-generated addendum declares no package-level license and embeds the complete v1 package. Its source registry continues to point to resources with heterogeneous source-specific terms. Exact possession does not authorize code installation, source-row admission, publication, training, redistribution or release use.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Conservative project-governance classification, not legal advice. The defect ledger is retained as read-only engineering evidence; package code remains unexecuted and uninstalled."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN_AT_PACKAGE_LEVEL",
+      "EXTERNAL_SOURCE_BYTES_NOT_PRESENT",
+      "V1_EXECUTABLE_QUERY_CONTRACT_HELD",
+      "MACHINE_DOMAIN_CODE_ADJUDICATION_HELD",
+      "HOST_ADOPTION_HELD",
+      "PACKAGE_TEST_RESULTS_ARE_PACKAGE_CLAIMS_NOT_LOCAL_EXECUTION",
+      "PACKAGE_CODE_NOT_EXECUTED_OR_INSTALLED",
+      "NATIVE_C3_C8_ALREADY_CONTROL_EXACT_MODEL_DOMAIN_BINDING",
+      "NATIVE_B5_ALREADY_CONTROLS_ANALYTICAL_IDENTITY_AND_QUANTITATION",
+      "PACKAGE_RUNTIME_REPLACEMENT_NOT_JUSTIFIED",
+      "LATER_TRANSCRIPT_OWNED_V1_2_SHA8170AC4E_ATTACHMENT_UNRECOVERED",
+      "SOURCE_REGISTRY_ROWS_NOT_ADMITTED",
+      "NO_FORMULA_RUNTIME_INVENTORY_PHYSICAL_OR_RELEASE_MUTATION"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "incoming_review/chatgpt/20260819T131508Z-chat-e-physical-analytical-6a753b36/source_manifest.json",
+      "byte_size": 4175,
+      "sha256": "5e7f3385046ce701e5ffd14d74b07506c5c09b352cd0225dc094e44375d8a676",
+      "relation": "BINDS_BROWSER_CAPTURE_MANIFEST",
+      "support_scope": "AUTHENTICATED_CONVERSATION_AND_EXACT_DUAL_ATTACHMENT_CAPTURE_ONLY",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "data/governance/chat_e_physical_analytical_lane_v1_package_receipt_20260819.json",
+      "byte_size": 5732,
+      "sha256": "38a0a20be528fa58b2f32f843840087cbb7cb8b15168924e0a36a0c68438c506",
+      "relation": "BINDS_EXACT_EMBEDDED_V1_PARENT_RECEIPT",
+      "support_scope": "BYTE_IDENTITY_AND_NONADMISSION_LINEAGE_ONLY",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "EXACT_CHAT_E_POSTFREEZE_HARDENING_PACKAGE_QUARANTINED_NATIVE_C3_C8_B5_SUPERSEDE",
+    "archive_scan_status": "GRAPH_COMPLETE_QUARANTINED",
+    "archive_members": 52,
+    "archive_scan_nodes": 2,
+    "internal_checksum_entries_verified": 51,
+    "package_recovered": true,
+    "embedded_v1_package_byte_exact": true,
+    "embedded_v1_sha256": "685098081c631a0c39e3113d1d3ef3ba08662537bcee3dbcee722b321aa338cf",
+    "later_transcript_v1_2_claimed_sha256": "8170ac4e7f558698b97a746ac30cd39110b371325b92c542a1ca3b90d2397898",
+    "later_transcript_v1_2_package_recovered": false,
+    "package_claimed_tests_passed": 88,
+    "package_claimed_tests_failed": 0,
+    "package_claimed_tests_locally_replayed": false,
+    "defect_ids_preserved": [
+      "E-HARD-001",
+      "E-HARD-002",
+      "E-HARD-003",
+      "E-HARD-004",
+      "E-HARD-005",
+      "E-HARD-006"
+    ],
+    "defect_regression_history_useful": true,
+    "native_c8_focused_tests_passed": 90,
+    "native_b5_focused_tests_passed": 84,
+    "native_c8_test_file": "tests/test_c8_headspace_oav.py",
+    "native_b5_test_files": [
+      "backend/tests/unit/test_b5_analytical_service.py",
+      "backend/tests/unit/test_b5_analytical_schema.py"
+    ],
+    "native_c3_c8_exact_model_binding_controls": true,
+    "native_c3_c8_rejects_caller_domain_attestation": true,
+    "native_c3_c8_matrix_condition_environment_binding": true,
+    "native_b5_identity_quantitation_controls": true,
+    "native_b5_authentic_standard_required_for_confirmed_identity": true,
+    "native_b5_calibration_scope_uncertainty_qc_controls": true,
+    "native_b5_gco_exact_identity_forbidden": true,
+    "machine_domain_code_adjudication_complete": false,
+    "external_source_bytes_present": false,
+    "source_rows_admitted": 0,
+    "package_code_imported": false,
+    "package_code_executed": false,
+    "native_runtime_replaced": false,
+    "formula_rows_mutated": 0,
+    "inventory_rows_mutated": 0,
+    "physical_truth_rows_mutated": 0,
+    "release_rows_mutated": 0,
+    "promotion_allowed": false
+  },
+  "receipt_sha256": "0fb7d4a722120eaa52bad5658020ab990fa498b3bb3f19da0c35427490348f46"
+}

@@ -1,0 +1,144 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "chat-c-formula-corpora-patent-mining-xhigh-v1-20260819",
+  "recorded_at": "2026-08-19T12:45:03Z",
+  "package": {
+    "file_name": "CHAT_C_FORMULA_CORPORA_PATENT_MINING_XHIGH_v1.zip",
+    "locator": "incoming_review/chatgpt/20260819T124503Z-chat-c-formula-corpora-6a753b26/CHAT_C_FORMULA_CORPORA_PATENT_MINING_XHIGH_v1.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 1319192,
+    "sha256": "ce6e95f40cd53bdc3c94f169ccb9761638500ae085be23df7b7abc2db94bb42d",
+    "media_type": "application/zip",
+    "archive_entry_count": 27,
+    "archive_file_count": 27,
+    "declared_payload_count": 26,
+    "package_root": "CHAT_C_FORMULA_CORPORA_PATENT_MINING_XHIGH",
+    "embedded_integrity_records": [
+      {
+        "path": "CHAT_C_FORMULA_CORPORA_PATENT_MINING_XHIGH/SHA256SUMS.json",
+        "byte_size": 4386,
+        "sha256": "c6f81327a6859c927178f311845e728d843f1d3fb0ba3d8ea0725da65f588be1",
+        "role": "CHECKSUM_LEDGER"
+      },
+      {
+        "path": "CHAT_C_FORMULA_CORPORA_PATENT_MINING_XHIGH/WORKER_MANIFEST.json",
+        "byte_size": 9763,
+        "sha256": "2ffd2f3da86cf97e840f553c28e06eb737b7ed0b92b0b8dbb0402d833653f3b6",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "CHAT_C_FORMULA_CORPORA_PATENT_MINING_XHIGH/VALIDATION_REPORT.json",
+        "byte_size": 4240,
+        "sha256": "ff0379441a816b36b61ae215d4dfdc596fbe809fbbcf70d61399bb12de99183c",
+        "role": "MANIFEST"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a753b26-53b4-83ec-92ec-02cdc8d63629:formula-corpora-patent-mining-xhigh-v1",
+    "conversation_id": "6a753b26-53b4-83ec-92ec-02cdc8d63629",
+    "turn_id": null,
+    "message_id": null,
+    "lineage_resolution": "EXACT_CHAT_C_ATTACHMENT_RECOVERED_AND_HASH_VERIFIED_WITH_ORDERED_PATENT_AND_HISTORICAL_SOURCE_GRAMMAR_PRESERVED",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "Patent publication and Project Gutenberg access do not create a blanket license for this AI-generated package. Olfactorian v1 is read-only and published-data-only for approved OAuth clients, while current terms prohibit scraper or robot access and otherwise limit service use absent separate permission.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "This is a conservative project-governance classification, not legal advice. Source-specific rights and operation-scoped reuse must be reviewed before any B1 admission, persistence, training, publication, or redistribution."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "BASELINE_PACKAGE_BYTES_NOT_MOUNTED",
+      "OLFACTORIAN_PERMISSION_AND_CREDENTIALS_ABSENT",
+      "EPO_OPS_CREDENTIALS_ABSENT",
+      "CN111133086A_SOURCE_IDENTITY_AND_TRANSLATION_QA_UNRESOLVED",
+      "HISTORICAL_MATERIAL_IDENTITY_UNRESOLVED",
+      "ADDITIONAL_CORPORA_PERMISSION_AND_QUALITY_AUDIT_ABSENT",
+      "CORPUS_REPRESENTATIVENESS_UNESTABLISHED",
+      "PATENT_SENSORY_STATEMENTS_NOT_INDEPENDENT_VALIDATION",
+      "US8168163B2_TWO_EM_DASH_ABSENCES_COLLAPSED_TO_NUMERIC_ZERO_IN_PACKAGE",
+      "MIXED_HISTORICAL_UNITS_NOT_EXECUTION_NORMALIZED",
+      "B1_ORDERED_SOURCE_EXTRACTION_NOT_IMPLEMENTED_FOR_THIS_PACKAGE",
+      "DERIVED_EXECUTABLE_PROJECTION_NOT_REVIEWED",
+      "BUNDLED_CODE_NOT_EXECUTED_OR_INSTALLED",
+      "PACKAGE_CONTENT_NOT_INSTALLED",
+      "NO_FORMULA_RUNTIME_INVENTORY_OR_RELEASE_MUTATION"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "incoming_review/chatgpt/20260819T124503Z-chat-c-formula-corpora-6a753b26/source_manifest.json",
+      "byte_size": 2891,
+      "sha256": "b194fd78e9c83fac3988976592643fb8da4bd33706412c70c62f580cda95fff7",
+      "relation": "BINDS_BROWSER_CAPTURE_MANIFEST",
+      "support_scope": "AUTHENTICATED_CONVERSATION_AND_EXACT_ATTACHMENT_CAPTURE_ONLY",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "EXACT_CHAT_C_FORMULA_CORPORA_PATENT_MINING_PACKAGE_QUARANTINED_ORDERED_SOURCE_GRAMMAR_ONLY",
+    "archive_scan_status": "GRAPH_COMPLETE_QUARANTINED",
+    "archive_members": 27,
+    "internal_checksum_entries_verified": 26,
+    "package_recovered": true,
+    "patent_publications_byte_pinned": 4,
+    "patent_formula_arms": 5,
+    "patent_formula_rows": 105,
+    "historical_examples": 2,
+    "historical_formula_rows": 25,
+    "formula_grammar_rows": 130,
+    "controlled_delta_rows": 2,
+    "trade_product_basis_preserved": true,
+    "source_explicit_absence_rows_expected": 2,
+    "package_explicit_absence_rows_preserved_as_non_numeric": 0,
+    "source_explicit_absence_representation_lossless": false,
+    "source_absence_defect": "US8168163B2_EXAMPLE_III_EM_DASH_ABSENCES_COLLAPSED_TO_NUMERIC_ZERO",
+    "patent_sensory_claims_independently_validated": false,
+    "mixed_historical_unit_execution_normalization_allowed": false,
+    "package_claimed_tests_passed": 21,
+    "package_claimed_tests_failed": 0,
+    "baseline_version_claimed": "PDS_XHIGH_PROCESSING_BUNDLE_v1",
+    "baseline_package_sha256_claimed": "9b8fef249d0019393b3fbf080bba96c665a5104358633d74308cfe5affae980c",
+    "baseline_package_bytes_present": false,
+    "primary_source_scope_urls_checked": [
+      "https://patents.google.com/patent/US20120058073A1/en",
+      "https://patents.google.com/patent/US8168163B2/en",
+      "https://patents.google.com/patent/US6495186B1/en",
+      "https://patents.google.com/patent/EP3042891A1/en",
+      "https://www.gutenberg.org/ebooks/50139",
+      "https://olfactorian.com/developers",
+      "https://olfactorian.com/terms"
+    ],
+    "source_rows_admitted": 0,
+    "executable_formula_rows_installed": 0,
+    "bundled_code_executed": false,
+    "formula_rows_mutated": 0,
+    "inventory_rows_mutated": 0,
+    "physical_truth_rows_mutated": 0,
+    "release_rows_mutated": 0,
+    "promotion_allowed": false
+  },
+  "receipt_sha256": "ae7b3da26ef9accb1c18d377755cb47d020293c003c1c2f675efd38a9331e225"
+}

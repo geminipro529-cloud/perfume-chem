@@ -1,0 +1,249 @@
+{
+  "model_version": "3.0.0",
+  "purpose": "Deterministic classification and anti-padding fixtures. Values describe audit inputs, not perfume quality or physical outcomes.",
+  "test_cases": [
+    {
+      "test_case_id": "MCV3-TC-001",
+      "name": "Legitimate compact perfume",
+      "required_example": "legitimate compact perfume",
+      "input_profile": {
+        "formula_scope": "FULL_PERFUME",
+        "total_rows": 18,
+        "distinct_canonical_odor_identities": 16,
+        "effective_post_ablation_rows": 15,
+        "technical_rows": 2,
+        "duplicate_strength_rows": 0,
+        "proposed_microtexture_rows": 0,
+        "functional_row_ratio": 0.94,
+        "recognizer_paths": 1,
+        "single_point_dependencies": 0,
+        "sensory_systems": 3,
+        "time_windows": 3,
+        "transitions": 2,
+        "interaction_edges": 3,
+        "interaction_effect_types": 2,
+        "texture_axes": 2,
+        "contrast_axes": 1,
+        "physical_data": false,
+        "requested_claim": "COMPACT"
+      },
+      "expected": {
+        "assigned_class": "COMPACT",
+        "classification_state": "PASS_FOR_DECLARED_SCOPE",
+        "claim_level": "SOURCE_SUPPORTED_DESIGN",
+        "legacy_row_band_status": "BELOW_LEGACY_BAND",
+        "compression_review_required": false,
+        "key_gate_states": {
+          "G3": "PASS",
+          "G4": "PASS",
+          "G5": "PASS",
+          "G14": "PASS"
+        },
+        "rationale": "The formula is bounded, functional, and honestly labeled. Low row count is not a defect."
+      }
+    },
+    {
+      "test_case_id": "MCV3-TC-002",
+      "name": "Padded long formula",
+      "required_example": "padded long formula",
+      "input_profile": {
+        "formula_scope": "FULL_PERFUME",
+        "total_rows": 82,
+        "distinct_canonical_odor_identities": 54,
+        "effective_post_ablation_rows": 29,
+        "technical_rows": 8,
+        "duplicate_strength_rows": 11,
+        "proposed_microtexture_rows": 14,
+        "functional_row_ratio": 0.63,
+        "recognizer_paths": 1,
+        "single_point_dependencies": 1,
+        "sensory_systems": 4,
+        "time_windows": 3,
+        "transitions": 1,
+        "interaction_edges": 2,
+        "interaction_effect_types": 1,
+        "texture_axes": 8,
+        "contrast_axes": 1,
+        "physical_data": false,
+        "requested_claim": "HIGH_COMPLEXITY"
+      },
+      "expected": {
+        "assigned_class": "UNCLASSIFIED_HOLD",
+        "classification_state": "REBUILD_REQUIRED",
+        "claim_level": "DESIGN_ONLY",
+        "legacy_row_band_status": "WITHIN_LEGACY_BAND",
+        "padding_review_required": true,
+        "key_gate_states": {
+          "G3": "REBUILD_REQUIRED",
+          "G4": "FAIL",
+          "G5": "FAIL",
+          "G9": "REBUILD_REQUIRED",
+          "G14": "REBUILD_REQUIRED"
+        },
+        "rationale": "Rows disappear under deduplication and ablation. The long formula is not meaningfully complex."
+      }
+    },
+    {
+      "test_case_id": "MCV3-TC-003",
+      "name": "High-row low-interaction formula",
+      "required_example": "high-row but low-interaction formula",
+      "input_profile": {
+        "formula_scope": "FULL_PERFUME",
+        "total_rows": 78,
+        "distinct_canonical_odor_identities": 72,
+        "effective_post_ablation_rows": 68,
+        "technical_rows": 3,
+        "duplicate_strength_rows": 1,
+        "proposed_microtexture_rows": 3,
+        "functional_row_ratio": 0.93,
+        "recognizer_paths": 2,
+        "single_point_dependencies": 0,
+        "sensory_systems": 7,
+        "time_windows": 3,
+        "transitions": 2,
+        "interaction_edges": 2,
+        "interaction_effect_types": 1,
+        "texture_axes": 4,
+        "contrast_axes": 2,
+        "physical_data": false,
+        "requested_claim": "HIGH_COMPLEXITY"
+      },
+      "expected": {
+        "assigned_class": "LAYERED",
+        "classification_state": "CONDITIONAL",
+        "claim_level": "SOURCE_SUPPORTED_DESIGN",
+        "legacy_row_band_status": "WITHIN_LEGACY_BAND",
+        "padding_review_required": false,
+        "key_gate_states": {
+          "G3": "PASS",
+          "G4": "PASS",
+          "G5": "FAIL",
+          "G9": "PASS",
+          "G14": "CONDITIONAL"
+        },
+        "rationale": "The row count and system breadth do not compensate for weak cross-system articulation."
+      }
+    },
+    {
+      "test_case_id": "MCV3-TC-004",
+      "name": "Lower-row deeply transformed formula",
+      "required_example": "lower-row but deeply transformed formula",
+      "input_profile": {
+        "formula_scope": "FULL_PERFUME",
+        "total_rows": 46,
+        "distinct_canonical_odor_identities": 43,
+        "effective_post_ablation_rows": 39,
+        "technical_rows": 2,
+        "duplicate_strength_rows": 1,
+        "proposed_microtexture_rows": 2,
+        "functional_row_ratio": 0.95,
+        "recognizer_paths": 2,
+        "single_point_dependencies": 0,
+        "sensory_systems": 6,
+        "time_windows": 4,
+        "transitions": 3,
+        "interaction_edges": 9,
+        "interaction_effect_types": 4,
+        "texture_axes": 4,
+        "contrast_axes": 3,
+        "resilience_control_paths": 2,
+        "physical_data": false,
+        "requested_claim": "HIGH_COMPLEXITY"
+      },
+      "expected": {
+        "assigned_class": "HIGH_COMPLEXITY",
+        "classification_state": "CONDITIONAL",
+        "claim_level": "SOURCE_SUPPORTED_DESIGN",
+        "legacy_row_band_status": "BELOW_LEGACY_BAND",
+        "compression_review_required": true,
+        "key_gate_states": {
+          "G3": "CONDITIONAL",
+          "G4": "PASS",
+          "G5": "PASS",
+          "G7": "CONDITIONAL",
+          "G9": "PASS",
+          "G14": "CONDITIONAL"
+        },
+        "rationale": "The multidimensional profile survives ablation. It earns a v3 design class but not a physical or hedonic pass."
+      }
+    },
+    {
+      "test_case_id": "MCV3-TC-005",
+      "name": "Opaque base plus disclosed premix",
+      "input_profile": {
+        "total_rows": 32,
+        "opaque_product_basis_rows": 2,
+        "disclosed_premix_rows": 3,
+        "premix_components_also_listed": true,
+        "duplicate_strength_rows": 4
+      },
+      "expected": {
+        "counting_rule": "Each opaque base counts once; disclosed premix labels do not add to component counts; duplicate strengths count once.",
+        "execution_effect": "Premix preparation and duplicate stock handling increase execution complexity only."
+      }
+    },
+    {
+      "test_case_id": "MCV3-TC-006",
+      "name": "Proposed interaction atlas saturation",
+      "input_profile": {
+        "formula_specific_interaction_edges": 3,
+        "atlas_pairs_referenced": 40,
+        "physically_observed_edges": 0,
+        "proposed_edges": 37
+      },
+      "expected": {
+        "interaction_magnitude_cap": "MODERATE",
+        "claim_level_cap": "SOURCE_SUPPORTED_DESIGN",
+        "gate_state": "CONDITIONAL",
+        "rationale": "Atlas coverage is a hypothesis library, not formula-specific observation."
+      }
+    },
+    {
+      "test_case_id": "MCV3-TC-007",
+      "name": "Orchestral design without physical data",
+      "input_profile": {
+        "effective_post_ablation_rows": 71,
+        "recognizer_paths": 3,
+        "independent_motifs": 2,
+        "sensory_systems": 8,
+        "time_windows": 4,
+        "transitions": 3,
+        "interaction_edges": 12,
+        "effect_types": 5,
+        "texture_axes": 5,
+        "contrast_axes": 3,
+        "physical_data": false,
+        "trained_sensory_data": false
+      },
+      "expected": {
+        "assigned_class": "ORCHESTRAL",
+        "classification_state": "CONDITIONAL",
+        "claim_level": "SOURCE_SUPPORTED_DESIGN",
+        "forbidden_claims": [
+          "beauty",
+          "broad appeal",
+          "actual orchestral perception",
+          "8-hour recognizer",
+          "24-hour residue quality"
+        ],
+        "rationale": "Architecture can be classified, but physical and sensory constructs remain unpassed."
+      }
+    },
+    {
+      "test_case_id": "MCV3-TC-008",
+      "name": "Target formula with missing inventory stock",
+      "input_profile": {
+        "artifact_scope": "TARGET_FORMULA",
+        "target_identity_supported": true,
+        "inventory_available": false
+      },
+      "expected": {
+        "G1A_target_identity": "PASS",
+        "G1B_build_stock": "NOT_APPLICABLE",
+        "target_classification_allowed": true,
+        "build_release_allowed": false,
+        "rationale": "Inventory cannot rewrite or invalidate the evidence-faithful target."
+      }
+    }
+  ]
+}

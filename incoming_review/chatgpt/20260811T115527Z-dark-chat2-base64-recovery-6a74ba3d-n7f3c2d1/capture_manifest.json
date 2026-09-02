@@ -1,0 +1,56 @@
+{
+  "schema_version": "perfume_chem_external_capture_manifest_v1",
+  "recorded_at": "2026-08-12T16:35:00+07:00",
+  "state": "SOURCE_CAPTURE_QUARANTINED_NOT_ADMITTED",
+  "source": {
+    "conversation_id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+    "retrieval_method": "EXACT_CHAT_ATTACHMENT_BASE64_BLOCK_REASSEMBLY"
+  },
+  "captured_artifact": {
+    "file_name": "ACCORD_INTEL_CHAT2_DARK_SCREEN02_EVIDENCE_REPAIR_v1.zip",
+    "byte_size": 53799,
+    "sha256": "dd9fb19c03da6c401aa1bdb718446b830148cc2856be6c525abf836788ce90fb",
+    "media_type": "application/zip",
+    "current_target_hash_verified": true
+  },
+  "reconstruction": {
+    "assembled_base64_file": "ACCORD_INTEL_CHAT2_DARK_SCREEN02_EVIDENCE_REPAIR_v1.zip.assembled.b64",
+    "assembled_base64_chars": 71732,
+    "assembled_base64_sha256": "a8f87bd93795cbcf9f368f7f536b233b021346e662db66c5dde3f700dc67089b",
+    "repaired_chunk_file": "ACCORD_INTEL_CHAT2_DARK_SCREEN02_EVIDENCE_REPAIR_v1.zip.chunk0012.repaired.b64",
+    "repaired_chunk_chars": 4096,
+    "repaired_chunk_sha256": "48f3c29e902ac5eb0b1f41a9ac2e6496df3b11605df257e9a157ac9e67f493b5",
+    "superseded_corrupt_chunk_evidence_preserved": true,
+    "superseded_corrupt_chunk_was_not_accepted_as_package_bytes": true
+  },
+  "integrity": {
+    "zip_crc_clean": true,
+    "safe_member_paths": true,
+    "archive_members": 15,
+    "embedded_ledger_entries": 14,
+    "embedded_ledger_mismatches": 0
+  },
+  "native_quarantine": {
+    "single_status": "QUARANTINE_HOLD",
+    "single_finding": "PARTIAL_MEMBER_SCAN:DARK_SCREEN02_SENSORY_OBSERVATION_TEMPLATE_v1.csv",
+    "graph_status": "GRAPH_COMPLETE_QUARANTINED",
+    "nodes": 1,
+    "edges": 0,
+    "all_nodes_terminal": true,
+    "graph_finding_codes": [],
+    "promotion_allowed": false
+  },
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "physical_execution": false,
+    "sensory": false,
+    "mechanism": false,
+    "model_training": false,
+    "safety": false,
+    "publication": false,
+    "release": false
+  }
+}

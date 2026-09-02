@@ -1,0 +1,68 @@
+{
+  "task_id": "perfume-chem-downloads-rescan-second-sweep-gap-review-20260826-v1",
+  "objective": "Independently classify the six newly surfaced or underweighted Downloads candidates in the complete second-sweep addendum: FLORAL_COVERAGE_FOUNDATION_v2, Opus V Complexity System V1R2, Woody Amber Musk Extreme Research Bundle V2, Top Complexity Microevent Bundle v2, OAV Time Dose Error Sentinel literature basis, and Perfumery Formula Control Ensemble v2.1. For each, choose exactly one primary disposition from SOURCE_TRIAGE, PROTOCOL_GAP_DIFF, REGRESSION_PROVENANCE, REFERENCE_SEMANTIC_MERGE, CONFLICT_PRESERVED_PROVENANCE, or REJECT_COUNT_TRAP. Identify the smallest safe next action, flag obsolete Inventory V3 use, preserve the Ambrettolide inventory conflict, and do not infer runtime or sensory authority.",
+  "tier": "PRO",
+  "workspace": "D:/chatbots/perfume-chem",
+  "allowed_paths": [
+    "incoming_review/downloads-rescan-20260826/DOWNLOADS_CANDIDATE_DIGEST.md",
+    "incoming_review/downloads-rescan-20260826/CURRENT_PUBLICATION_ARCHITECTURE_DIGEST.md"
+  ],
+  "required_reads": [
+    {
+      "path": "incoming_review/downloads-rescan-20260826/DOWNLOADS_CANDIDATE_DIGEST.md",
+      "unit": "line",
+      "start": 56,
+      "end": 67
+    },
+    {
+      "path": "incoming_review/downloads-rescan-20260826/CURRENT_PUBLICATION_ARCHITECTURE_DIGEST.md",
+      "unit": "line",
+      "start": 1,
+      "end": 29
+    }
+  ],
+  "coverage_spec": {
+    "mode": "ALL_REQUIRED_READS",
+    "citations_required_for": ["positive_findings", "negative_findings"]
+  },
+  "forbidden_actions": [
+    "modify local or remote state",
+    "run commands or tests",
+    "browse or use external sources",
+    "inspect files outside required_reads",
+    "resolve the Ambrettolide conflict in favor of the older candidate",
+    "treat Inventory V3 as current authority",
+    "infer liking, physical performance, safety, release, or runtime authority",
+    "recommend wholesale archive installation",
+    "use Fast, Luna, Codex, or alternate-provider fallback"
+  ],
+  "commands_tests": [],
+  "definition_of_done": [
+    "Classify all six named candidates with one primary disposition each.",
+    "Give one minimal safe next action for every candidate.",
+    "Explicitly preserve obsolete-inventory and Ambrettolide conflicts.",
+    "State whether any candidate changes the current runtime or better-than-Sol conclusion."
+  ],
+  "required_output": [
+    "Six-row candidate disposition table.",
+    "Conflict and obsolete-authority findings.",
+    "Ranked next actions limited to source, protocol, regression, or reference intake.",
+    "One-sentence runtime and benchmark conclusion."
+  ],
+  "timeout_minutes": 10,
+  "max_output_tokens": 3500,
+  "reuse_cache": true,
+  "require_cache": false,
+  "route_constraints": {
+    "allowed_routes": ["DIRECT_PRO"],
+    "fallback_policy": "NO_LUNA",
+    "maximum_attempts": 1,
+    "maximum_provider_calls": 2,
+    "maximum_estimated_cost_usd": 0.01,
+    "privacy_class": "PROVIDER_ALLOWED",
+    "maximum_input_tokens": 12000,
+    "maximum_cached_input_tokens": 12000,
+    "maximum_output_tokens_total": 7000,
+    "maximum_total_tokens": 19000
+  }
+}

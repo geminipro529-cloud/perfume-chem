@@ -1,0 +1,214 @@
+{
+  "schema_version": "PERFUME_CHEM_V19_V20_DEBUG_VALIDATION_MATRIX_v1",
+  "generated_at_utc": "2026-08-17T05:37:49Z",
+  "scope": "Read-only validation of the user-supplied 2026-08-17 V19/V20 current-build notice against mounted source bytes and File Library evidence. No repository connector or verified remote canary was available.",
+  "overall_state": "HOLD_CURRENT_REPOSITORY__LOCAL_FOUNDATION_VALIDATED_WITH_ONE_LEGACY_HARNESS_FAILURE",
+  "bridge_state": "BRIDGE_BLOCKED",
+  "authority_flags": {
+    "source_admission": false,
+    "package_installation": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "physical": false,
+    "sensory": false,
+    "analytical": false,
+    "strict_empirical_oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "release": false
+  },
+  "checks": [
+    {
+      "check_id": "V20-VAL-001",
+      "name": "Inventory V5 exact source identity",
+      "state": "PASS_LOCAL_SOURCE_BYTES",
+      "evidence": {
+        "path": "/mnt/data/Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5(1).xlsx",
+        "bytes": 199635,
+        "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331"
+      },
+      "boundary": "Exact workbook identity does not create physical ExactStockRef, lot, container, or bottle authority."
+    },
+    {
+      "check_id": "V20-VAL-002",
+      "name": "Meaningful Complexity V3 package byte and ledger integrity",
+      "state": "PASS_LOCAL_SOURCE_BYTES",
+      "evidence": {
+        "path": "/mnt/data/PCV3_CHAT1_MEANINGFUL_COMPLEXITY_MODEL_V3_COMPLETE.zip",
+        "bytes": 37405,
+        "sha256": "10acff0eb8f9e40dc0bd0e8152e04eb3c6440393c39dc950ccc3e96dccc1f6e1",
+        "zip_crc": "PASS",
+        "members": 11,
+        "internal_sha256_entries": 10,
+        "internal_sha256_failures": 0,
+        "json_parse_failures": 0,
+        "draft_2020_12_schema_self_check": "PASS"
+      },
+      "boundary": "Package is foundation evidence, not proof of current repository installation."
+    },
+    {
+      "check_id": "V20-VAL-003",
+      "name": "No universal row-count authority and no aggregate quality score",
+      "state": "PASS_POLICY_ALIGNMENT",
+      "evidence": {
+        "model_version": "3.0.0",
+        "no_overall_quality_score": true,
+        "legacy_50_65_disposition": "compatibility descriptors and compression-review triggers only",
+        "row_band_is_hard": false
+      },
+      "boundary": "Target-specific identity floors may still be hard when separately evidenced."
+    },
+    {
+      "check_id": "V20-VAL-004",
+      "name": "Legacy V2 policy conflict isolation",
+      "state": "LEGACY_CONFLICT_CONFIRMED",
+      "evidence": {
+        "legacy_artifacts_present": [
+          "Meaningful_Complexity_Audit_v2.md",
+          "meaningful_complexity_schema.json",
+          "Perfume_Meaningful_Complexity_Audit_v2_Pack.zip"
+        ],
+        "legacy_behavior": [
+          "50-row accord minimum",
+          "65-row perfume minimum",
+          "G14 92/100 aggregate score"
+        ]
+      },
+      "required_fix": "Current dispatcher must label V2 as legacy ancestry, preserve raw round-trip, and structurally prevent V2 row counts or quality_score from affecting current status. No silent fallback to V2 is allowed."
+    },
+    {
+      "check_id": "V20-VAL-005",
+      "name": "Legacy qualification harness replay",
+      "state": "FAIL_LEGACY_HARNESS",
+      "evidence": {
+        "package_sha256": "af2b207bda605058472c868d94f907ea1b6540a8baf1a6458472a55193f7f07d",
+        "zip_crc": "PASS",
+        "fixtures": 16,
+        "passed": 15,
+        "failed": 1,
+        "mismatch_fixture": "EQ-02-KNOWN-INVALID",
+        "state_match": true,
+        "failed_gate_set_match": false,
+        "expected_only_gate": "G14"
+      },
+      "diagnosis": "The legacy fixture expects an aggregate G14 failure that the checker does not emit. Under current policy, aggregate-score authority is removed, so the old expectation must not be imported into current qualification.",
+      "boundary": "Target Perfume-Chem engine was not run."
+    },
+    {
+      "check_id": "V20-VAL-006",
+      "name": "Formula artifact validation blocker",
+      "state": "HOLD_CURRENT_LOGS_NOT_MOUNTED",
+      "evidence": {
+        "current_notice": "Quick verification remains release-blocked by formula-artifact validation.",
+        "historical_precedent": "A prior working-tree failure was caused by modified formula Markdown invalidating persisted analysis-hash bindings."
+      },
+      "diagnosis": "The current failing paths, expected/actual hashes, renderer version, canonical formula hash, and analysis-input hash were not supplied. The historical cause is a lead, not a current proof.",
+      "required_fix": "Capture exact validator JSON/stdout, classify source-versus-generated drift, review semantic diff, then either restore unintended changes or explicitly rebind intentional changes using the supported command. Do not commit, stash, reset, or rebind blindly."
+    },
+    {
+      "check_id": "V20-VAL-007",
+      "name": "Quarantined parent source rights",
+      "state": "PASS_BOUNDARY_AT_SOURCE_LEVEL",
+      "evidence": {
+        "floral_atlas_state": "DISCOVERY_REVIEW_ONLY",
+        "floral_atlas_implementation_performed": false,
+        "complexity_engine_repository_state": "BRIDGE_BLOCKED",
+        "formula_mutations": 0,
+        "inventory_mutations": 0,
+        "physical_results_created": 0,
+        "canonical_promotions": 0
+      },
+      "required_fix": "Operation-scoped admission must allow byte verification while denying schema/module/formula/evidence-ledger import until source rights are resolved."
+    },
+    {
+      "check_id": "V20-VAL-008",
+      "name": "Exact-byte dependency fail-closed behavior",
+      "state": "HOLD_EXACT_BYTES_NOT_MOUNTED",
+      "dependencies": [
+        "UNIVERSAL_ACCORD_INTELLIGENCE_MODULE_v1.zip",
+        "PERFUME_CHEM_CANONICAL_CUTOVER_READY_20260808_v2.zip",
+        "Perfume_Chem_Physics_OAV_Decision_Model_v3_4_0_CALIBRATION_READY.zip",
+        "perfume_chem_physics_oav_v3-3.4.0-py3-none-any.whl"
+      ],
+      "required_fix": "Missing exact bytes must yield HOLD. Reject same-name stale hashes, regenerated substitutes, receipt-only reconstruction, and dependency bypass."
+    },
+    {
+      "check_id": "V20-VAL-009",
+      "name": "Exact-decimal stock lineage and pre-mix/OAV fail-closed contract",
+      "state": "SOURCE_SUPPORTED__CURRENT_RUNTIME_NOT_REPLAYED",
+      "required_negative_tests": [
+        "missing stock strength never defaults to 1.0/neat",
+        "unknown carrier remains unknown",
+        "product-basis composition remains unknown",
+        "mass-fraction and volume-fraction are not interchangeable",
+        "cross-basis conversion requires conditioned density evidence",
+        "planned material cannot become physically owned",
+        "screening result cannot become release or sensory authority",
+        "binary float input is rejected at authority boundary"
+      ]
+    },
+    {
+      "check_id": "V20-VAL-010",
+      "name": "Ratio-bound n-ary interaction contract",
+      "state": "SOURCE_SUPPORTED__CURRENT_RUNTIME_NOT_REPLAYED",
+      "required_negative_tests": [
+        "arity below 2 rejected",
+        "missing participant role rejected",
+        "missing matrix/phase/context rejected",
+        "invalid or nonclosing ratio vector rejected",
+        "pair-score multiplication cannot synthesize n-ary authority",
+        "designed interaction remains NOT_TESTED"
+      ]
+    },
+    {
+      "check_id": "V20-VAL-011",
+      "name": "DeepLuna runtime policy",
+      "state": "HOLD_RUNTIME_HARDENING_NOT_DEPLOYED",
+      "required_configuration": {
+        "project_id": "perfume-chem-cheapluna-isolated",
+        "profile": "cheapluna-chat",
+        "route": "DIRECT_PRO",
+        "luna_mode": "NO_LUNA",
+        "deep_luna_fast": "DISABLED",
+        "alternate_fallbacks": "DISABLED"
+      },
+      "required_negative_tests": [
+        "project-id mismatch rejected",
+        "DeepLuna Fast request rejected",
+        "alternate provider fallback rejected",
+        "unapproved route rejected",
+        "provider failure remains failure rather than fallback"
+      ]
+    },
+    {
+      "check_id": "V20-VAL-012",
+      "name": "Current repository and deployment validation",
+      "state": "BRIDGE_BLOCKED",
+      "reason": "No verified Perfume-Chem filesystem connector or remote canary was available in this chat. No current checkout, commit, working-tree state, test log, or deployed runtime was inspected."
+    }
+  ],
+  "highest_priority_actions": [
+    {
+      "priority": "P0",
+      "action": "Resolve formula-artifact-validation with exact failing-path and hash evidence; rerun the focused validator, then quick verification."
+    },
+    {
+      "priority": "P0",
+      "action": "Prove the current complexity dispatcher cannot invoke legacy V2 row-count or aggregate-score authority."
+    },
+    {
+      "priority": "P0",
+      "action": "Add or replay negative tests for unknown stock strength, product basis, exact-decimal lineage, and screening-to-release leakage."
+    },
+    {
+      "priority": "P0",
+      "action": "Keep recovered source packages quarantined and exact-byte dependencies fail closed."
+    },
+    {
+      "priority": "P1",
+      "action": "Deploy and independently replay the exact-project DeepLuna Chat policy guard with no Fast or alternate fallback."
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": "chatgpt_browser_capture_manifest_v1",
+  "capture_id": "chat-d-molecular-receptor-6a753b22-20260819t125952z",
+  "recorded_at": "2026-08-19T12:59:52Z",
+  "source": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "project_name": "Complex Perfumery",
+    "conversation_id": "6a753b22-3490-83ec-bc7b-a0e46c4655c0",
+    "conversation_url": "https://chatgpt.com/g/g-p-6a74ab83668081919f5cbd0dfe80eb09-complex-perfumery/c/6a753b22-3490-83ec-bc7b-a0e46c4655c0",
+    "conversation_title": "Complex Perfumery - Molecular Perception Execution",
+    "attachment_name": "CHAT_D_XHIGH_MOLECULAR_RECEPTOR_v1_1.zip",
+    "attachment_role": "CHAT_D_MOLECULAR_PERCEPTION_AND_RECEPTOR_SECONDARY_RECONSTRUCTION",
+    "capture_surface": "AUTHENTICATED_CHATGPT_BROWSER_ATTACHMENT_DOWNLOAD",
+    "claimed_sha256": "8f283781742e6ed51950b4397b486a2b4ec9745835cc20bd278a013f2a3a5743"
+  },
+  "package": {
+    "path": "incoming_review/chatgpt/20260819T125952Z-chat-d-molecular-receptor-6a753b22/CHAT_D_XHIGH_MOLECULAR_RECEPTOR_v1_1.zip",
+    "byte_size": 8463278,
+    "sha256": "8f283781742e6ed51950b4397b486a2b4ec9745835cc20bd278a013f2a3a5743",
+    "media_type": "application/zip",
+    "archive_entry_count": 22,
+    "archive_file_count": 22,
+    "package_root": "CHAT_D_XHIGH_MOLECULAR_RECEPTOR_v1_1",
+    "internal_checksum_entries_verified": 21,
+    "archive_scan_status": "GRAPH_COMPLETE_QUARANTINED",
+    "archive_scan_node_count": 2,
+    "archive_scan_promotion_allowed": false,
+    "archive_scan_holds": [
+      "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT",
+      "MEMBER_SCAN_LIMIT_EXCEEDED",
+      "OOXML_PART_SCAN_LIMIT_EXCEEDED",
+      "PARTIAL_MEMBER_SCAN"
+    ]
+  },
+  "rights": {
+    "reuse_status": "UNKNOWN",
+    "redistribution_allowed": false,
+    "reason": "The attachment is an AI-generated secondary reconstruction without a package-level license. Individual source rights differ: the existing Keller/Vosshall workbook is already governed locally, the M2OR maintained site is All Rights Reserved, OlfactionBase is All Rights Reserved, and DoOR v2.0.0 is a separately attributable CC BY-SA 4.0 release. Those source-specific terms do not authorize wholesale package admission or redistribution."
+  },
+  "disposition": {
+    "state": "EXACT_BROWSER_ATTACHMENT_CAPTURED_QUARANTINED",
+    "package_recovered": true,
+    "package_content_import_allowed": false,
+    "generated_row_projection_allowed": false,
+    "source_table_admission_allowed": false,
+    "formula_mutation_allowed": false,
+    "inventory_mutation_allowed": false,
+    "physical_truth_upgrade_allowed": false,
+    "release_allowed": false,
+    "notes": "The package is exact and internally checksum-complete, but it is a secondary registry bundle rather than a new source cohort. Its Keller workbook is byte-identical to the already governed local source; live M2OR and OlfactionBase counts are metadata snapshots without versioned export bytes; a 2026-08-19 direct OlfactionBase check found 875 pairs in page prose but 874 data rows in the official XLSX export; DoOR remains Drosophila-specific; one Keller identity remains explicitly conflicted. Do not execute bundled Python/bytecode, duplicate the Keller source, ingest receptor rows, or infer human perception, liking, formula, OAV, safety, or release truth."
+  },
+  "receipt_sha256": "fcd0a2ba41ecf044ce477213c47e07d97b7877dddcd190c3ca3d49cefa600021"
+}

@@ -1,0 +1,33 @@
+Spreadsheet runtime warmup failed during python startup
+Traceback (most recent call last):
+  File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/patches/warm_spreadsheet_runtime_on_startup.py", line 26, in warm_spreadsheet_runtime_on_startup
+  File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/spreadsheet_warmup.py", line 785, in warm_spreadsheet_runtime
+  File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/spreadsheet_warmup.py", line 720, in _warm_feature_flows
+  File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/spreadsheet_warmup.py", line 704, in _warm_collaboration_flows
+  File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/generated/interface/models.py", line 32317, in hydrate_crdt_from_proto
+  File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/rpc/remote.py", line 749, in __call__
+  File "/tmp/tmp.L2TH2Y5coc/artifact_tool_v2-2.8.22/artifact_tool/rpc/client.py", line 150, in call
+artifact_tool.rpc.client.RemoteError: hydrateCrdtFromProto requires an empty collaborative document.
+test_invalid_fraction_fails (test_stock_basis_repair_and_admission.ActiveEquivalenceTests.test_invalid_fraction_fails) ... ok
+test_planned_active_equivalence (test_stock_basis_repair_and_admission.ActiveEquivalenceTests.test_planned_active_equivalence) ... ok
+test_product_basis_abstains (test_stock_basis_repair_and_admission.ActiveEquivalenceTests.test_product_basis_abstains) ... ok
+test_product_basis_inference_fails (test_stock_basis_repair_and_admission.ActiveEquivalenceTests.test_product_basis_inference_fails) ... ok
+test_unknown_carrier_does_not_invalidate_fraction_arithmetic (test_stock_basis_repair_and_admission.ActiveEquivalenceTests.test_unknown_carrier_does_not_invalidate_fraction_arithmetic) ... ok
+test_exact_v5_passes (test_stock_basis_repair_and_admission.GovernanceTests.test_exact_v5_passes) ... ok
+test_physical_authority_is_not_created_by_active_arithmetic (test_stock_basis_repair_and_admission.GovernanceTests.test_physical_authority_is_not_created_by_active_arithmetic) ... ok
+test_unknown_carrier_cannot_be_silently_named (test_stock_basis_repair_and_admission.GovernanceTests.test_unknown_carrier_cannot_be_silently_named) ... ok
+test_wrong_v5_fails (test_stock_basis_repair_and_admission.GovernanceTests.test_wrong_v5_fails) ... ok
+test_cf01_selected_by_readiness (test_stock_basis_repair_and_admission.PilotSelectionTests.test_cf01_selected_by_readiness) ... ok
+test_selection_is_not_quality_score (test_stock_basis_repair_and_admission.PilotSelectionTests.test_selection_is_not_quality_score) ... ok
+test_all_exact_stock_refs_can_become_eligible_not_released (test_stock_basis_repair_and_admission.ReceiptTests.test_all_exact_stock_refs_can_become_eligible_not_released) ... ok
+test_definition_receipt_is_deterministic (test_stock_basis_repair_and_admission.ReceiptTests.test_definition_receipt_is_deterministic) ... ok
+test_missing_exact_stock_ref_holds_physical_fdr (test_stock_basis_repair_and_admission.ReceiptTests.test_missing_exact_stock_ref_holds_physical_fdr) ... ok
+test_ambrox_33_fraction_repair (test_stock_basis_repair_and_admission.RepairTests.test_ambrox_33_fraction_repair) ... ok
+test_bourgeonal_tec_repair (test_stock_basis_repair_and_admission.RepairTests.test_bourgeonal_tec_repair) ... ok
+test_diluted_stock_is_not_neat_after_repair (test_stock_basis_repair_and_admission.RepairTests.test_diluted_stock_is_not_neat_after_repair) ... ok
+test_no_rule_preserves_row (test_stock_basis_repair_and_admission.RepairTests.test_no_rule_preserves_row) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.001s
+
+OK

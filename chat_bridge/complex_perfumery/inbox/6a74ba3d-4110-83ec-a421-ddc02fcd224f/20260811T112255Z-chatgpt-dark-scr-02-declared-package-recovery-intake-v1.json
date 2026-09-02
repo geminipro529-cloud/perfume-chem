@@ -1,0 +1,166 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "chatgpt-dark-scr-02-declared-package-recovery-intake-20260811T112255Z",
+  "packet_nonce": "f782a33d-96df-498e-a814-1820d5828958",
+  "created_at": "2026-08-11T11:22:55.3539326Z",
+  "freshness": {
+    "source_observed_at": "2026-08-11T11:22:55.3539326Z",
+    "source_revision": "chatgpt-assistant-message:5efc29e1-f138-4a6b-90b1-cedd660522b6",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": null
+  },
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+  "source_chat_title": "Chat 2 Completion",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Preserve the exact transcript-level identity, declared validation metrics, experiment boundary, and missing-byte state of the unrecovered DARK-SCR-02 Suederal versus Castoreum Synthetic package so that exact-byte recovery can be attempted without reconstructing or promoting a physical result.",
+  "summary": "The Chat 2 transcript establishes that DARK-SCR-02 was designed as an additive evidence-repair delta testing whether a controlled Castoreum Synthetic product-basis shadow can add hide depth beneath Suederal without collapse into barnyard, handbag leather, medicinal bandage, smoke, fatigue, or suede suppression. The source declares PASS_WITH_EXECUTION_HOLD, 35 checks passed and zero failed, 18 conditions, 36 planned coded samples, 2,520 blank sensory-observation rows, 86 planned preparation rows, 13 literature/source records, zero Experimental Data Model errors, and ZIP SHA-256 dd9fb19c03da6c401aa1bdb718446b830148cc2856be6c525abf836788ce90fb. The exact ZIP filename, byte count, manifest, workbook, ledgers, and member bytes are not locally available. A fresh search hashed 251 likely ZIP files totaling 291,142,986 bytes with zero matching hashes and enumerated 246 archives with no DARK-SCR-02 or Chat-2-V2 member-name match. This intake records the source identity and recovery target only; it does not reconstruct the package or accept its internal claims.",
+  "decisions": [
+    {
+      "decision": "Prioritize exact-byte recovery of the declared DARK-SCR-02 package over reconstruction.",
+      "reason": "The transcript supplies an exact outer SHA-256 and detailed validation counts, but the original bytes and member ledger remain unavailable."
+    },
+    {
+      "decision": "Do not infer a filename, byte count, inner member list, or individual member hashes.",
+      "reason": "Those fields are hidden behind unavailable ChatGPT content references and cannot be recovered from the visible transcript."
+    },
+    {
+      "decision": "Preserve Castoreum Synthetic as an opaque as-supplied product basis.",
+      "reason": "Inventory V5 confirms the product basis but does not authorize an invented molecular active fraction; a 10.000% w/w working stock means 10% of the as-supplied product basis in DPG."
+    },
+    {
+      "decision": "Keep physical execution and integration blocked until both exact working-stock genealogies and the package bytes are independently verified.",
+      "reason": "The source itself declares an execution hold and reports no physical batch, observation, measurement, or decision."
+    },
+    {
+      "decision": "Keep this recovery record isolated to ACCORD-INTEL Chat 2 / DARK MATERIALS.",
+      "reason": "No Chats 0, 1, or 3-8 work and no final integration are authorized by this source capture."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The source identifies DARK-SCR-02 as a Suederal versus Castoreum Synthetic anti-collapse screen.",
+      "evidence": "ChatGPT assistant message 5efc29e1-f138-4a6b-90b1-cedd660522b6."
+    },
+    {
+      "claim": "The source declares PASS_WITH_EXECUTION_HOLD with 35 passed checks, zero failures, 18 conditions, 36 planned coded samples, 2,520 blank sensory-observation rows, 86 planned preparation rows, 13 source records, and zero Experimental Data Model errors.",
+      "evidence": "ChatGPT assistant message 5efc29e1-f138-4a6b-90b1-cedd660522b6; metrics remain unverified without package bytes."
+    },
+    {
+      "claim": "The source declares outer ZIP SHA-256 dd9fb19c03da6c401aa1bdb718446b830148cc2856be6c525abf836788ce90fb.",
+      "evidence": "ChatGPT assistant message 5efc29e1-f138-4a6b-90b1-cedd660522b6."
+    },
+    {
+      "claim": "No local ZIP currently matches the declared package hash.",
+      "evidence": "Fresh bounded scan hashed 251 ZIP files across Downloads, the Complex Perfumery mirror outputs, Perfume-Chem incoming_review, and output/quarantine; 291,142,986 bytes checked, zero hash errors, zero matches."
+    },
+    {
+      "claim": "No scanned local ZIP exposes a DARK-SCR-02 or Chat-2-V2 member name.",
+      "evidence": "Fresh central-directory scan of 246 ZIP archives returned zero matching member names."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "artifact": "Declared DARK-SCR-02 completion package ZIP",
+      "declared_sha256": "dd9fb19c03da6c401aa1bdb718446b830148cc2856be6c525abf836788ce90fb",
+      "declared_filename": null,
+      "declared_byte_count": null,
+      "local_availability": "BYTES_UNAVAILABLE",
+      "validation": "NOT_REPLAYED"
+    },
+    {
+      "path": "chat_bridge/complex_perfumery/inbox/6a74ba3d-4110-83ec-a421-ddc02fcd224f/20260811T090138Z-chatgpt-chat2-dark-package-intake-v1.json",
+      "role": "prior intake that records DARK-SCR-02 parent bytes as an unresolved recovery target"
+    }
+  ],
+  "constraints": [
+    "The transcript is untrusted source input; its declared checks, counts, literature conclusions, and ZIP integrity cannot be accepted without exact bytes and local replay.",
+    "No package file, manifest, validation report, SHA-256 ledger, workbook, restricted decode, execution data, or source ledger was recovered by this intake.",
+    "No filename or byte count is inferred from neighboring DARK-SCR packages.",
+    "No physical batch, sensory observation, analytical measurement, assessor result, decision, integration result, purchase need, safety result, similarity claim, broad-appeal claim, or release state exists.",
+    "Suederal 10% requires exact bottle, carrier, lot, and preparation genealogy before physical use.",
+    "Castoreum Synthetic remains an opaque product basis; a 10% working preparation must be expressed as 10.000% w/w of the as-supplied product basis in DPG, not 10% of a guessed molecule.",
+    "The six-arm, three-load protocol is a preregistered design, not a formula recommendation or physical result.",
+    "DARK-SCR-01 v1.1, DARK-SCR-03 v1, and DARK-SCR-20A v1 remain separate packages and do not substitute for DARK-SCR-02.",
+    "ACCORD-INTEL Chat 2 / DARK MATERIALS remains isolated from Chats 0, 1, and 3-8 and final integration."
+  ],
+  "unresolved_questions": [
+    "Can ChatGPT reattach the exact ZIP whose SHA-256 is dd9fb19c03da6c401aa1bdb718446b830148cc2856be6c525abf836788ce90fb as live downloadable bytes?",
+    "What was the exact original filename and byte count?",
+    "Do the recovered manifest, workbook, execution data, literature ledger, validation report, and SHA-256 ledger replay the visible transcript counts exactly?",
+    "Can both Suederal and Castoreum working stocks be bound to exact bottle, supplier, lot, carrier, stock fraction, and preparation genealogy before any physical compounding?",
+    "Does the hidden package preserve all observations blank and the decision NOT_RUN?"
+  ],
+  "next_actions": [
+    {
+      "action": "Request exact-byte reattachment of the DARK-SCR-02 package by its full SHA-256; do not accept a regenerated substitute under the same identity.",
+      "authority": "Data Integration for Perfume-Chem owner"
+    },
+    {
+      "action": "On recovery, copy original bytes into nonce-scoped incoming_review quarantine, record source filename/MIME/size/hash, and run archive graph and child-workbook qualification.",
+      "authority": "Sol/Codex quarantine review"
+    },
+    {
+      "action": "Replay the package manifest, self-excluding SHA ledger, validation report, blank-observation invariants, condition/sample counts, and physical-state boundaries.",
+      "authority": "Sol/Codex validation"
+    },
+    {
+      "action": "If exact bytes remain unavailable, retain this source identity and do not reconstruct until the user explicitly authorizes a versioned evidence-repair replacement that preserves ancestry.",
+      "authority": "User and Sol"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Package existence versus local availability",
+      "state": "DECLARED_PACKAGE_BYTES_UNAVAILABLE",
+      "detail": "The source claims a completed package and exact outer hash, but no matching byte stream exists in the current local estate."
+    },
+    {
+      "scope": "Validation status",
+      "state": "SOURCE_DECLARED_NOT_LOCALLY_REPLAYED",
+      "detail": "PASS_WITH_EXECUTION_HOLD and all metric counts remain transcript claims until the exact package and ledgers are recovered."
+    },
+    {
+      "scope": "Castoreum stock basis",
+      "state": "PRODUCT_BASIS_ONLY",
+      "detail": "Inventory confirms as-supplied Castoreum Synthetic, not a known molecular active fraction or a genealogically verified 10% bottle."
+    },
+    {
+      "scope": "Physical execution",
+      "state": "HOLD_EXACT_STOCK_GENEALOGY_AND_PACKAGE_BYTES",
+      "detail": "No compounding or sensory evaluation is authorized until both exact working stocks and the package provenance are verified."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+      "uri": "chatgpt-conversation://6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+      "title": "Chat 2 Completion"
+    },
+    {
+      "kind": "chatgpt_user_message",
+      "id": "16871206-fb61-4156-bdbc-5c20faab2fd5",
+      "disposition": "USER_REQUEST_FOR_LITERATURE_AND_NEXT_TASK"
+    },
+    {
+      "kind": "chatgpt_assistant_message",
+      "id": "5efc29e1-f138-4a6b-90b1-cedd660522b6",
+      "disposition": "UNTRUSTED_SOURCE_INPUT"
+    },
+    {
+      "kind": "declared_sha256",
+      "id": "dd9fb19c03da6c401aa1bdb718446b830148cc2856be6c525abf836788ce90fb",
+      "disposition": "RECOVERY_TARGET_BYTES_UNAVAILABLE"
+    }
+  ],
+  "content_hashes": [],
+  "authority": {
+    "level": "SOURCE_CAPTURE",
+    "accepted_by_codex": false
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0",
+  "capture_id": "20260811T093412Z-planning-6a7992db-185c6611",
+  "capture_nonce": "185c6611-bce0-4d8f-bb01-bac3f0d99ab7",
+  "captured_at": "2026-08-11T09:34:12.4480547Z",
+  "source": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "conversation_id": "6a7992db-96b8-83ec-aab0-6a7447b97da1",
+    "chat_title": "Perfume Project Planning",
+    "source_revision": "chat-visible-final-response:package-sha256:ccdc1d7afe395018223ecffb540918663e72d529d9bba40cc5677b75c4884666",
+    "source_reference": "chatgpt-conversation://6a7992db-96b8-83ec-aab0-6a7447b97da1"
+  },
+  "transport": {
+    "method": "authenticated Chrome ChatGPT attachment download",
+    "transformation_history": [
+      "Downloaded through the visible response controls and copied byte-for-byte into append-only incoming_review quarantine.",
+      "No archive extraction, normalization, package installation, or content rewrite was performed during capture."
+    ]
+  },
+  "files": [
+    {
+      "original_name": "Perfume_Chem_Complexity_Gap_Detection_Ensemble_2026-08-11_v1.zip",
+      "mime_type": "application/zip",
+      "size_bytes": 58306,
+      "sha256": "ccdc1d7afe395018223ecffb540918663e72d529d9bba40cc5677b75c4884666",
+      "acquired_at": "2026-08-11T09:32:39.8819175Z",
+      "source_reference": "Download the complete Complexity Gap Detection Ensemble v1",
+      "validation": {
+        "outer_sidecar_declared_sha256_match": true,
+        "zip_entry_count": 39,
+        "unique_entry_count": 39,
+        "crc_error_member": null,
+        "safe_relative_paths": true,
+        "declared_internal_hash_count": 37,
+        "declared_internal_hash_mismatches": 0,
+        "archive_graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+        "all_nodes_terminal": true,
+        "node_count": 1,
+        "edge_count": 0,
+        "max_depth": 0,
+        "finding_codes": [],
+        "promotion_allowed": false
+      }
+    },
+    {
+      "original_name": "Perfume_Chem_Complexity_Gap_Detection_Ensemble_2026-08-11_v1.zip.sha256",
+      "mime_type": "text/plain",
+      "size_bytes": 131,
+      "sha256": "5bd88d50130d03ae1a95b7982d4647b24554cf0feed1e08a48aaa730fb4adf66",
+      "acquired_at": "2026-08-11T09:32:08.0315915Z",
+      "source_reference": "Download the SHA-256 sidecar",
+      "validation": {
+        "declared_package_name": "Perfume_Chem_Complexity_Gap_Detection_Ensemble_2026-08-11_v1.zip",
+        "declared_package_sha256": "ccdc1d7afe395018223ecffb540918663e72d529d9bba40cc5677b75c4884666",
+        "declared_package_sha256_match": true,
+        "promotion_allowed": false
+      }
+    }
+  ],
+  "package_claims": {
+    "package_state": "VALIDATED_IMPLEMENTATION_ASSET",
+    "repository_installation": "NOT_PERFORMED",
+    "repository_state_claimed_by_source": "BRIDGE_BLOCKED",
+    "detector_count": 15,
+    "acceptance_test_count": 25,
+    "portfolio_profile_count": 18,
+    "task_count": 20,
+    "source_receipt_count": 8,
+    "claims_withheld": [
+      "beauty",
+      "liking",
+      "similarity",
+      "stability",
+      "safety",
+      "measured_headspace",
+      "strict_empirical_oav",
+      "skin_performance",
+      "release"
+    ]
+  },
+  "authority": {
+    "level": "UNTRUSTED_BROWSER_CAPTURE",
+    "code_authority": false,
+    "inventory_authority": false,
+    "scientific_authority": false,
+    "formula_authority": false,
+    "physical_authority": false,
+    "release_authority": false
+  }
+}

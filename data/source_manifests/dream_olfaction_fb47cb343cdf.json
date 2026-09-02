@@ -1,0 +1,223 @@
+{
+  "schema_version": "scientific_source_manifest_v1",
+  "source_id": "dream-olfaction-keller-2017-fb47cb343cdf",
+  "source_type": "AUTHORITATIVE_DATABASE_RECORD",
+  "title": "DREAM Olfaction Prediction Challenge selected human psychophysics data",
+  "language": "en",
+  "review_state": "UNREVIEWED",
+  "independence_group": "dream-keller-2017",
+  "authors": [],
+  "issuing_organization": "DREAM Olfaction Consortium",
+  "container_title": "DREAM Olfaction Prediction Challenge",
+  "publisher_or_authority": "dream-olfaction",
+  "publication_date": "2017-02-24",
+  "identifiers": {
+    "doi": "10.1126/science.aal2014",
+    "git_commit": "fb47cb343cdfd5cd8b06b33161dfa8b82c0319c6",
+    "repository": "https://github.com/dream-olfaction/olfaction-prediction"
+  },
+  "revision": {
+    "kind": "git_commit",
+    "value": "fb47cb343cdfd5cd8b06b33161dfa8b82c0319c6"
+  },
+  "retrieved_at": "2026-08-09T11:07:45.0047120+07:00",
+  "rights": {
+    "reuse_status": "PERMITTED",
+    "license_or_reuse_restriction": "MIT repository license; preserve attribution and the license text. Third-party derived feature files require separate review and are excluded from this first manifest.",
+    "license_url": "https://raw.githubusercontent.com/dream-olfaction/olfaction-prediction/fb47cb343cdfd5cd8b06b33161dfa8b82c0319c6/LICENSE",
+    "redistribution_allowed": true,
+    "spdx_identifier": "MIT",
+    "notes": "This manifest covers only LICENSE and TrainSet.txt. It does not clear Dragon descriptors, GoodScents-derived features, or other third-party-derived files."
+  },
+  "transformation": {
+    "module": "engine.ingestion.scientific",
+    "version": "scientific-source-staging-v1",
+    "mode": "source-and-observation-candidates"
+  },
+  "dataset_context": {
+    "measurement_kind": "human psychophysical ratings",
+    "stimulus_kind": "odor molecules at declared challenge dilutions",
+    "intended_use": [
+      "quarantined benchmark",
+      "future source-linked psychophysics adapter",
+      "full-corpus descriptor and valence research after separate review"
+    ],
+    "authority_limit": "The full-corpus workbook-to-DREAM transform is checked only as staged lineage evidence. Ratings are not ODT, OAV, vapor pressure, perfume similarity, safety, owned-stock identity, or formula-release evidence.",
+    "parsing_state": "FULL_CORPUS_VALUE_LINEAGE_VALIDATED_GERANIOL_OBSERVATION_TRANCHE_STAGED"
+  },
+  "observation_tranche": {
+    "adapter": "dream_psychophysics_intensity_v1",
+    "artifact_id": "train-set",
+    "source_compound_identifier": "637566",
+    "source_odor_label": "geraniol",
+    "identity_scope": "CHEMICAL_ENTITY",
+    "subject_identity": {
+      "chemical_name": "Geraniol",
+      "cas": "106-24-1",
+      "pubchem_cid": "637566",
+      "comptox_dtxsid": "DTXSID8026727",
+      "inchi_key": "GLZPCOQZEFWAFX-JXMROGBWSA-N"
+    },
+    "identity_evidence": {
+      "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/637566",
+      "comptox_url": "https://comptox.epa.gov/chemexpo/chemical/DTXSID8026727/",
+      "verification_state": "PINNED_PUBCHEM_CANDIDATES_UNREVIEWED_EPA_BYTE_SNAPSHOT_WITHHELD_UNSTABLE"
+    },
+    "property_type": "HUMAN_ODOR_INTENSITY_RATING",
+    "value_kind": "DISTRIBUTION",
+    "original_unit": "rating_0_100",
+    "canonical_unit": "rating_0_100",
+    "method_context": {
+      "matrix": "paraffin oil",
+      "phase": "liquid stimulus in vial; orthonasal headspace sniff",
+      "stimulus_volume_ml": 1.0,
+      "method": "self-administered computerized vial-sniff psychophysics",
+      "endpoint": "perceived odor intensity/strength",
+      "rating_scale": {
+        "minimum": 0,
+        "maximum": 100,
+        "interface": "computerized slider"
+      },
+      "methods_source": {
+        "title": "Olfactory perception of chemically diverse molecules",
+        "doi": "10.1186/s12868-016-0287-2",
+        "pmid": "27502425",
+        "pmcid": "PMC4977894",
+        "locator": [
+          "Methods > General psychophysics procedures",
+          "Methods > Stimuli"
+        ],
+        "lineage_state": "PINNED_METHOD_SOURCE_CANDIDATE_UNREVIEWED"
+      }
+    },
+    "value_lineage_validation": {
+      "adapter": "keller_vosshall_xlsx_to_dream_v1",
+      "parent_source_id": "keller-vosshall-2016-pmc4977894-study-data-efcb1b075584:study-data-xlsx",
+      "parent_manifest_sha256": "e1d4685caf3d6dfb5341a07a8e9e2b48ccb923c890a6ebb9daf8270ff212f195",
+      "parent_bundle_sha256": "67eebb5754ec50927d67bcdf930bb1e7114532f9d484662eabdb111e049d8aee",
+      "parent_artifact_id": "study-data-xlsx",
+      "parent_artifact_sha256": "efcb1b07558431c869c5578abcd3fa1e4405a38cc68a8b1c1621594c673d9f62",
+      "worksheet_name": "data",
+      "header_row": 3,
+      "validation_scope": "FULL_CORPUS",
+      "detail_limit": 50,
+      "key_field_map": {
+        "Compound Identifier": "CID",
+        "Odor": "Odor",
+        "Dilution": "Odor dilution",
+        "subject #": "Subject # (DREAM challenge)"
+      },
+      "response_field_map": {
+        "INTENSITY/STRENGTH": "HOW STRONG IS THE SMELL?",
+        "VALENCE/PLEASANTNESS": "HOW PLEASANT IS THE SMELL?",
+        "BAKERY": "BAKERY",
+        "SWEET": "SWEET",
+        "FRUIT": "FRUIT",
+        "FISH": "FISH",
+        "GARLIC": "GARLIC",
+        "SPICES": "SPICES",
+        "COLD": "COLD",
+        "SOUR": "SOUR",
+        "BURNT": "BURNT",
+        "ACID": "ACID",
+        "WARM": "WARM",
+        "MUSKY": "MUSKY",
+        "SWEATY": "SWEATY",
+        "AMMONIA/URINOUS": "AMMONIA/URINOUS",
+        "DECAYED": "DECAYED",
+        "WOOD": "WOOD",
+        "GRASS": "GRASS",
+        "FLOWER": "FLOWER",
+        "CHEMICAL": "CHEMICAL"
+      },
+      "source_detection_field": "CAN OR CAN'T SMELL",
+      "cannot_smell_value": "I can't smell anything",
+      "expected_counts": {
+        "matched_rows": 35084,
+        "compared_cells": 736764,
+        "exact_numeric": 124973,
+        "source_blank_to_target_zero": 418728,
+        "source_blank_to_target_blank": 182080,
+        "deterministic_trailing_zero_restoration": 5268,
+        "published_derivative_one_to_ten": 1502,
+        "published_derivative_one_to_hundred": 4213,
+        "incompatible": 0,
+        "parent_keyed_rows": 48804,
+        "parent_rows_outside_child_corpus": 13720
+      },
+      "lineage_state": "PARTIALLY_DETERMINISTIC_PUBLISHED_DERIVATIVE_DISAMBIGUATION_REQUIRED",
+      "authority_limit": "All 35,084 DREAM rows map to a unique keyed workbook row and all 736,764 retained cells fit the fixed transform contract. The workbook contains 13,720 additional keyed rows outside the DREAM derivative, and 5,715 source value-one cells require the published derivative to distinguish 10 from 100. Source-level DERIVED_FROM, descriptor-model authority, and canonical authority remain withheld."
+    },
+    "conditions": [
+      {
+        "source_intensity_label": "high",
+        "source_dilution": "1/1,000",
+        "nominal_volume_fraction": 0.001,
+        "expected_replicate_count": 49
+      },
+      {
+        "source_intensity_label": "low",
+        "source_dilution": "1/100,000",
+        "nominal_volume_fraction": 0.00001,
+        "expected_replicate_count": 49
+      }
+    ],
+    "authority_limit": "Psychophysical ratings only; not ODT, OAV, airborne concentration, safety, similarity, or formula-release evidence."
+  },
+  "source_relations": [
+    {
+      "child_artifact_id": "train-set",
+      "parent_source_id": "keller-vosshall-2016-pmc4977894-fulltext-7e7f309706f5:fulltext-xml",
+      "relation": "CITES",
+      "support_scope": "EXPERIMENTAL_METHOD",
+      "supported_claim_path": "observation_tranche.method_context",
+      "rationale": "The peer-reviewed article documents the psychophysics procedure and stimuli; it does not establish numerical derivation by itself."
+    },
+    {
+      "child_artifact_id": "train-set",
+      "parent_source_id": "keller-vosshall-2016-pmc4977894-study-data-efcb1b075584:study-data-xlsx",
+      "relation": "CITES",
+      "support_scope": "PSYCHOPHYSICS_DATASET_CONTEXT",
+      "supported_claim_path": "observation_tranche.value_lineage_validation",
+      "rationale": "The exact supporting workbook is runtime-validated against all 35,084 DREAM rows and all 21 retained response fields, with 13,720 parent-only keyed rows explicitly counted. The relation remains CITES because 5,715 source value-one cells require the published derivative to distinguish 10 from 100."
+    },
+    {
+      "child_artifact_id": "train-set",
+      "parent_source_id": "pubchem-geraniol-cid637566-properties-d21151198ff5:geraniol-properties-json",
+      "relation": "CITES",
+      "support_scope": "CHEMICAL_ENTITY_IDENTITY",
+      "supported_claim_path": "observation_tranche.subject_identity",
+      "rationale": "The exact PubChem response supports review of CID, structure, and InChIKey identity only; it supplies no psychophysical values or stock identity."
+    },
+    {
+      "child_artifact_id": "train-set",
+      "parent_source_id": "pubchem-geraniol-cid637566-cas-629488ac5296:geraniol-cas-identifiers-json",
+      "relation": "CITES",
+      "support_scope": "IDENTITY_CROSSCHECK",
+      "supported_claim_path": "observation_tranche.subject_identity.cas",
+      "rationale": "The exact PubChem identifier response supports review of the CID-to-CAS crosswalk only; it does not establish supplier product, lot, or owned-stock equivalence."
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact_id": "license",
+      "path": "LICENSE",
+      "role": "LICENSE",
+      "media_type": "text/plain",
+      "byte_size": 1084,
+      "sha256": "3715526fcaac1997011166204c67e662104ee10242988c1c627de58ac9cb8d49",
+      "source_url": "https://raw.githubusercontent.com/dream-olfaction/olfaction-prediction/fb47cb343cdfd5cd8b06b33161dfa8b82c0319c6/LICENSE",
+      "preserved_artifact_path": "data/external/dream_olfaction/olfaction-prediction-master/LICENSE"
+    },
+    {
+      "artifact_id": "train-set",
+      "path": "data/TrainSet.txt",
+      "role": "PRIMARY_DATA",
+      "media_type": "text/tab-separated-values",
+      "byte_size": 3592988,
+      "sha256": "ae43841013a9c5ecb3975953b85e5965663d416d2445178e86ad577d907575a0",
+      "source_url": "https://raw.githubusercontent.com/dream-olfaction/olfaction-prediction/fb47cb343cdfd5cd8b06b33161dfa8b82c0319c6/data/TrainSet.txt",
+      "preserved_artifact_path": "data/external/dream_olfaction/olfaction-prediction-master/data/TrainSet.txt"
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "complex-perfumery-dhp25-initial-reconstruction-20260812",
+  "recorded_at": "2026-08-12T15:35:00+07:00",
+  "package": {
+    "file_name": "Violet_Complexities_and_Dior_Homme_Parfum_2025_Complexity_Reconstruction_v1_Package.zip",
+    "locator": "incoming_review/chatgpt/20260811T153000Z-continuation-exact-byte-recovery-6a762995/Violet_Complexities_and_Dior_Homme_Parfum_2025_Complexity_Reconstruction_v1_Package.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 89913,
+    "sha256": "ec27bcd4dd1b9a3e54d4de49ace3293d91af868ba6c6005a581b1646d3905dcd",
+    "media_type": "application/zip",
+    "archive_entry_count": 6,
+    "archive_file_count": 6,
+    "declared_payload_count": 3,
+    "package_root": null,
+    "embedded_integrity_records": [
+      {
+        "path": "Violet_Complexities_and_Dior_Homme_Parfum_2025_Complexity_Reconstruction_v1.xlsx.sha256",
+        "byte_size": 147,
+        "sha256": "184aec743f74a0a4f64a9bac132f7fea952f267a5a930b2940d875fc97152a41",
+        "role": "CHECKSUM_LEDGER"
+      },
+      {
+        "path": "Violet_Complexities_and_Dior_Homme_Parfum_2025_Complexity_Reconstruction_v1.md.sha256",
+        "byte_size": 145,
+        "sha256": "d63dafa401e0aa82d78f752060252544689f02369678b43fba35852273a3a4ad",
+        "role": "CHECKSUM_LEDGER"
+      },
+      {
+        "path": "Violet_Complexities_and_Dior_Homme_Parfum_2025_Complexity_Reconstruction_v1_release.json.sha256",
+        "byte_size": 155,
+        "sha256": "3a17f445eb1f13d10c8cec1a8050156c291a8fb01cc70abe099daf6890b90d99",
+        "role": "CHECKSUM_LEDGER"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "SECONDARY_RECONSTRUCTION",
+    "independence_group": "chatgpt:6a762995-0d8c-83ec-aee3-66c90e56811e:dhp25-initial",
+    "conversation_id": "6a762995-0d8c-83ec-aee3-66c90e56811e",
+    "turn_id": "c3f478ba-8b2b-40e0-b19b-8bcaeea487cd",
+    "message_id": "75f5f707-d67e-4916-939e-b8b2e4b8d051",
+    "lineage_resolution": "EXACT_CONVERSATION_TURN_RESPONSE_AND_CONTENT_REFERENCE_CAPTURED",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "The package contains no verified rights grant and represents a secondary computational reconstruction rather than authenticated commercial formula evidence.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Preserve as earlier design ancestry and as the exact embedded parent of the Exact-V5 audit package."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "SECONDARY_RECONSTRUCTION_NOT_AUTHENTICATED_COMMERCIAL_FORMULA",
+      "NESTED_OFFICE_CHILD_RECEIPT_REQUIRED",
+      "PHYSICAL_SIMILARITY_STRICT_OAV_HEADSPACE_STABILITY_AND_SAFETY_NOT_TESTED",
+      "NO_CANONICAL_FORMULA_SELECTION_OR_RELEASE_AUTHORITY"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "Violet_Complexities_and_Dior_Homme_Parfum_2025_Complexity_Reconstruction_v1.xlsx",
+      "byte_size": 148292,
+      "sha256": "90fab5b8543b77c2286076b4b6b05b679b805ad102938790a4fb3e72aa5f8d11",
+      "relation": "PACKAGE_EMBEDDED_RECONSTRUCTION_WORKBOOK_PARENT",
+      "support_scope": "Computational target/build ancestry only; workbook rows are not exact stock-dose, physical, sensory, or release evidence.",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "DHP25_INITIAL_COMPUTATIONAL_RECONSTRUCTION_EXACT_BYTES_QUARANTINED_EARLIER_DESIGN_ANCESTRY_ONLY",
+    "state": "COMPUTATIONAL_CANDIDATE_HOLD_FOR_PHYSICAL_VALIDATION",
+    "physical_similarity": "NOT_TESTED",
+    "strict_oav": "NOT_TESTED",
+    "measured_headspace": "NOT_TESTED",
+    "stability": "NOT_TESTED",
+    "safety_release": "NOT_TESTED",
+    "capture_graph_binding": {
+      "capture_manifest_path": "incoming_review/chatgpt/20260811T153000Z-continuation-exact-byte-recovery-6a762995/capture_manifest.json",
+      "capture_manifest_byte_size": 7689,
+      "capture_manifest_sha256": "27f3a34f5f4699090f9e8eb7d1478b2e99ce30535cc4eabe676329b7eb383bbc",
+      "root_package_sha256": "ec27bcd4dd1b9a3e54d4de49ace3293d91af868ba6c6005a581b1646d3905dcd",
+      "graph_status": "GRAPH_COMPLETE_QUARANTINED",
+      "node_count": 2,
+      "edge_count": 1,
+      "max_depth": 1,
+      "all_nodes_terminal": true,
+      "graph_findings": [],
+      "promotion_allowed": false
+    },
+    "native_handling": "EARLIER_TARGET_BUILD_ANCESTRY_ONLY_NO_CANONICAL_FORMULA"
+  },
+  "receipt_sha256": "b5be7a38bdeeb19af04b375350d2114c1a2b01fa65b97ed3128372c531985297"
+}

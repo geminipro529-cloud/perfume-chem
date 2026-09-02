@@ -1,0 +1,67 @@
+{
+  "task_id": "perfume-chem-downloads-rescan-benchmark-claim-audit-20260826-v1",
+  "objective": "Audit whether any supplied Downloads candidate contains evidence that can support a better-than-Sol-xhigh or current-runtime claim. Apply the current benchmark and claim-ceiling rules. Pay special attention to the old Sol xhigh module admission package, formula portfolios labeled hedonic, interaction counts without pairwise physical evidence, and desk candidates for DHP25 and Opus V. Return what can be reused as frozen regression cases or provenance and what cannot support admission.",
+  "tier": "PRO",
+  "workspace": "D:/chatbots/perfume-chem",
+  "allowed_paths": [
+    "incoming_review/downloads-rescan-20260826/DOWNLOADS_CANDIDATE_DIGEST.md",
+    "incoming_review/downloads-rescan-20260826/CURRENT_PUBLICATION_ARCHITECTURE_DIGEST.md"
+  ],
+  "required_reads": [
+    {
+      "path": "incoming_review/downloads-rescan-20260826/DOWNLOADS_CANDIDATE_DIGEST.md",
+      "unit": "line",
+      "start": 14,
+      "end": 54
+    },
+    {
+      "path": "incoming_review/downloads-rescan-20260826/CURRENT_PUBLICATION_ARCHITECTURE_DIGEST.md",
+      "unit": "line",
+      "start": 1,
+      "end": null
+    }
+  ],
+  "coverage_spec": {
+    "mode": "ALL_REQUIRED_READS",
+    "citations_required_for": ["positive_findings", "negative_findings"]
+  },
+  "forbidden_actions": [
+    "modify local or remote state",
+    "run commands or tests",
+    "browse or use external sources",
+    "inspect files outside required_reads",
+    "treat desk validation as sensory validation",
+    "infer liking from formulas, material counts, names, or structural audits",
+    "grant formula, sensory, safety, release, or runtime authority",
+    "use Fast, Luna, Codex, or alternate-provider fallback"
+  ],
+  "commands_tests": [],
+  "definition_of_done": [
+    "State whether any candidate currently supports a better-than-Sol-xhigh claim.",
+    "Identify reusable frozen cases or evidence tombstones.",
+    "List missing evidence for every possible admission claim.",
+    "Apply zero-critical-regression and both-control requirements."
+  ],
+  "required_output": [
+    "Claim audit table.",
+    "Reusable benchmark/provenance artifacts.",
+    "Missing evidence and stop conditions.",
+    "One-sentence admission conclusion."
+  ],
+  "timeout_minutes": 10,
+  "max_output_tokens": 3500,
+  "reuse_cache": true,
+  "require_cache": false,
+  "route_constraints": {
+    "allowed_routes": ["DIRECT_PRO"],
+    "fallback_policy": "NO_LUNA",
+    "maximum_attempts": 1,
+    "maximum_provider_calls": 2,
+    "maximum_estimated_cost_usd": 0.01,
+    "privacy_class": "PROVIDER_ALLOWED",
+    "maximum_input_tokens": 30000,
+    "maximum_cached_input_tokens": 30000,
+    "maximum_output_tokens_total": 7000,
+    "maximum_total_tokens": 37000
+  }
+}

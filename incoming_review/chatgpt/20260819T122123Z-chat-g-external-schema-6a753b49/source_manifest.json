@@ -1,0 +1,43 @@
+{
+  "schema_version": "chatgpt_browser_capture_manifest_v1",
+  "capture_id": "chat-g-external-schema-6a753b49-20260819t122123z",
+  "recorded_at": "2026-08-19T12:21:23Z",
+  "source": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "project_name": "Complex Perfumery",
+    "conversation_id": "6a753b49-e6dc-83ec-9224-48e24f28e73d",
+    "conversation_url": "https://chatgpt.com/g/g-p-6a74ab83668081919f5cbd0dfe80eb09-complex-perfumery/c/6a753b49-e6dc-83ec-9224-48e24f28e73d",
+    "conversation_title": "G Complete Schema Validation",
+    "attachment_name": "Perfume_Chem_External_Evidence_CHAT_G_XHIGH_v1.zip",
+    "capture_surface": "AUTHENTICATED_CHATGPT_BROWSER_ATTACHMENT_DOWNLOAD",
+    "claimed_sha256": "feb747fa9589dfeb621e9c6312bfce291f1aa9fe306ad988aa841cf90eb6c278"
+  },
+  "package": {
+    "path": "incoming_review/chatgpt/20260819T122123Z-chat-g-external-schema-6a753b49/Perfume_Chem_External_Evidence_CHAT_G_XHIGH_v1.zip",
+    "byte_size": 62670,
+    "sha256": "feb747fa9589dfeb621e9c6312bfce291f1aa9fe306ad988aa841cf90eb6c278",
+    "media_type": "application/zip",
+    "archive_entry_count": 31,
+    "archive_file_count": 31,
+    "package_root": "CHAT_G_EXTERNAL_EVIDENCE_CORE_v1",
+    "internal_checksum_entries_verified": 30,
+    "archive_scan_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "archive_scan_promotion_allowed": false
+  },
+  "rights": {
+    "reuse_status": "UNKNOWN",
+    "redistribution_allowed": false,
+    "reason": "The ChatGPT attachment contains no reusable software-license declaration. Exact possession and transport verification do not establish installation, redistribution, or publication rights."
+  },
+  "disposition": {
+    "state": "EXACT_BROWSER_ATTACHMENT_CAPTURED_QUARANTINED",
+    "package_content_import_allowed": false,
+    "generated_row_projection_allowed": false,
+    "source_table_admission_allowed": false,
+    "formula_mutation_allowed": false,
+    "physical_truth_upgrade_allowed": false,
+    "release_allowed": false,
+    "notes": "The exact 34-table ee_* proposal is recovered, but its own baseline reference says the parent SQL and SQLite bytes were not mounted and its exact A-F package bindings remain held. The package supplies no parent database bytes. Preserve it as historical schema evidence only; Laboratory Beta remains the sole persistence authority and no parallel store or package code may be installed."
+  },
+  "receipt_sha256": "cd671e72f0b46f90ddf09424d5874d8604c3591efb35c69ed03548b10fd7e24e"
+}

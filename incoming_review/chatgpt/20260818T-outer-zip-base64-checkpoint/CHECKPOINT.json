@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-08-17T21:00:35.3141365Z",
+  "state": "V20_EXACT__FLORAL_MEMBERS_EXACT__FLORAL_OUTER_REJECTED",
+  "canonical_installation": false,
+  "authority": false,
+  "provider_work_created": false,
+  "packages": [
+    {
+      "label": "V20_GAP_CLOSURE",
+      "source_chat_id": "6a74ba21-0d30-83ec-b211-e80baca66948",
+      "filename": "PERFUME_CHEM_V20_GAP_CLOSURE_CANDIDATE_2026-08-17.zip",
+      "expected_bytes": 96905,
+      "expected_sha256": "2cd1f5a3894badc0fde11eb3e5edc8c0219525b5a5ed3d3beaeacd6f0e6b6a79",
+      "expected_base64_chars": 129208,
+      "confirmed_base64_through": 129208,
+      "pending_range": null,
+      "pending_delivery_ambiguous": false,
+      "outer_admission_state": "PASS_EXACT_QUARANTINE_ONLY",
+      "zip_crc": "PASS",
+      "internal_ledger": "45_OF_45_PASS",
+      "local_capture_manifest": "D:\\chatbots\\perfume-chem\\incoming_review\\chatgpt\\20260818T043819+0700-v20-outer-zip-6a74ba21\\capture_manifest.json"
+    },
+    {
+      "label": "REPAIRED_FLORAL",
+      "source_chat_id": "6a762995-0d8c-83ec-aee3-66c90e56811e",
+      "filename": "COMPLEX_PERFUMERY_TEN_FLORALS_STOCK_BASIS_REPAIR_AND_CF01_ADMISSION_V2_20260817.zip",
+      "expected_bytes": 116771,
+      "expected_sha256": "d9abe68882edc86dfff47ab2cb4890e11c5bbe3e1e9c37dbd0c22930e628e54e",
+      "expected_base64_chars": 155696,
+      "confirmed_base64_through": 155696,
+      "pending_range": null,
+      "pending_delivery_ambiguous": false,
+      "outer_admission_state": "REJECTED_SHA256_AND_MEMBER_CRC_MISMATCH",
+      "observed_outer_sha256": "f8766945a3c02500e7774c1b0ecfa1343a9acaf437c644916ca3f447dd7ec473",
+      "member_identity_admission": "22_OF_22_EXACT_QUARANTINE_ONLY",
+      "local_capture_manifest": "D:\\chatbots\\perfume-chem\\incoming_review\\chatgpt\\20260818T044149+0700-floral-members-6a762995\\capture_manifest.json"
+    }
+  ],
+  "admission_rule": "Decode and admit only after complete base64 length, exact decoded byte length, exact SHA-256, ZIP CRC, safe paths, and internal ledger validation all pass.",
+  "retry_rule": "Do not repeat the floral outer base64 stream. A future floral outer admission requires a different authoritative exact-byte transfer surface."
+}

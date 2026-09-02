@@ -1,0 +1,2811 @@
+diff --git a/.env.example b/.env.example
+index 40b6401b84c9f3c943ab65bd97670d60fa2b4c6b..f66034e223a8891b661c3db2eefd047665dc8edf 100644
+--- a/.env.example
++++ b/.env.example
+@@ -51,3 +51,17 @@ LLAMA_CPP_N_CTX=2048
+ LLAMA_CPP_N_GPU_LAYERS=0
+ LLAMA_CPP_SEED=-1
+ LLAMA_CPP_VERBOSE=False
++
++# XHIGH external evidence
++# Default OFF. The index must resolve one immutable release and verify the
++# externally pinned index, release-root confinement, ZIP CRC, full member ledger,
++# manifest identity, and archive/manifest/SQLite closure before any database opens.
++PERFUME_CHEM_EXTERNAL_EVIDENCE_ENABLED=False
++PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_ID=XHIGH-RC-2026-08-08
++PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_ROOT=
++PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX=
++# SHA-256 of the exact index bytes, stored outside the mutable release directory.
++# The committed sealed-v2 template currently hashes to:
++# ccaa514c3dd369e732c814fb5b831208961506c40701eb913a2217fc8b99b411
++PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX_SHA256=
++PERFUME_CHEM_EXTERNAL_EVIDENCE_MAX_QUERY_ROWS=200
+diff --git a/.github/workflows/xhigh-readonly-integration.yml b/.github/workflows/xhigh-readonly-integration.yml
+new file mode 100644
+index 0000000000000000000000000000000000000000..670364a2978ca87c82ce17d57614f8c9a16f3918
+--- /dev/null
++++ b/.github/workflows/xhigh-readonly-integration.yml
+@@ -0,0 +1,73 @@
++name: XHIGH Read-Only Integration
++
++on:
++  pull_request:
++    branches:
++      - codex/add-inventory-materials
++    paths:
++      - ".github/workflows/xhigh-readonly-integration.yml"
++      - ".env.example"
++      - "backend/app/core/config.py"
++      - "backend/app/api/v1/router.py"
++      - "backend/app/api/v1/endpoints/external_evidence.py"
++      - "backend/app/external_evidence/**"
++      - "backend/scripts/verify_xhigh_release.py"
++      - "backend/tests/test_external_evidence_*.py"
++      - "docs/xhigh_external_evidence_readonly_integration.md"
++      - "data/external_evidence/XHIGH_RELEASE_INDEX.template.json"
++  workflow_dispatch:
++
++permissions:
++  contents: read
++
++jobs:
++  readonly-contract:
++    runs-on: ubuntu-latest
++    timeout-minutes: 20
++
++    steps:
++      - name: Check out exact candidate
++        uses: actions/checkout@v4
++
++      - name: Set up Python 3.11
++        uses: actions/setup-python@v5
++        with:
++          python-version: "3.11"
++
++      - name: Install Poetry
++        run: pipx install poetry
++
++      - name: Install backend dependencies
++        working-directory: backend
++        run: poetry install --with dev
++
++      - name: Lint bounded XHIGH surface
++        working-directory: backend
++        run: |
++          poetry run ruff check \
++            app/external_evidence \
++            app/api/v1/endpoints/external_evidence.py \
++            app/api/v1/router.py \
++            app/core/config.py \
++            scripts/verify_xhigh_release.py \
++            tests/test_external_evidence_adapter.py \
++            tests/test_external_evidence_api.py \
++            tests/test_external_evidence_release_security.py
++
++      - name: Run read-only integration qualification
++        working-directory: backend
++        env:
++          PERFUME_CHEM_EXTERNAL_EVIDENCE_ENABLED: "false"
++        run: |
++          poetry run pytest -q \
++            tests/test_external_evidence_adapter.py \
++            tests/test_external_evidence_api.py \
++            tests/test_external_evidence_release_security.py
++
++      - name: Compile bounded integration
++        working-directory: backend
++        run: |
++          poetry run python -m compileall -q \
++            app/external_evidence \
++            app/api/v1/endpoints/external_evidence.py \
++            scripts/verify_xhigh_release.py
+diff --git a/backend/app/api/v1/endpoints/external_evidence.py b/backend/app/api/v1/endpoints/external_evidence.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..c8bb2d4fa0ae2f39769203f63774e9f775873c60
+--- /dev/null
++++ b/backend/app/api/v1/endpoints/external_evidence.py
+@@ -0,0 +1,106 @@
++"""GET-only API endpoints for one exact XHIGH external-evidence release."""
++
++from __future__ import annotations
++
++from functools import lru_cache
++from typing import Any
++
++from fastapi import APIRouter, Depends, HTTPException, Query
++
++from app.core.config import get_settings
++from app.external_evidence import (
++    ExternalEvidenceConfigurationError,
++    ExternalEvidenceDisabledError,
++    ExternalEvidenceIntegrityError,
++    ExternalEvidenceProvider,
++    ExternalEvidenceQueryError,
++    ExternalEvidenceSelectionError,
++)
++
++router = APIRouter()
++
++
++@lru_cache(maxsize=1)
++def get_external_evidence_provider() -> ExternalEvidenceProvider:
++    """Build the provider only after the route has been enabled at startup."""
++    return ExternalEvidenceProvider.from_settings(get_settings())
++
++
++def _translate_error(exc: Exception) -> HTTPException:
++    if isinstance(exc, ExternalEvidenceDisabledError):
++        return HTTPException(status_code=404, detail="External evidence is disabled")
++    if isinstance(
++        exc,
++        (
++            ExternalEvidenceConfigurationError,
++            ExternalEvidenceIntegrityError,
++            ExternalEvidenceSelectionError,
++        ),
++    ):
++        return HTTPException(status_code=503, detail=str(exc))
++    if isinstance(exc, ExternalEvidenceQueryError):
++        return HTTPException(status_code=400, detail=str(exc))
++    return HTTPException(status_code=500, detail="External evidence query failed")
++
++
++@router.get("/health")
++def external_evidence_health(
++    provider: ExternalEvidenceProvider = Depends(get_external_evidence_provider),
++) -> dict[str, Any]:
++    try:
++        return provider.health()
++    except Exception as exc:
++        raise _translate_error(exc) from exc
++
++
++@router.get("/objects")
++def external_evidence_objects(
++    provider: ExternalEvidenceProvider = Depends(get_external_evidence_provider),
++) -> dict[str, Any]:
++    try:
++        return provider.list_objects()
++    except Exception as exc:
++        raise _translate_error(exc) from exc
++
++
++@router.get("/records/{object_name}")
++def external_evidence_records(
++    object_name: str,
++    field: str | None = Query(default=None),
++    value: str | None = Query(default=None),
++    limit: int = Query(default=100, ge=1, le=500),
++    offset: int = Query(default=0, ge=0),
++    provider: ExternalEvidenceProvider = Depends(get_external_evidence_provider),
++) -> dict[str, Any]:
++    if (field is None) != (value is None):
++        raise HTTPException(
++            status_code=400,
++            detail="field and value must be supplied together",
++        )
++    filters = {field: value} if field is not None and value is not None else None
++    try:
++        return provider.query_evidence(
++            object_name,
++            filters,
++            limit=limit,
++            offset=offset,
++        )
++    except Exception as exc:
++        raise _translate_error(exc) from exc
++
++
++@router.get("/experiments")
++def external_evidence_experiments(
++    status: str | None = Query(default=None),
++    limit: int = Query(default=100, ge=1, le=500),
++    offset: int = Query(default=0, ge=0),
++    provider: ExternalEvidenceProvider = Depends(get_external_evidence_provider),
++) -> dict[str, Any]:
++    try:
++        return provider.query_controlled_experiments(
++            status=status,
++            limit=limit,
++            offset=offset,
++        )
++    except Exception as exc:
++        raise _translate_error(exc) from exc
+diff --git a/backend/app/api/v1/router.py b/backend/app/api/v1/router.py
+index 9bb4c152c18b24db48a0120e3810a94d02e2bd90..68b4a4edcd8eb5fff1b838f2246ca915917dc04b 100644
+--- a/backend/app/api/v1/router.py
++++ b/backend/app/api/v1/router.py
+@@ -2,6 +2,8 @@
+ 
+ from fastapi import APIRouter
+ 
++from app.core.config import get_settings
++
+ from app.api.v1.endpoints import (
+     ai,
+     enhancements,
+@@ -89,3 +91,15 @@ api_router.include_router(
+     prefix="/enhance",
+     tags=["enhancements"]
+ )
++
++
++# The XHIGH route surface does not exist when the default-off flag is absent or false.
++# Enabling requires an exact release ID, confined root, externally pinned index, and application restart.
++if get_settings().PERFUME_CHEM_EXTERNAL_EVIDENCE_ENABLED:
++    from app.api.v1.endpoints import external_evidence
++
++    api_router.include_router(
++        external_evidence.router,
++        prefix="/external-evidence",
++        tags=["external-evidence-read-only"],
++    )
+diff --git a/backend/app/core/config.py b/backend/app/core/config.py
+index 4b409c15973e21a3ce74b04656acde0431fb91b4..934fa589e658f90d06d22d3955c9f3508aa84631 100644
+--- a/backend/app/core/config.py
++++ b/backend/app/core/config.py
+@@ -1,5 +1,6 @@
+ """Application configuration using Pydantic Settings"""
+ 
++import re
+ from functools import lru_cache
+ from pathlib import Path
+ from typing import List, Optional
+@@ -29,6 +30,16 @@ class Settings(BaseSettings):
+     DB_MAX_OVERFLOW: int = 10
+     DB_ECHO: bool = False
+ 
++    # XHIGH external evidence
++    # This integration is disabled unless an exact, verified release index is supplied.
++    # No write-enablement setting exists.
++    PERFUME_CHEM_EXTERNAL_EVIDENCE_ENABLED: bool = False
++    PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_ROOT: Optional[str] = None
++    PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX: Optional[str] = None
++    PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX_SHA256: Optional[str] = None
++    PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_ID: str = "XHIGH-RC-2026-08-08"
++    PERFUME_CHEM_EXTERNAL_EVIDENCE_MAX_QUERY_ROWS: int = 200
++
+     # Redis Cache
+     REDIS_URL: Optional[str] = None
+     CACHE_TTL: int = 3600  # 1 hour default
+@@ -122,6 +133,28 @@ class Settings(BaseSettings):
+                 return True
+         return value
+ 
++
++    @field_validator("PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX_SHA256", mode="before")
++    @classmethod
++    def validate_external_evidence_index_sha256(cls, value):
++        if value is None or not str(value).strip():
++            return None
++        normalized = str(value).strip().lower()
++        if re.fullmatch(r"[0-9a-f]{64}", normalized) is None:
++            raise ValueError(
++                "PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX_SHA256 must be 64 hexadecimal characters"
++            )
++        return normalized
++
++    @field_validator("PERFUME_CHEM_EXTERNAL_EVIDENCE_MAX_QUERY_ROWS")
++    @classmethod
++    def validate_external_evidence_query_limit(cls, value: int) -> int:
++        if value < 1 or value > 500:
++            raise ValueError(
++                "PERFUME_CHEM_EXTERNAL_EVIDENCE_MAX_QUERY_ROWS must be between 1 and 500"
++            )
++        return value
++
+     @field_validator("DATABASE_URL", mode="before")
+     @classmethod
+     def resolve_sqlite_database_url(cls, value):
+diff --git a/backend/app/external_evidence/__init__.py b/backend/app/external_evidence/__init__.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..dcb48af1893670302a08a0efcdf0ff29989511e5
+--- /dev/null
++++ b/backend/app/external_evidence/__init__.py
+@@ -0,0 +1,25 @@
++"""Default-off, immutable, read-only XHIGH external-evidence integration."""
++
++from app.external_evidence.errors import (
++    ExternalEvidenceConfigurationError,
++    ExternalEvidenceDisabledError,
++    ExternalEvidenceError,
++    ExternalEvidenceIntegrityError,
++    ExternalEvidenceMutationDeniedError,
++    ExternalEvidenceQueryError,
++    ExternalEvidenceSelectionError,
++)
++from app.external_evidence.provider import ExternalEvidenceProvider
++from app.external_evidence.release_selector import select_release
++
++__all__ = [
++    "ExternalEvidenceConfigurationError",
++    "ExternalEvidenceDisabledError",
++    "ExternalEvidenceError",
++    "ExternalEvidenceIntegrityError",
++    "ExternalEvidenceMutationDeniedError",
++    "ExternalEvidenceProvider",
++    "ExternalEvidenceQueryError",
++    "ExternalEvidenceSelectionError",
++    "select_release",
++]
+diff --git a/backend/app/external_evidence/archive_verifier.py b/backend/app/external_evidence/archive_verifier.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..0ab823c03a703887172880549e3768444a8d9838
+--- /dev/null
++++ b/backend/app/external_evidence/archive_verifier.py
+@@ -0,0 +1,347 @@
++"""Sealed-archive verification for one exact XHIGH release."""
++
++from __future__ import annotations
++
++import json
++import re
++import zipfile
++from dataclasses import dataclass
++from pathlib import PurePosixPath
++from typing import Any, Mapping
++
++from app.external_evidence.contracts import ArtifactRef
++from app.external_evidence.errors import (
++    ExternalEvidenceIntegrityError,
++    ExternalEvidenceSelectionError,
++)
++from app.external_evidence.hashing import sha256_bytes, sha256_file, sha256_stream
++
++_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
++
++
++@dataclass(frozen=True)
++class ArchiveClosureReceipt:
++    """Proof that the external artifacts belong to one sealed ZIP release."""
++
++    member_root: str
++    manifest_member: str
++    database_member: str
++    sha256_ledger_member: str
++    sha256_ledger_sha256: str
++    archive_member_count: int
++    ledger_entries_verified: int
++    crc_verified: bool
++
++
++def _require_mapping(value: Any, label: str) -> Mapping[str, Any]:
++    if not isinstance(value, Mapping):
++        raise ExternalEvidenceSelectionError(f"{label} must be an object")
++    return value
++
++
++def _safe_member_path(value: Any, label: str) -> str:
++    text = str(value or "").strip()
++    if not text:
++        raise ExternalEvidenceSelectionError(f"{label} is required")
++    if "\\" in text or "\x00" in text:
++        raise ExternalEvidenceSelectionError(f"{label} must use safe POSIX separators")
++    if text.startswith("/"):
++        raise ExternalEvidenceSelectionError(f"{label} must be relative")
++    text = text.rstrip("/")
++    path = PurePosixPath(text)
++    if (
++        path.is_absolute()
++        or any(part in {"", ".", ".."} for part in path.parts)
++        or (path.parts and path.parts[0].endswith(":"))
++    ):
++        raise ExternalEvidenceSelectionError(
++            f"{label} is not a safe relative member path"
++        )
++    return path.as_posix()
++
++
++def _parse_closure(raw_release: Mapping[str, Any]) -> tuple[str, str, str, str]:
++    closure = _require_mapping(raw_release.get("archive_closure"), "archive_closure")
++    member_root = _safe_member_path(closure.get("member_root"), "archive_closure.member_root")
++    manifest_member = _safe_member_path(
++        closure.get("manifest_member"), "archive_closure.manifest_member"
++    )
++    database_member = _safe_member_path(
++        closure.get("database_member"), "archive_closure.database_member"
++    )
++    ledger_member = _safe_member_path(
++        closure.get("sha256_ledger_member"),
++        "archive_closure.sha256_ledger_member",
++    )
++    return member_root, manifest_member, database_member, ledger_member
++
++
++def _full_member(member_root: str, relative_member: str) -> str:
++    return f"{member_root.rstrip('/')}/{relative_member}"
++
++
++def _validate_archive_names(
++    infos: list[zipfile.ZipInfo],
++    member_root: str,
++) -> dict[str, zipfile.ZipInfo]:
++    prefix = member_root.rstrip("/") + "/"
++    by_relative_path: dict[str, zipfile.ZipInfo] = {}
++    seen_full_names: set[str] = set()
++
++    for info in infos:
++        full_name = info.filename
++        if full_name in seen_full_names:
++            raise ExternalEvidenceIntegrityError(
++                f"archive contains duplicate member name: {full_name!r}"
++            )
++        seen_full_names.add(full_name)
++        if info.is_dir():
++            continue
++        if "\\" in full_name or not full_name.startswith(prefix):
++            raise ExternalEvidenceIntegrityError(
++                f"archive member is outside the declared member root: {full_name!r}"
++            )
++        relative = full_name[len(prefix) :]
++        safe_relative = _safe_member_path(relative, f"archive member {full_name!r}")
++        if safe_relative in by_relative_path:
++            raise ExternalEvidenceIntegrityError(
++                f"archive contains duplicate relative member: {safe_relative!r}"
++            )
++        by_relative_path[safe_relative] = info
++
++    if not by_relative_path:
++        raise ExternalEvidenceIntegrityError("archive contains no files under member_root")
++    return by_relative_path
++
++
++def _read_json_member(
++    archive: zipfile.ZipFile,
++    member_name: str,
++    label: str,
++) -> tuple[Mapping[str, Any], bytes]:
++    try:
++        raw = archive.read(member_name)
++    except (KeyError, OSError, zipfile.BadZipFile) as exc:
++        raise ExternalEvidenceIntegrityError(
++            f"cannot read {label} archive member {member_name!r}: {exc}"
++        ) from exc
++    try:
++        payload = json.loads(raw.decode("utf-8"))
++    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
++        raise ExternalEvidenceIntegrityError(
++            f"{label} archive member is not valid UTF-8 JSON: {exc}"
++        ) from exc
++    return _require_mapping(payload, f"{label} archive member"), raw
++
++
++def _ledger_records(payload: Mapping[str, Any]) -> dict[str, tuple[int, str]]:
++    rows = payload.get("files")
++    if not isinstance(rows, list):
++        raise ExternalEvidenceIntegrityError("archive SHA-256 ledger must contain files[]")
++
++    records: dict[str, tuple[int, str]] = {}
++    for index, raw_row in enumerate(rows):
++        row = _require_mapping(raw_row, f"archive SHA-256 ledger row {index}")
++        path = _safe_member_path(row.get("path"), f"archive SHA-256 ledger row {index}.path")
++        byte_size = row.get("bytes")
++        sha256 = str(row.get("sha256", "")).strip().lower()
++        if not isinstance(byte_size, int) or byte_size < 0:
++            raise ExternalEvidenceIntegrityError(
++                f"archive SHA-256 ledger row {index}.bytes must be nonnegative integer"
++            )
++        if not _SHA256_RE.fullmatch(sha256):
++            raise ExternalEvidenceIntegrityError(
++                f"archive SHA-256 ledger row {index}.sha256 is invalid"
++            )
++        if path in records:
++            raise ExternalEvidenceIntegrityError(
++                f"archive SHA-256 ledger duplicates path {path!r}"
++            )
++        records[path] = (byte_size, sha256)
++    return records
++
++
++def _hash_zip_member(archive: zipfile.ZipFile, info: zipfile.ZipInfo) -> str:
++    try:
++        with archive.open(info, "r") as handle:
++            return sha256_stream(handle)
++    except (OSError, RuntimeError, zipfile.BadZipFile) as exc:
++        raise ExternalEvidenceIntegrityError(
++            f"cannot hash archive member {info.filename!r}: {exc}"
++        ) from exc
++
++
++def _validate_manifest_identity(
++    payload: Mapping[str, Any],
++    *,
++    release_id: str,
++    state: str,
++    generated_at_utc: str,
++    database_member: str,
++    ledger_member: str,
++) -> None:
++    release_values = {
++        str(payload[key]).strip()
++        for key in ("release_candidate_version", "release_id")
++        if key in payload and str(payload[key]).strip()
++    }
++    state_values = {
++        str(payload[key]).strip()
++        for key in ("freeze_state", "state")
++        if key in payload and str(payload[key]).strip()
++    }
++    if release_values != {release_id}:
++        raise ExternalEvidenceIntegrityError(
++            "manifest release identity does not match selected release_id"
++        )
++    if state_values != {state}:
++        raise ExternalEvidenceIntegrityError(
++            "manifest release state does not match selected release state"
++        )
++
++    manifest_generated_at = str(payload.get("generated_at_utc", "")).strip()
++    if manifest_generated_at != generated_at_utc:
++        raise ExternalEvidenceIntegrityError(
++            "manifest generated_at_utc does not match selected release"
++        )
++
++    declared_ledger = str(payload.get("sha256_ledger", "")).strip()
++    if declared_ledger != PurePosixPath(ledger_member).name:
++        raise ExternalEvidenceIntegrityError(
++            "manifest sha256_ledger does not match archive closure"
++        )
++
++    declared_database = payload.get("database")
++    if not isinstance(declared_database, list):
++        raise ExternalEvidenceIntegrityError(
++            "manifest database must be a list containing the selected member"
++        )
++    names = {str(item).strip() for item in declared_database}
++    if PurePosixPath(database_member).name not in names:
++        raise ExternalEvidenceIntegrityError(
++            "manifest database list does not contain the selected database member"
++        )
++
++
++def verify_archive_closure(
++    *,
++    raw_release: Mapping[str, Any],
++    release_id: str,
++    state: str,
++    generated_at_utc: str,
++    archive_ref: ArtifactRef,
++    manifest_ref: ArtifactRef,
++    database_ref: ArtifactRef,
++) -> ArchiveClosureReceipt:
++    """Verify CRC, full member ledger, and archive/external artifact closure."""
++    member_root, manifest_member, database_member, ledger_member = _parse_closure(
++        raw_release
++    )
++    manifest_full = _full_member(member_root, manifest_member)
++    ledger_full = _full_member(member_root, ledger_member)
++
++    try:
++        archive = zipfile.ZipFile(archive_ref.path, "r")
++    except (OSError, zipfile.BadZipFile) as exc:
++        raise ExternalEvidenceIntegrityError(f"cannot open release archive: {exc}") from exc
++
++    with archive:
++        try:
++            bad_member = archive.testzip()
++        except (OSError, RuntimeError, zipfile.BadZipFile) as exc:
++            raise ExternalEvidenceIntegrityError(
++                f"release archive CRC verification failed: {exc}"
++            ) from exc
++        if bad_member is not None:
++            raise ExternalEvidenceIntegrityError(
++                f"release archive CRC mismatch at member {bad_member!r}"
++            )
++
++        member_infos = _validate_archive_names(archive.infolist(), member_root)
++        for required in (manifest_member, database_member, ledger_member):
++            if required not in member_infos:
++                raise ExternalEvidenceIntegrityError(
++                    f"release archive is missing required member {required!r}"
++                )
++
++        ledger_payload, ledger_bytes = _read_json_member(
++            archive, ledger_full, "SHA-256 ledger"
++        )
++        ledger_records = _ledger_records(ledger_payload)
++        if ledger_member in ledger_records:
++            raise ExternalEvidenceIntegrityError(
++                "archive SHA-256 ledger cannot self-list its own member"
++            )
++
++        expected_ledger_paths = set(member_infos) - {ledger_member}
++        if set(ledger_records) != expected_ledger_paths:
++            missing = sorted(expected_ledger_paths - set(ledger_records))
++            extra = sorted(set(ledger_records) - expected_ledger_paths)
++            raise ExternalEvidenceIntegrityError(
++                "archive SHA-256 ledger member closure failed: "
++                f"missing={missing}, extra={extra}"
++            )
++
++        for relative_path, (declared_size, declared_sha256) in sorted(
++            ledger_records.items()
++        ):
++            info = member_infos[relative_path]
++            if info.file_size != declared_size:
++                raise ExternalEvidenceIntegrityError(
++                    f"archive member size mismatch for {relative_path!r}: "
++                    f"ledger={declared_size}, archive={info.file_size}"
++                )
++            observed_sha256 = _hash_zip_member(archive, info)
++            if observed_sha256 != declared_sha256:
++                raise ExternalEvidenceIntegrityError(
++                    f"archive member SHA-256 mismatch for {relative_path!r}"
++                )
++
++        manifest_size, manifest_sha256 = ledger_records[manifest_member]
++        database_size, database_sha256 = ledger_records[database_member]
++        if (manifest_size, manifest_sha256) != (
++            manifest_ref.byte_size,
++            manifest_ref.sha256,
++        ):
++            raise ExternalEvidenceIntegrityError(
++                "external manifest does not match the sealed archive member"
++            )
++        if (database_size, database_sha256) != (
++            database_ref.byte_size,
++            database_ref.sha256,
++        ):
++            raise ExternalEvidenceIntegrityError(
++                "external database does not match the sealed archive member"
++            )
++
++        manifest_payload, manifest_bytes = _read_json_member(
++            archive, manifest_full, "manifest"
++        )
++        if sha256_bytes(manifest_bytes) != manifest_ref.sha256:
++            raise ExternalEvidenceIntegrityError(
++                "manifest archive member hash does not match external manifest"
++            )
++        _validate_manifest_identity(
++            manifest_payload,
++            release_id=release_id,
++            state=state,
++            generated_at_utc=generated_at_utc,
++            database_member=database_member,
++            ledger_member=ledger_member,
++        )
++
++    if sha256_file(archive_ref.path) != archive_ref.sha256:
++        raise ExternalEvidenceIntegrityError(
++            "release archive SHA-256 changed during closure verification"
++        )
++
++    return ArchiveClosureReceipt(
++        member_root=member_root,
++        manifest_member=manifest_member,
++        database_member=database_member,
++        sha256_ledger_member=ledger_member,
++        sha256_ledger_sha256=sha256_bytes(ledger_bytes),
++        archive_member_count=len(member_infos),
++        ledger_entries_verified=len(ledger_records),
++        crc_verified=True,
++    )
+diff --git a/backend/app/external_evidence/contracts.py b/backend/app/external_evidence/contracts.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..c411f78826f3d0fbc21cfa183f4b90c25f4aa70e
+--- /dev/null
++++ b/backend/app/external_evidence/contracts.py
+@@ -0,0 +1,47 @@
++"""Immutable contracts for one exact XHIGH release."""
++
++from __future__ import annotations
++
++from dataclasses import dataclass
++from pathlib import Path
++
++
++@dataclass(frozen=True)
++class ArtifactRef:
++    """One exact, verified release artifact."""
++
++    artifact_id: str
++    path: Path
++    sha256: str
++    byte_size: int
++    verification: str
++
++
++@dataclass(frozen=True)
++class ArchiveClosure:
++    """Verified binding between the ZIP, its ledger, manifest, and database."""
++
++    member_root: str
++    manifest_member: str
++    database_member: str
++    sha256_ledger_member: str
++    sha256_ledger_sha256: str
++    archive_member_count: int
++    ledger_entries_verified: int
++    crc_verified: bool
++
++
++@dataclass(frozen=True)
++class ReleaseBinding:
++    """The one release selected by immutable ID and exact artifact pins."""
++
++    release_id: str
++    state: str
++    generated_at_utc: str
++    release_root: Path
++    index_path: Path
++    index_sha256: str
++    archive: ArtifactRef
++    manifest: ArtifactRef
++    database: ArtifactRef
++    archive_closure: ArchiveClosure
+diff --git a/backend/app/external_evidence/errors.py b/backend/app/external_evidence/errors.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..c8d03ffab4d7a3bd9d80df909b258e1314929c06
+--- /dev/null
++++ b/backend/app/external_evidence/errors.py
+@@ -0,0 +1,29 @@
++"""Fail-closed error types for the XHIGH read-only integration."""
++
++
++class ExternalEvidenceError(RuntimeError):
++    """Base error for the external-evidence boundary."""
++
++
++class ExternalEvidenceDisabledError(ExternalEvidenceError):
++    """Raised when the default-off feature is not enabled."""
++
++
++class ExternalEvidenceConfigurationError(ExternalEvidenceError):
++    """Raised when required immutable release configuration is absent."""
++
++
++class ExternalEvidenceIntegrityError(ExternalEvidenceError):
++    """Raised when an exact file hash, byte size, or SQLite check fails."""
++
++
++class ExternalEvidenceSelectionError(ExternalEvidenceError):
++    """Raised when immutable release selection is ambiguous or stale."""
++
++
++class ExternalEvidenceQueryError(ExternalEvidenceError):
++    """Raised when a read query violates the bounded query contract."""
++
++
++class ExternalEvidenceMutationDeniedError(ExternalEvidenceError):
++    """Raised for every write or authority-promotion operation."""
+diff --git a/backend/app/external_evidence/hashing.py b/backend/app/external_evidence/hashing.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..52a8e7c289a5863d95206a7f8e97a5846eca58fd
+--- /dev/null
++++ b/backend/app/external_evidence/hashing.py
+@@ -0,0 +1,49 @@
++"""Deterministic hashing helpers for release and query verification."""
++
++from __future__ import annotations
++
++import hashlib
++import json
++from pathlib import Path
++from typing import Any, BinaryIO, Iterable, Mapping
++
++
++def sha256_stream(handle: BinaryIO) -> str:
++    """Return SHA-256 for bytes read from a binary stream."""
++    digest = hashlib.sha256()
++    for chunk in iter(lambda: handle.read(1024 * 1024), b""):
++        digest.update(chunk)
++    return digest.hexdigest()
++
++
++def sha256_bytes(value: bytes) -> str:
++    """Return SHA-256 for one exact byte string."""
++    return hashlib.sha256(value).hexdigest()
++
++
++def sha256_file(path: Path) -> str:
++    """Return SHA-256 for exact file bytes."""
++    with path.open("rb") as handle:
++        return sha256_stream(handle)
++
++
++def canonical_json_bytes(value: Any) -> bytes:
++    """Serialize stable JSON for local receipts.
++
++    Exact scientific decimals must remain strings in upstream records. This
++    helper does not reinterpret numeric values.
++    """
++    return (
++        json.dumps(
++            value,
++            ensure_ascii=False,
++            sort_keys=True,
++            separators=(",", ":"),
++        )
++        + "\n"
++    ).encode("utf-8")
++
++
++def canonical_rows_sha256(rows: Iterable[Mapping[str, Any]]) -> str:
++    """Hash a deterministic row sequence without changing row values."""
++    return hashlib.sha256(canonical_json_bytes(list(rows))).hexdigest()
+diff --git a/backend/app/external_evidence/path_security.py b/backend/app/external_evidence/path_security.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..b13782cf60d81b102fa963e600a7e4d8c068ee1b
+--- /dev/null
++++ b/backend/app/external_evidence/path_security.py
+@@ -0,0 +1,114 @@
++"""Path confinement and symlink rejection for immutable XHIGH releases."""
++
++from __future__ import annotations
++
++import os
++from pathlib import Path
++
++from app.external_evidence.errors import (
++    ExternalEvidenceConfigurationError,
++    ExternalEvidenceIntegrityError,
++    ExternalEvidenceSelectionError,
++)
++
++
++def resolve_release_root(value: str | Path | None) -> Path:
++    """Resolve one configured directory without accepting a symlink root."""
++    if value is None or not str(value).strip():
++        raise ExternalEvidenceConfigurationError(
++            "PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_ROOT is required when enabled"
++        )
++    raw = Path(value).expanduser()
++    if raw.is_symlink():
++        raise ExternalEvidenceConfigurationError("release root cannot be a symlink")
++    try:
++        resolved = raw.resolve(strict=True)
++    except OSError as exc:
++        raise ExternalEvidenceConfigurationError(
++            f"release root cannot be resolved: {exc}"
++        ) from exc
++    if not resolved.is_dir():
++        raise ExternalEvidenceConfigurationError(
++            f"release root is not a directory: {resolved}"
++        )
++    return resolved
++
++
++def _reject_symlink_chain(root: Path, target: Path, label: str) -> None:
++    try:
++        relative = target.relative_to(root)
++    except ValueError as exc:
++        raise ExternalEvidenceSelectionError(
++            f"{label} escapes configured release root"
++        ) from exc
++
++    current = root
++    for part in relative.parts:
++        current = current / part
++        try:
++            os.lstat(current)
++        except OSError as exc:
++            raise ExternalEvidenceIntegrityError(
++                f"cannot inspect {label} path component {current}: {exc}"
++            ) from exc
++        if os.path.islink(current):
++            raise ExternalEvidenceSelectionError(
++                f"{label} path contains a symlink: {current}"
++            )
++
++
++def resolve_index_path(release_root: Path, value: str | Path) -> Path:
++    """Resolve the configured index, requiring it to live inside release_root."""
++    raw = Path(value).expanduser()
++    if any(part == ".." for part in raw.parts):
++        raise ExternalEvidenceSelectionError("release index path cannot contain '..'")
++    candidate = raw if raw.is_absolute() else release_root / raw
++    try:
++        lexical = candidate.absolute()
++        lexical.relative_to(release_root)
++    except ValueError as exc:
++        raise ExternalEvidenceSelectionError(
++            "release index is outside configured release root"
++        ) from exc
++    _reject_symlink_chain(release_root, lexical, "release index")
++    try:
++        resolved = lexical.resolve(strict=True)
++    except OSError as exc:
++        raise ExternalEvidenceSelectionError(
++            f"release index cannot be resolved: {exc}"
++        ) from exc
++    if not resolved.is_file():
++        raise ExternalEvidenceSelectionError(f"release index is not a file: {resolved}")
++    return resolved
++
++
++def resolve_artifact_path(release_root: Path, path_text: str, kind: str) -> Path:
++    """Resolve a relative artifact path inside the immutable release root."""
++    if "\x00" in path_text or "\\" in path_text:
++        raise ExternalEvidenceSelectionError(
++            f"{kind}.path must use safe platform-native separators"
++        )
++    raw = Path(path_text)
++    if raw.is_absolute():
++        raise ExternalEvidenceSelectionError(f"{kind}.path must be relative to release root")
++    if any(part in {"", ".", ".."} for part in raw.parts):
++        raise ExternalEvidenceSelectionError(
++            f"{kind}.path is not a safe relative path"
++        )
++    candidate = (release_root / raw).absolute()
++    try:
++        candidate.relative_to(release_root)
++    except ValueError as exc:
++        raise ExternalEvidenceSelectionError(
++            f"{kind}.path escapes configured release root"
++        ) from exc
++    _reject_symlink_chain(release_root, candidate, f"{kind} artifact")
++    try:
++        resolved = candidate.resolve(strict=True)
++    except OSError as exc:
++        raise ExternalEvidenceIntegrityError(
++            f"{kind} file cannot be resolved: {exc}"
++        ) from exc
++    if not resolved.is_file():
++        raise ExternalEvidenceIntegrityError(f"{kind} file does not exist: {resolved}")
++    return resolved
+diff --git a/backend/app/external_evidence/provider.py b/backend/app/external_evidence/provider.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..1b653022644adf06606a9a4c1eda67615ecacd52
+--- /dev/null
++++ b/backend/app/external_evidence/provider.py
+@@ -0,0 +1,173 @@
++"""Repository-facing read-only provider for XHIGH external evidence."""
++
++from __future__ import annotations
++
++from typing import Any, Mapping
++
++from app.core.config import Settings
++from app.external_evidence.contracts import ReleaseBinding
++from app.external_evidence.errors import (
++    ExternalEvidenceConfigurationError,
++    ExternalEvidenceDisabledError,
++    ExternalEvidenceMutationDeniedError,
++    ExternalEvidenceQueryError,
++)
++from app.external_evidence.release_selector import select_release
++from app.external_evidence.sqlite_store import ReadOnlySQLiteStore
++
++_READ_OPERATIONS = frozenset(
++    {
++        "health",
++        "list_objects",
++        "query_evidence",
++        "query_controlled_experiments",
++    }
++)
++
++
++class ExternalEvidenceProvider:
++    """Read-only facade with no dependency on canonical host write services."""
++
++    def __init__(
++        self,
++        binding: ReleaseBinding,
++        *,
++        max_query_rows: int = 200,
++    ):
++        self.binding = binding
++        self.store = ReadOnlySQLiteStore(
++            binding.database.path,
++            binding.database.sha256,
++            max_query_rows=max_query_rows,
++        )
++
++    @classmethod
++    def from_settings(cls, settings: Settings) -> "ExternalEvidenceProvider":
++        if not settings.PERFUME_CHEM_EXTERNAL_EVIDENCE_ENABLED:
++            raise ExternalEvidenceDisabledError(
++                "PERFUME_CHEM_EXTERNAL_EVIDENCE_ENABLED is false"
++            )
++        release_root = settings.PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_ROOT
++        index_path = settings.PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX
++        index_sha256 = settings.PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX_SHA256
++        if not release_root:
++            raise ExternalEvidenceConfigurationError(
++                "PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_ROOT is required when enabled"
++            )
++        if not index_path:
++            raise ExternalEvidenceConfigurationError(
++                "PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX is required when enabled"
++            )
++        if not index_sha256:
++            raise ExternalEvidenceConfigurationError(
++                "PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX_SHA256 is required when enabled"
++            )
++
++        binding = select_release(
++            index_path,
++            settings.PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_ID,
++            expected_index_sha256=index_sha256,
++            release_root=release_root,
++        )
++        return cls(
++            binding,
++            max_query_rows=settings.PERFUME_CHEM_EXTERNAL_EVIDENCE_MAX_QUERY_ROWS,
++        )
++
++    def health(self) -> dict[str, Any]:
++        result = self.store.health()
++        result.update(
++            {
++                "enabled": True,
++                "access_mode": "READ_ONLY",
++                "release_id": self.binding.release_id,
++                "release_state": self.binding.state,
++                "release_generated_at_utc": self.binding.generated_at_utc,
++                "release_index_sha256": self.binding.index_sha256,
++                "archive_sha256": self.binding.archive.sha256,
++                "manifest_sha256": self.binding.manifest.sha256,
++                "archive_crc_verified": self.binding.archive_closure.crc_verified,
++                "archive_member_count": self.binding.archive_closure.archive_member_count,
++                "archive_ledger_entries_verified": (
++                    self.binding.archive_closure.ledger_entries_verified
++                ),
++                "archive_sha256_ledger_sha256": (
++                    self.binding.archive_closure.sha256_ledger_sha256
++                ),
++            }
++        )
++        return result
++
++    def list_objects(self) -> dict[str, Any]:
++        objects = self.store.list_objects()
++        return {
++            "release_id": self.binding.release_id,
++            "object_count": len(objects),
++            "objects": objects,
++        }
++
++    def query_evidence(
++        self,
++        object_name: str,
++        filters: Mapping[str, Any] | None = None,
++        *,
++        limit: int = 100,
++        offset: int = 0,
++    ) -> dict[str, Any]:
++        result = self.store.query(
++            object_name,
++            filters,
++            limit=limit,
++            offset=offset,
++        )
++        result["release_id"] = self.binding.release_id
++        return result
++
++    def query_controlled_experiments(
++        self,
++        *,
++        status: str | None = None,
++        limit: int = 100,
++        offset: int = 0,
++    ) -> dict[str, Any]:
++        objects = {item["name"] for item in self.store.list_objects()}
++        object_name = next(
++            (
++                candidate
++                for candidate in (
++                    "ee_experiment",
++                    "ee_experiments",
++                    "ee_controlled_experiment",
++                    "ee_controlled_experiments",
++                )
++                if candidate in objects
++            ),
++            None,
++        )
++        if object_name is None:
++            raise ExternalEvidenceQueryError(
++                "the selected release has no controlled-experiment object"
++            )
++        filters = {"status": status} if status is not None else None
++        return self.query_evidence(
++            object_name,
++            filters,
++            limit=limit,
++            offset=offset,
++        )
++
++    def dispatch(self, operation: str, **kwargs: Any) -> dict[str, Any]:
++        """Expose an explicit operation allowlist and deny everything else."""
++        if operation not in _READ_OPERATIONS:
++            raise ExternalEvidenceMutationDeniedError(
++                f"operation {operation!r} is not in the read-only allowlist"
++            )
++        if operation == "health":
++            return self.health()
++        if operation == "list_objects":
++            return self.list_objects()
++        if operation == "query_evidence":
++            return self.query_evidence(**kwargs)
++        if operation == "query_controlled_experiments":
++            return self.query_controlled_experiments(**kwargs)
++        raise AssertionError("unreachable read operation")
+diff --git a/backend/app/external_evidence/release_selector.py b/backend/app/external_evidence/release_selector.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..9337bb3a9d48d63fdd3a2d72cebdb85ff51cedb2
+--- /dev/null
++++ b/backend/app/external_evidence/release_selector.py
+@@ -0,0 +1,291 @@
++"""Fail-closed release selection for one externally pinned XHIGH release."""
++
++from __future__ import annotations
++
++import json
++import re
++from pathlib import Path
++from typing import Any, Mapping
++
++from app.external_evidence.archive_verifier import verify_archive_closure
++from app.external_evidence.contracts import ArchiveClosure, ArtifactRef, ReleaseBinding
++from app.external_evidence.errors import (
++    ExternalEvidenceConfigurationError,
++    ExternalEvidenceIntegrityError,
++    ExternalEvidenceSelectionError,
++)
++from app.external_evidence.hashing import sha256_bytes, sha256_file
++from app.external_evidence.path_security import (
++    resolve_artifact_path,
++    resolve_index_path,
++    resolve_release_root,
++)
++
++_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
++_ALLOWED_RELEASE_STATES = {
++    "XHIGH_FROZEN_FOR_PRO_REVIEW",
++    "REMEDIATION_READY_FOR_INDEPENDENT_PRO_RERUN",
++}
++_ALLOWED_ANCESTRY_STATES = {
++    "ANCESTRY_ONLY",
++    "SUPERSEDED",
++    "XHIGH_NOT_FROZEN",
++}
++_ARTIFACT_KINDS = ("archive", "manifest", "database")
++
++
++def _require_mapping(value: Any, label: str) -> Mapping[str, Any]:
++    if not isinstance(value, Mapping):
++        raise ExternalEvidenceSelectionError(f"{label} must be an object")
++    return value
++
++
++def _normalize_expected_sha256(value: str | None, label: str) -> str:
++    normalized = str(value or "").strip().lower()
++    if not normalized:
++        raise ExternalEvidenceConfigurationError(f"{label} is required when enabled")
++    if not _SHA256_RE.fullmatch(normalized):
++        raise ExternalEvidenceConfigurationError(
++            f"{label} must be 64 hexadecimal characters"
++        )
++    return normalized
++
++
++def _artifact_metadata(raw: Mapping[str, Any], kind: str) -> tuple[str, str, str]:
++    artifact = _require_mapping(raw.get(kind), f"{kind} descriptor")
++    artifact_id = str(artifact.get("artifact_id", "")).strip()
++    path_text = str(artifact.get("path", "")).strip()
++    sha256 = str(artifact.get("sha256", "")).strip().lower()
++    if not artifact_id:
++        raise ExternalEvidenceSelectionError(f"{kind}.artifact_id is required")
++    if not path_text:
++        raise ExternalEvidenceSelectionError(f"{kind}.path is required")
++    if not _SHA256_RE.fullmatch(sha256):
++        raise ExternalEvidenceSelectionError(
++            f"{kind}.sha256 must be 64 lowercase hex characters"
++        )
++    return artifact_id, path_text, sha256
++
++
++def _resolve_artifact(
++    release_root: Path,
++    raw: Mapping[str, Any],
++    kind: str,
++) -> ArtifactRef:
++    artifact = _require_mapping(raw.get(kind), f"{kind} descriptor")
++    artifact_id, path_text, expected_sha256 = _artifact_metadata(raw, kind)
++    verification = str(artifact.get("verification", "")).strip()
++    if verification != "VERIFIED":
++        raise ExternalEvidenceIntegrityError(
++            f"{kind} {artifact_id} is not marked VERIFIED"
++        )
++
++    declared_size = artifact.get("byte_size")
++    if not isinstance(declared_size, int) or declared_size < 0:
++        raise ExternalEvidenceSelectionError(
++            f"{kind}.byte_size must be a nonnegative integer"
++        )
++
++    path = resolve_artifact_path(release_root, path_text, kind)
++    observed_size = path.stat().st_size
++    if observed_size != declared_size:
++        raise ExternalEvidenceIntegrityError(
++            f"{kind} byte-size mismatch: expected {declared_size}, "
++            f"observed {observed_size}"
++        )
++
++    observed_sha256 = sha256_file(path)
++    if observed_sha256 != expected_sha256:
++        raise ExternalEvidenceIntegrityError(
++            f"{kind} SHA-256 mismatch: expected {expected_sha256}, "
++            f"observed {observed_sha256}"
++        )
++
++    return ArtifactRef(
++        artifact_id=artifact_id,
++        path=path,
++        sha256=observed_sha256,
++        byte_size=observed_size,
++        verification=verification,
++    )
++
++
++def _validate_index_collisions(
++    releases: list[Mapping[str, Any]],
++    selected: Mapping[str, Any],
++) -> None:
++    """Reject unresolved same-basename ancestry and duplicate artifact IDs."""
++    selected_artifact_ids = {
++        kind: _artifact_metadata(selected, kind)[0] for kind in _ARTIFACT_KINDS
++    }
++    selected_supersedes = {
++        str(item)
++        for item in selected.get("supersedes_artifact_ids", [])
++        if str(item).strip()
++    }
++
++    seen_ids: dict[str, tuple[str, str]] = {}
++    records: list[tuple[str, str, str, str, bool, str]] = []
++
++    for release in releases:
++        state = str(release.get("state", "")).strip()
++        canonical = release.get("canonical") is True
++        for kind in _ARTIFACT_KINDS:
++            artifact_id, path_text, sha256 = _artifact_metadata(release, kind)
++            prior = seen_ids.get(artifact_id)
++            identity = (kind, sha256)
++            if prior is not None and prior != identity:
++                raise ExternalEvidenceSelectionError(
++                    f"artifact_id {artifact_id!r} is reused with different content"
++                )
++            seen_ids[artifact_id] = identity
++            records.append(
++                (
++                    kind,
++                    Path(path_text).name,
++                    artifact_id,
++                    sha256,
++                    canonical,
++                    state,
++                )
++            )
++
++    for kind, selected_id in selected_artifact_ids.items():
++        selected_record = next(
++            record for record in records if record[0] == kind and record[2] == selected_id
++        )
++        selected_basename = selected_record[1]
++        for record in records:
++            other_kind, basename, artifact_id, _sha256, canonical, state = record
++            if (
++                other_kind != kind
++                or basename != selected_basename
++                or artifact_id == selected_id
++            ):
++                continue
++            if canonical:
++                raise ExternalEvidenceSelectionError(
++                    f"multiple canonical {kind} artifacts share basename "
++                    f"{basename!r}"
++                )
++            if (
++                artifact_id not in selected_supersedes
++                or state not in _ALLOWED_ANCESTRY_STATES
++            ):
++                raise ExternalEvidenceSelectionError(
++                    f"unresolved stale {kind} basename collision for "
++                    f"{basename!r}: {artifact_id!r}"
++                )
++
++
++def select_release(
++    index_path: str | Path,
++    release_id: str,
++    *,
++    expected_index_sha256: str | None,
++    release_root: str | Path | None,
++) -> ReleaseBinding:
++    """Select exactly one XHIGH release using an external index trust anchor."""
++    root_path = resolve_release_root(release_root)
++    path = resolve_index_path(root_path, index_path)
++    expected_index_hash = _normalize_expected_sha256(
++        expected_index_sha256,
++        "PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX_SHA256",
++    )
++
++    try:
++        index_bytes = path.read_bytes()
++    except OSError as exc:
++        raise ExternalEvidenceSelectionError(
++            f"release index cannot be read: {exc}"
++        ) from exc
++    observed_index_hash = sha256_bytes(index_bytes)
++    if observed_index_hash != expected_index_hash:
++        raise ExternalEvidenceIntegrityError(
++            "release index SHA-256 does not match the external trust anchor"
++        )
++
++    try:
++        payload = json.loads(index_bytes.decode("utf-8"))
++    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
++        raise ExternalEvidenceSelectionError(
++            f"release index cannot be parsed: {exc}"
++        ) from exc
++
++    root = _require_mapping(payload, "release index")
++    if str(root.get("schema_version", "")).strip() != "2.0":
++        raise ExternalEvidenceSelectionError(
++            "release index schema_version must be exactly '2.0'"
++        )
++    if not str(root.get("index_id", "")).strip():
++        raise ExternalEvidenceSelectionError("release index index_id is required")
++    releases_raw = root.get("releases")
++    if not isinstance(releases_raw, list) or not releases_raw:
++        raise ExternalEvidenceSelectionError(
++            "release index must contain a nonempty releases array"
++        )
++
++    releases = [_require_mapping(item, "release entry") for item in releases_raw]
++    matches = [
++        item
++        for item in releases
++        if str(item.get("release_id", "")).strip() == release_id
++    ]
++    if len(matches) != 1:
++        raise ExternalEvidenceSelectionError(
++            f"release_id {release_id!r} resolved {len(matches)} candidates; "
++            "exactly one is required"
++        )
++
++    selected = matches[0]
++    if selected.get("canonical") is not True:
++        raise ExternalEvidenceSelectionError("selected release is not canonical")
++
++    state = str(selected.get("state", "")).strip()
++    if state not in _ALLOWED_RELEASE_STATES:
++        raise ExternalEvidenceSelectionError(
++            f"selected release state {state!r} is not deployable"
++        )
++
++    generated_at_utc = str(selected.get("generated_at_utc", "")).strip()
++    if not generated_at_utc:
++        raise ExternalEvidenceSelectionError(
++            "selected release generated_at_utc is required"
++        )
++
++    _validate_index_collisions(releases, selected)
++
++    archive = _resolve_artifact(root_path, selected, "archive")
++    manifest = _resolve_artifact(root_path, selected, "manifest")
++    database = _resolve_artifact(root_path, selected, "database")
++    closure_receipt = verify_archive_closure(
++        raw_release=selected,
++        release_id=release_id,
++        state=state,
++        generated_at_utc=generated_at_utc,
++        archive_ref=archive,
++        manifest_ref=manifest,
++        database_ref=database,
++    )
++
++    return ReleaseBinding(
++        release_id=release_id,
++        state=state,
++        generated_at_utc=generated_at_utc,
++        release_root=root_path,
++        index_path=path,
++        index_sha256=observed_index_hash,
++        archive=archive,
++        manifest=manifest,
++        database=database,
++        archive_closure=ArchiveClosure(
++            member_root=closure_receipt.member_root,
++            manifest_member=closure_receipt.manifest_member,
++            database_member=closure_receipt.database_member,
++            sha256_ledger_member=closure_receipt.sha256_ledger_member,
++            sha256_ledger_sha256=closure_receipt.sha256_ledger_sha256,
++            archive_member_count=closure_receipt.archive_member_count,
++            ledger_entries_verified=closure_receipt.ledger_entries_verified,
++            crc_verified=closure_receipt.crc_verified,
++        ),
++    )
+diff --git a/backend/app/external_evidence/sqlite_store.py b/backend/app/external_evidence/sqlite_store.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..cb3078ab344a1bb5a676b6776780e79074826576
+--- /dev/null
++++ b/backend/app/external_evidence/sqlite_store.py
+@@ -0,0 +1,210 @@
++"""Read-only SQLite access for the frozen external `ee_*` namespace."""
++
++from __future__ import annotations
++
++import re
++import sqlite3
++from contextlib import contextmanager
++from pathlib import Path
++from typing import Any, Iterator, Mapping
++from urllib.parse import quote
++
++from app.external_evidence.errors import (
++    ExternalEvidenceIntegrityError,
++    ExternalEvidenceMutationDeniedError,
++    ExternalEvidenceQueryError,
++)
++from app.external_evidence.hashing import canonical_rows_sha256, sha256_file
++
++_IDENTIFIER_RE = re.compile(r"^ee_[a-z][a-z0-9_]*$")
++
++
++def _quote_identifier(identifier: str) -> str:
++    if not _IDENTIFIER_RE.fullmatch(identifier):
++        raise ExternalEvidenceQueryError(f"unsafe external object identifier: {identifier!r}")
++    return '"' + identifier.replace('"', '""') + '"'
++
++
++class ReadOnlySQLiteStore:
++    """Open one exact external database with two independent write barriers."""
++
++    def __init__(self, database_path: Path, expected_sha256: str, max_query_rows: int = 200):
++        self.database_path = database_path.resolve()
++        self.expected_sha256 = expected_sha256
++        if max_query_rows < 1 or max_query_rows > 500:
++            raise ValueError("max_query_rows must be between 1 and 500")
++        self.max_query_rows = max_query_rows
++
++    def _verify_database(self) -> None:
++        if not self.database_path.is_file():
++            raise ExternalEvidenceIntegrityError(
++                f"external evidence database is missing: {self.database_path}"
++            )
++        observed_sha256 = sha256_file(self.database_path)
++        if observed_sha256 != self.expected_sha256:
++            raise ExternalEvidenceIntegrityError(
++                "external evidence database SHA-256 changed after release selection"
++            )
++
++    @contextmanager
++    def connection(self) -> Iterator[sqlite3.Connection]:
++        """Yield a URI read-only connection with SQLite query_only enabled."""
++        self._verify_database()
++        encoded = quote(self.database_path.as_posix(), safe="/:")
++        uri = f"file:{encoded}?mode=ro&immutable=1"
++        try:
++            connection = sqlite3.connect(uri, uri=True)
++        except sqlite3.Error as exc:
++            raise ExternalEvidenceIntegrityError(
++                f"cannot open external SQLite in read-only mode: {exc}"
++            ) from exc
++
++        connection.row_factory = sqlite3.Row
++        try:
++            connection.execute("PRAGMA query_only=ON")
++            connection.execute("PRAGMA foreign_keys=ON")
++            yield connection
++        finally:
++            connection.close()
++
++    @staticmethod
++    def _schema_objects(connection: sqlite3.Connection) -> list[dict[str, str]]:
++        rows = connection.execute(
++            """
++            SELECT name, type
++            FROM sqlite_master
++            WHERE type IN ('table', 'view')
++              AND name LIKE 'ee_%'
++            ORDER BY name, type
++            """
++        ).fetchall()
++        objects: list[dict[str, str]] = []
++        for row in rows:
++            name = str(row["name"])
++            if not _IDENTIFIER_RE.fullmatch(name):
++                raise ExternalEvidenceIntegrityError(
++                    f"external schema contains unsafe object name: {name!r}"
++                )
++            objects.append({"name": name, "type": str(row["type"])})
++        return objects
++
++    def health(self) -> dict[str, Any]:
++        """Return integrity and object-count data without changing the database."""
++        with self.connection() as connection:
++            quick_check = str(connection.execute("PRAGMA quick_check").fetchone()[0])
++            foreign_key_violations = len(
++                connection.execute("PRAGMA foreign_key_check").fetchall()
++            )
++            query_only = bool(connection.execute("PRAGMA query_only").fetchone()[0])
++            objects = self._schema_objects(connection)
++
++        if quick_check != "ok":
++            raise ExternalEvidenceIntegrityError(
++                f"external SQLite quick_check returned {quick_check!r}"
++            )
++        if foreign_key_violations:
++            raise ExternalEvidenceIntegrityError(
++                f"external SQLite has {foreign_key_violations} foreign-key violations"
++            )
++        if not query_only:
++            raise ExternalEvidenceIntegrityError("SQLite query_only did not remain enabled")
++
++        table_count = sum(item["type"] == "table" for item in objects)
++        view_count = sum(item["type"] == "view" for item in objects)
++        return {
++            "database_sha256": self.expected_sha256,
++            "quick_check": quick_check,
++            "foreign_key_violations": foreign_key_violations,
++            "query_only": query_only,
++            "table_count": table_count,
++            "view_count": view_count,
++            "object_count": len(objects),
++        }
++
++    def list_objects(self) -> list[dict[str, str]]:
++        """List only external tables and views."""
++        with self.connection() as connection:
++            return self._schema_objects(connection)
++
++    @staticmethod
++    def _columns(connection: sqlite3.Connection, object_name: str) -> list[sqlite3.Row]:
++        quoted = _quote_identifier(object_name)
++        return connection.execute(f"PRAGMA table_info({quoted})").fetchall()
++
++    def query(
++        self,
++        object_name: str,
++        filters: Mapping[str, Any] | None = None,
++        *,
++        limit: int = 100,
++        offset: int = 0,
++    ) -> dict[str, Any]:
++        """Run a bounded parameterized SELECT against an existing `ee_*` object."""
++        if limit < 1 or limit > self.max_query_rows:
++            raise ExternalEvidenceQueryError(
++                f"limit must be between 1 and {self.max_query_rows}"
++            )
++        if offset < 0:
++            raise ExternalEvidenceQueryError("offset cannot be negative")
++
++        quoted_object = _quote_identifier(object_name)
++        with self.connection() as connection:
++            available = {item["name"] for item in self._schema_objects(connection)}
++            if object_name not in available:
++                raise ExternalEvidenceQueryError(
++                    f"external object {object_name!r} does not exist"
++                )
++
++            column_rows = self._columns(connection, object_name)
++            columns = [str(row["name"]) for row in column_rows]
++            if not columns:
++                raise ExternalEvidenceQueryError(
++                    f"external object {object_name!r} has no readable columns"
++                )
++
++            primary_keys = [
++                (int(row["pk"]), str(row["name"]))
++                for row in column_rows
++                if int(row["pk"]) > 0
++            ]
++            primary_keys.sort()
++            order_columns = [name for _position, name in primary_keys] or [columns[0]]
++
++            clauses: list[str] = []
++            parameters: list[Any] = []
++            for column, value in sorted((filters or {}).items()):
++                if column not in columns:
++                    raise ExternalEvidenceQueryError(
++                        f"unknown filter column {column!r} for {object_name!r}"
++                    )
++                safe_column = '"' + column.replace('"', '""') + '"'
++                clauses.append(f"{safe_column} = ?")
++                parameters.append(value)
++
++            where_sql = " WHERE " + " AND ".join(clauses) if clauses else ""
++            order_sql = ", ".join(
++                '"' + column.replace('"', '""') + '"' for column in order_columns
++            )
++            sql = (
++                f"SELECT * FROM {quoted_object}{where_sql} "
++                f"ORDER BY {order_sql} LIMIT ? OFFSET ?"
++            )
++            parameters.extend([limit, offset])
++            rows = [dict(row) for row in connection.execute(sql, parameters).fetchall()]
++
++        return {
++            "object_name": object_name,
++            "filters": dict(filters or {}),
++            "limit": limit,
++            "offset": offset,
++            "row_count": len(rows),
++            "rows": rows,
++            "rows_sha256": canonical_rows_sha256(rows),
++        }
++
++    @staticmethod
++    def deny_mutation(operation: str) -> None:
++        """Reject every non-read operation at the adapter boundary."""
++        raise ExternalEvidenceMutationDeniedError(
++            f"operation {operation!r} is outside the read-only external-evidence contract"
++        )
+diff --git a/backend/scripts/verify_xhigh_release.py b/backend/scripts/verify_xhigh_release.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..9f2f2c02d6fb967830a881725a86b715ec6cb19c
+--- /dev/null
++++ b/backend/scripts/verify_xhigh_release.py
+@@ -0,0 +1,65 @@
++#!/usr/bin/env python3
++"""Verify one XHIGH release index and its read-only external database."""
++
++from __future__ import annotations
++
++import argparse
++import json
++import sys
++from pathlib import Path
++
++BACKEND_ROOT = Path(__file__).resolve().parents[1]
++if str(BACKEND_ROOT) not in sys.path:
++    sys.path.insert(0, str(BACKEND_ROOT))
++
++from app.external_evidence.release_selector import select_release  # noqa: E402
++from app.external_evidence.sqlite_store import ReadOnlySQLiteStore  # noqa: E402
++
++
++def main() -> int:
++    parser = argparse.ArgumentParser()
++    parser.add_argument("--index", required=True, help="Path to immutable release index JSON")
++    parser.add_argument("--release-id", required=True)
++    parser.add_argument(
++        "--release-root",
++        required=True,
++        help="Configured immutable release root containing the index and artifacts",
++    )
++    parser.add_argument(
++        "--index-sha256",
++        required=True,
++        help="Externally pinned SHA-256 of the exact release index bytes",
++    )
++    args = parser.parse_args()
++
++    binding = select_release(
++        args.index,
++        args.release_id,
++        expected_index_sha256=args.index_sha256,
++        release_root=args.release_root,
++    )
++    store = ReadOnlySQLiteStore(binding.database.path, binding.database.sha256)
++    result = {
++        "release_id": binding.release_id,
++        "release_state": binding.state,
++        "index_sha256": binding.index_sha256,
++        "archive_sha256": binding.archive.sha256,
++        "manifest_sha256": binding.manifest.sha256,
++        "database_sha256": binding.database.sha256,
++        "archive_crc_verified": binding.archive_closure.crc_verified,
++        "archive_member_count": binding.archive_closure.archive_member_count,
++        "archive_ledger_entries_verified": (
++            binding.archive_closure.ledger_entries_verified
++        ),
++        "archive_sha256_ledger_sha256": (
++            binding.archive_closure.sha256_ledger_sha256
++        ),
++        "database_health": store.health(),
++        "objects": store.list_objects(),
++    }
++    print(json.dumps(result, sort_keys=True, indent=2))
++    return 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+diff --git a/backend/tests/test_external_evidence_adapter.py b/backend/tests/test_external_evidence_adapter.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..8cb5fac6617742afb45ed5c15a926684220f8368
+--- /dev/null
++++ b/backend/tests/test_external_evidence_adapter.py
+@@ -0,0 +1,394 @@
++"""Host-independent qualification tests for the XHIGH read-only provider."""
++
++from __future__ import annotations
++
++import hashlib
++import sqlite3
++import zipfile
++from pathlib import Path
++from types import SimpleNamespace
++
++import pytest
++
++from app.external_evidence.errors import (
++    ExternalEvidenceDisabledError,
++    ExternalEvidenceIntegrityError,
++    ExternalEvidenceMutationDeniedError,
++    ExternalEvidenceQueryError,
++    ExternalEvidenceSelectionError,
++)
++from app.external_evidence.hashing import canonical_json_bytes, sha256_file
++from app.external_evidence.provider import ExternalEvidenceProvider
++from app.external_evidence.release_selector import select_release
++
++RELEASE_ID = "XHIGH-TEST-RC1"
++RELEASE_STATE = "XHIGH_FROZEN_FOR_PRO_REVIEW"
++GENERATED_AT_UTC = "2026-08-08T00:00:00+00:00"
++MEMBER_ROOT = "Perfume_Chem_External_Evidence_XHIGH_TEST_RELEASE"
++
++
++def _make_external_database(path: Path, *, marker: str = "TEST") -> None:
++    connection = sqlite3.connect(path)
++    try:
++        connection.executescript(
++            """
++            PRAGMA foreign_keys=ON;
++            CREATE TABLE ee_claim (
++                claim_id TEXT PRIMARY KEY,
++                claim_scope TEXT NOT NULL,
++                evidence_class TEXT NOT NULL,
++                statement TEXT NOT NULL
++            );
++            CREATE TABLE ee_experiment (
++                experiment_id TEXT PRIMARY KEY,
++                status TEXT NOT NULL,
++                title TEXT NOT NULL
++            );
++            INSERT INTO ee_claim VALUES
++                ('CLM-1', 'HUMAN_MIXTURE_PERCEPTION', 'PRIMARY', 'Masking is context dependent'),
++                ('CLM-2', 'RECEPTOR_MECHANISM', 'EXTERNAL_RECEPTOR_ASSAY', 'Mechanism only');
++            INSERT INTO ee_experiment VALUES
++                ('EXP-1', 'PROPOSED', 'Binary ratio screen'),
++                ('EXP-2', 'LOCKED_DESIGN', 'Maturation time course');
++            """
++        )
++        connection.execute(
++            "UPDATE ee_claim SET statement = statement || ? WHERE claim_id = 'CLM-2'",
++            (f" [{marker}]",),
++        )
++        connection.commit()
++    finally:
++        connection.close()
++
++
++def _artifact(path: Path, artifact_id: str, *, relative_to: Path) -> dict[str, object]:
++    return {
++        "artifact_id": artifact_id,
++        "path": str(path.relative_to(relative_to)),
++        "sha256": sha256_file(path),
++        "byte_size": path.stat().st_size,
++        "verification": "VERIFIED",
++    }
++
++
++def _write_archive(
++    archive: Path,
++    manifest: Path,
++    database: Path,
++    ledger: Path,
++    *,
++    member_root: str = MEMBER_ROOT,
++) -> None:
++    with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as handle:
++        for member in (manifest, database, ledger):
++            handle.write(member, f"{member_root}/{member.name}")
++
++
++def build_release_fixture(
++    root: Path,
++    *,
++    include_stale_collision: bool = False,
++    authorize_supersession: bool = False,
++) -> tuple[Path, Path]:
++    current = root / "current"
++    current.mkdir(parents=True)
++    database = current / "XHIGH_EXTERNAL_EVIDENCE_TEST.sqlite"
++    manifest = current / "XHIGH_MODULE_MANIFEST_TEST.json"
++    ledger = current / "XHIGH_SHA256SUMS_TEST.json"
++    archive = current / "Perfume_Chem_External_Evidence_XHIGH_RELEASE_CANDIDATE.zip"
++
++    _make_external_database(database)
++    manifest.write_bytes(
++        canonical_json_bytes(
++            {
++                "release_candidate_version": RELEASE_ID,
++                "freeze_state": RELEASE_STATE,
++                "generated_at_utc": GENERATED_AT_UTC,
++                "database": [database.name],
++                "sha256_ledger": ledger.name,
++            }
++        )
++    )
++    ledger.write_bytes(
++        canonical_json_bytes(
++            {
++                "generated_at_utc": GENERATED_AT_UTC,
++                "files": [
++                    {
++                        "path": manifest.name,
++                        "bytes": manifest.stat().st_size,
++                        "sha256": sha256_file(manifest),
++                    },
++                    {
++                        "path": database.name,
++                        "bytes": database.stat().st_size,
++                        "sha256": sha256_file(database),
++                    },
++                ],
++            }
++        )
++    )
++    _write_archive(archive, manifest, database, ledger)
++
++    current_release: dict[str, object] = {
++        "release_id": RELEASE_ID,
++        "canonical": True,
++        "state": RELEASE_STATE,
++        "generated_at_utc": GENERATED_AT_UTC,
++        "archive": _artifact(archive, "ART-XHIGH-TEST-ARCHIVE", relative_to=root),
++        "manifest": _artifact(
++            manifest, "ART-XHIGH-TEST-MANIFEST", relative_to=root
++        ),
++        "database": _artifact(
++            database, "ART-XHIGH-TEST-DATABASE", relative_to=root
++        ),
++        "archive_closure": {
++            "member_root": MEMBER_ROOT,
++            "manifest_member": manifest.name,
++            "database_member": database.name,
++            "sha256_ledger_member": ledger.name,
++        },
++        "supersedes_artifact_ids": (
++            [
++                "ART-XHIGH-OLD-ARCHIVE",
++                "ART-XHIGH-OLD-MANIFEST",
++                "ART-XHIGH-OLD-DATABASE",
++            ]
++            if authorize_supersession
++            else []
++        ),
++    }
++
++    releases = [current_release]
++    if include_stale_collision:
++        ancestry = root / "ancestry"
++        ancestry.mkdir()
++        stale_archive = ancestry / archive.name
++        stale_manifest = ancestry / manifest.name
++        stale_database = ancestry / database.name
++        stale_archive.write_bytes(b"stale archive")
++        stale_manifest.write_bytes(b'{"state":"XHIGH_NOT_FROZEN"}\n')
++        stale_database.write_bytes(b"not a sqlite database")
++        releases.append(
++            {
++                "release_id": "XHIGH-TEST-OLD",
++                "canonical": False,
++                "state": "XHIGH_NOT_FROZEN",
++                "generated_at_utc": "2026-08-07T00:00:00+00:00",
++                "archive": _artifact(
++                    stale_archive, "ART-XHIGH-OLD-ARCHIVE", relative_to=root
++                ),
++                "manifest": _artifact(
++                    stale_manifest, "ART-XHIGH-OLD-MANIFEST", relative_to=root
++                ),
++                "database": _artifact(
++                    stale_database, "ART-XHIGH-OLD-DATABASE", relative_to=root
++                ),
++                "supersedes_artifact_ids": [],
++            }
++        )
++
++    index = root / "XHIGH_RELEASE_INDEX.json"
++    index.write_bytes(
++        canonical_json_bytes(
++            {
++                "schema_version": "2.0",
++                "index_id": "IDX-XHIGH-TEST-RC1",
++                "releases": releases,
++            }
++        )
++    )
++    return index, database
++
++
++def _settings(index: Path, *, enabled: bool = True) -> SimpleNamespace:
++    return SimpleNamespace(
++        PERFUME_CHEM_EXTERNAL_EVIDENCE_ENABLED=enabled,
++        PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_ROOT=str(index.parent),
++        PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX=str(index),
++        PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX_SHA256=sha256_file(index),
++        PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_ID=RELEASE_ID,
++        PERFUME_CHEM_EXTERNAL_EVIDENCE_MAX_QUERY_ROWS=200,
++    )
++
++
++def _select(index: Path):
++    return select_release(
++        index,
++        RELEASE_ID,
++        expected_index_sha256=sha256_file(index),
++        release_root=index.parent,
++    )
++
++
++def _table_hashes(path: Path) -> dict[str, str]:
++    connection = sqlite3.connect(path)
++    connection.row_factory = sqlite3.Row
++    try:
++        names = [
++            row[0]
++            for row in connection.execute(
++                "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name"
++            )
++            if not str(row[0]).startswith("sqlite_")
++        ]
++        result: dict[str, str] = {}
++        for name in names:
++            rows = [
++                dict(row)
++                for row in connection.execute(
++                    f'SELECT * FROM "{name}" ORDER BY 1'
++                ).fetchall()
++            ]
++            result[name] = hashlib.sha256(canonical_json_bytes(rows)).hexdigest()
++        return result
++    finally:
++        connection.close()
++
++
++def test_feature_flag_defaults_to_disabled(tmp_path: Path) -> None:
++    index, _database = build_release_fixture(tmp_path)
++    with pytest.raises(ExternalEvidenceDisabledError):
++        ExternalEvidenceProvider.from_settings(_settings(index, enabled=False))
++
++
++def test_release_selection_and_deterministic_reads(tmp_path: Path) -> None:
++    index, _database = build_release_fixture(tmp_path)
++    provider = ExternalEvidenceProvider.from_settings(_settings(index))
++
++    health = provider.health()
++    assert health["access_mode"] == "READ_ONLY"
++    assert health["query_only"] is True
++    assert health["quick_check"] == "ok"
++    assert health["foreign_key_violations"] == 0
++    assert health["archive_crc_verified"] is True
++    assert health["archive_member_count"] == 3
++    assert health["archive_ledger_entries_verified"] == 2
++
++    first = provider.query_evidence("ee_claim", limit=100)
++    second = provider.query_evidence("ee_claim", limit=100)
++    assert first == second
++    assert first["row_count"] == 2
++    assert first["rows_sha256"] == second["rows_sha256"]
++
++    experiments = provider.query_controlled_experiments(status="PROPOSED")
++    assert [row["experiment_id"] for row in experiments["rows"]] == ["EXP-1"]
++
++
++def test_all_mutation_and_promotion_operations_fail_closed(tmp_path: Path) -> None:
++    index, _database = build_release_fixture(tmp_path)
++    provider = ExternalEvidenceProvider.from_settings(_settings(index))
++    forbidden = (
++        "write_formula",
++        "append_inventory_event",
++        "write_bottle",
++        "promote_observation",
++        "write_analytical_measurement",
++        "set_release_state",
++        "upgrade_evidence_class",
++    )
++    for operation in forbidden:
++        with pytest.raises(ExternalEvidenceMutationDeniedError):
++            provider.dispatch(operation)
++
++
++def test_identifier_and_filter_injection_are_rejected(tmp_path: Path) -> None:
++    index, _database = build_release_fixture(tmp_path)
++    provider = ExternalEvidenceProvider.from_settings(_settings(index))
++    with pytest.raises(ExternalEvidenceQueryError):
++        provider.query_evidence("ee_claim; DROP TABLE ee_claim")
++    with pytest.raises(ExternalEvidenceQueryError):
++        provider.query_evidence("ee_claim", {"missing_column": "x"})
++
++
++def test_database_level_write_is_rejected(tmp_path: Path) -> None:
++    index, database = build_release_fixture(tmp_path)
++    binding = _select(index)
++    assert binding.database.path == database.resolve()
++    uri = f"file:{database.as_posix()}?mode=ro"
++    connection = sqlite3.connect(uri, uri=True)
++    try:
++        connection.execute("PRAGMA query_only=ON")
++        with pytest.raises(sqlite3.OperationalError):
++            connection.execute(
++                "INSERT INTO ee_claim VALUES ('CLM-X', 'X', 'X', 'X')"
++            )
++    finally:
++        connection.close()
++
++
++def test_same_basename_ancestry_fails_without_explicit_supersession(
++    tmp_path: Path,
++) -> None:
++    index, _database = build_release_fixture(
++        tmp_path,
++        include_stale_collision=True,
++        authorize_supersession=False,
++    )
++    with pytest.raises(ExternalEvidenceSelectionError):
++        _select(index)
++
++
++def test_same_basename_ancestry_is_quarantined_by_explicit_artifact_ids(
++    tmp_path: Path,
++) -> None:
++    index, _database = build_release_fixture(
++        tmp_path,
++        include_stale_collision=True,
++        authorize_supersession=True,
++    )
++    binding = _select(index)
++    assert binding.release_id == RELEASE_ID
++    assert binding.archive.artifact_id == "ART-XHIGH-TEST-ARCHIVE"
++
++
++def test_hash_substitution_fails_closed(tmp_path: Path) -> None:
++    index, database = build_release_fixture(tmp_path)
++    database.write_bytes(database.read_bytes() + b"tamper")
++    with pytest.raises(ExternalEvidenceIntegrityError):
++        _select(index)
++
++
++def test_host_truth_table_hashes_survive_query_and_rollback(tmp_path: Path) -> None:
++    index, _database = build_release_fixture(tmp_path / "external")
++    provider = ExternalEvidenceProvider.from_settings(_settings(index))
++
++    host = tmp_path / "host.sqlite"
++    connection = sqlite3.connect(host)
++    try:
++        connection.executescript(
++            """
++            CREATE TABLE formula_truth (id TEXT PRIMARY KEY, formula_hash TEXT NOT NULL);
++            CREATE TABLE inventory_truth (id TEXT PRIMARY KEY, stock_ref TEXT NOT NULL);
++            CREATE TABLE bottle_truth (id TEXT PRIMARY KEY, bottle_hash TEXT NOT NULL);
++            CREATE TABLE observation_truth (id TEXT PRIMARY KEY, state TEXT NOT NULL);
++            CREATE TABLE release_truth (id TEXT PRIMARY KEY, state TEXT NOT NULL);
++            INSERT INTO formula_truth VALUES ('F-1', 'formula-hash');
++            INSERT INTO inventory_truth VALUES ('I-1', 'stock-ref');
++            INSERT INTO bottle_truth VALUES ('B-1', 'bottle-hash');
++            INSERT INTO observation_truth VALUES ('O-1', 'NOT_TESTED');
++            INSERT INTO release_truth VALUES ('R-1', 'NOT_RELEASED');
++            """
++        )
++        connection.commit()
++    finally:
++        connection.close()
++
++    before = _table_hashes(host)
++    transaction = sqlite3.connect(host)
++    try:
++        transaction.execute("BEGIN")
++        provider.query_evidence("ee_claim")
++        transaction.rollback()
++    finally:
++        transaction.close()
++    after = _table_hashes(host)
++    assert after == before
++
++
++def test_no_write_enablement_setting_exists() -> None:
++    from app.core.config import Settings
++
++    fields = set(Settings.model_fields)
++    assert "PERFUME_CHEM_EXTERNAL_EVIDENCE_WRITE_ENABLED" not in fields
++    assert "PERFUME_CHEM_EXTERNAL_EVIDENCE_ALLOW_WRITES" not in fields
+diff --git a/backend/tests/test_external_evidence_api.py b/backend/tests/test_external_evidence_api.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..afb288c12946b7abc77a46abcf3a18e267332acc
+--- /dev/null
++++ b/backend/tests/test_external_evidence_api.py
+@@ -0,0 +1,98 @@
++"""GET-only route tests for XHIGH external evidence."""
++
++from __future__ import annotations
++
++from pathlib import Path
++
++import httpx
++import pytest
++from fastapi import FastAPI
++
++from app.api.v1.endpoints.external_evidence import (
++    get_external_evidence_provider,
++    router,
++)
++from app.core.config import get_settings
++from app.external_evidence.hashing import sha256_file
++from app.external_evidence.provider import ExternalEvidenceProvider
++from tests.test_external_evidence_adapter import RELEASE_ID, build_release_fixture
++
++
++@pytest.mark.asyncio
++async def test_get_only_api_surface_and_queries(
++    tmp_path: Path,
++    monkeypatch: pytest.MonkeyPatch,
++) -> None:
++    index, _database = build_release_fixture(tmp_path)
++    monkeypatch.setenv("PERFUME_CHEM_EXTERNAL_EVIDENCE_ENABLED", "true")
++    monkeypatch.setenv(
++        "PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_ROOT",
++        str(index.parent),
++    )
++    monkeypatch.setenv(
++        "PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX",
++        str(index),
++    )
++    monkeypatch.setenv(
++        "PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX_SHA256",
++        sha256_file(index),
++    )
++    monkeypatch.setenv(
++        "PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_ID",
++        RELEASE_ID,
++    )
++    get_settings.cache_clear()
++    get_external_evidence_provider.cache_clear()
++
++    app = FastAPI()
++    app.include_router(router, prefix="/external-evidence")
++    for route in app.routes:
++        if getattr(route, "path", "").startswith("/external-evidence"):
++            assert set(route.methods or ()) <= {"GET"}
++
++    transport = httpx.ASGITransport(app=app)
++    async with httpx.AsyncClient(
++        transport=transport,
++        base_url="http://test",
++    ) as client:
++        health = await client.get("/external-evidence/health")
++        assert health.status_code == 200
++        assert health.json()["access_mode"] == "READ_ONLY"
++
++        records = await client.get(
++            "/external-evidence/records/ee_claim",
++            params={"field": "claim_scope", "value": "RECEPTOR_MECHANISM"},
++        )
++        assert records.status_code == 200
++        assert records.json()["row_count"] == 1
++
++        experiments = await client.get(
++            "/external-evidence/experiments",
++            params={"status": "LOCKED_DESIGN"},
++        )
++        assert experiments.status_code == 200
++        assert experiments.json()["rows"][0]["experiment_id"] == "EXP-2"
++
++        assert (await client.post("/external-evidence/health")).status_code == 405
++        assert (await client.delete("/external-evidence/records/ee_claim")).status_code == 405
++
++    get_settings.cache_clear()
++    get_external_evidence_provider.cache_clear()
++
++
++def test_default_settings_are_off(monkeypatch: pytest.MonkeyPatch) -> None:
++    for name in (
++        "PERFUME_CHEM_EXTERNAL_EVIDENCE_ENABLED",
++        "PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_ROOT",
++        "PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX",
++        "PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX_SHA256",
++        "PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_ID",
++        "PERFUME_CHEM_EXTERNAL_EVIDENCE_MAX_QUERY_ROWS",
++    ):
++        monkeypatch.delenv(name, raising=False)
++    get_settings.cache_clear()
++    settings = get_settings()
++    assert settings.PERFUME_CHEM_EXTERNAL_EVIDENCE_ENABLED is False
++    with pytest.raises(Exception):
++        ExternalEvidenceProvider.from_settings(settings)
++    get_settings.cache_clear()
+diff --git a/backend/tests/test_external_evidence_release_security.py b/backend/tests/test_external_evidence_release_security.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..cb4da9221ef52ee57fde5d818dc1c1c8a3ce1b04
+--- /dev/null
++++ b/backend/tests/test_external_evidence_release_security.py
+@@ -0,0 +1,375 @@
++"""Adversarial release-selection tests required by the PRO remediation gate."""
++
++from __future__ import annotations
++
++import json
++import struct
++import zipfile
++from pathlib import Path
++
++import pytest
++
++from app.external_evidence.errors import (
++    ExternalEvidenceConfigurationError,
++    ExternalEvidenceIntegrityError,
++    ExternalEvidenceSelectionError,
++)
++from app.external_evidence.hashing import canonical_json_bytes, sha256_file
++from app.external_evidence.release_selector import select_release
++from tests.test_external_evidence_adapter import (
++    MEMBER_ROOT,
++    RELEASE_ID,
++    _make_external_database,
++    build_release_fixture,
++)
++
++
++def _load_index(index: Path) -> dict:
++    return json.loads(index.read_text(encoding="utf-8"))
++
++
++def _write_index(index: Path, payload: dict) -> str:
++    index.write_bytes(canonical_json_bytes(payload))
++    return sha256_file(index)
++
++
++def _select(index: Path, expected_index_sha256: str):
++    return select_release(
++        index,
++        RELEASE_ID,
++        expected_index_sha256=expected_index_sha256,
++        release_root=index.parent,
++    )
++
++
++def _selected(payload: dict) -> dict:
++    return payload["releases"][0]
++
++
++def _refresh_artifact_descriptor(descriptor: dict, path: Path, root: Path) -> None:
++    descriptor.update(
++        {
++            "path": str(path.relative_to(root)),
++            "sha256": sha256_file(path),
++            "byte_size": path.stat().st_size,
++            "verification": "VERIFIED",
++        }
++    )
++
++
++def test_release_index_replacement_fails_external_trust_anchor(tmp_path: Path) -> None:
++    index, _database = build_release_fixture(tmp_path)
++    trusted_sha256 = sha256_file(index)
++    index.write_bytes(canonical_json_bytes({"schema_version": "2.0", "releases": []}))
++
++    with pytest.raises(
++        ExternalEvidenceIntegrityError,
++        match="external trust anchor",
++    ):
++        _select(index, trusted_sha256)
++
++
++def test_exact_archive_manifest_with_substituted_database_fails_closure(
++    tmp_path: Path,
++) -> None:
++    index, _database = build_release_fixture(tmp_path)
++    substituted = tmp_path / "current" / "SUBSTITUTED.sqlite"
++    _make_external_database(substituted, marker="SUBSTITUTED")
++
++    payload = _load_index(index)
++    release = _selected(payload)
++    _refresh_artifact_descriptor(release["database"], substituted, tmp_path)
++    trusted_sha256 = _write_index(index, payload)
++
++    with pytest.raises(
++        ExternalEvidenceIntegrityError,
++        match="external database does not match the sealed archive member",
++    ):
++        _select(index, trusted_sha256)
++
++
++def test_absolute_artifact_path_outside_release_root_fails_closed(
++    tmp_path: Path,
++) -> None:
++    index, database = build_release_fixture(tmp_path / "release")
++    outside = tmp_path / "outside.sqlite"
++    outside.write_bytes(database.read_bytes())
++
++    payload = _load_index(index)
++    release = _selected(payload)
++    release["database"].update(
++        {
++            "path": str(outside.resolve()),
++            "sha256": sha256_file(outside),
++            "byte_size": outside.stat().st_size,
++        }
++    )
++    trusted_sha256 = _write_index(index, payload)
++
++    with pytest.raises(
++        ExternalEvidenceSelectionError,
++        match="must be relative",
++    ):
++        _select(index, trusted_sha256)
++
++
++def test_parent_path_escape_fails_closed(tmp_path: Path) -> None:
++    release_root = tmp_path / "release"
++    index, database = build_release_fixture(release_root)
++    outside = tmp_path / "outside.sqlite"
++    outside.write_bytes(database.read_bytes())
++
++    payload = _load_index(index)
++    release = _selected(payload)
++    release["database"].update(
++        {
++            "path": "../outside.sqlite",
++            "sha256": sha256_file(outside),
++            "byte_size": outside.stat().st_size,
++        }
++    )
++    trusted_sha256 = _write_index(index, payload)
++
++    with pytest.raises(ExternalEvidenceSelectionError, match="safe relative path"):
++        _select(index, trusted_sha256)
++
++
++def test_symlink_artifact_path_fails_closed(tmp_path: Path) -> None:
++    index, database = build_release_fixture(tmp_path / "release")
++    outside = tmp_path / "outside.sqlite"
++    outside.write_bytes(database.read_bytes())
++    symlink = index.parent / "current" / "SYMLINK.sqlite"
++    try:
++        symlink.symlink_to(outside)
++    except (OSError, NotImplementedError):
++        pytest.skip("symlink creation is unavailable on this platform")
++
++    payload = _load_index(index)
++    release = _selected(payload)
++    release["database"].update(
++        {
++            "path": str(symlink.relative_to(index.parent)),
++            "sha256": sha256_file(outside),
++            "byte_size": outside.stat().st_size,
++        }
++    )
++    trusted_sha256 = _write_index(index, payload)
++
++    with pytest.raises(ExternalEvidenceSelectionError, match="contains a symlink"):
++        _select(index, trusted_sha256)
++
++
++def test_archive_sha256_ledger_mismatch_fails_closed(tmp_path: Path) -> None:
++    index, database = build_release_fixture(tmp_path)
++    current = tmp_path / "current"
++    manifest = current / "XHIGH_MODULE_MANIFEST_TEST.json"
++    ledger = current / "XHIGH_SHA256SUMS_TEST.json"
++    archive = current / "Perfume_Chem_External_Evidence_XHIGH_RELEASE_CANDIDATE.zip"
++
++    ledger_payload = json.loads(ledger.read_text(encoding="utf-8"))
++    for row in ledger_payload["files"]:
++        if row["path"] == database.name:
++            row["sha256"] = "0" * 64
++    ledger.write_bytes(canonical_json_bytes(ledger_payload))
++    with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as handle:
++        for member in (manifest, database, ledger):
++            handle.write(member, f"{MEMBER_ROOT}/{member.name}")
++
++    payload = _load_index(index)
++    release = _selected(payload)
++    _refresh_artifact_descriptor(release["archive"], archive, tmp_path)
++    trusted_sha256 = _write_index(index, payload)
++
++    with pytest.raises(
++        ExternalEvidenceIntegrityError,
++        match="archive member SHA-256 mismatch",
++    ):
++        _select(index, trusted_sha256)
++
++
++def test_archive_crc_corruption_fails_closed(tmp_path: Path) -> None:
++    index, database = build_release_fixture(tmp_path)
++    current = tmp_path / "current"
++    manifest = current / "XHIGH_MODULE_MANIFEST_TEST.json"
++    ledger = current / "XHIGH_SHA256SUMS_TEST.json"
++    archive = current / "Perfume_Chem_External_Evidence_XHIGH_RELEASE_CANDIDATE.zip"
++
++    with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_STORED) as handle:
++        for member in (manifest, database, ledger):
++            handle.write(member, f"{MEMBER_ROOT}/{member.name}")
++
++    database_member = f"{MEMBER_ROOT}/{database.name}"
++    with zipfile.ZipFile(archive, "r") as handle:
++        info = handle.getinfo(database_member)
++        header_offset = info.header_offset
++
++    with archive.open("r+b") as handle:
++        handle.seek(header_offset)
++        header = handle.read(30)
++        (
++            signature,
++            _version,
++            _flags,
++            _compression,
++            _time,
++            _date,
++            _crc,
++            _compressed_size,
++            _file_size,
++            filename_length,
++            extra_length,
++        ) = struct.unpack("<IHHHHHIIIHH", header)
++        assert signature == 0x04034B50
++        data_offset = header_offset + 30 + filename_length + extra_length
++        handle.seek(data_offset)
++        original = handle.read(1)
++        assert original
++        handle.seek(data_offset)
++        handle.write(bytes([original[0] ^ 0x01]))
++
++    payload = _load_index(index)
++    release = _selected(payload)
++    _refresh_artifact_descriptor(release["archive"], archive, tmp_path)
++    trusted_sha256 = _write_index(index, payload)
++
++    with pytest.raises(ExternalEvidenceIntegrityError, match="CRC"):
++        _select(index, trusted_sha256)
++
++
++def test_duplicate_archive_member_name_fails_closed(tmp_path: Path) -> None:
++    index, database = build_release_fixture(tmp_path)
++    current = tmp_path / "current"
++    manifest = current / "XHIGH_MODULE_MANIFEST_TEST.json"
++    ledger = current / "XHIGH_SHA256SUMS_TEST.json"
++    archive = current / "Perfume_Chem_External_Evidence_XHIGH_RELEASE_CANDIDATE.zip"
++
++    with pytest.warns(UserWarning, match="Duplicate name"):
++        with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as handle:
++            handle.write(manifest, f"{MEMBER_ROOT}/{manifest.name}")
++            handle.write(manifest, f"{MEMBER_ROOT}/{manifest.name}")
++            handle.write(database, f"{MEMBER_ROOT}/{database.name}")
++            handle.write(ledger, f"{MEMBER_ROOT}/{ledger.name}")
++
++    payload = _load_index(index)
++    release = _selected(payload)
++    _refresh_artifact_descriptor(release["archive"], archive, tmp_path)
++    trusted_sha256 = _write_index(index, payload)
++
++    with pytest.raises(ExternalEvidenceIntegrityError, match="duplicate member name"):
++        _select(index, trusted_sha256)
++
++
++def test_archive_member_outside_declared_root_fails_closed(tmp_path: Path) -> None:
++    index, database = build_release_fixture(tmp_path)
++    current = tmp_path / "current"
++    manifest = current / "XHIGH_MODULE_MANIFEST_TEST.json"
++    ledger = current / "XHIGH_SHA256SUMS_TEST.json"
++    archive = current / "Perfume_Chem_External_Evidence_XHIGH_RELEASE_CANDIDATE.zip"
++
++    with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as handle:
++        for member in (manifest, database, ledger):
++            handle.write(member, f"{MEMBER_ROOT}/{member.name}")
++        handle.writestr("OUTSIDE_ROOT/evil.txt", b"not part of the sealed release")
++
++    payload = _load_index(index)
++    release = _selected(payload)
++    _refresh_artifact_descriptor(release["archive"], archive, tmp_path)
++    trusted_sha256 = _write_index(index, payload)
++
++    with pytest.raises(ExternalEvidenceIntegrityError, match="outside the declared"):
++        _select(index, trusted_sha256)
++
++
++def test_archive_ledger_missing_member_fails_closed(tmp_path: Path) -> None:
++    index, database = build_release_fixture(tmp_path)
++    current = tmp_path / "current"
++    manifest = current / "XHIGH_MODULE_MANIFEST_TEST.json"
++    ledger = current / "XHIGH_SHA256SUMS_TEST.json"
++    archive = current / "Perfume_Chem_External_Evidence_XHIGH_RELEASE_CANDIDATE.zip"
++
++    ledger_payload = json.loads(ledger.read_text(encoding="utf-8"))
++    ledger_payload["files"] = [
++        row for row in ledger_payload["files"] if row["path"] != manifest.name
++    ]
++    ledger.write_bytes(canonical_json_bytes(ledger_payload))
++    with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as handle:
++        for member in (manifest, database, ledger):
++            handle.write(member, f"{MEMBER_ROOT}/{member.name}")
++
++    payload = _load_index(index)
++    release = _selected(payload)
++    _refresh_artifact_descriptor(release["archive"], archive, tmp_path)
++    trusted_sha256 = _write_index(index, payload)
++
++    with pytest.raises(ExternalEvidenceIntegrityError, match="member closure failed"):
++        _select(index, trusted_sha256)
++
++
++def test_manifest_release_identity_mismatch_fails_closed(tmp_path: Path) -> None:
++    index, database = build_release_fixture(tmp_path)
++    current = tmp_path / "current"
++    manifest = current / "XHIGH_MODULE_MANIFEST_TEST.json"
++    ledger = current / "XHIGH_SHA256SUMS_TEST.json"
++    archive = current / "Perfume_Chem_External_Evidence_XHIGH_RELEASE_CANDIDATE.zip"
++
++    manifest_payload = json.loads(manifest.read_text(encoding="utf-8"))
++    manifest_payload["release_candidate_version"] = "XHIGH-SUBSTITUTED-RC"
++    manifest.write_bytes(canonical_json_bytes(manifest_payload))
++
++    ledger_payload = json.loads(ledger.read_text(encoding="utf-8"))
++    for row in ledger_payload["files"]:
++        if row["path"] == manifest.name:
++            row["bytes"] = manifest.stat().st_size
++            row["sha256"] = sha256_file(manifest)
++    ledger.write_bytes(canonical_json_bytes(ledger_payload))
++    with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as handle:
++        for member in (manifest, database, ledger):
++            handle.write(member, f"{MEMBER_ROOT}/{member.name}")
++
++    payload = _load_index(index)
++    release = _selected(payload)
++    _refresh_artifact_descriptor(release["archive"], archive, tmp_path)
++    _refresh_artifact_descriptor(release["manifest"], manifest, tmp_path)
++    trusted_sha256 = _write_index(index, payload)
++
++    with pytest.raises(ExternalEvidenceIntegrityError, match="release identity"):
++        _select(index, trusted_sha256)
++
++
++def test_release_index_symlink_fails_closed(tmp_path: Path) -> None:
++    index, _database = build_release_fixture(tmp_path)
++    real_index = index.with_name("XHIGH_RELEASE_INDEX.real.json")
++    index.rename(real_index)
++    try:
++        index.symlink_to(real_index.name)
++    except (OSError, NotImplementedError):
++        pytest.skip("symlink creation is unavailable on this platform")
++
++    with pytest.raises(ExternalEvidenceSelectionError, match="contains a symlink"):
++        select_release(
++            index,
++            RELEASE_ID,
++            expected_index_sha256=sha256_file(real_index),
++            release_root=index.parent,
++        )
++
++
++def test_release_root_symlink_fails_closed(tmp_path: Path) -> None:
++    release_root = tmp_path / "release"
++    index, _database = build_release_fixture(release_root)
++    symlink_root = tmp_path / "release-link"
++    try:
++        symlink_root.symlink_to(release_root, target_is_directory=True)
++    except (OSError, NotImplementedError):
++        pytest.skip("symlink creation is unavailable on this platform")
++
++    with pytest.raises(
++        ExternalEvidenceConfigurationError,
++        match="release root cannot be a symlink",
++    ):
++        select_release(
++            symlink_root / index.name,
++            RELEASE_ID,
++            expected_index_sha256=sha256_file(index),
++            release_root=symlink_root,
++        )
+diff --git a/data/external_evidence/XHIGH_RELEASE_INDEX.template.json b/data/external_evidence/XHIGH_RELEASE_INDEX.template.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..4d76ecb4b9f1376fa24215604467f8a348203397
+--- /dev/null
++++ b/data/external_evidence/XHIGH_RELEASE_INDEX.template.json
+@@ -0,0 +1,41 @@
++{
++  "index_id": "IDX-XHIGH-RC-2026-08-08-SEALED-V2",
++  "releases": [
++    {
++      "archive": {
++        "artifact_id": "ART-XHIGH-RC-2026-08-08-ARCHIVE",
++        "byte_size": 15710989,
++        "path": "Perfume_Chem_External_Evidence_XHIGH_RELEASE_CANDIDATE.zip",
++        "sha256": "14996a27a68a118459b86955b5ddb12658393e737cd846422f2e4ff7f9785605",
++        "verification": "VERIFIED"
++      },
++      "archive_closure": {
++        "database_member": "XHIGH_EXTERNAL_EVIDENCE.sqlite",
++        "manifest_member": "XHIGH_MODULE_MANIFEST.json",
++        "member_root": "Perfume_Chem_External_Evidence_XHIGH_RELEASE_CANDIDATE",
++        "sha256_ledger_member": "XHIGH_SHA256SUMS.json"
++      },
++      "canonical": true,
++      "database": {
++        "artifact_id": "ART-XHIGH-RC-2026-08-08-DATABASE",
++        "byte_size": 659456,
++        "path": "XHIGH_EXTERNAL_EVIDENCE.sqlite",
++        "sha256": "6ed06ff8991cb7df0a8fef22935c977a9232a8d6229e465a0c122bf67dea4b7f",
++        "verification": "VERIFIED"
++      },
++      "generated_at_utc": "2026-08-07T18:06:11Z",
++      "manifest": {
++        "artifact_id": "ART-XHIGH-RC-2026-08-08-MANIFEST",
++        "byte_size": 3928,
++        "path": "XHIGH_MODULE_MANIFEST.json",
++        "sha256": "a5c3995aef6a792fef2865eaa2a244c08618e8712be0707c52e662f0ba9acb63",
++        "verification": "VERIFIED"
++      },
++      "release_id": "XHIGH-RC-2026-08-08",
++      "state": "XHIGH_FROZEN_FOR_PRO_REVIEW",
++      "supersedes_artifact_ids": []
++    }
++  ],
++  "schema_version": "2.0",
++  "trust_anchor_policy": "Hash these exact index bytes outside the release directory and supply that SHA-256 through PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX_SHA256 before enabling the feature. Do not edit this file after pinning."
++}
+diff --git a/docs/xhigh_external_evidence_readonly_integration.md b/docs/xhigh_external_evidence_readonly_integration.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..2286e2b7e3de42279fcb5e1ec74775937df4353b
+--- /dev/null
++++ b/docs/xhigh_external_evidence_readonly_integration.md
+@@ -0,0 +1,164 @@
++# XHIGH External Evidence Read-Only Integration
++
++## Scope
++
++This adapter exposes the frozen XHIGH `ee_*` external-evidence namespace to
++Perfume-Chem without creating a second canonical truth path.
++
++It does not write or promote target formulas, inventory events, bottles,
++physical batches, internal observations, analytical measurements, strict OAV,
++measured-headspace claims, or release state. No write-enablement setting exists.
++
++## Default-off behavior
++
++The route is not registered unless:
++
++```text
++PERFUME_CHEM_EXTERNAL_EVIDENCE_ENABLED=true
++```
++
++Application restart is required after changing the flag.
++
++## Sealed release directory
++
++Prepare one dedicated, immutable, non-symlink release directory containing
++exactly the deployment copies of:
++
++```text
++XHIGH_RELEASE_INDEX.json
++Perfume_Chem_External_Evidence_XHIGH_RELEASE_CANDIDATE.zip
++XHIGH_MODULE_MANIFEST.json
++XHIGH_EXTERNAL_EVIDENCE.sqlite
++```
++
++`data/external_evidence/XHIGH_RELEASE_INDEX.template.json` is the sealed-v2
++index for the canonical XHIGH release. Copy its bytes without editing them. Its
++current SHA-256 is:
++
++```text
++ccaa514c3dd369e732c814fb5b831208961506c40701eb913a2217fc8b99b411
++```
++
++Store that expected index hash in deployment configuration or a secret manager,
++not in the mutable release directory. The runtime hashes the index bytes and
++compares them with this external trust anchor **before parsing JSON**.
++
++Configure:
++
++```text
++PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_ID=XHIGH-RC-2026-08-08
++PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_ROOT=/absolute/non-symlink/release/root
++PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX=/absolute/non-symlink/release/root/XHIGH_RELEASE_INDEX.json
++PERFUME_CHEM_EXTERNAL_EVIDENCE_RELEASE_INDEX_SHA256=ccaa514c3dd369e732c814fb5b831208961506c40701eb913a2217fc8b99b411
++```
++
++Every artifact path in the index must be relative to the configured root.
++Absolute paths, `..` traversal, backslash ambiguity, and any symlink component
++are rejected.
++
++## Archive, manifest, and database closure
++
++Selection is not based on three unrelated hashes. The adapter verifies one
++sealed release object:
++
++1. external index SHA-256 against the separately configured trust anchor;
++2. external archive byte size and SHA-256;
++3. ZIP structural readability and CRC for every member;
++4. one declared archive member root, with no duplicate or escaping member name;
++5. the archive's `XHIGH_SHA256SUMS.json` ledger;
++6. exact ledger coverage of every archive file except the self-referential
++   ledger itself;
++7. byte size and SHA-256 for every ledger-covered member;
++8. exact manifest and database member hashes against the external manifest and
++   external SQLite files;
++9. manifest release ID, freeze state, timestamp, database member, and ledger
++   identity against the selected release;
++10. a second archive SHA-256 check after closure verification.
++
++The database is opened only after all checks pass. A self-consistent replacement
++index, a substituted database paired with the real archive, and an outside-root
++artifact all fail closed.
++
++## SQLite barriers
++
++The provider:
++
++- verifies database SHA-256 before every connection;
++- opens SQLite using URI `mode=ro&immutable=1`;
++- sets `PRAGMA query_only=ON`;
++- exposes only validated `ee_*` tables and views;
++- parameterizes all values;
++- rejects unsafe identifiers;
++- bounds every result set;
++- offers no write method.
++
++## GET-only API
++
++When enabled at startup:
++
++```text
++GET /api/v1/external-evidence/health
++GET /api/v1/external-evidence/objects
++GET /api/v1/external-evidence/records/{object_name}
++GET /api/v1/external-evidence/experiments
++```
++
++No POST, PATCH, PUT, or DELETE route exists.
++
++## Pre-start verification
++
++Run the exact same selector and database checks before starting the API:
++
++```text
++cd backend
++poetry run python scripts/verify_xhigh_release.py \
++  --release-root /absolute/non-symlink/release/root \
++  --index /absolute/non-symlink/release/root/XHIGH_RELEASE_INDEX.json \
++  --index-sha256 ccaa514c3dd369e732c814fb5b831208961506c40701eb913a2217fc8b99b411 \
++  --release-id XHIGH-RC-2026-08-08
++```
++
++The canonical release should report archive CRC verified, 31 archive members,
++30 ledger entries verified, SQLite `quick_check=ok`, zero foreign-key
++violations, 34 tables, and 2 views.
++
++## Qualification
++
++Run:
++
++```text
++cd backend
++poetry run ruff check \
++  app/external_evidence \
++  app/api/v1/endpoints/external_evidence.py \
++  app/api/v1/router.py \
++  app/core/config.py \
++  scripts/verify_xhigh_release.py \
++  tests/test_external_evidence_adapter.py \
++  tests/test_external_evidence_api.py \
++  tests/test_external_evidence_release_security.py
++
++poetry run pytest -q \
++  tests/test_external_evidence_adapter.py \
++  tests/test_external_evidence_api.py \
++  tests/test_external_evidence_release_security.py
++```
++
++The security suite must reject index replacement, database substitution,
++absolute-path escape, parent traversal, artifact/index/root symlinks, ledger
++mismatch or incomplete coverage, ZIP CRC corruption, duplicate members, members
++outside the declared archive root, and manifest identity mismatch. The remaining
++tests cover default-off behavior, stale ancestry,
++read-only SQLite, deterministic reads, query boundaries, mutation denial, host
++truth-table invariance, and GET-only routes.
++
++## Rollback
++
++Rollback is bounded:
++
++1. set the feature flag false and restart;
++2. remove the bounded child integration commit or close the child PR;
++3. leave the frozen external archive and database untouched;
++4. verify canonical host table hashes remain unchanged.
++
++No host schema migration is required by this adapter.

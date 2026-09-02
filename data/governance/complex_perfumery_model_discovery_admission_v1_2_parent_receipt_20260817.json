@@ -1,0 +1,103 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "complex-perfumery-model-discovery-admission-v1-2-parent-20260817",
+  "recorded_at": "2026-08-17T06:15:00+07:00",
+  "package": {
+    "file_name": "Perfume_Complexity_Model_Discovery_Admission_Engine_Aug2026_v1_2.zip",
+    "locator": "incoming_review/chatgpt/20260817T061500+0700-v19-floral-atlas-discovery-engine-parent-recovery/Perfume_Complexity_Model_Discovery_Admission_Engine_Aug2026_v1_2.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 826528,
+    "sha256": "108624938e183af41da63f5ef77e31c875b196389f3467d7acd896ccf7b274df",
+    "media_type": "application/zip",
+    "archive_entry_count": 137,
+    "archive_file_count": 137,
+    "declared_payload_count": 135,
+    "package_root": "Perfume_Complexity_Model_Discovery_Admission_Engine_Aug2026_v1_2",
+    "embedded_integrity_records": [
+      {
+        "path": "Perfume_Complexity_Model_Discovery_Admission_Engine_Aug2026_v1_2/MANIFEST.json",
+        "byte_size": 26488,
+        "sha256": "966cd336bbd4170cb2607a185f638d52785f166a15c4a8d47b334adb9d1cc768",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "Perfume_Complexity_Model_Discovery_Admission_Engine_Aug2026_v1_2/SHA256SUMS.json",
+        "byte_size": 26061,
+        "sha256": "7a4a7fd4f72e7e6d525bcdade63a7ce17ea7d6ba7c8dd26fcd78372044095295",
+        "role": "CHECKSUM_LEDGER"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a79b172-0264-83ec-b77a-306a37ecb832:complexity-model-discovery-admission-v1-2",
+    "conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+    "turn_id": "44fd988d-c36a-4b7d-a97f-075120718abf",
+    "message_id": null,
+    "lineage_resolution": "EXACT_NESTED_MEMBER_RECOVERED_FROM_PREEXISTING_EXACT_CAPTURE_WITHOUT_RECOMPRESSION_PACKAGE_MANIFEST_AND_CHECKSUM_LEDGER_REPLAYED",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "External AI-generated code, schemas, data, examples, and research ledger; exact possession does not grant reuse, installation, source admission, formula, scientific, redistribution, publication, or release authority.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Retain exact bytes for provenance and clean-room native-fit review only. Package code and package data are not imported."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "PACKAGE_PARALLEL_PIPELINE_PROHIBITED",
+      "PACKAGE_SCHEMAS_AND_REGISTRIES_NOT_NATIVE_AUTHORITY",
+      "PACKAGE_SOURCE_LEDGER_NOT_B1_ADMITTED",
+      "NO_PHYSICAL_OR_SENSORY_RESULTS",
+      "NO_MEASURED_HEADSPACE_OR_STRICT_EMPIRICAL_OAV",
+      "NO_RELEASE_AUTHORITY"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "Floral_Heart_Soliflore_Codex_Cloud_Work_Chat_Packet_cf960bcd-fecd-4788-bf75-a18175ff7118.zip",
+      "byte_size": 1693860,
+      "sha256": "e6a083498f350ea8ceaf7ee3a97d725cd394463eebfdf136a95bdc81a65e19aa",
+      "relation": "EXACT_NESTED_MEMBER_CONTAINER",
+      "support_scope": "TRANSPORT_AND_PROVENANCE_ONLY",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "DISCOVERY_AND_MODEL_ADMISSION_REFERENCE_IMPLEMENTATION_EXACT_BYTES_ONLY",
+    "package_id": "PERFUME-COMPLEXITY-MODEL-DISCOVERY-ADMISSION-ENGINE-1.2.0",
+    "package_authority": "INCOMING_REVIEW_ONLY",
+    "repository_state": "BRIDGE_BLOCKED",
+    "manifest_records_verified": 135,
+    "checksum_records_verified": 136,
+    "module_files": 16,
+    "substantive_modules": 15,
+    "package_declared_tests_passed": 83,
+    "package_declared_cli_smoke_passed": 28,
+    "native_graph_status": "GRAPH_COMPLETE_QUARANTINED",
+    "package_code_installed": false,
+    "package_data_imported": false,
+    "promotion_allowed": false
+  },
+  "receipt_sha256": "587cd4f56b3e8f17f93e721f904f38007a8f62f5442d17a2861586229df65bf8"
+}

@@ -1,0 +1,107 @@
+{
+  "authority_flags_all_false": true,
+  "created_date": "2026-08-17",
+  "local_exact_sources": [
+    {
+      "authority_promoted": false,
+      "bytes": 199635,
+      "name": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5(1).xlsx",
+      "role": "inventory_source_identity",
+      "scope": "Hash and source identity only; no physical ExactStockRef, bottle, or mutation authority.",
+      "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "source_path": "/mnt/data/Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5(1).xlsx"
+    },
+    {
+      "authority_promoted": false,
+      "bytes": 37405,
+      "name": "PCV3_CHAT1_MEANINGFUL_COMPLEXITY_MODEL_V3_COMPLETE.zip",
+      "role": "current_complexity_foundation",
+      "scope": "Current nonaggregate complexity rules and deterministic fixtures; not repository installation.",
+      "sha256": "10acff0eb8f9e40dc0bd0e8152e04eb3c6440393c39dc950ccc3e96dccc1f6e1",
+      "source_path": "/mnt/data/PCV3_CHAT1_MEANINGFUL_COMPLEXITY_MODEL_V3_COMPLETE.zip"
+    },
+    {
+      "authority_promoted": false,
+      "bytes": 371891,
+      "name": "Perfume_Verification_Engine_Qualification_v1_Package(1).zip",
+      "role": "legacy_qualification_ancestry",
+      "scope": "Legacy raw fixtures and checker for lossless adapter regression; legacy package remains quarantined at 15/16.",
+      "sha256": "af2b207bda605058472c868d94f907ea1b6540a8baf1a6458472a55193f7f07d",
+      "source_path": "/mnt/data/Perfume_Verification_Engine_Qualification_v1_Package(1).zip"
+    },
+    {
+      "authority_promoted": false,
+      "bytes": 59246,
+      "name": "PROTOCOL.md",
+      "role": "governance_foundation",
+      "scope": "Target/inventory/build/bottle separation, exact arithmetic, and empirical claim boundaries.",
+      "sha256": "f192fdea259052d445f39f2264b1907e92e1139ee8ddf112f57d2a7a99558961",
+      "source_path": "/mnt/data/PROTOCOL.md"
+    },
+    {
+      "authority_promoted": false,
+      "bytes": 27155,
+      "name": "PERFUME_CHEM_LITERATURE_VERIFICATION_LEDGER.md",
+      "role": "evidence_boundary",
+      "scope": "OAV, mixture, matrix, uncertainty, sensory, and provenance claim limits.",
+      "sha256": "4f2206893d6f8d682aa6df798a3a5c8c9b2a815b8ed2c4025c20cd108544b9e7",
+      "source_path": "/mnt/data/PERFUME_CHEM_LITERATURE_VERIFICATION_LEDGER.md"
+    },
+    {
+      "authority_promoted": false,
+      "bytes": 45667,
+      "name": "ACCORD_INTEL_CHAT1_CLASSICAL_v2_1_CRITICAL_GATE.zip",
+      "role": "screening_boundary_reference",
+      "scope": "Designed CL-X008 physical gate remains NOT_TESTED; no observed result imported.",
+      "sha256": "91470bbdf16b4d10074dda2204a3ab44df6ee51e1688815196fe272a918482b7",
+      "source_path": "/mnt/data/ACCORD_INTEL_CHAT1_CLASSICAL_v2_1_CRITICAL_GATE.zip"
+    },
+    {
+      "authority_promoted": false,
+      "bytes": 11746,
+      "name": "PERFUME_CHEM_V19_V20_DEBUG_VALIDATION_PACKET_2026-08-17.zip",
+      "role": "parent_gap_report",
+      "scope": "Parent gap diagnosis and validation boundary.",
+      "sha256": "8c8f7f76aa1e051baa02835c4772991f91499580c31f0cf47d275dc8ca2451f4",
+      "source_path": "/mnt/data/PERFUME_CHEM_V19_V20_DEBUG_VALIDATION_PACKET_2026-08-17.zip"
+    }
+  ],
+  "operation_scope": "STANDALONE_GUARDRAIL_IMPLEMENTATION_AND_REGRESSION_ONLY",
+  "quarantined_sources_not_imported": [
+    "Floral Heart Complexity Discovery Atlas parent bytes",
+    "Complexity Model Discovery/Admission Engine parent bytes"
+  ],
+  "reference_only_sources": [
+    {
+      "availability": "FILE_LIBRARY_REFERENCE_ONLY",
+      "does_not_support": "Actual successor formula export, repository installation, physical execution, sensory result, safety, or release.",
+      "exact_bytes_in_candidate": false,
+      "name": "V19_V20_FORMULA_ARTIFACT_REVALIDATION_PACKET.json",
+      "packet_hash": "1e05c1a655458fbffadd848dfac3d582a500f7ef2b45afd734953d500cc52e44",
+      "packet_id": "PC-V19-V20-FORMULA-ARTIFACT-REVALIDATION-20260817-v1",
+      "supports": "Exact diagnosis of six derived dose-export residuals, 63 stock/preparation holds, 27 clean-room n-ary records, and false authority flags."
+    },
+    {
+      "availability": "FILE_LIBRARY_REFERENCE_ONLY",
+      "does_not_support": "Canonical formula row extraction or live repository validation.",
+      "exact_bytes_in_candidate": false,
+      "name": "REVALIDATION_REPORT.md",
+      "supports": "Artifact state by perfume, residual values, complexity dimensions, and stock-hold counts."
+    },
+    {
+      "availability": "FILE_LIBRARY_REFERENCE_ONLY",
+      "does_not_support": "Automatic stock closure or formula mutation.",
+      "exact_bytes_in_candidate": false,
+      "name": "BOUNDED_REPAIR_PLAN.md",
+      "supports": "Versioned exact-decimal export repair sequence and seven stock-hold classes."
+    },
+    {
+      "availability": "FILE_LIBRARY_REFERENCE_ONLY",
+      "does_not_support": "A live byte stream or installation.",
+      "exact_bytes_in_candidate": false,
+      "name": "V20_DEPENDENCY_RECOVERY_STATUS.md",
+      "supports": "Exact filenames, sizes, SHA-256 values, and fail-closed recovery order for four missing dependencies."
+    }
+  ],
+  "schema_version": "PERFUME_CHEM_V20_GAP_CLOSURE_SOURCE_MANIFEST_v1"
+}

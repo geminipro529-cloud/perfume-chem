@@ -1,0 +1,73 @@
+{
+  "by_perfume": [
+    {
+      "perfume_id": "DHI12",
+      "product_basis_rows": 2,
+      "stock_holds": 8
+    },
+    {
+      "perfume_id": "DHP25",
+      "product_basis_rows": 2,
+      "stock_holds": 8
+    },
+    {
+      "perfume_id": "AHS",
+      "product_basis_rows": 1,
+      "stock_holds": 7
+    },
+    {
+      "perfume_id": "EB",
+      "product_basis_rows": 2,
+      "stock_holds": 6
+    },
+    {
+      "perfume_id": "EE",
+      "product_basis_rows": 1,
+      "stock_holds": 9
+    },
+    {
+      "perfume_id": "ELIXIR",
+      "product_basis_rows": 3,
+      "stock_holds": 7
+    },
+    {
+      "perfume_id": "LHOMME",
+      "product_basis_rows": 1,
+      "stock_holds": 7
+    },
+    {
+      "perfume_id": "LANUIT",
+      "product_basis_rows": 3,
+      "stock_holds": 4
+    },
+    {
+      "perfume_id": "BDCP",
+      "product_basis_rows": 2,
+      "stock_holds": 7
+    }
+  ],
+  "closure_requirements": [
+    "exact stock identity and ExactStockRef",
+    "declared strength and concentration basis",
+    "lot or bottle reference",
+    "dated preparation receipt where required",
+    "exact-decimal dose evidence",
+    "species resolution where open"
+  ],
+  "computational_auto_closure_allowed": false,
+  "hold_classes": {
+    "LABEL_STRENGTH_CONFLICT": 3,
+    "LOT_OR_LABEL_DETAIL_OPEN": 11,
+    "PLANNED_ACQUISITION_OR_PHYSICAL_PENDING": 9,
+    "PREPARE": 24,
+    "PREPARE_AND_VERIFY": 1,
+    "SPECIES_UNRESOLVED": 1,
+    "VERIFY_FIRST": 14
+  },
+  "physical_execution_authority": false,
+  "product_basis_rule": "Opaque named products remain non-decomposed; no molecular composition or active fraction is invented.",
+  "schema_version": "PERFUME_CHEM_STOCK_LINEAGE_HOLD_QUEUE_v1",
+  "state": "HOLD_EVIDENCE_REQUIRED",
+  "stock_authority": false,
+  "total_open_rows": 63
+}

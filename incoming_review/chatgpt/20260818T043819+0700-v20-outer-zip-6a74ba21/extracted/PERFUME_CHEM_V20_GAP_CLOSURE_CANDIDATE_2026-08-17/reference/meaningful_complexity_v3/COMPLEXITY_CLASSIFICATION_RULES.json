@@ -1,0 +1,193 @@
+{
+  "schema_version": "1.0.0",
+  "model_version": "3.0.0",
+  "normative_language": "MUST/MUST NOT are mandatory; SHOULD is recommended; MAY is optional.",
+  "principles": [
+    "No single row-count rule decides meaningful complexity.",
+    "A class is assigned by a noncompensatory multidimensional profile after deduplication and ablation.",
+    "Execution burden cannot upgrade meaningful complexity.",
+    "Proposed interactions and microtexture are not physical results.",
+    "Hedonic value, broad appeal, similarity, and beauty are separate evaluation domains.",
+    "A target-specific identity lower bound overrides generic row bands when authoritative evidence exists."
+  ],
+  "claim_levels": {
+    "DESIGN_ONLY": "Architecture and computational checks only. No physical or sensory claim.",
+    "SOURCE_SUPPORTED_DESIGN": "Design is linked to source evidence, but formula-specific physical effects remain unobserved.",
+    "PHYSICALLY_OBSERVED": "Relevant physical batches and repeated observations exist; trained-panel claims are still excluded unless present.",
+    "TRAINED_SENSORY_CONFIRMED": "Claim-appropriate trained sensory evidence is linked. This still does not imply broad commercial appeal without a relevant sample."
+  },
+  "counting_rules": {
+    "canonical_odor_identity": "Count once after alias, supplier-label, and duplicate-strength normalization.",
+    "duplicate_strengths": "Count once for meaningful identity; each preparation may increase execution complexity.",
+    "technical_materials": "Do not count toward meaningful odor complexity.",
+    "opaque_product_basis": "Count as one product-basis identity. Never expand undisclosed internal components.",
+    "disclosed_premix": "Count deduplicated odor components, not the premix label; premix preparation counts in execution complexity.",
+    "opaque_premix": "Count once as product basis if it has a defensible function; internal identities remain unknown.",
+    "naturals": "Count each distinct species/process/chemotype/product-basis material once. Two lots of the same natural default to one identity unless intentional independent function is physically demonstrated. Lot differences remain provenance and resilience variables.",
+    "microtexture_proposed": "Does not count toward effective post-ablation complexity.",
+    "microtexture_physically_confirmed": "May count when a repeatable omission or perturbation effect is recorded.",
+    "trace_rows": "Count only when identity, function, evidence state, and an ablation/test disposition are explicit.",
+    "target_inventory_separation": "Missing inventory may block a build but may not delete or alter an evidence-faithful target identity."
+  },
+  "legacy_row_bands": {
+    "v2_high_complexity_accord_minimum": 50,
+    "v2_high_complexity_perfume_minimum": 65,
+    "v3_disposition": "Compatibility descriptors and compression-review triggers, not universal v3 pass gates.",
+    "hard_when": [
+      "The artifact explicitly claims v2 compatibility.",
+      "An authoritative target roster or function graph establishes a required identity count.",
+      "The requested class relies on rows that disappear after deduplication or ablation."
+    ],
+    "below_band_action": "Open COMPRESSION_REVIEW. The formula may still classify in v3 only when the full multidimensional profile survives ablation and no physical construct is falsely passed.",
+    "above_band_action": "Open PADDING_REVIEW when functional-row ratio is below 0.90, proposed microtexture exceeds 0.20 of claimed effective rows, or unassigned/duplicate rows exist."
+  },
+  "shared_integrity_rules": {
+    "functional_row_ratio_minimum": 0.9,
+    "proposed_microtexture_claim_ratio_maximum": 0.2,
+    "hard_failures": [
+      "unsupported note-to-molecule mapping",
+      "inventory-first target distortion",
+      "unresolved identity merge",
+      "class depends on duplicate strengths or technical rows",
+      "hedonic claim inferred from formula architecture",
+      "physical claim passed without physical evidence"
+    ],
+    "class_retention_rule": "The assigned class MUST still be met after deduplication, exclusion of proposed microtexture, and computational ablation of redundant rows."
+  },
+  "classes": {
+    "COMPACT": {
+      "human_definition": "A bounded, efficient module or perfume whose purpose does not require broad multidimensional layering.",
+      "typical_effective_row_band": [
+        1,
+        24
+      ],
+      "row_band_is_hard": false,
+      "minimum_profile": {
+        "distinct_sensory_systems": 1,
+        "designed_time_windows": 1
+      },
+      "required_conditions": [
+        "Evidence integrity passes for the scope.",
+        "The artifact does not claim high-complexity or orchestral status.",
+        "No padding is used to imitate complexity."
+      ],
+      "physical_claim_cap": "DESIGN_ONLY unless physical or sensory records are linked."
+    },
+    "LAYERED": {
+      "human_definition": "Multiple systems and phases are intentionally connected, but the architecture is not yet broadly distributed enough for high-complexity status.",
+      "typical_effective_row_band": [
+        15,
+        45
+      ],
+      "row_band_is_hard": false,
+      "minimum_profile": {
+        "substantive_dimensions_at_moderate_or_higher": 4,
+        "distinct_sensory_systems": 3,
+        "designed_time_windows": 2,
+        "supported_transitions": 1,
+        "documented_cross_system_edges": 2
+      },
+      "required_conditions": [
+        "At least one recognizer path is explicit.",
+        "No requested dimension depends on proposed microtexture.",
+        "Class survives computational ablation."
+      ],
+      "physical_claim_cap": "SOURCE_SUPPORTED_DESIGN unless physical observations are linked."
+    },
+    "HIGH_COMPLEXITY": {
+      "human_definition": "A distributed architecture with broad structural, temporal, interaction, textural, and contrast articulation that survives pruning.",
+      "typical_effective_row_band": [
+        40,
+        75
+      ],
+      "row_band_is_hard": false,
+      "minimum_profile": {
+        "required_high_dimensions": [
+          "recognizer_complexity",
+          "structural_complexity",
+          "temporal_complexity"
+        ],
+        "additional_high_dimensions_minimum": 3,
+        "additional_high_dimension_pool": [
+          "interaction_complexity",
+          "textural_complexity",
+          "contrast_complexity",
+          "resilience_complexity",
+          "effective_post_ablation_complexity"
+        ],
+        "distributed_recognizer_paths": 2,
+        "single_point_dependency_count_maximum": 0,
+        "distinct_sensory_systems": 5,
+        "designed_time_windows": 3,
+        "supported_transitions": 2,
+        "documented_cross_system_edges": 6,
+        "interaction_effect_type_count": 3,
+        "distinct_texture_axes": 3,
+        "declared_contrast_axes": 2
+      },
+      "required_conditions": [
+        "Shared integrity rules pass.",
+        "Class survives computational ablation without counting proposed microtexture.",
+        "Any below-legacy-band result completes COMPRESSION_REVIEW.",
+        "Physical effects remain HOLD until observed."
+      ],
+      "physical_claim_cap": "SOURCE_SUPPORTED_DESIGN unless physical observations are linked."
+    },
+    "ORCHESTRAL": {
+      "human_definition": "A high-complexity architecture with multiple independently legible motifs, distributed control, several temporal handoffs, and rich cross-system articulation.",
+      "typical_effective_row_band": [
+        60,
+        100
+      ],
+      "row_band_is_hard": false,
+      "minimum_profile": {
+        "inherits": "HIGH_COMPLEXITY",
+        "independent_motifs": 2,
+        "distributed_recognizer_paths": 3,
+        "distinct_sensory_systems": 6,
+        "designed_time_windows": 4,
+        "supported_transitions": 3,
+        "documented_cross_system_edges": 10,
+        "interaction_effect_type_count": 4,
+        "distinct_texture_axes": 4,
+        "declared_contrast_axes": 3,
+        "independent_control_paths": 2
+      },
+      "required_conditions": [
+        "No unresolved single-point recognizer dependency.",
+        "Multiple motifs survive computational ablation.",
+        "An orchestral empirical claim requires repeated physical time-course and trained sensory evidence."
+      ],
+      "physical_claim_cap": "SOURCE_SUPPORTED_DESIGN until repeated physical and trained sensory evidence exists."
+    },
+    "UNCLASSIFIED_HOLD": {
+      "human_definition": "Authority, identity, evidence, or physical boundaries prevent honest classification.",
+      "typical_effective_row_band": null,
+      "row_band_is_hard": false,
+      "minimum_profile": {},
+      "required_conditions": [
+        "Used whenever a material gap is filled by imagination or a required authority is unresolved."
+      ]
+    }
+  },
+  "classification_algorithm": [
+    "Lock artifact scope and source authority.",
+    "Normalize identities without inventing equivalence.",
+    "Apply row-accounting rules and exclude technical, duplicate, alias, and redundant rows.",
+    "Exclude proposed microtexture from effective post-ablation complexity.",
+    "Evaluate all ten vector dimensions with evidence and claim-level caps.",
+    "Apply noncompensatory hard failures.",
+    "Assign the highest class whose entire minimum profile is met after ablation.",
+    "Apply legacy row-band compatibility status and open compression or padding review when triggered.",
+    "Cap the claim level by available physical and trained sensory evidence.",
+    "Report every HOLD; never average conflicting thresholds or missing authorities."
+  ],
+  "final_states": [
+    "PASS_FOR_DECLARED_SCOPE",
+    "CONDITIONAL",
+    "HOLD",
+    "FAIL",
+    "REBUILD_REQUIRED"
+  ],
+  "no_overall_quality_score": true
+}

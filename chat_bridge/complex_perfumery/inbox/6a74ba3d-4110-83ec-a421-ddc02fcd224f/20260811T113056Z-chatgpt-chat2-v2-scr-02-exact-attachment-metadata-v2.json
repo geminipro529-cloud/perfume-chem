@@ -1,0 +1,261 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "chatgpt-chat2-v2-scr-02-exact-attachment-metadata-20260811T113056Z",
+  "packet_nonce": "7885e7b1-1f7e-4464-87a5-ac6ae34f96c1",
+  "created_at": "2026-08-11T11:30:56.9459279Z",
+  "freshness": {
+    "source_observed_at": "2026-08-11T11:30:56.9459279Z",
+    "source_revision": "chatgpt-assistant-message:cbca7d91-c70b-4a54-99a8-dd15d4d8dada",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": "chatgpt-dark-scr-02-declared-package-recovery-intake-20260811T112255Z"
+  },
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+  "source_chat_title": "Chat 2 Completion",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Preserve the source-reported exact filenames, byte counts, MIME types, SHA-256 identities, companion-file metadata, and content-reference availability for Chat 2 V2 and DARK-SCR-02 while awaiting independent local materialization and quarantine validation.",
+  "summary": "In response to an exact-byte recovery request, the source chat reports reattaching the original Chat 2 V2 ZIP and original DARK-SCR-02 ZIP as live content references without regeneration or substitution. It identifies ACCORD_INTEL_CHAT2_DARK_MATERIALS_v2.zip as 68,633 bytes with SHA-256 20ac62a0a5e639f8a5225937690b582c6c6837b74c6c1311786071bc50ba40ba and ACCORD_INTEL_CHAT2_DARK_SCREEN02_EVIDENCE_REPAIR_v1.zip as 53,799 bytes with SHA-256 dd9fb19c03da6c401aa1bdb718446b830148cc2856be6c525abf836788ce90fb. It also exposes twelve companion content references with exact filenames, sizes, and hashes. Separate WORKER_MANIFEST.json files and workbook files were not present outside the ZIPs; worker manifests are reported inside both archives. The content references have not yet been materialized to the local filesystem, so every identity remains source-reported and content_hashes remains empty pending byte-for-byte download and verification.",
+  "decisions": [
+    {
+      "decision": "Promote the recovery state from unknown filename and size to source-reported exact attachment metadata.",
+      "reason": "The newest source response supplies filenames, byte counts, MIME types, full hashes, and live content references."
+    },
+    {
+      "decision": "Do not mark either ZIP or companion file as locally recovered.",
+      "reason": "No matching byte stream is present in Downloads, the Complex Perfumery mirror, Perfume-Chem incoming_review, or repository paths."
+    },
+    {
+      "decision": "Treat companion-file hashes as recovery selectors, not verified repository content hashes.",
+      "reason": "Only the source response has read those bytes; Codex has not independently downloaded or hashed them."
+    },
+    {
+      "decision": "Do not synthesize separate worker-manifest or workbook artifacts.",
+      "reason": "The source reports worker manifests only inside the ZIPs and no separate workbook outside either archive."
+    },
+    {
+      "decision": "Preserve all DARK-SCR-02 experiment and physical-state holds.",
+      "reason": "Attachment availability and package integrity do not establish physical execution, observation, sensory outcome, safety, formula, inventory, bottle, or release authority."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The source reports an exact reattachment of the original Chat 2 V2 ZIP.",
+      "evidence": "ACCORD_INTEL_CHAT2_DARK_MATERIALS_v2.zip; 68,633 bytes; application/zip; SHA-256 20ac62a0a5e639f8a5225937690b582c6c6837b74c6c1311786071bc50ba40ba; ChatGPT content reference index 0."
+    },
+    {
+      "claim": "The source reports an exact reattachment of the original DARK-SCR-02 ZIP.",
+      "evidence": "ACCORD_INTEL_CHAT2_DARK_SCREEN02_EVIDENCE_REPAIR_v1.zip; 53,799 bytes; application/zip; SHA-256 dd9fb19c03da6c401aa1bdb718446b830148cc2856be6c525abf836788ce90fb; ChatGPT content reference index 1."
+    },
+    {
+      "claim": "The source reports twelve separately stored companion files with exact metadata.",
+      "evidence": "ChatGPT assistant message cbca7d91-c70b-4a54-99a8-dd15d4d8dada, content references 2 through 13."
+    },
+    {
+      "claim": "The source reports no separately stored WORKER_MANIFEST.json or workbook files outside either ZIP.",
+      "evidence": "ChatGPT assistant message cbca7d91-c70b-4a54-99a8-dd15d4d8dada; worker manifests are said to exist inside both original ZIPs."
+    },
+    {
+      "claim": "The source reports that DARK-SCR-02 retains Castoreum Synthetic as an opaque product basis and NOT_TESTED state markers.",
+      "evidence": "ChatGPT assistant message cbca7d91-c70b-4a54-99a8-dd15d4d8dada; local confirmation awaits exact bytes."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "content_reference_index": 0,
+      "filename": "ACCORD_INTEL_CHAT2_DARK_MATERIALS_v2.zip",
+      "byte_count": 68633,
+      "mime_type": "application/zip",
+      "declared_sha256": "20ac62a0a5e639f8a5225937690b582c6c6837b74c6c1311786071bc50ba40ba",
+      "local_availability": "CONTENT_REFERENCE_ONLY_BYTES_NOT_MATERIALIZED"
+    },
+    {
+      "content_reference_index": 1,
+      "filename": "ACCORD_INTEL_CHAT2_DARK_SCREEN02_EVIDENCE_REPAIR_v1.zip",
+      "byte_count": 53799,
+      "mime_type": "application/zip",
+      "declared_sha256": "dd9fb19c03da6c401aa1bdb718446b830148cc2856be6c525abf836788ce90fb",
+      "local_availability": "CONTENT_REFERENCE_ONLY_BYTES_NOT_MATERIALIZED"
+    },
+    {
+      "content_reference_index": 2,
+      "filename": "ACCORD_INTEL_CHAT2_DARK_MATERIALS_v2/VALIDATION_REPORT.json",
+      "byte_count": 10283,
+      "mime_type": "application/json",
+      "declared_sha256": "10afce7dfbee0009c9dab17f0bccbcd66baccf5a9c6c1adaba44565a76fd0184",
+      "local_availability": "CONTENT_REFERENCE_ONLY_BYTES_NOT_MATERIALIZED"
+    },
+    {
+      "content_reference_index": 3,
+      "filename": "ACCORD_INTEL_CHAT2_DARK_MATERIALS_v2/SHA256SUMS.json",
+      "byte_count": 2531,
+      "mime_type": "application/json",
+      "declared_sha256": "a1d74e86c82021cb514e8ecaed7b5aa309b1291b26d25605ebe7f2e30559389f",
+      "local_availability": "CONTENT_REFERENCE_ONLY_BYTES_NOT_MATERIALIZED"
+    },
+    {
+      "content_reference_index": 4,
+      "filename": "ACCORD_INTEL_CHAT2_DARK_MATERIALS_v2/LANE_BASELINE_DELTA_v2.csv",
+      "byte_count": 110132,
+      "mime_type": "text/csv",
+      "declared_sha256": "68686431165cd9203303ac7f08714d5a2d76ad9d27f40dbf430888fc43f7475b",
+      "local_availability": "CONTENT_REFERENCE_ONLY_BYTES_NOT_MATERIALIZED"
+    },
+    {
+      "content_reference_index": 5,
+      "filename": "ACCORD_INTEL_CHAT2_DARK_MATERIALS_v2/LANE_COMPLEXITY_PRESERVATION_v2.json",
+      "byte_count": 3726,
+      "mime_type": "application/json",
+      "declared_sha256": "d55b6b567b9d1d6c836d59dbc88e2b48735c66a77c76327fbde3875884fc33ca",
+      "local_availability": "CONTENT_REFERENCE_ONLY_BYTES_NOT_MATERIALIZED"
+    },
+    {
+      "content_reference_index": 6,
+      "filename": "ACCORD_INTEL_CHAT2_DARK_MATERIALS_v2/lane_family_registry.json",
+      "byte_count": 118544,
+      "mime_type": "application/json",
+      "declared_sha256": "3613e16546bcdb5679a1256fec6aa3c7d23f46551eb2c1303ab6bca4b34770cf",
+      "local_availability": "CONTENT_REFERENCE_ONLY_BYTES_NOT_MATERIALIZED"
+    },
+    {
+      "content_reference_index": 7,
+      "filename": "ACCORD_INTEL_CHAT2_DARK_SCREEN02_EVIDENCE_REPAIR_v1/VALIDATION_REPORT.json",
+      "byte_count": 7934,
+      "mime_type": "application/json",
+      "declared_sha256": "1679298e95cfdb8a09ebebacf27ac56ce258ece7942362ad1dfedadd48ab7226",
+      "local_availability": "CONTENT_REFERENCE_ONLY_BYTES_NOT_MATERIALIZED"
+    },
+    {
+      "content_reference_index": 8,
+      "filename": "ACCORD_INTEL_CHAT2_DARK_SCREEN02_EVIDENCE_REPAIR_v1/SHA256SUMS.json",
+      "byte_count": 2848,
+      "mime_type": "application/json",
+      "declared_sha256": "976f49c5d514568c433675fb76032f85e7c41e620107321e9fc6af369a2dd92a",
+      "local_availability": "CONTENT_REFERENCE_ONLY_BYTES_NOT_MATERIALIZED"
+    },
+    {
+      "content_reference_index": 9,
+      "filename": "ACCORD_INTEL_CHAT2_DARK_SCREEN02_EVIDENCE_REPAIR_v1/DARK_SCREEN02_CONDITION_MATRIX_v1.csv",
+      "byte_count": 7929,
+      "mime_type": "text/csv",
+      "declared_sha256": "50014334fb6bcd3325c271140e8e77d4cf25e2dbd0f0337431695504d5ebe71d",
+      "local_availability": "CONTENT_REFERENCE_ONLY_BYTES_NOT_MATERIALIZED"
+    },
+    {
+      "content_reference_index": 10,
+      "filename": "ACCORD_INTEL_CHAT2_DARK_SCREEN02_EVIDENCE_REPAIR_v1/DARK_SCREEN02_EXPERIMENT_PACKET_v1.json",
+      "byte_count": 107491,
+      "mime_type": "application/json",
+      "declared_sha256": "6f6df02ce2bced26180407ea33eb5433c13d8ced69590d3d0ec7a8c28d440859",
+      "local_availability": "CONTENT_REFERENCE_ONLY_BYTES_NOT_MATERIALIZED"
+    },
+    {
+      "content_reference_index": 11,
+      "filename": "ACCORD_INTEL_CHAT2_DARK_SCREEN02_EVIDENCE_REPAIR_v1/DARK_SCREEN02_STOCK_BASIS_REPAIR_v1.json",
+      "byte_count": 5980,
+      "mime_type": "application/json",
+      "declared_sha256": "446007e0cf70d8d5c2b9ff27a7f5627cdbd577e4948a69cc608c1f4651dcbaf3",
+      "local_availability": "CONTENT_REFERENCE_ONLY_BYTES_NOT_MATERIALIZED"
+    },
+    {
+      "content_reference_index": 12,
+      "filename": "ACCORD_INTEL_CHAT2_DARK_SCREEN02_EVIDENCE_REPAIR_v1/DARK_SCREEN02_LITERATURE_SYNTHESIS_v1.md",
+      "byte_count": 7361,
+      "mime_type": "text/plain",
+      "declared_sha256": "9aa5bc50caf00874622943e5037aa11f71433f82d450a6f6c14e91b1e5243c04",
+      "local_availability": "CONTENT_REFERENCE_ONLY_BYTES_NOT_MATERIALIZED"
+    },
+    {
+      "content_reference_index": 13,
+      "filename": "ACCORD_INTEL_CHAT2_DARK_SCREEN02_EVIDENCE_REPAIR_v1/DARK_SCREEN02_PREREGISTRATION_v1.md",
+      "byte_count": 8353,
+      "mime_type": "text/plain",
+      "declared_sha256": "ba35134f90714013d5073c47aa594680e73851d32f6412b703fe052719b05c37",
+      "local_availability": "CONTENT_REFERENCE_ONLY_BYTES_NOT_MATERIALIZED"
+    }
+  ],
+  "constraints": [
+    "All fourteen attachment identities are source-reported until their exact bytes are materialized and independently hashed by Codex.",
+    "A live ChatGPT content reference is not equivalent to a repository file, quarantine capture, connector receipt, or accepted artifact.",
+    "No regenerated, normalized, renamed, or reconstructed file may be accepted under an old hash identity.",
+    "Separate WORKER_MANIFEST.json and workbook files are not claimed outside the ZIPs; no such files may be invented to satisfy a packaging expectation.",
+    "Archive CRC, inner ledger replay, safe-member paths, workbook qualification, and source-side validation metrics remain unverified locally.",
+    "DARK-SCR-02 preserves Castoreum Synthetic as an opaque product basis and every observation and decision as NOT_TESTED or NOT_RUN until exact bytes and actual physical evidence prove otherwise.",
+    "No physical observation, experiment execution, sensory result, similarity, safety, formula, inventory, bottle, package admission, or release authority is granted.",
+    "Scope remains ACCORD-INTEL Chat 2 / DARK MATERIALS only; no Chats 0, 1, or 3-8 work and no final integration is performed."
+  ],
+  "unresolved_questions": [
+    "Can the fourteen ChatGPT content references be materialized through authenticated attachment controls without user-side manual reconstruction?",
+    "Do the two local ZIP hashes exactly equal the source-reported outer hashes after download?",
+    "Do the ZIP member lists contain the reported internal WORKER_MANIFEST.json files and no unsafe paths?",
+    "Do inner SHA256SUMS ledgers replay exactly and bind every non-self member?",
+    "Does DARK-SCR-02 preserve all 2,520 observation rows blank and the decision NOT_RUN?",
+    "Does the V2 package preserve all stated HOLDs and lossless delta counts under local validation?"
+  ],
+  "next_actions": [
+    {
+      "action": "Materialize content references 0 and 1 first into a nonce-scoped incoming_review capture and verify exact filename, size, MIME, and SHA-256.",
+      "authority": "Data Integration for Perfume-Chem owner"
+    },
+    {
+      "action": "Materialize companion references 2 through 13 only as their original separate byte streams and compare them to matching members inside the two ZIPs where applicable.",
+      "authority": "Sol/Codex quarantine review"
+    },
+    {
+      "action": "Run native archive graph, CRC, path-safety, inner-ledger, manifest, schema, workbook-child, and blank-observation validation before any package-admission decision.",
+      "authority": "Sol/Codex validation"
+    },
+    {
+      "action": "Publish a new append-only capture receipt with actual local content_hashes only after all downloaded bytes match their declared identities.",
+      "authority": "Sol/Codex"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Attachment state",
+      "state": "CONTENT_REFERENCES_AVAILABLE_LOCAL_BYTES_PENDING",
+      "detail": "The source reports live downloadable references with exact metadata, but no corresponding local files are visible yet."
+    },
+    {
+      "scope": "Package integrity",
+      "state": "SOURCE_VERIFIED_LOCAL_REPLAY_PENDING",
+      "detail": "The source says the ZIP byte streams match their reported hashes; Codex has not independently received or hashed them."
+    },
+    {
+      "scope": "Separate manifest and workbook availability",
+      "state": "NOT_PRESENT_OUTSIDE_ZIPS",
+      "detail": "Worker manifests are reported only inside both ZIPs, and no separate workbook files were found outside either ZIP."
+    },
+    {
+      "scope": "Physical and release authority",
+      "state": "UNCHANGED_FALSE",
+      "detail": "Attachment reappearance does not change any physical, sensory, similarity, safety, formula, inventory, bottle, or release state."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+      "uri": "chatgpt-conversation://6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+      "title": "Chat 2 Completion"
+    },
+    {
+      "kind": "chatgpt_user_message",
+      "id": "3a6c9af7-6342-4865-8c5b-bdca761295d2",
+      "disposition": "EXACT_BYTE_RECOVERY_REQUEST"
+    },
+    {
+      "kind": "chatgpt_assistant_message",
+      "id": "cbca7d91-c70b-4a54-99a8-dd15d4d8dada",
+      "disposition": "UNTRUSTED_ATTACHMENT_METADATA_AND_CONTENT_REFERENCES"
+    }
+  ],
+  "content_hashes": [],
+  "authority": {
+    "level": "SOURCE_CAPTURE",
+    "accepted_by_codex": false
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

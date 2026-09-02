@@ -1,0 +1,59 @@
+{
+  "receipt_id": "COMPLEX-PERFUMERY-BATCH05-SOURCE-BYTE-RECOVERY-20260809",
+  "state": "PASS_SOURCE_WORKBOOK_BYTES_RECOVERED__HOLD_BINARY_FORMULA_EXTRACTION_AND_CANONICAL_INGESTION",
+  "source_workbook": {
+    "path": "incoming_review/Fragrance_80_Completion_Batch_05_Mixed_Designer_Niche_Sol_Pass.xlsx",
+    "bytes": 127439,
+    "sha256": "d272ca3615acb6194c8f2c9a082333615f5f87992b99d5237e53a956de8278c3"
+  },
+  "bound_sidecar": {
+    "path": "incoming_review/Fragrance_80_Completion_Batch_05_ReadMe.md",
+    "sha256": "489851c94c5c5880268ae5126c714169d3353553152751bf46850f651c3fe82d",
+    "declared_workbook_sha256": "d272ca3615acb6194c8f2c9a082333615f5f87992b99d5237e53a956de8278c3",
+    "sha_match": true,
+    "declared_batch_arithmetic_passes": "8/8",
+    "declared_batch_inventory_passes": "8/8",
+    "declared_batch_sol_technical_passes": "8/8",
+    "strict_oav_releases": 0,
+    "measured_headspace_releases": 0,
+    "blind_sensory_passes": 0,
+    "final_olfactory_passes": 0
+  },
+  "source_hold_targets": [
+    {
+      "v3_2_target_id": "YSL-BO-HOLD",
+      "target": "YSL Black Opium Eau de Parfum",
+      "sidecar_target_present": true,
+      "old_state": "SOURCE_BYTES_MISSING",
+      "new_source_byte_state": "SOURCE_WORKBOOK_BYTES_RECOVERED",
+      "formula_content_state": "HOLD_BINARY_WORKBOOK_EXTRACTION_AND_CANONICAL_INGESTION"
+    },
+    {
+      "v3_2_target_id": "CR-MI-HOLD",
+      "target": "Creed Millésime Impérial Eau de Parfum",
+      "sidecar_target_present": true,
+      "old_state": "SOURCE_BYTES_MISSING",
+      "new_source_byte_state": "SOURCE_WORKBOOK_BYTES_RECOVERED",
+      "formula_content_state": "HOLD_BINARY_WORKBOOK_EXTRACTION_AND_CANONICAL_INGESTION"
+    }
+  ],
+  "what_is_closed": [
+    "The exact Batch 05 workbook byte stream is present in the Perfume-Chem workspace.",
+    "Its SHA-256 is independently reported by the tunnel and exactly matches the Batch 05 sidecar declaration.",
+    "The sidecar explicitly names both formerly source-byte-missing targets."
+  ],
+  "what_is_not_closed": [
+    "This text-only tunnel connector did not independently parse the XLSX workbook sheets/cells in this run.",
+    "No formula rows, formula UIDs, stock basis, G12, G15, candidate-air, strict OAV, safety, sensory, presentation, or release state is promoted.",
+    "The canonical v3.2 rebuild queue is not mutated by this receipt."
+  ],
+  "authority_mutations": {
+    "formula": 0,
+    "inventory": 0,
+    "physical_truth": 0,
+    "candidate_air": 0,
+    "strict_oav": 0,
+    "presentation": 0,
+    "release": 0
+  }
+}

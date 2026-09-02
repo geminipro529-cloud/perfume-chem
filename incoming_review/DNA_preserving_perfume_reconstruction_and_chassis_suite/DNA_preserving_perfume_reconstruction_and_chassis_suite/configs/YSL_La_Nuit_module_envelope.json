@@ -1,0 +1,27 @@
+{
+  "target_hash": "8fb817a60f94023e970c38acd283b0839d3ec1a004d446b1acd7d9b0818d1400",
+  "partition_hash": "552b4c3c02203142e90ad2639962b0f0b1752fd0b146c3e0a58caa6028494e73",
+  "core_raw_uL": 4200,
+  "socket_raw_uL": 300,
+  "protected_anchor_floors_in_core_uL": {
+    "Cardamom Oil": 18,
+    "Lavandin Grosso Oil": 30,
+    "Linalool": 45,
+    "Coumarin": 180,
+    "Methyl Ionone Gamma Coeur": 90,
+    "Cedarwood Virginia Oil": 50,
+    "Vetiverol": 50
+  },
+  "required_module_roles": [
+    "cardamom_or_cardamom_continuity",
+    "lavender_aromatic_interface",
+    "dry_wood_or_coumarin_compensation"
+  ],
+  "forbidden_drift": [
+    "dominant_maple_gourmand",
+    "dominant_clove",
+    "dominant_leather",
+    "marine_theme"
+  ],
+  "authority": "identity-rich secondary-roster hypothesis; doses inferred"
+}

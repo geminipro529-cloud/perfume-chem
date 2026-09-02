@@ -1,0 +1,248 @@
+{
+  "version": "2.0",
+  "profiles": [
+    {
+      "profile_id": "ysl_modern_masculine",
+      "brands": [
+        "YSL"
+      ],
+      "reformulation_risk": "high",
+      "unknown_captive_prior": 0.35,
+      "natural_complexity_prior": 0.35,
+      "negative_space_importance": 0.55,
+      "default_evaluation_hours": [
+        0,
+        0.083,
+        0.5,
+        2,
+        4,
+        8
+      ],
+      "protected_blocks": [
+        "line recognizer",
+        "citrus-aromatic interface",
+        "wood-musk scaffold"
+      ],
+      "compression_traps": [
+        "signature removed into neutral slot",
+        "ionone collapse",
+        "green-water collapse",
+        "amberwood equivalence"
+      ],
+      "socket_strategy": "single"
+    },
+    {
+      "profile_id": "prada_clean_iris",
+      "brands": [
+        "Prada"
+      ],
+      "reformulation_risk": "medium",
+      "unknown_captive_prior": 0.45,
+      "natural_complexity_prior": 0.25,
+      "negative_space_importance": 0.75,
+      "default_evaluation_hours": [
+        0,
+        0.083,
+        0.5,
+        2,
+        4,
+        8
+      ],
+      "protected_blocks": [
+        "iris-violet",
+        "soap-muguet",
+        "clean musk",
+        "pepper-geranium-patchouli"
+      ],
+      "compression_traps": [
+        "one iris",
+        "one soap material",
+        "one musk",
+        "patchouli omitted"
+      ],
+      "socket_strategy": "single"
+    },
+    {
+      "profile_id": "dior_family_differential",
+      "brands": [
+        "Dior"
+      ],
+      "reformulation_risk": "high",
+      "unknown_captive_prior": 0.55,
+      "natural_complexity_prior": 0.35,
+      "negative_space_importance": 0.55,
+      "default_evaluation_hours": [
+        0,
+        0.083,
+        0.5,
+        2,
+        4,
+        8,
+        24
+      ],
+      "protected_blocks": [
+        "line invariant graph",
+        "signature transition",
+        "base handwriting"
+      ],
+      "compression_traps": [
+        "ambroxide plus pepper reduction",
+        "one iris",
+        "marketing note literalism"
+      ],
+      "socket_strategy": "single_or_coupled"
+    },
+    {
+      "profile_id": "chanel_era_strict",
+      "brands": [
+        "Chanel"
+      ],
+      "reformulation_risk": "very_high",
+      "unknown_captive_prior": 0.55,
+      "natural_complexity_prior": 0.55,
+      "negative_space_importance": 0.8,
+      "default_evaluation_hours": [
+        0,
+        0.083,
+        0.5,
+        2,
+        4,
+        8,
+        24
+      ],
+      "protected_blocks": [
+        "aldehydic series",
+        "floral transmission",
+        "ionone-orris",
+        "base texture"
+      ],
+      "compression_traps": [
+        "one aldehyde",
+        "Hedione replaces floral architecture",
+        "ionone collapse",
+        "one sandalwood"
+      ],
+      "socket_strategy": "small_or_coupled"
+    },
+    {
+      "profile_id": "amouage_resinous_longform",
+      "brands": [
+        "Amouage"
+      ],
+      "reformulation_risk": "medium",
+      "unknown_captive_prior": 0.45,
+      "natural_complexity_prior": 0.9,
+      "negative_space_importance": 0.35,
+      "default_evaluation_hours": [
+        0,
+        0.083,
+        0.5,
+        2,
+        4,
+        8,
+        24,
+        48,
+        72
+      ],
+      "protected_blocks": [
+        "resin-incense",
+        "spice-floral",
+        "smoke-wood-balsam"
+      ],
+      "compression_traps": [
+        "incense equals frankincense oil",
+        "oud equals one amberwood",
+        "single top socket"
+      ],
+      "socket_strategy": "multi_stage"
+    },
+    {
+      "profile_id": "guerlain_historical_base",
+      "brands": [
+        "Guerlain"
+      ],
+      "reformulation_risk": "very_high",
+      "unknown_captive_prior": 0.35,
+      "natural_complexity_prior": 0.7,
+      "negative_space_importance": 0.55,
+      "default_evaluation_hours": [
+        0,
+        0.083,
+        0.5,
+        2,
+        4,
+        8,
+        24
+      ],
+      "protected_blocks": [
+        "powder-balsam-floral base",
+        "historical accord",
+        "moss-patchouli"
+      ],
+      "compression_traps": [
+        "vanilla plus tonka equals house base",
+        "powder equals heliotropin"
+      ],
+      "socket_strategy": "single_or_coupled"
+    },
+    {
+      "profile_id": "hermes_transparent_spacing",
+      "brands": [
+        "Hermes"
+      ],
+      "reformulation_risk": "medium",
+      "unknown_captive_prior": 0.45,
+      "natural_complexity_prior": 0.55,
+      "negative_space_importance": 0.95,
+      "default_evaluation_hours": [
+        0,
+        0.083,
+        0.5,
+        2,
+        4,
+        8
+      ],
+      "protected_blocks": [
+        "material spacing",
+        "citrus-vegetal-mineral transition",
+        "specific wood"
+      ],
+      "compression_traps": [
+        "overbuilding mass",
+        "generic citrus substitution"
+      ],
+      "socket_strategy": "small"
+    },
+    {
+      "profile_id": "attars_oil_matrix",
+      "brands": [
+        "generic attar",
+        "mukhallat"
+      ],
+      "reformulation_risk": "variable",
+      "unknown_captive_prior": 0.25,
+      "natural_complexity_prior": 0.95,
+      "negative_space_importance": 0.3,
+      "default_evaluation_hours": [
+        0,
+        0.5,
+        2,
+        4,
+        8,
+        24,
+        48,
+        72
+      ],
+      "protected_blocks": [
+        "oil vehicle",
+        "natural heart",
+        "slow base"
+      ],
+      "compression_traps": [
+        "ethanol headspace assumptions",
+        "short evaluation"
+      ],
+      "socket_strategy": "coupled_heart_base"
+    }
+  ]
+}

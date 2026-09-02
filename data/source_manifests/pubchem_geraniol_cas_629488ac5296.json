@@ -1,0 +1,53 @@
+{
+  "schema_version": "scientific_source_manifest_v1",
+  "source_id": "pubchem-geraniol-cid637566-cas-629488ac5296",
+  "source_type": "AUTHORITATIVE_DATABASE_RECORD",
+  "title": "PubChem Geraniol CID 637566 CAS identifier response",
+  "language": "en",
+  "review_state": "UNREVIEWED",
+  "independence_group": "pubchem-geraniol-637566",
+  "authors": [],
+  "issuing_organization": "National Center for Biotechnology Information",
+  "container_title": "PubChem PUG REST",
+  "publisher_or_authority": "PubChem",
+  "identifiers": {
+    "pubchem_cid": "637566",
+    "cas": "106-24-1"
+  },
+  "revision": {
+    "kind": "content_digest",
+    "value": "629488ac5296b9d35a46bda8ea17494234f3b6f05af7a3c6209d037a9ae3e79a"
+  },
+  "retrieved_at": "2026-08-09T16:20:45.3250956+07:00",
+  "rights": {
+    "reuse_status": "RESTRICTED",
+    "license_or_reuse_restriction": "Staged for review with field-scoped rights caution. PubChem aggregates contributor data and source-specific licensing can vary; no blanket public-domain or permissive-license claim is made for this response.",
+    "license_url": "https://pubchem.ncbi.nlm.nih.gov/docs/downloads",
+    "redistribution_allowed": false,
+    "notes": "Use for chemical-entity CAS crosswalk review only. Re-check original contributor provenance before redistribution or authority promotion."
+  },
+  "transformation": {
+    "module": "engine.ingestion.scientific",
+    "version": "scientific-source-staging-v1",
+    "mode": "source-bytes-only"
+  },
+  "dataset_context": {
+    "measurement_kind": "chemical-entity identifier crosswalk",
+    "intended_use": [
+      "review-only CID and CAS identity crosscheck"
+    ],
+    "authority_limit": "Chemical-entity identity only; not supplier product, lot, owned stock, psychophysics, ODT, OAV, safety, similarity, or release evidence."
+  },
+  "artifacts": [
+    {
+      "artifact_id": "geraniol-cas-identifiers-json",
+      "path": "geraniol_cid_637566_cas_identifiers.json",
+      "role": "PRIMARY_DATA",
+      "media_type": "application/json",
+      "byte_size": 581,
+      "sha256": "629488ac5296b9d35a46bda8ea17494234f3b6f05af7a3c6209d037a9ae3e79a",
+      "source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/637566/identifiers/JSON?identifier_type=CAS",
+      "preserved_artifact_path": "data/external/pubchem/geraniol_637566/geraniol_cid_637566_cas_identifiers.json"
+    }
+  ]
+}

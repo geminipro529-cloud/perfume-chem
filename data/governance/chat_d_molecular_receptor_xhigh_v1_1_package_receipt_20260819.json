@@ -1,0 +1,170 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "chat-d-molecular-receptor-xhigh-v1-1-20260819",
+  "recorded_at": "2026-08-19T12:59:52Z",
+  "package": {
+    "file_name": "CHAT_D_XHIGH_MOLECULAR_RECEPTOR_v1_1.zip",
+    "locator": "incoming_review/chatgpt/20260819T125952Z-chat-d-molecular-receptor-6a753b22/CHAT_D_XHIGH_MOLECULAR_RECEPTOR_v1_1.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 8463278,
+    "sha256": "8f283781742e6ed51950b4397b486a2b4ec9745835cc20bd278a013f2a3a5743",
+    "media_type": "application/zip",
+    "archive_entry_count": 22,
+    "archive_file_count": 22,
+    "declared_payload_count": 21,
+    "package_root": "CHAT_D_XHIGH_MOLECULAR_RECEPTOR_v1_1",
+    "embedded_integrity_records": [
+      {
+        "path": "CHAT_D_XHIGH_MOLECULAR_RECEPTOR_v1_1/SHA256SUMS.json",
+        "byte_size": 3306,
+        "sha256": "39192c4b8ee42529788af1510d425f5f1f44e86260bafa83dfda526cb74391bd",
+        "role": "CHECKSUM_LEDGER"
+      },
+      {
+        "path": "CHAT_D_XHIGH_MOLECULAR_RECEPTOR_v1_1/WORKER_MANIFEST.json",
+        "byte_size": 4911,
+        "sha256": "f5b00c93ebbf89be7c7958bacae0410c1724dd4bac59f9a6659d21a1cd0969c4",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "CHAT_D_XHIGH_MOLECULAR_RECEPTOR_v1_1/VALIDATION_REPORT.json",
+        "byte_size": 2573,
+        "sha256": "61ecfeb68b8df88b22d293aa3bcce0623e23c5431182d95ab1a7585ad441e73a",
+        "role": "MANIFEST"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a753b22-3490-83ec-bc7b-a0e46c4655c0:molecular-receptor-xhigh-v1-1",
+    "conversation_id": "6a753b22-3490-83ec-bc7b-a0e46c4655c0",
+    "turn_id": null,
+    "message_id": null,
+    "lineage_resolution": "EXACT_CHAT_D_V1_1_ATTACHMENT_RECOVERED_AND_HASH_VERIFIED_V1_PREDECESSOR_UNRECOVERED",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "The AI-generated package has no blanket license. Source-specific rights differ: the already governed Keller/Vosshall workbook has its own source receipt, M2OR and OlfactionBase maintained sites are All Rights Reserved, and DoOR v2.0.0 is a separately attributable CC BY-SA 4.0 release. Those rights do not authorize wholesale package import, persistence, training, publication, or redistribution.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "This is a conservative project-governance classification, not legal advice. Rights must be resolved per source and operation before any receptor-row admission or derived use."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN_AT_PACKAGE_LEVEL",
+      "BASELINE_PACKAGE_BYTES_NOT_MOUNTED",
+      "KELLER_WORKBOOK_ALREADY_GOVERNED_DO_NOT_DUPLICATE",
+      "LIVE_M2OR_EXPORT_BYTES_NOT_PINNED",
+      "LIVE_OLFACTIONBASE_EXPORT_BYTES_NOT_VERSION_PINNED",
+      "LIVE_OLFACTIONBASE_PAGE_CLAIM_875_VERSUS_EXPORT_874_DATA_ROWS",
+      "DOOR_LOCAL_ARCHIVE_NOT_PRESENT",
+      "ONE_KELLER_SOURCE_IDENTITY_CONFLICT",
+      "ROW_LEVEL_RECEPTOR_INGESTION_NOT_IMPLEMENTED_FOR_THIS_PACKAGE",
+      "SPECIES_ASSAY_CONDITION_AND_NEGATIVE_ROW_GRAIN_NOT_ADMITTED",
+      "MODELED_OUTPUT_NOT_OBSERVATION",
+      "MODEL_EXECUTION_HOLD",
+      "BUNDLED_PYTHON_AND_BYTECODE_NOT_EXECUTED_OR_INSTALLED",
+      "PACKAGE_CONTENT_NOT_INSTALLED",
+      "NO_FORMULA_RUNTIME_INVENTORY_PHYSICAL_OR_RELEASE_MUTATION"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "incoming_review/chatgpt/20260819T125952Z-chat-d-molecular-receptor-6a753b22/source_manifest.json",
+      "byte_size": 3400,
+      "sha256": "4fc8b2a810b3cb058b16b141072a2ed9884b6b03ddc8e2b1744cdcfc53e26a68",
+      "relation": "BINDS_BROWSER_CAPTURE_MANIFEST",
+      "support_scope": "AUTHENTICATED_CONVERSATION_AND_EXACT_ATTACHMENT_CAPTURE_ONLY",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "data/source_manifests/keller_vosshall_2016_study_data_efcb1b075584.json",
+      "byte_size": 2733,
+      "sha256": "d49a56b404a22114e29c146b4f89346edd816572f4da7547c940775bccac6a1c",
+      "relation": "IDENTIFIES_EXISTING_GOVERNED_DUPLICATE_SOURCE",
+      "support_scope": "KELLER_WORKBOOK_DEDUPLICATION_POINTER_ONLY",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "EXACT_CHAT_D_V1_1_MOLECULAR_RECEPTOR_PACKAGE_QUARANTINED_DUPLICATE_AND_METADATA_ONLY",
+    "archive_scan_status": "GRAPH_COMPLETE_QUARANTINED",
+    "archive_members": 22,
+    "archive_scan_nodes": 2,
+    "internal_checksum_entries_verified": 21,
+    "package_recovered": true,
+    "predecessor_v1_recovered": false,
+    "package_claimed_tests_passed": 36,
+    "package_claimed_tests_failed": 0,
+    "baseline_version_claimed": "PDS_XHIGH_PROCESSING_BUNDLE_v1",
+    "baseline_package_sha256_claimed": "9b8fef249d0019393b3fbf080bba96c665a5104358633d74308cfe5affae980c",
+    "baseline_package_bytes_present": false,
+    "keller_workbook_rows_claimed": 480,
+    "keller_crosswalk_exact_source_native": 478,
+    "keller_crosswalk_external_cas_verified": 1,
+    "keller_crosswalk_identity_holds": 1,
+    "keller_workbook_sha256": "efcb1b07558431c869c5578abcd3fa1e4405a38cc68a8b1c1621594c673d9f62",
+    "keller_workbook_is_existing_governed_duplicate": true,
+    "keller_duplicate_source_new_independent_evidence": false,
+    "pubchem_cas_3796_70_1_cid_reverified": 1549778,
+    "pubchem_isobutyl_acetate_cid_reverified": 8038,
+    "pubchem_name_109_19_0_resolved": false,
+    "live_m2or_counts_reverified": true,
+    "live_m2or_version_reverified": "1.2.0",
+    "live_m2or_experiments_reverified": 77611,
+    "live_m2or_pairs_reverified": 53444,
+    "live_olfactionbase_counts_reverified": true,
+    "live_olfactionbase_page_pairs_claim_reverified": 875,
+    "live_olfactionbase_export_data_rows_reverified": 874,
+    "live_olfactionbase_export_workbook_rows_including_header": 875,
+    "live_olfactionbase_export_observed_bytes": 81764,
+    "live_olfactionbase_export_observed_sha256": "451571afffbf102a5cdd18b4e2d16b856b3ccae62f351b275dbfc55bbe81cc0d",
+    "live_olfactionbase_page_export_consistent": false,
+    "live_olfactionbase_human_pairs_reverified": 409,
+    "live_olfactionbase_mouse_pairs_reverified": 466,
+    "live_olfactionbase_homepage_last_updated_observed": "2026-08-19",
+    "package_olfactionbase_homepage_last_updated_snapshot": "2026-08-06",
+    "search_engine_874_result_corresponds_to_direct_export_data_rows": true,
+    "dynamic_source_exports_byte_pinned": false,
+    "door_release_version_reverified": "2.0.0",
+    "door_species_scope": "Drosophila melanogaster",
+    "door_human_perceptual_transfer_allowed": false,
+    "primary_source_scope_urls_checked": [
+      "https://m2or.chemsensim.fr/",
+      "https://olfactionbase.com/",
+      "https://olfactionbase.com/or-odorant-pairs",
+      "https://zenodo.org/records/46554",
+      "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/3796-70-1/property/Title,IUPACName,InChIKey,CanonicalSMILES,IsomericSMILES/JSON",
+      "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/isobutyl%20acetate/property/Title,IUPACName,InChIKey,CanonicalSMILES,IsomericSMILES/JSON",
+      "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/110-19-0/property/Title,IUPACName,InChIKey,CanonicalSMILES,IsomericSMILES/JSON"
+    ],
+    "source_rows_admitted": 0,
+    "receptor_rows_installed": 0,
+    "model_outputs_installed": 0,
+    "bundled_code_executed": false,
+    "formula_rows_mutated": 0,
+    "inventory_rows_mutated": 0,
+    "physical_truth_rows_mutated": 0,
+    "release_rows_mutated": 0,
+    "promotion_allowed": false
+  },
+  "receipt_sha256": "626ebb59e68c4ef39ba17287ad650808eefc12d6310d7c8333c4ca68d8e7f3f4"
+}

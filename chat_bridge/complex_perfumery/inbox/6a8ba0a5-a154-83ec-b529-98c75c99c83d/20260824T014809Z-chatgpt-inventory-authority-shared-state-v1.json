@@ -1,0 +1,256 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "chatgpt-inventory-authority-shared-state-20260824T014809Z",
+  "packet_nonce": "cade3cbb2c0144ea8d7a89e2af9f45ea",
+  "created_at": "2026-08-24T01:48:09.401Z",
+  "freshness": {
+    "source_observed_at": "2026-08-24T01:48:09.401Z",
+    "source_revision": "chatgpt-turn:c7ee0df8-b720-4e79-9b3e-cadea057f878+local-source-hash-set:20260824T014809Z",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": null
+  },
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a8ba0a5-a154-83ec-b529-98c75c99c83d",
+  "source_chat_title": "Inventory Authority Update",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Synchronize the current Complex Perfumery inventory, reconstruction, complexity, and evidence-authority rules into the active-chat shared state through one immutable Chat Bridge Protocol v2.1 packet, while preserving target-versus-build separation, physical procurement boundaries, explicit HOLD states, and acknowledgement as a separate event.",
+  "summary": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx is the current authority for inventory identity, stock strength, carrier, availability, product basis, preparation, and physical-compounding status. HIGH_HEDONIC_PRIORITY_METHOD_v1 is advisory only and cannot establish liking, formula, stock, or release authority. PROTOCOL.md governs target-first evidence-faithful non-compressed reconstruction. Meaningful_Complexity_Audit_v2 governs meaningful-function, interaction, ablation, perturbation, anti-collapse, and HOLD gates. The Literature Verification Ledger and Interaction/Layering Atlas are scientific or advisory sources whose hypotheses must remain distinct from direct evidence. Every formula workflow must preserve a TARGET / IDEAL FORMULA separately from the CURRENT-INVENTORY BUILD. Ambrettolide 10% in DPG is PLANNED ACQUISITION / DESIGN-AVAILABLE for computational architecture but PROCUREMENT PENDING for physical compounding until the bottle and ExactStockRef exist. Unresolved same-scope conflicts remain HOLD. This packet is locally schema- and hash-verifiable context; it is not proof that any chat read or accepted it.",
+  "decisions": [
+    {
+      "decision": "Use the August 2026 v5 inventory as current stock and preparation authority.",
+      "scope": "Inventory identity, stock strength, carrier, availability, product basis, preparation, and physical compounding.",
+      "reason": "The user designated this workbook as the current authority, and the Complex Perfumery project instructions independently identify the same v5 workbook as controlling at this scope."
+    },
+    {
+      "decision": "Keep target identity and functional architecture upstream of inventory mapping.",
+      "scope": "Perfume, accord, reconstruction, revision, and formula audit workflows.",
+      "reason": "PROTOCOL.md requires target acceptance before inventory mapping and requires unavailable target rows to remain visible in a separate target ledger."
+    },
+    {
+      "decision": "Treat the High-Hedonic Priority Method as an advisory gap and purchase system only.",
+      "scope": "Purchase ranking and controlled-experiment prioritization.",
+      "reason": "The method states that hedonic leverage is a hypothesis, not measured liking, and ranked materials are not automatically added to formulas."
+    },
+    {
+      "decision": "Apply Meaningful Complexity Audit v2 as the complexity gate.",
+      "scope": "Meaningful functions, interactions, ablations, perturbations, anti-collapse checks, evidence coverage, and HOLD conditions.",
+      "reason": "Complexity is governed by distinct target-linked function and testability, not ingredient count."
+    },
+    {
+      "decision": "Keep literature and atlas hypotheses distinct from direct empirical evidence.",
+      "scope": "Scientific claims, interaction mechanisms, OAV interpretation, headspace, matrix effects, and sensory validation.",
+      "reason": "The Literature Verification Ledger warns against unquestioned mixture scores, and the Interaction/Layering Atlas explicitly separates direct studies from structured hypotheses."
+    },
+    {
+      "decision": "Do not mark active chats synchronized from publication alone.",
+      "scope": "Cross-chat state.",
+      "reason": "Chat Bridge Protocol v2.1 separates publication, acknowledgement, and acceptance; project instructions and link notices do not prove that a chat read the packet."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The six named authority and advisory source artifacts are present in the local Complex Perfumery project mirror and were hash-observed for this packet.",
+      "evidence": "Exact byte lengths and SHA-256 digests are recorded in content_hashes.",
+      "limitation": "Byte identity proves source capture, not scientific truth or cross-chat acknowledgement."
+    },
+    {
+      "claim": "The Interaction/Layering Atlas contains a historical v3 inventory reference that is not current stock authority.",
+      "evidence": "Perfumery_Interaction_Layering_Atlas_v1.md names the v3 workbook as its canonical inventory, while the user and current project instructions designate Aug2026 v5 as current authority.",
+      "limitation": "The v5 designation resolves inventory scope only; the atlas remains advisory and its interaction claims keep their original evidence classes."
+    },
+    {
+      "claim": "The fresh recent-window active-chat census found four idle ChatGPT conversations in the Complex Perfumery project, including the source conversation.",
+      "evidence": "Codex list_threads on 2026-08-24 returned Inventory Authority Update, XHIGH freeze blocked pending repository integration, Hedonic Combination Ranking, and Perfume Layering Research with the exact Complex Perfumery project ID.",
+      "limitation": "The recent window is not a complete sidebar enumeration and does not replace the immutable 38-chat 2026-08-09 registry snapshot.",
+      "active_chat_consumers": [
+        {
+          "conversation_id": "6a8ba0a5-a154-83ec-b529-98c75c99c83d",
+          "title": "Inventory Authority Update",
+          "role": "source"
+        },
+        {
+          "conversation_id": "6a77d532-0a30-83ec-9067-555ff6800795",
+          "title": "XHIGH freeze blocked pending repository integration",
+          "role": "active spoke"
+        },
+        {
+          "conversation_id": "6a888528-f430-83ec-b404-10371116c08c",
+          "title": "Hedonic Combination Ranking",
+          "role": "active spoke"
+        },
+        {
+          "conversation_id": "6a8b30b9-0a2c-83ec-b485-fcb1aabc6790",
+          "title": "Perfume Layering Research",
+          "role": "active spoke"
+        }
+      ]
+    },
+    {
+      "claim": "The designated work hub remains the target consumer for bridge synthesis.",
+      "evidence": "Chat Bridge Protocol v2.1, README.md, chat_registry.json, and current project instructions name Data Integration for Perfume-Chem conversation 6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf as the work hub.",
+      "limitation": "Its last verified browser-chat connector state was BRIDGE_BLOCKED; a packet-path notice or project context does not prove file readback."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/sources/Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5(1).xlsx",
+      "logical_identity": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+      "role": "current inventory, stock-strength, availability, product-basis, preparation, and physical-compounding authority"
+    },
+    {
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/sources/HIGH_HEDONIC_PRIORITY_METHOD_v1(1).md",
+      "logical_identity": "HIGH_HEDONIC_PRIORITY_METHOD_v1.md",
+      "role": "advisory missing-chemical and controlled-experiment priority method"
+    },
+    {
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/sources/PROTOCOL.md",
+      "role": "target-first evidence-faithful non-compressed reconstruction authority"
+    },
+    {
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/sources/Meaningful_Complexity_Audit_v2.md",
+      "role": "meaningful complexity and anti-collapse gate authority"
+    },
+    {
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/sources/PERFUME_CHEM_LITERATURE_VERIFICATION_LEDGER.md",
+      "role": "scientific claim-boundary and evidence ledger"
+    },
+    {
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/sources/Perfumery_Interaction_Layering_Atlas_v1.md",
+      "role": "interaction and layering advisory source with explicit hypothesis labeling"
+    },
+    {
+      "path": "chat_bridge/complex_perfumery/PROTOCOL.md",
+      "role": "governing Chat Bridge Protocol v2.1"
+    },
+    {
+      "path": "chat_bridge/complex_perfumery/handoff.schema.json",
+      "role": "machine-readable packet schema"
+    }
+  ],
+  "constraints": [
+    "Define target identity and functional architecture before inventory mapping or material substitution.",
+    "Keep the evidence-faithful TARGET / IDEAL FORMULA separate from the CURRENT-INVENTORY BUILD.",
+    "Run the MISSING-CHEMICAL IMPACT GATE only after the architecture is defined.",
+    "Do not automatically add a ranked material to a formula.",
+    "Do not map a note directly to a molecule without evidence.",
+    "Treat Ambrettolide 10% in DPG as PLANNED ACQUISITION / DESIGN-AVAILABLE computationally and PROCUREMENT PENDING physically until a bottle and ExactStockRef exist.",
+    "Do not record a planned material as physically added before its bottle and ExactStockRef exist.",
+    "Do not convert formula frequency, supplier descriptions, price, novelty, prestige, or advisory ranking into a beauty or hedonic score.",
+    "Keep physical liking, similarity, stability, safety, measured headspace, strict empirical OAV, and release status NOT TESTED unless real evidence exists.",
+    "Keep structured interaction hypotheses and generated analyses distinct from direct empirical evidence.",
+    "Preserve unresolved same-scope conflicts explicitly and use HOLD unless a newer authoritative source at the same scope resolves them.",
+    "Never overwrite canonical state as part of this packet publication.",
+    "DeepLuna Fast remains retired; no Fast, Luna, alternate-provider, or Codex-subagent fallback is permitted."
+  ],
+  "unresolved_questions": [
+    "Which currently active project chats will return an explicit packet acknowledgement containing this packet_id and packet_nonce?",
+    "Can the Data Integration for Perfume-Chem work hub read this exact packet through its current connector surface and report the packet SHA-256?",
+    "Will a later full signed-in sidebar enumeration identify additional currently active Complex Perfumery chats beyond the recent-window census?"
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Notify the work hub and each recent-window active Complex Perfumery spoke of the exact packet path, packet_id, and packet_nonce, and request explicit acknowledgement without treating acknowledgement as claim acceptance.",
+      "authority": "cross-chat transport only"
+    },
+    {
+      "priority": 2,
+      "action": "Record each explicit acknowledgement as append-only evidence; do not rewrite this packet's acknowledgement field in place.",
+      "authority": "bridge acknowledgement only"
+    },
+    {
+      "priority": 3,
+      "action": "Keep any chat without acknowledgement or equivalent readback evidence in PUBLISHED_NOT_ACKNOWLEDGED or BRIDGE_BLOCKED state.",
+      "authority": "status reporting only"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Inventory authority referenced by the Interaction/Layering Atlas",
+      "state": "RESOLVED_FOR_CURRENT_STOCK_SCOPE_ONLY",
+      "detail": "The atlas names an older v3 inventory. Aug2026 v5 now controls stock, preparation, and physical-compounding status. The atlas remains advisory, and its hypotheses are neither discarded nor promoted to direct evidence."
+    },
+    {
+      "scope": "Packet publication versus active-chat synchronization",
+      "state": "PUBLISHED_PENDING_ACKNOWLEDGEMENT",
+      "detail": "File creation and hash verification establish local publication only. Each consuming chat remains unsynchronized until it returns an acknowledgement or equivalent evidence of reading this packet."
+    },
+    {
+      "scope": "Current active-chat census",
+      "state": "RECENT_WINDOW_VERSUS_FULL_REGISTRY",
+      "detail": "The fresh recent window identifies four current project chats, while the immutable 38-chat registry is complete only for its 2026-08-09 snapshot. Neither is silently rewritten into the other."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a8ba0a5-a154-83ec-b529-98c75c99c83d",
+      "uri": "chatgpt-conversation://6a8ba0a5-a154-83ec-b529-98c75c99c83d",
+      "title": "Inventory Authority Update",
+      "turn_id": "c7ee0df8-b720-4e79-9b3e-cadea057f878"
+    },
+    {
+      "kind": "chatgpt_project",
+      "id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+      "uri": "chatgpt-project://g-p-6a74ab83668081919f5cbd0dfe80eb09",
+      "title": "Complex Perfumery"
+    },
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+      "uri": "chatgpt-conversation://6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+      "title": "Data Integration for Perfume-Chem",
+      "role": "target work hub"
+    },
+    {
+      "kind": "local_project_source_set",
+      "id": "complex-perfumery-authority-source-set-20260824",
+      "root": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/sources"
+    }
+  ],
+  "content_hashes": [
+    {
+      "algorithm": "sha256",
+      "digest": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/sources/Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5(1).xlsx"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "ad65041fcf8e01dcdf9578113bc12dba8fa8bba516f4de11c6e154683b685df9",
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/sources/HIGH_HEDONIC_PRIORITY_METHOD_v1(1).md"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "f192fdea259052d445f39f2264b1907e92e1139ee8ddf112f57d2a7a99558961",
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/sources/PROTOCOL.md"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "07d84574365abb6a8e505fdcaf4e496ee1ac1d90f1397053d41f20b0a9394ff3",
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/sources/Meaningful_Complexity_Audit_v2.md"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "4f2206893d6f8d682aa6df798a3a5c8c9b2a815b8ed2c4025c20cd108544b9e7",
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/sources/PERFUME_CHEM_LITERATURE_VERIFICATION_LEDGER.md"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "d059bc75bf4d8bcb4bc6329c4a7302960262a522f0a6964919acd736f898c54d",
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/sources/Perfumery_Interaction_Layering_Atlas_v1.md"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "7080040871d9c40196242e1c8d1c058a3dba123ac427f9168f8859d4e635fd0c",
+      "path": "chat_bridge/complex_perfumery/PROTOCOL.md"
+    }
+  ],
+  "authority": {
+    "level": "VALIDATED_CONTEXT",
+    "accepted_by_codex": true
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

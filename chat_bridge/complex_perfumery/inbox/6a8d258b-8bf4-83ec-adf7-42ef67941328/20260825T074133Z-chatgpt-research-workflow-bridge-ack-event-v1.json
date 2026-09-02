@@ -1,0 +1,134 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "chatgpt-research-workflow-bridge-ack-event-20260825T074133Z-v1",
+  "packet_nonce": "0216e7fba2114d40b7305127827ed79c",
+  "created_at": "2026-08-25T07:41:33.7681097+00:00",
+  "freshness": {
+    "source_observed_at": "2026-08-25T07:38:13.5180000+00:00",
+    "source_revision": "turn-b37a6ceb-475b-4024-b7ee-b2d9f0551713:agent-ba893df0-6c44-437a-bb28-3c946a4d5118",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": null
+  },
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a8d258b-8bf4-83ec-adf7-42ef67941328",
+  "source_chat_title": "Research workflow",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Record the Research workflow conversation's explicit acknowledgement of the initial inbound and Codex acknowledgement packet IDs and nonces as a separate immutable transport event, without converting that acknowledgement into claim acceptance.",
+  "summary": "The Research workflow conversation explicitly stated that it read the bridge notice and repeated the initial inbound packet ID and nonce and the initial Codex acknowledgement packet ID and nonce. It also explicitly limited its response to transport and context acknowledgement and declined acceptance, validation, or promotion of scientific, benchmark, package, repository, formula, physical, safety, publication, or release claims. This packet records that acknowledgement event append-only; it does not modify either acknowledged packet and does not acknowledge the later v2 successor pair.",
+  "decisions": [
+    {
+      "decision": "Record the source response as an explicit acknowledgement of the v1 packet pair.",
+      "reason": "The response reproduced both packet IDs and both nonces and stated that the bridge notice had been read."
+    },
+    {
+      "decision": "Keep acceptance false.",
+      "reason": "The source response explicitly restricted the acknowledgement to transport and context and denied scientific, benchmark, package, repository, formula, physical, safety, publication, and release acceptance."
+    },
+    {
+      "decision": "Do not infer acknowledgement of the v2 successor pair.",
+      "reason": "The source response names only the initial v1 packet IDs and nonces."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The Research workflow conversation acknowledged packet chatgpt-research-workflow-bridge-intake-20260825T073458Z with nonce db73d16cb451428c95ef7935c1bfd9d1.",
+      "evidence": "Exact source response in turn b37a6ceb-475b-4024-b7ee-b2d9f0551713, agent message ba893df0-6c44-437a-bb28-3c946a4d5118.",
+      "limitation": "Acknowledgement proves the notice was read; it does not validate the captured claims or unavailable artifacts."
+    },
+    {
+      "claim": "The Research workflow conversation acknowledged packet codex-research-workflow-bridge-ack-20260825T073633Z with nonce c5f54753e90d4d1d947c0f05bc9bcfce.",
+      "evidence": "Exact source response in turn b37a6ceb-475b-4024-b7ee-b2d9f0551713, agent message ba893df0-6c44-437a-bb28-3c946a4d5118.",
+      "limitation": "This does not acknowledge the later successor packet pair."
+    },
+    {
+      "claim": "The acknowledgement expressly withholds claim acceptance.",
+      "evidence": "The response says it is transport or context acknowledgement only and does not accept, validate, or promote scientific, benchmark, package, repository, formula, physical, safety, publication, or release claims.",
+      "limitation": "No additional authority is inferred beyond the exact acknowledgement text."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "path": "chat_bridge/complex_perfumery/inbox/6a8d258b-8bf4-83ec-adf7-42ef67941328/20260825T073458Z-chatgpt-research-workflow-bridge-intake-v1.json",
+      "role": "acknowledged initial inbound packet",
+      "status": "ACKNOWLEDGED_NOT_ACCEPTED"
+    },
+    {
+      "path": "chat_bridge/complex_perfumery/outbox/20260825T073633Z-codex-research-workflow-bridge-ack-v1.json",
+      "role": "acknowledged initial Codex acknowledgement packet",
+      "status": "ACKNOWLEDGED_NOT_ACCEPTED"
+    },
+    {
+      "path": "chat_bridge/complex_perfumery/inbox/6a8d258b-8bf4-83ec-adf7-42ef67941328/20260825T073840Z-chatgpt-research-workflow-master-handoff-delta-v2.json",
+      "role": "later successor intake",
+      "status": "PUBLISHED_NOT_ACKNOWLEDGED"
+    },
+    {
+      "path": "chat_bridge/complex_perfumery/outbox/20260825T073947Z-codex-research-workflow-bridge-ack-v2.json",
+      "role": "later successor acknowledgement",
+      "status": "PUBLISHED_NOT_ACKNOWLEDGED"
+    }
+  ],
+  "constraints": [
+    "Acknowledgement is transport evidence only and is not claim acceptance.",
+    "The acknowledged v1 packet bytes remain immutable.",
+    "The later v2 successor packet pair requires its own explicit acknowledgement.",
+    "No live synchronization, hidden-context access, scientific promotion, repository change, or release authority is created by this event."
+  ],
+  "unresolved_questions": [
+    "Will the Research workflow conversation separately acknowledge the v2 successor packet ID and nonce?",
+    "Can the uncaptured remainder of the master handoff be supplied through a bounded exact source?"
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Deliver the v2 successor packet identifiers after the app rate limit clears and record any response append-only.",
+      "authority": "bridge transport only"
+    },
+    {
+      "priority": 2,
+      "action": "Continue to keep all imported claims unaccepted until their designated Scholar GPT or Codex verification path succeeds.",
+      "authority": "Scholar GPT and Codex according to the role boundary"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "v1 acknowledgement versus v2 successor state",
+      "state": "V1_ACKNOWLEDGED_V2_PENDING",
+      "detail": "The exact response acknowledges only the packet IDs and nonces from the first bridge notice."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a8d258b-8bf4-83ec-adf7-42ef67941328",
+      "uri": "chatgpt-conversation://6a8d258b-8bf4-83ec-adf7-42ef67941328",
+      "title": "Research workflow"
+    },
+    {
+      "kind": "chatgpt_turn",
+      "id": "b37a6ceb-475b-4024-b7ee-b2d9f0551713",
+      "agent_message_id": "ba893df0-6c44-437a-bb28-3c946a4d5118",
+      "disposition": "EXPLICIT_TRANSPORT_ACKNOWLEDGEMENT_ONLY"
+    }
+  ],
+  "content_hashes": [
+    {
+      "algorithm": "sha256",
+      "digest": "f342c708834110119aaf0794684bb65dddd33018f61be12cce8d4beff3668192",
+      "path": "chat_bridge/complex_perfumery/inbox/6a8d258b-8bf4-83ec-adf7-42ef67941328/20260825T073458Z-chatgpt-research-workflow-bridge-intake-v1.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "7b4f9e8205f71907f2093cf839d97793be843ed92eedfac672e8433d0331ed8f",
+      "path": "chat_bridge/complex_perfumery/outbox/20260825T073633Z-codex-research-workflow-bridge-ack-v1.json"
+    }
+  ],
+  "authority": {
+    "level": "VALIDATED_CONTEXT",
+    "accepted_by_codex": true
+  },
+  "acknowledgement": {
+    "read_at": "2026-08-25T07:38:13.5180000+00:00",
+    "accepted": false
+  }
+}

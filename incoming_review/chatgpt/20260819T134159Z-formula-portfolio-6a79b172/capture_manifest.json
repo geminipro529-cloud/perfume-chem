@@ -1,0 +1,131 @@
+{
+  "schema_version": "chatgpt_browser_capture_manifest_v1",
+  "capture_id": "formula-portfolio-6a79b172-20260819t134159z",
+  "recorded_at": "2026-08-19T13:41:59Z",
+  "scope": "AUTHENTICATED_EXACT_BYTE_QUARANTINE_AND_LINEAGE_DIFF_ONLY",
+  "source": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "project_name": "Complex Perfumery",
+    "conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+    "conversation_title": "Perfume Making Consultant",
+    "conversation_url": "https://chatgpt.com/g/g-p-6a74ab83668081919f5cbd0dfe80eb09-complex-perfumery/c/6a79b172-0264-83ec-b77a-306a37ecb832",
+    "source_turn_id": "7be4588c-1e7c-45f7-9721-13a19c0a42ba",
+    "source_message_id": "2467d5f7-8168-439b-a330-3ebb12c536b2",
+    "exact_reexposure_message_id": "742a0bf5-112a-4e2c-89ed-e8c73f0a48f4",
+    "capture_surface": "AUTHENTICATED_CHATGPT_BROWSER_ATTACHMENT_DOWNLOAD"
+  },
+  "artifact": {
+    "path": "incoming_review/chatgpt/20260819T134159Z-formula-portfolio-6a79b172/Complex_Perfumery_11_Formula_Portfolio.json",
+    "file_name": "Complex_Perfumery_11_Formula_Portfolio.json",
+    "object_id": "file_00000000ce08820bb478271dae96a32f",
+    "original_content_reference_index": 6,
+    "reexposed_content_reference_index": 1,
+    "byte_size": 2617388,
+    "sha256": "869757d6de9cca844475c9437b2e0de7d87596ba69cb2a0f1c568d205612e9f6",
+    "media_type": "application/json",
+    "relationship": "STANDALONE_PRIMARY_MACHINE_READABLE_PORTFOLIO",
+    "strict_utf8_parse": true,
+    "json_parse_valid": true,
+    "transport_copy_byte_exact": true,
+    "container_or_zip_inferred": false
+  },
+  "companion": {
+    "path": "incoming_review/chatgpt/20260818T015707+0700-validation-report-base64-6a79b172/VALIDATION_REPORT.json",
+    "file_name": "VALIDATION_REPORT.json",
+    "object_id": "file_000000008abc81faaf301780ec72d9ee",
+    "byte_size": 7672,
+    "sha256": "2f01d1e3a16927a4d49e98f258293d62104de5ca1f1db9d909ebf33583770494",
+    "relationship": "STANDALONE_VALIDATION_COMPANION_SEPARATELY_CAPTURED"
+  },
+  "content_census": {
+    "portfolio_id": "Complex_Perfumery_11_Commercial_Formula_Portfolio_Aug2026_v1",
+    "formula_ids": [
+      "LHOMME",
+      "LANUIT",
+      "DHI12",
+      "PR_E07",
+      "PR_E01",
+      "AHS",
+      "EB",
+      "EE",
+      "ELIXIR",
+      "BDCP",
+      "DHP25"
+    ],
+    "formula_candidates": 11,
+    "current_build_rows": 771,
+    "target_ideal_rows": 788,
+    "missing_concept_rows": 19,
+    "test_definitions": 55,
+    "gate_records": 187,
+    "gate_state_census": {
+      "PASS": 54,
+      "CONDITIONAL": 44,
+      "HOLD": 67,
+      "NOT_RUN": 22
+    },
+    "pairwise_diagnostics": 55,
+    "validation_checks": 69,
+    "validation_checks_passed": 69,
+    "source_validation_overall": "PASS",
+    "aggregate_authority": "WITHHELD",
+    "formula_state": "COMPUTATIONAL RECONSTRUCTION CANDIDATE / PHYSICAL HOLD"
+  },
+  "lineage_diff": {
+    "comparison_path": "incoming_review/chatgpt/20260818T013100+0700-exact-decimal-successor-6a7992db/expanded/Perfume_Chem_V19_V20_Exact_Decimal_Formula_Artifact_Successor_2026-08-17_v2/V19_V20_EXACT_DECIMAL_FORMULA_ARTIFACT_SUCCESSOR_PACK.json",
+    "comparison_byte_size": 2318938,
+    "comparison_sha256": "48fffb87d4132b09f0215d5262f797491f939e31d4511e3da9dbf932288ff8dc",
+    "overlap_formula_ids": 9,
+    "portfolio_only_formula_ids": [
+      "PR_E07",
+      "PR_E01"
+    ],
+    "overlap_current_hash_matches": 0,
+    "overlap_parent_hash_matches": 0,
+    "overlap_exact_material_part_matches": 0,
+    "classification": "DISTINCT_NONINTERCHANGEABLE_COMPUTATIONAL_CANDIDATE_LINEAGE"
+  },
+  "transport_resolution": {
+    "prior_state": "PRIMARY_OBJECT_CLOUD_ONLY_TUNNEL_EXACT_BYTES_OR_CONNECTOR_UNAVAILABLE",
+    "current_state": "PRIMARY_OBJECT_EXACT_BROWSER_BYTES_RECOVERED_HASH_VERIFIED",
+    "prior_manifest_path": "incoming_review/chatgpt/20260818T013500+0700-multi-chat-exact-byte-reexposure/capture_manifest.json",
+    "normalization_or_reconstruction_used": false
+  },
+  "rights": {
+    "reuse_status": "UNKNOWN",
+    "redistribution_allowed": false,
+    "reason": "The AI-generated artifact has no package-level license. Exact possession preserves provenance but does not authorize redistribution, formula installation, compounding, or release."
+  },
+  "deepluna_chat": {
+    "project": "perfume-chem-cheapluna-isolated",
+    "profile": "cheapluna-chat",
+    "route": "DIRECT_PRO",
+    "luna": "NO_LUNA",
+    "job_id": "DS-617d5a84d22d3a7421adac295f67976d",
+    "terminal_status": "BLOCKED",
+    "evidence_verdict": "UNRESOLVED",
+    "scientific_uncertainty": true,
+    "scope_deviation": false,
+    "provider_cost_nano_usd": 2041208,
+    "worker_science_accepted": false,
+    "fallback_used": false
+  },
+  "disposition": {
+    "state": "EXACT_JSON_CAPTURED_QUARANTINED_DISTINCT_CANDIDATE_LINEAGE",
+    "source_admission_allowed": false,
+    "formula_installation_allowed": false,
+    "row_projection_allowed": false,
+    "formula_mutation_allowed": false,
+    "inventory_mutation_allowed": false,
+    "physical_execution_allowed": false,
+    "sensory_authority_allowed": false,
+    "analytical_authority_allowed": false,
+    "measured_headspace_authority_allowed": false,
+    "strict_oav_authority_allowed": false,
+    "safety_authority_allowed": false,
+    "publication_allowed": false,
+    "release_allowed": false,
+    "notes": "Retain the exact source, its companion, all 11 formulas, all G0-G16 gates, and the two unique portfolio formula IDs as candidate ancestry. Do not install, merge with the later exact-decimal successor, infer sensory similarity from pairwise diagnostics, or weaken native C4/C5/C8 physical and OAV abstention contracts."
+  },
+  "receipt_sha256": "4394573c8ee8554485eb9d168e46b570161d3a29012632627985c1be08e4da8f"
+}

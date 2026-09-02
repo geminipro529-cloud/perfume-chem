@@ -1,0 +1,396 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "chatgpt-hedonic-combination-ranking-module-intake-20260824T014622Z",
+  "packet_nonce": "e6b42aa1558a4d74bc8ef9194a5b4237",
+  "created_at": "2026-08-24T01:46:22.1233174Z",
+  "freshness": {
+    "source_observed_at": "2026-08-24T02:38:52.3250159Z",
+    "source_revision": "chatgpt-thread:6a888528-f430-83ec-b404-10371116c08c:turn:ce009e38-c040-43e5-80a3-598a303dab67",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": null
+  },
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a888528-f430-83ec-b404-10371116c08c",
+  "source_chat_title": "Hedonic Combination Ranking",
+  "target_conversation_id": "01a02501-5671-7450-8de2-b7f3bea2da2a",
+  "objective": "Capture the latest ChatGPT-only complexity-module and working-stock artifact pointers without installing unverified modules, duplicating provider work, or treating declared hashes as original downloadable bytes.",
+  "summary": "The current ChatGPT thread contains a completed Citrus Complexity Lattice v1 Markdown contract and workbook, an incomplete Vetiver Complexity Lattice proposal, a V7 working-stock conversion, and portfolio-audit artifact pointers. Content-reference indices 12, 13, and 11 were recovered by exact Base64 transport. The returned index 10 stream was one byte short and source-rejected, but a target-hash-constrained exhaustive insertion check found one unique repair: ASCII e at zero-based byte offset 15,789. The reconstructed 18,272-byte Markdown matches the source-declared SHA-256 2c9e5e7d98f5df2b096922a994f44c2da1fa88cb84a93d32756331372d5e8b5c exactly; the failed stream remains separately quarantined as transport history. The recovered 27,095-byte workbook matches SHA-256 3810a332251949aa409b6fea9de192ca63515b74a3712339c28fb21845b028a2, passes ZIP CRC validation, and contains 10 sheets, 1,725 populated cells, and 116 formulas. All eight module arithmetic summaries and all ten application dose-preservation checks reconcile, while all seven controlled tests remain NOT RUN. Four of five citrus artifacts now match their declared identities; only the ZIP at index 9 remains missing. The candidate is not physically prepared or empirically validated, and seven of its eight modules have live-inventory blockers. No candidate is installed or admitted. The prior 11-response replacement benchmark is invalid for answer-key and role leakage; the corrected v2 blinded manifest has no submitted or scored requests.",
+  "decisions": [
+    {
+      "decision": "Record the current ChatGPT thread as append-only untrusted intake.",
+      "reason": "The source conversation is newer than the preserved project mirror and contains material module and data changes that are not represented by exact local bytes."
+    },
+    {
+      "decision": "Do not install Citrus Complexity Lattice v1 from the partial package, exact Markdown, and exact workbook alone.",
+      "reason": "Reference 9 remains absent, seven of eight proposed modules have live-inventory blockers, all seven controlled tests are unrun, and the candidate has no valid unseen Sol Extra High pass."
+    },
+    {
+      "decision": "Reject the source claim that all five cores and three adapters are currently preparable.",
+      "reason": "The live inventory supports only CIT-C1 without an obvious stock blocker. The other modules depend on out-of-stock Cedrat, absent Ethyl Butyrate, absent Pink Pepper EO, absent Ethyl Linalool or Fir EO, an unavailable DEP preparation carrier, unproven Citral Natural identity, or stock-strength and carrier mismatches."
+    },
+    {
+      "decision": "Keep the Vetiver Complexity Lattice proposal uninstalled and incomplete.",
+      "reason": "The thread proposes a modular architecture but does not provide a completed artifact, exact hash-bound package, or benchmark receipt."
+    },
+    {
+      "decision": "Preserve failed modules as recoverably retired rather than deleting their source.",
+      "reason": "The approved recovery design removes failed modules from runtime eligibility while retaining provenance and replay evidence."
+    },
+    {
+      "decision": "Invalidate and never score the 11 leaked replacement benchmark responses.",
+      "reason": "All three arms exposed scorer-only answer keys, administrative role labels, and case metadata; a neutral-schema v2 manifest is frozen for any future fresh projectless run."
+    },
+    {
+      "decision": "Do not retry the failed DeepLuna Chat audit for this turn.",
+      "reason": "Job DS-9f41bdc420c1975f51513a8abe24c96c terminated with CONTRACT_ERROR and no accepted evidence; duplicate or ambiguous retry is prohibited."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The ChatGPT thread contains a completed Citrus Complexity Lattice v1 description.",
+      "evidence": "Turn dba4102e-6cb7-4260-ad73-f2ab0ec175db defines five species cores, three optional adapters, an application map for ten perfumes, controlled tests, and explicit non-promotion limits."
+    },
+    {
+      "claim": "Four of five citrus artifacts now locally match their declared identities; only the ZIP remains missing.",
+      "evidence": "Indices 13 and 12 match their declared 671-byte and 2,522-byte SHA-256 identities. The source-rejected index 10 stream was retained, and an exhaustive target-hash-constrained single-byte insertion found one unique repair at offset 15,789: ASCII e; the reconstructed 18,272-byte Markdown matches its declared SHA-256. Five exact Base64 slices for index 11 reconstruct a 27,095-byte XLSX matching declared SHA-256 3810a332251949aa409b6fea9de192ca63515b74a3712339c28fb21845b028a2. Original reference 9 is absent."
+    },
+    {
+      "claim": "The recovered workbook is internally arithmetic-consistent but contains no completed validation outcome.",
+      "evidence": "All eight modules total 1,000 raw parts and reconcile with the Module Summary active/carrier totals; all ten application maps preserve their old citrus subtotals. The workbook labels every module NOT YET PREPARED and every one of seven controlled tests NOT RUN, with strict empirical OAV, measured headspace, and hedonic superiority NOT TESTED."
+    },
+    {
+      "claim": "The citrus candidate does not establish physical or hedonic superiority.",
+      "evidence": "The source says the module premixes are PREPARABLE / NOT YET PREPARED and disclaims physical liking, strict empirical OAV, measured headspace, stability, safety, and release results."
+    },
+    {
+      "claim": "The citrus candidate is not buildable as written from the live inventory.",
+      "evidence": "inventory.txt dated 2026-08-07 lists Cedrat FCF oil Sicilian OUT OF STOCK; lacks Ethyl Butyrate, Pink Pepper EO, Ethyl Linalool, Fir Essential Oil, and DEP as a preparation carrier; carries Paradisamide only at 10% and Methyl Pamplemousse in TEC; and does not prove Citral Natural or Coriander Seed EO identity equivalence. Only CIT-C1 has no obvious stock blocker."
+    },
+    {
+      "claim": "The source's old citrus block is not proven to be the repository citrus selector.",
+      "evidence": "The ChatGPT audit describes repeated citrus rows across ten V7 recipes, while engine/perception/citrus_selection.py is a separate target-first, zero-or-one selector hash-bound in the repository registry. No exact source-to-module hash or semantic diff was supplied."
+    },
+    {
+      "claim": "The Vetiver Complexity Lattice is a design proposal rather than a completed module.",
+      "evidence": "Turn 786e184f-856f-4a34-a007-5b36a59b377f presents architectural options and proposed branches but no saved artifact hashes or completed package."
+    },
+    {
+      "claim": "The V7 working-stock conversion and portfolio audit also remain missing-byte pointers.",
+      "evidence": "Turns 91ad6546-4910-4461-b39c-72e4621d248a and e61612a0-fd49-4eb1-a551-a47a3f77471e declare six additional SHA-256 values without local original files."
+    },
+    {
+      "claim": "Current repository runtime installation remains limited to complexity-experimental-design.",
+      "evidence": "The V2 registry census reports exactly one runtime-eligible module; ten modules are recoverably retired and nine are future, evidence-only, or otherwise nonruntime."
+    },
+    {
+      "claim": "No valid replacement-module Sol Extra High comparison is complete.",
+      "evidence": "The 11 captured v1 responses are invalidated for answer-key, role, and administrative metadata leakage. The corrected v2 blinded manifest contains 54 unique requests with no leaked scorer fields, but none has been submitted or scored."
+    },
+    {
+      "claim": "The requested auxiliary apps currently provide no accepted acquisition or benchmark evidence.",
+      "evidence": "Plugin Management reports Browser and the private Perfume Tunnel plugin as not installed; no Browser runtime is mounted. Consensus has exhausted its 30-search monthly quota until September 1. WolframContext returned an internal error and the bounded WolframAlpha query returned no result."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "source_reference": "chatgpt-content-reference:index=9",
+      "declared_role": "Citrus Complexity Lattice v1 complete package",
+      "declared_filename": "CITRUS_COMPLEXITY_LATTICE_v1_PACKAGE.zip",
+      "declared_byte_length": 101120,
+      "declared_sha256": "4d1ce0e4aa29b91e4bc202090c29964aa5c93075704e4d670c5ffbdda9546937",
+      "local_bytes_state": "MISSING"
+    },
+    {
+      "source_reference": "chatgpt-content-reference:index=10",
+      "declared_role": "Citrus Complexity Lattice v1 research and bench contract",
+      "declared_filename": "CITRUS_COMPLEXITY_LATTICE_v1.md",
+      "declared_byte_length": 18272,
+      "declared_sha256": "2c9e5e7d98f5df2b096922a994f44c2da1fa88cb84a93d32756331372d5e8b5c",
+      "local_bytes_state": "CAPTURED_QUARANTINED_TARGET_HASH_VERIFIED",
+      "path": "incoming_review/chatgpt/20260824T014622Z-citrus-complexity-lattice-v1-6a888528/CITRUS_COMPLEXITY_LATTICE_v1.md",
+      "reconstruction_history": {
+        "returned_stream_byte_length": 18271,
+        "returned_stream_sha256": "cb4fdfc7b97674ecfe5284aafc99e209e7f70121ef489eba33a3bc3bb6ec5ebb",
+        "returned_stream_path": "incoming_review/chatgpt/20260824T014622Z-citrus-complexity-lattice-v1-6a888528/CITRUS_COMPLEXITY_LATTICE_v1.RETURNED_STREAM_NONEXACT.md",
+        "operation": "INSERT_SINGLE_BYTE",
+        "zero_based_byte_offset": 15789,
+        "inserted_byte_decimal": 101,
+        "inserted_byte_ascii": "e",
+        "acceptance_basis": "DECLARED_TARGET_LENGTH_AND_SHA256_EXACT_MATCH"
+      }
+    },
+    {
+      "source_reference": "chatgpt-content-reference:index=11",
+      "declared_role": "Citrus Complexity Lattice v1 structured workbook",
+      "declared_filename": "CITRUS_COMPLEXITY_LATTICE_v1.xlsx",
+      "declared_byte_length": 27095,
+      "declared_sha256": "3810a332251949aa409b6fea9de192ca63515b74a3712339c28fb21845b028a2",
+      "local_bytes_state": "CAPTURED_QUARANTINED_HASH_VERIFIED",
+      "path": "incoming_review/chatgpt/20260824T014622Z-citrus-complexity-lattice-v1-6a888528/CITRUS_COMPLEXITY_LATTICE_v1.xlsx",
+      "verification": {
+        "base64_character_count": 36128,
+        "chunk_character_counts": [8192, 8192, 8192, 8192, 3360],
+        "zip_crc_state": "PASS",
+        "zip_member_count": 18,
+        "sheet_count": 10,
+        "nonempty_cell_count": 1725,
+        "formula_cell_count": 116,
+        "module_arithmetic_state": "PASS_ALL_EIGHT",
+        "application_dose_preservation_state": "PASS_ALL_TEN",
+        "controlled_test_state": "NOT_RUN_ALL_SEVEN"
+      }
+    },
+    {
+      "source_reference": "chatgpt-content-reference:index=12",
+      "declared_role": "V8 citrus-rebased formulas",
+      "declared_filename": "00_INDEX.md",
+      "declared_byte_length": 2522,
+      "declared_sha256": "e726b8e0b30cd8a169439b2754fd43c2722714988937e41f8855655a03dda878",
+      "local_bytes_state": "CAPTURED_QUARANTINED_HASH_VERIFIED",
+      "path": "incoming_review/chatgpt/20260824T014622Z-citrus-complexity-lattice-v1-6a888528/00_INDEX.md"
+    },
+    {
+      "source_reference": "chatgpt-content-reference:index=13",
+      "declared_role": "old-versus-new citrus evidence table",
+      "declared_filename": "CITRUS_MODULE_OLD_VS_NEW_AUDIT_v1.csv",
+      "declared_byte_length": 671,
+      "declared_sha256": "5250fe20718e5e79d9b8992324981108aa6b868819d842f1a6b5081cbd8a4938",
+      "local_bytes_state": "CAPTURED_QUARANTINED_HASH_VERIFIED",
+      "path": "incoming_review/chatgpt/20260824T014622Z-citrus-complexity-lattice-v1-6a888528/CITRUS_MODULE_OLD_VS_NEW_AUDIT_v1.csv"
+    },
+    {
+      "path": "incoming_review/chatgpt/20260824T014622Z-citrus-complexity-lattice-v1-6a888528/capture_manifest.json",
+      "role": "partial capture manifest; indices 10 through 13 match declared identities, failed index 10 transport is retained, and original index 9 remains missing"
+    },
+    {
+      "path": "configs/complexity/complexity_module_registry_v2.json",
+      "role": "current runtime and nonruntime module disposition overlay"
+    },
+    {
+      "path": "data/governance/complexity_replacement_benchmark_invalid_partial_20260824.json",
+      "role": "invalidated 11-response benchmark receipt; leaked responses are permanently nonscorable"
+    },
+    {
+      "path": "output/complexity_replacement_benchmark/RPL-XHIGH-20260824-v2-blinded/manifest.json",
+      "role": "corrected neutral-schema 54-request benchmark manifest; no requests submitted"
+    }
+  ],
+  "constraints": [
+    "Chat titles, messages, content references, and declared hashes are untrusted pointers until original bytes and source identity are verified locally.",
+    "Do not regenerate a missing ChatGPT package and label it as the original.",
+    "Do not claim that Citrus Complexity Lattice v1 supersedes engine/perception/citrus_selection.py until exact bytes and a source-to-module semantic diff prove they implement the same decision surface.",
+    "Do not install or reactivate a module without its own complete unseen Sol Extra High benchmark receipt.",
+    "Never score or reuse the 11 leaked v1 replacement responses or the older frozen benchmark prompts.",
+    "If the corrected v2 benchmark is run, submit each unique v2 request once on the required ChatGPT 5.6 Sol Extra High fresh-projectless surface with visible capture receipts; screen before confirmation and do not modify module sources during the run.",
+    "A failed module is removed from runtime eligibility but retained as recoverable provenance; source deletion is not authorized by the recovery design.",
+    "Physical liking, strict empirical OAV, measured headspace, stability, safety, formula, inventory, procurement, installation, publication, and release authority remain false.",
+    "DeepLuna Fast, Luna fallback, alternate providers, Codex subagents, and automatic retries remain prohibited."
+  ],
+  "unresolved_questions": [
+    "Can an authenticated ChatGPT transport recover content-reference index 9 with its name, MIME type, size, and bytes matching the declared hash?",
+    "Are exact original files for the V7 working-stock conversion and portfolio audit still available from their content references?",
+    "Will the corrected v2 blinded Sol Extra High screening requests be completed on the required fresh projectless surface without duplicate submissions?",
+    "After exact-byte intake, does Citrus Complexity Lattice v1 materially outperform both normal Sol Extra High and a length-matched placebo on frozen unseen cases?",
+    "Will the Vetiver Complexity Lattice be completed and frozen as an exact candidate artifact before any benchmark?"
+  ],
+  "next_actions": [
+    {
+      "action": "Recover ChatGPT content-reference index 9 through exact authenticated transport and extend the existing capture manifest under incoming_review/chatgpt.",
+      "authority": "User-authenticated ChatGPT acquisition followed by Sol/Codex validation"
+    },
+    {
+      "action": "Verify every downloaded byte length, MIME type, SHA-256, archive member path, and workbook structure before creating any candidate registry overlay.",
+      "authority": "Sol/Codex local verification"
+    },
+    {
+      "action": "Submit only the corrected v2 screening requests when the required fresh ChatGPT 5.6 Sol Extra High surface and visible capture path are available; submit confirmation requests only for modules that clear screening.",
+      "authority": "User-requested benchmark continuation under the blinded v2 manifest"
+    },
+    {
+      "action": "Reactivate only modules that pass all noncompensatory retention gates; keep failures recoverably retired and runtime-unreachable.",
+      "authority": "Sol final acceptance linked to exact benchmark receipts"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "ChatGPT completion claim versus local artifact availability",
+      "state": "PARTIAL_TARGET_IDENTITY_RECOVERY_FOUR_OF_FIVE_WITH_REJECTED_TRANSPORT_RETAINED",
+      "detail": "Content-reference indices 11 through 13 were locally materialized and hash verified. The source-rejected index 10 stream is retained separately; a unique one-byte repair produces the declared 18,272-byte Markdown SHA-256 exactly. Original index 9 remains missing."
+    },
+    {
+      "scope": "New citrus design versus runtime admission",
+      "state": "CANDIDATE_NOT_BENCHMARKED",
+      "detail": "The candidate may be a stronger design hypothesis, but its complete ZIP package is absent, all seven controlled tests are unrun, and it has no individual unseen Sol Extra High pass."
+    },
+    {
+      "scope": "Source preparable claim versus live inventory",
+      "state": "BUILDABILITY_CONFLICT_SEVEN_OF_EIGHT_MODULES_BLOCKED",
+      "detail": "Only CIT-C1 has no obvious stock blocker. Seven modules require unavailable, out-of-stock, non-equivalent, carrier-mismatched, strength-mismatched, or identity-unproven inputs."
+    },
+    {
+      "scope": "ChatGPT old citrus block versus repository citrus selector",
+      "state": "POSSIBLE_NAMING_COLLISION_NOT_PROVEN_SAME_MODULE",
+      "detail": "The source criticizes recurring V7 formula rows. The repository module is a target-first selection contract, so replacement equivalence requires an exact semantic diff rather than a shared citrus label."
+    },
+    {
+      "scope": "User request to throw out worse modules versus repository recovery contract",
+      "state": "RUNTIME_REJECTION_WITH_RECOVERABLE_SOURCE",
+      "detail": "A failed module is deactivated and excluded from runtime; provenance source remains recoverable rather than being permanently deleted."
+    },
+    {
+      "scope": "Required DeepLuna review versus accepted evidence",
+      "state": "WORKER_CONTRACT_ERROR_LOCAL_EVIDENCE_CONTROLS",
+      "detail": "The exact-project route was READY, but the bounded read job failed before producing accepted evidence and was not retried."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "chatgpt_project",
+      "id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+      "label": "Complex Perfumery"
+    },
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a888528-f430-83ec-b404-10371116c08c",
+      "uri": "chatgpt-conversation://6a888528-f430-83ec-b404-10371116c08c",
+      "title": "Hedonic Combination Ranking"
+    },
+    {
+      "kind": "chatgpt_turn",
+      "id": "dba4102e-6cb7-4260-ad73-f2ab0ec175db",
+      "role": "Citrus Complexity Lattice v1 completion and artifact pointers"
+    },
+    {
+      "kind": "chatgpt_turn",
+      "id": "fb9738a7-e1cb-4a7c-9978-876e5cfdc209",
+      "role": "exact-byte transfer request returned BRIDGE_BLOCKED with five filenames, byte lengths, and declared hashes"
+    },
+    {
+      "kind": "chatgpt_turn",
+      "id": "96dcc9cb-7f9e-49a7-ba5a-6cc17cdd1f40",
+      "role": "exact Base64 recovery of content-reference index 13 with locally verified bytes"
+    },
+    {
+      "kind": "chatgpt_turn",
+      "id": "5c52aae8-e5d5-4cd8-8ad0-fc893753512f",
+      "role": "exact Base64 recovery of content-reference index 12 with locally verified bytes"
+    },
+    {
+      "kind": "chatgpt_turn",
+      "id": "8e665f22-edba-42d8-b315-a2330c5ce81c",
+      "role": "content-reference index 10 returned-stream Base64 chunk 1"
+    },
+    {
+      "kind": "chatgpt_turn",
+      "id": "98f1b0c8-5563-4349-832c-e51127bd8648",
+      "role": "content-reference index 10 returned-stream Base64 chunk 2"
+    },
+    {
+      "kind": "chatgpt_turn",
+      "id": "9105bac1-25ae-4094-91ab-a498d0d24783",
+      "role": "content-reference index 10 returned-stream Base64 chunk 3"
+    },
+    {
+      "kind": "chatgpt_turn",
+      "id": "ce009e38-c040-43e5-80a3-598a303dab67",
+      "role": "source reconciliation confirming the returned index 10 stream is not the exact original"
+    },
+    {
+      "kind": "chatgpt_turn",
+      "id": "786e184f-856f-4a34-a007-5b36a59b377f",
+      "role": "Vetiver Complexity Lattice proposal"
+    },
+    {
+      "kind": "chatgpt_turn",
+      "id": "91ad6546-4910-4461-b39c-72e4621d248a",
+      "role": "V7 working-stock conversion pointers"
+    },
+    {
+      "kind": "chatgpt_turn",
+      "id": "e61612a0-fd49-4eb1-a551-a47a3f77471e",
+      "role": "portfolio complexity and hedonics audit pointers"
+    },
+    {
+      "kind": "deepluna_chat_job",
+      "id": "DS-9f41bdc420c1975f51513a8abe24c96c",
+      "route": "DIRECT_PRO",
+      "disposition": "CONTRACT_ERROR_UNRESOLVED_NO_RETRY"
+    },
+    {
+      "kind": "codex_task",
+      "id": "01a02501-5671-7450-8de2-b7f3bea2da2a",
+      "uri": "codex://threads/01a02501-5671-7450-8de2-b7f3bea2da2a",
+      "title": "Update folder and ChatGPT data"
+    }
+  ],
+  "content_hashes": [
+    {
+      "algorithm": "sha256",
+      "digest": "4d1ce0e4aa29b91e4bc202090c29964aa5c93075704e4d670c5ffbdda9546937",
+      "path": null
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "2c9e5e7d98f5df2b096922a994f44c2da1fa88cb84a93d32756331372d5e8b5c",
+      "path": "incoming_review/chatgpt/20260824T014622Z-citrus-complexity-lattice-v1-6a888528/CITRUS_COMPLEXITY_LATTICE_v1.md"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "cb4fdfc7b97674ecfe5284aafc99e209e7f70121ef489eba33a3bc3bb6ec5ebb",
+      "path": "incoming_review/chatgpt/20260824T014622Z-citrus-complexity-lattice-v1-6a888528/CITRUS_COMPLEXITY_LATTICE_v1.RETURNED_STREAM_NONEXACT.md"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "3810a332251949aa409b6fea9de192ca63515b74a3712339c28fb21845b028a2",
+      "path": "incoming_review/chatgpt/20260824T014622Z-citrus-complexity-lattice-v1-6a888528/CITRUS_COMPLEXITY_LATTICE_v1.xlsx"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "e726b8e0b30cd8a169439b2754fd43c2722714988937e41f8855655a03dda878",
+      "path": "incoming_review/chatgpt/20260824T014622Z-citrus-complexity-lattice-v1-6a888528/00_INDEX.md"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "5250fe20718e5e79d9b8992324981108aa6b868819d842f1a6b5081cbd8a4938",
+      "path": "incoming_review/chatgpt/20260824T014622Z-citrus-complexity-lattice-v1-6a888528/CITRUS_MODULE_OLD_VS_NEW_AUDIT_v1.csv"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "50732cecc02e84c526b6c8f675a5b72e2f2782050d85d4fe2c048f234bd5f87b",
+      "path": null
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "8fed63c8984332de2bb9d4f1f2530b8e018e742df5ae4f5ad5eabaceceb16e16",
+      "path": null
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "ce7ce2334ddb49e9d6ebda8942e8c17360bbe8e68afc7d72a3fc1056f6732a88",
+      "path": null
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "9ef4c35fb1f6b374a80779bb117651779832bb311ed98e179187b97c3bf6fd3d",
+      "path": null
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "eaa86c2639e006035e81a282d7d9db4e4062d71eb147e1d8ead4b8e3f45b5f46",
+      "path": null
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "280ade48674b0be565ebc6895926306dfa1d032aa0a2f68e360d5e1f6ab08305",
+      "path": null
+    }
+  ],
+  "authority": {
+    "level": "UNTRUSTED_CHAT_INPUT",
+    "accepted_by_codex": false
+  },
+  "acknowledgement": {
+    "read_at": "2026-08-24T01:46:22.1233174Z",
+    "accepted": false
+  }
+}

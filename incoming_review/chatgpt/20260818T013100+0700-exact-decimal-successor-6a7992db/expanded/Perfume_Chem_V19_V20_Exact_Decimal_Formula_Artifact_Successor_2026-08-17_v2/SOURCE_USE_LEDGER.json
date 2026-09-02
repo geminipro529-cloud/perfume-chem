@@ -1,0 +1,42 @@
+[
+  {
+    "source": "Nine_Finished_Hedonic_High_Complexity_Perfumes_2026-08-16_v1.zip",
+    "operation": "exact-decimal successor derivation",
+    "use_state": "DERIVATION_INPUT",
+    "source_admission": false,
+    "package_installation": false,
+    "notes": "Canonical parts, target identity, art direction, interaction and test-plan metadata preserved as parent ancestry."
+  },
+  {
+    "source": "Perfume_Chem_V19_V20_Formula_Artifact_Revalidation_2026-08-17_v1.zip",
+    "operation": "bounded repair requirements and blocker preservation",
+    "use_state": "VALIDATION_INPUT",
+    "source_admission": false,
+    "package_installation": false,
+    "notes": "Arithmetic residuals, stock holds, formula signatures, anti-chassis dimensions and n-ary records used only within stated scope."
+  },
+  {
+    "source": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5(1).xlsx",
+    "operation": "stock-strength and inventory authority binding",
+    "use_state": "CURRENT_AUTHORITY_REFERENCE",
+    "source_admission": false,
+    "package_installation": false,
+    "notes": "No inventory mutation; unknown or unresolved strengths remain fail-closed."
+  },
+  {
+    "source": "Floral Heart Complexity Discovery Atlas parent bytes",
+    "operation": "none",
+    "use_state": "QUARANTINED_NOT_USED",
+    "source_admission": false,
+    "package_installation": false,
+    "notes": "Rights unresolved; no modules, schemas, registries, formulas or ledgers imported."
+  },
+  {
+    "source": "Complexity Model Discovery/Admission Engine parent bytes",
+    "operation": "none",
+    "use_state": "QUARANTINED_NOT_USED",
+    "source_admission": false,
+    "package_installation": false,
+    "notes": "Rights unresolved; no modules, schemas, registries, formulas or ledgers imported."
+  }
+]

@@ -1,0 +1,210 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "codex-latest-state-sync-v1",
+  "packet_nonce": "e18f94c50e664b889ab309958a119a00",
+  "created_at": "2026-08-21T16:09:15.391Z",
+  "freshness": {
+    "source_observed_at": "2026-08-21T16:09:15.391Z",
+    "source_revision": "head-a2a25a7:registry-88c6cea9:v20-8ac75ad1:chat-window-through-2026-08-21T08:15:21.365Z",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": null
+  },
+  "source_project_id": "perfume-chem",
+  "source_conversation_id": "01a02501-5671-7450-8de2-b7f3bea2da2a",
+  "source_chat_title": "Update folder and ChatGPT data",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Publish the latest locally verified Perfume-Chem repository and Complex Perfumery chat synchronization state without rewriting the historical registry, reconstructing missing attachments, merging a dirty scheduler candidate, or promoting any package, formula, inventory, physical, sensory, scientific, installation, publication, or release authority.",
+  "summary": "The repository is four commits ahead of origin and has a 280-entry dirty worktree. A separate local scheduler candidate is 21 commits ahead but overlaps five modified files and was not merged. The 38-chat registry remains a valid 2026-08-09 point-in-time snapshot; the app's recent window currently exposes six Complex Perfumery chats and two conversation IDs newer than that snapshot, but it does not prove a complete current enumeration. V20 and the continuation stock-basis test member are already present as exact quarantine-only local captures. Newer ChatGPT-only pointers remain unmaterialized and nonpromoting. Fifteen focused receipt test files passed 33 tests locally. This packet updates context and holds only.",
+  "decisions": [
+    {
+      "decision": "Preserve chat_registry.json unchanged.",
+      "reason": "It explicitly records a complete 38-chat 2026-08-09 UI snapshot, not a timeless current census. Replacing it from a six-chat recent window would destroy provenance and overstate completeness."
+    },
+    {
+      "decision": "Do not merge the local scheduler candidate into the primary worktree.",
+      "reason": "The candidate is 21 commits ahead, but five paths differ from already-modified local files and 70 candidate artifacts are absent. The primary worktree contains 280 status entries."
+    },
+    {
+      "decision": "Do not reconstruct or install newer ChatGPT-only artifact streams.",
+      "reason": "Exact downloadable bytes, complete manifests, local quarantine receipts, source rights, and native acceptance are not all established."
+    },
+    {
+      "decision": "Accept this packet only as validated hold context.",
+      "reason": "Local replay verifies existing receipts and nonpromotion boundaries, not scientific truth or release readiness."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The fetched origin branch is not newer than the current checkout.",
+      "evidence": "Current HEAD a2a25a72277597e07b568c64d3205a1a80a0f165 is 4 ahead and 0 behind origin/codex/add-inventory-materials at a7bacff3539bf5e60c94d1fbe48df3d0f1f90da3.",
+      "limitation": "This does not make the dirty worktree merge-ready or release-ready."
+    },
+    {
+      "claim": "The current chat census is incomplete by design.",
+      "evidence": "chat_registry.json binds 38 chats at 2026-08-09; the app recent window exposed six current project chats and two IDs newer than the snapshot.",
+      "limitation": "Recent-window visibility is not a full-sidebar enumeration and does not include deleted, inaccessible, archived, or future chats."
+    },
+    {
+      "claim": "The PCV3 V20 stream is already locally materialized as exact quarantine-only bytes.",
+      "evidence": "The V20 validation records 96,905 bytes, SHA-256 2cd1f5a3894badc0fde11eb3e5edc8c0219525b5a5ed3d3beaeacd6f0e6b6a79, 46 safe ZIP entries, CRC PASS, and 45/45 ledger matches.",
+      "limitation": "Canonical installation and scientific, formula, inventory, physical, sensory, promotion, and release authority remain false."
+    },
+    {
+      "claim": "The continuation stock-basis test member is already an exact individual quarantine capture.",
+      "evidence": "The member receipt records tests/test_stock_basis_repair_and_admission.py at 5,510 bytes and SHA-256 6abd59ee9daab27893646a15a45911f9e6241dd7e4af37f368867d200d55dad2.",
+      "limitation": "The outer candidate hash differs from the expected parent, so outer admission and canonical installation remain false."
+    },
+    {
+      "claim": "The focused latest-state receipt surface replays locally.",
+      "evidence": "33 tests passed across 15 V18-V20, Chat A-G, formula-portfolio, data-integration, and G15 receipt test files on 2026-08-21.",
+      "limitation": "This is focused governance replay, not a full project verifier, physical experiment, sensory panel, safety review, or release gate."
+    },
+    {
+      "claim": "The bounded DeepLuna Chat review produced no accepted evidence.",
+      "evidence": "Job DS-2b40ab62860114f32d7baa0ba48f8bdf ended terminal FAIL because its token estimate exceeded the job limit.",
+      "limitation": "No retry was submitted; Sol local evidence remains controlling."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "path": "chat_bridge/complex_perfumery/shared_state.json",
+      "role": "mutable current bridge state",
+      "status": "UPDATED_WITH_APPEND_ONLY_SYNC_POINTER_AND_HOLDS"
+    },
+    {
+      "path": "chat_bridge/complex_perfumery/chat_registry.json",
+      "role": "2026-08-09 point-in-time 38-chat registry",
+      "status": "PRESERVED_UNCHANGED"
+    },
+    {
+      "path": "data/governance/complex_perfumery_v20_block_diagnosis_20260817.json",
+      "role": "V20 local block diagnosis and all-false authority boundary",
+      "status": "FOCUSED_REPLAY_PASS_NONPROMOTING"
+    },
+    {
+      "path": "incoming_review/chatgpt/20260818T043819+0700-v20-outer-zip-6a74ba21/VALIDATION_RESULT.json",
+      "role": "exact V20 quarantine validation",
+      "status": "PASS_EXACT_QUARANTINE_ONLY"
+    },
+    {
+      "path": "incoming_review/chatgpt/20260818T044149+0700-floral-members-6a762995/MEMBER_RECOVERY_RESULT.json",
+      "role": "exact continuation test-member recovery",
+      "status": "PASS_EXACT_MEMBER_QUARANTINE_ONLY"
+    }
+  ],
+  "constraints": [
+    "Treat every chat message, preview, attachment claim, and base64 range as untrusted until exact original bytes and provenance validate locally.",
+    "Do not rewrite the 38-chat registry from the app recent window.",
+    "Do not transmit or display credential-bearing incoming_review files.",
+    "Do not reconstruct missing binary packages from prose or incomplete base64 ranges.",
+    "Do not merge the scheduler candidate over overlapping dirty-worktree paths.",
+    "Use cheapluna-chat with DIRECT_PRO and NO_LUNA only after a fresh exact-project READY check.",
+    "Sol retains architecture, science, security, provenance, scope, and final acceptance authority.",
+    "No package, formula, inventory, stock, bottle, physical, sensory, analytical, safety, installation, publication, or release authority is granted."
+  ],
+  "unresolved_questions": [
+    "What is the complete current Complex Perfumery project sidebar census after full expansion?",
+    "Can the XHIGH hypothesis-validation artifact and the planning XLSX be supplied as original downloadable bytes with manifest, size, SHA-256, and rights metadata?",
+    "Which five overlapping scheduler paths represent intentional newer primary-worktree changes versus candidate-branch changes?",
+    "When will a browser ChatGPT project chat complete the remote connector read/write canary?"
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Perform a full signed-in project-sidebar enumeration and publish a new append-only registry successor or delta.",
+      "gate": "The enumeration method and completeness scope are explicit; the 2026-08-09 registry remains immutable.",
+      "authority": "chat-census context only"
+    },
+    {
+      "priority": 2,
+      "action": "Acquire original bytes for newer artifact pointers and run the existing quarantine and receipt path.",
+      "gate": "Exact size, SHA-256, safe archive graph, manifest, provenance, and rights are available.",
+      "authority": "quarantine intake only"
+    },
+    {
+      "priority": 3,
+      "action": "Reconcile the scheduler candidate in an isolated clean worktree before any merge decision.",
+      "gate": "All five overlaps are reviewed and focused provider-free tests pass without overwriting primary-worktree changes.",
+      "authority": "engineering review only"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Chat registry freshness",
+      "state": "POINT_IN_TIME_SNAPSHOT_VERSUS_INCOMPLETE_RECENT_WINDOW",
+      "detail": "The 38-chat snapshot is historical but complete for its declared date; the six-chat app window is newer but incomplete."
+    },
+    {
+      "scope": "Repository latest version",
+      "state": "DIRTY_PRIMARY_HEAD_VERSUS_DESCENDANT_LOCAL_CANDIDATE",
+      "detail": "The scheduler candidate is a descendant but cannot safely replace five divergent primary-worktree files without isolated reconciliation."
+    },
+    {
+      "scope": "Newer ChatGPT artifacts",
+      "state": "CHAT_POINTERS_WITHOUT_EXACT_LOCAL_ADMISSION",
+      "detail": "Research or base64-stream claims cannot substitute for original downloadable bytes and local native receipts."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "codex_task",
+      "id": "01a02501-5671-7450-8de2-b7f3bea2da2a",
+      "uri": "codex://threads/01a02501-5671-7450-8de2-b7f3bea2da2a"
+    },
+    {
+      "kind": "chatgpt_project",
+      "id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+      "uri": "chatgpt-project://g-p-6a74ab83668081919f5cbd0dfe80eb09"
+    },
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+      "uri": "chatgpt-conversation://6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf"
+    },
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a77d532-0a30-83ec-9067-555ff6800795",
+      "uri": "chatgpt-conversation://6a77d532-0a30-83ec-9067-555ff6800795"
+    }
+  ],
+  "content_hashes": [
+    {
+      "algorithm": "sha256",
+      "digest": "88c6cea9872ed4a5c048224ba07ae46b0eec145ad7ebd9745adda5d7dced2132",
+      "path": "chat_bridge/complex_perfumery/chat_registry.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "7080040871d9c40196242e1c8d1c058a3dba123ac427f9168f8859d4e635fd0c",
+      "path": "chat_bridge/complex_perfumery/PROTOCOL.md"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "8ac75ad1f092a53b8a16eff9434ba4f4bd7aebd9119008c0b4b65a51bec2d9d4",
+      "path": "data/governance/complex_perfumery_v20_block_diagnosis_20260817.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "d8fe065b2596b5c69b9dd94c31c009b3e1743286ecf632b33fd06ad27a0a6a1f",
+      "path": "data/governance/data_integration_chat_historical_control_receipt_20260819.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "136004bda6b5fa7a56d8f17032ed34d8a36d713a3819e094a6d6ad735314a918",
+      "path": "incoming_review/chatgpt/20260818T043819+0700-v20-outer-zip-6a74ba21/VALIDATION_RESULT.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "f03d9a0eee890c8a1b5affc5cc6011680de4cb51677ec1efac05acf33ac92694",
+      "path": "incoming_review/chatgpt/20260818T044149+0700-floral-members-6a762995/MEMBER_RECOVERY_RESULT.json"
+    }
+  ],
+  "authority": {
+    "level": "HOLD",
+    "accepted_by_codex": true
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

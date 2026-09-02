@@ -1,0 +1,120 @@
+{
+  "authority_flags_all_false": true,
+  "candidate_scope": "STANDALONE_NON_PROMOTING_IMPLEMENTATION",
+  "gaps": [
+    {
+      "candidate_state": "CLOSED_STANDALONE",
+      "deployment_state": "NOT_INSTALLED",
+      "gap_id": "V20-VAL-004",
+      "module": "complexity_dispatch.py",
+      "name": "Legacy V2 policy conflict isolation",
+      "proof": [
+        "49-row high architecture is not failed by count alone",
+        "65-row padded architecture is rebuilt",
+        "quality_score has no decision effect",
+        "legacy payload round-trips",
+        "missing current policy returns HOLD with no V2 fallback",
+        "authoritative target-specific floors remain enforceable"
+      ]
+    },
+    {
+      "candidate_state": "CLOSED_CURRENT_POLICY_ADAPTER_SCOPE",
+      "gap_id": "V20-VAL-005",
+      "legacy_package_state": "FAIL_15_OF_16__QUARANTINED",
+      "module": "qualification_adapter.py",
+      "name": "Legacy Qualification v1 mismatch",
+      "proof": [
+        "EQ-02 gate sets match after G14 is marked non-governing",
+        "EQ-16 quality-score-only failure produces no current gate failure",
+        "raw legacy fixture and result remain preserved"
+      ],
+      "target_engine_run": false
+    },
+    {
+      "candidate_state": "DIAGNOSIS_CLOSED__REPAIR_ENGINE_VALIDATED__ACTUAL_SUCCESSOR_HELD",
+      "gap_id": "V20-VAL-006",
+      "module": "formula_artifact.py",
+      "name": "Formula artifact validation blocker",
+      "proof": [
+        "six exact residuals queued",
+        "canonical Decimal export closes exactly",
+        "display rounding balance is explicit",
+        "canonical parts remain unchanged",
+        "blind rebind prohibited"
+      ],
+      "remaining_hold": "Exact parent formula rows and repository-native validator are not materialized."
+    },
+    {
+      "candidate_state": "CLOSED_STANDALONE",
+      "gap_id": "V20-VAL-007",
+      "module": "source_admission.py",
+      "name": "Operation-scoped quarantine",
+      "proof": [
+        "VERIFY_BYTES and bounded quarantine-manifest read allowed",
+        "all import, execute, and promote operations denied for unresolved rights",
+        "matching SHA-256 cannot bypass rights"
+      ]
+    },
+    {
+      "candidate_state": "GUARD_CLOSED__BYTE_HOLDS_REMAIN",
+      "gap_id": "V20-VAL-008",
+      "module": "exact_bytes.py",
+      "name": "Exact-byte dependency fail-closed behavior",
+      "proof": [
+        "filename, size, SHA-256, CRC, path, symlink, duplicate, case-fold, and member-count checks",
+        "stale Universal Accord hash explicitly rejected"
+      ],
+      "remaining_hold": "Four exact byte streams remain unavailable."
+    },
+    {
+      "candidate_state": "CLOSED_STANDALONE",
+      "gap_id": "V20-VAL-009",
+      "module": "exact_quantities.py",
+      "name": "Exact stock and dose fail-closed contract",
+      "proof": [
+        "no implicit neat default",
+        "unknown carrier remains unknown",
+        "opaque product basis remains opaque",
+        "basis mismatch blocked",
+        "density evidence required for cross-basis conversion",
+        "planned and preparable states remain nonphysical",
+        "binary floats rejected",
+        "screening cannot promote claims"
+      ],
+      "remaining_hold": "63 row-level stock/preparation evidence closures require real labels, lots, receipts, and ExactStockRefs."
+    },
+    {
+      "candidate_state": "CLOSED_STANDALONE",
+      "empirical_authority": false,
+      "gap_id": "V20-VAL-010",
+      "module": "nary_interactions.py",
+      "name": "Ratio-bound n-ary interaction contract",
+      "proof": [
+        "arity, role, context, exact ratio closure, derivation, and evidence/physical state validation",
+        "pair-score multiplication prohibited",
+        "designed records remain NOT_TESTED"
+      ]
+    },
+    {
+      "candidate_state": "CLOSED_STANDALONE_POLICY_GUARD__DEPLOYMENT_HOLD",
+      "deployment_state": "NOT_DEPLOYED",
+      "gap_id": "V20-VAL-011",
+      "module": "runtime_policy.py",
+      "name": "DeepLuna runtime policy",
+      "proof": [
+        "exact project/profile/route/mode enforced",
+        "Fast and alternate fallback denied",
+        "provider failure preserved as failure"
+      ]
+    },
+    {
+      "candidate_state": "BRIDGE_BLOCKED",
+      "gap_id": "V20-VAL-012",
+      "name": "Current repository and deployment validation",
+      "remaining_hold": "No verified Perfume-Chem filesystem connector, current HEAD, worktree, canary, CI, or deployed runtime was inspected."
+    }
+  ],
+  "overall_state": "PASS_STANDALONE_CANDIDATE__REPOSITORY_AND_EVIDENCE_HOLDS_PRESERVED",
+  "repository_state": "BRIDGE_BLOCKED",
+  "schema_version": "PERFUME_CHEM_V20_GAP_CLOSURE_MATRIX_v1"
+}

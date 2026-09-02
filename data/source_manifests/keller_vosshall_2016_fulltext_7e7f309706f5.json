@@ -1,0 +1,60 @@
+{
+  "schema_version": "scientific_source_manifest_v1",
+  "source_id": "keller-vosshall-2016-pmc4977894-fulltext-7e7f309706f5",
+  "source_type": "PRIMARY_PEER_REVIEWED_PAPER",
+  "title": "Olfactory perception of chemically diverse molecules",
+  "language": "en",
+  "review_state": "UNREVIEWED",
+  "independence_group": "keller-vosshall-2016",
+  "authors": [
+    "Andreas Keller",
+    "Leslie B. Vosshall"
+  ],
+  "issuing_organization": "Europe PMC",
+  "container_title": "BMC Neuroscience",
+  "publisher_or_authority": "BioMed Central",
+  "publication_date": "2016-08-08",
+  "identifiers": {
+    "doi": "10.1186/s12868-016-0287-2",
+    "pmid": "27502425",
+    "pmcid": "PMC4977894"
+  },
+  "revision": {
+    "kind": "content_digest",
+    "value": "7e7f309706f52bafc110f2ec36dce7cc8a00b9f177cd678db6e417b1baaabc72"
+  },
+  "retrieved_at": "2026-08-09T16:20:45.3250956+07:00",
+  "rights": {
+    "reuse_status": "PERMITTED",
+    "license_or_reuse_restriction": "CC BY 4.0 article text. Preserve attribution, the license link, and an indication of modifications.",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "redistribution_allowed": true,
+    "spdx_identifier": "CC-BY-4.0",
+    "notes": "This manifest applies CC BY 4.0 to the article XML only; it does not assign that license to separately staged data files."
+  },
+  "transformation": {
+    "module": "engine.ingestion.scientific",
+    "version": "scientific-source-staging-v1",
+    "mode": "source-bytes-only"
+  },
+  "dataset_context": {
+    "measurement_kind": "peer-reviewed experimental methods and study context",
+    "intended_use": [
+      "review-only method citation",
+      "psychophysics provenance context"
+    ],
+    "authority_limit": "Method context only; not numerical lineage, chemical identity, supplier stock, ODT, OAV, safety, similarity, or release evidence."
+  },
+  "artifacts": [
+    {
+      "artifact_id": "fulltext-xml",
+      "path": "pmc4977894_fulltext.xml",
+      "role": "PRIMARY_DATA",
+      "media_type": "application/xml",
+      "byte_size": 97627,
+      "sha256": "7e7f309706f52bafc110f2ec36dce7cc8a00b9f177cd678db6e417b1baaabc72",
+      "source_url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4977894/fullTextXML",
+      "preserved_artifact_path": "data/external/keller_vosshall_2016/pmc4977894_fulltext.xml"
+    }
+  ]
+}

@@ -1,0 +1,323 @@
+{
+  "schema_version": "perfume_chem_inventory_v5_remaining_closure_evidence_audit_v1",
+  "report_id": "inventory_v5_experiment_readiness_remaining_evidence_audit_20260812",
+  "generated_at": "2026-08-12",
+  "decision": "DATA_AMBER_REMAINING_CLOSURES_CLASSIFIED_NONE_READY_PHYSICAL_AND_REBASE_GATES_PRESERVED",
+  "purpose": "Classify CLR-003 through CLR-016 against exact current V5 and inventory evidence without creating stock, preparation, formula, experiment, or release authority.",
+  "semantic_self_sha256": "12719d39a83719a25dd206e766547b8c836f24d102ac59c3cf2a9429ec57effe",
+  "parents": [
+    {
+      "path": "data/governance/inventory_v5_experiment_readiness_closure_queue_20260812.json",
+      "size_bytes": 24578,
+      "sha256": "ff228b72a155e14902416b1de8d92e75f7302123c80f292abfc85adbd997ee2a",
+      "role": "GOVERNING_CLOSURE_REQUIREMENTS"
+    },
+    {
+      "path": "data/governance/inventory_v5_current_stock_snapshot.json",
+      "size_bytes": 226125,
+      "sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+      "role": "CURRENT_V5_STOCK_AND_FORMULA_USE_CENSUS"
+    },
+    {
+      "path": "inventory.txt",
+      "size_bytes": 17140,
+      "sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "role": "USER_STOCK_ASSERTION_SOURCE"
+    }
+  ],
+  "summary": {
+    "actions_audited": 14,
+    "ready_to_close": 0,
+    "formula_rebase_required": 2,
+    "formula_rebase_and_stock_lineage_required": 1,
+    "carrier_identity_then_physical_preparation_required": 1,
+    "physical_preparation_or_label_required": 10,
+    "closure_receipts_created": 0,
+    "physical_actions_performed": 0
+  },
+  "classification_policy": {
+    "FORMULA_REBASE_REQUIRED": "The usable stock basis is named, but every affected historical formula must be deterministically rebound while preserving active mass and carrier contribution.",
+    "FORMULA_REBASE_AND_STOCK_LINEAGE_REQUIRED": "A different-strength stock is named, but both deterministic formula rebasing and exact stock or preparation lineage remain open.",
+    "CARRIER_IDENTITY_THEN_PHYSICAL_PREPARATION_REQUIRED": "The parent carrier must be proven before a child dilution can be prepared and receipted.",
+    "PHYSICAL_PREPARATION_OR_LABEL_REQUIRED": "Current text does not supply the exact label, carrier, stock identity, or executed preparation receipt required by the closure test."
+  },
+  "audits": [
+    {
+      "action_id": "CLR-003",
+      "material_scope": "Helional 10% v/v",
+      "disposition": "PHYSICAL_PREPARATION_OR_LABEL_REQUIRED",
+      "formula_rows_affected": 27,
+      "snapshot_sources": [
+        {"source_row": 130, "canonical_material": "Helional 10%", "status": "HAVE — NEAT + 10% V/V", "row_uses": 27}
+      ],
+      "inventory_evidence_needles": ["Helional 10% v/v", "Helional"],
+      "present_evidence": "Inventory and V5 distinguish neat Helional from a 10% v/v stock.",
+      "missing_gate": "Exact carrier, parent stock identity, preparation lineage, and a receipt preserving v/v without converting to w/w.",
+      "next_safe_action": "Inspect the physical label and preparation record; preserve v/v as a separate basis and keep all 27 rows held until bound.",
+      "closure_receipt_created": false,
+      "execution_authorized": false
+    },
+    {
+      "action_id": "CLR-004",
+      "material_scope": "Cyclamen Aldehyde 10%",
+      "disposition": "PHYSICAL_PREPARATION_OR_LABEL_REQUIRED",
+      "formula_rows_affected": 16,
+      "snapshot_sources": [
+        {"source_row": 87, "canonical_material": "Cyclamen Aldehyde 10%", "status": "HAVE — NEAT + 10%", "row_uses": 16}
+      ],
+      "inventory_evidence_needles": ["Cyclamen Aldehyde"],
+      "present_evidence": "V5 asserts neat plus 10%, while inventory text names only the material.",
+      "missing_gate": "Explicit 10% carrier and a distinct exact stock or label identity.",
+      "next_safe_action": "Bind the existing 10% bottle label and carrier or prepare and receipt a distinct child stock; do not infer strength from the material name.",
+      "closure_receipt_created": false,
+      "execution_authorized": false
+    },
+    {
+      "action_id": "CLR-005",
+      "material_scope": "Javanol historical neat rows to confirmed 20% in DPG",
+      "disposition": "FORMULA_REBASE_REQUIRED",
+      "formula_rows_affected": 53,
+      "snapshot_sources": [
+        {"source_row": 149, "canonical_material": "Javanol", "status": "DO NOT USE — NEAT STOCK NOT CONFIRMED", "row_uses": 53},
+        {"source_row": 150, "canonical_material": "Javanol 20% in DPG", "status": "HAVE — 20% IN DPG", "row_uses": 0}
+      ],
+      "inventory_evidence_needles": ["Javanol"],
+      "present_evidence": "V5 identifies the 20% in DPG stock and holds 53 historical neat-basis rows.",
+      "missing_gate": "Reviewed mass-basis equivalence and exact rebinding of every affected formula to the confirmed 20% stock.",
+      "next_safe_action": "Generate and review a content-addressed rebase candidate for the 53 rows; keep original formulas immutable until accepted.",
+      "closure_receipt_created": false,
+      "execution_authorized": false
+    },
+    {
+      "action_id": "CLR-006",
+      "material_scope": "Alpha Irone 10% gap versus owned 30% w/w in IPM",
+      "disposition": "FORMULA_REBASE_REQUIRED",
+      "formula_rows_affected": 12,
+      "snapshot_sources": [
+        {"source_row": 19, "canonical_material": "Alpha Irone 10%", "status": "GAP", "row_uses": 12},
+        {"source_row": 20, "canonical_material": "Alpha Irone 30%", "status": "HAVE", "row_uses": 21}
+      ],
+      "inventory_evidence_needles": ["Alpha Irone (30% w/w in IPM)"],
+      "present_evidence": "Inventory and V5 name an owned 30% w/w in IPM stock while the 10% basis is a gap.",
+      "missing_gate": "Per-row active-mass-preserving rebase with IPM carrier accounting; volumetric 10%-to-30% substitution is forbidden.",
+      "next_safe_action": "Create a reviewed mass-basis rebase candidate for the 12 held rows and preserve exact parent hashes.",
+      "closure_receipt_created": false,
+      "execution_authorized": false
+    },
+    {
+      "action_id": "CLR-007",
+      "material_scope": "Beta Ionone 1% historical rows versus owned 0.1% stock",
+      "disposition": "FORMULA_REBASE_AND_STOCK_LINEAGE_REQUIRED",
+      "formula_rows_affected": 2,
+      "snapshot_sources": [
+        {"source_row": 45, "canonical_material": "Beta Ionone 1%", "status": "HAVE — DIFFERENT STOCK", "row_uses": 2}
+      ],
+      "inventory_evidence_needles": ["Beta Ionone", "Beta Ionone (0.1% in TEC)"],
+      "present_evidence": "Inventory distinguishes neat Beta Ionone from a 0.1% in TEC working dilution.",
+      "missing_gate": "Exact lineage for the 0.1% stock plus deterministic rebasing of the two historical 1% rows, or a separately receipted 1% stock.",
+      "next_safe_action": "Bind the 0.1% preparation lineage, then rebase the two rows by active dose; do not dose 0.1% as 1%.",
+      "closure_receipt_created": false,
+      "execution_authorized": false
+    },
+    {
+      "action_id": "CLR-008",
+      "material_scope": "Peru Balsam 50% w/w to 10% working stock",
+      "disposition": "CARRIER_IDENTITY_THEN_PHYSICAL_PREPARATION_REQUIRED",
+      "formula_rows_affected": 43,
+      "snapshot_sources": [
+        {"source_row": 201, "canonical_material": "Peru Balsam 10%", "status": "HAVE — 50% W/W / CARRIER UNSTATED", "row_uses": 43}
+      ],
+      "inventory_evidence_needles": ["Peru Balsam Resinoid (50% in DPG)"],
+      "present_evidence": "Inventory text asserts DPG, while V5 deliberately keeps the 50% parent carrier unstated.",
+      "missing_gate": "Physical label or lot evidence for the parent carrier, followed by a gravimetric 10% PreparationReceipt and row rebinding.",
+      "next_safe_action": "Verify the parent product label first; only then prepare and receipt the 10% child stock and rebind all 43 rows.",
+      "closure_receipt_created": false,
+      "execution_authorized": false
+    },
+    {
+      "action_id": "CLR-009",
+      "material_scope": "Citronellol 10% working stock",
+      "disposition": "PHYSICAL_PREPARATION_OR_LABEL_REQUIRED",
+      "formula_rows_affected": 31,
+      "snapshot_sources": [
+        {"source_row": 73, "canonical_material": "Citronellol 10%", "status": "HAVE — NEAT", "row_uses": 31}
+      ],
+      "inventory_evidence_needles": ["Citronellol"],
+      "present_evidence": "Only neat Citronellol is confirmed.",
+      "missing_gate": "A homogeneous 10% child stock with exact parent, carrier, quantities, basis, date, and stock ID.",
+      "next_safe_action": "Prepare and receipt a 10% child stock only after separate physical authorization; keep old 10% assumptions held.",
+      "closure_receipt_created": false,
+      "execution_authorized": false
+    },
+    {
+      "action_id": "CLR-010",
+      "material_scope": "Carrot Seed EO 1% and 10% working stocks",
+      "disposition": "PHYSICAL_PREPARATION_OR_LABEL_REQUIRED",
+      "formula_rows_affected": 28,
+      "snapshot_sources": [
+        {"source_row": 57, "canonical_material": "Carrot Seed EO 1%", "status": "HAVE — NEAT ONLY", "row_uses": 10},
+        {"source_row": 58, "canonical_material": "Carrot Seed EO 10%", "status": "HAVE — NEAT ONLY", "row_uses": 18}
+      ],
+      "inventory_evidence_needles": ["Carrot Seed EO"],
+      "present_evidence": "Only neat Carrot Seed EO is confirmed.",
+      "missing_gate": "Separate exact preparation receipts for each actually needed 1% or 10% child stock.",
+      "next_safe_action": "Select only required strengths, then physically prepare and receipt each child stock under separate authorization.",
+      "closure_receipt_created": false,
+      "execution_authorized": false
+    },
+    {
+      "action_id": "CLR-011",
+      "material_scope": "Isoeugenol 10% in DPG",
+      "disposition": "PHYSICAL_PREPARATION_OR_LABEL_REQUIRED",
+      "formula_rows_affected": 22,
+      "snapshot_sources": [
+        {"source_row": 142, "canonical_material": "Isoeugenol 10%", "status": "HAVE — NEAT / PREPARE", "row_uses": 22}
+      ],
+      "inventory_evidence_needles": ["Isoeugenol (neat)"],
+      "present_evidence": "Only neat Isoeugenol is confirmed.",
+      "missing_gate": "A current gravimetric 10% in DPG PreparationReceipt and exact child stock ID.",
+      "next_safe_action": "Prepare and receipt the child stock only when needed and separately authorized.",
+      "closure_receipt_created": false,
+      "execution_authorized": false
+    },
+    {
+      "action_id": "CLR-012",
+      "material_scope": "Methyl Nonyl Ketone 1% working stock",
+      "disposition": "PHYSICAL_PREPARATION_OR_LABEL_REQUIRED",
+      "formula_rows_affected": 21,
+      "snapshot_sources": [
+        {"source_row": 173, "canonical_material": "Methyl Nonyl Ketone 1%", "status": "HAVE — NEAT / PREPARE", "row_uses": 21}
+      ],
+      "inventory_evidence_needles": ["Methyl Nonyl Ketone"],
+      "present_evidence": "Only neat Methyl Nonyl Ketone is confirmed.",
+      "missing_gate": "A 1% child receipt with exact parent, carrier, fraction basis, quantities, date, and stock ID.",
+      "next_safe_action": "Prepare and receipt the 1% child stock only after separate physical authorization.",
+      "closure_receipt_created": false,
+      "execution_authorized": false
+    },
+    {
+      "action_id": "CLR-013",
+      "material_scope": "Benzaldehyde 10% working stock",
+      "disposition": "PHYSICAL_PREPARATION_OR_LABEL_REQUIRED",
+      "formula_rows_affected": 18,
+      "snapshot_sources": [
+        {"source_row": 39, "canonical_material": "Benzaldehyde 10%", "status": "HAVE — NEAT / PREPARE", "row_uses": 18}
+      ],
+      "inventory_evidence_needles": ["Benzaldehyde (neat)", "Benzaldehyde (1% in DPG)"],
+      "present_evidence": "Inventory confirms neat and 1% in DPG stocks, not the required 10% child stock.",
+      "missing_gate": "An exact 10% child stock and carrier receipt bound to the affected rows.",
+      "next_safe_action": "Prepare and receipt a distinct 10% child only when required; never substitute the existing 1% stock.",
+      "closure_receipt_created": false,
+      "execution_authorized": false
+    },
+    {
+      "action_id": "CLR-014",
+      "material_scope": "Dihydro Beta Ionone 10% working stock",
+      "disposition": "PHYSICAL_PREPARATION_OR_LABEL_REQUIRED",
+      "formula_rows_affected": 15,
+      "snapshot_sources": [
+        {"source_row": 93, "canonical_material": "Dihydro Beta Ionone 10%", "status": "HAVE — NEAT ONLY", "row_uses": 15}
+      ],
+      "inventory_evidence_needles": ["Dihydro Beta Ionone"],
+      "present_evidence": "Only neat Dihydro Beta Ionone is confirmed.",
+      "missing_gate": "A current exact 10% PreparationReceipt and child stock identity.",
+      "next_safe_action": "Prepare and receipt the 10% child only when separately authorized; do not dose neat as historical 10%.",
+      "closure_receipt_created": false,
+      "execution_authorized": false
+    },
+    {
+      "action_id": "CLR-015",
+      "material_scope": "Heliotropal 10% working stock",
+      "disposition": "PHYSICAL_PREPARATION_OR_LABEL_REQUIRED",
+      "formula_rows_affected": 15,
+      "snapshot_sources": [
+        {"source_row": 131, "canonical_material": "Heliotropal 10%", "status": "HAVE — NEAT ONLY", "row_uses": 15}
+      ],
+      "inventory_evidence_needles": ["Heliotropal (Piperonal)"],
+      "present_evidence": "Only neat Heliotropal or Piperonal is confirmed; Heliotropin remains a separate identity boundary.",
+      "missing_gate": "An exact 10% child stock with carrier contribution preserved.",
+      "next_safe_action": "Prepare and receipt a distinct 10% child stock only when separately authorized.",
+      "closure_receipt_created": false,
+      "execution_authorized": false
+    },
+    {
+      "action_id": "CLR-016",
+      "material_scope": "Methyl Anthranilate 10% working stock",
+      "disposition": "PHYSICAL_PREPARATION_OR_LABEL_REQUIRED",
+      "formula_rows_affected": 11,
+      "snapshot_sources": [
+        {"source_row": 171, "canonical_material": "Methyl Anthranilate 10%", "status": "HAVE — NEAT / PREPARE", "row_uses": 11}
+      ],
+      "inventory_evidence_needles": ["Methyl Anthranilate"],
+      "present_evidence": "Only neat Methyl Anthranilate is confirmed.",
+      "missing_gate": "An exact receipted 10% child stock before any affected formula is executable.",
+      "next_safe_action": "Prepare and receipt the 10% child only when separately authorized.",
+      "closure_receipt_created": false,
+      "execution_authorized": false
+    }
+  ],
+  "bounded_search": {
+    "searched_scopes": ["inventory.txt", "data/governance", "data/materials", "engine", "backend", "tests", "formulas", "knowledge"],
+    "canonical_exact_stock_or_preparation_receipts_found_for_actions": 0,
+    "formula_rebases_verified_complete": 0,
+    "global_absence_claimed": false
+  },
+  "delegation_evidence": {
+    "route": "DEEPLUNA_CHAT_CHEAPLUNA_CHAT_DIRECT_PRO_ONLY",
+    "initial_batch_id": "DLB-20260812T112115797Z-73be1b",
+    "initial_requested_parallel_lanes": 14,
+    "initial_admitted_job_count": 7,
+    "initial_transport_failures_without_job_id": 7,
+    "initial_accepted_jobs": 5,
+    "initial_unaccepted_jobs": ["DS-9f41c00444cfabb0240355ba55cbc183", "DS-a87baf294fc1060b85c8ecf52b6474cc"],
+    "second_batch_id": "DLB-20260812T112222557Z-fd61cc",
+    "second_fresh_client_parallel_lanes": 7,
+    "second_batch_accepted_jobs": 7,
+    "accepted_job_ids": [
+      "DS-a32e71c08869d34389880b2ec5149358",
+      "DS-3ebeddb722c6f5be46ac76d5ea8c4780",
+      "DS-36bac5e2ab531ab265d8158ac281d745",
+      "DS-d596f184fb2ce1ef3a188ef4b795e584",
+      "DS-e0adc96e8b8cc245d7b8de5fb2d97f5a",
+      "DS-dea338ca678aa94d81f18de44edb32ec",
+      "DS-fc0624a52fef6e9293f21475bdeae109",
+      "DS-8bee3bcb4ee6b3335bbcf94de3e24e99",
+      "DS-aae2842eb6d748a47b8731063a72ef97",
+      "DS-ad1b7d5dfd63722174f2e5a06d58d4d4",
+      "DS-08c997ab7af584fb2907653dfd4f8e49",
+      "DS-81a0e9b7f356a031fb0a352e54cda441"
+    ],
+    "observed_efficiency_finding": "A single 14-node client admitted seven jobs and returned seven daemon transport failures without job IDs; after settlement and a fresh READY check, a separate seven-node client admitted and completed all seven.",
+    "runtime_limit_inferred": false,
+    "runtime_mutated": false,
+    "retry_of_admitted_job_performed": false,
+    "fallback_used": false,
+    "fast_used": false,
+    "scientific_acceptance": "SOL_LOCAL_ONLY"
+  },
+  "claim_boundary": {
+    "stock_identity_inferred": false,
+    "carrier_inferred": false,
+    "preparation_inferred": false,
+    "formula_rebase_inferred_complete": false,
+    "physical_action_authorized": false,
+    "inventory_or_v5_mutated": false,
+    "experiment_ready": false,
+    "physical_result_claimed": false,
+    "release_ready": false
+  },
+  "authority": {
+    "formula": false,
+    "inventory_mutation": false,
+    "stock_identity": false,
+    "preparation": false,
+    "physical_experiment": false,
+    "sensory_claim": false,
+    "scientific_claim": false,
+    "safety": false,
+    "procurement": false,
+    "collection": false,
+    "installation": false,
+    "release": false
+  }
+}

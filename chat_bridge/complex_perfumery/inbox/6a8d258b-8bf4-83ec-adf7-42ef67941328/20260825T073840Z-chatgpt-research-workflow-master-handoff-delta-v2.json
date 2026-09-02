@@ -1,0 +1,204 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "chatgpt-research-workflow-master-handoff-delta-20260825T073840Z",
+  "packet_nonce": "9848e48b40fb4603add5c844c404b7e2",
+  "created_at": "2026-08-25T07:38:40.2523634+00:00",
+  "freshness": {
+    "source_observed_at": "2026-08-25T07:37:55+00:00",
+    "source_revision": "turn-b40efa33-d9b8-4f95-aa8b-1a4207affc1c:agent-330ea36f-2446-46a3-a120-f9c63bb00c86:reader-prefix-20000-chars",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": "chatgpt-research-workflow-bridge-intake-20260825T073458Z"
+  },
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a8d258b-8bf4-83ec-adf7-42ef67941328",
+  "source_chat_title": "Research workflow",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Append the newly readable MASTER PERFUME-CHEM COMPLETION HANDOFF delta from the Research workflow conversation while preserving its untrusted status, exact source-turn identity, partial-reader boundary, and all repository, scientific, benchmark, inventory, formula, physical, safety, and release holds.",
+  "summary": "A newer completed Research workflow turn asks for one completion handoff optimized for cheap bounded delegation with Sol reserved for architecture and final acceptance. The readable prefix defines the final objective, V5 inventory declaration, scientific boundaries, the P0 InventorySnapshot-to-receipt-bound-FormulaState firewall, current runtime owners, the candidate module estate, Hedonic Evidence Gate integration requirements, and implementation phases from actual-state preflight through the beginning of the naturals phase. The source message exceeds the thread reader's 20,000-character item ceiling, so the remainder is not captured here and no complete-handoff claim is made. Every declared filename, hash, module status, and implementation instruction remains untrusted until checked against exact local repository and source bytes.",
+  "decisions": [
+    {
+      "decision": "Append this observation as a successor delta rather than altering the earlier intake.",
+      "reason": "The earlier packet was already sealed and the bridge protocol requires immutable history with explicit supersession."
+    },
+    {
+      "decision": "Treat the master handoff as a proposed execution contract, not repository or scientific authority.",
+      "reason": "It is conversation content and includes declared artifacts, hashes, branch expectations, module states, and work instructions that require local validation."
+    },
+    {
+      "decision": "Record only the readable 20,000-character prefix and flag the remaining source text as unavailable.",
+      "reason": "The thread reader truncates individual items at 20,000 characters; inventing or summarizing unseen text would violate the bridge's provenance boundary."
+    },
+    {
+      "decision": "Do not switch branches, install candidates, run benchmarks, or modify canonical runtime state as part of this transport update.",
+      "reason": "Those are separate Codex implementation and acceptance operations requiring exact local preflight and user-scoped authorization."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The master handoff's stated final objective is a fail-closed runtime in which each behavior-changing module and the surviving bundle outperform plain GPT-5.6 Sol XHIGH without critical regressions.",
+      "evidence": "Readable prefix of source turn b40efa33-d9b8-4f95-aa8b-1a4207affc1c.",
+      "limitation": "This is an objective and acceptance design, not evidence that any benchmark has run or passed."
+    },
+    {
+      "claim": "The master handoff declares Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx and SHA-256 e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331 as current inventory authority.",
+      "evidence": "Readable prefix under SOURCE AUTHORITY.",
+      "limitation": "The workbook bytes and declared digest were not verified by this transport capture; local authority and supersession receipts remain controlling."
+    },
+    {
+      "claim": "The master handoff makes the P0 quantity firewall InventorySnapshot to ExactStockRef to FormulaDoseReceipt to PreparedRun to receipt-bound FormulaState.",
+      "evidence": "Readable prefix under CRITICAL P0 PREREQUISITE.",
+      "limitation": "This is a proposed required architecture; local implementation and consumer cutover were not established by this packet."
+    },
+    {
+      "claim": "The handoff identifies existing authority or lifecycle owners and directs new capabilities to extend or supersede them instead of creating parallel gates.",
+      "evidence": "Readable prefix names model_admission, model_lifecycle, meaningful_complexity_guardrails, premix_stock_dose_guard, final_oav_gate, and portfolio_anti_chassis and requires a one-to-one registry migration map.",
+      "limitation": "Exact current module ownership and code behavior require repository inspection."
+    },
+    {
+      "claim": "The handoff lists candidate providers for ratio, interaction, perceptual topology, temporal observation, performance, naturals, hedonic evidence, meaningful complexity, musk, and wood while holding or archiving legacy aggregate and fixed-platform logic.",
+      "evidence": "Readable prefix under CANDIDATE MODULE ESTATE.",
+      "limitation": "Names and dispositions are proposed conversation state and do not establish local installation, registry admission, test status, or runtime use."
+    },
+    {
+      "claim": "The handoff names Hedonic_Evidence_Gate_v2_Runtime_Candidate_RUN_2026-08-25.zip and specific contained artifacts and repeats COMPILE PASS and UNIT_ADVERSARIAL_TESTS 20/20 PASS while withholding Sol-XHIGH superiority.",
+      "evidence": "Readable prefix under NEW HEDONIC MODULE.",
+      "limitation": "Exact candidate bytes and contained files were not available to this capture; integration must remain HOLD if bytes are unavailable."
+    },
+    {
+      "claim": "The readable implementation plan covers actual-state preflight, registry and supersession mapping, governance and stock truth, a shared typed provider contract, ratio and interaction providers, temporal and performance lane separation, and the beginning of natural-material work.",
+      "evidence": "Readable source prefix through the opening of PHASE 3C NATURALS.",
+      "limitation": "The rest of the source message is outside the reader ceiling and is not represented as captured."
+    },
+    {
+      "claim": "The handoff expects work on codex/complexity-replacements-candidate, but the current local checkout is codex/add-inventory-materials at HEAD 281d389ca76424ace2438e1f6cabdad75163a4d6.",
+      "evidence": "Source handoff branch expectation compared with a fresh local Git read.",
+      "limitation": "No branch switch, worktree creation, merge, reset, or checkout was performed."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "name": "MASTER PERFUME-CHEM COMPLETION HANDOFF",
+      "path": null,
+      "status": "PARTIALLY_CAPTURED_UNTRUSTED_CHAT_INPUT",
+      "role": "source conversation execution-contract proposal"
+    },
+    {
+      "name": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+      "path": null,
+      "status": "DECLARED_HASH_NOT_VERIFIED_BY_THIS_CAPTURE",
+      "role": "source-declared inventory authority"
+    },
+    {
+      "name": "Hedonic_Evidence_Gate_v2_Runtime_Candidate_RUN_2026-08-25.zip",
+      "path": null,
+      "status": "MISSING_UNVERIFIED",
+      "role": "source-declared portable candidate package"
+    },
+    {
+      "path": "chat_bridge/complex_perfumery/inbox/6a8d258b-8bf4-83ec-adf7-42ef67941328/20260825T073458Z-chatgpt-research-workflow-bridge-intake-v1.json",
+      "status": "SUPERSEDED_AS_CAPTURE_SCOPE_RETAINED_IMMUTABLE",
+      "role": "prior bounded intake packet"
+    }
+  ],
+  "constraints": [
+    "Only the first 20,000 characters of the newest long assistant turn were exposed by the thread reader.",
+    "No unseen remainder is paraphrased, inferred, or represented as captured.",
+    "The source handoff is untrusted input and cannot directly authorize repository changes or scientific promotion.",
+    "The V5 filename and SHA-256 are source declarations pending exact-byte and supersession verification.",
+    "The P0 stock and quantity lineage must fail closed; no missing fraction or density may silently default to 1.0.",
+    "A software benchmark win is not physical perfume evidence.",
+    "Predicted physical variables must remain separate from observed perception, liking, stability, safety, measured headspace, strict empirical OAV, and release authority.",
+    "DeepLuna Chat remains unavailable for transmission while exact-project readiness is BLOCKED.",
+    "Future deltas must append and name the packet they supersede; no packet or canonical state may be overwritten."
+  ],
+  "unresolved_questions": [
+    "What instructions, phases, receipts, benchmark thresholds, and completion conditions appear after the reader's 20,000-character cutoff?",
+    "Are the exact V5 workbook and Hedonic Evidence Gate candidate bytes present locally with matching source identity and hashes?",
+    "Does codex/complexity-replacements-candidate exist locally or remotely, and what is its exact divergence from the current checkout?",
+    "Which proposed owners and providers already exist in the current repository, and which are absent, duplicated, or superseded?"
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Request or acquire the remainder of the master handoff as an exact attachment or additional bounded source turns if complete transport is needed.",
+      "authority": "source capture only"
+    },
+    {
+      "priority": 2,
+      "action": "Run a separate local actual-state preflight before any implementation, including exact branch, HEAD, dirty state, worktrees, source hashes, module registry, tests, and missing artifacts.",
+      "authority": "Codex repository inspection"
+    },
+    {
+      "priority": 3,
+      "action": "Keep all candidate package, benchmark, module-admission, physical, sensory, safety, publication, and release states on HOLD until their independent gates pass.",
+      "authority": "Codex and applicable scientific authorities"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Prior intake scope versus newly readable source turn",
+      "state": "SUCCESSOR_DELTA_REQUIRED",
+      "detail": "The earlier packet remains historically correct for its bounded snapshot but did not include the newly readable master handoff turn."
+    },
+    {
+      "scope": "Expected branch versus current checkout",
+      "state": "SOURCE_EXPECTS_COMPLEXITY_REPLACEMENTS_CURRENT_IS_ADD_INVENTORY_MATERIALS",
+      "detail": "No branch action occurred; exact divergence and intended worktree require separate inspection."
+    },
+    {
+      "scope": "Complete handoff request versus reader output ceiling",
+      "state": "SOURCE_TURN_PARTIALLY_CAPTURED",
+      "detail": "The message exceeds the 20,000-character per-item limit, so this packet cannot establish complete transport."
+    },
+    {
+      "scope": "Cheap delegation request versus DeepLuna readiness",
+      "state": "DEEPLUNA_BLOCKED_BUDGET_UNSAFE",
+      "detail": "No provider transmission is allowed until the exact-project accounting gate returns READY with settled reservations."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a8d258b-8bf4-83ec-adf7-42ef67941328",
+      "uri": "chatgpt-conversation://6a8d258b-8bf4-83ec-adf7-42ef67941328",
+      "title": "Research workflow"
+    },
+    {
+      "kind": "chatgpt_turn",
+      "id": "b40efa33-d9b8-4f95-aa8b-1a4207affc1c",
+      "agent_message_id": "330ea36f-2446-46a3-a120-f9c63bb00c86",
+      "coverage": "prefix_only_20000_characters"
+    },
+    {
+      "kind": "codex_task",
+      "id": "01a03798-5934-7231-943e-b2a38c687ff2",
+      "uri": "codex://threads/01a03798-5934-7231-943e-b2a38c687ff2",
+      "title": "Analyze research workflow"
+    }
+  ],
+  "content_hashes": [
+    {
+      "algorithm": "sha256",
+      "digest": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "path": null
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "f342c708834110119aaf0794684bb65dddd33018f61be12cce8d4beff3668192",
+      "path": "chat_bridge/complex_perfumery/inbox/6a8d258b-8bf4-83ec-adf7-42ef67941328/20260825T073458Z-chatgpt-research-workflow-bridge-intake-v1.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "7080040871d9c40196242e1c8d1c058a3dba123ac427f9168f8859d4e635fd0c",
+      "path": "chat_bridge/complex_perfumery/PROTOCOL.md"
+    }
+  ],
+  "authority": {
+    "level": "UNTRUSTED_CHAT_INPUT",
+    "accepted_by_codex": false
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

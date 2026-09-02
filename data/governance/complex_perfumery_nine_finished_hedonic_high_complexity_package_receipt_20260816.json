@@ -1,0 +1,159 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "complex-perfumery-nine-finished-hedonic-high-complexity-20260816",
+  "recorded_at": "2026-08-16T16:04:48+07:00",
+  "package": {
+    "file_name": "Nine_Finished_Hedonic_High_Complexity_Perfumes_2026-08-16_v1.zip",
+    "locator": "incoming_review/chatgpt/20260816T160448+0700-v17-nine-finished-hedonic-6a7992db-nf1e0f2aa/Nine_Finished_Hedonic_High_Complexity_Perfumes_2026-08-16_v1.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 815495,
+    "sha256": "f1e0f2aae2143fe2638c151032f686ee7b36579280445e86e1878c79b54f240b",
+    "media_type": "application/zip",
+    "archive_entry_count": 84,
+    "archive_file_count": 84,
+    "declared_payload_count": 83,
+    "package_root": "Nine_Finished_Hedonic_High_Complexity_Perfumes_2026-08-16_v1",
+    "embedded_integrity_records": [
+      {
+        "path": "Nine_Finished_Hedonic_High_Complexity_Perfumes_2026-08-16_v1/MANIFEST.json",
+        "byte_size": 17951,
+        "sha256": "6ce2ecfceb11b6d7757af3310c493c36212a7c55ad119dbf30b8ad3e459133fb",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "Nine_Finished_Hedonic_High_Complexity_Perfumes_2026-08-16_v1/SHA256SUMS.txt",
+        "byte_size": 8713,
+        "sha256": "4294a1b272c84f8246c0f1b4f79ffbdf767350ed34c67367e0205d2d8707caa3",
+        "role": "CHECKSUM_LEDGER"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a7992db-96b8-83ec-aab0-6a7447b97da1:nine-finished-hedonic-high-complexity-20260816-v1",
+    "conversation_id": "6a7992db-96b8-83ec-aab0-6a7447b97da1",
+    "turn_id": "11f894db-79ba-4bf9-a930-ab6f5974d8b1",
+    "message_id": "ec0059d1-004a-4b98-a825-5b5e737726de",
+    "lineage_resolution": "EXACT_ORIGINAL_FILE_CARD_BYTES_DOWNLOADED_HASH_VERIFIED_CAPTURED_AND_BOUND_TO_THREE_DISTINCT_ANCESTRY_EDGES",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "External AI-generated computational formula and design ancestry; exact byte possession does not grant source, formula, stock, experiment, redistribution, publication, or release authority.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Preserve exact source bytes, formula hypotheses, art direction, and source lineage only. Native target/build, C10/P3, Laboratory Beta, C0, B1, Inventory V5, OAV, safety, and release gates remain controlling."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "FINISHED_LABEL_IS_COMPUTATIONAL_DESIGN_SCOPE_ONLY",
+      "NINE_FORMULAS_REMAIN_NOT_TESTED_PHYSICAL_HOLD",
+      "FIFTY_ONE_OPEN_STOCK_ROWS",
+      "SEVENTEEN_BLANK_ACTIVE_FRACTIONS",
+      "SEVENTEEN_PRODUCT_BASIS_ROWS_REQUIRE_EXACT_STOCK_AND_PREPARATION_LINEAGE",
+      "STRUCTURED_INTERACTIONS_ARE_HYPOTHESES_NOT_OBSERVATIONS",
+      "COMPUTATIONAL_ANTI_COLLAPSE_IS_NOT_SENSORY_SIMILARITY",
+      "NATIVE_GRAPH_RETAINS_NESTED_CHILD_AND_PARTIAL_MEMBER_HOLDS",
+      "NO_PHYSICAL_SENSORY_OR_ANALYTICAL_RESULTS",
+      "NO_MEASURED_HEADSPACE_OR_STRICT_EMPIRICAL_OAV",
+      "NO_SAFETY_PUBLICATION_OR_RELEASE_AUTHORITY"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "Nine_Perfume_Complexity_Module_Architecture_2026-08-15_v1.zip",
+      "byte_size": 443317,
+      "sha256": "09318ed20c9c29c6d0f171a4333f74fde4d9c3f213ac64eca53997d4e5c20f3b",
+      "relation": "SOURCE_MANIFEST_BINDS_EMBEDDED_ARCHITECTURE_MEMBER_TO_EXACT_PARENT_OUTER",
+      "support_scope": "COMPUTATIONAL_MODULE_ARCHITECTURE_ANCESTRY_ONLY",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "Nine_Perfume_Blockage_Clearance_and_Bench_Activation_2026-08-16_v1.zip",
+      "byte_size": 619801,
+      "sha256": "1282620cfdb6b48a4f091c12da73414790f1b00461dba5fd4ed63cbacde0cb8f",
+      "relation": "SOURCE_MANIFEST_BINDS_EMBEDDED_MISSING_CHEMICAL_IMPACT_MEMBER_TO_EXACT_PARENT_OUTER",
+      "support_scope": "BLOCKAGE_AND_PROTOCOL_DESIGN_ANCESTRY_ONLY",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+      "byte_size": 199635,
+      "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "relation": "SOURCE_MANIFEST_DECLARES_INVENTORY_ANCESTRY_HASH",
+      "support_scope": "INVENTORY_ANCESTRY_REFERENCE_ONLY_LIVE_NATIVE_V5_PROJECTION_CONTROLS",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "NINE_FINISHED_HEDONIC_HIGH_COMPLEXITY_EXACT_BYTES_COMPUTATIONAL_FORMULA_AND_DESIGN_ANCESTRY_ONLY",
+    "source_state": "ART_DIRECTED_HEDONICALLY_TUNED_HIGH_COMPLEXITY_COMPUTATIONAL_CANDIDATES_PHYSICAL_HOLD",
+    "perfumes": 9,
+    "current_build_rows": 663,
+    "target_rows": 740,
+    "gate_rows": 135,
+    "gate_pass": 72,
+    "gate_hold": 27,
+    "gate_conditional": 18,
+    "gate_not_run": 18,
+    "interaction_rows": 81,
+    "structured_hypothesis_interactions": 80,
+    "source_conflict_interactions": 1,
+    "missing_chemical_impact_rows": 23,
+    "anti_collapse_rows": 36,
+    "open_stock_rows": 51,
+    "blank_active_fraction_rows": 17,
+    "product_basis_rows": 17,
+    "archive_checksum_records_verified": 83,
+    "archive_manifest_records_verified": 82,
+    "embedded_workbook_sha256": "afed9ecf7849ec7e017280fdf4b676ce2b212b86e4dfd7f5433cc802521b2b68",
+    "native_graph": {
+      "single_status": "QUARANTINE_HOLD",
+      "status": "GRAPH_COMPLETE_QUARANTINED",
+      "node_count": 2,
+      "edge_count": 1,
+      "max_depth": 1,
+      "all_nodes_terminal": true,
+      "graph_findings": [],
+      "root_finding_codes": [
+        "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT",
+        "PARTIAL_MEMBER_SCAN",
+        "PARTIAL_MEMBER_SCAN",
+        "PARTIAL_MEMBER_SCAN"
+      ],
+      "child_workbook_status": "CLEAR_FOR_RECEIPT_REVIEW",
+      "promotion_allowed": false
+    },
+    "physical_results": 0,
+    "sensory_results": 0,
+    "analytical_results": 0,
+    "native_handling": "IMMUTABLE_COMPUTATIONAL_FORMULA_AND_DESIGN_ANCESTRY_ONLY_NO_CANONICAL_FORMULA_IMPORT_OR_EXECUTION",
+    "native_fit": "EXISTING_TARGET_BUILD_C10_P3_LABORATORY_BETA_C0_B1_V5_OAV_SAFETY_AND_RELEASE_GATES_CONTROL",
+    "capture_manifest": {
+      "path": "incoming_review/chatgpt/20260816T160448+0700-v17-nine-finished-hedonic-6a7992db-nf1e0f2aa/capture_manifest.json",
+      "byte_size": 8917,
+      "sha256": "d561154d7b95ba4c50d4ac172622cefce4b40913a8c7643b4d92950a0b7e5f7c"
+    },
+    "promotion_allowed": false
+  },
+  "receipt_sha256": "dc5d5cba59a006e1306bb083475d75248d875f8c9b7214afb3b82940b19755a4"
+}

@@ -1,0 +1,36 @@
+{
+  "created_utc_date": "2026-07-29",
+  "source_files": {
+    "Prada_LHomme_From_Scratch_Target_and_DNA_Chassis_V1(1).md": "b7c8d13dcd4f56475393d671b4eb683ee724073eaebfd49a84c0079e5310fc9f",
+    "YSL_La_Nuit_chassis_partition.csv": "827362ac0f453b003e3f5a3ea6be99b5ded1408071af467e6be280ed9c288f7a"
+  },
+  "verified_partitions_uL": {
+    "prada_spice_open": {
+      "fixed": 4412,
+      "module": 88,
+      "total": 4500
+    },
+    "prada_floral_open": {
+      "fixed": 3992,
+      "module": 508,
+      "total": 4500
+    },
+    "la_nuit_spice_open": {
+      "fixed": 4412,
+      "module": 88,
+      "total": 4500
+    }
+  },
+  "outputs": {
+    "Prada_LHomme_V2_Inventory_Fit_Spice_Open_Chassis.md": "884443729f5ffed9c239bee22ca60b7b5cfb2a9f040edb6a473b70b5baf4e17e",
+    "Prada_LHomme_V2_Iris_Violet_Open_Floral_Chassis.md": "7ac10814ea1fba1ca532ed1d3a953ba18d506c7a7a2de23e20bcd2b37a6775d1",
+    "YSL_La_Nuit_V2_Inventory_Fit_Spice_Open_Chassis.md": "3052057bb83072052e62892b37de04dbef7cf15da059568f1e82398fe33b868f",
+    "Prada_and_La_Nuit_Modular_Chassis_Set_Index.md": "488bffbb691e9f00e9a4aff00b3665c0805697578d0cbe32eb0e940da279de9c",
+    "Prada_LHomme_V2_Spice_Open_Fixed_Chassis.csv": "be50e2b54b1a09e7dedd1940da122947e3a3a49a78eef3ad1e893f9053f0cd72",
+    "Prada_LHomme_V2_Parent_Spice_Module.csv": "f53f5c16dc4f0389c8b8794ac08ca11bd5835fb484cf5960e4023db3c4bfcfe8",
+    "Prada_LHomme_V2_Floral_Open_Fixed_Chassis.csv": "13aef0a98a118257915e308b4e6c033239dbfc8e35de94393d21637b56113436",
+    "Prada_LHomme_V2_Parent_Iris_Violet_Module.csv": "ba153c726757937cdf1fb1c962a8638cf7b194e2956b4011bfe4149f2e429daa",
+    "YSL_La_Nuit_V2_Spice_Open_Fixed_Chassis.csv": "a7db6eb5c5a703f599958c9b380c125ece59e34cc4651afae6795e219e47fb18",
+    "YSL_La_Nuit_V2_Parent_Spice_Module.csv": "bb8fe6f3bb3afa3b380fd483aad46d70ba96502db8698c57f645a3e7a016885e"
+  }
+}

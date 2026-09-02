@@ -1,0 +1,53 @@
+{
+  "schema_version": "scientific_source_manifest_v1",
+  "source_id": "pubchem-geraniol-cid637566-properties-d21151198ff5",
+  "source_type": "AUTHORITATIVE_DATABASE_RECORD",
+  "title": "PubChem Geraniol CID 637566 identity and molecular properties response",
+  "language": "en",
+  "review_state": "UNREVIEWED",
+  "independence_group": "pubchem-geraniol-637566",
+  "authors": [],
+  "issuing_organization": "National Center for Biotechnology Information",
+  "container_title": "PubChem PUG REST",
+  "publisher_or_authority": "PubChem",
+  "identifiers": {
+    "pubchem_cid": "637566",
+    "inchi_key": "GLZPCOQZEFWAFX-JXMROGBWSA-N"
+  },
+  "revision": {
+    "kind": "content_digest",
+    "value": "d21151198ff537595597c19f6cf841751df808782768663a2b1b9ba5b22b00c6"
+  },
+  "retrieved_at": "2026-08-09T16:20:45.3250956+07:00",
+  "rights": {
+    "reuse_status": "RESTRICTED",
+    "license_or_reuse_restriction": "Staged for review with field-scoped rights caution. PubChem aggregates contributor data and source-specific licensing can vary; no blanket public-domain or permissive-license claim is made for this response.",
+    "license_url": "https://pubchem.ncbi.nlm.nih.gov/docs/downloads",
+    "redistribution_allowed": false,
+    "notes": "Use for chemical-entity identity review only. Re-check original contributor provenance before redistribution or authority promotion."
+  },
+  "transformation": {
+    "module": "engine.ingestion.scientific",
+    "version": "scientific-source-staging-v1",
+    "mode": "source-bytes-only"
+  },
+  "dataset_context": {
+    "measurement_kind": "chemical-entity identifier and structure metadata",
+    "intended_use": [
+      "review-only CID and InChIKey identity support"
+    ],
+    "authority_limit": "Chemical-entity identity only; not supplier product, lot, owned stock, psychophysics, ODT, OAV, safety, similarity, or release evidence."
+  },
+  "artifacts": [
+    {
+      "artifact_id": "geraniol-properties-json",
+      "path": "geraniol_cid_637566_properties.json",
+      "role": "PRIMARY_DATA",
+      "media_type": "application/json",
+      "byte_size": 494,
+      "sha256": "d21151198ff537595597c19f6cf841751df808782768663a2b1b9ba5b22b00c6",
+      "source_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/637566/property/Title,IUPACName,InChI,InChIKey,CanonicalSMILES,IsomericSMILES,MolecularFormula,MolecularWeight/JSON",
+      "preserved_artifact_path": "data/external/pubchem/geraniol_637566/geraniol_cid_637566_properties.json"
+    }
+  ]
+}

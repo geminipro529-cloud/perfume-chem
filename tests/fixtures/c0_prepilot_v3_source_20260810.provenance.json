@@ -1,0 +1,13 @@
+{
+  "schema_version": "perfume_chem_c0_source_fixture_provenance_v1",
+  "copy_policy": "EXACT_BYTE_COPY_NO_RECONSTRUCTION",
+  "original_path": "output/quarantine/v3_project_plan_343a6f5f/Perfume_Chem_Project_Plan_Implementation_2026-08-10_v3/fixtures/c0_prepilot.example.json",
+  "original_byte_size": 1773,
+  "original_sha256": "84779c6e6117cd0a5a1d5cd6ba1dea765958cd90e1c54d1929d2e1c7d5e27bf9",
+  "preserved_path": "tests/fixtures/c0_prepilot_v3_source_20260810.json",
+  "scientific_authority": false,
+  "human_execution_authority": false,
+  "study_authority": false,
+  "calibration_authority": false,
+  "release_authority": false
+}

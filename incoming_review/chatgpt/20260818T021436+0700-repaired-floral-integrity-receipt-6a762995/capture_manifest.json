@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "capture_id": "20260818T021436+0700-repaired-floral-integrity-receipt-6a762995",
+  "captured_at": "2026-08-18T02:14:36+07:00",
+  "scope": "LOCAL_EXACT_BYTE_QUARANTINE_INTAKE_ONLY",
+  "source": {
+    "chat_id": "6a762995-0d8c-83ec-aee3-66c90e56811e",
+    "chat_title": "Complex Perfumery Continuation",
+    "source_turn_id": "95bff87e-86e8-4641-8f79-851c0231a1a4",
+    "source_message_id": "330346ab-16e7-4688-ad0a-ac67bcb2fac4",
+    "content_reference_index": 15,
+    "base64_retrieval_turn_id": "e66ed5aa-d877-4c1b-b24f-7406f48adad2",
+    "base64_retrieval_message_id": "24caddf5-422f-4116-83a9-589d12033477",
+    "reported_original_attachment_bytes_read": true
+  },
+  "object": {
+    "filename": "INTEGRITY_RECEIPT.json",
+    "bytes": 3899,
+    "sha256": "5abff128fcfce28eb891176c93cfed080e3e7bfc22fbb068ef41d52129f88b65",
+    "exact_match": true
+  },
+  "local_validation": {
+    "strict_json_parse": true,
+    "validation": "PASS",
+    "controls": "30/30",
+    "unit_tests": "18/18 PASS",
+    "canonical_mutations": 0
+  },
+  "admission": {
+    "quarantine_intake_complete": true,
+    "native_installation_eligible": false,
+    "canonical_repository_files_modified": false,
+    "source_admission": false,
+    "package_installation": false,
+    "formula_authority": false,
+    "inventory_mutation": false,
+    "stock_authority": false,
+    "bottle_authority": false,
+    "physical_execution": false,
+    "sensory_authority": false,
+    "analytical_authority": false,
+    "measured_headspace_authority": false,
+    "strict_empirical_oav_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "repository_installation": false,
+    "publication_authority": false,
+    "release_authority": false
+  }
+}

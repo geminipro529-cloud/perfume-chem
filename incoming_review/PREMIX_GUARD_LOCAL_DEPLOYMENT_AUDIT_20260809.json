@@ -1,0 +1,74 @@
+{
+  "audit_id": "PREMIX-GUARD-LOCAL-DEPLOYMENT-AUDIT-20260809",
+  "state": "PASS_LOCAL_INSTALL_AND_STATIC_WIRING__HOLD_REMOTE_DEPLOYMENT_AND_ONE_G15_FRACTION_CONTRACT_FINDING",
+  "workspace_artifacts": {
+    "engine/fuckups/pre_mix_guard.py": {
+      "sha256": "bbf4be5d2e18babbeaad03e909b99de0969fb31199036451a8f620741649c391",
+      "bytes": 17201,
+      "state": "PRESENT_LOCAL_TUNNEL_WORKSPACE"
+    },
+    "tests/test_pre_mix_guard.py": {
+      "sha256": "639e4ccca7dda4a928cb953ca7124c4eedcdda0cfdf2d0af986d59ec72953dff",
+      "bytes": 6037,
+      "state": "PRESENT_LOCAL_TUNNEL_WORKSPACE"
+    },
+    "engine/pipeline/gates.py": {
+      "sha256": "73ddba794be7cc610998b3677a1b1eecab23950d540cd31e5b36305b48eee6bd",
+      "bytes": 226216,
+      "state": "PRESENT_LOCAL_TUNNEL_WORKSPACE"
+    }
+  },
+  "static_wiring_verified": {
+    "g15_oav_firewall_is_hard_blocking": true,
+    "gate_formula_calls_g15_oav_firewall": true,
+    "g15_calls_evaluate_pre_mix_guard": true,
+    "declared_parent_without_supplied_parent_fails": true,
+    "parent_uid_mismatch_fails": true,
+    "guard_fail_returns_g15_fail": true,
+    "guard_warn_returns_g15_warn": true,
+    "modeled_oav_is_explicitly_screening_only": true
+  },
+  "test_source_regressions_present": [
+    "Prada Citronellol 10% -> neat at copied raw dose hard-fails at 10x active exposure",
+    "Lemonile 10% -> neat at copied raw dose hard-fails and records temporal OAV jump",
+    "Correct active-equivalent rebase passes",
+    "Moderate active drift warns",
+    "Same-stock 10x active-dose jump hard-fails without explicit intent authority",
+    "Explicit authorized active-dose change demotes to WARN and preserves reason",
+    "Persistent modeled OAV dominance warns only",
+    "Percent number supplied instead of fraction is rejected",
+    "OAV claim boundary is explicit",
+    "G15 hard-blocking wiring is asserted"
+  ],
+  "runtime_test_execution_this_audit": "NOT_RUN__TUNNEL_EXPOSES_READ_WRITE_SEARCH_BUT_NO_COMMAND_EXECUTION_TOOL",
+  "remote_repository_state": {
+    "repository": "geminipro529-cloud/perfume-chem",
+    "branch": "codex/add-inventory-materials",
+    "engine/fuckups/pre_mix_guard.py": "404_NOT_FOUND",
+    "deployment_state": "NOT_DEPLOYED_TO_CHECKED_GITHUB_BRANCH"
+  },
+  "finding": {
+    "id": "PREMIX-AUDIT-FND-001",
+    "severity": "HARDENING_HOLD_BEFORE_CANONICAL_DEPLOYMENT",
+    "location": "engine/pipeline/gates.py::_formula_dilutions_for_g15",
+    "finding": "When neither formula stock_specs nor formula dilutions supplies a material fraction, the G15 helper currently falls back to 1.0. gate_formula separately resolves inventory stock_specs for FormulaState/preflight, but does not pass those resolved stock_specs into _gate_g15_oav_firewall. This can make G15's local dilution view less strict than the inventory-resolved state, even though other hard preflight gates may still fail closed overall.",
+    "risk": "A missing or unpropagated fraction can appear as neat inside G15 rather than fail/resolve from current inventory authority. This is unacceptable as a canonical stock-lineage contract even if overall release remains blocked by inventory preflight.",
+    "disposition": "HOLD_TARGETED_PATCH_AND_RUNTIME_TESTS_BEFORE_REPOSITORY_DEPLOYMENT",
+    "safe_fix_contract": [
+      "Pass the already-resolved child stock_specs from gate_formula into G15.",
+      "Resolve parent stock_specs through the same inventory contract before parent G15 comparison.",
+      "Do not silently default missing G15 stock fractions to 1.0 unless the exact resolved stock authority proves neat/as-supplied 1.0.",
+      "Add regressions for missing formula dilution plus resolved non-neat stock, product-basis/unknown fractions, and parent/child stock-lineage continuity.",
+      "Run repository-native pytest/compile/lint before applying the patch to a canonical branch."
+    ]
+  },
+  "authority_mutations": {
+    "runtime_code": 0,
+    "tests": 0,
+    "formula": 0,
+    "inventory": 0,
+    "physical_truth": 0,
+    "release": 0,
+    "repository": 0
+  }
+}

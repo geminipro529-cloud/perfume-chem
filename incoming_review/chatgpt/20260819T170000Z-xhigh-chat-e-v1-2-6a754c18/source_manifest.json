@@ -1,0 +1,113 @@
+{
+  "schema_version": "chatgpt_browser_capture_manifest_v1",
+  "capture_id": "xhigh-chat-e-v1-2-6a754c18-20260819t170000z",
+  "recorded_at": "2026-08-19T17:00:00Z",
+  "conversation": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "project_name": "Complex Perfumery",
+    "conversation_id": "6a754c18-a948-83ec-a456-1923b470d0cc",
+    "conversation_url": "https://chatgpt.com/g/g-p-6a74ab83668081919f5cbd0dfe80eb09-complex-perfumery/c/6a754c18-a948-83ec-a456-1923b470d0cc",
+    "conversation_title": "XHIGH remains unfrozen pending worker artifacts"
+  },
+  "retrieval": {
+    "method": "AUTHENTICATED_CHATGPT_BROWSER_DOM_READ_AND_ATTACHMENT_DOWNLOAD",
+    "message_text_stored_verbatim": false,
+    "message_text_binding": "UTF8_SHA256_OF_RENDERED_INNER_TEXT",
+    "complete_rendered_message_census": true,
+    "rendered_message_count": 5,
+    "assistant_message_count": 3,
+    "user_message_count": 2,
+    "recovered_attachment_count": 1,
+    "note": "The v1.2 attachment was downloaded from the rendered assistant turn. RC4 and RC5 deployment attachments were not admitted by this scientific intake."
+  },
+  "recovered_attachment": {
+    "path": "incoming_review/chatgpt/20260819T170000Z-xhigh-chat-e-v1-2-6a754c18/CHAT_E_XHIGH_DOMAIN_ADJUDICATION_v1_2.zip",
+    "file_name": "CHAT_E_XHIGH_DOMAIN_ADJUDICATION_v1_2.zip",
+    "role": "CHAT_E_MACHINE_DOMAIN_AND_LITERATURE_ADJUDICATION_V1_2",
+    "byte_size": 120861,
+    "sha256": "8170ac4e7f558698b97a746ac30cd39110b371325b92c542a1ca3b90d2397898",
+    "media_type": "application/zip",
+    "archive_entry_count": 39,
+    "archive_file_count": 39,
+    "declared_payload_count": 38,
+    "package_root": "CHAT_E_XHIGH_DOMAIN_ADJUDICATION_v1_2",
+    "internal_checksum_entries_verified": 38,
+    "archive_scan_status": "GRAPH_COMPLETE_QUARANTINED",
+    "archive_scan_node_count": 3,
+    "archive_scan_promotion_allowed": false,
+    "embedded_v1_1_byte_exact": true,
+    "package_claimed_tests_passed": 108,
+    "package_claimed_tests_failed": 0,
+    "local_package_code_executed": false
+  },
+  "source_messages": [
+    {
+      "message_id": "c6a24a0e-cddd-4496-9e24-61b57563695e",
+      "role": "assistant",
+      "utf8_byte_count": 3374,
+      "sha256": "a45f1be54056a66436bf7ca325535c17d34c295a91bf39607e13ec86412d56f0"
+    },
+    {
+      "message_id": "0be398dc-f3f0-43b7-ab32-340f48348082",
+      "role": "user",
+      "utf8_byte_count": 51,
+      "sha256": "54fd6670eaa36cd2390c5132dcca6e96a9e015ec45abd3265a3b09e074f0d76b"
+    },
+    {
+      "message_id": "22c6fd52-68aa-48c1-8f10-709f4490dbed",
+      "role": "assistant",
+      "utf8_byte_count": 5455,
+      "sha256": "367115a6f3a40c3d26f7d6751ad9ff529683266e0c291dcf88d63f491ad1cba3"
+    },
+    {
+      "message_id": "29089d5a-04db-457e-a90e-51dd0ae36cfc",
+      "role": "user",
+      "utf8_byte_count": 75,
+      "sha256": "ba1208c734ea2c563258c3487270d68ba582404afb4fe2657ae44d665e36fa65"
+    },
+    {
+      "message_id": "3d1dd68d-3d5b-400e-a4c6-03724083b7c9",
+      "role": "assistant",
+      "utf8_byte_count": 7147,
+      "sha256": "3361ae5cfec9d53d07a97ac05255a0c6c36ff4f9600a39441704fd009d0a57cf"
+    }
+  ],
+  "rights": {
+    "reuse_status": "UNKNOWN",
+    "redistribution_allowed": false,
+    "reason": "The AI-generated attachment declares no package-level license and cites publisher records with source-specific terms. Exact possession does not establish rights to install its code, ingest source tables, redistribute paper content, publish derived contracts or use a private commercial reference database."
+  },
+  "disposition": {
+    "state": "EXACT_BROWSER_ATTACHMENT_CAPTURED_QUARANTINED",
+    "package_content_import_allowed": false,
+    "package_code_execution_allowed": false,
+    "machine_contract_adoption_allowed": false,
+    "source_table_admission_allowed": false,
+    "formula_mutation_allowed": false,
+    "inventory_mutation_allowed": false,
+    "physical_truth_upgrade_allowed": false,
+    "release_allowed": false,
+    "notes": "The v1.2 package is exact additive ancestry over the exact local v1.1 package. Its source-specific domain narrowing is useful review evidence, but host adoption, full numeric source tables, runtime publication, empirical results and strict OAV calculation remain held. Native C3, C8 and B5 controls remain authoritative."
+  },
+  "authority": {
+    "source_admission": false,
+    "historical_state": false,
+    "current_project_state": false,
+    "automation": false,
+    "runtime": false,
+    "model": false,
+    "training": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "compounding": false,
+    "physical_result": false,
+    "sensory_result": false,
+    "analytical_result": false,
+    "safety": false,
+    "publication": false,
+    "release": false
+  },
+  "receipt_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_RECEIPT_SHA256_OMITTED",
+  "receipt_sha256": "6066f11e7829e8b20019d481a21071d4684c834b3e86ec5ad2f0b8f3792458be"
+}

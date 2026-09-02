@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Perfumery Cross-Group Interaction Matrix",
+  "type": "object",
+  "required": [
+    "version",
+    "groups",
+    "interactions"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "group_id",
+          "name"
+        ],
+        "properties": {
+          "group_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "materials": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "descriptors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "interactions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "source_group",
+          "target_group",
+          "effect_type",
+          "direction",
+          "confidence"
+        ],
+        "properties": {
+          "source_group": {
+            "type": "string"
+          },
+          "target_group": {
+            "type": "string"
+          },
+          "effect_type": {
+            "type": "string"
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "increase",
+              "decrease",
+              "reshape",
+              "phase_shift",
+              "uncertain"
+            ]
+          },
+          "dose_window": {
+            "type": "string"
+          },
+          "phase_window": {
+            "type": "string"
+          },
+          "mechanism_hypothesis": {
+            "type": "string"
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "failure_modes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "physical_test": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": "perfume_chem_external_capture_manifest_v1",
+  "capture_id": "20260812T181916+0700-am-e01-file-library-recovery-6a7992db",
+  "captured_at": "2026-08-12T11:19:16Z",
+  "state": "SOURCE_CAPTURE_QUARANTINED_NOT_ADMITTED",
+  "source": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "conversation_id": "6a7992db-96b8-83ec-aab0-6a7447b97da1",
+    "conversation_title": "Perfume Project Planning",
+    "turn_id": "e0c8046a-b8b8-4180-8b2f-a84c1363d0f4",
+    "file_library_reference": "filenavlist 124:0",
+    "source_path": "C:/Users/ASUS/Downloads/AM-E01_Amouage_Opus_V_Woods_Symphony_30mL_Formula.md",
+    "retrieval_method": "AUTHENTICATED_CHATGPT_FILE_LIBRARY_CARD_DOWNLOAD",
+    "transformation_history": []
+  },
+  "captured_artifact": {
+    "file_name": "AM-E01_Amouage_Opus_V_Woods_Symphony_30mL_Formula.md",
+    "byte_size": 40713,
+    "sha256": "965b02beba5faec32dcbe8d5d97aa3df8cb47fe43fc3c1cf040e4fd3b03ff5e2",
+    "media_type": "text/markdown",
+    "copy_matches_source": true
+  },
+  "integrity": {
+    "declared_size_matches": true,
+    "declared_sha256_matches": true,
+    "source_and_capture_sha256_match": true,
+    "utf8_decodable": true,
+    "null_bytes": 0,
+    "line_count": 472,
+    "expected_title_present": true,
+    "explicit_computational_research_formula_hold_present": true,
+    "explicit_physical_release_hold_present": true,
+    "explicit_not_tested_boundary_present": true
+  },
+  "admission": {
+    "state": "EXTERNAL_FILE_BYTES_VERIFIED_QUARANTINED_NOT_ADMITTED",
+    "canonical_import_allowed": false,
+    "formula_projection_allowed": false,
+    "execution_allowed": false,
+    "promotion_allowed": false
+  },
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "physical_execution": false,
+    "sensory": false,
+    "strict_oav": false,
+    "headspace": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "installation": false,
+    "release": false
+  }
+}

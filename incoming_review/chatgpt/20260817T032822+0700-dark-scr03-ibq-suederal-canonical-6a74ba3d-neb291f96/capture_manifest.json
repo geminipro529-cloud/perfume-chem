@@ -1,0 +1,116 @@
+{
+  "schema_version": "perfume_chem_external_capture_manifest_v1",
+  "recorded_at": "2026-08-17T03:28:22+07:00",
+  "state": "SOURCE_CAPTURE_QUARANTINED_NOT_ADMITTED",
+  "source": {
+    "conversation_id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+    "source_path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/outputs/ACCORD_INTEL_DARK_DARK-SCR-03_IBQ_SUEDERAL_CANONICAL_v1_20260817.zip",
+    "retrieval_method": "EXACT_LOCAL_SOURCE_COPY",
+    "source_sidecars": [
+      {
+        "file_name": "ACCORD_INTEL_DARK_DARK-SCR-03_IBQ_SUEDERAL_CANONICAL_v1_20260817.zip.sha256.txt",
+        "byte_size": 135,
+        "sha256": "599b0b70df545e8e0550676a9c86defc0a615f2df8b7490c9a1d3a5bcf4a3645",
+        "copy_matches_source": true
+      },
+      {
+        "file_name": "ACCORD_INTEL_DARK_DARK-SCR-03_IBQ_SUEDERAL_CANONICAL_v1_20260817.zip.validation.json",
+        "byte_size": 2849,
+        "sha256": "49946537e6742e662f33ab5b7e42a04464bae20761d17b76aa8c62c2e8f8247a",
+        "copy_matches_source": true
+      }
+    ]
+  },
+  "captured_artifact": {
+    "file_name": "ACCORD_INTEL_DARK_DARK-SCR-03_IBQ_SUEDERAL_CANONICAL_v1_20260817.zip",
+    "byte_size": 41483,
+    "sha256": "eb291f96fdf6e0ec8805d1f7d82f74e92ee5fa3ca6439a00c19f7e4cc15ef769",
+    "media_type": "application/zip",
+    "copy_matches_source": true
+  },
+  "integrity": {
+    "zip_crc_clean": true,
+    "safe_member_paths": true,
+    "duplicate_normalized_member_paths": false,
+    "archive_members": 11,
+    "uncompressed_bytes_read": 1184176,
+    "embedded_ledger_entries": 10,
+    "embedded_ledger_mismatches": 0,
+    "embedded_ledger_name_set_exact": true,
+    "manifest_members_exact": true,
+    "validation_checks_passed": 30,
+    "validation_checks_failed": 0
+  },
+  "native_quarantine": {
+    "single_status": "QUARANTINE_HOLD",
+    "single_finding_codes": [
+      "PARTIAL_MEMBER_SCAN"
+    ],
+    "single_finding_member": "DARK-SCR-03_OBSERVATION_TEMPLATE.csv",
+    "graph_status": "GRAPH_COMPLETE_QUARANTINED",
+    "nodes": 1,
+    "edges": 0,
+    "max_depth": 0,
+    "all_nodes_terminal": true,
+    "graph_finding_codes": [],
+    "promotion_allowed": false
+  },
+  "parent_references": [
+    {
+      "file_name": "ACCORD_INTEL_CHAT2_DARK_MATERIALS_v2.zip",
+      "byte_size": 68633,
+      "sha256": "20ac62a0a5e639f8a5225937690b582c6c6837b74c6c1311786071bc50ba40ba",
+      "local_exact_bytes_verified": true,
+      "native_graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+      "included_or_mutated": false
+    },
+    {
+      "file_name": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+      "byte_size": 199635,
+      "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "local_exact_bytes_verified": true,
+      "native_graph_status": "NOT_AN_ARCHIVE_PARENT",
+      "included_or_mutated": false
+    },
+    {
+      "file_name": "ACCORD_INTEL_DARK_DARK-SCR-20B_GUAIACWOOD_GUAIACOL_NAMESPACE_REPAIR_v1_1_20260812.zip",
+      "byte_size": 7836,
+      "sha256": "1ccd3cedd289bd13ab639e586de8ae32fbff8319c1d8f42ff08203c3c52901e9",
+      "local_exact_bytes_verified": true,
+      "native_graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+      "included_or_mutated": false
+    },
+    {
+      "file_name": "ACCORD_INTEL_DARK_DARK-SCR-02_CASTOREUM_SUEDERAL_INTERPRETATION_v2_20260812.zip",
+      "byte_size": 12330,
+      "sha256": "741a357d8099b30081e1f44d4aace97d18b8bdc7f0d6a4e30a6c6aad81cb67ad",
+      "local_exact_bytes_verified": true,
+      "native_graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+      "included_or_mutated": false
+    }
+  ],
+  "decision": {
+    "classification": "CHAT2_DARK_SCR03_IBQ_SUEDERAL_CANONICAL_DESIGN_BYTES_VERIFIED_GRAPH_QUARANTINED_NOT_ADMITTED",
+    "package_validation_state": "PASS_WITH_EXECUTION_HOLD",
+    "physical_evidence_state": "NOT_TESTED",
+    "canonical_identity": "DARK-SCR-03__EXP-DARK-003__IBQ_10_PERCENT_VERSUS_SUEDERAL_10_PERCENT",
+    "practical_comparator": "SAME_LOAD_B_ALONE",
+    "identity_hold": "GENERIC_IBQ_CAS_ISOMER_CID_MANUFACTURER_GRADE_UNRESOLVED",
+    "next_physical_prerequisite": "PHOTOGRAPH_OR_TRANSCRIBE_BOTH_STOCK_LABELS_AND_RECORD_SUPPLIER_PRODUCT_GRADE_CARRIER_CONCENTRATION_BASIS_LOT_AND_EXACTSTOCKREF",
+    "admitted": false
+  },
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "physical_execution": false,
+    "sensory": false,
+    "mechanism": false,
+    "model_training": false,
+    "safety": false,
+    "publication": false,
+    "release": false,
+    "cross_chat_integration": false
+  }
+}

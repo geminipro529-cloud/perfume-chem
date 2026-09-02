@@ -1,0 +1,225 @@
+{
+  "schema_version": "external_artifact_receipt_v1",
+  "receipt_id": "complex-perfumery-11-formula-portfolio-exact-candidate-lineage-20260819",
+  "recorded_at": "2026-08-19T13:41:59Z",
+  "artifact": {
+    "file_name": "Complex_Perfumery_11_Formula_Portfolio.json",
+    "locator": "incoming_review/chatgpt/20260819T134159Z-formula-portfolio-6a79b172/Complex_Perfumery_11_Formula_Portfolio.json",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 2617388,
+    "sha256": "869757d6de9cca844475c9437b2e0de7d87596ba69cb2a0f1c568d205612e9f6",
+    "media_type": "application/json",
+    "json_parse_valid": true
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_FORMULA_CANDIDATE_PORTFOLIO",
+    "independence_group": "chatgpt:6a79b172-0264-83ec-b77a-306a37ecb832:complex-perfumery-11-formula-portfolio-v1",
+    "conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+    "conversation_title": "Perfume Making Consultant",
+    "source_turn_id": "7be4588c-1e7c-45f7-9721-13a19c0a42ba",
+    "source_message_id": "2467d5f7-8168-439b-a330-3ebb12c536b2",
+    "exact_reexposure_message_id": "742a0bf5-112a-4e2c-89ed-e8c73f0a48f4",
+    "object_id": "file_00000000ce08820bb478271dae96a32f",
+    "retrieval_method": "AUTHENTICATED_CHATGPT_BROWSER_ATTACHMENT_DOWNLOAD_AND_LOCAL_SHA256_REPLAY",
+    "lineage_resolution": "EXACT_ORIGINAL_STANDALONE_JSON_BYTES_RECOVERED_AFTER_PRIOR_TUNNEL_TRANSPORT_FAILURE",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "redistribution_allowed": false,
+      "canonical_import_allowed": false,
+      "notes": "Exact possession preserves source lineage only. No artifact-level license or authority to redistribute, compound, install, publish, or release the formulas was supplied."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_FILE_BYTES_VERIFIED_QUARANTINED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "metadata_projection_allowed": false,
+    "formula_projection_allowed": false,
+    "execution_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "AI_GENERATED_COMPUTATIONAL_RECONSTRUCTIONS",
+      "SOURCE_EXPLICITLY_NOT_MANUFACTURER_FORMULAS_OR_EMPIRICAL_SIMILARITY_CLAIMS",
+      "DISTINCT_NONINTERCHANGEABLE_LINEAGE_FROM_LATER_EXACT_DECIMAL_SUCCESSOR",
+      "STOCK_IDENTITY_AND_ACTIVE_EQUIVALENCE_HOLD",
+      "UNCERTAINTY_PROPAGATION_HOLD",
+      "PHYSICAL_CHEMISTRY_HOLD",
+      "MEASURED_HEADSPACE_NOT_TESTED",
+      "STRICT_EMPIRICAL_OAV_NOT_CALCULABLE",
+      "SENSORY_STABILITY_SAFETY_AND_RELEASE_HOLD"
+    ]
+  },
+  "parents": [
+    {
+      "artifact_name": "capture_manifest.json",
+      "path": "incoming_review/chatgpt/20260819T134159Z-formula-portfolio-6a79b172/capture_manifest.json",
+      "byte_size": 5748,
+      "sha256": "bd4c229f5b5ddcef54f028cb97abc8cc38063509cbdf927d9dfbab26341a1597",
+      "relation": "BINDS_AUTHENTICATED_BROWSER_CAPTURE_AND_LINEAGE_DIFF",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "VALIDATION_REPORT.json",
+      "path": "incoming_review/chatgpt/20260818T015707+0700-validation-report-base64-6a79b172/VALIDATION_REPORT.json",
+      "byte_size": 7672,
+      "sha256": "2f01d1e3a16927a4d49e98f258293d62104de5ca1f1db9d909ebf33583770494",
+      "relation": "STANDALONE_SOURCE_VALIDATION_COMPANION",
+      "authority_state": "SOURCE_SELF_VALIDATION_ONLY"
+    },
+    {
+      "artifact_name": "V19_V20_EXACT_DECIMAL_FORMULA_ARTIFACT_SUCCESSOR_PACK.json",
+      "path": "incoming_review/chatgpt/20260818T013100+0700-exact-decimal-successor-6a7992db/expanded/Perfume_Chem_V19_V20_Exact_Decimal_Formula_Artifact_Successor_2026-08-17_v2/V19_V20_EXACT_DECIMAL_FORMULA_ARTIFACT_SUCCESSOR_PACK.json",
+      "byte_size": 2318938,
+      "sha256": "48fffb87d4132b09f0215d5262f797491f939e31d4511e3da9dbf932288ff8dc",
+      "relation": "DISTINCT_LATER_SUCCESSOR_COMPARISON_ONLY",
+      "authority_state": "SEPARATE_QUARANTINED_LINEAGE"
+    },
+    {
+      "artifact_name": "deepluna_chat_audit_request.json",
+      "path": "incoming_review/chatgpt/20260819T134159Z-formula-portfolio-6a79b172/deepluna_chat_audit_request.json",
+      "byte_size": 3820,
+      "sha256": "050774fb03df1d7ec20259e89caa6cd865808085e612ed074616461de509fbd2",
+      "relation": "BOUNDED_MECHANICAL_AUDIT_CONTRACT",
+      "authority_state": "UNRESOLVED_NONSCIENTIFIC_CROSSCHECK"
+    },
+    {
+      "artifact_name": "PERFUME_CHEM_CHATGPT_PROJECT_RECONCILIATION_2026-08-10.md",
+      "path": ".archive/20260819_formula-portfolio-exact-intake-v1/docs/research/PERFUME_CHEM_CHATGPT_PROJECT_RECONCILIATION_2026-08-10.md",
+      "byte_size": 185992,
+      "sha256": "f6153934d2f721ed6e3bdcfedd9aa2def04f2328cdaa1f0fe2d411ed2509ea1e",
+      "relation": "ARCHIVE_FIRST_PRECHANGE_RECONCILIATION_SNAPSHOT",
+      "authority_state": "HISTORICAL_PARENT_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "EXACT_ELEVEN_FORMULA_COMPUTATIONAL_PORTFOLIO_DISTINCT_CANDIDATE_LINEAGE_PHYSICAL_ANALYTICAL_AND_RELEASE_HOLD",
+    "portfolio_id": "Complex_Perfumery_11_Commercial_Formula_Portfolio_Aug2026_v1",
+    "formula_candidates": 11,
+    "formula_ids": [
+      "LHOMME",
+      "LANUIT",
+      "DHI12",
+      "PR_E07",
+      "PR_E01",
+      "AHS",
+      "EB",
+      "EE",
+      "ELIXIR",
+      "BDCP",
+      "DHP25"
+    ],
+    "current_build_rows": 771,
+    "target_ideal_rows": 788,
+    "missing_concept_rows": 19,
+    "test_definitions": 55,
+    "gate_records": 187,
+    "gate_state_census": {
+      "PASS": 54,
+      "CONDITIONAL": 44,
+      "HOLD": 67,
+      "NOT_RUN": 22
+    },
+    "pairwise_diagnostic_rows": 55,
+    "pairwise_diagnostics_are_sensory_similarity": false,
+    "source_validation_checks": 69,
+    "source_validation_checks_passed": 69,
+    "source_validation_scope": "INTERNAL_MECHANICAL_CONSISTENCY_ONLY",
+    "source_boundary": "Evidence-weighted computational reconstructions; not manufacturer formulas or empirical similarity claims.",
+    "all_formula_states_physical_hold": true,
+    "strict_empirical_oav_state": "NOT_CALCULABLE",
+    "measured_headspace_state": "NOT_TESTED",
+    "successor_overlap_formula_ids": 9,
+    "portfolio_only_formula_ids": [
+      "PR_E07",
+      "PR_E01"
+    ],
+    "overlap_current_hash_matches": 0,
+    "overlap_exact_material_part_matches": 0,
+    "native_formula_installation_performed": false,
+    "native_formula_or_inventory_mutated": false,
+    "native_physics_change_required": false,
+    "native_c4_c5_c8_remain_controlling": true,
+    "promotion_allowed": false
+  },
+  "literature_and_native_diff": {
+    "source_citations_present": false,
+    "independent_primary_sources": [
+      {
+        "doi": "10.1021/ie048760w",
+        "role": "NONIDEAL_PERFUME_MIXTURE_ACTIVITY_COEFFICIENT_AND_ETHANOL_CONTENT_CONTEXT"
+      },
+      {
+        "doi": "10.1016/j.talanta.2024.126851",
+        "role": "MEASURED_FRAGRANCE_EVAPORATION_AND_SURFACE_DEPENDENCE_CONTEXT"
+      },
+      {
+        "pmid": "37393967",
+        "doi": "10.1016/j.resp.2023.104108",
+        "role": "ODOR_DETECTION_THRESHOLD_METHOD_AND_VARIABILITY_CONTEXT"
+      },
+      {
+        "pmid": "33740506",
+        "role": "BINARY_ODOR_MIXTURE_MASKING_AND_SYNERGY_CONTEXT"
+      },
+      {
+        "pmid": "17339042",
+        "doi": "10.1016/j.chroma.2007.02.031",
+        "role": "CONSTITUENT_RESOLVED_ESSENTIAL_OIL_GC_MS_GC_O_CONTEXT"
+      },
+      {
+        "pmid": "32163841",
+        "doi": "10.1016/j.foodchem.2020.126564",
+        "role": "COMPLEX_OIL_QUANTITATION_AND_OAV_CONTEXT"
+      },
+      {
+        "pmid": "19965900",
+        "doi": "10.1093/chemse/bjp088",
+        "role": "CONTROLLED_VAPOR_DELIVERY_AND_THRESHOLD_VARIABILITY_CONTEXT"
+      },
+      {
+        "doi": "10.1016/j.ces.2009.01.064",
+        "role": "NONIDEAL_PERFUME_DIFFUSION_AND_MODIFIED_RAOULT_CONTEXT"
+      }
+    ],
+    "native_diff": {
+      "headspace_models": "engine.physics.headspace_oav and C4 equilibrium contracts already model or explicitly abstain on nonideal prediction",
+      "calibration": "C5 requires empirical calibration rather than source-proxy promotion",
+      "strict_oav": "C8 requires context-matched threshold evidence and fails closed on missing physical inputs",
+      "implementation_decision": "NO_NATIVE_PHYSICS_OR_OAV_CODE_CHANGE_FROM_THIS_SOURCE"
+    }
+  },
+  "deepluna_chat": {
+    "job_id": "DS-617d5a84d22d3a7421adac295f67976d",
+    "profile": "cheapluna-chat",
+    "route": "DIRECT_PRO",
+    "luna": "NO_LUNA",
+    "terminal_status": "BLOCKED",
+    "evidence_verdict": "UNRESOLVED",
+    "scientific_uncertainty": true,
+    "scope_deviation": false,
+    "provider_cost_nano_usd": 2041208,
+    "worker_science_accepted": false,
+    "fallback_used": false
+  },
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "bottle": false,
+    "physical_execution": false,
+    "sensory": false,
+    "analytical": false,
+    "measured_headspace": false,
+    "strict_oav": false,
+    "stability": false,
+    "safety": false,
+    "procurement": false,
+    "compounding": false,
+    "publication": false,
+    "installation": false,
+    "release": false
+  },
+  "receipt_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_RECEIPT_SHA256_OMITTED",
+  "receipt_sha256": "e37928de9ee405e16c76e60207a04a4d3feec2e6c793a0d2daa333e53acb1503"
+}

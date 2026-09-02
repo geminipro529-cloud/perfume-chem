@@ -1,0 +1,30 @@
+# Proposed integration; not applied.
+
+--- a/engine/inventory/stock_selector.py
++++ b/engine/inventory/stock_selector.py
+@@
+- if selected_stock_exists:
+-     fraction = 1.0
+-     basis = "neat/as supplied"
++ fraction, basis, carrier = resolve_exact_selected_stock_basis(
++     canonical_material=material,
++     selected_stock=selected_stock,
++     v5_row=v5_row,
++ )
++ if fraction is None or basis is None:
++     raise Hold("STOCK_FRACTION_OR_BASIS_UNRESOLVED")
++ # Never default a percentage-labelled working stock to fraction=1.0.
++ # Preserve carrier=None when V5 does not state the carrier.
+
+--- a/engine/formula/definition_receipt.py
++++ b/engine/formula/definition_receipt.py
+@@
++ # Persist formula-definition receipt separately from stock-lineage receipt.
++ # Generated design parts can have computational source authority while all
++ # physical numeric-dose authority remains false.
+
+--- a/engine/pipeline/formula_dose_receipt.py
++++ b/engine/pipeline/formula_dose_receipt.py
+@@
++ # Planned active-equivalent arithmetic may be computed from exact fraction/basis.
++ # Physical FormulaDoseReceipt still requires bottle/lot ExactStockRef for every row.

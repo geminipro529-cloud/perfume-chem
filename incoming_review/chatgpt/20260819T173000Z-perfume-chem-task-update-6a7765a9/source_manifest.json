@@ -1,0 +1,63 @@
+{
+  "schema_version": "chatgpt_conversation_source_manifest_v1",
+  "recorded_at": "2026-08-19T17:30:00Z",
+  "conversation": {
+    "conversation_id": "6a7765a9-a50c-83ec-a73e-0dce89b28c55",
+    "title": "Perfume Chem Task Update",
+    "source_surface": "CHATGPT_PROJECT_CONVERSATION"
+  },
+  "retrieval": {
+    "method": "AUTHENTICATED_IN_APP_BROWSER_RENDERED_CONVERSATION",
+    "rendered_message_count": 3,
+    "assistant_message_count": 1,
+    "user_message_count": 2,
+    "attachment_count": 0,
+    "complete_rendered_conversation_captured": true
+  },
+  "source_messages": [
+    {
+      "ordinal": 1,
+      "message_id": "ff70c2f9-87d5-4267-a899-8d97de37e50a",
+      "role": "user",
+      "utf8_byte_size": 192,
+      "sha256": "85528041425e2093562bbbfe72acb1f72f01505bd9fe3e50f5f18be2dc10ae91"
+    },
+    {
+      "ordinal": 2,
+      "message_id": "02f1e7ef-d8fd-4ced-a953-165015024975",
+      "role": "user",
+      "utf8_byte_size": 26,
+      "sha256": "6f677193fe4003c85e80e2351f19c5f5240eb2cc3775510138d6a8ba125dc1af"
+    },
+    {
+      "ordinal": 3,
+      "message_id": "f8953700-0eeb-48d9-b178-5bd2ee149e75",
+      "role": "assistant",
+      "utf8_byte_size": 4598,
+      "sha256": "9e5f599629bdc5c2c606a71eeeb15124adcc18911307b7f73e8c9725a6928d74"
+    }
+  ],
+  "local_report": {
+    "path": "runs/HOURLY_STATUS_AND_G15_COMPLETION_20260809.md",
+    "byte_size": 14102,
+    "sha256": "1104cd55352ad8f49a843905d9b284da7afb10abd0917cef75daff0a1c14eae6",
+    "relationship": "EXACT_LOCAL_REPORT_NAMED_BY_RENDERED_ASSISTANT_HANDOFF"
+  },
+  "capture_boundary": {
+    "attachment_recovered": false,
+    "new_source_package_recovered": false,
+    "message_claims_promoted": false,
+    "local_report_treated_as_historical_point_in_time": true
+  },
+  "authority": {
+    "source_authority": false,
+    "code_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "physical_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "release_authority": false
+  },
+  "receipt_sha256": "234586c1c2f061ce83085541d688e25f3bc14246dd2b580c079600b3531a7d8b"
+}

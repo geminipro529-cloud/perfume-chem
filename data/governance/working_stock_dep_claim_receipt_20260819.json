@@ -1,0 +1,97 @@
+{
+  "schema_version": "external_working_stock_claim_receipt_v1",
+  "receipt_id": "complex-perfumery-working-stock-dep-diff-20260819",
+  "recorded_at": "2026-08-19T15:05:00Z",
+  "parents": [
+    {"path":"incoming_review/chatgpt/20260819T150500Z-working-stock-dep-6a830dfe/source_manifest.json","byte_size":3417,"sha256":"4fadae024ca62d7045899594dc450d485937b246d5f14a7b5c9210b349a04cd5","relation":"BINDS_AUTHENTICATED_CHAT_MESSAGES","authority_state":"SOURCE_POINTER_ONLY"},
+    {"path":"data/governance/inventory_v5_current_stock_snapshot.json","byte_size":226125,"sha256":"f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99","relation":"CURRENT_PHYSICAL_STOCK_AUTHORITY","authority_state":"CONTROLLING"},
+    {"path":"data/materials/_sources/perfumersworld_stock.parsed.json","byte_size":306146,"sha256":"e7f083979500d50fd66c3bcbf99b9db0a7c2a1dbd1fe8e5a130cf7a5c8fae6e8","relation":"LOCAL_CATALOG_CONTEXT_ONLY","authority_state":"NOT_PHYSICAL_INVENTORY"},
+    {"path":"data/materials/H.yaml","byte_size":38863,"sha256":"d92c07c8ec5bd7f9bb88de2f44d3400ab0f3b99bb66b3d8e915c1433e36b108d","relation":"LEGACY_EMPTY_HELVETOLIDE_PROPERTY_RECORD","authority_state":"NOT_STOCK_AUTHORITY"},
+    {"path":"backend/app/services/stock_lineage.py","byte_size":18180,"sha256":"6b2a9b383f65fc128b45bbcb9196f73d7fbab6e22f6d7468d7a86482c63884df","relation":"NATIVE_PARENT_CHILD_STOCK_LINEAGE_GUARD","authority_state":"CONTROLLING_IMPLEMENTATION"},
+    {"path":".archive/20260819_working-stock-dep-intake-v1/docs/research/PERFUME_CHEM_CHATGPT_PROJECT_RECONCILIATION_2026-08-10.md","byte_size":203714,"sha256":"6c6a5b6e5843b4a37dbbd54badccfbbdff272e47e66be6c0263f41cba6057314","relation":"ARCHIVE_FIRST_PRECHANGE_RECONCILIATION_SNAPSHOT","authority_state":"HISTORICAL_PARENT_ONLY"}
+  ],
+  "source_working_stock_recommendations": [
+    {"material":"cis-3-Hexenyl Salicylate","bottle_basis":"neat","recommended_working_stock":"20% w/w in DEP","ten_gram_preparation":"2.00 g material + 8.00 g DEP"},
+    {"material":"Orange Flower Absolute","bottle_basis":"10% in DPG","recommended_working_stock":"Keep at 10%","ten_gram_preparation":"Use supplied stock directly"},
+    {"material":"Caryophyllene Acetate","bottle_basis":"neat","recommended_working_stock":"20% w/w in DEP","ten_gram_preparation":"2.00 g material + 8.00 g DEP"},
+    {"material":"Tonka Bean Absolute","bottle_basis":"10% in DPG","recommended_working_stock":"Keep at 10%","ten_gram_preparation":"Use supplied stock directly"},
+    {"material":"Ethyl Linalool","bottle_basis":"neat","recommended_working_stock":"NEAT","ten_gram_preparation":"No dilution needed"},
+    {"material":"Guaiacwood Essential Oil","bottle_basis":"neat","recommended_working_stock":"50% w/w in DEP","ten_gram_preparation":"5.00 g material + 5.00 g DEP"},
+    {"material":"Rose Otto Anatolian","bottle_basis":"10% in DPG","recommended_working_stock":"Keep at 10%","ten_gram_preparation":"Use supplied stock directly"},
+    {"material":"Ethyl Acetoacetate","bottle_basis":"neat","recommended_working_stock":"NEAT","ten_gram_preparation":"No dilution needed"},
+    {"material":"Cedrat FCF Oil Sicilian","bottle_basis":"neat","recommended_working_stock":"NEAT","ten_gram_preparation":"No dilution needed"},
+    {"material":"Helvetolide","bottle_basis":"neat assumed from missing printed concentration","recommended_working_stock":"NEAT","optional_working_stocks":["50% w/w in DEP","20% w/w in DEP","10% w/w in DEP"],"ten_gram_preparation":"No dilution needed"},
+    {"material":"Lotus Absolute","bottle_basis":"1% in DPG","recommended_working_stock":"Keep at 1%","ten_gram_preparation":"Use supplied stock directly"},
+    {"material":"Liffarome","bottle_basis":"neat","recommended_working_stock":"10% w/w in DEP","ten_gram_preparation":"1.00 g material + 9.00 g DEP"},
+    {"material":"Palm Dates Base","bottle_basis":"neat product basis","recommended_working_stock":"10% w/w in DEP","ten_gram_preparation":"1.00 g supplied base + 9.00 g DEP"},
+    {"material":"Vetiveryl Acetate","bottle_basis":"neat","recommended_working_stock":"20% w/w in DEP","ten_gram_preparation":"2.00 g material + 8.00 g DEP"},
+    {"material":"Hedione High Cis","bottle_basis":"neat","recommended_working_stock":"NEAT","ten_gram_preparation":"No dilution needed"},
+    {"material":"Vetiver Essential Oil","bottle_basis":"neat","recommended_working_stock":"50% w/w in DEP","ten_gram_preparation":"5.00 g material + 5.00 g DEP"},
+    {"material":"Fir Essential Oil","bottle_basis":"neat","recommended_working_stock":"10% w/w in DEP","ten_gram_preparation":"1.00 g material + 9.00 g DEP"},
+    {"material":"Dihydro Myrcenol","bottle_basis":"neat","recommended_working_stock":"NEAT","ten_gram_preparation":"No dilution needed"},
+    {"material":"Pink Pepper Essential Oil","bottle_basis":"neat","recommended_working_stock":"10% w/w in DEP","ten_gram_preparation":"1.00 g material + 9.00 g DEP"},
+    {"material":"Ethyl Butyrate","bottle_basis":"neat","recommended_working_stock":"1% w/w in DEP","ten_gram_preparation":"0.100 g material + 9.900 g DEP"},
+    {"material":"Immortelle Absolute","bottle_basis":"10% in DPG","recommended_working_stock":"Keep at 10%, optional 1% trace stock","ten_gram_preparation":"1.00 g supplied 10% stock + 9.00 g DEP","secondary_stock_carrier":"DPG_PLUS_DEP"},
+    {"material":"Orris Liquid","bottle_basis":"neat/as-supplied opaque product basis","recommended_working_stock":"30% w/w supplied-product basis in DEP","ten_gram_preparation":"3.00 g supplied product + 7.00 g DEP"},
+    {"material":"Patchouli Light Essential Oil","bottle_basis":"neat","recommended_working_stock":"50% w/w in DEP","ten_gram_preparation":"5.00 g material + 5.00 g DEP"}
+  ],
+  "helvetolide_claim": {
+    "chat_reported_mass_g":"1.00",
+    "v5_current_stock_match_count":0,
+    "inventory_txt_match_count":0,
+    "inventory_state":"CHAT_REPORTED_POSSESSION_UNVERIFIED",
+    "fifty_percent_product_basis_arithmetic":{"source_product_g":"1.00","dep_g":"1.00","final_mass_g":"2.00","nominal_product_basis_fraction_w_w":"0.50"},
+    "twenty_percent_product_basis_arithmetic":{"source_product_g":"1.00","dep_g":"4.00","final_mass_g":"5.00","nominal_product_basis_fraction_w_w":"0.20"},
+    "ten_percent_product_basis_arithmetic":{"source_product_g":"1.00","dep_g":"9.00","final_mass_g":"10.00","nominal_product_basis_fraction_w_w":"0.10"},
+    "pure_molecular_helvetolide_fraction_known":false,
+    "source_photo_recovered":false,
+    "exact_bottle_label_known":false,
+    "lot_known":false,
+    "physical_mass_verified":false,
+    "preparation_authorized":false
+  },
+  "identity_diff": {
+    "local_catalog_record":{"name":"Helvetolide","sku":"3XD17215","dilution":null,"price_usd_per_g":"1.90","physical_possession_authority":false},
+    "perfumersworld_current_coa":{"product_code":"3XD17215","classification":"PROPRIETARY_PERFUME_COMPOUND_COMPLEX_MIXTURE","alcohol":"DOES_NOT_CONTAIN","pure_single_molecule_claimed":false},
+    "dsm_firmenich_reference_material":{"product":"HELVETOLIDE 947650","cas":"141773-73-1","molecular_weight_g_mol":"284","classification":"CHEMICAL_SYNTHESIS_REFERENCE_MATERIAL"},
+    "catalog_product_equals_reference_molecule":false,
+    "user_bottle_equals_either_source":false,
+    "missing_label_concentration_means_pure_molecule":false,
+    "safe_interpretation_if_label_confirms_pw_sku":"SUPPLIED_PRODUCT_BASIS_ONLY"
+  },
+  "literature_and_supplier_sources": [
+    {"source_id":"PW:3XD17215","url":"https://perfumersworld.com/document-list.php?pro_id=3XD17215","role":"CURRENT_SUPPLIER_DOCUMENT_SET","finding_scope":"CURRENT_COA_DESCRIBES_A_PROPRIETARY_PERFUME_COMPOUND_COMPLEX_MIXTURE","proves_pure_molecular_helvetolide":false},
+    {"source_id":"DSM-FIRMENICH:947650","url":"https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/HELVETOLIDE_947650.pdf","role":"REFERENCE_MOLECULE_TECHNICAL_SHEET","finding_scope":"CAS_141773_73_1_MW_284_AND_RECOMMENDED_FINE_FRAGRANCE_USE_CONTEXT","proves_user_bottle_identity":false},
+    {"source_id":"RIFM:CAS141773-73-1","url":"https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/141773-73-1.pdf","role":"FRAGRANCE_INGREDIENT_SAFETY_ASSESSMENT","finding_scope":"REFERENCE_CAS_SAFETY_AND_ENVIRONMENTAL_CONTEXT_NOT_USER_LOT_OR_FINAL_FORMULA_CLEARANCE","authorizes_stock_preparation":false}
+  ],
+  "unlock_requirements": [
+    "BIND_HELVETOLIDE_BOTTLE_LABEL_SUPPLIER_SKU_LOT_AND_EXACT_PRODUCT_IDENTITY",
+    "BIND_PHYSICAL_MASS_AND_CURRENT_POSSESSION_RECEIPT",
+    "CLASSIFY_PURE_MOLECULE_VERSUS_SUPPLIED_PRODUCT_BASIS",
+    "BIND_DEP_LOT_AND_BALANCE_CALIBRATION",
+    "CREATE_NATIVE_STOCK_PREPARATION_RECEIPT_WITH_PARENT_CHILD_LINEAGE",
+    "COMPLETE_FINAL_FORMULA_SPECIFIC_SAFETY_REVIEW_BEFORE_SKIN_USE"
+  ],
+  "native_guard_diff": {
+    "chat_summary_can_mutate_v5_inventory":false,
+    "native_stock_lineage_requires_parent_child_receipt":true,
+    "opaque_product_may_be_called_pure_active":false,
+    "new_stock_lineage_code_needed":false
+  },
+  "disposition": {
+    "classification":"WORKING_STOCK_DESIGN_ROWS_PRESERVED_HELVETOLIDE_IDENTITY_AND_POSSESSION_RED",
+    "source_rows_reusable_as_planning_candidates":true,
+    "source_rows_installed_as_stock_authority":false,
+    "helvetolide_dilution_state":"CONDITIONAL_PRODUCT_BASIS_ARITHMETIC_ONLY",
+    "formula_or_inventory_mutated":false,
+    "stock_preparation_executed":false,
+    "purchase_or_cart_mutated":false,
+    "native_runtime_change_required":false,
+    "governance_receipt_only":true
+  },
+  "authority": {
+    "source_admission":false,"identity":false,"inventory":false,"possession":false,"stock":false,"stock_preparation":false,"formula":false,"compounding":false,"trial_execution":false,"physical_result":false,"sensory_result":false,"analytical_result":false,"safety":false,"skin_use":false,"purchase":false,"cart":false,"installation":false,"publication":false,"release":false
+  },
+  "receipt_hash_contract":"SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_RECEIPT_SHA256_OMITTED",
+  "receipt_sha256":"a376b9183922d00994b04c1be9ac4bff12f2968d85b1d9ba151c34088504b462"
+}

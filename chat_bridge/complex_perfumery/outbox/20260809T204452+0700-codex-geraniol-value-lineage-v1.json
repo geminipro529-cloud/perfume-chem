@@ -1,0 +1,144 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "codex-geraniol-value-lineage-20260809T204452+0700",
+  "packet_nonce": "62964451-7b29-4c4e-a59a-63554c0d5cd1",
+  "created_at": "2026-08-09T20:44:52.2251253+07:00",
+  "freshness": {
+    "source_observed_at": "2026-08-09T20:44:52.2251253+07:00",
+    "source_revision": "geraniol-lineage-v1:6d45896975d5e385051bf78d1f857220b1f882cf7fffbe197d29aa8aa156e8fe:fa7bd7908183f7d90d69f1749fa52662e952adc9e8c935e32179633b5923dc31",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": null
+  },
+  "source_project_id": "codex-project:local-7f189a4f8a5247d8770e666c7dc0ae81",
+  "source_conversation_id": "019fe3a3-3cca-7462-b8e9-e315015e95df",
+  "source_chat_title": "Review Perfume-Chem data integration",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Notify the linked Data Integration for Perfume-Chem work hub of the validated Geraniol value-lineage implementation and preserve a reciprocal pointer to the active Codex task.",
+  "summary": "Perfume-Chem now has an exact staging-only Keller/Vosshall XLSX to DREAM Geraniol value-lineage validator. It validates 98 rows and 2058 retained cells with zero incompatible cells, while explicitly retaining 18 source-value-one cells as published-derivative disambiguations because workbook bytes cannot independently distinguish DREAM 10 from 100. No canonical rows or scientific authority were promoted.",
+  "decisions": [
+    {
+      "decision": "Retain the workbook relation as CITES rather than DERIVED_FROM.",
+      "reason": "Eighteen source value-one cells require the published DREAM derivative to disambiguate 10 from 100."
+    },
+    {
+      "decision": "Keep authority WITHHELD_UNKNOWN and write zero canonical rows.",
+      "reason": "Value compatibility is verified, but exact independent reconstruction is false."
+    },
+    {
+      "decision": "Use the existing scientific ingestion module and CLI only.",
+      "reason": "The project prohibits new pipeline scripts."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The real-data validation completed as VERIFIED_STAGED with no rejections.",
+      "evidence": "manifest 6d45896975d5e385051bf78d1f857220b1f882cf7fffbe197d29aa8aa156e8fe; bundle fa7bd7908183f7d90d69f1749fa52662e952adc9e8c935e32179633b5923dc31"
+    },
+    {
+      "claim": "The Geraniol contract matched 98 rows and 2058 cells with zero incompatible cells.",
+      "evidence": "validation lin-3a23c7e2009f840fab3baf334493e743; record 43b956ca077a3feb560989f8f6050a8deade51d184e5336f92b05ece1494263d"
+    },
+    {
+      "claim": "Independent replay emitted 12 byte-identical reports.",
+      "evidence": "output/scientific_ingestion/dream_geraniol_b1_b2_value_lineage_v1 and _replay"
+    },
+    {
+      "claim": "Local checks passed.",
+      "evidence": "29 scientific ingestion tests passed; 6 focused value-lineage tests passed; Ruff and py_compile passed"
+    }
+  ],
+  "active_artifacts": [
+    {
+      "path": "docs/research/PERFUME_CHEM_GERANIOL_SOURCE_LINEAGE_PACKET_2026-08-09.md",
+      "role": "validated research and implementation packet"
+    },
+    {
+      "path": "output/scientific_ingestion/dream_geraniol_b1_b2_value_lineage_v1/b1_value_lineage_validation_candidates.json",
+      "role": "self-hashed staging-only value-lineage candidate"
+    },
+    {
+      "path": "output/scientific_ingestion/dream_geraniol_b1_b2_value_lineage_v1/ingestion_receipt.json",
+      "role": "deterministic staging receipt"
+    }
+  ],
+  "constraints": [
+    "DeepLuna Chat is the only worker route; DeepLuna Fast and alternate fallbacks remain disabled.",
+    "Sol retains architecture, science, security, provenance, scope, and final acceptance authority.",
+    "The packet is an explicit bridge message, not hidden transcript sharing.",
+    "No canonical B1/B2 loading is authorized.",
+    "No inventory, ODT, OAV, safety, similarity, formula, or release claim is made."
+  ],
+  "unresolved_questions": [
+    "Is there a versioned primary preprocessing artifact that independently resolves workbook value 1 to DREAM 10 versus 100?",
+    "Should the same fixed contract be generalized to the full 35084-row corpus as a separately reviewed staging tranche?"
+  ],
+  "next_actions": [
+    {
+      "action": "Load and acknowledge this packet in the Data Integration for Perfume-Chem work hub.",
+      "authority": "chat acknowledgement only"
+    },
+    {
+      "action": "Keep source-level derivation and canonical promotion on HOLD unless new primary provenance resolves the ambiguity.",
+      "authority": "Sol/Codex"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Cross-task delivery",
+      "state": "DIRECT_MESSENGER_UNAVAILABLE",
+      "detail": "Codex read_thread and send_message_to_thread returned No handler registered; this validated outbox packet is the durable bridge route and does not prove that the target chat has read it."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "codex_task",
+      "id": "019fe3a3-3cca-7462-b8e9-e315015e95df",
+      "uri": "codex://threads/019fe3a3-3cca-7462-b8e9-e315015e95df"
+    },
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+      "uri": "chatgpt-conversation://6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf"
+    }
+  ],
+  "content_hashes": [
+    {
+      "algorithm": "sha256",
+      "digest": "47fd9371ca2028d6cb56acd5ea4835e5a0d386003d3c006cfa9af5fc023d4df4",
+      "path": "engine/ingestion/scientific.py"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "c20ab9b7c763049ce04db0fd30e53e6ab4dea167d1ee47c6285731d97adec5a4",
+      "path": "tests/test_scientific_source_ingestion.py"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "170a72a11811a9390ce0a72a91c9c8f05cdf7217c99f1fa2c4fb419a06578f3c",
+      "path": "data/source_manifests/dream_olfaction_fb47cb343cdf.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "5ee3816cb499352cdd9bb5050dbacc05849bb3123bc9b76050e11a4229763d68",
+      "path": "docs/research/PERFUME_CHEM_GERANIOL_SOURCE_LINEAGE_PACKET_2026-08-09.md"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "1ddbc4118afc29d515d03dfd98ffe62dff22bcf6dd85ae9dee8fad162244a4e0",
+      "path": "output/scientific_ingestion/dream_geraniol_b1_b2_value_lineage_v1/b1_value_lineage_validation_candidates.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "cc29311200ece4bc7b31ef33c1df945a456cefbc62199307fd51ae1674f7eaa0",
+      "path": "output/scientific_ingestion/dream_geraniol_b1_b2_value_lineage_v1/ingestion_receipt.json"
+    }
+  ],
+  "authority": {
+    "level": "VALIDATED_CONTEXT",
+    "accepted_by_codex": true
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

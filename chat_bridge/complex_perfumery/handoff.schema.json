@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:perfume-chem:chat-bridge:handoff:v2.1",
+  "title": "Perfume-Chem Chat Bridge Handoff",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "packet_id",
+    "packet_nonce",
+    "created_at",
+    "freshness",
+    "source_project_id",
+    "source_conversation_id",
+    "source_chat_title",
+    "target_conversation_id",
+    "objective",
+    "summary",
+    "decisions",
+    "claims",
+    "active_artifacts",
+    "constraints",
+    "unresolved_questions",
+    "next_actions",
+    "conflicts",
+    "source_refs",
+    "content_hashes",
+    "authority",
+    "acknowledgement"
+  ],
+  "properties": {
+    "schema_version": { "const": "2.1" },
+    "packet_id": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "packet_nonce": {
+      "type": "string",
+      "minLength": 16,
+      "maxLength": 200,
+      "pattern": "^[A-Za-z0-9._:-]+$"
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "freshness": {
+      "type": "object",
+      "required": [
+        "source_observed_at",
+        "source_revision",
+        "max_age_seconds",
+        "supersedes_packet_id"
+      ],
+      "properties": {
+        "source_observed_at": { "type": "string", "format": "date-time" },
+        "source_revision": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "max_age_seconds": { "type": "integer", "minimum": 60, "maximum": 2592000 },
+        "supersedes_packet_id": { "type": ["string", "null"], "minLength": 1, "maxLength": 200 }
+      },
+      "additionalProperties": false
+    },
+    "source_project_id": { "type": "string", "minLength": 1 },
+    "source_conversation_id": { "type": "string", "minLength": 1 },
+    "source_chat_title": { "type": "string", "minLength": 1 },
+    "target_conversation_id": { "type": "string", "minLength": 1 },
+    "objective": { "type": "string" },
+    "summary": { "type": "string" },
+    "decisions": { "type": "array", "items": { "type": "object" } },
+    "claims": { "type": "array", "items": { "type": "object" } },
+    "active_artifacts": { "type": "array", "items": { "type": "object" } },
+    "constraints": { "type": "array", "items": { "type": "string" } },
+    "unresolved_questions": { "type": "array", "items": { "type": "string" } },
+    "next_actions": { "type": "array", "items": { "type": "object" } },
+    "conflicts": { "type": "array", "items": { "type": "object" } },
+    "source_refs": { "type": "array", "items": { "type": "object" } },
+    "content_hashes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["algorithm", "digest"],
+        "properties": {
+          "algorithm": { "const": "sha256" },
+          "digest": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" },
+          "path": { "type": ["string", "null"] }
+        },
+        "additionalProperties": false
+      }
+    },
+    "authority": {
+      "type": "object",
+      "required": ["level", "accepted_by_codex"],
+      "properties": {
+        "level": { "enum": ["UNTRUSTED_CHAT_INPUT", "SOURCE_CAPTURE", "VALIDATED_CONTEXT", "HOLD"] },
+        "accepted_by_codex": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "acknowledgement": {
+      "type": "object",
+      "required": ["read_at", "accepted"],
+      "properties": {
+        "read_at": { "type": ["string", "null"], "format": "date-time" },
+        "accepted": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

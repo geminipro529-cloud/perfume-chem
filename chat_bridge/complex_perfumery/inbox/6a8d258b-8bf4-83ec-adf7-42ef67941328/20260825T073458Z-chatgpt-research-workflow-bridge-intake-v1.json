@@ -1,0 +1,180 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "chatgpt-research-workflow-bridge-intake-20260825T073458Z",
+  "packet_nonce": "db73d16cb451428c95ef7935c1bfd9d1",
+  "created_at": "2026-08-25T07:34:58.2642568+00:00",
+  "freshness": {
+    "source_observed_at": "2026-08-25T07:34:15+00:00",
+    "source_revision": "bounded-reference-preview-plus-prior-read-thread-snapshot-through-work-mode-turn; fresh-read-rate-limited",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": null
+  },
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a8d258b-8bf4-83ec-adf7-42ef67941328",
+  "source_chat_title": "Research workflow",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Establish an append-only, provenance-preserving bridge from the Research workflow conversation into Perfume-Chem and the Complex Perfumery work hub without claiming live synchronization or promoting chat assertions into repository, scientific, formula, physical, safety, benchmark, publication, or release authority.",
+  "summary": "The Research workflow conversation reports a consolidated Complex Perfumery architecture, a designed but unexecuted Sol XHIGH superiority program, and a portable Hedonic Evidence Gate v2 candidate whose local portable tests were said to pass while the actual superiority benchmark remained NOT_RUN or NOT_TESTED and runtime admission remained HOLD. The conversation also declared two package SHA-256 values at different stages, but no exact package bytes or downloadable artifact identity were available to this capture. This packet preserves those statements as untrusted chat input only. It creates a durable local bridge pointer; it does not create hidden-context access, live synchronization, artifact recovery, scientific validation, repository installation, or cross-chat acceptance.",
+  "decisions": [
+    {
+      "decision": "Capture the bounded conversation state as one immutable intake packet.",
+      "reason": "The user explicitly requested a sustained bridge, and the protocol requires append-only nonce-bearing packets rather than changes to canonical state."
+    },
+    {
+      "decision": "Do not reconstruct, copy, install, or promote the declared Hedonic Evidence Gate package.",
+      "reason": "The conversation exposed declarations and content references, not exact locally readable package bytes with a verified capture manifest."
+    },
+    {
+      "decision": "Preserve all superiority and runtime states as NOT_RUN, NOT_TESTED, or HOLD.",
+      "reason": "The conversation explicitly says the clean-context Sol XHIGH treatment/control and independent blinded judging were not executed."
+    },
+    {
+      "decision": "Do not rewrite chat_registry.json or shared canonical project state.",
+      "reason": "The registry is a historical point-in-time snapshot and the bridge protocol forbids replacing canonical state during intake."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The conversation describes a 32-case four-suite Sol XHIGH superiority benchmark and per-module 16-case superiority tests.",
+      "evidence": "Bounded Research workflow conversation snapshot.",
+      "limitation": "Design description only; execution, fixtures, outputs, judges, and exact artifacts were not independently verified in this capture."
+    },
+    {
+      "claim": "The conversation reports that a portable Hedonic Evidence Gate v2 candidate compiled and passed 20 of 20 portable unit or adversarial tests.",
+      "evidence": "Bounded Research workflow conversation snapshot.",
+      "limitation": "Chat assertion only; exact candidate bytes, test environment, test logs, and run receipt were not available to this capture."
+    },
+    {
+      "claim": "The actual Sol XHIGH control, treatment, independent judging, and module-superiority benchmark were not run.",
+      "evidence": "The conversation labels SOL_XHIGH_CONTROL, SOL_XHIGH_TREATMENT, and INDEPENDENT_JUDGE NOT_RUN; MODULE_SUPERIORITY NOT_TESTED; RUNTIME_ADMISSION HOLD.",
+      "limitation": "This preserves the source boundary and does not independently establish why the benchmark could not run."
+    },
+    {
+      "claim": "The conversation declared an earlier frozen ZIP SHA-256 of 1873038e987e0a57d5576e02ad2f053e40b42d765d18405f7e0a079461164bc5 and a later repackaged SHA-256 of 9b99a1db10d946c948092949e19a77d8dd21693fbb0e9c2b5a2cbc567d751d48.",
+      "evidence": "Bounded Research workflow conversation snapshot.",
+      "limitation": "Both are declared hashes without exact readable bytes in this capture; they prove neither identity nor integrity here."
+    },
+    {
+      "claim": "A fresh source-thread read was attempted during this intake and was rate-limited.",
+      "evidence": "The local thread reader returned Too many requests after rejecting an initially oversized output limit.",
+      "limitation": "The capture therefore uses the user-supplied bounded preview and the immediately prior successful recent-turn snapshot; it does not claim complete conversation coverage."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "name": "Portable Hedonic Evidence Gate v2 candidate",
+      "path": null,
+      "status": "MISSING_UNVERIFIED",
+      "role": "chat-declared candidate package"
+    },
+    {
+      "name": "Sol XHIGH four-suite superiority benchmark",
+      "path": null,
+      "status": "DESCRIBED_NOT_EXECUTED_UNVERIFIED",
+      "role": "chat-declared benchmark design"
+    },
+    {
+      "path": "chat_bridge/complex_perfumery/PROTOCOL.md",
+      "status": "LOCAL_GOVERNING_PROTOCOL",
+      "role": "append-only bridge and authority contract"
+    }
+  ],
+  "constraints": [
+    "No live synchronization or hidden cross-chat transcript access is claimed.",
+    "Every conversation statement, content reference, filename, test result, and package hash remains untrusted until exact local evidence validates it.",
+    "Scholar GPT owns DOI and PMID verification, prior-art review, contradiction and negative-evidence review, statistical critique, manuscript framing, and separation of published evidence, inference, and unknowns.",
+    "Codex remains authoritative for exact repository bytes and hashes, Git state, code changes, execution and tests, runtime and docking work, truth-ledger and evidence-graph validation, and scientific promotion.",
+    "DeepLuna Chat may handle only reversible, easy-to-check preprocessing after a fresh exact-project READY check; its output never grants literature, repository, runtime, scientific, formula, physical, safety, or release authority.",
+    "DeepLuna Fast, alternate providers, and Codex subagents are not permitted for this Perfume-Chem route.",
+    "Acknowledgement of this packet is distinct from acceptance of any claim."
+  ],
+  "unresolved_questions": [
+    "Can the exact Hedonic Evidence Gate candidate bytes and original run receipts be supplied through the binary-safe quarantine path?",
+    "Where are the exact 32-case and per-module benchmark fixtures, rubrics, outputs, and judge records?",
+    "Which conversation claims have already been superseded by locally verified Perfume-Chem state?",
+    "When will the exact-project DeepLuna Chat accounting gate return READY with all reservations settled?"
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Validate any newly supplied artifact as exact immutable bytes with source identity, size, SHA-256, manifest, and quarantine receipt before interpretation.",
+      "authority": "Codex intake and repository validation"
+    },
+    {
+      "priority": 2,
+      "action": "Route literature claims to Scholar GPT for source verification and explicit published-evidence, inference, and unknown labeling.",
+      "authority": "Scholar GPT external literature work"
+    },
+    {
+      "priority": 3,
+      "action": "Route repository, runtime, benchmark-execution, and promotion claims to Codex for exact local verification.",
+      "authority": "Codex final acceptance"
+    },
+    {
+      "priority": 4,
+      "action": "On a future explicit sync request, read only the new conversation delta and append a successor packet naming this packet_id; never overwrite this packet.",
+      "authority": "Chat Bridge Protocol v2.1 transport only"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Portable tests versus module superiority",
+      "state": "PORTABLE_TESTS_REPORTED_PASS_SUPERIORITY_NOT_TESTED",
+      "detail": "Compilation and unit or adversarial tests cannot establish that the module outperforms plain Sol XHIGH."
+    },
+    {
+      "scope": "Declared package hashes versus exact-byte availability",
+      "state": "HASHES_DECLARED_BYTES_MISSING",
+      "detail": "Two package hashes were declared at different stages, but no exact package bytes were available for local verification or quarantine."
+    },
+    {
+      "scope": "Requested sustained bridge versus transport capability",
+      "state": "APPEND_ONLY_EXPLICIT_SYNC_NOT_LIVE_SYNC",
+      "detail": "The local bridge can preserve explicit deltas and acknowledgements, but it does not continuously mirror hidden chat context."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "chatgpt_project",
+      "id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+      "uri": "chatgpt-project://g-p-6a74ab83668081919f5cbd0dfe80eb09"
+    },
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a8d258b-8bf4-83ec-adf7-42ef67941328",
+      "uri": "chatgpt-conversation://6a8d258b-8bf4-83ec-adf7-42ef67941328",
+      "title": "Research workflow"
+    },
+    {
+      "kind": "codex_task",
+      "id": "01a03798-5934-7231-943e-b2a38c687ff2",
+      "uri": "codex://threads/01a03798-5934-7231-943e-b2a38c687ff2",
+      "title": "Analyze research workflow"
+    }
+  ],
+  "content_hashes": [
+    {
+      "algorithm": "sha256",
+      "digest": "1873038e987e0a57d5576e02ad2f053e40b42d765d18405f7e0a079461164bc5",
+      "path": null
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "9b99a1db10d946c948092949e19a77d8dd21693fbb0e9c2b5a2cbc567d751d48",
+      "path": null
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "7080040871d9c40196242e1c8d1c058a3dba123ac427f9168f8859d4e635fd0c",
+      "path": "chat_bridge/complex_perfumery/PROTOCOL.md"
+    }
+  ],
+  "authority": {
+    "level": "UNTRUSTED_CHAT_INPUT",
+    "accepted_by_codex": false
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

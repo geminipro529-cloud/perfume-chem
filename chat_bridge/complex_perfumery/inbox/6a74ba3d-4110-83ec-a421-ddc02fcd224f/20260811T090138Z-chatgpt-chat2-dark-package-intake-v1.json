@@ -1,0 +1,155 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "chatgpt-chat2-dark-package-intake-20260811T090138Z",
+  "packet_nonce": "efa1a871-07b2-4c8c-9356-1e3498e882a5",
+  "created_at": "2026-08-11T09:01:38.2688266Z",
+  "freshness": {
+    "source_observed_at": "2026-08-11T09:01:38.2688266Z",
+    "source_revision": "local-mirror:94c6b75573d7:90f610273aa3:18270ef6603d",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": null
+  },
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+  "source_chat_title": "Chat 2 Completion",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Admit the three sealed Chat 2 / DARK MATERIALS packages found only in the Complex Perfumery mirror as exact-byte quarantine captures, while preserving every execution and authority hold.",
+  "summary": "DARK-SCR-01 v1, DARK-SCR-03 v1, and DARK-SCR-20A v1 exact ZIP bytes were absent from Perfume-Chem intake and are now staged under incoming_review/chatgpt. Each archive has 14 safe entries, clean ZIP CRC, and 13 matching declared member hashes. Native graph scans are terminal but quarantined, with promotion false. No package is installed or promoted.",
+  "decisions": [
+    {
+      "decision": "Stage only the three sealed v1 archive bytes and one provenance manifest.",
+      "reason": "They are exact recoverable evidence packages; the in-progress DARK-SCR-01 v1.1 folder is unsealed and must not be represented as a package."
+    },
+    {
+      "decision": "Retain all archives in quarantine with SOURCE_CAPTURE authority only.",
+      "reason": "Each native graph scan requires an independent child-workbook receipt and reports bounded partial-scan findings."
+    },
+    {
+      "decision": "Do not treat PASS_WITH_EXECUTION_HOLD as physical, scientific, formula, inventory, package-admission, or release acceptance.",
+      "reason": "All three packages are experiment designs with blank observation templates and explicit execution holds."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "DARK-SCR-01 v1 exact bytes are staged.",
+      "evidence": "158952 bytes; SHA-256 94c6b75573d71189c58b16737a1a5d2b9f7bb6bc8f1b41b9e76ef727e00e3c33; 14 ZIP entries; 13/13 declared hashes matched."
+    },
+    {
+      "claim": "DARK-SCR-03 v1 exact bytes are staged.",
+      "evidence": "166497 bytes; SHA-256 90f610273aa3c8fab21895a5ca11dd67051e4631509376f03bf5a38337181d2e; 14 ZIP entries; 13/13 declared hashes matched."
+    },
+    {
+      "claim": "DARK-SCR-20A v1 exact bytes are staged.",
+      "evidence": "217032 bytes; SHA-256 18270ef6603d2eb594ba57cb72326c4167eee1f655d6950d7e1dec5f00b3527d; 14 ZIP entries; 13/13 declared hashes matched."
+    },
+    {
+      "claim": "All three native archive graphs are terminal but quarantined.",
+      "evidence": "Each scan reported GRAPH_COMPLETE_QUARANTINED, 2 nodes, 1 edge, max depth 1, all_nodes_terminal=true, and promotion_allowed=false."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "path": "incoming_review/chatgpt/20260811T090138Z-dark-chat2-6a74ba3d-99e3d1c0/capture_manifest.json",
+      "role": "exact-byte capture provenance and quarantine scan manifest"
+    },
+    {
+      "path": "incoming_review/chatgpt/20260811T090138Z-dark-chat2-6a74ba3d-99e3d1c0/ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_20260810.zip",
+      "role": "untrusted sealed Chat 2 experiment package"
+    },
+    {
+      "path": "incoming_review/chatgpt/20260811T090138Z-dark-chat2-6a74ba3d-99e3d1c0/ACCORD_INTEL_DARK_DARK-SCR-03_GUAIACWOOD_GUAIACOL_v1_20260810.zip",
+      "role": "untrusted sealed Chat 2 experiment package"
+    },
+    {
+      "path": "incoming_review/chatgpt/20260811T090138Z-dark-chat2-6a74ba3d-99e3d1c0/ACCORD_INTEL_DARK_DARK-SCR-20A_GUAIACOL_BIRCH_TAR_v1_20260810.zip",
+      "role": "untrusted sealed Chat 2 experiment package"
+    }
+  ],
+  "constraints": [
+    "Scope remains ACCORD-INTEL Chat 2 / DARK MATERIALS only; Chats 0, 1, and 3-8 and final integration are untouched.",
+    "No physical observations exist; every sensory result remains NOT_TESTED or NOT_RUN.",
+    "No canonical inventory, formula, schema, database, package-admission, purchase, or release state was changed.",
+    "DARK-SCR-03 retains Guaiacwood procurement, exact-stock-reference, parent-byte, parent-schema, and physical-execution holds.",
+    "DARK-SCR-20A retains Birch Tar identity/PAH, carrier-vector, calibration, arm-specific safety, exact-stock, parent, and execution holds.",
+    "DeepLuna Fast and alternate providers remain prohibited; Sol retains final authority."
+  ],
+  "unresolved_questions": [
+    "Can the nested workbooks receive complete native child receipts without OOXML part-scan-limit findings?",
+    "Can DARK-SCR-01 v1.1 be sealed after the official spreadsheet runtime becomes available, without modifying v1?",
+    "Can the missing exact Chat 2 V2 and DARK-SCR-02 parent bytes be recovered rather than reconstructed?",
+    "Have exact bottle, version, lot, carrier, preparation genealogy, and safety-document references been locked for physical execution?"
+  ],
+  "next_actions": [
+    {
+      "action": "Run the repository's external-package receipt and nested-child qualification flow over the three staged ZIPs.",
+      "authority": "Sol/Codex quarantine review only"
+    },
+    {
+      "action": "Keep DARK-SCR-01 v1.1 unsealed until its ten-sheet workbook and independent validator can run with the sanctioned spreadsheet runtime.",
+      "authority": "Chat 2 package repair only"
+    },
+    {
+      "action": "Do not install, compound, unblind, or promote any package from this packet.",
+      "authority": "Sol/Codex"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "DARK-SCR-01 saffron-reference hold",
+      "state": "V1_SEALED_V1_1_REPAIR_UNSEALED",
+      "detail": "The sealed v1 package applies HOLD_AUTHENTICATED_SAFFRON_REFERENCE globally. The approved v1.1 design scopes it to HOLD_NATURAL_SAFFRON_SIMILARITY_ONLY, but v1.1 is not a completed package and therefore does not supersede v1 bytes."
+    },
+    {
+      "scope": "Spreadsheet runtime",
+      "state": "HOLD_SANCTIONED_RUNTIME_UNAVAILABLE",
+      "detail": "The official workspace dependency locator did not return and the prior loader-provided junction no longer contains @oai/artifact-tool. No alternate spreadsheet library was used."
+    },
+    {
+      "scope": "Archive admission",
+      "state": "QUARANTINE_ONLY",
+      "detail": "Clean CRC and internal ledgers establish package integrity, not scientific or installation authority; native child-workbook receipts remain required."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+      "uri": "chatgpt-conversation://6a74ba3d-4110-83ec-a421-ddc02fcd224f"
+    },
+    {
+      "kind": "codex_task",
+      "id": "019fe7ed-5972-7091-a906-c2fcfdc4576c",
+      "uri": "codex://threads/019fe7ed-5972-7091-a906-c2fcfdc4576c"
+    },
+    {
+      "kind": "codex_task",
+      "id": "019feb17-3324-7623-9eac-3b7e817acd4c",
+      "uri": "codex://threads/019feb17-3324-7623-9eac-3b7e817acd4c"
+    }
+  ],
+  "content_hashes": [
+    {
+      "algorithm": "sha256",
+      "digest": "94c6b75573d71189c58b16737a1a5d2b9f7bb6bc8f1b41b9e76ef727e00e3c33",
+      "path": "incoming_review/chatgpt/20260811T090138Z-dark-chat2-6a74ba3d-99e3d1c0/ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_20260810.zip"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "90f610273aa3c8fab21895a5ca11dd67051e4631509376f03bf5a38337181d2e",
+      "path": "incoming_review/chatgpt/20260811T090138Z-dark-chat2-6a74ba3d-99e3d1c0/ACCORD_INTEL_DARK_DARK-SCR-03_GUAIACWOOD_GUAIACOL_v1_20260810.zip"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "18270ef6603d2eb594ba57cb72326c4167eee1f655d6950d7e1dec5f00b3527d",
+      "path": "incoming_review/chatgpt/20260811T090138Z-dark-chat2-6a74ba3d-99e3d1c0/ACCORD_INTEL_DARK_DARK-SCR-20A_GUAIACOL_BIRCH_TAR_v1_20260810.zip"
+    }
+  ],
+  "authority": {
+    "level": "SOURCE_CAPTURE",
+    "accepted_by_codex": false
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

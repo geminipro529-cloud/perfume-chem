@@ -1,0 +1,13 @@
+config_version: 1
+control_plane:
+  base_url: https://api.openai.com
+  tunnel_id: tunnel_6a76371038e0819187fd46fb04b45977
+  api_key: env:CONTROL_PLANE_API_KEY
+health:
+  listen_addr: 127.0.0.1:8080
+admin_ui:
+  open_browser: false
+mcp:
+  commands:
+    - channel: main
+      command: '"C:/Program Files/nodejs/node.exe" D:/chatbots/perfume-chem/tools/mcp-filesystem/server.mjs'

@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "capture_id": "20260818T021436+0700-exact-decimal-small-sidecars-6a7992db",
+  "captured_at": "2026-08-18T02:14:36+07:00",
+  "scope": "LOCAL_EXACT_BYTE_QUARANTINE_INTAKE_ONLY",
+  "source": {
+    "chat_id": "6a7992db-96b8-83ec-aab0-6a7447b97da1",
+    "chat_title": "Perfume Project Planning",
+    "source_turn_id": "bab83c58-17ea-4d91-bda8-6ff2d4549e5b",
+    "source_message_id": "85b6d251-dffc-4d7b-bb0f-dff9de633b72",
+    "base64_retrieval_turn_id": "fb42351c-f89c-4e62-a69a-b407a6a5161f",
+    "base64_retrieval_message_id": "0962f1c5-0c51-4bb9-adbd-f21fe0d4856c",
+    "reported_original_attachment_bytes_read": true
+  },
+  "objects": [
+    {
+      "content_reference_index": 2,
+      "filename": "Perfume_Chem_V19_V20_Exact_Decimal_Formula_Artifact_Successor_2026-08-17_v2.zip.sha256",
+      "bytes": 146,
+      "sha256": "d8430c9deefbc142174de9a0d07d6df8aa2dbba4bd834fbeaefc4b9286cd3779",
+      "exact_match": true
+    },
+    {
+      "content_reference_index": 3,
+      "filename": "Perfume_Chem_V19_V20_Exact_Decimal_Formula_Artifact_Successor_2026-08-17_v2_RECEIPT.json",
+      "bytes": 1790,
+      "sha256": "190b984bfa206d742dd0ff93e7ebc70e4f819dfd3e5066d5ad8aa839d4e8b0b0",
+      "exact_match": true
+    }
+  ],
+  "local_validation": {
+    "objects_expected": 2,
+    "objects_exact": 2,
+    "receipt_strict_json_parse": true,
+    "sha256_sidecar_targets_outer_zip": true,
+    "formula_artifact_state": "PASS_EXACT_DECIMAL_SUCCESSOR",
+    "quick_verification_state": "HOLD",
+    "stock_lineage_holds": 63,
+    "missing_exact_byte_dependencies": 4,
+    "authority_false_count": 17
+  },
+  "admission": {
+    "quarantine_intake_complete": true,
+    "native_installation_eligible": false,
+    "canonical_repository_files_modified": false,
+    "source_admission": false,
+    "package_installation": false,
+    "formula_authority": false,
+    "inventory_mutation": false,
+    "stock_authority": false,
+    "bottle_authority": false,
+    "physical_execution": false,
+    "sensory_authority": false,
+    "analytical_authority": false,
+    "measured_headspace_authority": false,
+    "strict_empirical_oav_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "repository_installation": false,
+    "publication_authority": false,
+    "release_authority": false
+  }
+}

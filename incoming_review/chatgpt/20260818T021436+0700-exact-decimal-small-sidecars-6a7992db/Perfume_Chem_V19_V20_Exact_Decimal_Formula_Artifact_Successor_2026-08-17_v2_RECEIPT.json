@@ -1,0 +1,51 @@
+{
+  "filename": "Perfume_Chem_V19_V20_Exact_Decimal_Formula_Artifact_Successor_2026-08-17_v2.zip",
+  "bytes": 780032,
+  "sha256": "822f202fee13875f864bf4acdfdbc9364097eb52b224529b4ea248b9032ab31f",
+  "mime_type": "application/zip",
+  "zip_members": 57,
+  "zip_crc": "PASS",
+  "duplicate_paths": 0,
+  "unsafe_paths": 0,
+  "deterministic_rebuild": true,
+  "internal_sha_ledger_entries": 56,
+  "internal_sha_ledger_mismatches": 0,
+  "clean_extract_mismatches": 0,
+  "formula_artifact_state": "PASS_EXACT_DECIMAL_SUCCESSOR",
+  "quick_verification_state": "HOLD",
+  "stock_lineage_holds": 63,
+  "missing_exact_byte_dependencies": 4,
+  "workbook": {
+    "filename": "Perfume_Chem_V19_V20_Exact_Decimal_Formula_Artifact_Successor_v2.xlsx",
+    "bytes": 132565,
+    "sha256": "8d93951a2ffed25becd13307cf3e2f92ad3e1372fe16d21c99b1bb6306ed5f94"
+  },
+  "parent_artifact": {
+    "filename": "Nine_Finished_Hedonic_High_Complexity_Perfumes_2026-08-16_v1.zip",
+    "bytes": 815495,
+    "sha256": "f1e0f2aae2143fe2638c151032f686ee7b36579280445e86e1878c79b54f240b",
+    "zip_members": 84,
+    "manifest_sha256": "6ce2ecfceb11b6d7757af3310c493c36212a7c55ad119dbf30b8ad3e459133fb",
+    "internal_receipt_sha256": "436d8ee92c245c669c86eea4de1432d63f5ff3902633059ae81d727664154da1",
+    "formula_pack_sha256": "06f77940349a2d850806624f22e4e08320e96fa6738c5002196ed309ec4be454"
+  },
+  "authority_false": [
+    "source_admission",
+    "package_installation",
+    "formula_authority",
+    "inventory_mutation",
+    "stock_authority",
+    "bottle_authority",
+    "physical_execution",
+    "sensory_authority",
+    "analytical_authority",
+    "measured_headspace",
+    "strict_empirical_oav",
+    "safety",
+    "procurement",
+    "compounding",
+    "repository_installation",
+    "publication",
+    "release"
+  ]
+}

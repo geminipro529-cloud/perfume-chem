@@ -1,0 +1,92 @@
+--- a/engine/pipeline/gates.py
++++ b/engine/pipeline/gates.py
+@@
+-def _formula_dilutions_for_g15(formula: Mapping) -> dict[str, float]:
++def _formula_dilutions_for_g15(
++    formula: Mapping,
++    resolved_stock_specs: Mapping[str, Mapping[str, object]] | None = None,
++) -> dict[str, float]:
+     ingredients = dict(formula.get("ingredients_ul", {}) or {})
+     dilutions = dict(formula.get("dilutions", {}) or {})
+-    stock_specs = dict(formula.get("stock_specs", {}) or {})
++    stock_specs = dict(
++        resolved_stock_specs
++        if resolved_stock_specs is not None
++        else (formula.get("stock_specs", {}) or {})
++    )
+     resolved: dict[str, float] = {}
+     for raw_name in ingredients:
+         name = str(raw_name)
+         spec = dict(stock_specs.get(raw_name, stock_specs.get(name, {})) or {})
+-        value = spec.get("fraction", dilutions.get(raw_name, dilutions.get(name, 1.0)))
++        if spec.get("fraction") is not None:
++            value = spec["fraction"]
++        elif raw_name in dilutions:
++            value = dilutions[raw_name]
++        elif name in dilutions:
++            value = dilutions[name]
++        else:
++            raise ValueError(
++                f"{name}: G15 stock fraction unavailable; exact resolved stock_specs "
++                "or an explicit formula dilution is required"
++            )
+         resolved[name] = float(value)
+     return resolved
+@@
+ def _gate_g15_oav_firewall(
+     formula: Mapping,
+     simulation: Sequence[SimulationFrame],
+     config: ReleaseGateConfig,
+     *,
++    child_stock_specs: Mapping[str, Mapping[str, object]] | None = None,
+     parent_formula: Mapping | None = None,
+     authorized_active_dose_changes: Mapping[str, str] | None = None,
+ ) -> GateResult:
+@@
+-        parent_dilutions = _formula_dilutions_for_g15(parent_formula)
++        parent_stock_contract = resolve_inventory_stock_contract(parent_formula)
++        parent_stock_specs = resolved_stock_specs_for_state(
++            parent_formula,
++            parent_stock_contract,
++        )
++        parent_dilutions = _formula_dilutions_for_g15(
++            parent_formula,
++            parent_stock_specs,
++        )
+@@
+-    child_dilutions = _formula_dilutions_for_g15(formula)
++    child_dilutions = _formula_dilutions_for_g15(formula, child_stock_specs)
+@@
+             lambda: _gate_g15_oav_firewall(
+                 formula,
+                 simulation,
+                 config,
++                child_stock_specs=stock_specs,
+                 parent_formula=parent_formula,
+                 authorized_active_dose_changes=authorized_active_dose_changes,
+             ),
+--- a/tests/test_pre_mix_guard.py
++++ b/tests/test_pre_mix_guard.py
+@@
+-from engine.pipeline.gates import HARD_BLOCKING_GATES, gate_formula
++from engine.pipeline.gates import (
++    HARD_BLOCKING_GATES,
++    _formula_dilutions_for_g15,
++    gate_formula,
++)
+@@
+ def test_g15_is_hard_blocking_and_wired_into_gate_formula() -> None:
+@@
+     assert "authorized_active_dose_changes=authorized_active_dose_changes" in source
++
++
++def test_g15_dilution_helper_uses_resolved_stock_specs() -> None:
++    formula = {"ingredients_ul": {"Citronellol": 63.0}}
++    resolved = {"Citronellol": {"fraction": 0.10}}
++    assert _formula_dilutions_for_g15(formula, resolved) == {"Citronellol": 0.10}
++
++
++def test_g15_dilution_helper_does_not_default_missing_fraction_to_neat() -> None:
++    formula = {"ingredients_ul": {"Citronellol": 63.0}}
++    with pytest.raises(ValueError, match="stock fraction unavailable"):
++        _formula_dilutions_for_g15(formula, {})

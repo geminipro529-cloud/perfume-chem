@@ -1,0 +1,166 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "codex-research-workflow-bridge-ack-20260825T073947Z-v2",
+  "packet_nonce": "37eec7da45ad460795d61c4c12097377",
+  "created_at": "2026-08-25T07:39:47.5230322+00:00",
+  "freshness": {
+    "source_observed_at": "2026-08-25T07:39:47.5230322+00:00",
+    "source_revision": "head-281d389ca76424ace2438e1f6cabdad75163a4d6:successor-0d44c56efa962522615bf8a4d01c49dafe46ca796d80cef897cba6647348c7a4",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": "codex-research-workflow-bridge-ack-20260825T073633Z"
+  },
+  "source_project_id": "perfume-chem",
+  "source_conversation_id": "01a03798-5934-7231-943e-b2a38c687ff2",
+  "source_chat_title": "Analyze research workflow",
+  "target_conversation_id": "6a8d258b-8bf4-83ec-adf7-42ef67941328",
+  "objective": "Acknowledge the append-only successor delta for the newly readable MASTER PERFUME-CHEM COMPLETION HANDOFF and preserve the exact partial-capture boundary without accepting its proposed implementation, source, benchmark, package, scientific, or release claims.",
+  "summary": "After the first bridge acknowledgement was sealed, a fresh thread read exposed a newer completed Research workflow turn containing a long MASTER PERFUME-CHEM COMPLETION HANDOFF. Codex preserved the first intake and appended successor packet chatgpt-research-workflow-master-handoff-delta-20260825T073840Z. The successor is 12,831 bytes with SHA-256 0d44c56efa962522615bf8a4d01c49dafe46ca796d80cef897cba6647348c7a4 and validates against the v2.1 schema. The source message exceeded the 20,000-character per-item reader ceiling, so only its readable prefix is captured and the remainder remains unresolved. This v2 acknowledgement accepts local transport evidence only; every source claim remains untrusted and no branch, code, package, benchmark, inventory, formula, physical, safety, publication, or release state was changed.",
+  "decisions": [
+    {
+      "decision": "Retain the first intake and acknowledgement unchanged and recognize the new pair as append-only successors.",
+      "reason": "The newly readable turn expanded capture scope after the earlier packets had already been hashed."
+    },
+    {
+      "decision": "Accept the successor's bytes, schema validity, uniqueness, and supersession link as transport evidence only.",
+      "reason": "Local validation proves the packet contract, not the truth or completeness of the source handoff."
+    },
+    {
+      "decision": "Do not claim complete capture of the master handoff.",
+      "reason": "The source turn is longer than the thread reader's 20,000-character maximum and was returned truncated."
+    },
+    {
+      "decision": "Keep DeepLuna transmission disabled for this work.",
+      "reason": "The latest exact-project check remains BLOCKED with provider calls disabled and an unresolved reservation."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The successor intake is present, schema-valid, and unique across the current bridge estate.",
+      "evidence": "12,831 bytes; SHA-256 0d44c56efa962522615bf8a4d01c49dafe46ca796d80cef897cba6647348c7a4; all 26 packets passed schema validation with no duplicate packet ID, nonce, or whole-packet SHA-256.",
+      "limitation": "The uniqueness and schema checks do not establish source truth or complete conversation coverage."
+    },
+    {
+      "claim": "The successor correctly names the first intake as superseded while preserving its bytes.",
+      "evidence": "freshness.supersedes_packet_id is chatgpt-research-workflow-bridge-intake-20260825T073458Z and the original file remains unchanged at SHA-256 f342c708834110119aaf0794684bb65dddd33018f61be12cce8d4beff3668192.",
+      "limitation": "Supersession updates capture scope; it does not retract historical statements that were accurate for the earlier bounded snapshot."
+    },
+    {
+      "claim": "The master handoff is only partially captured.",
+      "evidence": "The source reader returned the assistant item with truncated true at its 20,000-character maximum.",
+      "limitation": "Unseen instructions and evidence cannot be reconstructed from the visible prefix."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "path": "chat_bridge/complex_perfumery/inbox/6a8d258b-8bf4-83ec-adf7-42ef67941328/20260825T073840Z-chatgpt-research-workflow-master-handoff-delta-v2.json",
+      "role": "append-only successor intake for the readable master handoff prefix",
+      "status": "SCHEMA_VALID_PARTIAL_UNTRUSTED_CHAT_INPUT"
+    },
+    {
+      "path": "chat_bridge/complex_perfumery/outbox/20260825T073947Z-codex-research-workflow-bridge-ack-v2.json",
+      "role": "successor Codex transport acknowledgement",
+      "status": "VALIDATED_CONTEXT_CLAIMS_NOT_ACCEPTED"
+    },
+    {
+      "path": "chat_bridge/complex_perfumery/inbox/6a8d258b-8bf4-83ec-adf7-42ef67941328/20260825T073458Z-chatgpt-research-workflow-bridge-intake-v1.json",
+      "role": "immutable prior intake",
+      "status": "RETAINED_SUPERSEDED_CAPTURE_SCOPE"
+    },
+    {
+      "path": "chat_bridge/complex_perfumery/outbox/20260825T073633Z-codex-research-workflow-bridge-ack-v1.json",
+      "role": "immutable prior acknowledgement",
+      "status": "RETAINED_SUPERSEDED_CAPTURE_SCOPE"
+    }
+  ],
+  "constraints": [
+    "This packet acknowledges local successor transport only.",
+    "The source master handoff remains UNTRUSTED_CHAT_INPUT and partially captured.",
+    "No live synchronization or hidden-context access is claimed.",
+    "No branch, worktree, package, code, canonical registry, inventory, formula, bottle, physical, sensory, scientific, safety, publication, or release state was changed.",
+    "DeepLuna remains fail-closed until a fresh exact-project check returns READY with settled reservations.",
+    "Future source deltas must append another successor and preserve this history."
+  ],
+  "unresolved_questions": [
+    "Can the remainder of the master handoff be supplied as exact bounded packets or an attachment?",
+    "Will the source conversation acknowledge this v2 packet ID and nonce?",
+    "Which source declarations survive exact local repository and artifact verification?"
+  ],
+  "next_actions": [
+    {
+      "priority": 1,
+      "action": "Notify the Research workflow conversation that the v2 successor supersedes the first capture scope and request acknowledgement of both the successor packet ID and nonce.",
+      "authority": "bridge transport only"
+    },
+    {
+      "priority": 2,
+      "action": "Acquire the uncaptured master-handoff remainder before treating the handoff as complete.",
+      "authority": "source capture only"
+    },
+    {
+      "priority": 3,
+      "action": "Perform any requested implementation as a separate Codex operation after exact local preflight and scoped authorization.",
+      "authority": "Codex repository and final acceptance"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "First capture versus newly exposed turn",
+      "state": "RESOLVED_BY_APPEND_ONLY_SUCCESSOR",
+      "detail": "No prior bytes were changed; the new source scope is represented by a successor packet."
+    },
+    {
+      "scope": "Requested complete handoff versus reader ceiling",
+      "state": "PARTIAL_SOURCE_CAPTURE_HOLD",
+      "detail": "The readable prefix is preserved, while the unseen remainder is explicitly unresolved."
+    },
+    {
+      "scope": "Delegation authorization versus provider accounting",
+      "state": "DEEPLUNA_TRANSMISSION_BLOCKED",
+      "detail": "Broad user authorization cannot override a disabled provider circuit and unresolved accounting reservation."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "codex_task",
+      "id": "01a03798-5934-7231-943e-b2a38c687ff2",
+      "uri": "codex://threads/01a03798-5934-7231-943e-b2a38c687ff2"
+    },
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a8d258b-8bf4-83ec-adf7-42ef67941328",
+      "uri": "chatgpt-conversation://6a8d258b-8bf4-83ec-adf7-42ef67941328",
+      "title": "Research workflow"
+    },
+    {
+      "kind": "bridge_packet",
+      "id": "chatgpt-research-workflow-master-handoff-delta-20260825T073840Z",
+      "nonce": "9848e48b40fb4603add5c844c404b7e2",
+      "sha256": "0d44c56efa962522615bf8a4d01c49dafe46ca796d80cef897cba6647348c7a4"
+    }
+  ],
+  "content_hashes": [
+    {
+      "algorithm": "sha256",
+      "digest": "0d44c56efa962522615bf8a4d01c49dafe46ca796d80cef897cba6647348c7a4",
+      "path": "chat_bridge/complex_perfumery/inbox/6a8d258b-8bf4-83ec-adf7-42ef67941328/20260825T073840Z-chatgpt-research-workflow-master-handoff-delta-v2.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "f342c708834110119aaf0794684bb65dddd33018f61be12cce8d4beff3668192",
+      "path": "chat_bridge/complex_perfumery/inbox/6a8d258b-8bf4-83ec-adf7-42ef67941328/20260825T073458Z-chatgpt-research-workflow-bridge-intake-v1.json"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "7b4f9e8205f71907f2093cf839d97793be843ed92eedfac672e8433d0331ed8f",
+      "path": "chat_bridge/complex_perfumery/outbox/20260825T073633Z-codex-research-workflow-bridge-ack-v1.json"
+    }
+  ],
+  "authority": {
+    "level": "VALIDATED_CONTEXT",
+    "accepted_by_codex": true
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

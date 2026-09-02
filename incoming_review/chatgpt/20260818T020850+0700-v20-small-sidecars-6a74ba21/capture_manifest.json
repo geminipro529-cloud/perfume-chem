@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "capture_id": "20260818T020850+0700-v20-small-sidecars-6a74ba21",
+  "captured_at": "2026-08-18T02:08:50+07:00",
+  "scope": "LOCAL_EXACT_BYTE_QUARANTINE_INTAKE_ONLY",
+  "source": {
+    "chat_id": "6a74ba21-0d30-83ec-b211-e80baca66948",
+    "chat_title": "PCV3 Complexity Lane Complete",
+    "source_turn_id": "ba9e95a9-16c2-4b83-855f-b5fc81ac3a27",
+    "source_message_id": "2c235153-e3b2-4fe9-966d-5300b8dd5bf3",
+    "base64_retrieval_turn_id": "18e77b42-0ce3-4cca-a51e-57af4cb4bb03",
+    "base64_retrieval_message_id": "c7c24ed1-863b-402f-838f-e68ab78c2675",
+    "additional_base64_retrievals": [
+      {
+        "content_reference_index": 10,
+        "turn_id": "a7b25324-cdb9-43e4-9838-f63c71ca1982",
+        "message_id": "8ce38edb-0633-45cd-8309-225ae3a48333"
+      },
+      {
+        "content_reference_index": 13,
+        "turn_id": "e4f5eb93-5f20-4f48-9272-8c5686e0de76",
+        "message_id": "12ce3ca4-4064-4294-8b28-61fe41b39e16"
+      }
+    ],
+    "reported_original_attachment_bytes_read": true
+  },
+  "objects": [
+    {
+      "content_reference_index": 1,
+      "filename": "PERFUME_CHEM_V20_GAP_CLOSURE_CANDIDATE_2026-08-17_RECEIPT.json",
+      "bytes": 519,
+      "sha256": "77e1eb86c38e5a6e19a222240274deeaee1694707106b5daa04ba25bec73d89c",
+      "exact_match": true
+    },
+    {
+      "content_reference_index": 2,
+      "filename": "AUTHORITY_FLAGS.json",
+      "bytes": 573,
+      "sha256": "7d4df3efa566c61319e37ee30332cadd8769509200130137b9bea79607823c5d",
+      "exact_match": true
+    },
+    {
+      "content_reference_index": 8,
+      "filename": "PACKAGE_MANIFEST.json",
+      "bytes": 8143,
+      "sha256": "50c2e9b4738823cbe70cbc05102733c68f74fcf2b2aeb1e3da0bef241a01cc93",
+      "exact_match": true
+    },
+    {
+      "content_reference_index": 10,
+      "filename": "SHA256SUMS.json",
+      "bytes": 7953,
+      "sha256": "8ceacd1d28f0339e0be2c7c9703ad5c90f84a413d75f983a561d861f8091dd43",
+      "exact_match": true
+    },
+    {
+      "content_reference_index": 13,
+      "filename": "VALIDATION_REPORT.json",
+      "bytes": 7229,
+      "sha256": "32bbc1de781f23e43f2fc08eb8157e71238143852ad64c4775d155a98bb0e7cc",
+      "exact_match": true
+    }
+  ],
+  "local_validation": {
+    "objects_expected": 5,
+    "objects_exact": 5,
+    "strict_json_parse_pass": 5,
+    "checksum_ledger_entries": 45,
+    "checksum_ledger_unique_paths": 45,
+    "validation_overall_state": "PASS_STANDALONE_CANDIDATE__REPOSITORY_AND_EVIDENCE_HOLDS_PRESERVED",
+    "validation_compile_state": "PASS",
+    "validation_unit_tests": "76/76 PASS",
+    "validation_repository_state": "BRIDGE_BLOCKED",
+    "validation_installation_state": "NOT_INSTALLED",
+    "authority_flags_all_false": true,
+    "receipt_state": "PASS_STANDALONE_CANDIDATE__REPOSITORY_AND_EVIDENCE_HOLDS_PRESERVED",
+    "manifest_state": "PASS_STANDALONE_CANDIDATE__REPOSITORY_AND_EVIDENCE_HOLDS_PRESERVED"
+  },
+  "admission": {
+    "quarantine_intake_complete": true,
+    "native_installation_eligible": false,
+    "canonical_repository_files_modified": false,
+    "source_admission": false,
+    "package_installation": false,
+    "formula_authority": false,
+    "inventory_mutation": false,
+    "stock_authority": false,
+    "bottle_authority": false,
+    "physical_execution": false,
+    "sensory_authority": false,
+    "analytical_authority": false,
+    "measured_headspace_authority": false,
+    "strict_empirical_oav_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "repository_installation": false,
+    "publication_authority": false,
+    "release_authority": false
+  }
+}

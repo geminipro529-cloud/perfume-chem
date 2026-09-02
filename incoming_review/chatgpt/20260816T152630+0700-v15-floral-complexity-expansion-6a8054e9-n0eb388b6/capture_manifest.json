@@ -1,0 +1,124 @@
+{
+  "schema_version": "complex_perfumery_exact_source_capture_v1",
+  "recorded_at": "2026-08-16T15:26:30+07:00",
+  "project": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "parent_v14_delta_path": "data/governance/complex_perfumery_v14_post_v13_collection_delta_20260816.json",
+    "parent_v14_delta_byte_size": 8849,
+    "parent_v14_delta_sha256": "986916e0cbf542a8a01d6507bbb11a8e092e9b26f5cafbbd90aee7de61bfab40",
+    "parent_v14_delta_semantic_sha256": "ed357db5a76546116b57b56d4f9c3d7a606cfc6da2948fcb358defa4840b9d82"
+  },
+  "source": {
+    "conversation_id": "6a8054e9-1ee0-83ec-bab5-b617ab3e5b60",
+    "title": "Perfume Chem Package Update",
+    "generation_turn_id": "9d94370d-78c1-4b65-af59-99b21f0dc9f4",
+    "generation_message_id": "3e25e995-3c38-59f0-8dcd-01e8ceb55c0e",
+    "metadata_recovery_turn_id": "5793a347-a82a-472c-90b9-adc3676d1995",
+    "metadata_recovery_message_id": "56847043-5ef8-53b3-bcdf-bf3f8854b2d8",
+    "file_object_id": "file_000000006dc481f793904349227bb356",
+    "content_reference_index": 0,
+    "source_rights_state": "UNKNOWN"
+  },
+  "retrieval": {
+    "method": "AUTHENTICATED_ORIGINAL_FILE_CARD_DOWNLOAD",
+    "source_path": "C:/Users/ASUS/Downloads/Floral_Complexity_Expansion_10_Diverse_Formula_Screens_2026-08-16_v1.zip",
+    "capture_path": "incoming_review/chatgpt/20260816T152630+0700-v15-floral-complexity-expansion-6a8054e9-n0eb388b6/Floral_Complexity_Expansion_10_Diverse_Formula_Screens_2026-08-16_v1.zip",
+    "source_and_capture_byte_size_match": true,
+    "source_and_capture_sha256_match": true,
+    "regeneration": false,
+    "substitution": false,
+    "reconstruction": false
+  },
+  "package": {
+    "file_name": "Floral_Complexity_Expansion_10_Diverse_Formula_Screens_2026-08-16_v1.zip",
+    "byte_size": 351409,
+    "sha256": "0eb388b6ceb420997210e7c6096d4f0e6951e06fc8bd06ab1c45ad0df369780b",
+    "archive_entry_count": 21,
+    "archive_file_count": 20,
+    "archive_directory_count": 1,
+    "safe_paths": true,
+    "casefold_duplicate_paths": 0,
+    "zip_crc_clean": true,
+    "embedded_manifest": {
+      "path": "MANIFEST.json",
+      "byte_size": 3811,
+      "sha256": "47714fa17b3bc3892fdeed877a8d930b845393e0ff978cb738116c3dc5807a90",
+      "self_excluding": true,
+      "declared_records": 19,
+      "verified_records": 19,
+      "missing_records": 0,
+      "extra_records": 0,
+      "mismatched_records": 0
+    },
+    "embedded_workbook": {
+      "path": "Floral_Complexity_Expansion_10_Formula_Master_v1.xlsx",
+      "byte_size": 197667,
+      "sha256": "04907dd395430a6381d444952caf08d993f1f97a2babca26646f3bc1e4ae81a1"
+    }
+  },
+  "native_archive_graph": {
+    "status": "GRAPH_COMPLETE_QUARANTINED",
+    "root_status": "QUARANTINE_HOLD",
+    "root_finding_codes": [
+      "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT",
+      "PARTIAL_MEMBER_SCAN"
+    ],
+    "partial_member": "FORMULAS.json",
+    "node_count": 2,
+    "edge_count": 1,
+    "max_depth": 1,
+    "all_nodes_terminal": true,
+    "graph_findings": [],
+    "child_workbook_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "promotion_allowed": false
+  },
+  "content_boundary": {
+    "package_id": "FLORAL_COMPLEXITY_EXPANSION_10_DIVERSE_FORMULAS_2026-08-16_v1",
+    "formula_screen_count": 10,
+    "formula_row_count": 860,
+    "role": "COMPUTATIONAL_DESIGN_AND_SOURCE_ANCESTRY_ONLY",
+    "source_inventory_authority_available": false,
+    "current_native_inventory_v5_controls": true,
+    "canonical_formula_selected": false,
+    "package_formulas_imported": false,
+    "physical_results": false,
+    "sensory_results": false,
+    "measured_headspace": false,
+    "strict_oav": false,
+    "safety_cleared": false,
+    "release_authorized": false
+  },
+  "collection_delta": {
+    "prior_exact_outer_candidates": 48,
+    "new_unique_exact_outer_candidates": 1,
+    "cumulative_exact_outer_candidates": 49,
+    "all_project_packages_collected": false,
+    "denominator_complete": false
+  },
+  "pending_source_cards": [
+    {
+      "file_name": "Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0.zip",
+      "byte_size": 172172,
+      "sha256": "f4be1041bb8e2e8b5665962e580aa740996bd2f77b61299cca1d3cdf55014a5d",
+      "state": "LIVE_ORIGINAL_CARD_LOCAL_DOWNLOAD_PENDING_NO_RECONSTRUCTION_OR_SUBSTITUTION",
+      "counted_as_exact_outer_candidate": false,
+      "authority": false
+    }
+  ],
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "physical_execution": false,
+    "sensory": false,
+    "analytical": false,
+    "measured_headspace": false,
+    "strict_empirical_oav": false,
+    "safety": false,
+    "procurement": false,
+    "installation": false,
+    "publication": false,
+    "release": false
+  }
+}

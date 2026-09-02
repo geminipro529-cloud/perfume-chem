@@ -1,0 +1,352 @@
+{
+  "portfolio_id": "Complex_Perfumery_11_Commercial_Formula_Portfolio_Aug2026_v1",
+  "formula_count": 11,
+  "checks": [
+    {
+      "check": "LHOMME_current_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "LHOMME_PRIMARY_TARGET_target_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "LHOMME_no_banned_or_oos_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "LHOMME_no_missing_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "LHOMME_oav_gate_present",
+      "state": "PASS",
+      "detail": "G15 mandatory HOLD"
+    },
+    {
+      "check": "LHOMME_all_english_headers",
+      "state": "PASS",
+      "detail": "Artifact language set to English"
+    },
+    {
+      "check": "LANUIT_current_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "LANUIT_US_CARDAMOM_IRIS_TONKA_target_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "LANUIT_INTERNATIONAL_BERGAMOT_LAVENDER_VETIVER_target_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "LANUIT_no_banned_or_oos_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "LANUIT_no_missing_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "LANUIT_oav_gate_present",
+      "state": "PASS",
+      "detail": "G15 mandatory HOLD"
+    },
+    {
+      "check": "LANUIT_all_english_headers",
+      "state": "PASS",
+      "detail": "Artifact language set to English"
+    },
+    {
+      "check": "DHI12_current_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "DHI12_PRIMARY_TARGET_target_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "DHI12_no_banned_or_oos_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "DHI12_no_missing_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "DHI12_oav_gate_present",
+      "state": "PASS",
+      "detail": "G15 mandatory HOLD"
+    },
+    {
+      "check": "DHI12_all_english_headers",
+      "state": "PASS",
+      "detail": "Artifact language set to English"
+    },
+    {
+      "check": "PR_E07_current_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "PR_E07_PRIMARY_TARGET_target_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "PR_E07_no_banned_or_oos_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "PR_E07_no_missing_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "PR_E07_oav_gate_present",
+      "state": "PASS",
+      "detail": "G15 mandatory HOLD"
+    },
+    {
+      "check": "PR_E07_all_english_headers",
+      "state": "PASS",
+      "detail": "Artifact language set to English"
+    },
+    {
+      "check": "PR_E01_current_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "PR_E01_PRIMARY_TARGET_target_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "PR_E01_no_banned_or_oos_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "PR_E01_no_missing_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "PR_E01_oav_gate_present",
+      "state": "PASS",
+      "detail": "G15 mandatory HOLD"
+    },
+    {
+      "check": "PR_E01_all_english_headers",
+      "state": "PASS",
+      "detail": "Artifact language set to English"
+    },
+    {
+      "check": "AHS_current_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "AHS_PRIMARY_TARGET_target_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "AHS_no_banned_or_oos_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "AHS_no_missing_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "AHS_oav_gate_present",
+      "state": "PASS",
+      "detail": "G15 mandatory HOLD"
+    },
+    {
+      "check": "AHS_all_english_headers",
+      "state": "PASS",
+      "detail": "Artifact language set to English"
+    },
+    {
+      "check": "EB_current_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "EB_PRIMARY_TARGET_target_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "EB_no_banned_or_oos_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "EB_no_missing_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "EB_oav_gate_present",
+      "state": "PASS",
+      "detail": "G15 mandatory HOLD"
+    },
+    {
+      "check": "EB_all_english_headers",
+      "state": "PASS",
+      "detail": "Artifact language set to English"
+    },
+    {
+      "check": "EE_current_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "EE_PRIMARY_TARGET_target_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "EE_no_banned_or_oos_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "EE_no_missing_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "EE_oav_gate_present",
+      "state": "PASS",
+      "detail": "G15 mandatory HOLD"
+    },
+    {
+      "check": "EE_all_english_headers",
+      "state": "PASS",
+      "detail": "Artifact language set to English"
+    },
+    {
+      "check": "ELIXIR_current_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "ELIXIR_PRIMARY_TARGET_target_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "ELIXIR_no_banned_or_oos_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "ELIXIR_no_missing_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "ELIXIR_oav_gate_present",
+      "state": "PASS",
+      "detail": "G15 mandatory HOLD"
+    },
+    {
+      "check": "ELIXIR_all_english_headers",
+      "state": "PASS",
+      "detail": "Artifact language set to English"
+    },
+    {
+      "check": "BDCP_current_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "BDCP_PRIMARY_TARGET_target_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "BDCP_no_banned_or_oos_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "BDCP_no_missing_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "BDCP_oav_gate_present",
+      "state": "PASS",
+      "detail": "G15 mandatory HOLD"
+    },
+    {
+      "check": "BDCP_all_english_headers",
+      "state": "PASS",
+      "detail": "Artifact language set to English"
+    },
+    {
+      "check": "DHP25_current_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "DHP25_PRIMARY_TARGET_target_total",
+      "state": "PASS",
+      "detail": 1000.0
+    },
+    {
+      "check": "DHP25_no_banned_or_oos_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "DHP25_no_missing_current",
+      "state": "PASS",
+      "detail": []
+    },
+    {
+      "check": "DHP25_oav_gate_present",
+      "state": "PASS",
+      "detail": "G15 mandatory HOLD"
+    },
+    {
+      "check": "DHP25_all_english_headers",
+      "state": "PASS",
+      "detail": "Artifact language set to English"
+    },
+    {
+      "check": "formula_count_11",
+      "state": "PASS",
+      "detail": 11
+    },
+    {
+      "check": "aggregate_authority_withheld",
+      "state": "PASS",
+      "detail": "WITHHELD"
+    }
+  ],
+  "overall": "PASS"
+}

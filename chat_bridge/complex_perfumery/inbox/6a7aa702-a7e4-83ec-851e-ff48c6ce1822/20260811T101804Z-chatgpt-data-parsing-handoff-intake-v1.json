@@ -1,0 +1,117 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "chatgpt-data-parsing-handoff-intake-20260811T101804Z",
+  "packet_nonce": "8f08eb04-671e-4042-9f9b-c59ccd99e2ee",
+  "created_at": "2026-08-11T10:18:04.5978689Z",
+  "freshness": {
+    "source_observed_at": "2026-08-11T10:18:04.5978689Z",
+    "source_revision": "chatgpt-assistant-message:48514e94-6407-495e-aaf9-b711b1d119b0",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": null
+  },
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a7aa702-a7e4-83ec-851e-ff48c6ce1822",
+  "source_chat_title": "Perfume Data Parsing",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Preserve the newest Data Parsing implementation-handoff claim and declared hashes for Plan comparison without treating the source-side dispatch, package, or implementation sequence as completed or authorized.",
+  "summary": "The newest Complex Perfumery response says it prepared a local implementation command and a ten-member handoff ZIP for PR-1, Wave 3 reconciliation, PR-2/PR-2B, a twenty-surface concentration-authority cutover, rollback qualification, and later G15 installation. It declares source nonce f4da87e1-0378-4ea9-9995-7dcbff39dd27, command SHA-256 52b2edc4e63c48b3d0831d3e5353ed0a93a1bd62f7bdc48a68b1cca3f92a041a, and ZIP SHA-256 1ac667b6bfe8fce2c7d8667b2d21bab12f5b73359a2660fadcc375365fe7b4e1. The source explicitly says dispatch remains BRIDGE_BLOCKED. Neither exact command nor ZIP bytes are currently present in the repository, Complex Perfumery mirror, or today's Downloads scan. The live Plan has since completed P2.2 and a narrow V5 alias cutover, so this older source sequence must be diffed rather than executed as-is.",
+  "decisions": [
+    {
+      "decision": "Record the source nonce, declared hashes, sequence, and BRIDGE_BLOCKED state only.",
+      "reason": "No source-side dispatch acknowledgement or exact local bytes exist."
+    },
+    {
+      "decision": "Do not execute the proposed PR-1/Wave 3/PR-2/PR-2B/G15 order automatically.",
+      "reason": "The current Plan and worktree have advanced; exact native overlap, supersession, and dependency state must be recomputed against current outputs."
+    },
+    {
+      "decision": "Route this as a recovery and compatibility candidate to the existing Plan owner.",
+      "reason": "It concerns concentration authority and implementation ordering already owned by Plan perfume-chem integration."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The source prepared but did not dispatch a local implementation handoff.",
+      "evidence": "ChatGPT assistant message 48514e94-6407-495e-aaf9-b711b1d119b0 explicitly states actual dispatch remains BRIDGE_BLOCKED."
+    },
+    {
+      "claim": "The source declares a command hash and ten-member ZIP hash.",
+      "evidence": "Command SHA-256 52b2edc4e63c48b3d0831d3e5353ed0a93a1bd62f7bdc48a68b1cca3f92a041a; handoff ZIP SHA-256 1ac667b6bfe8fce2c7d8667b2d21bab12f5b73359a2660fadcc375365fe7b4e1; source claims no bad ZIP member."
+    },
+    {
+      "claim": "The declared command and ZIP bytes are not locally recovered.",
+      "evidence": "Current repository, project-mirror, and Downloads hash/text scans found no matching bytes or declarations."
+    }
+  ],
+  "active_artifacts": [],
+  "constraints": [
+    "No attachment bytes were recovered, downloaded, copied, extracted, installed, or promoted by this intake.",
+    "The source nonce and declared hashes establish source identity claims only; they do not prove local dispatch, acknowledgement, package safety, implementation correctness, or compatibility.",
+    "Current Plan outputs, P2.2 mappings, V5 alias implementation, migration head, authority states, formulas, inventory, databases, and Git index remain unchanged.",
+    "No source-proposed PR, Wave, cutover, rollback, or G15 step is authorized by this packet.",
+    "No physical result, sensory result, strict empirical OAV, safety result, or release state is claimed.",
+    "ACCORD-INTEL Chat 2 / DARK MATERIALS remains separate and unchanged."
+  ],
+  "unresolved_questions": [
+    "Can the exact command 52b2edc4e63c48b3d0831d3e5353ed0a93a1bd62f7bdc48a68b1cca3f92a041a and ZIP 1ac667b6bfe8fce2c7d8667b2d21bab12f5b73359a2660fadcc375365fe7b4e1 bytes be recovered through authenticated attachment controls?",
+    "Which proposed PR/Wave/cutover steps are already satisfied, superseded, contradictory, or still missing after P2.2 and the current V5 alias cutover?",
+    "Does the handoff contain any genuinely absent concentration-authority surface or only an older implementation framing?"
+  ],
+  "next_actions": [
+    {
+      "action": "Recover and hash the exact declared command and ZIP bytes before interpreting their detailed plan.",
+      "authority": "Plan perfume-chem integration owner"
+    },
+    {
+      "action": "If recovered, quarantine-scan and field-diff the handoff against current P2.2, V5 alias, run-evidence, active-equivalence, rollback, and G15 state before any code decision.",
+      "authority": "Sol/Codex architecture review"
+    },
+    {
+      "action": "Reject any duplicate or stale implementation sequence and retain only proven non-redundant gaps.",
+      "authority": "Sol/Codex final acceptance"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Dispatch state",
+      "state": "BRIDGE_BLOCKED_AT_SOURCE",
+      "detail": "The source prepared a packet but explicitly did not deliver it to the local work hub."
+    },
+    {
+      "scope": "Current implementation order",
+      "state": "POTENTIALLY_STALE_PLAN_DIFF_REQUIRED",
+      "detail": "The source sequence predates current P2.2 and V5 alias work and cannot be executed without exact current-state comparison."
+    },
+    {
+      "scope": "Attachment availability",
+      "state": "DECLARED_HASHES_BYTES_UNAVAILABLE",
+      "detail": "Chat-visible content references and hashes exist, but exact command and ZIP bytes are not present in current local evidence."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a7aa702-a7e4-83ec-851e-ff48c6ce1822",
+      "uri": "chatgpt-conversation://6a7aa702-a7e4-83ec-851e-ff48c6ce1822",
+      "title": "Perfume Data Parsing"
+    },
+    {
+      "kind": "chatgpt_message",
+      "id": "48514e94-6407-495e-aaf9-b711b1d119b0",
+      "disposition": "UNTRUSTED_SOURCE_INPUT"
+    },
+    {
+      "kind": "source_nonce",
+      "id": "f4da87e1-0378-4ea9-9995-7dcbff39dd27"
+    }
+  ],
+  "content_hashes": [],
+  "authority": {
+    "level": "UNTRUSTED_CHAT_INPUT",
+    "accepted_by_codex": false
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

@@ -1,0 +1,186 @@
+{
+  "schema_version": "perfume_chem_external_capture_transport_audit_v1",
+  "recorded_at": "2026-08-24T06:42:07.6838740Z",
+  "extends_manifest": "incoming_review/chatgpt/20260824T014622Z-citrus-complexity-lattice-v1-6a888528/capture_manifest.json",
+  "state": "OUTER_ZIP_TRANSPORT_REJECTED_INCOMPLETE_AND_INTERNALLY_CORRUPT_NOT_ADMITTED",
+  "source": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "conversation_id": "6a888528-f430-83ec-b404-10371116c08c",
+    "conversation_title": "Hedonic Combination Ranking",
+    "content_reference_index": 9,
+    "file_name": "CITRUS_COMPLEXITY_LATTICE_v1_PACKAGE.zip",
+    "declared_byte_size": 101120,
+    "declared_sha256": "4d1ce0e4aa29b91e4bc202090c29964aa5c93075704e4d670c5ffbdda9546937",
+    "declared_rfc4648_base64_characters": 134828
+  },
+  "transport": {
+    "path": "output/chatgpt-index9-transport",
+    "encoding": "RFC4648_BASE64",
+    "whole_chunks_present": 15,
+    "whole_chunks_expected": 17,
+    "base64_characters_present": 122880,
+    "base64_characters_missing": 11948,
+    "decoded_prefix_bytes": 92160,
+    "declared_archive_bytes_missing": 8960,
+    "decoded_prefix_sha256": "6b2aaf137b1f4ede8153faa64c4d7f5b2092e6965533d0011ac9e2359e19055f",
+    "source_request_state": "CHUNK_16A_INITIAL_AND_SINGLE_RETRY_ENDED_IDLE_WITH_NO_AGENT_BYTES_OBSERVED",
+    "source_request_turn_id": "8d53d084-88ea-4ca8-93ff-059fd73babe4",
+    "retry_disposition": "ONE_RETRY_SENT_AFTER_SOURCE_RETURNED_IDLE_NO_FURTHER_RETRY",
+    "exact_archive_reconstructed": false,
+    "declared_archive_sha256_verified": false
+  },
+  "zip_prefix_review": {
+    "local_header_count": 13,
+    "fully_present_member_count": 12,
+    "crc_and_sha_verified_member_count": 10,
+    "corrupt_compressed_member_count": 2,
+    "partial_member_count": 1,
+    "central_directory_present": false,
+    "members": [
+      {
+        "name": "CITRUS_COMPLEXITY_LATTICE_v1.md",
+        "state": "COMPLETE_CRC_AND_SHA256_VERIFIED",
+        "byte_size": 18272,
+        "sha256": "2c9e5e7d98f5df2b096922a994f44c2da1fa88cb84a93d32756331372d5e8b5c"
+      },
+      {
+        "name": "CITRUS_COMPLEXITY_LATTICE_v1.xlsx",
+        "state": "COMPLETE_RANGE_DEFLATE_STREAM_CORRUPT_IN_OUTER_TRANSPORT",
+        "byte_size_declared": 27095,
+        "standalone_exact_artifact_sha256": "3810a332251949aa409b6fea9de192ca63515b74a3712339c28fb21845b028a2",
+        "note": "The separately recovered standalone workbook remains exact and ZIP-CRC valid; only the workbook stream inside the recovered outer-ZIP prefix is corrupt."
+      },
+      {
+        "name": "CITRUS_MODULE_OLD_VS_NEW_AUDIT_v1.csv",
+        "state": "COMPLETE_CRC_AND_SHA256_VERIFIED",
+        "byte_size": 671,
+        "sha256": "5250fe20718e5e79d9b8992324981108aa6b868819d842f1a6b5081cbd8a4938"
+      },
+      {
+        "name": "V8_recipes/00_INDEX.md",
+        "state": "COMPLETE_CRC_AND_SHA256_VERIFIED",
+        "byte_size": 2522,
+        "sha256": "e726b8e0b30cd8a169439b2754fd43c2722714988937e41f8855655a03dda878"
+      },
+      {
+        "name": "V8_recipes/01_Crystalline_Iris_Violet_Mineral_Vetiver_Skin_V8.md",
+        "state": "COMPLETE_CRC_AND_SHA256_VERIFIED",
+        "byte_size": 17582,
+        "sha256": "0a30fa9ca0031f83dc317b79e57266fc2edf1193192886d79fb63c193814725e"
+      },
+      {
+        "name": "V8_recipes/02_Rainmetal_Violet_Mineral_Muguet_Cedar_Musk.md",
+        "state": "COMPLETE_RANGE_DEFLATE_STREAM_CORRUPT_IN_OUTER_TRANSPORT",
+        "byte_size_declared": 16982
+      },
+      {
+        "name": "V8_recipes/03_Pear_Violet_Suede_Polished_Vetiver_Skin.md",
+        "state": "COMPLETE_CRC_AND_SHA256_VERIFIED",
+        "byte_size": 17867,
+        "sha256": "7d3bc4e3633fa742d3d28f2fa6a14e601b94b7aaad677c403ea2f9266fa47328"
+      },
+      {
+        "name": "V8_recipes/04_White_Tea_Jasmine_Pale_Suede_Vetiver_Skin.md",
+        "state": "COMPLETE_CRC_AND_SHA256_VERIFIED",
+        "byte_size": 17887,
+        "sha256": "84d7b7b0d461bd5e418d32d3a436287bc4dbb11649f906b8799a43431fdcc7ca"
+      },
+      {
+        "name": "V8_recipes/05_Aldehydic_Peony_Iris_Linen_Sandal_Vetiver_Musk.md",
+        "state": "COMPLETE_CRC_AND_SHA256_VERIFIED",
+        "byte_size": 17754,
+        "sha256": "8b4e8b323640ab7a546f5e7fe8f0a2bfb625942d872fad259494176b36a26f67"
+      },
+      {
+        "name": "V8_recipes/06_Apricot_White_Floral_Violet_Suede_Musk.md",
+        "state": "COMPLETE_CRC_AND_SHA256_VERIFIED",
+        "byte_size": 18483,
+        "sha256": "047835eb1d6991fe9d81f9ef35b30bc60c82451d2cc28846fc3cd4b0e0259681"
+      },
+      {
+        "name": "V8_recipes/07_Night_Tuberose_Orange_Flower_Incense_Leather_V8.md",
+        "state": "COMPLETE_CRC_AND_SHA256_VERIFIED",
+        "byte_size": 18361,
+        "sha256": "5b2384c3a4fe7df824632fae3448d16e6be1b157722cb2b867a1548963c2499f"
+      },
+      {
+        "name": "V8_recipes/08_Dark_Root_Orris_Guaiac_Incense_Suede_Skin.md",
+        "state": "COMPLETE_CRC_AND_SHA256_VERIFIED",
+        "byte_size": 18986,
+        "sha256": "bf048cedeccfd75c881c1050d7ca0f41b31d0f502d7fb19911ff48db01c03678"
+      },
+      {
+        "name": "V8_recipes/09_Cedrat_Pink_Pepper_Aromatic_Vetiver_Linen.md",
+        "state": "PARTIAL_COMPRESSED_STREAM",
+        "byte_size_declared": 17789,
+        "compressed_bytes_present": 5428,
+        "compressed_bytes_missing": 1038
+      }
+    ],
+    "members_not_reached": [
+      "V8_recipes/10_Magnolia_Orange_Blossom_Sandal_Incense_Skin.md",
+      "ZIP central directory and end record"
+    ]
+  },
+  "package_content_review": {
+    "exact_standalone_artifact_count": 4,
+    "workbook_sheet_count": 10,
+    "workbook_module_count": 8,
+    "controlled_test_count": 7,
+    "controlled_test_state": "NOT_RUN_ALL_SEVEN",
+    "physical_module_state": "NOT_YET_PREPARED",
+    "strict_empirical_oav_state": "NOT_TESTED",
+    "measured_headspace_state": "NOT_TESTED",
+    "hedonic_superiority_state": "NOT_TESTED",
+    "live_inventory_buildability": "ONLY_CIT_C1_WITHOUT_OBVIOUS_BLOCKER",
+    "source_to_repository_module_equivalence": "NOT_PROVEN"
+  },
+  "sol_xhigh_benchmark": {
+    "run_id": "RPL-XHIGH-20260824-v3-formal-01",
+    "manifest_request_count": 54,
+    "captured_complete_output_count": 3,
+    "remaining_output_count": 51,
+    "captured_arms": {
+      "CONTROL": 1,
+      "PLACEBO": 0,
+      "TREATMENT": 2
+    },
+    "model_identity": "OpenAI ChatGPT 5.6 Sol Extra High / Extra High / Work / fresh projectless conversation",
+    "scoreable": false,
+    "admission_decision_available": false,
+    "reason": "The receipt builder requires complete exact coverage and the three outputs do not form paired control/placebo/treatment score sets."
+  },
+  "installed_module_reconciliation": {
+    "registry": "configs/complexity/complexity_module_registry_v2.json",
+    "module_count": 20,
+    "runtime_eligible_count": 1,
+    "runtime_eligible_modules": [
+      "complexity-experimental-design"
+    ],
+    "retired_runtime_unreachable_count": 10,
+    "other_nonruntime_count": 9,
+    "citrus_architecture_selector_state": "RETIRED_BENCHMARK_UNDERPERFORMER_RUNTIME_UNREACHABLE",
+    "new_citrus_lattice_state": "UNINSTALLED_UNADMITTED"
+  },
+  "decision": {
+    "admit_any_chatgpt_module": false,
+    "reject_as_proven_underperformer": false,
+    "keep_runtime_unreachable": true,
+    "delete_source": false,
+    "reason": "Neither the incomplete/corrupt package transport nor the partial 3-of-54 benchmark can prove superiority or inferiority against Sol Extra High. Source remains recoverable quarantine evidence."
+  },
+  "authority": {
+    "source_admission": false,
+    "module_installation": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "physical_execution": false,
+    "sensory": false,
+    "measured_headspace": false,
+    "oav": false,
+    "safety": false,
+    "publication": false,
+    "release": false
+  }
+}

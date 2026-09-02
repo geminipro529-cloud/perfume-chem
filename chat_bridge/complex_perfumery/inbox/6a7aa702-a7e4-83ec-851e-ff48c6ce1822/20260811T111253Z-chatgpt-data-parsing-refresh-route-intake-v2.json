@@ -1,0 +1,155 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "chatgpt-data-parsing-refresh-route-intake-20260811T111253Z",
+  "packet_nonce": "ab4e1949-1ffc-45cd-ae91-d790d8be879f",
+  "created_at": "2026-08-11T11:12:53.7037737Z",
+  "freshness": {
+    "source_observed_at": "2026-08-11T11:12:53.7037737Z",
+    "source_revision": "chatgpt-user-message:144a0301-8ae8-44a1-a0ee-0d192df76d0a;chatgpt-assistant-message:dd80fbf7-117a-4faf-acf8-6948fc7c7ed7",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": "chatgpt-data-parsing-handoff-intake-20260811T101804Z"
+  },
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a7aa702-a7e4-83ec-851e-ff48c6ce1822",
+  "source_chat_title": "Perfume Data Parsing",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Preserve the newest user-directed refresh-and-rescan route, its declared packet identity, and its provenance safeguards without treating the source-side packet, cross-chat post, canary, repository mutation, migration, rollback, or implementation as completed.",
+  "summary": "The user directed the Perfume Data Parsing chat to use the Refresh and rescan work chat. The assistant reports creating an eight-member Chat Bridge v2.1 packet with nonce 495fd041-a662-4471-84e1-96fdcc847dde and SHA-256 8a0ca735281bebb2680f65c900dbcb2afab77616bf67a2f78f0d7780064883f9. It says the packet would require a current file/task/provenance rescan, Inventory V5 authority, routing through Data Integration for Perfume-Chem and Codex task 019fe3a3-3cca-7462-b8e9-e315015e95df, a reversible canary, repository-native tests, migration, rollback qualification, and receipts. It also explicitly states that the cross-chat post is false, the bridge is blocked, and the repository was not accessed or modified. The reported destination conversation ID does not match the actual Refresh and rescan task ID returned by the app, so routing remains on HOLD pending identity resolution.",
+  "decisions": [
+    {
+      "decision": "Record the new route request and declared packet identity as source capture only.",
+      "reason": "The source explicitly reports that cross-chat posting did not occur and that the repository was not accessed or modified."
+    },
+    {
+      "decision": "Do not send or replay the packet to the reported destination conversation ID.",
+      "reason": "The source reports destination 6a7a4993-fcd8-83ec-a18f-698f7ef2320b, while the app lists Refresh and rescan request as 6a7a4e15-768c-83ec-b8d2-e1daffa26abd."
+    },
+    {
+      "decision": "Keep Inventory V5, target, inventory build, actual bottle, physical observation, implementation, and release state separate.",
+      "reason": "The source explicitly requires these boundaries, and no exact implementation payload or physical evidence is locally available."
+    },
+    {
+      "decision": "Route compatibility review to the existing Data Integration and Plan owners rather than starting a parallel implementation sequence.",
+      "reason": "Those owners already control current P2.2/native mapping, late-chat collection, and repository integration order."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The user requested use of the Refresh and rescan work chat.",
+      "evidence": "ChatGPT user message 144a0301-8ae8-44a1-a0ee-0d192df76d0a."
+    },
+    {
+      "claim": "The source declares an eight-member packet with nonce 495fd041-a662-4471-84e1-96fdcc847dde and SHA-256 8a0ca735281bebb2680f65c900dbcb2afab77616bf67a2f78f0d7780064883f9.",
+      "evidence": "ChatGPT assistant message dd80fbf7-117a-4faf-acf8-6948fc7c7ed7."
+    },
+    {
+      "claim": "The source says the proposed route preserves Inventory V5 authority and separate target, inventory, and physical-bottle truth ledgers.",
+      "evidence": "ChatGPT assistant message dd80fbf7-117a-4faf-acf8-6948fc7c7ed7."
+    },
+    {
+      "claim": "The source reports BRIDGE_BLOCKED, refresh/rescan chat post FALSE, and repository accessed or modified FALSE.",
+      "evidence": "ChatGPT assistant message dd80fbf7-117a-4faf-acf8-6948fc7c7ed7."
+    }
+  ],
+  "active_artifacts": [
+    {
+      "artifact": "Declared eight-member Refresh and rescan route packet",
+      "declared_sha256": "8a0ca735281bebb2680f65c900dbcb2afab77616bf67a2f78f0d7780064883f9",
+      "declared_member_count": 8,
+      "local_availability": "BYTES_UNAVAILABLE",
+      "validation": "NOT_RUN"
+    }
+  ],
+  "constraints": [
+    "The declared packet bytes are not attached to this intake and have not been independently hashed, ZIP-scanned, or replayed.",
+    "A source-side statement that ZIP integrity passed does not establish local archive safety, compatibility, or authority.",
+    "No cross-chat post, remote connector canary, repository access, implementation, migration, rollback, or receipt completion is claimed.",
+    "Inventory V5 remains current stock authority; archived V3/V4 material must not be promoted as current stock.",
+    "Target formula, inventory build, actual bottle, physical observation, and release state remain separate ledgers.",
+    "DeepLuna Chat provider work requires a fresh exact-project READY check with settled reservations; the current local fresh check failed closed because daemon transport was closed.",
+    "ACCORD-INTEL Chat 2 / DARK MATERIALS remains separate and unchanged."
+  ],
+  "unresolved_questions": [
+    "Which conversation ID is the intended Refresh and rescan destination: source-declared 6a7a4993-fcd8-83ec-a18f-698f7ef2320b or app-listed 6a7a4e15-768c-83ec-b8d2-e1daffa26abd?",
+    "Can the exact eight-member packet bytes be recovered and verified against SHA-256 8a0ca735281bebb2680f65c900dbcb2afab77616bf67a2f78f0d7780064883f9?",
+    "Which proposed implementation steps remain nonduplicate after current P2.2, V5 alias, Plan, and Data Integration work?",
+    "Is any migration still required after native field mapping, or does current persistence already cover the proposed data losslessly?"
+  ],
+  "next_actions": [
+    {
+      "action": "Resolve the Refresh and rescan conversation identity before any cross-chat route is attempted.",
+      "authority": "User and Data Integration owner"
+    },
+    {
+      "action": "Recover and hash the exact eight-member packet before evaluating its detailed implementation payload.",
+      "authority": "Data Integration for Perfume-Chem owner"
+    },
+    {
+      "action": "Diff any recovered payload against current P2.2/native mappings and Plan state; implement only a proven nonduplicate gap.",
+      "authority": "Plan perfume-chem integration owner and Sol"
+    },
+    {
+      "action": "Run a fresh exact-project DeepLuna readiness check before any provider transmission and fail closed if not READY with settled reservations.",
+      "authority": "Sol"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Refresh and rescan destination identity",
+      "state": "HOLD_CONVERSATION_ID_MISMATCH",
+      "detail": "Source-declared chatgpt-conversation://6a7a4993-fcd8-83ec-a18f-698f7ef2320b does not match the app-listed Refresh and rescan request task 6a7a4e15-768c-83ec-b8d2-e1daffa26abd."
+    },
+    {
+      "scope": "Transport state",
+      "state": "BRIDGE_BLOCKED_AT_SOURCE",
+      "detail": "The source explicitly reports that the refresh/rescan chat post is false and repository access or modification is false."
+    },
+    {
+      "scope": "Attachment availability",
+      "state": "DECLARED_HASH_BYTES_UNAVAILABLE",
+      "detail": "The source exposes a packet nonce, member count, and SHA-256, but the exact packet bytes are not present in current local evidence."
+    },
+    {
+      "scope": "Implementation order",
+      "state": "HOLD_CURRENT_PLAN_DIFF_REQUIRED",
+      "detail": "The proposed end-to-end sequence must be reconciled with current Plan and Data Integration results before any migration or repository mutation."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a7aa702-a7e4-83ec-851e-ff48c6ce1822",
+      "uri": "chatgpt-conversation://6a7aa702-a7e4-83ec-851e-ff48c6ce1822",
+      "title": "Perfume Data Parsing"
+    },
+    {
+      "kind": "chatgpt_user_message",
+      "id": "144a0301-8ae8-44a1-a0ee-0d192df76d0a",
+      "disposition": "USER_ROUTE_REQUEST"
+    },
+    {
+      "kind": "chatgpt_assistant_message",
+      "id": "dd80fbf7-117a-4faf-acf8-6948fc7c7ed7",
+      "disposition": "UNTRUSTED_SOURCE_INPUT"
+    },
+    {
+      "kind": "reported_destination_conversation",
+      "id": "6a7a4993-fcd8-83ec-a18f-698f7ef2320b",
+      "disposition": "IDENTITY_UNRESOLVED"
+    },
+    {
+      "kind": "app_listed_refresh_conversation",
+      "id": "6a7a4e15-768c-83ec-b8d2-e1daffa26abd",
+      "disposition": "APP_DISCOVERY_RESULT"
+    }
+  ],
+  "content_hashes": [],
+  "authority": {
+    "level": "SOURCE_CAPTURE",
+    "accepted_by_codex": false
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

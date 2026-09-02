@@ -1,0 +1,67 @@
+# Downloads Rescan Candidate Digest — 2026-08-26
+
+## Scope and method
+
+- Read-only recursive scan root: `C:\Users\ASUS\Downloads`.
+- Observed 2,513 files totaling 13,700,670,418 bytes.
+- File-type census included 1,044 Markdown, 556 CSV, 208 ZIP, 186 Base64, 139 HTML, 124 XLSX, 103 JSON, 69 TXT, and 18 PDF files.
+- Perfumery keyword filter across ZIP, XLSX, JSON, Markdown, and Base64 found 231 candidate files with 189 unique SHA-256 values and 32 duplicate-content groups.
+- Twenty high-value archives were opened read-only with Python `zipfile`; every listed archive passed a full CRC check.
+- Every uncompressed member was SHA-256 compared with every tracked file in the clean publication worktree `codex/complex-perfumery-publish`.
+- Exact-member overlap is conservative: zero exact bytes does not prove that equivalent concepts are absent from current code.
+- No archive was executed, extracted into the repository, admitted, compounded, or granted any scientific, sensory, safety, inventory, formula, or release authority.
+
+## Highest-value candidate packages
+
+| Candidate | Archive SHA-256 | Members | Exact tracked member matches | Evidence boundary and likely value |
+|---|---|---:|---:|---|
+| `PCV3_CHAT6_FLORAL_EXPANSION_PACKAGE_v1.zip` | `b3dd8c3c028af39f938652f10ac8fc7e923606f0b89888203123b59ef597d51e` | 11 | 0 | Draft registry adds 16 floral families, 48 branches, 32 interfaces, and anti-collapse rules. Validation says 0 physical results, 0 target authority, and `PASS_WITH_PHYSICAL_AND_SOURCE_HOLDS`. |
+| `hedonic-portfolio-practical-recipes-v5-2026-08-24.zip` | `f911d983f866f7f12ca68b8e1cb7ddfa29c43e1c12656906097ea61c698c92c6` | 28 | 0 | Twenty floral/orris/amber recipe views with target/build split and controlled tests. It has 0 resolved ExactStockRefs, 0 physical gate passes, 32 rows with no exact V5 match, and explicit physical/sensory/safety/release HOLD. |
+| `ACCORD-INTEL-HEDONICS_v2_V5_REBASE_20260807.zip` | `c7586a6ad86d897c117a4412b00f567365f412dc030e39ff69809343c7476e95` | 14 | 0 | Hedonics lane registry, candidates, interfaces, anti-collapse rules, evidence gaps, physical-screen backlog, source ledger, and validation. Reference evidence only until source and physical review. |
+| `ACCORD_INTEL_CHAT6_ATMOSPHERE_v2_V5_REBASE.zip` | `d795b4b04b2fd70bf947cfa2edbb41d80d55092bd068ff91a4629965e8eb7c71` | 14 | 0 | Atmosphere lane with preservation/validation/worker manifests; possible reference input, not runtime authority. |
+| `ACCORD_INTEL_CHAT5_FRUIT_AND_FERMENTATION_v2.zip` | `941f6d48eaf9c6ef687c4d054a30ee4050a7d5a46da87d9ab4b4d8234f0e7f70` | 14 | 0 | Fruit and fermentation lane with validation and preservation manifests; possible reference input, not runtime authority. |
+| `Sol_xhigh_Perfumery_Module_Admission_v1_Package.zip` | `67760bd6580bbbcf2a4959ebb036e3b5773a62b71ebdac1d3b2475e2180fc338` | 22 | 0 | Frozen 16-case benchmark. Expanded bundle beat plain Sol xhigh 15-1-0 with median +10.5 and zero critical regressions, but failed against the existing stack because median gain was only +2. Report explicitly keeps the v2.1 bundle candidate/not admitted. Current repository has newer SolForge benchmark and replacement governance, so this is provenance or regression-corpus material unless a missing case is demonstrated. |
+| `PERFUMERY_INTERACTION_ATLAS_V2_V5_REBASE_20260809.zip` | `e9c4477ea736a5f9f380658ed4dd9e2ab294e01a0e69e565a2a19bb994f50e3e` | 14 | 0 | Preserves 23 groups and 253 interactions; maps 125/125 examples to V5. It records 0 pair-specific empirical passes, 253 required comparisons, and bridge-blocked repository state. High-value reference/protocol source, not interaction truth. |
+| `Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0.zip` | `f4be1041bb8e2e8b5665962e580aa740996bd2f77b61299cca1d3cdf55014a5d` | 75 | 0 | Standalone engine, overlays, experiment maps, model catalog, missing-chemical impact, and validation. Must be compared semantically with the current Architectural Delta, Temporal Ledger, Preference Learner, and SolForge layers; no direct import. |
+| `Universal_Perfume_Complexity_Support_System_Aug2026_v1_Package.zip` | `fce8e5611aba6b70d6b09b1f9adc9f62ea6a3c59da5739c771b314bcb27af88c` | 54 | 1 | Contains 12 roles, 48 domains, 10 submodels, 480 generated contracts, and citrus/lavender/fougere branches. Its only exact tracked match is `Meaningful_Complexity_Audit_v2.md`; it explicitly creates no formula or physical/hedonic/OAV/safety/release result. Potential design/protocol reference, but generic support sockets risk stealth universal-base behavior. |
+| `Violet_Complexities_and_Dior_Homme_Parfum_2025_Complexity_Reconstruction_v1_Package(1).zip` | `ec27bcd4dd1b9a3e54d4de49ace3293d91af868ba6c6005a581b1646d3905dcd` | 6 | 0 | Seventy-row target/current-build DHP25 computational candidate. It separates current 2025 identity from the older 2014 leather/oud formula, but admits low hidden-material identity and keeps similarity, strict OAV, headspace, stability, safety, and release `NOT TESTED`. |
+| `COMPLEX_PERFUMERY_DHP25_EXACT_V5_FORMULA_AUDIT_V1_20260811(1).zip` | `7e38c19a83b25de1edbc190f568b5725655d5e60dca63dec951e8f7c01a98efc` | 28 | 0 | DHP25 target/build line audit, discrepancy ledger, source manifest, workbook, and tests. Best treated as a quarantined reconstruction evidence packet pending exact source and current native validation. |
+| `COMPLEX_PERFUMERY_OPUS_V_HR_A_V1R2_READMISSION_V1_20260815.zip` | `09f723b79912e88b63308574d83f4ad540e2c0cda7970147b85ed9380768bd53` | 14 | 0 | Baseline HR-A fails shared-floral-chassis and orris-module binding. R1A is a desk candidate only, explicitly not applied; all physical, sensory, analytical, strict-OAV, safety, and release gates remain HOLD. Useful defect/regression evidence, not an admitted formula. |
+| `Complexity_Endpoint_Research_and_Revised_Plan_Aug2026_v1_Package.zip` | `6945a0bba5a7cbeacb338ff9c3383ea946b34162018eb5568f5ecb630ceb1ed0` | 8 | 0 | Endpoint registry, literature ledger, two-pass plans, and 12-arm wave. Candidate methodological reference; source quality and overlap require review. |
+| `Complexity_Model_Gap_Atlas_and_New_Model_Roadmap_Aug2026_v1_Package.zip` | `9a1724e38c6ff1bf0c8274c6f239d3b55309fdbabefedb55b23562480cbb33c0` | 8 | 0 | Gap atlas and model roadmap. Candidate planning provenance, not implementation or validation evidence. |
+| `Perfume_Chem_External_Evidence_CHAT_G_XHIGH_v1.zip` | `feb747fa9589dfeb621e9c6312bfce291f1aa9fe306ad988aa841cf90eb6c278` | 31 | 0 | External evidence adapter candidate with tests and validation; current repository already contains SolForge evidence adapters, so semantic diff is required. |
+| `Perfume_Chem_External_Evidence_F_Lane_v1.zip` | `ca290ec0819bc2381beec4a3a53d504517996ac092d050d0bd5d11bf5556b6b0` | 20 | 0 | Source-governance/evidence lane candidate; current SolForge research ingest may supersede it. Semantic diff required. |
+| `FLORAL_MASTER_70_ALL_THREE_30ML_VARIANTS_2026-08-23.zip` | `5107b63b16ec32daa07c4baf5034481bb3c011740002d949c0c11f8bd346400e` | 216 | 0 | Large generated formula portfolio. Ingredient count and generated breadth are not evidence of complexity, richness, liking, or target fit; quarantine unless a small controlled candidate survives current gates. |
+| `V6_High_Hedonic_Complex_Recipes.zip` | `aaa2486fd75d47a9a9aa3834ec9ab7cf6baf1fc89ab8523f5f8563369b93c823` | 11 | 0 | Formula recipes using hedonic/complex labels. No exact repository overlap; labels and recipe count confer no hedonic authority. |
+| `PERFUME_CHEM_TOP5_HEDONIC_BUILD_PILOTS_2026-08-23.zip` | `820d65fedd51afc335d04f9ac4e9c34bb1ffaf976881a749c0455f4c0e1044e1` | 12 | 0 | Five build-pilot package. Must remain design/experiment evidence until exact stock, safety, and blinded physical observations exist. |
+| `perfume-portfolio-results-2026-08-24.zip` | `4e3ad053b09060467511d11c57e58d465d2afb7825f06bed538d95a2aa145ebf` | 24 | 0 | Structural audit views for floral, orris, and amber recipes. It is downstream of unvalidated formula artifacts, not independent sensory confirmation. |
+
+## Duplicate and authority findings
+
+- The floral expansion, hedonics V5 rebase, atmosphere V5 rebase, and fruit/fermentation packages each had an exact duplicate under `chat-5-6-7-recovered-2026-08-24`; these are one evidence object each, not extra corroboration.
+- The authoritative V5 workbook appears twice with the same SHA-256 `e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331`.
+- Three copies of `AM-E01_Amouage_Opus_V_Woods_Symphony_30mL_Formula.md` share SHA-256 `965b02beba5faec32dcbe8d5d97aa3df8cb47fe43fc3c1cf040e4fd3b03ff5e2`.
+- The publication tree contains current Architectural Delta, Temporal Sensory Ledger, Hedonic Preference Learner, Perceptual Topology/Wood Depth candidates, SolForge governance, benchmark tombstones, and current interaction/audit governance. Conceptual overlap is substantial even where exact bytes differ.
+- The scan does not establish that any archive outperforms the current system or Sol xhigh. Only the old module-admission package has a blinded Sol xhigh comparison, and that package explicitly failed global/current-stack admission.
+
+## Review questions
+
+1. Which packages contain genuinely new, nonredundant evidence or test cases that are absent from current repository capabilities?
+2. Which packages are superseded, generated formula bulk, or provenance-only tombstones?
+3. Which exact artifacts merit controlled quarantine intake, with no runtime admission?
+4. What is the smallest safe next action for each high-value candidate?
+
+All authority remains false. This digest does not authorize repository mutation, formula construction, compounding, sensory claims, safety claims, purchases, or release.
+
+## Complete second-sweep addendum
+
+- All 208 ZIP archives in Downloads were opened and CRC-tested: 208 passed, 0 failed, 0 open errors, and 0 archives contained path-traversal members.
+- Content/filename analysis marked 157 ZIPs as perfumery-relevant. Across 5,884 hashable members, 41 exact member bytes matched the publication tree. There were 21 exact duplicate-archive groups; duplicate copies are not independent evidence.
+- All 186 `.b64` files were valid Base64. They form two ordered recovery chains. The 118-block floral chain reconstructs SHA-256 `1654f03ad0b55fa310a46e6e0ed11a0f9070ab9c94037e726380389f177a35e6`, exactly matching `Floral_Complexity_Expansion_10_Hedonic_Formula_Portfolio_Aug2026_v1_Package.zip`. The 68-block perfume-box chain reconstructs SHA-256 `db0579760159e7438b83e92de399aa0a9f5862f0f547fa030a682c339bd54e84`, exactly matching the existing `.exact.zip`. Both reconstructed streams pass CRC; no hidden unmatched full archive exists.
+- `FLORAL_COVERAGE_FOUNDATION_v2.zip` was missed by the first shortlist. It has 9 families, a 12-slot spine, 27 branches, 294 role records, 20 primary-source records, 108 screen-reuse records, 12 confusion pairs, and 40 passing package tests. It also has 0 physical results, 0 similarity passes, and no Phase G authority. PCV3 is the newer expansion layer with 16 proposed additional families and 48 branches. Safe disposition: semantic merge/reference intake, never wholesale runtime installation.
+- `COMPLEX_PERFUMERY_OPUS_V_COMPLEXITY_SYSTEM_V1R2_20260811.zip` was missed by the first shortlist. It closes validator fail-open defects and reports 69 tests plus 36 validation checks, but changes no formula or empirical state and remains `HOLD_TARGET_GAPS_EMPIRICAL_REPOSITORY_APPLY`. Safe disposition: defect/regression provenance pending semantic comparison with current governance.
+- `Woody_Amber_Musk_Extreme_Research_Bundle_V2.zip` contains a 34-source literature register, 19 profiles, 37 materials, and a physical screening program. It is bound to obsolete Inventory V3 and has physical status `NOT RUN`. Safe disposition: source-by-source literature triage only; no inventory or module authority.
+- `Top_Complexity_Microevent_Bundle_v2.zip` has 42 formulas and requires at least 50 counted identities, but its scientific state is `NOT RUN`, broad appeal is `NOT TESTED`, and target authority is `NONE`. Safe disposition: reject as an ingredient-count trap; retain only as a provenance tombstone.
+- `OAV_TIME_DOSE_ERROR_SENTINEL_LITERATURE_BASIS_v1.md` SHA-256 `1094ef77c35b955ca0b6e13bc4d79981e6c78f2fcbaccaf6d34b5a175fa2e7c9` is a nonredundant source/protocol candidate. Current code already implements active-dose continuity, stock-rebase failure, modeled-versus-measured separation, OAV claim firewalls, natural-composite handling, and OAV evidence gating. The document adds a richer explicit five-timepoint authority taxonomy, uncertainty output, threshold-cancellation rules, and adversarial regression list. Safe disposition: source verification and focused gap diff before any code change.
+- `Perfumery_Formula_Control_Ensemble_v2_1.md` overlaps current Architectural Delta and gate governance, but its claim that Ambrettolide 10% DPG is owned conflicts with the current project instruction that it is design-available/procurement-pending. Safe disposition: conflict-preserved provenance only; it cannot override current inventory authority.
+- Relevant standalone workbooks are primarily portfolio, source-register, protocol, or formula views. The newest `Hedonic_EDT_EDP_Floral_Orris_Amber_Portfolio_v2.xlsx` remains a formula-design artifact with 0 resolved ExactStockRefs and 0 physical passes; workbook breadth does not supply hedonic authority.

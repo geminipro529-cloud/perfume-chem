@@ -1,0 +1,116 @@
+{
+  "receipt_id": "CP-TEN-FLORALS-STOCK-BASIS-REPAIR-INTEGRITY-20260817-V2",
+  "generated_at_utc": "2026-08-17T15:07:09+00:00",
+  "validation": "PASS",
+  "controls": "30/30",
+  "unit_tests": "18/18 PASS",
+  "canonical_mutations": 0,
+  "members_excluding_receipt": 21,
+  "members": [
+    {
+      "path": "CODEX_HANDOFF.md",
+      "bytes": 1283,
+      "sha256": "8dc8186dfad711e3d39c6654dbead7ee2d467bd574147f5bce407601118eb893"
+    },
+    {
+      "path": "COMPILEALL_STDOUT.txt",
+      "bytes": 1076,
+      "sha256": "d3b8e374c1930542a30e2f6a7ae41c900ea83c9a669afc3e5ee9576da1386b3d"
+    },
+    {
+      "path": "PATCH_PROPOSAL.diff",
+      "bytes": 1158,
+      "sha256": "0a66cc50417ec3d95472ffcfb6cbbddffdae68aabfdf992a25f46493218cea67"
+    },
+    {
+      "path": "REPORT.md",
+      "bytes": 2691,
+      "sha256": "2e3ddcbc54330f42596b6d1bab1a2a3a477a0d6c341164c2659c359c622fa7e2"
+    },
+    {
+      "path": "SOURCE_RECEIPT.json",
+      "bytes": 1420,
+      "sha256": "0db163ce8c0263b745f48df68fa588a60293b761d30e3773d2b0c258bcde90e9"
+    },
+    {
+      "path": "UNITTEST_STDOUT.txt",
+      "bytes": 3679,
+      "sha256": "70f840ae99a62a255d4b52f3f1c76faa6b32e126c97d49cd3fbf10ec099c2f2c"
+    },
+    {
+      "path": "VALIDATION_REPORT.json",
+      "bytes": 1353,
+      "sha256": "83c17ac1b2b1d3f66951cc84becc48862717d0c7fb1b69ae76cbc092ae6f00e1"
+    },
+    {
+      "path": "candidate/stock_basis_repair_and_admission.py",
+      "bytes": 3334,
+      "sha256": "fb50a223f52b7332e2994be7c6bdf438f8be62415dfe4d3fd73a21b398584129"
+    },
+    {
+      "path": "outputs/CF01_COMPUTATIONAL_STOCK_BASIS_RECEIPT.json",
+      "bytes": 1459,
+      "sha256": "616e9c49ce221920cd3637eece5eae34602b61960253d0abfdbee46e0dc60c76"
+    },
+    {
+      "path": "outputs/CF01_FIRST_PILOT_ADMISSION_RECEIPT.json",
+      "bytes": 1331,
+      "sha256": "35946e9c254fe79be30502720cd63201840bbe1a0d909474d2f7f37d0c4bc33e"
+    },
+    {
+      "path": "outputs/CF01_PLANNED_ACTIVE_EQUIVALENCE_LEDGER.csv",
+      "bytes": 19077,
+      "sha256": "e5ea3478bf2ae316dff1f2ea03ae59b0d81b9116deeb75b418bea0cb63d7d916"
+    },
+    {
+      "path": "outputs/CORRECTED_ROW_STOCK_BASIS.csv",
+      "bytes": 180334,
+      "sha256": "c435bb7f439e72b1d6abc61c72f64f89ccc912ea59598df1f8b185a5d34b9845"
+    },
+    {
+      "path": "outputs/FORMULA_COMPUTATIONAL_STOCK_BASIS_SUMMARY.csv",
+      "bytes": 3480,
+      "sha256": "8a9a1f1f9ec500452711325cb05eca99e6fb9ec62f280d3ce089d7eddcc36ef0"
+    },
+    {
+      "path": "outputs/FORMULA_DEFINITION_RECEIPTS.json",
+      "bytes": 5479,
+      "sha256": "6d000da4793d43f29eeed930a7faf469c4d7ebf95bdc19503e573ff8d32f6dad"
+    },
+    {
+      "path": "outputs/STOCK_BASIS_REPAIR_OVERLAY.json",
+      "bytes": 22512,
+      "sha256": "5d24956afb8cc95cd34b691cb0c209c7609d9c1e96b5d4ad5564733108579dd9"
+    },
+    {
+      "path": "outputs/STOCK_BASIS_REPAIR_ROWS.csv",
+      "bytes": 7592,
+      "sha256": "f7815b0572cb9f3350e38161eb676ac2685094e306ccdb34dc1c2e3399cf2d4a"
+    },
+    {
+      "path": "outputs/TEN_COMPLEX_FLORAL_PORTFOLIO_V2_STOCK_BASIS_REPAIRED.json",
+      "bytes": 895576,
+      "sha256": "6c3f3e6b5dcb81bb61a05a965b37a49b27e8b479269b297ca3d5d6f353d9d82f"
+    },
+    {
+      "path": "outputs/TEN_FLORALS_STOCK_BASIS_REPAIR_AND_CF01_ADMISSION_V2.xlsx",
+      "bytes": 30359,
+      "sha256": "bf3e6098005ee3d1bc0fbaa4cb2a1e30f3c0be0147104b4c28c39e590bc265db"
+    },
+    {
+      "path": "outputs/WORKBOOK_ERROR_SCAN.ndjson",
+      "bytes": 61,
+      "sha256": "44b42bbc2fa2bbf67b44ab8b232a112cf94c577c317f8b4f242e70e8f343db89"
+    },
+    {
+      "path": "outputs/WORKBOOK_SUMMARY_INSPECT.ndjson",
+      "bytes": 1492,
+      "sha256": "c41881bc91867d7acbe3bf2453bb413471784da94d202d69675cf16dfabdbba3"
+    },
+    {
+      "path": "tests/test_stock_basis_repair_and_admission.py",
+      "bytes": 5510,
+      "sha256": "6abd59ee9daab27893646a15a45911f9e6241dd7e4af37f368867d200d55dad2"
+    }
+  ]
+}

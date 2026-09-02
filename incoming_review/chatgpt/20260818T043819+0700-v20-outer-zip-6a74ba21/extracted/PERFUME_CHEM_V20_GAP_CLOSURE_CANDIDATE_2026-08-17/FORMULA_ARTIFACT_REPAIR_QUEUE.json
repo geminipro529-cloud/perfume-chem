@@ -1,0 +1,66 @@
+{
+  "actual_successor_artifacts_generated": false,
+  "already_exact_at_stored_precision": [
+    "DHI12",
+    "EB",
+    "EE"
+  ],
+  "blocker": "Exact parent formula rows are not materialized in this runtime; do not reconstruct them from signatures or report prose.",
+  "canonical_formula_parts_mutation_authorized": false,
+  "implementation_module": "src/perfume_chem_v20_guardrails/formula_artifact.py",
+  "items": [
+    {
+      "expected_total_ul": "7500.0",
+      "perfume_id": "DHP25",
+      "required_state": "RECOMPUTE_DERIVED_DOSE_EXPORT",
+      "residual_ul": "-0.0007",
+      "stored_total_ul": "7499.9993"
+    },
+    {
+      "expected_total_ul": "4500.0",
+      "perfume_id": "AHS",
+      "required_state": "RECOMPUTE_DERIVED_DOSE_EXPORT",
+      "residual_ul": "-0.0012",
+      "stored_total_ul": "4499.9988"
+    },
+    {
+      "expected_total_ul": "7500.0",
+      "perfume_id": "ELIXIR",
+      "required_state": "RECOMPUTE_DERIVED_DOSE_EXPORT",
+      "residual_ul": "-0.0001",
+      "stored_total_ul": "7499.9999"
+    },
+    {
+      "expected_total_ul": "4500.0",
+      "perfume_id": "LHOMME",
+      "required_state": "RECOMPUTE_DERIVED_DOSE_EXPORT",
+      "residual_ul": "-0.0018",
+      "stored_total_ul": "4499.9982"
+    },
+    {
+      "expected_total_ul": "4500.0",
+      "perfume_id": "LANUIT",
+      "required_state": "RECOMPUTE_DERIVED_DOSE_EXPORT",
+      "residual_ul": "-0.0002",
+      "stored_total_ul": "4499.9998"
+    },
+    {
+      "expected_total_ul": "7500.0",
+      "perfume_id": "BDCP",
+      "required_state": "RECOMPUTE_DERIVED_DOSE_EXPORT",
+      "residual_ul": "0.0001",
+      "stored_total_ul": "7500.0001"
+    }
+  ],
+  "module_validation": "PASS_SYNTHETIC_EXACT_DECIMAL_AND_BALANCED_DISPLAY_EXPORT",
+  "parent_formula_package": {
+    "expected_bytes": 815495,
+    "expected_sha256": "f1e0f2aae2143fe2638c151032f686ee7b36579280445e86e1878c79b54f240b",
+    "filename": "Nine_Finished_Hedonic_High_Complexity_Perfumes_2026-08-16_v1.zip",
+    "materialized_in_active_runtime": false
+  },
+  "quick_verification": "HOLD",
+  "release_authority": false,
+  "repair_scope": "DERIVED_DOSE_EXPORT_ONLY",
+  "schema_version": "PERFUME_CHEM_FORMULA_ARTIFACT_REPAIR_QUEUE_v1"
+}

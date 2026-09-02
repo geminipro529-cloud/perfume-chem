@@ -1,0 +1,134 @@
+{
+  "schema_version": "complexity_module_registry_v2",
+  "base_registry": "complexity_module_registry_v1.json",
+  "module_overrides": [
+    {
+      "module_id": "citrus-architecture-selector",
+      "state": "RETIRED_BENCHMARK_UNDERPERFORMER",
+      "import_path": null,
+      "notes": [
+        "Retired and unreachable from runtime after failing the prior external xhigh retention benchmark; source retained as a provenance tombstone.",
+        "DHC_CITRUS_SCORING.txt is excluded from runtime evidence and computed hedonism authority.",
+        "Target/ideal selection and current-inventory build remain separate.",
+        "Neroli EO 10% in DPG is an exact-stock support-only floral-transition bridge and cannot replace the target-fit primary citrus.",
+        "The shared V5 catalog binds exact current stock for any target-defined citrus candidate while keeping carrier-open, out-of-stock, planned, missing, and unlisted states fail-closed."
+      ]
+    }
+  ],
+  "module_additions": [
+    {
+      "module_id": "architectural-delta-engine",
+      "family_id": "architectural_delta_replacement",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/perception/architectural_delta.py",
+      "import_path": null,
+      "sha256": "ddf6e97411071782bc607fb5e29acbc02459299fa2bfdda2e65d01594dd5e622",
+      "evidence_refs": [
+        "tests/fixtures/complexity_replacement_retest_cases_v2.json",
+        "tests/test_architectural_delta.py",
+        "tests/test_complexity_replacement_benchmark.py"
+      ],
+      "notes": [
+        "Target-first zero-or-one delta engine; ingredient count is never complexity evidence.",
+        "Current inventory constrains the build but cannot redefine the ideal target.",
+        "Nonruntime until a completely fresh xhigh benchmark clears plain and length-matched controls."
+      ]
+    },
+    {
+      "module_id": "temporal-sensory-ledger",
+      "family_id": "temporal_sensory_replacement",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/sensory/ledger.py",
+      "import_path": null,
+      "sha256": "0aa4eefb7fa74b3992aa9386e382fcd9e58dfd19293d405eb229a16a37175592",
+      "evidence_refs": [
+        "tests/fixtures/complexity_replacement_retest_cases_v2.json",
+        "tests/test_temporal_sensory_evidence.py",
+        "tests/test_complexity_replacement_benchmark.py"
+      ],
+      "notes": [
+        "Evidence ledger preserves missing and duplicate cells, assessor disagreement, order balance, and observed transitions.",
+        "Predicted volatility is never converted into perceived behavior.",
+        "Nonruntime until a completely fresh xhigh benchmark clears plain and length-matched controls."
+      ]
+    },
+    {
+      "module_id": "hedonic-preference-learner",
+      "family_id": "hedonic_preference_replacement",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/preference.py",
+      "import_path": null,
+      "sha256": "b71c615a9817532d58e0643e70cb294642e668a7127904ce2965e0be055ecb31",
+      "evidence_refs": [
+        "tests/fixtures/complexity_replacement_retest_cases_v2.json",
+        "tests/test_scoped_preference.py",
+        "tests/test_complexity_replacement_benchmark.py"
+      ],
+      "notes": [
+        "Learns only scoped criteria from blinded comparisons; no synthetic beauty score.",
+        "Sparse, disconnected, order-confounded, unscoped, or baseline-failing evidence is not validated.",
+        "Nonruntime until a completely fresh xhigh benchmark clears plain and length-matched controls."
+      ]
+    },
+    {
+      "module_id": "universal-perceptual-topology-core",
+      "family_id": "perceptual_topology_candidate",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/perception/perceptual_topology.py",
+      "import_path": null,
+      "sha256": "aff0c0cb5ec8673b8f738248efb023f4c80d0861f579d905477c9c6e03bff750",
+      "evidence_refs": [
+        "tests/test_perceptual_topology.py",
+        "engine/perception/construction_complexity.py",
+        "engine/scientific_validation/complexity_model_admission.py"
+      ],
+      "notes": [
+        "Universal target-linked topology composes existing Meaningful Complexity, anti-collapse, evidence, temporal, and OAV-firewall contracts rather than replacing them.",
+        "Target/ideal topology and current-inventory build are separate; component count and literal internal 3-D claims have no depth authority.",
+        "Nonruntime until a completely fresh blinded Sol 5.6 XHIGH benchmark clears plain and length-matched controls."
+      ]
+    },
+    {
+      "module_id": "perfumery-art-composition-topology-v1",
+      "family_id": "perfumery_art_topology_candidate",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/perception/perfumery_art_topology.py",
+      "import_path": null,
+      "sha256": "bb402adbbcdeecd7e11ece49519c7159c759bd7cb4eaf23d99ca021a489c8718",
+      "evidence_refs": [
+        "tests/test_perceptual_topology.py",
+        "engine/perception/construction_complexity.py",
+        "engine/perception/perceptual_topology.py"
+      ],
+      "notes": [
+        "Primary-before-Sol composition notation for ratio, hierarchy, focus, width, density, texture, contrast, shadow, air, temporal contour, and residue identity.",
+        "Consumes Construction Complexity v1 and the Universal Core; no final-formula, physical, sensory, hedonic, safety, OAV, purchase, or release authority.",
+        "Sol 5.6 XHIGH remains final integration authority until a completely fresh blinded replacement benchmark succeeds."
+      ]
+    },
+    {
+      "module_id": "wood-depth-model-v2",
+      "family_id": "wood_depth_topology_candidate",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/perception/wood_depth.py",
+      "import_path": null,
+      "sha256": "f92b66286a5f87aa84d0c6c653e961b05281fac9e5abdf47b492626b8f513780",
+      "evidence_refs": [
+        "tests/test_perceptual_topology.py",
+        "engine/perception/perfumery_art_topology.py",
+        "engine/perception/perceptual_topology.py"
+      ],
+      "notes": [
+        "Specializes the shared topology stack across G16 grain/root, G17 creamy woods, G18 transparent woods, G19 amberwoods, and bounded shadow/rounding functions.",
+        "Natural woods remain whole formula identities; modeled OAV/headspace cannot establish depth, beauty, projection, or sensory contribution.",
+        "No runtime admission or empirical pass until the blinded Sol 5.6 XHIGH benchmark and controlled physical comparisons succeed."
+      ]
+    }
+  ]
+}

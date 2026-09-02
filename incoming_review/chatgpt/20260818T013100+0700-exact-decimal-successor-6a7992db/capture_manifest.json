@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "capture_id": "20260818T013100+0700-exact-decimal-successor-6a7992db",
+  "captured_at": "2026-08-18T01:31:00+07:00",
+  "scope": "LOCAL_QUARANTINE_INTAKE_ONLY",
+  "attachment_identity_census": {
+    "downloadable_identities": 8,
+    "local_exact_identities": 7,
+    "cloud_only_identities": 1
+  },
+  "source": {
+    "chat_id": "6a7992db-96b8-83ec-aab0-6a7447b97da1",
+    "chat_title": "Perfume Project Planning",
+    "turn_id": "bab83c58-17ea-4d91-bda8-6ff2d4549e5b",
+    "message_id": "85b6d251-dffc-4d7b-bb0f-dff9de633b72",
+    "package_content_reference_index": 1,
+    "reported_original_object": true
+  },
+  "package": {
+    "filename": "Perfume_Chem_V19_V20_Exact_Decimal_Formula_Artifact_Successor_2026-08-17_v2.zip",
+    "bytes": 780032,
+    "sha256": "822f202fee13875f864bf4acdfdbc9364097eb52b224529b4ea248b9032ab31f",
+    "local_source": "C:\\Users\\ASUS\\Downloads\\Perfume_Chem_V19_V20_Exact_Decimal_Formula_Artifact_Successor_2026-08-17_v2.zip",
+    "quarantine_copy": "D:\\chatbots\\perfume-chem\\incoming_review\\chatgpt\\20260818T013100+0700-exact-decimal-successor-6a7992db\\Perfume_Chem_V19_V20_Exact_Decimal_Formula_Artifact_Successor_2026-08-17_v2.zip",
+    "expanded_root": "D:\\chatbots\\perfume-chem\\incoming_review\\chatgpt\\20260818T013100+0700-exact-decimal-successor-6a7992db\\expanded\\Perfume_Chem_V19_V20_Exact_Decimal_Formula_Artifact_Successor_2026-08-17_v2"
+  },
+  "exact_byte_validation": {
+    "source_size_and_sha256_match_cloud_report": true,
+    "quarantine_copy_size_and_sha256_match": true,
+    "zip_entries": 57,
+    "zip_entries_read_without_error": 57,
+    "extracted_files": 57,
+    "internal_checksum_ledger_entries": 56,
+    "internal_checksum_ledger_pass": 56,
+    "internal_checksum_ledger_missing": 0,
+    "internal_checksum_ledger_mismatch": 0,
+    "json_files": 21,
+    "json_case_sensitive_parse_pass": 21,
+    "json_parse_errors": 0
+  },
+  "workbook_validation": {
+    "filename": "Perfume_Chem_V19_V20_Exact_Decimal_Formula_Artifact_Successor_v2.xlsx",
+    "bytes": 132565,
+    "sha256": "8d93951a2ffed25becd13307cf3e2f92ad3e1372fe16d21c99b1bb6306ed5f94",
+    "internal_checksum_match": true,
+    "opened_successfully": true,
+    "sheet_count": 9,
+    "formula_artifacts": 9,
+    "formula_rows": 663,
+    "formula_cells": 9,
+    "literal_spreadsheet_error_cells": 0
+  },
+  "reported_and_locally_read_state": {
+    "state": "FORMULA_ARTIFACT_EXACT_DECIMAL_PASS__QUICK_VERIFICATION_HOLD",
+    "formula_artifact_state": "PASS_EXACT_DECIMAL_SUCCESSOR",
+    "arithmetic_state": "PASS_9_OF_9",
+    "formula_hash_closure_state": "PASS_9_OF_9",
+    "stock_lineage_state": "HOLD_63_ROWS",
+    "missing_exact_byte_dependencies": 4,
+    "runtime_hardening_state": "NOT_DEPLOYED",
+    "release_blocked": true
+  },
+  "related_cloud_objects": [
+    {
+      "filename": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5_Aug17_Intake_CANDIDATE.xlsx",
+      "bytes": 208318,
+      "sha256": "d633858887596945f3b115fba66d76ef230129dda193460f3df3f2c819153a56",
+      "content_reference_index": 0,
+      "local_materialized": false
+    },
+    {
+      "filename": "Perfume_Chem_V19_V20_Exact_Decimal_Formula_Artifact_Successor_2026-08-17_v2.zip.sha256",
+      "bytes": 146,
+      "sha256": "d8430c9deefbc142174de9a0d07d6df8aa2dbba4bd834fbeaefc4b9286cd3779",
+      "content_reference_index": 2,
+      "local_materialized": true,
+      "local_capture_manifest": "D:\\chatbots\\perfume-chem\\incoming_review\\chatgpt\\20260818T021436+0700-exact-decimal-small-sidecars-6a7992db\\capture_manifest.json"
+    },
+    {
+      "filename": "Perfume_Chem_V19_V20_Exact_Decimal_Formula_Artifact_Successor_2026-08-17_v2_RECEIPT.json",
+      "bytes": 1790,
+      "sha256": "190b984bfa206d742dd0ff93e7ebc70e4f819dfd3e5066d5ad8aa839d4e8b0b0",
+      "content_reference_index": 3,
+      "local_materialized": true,
+      "local_capture_manifest": "D:\\chatbots\\perfume-chem\\incoming_review\\chatgpt\\20260818T021436+0700-exact-decimal-small-sidecars-6a7992db\\capture_manifest.json"
+    },
+    {
+      "filename": "MANIFEST.json",
+      "bytes": 13717,
+      "sha256": "21da6f76659f88d7da876578d9433a32ed1709704dcd1365d9b47d80180fcfec",
+      "content_reference_index": 5,
+      "local_materialized_from_verified_zip_member": true
+    },
+    {
+      "filename": "SHA256SUMS.txt",
+      "bytes": 6248,
+      "sha256": "4866402e81c09e755bd1c6d35b4a4074e0a590576453ba20aa9f5ac611a333ca",
+      "content_reference_index": 6,
+      "local_materialized_from_verified_zip_member": true
+    },
+    {
+      "filename": "RECEIPT.json",
+      "bytes": 2852,
+      "sha256": "ea397fbc87e3d3983570c2f97c6ea4bb5ecfc9b35b118ab83645c99a591c2445",
+      "content_reference_index": 7,
+      "local_materialized_from_verified_zip_member": true
+    }
+  ],
+  "admission": {
+    "quarantine_intake_complete": true,
+    "native_installation_eligible": false,
+    "canonical_repository_files_modified": false,
+    "source_admission": false,
+    "package_installation": false,
+    "formula_authority": false,
+    "inventory_mutation": false,
+    "stock_authority": false,
+    "bottle_authority": false,
+    "physical_execution": false,
+    "sensory_authority": false,
+    "analytical_authority": false,
+    "measured_headspace_authority": false,
+    "strict_empirical_oav_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "publication_authority": false,
+    "release_authority": false
+  }
+}

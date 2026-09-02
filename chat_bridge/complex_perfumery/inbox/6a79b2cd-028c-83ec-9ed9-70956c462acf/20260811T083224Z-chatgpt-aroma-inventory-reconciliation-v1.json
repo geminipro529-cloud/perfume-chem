@@ -1,0 +1,139 @@
+{
+  "schema_version": "2.1",
+  "packet_id": "chatgpt-aroma-inventory-reconciliation-20260811T083224Z",
+  "packet_nonce": "1b98661f-a742-4240-9ea0-b8565b15a9f1",
+  "created_at": "2026-08-11T08:32:24.2905095Z",
+  "freshness": {
+    "source_observed_at": "2026-08-11T08:32:24.2905095Z",
+    "source_revision": "chat-visible-through:2026-08-11T04:50:00+07:00:assets:189708f1f69f:6533514f4cbf",
+    "max_age_seconds": 604800,
+    "supersedes_packet_id": null
+  },
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a79b2cd-028c-83ec-9ed9-70956c462acf",
+  "source_chat_title": "Aroma Chemical Analysis",
+  "target_conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+  "objective": "Admit the recovered Inventory V5 reconciliation workbook and report as source captures, preserve the user stock assertions and conflicts, and avoid duplicate canonical mutation.",
+  "summary": "The latest Aroma Chemical Analysis turn reconciled 25 user assertions and proposed four inventory authority patches. The exact workbook and Markdown report were recovered and staged. The four proposed states are already represented in the current append-only inventory_v5_authority_delta_20260811.json, so this packet adds provenance-bearing source bytes rather than applying the mutations again.",
+  "decisions": [
+    {
+      "decision": "Do not replay the four proposed inventory mutations.",
+      "reason": "Current repository authority-delta records already represent DMBCA/PEDMCA separation, Polysantol out-of-stock state, Oakmoss label qualification, and Ambrettolide procurement-pending handling."
+    },
+    {
+      "decision": "Stage the workbook and report as untrusted original source captures.",
+      "reason": "Exact bytes and provenance are newly available even though their proposed state changes are not new."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The recovered workbook is structurally clear for receipt review but has no promotion authority.",
+      "evidence": "52420 bytes; SHA-256 189708f1f69f326898f4d8a87f742949b70d9f1252990fc1bc019c27ce9f5513; archive graph status CLEAR_FOR_RECEIPT_REVIEW; promotion_allowed=false"
+    },
+    {
+      "claim": "The recovered Markdown report is byte-hashed and staged unchanged.",
+      "evidence": "8630 bytes; SHA-256 6533514f4cbfc635ac5120eb196c166aa3a32aa772a54d6dbd35cf9c6c0f7337"
+    },
+    {
+      "claim": "The source report classifies its state as PENDING_SOL_PROMOTION with zero canonical writes.",
+      "evidence": "Inventory_V5_Reconciliation_and_Priority_Patch_v1.md"
+    },
+    {
+      "claim": "Ambrettolide remains design-available only and procurement-pending physically.",
+      "evidence": "Current project instructions and data/governance/inventory_v5_authority_delta_20260811.json"
+    }
+  ],
+  "active_artifacts": [
+    {
+      "path": "incoming_review/chatgpt/20260811T083224Z-aroma-6a79b2cd-816c4316/capture_manifest.json",
+      "role": "browser capture provenance and validation manifest"
+    },
+    {
+      "path": "incoming_review/chatgpt/20260811T083224Z-aroma-6a79b2cd-816c4316/Inventory_V5_Reconciliation_and_Priority_Patch_v1.xlsx",
+      "role": "untrusted original audit workbook"
+    },
+    {
+      "path": "incoming_review/chatgpt/20260811T083224Z-aroma-6a79b2cd-816c4316/Inventory_V5_Reconciliation_and_Priority_Patch_v1.md",
+      "role": "untrusted original research and decision report"
+    },
+    {
+      "path": "data/governance/inventory_v5_authority_delta_20260811.json",
+      "role": "existing append-only implementation already covering the four proposed states"
+    }
+  ],
+  "constraints": [
+    "No duplicate inventory mutation was made.",
+    "No formula, bottle, physical receipt, liking, similarity, stability, safety, measured headspace, strict OAV, or release claim was created.",
+    "Ambrettolide is not physically available until bottle receipt and ExactStockRef exist.",
+    "Polysantol remains out of stock by user assertion even though older Inventory V5 rows may say HAVE.",
+    "ACA, PADMA, and Phenyl Ethyl Dimethyl Carbonyl/Carbinyl labels must remain identity-preserving where exact supplier identity is unresolved."
+  ],
+  "unresolved_questions": [
+    "Can the source JSON, CSV, provenance manifest, and complete package bytes be recovered after the browser download-permission failure?",
+    "Has the exact Oakmoss Absolute IFRA product grade, treatment, and carrier been verified from the bottle or supplier documentation?",
+    "Do ACA, PADMA, and the Phenyl Ethyl Dimethyl label have bottle-level supplier identity evidence sufficient for exact canonical mapping?"
+  ],
+  "next_actions": [
+    {
+      "action": "Validate the recovered workbook against the current authority-delta service and preserve any disagreements as HOLD findings.",
+      "authority": "Sol/Codex validation only"
+    },
+    {
+      "action": "Recover the remaining original attachment bytes through the authenticated ChatGPT download control when browser security permits; do not reconstruct them from prose.",
+      "authority": "source capture only"
+    },
+    {
+      "action": "Do not change formulas or physical stock records from this packet.",
+      "authority": "Sol/Codex"
+    }
+  ],
+  "conflicts": [
+    {
+      "scope": "Polysantol stock state",
+      "state": "NEWER_USER_ASSERTION_OVERRIDES_OLDER_HAVE_FOR_EXECUTION",
+      "detail": "Older V5/inventory text lists Polysantol as owned; the newer user assertion says it was out of stock. The append-only authority delta carries the out-of-stock execution hold."
+    },
+    {
+      "scope": "Ambrettolide physical state",
+      "state": "PROCUREMENT_PENDING",
+      "detail": "The chat language about stock basis does not prove receipt. Project instructions retain computational design availability only."
+    },
+    {
+      "scope": "Complete package availability",
+      "state": "HOLD_EXACT_BYTES_UNAVAILABLE",
+      "detail": "The chat declares package SHA-256 d2ba0ed7b97812edb69a7e3ae38be729fdebbbee4ddaa7173fea5d5534d12ae7, but exact package bytes were not recovered and must not be reconstructed."
+    }
+  ],
+  "source_refs": [
+    {
+      "kind": "chatgpt_conversation",
+      "id": "6a79b2cd-028c-83ec-9ed9-70956c462acf",
+      "uri": "chatgpt-conversation://6a79b2cd-028c-83ec-9ed9-70956c462acf"
+    },
+    {
+      "kind": "codex_task",
+      "id": "019feb17-3324-7623-9eac-3b7e817acd4c",
+      "uri": "codex://threads/019feb17-3324-7623-9eac-3b7e817acd4c"
+    }
+  ],
+  "content_hashes": [
+    {
+      "algorithm": "sha256",
+      "digest": "189708f1f69f326898f4d8a87f742949b70d9f1252990fc1bc019c27ce9f5513",
+      "path": "incoming_review/chatgpt/20260811T083224Z-aroma-6a79b2cd-816c4316/Inventory_V5_Reconciliation_and_Priority_Patch_v1.xlsx"
+    },
+    {
+      "algorithm": "sha256",
+      "digest": "6533514f4cbfc635ac5120eb196c166aa3a32aa772a54d6dbd35cf9c6c0f7337",
+      "path": "incoming_review/chatgpt/20260811T083224Z-aroma-6a79b2cd-816c4316/Inventory_V5_Reconciliation_and_Priority_Patch_v1.md"
+    }
+  ],
+  "authority": {
+    "level": "SOURCE_CAPTURE",
+    "accepted_by_codex": false
+  },
+  "acknowledgement": {
+    "read_at": null,
+    "accepted": false
+  }
+}

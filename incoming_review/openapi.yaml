@@ -1,0 +1,177 @@
+openapi: 3.1.0
+info:
+  title: Perfume Chem Repo API
+  description: >-
+    Authenticated read/write API for the perfume-chem repository at
+    D:\chatbots\perfume-chem. Workspace-relative paths only; .git, .env,
+    .codex, .ssh, keys and secrets are fenced. Writes are exact-byte with
+    SHA-256 verification and git apply --check before touching the tree.
+  version: 1.0.0
+servers:
+  - url: https://add-yorkshire-pressing-operates.trycloudflare.com
+    description: Replace with the public HTTPS URL from cloudflared/ngrok/VPS
+security:
+  - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: "app_<token>"
+paths:
+  /api/health:
+    get:
+      operationId: getHealth
+      summary: Health probe
+      description: Returns workspace, readonly flag, and current git HEAD.
+      security: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+                  workspace: { type: string }
+                  readonly: { type: boolean }
+                  head: { type: string }
+  /api/read:
+    get:
+      operationId: readFile
+      summary: Read a workspace-relative file
+      description: >-
+        Returns content, byte length and SHA-256 for a file inside the
+        workspace. Absolute paths, .. escapes, and fenced paths are rejected.
+      parameters:
+        - name: path
+          in: query
+          required: true
+          description: Workspace-relative file path (e.g. formulas/iris.md)
+          schema: { type: string }
+      responses:
+        "200":
+          description: File content with hash
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  path: { type: string }
+                  bytes: { type: integer }
+                  sha256: { type: string }
+                  content: { type: string }
+        "400":
+          description: Escaped, absolute, fenced, or missing path
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: { type: string }
+        "401":
+          description: Missing or invalid bearer token
+  /api/status:
+    get:
+      operationId: gitStatus
+      summary: Git working-tree status
+      description: Returns git status --short plus current HEAD.
+      responses:
+        "200":
+          description: Status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+                  status: { type: string }
+                  head: { type: string }
+  /api/apply:
+    post:
+      operationId: applyPatch
+      summary: Verify and apply a unified diff
+      description: >-
+        Runs git apply --check --whitespace=error-all, then git apply. Use
+        dry_run=true to check only. The patch must be a unified diff with
+        a/ b/ prefixes; shell-style patches are rejected.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [patch]
+              properties:
+                patch:
+                  type: string
+                  description: Unified diff text
+                dry_run:
+                  type: boolean
+                  default: false
+      responses:
+        "200":
+          description: Applied (or dry-run result)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  applied: { type: boolean }
+                  patchFile: { type: string }
+                  status: { type: string }
+                  dry_run: { type: boolean }
+                  ok: { type: boolean }
+                  error: { type: string, nullable: true }
+        "422":
+          description: Patch failed the check
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error: { type: string }
+  /api/commit:
+    post:
+      operationId: commitChanges
+      summary: Commit all applied/placed changes
+      description: git add -A then git commit with the given message.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message]
+              properties:
+                message:
+                  type: string
+                  maxLength: 500
+      responses:
+        "200":
+          description: Committed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+                  head: { type: string }
+                  error: { type: string, nullable: true }
+  /api/revert:
+    post:
+      operationId: revertLastCommit
+      summary: Soft-reset the last commit (bounded rescue)
+      description: git reset --soft HEAD~1. Use only to undo a mistaken commit.
+      responses:
+        "200":
+          description: Reverted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+                  head: { type: string }
+                  error: { type: string, nullable: true }
