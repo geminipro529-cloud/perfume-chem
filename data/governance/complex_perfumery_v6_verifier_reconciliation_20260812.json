@@ -1,0 +1,190 @@
+{
+  "schema_version": "perfume_chem_complex_perfumery_v6_verifier_reconciliation_v1",
+  "recorded_at": "2026-08-12T18:44:53+07:00",
+  "state": "VERIFIER_TIMEOUT_RESOLVED_DETERMINISTIC_QUARANTINED_ARTIFACT_HOLD",
+  "scope": "Reconcile the prior recovered-scope verifier TIMEOUT against current V6 bytes without changing formula, D0, collection, package, inventory, physical, or release state.",
+  "semantic_self_sha256": "b95e55ae31e1a240a03529bece13f0c44520e13b0eafb3d68f7fd2ddae94ec5f",
+  "repository_fence": {
+    "branch": "codex/add-inventory-materials",
+    "head": "c876ab128845c2e055251fdce4fb1c3f5d661045",
+    "index_tree": "b4dcfb3932f5156f9397fee876199001fff66611",
+    "staged_paths": 0
+  },
+  "rollback": {
+    "archive_path": "archive/20260812_complex_perfumery_v6_verifier_reconciliation_prechange/parents.tar",
+    "byte_size": 117760,
+    "sha256": "fef480f7c2abebef80cd3cf9048ca51694f76bd403435a8e622e602ca1653515",
+    "path_preserving": true,
+    "materialized_restore_verified": true,
+    "restored_parent_files_verified": 7,
+    "restore_temp_retained_under_archive": true
+  },
+  "parents": [
+    {
+      "path": "data/governance/complex_perfumery_v4_recovered_scope_installation_acceptance_20260812.json",
+      "byte_size": 7716,
+      "sha256": "9b510bfc51da0b4d0b0470313ccda3a00612f4cdca47cd9c57a7e2ed6e9f3382",
+      "role": "PRIOR_TIMEOUT_AND_RECOVERED_SCOPE_ACCEPTANCE"
+    },
+    {
+      "path": "data/governance/complex_perfumery_v6_am_e01_collection_acceptance_20260812.json",
+      "byte_size": 5152,
+      "sha256": "2208dc8cbee8832adfbdde13a4c90cbd9bd01555b325e305ed9c161fa26c5877",
+      "role": "CURRENT_V6_COLLECTION_ACCEPTANCE"
+    },
+    {
+      "path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V6_20260812.json",
+      "byte_size": 5520,
+      "sha256": "5709250a6623f991d3a3de26d9001b015737dff1fd83d6d5f5aef2d3c9f8b80b",
+      "role": "CURRENT_V6_COLLECTION_STATE"
+    },
+    {
+      "path": "output/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V6_20260812.md",
+      "byte_size": 3174,
+      "sha256": "31ce6f301fa12949f4cbeb7f73ef2bdc356c01ecace0aafc2eae01d8b9be2507",
+      "role": "CURRENT_V6_NATIVE_FIT_PLAN"
+    },
+    {
+      "path": "formulas/Prada_LHomme_Architecture_Control_30mL_EdT.md",
+      "byte_size": 27762,
+      "sha256": "151de70b2983a7902a67daf8ddd43e0692bfea4ee5f8c92e553c3174827e1d00",
+      "role": "D0_BYTE_PINNED_QUARANTINED_CONTROL"
+    },
+    {
+      "path": "scripts/verify_d0_claim_matrix.py",
+      "byte_size": 9472,
+      "sha256": "377e61ba6f5ab85bb79a1977bd99267ae8ee5f1390981df69b69630cb2aff072",
+      "role": "D0_LIVE_HASH_VERIFIER"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-08-03-build-d0-claim-matrix.md",
+      "byte_size": 52178,
+      "sha256": "841e5cbe068e3e1c6ac65c3a2d70207b51b5f17dfbbe757d290fc4b09fbf0a85",
+      "role": "D0_BYTE_IDENTITY_CONTRACT"
+    }
+  ],
+  "diagnosis": {
+    "prior_timeout_reproduced": false,
+    "orphan_pytest_or_poetry_owner_found": false,
+    "sqlite_wal_or_shm_sidecar_found": false,
+    "isolated_golden_explicit_solvent": {
+      "status": "PASS",
+      "passed": 1,
+      "failed": 0,
+      "deselected": 8,
+      "pytest_elapsed_seconds": 4.45,
+      "outer_elapsed_seconds": 16.6
+    },
+    "focused_contract_replay": {
+      "status": "PASS",
+      "passed": 95,
+      "failed": 0,
+      "elapsed_seconds": 5.39,
+      "test_scopes": [
+        "pipeline artifact verifier policy",
+        "D0 claim matrix",
+        "V6 AM-E01 capture",
+        "external package receipts",
+        "archive quarantine"
+      ]
+    },
+    "quick_project_verify": {
+      "status": "FAIL",
+      "completed": true,
+      "timed_out": false,
+      "elapsed_seconds": 43.22,
+      "stderr_bytes": 0,
+      "failed_checks": [
+        "formula-artifact-validation"
+      ]
+    },
+    "artifact_verify": {
+      "status": "FAIL",
+      "elapsed_seconds": 1.67,
+      "counts": {
+        "NONE": 458,
+        "QUARANTINED": 13,
+        "TAMPERED": 1,
+        "UNBOUND_LEGACY": 49
+      },
+      "sole_blocker": {
+        "path": "formulas/Prada_LHomme_Architecture_Control_30mL_EdT.md",
+        "status": "TAMPERED",
+        "artifact_binding_status": "TAMPERED",
+        "integrity_issues": [
+          "analysis_input_hash"
+        ],
+        "explicitly_quarantined": true,
+        "release_authority": false
+      }
+    }
+  },
+  "rebind_review": {
+    "canonical_dry_run_completed": true,
+    "dry_run_exit_code": 0,
+    "write_performed": false,
+    "proposed_binding_schema": "formula-artifact-binding-v2",
+    "proposed_overall": "FAIL",
+    "apply_decision": "HOLD_D0_REQUIRES_BOTH_PRADA_DOCUMENTS_BYTE_IDENTICAL",
+    "formula_definition_mutated": false,
+    "formula_file_mutated": false,
+    "d0_binding_mutated": false
+  },
+  "deepluna_chat": {
+    "exact_project": "perfume-chem-cheapluna-isolated",
+    "profile": "cheapluna-chat",
+    "route": "DIRECT_PRO",
+    "fallback_used": false,
+    "batch_id": "DLB-20260812T113859035Z-87d819",
+    "rebind_job": {
+      "job_id": "DS-b077da3190cf28e4199dbe62a0350137",
+      "state": "BLOCKED_UNRESOLVED",
+      "accepted_for_decision": false
+    },
+    "d0_dependency_job": {
+      "job_id": "DS-a8245981ee66d7f4667600b4bcfc47e6",
+      "state": "PASS_POSITIVE",
+      "accepted_for_decision": false,
+      "rejection_reason": "The worker proposed a separate generated-analysis transport binding, but the current D0 verifier hashes the whole Markdown document and the governing plan requires both Prada documents to remain byte-identical."
+    },
+    "sol_final_acceptor": true
+  },
+  "decision": {
+    "timeout_diagnosis_resolved": true,
+    "formula_artifact_hold_deterministic": true,
+    "v6_remains_current_collection_state": true,
+    "authorized_recovered_non_p6_native_scopes_remain_applied": true,
+    "optional_identities_remaining": 4,
+    "p6_exact_parent_bytes_remaining": 2,
+    "collection_complete": false,
+    "implementation_complete": false,
+    "source_admission_complete": false,
+    "package_installation_complete": false,
+    "installation_authorized": false,
+    "release_readiness": "BLOCKED_FORMULA_ARTIFACT_VALIDATION_AND_UNAVAILABLE_EXACT_BYTES",
+    "migration_required": false,
+    "new_truth_store_created": false,
+    "new_pipeline_script_created": false,
+    "package_code_installed": false,
+    "formula_or_build_mutated": false,
+    "inventory_or_stock_mutated": false,
+    "physical_execution_authorized": false,
+    "release_complete": false
+  },
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "bottle": false,
+    "physical_execution": false,
+    "sensory": false,
+    "headspace": false,
+    "strict_oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "installation": false,
+    "release": false
+  }
+}

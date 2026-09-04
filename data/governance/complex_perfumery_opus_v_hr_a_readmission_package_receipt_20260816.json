@@ -1,0 +1,105 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "complex-perfumery-opus-v-hr-a-readmission-20260816",
+  "recorded_at": "2026-08-16T14:15:00+07:00",
+  "package": {
+    "file_name": "COMPLEX_PERFUMERY_OPUS_V_HR_A_V1R2_READMISSION_V1_20260815.zip",
+    "locator": "incoming_review/chatgpt/20260816T141500+0700-v13-post-v12-five-package-recovery-multi-chat/COMPLEX_PERFUMERY_OPUS_V_HR_A_V1R2_READMISSION_V1_20260815.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 21809,
+    "sha256": "09f723b79912e88b63308574d83f4ad540e2c0cda7970147b85ed9380768bd53",
+    "media_type": "application/zip",
+    "archive_entry_count": 14,
+    "archive_file_count": 14,
+    "declared_payload_count": 13,
+    "package_root": "COMPLEX_PERFUMERY_OPUS_V_HR_A_V1R2_READMISSION_V1_20260815",
+    "embedded_integrity_records": [
+      {
+        "path": "COMPLEX_PERFUMERY_OPUS_V_HR_A_V1R2_READMISSION_V1_20260815/INTEGRITY_RECEIPT.json",
+        "byte_size": 2376,
+        "sha256": "3eeeb77627c29d75f2f764548498764259aa16250fb1dcdab9605b0fec7c3118",
+        "role": "CHECKSUM_LEDGER"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a762995-0d8c-83ec-aee3-66c90e56811e:opus-v-hr-a-v1r2-readmission-20260815-v1",
+    "conversation_id": "6a762995-0d8c-83ec-aee3-66c90e56811e",
+    "turn_id": null,
+    "message_id": "56a7498f-d108-45ae-b044-fe1247a0e391",
+    "lineage_resolution": "EXACT_ORIGINAL_FILE_OBJECT_RECONSTRUCTED_FROM_EIGHT_INDEPENDENTLY_VERIFIED_BASE64_BLOCKS_AND_HASH_VERIFIED_BEFORE_CAPTURE",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "External AI-generated desk readmission candidate; exact package recovery does not authorize source formula application, compounding, testing, publication, or release.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "The package explicitly states that newer source formula bytes were not mounted and that R1A was not applied."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "BASELINE_FAIL_V1R2_READMISSION_HOLD",
+      "NEWER_SOURCE_FORMULA_BYTES_NOT_MOUNTED",
+      "R1A_DESK_CANDIDATE_NOT_APPLIED",
+      "EXACT_STOCK_PREFLIGHT_NOT_RUN",
+      "PHYSICAL_SENSORY_ANALYTICAL_SAFETY_OAV_RELEASE_GATES_HELD"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "COMPLEX_PERFUMERY_OPUS_V_V1R2_PACKAGE.zip",
+      "byte_size": 165408,
+      "sha256": "cf369b9464be6b661a7fb8c9fc6c2e299c1f82e8bcd60027674aef3232662751",
+      "relation": "SOURCE_RECEIPT_DECLARES_OPUS_V_V1R2_PARENT_EXACT_HASH",
+      "support_scope": "DESIGN_ANCESTRY_ONLY",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "COMPLEX_PERFUMERY_OPUS_V_V1R2_REPOSITORY_QUALIFICATION.zip",
+      "byte_size": 233169,
+      "sha256": "2a5b79f399b51eb6e7bf70ab4da57aab4518a63e044de7abe4b9bfb84116e055",
+      "relation": "SOURCE_RECEIPT_DECLARES_REPOSITORY_QUALIFICATION_PARENT_EXACT_HASH",
+      "support_scope": "HISTORICAL_QUALIFICATION_ANCESTRY_ONLY",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "OPUS_V_HR_A_V1R2_READMISSION_EXACT_BYTES_DESK_CANDIDATE_ONLY",
+    "package_checks_passed": 38,
+    "package_unit_tests_passed": 16,
+    "baseline_state": "FAIL_V1R2_READMISSION_HOLD",
+    "r1a_state": "PASS_DESK_READMISSION_CANDIDATE_HOLD_ALL_PHYSICAL_EMPIRICAL",
+    "r1a_applied": false,
+    "formula_mutations": 0,
+    "inventory_mutations": 0,
+    "native_graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "promotion_allowed": false,
+    "capture_manifest": {
+      "path": "incoming_review/chatgpt/20260816T141500+0700-v13-post-v12-five-package-recovery-multi-chat/capture_manifest.json",
+      "byte_size": 12948,
+      "sha256": "2ea8051ea61e92ce47f71b7ea6abcb42c05e7d0c9557b83cc7ebc70d97793bcc"
+    }
+  },
+  "receipt_sha256": "34c26a9ce7ecb737e5b09f4207dc830a65b6142191efc6c0428993f6fd2862de"
+}

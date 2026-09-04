@@ -1,0 +1,261 @@
+{
+  "schema_version": "external_formula_portfolio_claim_receipt_v1",
+  "receipt_id": "complex-perfumery-th65-hedonic-comparison-portfolio-diff-20260819",
+  "recorded_at": "2026-08-19T14:34:26Z",
+  "source_manifest": {
+    "path": "incoming_review/chatgpt/20260819T143426Z-hedonic-comparison-6a7c5b07/source_manifest.json",
+    "semantic_receipt_sha256": "accf7b7cbb90665ddbb131ecc4ba9f8965df79c241ca5cf798869d462b4bafff",
+    "conversation_id": "6a7c5b07-7000-83ec-8489-53f859a90abe",
+    "conversation_title": "Hedonic Comparison",
+    "source_message_count": 4
+  },
+  "parents": [
+    {
+      "path": "incoming_review/chatgpt/20260819T143426Z-hedonic-comparison-6a7c5b07/source_manifest.json",
+      "byte_size": 5786,
+      "sha256": "eaad22d3971e750e447a28fe53c44eb99eea11d7683bfb3ec84627e22d994556",
+      "relation": "BINDS_AUTHENTICATED_CHATGPT_MESSAGE_IDENTITIES_AND_EXACT_ATTACHMENT_BYTES",
+      "authority_state": "SOURCE_POINTER_ONLY"
+    },
+    {
+      "path": ".archive/20260819_hedonic-comparison-intake-v1/docs/research/PERFUME_CHEM_CHATGPT_PROJECT_RECONCILIATION_2026-08-10.md",
+      "byte_size": 199272,
+      "sha256": "56275dfcfee1d43f527528b40ee5580c41a56eeb80fff57d25b2837d4b691a38",
+      "relation": "ARCHIVE_FIRST_PRECHANGE_RECONCILIATION_SNAPSHOT",
+      "authority_state": "HISTORICAL_PARENT_ONLY"
+    },
+    {
+      "path": "data/governance/inventory_v5_current_stock_snapshot.json",
+      "byte_size": 226125,
+      "sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+      "relation": "CURRENT_LOCAL_STOCK_IDENTITY_PARENT",
+      "authority_state": "CONTROLLING_LOCAL_INVENTORY_SNAPSHOT"
+    },
+    {
+      "path": "data/governance/complex_perfumery_floral_hedonic_formula_portfolio_package_receipt_20260817.json",
+      "byte_size": 6334,
+      "sha256": "88f6845c074d45e2d625c6c5862909c4400c10b9e1472c61d62c44aa975d7d96",
+      "relation": "DISTINCT_PRIOR_TEN_FORMULA_FLORAL_HEDONIC_PORTFOLIO_CONTEXT",
+      "authority_state": "NONINTERCHANGEABLE_QUARANTINED_LINEAGE"
+    },
+    {
+      "path": "formulas/collections/Mass_Market_Thailand_Eighteen_2026-05-02.md",
+      "byte_size": 48663,
+      "sha256": "db91e2ee97d47c3d97bc09cd51a2dd632c258d3b2abe76e64fad391b37c60a54",
+      "relation": "PREEXISTING_THAILAND_MASS_MARKET_COLLECTION_CONTEXT",
+      "authority_state": "DISTINCT_FORMULA_COLLECTION_NO_EXACT_FORMULA_COLLISION"
+    }
+  ],
+  "source_package": {
+    "path": "incoming_review/chatgpt/20260819T143426Z-hedonic-comparison-6a7c5b07/Thailand_Mass_Market_Floral_1965_Target_Inventory_Formulas_Aug2026_v1_Package.zip",
+    "byte_size": 156622,
+    "sha256": "4ec759409e005394ed303f6d6c103c8c98e66da6782a4e060ef924b5e46a9182",
+    "package_id": "THAILAND-MASS-MARKET-FLORAL-1965-TARGET-V1",
+    "archive_entry_count": 8,
+    "embedded_payload_hashes_verified": 4,
+    "archive_extracted_into_repository": false,
+    "declared_inventory_parent": {
+      "file_name": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5(1).xlsx",
+      "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "matches_current_v5_authority_hash": true
+    }
+  },
+  "source_claim": {
+    "ranked_winner": "TH65-F01 Crystal Peony Rose",
+    "winner_claim_state": "SOURCE_CLAIM_ONLY_NOT_TESTED",
+    "suggested_first_screen_concentration_pct": 18,
+    "source_study_concentration_pct": 20,
+    "source_concentration_screen_pct": [
+      16,
+      18,
+      20
+    ],
+    "physical_batches": 0,
+    "liking_results": 0,
+    "broad_appeal_results": 0,
+    "commercial_superiority_established": false,
+    "target_market_superiority_established": false,
+    "eighteen_percent_optimum_established": false
+  },
+  "formula_census": [
+    {
+      "key": "CPR",
+      "formula_id": "TH65-F01",
+      "name": "Crystal Peony Rose",
+      "position": "Hero / broadest mass-market reach",
+      "target_ideal_rows": 74,
+      "current_inventory_rows": 71,
+      "target_ideal_sha256": "63b0d6d6698771731c4dad4e302af0fc4f8031562bc9cf4e04c62ce06d5db621",
+      "current_inventory_sha256": "70d319d552d236e769acda6c43621ae70228bae10bfc03806f8c07f91ec90227",
+      "target_state": "DESIGN ONLY / MISSING MATERIALS PRESENT",
+      "current_state": "COMPUTATIONAL BENCH CANDIDATE / PHYSICAL HOLD"
+    },
+    {
+      "key": "WTM",
+      "formula_id": "TH65-F02",
+      "name": "White Tea Magnolia",
+      "position": "Elegant / quiet-luxury floral",
+      "target_ideal_rows": 74,
+      "current_inventory_rows": 70,
+      "target_ideal_sha256": "a64af6e4d853537b5bde5429682878fccbd11616876b09cb856b04c8ccc4fec5",
+      "current_inventory_sha256": "86b79ec4e5c2501eb312624c7f975f806229391c9445861b84fd14adbbc528a3",
+      "target_state": "DESIGN ONLY / MISSING MATERIALS PRESENT",
+      "current_state": "COMPUTATIONAL BENCH CANDIDATE / PHYSICAL HOLD"
+    },
+    {
+      "key": "LWM",
+      "formula_id": "TH65-F03",
+      "name": "Lilac Wisteria Memory",
+      "position": "Emotional / soft nostalgic floral",
+      "target_ideal_rows": 77,
+      "current_inventory_rows": 73,
+      "target_ideal_sha256": "076b5f7cd93cfb74be520b504103093fe7b77625dc6a6b98718461267d8e21e2",
+      "current_inventory_sha256": "d8299641b11eb0f145e5f50521f2beee56878e0111a1d24e71d5dd92d38ce9d0",
+      "target_state": "DESIGN ONLY / MISSING MATERIALS PRESENT",
+      "current_state": "COMPUTATIONAL BENCH CANDIDATE / PHYSICAL HOLD"
+    }
+  ],
+  "complexity_preservation": {
+    "formula_candidates": 3,
+    "target_ideal_rows": 225,
+    "current_inventory_rows": 214,
+    "gate_rows": 45,
+    "missing_chemical_impact_rows": 7,
+    "preparation_queue_rows": 8,
+    "controlled_test_rows": 8,
+    "controlled_tests_run": 0,
+    "package_flattened_to_ranked_winner": false,
+    "ideal_branches_discarded": false,
+    "current_inventory_branches_discarded": false
+  },
+  "recipe_diff": {
+    "path": "incoming_review/chatgpt/20260819T143426Z-hedonic-comparison-6a7c5b07/TH65-F01_Crystal_Peony_Rose_18pct_Current_Inventory_Mixing_Order_Recipe.md",
+    "byte_size": 11640,
+    "sha256": "dc8ff680b0ffed6dfaf67f52f39a8aac65eec9e2da73152af0e0137806a6f052",
+    "formula_id": "TH65-F01",
+    "formula_branch": "CURRENT_INVENTORY_BUILD",
+    "aromatic_additions": 71,
+    "ethanol_addition_number": 72,
+    "primary_pilot_ul": 5000,
+    "formula_concentrate_ul": 900,
+    "ethanol_ul": 4100,
+    "scale_up_ul": 30000,
+    "scale_up_is_reference_only": true,
+    "plain_owned_rows": 64,
+    "prepare_rows": 2,
+    "verify_first_rows": 3,
+    "verify_label_rows": 1,
+    "opaque_product_basis_rows": 1,
+    "cedramber_stock_basis_contradiction": true,
+    "physical_state": "HOLD_NOT_TESTED"
+  },
+  "project_diff": {
+    "exact_package_id_hits_before_capture": 0,
+    "exact_outer_sha256_hits_before_capture": 0,
+    "exact_recipe_sha256_hits_before_capture": 0,
+    "exact_formula_name_hits_before_capture": 0,
+    "exact_current_formula_hash_hits_before_capture": 0,
+    "inventory_parent_hash_hits_before_capture": "PRESENT_AND_CURRENT",
+    "prior_ten_formula_floral_portfolio_is_same_artifact": false,
+    "preexisting_thailand_mass_market_collection_is_same_artifact": false,
+    "new_scientific_or_runtime_capability_required": false
+  },
+  "literature_sources": [
+    {
+      "source_id": "PMID:35381183",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/35381183/",
+      "role": "CROSS_CULTURAL_MONOMOLECULAR_ODOR_PLEASANTNESS_AND_INDIVIDUAL_VARIATION",
+      "finding_scope": "NINE_NONWESTERN_CULTURES_PLUS_WESTERN_COMPARATOR_SHOWED_SHARED_STRUCTURE_BUT_LARGE_INDIVIDUAL_VARIATION",
+      "supports_formula_winner_without_panel": false
+    },
+    {
+      "source_id": "PMID:38863390",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38863390/",
+      "role": "CROSS_CULTURAL_AND_ECOLOGICAL_ODOR_PREFERENCE_HETEROGENEITY",
+      "finding_scope": "ECOLOGICAL_AND_CULTURAL_ODOR_AVAILABILITY_MATERIALLY_AFFECTED_PREFERENCES",
+      "supports_target_market_winner_without_panel": false
+    },
+    {
+      "source_id": "PMID:36323760",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/36323760/",
+      "role": "CONCENTRATION_RELATIVE_TO_INDIVIDUAL_THRESHOLD_AND_HEDONIC_CURVE",
+      "finding_scope": "HEDONIC_RATING_CHANGED_WITH_CONCENTRATION_AND_PLATEAUED_IN_AN_ODOR_DEPENDENT_EXPERIMENT",
+      "supports_untested_18_percent_optimum": false
+    },
+    {
+      "source_id": "PMCID:PMC2533422",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2533422/",
+      "role": "BINARY_MIXTURE_PLEASANTNESS_AND_RELATIVE_INTENSITY_PSYCHOPHYSICS",
+      "finding_scope": "BINARY_MIXTURE_PREDICTION_REQUIRED_EMPIRICAL_CONSTITUENT_PLEASANTNESS_AND_PERCEIVED_INTENSITY",
+      "supports_71_component_paper_prediction": false
+    },
+    {
+      "source_id": "PMCID:PMC4038972",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4038972/",
+      "role": "READY_MADE_PERFUME_MIXTURE_CONCENTRATION_AND_REPEATED_EXPOSURE_LIKING_CONTEXT",
+      "finding_scope": "PLEASANTNESS_LIKING_AND_WANTING_WERE_MEASURED_EMPIRICALLY_ACROSS_CONCENTRATIONS_AND_REPEATED_EXPOSURES",
+      "supports_single_FIRST_SNIFF_ARCHITECTURE_RANKING": false
+    },
+    {
+      "source_id": "PMCID:PMC13371102",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13371102/",
+      "role": "CURRENT_COMPONENT_TO_MIXTURE_PERCEPT_PREDICTION_CONTEXT",
+      "finding_scope": "MIXTURE_PLEASANTNESS_PREDICTION_USED_MEASURED_COMPONENT_INTENSITY_AND_PLEASANTNESS_WITH_REPLICATE_HUMAN_DATA",
+      "supports_UNMEASURED_COMPLEX_PERFUME_WINNER": false
+    }
+  ],
+  "unlock_requirements": [
+    "VERIFY_ALL_EIGHT_PREPARATION_OR_EXACT_STOCK_ROWS",
+    "RESOLVE_CEDRAMBER_LABEL_VERSUS_EXACT_STOCK_BASIS",
+    "COMPLETE_FORMULA_SPECIFIC_SAFETY_AND_SKIN_USE_REVIEW",
+    "COMPOUND_CODED_16_18_20_PERCENT_MICROBATCHES_WITH_FIXED_APPLICATION_DOSE",
+    "RUN_REFERENCE_FREE_TARGET_PANEL_AT_DECLARED_TIMEPOINTS",
+    "REPLICATE_PREFERENCE_RANKING_ON_SECOND_DAY"
+  ],
+  "evidence_summary": {
+    "classification": "EXACT_THREE_FORMULA_COMPUTATIONAL_HEDONIC_PORTFOLIO_PHYSICAL_PREFERENCE_SAFETY_AND_RELEASE_HOLD",
+    "project_formula_collision_count": 0,
+    "distinct_prior_floral_portfolio_overlap": "INVENTORY_PARENT_ONLY",
+    "source_package_integrity": "EXACT_OUTER_AND_EIGHT_MEMBER_BYTES_BOUND",
+    "hedonic_result_state": "NOT_TESTED",
+    "concentration_optimum_state": "NOT_TESTED",
+    "native_formula_installation_performed": false,
+    "native_physics_change_required": false,
+    "native_runtime_change_required": false,
+    "promotion_allowed": false
+  },
+  "disposition": {
+    "state": "EXTERNAL_BYTES_VERIFIED_COMPUTATIONAL_DESIGN_AND_TEST_PLAN_ONLY",
+    "recipe_execution_allowed": false,
+    "formula_or_inventory_mutated": false,
+    "purchase_or_cart_mutated": false,
+    "formula_installation_allowed": false,
+    "runtime_change_allowed": false,
+    "governance_receipt_only": true
+  },
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "hedonic": false,
+    "commercial_preference": false,
+    "target_market_preference": false,
+    "concentration_optimum": false,
+    "compounding": false,
+    "trial_execution": false,
+    "physical_result": false,
+    "sensory_result": false,
+    "analytical_result": false,
+    "strict_oav": false,
+    "safety": false,
+    "skin_use": false,
+    "purchase": false,
+    "cart": false,
+    "installation": false,
+    "publication": false,
+    "release": false
+  },
+  "receipt_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_RECEIPT_SHA256_OMITTED",
+  "receipt_sha256": "c15689a3bab2914031cbb733d04a8865839d85545227876e3a9b779b72b30540"
+}

@@ -1,0 +1,219 @@
+{
+  "schema_version": "perfume_chem_inventory_v5_closure_evidence_audit_v1",
+  "report_id": "inventory_v5_experiment_readiness_closure_evidence_audit_20260812",
+  "generated_at": "2026-08-12",
+  "decision": "OPEN_PARTIAL_EVIDENCE_EXACT_STOCK_AND_PREPARATION_LINEAGE_NOT_CLOSED",
+  "purpose": "Bind the present evidence and unresolved conflicts for CLR-001 and CLR-002 without minting stock, preparation, experiment, or release authority.",
+  "semantic_self_sha256": "c5f7eb766b2128bf1abd81542e1d614f7bc69627f6220a87c95d7e3009f9f660",
+  "parents": [
+    {
+      "path": "data/governance/inventory_v5_experiment_readiness_closure_queue_20260812.json",
+      "size_bytes": 24578,
+      "sha256": "ff228b72a155e14902416b1de8d92e75f7302123c80f292abfc85adbd997ee2a",
+      "role": "GOVERNING_CLOSURE_REQUIREMENTS"
+    },
+    {
+      "path": "inventory.txt",
+      "size_bytes": 17140,
+      "sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "role": "USER_STOCK_ASSERTION_SOURCE"
+    },
+    {
+      "path": "data/governance/inventory_v5_current_stock_snapshot.json",
+      "size_bytes": 226125,
+      "sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+      "role": "CURRENT_V5_STOCK_SNAPSHOT"
+    },
+    {
+      "path": "data/governance/inventory_v5_alias_crosswalk_20260811.json",
+      "size_bytes": 7700,
+      "sha256": "4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6",
+      "role": "IDENTITY_CROSSWALK_ONLY"
+    },
+    {
+      "path": "data/materials/_sources/perfumersworld_stock.parsed.json",
+      "size_bytes": 306146,
+      "sha256": "e7f083979500d50fd66c3bcbf99b9db0a7c2a1dbd1fe8e5a130cf7a5c8fae6e8",
+      "role": "SUPPLIER_CATALOG_ONLY_NOT_OWNERSHIP"
+    },
+    {
+      "path": "formulas/demachy_redux/DHC_A_BottleA_Lemon_Extension.md",
+      "size_bytes": 2402,
+      "sha256": "8163fab82c53c54d2432d44e14ef35dc00fb6ab04235a050ca8b3334513440fb",
+      "role": "COMPOUNDING_INSTRUCTION_ONLY_NOT_EXECUTION_RECEIPT"
+    }
+  ],
+  "audits": [
+    {
+      "action_id": "CLR-001",
+      "material": "2-Acetyl Pyrazine",
+      "closure_state": "OPEN_PARTIAL_EVIDENCE",
+      "governing_closure_test": "The 1% stock resolves to one ExactStockRef with explicit carrier and fraction basis; the neat parent remains a distinct ExactStockRef.",
+      "present_evidence": [
+        {
+          "evidence_id": "CLR-001-INVENTORY-ASSERTION",
+          "source_path": "inventory.txt",
+          "source_line": 211,
+          "fact": "Inventory text asserts a 1% in DPG stock.",
+          "authority": "USER_ASSERTION_ONLY"
+        },
+        {
+          "evidence_id": "CLR-001-V5-SNAPSHOT",
+          "source_path": "data/governance/inventory_v5_current_stock_snapshot.json",
+          "source_row": 6,
+          "fact": "V5 records neat/as-supplied stock and a 1% working stock while keeping the carrier unstated.",
+          "authority": "CURRENT_SNAPSHOT_WITH_HOLD"
+        },
+        {
+          "evidence_id": "CLR-001-CROSSWALK",
+          "source_path": "data/governance/inventory_v5_alias_crosswalk_20260811.json",
+          "contract_id": "IDCL-001",
+          "fact": "The alias route is V5_LABEL_RECHECK_HOLD with guarded preservation.",
+          "authority": "IDENTITY_HOLD"
+        },
+        {
+          "evidence_id": "CLR-001-SUPPLIER-CATALOG",
+          "source_path": "data/materials/_sources/perfumersworld_stock.parsed.json",
+          "supplier_sku": "5EN13769",
+          "fact": "A supplier catalog lists a 1% in DPG product.",
+          "authority": "CATALOG_ONLY_NOT_OWNED_STOCK"
+        }
+      ],
+      "conflicts": [
+        {
+          "conflict_id": "CLR-001-CARRIER-BINDING",
+          "left": "V5 snapshot: 1% carrier unstated",
+          "right": "Inventory text and supplier catalog: DPG",
+          "resolution": "Require the owned bottle label, exact lot or stock identity, and preparation-or-supplier lineage; do not copy the catalog carrier into physical authority."
+        }
+      ],
+      "missing_witnesses": [
+        "Distinct exact stock ID for the neat parent",
+        "Distinct exact stock ID for the owned 1% working stock",
+        "Owned bottle or lot label witness",
+        "Explicit 1% fraction basis and carrier bound to that stock ID",
+        "Preparation receipt or supplier receipt binding the owned physical stock to its lineage"
+      ],
+      "supplier_catalog_proves_owned_stock": false,
+      "closure_receipt_created": false,
+      "execution_authorized": false
+    },
+    {
+      "action_id": "CLR-002",
+      "material": "Lemonile",
+      "closure_state": "OPEN_PARTIAL_EVIDENCE",
+      "governing_closure_test": "Every prospective dose names exactly one Lemonile stock, strength, carrier, and lineage.",
+      "present_evidence": [
+        {
+          "evidence_id": "CLR-002-INVENTORY-NEAT",
+          "source_path": "inventory.txt",
+          "source_line": 34,
+          "fact": "Inventory text asserts neat Lemonile.",
+          "authority": "USER_ASSERTION_ONLY"
+        },
+        {
+          "evidence_id": "CLR-002-INVENTORY-DILUTION",
+          "source_path": "inventory.txt",
+          "source_line": 35,
+          "fact": "Inventory text asserts a 1% in DPG dilution made from neat stock on 2026-05-25.",
+          "authority": "USER_ASSERTION_ONLY_NOT_PREPARATION_RECEIPT"
+        },
+        {
+          "evidence_id": "CLR-002-V5-SNAPSHOT",
+          "source_path": "data/governance/inventory_v5_current_stock_snapshot.json",
+          "source_row": 258,
+          "fact": "V5 records only neat/as-supplied Lemonile.",
+          "authority": "CURRENT_SNAPSHOT"
+        },
+        {
+          "evidence_id": "CLR-002-COMPOUNDING-INSTRUCTION",
+          "source_path": "formulas/demachy_redux/DHC_A_BottleA_Lemon_Extension.md",
+          "source_line": 11,
+          "fact": "The formula instructs preparation of 0.1 g Lemonile plus 9.9 g DPG.",
+          "authority": "INSTRUCTION_ONLY_NOT_EXECUTED_PREPARATION"
+        }
+      ],
+      "conflicts": [
+        {
+          "conflict_id": "CLR-002-V5-INVENTORY-DRIFT",
+          "left": "V5 snapshot: neat/as supplied only",
+          "right": "Inventory text: neat plus a claimed 1% in DPG working dilution",
+          "resolution": "Require separate exact stock identities plus an executed preparation receipt; do not infer execution from the formula instruction or inventory comment."
+        }
+      ],
+      "missing_witnesses": [
+        "Exact stock ID and bottle or lot witness for neat Lemonile",
+        "Distinct exact stock ID for the claimed 1% working dilution",
+        "Executed preparation receipt binding parent stock, DPG carrier, quantities, basis, date, and resulting stock",
+        "Reconciled V5 source revision preserving neat and dilution as separate identities"
+      ],
+      "compounding_instruction_proves_execution": false,
+      "inventory_comment_proves_preparation": false,
+      "closure_receipt_created": false,
+      "execution_authorized": false
+    }
+  ],
+  "bounded_search": {
+    "scope": [
+      "inventory.txt",
+      "data/governance",
+      "data/materials",
+      "engine",
+      "backend",
+      "tests",
+      "formulas",
+      "knowledge"
+    ],
+    "exact_stock_or_preparation_binding_found_for_clr_001": false,
+    "exact_stock_or_preparation_binding_found_for_clr_002": false,
+    "global_absence_claimed": false
+  },
+  "delegation_evidence": {
+    "route": "DEEPLUNA_CHAT_CHEAPLUNA_CHAT_DIRECT_PRO_ONLY",
+    "batch_id": "DLB-20260812T110755891Z-dc036a",
+    "jobs": [
+      {
+        "job_id": "DS-ebf71a130ca9adf88ca1f3d167ace676",
+        "action_id": "CLR-001",
+        "execution_status": "ACCEPTED",
+        "evidence_verdict": "MIXED",
+        "sol_disposition": "ACCEPT_OPEN_PARTIAL_EVIDENCE"
+      },
+      {
+        "job_id": "DS-2b02ad41a614fe6ce4e65d06a2efa770",
+        "action_id": "CLR-002",
+        "execution_status": "ACCEPTED",
+        "evidence_verdict": "NEGATIVE",
+        "sol_disposition": "ACCEPT_OPEN_PARTIAL_EVIDENCE"
+      }
+    ],
+    "fallback_used": false,
+    "fast_used": false,
+    "scientific_acceptance": "SOL_LOCAL_ONLY"
+  },
+  "claim_boundary": {
+    "stock_identity_inferred": false,
+    "carrier_inferred": false,
+    "preparation_inferred": false,
+    "supplier_catalog_treated_as_ownership": false,
+    "formula_instruction_treated_as_execution": false,
+    "inventory_or_v5_mutated": false,
+    "experiment_ready": false,
+    "physical_result_claimed": false,
+    "release_ready": false
+  },
+  "authority": {
+    "formula": false,
+    "inventory_mutation": false,
+    "stock_identity": false,
+    "preparation": false,
+    "physical_experiment": false,
+    "sensory_claim": false,
+    "scientific_claim": false,
+    "safety": false,
+    "procurement": false,
+    "collection": false,
+    "installation": false,
+    "release": false
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "six-commercial-reconstruction-recipes-20260810",
+  "recorded_at": "2026-08-10T14:30:00+07:00",
+  "package": {
+    "file_name": "Latest_Integrated_Commercial_Reconstruction_Recipe_Pack_Aug2026.zip",
+    "locator": "C:\\Users\\ASUS\\Downloads\\Latest_Integrated_Commercial_Reconstruction_Recipe_Pack_Aug2026.zip",
+    "locator_scope": "EXTERNAL_LOCAL_PATH",
+    "byte_size": 361505,
+    "sha256": "77ad64fbe0ad0d4c7e85bde252f52fa245fffc223c7abc6ef352005703804996",
+    "media_type": "application/zip",
+    "archive_entry_count": 54,
+    "archive_file_count": 47,
+    "declared_payload_count": 45,
+    "package_root": "Latest_Integrated_Commercial_Reconstruction_Recipe_Pack_Aug2026",
+    "embedded_integrity_records": [
+      {
+        "path": "Latest_Integrated_Commercial_Reconstruction_Recipe_Pack_Aug2026/MANIFEST.json",
+        "byte_size": 10520,
+        "sha256": "5fcd69c0f0316a1bca727335af00b2af8e124020674ee2df0d818a0e30fbcb42",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "Latest_Integrated_Commercial_Reconstruction_Recipe_Pack_Aug2026/MANIFEST.sha256",
+        "byte_size": 80,
+        "sha256": "3acc968c1f3edd6ca134fbe41042d49c00fa243bd6c9e272bc7b0a375730b07b",
+        "role": "CHECKSUM_LEDGER"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "SECONDARY_RECONSTRUCTION",
+    "independence_group": "chatgpt:6a770c24-a64c-83ec-9448-9c7972751357:six-recipe-pack",
+    "conversation_id": "6a770c24-a64c-83ec-9448-9c7972751357",
+    "turn_id": null,
+    "message_id": null,
+    "lineage_resolution": "CONVERSATION_ONLY_MESSAGE_UNRESOLVED",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "The recovered package contains no rights or reuse declaration; exact possession and hash verification do not establish redistribution or publication permission.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Keep the ZIP external and preserve only this authority-false transport receipt until rights are established."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "MESSAGE_LEVEL_PROVENANCE_UNRESOLVED",
+      "ALL_MOLECULAR_DOSES_INFERRED",
+      "NONEXACT_SUBSTITUTIONS_PRESENT",
+      "V5_STOCK_METADATA_AND_PHYSICAL_BLOCKS_OPEN",
+      "STRICT_EMPIRICAL_OAV_AND_MEASURED_HEADSPACE_ABSENT",
+      "PHYSICAL_SENSORY_STABILITY_AND_SAFETY_VALIDATION_ABSENT"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5(1).xlsx",
+      "byte_size": 199635,
+      "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "relation": "PACKAGE_DECLARED_INVENTORY_AUTHORITY_PARENT",
+      "support_scope": "Source-package generation ancestry only; each build row still requires exact current-stock and preparation receipts.",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "DATA_AMBER_SIX_RECONSTRUCTION_SOURCE_PACKAGE_RECOVERED_TARGET_DOSES_INFERRED_NONEXACT_SUBSTITUTIONS_V5_STOCK_METADATA_AND_PHYSICAL_VALIDATION_RED",
+    "formula_ids": [
+      "PR-E01",
+      "H07",
+      "AM-E01",
+      "S06",
+      "C03",
+      "PR-E07"
+    ],
+    "formula_target_build_rows": {
+      "PR-E01": [49, 52],
+      "H07": [66, 65],
+      "AM-E01": [97, 96],
+      "S06": [44, 43],
+      "C03": [58, 57],
+      "PR-E07": [47, 49]
+    },
+    "target_row_count": 361,
+    "build_row_count": 362,
+    "exact_or_active_equivalent_target_rows": 313,
+    "nonexact_target_rows": 48,
+    "v5_requalification": {
+      "EXACT_READY": 191,
+      "EXACT_METADATA_INCOMPLETE": 116,
+      "PRODUCT_BASIS_OPAQUE": 32,
+      "PREPARATION_REQUIRED": 11,
+      "PACKAGE_PHYSICAL_BLOCK": 8,
+      "NO_EXECUTABLE_CURRENT_STOCK": 2,
+      "CARRIER_REFERENCE": 2
+    },
+    "modeled_oav_screen": {
+      "rows": 800,
+      "warn_rows": 800,
+      "authority": "MODELED_SCREENING_ONLY"
+    },
+    "dose_firewall": {
+      "rows": 361,
+      "pass": 287,
+      "review": 74,
+      "authority": "INTERNAL_PORTFOLIO_ENVELOPE_ONLY"
+    },
+    "package_declared_physical_blocks": 11,
+    "missing_impact_rows": 21,
+    "manifest_hash_discrepancy": {
+      "handoff_transcribed_sha256": "5fcd69c0f0316a1bca727335af00b2af8e124020674ee2dfcf38e0f30fbcb42",
+      "archive_declared_and_recomputed_sha256": "5fcd69c0f0316a1bca727335af00b2af8e124020674ee2df0d818a0e30fbcb42",
+      "resolution": "HANDOFF_TRANSCRIPTION_ERROR_ARCHIVE_BYTES_CONTROL"
+    },
+    "hold_state": "HOLD_SOURCE_DESIGN_AND_COMPUTATIONAL_COMPARISON_ONLY"
+  },
+  "receipt_sha256": "e9a1103e8ff4dc09913adf7439d3a4a9bd6d89894b2e9c07fdee7ab827ea96b7"
+}

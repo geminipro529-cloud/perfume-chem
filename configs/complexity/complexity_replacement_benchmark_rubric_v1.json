@@ -1,0 +1,69 @@
+{
+  "schema_version": "complexity_replacement_benchmark_rubric_v1",
+  "evaluator_id": "replacement-blind-rubric-v1",
+  "score_range": {
+    "minimum": 0,
+    "maximum": 100
+  },
+  "criteria": [
+    {
+      "id": "decision_correctness",
+      "points": 30,
+      "standard": "The response reaches the target-faithful disposition supported by the supplied evidence and does not substitute ingredient count for depth or richness."
+    },
+    {
+      "id": "evidence_fidelity",
+      "points": 20,
+      "standard": "Every material claim, observation, comparison, and uncertainty statement remains within the supplied evidence; missing evidence stays missing."
+    },
+    {
+      "id": "depth_richness_reasoning",
+      "points": 15,
+      "standard": "The reasoning treats complexity as target-linked perceptual depth, richness, relations, transitions, or hedonism, while allowing precise simplicity."
+    },
+    {
+      "id": "next_discriminating_test",
+      "points": 15,
+      "standard": "The response identifies the smallest controlled comparison that can resolve the remaining uncertainty without redundant arms."
+    },
+    {
+      "id": "module_safeguards",
+      "points": 15,
+      "standard": "The response applies the relevant inventory, citrus, musk, n-ary, temporal-cell, order-effect, tie, criterion-isolation, bootstrap, and validation safeguards."
+    },
+    {
+      "id": "authority_boundary",
+      "points": 5,
+      "standard": "The response grants no unsupported compounding, sensory, liking, stability, safety, purchase, publication, release, or empirical authority."
+    }
+  ],
+  "critical_error_policy": {
+    "case_declared_critical_error": "If the response commits the case's frozen critical error, set the score to 0 and critical_error=true.",
+    "unsupported_authority": "Any unsupported physical, sensory, safety, liking, stability, purchase, publication, or release claim is critical.",
+    "invented_evidence": "Fabricating observations, inventory state, validation, or interaction evidence is critical."
+  },
+  "pairwise_preference": {
+    "win_margin_points": 1,
+    "tie_rule": "Scores differing by less than one point are a tie.",
+    "deterministic_tie_break": "No directional winner is assigned when the score difference is less than one point."
+  },
+  "admission": {
+    "screen": "At least two of three treatment wins against each control and zero critical regressions.",
+    "final": "At least four of six treatment wins, median paired gain at least five points against each control, and zero treatment critical errors."
+  },
+  "blinding": {
+    "judge_receives_expected_decision_after_outputs_are_frozen": true,
+    "judge_receives_case_critical_error_after_outputs_are_frozen": true,
+    "answer_keys_sent_to_generation_model": false
+  },
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

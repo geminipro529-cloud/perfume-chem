@@ -1,0 +1,134 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "interaction-atlas-v1-package-20260810",
+  "recorded_at": "2026-08-10T14:00:00+07:00",
+  "package": {
+    "file_name": "Perfumery_Interaction_Layering_Atlas_v1_Package.zip",
+    "locator": "incoming_review/Perfumery_Interaction_Layering_Atlas_v1_Package.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 679235,
+    "sha256": "d9d3b55cb37f6dbcb0f2f9317162afdebe9ce2ff8092647d2fbdfd5042b11e6f",
+    "media_type": "application/zip",
+    "archive_entry_count": 23,
+    "archive_file_count": 23,
+    "declared_payload_count": 7,
+    "package_root": null,
+    "embedded_integrity_records": [
+      {
+        "path": "manifest.json",
+        "byte_size": 567,
+        "sha256": "dd58e73bdc0815cf67453fac8fb6c29e907523c99982b3a110acbf854113ae19",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "SHA256SUMS.json",
+        "byte_size": 838,
+        "sha256": "4d6affe336394c13c2179f38343aaa09af32038e0f966c80b90970433a61f0ee",
+        "role": "CHECKSUM_LEDGER"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "SECONDARY_RECONSTRUCTION",
+    "independence_group": "chatgpt:6a753b7a-5b04-83ec-8e4c-61fcebc1aa50:interaction-atlas-v1",
+    "conversation_id": "6a753b7a-5b04-83ec-8e4c-61fcebc1aa50",
+    "turn_id": null,
+    "message_id": null,
+    "lineage_resolution": "PACKAGE_BYTES_LOCAL_CONVERSATION_ATTRIBUTION_ONLY",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "The package does not declare a reusable rights grant; possession and hash verification do not establish redistribution or source-admission permission.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Each of the 27 underlying literature or patent records requires its own source and rights receipt before B1 staging."
+    }
+  },
+  "admission": {
+    "state": "LOCAL_BYTES_PRESENT_NOT_GOVERNED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "UNDERLYING_SOURCE_BYTES_AND_RIGHTS_NOT_SEPARATELY_ADMITTED",
+      "PAIRWISE_EMPIRICAL_VALIDATION_ABSENT",
+      "INVENTORY_PARENT_V3_SUPERSEDED_FOR_EXECUTION"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v3 (1)(1).xlsx",
+      "byte_size": 148042,
+      "sha256": "90049fd0445a1c69eea52ea1fb88909f51a49810ea77503e6aee690f4a00b21f",
+      "relation": "DECLARES_INVENTORY_PARENT",
+      "support_scope": "Package generation ancestry only; Inventory V3 cannot establish current V5 stock executability.",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "group_count": 23,
+    "pair_count": 253,
+    "unordered_pair_geometry": "23_CHOOSE_2_COMPLETE",
+    "priority_pair_count": 55,
+    "general_pair_count": 198,
+    "evidence_enriched_count": 68,
+    "structured_hypothesis_count": 185,
+    "source_record_count": 27,
+    "candidate_source_ids": [
+      "MIX_SUPPRESSION",
+      "OR_MIXTURE_MODULATION",
+      "CONFIGURAL_MIXTURE",
+      "SELECTIVE_ADAPTATION",
+      "CROSS_ADAPTATION",
+      "RECEPTOR_COMPETITION",
+      "NASAL_METABOLISM",
+      "TRIGEMINAL_MODULATION",
+      "ALDEHYDE_MASKING",
+      "FRAGRANCE_EVAPORATION",
+      "RESIDUAL_SKIN",
+      "BODY_ODOR_PERFUME",
+      "HEDIONE_VARIATION",
+      "MUSK_OR5A2",
+      "MUSK_RECEPTOR_TRILOGY",
+      "MUSK_MECHANISM",
+      "HUMAN_OR_HELIONAL",
+      "SPECIFIC_ANOSMIA_SALICYLATE",
+      "SPECIFIC_ANOSMIA_PLASTICITY",
+      "SANDALWOOD_SAR_1",
+      "SANDALWOOD_SAR_2",
+      "SANDALWOOD_COMPOSITION",
+      "PEACH_LACTONE_IONONE",
+      "METHYL_SALICYLATE_FLORAL",
+      "IRONE_PATENT",
+      "MUGUET_PATENT",
+      "WHITE_PETAL_PATENT"
+    ],
+    "logical_cross_format_check": {
+      "rows": 253,
+      "fields": 19,
+      "json_csv_mismatched_cells": 0
+    },
+    "empirical_boundary": {
+      "measured_headspace": 0,
+      "strict_oav": 0,
+      "physical_pair_passes": 0,
+      "perfumer_style_case_studies_completed": 0
+    },
+    "hold_state": "SECONDARY_RECONSTRUCTION_CANDIDATE_ONLY"
+  },
+  "receipt_sha256": "70941bf51b5ec2d438bc7a815399aa3e2f4c4156f9652a89c91919623ff763c7"
+}

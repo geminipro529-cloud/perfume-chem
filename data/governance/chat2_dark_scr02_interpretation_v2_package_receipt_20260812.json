@@ -1,0 +1,133 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "chat2-dark-scr02-interpretation-v2-exact-recovery-20260812",
+  "recorded_at": "2026-08-12T16:40:00+07:00",
+  "package": {
+    "file_name": "ACCORD_INTEL_DARK_DARK-SCR-02_CASTOREUM_SUEDERAL_INTERPRETATION_v2_20260812.zip",
+    "locator": "incoming_review/chatgpt/20260812T164000Z-dark-scr02-interpretation-v2-6a74ba3d/ACCORD_INTEL_DARK_DARK-SCR-02_CASTOREUM_SUEDERAL_INTERPRETATION_v2_20260812.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 12330,
+    "sha256": "741a357d8099b30081e1f44d4aace97d18b8bdc7f0d6a4e30a6c6aad81cb67ad",
+    "media_type": "application/zip",
+    "archive_entry_count": 7,
+    "archive_file_count": 7,
+    "declared_payload_count": 6,
+    "package_root": null,
+    "embedded_integrity_records": [
+      {
+        "path": "SHA256SUMS.json",
+        "byte_size": 1288,
+        "sha256": "8ffc89dc5ea973467fcc558a5736c5e208279aa871131de89faa457409519d0f",
+        "role": "CHECKSUM_LEDGER"
+      },
+      {
+        "path": "PACKAGE_MANIFEST.json",
+        "byte_size": 4154,
+        "sha256": "906ef9c41e14826270e8204ac68e02c4cba5564a1d655c9ea23115f68766ec9c",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "VALIDATION_REPORT.json",
+        "byte_size": 5151,
+        "sha256": "9ea6a5cba2fb58a189579f54789a27a505c5e9fe77220d814c4fc5305a8ea1aa",
+        "role": "MANIFEST"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a74ba3d-4110-83ec-a421-ddc02fcd224f:dark-scr02-interpretation-v2",
+    "conversation_id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+    "turn_id": null,
+    "message_id": null,
+    "lineage_resolution": "EXACT_LOCAL_CHATGPT_PROJECT_OUTPUT_COPY_AND_LOCAL_HASH_LEDGER_NATIVE_GRAPH_REPLAY",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "Exact possession and integrity replay do not establish source reuse, redistribution, publication, study execution, or canonical import permission.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Retain as an authority-false append-only interpretation package. Its cited preprint requires separate B1 source-version and rights admission before scientific projection."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_CLEAR_FOR_RECEIPT_REVIEW_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "PARENT_V1_NATIVE_GRAPH_PARTIAL_MEMBER_SCAN_HOLD",
+      "SUEDERAL_CARRIER_LOT_AND_EXACTSTOCKREF_UNRESOLVED",
+      "CASTOREUM_PRODUCT_BASIS_PREPARATION_NOT_EXECUTED",
+      "NO_PHYSICAL_OBSERVATIONS_MEASUREMENTS_DECISIONS_OR_RELEASE_EVIDENCE"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "ACCORD_INTEL_CHAT2_DARK_SCREEN02_EVIDENCE_REPAIR_v1.zip",
+      "byte_size": 53799,
+      "sha256": "dd9fb19c03da6c401aa1bdb718446b830148cc2856be6c525abf836788ce90fb",
+      "relation": "EXACT_PARENT_REFERENCED_NOT_INCLUDED_OR_MUTATED",
+      "support_scope": "Exact experiment-design ancestry only; native v1 scan remains GRAPH_COMPLETE_QUARANTINED and no result authority follows.",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+      "byte_size": 199635,
+      "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "relation": "PACKAGE_DECLARED_V5_STOCK_AUTHORITY_PARENT",
+      "support_scope": "Preserves Castoreum Synthetic as owned opaque product basis and Suederal 10% as owned while execution identity remains held.",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "CHAT2_DARK_SCR02_APPEND_ONLY_INTERPRETATION_EXACT_BYTES_CLEAR_FOR_RECEIPT_REVIEW_NOT_ADMITTED",
+    "validation_state": "PASS_WITH_EXECUTION_AND_INTERPRETATION_HOLDS",
+    "physical_evidence_state": "NOT_TESTED",
+    "byte_integrity_verified": true,
+    "zip_crc_clean": true,
+    "embedded_ledger_entries": 6,
+    "embedded_ledger_mismatches": 0,
+    "validation_checks_passed": 25,
+    "validation_checks_failed": 0,
+    "parent_v1_mutated": false,
+    "practical_endpoint": "USEFULNESS_OR_COLLISION_ONLY_NOT_NONLINEAR_INTERACTION_PROOF",
+    "linear_challenge_state": "CANDIDATE_DEVIATION_ONLY",
+    "confirmed_nonlinearity_from_v1": "NOT_ESTIMABLE",
+    "source_prior": {
+      "doi": "10.64898/2026.07.03.736426",
+      "publication_state": "NOT_PEER_REVIEWED",
+      "admission_state": "IDENTIFIED_NOT_B1_ADMITTED",
+      "transportability": "UNRESOLVED_FOR_SUEDERAL_CASTOREUM_PRODUCT_BASES"
+    },
+    "capture_manifest": {
+      "path": "incoming_review/chatgpt/20260812T164000Z-dark-scr02-interpretation-v2-6a74ba3d/capture_manifest.json",
+      "byte_size": 1800,
+      "sha256": "a4f418ac2311b00c45501e92e1216908ac31bb2965779d4566ace5dd49cacf1c"
+    },
+    "native_graph": {
+      "status": "CLEAR_FOR_RECEIPT_REVIEW",
+      "nodes": 1,
+      "edges": 0,
+      "all_nodes_terminal": true,
+      "finding_codes": [],
+      "promotion_allowed": false
+    }
+  },
+  "receipt_sha256": "f8667af195b78983c36b076f555e79a8a36d550c3af23c25dee2c822ee2fed82"
+}

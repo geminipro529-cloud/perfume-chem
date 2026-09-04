@@ -1,0 +1,155 @@
+{
+  "schema_version": "perfume_chem_sol_xhigh_module_download_adjudication_v1",
+  "recorded_at_utc": "2026-08-24T07:26:40.5276110Z",
+  "decision": "NO_INCOMING_MODULE_ADMITTED_OR_RETAINED",
+  "decision_basis": "No incoming condition cleared the frozen requirement to beat both plain Sol xhigh and the installed authority stack. Failed and unvalidated module content was not copied into the repository.",
+  "source_artifacts": [
+    {
+      "external_path": "C:/Users/ASUS/Downloads/Sol_xhigh_Perfumery_Module_Admission_v1_Package.zip",
+      "bytes": 96210,
+      "sha256": "67760bd6580bbbcf2a4959ebb036e3b5773a62b71ebdac1d3b2475e2180fc338",
+      "zip_entry_count": 23,
+      "zip_structure": "PASS",
+      "repository_copy_retained": false
+    },
+    {
+      "external_path": "C:/Users/ASUS/Downloads/Perfumery_Formula_Control_Ensemble_v2_1.md",
+      "bytes": 4906,
+      "sha256": "e3f79e12e3ab1f4ed58b04f2297e99fa298b5352277ad015752237027d1d872e",
+      "matches_zip_member_sha256": true,
+      "benchmark_state": "CANDIDATE_NOT_FULL_BENCHMARK_CLEARED",
+      "repository_copy_retained": false
+    },
+    {
+      "external_path": "C:/Users/ASUS/Downloads/OAV_TIME_DOSE_ERROR_SENTINEL_LITERATURE_BASIS_v1.md",
+      "bytes": 40307,
+      "sha256": "1094ef77c35b955ca0b6e13bc4d79981e6c78f2fcbaccaf6d34b5a175fa2e7c9",
+      "benchmark_state": "NOT_COMPARED_WITH_SOL_XHIGH",
+      "repository_copy_retained": false
+    }
+  ],
+  "package_validation": {
+    "deterministic_checks_recomputed_locally": true,
+    "deterministic_checks": {
+      "A_existing_authority": "36/50",
+      "B_existing_plus_expanded_12": "48/50",
+      "C_plain_sol_xhigh": "29/50",
+      "D_repaired_10": "32/50"
+    },
+    "final_blind_rows": 64,
+    "bad_row_totals": 0,
+    "final_scores": {
+      "A_existing_authority": {
+        "mean": 93.8125,
+        "median": 94,
+        "critical_regressions": 0
+      },
+      "B_existing_plus_expanded_12": {
+        "mean": 94.8125,
+        "median": 96.5,
+        "critical_regressions": 0
+      },
+      "C_plain_sol_xhigh": {
+        "mean": 85.1875,
+        "median": 86.5,
+        "critical_regressions": 0
+      },
+      "D_repaired_10": {
+        "mean": 90.9375,
+        "median": 98,
+        "critical_regressions": 4
+      }
+    },
+    "directed_comparisons": [
+      {
+        "candidate": "B_existing_plus_expanded_12",
+        "baseline": "C_plain_sol_xhigh",
+        "wins_losses_ties": "15-1-0",
+        "median_gain": 10.5,
+        "gate": "PASS"
+      },
+      {
+        "candidate": "B_existing_plus_expanded_12",
+        "baseline": "A_existing_authority",
+        "wins_losses_ties": "12-2-2",
+        "median_gain": 2,
+        "required_median_gain": 5,
+        "gate": "FAIL"
+      },
+      {
+        "candidate": "D_repaired_10",
+        "baseline": "C_plain_sol_xhigh",
+        "wins_losses_ties": "12-4-0",
+        "median_gain": 10,
+        "critical_regression_cases": [
+          "C11",
+          "C12",
+          "C13",
+          "C15"
+        ],
+        "gate": "FAIL"
+      }
+    ],
+    "full_ensemble_admission_result": "FAIL",
+    "execution_receipts_present": false,
+    "clean_projectless_context_proven": false,
+    "exact_model_identity_independently_proven": false,
+    "physical_liking_state": "NOT_TESTED"
+  },
+  "candidate_dispositions": [
+    {
+      "candidate": "expanded_12_module_bundle",
+      "disposition": "NOT_ADMITTED_NOT_RETAINED",
+      "reason": "Passed against plain Sol xhigh but failed the frozen installed-authority comparison."
+    },
+    {
+      "candidate": "repaired_10_module_bundle",
+      "disposition": "REJECTED_NOT_RETAINED",
+      "reason": "Introduced four critical invented-stock regressions."
+    },
+    {
+      "candidate": "perfumery_formula_control_ensemble_v2_1",
+      "disposition": "NOT_ADMITTED_NOT_RETAINED",
+      "reason": "Candidate was not rerun through the locked full benchmark."
+    },
+    {
+      "candidate": "oav_time_dose_error_sentinel_v1",
+      "disposition": "NOT_ADMITTED_NOT_RETAINED",
+      "reason": "No Sol xhigh comparison was supplied; core active-dose and OAV screening behavior already exists in the installed pre-mix guard and headspace authority stack."
+    }
+  ],
+  "installed_registry_snapshot": {
+    "path": "configs/complexity/complexity_module_registry_v2.json",
+    "sha256": "71da6cd55c4e12d5560ba843ff96095eec7d065d457989ea6e16320337d37806",
+    "classified_module_count": 23,
+    "runtime_eligible_module_ids": [
+      "complexity-experimental-design"
+    ],
+    "changed_by_this_adjudication": false
+  },
+  "provider_gate": {
+    "project_id": "perfume-chem-cheapluna-isolated",
+    "profile": "cheapluna-chat",
+    "readiness": "BLOCKED",
+    "reason": "budget-unsafe",
+    "unknown_reservations": 1,
+    "open_reserved_nano_usd": 2385180,
+    "provider_calls_made": 0
+  },
+  "repository_effect": {
+    "incoming_module_files_added": [],
+    "incoming_module_files_deleted": [],
+    "registry_changed": false,
+    "governance_receipt_only": true
+  },
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

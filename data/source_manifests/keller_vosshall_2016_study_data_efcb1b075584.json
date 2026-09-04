@@ -1,0 +1,63 @@
+{
+  "schema_version": "scientific_source_manifest_v1",
+  "source_id": "keller-vosshall-2016-pmc4977894-study-data-efcb1b075584",
+  "source_type": "PRIMARY_RESEARCH_DATASET",
+  "title": "Keller and Vosshall raw psychophysical study data from 55 subjects",
+  "language": "en",
+  "review_state": "UNREVIEWED",
+  "independence_group": "keller-vosshall-2016",
+  "authors": [
+    "Andreas Keller",
+    "Leslie B. Vosshall"
+  ],
+  "issuing_organization": "BioMed Central",
+  "container_title": "Olfactory perception of chemically diverse molecules - Additional file 1",
+  "publisher_or_authority": "Springer Nature",
+  "publication_date": "2016-08-08",
+  "identifiers": {
+    "doi": "10.1186/s12868-016-0287-2",
+    "pmid": "27502425",
+    "pmcid": "PMC4977894",
+    "supplementary_file": "12868_2016_287_MOESM1_ESM.xlsx"
+  },
+  "revision": {
+    "kind": "content_digest",
+    "value": "efcb1b07558431c869c5578abcd3fa1e4405a38cc68a8b1c1621594c673d9f62"
+  },
+  "retrieved_at": "2026-08-09T16:20:45.3250956+07:00",
+  "rights": {
+    "reuse_status": "PERMITTED",
+    "license_or_reuse_restriction": "CC0 1.0 applies to data made available in the CC BY article unless otherwise stated; no file-specific exception was found in the article XML.",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "redistribution_allowed": true,
+    "spdx_identifier": "CC0-1.0",
+    "notes": "The data license is source-specific and does not transfer to DREAM repository packaging or PubChem records. Preserve the article citation."
+  },
+  "transformation": {
+    "module": "engine.ingestion.scientific",
+    "version": "scientific-source-staging-v1",
+    "mode": "source-bytes-only"
+  },
+  "dataset_context": {
+    "measurement_kind": "raw human psychophysical ratings",
+    "stimulus_kind": "odor molecules at study dilutions",
+    "subject_count": 55,
+    "intended_use": [
+      "review-only source preservation",
+      "Geraniol property-specific lineage comparison"
+    ],
+    "authority_limit": "Raw study data only; no broad DREAM derivation, owned-stock identity, ODT, OAV, safety, similarity, or formula-release authority."
+  },
+  "artifacts": [
+    {
+      "artifact_id": "study-data-xlsx",
+      "path": "12868_2016_287_MOESM1_ESM.xlsx",
+      "role": "PRIMARY_DATA",
+      "media_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "byte_size": 9461137,
+      "sha256": "efcb1b07558431c869c5578abcd3fa1e4405a38cc68a8b1c1621594c673d9f62",
+      "source_url": "https://static-content.springer.com/esm/art%3A10.1186%2Fs12868-016-0287-2/MediaObjects/12868_2016_287_MOESM1_ESM.xlsx",
+      "preserved_artifact_path": "data/external/keller_vosshall_2016/12868_2016_287_MOESM1_ESM.xlsx"
+    }
+  ]
+}

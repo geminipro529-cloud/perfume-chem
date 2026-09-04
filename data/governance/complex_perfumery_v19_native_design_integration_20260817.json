@@ -1,0 +1,197 @@
+{
+  "schema_version": "perfume_chem_complex_perfumery_v19_native_design_integration_v1",
+  "recorded_at": "2026-08-17T11:01:35+07:00",
+  "state": "CLEAN_ROOM_NATIVE_DESIGN_CONTRACTS_INSTALLED_PACKAGE_CONTENT_QUARANTINED",
+  "source_artifacts": [
+    {
+      "file_name": "Perfume_Complexity_Model_Discovery_Admission_Engine_Aug2026_v1_2.zip",
+      "sha256": "108624938e183af41da63f5ef77e31c875b196389f3467d7acd896ccf7b274df",
+      "rights_state": "UNKNOWN",
+      "admission_state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+      "archive_graph_state": "GRAPH_COMPLETE_QUARANTINED",
+      "promotion_allowed": false
+    },
+    {
+      "file_name": "Floral_Heart_Complexity_Discovery_Atlas_Aug2026_v1.xlsx",
+      "sha256": "91d9cd54605663c9221210fc4e811e91e776530fd9c3aabd13ca450a1373aa7b",
+      "rights_state": "UNKNOWN",
+      "admission_state": "DISCOVERY_ONLY_NOT_IMPLEMENTED",
+      "archive_graph_state": "CLEAR_FOR_RECEIPT_REVIEW",
+      "promotion_allowed": false
+    }
+  ],
+  "research_basis": [
+    {
+      "topic": "constrained mixture experiment design",
+      "source": "https://www.itl.nist.gov/div898/handbook/pri/section5/pri54.htm",
+      "source_class": "OFFICIAL_TECHNICAL_GUIDANCE",
+      "use": "Supports explicit mixture constraints, declared responses, and model-adequacy planning; it does not validate a perfume mechanism."
+    },
+    {
+      "topic": "ratio-specific configural odor-mixture perception",
+      "source": "https://pubmed.ncbi.nlm.nih.gov/21622602/",
+      "source_class": "PRIMARY_RESEARCH",
+      "use": "Supports preserving participant identity, ratio, and matrix context rather than multiplying pair scores."
+    },
+    {
+      "topic": "expertise-dependent mixture perception",
+      "source": "https://pubmed.ncbi.nlm.nih.gov/21873604/",
+      "source_class": "PRIMARY_RESEARCH",
+      "use": "Supports keeping assessor expertise strata separate in the existing sensory owner."
+    },
+    {
+      "topic": "verbal context effects on hedonic odor ratings",
+      "source": "https://pubmed.ncbi.nlm.nih.gov/14640850/",
+      "source_class": "PRIMARY_RESEARCH",
+      "use": "Supports binding presentation context in the existing protocol instead of treating context as formula truth."
+    },
+    {
+      "topic": "selective adaptation and component reemergence",
+      "source": "https://pubmed.ncbi.nlm.nih.gov/17303501/",
+      "source_class": "PRIMARY_RESEARCH",
+      "use": "Supports retaining adaptation as an observation protocol concern rather than a static formula score."
+    }
+  ],
+  "native_integration": {
+    "clean_room_module": {
+      "path": "engine/scientific_validation/complexity_design_contracts.py",
+      "sha256": "ef905b8adb6c7c8bdf02372c56040295054fdbeb4dcfe39c3410cb09390ae968",
+      "source_origin": "SOL_CLEAN_ROOM_NATIVE_IMPLEMENTATION",
+      "package_source_lines_copied": 0
+    },
+    "native_export": {
+      "path": "engine/scientific_validation/__init__.py",
+      "sha256": "1813ca9aab1c49f40ed737b404083522749e4549ac8b379d4eb91cf8eeef0150"
+    },
+    "focused_test": {
+      "path": "tests/test_complexity_design_contracts.py",
+      "sha256": "60a2f43f84cf992745cb8f524a60fdd905d7f286df6c139504cbb1249ac60d60"
+    },
+    "canonical_adapter": "engine.pipeline.preflight.FormulaDoseReceipt",
+    "new_pipeline_scripts": 0,
+    "new_pipeline_owners": 0,
+    "new_database_owners": 0,
+    "new_writable_persistence_paths": 0,
+    "package_modules_imported": 0,
+    "package_schemas_imported": 0,
+    "package_registries_imported": 0,
+    "package_formulas_imported": 0,
+    "package_source_ledger_imported": 0
+  },
+  "integration_decisions": [
+    {
+      "candidate": "causal isolate validation",
+      "decision": "INTEGRATED_CLEAN_ROOM_NATIVE",
+      "owner": "engine.scientific_validation.complexity_design_contracts",
+      "boundary": "Exact planned-volume stock, active-equivalent, carrier, and declared invariant equality; design readiness only."
+    },
+    {
+      "candidate": "formula signature and anti-chassis diagnostics",
+      "decision": "INTEGRATED_CLEAN_ROOM_NATIVE",
+      "owner": "engine.scientific_validation.complexity_design_contracts",
+      "boundary": "Material, supplied-stock, active-equivalent, sensory-system, recognizer, and phase views remain separate; no threshold or sensory-equivalence claim."
+    },
+    {
+      "candidate": "n-ary interaction contract",
+      "decision": "INTEGRATED_CLEAN_ROOM_NATIVE",
+      "owner": "engine.scientific_validation.complexity_design_contracts",
+      "boundary": "At least three ratio-bound participants; pair records cannot become performed evidence; observed scope requires causal, design, execution, observation, matrix, formula, and OAV bindings."
+    },
+    {
+      "candidate": "context assessor spatial matrix temporal adaptation overlays",
+      "decision": "REUSE_EXISTING_NATIVE_OWNERS_NO_DUPLICATE_SUBSYSTEM",
+      "owner": "engine.sensory.panel_contract plus order_balance temporal_observations within_sniff and complexity_model_admission",
+      "boundary": "Existing hashes, strata, environment and dose manifests, time-resolved observations, and claim scopes remain controlling; no package overlay import."
+    }
+  ],
+  "archive": {
+    "path": "archive/20260817_v19_native_complexity_design_prechange/engine/scientific_validation/__init__.py",
+    "source_prechange_sha256": "40173eaa585c6e30068eba19728c7e78ac2c2aa89aa8e2c918566ae63585676c",
+    "archived_sha256": "40173eaa585c6e30068eba19728c7e78ac2c2aa89aa8e2c918566ae63585676c",
+    "restoration_verified": true
+  },
+  "deepluna_chat": {
+    "project_id": "perfume-chem-cheapluna-isolated",
+    "runtime_build_hash": "68b1c471b72378de081d08ef031b28f7d2d1a044afa8a97d10487ff2c7154b5a",
+    "preflight_readiness": "READY",
+    "open_reserved_nano_usd": 0,
+    "unknown_reservations": 0,
+    "jobs": [
+      {
+        "job_id": "DS-b2885caab0df62c61b49df9e22ea4e8f",
+        "execution_status": "CONTRACT_ERROR",
+        "accepted_result": false
+      },
+      {
+        "job_id": "DS-d372206df92b12b930bbdbe8d0933646",
+        "execution_status": "CONTRACT_ERROR",
+        "accepted_result": false
+      }
+    ],
+    "provider_runs": 0,
+    "provider_api_calls": 0,
+    "provider_tokens": 0,
+    "alternate_provider_runs": 0,
+    "codex_subagents": 0,
+    "acceptance_authority": "SOL_LOCAL_ONLY"
+  },
+  "verification": {
+    "focused_contract_tests": "13 passed",
+    "integration_and_v19_receipt_replay_tests": "22 passed",
+    "native_complexity_and_sensory_regressions": "37 passed",
+    "v16_through_v19_capture_regressions": "21 passed",
+    "canonical_dose_oav_sensory_regressions": "125 passed",
+    "ruff_check": "PASS",
+    "ruff_format_check": "PASS",
+    "py_compile": "PASS",
+    "isolated_mypy": "PASS",
+    "mypy_dependency_scan": "PREEXISTING_BASELINE_FAILURE_331_ERRORS_IN_29_DEPENDENCY_FILES_NO_ERROR_REPORTED_IN_NEW_MODULE",
+    "quick_project_verify": {
+      "passed_checks": 9,
+      "failed_checks": 1,
+      "failed_check": "formula-artifact-validation",
+      "failure_scope": "PREEXISTING_STALE_QUARANTINED_AND_ONE_TAMPERED_FORMULA_ARTIFACT_SET",
+      "engine_compile": "PASS",
+      "engine_lint": "PASS",
+      "engine_typecheck": "PASS_58_SOURCE_FILES",
+      "scientific_audit": "PASS_28_TESTS",
+      "material_data_validation": "PASS_80_TESTS",
+      "knowledge_rule_validation": "PASS_77_TESTS",
+      "golden_formula_regression": "PASS_13_TESTS",
+      "golden_api_regression": "PASS_1_TEST",
+      "golden_output_sha256": "9cf31e92d3c8e814f3bc2654ffba6f3fbd766de8c705630ae78fb5c24a1dfc61",
+      "golden_output_changed": false,
+      "release_readiness": "BLOCKED"
+    }
+  },
+  "truth_boundary": {
+    "design_contracts_installed": true,
+    "package_content_installed": false,
+    "source_rights_resolved": false,
+    "package_tests_replayed_as_repository_authority": false,
+    "physical_results_created": 0,
+    "sensory_results_created": 0,
+    "formula_or_inventory_mutations": 0,
+    "strict_empirical_oav_created": false,
+    "release_state_changed": false
+  },
+  "authority": {
+    "source_admission": false,
+    "package_installation": false,
+    "schema": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "physical_execution": false,
+    "sensory": false,
+    "analytical": false,
+    "measured_headspace": false,
+    "strict_empirical_oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "release": false
+  },
+  "semantic_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_SEMANTIC_RECEIPT_SHA256_OMITTED",
+  "semantic_receipt_sha256": "436857be151bc2e7edb06de888c61f16a520e287de62e14c8b259f91ac3b18f1"
+}

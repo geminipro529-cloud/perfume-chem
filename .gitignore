@@ -109,3 +109,20 @@ key.pub
 
 
 .pub
+
+# Large executables
+incoming_review/*.exe
+
+# Local credentials and imported review payloads are never source artifacts.
+incoming_review/*api-key*.txt
+incoming_review/**/.*env*
+incoming_review/**/*.pem
+incoming_review/**/*.key
+incoming_review/**/*.p12
+incoming_review/**/*.pfx
+
+# Machine/session state and regenerated review caches.
+.codex/environments/
+.playwright-mcp/
+.tmp-*/
+UsersASUSAppDataLocalTemp*/

@@ -1,0 +1,123 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "complex-perfumery-dhp25-exact-v5-audit-20260812",
+  "recorded_at": "2026-08-12T15:35:00+07:00",
+  "package": {
+    "file_name": "COMPLEX_PERFUMERY_DHP25_EXACT_V5_FORMULA_AUDIT_V1_20260811.zip",
+    "locator": "incoming_review/chatgpt/20260811T153000Z-continuation-exact-byte-recovery-6a762995/COMPLEX_PERFUMERY_DHP25_EXACT_V5_FORMULA_AUDIT_V1_20260811.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 2345643,
+    "sha256": "7e38c19a83b25de1edbc190f568b5725655d5e60dca63dec951e8f7c01a98efc",
+    "media_type": "application/zip",
+    "archive_entry_count": 28,
+    "archive_file_count": 28,
+    "declared_payload_count": 27,
+    "package_root": "COMPLEX_PERFUMERY_DHP25_EXACT_V5_FORMULA_AUDIT_V1_20260811",
+    "embedded_integrity_records": [
+      {
+        "path": "COMPLEX_PERFUMERY_DHP25_EXACT_V5_FORMULA_AUDIT_V1_20260811/SHA256SUMS.json",
+        "byte_size": 4745,
+        "sha256": "6869a619d8df937ef64d00aa84a61b3147340024c88f03c64ce67ff2ee5f858c",
+        "role": "CHECKSUM_LEDGER"
+      },
+      {
+        "path": "COMPLEX_PERFUMERY_DHP25_EXACT_V5_FORMULA_AUDIT_V1_20260811/sources/SOURCE_MANIFEST.json",
+        "byte_size": 1401,
+        "sha256": "52338e2086ff13cf5bcfeafb996042cd04f2fb607cc7572399aa2226b1fdb604",
+        "role": "MANIFEST"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "SECONDARY_RECONSTRUCTION",
+    "independence_group": "chatgpt:6a762995-0d8c-83ec-aee3-66c90e56811e:dhp25-exact-v5",
+    "conversation_id": "6a762995-0d8c-83ec-aee3-66c90e56811e",
+    "turn_id": "c3f478ba-8b2b-40e0-b19b-8bcaeea487cd",
+    "message_id": "75f5f707-d67e-4916-939e-b8b2e4b8d051",
+    "lineage_resolution": "EXACT_CONVERSATION_TURN_RESPONSE_AND_CONTENT_REFERENCE_CAPTURED",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "The package contains no verified rights grant. Exact possession and hash verification do not authorize importing its reconstructed formula, generated code, spreadsheets, or images.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Retain target/build/discrepancy content as quarantined reconstruction ancestry only."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "PACKAGE_GENERATED_CODE_NOT_ACCEPTED",
+      "TARGET_AND_BUILD_ROWS_REQUIRE_NATIVE_HASH_LINEAGE_REBIND",
+      "FLOAT_QUANTITIES_ARE_NOT_EXACT_DOSE_AUTHORITY",
+      "STOCK_CARRIER_PRODUCT_BASIS_AND_PREPARATION_HOLDS_OPEN",
+      "NESTED_CHILD_RECEIPTS_REQUIRED",
+      "PARTIAL_MEMBER_SCAN_HOLD",
+      "PHYSICAL_SIMILARITY_STRICT_OAV_STABILITY_SAFETY_AND_RELEASE_NOT_TESTED"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+      "byte_size": 199635,
+      "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "relation": "PACKAGE_DECLARED_V5_SOURCE_PARENT",
+      "support_scope": "Inventory cross-reference ancestry only; current native stock and preparation receipts control execution readiness.",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "Violet_Complexities_and_Dior_Homme_Parfum_2025_Complexity_Reconstruction_v1_Package.zip",
+      "byte_size": 89913,
+      "sha256": "ec27bcd4dd1b9a3e54d4de49ace3293d91af868ba6c6005a581b1646d3905dcd",
+      "relation": "EMBEDS_SOURCE_PACKAGE",
+      "support_scope": "Earlier computational reconstruction ancestry; independent source-card receipt is preserved without duplicating formula or scientific authority.",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "DHP25_EXACT_V5_AUDIT_EXACT_BYTES_QUARANTINED_TARGET_BUILD_DISCREPANCY_ANCESTRY_ONLY",
+    "target_rows": 70,
+    "build_rows": 70,
+    "active_fraction_conflict_rows": [13],
+    "formula_gate": "HOLD_BEFORE_MODELED_STATE_CONSTRUCTION",
+    "modeled_ingredients_emitted": false,
+    "target_formula_mutated": false,
+    "current_build_formula_mutated": false,
+    "physical_execution_authority": false,
+    "strict_oav_claimed": false,
+    "release_authority": false,
+    "capture_graph_binding": {
+      "capture_manifest_path": "incoming_review/chatgpt/20260811T153000Z-continuation-exact-byte-recovery-6a762995/capture_manifest.json",
+      "capture_manifest_byte_size": 7689,
+      "capture_manifest_sha256": "27f3a34f5f4699090f9e8eb7d1478b2e99ce30535cc4eabe676329b7eb383bbc",
+      "root_package_sha256": "7e38c19a83b25de1edbc190f568b5725655d5e60dca63dec951e8f7c01a98efc",
+      "graph_status": "GRAPH_COMPLETE_QUARANTINED",
+      "node_count": 5,
+      "edge_count": 5,
+      "max_depth": 2,
+      "all_nodes_terminal": true,
+      "graph_findings": [],
+      "promotion_allowed": false
+    },
+    "native_handling": "TARGET_BUILD_FORMULA_EDGE_C10_P3_C0_ANCESTRY_REBIND_ONLY"
+  },
+  "receipt_sha256": "fbf56a4d00e59cc76113c12047d1afd8e68ae1f5f06d6b9d0f30a28aaef09043"
+}

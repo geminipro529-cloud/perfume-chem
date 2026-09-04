@@ -1,0 +1,87 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "complex-perfumery-chat0-exact-byte-recovery-recheck-20260816",
+  "recorded_at": "2026-08-16T14:15:00+07:00",
+  "package": {
+    "file_name": "ACCORD_INTEL_CHAT0_EXACT_BYTE_RECOVERY_RECHECK_20260816T060719Z.zip",
+    "locator": "incoming_review/chatgpt/20260816T141500+0700-v13-post-v12-five-package-recovery-multi-chat/ACCORD_INTEL_CHAT0_EXACT_BYTE_RECOVERY_RECHECK_20260816T060719Z.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 2629,
+    "sha256": "59d253cee98f04e7b2f4269c739d471edb1d98fe564cfa11990169e1941d2b07",
+    "media_type": "application/zip",
+    "archive_entry_count": 4,
+    "archive_file_count": 4,
+    "declared_payload_count": 3,
+    "package_root": "ACCORD_INTEL_CHAT0_EXACT_BYTE_RECOVERY_RECHECK_20260816T060719Z",
+    "embedded_integrity_records": [
+      {
+        "path": "ACCORD_INTEL_CHAT0_EXACT_BYTE_RECOVERY_RECHECK_20260816T060719Z/REPORT_SHA256SUMS.json",
+        "byte_size": 446,
+        "sha256": "e4e674d12469e6e989666f7d37e6218110f84c43d5b1d06c6a93e6e4dd30adc2",
+        "role": "CHECKSUM_LEDGER"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "SECONDARY_RECONSTRUCTION",
+    "independence_group": "chatgpt:6a74f9c7-7edc-83ec-9964-6ede1e22a069:chat0-exact-byte-recovery-recheck-20260816",
+    "conversation_id": "6a74f9c7-7edc-83ec-9964-6ede1e22a069",
+    "turn_id": "42f0a430-a4c9-4bac-bd57-43f4bdaf9474",
+    "message_id": "a8bce35b-0248-43fc-ae39-4fcff97aec0f",
+    "lineage_resolution": "EXACT_ORIGINAL_RECOVERY_RECEIPT_PACKAGE_DOWNLOADED_FROM_AUTHENTICATED_SOURCE_CARD_HASH_VERIFIED_AND_CAPTURED_AS_BOUNDED_NEGATIVE_SEARCH_EVIDENCE",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "Bounded negative search receipt only; exact bytes do not prove global absence, admission rights, scientific truth, or release authority.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "The report's PCV3 miss is stale relative to current local recovery. The Universal Accord miss remains bounded to the source runtime root."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "BOUNDED_SOURCE_ROOT_CANNOT_PROVE_GLOBAL_ABSENCE",
+      "PCV3_NEGATIVE_RESULT_SUPERSEDED_BY_CURRENT_LOCAL_RECOVERY",
+      "UNIVERSAL_ACCORD_EXACT_BYTES_STILL_UNAVAILABLE",
+      "NO_SOURCE_SCIENCE_OR_RELEASE_AUTHORITY"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [],
+  "evidence_summary": {
+    "classification": "CHAT0_EXACT_BYTE_RECOVERY_RECHECK_EXACT_RECEIPT_BOUNDED_NEGATIVE_SEARCH_ONLY",
+    "source_state": "NO_EXACT_TARGETS_FOUND",
+    "targets": 2,
+    "results": 0,
+    "packages_rebuilt": 0,
+    "packages_repackaged": 0,
+    "current_project_pcv3_state": "EXACT_BYTES_RECOVERED_AND_QUARANTINED_NOT_ADMITTED",
+    "current_project_universal_accord_state": "EXACT_ORIGINAL_BYTES_UNAVAILABLE",
+    "native_graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "promotion_allowed": false,
+    "capture_manifest": {
+      "path": "incoming_review/chatgpt/20260816T141500+0700-v13-post-v12-five-package-recovery-multi-chat/capture_manifest.json",
+      "byte_size": 12948,
+      "sha256": "2ea8051ea61e92ce47f71b7ea6abcb42c05e7d0c9557b83cc7ebc70d97793bcc"
+    }
+  },
+  "receipt_sha256": "a970c26ce21549340ff91611d2509e18d82f40f5f408d850988f00720f4ddcf4"
+}

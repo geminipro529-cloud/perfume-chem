@@ -1,0 +1,103 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "complex-perfumery-nine-perfume-markdown-formula-export-20260816",
+  "recorded_at": "2026-08-16T14:15:00+07:00",
+  "package": {
+    "file_name": "Nine_Perfume_All_MD_Formula_Files_2026-08-16_v1.zip",
+    "locator": "incoming_review/chatgpt/20260816T141500+0700-v13-post-v12-five-package-recovery-multi-chat/Nine_Perfume_All_MD_Formula_Files_2026-08-16_v1.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 364392,
+    "sha256": "8040367862a0a15cf5852dac395a2f630c80898f3ab734755c00299611f9dd17",
+    "media_type": "application/zip",
+    "archive_entry_count": 176,
+    "archive_file_count": 176,
+    "declared_payload_count": 175,
+    "package_root": "Nine_Perfume_All_MD_Formula_Files_2026-08-16_v1",
+    "embedded_integrity_records": [
+      {
+        "path": "Nine_Perfume_All_MD_Formula_Files_2026-08-16_v1/MANIFEST.json",
+        "byte_size": 37122,
+        "sha256": "7254f267269974ec1b25e29704b093c83faa450373a6299e739c8016b7c41ec2",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "Nine_Perfume_All_MD_Formula_Files_2026-08-16_v1/SHA256SUMS.txt",
+        "byte_size": 20699,
+        "sha256": "0081a66b47bec13565825e7dfa06dbacd1d428a687d068afbd94592506c0be43",
+        "role": "CHECKSUM_LEDGER"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a7992db-96b8-83ec-aab0-6a7447b97da1:nine-perfume-markdown-formula-export-20260816-v1",
+    "conversation_id": "6a7992db-96b8-83ec-aab0-6a7447b97da1",
+    "turn_id": null,
+    "message_id": "9ff15e66-2ce6-4d4d-bbaf-2e6f950b9110",
+    "lineage_resolution": "EXACT_ORIGINAL_FILE_CARD_BYTES_RECOVERED_HASH_VERIFIED_AND_CAPTURED_AS_CHILD_EXPORT_OF_THE_V12_BLOCKAGE_CLEARANCE_DESIGN_PACKAGE",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "External AI-generated formula-export and screen-design ancestry; file possession does not grant source, formula, execution, redistribution, or release authority.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Retain exact Markdown geometry only. Native target/build, exact-stock, Laboratory Beta, C0, safety, OAV, and release gates remain controlling."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "MARKDOWN_EXPORT_IS_NOT_CANONICAL_FORMULA",
+      "RAW_VOLUME_GEOMETRY_NOT_ACTIVE_DOSE_AUTHORITY",
+      "EXACTSTOCKREF_AND_PREPARATION_RECEIPTS_REQUIRED",
+      "NO_PHYSICAL_OR_SENSORY_RESULTS",
+      "NO_FORMULA_OR_RELEASE_AUTHORITY"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "Nine_Perfume_Blockage_Clearance_and_Bench_Activation_2026-08-16_v1.zip",
+      "byte_size": 619801,
+      "sha256": "1282620cfdb6b48a4f091c12da73414790f1b00461dba5fd4ed63cbacde0cb8f",
+      "relation": "MARKDOWN_EXPORT_DECLARED_FROM_EXACT_V12_BLOCKAGE_CLEARANCE_SOURCE_GEOMETRY",
+      "support_scope": "FORMULA_EXPORT_AND_SCREEN_DESIGN_ANCESTRY_ONLY",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "NINE_PERFUME_MARKDOWN_FORMULA_EXPORT_EXACT_BYTES_DESIGN_ANCESTRY_ONLY",
+    "package_state": "MARKDOWN_FORMULA_EXPORT_SCREEN_DESIGNS_ONLY_NO_CANONICAL_SELECTION",
+    "perfumes": 9,
+    "arms": 110,
+    "parent_masters": 14,
+    "factor_or_fixed_modules": 33,
+    "preparation_templates": 4,
+    "archive_ledger_entries_verified": 175,
+    "native_graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "promotion_allowed": false,
+    "capture_manifest": {
+      "path": "incoming_review/chatgpt/20260816T141500+0700-v13-post-v12-five-package-recovery-multi-chat/capture_manifest.json",
+      "byte_size": 12948,
+      "sha256": "2ea8051ea61e92ce47f71b7ea6abcb42c05e7d0c9557b83cc7ebc70d97793bcc"
+    }
+  },
+  "receipt_sha256": "3eef4a8737a2035a1cba2aab5938a9d664f55d251d6e737d466659d408180779"
+}

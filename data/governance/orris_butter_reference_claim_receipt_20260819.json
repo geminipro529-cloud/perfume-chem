@@ -1,0 +1,236 @@
+{
+  "schema_version": "external_chat_claim_receipt_v1",
+  "receipt_id": "complex-perfumery-orris-butter-reference-identity-literature-diff-20260819",
+  "recorded_at": "2026-08-19T14:04:38Z",
+  "source_manifest": {
+    "path": "incoming_review/chatgpt/20260819T140438Z-orris-butter-6a8050ce/source_manifest.json",
+    "semantic_receipt_sha256": "969280def5c16e64dba9d4ecfa789e6ac9af716064be772f1ae569b888544e54",
+    "conversation_id": "6a8050ce-526c-83ec-889f-36fe923bc7b8",
+    "conversation_title": "Perfume Chemicals List",
+    "source_message_count": 5,
+    "scientific_claim_message_count": 3
+  },
+  "parents": [
+    {
+      "path": "incoming_review/chatgpt/20260819T140438Z-orris-butter-6a8050ce/source_manifest.json",
+      "byte_size": 5047,
+      "sha256": "36bc5301657170dd78b693eb90301962a49cc45e5a7303efd2ff62cc441e91d2",
+      "relation": "BINDS_AUTHENTICATED_CHATGPT_MESSAGE_IDENTITIES_TEXT_HASHES_AND_CITATION_TARGETS",
+      "authority_state": "SOURCE_POINTER_ONLY"
+    },
+    {
+      "path": ".archive/20260819_orris-butter-source-intake-v1/docs/research/PERFUME_CHEM_CHATGPT_PROJECT_RECONCILIATION_2026-08-10.md",
+      "byte_size": 190771,
+      "sha256": "395456177cc1befb2ae8139464fef96988abe48174b4eebf56bf41d42980ae72",
+      "relation": "ARCHIVE_FIRST_PRECHANGE_RECONCILIATION_SNAPSHOT",
+      "authority_state": "HISTORICAL_PARENT_ONLY"
+    },
+    {
+      "path": "data/governance/inventory_v5_current_stock_snapshot.json",
+      "byte_size": 226125,
+      "sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+      "relation": "CURRENT_ORRIS_LIQUID_PRODUCT_BASIS_INVENTORY_PARENT",
+      "authority_state": "CONTROLLING_LOCAL_INVENTORY_SNAPSHOT"
+    },
+    {
+      "path": "data/governance/inventory_v5_authority_delta_20260811_02.json",
+      "sha256": "388e25561f679f0c46a2c320b49c3ebfc1c8c00c51aa6dd9e9564fbd60aeee92",
+      "relation": "ORRIS_LIQUID_AS_SUPPLIED_PRODUCT_BASIS_AND_STOCK_LINEAGE_HOLD",
+      "authority_state": "CONTROLLING_LOCAL_GOVERNANCE"
+    },
+    {
+      "path": "data/materials/O.yaml",
+      "sha256": "d507afde090bf541bb39bc276a9d2723bbe1dca92b3c345a3f1928e47070d911",
+      "relation": "LEGACY_MATERIAL_REGISTRY_CONTEXT_ONLY",
+      "authority_state": "SUBORDINATE_TO_V5_PRODUCT_BASIS_GOVERNANCE"
+    }
+  ],
+  "supplier_identity": {
+    "verified_variants": [
+      {
+        "sku": "5IA07847",
+        "nominal_strength": "10%",
+        "carrier": "DPG",
+        "availability": "IN_STOCK",
+        "price_usd_per_g": "2.20"
+      },
+      {
+        "sku": "5IA18424",
+        "nominal_strength": "10%",
+        "carrier": "TEC",
+        "availability": "OUT_OF_STOCK",
+        "price_usd_per_g": "2.05"
+      }
+    ],
+    "neat_variant": {
+      "sku": "8IA00344",
+      "carrier": "NONE_DECLARED",
+      "availability": "IN_STOCK",
+      "price_usd_per_g": "21.50",
+      "physical_state": "CREAM_COLOURED_SOLID_MASS"
+    },
+    "ipm_variant_state": "NOT_VERIFIED_IN_BOUNDED_OFFICIAL_CHECK",
+    "nonretrieval_is_absence": false,
+    "exact_lot_irone_fraction_known": false,
+    "nominal_10_percent_basis_verified": false,
+    "supplier_coa_scope": "PROPRIETARY_PERFUME_COMPOUND_AND_DPG_COMPLEX_MIXTURE_NO_IRONE_QUANTITATION",
+    "purchase_receipt_or_label_observed": false
+  },
+  "claim_correction": {
+    "trial_carrier_rule": "MATCH_THE_EXACT_PURCHASED_STOCK_CARRIER; NEVER_DEFAULT_TO_IPM",
+    "pw_dpg_and_tec_are_separate_stock_identities": true,
+    "pw_ipm_identity_is_currently_established": false,
+    "givaudan_8_percent_is_pw_composition_proxy": false,
+    "irone_isomer_percentages_are_whole_butter_mass_percentages": false,
+    "ukrainian_rhizome_oil_is_universal_stock_composition": false,
+    "one_gram_10_percent_stock_equals_point_one_gram_irones": false,
+    "supplier_nominal_strength_supports_exact_active_mass_without_basis": false,
+    "orris_liquid_and_orris_butter_may_be_substituted_as_identity_equivalents": false,
+    "exact_supplier_lot_composition_requires_lot_bound_document_or_measurement": true
+  },
+  "literature_and_supplier_sources": [
+    {
+      "source_id": "SUPPLIER:PW_5IA07847",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=5IA07847",
+      "role": "CURRENT_SUPPLIER_PRODUCT_IDENTITY_PRICE_AVAILABILITY_AND_CARRIER",
+      "carrier": "DPG",
+      "nominal_strength": "10%",
+      "coarse_product_identity_only": true,
+      "exact_irone_fraction_or_gcms": false
+    },
+    {
+      "source_id": "SUPPLIER:PW_5IA18424",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=5IA18424",
+      "role": "CURRENT_SEPARATE_TEC_VARIANT_IDENTITY_AND_AVAILABILITY",
+      "carrier": "TEC",
+      "nominal_strength": "10%",
+      "availability": "OUT_OF_STOCK"
+    },
+    {
+      "source_id": "SUPPLIER:PW_8IA00344",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=8IA00344",
+      "role": "NEAT_ORRIS_CONCRETE_ORRIS_BUTTER_CATALOG_IDENTITY_CONTEXT",
+      "carrier": "NONE_DECLARED",
+      "supplier_lot_composition_known": false
+    },
+    {
+      "source_id": "SUPPLIER:GIVAUDAN_ORRIS_PALLIDA_8",
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/orris-pallida-butter-8-irones-france",
+      "role": "SEPARATE_STANDARDIZED_PRODUCT_EXAMPLE",
+      "reported_irone_standardization_pct": "8",
+      "process": "STEAM_DISTILLATION_THEN_IRONE_STANDARDIZATION",
+      "separate_product_from_pw": true
+    },
+    {
+      "source_id": "PMCID:PMC7227901",
+      "pmid": "32454644",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7227901/",
+      "role": "SOURCE_SPECIFIC_STEAM_DISTILLED_RHIZOME_OIL_COMPOSITION",
+      "material_scope": "IRIS_PALLIDA_RHIZOMES_FROM_UKRAINE",
+      "reported_sample_percentages": {
+        "myristic_acid": "56.00",
+        "lauric_acid": "15.42",
+        "capric_acid": "14.50",
+        "alpha_irone": "2.85"
+      },
+      "may_define_pw_5IA07847_composition": false
+    },
+    {
+      "source_id": "PMCID:PMC11397506",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11397506/",
+      "role": "IRIS_EXTRACTION_PROCESS_AND_SAMPLE_VARIABILITY_CONTEXT",
+      "supports_universal_supplier_stock_composition": false
+    },
+    {
+      "source_id": "DOI:10.1016/S1631-0748(03)00087-0",
+      "url": "https://comptes-rendus.academie-sciences.fr/chimie/articles/10.1016/S1631-0748%2803%2900087-0/",
+      "role": "BOTANICAL_SPECIES_DEPENDENT_IRONE_ISOMER_DISTRIBUTION",
+      "percent_basis": "NORMALIZED_IRONE_ISOMER_DISTRIBUTION_NOT_WHOLE_BUTTER",
+      "iris_pallida_irone_distribution_pct": {
+        "trans_alpha_irone": "4.16",
+        "cis_alpha_irone": "34.46",
+        "beta_irone": "0.16",
+        "cis_gamma_irone": "61.26"
+      },
+      "may_define_total_irone_fraction": false
+    },
+    {
+      "source_id": "ISO:18054:2004",
+      "url": "https://www.iso.org/standard/29826.html",
+      "role": "IRONE_CONTENT_MEASUREMENT_METHOD_CONTEXT",
+      "scope": "GC_DETERMINATION_OF_IRONE_CONTENT_IN_ORRIS_RHIZOME_ESSENTIAL_OIL",
+      "supplies_pw_lot_result": false
+    }
+  ],
+  "held_protocol": {
+    "role": "NONEXECUTING_REFERENCE_COMPARISON_DESIGN_ONLY",
+    "source_design": "FOUR_FIVE_GRAM_ORRIS_LIQUID_BASE_ARMS_WITH_ZERO_LOW_MEDIUM_HIGH_10_PERCENT_ORRIS_STOCK",
+    "source_stock_amounts_mg": [
+      "0",
+      "25",
+      "75",
+      "150"
+    ],
+    "source_nominal_butter_amounts_mg": [
+      "0",
+      "2.5",
+      "7.5",
+      "15"
+    ],
+    "nominal_arithmetic_is_executable": false,
+    "blockers": [
+      "EXACT_SKU_AND_CARRIER_NOT_SELECTED",
+      "IPM_LISTING_NOT_VERIFIED",
+      "NOMINAL_STRENGTH_BASIS_UNVERIFIED",
+      "NO_PURCHASE_RECEIPT_OR_LABEL",
+      "NO_LOT_BOUND_COA_OR_IRONE_RESULT",
+      "NO_STOCK_PREPARATION_OR_ACTIVE_EQUIVALENCE_RECEIPT",
+      "NO_PHYSICAL_OR_SENSORY_AUTHORIZATION"
+    ],
+    "unlock": "BIND_EXACT_PURCHASED_SKU_LABEL_CARRIER_STRENGTH_BASIS_LOT_AND_DOCUMENTS_THEN_RECOMPUTE_CARRIER_MATCHED_ARMS"
+  },
+  "local_diff": {
+    "orris_liquid_state": "OWNED_AS_SUPPLIED_PERFUMERSWORLD_PRODUCT_BASIS_NOT_SINGLE_ACTIVE_IDENTITY",
+    "orris_concrete_butter_state": "NOT_OWNED_IN_CURRENT_LOCAL_MATERIAL_REGISTRY",
+    "legacy_material_yaml_numeric_fields_are_release_authority": false,
+    "existing_stock_lineage_and_premix_guards_are_sufficient": true,
+    "new_stock_engine_logic_needed": false,
+    "new_headspace_or_oav_logic_needed": false,
+    "formula_or_inventory_mutated": false,
+    "cart_mutated": false
+  },
+  "disposition": {
+    "classification": "SPECIALIST_REFERENCE_CANDIDATE_IDENTITY_AND_CARRIER_UNRESOLVED_PURCHASE_AND_EXECUTION_HOLD",
+    "one_gram_reference_is_conditionally_reasonable": true,
+    "condition": "ONLY_AFTER_EXACT_LABEL_SKU_CARRIER_STRENGTH_BASIS_LOT_COST_AND_DOCUMENTS_ARE_BOUND",
+    "automatic_purchase_allowed": false,
+    "more_than_one_gram_supported": false,
+    "new_perfume_family_unlocked": false,
+    "predicted_incremental_value_proven": false,
+    "trial_execution_allowed": false,
+    "native_runtime_change_required": false,
+    "governance_receipt_only": true
+  },
+  "authority": {
+    "source_admission": false,
+    "supplier_lot_identity": false,
+    "composition": false,
+    "inventory": false,
+    "purchase": false,
+    "cart": false,
+    "stock": false,
+    "formula": false,
+    "compounding": false,
+    "trial_execution": false,
+    "physical_result": false,
+    "sensory_result": false,
+    "analytical_result": false,
+    "strict_oav": false,
+    "safety": false,
+    "installation": false,
+    "publication": false,
+    "release": false
+  },
+  "receipt_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_RECEIPT_SHA256_OMITTED",
+  "receipt_sha256": "7579d2e2d181ee5424b85fa485eba56af06445ca2b2bb3c4515dfb58bfbd636e"
+}

@@ -1,0 +1,230 @@
+{
+  "authority": {
+    "formula_authority": false,
+    "inventory_stock_authority": false,
+    "physical_execution_authority": false,
+    "procurement_authority": false,
+    "release_authority": false,
+    "safety_authority": false,
+    "scientific_authority": false
+  },
+  "clearance_receipts": [],
+  "generated_at_utc": "2026-08-11T03:32:00Z",
+  "operational_effect": "FAIL_CLOSED_BLOCK_ONLY",
+  "parent": {
+    "generated_snapshot": {
+      "path": "data/governance/inventory_v5_current_stock_snapshot.json",
+      "sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+      "size_bytes": 226125
+    },
+    "inventory_authority_ref": "inventory:v5:sha256:e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "inventory_txt": {
+      "path": "inventory.txt",
+      "sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "size_bytes": 17140
+    },
+    "registry_sources": [
+      {
+        "path": "data/materials/D.yaml",
+        "sha256": "6dc58b0172a218972dd9b3e8863f15815dad7e5978de42009280202b96a6695a",
+        "size_bytes": 39739
+      },
+      {
+        "path": "data/materials/O.yaml",
+        "sha256": "d507afde090bf541bb39bc276a9d2723bbe1dca92b3c345a3f1928e47070d911",
+        "size_bytes": 44686
+      },
+      {
+        "path": "data/materials/P.yaml",
+        "sha256": "34078c50c36ea41c7df82a0b61aad6a93fe9ed73fac09232ab4d70b1d7c4dd73",
+        "size_bytes": 88982
+      }
+    ],
+    "workbook_file_name": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+    "workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331"
+  },
+  "records": [
+    {
+      "affected_target_ids": [],
+      "aliases": [
+        "Dimethyl Benzyl Carbonyl Acetate"
+      ],
+      "blocks_executable_mapping": false,
+      "canonical_name": "Dimethyl Benzyl Carbinyl Acetate",
+      "cas_rn": "151-05-3",
+      "formula_count_in_parent": 0,
+      "record_id": "INV-V5-DELTA-DBCA-IDENTITY",
+      "source_claim": "The generated snapshot spells Carbonyl; the live inventory and structured registry spell Carbinyl.",
+      "source_locator": "data/governance/inventory_v5_current_stock_snapshot.json#_source_row=257",
+      "source_type": "CANONICAL_IDENTITY_CORRECTION",
+      "state": "PENDING_NEXT_SOURCE_REVISION",
+      "verification_sources": [
+        "https://pubchem.ncbi.nlm.nih.gov/compound/9024"
+      ]
+    },
+    {
+      "affected_target_ids": [],
+      "aliases": [
+        "Dimethyl Phenylethyl Carbinyl Acetate"
+      ],
+      "blocks_executable_mapping": true,
+      "canonical_name": "Phenyl Ethyl Dimethyl Carbinyl Acetate",
+      "cas_rn": "103-07-1",
+      "formula_count_in_parent": 0,
+      "record_id": "INV-V5-DELTA-PEDMCA-LABEL",
+      "source_claim": "Catalog identity is distinct from DBCA, but owned-stock basis remains user asserted and label unverified.",
+      "source_locator": "data/materials/P.yaml#canonical_name=Phenyl Ethyl Dimethyl Carbinyl Acetate",
+      "source_type": "USER_ASSERTED_LABEL_VERIFY",
+      "state": "LABEL_VERIFY",
+      "verification_sources": [
+        "https://pubchem.ncbi.nlm.nih.gov/compound/7633"
+      ]
+    },
+    {
+      "affected_target_ids": [
+        "AM-E01",
+        "AM-E02",
+        "AM-E03",
+        "AM-E04",
+        "AM-E05",
+        "AM-E06",
+        "AM-E07",
+        "AM-E08",
+        "AM-E09",
+        "AM-E10",
+        "AM-E11",
+        "AM-E12",
+        "AM-E13",
+        "AM-E14",
+        "AM-E15",
+        "AM-E16",
+        "AM-L01",
+        "AM-L02",
+        "AM-L03",
+        "AM-L04",
+        "AM-L05",
+        "AM-L06",
+        "AM-L07",
+        "AM-L08",
+        "AM-L09",
+        "AM-N01",
+        "AM-N02",
+        "AM-N03",
+        "AM-N04",
+        "AM-N05",
+        "AM-N06",
+        "AM-N07",
+        "AM-N08",
+        "AM-N09",
+        "AM-N10",
+        "AM-N11",
+        "AM-N12",
+        "AM-N13",
+        "AM-N14",
+        "AM-N15",
+        "AM-N16",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08",
+        "H01",
+        "H02",
+        "H03",
+        "H04",
+        "H05",
+        "H06",
+        "H07",
+        "H08",
+        "H10",
+        "H11",
+        "H12",
+        "H13",
+        "H14",
+        "H15",
+        "O02",
+        "O03",
+        "O06",
+        "PR-E05",
+        "PR-L05",
+        "PR-N02",
+        "PR-N03",
+        "PR-N04",
+        "PR-N07",
+        "PR-N08",
+        "PR-N12",
+        "PR-N14",
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S08",
+        "Y02"
+      ],
+      "aliases": [],
+      "blocks_executable_mapping": true,
+      "canonical_name": "Polysantol",
+      "cas_rn": null,
+      "formula_count_in_parent": 84,
+      "record_id": "INV-V5-DELTA-POLYSANTOL-STOCK",
+      "source_claim": "V5 says HAVE; the newer user inventory statement says out of stock.",
+      "source_locator": "data/governance/inventory_v5_current_stock_snapshot.json#_source_row=208",
+      "source_type": "USER_ASSERTED_STOCK_STATUS",
+      "state": "OUT_OF_STOCK_REPLAN_REQUIRED",
+      "verification_sources": []
+    },
+    {
+      "affected_target_ids": [
+        "AM-E05",
+        "AM-L05",
+        "AM-N05",
+        "C08",
+        "O06"
+      ],
+      "aliases": [
+        "Oakmoss Absolute IFRA 10%",
+        "Oakmoss Absolute (IFRA Low Atranol)"
+      ],
+      "blocks_executable_mapping": true,
+      "canonical_name": "Oakmoss Absolute 10%",
+      "cas_rn": null,
+      "formula_count_in_parent": 5,
+      "record_id": "INV-V5-DELTA-OAKMOSS-LABEL",
+      "source_claim": "Generic Oakmoss Absolute 10% does not establish an IFRA-low-atranol product, carrier, lot, or specification.",
+      "source_locator": "data/governance/inventory_v5_current_stock_snapshot.json#_source_row=186",
+      "source_type": "LABEL_VERIFY",
+      "state": "PRODUCT_BASIS_UNRESOLVED",
+      "verification_sources": [
+        "https://ifrafragrance.org/standards/IFRA_STD_067.pdf"
+      ]
+    },
+    {
+      "affected_target_ids": [],
+      "aliases": [
+        "Ambrettolide",
+        "Ambrettolide 10% in DPG"
+      ],
+      "blocks_executable_mapping": true,
+      "canonical_name": "Ambrettolide 10%",
+      "cas_rn": null,
+      "formula_count_in_parent": 119,
+      "record_id": "INV-V5-DELTA-AMBRETTOLIDE-RECEIPT",
+      "source_claim": "Design use is planned; physical receipt and ExactStockRef remain unavailable.",
+      "source_locator": "data/governance/inventory_v5_current_stock_snapshot.json#_source_row=27",
+      "source_type": "PLANNED_ACQUISITION",
+      "state": "PHYSICAL_RECEIPT_PENDING",
+      "verification_sources": []
+    }
+  ],
+  "receipt_id": "INV-V5-AUTHORITY-DELTA-20260811-01",
+  "schema_version": "perfume-chem.inventory-v5-authority-delta-receipt.v1",
+  "semantic_self_sha256": "ff79977d59de40d6f7075c56429ef7b2cad577d391fe1271c2d4f5e52617dc5d",
+  "state": "ACTIVE_SUPERSEDING_DELTA_FAIL_CLOSED",
+  "supersedes_scope": "IDENTITY_AND_STOCK_STATUS_DELTAS_ONLY"
+}

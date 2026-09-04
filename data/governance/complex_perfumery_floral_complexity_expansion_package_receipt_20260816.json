@@ -1,0 +1,105 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "complex-perfumery-floral-complexity-expansion-20260816",
+  "recorded_at": "2026-08-16T15:26:30+07:00",
+  "package": {
+    "file_name": "Floral_Complexity_Expansion_10_Diverse_Formula_Screens_2026-08-16_v1.zip",
+    "locator": "incoming_review/chatgpt/20260816T152630+0700-v15-floral-complexity-expansion-6a8054e9-n0eb388b6/Floral_Complexity_Expansion_10_Diverse_Formula_Screens_2026-08-16_v1.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 351409,
+    "sha256": "0eb388b6ceb420997210e7c6096d4f0e6951e06fc8bd06ab1c45ad0df369780b",
+    "media_type": "application/zip",
+    "archive_entry_count": 21,
+    "archive_file_count": 20,
+    "declared_payload_count": 19,
+    "package_root": null,
+    "embedded_integrity_records": [
+      {
+        "path": "MANIFEST.json",
+        "byte_size": 3811,
+        "sha256": "47714fa17b3bc3892fdeed877a8d930b845393e0ff978cb738116c3dc5807a90",
+        "role": "MANIFEST"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a8054e9-1ee0-83ec-bab5-b617ab3e5b60:floral-complexity-expansion-20260816-v1",
+    "conversation_id": "6a8054e9-1ee0-83ec-bab5-b617ab3e5b60",
+    "turn_id": "9d94370d-78c1-4b65-af59-99b21f0dc9f4",
+    "message_id": "3e25e995-3c38-59f0-8dcd-01e8ceb55c0e",
+    "lineage_resolution": "EXACT_ORIGINAL_FILE_CARD_BYTES_RECOVERED_HASH_VERIFIED_AND_CAPTURED_WITH_SELF_EXCLUDING_MANIFEST_AND_CHILD_WORKBOOK_HASH_REPLAY",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "External AI-generated computational formula-screen ancestry; exact file possession does not grant source, formula, inventory, execution, redistribution, publication, or release authority.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Retain exact package bytes and source-design geometry only. Current native Inventory V5, target/build, exact-stock, preparation, active-dose, Laboratory Beta, C0, headspace/OAV, safety, and release gates remain controlling."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "SOURCE_INVENTORY_AUTHORITY_UNAVAILABLE_AND_NATIVE_V5_REBIND_REQUIRED",
+      "COMPUTATIONAL_FORMULA_SCREENS_NOT_CANONICAL_FORMULAS",
+      "EXACTSTOCKREF_PREPARATION_AND_ACTIVE_DOSE_RECEIPTS_REQUIRED",
+      "NO_PHYSICAL_OR_SENSORY_RESULTS",
+      "NO_MEASURED_HEADSPACE_OR_STRICT_OAV",
+      "NO_SAFETY_OR_RELEASE_AUTHORITY"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [],
+  "evidence_summary": {
+    "classification": "FLORAL_COMPLEXITY_EXPANSION_EXACT_BYTES_COMPUTATIONAL_DESIGN_ANCESTRY_ONLY",
+    "package_state": "COMPUTATIONAL_FORMULA_SCREEN_PACKAGE_COMPLETE_PHYSICAL_AND_RELEASE_AUTHORITY_FALSE",
+    "formula_screen_count": 10,
+    "formula_row_count": 860,
+    "archive_manifest_entries_verified": 19,
+    "embedded_workbook": {
+      "path": "Floral_Complexity_Expansion_10_Formula_Master_v1.xlsx",
+      "byte_size": 197667,
+      "sha256": "04907dd395430a6381d444952caf08d993f1f97a2babca26646f3bc1e4ae81a1",
+      "native_scan_status": "CLEAR_FOR_RECEIPT_REVIEW",
+      "promotion_allowed": false
+    },
+    "native_graph_status": "GRAPH_COMPLETE_QUARANTINED",
+    "root_finding_codes": [
+      "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT",
+      "PARTIAL_MEMBER_SCAN"
+    ],
+    "graph_findings": [],
+    "promotion_allowed": false,
+    "capture_manifest": {
+      "path": "incoming_review/chatgpt/20260816T152630+0700-v15-floral-complexity-expansion-6a8054e9-n0eb388b6/capture_manifest.json",
+      "byte_size": 4731,
+      "sha256": "44b5f2174efdc76bf5b6fe01bf738d523b111a9e661709859ac6f930b0dc12fd"
+    },
+    "source_provenance_member": {
+      "path": "SOURCE_PROVENANCE.json",
+      "byte_size": 1525,
+      "sha256": "f92afd35ac1b97bd33443e2d4349815c2c3e1c918dd318f91397bc29be73cdd2",
+      "source_count": 9,
+      "source_rows_admitted": 0
+    }
+  },
+  "receipt_sha256": "9a3a36846d670444a6a5379d87a0dc78e55075e39ba3d12c3cf582d163b116b9"
+}

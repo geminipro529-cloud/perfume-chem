@@ -1,0 +1,154 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "chat-a-interaction-atlas-v2-v5-rebase-20260819",
+  "recorded_at": "2026-08-19T12:36:18Z",
+  "package": {
+    "file_name": "PERFUMERY_INTERACTION_ATLAS_V2_V5_REBASE_20260809.zip",
+    "locator": "incoming_review/chatgpt/20260819T123618Z-chat-a-atlas-v2-6a753afc/PERFUMERY_INTERACTION_ATLAS_V2_V5_REBASE_20260809.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 419611,
+    "sha256": "e9c4477ea736a5f9f380658ed4dd9e2ab294e01a0e69e565a2a19bb994f50e3e",
+    "media_type": "application/zip",
+    "archive_entry_count": 14,
+    "archive_file_count": 14,
+    "declared_payload_count": 13,
+    "package_root": "PERFUMERY_INTERACTION_ATLAS_V2_V5_REBASE_20260809",
+    "embedded_integrity_records": [
+      {
+        "path": "PERFUMERY_INTERACTION_ATLAS_V2_V5_REBASE_20260809/SHA256SUMS.json",
+        "byte_size": 2009,
+        "sha256": "ce99cf1fcb47531b4a5956c405d7c95c88ded904b8045be16d8d04f794cf08f6",
+        "role": "CHECKSUM_LEDGER"
+      },
+      {
+        "path": "PERFUMERY_INTERACTION_ATLAS_V2_V5_REBASE_20260809/WORKER_MANIFEST.json",
+        "byte_size": 1284,
+        "sha256": "6445d17b8d1b2c35ab901daa4545ac49695e5f265c9c4ed5477fb5dca0e45936",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "PERFUMERY_INTERACTION_ATLAS_V2_V5_REBASE_20260809/VALIDATION_REPORT.json",
+        "byte_size": 4266,
+        "sha256": "02b8c811faa2e91ca67bbb06b7852e7e833f485aaee6572c36c121dd504c74f8",
+        "role": "MANIFEST"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a753afc-c714-83ec-a854-e6fbb3022048:interaction-atlas-v2-v5-rebase",
+    "conversation_id": "6a753afc-c714-83ec-a854-e6fbb3022048",
+    "turn_id": null,
+    "message_id": null,
+    "lineage_resolution": "EXACT_LATER_CHAT_A_ATLAS_V2_ATTACHMENT_RECOVERED_HASH_VERIFIED_AND_SEPARATED_FROM_UNRECOVERED_ORIGINAL_HUMAN_MIXTURE_DELIVERABLE",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "The attachment is an AI-generated secondary synthesis with no reusable rights grant for its own contents and no exact rights artifacts for the underlying literature. Possession and hash verification do not establish redistribution, publication, commercial, or training rights.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "The four literature additions were independently checked at their primary publisher or PubMed surfaces for scope only. This receipt is not a legal or scientific promotion conclusion."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "ORIGINAL_CHAT_A_HUMAN_MIXTURE_DELIVERABLE_NOT_PRESENT",
+      "ATLAS_V2_LATER_CONTINUATION_IS_NOT_A_SUBSTITUTE_FOR_ORIGINAL_CHAT_A_DELIVERABLE",
+      "UNDERLYING_SOURCE_RIGHTS_ARTIFACTS_NOT_INCLUDED",
+      "NESTED_XLSX_CHILD_RECEIPT_ABSENT",
+      "PAIR_SPECIFIC_EMPIRICAL_VALIDATION_ABSENT",
+      "EXACT_STOCK_REFS_NOT_ISSUED",
+      "FOUR_WORKING_STOCKS_REQUIRE_PREPARATION",
+      "AMBRETTOLIDE_PROCUREMENT_PENDING",
+      "PACKAGE_CONTENT_NOT_INSTALLED",
+      "NO_FORMULA_RUNTIME_OR_INVENTORY_MUTATION"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "incoming_review/chatgpt/20260819T123618Z-chat-a-atlas-v2-6a753afc/source_manifest.json",
+      "byte_size": 2753,
+      "sha256": "84324a859dd6f79ad18a5eb0d76ce3dae7d6c1a58583e6ae17b9e337bfab5abe",
+      "relation": "BINDS_BROWSER_CAPTURE_MANIFEST",
+      "support_scope": "AUTHENTICATED_CONVERSATION_AND_EXACT_ATTACHMENT_CAPTURE_ONLY",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "incoming_review/Perfumery_Interaction_Layering_Atlas_v1_Package.zip",
+      "byte_size": 679235,
+      "sha256": "d9d3b55cb37f6dbcb0f2f9317162afdebe9ce2ff8092647d2fbdfd5042b11e6f",
+      "relation": "BINDS_V1_ATLAS_PARENT_BYTES",
+      "support_scope": "PROVES_THE_253_V1_INTERACTION_ROWS_USED_FOR_SUCCESSOR_DIFF",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "data/governance/interaction_atlas_package_receipt_20260810.json",
+      "byte_size": 4664,
+      "sha256": "68fb6ccd7ae12d134cc95ee286e5e266f3e0d625f456ce73c52a88f3f9958dac",
+      "relation": "BINDS_V1_GOVERNANCE_RECEIPT",
+      "support_scope": "PRESERVES_THE_EXISTING_RIGHTS_AND_EMPIRICAL_HOLDS",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "data/governance/inventory_v5_current_stock_snapshot.json",
+      "byte_size": 226125,
+      "sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+      "relation": "CORROBORATES_INVENTORY_V5_PARENT_HASH",
+      "support_scope": "CONFIRMS_THE_PACKAGE_PARENT_WORKBOOK_SHA256_E36287AC_WITHOUT_GRANTING_STOCK_EXECUTION_AUTHORITY",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "EXACT_CHAT_A_LATER_ATLAS_V2_V5_REBASE_QUARANTINED_V1_INTERACTIONS_PRESERVED_NO_SCIENTIFIC_PROMOTION",
+    "archive_scan_status": "GRAPH_COMPLETE_QUARANTINED",
+    "archive_members": 14,
+    "internal_checksum_entries_verified": 13,
+    "nested_xlsx_child_receipt_present": false,
+    "original_chat_a_human_mixture_deliverable_recovered": false,
+    "atlas_v2_successor_recovered": true,
+    "inventory_v5_parent_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "groups": 23,
+    "interaction_rows": 253,
+    "v1_interaction_rows_preserved_exactly": 253,
+    "inventory_example_rows": 125,
+    "v3_to_v5_changed_occurrences": 34,
+    "physically_ready_occurrences": 120,
+    "preparation_required_occurrences": 4,
+    "procurement_pending_occurrences": 1,
+    "structured_hypotheses": 185,
+    "mechanistic_primary_plus_inference": 37,
+    "direct_or_domain_primary": 31,
+    "pair_specific_empirical_passes": 0,
+    "new_primary_sources_scope_checked": 4,
+    "new_primary_source_dois": [
+      "10.1016/j.bbrc.2026.154027",
+      "10.1111/ics.13085",
+      "10.1016/j.foodchem.2026.150275",
+      "10.1016/j.foodchem.2026.147985"
+    ],
+    "source_rows_admitted": 0,
+    "runtime_rows_installed": 0,
+    "formula_rows_mutated": 0,
+    "inventory_rows_mutated": 0,
+    "promotion_allowed": false
+  },
+  "receipt_sha256": "e2919b1d2a8c8f88950c7fe6002b6a9ebd89f576f81e99bc9c98326ee9b7dc7d"
+}

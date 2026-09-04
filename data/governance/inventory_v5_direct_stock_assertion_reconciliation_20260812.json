@@ -1,0 +1,254 @@
+{
+  "schema_version": "perfume_chem_inventory_v5_direct_stock_assertion_reconciliation_v1",
+  "report_id": "inventory_v5_direct_stock_assertion_reconciliation_20260812",
+  "generated_at": "2026-08-12",
+  "decision": "DATA_AMBER_DPG_ASSERTIONS_RECOVERED_EXACT_STOCK_AND_PREPARATION_RECEIPTS_RED",
+  "purpose": "Reconcile two explicit user-authored DPG working-stock assertions with the current V5 snapshot without converting a note into an exact stock, preparation receipt, or experiment authorization.",
+  "mutation_policy": "ADDITIVE_REPORT_ONLY_NO_PARENT_MUTATION",
+  "semantic_self_sha256": "b038302eb4b8e62aaf46799bcf66f0079822999ef50e3db5b387373c98fba1d4",
+  "parents": [
+    {
+      "path": "inventory.txt",
+      "size_bytes": 17140,
+      "sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "role": "USER_STOCK_ASSERTION_SOURCE"
+    },
+    {
+      "path": "data/governance/inventory_v5_current_stock_snapshot.json",
+      "size_bytes": 226125,
+      "sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+      "role": "CURRENT_V5_SNAPSHOT_COMPARISON"
+    },
+    {
+      "path": "data/governance/inventory_v5_alias_crosswalk_20260811.json",
+      "size_bytes": 7700,
+      "sha256": "4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6",
+      "role": "IDENTITY_AND_HOLD_CONTRACT_COMPARISON"
+    },
+    {
+      "path": "data/governance/inventory_v5_experiment_readiness_closure_queue_20260812.json",
+      "size_bytes": 24578,
+      "sha256": "ff228b72a155e14902416b1de8d92e75f7302123c80f292abfc85adbd997ee2a",
+      "role": "EXPERIMENT_READINESS_STOP_GATE"
+    }
+  ],
+  "census": {
+    "materials_reviewed": 2,
+    "user_asserted_dpg_stocks": 2,
+    "snapshot_states_requiring_reconciliation": 2,
+    "carrier_assertions_recovered": 2,
+    "fully_closed_queue_actions": 0,
+    "exact_stock_refs": 0,
+    "label_or_lot_witnesses": 0,
+    "complete_preparation_receipts": 0,
+    "execution_ready_stocks": 0
+  },
+  "reconciliation_policy": {
+    "positive_evidence_rule": "An exact current inventory line may establish only that the user asserted a named working stock, strength text, carrier text, date text, or parent relation text.",
+    "negative_evidence_rule": "An inventory comment is not a bottle image, lot record, ExactStockRef, measured preparation record, or supplier receipt and cannot close a missing witness.",
+    "conflict_rule": "When V5 omits or weakens a user assertion, preserve both states in an additive reconciliation and leave the canonical parent unchanged until its own governed update.",
+    "execution_rule": "No working stock is experiment-ready until stock identity, concentration basis, parent lineage, carrier, and preparation or supplier witnesses are jointly bound."
+  },
+  "evidence_units": [
+    {
+      "material_id": "2_acetyl_pyrazine_1pct",
+      "canonical_material": "2-Acetyl Pyrazine",
+      "working_stock_label": "2-Acetyl Pyrazine (1% in DPG)",
+      "inventory_assertion": {
+        "path": "inventory.txt",
+        "line_number": 211,
+        "exact_text": "- 2-Acetyl Pyrazine (1% in DPG)  # added 2026-07-29; popcorn/bread-crust/roasted gourmand stock"
+      },
+      "snapshot_state": {
+        "source_row": 6,
+        "actual_stocks": "2-Acetyl Pyrazine neat/as supplied; 1% working stock (carrier not stated)",
+        "status": "HAVE — NEAT + 1% / 1% CARRIER UNSTATED",
+        "formula_count": 0,
+        "row_uses": 0
+      },
+      "crosswalk_state": {
+        "contract_id": "IDCL-001",
+        "source": "2-Acetyl Pyrazine 1%",
+        "destination": "2-Acetyl Pyrazine",
+        "native_disposition": "GUARDED_ALIAS_PRESERVE_HOLD"
+      },
+      "closure_action_id": "CLR-001",
+      "queue_state": "OPEN_PARTIAL_EVIDENCE",
+      "assertion_authority": "USER_ASSERTED_ONLY",
+      "reconciliation_class": "CARRIER_ASSERTION_RECOVERED_PROVENANCE_ONLY",
+      "reconciliation_effect": "NARROWS_PROVENANCE_ONLY",
+      "carrier_assertion": "DPG",
+      "stock_strength_percent_assertion": 1,
+      "stock_strength_basis": "UNSTATED",
+      "dilution_date_assertion": null,
+      "parent_relation_assertion": null,
+      "positive_truth": [
+        "The current inventory text explicitly names a 1% working stock in DPG.",
+        "The V5 snapshot independently preserves that a neat stock and a separate 1% working stock are asserted.",
+        "The inventory statement narrows the snapshot's carrier state from unstated to user-asserted DPG in this additive layer."
+      ],
+      "negative_truth": [
+        "No exact working-stock identifier is bound.",
+        "No bottle-label or lot witness is bound.",
+        "No 1% basis such as w/w, v/v, or other basis is stated.",
+        "No measured preparation quantities, parent stock ID, or preparation receipt is bound.",
+        "The assertion does not authorize physical use or mutation of the V5 snapshot."
+      ],
+      "remaining_gates": {
+        "exact_stock_ref_present": false,
+        "bottle_label_or_lot_witness_present": false,
+        "concentration_basis_present": false,
+        "parent_stock_id_present": false,
+        "preparation_quantities_present": false,
+        "complete_preparation_receipt_present": false,
+        "physical_execution_ready": false
+      }
+    },
+    {
+      "material_id": "lemonile_1pct",
+      "canonical_material": "Lemonile",
+      "working_stock_label": "Lemonile (1% in DPG)",
+      "inventory_assertion": {
+        "path": "inventory.txt",
+        "line_number": 35,
+        "exact_text": "- Lemonile (1% in DPG)  # diluted 2026-05-25 from neat stock; for micro-dose citrus lift in cologne styles"
+      },
+      "snapshot_state": {
+        "source_row": 258,
+        "actual_stocks": "Lemonile neat/as supplied",
+        "status": "HAVE — NEAT / AS SUPPLIED",
+        "formula_count": 0,
+        "row_uses": 0
+      },
+      "crosswalk_state": null,
+      "closure_action_id": "CLR-002",
+      "queue_state": "OPEN_PARTIAL_EVIDENCE",
+      "assertion_authority": "USER_ASSERTED_ONLY",
+      "reconciliation_class": "WORKING_STOCK_CARRIER_DATE_AND_PARENT_RELATION_ASSERTIONS_RECOVERED_PROVENANCE_ONLY",
+      "reconciliation_effect": "NARROWS_PROVENANCE_ONLY",
+      "carrier_assertion": "DPG",
+      "stock_strength_percent_assertion": 1,
+      "stock_strength_basis": "UNSTATED",
+      "dilution_date_assertion": "2026-05-25",
+      "parent_relation_assertion": "FROM_NEAT_STOCK",
+      "positive_truth": [
+        "The current inventory text explicitly names a 1% Lemonile working stock in DPG.",
+        "The text asserts a dilution date of 2026-05-25 and a relation to a neat parent stock.",
+        "The V5 snapshot independently preserves the asserted neat Lemonile stock."
+      ],
+      "negative_truth": [
+        "The V5 snapshot does not represent the claimed 1% working stock.",
+        "The inventory date and parent relation are user assertions, not a complete preparation receipt.",
+        "No exact neat-parent or working-stock identifiers, bottle labels, lots, measured quantities, or concentration basis are bound.",
+        "The assertion does not authorize physical use or mutation of the V5 snapshot."
+      ],
+      "remaining_gates": {
+        "exact_stock_ref_present": false,
+        "bottle_label_or_lot_witness_present": false,
+        "concentration_basis_present": false,
+        "parent_stock_id_present": false,
+        "preparation_quantities_present": false,
+        "complete_preparation_receipt_present": false,
+        "physical_execution_ready": false
+      }
+    }
+  ],
+  "literature_context": [
+    {
+      "source_id": "PMID_36571813",
+      "citation": "Estimating the relationship between liquid- and vapor-phase odorant concentrations using a photoionization detector (PID)-based approach",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/36571813/",
+      "role": "FUTURE_CARRIER_HEADSPACE_CALIBRATION_CONTEXT",
+      "finding": "Across odorants diluted in five solvents including dipropylene glycol, liquid and vapor concentrations could deviate from proportionality because of odorant-solvent interactions; a liquid 1% statement therefore does not establish vapor exposure.",
+      "stock_identity_authority": false
+    },
+    {
+      "source_id": "PMID_30949040",
+      "citation": "Chemosensory Event-Related Potentials in Response to Nasal Propylene Glycol Stimulation",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/30949040/",
+      "role": "EXCLUDED_AS_DIRECT_DPG_EVIDENCE",
+      "finding": "The paper studies propylene glycol, not dipropylene glycol; it therefore cannot establish DPG neutrality, the identity of either local carrier, or local stock readiness.",
+      "stock_identity_authority": false
+    },
+    {
+      "source_id": "PMID_18534998",
+      "citation": "Prediction models for the pleasantness of binary mixtures in olfaction",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18534998/",
+      "role": "FUTURE_BINARY_MIXTURE_METHOD_CONTEXT",
+      "finding": "Binary-mixture pleasantness prediction required constituent psychophysics at relevant concentrations and separated pleasantness from intensity.",
+      "stock_identity_authority": false
+    },
+    {
+      "source_id": "PMID_34041322",
+      "citation": "A dataset on odor intensity and odor pleasantness of 222 binary mixtures of 72 key food odorants rated by a sensory panel of 30 trained assessors",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/34041322/",
+      "role": "FUTURE_REPEATABILITY_CONTEXT",
+      "finding": "The dataset records mixture and component attributes separately and checks repeatability using duplicated trials; it does not validate these local stocks.",
+      "stock_identity_authority": false
+    },
+    {
+      "source_id": "ISO_13301_2018",
+      "citation": "ISO 13301:2018 Sensory analysis - 3-AFC detection-threshold methodology",
+      "url": "https://www.iso.org/standard/68901.html",
+      "role": "FUTURE_THRESHOLD_METHOD_CONTEXT",
+      "finding": "The standard governs threshold data and error bounds, not recognition thresholds, personal stock identity, or preparation lineage.",
+      "stock_identity_authority": false
+    }
+  ],
+  "delegation_evidence": {
+    "route": "DEEPLUNA_CHAT_DIRECT_PRO_ONLY",
+    "batch_id": "direct-stock-reconciliation-20260812",
+    "stock_audit_job_id": "DS-da7225f3d03c0ff2d400ce531c1bc073",
+    "stock_audit_state": "ACCEPTED_WITH_SOL_CORRECTIONS",
+    "protocol_challenge_job_id": "DS-cc3686d3d0b765c28e2bfcdfa5bec7e4",
+    "protocol_challenge_state": "BLOCKED_PROSPECTIVE_ONLY",
+    "sol_corrections": [
+      "The Lemonile working-stock assertion is on inventory.txt line 35, not line 34.",
+      "The inventory comment is a user assertion and is not accepted as a preparation receipt.",
+      "No snapshot mutation or physical execution follows from the recovered carrier text."
+    ],
+    "deepluna_fast_calls": 0,
+    "luna_calls": 0,
+    "codex_subagent_calls": 0,
+    "alternate_fallback_calls": 0
+  },
+  "claim_boundary": {
+    "inventory_comment_is_preparation_receipt": false,
+    "inventory_comment_is_label_or_lot_witness": false,
+    "supplier_catalogue_proves_owned_bottle": false,
+    "propylene_glycol_evidence_applies_to_dipropylene_glycol": false,
+    "carrier_assertion_proves_stock_identity": false,
+    "dilution_date_proves_measured_preparation": false,
+    "queue_action_closed": false,
+    "v5_parent_mutated": false,
+    "physical_experiment_authorized": false,
+    "binary_mixture_model_authorized": false
+  },
+  "next_gate": {
+    "decision": "HOLD_FOR_EXACT_STOCK_AND_PREPARATION_WITNESSES",
+    "minimum_evidence": [
+      "One distinct ExactStockRef for each neat and 1% working stock",
+      "Bottle-label or lot witness for each physical stock",
+      "Explicit 1% concentration basis",
+      "Exact carrier identity",
+      "Parent stock identifier",
+      "Measured preparation quantities and preparation record, or exact supplier lineage for a purchased dilution"
+    ],
+    "physical_execution_authorized": false,
+    "canonical_inventory_update_authorized": false
+  },
+  "authority": {
+    "formula": false,
+    "inventory_mutation": false,
+    "stock_identity": false,
+    "preparation": false,
+    "physical_experiment": false,
+    "sensory_claim": false,
+    "scientific_claim": false,
+    "safety": false,
+    "procurement": false,
+    "collection": false,
+    "installation": false,
+    "release": false
+  }
+}

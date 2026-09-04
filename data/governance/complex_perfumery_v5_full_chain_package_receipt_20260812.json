@@ -1,0 +1,136 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "complex-perfumery-v5-full-chain-20260812",
+  "recorded_at": "2026-08-12T15:35:00+07:00",
+  "package": {
+    "file_name": "COMPLEX_PERFUMERY_V5_FULL_CHAIN_REGENERATION_V1_20260811.zip",
+    "locator": "incoming_review/chatgpt/20260811T153000Z-continuation-exact-byte-recovery-6a762995/COMPLEX_PERFUMERY_V5_FULL_CHAIN_REGENERATION_V1_20260811.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 1410479,
+    "sha256": "16eb6805414c1a96f30609e7dc9eed5377f522f9872e2017222b23635a73f530",
+    "media_type": "application/zip",
+    "archive_entry_count": 20,
+    "archive_file_count": 20,
+    "declared_payload_count": 19,
+    "package_root": null,
+    "embedded_integrity_records": [
+      {
+        "path": "SHA256SUMS.txt",
+        "byte_size": 2088,
+        "sha256": "3c23333320e858dd9d79582217446ac03bcf99ead4a686e9ae316aad66a612b2",
+        "role": "CHECKSUM_LEDGER"
+      },
+      {
+        "path": "SOURCE_MANIFEST.json",
+        "byte_size": 912,
+        "sha256": "c00c9a7e3203702996bd3f03d1be1654fc7180bb856df0bd4a7e92195e6980b5",
+        "role": "MANIFEST"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a762995-0d8c-83ec-aee3-66c90e56811e:v5-full-chain",
+    "conversation_id": "6a762995-0d8c-83ec-aee3-66c90e56811e",
+    "turn_id": "c3f478ba-8b2b-40e0-b19b-8bcaeea487cd",
+    "message_id": "75f5f707-d67e-4916-939e-b8b2e4b8d051",
+    "lineage_resolution": "EXACT_CONVERSATION_TURN_RESPONSE_AND_CONTENT_REFERENCE_CAPTURED",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "The package contains no verified rights grant. Exact possession, hash verification, and package tests do not establish reuse, redistribution, publication, or canonical import permission.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Retain the package in quarantine. Only the authority-false transport receipt and compatibility ancestry may be used until field-specific rights and source admission are established."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "PACKAGE_GENERATED_CODE_NOT_ACCEPTED",
+      "CURRENT_NATIVE_V5_AND_P0A_REBIND_REQUIRED",
+      "NESTED_CHILD_RECEIPT_REQUIRED",
+      "PARTIAL_MEMBER_SCAN_HOLD",
+      "PHYSICAL_SENSORY_STRICT_OAV_SAFETY_AND_RELEASE_EVIDENCE_ABSENT"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+      "byte_size": 199635,
+      "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "relation": "PACKAGE_DECLARED_V5_SOURCE_PARENT",
+      "support_scope": "Generation ancestry only. Current native V5 scope and the append-only P0a authority delta control operational stock state.",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "CURRENT_V5_BUILD_MAPPING_9732_v3_2.csv",
+      "byte_size": 3727712,
+      "sha256": "9fc74d1785a2ea732c0327b4fd17ef30c08abf8620924930fc36873d29a9d067",
+      "relation": "PACKAGE_DECLARED_MAPPING_SOURCE_PARENT",
+      "support_scope": "Candidate mapping ancestry only; fixed row counts and float quantities are not native dose or formula authority.",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "G15_THRESHOLD_EVIDENCE_OVERLAY_9732_v1.csv",
+      "byte_size": 4177853,
+      "sha256": "0e7d34ff9c96fb0b0c523e128ce8bddda6cd59887c9ee061fca7baa136267f0a",
+      "relation": "PACKAGE_DECLARED_THRESHOLD_OVERLAY_PARENT",
+      "support_scope": "Screening ancestry only; candidate-air, strict OAV, and presentation claims remain independently held.",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "TRUTH_RESOLVED_156_REBUILD_QUEUE_v3_2.csv",
+      "byte_size": 76834,
+      "sha256": "017ea3dba70ee91fdf9d63939823bd5b0866597f0d46714c542a01a82f17c043",
+      "relation": "PACKAGE_DECLARED_QUEUE_SOURCE_PARENT",
+      "support_scope": "Orchestration ancestry only; queue labels cannot authorize target, build, physical execution, or release state.",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "V5_FULL_CHAIN_CANDIDATE_REGENERATION_EXACT_BYTES_QUARANTINED_NATIVE_REBIND_REQUIRED",
+    "mapping_rows": 9732,
+    "queue_rows": 156,
+    "unique_materials": 282,
+    "unresolved_materials": 45,
+    "canonical_mutation_claimed": false,
+    "phase_g_authorized": false,
+    "physical_dose_nonzero_rows": 0,
+    "presentation_true_rows": 0,
+    "release_authority": false,
+    "capture_graph_binding": {
+      "capture_manifest_path": "incoming_review/chatgpt/20260811T153000Z-continuation-exact-byte-recovery-6a762995/capture_manifest.json",
+      "capture_manifest_byte_size": 7689,
+      "capture_manifest_sha256": "27f3a34f5f4699090f9e8eb7d1478b2e99ce30535cc4eabe676329b7eb383bbc",
+      "root_package_sha256": "16eb6805414c1a96f30609e7dc9eed5377f522f9872e2017222b23635a73f530",
+      "graph_status": "GRAPH_COMPLETE_QUARANTINED",
+      "node_count": 2,
+      "edge_count": 1,
+      "max_depth": 1,
+      "all_nodes_terminal": true,
+      "graph_findings": [],
+      "promotion_allowed": false
+    },
+    "native_handling": "P2_2_DEPENDENCY_AND_DESIGN_ANCESTRY_ONLY_NO_PACKAGE_CODE_INSTALL"
+  },
+  "receipt_sha256": "d59ca5cc34876c628f0e2c95ded4f6dd17704a71ae3278b3be4c000749bb3962"
+}

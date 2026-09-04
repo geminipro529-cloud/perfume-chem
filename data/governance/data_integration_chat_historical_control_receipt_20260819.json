@@ -1,0 +1,74 @@
+{
+  "schema_version": "perfume_chem_data_integration_chat_historical_control_receipt_v1",
+  "receipt_id": "complex-perfumery-data-integration-chat-historical-control-20260819",
+  "recorded_at": "2026-08-19T16:00:00Z",
+  "parents": [
+    {"path":"incoming_review/chatgpt/20260819T160000Z-data-integration-6a77b1b5/source_manifest.json","byte_size":17033,"sha256":"d39170cd058faa951ccc01c425e4015c059d44c571e16c016f4a7a2e5c7eaa2c","relation":"BINDS_COMPLETE_RENDERED_CHAT_CENSUS_AND_RECOVERED_ATTACHMENTS","authority_state":"SOURCE_POINTER_ONLY"},
+    {"path":"incoming_review/chatgpt/20260819T160000Z-data-integration-6a77b1b5/PERFUME_CHEM_LOSSLESS_INTEGRATION_CONTROL_REPORT_2026-08-09.md","byte_size":28047,"sha256":"157115c3a71c259808c48715705b7a2d68f68320f1019cfd0e38e4979501afe7","relation":"HISTORICAL_CONTROL_REPORT","authority_state":"HISTORICAL_ONLY"},
+    {"path":"incoming_review/chatgpt/20260819T160000Z-data-integration-6a77b1b5/PERFUME_CHEM_ALL_CHAT_REPORT_REQUEST_2026-08-09.md","byte_size":10698,"sha256":"f9b563eb58457452fe3703373ed62f50e7858837a6c1cb3580b88afe0c314875","relation":"HISTORICAL_READ_ONLY_REQUEST_TEMPLATE","authority_state":"HISTORICAL_ONLY"},
+    {"path":"incoming_review/chatgpt/20260819T160000Z-data-integration-6a77b1b5/perfume_chem_chat_report.schema.json","byte_size":33671,"sha256":"151f42f085e7301fad1309104eac74391f96acbd384003fd2be71ac44a39495e","relation":"HISTORICAL_REPORT_SCHEMA","authority_state":"HISTORICAL_ONLY"},
+    {"path":"incoming_review/chatgpt/20260819T160000Z-data-integration-6a77b1b5/PERFUME_CHEM_CHAT_COLLECTION_LEDGER_2026-08-09.csv","byte_size":16589,"sha256":"4e5e125f2a014607f6b6c479b10951e23c36d37008a7905b5f64c3d24e69c7a6","relation":"HISTORICAL_PROVISIONAL_DESTINATION_LEDGER","authority_state":"NOT_CURRENT_CHAT_REGISTRY"},
+    {"path":"data/governance/ma_2021_binary_mixture_baseline_benchmark_20260812.json","byte_size":6626,"sha256":"7cfac1d54cb22faded92a80f6ca6abe3f4485af057ffae7946cfcbfb105994d6","relation":"CURRENT_LOCAL_MA2021_SOURCE_INTERNAL_BASELINE","authority_state":"CONTROLLING_LOCAL_SUCCESSOR"},
+    {"path":"backend/app/adapters/ma_2021.py","byte_size":87556,"sha256":"12f1ead7d108d1b684e754018646f85ef8cf1c56348b76b3bc753be4e210e512","relation":"CURRENT_NATIVE_MA2021_ADAPTER","authority_state":"CONTROLLING_LOCAL_SUCCESSOR"},
+    {"path":"backend/app/services/ma_2021_baselines.py","byte_size":15058,"sha256":"d03dec9a84b115ab0787e985351a869ec78fadddb61fe84dfa97ed6bc071a372","relation":"CURRENT_NATIVE_MA2021_BASELINES","authority_state":"CONTROLLING_LOCAL_SUCCESSOR"},
+    {"path":"docs/research/PERFUME_CHEM_C0_PREPILOT_PACKAGE_2026-08-10.md","byte_size":9994,"sha256":"aac00d349a37a109ee922cc55817ff12d3d45088e26c35abcf98ba9eb7da1d50","relation":"CURRENT_LOCAL_C0_SUCCESSOR","authority_state":"NONPROMOTING_LOCAL_SUCCESSOR"},
+    {"path":"chat_bridge/complex_perfumery/chat_registry.json","byte_size":8292,"sha256":"88c6cea9872ed4a5c048224ba07ae46b0eec145ad7ebd9745adda5d7dced2132","relation":"LATER_POINT_IN_TIME_CHAT_REGISTRY","authority_state":"CONTROLLING_OVER_HISTORICAL_75_DESTINATION_CLAIM"},
+    {"path":"chat_bridge/complex_perfumery/PROTOCOL.md","byte_size":6363,"sha256":"7080040871d9c40196242e1c8d1c058a3dba123ac427f9168f8859d4e635fd0c","relation":"CURRENT_LOCAL_BRIDGE_PROTOCOL","authority_state":"CONTROLLING_LOCAL_PROTOCOL"},
+    {"path":".archive/20260819_data-integration-chat-intake-v1/docs/research/PERFUME_CHEM_CHATGPT_PROJECT_RECONCILIATION_2026-08-10.md","byte_size":206869,"sha256":"114edb1dd635800903aae2d4b09eab599aa2ab59790e24668f1dff9203ce892d","relation":"ARCHIVE_FIRST_PRECHANGE_RECONCILIATION_SNAPSHOT","authority_state":"HISTORICAL_PARENT_ONLY"}
+  ],
+  "historical_control_diff": {
+    "source_claimed_provisional_destination_count": 75,
+    "current_local_registry_visible_count": 38,
+    "historical_count_may_replace_current_registry": false,
+    "historical_bridge_or_github_status_may_replace_current_state": false
+  },
+  "ma_2021_diff": {
+    "state":"ALREADY_IMPLEMENTED_SOURCE_INTERNAL_BASELINE",
+    "dataset_doi":"10.15454/51OVY6",
+    "source_workbook_byte_size":487926,
+    "source_workbook_sha256":"c540f18ba71b778c36756810fff38bdf177c2af9d593567a6dba57a30503c950",
+    "participant_trial_rows":6660,
+    "source_trial_rows":222,
+    "unique_mixture_groups":198,
+    "benchmark_decision":"DATA_AMBER_MA2021_SOURCE_INTERNAL_BASELINES_QUANTIFIED_NONLINEAR_ESCALATION_NOT_AUTHORIZED",
+    "same_source_reproduction_is_novel":false,
+    "nonlinear_model_training_authorized":false,
+    "new_runtime_implementation_required":false
+  },
+  "task_output_diff": {
+    "classification":"HISTORICAL_OR_SUCCESSOR_PRESENT_NOT_RUNTIME_INPUT",
+    "exact_unrecovered_task_output_count":16,
+    "absence_inferred":false,
+    "p0_historical_head_replaced_by_later_reconciliation":true,
+    "c0_successor_present":true,
+    "ma_2021_successor_present":true,
+    "native_b1_external_study_successors_present":true,
+    "duplicate_download_or_reimplementation_authorized":false
+  },
+  "source_interpretation": {
+    "four_inline_control_artifacts_newly_preserved":true,
+    "control_report_self_classifies_as_pre_dispatch":true,
+    "source_reported_requests_sent":0,
+    "source_reported_provisional_destinations":75,
+    "source_warns_provisional_destinations_are_not_conversation_count":true,
+    "rendered_chat_contains_historical_bridge_github_and_automation_claims":true,
+    "historical_claims_replayed_as_current_state":false,
+    "message_text_archived_verbatim":false,
+    "message_identity_hash_bound":true
+  },
+  "disposition": {
+    "classification":"DATA_INTEGRATION_CONTROL_ARTIFACTS_RECOVERED_MA_AND_C0_SUCCESSORS_ALREADY_LOCAL_HISTORICAL_TASK_OUTPUTS_NONPROMOTING",
+    "control_artifacts_preserved":true,
+    "historical_control_artifacts_installed_as_current_registry":false,
+    "unrecovered_task_outputs_reconstructed":false,
+    "duplicate_ma_or_c0_work_started":false,
+    "formula_or_inventory_mutated":false,
+    "native_runtime_change_required":false,
+    "governance_receipt_only":true
+  },
+  "authority": {
+    "source_admission":false,"historical_state":false,"current_project_state":false,"bridge_state":false,"github_state":false,"automation":false,"runtime":false,"model":false,"training":false,"formula":false,"inventory":false,"stock":false,"compounding":false,"physical_result":false,"sensory_result":false,"analytical_result":false,"safety":false,"publication":false,"release":false
+  },
+  "receipt_hash_contract":"SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_RECEIPT_SHA256_OMITTED",
+  "receipt_sha256":"81dba021e40a89211047c91b16656b48d8d559db8379e9bcb94633d8c88f1b6b"
+}

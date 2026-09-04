@@ -1,0 +1,137 @@
+{
+  "schema_version": "perfume_chem_openai_cloud_collaboration_v1",
+  "registry_id": "OPENAI-CLOUD-COLLABORATION-20260901-001",
+  "effective_date": "2026-09-01",
+  "project": {
+    "chatgpt_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "label": "Complex Perfumery"
+  },
+  "local_coordinator": {
+    "thread_id": "01a056d0-6d07-7a90-a0ab-48dd0eea3889",
+    "cwd": "D:\\chatbots\\perfume-chem",
+    "branch_at_registration": "codex/add-inventory-materials",
+    "head_at_registration": "d99ecdca8b0a4bf741bd4dda7bd564649cf05982",
+    "sole_repository_writer_and_final_acceptor": true
+  },
+  "provider_policy": {
+    "allowed_provider": "openai",
+    "codex_native_only": true,
+    "forbidden_providers": [
+      "deepluna",
+      "deepseek",
+      "openrouter"
+    ],
+    "forbidden_routes": [
+      "$delegate",
+      "codex exec represented as a subagent",
+      "peer task represented as a subagent",
+      "plugin represented as a subagent",
+      "worktree represented as a subagent"
+    ]
+  },
+  "standardization": {
+    "reasoning_level": "xhigh",
+    "authority": "USER_ASSERTED_XHIGH_2026-09-01",
+    "purpose": "Hold the three cloud lanes to the same reasoning standard while recording environment and evidence authority separately.",
+    "equal_reasoning_does_not_imply_equal_tools_or_authority": true
+  },
+  "lanes": [
+    {
+      "lane_id": "cloud.wood_registry",
+      "task_id": "6a96af27-a178-83ec-88e6-54460e1f80d6",
+      "environment": "chatgpt_work_cloud",
+      "scope": "Wood semantic and evidence registry plus consumer mapping",
+      "write_lease": "read_only_design_packet",
+      "local_repository_access_asserted": false
+    },
+    {
+      "lane_id": "cloud.floral_architecture",
+      "task_id": "6a96b13d-a7f4-83ec-9139-69063c8cf280",
+      "environment": "chatgpt_work_cloud",
+      "scope": "Floral and cross-family architecture gap packet",
+      "write_lease": "read_only_design_packet",
+      "local_repository_access_asserted": false
+    },
+    {
+      "lane_id": "cloud.benchmark_closure",
+      "task_id": "6a96b15b-30a4-83ec-b6d7-0bbadd864fc6",
+      "environment": "chatgpt_work_cloud",
+      "scope": "Frozen benchmark and admission-closure packet",
+      "write_lease": "read_only_design_packet",
+      "local_repository_access_asserted": false
+    }
+  ],
+  "communication_bus": {
+    "mode": "local_parent_relay",
+    "relay_thread_id": "01a056d0-6d07-7a90-a0ab-48dd0eea3889",
+    "hidden_transcript_sharing": false,
+    "cross_lane_message_types": [
+      "CROSS_LANE_REQUEST",
+      "CROSS_LANE_OFFER"
+    ],
+    "packet_schema_version": "perfume_chem_cloud_packet_v1",
+    "required_packet_sections": [
+      "lane_id",
+      "objective",
+      "frozen_inputs",
+      "authoritative_facts",
+      "literature_derived_assumptions",
+      "heuristics",
+      "unknowns",
+      "proposed_local_paths_and_tests",
+      "cross_lane_requests_and_offers",
+      "explicit_exclusions",
+      "ready_or_hold"
+    ]
+  },
+  "routing_policy": {
+    "objective": "Minimize verified wall-clock time, not maximize cloud task count.",
+    "max_active_cloud_lanes": 3,
+    "cloud_requires_frozen_inputs": true,
+    "cloud_requires_positive_net_time_saved": true,
+    "cloud_read_only_work": [
+      "primary_source_research",
+      "omission_audit",
+      "manifest_comparison",
+      "implementation_draft",
+      "benchmark_packet_design"
+    ],
+    "local_only_work": [
+      "dirty_file_write",
+      "git_integration",
+      "source_hash_acceptance",
+      "test_acceptance",
+      "credentials_or_secrets",
+      "irreversible_action",
+      "final_architecture",
+      "final_scientific_adjudication",
+      "safety_or_release_authority"
+    ]
+  },
+  "github_handoff": {
+    "remote": "https://github.com/geminipro529-cloud/perfume-chem.git",
+    "status": "HOLD_DIRTY_CANONICAL_NOT_MANIFEST_BOUND",
+    "cloud_repository_connected": false,
+    "required_before_cloud_code_work": [
+      "exact frozen commit SHA",
+      "complete source-to-cloud manifest",
+      "byte sizes and SHA-256 hashes",
+      "isolated cloud branch",
+      "explicit path and semantic-contract leases",
+      "focused local tests",
+      "no unresolved dirty overlap"
+    ],
+    "cloud_push_or_merge_authorized": false,
+    "force_push_authorized": false
+  },
+  "authority_limits": {
+    "cloud_packet_is_repository_evidence": false,
+    "cloud_packet_is_empirical_evidence": false,
+    "cloud_packet_authorizes_formula_mutation": false,
+    "cloud_packet_authorizes_compounding": false,
+    "cloud_packet_authorizes_purchase": false,
+    "cloud_packet_authorizes_safety": false,
+    "cloud_packet_authorizes_release": false,
+    "local_byte_and_test_verification_required": true
+  }
+}

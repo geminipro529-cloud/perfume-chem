@@ -1,0 +1,256 @@
+{
+  "schema_version": "perfume_chem_p2_2_complex_perfumery_delta_v1",
+  "recorded_at": "2026-08-12T15:35:00+07:00",
+  "artifact_class": "NONAUTHORITATIVE_APPEND_ONLY_NATIVE_FIT_DELTA",
+  "state": "SELECTIVE_FIELD_GROUP_MAPPING_COMPLETE_PACKAGE_ADMISSION_WITHHELD",
+  "sealed_parents": [
+    {
+      "path": "output/P2_2_SOURCE_FIELD_CATALOG_2026-08-11.json",
+      "byte_size": 33004,
+      "sha256": "4cad42a50fdab9abbb0fba51c308a5a19da00fa675b12bcfddae6c8b60d7d32e"
+    },
+    {
+      "path": "output/P2_2_MAPPING_POLICY_REGISTRY_2026-08-11.json",
+      "byte_size": 12538,
+      "sha256": "bf3bab244c1ebcf7de686b1b874b4bcd27793b90fbe68cb1f160b1ef5286e5b9"
+    },
+    {
+      "path": "output/P2_2_FIELD_COMPATIBILITY_MATRIX_2026-08-11.json",
+      "byte_size": 29131,
+      "sha256": "a09cd9868100aa9ed71c20513350dfe4384ff17684b60b69733cab87994117f9"
+    },
+    {
+      "path": "output/P2_2_VALIDATION_2026-08-11.json",
+      "byte_size": 4770,
+      "sha256": "3061952667801242384ecde441336bf675c114af8356e95f050ed7159975120b"
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "FULL_CHAIN_V1",
+      "package_receipt": "data/governance/complex_perfumery_v5_full_chain_package_receipt_20260812.json",
+      "package_receipt_byte_size": 6059,
+      "package_receipt_sha256": "36b2d49dcaffb37068d4dccebb1cb1a4eba0e166ff239e684b2142335943c8fb",
+      "package_receipt_semantic_sha256": "d59ca5cc34876c628f0e2c95ded4f6dd17704a71ae3278b3be4c000749bb3962",
+      "package_sha256": "16eb6805414c1a96f30609e7dc9eed5377f522f9872e2017222b23635a73f530"
+    },
+    {
+      "source_id": "DHP25_EXACT_V5",
+      "package_receipt": "data/governance/complex_perfumery_dhp25_exact_v5_package_receipt_20260812.json",
+      "package_receipt_byte_size": 5585,
+      "package_receipt_sha256": "385f04b32ff7953af91b6628289bc6717ac024788f68f7c344d438ef1e10d972",
+      "package_receipt_semantic_sha256": "fbf56a4d00e59cc76113c12047d1afd8e68ae1f5f06d6b9d0f30a28aaef09043",
+      "package_sha256": "7e38c19a83b25de1edbc190f568b5725655d5e60dca63dec951e8f7c01a98efc"
+    },
+    {
+      "source_id": "DHP25_INITIAL",
+      "package_receipt": "data/governance/complex_perfumery_dhp25_initial_package_receipt_20260812.json",
+      "package_receipt_byte_size": 5174,
+      "package_receipt_sha256": "6683c3014482f5d5dced1df5a68aeb30668ef47e1aa3ba1d3930c2691e77ed79",
+      "package_receipt_semantic_sha256": "b5be7a38bdeeb19af04b375350d2114c1a2b01fa65b97ed3128372c531985297",
+      "package_sha256": "ec27bcd4dd1b9a3e54d4de49ace3293d91af868ba6c6005a581b1646d3905dcd"
+    }
+  ],
+  "source_relationships": [
+    {
+      "relation": "EMBEDS_SOURCE_PACKAGE",
+      "embedding_source_id": "DHP25_EXACT_V5",
+      "embedding_package_sha256": "7e38c19a83b25de1edbc190f568b5725655d5e60dca63dec951e8f7c01a98efc",
+      "embedded_source_id": "DHP25_INITIAL",
+      "embedded_package_sha256": "ec27bcd4dd1b9a3e54d4de49ace3293d91af868ba6c6005a581b1646d3905dcd",
+      "embedded_receipt_semantic_sha256": "b5be7a38bdeeb19af04b375350d2114c1a2b01fa65b97ed3128372c531985297",
+      "authority_state": "POINTER_ONLY",
+      "duplicate_scientific_ancestry_created": false
+    }
+  ],
+  "field_groups": [
+    {
+      "field_group_id": "FULL_CHAIN_V1::CURRENT_V5_BUILD_MAPPING::primary",
+      "source_id": "FULL_CHAIN_V1",
+      "source_member": "outputs/CURRENT_V5_BUILD_MAPPING_9732_v3_3_CANDIDATE.csv",
+      "resolved_source_member": "outputs/CURRENT_V5_BUILD_MAPPING_9732_v3_3_CANDIDATE.csv",
+      "source_member_byte_size": 5913064,
+      "source_member_sha256": "afb4d58540d945c9d87ca056cc31d968d95f6257f6c5329d7facadb509194d7c",
+      "field_selection_mode": "EXACT_CSV_HEADER",
+      "source_fields_sha256": "e6d27c94caad86182bfd874cc6c70d9ab428a7537625a22b568e031bb3de98dd",
+      "fields": ["House", "Target ID", "Fragrance", "Rank", "Material", "Family", "Complexity axis", "Phase tags", "Quantity state", "Target raw ancestry parts", "Target material-equivalent parts", "Target product-basis raw parts", "Authoritative source fraction", "Truth-resolved quantity basis", "Current V5 / legacy inventory authority state", "Lineage authority", "Confirmed lineage repair", "Build mapping state", "Proposed stock/raw parts at target layer", "Carrier restitution if neat/rebased", "Build instruction", "Physical dose µL", "Physical dose state", "G12", "G15", "Presentation allowed", "V5 authority sheet", "V5 authority row", "V5 canonical material", "V5 snapshot SHA-256", "Inventory evidence route", "Inventory route reason", "Inventory route changed"],
+      "policy_id": "MATERIAL_ROLE_STOCK_REBIND",
+      "dependency_profile_id": "V5_REBIND",
+      "authority_promoted": false
+    },
+    {
+      "field_group_id": "FULL_CHAIN_V1::V5_EXACT_STOCK_RESOLUTION::primary",
+      "source_id": "FULL_CHAIN_V1",
+      "source_member": "outputs/V5_EXACT_STOCK_RESOLUTION_282.csv",
+      "resolved_source_member": "outputs/V5_EXACT_STOCK_RESOLUTION_282.csv",
+      "source_member_byte_size": 104549,
+      "source_member_sha256": "38d2e1903e2036acb5dbedeeee435aa3f7186e6971f1b495308123c3e5a536b7",
+      "field_selection_mode": "EXACT_CSV_HEADER",
+      "source_fields_sha256": "26a5556b9071e26267f24f77d0687932cd3f1ed4de3d218c405c8eec547b89c1",
+      "fields": ["Material", "Mapping row uses", "Prior build-state histogram", "Inventory route state", "Authority state", "Authority sheet", "Authority row", "Canonical V5 material", "V5 status", "Actual stock", "Can prepare", "Evidence route", "Reason", "Unresolved", "Non-authoritative suggestions", "V5 snapshot SHA-256"],
+      "policy_id": "MATERIAL_ROLE_STOCK_REBIND",
+      "dependency_profile_id": "V5_REBIND",
+      "authority_promoted": false
+    },
+    {
+      "field_group_id": "FULL_CHAIN_V1::SELECTIVE_INVALIDATION_MANIFEST::root",
+      "source_id": "FULL_CHAIN_V1",
+      "source_member": "outputs/SELECTIVE_INVALIDATION_MANIFEST.json",
+      "resolved_source_member": "outputs/SELECTIVE_INVALIDATION_MANIFEST.json",
+      "source_member_byte_size": 909,
+      "source_member_sha256": "093d8e9f02344fe39b285f5ac34709cebeebf8a27ebb43b472ea857c289ee902",
+      "field_selection_mode": "EXACT_JSON_ROOT_KEYS",
+      "source_fields_sha256": "689957fb4cf05356b3d3bf69154eecbd9ac1cf83a7a4c823ee099c63e93c789b",
+      "fields": ["canonical_mutation_authorized", "preserve_unchanged", "regenerate", "release_authority", "schema", "v5_snapshot_sha256"],
+      "value_binding": {
+        "schema": "complex-perfumery-selective-invalidation-v2",
+        "v5_snapshot_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+        "canonical_mutation_authorized": false,
+        "release_authority": false,
+        "preserve_unchanged": [
+          "target quantities and ideal-formula ancestry",
+          "physical dose fields",
+          "G12 physical-chemistry evidence and decisions",
+          "G15 threshold evidence and matrix compatibility",
+          "G15 identity/product locks",
+          "candidate-air measurement states",
+          "strict OAV states and numeric values",
+          "safety, presentation, release authority",
+          "D6 and iris design branches"
+        ],
+        "regenerate": [
+          "CURRENT_V5_BUILD_MAPPING inventory authority/build-state/instruction fields",
+          "TRUTH_RESOLVED_156_REBUILD_QUEUE V5 mapping-state histograms",
+          "G15 row-level inventory authority/build-state fields and typed next inventory action"
+        ]
+      },
+      "dependency_semantics": {
+        "depends_on": ["SOURCE_SHA", "V5_SCOPE_PIN", "SELECTED_STOCK_PREPARATION_RECEIPTS", "IDENTITY_RESOLUTION"],
+        "invariant_under": ["TARGET_NARRATIVE_CHANGE", "UNRELATED_OBSERVATION_CHANGE"],
+        "invalidated_by": ["V5_OR_RECEIPT_LIFECYCLE_CHANGE", "IDENTITY_OR_TRANSFORM_CHANGE"]
+      },
+      "policy_id": "PACKAGE_CONTRACT_ANCESTRY",
+      "dependency_profile_id": "SOURCE_ONLY",
+      "authority_promoted": false
+    },
+    {
+      "field_group_id": "DHP25_EXACT_V5::TARGET_IDEAL::primary",
+      "source_id": "DHP25_EXACT_V5",
+      "source_member": "outputs/DHP25_TARGET_IDEAL_IMMUTABLE_70_v1.csv",
+      "resolved_source_member": "COMPLEX_PERFUMERY_DHP25_EXACT_V5_FORMULA_AUDIT_V1_20260811/outputs/DHP25_TARGET_IDEAL_IMMUTABLE_70_v1.csv",
+      "source_member_byte_size": 23929,
+      "source_member_sha256": "6ed93d4a169fc84dc79173708483d2a8671af7a83927f18f39b0f72c04ca23d0",
+      "field_selection_mode": "EXACT_CSV_HEADER",
+      "source_fields_sha256": "b069eb6d0ee7a8ec6274b695321f20b9e61fabf4f19c3f9d99468291585db7ca",
+      "fields": ["Ordinal", "Module", "Material", "Stock", "Active fraction", "Product basis", "Parts / 1000", "Active parts", "uL / 1 mL", "uL / 5 mL", "uL / 30 mL", "Function", "Phase", "Evidence route", "Confidence", "State", "Row class", "Handoff", "Defect risk", "Rationale", "Source tier"],
+      "policy_id": "FORMULA_ROW_CANDIDATE",
+      "dependency_profile_id": "TARGET_ONLY",
+      "authority_promoted": false
+    },
+    {
+      "field_group_id": "DHP25_EXACT_V5::CURRENT_BUILD::primary",
+      "source_id": "DHP25_EXACT_V5",
+      "source_member": "outputs/DHP25_CURRENT_BUILD_IMMUTABLE_70_v1.csv",
+      "resolved_source_member": "COMPLEX_PERFUMERY_DHP25_EXACT_V5_FORMULA_AUDIT_V1_20260811/outputs/DHP25_CURRENT_BUILD_IMMUTABLE_70_v1.csv",
+      "source_member_byte_size": 21580,
+      "source_member_sha256": "9e1541db4ef70de5db221df8a5413e851c43063cb4b06317d1fde35bbf204c57",
+      "field_selection_mode": "EXACT_CSV_HEADER",
+      "source_fields_sha256": "b069eb6d0ee7a8ec6274b695321f20b9e61fabf4f19c3f9d99468291585db7ca",
+      "fields": ["Ordinal", "Module", "Material", "Stock", "Active fraction", "Product basis", "Parts / 1000", "Active parts", "uL / 1 mL", "uL / 5 mL", "uL / 30 mL", "Function", "Phase", "Evidence route", "Confidence", "State", "Row class", "Handoff", "Defect risk", "Rationale", "Source tier"],
+      "policy_id": "MATERIAL_ROLE_STOCK_REBIND",
+      "dependency_profile_id": "V5_REBIND",
+      "authority_promoted": false
+    },
+    {
+      "field_group_id": "DHP25_EXACT_V5::LINE_AUDIT::primary",
+      "source_id": "DHP25_EXACT_V5",
+      "source_member": "outputs/DHP25_CURRENT_BUILD_EXACT_V5_LINE_AUDIT_70_v1.csv",
+      "resolved_source_member": "COMPLEX_PERFUMERY_DHP25_EXACT_V5_FORMULA_AUDIT_V1_20260811/outputs/DHP25_CURRENT_BUILD_EXACT_V5_LINE_AUDIT_70_v1.csv",
+      "source_member_byte_size": 31039,
+      "source_member_sha256": "06649bf76eac5da3c83203bb3b608164a0251f35a292bcc86e036998e929cee9",
+      "field_selection_mode": "EXACT_CSV_HEADER",
+      "source_fields_sha256": "c72e8abecaf8aea77db012fca4eb1ee8ebc586772401f490bac41035af33d103",
+      "fields": ["ordinal", "module", "source_material", "source_stock_text", "source_active_fraction", "source_parts_per_1000", "source_active_parts", "source_state", "v5_route_state", "v5_authority_state", "v5_authority_sheet", "v5_authority_row", "v5_canonical_material", "v5_status", "v5_actual_stock", "v5_can_prepare", "v5_policy", "v5_evidence_route", "ingredient_master_name", "ingredient_master_row", "ingredient_master_stock", "ingredient_master_active_fraction", "active_fraction_conflict", "stock_basis_state", "modeled_construction_line_ready", "physical_execution_authority", "strict_oav_authority", "safety_authority", "release_authority"],
+      "policy_id": "MATERIAL_ROLE_STOCK_REBIND",
+      "dependency_profile_id": "V5_REBIND",
+      "authority_promoted": false
+    },
+    {
+      "field_group_id": "DHP25_EXACT_V5::SOURCE_STATE_DISCREPANCIES::primary",
+      "source_id": "DHP25_EXACT_V5",
+      "source_member": "outputs/DHP25_SOURCE_STATE_DISCREPANCIES_5_v1.csv",
+      "resolved_source_member": "COMPLEX_PERFUMERY_DHP25_EXACT_V5_FORMULA_AUDIT_V1_20260811/outputs/DHP25_SOURCE_STATE_DISCREPANCIES_5_v1.csv",
+      "source_member_byte_size": 1483,
+      "source_member_sha256": "523597f1dc2259d6a3602c676c57aa014ef3bee45328ee55c682bef24f246430",
+      "field_selection_mode": "EXACT_CSV_HEADER",
+      "source_fields_sha256": "322f5d7d17014f5993036fb15b9177fa1cab03267911da08458c455b3215e984",
+      "fields": ["ordinal", "material", "source_state", "v5_route_state", "discrepancy_type", "reason", "authority_sheet", "authority_row"],
+      "policy_id": "MATERIAL_ROLE_STOCK_REBIND",
+      "dependency_profile_id": "V5_REBIND",
+      "authority_promoted": false
+    },
+    {
+      "field_group_id": "DHP25_INITIAL::RELEASE::root",
+      "source_id": "DHP25_INITIAL",
+      "source_member": "Violet_Complexities_and_Dior_Homme_Parfum_2025_Complexity_Reconstruction_v1_release.json",
+      "resolved_source_member": "Violet_Complexities_and_Dior_Homme_Parfum_2025_Complexity_Reconstruction_v1_release.json",
+      "source_member_byte_size": 1871,
+      "source_member_sha256": "034127b77d8b17d47f428d8b5bb1c7994df9165bb7b02013fbd5962c878ca939",
+      "field_selection_mode": "EXACT_JSON_ROOT_KEYS",
+      "source_fields_sha256": "a92bb7c3f7ea21fadd24ad4fa90a29e0fa3b861501e05bb54689a09c25fb2b3a",
+      "fields": ["package_id", "created_utc", "target", "claim_tier", "state", "formula_class", "target_rows", "build_rows", "target_parts", "build_parts", "target_formula_sha256", "build_formula_sha256", "workbook_sha256", "report_sha256", "inventory_authority", "physical_similarity", "strict_oav", "measured_headspace", "stability", "safety_release", "formula_error_scan", "verification_inspects"],
+      "policy_id": "SOURCE_METADATA",
+      "dependency_profile_id": "SOURCE_ONLY",
+      "authority_promoted": false
+    },
+    {
+      "field_group_id": "DHP25_INITIAL::TARGET_ANCESTRY::projection",
+      "source_id": "DHP25_INITIAL",
+      "source_member": "Violet_Complexities_and_Dior_Homme_Parfum_2025_Complexity_Reconstruction_v1_release.json",
+      "resolved_source_member": "Violet_Complexities_and_Dior_Homme_Parfum_2025_Complexity_Reconstruction_v1_release.json",
+      "source_member_byte_size": 1871,
+      "source_member_sha256": "034127b77d8b17d47f428d8b5bb1c7994df9165bb7b02013fbd5962c878ca939",
+      "field_selection_mode": "ORDERED_JSON_ROOT_SUBSET",
+      "source_fields_sha256": "4489ee52907f3ff5f700987b7cca15ef4246fca3cb0efe7dc6960c091d0ed0de",
+      "fields": ["package_id", "target", "claim_tier", "formula_class", "target_rows", "target_parts", "target_formula_sha256"],
+      "policy_id": "SECONDARY_TARGET_ANCESTRY",
+      "dependency_profile_id": "TARGET_ONLY",
+      "authority_promoted": false
+    }
+  ],
+  "coverage": {
+    "source_count": 3,
+    "selected_field_group_count": 9,
+    "selected_field_count": 163,
+    "full_package_field_census_claimed": false,
+    "duplicate_field_group_ids": [],
+    "unmapped_selected_field_groups": []
+  },
+  "decision": {
+    "sealed_p2_2_parents_mutated": false,
+    "migration_required": false,
+    "migration_head_remains": "20260810_0016",
+    "new_truth_store_allowed": false,
+    "new_pipeline_script_allowed": false,
+    "package_code_install_allowed": false,
+    "canonical_import_authorized": false,
+    "installation_authorized": false,
+    "projection_state": "SOURCE_AND_DESIGN_ANCESTRY_ONLY"
+  },
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "bottle": false,
+    "physical_execution": false,
+    "sensory": false,
+    "strict_oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "release": false
+  },
+  "receipt_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_RECEIPT_SHA256_OMITTED",
+  "receipt_sha256": "bcfc08f17d4e8ea026aad7e3e47430d680c8111b5d17dc06681347d261bc86fb"
+}

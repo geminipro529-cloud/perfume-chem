@@ -1,0 +1,91 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "complex-perfumery-xhigh-audit-verify-fix-20260816",
+  "recorded_at": "2026-08-16T14:15:00+07:00",
+  "package": {
+    "file_name": "XHIGH_AUDIT_VERIFY_FIX_2026-08-16.zip",
+    "locator": "incoming_review/chatgpt/20260816T141500+0700-v13-post-v12-five-package-recovery-multi-chat/XHIGH_AUDIT_VERIFY_FIX_2026-08-16.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 35080,
+    "sha256": "1706d4c8ff1eeac22e689627630903ea7fcda5517b24ac79d44da246ed6f0657",
+    "media_type": "application/zip",
+    "archive_entry_count": 25,
+    "archive_file_count": 25,
+    "declared_payload_count": 24,
+    "package_root": null,
+    "embedded_integrity_records": [
+      {
+        "path": "MANIFEST.json",
+        "byte_size": 4683,
+        "sha256": "0966831b4156b900962bbea35c4a1fd211c64f588ad0af63c5da4ec7dfd30b75",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "SHA256SUMS.txt",
+        "byte_size": 2787,
+        "sha256": "ce2beb70e4e14816ab38028282c9150d5c3fbc765a2877b9b15f9b7500c78b02",
+        "role": "CHECKSUM_LEDGER"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "SECONDARY_RECONSTRUCTION",
+    "independence_group": "chatgpt:6a77d532-0a30-83ec-9067-555ff6800795:xhigh-audit-verify-fix-20260816",
+    "conversation_id": "6a77d532-0a30-83ec-9067-555ff6800795",
+    "turn_id": null,
+    "message_id": "4679e144-c4c4-421b-a999-f388672e8ec6",
+    "lineage_resolution": "EXACT_ORIGINAL_FILE_OBJECT_BYTES_RECOVERED_HASH_VERIFIED_AND_CAPTURED_WITH_SOURCE_DECLARED_MISSING_PARENT_STATE_PRESERVED",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "Historical audit/remediation candidate with unresolved source parents; exact bytes do not authorize source admission, implementation, publication, or release.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "The live repository supersedes the package's historical branch and implementation-state claims."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "SOURCE_PACKAGE_DECLARATION_SOURCE_BYTES_MISSING",
+      "HISTORICAL_REPOSITORY_STATE_NOT_CURRENT",
+      "FREEZE_NOT_AUTHORIZED",
+      "PRO_REVIEW_NOT_STARTED",
+      "NO_IMPLEMENTATION_OR_RELEASE_AUTHORITY"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [],
+  "evidence_summary": {
+    "classification": "XHIGH_AUDIT_VERIFY_FIX_EXACT_BYTES_HISTORICAL_REMEDIATION_CANDIDATE_ONLY",
+    "source_terminal_state": "SOURCE_BYTES_MISSING",
+    "source_freeze_authorized": false,
+    "source_pro_review": "NOT_STARTED",
+    "archive_ledger_entries_verified": 24,
+    "native_graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "promotion_allowed": false,
+    "capture_manifest": {
+      "path": "incoming_review/chatgpt/20260816T141500+0700-v13-post-v12-five-package-recovery-multi-chat/capture_manifest.json",
+      "byte_size": 12948,
+      "sha256": "2ea8051ea61e92ce47f71b7ea6abcb42c05e7d0c9557b83cc7ebc70d97793bcc"
+    }
+  },
+  "receipt_sha256": "c1a21efe0fe5098944fb21de84119b5ecb3435be072b114187caaf0f502ac51d"
+}

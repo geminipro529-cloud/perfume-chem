@@ -1,0 +1,249 @@
+{
+  "schema_version": "perfume_chem_complex_perfumery_v16_native_contract_installation_v1",
+  "recorded_at": "2026-08-17T03:54:49+07:00",
+  "state": "NATIVE_CLEAN_ROOM_DIAGNOSTICS_INSTALLED_PACKAGE_CONTENT_HELD",
+  "scope": "NON_DUPLICATE_DESIGN_AND_DIAGNOSTIC_CONTRACTS_ONLY",
+  "user_authorization": {
+    "authorized_in_current_thread": true,
+    "scope": "FIND_INSTALL_DEBUG_AND_VERIFY_ADDITIONAL_COMPLEX_PERFUMERY_MODULES_WITH_OAV_GATE",
+    "does_not_grant_source_or_package_installation_rights": true,
+    "does_not_grant_formula_inventory_physical_scientific_safety_or_release_authority": true
+  },
+  "repository_fence": {
+    "branch": "codex/add-inventory-materials",
+    "head": "c876ab128845c2e055251fdce4fb1c3f5d661045",
+    "index_tree": "b4dcfb3932f5156f9397fee876199001fff66611",
+    "staged_paths": 0,
+    "preexisting_dirty_tree_preserved": true
+  },
+  "source_package": {
+    "file_name": "Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0.zip",
+    "byte_size": 172172,
+    "sha256": "f4be1041bb8e2e8b5665962e580aa740996bd2f77b61299cca1d3cdf55014a5d",
+    "archive_entries": 75,
+    "manifest_records_verified": 73,
+    "checksum_records_verified": 74,
+    "package_tests_passed": 128,
+    "package_tests_failed": 0,
+    "package_validation_script": "PASS_WITH_PYTHONUTF8_1",
+    "receipt_path": "data/governance/complex_perfumery_complexity_expansion_calibration_engine_v2_package_receipt_20260816.json",
+    "rights_state": "UNKNOWN",
+    "source_admission": false,
+    "package_code_installed": false,
+    "package_schemas_installed": false,
+    "package_registries_imported": false,
+    "package_formulas_imported": false
+  },
+  "native_fit_census": [
+    {
+      "package_module": "expansion.py",
+      "decision": "CLEAN_ROOM_NATIVE_DIAGNOSTICS_IMPLEMENTED",
+      "native_paths": [
+        "engine/perception/complexity_expansion.py"
+      ],
+      "scope": "registry validation, collision review, Pareto experiment frontier, bounded declared-scope saturation",
+      "global_exhaustiveness_claim": false
+    },
+    {
+      "package_module": "admission.py",
+      "decision": "CLEAN_ROOM_NATIVE_DIAGNOSTICS_IMPLEMENTED_AND_OAV_HARDENED",
+      "native_paths": [
+        "engine/scientific_validation/complexity_model_admission.py"
+      ],
+      "scope": "claim-scoped noncompensatory M0-M16 admission with exact formula and native OAV receipt binding"
+    },
+    {
+      "package_module": "drift.py",
+      "decision": "CLEAN_ROOM_NATIVE_DIAGNOSTICS_IMPLEMENTED",
+      "native_paths": [
+        "engine/physics/model_lifecycle.py"
+      ],
+      "scope": "model cards, disjoint calibration and held-out sets, lifecycle, drift hold, supersession, retirement"
+    },
+    {
+      "package_module": "temporal.py",
+      "decision": "CLEAN_ROOM_NATIVE_DIAGNOSTICS_IMPLEMENTED_AND_OAV_HARDENED",
+      "native_paths": [
+        "engine/sensory/within_sniff.py",
+        "engine/sensory/temporal_observations.py"
+      ],
+      "scope": "within-sniff apparatus design and receipt-bound descriptive temporal summaries without causal or sensory promotion"
+    },
+    {
+      "package_module": "integrity.py",
+      "decision": "ORDER_BALANCE_SUBSET_IMPLEMENTED_REMAINDER_NOT_COPIED",
+      "native_paths": [
+        "engine/sensory/order_balance.py"
+      ],
+      "scope": "Williams first-order balanced schedule generation and audit only; allocation, washout, execution, and inference remain separate"
+    },
+    {
+      "package_module": "canonical.py",
+      "decision": "NOT_COPIED_NATIVE_CANONICAL_HASHING_IS_CONTROLLING"
+    },
+    {
+      "package_module": "evidence.py",
+      "decision": "NOT_COPIED_NATIVE_CONTRADICTION_HOLD_AND_SOL_REVIEW_ARE_CONTROLLING"
+    },
+    {
+      "package_module": "empirical_loop.py",
+      "decision": "NOT_COPIED_FORMULA_SPECIFIC_VIOLET_LEAF_LADDER_HAS_NO_FORMULA_OR_EXECUTION_AUTHORITY"
+    },
+    {
+      "package_module": "impact.py",
+      "decision": "NOT_COPIED_STRONGER_NATIVE_MISSING_CHEMICAL_IMPACT_CONTRACT_EXISTS"
+    },
+    {
+      "package_module": "cli.py",
+      "decision": "NOT_COPIED_PARALLEL_PIPELINE_AND_NEW_PIPELINE_SCRIPT_PROHIBITED"
+    }
+  ],
+  "native_modules": [
+    {
+      "path": "engine/perception/complexity_expansion.py",
+      "byte_size": 18418,
+      "sha256": "69b0e2a38f33545efa94e8e3a832091a2ce72d9496b9b211edcd60c0c8afb54e"
+    },
+    {
+      "path": "engine/scientific_validation/complexity_model_admission.py",
+      "byte_size": 22337,
+      "sha256": "484a0d3902eb96b946f9b3e566d3caa1083187655f12ed456942c9353e0a3710"
+    },
+    {
+      "path": "engine/physics/model_lifecycle.py",
+      "byte_size": 13837,
+      "sha256": "c320593f3e1bea8dd16014794e32ca5adffd557effb749f82193d487988acaaf"
+    },
+    {
+      "path": "engine/sensory/order_balance.py",
+      "byte_size": 6236,
+      "sha256": "fe71999d09c7d2366f2ba7c6f27718ba04282435125fd37a02a06051dba5807c"
+    },
+    {
+      "path": "engine/sensory/temporal_observations.py",
+      "byte_size": 9237,
+      "sha256": "e730484f30ecbab428e02d31042649990db46b389d0da6bbfa13e93a6006770b"
+    },
+    {
+      "path": "engine/sensory/within_sniff.py",
+      "byte_size": 11781,
+      "sha256": "2ac737b87a3a9e237647b4f2bd7fe4601c5634926d7267c240c606726b269caa"
+    }
+  ],
+  "oav_gate": {
+    "state": "HARD_BOUND_FOR_FORMULA_BEARING_NATIVE_SCOPES",
+    "native_result_types_required": [
+      "OAVAuthorityResult",
+      "PreflightReport",
+      "PreMixGuardReport"
+    ],
+    "formula_hash_recomputed_from_exact_name_doses_and_dilutions": true,
+    "dose_receipt_binding_required": true,
+    "quantitative_ppm_required": true,
+    "odt_authority_and_coverage_required": true,
+    "natural_composite_oav_coverage_required": true,
+    "headspace_scope_required": true,
+    "pre_mix_gate_required": true,
+    "immediate_parent_and_active_equivalence_required_for_revisions": true,
+    "strict_oav_computed_required_for_analytical_physical_production_and_canonical_scopes": true,
+    "oav_per_time_role": "SCREENING_ONLY",
+    "current_native_canary_state": "HOLD_ODT_WARN_STRICT_OAV_ABSTAINED",
+    "strict_empirical_oav_authority": false
+  },
+  "verification": {
+    "focused_module_oav_tests": {
+      "passed": 57,
+      "failed": 0
+    },
+    "relevant_integration_tests": {
+      "passed": 166,
+      "failed": 0,
+      "deselected": 1
+    },
+    "ruff": "PASS",
+    "compileall": "PASS",
+    "bounded_mypy": "PASS_6_SOURCE_FILES",
+    "quick_project_verify": {
+      "passed_checks": 9,
+      "failed_checks": 1,
+      "failed_check": "formula-artifact-validation",
+      "failure_scope": "PREEXISTING_STALE_AND_QUARANTINED_FORMULA_ARTIFACTS",
+      "report_path": "verification_runs/project_verification_partial.json",
+      "report_sha256": "300d7a76fd969a74343c5b0c704afe8345d915b405680374ae7103563810f20a"
+    },
+    "full_project_verify": {
+      "state": "BOUNDED_TIMEOUT_IN_BACKEND_PYTEST",
+      "backend_timeout_seconds_exceeded": 600,
+      "engine_truth_core": "2_COLLECTION_ERRORS_PYTHON314_PROTOBUF_OPENTELEMETRY",
+      "engine_data_knowledge": "255_PASS_2_FAIL_STALE_INVENTORY_COUNT_210_VS_230",
+      "engine_gates_families": "637_PASS_2_FAIL_STRICTER_PREFLIGHT",
+      "engine_legacy": "69_PASS_0_FAIL",
+      "new_module_failures": 0,
+      "release_claim_allowed": false
+    },
+    "package_build": {
+      "state": "PASS",
+      "wheel_smoke": "PASS",
+      "wheel_path": "dist/perfume_chem_engine-0.1.0-py3-none-any.whl",
+      "wheel_byte_size": 1339291,
+      "wheel_sha256": "937bffb55e55ea13759fad1b6a04dc79b5487af4a7afa9fc896a8ae8b1cee9f0",
+      "all_six_native_modules_present_in_wheel": true,
+      "report_path": "output/complex_perfumery_v16_package_verify_20260817.json",
+      "report_sha256": "1783d0868f3873135db59330d7c92a081bc18a0fb1664bb49aff5a851e21434b"
+    }
+  },
+  "deepluna_chat": {
+    "project_id": "perfume-chem-cheapluna-isolated",
+    "profile": "cheapluna-chat",
+    "route_contract": "DIRECT_PRO",
+    "fallback_policy": "NO_LUNA",
+    "runtime_build_hash": "68b1c471b72378de081d08ef031b28f7d2d1a044afa8a97d10487ff2c7154b5a",
+    "final_readiness": "READY",
+    "job_id": "DS-53136743b25c4a5ca65102345e2a4272",
+    "job_state": "TERMINAL_CONTRACT_ERROR",
+    "accepted_evidence": false,
+    "retry_submitted": false,
+    "provider_runs": 0,
+    "provider_api_calls": 0,
+    "provider_tokens": 0,
+    "cache_hits": 0,
+    "open_reserved_nano_usd": 0,
+    "unknown_reservations": 0,
+    "active_reads": 0,
+    "active_writes": 0,
+    "queued": 0,
+    "fast_used": false,
+    "luna_used": false,
+    "fallback_used": false,
+    "codex_orchestration_enabled": false
+  },
+  "decision": {
+    "additional_native_diagnostic_modules_found": 6,
+    "native_module_files_present": true,
+    "native_contract_implementation_complete_for_declared_scope": true,
+    "package_installation_complete": false,
+    "source_admission_complete": false,
+    "package_data_import_complete": false,
+    "formula_or_inventory_mutated": false,
+    "physical_or_sensory_execution_performed": false,
+    "release_complete": false
+  },
+  "authority": {
+    "source_admission": false,
+    "package_installation": false,
+    "schema": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "bottle": false,
+    "physical_execution": false,
+    "sensory": false,
+    "analytical": false,
+    "measured_headspace": false,
+    "strict_empirical_oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "release": false
+  }
+}

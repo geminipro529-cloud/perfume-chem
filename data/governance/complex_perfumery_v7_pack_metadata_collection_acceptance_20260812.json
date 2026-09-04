@@ -1,0 +1,124 @@
+{
+  "schema_version": "perfume_chem_complex_perfumery_v7_pack_metadata_collection_acceptance_v1",
+  "recorded_at": "2026-08-12T18:36:00+07:00",
+  "state": "PACK_METADATA_EXACT_FILE_LIBRARY_BYTES_CAPTURED_AUTHORITY_FALSE",
+  "scope": "PACK_METADATA_FILE_LIBRARY_EXACT_BYTE_CAPTURE_AND_APPEND_ONLY_SUCCESSOR_ONLY",
+  "repository_fence": {
+    "branch": "codex/add-inventory-materials",
+    "head": "c876ab128845c2e055251fdce4fb1c3f5d661045",
+    "index_tree": "b4dcfb3932f5156f9397fee876199001fff66611",
+    "staged_paths": 0,
+    "preexisting_dirty_tree_preserved": true
+  },
+  "rollback": {
+    "archive_path": "D:/perfume-chem-rollback/20260812T183600+0700-pack-metadata-exact-recovery-v7/rollback.pax.tar",
+    "archive_byte_size": 31232,
+    "archive_sha256": "f5f052cc270c0a8d9df3f350cc1941f4db6fffc476a4b4ff7ba7833b60f5cc4c",
+    "path_preserving_pax": true,
+    "restoration_verified_files": 5,
+    "restoration_mismatches": 0
+  },
+  "applied_artifacts": [
+    {
+      "path": "incoming_review/chatgpt/20260812T183600+0700-pack-metadata-file-library-recovery-6a7992db/PACK_METADATA.json",
+      "byte_size": 14116,
+      "sha256": "d051505ea9144716fb860c5ff74e92b2bed2b33e419c830460cc60278b94f869"
+    },
+    {
+      "path": "incoming_review/chatgpt/20260812T183600+0700-pack-metadata-file-library-recovery-6a7992db/capture_manifest.json",
+      "byte_size": 2017,
+      "sha256": "ea63d30abb7c1a72d392c6bf8fa0a951949c60929c03d1c75bacb6905f246585"
+    },
+    {
+      "path": "data/governance/complex_perfumery_pack_metadata_file_library_artifact_receipt_20260812.json",
+      "byte_size": 3580,
+      "sha256": "25dc5a97f57ef15dbf90b415207717faca8f539c31d66b0f4b2afb34a9059cf8"
+    },
+    {
+      "path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V7_20260812.json",
+      "byte_size": 5446,
+      "sha256": "9d37e67ee8fc62398d33d9d52799d797d6ff8e08266b4394788c3f4e9e38004e"
+    },
+    {
+      "path": "output/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V7_20260812.md",
+      "byte_size": 2749,
+      "sha256": "542aaa2890161e36802175813a905b256351e75cdc2a423415008366c1e32168"
+    },
+    {
+      "path": "output/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V7_20260812.txt",
+      "byte_size": 1396,
+      "sha256": "5b5fd3da911e782669d48b50d9099c2851d9c551799acdb478e7f13268f76a4c"
+    },
+    {
+      "path": "tests/test_complex_perfumery_v7_pack_metadata_capture.py",
+      "byte_size": 5628,
+      "sha256": "6d7af67d6c713a374db5135aff9616b699b5588d20d2451046becaec02d6dd5d"
+    }
+  ],
+  "verification": {
+    "receipt_command": "PYTHONDONTWRITEBYTECODE=1 python -m pytest tests/test_external_package_receipts.py tests/test_complex_perfumery_v6_am_e01_capture.py tests/test_complex_perfumery_v7_pack_metadata_capture.py -q -p no:cacheprovider",
+    "receipt_tests_passed": 32,
+    "receipt_tests_failed": 0,
+    "quarantine_command": "PYTHONDONTWRITEBYTECODE=1 python -m pytest tests/test_archive_quarantine.py -q -p no:cacheprovider",
+    "quarantine_tests_passed": 42,
+    "quarantine_tests_failed": 0,
+    "pack_metadata_exact_downloads_verified": 1,
+    "capture_sha256_verified": true,
+    "artifact_receipt_semantic_hash_verified": true,
+    "v7_ledger_entries_verified": 9,
+    "v6_parent_pins_verified": 3
+  },
+  "deepluna_chat": {
+    "project_id": "perfume-chem-cheapluna-isolated",
+    "route": "DIRECT_PRO",
+    "fresh_check": "READY",
+    "recovery_audit_batch": "DLB-20260812T105643937Z-594c1e",
+    "acceptance_basis": "LOCAL_EXACT_FILE_LIBRARY_BYTES_SOURCE_CAPTURE_JSON_PARSE_HASH_LEDGER_AND_TEST_REPLAY",
+    "fallback_used": false,
+    "fast_used": false,
+    "sol_local_acceptance_only": true
+  },
+  "decision": {
+    "v6_parent_mutated": false,
+    "pack_metadata_optional_identity_closed": true,
+    "optional_identities_remaining": 3,
+    "collection_complete": false,
+    "implementation_complete": false,
+    "source_admission_complete": false,
+    "package_installation_complete": false,
+    "installation_authorized": false,
+    "migration_required": false,
+    "migration_head_remains": "20260810_0016",
+    "new_truth_store_created": false,
+    "new_pipeline_script_created": false,
+    "package_code_installed": false,
+    "formula_or_build_mutated": false,
+    "inventory_mutated": false
+  },
+  "residual_holds": [
+    "THREE_OPTIONAL_COLLECTION_IDENTITIES_UNRECOVERED",
+    "P6_EXACT_ZIP_AND_WHEEL_UNAVAILABLE_NO_SUBSTITUTION",
+    "PACK_METADATA_RIGHTS_AND_B1_SOURCE_ADMISSION_UNRESOLVED",
+    "REFERENCED_PAYLOADS_REQUIRE_INDEPENDENT_EXACT_BYTE_RECEIPTS",
+    "NO_MEASURED_HEADSPACE_STRICT_OAV_PHYSICAL_SENSORY_STABILITY_SAFETY_OR_RELEASE_VALIDATION"
+  ],
+  "authority": {
+    "source_admission": false,
+    "metadata": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "bottle": false,
+    "physical_execution": false,
+    "sensory": false,
+    "headspace": false,
+    "strict_oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "installation": false,
+    "release": false
+  },
+  "receipt_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_RECEIPT_SHA256_OMITTED",
+  "receipt_sha256": "7e23b2e557994fbb683a2f4bbf248d1ed2c3134a580c962ae712a62fe6b572a3"
+}

@@ -1,0 +1,146 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "complex-perfumery-floral-hedonic-formula-portfolio-20260817",
+  "recorded_at": "2026-08-17T04:59:03+07:00",
+  "package": {
+    "file_name": "Floral_Complexity_Expansion_10_Hedonic_Formula_Portfolio_Aug2026_v1_Package.zip",
+    "locator": "incoming_review/chatgpt/20260817T045903+0700-v18-floral-hedonic-portfolio-6a79b172-n1654f03a/Floral_Complexity_Expansion_10_Hedonic_Formula_Portfolio_Aug2026_v1_Package.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 361894,
+    "sha256": "1654f03ad0b55fa310a46e6e0ed11a0f9070ab9c94037e726380389f177a35e6",
+    "media_type": "application/zip",
+    "archive_entry_count": 13,
+    "archive_file_count": 13,
+    "declared_payload_count": 6,
+    "package_root": null,
+    "embedded_integrity_records": [
+      {
+        "path": "Floral_Complexity_Expansion_10_Hedonic_Formula_Portfolio_Aug2026_v1_SHA256SUMS.txt",
+        "byte_size": 871,
+        "sha256": "82929e31581f4c90be8ea6082dc807ac17d87ab639a7e4f02856a851bf192e34",
+        "role": "CHECKSUM_LEDGER"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a79b172-0264-83ec-b77a-306a37ecb832:floral-hedonic-formula-portfolio-20260817-v1",
+    "conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+    "turn_id": "310f1e23-52cb-4bf3-8329-3a3a4347190e",
+    "message_id": "a0be155a-bd2c-4af9-b1cc-5cae8248d95e",
+    "lineage_resolution": "EXACT_SOURCE_TRANSPORT_BLOCKS_REASSEMBLED_WITH_PER_BLOCK_AND_FULL_STREAM_HASH_CHECKS_OUTER_BYTES_HASH_VERIFIED_AND_CAPTURED_LEDGER_REPLAYED_SOURCE_NAMED_UNHASHED_PARENTS_NOT_PROMOTED",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "External AI-generated computational formula and hedonic-design ancestry; exact possession does not grant source, formula, inventory, execution, redistribution, publication, or release authority.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Retain exact bytes and source-design geometry only. Current native Inventory V5, target/build, exact-stock, preparation, active-dose, Laboratory Beta, C0, headspace/OAV, safety, and release gates remain controlling."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "SOURCE_NAMED_FLORAL_ATLAS_AND_COMPLEXITY_ENGINE_NOT_EXACT_HASH_BOUND_AS_PARENTS",
+      "COMPUTATIONAL_FORMULA_AND_HEDONIC_HYPOTHESES_NOT_CANONICAL_FORMULAS",
+      "EXACTSTOCKREF_PREPARATION_ACTIVE_DOSE_AND_SAFETY_RECEIPTS_REQUIRED",
+      "NO_PHYSICAL_OR_SENSORY_RESULTS",
+      "NO_MEASURED_HEADSPACE_OR_STRICT_OAV",
+      "NATIVE_ARCHIVE_GRAPH_QUARANTINED",
+      "NO_RELEASE_AUTHORITY"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+      "byte_size": 199635,
+      "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "relation": "DECLARED_INVENTORY_ANCESTRY",
+      "support_scope": "SOURCE_PACKAGE_DESIGN_INPUT_ONLY_LIVE_NATIVE_V5_STOCK_AND_PREPARATION_AUTHORITY_CONTROLS",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "FLORAL_HEDONIC_FORMULA_PORTFOLIO_EXACT_BYTES_COMPUTATIONAL_DESIGN_ANCESTRY_ONLY",
+    "package_state": "PASS_WITH_PHYSICAL_HOLD_AND_BRIDGE_BLOCKED",
+    "transport": {
+      "method": "EXACT_SOURCE_PROVIDED_BASE64_BLOCK_TRANSPORT",
+      "block_count": 118,
+      "full_base64_byte_size": 482528,
+      "full_base64_sha256": "abb6f264f34aea6737591d08c443186644e3fc2729bf7271acfd0ab35b4d8d93",
+      "archive_regenerated": false,
+      "artifact_substituted": false
+    },
+    "archive_checksum_records_verified": 6,
+    "formula_candidate_count": 10,
+    "current_formula_rows": 670,
+    "target_formula_rows": 680,
+    "preparation_rows": 31,
+    "target_missing_rows": 10,
+    "formula_total_parts_each": 1000,
+    "truth_boundary": {
+      "hedonic_claim": "DESIGN HYPOTHESIS ONLY",
+      "physical_compounding": "NOT PERFORMED",
+      "sensory_liking": "NOT TESTED",
+      "stability": "NOT TESTED",
+      "safety": "NOT TESTED",
+      "measured_headspace": "NOT TESTED",
+      "strict_oav": "NOT TESTED",
+      "release": "HOLD",
+      "repository_state": "BRIDGE_BLOCKED"
+    },
+    "unresolved_source_pointers": [
+      {
+        "artifact_name": "Floral_Heart_Complexity_Discovery_Atlas_Aug2026_v1.xlsx",
+        "exact_hash_bound": false,
+        "parent_edge_created": false
+      },
+      {
+        "artifact_name": "Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0.zip",
+        "exact_hash_bound": false,
+        "parent_edge_created": false
+      }
+    ],
+    "embedded_workbook": {
+      "path": "Floral_Complexity_Expansion_10_Hedonic_Formula_Portfolio_Aug2026_v1.xlsx",
+      "byte_size": 241911,
+      "sha256": "ac4598ddd9d2130137ec57761d834059405094fb6e4c2ff05093a5dc451c1d64",
+      "sheet_count": 17,
+      "formula_cell_count": 2760,
+      "stored_formula_error_count": 0,
+      "native_scan_status": "CLEAR_FOR_RECEIPT_REVIEW",
+      "promotion_allowed": false
+    },
+    "native_graph_status": "GRAPH_COMPLETE_QUARANTINED",
+    "root_finding_codes": [
+      "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT",
+      "PARTIAL_MEMBER_SCAN"
+    ],
+    "graph_findings": [],
+    "promotion_allowed": false,
+    "capture_manifest": {
+      "path": "incoming_review/chatgpt/20260817T045903+0700-v18-floral-hedonic-portfolio-6a79b172-n1654f03a/capture_manifest.json",
+      "byte_size": 5513,
+      "sha256": "0268e76101a49ed22bd718bcfb2b711f732a2279768f821ca278bd860c76801a"
+    }
+  },
+  "receipt_sha256": "2e615a6886e52143b28bc1be01e31b9d78fec1a96f1d28d950d3823fcf36dd5e"
+}

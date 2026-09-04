@@ -1,0 +1,83 @@
+{
+  "schema_version": "external_artifact_receipt_v1",
+  "receipt_id": "complex-perfumery-am-e01-file-library-exact-recovery-20260812",
+  "recorded_at": "2026-08-12T18:19:16+07:00",
+  "artifact": {
+    "file_name": "AM-E01_Amouage_Opus_V_Woods_Symphony_30mL_Formula.md",
+    "locator": "incoming_review/chatgpt/20260812T181916+0700-am-e01-file-library-recovery-6a7992db/AM-E01_Amouage_Opus_V_Woods_Symphony_30mL_Formula.md",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 40713,
+    "sha256": "965b02beba5faec32dcbe8d5d97aa3df8cb47fe43fc3c1cf040e4fd3b03ff5e2",
+    "media_type": "text/markdown",
+    "utf8_decodable": true,
+    "line_count": 472
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_FORMULA_HYPOTHESIS",
+    "independence_group": "chatgpt:6a7992db-96b8-83ec-aab0-6a7447b97da1:am-e01-file-library",
+    "conversation_id": "6a7992db-96b8-83ec-aab0-6a7447b97da1",
+    "conversation_title": "Perfume Project Planning",
+    "turn_id": "e0c8046a-b8b8-4180-8b2f-a84c1363d0f4",
+    "file_library_reference": "filenavlist 124:0",
+    "retrieval_method": "AUTHENTICATED_CHATGPT_FILE_LIBRARY_CARD_DOWNLOAD_AND_LOCAL_SHA256_REPLAY",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "redistribution_allowed": false,
+      "canonical_import_allowed": false,
+      "notes": "Exact possession and integrity do not establish source reuse, formula execution, publication, or release permission."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_FILE_BYTES_VERIFIED_QUARANTINED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_formula_import_allowed": false,
+    "row_projection_allowed": false,
+    "execution_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "AI_GENERATED_FORMULA_HYPOTHESIS_ONLY",
+      "CURRENT_V5_EXACT_STOCK_AND_PREPARATION_REBIND_REQUIRED",
+      "MISSING_TARGET_MATERIALS_AND_FUNCTIONAL_PROXIES_REMAIN",
+      "NO_MEASURED_HEADSPACE_STRICT_OAV_PHYSICAL_SENSORY_STABILITY_SAFETY_OR_RELEASE_EVIDENCE"
+    ]
+  },
+  "evidence_summary": {
+    "classification": "AM_E01_EXACT_FILE_LIBRARY_BYTES_RECOVERED_QUARANTINED_FORMULA_HYPOTHESIS_ONLY",
+    "formula_candidate_only": true,
+    "formula_authority": false,
+    "physical_evidence_state": "NOT_TESTED",
+    "strict_oav_state": "NOT_TESTED",
+    "measured_headspace_state": "NOT_TESTED",
+    "sensory_similarity_state": "NOT_TESTED",
+    "stability_state": "NOT_TESTED",
+    "safety_release_state": "NOT_TESTED",
+    "source_bytes_verified": true,
+    "source_copy_count_observed": 3,
+    "all_observed_source_copies_byte_identical": true,
+    "capture_manifest": {
+      "path": "incoming_review/chatgpt/20260812T181916+0700-am-e01-file-library-recovery-6a7992db/capture_manifest.json",
+      "byte_size": 2018,
+      "sha256": "5751aefa8ed4c2fd13efe1c93b234e719f27b8daf20d4e7a9d715d24345b4d36"
+    }
+  },
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "bottle": false,
+    "physical_execution": false,
+    "sensory": false,
+    "headspace": false,
+    "strict_oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "installation": false,
+    "release": false
+  },
+  "receipt_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_RECEIPT_SHA256_OMITTED",
+  "receipt_sha256": "0e59136ec3dce0edf73a1a740534d1964de05eefe4a7c234c7bd8444864d8d9a"
+}

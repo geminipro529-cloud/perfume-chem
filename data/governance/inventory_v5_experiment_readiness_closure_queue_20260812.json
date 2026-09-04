@@ -1,0 +1,586 @@
+{
+  "schema_version": "perfume_chem_inventory_v5_closure_queue_v1",
+  "report_id": "inventory_v5_experiment_readiness_closure_queue_20260812",
+  "generated_at": "2026-08-12",
+  "decision": "DATA_AMBER_V5_EXPERIMENT_READINESS_CLOSURE_QUEUE_RANKED_PHYSICAL_EXECUTION_NOT_AUTHORIZED",
+  "purpose": "Rank the smallest exact-stock, carrier, formula-basis, and preparation closures that must precede a concentration-aware binary-mixture experiment.",
+  "semantic_self_sha256": "f6a57c5c63b9e3ea2cdef9d9b009a70f09e6a1cde892769762c2e2bcc757d7cd",
+  "parents": [
+    {
+      "path": "data/governance/inventory_v5_current_stock_snapshot.json",
+      "size_bytes": 226125,
+      "sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+      "role": "CURRENT_STOCK_AND_FORMULA_USE_CENSUS"
+    },
+    {
+      "path": "data/governance/inventory_v5_alias_crosswalk_20260811.json",
+      "size_bytes": 7700,
+      "sha256": "4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6",
+      "role": "IDENTITY_CROSSWALK_ONLY"
+    },
+    {
+      "path": "data/governance/inventory_v5_authority_delta_20260811.json",
+      "size_bytes": 7027,
+      "sha256": "0ecbfc09bb826c89d1180006e2eb195c5db87b40bad77f250256e8ef89fd6774",
+      "role": "FAIL_CLOSED_STOCK_AND_LABEL_DELTA"
+    },
+    {
+      "path": "data/governance/inventory_v5_authority_delta_20260811_02.json",
+      "size_bytes": 4352,
+      "sha256": "388e25561f679f0c46a2c320b49c3ebfc1c8c00c51aa6dd9e9564fbd60aeee92",
+      "role": "FAIL_CLOSED_STOCK_BASIS_SUPPLEMENT"
+    },
+    {
+      "path": "docs/research/PERFUME_CHEM_CHATGPT_PROJECT_RECONCILIATION_2026-08-10.md",
+      "size_bytes": 168762,
+      "sha256": "b79fceec56999fbe515970af0353941e9410ebd76756597bf52aa3f10fbb30d7",
+      "role": "PRIOR_PROJECT_AND_HYPOTHESIS_RECONCILIATION"
+    },
+    {
+      "path": "incoming_review/PERFUME_CHEM_LITERATURE_VERIFICATION_LEDGER.md",
+      "size_bytes": 27155,
+      "sha256": "4f2206893d6f8d682aa6df798a3a5c8c9b2a815b8ed2c4025c20cd108544b9e7",
+      "role": "LOCAL_LITERATURE_VERIFICATION_BOUNDARY"
+    },
+    {
+      "path": "inventory.txt",
+      "size_bytes": 17140,
+      "sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "role": "USER_STOCK_ASSERTION_SOURCE"
+    }
+  ],
+  "census": {
+    "snapshot_rows": 280,
+    "identity_crosswalk_contracts": 18,
+    "authority_delta_records": 6,
+    "ranked_closure_actions": 16,
+    "deferred_procurement_or_replan_holds": 5
+  },
+  "ranking_policy": {
+    "method": "LEXICOGRAPHIC_COST_GATE",
+    "ordering": [
+      "direct_experiment_gate",
+      "evidence_before_preparation",
+      "existing_exact_stock_before_new_stock",
+      "formula_rows_affected_descending_within_cost_class"
+    ],
+    "monetary_evsi_invented": false,
+    "rationale": "Formula-row counts quantify operational reach, while effort remains categorical because time, reagent, and shipping prices are not governed inputs."
+  },
+  "closure_queue": [
+    {
+      "rank": 1,
+      "action_id": "CLR-001",
+      "material_scope": "2-Acetyl Pyrazine neat and 1% working stock",
+      "direct_experiment_gate": "YES",
+      "cost_class": "EVIDENCE_ONLY",
+      "formula_rows_affected": 0,
+      "snapshot_sources": [
+        {
+          "source_row": 6,
+          "canonical_material": "2-Acetyl Pyrazine",
+          "status": "HAVE — NEAT + 1% / 1% CARRIER UNSTATED",
+          "formula_count": 0,
+          "row_uses": 0
+        }
+      ],
+      "crosswalk_contract_id": "IDCL-001",
+      "required_evidence": "Record exact stock IDs, 1% concentration basis, carrier, preparation or supplier lineage, and label/lot witness.",
+      "closure_test": "The 1% stock resolves to one ExactStockRef with explicit carrier and fraction basis; the neat parent remains a distinct ExactStockRef.",
+      "failure_test": "Carrier, fraction basis, parent stock, or stock identity remains unstated or contradictory.",
+      "execution_authorized": false
+    },
+    {
+      "rank": 2,
+      "action_id": "CLR-002",
+      "material_scope": "Lemonile neat and any 1% working stock",
+      "direct_experiment_gate": "YES",
+      "cost_class": "EVIDENCE_ONLY",
+      "formula_rows_affected": 0,
+      "snapshot_sources": [
+        {
+          "source_row": 258,
+          "canonical_material": "Lemonile",
+          "status": "HAVE — NEAT / AS SUPPLIED",
+          "formula_count": 0,
+          "row_uses": 0
+        }
+      ],
+      "required_evidence": "Bind the neat bottle and any claimed 1% in DPG working stock as separate stock IDs with label or preparation receipts.",
+      "closure_test": "Every prospective dose names exactly one Lemonile stock, strength, carrier, and lineage.",
+      "failure_test": "The neat material and a working dilution are merged or the dilution is inferred from an unbound note.",
+      "execution_authorized": false
+    },
+    {
+      "rank": 3,
+      "action_id": "CLR-003",
+      "material_scope": "Helional 10% v/v",
+      "direct_experiment_gate": "NO",
+      "cost_class": "EVIDENCE_ONLY",
+      "formula_rows_affected": 27,
+      "snapshot_sources": [
+        {
+          "source_row": 130,
+          "canonical_material": "Helional 10%",
+          "status": "HAVE — NEAT + 10% V/V",
+          "formula_count": 27,
+          "row_uses": 27
+        }
+      ],
+      "required_evidence": "Record carrier, parent stock, preparation lineage, and retain v/v as distinct from w/w.",
+      "closure_test": "The 10% v/v stock has an exact carrier and preparation receipt and is never converted to w/w without density evidence.",
+      "failure_test": "Carrier remains unknown or v/v and w/w are treated as interchangeable.",
+      "execution_authorized": false
+    },
+    {
+      "rank": 4,
+      "action_id": "CLR-004",
+      "material_scope": "Cyclamen Aldehyde 10%",
+      "direct_experiment_gate": "NO",
+      "cost_class": "EVIDENCE_ONLY",
+      "formula_rows_affected": 16,
+      "snapshot_sources": [
+        {
+          "source_row": 87,
+          "canonical_material": "Cyclamen Aldehyde 10%",
+          "status": "HAVE — NEAT + 10%",
+          "formula_count": 16,
+          "row_uses": 16
+        }
+      ],
+      "required_evidence": "Record the 10% carrier and exact stock identifier separately from the neat material.",
+      "closure_test": "Formula rows bind to an exact neat or 10% stock and the 10% carrier is explicit.",
+      "failure_test": "A formula names only the material while stock strength or carrier remains ambiguous.",
+      "execution_authorized": false
+    },
+    {
+      "rank": 5,
+      "action_id": "CLR-005",
+      "material_scope": "Javanol historical neat rows to confirmed 20% in DPG",
+      "direct_experiment_gate": "NO",
+      "cost_class": "FORMULA_BASIS_REBASE",
+      "formula_rows_affected": 53,
+      "snapshot_sources": [
+        {
+          "source_row": 149,
+          "canonical_material": "Javanol",
+          "status": "DO NOT USE — NEAT STOCK NOT CONFIRMED",
+          "formula_count": 53,
+          "row_uses": 53
+        },
+        {
+          "source_row": 150,
+          "canonical_material": "Javanol 20% in DPG",
+          "status": "HAVE — 20% IN DPG",
+          "formula_count": 0,
+          "row_uses": 0
+        }
+      ],
+      "required_evidence": "Recalculate each held neat-Javanol dose to the confirmed 20% in DPG stock or retain the row on hold.",
+      "closure_test": "Each affected formula has a reviewed mass-basis equivalence and binds only to the confirmed 20% in DPG stock.",
+      "failure_test": "Any historical neat amount is executed unchanged or the 20% stock is treated as neat.",
+      "execution_authorized": false
+    },
+    {
+      "rank": 6,
+      "action_id": "CLR-006",
+      "material_scope": "Alpha Irone 10% gap versus owned 30% w/w in IPM",
+      "direct_experiment_gate": "NO",
+      "cost_class": "FORMULA_BASIS_REBASE",
+      "formula_rows_affected": 12,
+      "snapshot_sources": [
+        {
+          "source_row": 19,
+          "canonical_material": "Alpha Irone 10%",
+          "status": "GAP",
+          "formula_count": 12,
+          "row_uses": 12
+        },
+        {
+          "source_row": 20,
+          "canonical_material": "Alpha Irone 30%",
+          "status": "HAVE",
+          "formula_count": 21,
+          "row_uses": 21
+        }
+      ],
+      "required_evidence": "Review carrier and active-material equivalence before rebasing 10% formula rows to the owned 30% w/w IPM stock.",
+      "closure_test": "Every rebased row preserves active Alpha Irone mass and explicitly records the IPM carrier contribution.",
+      "failure_test": "The 30% stock is substituted volumetrically for 10% or carrier effects are ignored.",
+      "execution_authorized": false
+    },
+    {
+      "rank": 7,
+      "action_id": "CLR-007",
+      "material_scope": "Beta Ionone 1% historical rows versus owned 0.1% stock",
+      "direct_experiment_gate": "NO",
+      "cost_class": "FORMULA_BASIS_REBASE",
+      "formula_rows_affected": 2,
+      "snapshot_sources": [
+        {
+          "source_row": 45,
+          "canonical_material": "Beta Ionone 1%",
+          "status": "HAVE — DIFFERENT STOCK",
+          "formula_count": 2,
+          "row_uses": 2
+        }
+      ],
+      "required_evidence": "Recalculate to the owned 0.1% working stock or deliberately prepare and receipt a distinct 1% stock from the confirmed neat parent.",
+      "closure_test": "Each row binds to the actual 0.1% stock or a new 1% PreparationReceipt, never to an assumed 1% stock.",
+      "failure_test": "A 0.1% stock is dosed as 1% or the chosen stock lacks exact identity.",
+      "execution_authorized": false
+    },
+    {
+      "rank": 8,
+      "action_id": "CLR-008",
+      "material_scope": "Peru Balsam 50% w/w to 10% working stock",
+      "direct_experiment_gate": "NO",
+      "cost_class": "CARRIER_IDENTITY_THEN_PREPARATION",
+      "formula_rows_affected": 43,
+      "snapshot_sources": [
+        {
+          "source_row": 201,
+          "canonical_material": "Peru Balsam 10%",
+          "status": "HAVE — 50% W/W / CARRIER UNSTATED",
+          "formula_count": 43,
+          "row_uses": 43
+        }
+      ],
+      "crosswalk_contract_id": "IDCL-016",
+      "required_evidence": "Identify the 50% parent carrier, then create a gravimetric 10% PreparationReceipt and recalculate affected rows.",
+      "closure_test": "The parent carrier and child preparation are exact, and every 10% row binds to the child stock.",
+      "failure_test": "The parent carrier remains unknown or the 50% product is dosed as a 10% stock.",
+      "execution_authorized": false
+    },
+    {
+      "rank": 9,
+      "action_id": "CLR-009",
+      "material_scope": "Citronellol 10% working stock",
+      "direct_experiment_gate": "NO",
+      "cost_class": "PREPARATION_FROM_CONFIRMED_STOCK",
+      "formula_rows_affected": 31,
+      "snapshot_sources": [
+        {
+          "source_row": 73,
+          "canonical_material": "Citronellol 10%",
+          "status": "HAVE — NEAT",
+          "formula_count": 31,
+          "row_uses": 31
+        }
+      ],
+      "required_evidence": "Create a gravimetric 10% PreparationReceipt from the confirmed neat stock with explicit carrier.",
+      "closure_test": "A homogeneous 10% child stock has exact parent, carrier, quantities, basis, date, and stock ID.",
+      "failure_test": "A formula assumes an old 10% stock or the preparation lineage is incomplete.",
+      "execution_authorized": false
+    },
+    {
+      "rank": 10,
+      "action_id": "CLR-010",
+      "material_scope": "Carrot Seed EO 1% and 10% working stocks",
+      "direct_experiment_gate": "NO",
+      "cost_class": "PREPARATION_FROM_CONFIRMED_STOCK",
+      "formula_rows_affected": 28,
+      "snapshot_sources": [
+        {
+          "source_row": 57,
+          "canonical_material": "Carrot Seed EO 1%",
+          "status": "HAVE — NEAT ONLY",
+          "formula_count": 10,
+          "row_uses": 10
+        },
+        {
+          "source_row": 58,
+          "canonical_material": "Carrot Seed EO 10%",
+          "status": "HAVE — NEAT ONLY",
+          "formula_count": 18,
+          "row_uses": 18
+        }
+      ],
+      "required_evidence": "Prepare only the dilution strengths actually needed and receipt each child stock separately from the neat parent.",
+      "closure_test": "Each 1% or 10% formula row binds to its exact child stock and all carrier contributions remain explicit.",
+      "failure_test": "Neat Carrot Seed EO is treated as a pre-existing 1% or 10% stock.",
+      "execution_authorized": false
+    },
+    {
+      "rank": 11,
+      "action_id": "CLR-011",
+      "material_scope": "Isoeugenol 10% in DPG",
+      "direct_experiment_gate": "NO",
+      "cost_class": "PREPARATION_FROM_CONFIRMED_STOCK",
+      "formula_rows_affected": 22,
+      "snapshot_sources": [
+        {
+          "source_row": 142,
+          "canonical_material": "Isoeugenol 10%",
+          "status": "HAVE — NEAT / PREPARE",
+          "formula_count": 22,
+          "row_uses": 22
+        }
+      ],
+      "required_evidence": "Prepare and receipt a 10% in DPG child stock only when needed.",
+      "closure_test": "The child stock is gravimetrically prepared and every formula names its exact stock ID.",
+      "failure_test": "A standing 10% stock is assumed without a current receipt.",
+      "execution_authorized": false
+    },
+    {
+      "rank": 12,
+      "action_id": "CLR-012",
+      "material_scope": "Methyl Nonyl Ketone 1% working stock",
+      "direct_experiment_gate": "NO",
+      "cost_class": "PREPARATION_FROM_CONFIRMED_STOCK",
+      "formula_rows_affected": 21,
+      "snapshot_sources": [
+        {
+          "source_row": 173,
+          "canonical_material": "Methyl Nonyl Ketone 1%",
+          "status": "HAVE — NEAT / PREPARE",
+          "formula_count": 21,
+          "row_uses": 21
+        }
+      ],
+      "required_evidence": "Prepare and receipt a 1% child stock from the confirmed neat material with explicit carrier.",
+      "closure_test": "The 1% child stock has exact parent, carrier, fraction basis, quantities, date, and stock ID.",
+      "failure_test": "A formula assumes a pre-existing 1% stock or omits carrier accounting.",
+      "execution_authorized": false
+    },
+    {
+      "rank": 13,
+      "action_id": "CLR-013",
+      "material_scope": "Benzaldehyde 10% working stock",
+      "direct_experiment_gate": "NO",
+      "cost_class": "PREPARATION_FROM_CONFIRMED_STOCK",
+      "formula_rows_affected": 18,
+      "snapshot_sources": [
+        {
+          "source_row": 39,
+          "canonical_material": "Benzaldehyde 10%",
+          "status": "HAVE — NEAT / PREPARE",
+          "formula_count": 18,
+          "row_uses": 18
+        }
+      ],
+      "required_evidence": "Prepare and receipt a 10% child stock only when required.",
+      "closure_test": "The exact child stock and carrier are recorded and bound to all affected rows.",
+      "failure_test": "The listed 10% stock is assumed to exist without preparation evidence.",
+      "execution_authorized": false
+    },
+    {
+      "rank": 14,
+      "action_id": "CLR-014",
+      "material_scope": "Dihydro Beta Ionone 10% working stock",
+      "direct_experiment_gate": "NO",
+      "cost_class": "PREPARATION_FROM_CONFIRMED_STOCK",
+      "formula_rows_affected": 15,
+      "snapshot_sources": [
+        {
+          "source_row": 93,
+          "canonical_material": "Dihydro Beta Ionone 10%",
+          "status": "HAVE — NEAT ONLY",
+          "formula_count": 15,
+          "row_uses": 15
+        }
+      ],
+      "required_evidence": "Prepare and receipt a 10% child stock from the confirmed neat material.",
+      "closure_test": "All 10% rows bind to a current exact PreparationReceipt.",
+      "failure_test": "The neat stock is dosed as though it were the historical 10% dilution.",
+      "execution_authorized": false
+    },
+    {
+      "rank": 15,
+      "action_id": "CLR-015",
+      "material_scope": "Heliotropal 10% working stock",
+      "direct_experiment_gate": "NO",
+      "cost_class": "PREPARATION_FROM_CONFIRMED_STOCK",
+      "formula_rows_affected": 15,
+      "snapshot_sources": [
+        {
+          "source_row": 131,
+          "canonical_material": "Heliotropal 10%",
+          "status": "HAVE — NEAT ONLY",
+          "formula_count": 15,
+          "row_uses": 15
+        }
+      ],
+      "required_evidence": "Prepare and receipt a 10% child stock only when required.",
+      "closure_test": "The 10% child stock is exact and its carrier contribution is preserved.",
+      "failure_test": "A formula assumes an existing 10% stock from a neat-only holding.",
+      "execution_authorized": false
+    },
+    {
+      "rank": 16,
+      "action_id": "CLR-016",
+      "material_scope": "Methyl Anthranilate 10% working stock",
+      "direct_experiment_gate": "NO",
+      "cost_class": "PREPARATION_FROM_CONFIRMED_STOCK",
+      "formula_rows_affected": 11,
+      "snapshot_sources": [
+        {
+          "source_row": 171,
+          "canonical_material": "Methyl Anthranilate 10%",
+          "status": "HAVE — NEAT / PREPARE",
+          "formula_count": 11,
+          "row_uses": 11
+        }
+      ],
+      "required_evidence": "Prepare and receipt a 10% child stock only when required.",
+      "closure_test": "The exact child stock is recorded before any affected formula is executable.",
+      "failure_test": "The dilution is inferred from the material name without a stock receipt.",
+      "execution_authorized": false
+    }
+  ],
+  "deferred_holds": [
+    {
+      "hold_id": "HOLD-AMB-001",
+      "material_scope": "Ambrettolide 10% in DPG",
+      "delta_record_id": "INV-V5-DELTA-AMBRETTOLIDE-RECEIPT",
+      "formula_rows_affected": 119,
+      "state": "PHYSICAL_RECEIPT_PENDING",
+      "next_gate": "Bind the physical receipt, bottle label, lot, and ExactStockRef before any physical formula use.",
+      "procurement_authorized": false,
+      "substitution_authorized": false
+    },
+    {
+      "hold_id": "HOLD-POL-001",
+      "material_scope": "Polysantol",
+      "delta_record_id": "INV-V5-DELTA-POLYSANTOL-STOCK",
+      "formula_rows_affected": 84,
+      "state": "OUT_OF_STOCK_REPLAN_REQUIRED",
+      "next_gate": "Obtain an exact new stock receipt or explicitly design a separately reviewed substitution branch.",
+      "procurement_authorized": false,
+      "substitution_authorized": false
+    },
+    {
+      "hold_id": "HOLD-CLR-001",
+      "material_scope": "Clearwood",
+      "source_locator": "data/governance/inventory_v5_current_stock_snapshot.json#_source_row=76",
+      "formula_rows_affected": 95,
+      "state": "OUT_OF_STOCK",
+      "next_gate": "Retain as unavailable unless an exact stock is later received and governed.",
+      "procurement_authorized": false,
+      "substitution_authorized": false
+    },
+    {
+      "hold_id": "HOLD-RME-001",
+      "material_scope": "Red Mandarin EO",
+      "source_locator": "data/governance/inventory_v5_current_stock_snapshot.json#_source_row=210",
+      "formula_rows_affected": 54,
+      "state": "OUT_OF_STOCK_CONFIRMED",
+      "next_gate": "Do not substitute blood orange, orange peel, or another mandarin without a separate hypothesis and formula review.",
+      "procurement_authorized": false,
+      "substitution_authorized": false
+    },
+    {
+      "hold_id": "HOLD-CED-001",
+      "material_scope": "Cedrat FCF Oil Sicilian",
+      "source_locator": "data/governance/inventory_v5_current_stock_snapshot.json#_source_row=66",
+      "formula_rows_affected": 52,
+      "state": "OUT_OF_STOCK_CONFIRMED",
+      "next_gate": "Preserve the target identity and require explicit authorization for any substitution branch.",
+      "procurement_authorized": false,
+      "substitution_authorized": false
+    }
+  ],
+  "next_hypothesis": {
+    "hypothesis_id": "H_BIN_MIXTURE_BASELINE_AFTER_IDENTITY_CLOSURE",
+    "status": "PROSPECTIVE_ONLY",
+    "question": "After exact stock and matrix control, does a nonlinear residual model improve held-out prediction beyond simple component baselines for a bounded binary perfume-material mixture?",
+    "minimum_design": [
+      "ExactStockRef, strength, carrier, and lineage for both components",
+      "Carrier-matched blanks and single-component controls",
+      "Fixed substrate, temperature, headspace time, dose basis, and evaluation window",
+      "Concentration series with prespecified ratios rather than one arbitrary blend",
+      "Blinded randomized repeated sessions with quality, intensity, pleasantness, and component identifiability recorded separately",
+      "Prespecified train and held-out split with no post-hoc threshold tuning"
+    ],
+    "baselines": [
+      "LINEAR_COMPONENT_AVERAGE_FOR_QUALITY",
+      "STRONGEST_COMPONENT_FOR_INTENSITY",
+      "PRESPECIFIED_HELD_OUT_NONLINEAR_RESIDUAL_ONLY_AFTER_BASELINES"
+    ],
+    "support_condition": "A nonlinear residual model provides a preregistered, repeatable held-out improvement over both simple baselines without relying on stock, carrier, session, or assessor leakage.",
+    "refutation_condition": "The nonlinear model provides no decision-relevant held-out gain, loses the gain across sessions, or only fits concentration or assessor leakage.",
+    "stop_conditions": [
+      "Either component lacks exact stock identity or carrier provenance",
+      "Matrix or concentration basis is not controlled",
+      "Repeat reliability is below the preregistered minimum",
+      "The simple baselines already meet the preregistered prediction target"
+    ],
+    "physical_execution_authorized": false,
+    "nonlinear_model_authorized": false
+  },
+  "literature_basis": [
+    {
+      "source_id": "PMID42465471",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42465471/",
+      "publication_state": "PREPRINT",
+      "role": "Supports a linear component-average quality baseline; does not establish a universal law."
+    },
+    {
+      "source_id": "PMID40832259",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40832259/",
+      "publication_state": "PREPRINT",
+      "role": "Supports testing nonlinear intensity prediction only against explicit single-molecule and OAV-style baselines."
+    },
+    {
+      "source_id": "PMID38876058",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38876058/",
+      "publication_state": "PEER_REVIEWED",
+      "role": "Shows mixture outcomes can be source- and pair-specific, so antagonism or addition cannot be assumed universally."
+    },
+    {
+      "source_id": "PMID28231131",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28231131/",
+      "publication_state": "PEER_REVIEWED",
+      "role": "Supports matrix-specific threshold control and rejects transfer of one threshold across substrates."
+    },
+    {
+      "source_id": "PMID40005243",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40005243/",
+      "publication_state": "PEER_REVIEWED",
+      "role": "Supports explicit solvent concentration control because ethanol can materially shift odor thresholds."
+    },
+    {
+      "source_id": "PMID18534998",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18534998/",
+      "publication_state": "PEER_REVIEWED",
+      "role": "Supports separating pleasantness from intensity and using perceived intensity when evaluating binary-mixture pleasantness."
+    }
+  ],
+  "delegation_evidence": {
+    "route": "DEEPLUNA_CHAT_DIRECT_PRO_ONLY",
+    "accepted_advisory_job": "DS-89ecbc1f21943877473976d17badd22c",
+    "unaccepted_truncated_job": "DS-6f2595d10666295c1068b91f3871bae7",
+    "retry_performed": false,
+    "exact_project_spend_before_nano_usd": 346245632,
+    "exact_project_spend_after_nano_usd": 350100408,
+    "observed_wave_delta_nano_usd": 3854776,
+    "observed_wave_delta_usd": 0.003854776,
+    "cost_attribution_boundary": "Exact-project health delta across this bounded wave; not a fabricated per-job token allocation.",
+    "scientific_acceptance": "SOL_LOCAL_ONLY"
+  },
+  "claim_boundary": {
+    "universal_mixture_law_claimed": false,
+    "oav_equals_percent_contribution": false,
+    "matrix_independence_assumed": false,
+    "stock_identity_inferred": false,
+    "preparation_inferred": false,
+    "formula_rewrite_complete": false,
+    "physical_result_claimed": false,
+    "sensory_result_claimed": false,
+    "release_ready": false
+  },
+  "authority": {
+    "formula": false,
+    "inventory_mutation": false,
+    "stock_identity": false,
+    "preparation": false,
+    "physical_experiment": false,
+    "sensory_claim": false,
+    "scientific_claim": false,
+    "safety": false,
+    "procurement": false,
+    "collection": false,
+    "installation": false,
+    "release": false
+  }
+}
