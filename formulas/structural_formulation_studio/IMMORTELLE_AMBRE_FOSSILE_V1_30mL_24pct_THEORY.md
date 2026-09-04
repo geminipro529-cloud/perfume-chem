@@ -1,0 +1,634 @@
+# Immortelle Ambre Fossile V1 — Deep Amber Structural Theory — 30 mL / 24% Parfum
+
+**Status:** THEORY ONLY / NOT TESTED / NO COMPOUNDING AUTHORIZED  
+**Formula ID:** IAF-V1-20260828  
+**Predecessor:** none — standalone named-perfume application  
+**Active checkout / commit:** `C:\Users\ASUS\.codex\worktrees\b577\perfume-chem` / `974ff4737bc08c4d215b34013cdd174cd22c8003`  
+**Family:** immortelle-led coumarinic amber / resinous woody amber  
+**Concentrate target:** 7,200 uL  
+**Finished-volume context:** 30 mL at 24% concentrate only if separately authorized later  
+**Musk policy:** one musk only — Ethylene Brassylate, provisionally assigned to warm resin-to-skin continuity  
+**Minimum direct formula aliquot:** 20 uL  
+**Claim ceiling:** identity, smell, luxury, depth, complexity, completion, hedonism, liking, diffusion, longevity, safety, stability, and preference are **NOT TESTED**
+
+<!-- stock-preparation-manifest: {"schema_version":"formula_stock_preparations_v1","preparations":{"Ethyl Safranate":{"source_material":"Ethyl Safranate","source_fraction":1.0,"source_fraction_basis":"neat","source_carrier":"","source_ul":100.0,"carrier_material":"Dipropylene Glycol (DPG)","carrier_ul":900.0,"prepared_total_ul":1000.0,"final_fraction":0.1,"final_fraction_basis":"volume_fraction","final_carrier":"DPG","formula_delivery_ul":50.0},"Anisaldehyde":{"source_material":"Anisaldehyde","source_fraction":1.0,"source_fraction_basis":"neat","source_carrier":"","source_ul":100.0,"carrier_material":"Dipropylene Glycol (DPG)","carrier_ul":900.0,"prepared_total_ul":1000.0,"final_fraction":0.1,"final_fraction_basis":"volume_fraction","final_carrier":"DPG","formula_delivery_ul":160.0},"Black Pepper EO":{"source_material":"Black Pepper EO","source_fraction":1.0,"source_fraction_basis":"neat","source_carrier":"","source_ul":100.0,"carrier_material":"Dipropylene Glycol (DPG)","carrier_ul":900.0,"prepared_total_ul":1000.0,"final_fraction":0.1,"final_fraction_basis":"volume_fraction","final_carrier":"DPG","formula_delivery_ul":20.0},"Linalyl Acetate":{"source_material":"Linalyl Acetate","source_fraction":1.0,"source_fraction_basis":"neat","source_carrier":"","source_ul":100.0,"carrier_material":"Dipropylene Glycol (DPG)","carrier_ul":900.0,"prepared_total_ul":1000.0,"final_fraction":0.1,"final_fraction_basis":"volume_fraction","final_carrier":"DPG","formula_delivery_ul":100.0},"Ebanol":{"source_material":"Ebanol","source_fraction":1.0,"source_fraction_basis":"neat","source_carrier":"","source_ul":100.0,"carrier_material":"Dipropylene Glycol (DPG)","carrier_ul":900.0,"prepared_total_ul":1000.0,"final_fraction":0.1,"final_fraction_basis":"volume_fraction","final_carrier":"DPG","formula_delivery_ul":100.0}}} -->
+
+## Batch Evidence Ledger and Queue Action
+
+The complete batch-start authority set and the comparison formulas below were re-opened before dose assignment. No alternate provider, DeepLuna transmission, procurement, working-stock preparation, formula compounding, skin application, commit, merge, push, or change to another worktree occurred.
+
+| Authority | Read/verified | SHA-256 / provenance |
+|---|---|---|
+| `AGENTS.md` | 2026-08-28 | `88CB7B4C3C0727F63ED679A591676869710894AA824B765F596445BFDEEB7CA1` |
+| `inventory.txt` | 2026-08-28 | `7AB994C88522001137527771CE4AF9C24E66C2890AA5371A232366B5011C9CB9` |
+| `.github/copilot-instructions.md` | 2026-08-28 | `2BF76476D98ED67938F00914009A24FE898EF82B692CBF2E1D6578F9B0418CC2` |
+| `docs/fragrance_families_reference.md` | 2026-08-28 | `7C9968795E3A1662295D16C9DE73DAE6386C1EB8C06D05B5335AC546574350EF` |
+| authoritative DHP2025 learning protocol | 2026-08-28 | read-only source `C:\Users\ASUS\.codex\worktrees\edd7\perfume-chem\docs\research\DHP2025_STRUCTURAL_FORMULATION_LEARNING_PROTOCOL.md`; `50D108570DEA367A0D377DE1DC41BBF17E8911B522D67D8D2A7AA237085EDEB1` |
+| studio `METHOD.md` SFSM-1.3 | 2026-08-28 | `1F8E4BE598E08B92B16A252A309CA9706DC75ACBB899567BB817B3D149C0EA1A` |
+
+Relevant formulas were inspected as evidence and failure analysis, not copied as ingredient identities:
+
+| Formula | Structural lesson retained | SHA-256 |
+|---|---|---|
+| `Immortelle_04_Ambre_Dore_30mL_EdP.md` | immortelle–benzoin–labdanum axis; reject its underfilled geometry, sub-10-uL dose, unavailable lactone, three-musks, and undifferentiated amber mass | `C10386180423B8CC801A7BD8781FC097DCD00010F24CDD2E1CC034A1F18169A0` |
+| `Immortelle_Miel_Oriental_30mL_EdP.md` | immortelle/coumarin bridge; reject floriental takeover, duplicate rows, unavailable lactone, and sweet/floral crowding | `EC19D1285E8F5B0D997178F6390F7F9B4FFA80BC0925B32AFC69A68A491789CC` |
+| `White_Suede_Honey_Opoponax_Amber_30mL_EdP.md` | opoponax as a dark amber shadow; reject underfilled geometry and inherited multi-musk premix | `4D874B1EF96C2330F309021240ED6D67011DD27122771C5BEE2EE73617DEC762` |
+| `DHP_2025_Niche_House_30mL_EdP.md` | subject hierarchy and transparent/dense simultaneity; reject iris, sandalwood signature, powder, and musk-fill identity | `6DC50A2ACA5705EFAEEC3326F07B74DB8645CA91314227E167A85209AFC7475C` |
+| `Iris_Sable_Profond_DHP2025_Niche_30mL_EdP.md` | pressure behind a legible subject and controlled negative space; reject iris/muguet identity | `B9579B463779725CFF852F508237534DF39E314CE01719C0D6C6EBCD64F96122` |
+| `Opus_V_Woods_Symphony_30mL_EdP.md` | distinct rear registers, temporal acts, and residue recall; reject iris, rhum, oud, leather, and four-musk signature | `73DE02D9E28D65866EFD68B9B6D1FD2F29B797AAEE959D5C8C6D2DC86EAB9C9B` |
+| `Immortelle_Sable_dIris_30mL_Parfum.md` | high-resolution immortelle anatomy and controlled high-count burden; reject its floral quartet, iris system, unavailable materials, and 72-row ontology | read-only source in worktree `3289`; `A040F914741C21F13541389A5D81E4054C1B720D30ED30D5669970202AD0B214` |
+
+**Queue action:** no persisted queue file, table, database, or code path existed after a hidden/ignored/code/database scan. No formula artifact was deleted. All previously pending concepts are treated as cancelled; this packet was the sole active application, and the pending queue is empty when this packet is complete.
+
+## Plugin-Managed Research Routing and Amber-Type Synthesis
+
+The explicitly requested Plugin Management skill was applied first. Its routing policy does not install or suggest a dedicated plugin for ordinary public research, and no plugin-management research connector was callable. Research therefore used authoritative public sources plus the local corpus.
+
+| Amber type | Source-grounded character | Design use here | Deliberate limit |
+|---|---|---|---|
+| Classical resinous amber | IFF describes labdanum as a powerful balsamic/resinous amber with smoky, leathery, and animalic facets; its Sumatra benzoin is sweet-balsamic with vanilla, powdery-cinnamic, and warm-cereal facets. [IFF Labdanum](https://www.iff.com/scent/lmr-compendium/labdanum-resinoid/) · [IFF Benzoin Sumatra](https://www.iff.com/scent/lmr-compendium/benzoin-resoid-sumatra/) | labdanum gives dry amber shadow; Siam benzoin gives plush balsamic body; Sumatra benzoin supplies the cereal edge that meets immortelle hay | vanilla and balsam cannot become dessert, syrup, or a generic sweet amber |
+| Incense-balsamic amber | Givaudan and IFF describe frankincense/olibanum as citrus-pepper-spicy at the opening, developing mineral, woody, warm ambery-balsamic persistence. DSM-Firmenich describes opoponax as sweet, earthy, spicy, mushroom-like, and liquorice-like, used as a fixative in amber notes. [Givaudan Frankincense](https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/frankincense-resinoid-somalia-fairwild) · [IFF Olibanum Oil](https://www.iff.com/scent/lmr-compendium/olibanum-oil/) · [DSM-Firmenich Opoponax](https://studio.dsm-firmenich.com/product/opoponax-rde-super-pe-968239) | frankincense creates a volatile light-to-resin seam; opoponax makes a bounded licorice-earth shadow behind immortelle | no church-incense takeover; mushroom/licorice must remain a rear contour, and the current opoponax stock basis and safety stay HOLD |
+| Dry woody amber | IFF describes Amber Xtreme as a high-impact amberwood active across top, heart, and base at trace-to-0.5% typical use. Givaudan's Ambermax demo formulas place the high-impact material within broader Iso E, woods, balsams, and musk structures rather than using it as the entire identity. [IFF Amber Xtreme](https://www.iff.com/scent/ingredients-compendium/amber-xtreme-2/) · [Givaudan Ambermax demo formulas](https://www.givaudan.com/files/1472023_formula.pdf) | a tiny Amber Xtreme pressure point, Ambrofix mineral air, and differentiated cedar/vetiver/wood registers contour the resin body | no scratchy amberwood wall, generic ambrox perfume, or performance-first identity |
+| Dry mineral labdanum amber | Givaudan describes a modern labdanum absolute as dry and persistent, with woody, mineral, warm amber and a frankincense accent. [Givaudan Labdanum SIGNature](https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/labdanum-absolute-spain-tec) | supports the decision to let labdanum bridge resin, mineral wood, and incense rather than serve only as sweet base mass | source description does not prove the user's labdanum stock has that exact profile |
+| Immortelle-specific anatomy | GC-O work on industrial Helichrysum oil found that the most abundant constituent was not necessarily a key odorant; diketones, 1,8-cineole, nerol, and trace constituents contributed strongly. A separate ecotype study found substantial compositional variation and reported absolute volatiles resembling the corresponding oil. [Key-odorant study](https://www.sciencedirect.com/science/article/pii/S0926669019301001) · [Ecotype/absolute study](https://www.sciencedirect.com/science/article/pii/S0254629923002843) | use the whole immortelle natural as the protected nucleus and express its anatomy through pollen, hay, maple warmth, dry leaf, root, and resin recurrence; do not reduce it to one aroma chemical | species, ecotype, lot, degradation state, supplier analysis, exact composite model applicability, and sensory behavior of the owned stock remain HOLD/NOT TESTED |
+
+**Research decision:** combine classical resin body, incense-balsamic transition, and dry woody/mineral contour under one immortelle subject. Do not stack every amber material. Each retained amber register has a different position, time, texture, and omission owner.
+
+## Donor-Independence Manifest and Governance Limit
+
+This is a standalone V1, so no predecessor row-conservation floor applies. DHP 2025 and Opus V are theory donors only: one-subject anatomy, multiple spatial planes, opposed textures, rear-plane articulation, and temporal recurrence. The formula does not inherit iris/orris, rhum, rose-jasmine bouquet, oud, leather, a multi-musk bed, or either donor's basket ontology.
+
+| Donor / comparison | Immutable signature | Allowed transfer | Explicitly excluded signature |
+|---|---|---|---|
+| DHP 2025 study | `6DC50A2ACA5705EFAEEC3326F07B74DB8645CA91314227E167A85209AFC7475C` | legible foreground subject; tender/dense interior; mineral rear pressure | iris/irone/ionone identity, powder, donor sandalwood signature, musk fill |
+| Iris Sable Profond | `B9579B463779725CFF852F508237534DF39E314CE01719C0D6C6EBCD64F96122` | pressure/release and quiet-mass discipline | iris, muguet, cosmetic powder, its exact fixative chassis |
+| Opus V study | `73DE02D9E28D65866EFD68B9B6D1FD2F29B797AAEE959D5C8C6D2DC86EAB9C9B` | differentiated rear registers and late identity residue | iris stack, rhum accord, oud/leather, four-musks, exact woods-symphony basket |
+| Immortelle Sable d'Iris | `A040F914741C21F13541389A5D81E4054C1B720D30ED30D5669970202AD0B214` | immortelle anatomy and high-count falsification burden | iris/jasmine/osmanthus co-subjects, 72-row ontology, unavailable materials |
+
+Target-specific modules are `golden volatile flower`, `pollen-hay flesh`, `dry leaf/root`, `classical amber body`, `incense/licorice shadow`, `mineral woody contour`, `waxed pressure/release seam`, and `single warm skin echo`. A local code search found no callable `donor_independence` gate despite the current protocol describing one. Therefore donor-independence is documented but **NOT DETERMINISTICALLY GATED**; the packet may be called DHP-architectured theory, not DHP-level validated, equivalent, complete, or better.
+
+## Named Identity Contract
+
+**Name:** Immortelle Ambre Fossile.  
+**One-sentence identity:** a golden immortelle flower caught in amber while still alive—bitter pollen and dry hay at the surface, maple-tobacco warmth inside, then a mineral resin fossil that remembers the flower.  
+**Recognizable subject:** immortelle, not vanilla, incense, tobacco, ambrox, or sandalwood.  
+**Emotional effect:** private, sun-warmed abundance under severe mineral contour; voluptuous but composed.  
+**Wear context:** evening or cool interior; dense parfum presence without syrup, smoke, or aggressive projection.  
+**Allowed reference axes:** DHP-style subject resolution, tenderness against pressure, living middle, identity-bearing base; Opus-style differentiated rear registers and recurrence.  
+**Forbidden donor identities:** iris/orris, lipstick powder, rose-jasmine bouquet, oud, leather, rhum, multi-musk cocoon.  
+**Minimum recognizable nucleus:** Immortelle Absolute + Coumarin + Maple Lactone + Ethyl Safranate + Tobacco Absolute + Anisaldehyde, with the whole natural fixed in every module test.  
+**Lead-note evidence:** immortelle leadership is a design hypothesis. It requires blind free description and time-specific rank; modeled OAV cannot establish it.
+
+### Lead-Note Ownership
+
+| Ownership job | Owner | Controlled failure |
+|---|---|---|
+| Opening recognizer | lot-qualified immortelle volatile profile in TARGET; owned Immortelle Absolute plus a non-equivalent bergamot/frankincense aperture in CURRENT | citrus or incense becomes first object; immortelle appears only after prompting |
+| Heart transformation | Immortelle Absolute + anisic pollen + coumarin/maple/tobacco leaf anatomy | pancake syrup, curry food, tobacco perfume, or generic sweet hay |
+| Base recurrence | Kephalis + Coumarin + Tonka + labdanum/benzoin cereal facets + cedar/vetiver grain | base can be named only amberwood, vanilla, incense, or musk |
+| Protected controls | full nucleus; half-extension nucleus; amber-only sham | the full candidate must earn unprompted immortelle description and a late transformed recall |
+
+## Structural Architecture Before Dosing
+
+### One subject / multiple states
+
+| State | Perceptual anatomy | Cause of transition | Invariant cue |
+|---|---|---|---|
+| A — living golden flower | bitter aromatic glint, dry pollen, straw/hay, restrained maple flesh, warm root | volatile citrus/incense light recedes while coumarinic and tobacco anatomy emerges | immortelle's golden hay-maple tension |
+| B — amber fossil | balsamic cereal warmth hardens into mineral cedar, tobacco-wood, dry resin, and warm skin | benzoin/labdanum pressure meets amberwood/vetiver contour, then relaxes through salicylates and one musk | the same hay-maple cue returns as dry leaf, resin grain, and skin warmth |
+
+### Spatial planes, transitions, and texture
+
+| Plane | Primary owners | Job | Takeover stop |
+|---|---|---|---|
+| Front glint | immortelle volatile target, Bergamot FCF, Red Mandarin, Frankincense, diluted Black Pepper, Cardamom | golden bitter light and resinous sparkle | stop if citrus, culinary spice, or church incense is first object |
+| Near-body identity | Immortelle Absolute, Anisaldehyde, Ethyl Safranate, Maple Lactone, Coumarin | pollen-hay-maple anatomy around the whole natural | stop at pancake, curry seasoning, saffron leather, or almond powder |
+| Living middle | Tobacco Absolute, Hedione, Dihydrojasmone, Hexyl Salicylate | dry leaf, moving air, and a clear flower-to-resin handoff | stop if Hedione/floral air becomes generic or tobacco becomes a second subject |
+| Rear contour/mass | labdanum, two benzoins, Peru balsam, opoponax, Iso E, Azarbre, Cedramber, Amber Xtreme, Ambrofix, cedar/vetiver woods | warm amber body under mineral/dry pressure, with several separable distances | stop at vanilla wall, mushroom/licorice takeover, scratchy amberwood, or generic ambrox |
+| Skin/fabric echo | Ethylene Brassylate, Polysantol, Benzyl/Hexyl Salicylate, Benzyl Benzoate, Coumarin/Tonka/Kephalis recurrence | yielding waxed warmth that still recalls immortelle | stop at laundry musk, creamy sandalwood theme, cosmetic salicylate, or anonymous softness |
+
+**Front-to-middle bridge:** frankincense's citrus-pepper opening, diluted linalyl acetate, and ethyl safranate move light into pollen/hay.  
+**Middle-to-rear bridge:** tobacco absolute, coumarin, Kephalis, labdanum, and benzoin turn dry leaf into amber grain.  
+**Rear influence on opening:** the opoponax/labdanum and mineral wood field should make the opening feel shadowed immediately, not wait as a detachable base.  
+**Opposed textures:** brittle, bitter, granular pollen/resin pressure versus waxed, balsamic, yielding warmth.  
+**Pressure owners:** Frankincense, Evernyl, Cedarwood Virginia, Vetiver, Cedramber, trace Amber Xtreme.  
+**Release owners:** Hedione, Hexyl Salicylate, Polysantol, Benzyl Salicylate, Ethylene Brassylate, and declared Benzyl Benzoate quiet mass.  
+**Expected re-smell interval:** 30–120 minutes, when maple-hay flower turns into warm dry leaf inside mineral amber.  
+All outcomes are **NOT TESTED**.
+
+### Temporal recurrence map
+
+| Window | Immortelle state | Material-level cause | Required recognition |
+|---|---|---|---|
+| 0–5 min | bitter golden flower under citrus-resin light | Immortelle Absolute, Bergamot, Frankincense, Cardamom, diluted Black Pepper | immortelle/golden herb before citrus or incense labels |
+| 30 min | pollen, salted hay, restrained maple warmth | Immortelle, Anisaldehyde, Ethyl Safranate, Coumarin, Maple Lactone | flower is fuller, not sweeter-only |
+| 2 h | cured leaf and balsamic cereal warmth | Tobacco Absolute, Tonka, Siam/Sumatra Benzoin, Labdanum, Kephalis | same subject read as dried interior |
+| 6 h | amber fossil with dry cedar/vetiver grain | Labdanum, Opoponax, Cedarwood Virginia, Vetiver, Cedramber, Evernyl | recognizable immortelle memory rather than generic amberwood |
+| 24 h | warm hay-resin skin trace | Coumarin, Tonka, Kephalis, Ethylene Brassylate, salicylates | identity echo must survive without laundry or vanilla takeover |
+
+## TARGET / IDEAL — Inventory-Independent Active Architecture
+
+This target uses exact, lot-qualified material identities and exact active-mass bases. It totals exactly **1,000,000 active ppm**. It is not a procurement request and is not silently converted into the current build.
+
+| # | Ideal material / function | Active ppm | State | Plane | Time | Identity job | Exclusion risk |
+|---:|---|---:|---|---|---|---|---|
+| 1 | Lot-qualified Immortelle Absolute with applicable composite GC-O | 15,862 | both | near body | 0–24 h | whole golden flower, pollen, hay, maple-curry irregularity | foodlike curry or syrup |
+| 2 | Coumarin | 8,157 | both | near-to-echo | 30 m–24 h | dry hay recurrence | tonka/fougere takeover |
+| 3 | Maple Lactone | 3,625 | warm | near body | 30 m–2 h | bounded maple-flesh recognizer | pancake syrup |
+| 4 | Ethyl Safranate | 1,133 | both | front-to-middle | 5 m–2 h | saffron-hay and dry suede edge | saffron leather |
+| 5 | Lot-qualified Tobacco Absolute | 3,399 | warm | middle | 30 m–6 h | cured leaf transformation | tobacco perfume |
+| 6 | Anisaldehyde | 3,625 | living | near body | 5–120 m | dry anisic pollen | almond/heliotrope powder |
+| 7 | Lot-qualified Carrot Seed EO | 4,532 | both | near-to-rear | 30 m–6 h | root and dry stem anatomy | orris/root vegetable |
+| 8 | Damascenone | 45 | warm | middle seam | 30 m–6 h | browned dried-fruit seam | rose/plum takeover |
+| 9 | Lot-matched Helichrysum volatile fraction / EO | 15,862 | living | front | 0–30 m | volatile flower and opening identity | cineolic/aromatic oil takeover |
+| 10 | Red Mandarin EO | 6,798 | living | front | 0–15 m | golden peel reflection | juicy orange candy |
+| 11 | Frankincense / olibanum volatile fraction | 20,393 | both | front-to-rear | 0–6 h | citrus-mineral resin transition | church incense |
+| 12 | Cardamom EO | 4,532 | living | front | 0–30 m | green-spice hinge | cardamom perfume |
+| 13 | Dry pepper micropressure | 453 | living | front | 0–10 m | brittle spice edge | hot culinary pepper |
+| 14 | Linalyl Acetate | 2,266 | living | front-to-middle | 0–30 m | soft volatile handoff | lavender identity |
+| 15 | Hedione | 67,978 | both | living middle | 5 m–6 h | transparent pressure release | generic jasmine radiance |
+| 16 | Dihydrojasmone | 4,532 | both | middle | 30 m–2 h | dry moving flower/leaf tissue | jasmine identity |
+| 17 | Hexyl Salicylate | 79,308 | both | middle-to-echo | 30 m–24 h | transparent waxed film and release | green-floral detergent |
+| 18 | Lot-qualified Labdanum extract | 12,463 | fossil | rear | 30 m–24 h | dry resin, mineral/leathery shadow | smoke/leather takeover |
+| 19 | Siam Benzoin resinoid | 90,637 | fossil | rear mass | 30 m–24 h | plush balsamic amber body | vanilla syrup |
+| 20 | Sumatra Benzoin resinoid | 4,532 | fossil | middle-to-rear | 30 m–6 h | warm cereal and cinnamic dry edge | redundant benzoin sweetness |
+| 21 | Lot-qualified Peru Balsam | 13,596 | fossil | rear mass | 2–24 h | warm cinnamon-balsam depth | sweet cinnamon gourmand |
+| 22 | Vanillin | 2,266 | fossil | rear | 2–24 h | controlled benzoin integration | vanilla-led amber |
+| 23 | Identity- and basis-verified Opoponax extract | 9,064 | fossil | far rear | 30 m–24 h | earthy licorice/mushroom shadow | medicinal/mushroom takeover |
+| 24 | Benzyl Benzoate | 154,083 | fossil | rear/echo matrix | 2–24 h | quiet mass and experimental negative space | blank weight or detectable solvent character |
+| 25 | Iso E Super | 45,319 | both | rear air | 30 m–24 h | transparent wood chamber | generic Iso E perfume |
+| 26 | Cashmeran | 31,723 | fossil | middle-to-rear | 30 m–12 h | warm mineral textile grain | musky textile takeover |
+| 27 | Smooth warm cedar-amber body | 22,659 | fossil | rear body | 2–24 h | yielding contour behind brittle resin | generic amberwood |
+| 28 | Cedramber | 27,191 | fossil | rear edge | 30 m–12 h | polished cedar-amber grain | dry pencil wall |
+| 29 | Kephalis | 40,787 | both | middle-to-echo | 30 m–24 h | tobacco-ionone wood recurrence | tobacco/iris drift |
+| 30 | High-impact dry amberwood pressure point | 453 | fossil | far-rear outline | 0–24 h | thin persistent boundary | scratchy/fatiguing amberwood |
+| 31 | Exact-basis ambroxide / mineral amber | 8,157 | fossil | rear air | 30 m–24 h | mineral lift inside resin | generic ambrox signature |
+| 32 | Fractionated patchouli heart | 18,127 | fossil | rear root | 2–24 h | clean dark-earth contour | camphor/damp patchouli |
+| 33 | Lot-qualified Cedarwood Virginia | 22,659 | fossil | rear fiber | 30 m–24 h | dry fibrous grain | pencil-shaving takeover |
+| 34 | Lot-qualified Haitian-style dry vetiver | 15,862 | both | rear root | 30 m–24 h | root/mineral recurrence | smoky vetiver subject |
+| 35 | Vertofix | 36,255 | fossil | rear-to-echo | 2–24 h | smooth woody-vetiver adhesion | anonymous fixative mass |
+| 36 | Koavone | 20,393 | fossil | middle distance | 30 m–12 h | warm cedar-vetiver middle plane | redundant wood warmth |
+| 37 | Polysantol | 49,850 | fossil | rear interior | 30 m–24 h | yielding creamy wood release | sandalwood theme |
+| 38 | Fast sandalwood-cream register | 2,266 | both | middle-to-rear | 5 m–6 h | quick softness before Polysantol | sharp Ebanol dominance |
+| 39 | One exact warm macrocyclic musk | 79,308 | fossil | skin echo | 2–24 h | resin-to-skin continuity | laundry/blank musk |
+| 40 | Lot-qualified Tonka Absolute | 2,266 | fossil | near-to-echo | 30 m–24 h | natural almond-hay rounding | tonka/gourmand identity |
+| 41 | Benzyl Salicylate | 45,319 | fossil | rear cushion | 30 m–24 h | denser waxed amber release | cosmetic floral powder |
+| 42 | Evernyl | 2,265 | fossil | rear boundary | 2–24 h | bitter moss-mineral anti-syrup edge | chypre/oakmoss identity |
+|  | **TARGET / IDEAL total** | **1,000,000** |  |  |  |  |  |
+
+## CURRENT-INVENTORY BUILD — Immortelle Ambre Fossile V1
+
+This is the only parser-visible raw dosing table. It totals exactly **7,200 uL**, contains **42 rows**, uses **one musk**, and requests no direct formula aliquot below **20 uL**. Working stocks P1–P5 are future preparations, not authorized actions. `Amber Xtreme`, `Ambrofix`, `Opoponax Resinoid`, and `Evernyl` have w/w, w/v, or unresolved bases that prevent exact volume-active ppm claims.
+
+| # | Material | Dilution | Amount (µL) | Role |
+|---:|---|---|---:|---|
+| 1 | Immortelle Absolute | 10% in DPG | 700 | whole flower / lead nucleus |
+| 2 | Coumarin | 20% | 180 | dry hay recurrence |
+| 3 | Maple Lactone | 20% | 80 | bounded maple flesh |
+| 4 | Ethyl Safranate | 10% v/v in DPG — future P1 | 50 | saffron-hay edge |
+| 5 | Tobacco Absolute | 10% in DPG | 150 | cured-leaf transformation |
+| 6 | Anisaldehyde | 10% v/v in DPG — future P2 | 160 | dry anisic pollen |
+| 7 | Carrot Seed EO | neat | 20 | root/stem anatomy |
+| 8 | Damascenone | 1% | 20 | browned dried-fruit seam |
+| 9 | Bergamot FCF oil Sicilian | neat | 70 | non-equivalent bitter opening aperture |
+| 10 | Red Mandarin EO | neat | 30 | golden peel reflection |
+| 11 | Frankincense EO | neat | 90 | volatile resin-to-mineral seam |
+| 12 | Cardamom EO | neat | 20 | green spice hinge |
+| 13 | Black Pepper EO | 10% v/v in DPG — future P3 | 20 | brittle dry micropressure |
+| 14 | Linalyl Acetate | 10% v/v in DPG — future P4 | 100 | soft volatile handoff |
+| 15 | Hedione | neat | 300 | transparent living middle |
+| 16 | Dihydrojasmone | neat | 20 | dry moving tissue |
+| 17 | Hexyl Salicylate | neat | 350 | transparent waxed release film |
+| 18 | Labdanum Resinoid | 10% in DPG | 550 | dry classical amber shadow |
+| 19 | Siam Benzoin | 50% in DPG | 800 | plush balsamic amber body |
+| 20 | Benzoin Sumatra Resinoid | 10% | 200 | cereal/cinnamic resin edge |
+| 21 | Peru Balsam Resinoid | neat | 60 | warm balsamic depth |
+| 22 | Vanillin | 10% | 100 | controlled benzoin integration |
+| 23 | Opoponax Resinoid | 50% in DEP — basis unspecified/HOLD | 80 | earthy licorice far shadow |
+| 24 | Benzyl Benzoate | neat | 680 | quiet mass / negative-space candidate |
+| 25 | Iso E Super | neat | 200 | transparent rear chamber |
+| 26 | Cashmeran | neat | 140 | warm mineral textile grain |
+| 27 | Azarbre | neat | 100 | smooth warm cedar-amber body |
+| 28 | Cedramber | neat | 120 | polished cedar-amber grain |
+| 29 | Kephalis | neat | 180 | tobacco-wood recurrence bridge |
+| 30 | Amber Xtreme | 10% w/w in DEP | 20 | narrow persistent pressure point |
+| 31 | Ambrofix | 30% w/v | 120 | mineral amber air |
+| 32 | Patchouli EO | neat | 80 | dark root contour |
+| 33 | Cedarwood oil Virginia | neat | 100 | dry fibrous grain |
+| 34 | Vetiver EO (India) | neat | 70 | mineral root recurrence |
+| 35 | Vertofix | neat | 160 | smooth woody-vetiver adhesion |
+| 36 | Koavone | neat | 90 | warm middle-distance wood |
+| 37 | Polysantol | neat | 220 | yielding woody interior |
+| 38 | Ebanol | 10% v/v in DPG — future P5 | 100 | fast cream-to-wood transition |
+| 39 | Ethylene Brassylate | neat | 350 | sole musk; warm resin-to-skin echo |
+| 40 | Tonka Bean Absolute | 10% in DPG | 100 | natural almond-hay rounding |
+| 41 | Benzyl Salicylate | neat | 200 | dense waxed amber cushion |
+| 42 | Evernyl | 50% w/w in DPG | 20 | bitter mineral anti-syrup boundary |
+|  | **Concentrate total** |  | **7,200** | exact raw-volume geometry |
+
+Add 22.80 mL ethanol 96% only if a later, separately authorized physical step adopts this exact candidate. This theory document authorizes no preparation, mixing, dilution, maturation, blotter use, or skin use.
+
+## Nominal Active ppm and Controlled Ownership
+
+For conventional v/v stocks, `nominal active uL = raw uL × stock fraction` and `nominal concentrate ppm = active uL / 7,200 × 1,000,000`. Values for w/w, w/v, and unspecified-basis rows are pipeline mappings only and are marked **HOLD** for exact active ppm.
+
+| # | Nominal active uL | Nominal ppm | Plane / time | Nonredundant function | Predicted omission consequence | Test owner |
+|---:|---:|---:|---|---|---|---|
+| 1 | 70.0 | 9,722.2 | near / all | whole immortelle recognizer | named subject collapses | protected nucleus |
+| 2 | 36.0 | 5,000.0 | near-to-echo / 30 m–24 h | dry hay recurrence | late identity becomes resin only | nucleus / H factor |
+| 3 | 16.0 | 2,222.2 | near / 30 m–2 h | maple flesh boundary | flower becomes straw-only | H factor; sweetness ladder |
+| 4 | 5.0 | 694.4 | front-to-middle / 5 m–2 h | saffron-hay edge | pollen loses dry leathery edge | H factor / isolated add-back |
+| 5 | 15.0 | 2,083.3 | middle / 30 m–6 h | cured-leaf transformation | no living-to-dried state change | H factor |
+| 6 | 16.0 | 2,222.2 | near / 5–120 m | anisic pollen body | immortelle reads resinous, not floral-pollen | H factor |
+| 7 | 20.0 | 2,777.8 | near-to-rear / 30 m–6 h | dry root/stem anatomy | flower floats above base | H factor / isolated add-back |
+| 8 | 0.2 | 27.8 | seam / 30 m–6 h | browned-fruit warmth | resin transition loses dark glint | compression first |
+| 9 | 70.0 | 9,722.2 | front / 0–15 m | bitter light aperture, non-equivalent to Helichrysum EO | opening becomes closed; no claim of lost immortelle EO | citrus aperture arm |
+| 10 | 30.0 | 4,166.7 | front / 0–15 m | golden peel reflection | opening becomes colder and less golden | compression first |
+| 11 | 90.0 | 12,500.0 | front-to-rear / 0–6 h | volatile incense/mineral seam | top and resin base detach | S factor |
+| 12 | 20.0 | 2,777.8 | front / 0–30 m | green spice hinge | opening becomes flatter | compression first |
+| 13 | 2.0 | 277.8 | front / 0–10 m | brittle micropressure | less granular edge | compression first |
+| 14 | 10.0 | 1,388.9 | front-to-middle / 0–30 m | soft volatile handoff | abrupt opening-to-heart seam | compression first |
+| 15 | 300.0 | 41,666.7 | middle / 5 m–6 h | living air and release | amber becomes sealed and static | release factor |
+| 16 | 20.0 | 2,777.8 | middle / 30 m–2 h | dry motion in leaf/flower | middle loses movement | compression first |
+| 17 | 350.0 | 48,611.1 | middle-to-echo / 30 m–24 h | transparent waxed film | pressure feels brittle with no clear release | release factor |
+| 18 | 55.0 | 7,638.9 | rear / 30 m–24 h | dry classical amber shadow | benzoin becomes soft sweetness without contour | classical core |
+| 19 | 400.0 | 55,555.6 | rear mass / 30 m–24 h | plush balsamic body | fossil state loses volume and comfort | classical core |
+| 20 | 20.0 | 2,777.8 | middle-to-rear / 30 m–6 h | cereal/cinnamic resin edge | Siam benzoin reads smoother but less immortelle-linked | compression / add-back |
+| 21 | 60.0 | 8,333.3 | rear / 2–24 h | warm balsam depth | base loses dark-gold density | classical core / isolated |
+| 22 | 10.0 | 1,388.9 | rear / 2–24 h | benzoin integration | resin is drier and less fused | sweetness ladder |
+| 23 | 40.0 nominal | 5,555.6 nominal | far rear / 30 m–24 h | earthy licorice shadow | amber loses strange dark underside | **HOLD** / S factor |
+| 24 | 680.0 | 94,444.4 | rear matrix / 2–24 h | quiet mass and test compensation | formula may become sharper/thinner; not audible complexity | matrix-detection control |
+| 25 | 200.0 | 27,777.8 | rear air / 30 m–24 h | transparent wood chamber | resin planes collapse into one block | woody contour factor |
+| 26 | 140.0 | 19,444.4 | middle-to-rear / 30 m–12 h | warm mineral textile | less tactile tension | woody contour factor |
+| 27 | 100.0 | 13,888.9 | rear body / 2–24 h | yielding cedar-amber body | rear contour becomes thin/hard | woody contour factor |
+| 28 | 120.0 | 16,666.7 | rear edge / 30 m–12 h | polished dry grain | wood loses a defined distal edge | compression / add-back |
+| 29 | 180.0 | 25,000.0 | middle-to-echo / 30 m–24 h | tobacco-wood immortelle recurrence | base forgets dried-leaf state | protected recurrence |
+| 30 | 2.0 nominal | 277.8 nominal | far outline / all | narrow persistent pressure | silhouette softens; harshness may improve | **HOLD** / pressure arm |
+| 31 | 36.0 nominal | 5,000.0 nominal | rear air / 30 m–24 h | mineral lift inside resin | base becomes more opaque | **HOLD** / woody contour factor |
+| 32 | 80.0 | 11,111.1 | rear root / 2–24 h | dark earth contour | base becomes clean but less rooted | woody contour factor |
+| 33 | 100.0 | 13,888.9 | rear fiber / 30 m–24 h | dry stem/fiber recurrence | root-to-wood transition blurs | woody contour factor |
+| 34 | 70.0 | 9,722.2 | rear root / 30 m–24 h | mineral root return | late amber becomes sweet and static | woody contour factor |
+| 35 | 160.0 | 22,222.2 | rear-to-echo / 2–24 h | smooth woody-vetiver adhesion | rear registers separate too sharply | compression challenge |
+| 36 | 90.0 | 12,500.0 | middle distance / 30 m–12 h | warm cedar-vetiver perspective | spatial depth flattens | compression / add-back |
+| 37 | 220.0 | 30,555.6 | rear interior / 30 m–24 h | yielding wood release | fossil becomes brittle and dry | release factor |
+| 38 | 10.0 | 1,388.9 | middle-to-rear / 5 m–6 h | fast cream-to-wood handoff | softening arrives too late | compression / add-back |
+| 39 | 350.0 | 48,611.1 | skin echo / 2–24 h | sole warm resin-to-skin continuity | drydown may lose bodily warmth or gain clarity | one-musk tournament |
+| 40 | 10.0 | 1,388.9 | near-to-echo / 30 m–24 h | natural almond-hay rounding | coumarin feels more abstract | H factor / add-back |
+| 41 | 200.0 | 27,777.8 | rear cushion / 30 m–24 h | dense waxed release | amber becomes clearer but less voluptuous | release factor / compression |
+| 42 | 10.0 nominal | 1,388.9 nominal | rear boundary / 2–24 h | bitter anti-syrup edge | sweetness broadens; chypre drift may improve | **HOLD** / compression |
+
+## Material Alternatives and Rejections
+
+| Function | Selected | Alternatives considered | Reason for selection / rejection |
+|---|---|---|---|
+| Classical amber body | Siam Benzoin + Labdanum; bounded Sumatra Benzoin and Peru Balsam | more Vanillin, Ethyl Vanillin, Ethyl Maltol, Isobutavan | retained materials separate plush balsam, dry resin, cereal edge, and dark-gold depth; rejected sweeteners risk gourmand takeover |
+| Incense shadow | Frankincense EO + one Opoponax shadow | Myrrh EO; depleted Olibanum Resinoid; simultaneous myrrh/opoponax/olibanum | frankincense supplies volatile citrus-mineral motion; opoponax supplies a different far shadow; adding myrrh would create an unisolated natural-resin pile |
+| Warm woody body | Azarbre | more Iso E, Clearwood, Timberol | Azarbre is the selected yielding warm contour; Clearwood's intended clean-earth character modeled poorly in prior work, Timberol adds rigidity, and more Iso E risks genericity |
+| Woody recurrence | Kephalis + Cedarwood Virginia + Vetiver + Patchouli | oud, Nagarmortha, leather materials | selected woods translate tobacco/hay/root into the base; oud, cypriol smoke, IBQ, and suede would change the named perfume |
+| Mineral amber | Ambrofix + trace Amber Xtreme | Ambrox Super nominal 33%; Ambermax 50%; Amber Core | Ambrofix supplies mineral air and the trace Amber Xtreme supplies outline; Ambrox stock conversion is more unresolved, Ambermax duplicates warm contour, Amber Core risks opaque generic mass |
+| Cream/yield | Polysantol + diluted Ebanol | Javanol, Sandalore, Ebanol neat, multiple sandalwoods | Polysantol owns slow yielding interior and diluted Ebanol owns the faster handoff; Javanol adds mineral glare, Sandalore adds fresh sandal identity, neat Ebanol risks takeover |
+| Transparent vs dense cushion | Hexyl Salicylate + Benzyl Salicylate | either salicylate alone | Hexyl is the clearer film; Benzyl is the denser waxed cushion. Their joint survival is explicitly tested rather than assumed |
+| Sole musk | Ethylene Brassylate | no musk, Habanolide, Romandolide, Ambrettolide 10% | EB is the most coumarin/balsam-compatible warm skin hypothesis; no-musk and one-at-a-time alternatives remain blinded controls; no chord is inferred |
+| Immortelle support | Coumarin, Maple, Ethyl Safranate, Tobacco, Anisaldehyde, Carrot, Tonka | florals, Blue Chamomile, Osmanthus, rose, jasmine, lactones, tinctures | selected supports describe one flower's anatomy; florals create co-subjects, Blue Chamomile adds known compatibility risk, corrected lactones do not serve this target, and all tinctures are lost |
+| Opening light | small Bergamot/Red Mandarin + Frankincense | Lemon FCF, Cedrat, large citrus pair | selected aperture is golden and resin-linked; more or sharper citrus risks making immortelle late and the amber generic |
+
+## TARGET-to-CURRENT Gap and Authority Holds
+
+| Ideal item | Current translation | Structural consequence | Evidence status | Procurement status |
+|---|---|---|---|---|
+| Lot-matched Helichrysum volatile fraction / EO | Bergamot/Frankincense aperture plus owned Immortelle Absolute | opening identity is an approximation; no EO equivalence claim | **HIGH GAP / NOT TESTED** | not requested or authorized |
+| Lot-qualified Immortelle with species/ecotype/GC-O | owned `Immortelle Absolute (10% in DPG)` | absolute is the real nucleus, but lot-specific anatomy and composite applicability are unresolved | **HOLD** | no purchase |
+| Exact-basis Opoponax extract | owned nominal 50% in DEP, basis unspecified | nominal dose can be screened, but exact ppm/OAV/safety and material-specific response are unresolved | **HOLD** | no purchase |
+| Exact-basis high-impact amberwood | Amber Xtreme 10% w/w DEP | exact volume-active ppm is unavailable without density/mass chain | **HOLD** | no purchase |
+| Exact-basis ambroxide | Ambrofix 30% w/v | pipeline mapping is nominal, not exact volume-active ppm | **HOLD** | no purchase |
+| Fractionated patchouli heart | Patchouli EO neat | current may be darker/camphoraceous and less transparent | **APPROXIMATION / NOT TESTED** | no purchase |
+| Haitian-style dry vetiver | Vetiver EO (India) | current is deeper/darker; may add mass instead of elegant dry line | **APPROXIMATION / NOT TESTED** | no purchase |
+| Exact active Evernyl dose | 50% w/w DPG stock | exact volume-active ppm is unavailable | **HOLD** | no purchase |
+| Formula-specific safety and stability | no current physical packet | no skin, release, shelf-life, phase, color, light, or oxidation claim | **HOLD / NOT TESTED** | documents/testing not authorized here |
+
+Composite-natural diagnostics must be applicable to the exact material name and identity. A modeled zero caused by missing coverage is **HOLD**, not dormancy. ODT, vapor pressure, gamma, stock basis, and safety conflicts cannot be repaired through confident prose or dose escalation.
+
+## Future Working-Stock Ledger — Not Authorized
+
+Each future preparation begins with at least 100 uL of neat source; every formula delivery remains at least 20 uL. These are preparation definitions for reproducibility, not permission to make them.
+
+| Prep | Source transfer | Carrier transfer | Prepared stock | Formula delivery | Purpose |
+|---|---:|---:|---:|---:|---|
+| P1 Ethyl Safranate 10% v/v | 100 uL neat | 900 uL DPG | 1,000 uL | 50 uL | keep saffron-hay below leather takeover |
+| P2 Anisaldehyde 10% v/v | 100 uL neat | 900 uL DPG | 1,000 uL | create pollen without almond domination |
+| P3 Black Pepper EO 10% v/v | 100 uL neat | 900 uL DPG | 1,000 uL | preserve texture without culinary pepper |
+| P4 Linalyl Acetate 10% v/v | 100 uL neat | 900 uL DPG | 1,000 uL | prevent aromatic OAV glare |
+| P5 Ebanol 10% v/v | 100 uL neat | 900 uL DPG | 1,000 uL | preserve fast softness without Ebanol dominance |
+
+## Candidate-Survival and Compression Contract
+
+| Status | Rows | Meaning before physical evidence |
+|---|---|---|
+| NUCLEUS | 1–6, 18–19, 29 | protected immortelle, classical amber body, and named base recurrence; test the nucleus as a whole before individual pruning |
+| MODULE | 7, 11, 15, 17, 21, 23, 25–27, 30–34, 37, 39–41 | retained only within named anatomy, shadow, contour, or release factors |
+| ISOLATED | 9, 22, 24, 32, 35 | clear single-role omissions or matrix-detection controls |
+| FINISHING CANDIDATE | 8, 10, 12–14, 16, 20, 28, 36, 38, 42 | first removal set for 42-versus-31 blinded compression; complete version must earn them |
+| HOLD | 23, 30, 31, 42 | exact active ppm and/or safety basis unresolved; a physical result would remain material-specific |
+
+The high count is an audit burden, not evidence of depth. A row survives only if the observed loss matches its predicted function under a constant-total blinded test. Full-count failure or parity with the compressed control means prune the finishing set before any further addition.
+
+## Future Basket Order — Not a Compounding Instruction
+
+If separate authorization is ever granted, re-read all authorities and the linked blinded protocol first. Conceptual order is: quiet matrix and resins; low-volatility woods; one musk; coumarinic/tobacco anatomy; salicylate and living-middle tissue; immortelle absolute; volatile resin/spice/citrus aperture last. Verify solubility, material condition, container IDs, mass/volume basis, safety documents, and transfer recovery before deciding an actual laboratory order.
+
+## Controlled Validation
+
+The pre-registered theory plan is in `IMMORTELLE_AMBRE_FOSSILE_V1_BLIND_VALIDATION.md`. It separates protected-nucleus recognition, immortelle-anatomy × resin-shadow coupling, incense × woody amber type, 42-versus-31 compression, sole-musk necessity, and sweetness/food-drift limits. No arm may be made or smelled without separate authorization and formula-specific safety review.
+
+## Theory Decision
+
+Immortelle Ambre Fossile V1 is admitted as a **42-row TARGET / 42-row CURRENT design hypothesis** with exact raw-volume closure, a 20 uL direct-dose floor, five explicit future working stocks, and one musk. Its intended architecture is deeper than the legacy immortelle ambers because the same flower owns multiple states, five planes, several transition paths, and the base identity. That intended superiority is not an observed result. The unimplemented donor-independence gate, exact stock-basis gaps, composite-natural applicability, safety, stability, and every sensory claim remain **HOLD** or **NOT TESTED**.
+
+## Deterministic Diagnostic Decision — 2026-08-28
+
+The local release pipeline was run at a 7,200 uL expected concentrate, 30 mL context, 305 K, `generic` brief, deterministic `PYTHONHASHSEED=0`, and audit writing disabled. The parser resolved **42 materials / 7,200 uL**, the exact subtotal passed, duplicate-canonical-materials passed, material-spine coverage passed, and physics-data coverage passed. The simple inventory blind-spot scanner emitted one false negative for `Vetiver EO (India)` because the inventory parser strips the origin parenthetical to `Vetiver EO`; the full pipeline resolved the row and its exact data-spine record, so the Indian identity is preserved rather than silently renamed.
+
+The overall computational result is **FAIL: 102 PASS / 26 WARN / 1 FAIL**. The sole failing gate is `confidence_minimum`: modeled confidence **24.4** is below **25.0**, with a **28.9** science-preflight penalty. This is an evidence-authority failure, not a sensory rejection and not a reason to alter the named formula merely to raise a score. No dose was changed to satisfy generic pyramid, mass-market, material-count, rose/jasmine, or Hedione heuristics that are not the identity contract for this immortelle-led amber.
+
+The model places Immortelle Absolute at opening OAV **633.4**, behind Hedione **2762.2**, Iso E Super **1382.3**, and Azarbre **721.3**, and close to Dihydrojasmone **604.4**. This supports modeled audibility only. It does not establish that immortelle is the first object, survives masking, or leads at any timepoint; those claims remain **NOT TESTED** and are owned by the protected-nucleus and time-specific blind stages.
+
+Composite-natural coverage is exact-name applicable only to **Immortelle Absolute, Cardamom EO, Patchouli EO, and Vetiver EO (India)** in this run. Composite applicability is **HOLD** for Tobacco Absolute, Carrot Seed EO, Bergamot FCF oil Sicilian, Red Mandarin EO, Frankincense EO, Black Pepper EO, Labdanum Resinoid, Siam Benzoin, Benzoin Sumatra Resinoid, Peru Balsam Resinoid, Opoponax Resinoid, Cedarwood oil Virginia, and Tonka Bean Absolute; several are true data gaps and several are canonical-alias mismatches. Their displayed monomolecular-style OAV values cannot establish dormancy, audibility, balance, or safe redosing.
+
+The pipeline reports 28 materials relying on derived or unverified ODTs, thin HSP coverage, 23 materials without explicit Cat 4 limits, and modeled near/above-limit flags for Evernyl, Hexyl Salicylate, Benzyl Salicylate, and Benzyl Benzoate. Opoponax 50% DEP, Amber Xtreme 10% w/w DEP, Ambrofix 30% w/v, and Evernyl 50% w/w retain exact-active-ppm HOLD. Formula-specific safety reconciliation and any required constant-total safety rebase must precede even a blotter trial. The API-mismatch warnings and the implausible Bangkok volatility multiplier are pipeline-software limitations, not positive or negative perfume evidence.
+
+Therefore this packet is complete only as a **theory formula plus controlled validation design**. It is **not physically trial-ready, safety-cleared, release-ready, or established as deep, complex, luxurious, hedonic, complete, long-lasting, or immortelle-led**. Procurement, stock preparation, compounding, and evaluation remain unauthorized.
+
+<!-- PIPELINE_ANALYSIS_START -->
+
+## Pipeline Analysis
+
+```text
+## Gate Summary
+
+**102 PASS** / **26 WARN** / **1 FAIL**
+
+  FAIL confidence_minimum: combined confidence 24.4 below 25.0; preflight science penalty 28.9
+  WARN pipeline_preflight: 9 checks; 6 warnings
+  WARN odt_coverage: 28 material(s) rely on derived/unverified ODTs (32% OAV share)
+  WARN chemistry_stability: immature: predicted maturation 7 days (industry standard 14-42 days); predicted maturation shelf life 7 days
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 19.6% active mass across 7 materials
+  WARN safety_ifra_allergen: 23 materials lack explicit IFRA Cat4 limits; 6 EU allergen declarations
+  WARN eu_allergen_declaration: EU allergens requiring label: coumarin
+  WARN perfumer_logic: generic; perfumer_logic_brief: No brief-specific logic selected.
+  WARN perfume_knowledge: Pyramid off-target: Expected T:20% H:30% B:50%, Actual T:1.4% H:22.6% B:76.0%; top OAV off-target for family chypre; heart OAV off-target fo
+  WARN carles_accord_ratio: Extreme ratios (>8:1, Carles limit): immortelle absolute:coumarin = 13:1; immortelle absolute:maple lactone = 1031:1; immortelle absolute:et
+  WARN beaux_registres: Beaux registers missing: soprano
+  WARN literature_compliance: Literature compliance: 2/5 principles passed (40%) [advisory guideline; not release-blocking]
+  WARN captive_availability: 1 captive, 1 now-available
+  WARN edge_cases: Musk coverage: 1%, gaps: 2, Bangkok VP ×157728.0
+  WARN balance_axes: Balance axes evaluation skipped: type object 'MarketSegment' has no attribute 'MASS_MARKET'
+  WARN character_shifts: Gate skipped (API mismatch): check_zone_boundaries() missing 1 required positional argument: 'concentration_pct'
+  WARN musk_intelligence: Gate skipped (API mismatch): 'WoodyInfrastructureTrio' object has no attribute 'primary'
+  WARN jnd_redundancy: Potentially redundant pairs: immortelle absolute vs dihydrojasmone in floral (OAV 633/604); maple lactone vs anisaldehyde in gourmand (OAV 1
+  WARN guerlain_rose_jasmine_balance: Rose:jasmine OAV ratio = 260.4:1 — Guerlain recommends <3:1
+  WARN jellinek_psychology: Jellinek categories weak: erogenic, stimulating
+  WARN roudnitska_hedione_pct: Hedione = 4.2% of concentrate (<5%, minimal radiance effect)
+  WARN adaptation_timing: fast tier < 5% (no immediate impact)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 77%) — collapse risk
+  WARN olfactory_fatigue: Olfactory fatigue risk: hedione=4.2% of concentrate (<10% minimum for radiance)
+  WARN evaporation_rate_balance: Pyramid imbalance: top = 1%, base = 76%
+  WARN master_perfumer_gate: too many materials for a readable formula; opening likely underbuilt
+  WARN mass_market_tier_check: 42 materials is high for mass production. Each material adds compounding cost and quality control risk. Aim for 18-28 for scalable manufactu
+
+## Headspace OAV — Opening (0s)
+
+| # | Material | OAV | Note | Percept | VP Pa | Vapor ppm | ODT ppm | Act g | MF% | Role |
+|---|--------|---|----|-------|-----|---------|-------|-----|---|----|
+|   1 | Hedione                      |     2762.2 | heart |  very strong |   0.210 |    0.1381 |  0.000050 |  0.3000 |  6.61 | Hedione                       
+|   2 | Iso E Super                  |     1382.3 | heart |  very strong |   0.150 |    0.0691 |  0.000050 |  0.2000 |  4.25 | Iso E Super                   
+|   3 | Azarbre                      |      721.3 | base  |       strong |   4.300 |    1.4426 |  0.002000 |  0.1000 |  2.27 | Azarbre                       
+|   4 | Immortelle Absolute          |      633.4 | heart |       strong |   0.020 |    0.0021 |  0.001000 |  0.0700 |  1.74 | Immortelle Absolute           
+|   5 | Dihydrojasmone               |      604.4 | heart |       strong |   7.660 |    0.4533 |  0.000750 |  0.0200 |  0.60 | Dihydrojasmone                
+|   6 | Cardamom EO                  |      550.1 | top   |       strong |  15.000 |    1.6127 |  0.003000 |  0.0186 |  0.54 | Cardamom EO                   
+|   7 | Bergamot FCF oil Sicilian    |      253.3 | heart |       strong |   2.500 |    1.5195 |  0.006000 |  0.0700 |  2.05 | Bergamot FCF oil Sicilian     
+|   8 | Polysantol                   |      205.9 | base  |       strong |   0.003 |    0.0021 |  0.000010 |  0.2068 |  4.64 | Polysantol                    
+|   9 | Cashmeran                    |      200.3 | base  |       strong |   1.200 |    0.4007 |  0.002000 |  0.1400 |  3.38 | Cashmeran                     
+|  10 | Linalyl Acetate              |      162.5 | top   |       strong |  17.500 |    0.4386 |  0.002700 |  0.0100 |  0.25 | Linalyl Acetate               
+|  11 | Ebanol                       |      141.9 | heart |       strong |   0.890 |    0.0298 |  0.000210 |  0.0100 |  0.23 | Ebanol                        
+|  12 | Red Mandarin EO              |      117.0 | top   |       strong |   1.800 |    0.5852 |  0.005000 |  0.0300 |  1.10 | Red Mandarin EO               
+|  13 | Coumarin                     |       49.2 | base  |     moderate |   0.190 |    0.0344 |  0.000700 |  0.0360 |  1.23 | Coumarin                      
+|  14 | Frankincense EO              |       32.9 | heart |     moderate |   0.500 |    0.2636 |  0.008000 |  0.0900 |  2.14 | Frankincense EO               
+|  15 | Koavone                      |       19.3 | base  |     moderate |   0.300 |    0.0966 |  0.005000 |  0.0900 |  2.17 | Koavone                       
+|  16 | Ambrofix                     |       17.1 | base  |     moderate |   0.066 |    0.0051 |  0.000300 |  0.0360 |  0.76 | Ambrox Super                  
+|  17 | Vetiver EO (India)           |       16.6 | base  |     moderate |   0.040 |    0.0123 |  0.005000 |  0.0693 |  1.55 | Vetiver EO                    
+|  18 | Patchouli EO                 |       13.2 | base  |     moderate |   0.001 |    0.0002 |  0.003000 |  0.0800 |  1.79 | Patchouli EO                  
+|  19 | Damascenone                  |       12.9 | heart |     moderate |   1.000 |    0.0005 |  0.000040 |  0.0002 |  0.01 | Damascenone                   
+|  20 | Evernyl                      |       10.0 | base  |     moderate |   0.100 |    0.0030 |  0.000300 |  0.0100 |  0.25 | Evernyl                       
+|  21 | Kephalis                     |        5.4 | heart |  perceptible |   0.460 |    0.2724 |  0.050000 |  0.1800 |  4.00 | Kephalis                      
+|  22 | Ethylene Brassylate          |        4.2 | base  | at threshold |   0.008 |    0.0041 |  0.000970 |  0.3500 |  6.45 | Ethylene Brassylate           
+|  23 | Ethyl Safranate              |        1.9 | heart | at threshold |   0.050 |    0.0010 |  0.000500 |  0.0050 |  0.15 | Ethyl Safranate               
+|  24 | Black Pepper EO              |        1.4 | top   | at threshold |   0.300 |    0.0029 |  0.002000 |  0.0020 |  0.05 | Black Pepper EO               
+|  25 | Hexyl Salicylate             |        0.8 | base  | sub-threshold |   0.050 |    0.0291 |  0.035000 |  0.3500 |  7.85 | Hexyl Salicylate              
+|  26 | Tobacco Absolute             |        0.8 | base  | sub-threshold |   0.030 |    0.0008 |  0.001000 |  0.0144 |  0.37 | Tobacco Absolute              
+|  27 | Vanillin                     |        0.7 | base  | sub-threshold |   0.200 |    0.0146 |  0.020000 |  0.0100 |  0.33 | Vanillin                      
+|  28 | Maple Lactone                |        0.6 | heart | sub-threshold |   0.010 |    0.0006 |  0.001000 |  0.0160 |  0.62 | Maple Lactone                 
+|  29 | Vertofix                     |        0.6 | base  | sub-threshold |   0.011 |    0.0038 |  0.006300 |  0.1600 |  3.40 | Vertofix                      
+|  30 | Anisaldehyde                 |        0.6 | heart | sub-threshold |   0.050 |    0.0029 |  0.005000 |  0.0160 |  0.59 | Anisaldehyde                  
+|  31 | Cedramber                    |        0.6 | base  | sub-threshold |   0.350 |    0.1323 |  0.240000 |  0.1200 |  2.55 | Cedramber                     
+|  32 | Benzyl Salicylate            |        0.5 | base  | sub-threshold |   0.010 |    0.0051 |  0.010000 |  0.2000 |  4.37 | Benzyl Salicylate             
+|  33 | Tonka Bean Absolute          |        0.3 | base  | sub-threshold |   0.020 |    0.0003 |  0.001000 |  0.0100 |  0.26 | Tonka Bean Absolute           
+|  34 | Cedarwood oil Virginia       |        0.2 | base  | sub-threshold |   0.005 |    0.0027 |  0.015000 |  0.0980 |  2.20 | Cedarwood oil Virginia        
+|  35 | Carrot Seed EO               |        0.2 | heart | sub-threshold |   0.010 |    0.0009 |  0.005000 |  0.0200 |  0.45 | Carrot Seed EO                
+|  36 | Amber Xtreme                 |        0.1 | base  | sub-threshold |   0.001 |    0.0000 |  0.000050 |  0.0020 |  0.04 | Amber Xtreme                  
+|  37 | Opoponax Resinoid            |        0.1 | base  | sub-threshold |   0.020 |    0.0011 |  0.010000 |  0.0400 |  0.91 | Opoponax Resinoid             
+|  38 | Peru Balsam Resinoid         |        0.1 | base  | sub-threshold |   0.030 |    0.0016 |  0.030000 |  0.0600 |  1.09 | Peru Balsam Resinoid          
+|  39 | Benzyl Benzoate              |        0.0 | base  | sub-threshold |   0.001 |    0.0020 |  0.810000 |  0.6800 | 15.98 | Benzyl Benzoate               
+|  40 | Benzoin Sumatra Resinoid     |        0.0 | base  | sub-threshold |   0.000 |    0.0000 |  0.003000 |  0.0200 |  0.47 | Benzoin Sumatra Resinoid      
+|  41 | Siam Benzoin                 |        0.0 | base  | sub-threshold |   0.000 |    0.0001 |  0.040000 |  0.4000 |  9.40 | Siam Benzoin                  
+|  42 | Labdanum Resinoid            |        0.0 | base  | sub-threshold |   0.000 |    0.0000 |  0.005000 |  0.0550 |  0.91 | Labdanum Resinoid             
+
+**Materials:** 42 total (4 top, 13 heart, 25 base)
+**Total vapor:** 7.59 ppm
+### Note Distribution
+
+**TOP:** 4 mats, 1.4% active, 10.5% OAV
+  - Cardamom EO                  OAV=   550.1 (strong) VP=15.000Pa
+  - Linalyl Acetate              OAV=   162.5 (strong) VP=17.500Pa
+  - Red Mandarin EO              OAV=   117.0 (strong) VP=1.800Pa
+  - Black Pepper EO              OAV=     1.4 (at threshold) VP=0.300Pa
+**HEART:** 13 mats, 22.6% active, 73.6% OAV
+  - Hedione                      OAV=  2762.2 (very strong) VP=0.210Pa
+  - Iso E Super                  OAV=  1382.3 (very strong) VP=0.150Pa
+  - Immortelle Absolute          OAV=   633.4 (strong) VP=0.020Pa
+  - Dihydrojasmone               OAV=   604.4 (strong) VP=7.660Pa
+  - Bergamot FCF oil Sicilian    OAV=   253.3 (strong) VP=2.500Pa
+  - Ebanol                       OAV=   141.9 (strong) VP=0.890Pa
+  ... and 7 more
+**BASE:** 25 mats, 76.0% active, 15.9% OAV
+  - Azarbre                      OAV=   721.3 (strong) VP=4.300Pa
+  - Polysantol                   OAV=   205.9 (strong) VP=0.003Pa
+  - Cashmeran                    OAV=   200.3 (strong) VP=1.200Pa
+  - Coumarin                     OAV=    49.2 (moderate) VP=0.190Pa
+  - Koavone                      OAV=    19.3 (moderate) VP=0.300Pa
+  - Ambrofix                     OAV=    17.1 (moderate) VP=0.066Pa
+  ... and 19 more
+### OAV by Odor Family
+
+           floral  50.5% =========================  (3 mats)
+            woody  22.5% ===========  (9 mats)
+            amber   9.3% ====  (5 mats)
+            spice   7.0% ===  (3 mats)
+           citrus   4.7% ==  (2 mats)
+       sandalwood   2.6% =  (1 mats)
+         aromatic   2.1% =  (1 mats)
+         gourmand   0.7% =  (8 mats)
+                ?   0.4% =  (1 mats)
+             rose   0.2% =  (1 mats)
+             moss   0.1% =  (1 mats)
+             musk   0.1% =  (1 mats)
+       salicylate   0.0% =  (2 mats)
+             iris   0.0% =  (1 mats)
+         balsamic   0.0% =  (2 mats)
+         fixative   0.0% =  (1 mats)
+### Sub-threshold Materials (OAV < 1)
+18/42 materials below perceptible threshold
+  - Maple Lactone: OAV=0.61 VP=0.010Pa act=16uL role=Maple Lactone [Structural (acceptable)]
+  - Tobacco Absolute: OAV=0.76 VP=0.030Pa act=15uL role=Tobacco Absolute [Structural (acceptable)]
+  - Anisaldehyde: OAV=0.58 VP=0.050Pa act=16uL role=Anisaldehyde [Structural (acceptable)]
+  - Carrot Seed EO: OAV=0.18 VP=0.010Pa act=20uL role=Carrot Seed EO [Structural (acceptable)]
+  - Hexyl Salicylate: OAV=0.83 VP=0.050Pa act=350uL role=Hexyl Salicylate [Structural (acceptable)]
+  - Labdanum Resinoid: OAV=0.00 VP=0.000Pa act=55uL role=Labdanum Resinoid [Structural (acceptable)]
+  - Siam Benzoin: OAV=0.00 VP=0.000Pa act=400uL role=Siam Benzoin [Structural (acceptable)]
+  - Benzoin Sumatra Resinoid: OAV=0.00 VP=0.000Pa act=20uL role=Benzoin Sumatra Resi [Structural (acceptable)]
+  - Peru Balsam Resinoid: OAV=0.05 VP=0.030Pa act=60uL role=Peru Balsam Resinoid [Structural (acceptable)]
+  - Vanillin: OAV=0.73 VP=0.200Pa act=10uL role=Vanillin [Structural (acceptable)]
+  - Opoponax Resinoid: OAV=0.11 VP=0.020Pa act=40uL role=Opoponax Resinoid [Structural (acceptable)]
+  - Benzyl Benzoate: OAV=0.00 VP=0.001Pa act=680uL role=Benzyl Benzoate [Structural (acceptable)]
+  - Cedramber: OAV=0.55 VP=0.350Pa act=120uL role=Cedramber [Structural (acceptable)]
+  - Amber Xtreme: OAV=0.13 VP=0.001Pa act=2uL role=Amber Xtreme [Structural (acceptable)]
+  - Cedarwood oil Virginia: OAV=0.18 VP=0.005Pa act=100uL role=Cedarwood oil Virgin [Structural (acceptable)]
+  - Vertofix: OAV=0.60 VP=0.011Pa act=160uL role=Vertofix [Structural (acceptable)]
+  - Tonka Bean Absolute: OAV=0.30 VP=0.020Pa act=10uL role=Tonka Bean Absolute [Structural (acceptable)]
+  - Benzyl Salicylate: OAV=0.51 VP=0.010Pa act=200uL role=Benzyl Salicylate [Structural (acceptable)]
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Raw uL | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s |  1.4/22.6/76.0 |   7.59ppm |   7200 | Hedione(2762), Iso E Super(1382), Azarbre(721)
+| top          |    300s |  1.4/22.6/76.0 |   7.55ppm |   7198 | Hedione(2763), Iso E Super(1383), Azarbre(720)
+| heart        |   1800s |  1.3/22.6/76.1 |   7.38ppm |   7188 | Hedione(2766), Iso E Super(1385), Azarbre(712)
+| late_heart   |   7200s |  1.2/22.5/76.3 |   6.82ppm |   7153 | Hedione(2778), Iso E Super(1391), Azarbre(683)
+| drydown      |  14400s |  1.0/22.4/76.5 |   6.19ppm |   7112 | Hedione(2792), Iso E Super(1398), Azarbre(646)
+
+### Per-Window Detail
+
+**OPENING** (0.0s) — Evap:0%
+  T:1.4% H:22.6% B:76.0%  Vapor:7.59ppm
+  Leaders: Hedione OAV 2762 | Iso E Super OAV 1382 | Azarbre OAV 721 | Immortelle Absolute OAV 633 | Dihydrojasmone OAV 604
+
+**TOP** (300.0s) — Evap:0%
+  T:1.4% H:22.6% B:76.0%  Vapor:7.55ppm
+  Leaders: Hedione OAV 2763 | Iso E Super OAV 1383 | Azarbre OAV 720 | Immortelle Absolute OAV 634 | Dihydrojasmone OAV 602
+
+**HEART** (1800.0s) — Evap:0%
+  T:1.3% H:22.6% B:76.1%  Vapor:7.38ppm
+  Leaders: Hedione OAV 2766 | Iso E Super OAV 1385 | Azarbre OAV 712 | Immortelle Absolute OAV 635 | Dihydrojasmone OAV 593
+
+**LATE_HEART** (7200.0s) — Evap:1%
+  T:1.2% H:22.5% B:76.3%  Vapor:6.82ppm
+  Leaders: Hedione OAV 2778 | Iso E Super OAV 1391 | Azarbre OAV 683 | Immortelle Absolute OAV 638 | Dihydrojasmone OAV 559
+
+**DRYDOWN** (14400.0s) — Evap:1%
+  T:1.0% H:22.4% B:76.5%  Vapor:6.19ppm
+  Leaders: Hedione OAV 2792 | Iso E Super OAV 1398 | Azarbre OAV 646 | Immortelle Absolute OAV 643 | Dihydrojasmone OAV 517
+## Structural OAV Analysis
+
+**Vapor:** 8 ppm  |  **Active:** 14.7%  |  **Perceptible:** 24/42
+
+### OAV Tiers
+  **massive** (2): Hedione(2762), Iso E Super(1382)
+  **v.strong** (10): Immortelle Absolute(633), Bergamot FCF oil Sicilian(253), Red Mandarin EO(117), Cardamom EO(550), Linalyl Acetate(162), Dihydrojasmone(604), Cashmeran(200), Azarbre(721), Polysantol(206), Ebanol(142)
+  **moderate** (8): Coumarin(49), Damascenone(13), Frankincense EO(33), Ambrofix(17), Patchouli EO(13), Vetiver EO (India)(17), Koavone(19), Evernyl(10)
+  **perceptible** (1): Kephalis(5)
+  **threshold** (3): Ethyl Safranate(2), Black Pepper EO(1), Ethylene Brassylate(4)
+  **sub** (18): Maple Lactone(1), Tobacco Absolute(1), Anisaldehyde(1), Carrot Seed EO(0), Hexyl Salicylate(1), Labdanum Resinoid(0), Siam Benzoin(0), Benzoin Sumatra Resinoid(0), Peru Balsam Resinoid(0), Vanillin(1), Opoponax Resinoid(0), Benzyl Benzoate(0), Cedramber(1), Amber Xtreme(0), Cedarwood oil Virginia(0), Vertofix(1), Tonka Bean Absolute(0), Benzyl Salicylate(1)
+
+### Block Balance
+  **Citrus**      117 (2%)
+  **Floral**     5832 (81%)
+  **Base**       1262 (18%)
+  **Ratio:** 50:1 between strongest/weakest block
+
+### Issues
+  ! 18 sub-threshold material(s): Maple Lactone, Tobacco Absolute, Anisaldehyde, Carrot Seed EO, Hexyl Salicylate, Labdanum Resinoid, Siam Benzoin, Benzoin Sumatra Resinoid, Peru Balsam Resinoid, Vanillin, Opoponax Resinoid, Benzyl Benzoate, Cedramber, Amber Xtreme, Cedarwood oil Virginia, Vertofix, Tonka Bean Absolute, Benzyl Salicylate
+  ! Missing 'strong' tier (OAV 50-100)
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Cardamom EO(strong) + Linalyl Acetate(strong) + Red Mandarin EO(strong)
+  Heart: Hedione(very strong) + Iso E Super(very strong)
+  Base: Azarbre(strong) + Polysantol(strong) + Cashmeran(strong) + Coumarin(moderate) + Koavone(moderate)
+
+### 2. Opening (0-5min)
+  Cardamom EO dominates at OAV 550 (strong).
+  - Cardamom EO OAV=550 VP=15.0Pa (spice)
+  - Linalyl Acetate OAV=162 VP=17.5Pa (aromatic)
+  - Red Mandarin EO OAV=117 VP=1.8Pa (citrus)
+  - Black Pepper EO OAV=1 VP=0.3Pa (spice)
+  Total vapor: 7.6 ppm
+
+### 3. Heart (30min-2hr)
+  Hedione OAV=2766 (very strong)
+  Iso E Super OAV=1385 (very strong)
+  Azarbre OAV=712 (strong)
+  Immortelle Absolute OAV=635 (strong)
+  T:1.3% H:22.6% B:76.1%
+  Vapor: 7.4 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base dominates at 76% of headspace
+  - Hedione OAV=2792
+  - Iso E Super OAV=1398
+  - Azarbre OAV=646
+  - Immortelle Absolute OAV=643
+  - Dihydrojasmone OAV=517
+  - Cardamom EO OAV=288
+  Vapor: 6.2 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Hedione(2762) + Iso E Super(1382) + Azarbre(721) + Immortelle Absolute(633)
+  OAV by family: floral50% woody22% amber9% spice7%
+
+### 6. Longevity
+  Evaporation: 1% over 4h
+  Vapor: 7.6 > 6.2 ppm
+  Base @ drydown: 76%
+  Est. skin life: 8h moderate + 4h skin scent
+
+### 7. Balance
+  Pyramid: T:1.4% H:22.6% B:76.0%
+  OAV range: 0.00 to 2762 (sigma-log=1.74)
+  Wide contrast: citrus (OAV 2762) dominates opening before burning off to reveal base.
+    sub-threshold: 18
+
+### 8. Flags
+  SUB: Hexyl Salicylate OAV=0.83 role=Hexyl Salicylate
+  SUB: Tobacco Absolute OAV=0.76 role=Tobacco Absolute
+  SUB: Vanillin OAV=0.73 role=Vanillin
+  SUB: Maple Lactone OAV=0.61 role=Maple Lactone
+  SUB: Vertofix OAV=0.60 role=Vertofix
+  SUB: Anisaldehyde OAV=0.58 role=Anisaldehyde
+  SUB: Cedramber OAV=0.55 role=Cedramber
+  SUB: Benzyl Salicylate OAV=0.51 role=Benzyl Salicylate
+  SUB: Tonka Bean Absolute OAV=0.30 role=Tonka Bean Absolute
+  SUB: Cedarwood oil Virginia OAV=0.18 role=Cedarwood oil Virginia
+  SUB: Carrot Seed EO OAV=0.18 role=Carrot Seed EO
+  SUB: Amber Xtreme OAV=0.13 role=Amber Xtreme
+  SUB: Opoponax Resinoid OAV=0.11 role=Opoponax Resinoid
+  SUB: Peru Balsam Resinoid OAV=0.05 role=Peru Balsam Resinoid
+  SUB: Benzyl Benzoate OAV=0.00 role=Benzyl Benzoate
+  SUB: Benzoin Sumatra Resinoid OAV=0.00 role=Benzoin Sumatra Resinoid
+  SUB: Siam Benzoin OAV=0.00 role=Siam Benzoin
+  SUB: Labdanum Resinoid OAV=0.00 role=Labdanum Resinoid
+  IFRA: Evernyl at 0.23% active — near/above Cat4 limit (0.1%)
+  IFRA: Hexyl Salicylate at 7.93% active — near/above Cat4 limit (6.7%)
+  IFRA: Benzyl Salicylate at 4.53% active — near/above Cat4 limit (4.5%)
+  IFRA: Benzyl Benzoate at 15.41% active — near/above Cat4 limit (12.5%)
+```
+<!-- PIPELINE_ANALYSIS_END -->

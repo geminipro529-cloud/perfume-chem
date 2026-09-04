@@ -1,0 +1,713 @@
+# Lavender Current Parfum V1.1 — Yielding Mineral-Wood Sport — 30 mL / 20% Theory Formula
+
+**Status:** THEORY ONLY / COMPUTATIONAL-GOVERNED WARN / NOT TESTED / NO COMPOUNDING AUTHORIZED  
+**Formula ID:** LCP-V1.1-THLOCAL-20260829  
+**Design class:** clean lavender-aromatic men's sport parfum with a yielding mineral-wood interior, informed by DHP structural grammar rather than donor ingredient identity  
+**Family archetype:** `aromatic_fougere.modern_mineral`  
+**Concentrate target:** 6,000 uL raw concentrate  
+**Finished-volume context:** 30 mL at 20% raw concentrate only if separately authorized later  
+**Exact predecessor:** `LAVENDER_CURRENT_PARFUM_V1_CLEAN_AROMATIC_SPORT_30mL_20pct_THEORY.md`, SHA-256 `16357CDAC2CE14D5DB30A6BE9B1AE8EC578F4259A12D3577B6E7256BF358E7BA`  
+**Musk policy:** exactly one current-formula musk — Romandolide, assigned only to outward woody-fabric continuity  
+**Citrus policy:** Red Mandarin is a 60-uL subordinate glint with composite OAV on HOLD; citrus is not the subject  
+**Physical claim ceiling:** local-Thai-market fit, cleanliness, sport identity, pleasure, luxury, depth, completion, diffusion, longevity, heat performance, safety, stability, and release readiness are **NOT TESTED** or **HOLD**
+
+## Batch Evidence Ledger
+
+| Authority | Fresh read / verification | Provenance |
+|---|---|---|
+| `AGENTS.md` | 2026-08-29 | SHA-256 `88CB7B4C3C0727F63ED679A591676869710894AA824B765F596445BFDEEB7CA1` |
+| `inventory.txt` | 2026-08-29 | SHA-256 `AB4141AC9719A96047400CF7A853BA1F58761BDCAE62BFC57D898197A5BF885E` |
+| `.github/copilot-instructions.md` | 2026-08-29 | SHA-256 `2BF76476D98ED67938F00914009A24FE898EF82B692CBF2E1D6578F9B0418CC2` |
+| `docs/fragrance_families_reference.md` | 2026-08-29 | aromatic fougere, aromatic, transparent woods, citrus, and aquatic sections; SHA-256 `7C9968795E3A1662295D16C9DE73DAE6386C1EB8C06D05B5335AC546574350EF` |
+| authoritative DHP2025 protocol | 2026-08-29 | read-only source `C:\Users\ASUS\.codex\worktrees\edd7\perfume-chem\docs\research\DHP2025_STRUCTURAL_FORMULATION_LEARNING_PROTOCOL.md`; SHA-256 `50D108570DEA367A0D377DE1DC41BBF17E8911B522D67D8D2A7AA237085EDEB1` |
+| studio method | 2026-08-29 | `METHOD.md` SFSM-1.3; SHA-256 `1F8E4BE598E08B92B16A252A309CA9706DC75ACBB899567BB817B3D149C0EA1A` |
+| Lavender Current V1 | 2026-08-29 | complete read; SHA-256 `16357CDAC2CE14D5DB30A6BE9B1AE8EC578F4259A12D3577B6E7256BF358E7BA` |
+| Mineral Grain V1 | 2026-08-29 | complete read as a bounded depth-function comparison, not a donor template; SHA-256 `0D39A60DA4AB60C9C11B1C9FE80571B05BF4E107DD94B48C1A94E0A2A980B037` |
+| three-candidate blind protocol | 2026-08-29 | complete read; SHA-256 `0AEDF859FEF4B01AD86FDE5DC92D495ACF06EC0928ACA56531AD4BE9F5DC7933` |
+| exact-project DeepLuna Chat check | 2026-08-29 | `BLOCKED`; `budget-unsafe`; provider calls disabled; one unknown reservation; no payload transmitted and no fallback used |
+
+## Local Thai Consumer-Evidence Boundary
+
+Thailand-specific evidence supports testing clean self-care, subtle/adaptable daily wear, personal identity, social comfort, and separately measured longevity. It does not establish a universally preferred note. This formula therefore uses no tourist, expatriate, airport-retail, or foreign-buyer behavior as a proxy for local Thai men, and it does not claim that lavender, ambrox, sandalwood, or Red Mandarin is locally preferred.
+
+- Cleanliness, frequent hygiene routines, subtle scent, scent switching, and fabric-scent use are behavioral design signals only: [Mintel, 2025](https://www.mintel.com/press-centre/thais-rely-on-fabric-softeners-as-daily-scents-but-gen-z-drives-a-shift-to-fragrances/).
+- Thai men's fragrance use, identity/self-care motives, and age-dependent longevity priorities are testing dimensions only: [Mintel, 2023](https://www.mintel.com/press-centre/sniffing-out-the-opportunity-the-influence-of-scent-trends-in-thai-mens-beauty-market/).
+- The mixed-gender Bangkok/metropolitan convenience survey remains weak context and cannot select this formula: [Pala-ard et al.](https://so17.tci-thaijo.org/index.php/BASSBJ/article/view/774).
+
+## Why V1 Was Not Formulationally Complete
+
+V1 established a controlled direction but left four architecture failures unresolved:
+
+1. **Static temporal leadership:** Dihydromyrcenol, Lavender HA/linalool, and Iso E remained the modeled leaders from opening through four hours, so persistence substituted for a convincing state change.
+2. **Silent identity-bearing base:** Clearwood, Amberwood F, Cedramber, Vertofix, Cedarwood Virginia, Zenolide, and several matrix rows modeled below OAV 1; they could not be counted as audible depth.
+3. **Unproven musk assignment:** Zenolide modeled OAV 0.02 and therefore could not own V1's claimed outward fabric effect.
+4. **Unresolved natural authority:** the exact High-Altitude Lavender identity lacked applicable composite decomposition, while the owned premium BONTAUX lavender has exact composite-model coverage.
+
+V1 remains unchanged as the predecessor control. V1.1 is not represented as physically better; it is a more causally complete computational hypothesis.
+
+## Donor-Independence Manifest and Claim Limit
+
+| Authority | Permitted contribution | Explicitly excluded inheritance |
+|---|---|---|
+| Lavender Current V1 | named identity, lavender-current nucleus, five planes, cold/fabric/dry-grain recurrence | no silent deletion; every V1 row receives an individual disposition below |
+| Mineral Grain V1 | abstract yielding-wood, warm countercurve, and one audible projection-musk functions | no whole formula, row hierarchy, wet-mineral subject, or complete chassis transfer |
+| DHP2025 protocol | one-subject/multiple-state grammar, spatial planes, recurrence, pressure/release, identity-bearing base, omission discipline | no Dior ingredient identity, formula, signature accord, iris/leather/oud transplant, or equivalence claim |
+
+A local code search found no callable `donor_independence` gate despite the governing protocol describing one. Donor independence is therefore documented but **NOT DETERMINISTICALLY GATED**. This artifact may be called DHP-architectured theory; it may not be called DHP-level validated, complete in sensory fact, equivalent, equal, or better.
+
+## Named Identity Contract
+
+**Name:** Lavender Current Parfum.  
+**One-sentence identity:** a cool dry lavender stem accelerates through clean charged air, opens into soft premium lavender fabric, and yields into warm mineral sandalwood grain with a persistent hay-cedar-vetiver echo.  
+**One subject:** lavender shown as dry cut surface, soft living interior, moving aromatic fabric, and warm woody residue.  
+**Emotional effect:** freshly groomed athletic composure followed by tactile, restrained sensuality at conversational distance.  
+**Wear context:** commuting, office, active leisure, gym-to-social transition, and air-conditioned-to-hot-humid movement.  
+**Protected nucleus:** BONTAUX Lavender + standard Lavender EO + Linalyl Acetate + Dihydromyrcenol + Hedione HC + Coumarin/Evernyl + cedar/vetiver recurrence.  
+**Red Mandarin role:** a short warm reflection only; any persistent mandarin/orange identification is a veto.  
+**Completion hypothesis:** the perfume becomes structurally more whole when its clean lavender shell has a materially audible yielding interior and a late lavender-grain memory rather than a silent generic fixative block.
+
+## Functional Architecture Before Dosing
+
+| Structural object | Current owners | Single nonredundant job |
+|---|---|---|
+| dry lavender cut surface | standard Lavender EO + Rosemary EO + Aldehyde C10 | literal dry-herbal edge and immediate direction |
+| premium lavender interior | BONTAUX Lavender + Linalyl Acetate + Linalool | recognizable soft body under the cool shell |
+| athletic current | Dihydromyrcenol + Linalyl Acetate + Scentenal | moving air shear and charged forward motion |
+| living aromatic fabric | Hedione HC + Hexyl Salicylate + Dihydrojasmone + Mayol | negative space, tensile cloth, flex, and petal-soft release |
+| wet-mineral seam | Helional + Cyclamen + Floralozone | narrow cool depth and lateral opening without a marine subject |
+| yielding wood interior | Sandalore + Polysantol + Ebanol + AIMI + Cashmeran | fresh wood face, slow warm interior, dense fiber, and suede flex |
+| rear pressure/countercurve | Iso E + Ambrofix + Timberol + Azarbre | abstract perspective, mineral persistence, dry edge, and warm release curve |
+| identity-bearing root | Terpinyl Acetate + Coumarin + Evernyl + Virginia cedar + Indian vetiver | transforms lavender stem into hay, moss, cedar grain, and dry root |
+| outward fabric echo | Romandolide | sole musk function: audible woody-fabric continuity outside the skin plane |
+
+## One Subject / Multiple States
+
+| State | Lavender anatomy | Primary material cause | Transition owner |
+|---|---|---|---|
+| dry cool cut | herbal edge, brief warm reflection, charged air | standard Lavender EO, Rosemary, Red Mandarin, Dihydromyrcenol, Aldehyde C10/Scentenal | Linalyl Acetate |
+| soft luminous fabric | premium lavender body becomes flexible clean cloth | BONTAUX Lavender, linalool pair, Hedione HC, Hexyl Salicylate, Dihydrojasmone, Mayol | Hedione HC + Dihydrojasmone + AIMI |
+| yielding mineral wood | lavender cloth encounters soft-to-dense pale grain under rear pressure | Helional/Cyclamen, Sandalore, Polysantol, Ebanol, Ambrofix, Azarbre | AIMI + Ebanol + Polysantol |
+| dry aromatic residue | hay, moss, cedar fiber, vetiver root, and woody fabric recall the opening stem | Terpinyl Acetate, Coumarin, Evernyl, Cedarwood Virginia, Vetiver, Romandolide | Terpinyl Acetate + Coumarin + cedar/vetiver |
+| invariant cue | dry aromatic stem over a yielding pale-wood grain | protected lavender-linalyl-coumarin-cedar nucleus | recurrence ballot at 2, 6, and 24 hours |
+
+## Spatial and Temporal Map
+
+| Plane / window | Owners | Required perception | Failure veto |
+|---|---|---|---|
+| front glint / 0-5 min | Red Mandarin, Rosemary, Aldehyde C10, Scentenal | a brief warm/cool cut around lavender | orange, rosemary tonic, cleaner, metallic glare |
+| near-body / 0-30 min | BONTAUX/standard Lavender, Dihydromyrcenol, Linalyl Acetate | recognizable athletic lavender body | shower gel, deodorant, barbershop, medicinal herb |
+| living middle / 5 min-2 h | Hedione HC, linalool pair, Hexyl Salicylate, Dihydrojasmone, Mayol, Helional/Cyclamen | breathable fabric with one petal-soft release and controlled mineral tension | blank radiance, detergent, muguet/aquatic takeover |
+| rear contour / 30 min-24 h | Iso E, Ambrofix, Timberol, Azarbre, Ebanol | cool pressure surrounding an audible warm wood interior | ambrox wall, burning lumber, static sandalwood |
+| skin/fabric echo / 2-24 h | Sandalore, Polysantol, cedar, vetiver, Coumarin, Evernyl, Terpinyl Acetate, Romandolide | dry lavender-grain memory and socially contained woody fabric | anonymous wood/musk, laundry, sweet tonka |
+
+**Pressure module:** Dihydromyrcenol + Scentenal + Helional/Cyclamen + Iso E + Ambrofix + Timberol.  
+**Release module:** BONTAUX Lavender + Hedione HC + Mayol + AIMI + Sandalore/Polysantol/Ebanol + Azarbre + Romandolide.  
+**Opposed textures:** cool/dry/charged/taut versus soft/luminous/yielding/warm-grained.  
+**Expected re-smell event:** the charged lavender fabric yielding into a warm Ebanol/Polysantol/Azarbre interior while dry cedar/vetiver prevents creaminess. This remains **NOT TESTED**.
+
+## Takeover Exclusions
+
+| Exclusion | Observable endpoint | Stop rule |
+|---|---|---|
+| orange/citrus identity | mandarin, orange cleaner, or citrus cologne is the persistent first object | reject 60 uL; use the zero/30-uL arm |
+| generic blue sport | Dihydromyrcenol, shower gel, deodorant, or metallic freshness is the best name | select the lowest successful sport-ladder dose |
+| barbershop/medicinal | shaving foam, herbal tonic, camphor, or old fougere replaces modern lavender fabric | reject Rosemary or reduce the literal surface module |
+| detergent/muguet | laundry, fabric softener, watery flower, or sea-air product appears | reject Mayol/mineral-air/release level before adding warmth |
+| iris cosmetic | lipstick, makeup, or violet powder becomes a separate object | reject AIMI level |
+| static sandalwood | creamy sandalwood becomes a second perfume rather than lavender's interior | collapse Ebanol/Polysantol/Sandalore planes |
+| ambrox/wood wall | dry mineral wood masks lavender recurrence or causes fatigue | reduce Iso E/Ambrofix/Timberol pressure |
+| sweet/hot base | coumarin, cream, syrup, vanilla, or sticky warmth leads | reject Coumarin/Polysantol/Azarbre level |
+| laundry musk | clean musk becomes the late identity | zero-musk arm wins automatically on a tie |
+
+## TARGET / IDEAL — Inventory-Independent Active-Phase Architecture
+
+The target retains every V1 ideal function, adds seven individually testable completion functions, and totals exactly **1,000,000 active-phase ppm across 41 functions**. Ideal-only rows are not purchases or current doses.
+
+| Ideal material or function | Active ppm | State / plane ownership |
+|---|---:|---|
+| warm mandarin front-light | 12,000 | brief front reflection; subordinate |
+| high-altitude lavender source surface | 10,000 | predecessor surface function retained IDEAL-ONLY pending exact composite authority |
+| standard lavender dry surface | 7,000 | dry cut near-body translation |
+| premium BONTAUX lavender interior | 31,040 | soft living subject body |
+| clary dry-stem shadow | 5,000 | predecessor stem function retained IDEAL-ONLY |
+| rosemary kinetic stem edge | 2,000 | cool front pressure and motion |
+| Dihydromyrcenol sport current | 72,000 | near-body air shear |
+| Linalyl Acetate aromatic fabric | 55,000 | surface-to-middle transition |
+| Aldehyde C12 MNA clean flash | 20 | predecessor directional flash retained IDEAL-ONLY |
+| Aldehyde C10 warm point | 20 | front punctuation |
+| metallic-green point | 20 | charged seam |
+| Linalool volatile bridge | 14,000 | natural-to-abstract continuity |
+| Ethyl Linalool persistent bridge | 25,000 | middle-to-echo continuity |
+| Terpinyl Acetate stem-to-cedar seam | 10,000 | lavender recurrence into dry grain |
+| high-cis jasmonate light | 115,000 | middle negative space |
+| Hexyl Salicylate tensile film | 62,000 | fabric adhesion and flex |
+| Dihydrojasmone moving textile | 6,000 | kinetic middle texture |
+| Helional wet-mineral depth | 10,000 | cool depth plane |
+| Cyclamen tensile line | 4,000 | narrow mineral direction |
+| Floralozone lateral aperture | 400 | small side opening |
+| Mayol petal-soft release | 4,000 | tenderness against mineral pressure |
+| violet-suede aromatic seam | 15,000 | lavender-to-wood flexibility |
+| Iso E Super rear perspective | 120,000 | abstract cedar distance |
+| smooth ambroxide pressure | 48,000 | mineral persistence |
+| Sandalore fresh yielding face | 88,000 | first wood surface |
+| Polysantol slow warm interior | 42,000 | sustained yielding volume |
+| Ebanol dense wood fiber | 10,000 | audible inner grain |
+| Virginia cedar grain | 55,000 | literal dry recurrence |
+| Indian vetiver root | 32,000 | dry root contour |
+| clean patchouli-heart shadow | 5,000 | predecessor Clearwood function retained IDEAL-ONLY |
+| transparent amberwood warmth | 5,000 | predecessor Amberwood F function retained IDEAL-ONLY |
+| Cashmeran tactile flex | 10,000 | warm textile joint |
+| Timberol distal edge | 6,000 | dry rear pressure |
+| Cedramber mineral-cedar seam | 5,000 | predecessor seam retained IDEAL-ONLY |
+| Vertofix dry root volume | 5,000 | predecessor root-mass function retained IDEAL-ONLY |
+| Azarbre warm cedar-amber countercurve | 12,000 | warm rear release |
+| Zenolide soft fresh echo | 10,000 | predecessor musk hypothesis retained IDEAL-ONLY |
+| Romandolide outward woody fabric | 60,000 | current sole-musk projection function |
+| dry coumarinic lavender recurrence | 1,500 | hay-like late identity |
+| quiet benzoate matrix | 25,000 | low-character adhesion hypothesis |
+| Evernyl moss line | 1,000 | dry fougere punctuation |
+| **TOTAL** | **1,000,000** |  |
+
+## CURRENT-INVENTORY BUILD — V1.1 Theory Center
+
+This is the **only parser-visible dosing table** in the file. It contains **33 aromatic rows plus one declared carrier row**, totals exactly **6,000 uL**, uses one musk, and keeps every direct raw-stock aliquot at or above 10 uL. It is not a compounding instruction.
+
+**BASKET 1 — ALWAYS USED** (high to low uL)
+| Layer | # | Material | Dilution | Amount uL |
+|---|---:|---|---|---:|
+| HEART | 11 | Hedione HC | neat | 600 |
+| BASE | 20 | Iso E Super | neat | 600 |
+
+**BASKET 2 — VETIVERS** (high to low uL)
+| Layer | # | Material | Dilution | Amount uL |
+|---|---:|---|---|---:|
+| BASE | 26 | Vetiver EO (India) | neat | 160 |
+
+**BASKET 3 — WOODS** (high to low uL)
+| Layer | # | Material | Dilution | Amount uL |
+|---|---:|---|---|---:|
+| BASE | 22 | Sandalore | neat | 430 |
+| BASE | 25 | Cedarwood oil Virginia | neat; composite OAV HOLD | 280 |
+| BASE | 23 | Polysantol | neat | 200 |
+| BASE | 24 | Ebanol | neat | 50 |
+| BASE | 27 | Cashmeran | neat | 50 |
+| BASE | 28 | Timberol | neat | 30 |
+
+**BASKET 4 — WOOD MODIFIERS AND AMBERS** (high to low uL)
+| Layer | # | Material | Dilution | Amount uL |
+|---|---:|---|---|---:|
+| BASE | 21 | Ambrofix | 30% w/v; 3 g in 10 mL; carrier HOLD | 700 |
+| BASE | 32 | Benzyl Benzoate | neat | 150 |
+| BASE | 29 | Azarbre | neat | 60 |
+
+**BASKET 5 — WOOD-VETIVERS** (high to low uL)
+*(no materials in this formula)*
+
+**BASKET 6 — MUSKS** (high to low uL)
+| Layer | # | Material | Dilution | Amount uL |
+|---|---:|---|---|---:|
+| BASE | 30 | Romandolide | neat | 320 |
+
+**BASKET 7 — MUGUET AND LAVENDER** (high to low uL)
+| Layer | # | Material | Dilution | Amount uL |
+|---|---:|---|---|---:|
+| TOP | 6 | Linalyl Acetate | neat | 260 |
+| TOP | 3 | Lavender EO (BONTAUX SAS) | neat | 150 |
+| HEART | 10 | Ethyl Linalool | neat | 120 |
+| HEART | 9 | Linalool | neat | 60 |
+| TOP | 2 | Lavender EO | neat | 30 |
+| HEART | 17 | Mayol | neat | 20 |
+
+**BASKET 8 — JASMINE, INDOLE, AND MAGNOLIA** (high to low uL)
+| Layer | # | Material | Dilution | Amount uL |
+|---|---:|---|---|---:|
+| HEART | 13 | Dihydrojasmone | neat | 30 |
+
+**BASKET 9 — YLANG, ORANGE FLOWER, AND NARCOTICS** (high to low uL)
+*(no materials in this formula)*
+
+**BASKET 10 — ROSE** (high to low uL)
+*(no materials in this formula)*
+
+**BASKET 11 — IRIS AND ORRIS** (high to low uL)
+| Layer | # | Material | Dilution | Amount uL |
+|---|---:|---|---|---:|
+| HEART | 18 | Alpha Isomethyl Ionone | neat | 70 |
+
+**BASKET 12 — EDIBLE SMELLS** (high to low uL)
+| Layer | # | Material | Dilution | Amount uL |
+|---|---:|---|---|---:|
+| BASE | 31 | Coumarin | 20%; carrier/basis HOLD | 20 |
+
+**BASKET 13 — EDIBLE SPICES** (high to low uL)
+*(no materials in this formula)*
+
+**BASKET 14 — MY FAVORITE SMELLS** (high to low uL)
+*(no materials in this formula)*
+
+**BASKET 15 — FRUITS** (high to low uL)
+| Layer | # | Material | Dilution | Amount uL |
+|---|---:|---|---|---:|
+| TOP | 1 | Red Mandarin EO | neat; composite OAV HOLD | 60 |
+
+**BASKET 16 — ALDEHYDES** (high to low uL)
+| Layer | # | Material | Dilution | Amount uL |
+|---|---:|---|---|---:|
+| TOP | 5 | Dihydromyrcenol | neat | 340 |
+| TOP | 7 | Aldehyde C10 | 1% | 10 |
+
+**BASKET 17 — GREEN SMELLING THINGS** (high to low uL)
+| Layer | # | Material | Dilution | Amount uL |
+|---|---:|---|---|---:|
+| HEART | 12 | Hexyl Salicylate | neat | 300 |
+| HEART | 14 | Helional | neat | 50 |
+| HEART | 19 | Terpinyl Acetate | neat | 50 |
+| HEART | 15 | Cyclamen Aldehyde | neat | 20 |
+| HEART | 16 | Floralozone | 10% | 20 |
+| TOP | 4 | Rosemary EO (French Rosmarinus Officinalis leaf oil) | neat | 10 |
+| TOP | 8 | Scentenal | 1% | 10 |
+| BASE | 33 | Evernyl | 50% w/w in DPG | 10 |
+
+**CARRIER / TECHNICAL** (not a basket)
+| Layer | # | Material | Dilution | Amount uL |
+|---|---:|---|---|---:|
+| BASE | 34 | Diethyl Phthalate | carrier / constant-total compensator | 730 |
+|  |  | **TOTAL** |  | **6000** |
+
+### Nominal stock and ppm accounting
+
+- Nominal aromatic-equivalent total: **4,721.2 uL-equivalent**, or **786,867 nominal active ppm** in the raw concentrate.
+- Nominal carrier-equivalent total: **1,278.8 uL-equivalent**, including 730 uL explicit DEP and the provisional carrier portions of diluted/w/v/w/w stocks.
+- In the future 20% raw-concentrate context, nominal aromatic-volume equivalent is approximately **15.737%** of finished volume.
+- Exact ppm w/w is **HOLD** because material densities and the Ambrofix w/v, Coumarin 20%, and Evernyl w/w bases are not fully reconciled.
+- Minimum direct raw-stock aliquot is **10 uL**. No working-stock preparation is requested by this center formula.
+
+## CURRENT Row Ownership, ppm, ODT, OAV, and Omission Ledger
+
+The two naturals without applicable composite decomposition are reported as `HOLD`; their pipeline monomolecular values are not promoted as natural-mixture OAV.
+
+| # | Material | Nominal active eq | Concentrate ppm | Modeled OAV | OAV authority | Plane | Nonredundant function | Test owner |
+|---:|---|---:|---:|---:|---|---|---|---|
+| 1 | Red Mandarin EO | 60.00 | 10,000.0 | HOLD | composite missing; pipeline mono suppressed | front | warm glint; subordinate | 0/30/60 ladder |
+| 2 | Lavender EO | 30.00 | 5,000.0 | 1,049.52 | composite model; bottle/lot HOLD | near | dry herbal surface | omit standard lavender |
+| 3 | Lavender EO (BONTAUX SAS) | 150.00 | 25,000.0 | 4,617.87 | composite model; bottle/lot HOLD | near | premium soft lavender body | half/center BONTAUX |
+| 4 | Rosemary EO (French Rosmarinus Officinalis leaf oil) | 10.00 | 1,666.7 | 322.92 | composite model; bottle/lot HOLD | front | cold kinetic stem edge | omit rosemary |
+| 5 | Dihydromyrcenol | 340.00 | 56,666.7 | 14,178.49 | literature ODT | near | sport air shear | 260/300/340/380 ladder |
+| 6 | Linalyl Acetate | 260.00 | 43,333.3 | 3,291.46 | literature ODT | near-middle | lavender fabric transition | minus-60 constant-total arm |
+| 7 | Aldehyde C10 | 0.10 | 16.7 | 5.58 | literature ODT | front | directional flash | omit stock |
+| 8 | Scentenal | 0.10 | 16.7 | 96.89 | estimated ODT | front-middle | charged mineral point | omit stock |
+| 9 | Linalool | 60.00 | 10,000.0 | 2,414.21 | literature ODT | near-middle | volatile lavender bridge | omit single molecule |
+| 10 | Ethyl Linalool | 120.00 | 20,000.0 | 1.35 | estimated ODT | middle-echo | tenacious aromatic bridge | omit persistent bridge |
+| 11 | Hedione HC | 600.00 | 100,000.0 | 1,818.29 | unverified ODT | middle | negative-space radiance | minus-120 constant-total arm |
+| 12 | Hexyl Salicylate | 300.00 | 50,000.0 | 0.55 | estimated ODT | middle-skin | tensile green film | omit film |
+| 13 | Dihydrojasmone | 30.00 | 5,000.0 | 706.41 | unverified ODT | middle | moving textile flex | omit flex |
+| 14 | Helional | 50.00 | 8,333.3 | 11.97 | literature ODT | middle-rear | wet mineral depth | omit wet depth |
+| 15 | Cyclamen Aldehyde | 20.00 | 3,333.3 | 35.84 | literature ODT | middle | tensile mineral line | omit line |
+| 16 | Floralozone | 2.00 | 333.3 | 1.72 | unverified ODT | middle | lateral aperture | omit aperture |
+| 17 | Mayol | 20.00 | 3,333.3 | 29.97 | unverified ODT | middle | petal-soft release | omit Mayol |
+| 18 | Alpha Isomethyl Ionone | 70.00 | 11,666.7 | 84.55 | literature ODT | middle-rear | violet-suede seam | omit AIMI |
+| 19 | Terpinyl Acetate | 50.00 | 8,333.3 | 1.12 | estimated ODT | middle-echo | stem-to-cedar recurrence | omit seam |
+| 20 | Iso E Super | 600.00 | 100,000.0 | 3,161.34 | literature ODT | rear | abstract cedar perspective | minus-120 constant-total arm |
+| 21 | Ambrofix | 210.00 | 35,000.0 | 76.68 | derived ODT; w/v active HOLD | rear | smooth mineral pressure | minus-140 stock arm |
+| 22 | Sandalore | 430.00 | 71,666.7 | 9.40 | literature ODT | rear-skin | fresh yielding wood face | sandal-plane collapse |
+| 23 | Polysantol | 200.00 | 33,333.3 | 145.87 | unverified ODT | rear-skin | slow warm wood interior | sandal-plane collapse |
+| 24 | Ebanol | 50.00 | 8,333.3 | 552.94 | literature ODT | rear | dense wood fiber | omit Ebanol |
+| 25 | Cedarwood oil Virginia | 280.00 | 46,666.7 | HOLD | composite missing; pipeline mono suppressed | rear-echo | literal dry grain | omit cedar; composite HOLD |
+| 26 | Vetiver EO (India) | 160.00 | 26,666.7 | 29.56 | composite model; bottle/lot HOLD | rear-echo | dry root recurrence | omit vetiver |
+| 27 | Cashmeran | 50.00 | 8,333.3 | 55.75 | literature ODT | middle-rear | tactile flex | omit Cashmeran |
+| 28 | Timberol | 30.00 | 5,000.0 | 16.40 | literature ODT | rear | dry distal pressure | omit Timberol |
+| 29 | Azarbre | 60.00 | 10,000.0 | 337.22 | unverified ODT | rear | warm cedar-amber countercurve | omit Azarbre |
+| 30 | Romandolide | 320.00 | 53,333.3 | 13.89 | literature ODT | skin-fabric | outward woody fabric | zero-musk control |
+| 31 | Coumarin | 4.00 | 666.7 | 4.51 | literature ODT; stock basis HOLD | echo | hay-lavender recurrence | omit Coumarin stock |
+| 32 | Benzyl Benzoate | 150.00 | 25,000.0 | 0.00 | literature ODT | matrix | quiet adhesion mass | replace with DEP |
+| 33 | Evernyl | 5.00 | 833.3 | 3.91 | estimated ODT; w/w active HOLD | echo | dry moss punctuation | omit Evernyl stock |
+| 34 | Diethyl Phthalate | 730.00 | 121,666.7 raw carrier | 0.00 | sentinel/unverified ODT | matrix | constant-total space | carrier-matched control |
+
+## V1 Source-Lineage Conservation Ledger
+
+All 33 V1 aromatic rows plus its carrier receive an individual disposition. `IDEAL-ONLY` preserves the source function without pretending a modeled-dormant row improves the current build.
+
+| V1 row | V1 raw dose | V1.1 disposition | V1.1 current translation and rationale |
+|---|---:|---|---|
+| Red Mandarin EO | 180 | REBASE | 60; remains a glint, not a market-preference assumption |
+| Lavender EO High Altitude | 180 | IDEAL-ONLY / FUNCTIONAL TRANSLATION | exact composite mismatch prevents governed current use; standard Lavender + exact BONTAUX split dry surface and soft interior non-equivalently |
+| Clary Sage EO | 40 | IDEAL-ONLY | dried-stem function remains in TARGET; Rosemary/Terpinyl are different current edge/seam functions, not silent equivalents |
+| Dihydromyrcenol | 520 | REBASE | 340; reduces static blue leadership while retaining the sport current |
+| Linalyl Acetate | 300 | REBASE | 260; preserves subject transition with less volatile crowding |
+| Aldehyde C12 MNA 1% | 10 | IDEAL-ONLY / REJECT CURRENT | modeled OAV approximately zero and no independent transition survived |
+| Aldehyde C10 1% | 10 | KEEP | exact directional flash retained |
+| Scentenal 1% | 10 | KEEP | exact charged mineral point retained |
+| Linalool | 160 | REBASE | 60; BONTAUX/standard Lavender already carry linalool anatomy, so the single molecule is only the volatile bridge |
+| Ethyl Linalool | 140 | REBASE | 120; tenacious bridge retained |
+| Hedione HC | 650 | REBASE | 600; living air retained without enlarging blank radiance |
+| Hexyl Salicylate | 280 | REBASE | 300; explicit tensile-film structural hypothesis |
+| Dihydrojasmone | 30 | KEEP | moving textile flex retained |
+| Helional | 50 | KEEP | wet-mineral depth retained |
+| Cyclamen Aldehyde | 30 | REBASE | 20; narrower mineral line and lower muguet risk |
+| Floralozone 10% | 20 | KEEP | lateral aperture retained |
+| Alpha Isomethyl Ionone | 100 | REBASE | 70; seam retained with lower cosmetic-iris risk |
+| Iso E Super | 700 | REBASE | 600; rear perspective retained with less generic wall risk |
+| Ambrofix 30% | 600 | REBASE | 700 stock, provisionally 210 active-equivalent; pressure strengthened but remains below the yielding wood interior |
+| Sandalore | 400 | REBASE | 430; fresh yielding face enlarged slightly |
+| Polysantol | 120 | REBASE | 200; slow interior is now an audible completion object |
+| Cedarwood oil Virginia | 180 | REBASE / DATA HOLD | 280; late grain is strengthened, but exact composite OAV remains HOLD |
+| Vetiver EO (India) | 80 | REBASE | 160; composite-covered dry root recurrence strengthened |
+| Clearwood | 100 | IDEAL-ONLY / REJECT CURRENT | V1 modeled OAV 0.06; exact add-back required before it can return |
+| Amberwood F | 100 | IDEAL-ONLY / REJECT CURRENT | V1 modeled OAV 0.24; Azarbre owns a new audible warm countercurve and is not declared equivalent |
+| Cashmeran | 60 | REBASE | 50; kept at the non-oriental family ceiling as tactile flex |
+| Timberol | 40 | REBASE | 30; distal pressure retained with lower harsh-lumber risk |
+| Cedramber | 80 | IDEAL-ONLY / REJECT CURRENT | V1 modeled OAV 0.28; seam remains visible in TARGET pending isolated proof |
+| Vertofix | 80 | IDEAL-ONLY / REJECT CURRENT | V1 modeled OAV 0.22; current dry-root mass moves to cedar/vetiver without an equivalence claim |
+| Zenolide | 320 | IDEAL-ONLY / REJECT CURRENT | V1 modeled OAV 0.02 could not own projection; Romandolide is a separate one-musk candidate with a zero-musk control |
+| Tonkarome 20% | 100 | FUNCTIONAL REBASE | 20 of Coumarin 20% creates a more direct hay-lavender recurrence; no chemical equivalence is claimed |
+| Benzyl Benzoate | 100 | REBASE | 150; quiet matrix hypothesis strengthened but not counted as audible complexity |
+| Evernyl 50% | 10 | KEEP / SAFETY HOLD | minimum measurable stock retained; exact Cat-4 and density reconciliation remain HOLD |
+| Diethyl Phthalate | 220 | REBASE | 730; absorbs subtraction and stock-carrier accounting at constant raw total; sensory neutrality is not presumed |
+
+**Conservation result:** V1.1 retains all 33 V1 ideal functions in a 41-function TARGET, keeps five spatial planes, expands seven V1 structural objects to nine function-owned objects, and keeps the current aromatic-row count at 33. No source function disappears silently. This satisfies the documentary conservation ledger but not the unavailable deterministic donor-independence gate or any sensory-completion claim.
+
+## Inventory, Canonical-Name, and Composite-Natural Audit
+
+- Every CURRENT material resolves to the live inventory read on 2026-08-29.
+- Red Mandarin remains one canonical owned neat row; no duplicate is created.
+- BONTAUX applies only to `Lavender EO (BONTAUX SAS)` and is not attached to standard Lavender or any other oil.
+- `Cedarwood oil Virginia` is the canonical owned Virginian cedar row.
+- Red Mandarin and Cedarwood Virginia lack exact applicable composite decomposition; their natural OAV is **HOLD**, not the pipeline's monomolecular number.
+- Standard Lavender, BONTAUX Lavender, Rosemary, and Indian Vetiver have applicable composite-model coverage. Supplier bottle, lot, oxidation, and storage behavior remain HOLD.
+- Parmavert, tinctures, depleted neat Lemonile, depleted Olibanum Resinoid, and corrected unavailable lactones are absent.
+- No use is made of Cinnamon Bark, Alpha Irone, Amber Xtreme, Opoponax, Myrrh, or any other ambiguous stock merely to add prestige.
+
+## Preparation Ledger and Physical Authority
+
+No stock preparation is needed for the theory center: every requested raw aliquot is at least 10 uL. This does not authorize measuring any row.
+
+| Stock | Current raw aliquot | Provisional active mapping | Authority limit |
+|---|---:|---:|---|
+| Aldehyde C10 1% | 10 | 0.1 nominal active-equivalent | existing stock; exact carrier/age HOLD |
+| Scentenal 1% | 10 | 0.1 nominal active-equivalent | existing stock; exact carrier/age HOLD |
+| Floralozone 10% | 20 | 2 nominal active-equivalent | existing stock |
+| Ambrofix 30% w/v | 700 | 210 nominal volume-equivalent | exact density, carrier, and w/w conversion HOLD |
+| Coumarin 20% | 20 | 4 nominal active-equivalent | carrier and concentration basis HOLD |
+| Evernyl 50% w/w DPG | 10 | 5 nominal active-equivalent | exact density and Cat-4 safety HOLD |
+
+## Missing-Chemical and Data-Impact Gate
+
+| Item | Lost or unresolved function | Current approximation | Residual limitation | Severity | Procurement recommendation |
+|---|---|---|---|---|---|
+| High-Altitude Lavender exact composite identity | predecessor cool surface authority | standard Lavender + BONTAUX split | not supplier/lot/composite equivalent | medium | none; resolve data before considering use |
+| Clary composite model | dry stem shadow | Rosemary edge + Terpinyl/coumarin recurrence | different herbal chemistry | low-medium | none |
+| Red Mandarin composite model | warm front glint OAV | 60-uL owned row with OAV suppressed | audibility/takeover cannot be modeled faithfully | medium | none; data resolution only |
+| Cedarwood Virginia composite model | literal late grain OAV | 280-uL canonical owned row with OAV suppressed | identity-bearing base audibility remains HOLD | high for recurrence claim | none; data resolution and physical omission first |
+| callable donor-independence gate | deterministic architecture-contamination check | explicit manifest and row ledger | cannot claim deterministic donor independence | high for DHP-level claim | no procurement; tooling gap |
+
+## Candidate-Survival Audit
+
+The first governed `aromatic_fougere` release-gate run on 2026-08-29 parsed one formula with 34 rows, a 6,000-uL raw total, a 10-uL minimum direct aliquot, and one musk. It returned **102 PASS / 27 WARN / 0 FAIL** and formula status `WARN`. This is computational survival only, not a sensory or release result.
+
+- Modeled opening headspace: **37.48 ppm**; **30/34** rows at OAV >= 1.
+- Modeled active note distribution: **15.6% top / 43.1% heart / 41.3% base**. The parser classifies DEP as carrier, so this split is not the layer labels in the dosing table.
+- Modeled temporal vapor: **37.48 -> 37.24 -> 36.04 -> 32.03 -> 27.31 ppm** from opening through four hours; modeled raw evaporation is 5%.
+- Modeled opening leaders: Dihydromyrcenol 14,178.5; BONTAUX Lavender 4,617.9 composite; Linalyl Acetate 3,291.5; Iso E Super 3,161.3; Linalool 2,414.2; Hedione HC 1,818.3; standard Lavender 1,049.5 composite.
+- The V1.1 depth plane is computationally audible through Ebanol 552.9, Azarbre 337.2, Polysantol 145.9, Ambrofix 76.7, Cashmeran 55.8, Indian Vetiver 29.6 composite, Timberol 16.4, Romandolide 13.9, and Sandalore 9.4. This is a material improvement in *testability* over V1's silent-base hypothesis; it is not proof of deeper smell.
+- Red Mandarin and Cedarwood Virginia have no applicable composite-natural decomposition. Their monomolecular pipeline outputs are suppressed in the authority ledger and remain `HOLD`.
+- Hexyl Salicylate, Benzyl Benzoate, and DEP are sub-threshold but own structural or matrix functions. Cedarwood Virginia's pipeline monomolecular value is also sub-threshold but is not treated as authoritative for the natural mixture.
+- The dominant modeled risk is Dihydromyrcenol fatigue/static leadership: OAV 14,178.5 at opening and 10,307 at four hours. Its 340-uL raw dose is retained as the center of the already-declared 260/300/340/380-uL blind ladder because reducing it from a model alone would erase the requested sport current without physical evidence.
+- The family gate requests 4% active citrus and a larger coumarin trace. Those repairs are intentionally rejected: citrus must remain a glint, and extra coumarin must not convert the clean mineral sport identity into a sweet/barbershop fougere.
+- Several warnings are data/tooling limitations rather than formula findings: incomplete HSP coverage, 19 derived/unverified ODTs, absent explicit IFRA limits for 13 rows, three API-skipped gates, an implausible Bangkok VP multiplier, and rose:jasmine output for a formula containing neither material.
+
+The full required pipeline analysis is appended verbatim below. Formula completion here means a fully specified, inventory-bound, causally testable theory successor; every smell, pleasure, local-market, safety, stability, and performance claim remains `NOT TESTED` or `HOLD`.
+
+## Future Mixing Order — Explicitly Unauthorized
+
+If physical work is separately authorized later, the mixing order must be regenerated against then-current stock labels and safety review. The basket-arranged conceptual order would be:
+
+1. **BASKET 1 — Always used:** Hedione HC (600), Iso E Super (600).
+2. **BASKET 2 — Vetivers:** Vetiver EO India (160).
+3. **BASKET 3 — Woods:** Sandalore (430), Cedarwood oil Virginia (280), Polysantol (200), Ebanol (50), Cashmeran (50), Timberol (30).
+4. **BASKET 4 — Wood modifiers and ambers:** Ambrofix (700), Benzyl Benzoate (150), Azarbre (60).
+5. **BASKET 6 — Musks:** Romandolide (320).
+6. **BASKET 7 — Muguet and lavender:** Linalyl Acetate (260), Lavender EO Bontaux (150), Ethyl Linalool (120), Linalool (60), Lavender EO (30), Mayol (20).
+7. **BASKET 8 — Jasmine, indole, and magnolia:** Dihydrojasmone (30).
+8. **BASKET 11 — Iris and orris:** Alpha Isomethyl Ionone (70).
+9. **BASKET 12 — Edible smells:** Coumarin (20).
+10. **BASKET 15 — Fruits:** Red Mandarin EO (60).
+11. **BASKET 16 — Aldehydes:** Dihydromyrcenol (340), Aldehyde C10 (10).
+12. **BASKET 17 — Green smelling things:** Hexyl Salicylate (300), Helional (50), Terpinyl Acetate (50), Cyclamen Aldehyde (20), Floralozone (20), Rosemary EO (10), Scentenal (10), Evernyl (10).
+13. **CARRIER / TECHNICAL:** Diethyl Phthalate (730).
+
+Stir after each basket. Bring concentrate to exactly 6,000 uL. Then documented carrier reconciliation and ethanol dilution. **Do not execute this sequence under the current authorization.**
+
+## Required Blinded Learning
+
+V1.1 must first face frozen V1 as a whole formula at equal 6,000-uL raw concentrate and equal finished raw-concentrate fraction. If V1.1 does not improve or preserve lavender identity, sport recognition, liking, desire to re-smell, social comfort, and late recurrence without extra barbershop, detergent, ambrox-wall, or wood-cream failures, V1 remains the control and V1.1 does not advance.
+
+Only after a replicated whole-successor win may the exact delta be localized through:
+
+1. dual-lavender surface/interior anatomy;
+2. 260/300/340/380-uL Dihydromyrcenol sport ladder;
+3. mineral pressure x yielding release 2 x 2;
+4. zero versus Romandolide one-musk necessity;
+5. sandalwood/Ebanol/Azarbre collapse and add-backs;
+6. Red Mandarin 0/30/60-uL glint ladder;
+7. complete versus compressed count-hidden comparison;
+8. matched-carrier confirmation for any close result.
+
+All future arms require anonymous codes, balanced order, two independently prepared blocks, constant raw total, explicit stock-carrier reconciliation, and separate local-Thai-buyer versus environmental inference. Physical execution remains unauthorized.
+
+## Evidence Ceiling and Authorization
+
+- This artifact can establish formula arithmetic, inventory binding, documented architecture, and governed model outputs only after the pipeline section is appended.
+- It cannot establish smell, preference, cleanliness, sport identity, local-market fit, luxury, depth, structural completion, heat comfort, performance, safety, stability, or release readiness.
+- No procurement, stock preparation, physical compounding, blotter or skin evaluation, recruitment, consumer panel, or release is authorized.
+
+**Final status: THEORY ONLY / NOT TESTED / NO COMPOUNDING AUTHORIZED.**
+
+## Pipeline Analysis
+
+```text
+# Lavender Current Parfum V1.1 — Yielding Mineral-Wood Sport — 30 mL / 20% Theory Formula
+
+## Gate Summary
+
+**102 PASS** / **27 WARN** / **0 FAIL**
+
+  WARN pipeline_preflight: 9 checks; 5 warnings
+  WARN odt_coverage: 19 material(s) rely on derived/unverified ODTs (28% OAV share)
+  WARN chemistry_stability: immature: predicted maturation 7 days (industry standard 14-42 days); predicted maturation shelf life 7 days
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 27.2% active mass across 5 materials
+  WARN odt_sanity: 1 materials with suspect ODT values: Diethyl Phthalate=1.0ppm (possible sentinel)
+  WARN small_diluted_traces: Aldehyde C10=10.0uL at 1.0%; Evernyl=10.0uL at 50.0%; Scentenal=10.0uL at 1.0%
+  WARN safety_ifra_allergen: 13 materials lack explicit IFRA Cat4 limits; 6 EU allergen declarations
+  WARN eu_allergen_declaration: EU allergens requiring label: linalool, alpha-isomethyl ionone, coumarin
+  WARN perfumer_logic: aromatic_fougere.modern_mineral; rerun optimizer: mineral_fougere_citrus_lift: 1.000% active below 4.000; mineral_fougere_coumarin_trace: 0.
+  WARN family_drift_detector: aromatic_fougere.modern_mineral; mineral_fougere_citrus_lift: 1.000% active below 4.000; mineral_fougere_coumarin_trace: 0.067% active below
+  WARN perfume_knowledge: top OAV off-target for family aromatic_fougere [advisory guideline; not release-blocking]
+  WARN carles_accord_ratio: Extreme ratios (>8:1, Carles limit): red mandarin eo:lavender eo (bontaux sas) = 25:1; red mandarin eo:dihydromyrcenol = 78:1; red mandarin 
+  WARN literature_compliance: Literature compliance: 2/5 principles passed (40%) [advisory guideline; not release-blocking]
+  WARN edge_cases: Musk coverage: 1%, gaps: 2, Bangkok VP ×157728.0
+  WARN balance_axes: Balance axes evaluation skipped: type object 'MarketSegment' has no attribute 'MASS_MARKET'
+  WARN character_shifts: Gate skipped (API mismatch): check_zone_boundaries() missing 1 required positional argument: 'concentration_pct'
+  WARN musk_intelligence: Gate skipped (API mismatch): 'WoodyInfrastructureTrio' object has no attribute 'primary'
+  WARN guerlain_rose_jasmine_balance: Rose:jasmine OAV ratio = 7.8:1 — Guerlain recommends <3:1
+  WARN jellinek_psychology: Jellinek categories weak: erogenic
+  WARN adaptation_timing: fast tier < 5% (no immediate impact)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 89%) — collapse risk
+  WARN oav_intelligence: iso e super OAV 3161.3 is above aromatic_fougere target 30.0-80.0; linalool OAV 2414.2 is above aromatic_fougere target 40.0-80.0; ambrox su
+  WARN olfactory_fatigue: Olfactory overdose: dihydromyrcenol=14178 (overdose) [advisory guideline; not release-blocking]
+  WARN tenacity_projection: VP<0.001Pa = 0% (<3%, may lack depth)
+  WARN master_perfumer_gate: too many materials for a readable formula
+  WARN robustness_perturbation: 68 fragile perturbation(s) across 68 checks; Red Mandarin EO up: brief grammar failure under perturbation; Red Mandarin EO down: brief gramm
+  WARN confidence_minimum: combined confidence 27.0; preflight science penalty 28.9
+
+
+## Headspace OAV — Opening (0s)
+
+| # | Material | OAV | Note | Percept | VP Pa | Vapor ppm | ODT ppm | Act g | MF% | Role |
+|---|--------|---|----|-------|-----|---------|-------|-----|---|----|
+|   1 | Dihydromyrcenol              |    14178.5 | top   |      massive |  17.000 |   14.1785 |  0.001000 |  0.3400 |  8.45 | Dihydromyrcenol               
+|   2 | Lavender EO (BONTAUX SAS)    |     4617.9 | heart |  very strong |  22.000 |    7.2159 |  0.002000 |  0.1320 |  3.32 | Lavender EO (BONTAUX SAS)     
+|   3 | Linalyl Acetate              |     3291.5 | top   |  very strong |  17.500 |    8.8869 |  0.002700 |  0.2600 |  5.15 | Linalyl Acetate               
+|   4 | Iso E Super                  |     3161.3 | heart |  very strong |   0.150 |    0.1581 |  0.000050 |  0.6000 |  9.94 | Iso E Super                   
+|   5 | Linalool                     |     2414.2 | top   |  very strong |  21.300 |    3.6213 |  0.001500 |  0.0600 |  1.51 | Linalool                      
+|   6 | Hedione HC                   |     1818.3 | heart |  very strong |   0.089 |    0.0909 |  0.000050 |  0.6000 | 10.30 | Hedione                       
+|   7 | Lavender EO                  |     1049.5 | heart |  very strong |   3.500 |    0.4736 |  0.002000 |  0.0300 |  0.69 | Lavender EO                   
+|   8 | Dihydrojasmone               |      706.4 | heart |       strong |   7.660 |    0.5298 |  0.000750 |  0.0300 |  0.70 | Dihydrojasmone                
+|   9 | Ebanol                       |      552.9 | heart |       strong |   0.890 |    0.1161 |  0.000210 |  0.0500 |  0.88 | Ebanol                        
+|  10 | Azarbre                      |      337.2 | base  |       strong |   4.300 |    0.6744 |  0.002000 |  0.0600 |  1.06 | Azarbre                       
+|  11 | Rosemary EO (French Rosmarinus Officinalis leaf oil) |      322.9 | top   |       strong |   0.300 |    0.0061 |  0.007000 |  0.0090 |  0.21 | Rosemary EO (French Rosmarinus
+|  12 | Red Mandarin EO              |      182.4 | top   |       strong |   1.800 |    0.9121 |  0.005000 |  0.0600 |  1.71 | Red Mandarin EO               
+|  13 | Polysantol                   |      145.9 | base  |       strong |   0.003 |    0.0015 |  0.000010 |  0.1880 |  3.28 | Polysantol                    
+|  14 | Scentenal                    |       96.9 | heart | moderate-strong |   6.000 |    0.0019 |  0.000020 |  0.0001 |  0.00 | Scentenal                     
+|  15 | Alpha Isomethyl Ionone       |       84.6 | heart | moderate-strong |   0.400 |    0.0676 |  0.000800 |  0.0700 |  1.32 | Alpha-Isomethyl Ionone        
+|  16 | Ambrofix                     |       76.7 | base  | moderate-strong |   0.066 |    0.0230 |  0.000300 |  0.2100 |  3.45 | Ambrox Super                  
+|  17 | Cashmeran                    |       55.8 | base  | moderate-strong |   1.200 |    0.1115 |  0.002000 |  0.0500 |  0.94 | Cashmeran                     
+|  18 | Cyclamen Aldehyde            |       35.8 | heart |     moderate |   0.520 |    0.0272 |  0.000760 |  0.0200 |  0.41 | Cyclamen Aldehyde             
+|  19 | Mayol                        |       30.0 | heart |     moderate |   1.500 |    0.0899 |  0.003000 |  0.0200 |  0.47 | Mayol                         
+|  20 | Vetiver EO (India)           |       29.6 | base  |     moderate |   0.040 |    0.0218 |  0.005000 |  0.1584 |  2.77 | Vetiver EO                    
+|  21 | Timberol                     |       16.4 | base  |     moderate |   0.120 |    0.0098 |  0.000600 |  0.0300 |  0.55 | Timberol                      
+|  22 | Romandolide                  |       13.9 | base  |     moderate |   0.100 |    0.0681 |  0.004900 |  0.3200 |  4.60 | Romandolide                   
+|  23 | Helional                     |       12.0 | heart |     moderate |   0.010 |    0.0012 |  0.000100 |  0.0500 |  1.01 | Helional                      
+|  24 | Sandalore                    |        9.4 | base  |  perceptible |   0.080 |    0.0940 |  0.010000 |  0.4300 |  7.94 | Sandalore                     
+|  25 | Aldehyde C10                 |        5.6 | top   |  perceptible |  10.000 |    0.0025 |  0.000440 |  0.0001 |  0.00 | Aldehyde C10                  
+|  26 | Coumarin                     |        4.5 | base  | at threshold |   0.190 |    0.0032 |  0.000700 |  0.0040 |  0.11 | Coumarin                      
+|  27 | Evernyl                      |        3.9 | base  | at threshold |   0.100 |    0.0012 |  0.000300 |  0.0050 |  0.10 | Evernyl                       
+|  28 | Floralozone                  |        1.7 | heart | at threshold |   0.431 |    0.0017 |  0.001000 |  0.0020 |  0.04 | Floralozone                   
+|  29 | Ethyl Linalool               |        1.3 | top   | at threshold |   0.080 |    0.0202 |  0.015000 |  0.1200 |  2.56 | Ethyl Linalool                
+|  30 | Terpinyl Acetate             |        1.1 | base  | at threshold |   0.400 |    0.0391 |  0.035000 |  0.0500 |  0.99 | Terpinyl Acetate              
+|  31 | Hexyl Salicylate             |        0.6 | base  | sub-threshold |   0.050 |    0.0194 |  0.035000 |  0.3000 |  5.24 | Hexyl Salicylate              
+|  32 | Cedarwood oil Virginia       |        0.4 | base  | sub-threshold |   0.005 |    0.0059 |  0.015000 |  0.2744 |  4.79 | Cedarwood oil Virginia        
+|  33 | Diethyl Phthalate            |        0.0 | carrier | sub-threshold |   0.002 |    0.0028 |  1.000000 |  0.7300 | 12.76 | Diethyl Phthalate             
+|  34 | Benzyl Benzoate              |        0.0 | base  | sub-threshold |   0.001 |    0.0004 |  0.810000 |  0.1500 |  2.75 | Benzyl Benzoate               
+
+**Materials:** 34 total (7 top, 12 heart, 14 base)
+**Total vapor:** 37.48 ppm
+
+### Note Distribution
+
+**TOP:** 7 mats, 15.6% active, 61.3% OAV
+  - Dihydromyrcenol              OAV= 14178.5 (massive) VP=17.000Pa
+  - Linalyl Acetate              OAV=  3291.5 (very strong) VP=17.500Pa
+  - Linalool                     OAV=  2414.2 (very strong) VP=21.300Pa
+  - Rosemary EO (French Rosmarinus Officinalis leaf oil) OAV=   322.9 (strong) VP=0.300Pa
+  - Red Mandarin EO              OAV=   182.4 (strong) VP=1.800Pa
+  - Aldehyde C10                 OAV=     5.6 (perceptible) VP=10.000Pa
+  ... and 1 more
+**HEART:** 12 mats, 29.8% active, 36.6% OAV
+  - Lavender EO (BONTAUX SAS)    OAV=  4617.9 (very strong) VP=22.000Pa
+  - Iso E Super                  OAV=  3161.3 (very strong) VP=0.150Pa
+  - Hedione HC                   OAV=  1818.3 (very strong) VP=0.089Pa
+  - Lavender EO                  OAV=  1049.5 (very strong) VP=3.500Pa
+  - Dihydrojasmone               OAV=   706.4 (strong) VP=7.660Pa
+  - Ebanol                       OAV=   552.9 (strong) VP=0.890Pa
+  ... and 6 more
+**BASE:** 14 mats, 41.3% active, 2.1% OAV
+  - Azarbre                      OAV=   337.2 (strong) VP=4.300Pa
+  - Polysantol                   OAV=   145.9 (strong) VP=0.003Pa
+  - Ambrofix                     OAV=    76.7 (moderate-strong) VP=0.066Pa
+  - Cashmeran                    OAV=    55.8 (moderate-strong) VP=1.200Pa
+  - Vetiver EO (India)           OAV=    29.6 (moderate) VP=0.040Pa
+  - Timberol                     OAV=    16.4 (moderate) VP=0.120Pa
+  ... and 8 more
+
+### Sub-threshold Materials (OAV < 1)
+4/34 materials below perceptible threshold
+  - Hexyl Salicylate: OAV=0.55 VP=0.050Pa act=300uL role=Hexyl Salicylate [Structural (acceptable)]
+  - Cedarwood oil Virginia: OAV=0.39 VP=0.005Pa act=280uL role=Cedarwood oil Virgin [Structural (acceptable)]
+  - Benzyl Benzoate: OAV=0.00 VP=0.001Pa act=150uL role=Benzyl Benzoate [Structural (acceptable)]
+  - Diethyl Phthalate: OAV=0.00 VP=0.002Pa act=730uL role=Diethyl Phthalate [Structural (acceptable)]
+### High-OAV Flags (>5000)
+  - Dihydromyrcenol OAV=14178 dominates headspace — may mask subtler notes
+
+### OAV by Odor Family
+
+            woody  54.1% ===========================  (8 mats)
+         aromatic  21.3% ==========  (5 mats)
+                ?  13.9% ======  (1 mats)
+           floral   7.8% ===  (3 mats)
+            amber   1.2% =  (2 mats)
+           citrus   0.5% =  (1 mats)
+       sandalwood   0.4% =  (1 mats)
+            green   0.3% =  (1 mats)
+           muguet   0.2% =  (2 mats)
+             musk   0.0% =  (1 mats)
+          aquatic   0.0% =  (1 mats)
+        aldehydic   0.0% =  (1 mats)
+         gourmand   0.0% =  (1 mats)
+             moss   0.0% =  (1 mats)
+            ozone   0.0% =  (1 mats)
+           fruity   0.0% =  (1 mats)
+       salicylate   0.0% =  (1 mats)
+         fixative   0.0% =  (2 mats)
+
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Raw uL | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s | 15.6/43.1/41.3 |  37.48ppm |   6000 | Dihydromyrce(14178), Lavender EO (4618), Linalyl Acet(3291)
+| top          |    300s | 15.5/43.2/41.3 |  37.24ppm |   5992 | Dihydromyrce(14088), Lavender EO (4577), Linalyl Acet(3273)
+| heart        |   1800s | 15.1/43.3/41.6 |  36.04ppm |   5954 | Dihydromyrce(13642), Lavender EO (4378), Iso E Super(3193)
+| late_heart   |   7200s | 13.8/43.7/42.5 |  32.03ppm |   5828 | Dihydromyrce(12124), Lavender EO (3722), Iso E Super(3283)
+| drydown      |  14400s | 12.2/44.3/43.5 |  27.31ppm |   5687 | Dihydromyrce(10307), Iso E Super(3390), Lavender EO (2982)
+
+### Per-Window Detail
+
+**OPENING** (0.0s) — Evap:0%
+  T:15.6% H:43.1% B:41.3%  Vapor:37.48ppm
+  Leaders: Dihydromyrcenol OAV 14178 | Lavender EO (BONTAUX SAS) OAV 4618 | Linalyl Acetate OAV 3291 | Iso E Super OAV 3161 | Linalool OAV 2414
+
+**TOP** (300.0s) — Evap:0%
+  T:15.5% H:43.2% B:41.3%  Vapor:37.24ppm
+  Leaders: Dihydromyrcenol OAV 14088 | Lavender EO (BONTAUX SAS) OAV 4577 | Linalyl Acetate OAV 3273 | Iso E Super OAV 3167 | Linalool OAV 2390
+
+**HEART** (1800.0s) — Evap:1%
+  T:15.1% H:43.3% B:41.6%  Vapor:36.04ppm
+  Leaders: Dihydromyrcenol OAV 13642 | Lavender EO (BONTAUX SAS) OAV 4378 | Iso E Super OAV 3193 | Linalyl Acetate OAV 3180 | Linalool OAV 2274
+
+**LATE_HEART** (7200.0s) — Evap:3%
+  T:13.8% H:43.7% B:42.5%  Vapor:32.03ppm
+  Leaders: Dihydromyrcenol OAV 12124 | Lavender EO (BONTAUX SAS) OAV 3722 | Iso E Super OAV 3283 | Linalyl Acetate OAV 2860 | Linalool OAV 1895
+
+**DRYDOWN** (14400.0s) — Evap:5%
+  T:12.2% H:44.3% B:43.5%  Vapor:27.31ppm
+  Leaders: Dihydromyrcenol OAV 10307 | Iso E Super OAV 3390 | Lavender EO (BONTAUX SAS) OAV 2982 | Linalyl Acetate OAV 2470 | Hedione HC OAV 1952
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Dihydromyrcenol(massive) + Linalyl Acetate(very strong) + Linalool(very strong)
+  Heart: Lavender EO (BONTAUX SAS)(very strong) + Iso E Super(very strong)
+  Base: Azarbre(strong) + Polysantol(strong) + Ambrofix(moderate-strong) + Cashmeran(moderate-strong) + Vetiver EO (India)(moderate)
+
+### 2. Opening (0-5min)
+  Dihydromyrcenol dominates at OAV 14178 (massive).
+  - Dihydromyrcenol OAV=14178 VP=17.0Pa (woody)
+  - Linalyl Acetate OAV=3291 VP=17.5Pa (aromatic)
+  - Linalool OAV=2414 VP=21.3Pa (aromatic)
+  - Rosemary EO (French Rosmarinus Officinalis leaf oil) OAV=323 VP=0.3Pa (aromatic)
+  Total vapor: 37.5 ppm
+
+### 3. Heart (30min-2hr)
+  Dihydromyrcenol OAV=13642 (massive)
+  Lavender EO (BONTAUX SAS) OAV=4378 (very strong)
+  Iso E Super OAV=3193 (very strong)
+  Linalyl Acetate OAV=3180 (very strong)
+  T:15.1% H:43.3% B:41.6%
+  Vapor: 36.0 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base dominates at 44% of headspace
+  - Dihydromyrcenol OAV=10307
+  - Iso E Super OAV=3390
+  - Lavender EO (BONTAUX SAS) OAV=2982
+  - Linalyl Acetate OAV=2470
+  - Hedione HC OAV=1952
+  - Linalool OAV=1478
+  Vapor: 27.3 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Dihydromyrcenol(14178) + Lavender EO (BONTAUX SAS)(4618) + Linalyl Acetate(3291) + Iso E Super(3161)
+  OAV by family: woody54% aromatic21% None14% floral8%
+
+### 6. Longevity
+  Evaporation: 5% over 4h
+  Vapor: 37.5 > 27.3 ppm
+  Base @ drydown: 44%
+  Est. skin life: 8h moderate + 4h skin scent
+
+### 7. Balance
+  Pyramid: T:15.6% H:43.1% B:41.3%
+  OAV range: 0.00 to 14178 (sigma-log=1.66)
+  Wide contrast: citrus (OAV 14178) dominates opening before burning off to reveal base.
+    massive: 1
+    sub-threshold: 4
+
+### 8. Flags
+  SUB: Hexyl Salicylate OAV=0.55 role=Hexyl Salicylate
+  SUB: Cedarwood oil Virginia OAV=0.39 role=Cedarwood oil Virginia
+  SUB: Diethyl Phthalate OAV=0.00 role=Diethyl Phthalate
+  SUB: Benzyl Benzoate OAV=0.00 role=Benzyl Benzoate
+  IFRA: Evernyl at 0.09% active — near/above Cat4 limit (0.1%)
+
+
+## Structural OAV Analysis
+
+**Vapor:** 37 ppm  |  **Active:** 18.2%  |  **Perceptible:** 30/34
+
+### OAV Tiers
+  **massive** (7): Lavender EO(1050), Lavender EO (BONTAUX SAS)(4618), Dihydromyrcenol(14178), Linalyl Acetate(3291), Linalool(2414), Hedione HC(1818), Iso E Super(3161)  ! fatigue risk, overload risk
+  **v.strong** (6): Red Mandarin EO(182), Rosemary EO (French Rosmarinus Officinalis leaf oil)(323), Dihydrojasmone(706), Polysantol(146), Ebanol(553), Azarbre(337)
+  **strong** (4): Scentenal(97), Alpha Isomethyl Ionone(85), Ambrofix(77), Cashmeran(56)
+  **moderate** (6): Helional(12), Cyclamen Aldehyde(36), Mayol(30), Vetiver EO (India)(30), Timberol(16), Romandolide(14)
+  **perceptible** (2): Aldehyde C10(6), Sandalore(9)
+  **threshold** (5): Ethyl Linalool(1), Floralozone(2), Terpinyl Acetate(1), Coumarin(5), Evernyl(4)
+  **sub** (4): Hexyl Salicylate(1), Cedarwood oil Virginia(0), Benzyl Benzoate(0), Diethyl Phthalate(0)
+
+### Block Balance
+  **Citrus**      182 (1%)
+  **Floral**    12167 (93%)
+  **Base**        695 (5%)
+  **Ratio:** 67:1 between strongest/weakest block
+
+### Issues
+  ! 4 sub-threshold material(s): Hexyl Salicylate, Cedarwood oil Virginia, Benzyl Benzoate, Diethyl Phthalate
+```
