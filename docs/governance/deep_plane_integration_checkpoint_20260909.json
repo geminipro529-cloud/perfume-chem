@@ -1,0 +1,53 @@
+{
+  "schema": "deep-plane-integration-checkpoint-v1",
+  "worktree": "D:/chatbots/perfume-chem-integration-20260909",
+  "status": "DIAGNOSTIC_CANDIDATE_FOCUSED_REGRESSION_PASS",
+  "inventory_baseline_files": 42,
+  "inventory_baseline_mismatches": [],
+  "hashes": [
+    {
+      "path": "engine/formulation_intelligence/deep_plane_diagnostics.py",
+      "sha256": "30E4D35B7BF2CF6C98ECA7BEB7550CD4C85619004EFEC36F02F1EF781F652AE3"
+    },
+    {
+      "path": "tests/test_deep_plane_diagnostics.py",
+      "sha256": "DE8BE1E7DE25796A60118CEF7C3C49F41589A08334E6759CC62EF7AA28297F1C"
+    },
+    {
+      "path": "engine/formulation_intelligence/deep_plane_runtime.py",
+      "sha256": "BDE1BFE2AA2EAC318E1F5851E9DA07E3FC5C2C7EF9887F7DF170936C81A7B99A"
+    },
+    {
+      "path": "C:\\Users\\ASUS\\.codex\\worktrees\\6155\\perfume-chem\\engine\\formulation_intelligence\\deep_plane_runtime.py",
+      "sha256": "7261076FC71C9C82FB09DC46B5F9EA0457DEAC9265315C1DCDBA594656430700"
+    },
+    {
+      "path": "C:\\Users\\ASUS\\.codex\\worktrees\\6155\\perfume-chem\\tests\\test_deep_plane_runtime.py",
+      "sha256": "15595605FC5DF2270AB64C21FD6EB5FF08E9425F67A5A04D44E1C1A256A87306"
+    }
+  ],
+  "verification": {
+    "passed": 211,
+    "failed": 0,
+    "pytest_seconds": 29.12,
+    "junit": "D:/codex-preservation/perfume-chem-20260909/deep-plane-integration-tests-final.xml",
+    "ruff": "PASS",
+    "diff_check": "PASS",
+    "full_verifier": "NOT_RUN"
+  },
+  "authority": {
+    "production_admitted": false,
+    "release_authorized": false,
+    "published": false
+  },
+  "source_files": [
+    {
+      "path": "engine/formulation_intelligence/deep_plane_runtime.py",
+      "sha256": "7261076FC71C9C82FB09DC46B5F9EA0457DEAC9265315C1DCDBA594656430700"
+    },
+    {
+      "path": "tests/test_deep_plane_runtime.py",
+      "sha256": "15595605FC5DF2270AB64C21FD6EB5FF08E9425F67A5A04D44E1C1A256A87306"
+    }
+  ]
+}

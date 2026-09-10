@@ -73,6 +73,11 @@ class PreMixGuardReport:
             return "FAIL"
         return "WARN" if self.findings else "PASS"
 
+    @property
+    def gate_status(self) -> str:
+        """Native admission adapter name; preserve the exact guard decision."""
+        return self.status
+
     def as_dict(self) -> dict[str, Any]:
         return {
             "status": self.status,

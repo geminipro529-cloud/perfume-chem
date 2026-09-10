@@ -43,6 +43,11 @@ def resolve_material(name: str) -> ResolvedMaterial:
     registry = _registry()
     reg_mat = registry.get(requested) if registry is not None else None
 
+    # A registered stock alias may contain strength/carrier text absent from
+    # profile keys. Reuse only its explicit registry identity, never a guess.
+    if profile is None and reg_mat is not None:
+        profile = get_profile(reg_mat.canonical_name)
+
     profile_name = getattr(profile, "name", None)
     registry_name = getattr(reg_mat, "canonical_name", None)
     canonical_source = profile_name or registry_name or requested

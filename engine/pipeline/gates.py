@@ -23,13 +23,13 @@ from engine.chemical_data_validator import blocked_reason
 from engine.chemistry.photochem import photolysis_remaining_fraction
 from engine.confidence import ConfidenceScorer
 from engine.evidence.unsupported_science import AgingClaim, assess_aging_claim
-from engine.fuckups.pre_mix_guard import evaluate_pre_mix_guard
 from engine.families.registry import (
     evaluate_family_archetype,
     get_archetype,
     infer_archetype,
     novelty_assessment,
 )
+from engine.fuckups.pre_mix_guard import evaluate_pre_mix_guard
 from engine.ifra_safety import IFRA_CAT4_LIMITS, score_ifra_compliance
 from engine.knowledge.literature_rules import (
     _LITERATURE_DB_LOADED,
@@ -52,6 +52,8 @@ from engine.pipeline.oav_intelligence import (
     analyze_oav_intelligence,
 )
 from engine.pipeline.preflight import (
+    FormulaDoseReceipt,
+    build_formula_dose_receipt,
     resolve_inventory_stock_contract,
     resolved_stock_specs_for_state,
     run_release_preflight,
@@ -148,6 +150,7 @@ class ReleaseGateConfig:
     action: str = "REPORT"
     chassis_core_ul: float | None = None
     chassis_module_ul: float | None = None
+    deep_plane_diagnostics_enabled: bool = False
 
     def effective_ifra_headroom(self) -> float:
         """Return the active IFRA multiplier for this gate run."""
@@ -194,6 +197,7 @@ class GateReport:
     preflight: dict = field(default_factory=dict)
     config_summary: dict = field(default_factory=dict)
     audit_event_id: str | None = None
+    dose_receipt: FormulaDoseReceipt | None = None
 
     def as_dict(self) -> dict:
         return {
@@ -208,6 +212,7 @@ class GateReport:
             "preflight": dict(self.preflight),
             "config_summary": dict(self.config_summary),
             "audit_event_id": self.audit_event_id,
+            "dose_receipt": self.dose_receipt.as_dict() if self.dose_receipt else None,
             "formula_state": self.formula_state.as_dict(),
             "time_series": [frame.as_dict() for frame in self.simulation],
         }
@@ -222,6 +227,7 @@ def _result(gate: str, status: str, detail: str = "", data: dict | None = None) 
 HARD_BLOCKING_GATES = frozenset(
     {
         "pipeline_preflight",
+        "deep_plane_diagnostics",
         "exact_subtotal",
         "duplicates",
         "duplicate_materials",
@@ -312,6 +318,7 @@ def _config_summary(config: ReleaseGateConfig) -> dict:
         "commercial_trial": config.is_commercial_trial(),
         "batch_scaling_targets_ml": list(config.batch_scaling_targets_ml),
         "audit_source": config.audit_source,
+        "deep_plane_diagnostics_enabled": config.deep_plane_diagnostics_enabled,
     }
 
 
@@ -334,6 +341,93 @@ def _gate_pipeline_preflight(preflight: Mapping[str, object]) -> GateResult:
         str(preflight.get("status", "WARN")),
         detail,
         dict(preflight),
+    )
+
+
+def _gate_deep_plane_diagnostics(
+    formula: Mapping,
+    state: FormulaState,
+    simulation: tuple[SimulationFrame, ...],
+    dose_receipt: FormulaDoseReceipt | None,
+    config: ReleaseGateConfig,
+    *,
+    parent_formula: Mapping | None = None,
+) -> GateResult:
+    """Opt-in diagnostic adapter; no production admission or release promotion."""
+    from engine.formulation_intelligence.deep_plane_diagnostics import (
+        AUTHORITY_FLAGS,
+        DEEP_PLANE_IDS,
+        PIPELINE_GATE_SCHEMA_VERSION,
+        evaluate_deep_plane_gate,
+    )
+
+    parent_state = None
+    parent_simulation = None
+    parent_receipt = None
+    if parent_formula is not None:
+        parent_contract = resolve_inventory_stock_contract(parent_formula)
+        parent_receipt = build_formula_dose_receipt(parent_formula, parent_contract)
+        parent_state = build_formula_state(
+            parent_formula["ingredients_ul"], parent_formula.get("dilutions", {}),
+            stock_specs=resolved_stock_specs_for_state(parent_formula, parent_contract),
+            batch_volume_ml=config.batch_volume_ml,
+            temperature_K=config.temperature_K,
+            matrix_moles=dict(parent_formula.get("matrix_moles", {}) or {}),
+            matrix_mass_g=float(parent_formula.get("matrix_mass_g", 0.0) or 0.0),
+            matrix_source=str(parent_formula.get("matrix_source", "omitted") or "omitted"),
+        )
+        parent_state = replace(
+            parent_state, dose_receipt_sha256=parent_receipt.receipt_sha256,
+            dose_receipt_status=parent_receipt.status,
+        )
+        parent_simulation = tuple(simulate_formula(
+            parent_formula["ingredients_ul"], parent_formula.get("dilutions", {}),
+            batch_volume_ml=config.batch_volume_ml, temperature_K=config.temperature_K,
+            initial_state=parent_state, bind_provenance=True,
+        ))
+    assessment = evaluate_deep_plane_gate(
+        formula, state, simulation, dose_receipt=dose_receipt,
+        require_calculation_provenance=True,
+        parent_formula=parent_formula, parent_state=parent_state,
+        parent_simulation=parent_simulation, parent_dose_receipt=parent_receipt,
+    )
+    if not isinstance(assessment, Mapping):
+        raise ValueError("Deep Plane assessment must be a mapping")
+    if assessment.get("schema_version") != PIPELINE_GATE_SCHEMA_VERSION:
+        raise ValueError("Deep Plane assessment schema mismatch")
+    flags = assessment.get("authority_flags")
+    if (not isinstance(flags, Mapping) or set(flags) != set(AUTHORITY_FLAGS)
+            or any(value is not False for value in flags.values())
+            or assessment.get("authority_status") != "HOLD"
+            or assessment.get("authority_ceiling") != "withheld"):
+        raise ValueError("Deep Plane assessment exceeded its authority boundary")
+    statuses = assessment.get("plane_statuses")
+    if not isinstance(statuses, Mapping) or set(statuses) != set(DEEP_PLANE_IDS):
+        raise ValueError("Deep Plane assessment must contain all thirteen planes")
+    inventory = assessment.get("inventory_evidence", {})
+    if (dose_receipt is None
+            or inventory.get("dose_receipt_sha256") != dose_receipt.receipt_sha256
+            or inventory.get("all_formula_materials_executable_from_declared_inventory") is not True):
+        raise ValueError("Deep Plane assessment does not bind the supplied current dose receipt")
+    status = assessment.get("gate_status")
+    blockers = assessment.get("blockers")
+    warnings = assessment.get("warnings")
+    if status not in {"PASS", "WARN", "FAIL"} or not isinstance(blockers, list) or not isinstance(warnings, list):
+        raise ValueError("Deep Plane assessment result is malformed")
+    expected_status = "FAIL" if blockers else "WARN" if warnings else "PASS"
+    if status != expected_status:
+        raise ValueError("Deep Plane assessment status contradicts its findings")
+    reuse = assessment.get("calculation_reuse", {})
+    if (reuse.get("provenance_verified") is not True
+            or reuse.get("formula_state_reused") is not True
+            or reuse.get("simulation_reused") is not True
+            or reuse.get("simulation_frame_count") != len(simulation)
+            or reuse.get("parent_provenance_verified") is not (parent_formula is not None)):
+        raise ValueError("Deep Plane calculation provenance was not verified")
+    return _result(
+        "deep_plane_diagnostics", "FAIL" if status == "FAIL" else "WARN",
+        "Opt-in diagnostic candidate; runtime admission and release remain withheld.",
+        dict(assessment),
     )
 
 
@@ -4887,6 +4981,8 @@ def _apply_preflight_confidence_penalty(
 def _commercial_readiness(
     status: str, gates: list[GateResult], confidence: dict, config: ReleaseGateConfig
 ) -> str:
+    if config.deep_plane_diagnostics_enabled:
+        return "NOT_RELEASE_READY"
     if status == "FAIL":
         return "NOT_RELEASE_READY"
     if config.is_commercial_trial() and confidence.get("combined_confidence", 0.0) < 50.0:
@@ -5278,12 +5374,29 @@ def gate_formula(
         matrix_mass_g=config.matrix_mass_g,
         matrix_source=config.matrix_source,
     )
+    dose_receipt = None
+    # Retain the exact input identity for downstream replay even when diagnostics
+    # are disabled. Attaching a receipt does not bind preflight or grant authority.
+    try:
+        dose_receipt = build_formula_dose_receipt(formula, stock_contract)
+    except ValueError:
+        if config.deep_plane_diagnostics_enabled:
+            raise
+        # Invalid/empty inputs still reach the existing fail-closed preflight.
+        pass
+    if config.deep_plane_diagnostics_enabled:
+        assert dose_receipt is not None
+        state = replace(
+            state, dose_receipt_sha256=dose_receipt.receipt_sha256,
+            dose_receipt_status=dose_receipt.status,
+        )
     preflight = run_release_preflight(
         formula,
         state,
         require_exact_ppm=config.requires_exact_quantitation(),
         require_exact_finished_product_ppm=(config.requires_exact_finished_product_quantitation()),
         stock_contract=stock_contract,
+        dose_receipt=dose_receipt if config.deep_plane_diagnostics_enabled else None,
     ).as_dict()
     simulation = tuple(
         simulate_formula(
@@ -5292,6 +5405,7 @@ def gate_formula(
             batch_volume_ml=config.batch_volume_ml,
             temperature_K=config.temperature_K,
             initial_state=state,
+            bind_provenance=config.deep_plane_diagnostics_enabled,
         )
     )
     gates = [
@@ -5664,6 +5778,13 @@ def gate_formula(
         _safe_gate(lambda: _gate_concentration_basis(state, config), "concentration_basis"),
     ]
     robustness_gate, _robustness = _gate_robustness(formula, config)
+    if config.deep_plane_diagnostics_enabled:
+        gates.append(_safe_gate(
+            lambda: _gate_deep_plane_diagnostics(
+                formula, state, simulation, dose_receipt, config, parent_formula=parent_formula
+            ),
+            "deep_plane_diagnostics",
+        ))
     gates.append(robustness_gate)
     confidence_gate, confidence = _gate_confidence(state, config)
     confidence_gate, confidence = _apply_preflight_confidence_penalty(
@@ -5687,6 +5808,7 @@ def gate_formula(
         commercial_readiness=_commercial_readiness(status, gates, confidence, config),
         preflight=preflight,
         config_summary=_config_summary(config),
+        dose_receipt=dose_receipt,
     )
     if config.audit_enabled:
         event = append_event(gate_report_event(report, config))

@@ -8,6 +8,17 @@ from engine.fuckups.pre_mix_guard import PreMixGuardError, evaluate_pre_mix_guar
 from engine.pipeline.gates import HARD_BLOCKING_GATES, gate_formula
 
 
+@pytest.mark.parametrize("severity", [None, "WARN", "FAIL"])
+def test_native_gate_status_preserves_guard_decision(severity):
+    from engine.fuckups.pre_mix_guard import PreMixFinding, PreMixGuardReport
+
+    findings = () if severity is None else (
+        PreMixFinding("fixture", severity, None, "Compatibility regression"),
+    )
+    report = PreMixGuardReport(findings, False, False)
+    assert report.gate_status == report.status == (severity or "PASS")
+
+
 def frame(label: str, rows: list[tuple[str, float]]) -> dict:
     return {
         "label": label,

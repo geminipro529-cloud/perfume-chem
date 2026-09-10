@@ -9,7 +9,7 @@ family-envelope OAV -> time-windowed OAV behavior -> authority verdict
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import Any, Mapping, Sequence
 
 from engine.pipeline.formula_state import FormulaState, MaterialState, build_formula_state
@@ -23,6 +23,7 @@ from engine.pipeline.gates import (
 )
 from engine.pipeline.oav_intelligence import OAVIntelligenceResult, analyze_oav_intelligence
 from engine.pipeline.preflight import (
+    build_formula_dose_receipt,
     resolve_inventory_stock_contract,
     resolved_stock_specs_for_state,
 )
@@ -32,7 +33,13 @@ from engine.pipeline.robustness import (
     RobustnessReport,
     audit_formula_robustness,
 )
-from engine.pipeline.simulator import DEFAULT_WINDOWS, SimulationFrame, simulate_formula
+from engine.pipeline.simulator import (
+    DEFAULT_WINDOWS,
+    SimulationFrame,
+    frame_content_sha256,
+    simulate_formula,
+    state_content_sha256,
+)
 
 
 def _formula_record_from_request(request: "OAVAuthorityRequest") -> dict[str, Any]:
@@ -40,6 +47,7 @@ def _formula_record_from_request(request: "OAVAuthorityRequest") -> dict[str, An
     return {
         "number": 1,
         "name": request.formula_name,
+        "formula_uid": request.formula_uid,
         "body": request.formula_name,
         "family_archetype": request.family_archetype,
         "ingredients_ul": {
@@ -49,7 +57,7 @@ def _formula_record_from_request(request: "OAVAuthorityRequest") -> dict[str, An
             str(name): float(amount or 0.0) / total * 100.0
             for name, amount in request.ingredients_ul.items()
         },
-        "dilutions": {str(name): float(value or 1.0) for name, value in request.dilutions.items()},
+        "dilutions": {str(name): float(value) for name, value in request.dilutions.items()},
         "stock_specs": {str(name): dict(spec or {}) for name, spec in request.stock_specs.items()},
     }
 
@@ -138,12 +146,25 @@ class OAVAuthorityRequest:
     matrix_moles: Mapping[str, float] = field(default_factory=dict)
     matrix_mass_g: float = 0.0
     matrix_source: str = "omitted"
+    formula_uid: str = ""
+    dose_receipt_sha256: str | None = None
+
+    def __post_init__(self) -> None:
+        digest = self.dose_receipt_sha256
+        if digest is not None and (
+            not isinstance(digest, str)
+            or len(digest) != 64
+            or any(char not in "0123456789abcdef" for char in digest)
+        ):
+            raise ValueError("dose_receipt_sha256 must be a lowercase SHA-256")
 
     def as_dict(self) -> dict[str, Any]:
         return {
             "formula_name": self.formula_name,
+            "formula_uid": self.formula_uid,
+            "dose_receipt_sha256": self.dose_receipt_sha256,
             "ingredients_ul": {str(k): float(v or 0.0) for k, v in self.ingredients_ul.items()},
-            "dilutions": {str(k): float(v or 1.0) for k, v in self.dilutions.items()},
+            "dilutions": {str(k): float(v) for k, v in self.dilutions.items()},
             "stock_specs": {str(name): dict(spec or {}) for name, spec in self.stock_specs.items()},
             "batch_volume_ml": float(self.batch_volume_ml),
             "temperature_K": float(self.temperature_K),
@@ -270,6 +291,10 @@ class OAVAuthorityResult:
     top_family_drift: float
     subliminal_mass_ratio: float
     missing_odt_materials: tuple[str, ...]
+    dose_receipt_sha256: str | None = None
+    receipt_binding_status: str = "UNBOUND"
+    # This API accepts modeled headspace, never compatible measured-air evidence.
+    strict_oav_status: str = field(default="ABSTAINED", init=False)
 
     @property
     def authority_verdict_summary(self) -> dict[str, Any]:
@@ -324,6 +349,11 @@ class OAVAuthorityResult:
                 "intelligence_warning_reasons": list(self.intelligence_warning_reasons),
             },
             "authority_verdict_summary": {
+                "dose_receipt_sha256": self.dose_receipt_sha256,
+                "receipt_binding_status": self.receipt_binding_status,
+                "strict_oav_status": self.strict_oav_status,
+                "strict_oav_reason": "Compatible measured air and ODT evidence is not supplied",
+                "release_authority": False,
                 "primary_status": self.primary_status,
                 "authority_rank_score": round(self.authority_rank_score, 6),
                 "blocking_reasons": list(self.blocking_reasons),
@@ -494,6 +524,58 @@ def _compute_rank_score(
     return max(0.0, min(100.0, score))
 
 
+def _verify_gate_receipt(request: OAVAuthorityRequest, report: GateReport) -> str:
+    """Replay identity and modeled values, not scientific or release authority.
+
+    An ABSTAINED stock receipt can identify the exact screen while remaining
+    unusable for quantitative release. Rebuild it against current inventory so
+    a formerly matching receipt cannot silently outlive its stock authority.
+    """
+    receipt = report.dose_receipt
+    if receipt is None or receipt.receipt_sha256 != request.dose_receipt_sha256:
+        raise ValueError("Gate report dose receipt does not match OAV request")
+    formula = _formula_record_from_request(request)
+    contract = resolve_inventory_stock_contract(formula)
+    replay_receipt = build_formula_dose_receipt(formula, contract)
+    if receipt.as_dict() != replay_receipt.as_dict():
+        raise ValueError("Gate receipt does not replay from exact request and current inventory")
+    if report.name != receipt.formula_name or report.formula_hash != receipt.legacy_formula_hash:
+        raise ValueError("Gate report identity does not match its dose receipt")
+    state = report.formula_state
+    if (state.dose_receipt_sha256, state.dose_receipt_status) not in {
+        (None, "UNBOUND"), (receipt.receipt_sha256, receipt.status),
+    }:
+        raise ValueError("Gate state dose receipt identity does not match")
+    replay_state = build_formula_state(
+        request.ingredients_ul, request.dilutions,
+        stock_specs=resolved_stock_specs_for_state(formula, contract),
+        batch_volume_ml=float(request.batch_volume_ml),
+        temperature_K=float(request.temperature_K), context=request.context,
+        matrix_moles=request.matrix_moles, matrix_mass_g=float(request.matrix_mass_g),
+        matrix_source=request.matrix_source,
+    )
+    replay_state = replace(
+        replay_state, dose_receipt_sha256=state.dose_receipt_sha256,
+        dose_receipt_status=state.dose_receipt_status,
+    )
+    if state_content_sha256(replay_state) != state_content_sha256(state):
+        raise ValueError("Gate formula state does not replay from exact OAV request")
+    replay_frames = simulate_formula(
+        request.ingredients_ul, request.dilutions,
+        batch_volume_ml=float(request.batch_volume_ml),
+        temperature_K=float(request.temperature_K), context=request.context,
+        windows=request.target_windows, initial_state=replay_state,
+        bind_provenance=state.dose_receipt_sha256 is not None,
+    )
+    if len(replay_frames) != len(report.simulation) or any(
+        frame_content_sha256(expected) != frame_content_sha256(actual)
+        or expected.frame_content_sha256 != actual.frame_content_sha256
+        for expected, actual in zip(replay_frames, report.simulation)
+    ):
+        raise ValueError("Gate simulation does not replay from exact OAV request")
+    return receipt.receipt_sha256
+
+
 def analyze_oav_authority(
     request: OAVAuthorityRequest,
     *,
@@ -502,6 +584,11 @@ def analyze_oav_authority(
     """Run canonical OAV-first analysis and return an authority verdict surface."""
     formula = _formula_record_from_request(request)
     reused_gates: dict[str, GateResult] = {}
+    bound_receipt_sha256 = None
+    if request.dose_receipt_sha256 is not None:
+        if gate_report is None:
+            raise ValueError("A requested dose receipt requires its gate report")
+        bound_receipt_sha256 = _verify_gate_receipt(request, gate_report)
     if gate_report is None:
         stock_contract = resolve_inventory_stock_contract(formula)
         stock_specs = resolved_stock_specs_for_state(formula, stock_contract)
@@ -542,7 +629,11 @@ def analyze_oav_authority(
         actual_doses = {material.name: material.raw_ul for material in state.materials}
         if actual_doses != expected_doses:
             raise ValueError("Gate report formula state does not match OAV request doses")
-        reused_gates = _gate_map(gate_report)
+        # A dose receipt binds calculations, not arbitrary cached gate outcomes
+        # or another caller's family/scaling policy. Recompute those for a bound
+        # request using its own configuration; keep legacy unbound reuse intact.
+        if bound_receipt_sha256 is None:
+            reused_gates = _gate_map(gate_report)
     material_rows = tuple(
         OAVMaterialRow.from_material_state(material)
         for material in sorted(
@@ -632,6 +723,8 @@ def analyze_oav_authority(
     )
 
     return OAVAuthorityResult(
+        dose_receipt_sha256=bound_receipt_sha256,
+        receipt_binding_status="BOUND_GATE_RECEIPT" if bound_receipt_sha256 else "UNBOUND",
         request=request,
         state=state,
         material_rows=material_rows,

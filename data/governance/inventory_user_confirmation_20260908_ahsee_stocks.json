@@ -1,0 +1,126 @@
+{
+  "schema_version": "source_specific_user_stock_confirmation_v1",
+  "record_id": "INV-USER-20260908-AHSEE-STOCKS",
+  "effective_date": "2026-09-08",
+  "source_scope": "Exact user confirmation plus separately attributed current inventory and historical transfer evidence; no physical event or measured mass ledger fabricated",
+  "new_direct_confirmation": {
+    "question": "For the stock check: have you prepared the separate 10% v/v ethanol working stocks of neroli and peppermint, and is your neat PEDMC currently a clear liquid? Please say which are ready.",
+    "answer": "yes all"
+  },
+  "identity_confirmation": {
+    "question": "Your inventory currently treats “Givaudan AIMI” and “Alpha Isomethyl Ionone / Methyl Ionone Pure” as one bottle. Do you have one bottle or two separate bottles? This determines which stock the 60 µL row should name.",
+    "answer": "i only have gividuan AIMI now",
+    "canonical_current_label": "Givaudan AIMI",
+    "existing_stock_id": "inventory:user-20260904:a45ff6250b56cec5bbad",
+    "new_stock_or_chemical_equivalence_asserted": false
+  },
+  "prior_inventory_raw_sha256": "b2faf4d4cc9756ea2bed90390b78325a95ecb5e1c1537c57f0b457dd22766429",
+  "prior_inventory_normalized_sha256": "0615da4d06418a7c58b9cfa6e387f7529c10dc8f97b9820862aaaf2ee811471b",
+  "source_files": [
+    {
+      "path": "data/governance/inventory_user_confirmation_20260907_pedmc.json",
+      "sha256": "65c2568d1c3102b1423c54de25897e838a2a98b9e90a4afe00558a841fbf9868"
+    },
+    {
+      "path": "formulas/records/AHS_UserBottle_F240_N60_CONFIRMED_20260907.json",
+      "sha256": "fdf6d62bb8634ede9f5d2a32cdc0ad2e7b4ee90dd7c67b2a4de142d617b55187"
+    },
+    {
+      "path": "formulas/records/AHS_UserBottle_L360_HCA120_P60_CONFIRMED_20260907.json",
+      "sha256": "9cc06a3aa8c2fbcb3ec875b3c650dfb202d36b69739d95efcaf90a1081b1de5b"
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260908.json",
+      "sha256": "1e5d1cedeeeaa7adef9116f8e4896b5e3e68e10f817fd0ce0338c30187548419"
+    }
+  ],
+  "evidence": {
+    "PREPARATIONS_AND_PEDMC_PHASE_20260908": {
+      "kind": "DIRECT_USER_CURRENT_CONFIRMATION",
+      "question": "For the stock check: have you prepared the separate 10% v/v ethanol working stocks of neroli and peppermint, and is your neat PEDMC currently a clear liquid? Please say which are ready.",
+      "answer": "yes all",
+      "assertions": [
+        "Separate neroli 10% v/v ethanol working stock prepared",
+        "Separate peppermint 10% v/v ethanol working stock prepared",
+        "Neat PEDMC currently clear liquid"
+      ],
+      "measured_remaining_quantity": null,
+      "stock_solution_density_g_ml": null
+    },
+    "PEDMC_NEAT_20260907": {
+      "kind": "DIRECT_USER_RECEIPT",
+      "path": "data/governance/inventory_user_confirmation_20260907_pedmc.json",
+      "source_quote": "my PEDMC is neat"
+    },
+    "AHS_NYMPHEAL_USER_TRANSFER_20260907": {
+      "kind": "USER_REPORTED_TRANSFER_STOCK",
+      "path": "formulas/records/AHS_UserBottle_F240_N60_CONFIRMED_20260907.json",
+      "selected_stock": "neat/as supplied",
+      "measured_independently": false
+    },
+    "AHS_LILYREAL_USER_TRANSFER_20260907": {
+      "kind": "USER_REPORTED_TRANSFER_PRODUCT",
+      "path": "formulas/records/AHS_UserBottle_L360_HCA120_P60_CONFIRMED_20260907.json",
+      "selected_stock": "neat/as supplied; opaque product",
+      "constituent_fractions": null
+    },
+    "NOMINAL_VOLUME_CONVENTION": {
+      "kind": "DIRECT_USER_CONVENTION_REPORTED_BY_PARENT",
+      "source_excerpt": "diluted with the assumption that 1g = 1ml of liquid",
+      "source_excerpt_continued": "diluted volumetrically",
+      "interpretation": "Nominal volumetric convention for previously undocumented dilution bases; explicit w/w remains unchanged. The source-material assumption is not a stock-solution density measurement.",
+      "stock_solution_density_asserted": false
+    },
+    "UNKNOWN_CARRIER_ETHANOL_DEFAULT": {
+      "kind": "PRIOR_USER_CONVENTION_REPORTED_BY_PARENT",
+      "source_summary": "Alcohol/ethanol default applies only where carrier was previously unknown; retain all explicit DPG, DEP and other known carriers."
+    },
+    "BONTAX_CURRENT_INVENTORY_BARE_ROW": {
+      "kind": "CURRENT_INVENTORY_TEXT",
+      "path": "inventory.txt",
+      "prior_line": 295,
+      "verbatim": "- Lavender EO (BONTAUX SAS)  # added 2026-05-08 — purchased; premium French lavender angustifolia; floral-herbaceous with soft honeyed sweetness",
+      "authority": "OWNED_BARE_ROW_NEAT_CONVENTION_NOT_DIRECT_NEAT_QUOTE",
+      "prior_inventory_raw_sha256": "b2faf4d4cc9756ea2bed90390b78325a95ecb5e1c1537c57f0b457dd22766429"
+    },
+    "TONKA_CURRENT_INVENTORY_DPG": {
+      "kind": "CURRENT_INVENTORY_TEXT",
+      "path": "inventory.txt",
+      "prior_line": 255,
+      "verbatim": "- Tonka Bean Absolute (10% in DPG)  # added 2026-06-22 — Dipteryx odorata; coumarinic-hay-almond; natural richness vs synthetic Tonkarome",
+      "authority": "EXPLICIT_PERCENT_AND_DPG_CARRIER",
+      "prior_inventory_raw_sha256": "b2faf4d4cc9756ea2bed90390b78325a95ecb5e1c1537c57f0b457dd22766429"
+    },
+    "VANILLIN_CURRENT_INVENTORY": {
+      "kind": "CURRENT_INVENTORY_TEXT",
+      "path": "inventory.txt",
+      "prior_line": 238,
+      "verbatim": "- Vanillin (10%)",
+      "authority": "EXPLICIT_PERCENT_ONLY",
+      "prior_inventory_raw_sha256": "b2faf4d4cc9756ea2bed90390b78325a95ecb5e1c1537c57f0b457dd22766429"
+    },
+    "C10_CURRENT_INVENTORY": {
+      "kind": "CURRENT_INVENTORY_TEXT",
+      "path": "inventory.txt",
+      "prior_line": 30,
+      "verbatim": "- Aldehyde C10 (1%)",
+      "authority": "EXPLICIT_PERCENT_ONLY",
+      "prior_inventory_raw_sha256": "b2faf4d4cc9756ea2bed90390b78325a95ecb5e1c1537c57f0b457dd22766429"
+    },
+    "C12_CURRENT_INVENTORY": {
+      "kind": "CURRENT_INVENTORY_TEXT",
+      "path": "inventory.txt",
+      "prior_line": 32,
+      "verbatim": "- Aldehyde C12 MNA (1%)",
+      "authority": "EXPLICIT_PERCENT_ONLY",
+      "prior_inventory_raw_sha256": "b2faf4d4cc9756ea2bed90390b78325a95ecb5e1c1537c57f0b457dd22766429"
+    }
+  },
+  "authority_limits": {
+    "physical_formula_dose_performed": false,
+    "measured_stock_mass_or_density": false,
+    "assay": false,
+    "safety_or_release": false
+  },
+  "identity_note": "User confirms only Givaudan AIMI currently owned. Preserve the existing physical stock ID, amount, fraction and aliases. Retire the separate bare Methyl Ionone Pure inventory entry as a historical label; no second stock or new chemical equivalence is asserted."
+}

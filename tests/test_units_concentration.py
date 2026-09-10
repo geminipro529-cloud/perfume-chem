@@ -41,6 +41,24 @@ def test_parse_bare_pct_fails_strict():
         parse_concentration("10%", strict=True)
 
 
+@pytest.mark.parametrize("basis", ["w/w", "v/v", "w/v"])
+@pytest.mark.parametrize("parenthesized", [False, True])
+def test_explicit_basis_and_carrier_preserve_both(basis, parenthesized):
+    label = f"({basis})" if parenthesized else basis
+    raw = f"10% {label} in DPG"
+    result = parse_concentration(raw)
+    assert result.value == 0.1
+    assert result.basis == basis
+    assert result.carrier == "dipropylene glycol"
+    assert result.raw_input == raw
+
+
+@pytest.mark.parametrize("raw", ["10% (w/w in DPG", "10% w/w) in DPG"])
+def test_explicit_basis_carrier_rejects_malformed_parentheses(raw):
+    with pytest.raises(ValueError):
+        parse_concentration(raw)
+
+
 def test_parse_bare_pct_warns_nonstrict():
     c = parse_concentration("10%", strict=False)
     assert c.basis == ConcentrationBasis.UNSPECIFIED

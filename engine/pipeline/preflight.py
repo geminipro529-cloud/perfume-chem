@@ -88,6 +88,7 @@ class FormulaDoseLineReceipt:
     inventory_authority: str | None
     source_rows: tuple[int, ...]
     status: str
+    source_ref: str = ""
     blockers: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
@@ -114,6 +115,7 @@ class FormulaDoseLineReceipt:
             raise ValueError(f"{name}: dose receipt line status is invalid")
         blockers = tuple(sorted({str(item).strip() for item in self.blockers if str(item).strip()}))
         source_rows = tuple(sorted({int(value) for value in self.source_rows}))
+        source_ref = str(self.source_ref or "").strip()
         if status == "BOUND":
             required = (
                 fraction,
@@ -122,7 +124,7 @@ class FormulaDoseLineReceipt:
                 str(self.stock_authority or "").strip(),
                 str(self.inventory_authority or "").strip(),
             )
-            if any(value in {None, ""} for value in required) or not source_rows:
+            if any(value in {None, ""} for value in required) or not (source_rows or source_ref):
                 raise ValueError(f"{name}: bound dose receipt line lacks stock lineage")
             if blockers:
                 raise ValueError(f"{name}: bound dose receipt line cannot carry blockers")
@@ -153,6 +155,7 @@ class FormulaDoseLineReceipt:
             str(self.inventory_authority).strip() if self.inventory_authority else None,
         )
         object.__setattr__(self, "source_rows", source_rows)
+        object.__setattr__(self, "source_ref", source_ref)
         object.__setattr__(self, "status", status)
         object.__setattr__(self, "blockers", blockers)
 
@@ -168,6 +171,7 @@ class FormulaDoseLineReceipt:
             "stock_authority": self.stock_authority,
             "inventory_authority": self.inventory_authority,
             "source_rows": list(self.source_rows),
+            "source_ref": self.source_ref,
             "status": self.status,
             "blockers": list(self.blockers),
         }
@@ -853,6 +857,7 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
             "authority": "formula_row+inventory_snapshot",
             "inventory_authority": record.authority,
             "source_rows": list(record.source_rows),
+            "source_ref": record.source_ref,
             "identity_crosswalk_contract_id": (
                 alias_contract.contract_id if alias_contract else None
             ),
@@ -1022,6 +1027,7 @@ def build_formula_dose_receipt(
         stock_authority = str(resolved.get("authority", "")).strip() or None
         inventory_authority = str(resolved.get("inventory_authority", "")).strip() or None
         source_rows = tuple(int(value) for value in list(resolved.get("source_rows", []) or []))
+        source_ref = str(resolved.get("source_ref", "")).strip()
         declared = bool(resolved.get("declared", False))
         for condition, reason in (
             (fraction is None, "stock_fraction_not_bound"),
@@ -1032,7 +1038,7 @@ def build_formula_dose_receipt(
                 "stock_authority_not_bound",
             ),
             (not inventory_authority, "inventory_authority_not_bound"),
-            (not source_rows, "inventory_source_rows_not_bound"),
+            (not source_rows and not source_ref, "inventory_source_lineage_not_bound"),
         ):
             if condition:
                 blockers.append(reason)
@@ -1059,6 +1065,7 @@ def build_formula_dose_receipt(
                 inventory_authority=inventory_authority,
                 source_rows=source_rows,
                 status=line_status,
+                source_ref=source_ref,
                 blockers=tuple(blockers),
             )
         )
@@ -1137,12 +1144,18 @@ def _dose_receipt_binding_check(
             mismatches.append(f"{line.material_name}:stock_fraction")
         if not isclose(material.active_ul, line.active_ul, rel_tol=0.0, abs_tol=1e-12):
             mismatches.append(f"{line.material_name}:active_ul")
+        if material.stock_fraction_basis.strip().casefold() != line.fraction_basis.strip().casefold():
+            mismatches.append(f"{line.material_name}:stock_fraction_basis")
+        if material.stock_carrier.strip().casefold() != line.carrier.strip().casefold():
+            mismatches.append(f"{line.material_name}:stock_carrier")
+        if material.stock_declared is not True:
+            mismatches.append(f"{line.material_name}:stock_declared")
     if mismatches:
         data["state_mismatches"] = mismatches
         return PreflightCheck(
             "formula_dose_receipt",
             "FAIL",
-            "Formula state dose quantities do not replay from the bound receipt.",
+            "Formula state dose quantities and stock semantics do not replay from the bound receipt.",
             data,
         )
     return PreflightCheck(

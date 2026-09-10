@@ -19,6 +19,7 @@ _SHA256 = re.compile(r"^[0-9a-f]{64}$")
 _RUNTIME_STATES = frozenset({"ACTIVE_CANDIDATE", "MANDATORY_GUARDRAIL"})
 _GENERATED_PARTS = frozenset({"__pycache__", ".pytest_cache"})
 _GENERATED_SUFFIXES = frozenset({".pyc", ".pyo"})
+CURRENT_REGISTRY_PATH = Path("configs/complexity/complexity_module_registry_integration_20260910.json")
 
 
 class ModuleState(str, Enum):
@@ -183,6 +184,30 @@ def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
     payload = json.loads(raw.decode("utf-8"))
     if not isinstance(payload, dict):
         raise ValueError("complexity registry must be a JSON object")
+    source_schema = _nonblank(payload.get("schema_version"), "schema_version")
+    if source_schema == "complexity_module_registry_overlay_v1":
+        if set(payload) != {
+            "schema_version", "base_registry", "base_registry_sha256", "module_additions",
+        }:
+            raise ValueError("complexity registry overlay keys are closed")
+        base_path = _inside_root(project_root, _relative_path(payload["base_registry"]))
+        base_raw = base_path.read_bytes()
+        if hashlib.sha256(base_raw).hexdigest() != payload["base_registry_sha256"]:
+            raise ValueError("frozen base registry hash mismatch")
+        base = json.loads(base_raw.decode("utf-8"))
+        if not isinstance(base, dict) or base.get("schema_version") != "complexity_module_registry_v1":
+            raise ValueError("overlay base must be a frozen V1 registry")
+        additions = payload["module_additions"]
+        if not isinstance(additions, list) or not additions:
+            raise ValueError("overlay module_additions must be a nonempty list")
+        for row in additions:
+            if (not isinstance(row, dict)
+                    or row.get("state") != "FUTURE_CANDIDATE_NOT_VALIDATED"
+                    or row.get("import_path") is not None):
+                raise ValueError("overlay additions must be unvalidated non-runtime candidates")
+        # Reuse the complete V1 validator below. Its closed fields, duplicate
+        # IDs/paths, filesystem containment and census hashes remain mandatory.
+        payload = {**base, "modules": [*base["modules"], *additions]}
     required = {
         "schema_version",
         "discovery",
@@ -283,7 +308,7 @@ def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
         "metadata_keys": metadata_keys,
     }
     return ComplexityRegistry(
-        schema_version=payload["schema_version"],
+        schema_version=source_schema,
         discovery=normalized_discovery,
         modules=tuple(modules),
         artifact_rules=artifact_rules,
@@ -323,13 +348,13 @@ def census_complexity_artifacts(
     project_root = root.resolve()
     hash_drift: list[str] = []
     missing: list[str] = []
-    for module in registry.modules:
-        path = _inside_root(project_root, module.path)
+    for registered_module in registry.modules:
+        path = _inside_root(project_root, registered_module.path)
         if not path.is_file():
-            missing.append(module.path)
+            missing.append(registered_module.path)
             continue
-        if hashlib.sha256(path.read_bytes()).hexdigest() != module.sha256:
-            hash_drift.append(module.path)
+        if hashlib.sha256(path.read_bytes()).hexdigest() != registered_module.sha256:
+            hash_drift.append(registered_module.path)
 
     module_paths = {item.path.casefold(): item for item in registry.modules}
     discovered: set[str] = set()

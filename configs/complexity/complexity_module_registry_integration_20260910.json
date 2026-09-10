@@ -1,0 +1,40 @@
+{
+  "schema_version": "complexity_module_registry_overlay_v1",
+  "base_registry": "configs/complexity/complexity_module_registry_v1.json",
+  "base_registry_sha256": "7567f3ca00ccbf3e1b2b41f50645ed21f4d163612872b8449db6cc022818c639",
+  "module_additions": [
+    {
+      "module_id": "formulation-intelligence-admission-candidate",
+      "family_id": "formulation_intelligence_admission",
+      "role": "GUARDRAIL",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/formulation_intelligence/admission.py",
+      "import_path": null,
+      "sha256": "f555ae09238f7075521b6d4fcc50775d1db88ccd6c2c7ab4977d05f6d5dc07f6",
+      "evidence_refs": [],
+      "notes": ["Local source classification only; no module execution or admission is granted."]
+    },
+    {
+      "module_id": "formulation-intelligence-hedonic-platform-candidate",
+      "family_id": "formulation_intelligence_hedonic_platform",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/formulation_intelligence/hedonic_platform.py",
+      "import_path": null,
+      "sha256": "ef9e6f16add2c39d89fdb51578c8555f137e907422da9d1af97186afb727d567",
+      "evidence_refs": [],
+      "notes": ["Local source classification only; no liking, preference or release claim is granted."]
+    },
+    {
+      "module_id": "formulation-intelligence-temporal-architecture-candidate",
+      "family_id": "formulation_intelligence_temporal_architecture",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/formulation_intelligence/temporal_architecture.py",
+      "import_path": null,
+      "sha256": "f07bb551c10fc24e9a3f03af17ac1967d8f6ce791017936c1e7b3e94d29e98b8",
+      "evidence_refs": [],
+      "notes": ["Local source classification only; modeled and observed temporal evidence stay distinct."]
+    }
+  ]
+}

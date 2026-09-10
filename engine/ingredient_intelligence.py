@@ -86,6 +86,7 @@ class MaterialProfile:
     note: str = "heart"  # top / heart / base
     role: str = "modifier"  # character, modifier, fixative, volume, radiance, bridge, trace
     texture: str = ""  # skin-effect, diffusion, cushion, lift, cocoon, veil, halo
+    material_kind: str = ""
     # Relationships
     synergies: list[str] = field(default_factory=list)
     avoid: list[str] = field(default_factory=list)
@@ -755,6 +756,7 @@ _PROFILES: dict[str, dict] = {
         "synergies": ["Lilyreal ND", "Hydroxycitronellal", "DBCA"],
     },
     "Lilyreal ND": {
+        "material_kind": "OPAQUE_PREBLEND",
         "character": {"floral": 7, "freshness": 3, "sweetness": 1, "powdery": 2},
         "note": "heart",
         "role": "character",
@@ -4509,6 +4511,7 @@ def _get_profile_uncached(name: str) -> MaterialProfile | None:
             note=data.get("note", "heart"),
             role=data.get("role", "modifier"),
             texture=data.get("texture", ""),
+            material_kind=data.get("material_kind", ""),
             synergies=data.get("synergies", []),
             avoid=data.get("avoid", []),
             dilution=data.get("dilution", 1.0),

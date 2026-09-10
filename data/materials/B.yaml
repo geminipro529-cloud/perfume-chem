@@ -2936,7 +2936,10 @@
   user_in_inventory: true
 # MATERIAL_INTAKE_BATCH_2026_08_07 additions
 - canonical_name: 'Vietnamese Benzoin Styrax Tonkinensis Tincture 20%'
-  aliases: ['benzoin styrax tonkinensis tincture', 'vietnamese benzoin tincture']
+  aliases:
+  - "benzoin styrax tonkinensis tincture"
+  - "vietnamese benzoin tincture"
+  - "Vietnamese Benzoin Styrax Tonkinensis resin ethanol tincture"
   cas: None
   smiles: null
   inchikey: null

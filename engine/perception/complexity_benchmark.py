@@ -20,6 +20,7 @@ from engine.perception.complexity_ensemble import (
     evaluate_complexity_case,
 )
 from engine.perception.complexity_registry import (
+    CURRENT_REGISTRY_PATH,
     ModuleDescriptor,
     ModuleRole,
     census_complexity_artifacts,
@@ -1030,14 +1031,15 @@ def _resolve_cases(payload: Mapping[str, Any]) -> tuple[ComplexityCasePacket, ..
 
 def run_complexity_census(*, project_root: Path, run_dir: Path) -> dict[str, Any]:
     target = _run_dir(project_root, run_dir)
-    registry = load_complexity_registry(project_root, project_root / _REGISTRY_PATH)
+    registry_path = CURRENT_REGISTRY_PATH
+    registry = load_complexity_registry(project_root, project_root / registry_path)
     census = census_complexity_artifacts(project_root, registry)
     return _envelope(
         state=census.state,
         operation="census",
         project_root=project_root,
         run_dir=target,
-        artifacts=(_REGISTRY_PATH.as_posix(),),
+        artifacts=(_REGISTRY_PATH.as_posix(), registry_path.as_posix()),
         blockers=(
             *census.hash_drift,
             *census.missing,

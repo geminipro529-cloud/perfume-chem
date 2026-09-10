@@ -3,9 +3,13 @@ import re
 import subprocess
 import sys
 from collections import Counter
+from dataclasses import replace
 from pathlib import Path
 
+import pytest
+
 from engine.pipeline.formula_state import build_formula_state
+from engine.pipeline.gates import GateResult, ReleaseGateConfig, gate_formula
 from engine.pipeline.oav_authority import OAVAuthorityRequest, analyze_oav_authority
 
 
@@ -18,6 +22,160 @@ def _request(ingredients, **overrides):
     )
     payload.update(overrides)
     return OAVAuthorityRequest(**payload)
+
+
+@pytest.fixture(scope="module", params=[False, True])
+def receipt_gate(request):
+    formula = {
+        "name": "Receipt identity regression", "number": 1,
+        "ingredients_ul": {"Javanol": 14.0}, "dilutions": {"Javanol": 0.2},
+    }
+    report = gate_formula(formula, ReleaseGateConfig(
+        audit_enabled=False, deep_plane_diagnostics_enabled=request.param,
+    ))
+    oav_request = _request(
+        formula["ingredients_ul"], formula_name=formula["name"],
+        dilutions=formula["dilutions"], dose_receipt_sha256=report.dose_receipt.receipt_sha256,
+    )
+    return oav_request, report
+
+
+def test_exact_receipt_identity_does_not_promote_strict_oav(receipt_gate):
+    request, report = receipt_gate
+    assert report.dose_receipt.status == "BOUND"
+    result = analyze_oav_authority(request, gate_report=report)
+    assert result.receipt_binding_status == "BOUND_GATE_RECEIPT"
+    assert result.dose_receipt_sha256 == report.dose_receipt.receipt_sha256
+    assert result.strict_oav_status == "ABSTAINED"
+    assert result.as_dict()["authority_verdict_summary"]["release_authority"] is False
+    assert report.as_dict()["dose_receipt"] == report.dose_receipt.as_dict()
+    assert report.preflight["status"] != "PASS"
+    plain = analyze_oav_authority(replace(request, dose_receipt_sha256=None))
+    assert result.material_rows == plain.material_rows
+    assert result.time_windows == plain.time_windows
+
+
+@pytest.mark.parametrize("enabled", [False, True])
+def test_abstained_stock_receipt_can_bind_identity_but_not_authority(enabled):
+    formula = {
+        "name": "Unresolved stock regression", "number": 1,
+        "ingredients_ul": {"Javanol": 14.0}, "dilutions": {"Javanol": 0.1},
+    }
+    report = gate_formula(formula, ReleaseGateConfig(
+        audit_enabled=False, deep_plane_diagnostics_enabled=enabled,
+    ))
+    assert report.dose_receipt.status == "ABSTAINED"
+    request = _request(
+        formula["ingredients_ul"], formula_name=formula["name"],
+        dilutions=formula["dilutions"], dose_receipt_sha256=report.dose_receipt.receipt_sha256,
+    )
+    result = analyze_oav_authority(request, gate_report=report)
+    assert result.receipt_binding_status == "BOUND_GATE_RECEIPT"
+    assert result.strict_oav_status == "ABSTAINED"
+    assert report.preflight["status"] == "FAIL"
+    assert report.commercial_readiness == "NOT_RELEASE_READY"
+    assert result.as_dict()["authority_verdict_summary"]["release_authority"] is False
+
+
+@pytest.mark.parametrize("status", ["PASS", "FAIL"])
+def test_bound_receipt_does_not_trust_cached_policy_outcomes(receipt_gate, status):
+    request, report = receipt_gate
+    clean = analyze_oav_authority(request, gate_report=report)
+    poisoned = replace(report, gates=tuple(
+        GateResult(name, status, "Fabricated cached policy", {})
+        for name in ("odt_coverage", "oav_legibility", "oav_scaling",
+                     "robustness_perturbation", "oav_intelligence")
+    ))
+    assert analyze_oav_authority(request, gate_report=poisoned).as_dict() == clean.as_dict()
+
+
+def test_bound_receipt_recomputes_changed_scaling_policy(receipt_gate):
+    request, report = receipt_gate
+    changed = replace(request, batch_scaling_targets_ml=(1.0,))
+    bound = analyze_oav_authority(changed, gate_report=report)
+    plain = analyze_oav_authority(replace(changed, dose_receipt_sha256=None))
+    assert bound.scaling_risk == plain.scaling_risk
+    assert bound.primary_status == plain.primary_status
+
+
+def test_unrequested_binding_remains_unbound(receipt_gate):
+    request, report = receipt_gate
+    result = analyze_oav_authority(replace(request, dose_receipt_sha256=None), gate_report=report)
+    assert result.dose_receipt_sha256 is None
+    assert result.receipt_binding_status == "UNBOUND"
+
+
+@pytest.mark.parametrize("change", [
+    {"formula_name": "Other formula"}, {"formula_uid": "Other UID"},
+    {"dilutions": {"Javanol": 0.1}}, {"dilutions": {"Javanol": 0.0}},
+    {"dilutions": {}}, {"ingredients_ul": {"Javanol": 14.1}},
+    {"stock_specs": {"Javanol": {"carrier": "dep"}}},
+    {"stock_specs": {"Javanol": {"fraction_basis": "mass_fraction"}}},
+    {"stock_specs": {"Javanol": {"stock_id": "other"}}},
+    {"temperature_K": 298.15}, {"batch_volume_ml": 40.0}, {"context": "blotter"},
+    {"matrix_moles": {"ethanol": 0.1}, "matrix_source": "explicit", "matrix_mass_g": 4.6},
+    {"dose_receipt_sha256": "0" * 64},
+])
+def test_bound_receipt_rejects_changed_request(receipt_gate, change):
+    request, report = receipt_gate
+    with pytest.raises(ValueError):
+        analyze_oav_authority(replace(request, **change), gate_report=report)
+
+
+@pytest.mark.parametrize("kind", [
+    "missing_receipt", "receipt_inventory", "report_name", "report_hash",
+    "state_receipt", "state_status", "extra_material", "state_values",
+    "frame_values", "frame_checksum", "frame_origin", "missing_frame", "reordered_frames",
+])
+def test_bound_receipt_rejects_changed_report(receipt_gate, kind):
+    request, report = receipt_gate
+    state = report.formula_state
+    if kind == "missing_receipt":
+        report = replace(report, dose_receipt=None)
+    elif kind == "receipt_inventory":
+        report = replace(report, dose_receipt=replace(
+            report.dose_receipt, inventory_snapshot_sha256="0" * 64,
+        ))
+        request = replace(request, dose_receipt_sha256=report.dose_receipt.receipt_sha256)
+    elif kind == "report_name":
+        report = replace(report, name="Other report")
+    elif kind == "report_hash":
+        report = replace(report, formula_hash="0" * 64)
+    elif kind == "state_receipt":
+        report = replace(report, formula_state=replace(state, dose_receipt_sha256="0" * 64))
+    elif kind == "state_status":
+        report = replace(report, formula_state=replace(state, dose_receipt_status="OTHER"))
+    elif kind == "extra_material":
+        report = replace(report, formula_state=replace(state, materials=state.materials * 2))
+    elif kind == "state_values":
+        report = replace(report, formula_state=replace(state, total_raw_ul=1.0))
+    elif kind == "missing_frame":
+        report = replace(report, simulation=report.simulation[:-1])
+    elif kind == "reordered_frames":
+        report = replace(report, simulation=tuple(reversed(report.simulation)))
+    else:
+        frame = report.simulation[-1]
+        if kind == "frame_values":
+            frame = replace(frame, state=replace(frame.state, total_raw_ul=123.0))
+        elif kind == "frame_checksum":
+            frame = replace(frame, frame_content_sha256="0" * 64)
+        else:
+            frame = replace(frame, source_state_sha256="0" * 64)
+        report = replace(report, simulation=(*report.simulation[:-1], frame))
+    with pytest.raises(ValueError):
+        analyze_oav_authority(request, gate_report=report)
+
+
+def test_expected_receipt_requires_report(receipt_gate):
+    request, _ = receipt_gate
+    with pytest.raises(ValueError, match="requires its gate report"):
+        analyze_oav_authority(request)
+
+
+@pytest.mark.parametrize("digest", ["", "A" * 64, "g" * 64, "0" * 63, 7])
+def test_receipt_request_rejects_malformed_digest(digest):
+    with pytest.raises(ValueError, match="lowercase SHA-256"):
+        _request({"Javanol": 14.0}, dose_receipt_sha256=digest)
 
 
 def test_oav_authority_contract_shape_and_material_rows():

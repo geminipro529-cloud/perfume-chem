@@ -1,0 +1,373 @@
+{
+  "schema": "perfume-chem-inventory-integration-checkpoint-v1",
+  "date": "2026-09-09",
+  "worktree": "D:/chatbots/perfume-chem-integration-20260909",
+  "branch": "codex/integration-20260909",
+  "base_commit": "45cd79cd01b6ac30c8acc5f2875bc272e1f3e488",
+  "status": "FOCUSED_CHECKPOINT_PASS_NOT_RELEASED",
+  "source_files": [
+    {
+      "path": "inventory.txt",
+      "sha256": "D6F7FF5389FBD5E807B98FEE3CE6A87CE2C70DD6253B26A82F49A0872DA42369"
+    },
+    {
+      "path": "engine/inventory_parser.py",
+      "sha256": "3E491AE4048E7B42AB18D457A8B6E77AD9F96A724BE62C5F93BDB635CBD4DA73"
+    },
+    {
+      "path": "engine/name_utils.py",
+      "sha256": "BEC703E1EAC31727D5FF3B7E7656683E34838BE26E4CB22D27EEFDD365B8A201"
+    },
+    {
+      "path": ".gitattributes",
+      "sha256": "AE86B1F8568065D4AD741986C548732231DBC07841C862D35ADB7074D5EE46BB"
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260904.json",
+      "sha256": "E2FE66CB8077DA38142913A73B0D77ACD14B6E4953F6155BB2011E1E2BB851A4"
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260905.json",
+      "sha256": "08D0F0E41F90741200B3E915789DDD044CBBF7B0CE1B1AA266053452781BB17F"
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260906.json",
+      "sha256": "B06024FDEF65355C354A4C5A2618D482F215DF42A21C2D56AED896BBFB8C305F"
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260907.json",
+      "sha256": "4868678B5E742B309C929D4021530912630EF7FF172C6A7124A08BAA07DB7F77"
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260908.json",
+      "sha256": "1E5D1CEDEEEAA7ADEF9116F8E4896B5E3E68E10F817FD0CE0338C30187548419"
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260908_ahsee.json",
+      "sha256": "DD779BD93E1E9191988B67AEB637F8362DFEFB9E4696F86354EF6A371B85EE5D"
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260908_romandolide.json",
+      "sha256": "7265242BD4136333D592004B4DDB9382CD0CD8A1AD364B75085E98290F1A98D8"
+    },
+    {
+      "path": "data/governance/inventory_user_confirmation_20260907_pedmc.json",
+      "sha256": "65C2568D1C3102B1423C54DE25897E838A2A98B9E90A4AFE00558A841FBF9868"
+    },
+    {
+      "path": "data/governance/inventory_user_confirmation_20260908_ahsee_stocks.json",
+      "sha256": "08F165D17C3128256A4D98B3EED0762ACEB5DF8FB4DC728608B96355CC37AFEC"
+    },
+    {
+      "path": "data/governance/inventory_user_confirmation_20260908_romandolide_depleted.json",
+      "sha256": "5B94AC7CF95A0EE0BB4FC0754A97BDA4B0BE5AAE910C13C7FC4557317F823ADE"
+    },
+    {
+      "path": "data/governance/inventory_user_authority_receipt_20260906_neroli.json",
+      "sha256": "A2220155CF07CF24231D03E4C3A9CB3D16BAB174878F3EAF4F4E7736FDD1B132"
+    },
+    {
+      "path": "data/governance/inventory_user_corrections_20260907_confirmed.json",
+      "sha256": "4C07D36B19B3C044E318442B826992B47D56A97172C1E3B86B20B9276BA9F661"
+    },
+    {
+      "path": "data/governance/inventory_user_corrections_20260908_tinctures_lavender.json",
+      "sha256": "80D646572420056EFA2F6C4367FE61969C31A1EBC796E9C7EF5BD6BF7ECAC5F9"
+    },
+    {
+      "path": "formulas/records/AHS_UserBottle_F240_N60_CONFIRMED_20260907.json",
+      "sha256": "FDF6D62BB8634EDE9F5D2A32CDC0AD2E7B4EE90DD7C67B2A4DE142D617B55187"
+    },
+    {
+      "path": "formulas/records/AHS_UserBottle_L360_HCA120_P60_CONFIRMED_20260907.json",
+      "sha256": "9CC06A3AA8C2FBCB3EC875B3C650DFB202D36B69739D95EFCAF90A1081B1DE5B"
+    },
+    {
+      "path": "tests/test_inventory_identity_reconciliation.py",
+      "sha256": "D4985F57AA9728A9ED8D81FB4AF6A5C11CCC4E2FD67966BB05DCC3989E23F087"
+    },
+    {
+      "path": "tests/test_inventory_worktree_sync_2026_08_30.py",
+      "sha256": "5595B207561379ED78E24F7336B402CB0E9A75CB1F6BE9B2E40C7B51E887FD65"
+    },
+    {
+      "path": "tests/test_inventory_ahsee_stock_2026_09_08.py",
+      "sha256": "9D3BC423107AF791844E7AF8463E767B51025B0D00ECD7F927EB7DA47A375D15"
+    },
+    {
+      "path": "tests/test_inventory_neroli_stock_2026_09_06.py",
+      "sha256": "EF648670FA41B567605C55C4D459597F941EEF6F5E3CB999952BD5F9594B05BA"
+    },
+    {
+      "path": "tests/test_inventory_orris_stock_2026_09_05.py",
+      "sha256": "BC9FCA1C5B95AF0FE2F823329FEE2731389B44A286E852BB1D626DF84D46484D"
+    },
+    {
+      "path": "tests/test_inventory_romandolide_depleted_2026_09_08.py",
+      "sha256": "67AC30DBACC6EF1EDA51A0F29FC8BBCBAD07848A26DBC96413419B746C276B9C"
+    },
+    {
+      "path": "tests/test_inventory_tinctures_2026_09_08.py",
+      "sha256": "7ED1C7C10CDA97D862CAFDFC8600921F234F0445E4F186123FE5B807E9A2EF76"
+    },
+    {
+      "path": "tests/test_pipeline_preflight.py",
+      "sha256": "E96C2BFEAAAF810895E704B63206EDE12DCE96C8EAD77C1FEB4DAD61C1980352"
+    },
+    {
+      "path": "data/materials/N.yaml",
+      "sha256": "EF7745D27C74AAF797C782478135F0151450AB9414BD51615C846DE379CAA852"
+    },
+    {
+      "path": "data/materials/O.yaml",
+      "sha256": "5D7D0DE6C92E7F0055CF38CCC49D948E3DBE7ACCB24005E6ACD17B608A281C2B"
+    },
+    {
+      "path": "data/governance/inventory_identity_reconciliation_20260809.json",
+      "sha256": "87C45C3DE74C466D1B31EE14623CB19CE6E23413EB088B319DB9904F7D61BCFC"
+    },
+    {
+      "path": "formulas/AHS_2004_Reference_First_From_Zero_30mL_EDT_v1.md",
+      "sha256": "9F96499BC64F4E574E1B91E4E8D194E80D81390FD150FDA70019645588F7EDDE"
+    },
+    {
+      "path": "formulas/AHS_2004_Reference_First_From_Zero_30mL_EDT_v2_Neat_Neroli.md",
+      "sha256": "9CD46EF547C5F7F1F62C10A60A355F6100B4EB58A1C8AA1E1E2457BF3B0F3F67"
+    }
+  ],
+  "files": [
+    {
+      "path": "data/governance/inventory_identity_reconciliation_20260809.json",
+      "sha256": "87C45C3DE74C466D1B31EE14623CB19CE6E23413EB088B319DB9904F7D61BCFC",
+      "bytes": 5113
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260904.json",
+      "sha256": "E2FE66CB8077DA38142913A73B0D77ACD14B6E4953F6155BB2011E1E2BB851A4",
+      "bytes": 18487
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260905.json",
+      "sha256": "08D0F0E41F90741200B3E915789DDD044CBBF7B0CE1B1AA266053452781BB17F",
+      "bytes": 3623
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260906.json",
+      "sha256": "B06024FDEF65355C354A4C5A2618D482F215DF42A21C2D56AED896BBFB8C305F",
+      "bytes": 3668
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260907.json",
+      "sha256": "4868678B5E742B309C929D4021530912630EF7FF172C6A7124A08BAA07DB7F77",
+      "bytes": 18137
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260908_ahsee.json",
+      "sha256": "DD779BD93E1E9191988B67AEB637F8362DFEFB9E4696F86354EF6A371B85EE5D",
+      "bytes": 15777
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260908.json",
+      "sha256": "1E5D1CEDEEEAA7ADEF9116F8E4896B5E3E68E10F817FD0CE0338C30187548419",
+      "bytes": 8078
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260908_romandolide.json",
+      "sha256": "7265242BD4136333D592004B4DDB9382CD0CD8A1AD364B75085E98290F1A98D8",
+      "bytes": 2152
+    },
+    {
+      "path": "data/governance/inventory_user_authority_receipt_20260906_neroli.json",
+      "sha256": "A2220155CF07CF24231D03E4C3A9CB3D16BAB174878F3EAF4F4E7736FDD1B132",
+      "bytes": 4432
+    },
+    {
+      "path": "data/governance/inventory_user_confirmation_20260907_pedmc.json",
+      "sha256": "65C2568D1C3102B1423C54DE25897E838A2A98B9E90A4AFE00558A841FBF9868",
+      "bytes": 994
+    },
+    {
+      "path": "data/governance/inventory_user_confirmation_20260908_ahsee_stocks.json",
+      "sha256": "08F165D17C3128256A4D98B3EED0762ACEB5DF8FB4DC728608B96355CC37AFEC",
+      "bytes": 6572
+    },
+    {
+      "path": "data/governance/inventory_user_confirmation_20260908_romandolide_depleted.json",
+      "sha256": "5B94AC7CF95A0EE0BB4FC0754A97BDA4B0BE5AAE910C13C7FC4557317F823ADE",
+      "bytes": 627
+    },
+    {
+      "path": "data/governance/inventory_user_corrections_20260907_confirmed.json",
+      "sha256": "4C07D36B19B3C044E318442B826992B47D56A97172C1E3B86B20B9276BA9F661",
+      "bytes": 4092
+    },
+    {
+      "path": "data/governance/inventory_user_corrections_20260908_tinctures_lavender.json",
+      "sha256": "80D646572420056EFA2F6C4367FE61969C31A1EBC796E9C7EF5BD6BF7ECAC5F9",
+      "bytes": 3802
+    },
+    {
+      "path": "data/materials/A.yaml",
+      "sha256": "55DFCAF79AB003869D5EE8EF6A5ABD4C0FBC87041605A0B645ECD884A375441D",
+      "bytes": 112083
+    },
+    {
+      "path": "data/materials/B.yaml",
+      "sha256": "6344D5AE4E62D5A66924230A28A68C47BCB1F2648C486D632501BB5000B6B8BE",
+      "bytes": 75564
+    },
+    {
+      "path": "data/materials/C.yaml",
+      "sha256": "DBF94FC018A693E7ABB4DB22A6830F11D3A7D0D4D738DDF84DBA82FB0BA0FE6A",
+      "bytes": 159696
+    },
+    {
+      "path": "data/materials/E.yaml",
+      "sha256": "8FB3F417420860693DC262B21DDEF4B2EABC53F08B4673B9DB9D5C53DB03B49D",
+      "bytes": 37193
+    },
+    {
+      "path": "data/materials/H.yaml",
+      "sha256": "B6DE1FACBE692B3DF1CB4F1D2979D441BCA5921EE41A22B66D15E4541AB9FECE",
+      "bytes": 38871
+    },
+    {
+      "path": "data/materials/N.yaml",
+      "sha256": "3B292442280BFBD2CE67C810E6A92B5FB5CBE8B3A6350273128A8F4A8FBC0B5E",
+      "bytes": 37653
+    },
+    {
+      "path": "data/materials/O.yaml",
+      "sha256": "3B3D79E17F9B282E2DC91CFBAA98DF8BD1449B875114F57A0102023507C7948F",
+      "bytes": 43120
+    },
+    {
+      "path": "data/materials/P.yaml",
+      "sha256": "AD9ED40EAC7C62036EF4FF20AD16C0A22139F3E859CA3DF2C38628F1EE685E0D",
+      "bytes": 88990
+    },
+    {
+      "path": "data/materials/T.yaml",
+      "sha256": "96362072248AFF0ABCE6D3E7E71536C1FE600BAB766415ADD43FA206C3AAA71C",
+      "bytes": 97900
+    },
+    {
+      "path": "engine/ingredient_intelligence.py",
+      "sha256": "009745568B4FC40D7A9853B847CD9824EF3761A02CAA11A13C0DDC788BDC323E",
+      "bytes": 167090
+    },
+    {
+      "path": "engine/inventory_parser.py",
+      "sha256": "1F2AE01517D77621580FAC452D6896651C6156B38FA9C641BAE7550E6C24753B",
+      "bytes": 112582
+    },
+    {
+      "path": "engine/name_utils.py",
+      "sha256": "CEFAD3093F8D374F58F54A83377599552CCDA5F293717709D5BD3B91129CC1E7",
+      "bytes": 9778
+    },
+    {
+      "path": "engine/pipeline/formula_state.py",
+      "sha256": "46BB7EB1BAF2A35D42336814E9D9E87D9409F0164427880E858C1D1A5F94831A",
+      "bytes": 49420
+    },
+    {
+      "path": "engine/pipeline/preflight.py",
+      "sha256": "A3640E6F82822C33B02362C65D1DCD4C2AC8C6F15DA78EB6899628FA59A68066",
+      "bytes": 55990
+    },
+    {
+      "path": "formulas/AHS_2004_Reference_First_From_Zero_30mL_EDT_v1.md",
+      "sha256": "9F96499BC64F4E574E1B91E4E8D194E80D81390FD150FDA70019645588F7EDDE",
+      "bytes": 13984
+    },
+    {
+      "path": "formulas/AHS_2004_Reference_First_From_Zero_30mL_EDT_v2_Neat_Neroli.md",
+      "sha256": "9CD46EF547C5F7F1F62C10A60A355F6100B4EB58A1C8AA1E1E2457BF3B0F3F67",
+      "bytes": 58823
+    },
+    {
+      "path": "formulas/records/AHS_UserBottle_F240_N60_CONFIRMED_20260907.json",
+      "sha256": "FDF6D62BB8634EDE9F5D2A32CDC0AD2E7B4EE90DD7C67B2A4DE142D617B55187",
+      "bytes": 17421
+    },
+    {
+      "path": "formulas/records/AHS_UserBottle_L360_HCA120_P60_CONFIRMED_20260907.json",
+      "sha256": "9CC06A3AA8C2FBCB3EC875B3C650DFB202D36B69739D95EFCAF90A1081B1DE5B",
+      "bytes": 19711
+    },
+    {
+      "path": ".gitattributes",
+      "sha256": "4D481A8E1AA5D7A7147966F4155ADFA62B7A2AE1788E3F4A857851D2DE7BF001",
+      "bytes": 1934
+    },
+    {
+      "path": "inventory.txt",
+      "sha256": "4B75A24608BD2F99FA68B760EE67223AC35062122133BD1A8EC0C5996CB8C3AF",
+      "bytes": 23751
+    },
+    {
+      "path": "tests/test_inventory_ahsee_stock_2026_09_08.py",
+      "sha256": "568D3E08B8DA4C40DA4A0B9E12C55434064B113BF0491ED9D4C58D3D4A05FC45",
+      "bytes": 11460
+    },
+    {
+      "path": "tests/test_inventory_identity_reconciliation.py",
+      "sha256": "FB5203371913972049F60C44E8E59D6C65548E57B648911315166B5FE683776E",
+      "bytes": 28401
+    },
+    {
+      "path": "tests/test_inventory_neroli_stock_2026_09_06.py",
+      "sha256": "0154485C2DA8FA5B2ECCE652E14D6C79FFDE628C0BFC3CC1174D54E446CFD908",
+      "bytes": 9764
+    },
+    {
+      "path": "tests/test_inventory_orris_stock_2026_09_05.py",
+      "sha256": "BC9FCA1C5B95AF0FE2F823329FEE2731389B44A286E852BB1D626DF84D46484D",
+      "bytes": 7734
+    },
+    {
+      "path": "tests/test_inventory_romandolide_depleted_2026_09_08.py",
+      "sha256": "C2184D1864742536C7E23084A2D15F1263D55D88E109ED6C463DBE41B167CE89",
+      "bytes": 7278
+    },
+    {
+      "path": "tests/test_inventory_tinctures_2026_09_08.py",
+      "sha256": "2F46CAAB58513D3046ED5D660D32C185D78BB24E575F9BABC0FA7BE970D23A22",
+      "bytes": 3684
+    },
+    {
+      "path": "tests/test_inventory_worktree_sync_2026_08_30.py",
+      "sha256": "200E8A4239F2583258793B970D5281033F00E24CAC39712AB036B9E3A0FEC131",
+      "bytes": 7123
+    },
+    {
+      "path": "tests/test_pipeline_preflight.py",
+      "sha256": "D8D8133ECDDF326CCD641070A3F84D9D99C8D0543855723992C833348CFFE3A5",
+      "bytes": 11693
+    }
+  ],
+  "verification": {
+    "pytest_passed": 168,
+    "pytest_failed": 0,
+    "junit": "D:/codex-preservation/perfume-chem-20260909/inventory-integration-tests-final.xml",
+    "runtime_seconds": 13.72,
+    "python": "D:/chatbots/perfume-chem/.venv/Scripts/python.exe",
+    "source_cwd": "D:/chatbots/perfume-chem-integration-20260909",
+    "lint": "All checked files pass except baseline-existing E402 in engine/ingredient_intelligence.py; confirmed against HEAD",
+    "full_verifier": "NOT_RUN"
+  },
+  "authority": {
+    "merged": false,
+    "pushed": false,
+    "committed": false,
+    "formula_rebased": false,
+    "physical_compounding": false,
+    "release": false
+  },
+  "remaining": [
+    "Deep Plane variant reconciliation",
+    "Full project verification before release acceptance",
+    "Historical snapshot exclusions remain documented"
+  ]
+}

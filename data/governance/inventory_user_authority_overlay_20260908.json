@@ -1,0 +1,218 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v5",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-08",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260907.json",
+    "normalized_text_sha256": "4868678b5e742b309c929d4021530912630ef7ff172c6a7124a08baa07db7f77"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 22172,
+    "inventory_text_sha256": "0615da4d06418a7c58b9cfa6e387f7529c10dc8f97b9820862aaaf2ee811471b",
+    "confirmed_receipt": "data/governance/inventory_user_corrections_20260908_tinctures_lavender.json"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "unlisted_tinctures_available": false
+  },
+  "superseded_record_ids": [
+    "INV-USER-20260828-014",
+    "INV-USER-20260828-015",
+    "INV-USER-20260830-005"
+  ],
+  "records": [
+    {
+      "record_id": "INV-USER-20260908-001",
+      "canonical_name": "Turkish Storax Tincture",
+      "aliases": [
+        "Turkish Storax Liquidambar Orientalis resin ethanol tincture"
+      ],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {
+        "fraction": 0.2,
+        "fraction_basis": "unspecified",
+        "carrier": "ethanol",
+        "fraction_authority": "DIRECT_USER_DECLARED_TINCTURE_PERCENTAGE_BASIS_UNSPECIFIED",
+        "execution_ready": false,
+        "execution_scope": "AVAILABILITY_AND_DECLARED_LABEL_ONLY",
+        "execution_hold_reason": "TINCTURE_PERCENTAGE_BASIS_AND_EXTRACTED_SOLIDS_UNSPECIFIED"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 236
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 236,
+          "disposition": "OWNED",
+          "status": "HAVE - USER-CONFIRMED ETHANOL TINCTURE 2026-09-08",
+          "actual_stock_text": "Turkish Storax ethanol tincture 20%; percentage basis unspecified",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-08",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "source_summary": "Turkish Storax ethanol tincture 20% is owned; no percentage basis or extracted-solids assay supplied.",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "percentage_basis_confirmed": false,
+        "extracted_solids_assayed": false,
+        "density_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260908-002",
+      "canonical_name": "Vietnamese Benzoin Tincture",
+      "aliases": [
+        "Vietnamese Benzoin resin ethanol tincture"
+      ],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {
+        "fraction": 0.4,
+        "fraction_basis": "unspecified",
+        "carrier": "ethanol",
+        "fraction_authority": "DIRECT_USER_DECLARED_TINCTURE_PERCENTAGE_BASIS_UNSPECIFIED",
+        "execution_ready": false,
+        "execution_scope": "AVAILABILITY_AND_DECLARED_LABEL_ONLY",
+        "execution_hold_reason": "TINCTURE_PERCENTAGE_BASIS_AND_EXTRACTED_SOLIDS_UNSPECIFIED"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 222,
+          "fraction": 0.2
+        },
+        {
+          "source_row": 246
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 246,
+          "disposition": "OWNED",
+          "status": "HAVE - USER-CONFIRMED ETHANOL TINCTURE 2026-09-08",
+          "actual_stock_text": "Vietnamese Benzoin ethanol tincture 40%; percentage basis unspecified",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-08",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "source_summary": "Vietnamese Benzoin ethanol tincture 40% is owned; no percentage basis or extracted-solids assay supplied.",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "percentage_basis_confirmed": false,
+        "extracted_solids_assayed": false,
+        "density_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260908-003",
+      "canonical_name": "Kenyan Myrrh Ethanol Tincture",
+      "aliases": [
+        "Kenyan Myrrh resin ethanol tincture"
+      ],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {
+        "fraction": 0.2,
+        "fraction_basis": "unspecified",
+        "carrier": "ethanol",
+        "fraction_authority": "DIRECT_USER_DECLARED_TINCTURE_PERCENTAGE_BASIS_UNSPECIFIED",
+        "execution_ready": false,
+        "execution_scope": "AVAILABILITY_AND_DECLARED_LABEL_ONLY",
+        "execution_hold_reason": "TINCTURE_PERCENTAGE_BASIS_AND_EXTRACTED_SOLIDS_UNSPECIFIED"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-08",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "source_summary": "Kenyan Myrrh ethanol tincture 20% is owned; no percentage basis or extracted-solids assay supplied.",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "percentage_basis_confirmed": false,
+        "extracted_solids_assayed": false,
+        "density_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260908-004",
+      "canonical_name": "Oman Frankincense Ethanol Tincture",
+      "aliases": [
+        "Oman Frankincense resin ethanol tincture"
+      ],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {
+        "fraction": 0.33,
+        "fraction_basis": "unspecified",
+        "carrier": "ethanol",
+        "fraction_authority": "DIRECT_USER_DECLARED_TINCTURE_PERCENTAGE_BASIS_UNSPECIFIED",
+        "execution_ready": false,
+        "execution_scope": "AVAILABILITY_AND_DECLARED_LABEL_ONLY",
+        "execution_hold_reason": "TINCTURE_PERCENTAGE_BASIS_AND_EXTRACTED_SOLIDS_UNSPECIFIED"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-08",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "source_summary": "Oman Frankincense ethanol tincture 33% is owned; no percentage basis or extracted-solids assay supplied.",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "percentage_basis_confirmed": false,
+        "extracted_solids_assayed": false,
+        "density_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260908-005",
+      "canonical_name": "Lavender EO High Altitude",
+      "aliases": [
+        "Lavender EO High Altitude (angustifolia, France)",
+        "Lavender HA EO"
+      ],
+      "state": "NOT_OWNED",
+      "category": "spice_aromatic",
+      "stock": null,
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 156
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 156,
+          "disposition": "GAP",
+          "status": "NOT OWNED - USER REMOVED FROM CURRENT INVENTORY 2026-09-08",
+          "actual_stock_text": "",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-08",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "source_summary": "User requested removal of Lavender High Altitude from the Perfume-Chem inventory. Other lavender labels are outside this correction."
+    }
+  ]
+}

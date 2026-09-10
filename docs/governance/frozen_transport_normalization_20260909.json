@@ -1,0 +1,113 @@
+{
+  "transform": "CRLF_TO_LF_ONLY_MATCH_EXISTING_PIN",
+  "files": [
+    {
+      "path": "tests/fixtures/formulation_intelligence_benchmark_v1.json",
+      "sha256": "c4b2de9175190edb5fface44305168a49889a36aecc6a8375c7d6b2175c76ca7"
+    },
+    {
+      "path": "tests/fixtures/complexity_module_retest_cases_v1.json",
+      "sha256": "8bfd37a65621e02320d46ba65202228a32abf12f34a7a5af4efe13f34a8e12f5"
+    },
+    {
+      "path": "tests/fixtures/complexity_module_retest_cases_v1.sha256",
+      "sha256": "eae25b1d3e77b6736b91e0a347297fe495b94f325894a1fe905a08a0ca0b9fbb"
+    },
+    {
+      "path": "tests/fixtures/complexity_module_retest_cases_v2.json",
+      "sha256": "f33fe7f78fdc604087c9ef2f421e0d336c8c57ce0cc84a8128dcea879dab7b42"
+    },
+    {
+      "path": "tests/fixtures/complexity_module_retest_cases_v2.sha256",
+      "sha256": "d08ecd4dc81fc0e7be07d664bd7755a1bc48de0a1ae82a24db0344e0e1e38580"
+    },
+    {
+      "path": "configs/complexity/complexity_module_registry_v1.json",
+      "sha256": "7567f3ca00ccbf3e1b2b41f50645ed21f4d163612872b8449db6cc022818c639"
+    },
+    {
+      "path": "data/governance/complexity_decision_card_candidate_freeze_20260822.json",
+      "sha256": "05a8d00c348c5c1309aa6f33cae1ab5f565b4d5a074485f972dfb6b34c84c5ab"
+    },
+    {
+      "path": "data/governance/complexity_decision_card_candidate_freeze_20260823_v2.json",
+      "sha256": "4ed30b808deb6879c786775b0168f9502b3c745b08e55d6413b42821aa50058e"
+    },
+    {
+      "path": "data/governance/complexity_inventory_catalog_v1.json",
+      "sha256": "bdc3904b97cefc4bad34e0914c706455d50d383f331587385e9eb35539b1b037"
+    },
+    {
+      "path": "data/governance/complexity_xhigh_benchmark_CXB-20260822T144500Z-v2-7f31c0a2.json",
+      "sha256": "d894c520cdee591f56b3cb81f308599a3b02ee5315229feb9a2d7b95477d6b2f"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-08-22-complexity-decision-cards-recovery.md",
+      "sha256": "12c930c5d5027a75268f054f6b350c4a7e12024c8afcb4e8849b42a578b61676"
+    },
+    {
+      "path": "docs/superpowers/specs/2026-08-22-complexity-decision-cards-recovery-design.md",
+      "sha256": "147e11bd28108152a76a21a4c9439dc9ac64cf26bae13492d53a3c92b2367ff3"
+    },
+    {
+      "path": "engine/perception/citrus_selection.py",
+      "sha256": "bdeacf985bc8ea6bdc64dbef5712620239046c177bc1ebd1ba17519b89f1464c"
+    },
+    {
+      "path": "engine/perception/complexity_decision_cards.py",
+      "sha256": "3eb56d50877db7a2ca295a3a3be462175a509d38ee6ac56131420e79624b1a7d"
+    },
+    {
+      "path": "engine/perception/complexity_expansion.py",
+      "sha256": "69b0e2a38f33545efa94e8e3a832091a2ce72d9496b9b211edcd60c0c8afb54e"
+    },
+    {
+      "path": "engine/perception/complexity_inventory.py",
+      "sha256": "fc161370b129183237a769246911177a97a8e61439cc10106734eefafc3f033f"
+    },
+    {
+      "path": "engine/perception/complexity_module_retest.py",
+      "sha256": "0604971cdf86c4ec41540d57efb220b1191abeaedd684444477a980f876e2d9d"
+    },
+    {
+      "path": "engine/perception/construction_complexity.py",
+      "sha256": "f8dd92ae5da1a9aa409ed27ad2e5e789874f32bc77a156e28a65870dae871ab1"
+    },
+    {
+      "path": "engine/perception/musk_design.py",
+      "sha256": "ed34dc12790795d83e9f612bf1982b23cb34e9bf226bd13d1268d2226c35f23a"
+    },
+    {
+      "path": "engine/physics/model_lifecycle.py",
+      "sha256": "c320593f3e1bea8dd16014794e32ca5adffd557effb749f82193d487988acaaf"
+    },
+    {
+      "path": "engine/scientific_validation/complexity_design_contracts.py",
+      "sha256": "ef905b8adb6c7c8bdf02372c56040295054fdbeb4dcfe39c3410cb09390ae968"
+    },
+    {
+      "path": "engine/scientific_validation/complexity_model_admission.py",
+      "sha256": "484a0d3902eb96b946f9b3e566d3caa1083187655f12ed456942c9353e0a3710"
+    },
+    {
+      "path": "engine/sensory/order_balance.py",
+      "sha256": "fe71999d09c7d2366f2ba7c6f27718ba04282435125fd37a02a06051dba5807c"
+    },
+    {
+      "path": "engine/sensory/panel_contract.py",
+      "sha256": "418ecf7f42454ba335c8113487570458fb81210db016cfe778abce72955898cc"
+    },
+    {
+      "path": "engine/sensory/temporal_observations.py",
+      "sha256": "e730484f30ecbab428e02d31042649990db46b389d0da6bbfa13e93a6006770b"
+    },
+    {
+      "path": "engine/sensory/within_sniff.py",
+      "sha256": "2ac737b87a3a9e237647b4f2bd7fe4601c5634926d7267c240c606726b269caa"
+    },
+    {
+      "path": "tests/test_complexity_inventory.py",
+      "sha256": "22d8e9d823e31bd06be46e1f1d38aad0e8eb2cd15d99dbc95a176f002fd77940"
+    }
+  ]
+}

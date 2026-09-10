@@ -32,6 +32,10 @@ from engine.domain_errors import ReconstructionInputError
 _WW_PCT_RE = re.compile(r"^(\d+(?:\.\d+)?)\s*%\s+(?:w/w|\(w/w\))$", re.IGNORECASE)
 _VV_PCT_RE = re.compile(r"^(\d+(?:\.\d+)?)\s*%\s+(?:v/v|\(v/v\))$", re.IGNORECASE)
 _WV_PCT_RE = re.compile(r"^(\d+(?:\.\d+)?)\s*%\s+(?:w/v|\(w/v\))$", re.IGNORECASE)
+_PCT_BASIS_IN_CARRIER_RE = re.compile(
+    r"^(\d+(?:\.\d+)?)\s*%\s*(?:\(\s*(w/w|v/v|w/v)\s*\)|(w/w|v/v|w/v))\s+in\s+([A-Za-z\s/-]+)$",
+    re.IGNORECASE,
+)
 _PCT_IN_CARRIER_RE = re.compile(r"^(\d+(?:\.\d+)?)\s*%\s*in\s+([A-Za-z\s/-]+)$")
 _PCT_RE = re.compile(r"^(\d+(?:\.\d+)?)\s*%\s*$")
 
@@ -244,6 +248,21 @@ def parse_concentration(raw: str, *, strict: bool = True) -> Concentration:
 
     if lower in ("neat", "pure", "undiluted", "100%"):
         return Concentration(1.0, ConcentrationBasis.WEIGHT_WEIGHT, raw_input=raw)
+
+    explicit_carrier_match = _PCT_BASIS_IN_CARRIER_RE.search(lower)
+    if explicit_carrier_match:
+        basis_by_label = {
+            "w/w": ConcentrationBasis.WEIGHT_WEIGHT,
+            "v/v": ConcentrationBasis.VOLUME_VOLUME,
+            "w/v": ConcentrationBasis.WEIGHT_VOLUME,
+        }
+        basis_label = explicit_carrier_match.group(2) or explicit_carrier_match.group(3)
+        return Concentration(
+            float(explicit_carrier_match.group(1)) / 100.0,
+            basis_by_label[basis_label.lower()],
+            carrier=_normalize_carrier(explicit_carrier_match.group(4)),
+            raw_input=raw,
+        )
 
     carrier_match = _PCT_IN_CARRIER_RE.search(lower)
     if carrier_match:

@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "as_of_date": "2026-08-09",
+  "authority": "IDENTITY_LABEL_ONLY",
+  "source": {
+    "inventory_path": "inventory.txt",
+    "inventory_sha256": "DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC",
+    "registry_path": "data/materials",
+    "lookup_contract": "MaterialRegistry.get(record.name): exact Unicode casefold over canonical names and aliases"
+  },
+  "promotion_boundary": [
+    "A RESOLVED entry authorizes only exact label-to-existing-record lookup.",
+    "It does not authorize or revise chemistry, physical properties, ODT, OAV, IFRA, natural composition, stock quantity, formula dose, or database authority.",
+    "An UNKNOWN entry must remain unresolved until direct supplier-product or equivalent identity evidence is recorded."
+  ],
+  "summary": {
+    "owned_inventory_records": 235,
+    "original_exact_registry_matches": 221,
+    "original_gaps": 14,
+    "resolved": 13,
+    "unknown": 1
+  },
+  "entries": [
+    {
+      "inventory_label": "Hexyl Acetate 1%",
+      "status": "RESOLVED",
+      "canonical_name": "Hexyl Acetate",
+      "decision_basis": "The inventory explicitly identifies a 1% stock of Hexyl Acetate and notes that the 10% stock already exists; dilution is stock metadata."
+    },
+    {
+      "inventory_label": "Helional 10% v/v",
+      "status": "RESOLVED",
+      "canonical_name": "Helional",
+      "decision_basis": "The inventory explicitly identifies a 10% v/v stock of Helional and separately records neat Helional; dilution is stock metadata."
+    },
+    {
+      "inventory_label": "PADMA",
+      "status": "RESOLVED",
+      "canonical_name": "Phenyl Acetaldehyde Dimethyl Acetal (padma)",
+      "decision_basis": "The inventory expands PADMA as Phenylacetaldehyde Dimethyl Acetal, matching the dedicated PADMA data-spine record."
+    },
+    {
+      "inventory_label": "Cinnamyl alcohol 50% in DPG",
+      "status": "RESOLVED",
+      "canonical_name": "Cinnamyl Alcohol",
+      "decision_basis": "The label names Cinnamyl alcohol directly; 50% in DPG is stock preparation metadata."
+    },
+    {
+      "inventory_label": "p-Cresyl Methyl Ether (PCME)",
+      "status": "RESOLVED",
+      "canonical_name": "Para-Cresyl Methyl Ether",
+      "decision_basis": "The p- prefix and PCME expansion identify Para-Cresyl Methyl Ether; the trailing 10% inventory preparation is stock metadata."
+    },
+    {
+      "inventory_label": "Tuberose Base",
+      "status": "UNKNOWN",
+      "canonical_name": null,
+      "decision_basis": "The data spine contains Tuberlia Base but no direct supplier-product, lot, CAS, or other identity evidence proves that Tuberose Base is the same trade base. Similar odor naming is insufficient."
+    },
+    {
+      "inventory_label": "Cypress EO",
+      "status": "RESOLVED",
+      "canonical_name": "Cypress Essential Oil",
+      "decision_basis": "EO expands to essential oil, and the inventory identifies Cupressus sempervirens rather than Cypress Absolute."
+    },
+    {
+      "inventory_label": "Cabreuva EO",
+      "status": "RESOLVED",
+      "canonical_name": "Cabreuva Essential Oil",
+      "decision_basis": "EO expands to essential oil, and the inventory identifies Myrocarpus fastigiatus with 50% w/w DPG as stock metadata."
+    },
+    {
+      "inventory_label": "Anisaldehyde 10%",
+      "status": "RESOLVED",
+      "canonical_name": "Anisaldehyde",
+      "decision_basis": "The inventory explicitly identifies a 10% stock of Anisaldehyde and notes that neat Anisaldehyde already exists."
+    },
+    {
+      "inventory_label": "Ethyl Maltol 1%",
+      "status": "RESOLVED",
+      "canonical_name": "Ethyl Maltol",
+      "decision_basis": "The inventory explicitly identifies a 1% stock of Ethyl Maltol and separately records a 10% stock; dilution is stock metadata."
+    },
+    {
+      "inventory_label": "Vietnamese Benzoin Styrax Tonkinensis resin ethanol tincture",
+      "status": "RESOLVED",
+      "canonical_name": "Vietnamese Benzoin Styrax Tonkinensis Tincture 20%",
+      "decision_basis": "The inventory specifies Styrax tonkinensis, Vietnamese origin, ethanol tincture, and 20%; these match the dedicated tincture record."
+    },
+    {
+      "inventory_label": "Turkish Storax Liquidambar Orientalis resin ethanol tincture",
+      "status": "RESOLVED",
+      "canonical_name": "Turkish Storax Tincture 20%",
+      "decision_basis": "The inventory specifies Turkish storax, Liquidambar orientalis, ethanol tincture, and 20%; these match the dedicated tincture record."
+    },
+    {
+      "inventory_label": "Aldehyde C-18",
+      "status": "RESOLVED",
+      "canonical_name": "Aldehyde C-18 Gamma Nonalactone",
+      "decision_basis": "Both inventory stock rows explicitly expand Aldehyde C-18 as Gamma Nonalactone; stock strength does not change the material identity."
+    },
+    {
+      "inventory_label": "Caraway Seed Oil",
+      "status": "RESOLVED",
+      "canonical_name": "Caraway Seed Essential Oil",
+      "decision_basis": "The inventory identifies Carum carvi seed oil; Essential Oil is the dedicated data-spine naming, while 10% w/w in DPG is stock metadata."
+    }
+  ]
+}

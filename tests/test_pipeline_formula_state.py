@@ -1,4 +1,38 @@
+import pytest
+
+from engine.material_resolver import resolve_material
 from engine.pipeline.formula_state import build_formula_state
+
+
+@pytest.mark.parametrize("label,identity,fraction", [
+    ("Anisaldehyde 10%", "Anisaldehyde", 0.1),
+    ("Ethyl Maltol 1%", "Ethyl Maltol", 0.01),
+    ("Helional 10% v/v", "Helional", 0.1),
+    ("Hexyl Acetate 1%", "Hexyl Acetate", 0.01),
+])
+def test_registered_stock_alias_reuses_identity_data_without_dose_authority(
+    label, identity, fraction,
+):
+    stock = build_formula_state({label: 10.0}, {label: fraction}).materials[0]
+    plain = build_formula_state({identity: 10.0}, {identity: fraction}).materials[0]
+    assert resolve_material(label).registry_name == identity
+    assert resolve_material(label).profile is not None
+    assert stock.name == label
+    assert stock.raw_ul == 10.0
+    assert stock.dilution == fraction
+    assert stock.odt_air_ppm == plain.odt_air_ppm
+    assert stock.odt_air_ppm is not None
+    assert stock.oav == pytest.approx(plain.oav)
+    assert stock.authoritative_active_g is None
+    assert stock.active_mass_authority.startswith("unavailable:")
+
+
+def test_unregistered_stock_like_label_is_not_guessed():
+    label = "Unregistered invented substance 10%"
+    assert resolve_material(label).is_known is False
+    stock = build_formula_state({label: 10.0}, {label: 0.1}).materials[0]
+    assert stock.oav is None
+    assert stock.authoritative_active_g is None
 
 
 def test_formula_state_preserves_raw_and_active_dose():

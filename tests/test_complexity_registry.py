@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from engine.perception.complexity_registry import (
+    CURRENT_REGISTRY_PATH,
     ModuleState,
     census_complexity_artifacts,
     load_complexity_registry,
@@ -114,11 +115,11 @@ def test_failed_benchmark_families_are_recoverably_retired() -> None:
 
 
 def test_repository_census_has_exactly_one_classification_per_finding() -> None:
-    registry = load_complexity_registry(PROJECT_ROOT, REGISTRY_PATH)
+    registry = load_complexity_registry(PROJECT_ROOT, PROJECT_ROOT / CURRENT_REGISTRY_PATH)
     result = census_complexity_artifacts(PROJECT_ROOT, registry)
     assert result.multiply_classified == ()
     assert result.unclassified == ()
-    assert result.state == "PASS"
+    assert result.state == "PASS", result.as_dict()
 
 
 def test_registry_rejects_paths_outside_the_project(tmp_path: Path) -> None:
@@ -150,3 +151,86 @@ def test_registry_rejects_paths_outside_the_project(tmp_path: Path) -> None:
     )
     with pytest.raises(ValueError, match="repository-relative"):
         load_complexity_registry(tmp_path, registry_path)
+
+
+def _write_overlay_fixture(root: Path):
+    _write_registry_fixture(root)
+    base = root / "registry.json"
+    module = root / "future_modules/new_complexity.py"
+    module.parent.mkdir(parents=True)
+    module.write_text("raise AssertionError('census must not import candidates')\n", encoding="utf-8")
+    payload = {
+        "schema_version": "complexity_module_registry_overlay_v1",
+        "base_registry": "registry.json",
+        "base_registry_sha256": hashlib.sha256(base.read_bytes()).hexdigest(),
+        "module_additions": [{
+            "module_id": "new-complexity", "family_id": "new-complexity",
+            "role": "CAPABILITY", "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+            "path": "future_modules/new_complexity.py", "import_path": None,
+            "sha256": hashlib.sha256(module.read_bytes()).hexdigest(), "evidence_refs": [],
+        }],
+    }
+    return base, root / "overlay.json", payload
+
+
+def test_overlay_classifies_without_mutating_or_promoting_base(tmp_path):
+    base, overlay, payload = _write_overlay_fixture(tmp_path)
+    original = base.read_bytes()
+    overlay.write_text(json.dumps(payload), encoding="utf-8")
+    registry = load_complexity_registry(tmp_path, overlay)
+    assert registry.schema_version == "complexity_module_registry_overlay_v1"
+    assert census_complexity_artifacts(tmp_path, registry).state == "PASS"
+    assert base.read_bytes() == original
+    candidate = registry.module_by_id("new-complexity")
+    assert candidate.import_path is None
+    assert candidate.runtime_eligible is False
+    (tmp_path / candidate.path).write_text("CHANGED = True\n", encoding="utf-8")
+    census = census_complexity_artifacts(tmp_path, registry)
+    assert census.state == "HOLD"
+    assert census.hash_drift == (candidate.path,)
+
+
+@pytest.mark.parametrize("mutation", [
+    "base_hash", "base_path", "runtime_state", "import", "duplicate_id", "duplicate_path",
+    "addition_path", "override", "empty", "unknown_field",
+])
+def test_overlay_rejects_drift_activation_and_overrides(tmp_path, mutation):
+    _, overlay, payload = _write_overlay_fixture(tmp_path)
+    row = payload["module_additions"][0]
+    if mutation == "base_hash":
+        payload["base_registry_sha256"] = "0" * 64
+    elif mutation == "base_path":
+        payload["base_registry"] = "../outside.json"
+    elif mutation == "runtime_state":
+        row["state"] = "ACTIVE_CANDIDATE"
+    elif mutation == "import":
+        row["import_path"] = "future_modules.new_complexity"
+    elif mutation == "duplicate_id":
+        row["module_id"] = "construction-profile"
+    elif mutation == "duplicate_path":
+        row["path"] = "engine/perception/construction_complexity.py"
+    elif mutation == "addition_path":
+        row["path"] = "../outside.py"
+    elif mutation == "empty":
+        payload["module_additions"] = []
+    elif mutation == "override":
+        payload["module_overrides"] = []
+    else:
+        row["release_authority"] = True
+    overlay.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(ValueError):
+        load_complexity_registry(tmp_path, overlay)
+
+
+def test_current_overlay_preserves_exact_frozen_registry():
+    frozen = REGISTRY_PATH.read_bytes()
+    assert hashlib.sha256(frozen).hexdigest() == (
+        "7567f3ca00ccbf3e1b2b41f50645ed21f4d163612872b8449db6cc022818c639"
+    )
+    base = load_complexity_registry(PROJECT_ROOT, REGISTRY_PATH)
+    current = load_complexity_registry(PROJECT_ROOT, PROJECT_ROOT / CURRENT_REGISTRY_PATH)
+    assert current.modules[:len(base.modules)] == base.modules
+    assert all(not module.runtime_eligible for module in current.modules[len(base.modules):])
+    assert current.artifact_rules == base.artifact_rules
+    assert current.dismissal_rules == base.dismissal_rules
+    assert REGISTRY_PATH.read_bytes() == frozen

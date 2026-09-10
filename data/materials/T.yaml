@@ -4145,7 +4145,10 @@
   character: 'tuberose-creamy captive base (product basis)'
   notes: "material intake batch 2026-08-07"
 - canonical_name: 'Turkish Storax Tincture 20%'
-  aliases: ['turkish storax', 'storax tincture']
+  aliases:
+  - "turkish storax"
+  - "storax tincture"
+  - "Turkish Storax Liquidambar Orientalis resin ethanol tincture"
   cas: None
   smiles: null
   inchikey: null

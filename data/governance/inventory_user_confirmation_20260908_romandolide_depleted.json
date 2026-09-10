@@ -1,0 +1,18 @@
+{
+  "schema_version": "perfume_chem_direct_stock_depletion_receipt_v1",
+  "effective_date": "2026-09-08",
+  "source_kind": "DIRECT_USER_MESSAGE",
+  "verbatim_user_message": "im out of romandolide",
+  "canonical_name": "Romandolide",
+  "disposition": "DEPLETED",
+  "retired_stock_id": "inventory:v5:caba57d5d5c78d414d5c",
+  "retired_source_row": 211,
+  "retired_stock_fraction": 1.0,
+  "prior_ownership_is_historical": true,
+  "authority_limits": {
+    "new_stock_or_substitute_confirmed": false,
+    "density_or_assay_asserted": false,
+    "physical_compounding_performed": false,
+    "safety_or_release_asserted": false
+  }
+}

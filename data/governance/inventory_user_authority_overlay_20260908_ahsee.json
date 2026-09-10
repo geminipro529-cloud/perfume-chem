@@ -1,0 +1,460 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v6",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-08",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260908.json",
+    "normalized_text_sha256": "1e5d1cedeeeaa7adef9116f8e4896b5e3e68e10f817fd0ce0338c30187548419"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 23705,
+    "inventory_text_sha256": "216bd300c709b453d9e9786bf8cfff1c6a62aca65203013b47782891d9f3269c",
+    "confirmed_receipt": "data/governance/inventory_user_confirmation_20260908_ahsee_stocks.json",
+    "confirmed_receipt_sha256": "08f165d17c3128256a4d98b3eed0762aceb5df8fb4dc728608b96355cc37afec"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "bind_only_source_declared_stock_facts": true,
+    "stock_solution_density_assumed": false,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [],
+  "records": [
+    {
+      "record_id": "INV-USER-20260908-AHSEE-001",
+      "canonical_name": "Phenyl Ethyl Dimethyl Carbinol",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "air_floral",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "DIRECT_USER_NEAT_CONFIRMATION",
+        "density_g_ml": null,
+        "execution_ready": true,
+        "execution_scope": "DECLARED_RAW_STOCK_TRANSFER_BINDING_ONLY",
+        "execution_hold_reason": "",
+        "phase": "USER_CONFIRMED_CLEAR_LIQUID"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-08",
+      "source_kind": "DIRECT_USER_NEAT_CONFIRMATION",
+      "evidence_refs": [
+        "PEDMC_NEAT_20260907",
+        "PREPARATIONS_AND_PEDMC_PHASE_20260908"
+      ],
+      "authority_limits": {
+        "density_asserted": false,
+        "assay_asserted": false,
+        "exact_active_mass_from_raw_volume_authorized": false,
+        "physical_dose_performed": false,
+        "formula_rebase_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260908-AHSEE-002",
+      "canonical_name": "Neroli EO",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "air_floral",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "volume_fraction",
+        "carrier": "ethanol",
+        "fraction_authority": "DIRECT_USER_PREPARED_STOCK_CONFIRMATION",
+        "density_g_ml": null,
+        "execution_ready": true,
+        "execution_scope": "DECLARED_RAW_STOCK_TRANSFER_BINDING_ONLY",
+        "execution_hold_reason": ""
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-08",
+      "source_kind": "DIRECT_USER_PREPARED_STOCK_CONFIRMATION",
+      "evidence_refs": [
+        "PREPARATIONS_AND_PEDMC_PHASE_20260908"
+      ],
+      "authority_limits": {
+        "density_asserted": false,
+        "assay_asserted": false,
+        "exact_active_mass_from_raw_volume_authorized": false,
+        "physical_dose_performed": false,
+        "formula_rebase_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260908-AHSEE-003",
+      "canonical_name": "Peppermint EO",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "mint_aromatic",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "volume_fraction",
+        "carrier": "ethanol",
+        "fraction_authority": "DIRECT_USER_PREPARED_STOCK_CONFIRMATION",
+        "density_g_ml": null,
+        "execution_ready": true,
+        "execution_scope": "DECLARED_RAW_STOCK_TRANSFER_BINDING_ONLY",
+        "execution_hold_reason": ""
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-08",
+      "source_kind": "DIRECT_USER_PREPARED_STOCK_CONFIRMATION",
+      "evidence_refs": [
+        "PREPARATIONS_AND_PEDMC_PHASE_20260908"
+      ],
+      "authority_limits": {
+        "density_asserted": false,
+        "assay_asserted": false,
+        "exact_active_mass_from_raw_volume_authorized": false,
+        "physical_dose_performed": false,
+        "formula_rebase_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260908-AHSEE-004",
+      "canonical_name": "Lilyreal ND",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "air_floral",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "USER_REPORTED_AS_SUPPLIED_PRODUCT_TRANSFER",
+        "density_g_ml": null,
+        "execution_ready": true,
+        "execution_scope": "DECLARED_RAW_STOCK_TRANSFER_BINDING_ONLY",
+        "execution_hold_reason": "",
+        "fraction_meaning": "UNDILUTED_SUPPLIED_PRODUCT_NOT_IDENTIFIED_ODORANT_PURITY",
+        "material_kind": "OPAQUE_PREBLEND",
+        "constituent_fractions": null,
+        "monomolecular_oav_authority": false
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 160,
+          "disposition": "OWNED",
+          "status": "HAVE - SOURCE-DECLARED CURRENT STOCK",
+          "actual_stock_text": "undiluted supplied product; no constituent purity inferred",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-08",
+      "source_kind": "USER_REPORTED_AS_SUPPLIED_PRODUCT_TRANSFER",
+      "evidence_refs": [
+        "AHS_LILYREAL_USER_TRANSFER_20260907"
+      ],
+      "authority_limits": {
+        "density_asserted": false,
+        "assay_asserted": false,
+        "exact_active_mass_from_raw_volume_authorized": false,
+        "physical_dose_performed": false,
+        "formula_rebase_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260908-AHSEE-005",
+      "canonical_name": "Nympheal",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "air_floral",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "USER_REPORTED_NEAT_AS_SUPPLIED_TRANSFER",
+        "density_g_ml": null,
+        "execution_ready": true,
+        "execution_scope": "DECLARED_RAW_STOCK_TRANSFER_BINDING_ONLY",
+        "execution_hold_reason": ""
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 185,
+          "disposition": "OWNED",
+          "status": "HAVE - SOURCE-DECLARED CURRENT STOCK",
+          "actual_stock_text": "neat/as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-08",
+      "source_kind": "USER_REPORTED_NEAT_AS_SUPPLIED_TRANSFER",
+      "evidence_refs": [
+        "AHS_NYMPHEAL_USER_TRANSFER_20260907"
+      ],
+      "authority_limits": {
+        "density_asserted": false,
+        "assay_asserted": false,
+        "exact_active_mass_from_raw_volume_authorized": false,
+        "physical_dose_performed": false,
+        "formula_rebase_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260908-AHSEE-006",
+      "canonical_name": "Lavender EO (BONTAUX SAS)",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "aromatic_top",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "BARE_INVENTORY_ROW_NEAT_CONVENTION_NOT_DIRECT_NEAT_QUOTE",
+        "density_g_ml": null,
+        "execution_ready": true,
+        "execution_scope": "DECLARED_RAW_STOCK_TRANSFER_BINDING_ONLY",
+        "execution_hold_reason": ""
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-08",
+      "source_kind": "BARE_INVENTORY_ROW_NEAT_CONVENTION_NOT_DIRECT_NEAT_QUOTE",
+      "evidence_refs": [
+        "BONTAX_CURRENT_INVENTORY_BARE_ROW"
+      ],
+      "authority_limits": {
+        "density_asserted": false,
+        "assay_asserted": false,
+        "exact_active_mass_from_raw_volume_authorized": false,
+        "physical_dose_performed": false,
+        "formula_rebase_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260908-AHSEE-007",
+      "canonical_name": "Tonka Bean Absolute",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "volume_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "USER_NOMINAL_VOLUMETRIC_CONVENTION_NOT_MEASURED_STOCK_DENSITY",
+        "density_g_ml": null,
+        "execution_ready": true,
+        "execution_scope": "DECLARED_RAW_STOCK_TRANSFER_BINDING_ONLY",
+        "execution_hold_reason": ""
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 232,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 232,
+          "disposition": "OWNED",
+          "status": "HAVE - SOURCE-DECLARED CURRENT STOCK",
+          "actual_stock_text": "10% nominal v/v in dpg",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-08",
+      "source_kind": "USER_NOMINAL_VOLUMETRIC_CONVENTION_NOT_MEASURED_STOCK_DENSITY",
+      "evidence_refs": [
+        "NOMINAL_VOLUME_CONVENTION",
+        "TONKA_CURRENT_INVENTORY_DPG"
+      ],
+      "authority_limits": {
+        "density_asserted": false,
+        "assay_asserted": false,
+        "exact_active_mass_from_raw_volume_authorized": false,
+        "physical_dose_performed": false,
+        "formula_rebase_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260908-AHSEE-008",
+      "canonical_name": "Vanillin",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "volume_fraction",
+        "carrier": "ethanol",
+        "fraction_authority": "USER_NOMINAL_VOLUMETRIC_CONVENTION_NOT_MEASURED_STOCK_DENSITY",
+        "density_g_ml": null,
+        "execution_ready": true,
+        "execution_scope": "DECLARED_RAW_STOCK_TRANSFER_BINDING_ONLY",
+        "execution_hold_reason": ""
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 239,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 239,
+          "disposition": "OWNED",
+          "status": "HAVE - SOURCE-DECLARED CURRENT STOCK",
+          "actual_stock_text": "10% nominal v/v in ethanol",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-08",
+      "source_kind": "USER_NOMINAL_VOLUMETRIC_CONVENTION_NOT_MEASURED_STOCK_DENSITY",
+      "evidence_refs": [
+        "NOMINAL_VOLUME_CONVENTION",
+        "UNKNOWN_CARRIER_ETHANOL_DEFAULT",
+        "VANILLIN_CURRENT_INVENTORY"
+      ],
+      "authority_limits": {
+        "density_asserted": false,
+        "assay_asserted": false,
+        "exact_active_mass_from_raw_volume_authorized": false,
+        "physical_dose_performed": false,
+        "formula_rebase_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260908-AHSEE-009",
+      "canonical_name": "Aldehyde C10",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "citrus_top",
+      "stock": {
+        "fraction": 0.01,
+        "fraction_basis": "volume_fraction",
+        "carrier": "ethanol",
+        "fraction_authority": "USER_NOMINAL_VOLUMETRIC_CONVENTION_NOT_MEASURED_STOCK_DENSITY",
+        "density_g_ml": null,
+        "execution_ready": true,
+        "execution_scope": "DECLARED_RAW_STOCK_TRANSFER_BINDING_ONLY",
+        "execution_hold_reason": ""
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 9,
+          "fraction": 0.01
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 9,
+          "disposition": "OWNED",
+          "status": "HAVE - SOURCE-DECLARED CURRENT STOCK",
+          "actual_stock_text": "1% nominal v/v in ethanol",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-08",
+      "source_kind": "USER_NOMINAL_VOLUMETRIC_CONVENTION_NOT_MEASURED_STOCK_DENSITY",
+      "evidence_refs": [
+        "NOMINAL_VOLUME_CONVENTION",
+        "UNKNOWN_CARRIER_ETHANOL_DEFAULT",
+        "C10_CURRENT_INVENTORY"
+      ],
+      "authority_limits": {
+        "density_asserted": false,
+        "assay_asserted": false,
+        "exact_active_mass_from_raw_volume_authorized": false,
+        "physical_dose_performed": false,
+        "formula_rebase_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260908-AHSEE-010",
+      "canonical_name": "Aldehyde C12 MNA",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "citrus_top",
+      "stock": {
+        "fraction": 0.01,
+        "fraction_basis": "volume_fraction",
+        "carrier": "ethanol",
+        "fraction_authority": "USER_NOMINAL_VOLUMETRIC_CONVENTION_NOT_MEASURED_STOCK_DENSITY",
+        "density_g_ml": null,
+        "execution_ready": true,
+        "execution_scope": "DECLARED_RAW_STOCK_TRANSFER_BINDING_ONLY",
+        "execution_hold_reason": ""
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 13,
+          "fraction": 0.01
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 13,
+          "disposition": "OWNED",
+          "status": "HAVE - SOURCE-DECLARED CURRENT STOCK",
+          "actual_stock_text": "1% nominal v/v in ethanol",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-08",
+      "source_kind": "USER_NOMINAL_VOLUMETRIC_CONVENTION_NOT_MEASURED_STOCK_DENSITY",
+      "evidence_refs": [
+        "NOMINAL_VOLUME_CONVENTION",
+        "UNKNOWN_CARRIER_ETHANOL_DEFAULT",
+        "C12_CURRENT_INVENTORY"
+      ],
+      "authority_limits": {
+        "density_asserted": false,
+        "assay_asserted": false,
+        "exact_active_mass_from_raw_volume_authorized": false,
+        "physical_dose_performed": false,
+        "formula_rebase_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_authorized": false
+      }
+    }
+  ]
+}

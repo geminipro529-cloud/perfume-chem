@@ -1,0 +1,50 @@
+{
+  "schema": "deep-plane-opt-in-checkpoint-v1",
+  "worktree": "D:/chatbots/perfume-chem-integration-20260909",
+  "status": "OPT_IN_CONNECTION_VERIFIED_DEFAULT_DISABLED",
+  "files": [
+    {
+      "path": "engine/pipeline/gates.py",
+      "sha256": "193B40020DE5FC6AD759944129630FAAD7E190C3F29CDEC69E19164D45D01D7E"
+    },
+    {
+      "path": "engine/pipeline/simulator.py",
+      "sha256": "7EDBBF13EA70A2DBD0384F6DD8F152D0975F75C1509757BE485B3939C1EA3CEF"
+    },
+    {
+      "path": "engine/formulation_intelligence/deep_plane_diagnostics.py",
+      "sha256": "26F42FB99940B7DC48740B391A5B5975609254B4404F585640B48B7F3D6BA502"
+    },
+    {
+      "path": "tests/test_deep_plane_pipeline_integration.py",
+      "sha256": "228E7A0741BDA094DC8699E7F56FCDC40C2CF36F4F9E0613961D3B1CD78CD123"
+    },
+    {
+      "path": "tests/test_deep_plane_diagnostics.py",
+      "sha256": "DE8BE1E7DE25796A60118CEF7C3C49F41589A08334E6759CC62EF7AA28297F1C"
+    },
+    {
+      "path": "engine/formulation_intelligence/deep_plane_runtime.py",
+      "sha256": "BDE1BFE2AA2EAC318E1F5851E9DA07E3FC5C2C7EF9887F7DF170936C81A7B99A"
+    }
+  ],
+  "tests": "255",
+  "failures": "0",
+  "errors": "0",
+  "skipped": "0",
+  "verification": {
+    "pytest_seconds": 38.31,
+    "ruff": "PASS",
+    "diff_check": "PASS",
+    "inventory_checkpoint_files": 42,
+    "inventory_checkpoint_mismatches": 0,
+    "junit": "D:/codex-preservation/perfume-chem-20260909/deep-plane-opt-in-final.xml",
+    "full_verifier": "NOT_RUN"
+  },
+  "authority": {
+    "default_enabled": false,
+    "production_admitted": false,
+    "release_approved": false,
+    "published": false
+  }
+}

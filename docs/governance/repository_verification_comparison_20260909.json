@@ -1,0 +1,572 @@
+{
+  "schema": "integration-full-verification-comparison-v1",
+  "date": "2026-09-09",
+  "integration_worktree": "D:/chatbots/perfume-chem-integration-20260909",
+  "baseline_worktree": "D:/chatbots/perfume-chem-verification-baseline-20260909",
+  "baseline_commit": "45cd79cd01b6ac30c8acc5f2875bc272e1f3e488",
+  "completion_gate": "FAIL",
+  "reports": [
+    {
+      "path": "output/verification/deep-plane-integration-quick-20260909.json",
+      "sha256": "C5E7FFF8209D96DA971142367B17D11125DF816B5E0918C2B465A8264CA30A93",
+      "completion_gate": "FAIL",
+      "scope": "partial",
+      "passed": [
+        "engine-compile",
+        "engine-lint",
+        "engine-typecheck",
+        "golden-formula-regression",
+        "golden-fixture-lock"
+      ],
+      "failed": [
+        "formula-artifact-validation",
+        "scientific-audit",
+        "material-data-validation",
+        "knowledge-rule-validation",
+        "golden-api-regression"
+      ],
+      "skipped": [],
+      "checks": [
+        {
+          "name": "engine-compile",
+          "status": "PASS",
+          "duration_seconds": 2.881
+        },
+        {
+          "name": "engine-lint",
+          "status": "PASS",
+          "duration_seconds": 0.126
+        },
+        {
+          "name": "engine-typecheck",
+          "status": "PASS",
+          "duration_seconds": 7.968
+        },
+        {
+          "name": "formula-artifact-validation",
+          "status": "FAIL",
+          "duration_seconds": 9.09
+        },
+        {
+          "name": "scientific-audit",
+          "status": "FAIL",
+          "duration_seconds": 10.575
+        },
+        {
+          "name": "material-data-validation",
+          "status": "FAIL",
+          "duration_seconds": 9.484
+        },
+        {
+          "name": "knowledge-rule-validation",
+          "status": "FAIL",
+          "duration_seconds": 34.444
+        },
+        {
+          "name": "golden-formula-regression",
+          "status": "PASS",
+          "duration_seconds": 4.259
+        },
+        {
+          "name": "golden-api-regression",
+          "status": "FAIL",
+          "duration_seconds": 17.488
+        },
+        {
+          "name": "golden-fixture-lock",
+          "status": "PASS",
+          "duration_seconds": 0
+        }
+      ]
+    },
+    {
+      "path": "output/verification/deep-plane-integration-full-20260909.json",
+      "sha256": "6D099C30B15B1FF6A0E4760638C155DD9868239AEF77D9BE619562708AD37A51",
+      "completion_gate": "FAIL",
+      "scope": "full",
+      "passed": [
+        "engine-compile",
+        "engine-lint",
+        "engine-typecheck",
+        "backend-lint",
+        "golden-formula-regression",
+        "package-build",
+        "package-wheel-smoke",
+        "golden-fixture-lock"
+      ],
+      "failed": [
+        "formula-artifact-validation",
+        "engine-tests-truth-core",
+        "engine-tests-data-knowledge",
+        "engine-tests-gates-families",
+        "engine-tests-legacy",
+        "backend-typecheck",
+        "backend-tests",
+        "scientific-audit",
+        "material-data-validation",
+        "knowledge-rule-validation",
+        "golden-api-regression"
+      ],
+      "skipped": [
+        "docker-build",
+        "docker-smoke-test"
+      ],
+      "checks": [
+        {
+          "name": "engine-compile",
+          "status": "PASS",
+          "duration_seconds": 0.374
+        },
+        {
+          "name": "engine-lint",
+          "status": "PASS",
+          "duration_seconds": 0.065
+        },
+        {
+          "name": "engine-typecheck",
+          "status": "PASS",
+          "duration_seconds": 1.922
+        },
+        {
+          "name": "formula-artifact-validation",
+          "status": "FAIL",
+          "duration_seconds": 1.779
+        },
+        {
+          "name": "engine-tests-truth-core",
+          "status": "FAIL",
+          "duration_seconds": 8.841
+        },
+        {
+          "name": "engine-tests-data-knowledge",
+          "status": "FAIL",
+          "duration_seconds": 23.314
+        },
+        {
+          "name": "engine-tests-gates-families",
+          "status": "FAIL",
+          "duration_seconds": 63.264
+        },
+        {
+          "name": "engine-tests-legacy",
+          "status": "FAIL",
+          "duration_seconds": 9.71
+        },
+        {
+          "name": "backend-lint",
+          "status": "PASS",
+          "duration_seconds": 3.662
+        },
+        {
+          "name": "backend-typecheck",
+          "status": "FAIL",
+          "duration_seconds": 128.474
+        },
+        {
+          "name": "backend-tests",
+          "status": "FAIL",
+          "duration_seconds": 5.763
+        },
+        {
+          "name": "scientific-audit",
+          "status": "FAIL",
+          "duration_seconds": 6.711
+        },
+        {
+          "name": "material-data-validation",
+          "status": "FAIL",
+          "duration_seconds": 5.827
+        },
+        {
+          "name": "knowledge-rule-validation",
+          "status": "FAIL",
+          "duration_seconds": 18.173
+        },
+        {
+          "name": "golden-formula-regression",
+          "status": "PASS",
+          "duration_seconds": 4.438
+        },
+        {
+          "name": "golden-api-regression",
+          "status": "FAIL",
+          "duration_seconds": 4.3
+        },
+        {
+          "name": "package-build",
+          "status": "PASS",
+          "duration_seconds": 19.729
+        },
+        {
+          "name": "package-wheel-smoke",
+          "status": "PASS",
+          "duration_seconds": 26.712
+        },
+        {
+          "name": "docker-build",
+          "status": "SKIPPED",
+          "duration_seconds": 0
+        },
+        {
+          "name": "docker-smoke-test",
+          "status": "SKIPPED",
+          "duration_seconds": 0
+        },
+        {
+          "name": "golden-fixture-lock",
+          "status": "PASS",
+          "duration_seconds": 0
+        }
+      ]
+    },
+    {
+      "path": "D:\\chatbots\\perfume-chem-verification-baseline-20260909\\output\\verification\\base-revision-full-20260909.json",
+      "sha256": "F9DC2407DE6984D0015AB4169C1E5F7B508D8EF5CD51C2E2AFA87A63D2A9DF1D",
+      "completion_gate": "FAIL",
+      "scope": "full",
+      "passed": [
+        "engine-compile",
+        "engine-lint",
+        "engine-typecheck",
+        "backend-lint",
+        "golden-formula-regression",
+        "package-build",
+        "package-wheel-smoke",
+        "golden-fixture-lock"
+      ],
+      "failed": [
+        "formula-artifact-validation",
+        "engine-tests-truth-core",
+        "engine-tests-data-knowledge",
+        "engine-tests-gates-families",
+        "engine-tests-legacy",
+        "backend-typecheck",
+        "backend-tests",
+        "scientific-audit",
+        "material-data-validation",
+        "knowledge-rule-validation",
+        "golden-api-regression"
+      ],
+      "skipped": [
+        "docker-build",
+        "docker-smoke-test"
+      ],
+      "checks": [
+        {
+          "name": "engine-compile",
+          "status": "PASS",
+          "duration_seconds": 4.891
+        },
+        {
+          "name": "engine-lint",
+          "status": "PASS",
+          "duration_seconds": 0.207
+        },
+        {
+          "name": "engine-typecheck",
+          "status": "PASS",
+          "duration_seconds": 9.371
+        },
+        {
+          "name": "formula-artifact-validation",
+          "status": "FAIL",
+          "duration_seconds": 7.663
+        },
+        {
+          "name": "engine-tests-truth-core",
+          "status": "FAIL",
+          "duration_seconds": 11.399
+        },
+        {
+          "name": "engine-tests-data-knowledge",
+          "status": "FAIL",
+          "duration_seconds": 35.743
+        },
+        {
+          "name": "engine-tests-gates-families",
+          "status": "FAIL",
+          "duration_seconds": 48.19
+        },
+        {
+          "name": "engine-tests-legacy",
+          "status": "FAIL",
+          "duration_seconds": 11.01
+        },
+        {
+          "name": "backend-lint",
+          "status": "PASS",
+          "duration_seconds": 4.835
+        },
+        {
+          "name": "backend-typecheck",
+          "status": "FAIL",
+          "duration_seconds": 89.257
+        },
+        {
+          "name": "backend-tests",
+          "status": "FAIL",
+          "duration_seconds": 6.299
+        },
+        {
+          "name": "scientific-audit",
+          "status": "FAIL",
+          "duration_seconds": 7.623
+        },
+        {
+          "name": "material-data-validation",
+          "status": "FAIL",
+          "duration_seconds": 4.919
+        },
+        {
+          "name": "knowledge-rule-validation",
+          "status": "FAIL",
+          "duration_seconds": 16.671
+        },
+        {
+          "name": "golden-formula-regression",
+          "status": "PASS",
+          "duration_seconds": 3.155
+        },
+        {
+          "name": "golden-api-regression",
+          "status": "FAIL",
+          "duration_seconds": 4.224
+        },
+        {
+          "name": "package-build",
+          "status": "PASS",
+          "duration_seconds": 20.258
+        },
+        {
+          "name": "package-wheel-smoke",
+          "status": "PASS",
+          "duration_seconds": 16.948
+        },
+        {
+          "name": "docker-build",
+          "status": "SKIPPED",
+          "duration_seconds": 0
+        },
+        {
+          "name": "docker-smoke-test",
+          "status": "SKIPPED",
+          "duration_seconds": 0
+        },
+        {
+          "name": "golden-fixture-lock",
+          "status": "PASS",
+          "duration_seconds": 0
+        }
+      ]
+    }
+  ],
+  "coverage": {
+    "baseline": {
+      "material_count": 242,
+      "oav_available_count": 207,
+      "oav_unknown_count": 35,
+      "oav_coverage_pct": 85.537
+    },
+    "integration": {
+      "material_count": 246,
+      "oav_available_count": 204,
+      "oav_unknown_count": 42,
+      "oav_coverage_pct": 82.927
+    }
+  },
+  "artifact_comparison": {
+    "baseline": {
+      "status": "FAIL",
+      "counts": {
+        "NONE": 455,
+        "QUARANTINED": 14,
+        "STALE": 6,
+        "UNBOUND_LEGACY": 49
+      },
+      "blockers": [
+        {
+          "file": "formulas\\DPP_01_Mandarin_Ember_Sandalwood_30mL_EDP.md",
+          "status": "STALE",
+          "issues": [
+            "formula_definition",
+            "inventory",
+            "scientific_inputs",
+            "pipeline_source"
+          ]
+        },
+        {
+          "file": "formulas\\DPP_01_Mandarin_Ember_Sandalwood_30mL_EDP_R2.md",
+          "status": "STALE",
+          "issues": [
+            "formula_definition",
+            "inventory",
+            "scientific_inputs",
+            "pipeline_source"
+          ]
+        },
+        {
+          "file": "formulas\\DPP_02_Tuberose_Sandal_Cream_30mL_EDP.md",
+          "status": "STALE",
+          "issues": [
+            "inventory",
+            "scientific_inputs",
+            "pipeline_source"
+          ]
+        },
+        {
+          "file": "formulas\\DPP_02_Tuberose_Sandal_Cream_30mL_EDP_R2.md",
+          "status": "STALE",
+          "issues": [
+            "inventory",
+            "scientific_inputs",
+            "pipeline_source"
+          ]
+        },
+        {
+          "file": "formulas\\DPP_03_Tobacco_Resin_Amber_Reserve_30mL_EDP.md",
+          "status": "STALE",
+          "issues": [
+            "formula_definition",
+            "inventory",
+            "scientific_inputs",
+            "pipeline_source"
+          ]
+        },
+        {
+          "file": "formulas\\DPP_03_Tobacco_Resin_Amber_Reserve_30mL_EDP_R2.md",
+          "status": "STALE",
+          "issues": [
+            "formula_definition",
+            "inventory",
+            "scientific_inputs",
+            "pipeline_source"
+          ]
+        }
+      ]
+    },
+    "integration": {
+      "status": "FAIL",
+      "counts": {
+        "NONE": 456,
+        "QUARANTINED": 14,
+        "STALE": 6,
+        "TAMPERED": 1,
+        "UNBOUND_LEGACY": 49
+      },
+      "blockers": [
+        {
+          "file": "formulas\\AHS_2004_Reference_First_From_Zero_30mL_EDT_v2_Neat_Neroli.md",
+          "status": "TAMPERED",
+          "issues": [
+            "analysis_input_hash",
+            "inventory",
+            "scientific_inputs",
+            "pipeline_source"
+          ]
+        },
+        {
+          "file": "formulas\\DPP_01_Mandarin_Ember_Sandalwood_30mL_EDP.md",
+          "status": "STALE",
+          "issues": [
+            "formula_definition",
+            "inventory",
+            "scientific_inputs",
+            "pipeline_source"
+          ]
+        },
+        {
+          "file": "formulas\\DPP_01_Mandarin_Ember_Sandalwood_30mL_EDP_R2.md",
+          "status": "STALE",
+          "issues": [
+            "formula_definition",
+            "inventory",
+            "scientific_inputs",
+            "pipeline_source"
+          ]
+        },
+        {
+          "file": "formulas\\DPP_02_Tuberose_Sandal_Cream_30mL_EDP.md",
+          "status": "STALE",
+          "issues": [
+            "inventory",
+            "scientific_inputs",
+            "pipeline_source"
+          ]
+        },
+        {
+          "file": "formulas\\DPP_02_Tuberose_Sandal_Cream_30mL_EDP_R2.md",
+          "status": "STALE",
+          "issues": [
+            "inventory",
+            "scientific_inputs",
+            "pipeline_source"
+          ]
+        },
+        {
+          "file": "formulas\\DPP_03_Tobacco_Resin_Amber_Reserve_30mL_EDP.md",
+          "status": "STALE",
+          "issues": [
+            "formula_definition",
+            "inventory",
+            "scientific_inputs",
+            "pipeline_source"
+          ]
+        },
+        {
+          "file": "formulas\\DPP_03_Tobacco_Resin_Amber_Reserve_30mL_EDP_R2.md",
+          "status": "STALE",
+          "issues": [
+            "formula_definition",
+            "inventory",
+            "scientific_inputs",
+            "pipeline_source"
+          ]
+        }
+      ]
+    },
+    "writer_only_input_fields": [
+      "g15_parent_formula_definitions"
+    ],
+    "baseline_writer_validator_hash_equal": false,
+    "artifact_source_equal_after_eol_normalization": true
+  },
+  "paired_engine_shards": [
+    {
+      "name": "truth-core",
+      "baseline_failures": 0,
+      "baseline_errors": 2,
+      "integration_failures": 0,
+      "integration_errors": 2
+    },
+    {
+      "name": "data-knowledge",
+      "baseline_failures": 46,
+      "baseline_errors": 4,
+      "integration_failures": 48,
+      "integration_errors": 4
+    },
+    {
+      "name": "gates-families",
+      "baseline_failures": 56,
+      "baseline_errors": 0,
+      "integration_failures": 12,
+      "integration_errors": 0
+    },
+    {
+      "name": "legacy",
+      "baseline_failures": 3,
+      "baseline_errors": 26,
+      "integration_failures": 2,
+      "integration_errors": 26
+    }
+  ],
+  "baseline_pass_now_failing": [
+    "tests.test_inventory_material_additions::test_requested_materials_have_runtime_data",
+    "tests.test_science_audit::test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved"
+  ],
+  "checked_file_entries": 48,
+  "checkpoint_file_drift": [],
+  "deep_plane_enabled": false,
+  "merged": false,
+  "published": false
+}

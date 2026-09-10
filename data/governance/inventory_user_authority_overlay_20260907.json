@@ -1,0 +1,507 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v4",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-07",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260906.json",
+    "normalized_text_sha256": "b06024fdef65355c354a4c5a2618d482f215df42a21c2d56aed896bbfb8c305f"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 21331,
+    "inventory_text_sha256": "d2c2c405625aa01b2d77069a7907222db40a6156e3971844376100b58c300066",
+    "confirmed_receipt": "data/governance/inventory_user_corrections_20260907_confirmed.json"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true
+  },
+  "superseded_record_ids": [
+    "INV-USER-20260829-001"
+  ],
+  "identity_notes": [
+    "Hydroxycitronellal replaces the user's mistaken Hydroxycitronellol bottle label, not a chemical alias. Existing V5 Hydroxycitronellal neat stock remains inherited, not newly assayed.",
+    "Geranium EO supplier is Bontoux; no origin, grade, lot, or composition inferred."
+  ],
+  "records": [
+    {
+      "record_id": "INV-USER-20260907-001",
+      "canonical_name": "Coumarin",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "CURRENT_USER_DECLARATION_OR_EXPLICIT_TEXT_RECONCILIATION",
+        "execution_ready": true,
+        "execution_scope": "STOCK_IDENTITY_AND_FRACTION_BINDING_ONLY",
+        "execution_hold_reason": ""
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 85
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 85,
+          "disposition": "OWNED",
+          "status": "HAVE - CURRENT USER STOCK",
+          "actual_stock_text": "my coumarin is now in 10% DPG; the percentage is by weight",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-07",
+      "source_kind": "DIRECT_USER_CORRECTION_OR_EXISTING_INVENTORY_RECONCILIATION",
+      "source_quote": "my coumarin is now in 10% DPG; the percentage is by weight",
+      "authority_limits": {
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "release_authorized": false,
+        "exact_active_mass_from_raw_volume_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260907-002",
+      "canonical_name": "Vetiveryl Acetate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "fraction_authority": "CURRENT_USER_DECLARATION_OR_EXPLICIT_TEXT_RECONCILIATION",
+        "execution_ready": true,
+        "execution_scope": "STOCK_IDENTITY_AND_FRACTION_BINDING_ONLY",
+        "execution_hold_reason": ""
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-07",
+      "source_kind": "DIRECT_USER_CORRECTION_OR_EXISTING_INVENTORY_RECONCILIATION",
+      "source_quote": "I have vetiveryl acetate in 10% w/w DEP",
+      "authority_limits": {
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "release_authorized": false,
+        "exact_active_mass_from_raw_volume_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260907-003",
+      "canonical_name": "Methyl Laitone",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {
+        "fraction": 0.2,
+        "fraction_basis": "unspecified",
+        "carrier": "",
+        "fraction_authority": "CURRENT_USER_DECLARATION_OR_EXPLICIT_TEXT_RECONCILIATION",
+        "execution_ready": false,
+        "execution_scope": "STOCK_IDENTITY_AND_FRACTION_BINDING_ONLY",
+        "execution_hold_reason": "FRACTION_BASIS_AND_CARRIER_UNSPECIFIED"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-07",
+      "source_kind": "DIRECT_USER_CORRECTION_OR_EXISTING_INVENTORY_RECONCILIATION",
+      "source_quote": "Methyl Laitone in 20%",
+      "authority_limits": {
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "release_authorized": false,
+        "exact_active_mass_from_raw_volume_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260907-004",
+      "canonical_name": "Evernyl",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "moss",
+      "stock": {
+        "fraction": 0.2,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "CURRENT_USER_DECLARATION_OR_EXPLICIT_TEXT_RECONCILIATION",
+        "execution_ready": false,
+        "execution_scope": "STOCK_IDENTITY_AND_FRACTION_BINDING_ONLY",
+        "execution_hold_reason": "HOMOGENEITY_NOT_RECONFIRMED"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 105
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 105,
+          "disposition": "OWNED",
+          "status": "HAVE - CURRENT USER STOCK",
+          "actual_stock_text": "Existing inventory: 20% w/w in DPG; preserve homogeneity HOLD from V5",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-07",
+      "source_kind": "DIRECT_USER_CORRECTION_OR_EXISTING_INVENTORY_RECONCILIATION",
+      "source_quote": "Existing inventory: 20% w/w in DPG; preserve homogeneity HOLD from V5",
+      "authority_limits": {
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "release_authorized": false,
+        "exact_active_mass_from_raw_volume_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260907-005",
+      "canonical_name": "Evernyl Crystals",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "moss",
+      "stock": {
+        "fraction": 1,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "CURRENT_USER_DECLARATION_OR_EXPLICIT_TEXT_RECONCILIATION",
+        "execution_ready": true,
+        "execution_scope": "STOCK_IDENTITY_AND_FRACTION_BINDING_ONLY",
+        "execution_hold_reason": ""
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-07",
+      "source_kind": "DIRECT_USER_CORRECTION_OR_EXISTING_INVENTORY_RECONCILIATION",
+      "source_quote": "Existing inventory: physically owned crystals, separate from the working solution",
+      "authority_limits": {
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "release_authorized": false,
+        "exact_active_mass_from_raw_volume_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260907-006",
+      "canonical_name": "Siam Benzoin",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {
+        "fraction": 0.5,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "fraction_authority": "CURRENT_USER_DECLARATION_OR_EXPLICIT_TEXT_RECONCILIATION",
+        "execution_ready": false,
+        "execution_scope": "STOCK_IDENTITY_AND_FRACTION_BINDING_ONLY",
+        "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 222
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 222,
+          "disposition": "OWNED",
+          "status": "HAVE - CURRENT USER STOCK",
+          "actual_stock_text": "Existing inventory: Siam Benzoin (50% in DPG); ethanol belonged to a separate tincture",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-07",
+      "source_kind": "DIRECT_USER_CORRECTION_OR_EXISTING_INVENTORY_RECONCILIATION",
+      "source_quote": "Existing inventory: Siam Benzoin (50% in DPG); ethanol belonged to a separate tincture",
+      "authority_limits": {
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "release_authorized": false,
+        "exact_active_mass_from_raw_volume_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260907-007",
+      "canonical_name": "Kephalis",
+      "aliases": [],
+      "state": "NOT_OWNED",
+      "category": "woods_amber",
+      "stock": null,
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 153
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 153,
+          "disposition": "GAP",
+          "status": "NOT OWNED - RETIRED CURRENT STOCK",
+          "actual_stock_text": "User correction 2026-09-06: not owned",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-07",
+      "source_kind": "DIRECT_USER_CORRECTION_OR_EXISTING_INVENTORY_RECONCILIATION",
+      "source_quote": "User correction 2026-09-06: not owned",
+      "authority_limits": {
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "release_authorized": false,
+        "exact_active_mass_from_raw_volume_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260907-008",
+      "canonical_name": "Musk Ketone",
+      "aliases": [],
+      "state": "NOT_OWNED",
+      "category": "musk",
+      "stock": null,
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 176
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 176,
+          "disposition": "GAP",
+          "status": "NOT OWNED - RETIRED CURRENT STOCK",
+          "actual_stock_text": "Existing inventory explicitly depleted; retire stale V5 ownership",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-07",
+      "source_kind": "DIRECT_USER_CORRECTION_OR_EXISTING_INVENTORY_RECONCILIATION",
+      "source_quote": "Existing inventory explicitly depleted; retire stale V5 ownership",
+      "authority_limits": {
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "release_authorized": false,
+        "exact_active_mass_from_raw_volume_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260907-009",
+      "canonical_name": "Nagamortha Oil",
+      "aliases": [],
+      "state": "NOT_OWNED",
+      "category": "woods_amber",
+      "stock": null,
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 178
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 178,
+          "disposition": "GAP",
+          "status": "NOT OWNED - RETIRED CURRENT STOCK",
+          "actual_stock_text": "Existing inventory explicitly depleted; retire stale V5 ownership",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-07",
+      "source_kind": "DIRECT_USER_CORRECTION_OR_EXISTING_INVENTORY_RECONCILIATION",
+      "source_quote": "Existing inventory explicitly depleted; retire stale V5 ownership",
+      "authority_limits": {
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "release_authorized": false,
+        "exact_active_mass_from_raw_volume_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260907-010",
+      "canonical_name": "Polysantol",
+      "aliases": [],
+      "state": "NOT_OWNED",
+      "category": "woods_amber",
+      "stock": null,
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 208
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 208,
+          "disposition": "GAP",
+          "status": "NOT OWNED - RETIRED CURRENT STOCK",
+          "actual_stock_text": "Existing inventory explicitly depleted; retire stale V5 ownership",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-07",
+      "source_kind": "DIRECT_USER_CORRECTION_OR_EXISTING_INVENTORY_RECONCILIATION",
+      "source_quote": "Existing inventory explicitly depleted; retire stale V5 ownership",
+      "authority_limits": {
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "release_authorized": false,
+        "exact_active_mass_from_raw_volume_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260907-011",
+      "canonical_name": "Tonalide",
+      "aliases": [],
+      "state": "NOT_OWNED",
+      "category": "musk",
+      "stock": null,
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 231
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 231,
+          "disposition": "GAP",
+          "status": "NOT OWNED - RETIRED CURRENT STOCK",
+          "actual_stock_text": "Existing inventory explicitly depleted; retire stale V5 ownership",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-07",
+      "source_kind": "DIRECT_USER_CORRECTION_OR_EXISTING_INVENTORY_RECONCILIATION",
+      "source_quote": "Existing inventory explicitly depleted; retire stale V5 ownership",
+      "authority_limits": {
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "release_authorized": false,
+        "exact_active_mass_from_raw_volume_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260907-012",
+      "canonical_name": "Ambrofix",
+      "aliases": [],
+      "state": "NOT_OWNED",
+      "category": "woods_amber",
+      "stock": null,
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 29
+        },
+        {
+          "source_row": 255
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 29,
+          "disposition": "GAP",
+          "status": "NOT OWNED - RETIRED CURRENT STOCK",
+          "actual_stock_text": "User master authority: liquid Ambrofix gone; historical heterogeneous mass balance retained; crystals distinct",
+          "can_prepare": ""
+        },
+        {
+          "source_row": 255,
+          "disposition": "GAP",
+          "status": "NOT OWNED - RETIRED CURRENT STOCK",
+          "actual_stock_text": "User master authority: liquid Ambrofix gone; historical heterogeneous mass balance retained; crystals distinct",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-07",
+      "source_kind": "DIRECT_USER_CORRECTION_OR_EXISTING_INVENTORY_RECONCILIATION",
+      "source_quote": "User master authority: liquid Ambrofix gone; historical heterogeneous mass balance retained; crystals distinct",
+      "authority_limits": {
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "release_authorized": false,
+        "exact_active_mass_from_raw_volume_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260907-013",
+      "canonical_name": "Ambrofix Crystals",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "fraction": 1,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "CURRENT_USER_DECLARATION_OR_EXPLICIT_TEXT_RECONCILIATION",
+        "execution_ready": true,
+        "execution_scope": "STOCK_IDENTITY_AND_FRACTION_BINDING_ONLY",
+        "execution_hold_reason": ""
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-07",
+      "source_kind": "DIRECT_USER_CORRECTION_OR_EXISTING_INVENTORY_RECONCILIATION",
+      "source_quote": "Existing inventory: distinct physically owned crystalline stock; not declared gone",
+      "authority_limits": {
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "release_authorized": false,
+        "exact_active_mass_from_raw_volume_authorized": false
+      }
+    },
+    {
+      "record_id": "INV-USER-20260907-014",
+      "canonical_name": "Coumarin Powder",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {
+        "fraction": 1,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "CURRENT_USER_DECLARATION_OR_EXPLICIT_TEXT_RECONCILIATION",
+        "execution_ready": true,
+        "execution_scope": "STOCK_IDENTITY_AND_FRACTION_BINDING_ONLY",
+        "execution_hold_reason": ""
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-07",
+      "source_kind": "DIRECT_USER_CORRECTION_OR_EXISTING_INVENTORY_RECONCILIATION",
+      "source_quote": "Existing inventory: neat powder; working-stock correction did not declare powder gone",
+      "authority_limits": {
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "release_authorized": false,
+        "exact_active_mass_from_raw_volume_authorized": false
+      }
+    }
+  ]
+}

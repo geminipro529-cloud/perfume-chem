@@ -62,7 +62,19 @@ def test_july_2026_additions_resolve_across_runtime_data_paths(
     }
     inventory_record = available[normalize_name(canonical_name)]
 
-    assert inventory_record.dilution == pytest.approx(expected_dilution)
+    # The July catalogue fixture below remains historical. Live user stocks
+    # were corrected in August; catalogue stock_form is not current authority.
+    current_fraction = {
+        "Black Agarwood Artificial": 0.10,
+        "Castoreum Synthetic": 0.10,
+    }.get(canonical_name, expected_dilution)
+    assert inventory_record.dilution == pytest.approx(current_fraction)
+    if canonical_name == "Black Agarwood Artificial":
+        assert inventory_record.fraction_basis == "mass_fraction"
+        assert inventory_record.carrier == "dpg"
+    elif canonical_name == "Castoreum Synthetic":
+        assert inventory_record.fraction_basis == "unspecified"
+        assert inventory_record.carrier == "dep"
     assert names_match(requested_name, canonical_name)
     assert get_profile(requested_name) is not None
     assert lookup_odt_entry(requested_name) is not None
@@ -137,14 +149,18 @@ def test_violet_leaf_profile_does_not_recommend_itself_as_a_synergy() -> None:
 def test_requested_stock_is_available_at_recorded_dilutions() -> None:
     available = {item.name: item for item in parse_inventory(include_unavailable=False)}
 
-    assert available["Alpha Irone"].dilution == pytest.approx(0.30)
-    assert available["Orris Liquid"].dilution == pytest.approx(0.30)
+    assert available["Alpha Irone"].dilution == pytest.approx(0.10)
+    assert available["Alpha Irone"].fraction_basis == "mass_fraction"
+    assert available["Alpha Irone"].carrier == "dep"
+    assert available["Orris Liquid"].dilution == pytest.approx(0.09)
+    assert available["Orris Liquid"].carrier == "dep"
     assert available["Orris Liquid"].fraction_basis == "mass_fraction"
-    assert available["Hydroxycitronellol"].dilution == pytest.approx(1.0)
+    # September bottle correction does not make these two chemicals aliases.
+    assert available["Hydroxycitronellal"].dilution == pytest.approx(1.0)
     assert available["Olibanum Resinoid"].dilution == pytest.approx(0.5)
     assert available["Cocoa Absolute"].dilution == pytest.approx(1.0)
     assert available["Cocoa CO2 Extract"].dilution == pytest.approx(0.077)
-    assert "Hydroxycitronellal" not in available
+    assert "Hydroxycitronellol" not in available
     assert "Olibanum Resinoid Absolute" not in available
     assert "Cocoa CO2 Absolute" not in available
 
@@ -183,7 +199,8 @@ def test_requested_materials_have_runtime_data() -> None:
 
     assert orris_liquid is not None
     assert orris_liquid.user_stock_dilution is not None
-    assert orris_liquid.user_stock_dilution.startswith("30%")
+    # User-confirmed successor stock; the old 30% label remains an alias only.
+    assert orris_liquid.user_stock_dilution == "9% w/w in DEP"
     assert orris_liquid.user_in_inventory is True
 
     assert olibanum is not None

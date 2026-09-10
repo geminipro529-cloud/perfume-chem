@@ -1,3 +1,5 @@
+from dataclasses import replace
+
 from engine.pipeline import preflight as preflight_module
 from engine.pipeline.formula_state import build_formula_state
 from engine.pipeline.gates import (
@@ -5,7 +7,12 @@ from engine.pipeline.gates import (
     ReleaseGateConfig,
     _apply_preflight_confidence_penalty,
 )
-from engine.pipeline.preflight import run_release_preflight
+from engine.pipeline.preflight import (
+    PreflightCheck,
+    _dose_receipt_binding_check,
+    build_formula_dose_receipt,
+    run_release_preflight,
+)
 
 
 def _formula():
@@ -28,8 +35,54 @@ def _formula():
 
 def test_release_preflight_contract_has_expected_checks():
     formula = _formula()
-    state = build_formula_state(formula["ingredients_ul"], formula["dilutions"], batch_volume_ml=30.0)
-    report = run_release_preflight(formula, state).as_dict()
+    resolved = {
+        name: {
+            "fraction": fraction,
+            "fraction_basis": "neat" if fraction == 1.0 else "mass_fraction",
+            "carrier": "" if fraction == 1.0 else "dpg",
+            "approximate": False,
+            "declared": True,
+            "stock_id": f"inventory:test:{index}",
+            "authority": "formula_row+inventory_snapshot",
+            "inventory_authority": "TEST_CURRENT_INVENTORY",
+            "source_rows": [index],
+        }
+        for index, (name, fraction) in enumerate(
+            formula["dilutions"].items(),
+            start=1,
+        )
+    }
+    contract = PreflightCheck(
+        "inventory_stock_contract",
+        "PASS",
+        "Synthetic exact stock contract for preflight wiring test.",
+        {
+            "inventory_snapshot_sha256": "a" * 64,
+            "inventory_source_workbook_sha256": "b" * 64,
+            "inventory_authority_sheet": "Test",
+            "resolved_stock_specs": resolved,
+            "issues": [],
+            "matched_stocks": [],
+        },
+    )
+    receipt = build_formula_dose_receipt(formula, contract)
+    state = build_formula_state(
+        formula["ingredients_ul"],
+        formula["dilutions"],
+        stock_specs=resolved,
+        batch_volume_ml=30.0,
+    )
+    state = replace(
+        state,
+        dose_receipt_sha256=receipt.receipt_sha256,
+        dose_receipt_status=receipt.status,
+    )
+    report = run_release_preflight(
+        formula,
+        state,
+        stock_contract=contract,
+        dose_receipt=receipt,
+    ).as_dict()
 
     assert report["status"] in {"PASS", "WARN"}
     names = [check.get("check_name") for check in report["checks"]]
@@ -41,6 +94,11 @@ def test_release_preflight_contract_has_expected_checks():
     assert "data_authority" in names
     assert "science_coverage" in names
     assert "material_identity_and_physics" in names
+    dose_receipt = next(
+        check for check in report["checks"]
+        if check.get("check_name") == "formula_dose_receipt"
+    )
+    assert dose_receipt["status"] == "PASS"
     assert report["confidence_penalty"] >= 0.0
     science = next(
         check for check in report["checks"]
@@ -52,6 +110,165 @@ def test_release_preflight_contract_has_expected_checks():
         science["data"]["catalogue_context"]["formula_penalty_authority"]
         is False
     )
+
+
+def test_formula_dose_receipt_binding_detects_state_identity_tamper():
+    formula = {
+        "name": "Receipt Binding Test",
+        "ingredients_ul": {"Hedione": 100.0},
+        "dilutions": {"Hedione": 1.0},
+    }
+    resolved = {
+        "Hedione": {
+            "fraction": 1.0,
+            "fraction_basis": "neat",
+            "carrier": "",
+            "approximate": False,
+            "declared": True,
+            "stock_id": "inventory:test:1",
+            "authority": "formula_row+inventory_snapshot",
+            "inventory_authority": "TEST_CURRENT_INVENTORY",
+            "source_rows": [1],
+        }
+    }
+    contract = PreflightCheck(
+        "inventory_stock_contract",
+        "PASS",
+        "Synthetic exact stock contract.",
+        {
+            "inventory_snapshot_sha256": "a" * 64,
+            "inventory_source_workbook_sha256": "b" * 64,
+            "inventory_authority_sheet": "Test",
+            "resolved_stock_specs": resolved,
+            "issues": [],
+        },
+    )
+    receipt = build_formula_dose_receipt(formula, contract)
+    state = build_formula_state(
+        formula["ingredients_ul"],
+        formula["dilutions"],
+        stock_specs=resolved,
+    )
+    bound = replace(
+        state,
+        dose_receipt_sha256=receipt.receipt_sha256,
+        dose_receipt_status=receipt.status,
+    )
+
+    assert _dose_receipt_binding_check(bound, receipt).status == "PASS"
+    serialized = bound.as_dict()
+    assert serialized["dose_receipt_sha256"] == receipt.receipt_sha256
+    assert serialized["dose_receipt_status"] == "BOUND"
+    # A changed dose must acquire its own receipt; it must not inherit binding.
+    changed = type(bound).from_base(bound, new_raw_ul={"Hedione": 200.0})
+    assert changed.dose_receipt_sha256 is None
+    assert changed.dose_receipt_status == "UNBOUND"
+    assert _dose_receipt_binding_check(changed, receipt).status == "FAIL"
+    for field_name, value in (("raw_ul", 200.0), ("active_ul", 50.0)):
+        changed_material = replace(bound.materials[0], **{field_name: value})
+        changed_state = replace(bound, materials=(changed_material,))
+        assert _dose_receipt_binding_check(changed_state, receipt).status == "FAIL"
+    assert _dose_receipt_binding_check(state, receipt).status == "FAIL"
+    tampered = replace(bound, dose_receipt_sha256="0" * 64)
+    check = _dose_receipt_binding_check(tampered, receipt)
+    assert check.status == "FAIL"
+    assert "identities do not match" in check.detail
+
+    semantic_tampers = (
+        ("stock_fraction_basis", "banana", "stock_fraction_basis"),
+        ("stock_carrier", "mystery", "stock_carrier"),
+        ("stock_declared", False, "stock_declared"),
+    )
+    for field_name, value, mismatch_name in semantic_tampers:
+        material = replace(bound.materials[0], **{field_name: value})
+        tampered_state = replace(bound, materials=(material,))
+        semantic_check = _dose_receipt_binding_check(tampered_state, receipt)
+        assert semantic_check.status == "FAIL"
+        assert semantic_check.data["state_mismatches"] == [
+            f"Hedione:{mismatch_name}"
+        ]
+
+
+def test_formula_dose_receipt_accepts_content_addressed_overlay_lineage():
+    formula = {
+        "name": "Overlay Stock Receipt Test",
+        "ingredients_ul": {"Ethylene Brassylate": 100.0},
+        "dilutions": {"Ethylene Brassylate": 1.0},
+    }
+    resolved = {
+        "Ethylene Brassylate": {
+            "fraction": 1.0,
+            "fraction_basis": "neat",
+            "carrier": "",
+            "approximate": False,
+            "declared": True,
+            "stock_id": "inventory:user-20260828:test-overlay-digest",
+            "authority": "formula_row+inventory_snapshot",
+            "inventory_authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+            "source_rows": [],
+            "source_ref": (
+                "data/governance/inventory_user_authority_overlay_20260828.json"
+                "#INV-USER-20260828-001"
+            ),
+        }
+    }
+    contract = PreflightCheck(
+        "inventory_stock_contract",
+        "PASS",
+        "Synthetic overlay-only stock contract.",
+        {
+            "inventory_snapshot_sha256": "a" * 64,
+            "inventory_source_workbook_sha256": "b" * 64,
+            "inventory_authority_sheet": "Test",
+            "resolved_stock_specs": resolved,
+            "issues": [],
+        },
+    )
+
+    receipt = build_formula_dose_receipt(formula, contract)
+
+    assert receipt.status == "BOUND"
+    assert receipt.lines[0].source_rows == ()
+    assert receipt.lines[0].source_ref.endswith("#INV-USER-20260828-001")
+
+
+def test_formula_dose_receipt_abstains_without_any_source_lineage():
+    formula = {
+        "name": "Missing Lineage Receipt Test",
+        "ingredients_ul": {"Hedione": 100.0},
+        "dilutions": {"Hedione": 1.0},
+    }
+    resolved = {
+        "Hedione": {
+            "fraction": 1.0,
+            "fraction_basis": "neat",
+            "carrier": "",
+            "approximate": False,
+            "declared": True,
+            "stock_id": "inventory:test:no-lineage",
+            "authority": "formula_row+inventory_snapshot",
+            "inventory_authority": "TEST_CURRENT_INVENTORY",
+            "source_rows": [],
+            "source_ref": "",
+        }
+    }
+    contract = PreflightCheck(
+        "inventory_stock_contract",
+        "PASS",
+        "Synthetic stock contract without source lineage.",
+        {
+            "inventory_snapshot_sha256": "a" * 64,
+            "inventory_source_workbook_sha256": "b" * 64,
+            "inventory_authority_sheet": "Test",
+            "resolved_stock_specs": resolved,
+            "issues": [],
+        },
+    )
+
+    receipt = build_formula_dose_receipt(formula, contract)
+
+    assert receipt.status == "ABSTAINED"
+    assert receipt.reasons == ("Hedione:inventory_source_lineage_not_bound",)
 
 
 def test_formula_science_check_does_not_build_catalogue_audit(monkeypatch):

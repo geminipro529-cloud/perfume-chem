@@ -1,0 +1,62 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v7",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-08",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260908_ahsee.json",
+    "normalized_text_sha256": "dd779bd93e1e9191988b67aeb637f8362dfefb9e4696f86354ef6a371b85ee5d"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 23751,
+    "inventory_text_sha256": "4b75a24608bd2f99fa68b760ee67223ac35062122133bd1a8ec0c5996cb8c3af",
+    "confirmed_receipt": "data/governance/inventory_user_confirmation_20260908_romandolide_depleted.json",
+    "confirmed_receipt_sha256": "5b94ac7cf95a0ee0bb4fc0754a97bda4b0be5aae910c13c7fc4557317f823ade"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "bind_only_source_declared_stock_facts": true,
+    "stock_solution_density_assumed": false,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [],
+  "records": [
+    {
+      "record_id": "INV-USER-20260908-ROMANDOLIDE-001",
+      "canonical_name": "Romandolide",
+      "aliases": [],
+      "state": "NOT_OWNED",
+      "category": "musk",
+      "stock": null,
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 211,
+          "fraction": 1.0
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 211,
+          "disposition": "GAP",
+          "status": "DEPLETED - USER CONFIRMED 2026-09-08",
+          "actual_stock_text": "No Romandolide remains",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-08",
+      "source_kind": "DIRECT_USER_DEPLETION_CONFIRMATION",
+      "evidence_refs": [
+        "ROMANDOLIDE_DEPLETED_20260908"
+      ],
+      "authority_limits": {
+        "formula_rebase_authorized": false,
+        "substitute_identity_or_stock_asserted": false,
+        "safety_or_release_asserted": false
+      }
+    }
+  ]
+}

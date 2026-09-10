@@ -1017,7 +1017,8 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Aldehyde C-18 Gamma Nonalactone
-  aliases: []
+  aliases:
+  - "Aldehyde C-18"
   cas: null
   smiles: null
   inchikey: null
@@ -3420,7 +3421,8 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Anisaldehyde
   aliases:
-  - anisaldehyde
+  - "anisaldehyde"
+  - "Anisaldehyde 10%"
   cas: null
   smiles: null
   inchikey: null

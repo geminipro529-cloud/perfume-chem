@@ -114,6 +114,55 @@ def test_stock_parser_preserves_fraction_basis_and_carrier():
     assert (neat.fraction, neat.fraction_basis, neat.declared) == (1.0, "neat", True)
 
 
+@pytest.mark.parametrize("parent_mode", ["legacy_absent", "empty", "populated"])
+@pytest.mark.parametrize("mutation", ["none", "remove", "alter"])
+def test_bound_input_hash_preserves_parent_lineage(tmp_path, parent_mode, mutation):
+    """Exercise the writer's exact input hash, including legacy field absence."""
+    path = tmp_path / "binding.md"
+    _write_formula(path)
+    formulas = parse_formula_markdown(path)
+    inputs = _run_input_hashes(
+        formulas, ReleaseGateConfig(audit_enabled=False),
+        parent_formulas=formulas if parent_mode == "populated" else [],
+    )
+    if parent_mode == "legacy_absent":
+        inputs.pop("g15_parent_formula_definitions")
+    manifest = {
+        "schema": "perfume_pipeline_run_evidence_v1",
+        "binding_schema": "formula-artifact-binding-v1",
+        "renderer_version": "formula-release-gate-v1",
+        **inputs,
+        "analysis_input_sha256": stable_json_hash(inputs),
+        "analysis_sha256": stable_text_hash("diagnostic analysis"),
+        "generated_at_utc": "2026-09-09T00:00:00+00:00",
+        "repository_commit": "UNAVAILABLE",
+        "canonical_records": [{
+            "record_id": "formula:1:bound-formula",
+            "record_version": 1,
+            "canonical_content_sha256": inputs["formula_definitions"][0]["sha256"],
+        }],
+    }
+    if mutation == "remove":
+        manifest.pop("g15_parent_formula_definitions", None)
+    elif mutation == "alter":
+        manifest["g15_parent_formula_definitions"] = [{
+            "number": 1, "name": "Different parent", "sha256": "0" * 64,
+        }]
+    # Recompute the outer hash: the inner binding must still catch lineage edits.
+    manifest["artifact_sha256"] = stable_json_hash(manifest)
+    original = path.read_bytes()
+    invalid = mutation == "alter" or (
+        mutation == "remove" and parent_mode != "legacy_absent"
+    )
+    if invalid:
+        with pytest.raises(RuntimeError, match="analysis_input_hash"):
+            _append_pipeline_analysis(path, "diagnostic analysis", manifest)
+        assert path.read_bytes() == original
+    else:
+        _append_pipeline_analysis(path, "diagnostic analysis", manifest)
+        assert validate_pipeline_analysis_artifact(path)["status"] == "CURRENT"
+
+
 def test_stock_parser_does_not_invent_carrier_from_preparation_volume():
     stock = parse_stock_specification("30% w/v, 3 g in 10 mL")
 
@@ -157,7 +206,7 @@ def test_osmanthus_stock_substitution_is_hard_failed_and_reports_5_5x_impact(
         ),
     ]
     monkeypatch.setattr(
-        "engine.pipeline.preflight.parse_inventory",
+        "engine.pipeline.preflight.parse_current_inventory",
         lambda **_kwargs: inventory,
     )
     formula = {
@@ -223,7 +272,7 @@ def test_incident_contracts_are_wired_into_the_release_gate(monkeypatch):
         ),
     ]
     monkeypatch.setattr(
-        "engine.pipeline.preflight.parse_inventory",
+        "engine.pipeline.preflight.parse_current_inventory",
         lambda **_kwargs: inventory,
     )
     formula = {
@@ -281,7 +330,7 @@ def test_missing_osmanthus_eo_cannot_be_satisfied_by_an_absolute(monkeypatch):
         )
     ]
     monkeypatch.setattr(
-        "engine.pipeline.preflight.parse_inventory",
+        "engine.pipeline.preflight.parse_current_inventory",
         lambda **_kwargs: inventory,
     )
     formula = {
@@ -752,10 +801,12 @@ def test_quarantine_cannot_hide_artifact_tampering(tmp_path):
     assert "analysis_content_hash" in result["integrity_issues"]
 
 
-def test_failed_post_write_verification_rolls_formula_back(tmp_path, monkeypatch):
+@pytest.mark.parametrize("line_ending", [b"\n", b"\r\n"])
+def test_failed_post_write_verification_rolls_formula_back(tmp_path, monkeypatch, line_ending):
     path = tmp_path / "rollback.md"
     _write_formula(path)
-    original = path.read_text(encoding="utf-8")
+    original = path.read_bytes().replace(b"\r\n", b"\n").replace(b"\n", line_ending)
+    path.write_bytes(original)
     formulas = parse_formula_markdown(path)
     manifest = {
         "schema": "perfume_pipeline_run_evidence_v1",
@@ -771,7 +822,7 @@ def test_failed_post_write_verification_rolls_formula_back(tmp_path, monkeypatch
     with pytest.raises(RuntimeError, match="not current"):
         _append_pipeline_analysis(path, "diagnostic analysis", manifest)
 
-    assert path.read_text(encoding="utf-8") == original
+    assert path.read_bytes() == original
 
 
 def test_release_cli_persists_a_verified_artifact_by_default(tmp_path, capsys):

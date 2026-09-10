@@ -207,6 +207,8 @@ class FormulaState:
     matrix_components_moles: tuple[tuple[str, float], ...] = ()
     matrix_mass_g: float = 0.0
     matrix_source: str = "omitted"
+    dose_receipt_sha256: str | None = None
+    dose_receipt_status: str = "UNBOUND"
 
     @property
     def material_count(self) -> int:
@@ -532,6 +534,8 @@ class FormulaState:
             "matrix_source": self.matrix_source,
             "headspace_basis": self.headspace_basis,
             "total_vapor_ppm": round(self.total_vapor_ppm, 6),
+            "dose_receipt_sha256": self.dose_receipt_sha256,
+            "dose_receipt_status": self.dose_receipt_status,
             "quantitative_authority": self.quantitative_authority,
             "note_distribution": self.note_distribution(),
             "uncertainty": {
@@ -561,6 +565,11 @@ def _lookup_odt(
 ) -> tuple[float | None, str]:
     verification = verify_odt(name)
     data = lookup_odt_entry(name)
+    if data is None and registry_material is not None:
+        canonical_name = getattr(registry_material, "canonical_name", None)
+        if canonical_name:
+            data = lookup_odt_entry(canonical_name)
+            verification = verify_odt(canonical_name)
     if data is not None:
         odt_air_ppb = data.get("odt_air")
         if odt_air_ppb is not None:
@@ -577,6 +586,10 @@ def _lookup_odt(
 
 
 def _is_opaque_preblend(name: str, profile: MaterialProfile | None) -> bool:
+    # A source-declared opaque product is not a pure compound merely because
+    # its trade name lacks a generic mixture token such as "base".
+    if profile is not None and profile.material_kind == "OPAQUE_PREBLEND":
+        return True
     low = f" {name.lower()} "
     if any(token in low for token in OPAQUE_PREBLEND_TOKENS):
         return True

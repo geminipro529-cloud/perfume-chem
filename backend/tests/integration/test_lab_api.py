@@ -233,7 +233,8 @@ async def test_lab_api_exposes_analysis_interventions_and_stable_assistant(clien
     ]
     assert hypothesis_payload["hypotheses"]
     assert all(
-        "Hydroxycitronellal" not in item["materials"]
+        # User-confirmed September correction owns the aldehyde, not the alcohol.
+        "Hydroxycitronellol" not in item["materials"]
         for item in hypothesis_payload["hypotheses"]
     )
     assert all("Peonile" not in item["materials"] for item in hypothesis_payload["hypotheses"])
@@ -289,7 +290,7 @@ async def test_lab_api_exposes_analysis_interventions_and_stable_assistant(clien
         "/api/v1/lab/intervention-trials/plan",
         json={
             "brief_name": "Muguet Study",
-            "material": "Hydroxycitronellal",
+            "material": "Hydroxycitronellol",
             "bottle_total_mass_g": 10.0,
             "stock_active_mass_fraction": 0.1,
             "target_active_ppm_w_w": 100.0,

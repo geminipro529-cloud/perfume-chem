@@ -8,9 +8,10 @@ not predict measured skin life, blotter life, or absolute evaporation.
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass, replace
 from typing import Mapping, Sequence
 
+from engine.calibration.hashing import stable_json_hash
 from engine.pipeline.formula_state import FormulaState, build_formula_state
 
 DEFAULT_WINDOWS: tuple[tuple[str, float], ...] = (
@@ -37,6 +38,9 @@ class SimulationFrame:
     temporal_model: str = TEMPORAL_MODEL
     temporal_authority: str = TEMPORAL_AUTHORITY
     remaining_quantity_basis: str = REMAINING_QUANTITY_BASIS
+    source_state_sha256: str | None = None
+    source_dose_receipt_sha256: str | None = None
+    frame_content_sha256: str | None = None
 
     def dominant_oav(self, limit: int = 8) -> list[dict]:
         rows = sorted(
@@ -56,7 +60,7 @@ class SimulationFrame:
         ]
 
     def as_dict(self) -> dict:
-        return {
+        payload = {
             "label": self.label,
             "t_seconds": self.t_seconds,
             "state": self.state.as_dict(),
@@ -71,6 +75,26 @@ class SimulationFrame:
             "temporal_authority": self.temporal_authority,
             "remaining_quantity_basis": self.remaining_quantity_basis,
         }
+        if self.source_state_sha256 is not None:
+            payload["provenance"] = {
+                "schema": "simulation-frame-origin-v1",
+                "source_state_sha256": self.source_state_sha256,
+                "source_dose_receipt_sha256": self.source_dose_receipt_sha256,
+                "frame_content_sha256": self.frame_content_sha256,
+            }
+        return payload
+
+
+def state_content_sha256(state: FormulaState) -> str:
+    """Bind exact dataclass values, not the rounded display serialization."""
+    return stable_json_hash(asdict(state))
+
+
+def frame_content_sha256(frame: SimulationFrame) -> str:
+    """Content checksum, not a signature or independent model validation."""
+    payload = asdict(frame)
+    payload.pop("frame_content_sha256")
+    return stable_json_hash(payload)
 
 
 def _effective_escaping_tendency_pa(material) -> float:
@@ -147,6 +171,7 @@ def simulate_formula(
     context: str = "skin",
     windows: Sequence[tuple[str, float]] = DEFAULT_WINDOWS,
     initial_state: FormulaState | None = None,
+    bind_provenance: bool = False,
 ) -> list[SimulationFrame]:
     """Return uncalibrated temporal-screening frames.
 
@@ -162,6 +187,7 @@ def simulate_formula(
         context=context,
     )
     frames: list[SimulationFrame] = []
+    source_hash = state_content_sha256(initial) if bind_provenance else None
     current_state = initial
     current_seconds = 0.0
     for label, seconds in windows:
@@ -175,11 +201,16 @@ def simulate_formula(
             target_seconds - current_seconds,
         )
         current_seconds = target_seconds
-        frames.append(
-            SimulationFrame(
-                label=label,
-                t_seconds=target_seconds,
-                state=current_state,
-            )
+        frame = SimulationFrame(
+            label=label,
+            t_seconds=target_seconds,
+            state=current_state,
+            source_state_sha256=source_hash,
+            source_dose_receipt_sha256=(
+                initial.dose_receipt_sha256 if bind_provenance else None
+            ),
         )
+        if bind_provenance:
+            frame = replace(frame, frame_content_sha256=frame_content_sha256(frame))
+        frames.append(frame)
     return frames

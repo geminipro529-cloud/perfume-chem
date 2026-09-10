@@ -1,9 +1,12 @@
 PERFUMERY INVENTORY — CURRENT WORKING MATERIALS
-Updated: 2026-08-30 — consolidated user-authoritative V7 stock synchronization
+Updated: 2026-09-08 — four ethanol tinctures confirmed owned; Lavender High Altitude unavailable
 =============================================================================================
 
-# Physical authority: all prepared tinctures are lost and unavailable. Raw botanicals listed
-# below are not thereby treated as prepared tinctures. Historical formula rows remain unchanged.
+# Physical authority: Turkish Storax 20%, Vietnamese benzoin 40%, Kenyan myrrh 20%, and
+# Oman frankincense 33% ethanol tinctures are user-confirmed owned on 2026-09-08.
+# Their percentage bases and extraction/filtration details are unspecified. Other previously
+# lost tinctures remain unavailable; raw botanicals are not prepared tinctures by implication.
+# Historical formula rows remain unchanged.
 
 --- SOLVENTS / CARRIERS ---
 - Ethanol 96%
@@ -24,9 +27,9 @@ Updated: 2026-08-30 — consolidated user-authoritative V7 stock synchronization
 - Terpinyl Acetate  # confirmed 2026-04-30 — pine-citrus herbal acetate; useful for fougere lift
 - Apritone (10%)
 - Hexyl Acetate (10%)
-- Aldehyde C10 (1%)
+- Aldehyde C10 (1% v/v nominal in ethanol)  # 2026-09-08 user volumetric convention; ethanol default applies only because carrier was unknown; stock density unknown
 - Aldehyde C11 undecylenic (1%)
-- Aldehyde C12 MNA (1%)
+- Aldehyde C12 MNA (1% v/v nominal in ethanol)  # 2026-09-08 user volumetric convention; ethanol default applies only because carrier was unknown; stock density unknown
 - Aldehyde C12 MNA (neat)
 - Methyl Pamplemousse (10% in TEC)
 - Bergamot FCF oil Sicilian  # user-confirmed 2026-08-02; physically owned; no separate Bergamot EO stock
@@ -41,7 +44,8 @@ Updated: 2026-08-30 — consolidated user-authoritative V7 stock synchronization
 - Pamzest  # added 2026-05-23 — Synarome; powerful grapefruit zest specialty base; citrus top note
 - Petitgrain EO Paraguay  # Aroma&More via Shopee; user-confirmed neat/as supplied 2026-08-30; supplier listing identifies 100% Paraguay oil
 - Ginger EO  # added 2026-06-22 — Zingiber officinale; warm spicy-citrus; fresh ginger zing
-- Neroli EO (10% in DPG)  # added 2026-06-22 — Citrus aurantium flower oil; exquisite orange blossom; IFRA-restricted
+- Neroli EO (neat)  # retained owned stock; former 10% in DPG remains retired; separate ethanol working stock confirmed 2026-09-08
+- Neroli EO (10% v/v in ethanol)  # separate working stock physically prepared and user-confirmed 2026-09-08; stock density unknown
 
 --- GREEN / FRESH / MARINE ---
 - Cis-3-Hexenol (1%)  # 1% stock; leaf-green alcohol (previously absent from inventory)
@@ -53,7 +57,7 @@ Updated: 2026-08-30 — consolidated user-authoritative V7 stock synchronization
 - Galbanum EO  # DON'T HAVE / OUT OF STOCK 2026-09-02 — user-confirmed; historical formulas are not silently rebased
 - Cyclamen Aldehyde
 - Scentenal (1%)
-- Calone (1%)  # restocked — user confirmed in-stock 2026-07-08
+- Calone (1% in DPG)  # restocked — user confirmed in-stock 2026-07-08; carrier retained from V5 physical stock row 53
 - Floralozone (10%)
 - Undecavertol (1%)
 - Dynascone (10%)
@@ -63,6 +67,7 @@ Updated: 2026-08-30 — consolidated user-authoritative V7 stock synchronization
 - Geosmin (0.1% in TEC)  # diluted 2026-05-11 from original 1% stock; petrichor / rain-on-earth; ODT ≈ 6 ppt; use ≤ 50 µL/100 mL of dilution
 - Geosmin (1% in TEC)
 - Peppermint Essential Oil (Mentha piperita, India)  # added 2026-06-15 — steam-distilled; 100% pure; INCI: Mentha Piperita Oil; crisp herbal-fresh menthol cooling
+- Peppermint EO (10% v/v in ethanol)  # separate working stock physically prepared and user-confirmed 2026-09-08; stock density unknown
 - Eucalyptus Essential Oil (Eucalyptus globulus, India)  # added 2026-06-15 — steam-distilled; 100% pure; INCI: Eucalyptus Globulus Leaf Oil; sharp camphoraceous-cineole freshness
 - Tagetes EO (10% in DPG)  # added 2026-06-22 — Tagetes minuta/marigold; green-herbaceous-floral; apple-fruity undertone; powerful, use sparingly
 - Liffarome (10% w/w) [OWNED — V7 USER STOCK 2026-08-30; CARRIER UNSPECIFIED; QUANTITATIVE DOSING HOLD]
@@ -77,11 +82,11 @@ Updated: 2026-08-30 — consolidated user-authoritative V7 stock synchronization
 - Tuberose EO (volume level grade)  # volume-grade tuberose EO (distinct from absolute)
 - Helichrysum EO  # Helichrysum italicum (immortelle) EO; distinct from absolute
 - Jasmine Absolute (Jasminum grandiflorum, 10% in DPG)
-- Geranium EO (Pelargonium graveolens flower oil)  # neat — fresh rosy-green floral with minty lift; period-correct fougère material
+- Geranium EO (Pelargonium graveolens flower oil)  # neat; supplier Bontoux, user-confirmed 2026-09-07; grade and lot unspecified
 - Hedione  # restocked 2026-05-23
 - Dihydrojasmone
 - Jessemal (Jasmonyl)  # added 2026-05-09 — purchased; warm-fatty jasmine body; CAS 38285-49-3; (3-butyl-5-methyloxan-4-yl) acetate; tetrahydropyran acetate jasmine heart
-- Hydroxycitronellol  # added 2026-07-16 — neat; distinct rose-peony diol, not hydroxycitronellal
+- Hydroxycitronellal  # user-corrected bottle identity 2026-09-07; prior label Hydroxycitronellol was wrong; neat stock inherited from V5, not a new assay; the chemicals remain distinct
 - Phenethyl Alcohol (PEA)
 - Cinnamyl alcohol 50% in DPG
 - Florol
@@ -104,9 +109,9 @@ Updated: 2026-08-30 — consolidated user-authoritative V7 stock synchronization
 - Indole (10%)
 - Bourgeonal (20% in TEC)
 - Freesia HDI
-- Lilyreal ND
+- Lilyreal ND  # user-reported undiluted supplied product; fraction 1 is product loading, not identified odorant purity; opaque composition and OAV remain unknown
 - Lilial
-- Nympheal
+- Nympheal  # user-reported neat/as supplied in AHS transfer confirmation 2026-09-07; no assay inferred
 - Helional
 - Lemon FCF oil Sicilian
 - Ylang Comoros Complete EO F3255
@@ -125,7 +130,7 @@ Updated: 2026-08-30 — consolidated user-authoritative V7 stock synchronization
 - Damascol (10%)  # added 2026-04-20 — purchased; rose-plum damascone alcohol; softer, more rounded than Alpha/Beta
 - Heliotropal (Piperonal)  # added 2026-04-17 — purchased; neat; distinct from Heliotropin Fleuressence; sweet-almond-heliotrope-powdery
 - Amyl Cinnamic Aldehyde (ACA)  # added 2026-04-17 — purchased; jasmine-muguet-waxy diffusant; IFRA-restricted skin sensitizer
-- Phenyl Ethyl Dimethyl Carbinol (PEDMC)  # added 2026-04-17 — purchased; rose-magnolia-clean; softer rose than PEA
+- Phenyl Ethyl Dimethyl Carbinol (PEDMC)  # added 2026-04-17 — purchased; rose-magnolia-clean; softer rose than PEA; user-confirmed neat 2026-09-07 and currently clear liquid 2026-09-08; lot and stock density unknown
 - Farnesol  # added 2026-04-17 — purchased; lily-muguet fixative; low dose only; IFRA-restricted
 - Mayol  # added 2026-04-17 — purchased; clean transparent muguet-lily; post-Lyral muguet material
 - Oranger Crystals (10% in DPG)  # added 2026-04-17 — purchased; neroli-grape-floral; orange blossom direction; crystalline solid, dilute to 10% w/v
@@ -153,9 +158,9 @@ Updated: 2026-08-30 — consolidated user-authoritative V7 stock synchronization
 - Beta Ionone
 - Beta Ionone (0.1% in TEC)
 - Allyl Ionone (Ketone V)
-- Alpha Isomethyl Ionone (Methyl Ionone Pure)
+# Historical label: Alpha Isomethyl Ionone (Methyl Ionone Pure) — user confirmed 2026-09-08 that only Givaudan AIMI is currently owned; no separate current bottle
 - Alpha Irone (10% w/w in DEP)  # user-authoritative 2026-08-28; only owned Alpha Irone stock
-- Orris Liquid (30% w/w)  # PerfumersWorld 8IQ24653; refined powdery floral-woody orris with violet/lipstick, raspberry, carrot-seed, creamy-buttery, and soft-suede facets; extraction not specified; stock prepared as 30% w/w dilution
+- Orris Liquid (9% w/w in DEP)  # user-confirmed 2026-09-05; PerfumersWorld 8IQ24653 product diluted by mass in DEP; replaces the prior 30% stock declaration; extraction and stock-solution density not asserted
 - Irotyl
 - Dihydro Beta Ionone
 - Orivone
@@ -185,12 +190,12 @@ Updated: 2026-08-30 — consolidated user-authoritative V7 stock synchronization
 - Javanol
 - Amberwood F
 - Ambrox Super (25% w/w; 3.0 g Ambrox Super + 7.0 g DPG + 0.5 g IPM + 1.5 g ethanol; 12.0 g total; clear and homogeneous)  # user-confirmed current stock 2026-09-02; 3.0 g active is the arithmetic consequence of 25% w/w with 9.0 g stated carriers
-- Ambrofix (7.27% w/w nominal whole-bottle including solid in DEP + ethanol) [OWNED — LIQUID PHASE NON-EXECUTABLE; VISIBLE CRYSTALS / HOMOGENEITY HOLD; NO ACTIVE-UL/PPM/OAV OR VOLUME-DOSE MATH]
+- Ambrofix (7.27% w/w nominal whole-bottle including solid in DEP + ethanol) [DEPLETED — liquid stock gone; whole-bottle mass balance preserved as historical provenance only]
 - Ambrofix Crystals (solid)  # distinct physically owned crystalline stock; no equivalence to the heterogeneous liquid bottle
 - Timberol
 - Koavone
 - Cedarwood EO
-- Guaiacwood EO (exactly 1/3 Guaiacwood EO + 1/3 ethanol + 1/3 DEP, all w/w)  # user-confirmed owned; exact one-third composition and mass basis corrected 2026-09-01
+- Guaiacwood EO (exactly 1/3 w/w in ethanol + DEP; components are 1/3 Guaiacwood EO + 1/3 ethanol + 1/3 DEP by mass)  # user-confirmed owned; exact one-third composition and mass basis corrected 2026-09-01
 - Cedarwood oil Virginia
 - Himalayan Cedarwood EO
 - Indian Vetiver EO (volume grade)
@@ -198,10 +203,11 @@ Updated: 2026-08-30 — consolidated user-authoritative V7 stock synchronization
 - Vetikon (7403-42-1)
 - Norlimbanol Dextro
 - Azarbre  # added 2026-04-17 — purchased; cedar-amber-smooth; warmer than Ambrox, softer than Timberol
-- Kephalis  # added 2026-05-05 — purchased; woody-amber-tobacco with ionone-iris undertone; mid-to-base structural
+- Kephalis [NOT OWNED]  # user correction 2026-09-06 supersedes the old purchased claim
+- Vetiveryl Acetate (10% w/w in DEP)  # user-confirmed 2026-09-07; acetylated vetiver mixture, lot composition unknown
 - Amber Xtreme (10% w/w in DEP)  # user-confirmed 2026-08-28
 - Clearwood  # user-reconfirmed owned, neat, and ready 2026-08-29
-- Givaudan AIMI  # user-confirmed neat 2026-08-28; exact product identity/physics remain unresolved
+- Givaudan AIMI  # user-confirmed neat 2026-08-28; exact product identity/physics remain unresolved; user-confirmed 2026-09-08: only Givaudan AIMI currently owned; existing physical stock retained, no second Methyl Ionone Pure stock
 
 --- MUSKS ---
 - Ethylene Brassylate  # user-confirmed owned 2026-08-28; supplied-stock fraction not separately stated
@@ -209,10 +215,10 @@ Updated: 2026-08-30 — consolidated user-authoritative V7 stock synchronization
 - Tonalide (10%)  # DEPLETED 2026-07-19 — user confirmed current musk stock is limited to Zenolide, Exaltolide, Ambrettolide, and Ethylene Brassylate
 - Habanolide  # user-confirmed physically owned neat 2026-08-27
 - Zenolide
-- Romandolide  # user-confirmed physically owned neat 2026-08-27
+- Romandolide  # DEPLETED 2026-09-08; user: "im out of romandolide"; prior neat stock retained as history only
 - Exaltolide (10%)  # 10% in DPG
 - Macrolide (10%)  # DEPLETED 2026-07-19 — user confirmed current musk stock is limited to Zenolide, Exaltolide, Ambrettolide, and Ethylene Brassylate
-- Ambrettolide (10% in DPG)  # physically reconfirmed owned/executable 2026-08-30; target fit and musk nonredundancy still govern use
+- Ambrettolide (10% w/w in DPG)  # user-confirmed 2026-09-04; owned, homogeneous, clear, pipetteable, and raw-volume executable; density, exact active mass/volume, safety, sensory outcome, and remaining quantity are not asserted
 - Musk Ketone (pure powder)  # DEPLETED 2026-07-19 — user confirmed current musk stock is limited to Zenolide, Exaltolide, Ambrettolide, and Ethylene Brassylate
 - Musk Ketone (10% in DPG)  # DEPLETED 2026-07-19 — user confirmed current musk stock is limited to Zenolide, Exaltolide, Ambrettolide, and Ethylene Brassylate
 
@@ -221,18 +227,22 @@ Updated: 2026-08-30 — consolidated user-authoritative V7 stock synchronization
 - Anisaldehyde 10%  # 10% stock; neat Anisaldehyde already present
 - Ethyl Maltol 1%  # 1% stock; 10% Ethyl Maltol already present
 - Raspberry Ketone (20% in DPG w/w)  # 20% in DPG w/w; neat Raspberry Ketone already present
-- Vietnamese Benzoin Styrax Tonkinensis resin ethanol tincture (20%) [OUT OF STOCK 2026-08-28 — user-confirmed lost]
-- Turkish Storax Liquidambar Orientalis resin ethanol tincture (20%) [OUT OF STOCK 2026-08-28 — user-confirmed lost]
+- Vietnamese Benzoin Styrax Tonkinensis resin ethanol tincture (20%) [OUT OF STOCK 2026-08-28 — historical lost stock; distinct from the current 40% tincture]
+- Vietnamese Benzoin resin ethanol tincture (40%) [OWNED — USER-CONFIRMED 2026-09-08; FRACTION BASIS UNSPECIFIED; QUANTITATIVE DOSING HOLD]
+- Turkish Storax Liquidambar Orientalis resin ethanol tincture (20%) [OWNED — USER-CONFIRMED 2026-09-08; FRACTION BASIS UNSPECIFIED; QUANTITATIVE DOSING HOLD; botanical identity inherited from the prior label, not newly assayed]
+- Kenyan Myrrh resin ethanol tincture (20%) [OWNED — USER-CONFIRMED 2026-09-08; BOTANICAL SPECIES AND FRACTION BASIS UNSPECIFIED; QUANTITATIVE DOSING HOLD]
+- Oman Frankincense resin ethanol tincture (33%) [OWNED — USER-CONFIRMED 2026-09-08; BOTANICAL SPECIES AND FRACTION BASIS UNSPECIFIED; QUANTITATIVE DOSING HOLD]
 - Coffee Absolute Grasse (10% in DPG)  # added 2026-07-29; roasted coffee natural stock
 - 2-Acetyl Pyrazine (1% in DPG)  # added 2026-07-29; popcorn/bread-crust/roasted gourmand stock
 - Ethyl Maltol (10%)
-- Coumarin (DPG-saturated, approximately 25–30%)
+- Coumarin (10% w/w in DPG)  # current working solution, user-confirmed 2026-09-07; supersedes older working-stock descriptions, not historical formulas
 - Coumarin (neat powder)  # added 2026-04-17 — purchased; solid crystalline; use to prepare custom dilutions
-- Vanillin (10%)
+- Vanillin (10% v/v nominal in ethanol)  # 2026-09-08 user volumetric convention; ethanol default applies only because carrier was unknown; stock density unknown
 - Ethyl Vanillin (10%)
 - Maple Lactone (20%)
 - Raspberry Ketone
 - Siam Benzoin (50% in DPG)
+- Methyl Laitone (20%) [OWNED — FRACTION BASIS AND CARRIER UNSPECIFIED; QUANTITATIVE EXECUTION HOLD]  # user-confirmed 2026-09-07; not the supplier catalog 10% DPG product
 - Benzoin Sumatra Resinoid (10%)
 - Anisaldehyde
 - Gamma Decalactone  # DON'T HAVE / OUT OF STOCK 2026-08-28 — retained as an unavailable historical identity
@@ -242,9 +252,9 @@ Updated: 2026-08-30 — consolidated user-authoritative V7 stock synchronization
 - Aldehyde C-18 (Gamma Nonalactone, neat)
 - Allyl Amyl Glycolate (10%)
 - Labdanum Resinoid (10% in DPG)
-- Tonkarome (20% w/w in TEC)  # solid; Firmenich coumarinic-tonka base; 4 g Tonkarome + 16 g TEC; prepared 2026-06-03
+- Tonkarome (20% w/w in TEC)  # user-prepared 2026-06-03 from 4 g Tonkarome + 16 g TEC; user-confirmed 2026-09-04 owned, homogeneous, clear, pipetteable, and raw-volume executable; density, exact active mass/volume from a raw-volume dose, safety, sensory outcome, and remaining quantity are not asserted
 - Cocoa Absolute  # neat stock; user-confirmed 2026-07-18
-- Tonka Bean Absolute (10% in DPG)  # added 2026-06-22 — Dipteryx odorata; coumarinic-hay-almond; natural richness vs synthetic Tonkarome
+- Tonka Bean Absolute (10% v/v nominal in DPG)  # added 2026-06-22 — Dipteryx odorata; coumarinic-hay-almond; natural richness vs synthetic Tonkarome; 2026-09-08 user volumetric convention; existing DPG retained; stock density unknown
 - Cocoa CO2 Extract (7.7%)  # stock dilution 7.7%; distinct economical chocolate-body material; added 2026-06-22, identity confirmed 2026-07-18
 - Peru Balsam Resinoid (50% in DPG)
 - Opoponax Resinoid (50% in DEP)  # user-authoritative 2026-08-28; 50% basis unspecified
@@ -270,6 +280,7 @@ Updated: 2026-08-30 — consolidated user-authoritative V7 stock synchronization
 - Caraway Seed Oil (10% w/w in DPG)  # Carum carvi seed oil, 10% w/w in DPG
 - Safraleine  # added 2026-07-29; neat saffron/leather/tobacco indenone
 - Coriander Essential Oil  # added 2026-07-29; neat linalool-rich coriander seed EO
+- Pink Pepper EO (Schinus molle; neat / as supplied)  # user-confirmed physical stock 2026-09-03; Aroma&More Peru; EO is authoritative for this bottle and remains distinct from the older Pink Pepper EO / CO2 requirement row
 - Black Pepper EO
 - Cardamom EO  # added 2026-05-08 — purchased; green cardamom essential oil; spicy-cineolic-aromatic; pairs with rose, bergamot
 - Ethyl Safranate (10%)
@@ -282,8 +293,8 @@ Updated: 2026-08-30 — consolidated user-authoritative V7 stock synchronization
 - Cinnamon Bark EO - Telvada USDA Organic (neat)  # Telvada via Shopee; user-confirmed neat/as supplied 2026-08-30; distinct from NYSUPPLY 10% stock and Cassia EO; no cross-stock substitution authority
 - Nutmeg EO  # Aroma&More via Shopee; user-confirmed neat/as supplied 2026-08-30; supplier listing identifies 100% Indonesia oil
 - Lavender EO (1%)
-- Lavender EO High Altitude (angustifolia, France)  # Aroma&More via Shopee; user-confirmed neat/as supplied 2026-08-30; exact lot/species certificate not yet captured
-- Lavender EO (BONTAUX SAS)  # added 2026-05-08 — purchased; premium French lavender angustifolia; floral-herbaceous with soft honeyed sweetness
+- Lavender EO High Altitude (angustifolia, France) [NOT OWNED — removed from current available inventory by user 2026-09-08; historical identity retained]
+- Lavender EO (BONTAUX SAS)  # added 2026-05-08 — purchased; premium French lavender angustifolia; floral-herbaceous with soft honeyed sweetness; bare inventory row implies neat/as supplied under established convention, not a direct neat quote
 - Spike Lavender EO  # added 2026-04-29 — purchased; camphoraceous lavender, more aromatic/masculine and less soft-floral than Lavender EO
 - Beta-Pinene  # added 2026-04-29 — purchased; pine-green terpene top note; useful for Thai aromatic fougere lift, oxidizes like other terpenes
 - Pine EO  # added 2026-04-30 — purchased; coniferous pine needle/forest top, terpene-rich and oxidation-sensitive
@@ -306,17 +317,17 @@ Updated: 2026-08-30 — consolidated user-authoritative V7 stock synchronization
 - Methyl Nonyl Ketone
 - Cassis Base 345B
 ────────────────────────────────── TOTALS ──────────────────────────────────
-Raw entries:                    279
+Raw entries:                    285
 SOLVENTS / CARRIERS:                  6
 CITRUS / TOP:                        28
 GREEN / FRESH / MARINE:              22
 FLORAL MATERIALS:                    78
 IRIS / VIOLET:                       13
-WOODS / AMBER / STRUCTURE:           39
+WOODS / AMBER / STRUCTURE:           40
 MUSKS:                               11
-SWEET / GOURMAND / BALSAMIC:         32
+SWEET / GOURMAND / BALSAMIC:         36
 LEATHER / SMOKY / PHENOLIC:          12
-SPICE / AROMATIC:                    30
+SPICE / AROMATIC:                    31
 ACCORD BASES / OTHER:                 8
 ──────────────────
-Total listed stock rows:         279
+Total listed stock rows:         285

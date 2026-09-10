@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -234,8 +235,13 @@ def test_records_round_trip_with_closed_schema_and_stable_hash() -> None:
         WorkPacket.from_dict(invalid)
 
 
-def test_live_cloud_registry_links_exactly_three_xhigh_openai_lanes() -> None:
+def test_historical_cloud_registry_preserves_three_recorded_openai_lanes() -> None:
+    # A byte-bound registration record, not a query or assertion of live workers.
+    assert hashlib.sha256(REGISTRY_PATH.read_bytes()).hexdigest() == (
+        "9c9b12e123bf70f9b40b2ca95d2e869756119233a742284cc09236a09311b78d"
+    )
     payload = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
+    assert payload["effective_date"] == "2026-09-01"
 
     assert payload["schema_version"] == "perfume_chem_openai_cloud_collaboration_v1"
     assert payload["provider_policy"]["allowed_provider"] == "openai"

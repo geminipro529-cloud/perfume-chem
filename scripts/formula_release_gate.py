@@ -319,7 +319,8 @@ def _append_pipeline_analysis(
     analysis_text: str,
     manifest: dict,
 ) -> None:
-    text = formula_path.read_text(encoding="utf-8", errors="replace")
+    original_bytes = formula_path.read_bytes()
+    text = original_bytes.decode("utf-8", errors="replace")
     formula_source, _old_artifact = split_generated_pipeline_analysis(text)
     replacement = formula_source.rstrip() + "\n\n" + _artifact_payload(analysis_text, manifest)
     temporary_path: Path | None = None
@@ -357,15 +358,13 @@ def _append_pipeline_analysis(
     except Exception:
         if replaced:
             with tempfile.NamedTemporaryFile(
-                "w",
-                encoding="utf-8",
-                newline="\n",
+                "wb",
                 delete=False,
                 dir=formula_path.parent,
                 prefix=f".{formula_path.name}.rollback.",
                 suffix=".tmp",
             ) as handle:
-                handle.write(text)
+                handle.write(original_bytes)
                 rollback_path = Path(handle.name)
             os.replace(rollback_path, formula_path)
             rollback_path = None
@@ -470,6 +469,12 @@ def validate_pipeline_analysis_artifact(
                 "pipeline_source_sha256",
             )
         }
+        # Early v1 artifacts predate parent binding. Preserve their exact input
+        # shape, but never omit a lineage field that the writer actually stored.
+        if "g15_parent_formula_definitions" in manifest:
+            input_fields["g15_parent_formula_definitions"] = manifest[
+                "g15_parent_formula_definitions"
+            ]
         if manifest.get("analysis_input_sha256") != stable_json_hash(
             input_fields
         ):
