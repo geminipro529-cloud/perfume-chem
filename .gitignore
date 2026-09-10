@@ -109,3 +109,6 @@ key.pub
 
 
 .pub
+
+# Key material must never be tracked.
+/incoming_review/openai-api-key*.txt
