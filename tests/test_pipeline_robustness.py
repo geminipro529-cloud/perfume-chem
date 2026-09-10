@@ -4,7 +4,14 @@ from engine.pipeline.gates import ReleaseGateConfig, gate_formula
 from engine.pipeline.robustness import audit_formula_robustness
 
 
-def _fougere_formula(evernyl_ul=100.0):
+def _fougere_formula(evernyl_ul=100.0, *, stock_valid: bool = False):
+    """Fougère probe formula.
+
+    ``stock_valid`` swaps in materials that resolve cleanly against the current
+    inventory authority, so advisory gate behavior can be tested without the
+    stock contract failing first. The default keeps Evernyl for the
+    IFRA-perturbation case, which does not run the release gate.
+    """
     ingredients = {
         "Cedrat FCF oil Sicilian": 1200.0,
         "Lavender EO (BONTAUX SAS)": 700.0,
@@ -16,6 +23,11 @@ def _fougere_formula(evernyl_ul=100.0):
         "Cedarwood oil Virginia": 300.0,
         "Zenolide": 500.0 - evernyl_ul,
     }
+    if stock_valid:
+        ingredients["Bergamot FCF oil Sicilian"] = ingredients.pop(
+            "Cedrat FCF oil Sicilian"
+        )
+        ingredients["Patchouli EO"] = ingredients.pop("Evernyl")
     total = sum(ingredients.values())
     return {
         "number": 1,
@@ -24,11 +36,9 @@ def _fougere_formula(evernyl_ul=100.0):
         "ingredients_ul": ingredients,
         "dilutions": {
             name: (
-                0.3
-                if name == "Coumarin"
-                else 0.2
-                if name == "Evernyl"
-                else 1.0
+                (0.1 if name == "Coumarin" else 1.0)
+                if stock_valid
+                else (0.3 if name == "Coumarin" else 0.2 if name == "Evernyl" else 1.0)
             )
             for name in ingredients
         },
@@ -53,7 +63,7 @@ def test_robustness_warns_when_evernyl_plus_perturbation_breaks_ifra():
 
 
 def test_robustness_audit_preserves_original_formula_and_gate_is_nonblocking():
-    formula = _fougere_formula(evernyl_ul=100.0)
+    formula = _fougere_formula(evernyl_ul=100.0, stock_valid=True)
     before = deepcopy(formula)
     gate_report = gate_formula(
         formula,

@@ -44,6 +44,14 @@ from engine.physics.model_interface import (
     VersionedModelResult,
     VersionedModelRouter,
 )
+from engine.physics.model_lifecycle import (
+    ModelDriftAssessment,
+    ModelDriftObservation,
+    ModelDriftState,
+    ModelLifecycleCard,
+    ModelLifecycleState,
+    assess_model_drift,
+)
 from engine.physics.properties import (
     CanonicalScope,
     ThermophysicalProperty,
@@ -158,6 +166,15 @@ PUBLIC_C3_NAMES = {
     "VersionedModelRequest",
     "VersionedModelResult",
     "VersionedModelRouter",
+}
+# Supported C3 lifecycle exports: model lifecycle cards and drift assessment.
+PUBLIC_LIFECYCLE_NAMES = {
+    "ModelDriftAssessment",
+    "ModelDriftObservation",
+    "ModelDriftState",
+    "ModelLifecycleCard",
+    "ModelLifecycleState",
+    "assess_model_drift",
 }
 PUBLIC_C4_NAMES = {
     "C4_INPUT_ROLE",
@@ -1690,12 +1707,17 @@ def test_c3_types_are_explicitly_exported_from_engine_physics() -> None:
     from engine.physics import ModelAvailability as PublicModelAvailability
     from engine.physics import ModelComparisonResult as PublicModelComparisonResult
     from engine.physics import ModelComputation as PublicModelComputation
+    from engine.physics import ModelDriftAssessment as PublicModelDriftAssessment
+    from engine.physics import ModelDriftObservation as PublicModelDriftObservation
+    from engine.physics import ModelDriftState as PublicModelDriftState
     from engine.physics import ModelEvidenceClass as PublicModelEvidenceClass
     from engine.physics import ModelFamily as PublicModelFamily
     from engine.physics import ModelInputReference as PublicModelInputReference
     from engine.physics import (
         ModelInterfaceContractError as PublicModelInterfaceContractError,
     )
+    from engine.physics import ModelLifecycleCard as PublicModelLifecycleCard
+    from engine.physics import ModelLifecycleState as PublicModelLifecycleState
     from engine.physics import ModelOperation as PublicModelOperation
     from engine.physics import ModelOutput as PublicModelOutput
     from engine.physics import ModelRelease as PublicModelRelease
@@ -1706,6 +1728,7 @@ def test_c3_types_are_explicitly_exported_from_engine_physics() -> None:
     from engine.physics import VersionedModelRequest as PublicVersionedModelRequest
     from engine.physics import VersionedModelResult as PublicVersionedModelResult
     from engine.physics import VersionedModelRouter as PublicVersionedModelRouter
+    from engine.physics import assess_model_drift as public_assess_model_drift
     from engine.physics.natural_lots import SelectionStatus as DirectNaturalSelectionStatus
 
     public_bindings = {
@@ -1718,10 +1741,15 @@ def test_c3_types_are_explicitly_exported_from_engine_physics() -> None:
         "ModelAvailability": PublicModelAvailability,
         "ModelComparisonResult": PublicModelComparisonResult,
         "ModelComputation": PublicModelComputation,
+        "ModelDriftAssessment": PublicModelDriftAssessment,
+        "ModelDriftObservation": PublicModelDriftObservation,
+        "ModelDriftState": PublicModelDriftState,
         "ModelEvidenceClass": PublicModelEvidenceClass,
         "ModelFamily": PublicModelFamily,
         "ModelInputReference": PublicModelInputReference,
         "ModelInterfaceContractError": PublicModelInterfaceContractError,
+        "ModelLifecycleCard": PublicModelLifecycleCard,
+        "ModelLifecycleState": PublicModelLifecycleState,
         "ModelOperation": PublicModelOperation,
         "ModelOutput": PublicModelOutput,
         "ModelRelease": PublicModelRelease,
@@ -1731,6 +1759,7 @@ def test_c3_types_are_explicitly_exported_from_engine_physics() -> None:
         "VersionedModelRequest": PublicVersionedModelRequest,
         "VersionedModelResult": PublicVersionedModelResult,
         "VersionedModelRouter": PublicVersionedModelRouter,
+        "assess_model_drift": public_assess_model_drift,
     }
     direct_bindings = {
         "ApplicabilityContext": ApplicabilityContext,
@@ -1742,10 +1771,15 @@ def test_c3_types_are_explicitly_exported_from_engine_physics() -> None:
         "ModelAvailability": ModelAvailability,
         "ModelComparisonResult": ModelComparisonResult,
         "ModelComputation": ModelComputation,
+        "ModelDriftAssessment": ModelDriftAssessment,
+        "ModelDriftObservation": ModelDriftObservation,
+        "ModelDriftState": ModelDriftState,
         "ModelEvidenceClass": ModelEvidenceClass,
         "ModelFamily": ModelFamily,
         "ModelInputReference": ModelInputReference,
         "ModelInterfaceContractError": ModelInterfaceContractError,
+        "ModelLifecycleCard": ModelLifecycleCard,
+        "ModelLifecycleState": ModelLifecycleState,
         "ModelOperation": ModelOperation,
         "ModelOutput": ModelOutput,
         "ModelRelease": ModelRelease,
@@ -1755,6 +1789,7 @@ def test_c3_types_are_explicitly_exported_from_engine_physics() -> None:
         "VersionedModelRequest": VersionedModelRequest,
         "VersionedModelResult": VersionedModelResult,
         "VersionedModelRouter": VersionedModelRouter,
+        "assess_model_drift": assess_model_drift,
     }
 
     assert public_bindings == direct_bindings
@@ -1768,6 +1803,7 @@ def test_c3_types_are_explicitly_exported_from_engine_physics() -> None:
         | PUBLIC_C6_NAMES
         | PUBLIC_C7_NAMES
         | PUBLIC_C8_NAMES
+        | PUBLIC_LIFECYCLE_NAMES
     )
     assert len(physics.__all__) == len(set(physics.__all__))
     assert "does not evaluate" in (physics.__doc__ or "").lower()

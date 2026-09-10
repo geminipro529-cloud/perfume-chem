@@ -11,6 +11,21 @@ from engine.inventory_parser import parse_inventory
 from engine.odor_thresholds import ODT_DATA
 
 
+def _current_owned_identity_count() -> int:
+    """Count owned identities from the current inventory authority.
+
+    Uses the public parser with the same authority selection as
+    ``analyze_expansion`` instead of a hard-coded count, so a growing inventory
+    cannot silently invalidate the assertion.
+    """
+    records = parse_inventory(
+        unique=True,
+        include_solvents=False,
+        include_unavailable=False,
+    )
+    return len({record.identity_name or record.name for record in records})
+
+
 @pytest.fixture(scope="module")
 def range_report():
     return analyze_expansion(top_n=200)
@@ -34,23 +49,80 @@ def test_purchase_identity_excludes_owned_aliases_and_stock_preparations(range_r
 
 def test_range_extension_excludes_existing_unavailable_stock_by_default(range_report):
     names = {candidate.name for candidate in range_report.candidates}
+    records = parse_inventory(unique=False, include_unavailable=True)
     explicitly_unavailable = {
-        record.name
-        for record in parse_inventory(unique=False, include_unavailable=True)
+        record.identity_name or record.name
+        for record in records
         if record.status != "owned"
     }
+    owned = {
+        record.identity_name or record.name
+        for record in parse_inventory(
+            unique=True,
+            include_solvents=False,
+            include_unavailable=False,
+        )
+    }
 
+    # Depleted stock is not a range extension, and owned materials are never
+    # recommended back to the user.
     assert names.isdisjoint(explicitly_unavailable)
-    assert {"Habanolide", "Romandolide"}.issubset(names)
+    assert names.isdisjoint(owned)
+    # The report must still contain genuine range extensions.
+    assert names
     assert range_report.ranking_authority == "MODELLED_RANGE_GAP_NOT_PURCHASE_ORDER"
-    assert range_report.inventory_size == 210
+    assert range_report.inventory_size == _current_owned_identity_count()
+
+
+def test_inventory_size_counts_owned_identities_exactly(tmp_path):
+    """A small deterministic authority proves the count is exact, not vacuous."""
+    fixture = tmp_path / "inventory_fixture.txt"
+    fixture.write_text(
+        "--- CITRUS / TOP ---\n"
+        "- Citral\n"
+        "- Hexyl Acetate\n"
+        "--- MUSKS / BASE ---\n"
+        "- Habanolide\n"
+        "- Romandolide  # DEPLETED 2026-09-08\n",
+        encoding="utf-8",
+    )
+
+    report = analyze_expansion(inventory_path=str(fixture), top_n=5)
+
+    assert report.inventory_size == 3
 
 
 def test_replenishment_is_an_explicit_separate_mode():
     report = analyze_expansion(top_n=200, include_replenishment=True)
     by_name = {candidate.name: candidate for candidate in report.candidates}
-    assert by_name["Tonalide"].purchase_mode == "replenishment"
-    assert by_name["Habanolide"].purchase_mode == "range_extension"
+    replenishment = {
+        name
+        for name, candidate in by_name.items()
+        if candidate.purchase_mode == "replenishment"
+    }
+    range_extension = {
+        name
+        for name, candidate in by_name.items()
+        if candidate.purchase_mode == "range_extension"
+    }
+    owned = {
+        record.identity_name or record.name
+        for record in parse_inventory(
+            unique=True,
+            include_solvents=False,
+            include_unavailable=False,
+        )
+    }
+
+    # Depleted stock appears only through the explicit replenishment mode, and
+    # no identity is offered in both modes at once.
+    assert replenishment
+    assert range_extension
+    assert replenishment.isdisjoint(range_extension)
+    assert range_extension.isdisjoint(owned)
+    # Named depleted stock is a replenishment candidate, not a range extension.
+    for depleted_name in ("Romandolide", "Tonalide"):
+        assert by_name[depleted_name].purchase_mode == "replenishment"
     assert "Myristic Acid" not in by_name
 
 

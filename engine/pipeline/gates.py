@@ -5383,19 +5383,19 @@ def gate_formula(
         matrix_source=config.matrix_source,
     )
     dose_receipt = None
-    # Retain the exact input identity for downstream replay even when diagnostics
-    # are disabled. Attaching a receipt does not bind preflight or grant authority.
+    # Bind the exact formula/stock/dose identity by default, matching the
+    # accepted pipeline. Invalid or empty inputs still fall through to the
+    # fail-closed preflight rather than crashing unless diagnostics demanded
+    # a receipt.
     try:
         dose_receipt = build_formula_dose_receipt(formula, stock_contract)
     except ValueError:
         if config.deep_plane_diagnostics_enabled:
             raise
-        # Invalid/empty inputs still reach the existing fail-closed preflight.
-        pass
-    if config.deep_plane_diagnostics_enabled:
-        assert dose_receipt is not None
+    if dose_receipt is not None:
         state = replace(
-            state, dose_receipt_sha256=dose_receipt.receipt_sha256,
+            state,
+            dose_receipt_sha256=dose_receipt.receipt_sha256,
             dose_receipt_status=dose_receipt.status,
         )
     preflight = run_release_preflight(
@@ -5404,7 +5404,7 @@ def gate_formula(
         require_exact_ppm=config.requires_exact_quantitation(),
         require_exact_finished_product_ppm=(config.requires_exact_finished_product_quantitation()),
         stock_contract=stock_contract,
-        dose_receipt=dose_receipt if config.deep_plane_diagnostics_enabled else None,
+        dose_receipt=dose_receipt,
     ).as_dict()
     simulation = tuple(
         simulate_formula(

@@ -34,18 +34,21 @@ PRADA_CASES = (
     (
         ROOT / "formulas" / "Prada_LHomme_Architecture_Control_30mL_EdT.md",
         {
+            ("Aldehyde C11", "inventory_stock_metadata_incomplete"),
+            ("Ambrofix", "inventory_gap"),
             ("Bourgeonal", "stock_fraction_mismatch"),
-            ("Aldehyde C11", "not_in_inventory"),
-            ("Ethylene Brassylate", "not_in_inventory"),
+            ("Neroli EO", "stock_carrier_mismatch"),
         },
     ),
     (
         ROOT / "formulas" / "Prada_LHomme_Luxury_Orris_30mL_EdT.md",
         {
+            ("Aldehyde C11", "inventory_stock_metadata_incomplete"),
+            ("Alpha Irone", "inventory_gap"),
+            ("Ambrofix", "inventory_gap"),
+            ("Neroli EO", "stock_carrier_mismatch"),
             ("Orris Liquid", "stock_fraction_mismatch"),
             ("Bourgeonal", "stock_fraction_mismatch"),
-            ("Aldehyde C11", "not_in_inventory"),
-            ("Ethylene Brassylate", "not_in_inventory"),
         },
     ),
 )
@@ -216,15 +219,26 @@ def test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate() 
     assert set(audit["categories"]["naturals_missing_composite_evidence"]) == {
         "Anise EO",
         "Basil EO",
+        "Cabreuva EO",
         "Cade Oil Rectified",
+        "Caraway Seed Oil",
         "Champaca Flower EO",
+        "Cypress EO",
+        "Elemi EO",
         "Grapefruit FCF oil Sicilian",
+        "Hay Absolute",
+        "Helichrysum EO",
         "Himalayan Cedarwood EO",
         "Magnolia EO",
+        "Myrrh EO",
+        "Nutmeg EO",
         "Opoponax Resinoid",
+        "Peppermint EO",
         "Peppermint Essential Oil",
         "Peru Balsam Resinoid",
         "Pine EO",
+        "Pink Pepper EO",
+        "Sandalwood EO",
         "Spike Lavender EO",
         "Tagetes EO",
     }
@@ -232,6 +246,9 @@ def test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate() 
         audit["categories"]["opaque_preblends_without_disclosed_composition"]
     ) == {
         "Leather FO",
+        "Lilyreal ND",
+        "Sandalwood Base 3X",
+        "Tuberlia Base",
     }
     assert audit["status"] == "FAIL_CLOSED_GAPS"
     assert audit["release_authority"] is False

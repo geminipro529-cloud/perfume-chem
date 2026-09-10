@@ -152,12 +152,12 @@ def _formula(
 
 def _trial_fougere():
     ingredients = {
-        "Cedrat FCF oil Sicilian": 1200.0,
+        "Bergamot FCF oil Sicilian": 1200.0,
         "Lavender EO (BONTAUX SAS)": 700.0,
         "Linalyl Acetate": 600.0,
         "Hedione": 900.0,
         "Coumarin": 300.0,
-        "Evernyl": 10.0,
+        "Patchouli EO": 10.0,
         "Iso E Super": 1500.0,
         "Cedarwood oil Virginia": 300.0,
         "Zenolide": 490.0,
@@ -166,10 +166,8 @@ def _trial_fougere():
         ingredients,
         dilutions={
             material: (
-                0.3
+                0.1
                 if material == "Coumarin"
-                else 0.2
-                if material == "Evernyl"
                 else 1.0
             )
             for material in ingredients
@@ -341,12 +339,12 @@ def test_formula_release_gate_cli_accepts_commercial_trial_and_scaling_target(
 
 | # | Material | Dilution | Amount (uL) | Amount (mL) |
 |---:|---|---:|---:|---:|
-    | 1 | Cedrat FCF oil Sicilian | neat | 1200 | 1.200 |
+    | 1 | Bergamot FCF oil Sicilian | neat | 1200 | 1.200 |
     | 2 | Lavender EO (BONTAUX SAS) | neat | 700 | 0.700 |
     | 3 | Linalyl Acetate | neat | 600 | 0.600 |
     | 4 | Hedione | neat | 900 | 0.900 |
-    | 5 | Coumarin | 30% | 300 | 0.300 |
-    | 6 | Evernyl | 20% | 10 | 0.010 |
+    | 5 | Coumarin | 10% | 300 | 0.300 |
+    | 6 | Patchouli EO | neat | 10 | 0.010 |
 | 7 | Iso E Super | neat | 1500 | 1.500 |
     | 8 | Cedarwood oil Virginia | neat | 300 | 0.300 |
 | 9 | Zenolide | neat | 490 | 0.490 |
