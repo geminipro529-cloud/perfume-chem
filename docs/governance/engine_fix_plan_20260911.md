@@ -60,12 +60,26 @@ Mirror the registry mechanism, in `scripts/verify_c0_physical_model_inventory.py
   anchored per `(record_id, target)`; the anchor must equal the stored value,
   or the verifier refuses to load.
 - Re-bind the 27 hash pins: 16 declared EOL-only (provable), 11 declared as
-  post-migration revisions with the commit that caused them.
+  owner re-baselines (see the reproducibility rule below).
 - **Do not auto-rewrite the 8 symbol/line drifts or 20 call-edge tokens.**
   Those describe where code moved; each needs a human read of the new
   location. They are mechanical but not automatic.
 - Keep `tests/fixtures/c0_legacy_physical_model_cases.json` separate: it has
   its own 17 drifting rows and its own validator.
+
+### Reproducibility rule (measured, apply before any C0 re-bind)
+
+Every superseded digest must be reproducible, or the record must say it is not.
+Measured for C0's 35 `(path, digest)` pairs: 8 still match the current bytes;
+27 drift and **none of the 27 matches any committed revision on any ref**;
+16 of those 27 match the CRLF materialisation of the current blob (content
+unchanged, provably safe to re-bind); the other **11 match nothing reachable** —
+not the current bytes, not their LF or CRLF form, not any revision. Those 11
+need an owner re-baseline receipt, not a successor that implies continuity.
+
+Two rules follow: **R1** a successor may only be issued when the superseded
+digest equals the current bytes or a committed revision; **R2** a successor must
+never encode a CRLF preference, because the committed representation is LF.
 
 ## 5. Decisions the owner has to make
 

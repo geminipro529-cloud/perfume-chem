@@ -44,7 +44,7 @@
       "superseded_sha256": "9b2b72f5107039273bfb22118a36270b8a11ff1a47265d3b221d37eed49f4302",
       "successor_sha256": "4f655236d5f089fd927c30bf46b2b6dc66e1ac283f199b82df9013d7e6de99e7",
       "commit": "8916c30bda979a74b60d3006aaf3200ceaf10bf2",
-      "reason": "Frozen pin predates the post-freeze change to this module; the current committed bytes are the authority and the earlier pin describes a previous revision.",
+      "reason": "Re-baseline, not a continuity claim: the frozen digest matches no committed revision of this module on any ref, and the module changed after the freeze in 8916c30b. The current committed bytes are recorded as the authority for this pin.",
       "evidence": "docs/governance/pin_successor_ledger_20260911.md",
       "approved_by": "repository owner (2026-09-11 engine-fix directive)",
       "approved_at": "2026-09-11"

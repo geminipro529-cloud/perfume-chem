@@ -48,7 +48,7 @@ mistake, not an override, and it fails to load rather than silently rebinding.
 
 | Module | Path | Superseded pin | Successor pin | Commit | Cause |
 |---|---|---|---|---|---|
-| `temporal-graph-future` | `engine/temporal_graph.py` | `9b2b72f5…` | `4f655236…` | `8916c30b` | real post-freeze revision |
+| `temporal-graph-future` | `engine/temporal_graph.py` | `9b2b72f5…` | `4f655236…` | `8916c30b` | post-freeze revision; superseded digest not reproducible (see below) |
 | `temporal-volatility-future` | `engine/temporal_volatility.py` | `a7411771…` | `89b23e97…` | `4f7a7bab` | EOL only |
 | `hedonic-model-future` | `engine/hedonic_model.py` | `c5a25a93…` | `7d5c8d6b…` | `4f7a7bab` | EOL only |
 | `advanced-musk-intelligence` | `future_modules/advanced_musk_intelligence.py` | `28745ddb…` | `cc0c789b…` | `4f7a7bab` | EOL only |
@@ -62,6 +62,40 @@ longer reproduce the CRLF form. That commit also normalised the working copies o
 paths; every rewrite was content-neutral, and staging after it showed only `.gitattributes` changed.
 
 ## What this does not do
+
+## Anchor reproducibility — a rule this change establishes
+
+An independent audit asked whether each superseded digest matches *any*
+committed revision of its path, on any ref. The answer matters because a
+successor record that says "the frozen pin describes a previous revision" is
+making a claim about history, and that claim must be checkable.
+
+Measured for the C0 store's 35 `(path, digest)` pairs:
+
+- **8** still match the current bytes — nothing to move.
+- **27** drift, and **none of the 27 matches any committed revision** of its
+  path (`git rev-list --all -- <path>` plus `cat-file blob` per revision,
+  compared raw and LF-normalised).
+- Of those 27, **16 match the CRLF materialisation of the current blob** — the
+  content never changed, only the representation a Windows checkout produced.
+  These are explained, and provably safe to re-bind.
+- The remaining **11 match nothing reachable at all**: not the current bytes,
+  not their LF or CRLF form, not any committed revision. Their provenance
+  cannot be established from this repository.
+
+**Rule R1 — a successor record may only be issued when the superseded digest is
+reproducible**: it must equal either the current bytes or a committed revision
+of that path. A digest that matches nothing is not "stale"; it is unauditable,
+and the honest instrument is an owner re-baseline receipt that says so, not a
+successor that implies continuity.
+
+**Rule R2 — a successor must never encode a CRLF preference.** The committed
+representation is LF. Re-binding to a CRLF-form digest would preserve the
+defect this work exists to remove.
+
+The `temporal-graph-future` record above is therefore worded as a re-baseline
+rather than a continuity claim: its superseded digest is one of the
+unreproducible ones, and the record says so.
 
 - It does not touch `configs/complexity/complexity_module_registry_v1.json`.
 - It grants no execution, admission, promotion or release authority. Every module state is unchanged:
