@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from collections.abc import Mapping
 from pathlib import Path
 
 import pytest
@@ -229,8 +230,101 @@ def test_current_overlay_preserves_exact_frozen_registry():
     )
     base = load_complexity_registry(PROJECT_ROOT, REGISTRY_PATH)
     current = load_complexity_registry(PROJECT_ROOT, PROJECT_ROOT / CURRENT_REGISTRY_PATH)
-    assert current.modules[:len(base.modules)] == base.modules
+    overlay = json.loads((PROJECT_ROOT / CURRENT_REGISTRY_PATH).read_text(encoding="utf-8"))
+    successors = {record["module_id"]: record for record in overlay.get("module_successors", [])}
+    current_rows = {module.module_id: module for module in current.modules}
+    for original in base.modules:
+        rebound = current_rows[original.module_id]
+        # Every frozen field survives the overlay untouched. Only the digest may
+        # move, and only through a successor record anchored to the frozen pin.
+        assert rebound.family_id == original.family_id
+        assert rebound.role == original.role
+        assert rebound.state == original.state
+        assert rebound.path == original.path
+        assert rebound.import_path == original.import_path
+        assert rebound.evidence_refs == original.evidence_refs
+        assert rebound.notes == original.notes
+        record = successors.get(original.module_id)
+        if record is None:
+            assert rebound.sha256 == original.sha256
+        else:
+            assert record["path"] == original.path
+            assert record["superseded_sha256"] == original.sha256
+            assert rebound.sha256 == record["successor_sha256"]
     assert all(not module.runtime_eligible for module in current.modules[len(base.modules):])
     assert current.artifact_rules == base.artifact_rules
     assert current.dismissal_rules == base.dismissal_rules
     assert REGISTRY_PATH.read_bytes() == frozen
+
+
+def _successor_fixture(tmp_path: Path):
+    base, overlay, payload = _write_overlay_fixture(tmp_path)
+    frozen = json.loads(base.read_text(encoding="utf-8"))["modules"][0]
+    (tmp_path / "evidence.md").write_text("ledger\n", encoding="utf-8")
+    module = tmp_path / frozen["path"]
+    module.write_text("VALUE = 2\n", encoding="utf-8")
+    return base, overlay, payload, frozen, module
+
+
+def _successor_record(frozen: Mapping[str, str], module: Path) -> dict:
+    return {
+        "module_id": frozen["module_id"],
+        "path": frozen["path"],
+        "superseded_sha256": frozen["sha256"],
+        "successor_sha256": hashlib.sha256(module.read_bytes()).hexdigest(),
+        "commit": "0" * 40,
+        "reason": "rebind after a verified revision",
+        "evidence": "evidence.md",
+        "approved_by": "owner",
+        "approved_at": "2026-09-11",
+    }
+
+
+def test_overlay_successor_rebinds_an_anchored_frozen_pin(tmp_path: Path) -> None:
+    base, overlay, payload, frozen, module = _successor_fixture(tmp_path)
+    original = base.read_bytes()
+    record = _successor_record(frozen, module)
+    payload["module_successors"] = [record]
+    overlay.write_text(json.dumps(payload), encoding="utf-8")
+
+    registry = load_complexity_registry(tmp_path, overlay)
+    assert registry.module_by_id(frozen["module_id"]).sha256 == record["successor_sha256"]
+    assert census_complexity_artifacts(tmp_path, registry).state == "PASS"
+    assert base.read_bytes() == original
+
+
+@pytest.mark.parametrize("mutation", [
+    "empty", "unanchored", "unknown_module", "path_mismatch", "short_commit",
+    "missing_evidence", "same_hash", "extra_field", "duplicate",
+])
+def test_overlay_successor_rejects_unanchored_or_invalid_rebindings(tmp_path, mutation):
+    _base, overlay, payload, frozen, module = _successor_fixture(tmp_path)
+    record = _successor_record(frozen, module)
+    if mutation == "empty":
+        payload["module_successors"] = []
+    elif mutation == "unanchored":
+        record["superseded_sha256"] = "0" * 64
+        payload["module_successors"] = [record]
+    elif mutation == "unknown_module":
+        record["module_id"] = "not-in-v1"
+        payload["module_successors"] = [record]
+    elif mutation == "path_mismatch":
+        record["path"] = "engine/perception/other.py"
+        payload["module_successors"] = [record]
+    elif mutation == "short_commit":
+        record["commit"] = "abc123"
+        payload["module_successors"] = [record]
+    elif mutation == "missing_evidence":
+        record["evidence"] = "does/not/exist.md"
+        payload["module_successors"] = [record]
+    elif mutation == "same_hash":
+        record["successor_sha256"] = frozen["sha256"]
+        payload["module_successors"] = [record]
+    elif mutation == "extra_field":
+        record["release_authority"] = True
+        payload["module_successors"] = [record]
+    else:
+        payload["module_successors"] = [record, dict(record)]
+    overlay.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(ValueError):
+        load_complexity_registry(tmp_path, overlay)

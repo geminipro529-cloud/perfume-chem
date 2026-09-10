@@ -16,6 +16,23 @@ from pathlib import Path, PurePosixPath
 from typing import Any, Mapping
 
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
+_COMMIT_SHA = re.compile(r"^[0-9a-f]{40}$")
+
+# A successor record is the only sanctioned way to move a frozen V1 pin
+# forward. It never edits the frozen registry: it is anchored to the exact
+# value it supersedes, and it must carry the commit, reason, evidence file
+# and approving authority that justify the change.
+_SUCCESSOR_FIELDS = {
+    "module_id",
+    "path",
+    "superseded_sha256",
+    "successor_sha256",
+    "commit",
+    "reason",
+    "evidence",
+    "approved_by",
+    "approved_at",
+}
 _RUNTIME_STATES = frozenset({"ACTIVE_CANDIDATE", "MANDATORY_GUARDRAIL"})
 _GENERATED_PARTS = frozenset({"__pycache__", ".pytest_cache"})
 _GENERATED_SUFFIXES = frozenset({".pyc", ".pyo"})
@@ -160,6 +177,61 @@ def _string_tuple(value: Any, field: str) -> tuple[str, ...]:
     return tuple(value)
 
 
+def _apply_module_successors(
+    base: Mapping[str, Any],
+    merged: list[Any],
+    successors: Any,
+    project_root: Path,
+) -> list[Any]:
+    """Rebind frozen V1 module pins through anchored successor records.
+
+    The frozen registry stays byte-identical. Each record must name the exact
+    pin it supersedes, so a successor that does not describe the value in the
+    frozen file is rejected rather than silently accepted.
+    """
+    if not isinstance(successors, list) or not successors:
+        raise ValueError("overlay module_successors must be a nonempty list")
+    frozen = {row["module_id"]: row for row in base["modules"]}
+    seen: set[str] = set()
+    rebindings: dict[str, str] = {}
+    for record in successors:
+        if not isinstance(record, dict) or set(record) != _SUCCESSOR_FIELDS:
+            raise ValueError("module successor keys are closed")
+        module_id = _nonblank(record["module_id"], "module_id")
+        if module_id in seen:
+            raise ValueError("module successor must not repeat a module_id")
+        seen.add(module_id)
+        frozen_row = frozen.get(module_id)
+        if frozen_row is None:
+            raise ValueError("module successor must target a frozen V1 module")
+        if _nonblank(record["path"], "path") != frozen_row["path"]:
+            raise ValueError("module successor path must match the frozen V1 module")
+        superseded = _nonblank(record["superseded_sha256"], "superseded_sha256")
+        if superseded != frozen_row["sha256"]:
+            raise ValueError("module successor anchor does not match the frozen V1 pin")
+        successor = _nonblank(record["successor_sha256"], "successor_sha256")
+        if not _SHA256.fullmatch(successor):
+            raise ValueError("module successor hash must be a sha256 hex digest")
+        if successor == superseded:
+            raise ValueError("module successor must change the pin")
+        if not _COMMIT_SHA.fullmatch(_nonblank(record["commit"], "commit")):
+            raise ValueError("module successor commit must be a full commit sha")
+        _nonblank(record["reason"], "reason")
+        _nonblank(record["approved_by"], "approved_by")
+        _nonblank(record["approved_at"], "approved_at")
+        evidence = _relative_path(record["evidence"], "evidence")
+        if not _inside_root(project_root, evidence).is_file():
+            raise ValueError("module successor evidence must be an existing file")
+        rebindings[module_id] = successor
+    updated: list[Any] = []
+    for row in merged:
+        module_id = row.get("module_id") if isinstance(row, dict) else None
+        if module_id in rebindings:
+            row = {**row, "sha256": rebindings[module_id]}
+        updated.append(row)
+    return updated
+
+
 def _validate_rule(rule: Any, *, dismissal: bool) -> Mapping[str, Any]:
     if not isinstance(rule, dict):
         raise ValueError("registry rules must be objects")
@@ -186,9 +258,11 @@ def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
         raise ValueError("complexity registry must be a JSON object")
     source_schema = _nonblank(payload.get("schema_version"), "schema_version")
     if source_schema == "complexity_module_registry_overlay_v1":
-        if set(payload) != {
+        required_overlay_keys = {
             "schema_version", "base_registry", "base_registry_sha256", "module_additions",
-        }:
+        }
+        optional_overlay_keys = {"module_successors"}
+        if not required_overlay_keys <= set(payload) or set(payload) - required_overlay_keys - optional_overlay_keys:
             raise ValueError("complexity registry overlay keys are closed")
         base_path = _inside_root(project_root, _relative_path(payload["base_registry"]))
         base_raw = base_path.read_bytes()
@@ -207,7 +281,12 @@ def load_complexity_registry(root: Path, path: Path) -> ComplexityRegistry:
                 raise ValueError("overlay additions must be unvalidated non-runtime candidates")
         # Reuse the complete V1 validator below. Its closed fields, duplicate
         # IDs/paths, filesystem containment and census hashes remain mandatory.
-        payload = {**base, "modules": [*base["modules"], *additions]}
+        merged_modules: list[Any] = [*base["modules"], *additions]
+        if "module_successors" in payload:
+            merged_modules = _apply_module_successors(
+                base, merged_modules, payload["module_successors"], project_root
+            )
+        payload = {**base, "modules": merged_modules}
     required = {
         "schema_version",
         "discovery",

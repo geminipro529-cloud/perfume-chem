@@ -10,7 +10,7 @@
       "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
       "path": "engine/formulation_intelligence/admission.py",
       "import_path": null,
-      "sha256": "f555ae09238f7075521b6d4fcc50775d1db88ccd6c2c7ab4977d05f6d5dc07f6",
+      "sha256": "adfd8690c025dbb9d36ae0da9c921ddb77ab60da4c5c66218970e135dfb2ff81",
       "evidence_refs": [],
       "notes": ["Local source classification only; no module execution or admission is granted."]
     },
@@ -21,7 +21,7 @@
       "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
       "path": "engine/formulation_intelligence/hedonic_platform.py",
       "import_path": null,
-      "sha256": "ef9e6f16add2c39d89fdb51578c8555f137e907422da9d1af97186afb727d567",
+      "sha256": "384ba412e9ebce41d59e60c129a50694f189da048067918b7d11afa33613e9a4",
       "evidence_refs": [],
       "notes": ["Local source classification only; no liking, preference or release claim is granted."]
     },
@@ -32,9 +32,55 @@
       "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
       "path": "engine/formulation_intelligence/temporal_architecture.py",
       "import_path": null,
-      "sha256": "f07bb551c10fc24e9a3f03af17ac1967d8f6ce791017936c1e7b3e94d29e98b8",
+      "sha256": "3f87de168fb32d1aa25b8d6c1ff4484a5f9caaf3c3930e9ff055017ed7d9cb0f",
       "evidence_refs": [],
       "notes": ["Local source classification only; modeled and observed temporal evidence stay distinct."]
+    }
+  ],
+  "module_successors": [
+    {
+      "module_id": "temporal-graph-future",
+      "path": "engine/temporal_graph.py",
+      "superseded_sha256": "9b2b72f5107039273bfb22118a36270b8a11ff1a47265d3b221d37eed49f4302",
+      "successor_sha256": "4f655236d5f089fd927c30bf46b2b6dc66e1ac283f199b82df9013d7e6de99e7",
+      "commit": "8916c30bda979a74b60d3006aaf3200ceaf10bf2",
+      "reason": "Frozen pin predates the post-freeze change to this module; the current committed bytes are the authority and the earlier pin describes a previous revision.",
+      "evidence": "docs/governance/pin_successor_ledger_20260911.md",
+      "approved_by": "repository owner (2026-09-11 engine-fix directive)",
+      "approved_at": "2026-09-11"
+    },
+    {
+      "module_id": "temporal-volatility-future",
+      "path": "engine/temporal_volatility.py",
+      "superseded_sha256": "a7411771f4ccd5c28b8caf36928f41e8b63e1c5da6ce9f724acd251e4a2814d5",
+      "successor_sha256": "89b23e97435a010d23431306e4770b0d903d12a6c13e48a1c8fd8792dd47d34b",
+      "commit": "4f7a7babe7f3d4b3dc6b52608ace1215e848c5d2",
+      "reason": "Frozen pin equals the CRLF form of the current bytes: the source content never changed, the pin was generated from an un-normalised checkout, and the committed representation is LF.",
+      "evidence": "docs/governance/pin_successor_ledger_20260911.md",
+      "approved_by": "repository owner (2026-09-11 engine-fix directive)",
+      "approved_at": "2026-09-11"
+    },
+    {
+      "module_id": "hedonic-model-future",
+      "path": "engine/hedonic_model.py",
+      "superseded_sha256": "c5a25a93192c4e38231710cb25f00c7e16127780c3417e8fa0606da7e8bd3529",
+      "successor_sha256": "7d5c8d6b665859c218911f1b05cd9d44f58337ad31d79404afc2387d158663f9",
+      "commit": "4f7a7babe7f3d4b3dc6b52608ace1215e848c5d2",
+      "reason": "Frozen pin equals the CRLF form of the current bytes: the source content never changed, the pin was generated from an un-normalised checkout, and the committed representation is LF.",
+      "evidence": "docs/governance/pin_successor_ledger_20260911.md",
+      "approved_by": "repository owner (2026-09-11 engine-fix directive)",
+      "approved_at": "2026-09-11"
+    },
+    {
+      "module_id": "advanced-musk-intelligence",
+      "path": "future_modules/advanced_musk_intelligence.py",
+      "superseded_sha256": "28745ddba38677eaf9717d67067feb436d68b0f0dce672f2b2a405d776adba7b",
+      "successor_sha256": "cc0c789b6930aee2f1043c0c9e8e4a7e5ee319bbea71e419aa377f9c0d623b89",
+      "commit": "4f7a7babe7f3d4b3dc6b52608ace1215e848c5d2",
+      "reason": "Frozen pin equals the CRLF form of the current bytes: the source content never changed, the pin was generated from an un-normalised checkout, and the committed representation is LF.",
+      "evidence": "docs/governance/pin_successor_ledger_20260911.md",
+      "approved_by": "repository owner (2026-09-11 engine-fix directive)",
+      "approved_at": "2026-09-11"
     }
   ]
 }
