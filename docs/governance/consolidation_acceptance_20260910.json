@@ -1,0 +1,106 @@
+{
+  "schema": "local-worktree-consolidation-acceptance-v1",
+  "consolidation_complete": true,
+  "release_ready": false,
+  "scope": "Net changes at the 19 captured source checkouts, including committed, index, working and selected ignored files; full reachable history retained privately. Incomplete variants are preserved disabled, not implemented or activated.",
+  "branch": "codex/integration-20260909",
+  "accepted_implementation_head": "5ba148fda30c5feea8b1e17c56c1bdf05da0c86b",
+  "cutoff": "D:\\codex-preservation\\perfume-chem-20260909\\execution-20260910T085554Z",
+  "source_count": 19,
+  "entry_count": 25793,
+  "dispositions": {
+    "Excluded": 10716,
+    "Preserved disabled": 10308,
+    "Already present": 3143,
+    "Deletion reconciled": 1624,
+    "Reconciled": 2
+  },
+  "inert_payloads": 3051,
+  "inert_payload_bytes": 102141737,
+  "full_report": {
+    "path": "D:\\chatbots\\perfume-chem-integration-20260909\\output\\verification\\consolidation-full-20260910.json",
+    "sha256": "316b5f70ebe862d7527ae04ef819911a125e141ccb1900938e4809b03edeec83",
+    "passed": [
+      "engine-compile",
+      "engine-lint",
+      "engine-typecheck",
+      "engine-tests-integration-extensions",
+      "backend-lint",
+      "backend-typecheck",
+      "material-data-validation",
+      "golden-formula-regression",
+      "golden-api-regression",
+      "package-build",
+      "package-wheel-smoke",
+      "golden-fixture-lock"
+    ],
+    "failed": [
+      "formula-artifact-validation",
+      "engine-tests-truth-core",
+      "engine-tests-data-knowledge",
+      "engine-tests-gates-families",
+      "engine-tests-legacy",
+      "backend-tests",
+      "scientific-audit",
+      "knowledge-rule-validation"
+    ],
+    "skipped": [
+      "docker-build",
+      "docker-smoke-test"
+    ]
+  },
+  "root_tests": {
+    "cases": 2856,
+    "failures": 18,
+    "errors": 4,
+    "skipped": 0,
+    "passed": 2834
+  },
+  "root_failure_nodes_same_family_in_control": 22,
+  "backend_failure_nodes_same_in_control": 1,
+  "post_commit_focused_passed": 232,
+  "artifact_states_match_preimplementation_control": true,
+  "artifact_counts": {
+    "NONE": 456,
+    "QUARANTINED": 14,
+    "STALE": 7,
+    "UNBOUND_LEGACY": 49
+  },
+  "source_heads_and_indexes_unchanged": true,
+  "captured_source_files_unchanged": false,
+  "post_cutoff_status_changes": [
+    {
+      "source_index": 0,
+      "added_status_records": [
+        " M tests/test_pre_mix_guard.py",
+        "?? formulas/Jasmine_Sambac_Vivante_30mL_V4_Realistic_Hedonic.md"
+      ],
+      "removed_status_records": [],
+      "disposition": "After cutoff; not included, original retained."
+    }
+  ],
+  "original_checkouts_deleted_or_cleaned": false,
+  "local_commits_only": true,
+  "pushed": false,
+  "production_activation": false,
+  "limitations": [
+    "OAV coverage 84.553% remains below the existing >85% threshold. This is an inherited expanded-inventory data hold, not an old-base-preexisting failure.",
+    "Prose character profiles, missing Guaiacwood migration coverage, frozen corpus/panel/fixture and historical formula bindings remain holds.",
+    "Existing failing stock/scenario expectations remain visible; no gates or evidence pins weakened.",
+    "Full verification passed 12 groups, failed 8, skipped 2 Docker groups; this is not a passing release gate.",
+    "Representative restore passed; capture exclusions such as oversized binaries, ignored archive/output, and unreachable history/reflogs remain excluded.",
+    "No secret authenticity checks or shared-history sanitization performed. Private history can contain sensitive data.",
+    "Canonical source files changed after cutoff; these later edits are recorded separately and are not silently included in this accepted integration. This task did not write original checkouts."
+  ],
+  "post_cutoff_source_file_changes": [
+    {
+      "source_index": 0,
+      "paths": [
+        "data/pipeline_audit/events.jsonl",
+        "engine/name_utils.py",
+        "engine/odor_thresholds.py",
+        "engine/pipeline/natural_absolute_decomposition.py"
+      ]
+    }
+  ]
+}

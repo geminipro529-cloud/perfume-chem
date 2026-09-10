@@ -1,6 +1,6 @@
 {
   "control": "D:\\codex-preservation\\perfume-chem-20260909\\execution-20260910T085554Z\\pre-consolidation-control",
-  "control_source": "Exact 88-file pre-implementation integration snapshot over the unchanged base commit, including recorded knowledge DB",
+  "control_source": "Captured 88 modified/untracked files over base, with captured LF attributes reapplied to otherwise unchanged historical blobs; initial transport-mismatched control is superseded.",
   "current_root_failures": 22,
   "control_failures": 22,
   "unmatched_current_nodes": [],
@@ -11,6 +11,7 @@
       "preexisting_before_this_execution": true,
       "current_message": "failed on setup with \"TypeError: string indices must be integers, not 'str'\"",
       "control_message": "failed on setup with \"TypeError: string indices must be integers, not 'str'\"",
+      "same_failure_family": true,
       "exact_message_equal": true
     },
     {
@@ -18,6 +19,7 @@
       "preexisting_before_this_execution": true,
       "current_message": "failed on setup with \"TypeError: string indices must be integers, not 'str'\"",
       "control_message": "failed on setup with \"TypeError: string indices must be integers, not 'str'\"",
+      "same_failure_family": true,
       "exact_message_equal": true
     },
     {
@@ -25,6 +27,7 @@
       "preexisting_before_this_execution": true,
       "current_message": "TypeError: string indices must be integers, not 'str'",
       "control_message": "TypeError: string indices must be integers, not 'str'",
+      "same_failure_family": true,
       "exact_message_equal": true
     },
     {
@@ -32,6 +35,7 @@
       "preexisting_before_this_execution": true,
       "current_message": "failed on setup with \"TypeError: string indices must be integers, not 'str'\"",
       "control_message": "failed on setup with \"TypeError: string indices must be integers, not 'str'\"",
+      "same_failure_family": true,
       "exact_message_equal": true
     },
     {
@@ -39,6 +43,7 @@
       "preexisting_before_this_execution": true,
       "current_message": "failed on setup with \"TypeError: string indices must be integers, not 'str'\"",
       "control_message": "failed on setup with \"TypeError: string indices must be integers, not 'str'\"",
+      "same_failure_family": true,
       "exact_message_equal": true
     },
     {
@@ -46,6 +51,7 @@
       "preexisting_before_this_execution": true,
       "current_message": "AssertionError: Materials from inventory not found in DB (1):\n    'Guaiacwood EO' (norm='guaiacwood eo')\nassert not ['Guaiacwood EO']",
       "control_message": "AssertionError: Materials from inventory not found in DB (1):\n    'Guaiacwood EO' (norm='guaiacwood eo')\nassert not ['Guaiacwood EO']",
+      "same_failure_family": true,
       "exact_message_equal": true
     },
     {
@@ -53,6 +59,7 @@
       "preexisting_before_this_execution": true,
       "current_message": "AssertionError: assert 246 == 210\n +  where 246 = RangeCoverageReport(inventory_available_count=246, formula_files_scanned=531, explicit_declaration_count=52, registere...NKNOWN, not unbuildable.', 'Reference examples in taxonomy prose are descriptive and are not formula-ratio evidence.')).inventory_available_count",
       "control_message": "AssertionError: assert 246 == 210\n +  where 246 = RangeCoverageReport(inventory_available_count=246, formula_files_scanned=531, explicit_declaration_count=52, registere...NKNOWN, not unbuildable.', 'Reference examples in taxonomy prose are descriptive and are not formula-ratio evidence.')).inventory_available_count",
+      "same_failure_family": true,
       "exact_message_equal": true
     },
     {
@@ -60,55 +67,63 @@
       "preexisting_before_this_execution": true,
       "current_message": "assert 84.553 > 85.0",
       "control_message": "assert 84.553 > 85.0",
+      "same_failure_family": true,
       "exact_message_equal": true
     },
     {
       "node": "tests.test_gate_aware_optimizer::test_wrong_brief_advisory_does_not_trigger_automatic_rerun",
       "preexisting_before_this_execution": true,
       "current_message": "AssertionError: assert [(GateRepairA...nings'), ...)] == []\n  \n  Left contains 3 more items, first extra item: (GateRepairAction(pass_index=1, gate='pipeline_preflight', action='block_unknown_or_forbidden_material', status='BLOCK...ne, before_ul=None, after_ul=None, before_pct=None, after_pct=None, effect='BLOCKED', detail='13 checks; 7 warnings'),)\n  Use -v to get more diff",
-      "control_message": "engine.inventory_parser.InventoryAuthorityError: current inventory alias crosswalk hash drift: expected 4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6, got 32ee2107e02fdd5f1b923a19852e78cd71f904be17f082f881b56f201ecb76d2",
-      "exact_message_equal": false
+      "control_message": "AssertionError: assert [(GateRepairA...nings'), ...)] == []\n  \n  Left contains 3 more items, first extra item: (GateRepairAction(pass_index=1, gate='pipeline_preflight', action='block_unknown_or_forbidden_material', status='BLOCK...ne, before_ul=None, after_ul=None, before_pct=None, after_pct=None, effect='BLOCKED', detail='13 checks; 7 warnings'),)\n  Use -v to get more diff",
+      "same_failure_family": true,
+      "exact_message_equal": true
     },
     {
       "node": "tests.test_pipeline_part5::test_commercial_trial_low_confidence_warns_not_blocks",
       "preexisting_before_this_execution": true,
       "current_message": "AssertionError: assert 'FAIL' == 'WARN'\n  \n  - WARN\n  + FAIL",
-      "control_message": "engine.inventory_parser.InventoryAuthorityError: current inventory alias crosswalk hash drift: expected 4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6, got 32ee2107e02fdd5f1b923a19852e78cd71f904be17f082f881b56f201ecb76d2",
-      "exact_message_equal": false
+      "control_message": "AssertionError: assert 'FAIL' == 'WARN'\n  \n  - WARN\n  + FAIL",
+      "same_failure_family": true,
+      "exact_message_equal": true
     },
     {
       "node": "tests.test_pipeline_part5::test_formula_release_gate_cli_accepts_commercial_trial_and_scaling_target",
       "preexisting_before_this_execution": true,
       "current_message": "assert 1 == 0",
-      "control_message": "engine.inventory_parser.InventoryAuthorityError: current inventory alias crosswalk hash drift: expected 4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6, got 32ee2107e02fdd5f1b923a19852e78cd71f904be17f082f881b56f201ecb76d2",
-      "exact_message_equal": false
+      "control_message": "assert 1 == 0",
+      "same_failure_family": true,
+      "exact_message_equal": true
     },
     {
       "node": "tests.test_pipeline_robustness::test_robustness_audit_preserves_original_formula_and_gate_is_nonblocking",
       "preexisting_before_this_execution": true,
       "current_message": "AssertionError: assert 'FAIL' in {'PASS', 'WARN'}\n +  where 'FAIL' = GateReport(number=1, name='Robust Fougere', status='FAIL', gates=(GateResult(gate='pipeline_preflight', status='FAIL',...nd', 'Evernyl:stock_id_not_bound'), receipt_sha256='c26a8362d7ed54310b17b20feb7c47c6cfe63ffe2e05c248a16a3dfa48f0e9e4')).status",
-      "control_message": "engine.inventory_parser.InventoryAuthorityError: current inventory alias crosswalk hash drift: expected 4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6, got 32ee2107e02fdd5f1b923a19852e78cd71f904be17f082f881b56f201ecb76d2",
-      "exact_message_equal": false
+      "control_message": "AssertionError: assert 'FAIL' in {'PASS', 'WARN'}\n +  where 'FAIL' = GateReport(number=1, name='Robust Fougere', status='FAIL', gates=(GateResult(gate='pipeline_preflight', status='FAIL',...nd', 'Evernyl:stock_id_not_bound'), receipt_sha256='c26a8362d7ed54310b17b20feb7c47c6cfe63ffe2e05c248a16a3dfa48f0e9e4')).status",
+      "same_failure_family": true,
+      "exact_message_equal": true
     },
     {
       "node": "tests.test_pipeline_scenario_matrix::test_prada_controls_preserve_architecture_but_fail_closed_on_current_stock[Prada_LHomme_Architecture_Control_30mL_EdT-expected_stock_issues0]",
       "preexisting_before_this_execution": true,
       "current_message": "AssertionError: assert {('Aldehyde C...er_mismatch')} == {('Aldehyde C...n_inventory')}\n  \n  Extra items in the left set:\n  ('Neroli EO', 'stock_carrier_mismatch')\n  ('Ambrofix', 'inventory_gap')\n  ('Aldehyde C11', 'inventory_stock_metadata_incomplete')\n  Extra items in the right set:\n  ('Aldehyde C11', 'not_in_inventory')\n  ('Ethylene Brassylate', 'not_in_inventory')\n  Use -v to get more diff",
-      "control_message": "engine.inventory_parser.InventoryAuthorityError: current inventory alias crosswalk hash drift: expected 4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6, got 32ee2107e02fdd5f1b923a19852e78cd71f904be17f082f881b56f201ecb76d2",
+      "control_message": "AssertionError: assert {('Aldehyde C...er_mismatch')} == {('Aldehyde C...n_inventory')}\n  \n  Extra items in the left set:\n  ('Aldehyde C11', 'inventory_stock_metadata_incomplete')\n  ('Neroli EO', 'stock_carrier_mismatch')\n  ('Ambrofix', 'inventory_gap')\n  Extra items in the right set:\n  ('Aldehyde C11', 'not_in_inventory')\n  ('Ethylene Brassylate', 'not_in_inventory')\n  Use -v to get more diff",
+      "same_failure_family": true,
       "exact_message_equal": false
     },
     {
       "node": "tests.test_pipeline_scenario_matrix::test_prada_controls_preserve_architecture_but_fail_closed_on_current_stock[Prada_LHomme_Luxury_Orris_30mL_EdT-expected_stock_issues1]",
       "preexisting_before_this_execution": true,
       "current_message": "AssertionError: assert {('Aldehyde C...on_mismatch')} == {('Aldehyde C...on_mismatch')}\n  \n  Extra items in the left set:\n  ('Neroli EO', 'stock_carrier_mismatch')\n  ('Ambrofix', 'inventory_gap')\n  ('Aldehyde C11', 'inventory_stock_metadata_incomplete')\n  ('Alpha Irone', 'inventory_gap')\n  Extra items in the right set:...\n  \n  ...Full output truncated (3 lines hidden), use '-vv' to show",
-      "control_message": "engine.inventory_parser.InventoryAuthorityError: current inventory alias crosswalk hash drift: expected 4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6, got 32ee2107e02fdd5f1b923a19852e78cd71f904be17f082f881b56f201ecb76d2",
+      "control_message": "AssertionError: assert {('Aldehyde C...on_mismatch')} == {('Aldehyde C...on_mismatch')}\n  \n  Extra items in the left set:\n  ('Aldehyde C11', 'inventory_stock_metadata_incomplete')\n  ('Neroli EO', 'stock_carrier_mismatch')\n  ('Alpha Irone', 'inventory_gap')\n  ('Ambrofix', 'inventory_gap')\n  Extra items in the right set:...\n  \n  ...Full output truncated (3 lines hidden), use '-vv' to show",
+      "same_failure_family": true,
       "exact_message_equal": false
     },
     {
       "node": "tests.test_pipeline_scenario_matrix::test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate",
       "preexisting_before_this_execution": true,
       "current_message": "AssertionError: assert {'Anise EO', ...ower EO', ...} == {'Anise EO', ...wood EO', ...}\n  \n  Extra items in the left set:\n  'Cabreuva EO'\n  'Cypress EO'\n  'Peppermint EO'\n  'Myrrh EO'\n  'Elemi EO'...\n  \n  ...Full output truncated (7 lines hidden), use '-vv' to show",
-      "control_message": "AssertionError: assert {'Anise EO', ...ower EO', ...} == {'Anise EO', ...wood EO', ...}\n  \n  Extra items in the left set:\n  'Cabreuva EO'\n  'Caraway Seed Oil'\n  'Hay Absolute'\n  'Elemi EO'\n  'Pink Pepper EO'...\n  \n  ...Full output truncated (7 lines hidden), use '-vv' to show",
+      "control_message": "AssertionError: assert {'Anise EO', ...ower EO', ...} == {'Anise EO', ...wood EO', ...}\n  \n  Extra items in the left set:\n  'Myrrh EO'\n  'Sandalwood EO'\n  'Helichrysum EO'\n  'Cypress EO'\n  'Elemi EO'...\n  \n  ...Full output truncated (7 lines hidden), use '-vv' to show",
+      "same_failure_family": true,
       "exact_message_equal": false
     },
     {
@@ -116,6 +131,7 @@
       "preexisting_before_this_execution": true,
       "current_message": "AttributeError: 'str' object has no attribute 'get'",
       "control_message": "AttributeError: 'str' object has no attribute 'get'",
+      "same_failure_family": true,
       "exact_message_equal": true
     },
     {
@@ -123,6 +139,7 @@
       "preexisting_before_this_execution": true,
       "current_message": "AssertionError: assert ['C0-PM-001: ...4da6091', ...] == []\n  \n  Left contains 46 more items, first extra item: 'C0-PM-001: stale source hash for engine/pipeline/formula_state.py: expected 76598f048000546d043a48edf4ab97b88cbf61183cf8156485671dc7b28c1251, actual 2bcb3fc4c1cc1b7812521bd308c0b952ee1991aa4e0164e5973292c6ab9ed781'\n  Use -v to get more diff",
       "control_message": "AssertionError: assert ['C0-PM-001: ...4da6091', ...] == []\n  \n  Left contains 46 more items, first extra item: 'C0-PM-001: stale source hash for engine/pipeline/formula_state.py: expected 76598f048000546d043a48edf4ab97b88cbf61183cf8156485671dc7b28c1251, actual 2bcb3fc4c1cc1b7812521bd308c0b952ee1991aa4e0164e5973292c6ab9ed781'\n  Use -v to get more diff",
+      "same_failure_family": true,
       "exact_message_equal": true
     },
     {
@@ -130,13 +147,15 @@
       "preexisting_before_this_execution": true,
       "current_message": "AssertionError: assert ['C0-LH-001: ...vity.py', ...] == []\n  \n  Left contains 21 more items, first extra item: 'C0-LH-001: stale source hash for engine/pipeline/formula_state.py'\n  Use -v to get more diff",
       "control_message": "AssertionError: assert ['C0-LH-001: ...vity.py', ...] == []\n  \n  Left contains 21 more items, first extra item: 'C0-LH-001: stale source hash for engine/pipeline/formula_state.py'\n  Use -v to get more diff",
+      "same_failure_family": true,
       "exact_message_equal": true
     },
     {
       "node": "tests.test_c3_model_interface::test_c3_types_are_explicitly_exported_from_engine_physics",
       "preexisting_before_this_execution": true,
       "current_message": "AssertionError: assert {'AcceptanceC...tyState', ...} == {'AcceptanceC...tyState', ...}\n  \n  Extra items in the left set:\n  'ModelDriftState'\n  'ModelLifecycleState'\n  'ModelDriftObservation'\n  'ModelLifecycleCard'\n  'assess_model_drift'\n  'ModelDriftAssessment'\n  Use -v to get more diff",
-      "control_message": "AssertionError: assert {'AcceptanceC...tyState', ...} == {'AcceptanceC...tyState', ...}\n  \n  Extra items in the left set:\n  'ModelLifecycleState'\n  'ModelDriftObservation'\n  'ModelDriftState'\n  'ModelDriftAssessment'\n  'ModelLifecycleCard'\n  'assess_model_drift'\n  Use -v to get more diff",
+      "control_message": "AssertionError: assert {'AcceptanceC...tyState', ...} == {'AcceptanceC...tyState', ...}\n  \n  Extra items in the left set:\n  'ModelLifecycleCard'\n  'assess_model_drift'\n  'ModelLifecycleState'\n  'ModelDriftObservation'\n  'ModelDriftAssessment'\n  'ModelDriftState'\n  Use -v to get more diff",
+      "same_failure_family": true,
       "exact_message_equal": false
     },
     {
@@ -144,6 +163,7 @@
       "preexisting_before_this_execution": true,
       "current_message": "AssertionError: assert '4b75a24608bd...0c5996cb8c3af' == '9d778721db1f...501be70fe0eb8'\n  \n  - 9d778721db1f5a0a10d1f278eeef9b7fab0bc73ce7f0d58b26c501be70fe0eb8\n  + 4b75a24608bd2f99fa68b760ee67223ac35062122133bd1a8ec0c5996cb8c3af",
       "control_message": "AssertionError: assert '4b75a24608bd...0c5996cb8c3af' == '9d778721db1f...501be70fe0eb8'\n  \n  - 9d778721db1f5a0a10d1f278eeef9b7fab0bc73ce7f0d58b26c501be70fe0eb8\n  + 4b75a24608bd2f99fa68b760ee67223ac35062122133bd1a8ec0c5996cb8c3af",
+      "same_failure_family": true,
       "exact_message_equal": true
     },
     {
@@ -151,6 +171,7 @@
       "preexisting_before_this_execution": true,
       "current_message": "ValueError: control formula binding changed",
       "control_message": "ValueError: control formula binding changed",
+      "same_failure_family": true,
       "exact_message_equal": true
     },
     {
@@ -158,6 +179,7 @@
       "preexisting_before_this_execution": true,
       "current_message": "assert 1 == 0\n +  where 1 = CompletedProcess(args=['D:\\\\chatbots\\\\perfume-chem-integration-20260909\\\\.venv\\\\Scripts\\\\python.exe', '-B', 'D:\\\\chatb...returncode=1, stdout='', stderr='{\"error_category\":\"ValueError\",\"schema\":\"d0-claim-matrix-gate-v1\",\"status\":\"FAIL\"}\\n').returncode",
       "control_message": "assert 1 == 0\n +  where 1 = CompletedProcess(args=['D:\\\\chatbots\\\\perfume-chem-integration-20260909\\\\.venv\\\\Scripts\\\\python.exe', '-B', 'D:\\\\codex...returncode=1, stdout='', stderr='{\"error_category\":\"ValueError\",\"schema\":\"d0-claim-matrix-gate-v1\",\"status\":\"FAIL\"}\\n').returncode",
+      "same_failure_family": true,
       "exact_message_equal": false
     }
   ]
