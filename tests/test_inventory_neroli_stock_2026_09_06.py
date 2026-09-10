@@ -153,7 +153,7 @@ def test_new_head_rejects_live_text_drift(tmp_path, monkeypatch):
     path = tmp_path / "inventory.txt"
     path.write_bytes(inventory_parser.INVENTORY_PATH.read_bytes() + b" ")
     monkeypatch.setattr(inventory_parser, "INVENTORY_PATH", path)
-    with pytest.raises(inventory_parser.InventoryAuthorityError, match="live inventory text"):
+    with pytest.raises(inventory_parser.InventoryAuthorityError, match="source binding drift"):
         inventory_parser.load_current_user_inventory_overlay()
 
 
