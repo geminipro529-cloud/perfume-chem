@@ -235,7 +235,12 @@ def _write_preview(path: Path, payload: dict, summary: dict, readiness: dict, ca
             lines.append(f"- {dim}: {value}")
     if life_graph:
         lines.extend(["", "## Chemical Life Preview", ""])
-        lines.append(f"- Health score: {life_graph.get('health_score')}")
+        health_score = life_graph.get("health_score")
+        lines.append(
+            f"- Health score: {health_score}"
+            if health_score is not None
+            else "- Health score: UNKNOWN (incomplete numeric character evidence)"
+        )
         lines.append(f"- Synergy score: {((life_graph.get('synergy_report') or {}).get('overall_synergy'))}")
 
     lines.extend(["", "## Calibration Preview", ""])

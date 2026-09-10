@@ -46,8 +46,11 @@ Sources: Arctander, PerfumersWorld ABC, Carles method, Roudnitska aesthetics,
 
 from __future__ import annotations
 
+import math
 import re
+from collections.abc import Mapping
 from dataclasses import dataclass, field
+from enum import Enum
 
 from engine.material_identity import resolve_material_identity
 
@@ -69,13 +72,32 @@ DIMENSIONS = [
 ]
 
 
+class CharacterEvidenceStatus(str, Enum):
+    AVAILABLE = "AVAILABLE"
+    PROSE_ONLY = "PROSE_ONLY"
+    MISSING = "MISSING"
+    INVALID_NUMERIC = "INVALID_NUMERIC"
+
+
+class NumericCharacterUnavailable(ValueError):  # noqa: N818 - public contract name
+    """Raised when a numeric character operation has no valid vector evidence."""
+
+
 @dataclass
 class MaterialProfile:
     """Complete intelligence profile for one material."""
 
     name: str
-    # 13 character dimensions, each 0-10
-    character: dict[str, float] = field(default_factory=dict)
+    # Compatibility input. After validation this is either the same numeric
+    # mapping as ``numeric_character`` or None; prose is never treated as data.
+    character: Mapping[str, float] | str | None = None
+    character_description: str | None = None
+    numeric_character: Mapping[str, float] | None = None
+    character_status: CharacterEvidenceStatus = field(init=False)
+    character_reason: str = field(init=False, default="")
+    # Keys supplied outside the accepted 13-dimension contract. They are never
+    # consumed as evidence; they are recorded so nothing is dropped silently.
+    character_excluded: tuple[str, ...] = field(init=False, default=())
     # Physical properties
     mw: float | None = None
     vp: float | None = None
@@ -99,21 +121,95 @@ class MaterialProfile:
         None  # olfactory-receptor bin: citrus, rose, muguet, musk, amber, iris, green, aldehydic, gourmand, smoky, animalic, woody, aquatic, aromatic, indolic, ozone
     )
 
+    def __post_init__(self) -> None:
+        description = self.character_description
+        if isinstance(self.character, str):
+            description = description or self.character.strip() or None
+        raw = self.numeric_character if self.numeric_character is not None else self.character
+        if isinstance(raw, str):
+            raw = None
+
+        status = CharacterEvidenceStatus.MISSING
+        reason = "numeric character evidence is missing"
+        validated: dict[str, float] | None = None
+        excluded: list[str] = []
+        if raw is None:
+            if description:
+                status = CharacterEvidenceStatus.PROSE_ONLY
+                reason = "descriptive character prose is not a numeric vector"
+        elif not isinstance(raw, Mapping):
+            status = CharacterEvidenceStatus.INVALID_NUMERIC
+            reason = "numeric character evidence is not a mapping"
+        elif not raw:
+            status = CharacterEvidenceStatus.MISSING
+            reason = "numeric character mapping is empty"
+        else:
+            invalid: list[str] = []
+            candidate: dict[str, float] = {}
+            for dimension, value in raw.items():
+                if dimension not in DIMENSIONS:
+                    # Non-contract keys were never consumed by the 13-dimension
+                    # contract; exclude and record them instead of voiding the
+                    # profile's valid dimensions.
+                    excluded.append(str(dimension))
+                    continue
+                if isinstance(value, bool) or not isinstance(value, (int, float)):
+                    invalid.append(f"{dimension} is not a real number")
+                    continue
+                numeric = float(value)
+                if not math.isfinite(numeric) or not 0.0 <= numeric <= 10.0:
+                    invalid.append(f"{dimension} is outside the finite 0..10 contract")
+                    continue
+                candidate[str(dimension)] = numeric
+            if invalid:
+                status = CharacterEvidenceStatus.INVALID_NUMERIC
+                reason = "; ".join(invalid)
+            elif not candidate:
+                status = CharacterEvidenceStatus.INVALID_NUMERIC
+                reason = (
+                    "no accepted numeric dimensions; excluded non-contract keys: "
+                    + ", ".join(sorted(excluded))
+                )
+            else:
+                validated = candidate
+                status = CharacterEvidenceStatus.AVAILABLE
+                reason = (
+                    "excluded non-contract character keys: "
+                    + ", ".join(sorted(excluded))
+                    if excluded
+                    else ""
+                )
+
+        self.character_description = description
+        self.numeric_character = validated
+        self.character = validated
+        self.character_status = status
+        self.character_reason = reason
+        self.character_excluded = tuple(sorted(excluded))
+
+    def require_numeric_character(self) -> Mapping[str, float]:
+        if self.numeric_character is None:
+            raise NumericCharacterUnavailable(
+                f"{self.name}: {self.character_status.value}: {self.character_reason}"
+            )
+        return self.numeric_character
+
     def dimension_vector(self) -> list[float]:
         """Return ordered vector of character dimensions."""
-        return [self.character.get(d, 0.0) for d in DIMENSIONS]
+        character = self.require_numeric_character()
+        return [character.get(d, 0.0) for d in DIMENSIONS]
 
     def dominant_character(self) -> str:
         """Return the highest-scoring dimension name."""
-        if not self.character:
-            return "neutral"
-        return max(self.character, key=self.character.get)
+        character = self.require_numeric_character()
+        return max(character, key=character.get)
 
     def character_tags(self, threshold: float = 4.0) -> list[str]:
         """Return dimensions above threshold, sorted by strength."""
+        character = self.require_numeric_character()
         return sorted(
-            [d for d, v in self.character.items() if v >= threshold],
-            key=lambda d: self.character[d],
+            [d for d, v in character.items() if v >= threshold],
+            key=lambda d: character[d],
             reverse=True,
         )
 
@@ -4535,22 +4631,42 @@ def character_distance(a: MaterialProfile, b: MaterialProfile) -> float:
     return sum((x - y) ** 2 for x, y in zip(va, vb)) ** 0.5
 
 
-def find_similar(name: str, n: int = 5) -> list[tuple[str, float]]:
-    """Find the n most similar materials to the given one by character profile.
-    Returns (name, distance) pairs sorted by distance."""
+@dataclass(frozen=True)
+class CharacterSimilarityResult:
+    ranked: tuple[tuple[str, float], ...]
+    unavailable: tuple[str, ...]
+    source_status: CharacterEvidenceStatus
+
+
+def find_similar_with_evidence(name: str, n: int = 5) -> CharacterSimilarityResult:
+    """Rank only numerically comparable profiles and report unavailable identities."""
+
     source = get_profile(name)
     if source is None:
-        return []
-    results = []
+        return CharacterSimilarityResult((), (), CharacterEvidenceStatus.MISSING)
+    if source.numeric_character is None:
+        return CharacterSimilarityResult((), (), source.character_status)
+    results: list[tuple[str, float]] = []
+    unavailable: list[str] = []
     for other_name in _PROFILES:
         if other_name == source.name:
             continue
         other = get_profile(other_name)
-        if other:
-            dist = character_distance(source, other)
-            results.append((other_name, round(dist, 2)))
-    results.sort(key=lambda x: x[1])
-    return results[:n]
+        if other is None or other.numeric_character is None:
+            unavailable.append(other_name)
+            continue
+        dist = character_distance(source, other)
+        results.append((other_name, round(dist, 2)))
+    results.sort(key=lambda item: item[1])
+    return CharacterSimilarityResult(
+        tuple(results[:n]), tuple(sorted(unavailable)), source.character_status
+    )
+
+
+def find_similar(name: str, n: int = 5) -> list[tuple[str, float]]:
+    """Find the n most similar materials to the given one by character profile.
+    Returns (name, distance) pairs sorted by distance."""
+    return list(find_similar_with_evidence(name, n=n).ranked)
 
 
 # ═══════════════════════════════════════════════
@@ -4637,8 +4753,10 @@ def suggest_replacement(missing_name: str, inventory_names: set[str]) -> str:
     if missing_profile is None:
         return "no profile data — check inventory manually"
 
-    target_char = missing_profile.character
+    target_char = missing_profile.numeric_character
     target_note = missing_profile.note
+    if target_char is None:
+        return "numeric character evidence unavailable — browse inventory by note"
 
     best_match = ""
     best_score = 0
@@ -4646,25 +4764,23 @@ def suggest_replacement(missing_name: str, inventory_names: set[str]) -> str:
         inv_name = normalize_name(name)
         if not any(inv_name in inv or inv in inv_name for inv in inventory_names):
             continue
-        score = 0
-        if isinstance(profile, dict):
-            pchar = profile.get("character", {})
-            pnote = profile.get("note", "")
-        else:
-            pchar = profile.character if hasattr(profile, "character") else {}
-            pnote = profile.note if hasattr(profile, "note") else ""
-        if isinstance(pchar, dict) and isinstance(target_char, dict):
-            # Check character overlap
-            common = set(target_char.keys()) & set(pchar.keys())
-            if common:
-                score += 3
+        candidate_profile = get_profile(name)
+        pchar = candidate_profile.numeric_character if candidate_profile else None
+        pnote = candidate_profile.note if candidate_profile else ""
+        if pchar is None:
+            continue
+        distance = sum(
+            (target_char.get(dimension, 0.0) - pchar.get(dimension, 0.0)) ** 2
+            for dimension in DIMENSIONS
+        ) ** 0.5
+        score = max(0.0, 10.0 - distance)
         if pnote == target_note and target_note:
-            score += 1
+            score += 1.0
         if score > best_score:
             best_score = score
             best_match = name
 
-    return best_match if best_score >= 3 else "no close match — browse inventory by note/character"
+    return best_match if best_score >= 7 else "no close match — browse inventory by note/character"
 
 
 # ─────────────────────────────────────────────────────────────────────
@@ -4963,7 +5079,7 @@ _PROFILES.setdefault("elemi eo", {}).update(
 # MATERIAL_INTAKE_REMEDIATION_2026_08_07 — MaterialProfile reads "odt"/"odt_ppm" (auditor CRITICAL C2)
 MATERIAL_INTAKE_REMEDIATION_2026_08_07 = True
 # backfill Phenethyl Alcohol (legacy profile) odt keys (auditor C2b)
-from engine.odor_thresholds import ODT_DATA as _INTAKE_ODT_DATA
+from engine.odor_thresholds import ODT_DATA as _INTAKE_ODT_DATA  # noqa: E402
 
 _PEA = _PROFILES.setdefault("Phenethyl Alcohol", {})
 _PEA.setdefault("odt", _INTAKE_ODT_DATA.get("phenethyl alcohol", {}).get("odt_air"))

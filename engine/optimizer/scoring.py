@@ -2112,20 +2112,22 @@ class FormulaScorer:
                 # rather than raw log(1+mass). n=1.5, K=3.0 places the
                 # half-max at 3× ODT, plateau ≈10× ODT — matching the
                 # psychophysical compression of ORN response.
-                strong = sum(max(0.0, v - 4.0) for v in prof.character.values())
-                if dose_ratio > 0:
-                    K = 3.0  # noqa: N806
-                    n = 1.5
-                    impact = (dose_ratio**n) / (dose_ratio**n + K**n)
-                    # Scale so saturation ≈ log1p(10) ≈ 2.4 (keeps the
-                    # score range compatible with the pre-Hill calibration)
-                    effect_sum += strong * impact * 2.4
-                else:
-                    # No ODT data: retain the legacy mass-based form.
-                    effect_sum += strong * math.log1p(pct)
+                if prof.numeric_character is not None:
+                    strong = sum(
+                        max(0.0, v - 4.0) for v in prof.numeric_character.values()
+                    )
+                    if dose_ratio > 0:
+                        K = 3.0  # noqa: N806
+                        n = 1.5
+                        impact = (dose_ratio**n) / (dose_ratio**n + K**n)
+                        # Scale so saturation ≈ log1p(10) ≈ 2.4 (keeps the
+                        # score range compatible with the pre-Hill calibration)
+                        effect_sum += strong * impact * 2.4
+                    else:
+                        # No ODT data: retain the legacy mass-based form.
+                        effect_sum += strong * math.log1p(pct)
 
-                dom = prof.dominant_character()
-                if dom and dom != "neutral":
+                    dom = prof.dominant_character()
                     dominant_counts[dom] = dominant_counts.get(dom, 0) + 1
 
                 if prof.or_family:
@@ -2266,11 +2268,11 @@ class FormulaScorer:
         eff = fv.effective_ingredients()
         for name, pct in eff.items():
             prof = get_profile(name)
-            if prof:
+            if prof and prof.numeric_character is not None:
                 oav = float(oav_data.get(name, 0) or 0)
                 weight = min(oav, 1.0) if oav >= 1.0 else 0.0
                 for d in DIMENSIONS:
-                    dim_sums[d] += prof.character.get(d, 0) * pct * weight
+                    dim_sums[d] += prof.numeric_character.get(d, 0) * pct * weight
                 total_pct += pct * weight
         if total_pct == 0:
             return 30.0
@@ -2519,9 +2521,9 @@ class FormulaScorer:
         eff = fv.effective_ingredients()
         for name, pct in eff.items():
             prof = get_profile(name)
-            if prof:
+            if prof and prof.numeric_character is not None:
                 for d in DIMENSIONS:
-                    dim_sums[d] += prof.character.get(d, 0) * pct
+                    dim_sums[d] += prof.numeric_character.get(d, 0) * pct
                 total_pct += pct
         if total_pct == 0:
             result = {d: 0.0 for d in DIMENSIONS}

@@ -636,8 +636,14 @@ def _properties_from_sources(
         properties["note"] = profile.note
         properties["role"] = profile.role
         properties["texture"] = profile.texture
-        properties["dominant_character"] = profile.dominant_character()
-        properties["character_tags"] = profile.character_tags()
+        properties["character_evidence_status"] = profile.character_status.value
+        properties["character_description"] = profile.character_description
+        if profile.numeric_character is not None:
+            properties["dominant_character"] = profile.dominant_character()
+            properties["character_tags"] = profile.character_tags()
+        else:
+            properties["dominant_character"] = None
+            properties["character_tags"] = None
     if ground_truth:
         properties["cas"] = ground_truth.get("cas") or properties["cas"]
         properties["chemistry_name"] = ground_truth.get("chemistry_name")

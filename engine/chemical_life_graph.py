@@ -101,8 +101,10 @@ class ChemicalLifeGraph:
     fingerprint: FormulaFingerprint | None
 
     # Character balance
-    character_vector: dict[str, float]
-    weight_diagnosis: WeightDiagnosis
+    character_vector: dict[str, float] | None
+    character_coverage_fraction: float
+    character_missing_materials: list[str]
+    weight_diagnosis: WeightDiagnosis | None
 
     # Structural analysis
     role_coverage: dict[str, int]    # role → count of materials filling it
@@ -120,7 +122,7 @@ class ChemicalLifeGraph:
     temporal: TemporalProfile
 
     # Overall health score
-    health_score: float  # 0-100
+    health_score: float | None  # 0-100, unavailable for incomplete character evidence
 
     def summary_lines(self) -> list[str]:
         """Generate human-readable summary lines."""
@@ -128,21 +130,37 @@ class ChemicalLifeGraph:
             f"═══ Chemical Life Graph: {self.formula_name} ═══",
             f"Materials: {self.ingredient_count} | Mass: {self.total_mass_ul:.0f} µL | Concentrate: {self.concentrate_pct:.1f}% | Mode: {self.structure_mode}",
             "",
-            f"Health Score: {self.health_score:.0f}/100",
+            (
+                f"Health Score: {self.health_score:.0f}/100"
+                if self.health_score is not None
+                else "Health Score: UNKNOWN (incomplete numeric character evidence)"
+            ),
             "",
         ]
 
         # Character balance
         lines.append("── Character Balance ──")
-        top3 = sorted(self.character_vector.items(), key=lambda x: x[1], reverse=True)[:3]
-        lines.append(f"  Dominant: {', '.join(f'{d}={v:.1f}' for d, v in top3)}")
-        if self.weight_diagnosis.overweight:
-            ow = ", ".join(f"{d} (+{v:.1f})" for d, v in self.weight_diagnosis.overweight[:3])
-            lines.append(f"  Overweight: {ow}")
-        if self.weight_diagnosis.underweight:
-            uw = ", ".join(f"{d} (−{v:.1f})" for d, v in self.weight_diagnosis.underweight[:3])
-            lines.append(f"  Underweight: {uw}")
-        lines.append(f"  Balance Score: {self.weight_diagnosis.balance_score:.0f}/100")
+        if self.character_vector is None or self.weight_diagnosis is None:
+            lines.append(
+                "  Unavailable; missing numeric character evidence for: "
+                + ", ".join(self.character_missing_materials)
+            )
+        else:
+            top3 = sorted(
+                self.character_vector.items(), key=lambda x: x[1], reverse=True
+            )[:3]
+            lines.append(f"  Dominant: {', '.join(f'{d}={v:.1f}' for d, v in top3)}")
+            if self.weight_diagnosis.overweight:
+                ow = ", ".join(
+                    f"{d} (+{v:.1f})" for d, v in self.weight_diagnosis.overweight[:3]
+                )
+                lines.append(f"  Overweight: {ow}")
+            if self.weight_diagnosis.underweight:
+                uw = ", ".join(
+                    f"{d} (−{v:.1f})" for d, v in self.weight_diagnosis.underweight[:3]
+                )
+                lines.append(f"  Underweight: {uw}")
+            lines.append(f"  Balance Score: {self.weight_diagnosis.balance_score:.0f}/100")
         lines.append("")
 
         # Role coverage
@@ -293,11 +311,12 @@ def build_chemical_life_graph(
     concentrate_pct = (total_mass_ul / 1000.0) / total_ml * 100 if total_ml > 0 else 0
 
     # ── 1. Character vector (mass-weighted) ──
+    fp = fingerprint_formula(formula_name, ingredients)
     character = _compute_character(ingredients)
 
     # ── 2. Weight diagnosis ──
     target = _STYLE_TARGETS.get(style, _STYLE_TARGETS["classical"])
-    weight_diag = _diagnose_weight(character, target)
+    weight_diag = _diagnose_weight(character, target) if character is not None else None
 
     # ── 3. Role, note, texture coverage ──
     role_cov, note_cov, texture_cov = _coverage_analysis(ingredients)
@@ -313,10 +332,7 @@ def build_chemical_life_graph(
         structure_mode=structure_mode,
     )
 
-    # ── 5. Fingerprint ──
-    fp = fingerprint_formula(formula_name, ingredients)
-
-    # ── 6. Synergy analysis ──
+    # ── 5. Synergy analysis ──
     if synergy_graph is None:
         synergy_graph = SynergyGraph()
         synergy_graph.build(list(ingredients.keys()))
@@ -329,10 +345,14 @@ def build_chemical_life_graph(
     temporal = _temporal_analysis(ingredients)
 
     # ── 9. Overall health score ──
-    health = _compute_health(
-        weight_diag, role_cov, note_cov, gaps,
-        synergy_report, temporal, concentrate_pct,
-        structure_mode=structure_mode,
+    health = (
+        _compute_health(
+            weight_diag, role_cov, note_cov, gaps,
+            synergy_report, temporal, concentrate_pct,
+            structure_mode=structure_mode,
+        )
+        if weight_diag is not None
+        else None
     )
 
     return ChemicalLifeGraph(
@@ -343,6 +363,8 @@ def build_chemical_life_graph(
         concentrate_pct=concentrate_pct,
         fingerprint=fp,
         character_vector=character,
+        character_coverage_fraction=fp.character_coverage_fraction,
+        character_missing_materials=fp.character_missing_materials,
         weight_diagnosis=weight_diag,
         role_coverage=role_cov,
         note_coverage=note_cov,
@@ -359,7 +381,7 @@ def build_chemical_life_graph(
 # Internal Analysis Functions
 # ═══════════════════════════════════════════════════════════════════════════════
 
-def _compute_character(ingredients: dict[str, float]) -> dict[str, float]:
+def _compute_character(ingredients: dict[str, float]) -> dict[str, float] | None:
     """Mass-weighted character vector for the formula."""
     totals = {d: 0.0 for d in DIMENSIONS}
     total_mass = sum(ingredients.values())
@@ -368,11 +390,11 @@ def _compute_character(ingredients: dict[str, float]) -> dict[str, float]:
 
     for name, amount in ingredients.items():
         profile = get_profile(name)
-        if not profile:
-            continue
+        if not profile or profile.numeric_character is None:
+            return None
         w = amount / total_mass
         for dim in DIMENSIONS:
-            totals[dim] += profile.character.get(dim, 0) * w
+            totals[dim] += profile.numeric_character.get(dim, 0) * w
 
     return {d: round(v, 2) for d, v in totals.items()}
 
@@ -444,7 +466,7 @@ def _detect_gaps(
     role_cov: dict[str, int],
     note_cov: dict[str, int],
     texture_cov: dict[str, int],
-    character: dict[str, float],
+    character: dict[str, float] | None,
     target: dict[str, float],
     ingredients: dict[str, float],
     structure_mode: str = "formula",
@@ -533,14 +555,19 @@ def _detect_gaps(
         ))
 
     # Character dimension gaps — underweight dimensions that matter for the style
-    for dim in DIMENSIONS:
+    for dim in DIMENSIONS if character is not None else ():
         actual = character.get(dim, 0)
         tgt = target.get(dim, 3.0)
         if tgt >= 4.0 and actual < tgt - 2.0:
             # This dimension matters for the style but is significantly low
             candidates = [
                 name for name, p in all_profiles.items()
-                if p and p.character.get(dim, 0) >= 6.0 and name not in ingredient_set
+                if (
+                    p
+                    and p.numeric_character is not None
+                    and p.numeric_character.get(dim, 0) >= 6.0
+                    and name not in ingredient_set
+                )
             ]
             gaps.append(StructuralGap(
                 gap_type="dimension",

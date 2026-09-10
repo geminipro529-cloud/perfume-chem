@@ -262,11 +262,15 @@ def scan(quick: bool = False) -> None:
             vfy = odt.get("vfy", "")
             vfy_str = f" [{vfy}]" if vfy else ""
 
-            char = profile.character if profile else {}
+            char = profile.numeric_character if profile else None
             char_str = (
                 " | ".join(f"{k}={v}" for k, v in sorted(char.items(), key=lambda x: -x[1])[:4])
                 if char
-                else ""
+                else (
+                    f"character={profile.character_status.value}"
+                    if profile
+                    else ""
+                )
             )
 
             syns = profile.synergies if profile and profile.synergies else []

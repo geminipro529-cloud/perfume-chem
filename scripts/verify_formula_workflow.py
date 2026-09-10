@@ -1313,9 +1313,15 @@ def _format_synergy_lines(synergy: dict) -> list[str]:
 
 
 def _format_life_graph_lines(life_graph: dict) -> list[str]:
+    health_score = life_graph.get("health_score")
+    health_text = (
+        f"{health_score:.1f}/100"
+        if isinstance(health_score, (int, float))
+        else "UNKNOWN (incomplete numeric character evidence)"
+    )
     lines: list[str] = [
         "### Chemical Life Graph",
-        f"- Health score: {life_graph.get('health_score', 0):.1f}/100",
+        f"- Health score: {health_text}",
         f"- Structure mode: {life_graph.get('structure_mode', 'formula')}",
         f"- Ingredient count: {life_graph.get('ingredient_count', 0)}",
         f"- Total mass: {life_graph.get('total_mass_ul', 0):.0f} µL",

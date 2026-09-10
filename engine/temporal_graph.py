@@ -305,7 +305,7 @@ _ODT_LITERATURE: dict[str, float] = {
 
 
 def _estimate_odt(mw: float, vp: float, clogp: float,
-                  character: dict[str, float]) -> float:
+                  character: dict[str, float] | None) -> float:
     """Estimate ODT when no literature value is available.
 
     Heuristic combining:
@@ -313,9 +313,12 @@ def _estimate_odt(mw: float, vp: float, clogp: float,
       - Higher character intensity → lower ODT (more potent)
       - Higher MW → generally higher ODT (slower evaporation)
       - CLogP moderator (lipophilic = slower air-phase partitioning)
+
+    Missing character evidence applies no character-derived potency term
+    (factor 1.0) instead of a fabricated default intensity.
     """
-    char_max = max(character.values()) if character else 3.0
-    potency_factor = max(1.0, char_max)  # 1–10
+    char_max = max(character.values()) if character else None
+    potency_factor = max(1.0, char_max) if char_max is not None else 1.0  # 1–10
 
     # Base estimation: inversely proportional to VP, proportional to MW
     if vp > 0:
@@ -349,7 +352,7 @@ def get_odt(name: str, profile: MaterialProfile | None = None) -> float:
             profile.mw,
             profile.vp,
             profile.clogp or 3.0,
-            profile.character,
+            profile.numeric_character,
         )
 
     # Ultimate fallback
@@ -372,7 +375,7 @@ class MaterialTemporal:
     odt: float                         # detection threshold (ppb)
     mw: float
     vp_skin: float                     # VP adjusted to skin temp
-    character: dict[str, float]        # 12-dim character vector
+    character: dict[str, float] | None  # 13-dim character vector, None if unavailable
     color: str                         # assigned color for plotting
 
 
@@ -393,6 +396,9 @@ class TemporalProfile:
     transitions: list[dict[str, Any]]
     perceptual_half_life_hr: float                    # when 50% of opening OAV lost
     longevity_hr: float                               # when total OAV drops < 2
+    # Character evidence coverage: aggregate curves are incomplete below 1.0
+    character_coverage_fraction: float = 0.0
+    character_missing_materials: tuple[str, ...] = ()
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -435,10 +441,11 @@ class TemporalEngine:
         for name, pct in ingredients.items():
             profile = get_profile(name)
             if profile is None:
-                # Create minimal profile for unknown materials
+                # Minimal physical placeholder for unknown materials. Character
+                # evidence stays absent: unknown identity must not invent an
+                # olfactory profile.
                 profile = MaterialProfile(
                     name=name,
-                    character={"warmth": 3, "sweetness": 2},
                     mw=200.0,
                     vp=0.01,
                     clogp=3.0,
@@ -463,7 +470,7 @@ class TemporalEngine:
                 "vp_25": vp_25,
                 "mw": mw,
                 "note": profile.note,
-                "character": profile.character,
+                "character": profile.numeric_character,
                 "odt": odt,
                 "clogp": profile.clogp or 3.0,
             }
@@ -554,10 +561,19 @@ class TemporalEngine:
 
         # ── Character evolution (perceptual-weighted) ──
         char_evolution = {d: np.zeros(n_times) for d in DIMENSIONS}
+        character_missing: list[str] = []
+        character_covered_pct = 0.0
         for name, data in mat_data.items():
+            character = data["character"]
+            if character is None:
+                # No accepted numeric character evidence: this material may not
+                # contribute to the character evolution curve.
+                character_missing.append(name)
+                continue
+            character_covered_pct += float(data["pct"])
             intensity = perceived_data[name]
             for dim in DIMENSIONS:
-                score = data["character"].get(dim, 0.0)
+                score = character.get(dim, 0.0)
                 char_evolution[dim] += intensity * score
 
         # Normalize character evolution to percentages
@@ -632,6 +648,10 @@ class TemporalEngine:
             transitions=transitions,
             perceptual_half_life_hr=float(half_life),
             longevity_hr=float(longevity),
+            character_coverage_fraction=(
+                character_covered_pct / total_active if total_active > 0 else 0.0
+            ),
+            character_missing_materials=tuple(sorted(character_missing)),
         )
 
     def _vp_to_skin(self, vp_25: float, mw: float) -> float:

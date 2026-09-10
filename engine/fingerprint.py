@@ -21,6 +21,7 @@ from typing import Sequence
 
 from engine.ingredient_intelligence import (
     DIMENSIONS,
+    CharacterEvidenceStatus,
     MaterialProfile,
     get_all_profiles,
     get_profile,
@@ -58,6 +59,7 @@ class MaterialFingerprint:
     name: str
     vector: list[float] = field(default_factory=list)
     binary_vector: list[int] = field(default_factory=list)  # Thresholded for Tanimoto
+    character_status: CharacterEvidenceStatus = CharacterEvidenceStatus.MISSING
 
     def __len__(self) -> int:
         return len(self.vector)
@@ -70,6 +72,8 @@ class MaterialFingerprint:
 
     def character_signature(self) -> str:
         """Human-readable signature string: top 3 character dimensions."""
+        if self.character_status is not CharacterEvidenceStatus.AVAILABLE:
+            return f"unavailable ({self.character_status.value})"
         char_pairs = [(ALL_FEATURES[i], self.vector[i]) for i in range(len(DIMENSIONS))]
         char_pairs.sort(key=lambda x: x[1], reverse=True)
         top3 = [f"{name}({val:.0f})" for name, val in char_pairs[:3] if val > 0]
@@ -155,9 +159,11 @@ def fingerprint_material(name: str) -> MaterialFingerprint | None:
     vector = [0.0] * FEATURE_COUNT
 
     # Character dimensions (0-10 scale)
+    character = profile.numeric_character
     for dim in DIMENSIONS:
         idx = _FEATURE_INDEX[dim]
-        vector[idx] = profile.character.get(dim, 0.0)
+        if character is not None:
+            vector[idx] = character.get(dim, 0.0)
 
     # Functional role features (binary 0/1)
     for feat, val in _role_to_features(profile.role).items():
@@ -183,7 +189,12 @@ def fingerprint_material(name: str) -> MaterialFingerprint | None:
         else:
             binary.append(1 if v >= 0.5 else 0)
 
-    return MaterialFingerprint(name=name, vector=vector, binary_vector=binary)
+    return MaterialFingerprint(
+        name=name,
+        vector=vector,
+        binary_vector=binary,
+        character_status=profile.character_status,
+    )
 
 
 def fingerprint_all_materials() -> dict[str, MaterialFingerprint]:
@@ -220,14 +231,20 @@ class FormulaFingerprint:
     materials: list[str] = field(default_factory=list)
     # Materials not found in database
     unknown_materials: list[str] = field(default_factory=list)
+    character_coverage_fraction: float = 0.0
+    character_missing_materials: list[str] = field(default_factory=list)
 
-    def character_radar(self) -> dict[str, float]:
-        """Extract just the 12 character dimensions as a radar-plottable dict."""
+    def character_radar(self) -> dict[str, float] | None:
+        """Return a radar only when every formula mass has numeric evidence."""
+        if self.character_coverage_fraction < 1.0:
+            return None
         return {DIMENSIONS[i]: self.vector[i] for i in range(len(DIMENSIONS))}
 
-    def dominant_character(self, n: int = 3) -> list[tuple[str, float]]:
-        """Top N character dimensions."""
+    def dominant_character(self, n: int = 3) -> list[tuple[str, float]] | None:
+        """Top N character dimensions, or None for incomplete evidence."""
         radar = self.character_radar()
+        if radar is None:
+            return None
         return sorted(radar.items(), key=lambda x: x[1], reverse=True)[:n]
 
 
@@ -256,6 +273,8 @@ def fingerprint_formula(
     texture_mass: dict[str, float] = {}
     materials_used = []
     unknown = []
+    character_missing: list[str] = []
+    character_covered_mass = 0.0
 
     for mat_name, amount in ingredients.items():
         fp = fingerprint_material(mat_name)
@@ -268,6 +287,10 @@ def fingerprint_formula(
 
         profile = get_profile(mat_name)
         note = profile.note if profile else "heart"
+        if fp.character_status is CharacterEvidenceStatus.AVAILABLE:
+            character_covered_mass += amount
+        else:
+            character_missing.append(mat_name)
 
         # Weight the vector by mass proportion
         for i in range(FEATURE_COUNT):
@@ -303,6 +326,8 @@ def fingerprint_formula(
         texture_distribution=tex_dist,
         materials=materials_used,
         unknown_materials=unknown,
+        character_coverage_fraction=max(0.0, min(1.0, character_covered_mass / total)),
+        character_missing_materials=sorted(set(character_missing + unknown)),
     )
 
 
@@ -346,7 +371,12 @@ def material_similarity(
     """
     fp_a = fingerprint_material(name_a)
     fp_b = fingerprint_material(name_b)
-    if fp_a is None or fp_b is None:
+    if (
+        fp_a is None
+        or fp_b is None
+        or fp_a.character_status is not CharacterEvidenceStatus.AVAILABLE
+        or fp_b.character_status is not CharacterEvidenceStatus.AVAILABLE
+    ):
         return None
 
     if method == "cosine":
@@ -363,8 +393,13 @@ def formula_similarity(
     fp_a: FormulaFingerprint,
     fp_b: FormulaFingerprint,
     method: str = "cosine",
-) -> float:
+) -> float | None:
     """Compute similarity between two formula fingerprints."""
+    if (
+        fp_a.character_coverage_fraction < 1.0
+        or fp_b.character_coverage_fraction < 1.0
+    ):
+        return None
     if method == "cosine":
         return cosine_similarity(fp_a.vector, fp_b.vector)
     elif method == "euclidean":
@@ -383,7 +418,7 @@ def find_similar_materials(
     ascending for euclidean.
     """
     source = fingerprint_material(name)
-    if source is None:
+    if source is None or source.character_status is not CharacterEvidenceStatus.AVAILABLE:
         return []
 
     all_fps = fingerprint_all_materials()
@@ -391,6 +426,8 @@ def find_similar_materials(
 
     for other_name, other_fp in all_fps.items():
         if other_name == source.name:
+            continue
+        if other_fp.character_status is not CharacterEvidenceStatus.AVAILABLE:
             continue
         if method == "cosine":
             score = cosine_similarity(source.vector, other_fp.vector)

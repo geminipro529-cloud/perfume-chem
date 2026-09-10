@@ -211,7 +211,14 @@ class ChemicalKnowledgeBase:
                 record.vapor_pressure = record.vapor_pressure or profile.vp
                 record.log_p = record.log_p or profile.clogp
                 record.odor_threshold = record.odor_threshold or profile.odt
-                record.odor_description = record.odor_description or profile.dominant_character()
+                if profile.numeric_character is not None:
+                    record.odor_description = (
+                        record.odor_description or profile.dominant_character()
+                    )
+                elif profile.character_description:
+                    record.odor_description = (
+                        record.odor_description or profile.character_description
+                    )
                 usage_ranges = {
                     "character": (2.0, 15.0),
                     "modifier": (0.5, 5.0),
@@ -348,7 +355,11 @@ class ChemicalKnowledgeBase:
             # profile is a MaterialProfile dataclass
             note = (profile.note or "").lower()
             role = (profile.role or "").lower()
-            dominant = profile.dominant_character().lower()
+            dominant = (
+                profile.dominant_character().lower()
+                if profile.numeric_character is not None
+                else ""
+            )
 
             if cat_lower in (note, role, dominant):
                 record = self.lookup_chemical(prof_name)

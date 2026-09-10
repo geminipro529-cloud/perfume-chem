@@ -327,9 +327,9 @@ def evaluate_ellena(fv: FormulaVector) -> PerspectiveResult:
     diffusive = 0
     for n in names:
         prof = get_profile(n)
-        if prof:
-            rad = prof.character.get("radiance", 0)
-            fresh = prof.character.get("freshness", 0)
+        if prof and prof.numeric_character is not None:
+            rad = prof.numeric_character.get("radiance", 0)
+            fresh = prof.numeric_character.get("freshness", 0)
             if rad >= 6 or fresh >= 6:
                 diffusive += pcts[n]
         elif n in _TRANSPARENT_MATERIALS:
@@ -417,9 +417,11 @@ def evaluate_laudamiel(fv: FormulaVector) -> PerspectiveResult:
     families_present: set[str] = set()
     for n in names:
         prof = get_profile(n)
-        if prof:
+        if prof and prof.numeric_character is not None:
             # Use highest-scoring character dimensions as "family"
-            top_dims = sorted(prof.character.items(), key=lambda x: x[1], reverse=True)[:2]
+            top_dims = sorted(
+                prof.numeric_character.items(), key=lambda x: x[1], reverse=True
+            )[:2]
             for dim, val in top_dims:
                 if val >= 5:
                     families_present.add(dim)

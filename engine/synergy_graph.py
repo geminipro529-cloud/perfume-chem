@@ -493,8 +493,8 @@ class SynergyGraph:
         count = 0
         for name in materials:
             profile = get_profile(name)
-            if profile:
-                for dim, val in profile.character.items():
+            if profile and profile.numeric_character is not None:
+                for dim, val in profile.numeric_character.items():
                     dim_totals[dim] = dim_totals.get(dim, 0.0) + val
                 count += 1
         if count == 0:
@@ -518,9 +518,13 @@ class SynergyGraph:
             name for name, p in all_profiles.items()
             if p and p.note == "base" and (
                 "musk" in normalize_name(name) or
-                p.role == "fixative" and any(
-                    p.character.get(d, 0) > 0 for d in ["powdery", "animalic", "warmth"]
-                ) and p.character.get("woody", 0) < 5
+                p.role == "fixative"
+                and p.numeric_character is not None
+                and any(
+                    p.numeric_character.get(d, 0) > 0
+                    for d in ["powdery", "animalic", "warmth"]
+                )
+                and p.numeric_character.get("woody", 0) < 5
             )
         ]
         # Explicitly include known musks
@@ -594,11 +598,11 @@ class SynergyGraph:
 
             # 4. Weight/density check — too heavy for formula?
             musk_profile = get_profile(musk)
-            if musk_profile:
+            if musk_profile and musk_profile.numeric_character is not None:
                 heaviness = (
-                    musk_profile.character.get("warmth", 0) +
-                    musk_profile.character.get("sweetness", 0) +
-                    musk_profile.character.get("animalic", 0)
+                    musk_profile.numeric_character.get("warmth", 0) +
+                    musk_profile.numeric_character.get("sweetness", 0) +
+                    musk_profile.numeric_character.get("animalic", 0)
                 ) / 3.0
 
                 formula_lightness = (
@@ -640,10 +644,10 @@ class SynergyGraph:
 
         for name, amount in ingredients.items():
             profile = get_profile(name)
-            if not profile:
-                continue
+            if not profile or profile.numeric_character is None:
+                return {}
             weight = amount / total_mass
-            for dim, val in profile.character.items():
+            for dim, val in profile.numeric_character.items():
                 totals[dim] = totals.get(dim, 0.0) + val * weight
 
         return totals

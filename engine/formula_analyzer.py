@@ -616,7 +616,7 @@ def suggest_changes(
         if is_blocked_chemical(booster):
             continue
         bp = get_profile(booster)
-        if bp is None:
+        if bp is None or bp.numeric_character is None:
             continue
         booster_lower = booster.lower().strip()
         already_present = any(booster_lower in e or e in booster_lower for e in existing)
@@ -641,9 +641,9 @@ def suggest_changes(
                 dose = min(dose, 500)  # Cap diluted materials at 500µL
                 dilution_note = f" ({active_dose}µL active at {bp.dilution * 100:.0f}%)"
             dim_str = ", ".join(
-                f"{d}={bp.character.get(d, 0)}"
+                f"{d}={bp.numeric_character.get(d, 0)}"
                 for d in target_config["dimensions"]
-                if bp.character.get(d, 0) > 2
+                if bp.numeric_character.get(d, 0) > 2
             )
             suggestions.append(
                 Suggestion(
@@ -676,10 +676,12 @@ def suggest_changes(
     # 2. Check for materials that could be swapped for better target alignment
     for name, ul in info.ingredients.items():
         prof = get_profile(name)
-        if prof is None:
+        if prof is None or prof.numeric_character is None:
             continue
         # If this material scores poorly on target dimensions, suggest swap
-        target_score = sum(prof.character.get(d, 0) for d in target_config["dimensions"])
+        target_score = sum(
+            prof.numeric_character.get(d, 0) for d in target_config["dimensions"]
+        )
         if target_score <= 2 and prof.role not in ("fixative", "trace") and ul >= 50:
             # Find a similar material that scores better on target
             similar = find_similar(name, n=10)
@@ -687,9 +689,12 @@ def suggest_changes(
                 if is_blocked_chemical(sim_name):
                     continue
                 sim_prof = get_profile(sim_name)
-                if sim_prof is None:
+                if sim_prof is None or sim_prof.numeric_character is None:
                     continue
-                sim_target = sum(sim_prof.character.get(d, 0) for d in target_config["dimensions"])
+                sim_target = sum(
+                    sim_prof.numeric_character.get(d, 0)
+                    for d in target_config["dimensions"]
+                )
                 if sim_target > target_score + 3:
                     suggestions.append(
                         Suggestion(
@@ -894,14 +899,20 @@ def format_life_graph_summary(life_graph) -> str:
     lines.append("")
     lines.append("  CHEMICAL LIFE GRAPH")
     lines.append("  " + "-" * 40)
-    lines.append(f"  {'Health Score':>17s}  {life_graph.health_score:5.1f}")
+    if life_graph.health_score is None:
+        lines.append(
+            f"  {'Health Score':>17s}  UNKNOWN (incomplete numeric character evidence)"
+        )
+    else:
+        lines.append(f"  {'Health Score':>17s}  {life_graph.health_score:5.1f}")
     lines.append(f"  {'Overall Synergy':>17s}  {life_graph.synergy_report.overall_synergy:+5.3f}")
 
-    if life_graph.weight_diagnosis.overweight:
-        dim, excess = life_graph.weight_diagnosis.overweight[0]
+    weight_diagnosis = life_graph.weight_diagnosis
+    if weight_diagnosis is not None and weight_diagnosis.overweight:
+        dim, excess = weight_diagnosis.overweight[0]
         lines.append(f"  {'Overweight':>17s}  {dim} (+{excess:.1f})")
-    if life_graph.weight_diagnosis.underweight:
-        dim, deficit = life_graph.weight_diagnosis.underweight[0]
+    if weight_diagnosis is not None and weight_diagnosis.underweight:
+        dim, deficit = weight_diagnosis.underweight[0]
         lines.append(f"  {'Underweight':>17s}  {dim} (-{deficit:.1f})")
     if life_graph.structural_gaps:
         gap = life_graph.structural_gaps[0]
@@ -1298,11 +1309,16 @@ def run_analysis(
             s = all_scores[info.number]
             life_graph = all_life_graphs[info.number]
             conf_data = s.get("_confidence", {})
+            health_display = (
+                f"{life_graph.health_score:6.1f}"
+                if life_graph.health_score is not None
+                else "   UNK"
+            )
             print(
                 f"  F{info.number}. {info.name:<26s} "
                 f"{s.get('geometric_total', 0):6.1f} "
                 f"{s.get('arithmetic_total', 0):6.1f} "
-                f"{life_graph.health_score:6.1f} "
+                f"{health_display} "
                 f"{s.get('longevity', 0):5.1f} "
                 f"{s.get('sillage', 0):5.1f} "
                 f"{s.get('safety', 0):5.1f} "

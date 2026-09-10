@@ -922,10 +922,10 @@ def material_roudnitska_roles(name: str) -> frozenset[str]:
     from ..ingredient_intelligence import get_profile
 
     profile = get_profile(name)
-    if profile is None:
+    if profile is None or profile.numeric_character is None:
         return frozenset()
 
-    c = profile.character
+    c = profile.numeric_character
     role_scores = {
         "eclat": c.get("radiance", 0) * 1.2 + c.get("freshness", 0),
         "chaleur": c.get("warmth", 0) + c.get("creamy", 0),

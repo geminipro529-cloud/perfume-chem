@@ -218,8 +218,9 @@ def _compute_dimension_coverage(
         max_score = 0.0
         for name in owned:
             p = get_profile(name)
-            if p and dim in p.character:
-                max_score = max(max_score, p.character[dim])
+            if p is None or p.numeric_character is None:
+                continue
+            max_score = max(max_score, p.numeric_character.get(dim, 0.0))
         coverage[dim] = max_score / 10.0
     return coverage
 
@@ -231,9 +232,9 @@ def _compute_dimension_depth(
     depth: dict[str, int] = {d: 0 for d in DIMENSIONS}
     for name in owned:
         p = get_profile(name)
-        if not p:
+        if not p or p.numeric_character is None:
             continue
-        for dim, val in p.character.items():
+        for dim, val in p.numeric_character.items():
             if dim in depth and val >= 5.0:
                 depth[dim] += 1
     return depth
@@ -279,10 +280,13 @@ def _score_character_coverage(
     High score when the candidate has high values in dimensions where
     the inventory is weak (low coverage or low depth).
     """
+    if candidate.numeric_character is None:
+        # No accepted numeric character evidence: no character-coverage credit.
+        return 0.0, []
     score = 0.0
     fills = []
     for dim in DIMENSIONS:
-        cval = candidate.character.get(dim, 0.0)
+        cval = candidate.numeric_character.get(dim, 0.0)
         if cval < 3.0:
             continue
         # Gap factor: how weak is this dimension in current inventory?
@@ -368,8 +372,15 @@ def _score_versatility(candidate: MaterialProfile) -> float:
     """Score how many formula archetypes the candidate is useful in.
 
     Based on character breadth (how many dimensions ≥ 3) and role versatility.
+
+    Breadth is unknown when numeric character evidence is unavailable, so only
+    the evidence-independent role and texture terms may contribute.
     """
-    breadth = sum(1 for v in candidate.character.values() if v >= 3.0)
+    breadth = (
+        sum(1 for v in candidate.numeric_character.values() if v >= 3.0)
+        if candidate.numeric_character is not None
+        else 0
+    )
     role_mult = ROLE_VERSATILITY.get(candidate.role, 1.0)
     # Also score texture diversity — materials with unique textures are more versatile
     texture_bonus = 10.0 if candidate.texture in ("bridge", "cocoon", "veil", "halo") else 0.0
@@ -431,9 +442,14 @@ def _score_anosmia_redundancy(
     if candidate_anosmic:
         return 0.0, []  # Don't recommend buying another anosmia-prone material as backup
 
+    if candidate.numeric_character is None:
+        # This axis is a character-similarity claim; without accepted numeric
+        # evidence for the candidate there is nothing to compare.
+        return 0.0, []
+
     for risk_mat, prevalence in risk_materials:
         risk_profile = get_profile(risk_mat)
-        if not risk_profile:
+        if risk_profile is None or risk_profile.numeric_character is None:
             continue
         dist = character_distance(candidate, risk_profile)
         if dist is not None and dist < 3.0:
@@ -663,13 +679,21 @@ def analyze_expansion(
             ec.modelling_authority_multiplier,
         ) = _model_authority(name)
 
-        if owned_profiles:
-            _closest_key, closest_profile = min(
-                owned_profiles.items(),
-                key=lambda pair: character_distance(profile, pair[1]),
-            )
-            ec.closest_owned = closest_profile.name
-            ec.closest_owned_distance = character_distance(profile, closest_profile)
+        if owned_profiles and profile.numeric_character is not None:
+            comparable = [
+                pair
+                for pair in owned_profiles.items()
+                if pair[1].numeric_character is not None
+            ]
+            if comparable:
+                _closest_key, closest_profile = min(
+                    comparable,
+                    key=lambda pair: character_distance(profile, pair[1]),
+                )
+                ec.closest_owned = closest_profile.name
+                ec.closest_owned_distance = character_distance(
+                    profile, closest_profile
+                )
 
         # Score each axis
         ec.character_coverage_score, ec.fills_dimensions = _score_character_coverage(
