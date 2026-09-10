@@ -1,0 +1,514 @@
+"""OpenAI model configuration with scientific-integrity metadata.
+
+Model availability remains an account/runtime concern.  The registry stores
+purpose, provenance, and validation policy; it must never be used to route to
+another provider.
+"""
+
+import os
+from enum import Enum
+from importlib import import_module
+from typing import Any, Dict, List, Optional, Protocol, cast
+
+from pydantic import BaseModel, Field, field_validator
+
+from app.core.config import is_openai_model_name
+
+
+class _YamlModule(Protocol):
+    """Typed surface used from the dynamically loaded PyYAML module."""
+
+    def safe_load(self, stream: object) -> Any: ...
+
+
+yaml = cast(_YamlModule, import_module("yaml"))
+
+
+class ModelPurpose(str, Enum):
+    """Defined purposes for model usage in perfume chemistry."""
+    CHEMICAL_LITERATURE_ANALYSIS = "chemical_literature_analysis"
+    SCIENTIFIC_PAPER_ANALYSIS = "scientific_paper_analysis"
+    PERFUME_FORMULATION_ANALYSIS = "perfume_formulation_analysis"
+    REGULATORY_COMPLIANCE_CHECK = "regulatory_compliance_check"
+    PATENT_ANALYSIS = "patent_analysis"
+    GENERAL_KNOWLEDGE = "general_knowledge"
+
+
+class ModelRestriction(str, Enum):
+    """Restrictions to enforce scientific integrity."""
+    NO_DATA_GENERATION = "no_data_generation"
+    LITERATURE_ONLY = "literature_only"
+    EXTRACTION_ONLY = "extraction_only"
+    NO_SYNTHESIS = "no_synthesis"
+    CROSS_REFERENCE_REQUIRED = "cross_reference_required"
+    CITATION_REQUIRED = "citation_required"
+
+
+class ModelProvider(str, Enum):
+    """Supported AI provider."""
+
+    OPENAI = "openai"
+
+
+class ModelLicense(str, Enum):
+    """Common model licenses."""
+    APACHE_2_0 = "Apache 2.0"
+    MIT = "MIT"
+    LLAMA_COMMUNITY = "Llama Community License"
+    COMMERCIAL = "Commercial"
+    RESEARCH_ONLY = "Research Only"
+
+
+class ModelConfig(BaseModel):
+    """
+    Configuration for an AI model with data provenance tracking.
+
+    Data provenance requirements:
+    - Source: Where the model was obtained
+    - Version: Specific model version/commit
+    - Training data: What data the model was trained on
+    - License: Usage restrictions and requirements
+    - Last updated: When this configuration was validated
+    """
+
+    # Model identification
+    model_id: str = Field(..., description="Unique identifier for the model")
+    display_name: str = Field(..., description="Human-readable model name")
+    provider: ModelProvider = Field(..., description="AI provider")
+
+    # Data provenance
+    source_url: str = Field(..., description="URL where model can be accessed")
+    version: str = Field(..., description="Model version or commit hash")
+    training_data: str = Field(..., description="Description of training data")
+    license: ModelLicense = Field(..., description="Model license")
+    data_provenance: str = Field(
+        ...,
+        description="Detailed data provenance information"
+    )
+    last_validated: str = Field(
+        ...,
+        description="Date when model was last validated"
+    )
+
+    # Technical specifications
+    purpose: ModelPurpose = Field(..., description="Intended use case")
+    restrictions: List[ModelRestriction] = Field(
+        default_factory=list,
+        description="Usage restrictions"
+    )
+    context_window: int = Field(..., description="Token context window size")
+    parameter_count: Optional[str] = Field(
+        None,
+        description="Number of parameters (e.g., '7B', '70B')"
+    )
+    size_gb: Optional[float] = Field(
+        None,
+        description="Approximate size in GB"
+    )
+
+    # Performance characteristics
+    recommended_max_tokens: int = Field(
+        512,
+        description="Recommended maximum tokens per request"
+    )
+    recommended_temperature: float = Field(
+        0.7,
+        description="Recommended temperature"
+    )
+    supports_tools: bool = Field(
+        False,
+        description="Whether model supports tool calling"
+    )
+
+    # Configuration
+    base_url: Optional[str] = Field(
+        None,
+        description="API base URL if different from default"
+    )
+    api_key_env_var: Optional[str] = Field(
+        None,
+        description="Environment variable for API key"
+    )
+    requires_gpu: bool = Field(False, description="Whether model requires GPU")
+
+    # Scientific integrity
+    scientific_accuracy_score: Optional[float] = Field(
+        None,
+        description="Estimated scientific accuracy score (0-1)",
+        ge=0.0,
+        le=1.0
+    )
+    hallucination_risk: str = Field(
+        "medium",
+        description="Risk of generating hallucinated content"
+    )
+
+    class Config:
+        use_enum_values = True
+
+    @field_validator("model_id", mode="before")
+    @classmethod
+    def validate_openai_model_id(cls, value: object) -> str:
+        """Reject model identifiers that cannot be routed to OpenAI."""
+        normalized = str(value).strip()
+        if not is_openai_model_name(normalized):
+            raise ValueError("model_id must identify an OpenAI model")
+        return normalized
+
+    @field_validator("provider", mode="before")
+    @classmethod
+    def validate_openai_provider(cls, value: object) -> str:
+        """Reject stale provider labels even when loading external YAML."""
+        normalized = str(getattr(value, "value", value)).strip().lower()
+        if normalized != ModelProvider.OPENAI.value:
+            raise ValueError("provider must be 'openai'")
+        return normalized
+
+    @field_validator("last_validated")
+    @classmethod
+    def validate_date_format(cls, v: str) -> str:
+        """Validate date format is YYYY-MM-DD."""
+        from datetime import datetime
+        try:
+            datetime.strptime(v, "%Y-%m-%d")
+        except ValueError:
+            raise ValueError("Date must be in YYYY-MM-DD format")
+        return v
+
+
+class ModelRegistry:
+    """
+    Registry for all available AI models with data provenance tracking.
+
+    Data provenance: Each model configuration includes source, version,
+    and training data information to maintain scientific integrity and
+    reproducibility.
+    """
+
+    def __init__(self, config_path: Optional[str] = None) -> None:
+        """Initialize model registry, optionally loading from YAML config."""
+        self.models: Dict[str, ModelConfig] = {}
+        self._load_default_models()
+
+        if config_path and os.path.exists(config_path):
+            self._load_from_yaml(config_path)
+
+    def _load_default_models(self) -> None:
+        """Load OpenAI defaults with explicit provenance and restrictions."""
+        source_url = "https://developers.openai.com/api/docs/models"
+        common: Dict[str, Any] = {
+            "provider": ModelProvider.OPENAI,
+            "source_url": source_url,
+            "training_data": (
+                "Training-data composition is not enumerated in the OpenAI "
+                "model catalog"
+            ),
+            "license": ModelLicense.COMMERCIAL,
+            "data_provenance": (
+                "Model identity, context window, output limit, and tool support "
+                "validated against the official OpenAI model catalog"
+            ),
+            "last_validated": "2026-09-04",
+            "context_window": 1_050_000,
+            "parameter_count": None,
+            "size_gb": None,
+            "recommended_max_tokens": 131_072,
+            "supports_tools": True,
+            "api_key_env_var": "OPENAI_API_KEY",
+            "requires_gpu": False,
+            "scientific_accuracy_score": None,
+            "hallucination_risk": "medium",
+        }
+        defaults = (
+            ModelConfig(
+                model_id="gpt-4",
+                display_name="GPT-4",
+                provider=ModelProvider.OPENAI,
+                source_url=(
+                    "https://developers.openai.com/api/docs/models/gpt-4"
+                ),
+                version="gpt-4",
+                training_data=(
+                    "Training-data composition is not enumerated in the OpenAI "
+                    "model documentation"
+                ),
+                license=ModelLicense.COMMERCIAL,
+                data_provenance=(
+                    "Model identity, context window, and output limit validated "
+                    "against the official OpenAI GPT-4 model page"
+                ),
+                last_validated="2026-09-04",
+                purpose=ModelPurpose.PERFUME_FORMULATION_ANALYSIS,
+                restrictions=[
+                    ModelRestriction.NO_DATA_GENERATION,
+                    ModelRestriction.CITATION_REQUIRED,
+                ],
+                context_window=8_192,
+                parameter_count=None,
+                size_gb=None,
+                recommended_max_tokens=8_192,
+                recommended_temperature=0.3,
+                supports_tools=False,
+                base_url=None,
+                api_key_env_var="OPENAI_API_KEY",
+                requires_gpu=False,
+                scientific_accuracy_score=None,
+                hallucination_risk="medium",
+            ),
+            ModelConfig(
+                model_id="gpt-5.6-sol",
+                display_name="GPT-5.6 Sol",
+                version="gpt-5.6-sol",
+                purpose=ModelPurpose.CHEMICAL_LITERATURE_ANALYSIS,
+                restrictions=[
+                    ModelRestriction.NO_DATA_GENERATION,
+                    ModelRestriction.LITERATURE_ONLY,
+                    ModelRestriction.CITATION_REQUIRED,
+                ],
+                recommended_temperature=0.3,
+                **common,
+            ),
+            ModelConfig(
+                model_id="gpt-5.6-terra",
+                display_name="GPT-5.6 Terra",
+                version="gpt-5.6-terra",
+                purpose=ModelPurpose.SCIENTIFIC_PAPER_ANALYSIS,
+                restrictions=[
+                    ModelRestriction.EXTRACTION_ONLY,
+                    ModelRestriction.CROSS_REFERENCE_REQUIRED,
+                    ModelRestriction.CITATION_REQUIRED,
+                ],
+                recommended_temperature=0.2,
+                **common,
+            ),
+            ModelConfig(
+                model_id="gpt-5.6",
+                display_name="GPT-5.6",
+                version="gpt-5.6",
+                purpose=ModelPurpose.GENERAL_KNOWLEDGE,
+                restrictions=[ModelRestriction.CROSS_REFERENCE_REQUIRED],
+                recommended_temperature=0.7,
+                **common,
+            ),
+        )
+        self.models.update({model.model_id: model for model in defaults})
+
+    def _load_from_yaml(self, config_path: str) -> None:
+        """Load OpenAI models transactionally, rejecting stale providers."""
+        try:
+            with open(config_path, "r", encoding="utf-8") as f:
+                config_data = yaml.safe_load(f)
+        except Exception as e:
+            raise ValueError(f"Failed to read model config {config_path}: {e}") from e
+
+        if not isinstance(config_data, dict):
+            raise ValueError("Model config root must be a mapping")
+        models_data = config_data.get("models")
+        if models_data is None:
+            return
+        if not isinstance(models_data, dict):
+            raise ValueError("Model config 'models' must be a mapping")
+
+        loaded_models: Dict[str, ModelConfig] = {}
+        for registry_id, model_data in models_data.items():
+            if not isinstance(registry_id, str) or not isinstance(model_data, dict):
+                raise ValueError("Each model entry must map a string ID to a mapping")
+            try:
+                model_config = ModelConfig(**model_data)
+            except Exception as e:
+                raise ValueError(
+                    f"Rejected model config '{registry_id}': {e}"
+                ) from e
+            if model_config.model_id != registry_id:
+                raise ValueError(
+                    f"Registry key '{registry_id}' does not match model_id "
+                    f"'{model_config.model_id}'"
+                )
+            loaded_models[registry_id] = model_config
+
+        self.models.update(loaded_models)
+
+    def get_model(self, model_id: str) -> Optional[ModelConfig]:
+        """Get model configuration by ID."""
+        return self.models.get(model_id)
+
+    def get_models_by_purpose(self, purpose: ModelPurpose) -> List[ModelConfig]:
+        """Get all models for a specific purpose."""
+        return [
+            model for model in self.models.values()
+            if model.purpose == purpose
+        ]
+
+    def get_models_by_provider(self, provider: ModelProvider) -> List[ModelConfig]:
+        """Get all models from a specific provider."""
+        return [
+            model for model in self.models.values()
+            if model.provider == provider
+        ]
+
+    def list_models(self) -> List[Dict[str, Any]]:
+        """List all available models with basic information."""
+        return [
+            {
+                "model_id": model_id,
+                "display_name": config.display_name,
+                "provider": config.provider,
+                "purpose": config.purpose,
+                "context_window": config.context_window,
+                "scientific_accuracy_score": config.scientific_accuracy_score,
+                "restrictions": config.restrictions
+            }
+            for model_id, config in self.models.items()
+        ]
+
+    def validate_model_usage(self, model_id: str, prompt: str) -> Dict[str, Any]:
+        """
+        Validate if a model can be used for a specific prompt.
+
+        Returns validation results including any restrictions that would be
+        violated.
+        """
+        model = self.get_model(model_id)
+        if not model:
+            return {
+                "valid": False,
+                "error": f"Model {model_id} not found",
+                "violations": []
+            }
+
+        violations = []
+
+        # Check for data generation requests
+        if ModelRestriction.NO_DATA_GENERATION in model.restrictions:
+            data_generation_keywords = [
+                "generate gcms data", "create formula", "invent new",
+                "synthesize data", "make up", "fabricate", "hallucinate"
+            ]
+            prompt_lower = prompt.lower()
+            for keyword in data_generation_keywords:
+                if keyword in prompt_lower:
+                    violations.append(
+                        f"Violates NO_DATA_GENERATION: prompt contains '{keyword}'"
+                    )
+                    break
+
+        # Check for citation requirements
+        if ModelRestriction.CITATION_REQUIRED in model.restrictions:
+            citation_words = ["cite", "citation", "reference", "source"]
+            if not any(word in prompt.lower() for word in citation_words):
+                violations.append(
+                    "Violates CITATION_REQUIRED: prompt doesn't request citations"
+                )
+
+        return {
+            "valid": len(violations) == 0,
+            "model_id": model_id,
+            "model_name": model.display_name,
+            "violations": violations,
+            "restrictions": model.restrictions
+        }
+
+    def get_scientific_prompt_template(self, model_id: str, task_type: str) -> str:
+        """
+        Get a scientific prompt template for a specific model and task type.
+
+        Includes data provenance requirements and scientific integrity
+        guardrails.
+        """
+        model = self.get_model(model_id)
+        if not model:
+            return ""
+
+        base_template = """You are a scientific researcher analyzing perfume chemistry data.
+
+DATA PROVENANCE REQUIREMENTS:
+1. Use only real datasets from verified sources
+2. Never generate synthetic or mock data
+3. Cite all sources with PMID/DOI/URL when available
+4. State uncertainty when data is incomplete
+5. Cross-reference with multiple sources when possible
+
+TASK: {task}
+
+RESPONSE FORMAT:
+1. Data source(s) with version and access date
+2. Analysis methodology
+3. Results with confidence levels
+4. Limitations and uncertainties
+5. References (PMID/DOI/URL)
+
+IMPORTANT: If you cannot find real data, state "No real data found" and
+suggest verification methods."""
+
+        if task_type == "chemical_literature":
+            return base_template + """
+
+SPECIFIC INSTRUCTIONS FOR CHEMICAL LITERATURE ANALYSIS:
+- Focus on GCMS data from published studies
+- Extract chemical compositions with percentages
+- Note detection limits and analytical methods
+- Compare across multiple studies
+- Identify conflicting data points"""
+
+        elif task_type == "formulation_analysis":
+            return base_template + """
+
+SPECIFIC INSTRUCTIONS FOR FORMULATION ANALYSIS:
+- Analyze perfume formulations from patents or publications
+- Identify key aroma chemicals and their functions
+- Note concentration ranges and safety limits
+- Consider volatility and evaporation profiles
+- Reference IFRA restrictions when applicable"""
+
+        return base_template
+
+
+# Global registry instance
+model_registry = ModelRegistry()
+
+
+def get_model_registry() -> ModelRegistry:
+    """Get the global model registry instance."""
+    return model_registry
+
+
+def validate_scientific_query(model_id: str, query: str) -> Dict[str, Any]:
+    """
+    Validate a scientific query against model restrictions.
+
+    Data provenance: This validation ensures scientific integrity by preventing
+    requests for synthetic data generation.
+    """
+    registry = get_model_registry()
+    return registry.validate_model_usage(model_id, query)
+
+
+def get_available_models() -> List[Dict[str, Any]]:
+    """Get list of all available models with basic information."""
+    registry = get_model_registry()
+    return registry.list_models()
+
+
+def get_model_for_purpose(purpose: ModelPurpose) -> Optional[ModelConfig]:
+    """
+    Get the most appropriate model for a specific purpose.
+
+    Selection criteria:
+    1. Highest scientific accuracy score
+    2. Appropriate restrictions for the task
+    3. Available context window
+    4. Technical requirements (GPU, etc.)
+    """
+    registry = get_model_registry()
+    models = registry.get_models_by_purpose(purpose)
+
+    if not models:
+        return None
+
+    # Sort by scientific accuracy score (descending)
+    models.sort(key=lambda x: x.scientific_accuracy_score or 0, reverse=True)
+
+    # Filter out models with hallucination risk "high"
+    filtered_models = [m for m in models if m.hallucination_risk != "high"]
+
+    return filtered_models[0] if filtered_models else models[0]

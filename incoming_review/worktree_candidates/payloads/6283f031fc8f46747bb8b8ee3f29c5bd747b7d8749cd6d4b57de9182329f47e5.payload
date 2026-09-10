@@ -1,0 +1,187 @@
+from __future__ import annotations
+
+import hashlib
+import json
+from pathlib import Path
+from typing import Any
+
+from scripts.formula_release_gate import (
+    current_repository_evidence_hashes,
+    validate_pipeline_analysis_artifact,
+)
+from scripts.verify_d0_claim_matrix import EXPECTED_CONTROL_SHA256
+
+ROOT = Path(__file__).resolve().parents[1]
+RECEIPT = (
+    ROOT / "data" / "governance" / "complex_perfumery_v6_verifier_reconciliation_20260812.json"
+)
+COMPATIBILITY = (
+    ROOT
+    / "data"
+    / "governance"
+    / "complex_perfumery_v6_historical_compatibility_20260904.json"
+)
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _semantic_sha256(payload: dict[str, Any]) -> str:
+    canonical = dict(payload)
+    canonical.pop("semantic_self_sha256", None)
+    encoded = json.dumps(
+        canonical,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def _receipt() -> dict[str, Any]:
+    return json.loads(RECEIPT.read_text(encoding="utf-8"))
+
+
+def _compatibility() -> dict[str, Any]:
+    return json.loads(COMPATIBILITY.read_text(encoding="utf-8"))
+
+
+def test_v6_verifier_reconciliation_is_self_hashing_and_version_pinned() -> None:
+    receipt = _receipt()
+    compatibility = _compatibility()
+    assert receipt["semantic_self_sha256"] == _semantic_sha256(receipt)
+    assert compatibility["semantic_self_sha256"] == _semantic_sha256(compatibility)
+    assert compatibility["source_receipt"] == {
+        "path": RECEIPT.relative_to(ROOT).as_posix(),
+        "schema_version": receipt["schema_version"],
+        "semantic_self_sha256": receipt["semantic_self_sha256"],
+    }
+    assert compatibility["historical_parent_pins"] == receipt["parents"]
+
+    dispositions = compatibility["parent_dispositions"]
+    replayed = 0
+    for parent in receipt["parents"]:
+        if dispositions[parent["path"]] != "TRACKED_IMMUTABLE_REPLAY":
+            continue
+        replayed += 1
+        path = ROOT / parent["path"]
+        assert path.is_file()
+        assert path.stat().st_size == parent["byte_size"]
+        assert _sha256(path) == parent["sha256"]
+    assert replayed == compatibility["clean_checkout_contract"][
+        "tracked_immutable_parents_replayed"
+    ]
+    assert compatibility["clean_checkout_contract"] == {
+        "ignored_output_required": False,
+        "historical_external_content_embedded": False,
+        "tracked_immutable_parents_replayed": 2,
+        "historical_hash_only_parents": 5,
+        "parent_pins_preserved": 7,
+    }
+
+
+def test_v6_reconciliation_preserves_the_byte_pinned_d0_quarantine() -> None:
+    receipt = _receipt()
+    compatibility = _compatibility()
+    historical_formula = next(
+        parent
+        for parent in receipt["parents"]
+        if parent["role"] == "D0_BYTE_PINNED_QUARANTINED_CONTROL"
+    )
+    assert historical_formula["sha256"] == EXPECTED_CONTROL_SHA256
+    assert compatibility["d0_compatibility"] == {
+        "historical_control_sha256": EXPECTED_CONTROL_SHA256,
+        "current_formula_is_historical_fixture": False,
+        "current_root_d0_replay_required": False,
+        "historical_formula_rebased_to_current": False,
+        "formula_write_performed": False,
+        "d0_binding_write_performed": False,
+        "current_root_result": "FAIL_CLOSED",
+        "current_root_error_category": "ValueError",
+        "current_root_error_reason": "control formula binding changed",
+        "study_authorized": False,
+        "release_authority": False,
+        "scientific_outcome": "unmeasured",
+    }
+    assert receipt["rebind_review"]["write_performed"] is False
+    assert receipt["rebind_review"]["formula_file_mutated"] is False
+    assert receipt["rebind_review"]["d0_binding_mutated"] is False
+
+
+def test_v6_reconciliation_preserves_old_and_current_artifact_hold_semantics() -> None:
+    receipt = _receipt()
+    compatibility = _compatibility()
+    historical = compatibility["classification_compatibility"][
+        "historical_v6_diagnosis"
+    ]
+    assert receipt["diagnosis"]["artifact_verify"]["sole_blocker"] == {
+        "path": "formulas/Prada_LHomme_Architecture_Control_30mL_EdT.md",
+        **historical,
+    }
+    assert historical == {
+        "status": "TAMPERED",
+        "artifact_binding_status": "TAMPERED",
+        "integrity_issues": ["analysis_input_hash"],
+        "explicitly_quarantined": True,
+        "release_authority": False,
+    }
+
+    formula = ROOT / "formulas" / "Prada_LHomme_Architecture_Control_30mL_EdT.md"
+    result = validate_pipeline_analysis_artifact(
+        formula,
+        repository_hashes=current_repository_evidence_hashes(),
+    )
+    current = compatibility["classification_compatibility"][
+        "current_runtime_policy"
+    ]
+    assert {
+        key: result[key]
+        for key in (
+            "status",
+            "artifact_binding_status",
+            "integrity_issues",
+            "quarantine_explicit",
+            "release_authority",
+        )
+    } == current
+    assert compatibility["classification_compatibility"]["relationship"] == (
+        "VERSIONED_SEMANTICS_NOT_RETROACTIVE_REWRITE"
+    )
+
+
+def test_v6_reconciliation_resolves_timeout_without_inflating_authority() -> None:
+    receipt = _receipt()
+    diagnosis = receipt["diagnosis"]
+    assert diagnosis["isolated_golden_explicit_solvent"]["status"] == "PASS"
+    assert diagnosis["focused_contract_replay"]["passed"] == 95
+    assert diagnosis["quick_project_verify"] == {
+        "status": "FAIL",
+        "completed": True,
+        "timed_out": False,
+        "elapsed_seconds": 43.22,
+        "stderr_bytes": 0,
+        "failed_checks": ["formula-artifact-validation"],
+    }
+
+    decision = receipt["decision"]
+    assert decision["timeout_diagnosis_resolved"] is True
+    assert decision["v6_remains_current_collection_state"] is True
+    assert decision["optional_identities_remaining"] == 4
+    assert decision["p6_exact_parent_bytes_remaining"] == 2
+    assert decision["implementation_complete"] is False
+    assert decision["package_installation_complete"] is False
+    assert decision["release_complete"] is False
+    assert all(value is False for value in receipt["authority"].values())
+
+
+def test_v6_reconciliation_records_no_package_or_repository_expansion() -> None:
+    receipt = _receipt()
+    decision = receipt["decision"]
+    assert decision["migration_required"] is False
+    assert decision["new_truth_store_created"] is False
+    assert decision["new_pipeline_script_created"] is False
+    assert decision["package_code_installed"] is False
+    assert decision["formula_or_build_mutated"] is False
+    assert decision["inventory_or_stock_mutated"] is False
+    assert decision["physical_execution_authorized"] is False

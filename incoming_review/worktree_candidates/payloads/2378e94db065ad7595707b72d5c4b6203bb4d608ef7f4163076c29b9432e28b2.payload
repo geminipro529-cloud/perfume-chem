@@ -1,0 +1,210 @@
+from __future__ import annotations
+
+from dataclasses import replace
+
+from engine.material_capability_atlas import build_material_capability_atlas
+from engine.perception.architectural_delta import (
+    ArchitecturalDeltaResult,
+    ArchitecturalDeltaState,
+)
+from engine.perception.cypress_heart_frontier import (
+    CypressHeartFrontierRequestV1,
+    CypressHeartFrontierState,
+    build_default_cypress_heart_frontier_request,
+    evaluate_cypress_heart_frontier,
+)
+from engine.perception.depth_contracts import DepthDesignState, PerfumeFamily
+from engine.perception.depth_evaluation import evaluate_depth_profile
+from engine.perception.depth_family_adapters import build_bounded_reference_depth_profile
+from engine.perception.harmonic_synthesis import (
+    HarmonicModuleState,
+    report_from_architectural_delta,
+    report_from_cypress_heart_frontier,
+    report_from_family_depth,
+    report_from_material_atlas,
+    report_from_preference,
+    report_from_temporal_evidence,
+)
+from engine.preference import (
+    PairwisePreference,
+    PreferenceFitRequest,
+    PreferenceFitStatus,
+    fit_preference_model,
+)
+from engine.sensory.ledger import TemporalEvidenceResult, TemporalEvidenceState
+from engine.sensory.order_balance import OrderBalanceState
+
+
+def test_material_atlas_adapter_projects_exact_current_capability_without_beauty() -> None:
+    report = report_from_material_atlas(
+        build_material_capability_atlas(),
+        material_names=("Cypress EO", "Benzyl Salicylate"),
+    )
+
+    assert report.module_id == "material-capability-atlas"
+    assert report.state is HarmonicModuleState.READY
+    values = {item.claim_key: item.claim_value for item in report.assertions}
+    assert values["material.Cypress EO.inventory_state"] == "OWNED_EXECUTABLE"
+    assert values["material.Benzyl Salicylate.inventory_state"] == "UNAVAILABLE"
+    assert not any("hedonic" in item.claim_key.casefold() for item in report.assertions)
+
+
+def test_family_depth_adapter_carries_all_dimensions_and_false_authority() -> None:
+    profile = build_bounded_reference_depth_profile(
+        profile_id="cyp02_family_profile",
+        target_identity="CYP-02 Cypress subject with Magnolia-Orris heart",
+        family=PerfumeFamily.WOODY,
+        emotional_tone="polished aromatic green tension relieved by floral light",
+        realism_or_abstraction_target="perfumistic Cypress EO subject, not tree realism",
+        forbidden_drift=("cleaner", "generic iris", "woody amber wall"),
+        ideal_formula_ref="target://cyp-02/ideal/v1",
+        current_inventory_build_ref="inventory://cyp-02/current/v1",
+        construction_row_count=0,
+        temporal_windows=("0_min", "5_min", "30_min", "2_hour", "4_hour"),
+        source_refs=("design://cyp-02/family-profile/v1",),
+        claim_ceiling="COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+    )
+    evaluation = evaluate_depth_profile(profile)
+    assert evaluation.state is DepthDesignState.DESIGN_READY
+
+    report = report_from_family_depth(profile, evaluation)
+
+    assert report.state is HarmonicModuleState.READY
+    dimension_claims = {
+        item.claim_key for item in report.assertions if item.claim_key.startswith("dimension.")
+    }
+    assert len(dimension_claims) == 14
+    assert report.authority_flags
+    assert all(value is False for _, value in report.authority_flags)
+
+
+def test_architectural_delta_adapter_preserves_no_change_as_valid_design_state() -> None:
+    delta = ArchitecturalDeltaResult(
+        state=ArchitecturalDeltaState.NO_CHANGE,
+        target_identity="CYP-02",
+        ideal_formula_ref="target://cyp-02/ideal/v1",
+        current_build_ref="inventory://cyp-02/current/v1",
+        formula_lineage_sha256="1" * 64,
+        inventory_workbook_sha256="2" * 64,
+        inventory_source_row_count=279,
+        selected_candidate=None,
+        inventory_projection=None,
+        controlled_arms=(),
+        blockers=(),
+        next_comparison=None,
+    )
+
+    report = report_from_architectural_delta(delta)
+
+    assert report.state is HarmonicModuleState.READY
+    assert any(
+        item.claim_key == "architectural_delta.state"
+        and item.claim_value == "NO_CHANGE"
+        for item in report.assertions
+    )
+
+
+def test_incomplete_temporal_evidence_adapts_to_withheld_not_observed_truth() -> None:
+    temporal = TemporalEvidenceResult(
+        state=TemporalEvidenceState.INCOMPLETE,
+        protocol_id="CYP02-TEMP-V1",
+        schedule_sha256="3" * 64,
+        expected_cell_count=40,
+        observed_cell_count=0,
+        missing_cells=(),
+        duplicate_cells=(),
+        summaries=(),
+        transitions=(),
+        order_balance_state=OrderBalanceState.REBUILD,
+        blockers=("NO_BLINDED_TEMPORAL_OBSERVATIONS",),
+        next_discriminator="compare the heart alternatives at 30 minutes and 4 hours",
+        safety_events=(),
+        safety_stop_triggered=False,
+        assessor_reliability_state="NOT_EVALUABLE",
+        assessor_reliability=(),
+    )
+
+    report = report_from_temporal_evidence(temporal)
+
+    assert report.state is HarmonicModuleState.WITHHELD
+    assert report.assertions == ()
+    assert report.blockers == ("NO_BLINDED_TEMPORAL_OBSERVATIONS",)
+
+
+def test_withheld_preference_fit_adapts_without_winner_or_utility_claim() -> None:
+    fit = fit_preference_model(
+        PreferenceFitRequest(
+            training=(
+                PairwisePreference(
+                    "CYP02-A",
+                    "CYP02-B",
+                    "CYP02-A",
+                    comparison_id="comparison-1",
+                    assessor_id="assessor-1",
+                    protocol_id="CYP02-HED-V1",
+                    criterion_id="LIKING",
+                    first_presented_item="CYP02-B",
+                ),
+            ),
+            criterion_id="LIKING",
+            minimum_comparisons=10,
+        )
+    )
+    assert fit.status is PreferenceFitStatus.WITHHELD
+
+    report = report_from_preference(fit)
+
+    assert report.state is HarmonicModuleState.WITHHELD
+    assert report.assertions == ()
+    rendered = str(report.as_dict()).casefold()
+    assert "winner" not in rendered
+    assert "utility" not in rendered
+
+
+def test_cypress_frontier_adapter_carries_selected_relation_without_hedonic_truth() -> None:
+    atlas = build_material_capability_atlas()
+    frontier = evaluate_cypress_heart_frontier(
+        build_default_cypress_heart_frontier_request(atlas),
+        atlas=atlas,
+    )
+    assert frontier.state is CypressHeartFrontierState.THEORY_SELECTED
+
+    report = report_from_cypress_heart_frontier(frontier)
+
+    assert report.module_id == "cypress-heart-frontier"
+    assert report.state is HarmonicModuleState.READY
+    values = {item.claim_key: item.claim_value for item in report.assertions}
+    assert values["heart.identity"] == (
+        "Magnolia petal-light over an Orris rhizome-shadow dual-register heart"
+    )
+    assert "sole named subject" in values["heart.relation_to_cypress"]
+    assert not any("hedonic_truth" in item.claim_key for item in report.assertions)
+    assert report.authority_flags
+    assert all(value is False for _, value in report.authority_flags)
+
+
+def test_unresolved_cypress_frontier_is_a_design_hold_not_an_arbitrary_winner() -> None:
+    atlas = build_material_capability_atlas()
+    base = build_default_cypress_heart_frontier_request(atlas)
+    candidate = base.candidates[0]
+    twin = replace(
+        candidate,
+        candidate_id="CYP-H99-EQUAL-TWIN",
+        heart_identity="Equal-evidence Magnolia-Orris alternative",
+        controlled_comparison_ref="comparison://cyp-02/equal-twin/v1",
+    )
+    request = CypressHeartFrontierRequestV1(
+        target=base.target,
+        criteria_priority=base.criteria_priority,
+        candidates=(candidate, twin),
+        prohibited_inherited_model_refs=base.prohibited_inherited_model_refs,
+        literature_refs=base.literature_refs,
+    )
+    frontier = evaluate_cypress_heart_frontier(request, atlas=atlas)
+    assert frontier.state is CypressHeartFrontierState.FRONTIER
+
+    report = report_from_cypress_heart_frontier(frontier)
+
+    assert report.state is HarmonicModuleState.HOLD
+    assert report.assertions == ()
+    assert "UNRESOLVED_CYPRESS_HEART_FRONTIER" in report.blockers

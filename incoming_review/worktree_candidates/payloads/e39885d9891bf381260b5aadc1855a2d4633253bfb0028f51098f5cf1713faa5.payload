@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/perfume-chem/v19-v20-exact-decimal-successor-v2.schema.json",
+  "title": "Perfume-Chem V19/V20 Exact-Decimal Formula Artifact Successor v2",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "package_id",
+    "operation_scope",
+    "parent_artifact",
+    "inventory_authority",
+    "formula_register",
+    "current_builds_exact_decimal",
+    "formula_signatures",
+    "anti_chassis_dimensions",
+    "ratio_bound_nary_records",
+    "stock_lineage_holds",
+    "quick_verification",
+    "authority_false",
+    "packet_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "2.0.0"
+    },
+    "package_id": {
+      "type": "string"
+    },
+    "operation_scope": {
+      "const": "DERIVED_DOSE_EXPORT_REPAIR_ONLY"
+    },
+    "formula_register": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9
+    },
+    "current_builds_exact_decimal": {
+      "type": "object",
+      "minProperties": 9,
+      "maxProperties": 9,
+      "additionalProperties": {
+        "$ref": "#/$defs/formula"
+      }
+    },
+    "stock_lineage_holds": {
+      "type": "array"
+    },
+    "authority_false": {
+      "type": "array",
+      "minItems": 10
+    },
+    "packet_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "$defs": {
+    "decimalString": {
+      "type": "string",
+      "pattern": "^-?(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+    },
+    "formula": {
+      "type": "object",
+      "required": [
+        "formula_id",
+        "parent_formula_id",
+        "parent_formula_hash",
+        "formula_hash",
+        "concentration_fraction_decimal",
+        "concentrate_1ml_ul_decimal",
+        "concentrate_5ml_ul_decimal",
+        "concentrate_30ml_ul_decimal",
+        "rows"
+      ],
+      "properties": {
+        "formula_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "parent_formula_hash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "concentration_fraction_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "concentrate_1ml_ul_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "concentrate_5ml_ul_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "concentrate_30ml_ul_decimal": {
+          "$ref": "#/$defs/decimalString"
+        },
+        "rows": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/row"
+          }
+        }
+      }
+    },
+    "row": {
+      "type": "object",
+      "required": [
+        "row_id",
+        "material",
+        "stock_label",
+        "parts_per_1000_decimal",
+        "dose_1ml_ul_decimal",
+        "dose_5ml_ul_decimal",
+        "dose_30ml_ul_decimal",
+        "product_basis",
+        "inventory_status"
+      ],
+      "properties": {
+        "parts_per_1000_decimal": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]{4}$"
+        },
+        "dose_1ml_ul_decimal": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]{6}$"
+        },
+        "dose_5ml_ul_decimal": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]{6}$"
+        },
+        "dose_30ml_ul_decimal": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]{6}$"
+        },
+        "active_fraction_decimal": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/decimalString"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

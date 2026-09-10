@@ -1,0 +1,624 @@
+{
+  "artifact_id": "PCV3-C00-F002",
+  "title": "Program v3 Canonical Schema Map",
+  "version": "1.0.0",
+  "generated_at": "2026-08-07T01:20:00+07:00",
+  "integrator": "PCV3-INTEGRATOR",
+  "integration_state": "COMPLETE_WITH_HOLDS",
+  "program_approval": "NOT_ISSUED",
+  "normative_authority_order": [
+    "Latest terminal-state, completion, addendum, and source-gap reports",
+    "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v3.xlsx",
+    "PROTOCOL.md; Meaningful_Complexity_Audit_v2.md; SOL_5_6_PRO_Strict_Perfume_Reverification_V2.md",
+    "Exact SYNCED CrossBrand audit, formula book, and concentration register",
+    "Literature, interaction, floral-coverage, style, and pilot-architecture sources",
+    "Newest active brand-specific workbook",
+    "Historical workbooks, archived formulas, prompts, and worker logs"
+  ],
+  "source_anchors": {
+    "terminal_report": {
+      "filename": "FINAL_VERIFICATION_REPORT.md",
+      "sha256": "c294ef8294b6811ea15c70f9d295378a348ee5a5bf84e8db41c3303e903f979c",
+      "hash_state": "DECLARED_UPSTREAM_NOT_RECOMPUTED_IN_FINAL_RUNTIME"
+    },
+    "phase_c_f_checkpoint": {
+      "filename": "PHASE_C_F_TERMINAL_CHECKPOINT.md",
+      "sha256": "9687f179311f5a643413bc41a51e5de6e8a2f8688cbf11c90d8a47ade8058074",
+      "hash_state": "DECLARED_UPSTREAM_NOT_RECOMPUTED_IN_FINAL_RUNTIME"
+    },
+    "inventory": {
+      "filename": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v3.xlsx",
+      "sha256": "90049fd0445a1c69eea52ea1fb88909f51a49810ea77503e6aee690f4a00b21f",
+      "hash_state": "DECLARED_UPSTREAM_NOT_RECOMPUTED_IN_FINAL_RUNTIME"
+    },
+    "protocol": {
+      "filename": "PROTOCOL.md",
+      "sha256": "f192fdea259052d445f39f2264b1907e92e1139ee8ddf112f57d2a7a99558961",
+      "hash_state": "LOCALLY_VERIFIED"
+    },
+    "meaningful_complexity_v2": {
+      "filename": "Meaningful_Complexity_Audit_v2.md",
+      "sha256": "07d84574365abb6a8e505fdcaf4e496ee1ac1d90f1397053d41f20b0a9394ff3",
+      "hash_state": "LOCALLY_VERIFIED"
+    },
+    "strict_reverification": {
+      "filename": "SOL_5_6_PRO_Strict_Perfume_Reverification_V2.md",
+      "sha256": "ba048e0fc3687eef1a5aa3ed652075b3f02d8433bb317ab08a539dec4af3c51f",
+      "hash_state": "DECLARED_UPSTREAM_NOT_RECOMPUTED_IN_FINAL_RUNTIME"
+    },
+    "experimental_data_model": {
+      "filename": "experimental_data_model.schema.json",
+      "sha256": "ea8b84e03297bacf1d253c6a9d5d1467a103c9c9f6271693ed7c50fcbe5a8710",
+      "hash_state": "VERIFIED_BY_CHAT2_LEDGER"
+    },
+    "interaction_atlas": {
+      "filename": "Perfumery_Interaction_Layering_Atlas_v1.json",
+      "sha256": "321766b1892d6e684474aece142991d588a8719d0d7f5626e4cbf3254a3a5e90",
+      "hash_state": "LOCALLY_VERIFIED"
+    }
+  },
+  "canonical_roots": {
+    "scientific_and_physical_data": {
+      "owner": "PCV3-EXPERIMENT-DATA",
+      "normative_artifacts": [
+        "EXPERIMENTAL_DATA_MODEL_v1.md",
+        "experimental_data_model.schema.json",
+        "ASSESSOR_PROFILE_SCHEMA.json",
+        "ANALYTICAL_MEASUREMENT_SCHEMA.json",
+        "BLIND_DECODE_SCHEMA.json"
+      ],
+      "status": "CANONICAL_FOR_PROGRAM_V3"
+    },
+    "complexity": {
+      "owner": "PCV3-COMPLEXITY",
+      "normative_artifacts": [
+        "MEANINGFUL_COMPLEXITY_MODEL_v3.md",
+        "meaningful_complexity_v3.schema.json",
+        "V2_TO_V3_GATE_CROSSWALK.csv"
+      ],
+      "status": "CANONICAL_WITH_V2_COMPATIBILITY_CROSSWALK"
+    },
+    "interaction": {
+      "owner": "PCV3-INTERACTIONS-T1",
+      "normative_artifacts": [
+        "INTERACTION_TRANCHE_1_PROTOCOL.md",
+        "INTERACTION_DECISION_RULES.json",
+        "ATLAS_PHYSICAL_UPDATE_SCHEMA.json"
+      ],
+      "status": "PROTOCOL_CANONICAL; EMPIRICAL_POPULATION_NOT_RUN"
+    },
+    "exact_stock_behavior": {
+      "owner": "PCV3-MATERIAL-BEHAVIOR",
+      "normative_artifacts": [
+        "MATERIAL_BEHAVIOR_ATLAS_SPEC_v1.md",
+        "material_behavior_atlas.schema.json"
+      ],
+      "status": "SCHEMA_CANONICAL; EMPIRICAL_FIELDS_NOT_TESTED"
+    },
+    "floral_architecture": {
+      "owner": "PCV3-FLORAL-EXPANSION",
+      "normative_artifacts": [
+        "floral_family_registry_v3_draft.json",
+        "FLORAL_ANTI_COLLAPSE_RULES.md"
+      ],
+      "status": "DRAFT_ARCHITECTURE; NOT_EMPIRICAL_FORMULA_PROOF"
+    },
+    "hedonic_and_release": {
+      "owner": "PCV3-HEDONIC-PRODUCTION",
+      "normative_artifacts": [
+        "HEDONIC_EVALUATION_SPEC_v1.md",
+        "release_class.schema.json",
+        "FORMULA_LINEAGE_RULES.md",
+        "HEDONIC_EVIDENCE_BOUNDARIES.md"
+      ],
+      "status": "EVALUATION_ARCHITECTURE; UNPOPULATED"
+    },
+    "decision_intelligence": {
+      "owner": "PCV3-DECISION-INTELLIGENCE",
+      "normative_artifacts": [
+        "NEXT_BEST_EXPERIMENT_ENGINE_SPEC_v1.md",
+        "next_best_experiment.schema.json",
+        "PURCHASE_CLASSIFICATION_RULES.json",
+        "DECISION_ENGINE_ABSTENTION_RULES.md"
+      ],
+      "status": "DESIGN_COMPLETE_WITH_HOLDS"
+    }
+  },
+  "identifier_prefixes": {
+    "ReferenceSample": {
+      "prefix": "REF-",
+      "physical": true
+    },
+    "TargetFormula": {
+      "prefix": "TF-",
+      "physical": false
+    },
+    "BuildFormula": {
+      "prefix": "BF-",
+      "physical": false
+    },
+    "PhysicalBatch": {
+      "prefix": "PB-",
+      "physical": true
+    },
+    "BottleOrVial": {
+      "prefix": "CNT-",
+      "physical": true
+    },
+    "CodedSample": {
+      "prefix": "CS-",
+      "physical": true,
+      "true_origin_exposed": false
+    },
+    "Experiment": {
+      "prefix": "EXP-",
+      "physical": false
+    },
+    "Condition": {
+      "prefix": "COND-",
+      "physical": false
+    },
+    "Substrate": {
+      "prefix": "SUB-",
+      "physical": false
+    },
+    "ApplicationAmount": {
+      "prefix": "APP-",
+      "physical": false
+    },
+    "Assessor": {
+      "prefix": "ASSR-",
+      "physical": false
+    },
+    "AssessorCalibration": {
+      "prefix": "ACAL-",
+      "physical": false
+    },
+    "Observation": {
+      "prefix": "OBS-",
+      "physical": false
+    },
+    "Timepoint": {
+      "prefix": "TP-",
+      "physical": false
+    },
+    "Replicate": {
+      "prefix": "REP-",
+      "physical": false
+    },
+    "BlindDecode": {
+      "prefix": null,
+      "resolution": "READ_EXACT_CHAT2_SCHEMA"
+    },
+    "Decision": {
+      "prefix": null,
+      "resolution": "READ_EXACT_CHAT2_SCHEMA"
+    },
+    "ProvenanceRecord": {
+      "prefix": null,
+      "resolution": "READ_EXACT_CHAT2_SCHEMA"
+    },
+    "InteractionHypothesis": {
+      "prefix": null,
+      "resolution": "READ_EXACT_CHAT2_SCHEMA"
+    },
+    "InteractionHypothesisRevision": {
+      "prefix": null,
+      "resolution": "READ_EXACT_CHAT2_SCHEMA"
+    }
+  },
+  "canonical_evidence_categories": [
+    "MEASURED",
+    "OBSERVED",
+    "INFERRED",
+    "PROPOSED",
+    "REPORTED",
+    "DERIVED"
+  ],
+  "workflow_states_not_evidence_categories": [
+    "DESIGNED",
+    "PLANNED",
+    "NOT_RUN",
+    "NOT_TESTED",
+    "READY",
+    "HOLD"
+  ],
+  "canonical_missingness": [
+    "PRESENT",
+    "NOT_COLLECTED",
+    "NOT_APPLICABLE",
+    "BELOW_DETECTION_LIMIT",
+    "BELOW_QUANTIFICATION_LIMIT",
+    "INVALIDATED",
+    "LOST",
+    "WITHHELD_BLIND",
+    "UNKNOWN"
+  ],
+  "numeric_and_hash_policy": {
+    "exact_decimals": "SERIALIZE_AS_STRINGS",
+    "canonical_json": "RFC8785_COMPATIBLE_OR_EXPLICIT_EQUIVALENT_REQUIRED",
+    "raw_records": "APPEND_ONLY",
+    "corrections": "SUPERSEDE_NEVER_OVERWRITE",
+    "hash_scope": "EXACT_BYTES_WITH_DECLARED_CANONICALIZATION",
+    "zero_is_missing": false
+  },
+  "referential_integrity": [
+    "Every foreign key resolves to exactly one entity of the declared type.",
+    "PhysicalBatch references BuildFormula; TargetFormula is never a physical batch identifier.",
+    "Container contents reference a physical entity.",
+    "CodedSample contains no true-origin identity.",
+    "Observation references experiment, condition, coded sample, assessor, session, timepoint, replicate, and attribute.",
+    "Time-dependent analytical measurements require timepoint and replicate unless explicitly time-independent.",
+    "Quantitative analytical claims require calibrated quantitation and MeasurementUncertainty.",
+    "Decode release records the observation-lock hash or a documented compromise.",
+    "InteractionHypothesis evidence upgrades require a scoped Decision linked to Observation or AnalyticalMeasurement records."
+  ],
+  "object_registry": [
+    {
+      "object": "TargetFormula",
+      "canonical_owner": "Chat 2 / PROTOCOL target layer",
+      "key_rules": [
+        "inventory_independent=true",
+        "immutable snapshot",
+        "formula hash required"
+      ],
+      "prohibited_collapses": [
+        "BuildFormula",
+        "PhysicalBatch",
+        "Inventory availability"
+      ]
+    },
+    {
+      "object": "BuildFormula",
+      "canonical_owner": "Chat 2 / PROTOCOL build layer",
+      "key_rules": [
+        "linked to TargetFormula",
+        "inventory snapshot hash",
+        "substitution losses explicit"
+      ],
+      "prohibited_collapses": [
+        "TargetFormula",
+        "PhysicalBatch"
+      ]
+    },
+    {
+      "object": "PhysicalBatch",
+      "canonical_owner": "Chat 2",
+      "key_rules": [
+        "actual compounding only",
+        "component additions and exact-stock provenance"
+      ],
+      "prohibited_collapses": [
+        "planned formula",
+        "inventory ownership"
+      ]
+    },
+    {
+      "object": "ModelEstimate",
+      "canonical_owner": "Chat 2",
+      "key_rules": [
+        "model/version/hash",
+        "inputs",
+        "assumptions",
+        "domain and abstention state"
+      ],
+      "prohibited_collapses": [
+        "AnalyticalMeasurement",
+        "Observation"
+      ]
+    },
+    {
+      "object": "Observation",
+      "canonical_owner": "Chat 2",
+      "key_rules": [
+        "append-only",
+        "assessor × sample × condition × timepoint × replicate × attribute"
+      ],
+      "prohibited_collapses": [
+        "reported prose",
+        "model estimate",
+        "summary average"
+      ]
+    },
+    {
+      "object": "AnalyticalMeasurement",
+      "canonical_owner": "Chat 2",
+      "key_rules": [
+        "AnalyticalRun link",
+        "method/QC/calibration",
+        "uncertainty"
+      ],
+      "prohibited_collapses": [
+        "computed headspace",
+        "peak-area percent as formula wt%"
+      ]
+    },
+    {
+      "object": "Decision",
+      "canonical_owner": "Chat 2",
+      "key_rules": [
+        "locked inputs",
+        "rule version",
+        "authority",
+        "blind state",
+        "limitations",
+        "next action"
+      ],
+      "prohibited_collapses": [
+        "raw observation",
+        "empirical release without gates"
+      ]
+    },
+    {
+      "object": "ExactStockRef",
+      "canonical_owner": "Chat 2 + Chat 5",
+      "key_rules": [
+        "supplier product",
+        "lot",
+        "stock fraction",
+        "solvent",
+        "inventory hash",
+        "product-basis status"
+      ],
+      "prohibited_collapses": [
+        "canonical molecule",
+        "natural across lots",
+        "planned preparation"
+      ]
+    },
+    {
+      "object": "PhysicalPreparation",
+      "canonical_owner": "Chat 5 adapter to Chat 2",
+      "key_rules": [
+        "planned/prepared states distinct",
+        "actual preparation linked to batch and provenance"
+      ],
+      "prohibited_collapses": [
+        "stock definition",
+        "formula row"
+      ]
+    },
+    {
+      "object": "ComplexityProfileV3",
+      "canonical_owner": "Chat 1",
+      "key_rules": [
+        "noncompensatory vector",
+        "post-ablation state",
+        "claim-level evidence cap"
+      ],
+      "prohibited_collapses": [
+        "row count",
+        "hedonic score",
+        "empirical release"
+      ]
+    }
+  ],
+  "complexity_contract": {
+    "dimensions": [
+      "recognizer_complexity",
+      "structural_complexity",
+      "interaction_complexity",
+      "temporal_complexity",
+      "textural_complexity",
+      "contrast_complexity",
+      "resilience_complexity",
+      "effective_post_ablation_complexity",
+      "execution_complexity",
+      "hedonic_complexity_boundary"
+    ],
+    "classes": [
+      "COMPACT",
+      "LAYERED",
+      "HIGH_COMPLEXITY",
+      "ORCHESTRAL"
+    ],
+    "v2_floor_policy": {
+      "standalone_accord": 50,
+      "full_perfume": 65,
+      "hard_when": [
+        "artifact explicitly claims v2 compatibility",
+        "authoritative target-specific identity/function roster requires the floor"
+      ],
+      "otherwise": "LEGACY_ROW_BAND_AND_COMPRESSION_REVIEW_TRIGGER"
+    },
+    "gates": [
+      "G0",
+      "G1",
+      "G2",
+      "G3",
+      "G4",
+      "G5",
+      "G6",
+      "G7",
+      "G8",
+      "G9",
+      "G10",
+      "G11",
+      "G12",
+      "G13",
+      "G14"
+    ],
+    "g14_limit": "CANNOT_ESTABLISH_BEAUTY_BROAD_APPEAL_SIMILARITY_STABILITY_OR_RELEASE"
+  },
+  "interaction_contract": {
+    "effect_types": [
+      "ENHANCEMENT",
+      "SUPPRESSION",
+      "MASKING",
+      "CONFIGURATION",
+      "ROUNDING",
+      "PHASE_SHIFT",
+      "COLLISION",
+      "NULL",
+      "UNCERTAIN"
+    ],
+    "evidence_states": [
+      "STRUCTURED_HYPOTHESIS",
+      "LITERATURE_SUPPORTED",
+      "PHYSICALLY_OBSERVED_SCOPED",
+      "ANALYTICALLY_SUPPORTED_SCOPED",
+      "CONTRADICTED_SCOPED",
+      "NULL_WITHIN_TESTED_SCOPE"
+    ],
+    "revision_actions": [
+      "RETAIN",
+      "REFINE",
+      "RESTRICT_SCOPE",
+      "UPGRADE_EVIDENCE",
+      "DOWNGRADE_EVIDENCE",
+      "REJECT",
+      "REPLACE"
+    ],
+    "generalization_rule": "ONE_EXACT_PAIR_DOES_NOT_PROVE_A_GROUP_PAIR"
+  },
+  "release_classes": [
+    "ARTISTIC MASTER",
+    "BROAD_APPEAL EDIT",
+    "COST_CONTROLLED EDIT",
+    "INVENTORY_FIT PILOT",
+    "STABILITY_OPTIMIZED EDIT",
+    "REFERENCE RECONSTRUCTION"
+  ],
+  "decision_action_types": [
+    "ADDITION_TEST",
+    "ENGINE_IMPLEMENTATION_TASK",
+    "INTERACTION_EXPERIMENT",
+    "MATERIAL_DOSE_LADDER",
+    "MATERIAL_PURCHASE",
+    "OMISSION_TEST",
+    "STABILITY_TEST",
+    "STOCK_PREPARATION",
+    "SUPPLIER_DOCUMENT_RETRIEVAL",
+    "TARGET_COMPARISON"
+  ],
+  "purchase_classifications": [
+    "ESSENTIAL UNBLOCKER",
+    "HIGH_VALUE ARCHITECTURAL EXPANSION",
+    "USEFUL SPECIALIST",
+    "REDUNDANT WITH CURRENT STOCK",
+    "EVIDENCE GAP, NOT INVENTORY GAP"
+  ],
+  "abstention_text": "NO ACTION UNTIL AUTHORITY RESOLVED",
+  "worker_state_normalization": {
+    "COMPLETE": "COMPLETE",
+    "COMPLETE_WITH_HOLDS": "COMPLETE_WITH_HOLDS",
+    "COMPLETE_WITH_EXECUTION_HOLDS": "COMPLETE_WITH_HOLDS",
+    "normalization_note": "Execution holds remain explicit in the lane record and are not erased by enum normalization."
+  },
+  "legacy_crosswalk": [
+    {
+      "source": "meaningful_complexity_schema.json.formula_id",
+      "target": "TargetFormula or BuildFormula",
+      "mapping": "CONDITIONAL",
+      "hold": "HOLD_IF_FORMULA_LAYER_UNSCOPED"
+    },
+    {
+      "source": "meaningful_complexity_schema.json.formula_hash",
+      "target": "TargetFormula.formula_hash or BuildFormula.build_formula_hash",
+      "mapping": "CONDITIONAL",
+      "hold": "HOLD_IF_HASH_METHOD_UNKNOWN"
+    },
+    {
+      "source": "meaningful_complexity_schema.json.inventory_lock",
+      "target": "BuildFormula.inventory_snapshot_hash and ExactStockRef.inventory_snapshot_hash",
+      "mapping": "DIRECT",
+      "hold": null
+    },
+    {
+      "source": "formula_rows[].canonical_material",
+      "target": "TargetFormulaRow.canonical_identity or BuildFormulaRow target link",
+      "mapping": "CONDITIONAL",
+      "hold": "HOLD_IF_ROLE_OR_NOTE_ONLY"
+    },
+    {
+      "source": "formula_rows[].stock_label/active_fraction/solvent",
+      "target": "ExactStockRef",
+      "mapping": "DIRECT_WITH_NULL_PRESERVATION",
+      "hold": "HOLD_IF_EXACT_STOCK_FIELDS_REQUIRED_AND_MISSING"
+    },
+    {
+      "source": "formula_rows[].physical_confirmation_test",
+      "target": "Experiment + Condition + Timepoint + Replicate draft",
+      "mapping": "EXPAND_TO_PROPOSED_ONLY",
+      "hold": "HOLD_IF_UNEXECUTABLE"
+    },
+    {
+      "source": "formula_rows[].ablation_impact",
+      "target": "ModelEstimate or performed-experiment Decision input",
+      "mapping": "CONDITIONAL",
+      "hold": "HOLD_IF_METHOD_UNKNOWN"
+    },
+    {
+      "source": "interaction_records[]",
+      "target": "InteractionHypothesis",
+      "mapping": "EXPAND_WITH_SCOPE",
+      "hold": null
+    },
+    {
+      "source": "gate_results[]",
+      "target": "Decision",
+      "mapping": "COMPUTATIONAL_ONLY",
+      "hold": "HOLD_IF_ENGINE_PROVENANCE_MISSING"
+    },
+    {
+      "source": "summary.final_state",
+      "target": "Decision.decision_state",
+      "mapping": "LEGACY_COMPUTATIONAL_SCREEN_ONLY",
+      "hold": null
+    },
+    {
+      "source": "Interaction Atlas confidence",
+      "target": "legacy source_evidence_label",
+      "mapping": "PRESERVE_LEGACY_ONLY",
+      "hold": null
+    },
+    {
+      "source": "Chat 7 provisional IDs",
+      "target": "Chat 2 identifiers",
+      "mapping": "ADAPTER_REQUIRED",
+      "hold": "HOLD_IF_UNMAPPED"
+    }
+  ],
+  "known_incompatibilities_and_dispositions": [
+    {
+      "issue": "Ambrofix 40% historical rows versus canonical 30% stock",
+      "disposition": "30% governs; 40% rows quarantined; regenerate quantities before execution"
+    },
+    {
+      "issue": "Chat 7 manifest referenced as JSON in later summary but located as Markdown",
+      "disposition": "Retain located Markdown manifest; do not synthesize an upstream JSON file"
+    },
+    {
+      "issue": "Protocol and Atlas timepoint schedules differ",
+      "disposition": "Preserve experiment-specific schedules; never average them"
+    },
+    {
+      "issue": "Interaction scalar confidence versus canonical evidence authority",
+      "disposition": "Preserve scalar as legacy metadata only"
+    },
+    {
+      "issue": "Reference checker result versus target-engine qualification",
+      "disposition": "Keep target engine state NOT_RUN until actual repository execution"
+    },
+    {
+      "issue": "Designed screens versus observed results",
+      "disposition": "Map to PROPOSED/DESIGNED/NOT_RUN; never create Observation or AnalyticalMeasurement"
+    }
+  ],
+  "release_boundary": {
+    "integration_build": "COMPLETE",
+    "worker_state": "COMPLETE_WITH_HOLDS",
+    "target_engine": "NOT_RUN",
+    "physical_interaction_results": "NOT_RUN",
+    "exact_stock_behavior_population": "NOT_TESTED",
+    "floral_physical_results": 0,
+    "hedonic_results": "UNPOPULATED",
+    "stability_results": "NOT_RUN",
+    "measured_headspace": "NOT_CREATED",
+    "strict_empirical_oav": "NOT_CREATED",
+    "similarity_pass": "NOT_ISSUED",
+    "safety_release": "NOT_AUTHORIZED",
+    "phase_g": "LOCKED_NOT_AUTHORIZED",
+    "program_approval": "NOT_ISSUED"
+  }
+}

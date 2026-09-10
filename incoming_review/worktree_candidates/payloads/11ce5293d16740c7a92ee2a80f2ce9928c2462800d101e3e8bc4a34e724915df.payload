@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,0.9849
+identity_system_probability,1.0
+oav_probability,0.9849
+temporal_probability,1.0
+dominance_failure_probability,0.026900000000000035
+overall_probability,0.9582
+dose_closure_probability,0.9972
+temporal_q05,0.9647398691120486
+temporal_median,0.9865546033991428
+max_share_q95,0.6628768815295419
+marker_coverage_q05,0.7142857142857143
+phase_sum_q05,"{""heart"": 35.41841566519753, ""base"": 2.437096979382054}"
+release_shape_median,"[0.200289630992597, 0.32033380726237626, 0.353787986668476, 0.11375510464738833]"
+phase_shape_median,"[0.10860530918012096, 0.47554301592932535, 0.4158312727583151]"
+marker_probabilities,"{""Orris Liquid 30% | heart"": 1.0, ""Alpha Isomethyl Ionone | heart"": 0.9998, ""AAG 10% | heart"": 1.0, ""Ambrettolide 10% | heart"": 0.8931, ""Heliotropal 10% | heart"": 0.711, ""Cedarwood Virginia | base"": 0.7602, ""Vetiver EO | base"": 0.9884}"
+marker_quantiles,"{""Orris Liquid 30% | heart"": [6.818580716182034, 20.17286945139078, 62.49484756186888], ""Alpha Isomethyl Ionone | heart"": [2.7964616244855627, 7.12825273200239, 18.562365414016195], ""AAG 10% | heart"": [11.060586790880976, 29.49344644083963, 78.97908850445026], ""Ambrettolide 10% | heart"": [0.7880953603440684, 2.0974181622937174, 5.64345963109369], ""Heliotropal 10% | heart"": [0.5398100414178943, 1.3734967013358381, 3.588426293455204], ""Cedarwood Virginia | base"": [0.5743692274258612, 1.5099610415819957, 4.050732310217535], ""Vetiver EO | base"": [1.4199133792013294, 3.6444544842315088, 9.413001953079762]}"
+classification,ROBUST

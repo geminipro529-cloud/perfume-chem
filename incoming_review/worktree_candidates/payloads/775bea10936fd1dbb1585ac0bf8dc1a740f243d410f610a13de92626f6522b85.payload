@@ -1,0 +1,215 @@
+{
+  "schema_version": "c0-physical-model-compatibility-successor-v1",
+  "generated_at_utc": "2026-09-04T17:01:29.205919Z",
+  "repository_commit": "ff4ef3e9ebfa084ac57c1c1064bea6baafa9f26c",
+  "compatibility": {
+    "kind": "CURRENT_EXACT_BYTE_SUCCESSOR",
+    "promotion_effect": "NONE",
+    "reason": "Bind the accepted hedonic-luxury leakage removal without rewriting the frozen C0 inventory or legacy fixtures.",
+    "predecessor": {
+      "inventory": {
+        "path": "docs/verification/c0/physical_model_inventory.json",
+        "bytes": 65132,
+        "sha256": "bc9ad8cd7e25a39a0383ef930528dcbef86f9f7d18c42c5fbc4bdf0b34651500"
+      },
+      "legacy_fixtures": {
+        "path": "tests/fixtures/c0_legacy_physical_model_cases.json",
+        "bytes": 34888,
+        "sha256": "ed516eed951067b44e44b7f3dda65ad02a07c6f21fa80e5e4154bf60427c27c4"
+      },
+      "legacy_fixture_lock": {
+        "path": "tests/fixtures/c0_legacy_physical_model_cases.sha256",
+        "bytes": 102,
+        "sha256": "3f7ea4cd81a881d2f0a6747351705e2a918e6a0b748f0b2ba3daabbbcac468a3"
+      }
+    },
+    "verifier_transition": {
+      "path": "scripts/verify_c0_physical_model_inventory.py",
+      "previous_bytes": 42606,
+      "previous_sha256": "a8fa49ec7ad6f73dc6f00ece7c750ed749e3efbc1a10d64e5d753ae2fbd660db",
+      "bytes": 43831,
+      "sha256": "d21b5358e43c4d30855598b329c4a4102699ed2c46cb7dbe4d8bc3b281d040e6",
+      "change_kind": "FIXTURE_ONLY_EXPLICIT_LEGACY_SCALAR_REPLAY"
+    }
+  },
+  "current_source_binding": {
+    "path": "engine/optimizer/scoring.py",
+    "bytes": 142520,
+    "previous_sha256": "c8c7a8f661bbc61f6b296a55acbfa7cf566faf690c4645bbecc3c70c639836e9",
+    "sha256": "cd95cdf55c4288969155acf6717082e1e0eb0e63e8758c8f0e8d41633e114731",
+    "change_kind": "HEDONIC_LUXURY_LEAKAGE_REMOVAL",
+    "active_behavior": "Composition-derived MaterialProfile.hedonic values are excluded from active hedonic output and active luxury scoring.",
+    "legacy_behavior": "Frozen heuristic scoring remains reachable only through the explicit score_legacy_replay compatibility path."
+  },
+  "implementation_binding": {
+    "id": "C0-PM-048",
+    "category": "hedonic_longevity_sillage_diffusion_projection",
+    "classification": "HEURISTIC",
+    "runtime_status": "OPTIMIZER_RUNTIME",
+    "source": {
+      "path": "engine/optimizer/scoring.py",
+      "symbol": "FormulaScorer",
+      "line": 61
+    }
+  },
+  "call_edge_bindings": [
+    {
+      "index": 2,
+      "caller": "engine.optimizer.scoring.FormulaScorer._thermodynamic_state",
+      "callee_id": "C0-PM-001",
+      "path": "engine/optimizer/scoring.py",
+      "token": "build_formula_state",
+      "predecessor_line": 2682,
+      "current_line": 2693
+    },
+    {
+      "index": 18,
+      "caller": "engine.optimizer.scoring._run_enhancer_modules",
+      "callee_id": "C0-PM-027",
+      "path": "engine/optimizer/scoring.py",
+      "token": "score_dose_response",
+      "predecessor_line": 3042,
+      "current_line": 3053
+    },
+    {
+      "index": 19,
+      "caller": "engine.optimizer.scoring.score_perceptual_clarity",
+      "callee_id": "C0-PM-028",
+      "path": "engine/optimizer/scoring.py",
+      "token": "score_psychophysics",
+      "predecessor_line": 2750,
+      "current_line": 2761
+    },
+    {
+      "index": 22,
+      "caller": "scripts.verify_c0_physical_model_inventory._capture_maturation",
+      "callee_id": "C0-PM-033",
+      "path": "scripts/verify_c0_physical_model_inventory.py",
+      "token": "predict_shelf_life_days",
+      "predecessor_line": 594,
+      "current_line": 595
+    },
+    {
+      "index": 23,
+      "caller": "engine.optimizer.scoring.score_hedonic",
+      "callee_id": "C0-PM-038",
+      "path": "engine/optimizer/scoring.py",
+      "token": "score_hedonic",
+      "predecessor_line": 2740,
+      "current_line": 3180,
+      "current_scope": "LEGACY_REPLAY_ONLY"
+    },
+    {
+      "index": 24,
+      "caller": "engine.optimizer.scoring._run_enhancer_modules",
+      "callee_id": "C0-PM-039",
+      "path": "engine/optimizer/scoring.py",
+      "token": "score_diffusion",
+      "predecessor_line": 3049,
+      "current_line": 3060
+    },
+    {
+      "index": 25,
+      "caller": "engine.optimizer.scoring.score_skin_performance",
+      "callee_id": "C0-PM-040",
+      "path": "engine/optimizer/scoring.py",
+      "token": "score_skin_interaction",
+      "predecessor_line": 2736,
+      "current_line": 2747
+    },
+    {
+      "index": 27,
+      "caller": "scripts.formula_release_gate",
+      "callee_id": "C0-PM-045",
+      "path": "scripts/formula_release_gate.py",
+      "token": "compute_unified_release_scores",
+      "predecessor_line": 1056,
+      "current_line": 1098
+    },
+    {
+      "index": 28,
+      "caller": "engine.optimizer.scoring.FormulaScorer.score_formula",
+      "callee_id": "C0-PM-048",
+      "path": "engine/optimizer/scoring.py",
+      "token": "scores",
+      "predecessor_line": 3403,
+      "current_line": 3417
+    }
+  ],
+  "legacy_fixture_bindings": [
+    {
+      "id": "C0-LH-021",
+      "classification": "LEGACY_HEURISTIC",
+      "path": "engine/optimizer/scoring.py",
+      "predecessor_sha256": "c8c7a8f661bbc61f6b296a55acbfa7cf566faf690c4645bbecc3c70c639836e9",
+      "current_sha256": "cd95cdf55c4288969155acf6717082e1e0eb0e63e8758c8f0e8d41633e114731"
+    },
+    {
+      "id": "C0-LH-022",
+      "classification": "LEGACY_HEURISTIC",
+      "path": "engine/optimizer/scoring.py",
+      "predecessor_sha256": "c8c7a8f661bbc61f6b296a55acbfa7cf566faf690c4645bbecc3c70c639836e9",
+      "current_sha256": "cd95cdf55c4288969155acf6717082e1e0eb0e63e8758c8f0e8d41633e114731"
+    },
+    {
+      "id": "C0-LH-023",
+      "classification": "LEGACY_HEURISTIC",
+      "path": "engine/optimizer/scoring.py",
+      "predecessor_sha256": "c8c7a8f661bbc61f6b296a55acbfa7cf566faf690c4645bbecc3c70c639836e9",
+      "current_sha256": "cd95cdf55c4288969155acf6717082e1e0eb0e63e8758c8f0e8d41633e114731"
+    }
+  ],
+  "legacy_replay_scalar_binding": {
+    "fixture_ids": [
+      "C0-LH-021",
+      "C0-LH-022",
+      "C0-LH-023"
+    ],
+    "material": "Hedione",
+    "field": "clp",
+    "frozen_value": 2.7,
+    "current_value": 3.0,
+    "scope": "EXPLICIT_C0_LEGACY_FIXTURE_REPLAY_ONLY",
+    "active_runtime_effect": "NONE"
+  },
+  "authority": {
+    "state": "COMPATIBILITY_ONLY",
+    "physical_measurement": false,
+    "sensory": false,
+    "hedonic": false,
+    "liking": false,
+    "ranking": false,
+    "formula_selection": false,
+    "formula_mutation": false,
+    "compounding": false,
+    "purchase": false,
+    "safety": false,
+    "release": false,
+    "publication": false
+  },
+  "claim_ceiling": {
+    "active_scoring": "DIAGNOSTIC_ONLY",
+    "legacy_scoring": "LEGACY_REPLAY_ONLY",
+    "physical_liking": "NOT_TESTED",
+    "sensory_similarity": "NOT_TESTED",
+    "safety": "NOT_TESTED",
+    "release": "HOLD"
+  },
+  "invariants": [
+    "The predecessor inventory, fixture payload, and fixture lock remain byte-identical.",
+    "Frozen C0 outputs and classifications remain unchanged.",
+    "The successor authorizes no runtime change and no scientific or sensory promotion.",
+    "Only the exact current engine/optimizer/scoring.py and verifier bytes satisfy this successor.",
+    "The frozen Hedione scalar is reachable only during explicit C0 fixture replay."
+  ],
+  "excluded_scope": [
+    "runtime edits",
+    "formula edits",
+    "inventory edits",
+    "registry edits",
+    "physical compounding",
+    "purchase decisions",
+    "safety decisions",
+    "release decisions"
+  ]
+}

@@ -1,0 +1,1707 @@
+"""Inspect pipeline audit logs and scan historical formula outputs."""
+
+# ruff: noqa: E402 -- root scripts deliberately register PROJECT_ROOT before imports.
+
+from __future__ import annotations
+
+import argparse
+import glob
+import hashlib
+import json
+import os
+import statistics
+import sys
+import time
+from pathlib import Path
+from typing import Any, Mapping
+
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from engine.pipeline.audit_log import load_events, summarize_events, suggest_repairs
+from engine.pipeline.gates import DEFAULT_CONCENTRATE_UL, ReleaseGateConfig, gate_formula
+from engine.pipeline.preflight import run_static_preflight
+from engine.knowledge.literature_rules import (
+    build_knowledge_rule_quality_contract,
+    build_literature_rule_contract,
+)
+from engine.odor_thresholds import ODT_VERIFICATION
+from engine.science_audit import build_science_audit_contract
+from engine.schema_validator import SchemaValidator
+from scripts.verify_formula_workflow import parse_formula_markdown
+
+
+DISCONNECTED_MODULE_STATUS = {
+    "engine.optimizer.gate_aware": "promote",
+    "engine.odt_verifier": "promote",
+    "engine.knowledge.embeddings": "verify_only",
+    "engine.biology.microbiome": "advisory_only",
+    "engine.biology.genetics": "advisory_only",
+    "engine.receptor.binding": "advisory_until_coverage",
+    "engine.formulator": "deprecated_from_pipeline_narrative",
+    "engine.opus_v_workbook": "deprecated_from_pipeline_narrative",
+    "engine.reconstruction_pipeline": "deprecated_from_pipeline_narrative",
+    "engine.family_scorer": "audit_for_duplication",
+    "engine.formula_analyzer": "audit_for_duplication",
+    "engine.odor_ontology": "advisory_only",
+    "engine.pattern_miner": "advisory_only",
+    "engine.thermo.headspace": "consolidate_or_deprecate",
+    "engine.thermo.trajectory": "consolidate_or_deprecate",
+}
+
+SCAN_CACHE_SCHEMA = "perfume-chem.pipeline-scan-cache.v1"
+_CACHE_DEPENDENCY_PATTERNS = (
+    "engine/**/*.py",
+    "scripts/pipeline_audit.py",
+    "scripts/verify_formula_workflow.py",
+    "configs/**/*.json",
+    "data/materials/**/*.yaml",
+    "data/knowledge_graph/**/*.json",
+    "knowledge/**/*.json",
+    "knowledge/**/*.yaml",
+)
+
+
+def _data_authority_coverage_report() -> dict:
+    by_vfy: dict[str, int] = {}
+    for meta in ODT_VERIFICATION.values():
+        vfy = str((meta or {}).get("vfy", "UNKNOWN"))
+        by_vfy[vfy] = by_vfy.get(vfy, 0) + 1
+    total = sum(by_vfy.values()) or 1
+    science = build_science_audit_contract()
+    return {
+        "odt_verification_counts": by_vfy,
+        "odt_authoritative_pct": round(
+            100.0
+            * sum(
+                by_vfy.get(key, 0) for key in ("PEER_CROSS", "PEER_SINGLE", "PEER_EST")
+            )
+            / total,
+            1,
+        ),
+        "odt_heuristic_pct": round(
+            100.0
+            * sum(by_vfy.get(key, 0) for key in ("DERIVED", "UNVERIFIED", "UNKNOWN"))
+            / total,
+            1,
+        ),
+        "science_coverage_pct": science.get("data_coverage_pct", {}),
+    }
+
+
+def _disconnected_module_status_report() -> dict:
+    existing = {}
+    for module_name, disposition in DISCONNECTED_MODULE_STATUS.items():
+        relative = Path(*module_name.split(".")).with_suffix(".py")
+        existing[module_name] = {
+            "status": disposition,
+            "path": str(relative),
+            "exists": (PROJECT_ROOT / relative).exists(),
+        }
+    return existing
+
+
+def _evidence_posture_report() -> dict:
+    return {
+        "authoritative_internal": [
+            "schema_validation",
+            "literature_rule_contract",
+            "knowledge_rule_quality",
+            "disconnected_module_status",
+        ],
+        "mixed_authority": [
+            "data_authority_coverage",
+        ],
+        "heuristic_or_partial_science": [
+            "science_audit",
+        ],
+        "notes": {
+            "authoritative_internal": (
+                "Repository-verified structure, rule inventory, and codebase status."
+            ),
+            "mixed_authority": (
+                "Contains both verified authority counts and coverage gaps for runtime chemistry inputs."
+            ),
+            "heuristic_or_partial_science": (
+                "Research-facing science layers with explicit heuristic, inferred, or incomplete coverage."
+            ),
+        },
+    }
+
+
+def _print_json(payload: dict | list) -> None:
+    print(json.dumps(payload, indent=2, ensure_ascii=False))
+
+
+def _is_scratch_formula_path(path: Path) -> bool:
+    return path.name.startswith("_")
+
+
+def _matching_formula_paths(
+    pattern: str, *, include_scratch: bool = False
+) -> list[Path]:
+    paths = [Path(path) for path in glob.glob(str(PROJECT_ROOT / pattern), recursive=True)]
+    paths = sorted(paths)
+    if include_scratch:
+        return paths
+    return [path for path in paths if not _is_scratch_formula_path(path)]
+
+
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _canonical_json_sha256(payload: Mapping[str, Any]) -> str:
+    encoded = json.dumps(
+        payload,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=False,
+        default=str,
+    ).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def _relative_project_path(path: Path) -> str:
+    try:
+        return path.resolve().relative_to(PROJECT_ROOT.resolve()).as_posix()
+    except ValueError:
+        return str(path.resolve())
+
+
+def _pipeline_source_sha256() -> str:
+    files: set[Path] = set()
+    for pattern in _CACHE_DEPENDENCY_PATTERNS:
+        files.update(path for path in PROJECT_ROOT.glob(pattern) if path.is_file())
+    digest = hashlib.sha256()
+    digest.update(SCAN_CACHE_SCHEMA.encode("ascii"))
+    for path in sorted(files, key=lambda item: _relative_project_path(item)):
+        digest.update(_relative_project_path(path).encode("utf-8"))
+        digest.update(bytes.fromhex(_sha256_file(path)))
+    return digest.hexdigest()
+
+
+def _resolve_formula_dependency_path(
+    formula_path: Path, raw_path: object, *, default: Path | None = None
+) -> Path | None:
+    raw = str(raw_path or "").strip()
+    if not raw:
+        return default.resolve() if default is not None else None
+    candidate = Path(raw)
+    if not candidate.is_absolute():
+        candidate = formula_path.parent / candidate
+    return candidate.resolve()
+
+
+def _overlay_inventory_path(overlay_path: Path | None) -> Path | None:
+    if overlay_path is None or not overlay_path.is_file():
+        return None
+    try:
+        payload = json.loads(overlay_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, TypeError):
+        return None
+    raw = str((payload.get("frozen_inventory", {}) or {}).get("path", "")).strip()
+    if not raw:
+        return None
+    candidate = Path(raw)
+    if not candidate.is_absolute():
+        candidate = overlay_path.parent / candidate
+    return candidate.resolve()
+
+
+def _declared_concentrate_ul(
+    formula: Mapping[str, Any], override_ul: float | None
+) -> float:
+    if override_ul is not None:
+        return float(override_ul)
+    declared_ml = float(formula.get("concentrate_ml", 0.0) or 0.0)
+    if declared_ml > 0.0:
+        return declared_ml * 1000.0
+    return DEFAULT_CONCENTRATE_UL
+
+
+def _scan_cache_metadata(
+    *,
+    formula_path: Path,
+    formula: Mapping[str, Any],
+    pipeline_source_sha256: str,
+    config: Mapping[str, Any],
+) -> dict[str, str]:
+    overlay_path = _resolve_formula_dependency_path(
+        formula_path,
+        formula.get("inventory_overlay"),
+    )
+    inventory_path = _resolve_formula_dependency_path(
+        formula_path,
+        formula.get("inventory_path"),
+    )
+    if inventory_path is None:
+        inventory_path = _overlay_inventory_path(overlay_path)
+    if inventory_path is None:
+        inventory_path = (PROJECT_ROOT / "inventory.txt").resolve()
+    formula_definition = {
+        key: value
+        for key, value in formula.items()
+        if key not in {"body", "source_path"}
+    }
+    return {
+        "formula_definition_sha256": _canonical_json_sha256(formula_definition),
+        "inventory_sha256": (
+            _sha256_file(inventory_path)
+            if inventory_path is not None and inventory_path.is_file()
+            else "MISSING"
+        ),
+        "inventory_overlay_sha256": (
+            _sha256_file(overlay_path)
+            if overlay_path is not None and overlay_path.is_file()
+            else "NONE"
+        ),
+        "pipeline_source_sha256": pipeline_source_sha256,
+        "config_sha256": _canonical_json_sha256(config),
+    }
+
+
+def _scan_cache_path(
+    cache_dir: Path,
+    formula_path: Path,
+    formula: Mapping[str, Any],
+    *,
+    config_sha256: str,
+) -> Path:
+    identity = {
+        "path": _relative_project_path(formula_path),
+        "number": int(formula.get("number", 1) or 1),
+        "name": str(formula.get("name", "")),
+        "config_sha256": config_sha256,
+    }
+    return cache_dir / f"{_canonical_json_sha256(identity)[:24]}.json"
+
+
+def _load_scan_cache(
+    cache_path: Path, metadata: Mapping[str, str]
+) -> tuple[dict[str, Any] | None, list[str]]:
+    if not cache_path.is_file():
+        return None, ["cache_record_missing"]
+    try:
+        payload = json.loads(cache_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, TypeError):
+        return None, ["cache_record_invalid"]
+    if payload.get("schema") != SCAN_CACHE_SCHEMA:
+        return None, ["cache_schema"]
+    cached_metadata = payload.get("metadata", {})
+    changed = sorted(
+        key for key, value in metadata.items() if cached_metadata.get(key) != value
+    )
+    if changed:
+        return None, changed
+    result = payload.get("result")
+    if not isinstance(result, dict):
+        return None, ["cache_result_invalid"]
+    return result, []
+
+
+def _write_scan_cache(
+    cache_path: Path, metadata: Mapping[str, str], result: Mapping[str, Any]
+) -> None:
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "schema": SCAN_CACHE_SCHEMA,
+        "cache_key": _canonical_json_sha256(metadata),
+        "metadata": dict(metadata),
+        "result": dict(result),
+    }
+    temp_path = cache_path.with_suffix(f".tmp-{os.getpid()}")
+    temp_path.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    temp_path.replace(cache_path)
+
+
+def _static_gate_lists(report: Mapping[str, Any]) -> tuple[list[str], list[str]]:
+    checks = report.get("checks", []) or []
+    failed = [
+        str(row.get("check_name")) for row in checks if row.get("status") == "FAIL"
+    ]
+    warned = [
+        str(row.get("check_name")) for row in checks if row.get("status") == "WARN"
+    ]
+    return failed, warned
+
+
+def _benchmark_cell_key(row: Mapping[str, Any]) -> tuple[str, str, str]:
+    return (
+        str(row.get("arm_id", "")),
+        str(row.get("brief_id", "")),
+        str(row.get("run_id", "")),
+    )
+
+
+def _paired_metric_summary(
+    pairs: list[tuple[Mapping[str, Any], Mapping[str, Any]]],
+    metric: str,
+    direction: str,
+) -> dict[str, Any] | None:
+    values: list[tuple[float, float]] = []
+    for baseline, candidate in pairs:
+        baseline_value = (baseline.get("metrics") or {}).get(metric)
+        candidate_value = (candidate.get("metrics") or {}).get(metric)
+        if isinstance(baseline_value, bool) or isinstance(candidate_value, bool):
+            continue
+        if not isinstance(baseline_value, (int, float)) or not isinstance(
+            candidate_value, (int, float)
+        ):
+            continue
+        values.append((float(baseline_value), float(candidate_value)))
+    if not values:
+        return None
+
+    baseline_median = float(statistics.median(row[0] for row in values))
+    candidate_median = float(statistics.median(row[1] for row in values))
+    paired_delta = float(statistics.median(row[1] - row[0] for row in values))
+    if abs(paired_delta) < 1e-12:
+        verdict = "tie"
+    elif (direction == "lower" and paired_delta < 0) or (
+        direction == "higher" and paired_delta > 0
+    ):
+        verdict = "candidate_better"
+    elif direction in {"lower", "higher"}:
+        verdict = "candidate_worse"
+    else:
+        verdict = "direction_not_declared"
+    return {
+        "baseline_median": round(baseline_median, 6),
+        "candidate_median": round(candidate_median, 6),
+        "paired_median_delta": round(paired_delta, 6),
+        "direction": verdict,
+    }
+
+
+def _summarize_sensory_observations(
+    observations: list[Mapping[str, Any]], *, minimum_replicates: int
+) -> dict[str, Any]:
+    ties = 0
+    missing = 0
+    valid_blinded = 0
+    identity_retained = 0
+    seen: set[tuple[str, ...]] = set()
+    duplicate_cells = 0
+    for row in observations:
+        key = tuple(
+            str(row.get(field, ""))
+            for field in (
+                "anonymous_code",
+                "assessor_id",
+                "session_id",
+                "replicate_batch_id",
+                "time_cell",
+            )
+        )
+        if key in seen:
+            duplicate_cells += 1
+            continue
+        seen.add(key)
+        if str(row.get("missing_reason", "")).strip():
+            missing += 1
+            continue
+        choice = str(row.get("paired_preference_or_no_preference", "")).upper()
+        if choice in {"NO_PREFERENCE", "NO PREFERENCE", "TIE", "INCONCLUSIVE"}:
+            ties += 1
+        is_valid_blind = bool(row.get("blinded")) and bool(
+            row.get("decoded_after_lock")
+        ) and not str(row.get("protocol_deviation", "")).strip()
+        if is_valid_blind:
+            valid_blinded += 1
+            if row.get("identity_retained") is True:
+                identity_retained += 1
+
+    if not observations:
+        status = "NOT_TESTED"
+    elif duplicate_cells:
+        status = "HOLD_DUPLICATED_CANONICAL_CELL"
+    elif valid_blinded < max(1, minimum_replicates):
+        status = "INSUFFICIENT_BLINDED_OBSERVATIONS"
+    else:
+        status = "BLINDED_OBSERVATIONS_PRESENT_REVIEW_REQUIRED"
+    return {
+        "status": status,
+        "observation_count": len(observations),
+        "valid_blinded_count": valid_blinded,
+        "identity_retained_count": identity_retained,
+        "tie_count": ties,
+        "missing_count": missing,
+        "duplicate_canonical_cell_count": duplicate_cells,
+        "assessor_level_rows_preserved": True,
+        "missing_cells_imputed": False,
+    }
+
+
+def _summarize_realism_learning(
+    observations: list[Mapping[str, Any]],
+) -> dict[str, Any]:
+    physical = [row for row in observations if row.get("physical_observation") is True]
+    formula_ids = {
+        str(row.get("formula_id", ""))
+        for row in physical
+        if str(row.get("formula_id", "")).strip()
+    }
+    candidates: list[dict[str, Any]] = []
+    defect_rows: dict[str, list[Mapping[str, Any]]] = {}
+    for row in physical:
+        qualifies = (
+            bool(row.get("blinded"))
+            and row.get("identity_retained") is True
+            and not str(row.get("missing_reason", "")).strip()
+            and not str(row.get("protocol_deviation", "")).strip()
+        )
+        if not qualifies:
+            continue
+        for raw_flag in row.get("defect_flags", []) or []:
+            flag = str(raw_flag).strip()
+            if flag:
+                defect_rows.setdefault(flag, []).append(row)
+
+    for flag, rows in sorted(defect_rows.items()):
+        distinct_formulas = {
+            str(row.get("formula_id", "")) for row in rows if row.get("formula_id")
+        }
+        batches = {
+            str(row.get("replicate_batch_id", ""))
+            for row in rows
+            if row.get("replicate_batch_id")
+        }
+        if len(distinct_formulas) >= 2 and len(batches) >= 2:
+            candidates.append(
+                {
+                    "defect_flag": flag,
+                    "distinct_formulas": len(distinct_formulas),
+                    "independent_batches": len(batches),
+                }
+            )
+
+    if not physical:
+        status = "NOT_TESTED"
+    elif candidates:
+        status = "ELIGIBLE_FOR_RULE_REVIEW"
+    elif len(formula_ids) <= 1:
+        status = "OBSERVED_SINGLE_FORMULA_ONLY"
+    else:
+        status = "OBSERVED_NOT_REVIEW_READY"
+    return {
+        "status": status,
+        "physical_observation_count": len(physical),
+        "distinct_formula_count": len(formula_ids),
+        "review_candidates": candidates,
+        "eligible_for_rule_review": bool(candidates),
+        "cross_formula_generalization": (
+            "REVIEW_REQUIRED" if candidates else "FORBIDDEN"
+        ),
+        "auto_mutation_allowed": False,
+        "claim_ceiling": (
+            "Observed accord realism can nominate a rule for human review only; it "
+            "cannot establish universal realism, liking, or an automatic formula change."
+        ),
+    }
+
+
+def _evaluate_realism_trial_readiness(
+    trials: list[Mapping[str, Any]],
+    contract: Mapping[str, Any],
+) -> dict[str, Any]:
+    minimum_stock_ul = float(contract.get("minimum_direct_stock_ul", 10.0) or 10.0)
+    minimum_oav = float(contract.get("minimum_character_oav", 1.0) or 1.0)
+    accepted_oav_authorities = {
+        str(value)
+        for value in contract.get(
+            "accepted_oav_authorities",
+            ["MEASURED", "GOVERNED_MODELED", "GOVERNED_COMPOSITE_MODELED"],
+        )
+    }
+    issues: list[dict[str, Any]] = []
+    seen_trial_ids: set[str] = set()
+    ready_count = 0
+
+    for index, trial in enumerate(trials):
+        trial_id = str(trial.get("trial_id", "")).strip()
+        if not trial_id:
+            trial_id = f"receipt-index-{index}"
+            issues.append({"code": "MISSING_TRIAL_ID", "trial_id": trial_id})
+        elif trial_id in seen_trial_ids:
+            issues.append({"code": "DUPLICATE_TRIAL_ID", "trial_id": trial_id})
+        seen_trial_ids.add(trial_id)
+
+        baseline_total = trial.get("baseline_total_ul")
+        candidate_total = trial.get("candidate_total_ul")
+        if (
+            isinstance(baseline_total, bool)
+            or not isinstance(baseline_total, (int, float))
+            or isinstance(candidate_total, bool)
+            or not isinstance(candidate_total, (int, float))
+            or float(baseline_total) <= 0.0
+            or float(candidate_total) <= 0.0
+        ):
+            issues.append({"code": "INVALID_TRIAL_TOTAL", "trial_id": trial_id})
+        elif abs(float(baseline_total) - float(candidate_total)) > 1e-9:
+            issues.append(
+                {
+                    "code": "CONSTANT_TOTAL_MISMATCH",
+                    "trial_id": trial_id,
+                    "baseline_total_ul": float(baseline_total),
+                    "candidate_total_ul": float(candidate_total),
+                }
+            )
+
+        changed_variables = trial.get("changed_variables")
+        if not isinstance(changed_variables, list) or len(changed_variables) != 1:
+            issues.append(
+                {
+                    "code": "MULTI_AXIS_TRIAL",
+                    "trial_id": trial_id,
+                    "changed_variable_count": (
+                        len(changed_variables) if isinstance(changed_variables, list) else 0
+                    ),
+                }
+            )
+        if trial.get("carrier_matrix_matched") is not True:
+            issues.append({"code": "CARRIER_MATRIX_MISMATCH", "trial_id": trial_id})
+        if trial.get("identity_measure_planned") is not True:
+            issues.append({"code": "IDENTITY_MEASURE_MISSING", "trial_id": trial_id})
+
+        intervention = trial.get("intervention")
+        if not isinstance(intervention, Mapping):
+            issues.append({"code": "INTERVENTION_MISSING", "trial_id": trial_id})
+            continue
+        material = str(intervention.get("material", "")).strip()
+        direct_stock_ul = intervention.get("direct_stock_ul")
+        if (
+            isinstance(direct_stock_ul, bool)
+            or not isinstance(direct_stock_ul, (int, float))
+            or float(direct_stock_ul) < minimum_stock_ul
+        ):
+            issues.append(
+                {
+                    "code": "DIRECT_STOCK_BELOW_MEASUREMENT_FLOOR",
+                    "trial_id": trial_id,
+                    "material": material,
+                    "direct_stock_ul": direct_stock_ul,
+                    "minimum_direct_stock_ul": minimum_stock_ul,
+                }
+            )
+        stock_fraction = intervention.get("stock_dilution_fraction")
+        if (
+            isinstance(stock_fraction, bool)
+            or not isinstance(stock_fraction, (int, float))
+            or not 0.0 < float(stock_fraction) <= 1.0
+            or intervention.get("stock_basis_verified") is not True
+        ):
+            issues.append(
+                {
+                    "code": "STOCK_BASIS_UNVERIFIED",
+                    "trial_id": trial_id,
+                    "material": material,
+                }
+            )
+
+        authority = str(intervention.get("oav_authority", "")).strip()
+        predicted_oav = intervention.get("predicted_oav")
+        numeric_oav = (
+            not isinstance(predicted_oav, bool)
+            and isinstance(predicted_oav, (int, float))
+            and float(predicted_oav) >= 0.0
+        )
+        if authority not in accepted_oav_authorities or not numeric_oav:
+            issues.append(
+                {
+                    "code": "STRICT_OAV_UNAVAILABLE",
+                    "trial_id": trial_id,
+                    "material": material,
+                    "oav_authority": authority,
+                }
+            )
+        elif (
+            intervention.get("role_requires_perceptibility") is True
+            and float(predicted_oav) < minimum_oav
+        ):
+            issues.append(
+                {
+                    "code": "INTERVENTION_BELOW_PERCEPTIBILITY",
+                    "trial_id": trial_id,
+                    "material": material,
+                    "predicted_oav": float(predicted_oav),
+                    "minimum_oav": minimum_oav,
+                }
+            )
+
+        if not any(row.get("trial_id") == trial_id for row in issues):
+            ready_count += 1
+
+    issue_codes = {str(row.get("code", "")) for row in issues}
+    invalid_codes = {
+        "MISSING_TRIAL_ID",
+        "DUPLICATE_TRIAL_ID",
+        "INVALID_TRIAL_TOTAL",
+        "CONSTANT_TOTAL_MISMATCH",
+        "MULTI_AXIS_TRIAL",
+        "CARRIER_MATRIX_MISMATCH",
+        "IDENTITY_MEASURE_MISSING",
+        "INTERVENTION_MISSING",
+        "DIRECT_STOCK_BELOW_MEASUREMENT_FLOOR",
+        "STOCK_BASIS_UNVERIFIED",
+    }
+    if not trials:
+        status = "NOT_PLANNED"
+    elif issue_codes & invalid_codes:
+        status = "INVALID_TRIAL_CONTRACT"
+    elif "INTERVENTION_BELOW_PERCEPTIBILITY" in issue_codes:
+        status = "REJECT_NONINFORMATIVE"
+    elif "STRICT_OAV_UNAVAILABLE" in issue_codes:
+        status = "HOLD_PARTIAL_DATA"
+    else:
+        status = "READY_FOR_BLINDED_TRIAL"
+    return {
+        "status": status,
+        "trial_count": len(trials),
+        "ready_count": ready_count,
+        "noninformative_trials_blocked": sum(
+            row.get("code") == "INTERVENTION_BELOW_PERCEPTIBILITY" for row in issues
+        ),
+        "issues": issues,
+        "automatic_optimizer_mutation": False,
+        "claim_ceiling": (
+            "Readiness is a modeled experimental-design gate; it does not establish "
+            "realism, identity retention, liking, or safety."
+        ),
+    }
+
+
+def _evaluate_matched_benchmark(
+    protocol: Mapping[str, Any],
+    bundle: Mapping[str, Any],
+    *,
+    artifact_root: Path | None = None,
+) -> dict[str, Any]:
+    resolved_artifact_root = (artifact_root or PROJECT_ROOT).resolve()
+    benchmark = protocol.get("engineering_benchmark") or {}
+    benchmark_id = str(benchmark.get("benchmark_id", ""))
+    contract = benchmark.get("receipt_contract") or {}
+    expected_schema = str(
+        contract.get("schema", "perfume-chem.matched-benchmark-receipts.v1")
+    )
+    issues: list[dict[str, Any]] = []
+    if bundle.get("schema") != expected_schema:
+        issues.append(
+            {
+                "code": "RECEIPT_SCHEMA_MISMATCH",
+                "expected": expected_schema,
+                "observed": bundle.get("schema"),
+            }
+        )
+    if bundle.get("benchmark_id") != benchmark_id:
+        issues.append(
+            {
+                "code": "BENCHMARK_ID_MISMATCH",
+                "expected": benchmark_id,
+                "observed": bundle.get("benchmark_id"),
+            }
+        )
+
+    arms = benchmark.get("arms", []) or []
+    arm_ids = {str(row.get("arm_id", "")) for row in arms}
+    arm_specs = {str(row.get("arm_id", "")): row for row in arms}
+    required_arms = [
+        str(row.get("arm_id", ""))
+        for row in arms
+        if bool(row.get("required", not str(row.get("arm_id", "")).endswith("_OPTIONAL")))
+    ]
+    pilot = benchmark.get("pilot") or {}
+    briefs = [str(value) for value in pilot.get("briefs", []) or []]
+    runs_per_brief = max(
+        1, int(pilot.get("independent_runs_per_brief_per_arm", 1) or 1)
+    )
+    required_fields = [str(value) for value in contract.get("required_fields", [])]
+    matched_fields = [str(value) for value in contract.get("matched_fields", [])]
+    positive_fields = [str(value) for value in contract.get("positive_fields", [])]
+    metrics = benchmark.get("metrics") or {}
+    metric_names = [
+        str(value)
+        for group in ("engineering", "discovery")
+        for value in metrics.get(group, []) or []
+    ]
+    metric_directions = contract.get("metric_directions") or {}
+    metric_units = contract.get("metric_units") or {}
+
+    raw_receipts = bundle.get("receipts", []) or []
+    receipts: list[Mapping[str, Any]] = [
+        row for row in raw_receipts if isinstance(row, Mapping)
+    ]
+    canonical: dict[tuple[str, str, str], Mapping[str, Any]] = {}
+    for index, row in enumerate(receipts):
+        missing_fields = [field for field in required_fields if field not in row]
+        if missing_fields:
+            issues.append(
+                {
+                    "code": "MISSING_RECEIPT_FIELDS",
+                    "receipt_index": index,
+                    "fields": missing_fields,
+                }
+            )
+        for field in required_fields:
+            if not field.endswith("sha256") or field not in row:
+                continue
+            value = str(row.get(field, "")).lower()
+            if len(value) != 64 or any(char not in "0123456789abcdef" for char in value):
+                issues.append(
+                    {
+                        "code": "INVALID_SHA256",
+                        "receipt_index": index,
+                        "field": field,
+                    }
+                )
+        for field in positive_fields:
+            if field not in row:
+                continue
+            value = row.get(field)
+            if (
+                isinstance(value, bool)
+                or not isinstance(value, (int, float))
+                or float(value) <= 0.0
+            ):
+                issues.append(
+                    {
+                        "code": "INVALID_CONTROL_VALUE",
+                        "receipt_index": index,
+                        "field": field,
+                        "observed": value,
+                    }
+                )
+        raw_formula_path = str(row.get("formula_path", "")).strip()
+        if raw_formula_path:
+            formula_path = Path(raw_formula_path)
+            if not formula_path.is_absolute():
+                formula_path = resolved_artifact_root / formula_path
+            formula_path = formula_path.resolve()
+            try:
+                formula_path.relative_to(resolved_artifact_root)
+            except ValueError:
+                issues.append(
+                    {
+                        "code": "FORMULA_ARTIFACT_OUTSIDE_ROOT",
+                        "receipt_index": index,
+                        "formula_path": raw_formula_path,
+                    }
+                )
+            else:
+                if not formula_path.is_file():
+                    issues.append(
+                        {
+                            "code": "FORMULA_ARTIFACT_MISSING",
+                            "receipt_index": index,
+                            "formula_path": raw_formula_path,
+                        }
+                    )
+                else:
+                    expected_hash = str(row.get("formula_sha256", "")).lower()
+                    observed_hash = _sha256_file(formula_path).lower()
+                    if expected_hash != observed_hash:
+                        issues.append(
+                            {
+                                "code": "FORMULA_HASH_MISMATCH",
+                                "receipt_index": index,
+                                "formula_path": raw_formula_path,
+                                "expected": expected_hash,
+                                "observed": observed_hash,
+                            }
+                        )
+        arm_id, brief_id, run_id = _benchmark_cell_key(row)
+        if arm_id not in arm_ids:
+            issues.append(
+                {"code": "UNKNOWN_BENCHMARK_ARM", "receipt_index": index, "arm_id": arm_id}
+            )
+        else:
+            arm_spec = arm_specs[arm_id]
+            for field in ("model", "reasoning_effort"):
+                expected = arm_spec.get(field)
+                observed = row.get(field)
+                if expected is not None and observed != expected:
+                    issues.append(
+                        {
+                            "code": "ARM_EXECUTION_MISMATCH",
+                            "receipt_index": index,
+                            "arm_id": arm_id,
+                            "field": field,
+                            "expected": expected,
+                            "observed": observed,
+                        }
+                    )
+        if brief_id not in briefs:
+            issues.append(
+                {"code": "UNKNOWN_BENCHMARK_BRIEF", "receipt_index": index, "brief_id": brief_id}
+            )
+        row_metrics = row.get("metrics") or {}
+        missing_metrics = [name for name in metric_names if name not in row_metrics]
+        if missing_metrics:
+            issues.append(
+                {
+                    "code": "MISSING_BENCHMARK_METRICS",
+                    "receipt_index": index,
+                    "metrics": missing_metrics,
+                }
+            )
+        for metric in metric_names:
+            if metric not in row_metrics:
+                continue
+            value = row_metrics.get(metric)
+            if isinstance(value, bool) or not isinstance(value, (int, float)):
+                issues.append(
+                    {
+                        "code": "INVALID_BENCHMARK_METRIC",
+                        "receipt_index": index,
+                        "metric": metric,
+                        "observed_type": type(value).__name__,
+                    }
+                )
+                continue
+            unit = str(metric_units.get(metric, ""))
+            numeric_value = float(value)
+            invalid_range = numeric_value < 0.0 or (
+                unit == "fraction_0_1" and numeric_value > 1.0
+            )
+            if invalid_range:
+                issues.append(
+                    {
+                        "code": "OUT_OF_RANGE_BENCHMARK_METRIC",
+                        "receipt_index": index,
+                        "metric": metric,
+                        "unit": unit,
+                        "observed": numeric_value,
+                    }
+                )
+        key = (arm_id, brief_id, run_id)
+        if key in canonical:
+            issues.append(
+                {
+                    "code": "DUPLICATED_CANONICAL_CELL",
+                    "cell": "|".join(key),
+                }
+            )
+        else:
+            canonical[key] = row
+
+    for brief_id in briefs:
+        run_ids = sorted(
+            {
+                run_id
+                for arm_id, receipt_brief, run_id in canonical
+                if receipt_brief == brief_id and arm_id in required_arms
+            }
+        )
+        for run_id in run_ids:
+            rows = [
+                canonical[(arm_id, brief_id, run_id)]
+                for arm_id in required_arms
+                if (arm_id, brief_id, run_id) in canonical
+            ]
+            if len(rows) < 2:
+                continue
+            for field in matched_fields:
+                observed = {json.dumps(row.get(field), sort_keys=True) for row in rows}
+                if len(observed) > 1:
+                    issues.append(
+                        {
+                            "code": "MATCHED_CONTROL_MISMATCH",
+                            "brief_id": brief_id,
+                            "run_id": run_id,
+                            "field": field,
+                        }
+                    )
+
+    missing_cells: list[str] = []
+    received_required = 0
+    for arm_id in required_arms:
+        for brief_id in briefs:
+            count = len(
+                {
+                    run_id
+                    for receipt_arm, receipt_brief, run_id in canonical
+                    if receipt_arm == arm_id and receipt_brief == brief_id
+                }
+            )
+            received_required += min(count, runs_per_brief)
+            for missing_index in range(count + 1, runs_per_brief + 1):
+                missing_cells.append(f"{arm_id}|{brief_id}|{missing_index}")
+    expected_required = len(required_arms) * len(briefs) * runs_per_brief
+
+    contrasts: dict[str, Any] = {}
+    for contrast in benchmark.get("causal_contrast_pairs", []) or []:
+        contrast_id = str(contrast.get("contrast_id", ""))
+        baseline_arm = str(contrast.get("baseline_arm_id", ""))
+        candidate_arm = str(contrast.get("candidate_arm_id", ""))
+        paired: list[tuple[Mapping[str, Any], Mapping[str, Any]]] = []
+        for _, brief_id, run_id in canonical:
+            baseline_key = (baseline_arm, brief_id, run_id)
+            candidate_key = (candidate_arm, brief_id, run_id)
+            if baseline_key in canonical and candidate_key in canonical:
+                pair = (canonical[baseline_key], canonical[candidate_key])
+                if pair not in paired:
+                    paired.append(pair)
+        summaries: dict[str, Any] = {}
+        for metric in metric_names:
+            summary = _paired_metric_summary(
+                paired, metric, str(metric_directions.get(metric, ""))
+            )
+            if summary is not None:
+                summaries[metric] = summary
+        contrasts[contrast_id] = {
+            "baseline_arm_id": baseline_arm,
+            "candidate_arm_id": candidate_arm,
+            "optional": bool(contrast.get("optional", False)),
+            "paired_cell_count": len(paired),
+            "metrics": summaries,
+        }
+
+    minimum_replicates = max(
+        1,
+        int(
+            (protocol.get("replication") or {}).get(
+                "minimum_true_replicates_for_advancement", 2
+            )
+            or 2
+        ),
+    )
+    observations = [
+        row
+        for row in (bundle.get("observations", []) or [])
+        if isinstance(row, Mapping)
+    ]
+    sensory = _summarize_sensory_observations(
+        observations, minimum_replicates=minimum_replicates
+    )
+    realism_rows = [
+        row
+        for row in (bundle.get("realism_observations", []) or [])
+        if isinstance(row, Mapping)
+    ]
+    realism = _summarize_realism_learning(realism_rows)
+    realism_trials = [
+        row
+        for row in (bundle.get("realism_trials", []) or [])
+        if isinstance(row, Mapping)
+    ]
+    realism_contract = (protocol.get("realism_learning") or {}).get(
+        "trial_contract", {}
+    )
+    trial_readiness = _evaluate_realism_trial_readiness(
+        realism_trials, realism_contract
+    )
+    realism["trial_readiness"] = trial_readiness
+
+    receipt_issue_codes = {
+        "RECEIPT_SCHEMA_MISMATCH",
+        "BENCHMARK_ID_MISMATCH",
+        "MISSING_RECEIPT_FIELDS",
+        "UNKNOWN_BENCHMARK_ARM",
+        "ARM_EXECUTION_MISMATCH",
+        "UNKNOWN_BENCHMARK_BRIEF",
+        "MISSING_BENCHMARK_METRICS",
+        "INVALID_BENCHMARK_METRIC",
+        "OUT_OF_RANGE_BENCHMARK_METRIC",
+        "INVALID_SHA256",
+        "INVALID_CONTROL_VALUE",
+        "FORMULA_ARTIFACT_OUTSIDE_ROOT",
+        "FORMULA_ARTIFACT_MISSING",
+        "FORMULA_HASH_MISMATCH",
+        "DUPLICATED_CANONICAL_CELL",
+        "MATCHED_CONTROL_MISMATCH",
+    }
+    if any(row.get("code") in receipt_issue_codes for row in issues):
+        status = "INVALID_RECEIPTS"
+    elif missing_cells:
+        status = "HOLD_MISSING_RECEIPTS"
+    else:
+        status = "ENGINEERING_COMPLETE_SENSORY_HOLD"
+
+    if status == "INVALID_RECEIPTS":
+        engineering_decision_status = "HOLD_INVALID_RECEIPTS"
+        faster_reason = "Receipt validation failed; no engineering contrast is admissible."
+        discovery_reason = "Receipt validation failed; no discovery contrast is admissible."
+    elif status == "HOLD_MISSING_RECEIPTS":
+        engineering_decision_status = "HOLD_MISSING_RECEIPTS"
+        faster_reason = "Required matched cells are missing; no speed conclusion is admissible."
+        discovery_reason = (
+            "Required matched cells are missing; no discovery conclusion is admissible."
+        )
+    else:
+        engineering_decision_status = "HOLD_IDENTITY_EVIDENCE"
+        faster_reason = (
+            "Timing and cost are directionally measurable, but the protocol requires "
+            "identity retention before a faster-system conclusion."
+        )
+        discovery_reason = (
+            "Discovery metrics cannot establish target-linked value until identity "
+            "retention is observed."
+        )
+
+    return {
+        "schema": "perfume-chem.matched-benchmark-report.v1",
+        "benchmark_id": benchmark_id,
+        "status": status,
+        "input_bindings": {
+            "protocol_sha256": _canonical_json_sha256(protocol),
+            "receipt_bundle_sha256": _canonical_json_sha256(bundle),
+        },
+        "issues": issues,
+        "coverage": {
+            "expected_required_cells": expected_required,
+            "received_required_cells": received_required,
+            "missing_required_cells": missing_cells,
+        },
+        "engineering": {
+            "status": (
+                "COMPLETE"
+                if status == "ENGINEERING_COMPLETE_SENSORY_HOLD"
+                else "HOLD"
+            ),
+            "contrasts": contrasts,
+        },
+        "sensory": sensory,
+        "realism_learning": realism,
+        "decisions": {
+            "faster": {
+                "status": engineering_decision_status,
+                "reason": faster_reason,
+            },
+            "better_discovery": {
+                "status": engineering_decision_status,
+                "reason": discovery_reason,
+            },
+            "more_effective": {
+                "status": (
+                    "HOLD_INSUFFICIENT_BLINDED_OBSERVATIONS"
+                    if sensory["status"] != "BLINDED_OBSERVATIONS_PRESENT_REVIEW_REQUIRED"
+                    else "REVIEW_REQUIRED"
+                ),
+                "reason": (
+                    "Identity-retaining paired preference requires complete blinded "
+                    "assessor-level observations with ties and missing cells retained."
+                ),
+            },
+            "realism_trial_efficiency": {
+                "status": trial_readiness["status"],
+                "reason": (
+                    "Only constant-total, one-axis, stock-verified, predicted-"
+                    "perceptible interventions with an identity measure may enter "
+                    "the primary blinded realism block."
+                ),
+            },
+        },
+        "claim_ceiling": {
+            "engineering": "MATCHED_COMPUTATIONAL_MEASUREMENTS_ONLY",
+            "physical_liking": "NOT_TESTED",
+            "sensory_superiority": "NOT_TESTED",
+            "realism_generalization": "REVIEW_REQUIRED_NOT_AUTOMATIC",
+            "release": "NOT_CLEARED",
+        },
+    }
+
+
+def _load_json_object(path: Path) -> dict[str, Any]:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError(f"Expected a JSON object in {path}")
+    return payload
+
+
+def _cmd_compare_benchmark(args: argparse.Namespace) -> int:
+    protocol_path = Path(args.protocol)
+    if not protocol_path.is_absolute():
+        protocol_path = PROJECT_ROOT / protocol_path
+    protocol = _load_json_object(protocol_path)
+    benchmark = protocol.get("engineering_benchmark") or {}
+    contract = benchmark.get("receipt_contract") or {}
+    if args.receipts:
+        receipt_path = Path(args.receipts)
+        if not receipt_path.is_absolute():
+            receipt_path = PROJECT_ROOT / receipt_path
+        bundle = _load_json_object(receipt_path)
+    else:
+        bundle = {
+            "schema": contract.get(
+                "schema", "perfume-chem.matched-benchmark-receipts.v1"
+            ),
+            "benchmark_id": benchmark.get("benchmark_id"),
+            "receipts": [],
+            "observations": [],
+            "realism_observations": [],
+        }
+    report = _evaluate_matched_benchmark(
+        protocol, bundle, artifact_root=PROJECT_ROOT
+    )
+    if args.json:
+        _print_json(report)
+    else:
+        coverage = report["coverage"]
+        print(f"Benchmark {report['benchmark_id']}: {report['status']}")
+        print(
+            f"Required cells {coverage['received_required_cells']}/"
+            f"{coverage['expected_required_cells']}"
+        )
+        print(f"Sensory: {report['sensory']['status']}")
+        print(f"Realism learning: {report['realism_learning']['status']}")
+    return 1 if report["status"] == "INVALID_RECEIPTS" else 0
+
+
+def _cmd_summarize(args: argparse.Namespace) -> int:
+    events = load_events(args.path)
+    summary = summarize_events(events)
+    if args.json:
+        _print_json(summary)
+        return 0
+
+    print(f"Audit events: {summary['total_events']}")
+    print("Status counts:")
+    for status, count in summary["by_status"].items():
+        print(f"  {status}: {count}")
+    print("Top recurring issues:")
+    for row in summary["ranked_issues"][:20]:
+        print(f"  {row['count']:>4}  {row['issue']}")
+    return 0
+
+
+def _cmd_scan_formulas(args: argparse.Namespace) -> int:
+    batch_started = time.perf_counter()
+    pattern = args.glob
+    paths = _matching_formula_paths(pattern, include_scratch=args.include_scratch)
+    if not paths:
+        print(f"No files matched {pattern!r}")
+        return 1
+
+    ifra_headroom = args.ifra_headroom
+    commercial_mode = args.commercial_ready or args.commercial_trial
+    if ifra_headroom is None:
+        ifra_headroom = 0.8 if commercial_mode else 1.0
+
+    cache_enabled = bool(args.no_audit and not args.no_cache)
+    cache_dir = Path(args.cache_dir)
+    if not cache_dir.is_absolute():
+        cache_dir = PROJECT_ROOT / cache_dir
+    pipeline_source_sha256 = _pipeline_source_sha256()
+    reports: list[dict[str, Any]] = []
+    parse_ms = 0.0
+    cache_hits = 0
+    cache_misses = 0
+    cache_disabled = 0
+    formula_count = 0
+    for path in sorted(paths):
+        parse_started = time.perf_counter()
+        try:
+            formulas = parse_formula_markdown(path)
+        except Exception as exc:
+            parse_elapsed = (time.perf_counter() - parse_started) * 1000.0
+            parse_ms += parse_elapsed
+            reports.append(
+                {
+                    "file": _relative_project_path(path),
+                    "error": str(exc),
+                    "formulas": [],
+                    "timing_ms": {"parse": round(parse_elapsed, 3)},
+                }
+            )
+            continue
+        parse_elapsed = (time.perf_counter() - parse_started) * 1000.0
+        parse_ms += parse_elapsed
+        file_reports: list[dict[str, Any]] = []
+        for formula in formulas:
+            formula_count += 1
+            formula_started = time.perf_counter()
+            expected_concentrate_ul = _declared_concentrate_ul(
+                formula, args.expected_concentrate_ul
+            )
+            config = ReleaseGateConfig(
+                expected_concentrate_ul=expected_concentrate_ul,
+                min_neat_trace_ul=args.minimum_raw_stock_ul,
+                batch_volume_ml=args.batch_volume_ml,
+                temperature_K=args.temperature_k,
+                brief=args.brief,
+                family_archetype=args.family_archetype,
+                allow_preblends=args.allow_preblends,
+                commercial_mode=commercial_mode,
+                commercial_confidence_policy="warn"
+                if args.commercial_trial
+                else "block",
+                ifra_headroom=ifra_headroom,
+                batch_scaling_targets_ml=tuple(args.scaling_target_ml or ()),
+                audit_enabled=not args.no_audit,
+                audit_source=f"scan-formulas:{_relative_project_path(path)}",
+            )
+            cache_config = {
+                "schema": SCAN_CACHE_SCHEMA,
+                "stage": args.stage,
+                "expected_concentrate_ul": expected_concentrate_ul,
+                "minimum_raw_stock_ul": args.minimum_raw_stock_ul,
+                "batch_volume_ml": args.batch_volume_ml,
+                "temperature_K": args.temperature_k,
+                "brief": args.brief,
+                "family_archetype": args.family_archetype,
+                "allow_preblends": args.allow_preblends,
+                "commercial_mode": commercial_mode,
+                "commercial_confidence_policy": (
+                    "warn" if args.commercial_trial else "block"
+                ),
+                "ifra_headroom": ifra_headroom,
+                "batch_scaling_targets_ml": list(args.scaling_target_ml or ()),
+            }
+            metadata = _scan_cache_metadata(
+                formula_path=path,
+                formula=formula,
+                pipeline_source_sha256=pipeline_source_sha256,
+                config=cache_config,
+            )
+            cache_path = _scan_cache_path(
+                cache_dir,
+                path,
+                formula,
+                config_sha256=metadata["config_sha256"],
+            )
+            cache_lookup_started = time.perf_counter()
+            cached_result = None
+            invalidation_reasons: list[str] = []
+            if cache_enabled:
+                cached_result, invalidation_reasons = _load_scan_cache(
+                    cache_path, metadata
+                )
+            cache_lookup_ms = (time.perf_counter() - cache_lookup_started) * 1000.0
+            if cached_result is not None:
+                cache_hits += 1
+                row = dict(cached_result)
+                previous_timing = dict(row.get("timing_ms", {}))
+                row["cache"] = {
+                    "status": "HIT",
+                    "cache_key": _canonical_json_sha256(metadata),
+                    "invalidation_reasons": [],
+                }
+                row["timing_ms"] = {
+                    "cache_lookup": round(cache_lookup_ms, 3),
+                    "static_preflight": 0.0,
+                    "full_gate": 0.0,
+                    "total": round((time.perf_counter() - formula_started) * 1000.0, 3),
+                    "reused_computation": round(
+                        float(previous_timing.get("total", 0.0) or 0.0), 3
+                    ),
+                }
+                file_reports.append(row)
+                continue
+
+            if cache_enabled:
+                cache_misses += 1
+                cache_status = "MISS"
+            else:
+                cache_disabled += 1
+                cache_status = "DISABLED_AUDIT" if not args.no_audit else "DISABLED"
+                invalidation_reasons = []
+
+            static_ms = 0.0
+            full_ms = 0.0
+            static_payload: dict[str, Any] | None = None
+            if args.stage in {"static", "staged"}:
+                static_started = time.perf_counter()
+                static_payload = run_static_preflight(
+                    formula,
+                    expected_concentrate_ul=expected_concentrate_ul,
+                    minimum_raw_stock_ul=args.minimum_raw_stock_ul,
+                ).as_dict()
+                static_ms = (time.perf_counter() - static_started) * 1000.0
+
+            if args.stage == "static" or (
+                args.stage == "staged"
+                and static_payload is not None
+                and static_payload["status"] == "FAIL"
+            ):
+                failed_gates, warn_gates = _static_gate_lists(static_payload or {})
+                execution = (
+                    "STATIC_ONLY"
+                    if args.stage == "static"
+                    else "SKIPPED_STATIC_PREFLIGHT_FAIL"
+                )
+                row = {
+                    "number": int(formula.get("number", 1) or 1),
+                    "name": str(formula.get("name", path.stem)),
+                    "status": str((static_payload or {}).get("status", "FAIL")),
+                    "commercial_readiness": "NOT_EVALUATED_STATIC_ONLY",
+                    "audit_event_id": None,
+                    "execution": execution,
+                    "expected_concentrate_ul": expected_concentrate_ul,
+                    "failed_gates": failed_gates,
+                    "warn_gates": warn_gates,
+                    "static_preflight": static_payload,
+                }
+            else:
+                full_started = time.perf_counter()
+                report = gate_formula(formula, config)
+                full_ms = (time.perf_counter() - full_started) * 1000.0
+                row = {
+                    "number": report.number,
+                    "name": report.name,
+                    "status": report.status,
+                    "commercial_readiness": report.commercial_readiness,
+                    "audit_event_id": report.audit_event_id,
+                    "execution": (
+                        "FULL_GATE_AFTER_STATIC"
+                        if args.stage == "staged"
+                        else "FULL_GATE"
+                    ),
+                    "expected_concentrate_ul": expected_concentrate_ul,
+                    "failed_gates": [
+                        gate.gate for gate in report.gates if gate.status == "FAIL"
+                    ],
+                    "warn_gates": [
+                        gate.gate for gate in report.gates if gate.status == "WARN"
+                    ],
+                    "static_preflight": static_payload,
+                }
+
+            row["timing_ms"] = {
+                "cache_lookup": round(cache_lookup_ms, 3),
+                "static_preflight": round(static_ms, 3),
+                "full_gate": round(full_ms, 3),
+                "total": round((time.perf_counter() - formula_started) * 1000.0, 3),
+            }
+            row["cache"] = {
+                "status": cache_status,
+                "cache_key": _canonical_json_sha256(metadata),
+                "invalidation_reasons": invalidation_reasons,
+            }
+            if cache_enabled:
+                _write_scan_cache(cache_path, metadata, row)
+            file_reports.append(row)
+        reports.append(
+            {
+                "file": _relative_project_path(path),
+                "formulas": file_reports,
+                "timing_ms": {"parse": round(parse_elapsed, 3)},
+            }
+        )
+
+    batch_summary = {
+        "stage": args.stage,
+        "formula_count": formula_count,
+        "cache_enabled": cache_enabled,
+        "cache_hits": cache_hits,
+        "cache_misses": cache_misses,
+        "cache_disabled": cache_disabled,
+        "parse_ms": round(parse_ms, 3),
+        "total_ms": round((time.perf_counter() - batch_started) * 1000.0, 3),
+        "pipeline_source_sha256": pipeline_source_sha256,
+    }
+    if args.json:
+        _print_json(
+            {
+                "scanned_files": len(paths),
+                "batch_summary": batch_summary,
+                "results": reports,
+            }
+        )
+        return 0
+
+    print(
+        f"Stage={args.stage} files={len(paths)} formulas={formula_count} "
+        f"cache_hits={cache_hits} cache_misses={cache_misses} "
+        f"total_ms={batch_summary['total_ms']:.1f}"
+    )
+    for row in reports:
+        if row.get("error"):
+            print(f"{row['file']}: ERROR {row['error']}")
+            continue
+        for report in row["formulas"]:
+            print(
+                f"{row['file']} #{report['number']} {report['name']}: "
+                f"{report['status']} ({report['commercial_readiness']})"
+            )
+            if report["failed_gates"]:
+                print("  FAIL: " + ", ".join(report["failed_gates"]))
+            if report["warn_gates"]:
+                print("  WARN: " + ", ".join(report["warn_gates"]))
+    return 0
+
+
+def _cmd_suggest_repairs(args: argparse.Namespace) -> int:
+    events = load_events(args.path)
+    suggestions = suggest_repairs(events, material=args.material)
+    if args.json:
+        _print_json(suggestions)
+        return 0
+    if not suggestions:
+        print("No matching recurring issues found.")
+        return 0
+    for row in suggestions[:20]:
+        print(f"{row['count']:>4}  {row['issue']}")
+        print(f"      {row['suggestion']}")
+    return 0
+
+
+def _cmd_verify(args: argparse.Namespace) -> int:
+    schema = SchemaValidator().validate_all().summary()
+    literature = build_literature_rule_contract().as_dict()
+    knowledge_rule_quality = build_knowledge_rule_quality_contract().as_dict()
+    science = build_science_audit_contract()
+    data_authority = _data_authority_coverage_report()
+    disconnected_modules = _disconnected_module_status_report()
+    evidence_posture = _evidence_posture_report()
+
+    formula_paths = _matching_formula_paths(
+        args.glob, include_scratch=args.include_scratch
+    )
+    formula_paths = sorted(formula_paths)[: max(1, int(args.sample_limit))]
+    representative: list[dict] = []
+    for path in formula_paths:
+        try:
+            formulas = parse_formula_markdown(path)
+        except Exception as exc:
+            representative.append(
+                {
+                    "file": str(path.relative_to(PROJECT_ROOT)),
+                    "error": str(exc),
+                    "formulas": [],
+                }
+            )
+            continue
+        runs = []
+        for formula in formulas[:1]:
+            config = ReleaseGateConfig(
+                brief=args.brief,
+                family_archetype=args.family_archetype,
+                allow_preblends=args.allow_preblends,
+                audit_enabled=not args.no_audit,
+                audit_source=f"verify:{path.relative_to(PROJECT_ROOT)}",
+            )
+            report = gate_formula(formula, config).as_dict()
+            runs.append(
+                {
+                    "name": report["name"],
+                    "status": report["status"],
+                    "commercial_readiness": report["commercial_readiness"],
+                    "preflight_status": (report.get("preflight") or {}).get("status"),
+                    "failed_gates": [
+                        gate["gate"]
+                        for gate in report.get("gates", [])
+                        if gate.get("status") == "FAIL"
+                    ],
+                    "warn_gates": [
+                        gate["gate"]
+                        for gate in report.get("gates", [])
+                        if gate.get("status") == "WARN"
+                    ],
+                }
+            )
+        representative.append(
+            {
+                "file": str(path.relative_to(PROJECT_ROOT)),
+                "formulas": runs,
+            }
+        )
+
+    payload = {
+        "evidence_posture": evidence_posture,
+        "schema_validation": schema,
+        "literature_rule_contract": literature,
+        "knowledge_rule_quality": knowledge_rule_quality,
+        "science_audit": science,
+        "data_authority_coverage": data_authority,
+        "disconnected_module_status": disconnected_modules,
+        "representative_runs": representative,
+    }
+    if args.json:
+        _print_json(payload)
+        return 0
+
+    print("Schema validation:")
+    print(
+        f"  errors={schema['errors']} warnings={schema['warnings']} total_issues={schema['total_issues']}"
+    )
+    print("Literature rule contract:")
+    print(
+        f"  status={literature['status']} english={literature['english_sources']} "
+        f"french_manifest={literature['french_manifest_entries']} "
+        f"deterministic_rules={literature['deterministic_rule_entries']} "
+        f"index_fresh={literature['index_fresh']}"
+    )
+    print("Knowledge rule quality:")
+    print(
+        f"  status={knowledge_rule_quality['status']} total={knowledge_rule_quality['total_entries']} "
+        f"valid={knowledge_rule_quality['valid_entries']} advisory={knowledge_rule_quality['advisory_entries']} "
+        f"invalid={knowledge_rule_quality['invalid_entries']}"
+    )
+    print("Data authority coverage:")
+    print(
+        f"  odt_authoritative_pct={data_authority['odt_authoritative_pct']} "
+        f"odt_heuristic_pct={data_authority['odt_heuristic_pct']}"
+    )
+    print("Disconnected module status:")
+    for module_name, meta in disconnected_modules.items():
+        print(f"  {module_name}: {meta['status']} exists={meta['exists']}")
+    print("Representative runs:")
+    for row in representative:
+        if row.get("error"):
+            print(f"  {row['file']}: ERROR {row['error']}")
+            continue
+        for formula in row.get("formulas", []):
+            print(
+                f"  {row['file']} -> {formula['name']}: {formula['status']} "
+                f"({formula['commercial_readiness']}) preflight={formula['preflight_status']}"
+            )
+            if formula["failed_gates"]:
+                print("    FAIL: " + ", ".join(formula["failed_gates"]))
+            if formula["warn_gates"]:
+                print("    WARN: " + ", ".join(formula["warn_gates"][:8]))
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(
+        description="Review pipeline audit logs and historical formula outputs."
+    )
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    summarize = sub.add_parser(
+        "summarize", help="Summarize JSONL pipeline audit events."
+    )
+    summarize.add_argument("--path", default=None)
+    summarize.add_argument("--json", action="store_true")
+    summarize.set_defaults(func=_cmd_summarize)
+
+    scan = sub.add_parser(
+        "scan-formulas",
+        help="Run release gates across markdown formulas and log results.",
+    )
+    scan.add_argument("--glob", default="formulas/**/*.md")
+    scan.add_argument(
+        "--include-scratch",
+        action="store_true",
+        help="Include underscore-prefixed scratch formulas in scan results.",
+    )
+    scan.add_argument(
+        "--brief",
+        default="auto",
+        choices=[
+            "auto",
+            "generic",
+            "layton_dna",
+            "aromatic_fougere",
+            "vetiver_woody",
+            "floral_aldehydic_amber",
+            "woody_floral_musk",
+            "gourmand_floral",
+            "ysl_lhomme",
+            "ysl_la_nuit_de_lhomme",
+        ],
+    )
+    scan.add_argument("--family-archetype", default="")
+    scan.add_argument("--allow-preblends", action="store_true")
+    scan.add_argument(
+        "--stage",
+        choices=["staged", "static", "full"],
+        default="staged",
+        help=(
+            "staged runs deterministic stock/math/pipette checks before physics; "
+            "static stops after those checks; full preserves the direct full-gate path"
+        ),
+    )
+    scan.add_argument(
+        "--expected-concentrate-ul",
+        type=float,
+        default=None,
+        help="Override parsed concentrate volume; default derives each formula declaration.",
+    )
+    scan.add_argument("--minimum-raw-stock-ul", type=float, default=10.0)
+    scan.add_argument("--batch-volume-ml", type=float, default=30.0)
+    scan.add_argument("--temperature-k", type=float, default=305.0)
+    commercial = scan.add_mutually_exclusive_group()
+    commercial.add_argument("--commercial-ready", action="store_true")
+    commercial.add_argument("--commercial-trial", action="store_true")
+    scan.add_argument("--ifra-headroom", type=float, default=None)
+    scan.add_argument("--scaling-target-ml", type=float, action="append", default=[])
+    scan.add_argument("--no-audit", action="store_true")
+    scan.add_argument(
+        "--cache-dir",
+        default="output/pipeline_audit_cache",
+        help="Content-addressed cache directory; active only with --no-audit.",
+    )
+    scan.add_argument("--no-cache", action="store_true")
+    scan.add_argument("--json", action="store_true")
+    scan.set_defaults(func=_cmd_scan_formulas)
+
+    compare = sub.add_parser(
+        "compare-benchmark",
+        help=(
+            "Validate matched model/program receipts and report paired engineering, "
+            "sensory, and realism-learning evidence without exceeding claim authority."
+        ),
+    )
+    compare.add_argument(
+        "--protocol",
+        default="formulas/ysl_twenty_variant_study/testing/blind_protocol.json",
+    )
+    compare.add_argument(
+        "--receipts",
+        default=None,
+        help="Matched receipt-bundle JSON; omission reports the protocol's missing cells.",
+    )
+    compare.add_argument("--json", action="store_true")
+    compare.set_defaults(func=_cmd_compare_benchmark)
+
+    suggest = sub.add_parser(
+        "suggest-repairs",
+        help="Rank recurring issues and print deterministic repair suggestions.",
+    )
+    suggest.add_argument("--material", default=None)
+    suggest.add_argument("--path", default=None)
+    suggest.add_argument("--json", action="store_true")
+    suggest.set_defaults(func=_cmd_suggest_repairs)
+
+    verify = sub.add_parser(
+        "verify",
+        help="Run schema/literature/science checks plus representative release runs.",
+    )
+    verify.add_argument("--glob", default="formulas/**/*.md")
+    verify.add_argument("--sample-limit", type=int, default=5)
+    verify.add_argument(
+        "--include-scratch",
+        action="store_true",
+        help="Include underscore-prefixed scratch formulas in representative runs.",
+    )
+    verify.add_argument(
+        "--brief",
+        default="auto",
+        choices=[
+            "auto",
+            "generic",
+            "layton_dna",
+            "aromatic_fougere",
+            "vetiver_woody",
+            "floral_aldehydic_amber",
+            "woody_floral_musk",
+            "gourmand_floral",
+            "ysl_lhomme",
+            "ysl_la_nuit_de_lhomme",
+        ],
+    )
+    verify.add_argument("--family-archetype", default="")
+    verify.add_argument("--allow-preblends", action="store_true")
+    verify.add_argument("--no-audit", action="store_true")
+    verify.add_argument("--json", action="store_true")
+    verify.set_defaults(func=_cmd_verify)
+
+    args = parser.parse_args(argv)
+    return int(args.func(args))
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

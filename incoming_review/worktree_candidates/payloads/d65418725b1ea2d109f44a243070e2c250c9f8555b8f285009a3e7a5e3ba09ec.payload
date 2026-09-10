@@ -1,0 +1,182 @@
+"""Pairing identity and authority regressions for historical stock labels."""
+
+from __future__ import annotations
+
+import json
+import sqlite3
+from pathlib import Path
+
+from engine import knowledge_base
+from engine.kb_migrate import (
+    canonical_pairing_identity,
+    canonicalize_pairing_entry,
+)
+from scripts import _merge_pairings, query_pairings
+
+ROOT = Path(__file__).parents[1]
+DISCOVERED = ROOT / "data" / "knowledge_graph" / "pairing_rules_discovered.json"
+
+
+def test_active_pairing_endpoints_are_canonical_with_lossless_tombstones() -> None:
+    rules = json.loads(DISCOVERED.read_text(encoding="utf-8"))
+    obsolete = {"Alpha Irone (30% in DEP)", "Coumarin (20%)"}
+
+    assert all(rule.get("material_a") not in obsolete for rule in rules)
+    assert all(rule.get("material_b") not in obsolete for rule in rules)
+
+    migrated = [rule for rule in rules if rule.get("identity_authority")]
+    assert len(migrated) == 18
+    assert {
+        rule.get("historical_material_a") or rule.get("historical_material_b")
+        for rule in migrated
+    } == obsolete
+    for rule in migrated:
+        assert rule["identity_authority"] == "CHEMICAL_IDENTITY_ONLY"
+        assert rule["inventory_authority"] == "SEPARATE_PINNED_INVENTORY_JOIN_REQUIRED"
+        assert rule["execution_authority"] == "NOT_GRANTED"
+        assert rule["sensory_authority"] == "UNOBSERVED_ADVISORY"
+
+
+def test_deterministic_migration_preserves_prose_and_historical_label() -> None:
+    legacy = {
+        "material_a": "Ethyl Vanillin",
+        "material_b": "Coumarin (20%)",
+        "type": "synergy",
+        "effect": "historical prose remains byte-for-byte",
+        "source": "historical-source",
+        "axis": "hedonic",
+    }
+
+    migrated = canonicalize_pairing_entry(legacy)
+
+    assert legacy["material_b"] == "Coumarin (20%)"
+    assert migrated["material_b"] == "Coumarin"
+    assert migrated["historical_material_b"] == "Coumarin (20%)"
+    assert migrated["effect"] == legacy["effect"]
+    assert migrated["source"] == legacy["source"]
+    assert migrated["axis"] == "hedonic"
+    assert migrated["sensory_authority"] == "UNOBSERVED_ADVISORY"
+
+
+def test_current_coumarin_stock_forms_are_not_collapsed_by_pairing_migration() -> None:
+    current_stock_forms = (
+        "Coumarin (20% in DEP)",
+        "Coumarin (DPG-saturated)",
+        "Coumarin (neat powder)",
+    )
+
+    assert tuple(map(canonical_pairing_identity, current_stock_forms)) == current_stock_forms
+
+
+def test_query_compatibility_resolves_only_obsolete_pairing_labels() -> None:
+    rules = query_pairings.load_pairings()
+
+    legacy_alpha = query_pairings.find_by_material("Alpha Irone (30% in DEP)", rules)
+    legacy_coumarin = query_pairings.find_by_material("Coumarin (20%)", rules)
+    current_dep_stock = query_pairings.find_by_material("Coumarin (20% in DEP)", rules)
+
+    assert legacy_alpha
+    assert legacy_coumarin
+    assert current_dep_stock == []
+    assert all(
+        "Alpha Irone (30% in DEP)"
+        not in (rule.get("material_a"), rule.get("material_b"))
+        for rule in legacy_alpha
+    )
+    assert all(
+        "Coumarin (20%)" not in (rule.get("material_a"), rule.get("material_b"))
+        for rule in legacy_coumarin
+    )
+
+
+def test_pairing_regeneration_cannot_reintroduce_ambiguous_coumarin_identity() -> None:
+    seed = [
+        {
+            "material_a": "Example",
+            "material_b": "Coumarin (20%)",
+            "effect": "historical generator input",
+        }
+    ]
+
+    merged = _merge_pairings.merge_pairings(seed)
+    coumarin_rules = [
+        rule
+        for rule in merged
+        if rule.get("material_a") == "Coumarin"
+        or rule.get("material_b") == "Coumarin"
+    ]
+
+    assert coumarin_rules
+    assert all(
+        "Coumarin (20%)" not in (rule.get("material_a"), rule.get("material_b"))
+        for rule in merged
+    )
+    generated = [
+        rule
+        for rule in _merge_pairings.new_rules
+        if rule.get("historical_material_a") == "Coumarin (20%)"
+        or rule.get("historical_material_b") == "Coumarin (20%)"
+    ]
+    assert len(generated) == 3
+    assert all(rule["execution_authority"] == "NOT_GRANTED" for rule in generated)
+    assert all(rule["sensory_authority"] == "UNOBSERVED_ADVISORY" for rule in generated)
+
+
+def test_query_cli_states_inventory_and_sensory_authority(
+    monkeypatch,
+    capsys,
+) -> None:
+    monkeypatch.setattr(
+        "sys.argv",
+        ["query_pairings.py", "--material", "Coumarin (20% in DEP)"],
+    )
+
+    query_pairings.main()
+
+    captured = capsys.readouterr()
+    assert "separate pinned inventory join" in captured.err
+    assert "unobserved/advisory" in captured.err
+    assert "No pairings found" in captured.out
+
+
+def test_active_material_query_labels_legacy_hedonic_as_not_observed() -> None:
+    conn = sqlite3.connect(":memory:")
+    conn.row_factory = sqlite3.Row
+    row = conn.execute(
+        "SELECT 'Legacy Material' AS canonical_name, 0.85 AS hedonic"
+    ).fetchone()
+    assert row is not None
+
+    projected = knowledge_base._material_row_to_dict(row)
+
+    assert projected["hedonic"] is None
+    assert projected["hedonic_legacy_heuristic"] == 0.85
+    assert projected["hedonic_authority"] == "LEGACY_HEURISTIC_NOT_OBSERVED"
+
+
+def test_fresh_migration_contains_no_bare_hedonic_values(
+    generated_knowledge_db: Path,
+) -> None:
+    conn = sqlite3.connect(generated_knowledge_db)
+    try:
+        count = conn.execute(
+            "SELECT COUNT(*) FROM materials WHERE hedonic IS NOT NULL"
+        ).fetchone()[0]
+    finally:
+        conn.close()
+
+    assert count == 0
+
+
+def test_fresh_active_query_marks_hedonic_as_not_observed(
+    generated_knowledge_db: Path,
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(knowledge_base, "_DB_PATH", generated_knowledge_db)
+
+    material = knowledge_base.get_material("Hedione")
+
+    assert material is not None
+    assert material["hedonic"] is None
+    assert material["hedonic_legacy_heuristic"] is None
+    assert material["hedonic_authority"] == "NOT_OBSERVED"

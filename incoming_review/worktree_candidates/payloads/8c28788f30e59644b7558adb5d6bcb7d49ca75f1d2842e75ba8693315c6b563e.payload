@@ -1,0 +1,27 @@
+from engine.ingredient_intelligence import get_profile
+from engine.material_resolver import resolve_material
+from engine.optimizer.models import _lookup_material
+
+
+def test_ambrofix_and_ambrox_super_resolve_as_separate_product_identities():
+    ambrofix_profile = get_profile("Ambrofix")
+    ambrox_profile = get_profile("Ambrox Super")
+    ambrofix = resolve_material("Ambrofix")
+    ambrox = resolve_material("Ambrox Super")
+    optimizer_ambrofix = _lookup_material("Ambrofix")
+    optimizer_ambrox = _lookup_material("Ambrox Super")
+
+    assert ambrofix_profile is not None
+    assert ambrox_profile is not None
+    assert ambrofix_profile.name == "Ambrofix"
+    assert ambrox_profile.name == "Ambrox Super"
+    assert ambrofix.profile_name == "Ambrofix"
+    assert ambrofix.registry_name == "Ambrofix"
+    assert ambrofix.canonical_name == "ambrofix"
+    assert ambrox.profile_name == "Ambrox Super"
+    assert ambrox.registry_name == "Ambrox Super"
+    assert ambrox.canonical_name == "ambrox super"
+    assert optimizer_ambrofix is not None
+    assert optimizer_ambrox is not None
+    assert optimizer_ambrofix["name"] == "Ambrofix"
+    assert optimizer_ambrox["name"] == "Ambrox Super"

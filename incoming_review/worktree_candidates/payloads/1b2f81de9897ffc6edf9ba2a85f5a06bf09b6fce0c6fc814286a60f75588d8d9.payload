@@ -1,0 +1,164 @@
+#!/usr/bin/env python3
+"""Verify and stage an exact external scientific source bundle.
+
+This is the existing external-data entrypoint, hardened in place. It requires a
+versioned manifest, explicit source root, and explicit staging output. Network
+access is off unless ``--fetch`` is supplied, and even then every artifact must
+have an immutable URL and known SHA-256. No canonical authority is changed.
+
+Examples:
+    python scripts/integrate_external_data.py \
+      --manifest data/source_manifests/dream_olfaction_fb47cb343cdf.json \
+      --source-root data/external/dream_olfaction/olfaction-prediction-master \
+      --output-dir output/scientific_ingestion/dream --dry-run --json
+
+    python scripts/integrate_external_data.py \
+      --manifest data/source_manifests/dream_olfaction_fb47cb343cdf.json \
+      --source-root data/external/dream_olfaction/olfaction-prediction-master \
+      --output-dir output/scientific_ingestion/dream --json
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT))
+
+from engine.ingestion.scientific import (  # noqa: E402
+    UnsafeIngestionPathError,
+    load_scientific_source_manifest,
+    stage_scientific_source,
+)
+
+
+def _parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description="Verify exact scientific source bytes and emit staging-only B1 candidates"
+    )
+    parser.add_argument(
+        "--manifest",
+        required=True,
+        help="JSON scientific-source manifest with revision, rights, sizes, and SHA-256",
+    )
+    parser.add_argument(
+        "--source-root",
+        required=True,
+        help="explicit root containing (or receiving) the manifest's relative artifacts",
+    )
+    parser.add_argument(
+        "--output-dir",
+        required=True,
+        help="explicit staging directory; canonical data paths are rejected",
+    )
+    parser.add_argument(
+        "--related-source",
+        action="append",
+        nargs=2,
+        metavar=("MANIFEST", "SOURCE_ROOT"),
+        default=[],
+        help=(
+            "repeatable manifest/source-root pair staged in memory so the "
+            "primary manifest can emit verified source-relation candidates"
+        ),
+    )
+    parser.add_argument(
+        "--fetch",
+        action="store_true",
+        help="fetch missing artifacts with Pooch using immutable URLs and declared SHA-256",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="validate bytes and build reports in memory without writing reports",
+    )
+    parser.add_argument("--json", action="store_true", help="print machine-readable result")
+    return parser
+
+
+def _payload(result, written: dict[str, str], *, dry_run: bool) -> dict:
+    return {
+        "accepted": result.accepted,
+        "status": result.status,
+        "source_id": result.source_id,
+        "manifest_sha256": result.manifest_hash,
+        "bundle_sha256": result.bundle_hash,
+        "dry_run": dry_run,
+        "authority_changed": False,
+        "canonical_rows_written": 0,
+        "promotion_allowed": False,
+        "rejections": [item.to_dict() for item in result.rejections],
+        "written": written,
+    }
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = _parser().parse_args(argv)
+    try:
+        related_results = []
+        for index, (related_manifest_path, related_source_root) in enumerate(
+            args.related_source
+        ):
+            related_manifest = load_scientific_source_manifest(
+                related_manifest_path
+            )
+            related_results.append(
+                stage_scientific_source(
+                    related_manifest,
+                    source_root=related_source_root,
+                    output_dir=(
+                        Path(args.output_dir) / "_related" / f"{index:03d}"
+                    ),
+                    allow_fetch=args.fetch,
+                )
+            )
+        manifest = load_scientific_source_manifest(args.manifest)
+        result = stage_scientific_source(
+            manifest,
+            source_root=args.source_root,
+            output_dir=args.output_dir,
+            allow_fetch=args.fetch,
+            related_sources=tuple(related_results),
+        )
+        written = {} if args.dry_run else result.write()
+        payload = _payload(result, written, dry_run=args.dry_run)
+        exit_code = 0 if result.accepted else 3
+    except (OSError, ValueError, UnsafeIngestionPathError) as exc:
+        payload = {
+            "accepted": False,
+            "status": "CONFIGURATION_ERROR",
+            "source_id": "UNKNOWN",
+            "manifest_sha256": "",
+            "bundle_sha256": "",
+            "dry_run": args.dry_run,
+            "authority_changed": False,
+            "canonical_rows_written": 0,
+            "promotion_allowed": False,
+            "rejections": [
+                {
+                    "code": "CONFIGURATION_ERROR",
+                    "detail": str(exc),
+                    "field": None,
+                }
+            ],
+            "written": {},
+        }
+        exit_code = 2
+
+    if args.json:
+        print(json.dumps(payload, sort_keys=True, indent=2, ensure_ascii=False))
+    else:
+        print(
+            f"{payload['status']}: {payload['source_id']} "
+            f"(written={len(payload['written'])}, authority_changed=false)"
+        )
+        for rejection in payload["rejections"]:
+            print(f"  {rejection['code']}: {rejection['detail']}")
+    return exit_code
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

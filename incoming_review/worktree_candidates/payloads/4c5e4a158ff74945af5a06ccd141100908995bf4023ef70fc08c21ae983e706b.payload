@@ -1,0 +1,28 @@
+{
+  "target_hash": "5cc1f7e696d17ad805e104310f419644be9ba5dde9e548c7149e1225039e3618",
+  "partition_hash": "af3f47b45585a2e2d23cb375faacba0a36b84e2e84dc9a879d1b36d7932f8c8b",
+  "core_raw_uL": 4150,
+  "socket_raw_uL": 350,
+  "protected_anchor_floors_in_core_uL": {
+    "Methyl Ionone Gamma Coeur": 130,
+    "Isoraldeine 95": 110,
+    "Hydroxycitronellal": 135,
+    "Florol": 105,
+    "Black Pepper Oil": 5,
+    "Geranium Egypt Oil": 20,
+    "Patchouli Heart": 45,
+    "Neroli Oil": 25
+  },
+  "required_module_roles": [
+    "iris_or_violet_continuity",
+    "soap_muguet_interface",
+    "pepper_geranium_patchouli_continuity"
+  ],
+  "forbidden_drift": [
+    "dominant_sweet_amber",
+    "dominant_leather",
+    "dominant_aquatic",
+    "iris_removed"
+  ],
+  "authority": "from-scratch Tier 1-2 hypothesis from official notes, label evidence, family priors, and functional reconstruction"
+}

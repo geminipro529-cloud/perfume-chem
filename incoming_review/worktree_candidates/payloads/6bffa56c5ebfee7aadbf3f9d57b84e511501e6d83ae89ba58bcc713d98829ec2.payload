@@ -1,0 +1,79 @@
+{
+  "schema": "perfume-chem-missing-chemical-assessment-v1",
+  "assessment_id": "MCI-LH-10-v1",
+  "source_package_sha256": "5873d5f42f28b739812d74888bf378f3bb9081640ce74ca9601cd37e342a15ab",
+  "source_payload_sha256": "bd2058190bb6bd7b053fc14a3160d96673b01da4740c6b7c9c0ad6ade87a7d39",
+  "target_formula_id": "LH-10",
+  "lineage": {
+    "target_hypothesis_sha256": "9c480baba46e6a4ed7a807b851dd70552e5812a763ff5d4c8b00e10921c0fd12",
+    "accepted_target_sha256": "637ef8ce63575a406c5ec27ec2a1cbfca910e3303ca3b3b100572f64a4e539ba",
+    "inventory_mapping_sha256": "9ecdb5dcf3dfebbff3ee0e410ab567780dbd416b795d25079f2c742dc56e68a7",
+    "build_plan_sha256": "de13eca675536f99b9c7695a66ea0728f18e9a390c5f729e886868189c073dc4",
+    "parent_formula_sha256": "520924f1d02e25a68fc3740179f8d5950b07f710a7e88959f7b9000bc6c3d77b",
+    "inventory_snapshot_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+    "formula_edge_set_sha256": "2a78d1feae68a1781b7c9ea6c33f3658416ae9026583b7515c8e29e195321b6a",
+    "stock_receipts": []
+  },
+  "architecture_locked": true,
+  "strongly_covered_functions": [
+    "Design-mapped current function: expanded bergamot-ginger kinetic opening",
+    "Design-mapped current function: protected violet-green tailored heart"
+  ],
+  "weakly_covered_functions": [
+    "Approximate or evidence-limited mapping: Cedrat Oil exact bitter-peel identity",
+    "Approximate or evidence-limited mapping: Hedione HC high-cis texture"
+  ],
+  "genuinely_missing_functions": [
+    "Cedrat Oil exact bitter-peel identity",
+    "Hedione HC high-cis texture",
+    "Vetiver Haiti origin and grade",
+    "Paradisamide stock carrier and concentration basis",
+    "Basil EO composite-natural runtime coverage"
+  ],
+  "candidates": [
+    {
+      "function_id": "lh-10.gap.01",
+      "candidate": "Cedrat Oil exact bitter-peel identity",
+      "inventory_status": "OUT_OF_STOCK",
+      "classification": "USEFUL SPECIALIST",
+      "nonredundancy": "This exact function or evidence state is not established by the current mapping: Cedrat Oil exact bitter-peel identity.",
+      "loss_if_omitted": "The controlled arm remains testable, but exact-fidelity authority for Cedrat Oil exact bitter-peel identity remains withheld.",
+      "overdose_or_failure_mode": "Treating public notes or this formula hypothesis as authenticated commercial percentages.",
+      "source_controlled_comparison_text": "Free text only: after exact stock and preparation receipts, compare the current mapped build with a role-matched addition or omission at constant total; no physical protocol is locked here.",
+      "source_integration_state": "NOT_AUTOMATICALLY_ADDED"
+    },
+    {
+      "function_id": "lh-10.gap.02",
+      "candidate": "Hedione HC high-cis texture",
+      "inventory_status": "MISSING",
+      "classification": "USEFUL SPECIALIST",
+      "nonredundancy": "This exact function or evidence state is not established by the current mapping: Hedione HC high-cis texture.",
+      "loss_if_omitted": "The controlled arm remains testable, but exact-fidelity authority for Hedione HC high-cis texture remains withheld.",
+      "overdose_or_failure_mode": "Treating public notes or this formula hypothesis as authenticated commercial percentages.",
+      "source_controlled_comparison_text": "Free text only: after exact stock and preparation receipts, compare the current mapped build with a role-matched addition or omission at constant total; no physical protocol is locked here.",
+      "source_integration_state": "NOT_AUTOMATICALLY_ADDED"
+    },
+    {
+      "function_id": "lh-10.gap.03",
+      "candidate": "Vetiver Haiti origin and grade",
+      "inventory_status": "VERIFY_FIRST",
+      "classification": "EVIDENCE GAP, NOT INVENTORY GAP",
+      "nonredundancy": "This exact function or evidence state is not established by the current mapping: Vetiver Haiti origin and grade.",
+      "loss_if_omitted": "The controlled arm remains testable, but exact-fidelity authority for Vetiver Haiti origin and grade remains withheld.",
+      "overdose_or_failure_mode": "Treating public notes or this formula hypothesis as authenticated commercial percentages.",
+      "source_controlled_comparison_text": "Free text only: after exact stock and preparation receipts, compare the current mapped build with a role-matched addition or omission at constant total; no physical protocol is locked here.",
+      "source_integration_state": "NOT_AUTOMATICALLY_ADDED"
+    }
+  ],
+  "package_auto_integrated_materials": [],
+  "state": "CANDIDATE_ONLY",
+  "formula_authority": false,
+  "inventory_authority": false,
+  "purchase_authority": false,
+  "execution_authorized": false,
+  "scientific_authority": false,
+  "oav_authority": false,
+  "sensory_authority": false,
+  "safety_authority": false,
+  "release_authority": false
+}

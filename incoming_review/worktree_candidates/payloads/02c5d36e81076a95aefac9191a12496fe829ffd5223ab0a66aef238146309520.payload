@@ -1,0 +1,145 @@
+"""Tests for the append-only Complex Perfumery V6 AM-E01 capture."""
+
+from __future__ import annotations
+
+import json
+from copy import deepcopy
+from pathlib import Path
+from typing import Any
+
+from engine.calibration.hashing import stable_file_hash, stable_json_hash
+
+ROOT = Path(__file__).resolve().parents[1]
+COMPATIBILITY = (
+    ROOT
+    / "data"
+    / "governance"
+    / "complex_perfumery_v6_historical_compatibility_20260904.json"
+)
+
+
+def _compatibility() -> dict[str, Any]:
+    return json.loads(COMPATIBILITY.read_text(encoding="utf-8"))
+
+
+def test_am_e01_file_library_formula_is_exact_quarantined_candidate() -> None:
+    receipt_path = (
+        ROOT
+        / "data"
+        / "governance"
+        / "complex_perfumery_am_e01_file_library_artifact_receipt_20260812.json"
+    )
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    unhashed = deepcopy(receipt)
+    declared_hash = unhashed.pop("receipt_sha256")
+
+    assert stable_json_hash(unhashed) == declared_hash
+    compatibility = _compatibility()["v6_am_e01_capture_compatibility"]
+    assert compatibility["artifact_receipt"] == {
+        "path": receipt_path.relative_to(ROOT).as_posix(),
+        "receipt_sha256": declared_hash,
+    }
+    artifact = receipt["artifact"]
+    assert artifact["byte_size"] == 40713
+    assert artifact["sha256"] == (
+        "965b02beba5faec32dcbe8d5d97aa3df8cb47fe43fc3c1cf040e4fd3b03ff5e2"
+    )
+    assert artifact["file_name"] == (
+        "AM-E01_Amouage_Opus_V_Woods_Symphony_30mL_Formula.md"
+    )
+
+    provenance = receipt["provenance"]
+    assert provenance["conversation_id"] == "6a7992db-96b8-83ec-aab0-6a7447b97da1"
+    assert provenance["turn_id"] == "e0c8046a-b8b8-4180-8b2f-a84c1363d0f4"
+    assert provenance["file_library_reference"] == "filenavlist 124:0"
+    assert receipt["admission"]["state"] == (
+        "EXTERNAL_FILE_BYTES_VERIFIED_QUARANTINED_NOT_ADMITTED"
+    )
+    assert receipt["admission"]["canonical_import_allowed"] is False
+    assert receipt["evidence_summary"]["formula_candidate_only"] is True
+    assert receipt["evidence_summary"]["physical_evidence_state"] == "NOT_TESTED"
+    assert not any(receipt["authority"].values())
+
+    capture = receipt["evidence_summary"]["capture_manifest"]
+    assert capture == {
+        "path": (
+            "incoming_review/chatgpt/20260812T181916+0700-"
+            "am-e01-file-library-recovery-6a7992db/capture_manifest.json"
+        ),
+        "byte_size": 2018,
+        "sha256": "5751aefa8ed4c2fd13efe1c93b234e719f27b8daf20d4e7a9d715d24345b4d36",
+    }
+    portable = compatibility["portable_replay"]
+    assert portable["external_candidate_content_required"] is False
+    assert portable["authority_promotion_allowed"] is False
+
+
+def test_complex_perfumery_v6_successor_and_ledger_close_only_am_e01() -> None:
+    compatibility = _compatibility()["v6_am_e01_capture_compatibility"]
+    successor = compatibility["successor_summary"]
+
+    assert successor["parent_path"] == (
+        "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V5_20260812.json"
+    )
+    assert successor["parent_byte_size"] == 6694
+    assert successor["parent_sha256"] == (
+        "99a705720fe915cafc1864902e234a3bc62b3c590eb70a327355451e5180caef"
+    )
+    assert successor["parent_relationship"] == "SUPERSEDES_WITHOUT_MUTATING_PARENT"
+    assert successor["cumulative_exact_outer_candidates"] == 33
+    assert successor["cumulative_exact_nonarchive_candidates"] == 1
+    assert successor["new_exact_nonarchive_candidates"] == 1
+    assert successor["optional_identities_closed_by_new_capture"] == 1
+    assert successor["optional_identities_remaining"] == 4
+    assert successor["new_exact_nonarchive_candidate_sha256"] == (
+        "965b02beba5faec32dcbe8d5d97aa3df8cb47fe43fc3c1cf040e4fd3b03ff5e2"
+    )
+    assert successor["new_exact_nonarchive_candidate_formula_authority"] is False
+    assert successor["collection_complete"] is False
+    assert successor["implementation_complete"] is False
+    assert successor["installation_authorized"] is False
+    assert successor["reconstruction_allowed"] is False
+    assert successor["substitution_allowed"] is False
+    portable = compatibility["portable_replay"]
+    assert portable["ignored_successor_content_required"] is False
+    assert portable["ignored_plan_content_required"] is False
+    assert portable["ignored_ledger_content_required"] is False
+
+
+def test_complex_perfumery_v6_acceptance_hash_and_pins_replay() -> None:
+    acceptance_path = (
+        ROOT
+        / "data"
+        / "governance"
+        / "complex_perfumery_v6_am_e01_collection_acceptance_20260812.json"
+    )
+    acceptance = json.loads(acceptance_path.read_text(encoding="utf-8"))
+    compatibility = _compatibility()["v6_am_e01_capture_compatibility"]
+    unhashed = deepcopy(acceptance)
+    declared_hash = unhashed.pop("receipt_sha256")
+
+    assert stable_json_hash(unhashed) == declared_hash
+    assert compatibility["collection_acceptance"] == {
+        "path": acceptance_path.relative_to(ROOT).as_posix(),
+        "receipt_sha256": declared_hash,
+    }
+    assert acceptance["state"] == ("AM_E01_EXACT_FILE_LIBRARY_BYTES_CAPTURED_AUTHORITY_FALSE")
+    assert acceptance["repository_fence"]["staged_paths"] == 0
+    assert acceptance["verification"]["receipt_tests_failed"] == 0
+    assert acceptance["decision"]["v5_parent_mutated"] is False
+    assert acceptance["decision"]["optional_identities_remaining"] == 4
+    assert acceptance["decision"]["collection_complete"] is False
+    assert acceptance["decision"]["package_installation_complete"] is False
+    assert acceptance["decision"]["installation_authorized"] is False
+    assert not any(acceptance["authority"].values())
+    assert acceptance["verification"]["v6_ledger_entries_verified"] == 9
+
+    artifact_receipt = next(
+        artifact
+        for artifact in acceptance["applied_artifacts"]
+        if artifact["path"]
+        == "data/governance/complex_perfumery_am_e01_file_library_artifact_receipt_20260812.json"
+    )
+    artifact_receipt_path = ROOT / artifact_receipt["path"]
+    assert artifact_receipt_path.stat().st_size == artifact_receipt["byte_size"]
+    assert stable_file_hash(artifact_receipt_path) == artifact_receipt["sha256"]

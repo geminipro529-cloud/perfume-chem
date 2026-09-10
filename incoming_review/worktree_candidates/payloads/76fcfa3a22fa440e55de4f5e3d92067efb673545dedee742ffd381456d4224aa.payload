@@ -1,0 +1,111 @@
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_stock_only_generator_writes_current_stock_forms_without_remote_calls(
+    tmp_path: Path,
+):
+    properties_path = tmp_path / "material_properties.json"
+    audit_path = tmp_path / "audit_flags.json"
+    preserved_audit = [
+        {
+            "name": "Existing material",
+            "flags": [
+                {
+                    "field": "mw",
+                    "db_value": 100.0,
+                    "pubchem_value": 101.0,
+                }
+            ],
+        }
+    ]
+    audit_path.write_text(json.dumps(preserved_audit), encoding="utf-8")
+    env = os.environ.copy()
+    env.update(
+        {
+            "PERFUME_SKIP_PUBCHEM": "1",
+            "PERFUME_MATERIAL_PROPERTIES_PATH": str(properties_path),
+            "PERFUME_AUDIT_FLAGS_PATH": str(audit_path),
+            "HTTP_PROXY": "http://127.0.0.1:9",
+            "HTTPS_PROXY": "http://127.0.0.1:9",
+        }
+    )
+
+    result = subprocess.run(
+        [sys.executable, "_generate_material_properties.py"],
+        cwd=PROJECT_ROOT,
+        env=env,
+        capture_output=True,
+        text=True,
+        timeout=15,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert properties_path.exists()
+    assert audit_path.exists()
+    assert json.loads(audit_path.read_text(encoding="utf-8")) == preserved_audit
+    entries = {
+        row["name"].casefold(): row
+        for row in json.loads(properties_path.read_text(encoding="utf-8"))
+    }
+    assert entries["rose essential oil"]["dilution_pct"] is None
+    assert entries["rose essential oil"]["in_inventory"] is True
+    assert "10% w/w" in entries["rose essential oil"]["stock_form"]
+    assert entries["rose essential oil"]["inventory_status"] == "out_of_stock"
+    assert entries["rose essential oil"]["execution_ready"] is False
+    assert entries["rose de mai absolute"]["dilution_pct"] is None
+    assert entries["rose de mai absolute"]["in_inventory"] is True
+    assert "10% w/w in DPG" in entries["rose de mai absolute"]["stock_form"]
+    assert entries["rose de mai absolute"]["inventory_status"] == "out_of_stock"
+    assert entries["rose de mai absolute"]["execution_ready"] is False
+    assert entries["neroli eo"]["dilution_pct"] == 1.0
+    assert entries["neroli eo"]["in_inventory"] is True
+    assert entries["neroli eo"]["stock_form"].casefold() == "neat"
+    assert entries["ambrofix"]["dilution_pct"] is None
+    assert entries["ambrofix"]["in_inventory"] is True
+    assert "7.27% w/w whole-bottle nominal in dep/ethanol" in entries[
+        "ambrofix"
+    ]["stock_form"].casefold()
+    assert "pipettable active concentration hold" in entries["ambrofix"][
+        "stock_form"
+    ].casefold()
+    assert entries["ambrofix"]["inventory_status"] == "owned"
+    assert entries["ambrofix"]["execution_ready"] is False
+    assert entries["ambrofix"]["concentration_basis"] == "w/w"
+    assert entries["ambrofix"]["carrier"] == "DEP/ETHANOL"
+
+    assert entries["ambrox super"]["dilution_pct"] == 0.33
+    assert entries["ambrox super"]["inventory_status"] == "owned"
+    assert entries["ambrox super"]["execution_ready"] is True
+    assert entries["ambrox super"]["concentration_basis"] == "w/v"
+    assert entries["ambrox super"]["carrier"] == "DEP/ETHANOL"
+    assert "~33% w/v in DEP:EtOH 53:47" in entries["ambrox super"][
+        "stock_form"
+    ]
+
+    assert entries["red saffron infusion"]["inventory_status"] == "owned"
+    assert entries["red saffron infusion"]["execution_ready"] is True
+    assert entries["red saffron infusion"]["dilution_pct"] == 1.0
+    assert entries["red saffron infusion"]["carrier"] == "DPG"
+
+    assert entries["geranyl acetate"]["inventory_status"] == "owned"
+    assert entries["geranyl acetate"]["execution_ready"] is True
+    assert entries["geranyl acetate"]["dilution_pct"] == 1.0
+    assert entries["geranyl acetate"]["mw"] == 196.29
+    assert entries["geranyl acetate"]["vp"] == 3.47
+
+    assert entries["ambrettolide"]["inventory_status"] == "out_of_stock"
+    assert entries["ambrettolide"]["execution_ready"] is False
+
+    assert entries["polysantol"]["inventory_status"] == "out_of_stock"
+    # in_inventory means the roster still contains a traceable row; ownership and
+    # executability are carried by the two fields below.
+    assert entries["polysantol"]["in_inventory"] is True
+    assert entries["polysantol"]["execution_ready"] is False

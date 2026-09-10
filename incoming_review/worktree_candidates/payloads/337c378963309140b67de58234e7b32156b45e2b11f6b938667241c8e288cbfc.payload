@@ -1,0 +1,237 @@
+{
+  "schema": "perfume-chem.ysl-twenty-variant-study-manifest.v1",
+  "study_id": "ysl-lhomme-la-nuit-twenty-variant-study",
+  "title": "YSL L'Homme and La Nuit de L'Homme Twenty-Variant Study",
+  "snapshot": {
+    "read_at_utc": "2026-08-26T17:37:21.5521859Z",
+    "authoritative_runtime_root": "D:\\chatbots\\perfume-chem",
+    "runtime_git_commit": "281d389ca76424ace2438e1f6cabdad75163a4d6",
+    "runtime_git_branch": "codex/add-inventory-materials",
+    "runtime_worktree_clean": false,
+    "runtime_handling": "READ_ONLY_HASH_BOUND_SOURCE",
+    "staleness_rule": "A diagnostic loses current authority if any bound source changes during its run."
+  },
+  "source_bindings": [
+    {
+      "source_id": "APPROVED-DESIGN",
+      "path": "docs/superpowers/specs/2026-08-26-ysl-lhomme-la-nuit-twenty-variant-study-design.md",
+      "sha256": "E6C7AEEA64AAA651F25CFA49A9A322E0395C9AD74CB38102897EDF54DEA40A02",
+      "role": "approved study architecture and claim ceiling"
+    },
+    {
+      "source_id": "APPROVED-IMPLEMENTATION-PLAN",
+      "path": "docs/superpowers/plans/2026-08-27-ysl-lhomme-la-nuit-twenty-variant-study.md",
+      "sha256": "0000FABD4299F6C6E2B98B403971AEE374AFC24A3BF2CFA5E8D9C2D4ED2A356C",
+      "role": "approved task sequence and artifact contract"
+    },
+    {
+      "source_id": "AUTHORITATIVE-AGENTS",
+      "path": "D:\\chatbots\\perfume-chem\\AGENTS.md",
+      "sha256": "A3FF5D3B0165947AD8C96AFF6B16925442E3D7383214D7ADB90D7C1216EDAFB0",
+      "role": "current project instructions"
+    },
+    {
+      "source_id": "AUTHORITATIVE-COPILOT-INSTRUCTIONS",
+      "path": "D:\\chatbots\\perfume-chem\\.github\\copilot-instructions.md",
+      "sha256": "97640F0EA0FE8B79A073BE13AD84649C12EA548955CAB3D06CF3C5368D841AE9",
+      "role": "current formulation instructions"
+    },
+    {
+      "source_id": "AUTHORITATIVE-INVENTORY",
+      "path": "D:\\chatbots\\perfume-chem\\inventory.txt",
+      "sha256": "DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC",
+      "role": "frozen inventory roster under the direct-user overlay"
+    },
+    {
+      "source_id": "AUTHORITATIVE-FAMILY-REFERENCE",
+      "path": "D:\\chatbots\\perfume-chem\\docs\\fragrance_families_reference.md",
+      "sha256": "467C759EA52412BE0EA8AF7C77F0F14D9FB59DE7B99722FCE57EE2415FBB7401",
+      "role": "family vocabulary and buildability context"
+    },
+    {
+      "source_id": "SOL-LH-FROZEN",
+      "path": "D:\\chatbots\\perfume-chem\\formulas\\L_Homme_Luxe_30mL_EdP.md",
+      "sha256": "44ABA8B5153D26A8AFA5CD07B20974EAAF66A5D659FEECC13D59EEF6F917E0FD",
+      "role": "frozen Sol xhigh L'Homme comparison baseline"
+    },
+    {
+      "source_id": "SOL-LN-FROZEN",
+      "path": "D:\\chatbots\\perfume-chem\\formulas\\La_Nuit_de_LHomme_Luxe_30mL_EDT.md",
+      "sha256": "254A73B6B45420CF89034FC5C2CAABCAACE9A197BE315C31E9958E4A5CFDAEBB",
+      "role": "frozen Sol xhigh La Nuit comparison baseline"
+    }
+  ],
+  "artifact_bindings": {
+    "inventory_overlay": {
+      "path": "formulas/ysl_twenty_variant_study/evidence/inventory_overlay.json",
+      "sha256": "1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072"
+    },
+    "evidence_ledger": {
+      "path": "formulas/ysl_twenty_variant_study/evidence/evidence_ledger.json",
+      "sha256": "6E835618481E0B47ADDA77C38EDEB4788FFF2A6D69D90E20E1B233A818A36CBB"
+    },
+    "blind_protocol": {
+      "path": "testing/blind_protocol.json",
+      "sha256": "1125B83F0DBBB4B67B0A2537763EFA5E4F04CF2FA38423A5539BABE9DE2312C8"
+    },
+    "screening_summary": {
+      "path": "reports/screening_summary.json",
+      "sha256": "6B301984E37EF1AB7E46AE6E2710A738DD1F8C5403E5FB6C95D6A27DA7297CAE"
+    },
+    "missing_chemical_impact_index": {
+      "path": "reports/missing_chemical_impact_index.json",
+      "sha256": "F9A52691F57EC55AD4AA9D86C8CE1909D9CFD0A3A16B0EF0860A176C0EA457FB"
+    },
+    "sol_comparison": {
+      "path": "reports/sol_comparison.md",
+      "sha256": "75703DD813B467DE89CFCAC0EE2A62B61C3B7A917D1E68611744908B34BFB53F"
+    },
+    "final_index": {
+      "path": "reports/final_index.md",
+      "sha256": "F9F033BE34C76A293231895611587E3BB3C36332F814AAC5E6A099C8570F775C"
+    },
+    "readme": {
+      "path": "README.md",
+      "sha256": "15178A06314682281EDF6AA51C84FAF6930A81AE03753F1782270B9591311D72"
+    },
+    "sol_lhomme_source_snapshot": {
+      "path": "baselines/source/L_Homme_Luxe_30mL_EdP.md",
+      "sha256": "44ABA8B5153D26A8AFA5CD07B20974EAAF66A5D659FEECC13D59EEF6F917E0FD"
+    },
+    "sol_la_nuit_source_snapshot": {
+      "path": "baselines/source/La_Nuit_de_LHomme_Luxe_30mL_EDT.md",
+      "sha256": "254A73B6B45420CF89034FC5C2CAABCAACE9A197BE315C31E9958E4A5CFDAEBB"
+    }
+  },
+  "candidates": [
+    {
+      "candidate_id": "LH-01",
+      "name": "Original Fidelity",
+      "family": "ysl_lhomme"
+    },
+    {
+      "candidate_id": "LH-02",
+      "name": "Vintage Magnetique",
+      "family": "ysl_lhomme"
+    },
+    {
+      "candidate_id": "LH-03",
+      "name": "Tailored Luxe",
+      "family": "ysl_lhomme"
+    },
+    {
+      "candidate_id": "LH-04",
+      "name": "Apple Pie",
+      "family": "ysl_lhomme"
+    },
+    {
+      "candidate_id": "LH-05",
+      "name": "Ginger-Cedrat Spark",
+      "family": "ysl_lhomme"
+    },
+    {
+      "candidate_id": "LH-06",
+      "name": "Violet Leaf Silk",
+      "family": "ysl_lhomme"
+    },
+    {
+      "candidate_id": "LH-07",
+      "name": "White Pepper-Basil",
+      "family": "ysl_lhomme"
+    },
+    {
+      "candidate_id": "LH-08",
+      "name": "Cedar-Vetiver Tailoring",
+      "family": "ysl_lhomme"
+    },
+    {
+      "candidate_id": "LH-09",
+      "name": "Tonka-Sandalwood",
+      "family": "ysl_lhomme"
+    },
+    {
+      "candidate_id": "LH-10",
+      "name": "Bangkok Air",
+      "family": "ysl_lhomme"
+    },
+    {
+      "candidate_id": "LN-01",
+      "name": "Original 2009 Fidelity",
+      "family": "ysl_la_nuit"
+    },
+    {
+      "candidate_id": "LN-02",
+      "name": "Current Transparent Style",
+      "family": "ysl_la_nuit"
+    },
+    {
+      "candidate_id": "LN-03",
+      "name": "Cardamom Velvet",
+      "family": "ysl_la_nuit"
+    },
+    {
+      "candidate_id": "LN-04",
+      "name": "Lavender Heart",
+      "family": "ysl_la_nuit"
+    },
+    {
+      "candidate_id": "LN-05",
+      "name": "Immortelle Nuit",
+      "family": "ysl_la_nuit"
+    },
+    {
+      "candidate_id": "LN-06",
+      "name": "Cedar-Vetiver Vertical",
+      "family": "ysl_la_nuit"
+    },
+    {
+      "candidate_id": "LN-07",
+      "name": "Dry Coumarin Skin",
+      "family": "ysl_la_nuit"
+    },
+    {
+      "candidate_id": "LN-08",
+      "name": "Caraway Shadow",
+      "family": "ysl_la_nuit"
+    },
+    {
+      "candidate_id": "LN-09",
+      "name": "Dark Textile Woods",
+      "family": "ysl_la_nuit"
+    },
+    {
+      "candidate_id": "LN-10",
+      "name": "Intimate Diffusion",
+      "family": "ysl_la_nuit"
+    }
+  ],
+  "required_named_arms": [
+    "LH-04",
+    "LN-01",
+    "LN-05"
+  ],
+  "global_formula_contract": {
+    "target_basis_ppm_w_w": 1000000,
+    "current_build_basis_ppm_w_w": 1000000,
+    "program_adapter": "30 mL EDT at 15 percent with a declared 4500 uL concentrate view",
+    "target_current_build_separation": "REQUIRED",
+    "missing_chemical_impact": "REQUIRED_PER_CANDIDATE",
+    "musk_default": "ZERO_OR_ONE_FUNCTIONALLY_EXACT_MUSK",
+    "numerical_diagnostics": [
+      "ppm",
+      "ODT",
+      "OAV",
+      "composite-natural OAV",
+      "temporal headspace",
+      "G15 stock-rebase/OAV-per-time"
+    ]
+  },
+  "claim_ceiling": {
+    "physical_liking": "NOT TESTED",
+    "sensory_similarity": "NOT TESTED",
+    "stability": "NOT TESTED",
+    "safety": "NOT CLEARED",
+    "measured_headspace": "NOT TESTED",
+    "release": "NOT CLEARED"
+  }
+}

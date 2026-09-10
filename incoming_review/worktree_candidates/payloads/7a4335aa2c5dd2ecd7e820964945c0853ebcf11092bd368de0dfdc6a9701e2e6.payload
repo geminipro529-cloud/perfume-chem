@@ -1,0 +1,27 @@
+﻿Code,ACC-CA-BER-01
+Accord,Bergamot Prism v1.0
+Category,Citrus & Aromatic
+Brief,"A full-spectrum bergamot/citron accord with peel oils, petitgrain, neroli, linalyl acetate, citral, aldehydes and transparent diffusion."
+Recommended use,2–12% of perfume concentrate
+Maturation,3–7 days
+Monte Carlo pass,1.0
+Final design score,100.0
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,20.0,20.0,20.0,100.0,DIRECT,musk,Clean persistence,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.002421115629993091
+2,heart_base,Iso E Super,neat / as supplied,1.0,40.0,40.0,40.0,200.0,DIRECT,transparent_wood,Dry support,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.00560260638368519
+3,heart,Hedione,neat / as supplied,1.0,60.0,60.0,60.0,300.0,DIRECT,floral_air,Floral air,Transparent floral diffusion.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.009545318251002861
+4,top_heart,Linalyl Acetate,neat/as supplied,1.0,120.0,120.0,120.0,600.0,DIRECT,aromatic,Floral ester,Lavender-citrus ester.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.02504970874571772
+5,top_heart,Linalool,neat/as supplied,1.0,60.0,60.0,60.0,300.0,DIRECT,aromatic,Fresh bridge,Floral-citrus bridge.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.009074703926117818
+6,top_heart,Petitgrain EO Paraguay,neat / as supplied,1.0,60.0,60.0,60.0,300.0,DIRECT,citrus_green,Green twig,Green bitter-orange twig.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.015281504347519454
+7,top_heart,Neroli EO 10% in DPG,Neroli EO 10% in DPG,0.1,40.0,4.0,40.0,200.0,PREPARED STOCK,orange_blossom,Orange-flower glint,Neroli glint.,HAVE — 10% ONLY,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0054516039188940955
+8,top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,220.0,220.0,220.0,1100.0,DIRECT,citrus,Bergamot core,Floral bergamot peel.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.07261686176492878
+9,top,Dihydromyrcenol,neat / as supplied,1.0,100.0,100.0,100.0,500.0,DIRECT,fresh_aromatic,Diffusion,High-diffusion freshness.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.019178066051840567
+10,top,Grapefruit FCF Oil Sicilian,neat / as supplied,1.0,100.0,100.0,100.0,500.0,DIRECT,citrus,Bitter peel,Bitter grapefruit peel.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.023411876689926017
+11,top,Lemon FCF Oil Sicilian,neat / as supplied,1.0,100.0,100.0,100.0,500.0,DIRECT,citrus,Citron brightness,Bright lemon peel.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.023411876689926017
+12,top,Citral Natural,Prepare 10% from neat Citral Natural,0.1,25.0,2.5,25.0,125.0,PREPARED STOCK,citrus,Lemon edge,Lemon-citral edge.,HAVE — NEAT ONLY,Use only at the listed supplied-stock strength.,Prepare fresh 10% working stock.,TEXTURAL SUPPORT,0.005048293692796401
+13,top,Aldehyde C10 1%,1% working stock,0.01,10.0,0.1,10.0,50.0,PREPARED STOCK,aldehydic,Aldehydic flash,Citrus-aldehydic flash.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0020394655660987077
+14,top,Aldehyde C11 1%,1% working stock,0.01,8.0,0.08,8.0,40.0,PREPARED STOCK,aldehydic,Fresh extension,Fresh aldehydic extension.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.0016154894260656909
+15,top,Aldehyde C12 MNA 1%,1% working stock,0.01,5.0,0.05,5.0,25.0,PREPARED STOCK,aldehydic,Cold waxy lift,Waxy cold aldehydic lift.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.0009946205740175625
+16,carrier,DPG,neat,0.0,32.0,0.0,32.0,160.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

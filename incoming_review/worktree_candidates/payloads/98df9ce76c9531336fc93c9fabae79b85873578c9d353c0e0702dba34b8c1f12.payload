@@ -1,0 +1,32 @@
+{
+  "arm": "CONTROL",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S02",
+  "completed_utc": "2026-08-26T07:21:49.433941+00:00",
+  "dispatch_sha256": "af7bad6f0d700bd3a89774286428ee541f044beba7057e0145d6f9f09a1ff5cf",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "35a9bd1afffdb05c0493a11edad3b7c1236dafa1407c06b670ce63bb7cd46a64",
+  "output_text": "{\"decision\":\"NO_AUGMENTATION\",\"target_linked_reasoning\":\"All 4 declared target functions are strongly covered. The proposed five materials address only ingredient count and prestige, not omission loss, a missing function, or a nonredundant target-linked relation. For a minimal translucent iris whose richness depends on negative space and exact material choice, unsupported additions would increase complexity without demonstrated depth.\",\"controlled_comparison\":\"No discriminating comparison is warranted because the evidence identifies no target-linked deficit or competing nonredundant relation to test.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"unmet_target_function_count\":0},\"decision_state\":\"NO_AUGMENTATION\",\"next_actions\":[],\"reason_codes\":[\"ALL_TARGET_FUNCTIONS_COVERED\",\"NO_OMISSION_LOSS_IDENTIFIED\",\"NO_NONREDUNDANT_RELATION_IDENTIFIED\",\"INGREDIENT_COUNT_NOT_COMPLEXITY\"]}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "b8efe5bced28fbac16e8786e74db371936955ff1f8d40f63335c440af21db9df",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-a63aa39d25d607242867",
+  "role": "SAFE_COUNTERCASE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:21:30.835273+00:00",
+  "stderr_sha256": "528fbbf798da6e6e2546db6a77cb5a1a8bbdaa9aad7d71caf945492789b76f67",
+  "stderr_tail": "objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"unmet_target_function_count\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"NO_AUGMENTATION\",\"target_linked_reasoning\":\"All 4 declared target functions are strongly covered. The proposed five materials address only ingredient count and prestige, not omission loss, a missing function, or a nonredundant target-linked relation. For a minimal translucent iris whose richness depends on negative space and exact material choice, unsupported additions would increase complexity without demonstrated depth.\",\"controlled_comparison\":\"No discriminating comparison is warranted because the evidence identifies no target-linked deficit or competing nonredundant relation to test.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"unmet_target_function_count\":0},\"decision_state\":\"NO_AUGMENTATION\",\"next_actions\":[],\"reason_codes\":[\"ALL_TARGET_FUNCTIONS_COVERED\",\"NO_OMISSION_LOSS_IDENTIFIED\",\"NO_NONREDUNDANT_RELATION_IDENTIFIED\",\"INGREDIENT_COUNT_NOT_COMPLEXITY\"]}}\ntokens used\n5,097\n",
+  "stdout_sha256": "78b94d009efc4a14b8f40d62d22553443d837c49a2f317a0fc7f2a508ba601be"
+}

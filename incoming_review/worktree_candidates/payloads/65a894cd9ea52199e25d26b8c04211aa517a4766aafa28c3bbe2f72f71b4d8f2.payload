@@ -1,0 +1,44 @@
+{
+  "task_id": "perfume-chem-next-plan-oav-gap-matrix-20260826-v1",
+  "objective": "Perform low-level requirement extraction only. Build a row-by-row matrix of the current time-resolved OAV surfaces versus the Downloads OAV time-dose candidate. Classify each stated capability as PRESENT, PARTIAL, MISSING, or CONFLICT, quote the exact supporting line range, and list the current file named in the digest. Do not design architecture or recommend scientific promotion.",
+  "tier": "PRO",
+  "workspace": "D:/chatbots/perfume-chem",
+  "allowed_paths": ["incoming_review/next-plan-20260826/CURRENT_GAP_MAP.md"],
+  "required_reads": [
+    {"path": "incoming_review/next-plan-20260826/CURRENT_GAP_MAP.md", "unit": "line", "start": 25, "end": 42},
+    {"path": "incoming_review/next-plan-20260826/CURRENT_GAP_MAP.md", "unit": "line", "start": 65, "end": 74}
+  ],
+  "coverage_spec": {"mode": "ALL_REQUIRED_READS", "citations_required_for": ["positive_findings", "negative_findings"]},
+  "forbidden_actions": [
+    "modify local or remote state",
+    "browse or use external sources",
+    "inspect files outside required_reads",
+    "invent interfaces, files, tests, or scientific claims",
+    "choose the final architecture",
+    "grant formula, sensory, hedonic, safety, runtime, or release authority",
+    "use Fast, Luna, Codex, or alternate-provider fallback"
+  ],
+  "commands_tests": [],
+  "definition_of_done": [
+    "Every capability stated in the two required ranges is represented once.",
+    "Every matrix row has PRESENT, PARTIAL, MISSING, or CONFLICT and an exact citation.",
+    "Unknown implementation details remain UNKNOWN."
+  ],
+  "required_output": ["Capability gap matrix", "Duplicate-risk list", "Unknowns requiring local inspection"],
+  "timeout_minutes": 8,
+  "max_output_tokens": 3000,
+  "reuse_cache": true,
+  "require_cache": false,
+  "route_constraints": {
+    "allowed_routes": ["DIRECT_PRO"],
+    "fallback_policy": "NO_LUNA",
+    "maximum_attempts": 1,
+    "maximum_provider_calls": 2,
+    "maximum_estimated_cost_usd": 0.008,
+    "privacy_class": "PROVIDER_ALLOWED",
+    "maximum_input_tokens": 10000,
+    "maximum_cached_input_tokens": 10000,
+    "maximum_output_tokens_total": 6000,
+    "maximum_total_tokens": 16000
+  }
+}

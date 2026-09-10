@@ -1,0 +1,9 @@
+system,metric,value,unit,interpretation
+Old system,Bergamot FCF used in,10.0,of 10 recipes,Universal default
+Old system,Cedrat FCF used in,10.0,of 10 recipes,Universal default
+Old system,Neroli 10% used in,9.0,of 10 recipes,Leaf/blossom function mixed into peel by default
+Old system,Grapefruit FCF used in,8.0,of 10 recipes,Species homogenization
+Old system,Identical citrus material-set pairs,5.0,pairs,Anti-collapse warning
+New system,Species cores,5.0,modules,One dominant identity core selected per perfume
+New system,Adapters,3.0,modules,Added only for a defined handoff
+New system,Highest core Jaccard,0.6666666666666666,,C2/C5 are intentional lemon-lime siblings

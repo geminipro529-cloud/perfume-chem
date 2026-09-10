@@ -1,0 +1,22 @@
+# API Rate Limits Configuration
+#
+# Configure conservative local limits for the OpenAI API.
+# The rate limiter supports multiple time windows and token-based limits.
+
+providers:
+  # OpenAI local budget (not an account entitlement; adjust for your model/tier)
+  openai:
+    requests_per_minute: 500
+    requests_per_day: 10000
+    tokens_per_minute: 30000
+    tokens_per_day: 200000
+    burst_allowance: 0.9
+    min_backoff_seconds: 1.0
+    max_backoff_seconds: 60.0
+
+# Notes:
+# - requests_per_second: Fractional rates use token bucket algorithm
+# - requests_per_minute/hour/day: Use sliding window algorithm
+# - tokens_per_minute/hour/day: Track token usage in sliding windows
+# - burst_allowance scales token bucket capacity (lower = more conservative)
+# - The rate limiter will enforce ALL configured limits

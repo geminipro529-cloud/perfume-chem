@@ -1,0 +1,72 @@
+from __future__ import annotations
+
+import hashlib
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+MANIFEST_PATH = (
+    ROOT / "data" / "governance" / "unified_import_br540_successor_20260904.json"
+)
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _manifest() -> dict[str, object]:
+    return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+
+
+def test_imported_br540_successor_is_bound_to_exact_source_bytes() -> None:
+    manifest = _manifest()
+    file_record = manifest["files"][0]  # type: ignore[index]
+    formula_path = ROOT / file_record["destination_path"]  # type: ignore[index]
+
+    assert formula_path.stat().st_size == file_record["destination_size_bytes"]  # type: ignore[index]
+    assert _sha256(formula_path) == file_record["destination_sha256"]  # type: ignore[index]
+    assert file_record["source_sha256"] == file_record["destination_sha256"]  # type: ignore[index]
+    assert file_record["source_destination_match"] is True  # type: ignore[index]
+    assert manifest["transfer_policy"]["formula_rewritten"] is False  # type: ignore[index]
+    assert manifest["transfer_policy"]["pipeline_run_performed"] is False  # type: ignore[index]
+
+
+def test_predecessor_lineage_is_present_and_byte_bound() -> None:
+    manifest = _manifest()
+    lineage = manifest["lineage"]  # type: ignore[index]
+    predecessor = ROOT / lineage["superseded_predecessor"]  # type: ignore[index]
+
+    assert predecessor.stat().st_size == lineage["predecessor_size_bytes"]  # type: ignore[index]
+    assert _sha256(predecessor) == lineage["predecessor_sha256"]  # type: ignore[index]
+    assert lineage["predecessor_source_destination_match"] is True  # type: ignore[index]
+    assert lineage["source_unique_companion_tests_found"] == 0  # type: ignore[index]
+    assert lineage["source_unique_companion_manifests_found"] == 0  # type: ignore[index]
+
+
+def test_formula_and_manifest_preserve_nonexecution_claim_ceiling() -> None:
+    manifest = _manifest()
+    file_record = manifest["files"][0]  # type: ignore[index]
+    formula = (ROOT / file_record["destination_path"]).read_text(encoding="utf-8")  # type: ignore[index]
+    scientific = manifest["scientific_status"]  # type: ignore[index]
+    authority = manifest["authority"]  # type: ignore[index]
+
+    assert "BLOCKED_INVENTORY_AUTHORITY" in formula
+    assert "NOT SENSORY TESTED" in formula
+    assert "NOT RELEASED" in formula
+    assert "## Release decision\n\n`HOLD`." in formula
+    assert scientific["release_status"] == "HOLD"  # type: ignore[index]
+    assert scientific["current_inventory_build_executable"] is False  # type: ignore[index]
+    assert scientific["fresh_pipeline"] == "NOT_RUN_BY_IMPORT_POLICY"  # type: ignore[index]
+    assert all(value is False for value in authority.values())  # type: ignore[union-attr]
+
+
+def test_current_evernyl_authority_mismatch_is_explicit_and_fail_closed() -> None:
+    manifest = _manifest()
+    inventory = (ROOT / "inventory.txt").read_text(encoding="utf-8")
+    mismatch = manifest["current_inventory_authority"]["formula_stock_mismatch"]  # type: ignore[index]
+
+    assert "Evernyl (20% w/w in DPG)  # SUPERSEDED CURRENT STOCK; PROVENANCE ONLY" in inventory
+    assert "Evernyl (10% w/w in DEP)  # current physically owned working stock" in inventory
+    assert mismatch["formula_declared_stock"] == "20% w/w in DPG"  # type: ignore[index]
+    assert mismatch["current_owned_working_stock"] == "10% w/w in DEP"  # type: ignore[index]
+    assert mismatch["execution_disposition"] == "HOLD_NO_SILENT_REBASE"  # type: ignore[index]

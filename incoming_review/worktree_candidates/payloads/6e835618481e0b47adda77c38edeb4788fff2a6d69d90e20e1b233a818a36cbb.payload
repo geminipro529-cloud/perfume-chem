@@ -1,0 +1,164 @@
+{
+  "schema": "perfume-chem.evidence-ledger.v1",
+  "study_id": "ysl-lhomme-la-nuit-twenty-variant-study",
+  "claim_ceiling": "DOCUMENTARY_AND_COMPUTATIONAL_FORMULATION_HYPOTHESES_ONLY",
+  "target_evidence": [
+    {
+      "evidence_id": "YSL-LH-OFFICIAL-UK",
+      "target": "ysl_lhomme",
+      "source_class": "OFFICIAL_BRAND_PRODUCT_DESCRIPTION",
+      "url": "https://www.yslbeauty.co.uk/fragrances/fragrances-for-him/l-homme/l-homme-eau-de-toilette-spray/284YSL.html",
+      "supports": "Public L'Homme identity vocabulary and architecture, including the fresh citrus-ginger, aromatic-green, and woody-tonka relationship.",
+      "does_not_support": "Exact proprietary materials, exact percentages, or physical similarity."
+    },
+    {
+      "evidence_id": "YSL-LH-LAUNCH-2006",
+      "target": "ysl_lhomme",
+      "source_class": "CONTEMPORANEOUS_LAUNCH_REPORT",
+      "url": "https://be.fashionnetwork.com/news/Yves-saint-laurent-cree-une-nouvelle-fragrance-masculine%2C16123.html",
+      "supports": "Launch-era corroboration for the 2006 reference identity.",
+      "does_not_support": "Dose or complete formula reconstruction."
+    },
+    {
+      "evidence_id": "YSL-LH-IFF-LAUNCH",
+      "target": "ysl_lhomme",
+      "source_class": "INDUSTRY_LAUNCH_REPORT",
+      "url": "https://www.perfumerflavorist.com/home/news/21869747/iff-concocts-lhomme-yves-saint-laurent",
+      "supports": "Industry corroboration for L'Homme launch context and perfumery authorship context.",
+      "does_not_support": "A GC-MS formula or exact commercial composition."
+    },
+    {
+      "evidence_id": "YSL-LN-OFFICIAL-INT",
+      "target": "ysl_la_nuit",
+      "source_class": "OFFICIAL_BRAND_PRODUCT_DESCRIPTION",
+      "url": "https://www.yslbeauty.com/int/fragrance/fragrance-for-him/la-nuit-de-l-homme/la-nuit-de-l-homme-eau-de-toilette/426YSL.html",
+      "supports": "Public La Nuit de L'Homme cardamom-centered aromatic-woody identity vocabulary.",
+      "does_not_support": "Exact proprietary materials, exact percentages, or physical similarity."
+    },
+    {
+      "evidence_id": "YSL-LN-VETIVER-HAITI",
+      "target": "ysl_la_nuit",
+      "source_class": "OFFICIAL_BRAND_INGREDIENT_FEATURE",
+      "url": "https://www.yslbeauty.com/int/vetiver-heart-haiti/ingredients-vetiver.html",
+      "supports": "Vetiver as a documented target-level material/function context.",
+      "does_not_support": "The grade, lot, dose, or full drydown formula."
+    },
+    {
+      "evidence_id": "YSL-LN-LAUNCH-2009",
+      "target": "ysl_la_nuit",
+      "source_class": "CONTEMPORANEOUS_LAUNCH_REPORT",
+      "url": "https://www.vogue.fr/beaute/news-beaute/articles/la-nuit-de-lhomme-dyves-saint-laurent/18496",
+      "supports": "Launch-era corroboration for the 2009 reference identity.",
+      "does_not_support": "Dose or complete formula reconstruction."
+    },
+    {
+      "evidence_id": "IMMORTELLE-GCO-2019",
+      "target": "immortelle_function",
+      "source_class": "PEER_REVIEWED_GC_O_STUDY",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0926669019301001",
+      "supports": "Immortelle as a multidimensional curry, hay, herbal, floral, and fruity odor system rather than generic maple sweetness.",
+      "does_not_support": "Lot-specific headspace, exact dose in LN-05, or liking."
+    },
+    {
+      "evidence_id": "IMMORTELLE-CONCRETE-ABSOLUTE-2023",
+      "target": "immortelle_function",
+      "source_class": "PEER_REVIEWED_CONCRETE_ABSOLUTE_STUDY",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0254629923002843",
+      "supports": "Published constituent/function context for concrete and absolute profiles.",
+      "does_not_support": "The chemotype or measured headspace of the user's material."
+    },
+    {
+      "evidence_id": "APPLE-IMPACT-ODORANTS-2002",
+      "target": "apple_function",
+      "source_class": "PEER_REVIEWED_AROMA_STUDY",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/12108219/",
+      "supports": "Apple identity as an ester and green-fruit relationship with character-impact odorants.",
+      "does_not_support": "An apple note in commercial L'Homme or a preferred formula dose."
+    },
+    {
+      "evidence_id": "APPLE-HEADSPACE-GCO-2005",
+      "target": "apple_function",
+      "source_class": "PEER_REVIEWED_HEADSPACE_GC_O_STUDY",
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/S0023643805000629",
+      "supports": "Function evidence for potent apple odorants used to design a controlled apple module.",
+      "does_not_support": "Measured headspace of LH-04 or a YSL formula claim."
+    }
+  ],
+  "local_evidence": [
+    {
+      "evidence_id": "LOCAL-AUTHORITATIVE-INSTRUCTIONS",
+      "path": "D:\\chatbots\\perfume-chem\\AGENTS.md",
+      "sha256": "A3FF5D3B0165947AD8C96AFF6B16925442E3D7383214D7ADB90D7C1216EDAFB0",
+      "supports": "Current project-level formulation and diagnostic obligations."
+    },
+    {
+      "evidence_id": "LOCAL-COPILOT-INSTRUCTIONS",
+      "path": "D:\\chatbots\\perfume-chem\\.github\\copilot-instructions.md",
+      "sha256": "97640F0EA0FE8B79A073BE13AD84649C12EA548955CAB3D06CF3C5368D841AE9",
+      "supports": "Current formulation process, target-first, inventory, and musk governance."
+    },
+    {
+      "evidence_id": "LOCAL-INVENTORY-SNAPSHOT",
+      "path": "D:\\chatbots\\perfume-chem\\inventory.txt",
+      "sha256": "DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC",
+      "supports": "Frozen physical-stock roster before application of later direct-user events."
+    },
+    {
+      "evidence_id": "LOCAL-FAMILY-REFERENCE",
+      "path": "D:\\chatbots\\perfume-chem\\docs\\fragrance_families_reference.md",
+      "sha256": "467C759EA52412BE0EA8AF7C77F0F14D9FB59DE7B99722FCE57EE2415FBB7401",
+      "supports": "Static family vocabulary and buildability context; live deterministic diagnostics remain authoritative."
+    },
+    {
+      "evidence_id": "SOL-LH-FROZEN",
+      "path": "D:\\chatbots\\perfume-chem\\formulas\\L_Homme_Luxe_30mL_EdP.md",
+      "sha256": "44ABA8B5153D26A8AFA5CD07B20974EAAF66A5D659FEECC13D59EEF6F917E0FD",
+      "supports": "Immutable Sol xhigh comparison baseline on its declared 6000 uL concentrate basis.",
+      "does_not_support": "Matched physical performance or liking."
+    },
+    {
+      "evidence_id": "SOL-LN-FROZEN",
+      "path": "D:\\chatbots\\perfume-chem\\formulas\\La_Nuit_de_LHomme_Luxe_30mL_EDT.md",
+      "sha256": "254A73B6B45420CF89034FC5C2CAABCAACE9A197BE315C31E9958E4A5CFDAEBB",
+      "supports": "Immutable Sol xhigh comparison baseline on its declared 4500 uL concentrate basis.",
+      "does_not_support": "Matched physical performance or liking."
+    }
+  ],
+  "direct_user_stock_evidence": [
+    {
+      "evidence_id": "USR-STOCK-MUSKS-2026-08-26",
+      "event": "Habanolide and Romandolide are owned; Ambrettolide 10% is design-available and procurement-pending.",
+      "authority_limit": "Stock basis is unrecorded for Habanolide and Romandolide; Ambrettolide is not executable current stock."
+    },
+    {
+      "evidence_id": "USR-STOCK-EB-2026-08-26",
+      "event": "EB is here.",
+      "authority_limit": "Possession only; physical dosing still requires label or receipt verification."
+    },
+    {
+      "evidence_id": "USR-STOCK-TINCTURES-2026-08-27",
+      "event": "All tinctures are lost.",
+      "authority_limit": "Every tincture is excluded from current-inventory builds."
+    }
+  ],
+  "provider_audits": [
+    {
+      "audit_id": "DEEPLUNA-TASK1-MANIFEST-INSTRUCTION-AUDIT",
+      "job_id": "DS-6e51b644d4e8ea8c225c252029005e7a",
+      "route": "DIRECT_PRO_NO_LUNA",
+      "status": "FAIL",
+      "execution_status": "INCOMPLETE",
+      "evidence_verdict": "UNRESOLVED",
+      "accepted_findings": [],
+      "handling": "Failed closed. No provider statement is authoritative or used to construct the overlay."
+    }
+  ],
+  "unmeasured_claims": {
+    "physical_liking": "NOT TESTED",
+    "sensory_similarity": "NOT TESTED",
+    "stability": "NOT TESTED",
+    "safety": "NOT CLEARED",
+    "measured_headspace": "NOT TESTED",
+    "release": "NOT CLEARED"
+  }
+}

@@ -1,0 +1,338 @@
+{
+  "schema_version": "complexity_module_registry_v6",
+  "base_registry": {
+    "path": "configs/complexity/complexity_module_registry_v5.json",
+    "sha256": "dcaf2db0de7d8d6ea2ac540ca2ab35d9f71d868e1e2a82b7a4c4155c5637789c"
+  },
+  "admission_evidence": [
+    {
+      "path": "data/governance/cypress_xhigh_screening_receipt_20260831.json",
+      "sha256": "926cb104633ae05850a8e8b7d04d6c05515c3212da1cafea14c03b3a706e167a"
+    },
+    {
+      "path": "data/governance/cypress_xhigh_admission_receipt_20260831.json",
+      "sha256": "a7d7a4a15f0e8173cdd3d8bb6a5460f7660474aeffc0e73f865e6f20027dfc22"
+    }
+  ],
+  "source_bindings": [
+    {
+      "path": "data/governance/depth_module_import_manifest_20260831.json",
+      "sha256": "bdd9e09b662b26dffe8ca1a782a774b4c8152d9545866a6af2294c5d42bf6946"
+    },
+    {
+      "path": "data/governance/depth_module_supporting_artifacts_manifest_20260831.json",
+      "sha256": "b10b1f5c8af4fcf20641e53733e1fad39c81262e0f740d88b95caac90847896d"
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260828.json",
+      "sha256": "9d0f3750e897e13758a1180e158adca464449e9d6dfac176460ba18868a17564"
+    },
+    {
+      "path": "data/governance/inventory_v5_current_stock_snapshot.json",
+      "sha256": "0ff4e2538d975e1cfbfa73fa0eeaf0d371288d28ef8d21078854a8117bbdee5b"
+    },
+    {
+      "path": "data/governance/inventory_worktree_sync_20260831.json",
+      "sha256": "cd6ee89a305bd348009d2533e4be2d2233f8645a342b22d57486524d0334ad02"
+    },
+    {
+      "path": "engine/evidence_contracts.py",
+      "sha256": "65e164b501a730a22ad2cf8bdee82b3f46c376dcc2764ab9efe99d09c50709c1"
+    },
+    {
+      "path": "engine/inventory/authority.py",
+      "sha256": "8aff7d7e951ea2d300a85455e88a678fca3363bf0ec80c5b31937363eed41ae7"
+    },
+    {
+      "path": "engine/inventory_parser.py",
+      "sha256": "19284160a1ce819a90e722bd654f4255dee6d5f2bbf800ef23f688460f98270e"
+    },
+    {
+      "path": "engine/material_capability_atlas.py",
+      "sha256": "269c2d4d82fe14da614f3b7758f00489feace6dea4762828642380f37147a938"
+    },
+    {
+      "path": "engine/perception/architectural_delta.py",
+      "sha256": "9392528676e1856cab096287ab8e1e68ee9d1352b0ed9f2fe4e20b6d36a060bb"
+    },
+    {
+      "path": "engine/perception/architecture_compiler.py",
+      "sha256": "310179d97f9f3fc66d69d7527bd2bd45aeba3a5c57bf14a2fb73513427ab90a7"
+    },
+    {
+      "path": "engine/perception/architecture_contracts.py",
+      "sha256": "5eac2e496d741dac50327d3622ea4893fdb9b8fc46bab151f4dc009d71289594"
+    },
+    {
+      "path": "engine/perception/cypress_harmonic_program.py",
+      "sha256": "65fdbe16d485ba8536d38b009376ccbc7045ec1bf681a4ed0345fb721f94c7a0"
+    },
+    {
+      "path": "engine/perception/cypress_heart_frontier.py",
+      "sha256": "59742beeb485f77ca85046b704188d74a2ef53c0d61b2d8ab19f2294a15cbbe5"
+    },
+    {
+      "path": "engine/perception/cypress_benchmark.py",
+      "sha256": "41fe4c5a43d1afd061d5de62f41731e450edb6680fde5877f596f9bbcfb478f6"
+    },
+    {
+      "path": "engine/perception/depth_contracts.py",
+      "sha256": "1800d31c0a395a857983f496a5e29bd7b27483a7ce4c616eba41d77372557347"
+    },
+    {
+      "path": "engine/perception/depth_evaluation.py",
+      "sha256": "049af2fb2c0df44d1f3e51806a13f753bf7794402047825aead45871ad36a9f2"
+    },
+    {
+      "path": "engine/perception/depth_family_adapters.py",
+      "sha256": "bd1c17fa501aca73c10831034c2065f8abf595a321d2296e78f3bb62745f150f"
+    },
+    {
+      "path": "engine/perception/harmonic_request_router.py",
+      "sha256": "b42b00f851df067b43b8363b7f2dbc991c248b6f832e214d5b76f68c0b21f491"
+    },
+    {
+      "path": "engine/perception/harmonic_runtime_registry.py",
+      "sha256": "fa3583699e725a885712af80a09c657341c975512833cd2db8210ce88634412a"
+    },
+    {
+      "path": "engine/perception/harmonic_synthesis.py",
+      "sha256": "25d6f95d063a774648fd26bfc1711877a3d723201c95df4f7d16c0ac31a83c41"
+    },
+    {
+      "path": "engine/solforge/harmonic_runtime.py",
+      "sha256": "0f33af961da0d7769a185e5bba053a6ec014b79cf2c05774b974677a511e46cb"
+    },
+    {
+      "path": "inventory.txt",
+      "sha256": "eb33c04236a4640413ba5289125f04cfa278bd0614eb9bd12ea1cc4d88379967"
+    }
+  ],
+  "material_data_fingerprint": "9ffb3c58597dbcb5a3859d08a9e7a22a2122be621eadcd4942efb6a19712c1ce",
+  "module_overrides": [
+    {
+      "module_id": "architectural-delta-engine",
+      "state": "ADMITTED_RUNTIME",
+      "import_path": "engine.perception.architectural_delta",
+      "sha256": "9392528676e1856cab096287ab8e1e68ee9d1352b0ed9f2fe4e20b6d36a060bb",
+      "evidence_refs": [
+        "data/governance/cypress_xhigh_screening_receipt_20260831.json",
+        "data/governance/cypress_xhigh_admission_receipt_20260831.json",
+        "tests/test_architectural_delta.py",
+        "tests/test_cypress_xhigh_admission_pack.py"
+      ],
+      "notes": [
+        "V5 remains an immutable nonruntime tombstone; V6 admits these exact bytes only inside the CYP-02 architecture scope that passed the frozen six-case benchmark.",
+        "No formula, physical, sensory, hedonic, safety, stability, purchase, scientific, or release authority is granted."
+      ]
+    },
+    {
+      "module_id": "temporal-sensory-ledger",
+      "state": "EVIDENCE_ONLY_NOT_ADMITTED",
+      "import_path": null,
+      "sha256": "03b5742e8e66dcf1cc27a94b3e5c4484899ee08893b1b34e006d8890805d0f9f",
+      "evidence_refs": [
+        "data/governance/cypress_xhigh_admission_receipt_20260831.json",
+        "tests/test_temporal_sensory_evidence.py",
+        "tests/test_harmonic_request_router.py"
+      ],
+      "notes": [
+        "The full benchmark preserved a correct HOLD decision but exposed Cypress architecture leakage in the evidence-only case; the receipt therefore excludes evidence-only routing.",
+        "The post-benchmark router fix remains a guardrail only until independently admitted."
+      ]
+    },
+    {
+      "module_id": "hedonic-preference-learner",
+      "state": "EVIDENCE_ONLY_NOT_ADMITTED",
+      "import_path": null,
+      "sha256": "dcfb241209665267d3628a88f3029defaec402bc9da80dc823581b2c077b8f60",
+      "evidence_refs": [
+        "data/governance/cypress_xhigh_admission_receipt_20260831.json",
+        "tests/test_preference_davidson.py",
+        "tests/test_preference_validation.py",
+        "tests/test_harmonic_request_router.py"
+      ],
+      "notes": [
+        "Preference evidence remains criterion-scoped, order-audited, and nonruntime under V6 because evidence-only request routing is outside the admitted scope.",
+        "No predicted composition, OAV, model score, or architecture can establish liking."
+      ]
+    }
+  ],
+  "module_additions": [
+    {
+      "module_id": "material-capability-atlas",
+      "family_id": "cypress_harmonic_architecture_v1",
+      "role": "GUARDRAIL",
+      "state": "ADMITTED_RUNTIME",
+      "path": "engine/material_capability_atlas.py",
+      "import_path": "engine.material_capability_atlas",
+      "sha256": "269c2d4d82fe14da614f3b7758f00489feace6dea4762828642380f37147a938",
+      "evidence_refs": [
+        "data/governance/inventory_worktree_sync_20260831.json",
+        "tests/test_material_capability_atlas.py",
+        "data/governance/cypress_xhigh_admission_receipt_20260831.json"
+      ],
+      "notes": [
+        "Reparses every current inventory row and preserves quantitative HOLD states; it never turns ownership into target fit or beauty."
+      ]
+    },
+    {
+      "module_id": "cypress-heart-frontier",
+      "family_id": "cypress_harmonic_architecture_v1",
+      "role": "CAPABILITY",
+      "state": "ADMITTED_RUNTIME",
+      "path": "engine/perception/cypress_heart_frontier.py",
+      "import_path": "engine.perception.cypress_heart_frontier",
+      "sha256": "59742beeb485f77ca85046b704188d74a2ef53c0d61b2d8ab19f2294a15cbbe5",
+      "evidence_refs": [
+        "tests/test_cypress_heart_frontier.py",
+        "data/governance/cypress_xhigh_admission_receipt_20260831.json"
+      ],
+      "notes": [
+        "Selects the Cypress-native Magnolia plus Orris relational heart for the exact CYP-02 brief and preserves equal-frontier HOLD behavior."
+      ]
+    },
+    {
+      "module_id": "family-depth",
+      "family_id": "cypress_harmonic_architecture_v1",
+      "role": "CAPABILITY",
+      "state": "ADMITTED_RUNTIME",
+      "path": "engine/perception/depth_evaluation.py",
+      "import_path": "engine.perception.depth_evaluation",
+      "sha256": "049af2fb2c0df44d1f3e51806a13f753bf7794402047825aead45871ad36a9f2",
+      "evidence_refs": [
+        "data/governance/depth_module_import_manifest_20260831.json",
+        "data/governance/depth_module_supporting_artifacts_manifest_20260831.json",
+        "tests/test_depth_architecture.py",
+        "data/governance/cypress_xhigh_admission_receipt_20260831.json"
+      ],
+      "notes": [
+        "Depth is target-linked relational anatomy, contrast, transition, texture, and temporal development; ingredient count is never a proxy."
+      ]
+    },
+    {
+      "module_id": "architecture-compiler",
+      "family_id": "cypress_harmonic_architecture_v1",
+      "role": "CAPABILITY",
+      "state": "ADMITTED_RUNTIME",
+      "path": "engine/perception/architecture_compiler.py",
+      "import_path": "engine.perception.architecture_compiler",
+      "sha256": "310179d97f9f3fc66d69d7527bd2bd45aeba3a5c57bf14a2fb73513427ab90a7",
+      "evidence_refs": [
+        "tests/test_architecture_strategy_compiler.py",
+        "tests/test_cypress_harmonic_program.py",
+        "data/governance/cypress_xhigh_admission_receipt_20260831.json"
+      ],
+      "notes": [
+        "Compiles explicit target functions, layers, interfaces, transitions, omission losses, and controlled comparisons without formula mutation authority."
+      ]
+    },
+    {
+      "module_id": "harmonic-synthesis",
+      "family_id": "cypress_harmonic_architecture_v1",
+      "role": "CAPABILITY",
+      "state": "ADMITTED_RUNTIME",
+      "path": "engine/perception/harmonic_synthesis.py",
+      "import_path": "engine.perception.harmonic_synthesis",
+      "sha256": "25d6f95d063a774648fd26bfc1711877a3d723201c95df4f7d16c0ac31a83c41",
+      "evidence_refs": [
+        "tests/test_harmonic_synthesis.py",
+        "tests/test_harmonic_module_adapters.py",
+        "data/governance/cypress_xhigh_admission_receipt_20260831.json"
+      ],
+      "notes": [
+        "Reconciles exact-domain assertions and blockers through target-linked relations rather than votes, scalar beauty scores, or majority logic."
+      ]
+    },
+    {
+      "module_id": "cypress-harmonic-program",
+      "family_id": "cypress_harmonic_architecture_v1",
+      "role": "CAPABILITY",
+      "state": "ADMITTED_RUNTIME",
+      "path": "engine/perception/cypress_harmonic_program.py",
+      "import_path": "engine.perception.cypress_harmonic_program",
+      "sha256": "65fdbe16d485ba8536d38b009376ccbc7045ec1bf681a4ed0345fb721f94c7a0",
+      "evidence_refs": [
+        "tests/test_cypress_harmonic_program.py",
+        "data/governance/cypress_xhigh_admission_receipt_20260831.json"
+      ],
+      "notes": [
+        "Runs the exact CYP-02 computational architecture while withholding all unobserved sensory and hedonic claims."
+      ]
+    },
+    {
+      "module_id": "harmonic-request-router",
+      "family_id": "cypress_harmonic_architecture_v1",
+      "role": "GUARDRAIL",
+      "state": "MANDATORY_GUARDRAIL",
+      "path": "engine/perception/harmonic_request_router.py",
+      "import_path": "engine.perception.harmonic_request_router",
+      "sha256": "b42b00f851df067b43b8363b7f2dbc991c248b6f832e214d5b76f68c0b21f491",
+      "evidence_refs": [
+        "tests/test_harmonic_request_router.py",
+        "data/governance/cypress_xhigh_admission_receipt_20260831.json"
+      ],
+      "notes": [
+        "The repaired router is a fail-closed runtime guardrail, not an admitted evidence capability; V6 rejects evidence-only and mixed execution."
+      ]
+    },
+    {
+      "module_id": "floral-depth-library",
+      "family_id": "preserved_depth_research_v1",
+      "role": "EVIDENCE",
+      "state": "RESEARCH_ONLY",
+      "path": "engine/perception/floral_depth.py",
+      "import_path": null,
+      "sha256": "e91d8023a8b6a5731c3a8be141c73c976c58ccc8b4244cd54486a774f4e69dd6",
+      "evidence_refs": [
+        "data/governance/depth_module_import_manifest_20260831.json",
+        "tests/test_floral_depth.py"
+      ],
+      "notes": [
+        "Preserved intact as a detailed research library; it is not independently runtime-admitted by the CYP-02 benchmark."
+      ]
+    },
+    {
+      "module_id": "depth-comparison-library",
+      "family_id": "preserved_depth_research_v1",
+      "role": "EVIDENCE",
+      "state": "RESEARCH_ONLY",
+      "path": "engine/perception/depth_comparison.py",
+      "import_path": null,
+      "sha256": "94514b8d33f2fb14b4386358736d3e88a2f73380419b6e68dd8f3f7b20d4c277",
+      "evidence_refs": [
+        "data/governance/depth_module_import_manifest_20260831.json",
+        "tests/test_depth_architecture.py"
+      ],
+      "notes": [
+        "Preserved intact for controlled comparative study and provenance; not exposed as an admitted runtime capability."
+      ]
+    }
+  ],
+  "runtime_entrypoint": {
+    "path": "engine/solforge/harmonic_runtime.py",
+    "sha256": "0f33af961da0d7769a185e5bba053a6ec014b79cf2c05774b974677a511e46cb",
+    "import_path": "engine.solforge.harmonic_runtime",
+    "callable": "run_admitted_cypress_harmonic"
+  },
+  "admitted_scope": {
+    "cypress_target_architecture": true,
+    "target_variant_rebuild": true,
+    "inventory_and_authority_guarding": true,
+    "experiment_design": true,
+    "evidence_only_request_routing": false
+  },
+  "authority_flags": {
+    "compounding": false,
+    "formula": false,
+    "hedonic": false,
+    "physical_execution": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "scientific": false,
+    "sensory": false,
+    "similarity": false,
+    "stability": false
+  }
+}

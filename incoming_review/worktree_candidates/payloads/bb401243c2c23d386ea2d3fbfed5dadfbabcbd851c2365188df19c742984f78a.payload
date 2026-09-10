@@ -1,0 +1,113 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "complex-perfumery-pcv3-chat2-experimental-data-model-20260815",
+  "recorded_at": "2026-08-15T19:50:54+07:00",
+  "package": {
+    "file_name": "PCV3_CHAT2_EXPERIMENTAL_DATA_MODEL_v1.zip",
+    "locator": "incoming_review/chatgpt/20260815T130500+0700-pcv3-chat2-experimental-data-recovery-6a74ba3d-ndb638ab8/PCV3_CHAT2_EXPERIMENTAL_DATA_MODEL_v1.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 32196,
+    "sha256": "db638ab82c7e1a798297a9f4376014b9f51965511ae1d65132e57b4d12c9c9eb",
+    "media_type": "application/zip",
+    "archive_entry_count": 12,
+    "archive_file_count": 12,
+    "declared_payload_count": 11,
+    "package_root": null,
+    "embedded_integrity_records": [
+      {
+        "path": "SHA256SUMS.json",
+        "byte_size": 1590,
+        "sha256": "fab71d675a92e589b3b55265aaed717b2930a812c5bc6b034b1b11882e95d051",
+        "role": "CHECKSUM_LEDGER"
+      },
+      {
+        "path": "PCV3_EXPERIMENT_DATA_WORKER_MANIFEST.json",
+        "byte_size": 5867,
+        "sha256": "13469a06cb1303834b889cc4ee2d7e7ffe2929b791e3e65368f4f91c0be2daae",
+        "role": "MANIFEST"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a74ba3d-4110-83ec-a421-ddc02fcd224f:pcv3-experimental-data-model-v1",
+    "conversation_id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+    "turn_id": "7273f592-a2c1-4cbe-9931-1c4e50a6fe57",
+    "message_id": "79f21bbf-35f5-4580-9f9a-d41f7f88e90b",
+    "lineage_resolution": "EXACT_CONVERSATION_TURN_RESPONSE_CONTENT_REFERENCE_AND_DOWNLOADED_BYTES_CAPTURED",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "Exact possession and hash verification do not establish reuse, redistribution, publication, schema installation, or canonical import permission.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Retain the package in quarantine. It is specification and migration ancestry only until source use and field-level admission are governed."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "PACKAGE_CANONICAL_MODEL_NOT_ACCEPTED",
+      "PARALLEL_DATABASE_OR_TRUTH_STORE_FORBIDDEN",
+      "NATIVE_LABORATORY_BETA_C0_B5_AND_EXTERNAL_STUDY_CONTRACTS_CONTROL",
+      "PHYSICAL_SENSORY_ANALYTICAL_STRICT_OAV_SAFETY_AND_RELEASE_EVIDENCE_ABSENT"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [],
+  "evidence_summary": {
+    "classification": "PCV3_CHAT2_EXPERIMENTAL_DATA_MODEL_EXACT_BYTES_QUARANTINED_SPECIFICATION_ANCESTRY_ONLY",
+    "worker_state": "COMPLETE_WITH_HOLDS",
+    "sensory_observation_template_data_rows": 0,
+    "physical_batch_template_data_rows": 0,
+    "coded_sample_template_data_rows": 0,
+    "migration_map_data_rows": 30,
+    "validation_scope": "SCHEMA_PARSE_AND_SYNTHETIC_MINIMAL_SMOKE_TESTS_ONLY",
+    "content_reference_index": 4,
+    "validation_report": {
+      "path": "VALIDATION_REPORT.json",
+      "byte_size": 2362,
+      "sha256": "dbcb63d42a35ba6cc20b10a45999ee48d9c9af26ffce478b8fc55fe104236495"
+    },
+    "reference_schema_member": {
+      "path": "experimental_data_model.schema.json",
+      "byte_size": 110593,
+      "sha256": "ea8b84e03297bacf1d253c6a9d5d1467a103c9c9f6271693ed7c50fcbe5a8710",
+      "registry_role": "REFERENCE_ONLY_NEVER_CURRENT_CANONICAL"
+    },
+    "capture_graph_binding": {
+      "capture_manifest_path": "incoming_review/chatgpt/20260815T130500+0700-pcv3-chat2-experimental-data-recovery-6a74ba3d-ndb638ab8/capture_manifest.json",
+      "capture_manifest_byte_size": 3162,
+      "capture_manifest_sha256": "ca1d943eabd241d0ad8f62ee70fa66d721a35768390af35abfa44c5291562f9f",
+      "root_package_sha256": "db638ab82c7e1a798297a9f4376014b9f51965511ae1d65132e57b4d12c9c9eb",
+      "single_status": "CLEAR_FOR_RECEIPT_REVIEW",
+      "graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+      "node_count": 1,
+      "edge_count": 0,
+      "max_depth": 0,
+      "all_nodes_terminal": true,
+      "graph_findings": [],
+      "promotion_allowed": false
+    },
+    "native_handling": "REFERENCE_SCHEMA_AND_MIGRATION_ANCESTRY_ONLY_NO_NEW_SCHEMA_MIGRATION_STORE_OR_PIPELINE",
+    "optional_registry_fit": "EXACT_SCHEMA_MEMBER_MAY_BE_REFERENCED_IMMUTABLY_AS_REFERENCE_ONLY_NEVER_CURRENT_CANONICAL"
+  },
+  "receipt_sha256": "13f7edf5f1ae240d0a8eba2ee8f652f71436e7e5346d97a6334216535b051c72"
+}

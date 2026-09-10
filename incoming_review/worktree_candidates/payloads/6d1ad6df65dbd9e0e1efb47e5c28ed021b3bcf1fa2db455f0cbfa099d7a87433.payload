@@ -1,0 +1,4461 @@
+{
+  "parent_reproductions": {
+    "yaml_total": 1270,
+    "yaml_inventory_flagged": 284,
+    "numeric_issues": [
+      {
+        "file": "data\\materials\\L.yaml",
+        "name": "Labdanum",
+        "field": "vp_25c_pa",
+        "value": "1e-05",
+        "type": "str",
+        "inventory_flag": true
+      },
+      {
+        "file": "data\\materials\\L.yaml",
+        "name": "labdanum resinoid",
+        "field": "vp_25c_pa",
+        "value": "1e-05",
+        "type": "str",
+        "inventory_flag": true
+      },
+      {
+        "file": "data\\materials\\L.yaml",
+        "name": "labdanum resinoid (10% in dpg)",
+        "field": "vp_25c_pa",
+        "value": "1e-05",
+        "type": "str",
+        "inventory_flag": true
+      },
+      {
+        "file": "data\\materials\\L.yaml",
+        "name": "Labdanum Absolute",
+        "field": "vp_25c_pa",
+        "value": "1e-05",
+        "type": "str",
+        "inventory_flag": false
+      },
+      {
+        "file": "data\\materials\\T.yaml",
+        "name": "tuberose absolute",
+        "field": "ifra_max_pct_edp",
+        "value": {
+          "user_stock_dilution": 0.1,
+          "user_in_inventory": true,
+          "supplier": {
+            "perfumersworld_sku": null,
+            "perfumersworld_price_usd_per_g": null,
+            "perfumersworld_form": "neat",
+            "perfumersworld_snapshot_date": null,
+            "other": {}
+          },
+          "families": [
+            "floral",
+            "natural"
+          ],
+          "character": null,
+          "notes": null,
+          "provenance": {
+            "mw_g_mol": "pubchem (estimated)",
+            "vp_25c_pa": "estimated",
+            "odt_air_ppb": "estimated",
+            "odt_eth_ppm": "estimated",
+            "user_in_inventory": "inventory.txt"
+          }
+        },
+        "type": "dict",
+        "inventory_flag": null
+      }
+    ],
+    "cas_issues": [
+      {
+        "file": "data\\materials\\B.yaml",
+        "name": "Vietnamese Benzoin Styrax Tonkinensis Tincture 20%",
+        "cas": "None",
+        "problem": "syntax_or_null_string"
+      },
+      {
+        "file": "data\\materials\\H.yaml",
+        "name": "Helichrysum EO",
+        "cas": "None",
+        "problem": "syntax_or_null_string"
+      },
+      {
+        "file": "data\\materials\\O.yaml",
+        "name": "Osmanthus Absolute (volume grade)",
+        "cas": "92347-17-4",
+        "problem": "checksum"
+      },
+      {
+        "file": "data\\materials\\S.yaml",
+        "name": "Sandalwood Base 3X",
+        "cas": "None",
+        "problem": "syntax_or_null_string"
+      },
+      {
+        "file": "data\\materials\\T.yaml",
+        "name": "Tuberlia Base",
+        "cas": "None",
+        "problem": "syntax_or_null_string"
+      },
+      {
+        "file": "data\\materials\\T.yaml",
+        "name": "Turkish Storax Tincture 20%",
+        "cas": "None",
+        "problem": "syntax_or_null_string"
+      },
+      {
+        "file": "data\\materials\\T.yaml",
+        "name": "Tuberose EO (volume level grade)",
+        "cas": "None",
+        "problem": "syntax_or_null_string"
+      }
+    ],
+    "stock_count": 227,
+    "requirements_count": 280,
+    "stock_unique_identities": 204,
+    "stock_ready": 157,
+    "requirement_dispositions": {
+      "OWNED": 197,
+      "PREPARATION_REQUIRED": 25,
+      "GAP": 37,
+      "UNRESOLVED": 21
+    },
+    "selected_stocks": [
+      {
+        "name": "Bacdanol",
+        "dilution": 1,
+        "category": "woods_amber",
+        "raw_name": "neat / as supplied",
+        "status": "owned",
+        "fraction_basis": "neat",
+        "carrier": "",
+        "approximate": false,
+        "identity_name": "Bacdanol",
+        "stock_id": "inventory:user-20260901:331a8959cf8ecec77e13",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260906",
+        "source_rows": [],
+        "source_ref": "data/governance/inventory_user_authority_overlay_20260904.json#INV-USER-20260901-001",
+        "execution_ready": true,
+        "execution_hold_reason": "",
+        "requirement_state": ""
+      },
+      {
+        "name": "Benzyl Salicylate",
+        "dilution": 1,
+        "category": "air_floral",
+        "raw_name": "neat / as supplied",
+        "status": "owned",
+        "fraction_basis": "neat",
+        "carrier": "",
+        "approximate": false,
+        "identity_name": "Benzyl Salicylate",
+        "stock_id": "inventory:user-20260901:7543f1c84f4d44beef70",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260906",
+        "source_rows": [
+          41
+        ],
+        "source_ref": "data/governance/inventory_user_authority_overlay_20260904.json#INV-USER-20260901-003",
+        "execution_ready": true,
+        "execution_hold_reason": "",
+        "requirement_state": ""
+      },
+      {
+        "name": "Coumarin 20%",
+        "dilution": 0.2,
+        "category": "sweet_balsamic",
+        "raw_name": "20% in DPG [0.2]",
+        "status": "owned",
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "approximate": false,
+        "identity_name": "Coumarin",
+        "stock_id": "inventory:v5:02062eb1184db01d3ed6",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          85
+        ],
+        "source_ref": "Current Inventory Master!A85:N85",
+        "execution_ready": true,
+        "execution_hold_reason": "",
+        "requirement_state": ""
+      },
+      {
+        "name": "Evernyl 20%",
+        "dilution": 0.2,
+        "category": "resin / incense",
+        "raw_name": "Evernyl nominal 20% in DPG [0.2]",
+        "status": "owned",
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "approximate": false,
+        "identity_name": "Evernyl",
+        "stock_id": "inventory:v5:c3211c3fd453a203d2c0",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          105
+        ],
+        "source_ref": "Current Inventory Master!A105:N105",
+        "execution_ready": false,
+        "execution_hold_reason": "",
+        "requirement_state": ""
+      },
+      {
+        "name": "Guaiacol 10%",
+        "dilution": 1,
+        "category": "leather",
+        "raw_name": "Guaiacol neat/as supplied",
+        "status": "owned",
+        "fraction_basis": "neat",
+        "carrier": "",
+        "approximate": false,
+        "identity_name": "Guaiacol",
+        "stock_id": "inventory:v5:628824df8d17bc68d6f0",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          124
+        ],
+        "source_ref": "Current Inventory Master!A124:N124",
+        "execution_ready": true,
+        "execution_hold_reason": "",
+        "requirement_state": ""
+      },
+      {
+        "name": "Guaiacol 10%",
+        "dilution": 0.1,
+        "category": "leather",
+        "raw_name": "Guaiacol 10% working stock [0.1]",
+        "status": "owned",
+        "fraction_basis": "unspecified",
+        "carrier": "",
+        "approximate": false,
+        "identity_name": "Guaiacol",
+        "stock_id": "inventory:v5:836ece31a5c9cab75f10",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          124
+        ],
+        "source_ref": "Current Inventory Master!A124:N124",
+        "execution_ready": false,
+        "execution_hold_reason": "",
+        "requirement_state": ""
+      },
+      {
+        "name": "Guaiacwood EO",
+        "dilution": 0.3333333333333333,
+        "category": "woods_amber",
+        "raw_name": "33.3333% in ETHANOL + DEP",
+        "status": "owned",
+        "fraction_basis": "mass_fraction",
+        "carrier": "ethanol + dep",
+        "approximate": false,
+        "identity_name": "Guaiacwood EO",
+        "stock_id": "inventory:user-20260901:f68cc41e59396c05afa5",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260906",
+        "source_rows": [
+          125
+        ],
+        "source_ref": "data/governance/inventory_user_authority_overlay_20260904.json#INV-USER-20260901-002",
+        "execution_ready": true,
+        "execution_hold_reason": "",
+        "requirement_state": ""
+      },
+      {
+        "name": "Hydroxycitronellal",
+        "dilution": 1,
+        "category": "air_floral",
+        "raw_name": "neat / as supplied",
+        "status": "owned",
+        "fraction_basis": "neat",
+        "carrier": "",
+        "approximate": false,
+        "identity_name": "Hydroxycitronellal",
+        "stock_id": "inventory:v5:ba63a0db28471774d240",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          135
+        ],
+        "source_ref": "Current Inventory Master!A135:N135",
+        "execution_ready": true,
+        "execution_hold_reason": "",
+        "requirement_state": ""
+      },
+      {
+        "name": "Musk Ketone 10%",
+        "dilution": 0.1,
+        "category": "musk",
+        "raw_name": "10% in DPG [0.1]",
+        "status": "owned",
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "approximate": false,
+        "identity_name": "Musk Ketone",
+        "stock_id": "inventory:v5:f62aa0372e3a1e3d6bf7",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          176
+        ],
+        "source_ref": "Current Inventory Master!A176:N176",
+        "execution_ready": true,
+        "execution_hold_reason": "",
+        "requirement_state": ""
+      },
+      {
+        "name": "Nagamortha Oil",
+        "dilution": 1,
+        "category": "woody / cypriol",
+        "raw_name": "neat/as supplied",
+        "status": "owned",
+        "fraction_basis": "neat",
+        "carrier": "",
+        "approximate": false,
+        "identity_name": "Nagamortha Oil",
+        "stock_id": "inventory:v5:93541e423863b095dd06",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          178
+        ],
+        "source_ref": "Current Inventory Master!A178:N178",
+        "execution_ready": true,
+        "execution_hold_reason": "",
+        "requirement_state": ""
+      },
+      {
+        "name": "Neroli EO",
+        "dilution": 1,
+        "category": "air_floral",
+        "raw_name": "neat / as supplied",
+        "status": "owned",
+        "fraction_basis": "neat",
+        "carrier": "",
+        "approximate": false,
+        "identity_name": "Neroli EO",
+        "stock_id": "inventory:user-20260906:209cd29942aa0e7abf37",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260906",
+        "source_rows": [
+          180
+        ],
+        "source_ref": "data/governance/inventory_user_authority_overlay_20260906.json#INV-USER-20260906-001",
+        "execution_ready": true,
+        "execution_hold_reason": "",
+        "requirement_state": ""
+      },
+      {
+        "name": "Nerolidol",
+        "dilution": 1,
+        "category": "floral / woody",
+        "raw_name": "Nerolidol neat/as supplied",
+        "status": "owned",
+        "fraction_basis": "neat",
+        "carrier": "",
+        "approximate": false,
+        "identity_name": "Nerolidol",
+        "stock_id": "inventory:v5:26a68ef5e1c2ebd41ece",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          181
+        ],
+        "source_ref": "Current Inventory Master!A181:N181",
+        "execution_ready": true,
+        "execution_hold_reason": "",
+        "requirement_state": ""
+      },
+      {
+        "name": "Polysantol",
+        "dilution": 1,
+        "category": "woods_amber",
+        "raw_name": "neat / as supplied",
+        "status": "owned",
+        "fraction_basis": "neat",
+        "carrier": "",
+        "approximate": false,
+        "identity_name": "Polysantol",
+        "stock_id": "inventory:v5:831962142b8ff620f388",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          208
+        ],
+        "source_ref": "Current Inventory Master!A208:N208",
+        "execution_ready": true,
+        "execution_hold_reason": "",
+        "requirement_state": ""
+      },
+      {
+        "name": "Siam Benzoin 50%",
+        "dilution": 0.5,
+        "category": "sweet_balsamic",
+        "raw_name": "Siam Benzoin 50% plus Vietnamese Benzoin 20% ethanol tincture [0.5]",
+        "status": "owned",
+        "fraction_basis": "unspecified",
+        "carrier": "ethanol",
+        "approximate": false,
+        "identity_name": "Siam Benzoin",
+        "stock_id": "inventory:v5:36d44ddb57082aaadd2f",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          222
+        ],
+        "source_ref": "Current Inventory Master!A222:N222",
+        "execution_ready": false,
+        "execution_hold_reason": "",
+        "requirement_state": ""
+      },
+      {
+        "name": "Tonalide 10%",
+        "dilution": 0.1,
+        "category": "musk",
+        "raw_name": "10% in DPG [0.1]",
+        "status": "owned",
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "approximate": false,
+        "identity_name": "Tonalide",
+        "stock_id": "inventory:v5:d9db0c944ccf3442b223",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          231
+        ],
+        "source_ref": "Current Inventory Master!A231:N231",
+        "execution_ready": true,
+        "execution_hold_reason": "",
+        "requirement_state": ""
+      }
+    ],
+    "odt_entries": 339,
+    "verification_entries": 300,
+    "literal_duplicates": [],
+    "verification_normalized_collisions": {
+      "cedarwood virginia": [
+        "cedarwood oil virginia",
+        "cedarwood virginia"
+      ],
+      "bergamot fcf sicilian": [
+        "bergamot fcf oil sicilian",
+        "bergamot fcf sicilian"
+      ],
+      "cedramber": [
+        "cedamber",
+        "cedramber"
+      ],
+      "limonene": [
+        "d-limonene",
+        "limonene"
+      ],
+      "heliotropal": [
+        "heliotropal",
+        "heliotropin",
+        "piperonal"
+      ]
+    },
+    "zero_thresholds": [
+      {
+        "name": "amber core",
+        "field": "odt_air",
+        "value": 0
+      },
+      {
+        "name": "amber core",
+        "field": "odt_eth",
+        "value": 0
+      },
+      {
+        "name": "amber core accord",
+        "field": "odt_air",
+        "value": 0
+      },
+      {
+        "name": "amber core accord",
+        "field": "odt_eth",
+        "value": 0
+      },
+      {
+        "name": "heliotropin fleuressence",
+        "field": "odt_air",
+        "value": 0
+      },
+      {
+        "name": "heliotropin fleuressence",
+        "field": "odt_eth",
+        "value": 0
+      },
+      {
+        "name": "costus olifac",
+        "field": "odt_eth",
+        "value": 0
+      },
+      {
+        "name": "tobacco ftec",
+        "field": "odt_eth",
+        "value": 0
+      },
+      {
+        "name": "tobacco fleuressence",
+        "field": "odt_eth",
+        "value": 0
+      }
+    ],
+    "geranium_runtime_errors": {
+      "flag_unverified": "KeyError('vfy')",
+      "oav_reliability": "KeyError('vfy')"
+    },
+    "odt_source_examples": {
+      "bht": [
+        100,
+        "literature:odor_thresholds.odt_air"
+      ],
+      "ginger eo": [
+        0.005,
+        "literature:odor_thresholds.odt_air"
+      ],
+      "linalool": [
+        0.0015,
+        "literature:peer_reviewed.odt_air"
+      ]
+    },
+    "lilyreal_opaque": false,
+    "guaiacwood_registry_missing": true
+  },
+  "focused_tests": {
+    "command": ".venv/Scripts/python.exe -B -m pytest tests/test_data_spine_loader.py tests/test_inventory_stock_model.py tests/test_inventory_material_additions.py tests/test_inventory_identity_reconciliation.py tests/test_inventory_neroli_stock_2026_09_06.py -q --tb=short -p no:cacheprovider",
+    "exit_code": 1,
+    "output": ".........................FF.....F.F..................................... [ 58%]\r\n...F...............................................                      [100%]\r\n================================== FAILURES ===================================\r\n_ test_july_2026_additions_resolve_across_runtime_data_paths[Black Agarwood Artificial-Black Agarwood Artificial-1.0-False] _\r\ntests\\test_inventory_material_additions.py:65: in test_july_2026_additions_resolve_across_runtime_data_paths\r\n    assert inventory_record.dilution == pytest.approx(expected_dilution)\r\nE   assert 0.1 == 1.0 \\xb1 1.0e-06\r\nE     \r\nE     comparison failed\r\nE     Obtained: 0.1\r\nE     Expected: 1.0 \\xb1 1.0e-06\r\n_ test_july_2026_additions_resolve_across_runtime_data_paths[Castoreum Synthetic-Castoreum Synthetic-1.0-False] _\r\ntests\\test_inventory_material_additions.py:65: in test_july_2026_additions_resolve_across_runtime_data_paths\r\n    assert inventory_record.dilution == pytest.approx(expected_dilution)\r\nE   assert 0.1 == 1.0 \\xb1 1.0e-06\r\nE     \r\nE     comparison failed\r\nE     Obtained: 0.1\r\nE     Expected: 1.0 \\xb1 1.0e-06\r\n___________ test_requested_stock_is_available_at_recorded_dilutions ___________\r\ntests\\test_inventory_material_additions.py:140: in test_requested_stock_is_available_at_recorded_dilutions\r\n    assert available[\"Alpha Irone\"].dilution == pytest.approx(0.30)\r\nE   assert 0.1 == 0.3 \\xb1 3.0e-07\r\nE     \r\nE     comparison failed\r\nE     Obtained: 0.1\r\nE     Expected: 0.3 \\xb1 3.0e-07\r\n_________________ test_requested_materials_have_runtime_data __________________\r\ntests\\test_inventory_material_additions.py:186: in test_requested_materials_have_runtime_data\r\n    assert orris_liquid.user_stock_dilution.startswith(\"30%\")\r\nE   AssertionError: assert False\r\nE    +  where False = <built-in method startswith of str object at 0x0000010C42C0CA30>('30%')\r\nE    +    where <built-in method startswith of str object at 0x0000010C42C0CA30> = '9% w/w in DEP'.startswith\r\nE    +      where '9% w/w in DEP' = Material(canonical_name='Orris Liquid', aliases=['Orris Liquid (30%)', 'Orris Liquid (9% w/w in DEP)', 'Orris Liquid �...905.json#INV-USER-20260905-001', 'supplier.perfumersworld': 'https://www.perfumersworld.com/view.php?pro_id=8IQ24653'}).user_stock_dilution\r\n_________ test_resolved_inventory_labels_are_exact_data_spine_aliases _________\r\ntests\\test_inventory_identity_reconciliation.py:102: in test_resolved_inventory_labels_are_exact_data_spine_aliases\r\n    assert material is not None\r\nE   assert None is not None\r\n============================== warnings summary ===============================\r\n.venv\\Lib\\site-packages\\pytest_asyncio\\plugin.py:155: 2847 warnings\r\n  D:\\chatbots\\perfume-chem\\.venv\\Lib\\site-packages\\pytest_asyncio\\plugin.py:155: DeprecationWarning: 'asyncio.iscoroutinefunction' is deprecated and slated for removal in Python 3.16; use inspect.iscoroutinefunction() instead\r\n    return asyncio.iscoroutinefunction(obj)\r\n\r\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\r\n=========================== short test summary info ===========================\r\nFAILED tests/test_inventory_material_additions.py::test_july_2026_additions_resolve_across_runtime_data_paths[Black Agarwood Artificial-Black Agarwood Artificial-1.0-False]\r\nFAILED tests/test_inventory_material_additions.py::test_july_2026_additions_resolve_across_runtime_data_paths[Castoreum Synthetic-Castoreum Synthetic-1.0-False]\r\nFAILED tests/test_inventory_material_additions.py::test_requested_stock_is_available_at_recorded_dilutions\r\nFAILED tests/test_inventory_material_additions.py::test_requested_materials_have_runtime_data\r\nFAILED tests/test_inventory_identity_reconciliation.py::test_resolved_inventory_labels_are_exact_data_spine_aliases\r\n5 failed, 118 passed, 2847 warnings in 6.36s\r\n"
+  },
+  "external_comparison": {
+    "row_results": [
+      {
+        "line": 9,
+        "name": "Ethanol 96%",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "ETHANOL 96%",
+            "local_cas": "64-17-5",
+            "local_cid": 702,
+            "local_mw": 46.07,
+            "query_cid": 702,
+            "query_mw": "46.07",
+            "query_formula": "C2H6O",
+            "query_name": "ethanol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/64-17-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 10,
+        "name": "Dipropylene Glycol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "DIPROPYLENE GLYCOL",
+            "local_cas": "25265-71-8",
+            "local_cid": 134692469,
+            "local_mw": 268.35,
+            "query_cid": 134692469,
+            "query_mw": "268.35",
+            "query_formula": "C12H28O6",
+            "query_name": "2-(1-hydroxypropan-2-yloxy)propan-1-ol;1-(2-hydroxypropoxy)propan-2-ol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/25265-71-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 11,
+        "name": "Isopropyl Myristate",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "ISOPROPYL MYRISTATE",
+            "local_cas": "110-27-0",
+            "local_cid": 8042,
+            "local_mw": 270.46,
+            "query_cid": 8042,
+            "query_mw": "270.5",
+            "query_formula": "C17H34O2",
+            "query_name": "propan-2-yl tetradecanoate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/110-27-0/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 12,
+        "name": "Triethyl Citrate",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "TRIETHYL CITRATE",
+            "local_cas": "77-93-0",
+            "local_cid": 6506,
+            "local_mw": 276.29,
+            "query_cid": 6506,
+            "query_mw": "276.28",
+            "query_formula": "C12H20O7",
+            "query_name": "triethyl 2-hydroxypropane-1,2,3-tricarboxylate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/77-93-0/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 13,
+        "name": "Diethyl Phthalate",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "DEP",
+            "local_cas": "84-66-2",
+            "local_cid": 6781,
+            "local_mw": 222.24,
+            "query_cid": 6781,
+            "query_mw": "222.24",
+            "query_formula": "C12H14O4",
+            "query_name": "diethyl benzene-1,2-dicarboxylate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/84-66-2/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 14,
+        "name": "Myristic Acid Powder",
+        "cas_query_results": [
+          {
+            "source": "yaml",
+            "name": "Myristic Acid",
+            "local_cas": "544-63-8",
+            "local_mw": 228.38,
+            "query_cid": 11005,
+            "query_mw": "228.37",
+            "query_formula": "C14H28O2",
+            "query_name": "tetradecanoic acid",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/544-63-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Myristic Acid Powder",
+            "local_cas": "544-63-8",
+            "local_mw": 228.38,
+            "query_cid": 11005,
+            "query_mw": "228.37",
+            "query_formula": "C14H28O2",
+            "query_name": "tetradecanoic acid",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/544-63-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 17,
+        "name": "Hexyl Acetate 1%",
+        "cas_query_results": []
+      },
+      {
+        "line": 18,
+        "name": "Red Mandarin EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 19,
+        "name": "Citral",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "CITRAL",
+            "local_cas": "5392-40-5",
+            "local_cid": 638011,
+            "local_mw": 152.23,
+            "query_cid": 638011,
+            "query_mw": "152.23",
+            "query_formula": "C10H16O",
+            "query_name": "(2E)-3,7-dimethylocta-2,6-dienal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/5392-40-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 20,
+        "name": "Citronellal",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "CITRONELLAL",
+            "local_cas": "106-23-0",
+            "local_cid": 7794,
+            "local_mw": 154.25,
+            "query_cid": 7794,
+            "query_mw": "154.25",
+            "query_formula": "C10H18O",
+            "query_name": "3,7-dimethyloct-6-enal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/106-23-0/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 21,
+        "name": "D-Limonene",
+        "cas_query_results": []
+      },
+      {
+        "line": 22,
+        "name": "Linalool",
+        "cas_query_results": []
+      },
+      {
+        "line": 23,
+        "name": "Linalyl Acetate",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "LINALYL ACETATE",
+            "local_cas": "115-95-7",
+            "local_cid": 8294,
+            "local_mw": 196.29,
+            "query_cid": 8294,
+            "query_mw": "196.29",
+            "query_formula": "C12H20O2",
+            "query_name": "3,7-dimethylocta-1,6-dien-3-yl acetate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/115-95-7/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 24,
+        "name": "Terpinyl Acetate",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "TERPINYL ACETATE",
+            "local_cas": "80-26-2",
+            "local_cid": 111037,
+            "local_mw": 196.29,
+            "query_cid": 111037,
+            "query_mw": "196.29",
+            "query_formula": "C12H20O2",
+            "query_name": "2-(4-methylcyclohex-3-en-1-yl)propan-2-yl acetate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/80-26-2/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 25,
+        "name": "Apritone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Apritone",
+            "local_cas": "68133-79-9",
+            "local_cid": 6437428,
+            "local_mw": 220.35,
+            "query_cid": 6437428,
+            "query_mw": "220.35",
+            "query_formula": "C15H24O",
+            "query_name": "2-[(2E)-3,7-dimethylocta-2,6-dienyl]cyclopentan-1-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/68133-79-9/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "cache",
+            "name": "Apritone",
+            "local_cas": "68133-79-9",
+            "local_cid": 6437428,
+            "local_mw": 220.35,
+            "query_cid": 109154,
+            "query_mw": "220.35",
+            "query_formula": "C15H24O",
+            "query_name": "2-(3,7-dimethylocta-2,6-dienyl)cyclopentan-1-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/68133-79-9/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": false,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 26,
+        "name": "Hexyl Acetate",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "HEXYL ACETATE",
+            "local_cas": "142-92-7",
+            "local_cid": 8908,
+            "local_mw": 144.21,
+            "query_cid": 8908,
+            "query_mw": "144.21",
+            "query_formula": "C8H16O2",
+            "query_name": "hexyl acetate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/142-92-7/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 27,
+        "name": "Aldehyde C10",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "ALDEHYDE C10",
+            "local_cas": "112-31-2",
+            "local_cid": 8175,
+            "local_mw": 156.27,
+            "query_cid": 8175,
+            "query_mw": "156.26",
+            "query_formula": "C10H20O",
+            "query_name": "decanal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/112-31-2/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 28,
+        "name": "Aldehyde C11 undecylenic",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Aldehyde C11 undecylenic",
+            "local_cas": "112-45-8",
+            "local_cid": 8187,
+            "local_mw": 168.28,
+            "query_cid": 8187,
+            "query_mw": "168.28",
+            "query_formula": "C11H20O",
+            "query_name": "undec-10-enal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/112-45-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 29,
+        "name": "Aldehyde C12 MNA",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "ALDEHYDE C12 MNA",
+            "local_cas": "110-41-8",
+            "local_cid": 61031,
+            "local_mw": 184.32,
+            "query_cid": 61031,
+            "query_mw": "184.32",
+            "query_formula": "C12H24O",
+            "query_name": "2-methylundecanal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/110-41-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 30,
+        "name": "Aldehyde C12 MNA",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "ALDEHYDE C12 MNA",
+            "local_cas": "110-41-8",
+            "local_cid": 61031,
+            "local_mw": 184.32,
+            "query_cid": 61031,
+            "query_mw": "184.32",
+            "query_formula": "C12H24O",
+            "query_name": "2-methylundecanal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/110-41-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 31,
+        "name": "Methyl Pamplemousse",
+        "cas_query_results": []
+      },
+      {
+        "line": 32,
+        "name": "Bergamot FCF oil Sicilian",
+        "cas_query_results": []
+      },
+      {
+        "line": 33,
+        "name": "Grapefruit FCF oil Sicilian",
+        "cas_query_results": []
+      },
+      {
+        "line": 34,
+        "name": "Cedrat FCF oil Sicilian",
+        "cas_query_results": []
+      },
+      {
+        "line": 35,
+        "name": "Blood Orange oil Sicilian",
+        "cas_query_results": [
+          {
+            "source": "yaml",
+            "name": "Blood Orange Sicilian",
+            "local_cas": "8028-48-6",
+            "local_mw": 136.2,
+            "query_cid": 62161,
+            "query_mw": "218.33",
+            "query_formula": "C15H22O",
+            "query_name": "2,6-dimethyl-10-methylidenedodeca-2,6,11-trienal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/8028-48-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": true
+          },
+          {
+            "source": "yaml",
+            "name": "Blood Orange Sicilian",
+            "local_cas": "8028-48-6",
+            "local_mw": 136.2,
+            "query_cid": 5281535,
+            "query_mw": "218.33",
+            "query_formula": "C15H22O",
+            "query_name": "(2E,6E)-2,6-dimethyl-10-methylidenedodeca-2,6,11-trienal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/8028-48-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": true
+          },
+          {
+            "source": "yaml",
+            "name": "Blood Orange Sicilian",
+            "local_cas": "8028-48-6",
+            "local_mw": 136.2,
+            "query_cid": 24976875,
+            "query_mw": "218.33",
+            "query_formula": "C15H22O",
+            "query_name": "(2Z,6E)-2,6-dimethyl-10-methylidenedodeca-2,6,11-trienal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/8028-48-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": true
+          }
+        ]
+      },
+      {
+        "line": 36,
+        "name": "Lime Distilled EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 37,
+        "name": "Ethyl 2-Methylbutyrate",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Ethyl 2-Methylbutyrate",
+            "local_cas": "7452-79-1",
+            "local_cid": 24020,
+            "local_mw": 130.18,
+            "query_cid": 24020,
+            "query_mw": "130.18",
+            "query_formula": "C7H14O2",
+            "query_name": "ethyl 2-methylbutanoate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/7452-79-1/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 38,
+        "name": "Lemonile",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Lemonile",
+            "local_cas": "61792-11-8",
+            "local_cid": 112446,
+            "local_mw": 163.26,
+            "query_cid": 112446,
+            "query_mw": "163.26",
+            "query_formula": "C11H17N",
+            "query_name": "3,7-dimethylnona-2,6-dienenitrile",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/61792-11-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 39,
+        "name": "Lemonile",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Lemonile",
+            "local_cas": "61792-11-8",
+            "local_cid": 112446,
+            "local_mw": 163.26,
+            "query_cid": 112446,
+            "query_mw": "163.26",
+            "query_formula": "C11H17N",
+            "query_name": "3,7-dimethylnona-2,6-dienenitrile",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/61792-11-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 40,
+        "name": "Orange Peel EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 41,
+        "name": "Pamzest",
+        "cas_query_results": []
+      },
+      {
+        "line": 42,
+        "name": "Petitgrain EO Paraguay",
+        "cas_query_results": []
+      },
+      {
+        "line": 43,
+        "name": "Ginger EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 44,
+        "name": "Neroli EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 47,
+        "name": "Cis-3-Hexenol",
+        "cas_query_results": []
+      },
+      {
+        "line": 48,
+        "name": "Verdyl Acetate",
+        "cas_query_results": []
+      },
+      {
+        "line": 49,
+        "name": "Adoxal",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Adoxal",
+            "local_cas": "141-13-9",
+            "local_cid": 98403,
+            "local_mw": 210.36,
+            "query_cid": 98403,
+            "query_mw": "210.36",
+            "query_formula": "C14H26O",
+            "query_name": "2,6,10-trimethylundec-9-enal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/141-13-9/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Adoxal",
+            "local_cas": "141-13-9",
+            "local_mw": 210.36,
+            "query_cid": 98403,
+            "query_mw": "210.36",
+            "query_formula": "C14H26O",
+            "query_name": "2,6,10-trimethylundec-9-enal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/141-13-9/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 50,
+        "name": "Blackcurrant Absolute",
+        "cas_query_results": []
+      },
+      {
+        "line": 51,
+        "name": "Dihydromyrcenol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "DIHYDROMYRCENOL",
+            "local_cas": "18479-58-8",
+            "local_cid": 29096,
+            "local_mw": 156.27,
+            "query_cid": 29096,
+            "query_mw": "156.26",
+            "query_formula": "C10H20O",
+            "query_name": "2,6-dimethyloct-7-en-2-ol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/18479-58-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 52,
+        "name": "Verdox",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "VERDOX",
+            "local_cas": "88-41-5",
+            "local_cid": 62334,
+            "local_mw": 198.3,
+            "query_cid": 62334,
+            "query_mw": "198.30",
+            "query_formula": "C12H22O2",
+            "query_name": "(2-tert-butylcyclohexyl) acetate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/88-41-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 53,
+        "name": "Galbanum EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 54,
+        "name": "Cyclamen Aldehyde",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "CYCLAMEN ALDEHYDE",
+            "local_cas": "103-95-7",
+            "local_cid": 517827,
+            "local_mw": 190.28,
+            "query_cid": 517827,
+            "query_mw": "190.28",
+            "query_formula": "C13H18O",
+            "query_name": "2-methyl-3-(4-propan-2-ylphenyl)propanal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/103-95-7/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Cyclimal Aldehyde",
+            "local_cas": "103-95-7",
+            "local_mw": 190.28,
+            "query_cid": 517827,
+            "query_mw": "190.28",
+            "query_formula": "C13H18O",
+            "query_name": "2-methyl-3-(4-propan-2-ylphenyl)propanal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/103-95-7/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 55,
+        "name": "Scentenal",
+        "cas_query_results": []
+      },
+      {
+        "line": 56,
+        "name": "Calone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "CALONE",
+            "local_cas": "28940-11-6",
+            "local_cid": 120101,
+            "local_mw": 178.18,
+            "query_cid": 120101,
+            "query_mw": "178.18",
+            "query_formula": "C10H10O3",
+            "query_name": "7-methyl-1,5-benzodioxepin-3-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/28940-11-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 57,
+        "name": "Floralozone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "FLORALOZONE",
+            "local_cas": "25279-09-8",
+            "local_cid": 91375,
+            "local_mw": 184.27,
+            "query_cid": 91375,
+            "query_mw": "184.27",
+            "query_formula": "C11H20O2",
+            "query_name": "2,6-dimethyloct-7-en-2-yl formate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/25279-09-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 58,
+        "name": "Undecavertol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Undecavertol",
+            "local_cas": "81782-77-6",
+            "local_cid": 163336,
+            "local_mw": 170.29,
+            "query_cid": 163336,
+            "query_mw": "170.29",
+            "query_formula": "C11H22O",
+            "query_name": "4-methyldec-3-en-5-ol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/81782-77-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 59,
+        "name": "Dynascone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Dynascone",
+            "local_cas": "56973-85-4",
+            "local_cid": 92606,
+            "local_mw": 192.3,
+            "query_cid": 92606,
+            "query_mw": "192.30",
+            "query_formula": "C13H20O",
+            "query_name": "1-(5,5-dimethylcyclohexen-1-yl)pent-4-en-1-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/56973-85-4/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 60,
+        "name": "Parmavert",
+        "cas_query_results": []
+      },
+      {
+        "line": 61,
+        "name": "Leafovert",
+        "cas_query_results": []
+      },
+      {
+        "line": 62,
+        "name": "Triplal",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Triplal",
+            "local_cas": "68039-49-6",
+            "local_cid": 93375,
+            "local_mw": 138.21,
+            "query_cid": 93375,
+            "query_mw": "138.21",
+            "query_formula": "C9H14O",
+            "query_name": "2,4-dimethylcyclohex-3-ene-1-carbaldehyde",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/68039-49-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 63,
+        "name": "Geosmin",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Geosmin",
+            "local_cas": "19700-21-1",
+            "local_cid": 29746,
+            "local_mw": 182.3,
+            "query_cid": 29746,
+            "query_mw": "182.30",
+            "query_formula": "C12H22O",
+            "query_name": "(4S,4aS,8aR)-4,8a-dimethyl-1,2,3,4,5,6,7,8-octahydronaphthalen-4a-ol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/19700-21-1/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 64,
+        "name": "Geosmin",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Geosmin",
+            "local_cas": "19700-21-1",
+            "local_cid": 29746,
+            "local_mw": 182.3,
+            "query_cid": 29746,
+            "query_mw": "182.30",
+            "query_formula": "C12H22O",
+            "query_name": "(4S,4aS,8aR)-4,8a-dimethyl-1,2,3,4,5,6,7,8-octahydronaphthalen-4a-ol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/19700-21-1/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 65,
+        "name": "Peppermint Essential Oil",
+        "cas_query_results": []
+      },
+      {
+        "line": 66,
+        "name": "Eucalyptus Essential Oil",
+        "cas_query_results": []
+      },
+      {
+        "line": 67,
+        "name": "Tagetes EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 68,
+        "name": "Liffarome",
+        "cas_query_results": []
+      },
+      {
+        "line": 71,
+        "name": "Nerolidol",
+        "cas_query_results": []
+      },
+      {
+        "line": 72,
+        "name": "Helional 10% v/v",
+        "cas_query_results": []
+      },
+      {
+        "line": 73,
+        "name": "Stralyl Acetate",
+        "cas_query_results": [
+          {
+            "source": "yaml",
+            "name": "Stralyl Acetate",
+            "local_cas": "93-92-5",
+            "local_mw": 164.2,
+            "query_cid": 62341,
+            "query_mw": "164.20",
+            "query_formula": "C10H12O2",
+            "query_name": "1-phenylethyl acetate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/93-92-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 74,
+        "name": "Heliotropin",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "HELIOTROPIN",
+            "local_cas": "120-57-0",
+            "local_cid": 8438,
+            "local_mw": 150.13,
+            "query_cid": 8438,
+            "query_mw": "150.13",
+            "query_formula": "C8H6O3",
+            "query_name": "1,3-benzodioxole-5-carbaldehyde",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/120-57-0/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 75,
+        "name": "PADMA",
+        "cas_query_results": []
+      },
+      {
+        "line": 76,
+        "name": "Tuberlia Base",
+        "cas_query_results": []
+      },
+      {
+        "line": 77,
+        "name": "Tuberose EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 78,
+        "name": "Helichrysum EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 79,
+        "name": "Jasmine Absolute",
+        "cas_query_results": []
+      },
+      {
+        "line": 80,
+        "name": "Geranium EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 81,
+        "name": "Hedione",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "HEDIONE",
+            "local_cas": "24851-98-7",
+            "local_cid": 102861,
+            "local_mw": 226.31,
+            "query_cid": 102861,
+            "query_mw": "226.31",
+            "query_formula": "C13H22O3",
+            "query_name": "methyl 2-(3-oxo-2-pentylcyclopentyl)acetate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/24851-98-7/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 82,
+        "name": "Dihydrojasmone",
+        "cas_query_results": []
+      },
+      {
+        "line": 83,
+        "name": "Jessemal",
+        "cas_query_results": [
+          {
+            "source": "yaml",
+            "name": "Jessemal Jasmonyl",
+            "local_cas": "38285-49-3",
+            "local_mw": 214.3,
+            "query_cid": 161960,
+            "query_mw": "214.30",
+            "query_formula": "C12H22O3",
+            "query_name": "(3-butyl-5-methyloxan-4-yl) acetate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/38285-49-3/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 84,
+        "name": "Hydroxycitronellol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Hydroxycitronellol",
+            "local_cas": "107-74-4",
+            "local_cid": 249494,
+            "local_mw": 174.28,
+            "query_cid": 249494,
+            "query_mw": "174.28",
+            "query_formula": "C10H22O2",
+            "query_name": "3,7-dimethyloctane-1,7-diol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/107-74-4/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Hydroxycitronellol",
+            "local_cas": "107-74-4",
+            "local_mw": 174.28,
+            "query_cid": 249494,
+            "query_mw": "174.28",
+            "query_formula": "C10H22O2",
+            "query_name": "3,7-dimethyloctane-1,7-diol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/107-74-4/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 85,
+        "name": "Phenethyl Alcohol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "PHENETHYL ALCOHOL",
+            "local_cas": "60-12-8",
+            "local_cid": 6054,
+            "local_mw": 122.17,
+            "query_cid": 6054,
+            "query_mw": "122.16",
+            "query_formula": "C8H10O",
+            "query_name": "2-phenylethanol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/60-12-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Phenethyl Alcohol",
+            "local_cas": "60-12-8",
+            "local_mw": 122.17,
+            "query_cid": 6054,
+            "query_mw": "122.16",
+            "query_formula": "C8H10O",
+            "query_name": "2-phenylethanol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/60-12-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 86,
+        "name": "Cinnamyl alcohol 50% in DPG",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Cinnamyl alcohol 50% in DPG",
+            "local_cas": "104-54-1",
+            "local_cid": 5315892,
+            "local_mw": 134.18,
+            "query_cid": 5315892,
+            "query_mw": "134.17",
+            "query_formula": "C9H10O",
+            "query_name": "(E)-3-phenylprop-2-en-1-ol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/104-54-1/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 87,
+        "name": "Florol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "FLOROL",
+            "local_cas": "68039-49-6",
+            "local_cid": 93375,
+            "local_mw": 138.21,
+            "query_cid": 93375,
+            "query_mw": "138.21",
+            "query_formula": "C9H14O",
+            "query_name": "2,4-dimethylcyclohex-3-ene-1-carbaldehyde",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/68039-49-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 88,
+        "name": "Peonile",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "PEONILE",
+            "local_cas": "23726-91-2",
+            "local_cid": 5374527,
+            "local_mw": 192.3,
+            "query_cid": 5374527,
+            "query_mw": "192.30",
+            "query_formula": "C13H20O",
+            "query_name": "(E)-1-(2,6,6-trimethylcyclohexen-1-yl)but-2-en-1-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/23726-91-2/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 89,
+        "name": "Aurantiol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "AURANTIOL",
+            "local_cas": "89-36-1",
+            "local_cid": 66638,
+            "local_mw": 254.26,
+            "query_cid": 66638,
+            "query_mw": "254.26",
+            "query_formula": "C10H10N2O4S",
+            "query_name": "4-(3-methyl-5-oxo-4H-pyrazol-1-yl)benzenesulfonic acid",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/89-36-1/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 90,
+        "name": "Geraniol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "GERANIOL",
+            "local_cas": "106-24-1",
+            "local_cid": 637566,
+            "local_mw": 154.25,
+            "query_cid": 637566,
+            "query_mw": "154.25",
+            "query_formula": "C10H18O",
+            "query_name": "(2E)-3,7-dimethylocta-2,6-dien-1-ol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/106-24-1/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 91,
+        "name": "Geraniol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "GERANIOL",
+            "local_cas": "106-24-1",
+            "local_cid": 637566,
+            "local_mw": 154.25,
+            "query_cid": 637566,
+            "query_mw": "154.25",
+            "query_formula": "C10H18O",
+            "query_name": "(2E)-3,7-dimethylocta-2,6-dien-1-ol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/106-24-1/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 92,
+        "name": "Citronellol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Citronellol",
+            "local_cas": "106-22-9",
+            "local_cid": 8842,
+            "local_mw": 156.27,
+            "query_cid": 8842,
+            "query_mw": "156.26",
+            "query_formula": "C10H20O",
+            "query_name": "3,7-dimethyloct-6-en-1-ol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/106-22-9/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 93,
+        "name": "Rhodinol ex Citronella",
+        "cas_query_results": []
+      },
+      {
+        "line": 94,
+        "name": "Geranium Flower EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 95,
+        "name": "Rose Oxide",
+        "cas_query_results": []
+      },
+      {
+        "line": 96,
+        "name": "Rose Oxide",
+        "cas_query_results": []
+      },
+      {
+        "line": 97,
+        "name": "Benzyl Salicylate",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "BENZYL SALICYLATE",
+            "local_cas": "118-58-1",
+            "local_cid": 8363,
+            "local_mw": 228.24,
+            "query_cid": 8363,
+            "query_mw": "228.24",
+            "query_formula": "C14H12O3",
+            "query_name": "benzyl 2-hydroxybenzoate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/118-58-1/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 98,
+        "name": "Hexyl Salicylate",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Hexyl Salicylate",
+            "local_cas": "6259-76-3",
+            "local_cid": 22629,
+            "local_mw": 222.28,
+            "query_cid": 22629,
+            "query_mw": "222.28",
+            "query_formula": "C13H18O3",
+            "query_name": "hexyl 2-hydroxybenzoate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/6259-76-3/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 99,
+        "name": "Benzyl Benzoate",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "BENZYL BENZOATE",
+            "local_cas": "120-51-4",
+            "local_cid": 2345,
+            "local_mw": 212.24,
+            "query_cid": 2345,
+            "query_mw": "212.24",
+            "query_formula": "C14H12O2",
+            "query_name": "benzyl benzoate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/120-51-4/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 100,
+        "name": "Benzyl Alcohol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Benzyl Alcohol",
+            "local_cas": "100-51-6",
+            "local_cid": 244,
+            "local_mw": 108.14,
+            "query_cid": 244,
+            "query_mw": "108.14",
+            "query_formula": "C7H8O",
+            "query_name": "phenylmethanol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/100-51-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 101,
+        "name": "Benzaldehyde",
+        "cas_query_results": []
+      },
+      {
+        "line": 102,
+        "name": "Benzaldehyde",
+        "cas_query_results": []
+      },
+      {
+        "line": 103,
+        "name": "Benzyl Acetate",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Benzyl Acetate",
+            "local_cas": "140-11-4",
+            "local_cid": 8785,
+            "local_mw": 150.17,
+            "query_cid": 8785,
+            "query_mw": "150.17",
+            "query_formula": "C9H10O2",
+            "query_name": "benzyl acetate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/140-11-4/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 104,
+        "name": "Indole",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Indole",
+            "local_cas": "120-72-9",
+            "local_cid": 798,
+            "local_mw": 117.15,
+            "query_cid": 798,
+            "query_mw": "117.15",
+            "query_formula": "C8H7N",
+            "query_name": "1H-indole",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/120-72-9/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 105,
+        "name": "Bourgeonal",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Bourgeonal",
+            "local_cas": "18127-01-0",
+            "local_cid": 64832,
+            "local_mw": 190.28,
+            "query_cid": 64832,
+            "query_mw": "190.28",
+            "query_formula": "C13H18O",
+            "query_name": "3-(4-tert-butylphenyl)propanal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/18127-01-0/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 106,
+        "name": "Freesia HDI",
+        "cas_query_results": []
+      },
+      {
+        "line": 107,
+        "name": "Lilyreal ND",
+        "cas_query_results": []
+      },
+      {
+        "line": 108,
+        "name": "Lilial",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Lilial",
+            "local_cas": "80-54-6",
+            "local_cid": 228987,
+            "local_mw": 204.31,
+            "query_cid": 228987,
+            "query_mw": "204.31",
+            "query_formula": "C14H20O",
+            "query_name": "3-(4-tert-butylphenyl)-2-methylpropanal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/80-54-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 109,
+        "name": "Nympheal",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Nympheal",
+            "local_cas": "1637294-12-2",
+            "local_cid": 17877030,
+            "local_mw": 204.31,
+            "query_cid": 17877030,
+            "query_mw": "204.31",
+            "query_formula": "C14H20O",
+            "query_name": "3-[2-methyl-4-(2-methylpropyl)phenyl]propanal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/1637294-12-2/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 110,
+        "name": "Helional",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Helional",
+            "local_cas": "1205-17-0",
+            "local_cid": 64805,
+            "local_mw": 192.21,
+            "query_cid": 64805,
+            "query_mw": "192.21",
+            "query_formula": "C11H12O3",
+            "query_name": "3-(1,3-benzodioxol-5-yl)-2-methylpropanal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/1205-17-0/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 111,
+        "name": "Lemon FCF oil Sicilian",
+        "cas_query_results": []
+      },
+      {
+        "line": 112,
+        "name": "Ylang Comoros Complete EO F3255",
+        "cas_query_results": []
+      },
+      {
+        "line": 113,
+        "name": "Ylang Comoros III EO F3295",
+        "cas_query_results": []
+      },
+      {
+        "line": 114,
+        "name": "Champaca Flower EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 115,
+        "name": "Magnolia EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 116,
+        "name": "Methyl Benzoate",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Methyl Benzoate",
+            "local_cas": "93-58-3",
+            "local_cid": 7150,
+            "local_mw": 136.15,
+            "query_cid": 7150,
+            "query_mw": "136.15",
+            "query_formula": "C8H8O2",
+            "query_name": "methyl benzoate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/93-58-3/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 117,
+        "name": "p-Cresyl Methyl Ether (PCME)",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "p-Cresyl Methyl Ether (PCME)",
+            "local_cas": "104-93-8",
+            "local_cid": 7731,
+            "local_mw": 122.16,
+            "query_cid": 7731,
+            "query_mw": "122.16",
+            "query_formula": "C8H10O",
+            "query_name": "1-methoxy-4-methylbenzene",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/104-93-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 118,
+        "name": "Paradisamide",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Paradisamide",
+            "local_cas": "406488-30-0",
+            "local_cid": 57495095,
+            "local_mw": 219.32,
+            "query_cid": 57495095,
+            "query_mw": "219.32",
+            "query_formula": "C14H21NO",
+            "query_name": "2-ethyl-N-methyl-N-(3-methylphenyl)butanamide",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/406488-30-0/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Paradisamide",
+            "local_cas": "406488-30-0",
+            "local_mw": 219.32,
+            "query_cid": 57495095,
+            "query_mw": "219.32",
+            "query_formula": "C14H21NO",
+            "query_name": "2-ethyl-N-methyl-N-(3-methylphenyl)butanamide",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/406488-30-0/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 119,
+        "name": "Cis Jasmone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Cis Jasmone",
+            "local_cas": "488-10-8",
+            "local_cid": 1549018,
+            "local_mw": 164.24,
+            "query_cid": 1549018,
+            "query_mw": "164.24",
+            "query_formula": "C11H16O",
+            "query_name": "3-methyl-2-[(Z)-pent-2-enyl]cyclopent-2-en-1-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/488-10-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Cis Jasmone",
+            "local_cas": "488-10-8",
+            "local_mw": 164.24,
+            "query_cid": 1549018,
+            "query_mw": "164.24",
+            "query_formula": "C11H16O",
+            "query_name": "3-methyl-2-[(Z)-pent-2-enyl]cyclopent-2-en-1-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/488-10-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 120,
+        "name": "Methyl Salicylate",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Methyl Salicylate",
+            "local_cas": "119-36-8",
+            "local_cid": 4133,
+            "local_mw": 152.15,
+            "query_cid": 4133,
+            "query_mw": "152.15",
+            "query_formula": "C8H8O3",
+            "query_name": "methyl 2-hydroxybenzoate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/119-36-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 121,
+        "name": "Methyl Anthranilate",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Methyl Anthranilate",
+            "local_cas": "134-20-3",
+            "local_cid": 8635,
+            "local_mw": 151.16,
+            "query_cid": 8635,
+            "query_mw": "151.16",
+            "query_formula": "C8H9NO2",
+            "query_name": "methyl 2-aminobenzoate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/134-20-3/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 122,
+        "name": "Alpha Damascone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Alpha Damascone",
+            "local_cas": "24720-09-0",
+            "local_cid": 5366077,
+            "local_mw": 192.3,
+            "query_cid": 5366077,
+            "query_mw": "192.30",
+            "query_formula": "C13H20O",
+            "query_name": "(E)-1-(2,6,6-trimethylcyclohex-2-en-1-yl)but-2-en-1-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/24720-09-0/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 123,
+        "name": "Damascone Beta",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Damascone Beta",
+            "local_cas": "23726-91-2",
+            "local_cid": 5374527,
+            "local_mw": 190.3,
+            "query_cid": 5374527,
+            "query_mw": "192.30",
+            "query_formula": "C13H20O",
+            "query_name": "(E)-1-(2,6,6-trimethylcyclohexen-1-yl)but-2-en-1-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/23726-91-2/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": true
+          }
+        ]
+      },
+      {
+        "line": 124,
+        "name": "Damascenone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Damascenone",
+            "local_cas": "23696-85-7",
+            "local_cid": 5366074,
+            "local_mw": 190.3,
+            "query_cid": 5366074,
+            "query_mw": "190.28",
+            "query_formula": "C13H18O",
+            "query_name": "(E)-1-(2,6,6-trimethylcyclohexa-1,3-dien-1-yl)but-2-en-1-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/23696-85-7/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 125,
+        "name": "Damascol",
+        "cas_query_results": []
+      },
+      {
+        "line": 126,
+        "name": "Heliotropal",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "HELIOTROPIN",
+            "local_cas": "120-57-0",
+            "local_cid": 8438,
+            "local_mw": 150.13,
+            "query_cid": 8438,
+            "query_mw": "150.13",
+            "query_formula": "C8H6O3",
+            "query_name": "1,3-benzodioxole-5-carbaldehyde",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/120-57-0/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 127,
+        "name": "Amyl Cinnamic Aldehyde",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Amyl Cinnamic Aldehyde",
+            "local_cas": "122-40-7",
+            "local_cid": 31209,
+            "local_mw": 202.3,
+            "query_cid": 31209,
+            "query_mw": "202.29",
+            "query_formula": "C14H18O",
+            "query_name": "2-benzylideneheptanal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/122-40-7/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 128,
+        "name": "Phenyl Ethyl Dimethyl Carbinol",
+        "cas_query_results": []
+      },
+      {
+        "line": 129,
+        "name": "Farnesol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Farnesol",
+            "local_cas": "4602-84-0",
+            "local_cid": 445070,
+            "local_mw": 222.4,
+            "query_cid": 445070,
+            "query_mw": "222.37",
+            "query_formula": "C15H26O",
+            "query_name": "(2E,6E)-3,7,11-trimethyldodeca-2,6,10-trien-1-ol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/4602-84-0/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 130,
+        "name": "Mayol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Mayol",
+            "local_cas": "13828-37-0",
+            "local_cid": 83763,
+            "local_mw": 156.26,
+            "query_cid": 83763,
+            "query_mw": "156.26",
+            "query_formula": "C10H20O",
+            "query_name": "(4-propan-2-ylcyclohexyl)methanol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/13828-37-0/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 131,
+        "name": "Oranger Crystals",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Oranger Crystals",
+            "local_cas": "93-08-3",
+            "local_cid": 7122,
+            "local_mw": 170.21,
+            "query_cid": 7122,
+            "query_mw": "170.21",
+            "query_formula": "C12H10O",
+            "query_name": "1-naphthalen-2-ylethanone",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/93-08-3/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Oranger Crystals",
+            "local_cas": "93-08-3",
+            "local_mw": 170.21,
+            "query_cid": 7122,
+            "query_mw": "170.21",
+            "query_formula": "C12H10O",
+            "query_name": "1-naphthalen-2-ylethanone",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/93-08-3/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 132,
+        "name": "Nerol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Nerol",
+            "local_cas": "106-25-2",
+            "local_cid": 643820,
+            "local_mw": 154.25,
+            "query_cid": 643820,
+            "query_mw": "154.25",
+            "query_formula": "C10H18O",
+            "query_name": "(2Z)-3,7-dimethylocta-2,6-dien-1-ol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/106-25-2/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Nerol",
+            "local_cas": "106-25-2",
+            "local_mw": 154.25,
+            "query_cid": 643820,
+            "query_mw": "154.25",
+            "query_formula": "C10H18O",
+            "query_name": "(2Z)-3,7-dimethylocta-2,6-dien-1-ol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/106-25-2/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 133,
+        "name": "Nerolin Bromelia",
+        "cas_query_results": [
+          {
+            "source": "yaml",
+            "name": "Nerolin Bromelia",
+            "local_cas": "93-18-5",
+            "local_mw": 172.22,
+            "query_cid": 7129,
+            "query_mw": "172.22",
+            "query_formula": "C12H12O",
+            "query_name": "2-ethoxynaphthalene",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/93-18-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 134,
+        "name": "Osmanthus Absolute",
+        "cas_query_results": []
+      },
+      {
+        "line": 135,
+        "name": "Rose de Mai Absolute",
+        "cas_query_results": []
+      },
+      {
+        "line": 136,
+        "name": "Tuberose Base",
+        "cas_query_results": []
+      },
+      {
+        "line": 137,
+        "name": "Tuberose Absolute",
+        "cas_query_results": []
+      },
+      {
+        "line": 138,
+        "name": "Phenyl Ethyl Acetate",
+        "cas_query_results": []
+      },
+      {
+        "line": 139,
+        "name": "Immortelle Absolute",
+        "cas_query_results": []
+      },
+      {
+        "line": 140,
+        "name": "Rose Essential Oil",
+        "cas_query_results": []
+      },
+      {
+        "line": 141,
+        "name": "Jasmine Sambac Blossoms",
+        "cas_query_results": []
+      },
+      {
+        "line": 142,
+        "name": "Blue Chamomile EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 143,
+        "name": "Mimosa Absolute",
+        "cas_query_results": []
+      },
+      {
+        "line": 144,
+        "name": "Osmanthus Absolute",
+        "cas_query_results": []
+      },
+      {
+        "line": 145,
+        "name": "Tuberose Absolute",
+        "cas_query_results": []
+      },
+      {
+        "line": 146,
+        "name": "Isobutavan",
+        "cas_query_results": [
+          {
+            "source": "yaml",
+            "name": "Isobutavan",
+            "local_cas": "20665-85-4",
+            "local_mw": 222.24,
+            "query_cid": 539829,
+            "query_mw": "222.24",
+            "query_formula": "C12H14O4",
+            "query_name": "(4-formyl-2-methoxyphenyl) 2-methylpropanoate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/20665-85-4/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 147,
+        "name": "Allyl Cyclohexyl Propionate",
+        "cas_query_results": [
+          {
+            "source": "yaml",
+            "name": "Allyl Cyclohexyl Propionate",
+            "local_cas": "2705-87-5",
+            "local_mw": 196.29,
+            "query_cid": 17617,
+            "query_mw": "196.29",
+            "query_formula": "C12H20O2",
+            "query_name": "prop-2-enyl 3-cyclohexylpropanoate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/2705-87-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 148,
+        "name": "Cis-3-Hexenyl Salicylate",
+        "cas_query_results": []
+      },
+      {
+        "line": 151,
+        "name": "Violet Leaf Absolute",
+        "cas_query_results": []
+      },
+      {
+        "line": 152,
+        "name": "Alpha Ionone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "ALPHA IONONE",
+            "local_cas": "127-41-3",
+            "local_cid": 5282108,
+            "local_mw": 192.3,
+            "query_cid": 5282108,
+            "query_mw": "192.30",
+            "query_formula": "C13H20O",
+            "query_name": "(E)-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but-3-en-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/127-41-3/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 153,
+        "name": "Beta Ionone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "BETA IONONE",
+            "local_cas": "14901-07-6",
+            "local_cid": 26955,
+            "local_mw": 192.3,
+            "query_cid": 26955,
+            "query_mw": "192.30",
+            "query_formula": "C13H20O",
+            "query_name": "4-(2,6,6-trimethylcyclohexen-1-yl)but-3-en-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/14901-07-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 154,
+        "name": "Beta Ionone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "BETA IONONE",
+            "local_cas": "14901-07-6",
+            "local_cid": 26955,
+            "local_mw": 192.3,
+            "query_cid": 26955,
+            "query_mw": "192.30",
+            "query_formula": "C13H20O",
+            "query_name": "4-(2,6,6-trimethylcyclohexen-1-yl)but-3-en-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/14901-07-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 155,
+        "name": "Allyl Ionone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "ALLYL IONONE",
+            "local_cas": "79-78-7",
+            "local_cid": 5365976,
+            "local_mw": 232.37,
+            "query_cid": 5365976,
+            "query_mw": "232.36",
+            "query_formula": "C16H24O",
+            "query_name": "(1E)-1-(2,6,6-trimethylcyclohex-2-en-1-yl)hepta-1,6-dien-3-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/79-78-7/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Allyl Ionone",
+            "local_cas": "79-78-7",
+            "local_mw": 232.37,
+            "query_cid": 5365976,
+            "query_mw": "232.36",
+            "query_formula": "C16H24O",
+            "query_name": "(1E)-1-(2,6,6-trimethylcyclohex-2-en-1-yl)hepta-1,6-dien-3-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/79-78-7/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 156,
+        "name": "Alpha Isomethyl Ionone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Alpha Isomethyl Ionone",
+            "local_cas": "127-51-5",
+            "local_cid": 5372174,
+            "local_mw": 206.33,
+            "query_cid": 5372174,
+            "query_mw": "206.32",
+            "query_formula": "C14H22O",
+            "query_name": "(E)-3-methyl-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but-3-en-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/127-51-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "cache",
+            "name": "Alpha Isomethyl Ionone",
+            "local_cas": "127-51-5",
+            "local_cid": 5372174,
+            "local_mw": 206.33,
+            "query_cid": 61073,
+            "query_mw": "206.32",
+            "query_formula": "C14H22O",
+            "query_name": "3-methyl-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but-3-en-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/127-51-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": false,
+            "mw_mismatch": false
+          },
+          {
+            "source": "cache",
+            "name": "Alpha Isomethyl Ionone",
+            "local_cas": "127-51-5",
+            "local_cid": 5372174,
+            "local_mw": 206.33,
+            "query_cid": 5356787,
+            "query_mw": "206.32",
+            "query_formula": "C14H22O",
+            "query_name": "(Z)-3-methyl-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but-3-en-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/127-51-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": false,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Alpha Isomethyl Ionone",
+            "local_cas": "127-51-5",
+            "local_mw": 206.32,
+            "query_cid": 5372174,
+            "query_mw": "206.32",
+            "query_formula": "C14H22O",
+            "query_name": "(E)-3-methyl-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but-3-en-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/127-51-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Alpha Isomethyl Ionone",
+            "local_cas": "127-51-5",
+            "local_mw": 206.32,
+            "query_cid": 61073,
+            "query_mw": "206.32",
+            "query_formula": "C14H22O",
+            "query_name": "3-methyl-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but-3-en-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/127-51-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Alpha Isomethyl Ionone",
+            "local_cas": "127-51-5",
+            "local_mw": 206.32,
+            "query_cid": 5356787,
+            "query_mw": "206.32",
+            "query_formula": "C14H22O",
+            "query_name": "(Z)-3-methyl-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but-3-en-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/127-51-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 157,
+        "name": "Alpha Irone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "ALPHA IRONE",
+            "local_cas": "79-69-6",
+            "local_cid": 5371002,
+            "local_mw": 206.33,
+            "query_cid": 5371002,
+            "query_mw": "206.32",
+            "query_formula": "C14H22O",
+            "query_name": "(E)-4-(2,5,6,6-tetramethylcyclohex-2-en-1-yl)but-3-en-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/79-69-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Alpha Irone",
+            "local_cas": "79-69-6",
+            "local_mw": 206.32,
+            "query_cid": 5371002,
+            "query_mw": "206.32",
+            "query_formula": "C14H22O",
+            "query_name": "(E)-4-(2,5,6,6-tetramethylcyclohex-2-en-1-yl)but-3-en-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/79-69-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 158,
+        "name": "Orris Liquid",
+        "cas_query_results": []
+      },
+      {
+        "line": 159,
+        "name": "Irotyl",
+        "cas_query_results": []
+      },
+      {
+        "line": 160,
+        "name": "Dihydro Beta Ionone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "DIHYDRO BETA IONONE",
+            "local_cas": "17283-81-7",
+            "local_cid": 519382,
+            "local_mw": 194.31,
+            "query_cid": 519382,
+            "query_mw": "194.31",
+            "query_formula": "C13H22O",
+            "query_name": "4-(2,6,6-trimethylcyclohexen-1-yl)butan-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/17283-81-7/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 161,
+        "name": "Orivone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "ORIVONE",
+            "local_cas": "16587-71-6",
+            "local_cid": 27941,
+            "local_mw": 168.28,
+            "query_cid": 27941,
+            "query_mw": "168.28",
+            "query_formula": "C11H20O",
+            "query_name": "4-(2-methylbutan-2-yl)cyclohexan-1-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/16587-71-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Orivone",
+            "local_cas": "16587-71-6",
+            "local_mw": 168.28,
+            "query_cid": 27941,
+            "query_mw": "168.28",
+            "query_formula": "C11H20O",
+            "query_name": "4-(2-methylbutan-2-yl)cyclohexan-1-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/16587-71-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 162,
+        "name": "Ultralia",
+        "cas_query_results": []
+      },
+      {
+        "line": 163,
+        "name": "Carrot Seed EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 166,
+        "name": "Sandalwood Base 3X",
+        "cas_query_results": []
+      },
+      {
+        "line": 167,
+        "name": "Sandalwood EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 168,
+        "name": "Cypress EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 169,
+        "name": "Black Agarwood Artificial",
+        "cas_query_results": []
+      },
+      {
+        "line": 170,
+        "name": "Cabreuva EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 171,
+        "name": "Black Agarwood Artificial",
+        "cas_query_results": []
+      },
+      {
+        "line": 172,
+        "name": "Iso E Super",
+        "cas_query_results": []
+      },
+      {
+        "line": 173,
+        "name": "Cashmeran",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "CASHMERAN",
+            "local_cas": "33704-61-9",
+            "local_cid": 92292,
+            "local_mw": 206.32,
+            "query_cid": 92292,
+            "query_mw": "206.32",
+            "query_formula": "C14H22O",
+            "query_name": "1,1,2,3,3-pentamethyl-2,5,6,7-tetrahydroinden-4-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/33704-61-9/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 174,
+        "name": "Cashmeran",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "CASHMERAN",
+            "local_cas": "33704-61-9",
+            "local_cid": 92292,
+            "local_mw": 206.32,
+            "query_cid": 92292,
+            "query_mw": "206.32",
+            "query_formula": "C14H22O",
+            "query_name": "1,1,2,3,3-pentamethyl-2,5,6,7-tetrahydroinden-4-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/33704-61-9/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 175,
+        "name": "Polysantol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Polysantol",
+            "local_cas": "107898-54-4",
+            "local_cid": 15984303,
+            "local_mw": 222.37,
+            "query_cid": 15984303,
+            "query_mw": "222.37",
+            "query_formula": "C15H26O",
+            "query_name": "(E)-3,3-dimethyl-5-(2,2,3-trimethylcyclopent-3-en-1-yl)pent-4-en-2-ol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/107898-54-4/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "cache",
+            "name": "Polysantol",
+            "local_cas": "107898-54-4",
+            "local_cid": 15984303,
+            "local_mw": 222.37,
+            "query_cid": 53425103,
+            "query_mw": "222.37",
+            "query_formula": "C15H26O",
+            "query_name": "3,3-dimethyl-5-(2,2,3-trimethylcyclopent-3-en-1-yl)pent-4-en-2-ol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/107898-54-4/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": false,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 176,
+        "name": "Cedramber",
+        "cas_query_results": []
+      },
+      {
+        "line": 177,
+        "name": "Ambermax",
+        "cas_query_results": []
+      },
+      {
+        "line": 178,
+        "name": "Ebanol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "EBANOL",
+            "local_cas": "67801-20-1",
+            "local_cid": 6437266,
+            "local_mw": 208.34,
+            "query_cid": 6437266,
+            "query_mw": "208.34",
+            "query_formula": "C14H24O",
+            "query_name": "(Z)-3-methyl-5-(2,2,3-trimethylcyclopent-3-en-1-yl)pent-4-en-2-ol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/67801-20-1/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 179,
+        "name": "Bacdanol",
+        "cas_query_results": []
+      },
+      {
+        "line": 180,
+        "name": "Sandalore",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Sandalore",
+            "local_cas": "65113-99-7",
+            "local_cid": 103212,
+            "local_mw": 210.36,
+            "query_cid": 103212,
+            "query_mw": "210.36",
+            "query_formula": "C14H26O",
+            "query_name": "3-methyl-5-(2,2,3-trimethylcyclopent-3-en-1-yl)pentan-2-ol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/65113-99-7/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 181,
+        "name": "Vetival",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "VETIVAL",
+            "local_cas": "62563-80-8",
+            "local_cid": 8347,
+            "local_mw": 262.4,
+            "query_cid": 8347,
+            "query_mw": "262.4",
+            "query_formula": "C17H26O2",
+            "query_name": "(4,8-dimethyl-2-propan-2-ylidene-3,3a,4,5,6,8a-hexahydro-1H-azulen-6-yl) acetate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/62563-80-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 182,
+        "name": "Vertofix",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Vertofix",
+            "local_cas": "32388-55-9",
+            "local_cid": 16220111,
+            "local_mw": 246.4,
+            "query_cid": 16220111,
+            "query_mw": "246.4",
+            "query_formula": "C17H26O",
+            "query_name": "1-[(1R,2R,5S,7R)-2,6,6,8-tetramethyl-9-tricyclo[5.3.1.01,5]undec-8-enyl]ethanone",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/32388-55-9/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 183,
+        "name": "Suederal",
+        "cas_query_results": []
+      },
+      {
+        "line": 184,
+        "name": "Suederal",
+        "cas_query_results": []
+      },
+      {
+        "line": 185,
+        "name": "Javanol",
+        "cas_query_results": []
+      },
+      {
+        "line": 186,
+        "name": "Amberwood F",
+        "cas_query_results": []
+      },
+      {
+        "line": 187,
+        "name": "Ambrox Super",
+        "cas_query_results": []
+      },
+      {
+        "line": 188,
+        "name": "Ambrofix",
+        "cas_query_results": []
+      },
+      {
+        "line": 189,
+        "name": "Ambrofix Crystals",
+        "cas_query_results": []
+      },
+      {
+        "line": 190,
+        "name": "Timberol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Timberol",
+            "local_cas": "70788-30-6",
+            "local_cid": 116699,
+            "local_mw": 226.4,
+            "query_cid": 116699,
+            "query_mw": "226.40",
+            "query_formula": "C15H30O",
+            "query_name": "1-(2,2,6-trimethylcyclohexyl)hexan-3-ol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/70788-30-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 191,
+        "name": "Koavone",
+        "cas_query_results": []
+      },
+      {
+        "line": 192,
+        "name": "Cedarwood EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 193,
+        "name": "Guaiacwood EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 194,
+        "name": "Cedarwood oil Virginia",
+        "cas_query_results": []
+      },
+      {
+        "line": 195,
+        "name": "Himalayan Cedarwood EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 196,
+        "name": "Indian Vetiver EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 197,
+        "name": "Nagarmortha Oil",
+        "cas_query_results": []
+      },
+      {
+        "line": 198,
+        "name": "Vetikon",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Vetikon",
+            "local_cas": "7403-42-1",
+            "local_cid": 81898,
+            "local_mw": 176.25,
+            "query_cid": 81898,
+            "query_mw": "176.25",
+            "query_formula": "C12H16O",
+            "query_name": "4-methyl-4-phenylpentan-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/7403-42-1/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Vetikon",
+            "local_cas": "7403-42-1",
+            "local_mw": 176.25,
+            "query_cid": 81898,
+            "query_mw": "176.25",
+            "query_formula": "C12H16O",
+            "query_name": "4-methyl-4-phenylpentan-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/7403-42-1/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 199,
+        "name": "Norlimbanol Dextro",
+        "cas_query_results": []
+      },
+      {
+        "line": 200,
+        "name": "Azarbre",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Azarbre",
+            "local_cas": "68845-36-3",
+            "local_cid": 111384,
+            "local_mw": 180.29,
+            "query_cid": 111384,
+            "query_mw": "180.29",
+            "query_formula": "C12H20O",
+            "query_name": "3,4-diethyl-2,5-dimethylcyclohex-2-en-1-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/68845-36-3/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 201,
+        "name": "Kephalis",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "KEPHALIS",
+            "local_cas": "36306-87-3",
+            "local_cid": 118292,
+            "local_mw": 224.34,
+            "query_cid": 118292,
+            "query_mw": "224.34",
+            "query_formula": "C14H24O2",
+            "query_name": "4-(1-ethoxyethenyl)-3,3,5,5-tetramethylcyclohexan-1-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/36306-87-3/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 202,
+        "name": "Amber Xtreme",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "AMBER XTREME",
+            "local_cas": "476332-65-7",
+            "local_cid": null,
+            "local_mw": 236,
+            "query_cid": 92030006,
+            "query_mw": "264.4",
+            "query_formula": "C18H32O",
+            "query_name": "2,2,6,6,7,8,8-heptamethyl-3,3a,4,5,5a,7,8a,8b-octahydrocyclopenta[g][1]benzofuran",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/476332-65-7/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": null,
+            "mw_mismatch": true
+          }
+        ]
+      },
+      {
+        "line": 203,
+        "name": "Clearwood",
+        "cas_query_results": []
+      },
+      {
+        "line": 204,
+        "name": "Givaudan AIMI",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Alpha Isomethyl Ionone",
+            "local_cas": "127-51-5",
+            "local_cid": 5372174,
+            "local_mw": 206.33,
+            "query_cid": 5372174,
+            "query_mw": "206.32",
+            "query_formula": "C14H22O",
+            "query_name": "(E)-3-methyl-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but-3-en-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/127-51-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "cache",
+            "name": "Alpha Isomethyl Ionone",
+            "local_cas": "127-51-5",
+            "local_cid": 5372174,
+            "local_mw": 206.33,
+            "query_cid": 61073,
+            "query_mw": "206.32",
+            "query_formula": "C14H22O",
+            "query_name": "3-methyl-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but-3-en-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/127-51-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": false,
+            "mw_mismatch": false
+          },
+          {
+            "source": "cache",
+            "name": "Alpha Isomethyl Ionone",
+            "local_cas": "127-51-5",
+            "local_cid": 5372174,
+            "local_mw": 206.33,
+            "query_cid": 5356787,
+            "query_mw": "206.32",
+            "query_formula": "C14H22O",
+            "query_name": "(Z)-3-methyl-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but-3-en-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/127-51-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": false,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Alpha Isomethyl Ionone",
+            "local_cas": "127-51-5",
+            "local_mw": 206.32,
+            "query_cid": 5372174,
+            "query_mw": "206.32",
+            "query_formula": "C14H22O",
+            "query_name": "(E)-3-methyl-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but-3-en-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/127-51-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Alpha Isomethyl Ionone",
+            "local_cas": "127-51-5",
+            "local_mw": 206.32,
+            "query_cid": 61073,
+            "query_mw": "206.32",
+            "query_formula": "C14H22O",
+            "query_name": "3-methyl-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but-3-en-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/127-51-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Alpha Isomethyl Ionone",
+            "local_cas": "127-51-5",
+            "local_mw": 206.32,
+            "query_cid": 5356787,
+            "query_mw": "206.32",
+            "query_formula": "C14H22O",
+            "query_name": "(Z)-3-methyl-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but-3-en-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/127-51-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 207,
+        "name": "Ethylene Brassylate",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "ETHYLENE BRASSYLATE",
+            "local_cas": "105-95-3",
+            "local_cid": 61014,
+            "local_mw": 270.37,
+            "query_cid": 61014,
+            "query_mw": "270.36",
+            "query_formula": "C15H26O4",
+            "query_name": "1,4-dioxacycloheptadecane-5,17-dione",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/105-95-3/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 208,
+        "name": "Galaxolide",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "GALAXOLIDE",
+            "local_cas": "1222-05-5",
+            "local_cid": 91497,
+            "local_mw": 258.4,
+            "query_cid": 91497,
+            "query_mw": "258.4",
+            "query_formula": "C18H26O",
+            "query_name": "4,6,6,7,8,8-hexamethyl-1,3,4,7-tetrahydrocyclopenta[g]isochromene",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/1222-05-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 209,
+        "name": "Tonalide",
+        "cas_query_results": []
+      },
+      {
+        "line": 210,
+        "name": "Habanolide",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "HABANOLIDE",
+            "local_cas": "34902-57-3",
+            "local_cid": 12410118,
+            "local_mw": 238.37,
+            "query_cid": 12410118,
+            "query_mw": "238.37",
+            "query_formula": "C15H26O2",
+            "query_name": "(3E)-1-oxacyclohexadec-3-en-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/34902-57-3/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 211,
+        "name": "Zenolide",
+        "cas_query_results": []
+      },
+      {
+        "line": 212,
+        "name": "Romandolide",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "ROMANDOLIDE",
+            "local_cas": "236391-76-7",
+            "local_cid": 21933618,
+            "local_mw": 270.36,
+            "query_cid": 21933618,
+            "query_mw": "270.36",
+            "query_formula": "C15H26O4",
+            "query_name": "[2-[1-(3,3-dimethylcyclohexyl)ethoxy]-2-oxoethyl] propanoate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/236391-76-7/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Romandolide",
+            "local_cas": "236391-76-7",
+            "local_mw": 270.36,
+            "query_cid": 21933618,
+            "query_mw": "270.36",
+            "query_formula": "C15H26O4",
+            "query_name": "[2-[1-(3,3-dimethylcyclohexyl)ethoxy]-2-oxoethyl] propanoate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/236391-76-7/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 213,
+        "name": "Exaltolide",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "EXALTOLIDE",
+            "local_cas": "106-02-5",
+            "local_cid": 235414,
+            "local_mw": 240.38,
+            "query_cid": 235414,
+            "query_mw": "240.38",
+            "query_formula": "C15H28O2",
+            "query_name": "oxacyclohexadecan-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/106-02-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 214,
+        "name": "Macrolide",
+        "cas_query_results": []
+      },
+      {
+        "line": 215,
+        "name": "Ambrettolide",
+        "cas_query_results": []
+      },
+      {
+        "line": 216,
+        "name": "Musk Ketone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "MUSK KETONE",
+            "local_cas": "81-14-1",
+            "local_cid": 6669,
+            "local_mw": 294.3,
+            "query_cid": 6669,
+            "query_mw": "294.30",
+            "query_formula": "C14H18N2O5",
+            "query_name": "1-(4-tert-butyl-2,6-dimethyl-3,5-dinitrophenyl)ethanone",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/81-14-1/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 217,
+        "name": "Musk Ketone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "MUSK KETONE",
+            "local_cas": "81-14-1",
+            "local_cid": 6669,
+            "local_mw": 294.3,
+            "query_cid": 6669,
+            "query_mw": "294.30",
+            "query_formula": "C14H18N2O5",
+            "query_name": "1-(4-tert-butyl-2,6-dimethyl-3,5-dinitrophenyl)ethanone",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/81-14-1/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 220,
+        "name": "Hay Absolute",
+        "cas_query_results": []
+      },
+      {
+        "line": 221,
+        "name": "Anisaldehyde 10%",
+        "cas_query_results": []
+      },
+      {
+        "line": 222,
+        "name": "Ethyl Maltol 1%",
+        "cas_query_results": []
+      },
+      {
+        "line": 223,
+        "name": "Raspberry Ketone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "RASPBERRY KETONE",
+            "local_cas": "5471-51-2",
+            "local_cid": 21648,
+            "local_mw": 164.2,
+            "query_cid": 21648,
+            "query_mw": "164.20",
+            "query_formula": "C10H12O2",
+            "query_name": "4-(4-hydroxyphenyl)butan-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/5471-51-2/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 224,
+        "name": "Vietnamese Benzoin Styrax Tonkinensis resin ethanol tincture",
+        "cas_query_results": []
+      },
+      {
+        "line": 225,
+        "name": "Turkish Storax Liquidambar Orientalis resin ethanol tincture",
+        "cas_query_results": []
+      },
+      {
+        "line": 226,
+        "name": "Coffee Absolute Grasse",
+        "cas_query_results": []
+      },
+      {
+        "line": 227,
+        "name": "2-Acetyl Pyrazine",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "2-Acetyl Pyrazine",
+            "local_cas": "22047-25-2",
+            "local_cid": 30914,
+            "local_mw": 122.12,
+            "query_cid": 30914,
+            "query_mw": "122.12",
+            "query_formula": "C6H6N2O",
+            "query_name": "1-pyrazin-2-ylethanone",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/22047-25-2/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "2-Acetyl Pyrazine",
+            "local_cas": "22047-25-2",
+            "local_mw": 122.12,
+            "query_cid": 30914,
+            "query_mw": "122.12",
+            "query_formula": "C6H6N2O",
+            "query_name": "1-pyrazin-2-ylethanone",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/22047-25-2/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 228,
+        "name": "Ethyl Maltol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "ETHYL MALTOL",
+            "local_cas": "4940-11-8",
+            "local_cid": 21059,
+            "local_mw": 140.14,
+            "query_cid": 21059,
+            "query_mw": "140.14",
+            "query_formula": "C7H8O3",
+            "query_name": "2-ethyl-3-hydroxypyran-4-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/4940-11-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 229,
+        "name": "Coumarin",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "COUMARIN",
+            "local_cas": "91-64-5",
+            "local_cid": 323,
+            "local_mw": 146.14,
+            "query_cid": 323,
+            "query_mw": "146.14",
+            "query_formula": "C9H6O2",
+            "query_name": "chromen-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/91-64-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 230,
+        "name": "Coumarin",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "COUMARIN",
+            "local_cas": "91-64-5",
+            "local_cid": 323,
+            "local_mw": 146.14,
+            "query_cid": 323,
+            "query_mw": "146.14",
+            "query_formula": "C9H6O2",
+            "query_name": "chromen-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/91-64-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 231,
+        "name": "Vanillin",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "VANILLIN",
+            "local_cas": "121-33-5",
+            "local_cid": 1183,
+            "local_mw": 152.15,
+            "query_cid": 1183,
+            "query_mw": "152.15",
+            "query_formula": "C8H8O3",
+            "query_name": "4-hydroxy-3-methoxybenzaldehyde",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/121-33-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 232,
+        "name": "Ethyl Vanillin",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Ethyl Vanillin",
+            "local_cas": "121-32-4",
+            "local_cid": 8467,
+            "local_mw": 166.17,
+            "query_cid": 8467,
+            "query_mw": "166.17",
+            "query_formula": "C9H10O3",
+            "query_name": "3-ethoxy-4-hydroxybenzaldehyde",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/121-32-4/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 233,
+        "name": "Maple Lactone",
+        "cas_query_results": []
+      },
+      {
+        "line": 234,
+        "name": "Raspberry Ketone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "RASPBERRY KETONE",
+            "local_cas": "5471-51-2",
+            "local_cid": 21648,
+            "local_mw": 164.2,
+            "query_cid": 21648,
+            "query_mw": "164.20",
+            "query_formula": "C10H12O2",
+            "query_name": "4-(4-hydroxyphenyl)butan-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/5471-51-2/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 235,
+        "name": "Siam Benzoin",
+        "cas_query_results": []
+      },
+      {
+        "line": 236,
+        "name": "Benzoin Sumatra Resinoid",
+        "cas_query_results": []
+      },
+      {
+        "line": 237,
+        "name": "Anisaldehyde",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Anisaldehyde",
+            "local_cas": "123-11-5",
+            "local_cid": 31244,
+            "local_mw": 136.15,
+            "query_cid": 31244,
+            "query_mw": "136.15",
+            "query_formula": "C8H8O2",
+            "query_name": "4-methoxybenzaldehyde",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/123-11-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 238,
+        "name": "Gamma Decalactone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Gamma Decalactone",
+            "local_cas": "706-14-9",
+            "local_cid": 12813,
+            "local_mw": 170.25,
+            "query_cid": 12813,
+            "query_mw": "170.25",
+            "query_formula": "C10H18O2",
+            "query_name": "5-hexyloxolan-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/706-14-9/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 239,
+        "name": "Gamma Undecalactone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Gamma Undecalactone",
+            "local_cas": "104-67-6",
+            "local_cid": 7714,
+            "local_mw": 184.28,
+            "query_cid": 7714,
+            "query_mw": "184.27",
+            "query_formula": "C11H20O2",
+            "query_name": "5-heptyloxolan-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/104-67-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 240,
+        "name": "Delta Decalactone",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Delta Decalactone",
+            "local_cas": "705-86-2",
+            "local_cid": 12810,
+            "local_mw": 170.25,
+            "query_cid": 12810,
+            "query_mw": "170.25",
+            "query_formula": "C10H18O2",
+            "query_name": "6-pentyloxan-2-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/705-86-2/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 241,
+        "name": "Aldehyde C-18",
+        "cas_query_results": []
+      },
+      {
+        "line": 242,
+        "name": "Aldehyde C-18",
+        "cas_query_results": []
+      },
+      {
+        "line": 243,
+        "name": "Allyl Amyl Glycolate",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Allyl Amyl Glycolate",
+            "local_cas": "67634-00-8",
+            "local_cid": 106729,
+            "local_mw": 186.25,
+            "query_cid": 106729,
+            "query_mw": "186.25",
+            "query_formula": "C10H18O3",
+            "query_name": "prop-2-enyl 2-(3-methylbutoxy)acetate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/67634-00-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 244,
+        "name": "Labdanum Resinoid",
+        "cas_query_results": []
+      },
+      {
+        "line": 245,
+        "name": "Tonkarome",
+        "cas_query_results": []
+      },
+      {
+        "line": 246,
+        "name": "Cocoa Absolute",
+        "cas_query_results": []
+      },
+      {
+        "line": 247,
+        "name": "Tonka Bean Absolute",
+        "cas_query_results": []
+      },
+      {
+        "line": 248,
+        "name": "Cocoa CO2 Extract",
+        "cas_query_results": []
+      },
+      {
+        "line": 249,
+        "name": "Peru Balsam Resinoid",
+        "cas_query_results": []
+      },
+      {
+        "line": 250,
+        "name": "Opoponax Resinoid",
+        "cas_query_results": []
+      },
+      {
+        "line": 251,
+        "name": "Myrrh EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 254,
+        "name": "Castoreum Synthetic",
+        "cas_query_results": []
+      },
+      {
+        "line": 255,
+        "name": "Tobacco Absolute",
+        "cas_query_results": []
+      },
+      {
+        "line": 256,
+        "name": "Isobutyl Quinoline",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "ISOBUTYL QUINOLINE",
+            "local_cas": "1333-58-0",
+            "local_cid": 74005,
+            "local_mw": 185.27,
+            "query_cid": 74005,
+            "query_mw": "185.26",
+            "query_formula": "C13H15N",
+            "query_name": "4-(2-methylpropyl)quinoline",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/1333-58-0/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 257,
+        "name": "Birch Tar Rectified",
+        "cas_query_results": []
+      },
+      {
+        "line": 258,
+        "name": "Costus Olifac",
+        "cas_query_results": []
+      },
+      {
+        "line": 259,
+        "name": "Cade Oil Rectified",
+        "cas_query_results": []
+      },
+      {
+        "line": 260,
+        "name": "Guaiacol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "GUAIACOL",
+            "local_cas": "90-05-1",
+            "local_cid": 460,
+            "local_mw": 124.14,
+            "query_cid": 460,
+            "query_mw": "124.14",
+            "query_formula": "C7H8O2",
+            "query_name": "2-methoxyphenol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/90-05-1/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 261,
+        "name": "Evernyl",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Evernyl",
+            "local_cas": "4707-47-5",
+            "local_cid": 78435,
+            "local_mw": 196.2,
+            "query_cid": 78435,
+            "query_mw": "196.20",
+            "query_formula": "C10H12O4",
+            "query_name": "methyl 2,4-dihydroxy-3,6-dimethylbenzoate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/4707-47-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 262,
+        "name": "Evernyl",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Evernyl",
+            "local_cas": "4707-47-5",
+            "local_cid": 78435,
+            "local_mw": 196.2,
+            "query_cid": 78435,
+            "query_mw": "196.20",
+            "query_formula": "C10H12O4",
+            "query_name": "methyl 2,4-dihydroxy-3,6-dimethylbenzoate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/4707-47-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 263,
+        "name": "Evernyl",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Evernyl",
+            "local_cas": "4707-47-5",
+            "local_cid": 78435,
+            "local_mw": 196.2,
+            "query_cid": 78435,
+            "query_mw": "196.20",
+            "query_formula": "C10H12O4",
+            "query_name": "methyl 2,4-dihydroxy-3,6-dimethylbenzoate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/4707-47-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 264,
+        "name": "Skatole",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Skatole",
+            "local_cas": "83-34-1",
+            "local_cid": 6736,
+            "local_mw": 131.17,
+            "query_cid": 6736,
+            "query_mw": "131.17",
+            "query_formula": "C9H9N",
+            "query_name": "3-methyl-1H-indole",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/83-34-1/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 265,
+        "name": "Oakmoss Absolute",
+        "cas_query_results": []
+      },
+      {
+        "line": 268,
+        "name": "Elemi EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 269,
+        "name": "Safraleine",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Safraleine",
+            "local_cas": "54440-17-4",
+            "local_cid": 10149036,
+            "local_mw": 174.24,
+            "query_cid": 10149036,
+            "query_mw": "174.24",
+            "query_formula": "C12H14O",
+            "query_name": "2,3,3-trimethyl-2H-inden-1-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/54440-17-4/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Safraleine",
+            "local_cas": "54440-17-4",
+            "local_mw": 174.24,
+            "query_cid": 10149036,
+            "query_mw": "174.24",
+            "query_formula": "C12H14O",
+            "query_name": "2,3,3-trimethyl-2H-inden-1-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/54440-17-4/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 270,
+        "name": "Caraway Seed Oil",
+        "cas_query_results": []
+      },
+      {
+        "line": 271,
+        "name": "Safraleine",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Safraleine",
+            "local_cas": "54440-17-4",
+            "local_cid": 10149036,
+            "local_mw": 174.24,
+            "query_cid": 10149036,
+            "query_mw": "174.24",
+            "query_formula": "C12H14O",
+            "query_name": "2,3,3-trimethyl-2H-inden-1-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/54440-17-4/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Safraleine",
+            "local_cas": "54440-17-4",
+            "local_mw": 174.24,
+            "query_cid": 10149036,
+            "query_mw": "174.24",
+            "query_formula": "C12H14O",
+            "query_name": "2,3,3-trimethyl-2H-inden-1-one",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/54440-17-4/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 272,
+        "name": "Coriander Essential Oil",
+        "cas_query_results": []
+      },
+      {
+        "line": 273,
+        "name": "Pink Pepper EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 274,
+        "name": "Black Pepper EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 275,
+        "name": "Cardamom EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 276,
+        "name": "Ethyl Safranate",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Ethyl Safranate",
+            "local_cas": "35044-59-8",
+            "local_cid": 118201,
+            "local_mw": 194.27,
+            "query_cid": 118201,
+            "query_mw": "194.27",
+            "query_formula": "C12H18O2",
+            "query_name": "ethyl 2,6,6-trimethylcyclohexa-1,3-diene-1-carboxylate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/35044-59-8/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 277,
+        "name": "Eugenol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Eugenol",
+            "local_cas": "97-53-0",
+            "local_cid": 3314,
+            "local_mw": 164.2,
+            "query_cid": 3314,
+            "query_mw": "164.20",
+            "query_formula": "C10H12O2",
+            "query_name": "2-methoxy-4-prop-2-enylphenol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/97-53-0/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 278,
+        "name": "Eugenol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Eugenol",
+            "local_cas": "97-53-0",
+            "local_cid": 3314,
+            "local_mw": 164.2,
+            "query_cid": 3314,
+            "query_mw": "164.20",
+            "query_formula": "C10H12O2",
+            "query_name": "2-methoxy-4-prop-2-enylphenol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/97-53-0/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 279,
+        "name": "Isoeugenol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Isoeugenol",
+            "local_cas": "97-54-1",
+            "local_cid": 853433,
+            "local_mw": 164.2,
+            "query_cid": 853433,
+            "query_mw": "164.20",
+            "query_formula": "C10H12O2",
+            "query_name": "2-methoxy-4-[(E)-prop-1-enyl]phenol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/97-54-1/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 280,
+        "name": "Clove EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 281,
+        "name": "Anise EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 282,
+        "name": "Cinnamaldehyde",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Cinnamaldehyde",
+            "local_cas": "104-55-2",
+            "local_cid": 637511,
+            "local_mw": 132.16,
+            "query_cid": 637511,
+            "query_mw": "132.16",
+            "query_formula": "C9H8O",
+            "query_name": "(E)-3-phenylprop-2-enal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/104-55-2/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 283,
+        "name": "Cinnamon Bark EO - Telvada USDA Organic",
+        "cas_query_results": []
+      },
+      {
+        "line": 284,
+        "name": "Nutmeg EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 285,
+        "name": "Lavender EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 286,
+        "name": "Lavender EO High Altitude",
+        "cas_query_results": []
+      },
+      {
+        "line": 287,
+        "name": "Lavender EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 288,
+        "name": "Spike Lavender EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 289,
+        "name": "Beta-Pinene",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Beta-Pinene",
+            "local_cas": "127-91-3",
+            "local_cid": 14896,
+            "local_mw": 136.24,
+            "query_cid": 14896,
+            "query_mw": "136.23",
+            "query_formula": "C10H16",
+            "query_name": "6,6-dimethyl-2-methylidenebicyclo[3.1.1]heptane",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/127-91-3/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Beta Pinene",
+            "local_cas": "127-91-3",
+            "local_mw": 136.23,
+            "query_cid": 14896,
+            "query_mw": "136.23",
+            "query_formula": "C10H16",
+            "query_name": "6,6-dimethyl-2-methylidenebicyclo[3.1.1]heptane",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/127-91-3/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 290,
+        "name": "Pine EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 291,
+        "name": "Juniper Berry EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 292,
+        "name": "Rosemary EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 293,
+        "name": "Clary Sage EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 294,
+        "name": "Basil EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 295,
+        "name": "Patchouli EO",
+        "cas_query_results": []
+      },
+      {
+        "line": 296,
+        "name": "Cassia Essential Oil",
+        "cas_query_results": []
+      },
+      {
+        "line": 297,
+        "name": "Olibanum Resinoid",
+        "cas_query_results": []
+      },
+      {
+        "line": 298,
+        "name": "Caryophyllene Acetate",
+        "cas_query_results": []
+      },
+      {
+        "line": 301,
+        "name": "Champignol",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Champignol",
+            "local_cas": "3687-48-7",
+            "local_cid": 6992244,
+            "local_mw": 128.21,
+            "query_cid": 6992244,
+            "query_mw": "128.21",
+            "query_formula": "C8H16O",
+            "query_name": "(3R)-oct-1-en-3-ol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/3687-48-7/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Champignol",
+            "local_cas": "3687-48-7",
+            "local_mw": 128.21,
+            "query_cid": 6992244,
+            "query_mw": "128.21",
+            "query_formula": "C8H16O",
+            "query_name": "(3R)-oct-1-en-3-ol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/3687-48-7/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 302,
+        "name": "Jasmine Sambac",
+        "cas_query_results": []
+      },
+      {
+        "line": 303,
+        "name": "Leather FO",
+        "cas_query_results": []
+      },
+      {
+        "line": 304,
+        "name": "BHT",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "BHT",
+            "local_cas": "128-37-0",
+            "local_cid": 31404,
+            "local_mw": 220.35,
+            "query_cid": 31404,
+            "query_mw": "220.35",
+            "query_formula": "C15H24O",
+            "query_name": "2,6-ditert-butyl-4-methylphenol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/128-37-0/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          },
+          {
+            "source": "yaml",
+            "name": "Butylated Hydroxytoluene (BHT) Antioxidant",
+            "local_cas": "128-37-0",
+            "local_mw": 220.35,
+            "query_cid": 31404,
+            "query_mw": "220.35",
+            "query_formula": "C15H24O",
+            "query_name": "2,6-ditert-butyl-4-methylphenol",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/128-37-0/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 305,
+        "name": "Melonal",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Melonal",
+            "local_cas": "106-72-9",
+            "local_cid": 61016,
+            "local_mw": 140.22,
+            "query_cid": 61016,
+            "query_mw": "140.22",
+            "query_formula": "C9H16O",
+            "query_name": "2,6-dimethylhept-5-enal",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/106-72-9/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 306,
+        "name": "Dimethyl Benzyl Carbinyl Acetate",
+        "cas_query_results": [
+          {
+            "source": "cache",
+            "name": "Dimethyl Benzyl Carbinyl Acetate",
+            "local_cas": "151-05-3",
+            "local_cid": 9024,
+            "local_mw": 192.25,
+            "query_cid": 9024,
+            "query_mw": "192.25",
+            "query_formula": "C12H16O2",
+            "query_name": "(2-methyl-1-phenylpropan-2-yl) acetate",
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/151-05-3/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+            "cid_match": true,
+            "mw_mismatch": false
+          }
+        ]
+      },
+      {
+        "line": 307,
+        "name": "Methyl Nonyl Ketone",
+        "cas_query_results": []
+      },
+      {
+        "line": 308,
+        "name": "Cassis Base 345B",
+        "cas_query_results": []
+      }
+    ],
+    "mismatches": [
+      {
+        "line": 25,
+        "source": "cache",
+        "name": "Apritone",
+        "local_cas": "68133-79-9",
+        "local_cid": 6437428,
+        "local_mw": 220.35,
+        "query_cid": 109154,
+        "query_mw": "220.35",
+        "query_formula": "C15H24O",
+        "query_name": "2-(3,7-dimethylocta-2,6-dienyl)cyclopentan-1-one",
+        "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/68133-79-9/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+        "cid_match": false,
+        "mw_mismatch": false
+      },
+      {
+        "line": 35,
+        "source": "yaml",
+        "name": "Blood Orange Sicilian",
+        "local_cas": "8028-48-6",
+        "local_mw": 136.2,
+        "query_cid": 62161,
+        "query_mw": "218.33",
+        "query_formula": "C15H22O",
+        "query_name": "2,6-dimethyl-10-methylidenedodeca-2,6,11-trienal",
+        "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/8028-48-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+        "mw_mismatch": true
+      },
+      {
+        "line": 35,
+        "source": "yaml",
+        "name": "Blood Orange Sicilian",
+        "local_cas": "8028-48-6",
+        "local_mw": 136.2,
+        "query_cid": 5281535,
+        "query_mw": "218.33",
+        "query_formula": "C15H22O",
+        "query_name": "(2E,6E)-2,6-dimethyl-10-methylidenedodeca-2,6,11-trienal",
+        "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/8028-48-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+        "mw_mismatch": true
+      },
+      {
+        "line": 35,
+        "source": "yaml",
+        "name": "Blood Orange Sicilian",
+        "local_cas": "8028-48-6",
+        "local_mw": 136.2,
+        "query_cid": 24976875,
+        "query_mw": "218.33",
+        "query_formula": "C15H22O",
+        "query_name": "(2Z,6E)-2,6-dimethyl-10-methylidenedodeca-2,6,11-trienal",
+        "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/8028-48-6/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+        "mw_mismatch": true
+      },
+      {
+        "line": 123,
+        "source": "cache",
+        "name": "Damascone Beta",
+        "local_cas": "23726-91-2",
+        "local_cid": 5374527,
+        "local_mw": 190.3,
+        "query_cid": 5374527,
+        "query_mw": "192.30",
+        "query_formula": "C13H20O",
+        "query_name": "(E)-1-(2,6,6-trimethylcyclohexen-1-yl)but-2-en-1-one",
+        "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/23726-91-2/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+        "cid_match": true,
+        "mw_mismatch": true
+      },
+      {
+        "line": 156,
+        "source": "cache",
+        "name": "Alpha Isomethyl Ionone",
+        "local_cas": "127-51-5",
+        "local_cid": 5372174,
+        "local_mw": 206.33,
+        "query_cid": 61073,
+        "query_mw": "206.32",
+        "query_formula": "C14H22O",
+        "query_name": "3-methyl-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but-3-en-2-one",
+        "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/127-51-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+        "cid_match": false,
+        "mw_mismatch": false
+      },
+      {
+        "line": 156,
+        "source": "cache",
+        "name": "Alpha Isomethyl Ionone",
+        "local_cas": "127-51-5",
+        "local_cid": 5372174,
+        "local_mw": 206.33,
+        "query_cid": 5356787,
+        "query_mw": "206.32",
+        "query_formula": "C14H22O",
+        "query_name": "(Z)-3-methyl-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but-3-en-2-one",
+        "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/127-51-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+        "cid_match": false,
+        "mw_mismatch": false
+      },
+      {
+        "line": 175,
+        "source": "cache",
+        "name": "Polysantol",
+        "local_cas": "107898-54-4",
+        "local_cid": 15984303,
+        "local_mw": 222.37,
+        "query_cid": 53425103,
+        "query_mw": "222.37",
+        "query_formula": "C15H26O",
+        "query_name": "3,3-dimethyl-5-(2,2,3-trimethylcyclopent-3-en-1-yl)pent-4-en-2-ol",
+        "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/107898-54-4/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+        "cid_match": false,
+        "mw_mismatch": false
+      },
+      {
+        "line": 202,
+        "source": "cache",
+        "name": "AMBER XTREME",
+        "local_cas": "476332-65-7",
+        "local_cid": null,
+        "local_mw": 236,
+        "query_cid": 92030006,
+        "query_mw": "264.4",
+        "query_formula": "C18H32O",
+        "query_name": "2,2,6,6,7,8,8-heptamethyl-3,3a,4,5,5a,7,8a,8b-octahydrocyclopenta[g][1]benzofuran",
+        "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/476332-65-7/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+        "cid_match": null,
+        "mw_mismatch": true
+      },
+      {
+        "line": 204,
+        "source": "cache",
+        "name": "Alpha Isomethyl Ionone",
+        "local_cas": "127-51-5",
+        "local_cid": 5372174,
+        "local_mw": 206.33,
+        "query_cid": 61073,
+        "query_mw": "206.32",
+        "query_formula": "C14H22O",
+        "query_name": "3-methyl-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but-3-en-2-one",
+        "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/127-51-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+        "cid_match": false,
+        "mw_mismatch": false
+      },
+      {
+        "line": 204,
+        "source": "cache",
+        "name": "Alpha Isomethyl Ionone",
+        "local_cas": "127-51-5",
+        "local_cid": 5372174,
+        "local_mw": 206.33,
+        "query_cid": 5356787,
+        "query_mw": "206.32",
+        "query_formula": "C14H22O",
+        "query_name": "(Z)-3-methyl-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but-3-en-2-one",
+        "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/127-51-5/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+        "cid_match": false,
+        "mw_mismatch": false
+      }
+    ],
+    "rows_with_cas_compound": 131,
+    "unique_cas_resolved": 114
+  }
+}

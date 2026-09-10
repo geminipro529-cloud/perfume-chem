@@ -1,0 +1,55 @@
+# PLI-ASTRA-V1 — basket-ordered weighed development card
+
+Date: 2026-09-05. FUTURE WORK ONLY / NOT COMPOUNDED / NOT RELEASED.
+Master: 6.000 g. This is NOT a 6 mL pipette recipe. The separate diagnostic µL table is not executable.
+Source: formulas/Prada_LHomme_Intense_Astra_V1_30mL_EDP.md.
+All material masses include their declared carriers. Do not add the listed carrier totals a second time.
+
+## Before weighing
+
+- The 20% w/w Coumarin in DEP and 10% w/w Heliotropal in DEP rows require the NEW labeled preparations in the formula. They are not yet prepared. Do not substitute the ambiguous old Coumarin stock.
+- Use the owned 9% w/w Orris Liquid product in DEP; 9% does not mean irones. Use the exact 25% w/w mixed-carrier Ambrox Super, not Ambrofix.
+- Reconcile every physical bottle/lot, remaining quantity and clear/homogeneous condition. Master arithmetic does not certify handling or skin safety.
+- Validate balance uncertainty at the smallest transfer: 40 mg here, requiring <=0.4 mg uncertainty for a 1% criterion. A display digit is not validation. If necessary multiply EVERY mass by a common factor.
+- Basket numbers follow the user's list. Suederal's placement with woods is provisional because its exact physical basket is not recorded. Move the complete row, never its dose.
+
+## Master additions
+
+Within each basket, descending weighed mass is used because authoritative stock volumes are unknown. This is a mass-only alternative, not a claim that descending mass equals descending µL. If a volumetric card is later made from valid densities, recalculate and sort raw µL within each physical basket.
+
+| Step | Basket | Material | Stock | Weigh g, 6 g master | Cumulative g | Optional 12 g master, weigh g |
+|---:|---:|---|---|---:|---:|---:|
+| 1 | 1 | Hedione | neat / as supplied | 0.600 | 0.600 | 1.200 |
+| 2 | 1 | Ambrox Super | 25% w/w in DPG + IPM + ethanol | 0.480 | 1.080 | 0.960 |
+| 3 | 1 | Iso E Super | neat / as supplied | 0.450 | 1.530 | 0.900 |
+| 4 | 1 | Benzyl Salicylate | neat / as supplied | 0.210 | 1.740 | 0.420 |
+| 5 | 1 | Patchouli EO | neat / as supplied | 0.180 | 1.920 | 0.360 |
+| 6 | 3 | Bacdanol | neat / as supplied | 0.400 | 2.320 | 0.800 |
+| 7 | 3 | Kephalis | neat / as supplied | 0.120 | 2.440 | 0.240 |
+| 8 | 3 | Cashmeran | neat / as supplied | 0.060 | 2.500 | 0.120 |
+| 9 | 3 | Suederal | neat / as supplied | 0.040 | 2.540 | 0.080 |
+| 10 | 6 | Ambrettolide | 10% w/w in DPG | 0.800 | 3.340 | 1.600 |
+| 11 | 11 | Alpha Isomethyl Ionone | neat / as supplied | 1.200 | 4.540 | 2.400 |
+| 12 | 11 | Alpha Irone | 10% w/w in DEP | 0.240 | 4.780 | 0.480 |
+| 13 | 11 | Orris Liquid | 9% w/w in DEP | 0.200 | 4.980 | 0.400 |
+| 14 | 11 | Alpha Ionone | neat / as supplied | 0.100 | 5.080 | 0.200 |
+| 15 | 11 | Orivone | neat / as supplied | 0.040 | 5.120 | 0.080 |
+| 16 | 12 | Tonkarome | 20% w/w in TEC | 0.600 | 5.720 | 1.200 |
+| 17 | 12 | Coumarin | 20% w/w in DEP — NEW PREP REQUIRED | 0.180 | 5.900 | 0.360 |
+| 18 | 12 | Heliotropal | 10% w/w in DEP — NEW PREP REQUIRED | 0.100 | 6.000 | 0.200 |
+| — | — | TOTAL | Declared stocks including carriers | 6.000 | 6.000 | 12.000 |
+
+Mass closure for 6 g master: supplied fragrant products 3.808 g; DEP 0.632 g; DPG 1.000 g; TEC 0.480 g; IPM 0.020 g; stock ethanol 0.060 g. The optional 12 g column doubles all of these. No free carrier pre-charge is included in this master.
+
+## Nominal 30 mL / 20% finish, only after execution clearance
+
+Use a measured 6.00 mL homogeneous concentrate aliquot at a recorded temperature, recording its actual mass m6_g. Bring to final 30.00 mL with suitable perfumer's ethanol in calibrated final-volume equipment. Do not blindly add 24 mL or call 6 g equal to 6 mL.
+
+For any row, actual product mass in bottle = m6_g * master_product_mg / 6000.
+Record final bottle mass M_g. Finished ppm w/w = actual_product_g / M_g * 1,000,000.
+Individual raw-stock µL and literal active µL remain UNKNOWN until the appropriate physical measurements exist.
+
+Record: date; preparer; bottle IDs; preparation IDs; actual addition masses; total; temperature; concentrate aliquot volume and mass; ethanol used; final volume and mass; clarity/precipitation; departures. Do not compensate a mistake by silently changing a later ingredient.
+
+Current computational decision: pipeline FAIL / controlling release HOLD. This card confers no physical compounding, skin testing, safety, stability, sensory similarity or release authority.
+

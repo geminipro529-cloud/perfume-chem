@@ -1,0 +1,1870 @@
+"""Creative direction profiles and intervention heuristics.
+
+This module is intentionally data-oriented. It provides:
+  - family-level creative direction profiles with multiple interpretations
+  - observation-to-intervention heuristics for pre_mix, between_mix, post_mix
+  - lookup helpers so the main agent can integrate this without reworking
+    the existing recommendation stack
+
+The module is standalone and does not modify any existing pipeline behavior.
+It is designed to be imported by future recommendation surfaces, including
+post-mix and between-mix workflows.
+"""
+
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass, field
+from typing import Iterable
+
+from .intervention_context import (
+    InterventionMode,
+    normalize_intervention_mode,
+    normalize_observation_tag,
+)
+
+
+def _slugify(text: str) -> str:
+    raw = text.strip().lower()
+    raw = re.sub(r"[^a-z0-9]+", "_", raw)
+    raw = re.sub(r"_+", "_", raw).strip("_")
+    return raw
+
+
+def _dedupe(values: Iterable[str]) -> tuple[str, ...]:
+    seen: set[str] = set()
+    ordered: list[str] = []
+    for value in values:
+        item = value.strip()
+        if not item:
+            continue
+        key = _slugify(item)
+        if key in seen:
+            continue
+        seen.add(key)
+        ordered.append(item)
+    return tuple(ordered)
+
+
+def _merge_tuple_fields(*parts: Iterable[str] | None) -> tuple[str, ...]:
+    merged: list[str] = []
+    for part in parts:
+        if not part:
+            continue
+        merged.extend(part)
+    return _dedupe(merged)
+
+
+def _merge_mapping(
+    base: dict[str, tuple[str, ...]] | None,
+    override: dict[str, Iterable[str]] | None,
+) -> dict[str, tuple[str, ...]]:
+    merged: dict[str, tuple[str, ...]] = {}
+    base = base or {}
+    override = override or {}
+    keys = set(base) | set(override)
+    for key in keys:
+        merged[key] = _merge_tuple_fields(base.get(key), override.get(key))
+    return merged
+
+
+def _material_key(name: str) -> str:
+    return _slugify(name)
+
+
+def _name_matches(candidate: str, target: str) -> bool:
+    cand = _material_key(candidate)
+    targ = _material_key(target)
+    return cand == targ or cand in targ or targ in cand
+
+
+_FAMILY_ALIASES = {
+    "white floral": "white_floral",
+    "white-floral": "white_floral",
+    "whitefloral": "white_floral",
+    "citrus floral": "citrus_floral",
+    "citrus-floral": "citrus_floral",
+    "citrusfloral": "citrus_floral",
+    "skin scent": "skin_scent",
+    "skin-scent": "skin_scent",
+    "skinscent": "skin_scent",
+    "orris": "iris",
+    "lily of the valley": "muguet",
+    "lily-of-the-valley": "muguet",
+    "muguet floral": "muguet",
+}
+
+
+_OBSERVATION_ALIASES = {
+    "doesnt last": "top_fades_fast",
+    "doesn't last": "top_fades_fast",
+    "vanishes fast": "top_fades_fast",
+    "opening fades fast": "top_fades_fast",
+    "opening too weak": "top_weak",
+    "top too weak": "top_weak",
+    "needs more top": "top_weak",
+    "too piercing": "too_sharp",
+    "too acidic": "too_sharp",
+    "too citrus": "too_sharp",
+    "too syrupy": "too_sweet",
+    "too gourmand": "too_sweet",
+    "too lush": "too_heavy",
+    "too dense": "too_heavy",
+    "too flat": "too_flat",
+    "too linear": "too_flat",
+    "too generic": "too_generic",
+    "too loud": "too_loud",
+    "too projecting": "too_loud",
+    "too soft": "too_soft",
+    "too powdery": "too_powdery",
+    "too cosmetic": "too_cosmetic",
+    "too soapy": "too_soapy",
+    "too woody": "too_woody",
+    "too musky": "too_musky",
+    "too dark": "too_dark",
+    "drydown too thin": "drydown_thin",
+    "drydown too weak": "drydown_thin",
+    "drydown too heavy": "drydown_heavy",
+    "heart too thin": "heart_thin",
+    "heart too dense": "heart_heavy",
+    "needs more lift": "needs_lift",
+    "needs more diffusion": "needs_diffusion",
+    "needs more texture": "needs_texture",
+    "needs more depth": "needs_depth",
+    "needs more warmth": "needs_warmth",
+    "needs more skin": "needs_skin",
+    "needs more sparkle": "needs_lift",
+    "needs more bloom": "needs_diffusion",
+}
+
+
+def normalize_family_key(value: str | None) -> str | None:
+    """Normalize family labels to stable slugs."""
+    if value is None:
+        return None
+    raw = value.strip().lower()
+    if not raw:
+        return None
+    if raw in _FAMILY_ALIASES:
+        return _FAMILY_ALIASES[raw]
+    key = _slugify(raw)
+    return _FAMILY_ALIASES.get(key, key)
+
+
+def normalize_observation_signal(value: str) -> str:
+    """Normalize a free-text observation into a stable signal key."""
+    raw = re.sub(r"\s+", " ", value.strip().lower())
+    if raw in _OBSERVATION_ALIASES:
+        raw = _OBSERVATION_ALIASES[raw]
+    raw = normalize_observation_tag(raw)
+    if raw in _OBSERVATION_ALIASES:
+        raw = _OBSERVATION_ALIASES[raw]
+    return raw
+
+
+def normalize_observation_signals(
+    values: Iterable[str] | str | None,
+) -> list[str]:
+    """Normalize and deduplicate observations from free text or a list."""
+    if values is None:
+        return []
+    if isinstance(values, str):
+        values = [values]
+    normalized: list[str] = []
+    seen: set[str] = set()
+    for value in values:
+        signal = normalize_observation_signal(value)
+        if not signal or signal in seen:
+            continue
+        seen.add(signal)
+        normalized.append(signal)
+    return normalized
+
+
+@dataclass(frozen=True, slots=True)
+class CreativeDirectionProfile:
+    """A perfume-family direction with several creative interpretations."""
+
+    family: str
+    slug: str
+    label: str
+    interpretations: tuple[str, ...]
+    description: str
+    anchor_materials: tuple[str, ...] = ()
+    bridge_materials: tuple[str, ...] = ()
+    accent_materials: tuple[str, ...] = ()
+    avoid_materials: tuple[str, ...] = ()
+    preferred_axes: tuple[str, ...] = ()
+    observation_signals: tuple[str, ...] = ()
+    preferred_modes: tuple[InterventionMode, ...] = (
+        "pre_mix",
+        "between_mix",
+        "post_mix",
+    )
+    mode_notes: dict[InterventionMode, tuple[str, ...]] = field(default_factory=dict)
+    signal_materials: dict[str, tuple[str, ...]] = field(default_factory=dict)
+    signal_notes: dict[str, tuple[str, ...]] = field(default_factory=dict)
+
+
+@dataclass(frozen=True, slots=True)
+class ObservationInterventionRule:
+    """Generic observation -> intervention mapping."""
+
+    signal: str
+    label: str
+    action: str
+    description: str
+    family_bias: tuple[str, ...] = ()
+    preferred_axes: tuple[str, ...] = ()
+    materials: tuple[str, ...] = ()
+    avoid_materials: tuple[str, ...] = ()
+    modes: tuple[InterventionMode, ...] = (
+        "pre_mix",
+        "between_mix",
+        "post_mix",
+    )
+    dose_style: str = "bridge"
+    notes: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True, slots=True)
+class InterventionRecommendation:
+    """Structured recommendation output for downstream rendering."""
+
+    family: str | None
+    profile: str | None
+    profile_label: str | None
+    signal: str
+    mode: InterventionMode
+    action: str
+    materials: tuple[str, ...]
+    rationale: str
+    confidence: float
+    dose_style: str = "bridge"
+    matched_signals: tuple[str, ...] = ()
+    notes: tuple[str, ...] = ()
+
+
+FAMILY_BASES: dict[str, dict[str, object]] = {
+    "white_floral": {
+        "label": "White Floral",
+        "preferred_axes": ("radiance", "diffusion", "floral", "freshness"),
+        "observation_signals": (
+            "top_fades_fast",
+            "too_sharp",
+            "too_flat",
+            "heart_thin",
+            "too_cosmetic",
+            "too_soapy",
+        ),
+        "preferred_modes": ("pre_mix", "between_mix", "post_mix"),
+        "mode_notes": {
+            "pre_mix": (
+                "Build the bloom around an airy floral bridge instead of forcing density.",
+                "Keep indole or heavy jasminic materials in trace roles.",
+            ),
+            "between_mix": (
+                "Widen the floral heart before the bottle is finalized.",
+                "Let hedione or salicylates create the bloom envelope first.",
+            ),
+            "post_mix": (
+                "Use micro-dose floral polish to extend the opening without flattening it.",
+                "Favor sparkle and diffusion over sweetness when adding to a finished bottle.",
+            ),
+        },
+        "signal_materials": {
+            "top_fades_fast": ("Hedione", "Bergamot FCF oil Sicilian", "Linalool"),
+            "too_sharp": ("Benzyl Salicylate", "Hydroxycitronellal", "Florol"),
+            "too_flat": ("Peonile", "Jasmine FO", "Heliotropal"),
+            "heart_thin": ("Hedione", "Lilyreal ND", "Nympheal"),
+            "too_cosmetic": ("Neroli EO", "Peonile", "Linalool"),
+            "too_soapy": ("Jasmine FO", "Peonile", "Labdanum Absolute (10%)"),
+        },
+        "signal_notes": {
+            "top_fades_fast": (
+                "If the top evaporates too quickly, keep the bloom translucent and diffusive.",
+            ),
+            "too_sharp": (
+                "Soften the edge before adding more floral density.",
+            ),
+            "heart_thin": (
+                "The heart needs body, not more sweetness.",
+            ),
+        },
+    },
+    "citrus_floral": {
+        "label": "Citrus Floral",
+        "preferred_axes": ("freshness", "radiance", "floral", "lift"),
+        "observation_signals": (
+            "top_fades_fast",
+            "too_sharp",
+            "too_heavy",
+            "heart_thin",
+            "drydown_thin",
+        ),
+        "preferred_modes": ("pre_mix", "between_mix", "post_mix"),
+        "mode_notes": {
+            "pre_mix": (
+                "Balance citrus brightness with a floral bridge before the structure hardens.",
+            ),
+            "between_mix": (
+                "Tune the top-to-heart transition before dilution hides the edges.",
+            ),
+            "post_mix": (
+                "Micro-dose sparkle or softness only; citrus florals drift quickly when overcorrected.",
+            ),
+        },
+        "signal_materials": {
+            "top_fades_fast": (
+                "Bergamot FCF oil Sicilian",
+                "Cedrat FCF oil Sicilian",
+                "Linalool",
+            ),
+            "too_sharp": ("Hedione", "Neroli EO", "Benzyl Salicylate"),
+            "too_heavy": ("Linalool", "Dihydromyrcenol", "Hedione"),
+            "heart_thin": ("Hedione", "Peonile", "Florol"),
+            "drydown_thin": ("Ambrox Super", "Benzyl Salicylate", "Habanolide"),
+        },
+        "signal_notes": {
+            "top_fades_fast": (
+                "Keep the citrus opening crisp but not thin.",
+            ),
+            "too_sharp": (
+                "The goal is a polished citrus glow, not a scrubbed citrus shell.",
+            ),
+        },
+    },
+    "gourmand": {
+        "label": "Gourmand",
+        "preferred_axes": ("sweetness", "warmth", "texture", "depth"),
+        "observation_signals": (
+            "too_sweet",
+            "too_heavy",
+            "drydown_thin",
+            "too_flat",
+            "too_generic",
+        ),
+        "preferred_modes": ("pre_mix", "between_mix", "post_mix"),
+        "mode_notes": {
+            "pre_mix": (
+                "Shape the edible impression with contrast, not sugar alone.",
+            ),
+            "between_mix": (
+                "Dry out the center a little before the structure gets syrupy.",
+            ),
+            "post_mix": (
+                "Use tiny corrective additions only; gourmand materials can become sticky fast.",
+            ),
+        },
+        "signal_materials": {
+            "too_sweet": ("Iso E Super", "Vetiver EO", "Patchouli EO"),
+            "too_heavy": ("Bergamot FCF oil Sicilian", "Hedione", "Linalool"),
+            "drydown_thin": (
+                "Benzoin Sumatra Resinoid (10%)",
+                "Labdanum Absolute (10%)",
+                "Vanillin (10%)",
+            ),
+            "too_flat": ("Heliotropal", "Blackcurrant FTEC", "Heliotropal"),
+            "too_generic": ("Blackcurrant FTEC", "Heliotropal", "Peonile"),
+        },
+        "signal_notes": {
+            "too_sweet": (
+                "Dry the architecture before adding more sweetness.",
+            ),
+        },
+    },
+    "amber": {
+        "label": "Amber",
+        "preferred_axes": ("warmth", "depth", "texture", "longevity"),
+        "observation_signals": (
+            "too_sweet",
+            "too_heavy",
+            "drydown_thin",
+            "too_dark",
+            "too_soft",
+        ),
+        "preferred_modes": ("pre_mix", "between_mix", "post_mix"),
+        "mode_notes": {
+            "pre_mix": (
+                "Decide whether the amber should be clean, resinous, or vanillic before scaling it up.",
+            ),
+            "between_mix": (
+                "Set the drydown relationship before final dilution hides the contrast.",
+            ),
+            "post_mix": (
+                "If the bottle is already mixed, favor tiny drydown repairs instead of broad changes.",
+            ),
+        },
+        "signal_materials": {
+            "too_sweet": ("Iso E Super", "Vetiver EO", "Patchouli EO"),
+            "too_heavy": ("Bergamot FCF oil Sicilian", "Linalool", "Hedione"),
+            "drydown_thin": (
+                "Ambrox Super",
+                "Labdanum Absolute (10%)",
+                "Benzoin Sumatra Resinoid (10%)",
+            ),
+            "too_dark": ("Bergamot FCF oil Sicilian", "Hedione", "Linalool"),
+            "too_soft": ("Ambrox Super", "Iso E Super", "Cashmeran (20%)"),
+        },
+    },
+    "leather": {
+        "label": "Leather",
+        "preferred_axes": ("depth", "texture", "smoke", "structure"),
+        "observation_signals": (
+            "too_heavy",
+            "too_woody",
+            "drydown_thin",
+            "too_soft",
+            "too_generic",
+        ),
+        "preferred_modes": ("pre_mix", "between_mix", "post_mix"),
+        "mode_notes": {
+            "pre_mix": (
+                "Choose the leather register first: suede, smoked leather, or tobacco leather.",
+            ),
+            "between_mix": (
+                "If the leather feels blunt, add structure rather than more smoke.",
+            ),
+            "post_mix": (
+                "Post-mix leather corrections should be very small; smoke can take over quickly.",
+            ),
+        },
+        "signal_materials": {
+            "too_heavy": ("Bergamot FCF oil Sicilian", "Hedione", "Neroli EO"),
+            "too_woody": ("Suederal (10%)", "Styrax FTEC", "Labdanum Absolute (10%)"),
+            "drydown_thin": ("Labdanum Absolute (10%)", "Birch Tar Rectified", "Styrax FTEC"),
+            "too_soft": ("Birch Tar Rectified", "Vetiver EO", "Suederal (10%)"),
+            "too_generic": ("Suederal (10%)", "Birch Tar Rectified", "Styrax FTEC"),
+        },
+    },
+    "chypre": {
+        "label": "Chypre",
+        "preferred_axes": ("freshness", "depth", "structure", "contrast"),
+        "observation_signals": (
+            "too_flat",
+            "too_soft",
+            "too_sweet",
+            "drydown_thin",
+            "too_generic",
+        ),
+        "preferred_modes": ("pre_mix", "between_mix", "post_mix"),
+        "mode_notes": {
+            "pre_mix": (
+                "Keep the top, heart, and base in tension; chypre loses identity when it is too even.",
+            ),
+            "between_mix": (
+                "Nudge the mossy or patchouli axis before the blend settles.",
+            ),
+            "post_mix": (
+                "For a finished bottle, add only enough structure to sharpen the silhouette.",
+            ),
+        },
+        "signal_materials": {
+            "too_flat": ("Bergamot FCF oil Sicilian", "Evernyl", "Patchouli EO"),
+            "too_soft": ("Evernyl", "Labdanum Absolute (10%)", "Styrax FTEC"),
+            "too_sweet": ("Bergamot FCF oil Sicilian", "Vetiver EO", "Evernyl"),
+            "drydown_thin": ("Evernyl", "Patchouli EO", "Labdanum Absolute (10%)"),
+            "too_generic": ("Evernyl", "Patchouli EO", "Labdanum Absolute (10%)"),
+        },
+    },
+    "skin_scent": {
+        "label": "Skin Scent",
+        "preferred_axes": ("texture", "softness", "longevity", "radiance"),
+        "observation_signals": (
+            "too_loud",
+            "too_soft",
+            "drydown_thin",
+            "needs_skin",
+            "too_musky",
+        ),
+        "preferred_modes": ("between_mix", "post_mix", "pre_mix"),
+        "mode_notes": {
+            "pre_mix": (
+                "Skin scents work best when the skeletal musks and woods are balanced early.",
+            ),
+            "between_mix": (
+                "Use the middle stage to find the right proximity effect.",
+            ),
+            "post_mix": (
+                "This category is often best corrected post-mix with micro-doses only.",
+            ),
+        },
+        "signal_materials": {
+            "too_loud": ("Benzyl Salicylate", "Galaxolide (80%)", "Habanolide"),
+            "too_soft": ("Ambrox Super", "Iso E Super", "Hedione"),
+            "drydown_thin": ("Ambrox Super", "Galaxolide (80%)", "Habanolide"),
+            "needs_skin": ("Iso E Super", "Ambrox Super", "Benzyl Salicylate"),
+            "too_musky": ("Benzyl Salicylate", "Hedione", "Bergamot FCF oil Sicilian"),
+        },
+    },
+    "aquatic": {
+        "label": "Aquatic",
+        "preferred_axes": ("freshness", "radiance", "lift", "diffusion"),
+        "observation_signals": (
+            "too_heavy",
+            "too_sharp",
+            "drydown_thin",
+            "needs_lift",
+            "too_flat",
+        ),
+        "preferred_modes": ("pre_mix", "between_mix", "post_mix"),
+        "mode_notes": {
+            "pre_mix": (
+                "Choose whether the water effect is marine, ozonic, or soft translucent.",
+            ),
+            "between_mix": (
+                "Adjust the bridge so the aquatic effect does not collapse into detergent.",
+            ),
+            "post_mix": (
+                "Use only the smallest top-up additions when the bottle is already finished.",
+            ),
+        },
+        "signal_materials": {
+            "too_heavy": ("Calone (1%)", "Dihydromyrcenol", "Bergamot FCF oil Sicilian"),
+            "too_sharp": ("Hedione", "Lilyreal ND", "Benzyl Salicylate"),
+            "drydown_thin": ("Ambrox Super", "Habanolide", "Nympheal"),
+            "needs_lift": ("Hedione", "Dihydromyrcenol", "Linalool"),
+            "too_flat": ("Nympheal", "Lilyreal ND", "Florol"),
+        },
+    },
+    "iris": {
+        "label": "Iris",
+        "preferred_axes": ("powder", "texture", "structure", "radiance"),
+        "observation_signals": (
+            "too_powdery",
+            "too_cosmetic",
+            "drydown_thin",
+            "too_soft",
+            "too_generic",
+        ),
+        "preferred_modes": ("pre_mix", "between_mix", "post_mix"),
+        "mode_notes": {
+            "pre_mix": (
+                "Iris can be classical, woody, or modern; decide that before the heart is locked.",
+            ),
+            "between_mix": (
+                "Use the middle stage to balance powder against lift.",
+            ),
+            "post_mix": (
+                "For an already mixed bottle, make only delicate iris corrections.",
+            ),
+        },
+        "signal_materials": {
+            "too_powdery": ("Methyl Ionone Pure", "Ultralia", "Hedione"),
+            "too_cosmetic": ("Alpha Ionone", "Orris F-TEC", "Sandalwood FO"),
+            "drydown_thin": ("Ambrox Super", "Benzyl Salicylate", "Heliotropal"),
+            "too_soft": ("Orris F-TEC", "Methyl Ionone Pure", "Sandalwood FO"),
+            "too_generic": ("Ultralia", "Orris F-TEC", "Alpha Ionone"),
+        },
+    },
+    "muguet": {
+        "label": "Muguet",
+        "preferred_axes": ("freshness", "floral", "lift", "transparency"),
+        "observation_signals": (
+            "top_fades_fast",
+            "too_sharp",
+            "too_flat",
+            "heart_thin",
+            "drydown_thin",
+        ),
+        "preferred_modes": ("pre_mix", "between_mix", "post_mix"),
+        "mode_notes": {
+            "pre_mix": (
+                "Muguet should stay transparent; do not let it collapse into generic clean laundry.",
+            ),
+            "between_mix": (
+                "Keep the lily-of-the-valley illusion light and airy while the heart is still editable.",
+            ),
+            "post_mix": (
+                "Tiny amounts of floral lift usually work better than broad fixes.",
+            ),
+        },
+        "signal_materials": {
+            "top_fades_fast": ("Hydroxycitronellal", "Florol", "Nympheal"),
+            "too_sharp": ("Benzyl Salicylate", "Hedione", "Linalool"),
+            "too_flat": ("Lilyreal ND", "Freesia HDI", "Peonile"),
+            "heart_thin": ("Lilyreal ND", "Nympheal", "Florol"),
+            "drydown_thin": ("Ambrox Super", "Benzyl Salicylate", "Hedione"),
+        },
+    },
+}
+
+
+PROFILE_VARIANTS: list[dict[str, object]] = [
+    {
+        "family": "white_floral",
+        "slug": "white_floral_jasmine_sheer",
+        "label": "Jasmine Sheer",
+        "interpretations": (
+            "transparent jasmine",
+            "hedione-lifted white bloom",
+            "airier floral veil",
+        ),
+        "description": (
+            "A clean, airy white floral that keeps jasmine luminous rather than indolic."
+        ),
+        "anchor_materials": ("Hedione", "Jasmine FO", "Benzyl Salicylate"),
+        "bridge_materials": ("Linalool", "Neroli EO"),
+        "accent_materials": ("Hydroxycitronellal", "Nympheal"),
+        "observation_signals": ("top_fades_fast", "too_sharp", "heart_thin"),
+        "signal_materials": {
+            "too_flat": ("Peonile", "Heliotropal"),
+        },
+    },
+    {
+        "family": "white_floral",
+        "slug": "white_floral_tuberose_lush",
+        "label": "Tuberose Lush",
+        "interpretations": (
+            "solar tuberose",
+            "creamy white floral",
+            "lush petal density",
+        ),
+        "description": (
+            "A richer white floral that leans plush, creamy, and slightly narcotic."
+        ),
+        "anchor_materials": ("Jasmine FO", "Heliotropal", "Vanillin (10%)"),
+        "bridge_materials": ("Peonile", "Florol"),
+        "accent_materials": ("Indole (10%)", "Nympheal"),
+        "observation_signals": ("too_flat", "heart_thin", "too_soapy"),
+        "signal_materials": {
+            "too_sharp": ("Benzyl Salicylate", "Hydroxycitronellal"),
+        },
+        "avoid_materials": ("Cedrat FCF oil Sicilian",),
+    },
+    {
+        "family": "white_floral",
+        "slug": "white_floral_orange_blossom_polished",
+        "label": "Orange Blossom Polished",
+        "interpretations": (
+            "orange blossom",
+            "petaled neroli",
+            "polished solar bloom",
+        ),
+        "description": (
+            "A white floral with citrus sheen and a polished, high-end counter feel."
+        ),
+        "anchor_materials": ("Neroli EO", "Bergamot FCF oil Sicilian", "Hedione"),
+        "bridge_materials": ("Linalool", "Peonile"),
+        "accent_materials": ("Hydroxycitronellal", "Heliotropal"),
+        "observation_signals": ("top_fades_fast", "too_cosmetic", "too_sharp"),
+    },
+    {
+        "family": "citrus_floral",
+        "slug": "citrus_floral_sparkling_cologne",
+        "label": "Sparkling Cologne",
+        "interpretations": (
+            "bright cologne",
+            "sparkling citrus floral",
+            "fresh transparent lift",
+        ),
+        "description": (
+            "A crisp citrus floral that behaves like a modern cologne with more bloom."
+        ),
+        "anchor_materials": ("Bergamot FCF oil Sicilian", "Linalool", "Hedione"),
+        "bridge_materials": ("Neroli EO", "Dihydromyrcenol"),
+        "accent_materials": ("Hydroxycitronellal", "Calone (1%)"),
+        "observation_signals": ("top_fades_fast", "too_sharp", "too_heavy"),
+    },
+    {
+        "family": "citrus_floral",
+        "slug": "citrus_floral_neroli_petaled",
+        "label": "Neroli Petaled",
+        "interpretations": (
+            "neroli blossom",
+            "petaled citrus",
+            "soft solar citrus",
+        ),
+        "description": (
+            "A citrus floral centered on neroli, floral lift, and a polished blossom texture."
+        ),
+        "anchor_materials": ("Neroli EO", "Bergamot FCF", "Hydroxycitronellal"),
+        "bridge_materials": ("Hedione", "Peonile"),
+        "accent_materials": ("Florol", "Lilyreal ND"),
+        "observation_signals": ("top_fades_fast", "too_heavy", "heart_thin"),
+    },
+    {
+        "family": "citrus_floral",
+        "slug": "citrus_floral_bitter_modern",
+        "label": "Bitter Modern",
+        "interpretations": (
+            "modern bitter citrus",
+            "dry citrus floral",
+            "architectural citrus",
+        ),
+        "description": (
+            "A sharper, more modern citrus floral with a drier silhouette and ambered support."
+        ),
+        "anchor_materials": ("Cedrat FCF oil Sicilian", "Bergamot FCF oil Sicilian", "Iso E Super"),
+        "bridge_materials": ("Linalool", "Ambrox Super"),
+        "accent_materials": ("Nympheal", "Habanolide"),
+        "observation_signals": ("too_sharp", "too_flat", "drydown_thin"),
+    },
+    {
+        "family": "gourmand",
+        "slug": "gourmand_milky_creamy",
+        "label": "Milky Creamy",
+        "interpretations": (
+            "milk-powder gourmand",
+            "creamy edible",
+            "soft bakery skin",
+        ),
+        "description": (
+            "A gourmand that reads creamy, milky, and soft rather than candy-like."
+        ),
+        "anchor_materials": ("Vanillin (10%)", "Heliotropal", "Coumarin"),
+        "bridge_materials": ("Benzyl Salicylate", "Sandalwood FO"),
+        "accent_materials": ("Ethyl Vanillin", "Ambrox Super"),
+        "observation_signals": ("too_sweet", "drydown_thin", "too_flat"),
+    },
+    {
+        "family": "gourmand",
+        "slug": "gourmand_amber_bakery",
+        "label": "Amber Bakery",
+        "interpretations": (
+            "amber gourmand",
+            "baked resin",
+            "warm dessert amber",
+        ),
+        "description": (
+            "A richer gourmand that leans amber, resinous, and baked rather than frosted."
+        ),
+        "anchor_materials": ("Benzoin Resinoid (50% in DPG)", "Labdanum Absolute (10%)", "Ethyl Vanillin"),
+        "bridge_materials": ("Coumarin", "Vanillin (10%)"),
+        "accent_materials": ("Styrax FTEC", "Ambrox Super"),
+        "observation_signals": ("too_heavy", "drydown_thin", "too_generic"),
+    },
+    {
+        "family": "gourmand",
+        "slug": "gourmand_fruity_compote",
+        "label": "Fruity Compote",
+        "interpretations": (
+            "fruit compote",
+            "juicy gourmand",
+            "berry glaze",
+        ),
+        "description": (
+            "A fruity gourmand that keeps the sweet structure juicy and lifted."
+        ),
+        "anchor_materials": ("Blackcurrant FTEC", "Heliotropal", "Peonile"),
+        "bridge_materials": ("Hedione", "Linalool"),
+        "accent_materials": ("Heliotropal", "Vanillin (10%)"),
+        "observation_signals": ("too_sweet", "too_flat", "too_generic"),
+    },
+    {
+        "family": "amber",
+        "slug": "amber_clean_amber",
+        "label": "Clean Amber",
+        "interpretations": (
+            "ambrox amber",
+            "clean woody amber",
+            "modern skin amber",
+        ),
+        "description": (
+            "A transparent amber built around diffusion, radiance, and modern musks."
+        ),
+        "anchor_materials": ("Ambrox Super", "Iso E Super", "Galaxolide (80%)"),
+        "bridge_materials": ("Hedione", "Benzyl Salicylate"),
+        "accent_materials": ("Habanolide", "Cashmeran (20%)"),
+        "observation_signals": ("too_soft", "drydown_thin", "too_heavy"),
+    },
+    {
+        "family": "amber",
+        "slug": "amber_resin_amber",
+        "label": "Resin Amber",
+        "interpretations": (
+            "resinous amber",
+            "labdanum amber",
+            "balsamic amber",
+        ),
+        "description": (
+            "A darker amber with resin weight and a more traditional drydown silhouette."
+        ),
+        "anchor_materials": ("Labdanum Absolute (10%)", "Benzoin Sumatra Resinoid (10%)", "Styrax FTEC"),
+        "bridge_materials": ("Ambrox Super", "Evernyl"),
+        "accent_materials": ("Patchouli EO", "Cashmeran (20%)"),
+        "observation_signals": ("too_sweet", "drydown_thin", "too_dark"),
+    },
+    {
+        "family": "amber",
+        "slug": "amber_vanillic_amber",
+        "label": "Vanillic Amber",
+        "interpretations": (
+            "vanilla amber",
+            "coumarinic amber",
+            "soft edible amber",
+        ),
+        "description": (
+            "An amber that reads edible and warm, but still needs a backbone of structure."
+        ),
+        "anchor_materials": ("Vanillin (10%)", "Ethyl Vanillin", "Coumarin"),
+        "bridge_materials": ("Benzoin Resinoid (50% in DPG)", "Labdanum Absolute (10%)"),
+        "accent_materials": ("Ambrox Super", "Iso E Super"),
+        "observation_signals": ("too_sweet", "drydown_thin", "too_heavy"),
+    },
+    {
+        "family": "leather",
+        "slug": "leather_suede_polished",
+        "label": "Suede Polished",
+        "interpretations": (
+            "clean suede",
+            "polished leather",
+            "soft architectural leather",
+        ),
+        "description": (
+            "A softened leather that keeps the roughness under control."
+        ),
+        "anchor_materials": ("Suederal (10%)", "Iso E Super", "Cashmeran (20%)"),
+        "bridge_materials": ("Benzyl Salicylate", "Ambrox Super"),
+        "accent_materials": ("Vetiver EO", "Labdanum Absolute (10%)"),
+        "observation_signals": ("too_heavy", "too_woody", "too_generic"),
+    },
+    {
+        "family": "leather",
+        "slug": "leather_smoked_leather",
+        "label": "Smoked Leather",
+        "interpretations": (
+            "smoked leather",
+            "birch tar leather",
+            "dark smoky hide",
+        ),
+        "description": (
+            "A more emphatic leather with smoke, tar, and balsamic shadow."
+        ),
+        "anchor_materials": ("Birch Tar Rectified", "Styrax FTEC", "Labdanum Absolute (10%)"),
+        "bridge_materials": ("Suederal (10%)", "Patchouli EO"),
+        "accent_materials": ("Iso E Super", "Vetiver EO"),
+        "observation_signals": ("too_heavy", "drydown_thin", "too_soft"),
+    },
+    {
+        "family": "leather",
+        "slug": "leather_tobacco_leather",
+        "label": "Tobacco Leather",
+        "interpretations": (
+            "tobacco leather",
+            "warm leathery tobacco",
+            "ambered hide",
+        ),
+        "description": (
+            "A leather that pivots toward tobacco, amber, and warm spice."
+        ),
+        "anchor_materials": ("Coumarin", "Labdanum Absolute (10%)", "Vetiver EO"),
+        "bridge_materials": ("Styrax FTEC", "Benzoin Sumatra Resinoid (10%)"),
+        "accent_materials": ("Birch Tar Rectified", "Ambrox Super"),
+        "observation_signals": ("too_sweet", "drydown_thin", "too_generic"),
+    },
+    {
+        "family": "chypre",
+        "slug": "chypre_classic",
+        "label": "Classic Chypre",
+        "interpretations": (
+            "classic chypre",
+            "bergamot-moss chypre",
+            "structured moss accord",
+        ),
+        "description": (
+            "A traditional chypre silhouette with contrast, mossy shadow, and a clean top."
+        ),
+        "anchor_materials": ("Bergamot FCF oil Sicilian", "Evernyl", "Patchouli EO"),
+        "bridge_materials": ("Labdanum Absolute (10%)", "Iso E Super"),
+        "accent_materials": ("Ambrox Super", "Habanolide"),
+        "observation_signals": ("too_flat", "too_soft", "drydown_thin"),
+    },
+    {
+        "family": "chypre",
+        "slug": "chypre_floral",
+        "label": "Floral Chypre",
+        "interpretations": (
+            "floral chypre",
+            "rosy chypre",
+            "petaled moss",
+        ),
+        "description": (
+            "A softer chypre where the floral heart is still clearly framed by structure."
+        ),
+        "anchor_materials": ("Jasmine FO", "Bergamot FCF oil Sicilian", "Evernyl"),
+        "bridge_materials": ("Patchouli EO", "Labdanum Absolute (10%)"),
+        "accent_materials": ("Heliotropal", "Peonile"),
+        "observation_signals": ("too_sweet", "too_flat", "too_generic"),
+    },
+    {
+        "family": "chypre",
+        "slug": "chypre_modern",
+        "label": "Modern Chypre",
+        "interpretations": (
+            "modern chypre",
+            "ambered chypre",
+            "transparent chypre",
+        ),
+        "description": (
+            "A modernized chypre that uses amber materials to sharpen the silhouette."
+        ),
+        "anchor_materials": ("Evernyl", "Iso E Super", "Ambrox Super"),
+        "bridge_materials": ("Bergamot FCF oil Sicilian", "Patchouli EO"),
+        "accent_materials": ("Galaxolide (80%)", "Habanolide"),
+        "observation_signals": ("too_flat", "too_sweet", "too_soft"),
+    },
+    {
+        "family": "skin_scent",
+        "slug": "skin_scent_musky_skin",
+        "label": "Musky Skin",
+        "interpretations": (
+            "musky skin scent",
+            "close-to-skin musk",
+            "clean intimate skin",
+        ),
+        "description": (
+            "A skin scent with musks and airy woods that stays close and refined."
+        ),
+        "anchor_materials": ("Iso E Super", "Galaxolide (80%)", "Habanolide"),
+        "bridge_materials": ("Ambrox Super", "Benzyl Salicylate"),
+        "accent_materials": ("Cashmeran (20%)", "Hedione"),
+        "observation_signals": ("too_loud", "too_soft", "needs_skin"),
+        "preferred_modes": ("between_mix", "post_mix", "pre_mix"),
+    },
+    {
+        "family": "skin_scent",
+        "slug": "skin_scent_amber_skin",
+        "label": "Amber Skin",
+        "interpretations": (
+            "amber skin scent",
+            "warm aura skin",
+            "radiant close wear",
+        ),
+        "description": (
+            "A skin scent with a warmer amber aura and a more radiant close-to-skin effect."
+        ),
+        "anchor_materials": ("Ambrox Super", "Iso E Super", "Benzyl Salicylate"),
+        "bridge_materials": ("Galaxolide (80%)", "Habanolide"),
+        "accent_materials": ("Labdanum Absolute (10%)", "Hedione"),
+        "observation_signals": ("too_soft", "drydown_thin", "too_loud"),
+        "preferred_modes": ("post_mix", "between_mix", "pre_mix"),
+    },
+    {
+        "family": "skin_scent",
+        "slug": "skin_scent_powder_skin",
+        "label": "Powder Skin",
+        "interpretations": (
+            "powder skin scent",
+            "iris musk",
+            "soft cosmetic veil",
+        ),
+        "description": (
+            "A soft, powdery skin scent that leans iris and musk rather than fresh laundry."
+        ),
+        "anchor_materials": ("Heliotropal", "Alpha Ionone", "Ultralia"),
+        "bridge_materials": ("Benzyl Salicylate", "Ambrox Super"),
+        "accent_materials": ("Methyl Ionone Pure", "Galaxolide (100%)"),
+        "observation_signals": ("too_powdery", "too_cosmetic", "drydown_thin"),
+    },
+    {
+        "family": "aquatic",
+        "slug": "aquatic_marine_ozonic",
+        "label": "Marine Ozonic",
+        "interpretations": (
+            "marine aquatic",
+            "ozonic aquatic",
+            "fresh water spray",
+        ),
+        "description": (
+            "A marine aquatic that leans bright, airy, and sea-spray transparent."
+        ),
+        "anchor_materials": ("Calone (1%)", "Dihydromyrcenol", "Hedione"),
+        "bridge_materials": ("Bergamot FCF oil Sicilian", "Nympheal"),
+        "accent_materials": ("Habanolide", "Linalool"),
+        "observation_signals": ("too_heavy", "needs_lift", "drydown_thin"),
+    },
+    {
+        "family": "aquatic",
+        "slug": "aquatic_watery_floral",
+        "label": "Watery Floral",
+        "interpretations": (
+            "watery floral",
+            "transparent water lily",
+            "soft aquatic floral",
+        ),
+        "description": (
+            "A watery floral that stays transparent and airy rather than marine."
+        ),
+        "anchor_materials": ("Nympheal", "Lilyreal ND", "Florol"),
+        "bridge_materials": ("Hedione", "Linalool"),
+        "accent_materials": ("Calone (1%)", "Benzyl Salicylate"),
+        "observation_signals": ("too_sharp", "too_flat", "heart_thin"),
+    },
+    {
+        "family": "aquatic",
+        "slug": "aquatic_clean_veil",
+        "label": "Clean Veil",
+        "interpretations": (
+            "clean aquatic",
+            "detergent-free water veil",
+            "modern watery skin",
+        ),
+        "description": (
+            "A cleaner aquatic profile with musky veil and less overt marine character."
+        ),
+        "anchor_materials": ("Dihydromyrcenol", "Iso E Super", "Galaxolide (80%)"),
+        "bridge_materials": ("Bergamot FCF oil Sicilian", "Ambrox Super"),
+        "accent_materials": ("Habanolide", "Hedione"),
+        "observation_signals": ("too_heavy", "too_sharp", "drydown_thin"),
+    },
+    {
+        "family": "iris",
+        "slug": "iris_powdered",
+        "label": "Powdered Iris",
+        "interpretations": (
+            "classical iris",
+            "powdered orris",
+            "lipstick iris",
+        ),
+        "description": (
+            "A classical iris that emphasizes powder, cosmetic lift, and smoothness."
+        ),
+        "anchor_materials": ("Orris F-TEC", "Alpha Ionone", "Heliotropal"),
+        "bridge_materials": ("Benzyl Salicylate", "Vanillin (10%)"),
+        "accent_materials": ("Methyl Ionone Pure", "Ultralia"),
+        "observation_signals": ("too_powdery", "too_cosmetic", "drydown_thin"),
+    },
+    {
+        "family": "iris",
+        "slug": "iris_modern",
+        "label": "Modern Iris",
+        "interpretations": (
+            "modern iris",
+            "woody iris",
+            "transparent cosmetic iris",
+        ),
+        "description": (
+            "A more modern iris with woody structure and a transparent violet edge."
+        ),
+        "anchor_materials": ("Ultralia", "Methyl Ionone Pure", "Iso E Super"),
+        "bridge_materials": ("Hedione", "Ambrox Super"),
+        "accent_materials": ("Orris F-TEC", "Sandalwood FO"),
+        "observation_signals": ("too_soft", "too_generic", "drydown_thin"),
+    },
+    {
+        "family": "iris",
+        "slug": "iris_woody",
+        "label": "Woody Iris",
+        "interpretations": (
+            "woody iris",
+            "orris wood",
+            "dry violet wood",
+        ),
+        "description": (
+            "An iris that leans dry, woody, and slightly more architectural."
+        ),
+        "anchor_materials": ("Sandalwood FO", "Orris F-TEC", "Ambrox Super"),
+        "bridge_materials": ("Vetiver EO", "Iso E Super"),
+        "accent_materials": ("Alpha Ionone", "Heliotropal"),
+        "observation_signals": ("too_woody", "too_soft", "too_generic"),
+    },
+    {
+        "family": "muguet",
+        "slug": "muguet_fresh",
+        "label": "Fresh Muguet",
+        "interpretations": (
+            "fresh muguet",
+            "transparent lily",
+            "clean valley bloom",
+        ),
+        "description": (
+            "A transparent lily-of-the-valley style with crisp floral lift."
+        ),
+        "anchor_materials": ("Hydroxycitronellal", "Florol", "Lilyreal ND"),
+        "bridge_materials": ("Hedione", "Nympheal"),
+        "accent_materials": ("Bergamot FCF oil Sicilian", "Linalool"),
+        "observation_signals": ("top_fades_fast", "heart_thin", "too_sharp"),
+    },
+    {
+        "family": "muguet",
+        "slug": "muguet_soapy",
+        "label": "Soapy Muguet",
+        "interpretations": (
+            "soapy muguet",
+            "clean floral soap",
+            "laundered muguet",
+        ),
+        "description": (
+            "A cleaner, soapier lily-of-the-valley style with more polish than realism."
+        ),
+        "anchor_materials": ("Hydroxycitronellal", "Benzyl Salicylate", "Linalool"),
+        "bridge_materials": ("Lilyreal ND", "Peonile"),
+        "accent_materials": ("Heliotropal", "Nympheal"),
+        "observation_signals": ("too_soapy", "too_flat", "drydown_thin"),
+    },
+    {
+        "family": "muguet",
+        "slug": "muguet_green",
+        "label": "Green Muguet",
+        "interpretations": (
+            "green muguet",
+            "freesia-valley hybrid",
+            "fresh floral greenery",
+        ),
+        "description": (
+            "A greener, fresher muguet that leans toward freesia and airy green lift."
+        ),
+        "anchor_materials": ("Freesia HDI", "Cedrat FCF oil Sicilian", "Linalool"),
+        "bridge_materials": ("Nympheal", "Hedione"),
+        "accent_materials": ("Peonile", "Hydroxycitronellal"),
+        "observation_signals": ("too_heavy", "too_flat", "drydown_thin"),
+    },
+]
+
+
+OBSERVATION_RULES: list[ObservationInterventionRule] = [
+    ObservationInterventionRule(
+        signal="top_fades_fast",
+        label="Restore opening bloom",
+        action="restore_opening_bloom",
+        description=(
+            "The opening disappears too quickly; add lift, top continuity, or a floral bridge."
+        ),
+        family_bias=("white_floral", "citrus_floral", "muguet", "aquatic"),
+        preferred_axes=("freshness", "radiance", "diffusion"),
+        materials=("Bergamot FCF oil Sicilian", "Cedrat FCF oil Sicilian", "Linalool"),
+        dose_style="bridge",
+        notes=("Post-mix use should be very small and delayed until the bottle settles.",),
+    ),
+    ObservationInterventionRule(
+        signal="top_weak",
+        label="Strengthen top note",
+        action="strengthen_top_note",
+        description=(
+            "The opening is underpowered; reinforce the first impression without making it harsh."
+        ),
+        family_bias=("white_floral", "citrus_floral", "aquatic", "muguet"),
+        preferred_axes=("freshness", "radiance"),
+        materials=("Bergamot FCF oil Sicilian", "Aldehyde C10", "Linalool"),
+        dose_style="bridge",
+    ),
+    ObservationInterventionRule(
+        signal="too_sharp",
+        label="Soften sharpness",
+        action="soften_edge",
+        description=(
+            "The composition feels piercing, acidic, or overly citrus-bright."
+        ),
+        family_bias=("white_floral", "citrus_floral", "muguet", "iris", "aquatic"),
+        preferred_axes=("diffusion", "softness", "texture"),
+        materials=("Hedione", "Benzyl Salicylate", "Hydroxycitronellal", "Florol"),
+        dose_style="bridge",
+    ),
+    ObservationInterventionRule(
+        signal="too_sweet",
+        label="Dry out sweetness",
+        action="dry_out_sweetness",
+        description=(
+            "The sweet axis dominates; add dryness, lift, or a contrasting structural edge."
+        ),
+        family_bias=("gourmand", "amber", "skin_scent", "leather", "chypre"),
+        preferred_axes=("structure", "contrast", "drydown"),
+        materials=("Iso E Super", "Vetiver EO", "Patchouli EO", "Cedrat FCF oil Sicilian"),
+        dose_style="bridge",
+    ),
+    ObservationInterventionRule(
+        signal="too_heavy",
+        label="Lighten density",
+        action="lighten_density",
+        description=(
+            "The blend feels too dense or slow; open the composition and reintroduce air."
+        ),
+        family_bias=("amber", "gourmand", "leather", "chypre"),
+        preferred_axes=("freshness", "radiance", "lift"),
+        materials=("Bergamot FCF oil Sicilian", "Linalool", "Hedione", "Nympheal"),
+        dose_style="bridge",
+    ),
+    ObservationInterventionRule(
+        signal="too_flat",
+        label="Add contour",
+        action="add_contour",
+        description=(
+            "The formula has lost shape and needs a clearer silhouette or more contrast."
+        ),
+        family_bias=("white_floral", "iris", "muguet", "chypre", "gourmand"),
+        preferred_axes=("structure", "contrast", "signature"),
+        materials=("Peonile", "Heliotropal", "Evernyl", "Blackcurrant FTEC"),
+        dose_style="structural",
+    ),
+    ObservationInterventionRule(
+        signal="too_loud",
+        label="Reduce projection",
+        action="reduce_projection",
+        description=(
+            "The scent is too loud or too close to the skin for the intended brief."
+        ),
+        family_bias=("skin_scent", "amber", "woody"),
+        preferred_axes=("texture", "softness", "skin"),
+        materials=("Benzyl Salicylate", "Galaxolide (80%)", "Cashmeran (20%)", "Ambrox Super"),
+        dose_style="micro",
+    ),
+    ObservationInterventionRule(
+        signal="too_soft",
+        label="Increase presence",
+        action="increase_presence",
+        description=(
+            "The composition is too diffused or too weak in the center."
+        ),
+        family_bias=("skin_scent", "aquatic", "amber", "citrus_floral"),
+        preferred_axes=("radiance", "diffusion", "presence"),
+        materials=("Hedione", "Iso E Super", "Aldehyde C10", "Ambrox Super"),
+        dose_style="bridge",
+    ),
+    ObservationInterventionRule(
+        signal="too_powdery",
+        label="Reduce powder",
+        action="reduce_powder",
+        description=(
+            "The iris/powder impression overwhelms the rest of the structure."
+        ),
+        family_bias=("iris", "skin_scent", "muguet"),
+        preferred_axes=("freshness", "clarity", "lift"),
+        materials=("Dihydromyrcenol", "Bergamot FCF oil Sicilian", "Linalool", "Nympheal"),
+        dose_style="bridge",
+    ),
+    ObservationInterventionRule(
+        signal="too_soapy",
+        label="Break soapiness",
+        action="break_soapiness",
+        description=(
+            "The blend reads too soap-like or detergent-like."
+        ),
+        family_bias=("white_floral", "muguet", "skin_scent"),
+        preferred_axes=("identity", "depth", "texture"),
+        materials=("Jasmine FO", "Peonile", "Vetiver EO", "Labdanum Absolute (10%)"),
+        dose_style="bridge",
+    ),
+    ObservationInterventionRule(
+        signal="too_cosmetic",
+        label="Make it more natural",
+        action="make_more_natural",
+        description=(
+            "The profile feels overly cosmetic or makeup-like and needs more life."
+        ),
+        family_bias=("white_floral", "citrus_floral", "muguet", "iris"),
+        preferred_axes=("freshness", "naturalness", "transparency"),
+        materials=("Neroli EO", "Bergamot FCF oil Sicilian", "Freesia HDI", "Jasmine FO"),
+        dose_style="bridge",
+    ),
+    ObservationInterventionRule(
+        signal="too_woody",
+        label="Open the wood",
+        action="open_wood",
+        description=(
+            "The woody side dominates and the composition needs air or floral relief."
+        ),
+        family_bias=("white_floral", "citrus_floral", "muguet", "aquatic"),
+        preferred_axes=("radiance", "lift", "contrast"),
+        materials=("Hedione", "Neroli EO", "Hydroxycitronellal", "Peonile"),
+        dose_style="bridge",
+    ),
+    ObservationInterventionRule(
+        signal="too_musky",
+        label="Clarify musk",
+        action="clarify_musk",
+        description=(
+            "The musk effect is too thick or too dominant for the intended style."
+        ),
+        family_bias=("skin_scent", "iris", "muguet"),
+        preferred_axes=("clarity", "freshness", "lift"),
+        materials=("Bergamot FCF oil Sicilian", "Hydroxycitronellal", "Freesia HDI", "Linalool"),
+        dose_style="micro",
+    ),
+    ObservationInterventionRule(
+        signal="drydown_thin",
+        label="Anchor the drydown",
+        action="anchor_drydown",
+        description=(
+            "The base is too thin and needs a more convincing drydown anchor."
+        ),
+        family_bias=("amber", "leather", "chypre", "skin_scent", "gourmand", "iris"),
+        preferred_axes=("depth", "longevity", "texture"),
+        materials=(
+            "Ambrox Super",
+            "Labdanum Absolute (10%)",
+            "Benzoin Sumatra Resinoid (10%)",
+            "Patchouli EO",
+            "Evernyl",
+        ),
+        dose_style="structural",
+    ),
+    ObservationInterventionRule(
+        signal="drydown_heavy",
+        label="Lighten the drydown",
+        action="lighten_drydown",
+        description=(
+            "The base is too heavy, sticky, or resin-loaded."
+        ),
+        family_bias=("amber", "gourmand", "leather"),
+        preferred_axes=("lift", "freshness", "radiance"),
+        materials=("Hedione", "Linalool", "Bergamot FCF oil Sicilian", "Iso E Super"),
+        dose_style="bridge",
+    ),
+    ObservationInterventionRule(
+        signal="heart_thin",
+        label="Inflate the heart",
+        action="inflate_heart",
+        description=(
+            "The heart is underdeveloped and needs more body or bloom."
+        ),
+        family_bias=("white_floral", "citrus_floral", "muguet", "aquatic"),
+        preferred_axes=("diffusion", "floral", "texture"),
+        materials=("Hedione", "Benzyl Salicylate", "Nympheal", "Lilyreal ND", "Florol"),
+        dose_style="bridge",
+    ),
+    ObservationInterventionRule(
+        signal="heart_heavy",
+        label="Thin the heart",
+        action="thin_heart",
+        description=(
+            "The center feels too dense and needs more air between materials."
+        ),
+        family_bias=("white_floral", "citrus_floral", "muguet"),
+        preferred_axes=("freshness", "lift", "radiance"),
+        materials=("Linalool", "Bergamot FCF oil Sicilian", "Neroli EO", "Dihydromyrcenol"),
+        dose_style="bridge",
+    ),
+    ObservationInterventionRule(
+        signal="needs_lift",
+        label="Add lift",
+        action="add_lift",
+        description=(
+            "The formula needs more top sparkle or upward motion."
+        ),
+        family_bias=("white_floral", "citrus_floral", "aquatic", "muguet"),
+        preferred_axes=("radiance", "freshness", "lift"),
+        materials=("Hedione", "Linalool", "Bergamot FCF oil Sicilian", "Aldehyde C10"),
+        dose_style="bridge",
+    ),
+    ObservationInterventionRule(
+        signal="needs_diffusion",
+        label="Add diffusion",
+        action="add_diffusion",
+        description=(
+            "The blend needs a broader diffusion envelope around the core."
+        ),
+        family_bias=("white_floral", "citrus_floral", "skin_scent", "aquatic"),
+        preferred_axes=("diffusion", "radiance", "presence"),
+        materials=("Hedione", "Iso E Super", "Benzyl Salicylate", "Cashmeran (20%)"),
+        dose_style="bridge",
+    ),
+    ObservationInterventionRule(
+        signal="needs_texture",
+        label="Add texture",
+        action="add_texture",
+        description=(
+            "The profile is technically fine but lacks tactile character."
+        ),
+        family_bias=("iris", "skin_scent", "amber", "gourmand"),
+        preferred_axes=("texture", "identity", "body"),
+        materials=("Benzyl Salicylate", "Heliotropal", "Suederal (10%)", "Ultralia"),
+        dose_style="bridge",
+    ),
+    ObservationInterventionRule(
+        signal="needs_depth",
+        label="Add depth",
+        action="add_depth",
+        description=(
+            "The scent needs more darkness, shadow, or structural depth."
+        ),
+        family_bias=("chypre", "amber", "leather"),
+        preferred_axes=("depth", "structure", "shadow"),
+        materials=("Labdanum Absolute (10%)", "Evernyl", "Patchouli EO", "Styrax FTEC"),
+        dose_style="structural",
+    ),
+    ObservationInterventionRule(
+        signal="needs_warmth",
+        label="Add warmth",
+        action="add_warmth",
+        description=(
+            "The composition feels too cool or too clinical for the intended style."
+        ),
+        family_bias=("amber", "gourmand", "leather", "skin_scent"),
+        preferred_axes=("warmth", "texture", "softness"),
+        materials=("Vanillin (10%)", "Coumarin", "Ambrox Super", "Labdanum Absolute (10%)"),
+        dose_style="bridge",
+    ),
+    ObservationInterventionRule(
+        signal="needs_skin",
+        label="Add skin effect",
+        action="add_skin_effect",
+        description=(
+            "The scent needs more intimate skin proximity."
+        ),
+        family_bias=("skin_scent", "amber", "aquatic"),
+        preferred_axes=("texture", "softness", "presence"),
+        materials=("Iso E Super", "Ambrox Super", "Galaxolide (80%)", "Habanolide"),
+        dose_style="micro",
+    ),
+    ObservationInterventionRule(
+        signal="too_generic",
+        label="Add signature",
+        action="add_signature",
+        description=(
+            "The structure is competent but too generic for a recognizable direction."
+        ),
+        family_bias=("gourmand", "amber", "leather", "chypre", "iris", "muguet"),
+        preferred_axes=("signature", "identity", "contrast"),
+        materials=("Peonile", "Heliotropal", "Blackcurrant FTEC", "Heliotropal"),
+        dose_style="structural",
+    ),
+    ObservationInterventionRule(
+        signal="too_dark",
+        label="Brighten the dark",
+        action="brighten_dark",
+        description=(
+            "The drydown is too shadowed and needs a brighter bridge."
+        ),
+        family_bias=("amber", "leather", "chypre"),
+        preferred_axes=("lift", "freshness", "radiance"),
+        materials=("Bergamot FCF oil Sicilian", "Hedione", "Linalool", "Neroli EO"),
+        dose_style="bridge",
+    ),
+]
+
+
+def _build_profile(entry: dict[str, object]) -> CreativeDirectionProfile:
+    family = str(entry["family"])
+    base = FAMILY_BASES[family]
+    return CreativeDirectionProfile(
+        family=family,
+        slug=str(entry["slug"]),
+        label=str(entry["label"]),
+        interpretations=tuple(entry["interpretations"]),  # type: ignore[arg-type]
+        description=str(entry["description"]),
+        anchor_materials=_merge_tuple_fields(
+            base.get("anchor_materials", ()),
+            entry.get("anchor_materials"),
+        ),
+        bridge_materials=_merge_tuple_fields(
+            base.get("bridge_materials", ()),
+            entry.get("bridge_materials"),
+        ),
+        accent_materials=_merge_tuple_fields(
+            base.get("accent_materials", ()),
+            entry.get("accent_materials"),
+        ),
+        avoid_materials=_merge_tuple_fields(
+            base.get("avoid_materials", ()),
+            entry.get("avoid_materials"),
+        ),
+        preferred_axes=_merge_tuple_fields(
+            base.get("preferred_axes", ()),
+            entry.get("preferred_axes"),
+        ),
+        observation_signals=_merge_tuple_fields(
+            base.get("observation_signals", ()),
+            entry.get("observation_signals"),
+        ),
+        preferred_modes=tuple(
+            entry.get("preferred_modes", base.get("preferred_modes", ()))  # type: ignore[arg-type]
+        ),
+        mode_notes=_merge_mapping(
+            base.get("mode_notes", {}),
+            entry.get("mode_notes"),  # type: ignore[arg-type]
+        ),
+        signal_materials=_merge_mapping(
+            base.get("signal_materials", {}),
+            entry.get("signal_materials"),  # type: ignore[arg-type]
+        ),
+        signal_notes=_merge_mapping(
+            base.get("signal_notes", {}),
+            entry.get("signal_notes"),  # type: ignore[arg-type]
+        ),
+    )
+
+
+def _build_rule(entry: dict[str, object]) -> ObservationInterventionRule:
+    return ObservationInterventionRule(
+        signal=str(entry["signal"]),
+        label=str(entry["label"]),
+        action=str(entry["action"]),
+        description=str(entry["description"]),
+        family_bias=tuple(entry.get("family_bias", ())),  # type: ignore[arg-type]
+        preferred_axes=tuple(entry.get("preferred_axes", ())),  # type: ignore[arg-type]
+        materials=tuple(entry.get("materials", ())),  # type: ignore[arg-type]
+        avoid_materials=tuple(entry.get("avoid_materials", ())),  # type: ignore[arg-type]
+        modes=tuple(entry.get("modes", ("pre_mix", "between_mix", "post_mix"))),  # type: ignore[arg-type]
+        dose_style=str(entry.get("dose_style", "bridge")),
+        notes=tuple(entry.get("notes", ())),  # type: ignore[arg-type]
+    )
+
+
+CREATIVE_DIRECTION_PROFILES: dict[str, tuple[CreativeDirectionProfile, ...]] = {}
+PROFILE_INDEX: dict[str, CreativeDirectionProfile] = {}
+PROFILE_ALIAS_INDEX: dict[str, CreativeDirectionProfile] = {}
+
+for entry in PROFILE_VARIANTS:
+    profile = _build_profile(entry)
+    CREATIVE_DIRECTION_PROFILES[profile.family] = CREATIVE_DIRECTION_PROFILES.get(profile.family, ()) + (profile,)
+    PROFILE_INDEX[profile.slug] = profile
+    PROFILE_ALIAS_INDEX[_slugify(profile.label)] = profile
+    PROFILE_ALIAS_INDEX[_slugify(profile.slug)] = profile
+    for interpretation in profile.interpretations:
+        PROFILE_ALIAS_INDEX[_slugify(interpretation)] = profile
+
+OBSERVATION_RULES_BY_SIGNAL: dict[str, tuple[ObservationInterventionRule, ...]] = {}
+for entry in OBSERVATION_RULES:
+    rule = _build_rule({
+        "signal": entry.signal,
+        "label": entry.label,
+        "action": entry.action,
+        "description": entry.description,
+        "family_bias": entry.family_bias,
+        "preferred_axes": entry.preferred_axes,
+        "materials": entry.materials,
+        "avoid_materials": entry.avoid_materials,
+        "modes": entry.modes,
+        "dose_style": entry.dose_style,
+        "notes": entry.notes,
+    })
+    OBSERVATION_RULES_BY_SIGNAL[rule.signal] = OBSERVATION_RULES_BY_SIGNAL.get(rule.signal, ()) + (rule,)
+
+
+def _best_material_matches(values: Iterable[str], candidates: Iterable[str]) -> tuple[str, ...]:
+    selected: list[str] = []
+    available = list(candidates)
+    for value in values:
+        if any(_name_matches(value, item) for item in available):
+            selected.append(value)
+    return _dedupe(selected)
+
+
+def _profile_materials_for_mode(
+    profile: CreativeDirectionProfile,
+    signal: str,
+    mode: InterventionMode,
+) -> tuple[str, ...]:
+    materials: list[str] = list(profile.signal_materials.get(signal, ()))
+    if mode == "pre_mix":
+        materials.extend(profile.bridge_materials)
+        materials.extend(profile.accent_materials)
+    elif mode == "between_mix":
+        materials.extend(profile.bridge_materials)
+        materials.extend(profile.anchor_materials)
+    else:
+        materials.extend(profile.anchor_materials)
+        materials.extend(profile.signal_materials.get(signal, ()))
+    return _dedupe(materials)
+
+
+def _rule_materials_for_mode(
+    rule: ObservationInterventionRule,
+    mode: InterventionMode,
+) -> tuple[str, ...]:
+    if mode not in rule.modes:
+        return ()
+    return rule.materials
+
+
+def _score_candidate(
+    signal: str,
+    rule: ObservationInterventionRule,
+    profile: CreativeDirectionProfile | None,
+    family_key: str | None,
+    mode: InterventionMode,
+    available_materials: Iterable[str] | None,
+    materials: tuple[str, ...],
+) -> float:
+    score = 0.35
+    if profile is not None:
+        if family_key and profile.family == family_key:
+            score += 0.25
+        if signal in profile.observation_signals:
+            score += 0.15
+        if mode in profile.preferred_modes:
+            score += 0.10
+        if signal in profile.signal_materials:
+            score += 0.05
+    if family_key and family_key in rule.family_bias:
+        score += 0.10
+    elif not rule.family_bias:
+        score += 0.05
+    if signal in rule.preferred_axes:
+        score += 0.05
+    if available_materials:
+        filtered = _best_material_matches(materials, available_materials)
+        if filtered:
+            coverage = len(filtered) / max(len(materials), 1)
+            score += min(coverage * 0.10, 0.10)
+    return round(min(score, 1.0), 3)
+
+
+FAMILY_INDEX: dict[str, tuple[CreativeDirectionProfile, ...]] = CREATIVE_DIRECTION_PROFILES
+
+
+def get_family_profiles(family: str | None) -> tuple[CreativeDirectionProfile, ...]:
+    """Return all profiles for a normalized family key."""
+    family_key = normalize_family_key(family)
+    if family_key is None:
+        return ()
+    return CREATIVE_DIRECTION_PROFILES.get(family_key, ())
+
+
+def iter_profiles(family: str | None = None):
+    """Yield profiles, optionally filtered to one family."""
+    if family is None:
+        for profiles in CREATIVE_DIRECTION_PROFILES.values():
+            for profile in profiles:
+                yield profile
+        return
+    for profile in get_family_profiles(family):
+        yield profile
+
+
+def get_profile(query: str | None) -> CreativeDirectionProfile | None:
+    """Resolve a profile by slug, family label, label, or interpretation."""
+    if query is None:
+        return None
+    raw = query.strip()
+    if not raw:
+        return None
+
+    key = _slugify(raw)
+    if key in PROFILE_INDEX:
+        return PROFILE_INDEX[key]
+    family = normalize_family_key(raw)
+    if family and family in CREATIVE_DIRECTION_PROFILES:
+        profiles = CREATIVE_DIRECTION_PROFILES[family]
+        return profiles[0] if profiles else None
+    if key in PROFILE_ALIAS_INDEX:
+        return PROFILE_ALIAS_INDEX[key]
+    return None
+
+
+def search_profiles(
+    query: str | None,
+    family: str | None = None,
+    limit: int = 10,
+) -> list[CreativeDirectionProfile]:
+    """Search profiles by label, slug, family, or interpretation text."""
+    if query is None:
+        return []
+    raw = query.strip().lower()
+    if not raw:
+        return []
+
+    family_key = normalize_family_key(family)
+    tokens = [token for token in re.split(r"[^a-z0-9]+", raw) if token]
+    results: list[tuple[float, CreativeDirectionProfile]] = []
+
+    for profile in iter_profiles(family_key):
+        text = " ".join(
+            [
+                profile.slug,
+                profile.label,
+                profile.family,
+                profile.description,
+                " ".join(profile.interpretations),
+            ]
+        ).lower()
+        score = 0.0
+        if raw in text:
+            score += 3.0
+        score += sum(0.5 for token in tokens if token in text)
+        if family_key and profile.family == family_key:
+            score += 1.0
+        if score > 0:
+            results.append((score, profile))
+
+    results.sort(key=lambda item: (-item[0], item[1].label))
+    return [profile for _, profile in results[:limit]]
+
+
+def match_profiles(
+    query: str | None,
+    family: str | None = None,
+    limit: int = 5,
+) -> list[CreativeDirectionProfile]:
+    """Alias for search_profiles, kept for easier downstream integration."""
+    return search_profiles(query, family=family, limit=limit)
+
+
+def family_names() -> tuple[str, ...]:
+    """Return the available family slugs."""
+    return tuple(CREATIVE_DIRECTION_PROFILES.keys())
+
+
+def summarize_family(family: str) -> dict[str, object]:
+    """Return a compact summary of one family and its profiles."""
+    family_key = normalize_family_key(family)
+    profiles = CREATIVE_DIRECTION_PROFILES.get(family_key or "", ())
+    return {
+        "family": family_key,
+        "label": FAMILY_BASES.get(family_key or "", {}).get("label", family_key),
+        "profiles": [
+            {
+                "slug": profile.slug,
+                "label": profile.label,
+                "interpretations": profile.interpretations,
+                "description": profile.description,
+            }
+            for profile in profiles
+        ],
+    }
+
+
+def get_observation_rules(signal: str | None) -> tuple[ObservationInterventionRule, ...]:
+    """Return rules for a normalized observation signal."""
+    if signal is None:
+        return ()
+    key = normalize_observation_signal(signal)
+    return OBSERVATION_RULES_BY_SIGNAL.get(key, ())
+
+
+def iter_observation_rules():
+    """Yield every observation rule in the registry."""
+    for rules in OBSERVATION_RULES_BY_SIGNAL.values():
+        for rule in rules:
+            yield rule
+
+
+def suggest_interventions(
+    observations: Iterable[str] | str | None = None,
+    family: str | None = None,
+    profile: str | None = None,
+    mode: str | InterventionMode = "pre_mix",
+    available_materials: Iterable[str] | None = None,
+    limit: int = 5,
+) -> list[InterventionRecommendation]:
+    """Generate stage-aware intervention recommendations.
+
+    The function is intentionally conservative:
+      - it does not mutate formulas
+      - it returns structured suggestions only
+      - it can be used for pre_mix, between_mix, or post_mix contexts
+    """
+    mode_key = normalize_intervention_mode(mode)
+    signals = normalize_observation_signals(observations)
+    family_key = normalize_family_key(family)
+    profile_obj = get_profile(profile) if profile else None
+
+    if profile_obj is not None and family_key is None:
+        family_key = profile_obj.family
+
+    candidate_profiles: list[CreativeDirectionProfile]
+    if profile_obj is not None:
+        candidate_profiles = [profile_obj]
+    elif family_key is not None:
+        candidate_profiles = list(get_family_profiles(family_key))
+    else:
+        candidate_profiles = list(iter_profiles())
+
+    if not candidate_profiles:
+        candidate_profiles = list(iter_profiles())
+
+    recommendations: list[InterventionRecommendation] = []
+    seen: set[tuple[str, str | None, str | None, tuple[str, ...]]] = set()
+
+    for signal in signals:
+        rules = get_observation_rules(signal)
+        if not rules:
+            continue
+
+        for rule in rules:
+            if mode_key not in rule.modes:
+                continue
+            if family_key and rule.family_bias and family_key not in rule.family_bias:
+                family_rule_ok = False
+                if profile_obj is not None and profile_obj.family == family_key:
+                    family_rule_ok = True
+                if not family_rule_ok:
+                    continue
+
+            for candidate in candidate_profiles:
+                if family_key and candidate.family != family_key and profile_obj is None:
+                    if rule.family_bias and candidate.family not in rule.family_bias:
+                        continue
+
+                materials = list(_rule_materials_for_mode(rule, mode_key))
+                materials.extend(_profile_materials_for_mode(candidate, signal, mode_key))
+                materials = list(_dedupe(materials))
+                if available_materials is not None:
+                    filtered = _best_material_matches(materials, available_materials)
+                    materials = list(filtered)
+                if not materials:
+                    continue
+
+                key = (mode_key, candidate.family, candidate.slug, tuple(materials))
+                if key in seen:
+                    continue
+                seen.add(key)
+
+                notes = _merge_tuple_fields(
+                    rule.notes,
+                    candidate.mode_notes.get(mode_key, ()),
+                    candidate.signal_notes.get(signal, ()),
+                )
+                rationale_bits = [
+                    rule.description,
+                    candidate.description,
+                ]
+                if notes:
+                    rationale_bits.append(notes[0])
+                if candidate.interpretations:
+                    rationale_bits.append(
+                        "Interpretations: " + ", ".join(candidate.interpretations[:3])
+                    )
+                confidence = _score_candidate(
+                    signal,
+                    rule,
+                    candidate,
+                    family_key,
+                    mode_key,
+                    available_materials,
+                    tuple(materials),
+                )
+                recommendations.append(
+                    InterventionRecommendation(
+                        family=candidate.family,
+                        profile=candidate.slug,
+                        profile_label=candidate.label,
+                        signal=signal,
+                        mode=mode_key,
+                        action=rule.action,
+                        materials=tuple(materials),
+                        rationale=" ".join(rationale_bits),
+                        confidence=confidence,
+                        dose_style=rule.dose_style,
+                        matched_signals=(signal,),
+                        notes=notes,
+                    )
+                )
+
+    recommendations.sort(
+        key=lambda item: (
+            -item.confidence,
+            item.family or "",
+            item.profile or "",
+            item.action,
+        )
+    )
+    return recommendations[:limit]
+
+
+__all__ = [
+    "CreativeDirectionProfile",
+    "ObservationInterventionRule",
+    "InterventionRecommendation",
+    "FAMILY_BASES",
+    "CREATIVE_DIRECTION_PROFILES",
+    "PROFILE_INDEX",
+    "PROFILE_ALIAS_INDEX",
+    "FAMILY_INDEX",
+    "OBSERVATION_RULES",
+    "OBSERVATION_RULES_BY_SIGNAL",
+    "normalize_family_key",
+    "normalize_observation_signal",
+    "normalize_observation_signals",
+    "get_family_profiles",
+    "iter_profiles",
+    "get_profile",
+    "search_profiles",
+    "match_profiles",
+    "family_names",
+    "summarize_family",
+    "get_observation_rules",
+    "iter_observation_rules",
+    "suggest_interventions",
+]

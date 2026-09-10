@@ -1,0 +1,373 @@
+"""Advanced musk intelligence — 6-class taxonomy, complete material profiles beyond polycyclic.
+
+**RULE 1: All perfume calculations must use ppm, ODT, and OAV.**
+
+Extends the musk intelligence from the base Formulation Intelligence Database with
+the Advanced Perfumery Supplement (Gap 2). Covers:
+
+  - Six structural musk classes with quantified anosmia, VP, IFRA status
+  - Helvetolide — pear/apple alicyclic musk (Aventus platform hypothesis; dose unknown)
+  - Romandolide — Galaxolide's alicyclic analog, universal perception
+  - Cashmeran — NOT primarily a musk; amber-spicy-woody context-dependent
+  - Norlimbanol — "the Hedione of wood materials"; ultra-base, climate-invariant
+  - Vertofix Coeur — warm precious-wood musky amber, Iso E Super synergy
+  - The synergistic trio: Norlimbanol + Vertofix Coeur + Iso E Super
+
+Also encodes the 'invisible infrastructure' concept: materials that make a
+formula feel expensive without being identifiable as distinct notes.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+
+# ---------------------------------------------------------------------------
+# Six-class musk taxonomy
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True, slots=True)
+class MuskClassProfile:
+    """Profile for one structural class of musk materials."""
+    class_name: str
+    key_materials: tuple[str, ...]
+    character: str
+    anosmia_pct: float             # general population prevalence (%)
+    anosmia_receptor: str | None    # implicated OR gene
+    ifra_cat4_max_pct: float | None # IFRA Cat4 maximum (% in finished product)
+    vp_pa: float                    # vapor pressure at 25°C
+    best_use: str
+    universally_perceived: bool = False
+
+
+MUSK_CLASSES: tuple[MuskClassProfile, ...] = (
+    MuskClassProfile(
+        "Polycyclic", ("Galaxolide", "Iso E Super"),
+        "Sweet-powdery-fruity", 27.5, "OR4D6", None, 0.0001,
+        "Standard base musk", False,
+    ),
+    MuskClassProfile(
+        "Macrocyclic", ("Habanolide", "Exaltolide", "Ambrettolide", "Muscenone", "Macrocyclene"),
+        "Clean-lactonic-animalic", 7.5, None, None, 0.005,
+        "Luxury/transparent", True,
+    ),
+    MuskClassProfile(
+        "Alicyclic", ("Romandolide", "Helvetolide", "Cashmeran"),
+        "Fruity-berry-spicy; universally perceived", 3.0, None, 3.8,
+        0.005, "Modern niche", True,
+    ),
+    MuskClassProfile(
+        "Linear", ("Ethylene Brassylate",),
+        "Clean-undetectable; cruelty-free muscone substitute", 2.0, None, None, 0.001,
+        "Invisible base", True,
+    ),
+    MuskClassProfile(
+        "Terpenic-Amber", ("Ambroxan", "Ambrocenide", "Amberlyn"),
+        "Warm-skin-amber", 20.0, "OR7A17", None, 0.001,
+        "Modern amber skin; East Asian caution", False,
+    ),
+    MuskClassProfile(
+        "Alkylamide", ("Habanolide",),
+        "Varies; semi-macrocyclic character", 5.0, None, None, 0.005,
+        "Specialty", True,
+    ),
+)
+
+
+# ---------------------------------------------------------------------------
+# Helvetolide — Complete Profile
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True, slots=True)
+class HelvetolideProfile:
+    """Helvetolide (CAS 141773-73-1) — alicyclic musk propanoate."""
+    cas: str = "141773-73-1"
+    mw: float = 224.0
+    vp_pa: float = 0.003
+    logp: float = 4.0
+    odt_ppb: float = 0.5
+    character: str = (
+        "Pear/apple brightness as top note facet + creamy-milky musk heart + "
+        "soft long-lasting musk base. Transparent, fruity-floral radiance. "
+        "Less powdery than Galaxolide. Ambrette-like nuance without animalic edge."
+    )
+    standard_dose_pct: tuple[float, float] = (0.5, 5.0)    # % in concentrate
+    aventus_scale_dose_pct: float | None = None             # exact commercial dose unknown
+    ifra_cat4_max: str = "Not limited"
+    anosmia: str = "Universally perceived (< 5%) — major advantage over polycyclic musks"
+    key_insight: str = (
+        "Helvetolide has been proposed as part of an Aventus-style transparent fruity-musk "
+        "platform, but the exact commercial dose and perceived contribution are not established. "
+        "Treat atmosphere and diffusion as hypotheses requiring stock-specific OAV and smelling."
+    )
+    synergies: tuple[str, ...] = ("Rose", "Iris", "Tea", "Pear accord", "Ambrettolide")
+    tropical_notes: str = (
+        "Moderate stated VP (0.003 Pa); Bangkok performance cannot be inferred without an "
+        "authorized dose, ppm/ODT/OAV calculation, and sensory validation."
+    )
+
+
+HELVETOLIDE = HelvetolideProfile()
+
+
+# ---------------------------------------------------------------------------
+# Romandolide — Complete Profile
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True, slots=True)
+class RomandolideProfile:
+    """Romandolide (CAS 141773-73-1) — Firmenich alicyclic musk."""
+    cas: str = "141773-73-1"
+    mw: float = 240.0  # approximate
+    vp_pa: float = 0.003
+    logp: float = 4.0
+    odt_ppb: float = 0.5
+    character: str = (
+        "Very delicate clean musk, berry topnotes, ambrette nuances. "
+        "Same sweet-musty-clean character as Galaxolide but slightly less fruity, "
+        "more camphoraceous. Fully biodegradable. Closest analog to Galaxolide "
+        "among alicyclic musks — the 'universal Galaxolide'."
+    )
+    standard_dose_pct: tuple[float, float] = (5.0, 20.0)
+    ifra_cat4_max: str = "Not limited"
+    anosmia: str = "Universally perceived (< 5%)"
+    key_insight: str = (
+        "Direct Galaxolide substitute at same % when biodegradability is required. "
+        "Use at 5-20% for clean voluminous musk base. Works as PCM replacer "
+        "(Pearlide substitute) in modern clean-beauty formulas."
+    )
+    synergies: tuple[str, ...] = ("Clean modern musk blends", "Galaxolide replacement contexts")
+    galaxolide_comparison: str = (
+        "Romandolide is to Galaxolide what Helvetolide is to pear-ambrette: "
+        "the same functional class but with universal perception and biodegradability. "
+        "Galaxolide = sweet-powdery-fruity (25-30% anosmia, non-biodegradable). "
+        "Romandolide = sweet-musty-clean (universal perception, biodegradable)."
+    )
+
+
+ROMANDOLIDE = RomandolideProfile()
+
+
+# ---------------------------------------------------------------------------
+# Cashmeran — Complete Profile
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True, slots=True)
+class CashmeranProfile:
+    """Cashmeran (CAS 33704-61-9) — DPMI, alicyclic ketone. NOT primarily a musk."""
+    cas: str = "33704-61-9"
+    mw: float = 206.0
+    mp_c: float = 27.0       # solid at room temperature
+    bp_c: float = 256.0
+    vp_pa: float = 0.01
+    logp: float = 4.5
+    odt_ppb: float = 10.0
+    ifra_cat4_max_pct: float = 3.8  # in finished product
+    character: str = (
+        "Diffusive, spicy, musk-like with strong floral reinforcement, "
+        "powdery velvet nuance, long lasting, aromatic, apple, earthy, woody, "
+        "red fruit, pine. An amber-musk character with multiple facets depending on context."
+    )
+    context_character: dict[str, str] = field(default_factory=lambda: {
+        "woody": "Warm, spicy, fruity woody warmth (PDM Layton-type)",
+        "oriental": "Amber-spicy base note",
+        "fresh": "Apple-earthy complexity",
+        "floral": "Powdery-velvet textile warmth",
+    })
+    typical_dose_pct: float = 2.0   # % in formula (much lower than Galaxolide's potential 30%)
+    oav_target: tuple[float, float] = (3, 15)  # texture material, not character-dominant
+    anosmia: str = "Low (< 5%) — near-universal perception"
+    key_insight: str = (
+        "Cashmeran is NOT primarily a musk despite the name. At > 4% in finished product "
+        "hits IFRA Cat4 limit. At typical 2%, functions as spicy-apple-amber texture material "
+        "that bridges woody, oriental, and fresh families simultaneously."
+    )
+
+
+CASHMERAN = CashmeranProfile()
+
+
+# ---------------------------------------------------------------------------
+# Norlimbanol — Complete Profile
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True, slots=True)
+class NorlimbanolProfile:
+    """Norlimbanol (CAS 70788-30-6) — 'The Hedione of wood materials'."""
+    cas: str = "70788-30-6"
+    mw: float = 226.0
+    vp_pa: float = 0.00005    # extremely low VP
+    tenacity: float = 9.0      # /10
+    logp: float = 5.0
+    odt_ppb: float = 1.0       # estimated
+    ifra_cat4_max_pct: float = 1.3  # in finished product
+    character: str = (
+        "Powerful dry woody and ambery. In traces boosts woody and ambery notes "
+        "across the complete olfactive pyramid from top to base. Available as "
+        "racemic blend (softer) and Norlimbanol Dextro (purest active isomer)."
+    )
+    average_dose_pct: float = 0.25  # in perfume compound at EdP (= 1% of concentrate)
+    amplifier_dose_pct: tuple[float, float] = (0.1, 0.5)  # % in concentrate for woody boost
+    max_conc_dose_pct: float = 5.2   # max in 25% EdP concentrate (IFRA 1.3% in finished)
+    synergies: tuple[str, ...] = ("Sandexol", "Ambre Royal", "Ambrexol", "Royal Leather", "Iso E Super", "Vertofix Coeur")
+    climate_note: str = (
+        "VP 0.00005 Pa → evaporates 2,000× slower than limonene. "
+        "At 35°C Bangkok, effective VP ≈ 0.00014 Pa — still ultra-base. "
+        "Norlimbanol is CLIMATE-INVARIANT in tropical heat — always behaves as "
+        "ultra-base fixative regardless of temperature."
+    )
+    key_insight: str = (
+        "'This is the Hedione of wood materials' — Fraterworks. "
+        "In traces it boosts woody and ambery notes across the ENTIRE pyramid "
+        "from top to base. The secret woody ingredient in virtually every PDM, "
+        "Roja Dove, and Tom Ford Private Blend fragrance."
+    )
+
+
+NORLIMBANOL = NorlimbanolProfile()
+
+
+# ---------------------------------------------------------------------------
+# Vertofix Coeur — Complete Profile
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True, slots=True)
+class VertofixCoeurProfile:
+    """Vertofix Coeur (CAS 32388-55-9) — Methyl Cedryl Ketone."""
+    cas: str = "32388-55-9"
+    vp_pa: float = 0.001
+    logp: float = 4.5
+    odt_ppb: float = 5.0       # estimated
+    ifra_cat4_max: str = "Not limited"
+    character: str = (
+        "Warm precious-wood, musky amber-undertone. Long-lasting and diffusive. "
+        "More powerful and tenacious than Cedramber. Cedar-musky warmth."
+    )
+    synergy_partner: str = "Iso E Super (mutual amplification)"
+    typical_dose_pct: float = 1.0   # in concentrate
+    usage_contexts: tuple[str, ...] = ("woody", "amber", "fougère", "chypre", "masculine")
+    key_insight: str = (
+        "+IsoESuper is its primary synergy partner. The synergistic trio: "
+        "Norlimbanol 0.5% + Vertofix Coeur 1.0% + Iso E Super 3.0% creates "
+        "the 'expensive dry-wood' atmosphere in PDM, Roja Dove, and Tom Ford Private Blend."
+    )
+
+
+VERTOFIX_COEUR = VertofixCoeurProfile()
+
+
+# ---------------------------------------------------------------------------
+# Synergistic Trio — "Expensive Dry-Wood" Platform
+# ---------------------------------------------------------------------------
+
+@dataclass(frozen=True, slots=True)
+class WoodyInfrastructureTrio:
+    """The three-infrastructure-material platform for niche woody depth."""
+    norlimbanol_pct: float = 0.5
+    vertofix_coeur_pct: float = 1.0
+    iso_e_super_pct: float = 3.0
+    description: str = (
+        "This trio creates the 'expensive dry-wood' atmosphere present in most "
+        "PDM, Roja Dove, and Tom Ford Private Blend fragrances. "
+        "Norlimbanol provides the dry-woody depth amplifier across the entire pyramid. "
+        "Vertofix Coeur provides warm cedar-musky amber undertone. "
+        "Iso E Super provides woody sillage and mutual amplification with Vertofix."
+    )
+    effect: str = "Expensive dry-wood atmosphere — not identifiable as individual notes"
+    build_instructions: str = (
+        "Add these three at the percentages above to any woody, amber, or oriental "
+        "formula. They function as invisible infrastructure — perceived as quality "
+        "and cohesion, not as identifiable materials."
+    )
+
+
+WOODY_INFRASTRUCTURE_TRIO = WoodyInfrastructureTrio()
+
+
+# ---------------------------------------------------------------------------
+# "Invisible Infrastructure" concept
+# ---------------------------------------------------------------------------
+
+INFRASTRUCTURE_MATERIALS: tuple[tuple[str, str, str], ...] = (
+    ("Norlimbanol", "0.1-0.5%", "Dry woody depth amplifier across entire pyramid"),
+    ("Vertofix Coeur", "0.5-2.0%", "Warm precious-wood musky amber undertone"),
+    ("Cashmeran", "0.5-3.0%", "Spicy-musk-apple texture bridge across families"),
+    ("Helional", "0.1-1.0%", "Marine-metallic brightness that bridges citrus and fresh"),
+    ("Florol", "0.5-4.0%", "Transparent watery-floral veil — sheer luxury quality"),
+    ("Cyclamen Aldehyde", "0.1-2.0%", "Diffusion amplifier — radiant soapy-fresh projection"),
+    ("Ambrettolide", "0.5-3.0%", "Fruity-musky base with natural ambrette character"),
+    ("Ethylene Brassylate", "3.0-10.0%", "Invisible linear musk base — cruelty-free"),
+)
+
+
+# ---------------------------------------------------------------------------
+# Public API
+# ---------------------------------------------------------------------------
+
+def get_musk_class_profile(class_name: str) -> MuskClassProfile | None:
+    """Return a musk class profile by name."""
+    for mc in MUSK_CLASSES:
+        if mc.class_name.lower() == class_name.lower():
+            return mc
+    return None
+
+
+def get_all_musk_classes() -> tuple[MuskClassProfile, ...]:
+    """Return all six musk structural classes."""
+    return MUSK_CLASSES
+
+
+def get_universal_musks() -> tuple[MuskClassProfile, ...]:
+    """Return musk classes with universal perception (no significant anosmia)."""
+    return tuple(mc for mc in MUSK_CLASSES if mc.universally_perceived)
+
+
+def get_east_asian_caution_musks() -> tuple[MuskClassProfile, ...]:
+    """Return musk classes with elevated East Asian anosmia risk."""
+    return tuple(mc for mc in MUSK_CLASSES if mc.anosmia_pct >= 15.0)
+
+
+def get_helvetolide_profile() -> HelvetolideProfile:
+    """Return the complete Helvetolide profile."""
+    return HELVETOLIDE
+
+
+def get_romandolide_profile() -> RomandolideProfile:
+    """Return the complete Romandolide profile."""
+    return ROMANDOLIDE
+
+
+def get_cashmeran_profile() -> CashmeranProfile:
+    """Return the complete Cashmeran profile."""
+    return CASHMERAN
+
+
+def get_norlimbanol_profile() -> NorlimbanolProfile:
+    """Return the complete Norlimbanol profile."""
+    return NORLIMBANOL
+
+
+def get_vertofix_coeur_profile() -> VertofixCoeurProfile:
+    """Return the complete Vertofix Coeur profile."""
+    return VERTOFIX_COEUR
+
+
+def get_woody_infrastructure_trio() -> WoodyInfrastructureTrio:
+    """Return the Norlimbanol + Vertofix Coeur + Iso E Super synergistic trio."""
+    return WOODY_INFRASTRUCTURE_TRIO
+
+
+def get_infrastructure_materials() -> tuple[tuple[str, str, str], ...]:
+    """Return the invisible infrastructure materials list."""
+    return INFRASTRUCTURE_MATERIALS
+
+
+def recommend_thai_musk_platform() -> tuple[str, ...]:
+    """Recommend a musk platform for Thai/East Asian market (avoiding Ambroxan risk)."""
+    return (
+        "Romandolide 5-20% (universal Galaxolide substitute)",
+        "Habanolide 3-10% (transparent macrocyclic)",
+        "Ambrettolide 2-5% (fruity-musky base)",
+        "Ethylene Brassylate 5-10% (invisible linear base)",
+        "Cashmeran 0.5-2% (spicy-apple texture)",
+        "Reduce or avoid Ambroxan above 5% due to OR7A17 East Asian risk",
+    )

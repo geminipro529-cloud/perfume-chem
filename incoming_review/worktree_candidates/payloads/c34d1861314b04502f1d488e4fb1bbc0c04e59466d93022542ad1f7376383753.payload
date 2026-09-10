@@ -1,0 +1,49 @@
+# Prada L'Homme Intense-inspired Astra V1 — mass-faithful parent projection
+
+**Date:** 2026-09-05
+**Claim mode:** named_reference
+**Reference contract:** prada_lhomme_intense
+**Reference scope:** architecture
+**Status:** DIAGNOSTIC MODEL COORDINATES ONLY / NOT A COMPOUNDING FORMULA
+
+Immutable recipe SHA256: 2dab36cf460d043046d8812cf5c4904a9fc6ccf21425efe046885c4a509f293e. This is a new representation of the unchanged parent mass recipe, not a new parent formula and not a replacement for the original failed diagnostic receipt.
+Source mass ledger: docs/research/Prada_LHomme_Intense_Astra_V1_accounting.json.
+This is an original inspired study of Prada L'Homme Intense, not a brand recipe.
+Coordinate q_i = raw stock mass in mg divided by the repository material-density number. The model multiplies q_i by stock fraction and that same density to recover supplied-product grams. These coordinates are NOT measured stock volumes. The displayed density in the matrix table is an artificial unit conversion, NOT a physical measurement. All volume-based gates and stock receipts remain subject to this limitation. An unsupported Intense contract must remain unresolved; do not add original-Prada neroli or pepper.
+
+| Material | Stock / dilution | Amount (µL) |
+|---|---|---:|
+| Hedione | neat | 600.000000000000 |
+| Ambrox Super | 25% w/w in DPG + IPM + ethanol | 480.000000000000 |
+| Iso E Super | neat | 450.000000000000 |
+| Benzyl Salicylate | neat | 210.000000000000 |
+| Patchouli EO | neat | 180.000000000000 |
+| Bacdanol | neat | 461.893764434180 |
+| Kephalis | neat | 120.000000000000 |
+| Cashmeran | neat | 60.000000000000 |
+| Suederal | neat | 40.000000000000 |
+| Ambrettolide | 10% w/w in DPG | 800.000000000000 |
+| Alpha Isomethyl Ionone | neat | 1200.000000000000 |
+| Alpha Irone | 10% w/w in DEP | 257.510729613734 |
+| Orris Liquid | 9% w/w in DEP | 215.053763440860 |
+| Alpha Ionone | neat | 100.000000000000 |
+| Orivone | neat | 40.000000000000 |
+| Tonkarome | 20% w/w in TEC | 600.000000000000 |
+| Coumarin | 20% w/w in DEP | 180.000000000000 |
+| Heliotropal | 10% w/w in DEP | 100.000000000000 |
+| TOTAL | Model-coordinate subtotal only | 6094.458257488775 |
+
+## Finished Matrix Inputs
+
+**Matrix authority:** declared_volume_proxy
+
+Scenario only: the exact external stock-carrier mass plus 24.000 g hypothetical 96.000% w/w ethanol/water. This gives a 30.000 g scenario, not a measured 30 mL product. Owned ethanol basis and actual final volume/mass remain unestablished. Proprietary internal carriers remain unknown. Numeric one in the density column solely encodes milligrams into the parser and is not used as an observed density. Molar masses are approximate standard component values.
+
+| Component | Volume µL | Density g/mL | MW g/mol | Source |
+|---|---:|---:|---:|---|
+| Dipropylene Glycol | 1000.000000000000 | 1 | 134.17 | Computational mass encoding; weighed-stock design ledger; not a volume or density measurement |
+| Isopropyl Myristate | 20.000000000000 | 1 | 270.45 | Computational mass encoding; weighed-stock design ledger; not a volume or density measurement |
+| Ethanol | 23100.000000000000 | 1 | 46.06844 | Computational mass encoding; declared hypothetical ethanol/water plus stock component where applicable; not a volume or density measurement |
+| Diethyl Phthalate | 632.000000000000 | 1 | 222.24 | Computational mass encoding; weighed-stock design ledger; not a volume or density measurement |
+| Triethyl Citrate | 480.000000000000 | 1 | 276.28 | Computational mass encoding; weighed-stock design ledger; not a volume or density measurement |
+| Water | 960.000000000000 | 1 | 18.01528 | Computational mass encoding; declared hypothetical ethanol/water plus stock component where applicable; not a volume or density measurement |

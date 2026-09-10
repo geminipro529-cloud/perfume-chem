@@ -1,0 +1,132 @@
+# Astra Z2: research re-verification of scent connections
+
+Date: 2026-09-06. Scope: read-only review of the selected Z2 recipe, with a new research report and verification receipt. No formula, stock, engine, prior output, or release authority is changed.
+
+## Decision
+
+**PARTLY SUPPORTED AS A DESIGN RATIONALE; NOT VERIFIED AS SMOOTH PERCEIVED EVOLUTION.**
+
+The reviewed sources support several material-character and blending choices. They do not establish that the exact Z2 composition, at its selected doses and actual application conditions, produces smooth changes from one facet to another.
+
+The strongest direct pairing evidence is Sandalore with Ebanol. Dihydro Beta Ionone (DHBI), Alpha-Isomethyl Ionone (AIMI) and Hedione have relevant supplier application evidence. However, a newly identified DHBI vapor-pressure discrepancy makes its earlier sub-threshold interpretation non-robust. Hexyl Salicylate's dry-bark description is unsupported by the reviewed official source, and the owned Tonkarome manufacturer/grade remains unresolved.
+
+This audit supersedes those unsupported explanatory interpretations, not the recipe bytes. Z2 remains a selected design, not a sensory-validated or physically released perfume.
+
+## Method and evidence boundary
+
+The parent re-read the live worktree inventory, governing instructions, Z2 report, and relevant simulator/FormulaState code. Two bounded native Astra workers independently reviewed supplier evidence and the existing computational route. The parent inspected pivotal source pages and independently checked the saved values and hashes.
+
+Evidence classes are kept separate:
+
+- **Manufacturer or supplier statement:** evidence of how a particular published product is described or used.
+- **Primary experiment:** evidence for the tested mixtures, participants and conditions only.
+- **Design inference:** a proposed connection in Z2, not an observed sensory result.
+- **Saved model calculation:** conditional on its property inputs and uncalibrated temporal assumptions.
+
+Commercial grade, isomer mixture, supplier lot and stock identity are not inferred from a similar name or shared CAS. No exhaustive literature review or complete material-property audit is claimed. Some papers were inspected through their primary indexed abstracts; the 2025 human-skin paper was also inspected in full-text sections.
+
+## Which connections have support?
+
+| Proposed connection | Verified evidence | Adjudication for Z2 |
+|---|---|---|
+| Iris / floral to wood through DHBI | Givaudan lists orris, floral, woody and ambery facets, with application guidance for combinations with floral materials. [DHBI product page](https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/dihydro-ionone-beta) | A well-grounded cross-facet hypothesis. No exact DHBI-to-Virginia-cedar transition or Z2 sensory test was found. |
+| AIMI connecting floral powder to woods/amber/musk | Sigma's application guide describes its specified AIMI grade as floral/violet/woody and recommends combinations with woody, amber and musky materials. [Guide, printed p.17](https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/marketing/global/documents/207/865/application-guide-10-fragrances-ms.pdf) | Supports broad blending rationale. It does not establish equivalence between that grade and the owned material. |
+| Sandalwood body and accent | Givaudan explicitly recommends Sandalore combined with Ebanol. [Sandalore](https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/sandaloretm), [Ebanol](https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ebanoltm) | Strongest direct pair recommendation. The exact Z2 ratio and onward connection to cedar remain untested. |
+| Iris powder to tonka | The Sigma guide supports piperonal's sweet/floral/powder function; Eternis describes coumarin as sweet hay/tonka. [Piperonal, printed p.15](https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/marketing/global/documents/207/865/application-guide-10-fragrances-ms.pdf), [Coumarin](https://www.eternis.com/coumarin) | Shared-facet inference, not evidence of the complete iris-piperonal-coumarin-Tonkarome transition. Sigma's explicit sweet-material example is vanillin, not this combination. |
+| Floral smoothing around the subject | Firmenich describes normal Hedione with transparent floral character and broad smoothness/radiance applications. [Hedione sheet](https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/HEDIONE_964898.pdf) | Relevant manufacturer application claim, not an independently measured Z2 effect. Hedione HC is not substituted. |
+| Soft musk connection | Firmenich describes Romandolide as a delicate musk with soft balsamic facets. [Romandolide sheet](https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/ROMANDOLIDE_979031.pdf) | Supports the intended texture, not a proven iris-specific bridge or delayed drydown appearance. |
+| Hexyl Salicylate as a dry-bark connection | Givaudan describes a floral/fruity, mildly sweet herbaceous modifier, with particular application alongside Amyl Salicylate. [Hexyl Salicylate](https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/hexyl-salicylate) | Retain only a proposed floral-modifier role in this explanation. The dry-bark label and exact Hedione-iris-cedar smoothing claim were not verified. |
+| Orivone as a gentle iris transition | IFF describes earthy, camphoraceous orris character. [Orivone](https://www.iff.com/scent/ingredients-compendium/orivone/) | Supports a root/earth edge, but not automatic softness. An edge can provide contrast without necessarily smoothing the mixture. |
+
+None of these sources proves that all proposed links work together or that their perceptual contribution survives masking in Z2.
+
+## Important new property and identity findings
+
+### 1. DHBI: the earlier low-OAV interpretation is not robust
+
+The saved source-informed 25 C scenario uses DHBI MW 194.3 and VP **0.02 Pa**. Givaudan's matching generic chemical identity, CAS 17283-81-7, lists **0.0093 hPa = 0.93 Pa**, without a stated reference temperature. Its molecular weight agrees.
+
+A one-variable, fixed-composition sensitivity check gives:
+
+```text
+VP ratio = 0.93 / 0.02 = 46.5
+Saved opening OAV = 0.05148634887151346
+Conditional opening OAV = 0.05148634887151346 * 46.5
+                        = 2.394115222525376
+```
+
+This assumes the supplier VP can be used at the same temperature while mole fraction, activity coefficient, ODT and every other input remain fixed. It is **not** a fresh kinetic trajectory, measured headspace, owned-grade equivalence or proof of perceptibility.
+
+The local 5 ppb air ODT remains an analogue estimate. Its provenance text says so despite the PEER_SINGLE tag in [odor_thresholds.py](C:/Users/ASUS/.codex/worktrees/a48f/perfume-chem/engine/odor_thresholds.py:496). Thus both the earlier sub-threshold conclusion and any replacement perceptibility claim remain conditional. A dosage increase to compensate for the old 0.05 value would be unjustified.
+
+The source supports the odor-character rationale more strongly than the saved numerical inputs support the low-OAV classification. [Manufacturer property source](https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/dihydro-ionone-beta)
+
+### 2. Other property comparisons need temperature and grade discipline
+
+Hexyl Salicylate uses VP 0.077 Pa in the saved scenario; the reviewed Givaudan page lists 0.13 Pa with unstated temperature. Holding all other inputs fixed changes its opening OAV only from 0.01624267 to 0.02742269; this does not validate a sensory modifier effect.
+
+Saved Hedione VP is 0.09466 Pa at the 25 C scenario temperature, while its supplier sheet states 0.09 Pa at 20 C. These cannot be treated as a same-temperature match without checking provenance and temperature conversion. No revised temperature-dependent curve was computed here.
+
+These are input-review findings, not silent replacements of canonical data or an exhaustive survey of every material.
+
+### 3. Tonkarome provenance and possible coumarin overlap
+
+The worktree inventory attributes Tonkarome to Firmenich. The recovered Ventos specification instead names **Tonkarome Synarome** and states that this listed product contains coumarin and has tonka-bean character. It gives no coumarin fraction. [Ventos product specification](https://ventos.com/index.php/?codi=001_RAYOWSKUET_3969&idi=EN&option=com_evsa&task=documentacion.mostrar)
+
+That is a provenance conflict, not proof of what is in the user's bottle. Without an owned-product match, the source cannot assign internal coumarin mass or justify a new dose. Even if the identity matched, the presence of coumarin would not by itself prove that separate added coumarin is redundant; their distinct sensory functions still need evidence. Roasted-tonka character was not established.
+
+## What primary experiments say
+
+**Ratio-sensitive blending:** Le Berre et al. tested a ternary pineapple-like odor mixture with 15 participants. Small component concentration changes altered the mixture's typicality, including changes below one component's just-noticeable-difference scale. This is direct human evidence that a blended odor can depend sensitively on ratios; it does not supply a smoothness rule or an optimal ratio for Z2. [Chemical Senses, 2008, DOI 10.1093/chemse/bjn006](https://academic.oup.com/chemse/article-abstract/33/4/389/267601)
+
+**Evaluation context matters:** A separate Le Berre et al. experiment found that component exposure and analytical versus whole-mixture evaluation affected the typicality of tested blending mixtures. A list of ingredient descriptors is therefore not equivalent to a whole-mixture percept. Transfer to this perfume is an inference, not a result of that study. [Chemical Senses, 2008, DOI 10.1093/chemse/bjm080](https://pubmed.ncbi.nlm.nih.gov/18071197/)
+
+**Physical time models require validation:** Almeida et al. validated radial diffusion against measured gas concentrations for a pure component, two binary systems and a ternary system. This shows that transport models can be tested against physical data; their reported agreement does not validate our separate heuristic or perceived smoothness. [AIChE Journal, 2021, DOI 10.1002/aic.17351](https://doi.org/10.1002/aic.17351)
+
+**Skin is not a fixed inert carrier:** Hadjiefstathiou et al. studied an eight-material mixture on ten volunteers using headspace sampling and GC-FID, observing molecule- and skin-dependent release differences. This was an instrumental evaporation study, not a Z2 sensory-smoothness test. The small sample and different ingredients limit transfer. [International Journal of Cosmetic Science, 2025, DOI 10.1111/ics.13085](https://pmc.ncbi.nlm.nih.gov/articles/PMC12666731/)
+
+## Recheck of the actual computational route
+
+The [simulator](C:/Users/ASUS/.codex/worktrees/a48f/perfume-chem/engine/pipeline/simulator.py:76) uses explicitly uncalibrated exponential loss, with intermediate state updates at steps no longer than 300 seconds. It recomputes composition-dependent headspace; it is not merely five disconnected static snapshots.
+
+However:
+
+- The original carrier matrix moles and mass are retained throughout. Ethanol/water loss and evolving skin-film behavior are not modeled in this route. [FormulaState](C:/Users/ASUS/.codex/worktrees/a48f/perfume-chem/engine/pipeline/formula_state.py:519)
+- A Stevens transform is applied to individual material OAVs; the temporal route does not model the whole mixture's configural identity, smoothness, adaptation or receptor masking.
+- The separate mixture-suppression helper is not called by FormulaState or the simulator. Its existence elsewhere is not evidence that it was applied.
+- Saved receptor activation is null, with an explicit material-assay-unavailable status.
+- Naturals use partial composite headspace profiles, but each natural row is depleted as a whole; its constituents do not have independent time-varying depletion.
+- The retained selection objectives are per-window AIMI/Iso E, AIMI/Hedione and Heliotropal/AIMI OAV ratios, not a validated transition objective.
+
+### Saved time windows, not an updated physics run
+
+These dimensionless air OAVs are extracted from the saved final stock-mass source-informed 25 C scenario. **They predate the new DHBI VP challenge above.** Their near-constant values describe persistence within that model, not proven perceptual smoothness.
+
+| Material | 0 min | 5 min | 30 min | 120 min | 240 min |
+|---|---:|---:|---:|---:|---:|
+| Alpha-Isomethyl Ionone | 62.635855 | 62.622867 | 62.557943 | 62.324501 | 62.013993 |
+| Dihydro Beta Ionone | 0.051486 | 0.051486 | 0.051487 | 0.051488 | 0.051488 |
+| Heliotropal | 255.040588 | 254.813748 | 253.682483 | 249.650253 | 244.371080 |
+| Coumarin | 15.829913 | 15.825337 | 15.802458 | 15.720124 | 15.610469 |
+| Sandalore | 0.392259 | 0.392244 | 0.392165 | 0.391882 | 0.391501 |
+| Ebanol | 4.180827 | 4.180529 | 4.179039 | 4.173660 | 4.166457 |
+| Hedione | 189.686680 | 189.665072 | 189.556817 | 189.164273 | 188.634743 |
+| Romandolide | 0.509188 | 0.509152 | 0.508971 | 0.508319 | 0.507446 |
+
+No pronounced iris-to-wood or powder-to-tonka handoff is demonstrated by these saved rows. Mathematical continuity of concentrations does not establish absence of harshness or a perceptually smooth transition.
+
+### Correction to the top/heart/base percentages
+
+[FormulaState.note_distribution()](C:/Users/ASUS/.codex/worktrees/a48f/perfume-chem/engine/pipeline/formula_state.py:311) sums **active-volume equivalents**, not OAV. The saved legacy opening distribution of 1.0/57.3/41.7 and drydown distribution of 0.7/57.3/42.0 must not be called OAV-weighted or percentages of perceived contribution. These model coordinates are not measured physical transfer volumes either.
+
+The project instructions describe this field as OAV-weighted, which conflicts with the current implementation. The formatter's drydown text already calls it active note distribution. This audit corrects the interpretation without editing the old report or pipeline code.
+
+## Verification and final boundary
+
+Fresh hash checks matched **14/14 pinned local source files, 6/6 Z2 artifacts and 7/7 saved numerical outputs** against the prior final receipt. This confirms that the audited bytes match the prior run; it does not confirm that the underlying material-property values are correct. The parent also checked the relevant code directly and recomputed the bounded VP sensitivity arithmetic.
+
+The accompanying [research verification receipt](C:/Users/ASUS/.codex/worktrees/a48f/perfume-chem/output/prada_lhomme_intense_zero_astra_z2_reverification_20260906/verification_receipt.json) records this pass, the source URLs, old-file hashes, saved values and conditional calculations.
+
+No release pipeline, full project verifier or software test suite was rerun: no implementation changed, and none of those runs would validate the missing sensory outcome. All Z2 allocations, stocks, concentration bases and authority flags remain unchanged. Physical release remains HOLD.
+
+**Final conclusion:** the literature supports several deliberate connections, but does not verify the exact formula's smooth evolution. The DHBI property conflict must be carried forward, the Hexyl Salicylate explanation narrowed, and Tonkarome identity left unresolved. No new ingredients, dose changes or preliminary physical test variants follow automatically from this review.

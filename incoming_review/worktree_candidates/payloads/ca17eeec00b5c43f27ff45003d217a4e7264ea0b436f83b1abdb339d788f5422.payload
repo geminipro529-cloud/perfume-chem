@@ -1,0 +1,38 @@
+# Jasmine Sambac stock clarifications — 2026-09-08
+
+## Latest stock correction: Romandolide
+
+The user confirmed **Romandolide is out** on 2026-09-08. Its inventory row is now marked DEPLETED. The live inventory still has 240 raw rows, but now five are explicitly depleted and 235 are not marked depleted; the older parse counts remain historical. Listing alone does not verify sufficient remaining quantity.
+
+The 30 mL V1 recipe contains Romandolide and is superseded. [V2](../../formulas/Jasmine_Sambac_Clair_30mL_V2.md) removes it and redistributes its 480 uL as 240 uL Habanolide plus 120 uL more regular Hedione and 120 uL more Sandalore. Sambac stock remains 360 uL of the confirmed 10% w/w in DPG preparation. This is a new draft, not a bottle-addition instruction or a potency-equivalent substitution.
+
+## User-confirmed absolute stock
+
+The user answered the concentration-basis question: **10% in DPG is w/w**. In the context of that question, this applies to **Jasmine Sambac absolute**, not automatically to every DPG dilution in the inventory.
+
+- Active mass fraction: **0.10**.
+- DPG mass fraction: **0.90**, assuming the stated two-component preparation.
+- Exact active mass = transferred stock mass x 0.10.
+- With a measured stock density, active mass = transferred stock volume x stock density x 0.10.
+- Stock density, lot composition and remaining amount have not been measured here. No 10% v/v equivalence is asserted.
+- `inventory.txt` now states the confirmed w/w basis. Its historical parse remains preserved separately.
+
+## Supplier identity correction: Jasmine Sambac Blossoms
+
+The user's PerfumersWorld pointer resolves to **SKU 6JN07707**. The supplier classifies it as a proprietary **liquid jasmine-reconstitution base**. It is neither dried flowers nor the natural Sambac absolute. The earlier inventory comment and my interpretation were incorrect.
+
+Supplier-reported properties: yellow liquid; specific gravity 0.9370; relative odor impact 150; smelling-strip odor life 36 hours. These are catalog descriptors, not measured properties of the user's bottle or a skin-longevity prediction. The supplier's odor profile includes an animalic base.
+
+Source: [PerfumersWorld product entry](https://www.perfumersworld.com/view.php?pro_id=6JN07707), accessed 2026-09-08.
+
+The supplier's documents describe a proprietary mixture. Selected disclosed concentrations include linalool 32.9921%, hexyl salicylate 20.3180%, and benzyl alcohol 10.0788%. The SDS also lists benzyl acetate and methyl anthranilate in ranges. This is partial composition disclosure, not a complete formula. Failure to find indole in this disclosure does **not** establish an indole-free product.
+
+Source: [PerfumersWorld documentation for 6JN07707](https://www.perfumersworld.com/document-list.php?pro_id=6JN07707), accessed 2026-09-08. This is supplier catalog documentation, not a lot-matched certificate for the user's stock.
+
+## Formulation implications and boundary
+
+Keep the two jasmine materials separate. The Blossoms base becomes a legitimate candidate for evaluation; it is not automatically an indole-suppression ingredient and cannot replace the brief's mandatory absolute. Do not apply an absolute GC-O decomposition or a single-molecule ODT to the proprietary base as if its full composition were known.
+
+The initial clean-drydown V1 can be constructed from individually controlled materials plus the absolute. The Blossoms base should be evaluated separately before inclusion, given the unknown complete composition and supplier-described animalic facet. This is a design choice, not evidence that the base makes indole smell worse.
+
+No engine profile, YAML property record, ODT, or natural-mixture decomposition was promoted by this lookup. The existing Blossoms metadata contains duplicate YAML entries and unverified pseudo-component physics; it is not a validated mixture model. No supplier contact, purchase, or physical compounding was performed.

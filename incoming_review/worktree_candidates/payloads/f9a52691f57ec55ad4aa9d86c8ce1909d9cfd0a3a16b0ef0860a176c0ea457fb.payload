@@ -1,0 +1,809 @@
+{
+  "schema": "perfume-chem-ysl-impact-index-v1",
+  "study_id": "ysl-lhomme-la-nuit-twenty-variant-study",
+  "generated_at_utc": "2026-08-26T20:10:15.755510Z",
+  "projection_runtime_commit": "281d389ca76424ace2438e1f6cabdad75163a4d6",
+  "source_bindings": {
+    "inventory_sha256": "DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC",
+    "inventory_overlay_sha256": "1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072",
+    "evidence_ledger_sha256": "6E835618481E0B47ADDA77C38EDEB4788FFF2A6D69D90E20E1B233A818A36CBB"
+  },
+  "authority": "CANDIDATE_ONLY_NO_PURCHASE_OR_EXECUTION_AUTHORITY",
+  "lineage_field_semantics": {
+    "target_hypothesis_sha256": "Canonical hash of the candidate TARGET / IDEAL payload.",
+    "accepted_target_sha256": "Hash of the locked family target used by the candidate.",
+    "inventory_mapping_sha256": "Canonical hash of the CURRENT-INVENTORY BUILD payload.",
+    "build_plan_sha256": "Byte hash of the rendered formula at impact projection time.",
+    "parent_formula_sha256": "Definition hash of the frozen family parent, or the control itself.",
+    "inventory_snapshot_sha256": "Authoritative inventory snapshot hash bound by the candidate.",
+    "formula_edge_set_sha256": "Canonical hash of formula UID, parent and child definition hashes, and lineage type.",
+    "stock_receipts": "Empty until physical stock identity and preparation receipts exist."
+  },
+  "candidates": [
+    {
+      "candidate_id": "LH-01",
+      "name": "Original Fidelity",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-01_assessment.json",
+      "assessment_sha256": "6d6d6e88bf8817d7a5221f00f420ce0a1b8a8ca84013b4a859653af71a738d8a",
+      "recommendation_state": "VERIFY_STOCK_BASIS",
+      "recommendation": "Verify the Ethylene Brassylate container label or receipt before physical compounding. Do not buy Cedrat, white pepper, Haitian vetiver, or Hedione HC until the missing-chemical impact gate and controlled trials justify the exact function.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "Cedrat Oil exact identity",
+        "White Pepper exact identity",
+        "Vetiver Haiti origin and grade",
+        "Sandalwood exact target material",
+        "Vertofix Coeur grade",
+        "Hedione HC high-cis transition texture"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "lh-01.gap.01",
+          "candidate": "Cedrat Oil exact identity",
+          "inventory_status": "OUT_OF_STOCK",
+          "classification": "USEFUL SPECIALIST"
+        },
+        {
+          "function_id": "lh-01.gap.02",
+          "candidate": "White Pepper exact identity",
+          "inventory_status": "MISSING",
+          "classification": "USEFUL SPECIALIST"
+        },
+        {
+          "function_id": "lh-01.gap.03",
+          "candidate": "Vetiver Haiti origin and grade",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    },
+    {
+      "candidate_id": "LH-02",
+      "name": "Vintage Magnetique",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-02_assessment.json",
+      "assessment_sha256": "220fc4d702dd981777259835439b7079f4a122b911cf185c318195ba8ab6a3dc",
+      "recommendation_state": "VERIFY_STOCK_BASIS",
+      "recommendation": "Verify the Ethylene Brassylate label or receipt before physical compounding. Ebanol, Azarbre, and Tonkarome are already in stock; do not purchase another warm wood or musk before controlled testing.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "Cedrat Oil exact identity",
+        "White Pepper exact identity",
+        "Vetiver Haiti origin and grade",
+        "Ebanol and Azarbre target-specific sensory contribution"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "lh-02.gap.01",
+          "candidate": "Cedrat Oil exact identity",
+          "inventory_status": "OUT_OF_STOCK",
+          "classification": "USEFUL SPECIALIST"
+        },
+        {
+          "function_id": "lh-02.gap.02",
+          "candidate": "White Pepper exact identity",
+          "inventory_status": "MISSING",
+          "classification": "USEFUL SPECIALIST"
+        },
+        {
+          "function_id": "lh-02.gap.03",
+          "candidate": "Vetiver Haiti origin and grade",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    },
+    {
+      "candidate_id": "LH-03",
+      "name": "Tailored Luxe",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-03_assessment.json",
+      "assessment_sha256": "35b3033adeb9512ec578d85feaa6597f6b10c78d685b4e1fb02638a3b1ce43c2",
+      "recommendation_state": "VERIFY_STOCK_BASIS",
+      "recommendation": "Verify EB before physical dosing. AIM, Parmavert, Hedione, Azarbre, and Ebanol are stocked; do not purchase extra luxury naturals or another musk before the controlled comparison.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "Violet Leaf exact identity",
+        "Hedione HC high-cis texture",
+        "Vertofix Coeur grade",
+        "Vetiver Haiti origin and grade"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "lh-03.gap.01",
+          "candidate": "Violet Leaf exact identity",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "lh-03.gap.02",
+          "candidate": "Hedione HC high-cis texture",
+          "inventory_status": "MISSING",
+          "classification": "USEFUL SPECIALIST"
+        },
+        {
+          "function_id": "lh-03.gap.03",
+          "candidate": "Vertofix Coeur grade",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    },
+    {
+      "candidate_id": "LH-04",
+      "name": "Apple Pie",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-04_assessment.json",
+      "assessment_sha256": "59a8042da3591842d6321f6826d4f627cf97ead63dd9f6b9f4b660f0e2782550",
+      "recommendation_state": "VERIFY_STOCK_BASIS",
+      "recommendation": "Do not buy new apple or pastry materials. First recover label/preparation receipts for the four ambiguous percentage stocks and verify EB. If w/w bases cannot be established, prepare new owned-neat stocks by mass before any physical trial; all current numerical values for those rows remain conditional.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "Cedrat Oil exact bitter-peel identity",
+        "Violet Leaf exact identity",
+        "verified w/w bases for Ethyl 2-Methylbutyrate 0.1%, Hexyl Acetate 10%, Cinnamaldehyde 1%, and Vanillin 10%",
+        "physical evidence that pastry remains subordinate"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "lh-04.gap.01",
+          "candidate": "Cedrat Oil exact bitter-peel identity",
+          "inventory_status": "OUT_OF_STOCK",
+          "classification": "USEFUL SPECIALIST"
+        },
+        {
+          "function_id": "lh-04.gap.02",
+          "candidate": "Violet Leaf exact identity",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "lh-04.gap.03",
+          "candidate": "verified w/w bases for Ethyl 2-Methylbutyrate 0.1%, Hexyl Acetate 10%, Cinnamaldehyde 1%, and Vanillin 10%",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    },
+    {
+      "candidate_id": "LH-05",
+      "name": "Ginger-Cedrat Spark",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-05_assessment.json",
+      "assessment_sha256": "a69d9ff691dbd92ef246512567571770637c480b4a7bf49cd3e7e91ae54bb447",
+      "recommendation_state": "PROCUREMENT_REVIEW",
+      "recommendation": "Do not purchase Neroli or another generic citrus material. Current lemon, Lemonile, bergamot, and ginger can test the functional direction, but only an exact cedrat purchase review can address the missing bitter-peel identity after the impact gate. Verify EB before physical dosing.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "Cedrat Oil exact bitter-peel identity",
+        "White Pepper exact identity",
+        "Hedione HC high-cis texture",
+        "Vetiver Haiti origin and grade"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "lh-05.gap.01",
+          "candidate": "Cedrat Oil exact bitter-peel identity",
+          "inventory_status": "OUT_OF_STOCK",
+          "classification": "HIGH_VALUE ARCHITECTURAL EXPANSION"
+        },
+        {
+          "function_id": "lh-05.gap.02",
+          "candidate": "White Pepper exact identity",
+          "inventory_status": "MISSING",
+          "classification": "HIGH_VALUE ARCHITECTURAL EXPANSION"
+        },
+        {
+          "function_id": "lh-05.gap.03",
+          "candidate": "Hedione HC high-cis texture",
+          "inventory_status": "MISSING",
+          "classification": "HIGH_VALUE ARCHITECTURAL EXPANSION"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    },
+    {
+      "candidate_id": "LH-06",
+      "name": "Violet Leaf Silk",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-06_assessment.json",
+      "assessment_sha256": "5e6bb64116ffa57316789adb8326897200418fe2a1d9a1af82cce22e6e9645cc",
+      "recommendation_state": "VERIFY_STOCK_BASIS",
+      "recommendation": "Violet Leaf Absolute 10%, AIM, Parmavert, and Beta Ionone are stocked. Verify EB and the violet-leaf stock receipt before physical dosing; do not purchase extra ionones or musks.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "Violet Leaf target lot equivalence",
+        "Hedione HC high-cis texture",
+        "Vetiver Haiti origin and grade"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "lh-06.gap.01",
+          "candidate": "Violet Leaf target lot equivalence",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "lh-06.gap.02",
+          "candidate": "Hedione HC high-cis texture",
+          "inventory_status": "MISSING",
+          "classification": "USEFUL SPECIALIST"
+        },
+        {
+          "function_id": "lh-06.gap.03",
+          "candidate": "Vetiver Haiti origin and grade",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    },
+    {
+      "candidate_id": "LH-07",
+      "name": "White Pepper-Basil",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-07_assessment.json",
+      "assessment_sha256": "ae5eb71154e31fc9998dd6998f2393ae23caa655f005085a70609e8d81da02d8",
+      "recommendation_state": "NO_PURCHASE",
+      "recommendation": "Black Pepper, Basil EO, Terpinyl Acetate, and Ginger are stocked. Do not buy more aromatic material; first add or validate Basil EO composite-natural data in the integration program and test harshness under controlled conditions. Verify EB before physical dosing.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "White Pepper exact identity",
+        "Basil EO composite-natural decomposition",
+        "Basil target flower-versus-leaf chemotype",
+        "Vetiver Haiti origin"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "lh-07.gap.01",
+          "candidate": "White Pepper exact identity",
+          "inventory_status": "MISSING",
+          "classification": "USEFUL SPECIALIST"
+        },
+        {
+          "function_id": "lh-07.gap.02",
+          "candidate": "Basil EO composite-natural decomposition",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "lh-07.gap.03",
+          "candidate": "Basil target flower-versus-leaf chemotype",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    },
+    {
+      "candidate_id": "LH-08",
+      "name": "Cedar-Vetiver Tailoring",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-08_assessment.json",
+      "assessment_sha256": "1538de4de364498979d8348479a5ee6eb21931cc2444078e984a1f92ccdbab49",
+      "recommendation_state": "NO_PURCHASE",
+      "recommendation": "All current wood-axis materials are stocked. Do not purchase another amberwood or smoke material; verify EB and assess literal cedar/vetiver balance under the controlled protocol.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "Vetiver Haiti origin and grade",
+        "Vertofix Coeur grade",
+        "measured balance between literal cedar and vetiver"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "lh-08.gap.01",
+          "candidate": "Vetiver Haiti origin and grade",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "lh-08.gap.02",
+          "candidate": "Vertofix Coeur grade",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "lh-08.gap.03",
+          "candidate": "measured balance between literal cedar and vetiver",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    },
+    {
+      "candidate_id": "LH-09",
+      "name": "Tonka-Sandalwood",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-09_assessment.json",
+      "assessment_sha256": "640304c567640d384075cdf408ade8ca0cea78942d8baf287fd0b663729ec8bf",
+      "recommendation_state": "NO_PURCHASE",
+      "recommendation": "Sandalore, Ebanol, Tonkarome 20%, and Tonka Bean Absolute 10% are stocked with usable bases. Do not use the ambiguous saturated Coumarin stock or buy balsams/tinctures; verify EB and run the controlled comparison.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "Sandalwood exact target material",
+        "Tonka target lot equivalence",
+        "Vetiver Haiti origin",
+        "physical evidence against dessert drift"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "lh-09.gap.01",
+          "candidate": "Sandalwood exact target material",
+          "inventory_status": "MISSING",
+          "classification": "USEFUL SPECIALIST"
+        },
+        {
+          "function_id": "lh-09.gap.02",
+          "candidate": "Tonka target lot equivalence",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "lh-09.gap.03",
+          "candidate": "Vetiver Haiti origin",
+          "inventory_status": "MISSING",
+          "classification": "USEFUL SPECIALIST"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    },
+    {
+      "candidate_id": "LH-10",
+      "name": "Bangkok Air",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-10_assessment.json",
+      "assessment_sha256": "4419c2502c3b6a8c4479a6321e57089f3630fac400457cb64322b46d87369b75",
+      "recommendation_state": "VERIFY_STOCK_BASIS",
+      "recommendation": "Do not buy Neroli, aquatic materials, or another musk. Verify the Paradisamide 10% carrier/basis and EB label before physical dosing; current bergamot, lemon, Lemonile, ginger, and vetiver can test this direction while exact cedrat remains a later procurement review.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "Cedrat Oil exact bitter-peel identity",
+        "Hedione HC high-cis texture",
+        "Vetiver Haiti origin and grade",
+        "Paradisamide stock carrier and concentration basis",
+        "Basil EO composite-natural runtime coverage"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "lh-10.gap.01",
+          "candidate": "Cedrat Oil exact bitter-peel identity",
+          "inventory_status": "OUT_OF_STOCK",
+          "classification": "USEFUL SPECIALIST"
+        },
+        {
+          "function_id": "lh-10.gap.02",
+          "candidate": "Hedione HC high-cis texture",
+          "inventory_status": "MISSING",
+          "classification": "USEFUL SPECIALIST"
+        },
+        {
+          "function_id": "lh-10.gap.03",
+          "candidate": "Vetiver Haiti origin and grade",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-01",
+      "name": "Original 2009 Fidelity",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-01_assessment.json",
+      "assessment_sha256": "62eba791fd5f911ecbccc85b14997b9d6f32908d2562ffd8dde95760773afc8e",
+      "recommendation_state": "VERIFY_STOCK_BASIS",
+      "recommendation": "Verify the Ethylene Brassylate container label or receipt before physical compounding and verify whether any Exaltolide preparation has an exact w/w basis. Do not buy Exaltolide, Haitian vetiver, Vertofix Coeur, sandalwood, or Ambroxide until the missing-chemical impact gate and controlled trials justify the exact function.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "Exaltolide exact target skin-musk function and current stock basis",
+        "Vetiver Haiti origin and grade",
+        "Vertofix Coeur grade",
+        "Sandalwood exact target material",
+        "Ambroxide mineral-ambergris persistence",
+        "Lavender target lot and chemotype"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "ln-01.gap.01",
+          "candidate": "Exaltolide exact target skin-musk function and current stock basis",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "ln-01.gap.02",
+          "candidate": "Vetiver Haiti origin and grade",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "ln-01.gap.03",
+          "candidate": "Vertofix Coeur grade",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-02",
+      "name": "Current Transparent Style",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-02_assessment.json",
+      "assessment_sha256": "3f03d6f5b68b59f58798db7c3d5257c286c26761ef6da5286c9e78d4992bc7cd",
+      "recommendation_state": "VERIFY_STOCK_BASIS",
+      "recommendation": "No new clean musk, ozonic material, or citrus purchase is justified for this test. Verify EB before dosing; reserve Exaltolide or Hedione HC purchase review until the impact gate isolates their exact losses.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "Exaltolide exact soft-skin texture and stock basis",
+        "Hedione HC high-cis texture",
+        "Vetiver Haiti origin and grade",
+        "Vertofix Coeur grade",
+        "literal Ambroxide function"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "ln-02.gap.01",
+          "candidate": "Exaltolide exact soft-skin texture and stock basis",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "ln-02.gap.02",
+          "candidate": "Hedione HC high-cis texture",
+          "inventory_status": "MISSING",
+          "classification": "USEFUL SPECIALIST"
+        },
+        {
+          "function_id": "ln-02.gap.03",
+          "candidate": "Vetiver Haiti origin and grade",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-03",
+      "name": "Cardamom Velvet",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-03_assessment.json",
+      "assessment_sha256": "40e38c3724e0778b6665b827cbc0f24757b445fb0fbb0f2b783e2d7e43abf6de",
+      "recommendation_state": "VERIFY_STOCK_BASIS",
+      "recommendation": "Current Cardamom EO, Linalool, Linalyl Acetate, Ebanol, Sandalore, and cedar cover the controlled direction. Do not buy another musk or spice; verify EB and test cardamom overdose/cineole explicitly.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "Exaltolide exact skin texture",
+        "Cardamom target lot and temporal profile",
+        "Sandalwood exact target material",
+        "Vetiver Haiti origin",
+        "physical evidence against cineolic harshness"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "ln-03.gap.01",
+          "candidate": "Exaltolide exact skin texture",
+          "inventory_status": "MISSING",
+          "classification": "USEFUL SPECIALIST"
+        },
+        {
+          "function_id": "ln-03.gap.02",
+          "candidate": "Cardamom target lot and temporal profile",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "ln-03.gap.03",
+          "candidate": "Sandalwood exact target material",
+          "inventory_status": "MISSING",
+          "classification": "USEFUL SPECIALIST"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-04",
+      "name": "Lavender Heart",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-04_assessment.json",
+      "assessment_sha256": "e31e47c6440197df4cffd9b5483f355a45c032a287383f234cc8ae61d3a5dbde",
+      "recommendation_state": "NO_PURCHASE",
+      "recommendation": "The three stocked lavender materials, Linalool, Linalyl Acetate, and Hedione cover the controlled direction. Do not buy another lavender base, laundry floral, or musk; verify EB and test Spike overdose explicitly.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "Hedione HC high-cis transition texture",
+        "target lavender lot/chemotype",
+        "Exaltolide exact skin texture",
+        "Vetiver Haiti origin",
+        "physical evidence against barbershop or camphor drift"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "ln-04.gap.01",
+          "candidate": "Hedione HC high-cis transition texture",
+          "inventory_status": "MISSING",
+          "classification": "USEFUL SPECIALIST"
+        },
+        {
+          "function_id": "ln-04.gap.02",
+          "candidate": "target lavender lot/chemotype",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "ln-04.gap.03",
+          "candidate": "Exaltolide exact skin texture",
+          "inventory_status": "MISSING",
+          "classification": "USEFUL SPECIALIST"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-05",
+      "name": "Immortelle Nuit",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-05_assessment.json",
+      "assessment_sha256": "eec55febf5a24b91a48519e1a26d9eb365bbbfae4db93a5db0988111125ba3f3",
+      "recommendation_state": "VERIFY_STOCK_BASIS",
+      "recommendation": "Do not purchase another immortelle, hay, maple, tobacco, balsam, or musk. First recover label/preparation receipts for Immortelle Absolute 10%, Hay Absolute 10%, and Maple Lactone 20%; if their basis cannot be established, omit those conditional rows until verified. The integration program must register Helichrysum EO composite decomposition before strict OAV advancement. Verify EB before mixing.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "Helichrysum EO composite-natural registry mapping",
+        "Immortelle Absolute 10% concentration basis",
+        "Hay Absolute 10% concentration basis and carrier",
+        "Maple Lactone 20% concentration basis and carrier",
+        "Exaltolide exact skin texture",
+        "Vetiver Haiti origin",
+        "physical evidence against curry, maple, or gourmand drift"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "ln-05.gap.01",
+          "candidate": "Helichrysum EO composite-natural registry mapping",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "ln-05.gap.02",
+          "candidate": "Immortelle Absolute 10% concentration basis",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "ln-05.gap.03",
+          "candidate": "Hay Absolute 10% concentration basis and carrier",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-06",
+      "name": "Cedar-Vetiver Vertical",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-06_assessment.json",
+      "assessment_sha256": "f069d5b1214b042da02fb8224f1ca968f02d8976cdcfcc3d1a554c8ae18d9903",
+      "recommendation_state": "NO_PURCHASE",
+      "recommendation": "Virginia cedar, Indian Vetiver, Vertofix, and Azarbre cover the controlled vertical. Do not buy smoke, leather, oud, Kephalis, or another amberwood for this test; verify EB and evaluate the origin/grade losses under blind conditions.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "Vetiver Haiti origin",
+        "Vertofix Coeur grade",
+        "literal cedar low-VP projection",
+        "Exaltolide exact skin texture",
+        "physical evidence against woody austerity"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "ln-06.gap.01",
+          "candidate": "Vetiver Haiti origin",
+          "inventory_status": "MISSING",
+          "classification": "USEFUL SPECIALIST"
+        },
+        {
+          "function_id": "ln-06.gap.02",
+          "candidate": "Vertofix Coeur grade",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "ln-06.gap.03",
+          "candidate": "literal cedar low-VP projection",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-07",
+      "name": "Dry Coumarin Skin",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-07_assessment.json",
+      "assessment_sha256": "1c9a5fb2f4d2e892701b2de0fb1a6edb44dda26d4309c8c576babacd0780b5c7",
+      "recommendation_state": "PREPARE_W_W_STOCK_FROM_OWNED_NEAT",
+      "recommendation": "Do not use the ambiguous saturated Coumarin stock or buy gourmand materials. For a later role-isolation control, prepare Coumarin 10% w/w only by weighing 1.000 g owned neat Coumarin plus 9.000 g TEC, record lot/masses, and verify the preparation before dosing; no dissolution or stability claim is made. Keep Hay out until its basis and composite registry are resolved. Verify EB.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "separate Coumarin crystal versus Tonkarome mapping",
+        "Hay Absolute stock basis",
+        "Hay Absolute composite-natural registry coverage",
+        "Exaltolide exact skin texture",
+        "physical evidence against dessert or powder drift"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "ln-07.gap.01",
+          "candidate": "separate Coumarin crystal versus Tonkarome mapping",
+          "inventory_status": "PREPARABLE",
+          "classification": "USEFUL SPECIALIST"
+        },
+        {
+          "function_id": "ln-07.gap.02",
+          "candidate": "Hay Absolute stock basis",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "ln-07.gap.03",
+          "candidate": "Hay Absolute composite-natural registry coverage",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-08",
+      "name": "Caraway Shadow",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-08_assessment.json",
+      "assessment_sha256": "073da1f5aaf35a8c5ce02b96e5d889e084fa026b510177939df4ef7c7f673096",
+      "recommendation_state": "NO_PURCHASE",
+      "recommendation": "The known 10% w/w Caraway stock is sufficient; do not buy coriander, anise, cumin-like materials, tobacco, balsams, or another musk. The integration program must register Caraway composite decomposition before strict OAV advancement. Verify EB.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "Caraway Seed Oil composite-natural registry mapping",
+        "target cardamom and caraway lot profiles",
+        "Vetiver Haiti origin",
+        "Exaltolide exact skin texture",
+        "physical evidence against savory or culinary drift"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "ln-08.gap.01",
+          "candidate": "Caraway Seed Oil composite-natural registry mapping",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "ln-08.gap.02",
+          "candidate": "target cardamom and caraway lot profiles",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "ln-08.gap.03",
+          "candidate": "Vetiver Haiti origin",
+          "inventory_status": "MISSING",
+          "classification": "USEFUL SPECIALIST"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-09",
+      "name": "Dark Textile Woods",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-09_assessment.json",
+      "assessment_sha256": "6331ccd4e382d4b5782388538d7360650d8c73a78614f809f5e3a1de4b9ee847",
+      "recommendation_state": "NO_PURCHASE",
+      "recommendation": "Cashmeran, Kephalis, Azarbre, cedar, and vetiver are stocked. Do not buy leather, oud, smoke, tobacco, balsams, another amberwood, or another musk; verify EB and test the dark-textile failure modes directly.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "Vetiver Haiti origin",
+        "Vertofix Coeur grade",
+        "target sandalwood identity",
+        "Exaltolide exact skin texture",
+        "physical evidence against tobacco, leather, or opaque wood drift"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "ln-09.gap.01",
+          "candidate": "Vetiver Haiti origin",
+          "inventory_status": "MISSING",
+          "classification": "USEFUL SPECIALIST"
+        },
+        {
+          "function_id": "ln-09.gap.02",
+          "candidate": "Vertofix Coeur grade",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "ln-09.gap.03",
+          "candidate": "target sandalwood identity",
+          "inventory_status": "MISSING",
+          "classification": "USEFUL SPECIALIST"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-10",
+      "name": "Intimate Diffusion",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-10_assessment.json",
+      "assessment_sha256": "b2f22575101acb01b278c186a7e8a603eb90638cae36db3a3cd6df16a0b05a01",
+      "recommendation_state": "VERIFY_STOCK_BASIS",
+      "recommendation": "Use only EB for this current arm and verify its label. Do not dose owned Habanolide or Romandolide until their concentration bases are recorded; do not procure Ambrettolide or add Galaxolide, Zenolide, Tonalide, Macrolide, or Musk Ketone. No musk purchase is justified.",
+      "lost_tinctures": "NO_USE",
+      "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+      "genuinely_missing_functions": [
+        "Exaltolide exact skin-fatty texture versus EB creamy-lactonic mapping",
+        "Habanolide and Romandolide stock bases for future controls only",
+        "target sandalwood identity",
+        "Vetiver Haiti origin",
+        "physical evidence against musk curtain or Hedione hollowing"
+      ],
+      "candidate_classifications": [
+        {
+          "function_id": "ln-10.gap.01",
+          "candidate": "Exaltolide exact skin-fatty texture versus EB creamy-lactonic mapping",
+          "inventory_status": "VERIFY_FIRST",
+          "classification": "EVIDENCE GAP, NOT INVENTORY GAP"
+        },
+        {
+          "function_id": "ln-10.gap.02",
+          "candidate": "Habanolide and Romandolide stock bases for future controls only",
+          "inventory_status": "MISSING",
+          "classification": "USEFUL SPECIALIST"
+        },
+        {
+          "function_id": "ln-10.gap.03",
+          "candidate": "target sandalwood identity",
+          "inventory_status": "MISSING",
+          "classification": "USEFUL SPECIALIST"
+        }
+      ],
+      "purchase_authority": false,
+      "execution_authorized": false
+    }
+  ],
+  "claim_ceiling": {
+    "formula_mutation": false,
+    "purchase_authority": false,
+    "execution_authorized": false,
+    "physical_liking": "NOT TESTED",
+    "sensory_similarity": "NOT TESTED",
+    "stability": "NOT TESTED",
+    "safety": "NOT CLEARED",
+    "measured_headspace": "NOT TESTED",
+    "release": "NOT CLEARED"
+  }
+}

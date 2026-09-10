@@ -1,0 +1,66 @@
+# Model and Artifact Locations
+
+Perfume-Chem has one active generative-provider contract: the FastAPI backend
+uses the OpenAI API. Codex development work runs through the signed-in
+ChatGPT/Codex environment. The repository does not support an alternate local
+or remote generative-provider fallback.
+
+## OpenAI backend configuration
+
+The two supported startup locations are:
+
+- Repository-root `.env`: used by `python run_api_server.py`.
+- `backend/.env`: used after changing into `backend/` and starting Uvicorn.
+
+Create either untracked file from the repository-root `.env.example`. Do not
+commit credentials. The active settings are:
+
+- `AI_PROVIDER=openai`
+- `OPENAI_API_KEY`: API credential supplied through the environment
+- `OPENAI_MODEL`: OpenAI API model identifier
+- `OPENAI_MAX_TOKENS` and `OPENAI_TEMPERATURE`: request defaults
+
+Provider validation and runtime selection live in:
+
+- [`backend/app/core/config.py`](../backend/app/core/config.py)
+- [`backend/app/services/ai/factory.py`](../backend/app/services/ai/factory.py)
+
+OpenAI model identifiers are provider-side identifiers, not files stored in
+this repository. Consult the
+[official OpenAI model catalog](https://developers.openai.com/api/docs/models)
+before intentionally changing `OPENAI_MODEL`.
+
+## Local non-generative model artifacts
+
+The engine's semantic-search implementation is local and non-generative:
+
+- Source: [`engine/knowledge/embeddings.py`](../engine/knowledge/embeddings.py)
+- Embedding model: `sentence-transformers/all-MiniLM-L6-v2`
+- Artifact directory: [`data/embeddings`](../data/embeddings)
+- Primary index: `data/embeddings/knowledge_index.faiss`
+- Numpy fallback: `data/embeddings/embeddings.npy`
+- Metadata map: `data/embeddings/chunk_map.json`
+
+The sentence-transformers package may populate its machine-level model cache
+when the embedding model is first resolved. Those encoder weights and the
+generated FAISS/Numpy artifacts are retrieval infrastructure; they are not a
+chat model, reasoning provider, or scientific/sensory authority.
+
+## Scientific ML and generated data
+
+Numerical models, calibration artifacts, and learned scientific estimators in
+the repository remain local computational evidence subject to their own
+provenance and validation contracts. Their presence does not authorize a
+generative-provider route and does not promote simulated or predicted values to
+measured evidence.
+
+Large generated artifacts and caches should remain outside Git unless a
+specific repository contract requires a versioned artifact and provenance
+receipt.
+
+## Unsupported stale settings
+
+Environment variables or files from earlier multi-provider or local-generative
+experiments are unsupported. Current configuration fails closed to OpenAI; do
+not restore a provider daemon, local generative weight path, alternate API key,
+or fallback launcher from historical documentation.

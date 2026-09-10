@@ -1,0 +1,247 @@
+{
+  "schema_version": "complex_perfumery_full_objective_completion_audit_v3",
+  "generated_at_utc": "2026-08-16T07:58:29.2986954Z",
+  "state": "V14_EXACT_COLLECTION_ADVANCED_RECOVERED_NON_P6_NATIVE_SCOPE_APPLIED_EXTERNAL_RIGHTS_BYTES_AND_PHYSICAL_EVIDENCE_HELD",
+  "objective_complete": false,
+  "collection_complete": false,
+  "implementation_complete": false,
+  "implementation_complete_for_authorized_recovered_non_p6_native_scopes_in_current_worktree": true,
+  "package_installation_complete": false,
+  "installation_authorized": false,
+  "release_complete": false,
+  "repository_fence": {
+    "branch": "codex/add-inventory-materials",
+    "head": "c876ab128845c2e055251fdce4fb1c3f5d661045",
+    "index_tree": "b4dcfb3932f5156f9397fee876199001fff66611",
+    "staged_paths": 0,
+    "preexisting_dirty_tree_preserved": true
+  },
+  "parent_evidence": [
+    {
+      "path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_AUDIT_V13_20260816.json",
+      "byte_size": 14758,
+      "sha256": "5f994a8598639b79b87a16d16e53c53ca041b316704f18e330693dd3f08a35f7",
+      "semantic_receipt_sha256": "1b6c2cd4c17eba07aa823453ff06bd9919cb464867edbfe36ae04a58e2800d0a",
+      "role": "PREVIOUS_FULL_OBJECTIVE_AUDIT"
+    },
+    {
+      "path": "data/governance/complex_perfumery_v14_post_v13_collection_delta_20260816.json",
+      "byte_size": 8849,
+      "sha256": "986916e0cbf542a8a01d6507bbb11a8e092e9b26f5cafbbd90aee7de61bfab40",
+      "semantic_receipt_sha256": "ed357db5a76546116b57b56d4f9c3d7a606cfc6da2948fcb358defa4840b9d82",
+      "role": "CURRENT_COLLECTION_STATE"
+    },
+    {
+      "path": "data/governance/complex_perfumery_nine_perfume_30ml_concentrate_formula_package_receipt_20260816.json",
+      "byte_size": 4838,
+      "sha256": "5739220f587a4e212c362cd1272a27a964ee8d37cc8818b6c976324f278c4984",
+      "receipt_sha256": "77129021cc681a4ccfbba373995890bbd4c83360ea25fe405d282267511537e1",
+      "role": "STRICT_AUTHORITY_FALSE_PACKAGE_RECEIPT"
+    },
+    {
+      "path": "incoming_review/chatgpt/20260816T144500+0700-v14-post-v13-30ml-formula-scaling-6a79b172-nc01c9bfd/capture_manifest.json",
+      "byte_size": 5277,
+      "sha256": "6b1fa4540b080470299757e967c4f91398af6107dc21fc1ce6384349e531d834",
+      "role": "EXACT_SOURCE_CAPTURE"
+    },
+    {
+      "path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_DELTA_V14_20260816.md",
+      "byte_size": 3458,
+      "sha256": "dfc38161ffaca64941c702a068e6b767508a7aa386f2bff4381ace11e8b45333",
+      "role": "V14_COLLECTION_REPORT"
+    },
+    {
+      "path": "tests/test_complex_perfumery_v14_post_v13_capture.py",
+      "byte_size": 7772,
+      "sha256": "c5e75756703858c971a7c2884a7916504237713ef952da5c36889246c4a9c90b",
+      "role": "V14_FOCUSED_ACCEPTANCE_TEST"
+    }
+  ],
+  "current_collection_state": {
+    "exact_outer_candidate_lower_bound": 48,
+    "defensible_chat_denominator_lower_bound": 48,
+    "denominator_complete": false,
+    "new_v14_exact_outer_candidates": 1,
+    "new_v14_receipts": 1,
+    "new_v14_packages_verified_quarantined": 1,
+    "promotion_allowed": false,
+    "all_project_packages_collected": false,
+    "source_rights_state": "UNKNOWN",
+    "redistribution_authorized": false
+  },
+  "new_v14_package": {
+    "path": "incoming_review/chatgpt/20260816T144500+0700-v14-post-v13-30ml-formula-scaling-6a79b172-nc01c9bfd/Nine_Perfume_All_30mL_Concentrate_Formulas_2026-08-16_v1.zip",
+    "byte_size": 289626,
+    "sha256": "c01c9bfd6e18b17968fd2530c7a548f2c3a41c6d4f74e9e64973aef4c950618e",
+    "safe_members": 126,
+    "embedded_ledger_records_verified": 125,
+    "embedded_manifest_records_verified": 124,
+    "native_graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "strict_receipt_status": "VERIFIED_QUARANTINED",
+    "role": "THIRTY_ML_RAW_VOLUME_SCALING_AND_SCREEN_DESIGN_ANCESTRY_ONLY",
+    "perfume_books": 9,
+    "individual_arm_formulas": 110,
+    "canonical_formula_selected": false,
+    "active_dose_authority": false,
+    "promotion_allowed": false
+  },
+  "pending_source_card": {
+    "file_name": "Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0.zip",
+    "byte_size": 172172,
+    "sha256": "f4be1041bb8e2e8b5665962e580aa740996bd2f77b61299cca1d3cdf55014a5d",
+    "declared_members": 75,
+    "source_conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+    "recovery_message_id": "b2ecd3f7-04e0-4fc3-84df-018530ba0704",
+    "file_object_id": "file_000000002ff081faa6a1a57e3fc62d3e",
+    "content_reference_index": 0,
+    "state": "LIVE_ORIGINAL_CARD_LOCAL_DOWNLOAD_PENDING_NO_RECONSTRUCTION_OR_SUBSTITUTION",
+    "counted_as_exact_outer_candidate": false,
+    "authority": false
+  },
+  "requirement_audit": [
+    {
+      "requirement": "GATHER_NEWEST_COMPLETED_PROJECT_FILES_AND_DELIVERABLES",
+      "status": "PARTIAL_DYNAMIC_DENOMINATOR_AND_EXTERNAL_BYTES_UNAVAILABLE",
+      "evidence": "V14 captures and receipts the post-V13 30 mL scaling package and raises the exact-outer lower bound to 48. The Complexity Model v2.0 original card is live but not locally downloaded, four earlier parents remain unavailable, and the dynamic chat denominator is incomplete."
+    },
+    {
+      "requirement": "DIFF_PROJECT_PACKAGES_AGAINST_LIVE_PERFUME_CHEM_AND_LEDGER",
+      "status": "PASS_FOR_RECOVERED_SCOPES",
+      "evidence": "The V14 package is raw-volume design ancestry only. Existing target/build, exact-stock/preparation, C10/P3, Laboratory Beta, C0, OAV, safety, and release contracts remain controlling."
+    },
+    {
+      "requirement": "LITERATURE_FIRST_AND_SECOND_PASS_RESEARCH",
+      "status": "PASS_FOR_CURRENT_DECISION_SCOPE",
+      "evidence": "The V13/V12 primary-literature boundary remains unchanged: package scaling and OAV screens cannot establish active dose, physical interaction, pleasantness, similarity, safety, or release."
+    },
+    {
+      "requirement": "IMPLEMENT_BEST_NATIVE_NON_DUPLICATIVE_SOFTWARE_FIT",
+      "status": "PASS_FOR_AUTHORIZED_RECOVERED_NON_P6_SCOPES",
+      "evidence": "V14 demonstrates no new software gap. Migration 0017, a new schema, truth store, pipeline, package code installation, or canonical formula selection are not justified."
+    },
+    {
+      "requirement": "PROVIDE_A_WHOLE_PLAN_READY_FOR_SAFE_INSTALLATION",
+      "status": "PLAN_READY_INPUTS_RIGHTS_AND_PHYSICAL_EVIDENCE_NOT_READY",
+      "evidence": "The G0-G5 plan remains executable, but installation is correctly withheld."
+    },
+    {
+      "requirement": "VALIDATE_PHYSICAL_PERFUME_SCIENCE_AND_RELEASE",
+      "status": "NOT_ACHIEVED",
+      "evidence": "The captured formulas are design geometry. Exact stock/preparation, bottle, physical observation, measured headspace, strict empirical OAV, stability, similarity, safety, and release evidence remain absent."
+    }
+  ],
+  "native_implementation_state": {
+    "migration_head": "20260810_0016",
+    "migration_0017_required": false,
+    "new_schema_required": false,
+    "new_truth_store_required": false,
+    "new_pipeline_script_required": false,
+    "package_code_install_allowed": false,
+    "canonical_formula_selection_allowed": false,
+    "g2_metadata_seam_complete": true,
+    "g2_physical_execution_complete": false,
+    "source_design_projection": "IMMUTABLE_AUTHORITY_FALSE_ANCESTRY_INTO_EXISTING_NATIVE_CONTRACTS_ONLY",
+    "physical_projection": "LAB_EXPERIMENT_TO_BOTTLE_BOUND_SAMPLE_TO_APPLICATION_TO_OBSERVATION_AFTER_SEPARATE_AUTHORIZATION",
+    "sensory_projection": "C0_HOLD_UNTIL_ALL_17_ARTIFACTS_QUALIFICATION_AND_HUMAN_EXECUTION_ARE_BOUND"
+  },
+  "ordered_next_actions": [
+    {
+      "gate": "G0A_PENDING_LIVE_CARD",
+      "action": "Download only the unchanged Complexity Model v2.0 original to Downloads, verify size and SHA-256, and hand it to the successor intake owner without reconstruction or substitution.",
+      "execution_authorized": true,
+      "authority_promoted": false
+    },
+    {
+      "gate": "G0B_EXTERNAL_BYTES_AND_RIGHTS",
+      "action": "Recover exact unchanged residual parents only if they become available and bind field-specific reuse rights before any admission or mapping.",
+      "execution_authorized": false,
+      "authority_promoted": false
+    },
+    {
+      "gate": "G1_NATIVE_STOCK_AND_PREPARATION_CLOSURE",
+      "action": "Close CLR-001 2-Acetyl Pyrazine and CLR-002 Lemonile exact stock, carrier, lot, parent-stock, and preparation receipts; preserve all other closure-queue holds.",
+      "execution_authorized": false,
+      "authority_promoted": false
+    },
+    {
+      "gate": "G2_PACKAGE_SPECIFIC_BENCH_PREREQUISITES",
+      "action": "Record four real package preparations, nine verifications, and nine authenticated references only from measured physical evidence; source raw-volume scaling cannot alter mass authority.",
+      "execution_authorized": false,
+      "authority_promoted": false
+    },
+    {
+      "gate": "G3_TO_G5_PHYSICAL_SENSORY_AND_RELEASE",
+      "action": "Lock C10/P3 protocol, separately authorize Laboratory Beta execution, collect bottle-bound observations, bind all C0 artifacts, and run release verification only after every prior gate passes.",
+      "execution_authorized": false,
+      "authority_promoted": false
+    }
+  ],
+  "blocking_parent_bytes": [
+    {
+      "name": "UNIVERSAL_ACCORD_INTELLIGENCE_MODULE_v1.zip",
+      "byte_size": 539050,
+      "sha256": "8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998",
+      "state": "EXACT_ORIGINAL_BYTES_UNAVAILABLE_NO_RECONSTRUCTION_OR_SUBSTITUTION"
+    },
+    {
+      "name": "PERFUME_CHEM_CANONICAL_CUTOVER_READY_20260808_v2.zip",
+      "byte_size": 1228587,
+      "sha256": "e9e325bea9117dbe2a97ff67e77d57705a54244591278fac7a34915a7f0ae523",
+      "state": "DECLARED_PARENT_EXACT_BYTES_UNAVAILABLE"
+    },
+    {
+      "name": "Perfume_Chem_Physics_OAV_Decision_Model_v3_4_0_CALIBRATION_READY.zip",
+      "byte_size": 540402,
+      "sha256": "8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db",
+      "state": "EXPLICIT_UNAVAILABLE_PARENT_BYTES"
+    },
+    {
+      "name": "perfume_chem_physics_oav_v3-3.4.0-py3-none-any.whl",
+      "byte_size": 65724,
+      "sha256": "582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5",
+      "state": "EXPLICIT_UNAVAILABLE_PARENT_BYTES"
+    }
+  ],
+  "verification": {
+    "v14_focused_tests": "5_PASS",
+    "v6_to_v14_receipt_and_quarantine_neighborhood": "115_PASS",
+    "v14_embedded_ledger_records": "125_OF_125_EXACT",
+    "v14_embedded_manifest_records": "124_OF_124_EXACT",
+    "v14_native_graph": "CLEAR_FOR_RECEIPT_REVIEW_PROMOTION_FALSE",
+    "deepluna_job_id": "DS-767ccb914935a48b59f61a8aa81872ba",
+    "deepluna_job_state": "TERMINAL_FAIL_UNRESOLVED_NOT_ACCEPTED_NO_RETRY",
+    "deepluna_local_findings_independently_confirmed": true,
+    "deep_luna_route": "DIRECT_PRO",
+    "deep_luna_fast_used": false,
+    "deep_luna_fallback_used": false,
+    "full_release_verifier": "KNOWN_TIMEOUT_NOT_PASS_NOT_RERUN_OBJECTIVE_NOT_RELEASE_READY",
+    "sol_final_acceptance": true
+  },
+  "rollback": {
+    "path": "D:/perfume-chem-rollback/20260816T151500+0700-full-objective-v14/parents.tar",
+    "byte_size": 66048,
+    "sha256": "3f3913ff96fc032f95be9847c2bbbdb0339382949f058647f789258a505bf46e",
+    "member_count": 9,
+    "restoration_verified": true
+  },
+  "authority": {
+    "source_admission": false,
+    "schema": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "bottle": false,
+    "physical_execution": false,
+    "sensory": false,
+    "analytical": false,
+    "measured_headspace": false,
+    "strict_empirical_oav": false,
+    "safety": false,
+    "procurement": false,
+    "installation": false,
+    "publication": false,
+    "release": false
+  },
+  "semantic_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_SEMANTIC_RECEIPT_SHA256_OMITTED",
+  "semantic_receipt_sha256": "0c7c0c48b2ba2c0c4d1be09d17e20e6beb7a378605cae3d4480ff8d0cf13dbdb"
+}

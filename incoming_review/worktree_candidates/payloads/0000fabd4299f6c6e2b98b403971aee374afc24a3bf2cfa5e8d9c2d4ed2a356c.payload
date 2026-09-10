@@ -1,0 +1,843 @@
+# YSL L'Homme and La Nuit de L'Homme Twenty-Variant Study Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:executing-plans` to implement this plan task-by-task. Codex subagents and `superpowers:subagent-driven-development` are prohibited by project policy. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Produce 10 L'Homme and 10 La Nuit de L'Homme formula hypotheses with separate target and current-stock builds, run the required chemistry diagnostics, and compare the evidence with the frozen Sol baselines without making unmeasured sensory claims.
+
+**Architecture:** The authoritative `D:\chatbots\perfume-chem` checkout is a read-only instruction, inventory, runtime, and baseline source. The isolated worktree stores a structured study ledger, family targets, protected chassis, twenty canonical candidate JSON files, twenty rendered formula views, diagnostic receipts, and blind-test protocols. Existing native programs are executed from the authoritative checkout against absolute worktree paths; no pipeline code is created or modified.
+
+**Tech Stack:** JSON, Markdown, Python 3.11+, existing `engine.target`, `engine.reconstruction`, `engine.experiments.missing_chemical_impact`, `scripts/evaluate_formula.py`, `scripts/reconstruct.py`, `scripts/formula_release_gate.py`, `scripts/format_pipeline_analysis.py`, pytest, and Windows PowerShell.
+
+**Spec:** `docs/superpowers/specs/2026-08-26-ysl-lhomme-la-nuit-twenty-variant-study-design.md`
+
+## Global Constraints
+
+- Read `D:\chatbots\perfume-chem\AGENTS.md`, `D:\chatbots\perfume-chem\.github\copilot-instructions.md`, `D:\chatbots\perfume-chem\inventory.txt`, and the current study `evidence/inventory_overlay.json` immediately before authoring or revising every formula. Read `D:\chatbots\perfume-chem\docs\fragrance_families_reference.md` before each family batch and confirm any custom family key is passed explicitly.
+- Do not edit, stage, commit, merge, or write audit artifacts under `D:\chatbots\perfume-chem`.
+- Keep TARGET / IDEAL FORMULA separate from CURRENT-INVENTORY BUILD.
+- Normalize target odorant composition to exactly `1,000,000 ppm w/w` of concentrate.
+- Treat ODT/OAV, composite-natural OAV, and temporal headspace as diagnostic constraints, never measured sensory truth.
+- Run the missing-chemical impact gate after architecture lock and preserve its authority-false result.
+- Supply the immediate family control as `--parent-formula-file` for every variant's stock-rebase/OAV-per-time guard.
+- Optimize for each candidate name and protected family identity, not numerical score.
+- Ingredient count is not complexity; target-linked depth, relationships, transitions, richness, and controlled hedonism are the design criteria.
+- Default to zero or one functionally exact musk. Multiple musks require a separately authorized constant-total nonredundancy experiment.
+- Exclude Tonalide, Macrolide, and Musk Ketone absent an explicit approved exception.
+- Habanolide and Romandolide are `OWNED` but remain `VERIFY_FIRST` until stock basis is recorded.
+- Ambrettolide 10% is TARGET-available and procurement-pending, not current-stock executable.
+- Ethylene Brassylate is `OWNED`, with repository evidence for neat stock and a label check before physical compounding.
+- Ethylene Brassylate is still absent from the frozen inventory roster. A native stock-resolution failure for an EB-containing build is therefore recorded as `HOLD_STALE_INVENTORY_ROSTER`, not hidden and not "repaired" by editing the authoritative checkout. Habanolide and Romandolide are not dosed in an executable CURRENT BUILD until their stock bases are verified.
+- All tinctures are `OUT_OF_STOCK`, including Vietnamese Benzoin tincture 20% and Turkish Storax tincture 20%.
+- Neroli 10% is support-only because neither perfume is neroli/orange-blossom centered.
+- Do not infer physical liking, similarity, stability, safety, measured headspace, strict OAV, or release success.
+- Do not run `scripts/verify_formula_workflow.py` or full `project-verify` unless the user later requests a release claim; the current task is formulation research and diagnostic screening.
+- DeepLuna Fast, alternate providers, and Codex subagents remain disabled. A new DeepLuna Chat transmission is optional and may occur only for a distinct bounded read-only audit after a fresh `READY` health result.
+
+---
+
+## File Map
+
+### Tracked study artifacts
+
+- Create `formulas/ysl_twenty_variant_study/README.md`: study index and claim ceiling.
+- Create `formulas/ysl_twenty_variant_study/study_manifest.json`: candidate roster, source bindings, and artifact hashes.
+- Create `formulas/ysl_twenty_variant_study/evidence/evidence_ledger.json`: official, documentary, scientific, and local-baseline claims.
+- Create `formulas/ysl_twenty_variant_study/evidence/inventory_overlay.json`: user-authoritative EB, musk, Ambrettolide, Cedrat, and lost-tincture states layered over the frozen inventory hash.
+- Create `formulas/ysl_twenty_variant_study/families/lhomme_target.json`: inventory-independent L'Homme family target in active ppm w/w.
+- Create `formulas/ysl_twenty_variant_study/families/la_nuit_target.json`: inventory-independent La Nuit family target in active ppm w/w.
+- Create `formulas/ysl_twenty_variant_study/families/lhomme_envelope.json`: current-schema structural envelope.
+- Create `formulas/ysl_twenty_variant_study/families/la_nuit_envelope.json`: current-schema structural envelope.
+- Create `formulas/ysl_twenty_variant_study/runtime_adapters/lhomme_target_4500ul.json`: explicitly heuristic volume adapter for the native chassis CLI.
+- Create `formulas/ysl_twenty_variant_study/runtime_adapters/la_nuit_target_4500ul.json`: explicitly heuristic volume adapter for the native chassis CLI.
+- Create `formulas/ysl_twenty_variant_study/chassis/lhomme_chassis.json`: native structural diagnostic output.
+- Create `formulas/ysl_twenty_variant_study/chassis/la_nuit_chassis.json`: native structural diagnostic output.
+- Create `formulas/ysl_twenty_variant_study/candidates/<ID>.json`: one canonical artifact for each of `LH-01` through `LH-10` and `LN-01` through `LN-10`.
+- Create `formulas/ysl_twenty_variant_study/rendered/<ID>_<slug>_30mL_EDT.md`: one human-readable and pipeline-parseable view per candidate.
+- Create `formulas/ysl_twenty_variant_study/impact/<ID>_assessment.json`: native authority-false missing-chemical assessment projection per candidate.
+- Create `formulas/ysl_twenty_variant_study/testing/blind_protocol.json`: balanced physical evaluation plan.
+- Create `formulas/ysl_twenty_variant_study/reports/screening_summary.json`: compact all-candidate program result index.
+- Create `formulas/ysl_twenty_variant_study/reports/missing_chemical_impact_index.json`: classifications and preparation/purchase recommendations.
+- Create `formulas/ysl_twenty_variant_study/reports/sol_comparison.md`: evidence-limited comparison with the frozen Sol baselines.
+- Create `formulas/ysl_twenty_variant_study/reports/final_index.md`: user-facing master index.
+- Create `formulas/ysl_twenty_variant_study/baselines/source/L_Homme_Luxe_30mL_EdP.md`: byte-identical frozen Sol L'Homme source snapshot.
+- Create `formulas/ysl_twenty_variant_study/baselines/source/La_Nuit_de_LHomme_Luxe_30mL_EDT.md`: byte-identical frozen Sol La Nuit source snapshot.
+- Create `tests/studies/test_ysl_twenty_variant_study.py`: focused schema, arithmetic, inventory-loss, musk, lineage, and claim-ceiling checks.
+
+### Generated, gitignored outputs
+
+- Generate `output/ysl_twenty_variant_study/pipeline/<ID>.json`: full native pipeline JSON for every candidate.
+- Generate `output/ysl_twenty_variant_study/analysis/<ID>.txt`: native formatted analysis for every candidate.
+- Generate `output/ysl_twenty_variant_study/hot/LH-10_308K.json`: separate modeled-temperature sensitivity output.
+- Generate `output/ysl_twenty_variant_study/baselines/*.json`: read-only baseline reruns.
+- Generate `output/ysl_twenty_variant_study/baselines/*.txt`: native formatted baseline analyses.
+- Generate `output/ysl_twenty_variant_study/pipeline_audit.jsonl`: redirected audit events.
+
+### Canonical candidate interface
+
+Every `candidates/<ID>.json` must expose these exact top-level keys:
+
+```json
+{
+  "schema": "perfume-chem-ysl-candidate-v1",
+  "candidate_id": "LH-01",
+  "name": "Original Fidelity",
+  "family": "ysl_lhomme",
+  "mode": "RECONSTRUCTION",
+  "source_bindings": {},
+  "target_identity": {},
+  "target_ideal": {},
+  "current_inventory_build": {},
+  "volume_adapter": {},
+  "missing_chemical_impact": {},
+  "purchase_preparation": {},
+  "diagnostics": {},
+  "blind_test": {},
+  "claim_ceiling": {}
+}
+```
+
+`target_ideal.materials[]` uses `identity`, `active_ppm_w_w`, `function`, `time_windows`, `evidence_ids`, and `quantity_authority`. `current_inventory_build.materials[]` uses `inventory_name`, `stock_status`, `stock_fraction`, `concentration_basis`, `carrier`, `raw_stock_ppm_w_w`, `odorant_active_ppm_w_w`, `finished_product_active_ppm_w_w`, `mapping_status`, `target_functions`, `is_musk`, `musk_function`, `loss_statement`, and `dose_authority`. Cross-check `is_musk` against the freshly read inventory category and ingredient profile; it is not a self-authorizing label. The target total must equal `1,000,000 ppm`; the current build raw-stock total, including carrier fill, must equal `1,000,000 ppm`.
+
+---
+
+### Task 1: Freeze Source Bindings and Physical Inventory Overlay
+
+**Files:**
+- Create: `formulas/ysl_twenty_variant_study/study_manifest.json`
+- Create: `formulas/ysl_twenty_variant_study/evidence/evidence_ledger.json`
+- Create: `formulas/ysl_twenty_variant_study/evidence/inventory_overlay.json`
+- Create: `tests/studies/test_ysl_twenty_variant_study.py`
+
+**Interfaces:**
+- Consumes: approved design specification and read-only source files under `D:\chatbots\perfume-chem`.
+- Produces: `load_json(path: str) -> dict`, the exact 20-candidate roster, and one inventory-overlay hash consumed by every later candidate.
+
+- [ ] **Step 1: Write the failing manifest and overlay tests**
+
+```python
+import json
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[2]
+STUDY = ROOT / "formulas" / "ysl_twenty_variant_study"
+EXPECTED_IDS = tuple(
+    [f"LH-{index:02d}" for index in range(1, 11)]
+    + [f"LN-{index:02d}" for index in range(1, 11)]
+)
+LOST_TINCTURES = {
+    "Vietnamese Benzoin Styrax Tonkinensis resin ethanol tincture (20%)",
+    "Turkish Storax Liquidambar Orientalis resin ethanol tincture (20%)",
+}
+
+
+def load_json(relative: str) -> dict:
+    with (STUDY / relative).open(encoding="utf-8") as handle:
+        return json.load(handle)
+
+
+def test_manifest_has_exact_candidate_roster():
+    manifest = load_json("study_manifest.json")
+    assert tuple(item["candidate_id"] for item in manifest["candidates"]) == EXPECTED_IDS
+    assert len({item["candidate_id"] for item in manifest["candidates"]}) == 20
+
+
+def test_inventory_overlay_records_direct_user_authority():
+    overlay = load_json("evidence/inventory_overlay.json")
+    by_name = {item["inventory_name"]: item for item in overlay["overrides"]}
+    assert by_name["Ethylene Brassylate"]["status"] == "OWNED"
+    assert by_name["Ethylene Brassylate"]["concentration_basis"] == "w/w"
+    assert by_name["Ethylene Brassylate"]["stock_fraction"] == 1.0
+    assert all(by_name[name]["status"] == "OUT_OF_STOCK" for name in LOST_TINCTURES)
+```
+
+- [ ] **Step 2: Run the focused test and verify the missing-artifact failure**
+
+Run from the isolated worktree:
+
+```powershell
+python -m pytest tests/studies/test_ysl_twenty_variant_study.py -q
+```
+
+Expected: FAIL with `FileNotFoundError` for `study_manifest.json`.
+
+- [ ] **Step 3: Re-read and hash every authoritative source**
+
+Run:
+
+```powershell
+Get-Content -LiteralPath D:\chatbots\perfume-chem\AGENTS.md
+Get-Content -LiteralPath D:\chatbots\perfume-chem\.github\copilot-instructions.md
+Get-Content -LiteralPath D:\chatbots\perfume-chem\inventory.txt
+Get-Content -LiteralPath D:\chatbots\perfume-chem\docs\fragrance_families_reference.md
+Get-FileHash -Algorithm SHA256 D:\chatbots\perfume-chem\AGENTS.md,D:\chatbots\perfume-chem\.github\copilot-instructions.md,D:\chatbots\perfume-chem\inventory.txt,D:\chatbots\perfume-chem\docs\fragrance_families_reference.md
+git -C D:\chatbots\perfume-chem rev-parse HEAD
+git -C D:\chatbots\perfume-chem status --short --branch
+```
+
+Expected: all files are readable. Record the exact hashes and Git commit in `study_manifest.json`. If any file changes before the end of a diagnostic run, mark that run stale and rerun after stability.
+
+- [ ] **Step 4: Create the manifest, evidence ledger, and overlay**
+
+Use `apply_patch`. The manifest roster is exactly:
+
+```json
+[
+  {"candidate_id":"LH-01","name":"Original Fidelity","family":"ysl_lhomme"},
+  {"candidate_id":"LH-02","name":"Vintage Magnetique","family":"ysl_lhomme"},
+  {"candidate_id":"LH-03","name":"Tailored Luxe","family":"ysl_lhomme"},
+  {"candidate_id":"LH-04","name":"Apple Pie","family":"ysl_lhomme"},
+  {"candidate_id":"LH-05","name":"Ginger-Cedrat Spark","family":"ysl_lhomme"},
+  {"candidate_id":"LH-06","name":"Violet Leaf Silk","family":"ysl_lhomme"},
+  {"candidate_id":"LH-07","name":"White Pepper-Basil","family":"ysl_lhomme"},
+  {"candidate_id":"LH-08","name":"Cedar-Vetiver Tailoring","family":"ysl_lhomme"},
+  {"candidate_id":"LH-09","name":"Tonka-Sandalwood","family":"ysl_lhomme"},
+  {"candidate_id":"LH-10","name":"Bangkok Air","family":"ysl_lhomme"},
+  {"candidate_id":"LN-01","name":"Original 2009 Fidelity","family":"ysl_la_nuit"},
+  {"candidate_id":"LN-02","name":"Current Transparent Style","family":"ysl_la_nuit"},
+  {"candidate_id":"LN-03","name":"Cardamom Velvet","family":"ysl_la_nuit"},
+  {"candidate_id":"LN-04","name":"Lavender Heart","family":"ysl_la_nuit"},
+  {"candidate_id":"LN-05","name":"Immortelle Nuit","family":"ysl_la_nuit"},
+  {"candidate_id":"LN-06","name":"Cedar-Vetiver Vertical","family":"ysl_la_nuit"},
+  {"candidate_id":"LN-07","name":"Dry Coumarin Skin","family":"ysl_la_nuit"},
+  {"candidate_id":"LN-08","name":"Caraway Shadow","family":"ysl_la_nuit"},
+  {"candidate_id":"LN-09","name":"Dark Textile Woods","family":"ysl_la_nuit"},
+  {"candidate_id":"LN-10","name":"Intimate Diffusion","family":"ysl_la_nuit"}
+]
+```
+
+The overlay must contain direct-user events for Habanolide, Romandolide, Ambrettolide 10%, Ethylene Brassylate, Cedrat, and every tincture. It must include the frozen inventory SHA-256 and state that the overlay overrides physical availability only; it never edits target identity.
+
+- [ ] **Step 5: Run the focused tests**
+
+Run: `python -m pytest tests/studies/test_ysl_twenty_variant_study.py -q`
+
+Expected: PASS for manifest and overlay tests.
+
+- [ ] **Step 6: Commit the study contract**
+
+```powershell
+git add formulas/ysl_twenty_variant_study/study_manifest.json formulas/ysl_twenty_variant_study/evidence tests/studies/test_ysl_twenty_variant_study.py
+git commit -m "test: lock YSL study artifact contract"
+```
+
+### Task 2: Lock the Two Inventory-Independent Targets and Chassis
+
+**Files:**
+- Create: `formulas/ysl_twenty_variant_study/families/lhomme_target.json`
+- Create: `formulas/ysl_twenty_variant_study/families/la_nuit_target.json`
+- Create: `formulas/ysl_twenty_variant_study/families/lhomme_envelope.json`
+- Create: `formulas/ysl_twenty_variant_study/families/la_nuit_envelope.json`
+- Create: `formulas/ysl_twenty_variant_study/runtime_adapters/lhomme_target_4500ul.json`
+- Create: `formulas/ysl_twenty_variant_study/runtime_adapters/la_nuit_target_4500ul.json`
+- Generate: `formulas/ysl_twenty_variant_study/chassis/lhomme_chassis.json`
+- Generate: `formulas/ysl_twenty_variant_study/chassis/la_nuit_chassis.json`
+- Modify: `tests/studies/test_ysl_twenty_variant_study.py`
+
+**Interfaces:**
+- Consumes: evidence IDs and inventory-independent architecture from Task 1.
+- Produces: `target_sha256`, fixed control formulas, a `66,666.667 ppm` module budget, protected anchor floors, and current-schema native envelopes.
+
+- [ ] **Step 1: Add failing target and envelope tests**
+
+```python
+import math
+
+
+def target_materials(relative: str) -> dict[str, dict]:
+    target = load_json(relative)
+    return {item["identity"]: item for item in target["materials"]}
+
+
+def test_family_targets_are_inventory_independent_and_normalized():
+    for relative in ("families/lhomme_target.json", "families/la_nuit_target.json"):
+        target = load_json(relative)
+        assert target["basis"] == "active_ppm_w_w_of_concentrate"
+        assert math.isclose(sum(row["active_ppm_w_w"] for row in target["materials"]), 1_000_000.0, abs_tol=0.001)
+        assert all("inventory_status" not in row for row in target["materials"])
+
+
+def test_lhomme_target_preserves_documentary_anchors():
+    rows = target_materials("families/lhomme_target.json")
+    for required in ("Bergamot Oil", "Cedrat Oil", "Ginger Oil", "Violet Leaf", "Basil", "White Pepper", "Cedarwood Virginia", "Vetiver Haiti", "Tonka", "Sandalwood"):
+        assert required in rows
+
+
+def test_la_nuit_target_preserves_documentary_anchors():
+    rows = target_materials("families/la_nuit_target.json")
+    for required in ("Cardamom Oil", "Bergamot Oil", "Lavender", "Cedarwood Virginia", "Vetiver Haiti", "Coumarin", "Tonka"):
+        assert required in rows
+```
+
+- [ ] **Step 2: Run tests and verify target files are missing**
+
+Run: `python -m pytest tests/studies/test_ysl_twenty_variant_study.py -q`
+
+Expected: FAIL for the two target paths.
+
+- [ ] **Step 3: Formulate the accepted family controls on the target basis**
+
+For L'Homme, evaluate and independently dose these functional blocks: citrus-ginger ignition; violet-leaf/basil/white-pepper tailoring; transparent cedar body; Haitian-vetiver/sandalwood/tonka lower register; air and transition. For La Nuit, evaluate cardamom/bergamot tension; lavender bridge; cedar-vetiver vertical; coumarin/tonka intimacy; restrained aromatic shadow. Each material row must have one target-linked function, evidence IDs, time windows, and quantity authority. Rank is a soft prior only. Normalize each family target to exactly `1,000,000 ppm w/w` after potency and transition corrections.
+
+- [ ] **Step 4: Create current-schema envelopes and volume adapters**
+
+Use these exact envelope keys, which match the current CLI rather than the older config spelling:
+
+```json
+{
+  "socket_raw_ul": 300.0,
+  "active_range": [0.0, 300.0],
+  "carrier_range": [0.0, 300.0],
+  "anchor_minimums": {},
+  "required_roles": [],
+  "family_caps": {},
+  "temporal_ranges": {},
+  "forbidden_materials": []
+}
+```
+
+Populate `anchor_minimums` from protected control rows: immutable recognizers retain `100%` of their control adapter amount; protected anchors retain at least `80%`; module-mobile rows occupy the exact `300 uL` socket. Scale each accepted target from `1,000,000 ppm` to the explicit `4,500 uL` diagnostic adapter. Mark every adapter `HEURISTIC_VOLUME_ADAPTER_NOT_PPM_W_W`. Each native adapter must use the current `TargetFormula` JSON shape: top-level `product_id`, `total_raw_ul`, and `target_materials`; every target row contains `identity`, `raw_amount`, `active_amount_median`, and `functional_roles`. The adapter is not allowed to overwrite the canonical ppm target.
+
+- [ ] **Step 5: Run native chassis generation and validation**
+
+Run from `D:\chatbots\perfume-chem` with absolute worktree paths:
+
+```powershell
+$studio='C:\Users\ASUS\.codex\worktrees\6992\perfume-chem\formulas\ysl_twenty_variant_study'
+$env:PYTHONDONTWRITEBYTECODE='1'
+python scripts/reconstruct.py --mode STRUCTURAL_CHASSIS --json chassis --target "$studio\runtime_adapters\lhomme_target_4500ul.json" --envelope "$studio\families\lhomme_envelope.json" --output "$studio\chassis\lhomme_chassis.json"
+python scripts/reconstruct.py --mode STRUCTURAL_CHASSIS --json chassis --target "$studio\runtime_adapters\la_nuit_target_4500ul.json" --envelope "$studio\families\la_nuit_envelope.json" --output "$studio\chassis\la_nuit_chassis.json"
+python scripts/reconstruct.py --json validate --chassis "$studio\chassis\lhomme_chassis.json"
+python scripts/reconstruct.py --json validate --chassis "$studio\chassis\la_nuit_chassis.json"
+```
+
+Expected: both chassis JSON files contain `validation.valid: true`, and both separate validation commands return `status: PASS`. The CLI also writes a companion Markdown view by design; verify that the `.json` path is parseable before proceeding.
+
+- [ ] **Step 6: Run focused tests and commit**
+
+Run: `python -m pytest tests/studies/test_ysl_twenty_variant_study.py -q`
+
+Expected: PASS.
+
+```powershell
+git add formulas/ysl_twenty_variant_study/families formulas/ysl_twenty_variant_study/runtime_adapters formulas/ysl_twenty_variant_study/chassis tests/studies/test_ysl_twenty_variant_study.py
+git commit -m "feat: lock YSL family targets and chassis"
+```
+
+### Task 3: Author the Two Original-Fidelity Parent Controls
+
+**Files:**
+- Create: `formulas/ysl_twenty_variant_study/candidates/LH-01.json`
+- Create: `formulas/ysl_twenty_variant_study/candidates/LN-01.json`
+- Create: `formulas/ysl_twenty_variant_study/rendered/LH-01_Original_Fidelity_30mL_EDT.md`
+- Create: `formulas/ysl_twenty_variant_study/rendered/LN-01_Original_2009_Fidelity_30mL_EDT.md`
+- Modify: `tests/studies/test_ysl_twenty_variant_study.py`
+
+**Interfaces:**
+- Consumes: family targets, chassis, live inventory plus overlay.
+- Produces: `formula_uid` values `ysl20:LH-01:v1` and `ysl20:LN-01:v1`, target/current formulas, and the immediate parents for every variant guard.
+
+- [ ] **Step 1: Add failing candidate arithmetic, separation, and renderer tests**
+
+```python
+FORBIDDEN_MUSKS = {"Tonalide", "Macrolide", "Musk Ketone"}
+
+
+def candidate(candidate_id: str) -> dict:
+    return load_json(f"candidates/{candidate_id}.json")
+
+
+def test_candidate_target_and_build_are_separate_and_balanced():
+    for candidate_id in ("LH-01", "LN-01"):
+        item = candidate(candidate_id)
+        target = item["target_ideal"]["materials"]
+        build = item["current_inventory_build"]["materials"]
+        assert target is not build
+        assert math.isclose(sum(row["active_ppm_w_w"] for row in target), 1_000_000.0, abs_tol=0.001)
+        assert math.isclose(sum(row["raw_stock_ppm_w_w"] for row in build), 1_000_000.0, abs_tol=0.001)
+
+
+def test_current_builds_exclude_lost_tinctures_and_exception_musks():
+    for candidate_id in ("LH-01", "LN-01"):
+        rows = candidate(candidate_id)["current_inventory_build"]["materials"]
+        names = {row["inventory_name"] for row in rows}
+        assert names.isdisjoint(LOST_TINCTURES)
+        assert all("tincture" not in name.casefold() for name in names)
+        assert names.isdisjoint(FORBIDDEN_MUSKS)
+        assert sum(bool(row["is_musk"]) for row in rows) <= 1
+```
+
+- [ ] **Step 2: Fresh-read instructions and inventory immediately before LH-01**
+
+Run the four mandatory authoritative `Get-Content` commands from Task 1 and read the study inventory overlay, then author LH-01. Preserve bergamot/cedrat/ginger, violet-green/basil/pepper, cedar/vetiver/sandalwood/tonka, and air/transition in TARGET. In CURRENT BUILD, map Cedrat and white pepper explicitly rather than changing the target. Use zero or one exact musk.
+
+- [ ] **Step 3: Fresh-read instructions and inventory immediately before LN-01**
+
+Run the four mandatory authoritative `Get-Content` commands and read the study inventory overlay again, then author LN-01. Preserve cardamom, bergamot, lavender, cedar, vetiver, coumarin/tonka, and a restrained caraway hypothesis. Use zero or one exact musk.
+
+- [ ] **Step 4: Render pipeline-compatible Markdown views**
+
+Use one flat formula table so the parser cannot mistake section headings for materials:
+
+```markdown
+| # | Ingredient | Dilution | Amount (uL) | Active uL | Active ppm w/w status | Specific function |
+|---:|---|---|---:|---:|---|---|
+```
+
+Every dilution cell must be `neat`, an explicit `10% w/w`, or an inventory-matching carrier form such as `10% in DPG`; naked percentages are forbidden. Include `**Family archetype:**` and `Concentrate total: 4500 uL`. Mark the volume adapter and finished-matrix omissions explicitly.
+
+- [ ] **Step 5: Run non-pipeline parser preflight for both parent controls**
+
+Run from the authoritative runtime:
+
+```powershell
+$studio='C:\Users\ASUS\.codex\worktrees\6992\perfume-chem\formulas\ysl_twenty_variant_study'
+python scripts/evaluate_formula.py --formula-file "$studio\rendered\LH-01_Original_Fidelity_30mL_EDT.md"
+python scripts/evaluate_formula.py --formula-file "$studio\rendered\LN-01_Original_2009_Fidelity_30mL_EDT.md"
+```
+
+Expected: both parse exactly `4500 uL`; all parser warnings are copied into candidate diagnostics. Defer `formula_release_gate.py` to Task 9 so every actual release-gate invocation receives the mandatory native full analysis, persisted artifact, and verbatim chat presentation exactly once.
+
+- [ ] **Step 6: Run focused tests and commit**
+
+Run: `python -m pytest tests/studies/test_ysl_twenty_variant_study.py -q`
+
+```powershell
+git add formulas/ysl_twenty_variant_study/candidates/LH-01.json formulas/ysl_twenty_variant_study/candidates/LN-01.json formulas/ysl_twenty_variant_study/rendered/LH-01_Original_Fidelity_30mL_EDT.md formulas/ysl_twenty_variant_study/rendered/LN-01_Original_2009_Fidelity_30mL_EDT.md tests/studies/test_ysl_twenty_variant_study.py
+git commit -m "feat: add YSL original-fidelity controls"
+```
+
+### Task 4: Author L'Homme Variants LH-02 Through LH-05
+
+**Files:**
+- Create: `formulas/ysl_twenty_variant_study/candidates/LH-02.json` through `LH-05.json`
+- Create: corresponding four files under `formulas/ysl_twenty_variant_study/rendered/`
+- Modify: `tests/studies/test_ysl_twenty_variant_study.py`
+
+**Interfaces:**
+- Consumes: `LH-01`, L'Homme chassis, exact `66,666.667 ppm` module budget.
+- Produces: four `STYLISTIC` children whose immediate parent is `ysl20:LH-01:v1`.
+
+- [ ] **Step 1: Add failing roster, parent, constant-total, and one-axis tests for LH-02 to LH-05**
+
+Assert each candidate exists, declares `parent_formula_uid: ysl20:LH-01:v1`, retains protected core rows at their required floors, uses the same current-build total, names exactly one `primary_axis`, contains no tincture row, and has at most one cross-validated `is_musk` row.
+
+- [ ] **Step 2: Author LH-02 Vintage Magnetique after a fresh instruction/inventory read**
+
+Primary module pool: Sandalore or Ebanol, Azarbre, restrained Tonkarome/coumarin, and at most one exact musk. Preserve bright ginger and violet-green tailoring. Reject dark cardamom dominance and generic amber mass.
+
+- [ ] **Step 3: Author LH-03 Tailored Luxe after a fresh instruction/inventory read**
+
+Primary module pool: Alpha Isomethyl Ionone, Parmavert, Hedione HC/Hedione below crowding limits, cedar texture, and one chosen lower-register polish material. Luxury must come from transitions and texture, not unrelated naturals.
+
+- [ ] **Step 4: Author LH-04 Apple Pie after a fresh instruction/inventory read**
+
+Apple module candidates: Ethyl 2-Methylbutyrate 0.1%, Hexyl Acetate stocks, Allyl Cyclohexyl Propionate 10% in DPG. Pastry-shadow candidates: Isobutavan, 2-Acetyl Pyrazine 1% in DPG, Cinnamaldehyde 1%, and restrained vanillin/tonka. Keep apple as an ester/green-fruit relationship; cap pastry materials below the point where ginger, violet-green tailoring, cedar, and vetiver cease to define the perfume. Any ambiguous stock basis becomes `VERIFY_FIRST`, not neat.
+
+- [ ] **Step 5: Author LH-05 Ginger-Cedrat Spark after a fresh instruction/inventory read**
+
+TARGET uses Cedrat plus Ginger and bergamot. CURRENT BUILD evaluates Lemon FCF oil Sicilian, Lemonile, bergamot, and ginger as a declared functional mapping while preserving the loss of true cedrat bitterness. Do not use Neroli as a citrus shortcut.
+
+- [ ] **Step 6: Render all four Markdown views**
+
+Use exact names:
+
+```text
+LH-02_Vintage_Magnetique_30mL_EDT.md
+LH-03_Tailored_Luxe_30mL_EDT.md
+LH-04_Apple_Pie_30mL_EDT.md
+LH-05_Ginger_Cedrat_Spark_30mL_EDT.md
+```
+
+- [ ] **Step 7: Run parser preflight and lock G15 inputs for each child**
+
+For every file, run `evaluate_formula.py`. In each candidate JSON, bind the exact `LH-01` parent formula UID and parsed-definition hash, and predeclare every intentional `>=3x` active-dose change as `Material=target-linked-reason`. Task 9 performs the one authoritative `formula_release_gate.py` invocation per candidate with the parent and authorization arguments, ensuring the G15 stock-rebase/OAV-per-time result and required full analysis come from the same bound run.
+
+Expected: all four parse exactly `4500 uL`, and no undeclared large active-dose change remains. Overlay-only stock is not treated as native inventory authority.
+
+- [ ] **Step 8: Run tests and commit**
+
+```powershell
+python -m pytest tests/studies/test_ysl_twenty_variant_study.py -q
+git add -- formulas/ysl_twenty_variant_study/candidates/LH-02.json formulas/ysl_twenty_variant_study/candidates/LH-03.json formulas/ysl_twenty_variant_study/candidates/LH-04.json formulas/ysl_twenty_variant_study/candidates/LH-05.json
+git add -- formulas/ysl_twenty_variant_study/rendered/LH-02_Vintage_Magnetique_30mL_EDT.md formulas/ysl_twenty_variant_study/rendered/LH-03_Tailored_Luxe_30mL_EDT.md formulas/ysl_twenty_variant_study/rendered/LH-04_Apple_Pie_30mL_EDT.md formulas/ysl_twenty_variant_study/rendered/LH-05_Ginger_Cedrat_Spark_30mL_EDT.md tests/studies/test_ysl_twenty_variant_study.py
+git commit -m "feat: add first L'Homme variation set"
+```
+
+### Task 5: Author L'Homme Variants LH-06 Through LH-10
+
+**Files:**
+- Create: `formulas/ysl_twenty_variant_study/candidates/LH-06.json` through `LH-10.json`
+- Create: corresponding five rendered Markdown files
+- Modify: `tests/studies/test_ysl_twenty_variant_study.py`
+
+**Interfaces:**
+- Consumes: same parent and module contract as Task 4.
+- Produces: complete 10-arm L'Homme family.
+
+- [ ] **Step 1: Extend failing constant-total, protected-anchor, tincture-loss, and zero/one-musk tests to LH-06 through LH-10**
+
+- [ ] **Step 2: Author LH-06 Violet Leaf Silk after a fresh read**
+
+Module pool: Violet Leaf Absolute 10% in DPG, Alpha Isomethyl Ionone, Parmavert, and a restrained ionone support. Reject lipstick iris, heavy powder, and literal cucumber-green dominance.
+
+- [ ] **Step 3: Author LH-07 White Pepper-Basil after a fresh read**
+
+TARGET preserves white pepper and basil. CURRENT BUILD evaluates Black Pepper EO, Basil EO, Terpinyl Acetate, and ginger. Require composite-natural coverage for Basil EO; if absent, record a data-quality hold rather than a monomolecular OAV. Reject culinary basil and pepper harshness.
+
+- [ ] **Step 4: Author LH-08 Cedar-Vetiver Tailoring after a fresh read**
+
+Module pool: Cedarwood oil Virginia, Indian Vetiver EO, Vertofix, Iso E Super, and Azarbre. Keep literal cedar and vetiver audible; reject pencil-shaving austerity and generic dry amberwood pressure.
+
+- [ ] **Step 5: Author LH-09 Tonka-Sandalwood after a fresh read**
+
+Module pool: Sandalore or Ebanol, Tonkarome 20% w/w in TEC, Tonka Bean Absolute 10% in DPG, and controlled coumarin. Tinctures remain excluded. Reject dessert vanilla and La Nuit-style darkness.
+
+- [ ] **Step 6: Author LH-10 Bangkok Air after a fresh read**
+
+Module pool: bergamot, ginger, Lemonile or Paradisamide where target-linked, Hedione HC below crowding limits, dry cedar/vetiver, and at most one diffusion material. Use the 308.15 K Bangkok screen in addition to the common 298.15 K comparison; reject generic aquatic and clean-musk simplification.
+
+- [ ] **Step 7: Render, preflight, and lock parent-guard inputs for all five**
+
+Use LH-01 as the bound immediate parent for every later G15 call. Require exact `4500 uL` parsing, no lost tinctures, zero/one musk, and explicit authority text for every intentional large active-dose change. Run the bound G15 calls once in Task 9.
+
+- [ ] **Step 8: Run tests and commit**
+
+```powershell
+python -m pytest tests/studies/test_ysl_twenty_variant_study.py -q
+git add -- formulas/ysl_twenty_variant_study/candidates/LH-06.json formulas/ysl_twenty_variant_study/candidates/LH-07.json formulas/ysl_twenty_variant_study/candidates/LH-08.json formulas/ysl_twenty_variant_study/candidates/LH-09.json formulas/ysl_twenty_variant_study/candidates/LH-10.json
+git add -- formulas/ysl_twenty_variant_study/rendered/LH-06_Violet_Leaf_Silk_30mL_EDT.md formulas/ysl_twenty_variant_study/rendered/LH-07_White_Pepper_Basil_30mL_EDT.md formulas/ysl_twenty_variant_study/rendered/LH-08_Cedar_Vetiver_Tailoring_30mL_EDT.md formulas/ysl_twenty_variant_study/rendered/LH-09_Tonka_Sandalwood_30mL_EDT.md formulas/ysl_twenty_variant_study/rendered/LH-10_Bangkok_Air_30mL_EDT.md tests/studies/test_ysl_twenty_variant_study.py
+git commit -m "feat: complete L'Homme ten-arm study"
+```
+
+### Task 6: Author La Nuit Variants LN-02 Through LN-05
+
+**Files:**
+- Create: `formulas/ysl_twenty_variant_study/candidates/LN-02.json` through `LN-05.json`
+- Create: corresponding four rendered Markdown files
+- Modify: `tests/studies/test_ysl_twenty_variant_study.py`
+
+**Interfaces:**
+- Consumes: `LN-01`, La Nuit chassis, exact module budget.
+- Produces: four `STYLISTIC` children with immediate parent `ysl20:LN-01:v1`.
+
+- [ ] **Step 1: Add failing roster, parent, constant-total, one-axis, tincture-loss, and zero/one-musk tests for LN-02 through LN-05**
+
+- [ ] **Step 2: Author LN-02 Current Transparent Style after a fresh read**
+
+Module pool: cardamom, bergamot, Linalyl Acetate, Hedione/Hedione HC below crowding limits, Iso E Super, and literal cedar. Preserve cardamom-lavender tension; reject weak generic freshness.
+
+- [ ] **Step 3: Author LN-03 Cardamom Velvet after a fresh read**
+
+Module pool: Cardamom EO, linalool/linalyl acetate continuity, soft cedar/sandalwood texture, and at most one exact musk. Shape cardamom across opening and heart; reject cineolic or culinary overdose.
+
+- [ ] **Step 4: Author LN-04 Lavender Heart after a fresh read**
+
+Module pool: Lavender EO BONTAUX SAS, Lavender EO High Altitude, restrained Spike Lavender EO, Linalool, and Linalyl Acetate. Cardamom remains the primary recognizer. Reject barbershop fougere and laundry drift.
+
+- [ ] **Step 5: Author LN-05 Immortelle Nuit after a fresh read**
+
+Module pool: Immortelle Absolute 10% in DPG, Helichrysum EO, Hay Absolute 10%, Maple Lactone 20%, and Nerol. Apply composite-natural OAV to both natural immortelle materials. Keep maple/hay and curry facets subordinate to the cardamom-lavender-cedar vertical; tobacco, tinctures, and heavy balsams are not core shortcuts.
+
+- [ ] **Step 6: Render, preflight, and lock parent-guard inputs for all four**
+
+Use LN-01 as the bound immediate parent for the Task 9 G15 call. `LN-05` must declare the required composite-natural coverage check and any uncovered natural constituent limitations before gate outcomes.
+
+- [ ] **Step 7: Run tests and commit**
+
+```powershell
+python -m pytest tests/studies/test_ysl_twenty_variant_study.py -q
+git add -- formulas/ysl_twenty_variant_study/candidates/LN-02.json formulas/ysl_twenty_variant_study/candidates/LN-03.json formulas/ysl_twenty_variant_study/candidates/LN-04.json formulas/ysl_twenty_variant_study/candidates/LN-05.json
+git add -- formulas/ysl_twenty_variant_study/rendered/LN-02_Current_Transparent_Style_30mL_EDT.md formulas/ysl_twenty_variant_study/rendered/LN-03_Cardamom_Velvet_30mL_EDT.md formulas/ysl_twenty_variant_study/rendered/LN-04_Lavender_Heart_30mL_EDT.md formulas/ysl_twenty_variant_study/rendered/LN-05_Immortelle_Nuit_30mL_EDT.md tests/studies/test_ysl_twenty_variant_study.py
+git commit -m "feat: add first La Nuit variation set"
+```
+
+### Task 7: Author La Nuit Variants LN-06 Through LN-10
+
+**Files:**
+- Create: `formulas/ysl_twenty_variant_study/candidates/LN-06.json` through `LN-10.json`
+- Create: corresponding five rendered Markdown files
+- Modify: `tests/studies/test_ysl_twenty_variant_study.py`
+
+**Interfaces:**
+- Consumes: same parent and module contract as Task 6.
+- Produces: complete 10-arm La Nuit family.
+
+- [ ] **Step 1: Extend failing parent, constant-total, one-axis, tincture-loss, and zero/one-musk tests to LN-06 through LN-10**
+
+- [ ] **Step 2: Author LN-06 Cedar-Vetiver Vertical after a fresh read**
+
+Module pool: Cedarwood oil Virginia, Indian Vetiver EO, Vertofix, Azarbre or Amberwood F. Preserve cardamom and lavender continuity; reject smoke and woody austerity.
+
+- [ ] **Step 3: Author LN-07 Dry Coumarin Skin after a fresh read**
+
+Module pool: Coumarin with an explicit prepared basis, Tonkarome 20% w/w in TEC, Hay Absolute 10%, dry woods, and optionally Ethylene Brassylate as the sole musk. Reject vanilla dessert and powdery sweetness.
+
+- [ ] **Step 4: Author LN-08 Caraway Shadow after a fresh read**
+
+Use Caraway Seed Oil 10% w/w in DPG as a controlled shadow against cardamom, lavender, and cedar. Keep the caraway module below savory/culinary dominance and preserve a matched zero-caraway control in the blind plan.
+
+- [ ] **Step 5: Author LN-09 Dark Textile Woods after a fresh read**
+
+Module pool: Cashmeran, Kephalis, Azarbre, cedar, and vetiver. Reject leather, oud, smoke, and undifferentiated amberwood mass.
+
+- [ ] **Step 6: Author LN-10 Intimate Diffusion after a fresh read**
+
+Choose exactly one of Habanolide, Romandolide, or Ethylene Brassylate based on the target-linked diffusion/skin-texture function. Habanolide or Romandolide remains `VERIFY_FIRST` unless its stock basis is physically confirmed; EB may use the neat working basis with its label-check note. Reject musk curtains.
+
+- [ ] **Step 7: Render, preflight, and lock parent-guard inputs for all five**
+
+Use LN-01 as the bound immediate parent for every Task 9 G15 call. Require exact totals, one musk maximum, no tincture rows, and explicit active-dose-change authority where needed.
+
+- [ ] **Step 8: Run tests and commit**
+
+```powershell
+python -m pytest tests/studies/test_ysl_twenty_variant_study.py -q
+git add -- formulas/ysl_twenty_variant_study/candidates/LN-06.json formulas/ysl_twenty_variant_study/candidates/LN-07.json formulas/ysl_twenty_variant_study/candidates/LN-08.json formulas/ysl_twenty_variant_study/candidates/LN-09.json formulas/ysl_twenty_variant_study/candidates/LN-10.json
+git add -- formulas/ysl_twenty_variant_study/rendered/LN-06_Cedar_Vetiver_Vertical_30mL_EDT.md formulas/ysl_twenty_variant_study/rendered/LN-07_Dry_Coumarin_Skin_30mL_EDT.md formulas/ysl_twenty_variant_study/rendered/LN-08_Caraway_Shadow_30mL_EDT.md formulas/ysl_twenty_variant_study/rendered/LN-09_Dark_Textile_Woods_30mL_EDT.md formulas/ysl_twenty_variant_study/rendered/LN-10_Intimate_Diffusion_30mL_EDT.md tests/studies/test_ysl_twenty_variant_study.py
+git commit -m "feat: complete La Nuit ten-arm study"
+```
+
+### Task 8: Run Native Missing-Chemical Assessments and Prepare Recommendations
+
+**Files:**
+- Create: `formulas/ysl_twenty_variant_study/impact/<ID>_assessment.json` for all 20
+- Create: `formulas/ysl_twenty_variant_study/reports/missing_chemical_impact_index.json`
+- Modify: `tests/studies/test_ysl_twenty_variant_study.py`
+
+**Interfaces:**
+- Consumes: accepted target hash, current mapping hash, build hash, parent hash, inventory/overlay hash, and candidate `missing_chemical_impact` payload.
+- Produces: `perfume-chem-missing-chemical-assessment-v1` projections with state `CANDIDATE_ONLY` and all authority flags false.
+
+- [ ] **Step 1: Add a failing native-contract test**
+
+```python
+def test_missing_chemical_receipts_remain_candidate_only_and_authority_false():
+    for candidate_id in EXPECTED_IDS:
+        receipt = load_json(f"impact/{candidate_id}_assessment.json")
+        assert receipt["schema"] == "perfume-chem-missing-chemical-assessment-v1"
+        assert receipt["state"] == "CANDIDATE_ONLY"
+        for field in (
+            "formula_authority", "inventory_authority", "purchase_authority",
+            "execution_authorized", "scientific_authority", "oav_authority",
+            "sensory_authority", "safety_authority", "release_authority",
+        ):
+            assert receipt[field] is False
+```
+
+- [ ] **Step 2: Build one qualitative impact payload per candidate**
+
+Each payload must lock architecture, list strongly and weakly covered functions, identify at least one genuinely missing target function as required by the native contract, keep `auto_integrated_materials` empty, and classify each candidate with the native enum vocabulary. A "genuinely missing" function may be an exact-fidelity or evidence gap and does not itself justify purchase. Cedrat, white pepper, Haitian vetiver, unavailable proprietary grades, Ambrettolide, and exact immortelle key odorants are assessed only when present in that candidate's target.
+
+- [ ] **Step 3: Project every payload through `MissingChemicalAssessment.from_package_payload`**
+
+Use native `NativeLineageBinding` values computed from actual artifact SHA-256 values. Do not lock a physical comparison protocol without C10 stock/preparation receipts. Serialize `assessment.as_dict()` into the corresponding impact file. The projection must fail if architecture is unlocked, auto-integration is nonempty, hashes are stale, or enum text is invalid.
+
+- [ ] **Step 4: Create preparation and purchase recommendations**
+
+For each candidate, choose exactly one recommendation state: `NO_PURCHASE`, `VERIFY_STOCK_BASIS`, `PREPARE_W_W_STOCK_FROM_OWNED_NEAT`, or `PROCUREMENT_REVIEW`. Lost tinctures can never receive `USE_CURRENT_STOCK`. Ambrettolide remains procurement-pending. Avoid recommending a purchase when current stock already covers the function.
+
+- [ ] **Step 5: Run focused module and study tests**
+
+```powershell
+Push-Location D:\chatbots\perfume-chem
+python -m pytest tests\test_missing_chemical_impact.py -q
+Pop-Location
+python -m pytest tests/studies/test_ysl_twenty_variant_study.py -q
+```
+
+Expected: native module tests PASS; all twenty study receipts PASS the authority-false assertions.
+
+- [ ] **Step 6: Commit**
+
+```powershell
+git add formulas/ysl_twenty_variant_study/impact formulas/ysl_twenty_variant_study/reports/missing_chemical_impact_index.json tests/studies/test_ysl_twenty_variant_study.py
+git commit -m "feat: bind YSL missing-chemical assessments"
+```
+
+### Task 9: Run Full ppm/ODT/OAV/Temporal Pipeline Analysis for All Twenty
+
+**Files:**
+- Generate: `output/ysl_twenty_variant_study/pipeline/<ID>.json`
+- Generate: `output/ysl_twenty_variant_study/analysis/<ID>.txt`
+- Generate: `output/ysl_twenty_variant_study/hot/LH-10_308K_input.md`, `LH-10_308K.json`, and `LH-10_308K.txt`
+- Generate: `output/ysl_twenty_variant_study/pipeline_audit.jsonl`
+- Create: `formulas/ysl_twenty_variant_study/reports/screening_summary.json`
+- Modify: all candidate JSON `diagnostics` sections
+- Modify: all twenty rendered Markdown files by the native bound-analysis append
+
+**Interfaces:**
+- Consumes: rendered formulas, family parents, source hashes, and declared active-dose-change authorities.
+- Produces: full native headspace tables, OAV authority, composite-natural coverage, five-window temporal evolution, G15 status, persistent bound analysis artifacts, and finalist-eligibility fields for every candidate.
+
+The approved spec called this an all-candidate lightweight release screen, but current repository instructions require the complete native formatted analysis after every release-gate invocation. This task therefore performs one stable, fully persisted release run per candidate. The mandatory named arms and finalists receive additional interpretive review in Task 10, not a weaker or duplicate pipeline run.
+
+- [ ] **Step 1: Freeze the runtime and inventory hash immediately before the batch**
+
+Repeat Task 1 Step 3. Set:
+
+```powershell
+$runtime='D:\chatbots\perfume-chem'
+$studio='C:\Users\ASUS\.codex\worktrees\6992\perfume-chem\formulas\ysl_twenty_variant_study'
+$runout='C:\Users\ASUS\.codex\worktrees\6992\perfume-chem\output\ysl_twenty_variant_study'
+$env:PYTHONDONTWRITEBYTECODE='1'
+$env:PERFUME_PIPELINE_AUDIT_PATH="$runout\pipeline_audit.jsonl"
+New-Item -ItemType Directory -Force "$runout\pipeline","$runout\analysis","$runout\hot" | Out-Null
+```
+
+Before the first gate call, resolve every distinct CURRENT BUILD material against the freshly read inventory/overlay, `engine/odor_thresholds.py` `ODT_DATA`, `data/materials/<LETTER>.yaml`, and `engine/ingredient_intelligence.py` profiles. Count duplicate ODT definitions and record the effective last-entry value. For each natural, verify composite coverage in `engine/pipeline/natural_absolute_decomposition.py`. Store the read-only coverage matrix in `screening_summary.json`; a missing physics field, ambiguous alias, uncovered character natural, or unsupported stock basis is a `HOLD`, never a silent default.
+
+- [ ] **Step 2: Run and fully format each L'Homme candidate**
+
+Run from `$runtime`. For LH-01, omit `--parent-formula-file`. For LH-02 through LH-10, supply the absolute `LH-01_Original_Fidelity_30mL_EDT.md` path and repeat every candidate-declared `--authorize-active-dose-change Material=target-linked-reason` argument. Use `--temperature-k 298.15`, `--family-archetype ysl_lhomme`, `--expected-concentrate-ul 4500`, `--json`, and explicit `--append-analysis`. Save stdout JSON under `output/.../pipeline/<ID>.json`, preserving the process exit code separately so a valid JSON payload with overall `FAIL` is not discarded.
+
+After each run, execute `python scripts/format_pipeline_analysis.py --input <pipeline-json>` and save the exact stdout to `output/.../analysis/<ID>.txt`. Verify that the rendered formula now contains a current bound `## Pipeline Analysis` artifact whose definition hash still matches the pre-run formula definition. Present the formatter output verbatim in chat, in candidate order and before any gate discussion.
+
+- [ ] **Step 3: Run and fully format each La Nuit candidate**
+
+Apply the same process. LN-01 has no parent; LN-02 through LN-10 bind the absolute `LN-01_Original_2009_Fidelity_30mL_EDT.md` path and all candidate-declared active-dose authorizations. Use `--family-archetype ysl_la_nuit`, `298.15 K`, `4500 uL`, `--json`, and `--append-analysis`. Save and present every native formatter output verbatim before synthesis.
+
+- [ ] **Step 4: Run Bangkok Air at 308.15 K as a separate fully governed sensitivity analysis**
+
+Create a byte-identical generated copy of the source-only LH-10 formula at `output/.../hot/LH-10_308K_input.md`, excluding its 298.15 K generated analysis artifact but preserving the parsed formula-definition hash. Run the gate against that copy with the same parent, active-dose authorities, and `--append-analysis`; save JSON and native formatted text in `output/.../hot/`. Present the full hot-run analysis verbatim as well. Keep the canonical rendered LH-10 artifact bound to the common 298.15 K result. Temperature sensitivity is modeled, not measured Bangkok performance.
+
+- [ ] **Step 5: Build the all-candidate screening summary**
+
+For each candidate extract: source/input hashes; exact parsed subtotal; OAV authority; composite-natural model sources; the required headspace table; top/heart/base distribution; five time windows; all OAV `<1` character-role rows; top persistent leaders; G15 status; IFRA/data warnings; artifact-binding status; and overall gate status. Do not rank candidates by total score. Mark stale hashes, unapproved stock-rebase failures, natural decomposition gaps, and identity-anchor failures `HOLD`. For a physically owned overlay material that the native roster cannot resolve, use `HOLD_STALE_INVENTORY_ROSTER`; retain the formula hypothesis and never fabricate a native PASS.
+
+- [ ] **Step 6: Rehash runtime and inventory after the batch**
+
+Expected: hashes equal Step 1. If not, mark all affected outputs stale, remove their authority from candidate diagnostics, and rerun after a stable snapshot. Do not call stale analysis current.
+
+- [ ] **Step 7: Run focused tests and commit tracked receipts**
+
+```powershell
+python -m pytest tests/studies/test_ysl_twenty_variant_study.py -q
+git add -- formulas/ysl_twenty_variant_study/candidates formulas/ysl_twenty_variant_study/rendered formulas/ysl_twenty_variant_study/reports/screening_summary.json
+git commit -m "test: analyze all twenty YSL candidates"
+```
+
+### Task 10: Select Finalists, Deep-Review Required Arms, and Compare Frozen Sol Baselines
+
+**Files:**
+- Create: `formulas/ysl_twenty_variant_study/baselines/source/L_Homme_Luxe_30mL_EdP.md`
+- Create: `formulas/ysl_twenty_variant_study/baselines/source/La_Nuit_de_LHomme_Luxe_30mL_EDT.md`
+- Generate: `output/ysl_twenty_variant_study/baselines/run/*.md`
+- Generate: `output/ysl_twenty_variant_study/baselines/*.json`
+- Generate: `output/ysl_twenty_variant_study/baselines/*.txt`
+- Create: `formulas/ysl_twenty_variant_study/reports/sol_comparison.md`
+
+**Interfaces:**
+- Consumes: all twenty full bound analyses, screening summary, and frozen baseline hashes.
+- Produces: named-arm interpretive reviews, one additional finalist per family, full native baseline analyses, and an evidence-limited Sol comparison.
+
+- [ ] **Step 1: Deep-review the mandatory named arms and select one additional finalist per family**
+
+Review `LH-04`, `LN-01`, and `LN-05` first using their already-persisted Task 9 outputs. Eligibility for an additional finalist requires protected identity, no unapproved stock/rebase failure, no hidden natural or ODT data gap, and one coherent named axis. Among eligible arms, select the strongest target-linked transition architecture and lowest unresolved risk; preserve a substantive tie if evidence is equivalent. If a mandatory arm is the strongest family finalist, still name the next eligible arm as the required additional comparison. Do not rerun an unchanged candidate merely to relabel it a finalist.
+
+- [ ] **Step 2: Create immutable source snapshots of the two frozen Sol baselines**
+
+Re-read and hash these authoritative files:
+
+```text
+D:\chatbots\perfume-chem\formulas\L_Homme_Luxe_30mL_EdP.md
+D:\chatbots\perfume-chem\formulas\La_Nuit_de_LHomme_Luxe_30mL_EDT.md
+```
+
+Create byte-identical copies under `baselines/source/` and verify their SHA-256 values equal the manifest-bound source hashes before committing them. Never append an artifact to these immutable source snapshots.
+
+- [ ] **Step 3: Run full native analysis on disposable worktree baseline copies**
+
+Create generated copies under `output/.../baselines/run/` whose parsed formula-definition hashes equal the frozen source snapshots. Run `formula_release_gate.py` from the authoritative runtime against those generated copies with `--append-analysis`, then run `format_pipeline_analysis.py` and save its exact output. Use the source totals: `6000 uL` for L'Homme Luxe EDP and `4500 uL` for La Nuit EDT. Use the corresponding `ysl_lhomme` and `ysl_la_nuit` family archetypes, bind all runtime/source hashes, and present both full native analyses verbatim before comparison.
+
+The L'Homme Sol baseline has a different concentrate total from the `4500 uL` candidate adapter. Treat absolute vapor totals and concentration-dependent OAV magnitudes as unmatched. Compare formula ratios, authority completeness, identity coverage, diagnostics normalized to their declared concentrate bases, and explicitly matched quantities only; do not manufacture an apples-to-apples performance claim.
+
+- [ ] **Step 4: Write the Sol comparison report**
+
+Compare target-evidence coverage, target/inventory separation, active accounting, ppm/ODT/OAV completeness, composite-natural handling, temporal warnings, stock-rebase status, missing-chemical impact, musk redundancy, transition logic, and claim discipline. Every candidate proposed as analytically better already has a full Task 9 analysis. Use `analytically cleaner`, `more complete`, or `lower unresolved risk` only when the bound outputs support the exact axis. Keep physical similarity, liking, stability, safety, and overall superiority `NOT TESTED`.
+
+- [ ] **Step 5: Optionally run one distinct bounded DeepLuna completeness audit**
+
+Only if local work leaves a genuine review burden, create a compact allowlisted summary file containing candidate IDs, protected anchors, primary axes, musk count, stock states, and diagnostic flags. Run:
+
+```powershell
+node C:\Users\ASUS\.codex\skills\deepluna-chat\scripts\deepluna-chat.mjs health
+```
+
+Transmit only if exact project `perfume-chem-cheapluna-isolated` is `READY`, reservations are settled, and no job is active/queued. Use `DIRECT_PRO`, `NO_LUNA`, one attempt, a strict cost/output cap, and a task distinct from the failed baseline extraction: identify manifest omissions and internal contradictions only. Sol must verify every finding locally. If admission is not READY or no new review value exists, skip provider work.
+
+- [ ] **Step 6: Commit frozen sources and comparison report**
+
+```powershell
+git add -- formulas/ysl_twenty_variant_study/baselines/source formulas/ysl_twenty_variant_study/reports/sol_comparison.md
+git commit -m "docs: compare YSL finalists with Sol baselines"
+```
+
+### Task 11: Lock the Blinded Test Protocol and Final Index
+
+**Files:**
+- Create: `formulas/ysl_twenty_variant_study/testing/blind_protocol.json`
+- Create: `formulas/ysl_twenty_variant_study/README.md`
+- Create: `formulas/ysl_twenty_variant_study/reports/final_index.md`
+- Modify: `formulas/ysl_twenty_variant_study/study_manifest.json`
+- Modify: `tests/studies/test_ysl_twenty_variant_study.py`
+
+**Interfaces:**
+- Consumes: all twenty canonical candidates, impact receipts, screening summary, full analyses, and comparison report.
+- Produces: complete artifact index and a physical protocol with no execution or sensory authority.
+
+- [ ] **Step 1: Add failing completeness and claim-ceiling tests**
+
+```python
+def test_all_twenty_candidates_have_required_sections():
+    required = {
+        "target_identity", "target_ideal", "current_inventory_build",
+        "missing_chemical_impact", "purchase_preparation", "diagnostics",
+        "blind_test", "claim_ceiling",
+    }
+    for candidate_id in EXPECTED_IDS:
+        assert required.issubset(candidate(candidate_id))
+
+
+def test_unmeasured_claims_remain_held():
+    for candidate_id in EXPECTED_IDS:
+        ceiling = candidate(candidate_id)["claim_ceiling"]
+        assert ceiling["physical_liking"] == "NOT TESTED"
+        assert ceiling["sensory_similarity"] == "NOT TESTED"
+        assert ceiling["stability"] == "NOT TESTED"
+        assert ceiling["safety"] == "NOT CLEARED"
+        assert ceiling["release"] == "NOT CLEARED"
+```
+
+- [ ] **Step 2: Create the balanced blind protocol**
+
+The protocol must define random nonsemantic codes, a separately held key, equal mass/concentration/application, balanced order, 0/5/30-minute and 2/4-hour cells, at least two repeats for advancing arms, governed missing cells, and adaptation-limited session blocks. Phase 1 compares each variant with its family control. Phase 2 compares family control, top two variants, and frozen Sol baseline. `LH-04`, `LN-01`, and `LN-05` remain included because their brief-specific value is not reducible to a screening rank.
+
+- [ ] **Step 3: Add missing-chemical microtrial templates**
+
+Each procurement-dependent function gets a constant-total CONTROL plus ADDITION/OMISSION/RATIO and true REPLICATE design. Lock expected cells before observations. Missing or tied results permit only `HOLD` or `INCONCLUSIVE`.
+
+- [ ] **Step 4: Write README and final index**
+
+For every candidate link, in order: target identity, target formula, current build, impact, purchase/preparation recommendation, diagnostics, and blind plan. Include hashes and clearly distinguish tracked canonical artifacts from gitignored generated outputs.
+
+- [ ] **Step 5: Update manifest hashes and run final focused checks**
+
+```powershell
+python -m pytest tests/studies/test_ysl_twenty_variant_study.py -q
+git diff --check
+git status --short --branch
+```
+
+Expected: focused study tests PASS; no tracked file outside the study/spec/plan/test scope is modified; `.codex/` remains untouched.
+
+- [ ] **Step 6: Commit the complete study handoff**
+
+```powershell
+git add formulas/ysl_twenty_variant_study tests/studies/test_ysl_twenty_variant_study.py
+git commit -m "docs: finalize YSL twenty-variant study"
+```
+
+## Execution Completion Conditions
+
+Execution is complete only when all twenty candidate JSON files and rendered recipes exist; all target and build totals reconcile; every tincture is excluded from current builds; all current-build musks satisfy the zero/one rule; every missing function has an authority-false impact receipt; every child has a parent G15 result; all twenty have current bound full native analyses persisted in their rendered files and presented verbatim in chat; `LH-04`, `LN-01`, `LN-05`, and one additional finalist per family receive named interpretive review; the two frozen Sol source snapshots and disposable-copy analyses are hash-bound; the Sol comparison preserves claim ceilings; and the blind protocol is complete without claiming observations that do not exist.

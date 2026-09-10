@@ -1,0 +1,81 @@
+{
+  "schema": "perfume-chem-missing-chemical-assessment-v1",
+  "assessment_id": "MCI-LN-05-v1",
+  "source_package_sha256": "3c6de5aba907eb29db0dcb729aecdc8f2d2a4350ed3f35e1c86e968c6e927487",
+  "source_payload_sha256": "232f2f7b60e018dac3cc93e2a8f1149200c312bb29170001345b6b3686a21dda",
+  "target_formula_id": "LN-05",
+  "lineage": {
+    "target_hypothesis_sha256": "47b3caa09e4d20a97356b8cc6dfb92857929b8f8342e634eab558419fb0fee7f",
+    "accepted_target_sha256": "a952263e405cdbbec6a36a52105ac719f9d2eb89bf886ec1174ec4a753ca1cc2",
+    "inventory_mapping_sha256": "f398760c58a13a16435d57561aa096d9fab5bda66ce47c2174347fb9c046d1e4",
+    "build_plan_sha256": "c3e248e61cffe590e21b3a82f1064daf3c797688ae79d0f88eaf68c1f000f314",
+    "parent_formula_sha256": "45b548de985454942fa5bc11efc25cb41516febf67f1fcae9f9de87522f1a9db",
+    "inventory_snapshot_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+    "formula_edge_set_sha256": "a390a208adaf0fd128d3b08068365c31b39cbc1e9f2d6f7f102559ccce66a870",
+    "stock_receipts": []
+  },
+  "architecture_locked": true,
+  "strongly_covered_functions": [
+    "Design-mapped current function: cardamom remains the cool opening recognizer",
+    "Design-mapped current function: immortelle absolute supplies honeyed-dry body while Helichrysum EO supplies volatile herbal lift"
+  ],
+  "weakly_covered_functions": [
+    "Approximate or evidence-limited mapping: Helichrysum EO composite-natural registry mapping",
+    "Approximate or evidence-limited mapping: Immortelle Absolute 10% concentration basis"
+  ],
+  "genuinely_missing_functions": [
+    "Helichrysum EO composite-natural registry mapping",
+    "Immortelle Absolute 10% concentration basis",
+    "Hay Absolute 10% concentration basis and carrier",
+    "Maple Lactone 20% concentration basis and carrier",
+    "Exaltolide exact skin texture",
+    "Vetiver Haiti origin",
+    "physical evidence against curry, maple, or gourmand drift"
+  ],
+  "candidates": [
+    {
+      "function_id": "ln-05.gap.01",
+      "candidate": "Helichrysum EO composite-natural registry mapping",
+      "inventory_status": "VERIFY_FIRST",
+      "classification": "EVIDENCE GAP, NOT INVENTORY GAP",
+      "nonredundancy": "This exact function or evidence state is not established by the current mapping: Helichrysum EO composite-natural registry mapping.",
+      "loss_if_omitted": "The controlled arm remains testable, but exact-fidelity authority for Helichrysum EO composite-natural registry mapping remains withheld.",
+      "overdose_or_failure_mode": "Treating public notes or this formula hypothesis as authenticated commercial percentages.",
+      "source_controlled_comparison_text": "Free text only: after exact stock and preparation receipts, compare the current mapped build with a role-matched addition or omission at constant total; no physical protocol is locked here.",
+      "source_integration_state": "NOT_AUTOMATICALLY_ADDED"
+    },
+    {
+      "function_id": "ln-05.gap.02",
+      "candidate": "Immortelle Absolute 10% concentration basis",
+      "inventory_status": "VERIFY_FIRST",
+      "classification": "EVIDENCE GAP, NOT INVENTORY GAP",
+      "nonredundancy": "This exact function or evidence state is not established by the current mapping: Immortelle Absolute 10% concentration basis.",
+      "loss_if_omitted": "The controlled arm remains testable, but exact-fidelity authority for Immortelle Absolute 10% concentration basis remains withheld.",
+      "overdose_or_failure_mode": "Treating public notes or this formula hypothesis as authenticated commercial percentages.",
+      "source_controlled_comparison_text": "Free text only: after exact stock and preparation receipts, compare the current mapped build with a role-matched addition or omission at constant total; no physical protocol is locked here.",
+      "source_integration_state": "NOT_AUTOMATICALLY_ADDED"
+    },
+    {
+      "function_id": "ln-05.gap.03",
+      "candidate": "Hay Absolute 10% concentration basis and carrier",
+      "inventory_status": "VERIFY_FIRST",
+      "classification": "EVIDENCE GAP, NOT INVENTORY GAP",
+      "nonredundancy": "This exact function or evidence state is not established by the current mapping: Hay Absolute 10% concentration basis and carrier.",
+      "loss_if_omitted": "The controlled arm remains testable, but exact-fidelity authority for Hay Absolute 10% concentration basis and carrier remains withheld.",
+      "overdose_or_failure_mode": "Treating public notes or this formula hypothesis as authenticated commercial percentages.",
+      "source_controlled_comparison_text": "Free text only: after exact stock and preparation receipts, compare the current mapped build with a role-matched addition or omission at constant total; no physical protocol is locked here.",
+      "source_integration_state": "NOT_AUTOMATICALLY_ADDED"
+    }
+  ],
+  "package_auto_integrated_materials": [],
+  "state": "CANDIDATE_ONLY",
+  "formula_authority": false,
+  "inventory_authority": false,
+  "purchase_authority": false,
+  "execution_authorized": false,
+  "scientific_authority": false,
+  "oav_authority": false,
+  "sensory_authority": false,
+  "safety_authority": false,
+  "release_authority": false
+}

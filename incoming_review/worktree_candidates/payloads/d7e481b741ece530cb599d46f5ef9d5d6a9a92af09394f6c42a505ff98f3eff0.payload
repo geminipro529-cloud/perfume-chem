@@ -1,0 +1,251 @@
+"""Verify the user's three stock clarifications without promoting release."""
+
+import hashlib
+import json
+from decimal import Decimal
+from pathlib import Path
+
+import pytest
+
+from engine.formulation_intelligence.aventus_woody_geometry import plan_candidate
+
+ROOT = Path(__file__).resolve().parents[1]
+CHILD = ROOT / "data/reference/aventus_astra_v3_woody_candidate_stock_confirmed_r1.json"
+CARD = ROOT / "formulas/Aventus_Architecture_First_Astra_V3_Pour_Card_Stock_Confirmed_R1.md"
+UL_RECORD = ROOT / "data/reference/aventus_astra_v3_ul_density_estimated_r2.json"
+UL_CARD = ROOT / "formulas/Aventus_Architecture_First_Astra_V3_Pour_Card_uL_Estimated_R2.md"
+
+
+def payload():
+    return json.loads(CHILD.read_text(encoding="utf-8"))
+
+
+def test_successor_preserves_parent_files_and_all_aromatic_targets():
+    child = payload()
+    for field in ("parent_candidate", "parent_card"):
+        record = child[field]
+        assert hashlib.sha256((ROOT / record["path"]).read_bytes()).hexdigest() == record["sha256"]
+    parent = json.loads((ROOT / child["parent_candidate"]["path"]).read_text())
+    assert [
+        (r["material"], r["module"], r["aromatic_ppm"], r["basket"])
+        for r in child["materials"]
+    ] == [
+        (r["material"], r["module"], r["aromatic_ppm"], r["basket"])
+        for r in parent["materials"]
+    ]
+    changed = [
+        c["material"] for c, p in zip(child["materials"], parent["materials"])
+        if c["current_stock"] != p["current_stock"]
+    ]
+    assert changed == ["Blackcurrant Absolute", "Allyl Amyl Glycolate", "Cade Oil Rectified"]
+
+
+@pytest.mark.parametrize("name,fraction,carrier,stock_mass,active", [
+    ("Blackcurrant Absolute", .1, "DPG", .09, .009),
+    ("Allyl Amyl Glycolate", .1, "DEP", .15, .015),
+    ("Cade Oil Rectified", .01, "DPG", .06, .0006),
+])
+def test_three_user_confirmed_stocks(name, fraction, carrier, stock_mass, active):
+    child = payload()
+    stock = next(r["current_stock"] for r in child["materials"] if r["material"] == name)
+    assert stock["basis"] == "w/w"
+    assert stock["fraction"] == fraction
+    assert stock["carrier_mass_fractions"] == {carrier: 1 - fraction}
+    result = next(r for r in plan_candidate(child)["materials"] if r["material"] == name)
+    assert result["stock_mass_g"] == pytest.approx(stock_mass)
+    assert result["target_active_g"] == pytest.approx(active)
+
+
+def test_mass_closure_carriers_and_denominators():
+    plan = plan_candidate(payload())
+    assert plan["geometry"]["status"] == "DESIGN_BOUNDS_MET"
+    assert plan["stock_blend_mass_g"] == pytest.approx(9.5874)
+    assert plan["additional_solvent_mass_g"] == pytest.approx(20.4126)
+    assert plan["stock_blend_mass_g"] + plan["additional_solvent_mass_g"] == pytest.approx(30)
+    assert plan["known_carrier_mass_g"] == pytest.approx({
+        "DPG": 2.3804, "DEP": .567, "IPM": .16, "ethanol": .48,
+    })
+    assert sum(plan["known_carrier_mass_g"].values()) + 6 == pytest.approx(9.5874)
+    assert sum(r["ppm_stock_blend_w_w"] for r in plan["materials"]) == pytest.approx(625821.3905751298)
+    assert sum(r["target_ppm_finished_w_w"] for r in plan["materials"]) == pytest.approx(200000)
+    assert plan["finished_volume_ml"] is None
+    assert all(r["oav"] is None for r in plan["materials"])
+    assert not any(plan["authorities"].values())
+
+
+def test_card_has_all_stock_weights_in_basket_order_without_dose_changes():
+    child = payload()
+    expected = {}
+    for row in child["materials"]:
+        active = Decimal(6) * Decimal(str(row["aromatic_ppm"])) / Decimal(1000000)
+        expected[row["material"]] = active / Decimal(str(row["current_stock"]["fraction"]))
+    expected["Ethanol 96%"] = Decimal("20.4126")
+    lines = CARD.read_text(encoding="utf-8").splitlines()
+    rows = [
+        [cell.strip().replace("**", "") for cell in line.strip("|").split("|")]
+        for line in lines if line.startswith("| [ ] |")
+    ]
+    assert len(rows) == len(expected) == 15
+    assert len({r[2] for r in rows}) == 15
+    assert sum(Decimal(r[4]) for r in rows) == Decimal("30.0000")
+    baskets = [
+        line[4:-4] for line in (ROOT / "inventory.txt").read_text(encoding="utf-8").splitlines()
+        if line.startswith("--- ") and line.endswith(" ---")
+    ]
+    previous_basket = -1
+    previous_mass = Decimal("Infinity")
+    for row in rows:
+        index = baskets.index(row[1])
+        assert index >= previous_basket
+        if index != previous_basket:
+            previous_mass = Decimal("Infinity")
+        mass = Decimal(row[4])
+        assert mass == expected[row[2]]
+        assert mass <= previous_mass
+        previous_basket, previous_mass = index, mass
+
+
+def test_user_authority_is_explicit_and_does_not_mutate_global_inventory():
+    child = payload()
+    authority = child["stock_authority"]
+    assert authority["kind"] == "DIRECT_USER_CURRENT_STOCK_CLARIFICATION"
+    assert "AAG is in DEP" in authority["statement"]
+    assert authority["global_inventory_registry_modified"] is False
+    assert not authority["density_asserted"]
+    assert not authority["lot_safety_asserted"]
+    assert not authority["sensory_equivalence_asserted"]
+    assert hashlib.sha256((ROOT / "inventory.txt").read_bytes()).hexdigest() == child["inventory_sha256"]
+    text = CARD.read_text(encoding="utf-8")
+    assert "PRE-MIX HOLD" in text
+    assert "AAG is DEP, not IPM" in text
+    assert hashlib.sha256(CHILD.read_bytes()).hexdigest() in text
+
+
+def ul_payload():
+    return json.loads(UL_RECORD.read_text(encoding="utf-8"))
+
+
+def test_ul_successor_preserves_mass_parent_and_inventory_bytes():
+    child = ul_payload()
+    for field in ("parent_candidate", "parent_card"):
+        ref = child[field]
+        assert hashlib.sha256((ROOT / ref["path"]).read_bytes()).hexdigest() == ref["sha256"]
+    assert child["parent_candidate"]["path"] == str(CHILD.relative_to(ROOT)).replace("\\", "/")
+    assert child["parent_card"]["path"] == str(CARD.relative_to(ROOT)).replace("\\", "/")
+    assert hashlib.sha256((ROOT / "inventory.txt").read_bytes()).hexdigest() == child["inventory_sha256"]
+    assert child["user_authorization"]["reply"] == "yes"
+
+
+@pytest.mark.parametrize("index", range(15))
+def test_ul_density_conversion_preserves_targets_with_bounded_rounding_only(index):
+    row = ul_payload()["rows"][index]
+    if index == 0:
+        assert row["material"] == "Ethanol 96%"
+        assert row["target_stock_mass_g"] == 20.4126
+        assert row["stock_mass_fraction"] == 0
+    else:
+        parent = next(r for r in payload()["materials"] if r["material"] == row["material"])
+        active = Decimal(6) * Decimal(str(parent["aromatic_ppm"])) / Decimal(1000000)
+        fraction = Decimal(str(parent["current_stock"]["fraction"]))
+        assert Decimal(str(row["target_active_g"])) == active
+        assert Decimal(str(row["target_stock_mass_g"])) == active / fraction
+        assert Decimal(str(row["stock_mass_fraction"])) == fraction
+        assert row["basket"] == parent["basket"]
+    density = Decimal(str(row["estimated_stock_density_g_ml"]))
+    target = Decimal(str(row["target_stock_mass_g"]))
+    step = Decimal(str(row["rounding_step_ul"]))
+    raw = Decimal(str(row["raw_ul"]))
+    ideal_ul = target * 1000 / density
+    assert raw == (ideal_ul / step).quantize(Decimal(1)) * step
+    assert raw >= 10
+    estimated_mass = raw * density / 1000
+    assert Decimal(str(row["estimated_stock_mass_g"])) == estimated_mass
+    assert Decimal(str(row["estimated_active_g"])) == estimated_mass * Decimal(str(row["stock_mass_fraction"]))
+    error_pct = (estimated_mass / target - 1) * 100
+    assert abs(error_pct) < Decimal("0.5")
+    assert row["rounding_only_error_percent"] == pytest.approx(float(error_pct), abs=1e-8)
+    for source_id in row["source_ids"]:
+        source = ul_payload()["sources"][source_id]
+        assert source["url"].startswith("https://")
+        assert source["finding"]
+
+
+def test_ul_card_matches_canonical_settings_and_descending_basket_order():
+    child = ul_payload()
+    rows = [
+        [c.strip().replace("**", "") for c in line.strip("|").split("|")]
+        for line in UL_CARD.read_text(encoding="utf-8").splitlines()
+        if line.startswith("| [ ] |")
+    ]
+    expected = {r["material"]: r for r in child["rows"]}
+    assert len(rows) == len(expected) == 15
+    assert len({r[2] for r in rows}) == 15
+    baskets = [
+        line[4:-4] for line in (ROOT / "inventory.txt").read_text(encoding="utf-8").splitlines()
+        if line.startswith("--- ") and line.endswith(" ---")
+    ]
+    previous_basket = -1
+    previous_ul = Decimal("Infinity")
+    for row in rows:
+        ref = expected[row[2]]
+        index = baskets.index(row[1])
+        assert index >= previous_basket
+        if index != previous_basket:
+            previous_ul = Decimal("Infinity")
+        raw = Decimal(row[4].replace(",", ""))
+        assert raw == Decimal(str(ref["raw_ul"]))
+        assert row[3] == ref["stock_label"]
+        assert raw <= previous_ul
+        previous_basket, previous_ul = index, raw
+    assert expected["Blackcurrant Absolute"]["stock_label"] == "10% w/w in DPG"
+    assert expected["Allyl Amyl Glycolate"]["stock_label"] == "10% w/w in DEP"
+    assert expected["Cade Oil Rectified"]["stock_label"] == "1% w/w in DPG"
+    assert expected["Suederal"]["stock_label"] == "Neat (not 10%)"
+
+
+def test_ul_totals_ppm_denominators_and_volume_not_mass():
+    child = ul_payload()
+    rows = child["rows"]
+    batch = child["batch"]
+    mass = sum(Decimal(str(r["estimated_stock_mass_g"])) for r in rows)
+    active = sum(Decimal(str(r["estimated_active_g"])) for r in rows)
+    blend = mass - Decimal(str(rows[0]["estimated_stock_mass_g"]))
+    assert mass == Decimal(str(batch["estimated_finished_mass_g"]))
+    assert active == Decimal(str(batch["estimated_aromatic_mass_g"]))
+    assert blend == Decimal(str(batch["estimated_stock_blend_mass_g"]))
+    assert sum(Decimal(str(r["raw_ul"])) for r in rows) == Decimal("35169.8")
+    assert sum(Decimal(str(r["raw_ul"])) for r in rows[1:]) == Decimal("9843.8")
+    assert batch["summed_stock_additions_ul"] == 35169.8
+    assert batch["aromatic_stock_additions_ul"] == 9843.8
+    assert batch["additional_ethanol_96_ul"] == rows[0]["raw_ul"] == 25326
+    assert batch["estimated_aromatic_w_w_percent"] == pytest.approx(float(active / mass * 100))
+    for row in rows:
+        aromatic = Decimal(str(row["estimated_active_g"]))
+        assert row["estimated_stock_blend_ppm_w_w"] == pytest.approx(float(aromatic / blend * 1000000), abs=0.0001)
+        assert row["estimated_finished_ppm_w_w"] == pytest.approx(float(aromatic / mass * 1000000), abs=0.0001)
+    assert batch["final_mixed_volume_ml"] is None
+    assert batch["top_up_to_volume"] is False
+
+
+def test_ul_estimates_do_not_become_measured_density_or_release_authority():
+    child = ul_payload()
+    assert child["status"] == "DENSITY_ESTIMATED_DESIGN_CARD_PRE_MIX_HOLD"
+    assert child["conversion"]["measured_density"] is False
+    assert child["authorities"]["estimated_volume_conversion_authorized"] is True
+    assert all(not value for key, value in child["authorities"].items()
+               if key != "estimated_volume_conversion_authorized")
+    models = child["mixture_models"]
+    assert models["ambrox"]["unrounded_density_g_ml"] == pytest.approx(
+        12 / (3 / 1 + 7 / 1.022 + .5 / .85 + 1.5 / .806)
+    )
+    assert "assumption" in models["ambrox"]["note"]
+    assert models["aag"]["unrounded_density_g_ml"] == pytest.approx(1 / (.1 / .935 + .9 / 1.12))
+    assert set(models["carrier_proxies"]["materials"]) == {
+        "Blackcurrant Absolute", "Evernyl", "Cade Oil Rectified"
+    }
+    text = UL_CARD.read_text(encoding="utf-8")
+    assert "PRE-MIX HOLD" in text
+    assert "NOT RUN for this estimated unit-conversion card" in text
+    assert "not a validated error bound" in text
+    assert "35,169.8" in text
+    assert "not a 30 mL rescale" in text

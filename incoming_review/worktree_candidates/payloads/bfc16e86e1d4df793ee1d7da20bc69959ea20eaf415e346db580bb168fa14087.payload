@@ -1,0 +1,174 @@
+# SUKHUM 35 Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. The repository forbids Codex subagents, so execution is inline in the existing isolated worktree.
+
+**Goal:** Reconcile authoritative physical stocks, document the current Thai men's market hypothesis, and deliver one executable SUKHUM 35 30 mL EdP prototype with target/current separation, diagnostics, and a controlled blind-test contract.
+
+**Architecture:** Treat `inventory.txt` as the physical-stock authority, preserve unknown stock metadata as explicit HOLD states, and keep the ideal active-equivalent architecture separate from the current product-stock formula. Use existing parser, release-gate, OAV, temporal, and verification tools; do not add a pipeline script or a new family archetype.
+
+**Tech Stack:** Markdown formula artifacts, Python inventory/parser/runtime, pytest, existing `scripts/formula_release_gate.py`, `scripts/format_pipeline_analysis.py`, and `scripts/verify_formula_workflow.py`.
+
+**Spec:** `docs/superpowers/specs/2026-08-29-sukhum-35-thai-male-fruity-woody-design.md`
+
+## Global Constraints
+
+- Work only in `C:\Users\ASUS\.codex\worktrees\6992\perfume-chem`; do not merge, cherry-pick, push, hand off, or modify another worktree.
+- Re-read `AGENTS.md`, `.github/copilot-instructions.md`, `docs/fragrance_families_reference.md`, and the complete current `inventory.txt` before final formula dosing.
+- Preserve unrelated dirty-worktree changes and do not commit without a separate user request.
+- DeepLuna Chat may be used only after a fresh exact-project `READY` check; fail closed on any other state. DeepLuna Fast and alternate-provider fallbacks remain disabled.
+- Use ppm, ODT, OAV, composite-natural OAV, and OAV-per-time only as diagnostics; make no physical liking, similarity, stability, safety, measured-headspace, or release claim without evidence.
+- Every raw stock dose must be at least 10 uL.
+- Use zero or one functionally exact musk; SUKHUM 35 uses Romandolide only.
+- Keep target/ideal and current-inventory builds separate.
+
+---
+
+### Task 1: Reconcile cross-chat stock authority
+
+**Files:**
+- Create: `tests/test_inventory_chat_stock_reconciliation_2026_08_29.py`
+- Modify: `inventory.txt`
+- Modify: `data/materials/A.yaml`
+- Modify: `data/materials/O.yaml`
+- Modify: `data/materials/P.yaml`
+- Modify: `data/materials/V.yaml`
+- Modify: `data/materials/H.yaml`
+- Modify: `data/knowledge_graph/material_properties.json`
+- Modify: `data/knowledge_graph/ingredient_catalog.json`
+
+**Interfaces:**
+- Consumes: `engine.inventory_parser.resolve_inventory_material`, `engine.data_spine.load_registry`, and `engine.ingredient_catalog.find_ingredient`.
+- Produces: physical-stock records for Opoponax 40% nominal heterogeneous stock, provenance-corrected AIMI, Vetiveryl Acetate 10% w/w, Vetiver EO Haiti, Patchouli Light Oil, and concentration-unknown Hay Absolute.
+
+- [ ] **Step 1: Write the failing stock-authority tests**
+
+Add literal assertions that Opoponax resolves to 0.40 w/w in DEP/ethanol and is not execution-ready; AIMI retains PerfumersWorld bottle provenance and an unconfirmed Givaudan-grade claim; Vetiveryl Acetate resolves to 0.10 w/w; Vetiver EO Haiti and Patchouli Light Oil are physically owned neat stocks; Hay Absolute is owned but not execution-ready because its concentration is unspecified; and no physical-stock alias creates a duplicate Cedarwood/Red Mandarin/Rose record.
+
+- [ ] **Step 2: Run the focused test and verify RED**
+
+Run: `pytest -q tests/test_inventory_chat_stock_reconciliation_2026_08_29.py`
+
+Expected: FAIL because the live inventory still says Opoponax 50%, AIMI has overconfident Givaudan provenance, and the four newly reported stocks are absent.
+
+- [ ] **Step 3: Apply the minimal authority update**
+
+Edit only the relevant inventory and registry records. Preserve unknown concentration, carrier, chemotype, and supplier fields as unknown rather than copying supplier-catalog defaults. Update generated registry/catalog records only for the changed stock ownership/status fields; do not regenerate unrelated material physics. Newly owned materials without validated MW/VP/ODT remain unavailable to strict pipeline dosing even though physical possession is recorded.
+
+- [ ] **Step 4: Re-run the focused test and authority baseline**
+
+Run: `pytest -q tests/test_inventory_chat_stock_reconciliation_2026_08_29.py tests/test_inventory_stock_additions_2026_08_28.py tests/test_amber_xtreme_inventory.py`
+
+Expected: all tests pass after older assertions are updated only where the newer user authority supersedes them.
+
+- [ ] **Step 5: Recompute inventory counts and SHA-256**
+
+Run: `python -c "from engine.inventory_parser import inventory_counts; print(inventory_counts())"` and `Get-FileHash -Algorithm SHA256 inventory.txt`.
+
+Expected: four additional canonical stock rows, zero canonical duplicates, and a new recorded SHA-256.
+
+### Task 2: Preserve the current Thai-market research record
+
+**Files:**
+- Create: `docs/research/2026-08-29-thai-male-fruity-woody-market.md`
+
+**Interfaces:**
+- Consumes: the approved current-source research set and SUKHUM 35 spec.
+- Produces: a source-linked market brief that separates observed facts from commercial hypotheses.
+
+- [ ] **Step 1: Write the research dossier**
+
+Record the Thai market size/forecast, climate context, local men's-fragrance positioning, current comparator prices, MITH Mystery for Him's direct competitive architecture, Thai FDA notification/label boundary, and the inferred whitespace for a drier domestic fruity-woody fragrance.
+
+- [ ] **Step 2: Audit claim ceilings and dates**
+
+Confirm every changing fact has a direct current link and date. Label the target buyer, price corridor, and sales potential as hypotheses rather than facts or guarantees.
+
+### Task 3: Create a parser-checked SUKHUM 35 formula
+
+**Files:**
+- Create: `tests/test_sukhum_35_formula.py`
+- Create: `formulas/SUKHUM_35_Thai_Male_30mL_EDP_v1.md`
+
+**Interfaces:**
+- Consumes: the refreshed inventory SHA, approved spec, current stock forms, formula parser, and current material physics/ODT authorities.
+- Produces: one exact 5,400 uL current-inventory concentrate with active ppm calculations and a separate non-executable ideal architecture.
+
+- [ ] **Step 1: Write the failing formula-contract test**
+
+Assert that the formula parses exactly one current build; totals 5,400 uL; has no dose below 10 uL; uses Romandolide as its only musk; excludes every prohibited/unavailable material in the spec; binds the refreshed inventory SHA; and contains the required target, current-build, missing-impact, preparation, and blind-test sections.
+
+- [ ] **Step 2: Run the formula test and verify RED**
+
+Run: `pytest -q tests/test_sukhum_35_formula.py`
+
+Expected: FAIL because the formula file does not yet exist.
+
+- [ ] **Step 3: Write the target and current-inventory formula**
+
+Create the approved warm-pith citrus, pineapple-cassis nucleus, radiant heart, charcoal-patchouli pivot, dry wood body, mineral persistence, Siam-benzoin warmth, and sole-Romandolide projection architecture. For every material include the selected function, rejected alternatives, stock form, raw uL, active uL, active ppm, and carrier contribution. Keep the ideal table non-executable so the parser ingests only the current build.
+
+- [ ] **Step 4: Run the formula-contract test and verify GREEN**
+
+Run: `pytest -q tests/test_sukhum_35_formula.py`
+
+Expected: PASS with exact subtotal, stock binding, pipetting floor, and exclusion checks.
+
+### Task 4: Run diagnostics and revise toward the name
+
+**Files:**
+- Modify: `formulas/SUKHUM_35_Thai_Male_30mL_EDP_v1.md`
+- Generate ignored diagnostic: `output/sukhum_35_v1_pipeline.json`
+- Generate ignored diagnostic: `output/sukhum_35_v1_analysis.txt`
+
+**Interfaces:**
+- Consumes: the current build and existing generic release-gate pipeline.
+- Produces: a formatted opening OAV table, note distribution, temporal evolution, full perfumer analysis, gate record, and any identity-preserving formula rebalance.
+
+- [ ] **Step 1: Run the release gate**
+
+Run: `python scripts/formula_release_gate.py --formula-file formulas/SUKHUM_35_Thai_Male_30mL_EDP_v1.md --expected-concentrate-ul 5400 --brief generic --json` and save the JSON under `output/`.
+
+- [ ] **Step 2: Run the required formatter**
+
+Run: `python scripts/format_pipeline_analysis.py --input output/sukhum_35_v1_pipeline.json` and capture its verbatim output.
+
+- [ ] **Step 3: Diagnose identity-critical findings**
+
+Inspect raw headspace OAV before gates, composite-natural coverage, 0 s to 4 h leaders, sub-threshold functional materials, extreme OAV cliffs, stock-basis mismatches, note distribution, and Bangkok-temperature warnings. Rebalance only when the modeled issue conflicts with SUKHUM 35's composed fruity-woody identity; do not chase generic scores.
+
+- [ ] **Step 4: Re-run after any formula change**
+
+Repeat the release gate and formatter until the exact current build is internally consistent. Preserve every abandoned version as diagnostic output rather than rewriting history outside the V1 formula artifact.
+
+- [ ] **Step 5: Append the final formatter output verbatim**
+
+Add the exact final text under `## Pipeline Analysis` in the formula file and present the same full output in the completion response before gate interpretation.
+
+### Task 5: Verify artifacts and report readiness boundaries
+
+**Files:**
+- Verify: `inventory.txt`
+- Verify: `docs/research/2026-08-29-thai-male-fruity-woody-market.md`
+- Verify: `formulas/SUKHUM_35_Thai_Male_30mL_EDP_v1.md`
+- Verify: `tests/test_inventory_chat_stock_reconciliation_2026_08_29.py`
+- Verify: `tests/test_sukhum_35_formula.py`
+
+**Interfaces:**
+- Consumes: all prior task artifacts.
+- Produces: exact tests, hashes, blockers, and `BENCH_READY_FOR_CONTROLLED_TEST` or a truthful HOLD state.
+
+- [ ] **Step 1: Run focused tests and workflow verification**
+
+Run: `pytest -q tests/test_inventory_chat_stock_reconciliation_2026_08_29.py tests/test_sukhum_35_formula.py tests/test_inventory_stock_additions_2026_08_28.py tests/test_amber_xtreme_inventory.py tests/test_verify_formula_workflow_parser.py` and `python scripts/verify_formula_workflow.py --formula-file formulas/SUKHUM_35_Thai_Male_30mL_EDP_v1.md`.
+
+- [ ] **Step 2: Re-run the final release gate and formatter fresh**
+
+Use the exact Task 4 commands after all edits. Read the complete outputs and report all FAIL/WARN gates without converting them into sensory claims.
+
+- [ ] **Step 3: Inspect scoped diff and hashes**
+
+Run `git diff -- inventory.txt data/materials/A.yaml data/materials/O.yaml data/materials/V.yaml data/materials/H.yaml data/knowledge_graph/material_properties.json data/knowledge_graph/ingredient_catalog.json docs/research/2026-08-29-thai-male-fruity-woody-market.md docs/superpowers/specs/2026-08-29-sukhum-35-thai-male-fruity-woody-design.md docs/superpowers/plans/2026-08-29-sukhum-35-implementation.md formulas/SUKHUM_35_Thai_Male_30mL_EDP_v1.md tests/test_inventory_chat_stock_reconciliation_2026_08_29.py tests/test_sukhum_35_formula.py` and compute SHA-256 for the inventory, market dossier, formula, spec, and plan.
+
+- [ ] **Step 4: Open the formula artifact and report**
+
+Open the formula Markdown in Codex. Report the target formula, current build, missing-chemical impact, preparation recommendation, blind-test plan, full pipeline analysis, exact test counts, file hashes, DeepLuna blocker, and the boundary between a bench hypothesis and release readiness.

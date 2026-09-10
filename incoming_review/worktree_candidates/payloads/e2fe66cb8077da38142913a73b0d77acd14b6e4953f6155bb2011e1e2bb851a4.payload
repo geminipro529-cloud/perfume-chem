@@ -1,0 +1,499 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v1",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-04",
+  "predecessor": {
+    "kind": "USER_AUTHORITY_OVERLAY",
+    "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+    "effective_date": "2026-08-28",
+    "path": "data/governance/inventory_user_authority_overlay_20260828.json",
+    "normalized_text_sha256": "9d0f3750e897e13758a1180e158adca464449e9d6dfac176460ba18868a17564"
+  },
+  "source": {
+    "kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+    "asserted_date": "2026-09-04",
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 20906,
+    "inventory_text_sha256": "f5c1c046f4654c76c94e0aa77c39976cae6b7bba263f9654e20b92881ecdfb14"
+  },
+  "policy": {
+    "inherit_predecessor_policy": true,
+    "predecessor_overlay_immutable": true,
+    "merge_other_task_branch": false,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "raw_volume_transfer_does_not_establish_exact_mass_or_volume_conversion": true
+  },
+  "records": [
+    {
+      "record_id": "INV-USER-20260901-001",
+      "canonical_name": "Bacdanol",
+      "aliases": [
+        "Bacnadol"
+      ],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_CURRENT_STOCK_CORRECTION",
+        "execution_ready": true,
+        "execution_hold_reason": ""
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-01",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "formulation_selection_ready": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_known": true,
+        "quantitative_dosing_ready": true,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false
+      },
+      "superseded_declaration": {
+        "fraction": null,
+        "fraction_basis": "unspecified",
+        "execution_hold_reason": "STOCK_FRACTION_UNSPECIFIED",
+        "recorded_date": "2026-08-29"
+      },
+      "note": "Bacdanol is user-confirmed owned neat with ample stock. This replaces the predecessor's fraction-unspecified current record without rewriting historical formulas or receipts."
+    },
+    {
+      "record_id": "INV-USER-20260901-002",
+      "canonical_name": "Guaiacwood EO",
+      "aliases": [
+        "Guaiacwood Essential Oil"
+      ],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "fraction": 0.3333333333333333,
+        "fraction_exact": "1/3",
+        "fraction_basis": "mass_fraction",
+        "carrier": "ethanol + dep",
+        "fraction_authority": "EXPLICIT_USER_CURRENT_STOCK_CORRECTION",
+        "execution_ready": true,
+        "nominal_components": [
+          {
+            "component": "Guaiacwood EO",
+            "fraction": 0.3333333333333333,
+            "fraction_exact": "1/3",
+            "role": "odorant_active"
+          },
+          {
+            "component": "ethanol",
+            "fraction": 0.3333333333333333,
+            "fraction_exact": "1/3",
+            "role": "solvent"
+          },
+          {
+            "component": "DEP",
+            "fraction": 0.3333333333333333,
+            "fraction_exact": "1/3",
+            "role": "carrier"
+          }
+        ],
+        "nominal_component_fraction_basis": "mass_fraction",
+        "nominal_component_total": 1.0,
+        "nominal_unresolved_remainder": 0.0,
+        "execution_hold_reason": ""
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 125,
+          "disposition": "OWNED",
+          "status": "HAVE - EXACTLY 1/3 GUAIACWOOD EO + 1/3 ETHANOL + 1/3 DEP, ALL W/W",
+          "actual_stock_text": "Guaiacwood EO exactly 1/3 w/w in an exact 1/3 ethanol + 1/3 DEP mass-basis carrier",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-01",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "formulation_selection_ready": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_known": true,
+        "component_mass_fractions_known": true,
+        "component_total_complete": true,
+        "quantitative_dosing_ready": true,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false
+      },
+      "superseded_declaration": {
+        "fraction": 0.33,
+        "fraction_basis": "unspecified",
+        "nominal_component_total": 0.99,
+        "nominal_unresolved_remainder": 0.01,
+        "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED_AND_NOMINAL_COMPONENT_TOTAL_99_PERCENT",
+        "recorded_date": "2026-08-30"
+      },
+      "note": "The current preparation is exactly one third Guaiacwood EO, one third ethanol, and one third DEP, all by mass. Density, safety, stability, sensory outcome, and release are not asserted."
+    },
+    {
+      "record_id": "INV-USER-20260901-003",
+      "canonical_name": "Benzyl Salicylate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "air_floral",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_CURRENT_STOCK_CORRECTION_RECONFIRMS_V5",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 41,
+          "fraction": 1.0
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 41,
+          "disposition": "OWNED",
+          "status": "HAVE - USER-CONFIRMED BACK IN STOCK, NEAT/AS SUPPLIED",
+          "actual_stock_text": "Benzyl Salicylate neat/as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-01",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "quantitative_dosing_ready": true,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false
+      },
+      "note": "The current Benzyl Salicylate stock is user-confirmed back in stock and retains the V5 neat/as-supplied form."
+    },
+    {
+      "record_id": "INV-USER-20260902-001",
+      "canonical_name": "Galbanum EO",
+      "aliases": [
+        "Galbanum Essential Oil"
+      ],
+      "state": "UNAVAILABLE",
+      "category": "green / resinous",
+      "stock": null,
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 114,
+          "fraction": 1.0
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 114,
+          "disposition": "GAP",
+          "status": "USER CONFIRMED NO GALBANUM 2026-09-02 - DON'T HAVE / OUT OF STOCK",
+          "actual_stock_text": "",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-02",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": false,
+        "historical_formula_rebase_authorized": false,
+        "substitution_authorized": false
+      },
+      "note": "Galbanum EO is not currently owned. Historical formulas remain unchanged."
+    },
+    {
+      "record_id": "INV-USER-20260902-002",
+      "canonical_name": "Ambrox Super",
+      "aliases": [
+        "Ambrox Super 25% w/w"
+      ],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "fraction": 0.25,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg + ipm + ethanol",
+        "fraction_authority": "EXPLICIT_USER_CURRENT_STOCK_CORRECTION",
+        "execution_ready": true,
+        "mass_balance_g": {
+          "ambrox_super": 3.0,
+          "dpg": 7.0,
+          "ipm": 0.5,
+          "ethanol": 1.5,
+          "total": 12.0
+        }
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 30,
+          "fraction": 0.33
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 30,
+          "disposition": "OWNED",
+          "status": "HAVE - USER-CONFIRMED 25% W/W, CLEAR AND HOMOGENEOUS",
+          "actual_stock_text": "Ambrox Super 25% w/w: 3.0 g active + 7.0 g DPG + 0.5 g IPM + 1.5 g ethanol",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-02",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_components_known": true,
+        "homogeneous_confirmed": true,
+        "clear_confirmed": true,
+        "quantitative_dosing_ready": true,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false
+      },
+      "note": "The current stock is 25% w/w Ambrox Super with the recorded 12.0 g mass balance. Exact volume conversion remains density-limited."
+    },
+    {
+      "record_id": "INV-USER-20260904-003",
+      "canonical_name": "Givaudan AIMI",
+      "aliases": [
+        "Alpha Isomethyl Ionone",
+        "Alpha Isomethyl Ionone (Methyl Ionone Pure)"
+      ],
+      "state": "OWNED",
+      "category": "orris_violet",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXISTING_USER_AUTHORITY_RECONCILED_TO_V5_ROW_21",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 21,
+          "fraction": 1.0
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 21,
+          "disposition": "OWNED",
+          "status": "HAVE - NEAT/AS SUPPLIED; EXISTING USER AIMI IDENTITY RECONCILED",
+          "actual_stock_text": "Givaudan AIMI / Alpha Isomethyl Ionone neat/as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-04",
+      "source_kind": "IDENTITY_RECONCILIATION_OF_EXISTING_USER_STOCK",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "quantitative_dosing_ready": true,
+        "supplier_product_identity_beyond_existing_label_asserted": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false
+      },
+      "note": "This binds the existing user-authoritative neat AIMI record to the matching V5 Alpha Isomethyl Ionone stock row so one physical bottle cannot resolve twice."
+    },
+    {
+      "record_id": "INV-USER-20260904-004",
+      "canonical_name": "Vetiver EO (India)",
+      "aliases": [
+        "Vetiver EO",
+        "Indian Vetiver EO",
+        "Indian Vetiver EO (volume grade)"
+      ],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "LIVE_INVENTORY_IDENTITY_RECONCILED_TO_V5_ROW_245",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 245,
+          "fraction": 1.0
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 245,
+          "disposition": "OWNED",
+          "status": "HAVE - INDIAN VETIVER EO, VOLUME GRADE, NEAT/AS SUPPLIED",
+          "actual_stock_text": "Indian Vetiver EO (volume grade), neat/as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-04",
+      "source_kind": "LIVE_INVENTORY_IDENTITY_RECONCILIATION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "quantitative_dosing_ready": true,
+        "country_grade_label_confirmed": true,
+        "botanical_lot_asserted": false,
+        "coa_asserted": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false
+      },
+      "note": "This binds the live Indian volume-grade Vetiver EO label to the matching V5 neat Vetiver EO stock row without asserting lot composition or reference equivalence."
+    },
+    {
+      "record_id": "INV-USER-20260904-001",
+      "canonical_name": "Ambrettolide",
+      "aliases": [
+        "Ambrettolide 10%",
+        "Ambrettolide 10% in DPG",
+        "Ambrettolide 10% w/w in DPG"
+      ],
+      "state": "OWNED",
+      "category": "musk",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_CONFIRMED_HOMOGENEOUS_CLEAR_PIPETTABLE_20260904"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 27,
+          "disposition": "OWNED",
+          "status": "HAVE - USER-CONFIRMED 10% W/W IN DPG; RAW-VOLUME EXECUTABLE",
+          "actual_stock_text": "Ambrettolide 10% w/w in DPG; homogeneous, clear, pipetteable, and raw-volume executable",
+          "can_prepare": ""
+        },
+        {
+          "source_row": 28,
+          "disposition": "OWNED",
+          "status": "DUPLICATE REQUIREMENT ROW - SAME OWNED 10% W/W IN DPG STOCK; COUNT ONCE",
+          "actual_stock_text": "Ambrettolide 10% w/w in DPG; homogeneous, clear, pipetteable, and raw-volume executable",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-04",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_known": true,
+        "homogeneous_confirmed": true,
+        "clear_confirmed": true,
+        "pipetteable_confirmed": true,
+        "raw_stock_volume_transfer_ready": true,
+        "remaining_quantity_asserted": false,
+        "stock_solution_density_asserted": false,
+        "exact_active_mass_from_raw_volume_authorized": false,
+        "literal_active_volume_asserted": false,
+        "carrier_displacement_volume_authorized": false,
+        "exact_active_ppm_oav_math_authorized": false,
+        "formula_rebase_authorized": false,
+        "procurement_authorized": false,
+        "formula_compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false
+      },
+      "note": "The owned bottle is 10% w/w Ambrettolide in DPG and is currently homogeneous, clear, pipetteable, and executable as a raw-volume transfer. Stock-solution density, exact active mass from a raw-volume dose, literal active volume, DPG displacement volume, remaining quantity, safety, stability, sensory outcome, and release are not asserted."
+    },
+    {
+      "record_id": "INV-USER-20260904-002",
+      "canonical_name": "Tonkarome",
+      "aliases": [
+        "Tonkarome 20%",
+        "Tonkarome 20% w/w in TEC"
+      ],
+      "state": "OWNED",
+      "category": "tonka / powder",
+      "stock": {
+        "fraction": 0.2,
+        "fraction_basis": "mass_fraction",
+        "carrier": "tec",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_CONFIRMED_HOMOGENEOUS_CLEAR_PIPETTABLE_20260904"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 264,
+          "fraction": 0.2
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 264,
+          "disposition": "OWNED",
+          "status": "HAVE - USER-CONFIRMED 20% W/W IN TEC; RAW-VOLUME EXECUTABLE",
+          "actual_stock_text": "Tonkarome 20% w/w in TEC; homogeneous, clear, pipetteable, and raw-volume executable",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-04",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_known": true,
+        "homogeneous_confirmed": true,
+        "clear_confirmed": true,
+        "pipetteable_confirmed": true,
+        "raw_stock_volume_transfer_ready": true,
+        "remaining_quantity_asserted": false,
+        "stock_solution_density_asserted": false,
+        "exact_active_mass_from_raw_volume_authorized": false,
+        "literal_active_volume_asserted": false,
+        "carrier_displacement_volume_authorized": false,
+        "exact_active_ppm_oav_math_authorized": false,
+        "formula_rebase_authorized": false,
+        "procurement_authorized": false,
+        "formula_compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false
+      },
+      "note": "The owned bottle is 20% w/w Tonkarome in TEC and is currently homogeneous, clear, pipetteable, and executable as a raw-volume transfer. The recorded preparation is 4 g Tonkarome plus 16 g TEC. Stock-solution density, exact active mass from a raw-volume dose, literal active volume, TEC displacement volume, remaining quantity, safety, stability, sensory outcome, and release are not asserted."
+    }
+  ]
+}

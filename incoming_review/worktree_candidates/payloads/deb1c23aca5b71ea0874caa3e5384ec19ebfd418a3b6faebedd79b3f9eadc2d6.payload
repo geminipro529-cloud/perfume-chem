@@ -1,0 +1,939 @@
+{
+  "schema": "perfume_chem.design_intent.v1",
+  "case_id": "DHI-11-V5-ORRIS-LED-FROM-ZERO-20260905",
+  "created_local_date": "2026-09-05",
+  "authority": "DESIGN_INTENT_ONLY_NOT_STOCK_OR_RELEASE_AUTHORITY",
+  "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+  "physical_state": "NOT_COMPOUNDED",
+  "sensory_state": "NOT_TESTED",
+  "release_state": "HOLD",
+  "reference_scope": "DHI2011-inspired architecture; not authenticated Dior formula",
+  "reference_model_preference": {
+    "requested_local_date": "2026-09-06",
+    "user_preference": "DHP",
+    "interpreted_as": "Dior Homme Parfum",
+    "intended_role": "Adjacent structural comparison, not replacement of the DHI 2011 target",
+    "selection_state": "DHP_2025_SELECTED_SECONDARY_REFERENCE_ONLY",
+    "selected_model": "iris_sandalwood.dhp2025",
+    "user_confirmed_version": "DHP 2025 — newer reference",
+    "available_local_models": [
+      "leather_iris_amber.dhp2014",
+      "iris_sandalwood.dhp2025"
+    ],
+    "model_authority": "UNVALIDATED_REFERENCE_HEURISTICS_NOT_AUTHENTICATED_DIOR_FORMULAS",
+    "numerical_model_use": "NOT_ACCEPTED_PENDING_REVALIDATION; existing Sandalore/Polysantol requirements and OAV ratios are not Dior evidence",
+    "accepted_comparison_scope": "QUALITATIVE_STRUCTURE_ONLY_NOT_SENSORY_SIMILARITY_OR_INGREDIENT_IDENTITY",
+    "primary_reference": {
+      "url": "https://www.dior.com/en_int/beauty/products/dior-homme-parfum-E000000226.html",
+      "accessed_local_date": "2026-09-06",
+      "version": "Francis Kurkdjian reinterpretation selected by the user as DHP 2025",
+      "descriptive_features": [
+        "Iris root-to-flower contrast",
+        "Ambery structure described with patchouli, vetiver and coumarin notes"
+      ],
+      "ingredient_and_ratio_authority": false
+    },
+    "current_diagnostic_remains": "iris_coumarin_amber.dhi2011",
+    "constraints": [
+      "Irotyl remains excluded",
+      "No automatic dose repair or model-required material additions",
+      "DHP data do not establish DHI 2011 ingredient presence or optimal ratios",
+      "Safety, mixture-composition and mass evidence holds remain unchanged"
+    ]
+  },
+  "user_constraints": [
+    "Orris-led",
+    "Irotyl excluded",
+    "whole-formula reconsideration from zero",
+    "no ingredient-count limit",
+    "maximize meaningful target-linked layers, not row count"
+  ],
+  "nominal_batch_ml": 30,
+  "raw_stock_concentrate_ul": 6000,
+  "ethanol_96_ul": 24000,
+  "nominal_raw_stock_concentrate_vv_pct": 20,
+  "volume_convention": "additive nominal volumes; contraction and delivery loss unmeasured",
+  "parent": {
+    "path": "formulas/DHI-11_Velours_d_Iris_05443A_30mL_20pct_V4_Orris_Led.md",
+    "sha256": "27017d190bff711ef91a9bb0c2d17fb20624012559f0a6e2e2ed91dccea6544e",
+    "role": "Immediate comparison parent; no non-iris doses frozen; all differences intentional design changes"
+  },
+  "stock_provenance": {
+    "live_inventory_sha256": "331f233274960c9e53586c61cafae7bd85ec4f480c835430c72904a9406dc06f",
+    "cross_worktree_overrides": [
+      "D:/chatbots/perfume-chem/data/governance/inventory_user_authority_overlay_20260904.json",
+      "D:/chatbots/perfume-chem/data/governance/inventory_user_authority_overlay_20260905.json"
+    ],
+    "integration_state": "SELECTED_FIVE_RECEIPTS_RECONCILED_IN_C4D5_RUNTIME; unrelated stocks and holds unchanged; no physical metrology or release authority",
+    "five_overrides": [
+      "AIMI one physical bottle alias confirmation",
+      "Indian Vetiver exact owned grade",
+      "Ambrettolide 10% w/w DPG",
+      "Tonkarome 20% w/w TEC",
+      "Orris Liquid 9% w/w DEP"
+    ],
+    "override_sha256": {
+      "inventory_user_authority_overlay_20260904.json": "e2fe66cb8077da38142913a73b0d77acd14b6e4953f6155bb2011e1e2bb851a4",
+      "inventory_user_authority_overlay_20260905.json": "08d0f0e41f90741200b3e915789ddd044cbbf7b0ce1b1aa266053452781bb17f"
+    },
+    "c4d5_local_overlay_note": "Benzyl Salicylate uses c4d5/data/governance/inventory_user_authority_overlay_20260904.json INV-USER-20260904-004, not the canonical same-date overlay; distinct chains must not be merged by filename.",
+    "design_time_live_inventory_sha256": "5da7ecdab4ce9c297f95a61051b38d9183f796c1971dd276546ef15c7856c497",
+    "current_inventory_normalized_sha256": "baf6eefd079eda63fdcaa6972afe21e9297d4598ab92b3733fc44b0f8f4b0fa4",
+    "current_overlay_path": "data/governance/inventory_user_authority_overlay_20260905_reconciled.json",
+    "current_overlay_normalized_sha256": "6b484bb4bfe2be531026d9fda3422d587bdff76f3a4758348b1453d63b1ea170"
+  },
+  "rows": [
+    {
+      "row": 1,
+      "material": "Hedione",
+      "basket": 1,
+      "raw_ul": 240,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:0f9d7e0971aad1594be4",
+      "role_hypothesis": "Floral air around iris; not a new jasmine subject.",
+      "nonredundancy_test": "Zero arm tests an opaque heart; compare a lighter floral support only if that deficit is repeatable.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "runtime_stock_source_ref": "Current Inventory Master!A129:N129"
+    },
+    {
+      "row": 2,
+      "material": "Iso E Super",
+      "basket": 1,
+      "raw_ul": 160,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:66c8443970c7354dd89a",
+      "role_hypothesis": "Diffuse transition from iris into literal cedar grain.",
+      "nonredundancy_test": "Omit while keeping cedar fixed; generic wood volume is not a successful transition.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "runtime_stock_source_ref": "Current Inventory Master!A140:N140"
+    },
+    {
+      "row": 3,
+      "material": "Vetival",
+      "basket": 1,
+      "raw_ul": 100,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:44f86b339280f63eef21",
+      "role_hypothesis": "Smoother dry woody transition ahead of natural vetiver.",
+      "nonredundancy_test": "Compare natural vetiver alone, Vetival alone in this role, and both; retain both only for a distinct useful difference.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "runtime_stock_source_ref": "Current Inventory Master!A244:N244"
+    },
+    {
+      "row": 4,
+      "material": "Benzyl Benzoate",
+      "basket": 1,
+      "raw_ul": 100,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:48d08954bb41de2543fb",
+      "role_hypothesis": "Structural/vehicle provision, not an olfactory layer.",
+      "nonredundancy_test": "No fixation or clarity benefit claimed without a test; omit in a vehicle-controlled trial, not as a universal replacement liquid.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "runtime_stock_source_ref": "Current Inventory Master!A285:N285"
+    },
+    {
+      "row": 5,
+      "material": "Benzyl Salicylate",
+      "basket": 1,
+      "raw_ul": 60,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:user-20260904:8263471c0cfb6737d169",
+      "role_hypothesis": "Provisional cosmetic-film support beside powder.",
+      "nonredundancy_test": "First-line omission candidate; reject without repeatable texture benefit. Below-threshold model output earns no perceptible-note credit.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "runtime_stock_source_ref": "data/governance/inventory_user_authority_overlay_20260904.json#INV-USER-20260904-004"
+    },
+    {
+      "row": 6,
+      "material": "Vetiver EO (India)",
+      "basket": 2,
+      "raw_ul": 120,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:user-20260905:46eaa4afb0cbf45f8cfe",
+      "role_hypothesis": "Owned Indian vetiver: dry root counterline under cedar.",
+      "nonredundancy_test": "Compare cedar alone; excessive smoke or soil is failure. Not authenticated Haitian or Dior vetiver.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "design_source_stock_id": "inventory:user-20260904:20f36a0658891ff50ea4",
+      "runtime_stock_source_ref": "data/governance/inventory_user_authority_overlay_20260905_reconciled.json#INV-USER-20260905-REC02"
+    },
+    {
+      "row": 7,
+      "material": "Cedarwood oil Virginia",
+      "basket": 3,
+      "raw_ul": 260,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:61deb2ebba56d82eb870",
+      "role_hypothesis": "Recognizable dry cedar grain and late iris-to-wood return.",
+      "nonredundancy_test": "Compare omission; pencil-shaving dominance that erases iris is failure.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "runtime_stock_source_ref": "Current Inventory Master!A64:N64"
+    },
+    {
+      "row": 8,
+      "material": "Cashmeran",
+      "basket": 3,
+      "raw_ul": 70,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:0b5d75dffb251876ec11",
+      "role_hypothesis": "Powder-to-warm-wood textile seam.",
+      "nonredundancy_test": "Compare zero and Kephalis-only; distinct texture must survive beyond an increase in woody strength.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "runtime_stock_source_ref": "Current Inventory Master!A59:N59"
+    },
+    {
+      "row": 9,
+      "material": "Ebanol",
+      "basket": 3,
+      "raw_ul": 30,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:9a6c54f0b9b8183e51d9",
+      "role_hypothesis": "Small creamy edge at the cedar-to-skin boundary.",
+      "nonredundancy_test": "Not a sandalwood accord or historical ingredient claim; compare zero and Sandalore as alternatives, never automatic stacking.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "runtime_stock_source_ref": "Current Inventory Master!A99:N99"
+    },
+    {
+      "row": 10,
+      "material": "Kephalis",
+      "basket": 4,
+      "raw_ul": 50,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:7c0e8f327e111a82e0c5",
+      "role_hypothesis": "Darker woody-amber interior joining violet, lavender and late woods.",
+      "nonredundancy_test": "Compare zero, Cashmeran-only and both. Named tobacco or amberwood becoming the subject rejects this branch.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "runtime_stock_source_ref": "Current Inventory Master!A153:N153"
+    },
+    {
+      "row": 11,
+      "material": "Ambrettolide",
+      "basket": 6,
+      "raw_ul": 1000,
+      "stock_label": "10% w/w in DPG",
+      "nominal_fraction": 0.1,
+      "fraction_basis": "mass_fraction",
+      "carrier": "DPG",
+      "stock_id": "inventory:user-20260905:44394ef87ec2fc6f4c98",
+      "role_hypothesis": "Fruity skin-musk relation connecting fruit, iris and talc.",
+      "nonredundancy_test": "Proxy for part of the ambrette image, not whole ambrette extract. Compare single-musk and pair omissions with carrier matched.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "design_source_stock_id": "inventory:user-20260904:5c67f5a97c7fc590d2e6",
+      "runtime_stock_source_ref": "data/governance/inventory_user_authority_overlay_20260905_reconciled.json#INV-USER-20260905-REC03"
+    },
+    {
+      "row": 12,
+      "material": "Ethylene Brassylate",
+      "basket": 6,
+      "raw_ul": 600,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:user-20260828:a630859c1c0f0553ddde",
+      "role_hypothesis": "Powdered body behind iris, distinct hypothesis from fruity Ambrettolide.",
+      "nonredundancy_test": "Compare Ambrettolide alone and Exaltolide/Romandolide alternatives when stock-qualified; a smooth but anonymous musk blanket fails.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "runtime_stock_source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260828-001"
+    },
+    {
+      "row": 13,
+      "material": "Lavender EO High Altitude",
+      "basket": 7,
+      "raw_ul": 140,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:user-20260830:79bb335fa9937cec99c9",
+      "role_hypothesis": "Aromatic entry that hands over to iris.",
+      "nonredundancy_test": "Use the exact owned high-altitude French stock; compare zero or the separately owned BONTAUX grade, not silent substitution.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "runtime_stock_source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260830-005"
+    },
+    {
+      "row": 14,
+      "material": "Linalyl Acetate",
+      "basket": 7,
+      "raw_ul": 80,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:f63a1c7f33cb38c4cb9a",
+      "role_hypothesis": "Adjustable lavender-to-fruit/floral ester transition.",
+      "nonredundancy_test": "Compare lavender alone. Extra duration of lavender without a better handoff is redundancy.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "runtime_stock_source_ref": "Current Inventory Master!A163:N163"
+    },
+    {
+      "row": 15,
+      "material": "Orris Liquid",
+      "basket": 11,
+      "raw_ul": 1500,
+      "stock_label": "9% w/w in DEP",
+      "nominal_fraction": 0.09,
+      "fraction_basis": "mass_fraction",
+      "carrier": "DEP",
+      "stock_id": "inventory:user-20260905:35dcce111e91d8f411cb",
+      "role_hypothesis": "User-selected supplied-product root lead; powder, root and creamy irregularity remain a whole-product hypothesis.",
+      "nonredundancy_test": "Compare reference-qualified orris products only as alternatives. No pure-irone amount or Dior-product match inferred from supplier marketing.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "design_source_stock_id": "inventory:user-20260905:d83ef5ae6b6ecfc22f72",
+      "runtime_stock_source_ref": "data/governance/inventory_user_authority_overlay_20260905_reconciled.json#INV-USER-20260905-REC05"
+    },
+    {
+      "row": 16,
+      "material": "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+      "basket": 11,
+      "raw_ul": 600,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:user-20260905:19dbde34171aec1e9868",
+      "role_hypothesis": "Cosmetic powder body surrounding the preferred Orris product.",
+      "nonredundancy_test": "Known aliases identify one confirmed bottle; they do not license other gamma/coeur grades. Test whether less powder reveals more root.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "design_source_stock_id": "inventory:user-20260904:a45ff6250b56cec5bbad",
+      "runtime_stock_source_ref": "data/governance/inventory_user_authority_overlay_20260905_reconciled.json#INV-USER-20260905-REC01"
+    },
+    {
+      "row": 17,
+      "material": "Alpha Irone",
+      "basket": 11,
+      "raw_ul": 160,
+      "stock_label": "10% w/w in DEP",
+      "nominal_fraction": 0.1,
+      "fraction_basis": "mass_fraction",
+      "carrier": "DEP",
+      "stock_id": "inventory:user-20260828:7fe094eca01cedacae09",
+      "role_hypothesis": "Independent iris/root accent, not a substitute for the whole Orris product.",
+      "nonredundancy_test": "Compare zero at fixed Orris; known preparation does not certify pure alpha-irone or an isomer profile.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "runtime_stock_source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260828-003"
+    },
+    {
+      "row": 18,
+      "material": "Alpha Ionone",
+      "basket": 11,
+      "raw_ul": 60,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:948e98d704540c4db323",
+      "role_hypothesis": "Restrained violet movement between fruit and powder.",
+      "nonredundancy_test": "Omit at fixed Orris/methyl ionone; separate violet-flower identity or no useful loss rejects the helper.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "runtime_stock_source_ref": "Current Inventory Master!A18:N18"
+    },
+    {
+      "row": 19,
+      "material": "Tonkarome",
+      "basket": 12,
+      "raw_ul": 400,
+      "stock_label": "20% w/w in TEC",
+      "nominal_fraction": 0.2,
+      "fraction_basis": "mass_fraction",
+      "carrier": "TEC",
+      "stock_id": "inventory:user-20260905:bc7dfa244a5e2344c0b4",
+      "role_hypothesis": "Coumarinic fabric warmth under the iris, not a tonka lead.",
+      "nonredundancy_test": "Supplied base, not pure coumarin. Compare zero and a basis-qualified Coumarin stock as an alternative.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "design_source_stock_id": "inventory:user-20260904:4673956fafeee83557ee",
+      "runtime_stock_source_ref": "data/governance/inventory_user_authority_overlay_20260905_reconciled.json#INV-USER-20260905-REC04"
+    },
+    {
+      "row": 20,
+      "material": "Isobutavan",
+      "basket": 12,
+      "raw_ul": 80,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:ffc1ace806e25a690d10",
+      "role_hypothesis": "Vanillic seam distinct from the coumarinic fabric.",
+      "nonredundancy_test": "Compare zero and a stock-qualified vanillin alternative; recognizable pastry or buttercream is failure.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "runtime_stock_source_ref": "Current Inventory Master!A141:N141"
+    },
+    {
+      "row": 21,
+      "material": "Coriander Essential Oil",
+      "basket": 13,
+      "raw_ul": 20,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:8f24d01cce6349e9cf63",
+      "role_hypothesis": "Fine spicy/aromatic contour at the lavender-to-iris entry.",
+      "nonredundancy_test": "Creative addition, not a claimed Dior ingredient. Compare zero; recognizable culinary spice or no repeatable contour rejects it.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "runtime_stock_source_ref": "Current Inventory Master!A83:N83"
+    },
+    {
+      "row": 22,
+      "material": "Verdox",
+      "basket": 15,
+      "raw_ul": 100,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:27ee5eb3d7eecaf277c2",
+      "role_hypothesis": "Green fruit-to-wood glint carried toward Ambrettolide.",
+      "nonredundancy_test": "Pear is an accord outcome to test, not the ingredient identity. Apple/candy recognition that competes with iris is failure.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "runtime_stock_source_ref": "Current Inventory Master!A240:N240"
+    },
+    {
+      "row": 23,
+      "material": "Benzyl Acetate",
+      "basket": 15,
+      "raw_ul": 70,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:1a249065fb9030019b59",
+      "role_hypothesis": "Small floral-fruit bridge distinct from Verdox green wood.",
+      "nonredundancy_test": "Provisional omission priority: lavender ester/Hedione may already bridge the gap. Banana/jasmine intrusion rejects it.",
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "runtime_stock_source_ref": "Current Inventory Master!A40:N40"
+    }
+  ],
+  "sources": [
+    {
+      "id": "H1",
+      "type": "current_house_description_not_2011_formula",
+      "url": "https://www.dior.com/en_ch/beauty/products/dior-homme-intense-Y0479201.html",
+      "finding": "Iris, ambrette-related fruity talc and cedar/amber-wood architecture; current disclosure #21961 is not an authenticated 05443/A formula."
+    },
+    {
+      "id": "H2",
+      "type": "contemporaneous_secondary_launch_report",
+      "url": "https://www.fragrantica.com/news/Dior-Homme-2011-by-Francois-Demachy-Dior-Homme-Intense-2011-Francois-Demachy-Dior-J-adore-Eau-de-Toilette-2011-2383.html",
+      "finding": "DHI section lists lavender, iris/ambrette/pear/powder, cedar and vetiver. Cocoa/leather occur in the separate EDT discussion; omission from this note report does not prove chemical absence."
+    },
+    {
+      "id": "R1",
+      "type": "peer_reviewed_primary_small_sensory_study",
+      "url": "https://www.nature.com/articles/s41598-025-08925-z",
+      "finding": "2025 comparisons of orris absolute, a commercial IRONE ALPHA product, synthesized beta-irone and beta-ionone show distinct odor profiles and impurity effects. Three-perfumer descriptive panel is not a finished-perfume liking study or assay of owned products."
+    },
+    {
+      "id": "R2",
+      "type": "primary_irone_stereochemistry_research",
+      "url": "https://comptes-rendus.academie-sciences.fr/chimie/articles/10.1016/S1631-0748(03)00087-0/",
+      "finding": "Irone-isomer distinctions preclude generic equivalence; method-dependent observations do not supply a universal swap ratio."
+    },
+    {
+      "id": "M1",
+      "type": "stock_supplier_product",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=8IQ24653",
+      "finding": "Orris supplied-product character; catalog irone range is not a lot assay or preparation density."
+    },
+    {
+      "id": "M2",
+      "type": "supplier_coa",
+      "url": "https://www.perfumersworld.com/ifra/COA/8II00243.pdf",
+      "finding": "Generic Alpha Irone supplied-product COA does not establish this user's purity or isomer composition."
+    },
+    {
+      "id": "M3",
+      "type": "maker_profile",
+      "url": "https://www.iff.com/scent/ingredients-compendium/cashmeran/",
+      "finding": "Powdery/woody warm textile-role hypothesis; manufacturer use guidance is not formula safety approval."
+    },
+    {
+      "id": "M4",
+      "type": "maker_profile",
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/kephalis",
+      "finding": "Woody/amber/tobacco, heart/base and violet/lavender compatibility; tobacco drift remains a risk."
+    },
+    {
+      "id": "M5",
+      "type": "maker_profile",
+      "url": "https://www.iff.com/scent/ingredients-compendium/ambrettolide/",
+      "finding": "Substantive floral/fruity musk supports a bridge hypothesis, not whole-ambrette or pear equivalence."
+    },
+    {
+      "id": "M6",
+      "type": "maker_profile_with_technical_conflicts",
+      "url": "https://studio.dsm-firmenich.com/product/romandolider-pe-979031",
+      "finding": "Powdery/mossy/balsamic musk description does not validate V4's unique outward-projection claim; technical identity fields need reconciliation."
+    },
+    {
+      "id": "M7",
+      "type": "maker_profile",
+      "url": "https://www.iff.com/scent/ingredients-compendium/orivone/",
+      "finding": "Earthy/camphoraceous orris edge: optional root-contrast alternative, not mandatory buttery cushion."
+    },
+    {
+      "id": "P1",
+      "type": "peer_reviewed_primary_binary_ratio_study",
+      "url": "https://academic.oup.com/chemse/article/33/7/599/330603",
+      "finding": "Use measured intensity and pleasantness, not concentration or OAV alone, to study mixture balance; binary results do not certify V5."
+    },
+    {
+      "id": "P2",
+      "type": "peer_reviewed_primary_label_effect_study",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/15944134/",
+      "finding": "Blind identities and collect unprompted descriptors before suggested layers because verbal context can influence odor evaluation."
+    },
+    {
+      "id": "P3",
+      "type": "peer_reviewed_primary_exposure_study",
+      "url": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2015.00920/full",
+      "finding": "Include repeated sessions; exposure effects on liking are not uniformly positive."
+    },
+    {
+      "id": "P4",
+      "type": "standard_scope_not_full_protocol_access",
+      "url": "https://www.iso.org/standard/50125.html",
+      "finding": "Controlled consumer hedonic comparisons are the appropriate kind of evidence; this local protocol does not claim ISO compliance."
+    },
+    {
+      "id": "P5",
+      "type": "peer_reviewed_primary_olfactory_white",
+      "url": "https://doi.org/10.1073/pnas.1208110109",
+      "finding": "Mixture convergence under selected component/intensity conditions is not a 30-ingredient ceiling for perfumes."
+    },
+    {
+      "id": "P6",
+      "type": "2026_preprint_not_peer_reviewed",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.07.03.736426v1.full",
+      "finding": "Mixture pleasantness modeling is a candidate external-validation direction, not an absolute-hedonism score or evidence of V5 liking."
+    }
+  ],
+  "screening_state": "DIAGNOSTIC_COMPLETE_RELEASE_HOLD",
+  "sensory_observations": [],
+  "promotions": [],
+  "layers": [
+    {
+      "layer": 1,
+      "name": "1. Aromatic contour",
+      "materials": "Lavender, Linalyl Acetate, Coriander",
+      "relationship_hypothesis": "A fine aromatic/spicy entry hands into floral iris rather than a separate lavender perfume.",
+      "test": "0–5 min; aromatic dominance or culinary spice fails.",
+      "observed": false
+    },
+    {
+      "layer": 2,
+      "name": "2. Fruit-to-ambrette relation",
+      "materials": "Verdox, Benzyl Acetate, Ambrettolide",
+      "relationship_hypothesis": "A restrained green-fruit glint becomes musky/talc-like beside iris.",
+      "test": "Opening into heart; literal apple/banana/candy dominance fails.",
+      "observed": false
+    },
+    {
+      "layer": 3,
+      "name": "3. Root-rich centre",
+      "materials": "Orris Liquid, Alpha Irone",
+      "relationship_hypothesis": "The preferred supplied Orris product leads; the irone stock is an independently testable accent.",
+      "test": "Heart and later return; root identity must survive powder and wood.",
+      "observed": false
+    },
+    {
+      "layer": 4,
+      "name": "4. Cosmetic powder with violet movement",
+      "materials": "Alpha Isomethyl Ionone, Alpha Ionone",
+      "relationship_hypothesis": "Powder has body without becoming a detached violet flower; it frames the root.",
+      "test": "Heart; compare root exposure and powder integration separately.",
+      "observed": false
+    },
+    {
+      "layer": 5,
+      "name": "5. Air around the dense centre",
+      "materials": "Hedione, provisional Benzyl Salicylate",
+      "relationship_hypothesis": "Separation and a soft cosmetic surface, not another floral accord.",
+      "test": "Heart; first-line omissions test redundant film/air helpers.",
+      "observed": false
+    },
+    {
+      "layer": 6,
+      "name": "6. Warm interior and darker grain",
+      "materials": "Tonkarome, Isobutavan, Cashmeran, Kephalis",
+      "relationship_hypothesis": "Coumarinic/vanillic warmth and a darker woody-textile seam sit beneath iris.",
+      "test": "Heart to late heart; pastry, named tobacco or amberwood takeover fails.",
+      "observed": false
+    },
+    {
+      "layer": 7,
+      "name": "7. Dry wood and root return",
+      "materials": "Virginia cedar, Indian vetiver, Vetival, Iso E Super, small Ebanol seam",
+      "relationship_hypothesis": "Literal cedar grain and dry root emerge through a smoother wood/skin transition.",
+      "test": "Late heart/drydown; anonymous wood, pencil shavings or sandalwood takeover fails.",
+      "observed": false
+    },
+    {
+      "layer": 8,
+      "name": "8. Powder-to-skin persistence",
+      "materials": "Ambrettolide, Ethylene Brassylate",
+      "relationship_hypothesis": "Fruity skin relation and powdered body are separate hypotheses, not a three-musk default.",
+      "test": "Late heart/drydown; a musk blanket that erases iris fails.",
+      "observed": false
+    }
+  ],
+  "solvent_model": {
+    "authority": "declared_volume_proxy",
+    "temperature_k": 305,
+    "scope": "same nominal ethanol/water convention as V4; stock-carrier matrix remains unresolved",
+    "components": [
+      {
+        "name": "Ethanol",
+        "volume_ul": 23040,
+        "assumed_density_g_ml": 0.785,
+        "mw_g_mol": 46.0684
+      },
+      {
+        "name": "Water",
+        "volume_ul": 960,
+        "assumed_density_g_ml": 0.997,
+        "mw_g_mol": 18.01528
+      }
+    ],
+    "extra_physical_transfers": false
+  },
+  "verification": {
+    "gate_counts": {
+      "PASS": 106,
+      "WARN": 36,
+      "FAIL": 3,
+      "SKIP": 1
+    },
+    "overall": "FAIL",
+    "release_evidence_decision": "HOLD",
+    "g15": "PASS",
+    "architecture_contract": "PASS",
+    "dose_receipt": "BOUND",
+    "exact_ppm": "UNAVAILABLE",
+    "focused_tests": {
+      "run": "2026-09-05 Orris/Tonkarome scientific-data audit and affected consumers",
+      "files": 12,
+      "passed": 264,
+      "failed": 0,
+      "warning_count": 7360,
+      "warning_reason": "One repeated pytest_asyncio deprecation under Python 3.14; distinct from formula warnings"
+    },
+    "final_report": "output/dhi2011_v5_scientific_data_audit_20260905/release_gate.json",
+    "final_report_file_sha256": "8237d116bf67d4d9dafb404eebe208b7430706aef58b36ecfeb225f9dfaf1272",
+    "semantic_formula_sha256": "279ba9f447847b63313b151bb0d5b059b10c160305947d514739ba3617c27232",
+    "initial_report": "output/dhi2011_v5_from_zero_20260905/release_gate.json",
+    "initial_report_state": "SUPERSEDED_FOR_COMPARATIVE_INTERPRETATION_MATRIX_SCOPE_MISMATCH",
+    "full_repository_suite": "NOT_RUN_FOCUSED_AFFECTED_CONSUMER_VERIFICATION_ONLY",
+    "physical_sensory_tests": "NOT_RUN",
+    "inventory_stock_contract": "PASS",
+    "matched_stock_count": 23,
+    "dose_receipt_quantity_authority": "PLANNED_VOLUME_SCREEN_ONLY",
+    "physical_metrology_authority": false,
+    "changed_gate_states": [
+      {
+        "gate": "pipeline_preflight",
+        "before": "WARN",
+        "after": "FAIL"
+      },
+      {
+        "gate": "natural_composite_coverage",
+        "before": "PASS",
+        "after": "FAIL"
+      },
+      {
+        "gate": "opaque_preblends",
+        "before": "PASS",
+        "after": "FAIL"
+      },
+      {
+        "gate": "osmotheque_archivability",
+        "before": "PASS",
+        "after": "WARN"
+      },
+      {
+        "gate": "master_perfumer_gate",
+        "before": "PASS",
+        "after": "WARN"
+      },
+      {
+        "gate": "concentration_basis",
+        "before": "WARN",
+        "after": "PASS"
+      }
+    ],
+    "release_blockers": [
+      "safety_ifra: HOLD",
+      "laboratory_execution: NOT_TESTED",
+      "sensory_evidence: NOT_TESTED",
+      "oav_evidence: HOLD",
+      "hedonic_evidence: NOT_TESTED"
+    ],
+    "opening_oav_unchanged_from_previous_proxy_report": false,
+    "unresolved_mixture_oav": [
+      "Orris Liquid",
+      "Tonkarome"
+    ],
+    "unavailable_authoritative_mass_count": 23,
+    "headspace_coverage": "INCOMPLETE",
+    "full_analysis_path": "output/dhi2011_v5_scientific_data_audit_20260905/analysis.txt",
+    "scientific_audit_path": "docs/research/DHI2011_V5_ORRIS_TONKAROME_SCIENTIFIC_AUDIT_20260905.md",
+    "measurement_worksheet": "formulas/DHI-11_V5_MASS_AND_SAFETY_WORKSHEET.md"
+  },
+  "knowledge_findings": [
+    {
+      "state": "LOCALLY_VERIFIED",
+      "finding": "Initial G15 jumps were confounded by omitted child solvent model. Matching the nominal V4 solvent convention at unchanged doses clears the findings.",
+      "claim_ceiling": "model_configuration_diagnosis"
+    },
+    {
+      "state": "LOCALLY_VERIFIED",
+      "finding": "Literal ratio-word matching misclassified design-proportion prose as reference quantitation. Clearer prose restores architecture scope without adding quantitative authority.",
+      "claim_ceiling": "detector_behavior"
+    },
+    {
+      "state": "HISTORICAL_RESULT_SUPERSEDED",
+      "finding": "Coriander Seed EO stock and Coriander Essential Oil physics names do not join across the current runtime.",
+      "claim_ceiling": "identity_binding_gap",
+      "superseded_by": "20260905 fixed stock routing and current scientific audit"
+    },
+    {
+      "state": "DIAGNOSED_THEN_FIXED_AND_REGRESSION_TESTED",
+      "finding": "concentration_basis warning reads a field different from stock_fraction_basis; duplicate carrier checking inflates the displayed count.",
+      "claim_ceiling": "schema_mismatch",
+      "resolution": "20260905 scientific-data audit; see current verification"
+    },
+    {
+      "state": "DIAGNOSED_THEN_FIXED_AND_REGRESSION_TESTED",
+      "finding": "Tonkarome degradation assertion is generated by a tonka substring match, not a glycoside assay.",
+      "claim_ceiling": "unsupported_inference_detected",
+      "resolution": "20260905 scientific-data audit; see current verification"
+    },
+    {
+      "state": "RESEARCH_AND_MODEL_LIMIT",
+      "finding": "Orris 9% w/w supplied-product fraction does not validate an 82.5% irone pool or equivalence to Alpha Irone.",
+      "claim_ceiling": "no_product_assay_or_sensory_equivalence"
+    },
+    {
+      "state": "UNTESTED_HYPOTHESES",
+      "finding": "Six ingredients assigned sensory roles screen below OAV1 under the final proxy model; meaningful contribution and nonredundancy require actual comparison.",
+      "claim_ceiling": "no_sensory_promotion"
+    },
+    {
+      "state": "LOCALLY_VERIFIED",
+      "finding": "Five apparent missing/ambiguous stock failures were inventory-lineage and label-binding failures, not changed perfume doses. All 23 stock rows now bind through an immutable-source successor, with 226 unrelated full stock records and 274 unaffected requirement records unchanged.",
+      "claim_ceiling": "stock_binding_only_not_physical_metrology_safety_or_liking"
+    },
+    {
+      "state": "REGRESSION_FIXED_AND_TESTED",
+      "finding": "Identity-bearing origin parentheses must survive public inventory lookup. Exact verified Indian-vetiver aliases resolve; Haiti, Java, unconfirmed Ruh Khus and coriander leaf oils are not admitted.",
+      "claim_ceiling": "exact_owned_label_scope_not_generic_grade_equivalence"
+    },
+    {
+      "state": "HISTORICAL_RESULT_SUPERSEDED",
+      "finding": "Both previous FAIL gates are resolved as stock PASS and aggregate preflight WARN, while opening OAV values remain identical. Fewer software failures do not establish any improvement in smell.",
+      "claim_ceiling": "no_sensory_promotion",
+      "superseded_by": "20260905 fixed stock routing and current scientific audit"
+    },
+    {
+      "state": "SOURCE_CHECKED_AND_REGRESSION_TESTED",
+      "finding": "Withdraw the catalog-derived Orris midpoint and classify Tonkarome as an opaque mixture. Both product OAVs stay UNKNOWN through initial and evolved states; no new ingredient or dose is inferred.",
+      "claim_ceiling": "evidence_governance_not_sensory_learning"
+    },
+    {
+      "state": "REGRESSION_FIXED_AND_TESTED",
+      "finding": "Missing IFRA records are not compliant; exact/profile zero limits are preserved; a volume-proxy safety screen cannot claim mass-based release authority.",
+      "claim_ceiling": "software_reporting_not_safety_clearance"
+    },
+    {
+      "state": "LOCALLY_VERIFIED",
+      "finding": "All 23 delivered masses are unmeasured. Four prior authoritative masses were catalog-density projections; none supplies a physical measurement chain. A measurement-to-release bridge is not implemented.",
+      "claim_ceiling": "no_physical_metrology_or_automatic_release"
+    }
+  ],
+  "verification_history": [
+    {
+      "checkpoint": "BEFORE_STOCK_RECONCILIATION",
+      "gate_counts": {
+        "PASS": 108,
+        "WARN": 35,
+        "FAIL": 2,
+        "SKIP": 1
+      },
+      "overall": "FAIL",
+      "release_evidence_decision": "HOLD",
+      "g15": "PASS",
+      "architecture_contract": "PASS",
+      "dose_receipt": "ABSTAINED",
+      "exact_ppm": "UNAVAILABLE",
+      "focused_tests": {
+        "path": "tests/test_pre_mix_guard.py",
+        "passed": 10,
+        "failed": 0,
+        "warning_count": 400,
+        "warning_reason": "pytest_asyncio deprecated asyncio.iscoroutinefunction under Python3.14"
+      },
+      "final_report": "output/dhi2011_v5_from_zero_20260905/final_release_gate.json",
+      "final_report_file_sha256": "54ed9d071fec946db315673649dc964cfdcbdbaad0fd44131b9a56a6521ba825",
+      "semantic_formula_sha256": "5a7654cd414f395b59e6d967db240d260b0ab46d93cad203e82a03775ec1db89",
+      "initial_report": "output/dhi2011_v5_from_zero_20260905/release_gate.json",
+      "initial_report_state": "SUPERSEDED_FOR_COMPARATIVE_INTERPRETATION_MATRIX_SCOPE_MISMATCH",
+      "full_repository_suite": "NOT_RUN_NOT_REQUIRED_FOR_FORMULA_ONLY_DESIGN",
+      "physical_sensory_tests": "NOT_RUN"
+    },
+    {
+      "stage": "STOCK_RECONCILIATION_BEFORE_SCIENTIFIC_AUDIT",
+      "verification": {
+        "gate_counts": {
+          "PASS": 109,
+          "WARN": 36,
+          "FAIL": 0,
+          "SKIP": 1
+        },
+        "overall": "WARN",
+        "release_evidence_decision": "HOLD",
+        "g15": "PASS",
+        "architecture_contract": "PASS",
+        "dose_receipt": "BOUND",
+        "exact_ppm": "UNAVAILABLE",
+        "focused_tests": {
+          "run": "2026-09-05 stock reconciliation, alias, public resolver, preflight and active-dose regressions",
+          "files": 12,
+          "passed": 216,
+          "failed": 0,
+          "warning_count": 5680,
+          "warning_reason": "pytest_asyncio deprecated asyncio.iscoroutinefunction under Python 3.14; one repeated warning class"
+        },
+        "final_report": "output/dhi2011_v5_stock_reconciliation_20260905/release_gate.json",
+        "final_report_file_sha256": "0591a40e78b0cf0568e43ff19021e807050db4e758e76689a71ca16242b85aba",
+        "semantic_formula_sha256": "279ba9f447847b63313b151bb0d5b059b10c160305947d514739ba3617c27232",
+        "initial_report": "output/dhi2011_v5_from_zero_20260905/release_gate.json",
+        "initial_report_state": "SUPERSEDED_FOR_COMPARATIVE_INTERPRETATION_MATRIX_SCOPE_MISMATCH",
+        "full_repository_suite": "NOT_RUN_FOCUSED_AFFECTED_CONSUMER_VERIFICATION_ONLY",
+        "physical_sensory_tests": "NOT_RUN",
+        "inventory_stock_contract": "PASS",
+        "matched_stock_count": 23,
+        "dose_receipt_quantity_authority": "PLANNED_VOLUME_SCREEN_ONLY",
+        "physical_metrology_authority": false,
+        "changed_gate_states": [
+          {
+            "gate": "pipeline_preflight",
+            "before": "FAIL",
+            "after": "WARN"
+          },
+          {
+            "gate": "inventory_stock_contract",
+            "before": "FAIL",
+            "after": "PASS"
+          }
+        ],
+        "release_blockers": [
+          "safety_ifra: HOLD",
+          "laboratory_execution: NOT_TESTED",
+          "sensory_evidence: NOT_TESTED",
+          "oav_evidence: HOLD",
+          "hedonic_evidence: NOT_TESTED"
+        ],
+        "opening_oav_unchanged_from_previous_proxy_report": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": "perfume_chem_external_capture_manifest_v1",
+  "capture_id": "20260812T183600+0700-pack-metadata-file-library-recovery-6a7992db",
+  "captured_at": "2026-08-12T11:34:06Z",
+  "state": "SOURCE_CAPTURE_QUARANTINED_NOT_ADMITTED",
+  "source": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "conversation_id": "6a7992db-96b8-83ec-aab0-6a7447b97da1",
+    "conversation_title": "Perfume Project Planning",
+    "turn_id": "e0c8046a-b8b8-4180-8b2f-a84c1363d0f4",
+    "file_library_reference": "filenavlist 123:0",
+    "source_path": "C:/Users/ASUS/Downloads/PACK_METADATA.json",
+    "retrieval_method": "AUTHENTICATED_CHATGPT_FILE_LIBRARY_CARD_DOWNLOAD",
+    "transformation_history": []
+  },
+  "captured_artifact": {
+    "file_name": "PACK_METADATA.json",
+    "byte_size": 14116,
+    "sha256": "d051505ea9144716fb860c5ff74e92b2bed2b33e419c830460cc60278b94f869",
+    "media_type": "application/json",
+    "copy_matches_source": true
+  },
+  "integrity": {
+    "declared_size_matches": true,
+    "declared_sha256_matches": true,
+    "source_and_capture_sha256_match": true,
+    "utf8_decodable": true,
+    "json_parse_valid": true,
+    "pack_id": "Six_Perfume_Latest_Integrated_Recipe_Pack_Aug2026",
+    "target_count": 6,
+    "target_ids": ["AM-E01", "C03", "H07", "PR-E01", "PR-E07", "S06"],
+    "authority_false_boundaries_present": true
+  },
+  "admission": {
+    "state": "EXTERNAL_FILE_BYTES_VERIFIED_QUARANTINED_NOT_ADMITTED",
+    "canonical_import_allowed": false,
+    "metadata_projection_allowed": false,
+    "formula_projection_allowed": false,
+    "execution_allowed": false,
+    "promotion_allowed": false
+  },
+  "authority": {
+    "source_admission": false,
+    "metadata": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "physical_execution": false,
+    "sensory": false,
+    "headspace": false,
+    "strict_oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "installation": false,
+    "release": false
+  }
+}

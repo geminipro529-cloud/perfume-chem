@@ -1,0 +1,49 @@
+{
+  "schema_version": "chatgpt_browser_capture_manifest_v1",
+  "capture_id": "chat-c-formula-corpora-6a753b26-20260819t124503z",
+  "recorded_at": "2026-08-19T12:45:03Z",
+  "source": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "project_name": "Complex Perfumery",
+    "conversation_id": "6a753b26-53b4-83ec-92ec-02cdc8d63629",
+    "conversation_url": "https://chatgpt.com/g/g-p-6a74ab83668081919f5cbd0dfe80eb09-complex-perfumery/c/6a753b26-53b4-83ec-92ec-02cdc8d63629",
+    "conversation_title": "Chat C Summary",
+    "attachment_name": "CHAT_C_FORMULA_CORPORA_PATENT_MINING_XHIGH_v1.zip",
+    "attachment_role": "CHAT_C_FORMULA_CORPORA_AND_PATENT_MINING_SECONDARY_RECONSTRUCTION",
+    "capture_surface": "AUTHENTICATED_CHATGPT_BROWSER_ATTACHMENT_DOWNLOAD",
+    "claimed_sha256": "ce6e95f40cd53bdc3c94f169ccb9761638500ae085be23df7b7abc2db94bb42d"
+  },
+  "package": {
+    "path": "incoming_review/chatgpt/20260819T124503Z-chat-c-formula-corpora-6a753b26/CHAT_C_FORMULA_CORPORA_PATENT_MINING_XHIGH_v1.zip",
+    "byte_size": 1319192,
+    "sha256": "ce6e95f40cd53bdc3c94f169ccb9761638500ae085be23df7b7abc2db94bb42d",
+    "media_type": "application/zip",
+    "archive_entry_count": 27,
+    "archive_file_count": 27,
+    "package_root": "CHAT_C_FORMULA_CORPORA_PATENT_MINING_XHIGH",
+    "internal_checksum_entries_verified": 26,
+    "archive_scan_status": "GRAPH_COMPLETE_QUARANTINED",
+    "archive_scan_promotion_allowed": false,
+    "archive_scan_holds": [
+      "PARTIAL_MEMBER_SCAN"
+    ]
+  },
+  "rights": {
+    "reuse_status": "UNKNOWN",
+    "redistribution_allowed": false,
+    "reason": "The attachment is an AI-generated secondary reconstruction. Public patent and Project Gutenberg source access does not grant blanket redistribution or executable-use rights for the package, and Olfactorian access remains permission-, consent-, and operation-scoped."
+  },
+  "disposition": {
+    "state": "EXACT_BROWSER_ATTACHMENT_CAPTURED_QUARANTINED",
+    "package_recovered": true,
+    "package_content_import_allowed": false,
+    "generated_row_projection_allowed": false,
+    "source_table_admission_allowed": false,
+    "formula_mutation_allowed": false,
+    "inventory_mutation_allowed": false,
+    "physical_truth_upgrade_allowed": false,
+    "release_allowed": false,
+    "notes": "Preserve ordered patent and historical rows as quarantined source-grammar evidence only. Direct primary-source comparison found that the two US8168163B2 em-dash absences were collapsed to numeric zero in the package; the 130-row CSV is therefore not a lossless B1 extraction. Do not execute bundled code, flatten source units or comparison arms, map trade products silently to molecules, or populate LabFormula/runtime records without a corrected governed extraction and derived-projection review."
+  },
+  "receipt_sha256": "86cf9538d7d31dec34e450d747bc7dc8b9b3cc1c45925cdf2644290951635a44"
+}

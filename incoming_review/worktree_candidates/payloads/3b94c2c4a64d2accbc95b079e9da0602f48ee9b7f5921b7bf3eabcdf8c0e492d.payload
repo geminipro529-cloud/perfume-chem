@@ -1,0 +1,175 @@
+{
+  "schema_version": "perfume_chem_external_capture_manifest_v1",
+  "capture_id": "20260815T223741+0700-perfume-box-v2-recovery-6a79b172-ndb057976",
+  "captured_at": "2026-08-15T22:37:41+07:00",
+  "state": "SOURCE_CAPTURE_QUARANTINED_NOT_ADMITTED",
+  "source": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+    "conversation_title": "Perfume Making Consultant",
+    "original_attachment_turn_id": "83040f7e-d688-44c8-a1ce-71250f53fdb7",
+    "original_attachment_agent_message_id": "c9bce857-51bb-4429-b1a0-683d76ce0266",
+    "original_attachment_content_reference_index": 0,
+    "base64_transport_turn_id": "11324646-5467-458e-af6e-06056e66b981",
+    "base64_transport_agent_message_id": "31ecbb39-e2fd-4d20-92ba-28a2ba66aed9",
+    "base64_transport_content_reference_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "source_path": "C:/Users/ASUS/Downloads/Perfume_Box_Exact_Recovery_20260815_blocks/Perfume_Box_Workflow_Formula_Book_Aug2026_v2_Package.exact.zip",
+    "retrieval_method": "AUTHENTICATED_CHATGPT_EXACT_BASE64_BLOCK_TRANSPORT_WITH_PER_BLOCK_AND_WHOLE_PAYLOAD_HASH_VERIFICATION",
+    "transformation_history": [
+      {
+        "operation": "CONCATENATE_68_ORDERED_RFC4648_BASE64_BLOCKS",
+        "block_count": 68,
+        "base64_character_count": 277552,
+        "base64_sha256": "3ce6ea1f80aec0fc10318a8b77e238f93a694975e0f2853201082dfc971333af",
+        "all_block_lengths_and_hashes_verified_before_use": true
+      },
+      {
+        "operation": "STRICT_RFC4648_BASE64_DECODE",
+        "decoded_byte_size": 208163,
+        "decoded_sha256": "db0579760159e7438b83e92de399aa0a9f5862f0f547fa030a682c339bd54e84",
+        "matches_source_declared_original": true
+      }
+    ]
+  },
+  "captured_artifact": {
+    "file_name": "Perfume_Box_Workflow_Formula_Book_Aug2026_v2_Package.zip",
+    "byte_size": 208163,
+    "sha256": "db0579760159e7438b83e92de399aa0a9f5862f0f547fa030a682c339bd54e84",
+    "media_type": "application/zip",
+    "copy_matches_reconstructed_exact_source": true
+  },
+  "members": [
+    {
+      "path": "Perfume_Box_Workflow_Formula_Book_Aug2026_v2.xlsx",
+      "byte_size": 159218,
+      "compressed_size": 154494,
+      "crc32": "290ae7d9",
+      "sha256": "90191bed8d702c023cbbae883a2320b656c6ba47355fe5cee3ecf6a63a619ba0"
+    },
+    {
+      "path": "Perfume_Box_Workflow_Formula_Book_Aug2026_v2.md",
+      "byte_size": 56197,
+      "compressed_size": 6836,
+      "crc32": "cff0808c",
+      "sha256": "d8a53b29a9179fb1deffe86244bc59480a05163749e6989adb5ec905ff7d2b35"
+    },
+    {
+      "path": "Perfume_Box_Workflow_Formula_Book_Aug2026_v2.json",
+      "byte_size": 568876,
+      "compressed_size": 43979,
+      "crc32": "8905c0df",
+      "sha256": "770042d0a0aa4da4ef907994b91a75e77d5ee0cc9d0f60799283ac6d410040dc"
+    },
+    {
+      "path": "Perfume_Box_Workflow_Formula_Book_Aug2026_v2_release.json",
+      "byte_size": 3913,
+      "compressed_size": 930,
+      "crc32": "51f39fe7",
+      "sha256": "045a9295ddfc633714305d3476c46b430ab03348f1a803818c81614243644f9c"
+    },
+    {
+      "path": "Perfume_Box_Workflow_Formula_Book_Aug2026_v2.xlsx.sha256",
+      "byte_size": 116,
+      "compressed_size": 106,
+      "crc32": "f1be37ca",
+      "sha256": "8f325370016526074bac60b899435464cfcaff1ec8afe674599758b4f749c31c"
+    },
+    {
+      "path": "Perfume_Box_Workflow_Formula_Book_Aug2026_v2.md.sha256",
+      "byte_size": 114,
+      "compressed_size": 105,
+      "crc32": "32c94a33",
+      "sha256": "31312e1bbe5d56756e8947d9cd6136e86668751bbded18ac8ef005b6c1be494e"
+    },
+    {
+      "path": "Perfume_Box_Workflow_Formula_Book_Aug2026_v2.json.sha256",
+      "byte_size": 116,
+      "compressed_size": 107,
+      "crc32": "6da6f47f",
+      "sha256": "76d03e81186a807a0c0099590da7e2537606629716b7d8b71749f4f99a766a54"
+    },
+    {
+      "path": "Perfume_Box_Workflow_Formula_Book_Aug2026_v2_release.json.sha256",
+      "byte_size": 124,
+      "compressed_size": 112,
+      "crc32": "fbea4bbe",
+      "sha256": "47004e33aad2c82c28d6deb43bfa3259ef84cac73e5ce830cde46e3323813df1"
+    }
+  ],
+  "integrity": {
+    "declared_size_matches": true,
+    "declared_sha256_matches": true,
+    "source_and_capture_sha256_match": true,
+    "zip_crc_clean": true,
+    "safe_member_paths": true,
+    "casefold_unique_member_paths": true,
+    "archive_member_count": 8,
+    "embedded_checksum_sidecars": 4,
+    "embedded_checksum_sidecars_exact": 4,
+    "embedded_workbook_matches_existing_downloads_workbook": true,
+    "package_release_formula_error_scan": "PASS_RAW_VOLUME_TOTALS_ONLY",
+    "native_single_status": "QUARANTINE_HOLD",
+    "native_graph_status": "GRAPH_COMPLETE_QUARANTINED",
+    "native_graph_nodes": 2,
+    "native_graph_edges": 1,
+    "native_graph_max_depth": 1,
+    "native_graph_all_nodes_terminal": true,
+    "native_graph_findings": [],
+    "root_node_findings": [
+      "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT",
+      "PARTIAL_MEMBER_SCAN"
+    ],
+    "promotion_allowed": false
+  },
+  "content_boundary": {
+    "package_role": "FORMULA_AND_BUILD_ANCESTRY_ONLY",
+    "formula_count": 9,
+    "formula_row_count": 625,
+    "preparation_or_verification_queue_count": 25,
+    "formula_validation_scope": "RAW_PARTS_AND_RAW_MICROLITRE_TOTALS_ONLY",
+    "physical_state": "HOLD_NOT_PHYSICALLY_VALIDATED",
+    "similarity": "NOT_TESTED",
+    "liking": "NOT_TESTED",
+    "stability": "NOT_TESTED",
+    "safety_release": "NOT_TESTED",
+    "current_v5_stock_or_preparation_authority_claimed": false,
+    "formula_projection_allowed": false,
+    "native_canonical_formula_adoption_allowed": false,
+    "parallel_formula_or_inventory_store_allowed": false,
+    "migration_required": false,
+    "migration_head_remains": "20260810_0016"
+  },
+  "admission": {
+    "state": "EXTERNAL_PACKAGE_BYTES_VERIFIED_QUARANTINED_NOT_ADMITTED",
+    "canonical_import_allowed": false,
+    "schema_install_allowed": false,
+    "migration_allowed": false,
+    "row_projection_allowed": false,
+    "formula_projection_allowed": false,
+    "execution_allowed": false,
+    "promotion_allowed": false
+  },
+  "authority": {
+    "source_admission": false,
+    "schema": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "bottle": false,
+    "physical_execution": false,
+    "sensory": false,
+    "analytical": false,
+    "headspace": false,
+    "strict_oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "installation": false,
+    "release": false
+  }
+}

@@ -1,0 +1,418 @@
+{
+  "formula_sha256": "426857f85ad9cd666e6cc55cdb9391de8cd6b5858bbc6f06e8d0d1a239aa3fc3",
+  "inventory_sha256": "d6f7ff5389fbd5e807b98fee3ce6a87ce2c70dd6253b26a82f49a0872da42369",
+  "inventory_authority": {
+    "source_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+    "overlay_sha256": "7265242bd4136333d592004b4ddb9382cd0cd8a1ad364b75085e98290f1a98d8"
+  },
+  "target": {
+    "required": [
+      "Juniper Berry EO",
+      "Vetiver EO (India)",
+      "Cypress EO",
+      "Grapefruit FCF oil Sicilian"
+    ]
+  },
+  "bounds": {
+    "Iso E Super": [
+      400,
+      1350
+    ],
+    "Hedione": [
+      300,
+      900
+    ],
+    "Ambrox Super": [
+      400,
+      400
+    ],
+    "Benzyl Benzoate": [
+      20,
+      200
+    ],
+    "Vetival": [
+      80,
+      80
+    ],
+    "Vetiver EO (India)": [
+      450,
+      1600
+    ],
+    "Cedarwood Virginia": [
+      40,
+      180
+    ],
+    "Cypress EO": [
+      10,
+      50
+    ],
+    "Clearwood": [
+      200,
+      200
+    ],
+    "Timberol": [
+      70,
+      70
+    ],
+    "Vetikon": [
+      100,
+      650
+    ],
+    "Ambrettolide": [
+      250,
+      250
+    ],
+    "Habanolide": [
+      180,
+      180
+    ],
+    "Juniper Berry EO": [
+      450,
+      1500
+    ],
+    "Coriander Seed EO": [
+      30,
+      120
+    ],
+    "Grapefruit FCF oil Sicilian": [
+      150,
+      500
+    ],
+    "Petitgrain EO Paraguay": [
+      80,
+      350
+    ],
+    "Terpinyl Acetate": [
+      20,
+      180
+    ]
+  },
+  "schema": "global_design_portfolio_v1",
+  "evaluator_version": "dream2025-natural-core-stereo-scenarios-v2",
+  "criteria": [
+    "exploratory_partial_pleasantness_scenario_vector"
+  ],
+  "scenarios": [
+    "nominal",
+    "hydrocarbon_richer_stress",
+    "oxygenated_richer_stress"
+  ],
+  "max_workers": 3,
+  "scope": "Computational proposal only. Twelve stocks represented in part or by connectivity; six unresolved/carrier stocks frozen. No whole-perfume, richness, layering or temporal prediction. No premix required.",
+  "profiles": {
+    "Iso E Super": {
+      "roles": [
+        "smooth woody fullness"
+      ],
+      "sources": [
+        "https://www.iff.com/scent/ingredients-compendium/iso-e-super/"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Hedione": {
+      "roles": [
+        "transparent presence and diffusion"
+      ],
+      "sources": [
+        "https://studio.dsm-firmenich.com/product/hedioner-pe-964898"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Ambrox Super": {
+      "roles": [
+        "Restrained mineral-amber persistence beneath the vetiver and dry wood structure."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Benzyl Benzoate": {
+      "roles": [
+        "Restrained balsamic mass and fixation without constructing a floral cushion."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Vetival": {
+      "roles": [
+        "Suede-dry, rougher vetiver texture in the lower body."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Vetiver EO (India)": {
+      "roles": [
+        "Defining natural root, earth and wood subject."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Cedarwood Virginia": {
+      "roles": [
+        "Small natural cedar grain; subordinate to vetiver and not a main wood subject."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Cypress EO": {
+      "roles": [
+        "Identifiable dry-green conifer accent kept proportionally light."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Clearwood": {
+      "roles": [
+        "soft patchouli and woody amber warmth"
+      ],
+      "sources": [
+        "https://studio.dsm-firmenich.com/product/clearwoodr-pe-970953"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Timberol": {
+      "roles": [
+        "powerful substantive woody amber modification"
+      ],
+      "sources": [
+        "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Timberol.pdf"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Vetikon": {
+      "roles": [
+        "vetiver and grapefruit opening bridge"
+      ],
+      "sources": [
+        "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Vetikon.pdf"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Ambrettolide": {
+      "roles": [
+        "Low-active close-skin warmth underneath the more outward Habanolide plane."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Habanolide": {
+      "roles": [
+        "Outward clean-mineral musk polish around the dry woods."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Juniper Berry EO": {
+      "roles": [
+        "Principal gin-botanical identity."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Coriander Seed EO": {
+      "roles": [
+        "aromatic peppery seed spice with lemon and wood aspects"
+      ],
+      "sources": [
+        "https://studio.dsm-firmenich.com/product/coriander-seed-eo-pe-928143"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Grapefruit FCF oil Sicilian": {
+      "roles": [
+        "Furocoumarin-free bitter-peel opening character. The regional qualifier belongs to the bound inventory record, not the formula's design label."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Petitgrain EO Paraguay": {
+      "roles": [
+        "green floral citrus-leaf character"
+      ],
+      "sources": [
+        "https://matieres-premieres.robertet.com/petitgrain-oil"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Terpinyl Acetate": {
+      "roles": [
+        "herbal citrus lavender woody support"
+      ],
+      "sources": [
+        "https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/marketing/global/documents/295/364/application-guide-9-scents-of-fall-and-winter-ms.pdf"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    }
+  },
+  "budget": 512,
+  "seed": 20260909,
+  "bound_rationale": "Engineer-declared broad design bounds, not learned or safety limits. Natural vetiver and juniper vary widely without original-dose floors. Iso E is limited as support; coriander, cedar, cypress, terpinyl remain modifiers. Same 5400 raw uL stock subtotal. Six unsupported stocks fixed to localize this pass, not validated as optimal. Nominal raw-volume proxy only; exact mass ppm unknown. Stress multipliers 0.8/1.15 are engineering probes, not analytical ranges or confidence intervals.",
+  "numerical_model": {
+    "kind": "dream2025_natural_scenarios_v1",
+    "path": "output/optimizer_research_20260909/dream_mixture_benchmark_v1.json",
+    "sha256": "f011c19a44cd6af9fa595f3a5768e8e503263593ab2693acf04867bdb1f31d71",
+    "structures": {
+      "Iso E Super": {
+        "path": "output/optimizer_research_20260909/iso_e_super_pubchem.json",
+        "sha256": "3e90a9ab77ab969cde9087a840c91c69e60cbe9824ecbe20d7dc30a69f78b16e",
+        "smiles": "CC1CC2=C(CC1(C)C(=O)C)C(CCC2)(C)C",
+        "identity_scope": "representative CAS-bound connectivity, not verified supplied isomer composition"
+      },
+      "Hedione": {
+        "path": "output/optimizer_research_20260909/hedione_pubchem.json",
+        "sha256": "b5b42e4012ccd21cd3ceb1c4b0f7dcf2db56a69a4fd0388b2569ce0550faeae9",
+        "smiles": "CCCCCC1C(CCC1=O)CC(=O)OC",
+        "identity_scope": "representative CAS-bound connectivity, not verified supplied isomer composition"
+      },
+      "Benzyl Benzoate": {
+        "path": "output/optimizer_research_20260909/benzyl_benzoate_pubchem.json",
+        "sha256": "b27072e7f5d3b75ae5ff89e9aacbf9892ab61833d897a9de0a610dfe1cc7cd99",
+        "smiles": "C1=CC=C(C=C1)COC(=O)C2=CC=CC=C2",
+        "identity_scope": "chemical connectivity"
+      },
+      "Terpinyl Acetate": {
+        "path": "output/optimizer_research_20260909/terpinyl_acetate_pubchem.json",
+        "sha256": "eba1a579231d7673b9ab9e5697458e0b1b7ddbae485a4f98e70ff2fe64a64ba6",
+        "smiles": "CC1=CCC(CC1)C(C)(C)OC(=O)C",
+        "identity_scope": "representative CAS-bound connectivity, not verified supplied isomer composition"
+      },
+      "Vetikon": {
+        "path": "output/optimizer_research_20260909/vetikon_pubchem.json",
+        "sha256": "58cbe390217de309b016df211d0fc43f1f9b8c333aa93b701a0100291eb76236",
+        "smiles": "CC(=O)CC(C)(C)C1=CC=CC=C1",
+        "identity_scope": "representative CAS-bound connectivity, not verified supplied isomer composition"
+      }
+    },
+    "nominal_finished_volume_ul": 30000,
+    "natural_manifest": {
+      "path": "output/optimizer_research_20260909/natural_structures/manifest_stereo_v2.json",
+      "sha256": "195cf729aaae1bfd6944e69562ed67a518918d503ac88207290624d1b36ea6f3"
+    },
+    "composition_scenarios": [
+      {
+        "name": "nominal",
+        "multipliers": {}
+      },
+      {
+        "name": "hydrocarbon_richer_stress",
+        "multipliers": {
+          "alpha pinene": 1.15,
+          "myrcene": 1.15,
+          "sabinene": 1.15,
+          "limonene": 1.15,
+          "terpinen-4-ol": 0.8,
+          "beta pinene": 1.15,
+          "khusimol": 0.8,
+          "khusimone": 0.8,
+          "alpha-vetivone": 0.8,
+          "beta-vetivone": 0.8,
+          "isovalencenol": 0.8,
+          "eudesmol": 0.8,
+          "nootkatone": 0.8,
+          "cedrene": 1.15,
+          "delta-3-carene": 1.15,
+          "octanal": 0.8,
+          "linalool": 0.8,
+          "geranyl acetate": 0.8,
+          "beta-caryophyllene": 1.15,
+          "camphor": 0.8,
+          "linalyl acetate": 0.8,
+          "alpha terpineol": 0.8,
+          "geraniol": 0.8,
+          "nerol": 0.8,
+          "alpha cedrene": 1.15,
+          "thujopsene": 1.15,
+          "cedrol": 0.8,
+          "widdrol": 0.8,
+          "beta cedrene": 1.15,
+          "cuparene": 1.15
+        }
+      },
+      {
+        "name": "oxygenated_richer_stress",
+        "multipliers": {
+          "alpha pinene": 0.8,
+          "myrcene": 0.8,
+          "sabinene": 0.8,
+          "limonene": 0.8,
+          "terpinen-4-ol": 1.15,
+          "beta pinene": 0.8,
+          "khusimol": 1.15,
+          "khusimone": 1.15,
+          "alpha-vetivone": 1.15,
+          "beta-vetivone": 1.15,
+          "isovalencenol": 1.15,
+          "eudesmol": 1.15,
+          "nootkatone": 1.15,
+          "cedrene": 0.8,
+          "delta-3-carene": 0.8,
+          "octanal": 1.15,
+          "linalool": 1.15,
+          "geranyl acetate": 1.15,
+          "beta-caryophyllene": 0.8,
+          "camphor": 1.15,
+          "linalyl acetate": 1.15,
+          "alpha terpineol": 1.15,
+          "geraniol": 1.15,
+          "nerol": 1.15,
+          "alpha cedrene": 0.8,
+          "thujopsene": 0.8,
+          "cedrol": 1.15,
+          "widdrol": 1.15,
+          "beta cedrene": 0.8,
+          "cuparene": 0.8
+        }
+      }
+    ]
+  },
+  "design_envelopes": "Common search post-filter: cypress<=0.1*juniper, gin>=petitgrain+terpinyl, natural vetiver>=0.5*IsoE. root=vetiver+Vetikon+Vetival; wood=IsoE+cedar+Clearwood+Timberol; gin=juniper+coriander+grapefruit. Vetiver-bodied:root>=wood,gin>=0.5*root. Gin-forward:gin>=root,root+wood>=1.5*gin. Rounded:0.75*wood<=root<=1.25*wood,root+wood>=2*gin. All ratios are engineering hypotheses, not perceived intensity or learned sensory targets.",
+  "engineering_candidate": {
+    "formula": {
+      "Ambrettolide": 250,
+      "Ambrox Super": 400,
+      "Benzyl Benzoate": 20,
+      "Cedarwood Virginia": 70,
+      "Clearwood": 200,
+      "Coriander Seed EO": 120,
+      "Cypress EO": 50,
+      "Grapefruit FCF oil Sicilian": 200,
+      "Habanolide": 180,
+      "Hedione": 310,
+      "Iso E Super": 1330,
+      "Juniper Berry EO": 930,
+      "Petitgrain EO Paraguay": 90,
+      "Terpinyl Acetate": 60,
+      "Timberol": 70,
+      "Vetikon": 100,
+      "Vetival": 80,
+      "Vetiver EO (India)": 940
+    },
+    "rationale": "Parent engineering selection: gin-forward developed-base front chosen over higher isolated-model pleasantness wood-heavy fronts because juniper remains near natural vetiver loading rather than falling toward 450-530 uL. Source random-arm Pareto candidate rounded to 10 uL grid, sum remains5400; this proposal is evaluated separately after rounding. Both juniper and natural vetiver increase versus v4; dry woody support replaces some Hedione/BB/Vetikon allocation. This is a brief-led hypothesis, not learned richness/layering, sensory validation or a mixing card. Re-evaluate this same rounded proposal after geraniol/nerol stereochemical separation; lineage receipt is the initial search, not final-model Pareto certification.",
+    "lineage": {
+      "path": "output/design_portfolios/20260909_200615_706059.json",
+      "sha256": "02db5c0be57d2054d09cf8694971cfb4c97a88c03e7158ae41a2311391a9ba6d",
+      "envelope": "gin_forward_developed_base",
+      "source": "random"
+    }
+  }
+}

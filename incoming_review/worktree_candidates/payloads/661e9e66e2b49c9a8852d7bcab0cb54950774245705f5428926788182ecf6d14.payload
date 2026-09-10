@@ -1,0 +1,563 @@
+import json
+from pathlib import Path
+
+from engine.data_spine import load_registry
+from engine.ingredient_catalog import build_ingredient_catalog, find_ingredient
+from engine.ingredient_intelligence import get_profile
+from engine.inventory_parser import parse_inventory, resolve_inventory_material
+from engine.name_utils import normalize_name
+from engine.odor_thresholds import ODT_DATA
+from engine.pipeline.formula_state import build_formula_state
+from engine.pipeline.preflight import run_release_preflight
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+
+def _stock_tuples(material_name: str) -> set[tuple[float, str, str]]:
+    return {
+        (record.dilution, record.concentration_basis, record.carrier)
+        for record in parse_inventory(unique=False, include_unavailable=True)
+        if record.name == material_name
+    }
+
+
+def test_approximate_parenthetical_percent_is_not_silently_treated_as_neat(
+    tmp_path: Path,
+):
+    inventory_path = tmp_path / "inventory.txt"
+    inventory_path.write_text(
+        "--- WOODS, WOOD MODIFIERS, AMBERS & VETIVER ---\n"
+        "- Ambrox Test (~33% w/v in DEP:EtOH 53:47)\n",
+        encoding="utf-8",
+    )
+
+    stock = parse_inventory(inventory_path, unique=False)[0]
+
+    assert stock.dilution == 0.33
+
+
+def test_colon_separated_dep_etoh_carrier_preserves_both_solvents(tmp_path: Path):
+    inventory_path = tmp_path / "inventory.txt"
+    inventory_path.write_text(
+        "--- WOODS, WOOD MODIFIERS, AMBERS & VETIVER ---\n"
+        "- Ambrox Test (~33% w/v in DEP:EtOH 53:47)\n",
+        encoding="utf-8",
+    )
+
+    stock = parse_inventory(inventory_path, unique=False)[0]
+
+    assert stock.carrier == "DEP/ETHANOL"
+
+
+def test_new_bottle_labels_resolve_to_existing_owned_materials_without_duplicates():
+    expected = {
+        "Virginian Cedarwood": ("cedarwood virginia", "Cedarwood Virginia EO"),
+        "Red Mandarin Oil": ("red mandarin eo", "Red Mandarin EO"),
+        "Rose Otto Oil": ("rose essential oil", "Rose Essential Oil"),
+        "Steam Distilled Rose Damascena": (
+            "rose essential oil",
+            "Rose Essential Oil",
+        ),
+        "Rose Samascena": ("rose essential oil", "Rose Essential Oil"),
+    }
+    registry = load_registry()
+
+    for bottle_label, (normalized_name, canonical_name) in expected.items():
+        assert normalize_name(bottle_label) == normalized_name
+        material = registry.get(bottle_label)
+        assert material is not None, bottle_label
+        assert material.canonical_name == canonical_name
+        assert material.user_in_inventory is True
+        if canonical_name == "Rose Essential Oil":
+            assert "10% w/w" in str(material.user_stock_dilution)
+        else:
+            assert material.user_stock_dilution == 1.0
+
+        stock = resolve_inventory_material(bottle_label)
+        assert stock is not None, bottle_label
+        assert stock.dilution == (0.10 if canonical_name == "Rose Essential Oil" else 1.0)
+
+
+def test_user_confirmed_stock_forms_are_recorded_with_latest_w_w_authority():
+    assert _stock_tuples("Alpha Irone") == {(0.10, "w/w", "DEP")}
+    assert _stock_tuples("Opoponax Resinoid") == {
+        (0.40, "w/w", "DEP/ETHANOL")
+    }
+    assert _stock_tuples("Myrrh EO") == {(0.50, "w/w", "DEP")}
+    assert _stock_tuples("Osmanthus Absolute") == {(0.10, "w/w", "DPG")}
+    assert _stock_tuples("Rose de Mai Absolute") == {(0.10, "w/w", "DPG")}
+    assert _stock_tuples("Rose Essential Oil (Rosa Damascena, India)") == {
+        (0.10, "w/w", "")
+    }
+    assert _stock_tuples("Neroli EO") == {(1.00, "w/w", "")}
+    assert (1.00, "unspecified", "") in _stock_tuples("Lemon FCF oil Sicilian")
+    assert (1.00, "unspecified", "") in _stock_tuples("Clearwood")
+    assert (1.00, "unspecified", "") in _stock_tuples("Alpha-Isomethyl Ionone")
+
+
+def test_ambrofix_saturated_stock_is_clear_but_mass_dose_only():
+    records = [
+        record
+        for record in parse_inventory(unique=False, include_unavailable=True)
+        if record.name == "Ambrofix"
+    ]
+
+    assert len(records) == 1
+    stock = records[0]
+    assert stock.status == "owned"
+    assert stock.dilution == 0.07
+    assert "dep" in stock.carrier.casefold()
+    assert "etoh" in stock.carrier.casefold() or "ethanol" in stock.carrier.casefold()
+    assert stock.concentration_basis == "w/w"
+    assert stock.execution_ready is False
+    assert stock.execution_hold_reason == "MASS_DOSE_ONLY_DENSITY_AND_VOLUME_MATH_HOLD"
+    assert "saturated solution" in stock.raw_name.casefold()
+    assert "no visible crystals" in stock.raw_name.casefold()
+    assert "mass dosing only" in stock.raw_name.casefold()
+    assert "3 g in 10 ml" not in stock.raw_name.casefold()
+
+
+def test_unquantified_ambrofix_stock_blocks_superseded_thirty_percent_formula_math():
+    formula = {
+        "name": "Superseded Ambrofix stock",
+        "ingredients_ul": {"Ambrofix": 200.0},
+        "dilutions": {"Ambrofix": 0.30},
+    }
+    state = build_formula_state(
+        formula["ingredients_ul"], formula["dilutions"], batch_volume_ml=30.0
+    )
+
+    report = run_release_preflight(formula, state).as_dict()
+    stock = next(
+        check
+        for check in report["checks"]
+        if check["check_name"] == "inventory_stock_contract"
+    )
+
+    assert stock["status"] == "FAIL"
+    assert stock["data"]["issues"] == [
+        {"material": "Ambrofix", "reason": "stock_basis_verify_first"}
+    ]
+
+
+def test_semantic_volume_grade_qualifier_is_not_collapsed_into_premium_stock():
+    assert _stock_tuples("Osmanthus Absolute") == {(0.10, "w/w", "DPG")}
+    assert _stock_tuples("Osmanthus Absolute (volume grade)") == {
+        (1.00, "unspecified", "")
+    }
+    assert _stock_tuples("Tuberose Absolute (volume grade)") == {
+        (1.00, "unspecified", "")
+    }
+    premium = resolve_inventory_material("Osmanthus Absolute")
+    assert premium is not None
+    assert premium.dilution == 0.10
+    assert premium.carrier == "DPG"
+
+
+def test_current_executable_stocks_pass_the_declared_inventory_contract():
+    dilutions = {
+        "Alpha Irone": 0.10,
+        "Myrrh EO": 0.50,
+        "Osmanthus Absolute": 0.10,
+        "Lemon FCF oil Sicilian": 1.00,
+        "Clearwood": 1.00,
+        "Alpha-Isomethyl Ionone": 1.00,
+        "Neroli EO": 1.00,
+    }
+    formula = {
+        "name": "User-confirmed stock contract 2026-08-28",
+        "ingredients_ul": {name: 100.0 for name in dilutions},
+        "dilutions": dilutions,
+    }
+    state = build_formula_state(
+        formula["ingredients_ul"], formula["dilutions"], batch_volume_ml=30.0
+    )
+
+    report = run_release_preflight(formula, state).as_dict()
+    stock = next(
+        check
+        for check in report["checks"]
+        if check["check_name"] == "inventory_stock_contract"
+    )
+
+    assert stock["status"] == "PASS", stock["data"]
+    matched = {row["material"]: row for row in stock["data"]["matched_stocks"]}
+    assert matched["Alpha Irone"]["carrier"] == "DEP"
+    assert matched["Alpha Irone"]["concentration_basis"] == "w/w"
+    assert matched["Myrrh EO"]["carrier"] == "DEP"
+    assert matched["Osmanthus Absolute"]["carrier"] == "DPG"
+    assert matched["Neroli EO"]["concentration_basis"] == "w/w"
+
+
+def test_sensory_rejected_rose_eo_fails_the_inventory_contract():
+    formula = {
+        "name": "Rejected Rose EO stock must not be dosed again",
+        "ingredients_ul": {
+            "Rose Essential Oil (Rosa Damascena, India)": 100.0
+        },
+        "dilutions": {
+            "Rose Essential Oil (Rosa Damascena, India)": 0.10
+        },
+    }
+    state = build_formula_state(
+        formula["ingredients_ul"], formula["dilutions"], batch_volume_ml=30.0
+    )
+
+    report = run_release_preflight(formula, state).as_dict()
+    stock = next(
+        check
+        for check in report["checks"]
+        if check["check_name"] == "inventory_stock_contract"
+    )
+
+    assert stock["status"] == "FAIL"
+    assert stock["data"]["issues"] == [
+        {
+            "material": "Rose Essential Oil (Rosa Damascena, India)",
+            "reason": "inventory_stock_unavailable",
+        }
+    ]
+
+
+def test_depleted_rose_de_mai_fails_the_inventory_contract():
+    formula = {
+        "name": "Depleted Rose de Mai stock must not be dosed again",
+        "ingredients_ul": {"Rose de Mai Absolute": 100.0},
+        "dilutions": {"Rose de Mai Absolute": 0.10},
+    }
+    state = build_formula_state(
+        formula["ingredients_ul"], formula["dilutions"], batch_volume_ml=30.0
+    )
+
+    report = run_release_preflight(formula, state).as_dict()
+    stock = next(
+        check
+        for check in report["checks"]
+        if check["check_name"] == "inventory_stock_contract"
+    )
+
+    assert stock["status"] == "FAIL"
+    assert stock["data"]["issues"] == [
+        {
+            "material": "Rose de Mai Absolute",
+            "reason": "inventory_stock_unavailable",
+        }
+    ]
+
+
+def test_superseded_thirty_percent_alpha_irone_stock_is_not_executable():
+    formula = {
+        "name": "Superseded Alpha Irone stock",
+        "ingredients_ul": {"Alpha Irone": 100.0},
+        "dilutions": {"Alpha Irone": 0.30},
+    }
+    state = build_formula_state(
+        formula["ingredients_ul"], formula["dilutions"], batch_volume_ml=30.0
+    )
+
+    report = run_release_preflight(formula, state).as_dict()
+    stock = next(
+        check
+        for check in report["checks"]
+        if check["check_name"] == "inventory_stock_contract"
+    )
+
+    assert stock["status"] == "FAIL"
+    assert stock["data"]["issues"] == [
+        {
+            "material": "Alpha Irone",
+            "reason": "stock_fraction_mismatch",
+            "formula_dilution": 0.30,
+            "inventory_dilutions": [0.10],
+        }
+    ]
+
+
+def test_data_spine_tracks_user_confirmed_stock_forms():
+    expected_stocks = [
+        ("Ambrofix", "saturated solution; nominal 7% w/w in DEP/ethanol"),
+        ("Ambrox Super", "~33% w/v in DEP:EtOH 53:47"),
+        ("Alpha Irone", "10% w/w in DEP"),
+        ("Alpha-Isomethyl Ionone", "PerfumersWorld AIMI"),
+        ("Myrrh EO", "50% w/w in DEP"),
+        ("Osmanthus Absolute", "10% w/w in DPG"),
+        ("Rose de Mai Absolute", "10% w/w in DPG"),
+        ("Rose Essential Oil", "10% w/w"),
+        ("Neroli EO", "neat"),
+        ("Lemon FCF oil Sicilian", "neat"),
+        ("Clearwood", "neat"),
+        ("Opoponax Resinoid", "40% w/w whole-bottle nominal in DEP/ethanol"),
+    ]
+    registry = load_registry()
+
+    for material_name, expected_stock_text in expected_stocks:
+        material = registry.get(material_name)
+        assert material is not None, material_name
+        assert material.user_in_inventory is True, material_name
+        assert expected_stock_text.casefold() in str(
+            material.user_stock_dilution
+        ).casefold(), material_name
+
+
+def test_generated_material_properties_track_current_stock_forms_and_status():
+    payload = json.loads(
+        (PROJECT_ROOT / "data/knowledge_graph/material_properties.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    entries = {row["name"].casefold(): row for row in payload}
+    expected = {
+            "ambrofix": (None, "saturated solution; nominal 7% w/w in DEP/ethanol", "no visible crystals"),
+        "ambrox super": (0.33, "~33% w/v in DEP:EtOH 53:47"),
+        "alpha irone": (0.10, "10% w/w in DEP"),
+        "alpha isomethyl ionone": (
+            1.00,
+            "PerfumersWorld AIMI bottle",
+            "exact Givaudan grade unconfirmed",
+        ),
+        "myrrh eo": (0.50, "50% w/w in DEP"),
+        "osmanthus absolute": (0.10, "10% w/w in DPG"),
+        "rose de mai absolute": (None, "10% w/w in DPG"),
+        "rose essential oil": (None, "10% w/w"),
+        "neroli eo": (1.00, "neat"),
+        "lemon fcf oil sicilian": (1.00, "neat"),
+            "clearwood": (1.00, "neat"),
+            "opoponax resinoid": (
+                None,
+                "40% w/w whole-bottle nominal in DEP/ethanol",
+                "pipettable active concentration HOLD",
+            ),
+    }
+
+    for material_name, (fraction, *stock_fragments) in expected.items():
+        entry = entries[material_name]
+        assert entry["in_inventory"] is True, material_name
+        assert entry["dilution_pct"] == fraction, material_name
+        stock_form = str(entry["stock_form"]).casefold()
+        for fragment in stock_fragments:
+            assert fragment.casefold() in stock_form, material_name
+
+    rejected_rose = entries["rose essential oil"]
+    assert rejected_rose["inventory_status"] == "out_of_stock"
+    assert rejected_rose["execution_ready"] is False
+    depleted_rose_de_mai = entries["rose de mai absolute"]
+    assert depleted_rose_de_mai["inventory_status"] == "out_of_stock"
+    assert depleted_rose_de_mai["execution_ready"] is False
+
+
+def test_runtime_catalog_exposes_current_owned_stocks_and_rejected_rose_status():
+    expected_fragments = {
+            "Ambrofix": (
+                "saturated solution; nominal 7% w/w in DEP/ethanol",
+                "no visible crystals",
+                "mass dose only",
+            ),
+        "Alpha Irone": ("10% w/w in DEP",),
+        "Alpha-Isomethyl Ionone": (
+            "PerfumersWorld AIMI",
+            "exact Givaudan grade unconfirmed",
+        ),
+        "Myrrh EO": ("50% w/w in DEP",),
+        "Osmanthus Absolute": ("10% w/w in DPG",),
+        "Neroli EO": ("Neroli EO",),
+        "Lemon FCF oil Sicilian": ("Lemon FCF oil Sicilian",),
+        "Clearwood": ("Clearwood",),
+        "Opoponax Resinoid": (
+            "40% w/w whole-bottle nominal in DEP/ethanol",
+            "pipettable active concentration HOLD",
+        ),
+    }
+
+    for material_name, fragments in expected_fragments.items():
+        entry = find_ingredient(material_name)
+        assert entry is not None, material_name
+        assert entry["owned_now"] is True, material_name
+        forms = " | ".join(entry["observed_forms"]).casefold()
+        for fragment in fragments:
+            assert fragment.casefold() in forms, material_name
+
+    rejected_rose = find_ingredient("Rose Essential Oil")
+    assert rejected_rose is not None
+    assert rejected_rose["current_status"] == "out_of_stock"
+    assert rejected_rose["owned_now"] is False
+    assert rejected_rose["was_owned"] is True
+    assert rejected_rose["execution_ready"] is False
+    rejected_forms = " | ".join(rejected_rose["observed_forms"]).casefold()
+    assert "10% w/w" in rejected_forms
+    assert "current lot sensory-rejected" in rejected_forms
+
+    depleted_rose_de_mai = find_ingredient("Rose de Mai Absolute")
+    assert depleted_rose_de_mai is not None
+    assert depleted_rose_de_mai["current_status"] == "out_of_stock"
+    assert depleted_rose_de_mai["owned_now"] is False
+    assert depleted_rose_de_mai["was_owned"] is True
+    assert depleted_rose_de_mai["execution_ready"] is False
+    depleted_forms = " | ".join(
+        depleted_rose_de_mai["observed_forms"]
+    ).casefold()
+    assert "10% w/w in dpg" in depleted_forms
+    assert "depleted" in depleted_forms
+
+    for material_name in (
+        "Osmanthus Absolute",
+        "Rose de Mai Absolute",
+        "Opoponax Resinoid",
+    ):
+        entry = find_ingredient(material_name)
+        assert entry is not None
+        forms = " | ".join(entry["observed_forms"]).casefold()
+        assert "50% in dpg" not in forms, material_name
+
+
+def test_red_saffron_infusion_is_owned_as_the_ready_as_supplied_dpg_product():
+    records = [
+        record
+        for record in parse_inventory(unique=False, include_unavailable=True)
+        if record.name == "Red Saffron Infusion"
+    ]
+
+    assert len(records) == 1
+    stock = records[0]
+    assert stock.status == "owned"
+    assert stock.carrier == "DPG"
+    assert stock.dilution == 1.0
+    assert stock.concentration_basis == "w/w"
+    assert stock.execution_ready is True
+    assert "100% product stock" in stock.raw_name.casefold()
+
+    material = load_registry().get("Red Saffron Infusion")
+    assert material is not None
+    assert material.user_in_inventory is True
+    assert "100% as-supplied product stock w/w in DPG" in str(
+        material.user_stock_dilution
+    )
+    assert material.mw_g_mol is None
+    assert material.vp_25c_pa is None
+    assert material.odt_air_ppb is None
+
+    catalog = find_ingredient("Red Saffron Infusion")
+    assert catalog is not None
+    assert catalog["owned_now"] is True
+    assert "100% product stock w/w in dpg" in " | ".join(
+        catalog["observed_forms"]
+    ).casefold()
+
+
+def test_red_saffron_infusion_stock_contract_accepts_as_supplied_product_dosing():
+    formula = {
+        "name": "Red Saffron concentration hold",
+        "ingredients_ul": {"Red Saffron Infusion": 10.0},
+        "dilutions": {"Red Saffron Infusion": 1.0},
+    }
+    state = build_formula_state(
+        formula["ingredients_ul"], formula["dilutions"], batch_volume_ml=30.0
+    )
+
+    report = run_release_preflight(formula, state).as_dict()
+    stock = next(
+        check
+        for check in report["checks"]
+        if check["check_name"] == "inventory_stock_contract"
+    )
+
+    assert stock["status"] == "PASS", stock["data"]
+
+
+def test_geranyl_acetate_is_owned_neat_with_a_complete_diagnostic_record():
+    records = [
+        record
+        for record in parse_inventory(unique=False, include_unavailable=True)
+        if record.name == "Geranyl Acetate"
+    ]
+
+    assert len(records) == 1
+    stock = records[0]
+    assert stock.status == "owned"
+    assert stock.dilution == 1.0
+    assert stock.concentration_basis == "w/w"
+    assert stock.execution_ready is True
+
+    material = load_registry().get("Geranyl Acetate")
+    assert material is not None
+    assert material.cas == "105-87-3"
+    assert material.mw_g_mol == 196.29
+    assert material.vp_25c_pa == 3.47
+    assert material.user_stock_dilution == "neat w/w"
+    assert material.user_in_inventory is True
+
+    profile = get_profile("Geranyl Acetate")
+    assert profile is not None
+    assert profile.mw == 196.29
+    assert profile.vp == 3.47
+    assert profile.note == "heart"
+    assert profile.role == "bridge"
+
+    odt = ODT_DATA["geranyl acetate"]
+    assert odt["vfy"] == "PEER_SINGLE"
+    assert odt["odt_air"] == 1831.0
+    assert "10.1021/acs.iecr.4c00650" in " ".join(odt["sources"])
+
+
+def test_inventory_authority_keeps_ambrettolide_procurement_pending():
+    stock = resolve_inventory_material("Ambrettolide")
+
+    assert stock is not None
+    assert stock.status == "out_of_stock"
+    assert stock.dilution == 0.10
+    assert stock.concentration_basis == "w/w"
+    assert stock.carrier == "DPG"
+    assert stock.execution_ready is False
+
+    material = load_registry().get("Ambrettolide")
+    assert material is not None
+    assert material.user_in_inventory is False
+    assert "procurement pending" in str(material.user_stock_dilution).casefold()
+
+
+def test_inventory_authority_marks_polysantol_out_of_stock_everywhere():
+    stock = resolve_inventory_material("Polysantol")
+
+    assert stock is not None
+    assert stock.status == "out_of_stock"
+    assert stock.dilution == 1.0
+    assert stock.execution_ready is False
+
+    material = load_registry().get("Polysantol")
+    assert material is not None
+    assert material.user_in_inventory is False
+    assert "out of stock" in str(material.user_stock_dilution).casefold()
+
+    catalog = find_ingredient("Polysantol")
+    assert catalog is not None
+    assert catalog["owned_now"] is False
+    assert catalog["current_status"] == "out_of_stock"
+    assert catalog["execution_ready"] is False
+
+
+def test_live_catalog_propagates_inventory_execution_readiness():
+    catalog = {item["identity_key"]: item for item in build_ingredient_catalog()}
+
+    assert catalog["ambrofix"]["owned_now"] is True
+    assert catalog["ambrofix"]["execution_ready"] is False
+    assert catalog["red saffron infusion"]["owned_now"] is True
+    assert catalog["red saffron infusion"]["execution_ready"] is True
+    assert catalog["geranyl acetate"]["owned_now"] is True
+    assert catalog["geranyl acetate"]["execution_ready"] is True
+    assert catalog["ambrettolide"]["owned_now"] is False
+    assert catalog["ambrettolide"]["execution_ready"] is False
+    assert catalog["polysantol"]["owned_now"] is False
+    assert catalog["polysantol"]["execution_ready"] is False
+
+    ambrofix_stocks = catalog["ambrofix"]["inventory_stocks"]
+    assert ambrofix_stocks == [
+        {
+            "dilution": 0.0727,
+            "concentration_basis": "w/w",
+            "carrier": "DEP/ETHANOL",
+            "status": "owned",
+            "execution_ready": False,
+            "authority_event_id": "",
+            "source": "inventory_txt",
+        }
+    ]

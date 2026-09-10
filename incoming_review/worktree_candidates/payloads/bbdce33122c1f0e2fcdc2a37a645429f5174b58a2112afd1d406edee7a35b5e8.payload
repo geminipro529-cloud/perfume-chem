@@ -1,0 +1,313 @@
+{
+  "schema": "perfume-chem.inventory-independent-family-target.v1",
+  "study_id": "ysl-lhomme-la-nuit-twenty-variant-study",
+  "target_id": "ysl-lhomme-2006-family-control",
+  "name": "YSL L'Homme 2006 Family Control",
+  "family": "ysl_lhomme",
+  "basis": "active_ppm_w_w_of_concentrate",
+  "total_active_ppm_w_w": 1000000.0,
+  "authority_label": "DOCUMENTARY_FUNCTIONAL_FORMULA_HYPOTHESIS",
+  "target_sha256": "637EF8CE63575A406C5EC27EC2A1CBFCA910E3303CA3B3B100572F64A4E539BA",
+  "inventory_independence": "This accepted target is locked before inventory mapping. Availability may alter only the separate CURRENT-INVENTORY BUILD.",
+  "target_identity": {
+    "north_star": "L'Homme's sparkling citrus-Chinese-ginger opening, violet-leaf/basil/white-pepper tailoring, and transparent cedar-Haitian-vetiver-sandalwood-tonka finish.",
+    "olfactive_family": "fresh woody aromatic with floral-green spice and an airy ozonic finish",
+    "protected_transitions": [
+      "bergamot-cedrat brightness into fresh ginger",
+      "ginger into violet leaf, basil, and white pepper",
+      "violet-green heart through transparent cedar",
+      "cedar and Haitian vetiver into dry sandalwood-tonka warmth"
+    ],
+    "drift_rejections": [
+      "generic blue freshness",
+      "iris-powder takeover",
+      "dessert-gourmand sweetness",
+      "clean-musk curtain",
+      "opaque amberwood mass"
+    ]
+  },
+  "functional_architecture": [
+    {
+      "block": "citrus_ginger_ignition",
+      "target_fraction": 0.082,
+      "function": "A luminous bitter-citrus flash with ginger as the unmistakable kinetic recognizer."
+    },
+    {
+      "block": "violet_green_spice_tailoring",
+      "target_fraction": 0.177,
+      "function": "Cool crushed-leaf texture, restrained basil flower, and dry white-pepper articulation without iris or culinary drift."
+    },
+    {
+      "block": "transparent_cedar_air",
+      "target_fraction": 0.535,
+      "function": "Large but translucent modern structure that keeps the named notes connected instead of abstracting them away."
+    },
+    {
+      "block": "vetiver_sandalwood_tonka_finish",
+      "target_fraction": 0.206,
+      "function": "Tailored dry woods, Haitian-vetiver tension, and restrained tonka softness with no gourmand finish."
+    }
+  ],
+  "variant_socket": {
+    "active_ppm_w_w_budget": 66666.667,
+    "adapter_socket_raw_ul": 300.0,
+    "donor_pool_full_active_ppm_w_w": 74074.074,
+    "donor_pool_core_retention_ppm_w_w": 7407.407,
+    "donor_identities": [
+      "Linalyl Acetate",
+      "Florol",
+      "Ambroxide",
+      "Hedione HC"
+    ],
+    "rule": "A variant changes the 66,666.667 ppm mobile portion at constant total; protected recognizers are not funded from this socket."
+  },
+  "materials": [
+    {
+      "identity": "Iso E Super",
+      "active_ppm_w_w": 160000.0,
+      "function": "transparent cedar halo and lateral diffusion",
+      "time_windows": ["opening", "heart", "late_heart", "drydown"],
+      "evidence_ids": ["SOL-LH-FROZEN"],
+      "quantity_authority": "DESIGN_HYPOTHESIS_NOT_COMMERCIAL_PERCENTAGE",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Cedarwood Virginia",
+      "active_ppm_w_w": 110000.0,
+      "function": "literal tailored cedar backbone",
+      "time_windows": ["heart", "late_heart", "drydown"],
+      "evidence_ids": ["YSL-LH-OFFICIAL-UK"],
+      "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY",
+      "mobility_class": "immutable_recognizer",
+      "control_floor_fraction": 1.0
+    },
+    {
+      "identity": "Ethylene Brassylate",
+      "active_ppm_w_w": 80000.0,
+      "function": "single exact clean structural musk for continuity without a multi-musk curtain",
+      "time_windows": ["heart", "late_heart", "drydown"],
+      "evidence_ids": ["SOL-LH-FROZEN"],
+      "quantity_authority": "SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8,
+      "is_musk": true,
+      "musk_function": "transparent structural continuity"
+    },
+    {
+      "identity": "Hedione",
+      "active_ppm_w_w": 100925.926,
+      "function": "radiant floral air joining green heart to woods",
+      "time_windows": ["opening", "heart", "late_heart"],
+      "evidence_ids": ["SOL-LH-FROZEN"],
+      "quantity_authority": "TRANSITION_DESIGN_HYPOTHESIS",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Vertofix Coeur",
+      "active_ppm_w_w": 65000.0,
+      "function": "cedar-vetiver bridge and dry woody persistence",
+      "time_windows": ["heart", "late_heart", "drydown"],
+      "evidence_ids": ["SOL-LH-FROZEN"],
+      "quantity_authority": "SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Ethyl Linalool",
+      "active_ppm_w_w": 50000.0,
+      "function": "fresh floral-woody tenacity between citrus and cedar",
+      "time_windows": ["opening", "heart", "late_heart"],
+      "evidence_ids": ["SOL-LH-FROZEN"],
+      "quantity_authority": "TRANSITION_DESIGN_HYPOTHESIS",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Dihydromyrcenol",
+      "active_ppm_w_w": 35000.0,
+      "function": "kinetic ozonic freshness held below sport-blue dominance",
+      "time_windows": ["opening", "top"],
+      "evidence_ids": ["YSL-LH-OFFICIAL-UK", "SOL-LH-FROZEN"],
+      "quantity_authority": "OZONE_FUNCTION_DESIGN_HYPOTHESIS",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Sandalwood",
+      "active_ppm_w_w": 55000.0,
+      "function": "smooth dry-creamy counterweight beneath cedar",
+      "time_windows": ["late_heart", "drydown"],
+      "evidence_ids": ["YSL-LH-OFFICIAL-UK"],
+      "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Vetiver Haiti",
+      "active_ppm_w_w": 45000.0,
+      "function": "dry rooty tension and authentic Haitian-vetiver target identity",
+      "time_windows": ["heart", "late_heart", "drydown"],
+      "evidence_ids": ["YSL-LH-OFFICIAL-UK"],
+      "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY",
+      "mobility_class": "immutable_recognizer",
+      "control_floor_fraction": 1.0
+    },
+    {
+      "identity": "Alpha Isomethyl Ionone",
+      "active_ppm_w_w": 50000.0,
+      "function": "violet-woody body that supports leaf texture without iris-powder drift",
+      "time_windows": ["heart", "late_heart"],
+      "evidence_ids": ["YSL-LH-OFFICIAL-UK"],
+      "quantity_authority": "ALLERGEN_AND_NOTE_FUNCTION_DESIGN_HYPOTHESIS",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Violet Leaf",
+      "active_ppm_w_w": 25000.0,
+      "function": "crushed cool green signature heart",
+      "time_windows": ["opening", "heart"],
+      "evidence_ids": ["YSL-LH-OFFICIAL-UK"],
+      "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY",
+      "mobility_class": "immutable_recognizer",
+      "control_floor_fraction": 1.0
+    },
+    {
+      "identity": "Bergamot Oil",
+      "active_ppm_w_w": 45000.0,
+      "function": "luminous citrus opening around ginger",
+      "time_windows": ["opening", "top"],
+      "evidence_ids": ["YSL-LH-OFFICIAL-UK"],
+      "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Cedrat Oil",
+      "active_ppm_w_w": 15000.0,
+      "function": "bitter citron-zest edge sharpening the bergamot-ginger ignition",
+      "time_windows": ["opening", "top"],
+      "evidence_ids": ["YSL-LH-OFFICIAL-UK"],
+      "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Ginger Oil",
+      "active_ppm_w_w": 22000.0,
+      "function": "warm-cool citrus-woody kinetic signature",
+      "time_windows": ["opening", "top", "heart"],
+      "evidence_ids": ["YSL-LH-OFFICIAL-UK"],
+      "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY",
+      "mobility_class": "immutable_recognizer",
+      "control_floor_fraction": 1.0
+    },
+    {
+      "identity": "Basil",
+      "active_ppm_w_w": 3000.0,
+      "function": "restrained basil-flower aromatic contour, never culinary",
+      "time_windows": ["opening", "heart"],
+      "evidence_ids": ["YSL-LH-OFFICIAL-UK"],
+      "quantity_authority": "DOCUMENTARY_IDENTITY_TRACE_DESIGN",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "White Pepper",
+      "active_ppm_w_w": 4000.0,
+      "function": "dry bright bite articulating violet leaf and basil",
+      "time_windows": ["opening", "top", "heart"],
+      "evidence_ids": ["YSL-LH-OFFICIAL-UK"],
+      "quantity_authority": "DOCUMENTARY_IDENTITY_TRACE_DESIGN",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Tonka",
+      "active_ppm_w_w": 35000.0,
+      "function": "dry magnetic warmth beneath woods without dessert sweetness",
+      "time_windows": ["late_heart", "drydown"],
+      "evidence_ids": ["YSL-LH-OFFICIAL-UK"],
+      "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Coumarin",
+      "active_ppm_w_w": 10000.0,
+      "function": "dry hay-tonka articulation and continuity",
+      "time_windows": ["heart", "late_heart", "drydown"],
+      "evidence_ids": ["YSL-LH-OFFICIAL-UK"],
+      "quantity_authority": "DECLARED_ALLERGEN_FUNCTION_DESIGN_HYPOTHESIS",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Linalyl Acetate",
+      "active_ppm_w_w": 9074.074,
+      "function": "mobile citrus-floral ester seam",
+      "time_windows": ["opening", "top", "heart"],
+      "evidence_ids": ["SOL-LH-FROZEN"],
+      "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DONOR",
+      "mobility_class": "module_mobile",
+      "control_floor_fraction": 0.1
+    },
+    {
+      "identity": "Florol",
+      "active_ppm_w_w": 25000.0,
+      "function": "mobile clean floral volume behind violet leaf",
+      "time_windows": ["heart", "late_heart"],
+      "evidence_ids": ["SOL-LH-FROZEN"],
+      "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DONOR",
+      "mobility_class": "module_mobile",
+      "control_floor_fraction": 0.1
+    },
+    {
+      "identity": "Parmavert",
+      "active_ppm_w_w": 16000.0,
+      "function": "green violet-leaf snap and tactile lift",
+      "time_windows": ["opening", "heart"],
+      "evidence_ids": ["SOL-LH-FROZEN"],
+      "quantity_authority": "VIOLET_GREEN_SUPPORT_DESIGN_HYPOTHESIS",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Ambroxide",
+      "active_ppm_w_w": 20000.0,
+      "function": "mobile dry mineral persistence at the cedar-air interface",
+      "time_windows": ["late_heart", "drydown"],
+      "evidence_ids": ["SOL-LH-FROZEN"],
+      "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DONOR",
+      "mobility_class": "module_mobile",
+      "control_floor_fraction": 0.1
+    },
+    {
+      "identity": "Hedione HC",
+      "active_ppm_w_w": 20000.0,
+      "function": "mobile high-cis radiance for opening-to-heart polish",
+      "time_windows": ["opening", "heart", "late_heart"],
+      "evidence_ids": ["SOL-LH-FROZEN"],
+      "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DONOR",
+      "mobility_class": "module_mobile",
+      "control_floor_fraction": 0.1
+    }
+  ],
+  "diagnostic_constraints": {
+    "ppm": "REQUIRED",
+    "odt_oav": "REQUIRED_BEFORE_ADVANCEMENT",
+    "composite_natural_oav": "REQUIRED_FOR_EVERY_NATURAL_MIXTURE",
+    "temporal_windows": ["opening", "top", "heart", "late_heart", "drydown"],
+    "stock_rebase_oav_per_time": "REQUIRED_FOR_EVERY_CHILD"
+  },
+  "claim_ceiling": {
+    "exact_commercial_formula": "NOT CLAIMED",
+    "sensory_similarity": "NOT TESTED",
+    "physical_liking": "NOT TESTED",
+    "stability": "NOT TESTED",
+    "safety": "NOT CLEARED",
+    "release": "NOT CLEARED"
+  }
+}

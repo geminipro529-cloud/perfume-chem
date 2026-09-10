@@ -1,0 +1,30 @@
+﻿Code,ACC-CA-NER-01
+Accord,Neroli Petitgrain Cologne v1.0
+Category,Citrus & Aromatic
+Brief,"A modern cologne accord with bergamot, lemon, grapefruit, neroli, petitgrain, white-floral air, aldehydes and a minimal musk-wood trail."
+Recommended use,3–15% of perfume concentrate
+Maturation,3–7 days
+Monte Carlo pass,0.9994
+Final design score,99.75
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,24.06679764243615,24.06679764243615,24.06679764243615,120.33398821218074,DIRECT,musk,Clean musk,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.0032996532940185305
+2,base,Romandolide,Romandolide neat/as supplied,1.0,19.25343811394892,19.25343811394892,19.25343811394892,96.2671905697446,DIRECT,musk,Soft musk,Fruity-clean musk body.,HAVE — NEAT,Use as neat Romandolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.0024957441711256695
+3,heart_base,Iso E Super,neat / as supplied,1.0,28.88015717092338,28.88015717092338,28.88015717092338,144.40078585461688,DIRECT,transparent_wood,Dry support,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.004121070134056601
+4,heart,Hedione,neat / as supplied,1.0,96.2671905697446,96.2671905697446,96.2671905697446,481.33595284872297,DIRECT,floral_air,Air,Transparent floral diffusion.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.02328477558139176
+5,heart,Hydroxycitronellal,neat / as supplied,1.0,33.69351669941061,33.69351669941061,33.69351669941061,168.46758349705306,DIRECT,muguet,White-floral body,Soft muguet body.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.005007752262249231
+6,heart,Nympheal,as supplied; product basis,,24.06679764243615,,24.06679764243615,120.33398821218074,PRODUCT BASIS,muguet,Watery flower,Modern watery muguet product basis.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.003238519829040134
+7,heart,Phenethyl Alcohol,neat / as supplied,1.0,24.06679764243615,24.06679764243615,24.06679764243615,120.33398821218074,DIRECT,rose_floral,Petal softness,Soft floral petal body.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.003244162380317252
+8,top_heart,Neroli EO 10% in DPG,Neroli EO 10% in DPG,0.1,115.52062868369352,11.552062868369353,115.52062868369352,577.6031434184675,PREPARED STOCK,orange_blossom,Neroli flower,Neroli glint.,HAVE — 10% ONLY,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.04268575105753563
+9,top_heart,Petitgrain EO Paraguay,neat / as supplied,1.0,86.64047151277013,86.64047151277013,86.64047151277013,433.2023575638507,DIRECT,citrus_green,Green twig,Green bitter-orange twig.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.02808179693524386
+10,top_heart,Linalyl Acetate,neat/as supplied,1.0,77.01375245579568,77.01375245579568,77.01375245579568,385.0687622789784,DIRECT,aromatic,Floral ester,Lavender-citrus ester.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.015848337354026458
+11,top_heart,Linalool,neat/as supplied,1.0,48.1335952848723,48.1335952848723,48.1335952848723,240.66797642436148,DIRECT,aromatic,Fresh bridge,Floral-citrus bridge.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.007903062139451543
+12,top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,173.28094302554027,173.28094302554027,173.28094302554027,866.4047151277014,DIRECT,citrus,Bergamot core,Floral bergamot peel.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.06885807182013191
+13,top,Lemon FCF Oil Sicilian,neat / as supplied,1.0,96.2671905697446,96.2671905697446,96.2671905697446,481.33595284872297,DIRECT,citrus,Lemon brightness,Bright lemon peel.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.026658518689400064
+14,top,Dihydromyrcenol,neat / as supplied,1.0,57.76031434184676,57.76031434184676,57.76031434184676,288.80157170923377,DIRECT,fresh_aromatic,Diffusion,High-diffusion freshness.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.010538197812859751
+15,top,Grapefruit FCF Oil Sicilian,neat / as supplied,1.0,57.76031434184676,57.76031434184676,57.76031434184676,288.80157170923377,DIRECT,citrus,Bitter peel,Bitter grapefruit peel.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.013680400050662123
+16,top,Aldehyde C10 1%,1% working stock,0.01,7.701375245579568,0.07701375245579568,7.701375245579568,38.50687622789784,PREPARED STOCK,aldehydic,Aldehydic flash,Citrus-aldehydic flash.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.0008540564900610449
+17,top,Aldehyde C11 1%,1% working stock,0.01,5.7760314341846755,0.05776031434184675,5.7760314341846755,28.880157170923376,PREPARED STOCK,aldehydic,Fresh extension,Fresh aldehydic extension.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.0006247886867637248
+18,top,Aldehyde C12 MNA 1%,1% working stock,0.01,3.850687622789784,0.03850687622789784,3.850687622789784,19.25343811394892,PREPARED STOCK,aldehydic,Cold lift,Waxy cold aldehydic lift.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.00040603104850231447
+19,carrier,DPG,neat,0.0,20.0,0.0,20.0,100.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

@@ -1,0 +1,1471 @@
+# Aromachemical Failure Taxonomy
+**Status:** PERMANENT RULEBOOK - Written in Stone
+**Last Updated:** 2026-01-12
+**Purpose:** Systematic classification of ALL failure modes for ALL aromachemicals
+
+---
+
+## Overview
+
+This document classifies **every possible failure mode** by:
+1. **Failure Type** (incompatibility, overdose, waste, degradation, toxicity)
+2. **Chemical Class** (animalics, aldehydes, phenols, terpenes, musks, etc.)
+3. **Intensity Tier** (ultra-potent, extremely potent, high impact, moderate, low)
+4. **Base Compatibility** (clean, oriental, chypre, leather, fougère)
+
+**Rule:** Every aromachemical falls into one or more categories. Apply ALL relevant rules.
+
+---
+
+## SECTION 1: FAILURE TYPE CLASSIFICATION
+
+### 1.1 INCOMPATIBILITY FAILURES
+**Definition:** Material chemically or perceptually incompatible with base type.
+
+#### 1.1.1 Animalic-Clean Incompatibility (CRITICAL)
+**Materials:** Skatole, indole (high conc.), oud, castoreum, civet, hyraceum, costus root
+**Incompatible Bases:** Clean, transparent, aquatic, aldehydic, ozonic
+**Compatible Bases:** Heavy oriental, leather, chypre, tobacco, gourmand (low conc.)
+**Failure Mechanism:** 
+- Animalic notes contain fecal/urine compounds (skatole = 3-methylindole)
+- In clean bases, no masking → pure fecal odor dominates
+- ODT extremely low (0.00002% skatole) → tiny overdose = disaster
+**Maximum Safe Dose:**
+- Clean base: 0% (NEVER use)
+- Heavy oriental: 0.01-0.05% (pre-diluted to 1%)
+- Leather base: 0.05-0.2% (pre-diluted to 1-10%)
+**Historical Failures:** 
+- Skatole 0.2 mL in BR540 100 mL = fecal disaster (OV = 20,000)
+- Oud fleuressence 0.5 mL in BR540 = shit smell
+
+#### 1.1.2 Aldehyde-Heavy Base Incompatibility
+**Materials:** C-12 MNA, C-11 undecanol, C-14 peach, benzaldehyde, citral
+**Incompatible Bases:** Heavy resinous (labdanum, benzoin, opoponax dominant)
+**Compatible Bases:** Clean, soapy, floral, citrus, ozonic
+**Failure Mechanism:**
+- Aldehydes = sparkling, metallic, "lift"
+- Heavy resins = thick, sticky, balsamic, "weight"
+- Perceptual clash: aldehydes buried under resin, waste of material
+**Maximum Safe Dose:**
+- In resinous base: <0.5% (will be masked)
+- In clean base: 1-5% (appropriate use)
+**Prevention:** Check base composition for >10% resins before adding aldehydes
+
+#### 1.1.3 Fresh Green-Oriental Incompatibility
+**Materials:** Cis-3-hexenol, galbanum, violet leaf (undecavertol), green aldehydes
+**Incompatible Bases:** Heavy sweet orientals (vanilla, tonka, benzoin dominant)
+**Compatible Bases:** Chypre, fougère, cologne, aquatic
+**Failure Mechanism:**
+- Fresh green = sharp, grassy, cucumber-like
+- Sweet oriental = warm, gourmand, enveloping
+- Perceptual discord: "salad in a bakery"
+**Maximum Safe Dose:**
+- In oriental: <0.3% (accent only)
+- In chypre/fougère: 2-8% (structural)
+
+#### 1.1.4 Marine-Resinous Incompatibility
+**Materials:** Calone, helional, sea breeze accords, ozonic notes
+**Incompatible Bases:** Heavy amber, incense, myrrh, opoponax
+**Compatible Bases:** Aquatic, cologne, citrus, light florals
+**Failure Mechanism:**
+- Marine = airy, watermelon, oceanic
+- Resinous = dense, smoky, church-like
+- Perceptual clash: "beach in a cathedral"
+
+---
+
+### 1.2 OVERDOSE FAILURES
+**Definition:** Correct material, correct base, WRONG QUANTITY.
+
+#### 1.2.1 Ultra-Potent Overdose (ODT <0.00001%)
+**Materials:** β-damascenone, 2-methyl-3-furanthiol, grapefruit mercaptan, furaneol (high conc.)
+**ODT Range:** 0.000001 - 0.00001%
+**Safe Concentration Range:** 0.0001 - 0.001% in final fragrance
+**OV Thresholds:**
+- OV <100: Subtle, nuanced
+- OV 100-500: Noticeable, pleasant
+- OV 500-1,000: Strong, clear
+- OV >1,000: Overpowering, unbalanced
+- OV >5,000: Catastrophic, unwearable
+**Dosage Formula:** 
+```
+Safe Dose (mL) = (ODT × Target OV × Base Volume) / 100
+Target OV = 500 (recommended for ultra-potents)
+```
+**Example:** 
+- β-damascenone in 100 mL base, target OV = 500
+- Safe dose = (0.000001 × 500 × 100) / 100 = 0.0005 mL = 0.5 µL
+- Use 1:1000 dilution, add 0.5 mL of dilution
+**Historical Failures:** None yet, but inevitable if used neat
+
+#### 1.2.2 Extremely Potent Overdose (ODT 0.00001-0.0001%)
+**Materials:** Indole, skatole, methyl anthranilate, γ-decalactone, ionones
+**ODT Range:** 0.00001 - 0.0001%
+**Safe Concentration Range:** 0.001 - 0.05% (indole/skatole lower end)
+**OV Thresholds:**
+- OV <1,000: Safe, balanced
+- OV 1,000-5,000: High, risky
+- OV 5,000-10,000: Extreme, likely failure
+- OV >10,000: Catastrophic (proven)
+**Mandatory Pre-Dilution:**
+- Skatole: 1% max (preferably 0.1%)
+- Indole: 10% max (floral contexts only)
+- Ionones: Neat OK if <1% final
+**Historical Failures:**
+- Skatole neat → OV 20,000+ = fecal
+
+#### 1.2.3 High Impact Overdose (ODT 0.0001-0.01%)
+**Materials:** Linalool, eugenol, citronellol, geraniol, phenethyl alcohol
+**ODT Range:** 0.0015 - 0.01%
+**Safe Concentration Range:** 0.5 - 8% (material-dependent)
+**OV Thresholds:**
+- OV <500: Subtle support
+- OV 500-2,000: Balanced, clear character
+- OV 2,000-5,000: Strong, may dominate
+- OV >5,000: Overpowering
+**Commercial Norms (from formula analysis):**
+- Linalool: 1-8% (typical 3%)
+- Geraniol: 1-5% (typical 2-3%)
+- Eugenol: 0.5-3% (IFRA restricted)
+**Overdose Detection:** If dose >2× commercial extreme, flag as abnormal
+
+#### 1.2.4 Moderate Impact Overdose (ODT 0.01-0.1%)
+**Materials:** Limonene, hedione, benzyl salicylate, coumarin
+**ODT Range:** 0.02 - 0.1%
+**Safe Concentration Range:** 1 - 15%
+**OV Thresholds:**
+- OV <200: Very subtle
+- OV 200-1,000: Balanced
+- OV 1,000-3,000: Strong, character-defining
+- OV >3,000: Excessive
+**Generic Booster Warning:**
+- Hedione: Often added unnecessarily as "radiance booster"
+  - **Rule:** Only add if base is flat/linear (lacks sparkle)
+  - Max recommended: 2% (commercial norm: 0.5-2%)
+  - Overdose: >3% = wasteful, metallic
+- Benzyl salicylate: "Floral fixative" added without diagnosis
+  - **Rule:** Only if florals fade too fast OR need balsamic depth
+  - Max recommended: 8%
+
+#### 1.2.5 Low Impact Overdose (ODT >0.1%)
+**Materials:** Vanillin, ethyl vanillin, iso E super, galaxolide, ambroxan
+**ODT Range:** 0.12 - 0.8%
+**Safe Concentration Range:** 1 - 20% (iso E super up to 65% in outliers like Escentric 01)
+**OV Thresholds:**
+- OV <50: Barely noticeable
+- OV 50-500: Balanced support
+- OV 500-2,000: Strong, clear
+- OV >2,000: Dominant (OK for musks/woods, not for vanillin)
+**Overdose Scenarios:**
+- Vanillin >10%: Cloying, candy-like, nauseating
+- Iso E super >20%: Metallic, headache-inducing
+- Galaxolide >15%: Detergent-like, synthetic
+
+---
+
+### 1.3 WASTE FAILURES
+**Definition:** Expensive material used incorrectly (large batch, wrong context, better alternatives exist).
+
+#### 1.3.1 Large Batch Waste
+**Rule:** NEVER use expensive materials (>$0.50/mL) in large batches (>50 mL) without testing.
+**Expensive Materials Database:**
+| Material | Cost/mL | Owned Substitute | Substitute Ratio |
+|----------|---------|------------------|------------------|
+| Iris natural | $5.00 | alpha-ionone, alpha irone, irotyl, orris FTEC, alpha isomethyl ionone | 0.3 |
+| Rose absolute | $10.00 | phenethyl alcohol, geranium FO, rose oxide 10% | 0.4 |
+| Jasmine absolute | $8.00 | hedione, indole, jasmine FO | 0.5 |
+| Oud absolute | $15.00 | Arabian oud fleuressence, AVOID in clean bases | 0.5 |
+| Sandalwood oil | $3.00 | ebanol, bacdanol, sandalwood FO | 0.6 |
+| Oakmoss absolute | $2.00 | evernyl | 0.5 |
+| Saffron | $4.00 | saffranal, saffron FTEC | 0.3 |
+| Benzoin Siam | $0.70 | vanillin, ethyl maltol, tonka bean FO | 0.5 |
+
+**Historical Failures:**
+- Benzoin 10 mL in 100 mL batch = $7 wasted (could have used vanillin 5 mL = $0.50)
+**Prevention Algorithm:**
+1. IF material in expensive list AND dose >5 mL AND batch >50 mL → ERROR
+2. Check owned substitutes first
+3. If owned substitute exists → recommend owned material
+4. If no owned substitute → warn "test in 10-20 mL batch first"
+
+#### 1.3.2 Context Waste
+**Rule:** Don't use expensive materials where cheaper alternatives perform identically.
+**Examples:**
+- Natural rose absolute in body lotion (washed off) → use geraniol + phenethyl alcohol
+- Orris butter in soap (goes down drain) → use alpha-ionone
+- Real jasmine in room spray (diluted) → use hedione + indole
+**Prevention:** Check product type and justify expensive material use
+
+#### 1.3.3 Redundancy Waste
+**Rule:** Don't use multiple materials with identical function/character.
+**Examples:**
+- Linalool + linalyl acetate + lavender EO (all contain linalool) → redundant, use ONE
+- Vanillin + ethyl vanillin + tonka + benzoin (all sweet vanilla) → pick 1-2 max
+- Ambroxan + ambrofix + cetalox + ISO E super (all woody-amber) → pick 1-2 max
+**Prevention:** Analyze chemical composition and odor character before layering
+
+---
+
+### 1.4 DEGRADATION FAILURES
+**Definition:** Chemically unstable materials that oxidize, polymerize, or decompose.
+
+#### 1.4.1 Oxidation-Prone Materials
+**Materials:** Citrus oils (limonene, citral), terpenes, aldehydes, phenols
+**Failure Mechanism:**
+- Oxidation by air (O₂) → off-notes (turpentine, rancid, metallic)
+- UV light accelerates degradation
+- Metal ions (Fe, Cu) catalyze oxidation
+**Prevention:**
+- Add BHT (butylated hydroxytoluene) 0.01-0.1% as antioxidant
+- Store in amber glass, airtight
+- Avoid copper/iron containers
+- Use within 6 months of opening
+**Materials Requiring BHT:**
+- D-limonene (VP = 206 Pa, highly volatile, oxidizes to carvone/limonene oxide)
+- Bergamot EO (limonene + linalool + linalyl acetate)
+- Linalool (oxidizes to linalool oxides)
+- Aldehydes (C-12 MNA → carboxylic acids)
+
+#### 1.4.2 Hydrolysis-Prone Materials
+**Materials:** Esters (linalyl acetate, benzyl acetate, terpinyl acetate), lactones
+**Failure Mechanism:**
+- Water (moisture) + acid/base → ester + alcohol breakdown
+- Linalyl acetate → linalool + acetic acid (loses crisp character)
+**Prevention:**
+- Keep formulas anhydrous (<1% water)
+- pH 4-7 (neutral, avoid extremes)
+- Add antioxidants (BHT, vitamin E)
+
+#### 1.4.3 Photodegradation Materials
+**Materials:** Bergamot (bergapten/furanocoumarins), citrus oils, vanillin
+**Failure Mechanism:**
+- UV light → molecular breakdown → color change (browning)
+- Bergapten → phototoxicity (skin burns under sunlight)
+**Prevention:**
+- Use bergamot FCF (furanocoumarin-free)
+- Amber bottles
+- UV filters in product
+- IFRA limits: Bergapten <15 ppm in skin products
+
+---
+
+### 1.5 TOXICITY/REGULATORY FAILURES
+**Definition:** Exceeds IFRA/safety limits, causes sensitization or irritation.
+
+#### 1.5.1 IFRA-Restricted Materials
+| Material | IFRA Category 4 Limit (Hydroalcoholic) | Reason |
+|----------|--------------------------------------|--------|
+| Coumarin | 0.6% | Hepatotoxicity (liver) |
+| Eugenol | 1.0% | Sensitization |
+| Isoeugenol | 0.2% | Sensitization |
+| Geraniol | 5.4% | Sensitization (mild) |
+| Citral | 2.6% | Sensitization |
+| Hydroxycitronellal | 0.4% | Sensitization (listed allergen) |
+| Bergamot | 0.4% bergapten | Phototoxicity |
+| Oakmoss absolute | 0.1% | Sensitization (atranol) |
+
+**Rule:** ALWAYS check IFRA limit before dosing. If dose >80% of limit, warn.
+
+#### 1.5.2 Allergen Declaration
+**Rule:** If total allergen content >0.001% (10 ppm), must declare on label.
+**Common Allergens (EU 26):**
+- Linalool, limonene, geraniol, citronellol, citral
+- Eugenol, isoeugenol, benzyl benzoate, benzyl salicylate
+- Coumarin, farnesol, hydroxycitronellal
+**Prevention:** Track allergen total in validator
+
+---
+
+### 1.6 ACCORD DESTRUCTION FAILURES
+**Definition:** Adding a material destroys an existing accord's character.
+
+#### 1.6.1 Floral Accord Destruction
+**Vulnerable Accords:** Rose, jasmine, lily of the valley, tuberose, violet
+**Destructive Materials:**
+| Material | Destruction Mechanism | Threshold |
+|----------|----------------------|-----------|
+| Musks (>10%) | Overwhelm delicate florals, become "laundry" | >10% galaxolide/ethylene brassylate |
+| Animalics (>0.01%) | Fecal overpowers floral | >0.01% indole in non-jasmine |
+| Patchouli (>3%) | Earthiness dominates, loses freshness | >3% in light florals |
+| Woods (>8%) | Dries out, loses lushness | >8% cedarwood/sandalwood |
+| Citrus (>15%) | Acidic clash with soft petals | >15% limonene |
+
+**Prevention:**
+- Check floral % in base before adding heavy materials
+- If floral >20% of base → restrict musks to <8%, woods to <5%
+
+#### 1.6.2 Citrus Accord Destruction
+**Vulnerable Accords:** Bergamot, lemon, orange, grapefruit, neroli
+**Destructive Materials:**
+| Material | Destruction Mechanism | Threshold |
+|----------|----------------------|-----------|
+| Resins (>5%) | Sticky heaviness kills freshness | >5% benzoin/labdanum |
+| Vanilla (>3%) | Sweet weight destroys crisp character | >3% vanillin |
+| Animalics (any) | Ruins clean/fresh impression | >0.001% skatole |
+| Heavy woods (>5%) | Loses sparkling top | >5% vetiver |
+
+**Prevention:**
+- Citrus accords need <5% base notes total in top-heavy formulas
+- If citrus >30% of formula → restrict resins to <3%
+
+#### 1.6.3 Amber/Oriental Accord Destruction
+**Vulnerable Accords:** Amber, vanilla, benzoin, labdanum, tonka
+**Destructive Materials:**
+| Material | Destruction Mechanism | Threshold |
+|----------|----------------------|-----------|
+| Fresh greens (>1%) | Clashing temperature (cold vs warm) | >1% cis-3-hexenol |
+| Marine notes (>0.5%) | "Beach in cathedral" discord | >0.5% calone |
+| Aldehydes (>2%) | Metallic intrusion | >2% C-12 MNA |
+| High citrus (>10%) | Acidic interference | >10% limonene |
+
+**Prevention:**
+- If amber/oriental >40% of base → restrict fresh notes to <1%
+- Amber accords are WARM → cold notes destroy coherence
+
+#### 1.6.4 Leather Accord Destruction
+**Vulnerable Accords:** Birch tar, suede, castoreum-style, smoky leather
+**Destructive Materials:**
+| Material | Destruction Mechanism | Threshold |
+|----------|----------------------|-----------|
+| Fruity notes (>3%) | Inappropriate sweetness | >3% γ-decalactone |
+| Sweet musks (>8%) | Loses edge, becomes soft | >8% galaxolide |
+| Powdery iris (>5%) | Feminizes masculine leather | >5% alpha-ionone |
+| Aldehydes (>3%) | Wrong texture (soapy vs. raw) | >3% C-12 |
+
+**Prevention:**
+- Leather needs EDGE → sweet/soft materials destroy character
+- If leather >15% → restrict fruity/sweet to <2%
+
+---
+
+### 1.7 LAYER/PYRAMID FAILURES
+**Definition:** Volatility mismatches cause pyramid collapse or note competition.
+
+#### 1.7.1 Top Note Collapse (Flash-Off)
+**Problem:** Top notes evaporate too fast, nothing left after 15 minutes
+**Causes:**
+| Cause | Example | Prevention |
+|-------|---------|------------|
+| Too much high-VP material | >40% limonene (VP=206 Pa) | Cap volatile citrus at 30% |
+| No fixatives | All citrus/aldehyde, no musks | Add 5-10% low-VP fixative |
+| High alcohol flash | EdP in spray, top notes flash off | Use 0.5-1% fixative in top |
+| No bridge to heart | Gap between top and heart notes | Include mid-volatility materials |
+
+**Volatile Materials (VP >1 Pa at 25°C):**
+- Limonene (206 Pa) - EXTREMELY volatile
+- Linalool (0.2 Pa) - volatile
+- Linalyl acetate (0.1 Pa) - volatile
+- Aldehydes (C-10 to C-12) - volatile
+
+**Fixative Requirement:**
+- If top notes >30% of formula → REQUIRE ≥5% fixative (musk, ambroxan, iso E super)
+- If top notes >50% → formula will collapse, warn "short-lived fragrance"
+
+#### 1.7.2 Heart Note Disappearance (Skip Effect)
+**Problem:** Heart notes get overwhelmed, perception jumps from top to base
+**Causes:**
+| Cause | Example | Prevention |
+|-------|---------|------------|
+| Overpowered by base | 60% base, 10% heart | Balance to 30-40% heart |
+| Base ODT too low | Skatole OV=10,000 vs. rose OV=500 | Calculate OV for all layers |
+| Volatility gap | Huge VP difference top↔heart | Use bridging materials |
+| Character clash | Heavy base swallows delicate heart | Match character/weight |
+
+**Prevention:**
+- Heart should be 25-40% of formula
+- Heart materials should have moderate VP (0.001-0.1 Pa)
+- Calculate OV for heart notes - if any base note OV >3× heart OV, base will dominate
+
+#### 1.7.3 Base Note Dominance (Heavy Bottom)
+**Problem:** Base notes overwhelm everything, formula smells one-dimensional
+**Causes:**
+| Cause | Example | Prevention |
+|-------|---------|------------|
+| Too much base | >60% musks + woods | Cap base at 50% |
+| Ultra-low ODT base | Skatole, ambroxan at high % | Calculate OV for ALL materials |
+| Multiple fixatives | Ambroxan + ISO E + galaxolide | Limit to 2-3 fixatives total |
+| Missing top lift | All base, no sparkle | Add 10-20% top notes |
+
+**Prevention:**
+- Base notes should be 30-50% of formula (not 70%+)
+- If base OV total >5000 → warn "will smell heavy/cloying"
+
+#### 1.7.4 Note Competition (Same Layer Clash)
+**Problem:** Two materials in same layer fight for dominance
+**Examples:**
+| Clash | Why | Solution |
+|-------|-----|----------|
+| Bergamot + Lemon | Both citrus tops, redundant | Use ONE or blend intentionally |
+| Rose + Jasmine (equal) | Both floral hearts, compete | Let one dominate (2:1 ratio) |
+| Sandalwood + Vetiver | Both woody bases, different character | Choose one as anchor |
+| Vanilla + Tonka (equal) | Redundant sweetness | Use one, other as trace accent |
+
+**Rule:** Within each layer, ONE material should dominate (50%+ of that layer)
+**Prevention:**
+- If two materials in same layer are within 20% of each other → warn "competition"
+- Suggest making one dominant (2:1 or 3:1 ratio)
+
+---
+
+### 1.8 MASKING FAILURES
+**Definition:** A powerful material masks other materials, wasting them.
+
+#### 1.8.1 OV-Based Masking
+**Rule:** If Material A has OV >3× Material B, Material B is likely masked
+**Examples:**
+| Masker | OV | Masked | OV | Result |
+|--------|-----|--------|-----|--------|
+| Skatole 0.1% | 5000 | Rose 2% | 400 | Rose invisible, skatole dominates |
+| ISO E 15% | 30 | Linalool 3% | 2000 | Linalool dominates (reverse masking) |
+| Ambroxan 5% | 166 | Hedione 2% | 40 | Hedione may be masked |
+
+**Prevention:**
+- Calculate OV for ALL materials
+- Flag if any OV >3× another material in same layer
+- Suggest rebalancing or removing lower-impact material
+
+#### 1.8.2 Character-Based Masking
+**Rule:** Heavy/dense characters mask light/airy characters
+| Heavy (Masker) | Light (Masked) |
+|----------------|----------------|
+| Oud, labdanum, benzoin | Citrus, aldehyde, green |
+| Patchouli, vetiver | Floral, fruity |
+| Vanilla, tonka | Fresh, aquatic |
+| Musks (high %) | Delicate florals |
+
+**Prevention:**
+- If heavy material >15% AND light material <5% → warn "light notes will be masked"
+- Suggest increasing light material or reducing heavy
+
+#### 1.8.3 Resinous Burial
+**Rule:** Resins (labdanum, benzoin, myrrh) "bury" lighter materials
+**Threshold:** If total resin >10%, expect masking of:
+- Aldehydes (almost completely masked)
+- Fresh greens (masked)
+- Light florals (partially masked)
+- Citrus (partially masked)
+
+**Prevention:**
+- If resin >10% → warn about masking
+- If adding light material to resin-heavy base → "will be masked, use >3% or reconsider"
+
+---
+
+### 1.9 CARRIER/DILUTION FAILURES
+**Definition:** Carrier solvent or dilution level affects material behavior.
+
+#### 1.9.1 Carrier Incompatibility
+| Carrier | Properties | Compatible Materials | Incompatible |
+|---------|------------|---------------------|--------------|
+| Ethanol | Polar, fast evaporation | Most materials | Some naturals precipitate |
+| DPG | Non-volatile, extends | Dilutions, accords | May slow top notes |
+| IPM (Isopropyl Myristate) | Oily, skin-feel | Base notes, musks | Aldehydes (can react) |
+| Benzyl Benzoate | Fixative, mild odor | Florals, musks | May add own scent |
+| Perfumer's Alcohol | Industry standard | All | None (ideal carrier) |
+
+**Rules:**
+- Pre-diluted materials in DPG → will behave differently than neat
+- If material is "10% in DPG" → actual dose = stated dose × 0.1
+- DPG extends longevity but may slow opening
+
+#### 1.9.2 Dilution Factor Calculation
+**CRITICAL:** Many materials are pre-diluted. Account for this!
+| Form | Actual Concentration | Dose Adjustment |
+|------|---------------------|-----------------|
+| Neat | 100% | Use as stated |
+| 10% in DPG | 10% | Multiply dose by 10 |
+| 1% in DPG | 1% | Multiply dose by 100 |
+| 1:1000 solution | 0.1% | Multiply dose by 1000 |
+
+**Example:**
+- Want 0.1% β-damascenone in 100 mL
+- Material is 1:1000 solution (0.1%)
+- Need: 0.1% × 100 mL = 0.1 mL actual damascenone
+- From 0.1% solution: 0.1 mL ÷ 0.001 = 100 mL (entire bottle!)
+- **WRONG** - recalculate for pre-diluted materials
+
+**Prevention:**
+- ALWAYS check material form (neat vs. diluted)
+- If material in inventory says "10% in DPG" → adjust calculations
+
+#### 1.9.3 Concentration-Dependent Character Changes
+**Rule:** Some materials smell DIFFERENT at different concentrations
+| Material | Low Conc Character | High Conc Character | Threshold |
+|----------|-------------------|---------------------|-----------|
+| Indole | Floral, jasmine | Fecal, mothballs | 0.1% |
+| Skatole | Animalic-warm | Pure feces | 0.01% |
+| Linalool | Fresh, lavender | Harsh, chemical | 8% |
+| ISO E Super | Woody, velvet | Metallic, headache | 15% |
+| Coumarin | Hay, tonka | Bitter, medicinal | 3% |
+| Eugenol | Warm, spicy | Dentist office | 2% |
+
+**Prevention:**
+- Track concentration-dependent character changes
+- Warn if dose crosses character threshold
+
+---
+
+### 1.10 SYNERGY/ANTAGONISM FAILURES
+**Definition:** Materials interact unexpectedly (positively or negatively).
+
+#### 1.10.1 Known Antagonisms (Bad Combinations)
+| Material A | Material B | Result | Avoid |
+|------------|-----------|--------|-------|
+| Aldehydes | Phenols | Discoloration over time | C-12 + eugenol |
+| Citrus | Animalics | Perceptual clash | Lemon + skatole |
+| Marine | Resins | "Beach in cathedral" | Calone + labdanum |
+| Vanilla | Fresh greens | Temperature clash | Vanillin + cis-3-hexenol |
+| Musks (clean) | Oud | Incompatible characters | Galaxolide + oud |
+
+**Prevention:**
+- Check formula for known antagonistic pairs
+- If found → warn "may clash, test small batch"
+
+#### 1.10.2 Known Synergies (Good Combinations)
+| Material A | Material B | Result | Recommended Ratio |
+|------------|-----------|--------|-------------------|
+| Vanilla | Tonka | Enhanced warmth | 2:1 vanilla:tonka |
+| Sandalwood | Iris | Creamy powder | 1:1 to 2:1 |
+| Bergamot | Hedione | Radiant freshness | 5:1 bergamot:hedione |
+| Oakmoss | Patchouli | Classic chypre | 1:2 |
+| Amber | Labdanum | Deep warmth | 1:1 |
+| Jasmine | Indole (trace) | Natural jasmine effect | Jasmine + 0.01% indole |
+
+**Opportunity:**
+- If user adds one synergy partner → suggest the other
+- "You're using sandalwood - consider adding iris for creamy powder effect"
+
+#### 1.10.3 Chemical Reactions (Degradation)
+| Reaction | Materials | Result | Prevention |
+|----------|-----------|--------|------------|
+| Oxidation | Terpenes + O₂ | Turpentine, rancid | Add BHT |
+| Aldol condensation | Aldehydes + Aldehydes | Color change | Limit aldehyde mixing |
+| Esterification | Acids + Alcohols | Character change | Control pH |
+| Schiff base | Aldehydes + Amines | New compounds | Avoid mixing |
+
+**Prevention:**
+- If formula contains reactive classes → warn about stability
+- Recommend accelerated aging test (heat, light) before large batch
+
+---
+
+### 1.11 AGING/MATURATION FAILURES
+**Definition:** Formula changes over time in unexpected ways.
+
+#### 1.11.1 Poor Agers (Materials that degrade)
+| Material | Aging Behavior | Timeline | Prevention |
+|----------|----------------|----------|------------|
+| Citrus (limonene) | Oxidizes → turpentine | 3-6 months | BHT, dark storage |
+| Aldehydes | Oxidizes → acids | 6-12 months | BHT, airtight |
+| Linalool | Oxidizes → off-notes | 6 months | BHT |
+| Jasmine absolute | May develop indolic | 1+ years | Normal, not failure |
+
+#### 1.11.2 Good Agers (Materials that improve)
+| Material | Aging Behavior | Timeline |
+|----------|----------------|----------|
+| Resins (benzoin, labdanum) | Smoother, richer | 1-3 months |
+| Sandalwood | Creamier | 3+ months |
+| Oakmoss | Integrates | 1-2 months |
+| Musks | Blend better | 2-4 weeks |
+
+#### 1.11.3 Maceration Time Requirements
+| Formula Type | Minimum Maceration | Ideal |
+|--------------|-------------------|-------|
+| Simple (3-5 materials) | 1 week | 2-4 weeks |
+| Moderate (6-15 materials) | 2 weeks | 4-8 weeks |
+| Complex (16+ materials) | 4 weeks | 8-12 weeks |
+| Contains resins/naturals | 4 weeks minimum | 8+ weeks |
+
+**Prevention:**
+- Warn if user tests immediately after mixing
+- "Formula contains resins - macerate 4+ weeks before final judgment"
+
+---
+
+### 1.12 BATCH SIZE FAILURES
+**Definition:** What works in small batch fails in large batch (or vice versa).
+
+#### 1.12.1 Scale-Up Issues
+| Issue | Cause | Example | Prevention |
+|-------|-------|---------|------------|
+| Precipitation | Solubility limits | Musk crystals at scale | Pre-dissolve, heat gently |
+| Separation | Oil/water separation | Natural oils in alcohol | Add co-solvent (DPG) |
+| Uneven mixing | Poor homogenization | Large batch streaking | Mix thoroughly, let settle |
+| Heat generation | Exothermic mixing | Large alcohol additions | Add slowly, temperature control |
+
+#### 1.12.2 Small Batch Limitations
+| Issue | Cause | Prevention |
+|-------|-------|------------|
+| Measurement error | Sub-0.1 mL doses impossible | Use dilutions |
+| Evaporation loss | More surface area ratio | Seal immediately |
+| Oxidation speed | More air exposure | Fill container completely |
+
+**Rule:** Test in 10-20 mL batch first, then scale up
+**Exception:** Ultra-potent materials → test in 5 mL batch
+
+---
+
+## SECTION 2: CHEMICAL CLASS RULES
+
+### 2.1 ANIMALICS (Fecal/Urine/Musk Character)
+**Members:** Skatole, indole (>1%), civet, castoreum, costus, hyraceum, cumin (high dose)
+**Chemical Properties:**
+- Heterocyclic nitrogen compounds (indole, pyrroles) or sulfur compounds
+- Extremely low ODT (0.00001-0.0001%)
+- Fecal character at high conc., floral at ultra-low
+**Base Compatibility Matrix:**
+| Base Type | Compatibility | Max Dose | Notes |
+|-----------|---------------|----------|-------|
+| Clean/Transparent | ❌ NEVER | 0% | Pure fecal, no masking |
+| Aquatic/Marine | ❌ NEVER | 0% | Clash, ruins fresh character |
+| Aldehydic/Soapy | ❌ NEVER | 0% | Fecal dominates clean |
+| Light Floral | ⚠️ RISKY | 0.001-0.01% indole only | Jasmine context, pre-diluted 10% |
+| Heavy Oriental | ✓ OK | 0.01-0.1% | Masked by vanilla/resin |
+| Leather | ✓ GOOD | 0.05-0.3% | Synergistic, birch tar support |
+| Chypre (Mossy) | ✓ OK | 0.02-0.15% | Oakmoss/patchouli mask |
+| Tobacco | ✓ GOOD | 0.05-0.2% | Enhances depth |
+| Gourmand | ⚠️ RISKY | 0.01-0.05% | Only if heavy (chocolate/coffee) |
+
+**MANDATORY RULES:**
+1. NEVER use in clean, aquatic, aldehydic, or ozonic bases
+2. ALWAYS pre-dilute to 0.1-10% before adding
+3. ALWAYS calculate OV, reject if >1,000 for skatole, >5,000 for indole
+4. TEST in 5 mL batch first, never large batch directly
+5. If user wants animalic in clean base → suggest clean musks (exaltolide, galaxolide, ambroxan)
+
+---
+
+### 2.2 ALDEHYDES (Sparkling/Metallic/Soapy)
+**Members:** C-12 MNA, C-11 undecanol, C-14 peach, benzaldehyde, citral, helional
+**Chemical Properties:**
+- Carbonyl group (C=O) → reactive, oxidizes easily
+- Volatile (high VP) → top note
+- Metallic, sparkling, "clean laundry" character
+**Base Compatibility Matrix:**
+| Base Type | Compatibility | Max Dose | Notes |
+|-----------|---------------|----------|-------|
+| Clean/Transparent | ✓ EXCELLENT | 1-5% | Signature ingredient |
+| Aldehydic/Soapy | ✓ EXCELLENT | 3-10% | Define category |
+| Floral Bouquet | ✓ GOOD | 1-4% | Lift, sparkle, Chanel No. 5 style |
+| Citrus/Cologne | ✓ GOOD | 0.5-3% | Accent, metallic edge |
+| Heavy Oriental | ❌ POOR | <0.5% | Buried under resins, wasted |
+| Resinous/Amber | ❌ POOR | <0.3% | Incompatible weight |
+| Leather | ⚠️ OK | 0.5-2% | Suede/birch context only |
+
+**MANDATORY RULES:**
+1. Check base for resin content (labdanum, benzoin, myrrh, opoponax)
+2. If resin >10% → warn "aldehydes will be masked, use <0.5%"
+3. Add BHT 0.05% to prevent oxidation (aldehydes → acids)
+4. C-12 MNA: EXTREMELY POWERFUL, use 0.1-1% max
+
+---
+
+### 2.3 PHENOLS (Spicy/Medicinal/Clove-like)
+**Members:** Eugenol, isoeugenol, thymol, carvacrol, guaiacol
+**Chemical Properties:**
+- Aromatic ring with -OH group
+- Reactive with aldehydes (can cause discoloration)
+- IFRA restricted (sensitization)
+**Base Compatibility Matrix:**
+| Base Type | Compatibility | Max Dose | Notes |
+|-----------|---------------|----------|-------|
+| Spice/Oriental | ✓ EXCELLENT | 0.5-3% | Clove, cinnamon character |
+| Carnation/Floral | ✓ GOOD | 0.3-2% | Eugenol = carnation |
+| Fougère | ✓ OK | 0.2-1% | Spicy accent |
+| Leather | ✓ OK | 0.3-1.5% | Smoky depth |
+| Clean/Aquatic | ❌ POOR | <0.2% | Medicinal clash |
+| Aldehydic | ⚠️ RISKY | <0.5% | May react, discolor |
+
+**MANDATORY RULES:**
+1. ALWAYS check IFRA limit (eugenol 1.0%, isoeugenol 0.2%)
+2. If formula contains aldehydes → warn "phenols + aldehydes may discolor"
+3. Track allergen total
+
+---
+
+### 2.4 TERPENES (Fresh/Citrus/Pine/Green)
+**Members:** Limonene, pinene, myrcene, ocimene, terpinolene
+**Chemical Properties:**
+- Hydrocarbon (C₁₀H₁₆) → volatile, oxidizes easily
+- High VP (>100 Pa) → evaporates fast
+- Fresh, sharp, natural character
+**Degradation Risk:** HIGH (oxidation → off-notes)
+**Prevention:**
+- Add BHT 0.01-0.1%
+- Amber glass storage
+- Use within 6 months
+**Base Compatibility:** Universal (citrus, green, woody, floral), but fades fast
+
+**MANDATORY RULES:**
+1. IF terpene >10% in formula → REQUIRE BHT addition
+2. Warn about oxidation risk, short shelf life
+3. Limonene ODT = 0.02% → calculate OV if >5%
+
+---
+
+### 2.5 MUSKS (Soft/Clean/Laundry/Animalic)
+**Members:** Galaxolide, exaltolide, habanolide, cashmeran, ambrettolide
+**Chemical Properties:**
+- Macrocyclic (large ring) or polycyclic structures
+- Low VP (<0.001 Pa) → fixative, long-lasting
+- Soft, enveloping, skin-like
+**Subtypes:**
+- **Clean musks:** Galaxolide, ethylene brassylate → laundry, fresh
+- **Animalic musks:** Exaltolide, ambrettolide → powdery, skin
+- **Woody musks:** Cashmeran, habanolide → soft woods
+**Base Compatibility:** Nearly universal
+**Overdose Risk:** Moderate (can become cloying, detergent-like if >15%)
+
+**MANDATORY RULES:**
+1. If clean musk >12% → warn "may smell like laundry detergent"
+2. Good substitute for animalics in clean bases (exaltolide instead of civet)
+
+---
+
+### 2.6 IONONES/IRONES (Violet/Iris/Woody/Powdery)
+**Members:** Alpha-ionone, beta-ionone, alpha irone, gamma irone, methyl ionone
+**Chemical Properties:**
+- C₁₃ ketones with violet/iris character
+- Expensive (irones) vs. affordable (ionones)
+- Powdery, lipstick-like, nostalgic
+**Cost Tiers:**
+- Alpha-ionone: $0.30/mL (owned)
+- Beta-ionone: $0.40/mL (owned)
+- Alpha irone: $3-5/mL (owned, 3% in carrier)
+- Natural iris: $5-10/mL (NOT owned)
+**Base Compatibility:** Universal, especially floral, powdery, oriental
+
+**MANDATORY RULES:**
+1. IF user wants iris → ALWAYS suggest owned substitutes first:
+   - Alpha-ionone, alpha irone, irotyl, orris FTEC, alpha isomethyl ionone
+2. Dose: 0.5-8% (ionones), 0.3-3% (irones, often pre-diluted)
+
+---
+
+### 2.7 LACTONES (Creamy/Coconut/Peach/Milky)
+**Members:** Gamma-decalactone, delta-decalactone, massoia lactone, whiskey lactone
+**Chemical Properties:**
+- Cyclic esters with creamy, milky, fruity character
+- Hydrolysis risk (water → opens ring)
+**Base Compatibility:**
+| Base Type | Compatibility | Max Dose |
+|-----------|---------------|----------|
+| Gourmand/Creamy | ✓ EXCELLENT | 0.5-5% |
+| Fruity/Tropical | ✓ EXCELLENT | 0.5-3% |
+| Floral (Tuberose, Jasmine) | ✓ GOOD | 0.2-2% |
+| Clean/Aquatic | ⚠️ OK | 0.1-0.8% |
+| Woody/Dry | ❌ POOR | <0.3% (clash) |
+
+**MANDATORY RULES:**
+1. Keep anhydrous (<1% water) to prevent hydrolysis
+2. Gamma-decalactone (coconut) + vanilla = cliché gourmand, warn if overused
+
+---
+
+## SECTION 3: INTENSITY TIER RULES
+
+### Tier 1: ULTRA-POTENT (ODT <0.00001%)
+**Members:** β-damascenone, 2-methyl-3-furanthiol, grapefruit mercaptan
+**Mandatory Actions:**
+1. REJECT if dose will create OV >500
+2. REQUIRE 1:1000 dilution (or pre-diluted)
+3. NEVER use neat
+4. Calculate exact µL dose, use precision syringe/pipette
+**Example:**
+- β-damascenone neat in 100 mL → 0.0005 mL (0.5 µL) for OV 500
+- Impossible to measure → REQUIRE 1:1000 dilution, add 0.5 mL of dilution
+
+### Tier 2: EXTREMELY POTENT (ODT 0.00001-0.0001%)
+**Members:** Skatole, indole, ionones, methyl anthranilate
+**Mandatory Actions:**
+1. REJECT if OV >1,000 (skatole/indole), >3,000 (ionones)
+2. REQUIRE pre-dilution if ODT <0.00005%
+3. WARN if dose in large batch (test small first)
+**Example:**
+- Skatole 0.00002%, target OV 500 in 100 mL → dose = 0.01 mL (10 µL)
+- Pre-dilute to 1%, add 1 mL of 1% solution
+
+### Tier 3: HIGH IMPACT (ODT 0.0001-0.01%)
+**Members:** Linalool, geraniol, eugenol, citronellol
+**Mandatory Actions:**
+1. Calculate OV, warn if >3,000
+2. Compare to commercial usage, flag if >2× extreme
+3. Check IFRA limits (eugenol, citronellol)
+**Example:**
+- Linalool 5% in EdP (typical), OV = 5/0.0015 = 3,333 (strong but OK)
+- Linalool 20% = OV 13,333 → REJECT, abnormal
+
+### Tier 4: MODERATE IMPACT (ODT 0.01-0.1%)
+**Members:** Hedione, limonene, coumarin, benzyl salicylate
+**Mandatory Actions:**
+1. Check if material is actually needed (hedione, benzyl benzoate "booster" check)
+2. Calculate OV if dose >5%
+3. Compare to commercial norms
+**Example:**
+- Hedione 4% → OV = 4/0.05 = 80 (fine)
+- But if base is already radiant → warn "unnecessary, hedione best for flat bases"
+
+### Tier 5: LOW IMPACT (ODT >0.1%)
+**Members:** Vanillin, iso E super, galaxolide, ambroxan
+**Mandatory Actions:**
+1. Warn if dose >10% (vanillin), >20% (iso E super, musks)
+2. Check for cloying/metallic risk
+**Example:**
+- Vanillin 12% → warn "may be cloying, nausea risk"
+- Iso E super 25% → warn "metallic, headache risk, commercial extreme is 15%"
+
+---
+
+## SECTION 4: BASE TYPE COMPATIBILITY MATRIX
+
+### Clean/Transparent Bases
+**Definition:** Aquatic, ozonic, aldehydic, soapy, fresh laundry, "shower gel" style
+**Signature Materials:** Aldehydes (C-12), calone, helional, hedione, clean musks (galaxolide)
+**FORBIDDEN Materials:** 
+- Animalics (skatole, civet, oud) → fecal disaster
+- Heavy resins (>3% labdanum/benzoin) → muddy, lose transparency
+- Earthy notes (vetiver >2%, patchouli >1%) → too grounded
+**Recommended Structure:**
+- Top: Citrus, aldehydes, aquatic (30-40%)
+- Heart: Hedione, clean florals, ionones (30-40%)
+- Base: Clean musks, ambroxan, light woods (30-40%)
+
+### Heavy Oriental Bases
+**Definition:** Vanilla, amber, incense, spices, resins, gourmand
+**Signature Materials:** Vanillin, benzoin, labdanum, tonka, cinnamon, oud (acceptable here)
+**FORBIDDEN Materials:**
+- Aldehydes (>1%) → wasted, buried
+- Fresh greens → "salad in bakery" clash
+- Marine → perceptual discord
+**Recommended Structure:**
+- Top: Spices, citrus (accent only, 10-20%)
+- Heart: Florals, woods (20-30%)
+- Base: Resins, vanilla, musks, amber (50-70%)
+
+### Chypre Bases
+**Definition:** Oakmoss, patchouli, bergamot, labdanum, dry woods
+**Signature Materials:** Oakmoss/evernyl, patchouli, bergamot, cistus, vetiver
+**FORBIDDEN Materials:**
+- Sweet gourmands (>2% vanilla) → loses dry, mossy character
+- Clean musks (>5%) → too soapy, not earthy enough
+**Recommended Structure:**
+- Top: Bergamot, citrus, aldehydes (20-30%)
+- Heart: Rose, jasmine, florals (20-30%)
+- Base: Oakmoss, patchouli, labdanum (40-60%)
+
+### Leather Bases
+**Definition:** Birch tar, castoreum, labdanum, tobacco, smoky, animalic OK
+**Signature Materials:** Birch tar, suederal, saffron, labdanum, styrax, oud (good here)
+**ALLOWED Materials:** Animalics (skatole 0.05-0.2%, indole, castoreum)
+**Recommended Structure:**
+- Top: Saffron, aldehydes (accent, 10-20%)
+- Heart: Florals, spices (20-30%)
+- Base: Birch, labdanum, animalics, woods (50-70%)
+
+### Fougère Bases
+**Definition:** Lavender, coumarin, oakmoss, herbaceous, masculine "barbershop"
+**Signature Materials:** Lavender, coumarin, tonka, oakmoss, geranium
+**Recommended Structure:**
+- Top: Lavender, bergamot, citrus (30-40%)
+- Heart: Geranium, florals, spices (20-30%)
+- Base: Coumarin, oakmoss, woods (40-50%)
+
+---
+
+## SECTION 4.5: ACCORD-SPECIFIC FAILURE RULES
+
+### Classic Accords and Their Vulnerabilities
+
+#### 4.5.1 BR540 / Clean Saffron-Amber Accord
+**Core Materials:** Saffron, hedione, ambroxan, cedarwood, ISO E super, jasmine
+**Character:** Clean, transparent, "skin scent", warm but airy
+**FORBIDDEN ADDITIONS:**
+| Material | Why | Result if Added |
+|----------|-----|-----------------|
+| Animalics (any) | Fecal in transparency | Shit smell |
+| Heavy oud | Too dark, incompatible | Muddy, fecal |
+| Dense resins (>3%) | Loses transparency | Heavy, cloying |
+| Patchouli (>2%) | Too earthy | Loses clean character |
+| Indole (>0.01%) | Fecal at threshold | Jasmine becomes shit |
+
+**Safe Additions:**
+- More ambroxan (up to 10%)
+- More hedione (up to 3%)
+- Light musks (galaxolide, ethylene brassylate)
+- Sandalwood replacers (ebanol, bacdanol)
+
+#### 4.5.2 Rose Accord
+**Core Materials:** Phenethyl alcohol, geraniol, citronellol, rose oxide, damascones
+**Character:** Fresh, dewy, feminine, sometimes honeyed
+**VULNERABLE TO:**
+| Material | Threshold | Effect |
+|----------|-----------|--------|
+| Musks (clean) | >8% | Becomes "soapy rose" |
+| Patchouli | >2% | Loses freshness |
+| Indole | >0.05% | Becomes jasmine-like |
+| Heavy woods | >5% | Dries out rose |
+| Citrus | >10% | Acidic clash |
+
+**Safe Additions:**
+- Linalool (1-3%) - enhances freshness
+- Geranium (1-2%) - natural synergy
+- Violet leaf (trace) - green accent
+- Light amber (<2%) - warmth
+
+#### 4.5.3 Oud Accord
+**Core Materials:** Oud (natural or synthetic), cypriol, guaiac wood, birch tar
+**Character:** Smoky, animalic, medicinal, woody, dark
+**VULNERABLE TO:**
+| Material | Threshold | Effect |
+|----------|-----------|--------|
+| Clean musks | >5% | Character clash |
+| Aldehydes | >1% | Metallic clash |
+| Fresh greens | >0.5% | Temperature clash |
+| Marine | Any | Total destruction |
+| Light florals | >3% | Confusing mix |
+
+**Good Additions:**
+- Rose (classic oud-rose) - tested combo
+- Saffron - Middle Eastern classic
+- Incense/labdanum - synergy
+- Leather notes - compatible darkness
+
+#### 4.5.4 Vanilla/Gourmand Accord
+**Core Materials:** Vanillin, ethyl vanillin, tonka, benzoin, ethyl maltol
+**Character:** Sweet, warm, edible, comforting
+**VULNERABLE TO:**
+| Material | Threshold | Effect |
+|----------|-----------|--------|
+| Fresh greens | >0.5% | "Salad in bakery" |
+| Marine/aquatic | Any | Total clash |
+| Aldehydes | >1% | Metallic intrusion |
+| Citrus (sour) | >5% | Acidic bite |
+| Oakmoss | >1% | Mossy bitterness |
+
+**Good Additions:**
+- Spices (cinnamon, cardamom)
+- Fruity notes (peach, coconut)
+- Coffee, chocolate accords
+- Amber, labdanum
+
+#### 4.5.5 Citrus/Cologne Accord
+**Core Materials:** Bergamot, lemon, orange, neroli, petitgrain
+**Character:** Fresh, sparkling, uplifting, short-lived
+**VULNERABLE TO:**
+| Material | Threshold | Effect |
+|----------|-----------|--------|
+| Resins | >3% | Kills freshness |
+| Vanilla | >2% | Loses crisp character |
+| Animalics | Any | Fecal clash |
+| Heavy woods | >5% | Weighs down |
+
+**REQUIRES:**
+- Fixatives (musks, ambroxan) to extend longevity
+- BHT for stability (citrus oxidizes)
+
+**Good Additions:**
+- Hedione (radiance)
+- Clean musks (longevity)
+- Light florals (neroli)
+- Green notes (acceptable)
+
+#### 4.5.6 Leather Accord
+**Core Materials:** Birch tar, suederal, castoreum replacers, labdanum, saffron
+**Character:** Smoky, animalic, masculine, raw
+**VULNERABLE TO:**
+| Material | Threshold | Effect |
+|----------|-----------|--------|
+| Fruity (sweet) | >2% | Inappropriate sweetness |
+| Clean musks | >6% | Loses edge |
+| Powdery iris | >3% | Feminizes |
+| Fresh aquatic | Any | Character destruction |
+
+**Good Additions:**
+- Oud (synergy)
+- Tobacco (complementary)
+- Incense (depth)
+- Dark florals (rose, violet)
+
+#### 4.5.7 Chypre Accord
+**Core Materials:** Bergamot, oakmoss, patchouli, labdanum, rose/jasmine
+**Character:** Bittersweet, mossy, sophisticated, green-earthy
+**VULNERABLE TO:**
+| Material | Threshold | Effect |
+|----------|-----------|--------|
+| Vanilla | >2% | Loses chypre dryness |
+| Sweet musks | >5% | Softens too much |
+| Marine | Any | Total clash |
+| Heavy animalics | >0.1% | Overpowers moss |
+
+**Classic Ratios:**
+- Bergamot: 10-20%
+- Oakmoss/Evernyl: 2-8%
+- Patchouli: 3-10%
+- Labdanum: 2-8%
+- Florals: 5-15%
+
+---
+
+## SECTION 4.6: COMMON MULTI-MATERIAL FAILURES
+
+### 4.6.1 Redundancy Failures
+**Definition:** Multiple materials serving the same function = waste
+| Redundant Set | Problem | Solution |
+|---------------|---------|----------|
+| Linalool + linalyl acetate + lavender EO | All contain linalool | Pick ONE |
+| Vanillin + ethyl vanillin + vanilla absolute | Redundant vanilla | Use 1-2 max |
+| Ambroxan + ambrofix + cetalox + ISO E | All woody-amber | Pick 1-2 |
+| Galaxolide + ethylene brassylate + habanolide | Redundant musk | Pick 1-2 |
+| Ebanol + bacdanol + sandalwood FO | All sandalwood-type | Pick 1-2 |
+
+**Rule:** No more than 2 materials serving identical function
+**Prevention:** Check material function overlap before adding
+
+### 4.6.2 OV Competition Failures
+**Definition:** Materials competing for attention (similar OV, similar layer)
+| Competitor 1 | OV | Competitor 2 | OV | Problem |
+|--------------|----|--------------|----|---------|
+| Rose (5%) | 1000 | Jasmine (4%) | 1200 | Both heart florals, compete |
+| ISO E (15%) | 30 | Ambroxan (8%) | 27 | Both base, compete for woody-amber |
+| Bergamot (12%) | 600 | Lemon (10%) | 500 | Both citrus tops, compete |
+
+**Rule:** If two materials in same layer have OV within 50% of each other → one should dominate
+**Prevention:** Calculate OV for all materials, ensure 2:1+ ratio for same-layer materials
+
+### 4.6.3 Volatility Gap Failures
+**Definition:** Missing bridge between volatility layers
+| Top Layer | VP | Base Layer | VP | Problem |
+|-----------|-----|------------|-----|---------|
+| Limonene | 206 | Ambroxan | 0.0001 | HUGE gap, no heart |
+| Linalool | 0.2 | Sandalwood | 0.00005 | Need bridging material |
+
+**Rule:** Every formula needs materials across volatility spectrum
+**Prevention:**
+- If VP gap between adjacent layers >100× → warn "volatility gap"
+- Suggest bridging material (moderate VP: 0.001-0.01 Pa)
+
+---
+
+## SECTION 5: VALIDATION ALGORITHM (Comprehensive)
+
+### Step-by-Step Validation Process
+
+#### STEP 1: Material Identification
+1. Normalize material name (lowercase, remove special chars)
+2. Check if material exists in ODT database
+3. Check if material exists in chemical inventory (owned?)
+4. Determine chemical class (animalic, aldehyde, phenol, terpene, etc.)
+
+#### STEP 2: Base Type Classification
+1. Analyze base formula composition
+2. Calculate % of key indicators:
+   - Resins (labdanum, benzoin, myrrh, opoponax)
+   - Aldehydes (C-12, C-11, helional)
+   - Animalics (skatole, indole, oud, castoreum)
+   - Fresh notes (citrus, green, aquatic)
+   - Musks (galaxolide, ambroxan)
+3. Classify as: Clean, Heavy Oriental, Chypre, Leather, Fougère, or Unknown
+
+#### STEP 3: Incompatibility Check (CRITICAL)
+1. IF material = animalic AND base = clean → **REJECT IMMEDIATELY**
+2. IF material = aldehyde AND base resin% >10% → WARN "will be masked, use <0.5%"
+3. IF material = fresh green AND base = heavy oriental → WARN "perceptual clash"
+4. IF material = marine AND base = resinous → WARN "discord"
+
+#### STEP 4: Inventory Check
+1. IF material NOT owned → WARN "not in inventory, check substitutes"
+2. IF material expensive AND owned substitute exists → SUGGEST owned substitute
+
+#### STEP 5: Waste Check
+1. IF material expensive AND dose >5 mL AND batch >50 mL → ERROR "test small batch first"
+2. Calculate cost, suggest cheaper owned alternatives
+3. Check for redundancy (multiple materials with same function)
+
+#### STEP 6: ODT/OV Calculation
+1. Get ODT from database (fuzzy match if needed)
+2. Calculate final concentration %: `conc = (dose_ml / base_ml) × 100`
+3. Calculate OV: `OV = conc / ODT`
+4. Apply tier-specific thresholds:
+   - Ultra-potent: OV >500 → ERROR
+   - Extremely potent: OV >1,000 (animalics) or >3,000 (ionones) → ERROR
+   - High impact: OV >3,000 → WARN
+   - Moderate: OV >2,000 → WARN
+   - Low: OV >5,000 → WARN
+
+#### STEP 7: Commercial Usage Check
+1. Look up material in commercial usage database
+2. Compare dose to typical range and extreme max
+3. IF dose >2× extreme → ERROR "abnormally high"
+4. IF dose >1.5× extreme → WARN "higher than industry norm"
+
+#### STEP 8: IFRA/Regulatory Check
+1. Check IFRA limit for material
+2. IF dose >IFRA limit → ERROR "IFRA violation"
+3. IF dose >80% IFRA limit → WARN "near IFRA limit"
+4. IF allergen (EU 26 list) → track total allergen %
+
+#### STEP 9: Degradation Check
+1. IF material = terpene/citrus AND no BHT in formula → WARN "add BHT 0.05%"
+2. IF material = ester (linalyl acetate, etc.) → WARN "keep anhydrous, pH 4-7"
+3. IF material = bergamot → CHECK bergapten content, IFRA limit
+
+#### STEP 10: Chemical Interaction Check
+1. IF aldehydes + phenols in formula → WARN "may discolor over time"
+2. IF citrus (limonene) + UV exposure likely → WARN "use amber bottle, BHT"
+3. IF water >1% AND esters present → WARN "hydrolysis risk"
+
+#### STEP 11: Generate Recommendation
+1. IF any ERROR → `recommendation = "DO NOT USE - [specific reason]"`
+2. IF expensive + owned substitute → `recommendation = "Use [substitute] instead (saves $X)"`
+3. IF warnings only → `recommendation = "CAUTION - [list warnings], test small batch first"`
+4. IF all safe → `recommendation = "Safe at X mL (OV = Y)"`
+
+---
+
+## SECTION 5.5: HISTORICAL MATERIAL-SPECIFIC FAILURE RULES (NON-AUTHORITATIVE INVENTORY SNAPSHOT)
+
+> **INVENTORY AUTHORITY CEILING:** The tables in this section preserve an
+> older working snapshot for failure-pattern provenance. They do **not**
+> establish current ownership, availability, stock form, dilution, carrier,
+> concentration basis, quantity, or executable dose. Resolve current stock
+> only through the pinned inventory runtime
+> (`engine.inventory_parser.materialize_current_inventory()`) and its validated
+> overlay/receipt; never promote a prose or retrieval match into inventory
+> authority.
+
+The historical rows remain unchanged below so earlier analyses can still be
+interpreted. Their material-specific caution concepts may be useful as
+reference hypotheses, but every stock-dependent statement requires current
+authority and every safety or sensory claim requires its own applicable
+evidence.
+
+### 5.5.1 HISTORICAL HIGH-RISK TABLE (Require Current Verification)
+
+| Material | ODT | Max OV | Key Failure Mode | Prevention Rule |
+|----------|-----|--------|------------------|-----------------|
+| **Skatole (1%)** | 0.00003% | 500 | Fecal in clean bases | FORBIDDEN in clean/fresh bases; only use in deep orientals/leather at <0.005% final |
+| **Indole (10%)** | 0.0003% | 1000 | Fecal overdose | ≤0.05% final in any formula; best as trace jasmine enhancer |
+| **Birch Tar (10%)** | 0.005% | 2000 | Overpowering smoke | ≤0.3% in leather accords only; destroys florals/clean |
+| **D-Limonene** | 0.1% | 3000 | Oxidation → turpentine | MUST add BHT 0.05%; avoid light; use within 6 months |
+| **C-12 MNA** | 0.001% | 2000 | Soapy overdose | ≤0.3% in formula; dissolves floral delicacy |
+| **Cyclamen Aldehyde** | 0.002% | 3000 | Aldehyde harshness | ≤0.5%; needs aging; harsh in fresh mixes |
+| **Hydroxycitronellal** | 0.002% | 3000 | Allergen + sharp | EU allergen; ≤0.5%; requires declaration |
+| **Rose Oxide (10%)** | 0.005% | 2000 | Metallic overdose | ≤0.1% final; metallic if >0.2% |
+| **Benzoin Siam (50%)** | 0.01% | 1500 | Heavy resin | ≤1% final; kills freshness; use only in amber/oriental |
+| **Labdanum (10%)** | 0.02% | 2000 | Heavy, sticky | ≤0.5% final; buries other notes |
+
+### 5.5.2 HISTORICAL MODERATE-RISK TABLE (Require Current Verification)
+
+| Material | ODT | Typical Use Range | Key Failure Mode | Prevention Rule |
+|----------|-----|-------------------|------------------|-----------------|
+| **Iso E Super** | 0.2% | 5-15% | "Invisible" overdose | >18% causes olfactory fatigue; 8-15% optimal |
+| **Ambroxan/Ambrox Super (10%)** | 0.05% | 2-8% | Salty skin smell | ≤8%; higher = "sweaty"; 3-5% optimal |
+| **Hedione** | 0.3% | 3-8% | Waste if base is already radiant | Check: Is base flat? If not, max 2% |
+| **Cashmeran (10%)** | 0.05% | 1-5% | Laundry musk | >3% final = "detergent"; use sparingly |
+| **Galaxolide (80%)** | 0.1% | 2-8% | Laundry, IFRA concern | ≤4% final; clean musk but IFRA limited |
+| **Beta Damascone (10%)** | 0.003% | 0.5-2% | Rose overdose | >0.3% final overpowers; trace use |
+| **Patchouli EO** | 0.01% | 2-8% | Earthy dominance | >5% destroys clean/fresh; dark bases only |
+| **Vetiver Extract** | 0.01% | 1-5% | Muddy/rooty | >3% = too earthy; green vetiver is cleaner |
+| **Alpha/Beta Ionone (10%)** | 0.003% | 0.3-2% | Powdery overload | >0.5% final = old-fashioned powder |
+| **Alpha-Irone (3%/Neat)** | 0.0005% | 0.5-3% | Expensive waste | Use owned Irotyl/Orris FTEC first unless irone-specific effect needed |
+| **Coumarin (10%)** | 0.001% | 1-5% | IFRA restricted | IFRA Cat 4: 0.6% final max; track carefully |
+
+### 5.5.3 HISTORICAL LOWER-RISK TABLE (Not a Safety Determination)
+
+| Material | ODT | Typical Use Range | Notes |
+|----------|-----|-------------------|-------|
+| **Linalool** | 0.002% | 2-8% | Very safe; fresh floral |
+| **Linalyl Acetate** | 0.005% | 2-10% | Bergamot-tea; safe to 15% |
+| **Benzyl Salicylate** | 0.2% | 3-10% | Excellent fixative; almost odorless |
+| **Evernyl (Neat/10%)** | 0.05% | 1-5% | Safe oakmoss; less allergenic than natural |
+| **Ebanol/Bacdanol** | 0.1% | 2-8% | Sandalwood substitutes; very stable |
+| **Phenethyl Alcohol** | 0.1% | 1-5% | Rose base; honeyed; stable |
+| **Ethylene Brassylate** | 0.05% | 2-8% | Musk fixative; very subtle |
+| **Habanolide** | 0.02% | 1-5% | Metallic musk; stable |
+| **DPG** | Odorless | Carrier | Safe carrier solvent; no odor contribution |
+| **Benzyl Benzoate** | 0.5% | 2-10% | Fixative/solvent; almost odorless |
+
+### 5.5.4 HISTORICAL FORM-SPECIFIC RULES (NON-AUTHORITATIVE)
+
+**HISTORICAL ONLY:** The forms below are retained as provenance and must not be
+used for current dose arithmetic. Obtain the current form, carrier, fraction,
+and concentration basis from the pinned inventory runtime first.
+
+| Material | Your Form | Effective Dilution | Rule |
+|----------|-----------|-------------------|------|
+| Ambroxan/Ambrox Super | 10% in DPG | 10× | When formula says "5% ambroxan" → use **50%** of your solution |
+| Beta Damascone | 10% in DPG | 10× | Formula 0.5% → Use 5% of your solution |
+| Ionone Beta | 10% in DPG | 10× | Formula 0.3% → Use 3% of your solution |
+| Coumarin | 10% in DPG | 10× | Formula 2% → Use 20% of your solution (IFRA limit accounts for dilution!) |
+| Skatole | 1% in DPG | 100× | Formula 0.005% → Use 0.5% of your solution |
+| Indole | 10% in DPG | 10× | Formula 0.05% → Use 0.5% of your solution |
+| E2MB | 1:1000 | 1000× | Trace use only; 0.01% of this = 0.00001% actual |
+| Galaxolide | 80% in DPG | 1.25× | Near-neat; account for 80% actual |
+| Ethyl Maltol | 5%/1% in ethanol | 20×/100× | Powerful; 1% solution is easier to dose |
+| Saffron FTEC | 10% in DPG | 10× | Formula 0.5% → Use 5% of your solution |
+| Benzoin Siam | 50% in DPG | 2× | Formula 2% → Use 4% of your solution |
+| Alpha-Irone | 3% in DEP/IPM | 33× | Formula 1% → Use 33% of your solution |
+
+**DILUTION CALCULATION:**
+```
+Actual % in formula = (% of diluted solution used) × (concentration)
+Example: 5% of 10% Ambroxan → 5% × 0.10 = 0.5% actual ambroxan
+```
+
+### 5.5.5 HISTORICAL SUBSTITUTE MAPPING (NON-AUTHORITATIVE)
+
+The older candidate mapping below is not proof that a substitute is currently
+owned, equivalent, suitable, safe, or available. It is retained only as a
+historical design hypothesis.
+
+| Expensive Material | Cost | Owned Substitute | Character Match | Use Ratio |
+|-------------------|------|------------------|-----------------|-----------|
+| Orris concrete | $500+/g | Irotyl, Orris FTEC, Alpha-Irone | 70-95% | 1:1 |
+| Sandalwood natural | $15/g | Ebanol, Bacdanol, Sandalwood FO | 80% | 1:1 |
+| Oakmoss natural | $8/g | Evernyl (neat or 10%) | 85% | 1:1 |
+| Ambergris natural | $300+/g | Ambroxan, Ambrofix, Ambermax | 90% | 0.5:1 (synthetics stronger) |
+| Rose absolute | $12/g | Phenethyl Alcohol + Rose Oxide + Geranium FO | 75% | See accord recipe |
+| Jasmine absolute | $15/g | Jasmine FO + trace Indole (0.01%) | 70% | 1:1 |
+| Tobacco absolute | $8/g | Tobacco Fleuressence | 80% | 1:1 |
+| Oud natural | $50+/g | Arabian Oud Fleuresscence | 70% | 1:1 |
+| Civet | IFRA banned | Skatole at 0.005% final | 60% | Trace only |
+| Vanilla absolute | $8/g | Vanillin (10%) + Ethyl Maltol trace | 85% | 1:1 total |
+
+### 5.5.6 HISTORICAL REDUNDANCY DETECTION (NON-AUTHORITATIVE)
+
+**HISTORICAL SCREEN ONLY:** These rows neither establish current ownership nor
+prove perceptual redundancy. Re-evaluate the current inventory and the target
+architecture before use.
+
+| Group | Materials You Own | Rule |
+|-------|-------------------|------|
+| **Sandalwood type** | Ebanol, Bacdanol, Sandalwood FO | Pick 1-2; max combined 10% |
+| **Amber type** | Ambroxan, Ambrox Super, Ambrofix, Ambermax, Amber Core | Pick 1-2; max combined 10% |
+| **Iris/Orris type** | Alpha-Irone (3%), Alpha-Irone (neat), Irotyl, Orris FTEC, Orivone | Pick 1-2; max combined 5% |
+| **Musk type** | Galaxolide, Ethylene Brassylate, Habanolide, Cashmeran, Muskofix, Exaltolide, Kephalis | Pick 2-3; max combined 15% |
+| **Violet type** | Alpha-Ionone, Beta-Ionone, Methyl-Ionone, Alpha Isomethyl Ionone, Dihydrobeta Ionone | Pick 1-2; max combined 3% |
+| **Citrus type** | D-Limonene, Bergamot EO, Lemon FTEC, Citron Nat, Orange FO, Neroli EO | Pick 2-3; max combined 15% |
+| **Oakmoss type** | Evernyl (neat), Evernyl (10% DPG) | Same material; just different forms |
+| **Chocolate/Gourmand** | Chocolate FTEC (10%), Chocolate FTEC (neat), Ethyl Maltol | Limit sweetness; max combined 5% |
+
+---
+
+## SECTION 6: PERMANENT PREVENTION RULES
+
+### Rule 1: NEVER OVERRIDE CHEMISTRY
+- If ODT × target OV = safe dose, do NOT suggest higher dose "to make it smell stronger"
+- Chemistry is non-negotiable
+
+### Rule 2: ALWAYS PRIORITIZE OWNED MATERIALS
+- Check inventory BEFORE suggesting new purchases
+- Recommend owned substitutes even if slightly less ideal
+
+### Rule 3: TEST SMALL BEFORE SCALING
+- Expensive materials: Test in 5-10 mL first
+- Animalics: Test in 5 mL first
+- Ultra-potent materials: Test in 5 mL first
+- NEVER go straight to 100 mL batch with untested material
+
+### Rule 4: BASE COMPATIBILITY IS MANDATORY
+- Animalics in clean bases = automatic rejection, no exceptions
+- Suggest clean alternatives (ambroxan, exaltolide) if user wants "warmth" in clean base
+
+### Rule 5: COST MATTERS
+- If owned substitute exists and performs ≥80% as well → always suggest owned first
+- Show cost savings in recommendation
+
+### Rule 6: TRUST THE DATA
+- ODT database is ground truth
+- Commercial usage ranges are reality-tested (thousands of perfumes)
+- IFRA limits are legal requirements
+- Do not guess or "feel" your way through validation
+
+### Rule 7: DEGRADATION IS REAL
+- Terpenes oxidize (add BHT)
+- Esters hydrolyze (keep dry)
+- Phenols + aldehydes = discoloration
+- UV + citrus = phototoxicity
+- ALWAYS warn about stability risks
+
+### Rule 8: ONE FAILURE MODE IS ENOUGH
+- Don't need skatole to fail in 10 clean bases to learn the lesson
+- One chemical class failure (animalic) = permanent rule for ALL animalics
+- Generalize from specifics, codify as permanent rules
+
+---
+
+## SECTION 7: HISTORICAL FAILURE DOCUMENTATION
+
+### Failure Case 1: Skatole in BR540 (Clean Base)
+- **Date:** 2025-12
+- **Material:** Skatole (neat)
+- **Dose:** 0.2 mL in 100 mL BR540 base
+- **Base Type:** Clean, transparent (hedione, ambroxan, saffron)
+- **Result:** Pure fecal smell, unwearable
+- **OV:** 20,000+ (calculated: 0.2% / 0.00002% ODT)
+- **Failure Types:** Incompatibility (animalic-clean), Overdose (extreme OV)
+- **Root Cause:** User was cautious (only 0.2 mL, not 0.5 mL), but even this was 100× too much
+- **Permanent Rule:** NEVER use skatole/civet/oud in clean bases, period
+
+### Failure Case 2: Oud Fleuressence in BR540
+- **Date:** 2025-12
+- **Material:** Oud fleuressence (FTEC accord)
+- **Dose:** 0.5 mL in ~30 mL BR540
+- **Base Type:** Clean, transparent
+- **Result:** "Smelled like shit"
+- **Failure Types:** Incompatibility (oud in clean base)
+- **Root Cause:** Oud accords contain animalic compounds (indole derivatives)
+- **Permanent Rule:** Oud only in heavy oriental, leather, or chypre bases
+
+### Failure Case 3: Benzoin Waste in BR540
+- **Date:** 2025-12
+- **Material:** Benzoin Siam resinoid (50% in DPG)
+- **Dose:** 10 mL in 100 mL batch
+- **Base Type:** Clean (BR540 clone)
+- **Result:** $7 material wasted, could have used vanillin 5 mL ($0.50)
+- **Failure Types:** Waste (large batch), Waste (expensive material), Waste (owned substitute available)
+- **Owned Substitutes:** Vanillin, ethyl maltol, tonka bean FO
+- **Permanent Rule:** NEVER use expensive materials in large untested batches, check owned substitutes
+
+### Failure Case 4: Hedione Overuse (Generic Booster)
+- **Date:** 2025-12
+- **Material:** Hedione
+- **Dose:** 25 drops (~2-3%) in formula that already had "radiance"
+- **Result:** Unnecessary cost, no improvement
+- **Failure Types:** Waste (unnecessary), Overuse (generic booster)
+- **Root Cause:** Added as reflex "radiance booster" without diagnosing if base needed it
+- **Permanent Rule:** Hedione only if base is flat/linear, max 2%
+
+### Failure Case 5: Benzyl Benzoate Overuse (Generic Co-Solvent)
+- **Date:** 2025-12
+- **Material:** Benzyl benzoate
+- **Dose:** ~2 mL in formula with no solubility issues
+- **Result:** Unnecessary cost
+- **Failure Types:** Waste (unnecessary), Overuse (generic co-solvent)
+- **Root Cause:** Added as reflex "solubility fixer" without checking for cloudiness
+- **Permanent Rule:** Benzyl benzoate only if actual precipitation/cloudiness, max 5%
+
+---
+
+## SECTION 8: IMPLEMENTATION IN VALIDATOR
+
+### Required Data Structures
+
+```python
+# Chemical class membership
+CHEMICAL_CLASSES = {
+    "animalic": ["skatole", "indole", "oud", "civet", "castoreum", ...],
+    "aldehyde": ["c-12 mna", "c-11", "c-14", "helional", "benzaldehyde", ...],
+    "phenol": ["eugenol", "isoeugenol", "thymol", "carvacrol", ...],
+    "terpene": ["limonene", "pinene", "myrcene", ...],
+    "musk": ["galaxolide", "exaltolide", "habanolide", ...],
+    "ionone": ["alpha-ionone", "beta-ionone", "alpha irone", ...],
+    "lactone": ["gamma-decalactone", "delta-decalactone", ...],
+}
+
+# Base type incompatibility rules
+INCOMPATIBILITY_MATRIX = {
+    "animalic": {
+        "clean": "FORBIDDEN",
+        "aquatic": "FORBIDDEN",
+        "aldehydic": "FORBIDDEN",
+        "heavy_oriental": "OK",
+        "leather": "GOOD",
+        "chypre": "OK",
+    },
+    "aldehyde": {
+        "clean": "EXCELLENT",
+        "heavy_oriental": "POOR",
+        "resinous": "POOR",
+    },
+    # ... etc
+}
+
+# OV thresholds by intensity tier
+OV_THRESHOLDS = {
+    "ultra_potent": {"safe": 500, "warn": 300, "error": 500},
+    "extremely_potent": {"safe": 1000, "warn": 500, "error_animalic": 1000, "error_ionone": 3000},
+    "high_impact": {"safe": 2000, "warn": 3000, "error": 5000},
+    "moderate": {"safe": 1000, "warn": 2000, "error": 3000},
+    "low": {"safe": 2000, "warn": 5000, "error": 10000},
+}
+
+# Degradation risk flags
+DEGRADATION_RISKS = {
+    "oxidation": ["limonene", "linalool", "citrus oils", "aldehydes"],
+    "hydrolysis": ["linalyl acetate", "benzyl acetate", "lactones"],
+    "photo": ["bergamot", "citrus oils", "vanillin"],
+}
+```
+
+### Required Validation Functions
+
+```python
+def get_chemical_class(material: str) -> list[str]:
+    """Return all chemical classes material belongs to"""
+    
+def check_base_compatibility(material_class: str, base_type: str) -> str:
+    """Return compatibility level: FORBIDDEN, POOR, OK, GOOD, EXCELLENT"""
+    
+def get_intensity_tier(odt: float) -> str:
+    """Return tier based on ODT: ultra_potent, extremely_potent, etc."""
+    
+def check_degradation_risk(material: str, formula: dict) -> list[str]:
+    """Check for oxidation, hydrolysis, photodegradation risks"""
+    
+def enforce_incompatibility_rules(material: str, base_type: str) -> tuple[bool, str]:
+    """Returns (is_forbidden, error_message)"""
+```
+
+---
+
+## SECTION 9: TESTING REQUIREMENTS
+
+Every aromachemical in ODT database must have:
+1. ✅ Chemical class assignment
+2. ✅ OV thresholds defined
+3. ✅ Base compatibility matrix
+4. ✅ IFRA limit (if applicable)
+5. ✅ Commercial usage range (if common)
+6. ✅ Degradation risk flags
+7. ✅ Owned substitute check
+
+**Test Cases Required:**
+- Animalic in clean base → REJECT
+- Animalic in leather base → ACCEPT (with OV check)
+- Aldehyde in resinous base → WARN (will be masked)
+- Terpene without BHT → WARN (oxidation risk)
+- Expensive material in large batch → ERROR (test small first)
+- Expensive material with owned substitute → SUGGEST substitute
+- OV >10,000 for animalic → REJECT
+- IFRA violation → REJECT
+- Allergen >0.001% → REQUIRE declaration
+
+---
+
+## CONCLUSION
+
+**This document is the PERMANENT RULEBOOK.**
+
+Every failure mode is now codified by:
+- Chemical class (animalics, aldehydes, etc.)
+- Failure type (incompatibility, overdose, waste, degradation, toxicity)
+- Intensity tier (ODT-based)
+- Base compatibility (clean, oriental, etc.)
+
+**NO EXCEPTIONS. NO "JUST THIS ONCE". NO GUESSING.**
+
+If chemistry says NO, the answer is NO.
+If ODT × OV = safe dose, that's the dose.
+If base compatibility matrix says FORBIDDEN, it's forbidden.
+
+One failure teaches us about an entire chemical class.
+Skatole failing in BR540 teaches us about ALL animalics in ALL clean bases.
+
+This is written in stone.
+
+---
+
+**Last Updated:** 2026-01-12
+**Status:** ACTIVE, PERMANENT
+**Owner:** ChemistryValidator Engine

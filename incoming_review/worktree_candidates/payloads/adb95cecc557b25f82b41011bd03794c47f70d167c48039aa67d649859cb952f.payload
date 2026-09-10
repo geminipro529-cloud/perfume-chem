@@ -1,0 +1,106 @@
+# C0 fixture bytes are a canonical SHA-locked regression artifact.
+/.gitattributes text eol=lf
+/tests/fixtures/c0_legacy_physical_model_cases.json text eol=lf
+/tests/fixtures/c0_legacy_physical_model_cases.sha256 text eol=lf
+/tests/fixtures/c0_lab_persistence_projection_v1.json text eol=lf
+/tests/fixtures/c0_lab_persistence_projection_v1.sha256 text eol=lf
+/tests/fixtures/c0_prepilot_v3_source_20260810.json text eol=lf
+/tests/fixtures/c0_prepilot_v3_source_20260810.provenance.json text eol=lf
+
+# Complexity governance receipts bind exact bytes and must not drift by host OS.
+/configs/complexity/*.json text eol=lf
+/configs/complexity/*.sha256 text eol=lf
+/configs/solforge/** text eol=lf
+/data/benchmarks/solforge/** text eol=lf whitespace=-blank-at-eof
+/data/governance/complexity*.json text eol=lf
+/data/governance/complex_perfumery_*.json text eol=lf
+/data/governance/cypress_xhigh_*_receipt_20260831.json text eol=lf whitespace=-blank-at-eof
+/data/governance/inventory_user_authority_overlay_*.json text eol=lf
+/data/governance/inventory_v5_current_stock_snapshot.json text eol=lf
+/data/governance/inventory_v5_alias_crosswalk_20260811.json text eol=lf
+/data/governance/inventory_v5_authority_delta_20260811.json text eol=lf
+/data/governance/inventory_v5_authority_delta_20260811_02.json text eol=lf
+/data/governance/inventory_v5_experiment_readiness_closure_queue_20260812.json text eol=lf
+/data/governance/inventory_v5_experiment_readiness_closure_evidence_audit_20260812.json text eol=lf
+/data/governance/inventory_v5_experiment_readiness_remaining_evidence_audit_20260812.json text eol=lf
+/data/governance/inventory_v5_direct_stock_assertion_reconciliation_20260812.json text eol=lf
+/data/governance/inventory_v5_historical_receipt_compatibility_20260904.json text eol=lf
+/tests/fixtures/inventory_v5_inventory_20260812.txt.snapshot -text whitespace=-blank-at-eol,-blank-at-eof
+/tests/fixtures/inventory_v5_project_reconciliation_20260812.md.snapshot text eol=lf whitespace=-blank-at-eol,-blank-at-eof
+/tests/fixtures/inventory_v5_literature_verification_ledger_20260812.md.snapshot text eol=lf whitespace=-blank-at-eol,-blank-at-eof
+/data/governance/pipeline_historical_artifact_registry_*.json text eol=lf
+/data/governance/solforge*.json text eol=lf
+/data/governance/depth_module_*_manifest_20260831.json text eol=lf
+/data/research/solforge/** text eol=lf
+/docs/superpowers/plans/*complexity*.md text eol=lf
+/docs/superpowers/specs/*complexity*.md text eol=lf
+/docs/depth_architecture/*.md text eol=lf whitespace=-blank-at-eol,-blank-at-eof
+/docs/floral_depth_architecture_theory.md text eol=lf whitespace=-blank-at-eol
+/docs/superpowers/plans/2026-08-27-white-fire-reliquary-training-implementation.md text eol=lf
+/docs/superpowers/specs/2026-08-27-all-floral-depth-compiler-design.md text eol=lf
+/engine/perception/*.py text eol=lf
+/engine/evidence/augmentation.py text eol=lf
+/engine/evidence/*.py text eol=lf
+/engine/evidence_contracts.py text eol=lf
+/engine/hedonic_evidence.py text eol=lf
+/engine/optimizer/*.py text eol=lf
+/engine/pipeline/*.py text eol=lf
+/engine/physics/model_lifecycle.py text eol=lf
+/engine/preference.py text eol=lf
+/engine/preference_davidson.py text eol=lf
+/engine/preference_validation.py text eol=lf
+/engine/scientific_validation/complexity*.py text eol=lf
+/engine/scientific_validation/__init__.py text eol=lf
+/engine/sensory/*.py text eol=lf
+/engine/solforge/*.py text eol=lf
+/future_modules/*.py text eol=lf
+/incoming_review/Meaningful_Complexity_Audit_v2.md text eol=lf
+/formulas/White_Fire_Reliquary_30mL_Parfum.md text eol=lf whitespace=-blank-at-eol
+/formulas/CYP-02_Cypress_Magnolia_Orris_30mL_Parfum.md text eol=lf whitespace=-blank-at-eol
+/tests/fixtures/complexity*.json text eol=lf
+/tests/fixtures/complexity*.sha256 text eol=lf
+/tests/fixtures/v19_native_complexity_design_prechange_scientific_validation_init.py.snapshot text eol=lf
+/tests/fixtures/formulation_intelligence_benchmark_v1.json text eol=lf
+/tests/fixtures/formulation_intelligence_benchmark_v1.sha256 text eol=lf
+/tests/fixtures/floral_depth/** text eol=lf
+/scripts/intervention_recommend.py text eol=lf
+/scripts/*.py text eol=lf
+/tests/fixtures/solforge/** text eol=lf
+/tests/*.py text eol=lf
+/tests/test_complexity*.py text eol=lf
+/tests/test_perceptual_topology.py text eol=lf
+
+# Unified-package imports preserve source worktree bytes and SHA-256 receipts.
+/conftest.py text eol=lf
+/external_evidence_pytest.py text eol=lf
+/data/governance/unified_import_*_20260904.json text eol=lf
+/data/governance/unified_perfume_intelligence_package_manifest_20260904.json text eol=lf
+/data/governance/historical_quarantine_v1/** -text -diff
+/backend/tests/fixtures/inventory_v5_history_20260811/** -text -diff
+/data/reference/perfume_kb/perfume_kb.jsonl text eol=lf
+/docs/governance/UNIFIED_PERFUME_INTELLIGENCE_PACKAGE_20260904.md text eol=lf
+/docs/superpowers/plans/2026-08-28-structural-formulation-studio.md -text whitespace=-blank-at-eol,-blank-at-eof
+/docs/superpowers/specs/2026-08-28-structural-formulation-studio-design.md -text whitespace=-blank-at-eol,-blank-at-eof
+/formulas/structural_formulation_studio/** -text whitespace=-blank-at-eol,-blank-at-eof
+/docs/research/APPLE_PIE_LUXE_* text eol=lf
+/docs/research/DHP2025_STRUCTURAL_FORMULATION_LEARNING_PROTOCOL.md text eol=lf
+/docs/research/donor_signatures/*.json text eol=lf
+/formulas/L*DHP2025*.md -text whitespace=-blank-at-eol,-blank-at-eof
+/formulas/LH_04X_Pomme_Couture_100_V1_30mL_15pct_Development.md -text whitespace=-blank-at-eol,-blank-at-eof
+/formulas/mixing_guides/L*DHP2025*.md text eol=lf whitespace=-blank-at-eol,-blank-at-eof
+/formulas/ysl_twenty_variant_study/** -text whitespace=-blank-at-eol,-blank-at-eof
+/tests/studies/test_ysl_twenty_variant_study.py text eol=lf
+/docs/research/CYPRES_DE_VERRE_*.md text eol=lf whitespace=-blank-at-eol,-blank-at-eof
+/formulas/CYP_01_Cypres_de_Verre_French_Cypress_30mL_20pct.md text eol=lf whitespace=-blank-at-eol,-blank-at-eof
+/docs/research/AVENTUS_ARCHITECTURE_CYPRESS_TRANSFER_BENCHMARK_2026-09-04.md text eol=lf whitespace=-blank-at-eol,-blank-at-eof
+/formulas/DHI-11_Velours_d_Iris_05443A_30mL_20pct.md text eol=lf whitespace=-blank-at-eol,-blank-at-eof
+/formulas/Rouge_Cristal_Extrait_Hedonic_Test_First_30mL_v1.md text eol=lf whitespace=-blank-at-eol,-blank-at-eof
+/formulas/Rouge_Cristal_BR540_EDP_Hedonic_Test_First_30mL_v1.md text eol=lf
+/formulas/sukhum_35_t4/** -text whitespace=-blank-at-eol,-blank-at-eof
+/docs/research/2026-08-29-thai-male-fruity-woody-market.md text eol=lf whitespace=-blank-at-eol,-blank-at-eof
+/docs/research/2026-08-30-sukhum-35-new-inventory-reconstruction.md text eol=lf whitespace=-blank-at-eol,-blank-at-eof
+/docs/superpowers/plans/2026-08-29-sukhum-35-implementation.md text eol=lf whitespace=-blank-at-eol,-blank-at-eof
+/docs/superpowers/plans/2026-08-31-aventus-absolu-explorer-extreme-hedonic-context.md text eol=lf whitespace=-blank-at-eol,-blank-at-eof
+/docs/superpowers/specs/2026-08-29-sukhum-35-thai-male-fruity-woody-design.md text eol=lf whitespace=-blank-at-eol,-blank-at-eof
+/docs/superpowers/specs/2026-08-31-aventus-explorer-reference-model-design.md text eol=lf whitespace=-blank-at-eol,-blank-at-eof
+/formulas/La_Rose_Monolithe_Direct_Dilution_50mL_Rescue.md text eol=lf whitespace=-blank-at-eol,-blank-at-eof

@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,1.0
+identity_system_probability,0.9981
+oav_probability,0.9981
+temporal_probability,1.0
+dominance_failure_probability,0.00039999999999995595
+overall_probability,0.9977
+dose_closure_probability,0.9998
+temporal_q05,0.9470047839888063
+temporal_median,0.973584518724917
+max_share_q95,0.47490045312887086
+marker_coverage_q05,1.0
+phase_sum_q05,"{""top"": 2.25130805669478, ""heart"": 19.83529114940451, ""base"": 39.75744924023593}"
+release_shape_median,"[0.21292658522040886, 0.29366361693086795, 0.3561312376234729, 0.12327896129698383]"
+phase_shape_median,"[0.15637878385678367, 0.3369988292854508, 0.5066362528972488]"
+marker_probabilities,"{""Bergamot FCF Oil Sicilian | top"": 0.9981, ""Lavender EO High Altitude | heart"": 1.0, ""Patchouli EO | heart"": 1.0, ""Cedarwood Virginia | base"": 0.9998, ""Vetiver EO | base"": 1.0, ""Black Agarwood Artificial 10% | base"": 1.0}"
+marker_quantiles,"{""Bergamot FCF Oil Sicilian | top"": [2.25130805669478, 6.341427207390121, 17.888801631130054], ""Lavender EO High Altitude | heart"": [4.618767065225868, 11.924803278997258, 31.008968510537233], ""Patchouli EO | heart"": [10.36145321188885, 26.540860530793466, 68.10032067912582], ""Cedarwood Virginia | base"": [3.1908215849518555, 8.599640308109965, 23.17614642617828], ""Vetiver EO | base"": [12.363745003162512, 31.679966650278146, 82.65974593801063], ""Black Agarwood Artificial 10% | base"": [11.215314240696861, 32.01333189266613, 91.67807187297156]}"
+classification,ROBUST

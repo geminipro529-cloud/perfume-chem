@@ -1,0 +1,29 @@
+﻿Code,ACC-FR-GRN-01
+Accord,Galbanum Ivy Green v1.0
+Category,Fresh & Musk
+Brief,"A layered green accord from volatile galbanum, leafy salicylate, wet stem, Verdox/Verdyl body and moss-vetiver shadow."
+Recommended use,1–8% of perfume concentrate
+Maturation,5–10 days
+Monte Carlo pass,0.9996
+Final design score,99.75
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Vetival,neat,1.0,38.62068965517241,38.62068965517241,38.62068965517241,193.10344827586206,DIRECT,vetiver,Rooty shadow,Polished vetiver.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.007140385821691377
+2,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,28.965517241379313,28.965517241379313,28.965517241379313,144.82758620689657,DIRECT,musk,Clean diffusion,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.004736211938579644
+3,base,Oakmoss Absolute 10%,10% working stock,0.1,24.137931034482758,2.413793103448276,24.137931034482758,120.6896551724138,PREPARED STOCK,moss,Moss depth,Natural moss depth.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0036900096407396733
+4,heart_base,Iso E Super,neat / as supplied,1.0,86.89655172413794,86.89655172413794,86.89655172413794,434.48275862068965,DIRECT,transparent_wood,Transparent wood,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.024901742489096754
+5,heart,Verdox,neat / as supplied,1.0,154.48275862068965,154.48275862068965,154.48275862068965,772.4137931034483,DIRECT,green_fruit,Green fruit-wood body,Green woody-fruit body.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.08743362414275414
+6,heart,Verdyl Acetate,neat/as supplied,1.0,96.55172413793103,96.55172413793103,96.55172413793103,482.7586206896552,DIRECT,green,Diffusive green body,Green diffusive leaf body.,HAVE,Use only with exact label/stock-strength accounting.,,IDENTITY CRITICAL,0.0402241283966467
+7,heart,Hedione,neat / as supplied,1.0,86.89655172413794,86.89655172413794,86.89655172413794,434.48275862068965,DIRECT,floral_air,Air,Transparent floral diffusion.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.024632556668646978
+8,heart,Helional 10%,Helional 10% working dilution,0.1,28.965517241379313,2.8965517241379315,28.965517241379313,144.82758620689657,PREPARED STOCK,marine,Wet floral air,Watery-green floral air.,HAVE — NEAT + 10%,Formula must specify exact strength.,,TEXTURAL SUPPORT,0.00463773681837153
+9,top_heart,Leafovert,as supplied; verify label,,67.58620689655173,,67.58620689655173,337.93103448275866,PRODUCT BASIS · VERIFY LABEL,green_leaf,Leafy bridge,Leafy salicylate bridge.,VERIFY,"Confirm bottle identity, strength, and solvent before use.",,IDENTITY CRITICAL,0.02274534735374471
+10,top_heart,Petitgrain EO Paraguay,neat / as supplied,1.0,57.931034482758626,57.931034482758626,57.931034482758626,289.65517241379314,DIRECT,citrus_green,Green citrus twig,Green bitter-orange twig.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.012756507420053673
+11,top_heart,Galbanum EO,neat/as supplied,1.0,48.275862068965516,48.275862068965516,48.275862068965516,241.3793103448276,DIRECT,green,Sharp green top,Sharp volatile galbanum green.,HAVE,Use only with exact label/stock-strength accounting.,,STRUCTURALLY IMPORTANT,0.014554178308938973
+12,top_heart,Undecavertol 1%,1% working stock,0.01,43.44827586206897,0.4344827586206897,43.44827586206897,217.24137931034483,PREPARED STOCK,green_leaf,Wet leaf,Wet green leaf.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.012362854679999466
+13,top_heart,Violet Leaf Absolute 10%,10% working stock,0.1,24.137931034482758,2.413793103448276,24.137931034482758,120.6896551724138,PREPARED STOCK,green_leaf,Metallic leaf,Metallic wet-stem violet leaf.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.005964735122569787
+14,top_heart,Methyl Nonyl Ketone 1%,Prepare 1% from neat Methyl Nonyl Ketone,0.01,14.482758620689657,0.14482758620689656,14.482758620689657,72.41379310344828,PREPARED STOCK,green_leaf,Leaf nuance,Metallic leafy nuance.,HAVE — NEAT / PREPARE,Use only at the listed supplied-stock strength.,Prepare fresh 1% working stock.,TEXTURAL SUPPORT,0.0033281095059798154
+15,top,Dihydromyrcenol,neat / as supplied,1.0,96.55172413793103,96.55172413793103,96.55172413793103,482.7586206896552,DIRECT,fresh_aromatic,Fresh diffusion,High-diffusion freshness.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.03044016977772335
+16,top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,57.931034482758626,57.931034482758626,57.931034482758626,289.65517241379314,DIRECT,citrus,Citrus brightness,Floral bergamot peel.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.01314300440346414
+17,top,cis-3-Hexenol 1%,1% working stock,0.01,24.137931034482758,0.2413793103448276,24.137931034482758,120.6896551724138,PREPARED STOCK,green_leaf,Cut stem,Cut-leaf freshness.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0060275854485513656
+18,carrier,DPG,neat,0.0,20.0,0.0,20.0,100.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

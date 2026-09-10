@@ -1,0 +1,127 @@
+{
+  "schema_version": "perfume_chem_inventory_worktree_sync_v1",
+  "sync_id": "INVENTORY-WORKTREE-SYNC-20260830-001",
+  "effective_date": "2026-08-30",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "purpose": "Distribute one hash-pinned current-inventory authority bundle to every registered Perfume-Chem worktree without merging or rebasing formulation work.",
+  "current_authority_files": [
+    {
+      "path": "inventory.txt",
+      "size_bytes": 20256,
+      "sha256": "46b34ae73406ff3d71c60d77298a0c22f6aeafe74aa2a4c510f554e3840595bf",
+      "role": "CURRENT_CONSOLIDATED_USER_STOCK_TEXT",
+      "raw_stock_rows": 279
+    },
+    {
+      "path": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+      "size_bytes": 199635,
+      "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "role": "IMMUTABLE_EXTERNAL_PARENT_SNAPSHOT"
+    },
+    {
+      "path": "data/governance/inventory_v5_current_stock_snapshot.json",
+      "size_bytes": 226125,
+      "sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+      "role": "HASH_PINNED_V5_PARENT_PROJECTION"
+    },
+    {
+      "path": "data/governance/inventory_v5_alias_crosswalk_20260811.json",
+      "size_bytes": 7700,
+      "sha256": "4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6",
+      "role": "IDENTITY_ONLY_V5_CROSSWALK"
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260828.json",
+      "size_bytes": 42672,
+      "sha256": "9d0f3750e897e13758a1180e158adca464449e9d6dfac176460ba18868a17564",
+      "role": "HASH_PINNED_USER_AUTHORITY_OVERLAY"
+    },
+    {
+      "path": "data/governance/inventory_v7_recovered_manifest_20260830.json",
+      "size_bytes": 13219,
+      "sha256": "87055b3d5f3976af99ff2ff02b89a2a144c6e8283fad374dce9984731784009c",
+      "role": "RECOVERED_V7_WORKING_STOCK_AUTHORITY"
+    },
+    {
+      "path": "docs/research/INVENTORY_STOCK_AUTHORITY_2026-08-30.md",
+      "size_bytes": 5704,
+      "sha256": "94d73f9677eaa92298b155c1911af8c5184fb281a254331a53c56476054c610b",
+      "role": "LATEST_STOCK_CORRECTION_RECEIPT"
+    }
+  ],
+  "frozen_evidence_files": [
+    {
+      "path": "data/governance/inventory_supplier_document_census_20260830.json",
+      "size_bytes": 709580,
+      "sha256": "d26e5e9ac4cdd096cb0d79e78bc108d1c5558985999c788e531edb6d79bdcaee",
+      "role": "FROZEN_273_ROW_SUPPLIER_DOCUMENT_CENSUS"
+    },
+    {
+      "path": "data/source_manifests/perfumersworld_inventory_documents_20260830.json",
+      "size_bytes": 354855,
+      "sha256": "d164b9429e89932454f1063855780ac8d070895edd0f7263133f2d182b798950",
+      "role": "FROZEN_SUPPLIER_DOCUMENT_ARCHIVE_MANIFEST"
+    },
+    {
+      "path": "docs/research/INVENTORY_273_MATERIAL_DOCUMENT_REGISTER_20260830.md",
+      "size_bytes": 54923,
+      "sha256": "c0a6def93e99175178854978558aec8f40d20218cd828b2d6d3eff085beacce7",
+      "role": "FROZEN_PRE_SYNC_273_ROW_REGISTER"
+    },
+    {
+      "path": "data/governance/inventory_document_delegate_receipt_20260830.json",
+      "size_bytes": 1665,
+      "sha256": "fb14efc6bd96d37c4df8983700aaa51829c41a233a69944f9c2da89e5adbd75d",
+      "role": "UNTRUSTED_DELEGATE_EVIDENCE_RECEIPT"
+    }
+  ],
+  "compatibility_files": [
+    {
+      "path": "engine/inventory_parser.py",
+      "size_bytes": 60103,
+      "sha256": "53064a188f33580599519c104ba26eb1ea665ef1269060497b6b4d94ed9d02bb",
+      "role": "CURRENT_HASH_PIN_AND_PLANNED_PREPARATION_PARSER"
+    },
+    {
+      "path": "engine/name_utils.py",
+      "size_bytes": 9621,
+      "sha256": "601418df1b4dc9a30b46da879db8b84e168fdd406187c8983fcbdbda400ee152",
+      "role": "EVERNYL_AND_TELVADA_IDENTITY_COMPATIBILITY"
+    },
+    {
+      "path": "tests/test_inventory_worktree_sync_2026_08_30.py",
+      "size_bytes": 5757,
+      "sha256": "bbcbdabfa10a2b7c0384ef4c6c9ddbc70eee4792f291fb9e6e59c64a4b02d7b8",
+      "role": "CURRENT_STOCK_SYNC_REGRESSION_TEST"
+    },
+    {
+      "path": "tests/test_inventory_v7_recovered_manifest.py",
+      "size_bytes": 2397,
+      "sha256": "5e7dd01185162c86f811fb2691d221d6fcefea7a16dc859b0711a72aba7e1025",
+      "role": "RECOVERED_V7_MANIFEST_REGRESSION_TEST"
+    }
+  ],
+  "distribution_policy": {
+    "exact_committed_blob_content_required": true,
+    "working_tree_line_endings_may_follow_checkout_attributes": true,
+    "overwrite_formula_files": false,
+    "merge_formulation_worktrees": false,
+    "rewrite_historical_formulas": false,
+    "silent_formula_rebase": false,
+    "frozen_evidence_promotes_current_stock": false,
+    "unresolved_fraction_or_carrier_fails_closed": true,
+    "planned_preparation_is_executable": false
+  },
+  "authority_limits": {
+    "sensory_authority": false,
+    "liking_authority": false,
+    "similarity_authority": false,
+    "oav_authority": false,
+    "safety_authority": false,
+    "stability_authority": false,
+    "procurement_authority": false,
+    "preparation_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  }
+}

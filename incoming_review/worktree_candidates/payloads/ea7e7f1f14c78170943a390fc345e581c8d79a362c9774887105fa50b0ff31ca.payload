@@ -1,0 +1,457 @@
+{
+  "fixture_count": 16,
+  "passed": 15,
+  "failed": 1,
+  "state": "FAIL",
+  "results": [
+    {
+      "fixture_id": "EQ-01-KNOWN-VALID",
+      "description": "Known-valid high-complexity perfume candidate",
+      "expected_state": "COMPUTATIONAL DESIGN PASS",
+      "observed_state": "COMPUTATIONAL DESIGN PASS",
+      "expected_failed_gates": [],
+      "observed_failed_gates": [],
+      "state_match": true,
+      "failed_gate_match": true,
+      "pass": true,
+      "mc_estimate": 0.98,
+      "mc_wilson_95_lower": 0.9779655551122345,
+      "mc_wilson_95_upper": 0.981850090273905,
+      "result_hash": "64bc41899177fd55a650f0e3cbbe3601aa64151222637ac97e781f032928dfae",
+      "failures": {},
+      "warnings": []
+    },
+    {
+      "fixture_id": "EQ-02-KNOWN-INVALID",
+      "description": "Multiple hard failures",
+      "expected_state": "REBUILD",
+      "observed_state": "REBUILD",
+      "expected_failed_gates": [
+        "G1",
+        "G10",
+        "G11",
+        "G12",
+        "G13",
+        "G14",
+        "G2",
+        "G3",
+        "G4",
+        "G5",
+        "G6",
+        "G7",
+        "G8",
+        "G9"
+      ],
+      "observed_failed_gates": [
+        "G1",
+        "G10",
+        "G11",
+        "G12",
+        "G13",
+        "G2",
+        "G3",
+        "G4",
+        "G5",
+        "G6",
+        "G7",
+        "G8",
+        "G9"
+      ],
+      "state_match": true,
+      "failed_gate_match": false,
+      "pass": false,
+      "mc_estimate": 0.6,
+      "mc_wilson_95_lower": 0.5931919067765228,
+      "mc_wilson_95_upper": 0.6067696860122562,
+      "result_hash": "101e6b33e25fb2db0cb3257b937a92e2602fa5c75c884786ed164a43fef8cc96",
+      "failures": {
+        "G1": [
+          "Product-basis active fraction was guessed."
+        ],
+        "G2": [
+          "Formula does not total exactly 1,000 parts.",
+          "Unresolved direct sub-1 \u00b5L dose exists in the 5 mL pilot."
+        ],
+        "G3": [
+          "Distinct odor-material count is below 65.",
+          "Microtexture ratio exceeds 20%.",
+          "Technical rows were counted as odor complexity.",
+          "Duplicate canonical materials were counted separately."
+        ],
+        "G4": [
+          "Fewer than five sensory systems.",
+          "Fewer than six documented bridge rows."
+        ],
+        "G5": [
+          "Major interaction records are incomplete."
+        ],
+        "G6": [
+          "Single modeled contributor exceeds 22%.",
+          "Single wood exceeds 35% of the wood block.",
+          "Single musk exceeds 45% of the musk block.",
+          "Single amberwood exceeds 35% of the amberwood block."
+        ],
+        "G7": [
+          "Fewer than three temporal phases."
+        ],
+        "G8": [
+          "Monte Carlo release criterion not closed."
+        ],
+        "G9": [
+          "Material-by-material ablation is incomplete."
+        ],
+        "G10": [
+          "Required dose perturbation is incomplete."
+        ],
+        "G11": [
+          "Sibling collision similarity is at or above 0.76."
+        ],
+        "G12": [
+          "Physical-chemistry review is incomplete."
+        ],
+        "G13": [
+          "Computed headspace was mislabeled as measured.",
+          "Strict OAV was claimed without measured gas-phase concentration."
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture_id": "EQ-03-ARITHMETIC-999",
+      "description": "Formula totals 999 parts",
+      "expected_state": "REBUILD",
+      "observed_state": "REBUILD",
+      "expected_failed_gates": [
+        "G2"
+      ],
+      "observed_failed_gates": [
+        "G2"
+      ],
+      "state_match": true,
+      "failed_gate_match": true,
+      "pass": true,
+      "mc_estimate": 0.975,
+      "mc_wilson_95_lower": 0.9727433269325044,
+      "mc_wilson_95_upper": 0.9770742388141961,
+      "result_hash": "ffe572f0a40dd26da341d51d0b6cdf1b3ab686a92df24cbee99b33d2ce53ee1c",
+      "failures": {
+        "G2": [
+          "Formula does not total exactly 1,000 parts."
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture_id": "EQ-04-DUPLICATE-STRENGTH",
+      "description": "Same canonical molecule counted at two stock strengths",
+      "expected_state": "REBUILD",
+      "observed_state": "REBUILD",
+      "expected_failed_gates": [
+        "G3"
+      ],
+      "observed_failed_gates": [
+        "G3"
+      ],
+      "state_match": true,
+      "failed_gate_match": true,
+      "pass": true,
+      "mc_estimate": 0.975,
+      "mc_wilson_95_lower": 0.9727433269325044,
+      "mc_wilson_95_upper": 0.9770742388141961,
+      "result_hash": "6647c1ba76742d6e7488085bf53b7c9491a653e725142077a745524dca883a7b",
+      "failures": {
+        "G3": [
+          "Duplicate canonical materials were counted separately."
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture_id": "EQ-05-PRODUCT-BASIS-UNKNOWN",
+      "description": "Unknown product-basis active fraction is preserved rather than guessed",
+      "expected_state": "COMPUTATIONAL DESIGN PASS",
+      "observed_state": "COMPUTATIONAL DESIGN PASS",
+      "expected_failed_gates": [],
+      "observed_failed_gates": [],
+      "state_match": true,
+      "failed_gate_match": true,
+      "pass": true,
+      "mc_estimate": 0.97,
+      "mc_wilson_95_lower": 0.9675440728422504,
+      "mc_wilson_95_upper": 0.9722754132650111,
+      "result_hash": "3f1d42dabcad7f79dcda6163d44218a225bcd6124a62f434f6d250a08d7621fd",
+      "failures": {},
+      "warnings": []
+    },
+    {
+      "fixture_id": "EQ-06-DIRECT-SUB1-UL",
+      "description": "Unresolved direct sub-1 \u00b5L 5 mL dose",
+      "expected_state": "REBUILD",
+      "observed_state": "REBUILD",
+      "expected_failed_gates": [
+        "G2"
+      ],
+      "observed_failed_gates": [
+        "G2"
+      ],
+      "state_match": true,
+      "failed_gate_match": true,
+      "pass": true,
+      "mc_estimate": 0.97,
+      "mc_wilson_95_lower": 0.9675440728422504,
+      "mc_wilson_95_upper": 0.9722754132650111,
+      "result_hash": "7feffd92974f64e602de6eeeebbcec049148b6e2486689dc9547954d3733fb22",
+      "failures": {
+        "G2": [
+          "Unresolved direct sub-1 \u00b5L dose exists in the 5 mL pilot."
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture_id": "EQ-07-DOMINANCE",
+      "description": "Single material and wood block exceed dominance limits",
+      "expected_state": "REBUILD",
+      "observed_state": "REBUILD",
+      "expected_failed_gates": [
+        "G6"
+      ],
+      "observed_failed_gates": [
+        "G6"
+      ],
+      "state_match": true,
+      "failed_gate_match": true,
+      "pass": true,
+      "mc_estimate": 0.97,
+      "mc_wilson_95_lower": 0.9675440728422504,
+      "mc_wilson_95_upper": 0.9722754132650111,
+      "result_hash": "85ab420ba64dadb84fdcf1e78b81570c9b86f4f78d6dfea9387806152384ec43",
+      "failures": {
+        "G6": [
+          "Single modeled contributor exceeds 22%.",
+          "Single wood exceeds 35% of the wood block."
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture_id": "EQ-08-SIBLING-COLLAPSE",
+      "description": "Two siblings are effectively identical",
+      "expected_state": "REBUILD",
+      "observed_state": "REBUILD",
+      "expected_failed_gates": [
+        "G11"
+      ],
+      "observed_failed_gates": [
+        "G11"
+      ],
+      "state_match": true,
+      "failed_gate_match": true,
+      "pass": true,
+      "mc_estimate": 0.97,
+      "mc_wilson_95_lower": 0.9675440728422504,
+      "mc_wilson_95_upper": 0.9722754132650111,
+      "result_hash": "de44238ccbc356f5b1b5f27876c260bfc36e39dfc6b29c07b89295d24ea4af44",
+      "failures": {
+        "G11": [
+          "Sibling collision similarity is at or above 0.76."
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture_id": "EQ-09-HIGH-ROW-STRESS",
+      "description": "Ninety-row high-complexity stress case",
+      "expected_state": "COMPUTATIONAL DESIGN PASS",
+      "observed_state": "COMPUTATIONAL DESIGN PASS",
+      "expected_failed_gates": [],
+      "observed_failed_gates": [],
+      "state_match": true,
+      "failed_gate_match": true,
+      "pass": true,
+      "mc_estimate": 0.985,
+      "mc_wilson_95_lower": 0.983219851155249,
+      "mc_wilson_95_upper": 0.9865938738703295,
+      "result_hash": "6fc80d772b48ae18aeb365f40a34fae34a4b42a8d5151943509a6019296402b9",
+      "failures": {},
+      "warnings": []
+    },
+    {
+      "fixture_id": "EQ-10-MICROTEXTURE-OVERFLOW",
+      "description": "Microtexture exceeds twenty percent",
+      "expected_state": "REBUILD",
+      "observed_state": "REBUILD",
+      "expected_failed_gates": [
+        "G3"
+      ],
+      "observed_failed_gates": [
+        "G3"
+      ],
+      "state_match": true,
+      "failed_gate_match": true,
+      "pass": true,
+      "mc_estimate": 0.98,
+      "mc_wilson_95_lower": 0.9779655551122345,
+      "mc_wilson_95_upper": 0.981850090273905,
+      "result_hash": "7520585fd2b500e4d18e04c07d13a2dff18c8afef50185a6deae5a74486bee8a",
+      "failures": {
+        "G3": [
+          "Microtexture ratio exceeds 20%."
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture_id": "EQ-11-STRICT-OAV-MISLABEL",
+      "description": "Strict OAV claimed without measured gas-phase concentration",
+      "expected_state": "HOLD",
+      "observed_state": "HOLD",
+      "expected_failed_gates": [
+        "G13"
+      ],
+      "observed_failed_gates": [
+        "G13"
+      ],
+      "state_match": true,
+      "failed_gate_match": true,
+      "pass": true,
+      "mc_estimate": 0.98,
+      "mc_wilson_95_lower": 0.9779655551122345,
+      "mc_wilson_95_upper": 0.981850090273905,
+      "result_hash": "495d587eca26671dd990c7e3250d604266db16d7f6fe3e2f7f46e4f413462147",
+      "failures": {
+        "G13": [
+          "Strict OAV was claimed without measured gas-phase concentration."
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture_id": "EQ-12-HEADSPACE-MISLABEL",
+      "description": "Computed headspace is mislabeled as measured",
+      "expected_state": "HOLD",
+      "observed_state": "HOLD",
+      "expected_failed_gates": [
+        "G13"
+      ],
+      "observed_failed_gates": [
+        "G13"
+      ],
+      "state_match": true,
+      "failed_gate_match": true,
+      "pass": true,
+      "mc_estimate": 0.98,
+      "mc_wilson_95_lower": 0.9779655551122345,
+      "mc_wilson_95_upper": 0.981850090273905,
+      "result_hash": "3b410b740fb6cc71b5c8dccd78606e461ab8c810a18e1ccf2f3fa4cc0dc970ab",
+      "failures": {
+        "G13": [
+          "Computed headspace was mislabeled as measured."
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture_id": "EQ-13-PHYSICAL-CHEMISTRY-MISSING",
+      "description": "Physical chemistry review is incomplete",
+      "expected_state": "HOLD",
+      "observed_state": "HOLD",
+      "expected_failed_gates": [
+        "G12"
+      ],
+      "observed_failed_gates": [
+        "G12"
+      ],
+      "state_match": true,
+      "failed_gate_match": true,
+      "pass": true,
+      "mc_estimate": 0.97,
+      "mc_wilson_95_lower": 0.9675440728422504,
+      "mc_wilson_95_upper": 0.9722754132650111,
+      "result_hash": "568065f3114ef4467d5a14b905044d389317a44f3c14760118b3954dea0db687",
+      "failures": {
+        "G12": [
+          "Physical-chemistry review is incomplete."
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture_id": "EQ-14-INTERACTION-INCOMPLETE",
+      "description": "Major modules lack interaction records",
+      "expected_state": "REBUILD",
+      "observed_state": "REBUILD",
+      "expected_failed_gates": [
+        "G5"
+      ],
+      "observed_failed_gates": [
+        "G5"
+      ],
+      "state_match": true,
+      "failed_gate_match": true,
+      "pass": true,
+      "mc_estimate": 0.97,
+      "mc_wilson_95_lower": 0.9675440728422504,
+      "mc_wilson_95_upper": 0.9722754132650111,
+      "result_hash": "145a4dc1610e512c691572c0a72d488a21cd32318199b6cf98d5fe9fdc7692b5",
+      "failures": {
+        "G5": [
+          "Major interaction records are incomplete."
+        ]
+      },
+      "warnings": []
+    },
+    {
+      "fixture_id": "EQ-15-NEAR-THRESHOLD-MC",
+      "description": "Monte Carlo point estimate near threshold requires confidence interval and confirmation",
+      "expected_state": "RERUN REQUIRED",
+      "observed_state": "RERUN REQUIRED",
+      "expected_failed_gates": [
+        "G8"
+      ],
+      "observed_failed_gates": [
+        "G8"
+      ],
+      "state_match": true,
+      "failed_gate_match": true,
+      "pass": true,
+      "mc_estimate": 0.905,
+      "mc_wilson_95_lower": 0.9008581942935059,
+      "mc_wilson_95_upper": 0.9089862565010494,
+      "result_hash": "c9eaffd30ce0624915b1080173f374e7519972b93441a4b6b9fd7d51662648cd",
+      "failures": {
+        "G8": [
+          "Monte Carlo release criterion not closed."
+        ]
+      },
+      "warnings": [
+        "100,000-draw independent-seed confirmation required."
+      ]
+    },
+    {
+      "fixture_id": "EQ-16-LOW-QUALITY-SCORE",
+      "description": "No hard gate fails, but quality score is below 92",
+      "expected_state": "CONDITIONAL",
+      "observed_state": "CONDITIONAL",
+      "expected_failed_gates": [
+        "G14"
+      ],
+      "observed_failed_gates": [
+        "G14"
+      ],
+      "state_match": true,
+      "failed_gate_match": true,
+      "pass": true,
+      "mc_estimate": 0.97,
+      "mc_wilson_95_lower": 0.9675440728422504,
+      "mc_wilson_95_upper": 0.9722754132650111,
+      "result_hash": "9ff2e0cfcebd5ca29a3d28d45c76ede13e3b7d849b8ccab1c870bd7085e26c2b",
+      "failures": {
+        "G14": [
+          "Quality score is below 92."
+        ]
+      },
+      "warnings": []
+    }
+  ]
+}

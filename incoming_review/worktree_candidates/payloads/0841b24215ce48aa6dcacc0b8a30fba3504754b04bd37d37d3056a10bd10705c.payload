@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-TEM-S02",
+  "completed_utc": "2026-08-26T07:33:17.221190+00:00",
+  "dispatch_sha256": "b358fb5b76f7b2a307d9d365243b890f31a389958f3bc299d11ef0a9e1b8900b",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "temporal_sensory_ledger",
+  "output_sha256": "831392fbe32889119a2ee1685450bd083a1a09372b67e442a6b23d3f1e4f5917",
+  "output_text": "{\"decision_state\":\"INCOMPLETE\",\"target_linked_reasoning\":\"The depth panel is not balanced: 11 of 12 canonical cells were observed, with A3 repeat 2 at 1800 seconds for DEPTH absent. Because no interpolation was authorized, the missing value must remain explicit and no complete balanced-panel conclusion can be made.\",\"controlled_comparison\":\"Observed design coverage was 11/12 cells versus the required balanced coverage of 12/12 cells.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"MISSING_CANONICAL_CELL\",\"BALANCED_DESIGN_INCOMPLETE\",\"INTERPOLATION_NOT_AUTHORIZED\"],\"calculations\":{\"missing_cell_count\":1},\"next_actions\":[\"Collect the missing A3, repeat 2, 1800-second DEPTH observation under the original protocol.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "dab1bb2173b96fb4c964d438435931367577fdd6738a917e671654fc41b58715",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-229e5cd8c672ab5e39dc",
+  "role": "SAFE_COUNTERCASE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:32:58.546508+00:00",
+  "stderr_sha256": "c239052f844801305587306c134ea736fbc5a7c98e4dd59a6943b4d10abdb9de",
+  "stderr_tail": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"allowed_decision_states\":[\"COMPLETE\",\"INCOMPLETE\",\"HOLD\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"missing_cell_count\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"INCOMPLETE\",\"target_linked_reasoning\":\"The depth panel is not balanced: 11 of 12 canonical cells were observed, with A3 repeat 2 at 1800 seconds for DEPTH absent. Because no interpolation was authorized, the missing value must remain explicit and no complete balanced-panel conclusion can be made.\",\"controlled_comparison\":\"Observed design coverage was 11/12 cells versus the required balanced coverage of 12/12 cells.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"MISSING_CANONICAL_CELL\",\"BALANCED_DESIGN_INCOMPLETE\",\"INTERPOLATION_NOT_AUTHORIZED\"],\"calculations\":{\"missing_cell_count\":1},\"next_actions\":[\"Collect the missing A3, repeat 2, 1800-second DEPTH observation under the original protocol.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n5,359\n",
+  "stdout_sha256": "f1f20b7ebec19fe08dbe6c34236da6c5c27c9c4e074b551f69fe35039512a5fb"
+}

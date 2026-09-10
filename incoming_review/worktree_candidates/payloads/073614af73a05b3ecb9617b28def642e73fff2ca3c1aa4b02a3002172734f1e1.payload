@@ -1,0 +1,66 @@
+# Complex Perfumery V9 exact-byte recovery and native-fit plan
+
+State: `PERFUME_BOX_V2_EXACT_BYTES_QUARANTINED_NOT_ADMITTED__COLLECTION_AND_INSTALLATION_INCOMPLETE`.
+
+## New exact recovery
+
+`Perfume_Box_Workflow_Formula_Book_Aug2026_v2_Package.zip` is now captured as exact source bytes:
+
+- 208,163 bytes;
+- SHA-256 `db0579760159e7438b83e92de399aa0a9f5862f0f547fa030a682c339bd54e84`;
+- exact reconstruction from 68 ordered, individually verified base64 blocks;
+- full base64: 277,552 characters, SHA-256 `3ce6ea1f80aec0fc10318a8b77e238f93a694975e0f2853201082dfc971333af`;
+- eight safe, case-fold-unique ZIP members and full CRC pass;
+- four embedded SHA-256 sidecars replay exactly;
+- the embedded workbook is the exact already-known 159,218-byte workbook, SHA-256 `90191bed8d702c023cbbae883a2320b656c6ba47355fe5cee3ecf6a63a619ba0`;
+- native graph: `GRAPH_COMPLETE_QUARANTINED`, two terminal nodes, one edge, depth one, no graph-level finding, promotion false;
+- root-node holds: `NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT` and `PARTIAL_MEMBER_SCAN` for the large formula JSON.
+
+Byte and checksum integrity are distinct from admission. The bounded native scanner remains controlling and is not reported as clear.
+
+## Content and scientific ceiling
+
+The package contains nine formula hypotheses and 625 rows: seven Violet portfolio builds plus a DHP25 build and target. It has 25 preparation or identity-verification queue records. Its release `PASS` proves only that raw parts and raw microlitre totals add to the declared concentrate volumes. It does not prove active-dose preservation, current stock identity, carrier or basis compatibility, physical preparation, similarity, liking, stability, safety, headspace, strict OAV, or release.
+
+The package itself states:
+
+- physical state: hold / not physically validated;
+- similarity: not tested;
+- liking: not tested;
+- stability: not tested;
+- safety release: not tested.
+
+Material labels and stock fractions require line-by-line native rebinding. Examples include a `Beta Ionone 1%` display label bound to the current 0.1% working dilution and `Cedramber 10%` display labels used with both neat and prepared-stock semantics across different formula families. These are design-lineage facts, not executable-dose receipts.
+
+## Native fit
+
+Do not install the package JSON, workbook, Markdown, or formula rows as canonical formulas, build plans, stock truth, or a parallel formula store. Preserve them as immutable formula/build ancestry only. Any future use must create a new native child through:
+
+1. target-formula versus build separation;
+2. exact current V5 stock, lot, carrier, basis, and preparation lineage;
+3. immutable build-plan and committed bottle lifecycle records;
+4. pre-mix active-dose equivalence and contextual OAV-per-time screening;
+5. C0, B5, and B7 authority gates where applicable.
+
+No migration, new truth store, new pipeline script, package-code installation, formula mutation, inventory mutation, or physical execution is indicated.
+
+## Remaining prior optional exact-byte queue
+
+One prior optional identity remains unrecovered:
+
+1. `UNIVERSAL_ACCORD_INTELLIGENCE_MODULE_v1.zip`, 539,050 bytes, SHA-256 `8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998`: exact source bytes remain unavailable. Reconstruction and substitution are forbidden.
+
+Three post-V7 package identities remain source-card-only candidates: the 41,882,040-byte latest-state compilation, its 41,858,464-byte bridge packet, and the 549,190-byte Opus V hedonic regeneration package. None has local exact bytes or authority.
+
+## Installation-critical hold
+
+P6 remains blocked on exact unavailable parents:
+
+- ZIP SHA-256 `8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db`;
+- wheel SHA-256 `582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5`.
+
+No reconstruction, substitution, package installation, calibration activation, or C8 headspace/OAV authority is allowed.
+
+## Authority boundary
+
+Collection completion, source admission, formula/build authority, inventory/stock/bottle authority, physical or sensory execution, analytical truth, headspace, strict OAV, safety, procurement, publication, installation, and release all remain false.

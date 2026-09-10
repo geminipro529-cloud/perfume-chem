@@ -1,0 +1,94 @@
+﻿Code,V03-HC
+Variant,Rain Violet HC
+Blind code,R58
+Concentration,0.2
+30 mL concentrate µL,6000
+30 mL ethanol 96% µL,24000
+5 mL concentrate µL,1000
+5 mL ethanol 96% µL,4000
+Maturation,21 days
+MC pass probability,1.0
+Sol score,92.0
+Outcome,SOL_5_6_PRO_COMPUTATIONAL_DESIGN_PASS
+Formula hash,562dde727d72b69e02ce532f9811efe2515611877983ff686c72146fd64d82f3
+
+Order,Stage,Material,Supplied stock,Active fraction,Parts / 1000,30 mL raw µL,5 mL raw µL,1 mL raw µL,30 mL active-eq µL,Execution,Axis,Ablation class,Perturbation class,Functional role,Inventory state
+1,"1 · Woods, resins, suede & sweet base",Iso E Super,neat / as supplied,1,40.0,240.0,40.0,8.0,240.0,DIRECT,woods,STRUCTURALLY IMPORTANT,ROBUST / MICRO LEVER,transparent woody space,HAVE
+2,"1 · Woods, resins, suede & sweet base",Ambrofix 30%,30% working stock,0.3,19.0,114.0,19.0,3.8000000000000003,34.199999999999996,PREPARED STOCK,woods,IDENTITY CRITICAL,ROBUST / MICRO LEVER,mineral ambergris persistence,HAVE
+3,"1 · Woods, resins, suede & sweet base",Vetival,neat,1,11.0,66.0,11.0,2.2,66.0,DIRECT,woods,STRUCTURALLY IMPORTANT,ROBUST / MICRO LEVER,polished vetiver root,HAVE
+4,"1 · Woods, resins, suede & sweet base",Sandalore,neat / as supplied,1,10.0,60.0,10.0,2.0,60.0,DIRECT,woods,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,creamy sandalwood body,HAVE
+5,"1 · Woods, resins, suede & sweet base",Cedarwood Virginia,neat / as supplied,1,9.0,54.0,9.0,1.8,54.0,DIRECT,woods,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,dry cedar frame,HAVE
+6,"1 · Woods, resins, suede & sweet base",Vertofix,neat/as supplied,1,8.0,48.0,8.0,1.6,48.0,DIRECT,woods,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,vetiver-cedar volume,HAVE
+7,"1 · Woods, resins, suede & sweet base",Ambrox Super 33%,33% working stock,0.33,6.0,36.0,6.0,1.2000000000000002,11.88,PREPARED STOCK,woods,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,dry mineral amber,HAVE
+8,"1 · Woods, resins, suede & sweet base",Cashmeran 20%,Cashmeran 20% in DPG,0.2,5.0,30.0,5.0,1.0,6.0,PREPARED STOCK,woods,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,warm textile wood,HAVE — MULTIPLE STOCKS
+9,"1 · Woods, resins, suede & sweet base",Cedarwood Himalayan EO,neat/as supplied,,4.0,24.0,4.0,0.8,,PRODUCT BASIS / LABEL LOCK,woods,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,soft resinous cedar grain,HAVE
+10,"1 · Woods, resins, suede & sweet base",Vetiver EO,neat / as supplied,1,4.0,24.0,4.0,0.8,24.0,DIRECT,woods,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,natural rooty vetiver,HAVE
+11,"1 · Woods, resins, suede & sweet base",Javanol 20% in DPG,Javanol 20% in DPG,0.2,3.0,18.0,3.0,0.6000000000000001,3.6,PREPARED STOCK,woods,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,radiant sandalwood projection,HAVE — 20% IN DPG
+12,"1 · Woods, resins, suede & sweet base",Polysantol,neat / as supplied,1,3.0,18.0,3.0,0.6000000000000001,18.0,DIRECT,woods,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,persistent polished sandalwood,HAVE
+13,"1 · Woods, resins, suede & sweet base",Sandalwood EO,Sandalwood EO 10% in DPG,0.1,3.0,18.0,3.0,0.6000000000000001,1.8,PREPARED STOCK,woods,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,natural sandalwood softness,HAVE — 10% ONLY
+14,"1 · Woods, resins, suede & sweet base",Cedramber 10%,Cedramber neat,1.0,2.0,12.0,2.0,0.4,12.0,DIRECT,woods,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,dry cedar-amber grain,HAVE — NEAT ONLY
+15,"1 · Woods, resins, suede & sweet base",Olibanum 50%,50% in DPG,0.5,2.0,12.0,2.0,0.4,6.0,PREPARED STOCK,resin_suede,STRUCTURALLY IMPORTANT,ROBUST / MICRO LEVER,cool mineral incense,HAVE
+16,"1 · Woods, resins, suede & sweet base",Amberwood F,neat/as supplied,1,1.0,6.0,1.0,0.2,6.0,DIRECT · PRECISION 1 µL,woods,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,dry amberwood pressure,HAVE
+17,"1 · Woods, resins, suede & sweet base",Ebanol,neat/as supplied,1,1.0,6.0,1.0,0.2,6.0,DIRECT · PRECISION 1 µL,woods,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,dark sandalwood grain,HAVE
+18,"1 · Woods, resins, suede & sweet base",Norlimbanol Dextro 10%,10% in DEP,0.1,1.0,6.0,1.0,0.2,0.6000000000000001,PREPARED STOCK · PRECISION 1 µL,woods,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,long dry wood filament,HAVE
+19,"1 · Woods, resins, suede & sweet base",Suederal 10%,10% working stock,0.1,1.0,6.0,1.0,0.2,0.6000000000000001,PREPARED STOCK · PRECISION 1 µL,resin_suede,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,pale suede texture,HAVE
+20,2 · Musks & textile diffusion,Habanolide,Habanolide neat; verify bottle label,1.0,42.0,252.0,42.0,8.4,252.0,VERIFY LABEL,musks,IDENTITY CRITICAL,CONTROLLED TUNING LEVER,radiant metallic-clean musk,HAVE — NEAT
+21,2 · Musks & textile diffusion,Romandolide,Romandolide neat; verify bottle label,1.0,25.0,150.0,25.0,5.0,150.0,VERIFY LABEL,musks,STRUCTURALLY IMPORTANT,ROBUST / MICRO LEVER,fruity-clean musk body,HAVE — NEAT
+22,2 · Musks & textile diffusion,Zenolide,neat / as supplied,1,12.0,72.0,12.0,2.4000000000000004,72.0,DIRECT,musks,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,smooth musk body,HAVE
+23,2 · Musks & textile diffusion,Galaxolide 50%,50% in DEP,0.5,8.0,48.0,8.0,1.6,24.0,PREPARED STOCK,musks,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,soft musk volume,HAVE
+24,2 · Musks & textile diffusion,Ambrettolide 10%,10% in DPG,0.1,6.0,36.0,6.0,1.2000000000000002,3.6,PREPARED STOCK,musks,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,warm macrocyclic skin texture,HAVE
+25,2 · Musks & textile diffusion,Exaltolide 10%,10% working stock,0.1,6.0,36.0,6.0,1.2000000000000002,3.6,PREPARED STOCK,musks,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,soft rounded macrocyclic musk,HAVE
+26,2 · Musks & textile diffusion,Macrolide,as supplied,1,4.0,24.0,4.0,0.8,24.0,DIRECT,musks,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,soft macrocyclic musk,HAVE
+27,2 · Musks & textile diffusion,Musk Ketone 10%,10% in DPG,0.1,2.0,12.0,2.0,0.4,1.2000000000000002,PREPARED STOCK,musks,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,powdery vintage musk trace,HAVE
+28,"3 · Violet flower, ionones, irones & rhizome",Alpha Isomethyl Ionone,neat / as supplied,1,110.0,660.0,110.0,22.0,660.0,DIRECT,violet_flower,IDENTITY CRITICAL,FRAGILE / PRECISION CRITICAL,main modern violet-petal volume,HAVE
+29,"3 · Violet flower, ionones, irones & rhizome",Dihydro Beta Ionone,neat / as supplied,1,43.0,258.0,43.0,8.6,258.0,DIRECT,violet_flower,STRUCTURALLY IMPORTANT,CONTROLLED TUNING LEVER,dry mobile violet-wood texture,HAVE
+30,"3 · Violet flower, ionones, irones & rhizome",Alpha Ionone,neat / as supplied,1,40.0,240.0,40.0,8.0,240.0,DIRECT,violet_flower,IDENTITY CRITICAL,CONTROLLED TUNING LEVER,warm luminous violet petal,HAVE
+31,"3 · Violet flower, ionones, irones & rhizome",Ultralia,neat,1,35.0,210.0,35.0,7.0,210.0,DIRECT,violet_flower,STRUCTURALLY IMPORTANT,ROBUST / MICRO LEVER,modern diffusive violet volume,HAVE
+32,"3 · Violet flower, ionones, irones & rhizome",Orivone,neat,1,20.0,120.0,20.0,4.0,120.0,DIRECT,rhizome,STRUCTURALLY IMPORTANT,CONTROLLED TUNING LEVER,dry earthy orris-root structure,HAVE
+33,"3 · Violet flower, ionones, irones & rhizome",Alpha Irone 30%,30% w/w in IPM,0.3,18.0,108.0,18.0,3.6,32.4,PREPARED STOCK,rhizome,STRUCTURALLY IMPORTANT,CONTROLLED TUNING LEVER,luxury irone signature and root-petal bridge,HAVE
+34,"3 · Violet flower, ionones, irones & rhizome",Orris Liquid — PerfumersWorld product basis,PerfumersWorld Orris Liquid as supplied; product basis,,18.0,108.0,18.0,3.6,,PRODUCT BASIS,rhizome,STRUCTURALLY IMPORTANT,ROBUST / MICRO LEVER,waxy product-basis orris texture,HAVE — PRODUCT BASIS
+35,"3 · Violet flower, ionones, irones & rhizome",Beta Ionone,neat / as supplied,1,8.0,48.0,8.0,1.6,48.0,DIRECT,violet_flower,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,deep dark-violet shadow,HAVE
+36,"3 · Violet flower, ionones, irones & rhizome",Allyl Ionone 10%,prepare 10% in DPG from owned neat Allyl Ionone,0.1,6.0,36.0,6.0,1.2000000000000002,3.6,PREPARE STOCK,violet_flower,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,fruity-dry violet lift,HAVE — NEAT ONLY
+37,"3 · Violet flower, ionones, irones & rhizome",Irotyl,Irotyl neat; exact label lock; activity withheld,,5.0,30.0,5.0,1.0,,LABEL LOCK / PRODUCT BASIS,rhizome,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,specialty rooty orris texture,HAVE — NEAT
+38,"3 · Violet flower, ionones, irones & rhizome",Koavone,neat/as supplied,1,4.0,24.0,4.0,0.8,24.0,DIRECT,rhizome,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,woody violet-orris connector,HAVE
+39,"4 · Petal body, floral air & microtexture",Hedione,neat / as supplied,1,135.0,810.0,135.0,27.0,810.0,DIRECT,petal_air,STRUCTURALLY IMPORTANT,CONTROLLED TUNING LEVER,transparent jasmine air and bloom,HAVE
+40,"4 · Petal body, floral air & microtexture",Benzyl Salicylate,neat / as supplied,1,40.0,240.0,40.0,8.0,240.0,DIRECT,petal_air,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,floral binder and substantivity,HAVE
+41,"4 · Petal body, floral air & microtexture",Florol,neat / as supplied,1,25.0,150.0,25.0,5.0,150.0,DIRECT,petal_air,STRUCTURALLY IMPORTANT,ROBUST / MICRO LEVER,clean floral volume,HAVE
+42,"4 · Petal body, floral air & microtexture",Nympheal,as supplied; product basis,,23.0,138.0,23.0,4.6000000000000005,,PRODUCT BASIS,petal_air,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,modern watery muguet volume,HAVE
+43,"4 · Petal body, floral air & microtexture",Jessemal,as supplied,1,18.0,108.0,18.0,3.6,108.0,DIRECT,petal_air,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,radiant floral-air lift,HAVE
+44,"4 · Petal body, floral air & microtexture",Phenethyl Alcohol,neat / as supplied,1,18.0,108.0,18.0,3.6,108.0,DIRECT,petal_air,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,soft petal body,HAVE
+45,"4 · Petal body, floral air & microtexture",Hydroxycitronellal,neat / as supplied,1,12.0,72.0,12.0,2.4000000000000004,72.0,DIRECT,petal_air,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,soft muguet petal body,HAVE
+46,"4 · Petal body, floral air & microtexture",Hexyl Salicylate,Hexyl Salicylate neat / as supplied,1.0,8.0,48.0,8.0,1.6,48.0,DIRECT,petal_air,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,smooth petal persistence,HAVE
+47,"4 · Petal body, floral air & microtexture",Magnolia EO,neat / as supplied,1,8.0,48.0,8.0,1.6,48.0,DIRECT,petal_air,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,creamy citrus-white-floral life,HAVE
+48,"4 · Petal body, floral air & microtexture",Farnesol,neat / as supplied,1,3.0,18.0,3.0,0.6000000000000001,18.0,DIRECT,petal_air,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,warm floral persistence,HAVE
+49,"4 · Petal body, floral air & microtexture",Jasmine Absolute 10%,10% working stock,0.1,3.0,18.0,3.0,0.6000000000000001,1.8,PREPARED STOCK,petal_air,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,natural jasmine life,HAVE
+50,"4 · Petal body, floral air & microtexture",Jasmine Sambac Absolute 10%,10% working stock,0.1,3.0,18.0,3.0,0.6000000000000001,1.8,PREPARED STOCK,petal_air,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,green-fruity jasmine detail,HAVE
+51,"4 · Petal body, floral air & microtexture",Nerolidol,Nerolidol neat / as supplied; label lock,1.0,3.0,18.0,3.0,0.6000000000000001,18.0,LABEL LOCK,petal_air,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,floral-woody persistence,HAVE
+52,"4 · Petal body, floral air & microtexture",Phenylacetaldehyde Dimethyl Acetal (PADMA),Phenylacetaldehyde Dimethyl Acetal neat / as supplied; CAS 101-48-4,1.0,3.0,18.0,3.0,0.6000000000000001,18.0,DIRECT,petal_air,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,green floral aldehydic naturalism,HAVE
+53,"4 · Petal body, floral air & microtexture",Tuberose Absolute 10%,Tuberose Absolute 10% working stock,0.1,2.0,12.0,2.0,0.4,1.2000000000000002,PREPARED STOCK,petal_air,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,creamy white-floral microtexture,HAVE
+54,"4 · Petal body, floral air & microtexture",Beta Damascone 10%,10% working stock,0.1,1.0,6.0,1.0,0.2,0.6000000000000001,PREPARED STOCK · PRECISION 1 µL,petal_air,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,velvet rose-fruit bloom,HAVE
+55,"4 · Petal body, floral air & microtexture",Indole 10%,10% working stock,0.1,1.0,6.0,1.0,0.2,0.6000000000000001,PREPARED STOCK · PRECISION 1 µL,petal_air,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,living-flower shadow,HAVE
+56,"4 · Petal body, floral air & microtexture",Rose Absolute 10%,Rose de Mai Absolute 10% in DPG,0.1,1.0,6.0,1.0,0.2,0.6000000000000001,PREPARED STOCK · PRECISION 1 µL,petal_air,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,Rose de Mai petal realism,HAVE — ROSE DE MAI ABSOLUTE 10%
+57,"5 · Leaf, dew, water & mineral air",Helional 10%,Helional neat and 10% working dilution,0.1,30.0,180.0,30.0,6.0,18.0,PREPARED STOCK,leaf_water,STRUCTURALLY IMPORTANT,ROBUST / MICRO LEVER,watery-green floral air,HAVE — NEAT + 10%
+58,"5 · Leaf, dew, water & mineral air",Cyclamen Aldehyde 10%,Cyclamen Aldehyde neat and 10% working dilution,0.1,15.0,90.0,15.0,3.0,9.0,PREPARED STOCK,leaf_water,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,watery petal lift,HAVE — NEAT + 10%
+59,"5 · Leaf, dew, water & mineral air",Violet Leaf Absolute 10%,10% working stock,0.1,12.0,72.0,12.0,2.4000000000000004,7.2,PREPARED STOCK,leaf_water,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,metallic wet stem,HAVE
+60,"5 · Leaf, dew, water & mineral air",Floralozone 10%,10% working stock,0.1,8.0,48.0,8.0,1.6,4.800000000000001,PREPARED STOCK,leaf_water,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,ozonic mineral sparkle,HAVE
+61,"5 · Leaf, dew, water & mineral air",Undecavertol 1%,1% working stock,0.01,6.0,36.0,6.0,1.2000000000000002,0.36,PREPARED STOCK,leaf_water,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,wet leaf trace,HAVE
+62,"5 · Leaf, dew, water & mineral air",Leafovert,as supplied; verify bottle label,1.0,5.0,30.0,5.0,1.0,30.0,VERIFY LABEL,leaf_water,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,leafy salicylate bridge,VERIFY
+63,"5 · Leaf, dew, water & mineral air",Adoxal 10% in DPG,Adoxal 10% in DPG,0.1,4.0,24.0,4.0,0.8,2.4000000000000004,PREPARED STOCK,leaf_water,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,cold marine-aldehydic air,HAVE
+64,"5 · Leaf, dew, water & mineral air",cis-3-Hexenol 1%,1% working stock,0.01,3.0,18.0,3.0,0.6000000000000001,0.18,PREPARED STOCK,leaf_water,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,living cut-leaf trace,HAVE
+65,"5 · Leaf, dew, water & mineral air",Azabre,as supplied; product basis,,2.0,12.0,2.0,0.4,,PRODUCT BASIS,leaf_water,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,woody-green specialty texture,HAVE — PRODUCT BASIS
+66,"5 · Leaf, dew, water & mineral air",Rose Oxide 1%,1% working stock,0.01,2.0,12.0,2.0,0.4,0.12,PREPARED STOCK,leaf_water,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,metallic rosy-violet flash,HAVE
+67,"5 · Leaf, dew, water & mineral air",Methyl Salicylate,neat,1,1.0,6.0,1.0,0.2,6.0,DIRECT · PRECISION 1 µL,leaf_water,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,cool medicinal-green accent,HAVE
+68,"6 · Citrus, aldehydes & aromatic lift",Bergamot FCF Oil Sicilian,neat / as supplied,1,14.0,84.0,14.0,2.8000000000000003,84.0,DIRECT,top_spice,STRUCTURALLY IMPORTANT,ROBUST / MICRO LEVER,floral bitter citrus lift,HAVE
+69,"6 · Citrus, aldehydes & aromatic lift",Grapefruit FCF Oil Sicilian,Grapefruit FCF Oil Sicilian neat; verify bottle label,1.0,10.0,60.0,10.0,2.0,60.0,VERIFY LABEL,top_spice,STRUCTURALLY IMPORTANT,ROBUST / MICRO LEVER,bitter sparkling citrus,HAVE
+70,"6 · Citrus, aldehydes & aromatic lift",Lemon FCF Oil Sicilian,neat / as supplied,1,10.0,60.0,10.0,2.0,60.0,DIRECT,top_spice,STRUCTURALLY IMPORTANT,ROBUST / MICRO LEVER,bright dry lemon peel,HAVE
+71,"6 · Citrus, aldehydes & aromatic lift",Dihydromyrcenol,neat / as supplied,1,7.0,42.0,7.0,1.4000000000000001,42.0,DIRECT,top_spice,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,kinetic clean lift,HAVE
+72,"6 · Citrus, aldehydes & aromatic lift",Linalool,neat/as supplied,1,5.0,30.0,5.0,1.0,30.0,DIRECT,top_spice,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,floral-citrus bridge,HAVE
+73,"6 · Citrus, aldehydes & aromatic lift",Linalyl Acetate,neat/as supplied,1,4.0,24.0,4.0,0.8,24.0,DIRECT,top_spice,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,soft aromatic ester lift,HAVE
+74,"6 · Citrus, aldehydes & aromatic lift",Petitgrain EO Paraguay,neat / as supplied,1,4.0,24.0,4.0,0.8,24.0,DIRECT,top_spice,TEXTURAL SUPPORT,ROBUST / MICRO LEVER,green citrus-twig bridge,HAVE
+75,"6 · Citrus, aldehydes & aromatic lift",Neroli EO 10% in DPG,Neroli EO 10% in DPG,0.1,2.0,12.0,2.0,0.4,1.2000000000000002,PREPARED STOCK,top_spice,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,orange-flower glint,HAVE — 10% ONLY
+76,"6 · Citrus, aldehydes & aromatic lift",Aldehyde C10 1%,1% working stock,0.01,1.0,6.0,1.0,0.2,0.06,PREPARED STOCK · PRECISION 1 µL,top_spice,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,citrus aldehydic lift,HAVE
+77,"6 · Citrus, aldehydes & aromatic lift",Aldehyde C11 1%,1% working stock,0.01,1.0,6.0,1.0,0.2,0.06,PREPARED STOCK · PRECISION 1 µL,top_spice,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,fresh aldehydic lift,HAVE
+78,"6 · Citrus, aldehydes & aromatic lift",Aldehyde C12 MNA 1%,1% working stock,0.01,1.0,6.0,1.0,0.2,0.06,PREPARED STOCK · PRECISION 1 µL,top_spice,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,cold waxy sparkle,HAVE
+79,"6 · Citrus, aldehydes & aromatic lift",Rosemary EO,neat / as supplied,1,1.0,6.0,1.0,0.2,6.0,DIRECT · PRECISION 1 µL,top_spice,MICROTEXTURE / PHYSICAL CONFIRMATION,ROBUST / MICRO LEVER,dry aromatic lift,HAVE

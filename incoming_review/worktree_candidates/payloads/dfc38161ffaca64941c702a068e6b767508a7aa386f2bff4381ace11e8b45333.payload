@@ -1,0 +1,59 @@
+# Complex Perfumery Collection Delta V14 — 2026-08-16
+
+## Decision
+
+`V14_EXACT_30ML_FORMULA_SCALING_PACKAGE_CAPTURED_DESIGN_ANCESTRY_ONLY__COMPLEXITY_MODEL_V2_BYTES_PENDING__COLLECTION_AND_INSTALLATION_INCOMPLETE`
+
+V14 is an append-only successor to the sealed V13 chat-estate delta. It captures one additional exact ChatGPT file-card package without importing its formulas, installing a schema, creating a migration, changing inventory, or authorizing physical work.
+
+## Newly captured exact package
+
+- Package: `Nine_Perfume_All_30mL_Concentrate_Formulas_2026-08-16_v1.zip`
+- Size: 289,626 bytes
+- SHA-256: `c01c9bfd6e18b17968fd2530c7a548f2c3a41c6d4f74e9e64973aef4c950618e`
+- Source chat: `6a79b172-0264-83ec-b77a-306a37ecb832`
+- Source turn: `c90871c5-765d-4fb4-96d8-97091b8c7c16`
+- Source response: `999eceb3-9416-4b59-96ae-87706956bbb1`
+- Archive replay: 126 safe members, CRC clean, no case-fold duplicate paths.
+- Embedded checksum ledger: 125/125 exact.
+- Embedded manifest: 124/124 payload records exact.
+- Native archive graph: `CLEAR_FOR_RECEIPT_REVIEW`, one terminal node, zero findings, promotion false.
+
+The package contains nine perfume books, 110 individual 30 mL arm formulas, and one alcohol quick table. This proves exact source-owned raw-volume scaling geometry only. It does not select a canonical formula and does not establish active dose, exact stock identity, preparation lineage, compounding, physical performance, sensory quality, safety, OAV, or release authority.
+
+## Collection state
+
+- V13 exact outer candidates: 47
+- New exact outer candidates: 1
+- V14 cumulative exact outer candidates: 48
+- Defensible visible-chat denominator lower bound: 48
+- Denominator complete: false
+- Collection complete: false
+
+The denominator remains a lower bound because the source chat estate is dynamic and exact message/attachment completeness is not proven.
+
+## Newly identified source card still pending exact local bytes
+
+- `Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0.zip`
+- Declared size: 172,172 bytes
+- Declared SHA-256: `f4be1041bb8e2e8b5665962e580aa740996bd2f77b61299cca1d3cdf55014a5d`
+- Declared members: 75
+- Live original file object: `file_000000002ff081faa6a1a57e3fc62d3e`
+- State: original card identified; local exact-byte download pending; reconstruction and substitution forbidden.
+
+No V14 receipt, admission, or package count is granted to this pending source card.
+
+## Native fit
+
+The captured package remains immutable source/design ancestry. Existing target/build separation, exact-stock and preparation receipts, Laboratory Beta lifecycle, C0 sensory qualification, OAV/headspace gates, safety gates, and release authority remain controlling. No new schema, migration, truth store, or pipeline script is justified.
+
+## Retained exact-byte and authority holds
+
+The following exact parents remain unavailable and non-substitutable:
+
+1. Universal Accord package — `8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998`
+2. Declared cutover parent — `e9e325bea9117dbe2a97ff67e77d57705a54244591278fac7a34915a7f0ae523`
+3. P6 ZIP — `8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db`
+4. P6 wheel — `582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5`
+
+Source admission, formula, inventory, stock, bottle, physical execution, sensory, analytical, headspace, strict OAV, safety, procurement, publication, installation, and release authorities remain false.

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102d3d">
+  <title>SolForge Workbench · Perfume Chem</title>
+  <link rel="stylesheet" href="/static/solforge.css">
+</head>
+<body>
+  <div class="topography" aria-hidden="true"></div>
+  <header class="masthead">
+    <a class="wordmark" href="/app" aria-label="Return to Perfume Chem Laboratory">
+      <span class="wordmark-mark">SF</span>
+      <span><strong>SolForge</strong><small>Experiment workbench</small></span>
+    </a>
+    <a class="laboratory-link" href="/app">Laboratory ledger</a>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="workbench-title">
+      <p class="eyebrow">Phase 1 · admitted runtime only</p>
+      <h1 id="workbench-title">Turn a closed hypothesis into one controlled experiment.</h1>
+      <p class="hero-copy">The workbench verifies exact packet, inventory, registry, and artifact bindings before it reports a design.</p>
+    </section>
+
+    <section class="authority-banner" aria-label="Authority ceiling">
+      <div>
+        <p class="eyebrow">Claim ceiling</p>
+        <h2>Computational experiment design only</h2>
+      </div>
+      <p>No result grants physical execution, sensory success, liking, safety, purchase, compounding, or release authority.</p>
+    </section>
+
+    <section class="status-panel" aria-labelledby="runtime-title">
+      <div>
+        <p class="eyebrow">Local runtime</p>
+        <h2 id="runtime-title"><span id="runtime-dot" class="status-dot is-checking"></span><span id="runtime-state">Checking configuration</span></h2>
+      </div>
+      <dl class="status-metrics">
+        <div><dt>Completed runs</dt><dd id="completed-runs">—</dd></div>
+        <div><dt>Artifact use</dt><dd id="artifact-use">—</dd></div>
+        <div><dt>Concurrency</dt><dd id="runtime-concurrency">—</dd></div>
+      </dl>
+      <ul id="runtime-blockers" class="compact-list" aria-label="Runtime blockers"></ul>
+    </section>
+
+    <section class="packet-stage" aria-labelledby="packets-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">01 · closed inputs</p><h2 id="packets-title">Select the two exact JSON packets</h2></div>
+        <p>Each file is parsed locally and limited to 256 KiB. The browser never repairs or invents fields.</p>
+      </div>
+
+      <div class="packet-grid">
+        <article class="packet-card">
+          <span class="card-index">A</span>
+          <h3>Case packet</h3>
+          <p>The target, current build, inventory authority, and all-false authority mapping.</p>
+          <label class="file-control" for="case-file">Choose <code>solforge_case_v1</code>
+            <input id="case-file" type="file" accept="application/json,.json">
+          </label>
+          <dl class="packet-facts">
+            <div><dt>File</dt><dd id="case-file-name">Not selected</dd></div>
+            <div><dt>Schema</dt><dd id="case-schema">—</dd></div>
+            <div><dt>Bytes</dt><dd id="case-size">—</dd></div>
+          </dl>
+        </article>
+
+        <article class="packet-card">
+          <span class="card-index">B</span>
+          <h3>Hypothesis set</h3>
+          <p>Zero or more target-linked candidate deltas bound to the exact case hash.</p>
+          <label class="file-control" for="hypotheses-file">Choose <code>sol_hypothesis_set_v1</code>
+            <input id="hypotheses-file" type="file" accept="application/json,.json">
+          </label>
+          <dl class="packet-facts">
+            <div><dt>File</dt><dd id="hypotheses-file-name">Not selected</dd></div>
+            <div><dt>Schema</dt><dd id="hypotheses-schema">—</dd></div>
+            <div><dt>Bytes</dt><dd id="hypotheses-size">—</dd></div>
+          </dl>
+        </article>
+      </div>
+
+      <div class="compile-bar">
+        <div>
+          <p class="eyebrow">02 · deterministic compile</p>
+          <p id="ui-status" class="ui-status" role="status" aria-live="polite">Select both valid packets to continue.</p>
+        </div>
+        <button id="compile-experiment" type="button" disabled>Compile experiment</button>
+      </div>
+    </section>
+
+    <section id="result" class="result-stage" aria-labelledby="result-title" hidden>
+      <div class="section-heading">
+        <div><p class="eyebrow">03 · verified artifact summary</p><h2 id="result-title">Experiment decision</h2></div>
+        <p id="result-run-id" class="run-id"></p>
+      </div>
+
+      <div class="decision-grid">
+        <article><span>Stage</span><strong id="result-stage">—</strong></article>
+        <article><span>Decision</span><strong id="result-decision">—</strong></article>
+        <article><span>Selected delta</span><strong id="result-delta">—</strong></article>
+        <article><span>Next action</span><strong id="result-next-action">—</strong></article>
+      </div>
+
+      <div class="evidence-first-grid">
+        <article class="result-card blocker-card">
+          <p class="eyebrow">Blockers</p>
+          <h3>What prevents progression</h3>
+          <ul id="result-blockers" class="result-list"></ul>
+        </article>
+        <article class="result-card limitation-card">
+          <p class="eyebrow">Evidence limitations</p>
+          <h3>What this result does not establish</h3>
+          <ul id="result-limitations" class="result-list"></ul>
+        </article>
+      </div>
+
+      <article class="result-card arms-card">
+        <p class="eyebrow">Controlled arms</p>
+        <h3>Blinded comparison design</h3>
+        <div id="result-arms" class="arm-grid"></div>
+      </article>
+
+      <div class="detail-grid">
+        <article class="result-card">
+          <p class="eyebrow">Inventory</p>
+          <h3>Exact execution status</h3>
+          <dl id="result-inventory" class="key-value-list"></dl>
+        </article>
+        <article class="result-card">
+          <p class="eyebrow">Lineage</p>
+          <h3>Hashes and admitted runtime</h3>
+          <dl id="result-lineage" class="key-value-list"></dl>
+        </article>
+      </div>
+
+      <div class="detail-grid">
+        <article class="result-card">
+          <p class="eyebrow">Records</p>
+          <h3>Manifest-bound outputs</h3>
+          <div id="result-records" class="record-list"></div>
+        </article>
+        <article class="result-card authority-card">
+          <p class="eyebrow">Authority</p>
+          <h3>Every operational authority remains false</h3>
+          <dl id="result-authority" class="key-value-list"></dl>
+          <p id="download-posture" class="download-posture"></p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/solforge.js" defer></script>
+</body>
+</html>

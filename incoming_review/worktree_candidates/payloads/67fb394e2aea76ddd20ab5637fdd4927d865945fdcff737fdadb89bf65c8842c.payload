@@ -1,0 +1,133 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "complex-perfumery-complexity-expansion-calibration-engine-v2-20260816",
+  "recorded_at": "2026-08-16T15:44:23+07:00",
+  "package": {
+    "file_name": "Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0.zip",
+    "locator": "incoming_review/chatgpt/20260816T154423+0700-v16-complexity-expansion-engine-6a79b172-nf4be1041/Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 172172,
+    "sha256": "f4be1041bb8e2e8b5665962e580aa740996bd2f77b61299cca1d3cdf55014a5d",
+    "media_type": "application/zip",
+    "archive_entry_count": 75,
+    "archive_file_count": 75,
+    "declared_payload_count": 74,
+    "package_root": "Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0",
+    "embedded_integrity_records": [
+      {
+        "path": "Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0/MANIFEST.json",
+        "byte_size": 12675,
+        "sha256": "93bb96b64c3259058a73f73adb2d8815b49c05133da812364429e76ea557b575",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0/SHA256SUMS.json",
+        "byte_size": 12581,
+        "sha256": "c202b05d42194af612ed2f2647537b01b6cb56ed8a136ce27b947653d6bc050a",
+        "role": "CHECKSUM_LEDGER"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a79b172-0264-83ec-b77a-306a37ecb832:complexity-expansion-calibration-engine-v2-20260816",
+    "conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+    "turn_id": null,
+    "message_id": "6185c476-5101-4cdd-8c38-a5b330df872a",
+    "lineage_resolution": "EXACT_ORIGINAL_FILE_CARD_BYTES_RECOVERED_HASH_VERIFIED_AND_CAPTURED_WITH_74_OF_74_CHECKSUM_AND_73_OF_73_MANIFEST_RECORDS_REPLAYED",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "External AI-generated portable reference implementation and computational design ancestry; exact file possession does not grant source, schema, code-installation, model, formula, inventory, experiment, redistribution, publication, or release authority.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Preserve exact package bytes, parent pointers, registries, and design geometry only. Current native C10, P3, B1, Laboratory Beta, C0, Inventory V5, headspace/OAV, safety, and release gates remain controlling."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "PARENT_ENGINE_EXACT_BYTES_POINTER_ONLY",
+      "PORTABLE_ENGINE_AND_SCHEMAS_NOT_NATIVE_INSTALL_AUTHORITY",
+      "CURRENT_NATIVE_C10_P3_B1_LAB_C0_AND_V5_BOUNDARIES_CONTROL",
+      "PACKAGE_FIRST_WAVE_PROTOCOLS_NOT_EXECUTION_RECEIPTS",
+      "NO_PHYSICAL_SENSORY_OR_ANALYTICAL_RESULTS",
+      "NO_MEASURED_HEADSPACE_OR_STRICT_EMPIRICAL_OAV",
+      "NO_SAFETY_PUBLICATION_OR_RELEASE_AUTHORITY"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "Perfume_Complexity_Model_Discovery_Admission_Engine_Aug2026_v1_2.zip",
+      "byte_size": 826528,
+      "sha256": "108624938e183af41da63f5ef77e31c875b196389f3467d7acd896ccf7b274df",
+      "relation": "SOURCE_RELEASE_DECLARES_PARENT_ENGINE_EXACT_HASH",
+      "support_scope": "POINTER_ONLY_PORTABLE_ENGINE_ANCESTRY_EXACT_PARENT_BYTES_NOT_RECOVERED_IN_CURRENT_WORKSPACE",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "VMC_REC_01_Empirical_Loop_Aug2026_v1_Package.zip",
+      "byte_size": 45186,
+      "sha256": "3bcaec98bb637cb8070a11582044e3ce1b9cb2b317cd40761ae7ba529feeb745",
+      "relation": "SOURCE_RELEASE_DECLARES_EMPIRICAL_LOOP_PARENT_EXACT_HASH",
+      "support_scope": "SEPARATELY_QUARANTINED_PROTOCOL_AND_BLANK_TEMPLATE_ANCESTRY_ONLY",
+      "authority_state": "POINTER_ONLY"
+    },
+    {
+      "artifact_name": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+      "byte_size": 199635,
+      "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "relation": "SOURCE_RELEASE_DECLARES_INVENTORY_PARENT_EXACT_HASH",
+      "support_scope": "CURRENT_NATIVE_INVENTORY_AUTHORITY_REFERENCE_ONLY_PACKAGE_CANNOT_OVERRIDE",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "COMPLEXITY_EXPANSION_CALIBRATION_ENGINE_V2_EXACT_BYTES_PORTABLE_REFERENCE_IMPLEMENTATION_AND_DESIGN_ANCESTRY_ONLY",
+    "source_package_state": "PASS_PORTABLE_REFERENCE_IMPLEMENTATION",
+    "source_repository_state": "BRIDGE_BLOCKED",
+    "directions_total": 214,
+    "domains": 16,
+    "models_total": 48,
+    "overlays_total": 32,
+    "gaps_total": 64,
+    "admission_gates": 17,
+    "first_wave_arms": 12,
+    "archive_checksum_records_verified": 74,
+    "archive_manifest_records_verified": 73,
+    "native_graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "native_graph_nodes": 1,
+    "native_graph_edges": 0,
+    "native_graph_findings": [],
+    "package_code_installed": false,
+    "package_schemas_installed": false,
+    "physical_results": 0,
+    "sensory_results": 0,
+    "analytical_results": 0,
+    "promotion_allowed": false,
+    "capture_manifest": {
+      "path": "incoming_review/chatgpt/20260816T154423+0700-v16-complexity-expansion-engine-6a79b172-nf4be1041/capture_manifest.json",
+      "byte_size": 7146,
+      "sha256": "bf83d9ad0b7df7618b76b953e5142e355e81cdfe2e92385686eda3a2ed2d7317"
+    }
+  },
+  "receipt_sha256": "d05ef2d40fba573512108c8f82e1eda4973dfe49494add7a6f02885cac69fcde"
+}

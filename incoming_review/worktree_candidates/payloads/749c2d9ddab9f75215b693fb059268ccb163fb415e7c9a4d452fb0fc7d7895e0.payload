@@ -1,0 +1,182 @@
+{
+  "schema_version": "perfume-chem.complex-perfumery-collection-delta.v1",
+  "generated_at_utc": "2026-08-11T12:53:26.3720785Z",
+  "artifact_class": "NON_AUTHORITATIVE_RECOVERY_INDEX",
+  "state": "PARTIAL_COLLECTION_EXACT_BYTES_QUARANTINED_KNOWN_TARGETS_REMAIN",
+  "collection_complete": false,
+  "canonical_installation_authorized": false,
+  "recovered_exact_byte_candidates": [
+    {
+      "name": "COMPLEX_PERFUMERY_V5_RUNTIME_AUTHORITY_CUTOVER_V1_20260811.zip",
+      "bytes": 499200,
+      "sha256": "e69dff7450ba8fce6c62ed4f3a82f7803570f48a240efd0419aa75d7b18c953e",
+      "path": "incoming_review/chatgpt/20260811T083224Z-refresh-6a7a4e15-aafe1771/COMPLEX_PERFUMERY_V5_RUNTIME_AUTHORITY_CUTOVER_V1_20260811.zip"
+    },
+    {
+      "name": "COMPLEX_PERFUMERY_V5_EVIDENCE_BOUND_IDENTITY_CLOSURE_V1_20260811.zip",
+      "bytes": 1452144,
+      "sha256": "7c3951ca3266b84b1fe5376375f1ca1f5588a589370ece8e21b5ac1000f22205",
+      "path": "incoming_review/chatgpt/20260811T083224Z-refresh-6a7a4e15-aafe1771/COMPLEX_PERFUMERY_V5_EVIDENCE_BOUND_IDENTITY_CLOSURE_V1_20260811.zip"
+    },
+    {
+      "name": "Violet_Leaf_Complexity_Portfolio_Aug2026_v1_Package.zip",
+      "bytes": 1108147,
+      "sha256": "051411e3af906a3f2fa06fe996c98ce2d7083b69201c07481c6240a0c24ca999",
+      "path": "incoming_review/chatgpt/20260811T083224Z-refresh-6a7a4e15-aafe1771/Violet_Leaf_Complexity_Portfolio_Aug2026_v1_Package.zip"
+    },
+    {
+      "name": "Inventory_V5_Reconciliation_and_Priority_Patch_v1.xlsx",
+      "bytes": 52420,
+      "sha256": "189708f1f69f326898f4d8a87f742949b70d9f1252990fc1bc019c27ce9f5513",
+      "path": "incoming_review/chatgpt/20260811T083224Z-aroma-6a79b2cd-816c4316/Inventory_V5_Reconciliation_and_Priority_Patch_v1.xlsx"
+    },
+    {
+      "name": "ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_20260810.zip",
+      "bytes": 158952,
+      "sha256": "94c6b75573d71189c58b16737a1a5d2b9f7bb6bc8f1b41b9e76ef727e00e3c33",
+      "path": "incoming_review/chatgpt/20260811T090138Z-dark-chat2-6a74ba3d-99e3d1c0/ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_20260810.zip"
+    },
+    {
+      "name": "ACCORD_INTEL_DARK_DARK-SCR-03_GUAIACWOOD_GUAIACOL_v1_20260810.zip",
+      "bytes": 166497,
+      "sha256": "90f610273aa3c8fab21895a5ca11dd67051e4631509376f03bf5a38337181d2e",
+      "path": "incoming_review/chatgpt/20260811T090138Z-dark-chat2-6a74ba3d-99e3d1c0/ACCORD_INTEL_DARK_DARK-SCR-03_GUAIACWOOD_GUAIACOL_v1_20260810.zip"
+    },
+    {
+      "name": "ACCORD_INTEL_DARK_DARK-SCR-20A_GUAIACOL_BIRCH_TAR_v1_20260810.zip",
+      "bytes": 217032,
+      "sha256": "18270ef6603d2eb594ba57cb72326c4167eee1f655d6950d7e1dec5f00b3527d",
+      "path": "incoming_review/chatgpt/20260811T090138Z-dark-chat2-6a74ba3d-99e3d1c0/ACCORD_INTEL_DARK_DARK-SCR-20A_GUAIACOL_BIRCH_TAR_v1_20260810.zip"
+    },
+    {
+      "name": "Perfume_Chem_Complexity_Gap_Detection_Ensemble_2026-08-11_v1.zip",
+      "bytes": 58306,
+      "sha256": "ccdc1d7afe395018223ecffb540918663e72d529d9bba40cc5677b75c4884666",
+      "path": "incoming_review/chatgpt/20260811T093412Z-planning-6a7992db-185c6611/Perfume_Chem_Complexity_Gap_Detection_Ensemble_2026-08-11_v1.zip"
+    },
+    {
+      "name": "COMPLEX_PERFUMERY_OPUS_V_COMPLEXITY_SYSTEM_V1_20260811.zip",
+      "bytes": 53948,
+      "sha256": "bab9ab3ee9431f395fc14d15e04a219b3a2b8214f56911789488671a290af7bf",
+      "path": "incoming_review/chatgpt/20260811T110304Z-planning-complexity-6a7992db-2172451c/COMPLEX_PERFUMERY_OPUS_V_COMPLEXITY_SYSTEM_V1_20260811.zip"
+    },
+    {
+      "name": "Complexity_Model_Gap_Atlas_and_New_Model_Roadmap_Aug2026_v1_Package.zip",
+      "bytes": 104844,
+      "sha256": "9a1724e38c6ff1bf0c8274c6f239d3b55309fdbabefedb55b23562480cbb33c0",
+      "path": "incoming_review/chatgpt/20260811T110304Z-planning-complexity-6a7992db-2172451c/Complexity_Model_Gap_Atlas_and_New_Model_Roadmap_Aug2026_v1_Package.zip"
+    },
+    {
+      "name": "ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_1_20260811.zip",
+      "bytes": 164814,
+      "sha256": "2a87c58c9c4a354b3db357e215623f23f9cc655e1679f2f62cf856263741cbb5",
+      "path": "incoming_review/chatgpt/20260811T110304Z-dark-chat2-v1-1-6a74ba3d-d2e8b87f/ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_1_20260811.zip"
+    },
+    {
+      "name": "ACCORD_INTEL_CHAT2_DARK_MATERIALS_v2.zip",
+      "bytes": 68633,
+      "sha256": "20ac62a0a5e639f8a5225937690b582c6c6837b74c6c1311786071bc50ba40ba",
+      "path": "incoming_review/chatgpt/20260811T115527Z-dark-chat2-base64-recovery-6a74ba3d-n7f3c2d1/ACCORD_INTEL_CHAT2_DARK_MATERIALS_v2.zip"
+    },
+    {
+      "name": "Perfume_Chem_Codex_Implementation_Handoff_2026-08-10_v2.zip",
+      "bytes": 1766574,
+      "sha256": "b0db328ed79b08ab4e66fe0097d5c5a01d1b24dc2fb8f78b94721cf96ec8df5f",
+      "path": "output/quarantine/v3_project_plan_343a6f5f/Perfume_Chem_Project_Plan_Implementation_2026-08-10_v3/incoming_review/ancestry/Perfume_Chem_Codex_Implementation_Handoff_2026-08-10_v2.zip"
+    }
+  ],
+  "partial_transfers": [
+    {
+      "name": "ACCORD_INTEL_CHAT2_DARK_SCREEN02_EVIDENCE_REPAIR_v1.zip",
+      "expected_bytes": 53799,
+      "expected_sha256": "dd9fb19c03da6c401aa1bdb718446b830148cc2856be6c525abf836788ce90fb",
+      "verified_base64_chunks_present": 15,
+      "expected_base64_chunks": 18,
+      "owner": "Codex task 019fe7ed-5972-7091-a906-c2fcfdc4576c",
+      "failed_chunk_indexes": [12],
+      "missing_chunk_indexes": [16, 17],
+      "state": "INCOMPLETE_ONE_FAILED_CHUNK_TWO_MISSING_CHUNKS"
+    }
+  ],
+  "known_unrecovered_targets": [
+    {"name": "Physics/OAV 3.4 package", "sha256": "8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db"},
+    {"name": "Physics/OAV 3.4 wheel", "sha256": "582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5"},
+    {"name": "full-chain wrapper", "sha256": "16eb6805414c1a96f30609e7dc9eed5377f522f9872e2017222b23635a73f530"},
+    {"name": "DHP initial wrapper", "sha256": "ec27bcd4dd1b9a3e54d4de49ace3293d91af868ba6c6005a581b1646d3905dcd"},
+    {"name": "DHP exact-V5 audit wrapper", "sha256": "7e38c19a83b25de1edbc190f568b5725655d5e60dca63dec951e8f7c01a98efc"},
+    {"name": "Perfume Box Workflow wrapper", "sha256": "db0579760159e7438b83e92de399aa0a9f5862f0f547fa030a682c339bd54e84"},
+    {"name": "Exact-byte recovery successor bundle", "expected_bytes": 15332522, "sha256": "ee0486d348699528ac40c4d4fd4e4340dec46141903ea335711fd6d7708141f7"},
+    {"name": "Floral Chat Bridge packet ZIP", "sha256": "e6a083498f350ea8ceaf7ee3a97d725cd394463eebfdf136a95bdc81a65e19aa"},
+    {"name": "Floral packet manifest", "sha256": "8b1124fa6eb9e97c2918488aad7525a610b6d5a23e11f1fb2747add5d5ada368"},
+    {"name": "Floral packet content set", "sha256": "c0ef8354069b727c40d8e67c7eae3e47636e222fd29987e531c7d0d52f7f8483"},
+    {"name": "Earlier floral-heart package", "sha256": "e04630c9936fc2da54f7444b0bf085b3ee1d0797fb9aa52518e1f8c5f61e1092"},
+    {"name": "Earlier floral-heart workbook", "sha256": "8b867681174c15debeb632a11eae81efcddda78433ecdc8a7900d5c7b54acdba"},
+    {"name": "Data Parsing handoff ZIP", "sha256": "1ac667b6bfe8fce2c7d8667b2d21bab12f5b73359a2660fadcc375365fe7b4e1"},
+    {"name": "Data Parsing command", "sha256": "52b2edc4e63c48b3d0831d3e5353ed0a93a1bd62f7bdc48a68b1cca3f92a041a"},
+    {"name": "Data Parsing refresh-route packet", "sha256": "8a0ca735281bebb2680f65c900dbcb2afab77616bf67a2f78f0d7780064883f9"},
+    {"name": "Universal Accord current claimed package", "sha256": "8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998"},
+    {"name": "PCV3 experimental-data package", "sha256": "db638ab82c7e1a798297a9f4376014b9f51965511ae1d65132e57b4d12c9c9eb"},
+    {"name": "Universal Perfume Complexity Support System v1 package", "sha256": "fce8e5611aba6b70d6b09b1f9adc9f62ea6a3c59da5739c771b314bcb27af88c"},
+    {"name": "Universal Perfume Complexity Support System v1 workbook", "sha256": "ac9ae38f85d97b5846d80fc712f563476de52af25b5568b1ef1eed62894895fe"},
+    {"name": "Universal Perfume Complexity Support System v1 registry", "sha256": "90c68af32575a926bae2afb1634973cf47faa470a2a84f77fdf6ab8dc355014d"}
+  ],
+  "ownership": {
+    "plan_and_broad_attachment_recovery": "Codex task 019feb17-3324-7623-9eac-3b7e817acd4c",
+    "dark_scr02_transfer": "Codex task 019fe7ed-5972-7091-a906-c2fcfdc4576c"
+  },
+  "evidence_scope": {
+    "outer_file_hashes_recomputed_for_recovered_list": true,
+    "package_specific_crc_and_ledger_states_are_preserved_in_their_existing_receipts": true,
+    "native_archive_graph_replay": {
+      "artifacts_scanned": 13,
+      "clear_for_receipt_review": 4,
+      "graph_complete_quarantined": 9,
+      "all_nodes_terminal": true,
+      "promotion_allowed_count": 0,
+      "observed_hold_codes": [
+        "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT",
+        "OOXML_PART_SCAN_LIMIT_EXCEEDED",
+        "PARTIAL_MEMBER_SCAN"
+      ]
+    },
+    "current_target_hash_scan": {
+      "candidate_extensions": ["zip", "whl", "xlsx", "xlsm"],
+      "files_hashed": 453,
+      "bytes_hashed": 345258382,
+      "read_errors": 3,
+      "read_error_paths": [
+        "C:/Users/ASUS/Downloads/Perfume_Box_Workflow_Formula_Book_Aug2026_v2.xlsx",
+        "C:/Users/ASUS/Downloads/Six_Perfume_Latest_Integrated_Recipe_Book_Aug2026.xlsx",
+        "C:/Users/ASUS/Downloads/Violet_Leaf_Complexity_Portfolio_Aug2026_v1.xlsx"
+      ],
+      "read_error_reason": "FILES_LOCKED_BY_ANOTHER_PROCESS",
+      "target_hashes_checked": 14,
+      "exact_matches": 0,
+      "scope": "DOWNLOADS_INCOMING_REVIEW_GPT_PROJECT_OUTPUTS_AND_OUTPUT_ROOT_ACCESSIBLE_FILES_ONLY"
+    },
+    "postcutoff_complexity_support_scan": {
+      "source_conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+      "source_turn_id": "2b9388b3-88ab-458a-8b77-3a02ae545ff1",
+      "files_hashed": 1474,
+      "bytes_hashed": 4425327300,
+      "read_errors": 3,
+      "target_hashes_checked": 3,
+      "exact_matches": 0,
+      "recovery_request_state": "NOT_DELIVERED_CHATGPT_RATE_LIMIT",
+      "scope": "GPT_PROJECT_MIRROR_DOWNLOADS_AND_INCOMING_REVIEW_ACCESSIBLE_ZIP_XLSX_XLSM_JSON_CSV_FILES"
+    },
+    "complete_project_message_and_attachment_denominator_proven": false,
+    "missing_bytes_may_be_reconstructed_from_prose": false
+  },
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "oav": false,
+    "safety": false,
+    "publication": false,
+    "release": false
+  }
+}

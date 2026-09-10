@@ -1,0 +1,402 @@
+from __future__ import annotations
+
+import hashlib
+import json
+from copy import deepcopy
+from pathlib import Path
+
+import pytest
+
+from engine.inventory_parser import (
+    CURRENT_USER_INVENTORY_AUTHORITY,
+    CURRENT_USER_INVENTORY_OVERLAY_PATH,
+    PREDECESSOR_USER_INVENTORY_OVERLAY_PATH,
+    PREVIOUS_USER_INVENTORY_OVERLAY_20260904_PATH,
+    load_current_user_inventory_overlay,
+    parse_current_inventory,
+    parse_inventory,
+)
+
+ROOT = Path(__file__).resolve().parents[1]
+INVENTORY = ROOT / "inventory.txt"
+
+
+def _normalized_sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+
+
+def test_20260904_overlay_is_the_pinned_non_mutating_current_successor() -> None:
+    assert CURRENT_USER_INVENTORY_OVERLAY_PATH.name == (
+        "inventory_user_authority_overlay_20260904_002.json"
+    )
+    assert PREVIOUS_USER_INVENTORY_OVERLAY_20260904_PATH.name == (
+        "inventory_user_authority_overlay_20260904.json"
+    )
+    assert PREDECESSOR_USER_INVENTORY_OVERLAY_PATH.name == (
+        "inventory_user_authority_overlay_20260901.json"
+    )
+    assert CURRENT_USER_INVENTORY_AUTHORITY == (
+        "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260904"
+    )
+
+    payload = json.loads(
+        CURRENT_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8")
+    )
+    assert payload["schema_version"] == (
+        "perfume_chem_user_inventory_authority_successor_v5"
+    )
+    assert payload["successor_id"] == "INVENTORY-USER-AUTHORITY-20260904-002"
+    assert payload["effective_date"] == "2026-09-04"
+    assert payload["predecessor"] == {
+        "path": "data/governance/inventory_user_authority_overlay_20260904.json",
+        "normalized_text_sha256": _normalized_sha256(
+            PREVIOUS_USER_INVENTORY_OVERLAY_20260904_PATH
+        ),
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+        "effective_date": "2026-09-04",
+    }
+    assert payload["policy"]["predecessor_immutable"] is True
+    assert payload["policy"]["historical_formula_bytes_immutable"] is True
+    assert payload["policy"]["formula_rebase_authorized"] is False
+    assert payload["policy"]["general_substitution_authorized"] is False
+    assert payload["policy"]["unknown_metadata_fails_closed"] is True
+    assert payload["policy"]["frozen_v5_snapshot_immutable"] is True
+    assert payload["policy"]["approximate_range_is_not_point_fraction_authority"] is True
+
+    previous = load_current_user_inventory_overlay(
+        PREVIOUS_USER_INVENTORY_OVERLAY_20260904_PATH
+    )
+    assert previous["schema_version"] == (
+        "perfume_chem_user_inventory_authority_successor_v4"
+    )
+    assert previous["successor_id"] == "INVENTORY-USER-AUTHORITY-20260904-001"
+
+
+def test_20260904_overlay_records_exact_bacdanol_and_guaiacwood_contracts() -> None:
+    payload = load_current_user_inventory_overlay()
+    records = {record["canonical_name"]: record for record in payload["records"]}
+
+    bacdanol = records["Bacdanol"]
+    assert bacdanol["stock"] == {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_CURRENT_STOCK_CORRECTION",
+        "execution_ready": True,
+    }
+    assert bacdanol["aliases"] == ["Bacnadol"]
+    assert bacdanol["authority_limits"]["availability_confirmed"] is True
+    assert bacdanol["authority_limits"]["stock_fraction_known"] is True
+    assert bacdanol["authority_limits"]["density_asserted"] is False
+    assert bacdanol["authority_limits"]["safety_asserted"] is False
+    assert bacdanol["authority_limits"]["sensory_equivalence_asserted"] is False
+
+    guaiacwood = records["Guaiacwood EO"]
+    assert guaiacwood["stock"] == {
+        "fraction": pytest.approx(1.0 / 3.0),
+        "fraction_exact": "1/3",
+        "fraction_basis": "mass_fraction",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_CURRENT_STOCK_CORRECTION",
+        "execution_ready": False,
+        "execution_hold_reason": "REMAINING_TWO_THIRDS_COMPOSITION_AND_CARRIER_UNRESOLVED",
+    }
+    limits = guaiacwood["authority_limits"]
+    assert limits["stock_fraction_known"] is True
+    assert limits["fraction_basis_known"] is True
+    assert limits["carrier_known"] is False
+    assert limits["remaining_two_thirds_composition_known"] is False
+    assert limits["quantitative_dosing_ready"] is False
+    assert limits["active_ul_ppm_oav_math_authorized"] is False
+    assert limits["density_asserted"] is False
+    assert limits["safety_asserted"] is False
+    assert limits["sensory_equivalence_asserted"] is False
+
+    historical = {
+        record["historical_record_id"]: record
+        for record in payload["historical_stock_records"]
+    }
+    assert historical["INV-HIST-20260904-BACDANOL-UNSPECIFIED"][
+        "current_execution_authority"
+    ] is False
+    assert historical["INV-HIST-20260904-GUAIACWOOD-NOMINAL-33"]["stock"] == {
+        "fraction": 0.33,
+        "fraction_basis": "unspecified",
+        "carrier": "",
+    }
+    assert all(
+        record["historical_formula_rewrite_authorized"] is False
+        for record in historical.values()
+    )
+
+
+def test_20260904_overlay_records_current_availability_and_ambrox_contracts() -> None:
+    payload = load_current_user_inventory_overlay()
+    records = {record["canonical_name"]: record for record in payload["records"]}
+
+    galbanum = records["Galbanum EO"]
+    assert galbanum["state"] == "UNAVAILABLE"
+    assert galbanum["stock"] is None
+    assert galbanum["authority_limits"]["formulation_selection_ready"] is False
+    assert galbanum["authority_limits"]["historical_formula_rewrite_authorized"] is False
+
+    benzyl = records["Benzyl Salicylate"]
+    assert benzyl["state"] == "OWNED"
+    assert benzyl["stock"] == {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_CURRENT_STOCK_CORRECTION",
+        "execution_ready": True,
+    }
+
+    ambrox = records["Ambrox Super"]
+    assert ambrox["state"] == "OWNED"
+    assert ambrox["stock"]["fraction"] == pytest.approx(0.25)
+    assert ambrox["stock"]["fraction_basis"] == "mass_fraction"
+    assert ambrox["stock"]["carrier"] == "dpg + ipm + ethanol"
+    assert ambrox["stock"]["preparation_mass_g"] == {
+        "ambrox_super": 3.0,
+        "dpg": 7.0,
+        "ipm": 0.5,
+        "ethanol": 1.5,
+        "total": 12.0,
+    }
+    assert ambrox["authority_limits"]["volume_dosing_ready"] is False
+    assert ambrox["authority_limits"]["formula_rebase_authorized"] is False
+
+
+def test_legacy_inventory_exposes_latest_stock_truth_without_inventing_carrier() -> None:
+    rows = parse_inventory(
+        INVENTORY,
+        unique=False,
+        include_solvents=True,
+        include_unavailable=True,
+    )
+    bacdanol = next(row for row in rows if row.name == "Bacdanol")
+    assert (bacdanol.status, bacdanol.dilution, bacdanol.fraction_basis) == (
+        "owned",
+        pytest.approx(1.0),
+        "neat",
+    )
+    assert bacdanol.carrier == ""
+    assert bacdanol.execution_ready is True
+
+    guaiacwood = next(row for row in rows if row.name == "Guaiacwood EO")
+    assert guaiacwood.status == "owned"
+    assert guaiacwood.dilution == pytest.approx(1.0 / 3.0)
+    assert guaiacwood.fraction_basis == "mass_fraction"
+    assert guaiacwood.carrier == ""
+    assert guaiacwood.execution_ready is False
+    assert guaiacwood.execution_hold_reason == (
+        "REMAINING_TWO_THIRDS_COMPOSITION_AND_CARRIER_UNRESOLVED"
+    )
+
+
+def test_current_materialization_uses_only_the_20260904_replacements() -> None:
+    rows = parse_current_inventory(unique=False, include_unavailable=True)
+
+    bacdanol = [row for row in rows if row.name == "Bacdanol"]
+    assert len(bacdanol) == 1
+    assert (
+        bacdanol[0].dilution,
+        bacdanol[0].fraction_basis,
+        bacdanol[0].carrier,
+        bacdanol[0].execution_ready,
+    ) == (pytest.approx(1.0), "neat", "", True)
+    assert bacdanol[0].source_ref.endswith("#INV-USER-20260904-001")
+
+    guaiacwood = [row for row in rows if row.name == "Guaiacwood EO"]
+    assert len(guaiacwood) == 1
+    assert (
+        guaiacwood[0].dilution,
+        guaiacwood[0].fraction_basis,
+        guaiacwood[0].carrier,
+        guaiacwood[0].execution_ready,
+    ) == (pytest.approx(1.0 / 3.0), "mass_fraction", "", False)
+    assert guaiacwood[0].execution_hold_reason == (
+        "REMAINING_TWO_THIRDS_COMPOSITION_AND_CARRIER_UNRESOLVED"
+    )
+    assert guaiacwood[0].source_ref.endswith("#INV-USER-20260904-002")
+
+    benzyl = [row for row in rows if row.name == "Benzyl Salicylate"]
+    assert len(benzyl) == 1
+    assert (
+        benzyl[0].status,
+        benzyl[0].dilution,
+        benzyl[0].fraction_basis,
+        benzyl[0].execution_ready,
+    ) == ("owned", pytest.approx(1.0), "neat", True)
+    assert benzyl[0].source_ref.endswith("#INV-USER-20260904-004")
+
+    ambrox = [row for row in rows if row.name == "Ambrox Super"]
+    assert len(ambrox) == 1
+    assert (
+        ambrox[0].dilution,
+        ambrox[0].fraction_basis,
+        ambrox[0].carrier,
+        ambrox[0].execution_ready,
+    ) == (pytest.approx(0.25), "mass_fraction", "dpg + ipm + ethanol", True)
+    assert ambrox[0].source_ref.endswith("#INV-USER-20260904-005")
+
+    galbanum = [row for row in rows if row.name == "Galbanum EO"]
+    assert len(galbanum) == 1
+    assert galbanum[0].status == "gap"
+    assert galbanum[0].execution_ready is False
+    assert galbanum[0].source_rows == (114,)
+
+
+def test_current_runtime_sync_adds_cedrat_and_bontaux_without_rewriting_v5() -> None:
+    rows = parse_current_inventory(unique=False, include_unavailable=True)
+
+    cedrat = [row for row in rows if row.identity_name == "Cedrat FCF Oil Sicilian"]
+    assert len(cedrat) == 1
+    assert (
+        cedrat[0].status,
+        cedrat[0].dilution,
+        cedrat[0].fraction_basis,
+        cedrat[0].execution_ready,
+        cedrat[0].source_rows,
+    ) == ("owned", pytest.approx(1.0), "neat", True, (66,))
+    assert cedrat[0].source_ref.endswith("#INV-USER-20260904-006")
+
+    bontaux = [row for row in rows if row.identity_name == "Lavender EO (BONTAUX SAS)"]
+    assert len(bontaux) == 1
+    assert (
+        bontaux[0].status,
+        bontaux[0].dilution,
+        bontaux[0].fraction_basis,
+        bontaux[0].execution_ready,
+    ) == ("owned", pytest.approx(1.0), "neat", True)
+    assert bontaux[0].source_ref.endswith("#INV-USER-20260904-007")
+
+
+def test_current_runtime_sync_preserves_three_coumarin_forms_and_holds_volume_math() -> None:
+    rows = parse_current_inventory(unique=False, include_unavailable=True)
+    coumarin = [row for row in rows if row.identity_name == "Coumarin"]
+
+    assert {row.name for row in coumarin} == {
+        "Coumarin (DPG-saturated)",
+        "Coumarin (neat powder)",
+        "Coumarin (20% in DEP)",
+    }
+    solution = next(row for row in coumarin if row.name.endswith("DPG-saturated)"))
+    powder = next(row for row in coumarin if row.name.endswith("neat powder)"))
+    dep_solution = next(row for row in coumarin if row.name.endswith("20% in DEP)"))
+    assert (
+        solution.dilution,
+        solution.fraction_basis,
+        solution.carrier,
+        solution.approximate,
+        solution.fraction_range,
+        solution.execution_ready,
+        solution.execution_hold_reason,
+    ) == (
+        pytest.approx(0.0),
+        "unspecified",
+        "dpg",
+        True,
+        pytest.approx((0.25, 0.30)),
+        False,
+        "APPROXIMATE_RANGE_AND_FRACTION_BASIS_UNSPECIFIED",
+    )
+    assert (
+        powder.dilution,
+        powder.fraction_basis,
+        powder.execution_ready,
+        powder.execution_hold_reason,
+    ) == (
+        pytest.approx(1.0),
+        "neat",
+        False,
+        "SOLID_STOCK_REQUIRES_MASS_DOSING_OR_EXACT_PREPARED_STOCK",
+    )
+    assert (
+        dep_solution.dilution,
+        dep_solution.fraction_basis,
+        dep_solution.carrier,
+        dep_solution.approximate,
+        dep_solution.execution_ready,
+        dep_solution.execution_hold_reason,
+    ) == (
+        pytest.approx(0.2),
+        "unspecified",
+        "dep",
+        False,
+        False,
+        "FRACTION_BASIS_UNSPECIFIED",
+    )
+    assert dep_solution.source_ref.endswith("#INV-USER-20260904-010")
+
+
+def test_legacy_inventory_parser_keeps_every_coumarin_stock_non_executable() -> None:
+    coumarin = [
+        row
+        for row in parse_inventory(INVENTORY, unique=False, include_unavailable=True)
+        if row.identity_name == "Coumarin"
+    ]
+
+    assert len(coumarin) == 3
+    assert {row.name for row in coumarin} == {"Coumarin"}
+    assert any("20% in dep" in row.raw_name.casefold() for row in coumarin)
+    assert any("dpg-saturated" in row.raw_name.casefold() for row in coumarin)
+    assert any("neat powder" in row.raw_name.casefold() for row in coumarin)
+    assert all(row.status == "owned" for row in coumarin)
+    assert all(row.execution_ready is False for row in coumarin)
+    approximate = next(row for row in coumarin if "dpg-saturated" in row.raw_name.casefold())
+    assert approximate.dilution == pytest.approx(0.0)
+    assert approximate.fraction_range == pytest.approx((0.25, 0.30))
+    assert {row.execution_hold_reason for row in coumarin} == {
+        "APPROXIMATE_STOCK_FRACTION_UNRESOLVED",
+        "FRACTION_BASIS_UNSPECIFIED",
+        "SOLID_STOCK_REQUIRES_MASS_DOSING_OR_EXACT_PREPARED_STOCK",
+    }
+    deduplicated = [
+        row
+        for row in parse_inventory(INVENTORY, unique=True, include_unavailable=True)
+        if row.identity_name == "Coumarin"
+    ]
+    assert len(deduplicated) == 1
+    assert deduplicated[0].execution_ready is False
+
+
+@pytest.mark.parametrize(
+    ("mutation", "expected_error"),
+    (
+        ("remove_global_ceiling", "authority ceilings must remain false"),
+        ("empty_cedrat_ceiling", "authority ceiling drift"),
+        ("promote_coumarin_math", "authority ceiling drift"),
+        ("rewrite_historical_source", "historical provenance drift"),
+    ),
+)
+def test_runtime_sync_schema_rejects_authority_or_provenance_weakening(
+    tmp_path: Path,
+    mutation: str,
+    expected_error: str,
+) -> None:
+    payload = json.loads(
+        CURRENT_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8")
+    )
+    mutated = deepcopy(payload)
+    records = {record["record_id"]: record for record in mutated["delta_records"]}
+    history = {
+        record["historical_record_id"]: record
+        for record in mutated["historical_stock_records"]
+    }
+    if mutation == "remove_global_ceiling":
+        mutated["authority_limits"].pop("safety_authority")
+    elif mutation == "empty_cedrat_ceiling":
+        records["INV-USER-20260904-006"]["authority_limits"] = {}
+    elif mutation == "promote_coumarin_math":
+        records["INV-USER-20260904-010"]["authority_limits"][
+            "active_ul_ppm_oav_math_authorized"
+        ] = True
+    else:
+        history["INV-HIST-20260904-CEDRAT-V5-UNAVAILABLE"]["source_refs"] = [
+            "invented://authority"
+        ]
+
+    path = tmp_path / "mutated-overlay.json"
+    path.write_text(json.dumps(mutated), encoding="utf-8")
+    with pytest.raises(Exception, match=expected_error):
+        load_current_user_inventory_overlay(path, require_pinned_overlay=False)

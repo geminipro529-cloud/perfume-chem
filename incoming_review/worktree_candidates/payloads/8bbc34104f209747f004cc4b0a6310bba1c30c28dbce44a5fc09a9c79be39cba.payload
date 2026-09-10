@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,0.9622
+identity_system_probability,0.9806
+oav_probability,0.9487
+temporal_probability,1.0
+dominance_failure_probability,9.999999999998899e-05
+overall_probability,0.9486
+dose_closure_probability,0.9885
+temporal_q05,0.9490406347068384
+temporal_median,0.9900977306941862
+max_share_q95,0.4770847649983459
+marker_coverage_q05,0.7142857142857143
+phase_sum_q05,"{""top"": 19.441830944439978, ""heart"": 1.252734278246683, ""base"": 1.9264506925137004}"
+release_shape_median,"[0.5562687881921389, 0.30943785630254067, 0.10197907508377685, 0.024833060603308012]"
+phase_shape_median,"[0.39303394512373524, 0.3514275643847084, 0.2555187023611809]"
+marker_probabilities,"{""Grapefruit FCF Oil | top"": 0.9998, ""Bergamot FCF Oil Sicilian | top"": 1.0, ""Black Pepper EO | top"": 1.0, ""Lavender EO High Altitude | heart"": 0.9558, ""Geraniol 10% | heart"": 0.0238, ""Vetiver EO | base"": 0.8024, ""Ambrofix 30% | base"": 0.8999}"
+marker_quantiles,"{""Grapefruit FCF Oil | top"": [3.2118385629593207, 9.125917722744612, 25.78850886308383], ""Bergamot FCF Oil Sicilian | top"": [4.884706325526425, 14.022570831264593, 40.025939644867314], ""Black Pepper EO | top"": [4.766300123445274, 11.606740525321309, 29.452616493902052], ""Lavender EO High Altitude | heart"": [1.0383504833825719, 2.72298842549315, 7.196546489790868], ""Geraniol 10% | heart"": [0.10474482643359916, 0.28534110728699236, 0.7882233452748058], ""Vetiver EO | base"": [0.636371710118129, 1.6385396984351828, 4.4444726926719405], ""Ambrofix 30% | base"": [0.7943577354464666, 2.1222013927530012, 5.889341416399431]}"
+classification,ROBUST

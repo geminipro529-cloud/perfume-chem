@@ -1,0 +1,117 @@
+"""OpenAI-only AI service factory."""
+
+from typing import Any, Optional
+
+from app.core.config import get_settings, is_openai_model_name
+from app.core.logging import get_logger
+from app.services.ai.base import BaseAIService
+from app.services.ai.openai_service import OpenAIService
+
+logger = get_logger(__name__)
+
+OPENAI_PROVIDER = "openai"
+
+
+class AIModelDetector:
+    """Validate that a requested model is an OpenAI model."""
+
+    @classmethod
+    def detect_provider(cls, model_name: str) -> str:
+        """Return ``openai`` or fail closed for every other model."""
+        if is_openai_model_name(model_name):
+            logger.debug("Validated OpenAI model: %s", model_name)
+            return OPENAI_PROVIDER
+        raise ValueError(
+            f"Unsupported AI model '{model_name}': only OpenAI models are enabled"
+        )
+
+    @classmethod
+    def get_supported_models(cls) -> dict[str, list[str]]:
+        """Return the OpenAI-only compatibility model list."""
+        return {
+            OPENAI_PROVIDER: [
+                "gpt-4",
+                "gpt-3.5-turbo",
+                "o1-preview",
+                "o1-mini",
+            ]
+        }
+
+
+def _require_openai_provider(provider: str) -> None:
+    normalized = provider.strip().lower()
+    if normalized != OPENAI_PROVIDER:
+        raise ValueError(
+            f"Unsupported AI provider '{provider}': only OpenAI is enabled"
+        )
+
+
+def create_ai_service(
+    model: Optional[str] = None,
+    cache: Optional[Any] = None,
+    verbose: bool = False,
+    force_provider: Optional[str] = None,
+) -> BaseAIService:
+    """Create an OpenAI service after validating compatibility arguments."""
+    if force_provider:
+        _require_openai_provider(force_provider)
+
+    settings = get_settings()
+    _require_openai_provider(settings.AI_PROVIDER)
+
+    service_model = model or settings.OPENAI_MODEL
+    AIModelDetector.detect_provider(service_model)
+    if verbose:
+        logger.info("Creating OpenAI service with model: %s", service_model)
+    return OpenAIService(cache=cache, model=service_model)
+
+
+def get_model_selector() -> dict[str, Any]:
+    """Return the existing selector shape with OpenAI as its sole provider."""
+    settings = get_settings()
+    default_model = settings.OPENAI_MODEL
+    AIModelDetector.detect_provider(default_model)
+    model_entries = [
+        {
+            "id": "gpt-4",
+            "name": "GPT-4",
+            "description": "OpenAI GPT-4 model",
+        },
+        {
+            "id": "gpt-3.5-turbo",
+            "name": "GPT-3.5 Turbo",
+            "description": "OpenAI GPT-3.5 Turbo model",
+        },
+        {
+            "id": "o1-preview",
+            "name": "o1 Preview",
+            "description": "OpenAI reasoning model",
+        },
+        {
+            "id": "o1-mini",
+            "name": "o1 Mini",
+            "description": "Smaller OpenAI reasoning model",
+        },
+    ]
+    if default_model not in {entry["id"] for entry in model_entries}:
+        model_entries.insert(
+            0,
+            {
+                "id": default_model,
+                "name": default_model,
+                "description": "Configured OpenAI model",
+            },
+        )
+
+    return {
+        "providers": {
+            OPENAI_PROVIDER: {
+                "name": "OpenAI",
+                "description": "OpenAI API models",
+                "models": model_entries,
+                "default": default_model,
+            }
+        },
+        "auto_detection": False,
+        "default_provider": OPENAI_PROVIDER,
+    }

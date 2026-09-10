@@ -1,0 +1,32 @@
+{
+  "arm": "CONTROL",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-HED-S01",
+  "completed_utc": "2026-08-26T07:33:55.660680+00:00",
+  "dispatch_sha256": "e8b34cc5df1de6da045eb8010fffd76894f61d38be114ea49d4a7c100a478276",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "hedonic_preference_learner",
+  "output_sha256": "a4aa0995f8cb7aeade6e9200fd4a4bb30011f9393d3b7772668e6609b783898c",
+  "output_text": "{\"decision_state\":\"VALIDATED\",\"target_linked_reasoning\":\"The blinded, connected, order-balanced depth evidence supports a scoped A-over-B preference: four A-over-B wins versus two B-over-A wins, with two ties. Assessor-cluster bootstrap is fixed and held-out proper score beats baseline. No inference extends to richness, target fidelity, liking, ingredients, or physical performance.\",\"controlled_comparison\":{\"criterion\":\"DEPTH\",\"A_over_B_wins\":4,\"B_over_A_wins\":2,\"ties\":2,\"assessors\":\"IDENTIFIED\",\"graph\":\"CONNECTED\",\"order\":\"BALANCED\"},\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"SCOPED_DEPTH_PREFERENCE\",\"CONNECTED_BALANCED_COMPARISONS\",\"HELD_OUT_SCORE_BEATS_BASELINE\",\"LIKING_NOT_TESTED\",\"B_C_WIDEST_INTERVAL\"],\"calculations\":{\"directional_outcome_count\":6,\"tie_rate\":0.25},\"next_actions\":[{\"action\":\"COLLECT_BLINDED_DEPTH_COMPARISON\",\"pair\":[\"B\",\"C\"],\"reason\":\"WIDEST_INTERVAL\"}],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "3febf0b6c3b5687e583f9fd6bbfdfa1b30eaaad6058a78bb1aad043911eb9a8e",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-23541460a0f556283854",
+  "role": "POSITIVE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:33:12.283195+00:00",
+  "stderr_sha256": "b3a2ce461cba17b6d39740c2c60e979273c6effc73b4cae2c62b0f4f337cf99f",
+  "stderr_tail": "nded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\n2026-08-26T07:33:24.407472Z ERROR codex_core::tools::router: error=exec_command failed for `\"C:\\\\Users\\\\ASUS\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -NoProfile -Command \"Get-Content -Raw -LiteralPath 'C:\\\\Users\\\\ASUS\\\\.codex\\\\skills\\\\deepluna-chat\\\\SKILL.md'\"`: CreateProcess { message: \"Rejected(\\\"`\\\\\\\"C:\\\\\\\\\\\\\\\\Users\\\\\\\\\\\\\\\\ASUS\\\\\\\\\\\\\\\\.cache\\\\\\\\\\\\\\\\codex-runtimes\\\\\\\\\\\\\\\\codex-primary-runtime\\\\\\\\\\\\\\\\dependencies\\\\\\\\\\\\\\\\native\\\\\\\\\\\\\\\\powershell\\\\\\\\\\\\\\\\pwsh.exe\\\\\\\" -NoProfile -Command \\\\\\\"Get-Content -Raw -LiteralPath 'C:\\\\\\\\\\\\\\\\Users\\\\\\\\\\\\\\\\ASUS\\\\\\\\\\\\\\\\.codex\\\\\\\\\\\\\\\\skills\\\\\\\\\\\\\\\\deepluna-chat\\\\\\\\\\\\\\\\SKILL.md'\\\\\\\"` rejected: blocked by policy\\\")\" }\ncodex\n{\"decision_state\":\"VALIDATED\",\"target_linked_reasoning\":\"The blinded, connected, order-balanced depth evidence supports a scoped A-over-B preference: four A-over-B wins versus two B-over-A wins, with two ties. Assessor-cluster bootstrap is fixed and held-out proper score beats baseline. No inference extends to richness, target fidelity, liking, ingredients, or physical performance.\",\"controlled_comparison\":{\"criterion\":\"DEPTH\",\"A_over_B_wins\":4,\"B_over_A_wins\":2,\"ties\":2,\"assessors\":\"IDENTIFIED\",\"graph\":\"CONNECTED\",\"order\":\"BALANCED\"},\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"SCOPED_DEPTH_PREFERENCE\",\"CONNECTED_BALANCED_COMPARISONS\",\"HELD_OUT_SCORE_BEATS_BASELINE\",\"LIKING_NOT_TESTED\",\"B_C_WIDEST_INTERVAL\"],\"calculations\":{\"directional_outcome_count\":6,\"tie_rate\":0.25},\"next_actions\":[{\"action\":\"COLLECT_BLINDED_DEPTH_COMPARISON\",\"pair\":[\"B\",\"C\"],\"reason\":\"WIDEST_INTERVAL\"}],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n19,143\n",
+  "stdout_sha256": "c844b77cfffdb01349628a6aca3cd210efe045bd37a887f3ea8c02e6721e7c79"
+}

@@ -1,0 +1,29 @@
+﻿Code,ACC-LR-SAF-01
+Accord,Saffron Leather v1.0
+Category,Leather & Resin
+Brief,"A saffron-suede leather with warm woods, mineral resin, agarwood shadow and a controlled rosy-metallic lift."
+Recommended use,1–8% of perfume concentrate
+Maturation,14–21 days
+Monte Carlo pass,1.0
+Final design score,100.0
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Suederal 10%,10% working stock,0.1,115.0,11.5,115.0,575.0,PREPARED STOCK,leather,Suede body,Soft suede leather.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.060508370478385205
+2,base,Kephalis,neat/as supplied,1.0,80.0,80.0,80.0,400.0,DIRECT,warm_wood,Warm wood,Warm tobacco-like wood.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.0336380744662087
+3,base,Labdanum 10%,10% working stock,0.1,60.0,6.0,60.0,300.0,PREPARED STOCK,amber_resin,Amber leather,Cistus amber-leather.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.022264417039939227
+4,base,Sandalore,neat / as supplied,1.0,55.0,55.0,55.0,275.0,DIRECT,sandalwood,Creamy leather,Creamy sandalwood.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.013100500931034289
+5,base,Cashmeran 20%,Cashmeran 20% in DPG,0.2,45.0,9.0,45.0,225.0,PREPARED STOCK,warm_wood,Textile warmth,Warm textile wood.,HAVE — MULTIPLE STOCKS,Formula must specify neat or 20% stock.,,STRUCTURALLY IMPORTANT,0.014482739596687656
+6,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,45.0,45.0,45.0,225.0,DIRECT,musk,Metallic musk,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,STRUCTURALLY IMPORTANT,0.009519942018972745
+7,base,Amberwood F,neat/as supplied,1.0,35.0,35.0,35.0,175.0,DIRECT,amberwood,Dry pressure,Dry woody-amber pressure.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.006562137447361502
+8,base,Olibanum 50%,50% in DPG,0.5,35.0,17.5,35.0,175.0,PREPARED STOCK,incense,Mineral resin,Frankincense mineral resin.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.006562137447361502
+9,base,Papyrus / Cypriol EO,Nagarmotha Oil neat,1.0,35.0,35.0,35.0,175.0,DIRECT,cypriol,Cypriol shadow,Cypriol/nagarmotha smoke and earth.,HAVE — CYPRIOL VIA NAGARMOTHA; PAPYRUS UNCONFIRMED,Use Nagarmotha where the source calls for cypriol/nagarmotha. Hold targets that specifically require papyrus rather than cypriol.,,TEXTURAL SUPPORT,0.0065621374473615515
+10,base,Black Agarwood Artificial 10%,10% prepared from neat,0.1,30.0,3.0,30.0,150.0,PREPARED STOCK,agarwood,Dark wood,Dark agarwood shadow.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.005247658979185891
+11,base,Castoreum Synthetic,Castoreum Synthetic 10% in DPG,0.1,30.0,3.0,30.0,150.0,PREPARED STOCK,leather_animalic,Animalic warmth,Animalic leather warmth.,HAVE — NEAT + 10%,Use exact stock named in formula.,,TEXTURAL SUPPORT,0.005247658979185891
+12,base,Romandolide,Romandolide neat/as supplied,1.0,30.0,30.0,30.0,150.0,DIRECT,musk,Soft musk,Fruity-clean musk body.,HAVE — NEAT,Use as neat Romandolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.005195200256525992
+13,heart_base,Iso E Super,neat / as supplied,1.0,150.0,150.0,150.0,750.0,DIRECT,transparent_wood,Transparent frame,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.07525280864207978
+14,heart_base,Safraleine 10%,10% working dilution,0.1,145.0,14.5,145.0,725.0,PREPARED STOCK,saffron_leather,Saffron leather,Saffron-leather effect.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.0898401471848511
+15,heart,Beta Damascone 10%,10% working stock,0.1,10.0,1.0,10.0,50.0,PREPARED STOCK,rose_fruit,Warm bloom,Rosy-fruity bloom.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0012563774357488059
+16,top_heart,Rose Oxide 1%,1% working stock,0.01,5.0,0.05,5.0,25.0,PREPARED STOCK,rose,Metallic rosy flash,Metallic rose lift.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.0005644810996050349
+17,top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,15.0,15.0,15.0,75.0,DIRECT,citrus,Opening lift,Floral bergamot peel.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0021008738203789
+18,carrier,DPG,neat,0.0,80.0,0.0,80.0,400.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

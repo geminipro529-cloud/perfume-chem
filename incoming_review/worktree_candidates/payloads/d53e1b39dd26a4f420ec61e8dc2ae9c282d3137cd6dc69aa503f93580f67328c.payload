@@ -1,0 +1,117 @@
+"""Structural synthetic inputs, not measured perfume outcomes."""
+
+import json
+from dataclasses import replace
+
+import pytest
+
+from engine.formulation_intelligence.floral_lattice import FloralSubject, FloralSubtype
+from engine.formulation_intelligence.source_bound_floral import (
+    SourceBoundFloralWholePerfume,
+    assemble_source_bound_floral_whole_perfume,
+)
+from tests.test_formulation_intelligence_floral_whole_perfume import _inputs
+from tests.test_formulation_intelligence_source_bound_assembly import _whole_inputs
+
+
+def _joint_inputs():
+    ideal, projection, source = _whole_inputs()
+    _, _, floral = _inputs(resolved=False)
+    scope = replace(floral.scope, target_scope=ideal.ideal_target_id)
+    floral = replace(
+        floral,
+        scope=scope,
+        resolution=replace(
+            floral.resolution,
+            request=replace(
+                floral.resolution.request,
+                target_scope=scope.target_scope,
+                named_target="Iris Cathedral",
+            ),
+            named_target="Iris Cathedral",
+        ),
+        intent=replace(
+            floral.intent,
+            flower_subject=FloralSubject.IRIS_ORRIS_VIOLET,
+            exact_subtype=FloralSubtype.IRIS,
+            requested_expression=("root/rhizome", "mineral"),
+            protected_recognizers=("rooty iris",),
+        ),
+    )
+    return ideal, projection, source, floral
+
+
+def _run(inputs):
+    return assemble_source_bound_floral_whole_perfume(
+        *inputs, selected_alternative_id="alternative:a", version=1
+    )
+
+
+def test_joint_execution_retains_real_sources_and_roundtrips():
+    ideal, projection, source, floral = _joint_inputs()
+    result = _run((ideal, projection, source, floral))
+    assert result.bound.source == source
+    assert result.floral.floral_source == floral
+    assert result.floral.blueprint == result.bound.integrated.whole_blueprint
+    expected = floral.to_synthesis()
+    planes = {p.plane_id: p for p in result.floral.blueprint.planes}
+    for assessment in expected.assessments:
+        assert assessment in planes[assessment.plane_id].assessments
+        assert expected in planes[assessment.plane_id].syntheses
+    assert result.floral.blueprint.inventory_projection == projection
+    assert not result.bound.integrated.physical_execution_authorized
+    assert not result.bound.integrated.sensory_authority
+    restored = SourceBoundFloralWholePerfume.from_dict(json.loads(json.dumps(result.as_dict())))
+    assert restored == result
+    assert restored.content_sha256 == result.content_sha256
+
+
+def test_changed_native_morphology_changes_result_but_not_target():
+    ideal, projection, source, floral = _joint_inputs()
+    left = _run((ideal, projection, source, floral))
+    changed = replace(floral, intent=replace(floral.intent, requested_expression=("buttery",)))
+    right = _run((ideal, projection, source, changed))
+    assert left.content_sha256 != right.content_sha256
+    assert left.bound.source == right.bound.source
+    assert left.floral.blueprint.ideal_proposal == right.floral.blueprint.ideal_proposal
+    with pytest.raises(ValueError, match="same whole blueprint"):
+        SourceBoundFloralWholePerfume(left.bound, right.floral)
+
+
+def test_cross_target_and_legacy_source_are_rejected():
+    ideal, projection, source, floral = _joint_inputs()
+    _, _, other_flower = _inputs()
+    with pytest.raises(ValueError, match="exact ideal target"):
+        _run((ideal, projection, source, other_flower))
+    with pytest.raises(TypeError, match="SourceBoundCandidateAssembly"):
+        _run((ideal, projection, source.assembly, floral))
+
+
+@pytest.mark.parametrize("mutation", ["extra", "missing", "schema"])
+def test_joint_payload_is_closed(mutation):
+    payload = _run(_joint_inputs()).as_dict()
+    if mutation == "extra":
+        payload["sensory_authority"] = True
+    elif mutation == "missing":
+        del payload["floral"]
+    else:
+        payload["schema_version"] = "unrecognized"
+    with pytest.raises(ValueError):
+        SourceBoundFloralWholePerfume.from_dict(payload)
+
+
+def test_joint_execution_does_not_bypass_build_or_selection_validation():
+    from tests.test_formulation_intelligence_inventory_whole_perfume import _project
+
+    ideal, projection, source, floral = _joint_inputs()
+    with pytest.raises(ValueError, match="inventory build"):
+        _run((ideal, _project(ideal, (), inventory_hash="c" * 64), source, floral))
+    with pytest.raises(ValueError, match="material/function list"):
+        assemble_source_bound_floral_whole_perfume(
+            ideal,
+            projection,
+            source,
+            floral,
+            selected_alternative_id="alternative:b",
+            version=1,
+        )

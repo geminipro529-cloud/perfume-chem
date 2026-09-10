@@ -1,0 +1,476 @@
+from __future__ import annotations
+
+from engine.formulation_intelligence import deep_plane_runtime
+from engine.pipeline.audit_log import compact_gate
+from engine.pipeline.gates import ReleaseGateConfig, gate_formula
+
+
+def _formula(
+    ingredients: dict[str, float],
+    *,
+    dilutions: dict[str, float] | None = None,
+    body: str,
+) -> dict:
+    total = sum(ingredients.values()) or 1.0
+    return {
+        "number": 1,
+        "name": "Deep Plane Native Gate",
+        "ingredients_ul": ingredients,
+        "dilutions": dilutions or {},
+        "ingredients_pct": {
+            name: amount / total * 100.0 for name, amount in ingredients.items()
+        },
+        "body": body,
+    }
+
+
+def _documented_formula() -> dict:
+    return _formula(
+        {"Hedione": 6000.0},
+        body=(
+            "Target identity and protected nucleus with forbidden drift. "
+            "Surface and interior anatomy. Each material has a function and role. "
+            "Bridge and handoff create recurrence and opposition. "
+            "Opening, heart, and drydown preserve a fabric echo. "
+            "Front, middle, and rear define skin and aura. "
+            "Protected-nucleus constant-total matched-carrier blinded A/B omission "
+            "with AB/BA order."
+        ),
+    )
+
+
+def _deep_plane_gate(report):
+    matches = [gate for gate in report.gates if gate.gate == "deep_plane_runtime"]
+    assert len(matches) == 1
+    return matches[0]
+
+
+def _synthetic_pass_assessment() -> dict:
+    plane_statuses = {
+        "identity": "DOCUMENTED",
+        "morphology": "DOCUMENTED",
+        "function": "DOCUMENTED",
+        "relation": "DOCUMENTED",
+        "mixture": "MODELED",
+        "temporal": "DOCUMENTED",
+        "spatial_composition": "DOCUMENTED",
+        "physicochemical": "MODELED",
+        "biological_sensitivity": "HOLD",
+        "hedonic": "NOT_TESTED",
+        "inventory_build": "CHECKED",
+        "evidence_authority": "HOLD",
+        "experiment": "DOCUMENTED",
+    }
+    plane_ceilings = {
+        "identity": "structural_only",
+        "morphology": "structural_only",
+        "function": "structural_only",
+        "relation": "structural_only",
+        "mixture": "hypothesis_only",
+        "temporal": "structural_only",
+        "spatial_composition": "structural_only",
+        "physicochemical": "hypothesis_only",
+        "biological_sensitivity": "withheld",
+        "hedonic": "withheld",
+        "inventory_build": "structural_only",
+        "evidence_authority": "withheld",
+        "experiment": "structural_only",
+    }
+    return {
+        "schema_version": "deep_plane_pipeline_gate_v1",
+        "gate_status": "PASS",
+        "authority_status": "HOLD",
+        "authority_ceiling": "withheld",
+        "authority_flags": {
+            name: False for name in deep_plane_runtime.AUTHORITY_FLAGS
+        },
+        "plane_statuses": plane_statuses,
+        "planes": [
+            {
+                "plane_id": plane_id,
+                "status": plane_statuses[plane_id],
+                "authority_ceiling": plane_ceilings[plane_id],
+            }
+            for plane_id in deep_plane_runtime.DEEP_PLANE_IDS
+        ],
+        "blockers": [],
+        "warnings": [],
+        "calculation_reuse": {
+            "formula_state_reused": True,
+            "simulation_reused": True,
+            "simulation_frame_count": 5,
+        },
+        "inventory_evidence": {},
+        "physicochemical_findings": {},
+        "pre_mix_guard": {},
+        "structural_declarations": {},
+        "falsification_or_test_requirements": {},
+        "limitations": [],
+    }
+
+
+def test_gate_formula_registers_one_non_promoting_deep_plane_gate(monkeypatch) -> None:
+    def fail_if_child_physics_is_rebuilt(*args, **kwargs):
+        raise AssertionError("native gate must reuse gate_formula state and simulation")
+
+    monkeypatch.setattr(
+        deep_plane_runtime,
+        "_state_and_series",
+        fail_if_child_physics_is_rebuilt,
+    )
+
+    report = gate_formula(
+        _documented_formula(),
+        ReleaseGateConfig(
+            expected_concentrate_ul=6000.0,
+            brief="generic",
+            audit_enabled=False,
+        ),
+    )
+
+    gate = _deep_plane_gate(report)
+    assert gate.status == "PASS"
+    assert gate.data["schema_version"] == "deep_plane_pipeline_gate_v1"
+    assert list(gate.data["plane_statuses"]) == list(
+        deep_plane_runtime.DEEP_PLANE_IDS
+    )
+    assert len(gate.data["plane_statuses"]) == 13
+    assert gate.data["authority_status"] == "HOLD"
+    assert gate.data["authority_ceiling"] == "withheld"
+    assert set(gate.data["authority_flags"].values()) == {False}
+    assert gate.data["calculation_reuse"] == {
+        "formula_state_reused": True,
+        "simulation_reused": True,
+        "simulation_frame_count": len(report.simulation),
+    }
+
+
+def test_deep_plane_gate_hard_fails_withheld_opaque_preblend_oav() -> None:
+    formula = _formula(
+        {"Hedione": 5000.0, "Cardamom FTEC": 1000.0},
+        body=_documented_formula()["body"],
+    )
+
+    report = gate_formula(
+        formula,
+        ReleaseGateConfig(
+            expected_concentrate_ul=6000.0,
+            brief="generic",
+            allow_preblends=True,
+            audit_enabled=False,
+        ),
+    )
+
+    gate = _deep_plane_gate(report)
+    assert gate.status == "FAIL"
+    assert report.status == "FAIL"
+    assert "OPAQUE_PREBLEND_OAV_WITHHELD" in {
+        blocker["code"] for blocker in gate.data["blockers"]
+    }
+    assert gate.data["physicochemical_findings"][
+        "opaque_preblends_withheld"
+    ] == ["Cardamom FTEC"]
+
+
+def test_deep_plane_gate_hard_fails_unresolved_natural_composite_oav() -> None:
+    formula = _formula(
+        {"Hedione": 5000.0, "Frankincense EO": 1000.0},
+        body=_documented_formula()["body"],
+    )
+
+    report = gate_formula(
+        formula,
+        ReleaseGateConfig(
+            expected_concentrate_ul=6000.0,
+            brief="generic",
+            audit_enabled=False,
+        ),
+    )
+
+    gate = _deep_plane_gate(report)
+    assert gate.status == "FAIL"
+    assert "NATURAL_COMPOSITE_OAV_WITHHELD" in {
+        blocker["code"] for blocker in gate.data["blockers"]
+    }
+    assert gate.data["physicochemical_findings"][
+        "unresolved_natural_composites"
+    ] == ["Frankincense EO"]
+
+
+def test_deep_plane_gate_warns_on_incomplete_structural_declarations() -> None:
+    report = gate_formula(
+        _formula({"Hedione": 6000.0}, body="A short undeclared formula."),
+        ReleaseGateConfig(
+            expected_concentrate_ul=6000.0,
+            brief="generic",
+            audit_enabled=False,
+        ),
+    )
+
+    gate = _deep_plane_gate(report)
+    assert gate.status == "WARN"
+    assert "INCOMPLETE_STRUCTURAL_DECLARATIONS" in {
+        warning["code"] for warning in gate.data["warnings"]
+    }
+    assert gate.data["parent_comparison_available"] is False
+    assert gate.data["authority_status"] == "HOLD"
+
+
+def test_deep_plane_gate_hard_fails_inventory_dilution_mismatch() -> None:
+    report = gate_formula(
+        _formula(
+            {"Ethyl Maltol": 6000.0},
+            dilutions={"Ethyl Maltol": 1.0},
+            body=_documented_formula()["body"],
+        ),
+        ReleaseGateConfig(
+            expected_concentrate_ul=6000.0,
+            brief="generic",
+            audit_enabled=False,
+        ),
+    )
+
+    gate = _deep_plane_gate(report)
+    assert gate.status == "FAIL"
+    mismatch = next(
+        blocker
+        for blocker in gate.data["blockers"]
+        if blocker["code"] == "INVENTORY_DILUTION_MISMATCH"
+    )
+    assert mismatch["materials"] == ["Ethyl Maltol"]
+    assert gate.data["inventory_evidence"]["dilution_mismatches"] == [
+        {
+            "material": "Ethyl Maltol",
+            "formula_dilution": 1.0,
+            "owned_dilutions": [0.1],
+        }
+    ]
+
+
+def test_deep_plane_gate_accepts_owned_ethyl_maltol_ten_percent() -> None:
+    report = gate_formula(
+        _formula(
+            {"Ethyl Maltol": 6000.0},
+            dilutions={"Ethyl Maltol": 0.1},
+            body=_documented_formula()["body"],
+        ),
+        ReleaseGateConfig(
+            expected_concentrate_ul=6000.0,
+            brief="generic",
+            audit_enabled=False,
+        ),
+    )
+
+    gate = _deep_plane_gate(report)
+    assert gate.status == "PASS"
+    assert gate.data["blockers"] == []
+    assert gate.data["inventory_evidence"]["matched"] == [
+        {
+            "material": "Ethyl Maltol",
+            "formula_dilution": 0.1,
+            "inventory_dilutions": [0.1],
+        }
+    ]
+
+
+def test_deep_plane_gate_maps_parent_screen_block_to_hard_failure() -> None:
+    parent = _formula(
+        {"Hedione": 100.0},
+        body=_documented_formula()["body"],
+    )
+    child = _formula(
+        {"Hedione": 1000.0},
+        body=_documented_formula()["body"],
+    )
+    report = gate_formula(
+        child,
+        ReleaseGateConfig(
+            expected_concentrate_ul=1000.0,
+            brief="generic",
+            audit_enabled=False,
+            deep_plane_parent_formula=parent,
+        ),
+    )
+
+    gate = _deep_plane_gate(report)
+    assert gate.status == "FAIL"
+    assert gate.data["parent_comparison_available"] is True
+    assert gate.data["pre_mix_guard"]["status"] == "SCREEN_BLOCK"
+    assert "PARENT_PRE_MIX_SCREEN_BLOCK" in {
+        blocker["code"] for blocker in gate.data["blockers"]
+    }
+
+
+def test_deep_plane_gate_malformed_assessment_fails_closed(monkeypatch) -> None:
+    monkeypatch.setattr(
+        deep_plane_runtime,
+        "evaluate_deep_plane_gate",
+        lambda *args, **kwargs: {},
+    )
+
+    report = gate_formula(
+        _documented_formula(),
+        ReleaseGateConfig(
+            expected_concentrate_ul=6000.0,
+            brief="generic",
+            audit_enabled=False,
+        ),
+    )
+
+    gate = _deep_plane_gate(report)
+    assert gate.status == "FAIL"
+    assert gate.data["blockers"][0]["code"] == "DEEP_PLANE_INTERNAL_FAILURE"
+    assert gate.data["authority_status"] == "HOLD"
+    assert set(gate.data["authority_flags"].values()) == {False}
+
+
+def test_deep_plane_gate_rejects_authority_promotion_in_assessment(
+    monkeypatch,
+) -> None:
+    promoted = _synthetic_pass_assessment()
+    promoted["authority_status"] = "RELEASE"
+    promoted["authority_ceiling"] = "evidence_limited"
+    promoted["authority_flags"]["release"] = True
+    monkeypatch.setattr(
+        deep_plane_runtime,
+        "evaluate_deep_plane_gate",
+        lambda *args, **kwargs: promoted,
+    )
+
+    report = gate_formula(
+        _documented_formula(),
+        ReleaseGateConfig(
+            expected_concentrate_ul=6000.0,
+            brief="generic",
+            audit_enabled=False,
+        ),
+    )
+
+    gate = _deep_plane_gate(report)
+    assert gate.status == "FAIL"
+    assert report.status == "FAIL"
+    assert gate.data["blockers"][0]["code"] == "DEEP_PLANE_INTERNAL_FAILURE"
+    assert gate.data["authority_status"] == "HOLD"
+    assert gate.data["authority_ceiling"] == "withheld"
+    assert set(gate.data["authority_flags"].values()) == {False}
+
+
+def test_deep_plane_gate_rejects_pass_with_blockers(monkeypatch) -> None:
+    incoherent = _synthetic_pass_assessment()
+    incoherent["blockers"] = [
+        {
+            "code": "IMPOSSIBLE_PASS",
+            "plane_id": "inventory_build",
+            "detail": "A PASS cannot contain blockers.",
+        }
+    ]
+    monkeypatch.setattr(
+        deep_plane_runtime,
+        "evaluate_deep_plane_gate",
+        lambda *args, **kwargs: incoherent,
+    )
+
+    report = gate_formula(
+        _documented_formula(),
+        ReleaseGateConfig(
+            expected_concentrate_ul=6000.0,
+            brief="generic",
+            audit_enabled=False,
+        ),
+    )
+
+    gate = _deep_plane_gate(report)
+    assert gate.status == "FAIL"
+    assert gate.data["blockers"][0]["code"] == "DEEP_PLANE_INTERNAL_FAILURE"
+
+
+def test_deep_plane_gate_rejects_plane_level_authority_promotion(
+    monkeypatch,
+) -> None:
+    promoted = _synthetic_pass_assessment()
+    promoted["plane_statuses"]["hedonic"] = "RELEASE"
+    hedonic = next(
+        plane for plane in promoted["planes"] if plane["plane_id"] == "hedonic"
+    )
+    hedonic["status"] = "RELEASE"
+    hedonic["authority_ceiling"] = "evidence_limited"
+    monkeypatch.setattr(
+        deep_plane_runtime,
+        "evaluate_deep_plane_gate",
+        lambda *args, **kwargs: promoted,
+    )
+
+    report = gate_formula(
+        _documented_formula(),
+        ReleaseGateConfig(
+            expected_concentrate_ul=6000.0,
+            brief="generic",
+            audit_enabled=False,
+        ),
+    )
+
+    gate = _deep_plane_gate(report)
+    assert gate.status == "FAIL"
+    assert gate.data["blockers"][0]["code"] == "DEEP_PLANE_INTERNAL_FAILURE"
+    assert gate.data["authority_status"] == "HOLD"
+
+
+def test_deep_plane_gate_evaluator_exception_fails_closed(monkeypatch) -> None:
+    def crash(*args, **kwargs):
+        raise RuntimeError("synthetic evaluator crash")
+
+    monkeypatch.setattr(deep_plane_runtime, "evaluate_deep_plane_gate", crash)
+
+    report = gate_formula(
+        _documented_formula(),
+        ReleaseGateConfig(
+            expected_concentrate_ul=6000.0,
+            brief="generic",
+            audit_enabled=False,
+        ),
+    )
+
+    gate = _deep_plane_gate(report)
+    assert gate.status == "FAIL"
+    assert report.status == "FAIL"
+    assert gate.data["blockers"] == [
+        {
+            "code": "DEEP_PLANE_INTERNAL_FAILURE",
+            "plane_id": "evidence_authority",
+            "detail": "synthetic evaluator crash",
+        }
+    ]
+
+
+def test_deep_plane_audit_projection_excludes_large_diagnostic_payloads() -> None:
+    compact = compact_gate(
+        {
+            "gate": "deep_plane_runtime",
+            "status": "WARN",
+            "detail": "review",
+            "data": {
+                "schema_version": "deep_plane_pipeline_gate_v1",
+                "gate_status": "WARN",
+                "authority_status": "HOLD",
+                "authority_ceiling": "withheld",
+                "plane_statuses": {"identity": "HOLD"},
+                "blockers": [],
+                "warnings": [{"code": "INCOMPLETE_STRUCTURAL_DECLARATIONS"}],
+                "physicochemical_findings": {},
+                "inventory_evidence": {
+                    "missing": [],
+                    "unavailable": [],
+                    "dilution_mismatches": [],
+                },
+                "parent_comparison_available": False,
+                "source_bindings": [{"path": "large", "sha256": "x" * 64}],
+                "falsification_or_test_requirements": {"identity": "large"},
+                "limitations": ["large"],
+            },
+        }
+    )
+
+    assert compact["data"]["authority_status"] == "HOLD"
+    assert "source_bindings" not in compact["data"]
+    assert "falsification_or_test_requirements" not in compact["data"]
+    assert "limitations" not in compact["data"]

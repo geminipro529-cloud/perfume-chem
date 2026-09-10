@@ -1,0 +1,309 @@
+{
+  "schema_version": "perfume_chem_external_capture_manifest_v1",
+  "capture_id": "20260816T141500+0700-v13-post-v12-five-package-recovery-multi-chat",
+  "captured_at": "2026-08-16T14:15:00+07:00",
+  "state": "SOURCE_CAPTURE_QUARANTINED_NOT_ADMITTED",
+  "project": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "project_title": "Complex Perfumery",
+    "registry_path": "chat_bridge/complex_perfumery/chat_registry.json",
+    "registry_byte_size": 8292,
+    "registry_sha256": "88c6cea9872ed4a5c048224ba07ae46b0eec145ad7ebd9745adda5d7dced2132",
+    "registry_point_in_time_chats": 38,
+    "visible_project_chats_in_current_bounded_app_census": 15,
+    "visible_project_chats_not_in_registry": 10,
+    "defensible_current_chat_denominator_lower_bound": 48,
+    "denominator_complete": false,
+    "reason": "The governed registry is a point-in-time 38-chat census. Ten currently visible project chats are not in that registry, while app recency pagination and active source chats prevent a proof that 48 is the final estate denominator."
+  },
+  "retrieval": {
+    "method": "EXACT_ORIGINAL_CHATGPT_FILE_CARD_OR_VERIFIED_BASE64_TRANSPORT_TO_DOWNLOADS_THEN_EXACT_APPEND_ONLY_COPY",
+    "regeneration": false,
+    "normalization": false,
+    "repackaging": false,
+    "substitution": false,
+    "source_and_capture_size_match": true,
+    "source_and_capture_sha256_match": true
+  },
+  "captured_artifacts": [
+    {
+      "file_name": "Nine_Perfume_All_MD_Formula_Files_2026-08-16_v1.zip",
+      "byte_size": 364392,
+      "sha256": "8040367862a0a15cf5852dac395a2f630c80898f3ab734755c00299611f9dd17",
+      "source": {
+        "conversation_id": "6a7992db-96b8-83ec-aab0-6a7447b97da1",
+        "conversation_title": "Perfume Project Planning",
+        "source_response_message_id": "a9f5a5aa-457e-4b82-8925-101cca3efb3e",
+        "exact_recovery_response_message_id": "9ff15e66-2ce6-4d4d-bbaf-2e6f950b9110",
+        "source_file_id": "file_0000000094dc823086352371054e119e",
+        "content_reference_index": 0
+      },
+      "archive": {
+        "entries": 176,
+        "files": 176,
+        "package_root": "Nine_Perfume_All_MD_Formula_Files_2026-08-16_v1",
+        "zip_crc_clean": true,
+        "safe_member_paths": true,
+        "casefold_duplicate_paths": 0,
+        "embedded_ledger_path": "Nine_Perfume_All_MD_Formula_Files_2026-08-16_v1/SHA256SUMS.txt",
+        "embedded_ledger_entries": 175,
+        "embedded_ledger_exact": true,
+        "native_single_status": "CLEAR_FOR_RECEIPT_REVIEW",
+        "native_graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+        "native_graph_nodes": 1,
+        "native_graph_edges": 0,
+        "native_graph_findings": [],
+        "promotion_allowed": false
+      },
+      "content_boundary": {
+        "role": "MARKDOWN_FORMULA_EXPORT_AND_SCREEN_DESIGN_ANCESTRY_ONLY",
+        "perfumes": 9,
+        "arms": 110,
+        "parent_masters": 14,
+        "factor_or_fixed_modules": 33,
+        "preparation_templates": 4,
+        "state": "SCREEN_DESIGNS_ONLY_NO_CANONICAL_SELECTION",
+        "raw_volume_geometry_only": true,
+        "formula_authority": false,
+        "physical_execution": false
+      }
+    },
+    {
+      "file_name": "XHIGH_AUDIT_VERIFY_FIX_2026-08-16.zip",
+      "byte_size": 35080,
+      "sha256": "1706d4c8ff1eeac22e689627630903ea7fcda5517b24ac79d44da246ed6f0657",
+      "source": {
+        "conversation_id": "6a77d532-0a30-83ec-9067-555ff6800795",
+        "conversation_title": "XHIGH freeze blocked pending repository integration",
+        "source_response_message_id": "6596d88c-c50b-4455-a437-c3eb32fe0181",
+        "exact_recovery_response_message_id": "4679e144-c4c4-421b-a999-f388672e8ec6",
+        "source_file_id": "file_0000000075a881fbbde1076e14850fbf",
+        "content_reference_index": 0
+      },
+      "archive": {
+        "entries": 25,
+        "files": 25,
+        "package_root": null,
+        "zip_crc_clean": true,
+        "safe_member_paths": true,
+        "casefold_duplicate_paths": 0,
+        "embedded_ledger_path": "SHA256SUMS.txt",
+        "embedded_ledger_entries": 24,
+        "embedded_ledger_exact": true,
+        "native_single_status": "CLEAR_FOR_RECEIPT_REVIEW",
+        "native_graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+        "native_graph_nodes": 1,
+        "native_graph_edges": 0,
+        "native_graph_findings": [],
+        "promotion_allowed": false
+      },
+      "content_boundary": {
+        "role": "HISTORICAL_XHIGH_AUDIT_AND_REMEDIATION_CANDIDATE_ONLY",
+        "source_terminal_state": "SOURCE_BYTES_MISSING",
+        "source_freeze_authorized": false,
+        "source_pro_review": "NOT_STARTED",
+        "live_repository_state_controls": true,
+        "implementation_authority": false,
+        "publication_authority": false
+      }
+    },
+    {
+      "file_name": "COMPLEX_PERFUMERY_OPUS_V_HR_A_V1R2_READMISSION_V1_20260815.zip",
+      "byte_size": 21809,
+      "sha256": "09f723b79912e88b63308574d83f4ad540e2c0cda7970147b85ed9380768bd53",
+      "source": {
+        "conversation_id": "6a762995-0d8c-83ec-aee3-66c90e56811e",
+        "conversation_title": "Complex Perfumery Continuation",
+        "source_response_message_id": "185491dc-ffe4-432b-b877-80098e673e13",
+        "exact_recovery_response_message_id": "56a7498f-d108-45ae-b044-fe1247a0e391",
+        "source_file_id": "file_00000000032c820784b95e15135720ca",
+        "content_reference_index": 0,
+        "transport": "EIGHT_INDEPENDENTLY_LENGTH_AND_SHA_VERIFIED_BASE64_BLOCKS"
+      },
+      "archive": {
+        "entries": 14,
+        "files": 14,
+        "package_root": "COMPLEX_PERFUMERY_OPUS_V_HR_A_V1R2_READMISSION_V1_20260815",
+        "zip_crc_clean": true,
+        "safe_member_paths": true,
+        "casefold_duplicate_paths": 0,
+        "embedded_ledger_path": "COMPLEX_PERFUMERY_OPUS_V_HR_A_V1R2_READMISSION_V1_20260815/INTEGRITY_RECEIPT.json",
+        "embedded_ledger_entries": 13,
+        "embedded_ledger_exact": true,
+        "native_single_status": "CLEAR_FOR_RECEIPT_REVIEW",
+        "native_graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+        "native_graph_nodes": 1,
+        "native_graph_edges": 0,
+        "native_graph_findings": [],
+        "promotion_allowed": false
+      },
+      "content_boundary": {
+        "role": "OPUS_V_HR_A_DESK_READMISSION_CANDIDATE_ONLY",
+        "baseline_state": "FAIL_V1R2_READMISSION_HOLD",
+        "r1a_state": "PASS_DESK_READMISSION_CANDIDATE_HOLD_ALL_PHYSICAL_EMPIRICAL",
+        "r1a_applied": false,
+        "exact_newer_formula_bytes_mounted": false,
+        "formula_mutations": 0,
+        "inventory_mutations": 0,
+        "physical_authority": false,
+        "sensory_authority": false,
+        "release_authority": false
+      }
+    },
+    {
+      "file_name": "VMC_REC_01_Empirical_Loop_Aug2026_v1_Package.zip",
+      "byte_size": 45186,
+      "sha256": "3bcaec98bb637cb8070a11582044e3ce1b9cb2b317cd40761ae7ba529feeb745",
+      "source": {
+        "conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+        "conversation_title": "Perfume Making Consultant",
+        "source_response_message_id": "5953153b-956c-45fd-935e-a19849bbe9a0",
+        "exact_recovery_response_message_id": "1cd871e1-6e50-45e4-a857-c8fbcff41269",
+        "source_file_id": "file_00000000b92c81faa88ef14d9f7e34b2",
+        "content_reference_index": 0
+      },
+      "archive": {
+        "entries": 10,
+        "files": 10,
+        "package_root": null,
+        "zip_crc_clean": true,
+        "safe_member_paths": true,
+        "casefold_duplicate_paths": 0,
+        "embedded_sidecar_checks": 5,
+        "embedded_sidecar_checks_exact": true,
+        "release_child_records": 4,
+        "release_child_records_exact": true,
+        "native_single_status": "QUARANTINE_HOLD",
+        "native_single_findings": [
+          "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT",
+          "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT"
+        ],
+        "native_graph_status": "GRAPH_COMPLETE_QUARANTINED",
+        "native_graph_nodes": 3,
+        "native_graph_edges": 2,
+        "native_graph_findings": [],
+        "promotion_allowed": false
+      },
+      "content_boundary": {
+        "role": "EMPIRICAL_LOOP_PROTOCOL_AND_BLANK_TEMPLATE_ANCESTRY_ONLY",
+        "source_status": "READY_TO_COMPOUND_AFTER_PREFLIGHT",
+        "native_interpretation": "SOURCE_PERSPECTIVE_ONLY_NOT_EXECUTION_AUTHORITY",
+        "preflight_rows": 11,
+        "preflight_completed": 0,
+        "arms": 4,
+        "arms_mixed": 0,
+        "physical_checks": 12,
+        "physical_checks_run": 0,
+        "sensory_results": 0,
+        "decision_state": "NOT_RUN_HOLD",
+        "physical_authority": false,
+        "sensory_authority": false,
+        "safety_authority": false,
+        "release_authority": false
+      }
+    },
+    {
+      "file_name": "ACCORD_INTEL_CHAT0_EXACT_BYTE_RECOVERY_RECHECK_20260816T060719Z.zip",
+      "byte_size": 2629,
+      "sha256": "59d253cee98f04e7b2f4269c739d471edb1d98fe564cfa11990169e1941d2b07",
+      "source": {
+        "conversation_id": "6a74f9c7-7edc-83ec-9964-6ede1e22a069",
+        "conversation_title": "Chat 0 Request",
+        "source_turn_id": "42f0a430-a4c9-4bac-bd57-43f4bdaf9474",
+        "source_response_message_id": "a8bce35b-0248-43fc-ae39-4fcff97aec0f",
+        "content_reference_index": 0
+      },
+      "archive": {
+        "entries": 4,
+        "files": 4,
+        "package_root": "ACCORD_INTEL_CHAT0_EXACT_BYTE_RECOVERY_RECHECK_20260816T060719Z",
+        "zip_crc_clean": true,
+        "safe_member_paths": true,
+        "casefold_duplicate_paths": 0,
+        "embedded_ledger_path": "ACCORD_INTEL_CHAT0_EXACT_BYTE_RECOVERY_RECHECK_20260816T060719Z/REPORT_SHA256SUMS.json",
+        "embedded_ledger_entries": 3,
+        "embedded_ledger_exact": true,
+        "native_single_status": "CLEAR_FOR_RECEIPT_REVIEW",
+        "native_graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+        "native_graph_nodes": 1,
+        "native_graph_edges": 0,
+        "native_graph_findings": [],
+        "promotion_allowed": false
+      },
+      "content_boundary": {
+        "role": "HISTORICAL_NEGATIVE_EXACT_BYTE_SEARCH_RECEIPT_ONLY",
+        "source_state": "NO_EXACT_TARGETS_FOUND",
+        "targets": 2,
+        "results": 0,
+        "packages_rebuilt": 0,
+        "packages_repackaged": 0,
+        "currentity_note": "The source runtime did not see PCV3, but PCV3 was subsequently recovered and quarantined locally. This report cannot override current project state or prove Universal absence outside its bounded source root.",
+        "current_project_universal_accord_state": "EXACT_ORIGINAL_BYTES_UNAVAILABLE",
+        "current_project_pcv3_state": "EXACT_BYTES_RECOVERED_AND_QUARANTINED_NOT_ADMITTED",
+        "source_authority": false,
+        "repository_promotion_authority": false
+      }
+    }
+  ],
+  "collection_delta": {
+    "parent_v12_exact_outer_candidates": 42,
+    "new_unique_exact_outer_candidates": 5,
+    "cumulative_exact_outer_candidates": 47,
+    "all_project_packages_collected": false,
+    "reason": "The current chat-estate denominator is only a lower bound, at least one source chat is active, and Universal Accord plus P6 exact parents remain unavailable."
+  },
+  "blocking_exact_bytes": [
+    {
+      "name": "UNIVERSAL_ACCORD_INTELLIGENCE_MODULE_v1.zip",
+      "byte_size": 539050,
+      "sha256": "8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998",
+      "state": "EXACT_ORIGINAL_BYTES_UNAVAILABLE_NO_RECONSTRUCTION_OR_SUBSTITUTION"
+    },
+    {
+      "name": "PERFUME_CHEM_CANONICAL_CUTOVER_READY_20260808_v2.zip",
+      "byte_size": 1228587,
+      "sha256": "e9e325bea9117dbe2a97ff67e77d57705a54244591278fac7a34915a7f0ae523",
+      "state": "DECLARED_PARENT_EXACT_BYTES_UNAVAILABLE"
+    },
+    {
+      "name": "Perfume_Chem_Physics_OAV_Decision_Model_v3_4_0_CALIBRATION_READY.zip",
+      "byte_size": 540402,
+      "sha256": "8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db",
+      "state": "EXPLICIT_UNAVAILABLE_PARENT_BYTES"
+    },
+    {
+      "name": "perfume_chem_physics_oav_v3-3.4.0-py3-none-any.whl",
+      "byte_size": 65724,
+      "sha256": "582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5",
+      "state": "EXPLICIT_UNAVAILABLE_PARENT_BYTES"
+    }
+  ],
+  "admission": {
+    "state": "EXTERNAL_PACKAGE_BYTES_VERIFIED_QUARANTINED_NOT_ADMITTED",
+    "canonical_import_allowed": false,
+    "schema_install_allowed": false,
+    "migration_allowed": false,
+    "row_projection_allowed": false,
+    "formula_projection_allowed": false,
+    "execution_allowed": false,
+    "promotion_allowed": false
+  },
+  "authority": {
+    "source_admission": false,
+    "schema": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "bottle": false,
+    "physical_execution": false,
+    "sensory": false,
+    "analytical": false,
+    "headspace": false,
+    "strict_oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "installation": false,
+    "release": false
+  }
+}

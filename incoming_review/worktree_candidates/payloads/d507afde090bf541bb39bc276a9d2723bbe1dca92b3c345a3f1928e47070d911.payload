@@ -1,0 +1,1835 @@
+- canonical_name: 2-Octen-4-One
+  aliases:
+  - 2-Octen-4-one
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 4FY22527
+    perfumersworld_price_usd_per_g: 4.1
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: O-ORCHID F-TEC
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6OV18034
+    perfumersworld_price_usd_per_g: 0.17
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: O-Orchid Fleuressence
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6OV09421
+    perfumersworld_price_usd_per_g: 0.2
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Oakmoss Absolute (IFRA Low Atranol)
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 8YH00328
+    perfumersworld_price_usd_per_g: 3.3
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5YH07549
+        price_usd_per_g: 0.38
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Oakmoss F-TEC
+  aliases:
+  - OAKMOSS F-TEC
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6YH18894
+    perfumersworld_price_usd_per_g: 0.76
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Oakmoss Fleuressence
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6YH09092
+    perfumersworld_price_usd_per_g: 0.7
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Oakmoss Resinoid (IFRA Low Atranol)
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 5YQ09979
+    perfumersworld_price_usd_per_g: 0.12
+    perfumersworld_form: 10.0% in DPG
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Oakmoss Resinoid - IFRA Low Atranol
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 2YQ00329
+    perfumersworld_price_usd_per_g: 0.6
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ocimene
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3QC00330
+    perfumersworld_price_usd_per_g: 0.71
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Olibanum Essential Oil
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7QK00333
+    perfumersworld_price_usd_per_g: 3.5
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5QK10958
+        price_usd_per_g: 0.29
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Olibanum Resinoid
+  aliases:
+  - Olibanum Resinoid (Viscous)
+  - Olibanum Resinoid (viscous, 3 g)
+  - Olibanum Resinoid Absolute
+  - Olibanum Resinoid Absolute (10%)
+  cas: 8016-36-2
+  smiles:
+  inchikey:
+  mw_g_mol: 220.0
+  density_25c_g_ml:
+  logp: 3.0
+  functional_groups:
+  - natural oleogum-resin extract
+  chirality: mixture
+  vp_25c_pa: 0.08
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff: 0.0004
+  hsp:
+  odt_air_ppb: 10.0
+  odt_eth_ppm: 3.0
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence: 0.55
+  ifra_max_pct_edp:
+  user_stock_dilution: 50% w/w in DPG  # user-confirmed 2026-08-07; PW SKU 2QK21856 viscous resinoid base (about 30% benzyl benzoate)
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 2QK21856
+    perfumersworld_price_usd_per_g: 0.65
+    perfumersworld_form: viscous resinoid; about 30% benzyl benzoate
+    perfumersworld_snapshot_date: '2026-07-16'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG (depleted user stock)
+        sku: 5QK12179
+        price_usd_per_g: 0.12
+      - form: 50.0% in DEP
+        sku: 5QK12474
+        price_usd_per_g: 0.49
+      - form: 50.0% in DPG
+        sku: 5QK07853
+        price_usd_per_g: 0.49
+  families:
+  - spice / aromatic
+  - balsamic resinoid
+  - base
+  character: Fresh terpenic, warm-sweet balsamic frankincense with leathery,
+    phenolic and smoky facets.
+  notes: Supplier-declared mixture containing about 30% benzyl benzoate. MW,
+    logP, VP and whole-material ODT are effective fallbacks; formula-state OAV
+    must use the partial Boswellia composite model.
+  provenance:
+    cas: https://www.perfumersworld.com/view.php?pro_id=2QK21856
+    mw_g_mol: engine.diffusion_model (effective mixture fallback)
+    vp_25c_pa: engine.diffusion_model (effective mixture fallback)
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds (DERIVED whole-mixture fallback)
+    odt_eth_ppm: engine.odor_thresholds (DERIVED whole-mixture fallback)
+    logp: engine.skin_interaction (effective mixture fallback)
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: "inventory.txt (added 2026-07-16; 50% w/w in DPG stock, user-confirmed 2026-08-07)"
+    user_stock_dilution: "inventory.txt (user-confirmed 2026-08-07: 50% w/w in DPG)"
+    supplier.perfumersworld: https://www.perfumersworld.com/view.php?pro_id=2QK21856
+- canonical_name: Olibanum Resinoid Absolute - Solid
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 220.0)
+  mw_g_mol: 220.0
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.08)
+  vp_25c_pa: 0.08
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 2QK00334
+    perfumersworld_price_usd_per_g: 0.86
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Olive Oil - Fixed Oil
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 0ZA01437
+    perfumersworld_price_usd_per_g: 0.09
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Opoponax
+  aliases:
+  - opoponax
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+  families: []
+  character:
+  notes:
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+- canonical_name: Opoponax Absolute
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7QC00561
+    perfumersworld_price_usd_per_g: 2.95
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Opoponax Essential Oil
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7QC00336
+    perfumersworld_price_usd_per_g: 4.4
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5QC10959
+        price_usd_per_g: 0.38
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Opoponax Resinoid
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 2QC00337
+    perfumersworld_price_usd_per_g: 0.72
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 50.0% in BB
+        sku: 5QC12475
+        price_usd_per_g: 0.4
+      - form: 50.0% in DPG
+        sku: 5QC12239
+        price_usd_per_g: 0.38
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Orange F-TEC
+  aliases:
+  - ORANGE F-TEC
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6CA18123
+    perfumersworld_price_usd_per_g: 0.12
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Orange Fleuressence
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6CA09018
+    perfumersworld_price_usd_per_g: 0.09
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Orange Flower Absolute
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 8NC00338
+    perfumersworld_price_usd_per_g: 29.9
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5NC07544
+        price_usd_per_g: 3.12
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Orange Flower F-TEC
+  aliases:
+  - ORANGE FLOWER F-TEC
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6NC18793
+    perfumersworld_price_usd_per_g: 0.26
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Orange Flower Fleuressence
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6NC11558
+    perfumersworld_price_usd_per_g: 0.22
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Orange Peel EO
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 136.23)
+  mw_g_mol: 136.23
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 1.9)
+  vp_25c_pa: 1.9
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution: 1.0 # SYNCED: matched inventory.txt, 2026-05-30
+  user_in_inventory: true
+  supplier:
+  families:
+  - citrus / top
+  character:
+  notes:
+  provenance:
+    user_in_inventory: inventory.txt
+- canonical_name: Oranger Crystals
+  aliases:
+  - Methyl beta-naphthyl ketone
+  - Methyl 2-naphthyl ketone
+  - 2-Acetonaphthone
+  - 2-Acetylnaphthalene
+  - beta-Naphthyl methyl ketone
+  - Cetone D
+  - Nerolon
+  - 1-(naphthalen-2-yl)ethanone
+  cas: 93-08-3
+  smiles: CC(=O)c1ccc2ccccc2c1
+  inchikey: XSAYZAUNJMRRIR-UHFFFAOYSA-N
+  mw_g_mol: 170.21
+  density_25c_g_ml: 1.12
+  logp: 2.678
+  functional_groups:
+  - aromatic ketone
+  - naphthalene
+  chirality:
+  vp_25c_pa: 0.12
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp: 0.2
+  user_stock_dilution: 0.1  # SYNCED: matched inventory.txt, 2026-05-30
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 1NC00340
+    perfumersworld_price_usd_per_g: 0.29
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5NC07839
+        price_usd_per_g: 0.07
+  families:
+  - floral materials
+  - orange blossom
+  - neroli
+  character: "Powdery sweet orange-blossom/neroli floral; honeyed, crystalline, very tenacious."
+  notes: "Powder form is the neat material. For pipettable bench use, prepare a weighed DPG stock; PerfumersWorld also sells Oranger Crystals 10% in DPG. IFRA limit recorded here is active material in finished leave-on skin product."
+  provenance:
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    public.perfumersworld_identity: "https://www.perfumersworld.com/view.php?pro_id=1NC00340"
+    public.chemicalbook_physical: "https://www.chemicalbook.com/ChemicalProductProperty_US_CB8272988.aspx"
+    public.ifra_standard: "https://ifrafragrance.org/standards/IFRA_STD48_0184.pdf"
+- canonical_name: Orchidia Blender F-TEC
+  aliases:
+  - ORCHIDIA BLENDER F-TEC
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6OQ18798
+    perfumersworld_price_usd_per_g: 0.15
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Orchidia Blender Fleuressence
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6OQ12406
+    perfumersworld_price_usd_per_g: 0.17
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Oregano Essential Oil
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7PS00342
+    perfumersworld_price_usd_per_g: 1.59
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5PS10974
+        price_usd_per_g: 0.19
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Organic Lavender Essential Oil
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7HL10443
+    perfumersworld_price_usd_per_g: 0.67
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Oriental F-TEC
+  aliases:
+  - ORIENTAL F-TEC
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6QV18436
+    perfumersworld_price_usd_per_g: 0.26
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Oriental Fleuressence
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6QV10404
+    perfumersworld_price_usd_per_g: 0.28
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Orivone
+  aliases:
+  - orivone
+  - orris hexanone
+  - 4-tert-pentylcyclohexanone
+  - isopentylcyclohexanone
+  cas: 16587-71-6
+  smiles: CCC(C)(C)C1CCC(=O)CC1
+  inchikey: DCSKAMGZSIRJAQ-UHFFFAOYSA-N
+  mw_g_mol: 168.28
+  density_25c_g_ml:
+  logp: 2.9
+  functional_groups: []
+  chirality:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 8.6)
+  vp_25c_pa: 8.6
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff: 0.002
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence: 0.65
+  ifra_max_pct_edp:
+  user_stock_dilution: 1.0 # SYNCED: matched inventory.txt, 2026-05-30
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 3IA00343
+    perfumersworld_price_usd_per_g: 0.52
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_fema_note: Information will be added soon.
+      pw_documentation_tabs:
+      - IFRA Status
+      - EU Allergens
+      - MSDS
+      - COA
+      pw_safety_notes_present: false
+  families:
+  - iris / violet
+  character: Powerful dry woody-camphoraceous orris with earthy powdery diffusion.
+  notes: PubChem and ECHA-backed identity for orris hexanone / 4-tert-pentylcyclohexanone. Supplier guidance suggests 0.03 to 2.7% in perfume compounds. PerfumersWorld lists documentation lanes for IFRA Status, EU Allergens, MSDS, and COA, but no numeric fine-fragrance IFRA limit was captured in the current source snapshot.
+  provenance:
+    cas: pubchem:4-tert-Pentylcyclohexanone
+    smiles: pubchem:4-tert-Pentylcyclohexanone
+    inchikey: pubchem:4-tert-Pentylcyclohexanone
+    mw_g_mol: pubchem:4-tert-Pentylcyclohexanone
+    logp: pubchem:4-tert-Pentylcyclohexanone
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+- canonical_name: Orris Concrete Orris Butter
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 8IA00344
+    perfumersworld_price_usd_per_g: 21.5
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5IA07847
+        price_usd_per_g: 2.2
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Orris F-TEC
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 200.0)
+  mw_g_mol: 200.0
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.005)
+  vp_25c_pa: 0.005
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 6IA18245
+    perfumersworld_price_usd_per_g: 0.25
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - iris / violet
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Orris Fleuressence
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6IA09073
+    perfumersworld_price_usd_per_g: 0.29
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Orris Ftec
+  aliases:
+  - orris ftec
+  cas:
+  smiles:
+  inchikey:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 200.0)
+  mw_g_mol: 200.0
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.005)
+  vp_25c_pa: 0.005
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+  families: []
+  character:
+  notes:
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+- canonical_name: Orris Liquid
+  aliases:
+  - Orris Liquid (30%)
+  cas: 8002-73-1
+  smiles:
+  inchikey:
+  mw_g_mol: 206.32
+  density_25c_g_ml: 0.93
+  logp: 3.2
+  functional_groups:
+  - natural iris extract
+  - irone-rich mixture
+  - orris resinoid
+  chirality: mixture
+  vp_25c_pa: 0.559
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb: 0.9
+  odt_eth_ppm: 0.16
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence: 0.78
+  ifra_max_pct_edp:
+  user_stock_dilution: 30% w/w  # orris resinoid; solvent not recorded (schema requires str: "neat" | "10% in DPG" | "1% in TEC" | ...)
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 8IQ24653
+    perfumersworld_price_usd_per_g: 18.0
+    perfumersworld_form: pale yellow 80-85% irone liquid
+    perfumersworld_snapshot_date: '2026-07-16'
+    other:
+      user_dilution_solvent: not recorded
+  families:
+  - iris / violet
+  - natural mixture
+  - heart
+  character: Powdery floral-woody orris with violet, lipstick, raspberry,
+    carrot, creamy butter and soft suede facets.
+  notes: Supplier-specific 80-85% irone mixture. MW, logP, VP and ODT use an
+    alpha-irone-equivalent fallback only; formula-state OAV must use the 82.5%
+    composite irone pool. Supplier usage guidance is not an IFRA maximum.
+  provenance:
+    cas: https://www.perfumersworld.com/view.php?pro_id=8IQ24653
+    mw_g_mol: alpha-irone-equivalent fallback for mixture transport
+    density_25c_g_ml: https://www.perfumersworld.com/view.php?pro_id=8IQ24653
+    logp: alpha-irone-equivalent fallback for mixture transport
+    vp_25c_pa: alpha-irone-equivalent fallback for mixture transport
+    odt_air_ppb: engine.odor_thresholds (DERIVED fallback; composite OAV authoritative)
+    odt_eth_ppm: engine.odor_thresholds (DERIVED fallback; composite OAV authoritative)
+    user_in_inventory: inventory.txt (30% stock added 2026-07-16)
+    supplier.perfumersworld: https://www.perfumersworld.com/view.php?pro_id=8IQ24653
+- canonical_name: Osmanthus Absolute
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 8ND00346
+    perfumersworld_price_usd_per_g: 18.14
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5ND10990
+        price_usd_per_g: 1.85
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Osyrol
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3WX00347
+    perfumersworld_price_usd_per_g: 0.49
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Oud Base
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6WU07495
+    perfumersworld_price_usd_per_g: 2.04
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Oud Fleuressence
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 220.0)
+  mw_g_mol: 220.0
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.001)
+  vp_25c_pa: 0.001
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: true
+  supplier:
+  families:
+  - spice / aromatic
+  character:
+  notes:
+  provenance:
+    user_in_inventory: inventory.txt
+- canonical_name: Oud Oil
+  aliases:
+  - oud oil
+  cas:
+  smiles:
+  inchikey:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 222.37)
+  mw_g_mol: 222.37
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.001)
+  vp_25c_pa: 0.001
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+  families: []
+  character:
+  notes:
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+- canonical_name: OZONE F-TEC
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6YG18599
+    perfumersworld_price_usd_per_g: 0.15
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Ozone Fleuressence
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6YG07910
+    perfumersworld_price_usd_per_g: 0.17
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: osmanthus absolute
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol: 200.0
+  density_25c_g_ml:
+  logp: 3.2
+  functional_groups: []
+  chirality:
+  vp_25c_pa: 0.01
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb: 0.5
+  odt_eth_ppm: 0.005
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution: 0.1
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku:
+    perfumersworld_price_usd_per_g:
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date:
+    other: {}
+  families:
+  - floral
+  - natural
+  character:
+  notes:
+  provenance:
+    mw_g_mol: pubchem (estimated)
+    vp_25c_pa: estimated
+    odt_air_ppb: estimated
+    odt_eth_ppm: estimated
+    user_in_inventory: inventory.txt
+- canonical_name: oakmoss absolute
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol: 400.0
+  density_25c_g_ml:
+  logp: 4.5
+  functional_groups: []
+  chirality:
+  vp_25c_pa: 0.001
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb: 0.5
+  odt_eth_ppm: 0.01
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution: 0.1
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku:
+    perfumersworld_price_usd_per_g:
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date:
+    other: {}
+  families:
+  - moss
+  - natural
+  character:
+  notes:
+  provenance:
+    mw_g_mol: pubchem (estimated)
+    vp_25c_pa: estimated
+    odt_air_ppb: estimated
+    odt_eth_ppm: estimated
+    user_in_inventory: inventory.txt
+
+- canonical_name: Osmanthus Absolute (volume grade)
+  aliases:
+  - osmanthus absolute (volume grade)
+  - osmanthus abs volume
+  - osmanthus absolute volume grade
+  cas: 92347-17-4
+  mw_g_mol: 210.0
+  density_25c_g_ml: null
+  logp: 3.0
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.08
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 2.0
+  odt_eth_ppm: 0.4
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  user_stock_dilution: 100.0
+  user_in_inventory: true
+
+- canonical_name: Opoponax Resinoid
+  aliases:
+  - opoponax resinoid
+  - opoponax resinoid (50% in dpg)
+  - opoponax
+  - sweet myrrh
+  cas: 8021-36-1
+  mw_g_mol: 220.0
+  density_25c_g_ml: null
+  logp: 3.2
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: 0.02
+  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: 10.0
+  odt_eth_ppm: 5.0
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  user_stock_dilution: 50.0
+  user_in_inventory: true

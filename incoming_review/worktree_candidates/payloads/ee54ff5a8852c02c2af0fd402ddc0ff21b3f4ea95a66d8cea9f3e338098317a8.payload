@@ -1,0 +1,82 @@
+{
+  "schema_version": "perfume_chem_inventory_worktree_sync_successor_v4",
+  "sync_id": "INVENTORY-WORKTREE-SYNC-20260905-001",
+  "effective_date": "2026-09-05",
+  "purpose": "Selected five-stock receipt reconciliation with exact-label routing; unrelated stock records and holds preserved; no formula dose, safety or sensory promotion.",
+  "parent": {
+    "path": "data/governance/inventory_worktree_sync_20260904_005.json",
+    "size_bytes": 3888,
+    "sha256": "9013ac59b822dfcca10f9f282f05fd34ff10bdbf204cc3e70ab535eb529cc0d9",
+    "normalization": "CRLF_TO_LF"
+  },
+  "hash_policy": {
+    "text_normalization": "CRLF_TO_LF",
+    "size_bytes": "NORMALIZED_TEXT_BYTES",
+    "sha256": "NORMALIZED_TEXT_BYTES",
+    "bare_cr": "HASH_SIGNIFICANT_NOT_NORMALIZED"
+  },
+  "current_files": [
+    {
+      "path": "inventory.txt",
+      "size_bytes": 21649,
+      "sha256": "baf6eefd079eda63fdcaa6972afe21e9297d4598ab92b3733fc44b0f8f4b0fa4",
+      "normalization": "CRLF_TO_LF"
+    },
+    {
+      "path": "engine/inventory_parser.py",
+      "size_bytes": 143186,
+      "sha256": "4da3a79f50d2ad1334cdb91ba24b2898e3a1b279e62efc1faf18f49571c97f23",
+      "normalization": "CRLF_TO_LF"
+    },
+    {
+      "path": "engine/pipeline/preflight.py",
+      "size_bytes": 56744,
+      "sha256": "9ce31028799f0adc1ec9c266e8d76886f99ecd331d59d6d3cc47ed663b65d5b5",
+      "normalization": "CRLF_TO_LF"
+    },
+    {
+      "path": "engine/name_utils.py",
+      "size_bytes": 9720,
+      "sha256": "66d97317a66f5f63e8f498a494e1099a423684b74681bec242c6ffe050265825",
+      "normalization": "CRLF_TO_LF"
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260905_reconciled.json",
+      "size_bytes": 3187,
+      "sha256": "6b484bb4bfe2be531026d9fda3422d587bdff76f3a4758348b1453d63b1ea170",
+      "normalization": "CRLF_TO_LF"
+    },
+    {
+      "path": "data/governance/evidence/canonical_inventory_user_authority_20260904.json",
+      "size_bytes": 18487,
+      "sha256": "e2fe66cb8077da38142913a73b0d77acd14b6e4953f6155bb2011e1e2bb851a4",
+      "normalization": "CRLF_TO_LF"
+    },
+    {
+      "path": "data/governance/evidence/canonical_inventory_user_authority_20260905.json",
+      "size_bytes": 3623,
+      "sha256": "08d0f0e41f90741200b3e915789ddd044cbbf7b0ce1b1aa266053452781bb17f",
+      "normalization": "CRLF_TO_LF"
+    }
+  ],
+  "preservation": {
+    "unchanged_stock_record_count": 226,
+    "unchanged_stock_records_sha256": "4296a764de1b31fe0aa9b4108de2c8ad2b0f8bf714f61ebaa2331c04cd02f2be",
+    "unchanged_requirement_count": 274,
+    "unchanged_requirements_sha256": "e705ee3a7b9a31cffb8854a6b288e9fb64e3c3162c9c4715af404a3b7b171fc1",
+    "hash_serialization": "Python json.dumps(sort_keys=True, ensure_ascii=True); stocks sorted by stock_id; requirements in snapshot order",
+    "legacy_raw_row_count": 280,
+    "legacy_row_change": "One duplicate AIMI bottle removed from the compatibility text; its historical record remains in the predecessor chain."
+  },
+  "authority_limits": {
+    "formula_rebase_authorized": false,
+    "compounding_authorized": false,
+    "physical_metrology_authority": false,
+    "safety_asserted": false,
+    "stability_asserted": false,
+    "sensory_authority": false,
+    "liking_authority": false,
+    "similarity_authority": false,
+    "release_authority": false
+  }
+}

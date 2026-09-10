@@ -1,0 +1,131 @@
+{
+  "schema_version": "chatgpt_source_claim_manifest_v1",
+  "manifest_id": "complex-perfumery-orris-butter-reference-claim-20260819",
+  "recorded_at": "2026-08-19T14:04:38Z",
+  "conversation": {
+    "conversation_id": "6a8050ce-526c-83ec-889f-36fe923bc7b8",
+    "project_id": "6a74ab83668081919f5cbd0dfe80eb09",
+    "title": "Perfume Chemicals List",
+    "url": "https://chatgpt.com/g/g-p-6a74ab83668081919f5cbd0dfe80eb09-complex-perfumery/c/6a8050ce-526c-83ec-889f-36fe923bc7b8"
+  },
+  "retrieval": {
+    "method": "AUTHENTICATED_CHATGPT_BROWSER_DOM_READ",
+    "message_text_stored_verbatim": false,
+    "message_text_binding": "UTF8_SHA256_OF_RENDERED_INNER_TEXT",
+    "citation_targets_captured": true,
+    "attachment_downloaded": false
+  },
+  "source_messages": [
+    {
+      "message_id": "da142564-8e99-4a91-b1f5-b06c1e278ea7",
+      "role": "assistant",
+      "character_count": 5269,
+      "utf8_byte_count": 5320,
+      "sha256": "253526be76c6f2d3c2201547d5b01ae4bdcf0c2893a7a105c751e004a0d2636f",
+      "scope": "ORRIS_BUTTER_COMPOSITION_RECONSTRUCTION_AND_REFERENCE_COMPARISON_CLAIMS"
+    },
+    {
+      "message_id": "7d158fc2-ef05-4485-9b4f-ed21e0a848be",
+      "role": "user",
+      "character_count": 73,
+      "utf8_byte_count": 73,
+      "sha256": "592a06eecc69e85a3a78752a23b298987c16c4149226543a846502b4bf17da7b",
+      "scope": "ONE_GRAM_ORRIS_BUTTER_10_PERCENT_IPM_PURCHASE_QUESTION"
+    },
+    {
+      "message_id": "0cb05cb0-da98-4f5d-b0d7-7790095b4d60",
+      "role": "assistant",
+      "character_count": 4242,
+      "utf8_byte_count": 4258,
+      "sha256": "a6065fd58c420e663bd5ab4d10b846fc0d6b1f7ee6298a68a2968bd5de2bd07a",
+      "scope": "CONDITIONAL_PURCHASE_CLASSIFICATION_AND_FOUR_ARM_CARRIER_MATCHED_TRIAL"
+    },
+    {
+      "message_id": "a87818e6-98ce-437c-86dd-0215779a4fa8",
+      "role": "user",
+      "character_count": 1017,
+      "utf8_byte_count": 1019,
+      "sha256": "feac650087c274b1f5711a6eed3a721e9e50efde0a7bada82e1b434c5073f1b8",
+      "scope": "LOCAL_STATUS_NOTICE_NONSCIENTIFIC"
+    },
+    {
+      "message_id": "ac388706-b8d8-45f6-990e-45a228f2d701",
+      "role": "assistant",
+      "character_count": 656,
+      "utf8_byte_count": 660,
+      "sha256": "2024db40b76ddbeb28d8cb0d758a1a8b9f8f830b5152e2032de3071a234ac045",
+      "scope": "LOCAL_STATUS_ACKNOWLEDGEMENT_NONSCIENTIFIC"
+    }
+  ],
+  "citation_targets": [
+    {
+      "message_id": "da142564-8e99-4a91-b1f5-b06c1e278ea7",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=5IA07847"
+    },
+    {
+      "message_id": "da142564-8e99-4a91-b1f5-b06c1e278ea7",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=8IA00344"
+    },
+    {
+      "message_id": "da142564-8e99-4a91-b1f5-b06c1e278ea7",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7227901/"
+    },
+    {
+      "message_id": "da142564-8e99-4a91-b1f5-b06c1e278ea7",
+      "url": "https://comptes-rendus.academie-sciences.fr/chimie/articles/10.1016/S1631-0748%2803%2900087-0/"
+    },
+    {
+      "message_id": "da142564-8e99-4a91-b1f5-b06c1e278ea7",
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/orris-pallida-butter-8-irones-france"
+    },
+    {
+      "message_id": "da142564-8e99-4a91-b1f5-b06c1e278ea7",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11397506/"
+    },
+    {
+      "message_id": "0cb05cb0-da98-4f5d-b0d7-7790095b4d60",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=5IA07847"
+    },
+    {
+      "message_id": "0cb05cb0-da98-4f5d-b0d7-7790095b4d60",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=5IA18424"
+    }
+  ],
+  "source_claims": {
+    "orris_liquid_and_orris_butter_are_non_equivalent": true,
+    "exact_chemical_reconstruction_claimed": false,
+    "one_gram_reference_purchase_recommended_conditionally": true,
+    "purchase_as_major_formula_ingredient_recommended": false,
+    "predicted_improvement_state": "NOT_TESTED",
+    "four_arm_trial_proposed": true,
+    "trial_executed": false,
+    "source_initial_trial_carrier": "IPM_CONDITIONAL_ON_LABEL"
+  },
+  "local_audit_corrections": {
+    "official_pw_dpg_sku": "5IA07847",
+    "official_pw_tec_sku": "5IA18424",
+    "official_pw_ipm_sku_verified": false,
+    "carrier_match_rule": "USE_THE_EXACT_PURCHASED_STOCK_CARRIER_ONLY",
+    "source_specific_composition_is_supplier_lot_composition": false,
+    "irone_isomer_distribution_is_whole_butter_mass_fraction": false,
+    "purchase_or_trial_authorized": false
+  },
+  "authority": {
+    "source_admission": false,
+    "inventory": false,
+    "purchase": false,
+    "cart": false,
+    "stock": false,
+    "formula": false,
+    "compounding": false,
+    "trial_execution": false,
+    "physical_result": false,
+    "sensory_result": false,
+    "analytical_result": false,
+    "safety": false,
+    "installation": false,
+    "release": false
+  },
+  "receipt_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_RECEIPT_SHA256_OMITTED",
+  "receipt_sha256": "969280def5c16e64dba9d4ecfa789e6ac9af716064be772f1ae569b888544e54"
+}

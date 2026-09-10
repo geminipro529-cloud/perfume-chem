@@ -1,0 +1,57 @@
+from __future__ import annotations
+
+from pathlib import Path
+
+from engine.formulation_intelligence.deep_plane_pipeline_adapter import (
+    run_deep_plane_check,
+)
+from scripts.verify_formula_workflow import parse_formula_markdown
+
+
+def _write_release_parser_fixture(path: Path) -> Path:
+    path.write_text(
+        """# Formula Release Parser Compatibility
+
+The adapter reuses the existing formula parser and makes no release claim.
+
+| # | Ingredient | Dilution | Amount (µL) |
+|---|---|---|---:|
+| 1 | Hedione | neat | 100 |
+""",
+        encoding="utf-8",
+    )
+    return path
+
+
+def test_formula_facing_adapter_accepts_the_existing_release_parser_record(
+    tmp_path: Path,
+) -> None:
+    formula_path = _write_release_parser_fixture(tmp_path / "formula.md")
+    parsed = parse_formula_markdown(formula_path)
+
+    run = run_deep_plane_check(formula_path).as_dict()
+
+    assert len(parsed) == 1
+    assert run["formulas"][0]["name"] == parsed[0]["name"]
+    assert run["formulas"][0]["formula_semantic_sha256"]
+    assert run["formulas"][0]["calculation_reuse"] == {
+        "formula_state_reused": True,
+        "simulation_reused": True,
+        "simulation_frame_count": 7,
+        "parent_formula_state_reused": False,
+        "parent_simulation_reused": False,
+    }
+
+
+def test_formula_facing_pass_is_not_a_formula_release_claim(tmp_path: Path) -> None:
+    report = run_deep_plane_check(
+        _write_release_parser_fixture(tmp_path / "formula.md")
+    ).as_dict()
+    formula = report["formulas"][0]
+
+    assert formula["gate_status"] in {"PASS", "WARN"}
+    assert formula["authority_status"] == "HOLD"
+    assert formula["authority_ceiling"] == "withheld"
+    assert formula["unified_runtime"]["release_authority"] is False
+    assert report["authority_flags"]["formula_execution"] is False
+    assert report["authority_flags"]["release"] is False

@@ -1,0 +1,163 @@
+from pathlib import Path
+
+import pytest
+
+from engine.inventory_parser import resolve_inventory_material
+from scripts.verify_formula_workflow import parse_formula_markdown
+
+
+ROOT = Path(__file__).resolve().parents[1]
+FORMULA_PATH = ROOT / "formulas" / "SUKHUM_35_Thai_Male_Fruity_Woody_30mL_EdP.md"
+INVENTORY_SHA256 = "4F45D3947F60CB044EBCA4C415BBB48C7C5EE197BE3853453FEBAE8A4E624F07"
+
+
+MUSKS = {
+    "galaxolide",
+    "tonalide",
+    "habanolide",
+    "zenolide",
+    "romandolide",
+    "exaltolide",
+    "macrolide",
+    "ambrettolide",
+    "musk ketone",
+    "ethylene brassylate",
+}
+
+EXCLUDED = {
+    "ambermax",
+    "amber xtreme",
+    "ambrofix",
+    "ambrettolide",
+    "birch tar rectified",
+    "coumarin",
+    "ethylene brassylate",
+    "evernyl",
+    "galaxolide",
+    "habanolide",
+    "labdanum resinoid",
+    "macrolide",
+    "musk ketone",
+    "myrrh eo",
+    "nagarmortha oil",
+    "oakmoss absolute",
+    "opoponax resinoid",
+    "polysantol",
+    "rose de mai absolute",
+    "rose essential oil",
+    "tonalide",
+    "tonka bean absolute",
+    "vanillin",
+    "zenolide",
+}
+
+
+def _formula() -> dict:
+    formulas = parse_formula_markdown(FORMULA_PATH)
+    assert len(formulas) == 1
+    return formulas[0]
+
+
+def _canonical_base(name: str) -> str:
+    return name.casefold().split("(", 1)[0].strip()
+
+
+def test_sukhum_35_artifact_has_required_target_first_sections_and_authority_binding():
+    text = FORMULA_PATH.read_text(encoding="utf-8")
+    formula = _formula()
+
+    for heading in (
+        "## Target Identity",
+        "## Functional Architecture",
+        "## TARGET / IDEAL FORMULA",
+        "## CURRENT-INVENTORY BUILD",
+        "## Missing-Chemical Impact Gate",
+        "## Purchase / Preparation Recommendation",
+        "## Controlled Blinded Test Plan",
+        "## Pipeline Analysis",
+    ):
+        assert heading in text
+
+    assert f"**Inventory authority:** `inventory.txt` SHA-256 `{INVENTORY_SHA256}`" in text
+    assert "**Claim mode:** `HYPOTHESIS_ARM / NOT_RELEASE_READY`" in text
+    assert "**Reference scope:** `AVENTUS_FAMILY_RECOGNITION_WITH_DISTINCT_THAI_MARKET_IDENTITY`" in text
+    assert formula["inventory_path"] == "../inventory.txt"
+    assert formula["inventory_overlay"] == ""
+
+
+def test_current_build_is_one_5400_ul_formula_with_no_unmeasurable_raw_dose():
+    formula = _formula()
+    amounts = formula["ingredients_ul"]
+
+    assert len(amounts) <= 25
+    assert sum(amounts.values()) == pytest.approx(5400.0)
+    assert min(amounts.values()) >= 10.0
+    assert all(amount >= 10.0 for amount in amounts.values())
+
+
+def test_current_build_preserves_the_approved_identity_architecture():
+    amounts = _formula()["ingredients_ul"]
+    names = {_canonical_base(name) for name in amounts}
+
+    required = {
+        "red mandarin eo",
+        "bergamot fcf oil sicilian",
+        "grapefruit fcf",
+        "allyl cyclohexyl propionate",
+        "allyl amyl glycolate",
+        "ethyl 2-methylbutyrate",
+        "cassis base 345b",
+        "paradisamide",
+        "hedione",
+        "hedione hc",
+        "dihydrojasmone",
+        "iso e super",
+        "clearwood",
+        "cedarwood oil virginia",
+        "vetiver eo",
+        "vetival",
+        "patchouli eo",
+        "ambrox super",
+        "romandolide",
+        "siam benzoin",
+        "cade oil rectified",
+    }
+    assert required <= names
+
+    assert amounts["Cassis Base 345B"] < amounts["Allyl Cyclohexyl Propionate"]
+    assert amounts["Hedione"] + amounts["Hedione HC"] >= 1000.0
+    assert amounts["Iso E Super"] >= 1000.0
+    assert amounts["Cade Oil Rectified"] <= 20.0
+
+
+def test_current_build_uses_only_romandolide_as_musk_and_respects_exclusions():
+    names = {_canonical_base(name) for name in _formula()["ingredients_ul"]}
+    used_musks = names & MUSKS
+
+    assert used_musks == {"romandolide"}
+    assert not names & EXCLUDED
+
+
+def test_every_current_build_stock_is_owned_ready_and_dilution_matched():
+    formula = _formula()
+
+    for material, formula_dilution in formula["dilutions"].items():
+        stock = resolve_inventory_material(material)
+        assert stock is not None, material
+        assert stock.status == "owned", material
+        assert stock.execution_ready is True, material
+        assert formula_dilution == pytest.approx(stock.dilution), material
+
+
+def test_formula_explicitly_preserves_diagnostic_and_commercial_claim_ceilings():
+    text = FORMULA_PATH.read_text(encoding="utf-8").casefold()
+
+    for boundary in (
+        "does not prove sensory similarity",
+        "does not prove liking",
+        "does not prove stability",
+        "does not prove safety",
+        "does not prove market success",
+        "commercial release: hold",
+    ):
+        assert boundary in text

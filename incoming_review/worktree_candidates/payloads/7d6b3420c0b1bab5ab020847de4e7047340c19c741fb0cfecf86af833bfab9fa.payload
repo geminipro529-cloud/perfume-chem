@@ -1,0 +1,201 @@
+# SUKHUM 35 S35-F3 — Numbered-Basket Mixing Protocol v1
+
+**Protocol version:** `S35-F3-BASKET-v1`, 2026-08-31  
+**Source formula:** `S35-F3_Ambrofix_Saturated_Mass_Rebase_30mL_EdP.md`  
+**Source formula SHA-256:** `68141637BEAE5F986D207B005A7D416D633A8D84CBBC8946A6D349F5707A23E9`  
+**Inventory authority:** `inventory.txt` SHA-256 `6745156000796FA3ABE7072ACB0629C0C63F56B5AD7AB94714B086A941234079`  
+**Lineage:** Versioned mass-dose successor to frozen S35-F2; this is not an ordering-only edit  
+**Scope:** `MASS-DOSE TRIAL PROTOCOL / NOT SAFETY CLEARED / NOT RELEASE READY`  
+**Direct Benzyl Salicylate:** **0 µL**
+
+## Basket Rule
+
+Add from **Basket 1 through Basket 17** in ascending numerical order. Skip only baskets with no S35-F3 material. Add each stock sequentially into one main vessel; shared basket membership does not authorize a premix, reaction, heating, filtration, or unrecorded dilution.
+
+Within each basket, liquid rows retain the established high-to-low raw-volume order. Ambrofix is the one mixed-unit exception: it is a weighed whole-bottle stock and is placed in the former Ambrox row position after Hedione. Its 2.640 g mass is not converted to, ranked as, or added to liquid µL.
+
+## Phase 0 — Authority and Stock Preconditions
+
+- Confirm that the bottle label is **Ambrofix saturated solution** and that no visible crystals, layers, or sediment are present at the time of transfer.
+- Confirm the empty-bottle tare record is 11.45 g and the expected contents are 2.640 g. Transfer by mass difference. If available contents differ from 2.640 g, stop; do not scale by eye or top up with residual Ambrox Super.
+- **MASS DOSE ONLY:** transfer the documented whole 2.640 g stock. Do not convert 2.640 g to µL; stock density has not been measured.
+- The 2.640 g stock mass carries the recovered nominal mass balance of 0.192 g Ambrofix, 0.448 g DEP, and 2.000 g ethanol. “Saturated” is the user-authoritative stock label, not a laboratory solubility or stability result.
+- Preserve Hexyl Acetate as the exact `10%; carrier unspecified` stock. Its causal carrier-match status remains `HOLD`.
+- Preserve Cassis Base 345B as its exact opaque product stock. Do not infer constituents, strict composite OAV, or safety.
+- Every direct liquid transfer is at least 10 µL. No sub-10 µL working stock is required.
+- There is no separate Ambrofix-crystal addition and no Ambrox Super addition.
+
+## Numbered Basket Additions
+
+`Running liquid µL` excludes the separately weighed Ambrofix stock. `HOLD` in the active-mass column means that stock density was not supplied; it is not a zero dose.
+
+### Basket 1 — Always Used
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Stock mass g | Active µL proxy | Active mass g | Running liquid µL |
+|---|---|---|---|---:|---:|---:|---:|---:|
+| B01-01 | BASKET 1 — ALWAYS USED | Iso E Super | neat | 1050 | — | 1050.000 | HOLD | 1050 |
+| B01-02 | BASKET 1 — ALWAYS USED | Hedione | neat | 950 | — | 950.000 | HOLD | 2000 |
+| B01-03 | BASKET 1 — ALWAYS USED | Ambrofix | saturated solution | — | 2.640 | HOLD | 0.192 | 2000 |
+| B01-04 | BASKET 1 — ALWAYS USED | Vetival | neat | 100 | — | 100.000 | HOLD | 2100 |
+| B01-05 | BASKET 1 — ALWAYS USED | Patchouli EO | neat | 60 | — | 60.000 | HOLD | 2160 |
+
+**Basket 1 subtotal:** 2,160 µL liquid stocks + 2.640 g Ambrofix saturated solution. **Cumulative:** 2,160 µL liquid stocks + 2.640 g Ambrofix stock.
+
+### Basket 2 — Vetivers
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Stock mass g | Active µL proxy | Active mass g | Running liquid µL |
+|---|---|---|---|---:|---:|---:|---:|---:|
+| B02-01 | BASKET 2 — VETIVERS | Indian Vetiver EO | neat | 120 | — | 120.000 | HOLD | 2280 |
+
+**Basket 2 subtotal:** 120 µL. **Cumulative liquid stocks:** 2,280 µL.
+
+### Basket 3 — Woods
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Stock mass g | Active µL proxy | Active mass g | Running liquid µL |
+|---|---|---|---|---:|---:|---:|---:|---:|
+| B03-01 | BASKET 3 — WOODS | Cedarwood oil Virginia | neat | 260 | — | 260.000 | HOLD | 2540 |
+| B03-02 | BASKET 3 — WOODS | Clearwood | neat | 170 | — | 170.000 | HOLD | 2710 |
+
+**Basket 3 subtotal:** 430 µL. **Cumulative liquid stocks:** 2,710 µL.
+
+### Basket 4 — Wood Modifiers and Ambers
+
+Cade remains here as the formula's wood-smoke modifier; this is a retrieval/addition grouping, not a compatibility claim.
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Stock mass g | Active µL proxy | Active mass g | Running liquid µL |
+|---|---|---|---|---:|---:|---:|---:|---:|
+| B04-01 | BASKET 4 — WOOD MODIFIERS AND AMBERS | Cade Oil Rectified | 1% in DPG | 10 | — | 0.100 | HOLD | 2720 |
+
+**Basket 4 subtotal:** 10 µL. **Cumulative liquid stocks:** 2,720 µL.
+
+### Basket 5 — Wood-Vetivers
+
+No S35-F3 material. Skip without changing the 2,720 µL liquid-stock cumulative.
+
+### Basket 6 — Musks
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Stock mass g | Active µL proxy | Active mass g | Running liquid µL |
+|---|---|---|---|---:|---:|---:|---:|---:|
+| B06-01 | BASKET 6 — MUSKS | Romandolide | neat | 250 | — | 250.000 | HOLD | 2970 |
+
+**Basket 6 subtotal:** 250 µL. **Cumulative liquid stocks:** 2,970 µL.
+
+### Basket 7 — Muguet and Lavender
+
+No S35-F3 material. Skip without changing the 2,970 µL liquid-stock cumulative.
+
+### Basket 8 — Jasmine, Indole, and Magnolia
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Stock mass g | Active µL proxy | Active mass g | Running liquid µL |
+|---|---|---|---|---:|---:|---:|---:|---:|
+| B08-01 | BASKET 8 — JASMINE, INDOLE, AND MAGNOLIA | Dihydrojasmone | neat | 60 | — | 60.000 | HOLD | 3030 |
+
+**Basket 8 subtotal:** 60 µL. **Cumulative liquid stocks:** 3,030 µL.
+
+### Basket 9 — Ylang, Orange Flower, and Narcotics
+
+No S35-F3 material. Skip without changing the 3,030 µL liquid-stock cumulative.
+
+### Basket 10 — Rose
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Stock mass g | Active µL proxy | Active mass g | Running liquid µL |
+|---|---|---|---|---:|---:|---:|---:|---:|
+| B10-01 | BASKET 10 — ROSE | Damascone Beta | 10% | 30 | — | 3.000 | HOLD | 3060 |
+| B10-02 | BASKET 10 — ROSE | Damascenone | 1% | 20 | — | 0.200 | HOLD | 3080 |
+
+**Basket 10 subtotal:** 50 µL. **Cumulative liquid stocks:** 3,080 µL.
+
+### Basket 11 — Iris and Orris
+
+No S35-F3 material. Skip without changing the 3,080 µL liquid-stock cumulative.
+
+### Basket 12 — Edible Smells
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Stock mass g | Active µL proxy | Active mass g | Running liquid µL |
+|---|---|---|---|---:|---:|---:|---:|---:|
+| B12-01 | BASKET 12 — EDIBLE SMELLS | Siam Benzoin | 50% in DPG | 30 | — | 15.000 | HOLD | 3110 |
+
+**Basket 12 subtotal:** 30 µL. **Cumulative liquid stocks:** 3,110 µL.
+
+### Basket 13 — Edible Spices
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Stock mass g | Active µL proxy | Active mass g | Running liquid µL |
+|---|---|---|---|---:|---:|---:|---:|---:|
+| B13-01 | BASKET 13 — EDIBLE SPICES | Black Pepper EO | neat | 10 | — | 10.000 | HOLD | 3120 |
+
+**Basket 13 subtotal:** 10 µL. **Cumulative liquid stocks:** 3,120 µL.
+
+### Basket 14 — My Favorite Smells
+
+No S35-F3 material. Skip without changing the 3,120 µL liquid-stock cumulative.
+
+### Basket 15 — Fruits
+
+Basket 15 is the final non-empty basket. The two equal-volume 10 µL rows retain Cassis before the more volatile Hexyl stock.
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Stock mass g | Active µL proxy | Active mass g | Running liquid µL |
+|---|---|---|---|---:|---:|---:|---:|---:|
+| B15-01 | BASKET 15 — FRUITS | Allyl Cyclohexyl Propionate | 10% in DPG | 790 | — | 79.000 | HOLD | 3910 |
+| B15-02 | BASKET 15 — FRUITS | Allyl Amyl Glycolate | 10% | 250 | — | 25.000 | HOLD | 4160 |
+| B15-03 | BASKET 15 — FRUITS | Red Mandarin EO | neat | 240 | — | 240.000 | HOLD | 4400 |
+| B15-04 | BASKET 15 — FRUITS | Paradisamide | 10% | 160 | — | 16.000 | HOLD | 4560 |
+| B15-05 | BASKET 15 — FRUITS | Grapefruit FCF oil Sicilian | neat | 120 | — | 120.000 | HOLD | 4680 |
+| B15-06 | BASKET 15 — FRUITS | Methyl Pamplemousse | 10% in TEC | 80 | — | 8.000 | HOLD | 4760 |
+| B15-07 | BASKET 15 — FRUITS | Ethyl 2-Methylbutyrate | 0.1% | 20 | — | 0.020 | HOLD | 4780 |
+| B15-08 | BASKET 15 — FRUITS | Cassis Base 345B | product stock | 10 | — | 10.000 | HOLD | 4790 |
+| B15-09 | BASKET 15 — FRUITS | Hexyl Acetate | 10%; carrier unspecified | 10 | — | 1.000 | HOLD | 4800 |
+
+**Basket 15 subtotal:** 1,680 µL. **Cumulative liquid stocks:** 4,800 µL.
+
+### Basket 16 — Aldehydes
+
+No S35-F3 material. Skip without changing the 4,800 µL liquid-stock cumulative.
+
+### Basket 17 — Green Smelling Things
+
+No S35-F3 material. Skip without changing the 4,800 µL liquid-stock cumulative.
+
+## Basket and Cumulative Arithmetic
+
+| ID | Numbered basket | Liquid subtotal µL | Ambrofix stock mass g | Cumulative liquid µL |
+|---|---|---:|---:|---:|
+| BASKET-01 | Always Used | 2160 | 2.640 | 2160 |
+| BASKET-02 | Vetivers | 120 | 0 | 2280 |
+| BASKET-03 | Woods | 430 | 0 | 2710 |
+| BASKET-04 | Wood Modifiers and Ambers | 10 | 0 | 2720 |
+| BASKET-05 | Wood-Vetivers | 0 | 0 | 2720 |
+| BASKET-06 | Musks | 250 | 0 | 2970 |
+| BASKET-07 | Muguet and Lavender | 0 | 0 | 2970 |
+| BASKET-08 | Jasmine, Indole, and Magnolia | 60 | 0 | 3030 |
+| BASKET-09 | Ylang, Orange Flower, and Narcotics | 0 | 0 | 3030 |
+| BASKET-10 | Rose | 50 | 0 | 3080 |
+| BASKET-11 | Iris and Orris | 0 | 0 | 3080 |
+| BASKET-12 | Edible Smells | 30 | 0 | 3110 |
+| BASKET-13 | Edible Spices | 10 | 0 | 3120 |
+| BASKET-14 | My Favorite Smells | 0 | 0 | 3120 |
+| BASKET-15 | Fruits | 1680 | 0 | 4800 |
+| BASKET-16 | Aldehydes | 0 | 0 | 4800 |
+| BASKET-17 | Green Smelling Things | 0 | 0 | 4800 |
+
+- Liquid product-stock total: `2,160 + 120 + 430 + 10 + 0 + 250 + 0 + 60 + 0 + 50 + 0 + 30 + 10 + 0 + 1,680 + 0 + 0 = 4,800 µL`.
+- Separate saturated-Ambrofix stock: `2.640 g`, containing nominal `0.192 g Ambrofix + 2.448 g carriers`.
+- Unchanged liquid active-volume proxy total: `3,547.320 µL-equivalent`.
+- Unchanged liquid embedded-carrier proxy total: `1,252.680 µL`.
+- Identity check for liquid rows: `3,547.320 + 1,252.680 = 4,800.000 µL`.
+- Direct liquid-stock floor: minimum 10 µL.
+- Material multiplicity: 23 liquid formula rows plus one Ambrofix mass row; each appears exactly once.
+- Direct Benzyl Salicylate: 0 µL.
+
+## Separate Carrier Stage
+
+After checking Baskets 1 through 17 and accounting for 4,800 µL liquid stocks plus 2.640 g saturated Ambrofix stock, add **ethanol 96% q.s. to 30.00 mL final volume**. Ethanol is a technical carrier stage, not Basket 18.
+
+Do not add the historical fixed 24,600 µL ethanol charge. Do not add extra DEP, DPG, TEC, IPM, Ambrofix, Ambrox Super, or superamber to compensate numerically. Record the actual q.s. ethanol amount and the finished bottle mass.
+
+## Quantitation and Acceptance Boundary
+
+The mass-dose replacement preserves the former amber-row nominal active mass to within 3.0%, but Ambrofix and Ambrox Super remain distinct products. Stock density is unknown, so active µL, strict Ambrofix ppm and OAV remain HOLD. The old S35-F2 Ambrox pipeline result cannot be relabeled as an F3 Ambrofix result.
+
+Inspect the trial immediately and at 24 and 48 hours for clarity, sediment, crystallization, haze, or phase separation. Those observations test physical repeatability only; they do not establish safety or shelf stability.
+
+No physical liking, similarity, performance, safety, stability, market success, or release claim is authorized by this protocol. A controlled Ambrox-versus-Ambrofix comparison remains necessary before calling the successor equivalent or more hedonic.

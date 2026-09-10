@@ -1,0 +1,81 @@
+{
+  "schema_version": "depth_module_import_manifest_v1",
+  "manifest_id": "CYPRESS-HARMONIC-DEPTH-IMPORT-20260831",
+  "created_date": "2026-08-31",
+  "source": {
+    "worktree": "C:\\Users\\ASUS\\.codex\\worktrees\\3289\\perfume-chem",
+    "observed_head": "b5d0213ddf335a1eb48c4946a6661ffbcec20d0a",
+    "worktree_dirty": true,
+    "scope_note": "The source worktree contained many unrelated tracked and untracked changes. Only the five explicitly reviewed files below were admitted. No source commit or source-tree completeness claim is made."
+  },
+  "destination": {
+    "worktree": "D:\\chatbots\\perfume-chem\\.worktrees\\cypress-harmonic-synthesis-v1",
+    "branch": "codex/cypress-harmonic-synthesis-v1",
+    "base_commit": "af0d126ecf6c0ff84ea928b7b1dfe03b0d8d9e5b"
+  },
+  "transfer_policy": {
+    "byte_exact": true,
+    "rewritten": false,
+    "compressed": false,
+    "flattened": false,
+    "partial_adapter_substitution": false,
+    "unrelated_source_changes_imported": false
+  },
+  "files": [
+    {
+      "source_path": "engine/perception/depth_contracts.py",
+      "destination_path": "engine/perception/depth_contracts.py",
+      "byte_size": 22850,
+      "sha256": "1800d31c0a395a857983f496a5e29bd7b27483a7ce4c616eba41d77372557347",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "engine/perception/depth_evaluation.py",
+      "destination_path": "engine/perception/depth_evaluation.py",
+      "byte_size": 13612,
+      "sha256": "049af2fb2c0df44d1f3e51806a13f753bf7794402047825aead45871ad36a9f2",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "engine/perception/depth_comparison.py",
+      "destination_path": "engine/perception/depth_comparison.py",
+      "byte_size": 10277,
+      "sha256": "94514b8d33f2fb14b4386358736d3e88a2f73380419b6e68dd8f3f7b20d4c277",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "engine/perception/depth_family_adapters.py",
+      "destination_path": "engine/perception/depth_family_adapters.py",
+      "byte_size": 79941,
+      "sha256": "bd1c17fa501aca73c10831034c2065f8abf595a321d2296e78f3bb62745f150f",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "engine/perception/floral_depth.py",
+      "destination_path": "engine/perception/floral_depth.py",
+      "byte_size": 76220,
+      "sha256": "e91d8023a8b6a5731c3a8be141c73c976c58ccc8b4244cd54486a774f4e69dd6",
+      "source_destination_match": true
+    }
+  ],
+  "manifest_file_count": 5,
+  "manifest_byte_count": 202900,
+  "exclusions": [
+    "all unrelated tracked source-worktree modifications",
+    "all unrelated untracked formulas, tests, docs, registries, outputs, and scratch files",
+    "raw chats, credentials, caches, generated pipeline events, and local configuration"
+  ],
+  "authority": {
+    "formula_mutation_authorized": false,
+    "physical_execution_authorized": false,
+    "compounding_authorized": false,
+    "purchase_authority": false,
+    "sensory_authority": false,
+    "hedonic_authority": false,
+    "similarity_authority": false,
+    "performance_authority": false,
+    "safety_authority": false,
+    "stability_authority": false,
+    "release_authority": false
+  }
+}

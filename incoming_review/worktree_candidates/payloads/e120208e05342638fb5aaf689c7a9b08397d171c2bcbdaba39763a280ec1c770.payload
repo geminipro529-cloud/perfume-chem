@@ -1,0 +1,83 @@
+{
+  "schema": "optimizer_sensory_research_manifest_v1",
+  "retrieved_on": "2026-09-09",
+  "purpose": "Concentration-dependent intensity and independent human sensory research; not full-perfume hedonic validation",
+  "sources": [
+    {
+      "id": "de_la_fuente_blanco_2023",
+      "doi": "10.20870/oeno-one.2023.57.2.7089",
+      "article_url": "https://oeno-one.eu/article/view/7089",
+      "license": "CC BY 4.0; article page links https://creativecommons.org/licenses/by/4.0",
+      "local_directory": "output/optimizer_research_20260909",
+      "files": [
+        {"name": "woody_fruity_2023_supplement.pdf", "url": "https://oeno-one.eu/article/download/7089/29614", "bytes": 155208, "sha256": "6221afaf67f5a70c6597f2c6f9d1b2afc293b916ed6186a2a4961606dcfa56ee"}
+      ],
+      "derived_fixture": "data/benchmarks/woody_fruity_2023_descriptor_means_v1.json",
+      "unique_conditions": 21,
+      "descriptor_count": 10,
+      "panel_n": 14,
+      "restrictions": ["Wine matrix, not perfume", "Aggregate descriptor means, not raw participant observations", "Printed experimental level labels require chemical-composition mapping before dose-model fitting", "No hedonic or body/layering labels established"]
+    },
+    {
+      "id": "wakayama_2019",
+      "doi": "10.1021/acs.iecr.9b01225",
+      "metadata_url": "https://api.figshare.com/v2/articles/9172283",
+      "license": "CC BY-NC 4.0",
+      "local_directory": "output/optimizer_research_20260909/wakayama_2019",
+      "files": [
+        {"name": "ie9b01225_si_001.pdf", "url": "https://ndownloader.figshare.com/files/16712795", "bytes": 1282306, "publisher_md5": "61eb5badd0a0319d2695573b19bdf050", "publisher_md5_verified": true, "sha256": "b62f567840ddcc8b1b305784aa8245f2b5c53b07a820c42613482134cd567104"},
+        {"name": "wakayama-intensity.txt", "url": "https://raw.githubusercontent.com/pyrfume/pyrfume-data/8054ea98ed675005ec10e67359902f500e4911b0/wakayama_2019/wakayama-intensity.txt", "sha256": "739243c505187b5384ddacbbe2ab674b53fb8cd0b58e25733bd6bae5547c23eb", "provenance": "Secondary transcription of publisher supporting information; no chemical-identity certification"}
+      ],
+      "raw_parameter_rows": 314,
+      "mathematically_evaluable_curves": 313,
+      "identity_validation": "NOT_ALL_VERIFIED",
+      "known_issues": [
+        "Vanillin has printed D=0; excluded without inventing a replacement.",
+        "CAS 140-88-5 is paired with 2,6-nonadienal in the original PDF page 5 as well as the transcription. Do not map this row to stock without resolving chemical identity.",
+        "Parameters are rounded; source-observation overlap with curve fitting is not established.",
+        "Gas concentration is micrograms/litre air. Liquid stock ppm cannot be passed directly.",
+        "Noncommercial license requires review before commercial redistribution or reuse."
+      ]
+    },
+    {
+      "id": "bierling_2025",
+      "doi": "10.5281/zenodo.14727277",
+      "article_doi": "10.1038/s41597-025-04644-2",
+      "metadata_url": "https://zenodo.org/api/records/14727277",
+      "download_base": "https://zenodo.org/api/records/14727277/files/",
+      "download_suffix": "/content",
+      "license": "CC BY 4.0",
+      "local_directory": "output/optimizer_research_20260909/bierling_2025",
+      "all_publisher_files_downloaded": true,
+      "all_publisher_md5_verified": true,
+      "files": [
+        {"name": "data.xlsx", "bytes": 6843314, "publisher_md5": "b4d9c4ea8c6517e05f9605834693b5a0", "sha256": "1610d8f6402109b2422bcb66b4f0d9f14c9eb5791c60312c18c2864c972961d5"},
+        {"name": "intensity_piloting.xlsx", "bytes": 43574, "publisher_md5": "4d864ce70d3063bee6b328f311df5203", "sha256": "cc20c73e31dc8c661110b252f01ffb9c5948143aca188e9ce4022ad6754ee88d"},
+        {"name": "variables-dictionary.xlsx", "bytes": 24605, "publisher_md5": "c88411729c8f08d679485ffb56c9a078", "sha256": "c921d8cfad6874bfc139f245ee2995d36dca3cd6322506717950217d63afc20b"},
+        {"name": "analyses.ipynb", "bytes": 4378966, "publisher_md5": "a174eec78525517b82094658f450503e", "sha256": "f3bc594a944f6276aba68bce0bb2ec5700fffaa7535e55d34687840efb001c9c"},
+        {"name": "free_descriptions_translated.xlsx", "bytes": 611332, "publisher_md5": "5d835c826a81fcc1556e02b0bd926e51", "sha256": "88527dbeb9dd9972ad4e3de6aab553bc27fd9d8c893f621ebdc58b680b3c9e49"},
+        {"name": "odors.xlsx", "bytes": 20210, "publisher_md5": "96238363f30df15e4d36bc163263bfa6", "sha256": "6ab1d9ea35fc1629d5cfd56ec704da9fac5bf2ae42df27e6dd7f20df8518e91e"}
+      ],
+      "read_only_inspection": {
+        "main_sheet": "Sheet1",
+        "main_rows_excluding_header_before_filtering": 13260,
+        "main_columns": 154,
+        "endpoints": ["pleasant", "intensive", "familiar", "warm", "cold", "irritating", "edible", "disgusting", "binary descriptor labels"],
+        "pleasant_intensive_scale_per_dictionary": "1-100",
+        "main_inclusion_filter_required": true,
+        "included_rows_main_and_retest": 12390,
+        "included_participant_codes": 1227,
+        "included_main_rows": 11670,
+        "included_retest_rows": 720,
+        "included_nonempty_numeric_pleasantness_rows": 12005,
+        "included_odor_codes": 73,
+        "pilot_rows": 966,
+        "pilot_unique_cas": 100,
+        "pilot_unique_participant_codes": 100,
+        "pilot_cas_with_multiple_concentration_strings": 2,
+        "concentration_basis": "odor portions / DPG solvent portions; 1/100 means one odor portion plus 100 solvent portions, not 1 percent of total"
+      },
+      "restrictions": ["Not mixture-level liking data", "Main study is not a systematic multi-dose response study", "Published 74-odor headline versus 73 included odor codes requires mapping reconciliation before modeling", "Do not execute downloaded notebook without separate review"]
+    }
+  ]
+}

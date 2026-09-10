@@ -1,0 +1,480 @@
+{
+  "schema": "perfume-chem.ysl-twenty-variant-study-manifest.v2",
+  "study_id": "ysl-lhomme-la-nuit-twenty-variant-study",
+  "title": "YSL L'Homme and La Nuit de L'Homme Twenty-Variant Study",
+  "snapshot": {
+    "read_at_utc": "2026-08-27T03:26:54.581852Z",
+    "studio_root": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem",
+    "runtime_git_commit": "0eb764d0aa184839949d26ba094d679321e32166",
+    "integration_checkout": "D:\\chatbots\\perfume-chem",
+    "integration_handling": "READ_ONLY_NO_MERGE_NO_BRANCH_MUTATION",
+    "inventory_sha256": "DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC",
+    "pipeline_temperature_K": 305.0,
+    "deep_luna_chat": "BLOCKED_BUDGET_UNSAFE_NO_PAYLOAD_SENT",
+    "staleness_rule": "A diagnostic loses current authority if a bound source or formula definition changes."
+  },
+  "post_study_authority_update": {
+    "effective_date": "2026-08-28",
+    "read_at_utc": "2026-08-28T07:26:54.5008957Z",
+    "current_inventory_sha256": "F8244E7B069B5D24C194FBA5F27B5A9504E94624839453464E37398680FFAC3E",
+    "current_inventory_overlay_sha256": "3E699D4F08DB62B27603A05A2DA97F4690E96C0215A321F7EE5509D442BB6618",
+    "frozen_candidate_diagnostics_rebound": false,
+    "frozen_candidate_diagnostics_state": "HISTORICAL_INPUT_HASHES_PRESERVED__NOT_CURRENT_STOCK_AUTHORITY",
+    "ap_t1_v3_dose_table_changed": false,
+    "ap_t1_v3_state": "LOCKED_4500_UL_28_ROWS__STALE_AVAILABILITY_WORDING_CORRECTED",
+    "next_formula_rule": "Read the current inventory bytes and evidence/inventory_overlay_2026-08-28.json before target or dose construction.",
+    "deep_luna_chat": "BLOCKED_BUDGET_UNSAFE_NO_PAYLOAD_SENT"
+  },
+  "source_bindings": [
+    {
+      "source_id": "APPROVED-DESIGN",
+      "path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\docs\\superpowers\\specs\\2026-08-26-ysl-lhomme-la-nuit-twenty-variant-study-design.md",
+      "sha256": "E6C7AEEA64AAA651F25CFA49A9A322E0395C9AD74CB38102897EDF54DEA40A02",
+      "role": "approved study architecture and claim ceiling"
+    },
+    {
+      "source_id": "APPROVED-IMPLEMENTATION-PLAN",
+      "path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\docs\\superpowers\\plans\\2026-08-27-ysl-lhomme-la-nuit-twenty-variant-study.md",
+      "sha256": "0000FABD4299F6C6E2B98B403971AEE374AFC24A3BF2CFA5E8D9C2D4ED2A356C",
+      "role": "approved task sequence and artifact contract"
+    },
+    {
+      "source_id": "CURRENT-AGENTS",
+      "path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\AGENTS.md",
+      "sha256": "F6236EECF0500E1FE7BDD2CF8838108BD1CE105DF909B5668AFDC61ACCF53639",
+      "role": "current isolated-worktree project instructions"
+    },
+    {
+      "source_id": "DIAGNOSTIC-COPILOT-INSTRUCTIONS",
+      "path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\.github\\copilot-instructions.md",
+      "sha256": "55E9BA73B49689D335E5ECF2C264AF44CCE6BF18B74CC0E7B6AEAB0B461F36E0",
+      "role": "historical instruction bytes bound to the twenty frozen diagnostics; the path has since changed and this hash is provenance only"
+    },
+    {
+      "source_id": "DIAGNOSTIC-INVENTORY-SNAPSHOT",
+      "path": "D:\\chatbots\\perfume-chem\\inventory.txt",
+      "sha256": "DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC",
+      "role": "historical inventory bytes bound to the twenty frozen diagnostics; not current stock authority after 2026-08-28"
+    },
+    {
+      "source_id": "CURRENT-FAMILY-REFERENCE",
+      "path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\docs\\fragrance_families_reference.md",
+      "sha256": "7C9968795E3A1662295D16C9DE73DAE6386C1EB8C06D05B5335AC546574350EF",
+      "role": "family vocabulary and buildability context"
+    },
+    {
+      "source_id": "SOL-LH-FROZEN",
+      "path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\baselines\\source\\L_Homme_Luxe_30mL_EdP.md",
+      "sha256": "44ABA8B5153D26A8AFA5CD07B20974EAAF66A5D659FEECC13D59EEF6F917E0FD",
+      "role": "frozen Sol xhigh L Homme baseline"
+    },
+    {
+      "source_id": "SOL-LN-FROZEN",
+      "path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\baselines\\source\\La_Nuit_de_LHomme_Luxe_30mL_EDT.md",
+      "sha256": "254A73B6B45420CF89034FC5C2CAABCAACE9A197BE315C31E9958E4A5CFDAEBB",
+      "role": "frozen Sol xhigh La Nuit baseline"
+    }
+  ],
+  "current_authority_sources": [
+    {
+      "source_id": "CURRENT-AGENTS",
+      "path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\AGENTS.md",
+      "sha256": "88CB7B4C3C0727F63ED679A591676869710894AA824B765F596445BFDEEB7CA1",
+      "role": "current project instructions"
+    },
+    {
+      "source_id": "CURRENT-COPILOT-INSTRUCTIONS",
+      "path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\.github\\copilot-instructions.md",
+      "sha256": "E76F4B6306F2A4DFF8628B8A150EF616AE3EA0854705383F2C4499BA5A5E94C0",
+      "role": "current formulation instructions"
+    },
+    {
+      "source_id": "CURRENT-AUTHORITATIVE-INVENTORY",
+      "path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\inventory.txt",
+      "sha256": "F8244E7B069B5D24C194FBA5F27B5A9504E94624839453464E37398680FFAC3E",
+      "role": "current inventory bytes for the next formula and physical preparation"
+    },
+    {
+      "source_id": "CURRENT-INVENTORY-OVERLAY",
+      "path": "evidence/inventory_overlay_2026-08-28.json",
+      "sha256": "3E699D4F08DB62B27603A05A2DA97F4690E96C0215A321F7EE5509D442BB6618",
+      "role": "cumulative direct-user stock, canonicalization, and preparation authority effective 2026-08-28"
+    },
+    {
+      "source_id": "CURRENT-FAMILY-REFERENCE",
+      "path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\docs\\fragrance_families_reference.md",
+      "sha256": "7C9968795E3A1662295D16C9DE73DAE6386C1EB8C06D05B5335AC546574350EF",
+      "role": "current family vocabulary and buildability context"
+    }
+  ],
+  "artifact_bindings": {
+    "inventory_overlay": {
+      "path": "evidence/inventory_overlay.json",
+      "sha256": "1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072"
+    },
+    "current_inventory_overlay_2026_08_28": {
+      "path": "evidence/inventory_overlay_2026-08-28.json",
+      "sha256": "3E699D4F08DB62B27603A05A2DA97F4690E96C0215A321F7EE5509D442BB6618"
+    },
+    "evidence_ledger": {
+      "path": "evidence/evidence_ledger.json",
+      "sha256": "274B0ECE942427B25B950E586EB1B7AE4E654F2D5F2C9257FE67B22E21BC21FA"
+    },
+    "blind_protocol": {
+      "path": "testing/blind_protocol.json",
+      "sha256": "62F45D3BCAEB745C15947393DA9E66C99DA7F56A40C27B1C745774262C2F408B"
+    },
+    "screening_summary": {
+      "path": "reports/screening_summary.json",
+      "sha256": "D80C8B9892CA05B4962E803C6ABF58F868577FCCF92DC05769266F8CB778492A"
+    },
+    "missing_chemical_impact_index": {
+      "path": "reports/missing_chemical_impact_index.json",
+      "sha256": "44EBB8660749CF75353993456B88E7B221B825D22B735BA95C1D5BC6E32114AD"
+    },
+    "sol_comparison": {
+      "path": "reports/sol_comparison.md",
+      "sha256": "EA905067814A4B87811E8F8D02BBD3FAC4E3A2DDF7B8AC2FD5DA8BBA5A7F22B4"
+    },
+    "final_index": {
+      "path": "reports/final_index.md",
+      "sha256": "FEBA89A5C74C47812063026065D0F1243893089E949F6ECC0CFEB1B24C012976"
+    },
+    "readme": {
+      "path": "README.md",
+      "sha256": "79B08C66ADBD401F9F12511BB66618EF8B4400EE8786EC0F05A789B14BAE81AC"
+    },
+    "apple_pie_ap_t1_v3": {
+      "path": "RECIPES/LH-04-APPLE-PIE-AP-T1-v3.md",
+      "sha256": "FC60CEBDDA63A856094613485FDE1415456AF9C047CF881BAA7E8F456B181F24"
+    },
+    "sol_lhomme_source_snapshot": {
+      "path": "baselines/source/L_Homme_Luxe_30mL_EdP.md",
+      "sha256": "44ABA8B5153D26A8AFA5CD07B20974EAAF66A5D659FEECC13D59EEF6F917E0FD"
+    },
+    "sol_la_nuit_source_snapshot": {
+      "path": "baselines/source/La_Nuit_de_LHomme_Luxe_30mL_EDT.md",
+      "sha256": "254A73B6B45420CF89034FC5C2CAABCAACE9A197BE315C31E9958E4A5CFDAEBB"
+    }
+  },
+  "candidates": [
+    {
+      "candidate_id": "LH-01",
+      "name": "Original Fidelity",
+      "family": "ysl_lhomme",
+      "candidate_path": "candidates/LH-01.json",
+      "candidate_sha256": "19790C2D91BE44FC49348F65DEB631F2126F112BAC0BAEBF76127B518E309D34",
+      "rendered_path": "rendered/LH-01_Original_Fidelity_30mL_EDT.md",
+      "rendered_sha256": "153A7FA7EC046BB343EBC669425E01D130AC724F5992D8C9FD8E0DFB501F20DE",
+      "impact_path": "impact/LH-01_assessment.json",
+      "impact_sha256": "2C005AC402B22C950FDEE59EC307D77EDE53AC42C5EA702DC91E2F35935367E5",
+      "formula_definition_sha256": "504c9bb498c1679dfedc2da171ed7649967a51b36ac520453358cb485684453c",
+      "pipeline_status": "WARN__112_PASS__17_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    },
+    {
+      "candidate_id": "LH-02",
+      "name": "Vintage Magnetique",
+      "family": "ysl_lhomme",
+      "candidate_path": "candidates/LH-02.json",
+      "candidate_sha256": "AB098BE3C43F73F3D92009BCFC5CB11C22394222163ABBB9A7370BE1CD7AC772",
+      "rendered_path": "rendered/LH-02_Vintage_Magnetique_30mL_EDT.md",
+      "rendered_sha256": "FC235BA7381E5327C8029738D060175F3DD88445B179432CC975C1336B29C1A3",
+      "impact_path": "impact/LH-02_assessment.json",
+      "impact_sha256": "B1183A9F81F4363277B7B530E447644CCCAF4320D9638B6D6D83760F4B6D6C30",
+      "formula_definition_sha256": "003fc4c6b62443b4318b4a2b30dfb036acde4037e447c0bd5b7d598430d676e2",
+      "pipeline_status": "WARN__113_PASS__16_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    },
+    {
+      "candidate_id": "LH-03",
+      "name": "Tailored Luxe",
+      "family": "ysl_lhomme",
+      "candidate_path": "candidates/LH-03.json",
+      "candidate_sha256": "9438B268B919BFF0D5A787264CBD9D33A6CA14D01B2FB67C04FD498E4045B040",
+      "rendered_path": "rendered/LH-03_Tailored_Luxe_30mL_EDT.md",
+      "rendered_sha256": "192BE92A3980E61EBE0A548190B79118D69A82ED3B366EC2E7F63CAC816FF129",
+      "impact_path": "impact/LH-03_assessment.json",
+      "impact_sha256": "6B4908D55421DEDA81E260284E3FD73808126F6AFBFCA7FF629CE0FE857A78F4",
+      "formula_definition_sha256": "360683aff1cfed66b4ded9101b3c3e59009ce2c724064e90ca100a8c24828928",
+      "pipeline_status": "WARN__112_PASS__17_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    },
+    {
+      "candidate_id": "LH-04",
+      "name": "Apple Pie",
+      "family": "ysl_lhomme",
+      "candidate_path": "candidates/LH-04.json",
+      "candidate_sha256": "950BD481B21E5695307C65FF74015B53FC1CC67E66312F0EAA3FCF67019A3C46",
+      "rendered_path": "rendered/LH-04_Apple_Pie_30mL_EDT.md",
+      "rendered_sha256": "1A7A711A8F800911A79BA3039BF461ECE7567C8BC81F1254A5F3E3BDAA6E82C5",
+      "impact_path": "impact/LH-04_assessment.json",
+      "impact_sha256": "04FEB10D3A104B829E109CB3691D408141E6B4E7E04D01F49E9727C98EDC23F7",
+      "formula_definition_sha256": "ce2b90f8f161319eb862392f6271f5d6f85a9e9722dcfa57c7082ab5ed7d076a",
+      "pipeline_status": "WARN__108_PASS__21_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    },
+    {
+      "candidate_id": "LH-05",
+      "name": "Ginger-Cedrat Spark",
+      "family": "ysl_lhomme",
+      "candidate_path": "candidates/LH-05.json",
+      "candidate_sha256": "F8BFAF0C4799D624C9E7248A02A77633B34C944D5566C3F607910547224B4786",
+      "rendered_path": "rendered/LH-05_Ginger_Cedrat_Spark_30mL_EDT.md",
+      "rendered_sha256": "7AA9E9DDD001946A041D826BC080C349BB44097DAA85FE3732D4A2E44709F800",
+      "impact_path": "impact/LH-05_assessment.json",
+      "impact_sha256": "492595172C239CE70A89C1CFCE1D72F490FC912A7C29BB02F7F0E1544B9FE03B",
+      "formula_definition_sha256": "3b97a49d3a015ee08b1bce01d3f2e53a54ff0a64d45f8bcc5961c84326132e65",
+      "pipeline_status": "WARN__111_PASS__18_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    },
+    {
+      "candidate_id": "LH-06",
+      "name": "Violet Leaf Silk",
+      "family": "ysl_lhomme",
+      "candidate_path": "candidates/LH-06.json",
+      "candidate_sha256": "780573E39C0B4EBDB50C57A825298F3E64DEE348278889EF2C52A63F1617A550",
+      "rendered_path": "rendered/LH-06_Violet_Leaf_Silk_30mL_EDT.md",
+      "rendered_sha256": "92095EA1B4F73509FADCE2C20A075D2617FE34D7C673B0E98009E1812EF7BBE5",
+      "impact_path": "impact/LH-06_assessment.json",
+      "impact_sha256": "3674BC9F1969FC55B42F32B95BC626D01045103218141FCAD0B41AA5CCD7C734",
+      "formula_definition_sha256": "29bb317baf6ebf071f897055558d176de4264db675057901b43b242b388ae64f",
+      "pipeline_status": "WARN__112_PASS__17_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    },
+    {
+      "candidate_id": "LH-07",
+      "name": "White Pepper-Basil",
+      "family": "ysl_lhomme",
+      "candidate_path": "candidates/LH-07.json",
+      "candidate_sha256": "CC5B40A7A57ADF03232DDE437C2CC76DEBC888DCB9B404DBF09CADD2AD69BE15",
+      "rendered_path": "rendered/LH-07_White_Pepper_Basil_30mL_EDT.md",
+      "rendered_sha256": "9DABB6201047200458270130E9FDA5A05BD958A32C6CA42C4F26A2FC5F3AEF15",
+      "impact_path": "impact/LH-07_assessment.json",
+      "impact_sha256": "B2495BA18F07A4656A94C6CACCA4A097479117A4896BABB461E5173126685D8B",
+      "formula_definition_sha256": "c67228e7c3710fca079c85f79d280e5ffe3d0c6e60cae0a50478e671be054315",
+      "pipeline_status": "WARN__111_PASS__18_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    },
+    {
+      "candidate_id": "LH-08",
+      "name": "Cedar-Vetiver Tailoring",
+      "family": "ysl_lhomme",
+      "candidate_path": "candidates/LH-08.json",
+      "candidate_sha256": "D14A603C1F40CC0EF9C11C0A7902282103C4E2AB2412C4D9C247F259D2C7C6E8",
+      "rendered_path": "rendered/LH-08_Cedar_Vetiver_Tailoring_30mL_EDT.md",
+      "rendered_sha256": "457D7C22C641A9DF708DEE8D28FF20A641EDE727BADBEAF76C96AC8F5F35553C",
+      "impact_path": "impact/LH-08_assessment.json",
+      "impact_sha256": "033F30AEA4531AE6A6EACA4E96E03518A14396C9FF23101C94697DBB800EF4F4",
+      "formula_definition_sha256": "9270634c811c88ffe06dce34dddf3c6792ca20fe4b07b4b045eed4c57f0adf89",
+      "pipeline_status": "WARN__111_PASS__18_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    },
+    {
+      "candidate_id": "LH-09",
+      "name": "Tonka-Sandalwood",
+      "family": "ysl_lhomme",
+      "candidate_path": "candidates/LH-09.json",
+      "candidate_sha256": "745ECDB564D145FD0BA909349B81ED1E6784EDB1EFC424D110D10BC40164CA2A",
+      "rendered_path": "rendered/LH-09_Tonka_Sandalwood_30mL_EDT.md",
+      "rendered_sha256": "FEB2ECB73068C163D65B89B6F54DADA3492AB35E3BC8A3D79F0A30D331D1257F",
+      "impact_path": "impact/LH-09_assessment.json",
+      "impact_sha256": "172E103E028BDC87FB46B376F111FAE635A3C279417587CC6D9BBBD678D1E4A2",
+      "formula_definition_sha256": "dee9061b41043d531654cbe06412f1ef413b1889fc47f932e6d40d0edb8b65c3",
+      "pipeline_status": "WARN__111_PASS__18_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    },
+    {
+      "candidate_id": "LH-10",
+      "name": "Bangkok Air",
+      "family": "ysl_lhomme",
+      "candidate_path": "candidates/LH-10.json",
+      "candidate_sha256": "BD3CD3CA333C464F62497802483A4B7303CABA04721F14C561E42B47291FD6C5",
+      "rendered_path": "rendered/LH-10_Bangkok_Air_30mL_EDT.md",
+      "rendered_sha256": "8F1466AE14C70A5A92003980DB7A777919A146D0315F535A81BE107097493761",
+      "impact_path": "impact/LH-10_assessment.json",
+      "impact_sha256": "2CC3E823884418C401EDFA4102F9DF24E9F65012FF9E131A0C923A0A2D1B87C4",
+      "formula_definition_sha256": "bd01d533ae35d056049ce35a72bd5fa700048b028d8f0162e03dbd010aca9ade",
+      "pipeline_status": "WARN__111_PASS__18_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    },
+    {
+      "candidate_id": "LN-01",
+      "name": "Original 2009 Fidelity",
+      "family": "ysl_la_nuit_de_lhomme",
+      "candidate_path": "candidates/LN-01.json",
+      "candidate_sha256": "FE8477845165A2E5DB047C2A75D7DF8D52925BB0FE52BE7690E2FC565E696C7F",
+      "rendered_path": "rendered/LN-01_Original_2009_Fidelity_30mL_EDT.md",
+      "rendered_sha256": "DD55BBA06B221BF397D7EB07644C84ED827055EA9ED962B8248A14E3010D1727",
+      "impact_path": "impact/LN-01_assessment.json",
+      "impact_sha256": "5C0DE785670C33176B6AE56992422C3020B79956851AA313690EF52677623AF7",
+      "formula_definition_sha256": "bf0ffa2cf6076a633055c150397909a463f9ba72d4113042aa317938d3d402ac",
+      "pipeline_status": "WARN__111_PASS__18_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    },
+    {
+      "candidate_id": "LN-02",
+      "name": "Current Transparent Style",
+      "family": "ysl_la_nuit_de_lhomme",
+      "candidate_path": "candidates/LN-02.json",
+      "candidate_sha256": "172B663932B2869E3E82BF19338F258E14E87F2C34B89EFF2665DA189B37AE8F",
+      "rendered_path": "rendered/LN-02_Current_Transparent_Style_30mL_EDT.md",
+      "rendered_sha256": "BD0024BB6636C6B05BF45B13BF3213D3B191CAA29B23677C3A9EEFFF3614FCE8",
+      "impact_path": "impact/LN-02_assessment.json",
+      "impact_sha256": "9F99F7EE394F31C9DD5CBCB442C5A14350E6B61E7471A2C6DE2225F19DB8A889",
+      "formula_definition_sha256": "a929aa688091e9680ca30fa5d300c36ddcd7419edd71ee0fe4833500085fae28",
+      "pipeline_status": "WARN__111_PASS__18_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    },
+    {
+      "candidate_id": "LN-03",
+      "name": "Cardamom Velvet",
+      "family": "ysl_la_nuit_de_lhomme",
+      "candidate_path": "candidates/LN-03.json",
+      "candidate_sha256": "4F4EB1BE5F15162D3197073600BDD2C1097D1B242DFEEFE503BCCB12245D939E",
+      "rendered_path": "rendered/LN-03_Cardamom_Velvet_30mL_EDT.md",
+      "rendered_sha256": "5AF860AA6D9B51D6A4FC738EE55BD72A885BDC3E283093D8C3561EF0724103F4",
+      "impact_path": "impact/LN-03_assessment.json",
+      "impact_sha256": "9A95190BC747016E586C23B7E3524EE0701E51357EC2EA953BAE6EA88A7003C7",
+      "formula_definition_sha256": "d5c4a60833873feeb311bde98463a972b578d079364a0d138bb15afbe8a9455b",
+      "pipeline_status": "WARN__112_PASS__17_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    },
+    {
+      "candidate_id": "LN-04",
+      "name": "Lavender Heart",
+      "family": "ysl_la_nuit_de_lhomme",
+      "candidate_path": "candidates/LN-04.json",
+      "candidate_sha256": "6C3A709886179BA1C3141459648EA5BFD063DEA3BC2EDCB9B78949BEED54C33D",
+      "rendered_path": "rendered/LN-04_Lavender_Heart_30mL_EDT.md",
+      "rendered_sha256": "19CAD5542EC8FF8AE08AF4AA80827571E2F11D1C956732A353CC60049F2EF516",
+      "impact_path": "impact/LN-04_assessment.json",
+      "impact_sha256": "B3E0EE01DCC8B3F477CFB9FAE64F757D04B6E6547F889C982EF4FFA9863DBCDD",
+      "formula_definition_sha256": "e0ca55bc31dae8e616eaad006dee46afcd8a7591baf03e5b28534477c02557e2",
+      "pipeline_status": "WARN__111_PASS__18_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    },
+    {
+      "candidate_id": "LN-05",
+      "name": "Immortelle Nuit",
+      "family": "ysl_la_nuit_de_lhomme",
+      "candidate_path": "candidates/LN-05.json",
+      "candidate_sha256": "A1AFE653A10A64FB82730DD9AFF4750BBC71F06C70195B5FBE4ED11973190835",
+      "rendered_path": "rendered/LN-05_Immortelle_Nuit_30mL_EDT.md",
+      "rendered_sha256": "3A8430E0FF362EE522746DF75F5B7E3AB75B9B0B1D700DAD60861C547A66718E",
+      "impact_path": "impact/LN-05_assessment.json",
+      "impact_sha256": "1E0C4AD66F6B237B2231F83C672E697175666315CFC30B0A5D8B350379B5638F",
+      "formula_definition_sha256": "0b394dcc67b1870af51ddade6ac880d6b01f26b771eb5760f2364c380cb8ff5e",
+      "pipeline_status": "WARN__110_PASS__19_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    },
+    {
+      "candidate_id": "LN-06",
+      "name": "Cedar-Vetiver Vertical",
+      "family": "ysl_la_nuit_de_lhomme",
+      "candidate_path": "candidates/LN-06.json",
+      "candidate_sha256": "690C4CA1A0878330B8E916EFC9532B49DCF5A9C2981A936C86386977FD576502",
+      "rendered_path": "rendered/LN-06_Cedar_Vetiver_Vertical_30mL_EDT.md",
+      "rendered_sha256": "1CA8C7D7708C0A5045821A469D6445295C933E1264FB8DA20D206711A57A4424",
+      "impact_path": "impact/LN-06_assessment.json",
+      "impact_sha256": "B12B1F44DE7FF9BCA42AD644AA19E4F2C776A56F6883A5FBD6F248FBF88FEB77",
+      "formula_definition_sha256": "91dd4a8ac28689c598199f162360940e855636e8e75d08e9851dd336e12505c3",
+      "pipeline_status": "WARN__111_PASS__18_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    },
+    {
+      "candidate_id": "LN-07",
+      "name": "Dry Coumarin Skin",
+      "family": "ysl_la_nuit_de_lhomme",
+      "candidate_path": "candidates/LN-07.json",
+      "candidate_sha256": "1B104EF7F64789DE9FD9EFF529F1859447D103BD245047EC0BC87FDCF7584F99",
+      "rendered_path": "rendered/LN-07_Dry_Coumarin_Skin_30mL_EDT.md",
+      "rendered_sha256": "23485B606F0F10FDA207226D2621AF30C35742FDA22DD09EC58CF969AB7CB5CE",
+      "impact_path": "impact/LN-07_assessment.json",
+      "impact_sha256": "A032DE3462459167FE7C10FD569F7AA6A5882ECC9D28195B3946014B75AC72F6",
+      "formula_definition_sha256": "0f88f1add788ee7b8cfc5c17c02d9a59cafdbae5cfc6a8a1402a7919b31f41b6",
+      "pipeline_status": "WARN__111_PASS__18_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    },
+    {
+      "candidate_id": "LN-08",
+      "name": "Caraway Shadow",
+      "family": "ysl_la_nuit_de_lhomme",
+      "candidate_path": "candidates/LN-08.json",
+      "candidate_sha256": "20D770700146B1775D3685BFE10E6F70077951963E3E9E4ACC97FE7A909BE6E2",
+      "rendered_path": "rendered/LN-08_Caraway_Shadow_30mL_EDT.md",
+      "rendered_sha256": "988F66FAFE601333CF5A350C10D93245618E5A36BDFB278226731D99426E6AC9",
+      "impact_path": "impact/LN-08_assessment.json",
+      "impact_sha256": "1B45E563AFF854353FFD40915932D23CA35E9808FB2696AECD63D1F68E41A156",
+      "formula_definition_sha256": "fc7daabc5d4b19daac61b2feaa8379d4321b5ba9ea65e5181fffc280f1619ed6",
+      "pipeline_status": "WARN__111_PASS__18_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    },
+    {
+      "candidate_id": "LN-09",
+      "name": "Dark Textile Woods",
+      "family": "ysl_la_nuit_de_lhomme",
+      "candidate_path": "candidates/LN-09.json",
+      "candidate_sha256": "2391FFEF463920A5E19B77BAA87B3AE9A1FD289EACA7900251FB86F8C8BCD55D",
+      "rendered_path": "rendered/LN-09_Dark_Textile_Woods_30mL_EDT.md",
+      "rendered_sha256": "CE34E812A3554AE2225C57331319A947A792040E37D27BA73E04486F5B95DFAE",
+      "impact_path": "impact/LN-09_assessment.json",
+      "impact_sha256": "F4002FFC201D17AE7AD4DA62C08298459DE2E4A7341AEE72D193F73AB0F6CEAF",
+      "formula_definition_sha256": "d52c2002b3a5deb623dae3fd3c4e6ac650c8f15fd167c26542d889a1e8ae9cdf",
+      "pipeline_status": "WARN__111_PASS__18_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    },
+    {
+      "candidate_id": "LN-10",
+      "name": "Intimate Diffusion",
+      "family": "ysl_la_nuit_de_lhomme",
+      "candidate_path": "candidates/LN-10.json",
+      "candidate_sha256": "06DC07B8D6F723BB719C7DC6A42C5E82BB4F7E6E241D89F385EB25424109EAC3",
+      "rendered_path": "rendered/LN-10_Intimate_Diffusion_30mL_EDT.md",
+      "rendered_sha256": "EF9FD987F31C5806A4DEC004819E1BB4BF4A2A6DBABA795F5FF0A5F36F91C4B1",
+      "impact_path": "impact/LN-10_assessment.json",
+      "impact_sha256": "3812E49AD7726AFEFE78E5B311A65FBC95E407EA10B3E588D2781AE3E2A2DB09",
+      "formula_definition_sha256": "d5872b12fe5c8aac7569c235df4f4c19ff53f41399c3413cced06567e9aaa36b",
+      "pipeline_status": "WARN__111_PASS__18_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+      "physical_status": "HOLD_BLINDED_VALIDATION_REQUIRED"
+    }
+  ],
+  "required_named_arms": [
+    "LH-04",
+    "LN-01",
+    "LN-05"
+  ],
+  "global_formula_contract": {
+    "target_basis_ppm_w_w": 1000000,
+    "current_build_basis_ppm_w_w": 1000000,
+    "program_adapter": "30 mL EDT at 15 percent with a declared 4500 uL concentrate view",
+    "target_current_build_separation": "REQUIRED",
+    "missing_chemical_impact": "REQUIRED_PER_CANDIDATE",
+    "musk_default": "ZERO_OR_ONE_FUNCTIONALLY_EXACT_MUSK",
+    "minimum_raw_stock_dose_ul": 10.0,
+    "sub_floor_rule": "USE_OWNED_VERIFIED_DILUTION_OR_DISCLOSE_EXACT_PREPARATION_BEFORE_COMPOUNDING",
+    "numerical_diagnostics": [
+      "ppm",
+      "ODT",
+      "OAV",
+      "composite-natural OAV",
+      "temporal headspace",
+      "stock-rebase/OAV-per-time"
+    ]
+  },
+  "batch_result": {
+    "candidate_count": 20,
+    "computational_warn": 20,
+    "hard_fail": 0,
+    "pipette_floor_pass": 20,
+    "sensory_finalists": 0
+  },
+  "claim_ceiling": {
+    "physical_liking": "NOT TESTED",
+    "sensory_similarity": "NOT TESTED",
+    "stability": "NOT TESTED",
+    "safety": "NOT CLEARED",
+    "measured_headspace": "NOT TESTED",
+    "release": "NOT CLEARED"
+  }
+}

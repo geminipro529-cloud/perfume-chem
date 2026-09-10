@@ -1,0 +1,367 @@
+import hashlib
+import json
+from pathlib import Path
+
+from scripts.formula_release_gate import (
+    _merge_donor_independence_gate,
+    main as release_gate_main,
+)
+from scripts.verify_formula_workflow import (
+    audit_donor_independence,
+    parse_formula_markdown,
+)
+
+
+SHARED_STRUCTURAL = [f"Donor Structure {index:02d}" for index in range(1, 13)]
+WIDE_DONOR_STRUCTURAL = [
+    f"Wide Donor Structure {index:02d}" for index in range(1, 36)
+]
+SOURCE_ROWS = ["Source Cardamom", "Source Lavender", "Source Coumarin"]
+SOURCE_MODULES = ["cold capsule", "lavender hinge", "warm seed"]
+
+
+def _complete_dispositions(names: list[str], key: str) -> list[dict[str, str]]:
+    return [
+        {
+            key: name,
+            "disposition": "KEEP",
+            "rationale": f"Retain the predecessor's {name} function.",
+        }
+        for name in names
+    ]
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest().upper()
+
+
+def _write_signature(
+    root: Path,
+    *,
+    structural_materials: list[str] | None = None,
+) -> tuple[Path, str]:
+    signature = root / "donor-signature.json"
+    signature.write_text(
+        json.dumps(
+            {
+                "schema_version": "donor-signature-v1",
+                "source_artifact": "Donor Formula.md",
+                "source_sha256": "A" * 64,
+                "ordered_basket_headings": ["ALWAYS USED", "WOODS", "MUSKS"],
+                "structural_materials": structural_materials or SHARED_STRUCTURAL,
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    return signature, _sha256(signature)
+
+
+def _write_candidate(
+    root: Path,
+    *,
+    rows: list[tuple[str, float]],
+    source_sha256: str,
+    signature_sha256: str,
+    declared_rows: int | None = None,
+    declared_total: float | None = None,
+    basket_headings: list[str] | None = None,
+    source_dispositions: list[dict[str, str]] | None = None,
+    source_module_dispositions: list[dict[str, str]] | None = None,
+) -> tuple[Path, dict]:
+    manifest = {
+        "schema_version": "donor-independence-v1",
+        "predecessor": {
+            "path": "predecessor.md",
+            "sha256": source_sha256,
+        },
+        "donor_signatures": [
+            {
+                "path": "donor-signature.json",
+                "signature_sha256": signature_sha256,
+                "source_sha256": "A" * 64,
+            }
+        ],
+        "declared_current_rows": declared_rows if declared_rows is not None else len(rows),
+        "declared_current_total_ul": (
+            declared_total if declared_total is not None else sum(amount for _, amount in rows)
+        ),
+        "source_dispositions": (
+            _complete_dispositions(SOURCE_ROWS, "source_row")
+            if source_dispositions is None
+            else source_dispositions
+        ),
+        "source_module_dispositions": (
+            _complete_dispositions(SOURCE_MODULES, "source_module")
+            if source_module_dispositions is None
+            else source_module_dispositions
+        ),
+        "target_modules": ["cold capsule", "lavender hinge", "warm seed"],
+    }
+    lines = [
+        "# LNDL Luxe Test Candidate",
+        "",
+        f"<!-- donor-independence-manifest: {json.dumps(manifest, sort_keys=True)} -->",
+        "",
+        "Concentrate target: 6000 uL",
+        "",
+    ]
+    for index, heading in enumerate(basket_headings or []):
+        lines.extend(
+            [
+                f"**BASKET {index + 1} — {heading}**",
+                "",
+            ]
+        )
+    lines.extend(
+        [
+            "| # | Ingredient | Dilution | Raw Amount uL |",
+            "|---:|---|---:|---:|",
+        ]
+    )
+    for index, (material, amount) in enumerate(rows, 1):
+        lines.append(f"| {index} | {material} | neat | {amount} |")
+    path = root / "LNDL_Luxe_Test_Candidate.md"
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    formula = parse_formula_markdown(path)[0]
+    return path, formula
+
+
+def _authorities(
+    tmp_path: Path,
+    *,
+    structural_materials: list[str] | None = None,
+) -> tuple[str, str]:
+    predecessor = tmp_path / "predecessor.md"
+    predecessor.write_text(
+        """# Exact predecessor
+
+## Functional architecture before dosing
+
+| Module | Raw uL | Function owned |
+|---|---:|---|
+| cold capsule | 2000 | cold shell |
+| lavender hinge | 2000 | living transition |
+| warm seed | 2000 | warm interior |
+| **Total** | **6000** | |
+
+## TARGET / IDEAL FORMULA
+
+| # | Material | Target parts |
+|---:|---|---:|
+| 1 | Source Cardamom | 2000 |
+| 2 | Source Lavender | 2000 |
+| 3 | Source Coumarin | 2000 |
+""",
+        encoding="utf-8",
+    )
+    source_sha256 = _sha256(predecessor)
+    _signature, signature_sha256 = _write_signature(
+        tmp_path,
+        structural_materials=structural_materials,
+    )
+    return source_sha256, signature_sha256
+
+
+def test_donor_gate_fails_when_parser_coverage_does_not_match_manifest(tmp_path):
+    source_sha256, signature_sha256 = _authorities(tmp_path)
+    path, formula = _write_candidate(
+        tmp_path,
+        rows=[("Cardamom EO", 3000), ("Lavender EO", 3000)],
+        source_sha256=source_sha256,
+        signature_sha256=signature_sha256,
+        declared_rows=3,
+    )
+
+    result = audit_donor_independence(path, formula, project_root=tmp_path)
+
+    assert result["status"] == "FAIL"
+    assert "PARSER_COVERAGE_MISMATCH" in result["failure_codes"]
+
+
+def test_donor_gate_fails_on_predecessor_hash_drift(tmp_path):
+    _source_sha256, signature_sha256 = _authorities(tmp_path)
+    path, formula = _write_candidate(
+        tmp_path,
+        rows=[("Cardamom EO", 3000), ("Lavender EO", 3000)],
+        source_sha256="0" * 64,
+        signature_sha256=signature_sha256,
+    )
+
+    result = audit_donor_independence(path, formula, project_root=tmp_path)
+
+    assert result["status"] == "FAIL"
+    assert "PREDECESSOR_HASH_MISMATCH" in result["failure_codes"]
+
+
+def test_donor_gate_rejects_boolean_only_or_incomplete_source_row_ledger(tmp_path):
+    source_sha256, signature_sha256 = _authorities(tmp_path)
+    path, formula = _write_candidate(
+        tmp_path,
+        rows=[("Cardamom EO", 3000), ("Lavender EO", 3000)],
+        source_sha256=source_sha256,
+        signature_sha256=signature_sha256,
+        source_dispositions=[],
+    )
+
+    result = audit_donor_independence(path, formula, project_root=tmp_path)
+
+    assert result["status"] == "FAIL"
+    assert "INCOMPLETE_SOURCE_DISPOSITIONS" in result["failure_codes"]
+
+
+def test_donor_gate_rejects_incomplete_source_module_ledger(tmp_path):
+    source_sha256, signature_sha256 = _authorities(tmp_path)
+    path, formula = _write_candidate(
+        tmp_path,
+        rows=[("Cardamom EO", 3000), ("Lavender EO", 3000)],
+        source_sha256=source_sha256,
+        signature_sha256=signature_sha256,
+        source_module_dispositions=_complete_dispositions(
+            SOURCE_MODULES[:-1], "source_module"
+        ),
+    )
+
+    result = audit_donor_independence(path, formula, project_root=tmp_path)
+
+    assert result["status"] == "FAIL"
+    assert "INCOMPLETE_SOURCE_MODULE_DISPOSITIONS" in result["failure_codes"]
+
+
+def test_donor_gate_fails_on_exact_donor_basket_ontology(tmp_path):
+    source_sha256, signature_sha256 = _authorities(tmp_path)
+    path, formula = _write_candidate(
+        tmp_path,
+        rows=[("Cardamom EO", 3000), ("Lavender EO", 3000)],
+        source_sha256=source_sha256,
+        signature_sha256=signature_sha256,
+        basket_headings=["ALWAYS USED", "WOODS", "MUSKS"],
+    )
+
+    result = audit_donor_independence(path, formula, project_root=tmp_path)
+
+    assert result["status"] == "FAIL"
+    assert "DONOR_ONTOLOGY_REUSE" in result["failure_codes"]
+
+
+def test_donor_gate_fails_on_large_shared_structural_cluster(tmp_path):
+    source_sha256, signature_sha256 = _authorities(tmp_path)
+    rows = [(material, 450) for material in SHARED_STRUCTURAL]
+    rows.extend([("Cardamom EO", 300), ("Lavender EO", 300)])
+    path, formula = _write_candidate(
+        tmp_path,
+        rows=rows,
+        source_sha256=source_sha256,
+        signature_sha256=signature_sha256,
+    )
+
+    result = audit_donor_independence(path, formula, project_root=tmp_path)
+
+    assert result["status"] == "FAIL"
+    assert "DONOR_STRUCTURAL_CLUSTER" in result["failure_codes"]
+    assert result["data"]["donors"][0]["shared_structural_rows"] == 12
+
+
+def test_donor_gate_fails_on_high_candidate_share_below_half_donor_coverage(
+    tmp_path,
+):
+    source_sha256, signature_sha256 = _authorities(
+        tmp_path,
+        structural_materials=WIDE_DONOR_STRUCTURAL,
+    )
+    rows = [(material, 136) for material in WIDE_DONOR_STRUCTURAL[:17]]
+    rows.append(("Target Identity Nucleus", 3688))
+    path, formula = _write_candidate(
+        tmp_path,
+        rows=rows,
+        source_sha256=source_sha256,
+        signature_sha256=signature_sha256,
+    )
+
+    result = audit_donor_independence(path, formula, project_root=tmp_path)
+
+    assert result["status"] == "FAIL"
+    assert "DONOR_STRUCTURAL_CLUSTER" in result["failure_codes"]
+    donor = result["data"]["donors"][0]
+    assert donor["shared_structural_rows"] == 17
+    assert donor["candidate_raw_share"] == 0.385333
+    assert donor["donor_coverage"] == 0.485714
+
+
+def test_donor_gate_passes_target_specific_architecture_with_bounded_overlap(tmp_path):
+    source_sha256, signature_sha256 = _authorities(tmp_path)
+    rows = [(material, 200) for material in SHARED_STRUCTURAL[:5]]
+    rows.extend(
+        [
+            ("Cardamom EO", 1000),
+            ("Lavender EO", 1000),
+            ("Coumarin", 1000),
+            ("Cedarwood oil Virginia", 1000),
+            ("Ethylene Brassylate", 1000),
+        ]
+    )
+    path, formula = _write_candidate(
+        tmp_path,
+        rows=rows,
+        source_sha256=source_sha256,
+        signature_sha256=signature_sha256,
+    )
+
+    result = audit_donor_independence(path, formula, project_root=tmp_path)
+
+    assert result["status"] == "PASS"
+    assert result["failure_codes"] == []
+    assert result["data"]["parser"]["row_count"] == len(rows)
+    assert result["data"]["parser"]["raw_total_ul"] == 6000.0
+
+
+def test_release_report_becomes_fail_when_donor_independence_fails():
+    report = {
+        "status": "WARN",
+        "commercial_readiness": "DEVELOPMENT_ONLY",
+        "gates": [{"gate": "exact_subtotal", "status": "PASS", "detail": "ok"}],
+    }
+    audit = {
+        "gate": "donor_independence",
+        "status": "FAIL",
+        "detail": "Hard donor-independence failure: DONOR_ONTOLOGY_REUSE",
+        "failure_codes": ["DONOR_ONTOLOGY_REUSE"],
+        "data": {"applicable": True},
+    }
+
+    merged = _merge_donor_independence_gate(report, audit)
+
+    assert merged["status"] == "FAIL"
+    assert merged["commercial_readiness"] == "BLOCKED_DONOR_INDEPENDENCE"
+    assert merged["gates"][0]["gate"] == "donor_independence"
+
+
+def test_release_cli_hard_blocks_luxe_formula_without_manifest(tmp_path, capsys):
+    formula_path = tmp_path / "LNDL_Luxe_No_Manifest.md"
+    formula_path.write_text(
+        """# LNDL Luxe No Manifest
+
+| # | Ingredient | Dilution | Raw Amount uL |
+|---:|---|---:|---:|
+| 1 | Cardamom EO | neat | 3000 |
+| 2 | Lavender EO | neat | 3000 |
+""",
+        encoding="utf-8",
+    )
+
+    status = release_gate_main(
+        [
+            "--formula-file",
+            str(formula_path),
+            "--expected-concentrate-ul",
+            "6000",
+            "--brief",
+            "generic",
+            "--no-audit",
+        ]
+    )
+    captured = capsys.readouterr()
+
+    assert status == 1
+    assert "FAIL: donor_independence" in captured.out
+    assert "MISSING_MANIFEST" in captured.out

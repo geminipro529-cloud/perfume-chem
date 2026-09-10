@@ -1,0 +1,161 @@
+{
+  "audit_date": "2026-08-26",
+  "authority_flags": {
+    "formula": false,
+    "hedonic": false,
+    "liking": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "runtime": false,
+    "safety": false,
+    "scientific_claim": false,
+    "sensory": false
+  },
+  "file_sha256": {
+    "engine/data_spine/material.py": "2757e1b6ae010f6a8582eab2d9e3448fd3309ab9916ae0cf4733de00e380f3ee",
+    "engine/data_spine/migrate.py": "a3932bdd6e252d2a020609658a10bbe0cc9fbc673ea9f5955494352630a32e9f",
+    "engine/family_scorer.py": "f718aae6d2922741a81ae00a3e25594cedf9dfeccbf45003c0aaaa8302722688",
+    "engine/formula_analyzer.py": "8add16b3542e811a18812da5987f936b483c32a02e1288e1a115ad8a9f142fa0",
+    "engine/formula_recommendations.py": "3de47fbba007e6d5ea759241870d628c2186d3a7d744afee6ac36eb55b415109",
+    "engine/hedonic_evidence.py": "3274f72a159878c36e69ae19e3ed97f77b51c5125596b427b0da31ec048d5e9c",
+    "engine/hedonic_model.py": "008fc90507c488a886770dadb68e249c8dbc588853a5390fd7ae84003fbfe429",
+    "engine/ingredient_intelligence.py": "b8687438e17f4b109e02debb291c72cd8d85dbf8675b1f190d68d76ad719ac68",
+    "engine/knowledge/soliflore_structures.py": "bbab1939841b3c620e504316d2d2d7ac869a5ef38a47a4865af33aaa56a86b76",
+    "engine/optimizer/scoring.py": "f426465b94b29bb75aea65fc8c818015df327806c8baecfd41f2eb832cbf7672",
+    "engine/orchestration/iec_loop.py": "0374f441c5ff8b6d77a6f972f3b056cd71ca002171c91d83da217430b4f70167",
+    "engine/orchestration/methodology.py": "d1e0b1f464f3e344fc4402b08ce88a9dad3cd3012d25d1543c7ff3d3821f4d5c",
+    "engine/orchestration/pipeline.py": "2e2785bf59871a423360fdb2a0ad4f945140473d6fc6a96b7b9e66d7edbe361f",
+    "engine/perception/complexity_ensemble.py": "89cc6419f84986ab50bf6ef1a1bd851dafda4418d205e902441b6129a5ca8bf4",
+    "engine/pipeline/gates.py": "8cb19d27a94b691a221db6b9c8ef549340d69868b233745831690578e556bcf9",
+    "engine/pipeline/oav_intelligence.py": "4945d604d5ec50980923e631d43223a6211f92f85cada0b5faab3e6b3a4f283a",
+    "engine/pipeline/release_evidence.py": "5af46dcad2661616ad5e445c42962f724ddd3b3269313ed15c8aef784f8fb826",
+    "engine/pipeline/release_scoring.py": "46ff4a3410a4367937f1c0207398c7591ab46a768defc20de153123b12a98e4e",
+    "engine/solforge/gate_foundation.py": "d70ec7fa47c14978f3607043e219f247a219dc42152bac5ecb0b2b61b558c66c",
+    "future_modules/balance_axes.py": "fdce3b7df5057f7acd7e9c922273607b5f1a52cb202a8856b4454ebd7f4c4bb0",
+    "future_modules/construction_methodology.py": "4e87d91ffb7d2718eaddc1d925a1bc801ed49c6988363e9c5ad11772f5f76769",
+    "future_modules/family_hedonic_optimizer.py": "c78cf372ed14b150475b88f3dd589fed7763eba26970cbece97e332c7f7b4bd3",
+    "scripts/evaluate_formula.py": "70a7e7f0289ea74f4b3b8e7fa7c7ccc43c76f18f649e85d7d4793b9c7d970c71",
+    "scripts/format_oav_report.py": "fdb1209edbacc2942f08f42d9aea2ec5dc5930b72fb6228a9e271b44c7cfc121",
+    "scripts/formula_release_gate.py": "385f3bf0faed0334837c899b449f58043a48864be66721d7f5f40a744dcd6205",
+    "scripts/oav_headspace_analyze.py": "47d0dd6a29868ce047c1439f5ff43c3c207bd7cf2ab0c4278498d24465a8efc4",
+    "scripts/optimize_cobalt_cedar_air.py": "e92adee3d84b76b173191506a6a634975b136f48158cf6ce43789ef84692cac0",
+    "scripts/score_collection_formulas.py": "89def7fe178401a34d6385d9ce1505b1eed9be9212934f40a721bbef202bd6ce",
+    "scripts/score_designer_prestige_18.py": "df4c3bf7949cca3a8b05d480d403dc647fafa95cef5a81cc8972c7127a3b7164",
+    "scripts/scientific_truth_inventory.py": "74a240c91934672f5386e76003b7697068c9dc3904fc1971c00e36f611e85988",
+    "scripts/verify_c0_physical_model_inventory.py": "29078dbc82591db1f3fff8f8d6a0be77f3314d734ee3e3ec47fe4dcd1ca52b7c",
+    "scripts/verify_formula_workflow.py": "d6ca32453c44a13f780ba805d700db0cc6a3db82fa8cc5de56d3e2c3548ddc1c"
+  },
+  "findings": [
+    {
+      "disposition": "FIXED",
+      "id": "HAF-001",
+      "path": "engine/optimizer/scoring.py",
+      "problem": "The active luxury axis used material-profile pleasantness as a multiplicative nudge."
+    },
+    {
+      "disposition": "FIXED",
+      "id": "HAF-002",
+      "path": "engine/pipeline/release_scoring.py",
+      "problem": "Active release scoring called the frozen legacy replay scorer."
+    },
+    {
+      "disposition": "FIXED",
+      "id": "HAF-003",
+      "path": "scripts/evaluate_formula.py",
+      "problem": "The active report and JSONL export emitted a composition-derived numeric hedonic score."
+    },
+    {
+      "disposition": "FIXED",
+      "id": "HAF-004",
+      "path": "engine/pipeline/gates.py",
+      "problem": "The balance gate converted zero-filled material data into a synthetic hedonic-contrast axis."
+    },
+    {
+      "disposition": "FIXED",
+      "id": "HAF-005",
+      "path": "engine/orchestration/methodology.py",
+      "problem": "The active methodology API exported legacy hedonic objectives and selectable hedonic methodology records."
+    },
+    {
+      "disposition": "FIXED",
+      "id": "HAF-006",
+      "path": "engine/orchestration/iec_loop.py",
+      "problem": "The active IEC public contract declared a nonzero composition-derived hedonic weight despite using a caller-supplied objective."
+    },
+    {
+      "disposition": "FIXED",
+      "id": "HAF-007",
+      "path": "engine/pipeline/oav_intelligence.py",
+      "problem": "Active OAV intelligence consumed unvalidated family-hedonic targets and cliffs and exported numeric zone hedonic values."
+    },
+    {
+      "disposition": "FIXED",
+      "id": "HAF-008",
+      "path": "scripts/format_oav_report.py; scripts/oav_headspace_analyze.py",
+      "problem": "Active report adapters requested or displayed a numeric hedonic score."
+    },
+    {
+      "disposition": "FIXED",
+      "id": "HAF-009",
+      "path": "engine/data_spine/migrate.py",
+      "problem": "The active data-spine rebuild imported fixed material valence from the legacy hedonic model."
+    },
+    {
+      "disposition": "FIXED",
+      "id": "HAF-010",
+      "path": "engine/optimizer/scoring.py; engine/hedonic_model.py",
+      "problem": "A direct scorer method and persistent replay-mode state could expose the legacy heuristic outside an explicit replay call."
+    }
+  ],
+  "fixes": [
+    "Active FormulaScorer calls reject nonzero hedonic objective weight, omit a numeric hedonic axis, and report liking NOT_TESTED without an exact-scope blinded receipt.",
+    "Legacy replay is explicitly classified LEGACY_REPLAY_ONLY, preserves frozen output bytes, gates direct scorer access, and clears replay state after every call.",
+    "Release scoring uses the active scorer and cannot call score_legacy_replay.",
+    "The formula evaluator and report adapters expose liking evidence state instead of numeric composition-derived liking.",
+    "The balance gate evaluates seven nonhedonic axes and withholds liking evidence.",
+    "The active construction-methodology API omits legacy hedonic exports and filters hedonic methodology records.",
+    "OAV intelligence no longer imports the family-hedonic optimizer; its historical family targets and cliffs are visibly withheld.",
+    "Data-spine rebuilds no longer ingest fixed valence from the legacy hedonic model.",
+    "SolForge source census and complexity-ensemble forbidden-field checks remain in place."
+  ],
+  "inspected_entry_points": [
+    "optimizer scoring and direct axis dispatch",
+    "release scoring and release evidence assembly",
+    "formula evaluator, headspace reporter, OAV reporter, and formula analyzer",
+    "pipeline construction, balance, family heuristic, neuroscience, and OAV-intelligence gates",
+    "Atelier methodology selection and IEC public configuration",
+    "data-spine migration and material serialization",
+    "family scorer, formula recommendations, and collection or optimization scripts",
+    "SolForge gate-foundation census, adapters, evidence promotion, and complexity ensemble",
+    "legacy C0 replay verifier",
+    "static soliflore, ingredient-profile, balance-axis, construction-methodology, and family-hedonic compatibility data"
+  ],
+  "legacy_replay_classification": "LEGACY_REPLAY_ONLY",
+  "legacy_replay_surfaces": [
+    "engine.hedonic_model.score_hedonic",
+    "engine.optimizer.scoring.FormulaScorer.score_legacy_replay",
+    "scripts.evaluate_formula.compute_hedonic",
+    "scripts.verify_c0_physical_model_inventory"
+  ],
+  "liking_without_exact_scope_receipt": "NOT_TESTED",
+  "prospective_evidence_path": [
+    "engine.hedonic_evidence.evaluate_hedonic_evidence",
+    "engine.pipeline.release_evidence.release_axis_from_hedonic",
+    "scripts.formula_release_gate"
+  ],
+  "schema_version": "hedonic_active_path_audit_v1",
+  "scope": "Current optimizer, release, API, report, pipeline, and SolForge promotion paths plus historical compatibility surfaces discovered by source census.",
+  "source_hash_basis": "SHA256_LF_NORMALIZED_TEXT",
+  "status": "PASS_ACTIVE_PATHS_CLOSED",
+  "unresolved_compatibility_surfaces": [
+    "engine/ingredient_intelligence.py retains fixed material-profile hedonic values solely for explicit legacy replay.",
+    "engine/data_spine/material.py and existing serialized data retain an optional hedonic_valence compatibility field; active migration no longer populates it and no active scorer consumes it.",
+    "engine/knowledge/soliflore_structures.py retains static hedonic labels and scores as historical reference data; they have no promotion authority.",
+    "future_modules/balance_axes.py, future_modules/construction_methodology.py, and future_modules/family_hedonic_optimizer.py retain historical heuristic implementations but are excluded from active hedonic API and gate paths.",
+    "engine/pipeline/gates.py retains a family-hedonic compatibility gate that exposes only counts and an explicit UNVALIDATED_HEURISTIC_LIBRARY classification while withholding all heuristic content.",
+    "engine/pipeline/neuroscience.py retains non-liking advisory reference data outside this claim-firewall fix; it has no hedonic, sensory, safety, or release authority.",
+    "scripts/_merge_pairings.py retains historical pairing-axis source data and is not an active scorer, release adapter, report, or SolForge promotion path."
+  ]
+}

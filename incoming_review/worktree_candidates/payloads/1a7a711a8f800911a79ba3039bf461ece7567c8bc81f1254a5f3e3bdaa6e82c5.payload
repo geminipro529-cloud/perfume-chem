@@ -1,0 +1,297 @@
+# LH-04 Apple Pie — 30 mL EDT Study
+
+**Formula UID:** `ysl20:LH-04:v2`
+**Parent Formula UID:** `ysl20:LH-01:v2`
+**Mode:** `STYLISTIC`
+**Family archetype:** `ysl_lhomme`
+**Concentrate Volume:** 4,500 µL
+**Nominal bottle:** 30 mL at 15% concentrate
+**Authority:** Controlled formula hypothesis with conditional stock bases; not an authenticated YSL recipe or sensory-equivalence claim.
+**Claim mode:** `FORMULA_HYPOTHESIS_NOT_AUTHENTICATED_RECIPE`
+**Reference contract:** `YSL_LHOMME_DOCUMENTARY_CHARACTER_TARGET`
+**Reference scope:** `CHARACTER_ARCHITECTURE_ONLY_NOT_SIMILARITY`
+**Inventory overlay:** `../evidence/inventory_overlay.json`
+
+## Target Identity and Functional Architecture
+
+This must first smell structurally like L'Homme: bergamot/cedrat/ginger, cool violet-green tailoring, transparent cedar, and dry vetiver. The one axis is a crisp ester-green apple relationship with a tiny baked crust, cream, cinnamon, and vanillic shadow. “Pie” is a transition under the tailoring, never a dessert takeover. The inventory-independent target is in `../candidates/LH-04.json`; this is only the separate current build.
+
+## Current-Inventory Build — Heuristic Volume Adapter
+
+The shared child core is 4,200 µL and the module is exactly 300 µL. Rows marked `VERIFY_FIRST` use the labeled fraction only as a conditional calculation; carrier and w/w basis must be recovered before physical compounding.
+
+| # | Ingredient | Dilution | Amount (uL) | Active uL | Active ppm w/w status | Specific function |
+|---:|---|---|---:|---:|---|---|
+| 1 | Iso E Super | neat | 600.000 | 600.000 | current stock; nominal design arithmetic | transparent cedar halo |
+| 2 | Cedarwood oil Virginia | neat | 500.000 | 500.000 | current stock; nominal design arithmetic | literal cedar backbone |
+| 3 | Ethylene Brassylate | neat | 350.000 | 350.000 | overlay-owned; verify label before compounding | single structural musk |
+| 4 | Hedione | neat | 420.000 | 420.000 | current stock; nominal design arithmetic | radiant air; retained HC transition |
+| 5 | Vertofix | neat | 300.000 | 300.000 | current stock; nominal design arithmetic | cedar-vetiver bridge |
+| 6 | Linalool | neat | 162.000 | 162.000 | current stock; non-equivalent replacement | fresh floral-woody tenacity; partial current-inventory coverage for removed Ethyl Linalool; basil contour; partial current-inventory coverage for removed Basil EO (India, Ocimum Basilicum) |
+| 7 | Linalyl Acetate | neat | 196.000 | 196.000 | current stock; non-equivalent replacement | fresh floral-woody tenacity; partial current-inventory coverage for removed Ethyl Linalool; green apple-to-violet tailoring; partial current-inventory coverage for removed Parmavert; citrus-floral seam |
+| 8 | Dihydromyrcenol | neat | 104.000 | 104.000 | current stock; nominal design arithmetic | controlled kinetic freshness |
+| 9 | Sandalore | neat | 240.000 | 240.000 | current stock; nominal design arithmetic | dry-creamy pastry-to-cedar support |
+| 10 | Indian Vetiver EO | neat | 180.000 | 180.000 | current stock; non-equivalent replacement | dry rooty antidessert tension; partial current-inventory coverage for removed Indian Vetiver EO (volume grade) |
+| 11 | Alpha Isomethyl Ionone (Methyl Ionone Pure) | neat | 300.000 | 300.000 | current stock; nominal design arithmetic | violet-woody apple support; green apple-to-violet tailoring; partial current-inventory coverage for removed Parmavert |
+| 12 | Bergamot FCF oil Sicilian | neat | 340.000 | 340.000 | current stock; nominal design arithmetic | luminous citrus-apple opening; dry zesty edge; partial current-inventory coverage for removed Pamzest |
+| 13 | Lemon FCF oil Sicilian | neat | 110.000 | 110.000 | current stock; nominal design arithmetic | bitter crisp peel function; dry zesty edge; partial current-inventory coverage for removed Pamzest |
+| 14 | Ginger EO | neat | 100.000 | 100.000 | current stock; nominal design arithmetic | protected ginger recognizer |
+| 15 | Black Pepper EO | neat | 10.000 | 10.000 | current stock; 10 uL minimum raw-stock dose | dry pepper antidessert bite |
+| 16 | Tonkarome (20% w/w in TEC) | 20% w/w in TEC | 248.000 | 49.600 | current stock; nominal design arithmetic | dry tonka warmth; pastry rounding |
+| 17 | Florol | neat | 50.000 | 50.000 | current stock; nominal design arithmetic | clean floral volume |
+| 18 | Amberwood F | neat | 20.000 | 20.000 | current stock; nominal design arithmetic | dry persistence |
+| 19 | Ethyl 2-Methylbutyrate (0.1%) | 0.1% | 20.000 | 0.020 | stock present; concentration basis VERIFY_FIRST | trace crisp apple lift |
+| 20 | Hexyl Acetate (10%) | 10% | 100.000 | 10.000 | stock present; concentration basis VERIFY_FIRST | green juicy apple body |
+| 21 | Allyl Cyclohexyl Propionate (10% in DPG) | 10% w/w in DPG | 70.000 | 7.000 | current stock; nominal design arithmetic | green-fruit apple continuity |
+| 22 | Isobutavan | neat | 40.000 | 40.000 | current stock; nominal design arithmetic | creamy-buttery pastry shadow |
+| 23 | 2-Acetyl Pyrazine (1% in DPG) | 1% w/w in DPG | 10.000 | 0.100 | current stock; nominal design arithmetic | baked crust articulation |
+| 24 | Cinnamaldehyde (1%) | 1% | 10.000 | 0.100 | stock present; concentration basis VERIFY_FIRST | warm crust-spice edge |
+| 25 | Vanillin (10%) | 10% | 20.000 | 2.000 | stock present; concentration basis VERIFY_FIRST | trace pastry rounding |
+|  | **Concentrate total** |  | **4500.000** | **4090.820** |  |  |
+
+## Missing-Chemical Impact and Preparation
+
+TARGET / IDEAL retains exact apple-pastry materials. CURRENT uses the owned apple/pastry stocks conditionally, but every 0.1%, 1%, and 10% row remains HOLD until its label or preparation receipt proves the concentration basis. Unavailable Ethyl Linalool and uncovered Basil were removed; no replacement is identity-equivalent. Verify EB. Purchase nothing until a carrier-matched omission test shows a specific deficit.
+
+## Controlled Blinded Test Plan
+
+Only after stock-basis verification, compare coded equal-mass, equal-concentration LH-04 and LH-01 samples in balanced order at 0, 5, and 30 minutes and 2 and 4 hours. Score L'Homme identity first, then apple clarity, pastry subordination, transitions, and liking. No physical result exists yet.
+
+## Claim Ceiling
+
+Physical liking, sensory similarity, stability, and measured headspace are `NOT TESTED`; safety and release are `NOT CLEARED`.
+
+## Pipeline Analysis
+
+```text
+# LH-04 Apple Pie — 30 mL EDT Study
+
+## Gate Summary
+
+**108 PASS** / **21 WARN** / **0 FAIL**
+
+  WARN pipeline_preflight: 9 checks; 5 warnings
+  WARN odt_coverage: 14 material(s) rely on derived/unverified ODTs (60% OAV share)
+  WARN chemistry_stability: immature: predicted maturation 7 days (industry standard 14-42 days); predicted maturation shelf life 7 days
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 29.1% active mass across 4 materials
+  WARN small_diluted_traces: 2-Acetyl Pyrazine (1% in DPG)=10.0uL at 1.0%; Cinnamaldehyde (1%)=10.0uL at 1.0%
+  WARN safety_ifra_allergen: 15 materials lack explicit IFRA Cat4 limits; 2 EU allergen declarations
+  WARN eu_allergen_declaration: EU allergens requiring label: linalool, alpha-isomethyl ionone
+  WARN novelty_vs_reference: reference/control archetype; familiar by design, not the new exploration target
+  WARN perfume_knowledge: Pyramid needs improvement: Expected T:20% H:40% B:40%, Actual T:25.4% H:24.2% B:50.4%
+  WARN carles_pyramid: Carles pyramid: empty windows = 3h_top_heart (need >2% active in each of 5 windows)
+  WARN carles_accord_ratio: Extreme ratios (>8:1, Carles limit): iso e super:cedarwood virginia = 23:1; iso e super:ethylene brassylate = 969:1; iso e super:vertofix = 
+  WARN literature_compliance: Literature compliance: 2/5 principles passed (40%) [advisory guideline; not release-blocking]
+  WARN edge_cases: Musk coverage: 1%, gaps: 2, Bangkok VP ×2.2
+  WARN guerlain_vanillin_coumarin: Vanillin present without coumarin — no structural counterweight
+  WARN jellinek_psychology: Jellinek categories weak: erogenic
+  WARN adaptation_timing: fast tier < 5% (no immediate impact); slow tier < 10% (poor longevity)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 100%) — collapse risk
+  WARN oav_intelligence: diffusion_layers: Missing intimate layer — fragrance will feel hollow up close; material_class_distribution: Class distribution: citrus:7%, 
+  WARN olfactory_fatigue: Olfactory fatigue risk: dihydromyrcenol=5640 (limit 3000); hedione=9.3% of concentrate (<10% minimum for radiance)
+  WARN tenacity_projection: VP<0.001Pa = 0% (<3%, may lack depth)
+  WARN confidence_minimum: combined confidence 27.2; preflight science penalty 30.9
+
+
+## Headspace OAV — Opening (0s)
+
+| # | Material | OAV | Note | Percept | VP Pa | Vapor ppm | ODT ppm | Act g | MF% | Role |
+|---|--------|---|----|-------|-----|---------|-------|-----|---|----|
+|   1 | Bergamot FCF oil Sicilian    |    24454.7 | top   |      massive |   2.500 |  382.0677 |  0.015623 |  0.3400 | 10.10 | Bergamot FCF oil Sicilian     
+|   2 | Lemon FCF oil Sicilian       |     8479.0 | top   |  very strong | 210.000 |  173.0350 |  0.020407 |  0.0940 |  3.48 | Lemon FCF oil Sicilian        
+|   3 | Linalool                     |     8410.9 | top   |  very strong |  21.300 |   12.6163 |  0.001500 |  0.1620 |  5.30 | Linalool                      
+|   4 | Dihydromyrcenol              |     5639.7 | top   |  very strong |  17.000 |    5.6397 |  0.001000 |  0.1040 |  3.36 | Dihydromyrcenol               
+|   5 | Hexyl Acetate (10%)          |     5030.4 | top   |  very strong | 194.000 |   10.0608 |  0.002000 |  0.0100 |  0.35 | Hexyl Acetate                 
+|   6 | Iso E Super                  |     4126.5 | base  |  very strong |   0.150 |    0.2063 |  0.000050 |  0.6000 | 12.93 | Iso E Super                   
+|   7 | Hedione                      |     3902.5 | heart |  very strong |   0.210 |    0.1951 |  0.000050 |  0.4200 |  9.38 | Hedione                       
+|   8 | Linalyl Acetate              |     3226.6 | top   |  very strong |  17.500 |    8.7118 |  0.002700 |  0.1960 |  5.04 | Linalyl Acetate               
+|   9 | Black Pepper EO              |      783.4 | top   |       strong |   0.300 |   19.6250 |  0.025051 |  0.0100 |  0.25 | Black Pepper EO               
+|  10 | Alpha Isomethyl Ionone (Methyl Ionone Pure) |      471.2 | heart |       strong |   0.400 |    0.3770 |  0.000800 |  0.3000 |  7.35 | Alpha-Isomethyl Ionone        
+|  11 | Ginger EO                    |      367.6 | top   |       strong |  10.000 |    7.9046 |  0.021502 |  0.1000 |  3.71 | Ginger EO                     
+|  12 | Cedarwood oil Virginia       |      179.5 | base  |       strong |   0.005 |    1.3632 |  0.007592 |  0.4900 | 11.13 | Cedarwood oil Virginia        
+|  13 | Indian Vetiver EO            |       43.2 | heart |     moderate |   0.040 |    0.1257 |  0.002908 |  0.1782 |  4.05 |                               
+|  14 | Allyl Cyclohexyl Propionate (10% in DPG) |       22.2 | top   |     moderate |   5.000 |    0.1778 |  0.008000 |  0.0070 |  0.18 | Allyl Cyclohexyl Propionate   
+|  15 | Tonkarome (20% w/w in TEC)   |        9.3 | base  |  perceptible |   0.050 |    0.0046 |  0.000500 |  0.0496 |  1.57 | Tonkarome                     
+|  16 | Sandalore                    |        6.8 | base  |  perceptible |   0.080 |    0.0682 |  0.010000 |  0.2400 |  5.76 | Sandalore                     
+|  17 | Ethyl 2-Methylbutyrate (0.1%) |        6.4 | top   |  perceptible |   5.000 |    0.0004 |  0.000060 |  0.0000 |  0.00 | Ethyl 2-Methylbutyrate        
+|  18 | Ethylene Brassylate          |        4.3 | base  | at threshold |   0.008 |    0.0041 |  0.000970 |  0.3500 |  6.54 | Ethylene Brassylate           
+|  19 | Isobutavan                   |        3.2 | heart | at threshold |   0.030 |    0.0016 |  0.000500 |  0.0400 |  0.91 | Isobutavan                    
+|  20 | Vertofix                     |        1.1 | base  | at threshold |   0.011 |    0.0071 |  0.006300 |  0.3000 |  6.47 | Vertofix                      
+|  21 | Vanillin (10%)               |        0.2 | base  | sub-threshold |   0.200 |    0.0032 |  0.020000 |  0.0020 |  0.07 | Vanillin                      
+|  22 | Florol                       |        0.1 | heart | sub-threshold |   0.007 |    0.0011 |  0.010000 |  0.0500 |  1.64 | Florol                        
+|  23 | Amberwood F                  |        0.1 | base  | sub-threshold |   0.001 |    0.0001 |  0.001000 |  0.0200 |  0.43 | Amberwood F                   
+|  24 | 2-Acetyl Pyrazine (1% in DPG) |        0.0 | heart | sub-threshold |   9.480 |    0.0027 |  0.062000 |  0.0001 |  0.00 | 2-Acetyl Pyrazine             
+|  25 | Cinnamaldehyde (1%)          |        0.0 | heart | sub-threshold |   0.050 |    0.0000 |  0.062000 |  0.0001 |  0.00 | Cinnamaldehyde                
+
+**Materials:** 25 total (10 top, 7 heart, 8 base)
+**Total vapor:** 622.20 ppm
+
+### Note Distribution
+
+**TOP:** 10 mats, 25.4% active, 86.6% OAV
+  - Bergamot FCF oil Sicilian    OAV= 24454.7 (massive) VP=2.500Pa
+  - Lemon FCF oil Sicilian       OAV=  8479.0 (very strong) VP=210.000Pa
+  - Linalool                     OAV=  8410.9 (very strong) VP=21.300Pa
+  - Dihydromyrcenol              OAV=  5639.7 (very strong) VP=17.000Pa
+  - Hexyl Acetate (10%)          OAV=  5030.4 (very strong) VP=194.000Pa
+  - Linalyl Acetate              OAV=  3226.6 (very strong) VP=17.500Pa
+  ... and 4 more
+**HEART:** 7 mats, 24.2% active, 6.8% OAV
+  - Hedione                      OAV=  3902.5 (very strong) VP=0.210Pa
+  - Alpha Isomethyl Ionone (Methyl Ionone Pure) OAV=   471.2 (strong) VP=0.400Pa
+  - Indian Vetiver EO            OAV=    43.2 (moderate) VP=0.040Pa
+  - Isobutavan                   OAV=     3.2 (at threshold) VP=0.030Pa
+  - Florol                       OAV=     0.1 (sub-threshold) VP=0.007Pa
+  - 2-Acetyl Pyrazine (1% in DPG) OAV=     0.0 (sub-threshold) VP=9.480Pa
+  ... and 1 more
+**BASE:** 8 mats, 50.4% active, 6.6% OAV
+  - Iso E Super                  OAV=  4126.5 (very strong) VP=0.150Pa
+  - Cedarwood oil Virginia       OAV=   179.5 (strong) VP=0.005Pa
+  - Tonkarome (20% w/w in TEC)   OAV=     9.3 (perceptible) VP=0.050Pa
+  - Sandalore                    OAV=     6.8 (perceptible) VP=0.080Pa
+  - Ethylene Brassylate          OAV=     4.3 (at threshold) VP=0.008Pa
+  - Vertofix                     OAV=     1.1 (at threshold) VP=0.011Pa
+  ... and 2 more
+
+### Sub-threshold Materials (OAV < 1)
+5/25 materials below perceptible threshold
+  - Florol: OAV=0.11 VP=0.007Pa act=50uL role=Florol [Structural (acceptable)]
+  - Amberwood F: OAV=0.06 VP=0.001Pa act=20uL role=Amberwood F [Structural (acceptable)]
+  - 2-Acetyl Pyrazine (1% in DPG): OAV=0.04 VP=9.480Pa act=0uL role=2-Acetyl Pyrazine [Structural (acceptable)]
+  - Cinnamaldehyde (1%): OAV=0.00 VP=0.050Pa act=0uL role=Cinnamaldehyde [Structural (acceptable)]
+  - Vanillin (10%): OAV=0.16 VP=0.200Pa act=2uL role=Vanillin [Structural (acceptable)]
+### High-OAV Flags (>5000)
+  - Linalool OAV=8411 dominates headspace — may mask subtler notes
+  - Dihydromyrcenol OAV=5640 dominates headspace — may mask subtler notes
+  - Bergamot FCF oil Sicilian OAV=24455 dominates headspace — may mask subtler notes
+  - Lemon FCF oil Sicilian OAV=8479 dominates headspace — may mask subtler notes
+  - Hexyl Acetate (10%) OAV=5030 dominates headspace — may mask subtler notes
+
+### OAV by Odor Family
+
+           citrus  50.5% =========================  (2 mats)
+         aromatic  17.9% ========  (2 mats)
+            woody  15.3% =======  (5 mats)
+           fruity   7.8% ===  (3 mats)
+           floral   6.7% ===  (3 mats)
+            spice   1.8% =  (3 mats)
+                ?   0.1% =  (1 mats)
+         gourmand   0.0% =  (4 mats)
+             musk   0.0% =  (1 mats)
+            amber   0.0% =  (1 mats)
+
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Raw uL | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s | 86.6/6.8/ 6.6 | 622.20ppm |   4500 | Bergamot FCF(24455), Lemon FCF oi(8479), Linalool(8411)
+| top          |    300s | 84.6/7.8/ 7.6 | 470.69ppm |   4449 | Bergamot FCF(20127), Linalool(8416), Lemon FCF oi(5959)
+| heart        |   1800s | 77.2/11.5/11.3 | 143.86ppm |   4305 | Bergamot FCF(10149), Linalool(8207), Dihydromyrce(5619)
+| late_heart   |   7200s | 68.8/15.8/15.5 |  39.55ppm |   4136 | Linalool(6946), Bergamot FCF(5591), Dihydromyrce(5064)
+| drydown      |  14400s | 62.3/19.0/18.6 |  30.15ppm |   4005 | Linalool(5477), Iso E Super(4684), Hedione(4426)
+
+### Per-Window Detail
+
+**OPENING** (0.0s) — Evap:0%
+  T:86.6% H:6.8% B:6.6%  Vapor:622.20ppm
+  Leaders: Bergamot FCF oil Sicilian OAV 24455 | Lemon FCF oil Sicilian OAV 8479 | Linalool OAV 8411 | Dihydromyrcenol OAV 5640 | Hexyl Acetate (10%) OAV 5030
+
+**TOP** (300.0s) — Evap:1%
+  T:84.6% H:7.8% B:7.6%  Vapor:470.69ppm
+  Leaders: Bergamot FCF oil Sicilian OAV 20127 | Linalool OAV 8416 | Lemon FCF oil Sicilian OAV 5959 | Dihydromyrcenol OAV 5663 | Hexyl Acetate (10%) OAV 4403
+
+**HEART** (1800.0s) — Evap:4%
+  T:77.2% H:11.5% B:11.3%  Vapor:143.86ppm
+  Leaders: Bergamot FCF oil Sicilian OAV 10149 | Linalool OAV 8207 | Dihydromyrcenol OAV 5619 | Iso E Super OAV 4316 | Hedione OAV 4081
+
+**LATE_HEART** (7200.0s) — Evap:8%
+  T:68.8% H:15.8% B:15.5%  Vapor:39.55ppm
+  Leaders: Linalool OAV 6946 | Bergamot FCF oil Sicilian OAV 5591 | Dihydromyrcenol OAV 5064 | Iso E Super OAV 4500 | Hedione OAV 4253
+
+**DRYDOWN** (14400.0s) — Evap:11%
+  T:62.3% H:19.0% B:18.6%  Vapor:30.15ppm
+  Leaders: Linalool OAV 5477 | Iso E Super OAV 4684 | Hedione OAV 4426 | Dihydromyrcenol OAV 4341 | Bergamot FCF oil Sicilian OAV 3775
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Bergamot FCF oil Sicilian(massive) + Lemon FCF oil Sicilian(very strong) + Linalool(very strong)
+  Heart: Hedione(very strong) + Alpha Isomethyl Ionone (Methyl Ionone Pure)(strong)
+  Base: Iso E Super(very strong) + Cedarwood oil Virginia(strong) + Tonkarome (20% w/w in TEC)(perceptible) + Sandalore(perceptible) + Ethylene Brassylate(at threshold)
+
+### 2. Opening (0-5min)
+  Bergamot FCF oil Sicilian dominates at OAV 24455 (massive).
+  - Bergamot FCF oil Sicilian OAV=24455 VP=2.5Pa (citrus)
+  - Lemon FCF oil Sicilian OAV=8479 VP=210.0Pa (citrus)
+  - Linalool OAV=8411 VP=21.3Pa (aromatic)
+  - Dihydromyrcenol OAV=5640 VP=17.0Pa (woody)
+  Total vapor: 622.2 ppm
+
+### 3. Heart (30min-2hr)
+  Bergamot FCF oil Sicilian OAV=10149 (massive)
+  Linalool OAV=8207 (very strong)
+  Dihydromyrcenol OAV=5619 (very strong)
+  Iso E Super OAV=4316 (very strong)
+  T:77.2% H:11.5% B:11.3%
+  Vapor: 143.9 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Top leads modeled headspace at 62%
+  - Linalool OAV=5477
+  - Iso E Super OAV=4684
+  - Hedione OAV=4426
+  - Dihydromyrcenol OAV=4341
+  - Bergamot FCF oil Sicilian OAV=3775
+  - Linalyl Acetate OAV=2564
+  Vapor: 30.1 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Bergamot FCF oil Sicilian(24455) + Lemon FCF oil Sicilian(8479) + Linalool(8411) + Dihydromyrcenol(5640)
+  OAV by family: citrus51% aromatic18% woody15% fruity8%
+
+### 6. Longevity
+  Evaporation: 11% over 4h
+  Vapor: 622.2 > 30.1 ppm
+  Base @ drydown: 19%
+  Est. skin life: 9h moderate + 5h skin scent
+
+### 7. Balance
+  Pyramid: T:86.6% H:6.8% B:6.6%
+  OAV range: 0.00 to 24455 (sigma-log=2.09)
+  Wide contrast: citrus (OAV 24455) dominates opening before burning off to reveal base.
+  Thin heart (6.8%) — top-to-base architecture, authentic for vetiver.
+    massive: 1
+    sub-threshold: 5
+
+### 8. Flags
+  SUB: Vanillin (10%) OAV=0.16 role=Vanillin
+  SUB: Florol OAV=0.11 role=Florol
+  SUB: Amberwood F OAV=0.06 role=Amberwood F
+  SUB: 2-Acetyl Pyrazine (1% in DPG) OAV=0.04 role=2-Acetyl Pyrazine
+  SUB: Cinnamaldehyde (1%) OAV=0.00 role=Cinnamaldehyde
+
+
+## Structural OAV Analysis
+
+**Vapor:** 622 ppm  |  **Active:** 13.6%  |  **Perceptible:** 20/25
+
+### OAV Tiers
+  **massive** (8): Iso E Super(4127), Hedione(3903), Linalool(8411), Linalyl Acetate(3227), Dihydromyrcenol(5640), Bergamot FCF oil Sicilian(24455), Lemon FCF oil Sicilian(8479), Hexyl Acetate (10%)(5030)  ! fatigue risk, overload risk
+  **v.strong** (4): Cedarwood oil Virginia(180), Alpha Isomethyl Ionone (Methyl Ionone Pure)(471), Ginger EO(368), Black Pepper EO(783)
+  **moderate** (2): Indian Vetiver EO(43), Allyl Cyclohexyl Propionate (10% in DPG)(22)
+  **perceptible** (3): Sandalore(7), Tonkarome (20% w/w in TEC)(9), Ethyl 2-Methylbutyrate (0.1%)(6)
+  **threshold** (3): Ethylene Brassylate(4), Vertofix(1), Isobutavan(3)
+  **sub** (5): Florol(0), Amberwood F(0), 2-Acetyl Pyrazine (1% in DPG)(0), Cinnamaldehyde (1%)(0), Vanillin (10%)(0)
+
+### Block Balance
+  **Citrus**    32934 (79%)
+  **Floral**     4420 (11%)
+  **Base**       4328 (10%)
+  **Ratio:** 8:1 between strongest/weakest block — CITRUS DOMINANT
+
+### Issues
+  ! 5 sub-threshold material(s): Florol, Amberwood F, 2-Acetyl Pyrazine (1% in DPG), Cinnamaldehyde (1%), Vanillin (10%)
+  ! Missing 'strong' tier (OAV 50-100)
+  ! Citrus dominates at 79% of total OAV
+  ! 8 massive-OAV materials — sensory overload likely
+```

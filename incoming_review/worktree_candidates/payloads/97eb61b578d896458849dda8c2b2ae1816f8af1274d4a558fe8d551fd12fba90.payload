@@ -1,0 +1,174 @@
+"""Shared inventory parsing utilities.
+
+Normalizes `inventory.txt` into consistent material records so the pipeline
+does not maintain conflicting parsers and counts across modules. Duplicate
+canonical materials are collapsed conservatively by keeping the highest
+available dilution entry.
+"""
+
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass
+from pathlib import Path
+
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+INVENTORY_PATH = PROJECT_ROOT / "inventory.txt"
+
+_HEADING_RE = re.compile(r"^---\s+(.+?)\s+---$")
+_BULLET_RE = re.compile(r"^[-•]\s+(.+?)\s*$")
+_PERCENT_RE = re.compile(r"\((\d+(?:\.\d+)?)\s*%(?:[^)]*)\)")
+
+_SOLVENT_CATEGORY_TOKENS = ("solvent", "carrier")
+_SOLVENT_MATERIALS = {
+    "ethanol 96%",
+    "dipropylene glycol",
+    "dpg",
+    "isopropyl myristate",
+    "ipm",
+    "triethyl citrate",
+    "tec",
+    "diethyl phthalate",
+    "dep",
+}
+
+
+@dataclass(frozen=True)
+class InventoryMaterial:
+    name: str
+    dilution: float
+    category: str
+    raw_name: str
+    status: str
+
+
+def _parse_dilution(raw_name: str) -> float:
+    match = _PERCENT_RE.search(raw_name)
+    if not match:
+        return 1.0
+    return float(match.group(1)) / 100.0
+
+
+def _parse_status(raw_name: str) -> str:
+    upper = raw_name.upper()
+    if "DEPLETED" in upper:
+        return "depleted"
+    if "OUT OF STOCK" in upper:
+        return "out_of_stock"
+    if "RAN OUT" in upper:
+        return "ran_out"
+    if "DON'T HAVE" in upper or "DONT HAVE" in upper:
+        return "not_owned"
+    return "owned"
+
+
+def _strip_status(raw_name: str) -> str:
+    return re.sub(r"\s*\[[^\]]+\]\s*$", "", raw_name).strip()
+
+
+def _canonical_name(raw_name: str) -> str:
+    clean = _strip_status(raw_name)
+    # Remove trailing `# comment` before stripping parenthetical
+    clean = re.sub(r"\s*#.*$", "", clean).strip()
+    return re.sub(r"\s*\([^)]*\)\s*$", "", clean).strip()
+
+
+def _is_solvent(record: InventoryMaterial) -> bool:
+    category = record.category.lower()
+    if any(token in category for token in _SOLVENT_CATEGORY_TOKENS):
+        return True
+    return record.name.lower() in _SOLVENT_MATERIALS
+
+
+def parse_inventory(
+    path: Path | None = None,
+    *,
+    unique: bool = True,
+    include_solvents: bool = True,
+    include_unavailable: bool = True,
+) -> list[InventoryMaterial]:
+    """Parse inventory.txt into normalized material records.
+
+    When `unique=True`, duplicate canonical materials are collapsed by keeping
+    the highest-available dilution entry.
+    """
+    path = path or INVENTORY_PATH
+    if not path.exists():
+        return []
+
+    materials: list[InventoryMaterial] = []
+    current_category = ""
+
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+
+        heading_match = _HEADING_RE.match(line)
+        if heading_match:
+            current_category = heading_match.group(1).strip().lower()
+            continue
+
+        bullet_match = _BULLET_RE.match(line)
+        if not bullet_match:
+            continue
+
+        raw_name = bullet_match.group(1).strip()
+        record = InventoryMaterial(
+            name=_canonical_name(raw_name),
+            dilution=_parse_dilution(raw_name),
+            category=current_category,
+            raw_name=raw_name,
+            status=_parse_status(raw_name),
+        )
+        if not include_unavailable and record.status != "owned":
+            continue
+        if not include_solvents and _is_solvent(record):
+            continue
+        materials.append(record)
+
+    if not unique:
+        return materials
+
+    deduped: dict[str, InventoryMaterial] = {}
+    for record in materials:
+        key = record.name.lower()
+        existing = deduped.get(key)
+        if existing is None or record.dilution > existing.dilution:
+            deduped[key] = record
+
+    return list(deduped.values())
+
+
+def inventory_names(
+    path: Path | None = None,
+    *,
+    unique: bool = True,
+    include_solvents: bool = True,
+    include_unavailable: bool = True,
+) -> list[str]:
+    return [
+        record.name
+        for record in parse_inventory(
+            path,
+            unique=unique,
+            include_solvents=include_solvents,
+            include_unavailable=include_unavailable,
+        )
+    ]
+
+
+def inventory_counts(path: Path | None = None) -> dict[str, int]:
+    """Return raw and normalized inventory counts for reporting."""
+    path = path or INVENTORY_PATH
+    raw = parse_inventory(path, unique=False, include_solvents=True)
+    unique_all = parse_inventory(path, unique=True, include_solvents=True)
+    unique_fragrance = parse_inventory(path, unique=True, include_solvents=False)
+    return {
+        "raw_entries": len(raw),
+        "unique_normalized": len(unique_all),
+        "unique_fragrance": len(unique_fragrance),
+        "solvent_or_carrier": len(unique_all) - len(unique_fragrance),
+        "duplicate_canonical_entries": len(raw) - len(unique_all),
+    }

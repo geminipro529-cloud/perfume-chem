@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,1.0
+identity_system_probability,1.0
+oav_probability,1.0
+temporal_probability,1.0
+dominance_failure_probability,0.04069999999999996
+overall_probability,0.9593
+dose_closure_probability,0.9975
+temporal_q05,0.9407627657885658
+temporal_median,0.9801473825664042
+max_share_q95,0.6869146460694614
+marker_coverage_q05,0.8571428571428571
+phase_sum_q05,"{""top"": 9.780575894543606, ""heart"": 6.952397556956267, ""base"": 26.043722949439267}"
+release_shape_median,"[0.17125185639075918, 0.37671621705999514, 0.3170516374044393, 0.11367876818372866]"
+phase_shape_median,"[0.23419684175828312, 0.3730812988785124, 0.3926986200887429]"
+marker_probabilities,"{""Cardamom EO | top"": 0.9999, ""Coriander EO | top"": 1.0, ""Lavender EO High Altitude | heart"": 1.0, ""Helional 10% | heart"": 0.8321, ""Habanolide | base"": 1.0, ""Romandolide | base"": 1.0, ""Sandalore | base"": 0.995}"
+marker_quantiles,"{""Cardamom EO | top"": [3.88064235557802, 10.558193932362268, 29.014275962561285], ""Coriander EO | top"": [4.008039222290336, 10.68619567463487, 29.462459679536796], ""Lavender EO High Altitude | heart"": [5.6519642064605184, 15.518072710409976, 42.593083177216535], ""Helional 10% | heart"": [0.6548156084076576, 1.852944392143594, 5.292638863195555], ""Habanolide | base"": [14.412784429857377, 39.68174368550377, 109.99465993228424], ""Romandolide | base"": [3.6034828045278577, 9.96751338622408, 27.932879143578766], ""Sandalore | base"": [1.743634116098779, 4.9560044399439604, 14.02023273379361]}"
+classification,ROBUST

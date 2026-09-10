@@ -1,0 +1,50 @@
+# Complex Perfumery collection delta V18 — 2026-08-17
+
+## Outcome
+
+Two exact post-V17 outer packages are now represented by append-only, authority-false quarantine receipts:
+
+1. `ACCORD_INTEL_DARK_DARK-SCR-03_IBQ_SUEDERAL_CANONICAL_v1_20260817.zip` — 41,483 bytes — SHA-256 `eb291f96fdf6e0ec8805d1f7d82f74e92ee5fa3ca6439a00c19f7e4cc15ef769`.
+2. `Floral_Complexity_Expansion_10_Hedonic_Formula_Portfolio_Aug2026_v1_Package.zip` — 361,894 bytes — SHA-256 `1654f03ad0b55fa310a46e6e0ed11a0f9070ab9c94037e726380389f177a35e6`.
+
+The defensible exact-outer lower bound increases from 51 to 53. The denominator remains incomplete because the project chat estate is dynamic, and the four existing exact-byte holds remain unresolved.
+
+## Floral package integrity and quarantine
+
+- The exact archive was deterministically materialized from 118 source-provided base64 blocks; all block lengths and source-declared hashes were checked, the 482,528-byte full stream hashes to `abb6f264f34aea6737591d08c443186644e3fc2729bf7271acfd0ab35b4d8d93`, and the decoded archive matches the expected outer hash.
+- 13 ZIP members; all streams passed CRC replay; paths are safe and have no case-fold duplicates.
+- Embedded `SHA256SUMS.txt`: 6/6 primary payload records replay exactly. The six adjacent `.sha256` sidecars are companion integrity files, not extra ledger claims.
+- Embedded workbook: 241,911 bytes, SHA-256 `ac4598ddd9d2130137ec57761d834059405094fb6e4c2ff05093a5dc451c1d64`; 17 sheets, 2,760 formula cells, zero stored formula-error cells.
+- Native graph: `GRAPH_COMPLETE_QUARANTINED`, two terminal nodes, one edge, maximum depth one, no graph-level findings, promotion false.
+- The root retains `NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT` for the workbook and `PARTIAL_MEMBER_SCAN` for the 1.09 MB JSON. The workbook child scans `CLEAR_FOR_RECEIPT_REVIEW`; that does not promote the root.
+- Strict package verification remains `VERIFIED_QUARANTINED`, integrity verified, promotion false.
+
+## What the floral package proves
+
+It proves exact possession of one internally coherent computational formula and hedonic-design package:
+
+- 10 formula candidates, 670 current rows, 680 target rows, and 31 preparation rows.
+- Every current and target formula totals 1,000 parts arithmetically.
+- The target set has ten `MISSING` inventory rows; source package stock labels are not native execution authority.
+- 90 meaningful-complexity gates are PASS, 10 CONDITIONAL, 30 NOT_RUN, and 20 HOLD.
+- 90 modular-appropriateness gates are PASS, 10 CONDITIONAL, and 10 HOLD.
+- The source truth boundary says hedonic design hypothesis only, physical compounding not performed, and liking, stability, safety, measured headspace, and strict OAV not tested.
+
+The package names a Floral Heart discovery workbook and Complexity Expansion Engine v2.0, but it does not hash-bind either source. Their names are preserved as unresolved pointers, not inferred parent edges. Only the exact Inventory V5 workbook hash is retained as a pointer-only declared ancestry edge; live native V5 stock and preparation state controls.
+
+## Native fit
+
+No migration, schema, truth store, pipeline script, formula import, stock mutation, or experiment execution is justified. Existing native target/build separation, exact-stock and preparation receipts, Laboratory Beta, C0 sensory contracts, B1 provenance, C10/P3 proposal boundaries, headspace/OAV, safety, and release gates remain controlling.
+
+## DeepLuna and acceptance
+
+Fresh exact-project health was READY before the bounded `cheapluna-chat / DIRECT_PRO / NO_LUNA` submission. Job `DS-9a8b67976562fc20b91b7f29ed5beac6` terminated `CONTRACT_ERROR / UNRESOLVED` and produced no accepted evidence. It was not retried, and no Fast, Luna, Codex, or alternate fallback was used. Sol-local exact-byte, ledger, graph, strict-receipt, and regression replay controls acceptance.
+
+## Residual exact-byte holds
+
+- Universal Accord package SHA-256 `8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998`.
+- Canonical cutover package SHA-256 `e9e325bea9117dbe2a97ff67e77d57705a54244591278fac7a34915a7f0ae523`.
+- P6 ZIP SHA-256 `8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db`.
+- P6 wheel SHA-256 `582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5`.
+
+No reconstruction or substitution is permitted. Collection, global implementation, package installation, source admission, formula, inventory, stock, physical, sensory, analytical, headspace, OAV, safety, procurement, publication, and release authority remain false.

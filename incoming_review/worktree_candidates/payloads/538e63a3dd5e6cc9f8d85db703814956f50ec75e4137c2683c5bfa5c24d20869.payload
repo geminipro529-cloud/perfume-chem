@@ -1,0 +1,21 @@
+{
+  "state": "HOLD",
+  "formula_artifact_state": "PASS_EXACT_DECIMAL_SUCCESSOR",
+  "arithmetic_state": "PASS_9_OF_9",
+  "formula_hash_closure_state": "PASS_9_OF_9",
+  "stock_lineage_state": "HOLD_63_ROWS",
+  "runtime_hardening_state": "NOT_DEPLOYED",
+  "missing_exact_byte_dependency_count": 4,
+  "release_blocked": true,
+  "reasons": [
+    "63 stock/preparation/lot/strength/species/procurement holds remain open.",
+    "V20 candidate runtime hardening is diagnosed but not deployed; the prior compact worker result failed citation/evidence acceptance.",
+    "4 exact-byte dependencies remain unavailable.",
+    "No physical batch, sensory result, measured headspace, strict empirical OAV, safety clearance, installation, publication, or release authority exists."
+  ],
+  "required_next_closures": [
+    "Close operation-scoped stock/preparation/lot/strength/species evidence using exact bottle and PreparationReceipt/ExactStockRef records.",
+    "Deploy only an evidence-accepted V20 hardening implementation under perfume-chem-cheapluna-isolated / cheapluna-chat / DIRECT_PRO / NO_LUNA.",
+    "Run repository-native quick verification against this successor without admitting quarantined packages."
+  ]
+}

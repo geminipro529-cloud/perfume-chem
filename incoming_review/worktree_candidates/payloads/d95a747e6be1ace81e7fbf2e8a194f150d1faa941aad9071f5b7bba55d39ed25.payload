@@ -1,0 +1,204 @@
+# SUKHUM 35 S35-F2 — Numbered-Basket Mixing Protocol v2
+
+**Protocol version:** `S35-F2-BASKET-v2`, 2026-08-31  
+**Supersedes:** `S35-F2_Functional_Basket_Mixing_Protocol_v1.md` for ordering only  
+**Source formula:** `S35-F2_Realistic_Fruit_Minimum_Arm_30mL_EdP.md`  
+**Source formula SHA-256:** `A859FF050ACAB5FD0CA1E3E098F32F31C7DBF470C739FA50BAF70F725C32956B`  
+**Inventory authority:** `inventory.txt` SHA-256 `EB33C04236A4640413BA5289125F04CFA278BD0614EB9BD12EA1CC4D88379967`  
+**Scope:** `ORDERING_ONLY / DOSE_IDENTICAL / NOT_AUTHORIZED_FOR_COMPOUNDING`  
+**Direct Benzyl Salicylate:** **0 µL**  
+**Formula lock:** 24 product-stock rows; 5,400 µL concentrate; 24,600 µL ethanol 96%; 30,000 µL nominal finished product
+
+## Corrected Basket Rule
+
+Use the user's numbered physical baskets as the addition sequence. Start with **Basket 1**, proceed through **Basket 17** in ascending numerical order, and skip a basket only when it contains no S35-F2 material. Within every populated basket, transfer materials from highest to lowest raw µL. Equal-volume rows retain the stated order.
+
+The numbered basket is both the retrieval group and the addition group. There is no independent A/B/C layer order. `NO PREMIX`: add every stock sequentially into the single main vessel, record each transfer, and close the source bottle. Shared basket membership does not establish chemical compatibility and does not authorize reacting, heating, or prediluting materials together.
+
+This correction changes order only. It does not change any material, stock identity, dilution, raw volume, active-dose proxy, embedded-carrier proxy, concentrate total, ethanol volume, or finished-volume geometry. If either authority hash changes, this protocol becomes stale rather than silently rebasing itself.
+
+## Phase 0 — Stock and Authority Preconditions
+
+**No new working-stock preparation is required for S35-F2.** Every direct transfer is at least 10 µL. The local mixing scanner finds no crystalline formula row and no `must-prebond` pair in this exact 24-material multiset; that is an ordering diagnostic, not proof of compatibility, safety, or stability.
+
+- **HEXYL ACETATE CARRIER IDENTITY: HOLD.** Preserve the exact `10%; carrier unspecified` stock and 10 µL transfer. Do not call an R1/F2 physical comparison carrier matched until the carrier is identified and matched in the control.
+- Preserve Ambrox Super as `~33% w/v in DEP:EtOH 53:47`. The 198.000 active-µL and 402.000 carrier-µL entries remain source-formula volume proxies, not strict w/w measurements.
+- Preserve Cassis Base 345B as its exact opaque product stock. Do not infer constituent fractions, strict composite OAV, or safety.
+- Do not add Ambrofix, Benzyl Salicylate, Juniper Berry EO, Petitgrain EO Paraguay, or any optional material.
+- If a stock is visibly nonuniform, mislabeled, or cannot be positively identified, stop. Do not heat, dilute, filter, decant, substitute, or compensate under this protocol.
+
+No physical compounding is authorized by this protocol.
+
+## Numbered Basket Additions
+
+The running total is the cumulative product-stock concentrate volume. Stirring, swirling, rest time, and physical handling are not authorized or validated by this document; the table records only the corrected sequence and immutable transfer geometry.
+
+### Basket 1 — Always Used
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Active µL | Carrier µL | Running µL |
+|---|---|---|---|---:|---:|---:|---:|
+| B01-01 | BASKET 1 — ALWAYS USED | Iso E Super | neat | 1050 | 1050.000 | 0.000 | 1050 |
+| B01-02 | BASKET 1 — ALWAYS USED | Hedione | neat | 950 | 950.000 | 0.000 | 2000 |
+| B01-03 | BASKET 1 — ALWAYS USED | Ambrox Super | ~33% w/v in DEP:EtOH 53:47 | 600 | 198.000* | 402.000* | 2600 |
+| B01-04 | BASKET 1 — ALWAYS USED | Vetival | neat | 100 | 100.000 | 0.000 | 2700 |
+| B01-05 | BASKET 1 — ALWAYS USED | Patchouli EO | neat | 60 | 60.000 | 0.000 | 2760 |
+
+**Basket 1 subtotal:** 2,760 µL. **Cumulative:** 2,760 µL.
+
+### Basket 2 — Vetivers
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Active µL | Carrier µL | Running µL |
+|---|---|---|---|---:|---:|---:|---:|
+| B02-01 | BASKET 2 — VETIVERS | Indian Vetiver EO | neat | 120 | 120.000 | 0.000 | 2880 |
+
+**Basket 2 subtotal:** 120 µL. **Cumulative:** 2,880 µL.
+
+### Basket 3 — Woods
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Active µL | Carrier µL | Running µL |
+|---|---|---|---|---:|---:|---:|---:|
+| B03-01 | BASKET 3 — WOODS | Cedarwood oil Virginia | neat | 260 | 260.000 | 0.000 | 3140 |
+| B03-02 | BASKET 3 — WOODS | Clearwood | neat | 170 | 170.000 | 0.000 | 3310 |
+
+**Basket 3 subtotal:** 430 µL. **Cumulative:** 3,310 µL.
+
+### Basket 4 — Wood Modifiers and Ambers
+
+Cade is assigned here as the formula's wood-smoke modifier because the established numbered taxonomy has no separate smoke basket. This is a protocol grouping, not proof of its actual shelf position; if your physical placement differs, retrieve it from its real location but add it at Basket 4.
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Active µL | Carrier µL | Running µL |
+|---|---|---|---|---:|---:|---:|---:|
+| B04-01 | BASKET 4 — WOOD MODIFIERS AND AMBERS | Cade Oil Rectified | 1% in DPG | 10 | 0.100 | 9.900 | 3320 |
+
+**Basket 4 subtotal:** 10 µL. **Cumulative:** 3,320 µL.
+
+### Basket 5 — Wood-Vetivers
+
+No S35-F2 material. Skip without changing the cumulative 3,320 µL.
+
+### Basket 6 — Musks
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Active µL | Carrier µL | Running µL |
+|---|---|---|---|---:|---:|---:|---:|
+| B06-01 | BASKET 6 — MUSKS | Romandolide | neat | 250 | 250.000 | 0.000 | 3570 |
+
+**Basket 6 subtotal:** 250 µL. **Cumulative:** 3,570 µL.
+
+### Basket 7 — Muguet and Lavender
+
+No S35-F2 material. Skip without changing the cumulative 3,570 µL.
+
+### Basket 8 — Jasmine, Indole, and Magnolia
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Active µL | Carrier µL | Running µL |
+|---|---|---|---|---:|---:|---:|---:|
+| B08-01 | BASKET 8 — JASMINE, INDOLE, AND MAGNOLIA | Dihydrojasmone | neat | 60 | 60.000 | 0.000 | 3630 |
+
+**Basket 8 subtotal:** 60 µL. **Cumulative:** 3,630 µL.
+
+### Basket 9 — Ylang, Orange Flower, and Narcotics
+
+No S35-F2 material. Skip without changing the cumulative 3,630 µL.
+
+### Basket 10 — Rose
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Active µL | Carrier µL | Running µL |
+|---|---|---|---|---:|---:|---:|---:|
+| B10-01 | BASKET 10 — ROSE | Damascone Beta | 10% | 30 | 3.000 | 27.000 | 3660 |
+| B10-02 | BASKET 10 — ROSE | Damascenone | 1% | 20 | 0.200 | 19.800 | 3680 |
+
+**Basket 10 subtotal:** 50 µL. **Cumulative:** 3,680 µL.
+
+### Basket 11 — Iris and Orris
+
+No S35-F2 material. Skip without changing the cumulative 3,680 µL.
+
+### Basket 12 — Edible Smells
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Active µL | Carrier µL | Running µL |
+|---|---|---|---|---:|---:|---:|---:|
+| B12-01 | BASKET 12 — EDIBLE SMELLS | Siam Benzoin | 50% in DPG | 30 | 15.000 | 15.000 | 3710 |
+
+**Basket 12 subtotal:** 30 µL. **Cumulative:** 3,710 µL.
+
+### Basket 13 — Edible Spices
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Active µL | Carrier µL | Running µL |
+|---|---|---|---|---:|---:|---:|---:|
+| B13-01 | BASKET 13 — EDIBLE SPICES | Black Pepper EO | neat | 10 | 10.000 | 0.000 | 3720 |
+
+**Basket 13 subtotal:** 10 µL. **Cumulative:** 3,720 µL.
+
+### Basket 14 — My Favorite Smells
+
+No S35-F2 material. Skip without changing the cumulative 3,720 µL.
+
+### Basket 15 — Fruits
+
+Basket 15 is the final non-empty basket. Add its rows high-to-low by raw µL; the two 10 µL rows retain Cassis before the more volatile Hexyl stock.
+
+| Step | Addition basket | Material | Exact stock identity | Raw µL | Active µL | Carrier µL | Running µL |
+|---|---|---|---|---:|---:|---:|---:|
+| B15-01 | BASKET 15 — FRUITS | Allyl Cyclohexyl Propionate | 10% in DPG | 790 | 79.000 | 711.000 | 4510 |
+| B15-02 | BASKET 15 — FRUITS | Allyl Amyl Glycolate | 10% | 250 | 25.000 | 225.000 | 4760 |
+| B15-03 | BASKET 15 — FRUITS | Red Mandarin EO | neat | 240 | 240.000 | 0.000 | 5000 |
+| B15-04 | BASKET 15 — FRUITS | Paradisamide | 10% | 160 | 16.000 | 144.000 | 5160 |
+| B15-05 | BASKET 15 — FRUITS | Grapefruit FCF oil Sicilian | neat | 120 | 120.000 | 0.000 | 5280 |
+| B15-06 | BASKET 15 — FRUITS | Methyl Pamplemousse | 10% in TEC | 80 | 8.000 | 72.000 | 5360 |
+| B15-07 | BASKET 15 — FRUITS | Ethyl 2-Methylbutyrate | 0.1% | 20 | 0.020 | 19.980 | 5380 |
+| B15-08 | BASKET 15 — FRUITS | Cassis Base 345B | product stock | 10 | 10.000 | 0.000 | 5390 |
+| B15-09 | BASKET 15 — FRUITS | Hexyl Acetate | 10%; carrier unspecified | 10 | 1.000 | 9.000* | 5400 |
+
+**Basket 15 subtotal:** 1,680 µL. **Cumulative:** 5,400 µL.
+
+### Basket 16 — Aldehydes
+
+No S35-F2 material. Skip without changing the cumulative 5,400 µL.
+
+### Basket 17 — Green Smelling Things
+
+No S35-F2 material. Skip without changing the cumulative 5,400 µL.
+
+After checking empty Baskets 16 and 17, the only planned addition is the separate ethanol carrier stage. Do not reopen the concentrate to add an omitted odorant or numerically compensate a discrepancy.
+
+## Basket and Cumulative Arithmetic
+
+| ID | Numbered basket | Basket subtotal µL | Cumulative concentrate µL |
+|---|---|---:|---:|
+| BASKET-01 | Always Used | 2760 | 2760 |
+| BASKET-02 | Vetivers | 120 | 2880 |
+| BASKET-03 | Woods | 430 | 3310 |
+| BASKET-04 | Wood Modifiers and Ambers | 10 | 3320 |
+| BASKET-05 | Wood-Vetivers | 0 | 3320 |
+| BASKET-06 | Musks | 250 | 3570 |
+| BASKET-07 | Muguet and Lavender | 0 | 3570 |
+| BASKET-08 | Jasmine, Indole, and Magnolia | 60 | 3630 |
+| BASKET-09 | Ylang, Orange Flower, and Narcotics | 0 | 3630 |
+| BASKET-10 | Rose | 50 | 3680 |
+| BASKET-11 | Iris and Orris | 0 | 3680 |
+| BASKET-12 | Edible Smells | 30 | 3710 |
+| BASKET-13 | Edible Spices | 10 | 3720 |
+| BASKET-14 | My Favorite Smells | 0 | 3720 |
+| BASKET-15 | Fruits | 1680 | 5400 |
+| BASKET-16 | Aldehydes | 0 | 5400 |
+| BASKET-17 | Green Smelling Things | 0 | 5400 |
+
+- Raw product-stock total: `2,760 + 120 + 430 + 10 + 0 + 250 + 0 + 60 + 0 + 50 + 0 + 30 + 10 + 0 + 1,680 + 0 + 0 = 5,400 µL`.
+- Nominal active-dose geometry remains `3,745.320 µL-equivalent`.
+- Embedded carrier/proxy geometry remains `1,654.680 µL`.
+- Identity check: `3,745.320 + 1,654.680 = 5,400.000 µL`.
+- Direct stock floor: minimum raw transfer 10 µL.
+- Material multiplicity: 24 source rows and 24 numbered-basket rows, each exactly once.
+- Benzyl Salicylate: zero source rows, zero protocol rows, direct dose 0 µL.
+
+Active and carrier numbers retain every source limit: Ambrox is a w/v proxy, Hexyl carrier identity is unknown, Cassis is opaque, and strict ppm w/w requires measured concentrate mass and stock-density authority.
+
+## Separate Carrier Stage
+
+Only after Basket 1 through Basket 17 have been processed and the exact 5,400 µL concentrate total has been accounted for does the frozen formula geometry call for **24,600 µL ethanol 96%**, reaching **30,000 µL** nominal finished product. Ethanol is a technical carrier stage, not Basket 18. Do not add extra DEP, DPG, TEC, IPM, or ethanol to compensate for embedded stock carriers.
+
+This records unchanged geometry only. No physical compounding is authorized by this protocol. Physical liking, realism, performance, safety, stability, packaging compatibility, and release remain `NOT TESTED` or `HOLD`.
+
+## Controlled Test Boundary
+
+If physical work is separately authorized after the Hexyl carrier and supplier/safety preconditions are resolved, this numbered order applies only to S35-F2. The first comparison remains S35-R1 versus S35-F2 with independent preparations, AB/BA order, constant total, and complete 0, 5, 30, 120, 240, and 480 minute trajectories. This protocol does not authorize that experiment and does not establish a hedonic winner.

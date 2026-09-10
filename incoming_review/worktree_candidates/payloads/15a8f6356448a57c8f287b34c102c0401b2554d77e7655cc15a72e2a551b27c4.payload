@@ -1,0 +1,166 @@
+# Complex Perfumery Native-Fit and Install Plan v3
+
+Generated: 2026-08-11T15:13:45.5493461Z
+
+Current decision: **the recovery and implementation plan is ready for approval, but installation is not authorized and P6 cannot be implemented without its exact parent bytes.**
+
+## Outcome
+
+The recovered estate now contains 28 exact outer candidates. The newest tranche adds eight exact ZIPs from Tunnel, Data Parsing, Aroma/V5, Universal Complexity, and Floral work. Their outer sizes and SHA-256 values, archive paths, CRC streams, embedded ledgers, and native archive graphs were replayed locally and independently. All graph nodes are terminal, graph findings are zero, and promotion remains false.
+
+Those eight high-yield containers also preserve 14 of the 22 identities that were previously listed only as optional standalone cards. The standalone duplicates were intentionally not copied: their exact bytes, sizes, hashes, embedded paths, and ChatGPT source-card locators are already bound by the controlling parent ledgers. Eight optional targets remain unrecovered from the current source surfaces.
+
+The P6 Physics/OAV 3.4 package and wheel remain separate installation-critical blockers. Their controlling ChatGPT/File Library source explicitly reports both binary streams unavailable. No reconstruction or substitution is permitted.
+
+Terminal state:
+
+`IMPLEMENTATION_PLAN_READY; COLLECTION_PARTIAL_28_EXACT_OUTER; P6_EXPLICIT_UNAVAILABLE_PARENT_BYTES; 8_OPTIONAL_TARGETS_REMAIN; INSTALLATION_NOT_AUTHORIZED`
+
+## Immutable parent
+
+This document does not rewrite the v2 handoff.
+
+- Parent successor: `output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V2_20260811.json`
+- Parent bytes: 21,359
+- Parent SHA-256: `63be0077ab12e3d0870f2e683201f123113e17c8d70faf15774f527e496d01ee`
+- Parent plan: `output/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V2_20260811.md`
+- Parent plan SHA-256: `4ccb39add8fef0660228c2650dd9ca818f4f7d8e8449d4adcc3fd7b894a3521c`
+
+## New exact-byte tranche
+
+Capture manifest:
+
+- Path: `incoming_review/chatgpt/20260811T145000Z-live-card-recovery-multi-chat/capture_manifest.json`
+- Bytes: 8,875
+- SHA-256: `cd1268c2170e09f08201a9c49b1b5a21624f40f9165aa9dbd371e7bd9daef082`
+- Authority: `SOURCE_CAPTURE`
+- Admission: `QUARANTINED_NOT_ADMITTED`
+
+| Outer package | Bytes | SHA-256 | Integrity | Native state |
+|---|---:|---|---|---|
+| Tunnel Courier v1.0.1 | 227,619 | `19674416...59145` | 39/39 ledger, CRC/path clean | Quarantined; credential-signature review |
+| Tunnel Courier v1.0.0 | 200,627 | `8e593656...183b2f` | 36/36 ledger, CRC/path clean | Quarantined; credential-signature review |
+| Data Progress local handoff | 301,543 | `1ac667b6...f7b4e1` | 9/9 ledger, CRC/path clean | Quarantined; nested child receipts required |
+| Data Progress refresh dispatch | 314,495 | `8a0ca735...483f9` | 7/7 ledger, CRC/path clean | Quarantined; nested child receipts required |
+| Complexity Endpoint research package | 123,957 | `6945a0bb...b1ed0` | 7/7 ledger, CRC/path clean | Quarantined; XLSX child receipt required |
+| Inventory V5 reconciliation package | 74,027 | `d2ba0ed7...12ae7` | 4/4 manifest, CRC/path clean | Quarantined; XLSX child receipt required |
+| Universal Complexity Support System | 983,937 | `fce8e561...af88c` | 53/53 ledger, CRC/path clean | Quarantined; nested and bounded-scan holds |
+| Floral Heart packet | 1,693,860 | `e6a08349...e19aa` | 19/19 packet map, CRC/path clean | Quarantined; nested and bounded-scan holds |
+
+The manifest records exact ChatGPT conversation, turn, and content-reference locators for every package and embedded companion object.
+
+## Deduplication decision
+
+The following classes are `EMBEDDED_EXACT_BYTES_RECOVERED`, even though duplicate standalone cards were not downloaded:
+
+- Data Parsing command, endpoint registries, 12-arm plan, endpoint workbook, Markdown, and source ledger.
+- Aroma/V5 workbook, report, packet, CSV, and manifest.
+- Universal Complexity workbook, registry, release record, validation, manifest, and all other non-ledger members.
+- Floral PACKET, RECEIPT, handoff manifest, earlier package, earlier workbook, and the full 19-artifact content set.
+
+This is byte-preserving deduplication, not omission. A future receipt must retain the parent package hash, embedded path, child size/hash, and source-card locator.
+
+## Remaining exact-byte queue
+
+Eight optional targets remain unrecovered from current source surfaces:
+
+1. Full-chain wrapper `16eb6805414c1a96f30609e7dc9eed5377f522f9872e2017222b23635a73f530`.
+2. DHP initial wrapper `ec27bcd4dd1b9a3e54d4de49ace3293d91af868ba6c6005a581b1646d3905dcd`.
+3. DHP exact-V5 wrapper `7e38c19a83b25de1edbc190f568b5725655d5e60dca63dec951e8f7c01a98efc`.
+4. Perfume Box Workflow wrapper `db0579760159e7438b83e92de399aa0a9f5862f0f547fa030a682c339bd54e84`.
+5. Universal Accord package `8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998`, explicitly unavailable at 539,050 bytes.
+6. PCV3 experimental-data package `db638ab82c7e1a798297a9f4376014b9f51965511ae1d65132e57b4d12c9c9eb`, explicitly unavailable at 32,196 bytes; live ledger cards did not materialize locally.
+7. Opus readable integrated export `965b02beba5faec32dcbe8d5d97aa3df8cb47fe43fc3c1cf040e4fd3b03ff5e2`, expected 40,713 bytes.
+8. `PACK_METADATA.json` `d051505ea9144716fb860c5ff74e92b2bed2b33e419c830460cc60278b94f869`, expected 14,116 bytes.
+
+Repeated browser/download failures produced no new local bytes. Recovery stopped fail-closed; nothing was regenerated or substituted.
+
+## P6 installation-critical hold
+
+Required exact parents:
+
+- `Perfume_Chem_Physics_OAV_Decision_Model_v3_4_0_CALIBRATION_READY.zip`, 540,402 bytes, SHA-256 `8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db`.
+- `perfume_chem_physics_oav_v3-3.4.0-py3-none-any.whl`, 65,724 bytes, SHA-256 `582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5`.
+
+The exact File Library handoff object is `file_000000006bb08211ad5f17af2d4310b9`. It exposes handoff metadata but not the binary streams. Source classification is `EXPLICIT_UNAVAILABLE_PARENT_BYTES`. No v1.3 package, manifest reconstruction, or chat-prose recreation may substitute for either object.
+
+## Native compatibility decisions
+
+| Recovered lane | Native fit | Decision |
+|---|---|---|
+| Tunnel Courier | Existing tunnel and Chat Bridge infrastructure | Reference and field-level security review only; do not install wholesale; credential-shaped content stays held |
+| Data Parsing handoff/refresh | B1 provenance, P2.2 dependency mapping, C10/P3/C0 experiments | Preserve source and planning ancestry; do not install scripts, stores, or a second experiment model |
+| Endpoint registry and 12-arm plan | P2.2 plus C10/P3/C0 | Authority-false candidate designs only; no formula, stock, bottle, or observation truth |
+| Aroma V5 reconciliation | Current V5 and sealed P0a inventory authority delta | Do not duplicate or promote the package patch; current native stock/product-basis state controls |
+| Universal Complexity | Target/build knowledge, C10/P3/C0 | Preserve modules, roles, and experiment templates as design ancestry; no physical, hedonic, strict-OAV, or release authority |
+| Floral packet | Target/build, V5 identity, C10/P3/C0 | Preserve candidate design and lineage; no parallel schema, CLI, API, or formula truth |
+| Opus V packages | Target/build/V5/C10/P3/C0/C3/C8 | Field-level diff only; preserve conflicting lineages; select no canonical formula |
+| P6 Physics/OAV | C3/C8 | No implementation until both exact parents are recovered and mapped |
+
+Default architecture decision: **no migration, no new truth store, and no new pipeline script.**
+
+## Information-preserving intake contract
+
+For each recovered field or artifact:
+
+1. Bind source conversation, turn, card locator, outer hash, embedded path, child size/hash, and parent-child relationship.
+2. Preserve the package bytes unchanged in quarantine.
+3. Map to an existing native field or record an explicit no-fit state.
+4. Record transform name/version/config hash, `DEPENDS_ON`, `INVARIANT_UNDER`, and invalidation scope.
+5. Keep authority false before and after mapping.
+6. Prove deterministic round-trip preservation.
+
+Reject attempts to import package `physically_authorized` flags, float-only active lineage, proxy OAV, template rows as observations, inferred commercial formula truth, hedonic design scores, or package stock labels as ExactStockRef/PreparationReceipt authority.
+
+## Approval-gated installation sequence
+
+### I0 - Freeze and rollback
+
+Recheck branch, HEAD, index tree, staged paths, and status. Create a fresh path-preserving PAX archive immediately before the first repository mutation. Materialize it into a short Windows long-path-safe restore root and replay every regular-file hash. Do not start mutation until restoration verification passes.
+
+### I1 - Quarantine receipts
+
+Reuse existing canonical receipts by exact SHA. Create at most one new authority-false receipt per new outer hash. Record external locator, size, SHA, root/member counts, embedded ledgers, graph state, child holds, source locators, and all blockers. Retain promotion false.
+
+### I2 - Field matrix and ancestry projections
+
+Add the eight recovered parents and their embedded identities to the existing P2.2 field/native matrix. Preserve dependency semantics. Create only immutable project-design ancestry and typed authority-false candidate projections.
+
+### I3 - Narrow native changes only if a real gap is proven
+
+Expected result is no schema migration. Extend an existing adapter or read-only projection only when the field matrix and round-trip test prove information loss. P6 remains excluded until exact parents exist.
+
+### I4 - Verification
+
+Run focused receipt/scanner tests, field mapping and round-trip tests, C10/P3/C0/Laboratory Beta integration tests, V5 stock/product-basis negative tests, and the quick project verifier. Run full release verification only for a later release claim.
+
+Required negatives: unknown stock strength, stale parent hashes, package stock-label promotion, template-row import, missing expected-cell coverage, product-basis active-fraction inference, proxy-OAV promotion, credential leakage, and any authority-bit flip.
+
+### I5 - Acceptance receipt
+
+Seal exact inputs, local changes, tests, rollback archive, final hashes, and remaining holds. Implementation completion does not create formula, inventory, stock, bottle, physical, sensory, OAV, safety, procurement, publication, or release authority.
+
+## DeepLuna Chat state
+
+The active route remains exact project `perfume-chem-cheapluna-isolated`, profile `cheapluna-chat`, route `DIRECT_PRO`. The fresh local check returned `Transport closed`, so no provider transmission, retry, Fast route, alternate provider, or fallback was used for this seal. Sol accepted only locally replayed evidence.
+
+## Verification and repository fence
+
+- Capture manifest: strict JSON, 8,875 bytes, SHA-256 `cd1268c2170e09f08201a9c49b1b5a21624f40f9165aa9dbd371e7bd9daef082`.
+- Eight package sizes and SHA-256 values replay exact.
+- All ZIP streams are CRC-clean; unsafe paths and casefold duplicates are zero.
+- All controlling embedded ledgers replay exact.
+- All native graph nodes are terminal; graph findings and promotion count are zero.
+- Branch: `codex/add-inventory-materials`.
+- HEAD: `c876ab128845c2e055251fdce4fb1c3f5d661045`.
+- Index tree: `b4dcfb3932f5156f9397fee876199001fff66611`.
+- Staged paths: 0.
+- Current dirty tree is preserved: 134 tracked status rows, 208 collapsed rows, 857 expanded rows, 723 untracked files.
+
+No code, formula, inventory source, database, canonical receipt, staged index, commit, release, or physical state was changed by this successor seal.
+
+## Approval boundary
+
+Approval would authorize I0 through I4 for the recovered non-P6 scopes only. It would not authorize package admission merely because bytes exist, any formula or inventory mutation from package claims, procurement, physical compounding, database promotion of template rows, migration `0017` without a demonstrated fit failure, or publication/release.
+
+P6 remains on hold until exact bytes are recovered. The eight optional targets remain collection obligations, not permission to reconstruct them.

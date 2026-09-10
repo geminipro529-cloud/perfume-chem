@@ -1,0 +1,773 @@
+import hashlib
+import json
+
+from scripts import pipeline_audit
+
+
+def _matched_benchmark_protocol():
+    return {
+        "protocol_id": "TEST-PROTOCOL",
+        "engineering_benchmark": {
+            "benchmark_id": "TEST-BENCHMARK",
+            "arms": [
+                {
+                    "arm_id": "A_XHIGH_ALONE",
+                    "required": True,
+                    "model": "gpt-5.6-sol",
+                    "reasoning_effort": "xhigh",
+                },
+                {
+                    "arm_id": "B_XHIGH_CURRENT_PROGRAM",
+                    "required": True,
+                    "model": "gpt-5.6-sol",
+                    "reasoning_effort": "xhigh",
+                },
+                {
+                    "arm_id": "C_XHIGH_UPGRADED_PROGRAM",
+                    "required": True,
+                    "model": "gpt-5.6-sol",
+                    "reasoning_effort": "xhigh",
+                },
+                {
+                    "arm_id": "D_ULTRA_UPGRADED_PROGRAM_OPTIONAL",
+                    "required": False,
+                    "model": "gpt-5.6-sol",
+                    "reasoning_effort": "ultra",
+                },
+            ],
+            "pilot": {
+                "briefs": ["ysl_lhomme"],
+                "independent_runs_per_brief_per_arm": 1,
+            },
+            "causal_contrast_pairs": [
+                {
+                    "contrast_id": "program_vs_alone",
+                    "baseline_arm_id": "A_XHIGH_ALONE",
+                    "candidate_arm_id": "C_XHIGH_UPGRADED_PROGRAM",
+                },
+                {
+                    "contrast_id": "program_vs_current",
+                    "baseline_arm_id": "B_XHIGH_CURRENT_PROGRAM",
+                    "candidate_arm_id": "C_XHIGH_UPGRADED_PROGRAM",
+                },
+                {
+                    "contrast_id": "model_lift_optional",
+                    "baseline_arm_id": "C_XHIGH_UPGRADED_PROGRAM",
+                    "candidate_arm_id": "D_ULTRA_UPGRADED_PROGRAM_OPTIONAL",
+                    "optional": True,
+                },
+            ],
+            "metrics": {
+                "engineering": [
+                    "wall_clock_seconds",
+                    "time_to_first_executable_formula_seconds",
+                    "model_or_provider_cost",
+                ],
+                "discovery": ["identity_retaining_target_linked_axes"],
+                "sensory": ["identity_retaining_paired_preference"],
+            },
+            "receipt_contract": {
+                "schema": "perfume-chem.matched-benchmark-receipts.v1",
+                "required_fields": [
+                    "arm_id",
+                    "brief_id",
+                    "run_id",
+                    "formula_sha256",
+                    "prompt_contract_sha256",
+                    "inventory_sha256",
+                    "stock_basis_sha256",
+                    "evaluation_pipeline_sha256",
+                    "concentrate_ul",
+                    "temperature_K",
+                    "time_budget_seconds",
+                    "output_schema",
+                    "metrics",
+                ],
+                "matched_fields": [
+                    "prompt_contract_sha256",
+                    "inventory_sha256",
+                    "stock_basis_sha256",
+                    "evaluation_pipeline_sha256",
+                    "concentrate_ul",
+                    "temperature_K",
+                    "time_budget_seconds",
+                    "output_schema",
+                ],
+                "positive_fields": [
+                    "concentrate_ul",
+                    "temperature_K",
+                    "time_budget_seconds",
+                ],
+                "metric_directions": {
+                    "wall_clock_seconds": "lower",
+                    "time_to_first_executable_formula_seconds": "lower",
+                    "model_or_provider_cost": "lower",
+                    "identity_retaining_target_linked_axes": "higher",
+                },
+                "metric_units": {
+                    "wall_clock_seconds": "seconds",
+                    "time_to_first_executable_formula_seconds": "seconds",
+                    "model_or_provider_cost": "usd",
+                    "identity_retaining_target_linked_axes": "count",
+                },
+            },
+        },
+        "replication": {"minimum_true_replicates_for_advancement": 2},
+    }
+
+
+def _benchmark_receipt(arm_id, *, wall_clock, first_formula, cost):
+    return {
+        "arm_id": arm_id,
+        "brief_id": "ysl_lhomme",
+        "run_id": "run-1",
+        "formula_sha256": hashlib.sha256(
+            f"formula-{arm_id}".encode("utf-8")
+        ).hexdigest(),
+        "model": "gpt-5.6-sol",
+        "reasoning_effort": (
+            "ultra" if arm_id == "D_ULTRA_UPGRADED_PROGRAM_OPTIONAL" else "xhigh"
+        ),
+        "prompt_contract_sha256": "1" * 64,
+        "inventory_sha256": "2" * 64,
+        "stock_basis_sha256": "3" * 64,
+        "evaluation_pipeline_sha256": "4" * 64,
+        "concentrate_ul": 4500.0,
+        "temperature_K": 305.0,
+        "time_budget_seconds": 600.0,
+        "output_schema": "formula-v1",
+        "metrics": {
+            "wall_clock_seconds": wall_clock,
+            "time_to_first_executable_formula_seconds": first_formula,
+            "model_or_provider_cost": cost,
+            "identity_retaining_target_linked_axes": 3,
+        },
+    }
+
+
+def _complete_benchmark_bundle():
+    return {
+        "schema": "perfume-chem.matched-benchmark-receipts.v1",
+        "benchmark_id": "TEST-BENCHMARK",
+        "receipts": [
+            _benchmark_receipt(
+                "A_XHIGH_ALONE", wall_clock=10.0, first_formula=8.0, cost=3.0
+            ),
+            _benchmark_receipt(
+                "B_XHIGH_CURRENT_PROGRAM",
+                wall_clock=8.0,
+                first_formula=6.0,
+                cost=2.0,
+            ),
+            _benchmark_receipt(
+                "C_XHIGH_UPGRADED_PROGRAM",
+                wall_clock=4.0,
+                first_formula=3.0,
+                cost=1.0,
+            ),
+        ],
+        "observations": [],
+        "realism_observations": [],
+    }
+
+
+def test_matching_formula_paths_excludes_scratch_by_default(tmp_path, monkeypatch):
+    formulas_dir = tmp_path / "formulas"
+    formulas_dir.mkdir()
+    shipped = formulas_dir / "White_Suede.md"
+    scratch = formulas_dir / "_temp_check.md"
+    shipped.write_text("# shipped\n", encoding="utf-8")
+    scratch.write_text("# scratch\n", encoding="utf-8")
+
+    monkeypatch.setattr(pipeline_audit, "PROJECT_ROOT", tmp_path)
+
+    selected = pipeline_audit._matching_formula_paths("formulas/*.md")
+
+    assert [path.name for path in selected] == ["White_Suede.md"]
+
+
+def test_pipeline_audit_verify_json_runs_for_small_sample(capsys):
+    rc = pipeline_audit.main(["verify", "--glob", "formulas/complete/*.md", "--sample-limit", "1", "--json", "--no-audit"])
+    captured = capsys.readouterr().out
+    assert rc == 0
+    assert "evidence_posture" in captured
+    assert "schema_validation" in captured
+    assert "literature_rule_contract" in captured
+    assert "knowledge_rule_quality" in captured
+    assert "data_authority_coverage" in captured
+    assert "disconnected_module_status" in captured
+
+
+def test_staged_scan_skips_full_gate_after_static_failure(
+    tmp_path, monkeypatch, capsys
+):
+    formulas_dir = tmp_path / "formulas"
+    formulas_dir.mkdir()
+    formula_path = formulas_dir / "tiny.md"
+    formula_path.write_text("# Tiny\n", encoding="utf-8")
+    inventory_path = tmp_path / "inventory.txt"
+    inventory_path.write_text(
+        "--- WOODS ---\n- Iso E Super\n- Vertofix\n",
+        encoding="utf-8",
+    )
+    formula = {
+        "number": 1,
+        "name": "Tiny",
+        "inventory_path": str(inventory_path),
+        "ingredients_ul": {"Iso E Super": 92.0, "Vertofix": 8.0},
+        "dilutions": {"Iso E Super": 1.0, "Vertofix": 1.0},
+        "concentrate_ml": 0.1,
+    }
+    monkeypatch.setattr(pipeline_audit, "PROJECT_ROOT", tmp_path)
+    monkeypatch.setattr(
+        pipeline_audit, "parse_formula_markdown", lambda _path: [formula]
+    )
+
+    def full_gate_must_not_run(*_args, **_kwargs):
+        raise AssertionError("full release gate ran after static failure")
+
+    monkeypatch.setattr(pipeline_audit, "gate_formula", full_gate_must_not_run)
+
+    rc = pipeline_audit.main(
+        [
+            "scan-formulas",
+            "--glob",
+            "formulas/*.md",
+            "--stage",
+            "staged",
+            "--no-cache",
+            "--no-audit",
+            "--json",
+        ]
+    )
+    payload = json.loads(capsys.readouterr().out)
+
+    assert rc == 0
+    row = payload["results"][0]["formulas"][0]
+    assert row["status"] == "FAIL"
+    assert row["execution"] == "SKIPPED_STATIC_PREFLIGHT_FAIL"
+    assert row["failed_gates"] == ["pipette_floor"]
+    assert row["timing_ms"]["static_preflight"] >= 0.0
+    assert row["timing_ms"]["full_gate"] == 0.0
+
+
+def test_scan_cache_ignores_generated_analysis_but_invalidates_formula_definition(
+    tmp_path, monkeypatch, capsys
+):
+    formulas_dir = tmp_path / "formulas"
+    formulas_dir.mkdir()
+    formula_path = formulas_dir / "cached.md"
+    formula_path.write_text("formula-v1\n", encoding="utf-8")
+    inventory_path = tmp_path / "inventory.txt"
+    inventory_path.write_text("--- WOODS ---\n- Iso E Super\n", encoding="utf-8")
+    formula = {
+        "number": 1,
+        "name": "Cached",
+        "inventory_path": str(inventory_path),
+        "ingredients_ul": {"Iso E Super": 100.0},
+        "dilutions": {"Iso E Super": 1.0},
+        "concentrate_ml": 0.1,
+    }
+    monkeypatch.setattr(pipeline_audit, "PROJECT_ROOT", tmp_path)
+    monkeypatch.setattr(
+        pipeline_audit, "parse_formula_markdown", lambda _path: [formula]
+    )
+    cache_dir = tmp_path / "cache"
+    argv = [
+        "scan-formulas",
+        "--glob",
+        "formulas/*.md",
+        "--stage",
+        "static",
+        "--cache-dir",
+        str(cache_dir),
+        "--no-audit",
+        "--json",
+    ]
+
+    assert pipeline_audit.main(argv) == 0
+    first = json.loads(capsys.readouterr().out)
+    assert first["batch_summary"]["cache_misses"] == 1
+
+    assert pipeline_audit.main(argv) == 0
+    second = json.loads(capsys.readouterr().out)
+    assert second["batch_summary"]["cache_hits"] == 1
+    assert second["results"][0]["formulas"][0]["cache"]["status"] == "HIT"
+
+    alternate_argv = argv[:-1] + ["--expected-concentrate-ul", "200", "--json"]
+    assert pipeline_audit.main(alternate_argv) == 0
+    alternate = json.loads(capsys.readouterr().out)
+    assert alternate["batch_summary"]["cache_misses"] == 1
+
+    assert pipeline_audit.main(argv) == 0
+    original_again = json.loads(capsys.readouterr().out)
+    assert original_again["batch_summary"]["cache_hits"] == 1
+
+    formula_path.write_text(
+        "formula-v1\n## Pipeline Analysis\ngenerated diagnostics\n",
+        encoding="utf-8",
+    )
+    assert pipeline_audit.main(argv) == 0
+    analysis_only = json.loads(capsys.readouterr().out)
+    assert analysis_only["batch_summary"]["cache_hits"] == 1
+
+    formula["ingredients_ul"]["Iso E Super"] = 90.0
+    assert pipeline_audit.main(argv) == 0
+    changed_definition = json.loads(capsys.readouterr().out)
+    row = changed_definition["results"][0]["formulas"][0]
+    assert changed_definition["batch_summary"]["cache_misses"] == 1
+    assert row["cache"]["status"] == "MISS"
+    assert row["cache"]["invalidation_reasons"] == [
+        "formula_definition_sha256"
+    ]
+
+
+def test_cache_metadata_hashes_inventory_file_bound_by_overlay(tmp_path, monkeypatch):
+    formulas_dir = tmp_path / "formulas" / "rendered"
+    formulas_dir.mkdir(parents=True)
+    formula_path = formulas_dir / "bound.md"
+    formula_path.write_text("formula\n", encoding="utf-8")
+    default_inventory = tmp_path / "inventory.txt"
+    default_inventory.write_text("--- WOODS ---\n- Vertofix\n", encoding="utf-8")
+    bound_inventory = tmp_path / "authoritative-inventory.txt"
+    bound_inventory.write_text("--- WOODS ---\n- Iso E Super\n", encoding="utf-8")
+    evidence_dir = tmp_path / "formulas" / "evidence"
+    evidence_dir.mkdir()
+    overlay_path = evidence_dir / "overlay.json"
+    overlay_path.write_text(
+        json.dumps(
+            {
+                "schema": "perfume-chem.inventory-overlay.v1",
+                "frozen_inventory": {"path": str(bound_inventory)},
+                "overrides": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+    formula = {"inventory_overlay": "../evidence/overlay.json"}
+    monkeypatch.setattr(pipeline_audit, "PROJECT_ROOT", tmp_path)
+
+    before = pipeline_audit._scan_cache_metadata(
+        formula_path=formula_path,
+        formula=formula,
+        pipeline_source_sha256="pipeline",
+        config={"stage": "static"},
+    )
+    bound_inventory.write_text(
+        "--- WOODS ---\n- Iso E Super\n- Vertofix\n", encoding="utf-8"
+    )
+    after = pipeline_audit._scan_cache_metadata(
+        formula_path=formula_path,
+        formula=formula,
+        pipeline_source_sha256="pipeline",
+        config={"stage": "static"},
+    )
+
+    assert before["inventory_sha256"] != after["inventory_sha256"]
+
+
+def test_matched_benchmark_holds_when_required_cells_are_missing():
+    report = pipeline_audit._evaluate_matched_benchmark(
+        _matched_benchmark_protocol(),
+        {
+            "schema": "perfume-chem.matched-benchmark-receipts.v1",
+            "benchmark_id": "TEST-BENCHMARK",
+            "receipts": [],
+        },
+    )
+
+    assert report["status"] == "HOLD_MISSING_RECEIPTS"
+    assert report["coverage"] == {
+        "expected_required_cells": 3,
+        "received_required_cells": 0,
+        "missing_required_cells": [
+            "A_XHIGH_ALONE|ysl_lhomme|1",
+            "B_XHIGH_CURRENT_PROGRAM|ysl_lhomme|1",
+            "C_XHIGH_UPGRADED_PROGRAM|ysl_lhomme|1",
+        ],
+    }
+    assert report["decisions"]["faster"]["status"] == "HOLD_MISSING_RECEIPTS"
+    assert report["claim_ceiling"]["sensory_superiority"] == "NOT_TESTED"
+
+
+def test_matched_benchmark_rejects_duplicates_and_control_mismatches():
+    bundle = _complete_benchmark_bundle()
+    bundle["receipts"].append(dict(bundle["receipts"][0]))
+    bundle["receipts"][2]["inventory_sha256"] = "different-inventory"
+
+    report = pipeline_audit._evaluate_matched_benchmark(
+        _matched_benchmark_protocol(), bundle
+    )
+    issue_codes = {row["code"] for row in report["issues"]}
+
+    assert report["status"] == "INVALID_RECEIPTS"
+    assert "DUPLICATED_CANONICAL_CELL" in issue_codes
+    assert "MATCHED_CONTROL_MISMATCH" in issue_codes
+
+
+def test_matched_benchmark_verifies_formula_artifact_hashes(tmp_path):
+    protocol = _matched_benchmark_protocol()
+    protocol["engineering_benchmark"]["receipt_contract"][
+        "required_fields"
+    ].append("formula_path")
+    bundle = _complete_benchmark_bundle()
+    for row in bundle["receipts"]:
+        path = tmp_path / f"{row['arm_id']}.md"
+        path.write_text(row["arm_id"], encoding="utf-8")
+        row["formula_path"] = path.name
+        row["formula_sha256"] = hashlib.sha256(path.read_bytes()).hexdigest()
+    bundle["receipts"][2]["formula_sha256"] = "0" * 64
+
+    report = pipeline_audit._evaluate_matched_benchmark(
+        protocol, bundle, artifact_root=tmp_path
+    )
+
+    assert report["status"] == "INVALID_RECEIPTS"
+    assert [
+        row["code"] for row in report["issues"] if row["code"].startswith("FORMULA_")
+    ] == ["FORMULA_HASH_MISMATCH"]
+
+
+def test_matched_benchmark_rejects_wrong_model_or_reasoning_effort():
+    bundle = _complete_benchmark_bundle()
+    bundle["receipts"][2]["reasoning_effort"] = "ultra"
+
+    report = pipeline_audit._evaluate_matched_benchmark(
+        _matched_benchmark_protocol(), bundle
+    )
+
+    assert report["status"] == "INVALID_RECEIPTS"
+    assert [
+        row for row in report["issues"] if row["code"] == "ARM_EXECUTION_MISMATCH"
+    ] == [
+        {
+            "code": "ARM_EXECUTION_MISMATCH",
+            "receipt_index": 2,
+            "arm_id": "C_XHIGH_UPGRADED_PROGRAM",
+            "field": "reasoning_effort",
+            "expected": "xhigh",
+            "observed": "ultra",
+        }
+    ]
+
+
+def test_matched_benchmark_rejects_empty_hashes_and_nonnumeric_metrics():
+    bundle = _complete_benchmark_bundle()
+    bundle["receipts"][0]["prompt_contract_sha256"] = ""
+    bundle["receipts"][1]["metrics"]["wall_clock_seconds"] = "eight"
+
+    report = pipeline_audit._evaluate_matched_benchmark(
+        _matched_benchmark_protocol(), bundle
+    )
+    codes = {row["code"] for row in report["issues"]}
+
+    assert report["status"] == "INVALID_RECEIPTS"
+    assert "INVALID_SHA256" in codes
+    assert "INVALID_BENCHMARK_METRIC" in codes
+
+
+def test_matched_benchmark_rejects_negative_time_or_cost():
+    bundle = _complete_benchmark_bundle()
+    bundle["receipts"][0]["metrics"]["wall_clock_seconds"] = -1.0
+
+    report = pipeline_audit._evaluate_matched_benchmark(
+        _matched_benchmark_protocol(), bundle
+    )
+
+    assert report["status"] == "INVALID_RECEIPTS"
+    assert [
+        row for row in report["issues"] if row["code"] == "OUT_OF_RANGE_BENCHMARK_METRIC"
+    ] == [
+        {
+            "code": "OUT_OF_RANGE_BENCHMARK_METRIC",
+            "receipt_index": 0,
+            "metric": "wall_clock_seconds",
+            "unit": "seconds",
+            "observed": -1.0,
+        }
+    ]
+
+
+def test_matched_benchmark_rejects_nonpositive_matched_controls():
+    bundle = _complete_benchmark_bundle()
+    for row in bundle["receipts"]:
+        row["temperature_K"] = 0.0
+
+    report = pipeline_audit._evaluate_matched_benchmark(
+        _matched_benchmark_protocol(), bundle
+    )
+
+    assert report["status"] == "INVALID_RECEIPTS"
+    assert [
+        row for row in report["issues"] if row["code"] == "INVALID_CONTROL_VALUE"
+    ] == [
+        {
+            "code": "INVALID_CONTROL_VALUE",
+            "receipt_index": index,
+            "field": "temperature_K",
+            "observed": 0.0,
+        }
+        for index in range(3)
+    ]
+
+
+def test_matched_benchmark_reports_paired_speed_without_claiming_sensory_win():
+    report = pipeline_audit._evaluate_matched_benchmark(
+        _matched_benchmark_protocol(), _complete_benchmark_bundle()
+    )
+
+    contrast = report["engineering"]["contrasts"]["program_vs_alone"]
+    assert report["status"] == "ENGINEERING_COMPLETE_SENSORY_HOLD"
+    assert contrast["paired_cell_count"] == 1
+    assert contrast["metrics"]["wall_clock_seconds"] == {
+        "baseline_median": 10.0,
+        "candidate_median": 4.0,
+        "paired_median_delta": -6.0,
+        "direction": "candidate_better",
+    }
+    assert report["decisions"]["faster"] == {
+        "status": "HOLD_IDENTITY_EVIDENCE",
+        "reason": (
+            "Timing and cost are directionally measurable, but the protocol requires "
+            "identity retention before a faster-system conclusion."
+        ),
+    }
+    assert report["sensory"]["status"] == "NOT_TESTED"
+    assert report["claim_ceiling"]["physical_liking"] == "NOT_TESTED"
+
+
+def test_matched_benchmark_report_binds_protocol_and_receipt_payloads():
+    protocol = _matched_benchmark_protocol()
+    original = _complete_benchmark_bundle()
+    changed = _complete_benchmark_bundle()
+    changed["receipts"][0]["formula_sha256"] = "a" * 64
+
+    first = pipeline_audit._evaluate_matched_benchmark(protocol, original)
+    second = pipeline_audit._evaluate_matched_benchmark(protocol, changed)
+
+    assert len(first["input_bindings"]["protocol_sha256"]) == 64
+    assert len(first["input_bindings"]["receipt_bundle_sha256"]) == 64
+    assert first["input_bindings"]["protocol_sha256"] == second["input_bindings"][
+        "protocol_sha256"
+    ]
+    assert first["input_bindings"]["receipt_bundle_sha256"] != second[
+        "input_bindings"
+    ]["receipt_bundle_sha256"]
+
+
+def test_matched_benchmark_preserves_ties_without_imputing_effectiveness():
+    bundle = _complete_benchmark_bundle()
+    bundle["observations"] = [
+        {
+            "arm_id": "C_XHIGH_UPGRADED_PROGRAM",
+            "brief_id": "ysl_lhomme",
+            "run_id": "run-1",
+            "anonymous_code": "Q7M",
+            "assessor_id": "assessor-1",
+            "session_id": "session-1",
+            "replicate_batch_id": "batch-1",
+            "time_cell": "30_min",
+            "blinded": True,
+            "decoded_after_lock": True,
+            "identity_retained": True,
+            "paired_preference_or_no_preference": "NO_PREFERENCE",
+            "missing_reason": "",
+            "protocol_deviation": "",
+        }
+    ]
+
+    report = pipeline_audit._evaluate_matched_benchmark(
+        _matched_benchmark_protocol(), bundle
+    )
+
+    assert report["sensory"]["tie_count"] == 1
+    assert report["sensory"]["missing_count"] == 0
+    assert report["decisions"]["more_effective"]["status"] == (
+        "HOLD_INSUFFICIENT_BLINDED_OBSERVATIONS"
+    )
+
+
+def test_realism_learning_does_not_generalize_one_unblinded_formula():
+    bundle = _complete_benchmark_bundle()
+    bundle["realism_observations"] = [
+        {
+            "formula_id": "LH-04",
+            "formula_sha256": "apple-pie-hash",
+            "assessor_id": "user-1",
+            "session_id": "session-1",
+            "replicate_batch_id": "batch-1",
+            "time_cell": "30_min",
+            "physical_observation": True,
+            "blinded": False,
+            "identity_retained": None,
+            "accord_id": "apple_pie",
+            "realism_verdict": "recognizable_but_schematic",
+            "defect_flags": ["accord_realism"],
+            "missing_reason": "",
+            "protocol_deviation": "",
+        }
+    ]
+
+    report = pipeline_audit._evaluate_matched_benchmark(
+        _matched_benchmark_protocol(), bundle
+    )
+
+    assert report["realism_learning"]["status"] == (
+        "OBSERVED_SINGLE_FORMULA_ONLY"
+    )
+    assert report["realism_learning"]["eligible_for_rule_review"] is False
+    assert report["realism_learning"]["cross_formula_generalization"] == "FORBIDDEN"
+    assert report["realism_learning"]["auto_mutation_allowed"] is False
+
+
+def test_realism_learning_requires_repeated_blinded_identity_retaining_evidence():
+    bundle = _complete_benchmark_bundle()
+    bundle["realism_observations"] = [
+        {
+            "formula_id": formula_id,
+            "formula_sha256": f"hash-{formula_id}",
+            "assessor_id": "assessor-1",
+            "session_id": f"session-{idx}",
+            "replicate_batch_id": f"batch-{idx}",
+            "time_cell": "30_min",
+            "physical_observation": True,
+            "blinded": True,
+            "identity_retained": True,
+            "accord_id": "named_accord",
+            "realism_verdict": "recognizable_but_schematic",
+            "defect_flags": ["disconnected_accord"],
+            "missing_reason": "",
+            "protocol_deviation": "",
+        }
+        for idx, formula_id in enumerate(("LH-04", "LH-NEW"), start=1)
+    ]
+
+    report = pipeline_audit._evaluate_matched_benchmark(
+        _matched_benchmark_protocol(), bundle
+    )
+
+    assert report["realism_learning"]["status"] == "ELIGIBLE_FOR_RULE_REVIEW"
+    assert report["realism_learning"]["review_candidates"] == [
+        {
+            "defect_flag": "disconnected_accord",
+            "distinct_formulas": 2,
+            "independent_batches": 2,
+        }
+    ]
+    assert report["realism_learning"]["auto_mutation_allowed"] is False
+
+
+def _realism_trial(*, material="Damascenone", predicted_oav=12.28, authority="GOVERNED_MODELED"):
+    return {
+        "trial_id": "AP-T1",
+        "formula_id": "LH-04",
+        "accord_id": "apple_pie",
+        "facet_id": "cooked_apple_transition",
+        "control_arm_id": "AP-C0",
+        "candidate_arm_id": "AP-T1",
+        "baseline_total_ul": 4500.0,
+        "candidate_total_ul": 4500.0,
+        "changed_variables": ["cooked_transition_intervention"],
+        "carrier_matrix_matched": True,
+        "identity_measure_planned": True,
+        "intervention": {
+            "material": material,
+            "stock_dilution_fraction": 0.01,
+            "direct_stock_ul": 10.0,
+            "stock_basis_verified": True,
+            "role_requires_perceptibility": True,
+            "predicted_oav": predicted_oav,
+            "oav_authority": authority,
+        },
+    }
+
+
+def test_realism_trial_readiness_rejects_dormant_character_intervention():
+    bundle = _complete_benchmark_bundle()
+    bundle["realism_trials"] = [
+        _realism_trial(material="Gamma Decalactone", predicted_oav=0.002)
+    ]
+
+    report = pipeline_audit._evaluate_matched_benchmark(
+        _matched_benchmark_protocol(), bundle
+    )
+
+    readiness = report["realism_learning"]["trial_readiness"]
+    assert readiness["status"] == "REJECT_NONINFORMATIVE"
+    assert readiness["ready_count"] == 0
+    assert readiness["noninformative_trials_blocked"] == 1
+    assert readiness["issues"] == [
+        {
+            "code": "INTERVENTION_BELOW_PERCEPTIBILITY",
+            "trial_id": "AP-T1",
+            "material": "Gamma Decalactone",
+            "predicted_oav": 0.002,
+            "minimum_oav": 1.0,
+        }
+    ]
+
+
+def test_realism_trial_readiness_accepts_constant_total_measurable_perceptible_arm():
+    bundle = _complete_benchmark_bundle()
+    bundle["realism_trials"] = [_realism_trial()]
+
+    report = pipeline_audit._evaluate_matched_benchmark(
+        _matched_benchmark_protocol(), bundle
+    )
+
+    readiness = report["realism_learning"]["trial_readiness"]
+    assert readiness["status"] == "READY_FOR_BLINDED_TRIAL"
+    assert readiness["ready_count"] == 1
+    assert readiness["issues"] == []
+    assert report["decisions"]["realism_trial_efficiency"]["status"] == (
+        "READY_FOR_BLINDED_TRIAL"
+    )
+
+
+def test_realism_trial_readiness_holds_partial_oav_and_invalid_isolation():
+    bundle = _complete_benchmark_bundle()
+    trial = _realism_trial(
+        material="Grapefruit FCF oil Sicilian",
+        predicted_oav=13750.0,
+        authority="SENSITIVITY_PROXY_ONLY",
+    )
+    trial["candidate_total_ul"] = 4510.0
+    trial["changed_variables"] = ["citrus_material", "citrus_dose"]
+    bundle["realism_trials"] = [trial]
+
+    report = pipeline_audit._evaluate_matched_benchmark(
+        _matched_benchmark_protocol(), bundle
+    )
+
+    readiness = report["realism_learning"]["trial_readiness"]
+    assert readiness["status"] == "INVALID_TRIAL_CONTRACT"
+    assert {row["code"] for row in readiness["issues"]} == {
+        "CONSTANT_TOTAL_MISMATCH",
+        "MULTI_AXIS_TRIAL",
+        "STRICT_OAV_UNAVAILABLE",
+    }
+    assert readiness["ready_count"] == 0
+
+
+def test_compare_benchmark_cli_executes_receipt_bundle(tmp_path, capsys):
+    protocol_path = tmp_path / "protocol.json"
+    receipts_path = tmp_path / "receipts.json"
+    protocol_path.write_text(
+        json.dumps(_matched_benchmark_protocol()), encoding="utf-8"
+    )
+    receipts_path.write_text(json.dumps(_complete_benchmark_bundle()), encoding="utf-8")
+
+    rc = pipeline_audit.main(
+        [
+            "compare-benchmark",
+            "--protocol",
+            str(protocol_path),
+            "--receipts",
+            str(receipts_path),
+            "--json",
+        ]
+    )
+    report = json.loads(capsys.readouterr().out)
+
+    assert rc == 0
+    assert report["status"] == "ENGINEERING_COMPLETE_SENSORY_HOLD"

@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,1.0
+identity_system_probability,1.0
+oav_probability,1.0
+temporal_probability,1.0
+dominance_failure_probability,0.0007000000000000339
+overall_probability,0.9993
+dose_closure_probability,0.9954
+temporal_q05,0.9613223238165332
+temporal_median,0.9850942633694496
+max_share_q95,0.5332879048255205
+marker_coverage_q05,0.8333333333333334
+phase_sum_q05,"{""top"": 5.277667970230483, ""heart"": 41.61462690770757, ""base"": 4.225084209038991}"
+release_shape_median,"[0.23160773813351404, 0.334707734061149, 0.3259093548999251, 0.09652734392659157]"
+phase_shape_median,"[0.14568393790922607, 0.4588556143750755, 0.39528440533789755]"
+marker_probabilities,"{""Cardamom EO | top"": 1.0, ""Orris Liquid 30% | heart"": 1.0, ""Alpha Isomethyl Ionone | heart"": 0.9973, ""Alpha Irone 30% | heart"": 1.0, ""Vetiver EO | base"": 1.0, ""Cedarwood Virginia | base"": 0.719}"
+marker_quantiles,"{""Cardamom EO | top"": [5.277667970230483, 13.263730110915052, 32.184345859790604], ""Orris Liquid 30% | heart"": [5.208800723177044, 15.473802641155167, 46.83816166331834], ""Alpha Isomethyl Ionone | heart"": [1.8999585135195942, 4.9048660671175295, 12.821880365006393], ""Alpha Irone 30% | heart"": [25.57503102418389, 66.0208822702943, 176.1483008991397], ""Vetiver EO | base"": [3.114293499920154, 7.781054033840744, 20.082926620177698], ""Cedarwood Virginia | base"": [0.5338219215319405, 1.434598534257018, 3.873697410840401]}"
+classification,ROBUST

@@ -1,0 +1,136 @@
+# SUKHUM 35 S35-F3 — Ambrofix Saturated Mass Rebase — 30 mL EdP
+
+**Version:** S35-F3 v1, 2026-08-31  
+**Status:** `CURRENT-INVENTORY SUCCESSOR / MASS-DOSE TRIAL / NOT COMPOUNDED / NOT RELEASE READY`  
+**Claim mode:** `STOCK-SUBSTITUTION HYPOTHESIS / NOT SENSORY TESTED`  
+**Reference contract:** `AVENTUS_ADJACENT_NOT_CLONE`  
+**Family:** Thai-market fruity woody aromatic; family and name are unchanged from S35-F2  
+**Supersedes for future preparation:** `S35-F2_Realistic_Fruit_Minimum_Arm_30mL_EdP.md`  
+**Frozen S35-F2 SHA-256:** `A859FF050ACAB5FD0CA1E3E098F32F31C7DBF470C739FA50BAF70F725C32956B`  
+**Inventory authority:** `inventory.txt` SHA-256 `6745156000796FA3ABE7072ACB0629C0C63F56B5AD7AB94714B086A941234079`  
+**Format:** 4,800 µL unchanged liquid product stocks + the entire 2.640 g Ambrofix saturated solution + ethanol 96% q.s. to 30.00 mL  
+**Direct Benzyl Salicylate:** **0 µL**  
+**Musk policy:** Romandolide remains the sole functionally exact musk
+
+## Target Identity and Functional Architecture
+
+S35-F3 preserves the S35-F2 identity: rounded red-mandarin peel, dry grapefruit pith, realistic pineapple flesh/skin relief, a restrained cassis shadow, moving Hedione-jasmone air, and a cedar-vetiver-Clearwood rear object projected by one clean outward musk. The only design change is the mineral-persistence stock.
+
+The target function is not “more amber.” It is a continuous, dry, mineral rear plane that supports the fruit-to-wood transition without creating a warmer gourmand amber, an aggressive superamber spike, or a second musk effect. Ambrofix is selected because it is the owned ambergris-type material closest to that function. Ambrofix and Ambrox Super are distinct products; no sensory, strength, or performance equivalence is inferred.
+
+## TARGET / IDEAL FORMULA
+
+This is the target-linked 1,000-part active-equivalent map, not a physical instruction. It changes the mineral-persistence identity from Ambrox Super to Ambrofix while preserving the rest of the S35-F2 architecture.
+
+| Function | Ideal material | Active-equivalent parts / 1000 | Target reason | Current authority |
+|---|---|---:|---|---|
+| Warm peel | Red Mandarin EO | 45.00 | Rounded foreground peel | Owned neat |
+| Bitter pith | Qualified Sicilian Grapefruit FCF composite | 25.00 | Dry anti-syrup counterweight | Oil owned; exact composite physics HOLD |
+| Tart persistence | Methyl Pamplemousse | 1.50 | Extends grapefruit | Owned 10% TEC |
+| Fresh-cut pineapple | Allyl Hexanoate / Allyl Caproate | 3.00 | More literal juicy pineapple | Missing; optional future factor |
+| Pineapple body | Allyl Cyclohexyl Propionate | 20.00 | Waxy-metallic flesh body | Owned 10% DPG |
+| Juicy relief | Hexyl Acetate | 0.30 | Texture contrast below the body | Owned 10%; carrier identity HOLD |
+| Pineapple skin | Allyl Amyl Glycolate | 5.00 | Tart green skin | Owned 10% |
+| Fruit glint | Ethyl 2-Methylbutyrate | 0.02 | Volatile freshness | Owned 0.1% |
+| Cassis relief | Qualified cassis fraction | 8.00 | Dark secondary contrast | Opaque base owned; constituent authority HOLD |
+| Fruit persistence/depth | Paradisamide + Damascenone + Damascone Beta | 3.64 | Carries fruit into woods | Owned stocks |
+| Dry sparkle | Black Pepper EO | 1.50 | Non-sweet definition | Owned neat |
+| Spatial heart | Hedione + Dihydrojasmone | 242.00 | Air and motion | Owned neat |
+| Bitter-conifer hinge | Juniper Berry EO + Petitgrain EO Paraguay | 4.00 | Dry transition at trace level | Owned; not part of this successor |
+| Molecular wood field | Iso E Super | 293.52 | Continuous spatial volume | Owned neat |
+| Dry identity wood | Virginia cedar + vetiver/Vetival | 120.00 | Recognizable planes and edges | Owned neat |
+| Rear earth | Clearwood + Patchouli EO | 50.00 | Depth without moss sweetness | Owned neat |
+| Mineral persistence | Ambrofix | 70.00 | Dry ambergris-type continuity | Saturated stock owned; mass-dose authority only |
+| Sole outward diffuser | Romandolide | 100.00 | Fruity-clean projection | Owned neat |
+| Quiet warmth/charcoal | Siam Benzoin + Cade | 7.52 | Controlled rear texture | Owned diluted stocks |
+|  | **Normalized ideal total** | **1000.00** |  |  |
+
+## CURRENT-INVENTORY BUILD
+
+### Liquid product-stock rows
+
+These 23 rows are dose-identical to S35-F2. Their liquid-stock total is 4,800 µL. “Active µL” and “carrier µL” remain stock-volume proxies, not strict mass measurements. Because F3 uses a mixed mass/volume concentrate and unknown stock densities, strict concentrate ppm w/w is `HOLD` for every row.
+
+| Material | Dilution / stock | Raw µL | Active µL proxy | Strict ppm w/w | Carrier µL proxy | Function |
+|---|---|---:|---:|---:|---:|---|
+| Red Mandarin EO | neat | 240 | 240.000 | HOLD | 0.000 | Warm peel |
+| Grapefruit FCF oil Sicilian | neat | 120 | 120.000 | HOLD | 0.000 | Bitter pith; exact composite physics HOLD |
+| Methyl Pamplemousse | 10% in TEC | 80 | 8.000 | HOLD | 72.000 | Grapefruit persistence |
+| Allyl Cyclohexyl Propionate | 10% in DPG | 790 | 79.000 | HOLD | 711.000 | Pineapple body |
+| Hexyl Acetate | 10%; carrier unspecified | 10 | 1.000 | HOLD | 9.000* | Minimum juicy flesh factor; carrier HOLD |
+| Allyl Amyl Glycolate | 10% | 250 | 25.000 | HOLD | 225.000 | Pineapple skin |
+| Ethyl 2-Methylbutyrate | 0.1% | 20 | 0.020 | HOLD | 19.980 | Fruit flash |
+| Cassis Base 345B | product stock | 10 | 10.000 | HOLD | 0.000 | Opaque cassis shadow |
+| Paradisamide | 10% | 160 | 16.000 | HOLD | 144.000 | Fruit persistence |
+| Damascenone | 1% | 20 | 0.200 | HOLD | 19.800 | Fermented depth |
+| Damascone Beta | 10% | 30 | 3.000 | HOLD | 27.000 | Fruit-to-wood bridge |
+| Black Pepper EO | neat | 10 | 10.000 | HOLD | 0.000 | Dry sparkle |
+| Hedione | neat | 950 | 950.000 | HOLD | 0.000 | Spatial air |
+| Dihydrojasmone | neat | 60 | 60.000 | HOLD | 0.000 | Moving transition |
+| Iso E Super | neat | 1050 | 1050.000 | HOLD | 0.000 | Molecular wood field |
+| Clearwood | neat | 170 | 170.000 | HOLD | 0.000 | Structural rear earth |
+| Cedarwood oil Virginia | neat | 260 | 260.000 | HOLD | 0.000 | Dry cedar plane |
+| Indian Vetiver EO | neat | 120 | 120.000 | HOLD | 0.000 | Root-mineral tension |
+| Vetival | neat | 100 | 100.000 | HOLD | 0.000 | Polished root bridge |
+| Patchouli EO | neat | 60 | 60.000 | HOLD | 0.000 | Earthy shadow |
+| Romandolide | neat | 250 | 250.000 | HOLD | 0.000 | Sole outward musk |
+| Siam Benzoin | 50% in DPG | 30 | 15.000 | HOLD | 15.000 | Quiet warm buffer |
+| Cade Oil Rectified | 1% in DPG | 10 | 0.100 | HOLD | 9.900 | Charcoal seam |
+|  |  | **4,800** | **3,547.320*** | **HOLD** | **1,252.680*** | Exact liquid-stock total |
+
+### Weighed saturated-Ambrofix row
+
+| Material | Exact stock identity | Required stock transfer | Nominal Ambrofix mass | Known carrier mass | Active µL / strict ppm / OAV | Function |
+|---|---|---:|---:|---:|---|---|
+| Ambrofix | saturated solution | **2.640 g** | **0.192 g** | 0.448 g DEP + 2.000 g ethanol | HOLD — density and final concentrate mass are unmeasured | Mineral persistence |
+
+The former S35-F2 Ambrox Super row supplied a nominal 0.198 g active-mass proxy. F3 supplies 0.192 g Ambrofix by the recovered whole-bottle mass balance: a 0.006 g or **3.0%** nominal mass decrease. This is a mass-matched practical replacement, not product equivalence. Do not add Ambermax, Amber Xtreme, more Ambrofix, or residual Ambrox Super to numerically erase that difference.
+
+### Finished-volume geometry
+
+1. Transfer the 23 liquid odorant stocks exactly as listed: 4,800 µL total.
+2. Transfer the entire documented 2.640 g Ambrofix saturated solution by mass.
+3. After all numbered baskets are complete, add **ethanol 96% q.s. to 30.00 mL**. Do not add a fixed 24,600 µL ethanol charge; the saturated stock already contains 2.000 g ethanol and 0.448 g DEP.
+4. Record the pre-transfer and post-transfer Ambrofix bottle masses. If the available contents are not 2.640 g, stop and create a new mass-balance version; do not compensate by eye or by volume.
+
+## Missing-Chemical Impact Gate
+
+| Candidate / gap | Target impact | F3 consequence | Decision |
+|---|---|---|---|
+| Ambrox Super shortage | High for executing the former S35-F2 row | Resolved operationally by the specifically authorized whole-bottle Ambrofix mass transfer | Use F3; preserve F2 as frozen history |
+| Ambrofix stock density | High for volume conversion and parser-visible active µL | Does not block the whole-bottle mass transfer; blocks any pipetted rebase | Do not convert 2.640 g to µL |
+| Ambrofix versus Ambrox Super sensory equivalence | High for fidelity and hedonism | Unknown; mass similarity is not odor equivalence | Controlled comparison required |
+| Long-term saturation/stability | High for storage and repeatability | User reports no visible crystals now; recrystallization is not tested | Inspect before transfer and at 24/48 hours in the finished trial |
+| Hexyl Acetate carrier identity | High for strict causal testing | Unchanged inherited HOLD | Identify carrier before a release-grade comparison |
+| Sicilian Grapefruit exact composite physics | High for quantitative opening interpretation | Natural-composite OAV remains HOLD | Qualify lot or retain HOLD |
+| Cassis Base constituents | High for strict composite OAV and safety | Whole-base proxy only | Obtain supplier documentation before release work |
+
+No missing material blocks preparation of the specifically documented F3 mass-dose trial. Stock density and full mass data block strict ppm/OAV and any general volume-dose successor. Supplier/safety and sensory evidence block release.
+
+## Purchase / Preparation Recommendation
+
+1. Purchase nothing to execute F3 if the documented 2.640 g saturated Ambrofix stock is still present.
+2. Do not prepare another Ambrofix dilution and do not pipette this stock by an assumed density.
+3. Every other direct liquid transfer is at least 10 µL; no sub-10 µL working stock is required.
+4. If less than 2.640 g remains, do not scale the Ambrofix row independently. Rebase the entire formula or prepare a separately documented stock after measuring its composition.
+5. Retain any remaining Ambrox Super only for a small controlled reference, not as an unrecorded top-up.
+
+## Controlled Blinded Test Plan
+
+The required causal question is whether the saturated-Ambrofix rear plane preserves or improves S35-F2 identity and liking without warming, flattening, or blurring the fruit-to-wood transition.
+
+- Preferred comparison: S35-F2 Ambrox control versus S35-F3 Ambrofix successor, prepared from the same independently made 23-material common matrix and adjusted to the same final volume and carrier background. Use anonymous codes and AB/BA order.
+- If there is not enough Ambrox Super for a carrier-matched control, the first F3 trial is descriptive only. Do not declare it more hedonic, equivalent, or market-ready from an unpaired smell.
+- Evaluate at 0, 5, 30, 120, 240, and 480 minutes in separate Bangkok warm/humid and air-conditioned sessions.
+- Primary endpoint: overall liking at 30 minutes.
+- Identity endpoints: pineapple realism, red-mandarin/grapefruit distinction, cassis restraint, fruit-to-wood continuity, dry mineral depth, and `SUKHUM 35` name fit.
+- Guardrails: warm/sweet amber drift, harsh mineral spike, hollow drydown, muddiness, apple/candy drift, anosmic flattening, and excessive musk cleanliness.
+- Use at least two independent preparations per arm before promotion. Later Thai-market validation requires the intended Thai male buyer panel; foreign-tourist preference is not a primary endpoint.
+
+Physical liking, similarity, performance, safety, stability, and market success remain `NOT TESTED` or `HOLD` until measured.
+
+## ppm / ODT / OAV Diagnostic Boundary
+
+No new pipeline result is attached to F3. The standard parser accepts the 23 unchanged liquid rows but cannot represent the separately weighed Ambrofix stock without fabricating a raw volume. Therefore the S35-F2 Ambrox OAV result must not be copied, renamed, or credited to Ambrofix.
+
+For a later strict calculation, record the finished liquid mass and obtain the saturated-stock density. Ambrofix active mass is nominally 0.192 g; its finished-product mass concentration would be `0.192 g / measured finished-product mass × 1,000,000 ppm w/w`. Until those measurements and product-specific ODT interpretation are bound, strict Ambrofix ppm, OAV, headspace, and OAV-per-time are `HOLD`.

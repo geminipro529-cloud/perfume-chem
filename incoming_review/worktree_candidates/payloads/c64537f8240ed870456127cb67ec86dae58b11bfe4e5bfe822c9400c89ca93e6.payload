@@ -1,0 +1,82 @@
+{
+  "schema_version": "perfume_chem_inventory_worktree_sync_successor_v2",
+  "sync_id": "INVENTORY-WORKTREE-SYNC-20260831-003",
+  "effective_date": "2026-08-31",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "purpose": "Bind the provenance-preserving 2026-08-31 stock-authority successor and its exact legacy, data-spine, generated-KB, parser, and regression surfaces without rewriting prior receipts or formulas.",
+  "hash_policy": {
+    "text_normalization": "CRLF_TO_LF",
+    "size_bytes": "NORMALIZED_TEXT_BYTES",
+    "sha256": "NORMALIZED_TEXT_BYTES",
+    "bare_cr": "HASH_SIGNIFICANT_NOT_NORMALIZED"
+  },
+  "parent": {
+    "path": "data/governance/inventory_worktree_sync_20260831.json",
+    "sha256": "cd6ee89a305bd348009d2533e4be2d2233f8645a342b22d57486524d0334ad02"
+  },
+  "superseded_files": [
+    {"path": "inventory.txt", "prior_sha256": "46b34ae73406ff3d71c60d77298a0c22f6aeafe74aa2a4c510f554e3840595bf", "reason": "Current stock text superseded by direct 2026-08-31 user authority."},
+    {"path": "engine/inventory_parser.py", "prior_sha256": "c55af6eab5e7867efd8117e6336b0b4c9634a0909ca21e89383f67307ec9537e", "reason": "Current overlay lineage, exact stock joins, and deterministic flat-KB stock selection added."},
+    {"path": "_generate_material_properties.py", "prior_sha256": "2ab37612855dba452bd2bd430dce802bc1d0079549be70dde4e9595498cbe72a", "reason": "Generation now uses consolidated current stocks and preserves quantitative holds."},
+    {"path": "engine/ingredient_catalog.py", "prior_sha256": "6c1031ba92a329be6b9e74519e1bfe04fb3fa7c3db58d797eaf3a2fb1a6432c2", "reason": "Current stock rows and explicit evidence holds supersede tombstone-biased catalog status."},
+    {"path": "engine/name_utils.py", "prior_sha256": "028c560752753f3b84ca0389994dc6e813b5e1ec8811f6b7707be4d0a8325f37", "reason": "Guaiacwood alias added without material equivalence promotion."},
+    {"path": "data/knowledge_graph/ingredient_catalog.json", "prior_sha256": "44c8f3dcb930afe7d0d3eff696376b84c36e4db0ca53b6aa06025e5b8f19d292", "reason": "Surgical current-stock records added; unrelated catalog entries preserved."},
+    {"path": "data/knowledge_graph/material_properties.json", "prior_sha256": "ec17ba9ff3bd7755df43f166313920bd4982edaaa5e214061acab4a121ebcd01", "reason": "Corrected current stocks and fail-closed nominal held records replace stale fields."},
+    {"path": "data/materials/A.yaml", "prior_sha256": "66114b8d28657efb32b0985578fa2e8d78fc72fd62943c5c40d300d618e33e18", "reason": "Alpha Irone and Ambrofix current-stock distinctions corrected."},
+    {"path": "data/materials/B.yaml", "prior_sha256": "11fb7cc220158a56e6c650ab2df6e58d52bd2a8e54731e686f3d57c09c788fc8", "reason": "Black Agarwood current 10 percent w/w DPG stock corrected."},
+    {"path": "data/materials/C.yaml", "prior_sha256": "22b2c4890999be31b7bd6ced52d38496b8f9d5907025ee1fbd2c97e8b8df844b", "reason": "Castoreum nominal held stock and identity lineage corrected."},
+    {"path": "data/materials/G.yaml", "prior_sha256": "5c171aca38c6149f44ee1cf222244e1b0c657fee69ca3f2c7c4d7aff7319a78e", "reason": "Guaiacwood owned nominal stock row, alias, and fail-closed lineage added."},
+    {"path": "data/materials/M.yaml", "prior_sha256": "8267aedb2ff8d15ffc24c59d8a622ea4d9d432e5d2becc1b765da6178f464f15", "reason": "Magnolia neat-as-supplied stock is recorded without inventing scientific identity."},
+    {"path": "tests/test_inventory_material_additions.py", "prior_sha256": "eca7dfd79b0b8d9c12f427052f1337ac8ed79cef418bf12e903f157151fd3e1a", "reason": "Stale stock expectations replaced with exact current and held contracts."},
+    {"path": "tests/test_inventory_worktree_sync_2026_08_30.py", "prior_sha256": "03f17a2c2701f038d36e6f92500a0b2430b5c47ffd484449f3752ae6d7688dc9", "reason": "Current sync successor and Ambrofix Crystals regression added."},
+    {"path": "tests/test_kb_migration.py", "prior_sha256": "fc571e7c86f06fea73dcb68c69b248383a4cd0990fce399a51e63ca23caf3d04", "reason": "Guaiacwood row, alias, lineage, and null-evidence regression added."},
+    {"path": "tests/test_material_capability_atlas.py", "prior_sha256": "3d316d8e0ba33385ba8d8339f28a69d0556bf00f2dfb4a348c4a3a5282076d87", "reason": "Current inventory count and Alpha profile expectations corrected."},
+    {"path": "tests/test_cyp02_cypress_formula.py", "prior_sha256": "beb5c49b9a46c655127353d25eafbc16aecb2f34ef96dafdd623674a781c4c7b", "reason": "Exact Magnolia neat-as-supplied parser and stock-preflight regression added."},
+    {"path": "tests/test_run_evidence_contract.py", "prior_sha256": "5c27ad5dcb5dbc1b04f9552a519e4988c6dda9ae26738668b11b5a82c0a9ac3d", "reason": "Exact neat-as-supplied stock declaration regression added."}
+  ],
+  "current_files": [
+    {"path": "inventory.txt", "size_bytes": 20437, "sha256": "72d5d562be098642bffe11f32033735dc267e0b4c8857d29690cad218d1a4625", "role": "LEGACY_CURRENT_STOCK_TEXT"},
+    {"path": "data/governance/inventory_user_authority_overlay_20260831.json", "size_bytes": 8803, "sha256": "06a999b636c950b5d47f2fce0f6b79d74d83b686a06aa98e0bd141192b394297", "role": "PINNED_CURRENT_USER_AUTHORITY_SUCCESSOR"},
+    {"path": "engine/inventory_parser.py", "size_bytes": 74910, "sha256": "bad2bbc7fd0e9497500f53dcc0c3f28712a1a66ad040cd9dfb32dda2f78c9adf", "role": "CURRENT_AUTHORITY_JOIN_AND_SELECTION"},
+    {"path": "_generate_material_properties.py", "size_bytes": 42112, "sha256": "6ac0bc40db56a6227e4b0ced6f0520d7f70f1aeeddf85afbf79c84b7da454647", "role": "CURRENT_STOCK_KB_GENERATOR"},
+    {"path": "engine/ingredient_catalog.py", "size_bytes": 48031, "sha256": "58d189bfa7f97d4b0748b8b739814cf1d78e1d00ec362b6b072279878b6056cc", "role": "CURRENT_CATALOG_BUILDER"},
+    {"path": "engine/name_utils.py", "size_bytes": 9599, "sha256": "adcdb2b1db033bb440f47888949aafde07ee47d2092baf9b647e2685565de07d", "role": "CURRENT_ALIAS_NORMALIZATION"},
+    {"path": "data/knowledge_graph/ingredient_catalog.json", "size_bytes": 1015438, "sha256": "23124317e449a3a8bf5190b05c39e1ae65c1694f8d0a7e44754cd9c8b9353fe6", "role": "SURGICAL_CURRENT_CATALOG_SNAPSHOT"},
+    {"path": "data/knowledge_graph/material_properties.json", "size_bytes": 555203, "sha256": "b9af6efd75677e024d1bba5a2b8c78c60cbf1dbb935d9f96f5ef713616c36bd6", "role": "CURRENT_LEGACY_MATERIAL_PROPERTIES"},
+    {"path": "data/materials/A.yaml", "size_bytes": 108897, "sha256": "921b199f8aa3a71fca43b76335bb309000458950d579ebb0d73bca656c1ed552", "role": "ALPHA_IRONE_AND_AMBROFIX_DATA_SPINE"},
+    {"path": "data/materials/B.yaml", "size_bytes": 72739, "sha256": "99146429d09cac97f102c5a110987e3f39f2f214492aca94b4b587849726295d", "role": "BLACK_AGARWOOD_DATA_SPINE"},
+    {"path": "data/materials/C.yaml", "size_bytes": 153706, "sha256": "3daebb87969e499935a998f6bf9bb5d3889696f5504fa2db04680dc3857401c6", "role": "CASTOREUM_DATA_SPINE"},
+    {"path": "data/materials/G.yaml", "size_bytes": 61887, "sha256": "265547de080a909c6ec971b8f6f4b6f2f3c5b127833d1d46c8d60b053abb6cef", "role": "GUAIACWOOD_FAIL_CLOSED_DATA_SPINE"},
+    {"path": "data/materials/M.yaml", "size_bytes": 65060, "sha256": "38d032c387c3a4c7d5af1111dcc893fc338c618d15e5e7b93bf09ea24dd60ffa", "role": "MAGNOLIA_NEAT_STOCK_DATA_SPINE"},
+    {"path": "tests/test_inventory_authority_successor_2026_08_31.py", "size_bytes": 8968, "sha256": "198aecf8aad6547458f3425fa708b74b1601db0c3707724ec7490bbbed96e2a3", "role": "CURRENT_SUCCESSOR_REGRESSION"},
+    {"path": "tests/test_inventory_material_additions.py", "size_bytes": 20780, "sha256": "f9a594e2d0c068998f96b561967455352e9272d54fa262f32f650d4ba58a50d6", "role": "MATERIAL_AND_CATALOG_REGRESSION"},
+    {"path": "tests/test_inventory_worktree_sync_2026_08_30.py", "size_bytes": 9272, "sha256": "00a451a8b1de1ec67546f355e27af283846551d125c4a743a11f8b13637d8f69", "role": "SUCCESSOR_HASH_REGRESSION"},
+    {"path": "tests/test_kb_migration.py", "size_bytes": 16885, "sha256": "f0dbcc3c2d5b909aade8e956918468176c93969123fc580ea31e40abe1e4dbe4", "role": "GUAIACWOOD_KB_LINEAGE_REGRESSION"},
+    {"path": "tests/test_material_capability_atlas.py", "size_bytes": 4863, "sha256": "032c2b34e2c8b57f00873f92bd0e40663778b63d23d077232880a076780e81b1", "role": "CURRENT_CAPABILITY_ATLAS_REGRESSION"},
+    {"path": "tests/test_cyp02_cypress_formula.py", "size_bytes": 5212, "sha256": "85bc90d7333ca07e2f8f9081a556ced987eb064d56683efd3d13f7f32cca3c89", "role": "CYP02_STOCK_PREFLIGHT_REGRESSION"},
+    {"path": "tests/test_run_evidence_contract.py", "size_bytes": 30148, "sha256": "08c9e80a6e8805b6543c140af45a160e700a466b39e612ccd785756a2e8d2642", "role": "STOCK_DECLARATION_AND_HISTORICAL_ARTIFACT_COMPATIBILITY_REGRESSION"}
+  ],
+  "mutation_policy": {
+    "parent_receipt_rewritten": false,
+    "predecessor_overlay_rewritten": false,
+    "historical_formula_bytes_rewritten": false,
+    "historical_provenance_tombstones_preserved": true,
+    "inventory_rows_changed": true,
+    "stock_authority_changed": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "ambrox_substitution_authorized": false
+  },
+  "authority_limits": {
+    "sensory_authority": false,
+    "liking_authority": false,
+    "similarity_authority": false,
+    "oav_authority": false,
+    "safety_authority": false,
+    "stability_authority": false,
+    "procurement_authority": false,
+    "preparation_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  }
+}

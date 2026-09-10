@@ -1,0 +1,38 @@
+# Complex Perfumery Recovered-Scope Integration Handoff - 2026-08-12
+
+Status: `AUTHORIZED_RECOVERED_NON_P6_NATIVE_SCOPES_ALREADY_APPLIED_AND_LOCALLY_VERIFIED`
+
+The user's approval has been applied to the exact recovered non-P6 native-integration scope already represented by the V4 receipts and P2.2 delta. This is a scoped current-worktree acceptance, not package installation, source admission, scientific validation, deployment, or release.
+
+## Applied recovered scope
+
+- Three unique outer packages retain one authority-false native receipt each.
+- The P2.2 delta binds 3 sources, 9 selected field groups, and 163 fields as immutable source/design ancestry.
+- Existing native contracts remain authoritative; no package code, migration, parallel truth store, or new pipeline script was installed.
+- No formula, build, inventory, stock, bottle, database, physical execution, sensory result, OAV result, safety state, procurement state, or release state changed.
+
+## Verification
+
+- `tests/test_external_package_receipts.py` plus `tests/test_archive_quarantine.py`: **68 passed**, 0 failed, in 7.13 seconds.
+- The fresh quick project verifier timed out after 120 seconds in its `golden_explicit_solvent` child and emitted no result.
+- The standalone artifact verifier timed out after 60 seconds and emitted no result.
+- Those timeouts are recorded as `TIMEOUT`, never as PASS. Global release readiness therefore remains blocked.
+- The nine-scope DeepLuna Chat `DIRECT_PRO` batch ended in daemon transport timeouts with zero accepted worker evidence. Sol performed the local acceptance; no Fast route or fallback was used.
+
+## Rollback
+
+The parent state was archived before this append-only acceptance:
+
+- `D:\perfume-chem-rollback\20260812T172637+0700-complex-perfumery-authorized-native-scopes\rollback.pax.tar`
+- 143,360 bytes
+- SHA-256 `6ee106b4bbc4bc3ef99e0263efbfae37f58e3bb7745aee92e994b05550e47aac`
+- 11 restored files, all byte hashes exact
+- Branch `codex/add-inventory-materials`, HEAD `c876ab128845c2e055251fdce4fb1c3f5d661045`, staged paths `0`
+
+## Holds preserved
+
+Overall `implementation_complete`, `package_installation_complete`, `installation_authorized`, and release remain **false**.
+
+Five optional source identities remain unrecovered. The P6 Physics/OAV ZIP and wheel remain explicit unavailable parent bytes; reconstruction and substitution remain forbidden. Rights, nested-child/partial-scan, physical, sensory, headspace, strict-OAV, safety, and release holds remain in force.
+
+The next valid installation transaction begins only when new exact bytes or a separately demonstrated native gap appears. Authorization alone cannot manufacture those inputs or promote authority.

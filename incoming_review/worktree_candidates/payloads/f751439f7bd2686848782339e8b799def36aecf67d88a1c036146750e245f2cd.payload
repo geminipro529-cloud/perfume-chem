@@ -1,0 +1,161 @@
+{
+  "schema": "ingredient_intelligence_repair_receipt_v1",
+  "date": "2026-09-07",
+  "cwd": "D:\\chatbots\\perfume-chem",
+  "branch": "codex/astra",
+  "head_at_start": "e7002d4dacde0ae4c6b92db454fa4034c830e8f4",
+  "scope": "Ingredient intelligence and eight exact registry MW fields, not whole-database or release acceptance",
+  "verification": {
+    "snapshot_verified": true,
+    "original_profiles_removed": [],
+    "raw_profiles_changed": [
+      "Floralozone",
+      "Hydroxycitronellal",
+      "Hydroxycitronellol",
+      "Florol",
+      "Bourgeonal",
+      "Lilyreal ND",
+      "Mayol",
+      "Ebanol",
+      "Allyl Amyl Glycolate",
+      "Ethyl Safranate",
+      "Apritone"
+    ],
+    "raw_profiles_added": [
+      "Geranium EO"
+    ],
+    "other_profiles_unchanged": 257,
+    "existing_alias_and_gamma_tables_preserved": true,
+    "public_profile_count": 284,
+    "preserved_prose_profiles": 15,
+    "files": {
+      "engine/ingredient_intelligence.py": {
+        "bytes": 175033,
+        "sha256": "d9f8aa015353fc4e1c52ca3bd288e05be8f851574d294fbfba63bae90d36e555"
+      },
+      "data/materials/A.yaml": {
+        "bytes": 112172,
+        "sha256": "0f450720ad895fcb2a5bd97ac9b266bba703343c373ae61f6ede2a790a22512d"
+      },
+      "data/materials/B.yaml": {
+        "bytes": 75504,
+        "sha256": "6cb40a95b0d1ddc9adb2115b7cc9a8eb76dc2084c29838c438ae894be6c19b67"
+      },
+      "data/materials/E.yaml": {
+        "bytes": 37186,
+        "sha256": "ae78687b7dc1bb17a9bd237458dade90baf54170b2b71dc6604384bf71c32d06"
+      },
+      "data/materials/F.yaml": {
+        "bytes": 37872,
+        "sha256": "45f61c1b0c94ca768deb68ea389173f875d32925a5a4706c040fa98443557045"
+      },
+      "data/materials/M.yaml": {
+        "bytes": 67641,
+        "sha256": "6ecc57d493cc44a03561b7eabf4040a3410db98476e93624dec4980fd5401b0a"
+      },
+      "tests/test_ingredient_intelligence_corrections.py": {
+        "bytes": 5342,
+        "sha256": "d08e5fe8e6b7a88aea2d6db20accea4302098885c9f5dbd5462bb43d260015aa"
+      },
+      "docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md": {
+        "bytes": 7558,
+        "sha256": "65c43e34e8dadd961c330890c38f9354d5122bc29b4272b92657e5eef6b3a3f7"
+      },
+      "inventory.txt": {
+        "bytes": 21215,
+        "sha256": "d103b79508592f74bb368f27507874b9fd3493acc9e872150e768449b2a02ef7"
+      },
+      "data/governance/inventory_user_corrections_20260907_confirmed.json": {
+        "bytes": 4092,
+        "sha256": "4c07d36b19b3c044e318442b826992b47d56a97172c1e3b86b20b9276ba9f661"
+      },
+      "data/knowledge_graph/material_properties.json": {
+        "bytes": 569314,
+        "sha256": "2497e6e7d16e3d862866e3729c3e590137aaa39b08a7b95589cf8ab971accc45"
+      }
+    }
+  },
+  "checks": [
+    {
+      "command": ".venv\\Scripts\\python.exe -m ruff check engine/ingredient_intelligence.py tests/test_ingredient_intelligence_corrections.py",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv\\Scripts\\python.exe -B -m mypy --follow-imports=skip --ignore-missing-imports engine/ingredient_intelligence.py",
+      "status": "PASS",
+      "exit_code": 0,
+      "scope": "One source file; imported modules not typechecked"
+    },
+    {
+      "command": ".venv\\Scripts\\python.exe -B -m pytest tests/test_ingredient_intelligence_corrections.py tests/test_pipeline_formula_state.py tests/test_diffusion_regression.py tests/test_data_spine_loader.py tests/test_ifra_safety.py tests/test_optimizer_thermodynamic_unification.py tests/test_optimizer_determinism.py -q --tb=short -p no:cacheprovider",
+      "status": "PASS",
+      "exit_code": 0,
+      "passed": 69,
+      "failed": 0,
+      "duration_seconds": 13.78,
+      "warnings": 2301,
+      "warning_class": "Pre-existing pytest_asyncio deprecation of asyncio.iscoroutinefunction"
+    },
+    {
+      "command": "git diff --check -- engine/ingredient_intelligence.py data/materials/A.yaml data/materials/B.yaml data/materials/E.yaml data/materials/F.yaml data/materials/M.yaml",
+      "status": "PASS"
+    }
+  ],
+  "preserved_registry_records_before": [
+    {
+      "path": "data/materials/F.yaml",
+      "record_before": "- canonical_name: Florol\n  aliases:\n  - florol\n  cas:\n  smiles:\n  inchikey:\n  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 170.3, corrected to 154.25)\n  mw_g_mol: 154.25\n  density_25c_g_ml:\n  logp: 2.5\n  functional_groups: []\n  chirality:\n  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 3.0, corrected to 0.007)\n  vp_25c_pa: 0.007\n  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN\n  antoine:\n  dhvap_kj_mol:\n  kaw_eff: 0.005\n  hsp:\n  odt_air_ppb:\n  odt_eth_ppm:\n  stevens_n:\n  or_targets: []\n  trp_targets:\n  hedonic_valence: 0.72\n  ifra_max_pct_edp:\n  user_stock_dilution: 1.0 # SYNCED: matched inventory.txt, 2026-05-30\n  user_in_inventory: true\n  supplier:\n    perfumersworld_sku: 3ML00192\n    perfumersworld_price_usd_per_g: 0.1\n    perfumersworld_form: neat\n    perfumersworld_snapshot_date: '2026-04-11'\n    other: {}\n  families:\n  - floral materials\n  character:\n  notes:\n  provenance:\n    mw_g_mol: engine.diffusion_model\n    vp_25c_pa: engine.diffusion_model\n    kaw_eff: engine.diffusion_model\n    odt_air_ppb: engine.odor_thresholds\n    odt_eth_ppm: engine.odor_thresholds\n    stevens_n: engine.odor_thresholds\n    logp: engine.skin_interaction\n    hedonic_valence: engine.hedonic_model\n    user_in_inventory: inventory.txt\n    supplier.perfumersworld: knowledge/perfumersworld_stock.md"
+    },
+    {
+      "path": "data/materials/B.yaml",
+      "record_before": "- canonical_name: Bourgeonal\n  aliases:\n  - bourgeonal\n  cas: null\n  smiles: null\n  inchikey: null\n  mw_g_mol: 176.25\n  density_25c_g_ml: null\n  logp: 2.8\n  functional_groups: []\n  chirality: null\n  vp_25c_pa: 0.01\n  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN\n  antoine: null\n  dhvap_kj_mol: null\n  kaw_eff: 0.003\n  hsp: null\n  odt_air_ppb: null\n  odt_eth_ppm: null\n  stevens_n: null\n  or_targets: []\n  trp_targets: null\n  hedonic_valence: 0.68\n  ifra_max_pct_edp: null\n  user_stock_dilution: 1.0\n  user_in_inventory: true\n  supplier:\n    perfumersworld_sku: 4MA00067\n    perfumersworld_price_usd_per_g: 0.52\n    perfumersworld_form: neat\n    perfumersworld_snapshot_date: '2026-04-11'\n    other:\n      pw_alternate_forms:\n      - form: 10.0% in DPG\n        sku: 5MA12469\n        price_usd_per_g: 0.09\n  families:\n  - floral materials\n  character: null\n  notes: null\n  provenance:\n    mw_g_mol: engine.diffusion_model\n    vp_25c_pa: engine.diffusion_model\n    kaw_eff: engine.diffusion_model\n    odt_air_ppb: engine.odor_thresholds\n    odt_eth_ppm: engine.odor_thresholds\n    stevens_n: engine.odor_thresholds\n    logp: engine.skin_interaction\n    hedonic_valence: engine.hedonic_model\n    user_in_inventory: inventory.txt\n    supplier.perfumersworld: knowledge/perfumersworld_stock.md"
+    },
+    {
+      "path": "data/materials/M.yaml",
+      "record_before": "- canonical_name: Mayol\n  aliases:\n  - mayol\n  cas:\n  smiles:\n  inchikey:\n  mw_g_mol: 166.3\n  density_25c_g_ml:\n  logp:\n  functional_groups: []\n  chirality:\n  vp_25c_pa: 1.5\n  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN\n  antoine:\n  dhvap_kj_mol:\n  kaw_eff: 0.002\n  hsp:\n  odt_air_ppb:\n  odt_eth_ppm:\n  stevens_n:\n  or_targets: []\n  trp_targets:\n  hedonic_valence:\n  ifra_max_pct_edp:\n  user_stock_dilution: 1.0  # SYNCED: matched inventory.txt, 2026-05-30\n  user_in_inventory: true\n  supplier:\n    perfumersworld_sku: 3MG11691\n    perfumersworld_price_usd_per_g: 0.35\n    perfumersworld_form: neat\n    perfumersworld_snapshot_date: '2026-04-11'\n    other: {}\n  families:\n  - floral materials\n  character:\n  notes:\n  provenance:\n    mw_g_mol: engine.diffusion_model\n    vp_25c_pa: engine.diffusion_model\n    kaw_eff: engine.diffusion_model\n    odt_air_ppb: engine.odor_thresholds\n    odt_eth_ppm: engine.odor_thresholds\n    stevens_n: engine.odor_thresholds\n    user_in_inventory: inventory.txt\n    supplier.perfumersworld: knowledge/perfumersworld_stock.md"
+    },
+    {
+      "path": "data/materials/F.yaml",
+      "record_before": "- canonical_name: Floralozone\n  aliases:\n  - floralozone\n  cas:\n  smiles:\n  inchikey:\n  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 190.3, corrected to 192.26)\n  mw_g_mol: 192.26\n  density_25c_g_ml:\n  logp: 3.3\n  functional_groups: []\n  chirality:\n  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.431)\n  vp_25c_pa: 0.431\n  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN\n  antoine:\n  dhvap_kj_mol:\n  kaw_eff:\n  hsp:\n  odt_air_ppb:\n  odt_eth_ppm:\n  stevens_n:\n  or_targets: []\n  trp_targets:\n    TRPM8: 0.1\n    TRPA1: 0.05\n    TRPV1: 0.0\n    TRPV3:\n    nasal_pungency:\n  hedonic_valence: 0.4\n  ifra_max_pct_edp:\n  user_stock_dilution: 10%\n  user_in_inventory: true\n  supplier:\n    perfumersworld_sku: 4YM00191\n    perfumersworld_price_usd_per_g: 0.22\n    perfumersworld_form: neat\n    perfumersworld_snapshot_date: '2026-04-11'\n    other: {}\n  families:\n  - green / fresh / marine\n  character:\n  notes:\n  provenance:\n    odt_air_ppb: engine.odor_thresholds\n    odt_eth_ppm: engine.odor_thresholds\n    stevens_n: engine.odor_thresholds\n    mw_g_mol: engine.skin_interaction\n    logp: engine.skin_interaction\n    trp.TRPM8: engine.trigeminal\n    trp.TRPA1: engine.trigeminal\n    trp.TRPV1: engine.trigeminal\n    hedonic_valence: engine.hedonic_model\n    user_in_inventory: inventory.txt\n    user_stock_dilution: inventory.txt\n    supplier.perfumersworld: knowledge/perfumersworld_stock.md"
+    },
+    {
+      "path": "data/materials/A.yaml",
+      "record_before": "- canonical_name: Apritone\n  aliases: []\n  cas: null\n  smiles: null\n  inchikey: null\n  mw_g_mol: 178.27\n  density_25c_g_ml: null\n  logp: null\n  functional_groups: []\n  chirality: null\n  vp_25c_pa: 0.133\n  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN\n  antoine: null\n  dhvap_kj_mol: null\n  kaw_eff: null\n  hsp: null\n  odt_air_ppb: null\n  odt_eth_ppm: null\n  stevens_n: null\n  or_targets: []\n  trp_targets: null\n  hedonic_valence: null\n  ifra_max_pct_edp: null\n  user_stock_dilution: 10%\n  user_in_inventory: true\n  supplier:\n    perfumersworld_sku: 3FD06779\n    perfumersworld_price_usd_per_g: 0.78\n    perfumersworld_form: neat\n    perfumersworld_snapshot_date: '2026-04-11'\n    other: {}\n  families:\n  - citrus / top\n  character: null\n  notes: null\n  provenance:\n    user_in_inventory: inventory.txt\n    user_stock_dilution: inventory.txt\n    supplier.perfumersworld: knowledge/perfumersworld_stock.md"
+    },
+    {
+      "path": "data/materials/A.yaml",
+      "record_before": "- canonical_name: Allyl Amyl Glycolate\n  aliases:\n  - allyl amyl glycolate\n  cas: null\n  smiles: null\n  inchikey: null\n  mw_g_mol: 158.2\n  density_25c_g_ml: null\n  logp: 1.0\n  functional_groups: []\n  chirality: null\n  vp_25c_pa: 0.2\n  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN\n  antoine: null\n  dhvap_kj_mol: null\n  kaw_eff: 0.006\n  hsp: null\n  odt_air_ppb: null\n  odt_eth_ppm: null\n  stevens_n: null\n  or_targets: []\n  trp_targets:\n    TRPM8: 0.15\n    TRPA1: 0.1\n    TRPV1: 0.0\n    TRPV3: null\n    nasal_pungency: null\n  hedonic_valence: 0.5\n  ifra_max_pct_edp: null\n  user_stock_dilution: 0.1\n  user_in_inventory: true\n  supplier:\n    perfumersworld_sku: 4FG00029\n    perfumersworld_price_usd_per_g: 0.2\n    perfumersworld_form: neat\n    perfumersworld_snapshot_date: '2026-04-11'\n    other:\n      pw_alternate_forms:\n      - form: 10.0% in DPG\n        sku: 5FG07543\n        price_usd_per_g: 0.05\n  families:\n  - sweet / gourmand / balsamic\n  character: null\n  notes: null\n  provenance:\n    mw_g_mol: engine.diffusion_model\n    vp_25c_pa: engine.diffusion_model\n    kaw_eff: engine.diffusion_model\n    odt_air_ppb: engine.odor_thresholds\n    odt_eth_ppm: engine.odor_thresholds\n    stevens_n: engine.odor_thresholds\n    logp: engine.skin_interaction\n    trp.TRPM8: engine.trigeminal\n    trp.TRPA1: engine.trigeminal\n    trp.TRPV1: engine.trigeminal\n    hedonic_valence: engine.hedonic_model\n    user_in_inventory: inventory.txt\n    supplier.perfumersworld: knowledge/perfumersworld_stock.md"
+    },
+    {
+      "path": "data/materials/E.yaml",
+      "record_before": "- canonical_name: Ebanol\n  aliases:\n  - ebanol\n  cas:\n  smiles:\n  inchikey:\n  mw_g_mol: 220.4\n  density_25c_g_ml:\n  logp: 3.3\n  functional_groups: []\n  chirality:\n  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 0.08, corrected to 0.89)\n  vp_25c_pa: 0.89\n  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN\n  antoine:\n  dhvap_kj_mol:\n  kaw_eff: 0.0004\n  hsp:\n  odt_air_ppb:\n  odt_eth_ppm:\n  stevens_n:\n  or_targets: []\n  trp_targets:\n  hedonic_valence: 0.68\n  ifra_max_pct_edp:\n  user_stock_dilution: 1.0 # SYNCED: matched inventory.txt, 2026-05-30\n  user_in_inventory: true\n  supplier:\n    perfumersworld_sku: 4WX07563\n    perfumersworld_price_usd_per_g: 0.76\n    perfumersworld_form: neat\n    perfumersworld_snapshot_date: '2026-04-11'\n    other: {}\n  families:\n  - woods / amber / structure\n  character:\n  notes:\n  provenance:\n    mw_g_mol: engine.diffusion_model\n    vp_25c_pa: engine.diffusion_model\n    kaw_eff: engine.diffusion_model\n    odt_air_ppb: engine.odor_thresholds\n    odt_eth_ppm: engine.odor_thresholds\n    stevens_n: engine.odor_thresholds\n    logp: engine.skin_interaction\n    hedonic_valence: engine.hedonic_model\n    user_in_inventory: inventory.txt\n    supplier.perfumersworld: knowledge/perfumersworld_stock.md"
+    },
+    {
+      "path": "data/materials/E.yaml",
+      "record_before": "- canonical_name: Ethyl Safranate\n  aliases:\n  - ethyl safranate\n  cas:\n  smiles:\n  inchikey:\n  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 166.2, corrected to 168.23)\n  mw_g_mol: 168.23\n  density_25c_g_ml:\n  logp: 2.5\n  functional_groups: []\n  chirality:\n  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 3.5, corrected to 0.05)\n  vp_25c_pa: 0.05\n  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN\n  antoine:\n  dhvap_kj_mol:\n  kaw_eff: 0.005\n  hsp:\n  odt_air_ppb:\n  odt_eth_ppm:\n  stevens_n:\n  or_targets: []\n  trp_targets:\n    TRPM8: 0.0\n    TRPA1: 0.1\n    TRPV1: 0.15\n    TRPV3:\n    nasal_pungency:\n  hedonic_valence: 0.55\n  ifra_max_pct_edp:\n  user_stock_dilution: 1.0 # SYNCED: matched inventory.txt, 2026-05-30\n  user_in_inventory: true\n  supplier:\n    perfumersworld_sku: 4ES06848\n    perfumersworld_price_usd_per_g: 1.57\n    perfumersworld_form: neat\n    perfumersworld_snapshot_date: '2026-04-11'\n    other:\n      pw_alternate_forms:\n      - form: 10.0% in DPG\n        sku: 5ES13018\n        price_usd_per_g: 0.2\n  families:\n  - spice / aromatic\n  character:\n  notes:\n  provenance:\n    mw_g_mol: engine.diffusion_model\n    vp_25c_pa: engine.diffusion_model\n    kaw_eff: engine.diffusion_model\n    odt_air_ppb: engine.odor_thresholds\n    odt_eth_ppm: engine.odor_thresholds\n    stevens_n: engine.odor_thresholds\n    logp: engine.skin_interaction\n    trp.TRPM8: engine.trigeminal\n    trp.TRPA1: engine.trigeminal\n    trp.TRPV1: engine.trigeminal\n    hedonic_valence: engine.hedonic_model\n    user_in_inventory: inventory.txt\n    supplier.perfumersworld: knowledge/perfumersworld_stock.md"
+    }
+  ],
+  "exclusions": [
+    "inventory.txt",
+    "current stock authority pins and overlays",
+    "historical formulas and embedded analyses",
+    "bottle addition instructions",
+    "generated material_properties.json cache",
+    "unresolved VP/logP/ODT records",
+    "other worktrees",
+    "full project release verification",
+    "commit and push"
+  ],
+  "authority": {
+    "software_focused_tests": "PASS",
+    "all_inventory_reconciled": "NO",
+    "generated_cache_reconciled": "NO",
+    "hydroxycitronellal_25c_vp": "HOLD",
+    "observed_smell": "NOT TESTED",
+    "similarity": "NOT TESTED",
+    "safety": "NOT TESTED",
+    "stability": "NOT TESTED",
+    "release": "HOLD"
+  }
+}

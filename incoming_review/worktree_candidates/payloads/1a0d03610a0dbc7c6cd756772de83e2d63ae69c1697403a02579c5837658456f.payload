@@ -1,0 +1,218 @@
+import hashlib
+import re
+from decimal import Decimal
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+SOURCE_PATH = (
+    ROOT
+    / "formulas"
+    / "sukhum_35_t4"
+    / "S35-F2_Realistic_Fruit_Minimum_Arm_30mL_EdP.md"
+)
+PROTOCOL_PATH = (
+    ROOT
+    / "formulas"
+    / "sukhum_35_t4"
+    / "S35-F2_Numbered_Basket_Mixing_Protocol_v2.md"
+)
+INVENTORY_PATH = ROOT / "inventory.txt"
+
+SOURCE_SHA256 = "A859FF050ACAB5FD0CA1E3E098F32F31C7DBF470C739FA50BAF70F725C32956B"
+INVENTORY_SHA256 = "EB33C04236A4640413BA5289125F04CFA278BD0614EB9BD12EA1CC4D88379967"
+
+
+def _number(value: str) -> Decimal:
+    return Decimal(value.replace(",", "").replace("*", "").strip())
+
+
+def _source_rows() -> dict[str, tuple[str, Decimal, Decimal, Decimal]]:
+    text = SOURCE_PATH.read_text(encoding="utf-8")
+    current = text.split("## CURRENT-INVENTORY BUILD", 1)[1].split(
+        "## Factor Role", 1
+    )[0]
+    rows: dict[str, tuple[str, Decimal, Decimal, Decimal]] = {}
+
+    for line in current.splitlines():
+        if not line.startswith("|"):
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if len(cells) != 7 or not cells[0] or cells[0] in {"Material", "---"}:
+            continue
+        if not re.fullmatch(r"[\d,]+(?:\.\d+)?", cells[2]):
+            continue
+        rows[cells[0]] = (
+            cells[1],
+            _number(cells[2]),
+            _number(cells[3]),
+            _number(cells[5]),
+        )
+    return rows
+
+
+def _protocol_rows() -> list[dict[str, str | Decimal]]:
+    rows: list[dict[str, str | Decimal]] = []
+    for line in PROTOCOL_PATH.read_text(encoding="utf-8").splitlines():
+        if not line.startswith("|"):
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if len(cells) != 8 or not re.fullmatch(r"B\d{2}-\d{2}", cells[0]):
+            continue
+        rows.append(
+            {
+                "step": cells[0],
+                "basket_number": Decimal(cells[0][1:3]),
+                "addition_basket": cells[1],
+                "material": cells[2],
+                "stock": cells[3],
+                "raw_ul": _number(cells[4]),
+                "active_ul": _number(cells[5]),
+                "carrier_ul": _number(cells[6]),
+                "running_ul": _number(cells[7]),
+            }
+        )
+    return rows
+
+
+def _summary_rows() -> list[tuple[int, Decimal, Decimal]]:
+    rows: list[tuple[int, Decimal, Decimal]] = []
+    for line in PROTOCOL_PATH.read_text(encoding="utf-8").splitlines():
+        if not line.startswith("|"):
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if len(cells) == 4 and re.fullmatch(r"BASKET-\d{2}", cells[0]):
+            rows.append((int(cells[0][-2:]), _number(cells[2]), _number(cells[3])))
+    return rows
+
+
+def test_protocol_preserves_its_frozen_f2_inventory_binding_after_f3_supersession():
+    text = PROTOCOL_PATH.read_text(encoding="utf-8")
+
+    assert hashlib.sha256(SOURCE_PATH.read_bytes()).hexdigest().upper() == SOURCE_SHA256
+    assert hashlib.sha256(INVENTORY_PATH.read_bytes()).hexdigest().upper() != INVENTORY_SHA256
+    assert SOURCE_SHA256 in text
+    assert INVENTORY_SHA256 in text
+    assert "this protocol becomes stale rather than silently rebasing itself" in text
+    assert "S35-F2-BASKET-v2" in text
+    assert "ORDERING_ONLY / DOSE_IDENTICAL / NOT_AUTHORIZED_FOR_COMPOUNDING" in text
+
+
+def test_protocol_has_every_formula_material_exactly_once_with_identical_stock_geometry():
+    source = _source_rows()
+    protocol_rows = _protocol_rows()
+    protocol_names = [str(row["material"]) for row in protocol_rows]
+
+    assert len(protocol_names) == len(set(protocol_names))
+    assert set(protocol_names) == set(source)
+
+    protocol = {
+        str(row["material"]): (
+            str(row["stock"]),
+            row["raw_ul"],
+            row["active_ul"],
+            row["carrier_ul"],
+        )
+        for row in protocol_rows
+    }
+    assert protocol == source
+
+def test_protocol_arithmetic_preserves_the_exact_concentrate_and_finished_geometry():
+    rows = _protocol_rows()
+
+    assert min(Decimal(row["raw_ul"]) for row in rows) >= Decimal("10")
+    assert sum(Decimal(row["raw_ul"]) for row in rows) == Decimal("5400")
+    assert sum(Decimal(row["active_ul"]) for row in rows) == Decimal("3745.320")
+    assert sum(Decimal(row["carrier_ul"]) for row in rows) == Decimal("1654.680")
+    assert Decimal(rows[-1]["running_ul"]) == Decimal("5400")
+    assert _summary_rows() == [
+        (1, Decimal("2760"), Decimal("2760")),
+        (2, Decimal("120"), Decimal("2880")),
+        (3, Decimal("430"), Decimal("3310")),
+        (4, Decimal("10"), Decimal("3320")),
+        (5, Decimal("0"), Decimal("3320")),
+        (6, Decimal("250"), Decimal("3570")),
+        (7, Decimal("0"), Decimal("3570")),
+        (8, Decimal("60"), Decimal("3630")),
+        (9, Decimal("0"), Decimal("3630")),
+        (10, Decimal("50"), Decimal("3680")),
+        (11, Decimal("0"), Decimal("3680")),
+        (12, Decimal("30"), Decimal("3710")),
+        (13, Decimal("10"), Decimal("3720")),
+        (14, Decimal("0"), Decimal("3720")),
+        (15, Decimal("1680"), Decimal("5400")),
+        (16, Decimal("0"), Decimal("5400")),
+        (17, Decimal("0"), Decimal("5400")),
+    ]
+
+    text = PROTOCOL_PATH.read_text(encoding="utf-8")
+    assert "24,600 µL ethanol 96%" in text
+    assert "30,000 µL" in text
+
+
+def test_additions_follow_numbered_baskets_and_high_to_low_raw_volume_within_each_basket():
+    rows = _protocol_rows()
+    basket_numbers = [int(row["basket_number"]) for row in rows]
+
+    assert basket_numbers == sorted(basket_numbers)
+    assert basket_numbers[0] == 1
+    assert basket_numbers[-1] == 15
+
+    expected_counts = {
+        1: 5,
+        2: 1,
+        3: 2,
+        4: 1,
+        6: 1,
+        8: 1,
+        10: 2,
+        12: 1,
+        13: 1,
+        15: 9,
+    }
+    assert {
+        number: basket_numbers.count(number) for number in sorted(set(basket_numbers))
+    } == expected_counts
+
+    for basket_number in expected_counts:
+        raw = [
+            Decimal(row["raw_ul"])
+            for row in rows
+            if int(row["basket_number"]) == basket_number
+        ]
+        assert raw == sorted(raw, reverse=True)
+
+
+def test_basket_15_is_the_last_nonempty_basket_and_contains_only_the_fruit_storage_group():
+    rows = _protocol_rows()
+    basket_15_names = {
+        str(row["material"]) for row in rows if int(row["basket_number"]) == 15
+    }
+    assert basket_15_names == {
+        "Allyl Cyclohexyl Propionate",
+        "Allyl Amyl Glycolate",
+        "Cassis Base 345B",
+        "Methyl Pamplemousse",
+        "Hexyl Acetate",
+        "Ethyl 2-Methylbutyrate",
+        "Paradisamide",
+        "Grapefruit FCF oil Sicilian",
+        "Red Mandarin EO",
+    }
+
+    text = PROTOCOL_PATH.read_text(encoding="utf-8")
+    assert "Basket 15 is the final non-empty basket" in text
+    assert "After checking empty Baskets 16 and 17, the only planned addition is the separate ethanol carrier stage" in text
+
+
+def test_protocol_preserves_holds_zero_benzyl_salicylate_and_sequential_not_premix_scope():
+    rows = _protocol_rows()
+    names = {str(row["material"]) for row in rows}
+    text = PROTOCOL_PATH.read_text(encoding="utf-8")
+
+    assert "Benzyl Salicylate" not in names
+    assert "**Direct Benzyl Salicylate:** **0 µL**" in text
+    assert "No new working-stock preparation is required for S35-F2" in text
+    assert "HEXYL ACETATE CARRIER IDENTITY: HOLD" in text
+    assert "NO PREMIX" in text
+    assert "sequentially into the single main vessel" in text
+    assert "No physical compounding is authorized by this protocol" in text

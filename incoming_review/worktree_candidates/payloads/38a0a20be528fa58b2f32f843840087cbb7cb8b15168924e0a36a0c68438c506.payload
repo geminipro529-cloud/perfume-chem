@@ -1,0 +1,133 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "chat-e-physical-analytical-lane-v1-20260819",
+  "recorded_at": "2026-08-19T13:15:08Z",
+  "package": {
+    "file_name": "CHAT_E_XHIGH_PHYSICAL_ANALYTICAL_LANE_v1.zip",
+    "locator": "incoming_review/chatgpt/20260819T131508Z-chat-e-physical-analytical-6a753b36/CHAT_E_XHIGH_PHYSICAL_ANALYTICAL_LANE_v1.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 33356,
+    "sha256": "685098081c631a0c39e3113d1d3ef3ba08662537bcee3dbcee722b321aa338cf",
+    "media_type": "application/zip",
+    "archive_entry_count": 25,
+    "archive_file_count": 25,
+    "declared_payload_count": 24,
+    "package_root": null,
+    "embedded_integrity_records": [
+      {
+        "path": "SHA256SUMS.json",
+        "byte_size": 2781,
+        "sha256": "71362ff624f7e51b8ef5f3a2130485928aae91c1edd7e8e4219f05a4ec917490",
+        "role": "CHECKSUM_LEDGER"
+      },
+      {
+        "path": "WORKER_MANIFEST.json",
+        "byte_size": 7408,
+        "sha256": "22642c645f68d4d83047549707bc3ce3020916528718e8c6c95686641bf6c2b2",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "VALIDATION_REPORT.json",
+        "byte_size": 2667,
+        "sha256": "18102e2fecb67c7b56ae80ffe7bd4b89fdad8ec8cdee48b3377d1aa3b061d854",
+        "role": "MANIFEST"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a753b36-a0b8-83ec-a7cc-bc79f1d37b47:physical-analytical-v1",
+    "conversation_id": "6a753b36-a0b8-83ec-a7cc-bc79f1d37b47",
+    "turn_id": null,
+    "message_id": null,
+    "lineage_resolution": "EXACT_CHAT_E_V1_ATTACHMENT_RECOVERED_AND_HASH_VERIFIED_SEPARATE_POSTFREEZE_ADDENDUM_ALSO_RECOVERED",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "The AI-generated package declares no blanket license. Its twelve registry entries point to source-specific official databases, licensed libraries, websites and papers with differing access and reuse terms. Those pointers do not authorize wholesale code, source-byte, numeric-table, publication, training or redistribution use.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Conservative project-governance classification, not legal advice. Resolve rights and exact source receipts per source and operation before any row-level ingestion."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN_AT_PACKAGE_LEVEL",
+      "BASELINE_PACKAGE_BYTES_NOT_PRESENT_IN_V1",
+      "EXTERNAL_SOURCE_BYTES_NOT_PRESENT",
+      "NUMERIC_SOURCE_TABLES_NOT_PRESENT",
+      "MATRIX_TRANSFER_NOT_VALIDATED",
+      "V1_RELEASE_QUERY_SCHEMA_AND_GUARD_INCOHERENT",
+      "V1_CALLER_ATTESTATION_CAN_BYPASS_MATRIX_AND_APPARATUS_DOMAIN",
+      "V1_STRICT_OAV_SCHEMA_BRANCH_UNREACHABLE",
+      "V1_ANALYTICAL_AND_OAV_EVIDENCE_UNDERCONSTRAINED",
+      "PACKAGE_TEST_RESULTS_ARE_PACKAGE_CLAIMS_NOT_LOCAL_EXECUTION",
+      "BUNDLED_CODE_NOT_EXECUTED_OR_INSTALLED",
+      "SOURCE_REGISTRY_ROWS_NOT_ADMITTED",
+      "PACKAGE_CONTENT_NOT_INSTALLED",
+      "NO_FORMULA_RUNTIME_INVENTORY_PHYSICAL_OR_RELEASE_MUTATION"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "incoming_review/chatgpt/20260819T131508Z-chat-e-physical-analytical-6a753b36/source_manifest.json",
+      "byte_size": 4175,
+      "sha256": "5e7f3385046ce701e5ffd14d74b07506c5c09b352cd0225dc094e44375d8a676",
+      "relation": "BINDS_BROWSER_CAPTURE_MANIFEST",
+      "support_scope": "AUTHENTICATED_CONVERSATION_AND_EXACT_DUAL_ATTACHMENT_CAPTURE_ONLY",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "EXACT_CHAT_E_V1_PHYSICAL_ANALYTICAL_PACKAGE_QUARANTINED_EXECUTABLE_CONTRACT_RED",
+    "archive_scan_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "archive_members": 25,
+    "archive_scan_nodes": 1,
+    "internal_checksum_entries_verified": 24,
+    "package_recovered": true,
+    "package_claimed_tests_passed": 23,
+    "package_claimed_tests_failed": 0,
+    "package_claimed_tests_locally_replayed": false,
+    "baseline_version_claimed": "PDS_XHIGH_v1",
+    "baseline_package_sha256_claimed": "9b8fef249d0019393b3fbf080bba96c665a5104358633d74308cfe5affae980c",
+    "baseline_package_bytes_present": false,
+    "physical_source_registry_records": 12,
+    "release_model_registry_records": 6,
+    "source_registry_role": "SECONDARY_PLANNING_AND_ADAPTER_METADATA_ONLY",
+    "source_rights_resolved": false,
+    "source_bytes_present": false,
+    "numeric_tables_present": false,
+    "matrix_transfer_validated": false,
+    "v1_schema_guard_coherent": false,
+    "v1_caller_domain_attestation_authoritative": false,
+    "v1_strict_oav_contract_complete": false,
+    "source_rows_admitted": 0,
+    "release_model_rows_admitted": 0,
+    "bundled_code_executed": false,
+    "bundled_code_installed": false,
+    "native_runtime_replaced": false,
+    "formula_rows_mutated": 0,
+    "inventory_rows_mutated": 0,
+    "physical_truth_rows_mutated": 0,
+    "release_rows_mutated": 0,
+    "promotion_allowed": false
+  },
+  "receipt_sha256": "ae2b660342310400919005bce6a4e3ae9c412863e14860ad8f8fb673ca1812d6"
+}

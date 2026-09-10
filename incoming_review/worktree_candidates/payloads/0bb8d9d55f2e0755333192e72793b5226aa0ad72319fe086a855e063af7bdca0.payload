@@ -1,0 +1,787 @@
+{
+  "scope": "Re-fetch of 107 pre-existing local cache CIDs; does not validate that each CID belongs to the named material.",
+  "retrieved_utc": "2026-09-07T06:14:03.135Z",
+  "responses": [
+    {
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/10149036,102861,103212,106729,111037,111384,112446,116699,118201,118292,1183,120101,12410118,12810,12813,134692469,14896,1549018,15984303,16220111,163336,17877030,21059,21648,21933618,22629,228987,2345,235414,24020,244,249494,26955,27941,29096,29746,30914,31209,31244,31404,323,3314,4133,445070,460/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+      "status": 200,
+      "sha256": "3cd5dfc139af3bc503a86f1290ce2d9e00e21adc142d7795574c64b4ec4daad1",
+      "payload": {
+        "PropertyTable": {
+          "Properties": [
+            {
+              "CID": 10149036,
+              "MolecularFormula": "C12H14O",
+              "MolecularWeight": "174.24",
+              "IUPACName": "2,3,3-trimethyl-2H-inden-1-one",
+              "XLogP": 3.1
+            },
+            {
+              "CID": 102861,
+              "MolecularFormula": "C13H22O3",
+              "MolecularWeight": "226.31",
+              "IUPACName": "methyl 2-(3-oxo-2-pentylcyclopentyl)acetate",
+              "XLogP": 2.7
+            },
+            {
+              "CID": 103212,
+              "MolecularFormula": "C14H26O",
+              "MolecularWeight": "210.36",
+              "IUPACName": "3-methyl-5-(2,2,3-trimethylcyclopent-3-en-1-yl)pentan-2-ol",
+              "XLogP": 3.9
+            },
+            {
+              "CID": 106729,
+              "MolecularFormula": "C10H18O3",
+              "MolecularWeight": "186.25",
+              "IUPACName": "prop-2-enyl 2-(3-methylbutoxy)acetate",
+              "XLogP": 2.3
+            },
+            {
+              "CID": 111037,
+              "MolecularFormula": "C12H20O2",
+              "MolecularWeight": "196.29",
+              "IUPACName": "2-(4-methylcyclohex-3-en-1-yl)propan-2-yl acetate",
+              "XLogP": 2.4
+            },
+            {
+              "CID": 111384,
+              "MolecularFormula": "C12H20O",
+              "MolecularWeight": "180.29",
+              "IUPACName": "3,4-diethyl-2,5-dimethylcyclohex-2-en-1-one",
+              "XLogP": 2.9
+            },
+            {
+              "CID": 112446,
+              "MolecularFormula": "C11H17N",
+              "MolecularWeight": "163.26",
+              "IUPACName": "3,7-dimethylnona-2,6-dienenitrile",
+              "XLogP": 3.7
+            },
+            {
+              "CID": 116699,
+              "MolecularFormula": "C15H30O",
+              "MolecularWeight": "226.40",
+              "IUPACName": "1-(2,2,6-trimethylcyclohexyl)hexan-3-ol",
+              "XLogP": 5.2
+            },
+            {
+              "CID": 118201,
+              "MolecularFormula": "C12H18O2",
+              "MolecularWeight": "194.27",
+              "IUPACName": "ethyl 2,6,6-trimethylcyclohexa-1,3-diene-1-carboxylate",
+              "XLogP": 2.9
+            },
+            {
+              "CID": 118292,
+              "MolecularFormula": "C14H24O2",
+              "MolecularWeight": "224.34",
+              "IUPACName": "4-(1-ethoxyethenyl)-3,3,5,5-tetramethylcyclohexan-1-one",
+              "XLogP": 3.1
+            },
+            {
+              "CID": 1183,
+              "MolecularFormula": "C8H8O3",
+              "MolecularWeight": "152.15",
+              "IUPACName": "4-hydroxy-3-methoxybenzaldehyde",
+              "XLogP": 1.2
+            },
+            {
+              "CID": 120101,
+              "MolecularFormula": "C10H10O3",
+              "MolecularWeight": "178.18",
+              "IUPACName": "7-methyl-1,5-benzodioxepin-3-one",
+              "XLogP": 1.9
+            },
+            {
+              "CID": 12410118,
+              "MolecularFormula": "C15H26O2",
+              "MolecularWeight": "238.37",
+              "IUPACName": "(3E)-1-oxacyclohexadec-3-en-2-one",
+              "XLogP": 5.7
+            },
+            {
+              "CID": 12810,
+              "MolecularFormula": "C10H18O2",
+              "MolecularWeight": "170.25",
+              "IUPACName": "6-pentyloxan-2-one",
+              "XLogP": 2.5
+            },
+            {
+              "CID": 12813,
+              "MolecularFormula": "C10H18O2",
+              "MolecularWeight": "170.25",
+              "IUPACName": "5-hexyloxolan-2-one",
+              "XLogP": 2.7
+            },
+            {
+              "CID": 134692469,
+              "MolecularFormula": "C12H28O6",
+              "MolecularWeight": "268.35",
+              "IUPACName": "2-(1-hydroxypropan-2-yloxy)propan-1-ol;1-(2-hydroxypropoxy)propan-2-ol"
+            },
+            {
+              "CID": 14896,
+              "MolecularFormula": "C10H16",
+              "MolecularWeight": "136.23",
+              "IUPACName": "6,6-dimethyl-2-methylidenebicyclo[3.1.1]heptane",
+              "XLogP": 3.1
+            },
+            {
+              "CID": 1549018,
+              "MolecularFormula": "C11H16O",
+              "MolecularWeight": "164.24",
+              "IUPACName": "3-methyl-2-[(Z)-pent-2-enyl]cyclopent-2-en-1-one",
+              "XLogP": 2.2
+            },
+            {
+              "CID": 15984303,
+              "MolecularFormula": "C15H26O",
+              "MolecularWeight": "222.37",
+              "IUPACName": "(E)-3,3-dimethyl-5-(2,2,3-trimethylcyclopent-3-en-1-yl)pent-4-en-2-ol",
+              "XLogP": 3.8
+            },
+            {
+              "CID": 16220111,
+              "MolecularFormula": "C17H26O",
+              "MolecularWeight": "246.4",
+              "IUPACName": "1-[(1R,2R,5S,7R)-2,6,6,8-tetramethyl-9-tricyclo[5.3.1.01,5]undec-8-enyl]ethanone",
+              "XLogP": 4
+            },
+            {
+              "CID": 163336,
+              "MolecularFormula": "C11H22O",
+              "MolecularWeight": "170.29",
+              "IUPACName": "4-methyldec-3-en-5-ol",
+              "XLogP": 3.8
+            },
+            {
+              "CID": 17877030,
+              "MolecularFormula": "C14H20O",
+              "MolecularWeight": "204.31",
+              "IUPACName": "3-[2-methyl-4-(2-methylpropyl)phenyl]propanal",
+              "XLogP": 3.6
+            },
+            {
+              "CID": 21059,
+              "MolecularFormula": "C7H8O3",
+              "MolecularWeight": "140.14",
+              "IUPACName": "2-ethyl-3-hydroxypyran-4-one",
+              "XLogP": 0.8
+            },
+            {
+              "CID": 21648,
+              "MolecularFormula": "C10H12O2",
+              "MolecularWeight": "164.20",
+              "IUPACName": "4-(4-hydroxyphenyl)butan-2-one",
+              "XLogP": 1.5
+            },
+            {
+              "CID": 21933618,
+              "MolecularFormula": "C15H26O4",
+              "MolecularWeight": "270.36",
+              "IUPACName": "[2-[1-(3,3-dimethylcyclohexyl)ethoxy]-2-oxoethyl] propanoate",
+              "XLogP": 4
+            },
+            {
+              "CID": 22629,
+              "MolecularFormula": "C13H18O3",
+              "MolecularWeight": "222.28",
+              "IUPACName": "hexyl 2-hydroxybenzoate",
+              "XLogP": 5.7
+            },
+            {
+              "CID": 228987,
+              "MolecularFormula": "C14H20O",
+              "MolecularWeight": "204.31",
+              "IUPACName": "3-(4-tert-butylphenyl)-2-methylpropanal",
+              "XLogP": 3.9
+            },
+            {
+              "CID": 2345,
+              "MolecularFormula": "C14H12O2",
+              "MolecularWeight": "212.24",
+              "IUPACName": "benzyl benzoate",
+              "XLogP": 4
+            },
+            {
+              "CID": 235414,
+              "MolecularFormula": "C15H28O2",
+              "MolecularWeight": "240.38",
+              "IUPACName": "oxacyclohexadecan-2-one",
+              "XLogP": 5.8
+            },
+            {
+              "CID": 24020,
+              "MolecularFormula": "C7H14O2",
+              "MolecularWeight": "130.18",
+              "IUPACName": "ethyl 2-methylbutanoate",
+              "XLogP": 1.9
+            },
+            {
+              "CID": 244,
+              "MolecularFormula": "C7H8O",
+              "MolecularWeight": "108.14",
+              "IUPACName": "phenylmethanol",
+              "XLogP": 1.1
+            },
+            {
+              "CID": 249494,
+              "MolecularFormula": "C10H22O2",
+              "MolecularWeight": "174.28",
+              "IUPACName": "3,7-dimethyloctane-1,7-diol",
+              "XLogP": 1.9
+            },
+            {
+              "CID": 26955,
+              "MolecularFormula": "C13H20O",
+              "MolecularWeight": "192.30",
+              "IUPACName": "4-(2,6,6-trimethylcyclohexen-1-yl)but-3-en-2-one",
+              "XLogP": 2.9
+            },
+            {
+              "CID": 27941,
+              "MolecularFormula": "C11H20O",
+              "MolecularWeight": "168.28",
+              "IUPACName": "4-(2-methylbutan-2-yl)cyclohexan-1-one",
+              "XLogP": 2.9
+            },
+            {
+              "CID": 29096,
+              "MolecularFormula": "C10H20O",
+              "MolecularWeight": "156.26",
+              "IUPACName": "2,6-dimethyloct-7-en-2-ol",
+              "XLogP": 2.9
+            },
+            {
+              "CID": 29746,
+              "MolecularFormula": "C12H22O",
+              "MolecularWeight": "182.30",
+              "IUPACName": "(4S,4aS,8aR)-4,8a-dimethyl-1,2,3,4,5,6,7,8-octahydronaphthalen-4a-ol",
+              "XLogP": 3.3
+            },
+            {
+              "CID": 30914,
+              "MolecularFormula": "C6H6N2O",
+              "MolecularWeight": "122.12",
+              "IUPACName": "1-pyrazin-2-ylethanone",
+              "XLogP": 0.2
+            },
+            {
+              "CID": 31209,
+              "MolecularFormula": "C14H18O",
+              "MolecularWeight": "202.29",
+              "IUPACName": "2-benzylideneheptanal",
+              "XLogP": 4.2
+            },
+            {
+              "CID": 31244,
+              "MolecularFormula": "C8H8O2",
+              "MolecularWeight": "136.15",
+              "IUPACName": "4-methoxybenzaldehyde",
+              "XLogP": 1.8
+            },
+            {
+              "CID": 31404,
+              "MolecularFormula": "C15H24O",
+              "MolecularWeight": "220.35",
+              "IUPACName": "2,6-ditert-butyl-4-methylphenol",
+              "XLogP": 5.3
+            },
+            {
+              "CID": 323,
+              "MolecularFormula": "C9H6O2",
+              "MolecularWeight": "146.14",
+              "IUPACName": "chromen-2-one",
+              "XLogP": 1.4
+            },
+            {
+              "CID": 3314,
+              "MolecularFormula": "C10H12O2",
+              "MolecularWeight": "164.20",
+              "IUPACName": "2-methoxy-4-prop-2-enylphenol",
+              "XLogP": 2
+            },
+            {
+              "CID": 4133,
+              "MolecularFormula": "C8H8O3",
+              "MolecularWeight": "152.15",
+              "IUPACName": "methyl 2-hydroxybenzoate",
+              "XLogP": 2.3
+            },
+            {
+              "CID": 445070,
+              "MolecularFormula": "C15H26O",
+              "MolecularWeight": "222.37",
+              "IUPACName": "(2E,6E)-3,7,11-trimethyldodeca-2,6,10-trien-1-ol",
+              "XLogP": 4.8
+            },
+            {
+              "CID": 460,
+              "MolecularFormula": "C7H8O2",
+              "MolecularWeight": "124.14",
+              "IUPACName": "2-methoxyphenol",
+              "XLogP": 1.3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/517827,519382,5282108,5315892,5365976,5366074,5366077,5371002,5372174,5374527,57495095,6054,61014,61016,61031,62334,637511,637566,638011,6437266,6437428,643820,64805,64832,6506,66638,6669,6736,6781,6992244,702,7122,7129,7150,74005,7714,7731,7794,78435,798,8042,8175,8187,81898,8294/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+      "status": 200,
+      "sha256": "500c31b6630e2790e01c3298b91feea0761343813fce479b2a98e380d40cd8b6",
+      "payload": {
+        "PropertyTable": {
+          "Properties": [
+            {
+              "CID": 517827,
+              "MolecularFormula": "C13H18O",
+              "MolecularWeight": "190.28",
+              "IUPACName": "2-methyl-3-(4-propan-2-ylphenyl)propanal",
+              "XLogP": 3.3
+            },
+            {
+              "CID": 519382,
+              "MolecularFormula": "C13H22O",
+              "MolecularWeight": "194.31",
+              "IUPACName": "4-(2,6,6-trimethylcyclohexen-1-yl)butan-2-one",
+              "XLogP": 2.7
+            },
+            {
+              "CID": 5282108,
+              "MolecularFormula": "C13H20O",
+              "MolecularWeight": "192.30",
+              "IUPACName": "(E)-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but-3-en-2-one",
+              "XLogP": 3
+            },
+            {
+              "CID": 5315892,
+              "MolecularFormula": "C9H10O",
+              "MolecularWeight": "134.17",
+              "IUPACName": "(E)-3-phenylprop-2-en-1-ol",
+              "XLogP": 1.9
+            },
+            {
+              "CID": 5365976,
+              "MolecularFormula": "C16H24O",
+              "MolecularWeight": "232.36",
+              "IUPACName": "(1E)-1-(2,6,6-trimethylcyclohex-2-en-1-yl)hepta-1,6-dien-3-one",
+              "XLogP": 4
+            },
+            {
+              "CID": 5366074,
+              "MolecularFormula": "C13H18O",
+              "MolecularWeight": "190.28",
+              "IUPACName": "(E)-1-(2,6,6-trimethylcyclohexa-1,3-dien-1-yl)but-2-en-1-one",
+              "XLogP": 3.2
+            },
+            {
+              "CID": 5366077,
+              "MolecularFormula": "C13H20O",
+              "MolecularWeight": "192.30",
+              "IUPACName": "(E)-1-(2,6,6-trimethylcyclohex-2-en-1-yl)but-2-en-1-one",
+              "XLogP": 3.2
+            },
+            {
+              "CID": 5371002,
+              "MolecularFormula": "C14H22O",
+              "MolecularWeight": "206.32",
+              "IUPACName": "(E)-4-(2,5,6,6-tetramethylcyclohex-2-en-1-yl)but-3-en-2-one",
+              "XLogP": 3.2
+            },
+            {
+              "CID": 5372174,
+              "MolecularFormula": "C14H22O",
+              "MolecularWeight": "206.32",
+              "IUPACName": "(E)-3-methyl-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but-3-en-2-one",
+              "XLogP": 3.3
+            },
+            {
+              "CID": 5374527,
+              "MolecularFormula": "C13H20O",
+              "MolecularWeight": "192.30",
+              "IUPACName": "(E)-1-(2,6,6-trimethylcyclohexen-1-yl)but-2-en-1-one",
+              "XLogP": 3.5
+            },
+            {
+              "CID": 57495095,
+              "MolecularFormula": "C14H21NO",
+              "MolecularWeight": "219.32",
+              "IUPACName": "2-ethyl-N-methyl-N-(3-methylphenyl)butanamide",
+              "XLogP": 3.4
+            },
+            {
+              "CID": 6054,
+              "MolecularFormula": "C8H10O",
+              "MolecularWeight": "122.16",
+              "IUPACName": "2-phenylethanol",
+              "XLogP": 1.4
+            },
+            {
+              "CID": 61014,
+              "MolecularFormula": "C15H26O4",
+              "MolecularWeight": "270.36",
+              "IUPACName": "1,4-dioxacycloheptadecane-5,17-dione",
+              "XLogP": 4.2
+            },
+            {
+              "CID": 61016,
+              "MolecularFormula": "C9H16O",
+              "MolecularWeight": "140.22",
+              "IUPACName": "2,6-dimethylhept-5-enal",
+              "XLogP": 2.5
+            },
+            {
+              "CID": 61031,
+              "MolecularFormula": "C12H24O",
+              "MolecularWeight": "184.32",
+              "IUPACName": "2-methylundecanal",
+              "XLogP": 4.9
+            },
+            {
+              "CID": 62334,
+              "MolecularFormula": "C12H22O2",
+              "MolecularWeight": "198.30",
+              "IUPACName": "(2-tert-butylcyclohexyl) acetate",
+              "XLogP": 3.6
+            },
+            {
+              "CID": 637511,
+              "MolecularFormula": "C9H8O",
+              "MolecularWeight": "132.16",
+              "IUPACName": "(E)-3-phenylprop-2-enal",
+              "XLogP": 1.9
+            },
+            {
+              "CID": 637566,
+              "MolecularFormula": "C10H18O",
+              "MolecularWeight": "154.25",
+              "IUPACName": "(2E)-3,7-dimethylocta-2,6-dien-1-ol",
+              "XLogP": 2.9
+            },
+            {
+              "CID": 638011,
+              "MolecularFormula": "C10H16O",
+              "MolecularWeight": "152.23",
+              "IUPACName": "(2E)-3,7-dimethylocta-2,6-dienal",
+              "XLogP": 3
+            },
+            {
+              "CID": 6437266,
+              "MolecularFormula": "C14H24O",
+              "MolecularWeight": "208.34",
+              "IUPACName": "(Z)-3-methyl-5-(2,2,3-trimethylcyclopent-3-en-1-yl)pent-4-en-2-ol",
+              "XLogP": 3.3
+            },
+            {
+              "CID": 6437428,
+              "MolecularFormula": "C15H24O",
+              "MolecularWeight": "220.35",
+              "IUPACName": "2-[(2E)-3,7-dimethylocta-2,6-dienyl]cyclopentan-1-one",
+              "XLogP": 4.2
+            },
+            {
+              "CID": 643820,
+              "MolecularFormula": "C10H18O",
+              "MolecularWeight": "154.25",
+              "IUPACName": "(2Z)-3,7-dimethylocta-2,6-dien-1-ol",
+              "XLogP": 2.9
+            },
+            {
+              "CID": 64805,
+              "MolecularFormula": "C11H12O3",
+              "MolecularWeight": "192.21",
+              "IUPACName": "3-(1,3-benzodioxol-5-yl)-2-methylpropanal",
+              "XLogP": 2.2
+            },
+            {
+              "CID": 64832,
+              "MolecularFormula": "C13H18O",
+              "MolecularWeight": "190.28",
+              "IUPACName": "3-(4-tert-butylphenyl)propanal",
+              "XLogP": 3.3
+            },
+            {
+              "CID": 6506,
+              "MolecularFormula": "C12H20O7",
+              "MolecularWeight": "276.28",
+              "IUPACName": "triethyl 2-hydroxypropane-1,2,3-tricarboxylate",
+              "XLogP": 0.1
+            },
+            {
+              "CID": 66638,
+              "MolecularFormula": "C10H10N2O4S",
+              "MolecularWeight": "254.26",
+              "IUPACName": "4-(3-methyl-5-oxo-4H-pyrazol-1-yl)benzenesulfonic acid",
+              "XLogP": 0
+            },
+            {
+              "CID": 6669,
+              "MolecularFormula": "C14H18N2O5",
+              "MolecularWeight": "294.30",
+              "IUPACName": "1-(4-tert-butyl-2,6-dimethyl-3,5-dinitrophenyl)ethanone",
+              "XLogP": 3.7
+            },
+            {
+              "CID": 6736,
+              "MolecularFormula": "C9H9N",
+              "MolecularWeight": "131.17",
+              "IUPACName": "3-methyl-1H-indole",
+              "XLogP": 2.6
+            },
+            {
+              "CID": 6781,
+              "MolecularFormula": "C12H14O4",
+              "MolecularWeight": "222.24",
+              "IUPACName": "diethyl benzene-1,2-dicarboxylate",
+              "XLogP": 2.5
+            },
+            {
+              "CID": 6992244,
+              "MolecularFormula": "C8H16O",
+              "MolecularWeight": "128.21",
+              "IUPACName": "(3R)-oct-1-en-3-ol",
+              "XLogP": 2.6
+            },
+            {
+              "CID": 702,
+              "MolecularFormula": "C2H6O",
+              "MolecularWeight": "46.07",
+              "IUPACName": "ethanol",
+              "XLogP": -0.1
+            },
+            {
+              "CID": 7122,
+              "MolecularFormula": "C12H10O",
+              "MolecularWeight": "170.21",
+              "IUPACName": "1-naphthalen-2-ylethanone",
+              "XLogP": 3.2
+            },
+            {
+              "CID": 7129,
+              "MolecularFormula": "C12H12O",
+              "MolecularWeight": "172.22",
+              "IUPACName": "2-ethoxynaphthalene",
+              "XLogP": 3.8
+            },
+            {
+              "CID": 7150,
+              "MolecularFormula": "C8H8O2",
+              "MolecularWeight": "136.15",
+              "IUPACName": "methyl benzoate",
+              "XLogP": 2.1
+            },
+            {
+              "CID": 74005,
+              "MolecularFormula": "C13H15N",
+              "MolecularWeight": "185.26",
+              "IUPACName": "4-(2-methylpropyl)quinoline",
+              "XLogP": 3.8
+            },
+            {
+              "CID": 7714,
+              "MolecularFormula": "C11H20O2",
+              "MolecularWeight": "184.27",
+              "IUPACName": "5-heptyloxolan-2-one",
+              "XLogP": 3.3
+            },
+            {
+              "CID": 7731,
+              "MolecularFormula": "C8H10O",
+              "MolecularWeight": "122.16",
+              "IUPACName": "1-methoxy-4-methylbenzene",
+              "XLogP": 2.7
+            },
+            {
+              "CID": 7794,
+              "MolecularFormula": "C10H18O",
+              "MolecularWeight": "154.25",
+              "IUPACName": "3,7-dimethyloct-6-enal",
+              "XLogP": 3
+            },
+            {
+              "CID": 78435,
+              "MolecularFormula": "C10H12O4",
+              "MolecularWeight": "196.20",
+              "IUPACName": "methyl 2,4-dihydroxy-3,6-dimethylbenzoate",
+              "XLogP": 2.3
+            },
+            {
+              "CID": 798,
+              "MolecularFormula": "C8H7N",
+              "MolecularWeight": "117.15",
+              "IUPACName": "1H-indole",
+              "XLogP": 2.1
+            },
+            {
+              "CID": 8042,
+              "MolecularFormula": "C17H34O2",
+              "MolecularWeight": "270.5",
+              "IUPACName": "propan-2-yl tetradecanoate",
+              "XLogP": 7.2
+            },
+            {
+              "CID": 8175,
+              "MolecularFormula": "C10H20O",
+              "MolecularWeight": "156.26",
+              "IUPACName": "decanal",
+              "XLogP": 3.8
+            },
+            {
+              "CID": 8187,
+              "MolecularFormula": "C11H20O",
+              "MolecularWeight": "168.28",
+              "IUPACName": "undec-10-enal",
+              "XLogP": 3.8
+            },
+            {
+              "CID": 81898,
+              "MolecularFormula": "C12H16O",
+              "MolecularWeight": "176.25",
+              "IUPACName": "4-methyl-4-phenylpentan-2-one",
+              "XLogP": 2.7
+            },
+            {
+              "CID": 8294,
+              "MolecularFormula": "C12H20O2",
+              "MolecularWeight": "196.29",
+              "IUPACName": "3,7-dimethylocta-1,6-dien-3-yl acetate",
+              "XLogP": 3.3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/8347,8363,83763,8438,8467,853433,8635,8785,8842,8908,9024,91375,91497,92292,92606,93375,98403/property/MolecularFormula,MolecularWeight,XLogP,IUPACName/JSON",
+      "status": 200,
+      "sha256": "2fdd5df536691a18ca663de1e22ec8f3666da7b1a5c0cbac0dd731e6c54d1aa6",
+      "payload": {
+        "PropertyTable": {
+          "Properties": [
+            {
+              "CID": 8347,
+              "MolecularFormula": "C17H26O2",
+              "MolecularWeight": "262.4",
+              "IUPACName": "(4,8-dimethyl-2-propan-2-ylidene-3,3a,4,5,6,8a-hexahydro-1H-azulen-6-yl) acetate",
+              "XLogP": 3.6
+            },
+            {
+              "CID": 8363,
+              "MolecularFormula": "C14H12O3",
+              "MolecularWeight": "228.24",
+              "IUPACName": "benzyl 2-hydroxybenzoate",
+              "XLogP": 3.2
+            },
+            {
+              "CID": 83763,
+              "MolecularFormula": "C10H20O",
+              "MolecularWeight": "156.26",
+              "IUPACName": "(4-propan-2-ylcyclohexyl)methanol",
+              "XLogP": 3
+            },
+            {
+              "CID": 8438,
+              "MolecularFormula": "C8H6O3",
+              "MolecularWeight": "150.13",
+              "IUPACName": "1,3-benzodioxole-5-carbaldehyde",
+              "XLogP": 1.1
+            },
+            {
+              "CID": 8467,
+              "MolecularFormula": "C9H10O3",
+              "MolecularWeight": "166.17",
+              "IUPACName": "3-ethoxy-4-hydroxybenzaldehyde",
+              "XLogP": 1.6
+            },
+            {
+              "CID": 853433,
+              "MolecularFormula": "C10H12O2",
+              "MolecularWeight": "164.20",
+              "IUPACName": "2-methoxy-4-[(E)-prop-1-enyl]phenol",
+              "XLogP": 2.6
+            },
+            {
+              "CID": 8635,
+              "MolecularFormula": "C8H9NO2",
+              "MolecularWeight": "151.16",
+              "IUPACName": "methyl 2-aminobenzoate",
+              "XLogP": 1.9
+            },
+            {
+              "CID": 8785,
+              "MolecularFormula": "C9H10O2",
+              "MolecularWeight": "150.17",
+              "IUPACName": "benzyl acetate",
+              "XLogP": 2
+            },
+            {
+              "CID": 8842,
+              "MolecularFormula": "C10H20O",
+              "MolecularWeight": "156.26",
+              "IUPACName": "3,7-dimethyloct-6-en-1-ol",
+              "XLogP": 3.2
+            },
+            {
+              "CID": 8908,
+              "MolecularFormula": "C8H16O2",
+              "MolecularWeight": "144.21",
+              "IUPACName": "hexyl acetate",
+              "XLogP": 2.4
+            },
+            {
+              "CID": 9024,
+              "MolecularFormula": "C12H16O2",
+              "MolecularWeight": "192.25",
+              "IUPACName": "(2-methyl-1-phenylpropan-2-yl) acetate",
+              "XLogP": 2.7
+            },
+            {
+              "CID": 91375,
+              "MolecularFormula": "C11H20O2",
+              "MolecularWeight": "184.27",
+              "IUPACName": "2,6-dimethyloct-7-en-2-yl formate",
+              "XLogP": 3.4
+            },
+            {
+              "CID": 91497,
+              "MolecularFormula": "C18H26O",
+              "MolecularWeight": "258.4",
+              "IUPACName": "4,6,6,7,8,8-hexamethyl-1,3,4,7-tetrahydrocyclopenta[g]isochromene",
+              "XLogP": 4.8
+            },
+            {
+              "CID": 92292,
+              "MolecularFormula": "C14H22O",
+              "MolecularWeight": "206.32",
+              "IUPACName": "1,1,2,3,3-pentamethyl-2,5,6,7-tetrahydroinden-4-one",
+              "XLogP": 3.3
+            },
+            {
+              "CID": 92606,
+              "MolecularFormula": "C13H20O",
+              "MolecularWeight": "192.30",
+              "IUPACName": "1-(5,5-dimethylcyclohexen-1-yl)pent-4-en-1-one",
+              "XLogP": 3.6
+            },
+            {
+              "CID": 93375,
+              "MolecularFormula": "C9H14O",
+              "MolecularWeight": "138.21",
+              "IUPACName": "2,4-dimethylcyclohex-3-ene-1-carbaldehyde",
+              "XLogP": 1.4
+            },
+            {
+              "CID": 98403,
+              "MolecularFormula": "C14H26O",
+              "MolecularWeight": "210.36",
+              "IUPACName": "2,6,10-trimethylundec-9-enal",
+              "XLogP": 5
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

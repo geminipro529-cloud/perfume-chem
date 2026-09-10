@@ -1,0 +1,74 @@
+from __future__ import annotations
+
+import hashlib
+import json
+import re
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+MANIFEST_PATH = (
+    ROOT / "data" / "governance" / "unified_import_sukhum_rose_20260904.json"
+)
+SHA256_PATTERN = re.compile(r"[0-9A-F]{64}")
+
+
+def _load_manifest() -> dict[str, object]:
+    return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+
+
+def _assert_live_receipt(
+    record: dict[str, object], *, size_key: str, sha_key: str
+) -> None:
+    assert set(("path", size_key, sha_key)).issubset(record)
+
+    relative_path = record["path"]
+    declared_size = record[size_key]
+    declared_sha = record[sha_key]
+
+    assert isinstance(relative_path, str) and relative_path
+    assert isinstance(declared_size, int) and not isinstance(declared_size, bool)
+    assert declared_size > 0
+    assert isinstance(declared_sha, str)
+    assert SHA256_PATTERN.fullmatch(declared_sha)
+
+    destination = ROOT / relative_path
+    assert destination.is_file(), f"missing imported destination: {relative_path}"
+    payload = destination.read_bytes()
+    assert len(payload) == declared_size, f"byte-size drift: {relative_path}"
+    assert hashlib.sha256(payload).hexdigest().upper() == declared_sha, (
+        f"SHA-256 drift: {relative_path}"
+    )
+
+
+def test_manifest_counts_and_receipt_paths_are_complete_and_unique() -> None:
+    manifest = _load_manifest()
+    destination = manifest["destination"]
+    artifacts = manifest["artifacts"]
+    tests = manifest["tests"]
+
+    assert isinstance(destination, dict)
+    assert isinstance(artifacts, list)
+    assert isinstance(tests, list)
+    assert len(artifacts) == destination["artifact_count"] == 19
+    assert len(tests) == destination["test_count"] == 15
+
+    records = [*artifacts, *tests]
+    assert all(isinstance(record, dict) for record in records)
+    paths = [record["path"] for record in records]
+    assert len(paths) == len(set(paths)) == 34
+
+
+def test_every_declared_artifact_has_a_live_size_and_sha256_receipt() -> None:
+    manifest = _load_manifest()
+
+    for record in manifest["artifacts"]:
+        assert isinstance(record, dict)
+        _assert_live_receipt(record, size_key="bytes", sha_key="sha256")
+
+    for record in manifest["tests"]:
+        assert isinstance(record, dict)
+        _assert_live_receipt(
+            record,
+            size_key="destination_bytes",
+            sha_key="destination_sha256",
+        )

@@ -1,0 +1,1387 @@
+{
+  "format": "documentary_research_packet_v1",
+  "case_id": "DHI2011-COMPLEXITY-FIRST-OPEN-SPACE-20260906",
+  "created_local_date": "2026-09-06",
+  "authority": "RESEARCH_DESIGN_ONLY",
+  "report_path": "docs/research/DHI2011_COMPLEXITY_FIRST_OPEN_SPACE_RESEARCH_20260906.md",
+  "new_formula_created": false,
+  "existing_formula_modified": false,
+  "pipeline_code_modified": false,
+  "pipeline_run_this_audit": false,
+  "physical_experiment_performed": false,
+  "physical_observations": [],
+  "release_state": "HOLD_UNCHANGED",
+  "sensory_state": "NOT_TESTED",
+  "primary_target": "DHI2011_ORRIS_LED",
+  "secondary_reference": {
+    "selection": "DHP2025",
+    "scope": "STRUCTURAL_GRAMMAR_NOT_INGREDIENT_LIST",
+    "numerical_model_admitted": false,
+    "donor_independence_gate_run": false,
+    "complete_donor_manifest_status": "NOT_ESTABLISHED_BY_THIS_AUDIT"
+  },
+  "constraints": {
+    "ingredient_count_cap": null,
+    "excluded_materials": [
+      "Irotyl"
+    ],
+    "historical_Dior_formula_authenticated": false,
+    "ideal_design_must_be_separate": true,
+    "quantified_ideal_successor_completed": false
+  },
+  "source_bindings": [
+    {
+      "path": "inventory.txt",
+      "sha256": "331f233274960c9e53586c61cafae7bd85ec4f480c835430c72904a9406dc06f"
+    },
+    {
+      "path": "docs/research/DHP2025_STRUCTURAL_FORMULATION_LEARNING_PROTOCOL.md",
+      "sha256": "50d108570dea367a0d377de1dc41bbf17e8911b522d67d8d2a7aa237085edeb1"
+    },
+    {
+      "path": "docs/depth_architecture/09_spatial_architecture_performance.md",
+      "sha256": "6b381b8931421e89aeca556f72479bf65f8438797cdfe3d769f4e4e938ddcae5"
+    },
+    {
+      "path": "formulas/DHI-11_Velours_d_Iris_05443A_30mL_20pct_V4_Orris_Led.md",
+      "sha256": "27017d190bff711ef91a9bb0c2d17fb20624012559f0a6e2e2ed91dccea6544e"
+    },
+    {
+      "path": "formulas/DHI-11_V5_Orris_Led_From_Zero_30mL_20pct.md",
+      "sha256": "602619761c1011c82f82d0d9721d555431f382fe2e7602c738b8576eb9bcd434"
+    },
+    {
+      "path": "formulas/DHI-11_V5_Orris_Led_From_Zero_30mL_20pct.design.json",
+      "sha256": "deb1c23aca5b71ea0874caa3e5384ec19ebfd418a3b6faebedd79b3f9eadc2d6"
+    },
+    {
+      "path": "formulas/DHI-11_V5_From_Zero_30mL_POUR_CARD.md",
+      "sha256": "7c805219c302e3b3d371ead15168828ccb385517bfee894a0ca48fb86286eac0"
+    },
+    {
+      "path": "output/dhi2011_v5_scientific_data_audit_20260905/release_gate.json",
+      "sha256": "8237d116bf67d4d9dafb404eebe208b7430706aef58b36ecfeb225f9dfaf1272"
+    },
+    {
+      "path": "engine/pipeline/simulator.py",
+      "sha256": "a234fce4b0ca8865e12ac3191351d50cf6509b2697e9daf463d216c32c647ed5"
+    },
+    {
+      "path": "engine/pipeline/formula_state.py",
+      "sha256": "447a1aa282b6968bfe0af409915d1bd2fccf4823d049cf7ca47cc369e096a60b"
+    },
+    {
+      "path": "engine/formulation_intelligence/spatial_architecture.py",
+      "sha256": "59bdafb976eedff73221368cfa0e9362f00ebffbef7720aee683752fa2a60522"
+    }
+  ],
+  "historical_row_counts": {
+    "v4": 26,
+    "v5": 23,
+    "retained": 20,
+    "removed": 6,
+    "added": 3,
+    "removals_individually_discussed_in_v5": true
+  },
+  "audit_conclusion": "V5 has preliminary relationship-aware design but does not establish the complete DHP complexity-first method or open-space behavior.",
+  "dimension_audit": [
+    {
+      "dimension": "identity",
+      "status": "PARTIAL",
+      "gap": "Protected nucleus and reference-qualified receiver comparison missing.",
+      "automated_gate_result": false
+    },
+    {
+      "dimension": "spatial",
+      "status": "INCOMPLETE",
+      "gap": "Plane coexistence and receiver-space transport not established.",
+      "automated_gate_result": false
+    },
+    {
+      "dimension": "temporal",
+      "status": "SCREENING_ONLY",
+      "gap": "Loss rate is uncalibrated; measured handoffs absent.",
+      "automated_gate_result": false
+    },
+    {
+      "dimension": "textural",
+      "status": "HYPOTHESES_ONLY",
+      "gap": "Contrast distinct from intensity untested.",
+      "automated_gate_result": false
+    },
+    {
+      "dimension": "relational",
+      "status": "PARTIAL",
+      "gap": "Eight facets do not establish connected opposed states.",
+      "automated_gate_result": false
+    },
+    {
+      "dimension": "transition",
+      "status": "PARTIAL",
+      "gap": "Some row handoffs present; complete owner graph absent.",
+      "automated_gate_result": false
+    },
+    {
+      "dimension": "anatomical",
+      "status": "INCOMPLETE",
+      "gap": "Surface/interior/connective-tissue/silhouette/residue map incomplete.",
+      "automated_gate_result": false
+    },
+    {
+      "dimension": "pressure_release",
+      "status": "HYPOTHESES_ONLY",
+      "gap": "Airy/dense simultaneity not tested.",
+      "automated_gate_result": false
+    },
+    {
+      "dimension": "recurrence",
+      "status": "HYPOTHESES_ONLY",
+      "gap": "Transformed recognizable identity not measured.",
+      "automated_gate_result": false
+    },
+    {
+      "dimension": "diffusion_fixation",
+      "status": "NOT_VALIDATED",
+      "gap": "No calibrated source flux or receiver transport.",
+      "automated_gate_result": false
+    },
+    {
+      "dimension": "hedonic_coherence",
+      "status": "NOT_TESTED",
+      "gap": "No physical whole-blend liking evidence.",
+      "automated_gate_result": false
+    },
+    {
+      "dimension": "legibility_under_adaptation",
+      "status": "NOT_TESTED",
+      "gap": "No fresh-versus-exposed controlled observations.",
+      "automated_gate_result": false
+    }
+  ],
+  "source_conservation": {
+    "scope": "ROW_FUNCTION_AUDIT_ONLY_NOT_COMPLETE_SUCCESSOR_CONSERVATION_OR_RELEASE",
+    "predecessor_plane_counts": "NOT_ESTABLISHED",
+    "predecessor_transition_counts": "NOT_ESTABLISHED",
+    "predecessor_rows": [
+      {
+        "material": "Hedione",
+        "v4_row": 1,
+        "v5_row": 1,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "Floral air around iris; not a new jasmine subject.",
+        "proposed_layer_ids": [
+          "L08"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Floral air at the iris edge; omission tests opacity. Held at V3 dose, not enlarged for score."
+      },
+      {
+        "material": "Iso E Super",
+        "v4_row": 2,
+        "v5_row": 2,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "Diffuse transition from iris into literal cedar grain.",
+        "proposed_layer_ids": [
+          "L07",
+          "L08"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Transparent cedar transition; distinct from literal Virginia cedar. Omission tests abrupt wood entry; generic wood takeover is failure."
+      },
+      {
+        "material": "Vetival",
+        "v4_row": 3,
+        "v5_row": 3,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "Smoother dry woody transition ahead of natural vetiver.",
+        "proposed_layer_ids": [
+          "L07",
+          "L10"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Polished dry woody-vetiver transition; less earthy than natural vetiver. Compare its omission against retained natural vetiver."
+      },
+      {
+        "material": "Benzyl Salicylate",
+        "v4_row": 4,
+        "v5_row": 5,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "Provisional cosmetic-film support beside powder.",
+        "proposed_layer_ids": [
+          "L04",
+          "L05"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Cosmetic film hypothesis; distinct from neutral benzoate mass. Below-threshold status cannot prove this effect."
+      },
+      {
+        "material": "Benzyl Benzoate",
+        "v4_row": 5,
+        "v5_row": 4,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "Structural/vehicle provision, not an olfactory layer.",
+        "proposed_layer_ids": [],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Low-odor replacement space and solvent-like mass; no recognizable note claimed."
+      },
+      {
+        "material": "Vetiver EO (India)",
+        "v4_row": 6,
+        "v5_row": 6,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "Owned Indian vetiver: dry root counterline under cedar.",
+        "proposed_layer_ids": [
+          "L03",
+          "L10"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Owned Indian Vetiver EO volume grade; earthy counterline to powder, distinct from cedar and smoother Vetival."
+      },
+      {
+        "material": "Cedarwood oil Virginia",
+        "v4_row": 7,
+        "v5_row": 7,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "Recognizable dry cedar grain and late iris-to-wood return.",
+        "proposed_layer_ids": [
+          "L07",
+          "L10"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Named cedar facet of house architecture; distinct from abstract Iso E. Omission tests late wood recognition."
+      },
+      {
+        "material": "Cashmeran",
+        "v4_row": 8,
+        "v5_row": 8,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "Powder-to-warm-wood textile seam.",
+        "proposed_layer_ids": [
+          "L07"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Warm textile link between powder and wood; neither a musk replacement nor evidence of literal cashmere."
+      },
+      {
+        "material": "Sandalore",
+        "v4_row": 9,
+        "v5_row": null,
+        "historical_disposition": "REMOVED_WITH_INDIVIDUAL_PROSE_REASON",
+        "function_for_research": "Cream-to-grain alternative; Ebanol is not assumed equivalent.",
+        "proposed_layer_ids": [
+          "L05"
+        ],
+        "next_disposition": "REOPEN_ALTERNATIVE_AND_PRESERVE_FUNCTION_QUESTION",
+        "historical_removal_reason": "V5 independently chose a smaller Ebanol seam.",
+        "next_comparison": "Compare qualified Sandalore and Ebanol alternatives at a protected nucleus; reject root-obscuring smoothness.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Inherited cedar-to-musk rounding hypothesis. No sandalwood lead; first non-iris omission candidate if no repeatable loss."
+      },
+      {
+        "material": "Ambrettolide",
+        "v4_row": 10,
+        "v5_row": 11,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "Fruity skin-musk relation connecting fruit, iris and talc.",
+        "proposed_layer_ids": [
+          "L06",
+          "L10"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Fruity skin-musk proxy for ambrette relation. Not ambrette seed oil or proof of the Dior musk."
+      },
+      {
+        "material": "Ethylene Brassylate",
+        "v4_row": 11,
+        "v5_row": 12,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "Powdered body behind iris, distinct hypothesis from fruity Ambrettolide.",
+        "proposed_layer_ids": [
+          "L04"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Creamy textile body behind iris; distinct from Ambrettolide fruit and Romandolide outward wood. Musk blanket is failure."
+      },
+      {
+        "material": "Romandolide",
+        "v4_row": 12,
+        "v5_row": null,
+        "historical_disposition": "REMOVED_WITH_INDIVIDUAL_PROSE_REASON",
+        "function_for_research": "Soft musk/balsamic volume and contour alternative.",
+        "proposed_layer_ids": [
+          "L08"
+        ],
+        "next_disposition": "REOPEN_ALTERNATIVE_AND_PRESERVE_FUNCTION_QUESTION",
+        "historical_removal_reason": "Unique outward-projection claim was unsupported; EB alternative retained in prose.",
+        "next_comparison": "Compare EB, Romandolide and Habanolide role alternatives; distinguish texture and receiver identity from strength.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Outward woody-musk extension; distinct hypothesis from inward fruity Ambrettolide and EB body."
+      },
+      {
+        "material": "Lavender EO High Altitude",
+        "v4_row": 13,
+        "v5_row": 13,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "Aromatic entry that hands over to iris.",
+        "proposed_layer_ids": [
+          "L01"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Fine aromatic entry from owned French stock; selected over spike/camphor lavender. Must yield to iris."
+      },
+      {
+        "material": "Linalyl Acetate",
+        "v4_row": 14,
+        "v5_row": 14,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "Adjustable lavender-to-fruit/floral ester transition.",
+        "proposed_layer_ids": [
+          "L01",
+          "L02"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Soft ester transition from lavender into fruit; distinct from linalool floral freshness."
+      },
+      {
+        "material": "Linalool",
+        "v4_row": 15,
+        "v5_row": null,
+        "historical_disposition": "REMOVED_WITH_INDIVIDUAL_PROSE_REASON",
+        "function_for_research": "Separate aromatic-floral opening bridge.",
+        "proposed_layer_ids": [
+          "L01"
+        ],
+        "next_disposition": "REOPEN_ALTERNATIVE_AND_PRESERVE_FUNCTION_QUESTION",
+        "historical_removal_reason": "Potential overlap with lavender and selected supports.",
+        "next_comparison": "Omission and isolated reintroduction at fixed lavender; measure handoff quality, not just opening duration.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Small floral continuation of lavender, held fixed; omission tests the aromatic-to-floral edge."
+      },
+      {
+        "material": "Mimosa Absolute",
+        "v4_row": 16,
+        "v5_row": null,
+        "historical_disposition": "REMOVED_WITH_INDIVIDUAL_PROSE_REASON",
+        "function_for_research": "Living flower/powder interior alternative.",
+        "proposed_layer_ids": [
+          "L04"
+        ],
+        "next_disposition": "REOPEN_ALTERNATIVE_AND_PRESERVE_FUNCTION_QUESTION",
+        "historical_removal_reason": "Target necessity and preparation basis unresolved; yellow-flower drift risk.",
+        "next_comparison": "Stock-qualified comparison against existing powder body and a heliotropal route; record honey/yellow-flower takeover.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Inherited powder irregularity; not a claimed Dior ingredient. Yellow-flower naming or no omission loss disqualifies it."
+      },
+      {
+        "material": "Osmanthus Absolute",
+        "v4_row": 17,
+        "v5_row": null,
+        "historical_disposition": "REMOVED_WITH_INDIVIDUAL_PROSE_REASON",
+        "function_for_research": "Fruit-violet-suede interface alternative.",
+        "proposed_layer_ids": [
+          "L06",
+          "L07"
+        ],
+        "next_disposition": "REOPEN_ALTERNATIVE_AND_PRESERVE_FUNCTION_QUESTION",
+        "historical_removal_reason": "Separate bridge experiment preferred; apricot intrusion risk.",
+        "next_comparison": "Compare current fruit bridge with qualified premium Osmanthus route and omission; retain only useful target-linked texture.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Inherited fruit-to-violet transition hypothesis; premium 10% stock, not volume grade. Apricot takeover disqualifies it."
+      },
+      {
+        "material": "Orris Liquid",
+        "v4_row": 18,
+        "v5_row": 15,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "User-selected supplied-product root lead; powder, root and creamy irregularity remain a whole-product hypothesis.",
+        "proposed_layer_ids": [
+          "L02",
+          "L03",
+          "L04",
+          "L10"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "User-selected rich root lead, PW 8IQ24653 product. Distinct whole-product character; no pure-irone assay assumed."
+      },
+      {
+        "material": "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+        "v4_row": 19,
+        "v5_row": 16,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "Cosmetic powder body surrounding the preferred Orris product.",
+        "proposed_layer_ids": [
+          "L04",
+          "L10"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Reduced cosmetic powder support around Orris Liquid; do not substitute unresolved Givaudan AIMI grade."
+      },
+      {
+        "material": "Alpha Ionone",
+        "v4_row": 20,
+        "v5_row": 18,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "Restrained violet movement between fruit and powder.",
+        "proposed_layer_ids": [
+          "L02"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Reduced woody-violet motion connecting fruit and root; separate molecule and role from methyl ionone."
+      },
+      {
+        "material": "Alpha Irone",
+        "v4_row": 21,
+        "v5_row": 17,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "Independent iris/root accent, not a substitute for the whole Orris product.",
+        "proposed_layer_ids": [
+          "L02",
+          "L03",
+          "L10"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Reduced independently adjustable iris accent. Tests whether the added Orris product can carry the root identity."
+      },
+      {
+        "material": "Tonkarome",
+        "v4_row": 22,
+        "v5_row": 19,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "Coumarinic fabric warmth under the iris, not a tonka lead.",
+        "proposed_layer_ids": [
+          "L09"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Inherited coumarinic warmth; not pure coumarin and not a certified Dior ingredient."
+      },
+      {
+        "material": "Isobutavan",
+        "v4_row": 23,
+        "v5_row": 20,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "Vanillic seam distinct from the coumarinic fabric.",
+        "proposed_layer_ids": [
+          "L05",
+          "L09"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Separate soft vanillic transition into musk. Cream or dessert recognition before iris is failure."
+      },
+      {
+        "material": "Verdox",
+        "v4_row": 24,
+        "v5_row": 22,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "Green fruit-to-wood glint carried toward Ambrettolide.",
+        "proposed_layer_ids": [
+          "L01",
+          "L06"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Inherited green fruit body leading into woods; pear is an accord hypothesis, not a chemical identity."
+      },
+      {
+        "material": "Benzyl Acetate",
+        "v4_row": 25,
+        "v5_row": 23,
+        "historical_disposition": "RETAINED_IN_V5_DOSE_EQUIVALENCE_NOT_ASSERTED",
+        "function_for_research": "Small floral-fruit bridge distinct from Verdox green wood.",
+        "proposed_layer_ids": [
+          "L06"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "historical_removal_reason": null,
+        "next_comparison": "Use the row's existing omission or alternative question within the controlled layer protocol.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Inherited floral-fruit bridge, distinct from Verdox wood/green. Banana or jasmine takeover is failure."
+      },
+      {
+        "material": "Ethyl 2-Methylbutyrate",
+        "v4_row": 26,
+        "v5_row": null,
+        "historical_disposition": "REMOVED_WITH_INDIVIDUAL_PROSE_REASON",
+        "function_for_research": "Separate fruit flash in the entry.",
+        "proposed_layer_ids": [
+          "L01"
+        ],
+        "next_disposition": "REOPEN_ALTERNATIVE_AND_PRESERVE_FUNCTION_QUESTION",
+        "historical_removal_reason": "Flash was not mandatory and prepared-stock mass basis was unresolved.",
+        "next_comparison": "After stock qualification, compare flash present versus absent while protecting later fruit-skin interface; reject candy takeover.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Prepared dilute fruit flash; separate volatile role from Verdox. Carrier recorded in canonical parent binding, basis unspecified."
+      }
+    ],
+    "v5_only_additions": [
+      {
+        "material": "Ebanol",
+        "v5_row": 9,
+        "function_for_research": "Small creamy edge at the cedar-to-skin boundary.",
+        "proposed_layer_ids": [
+          "L05"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "sensory_effect": "NOT_TESTED"
+      },
+      {
+        "material": "Kephalis",
+        "v5_row": 10,
+        "function_for_research": "Darker woody-amber interior joining violet, lavender and late woods.",
+        "proposed_layer_ids": [
+          "L07",
+          "L09"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "sensory_effect": "NOT_TESTED"
+      },
+      {
+        "material": "Coriander Essential Oil",
+        "v5_row": 21,
+        "function_for_research": "Fine spicy/aromatic contour at the lavender-to-iris entry.",
+        "proposed_layer_ids": [
+          "L01"
+        ],
+        "next_disposition": "PRESERVE_FUNCTION_AND_TEST",
+        "sensory_effect": "NOT_TESTED"
+      }
+    ],
+    "compression_comparison": "NOT_PERFORMED",
+    "compression_approval_inferred": false,
+    "historical_claims_preserved_as_lineage_not_endorsed": true,
+    "predecessor_function_source": "V4 two-column material-rationale table; not V5 backfilled as original intent."
+  },
+  "proposed_states": [
+    {
+      "id": "S_COLD",
+      "description": "Cool dry violet-root surface under tension.",
+      "observed": false
+    },
+    {
+      "id": "S_WARM",
+      "description": "Warm creamy cosmetic interior close to skin, connected to the same iris subject.",
+      "observed": false
+    }
+  ],
+  "proposed_layers": [
+    {
+      "id": "L01",
+      "name": "Front glint",
+      "question": "Aromatic entry hands restrained green-fruit light to iris.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false
+    },
+    {
+      "id": "L02",
+      "name": "Iris surface",
+      "question": "Violet movement and earthy root remain one subject.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false
+    },
+    {
+      "id": "L03",
+      "name": "Living root interior",
+      "question": "Rich irregular root remains legible beneath the surface.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false
+    },
+    {
+      "id": "L04",
+      "name": "Cosmetic body",
+      "question": "Powder has a living flower-bearing middle.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false
+    },
+    {
+      "id": "L05",
+      "name": "Soft interior edge",
+      "question": "Cream and dry grain coexist without indiscriminate smoothing.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false
+    },
+    {
+      "id": "L06",
+      "name": "Fruit-skin connection",
+      "question": "Fruit becomes ambrette-like skin warmth without candy.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false
+    },
+    {
+      "id": "L07",
+      "name": "Textile and grain",
+      "question": "Powder transitions through texture into dry wood.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false
+    },
+    {
+      "id": "L08",
+      "name": "Open outer contour",
+      "question": "The receiver recognizes iris-linked character rather than generic strength.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false
+    },
+    {
+      "id": "L09",
+      "name": "Warm rear contour",
+      "question": "Fabric warmth supports root identity without gourmand takeover.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false
+    },
+    {
+      "id": "L10",
+      "name": "Skin-fabric return",
+      "question": "Iris-root identity recurs in a changed late context.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false
+    }
+  ],
+  "proposed_transitions": [
+    {
+      "id": "T01",
+      "from": "L01",
+      "to": "L02",
+      "owner": "Linalyl Acetate",
+      "comparison": "Ester handoff omission or alternative at fixed iris nucleus.",
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    {
+      "id": "T02",
+      "from": "L01",
+      "to": "L06",
+      "owner": "Ambrettolide",
+      "comparison": "Present fruit bridge versus alternative versus omission.",
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    {
+      "id": "T03",
+      "from": "L02",
+      "to": "L03",
+      "owner": "Alpha Irone with Orris Liquid",
+      "comparison": "Cold-contour and warm-interior 2x2; isolate any root contrast.",
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    {
+      "id": "T04",
+      "from": "L04",
+      "to": "L07",
+      "owner": "Cashmeran",
+      "comparison": "Texture route versus Kephalis or Osmanthus alternatives; separate intensity.",
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    {
+      "id": "T05",
+      "from": "L05",
+      "to": "L07",
+      "owner": "Ebanol",
+      "comparison": "Sandalore alternative versus omission at fixed cedar.",
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    {
+      "id": "T06",
+      "from": "L04",
+      "to": "L08",
+      "owner": "Hedione and Iso E Super, provisional",
+      "comparison": "Receiver identity with outer-contour bridge present versus absent.",
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    {
+      "id": "T07",
+      "from": "L07",
+      "to": "L10",
+      "owner": "Cedarwood oil Virginia and Vetiver EO (India), with iris family",
+      "comparison": "Late root recognition versus generic wood persistence.",
+      "status": "PROPOSED_NOT_OBSERVED"
+    }
+  ],
+  "candidate_options": [
+    {
+      "id": "C01",
+      "material": "Orivone",
+      "inventory_listing": "Orivone",
+      "layer_ids": [
+        "L02",
+        "L03"
+      ],
+      "question": "Earthy-root contrast against the creamy centre.",
+      "risk": "Camphor takeover; not a buttery-equivalence or Dior-ingredient claim.",
+      "source_ids": [
+        "M01"
+      ],
+      "evidence_class": "MANUFACTURER_CHARACTER_PLUS_DESIGN_INFERENCE",
+      "stock_status": "LISTED_IN_LIVE_INVENTORY_NOT_RELEASE_QUALIFIED",
+      "selection_status": "RESEARCH_OPTION_NOT_FORMULA_ADDITION",
+      "omission_or_alternative_test": "Compare omission and a role-specific alternative with protected nucleus and disclosed matrix controls; record identity, texture, intensity and liking separately.",
+      "historical_dhi2011_presence": "NOT_ESTABLISHED",
+      "observed_benefit": "NOT_TESTED"
+    },
+    {
+      "id": "C02",
+      "material": "Carrot Seed EO",
+      "inventory_listing": "Carrot Seed EO",
+      "layer_ids": [
+        "L03"
+      ],
+      "question": "Seed-root bridge into dry grain.",
+      "risk": "Lot/composite data qualification; seed/spice drift.",
+      "source_ids": [],
+      "evidence_class": "LOCAL_INVENTORY_PLUS_DESIGN_HYPOTHESIS",
+      "stock_status": "LISTED_IN_LIVE_INVENTORY_NOT_RELEASE_QUALIFIED",
+      "selection_status": "RESEARCH_OPTION_NOT_FORMULA_ADDITION",
+      "omission_or_alternative_test": "Compare omission and a role-specific alternative with protected nucleus and disclosed matrix controls; record identity, texture, intensity and liking separately.",
+      "historical_dhi2011_presence": "NOT_ESTABLISHED",
+      "observed_benefit": "NOT_TESTED"
+    },
+    {
+      "id": "C03",
+      "material": "Beta Ionone",
+      "inventory_listing": "Beta Ionone",
+      "layer_ids": [
+        "L02"
+      ],
+      "question": "Alternative violet-root emphasis and movement.",
+      "risk": "Specify neat versus separately listed 0.1% TEC stock; sensitivity and redundancy.",
+      "source_ids": [],
+      "evidence_class": "LOCAL_INVENTORY_PLUS_DESIGN_HYPOTHESIS",
+      "stock_status": "LISTED_IN_LIVE_INVENTORY_NOT_RELEASE_QUALIFIED",
+      "selection_status": "RESEARCH_OPTION_NOT_FORMULA_ADDITION",
+      "omission_or_alternative_test": "Compare omission and a role-specific alternative with protected nucleus and disclosed matrix controls; record identity, texture, intensity and liking separately.",
+      "historical_dhi2011_presence": "NOT_ESTABLISHED",
+      "observed_benefit": "NOT_TESTED"
+    },
+    {
+      "id": "C04",
+      "material": "Dihydro Beta Ionone",
+      "inventory_listing": "Dihydro Beta Ionone",
+      "layer_ids": [
+        "L02"
+      ],
+      "question": "Alternative ionone-family contour.",
+      "risk": "Exact product and grade; no assumed receptor orthogonality.",
+      "source_ids": [],
+      "evidence_class": "LOCAL_INVENTORY_PLUS_DESIGN_HYPOTHESIS",
+      "stock_status": "LISTED_IN_LIVE_INVENTORY_NOT_RELEASE_QUALIFIED",
+      "selection_status": "RESEARCH_OPTION_NOT_FORMULA_ADDITION",
+      "omission_or_alternative_test": "Compare omission and a role-specific alternative with protected nucleus and disclosed matrix controls; record identity, texture, intensity and liking separately.",
+      "historical_dhi2011_presence": "NOT_ESTABLISHED",
+      "observed_benefit": "NOT_TESTED"
+    },
+    {
+      "id": "C05",
+      "material": "Heliotropal (Piperonal)",
+      "inventory_listing": "Heliotropal (Piperonal)",
+      "layer_ids": [
+        "L04"
+      ],
+      "question": "Restrained almond-powder interior.",
+      "risk": "Neat solid needs a labeled basis-qualified working stock; pastry or flat powder drift.",
+      "source_ids": [],
+      "evidence_class": "LOCAL_INVENTORY_PLUS_DESIGN_HYPOTHESIS",
+      "stock_status": "LISTED_IN_LIVE_INVENTORY_NOT_RELEASE_QUALIFIED",
+      "selection_status": "RESEARCH_OPTION_NOT_FORMULA_ADDITION",
+      "omission_or_alternative_test": "Compare omission and a role-specific alternative with protected nucleus and disclosed matrix controls; record identity, texture, intensity and liking separately.",
+      "historical_dhi2011_presence": "NOT_ESTABLISHED",
+      "observed_benefit": "NOT_TESTED"
+    },
+    {
+      "id": "C06",
+      "material": "Phenyl Ethyl Acetate",
+      "inventory_listing": "Phenyl Ethyl Acetate",
+      "layer_ids": [
+        "L01",
+        "L06"
+      ],
+      "question": "Different fruit-petal handoff.",
+      "risk": "Floral takeover, redundancy and confusion with Phenyl Ethyl Alcohol.",
+      "source_ids": [],
+      "evidence_class": "LOCAL_INVENTORY_PLUS_DESIGN_HYPOTHESIS",
+      "stock_status": "LISTED_IN_LIVE_INVENTORY_NOT_RELEASE_QUALIFIED",
+      "selection_status": "RESEARCH_OPTION_NOT_FORMULA_ADDITION",
+      "omission_or_alternative_test": "Compare omission and a role-specific alternative with protected nucleus and disclosed matrix controls; record identity, texture, intensity and liking separately.",
+      "historical_dhi2011_presence": "NOT_ESTABLISHED",
+      "observed_benefit": "NOT_TESTED"
+    },
+    {
+      "id": "C07",
+      "material": "Damascol",
+      "inventory_listing": "Damascol (10%)",
+      "layer_ids": [
+        "L06"
+      ],
+      "question": "Shaded fruit-petal connection.",
+      "risk": "Fraction basis/carrier qualification; rose-plum drift.",
+      "source_ids": [],
+      "evidence_class": "LOCAL_INVENTORY_PLUS_DESIGN_HYPOTHESIS",
+      "stock_status": "LISTED_IN_LIVE_INVENTORY_NOT_RELEASE_QUALIFIED",
+      "selection_status": "RESEARCH_OPTION_NOT_FORMULA_ADDITION",
+      "omission_or_alternative_test": "Compare omission and a role-specific alternative with protected nucleus and disclosed matrix controls; record identity, texture, intensity and liking separately.",
+      "historical_dhi2011_presence": "NOT_ESTABLISHED",
+      "observed_benefit": "NOT_TESTED"
+    },
+    {
+      "id": "C08",
+      "material": "Osmanthus Absolute",
+      "inventory_listing": "Osmanthus Absolute (10% in DPG)",
+      "layer_ids": [
+        "L06",
+        "L07"
+      ],
+      "question": "Fruit-violet-suede bridge.",
+      "risk": "Fraction basis and lot composition; apricot drift; not volume-grade substitution.",
+      "source_ids": [],
+      "evidence_class": "LOCAL_INVENTORY_PLUS_DESIGN_HYPOTHESIS",
+      "stock_status": "LISTED_IN_LIVE_INVENTORY_NOT_RELEASE_QUALIFIED",
+      "selection_status": "RESEARCH_OPTION_NOT_FORMULA_ADDITION",
+      "omission_or_alternative_test": "Compare omission and a role-specific alternative with protected nucleus and disclosed matrix controls; record identity, texture, intensity and liking separately.",
+      "historical_dhi2011_presence": "NOT_ESTABLISHED",
+      "observed_benefit": "NOT_TESTED"
+    },
+    {
+      "id": "C09",
+      "material": "Mimosa Absolute",
+      "inventory_listing": "Mimosa Absolute (10% in DPG)",
+      "layer_ids": [
+        "L04"
+      ],
+      "question": "Living floral interior for powder.",
+      "risk": "Fraction basis and lot composition; honey/yellow-flower takeover.",
+      "source_ids": [],
+      "evidence_class": "LOCAL_INVENTORY_PLUS_DESIGN_HYPOTHESIS",
+      "stock_status": "LISTED_IN_LIVE_INVENTORY_NOT_RELEASE_QUALIFIED",
+      "selection_status": "RESEARCH_OPTION_NOT_FORMULA_ADDITION",
+      "omission_or_alternative_test": "Compare omission and a role-specific alternative with protected nucleus and disclosed matrix controls; record identity, texture, intensity and liking separately.",
+      "historical_dhi2011_presence": "NOT_ESTABLISHED",
+      "observed_benefit": "NOT_TESTED"
+    },
+    {
+      "id": "C10",
+      "material": "Hexyl Salicylate",
+      "inventory_listing": "Hexyl Salicylate",
+      "layer_ids": [
+        "L04",
+        "L05"
+      ],
+      "question": "Alternative floral-film support.",
+      "risk": "No automatic fixation or projection claim; compare current helper instead of stacking.",
+      "source_ids": [],
+      "evidence_class": "LOCAL_INVENTORY_PLUS_DESIGN_HYPOTHESIS",
+      "stock_status": "LISTED_IN_LIVE_INVENTORY_NOT_RELEASE_QUALIFIED",
+      "selection_status": "RESEARCH_OPTION_NOT_FORMULA_ADDITION",
+      "omission_or_alternative_test": "Compare omission and a role-specific alternative with protected nucleus and disclosed matrix controls; record identity, texture, intensity and liking separately.",
+      "historical_dhi2011_presence": "NOT_ESTABLISHED",
+      "observed_benefit": "NOT_TESTED"
+    },
+    {
+      "id": "C11",
+      "material": "Cedramber",
+      "inventory_listing": "Cedramber",
+      "layer_ids": [
+        "L07",
+        "L08"
+      ],
+      "question": "Dry-wood boundary carrying iris-linked contour outward.",
+      "risk": "Generic wood/amber takeover; maker diffusivity is not measured distance.",
+      "source_ids": [
+        "M02"
+      ],
+      "evidence_class": "MANUFACTURER_CHARACTER_PLUS_DESIGN_INFERENCE",
+      "stock_status": "LISTED_IN_LIVE_INVENTORY_NOT_RELEASE_QUALIFIED",
+      "selection_status": "RESEARCH_OPTION_NOT_FORMULA_ADDITION",
+      "omission_or_alternative_test": "Compare omission and a role-specific alternative with protected nucleus and disclosed matrix controls; record identity, texture, intensity and liking separately.",
+      "historical_dhi2011_presence": "NOT_ESTABLISHED",
+      "observed_benefit": "NOT_TESTED"
+    },
+    {
+      "id": "C12",
+      "material": "Vertofix",
+      "inventory_listing": "Vertofix",
+      "layer_ids": [
+        "L07",
+        "L10"
+      ],
+      "question": "Dry-wood to skin/root-return bridge.",
+      "risk": "Qualify owned trade grade; no silent named-grade substitution.",
+      "source_ids": [],
+      "evidence_class": "LOCAL_INVENTORY_PLUS_DESIGN_HYPOTHESIS",
+      "stock_status": "LISTED_IN_LIVE_INVENTORY_NOT_RELEASE_QUALIFIED",
+      "selection_status": "RESEARCH_OPTION_NOT_FORMULA_ADDITION",
+      "omission_or_alternative_test": "Compare omission and a role-specific alternative with protected nucleus and disclosed matrix controls; record identity, texture, intensity and liking separately.",
+      "historical_dhi2011_presence": "NOT_ESTABLISHED",
+      "observed_benefit": "NOT_TESTED"
+    },
+    {
+      "id": "C13",
+      "material": "Habanolide",
+      "inventory_listing": "Habanolide",
+      "layer_ids": [
+        "L08"
+      ],
+      "question": "Alternative musk contour retaining iris.",
+      "risk": "Musk blanket and intensity confounding; no unique projection claim.",
+      "source_ids": [
+        "M03"
+      ],
+      "evidence_class": "MANUFACTURER_CHARACTER_PLUS_DESIGN_INFERENCE",
+      "stock_status": "LISTED_IN_LIVE_INVENTORY_NOT_RELEASE_QUALIFIED",
+      "selection_status": "RESEARCH_OPTION_NOT_FORMULA_ADDITION",
+      "omission_or_alternative_test": "Compare omission and a role-specific alternative with protected nucleus and disclosed matrix controls; record identity, texture, intensity and liking separately.",
+      "historical_dhi2011_presence": "NOT_ESTABLISHED",
+      "observed_benefit": "NOT_TESTED"
+    },
+    {
+      "id": "C14",
+      "material": "Romandolide",
+      "inventory_listing": "Romandolide",
+      "layer_ids": [
+        "L08"
+      ],
+      "question": "Soft musk/balsamic volume as an alternative.",
+      "risk": "Reopened predecessor option, not automatic third musk or unique projector.",
+      "source_ids": [
+        "M04"
+      ],
+      "evidence_class": "MANUFACTURER_CHARACTER_PLUS_DESIGN_INFERENCE",
+      "stock_status": "LISTED_IN_LIVE_INVENTORY_NOT_RELEASE_QUALIFIED",
+      "selection_status": "RESEARCH_OPTION_NOT_FORMULA_ADDITION",
+      "omission_or_alternative_test": "Compare omission and a role-specific alternative with protected nucleus and disclosed matrix controls; record identity, texture, intensity and liking separately.",
+      "historical_dhi2011_presence": "NOT_ESTABLISHED",
+      "observed_benefit": "NOT_TESTED"
+    },
+    {
+      "id": "C15",
+      "material": "Delta Decalactone",
+      "inventory_listing": "Delta Decalactone",
+      "layer_ids": [
+        "L05"
+      ],
+      "question": "Creamy texture within the root interior.",
+      "risk": "Peach/coconut/gourmand takeover.",
+      "source_ids": [],
+      "evidence_class": "LOCAL_INVENTORY_PLUS_DESIGN_HYPOTHESIS",
+      "stock_status": "LISTED_IN_LIVE_INVENTORY_NOT_RELEASE_QUALIFIED",
+      "selection_status": "RESEARCH_OPTION_NOT_FORMULA_ADDITION",
+      "omission_or_alternative_test": "Compare omission and a role-specific alternative with protected nucleus and disclosed matrix controls; record identity, texture, intensity and liking separately.",
+      "historical_dhi2011_presence": "NOT_ESTABLISHED",
+      "observed_benefit": "NOT_TESTED"
+    },
+    {
+      "id": "C16",
+      "material": "Clearwood",
+      "inventory_listing": "Clearwood",
+      "layer_ids": [
+        "L10"
+      ],
+      "question": "Earthy shadow supporting late root/wood return.",
+      "risk": "Not natural patchouli equivalence or known Dior presence.",
+      "source_ids": [],
+      "evidence_class": "LOCAL_INVENTORY_PLUS_DESIGN_HYPOTHESIS",
+      "stock_status": "LISTED_IN_LIVE_INVENTORY_NOT_RELEASE_QUALIFIED",
+      "selection_status": "RESEARCH_OPTION_NOT_FORMULA_ADDITION",
+      "omission_or_alternative_test": "Compare omission and a role-specific alternative with protected nucleus and disclosed matrix controls; record identity, texture, intensity and liking separately.",
+      "historical_dhi2011_presence": "NOT_ESTABLISHED",
+      "observed_benefit": "NOT_TESTED"
+    }
+  ],
+  "outside_shortlist": [
+    {
+      "material": "Irotyl",
+      "status": "EXCLUDED_BY_USER",
+      "historical_absence_proven_by_this_audit": false
+    },
+    {
+      "material": "Ultralia",
+      "status": "PROPRIETARY_BLEND_IDENTITY_HOLD",
+      "source_ids": [
+        "M05"
+      ]
+    },
+    {
+      "material": "Sandalore",
+      "status": "ADDITIONAL_PREDECESSOR_ALTERNATIVE_QUESTION"
+    },
+    {
+      "material": "Linalool",
+      "status": "ADDITIONAL_PREDECESSOR_ALTERNATIVE_QUESTION"
+    },
+    {
+      "material": "Ethyl 2-Methylbutyrate",
+      "status": "ADDITIONAL_PREDECESSOR_ALTERNATIVE_STOCK_BASIS_HOLD"
+    },
+    {
+      "material": "Polysantol",
+      "status": "DEPLETED_NOT_CURRENT_BUILD_OPTION"
+    },
+    {
+      "material": "Guaiacwood",
+      "status": "CARRIER_COMPOSITION_HOLD_NOT_REPAIRED"
+    }
+  ],
+  "experiment_design": {
+    "status": "PROPOSED_NOT_RUN",
+    "no_physical_or_skin_authorization": true,
+    "prerequisites": [
+      "Qualified stock identities, fractions and carriers",
+      "Measured mass basis for concentration claims",
+      "Composition/ODT uncertainty recorded; no zero substitution",
+      "Material-specific safety and intended-exposure review",
+      "Independent TARGET_IDEAL and CURRENT_INVENTORY_BUILD",
+      "Full predecessor and donor manifests before completed-successor claims"
+    ],
+    "design_factorial": {
+      "factors": [
+        "cold_dry_contour",
+        "warm_creamy_interior"
+      ],
+      "arms": [
+        "nucleus",
+        "nucleus+cold",
+        "nucleus+warm",
+        "nucleus+cold+warm"
+      ],
+      "protected_nucleus": true,
+      "level_values": "NOT_SPECIFIED_NO_DOSES_AUTHORIZED"
+    },
+    "compression": {
+      "richer_candidate_first": true,
+      "count_ceiling": null,
+      "ingredient_count_hidden": true,
+      "protected_nucleus": true,
+      "whole_v4_v5_comparison_is_isolated_compression_test": false
+    },
+    "controls": [
+      "Constant finished mass and non-test ingredient masses",
+      "Carrier identity and contribution matched where a stock changes",
+      "Odorless balance adjustment disclosed as a remaining matrix intervention",
+      "At least two independently prepared sets; not same-master aliquots",
+      "Anonymous codes and balanced presentation order",
+      "Free description before scales",
+      "Blanks and carryover checks",
+      "Separate fresh and exposed observers"
+    ],
+    "proposed_grid": {
+      "source": "Weighed, qualified blotter or fabric application; standardized area",
+      "ages_minutes": [
+        5,
+        30,
+        120,
+        240
+      ],
+      "distances_metres": [
+        0.1,
+        0.5,
+        1,
+        2
+      ],
+      "environments": [
+        "Logged still-room condition",
+        "Logged gentle-flow condition"
+      ],
+      "air_speed": "MEASURE_AND_REPORT_NOT_ASSUMED",
+      "temperature_and_humidity": "MEASURE_AND_REPORT",
+      "movement": "Separate later defined path and speed experiment",
+      "basis": "DESIGNED_SCREENING_GRID_NOT_PUBLISHED_OPTIMUM",
+      "fatigue_control": "Balanced subsets across sessions and assessors"
+    },
+    "endpoints": [
+      "detection",
+      "target_identification",
+      "free_description",
+      "intensity",
+      "textural_contrast",
+      "liking",
+      "harshness",
+      "fatigue",
+      "intermittency",
+      "late_identity_recurrence"
+    ],
+    "sensory_outcomes_available": false,
+    "statistical_power_claim": false
+  },
+  "accepted_method_learnings": [
+    "Do not compress before complete architecture and conservation evidence.",
+    "Component identification limits do not set useful perfume row limits.",
+    "Specific subthreshold interactions neither prove absence nor hidden benefit for an untested row.",
+    "Start with measured descriptive baselines; do not presume all useful relationships are nonlinear.",
+    "Equilibrium source headspace and uncalibrated temporal loss do not predict open-space identity.",
+    "Manufacturer character descriptions do not prove historical Dior composition.",
+    "Software passes cannot become sensory-learning observations."
+  ],
+  "unchanged_holds": [
+    "Orris supplied-product composition and qualified threshold evidence",
+    "Tonkarome opaque-mixture composition and qualified threshold evidence",
+    "Authoritative delivered-mass chain",
+    "Material-specific safety evidence",
+    "All physical and sensory endpoints"
+  ],
+  "source_ledger": [
+    {
+      "id": "P01",
+      "label": "Laing and Francis (1989)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/2628992/",
+      "doi": "10.1016/0031-9384(89)90041-3",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Constituent identification; not useful formula count.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P02",
+      "label": "Le Berre et al. (2008)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18304991/",
+      "doi": "10.1093/chemse/bjn006",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Ratio-sensitive typicality in a defined mixture; not iris dosing.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P03",
+      "label": "Miyazawa et al. (2008)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18283044/",
+      "doi": "10.1093/chemse/bjn004",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Specific subthreshold detection synergy; not general perfume benefit.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P04",
+      "label": "Weiss et al. (2012)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3523876/",
+      "doi": "10.1073/pnas.1208110109",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Specific intensity-equalized broad-space mixtures; not a row cap.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P05",
+      "label": "Lapid, Harel and Sobel (2008)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18534998/",
+      "doi": "10.1093/chemse/bjn026",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Binary-mixture hedonics; not whole-formula pleasure prediction.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P06",
+      "label": "Frank, Fletcher and Hettinger (2017)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28641388/",
+      "doi": "10.1093/chemse/bjx031",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Selective adaptation and recognition; not family adaptation clocks.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P07",
+      "label": "Sinding et al. (2017)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28120877/",
+      "doi": "10.1038/srep41047",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Continuous-exposure habituation; not an evaporating perfume.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P08",
+      "label": "Sato-Akuhara et al. (2023)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9874024/",
+      "doi": "10.1093/chemse/bjac037",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Individual ionone/musk perception; no stock-volume ceiling.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P15",
+      "label": "Brenna, Fuganti and Serra (2003), ten irone isomers",
+      "url": "https://comptes-rendus.academie-sciences.fr/chimie/articles/en/10.1016/S1631-0748(03)00087-0/",
+      "doi": "10.1016/S1631-0748(03)00087-0",
+      "evidence_class": "PEER_REVIEWED_AUTHORS_RESEARCH_ACCOUNT",
+      "claim_limit": "Irone identity and stereochemistry; not the user's lot assay or Dior formula.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P09",
+      "label": "Almeida et al. (2019)",
+      "url": "https://pubs.acs.org/doi/10.1021/acs.iecr.9b01004",
+      "doi": "10.1021/acs.iecr.9b01004",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Source evaporation/permeation; not calibration of this formula.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P10",
+      "label": "Teixeira et al. (2013)",
+      "url": "https://aiche.onlinelibrary.wiley.com/doi/10.1002/aic.14106",
+      "doi": "10.1002/aic.14106",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Diffusion-tube transport; not room or moving-wearer validation.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P11",
+      "label": "Celani, Villermaux and Vergassola (2014)",
+      "url": "https://journals.aps.org/prx/abstract/10.1103/PhysRevX.4.041015",
+      "doi": "10.1103/PhysRevX.4.041015",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Turbulent physical odor signal; not DHI sensory identity.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P12",
+      "label": "Cai et al. (2022)",
+      "url": "https://www.nature.com/articles/s41598-022-09450-z",
+      "doi": "10.1038/s41598-022-09450-z",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Downwind plant-volatile profiles; not this perfume's fractionation.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P13",
+      "label": "Pellegrino et al. (2025), intensity framework",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12363845/",
+      "doi": "10.1101/2025.08.08.668954",
+      "evidence_class": "PREPRINT_NOT_PEER_REVIEWED_AT_CHECKED_RECORD",
+      "claim_limit": "Do not repeat the local Nature Communications attribution.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P14",
+      "label": "Pellegrino et al. (2026), component-profile framework",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42465471/",
+      "doi": "10.64898/2026.07.03.736426",
+      "evidence_class": "PREPRINT_NOT_PEER_REVIEWED_AT_CHECKED_RECORD",
+      "claim_limit": "Measured descriptive profiles, not linear volume dosing or DHI performance.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "M01",
+      "label": "IFF Orivone",
+      "url": "https://www.iff.com/scent/ingredients-compendium/orivone/",
+      "doi": null,
+      "evidence_class": "MANUFACTURER_PRODUCT_DESCRIPTION",
+      "claim_limit": "Character only; not historical Dior identity.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "M02",
+      "label": "IFF Cedramber",
+      "url": "https://www.iff.com/scent/ingredients-compendium/cedramber/",
+      "doi": null,
+      "evidence_class": "MANUFACTURER_PRODUCT_DESCRIPTION",
+      "claim_limit": "Character only; not measured receiver-space performance.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "M03",
+      "label": "DSM-Firmenich Habanolide",
+      "url": "https://studio.dsm-firmenich.com/product/habanolider-pe-947303",
+      "doi": null,
+      "evidence_class": "MANUFACTURER_PRODUCT_DESCRIPTION",
+      "claim_limit": "Character only; not unique projection or safety qualification.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "M04",
+      "label": "Firmenich Romandolide marketing sheet",
+      "url": "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/ROMANDOLIDE_979031.pdf",
+      "doi": null,
+      "evidence_class": "MANUFACTURER_PRODUCT_DESCRIPTION",
+      "claim_limit": "Character only; not a unique projector.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "M05",
+      "label": "PerfumersWorld Ultralia CoA, 2019",
+      "url": "https://www.perfumersworld.com/ifra/COA/6II13551.pdf",
+      "doi": null,
+      "evidence_class": "SUPPLIER_PRODUCT_CERTIFICATE_NOT_OWNED_LOT_ASSAY",
+      "claim_limit": "Proprietary blend; no pure-molecule or historical-Dior identity.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "R01",
+      "label": "Dior Homme Parfum current official description",
+      "url": "https://www.dior.com/en_int/beauty/products/dior-homme-parfum-E000000226.html",
+      "doi": null,
+      "evidence_class": "HOUSE_DESCRIPTIVE_REFERENCE_NOT_FORMULA",
+      "claim_limit": "User-selected DHP2025 comparison only; DHI2011 remains target.",
+      "checked_local_date": "2026-09-06"
+    }
+  ],
+  "verification_record": {
+    "status": "ARTIFACT_CONSISTENCY_CHECKS_PASSED",
+    "checked_local_date": "2026-09-06",
+    "passed_checks": 13,
+    "failed_checks": 0,
+    "checks": [
+      "source_hashes_unchanged",
+      "complete_predecessor_rows",
+      "verbatim_predecessor_roles",
+      "complete_v5_rows",
+      "exact_historical_diff",
+      "all_candidate_stock_listings_present",
+      "sixteen_unique_candidates",
+      "irotyl_excluded",
+      "layer_references_resolve",
+      "source_references_resolve",
+      "no_new_formula_or_observations",
+      "claim_boundaries",
+      "no_trailing_whitespace"
+    ],
+    "bound_source_files": 11,
+    "git_diff_check": "EXIT_0_WITH_EXISTING_LF_TO_CRLF_ADVISORIES",
+    "formula_or_perfume_test": false,
+    "runtime_suite_rerun": false,
+    "source_urls_record_count": 21
+  }
+}

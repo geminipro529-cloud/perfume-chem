@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S01",
+  "completed_utc": "2026-08-26T07:21:57.611527+00:00",
+  "dispatch_sha256": "27bba81a94c8fb090272a0ab9cb1a74ade6503ab81a3440105fdb48fb43334f0",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "be0eed9ef07cf007a30b6f696bc35d61154a1140d274e3abbce953cc530fb113",
+  "output_text": "{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"Use the owned distinct bridge candidate because it uniquely addresses the missing dry root-to-wood continuity. Exclude both redundant sweet-amber candidates because they duplicate residue and conflict with the no-added-sweetness target. This is an experimental-design decision only; inventory and sensory acceptance remain unverified pending V5 reparse and testing.\",\"controlled_comparison\":\"Run a blinded constant-total A/B comparison: current build versus the same build with the distinct bridge candidate introduced while proportionally reducing existing materials to preserve total mass. Add no sweet-amber candidates; assess only root-to-wood continuity, dryness, mineral-iris identity, and sweetness change.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidate_count_after_filter\":1},\"decision_state\":\"AUGMENT\",\"next_actions\":[\"Perform the constant-total blinded A/B comparison after V5 inventory reparse confirms the bridge candidate.\"],\"reason_codes\":[\"DISTINCT_BRIDGE_MATCHES_MISSING_FUNCTION\",\"REDUNDANT_SWEET_RESIDUE_EXCLUDED\",\"CONSTANT_TOTAL_CONTROL_REQUIRED\",\"V5_REPARSE_PENDING\",\"SENSORY_NOT_TESTED\"]}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "983f0a539ebc425cb159613c68281329b7413335cd3b1ab92ac856ea74ecca20",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-f10ce3590196b0eb9e90",
+  "role": "POSITIVE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:21:30.834450+00:00",
+  "stderr_sha256": "fd8eb438d5c21b5697d76e09fe39cd1bf129027c272054ec73ea5d5443f4d85a",
+  "stderr_tail": ":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"AUGMENT\",\"target_linked_reasoning\":\"Use the owned distinct bridge candidate because it uniquely addresses the missing dry root-to-wood continuity. Exclude both redundant sweet-amber candidates because they duplicate residue and conflict with the no-added-sweetness target. This is an experimental-design decision only; inventory and sensory acceptance remain unverified pending V5 reparse and testing.\",\"controlled_comparison\":\"Run a blinded constant-total A/B comparison: current build versus the same build with the distinct bridge candidate introduced while proportionally reducing existing materials to preserve total mass. Add no sweet-amber candidates; assess only root-to-wood continuity, dryness, mineral-iris identity, and sweetness change.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidate_count_after_filter\":1},\"decision_state\":\"AUGMENT\",\"next_actions\":[\"Perform the constant-total blinded A/B comparison after V5 inventory reparse confirms the bridge candidate.\"],\"reason_codes\":[\"DISTINCT_BRIDGE_MATCHES_MISSING_FUNCTION\",\"REDUNDANT_SWEET_RESIDUE_EXCLUDED\",\"CONSTANT_TOTAL_CONTROL_REQUIRED\",\"V5_REPARSE_PENDING\",\"SENSORY_NOT_TESTED\"]}}\ntokens used\n15,631\n",
+  "stdout_sha256": "6c37158a5f8120d8dca2d4709fa23c267f9ab5916eb614f8bdb72f9129b35b16"
+}

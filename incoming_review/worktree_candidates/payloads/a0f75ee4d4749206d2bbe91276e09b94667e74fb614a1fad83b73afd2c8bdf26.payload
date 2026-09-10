@@ -1,0 +1,231 @@
+{
+  "schema_version": "perfume_chem_inventory_worktree_sync_successor_v3",
+  "sync_id": "INVENTORY-WORKTREE-SYNC-20260904-004",
+  "effective_date": "2026-09-04",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "purpose": "Record a point-in-time normalized-byte sync receipt for the existing 2026-09-04 inventory authority surface without changing stock truth, rewriting historical formulas, or inventing a missing intermediate receipt.",
+  "hash_policy": {
+    "text_normalization": "CRLF_TO_LF",
+    "size_bytes": "NORMALIZED_TEXT_BYTES",
+    "sha256": "NORMALIZED_TEXT_BYTES",
+    "bare_cr": "HASH_SIGNIFICANT_NOT_NORMALIZED"
+  },
+  "parent": {
+    "path": "data/governance/inventory_worktree_sync_20260831_003.json",
+    "size_bytes": 9404,
+    "sha256": "c64537f8240ed870456127cb67ec86dae58b11bfe4e5bfe822c9400c89ca93e6"
+  },
+  "lineage_observation": {
+    "absent_path": "data/governance/inventory_worktree_sync_20260901_004.json",
+    "exists": false,
+    "sha256": null,
+    "treated_as_parent": false,
+    "seal_fabricated": false,
+    "disposition": "NO_2026_09_01_004_SEAL_EXISTS; DIRECT_SUCCESSOR_TO_20260831_003"
+  },
+  "authority_overlay_lineage": {
+    "predecessor": {
+      "path": "data/governance/inventory_user_authority_overlay_20260901.json",
+      "size_bytes": 10861,
+      "sha256": "b0eaf0ffdf2c2519fff3b083d02632be7f9fb41e847db25dea71a346e63a7885"
+    },
+    "current": {
+      "path": "data/governance/inventory_user_authority_overlay_20260904.json",
+      "size_bytes": 15786,
+      "sha256": "63c4abb4d809ddf7e5620288cf88e9f533455deecada4dd9df063770c7cf417f",
+      "successor_id": "INVENTORY-USER-AUTHORITY-20260904-001"
+    },
+    "receipt_chain_is_distinct_from_overlay_chain": true
+  },
+  "superseded_parent_pins": [
+    {
+      "path": "inventory.txt",
+      "size_bytes": 20437,
+      "sha256": "72d5d562be098642bffe11f32033735dc267e0b4c8857d29690cad218d1a4625",
+      "reason": "The live legacy inventory text now reflects the later 2026-09-04 user-authoritative stock corrections."
+    },
+    {
+      "path": "engine/inventory_parser.py",
+      "size_bytes": 74910,
+      "sha256": "bad2bbc7fd0e9497500f53dcc0c3f28712a1a66ad040cd9dfb32dda2f78c9adf",
+      "reason": "The parser now validates and materializes the 2026-09-04 overlay successor."
+    },
+    {
+      "path": "engine/ingredient_catalog.py",
+      "size_bytes": 48031,
+      "sha256": "58d189bfa7f97d4b0748b8b739814cf1d78e1d00ec362b6b072279878b6056cc",
+      "reason": "The catalog builder now preserves the final Amber Xtreme current-stock compatibility contract."
+    },
+    {
+      "path": "data/knowledge_graph/ingredient_catalog.json",
+      "size_bytes": 1015438,
+      "sha256": "23124317e449a3a8bf5190b05c39e1ae65c1694f8d0a7e44754cd9c8b9353fe6",
+      "reason": "The generated catalog snapshot now records final Amber Xtreme compatibility without changing inventory authority."
+    },
+    {
+      "path": "data/materials/A.yaml",
+      "size_bytes": 108897,
+      "sha256": "921b199f8aa3a71fca43b76335bb309000458950d579ebb0d73bca656c1ed552",
+      "reason": "The final A data-spine bytes carry the current Ambrox Super identity and stock alias/configuration surface."
+    },
+    {
+      "path": "data/materials/B.yaml",
+      "size_bytes": 72739,
+      "sha256": "99146429d09cac97f102c5a110987e3f39f2f214492aca94b4b587849726295d",
+      "reason": "The final B data-spine bytes carry the current Bacdanol and Benzyl Salicylate identity and alias/configuration surface."
+    },
+    {
+      "path": "tests/test_inventory_authority_successor_2026_08_31.py",
+      "size_bytes": 8968,
+      "sha256": "198aecf8aad6547458f3425fa708b74b1601db0c3707724ec7490bbbed96e2a3",
+      "reason": "The carried-forward authority regression now checks provenance through the current 2026-09-04 overlay."
+    },
+    {
+      "path": "tests/test_inventory_material_additions.py",
+      "size_bytes": 20780,
+      "sha256": "f9a594e2d0c068998f96b561967455352e9272d54fa262f32f650d4ba58a50d6",
+      "reason": "The stock regression now reflects the current user-authoritative inventory rows and holds."
+    },
+    {
+      "path": "tests/test_inventory_worktree_sync_2026_08_30.py",
+      "size_bytes": 9272,
+      "sha256": "00a451a8b1de1ec67546f355e27af283846551d125c4a743a11f8b13637d8f69",
+      "reason": "The sync regression now covers the observed direct receipt chain, normalized current pins, and absence of a 2026-09-01 _004 seal."
+    }
+  ],
+  "current_files": [
+    {
+      "path": "inventory.txt",
+      "size_bytes": 21210,
+      "sha256": "3e26b4dd3b6bfc1eeedc6bf613834de372389509e2875ef6684550fe41bd9caa",
+      "normalization": "CRLF_TO_LF",
+      "role": "LEGACY_CURRENT_STOCK_TEXT"
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260904.json",
+      "size_bytes": 15786,
+      "sha256": "63c4abb4d809ddf7e5620288cf88e9f533455deecada4dd9df063770c7cf417f",
+      "normalization": "CRLF_TO_LF",
+      "role": "PINNED_CURRENT_USER_AUTHORITY_SUCCESSOR"
+    },
+    {
+      "path": "engine/inventory_parser.py",
+      "size_bytes": 111560,
+      "sha256": "80112066592ae0146ebf55d276667287335b36d80ad719abd4531a0d88d6a561",
+      "raw_size_bytes": 114342,
+      "raw_sha256": "eeaf60f1e3d67f6942f067323f6c935e2a79ed17117c5034f03afabc910ac775",
+      "normalization": "CRLF_TO_LF",
+      "role": "CURRENT_AUTHORITY_VALIDATION_AND_MATERIALIZATION"
+    },
+    {
+      "path": "data/materials/A.yaml",
+      "size_bytes": 110799,
+      "sha256": "d8f74cc001245242fccc6de68cf8a5e091a662be038ae1e5410e0eb5ecf42b14",
+      "normalization": "CRLF_TO_LF",
+      "role": "AMBROX_SUPER_AND_AMBER_XTREME_IDENTITY_ALIAS_CONFIGURATION"
+    },
+    {
+      "path": "data/materials/B.yaml",
+      "size_bytes": 72865,
+      "sha256": "3fc5eb3e614debb6ae6833a6f66944aaea70cef67d4a65ab59615dd7737593e9",
+      "normalization": "CRLF_TO_LF",
+      "role": "BACDANOL_AND_BENZYL_SALICYLATE_IDENTITY_ALIAS_CONFIGURATION"
+    },
+    {
+      "path": "data/materials/G.yaml",
+      "size_bytes": 61887,
+      "sha256": "265547de080a909c6ec971b8f6f4b6f2f3c5b127833d1d46c8d60b053abb6cef",
+      "normalization": "CRLF_TO_LF",
+      "role": "GALBANUM_AND_GUAIACWOOD_IDENTITY_ALIAS_CONFIGURATION"
+    },
+    {
+      "path": "engine/ingredient_catalog.py",
+      "size_bytes": 48507,
+      "sha256": "47584c3726dfc36f98f0d0993625ac25168757b03ccbcee321ea25b9a7c1b2e5",
+      "normalization": "CRLF_TO_LF",
+      "role": "CURRENT_INGREDIENT_CATALOG_BUILDER"
+    },
+    {
+      "path": "data/knowledge_graph/ingredient_catalog.json",
+      "size_bytes": 1017228,
+      "sha256": "2c8542c44b639ab3919254fea075e6a9f54b986f1f2d408a78f8564b2478c86e",
+      "normalization": "CRLF_TO_LF",
+      "role": "CURRENT_GENERATED_INGREDIENT_CATALOG_SNAPSHOT"
+    },
+    {
+      "path": "tests/test_inventory_authority_successor_2026_08_31.py",
+      "size_bytes": 9137,
+      "sha256": "28260c07e8c01bdc1c61c96cc4983a7b150a4920e268583a4dbaaecb2b995955",
+      "normalization": "CRLF_TO_LF",
+      "role": "CARRIED_FORWARD_AUTHORITY_PROVENANCE_REGRESSION"
+    },
+    {
+      "path": "tests/test_inventory_authority_successor_2026_09_04.py",
+      "size_bytes": 8806,
+      "sha256": "79fecdd00a0cbb46eaf76172beb9373d2106daa5bf6574efe03bb01808f0ff82",
+      "normalization": "CRLF_TO_LF",
+      "role": "CURRENT_AUTHORITY_SUCCESSOR_REGRESSION"
+    },
+    {
+      "path": "tests/test_inventory_identity_reconciliation.py",
+      "size_bytes": 26743,
+      "sha256": "b8932f9f859b5a999b9b02029724c4c92a95ed88fb9a19b1fb15d39c90a53ef2",
+      "normalization": "CRLF_TO_LF",
+      "role": "CURRENT_IDENTITY_AND_STOCK_LINEAGE_REGRESSION"
+    },
+    {
+      "path": "tests/test_inventory_material_additions.py",
+      "size_bytes": 21333,
+      "sha256": "bb410f2b5aa28e1d0a26d4691cf31297e554e9618f07dd21d0efe0326f2b1bf2",
+      "normalization": "CRLF_TO_LF",
+      "role": "CURRENT_MATERIAL_AND_STOCK_HOLD_REGRESSION"
+    },
+    {
+      "path": "tests/test_inventory_worktree_sync_2026_08_30.py",
+      "size_bytes": 15198,
+      "sha256": "41bf9a84c1868fd86b201c8d715e93178e51e122a6dd7326d2e9e3fd84758d04",
+      "normalization": "CRLF_TO_LF",
+      "role": "CURRENT_RECEIPT_CHAIN_AND_HASH_REGRESSION"
+    }
+  ],
+  "configuration_scope": {
+    "pinned_paths": [
+      "data/materials/A.yaml",
+      "data/materials/B.yaml",
+      "data/materials/G.yaml"
+    ],
+    "reason": "These are the final data-spine YAML alias/configuration files directly covering the 2026-09-04 corrected inventory identities; no runtime Codex configuration file establishes inventory authority."
+  },
+  "catalog_scope": {
+    "pinned_paths": [
+      "engine/ingredient_catalog.py",
+      "data/knowledge_graph/ingredient_catalog.json"
+    ],
+    "reason": "Amber Xtreme compatibility directly affects the catalog builder and its generated catalog snapshot without changing inventory.txt or granting new inventory authority."
+  },
+  "mutation_policy": {
+    "receipt_only": true,
+    "parent_receipt_rewritten": false,
+    "predecessor_overlays_rewritten": false,
+    "historical_formula_bytes_rewritten": false,
+    "historical_provenance_preserved": true,
+    "inventory_rows_changed_by_receipt": false,
+    "stock_authority_changed_by_receipt": false,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false
+  },
+  "authority_limits": {
+    "formula_mutation_authority": false,
+    "physical_execution_authority": false,
+    "observed_formula_sensory_authority": false,
+    "liking_authority": false,
+    "similarity_authority": false,
+    "measured_oav_authority": false,
+    "safety_authority": false,
+    "stability_authority": false,
+    "procurement_authority": false,
+    "preparation_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  }
+}

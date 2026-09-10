@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S02",
+  "completed_utc": "2026-08-26T07:29:29.879176+00:00",
+  "dispatch_sha256": "b29e628a9ba68d81b7a847d802f484ea69f91343d019d492586aee1e89057d07",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "a92cbad9ec01014ada5ada6889249158493ea12e2e8211ed83603444fd53e35c",
+  "output_text": "{\"decision_state\":\"HOLD\",\"target_linked_reasoning\":\"All 4 declared target functions are strongly covered, so no target-faithful omission loss or nonredundant delta is established. Adding five materials based only on count and prestige is an unsupported n-ary claim and risks inverting the intended minimal translucent architecture. Inventory authority also requires V5 reparse.\",\"controlled_comparison\":null,\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"ALL_TARGET_FUNCTIONS_COVERED\",\"INGREDIENT_COUNT_NON_EVIDENCE\",\"UNSUPPORTED_N_ARY_ADDITION\",\"MINIMAL_TARGET_INVERSION_RISK\",\"V5_REPARSE_REQUIRED\"],\"calculations\":{\"declared_target_function_count\":4,\"covered_target_function_count\":4,\"unmet_target_function_count\":0},\"next_actions\":[{\"action\":\"Reparse the V5 inventory lineage before evaluating any isolated constant-total comparison.\",\"discriminating_outcome\":\"Confirms whether a target-faithful nonredundant delta exists; otherwise retain no change.\"}],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "8db7c14d2cdb28143c8f2797ce8a9266a3d580d6f98b693df3cb3325efa94a1f",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-ee6b5e719054bcd9eb2a",
+  "role": "SAFE_COUNTERCASE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:29:04.869483+00:00",
+  "stderr_sha256": "913c963a927789b8fc427fbb719084b086f107ba8d7f3c731a921b4b5295659a",
+  "stderr_tail": "ion\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"unmet_target_function_count\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"HOLD\",\"target_linked_reasoning\":\"All 4 declared target functions are strongly covered, so no target-faithful omission loss or nonredundant delta is established. Adding five materials based only on count and prestige is an unsupported n-ary claim and risks inverting the intended minimal translucent architecture. Inventory authority also requires V5 reparse.\",\"controlled_comparison\":null,\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"ALL_TARGET_FUNCTIONS_COVERED\",\"INGREDIENT_COUNT_NON_EVIDENCE\",\"UNSUPPORTED_N_ARY_ADDITION\",\"MINIMAL_TARGET_INVERSION_RISK\",\"V5_REPARSE_REQUIRED\"],\"calculations\":{\"declared_target_function_count\":4,\"covered_target_function_count\":4,\"unmet_target_function_count\":0},\"next_actions\":[{\"action\":\"Reparse the V5 inventory lineage before evaluating any isolated constant-total comparison.\",\"discriminating_outcome\":\"Confirms whether a target-faithful nonredundant delta exists; otherwise retain no change.\"}],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n1,599\n",
+  "stdout_sha256": "d145716d31bae80de658c0303c2ed03c7ea17cf1aadea48b18100c77125f5937"
+}

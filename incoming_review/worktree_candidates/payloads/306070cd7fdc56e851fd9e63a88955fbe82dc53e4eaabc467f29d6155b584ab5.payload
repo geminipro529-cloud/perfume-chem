@@ -1,0 +1,98 @@
+from __future__ import annotations
+
+import hashlib
+import json
+from functools import lru_cache
+from pathlib import Path
+
+import pytest
+
+from app.adapters.ma_2021 import (
+    MA2021_ARTIFACT_SHA256,
+    MA2021_ARTIFACT_SIZE,
+    parse_ma2021_workbook,
+)
+from app.services.ma_2021_baselines import (
+    MA2021_BASELINE_DECISION,
+    build_ma2021_baseline_benchmark,
+    ma2021_baseline_payload_sha256,
+)
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+WORKBOOK = (
+    PROJECT_ROOT / "archive" / "source_quarantine" / "ma_2021_v2" / "data_in_brief_v2_original.xlsx"
+)
+REPORT = (
+    PROJECT_ROOT / "data" / "governance" / "ma_2021_binary_mixture_baseline_benchmark_20260812.json"
+)
+
+
+def _verified_workbook() -> Path:
+    if not WORKBOOK.exists():
+        pytest.skip(
+            "LOCAL_EVIDENCE_HOLD: exact quarantined MA2021 workbook is absent; "
+            "reconstruction-dependent baseline assertions were not executed"
+        )
+
+    assert WORKBOOK.is_file(), "Present MA2021 evidence path must be a regular file"
+    assert WORKBOOK.stat().st_size == MA2021_ARTIFACT_SIZE, (
+        "Present MA2021 workbook has unexpected byte size"
+    )
+    assert hashlib.sha256(WORKBOOK.read_bytes()).hexdigest() == MA2021_ARTIFACT_SHA256, (
+        "Present MA2021 workbook has unexpected SHA-256"
+    )
+    return WORKBOOK
+
+
+@lru_cache(maxsize=1)
+def _rebuild() -> dict[str, object]:
+    return build_ma2021_baseline_benchmark(parse_ma2021_workbook(_verified_workbook()))
+
+
+def test_ma2021_baseline_report_matches_exact_source_recalculation() -> None:
+    _verified_workbook()
+    assert REPORT.is_file()
+    assert json.loads(REPORT.read_text(encoding="utf-8")) == _rebuild()
+
+
+def test_ma2021_baseline_preserves_study_grain_and_repeat_groups() -> None:
+    report = _rebuild()
+    design = report["design"]
+    assert report["decision"] == MA2021_BASELINE_DECISION
+    assert design["source_trial_rows"] == 222
+    assert design["unique_mixture_groups"] == 198
+    assert design["duplicated_mixture_groups"] == 24
+    assert design["participant_trial_rows"] == 6_660
+    assert design["participant_rows_used_for_benchmark"] == 0
+    assert design["unit_of_analysis"] == "UNIQUE_MIXTURE_KEY"
+    assert design["duplicate_policy"] == ("AVERAGE_SOURCE_AGGREGATE_REPEAT_ROWS_WITHIN_MIXTURE_KEY")
+
+
+def test_ma2021_predefined_baselines_and_uncertainty_are_fail_closed() -> None:
+    report = _rebuild()
+    metrics = report["baseline_metrics"]
+    comparisons = report["paired_bootstrap_comparisons"]
+    repeatability = report["repeatability"]
+
+    assert metrics["intensity_strongest_component"]["rmse"] == "0.468534976465"
+    assert repeatability["IAB"]["rmse"] == "0.459045542563"
+    assert report["interpretation"]["intensity_sc_to_repeat_rmse_ratio"] == ("1.020672096823")
+    assert metrics["pleasantness_squared_intensity_weighted"]["rmse"] == ("0.394525286290")
+    assert (
+        comparisons["pleasantness_arithmetic_minus_squared_rmse"]["ci95_percentile"][0]
+        > "0.000000000000"
+    )
+    assert (
+        comparisons["pleasantness_intensity_weighted_minus_squared_rmse"]["ci95_percentile"][0]
+        > "0.000000000000"
+    )
+    assert report["interpretation"]["nonlinear_residual_model_authorized"] is False
+
+
+def test_ma2021_baseline_report_is_deterministic_and_all_authorities_false() -> None:
+    first = _rebuild()
+    second = _rebuild()
+    assert first == second
+    assert first["scientific_payload_sha256"] == ma2021_baseline_payload_sha256(first)
+    assert first["authorizations"]
+    assert all(value is False for value in first["authorizations"].values())

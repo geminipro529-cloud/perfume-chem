@@ -1,0 +1,56 @@
+import engine.mixer.prebonding as prebonding
+
+
+def test_numeric_legacy_stock_forms_are_normalized_before_crystallinity_checks(
+    monkeypatch,
+):
+    def numeric_stock_record(material_name: str) -> dict:
+        assert material_name == "Red Mandarin EO"
+        return {"name": "Red Mandarin EO", "stock_form": 1.0}
+
+    monkeypatch.setattr(prebonding, "_lookup_material", numeric_stock_record)
+
+    assert prebonding.is_crystalline("Red Mandarin EO") is False
+
+
+def test_numeric_stock_fraction_is_not_promoted_to_dilution_authority(monkeypatch):
+    def ambiguous_numeric_stock_record(material_name: str) -> dict:
+        assert material_name == "Vanillin"
+        return {"name": "Vanillin", "stock_form": 0.1}
+
+    monkeypatch.setattr(prebonding, "_lookup_material", ambiguous_numeric_stock_record)
+
+    # A bare number does not establish percent-vs-fraction basis or carrier.
+    # Fall back conservatively to the material's known physical form.
+    assert prebonding.is_crystalline("Vanillin") is True
+
+
+def test_unresolved_current_stock_records_keep_their_execution_holds(monkeypatch):
+    records = {
+        "Guaiacwood EO": {
+            "name": "Guaiacwood EO",
+            "stock_form": (
+                "33.33333333333333% w/w; remaining two thirds composition "
+                "and carrier unresolved"
+            ),
+            "fraction_basis": "mass_fraction",
+            "carrier": "",
+            "execution_ready": False,
+        },
+        "Castoreum Synthetic": {
+            "name": "Castoreum Synthetic",
+            "stock_form": "10% in DEP; fraction basis unspecified",
+            "fraction_basis": "unspecified",
+            "carrier": "dep",
+            "execution_ready": False,
+        },
+    }
+
+    monkeypatch.setattr(prebonding, "_lookup_material", records.__getitem__)
+
+    assert prebonding.is_crystalline("Guaiacwood EO") is False
+    assert prebonding.is_crystalline("Castoreum Synthetic") is False
+    assert records["Guaiacwood EO"]["carrier"] == ""
+    assert records["Guaiacwood EO"]["execution_ready"] is False
+    assert records["Castoreum Synthetic"]["fraction_basis"] == "unspecified"
+    assert records["Castoreum Synthetic"]["execution_ready"] is False

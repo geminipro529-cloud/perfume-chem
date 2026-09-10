@@ -1,0 +1,178 @@
+{
+  "schema_version": "complex_perfumery_exact_byte_capture_v1",
+  "capture_id": "20260811T145000Z-live-card-recovery-multi-chat",
+  "generated_at_utc": "2026-08-11T15:04:18.5222559Z",
+  "authority": "SOURCE_CAPTURE",
+  "admission_state": "QUARANTINED_NOT_ADMITTED",
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "artifacts": [
+    {
+      "filename": "Perfume_Chem_Tunnel_Courier_v1.0.1.zip",
+      "bytes": 227619,
+      "sha256": "19674416f7ec025105af2967f66a7eb625ccb6d1f542fb24dcded61671259145",
+      "source_conversation_id": "6a79961a-29a4-83ec-85c1-000b2e3e3277",
+      "source_turn_id": "2e9799ce-7115-49d9-89bd-a4a0071e6d7c",
+      "zip_file_count": 40,
+      "ledger_declared_count": 39,
+      "native_graph": {"status": "GRAPH_COMPLETE_QUARANTINED", "nodes": 1, "edges": 0, "max_depth": 0, "all_nodes_terminal": true},
+      "holds": ["CREDENTIAL_SIGNATURE_ASSIGNMENT"]
+    },
+    {
+      "filename": "Perfume_Chem_Tunnel_Courier_v1.0.0.zip",
+      "bytes": 200627,
+      "sha256": "8e593656e78639e8205ddfc57c45e1c5c2edcd91107166ea402bc1b93f183b2f",
+      "source_conversation_id": "6a79961a-29a4-83ec-85c1-000b2e3e3277",
+      "source_turn_id": "2e9799ce-7115-49d9-89bd-a4a0071e6d7c",
+      "zip_file_count": 37,
+      "ledger_declared_count": 36,
+      "native_graph": {"status": "GRAPH_COMPLETE_QUARANTINED", "nodes": 1, "edges": 0, "max_depth": 0, "all_nodes_terminal": true},
+      "holds": ["CREDENTIAL_SIGNATURE_ASSIGNMENT"]
+    },
+    {
+      "filename": "Perfume_Data_Progress_Local_Implementation_Handoff_f4da87e1-0378-4ea9-9995-7dcbff39dd27.zip",
+      "bytes": 301543,
+      "sha256": "1ac667b6bfe8fce2c7d8667b2d21bab12f5b73359a2660fadcc375365fe7b4e1",
+      "source_conversation_id": "6a7aa702-a7e4-83ec-851e-ff48c6ce1822",
+      "source_turn_id": "32d65578-29f8-46bc-aea7-0ae460b3acca",
+      "zip_file_count": 10,
+      "ledger_declared_count": 9,
+      "native_graph": {"status": "GRAPH_COMPLETE_QUARANTINED", "nodes": 4, "edges": 4, "max_depth": 2, "all_nodes_terminal": true},
+      "holds": ["NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT"]
+    },
+    {
+      "filename": "Perfume_Data_Progress_Refresh_Rescan_Work_Chat_Dispatch_495fd041-a662-4471-84e1-96fdcc847dde.zip",
+      "bytes": 314495,
+      "sha256": "8a0ca735281bebb2680f65c900dbcb2afab77616bf67a2f78f0d7780064883f9",
+      "source_conversation_id": "6a7aa702-a7e4-83ec-851e-ff48c6ce1822",
+      "source_turn_id": "32d65578-29f8-46bc-aea7-0ae460b3acca",
+      "zip_file_count": 8,
+      "ledger_declared_count": 7,
+      "native_graph": {"status": "GRAPH_COMPLETE_QUARANTINED", "nodes": 5, "edges": 5, "max_depth": 3, "all_nodes_terminal": true},
+      "holds": ["NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT"]
+    },
+    {
+      "filename": "Complexity_Endpoint_Research_and_Revised_Plan_Aug2026_v1_Package.zip",
+      "bytes": 123957,
+      "sha256": "6945a0bba5a7cbeacb338ff9c3383ea946b34162018eb5568f5ecb630ceb1ed0",
+      "source_conversation_id": "6a7aa702-a7e4-83ec-851e-ff48c6ce1822",
+      "source_turn_id": "32d65578-29f8-46bc-aea7-0ae460b3acca",
+      "zip_file_count": 8,
+      "ledger_declared_count": 7,
+      "native_graph": {"status": "GRAPH_COMPLETE_QUARANTINED", "nodes": 2, "edges": 1, "max_depth": 1, "all_nodes_terminal": true},
+      "holds": ["NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT"]
+    },
+    {
+      "filename": "Inventory_V5_Reconciliation_and_Priority_Patch_v1_Package.zip",
+      "bytes": 74027,
+      "sha256": "d2ba0ed7b97812edb69a7e3ae38be729fdebbbee4ddaa7173fea5d5534d12ae7",
+      "source_conversation_id": "6a79b2cd-028c-83ec-9ed9-70956c462acf",
+      "source_turn_id": "ebd567be-4ed3-42e1-9bf0-2524266116c3",
+      "zip_file_count": 5,
+      "ledger_declared_count": 4,
+      "native_graph": {"status": "GRAPH_COMPLETE_QUARANTINED", "nodes": 2, "edges": 1, "max_depth": 1, "all_nodes_terminal": true},
+      "holds": ["NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT"]
+    },
+    {
+      "filename": "Universal_Perfume_Complexity_Support_System_Aug2026_v1_Package.zip",
+      "bytes": 983937,
+      "sha256": "fce8e5611aba6b70d6b09b1f9adc9f62ea6a3c59da5739c771b314bcb27af88c",
+      "source_conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+      "source_turn_id": "44fd988d-c36a-4b7d-a97f-075120718abf",
+      "zip_file_count": 54,
+      "ledger_declared_count": 53,
+      "native_graph": {"status": "GRAPH_COMPLETE_QUARANTINED", "nodes": 3, "edges": 2, "max_depth": 1, "all_nodes_terminal": true},
+      "holds": ["NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT", "PARTIAL_MEMBER_SCAN"]
+    },
+    {
+      "filename": "Floral_Heart_Soliflore_Codex_Cloud_Work_Chat_Packet_cf960bcd-fecd-4788-bf75-a18175ff7118.zip",
+      "bytes": 1693860,
+      "sha256": "e6a083498f350ea8ceaf7ee3a97d725cd394463eebfdf136a95bdc81a65e19aa",
+      "source_conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+      "source_turn_id": "44fd988d-c36a-4b7d-a97f-075120718abf",
+      "zip_file_count": 21,
+      "ledger_declared_count": 19,
+      "native_graph": {"status": "GRAPH_COMPLETE_QUARANTINED", "nodes": 8, "edges": 10, "max_depth": 3, "all_nodes_terminal": true},
+      "holds": ["NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT", "PARTIAL_MEMBER_SCAN"]
+    }
+  ],
+  "embedded_identities_verified": [
+    "52b2edc4e63c48b3d0831d3e5353ed0a93a1bd62f7bdc48a68b1cca3f92a041a",
+    "43727348654c6910bb1ccae11b485429eb3d83cc2026e2bdc05cc803e416930e",
+    "46b2dcb5978d3ae02c886bfb2164a3984efc86a349d159f2784505aa6a44df42",
+    "5496265a7de57f22f238f2a5de06a9d30a125991a6f4e23834e1379c96180c96",
+    "59f425422e56cf537f2ca4ca72a1955e8657e6464c164c326e5faa127866c926",
+    "8170199f515c39ea69be40678f3bea1da3e308a5dd2c3cd5cb120e9bd3257836",
+    "d3fa74bf98ea09af1de399df2770b4269d8ac1e79e53581e522f24f65c8d0e27",
+    "189708f1f69f326898f4d8a87f742949b70d9f1252990fc1bc019c27ce9f5513",
+    "6533514f4cbfc635ac5120eb196c166aa3a32aa772a54d6dbd35cf9c6c0f7337",
+    "34203c921eb05cfce941b21b66546a8fa03a134526a6d47815f0dc15bcb618de",
+    "6613ba3fa48b008695ce3e27db845a2431ecf62f215a4e9ddcf9cfd509ac9c97",
+    "ac9ae38f85d97b5846d80fc712f563476de52af25b5568b1ef1eed62894895fe",
+    "90c68af32575a926bae2afb1634973cf47faa470a2a84f77fdf6ab8dc355014d",
+    "8b1124fa6eb9e97c2918488aad7525a610b6d5a23e11f1fb2747add5d5ada368",
+    "c0ef8354069b727c40d8e67c7eae3e47636e222fd29987e531c7d0d52f7f8483",
+    "e04630c9936fc2da54f7444b0bf085b3ee1d0797fb9aa52518e1f8c5f61e1092",
+    "8b867681174c15debeb632a11eae81efcddda78433ecdc8a7900d5c7b54acdba"
+  ],
+  "source_card_locators": [
+    {
+      "conversation_id": "6a79961a-29a4-83ec-85c1-000b2e3e3277",
+      "metadata_turn_id": "a8c6488d-94ab-49df-a60e-af860c5dc876",
+      "content_reference_indices": [0, 1, 2, 3],
+      "standalone_turn_id": "2e9799ce-7115-49d9-89bd-a4a0071e6d7c",
+      "standalone_indices": [0, 1]
+    },
+    {
+      "conversation_id": "6a7aa702-a7e4-83ec-851e-ff48c6ce1822",
+      "metadata_turn_id": "e53bfad1-e521-47ee-9025-4e8f1ba4f443",
+      "content_reference_indices": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+      "standalone_turn_id": "32d65578-29f8-46bc-aea7-0ae460b3acca",
+      "standalone_indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    },
+    {
+      "conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+      "metadata_turn_id": "96489c80-51b6-4a28-8d23-9c2fba9470df",
+      "content_reference_indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      "standalone_turn_id": "44fd988d-c36a-4b7d-a97f-075120718abf",
+      "standalone_indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    },
+    {
+      "conversation_id": "6a79b2cd-028c-83ec-9ed9-70956c462acf",
+      "metadata_turn_id": "198c6b80-341a-439e-9686-9a71e541fca8",
+      "content_reference_indices": [0, 1, 2, 3, 4, 5],
+      "standalone_turn_id": "ebd567be-4ed3-42e1-9bf0-2524266116c3",
+      "standalone_indices": [0, 1, 2, 3, 4, 5]
+    }
+  ],
+  "companion_byte_disposition": {
+    "state": "EMBEDDED_EXACT_BYTES_RECOVERED",
+    "standalone_cards_downloaded": false,
+    "reason": "Controlling outer ledgers bind exact member bytes, sizes, hashes, and source-card locators; duplicate standalone copies are unnecessary."
+  },
+  "verification": {
+    "outer_size_and_sha256_exact": true,
+    "zip_streams_crc_clean": true,
+    "unsafe_paths_found": 0,
+    "casefold_duplicate_paths_found": 0,
+    "embedded_ledger_mismatches": 0,
+    "all_native_graph_nodes_terminal": true,
+    "native_graph_findings": 0,
+    "promotion_allowed_count": 0
+  },
+  "authority_flags": {
+    "accepted_by_codex": false,
+    "admitted": false,
+    "canonical_promotion": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "stock_authority": false,
+    "bottle_authority": false,
+    "physical_execution_authority": false,
+    "sensory_authority": false,
+    "strict_oav_authority": false,
+    "safety_authority": false,
+    "publication_authority": false,
+    "release_authority": false,
+    "installation_authorized": false
+  }
+}

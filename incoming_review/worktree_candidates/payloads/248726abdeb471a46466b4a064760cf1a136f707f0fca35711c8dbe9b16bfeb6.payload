@@ -1,0 +1,29 @@
+﻿Code,ACC-CA-GRA-01
+Accord,Grapefruit Peel Spark v1.0
+Category,Citrus & Aromatic
+Brief,"A bitter, sparkling grapefruit peel accord with restrained aldehydes, green ketone, floral air and mineral amber persistence."
+Recommended use,2–10% of perfume concentrate
+Maturation,3–7 days
+Monte Carlo pass,0.989
+Final design score,100.0
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Ambrofix 30%,30% working stock,0.3,35.0,10.5,35.0,175.0,PREPARED STOCK,ambergris,Mineral persistence,Mineral ambergris persistence.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.004938333019296179
+2,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,20.0,20.0,20.0,100.0,DIRECT,musk,Clean diffusion,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.0024683839443032413
+3,heart_base,Iso E Super,neat / as supplied,1.0,60.0,60.0,60.0,300.0,DIRECT,transparent_wood,Dry structure,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.010021102049274028
+4,heart,Hedione,neat / as supplied,1.0,80.0,80.0,80.0,400.0,DIRECT,floral_air,Air,Transparent floral diffusion.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.01505570269998974
+5,top_heart,Linalyl Acetate,neat/as supplied,1.0,50.0,50.0,50.0,250.0,DIRECT,aromatic,Floral ester,Lavender-citrus ester.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.007497425146722594
+6,top_heart,Petitgrain EO Paraguay,neat / as supplied,1.0,50.0,50.0,50.0,250.0,DIRECT,citrus_green,Green peel,Green bitter-orange twig.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.007520333499764872
+7,top_heart,Linalool,neat/as supplied,1.0,45.0,45.0,45.0,225.0,DIRECT,aromatic,Fresh bridge,Floral-citrus bridge.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.0065172622315988644
+8,top_heart,Methyl Nonyl Ketone 1%,Prepare 1% from neat Methyl Nonyl Ketone,0.01,5.0,0.05,5.0,25.0,PREPARED STOCK,green_leaf,Bitter peel nuance,Metallic leafy nuance.,HAVE — NEAT / PREPARE,Use only at the listed supplied-stock strength.,Prepare fresh 1% working stock.,MICRO POLISH,0.0005251026674451982
+9,top_heart,Rose Oxide 1%,1% working stock,0.01,2.0,0.02,2.0,10.0,PREPARED STOCK,rose,Metallic sparkle,Metallic rose lift.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.00020401600962730566
+10,top,Grapefruit FCF Oil Sicilian,neat / as supplied,1.0,240.0,240.0,240.0,1200.0,DIRECT,citrus,Grapefruit core,Bitter grapefruit peel.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.0820241734282992
+11,top,Dihydromyrcenol,neat / as supplied,1.0,120.0,120.0,120.0,600.0,DIRECT,fresh_aromatic,Fresh diffusion,High-diffusion freshness.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.0381453376028745
+12,top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,100.0,100.0,100.0,500.0,DIRECT,citrus,Floral citrus,Floral bergamot peel.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.02192453845897248
+13,top,Lemon FCF Oil Sicilian,neat / as supplied,1.0,80.0,80.0,80.0,400.0,DIRECT,citrus,Brightness,Bright lemon peel.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.01678386548336681
+14,top,Citral Natural,Prepare 10% from neat Citral Natural,0.1,15.0,1.5,15.0,75.0,PREPARED STOCK,citrus,Citrus edge,Lemon-citral edge.,HAVE — NEAT ONLY,Use only at the listed supplied-stock strength.,Prepare fresh 10% working stock.,TEXTURAL SUPPORT,0.0027935978088758405
+15,top,Aldehyde C10 1%,1% working stock,0.01,8.0,0.08,8.0,40.0,PREPARED STOCK,aldehydic,Aldehydic flash,Citrus-aldehydic flash.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.0015261676772384764
+16,top,Aldehyde C11 1%,1% working stock,0.01,6.0,0.06,6.0,30.0,PREPARED STOCK,aldehydic,Fresh extension,Fresh aldehydic extension.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.001131442607431232
+17,top,Aldehyde C12 MNA 1%,1% working stock,0.01,4.0,0.04,4.0,20.0,PREPARED STOCK,aldehydic,Cold lift,Waxy cold aldehydic lift.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.0007455140023972569
+18,carrier,DPG,neat,0.0,80.0,0.0,80.0,400.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

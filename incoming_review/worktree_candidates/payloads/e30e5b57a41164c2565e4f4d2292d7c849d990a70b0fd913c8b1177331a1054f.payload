@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "state": "PASS_ALL_MEMBER_IDENTITIES_EXACT_QUARANTINE_ONLY",
+  "outer_zip_admitted": false,
+  "outer_zip_expected_sha256": "d9abe68882edc86dfff47ab2cb4890e11c5bbe3e1e9c37dbd0c22930e628e54e",
+  "outer_candidate_sha256": "f8766945a3c02500e7774c1b0ecfa1343a9acaf437c644916ca3f447dd7ec473",
+  "zip_entries": 22,
+  "ledger_members": 21,
+  "ledger_members_exact": 21,
+  "receipt_exact": true,
+  "exact_identities_materialized": 22,
+  "failed_member": {
+    "path": "tests/test_stock_basis_repair_and_admission.py",
+    "bytes": 5510,
+    "sha256": "6abd59ee9daab27893646a15a45911f9e6241dd7e4af37f368867d200d55dad2",
+    "reason": "RECOVERED_AS_EXACT_INDIVIDUAL_MEMBER"
+  },
+  "canonical_installation": false,
+  "release_authority": false,
+  "scientific_authority": false,
+  "formula_authority": false
+}

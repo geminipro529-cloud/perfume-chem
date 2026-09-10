@@ -1,0 +1,105 @@
+# Current Sol xhigh Comparison
+
+**Decision class:** `COMPUTATIONAL_SYSTEMS_COMPARISON_ONLY`  
+**Sensory winner:** `NOT TESTED`  
+**DeepLuna comparison:** `NOT RUN — exact-project route BLOCKED_BUDGET_UNSAFE`
+
+## Outcome
+
+The revised twenty-arm studio is demonstrably cleaner as a formulation and execution system: all 20 current-inventory builds parse at exactly 4,500 µL, pass the 10 µL raw-stock floor, use one explicit Ethylene Brassylate musk, exclude all lost tinctures, resolve live inventory through the approved overlay, and complete the native family pipelines with zero hard gate failures.
+
+That is **not evidence that any arm smells better, is closer to YSL, or is more hedonic than the frozen Sol formulas**. The new L’Homme arms are more top-heavy in the modeled OAV distribution than the frozen Sol L’Homme baseline, while the Sol La Nuit baseline also has zero hard failures. Physical balanced-order testing remains the only valid preference comparison.
+
+## Fresh 305 K Native Runs
+
+| Arm | Rows | Raw µL | PASS | WARN | FAIL | Overall | Opening OAV T/H/B | Drydown OAV T/H/B | Musk design |
+|---|---:|---:|---:|---:|---:|---|---|---|---|
+| Frozen Sol L’Homme xhigh | 22 | 6000 | 112 | 16 | 1 | FAIL | 67.2/21.7/11.1 | 31.0/45.6/23.4 | 3: Zenolide, Habanolide, Ambrettolide (10% in DPG) |
+| Frozen Sol La Nuit xhigh | 20 | 4500 | 110 | 19 | 0 | WARN | 56.8/29.2/13.9 | 23.6/46.1/30.3 | 2: Habanolide, Romandolide |
+| Twenty-arm studio | 18–26 | 4,500 each | 108–113 | 16–21 | **0 each** | WARN (20/20) | model-specific; see summary | model-specific; see summary | 1 each: Ethylene Brassylate |
+
+Frozen Sol L’Homme’s sole hard failure is the new execution rule: `Basil EO (India, Ocimum Basilicum)=8.0uL below 10.0 uL raw-stock floor; prepare a verified dilution and rebase the formula before compounding`
+
+Gate totals are diagnostics, not a perfume ranking.
+
+## What the program repair changed
+
+- Corrected natural-mixture routing for current inventory labels and added explicit literature-partial proxy authority for lemon, black pepper, ginger, spike lavender, and tonka. These are not user-lot measurements.
+- Corrected natural composite evaporation so constituent ratios evolve over time rather than remaining frozen into drydown.
+- Made serialized `note_distribution` OAV-weighted and retained active-mass distribution separately.
+- Reconciled composite natural vapor ppm, effective ODT, and OAV in every material row.
+- Classified composite-natural `derived_effective:` ODTs as low-authority evidence so dominant proxy naturals now produce an explicit warning instead of a false clean pass.
+- Corrected Bergamot FCF oil Sicilian from heart to top classification.
+- Corrected the climate gate’s Kelvin/Celsius unit error: 305 K is modeled as 31.85 °C and ~2.20× VP versus 22 °C, not 157,728×.
+- Stopped the legacy evaluator from parsing appended OAV tables as formula ingredients and corrected its 0.1% dilution parser.
+- Enforced the user’s 10 µL minimum raw-stock dose for neat and diluted rows; the nine 8 µL Black Pepper sockets were rebased to 10 µL with a 2 µL Tonkarome-stock offset.
+- Added native `ysl_lhomme` and `ysl_la_nuit_de_lhomme` family contracts while retaining name-first optimization and claim ceilings.
+- Made native family-identity drift release-blocking; a formula that loses the L’Homme or La Nuit architecture can no longer be demoted to an advisory warning.
+
+## Formula-level diagnosis
+
+- **L’Homme family:** modeled openings are citrus/aromatic-dominant and often show thin OAV hearts. This is a risk to be tested, not a mandate to add more ingredients. Adaptation, suppression, and lot-specific naturals are not physically calibrated.
+- **LH‑04 Apple Pie:** apple materials are modeled strongly, but 2-acetylpyrazine, cinnamaldehyde, and vanillin remain threshold-limited or authority-limited. The pastry module needs a carrier-matched constant-total omission/addition test; increasing a water-threshold proxy would be unjustified.
+- **LH‑06 Violet Leaf Silk:** neat beta-ionone was a true design defect. Replacing its 20 µL neat row with 20 µL of owned 0.1% TEC stock reduces modeled OAV from ~8,595 to ~8.6 and restores literal violet leaf as the named accent.
+- **La Nuit family:** current models preserve cardamom/lavender/cedar/coumarin architecture, but several arms remain top-heavy in headspace and warnings consistently flag sparse intimate diffusion. Unknown musk stock bases prevent a justified Habanolide/Romandolide substitution.
+- **LN‑05 Immortelle Nuit:** Immortelle 10% is modeled through a composite proxy, but its stock basis remains `VERIFY_FIRST`; curry/maple restraint and liking are physically untested.
+
+## Comparison by authority
+
+| Question | Supported answer |
+|---|---|
+| Is the revised system more inventory-faithful and executable? | **Yes**: 20/20 current builds, 0 hard gate failures, 20/20 at or above 10 µL. |
+| Is TARGET / IDEAL kept separate from CURRENT? | **Yes**, for every arm. |
+| Is musk redundancy lower? | **Yes as design structure**: one EB musk versus 3 in frozen Sol L’Homme and 2 in frozen Sol La Nuit. |
+| Is the program physics internally more consistent? | **Yes for the repaired defects**, backed by regression tests. |
+| Does a lower warning count prove a better perfume? | **No.** |
+| Is any arm more similar to authentic YSL? | `NOT TESTED`; these are documentary character hypotheses, not authenticated recipes. |
+| Is any arm more hedonic than Sol xhigh? | `NOT TESTED`; no blinded physical observations exist. |
+| Did DeepLuna beat Sol? | No comparison was run; the exact-project route was blocked before transmission. |
+
+## Program-efficiency measurement
+
+The upgraded `scan-formulas` path now executes a deterministic static stage before physics, derives each formula's declared concentrate volume, records parse/static/full/cache timing, and permits cache reuse only with exact formula, authoritative inventory, inventory-overlay, configuration, and pipeline-source hashes. Cache use is disabled when audit logging is enabled so reuse cannot suppress a required audit event.
+
+Fresh measurements in this isolated worktree at 305 K:
+
+| Scope | Cold | Exact warm reuse | End-to-end change |
+|---|---:|---:|---:|
+| LH-01 staged scan | 7.140 s | 0.248 s | 28.8x faster |
+| All 20 YSL variants | 66.411 s | 0.359 s | 184.9x faster |
+
+The cold 20-arm run produced 20 WARN, 0 FAIL and took 65.919 s inside the full gates. The warm run returned 20/20 exact cache hits and reused 66.080 s of bound computation. These are local pipeline timings, not model-generation timings and not evidence of sensory quality.
+
+The prospective matched comparison is now defined in `testing/blind_protocol.json` as XHIGH alone, XHIGH with the current program, XHIGH with the upgraded program, and optional Ultra with the same upgraded program. A fresh matched XHIGH generation run has **not** occurred; the frozen historical baselines remain diagnostic context only.
+
+## Executable matched benchmark and realism intake
+
+The existing audit CLI now executes the protocol rather than leaving it as prose:
+
+```powershell
+python scripts/pipeline_audit.py compare-benchmark `
+  --protocol formulas/ysl_twenty_variant_study/testing/blind_protocol.json `
+  --receipts <matched-receipt-bundle.json> `
+  --json
+```
+
+Each A/B/C receipt is bound to one brief and run, the exact model and reasoning effort, formula bytes, prompt contract, inventory, stock basis, evaluation-pipeline source, concentration, temperature, time budget, output schema, and declared metrics. Duplicate canonical cells, artifact-hash failures, and matched-control mismatches invalidate the comparison instead of being averaged away. Optional arm D is evaluated only when supplied.
+
+Running the command without a receipt bundle currently returns `HOLD_MISSING_RECEIPTS`: 0 of 27 required A/B/C pilot cells exist. Sensory status is `NOT_TESTED`, ties and missing cells are never imputed, and no fresh XHIGH or Ultra superiority claim exists.
+
+The same evaluator accepts accord-realism observations conservatively. The user's physical feedback that LH-04 Apple Pie's accords could be more realistic is evidence about LH-04 only; it is not evidence that the other nineteen files fail. A realism defect becomes eligible for human rule review only after it recurs in at least two distinct blinded, identity-retaining formulas and two independent batches. Even then, automatic formula or optimizer mutation remains forbidden.
+
+## Artifact bindings
+
+- Screening summary payload: `a4779473e6c7ae0794e350d0873fe4a007583163ff221838a6261397aeeba34b`
+- Screening summary file: `d80c8b9892ca05b4962e803c6abf58f868577fccf92dc05769266f8cb778492a`
+- Sol L’Homme formula definition: `7154410900c11d6043d9b800d663fa9346be406845690e9ed48849ba0274d09c`
+- Sol L’Homme JSON: `4463f071f3bac2c453bd9e0158100b6f0849826a5ad3aa44d321221ab5114692`
+- Sol L’Homme formatter output: `869b438a4dbb17511ad058c2b9a267ef1fa7e0fb3b38e23c6bfea3477cf21c72`
+- Sol La Nuit formula definition: `cdb99f7bed1332f6269174c8245ad7a4a9ba5bc3fd139dfebcd938df08e01bde`
+- Sol La Nuit JSON: `4b0d55bf6f220d009363e66b7a746c70aa13f87a705a654925cd5f1c8c121b5a`
+- Sol La Nuit formatter output: `db8a9974bd65860b6e45fe87f9b394047f18591d7552194d173b56e19293f2cc`
+
+## Next valid comparison
+
+Generate every locked A/B/C pilot cell, preserve its exact receipt, and run `compare-benchmark` before interpreting speed or discovery. Compound only after verifying the remaining percentage-stock labels. Use equal-mass, equal-concentration, coded samples in balanced order. Score family identity before variant quality and liking at 0, 5, and 30 minutes and 2 and 4 hours. Retain ties. No release, stability, safety, or superiority claim follows from the computational screen.

@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,0.9998
+identity_system_probability,1.0
+oav_probability,0.9998
+temporal_probability,1.0
+dominance_failure_probability,0.005600000000000049
+overall_probability,0.9942
+dose_closure_probability,0.9868
+temporal_q05,0.9348457838483072
+temporal_median,0.972503868253104
+max_share_q95,0.5926275968558505
+marker_coverage_q05,0.8571428571428571
+phase_sum_q05,"{""top"": 40.034243277674264, ""heart"": 5.394106138362184, ""base"": 5.441570026158874}"
+release_shape_median,"[0.4260028878413106, 0.31447690159371, 0.18885707549287745, 0.06092273846619827]"
+phase_shape_median,"[0.29435890327452313, 0.34948503413401943, 0.35615191944197205]"
+marker_probabilities,"{""Blood Orange Oil Sicilian | top"": 1.0, ""Grapefruit FCF Oil | top"": 0.9963, ""AAG 10% | top"": 1.0, ""Black Pepper EO | heart"": 1.0, ""Geraniol 10% | heart"": 0.0299, ""Sandalore | base"": 0.9838, ""Vetiver EO | base"": 0.9999}"
+marker_quantiles,"{""Blood Orange Oil Sicilian | top"": [5.328984013205982, 14.428588989898376, 40.021223721291335], ""Grapefruit FCF Oil | top"": [1.865347105600596, 5.308407272180055, 14.997213031744996], ""AAG 10% | top"": [25.05649247265109, 67.12407327242013, 183.01309689851968], ""Black Pepper EO | heart"": [5.093976918767072, 13.218697227187594, 33.46195123647453], ""Geraniol 10% | heart"": [0.12179156945359584, 0.32349335466230644, 0.8568105282601054], ""Sandalore | base"": [1.3362499036166626, 3.461664811806659, 9.274196776013286], ""Vetiver EO | base"": [3.0807514937626204, 7.961903929183367, 20.396366627830112]}"
+classification,ROBUST

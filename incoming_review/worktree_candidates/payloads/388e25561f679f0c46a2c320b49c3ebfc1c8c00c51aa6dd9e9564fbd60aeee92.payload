@@ -1,0 +1,114 @@
+{
+  "schema_version": "perfume-chem.inventory-v5-authority-delta-supplement.v1",
+  "receipt_id": "INV-V5-AUTHORITY-DELTA-20260811-02",
+  "generated_at_utc": "2026-08-11T04:27:27Z",
+  "state": "ACTIVE_SUPPLEMENT_FAIL_CLOSED",
+  "operational_effect": "FAIL_CLOSED_BLOCK_ONLY",
+  "supersedes_scope": "ORRIS_LIQUID_STOCK_BASIS_AND_PREPARATION_LINEAGE_ONLY",
+  "supersedes": {
+    "path": "data/governance/inventory_v5_authority_delta_20260811.json",
+    "file_sha256": "0ecbfc09bb826c89d1180006e2eb195c5db87b40bad77f250256e8ef89fd6774",
+    "semantic_self_sha256": "ff79977d59de40d6f7075c56429ef7b2cad577d391fe1271c2d4f5e52617dc5d"
+  },
+  "source_pins": [
+    {
+      "path": "data/governance/inventory_v5_current_stock_snapshot.json",
+      "size_bytes": 226125,
+      "sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99"
+    },
+    {
+      "path": "inventory.txt",
+      "size_bytes": 17140,
+      "sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec"
+    },
+    {
+      "path": "data/materials/O.yaml",
+      "size_bytes": 44686,
+      "sha256": "d507afde090bf541bb39bc276a9d2723bbe1dca92b3c345a3f1928e47070d911"
+    }
+  ],
+  "clearance_receipts": [],
+  "authority": {
+    "formula_authority": false,
+    "inventory_stock_authority": false,
+    "physical_execution_authority": false,
+    "procurement_authority": false,
+    "release_authority": false,
+    "safety_authority": false,
+    "scientific_authority": false
+  },
+  "records": [
+    {
+      "record_id": "INV-V5-DELTA-ORRIS-LIQUID-STOCK-BASIS",
+      "canonical_name": "Orris Liquid — PerfumersWorld product basis",
+      "aliases": [
+        "Orris Liquid",
+        "Orris Liquid (30%)",
+        "Orris Liquid 30% w/w"
+      ],
+      "cas_rn": "8002-73-1",
+      "state": "EXACT_STOCK_AND_PREPARATION_RECEIPT_REQUIRED",
+      "source_type": "STOCK_BASIS_AND_PREPARATION_LINEAGE_CONFLICT",
+      "source_claim": "The pinned V5 snapshot identifies the supplier product as as-supplied PRODUCT BASIS with no single active fraction; inventory.txt and data/materials/O.yaml also describe a user-prepared 30% w/w stock whose solvent and preparation lineage are unrecorded; the newest authenticated formula workbook doses Orris Liquid as supplied.",
+      "source_locators": [
+        "data/governance/inventory_v5_current_stock_snapshot.json#_source_row=195",
+        "inventory.txt#line=151",
+        "data/materials/O.yaml#canonical_name=Orris Liquid",
+        "chatgpt-conversation://6a79b172-0264-83ec-b77a-306a37ecb832#workbook_sha256=90191bed8d702c023cbbae883a2320b656c6ba47355fe5cee3ecf6a63a619ba0"
+      ],
+      "formula_count_in_parent": 33,
+      "affected_target_ids": [
+        "AM-E01",
+        "AM-E02",
+        "AM-E09",
+        "AM-E10",
+        "AM-L04",
+        "AM-L07",
+        "AM-L08",
+        "AM-L09",
+        "AM-N01",
+        "AM-N05",
+        "AM-N12",
+        "AM-N16",
+        "H01",
+        "H02",
+        "H04",
+        "H05",
+        "H06",
+        "H07",
+        "H08",
+        "H10",
+        "H12",
+        "O01",
+        "O02",
+        "O04",
+        "PR-E02",
+        "PR-E05",
+        "PR-L03",
+        "PR-L04",
+        "PR-N02",
+        "PR-N04",
+        "PR-N11",
+        "Y09",
+        "Y11"
+      ],
+      "blocks_executable_mapping": true,
+      "latest_formula_workbook": {
+        "locator_scope": "EXTERNAL_LOCAL_PATH",
+        "path": "C:/Users/ASUS/Downloads/Perfume_Box_Workflow_Formula_Book_Aug2026_v2.xlsx",
+        "size_bytes": 159218,
+        "sha256": "90191bed8d702c023cbbae883a2320b656c6ba47355fe5cee3ecf6a63a619ba0",
+        "admission_authorized": false
+      },
+      "required_clearance": [
+        "Bind the exact PerfumersWorld SKU 8IQ24653 bottle label, lot and receipt as the parent product-basis stock.",
+        "If dosing a prepared stock, bind a PreparationReceipt with exact parent stock ID, child stock ID, gravimetric concentration basis, solvent, quantities and preparation date.",
+        "Bind every executable formula line to exactly one of those stock identities; never infer that as-supplied product equals the 30% w/w preparation."
+      ],
+      "verification_sources": [
+        "https://www.perfumersworld.com/essential-oils.php/view.php?pro_id=8IQ24653"
+      ]
+    }
+  ],
+  "semantic_self_sha256": "e1c7a422580184bd4745868d0f6036ad7fb6d91d41867ca95630924d14578bbb"
+}

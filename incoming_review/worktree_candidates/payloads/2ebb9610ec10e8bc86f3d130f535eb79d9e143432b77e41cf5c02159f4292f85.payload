@@ -1,0 +1,66 @@
+{
+  "schema_version": "model_tier_policy_v1",
+  "tier_order": [
+    "NO_MODEL_DETERMINISTIC",
+    "SOL_NORMAL_FAST",
+    "SOL_XHIGH",
+    "SOL_ULTRA"
+  ],
+  "task_routes": {
+    "ARCHITECTURE_DESIGN": "ULTRA_ONLY",
+    "CROSS_MODULE_SYNTHESIS": "ULTRA_ONLY",
+    "DETERMINISTIC_HASH": "DETERMINISTIC_IF_FROZEN_AND_MACHINE_CHECKABLE",
+    "DETERMINISTIC_INVENTORY_JOIN": "DETERMINISTIC_IF_FROZEN_AND_MACHINE_CHECKABLE",
+    "DETERMINISTIC_PARSE": "DETERMINISTIC_IF_FROZEN_AND_MACHINE_CHECKABLE",
+    "DETERMINISTIC_SCHEMA_VALIDATION": "DETERMINISTIC_IF_FROZEN_AND_MACHINE_CHECKABLE",
+    "DETERMINISTIC_TEST_EXECUTION": "DETERMINISTIC_IF_FROZEN_AND_MACHINE_CHECKABLE",
+    "FROZEN_RENDERING": "BENCHMARK_GATED",
+    "FROZEN_RULE_APPLICATION": "BENCHMARK_GATED",
+    "GATE_CHANGE": "ULTRA_ONLY",
+    "HEDONIC_INTERPRETATION": "ULTRA_ONLY",
+    "MODULE_ADMISSION_RETIREMENT": "ULTRA_ONLY",
+    "SAFETY_RELEASE_AUTHORITY": "HUMAN_AUTHORITY_HOLD",
+    "SCIENTIFIC_TRANSFER": "ULTRA_ONLY",
+    "SOURCE_CONFLICT_RESOLUTION": "ULTRA_ONLY"
+  },
+  "xhigh_noninferiority": {
+    "min_screen_cases": 3,
+    "min_screen_wins": 2,
+    "min_confirmation_cases": 6,
+    "min_confirmation_wins": 4,
+    "min_confirmation_nonlosses": 5,
+    "min_median_paired_delta": 0.0,
+    "require_unseen_variants": true,
+    "require_mutation_cases": true,
+    "require_adversarial_cases": true,
+    "require_deterministic_replay": true,
+    "max_critical_errors": 0,
+    "max_hold_regressions": 0,
+    "max_authority_regressions": 0
+  },
+  "normal_exact_agreement": {
+    "min_screen_cases": 6,
+    "require_all_screen_wins": true,
+    "min_confirmation_cases": 12,
+    "require_all_confirmation_wins": true,
+    "require_all_confirmation_nonlosses": true,
+    "require_exact_confirmation_agreement": true,
+    "require_unseen_variants": true,
+    "require_mutation_cases": true,
+    "require_adversarial_cases": true,
+    "require_deterministic_replay": true,
+    "max_critical_errors": 0,
+    "max_hold_regressions": 0,
+    "max_authority_regressions": 0
+  },
+  "authority_flags": {
+    "compounding": false,
+    "formula": false,
+    "hedonic": false,
+    "physical_execution": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  }
+}

@@ -1,0 +1,585 @@
+{
+  "schema": "full_muguet_parent_review_v1",
+  "record_id": "AHS-MUGUET-FULL-HEART-L360-H120-P60-20260907",
+  "date": "2026-09-07",
+  "scope": "Inventory audit + parent-evidence checkpoint + unexecuted add-only bench hypothesis; no release",
+  "command": ".venv/Scripts/python.exe scripts/formula_release_gate.py --formula-file formulas/AHS_UserBottle_MuguetFullHeart_20260907.md --parent-formula-file formulas/AHS_UserBottle_F240_N60_CONFIRMED_20260907.md --expected-concentrate-ul 5740 --batch-volume-ml 30.84 --temperature-k 305 --brief auto --no-audit --no-append-analysis --json",
+  "pipeline_runs": 1,
+  "pipeline_exit_code": 1,
+  "counts": {
+    "PASS": 105,
+    "WARN": 33,
+    "FAIL": 9,
+    "SKIP": 1
+  },
+  "overall": "FAIL",
+  "failed": [
+    {
+      "gate": "pipeline_preflight",
+      "detail": "13 checks; 7 warnings"
+    },
+    {
+      "gate": "inventory_stock_contract",
+      "detail": "8 material stock contract failure(s): Aldehyde C10, Aldehyde C12 MNA, Coumarin, Hydroxycitronellol, Lavender EO High Altitude (angustifolia, France), Lilyreal ND, Nympheal, Vanillin"
+    },
+    {
+      "gate": "quantitative_authority",
+      "detail": "Exact active concentrate ppm w/w is unavailable; quantitative/release claims are blocked."
+    },
+    {
+      "gate": "natural_composite_coverage",
+      "detail": "Natural mixtures lack required composite GC-O decomposition: Lavender EO High Altitude (angustifolia, France)"
+    },
+    {
+      "gate": "reference_claim_contract",
+      "detail": "Unknown reference contract(s): chanel_allure_homme_sport_edt_reference_pending"
+    },
+    {
+      "gate": "material_spine_coverage",
+      "detail": "Lavender EO High Altitude (angustifolia, France)"
+    },
+    {
+      "gate": "physics_data_coverage",
+      "detail": "{\"Lavender EO High Altitude (angustifolia, France)\": [\"mw\", \"logp\", \"vp\", \"odt_air_ppm\"]}"
+    },
+    {
+      "gate": "odt_coverage",
+      "detail": "Lavender EO High Altitude (angustifolia, France)"
+    },
+    {
+      "gate": "confidence_minimum",
+      "detail": "combined confidence 8.8 below 25.0 after preflight evidence penalty 16.0"
+    }
+  ],
+  "g15": [
+    {
+      "gate": "g15_oav_firewall",
+      "status": "PASS",
+      "detail": "Dose lineage is continuous and no modeled OAV anomaly crossed the G15 review thresholds.",
+      "data": {
+        "gate_id": "G15",
+        "evidence_class": "DETERMINISTIC_DOSE_INTEGRITY_PLUS_MODELED_OAV_SCREENING",
+        "hard_gate_authority": "DOSE_LINEAGE_AND_REVISION_DISCONTINUITY_ONLY",
+        "oav_release_authority": false,
+        "child_formula_hash": "9fa21306b24896923915f658374e0937eb0016cc6e6d863e73780ce9a12c8ab6",
+        "oav_interpretation": "Modeled OAV is a time-resolved screening signal, not percent perceived contribution, beauty, similarity, preference, or measured headspace.",
+        "declared_parent_formula_uid": null,
+        "authorized_active_dose_changes": {},
+        "supplied_parent_formula_uid": null,
+        "parent_formula_hash": "31ad99c26e3d5a0e613ae260ceb963b1be0e4f26284ada46cd08ed15a2570eae",
+        "parent_g15_dilutions": {
+          "Iso E Super": 1,
+          "Hedione": 1,
+          "Benzyl Salicylate": 1,
+          "Patchouli EO": 1,
+          "Sandalore": 1,
+          "Cedarwood oil Virginia": 1,
+          "Vertofix": 1,
+          "Galaxolide": 0.5,
+          "Romandolide": 1,
+          "Florol": 1,
+          "Linalyl Acetate": 1,
+          "Dihydromyrcenol": 1,
+          "Helional": 1,
+          "Linalool": 1,
+          "Nympheal": 1,
+          "Lavender EO High Altitude (angustifolia, France)": 1,
+          "DPG": 1,
+          "Neroli EO": 1,
+          "Geranium EO": 1,
+          "Alpha Isomethyl Ionone": 1,
+          "Coumarin": 0.2,
+          "Vanillin": 0.1,
+          "Black Pepper EO": 1,
+          "Red Mandarin EO": 1,
+          "Bergamot FCF oil Sicilian": 1,
+          "Petitgrain EO Paraguay": 1,
+          "Aldehyde C10": 0.01,
+          "Aldehyde C12 MNA": 0.01,
+          "Calone": 0.01
+        },
+        "child_g15_dilutions": {
+          "Iso E Super": 1,
+          "Hedione": 1,
+          "Benzyl Salicylate": 1,
+          "Patchouli EO": 1,
+          "Sandalore": 1,
+          "Cedarwood oil Virginia": 1,
+          "Vertofix": 1,
+          "Galaxolide": 0.5,
+          "Romandolide": 1,
+          "Lilyreal ND": 1,
+          "Florol": 1,
+          "Linalyl Acetate": 1,
+          "Dihydromyrcenol": 1,
+          "Hydroxycitronellol": 1,
+          "Helional": 1,
+          "Linalool": 1,
+          "Nympheal": 1,
+          "Lavender EO High Altitude (angustifolia, France)": 1,
+          "DPG": 1,
+          "Neroli EO": 1,
+          "Phenethyl Alcohol": 1,
+          "Geranium EO": 1,
+          "Alpha Isomethyl Ionone": 1,
+          "Coumarin": 0.2,
+          "Vanillin": 0.1,
+          "Black Pepper EO": 1,
+          "Red Mandarin EO": 1,
+          "Bergamot FCF oil Sicilian": 1,
+          "Petitgrain EO Paraguay": 1,
+          "Aldehyde C10": 0.01,
+          "Aldehyde C12 MNA": 0.01,
+          "Calone": 0.01
+        },
+        "pre_mix_guard": {
+          "status": "PASS",
+          "parent_comparison_available": true,
+          "temporal_comparison_available": true,
+          "findings": [],
+          "limitations": [
+            "Active-dose continuity is the hard invariant for stock rebases.",
+            "Temporal OAV is screening only and is not percent perceived contribution.",
+            "Static OAV dominance alone never hard-fails a formula.",
+            "No target-similarity, pleasantness, or consumer-preference claim is made."
+          ]
+        }
+      }
+    }
+  ],
+  "run_contract": {
+    "schema": "perfume_pipeline_run_evidence_v1",
+    "binding_schema": "formula-artifact-binding-v1",
+    "renderer_version": "formula-release-gate-v1",
+    "analysis_input_sha256": "af299a216da2fde97500c5f331565c2fac28494a7c455c947878ce795b4e30b4",
+    "repository_commit": "e7002d4dacde0ae4c6b92db454fa4034c830e8f4",
+    "canonical_records": [
+      {
+        "record_id": "formula:1:ahs-full-muguet-heart-l360-h120-p60-add-only-bench-candidate",
+        "record_version": 1,
+        "canonical_content_sha256": "03620747459d2344f32325e3026896c75f03fbaf2301569d3aab9a0088f5825f"
+      }
+    ],
+    "formula_definitions": [
+      {
+        "number": 1,
+        "name": "AHS full muguet heart — L360 H120 P60 add-only bench candidate",
+        "sha256": "03620747459d2344f32325e3026896c75f03fbaf2301569d3aab9a0088f5825f"
+      }
+    ],
+    "g15_parent_formula_definitions": [
+      {
+        "number": 1,
+        "name": "AHS user-reported F240 N60 treated bottle — current recipe checkpoint",
+        "sha256": "5e3952d82a8384fc917a77736d4fe290d5a304ac05dc60d2ba0e6097641ea71a"
+      }
+    ],
+    "semantic_config": {
+      "requested": {
+        "expected_concentrate_ul": 5740,
+        "min_neat_trace_ul": 5,
+        "batch_volume_ml": 30.84,
+        "temperature_K": 305,
+        "brief": "auto",
+        "family_archetype": "",
+        "concentration_bracket": "EdP",
+        "allow_preblends": false,
+        "min_confidence_score": 25,
+        "min_perceptible_materials": 3,
+        "max_perceptible_channels": 30,
+        "ifra_headroom": 1,
+        "commercial_mode": false,
+        "commercial_confidence_policy": "block",
+        "quantitative_claim": true,
+        "matrix_components_moles": [],
+        "matrix_mass_g": 0,
+        "matrix_source": "omitted",
+        "batch_scaling_targets_ml": [],
+        "expected_retail_price_thb": 1500,
+        "price_tier": "auto",
+        "effective_ifra_headroom": 1
+      },
+      "formula_family_archetypes": [
+        ""
+      ],
+      "g15_authorized_active_dose_changes": {}
+    },
+    "config_sha256": "d0d1336545bb2035fde578e9d1662ac71ff561cb63209a9498bdb331e3a04972",
+    "inventory_sha256": "d103b79508592f74bb368f27507874b9fd3493acc9e872150e768449b2a02ef7",
+    "scientific_inputs_sha256": "09596a0dda1034ad31061a9e3118af30260c4bfa9cfec2f520e999f1d0746b02",
+    "pipeline_source_sha256": "c0dd00b636cfe122919f778baf427bedc2ec9c2e537a5f5a556cc0e8ebf099cc",
+    "legacy_formula_hashes_v1": [
+      {
+        "number": 1,
+        "name": "AHS full muguet heart — L360 H120 P60 add-only bench candidate",
+        "sha256": "9fa21306b24896923915f658374e0937eb0016cc6e6d863e73780ce9a12c8ab6"
+      }
+    ],
+    "overall": "FAIL",
+    "generated_at_utc": "2026-09-07T05:45:26.271979+00:00",
+    "authorities": {
+      "stock": [
+        "FAIL"
+      ],
+      "quantitative": [
+        "FAIL"
+      ],
+      "claim": [
+        "FAIL"
+      ],
+      "headspace_oav": [
+        "MODELED_ACTIVE_CONCENTRATE_SCREEN"
+      ]
+    },
+    "provenance": {
+      "entities": [
+        "formula_definition",
+        "release_config",
+        "inventory_snapshot",
+        "scientific_inputs",
+        "pipeline_source",
+        "analysis_artifact"
+      ],
+      "activity": "formula_release_gate",
+      "agent": "perfume-chem pipeline",
+      "derivation": "analysis_artifact wasDerivedFrom all input entities"
+    },
+    "analysis_sha256": "6424e55084077b7b13633ed7081afd421bbe5ed46892498b36473b31b311f9cb",
+    "artifact_sha256": "b1b50c097e14da500a125c0272f37bdcf6c63f20ca160d89e6304b0d4fed108b"
+  },
+  "verification": {
+    "files": [
+      {
+        "path": "formulas/records/AHS_UserBottle_F240_N60_CONFIRMED_20260907.json",
+        "bytes": 17421,
+        "sha256": "fdf6d62bb8634ede9f5d2a32cdc0ad2e7b4ee90dd7c67b2a4de142d617b55187"
+      },
+      {
+        "path": "formulas/AHS_UserBottle_F240_N60_CONFIRMED_20260907.md",
+        "bytes": 5665,
+        "sha256": "2f4ef8dfc18be55593053d2467dcb399db855820fc1db0e3590ea6ee2a1ee50b"
+      },
+      {
+        "path": "formulas/records/AHS_UserBottle_MuguetFullHeart_20260907.json",
+        "bytes": 40983,
+        "sha256": "ab631a1307305cedff298884278cf0bd12fa3f998e707c2745cbae03d89bf047"
+      },
+      {
+        "path": "formulas/AHS_UserBottle_MuguetFullHeart_20260907.md",
+        "bytes": 33867,
+        "sha256": "ede300d3fc991b3417d72622b28798d9cf3e9a43431ca49fc50effafb5594a57"
+      },
+      {
+        "path": "formulas/AHS_MuguetFullHeart_AddOnly_CARD_20260907.md",
+        "bytes": 3864,
+        "sha256": "1c0c19a2e2bc04e353bb2a77ab780550d0994e38d691fe8f748f77851ebe1987"
+      },
+      {
+        "path": "docs/research/AHS_FullMuguet_Inventory_20260907.md",
+        "bytes": 10333,
+        "sha256": "8624fc0efa92a57f3555087176b9f921adbf60deca34660b8f66763a2f930257"
+      },
+      {
+        "path": "docs/verification/AHS_MuguetFullHeart_20260907_pipeline.json.gz.b64",
+        "bytes": 132541,
+        "sha256": "78673188041e03709e3e44c7d44454d85b2d9ca6b5e4e6935be81131f8460781"
+      },
+      {
+        "path": "docs/verification/AHS_MuguetFullHeart_20260907_formatter.txt",
+        "bytes": 19624,
+        "sha256": "8e7984cd4fc5f57efcc44e894873c1722c1611565debc8176827c2ca005f7ffa"
+      }
+    ],
+    "protected_count": 13,
+    "all_protected_unchanged": true,
+    "all29parent_rows_unchanged": true,
+    "canonical_child_matches_parser": true,
+    "only_user_reported_event": true,
+    "new_candidate_not_executed": true,
+    "artifact_validation": {
+      "status": "CURRENT",
+      "artifact_binding_status": "CURRENT",
+      "issues": [],
+      "integrity_issues": [],
+      "stale_issues": [],
+      "artifact_sha256": "b1b50c097e14da500a125c0272f37bdcf6c63f20ca160d89e6304b0d4fed108b",
+      "release_authority": null,
+      "quarantine_explicit": false
+    },
+    "gate_counts": "FAIL_105_PASS_33_WARN_9_FAIL_1_SKIP"
+  },
+  "tests": {
+    "command": ".venv/Scripts/python.exe -m pytest tests/test_pre_mix_guard.py -q",
+    "passed": 10,
+    "warnings": 400,
+    "elapsed_seconds": 0.51,
+    "full_verifier_run": false
+  },
+  "selected_materials": [
+    {
+      "name": "Dihydromyrcenol",
+      "raw_ul": 200,
+      "dilution": 1,
+      "active_ul": 200,
+      "density_g_ml": 1,
+      "density_source": "fallback:default_1_g_ml",
+      "authoritative_active_g": null,
+      "active_concentrate_ppm_w_w": null,
+      "mw_g_mol": 156.3,
+      "vapor_ppm": 14.031164808664823,
+      "odt_air_ppm": 0.001,
+      "oav": 14031.164808664822,
+      "note": "top",
+      "is_opaque_preblend": false
+    },
+    {
+      "name": "Florol",
+      "raw_ul": 240,
+      "dilution": 1,
+      "active_ul": 240,
+      "density_g_ml": 1,
+      "density_source": "fallback:default_1_g_ml",
+      "authoritative_active_g": null,
+      "active_concentrate_ppm_w_w": null,
+      "mw_g_mol": 154.25,
+      "vapor_ppm": 0.0092006908352608,
+      "odt_air_ppm": 0.01,
+      "oav": 0.9200690835260801,
+      "note": "heart",
+      "is_opaque_preblend": false
+    },
+    {
+      "name": "Helional",
+      "raw_ul": 100,
+      "dilution": 1,
+      "active_ul": 100,
+      "density_g_ml": 1,
+      "density_source": "fallback:default_1_g_ml",
+      "authoritative_active_g": null,
+      "active_concentrate_ppm_w_w": null,
+      "mw_g_mol": 192.2,
+      "vapor_ppm": 0.005209586317181067,
+      "odt_air_ppm": 0.0001,
+      "oav": 52.09586317181067,
+      "note": "heart",
+      "is_opaque_preblend": false
+    },
+    {
+      "name": "Hydroxycitronellol",
+      "raw_ul": 120,
+      "dilution": 1,
+      "active_ul": 120,
+      "density_g_ml": 0.928,
+      "density_source": "registry:data_spine.density_25c",
+      "authoritative_active_g": 0.11136,
+      "active_concentrate_ppm_w_w": null,
+      "mw_g_mol": 174.28,
+      "vapor_ppm": 0.02197275989997692,
+      "odt_air_ppm": 0.1,
+      "oav": 0.2197275989997692,
+      "note": "heart",
+      "is_opaque_preblend": false
+    },
+    {
+      "name": "Lilyreal ND",
+      "raw_ul": 360,
+      "dilution": 1,
+      "active_ul": 360,
+      "density_g_ml": 1,
+      "density_source": "fallback:default_1_g_ml",
+      "authoritative_active_g": null,
+      "active_concentrate_ppm_w_w": null,
+      "mw_g_mol": 192.3,
+      "vapor_ppm": 0.015620631671797208,
+      "odt_air_ppm": 0.002,
+      "oav": 7.810315835898604,
+      "note": "heart",
+      "is_opaque_preblend": false
+    },
+    {
+      "name": "Nympheal",
+      "raw_ul": 60,
+      "dilution": 1,
+      "active_ul": 60,
+      "density_g_ml": 1,
+      "density_source": "fallback:default_1_g_ml",
+      "authoritative_active_g": null,
+      "active_concentrate_ppm_w_w": null,
+      "mw_g_mol": 204.3,
+      "vapor_ppm": 0.002450520044449831,
+      "odt_air_ppm": 0.002,
+      "oav": 1.2252600222249155,
+      "note": "heart",
+      "is_opaque_preblend": false
+    },
+    {
+      "name": "Phenethyl Alcohol",
+      "raw_ul": 60,
+      "dilution": 1,
+      "active_ul": 60,
+      "density_g_ml": 1.019,
+      "density_source": "registry:data_spine.density_25c",
+      "authoritative_active_g": 0.06113999999999999,
+      "active_concentrate_ppm_w_w": null,
+      "mw_g_mol": 122.17,
+      "vapor_ppm": 0.04449945931158793,
+      "odt_air_ppm": 0.026,
+      "oav": 1.711517665830305,
+      "note": "heart",
+      "is_opaque_preblend": false
+    }
+  ],
+  "selected_temporal": [
+    {
+      "label": "opening",
+      "t_seconds": 0,
+      "selected_oav": {
+        "Dihydromyrcenol": 14031.164808664822,
+        "Florol": 0.9200690835260801,
+        "Helional": 52.09586317181067,
+        "Hydroxycitronellol": 0.2197275989997692,
+        "Lilyreal ND": 7.810315835898604,
+        "Nympheal": 1.2252600222249155,
+        "Phenethyl Alcohol": 1.711517665830305
+      },
+      "note_distribution": {
+        "top": 19,
+        "heart": 58.5,
+        "base": 22.5
+      }
+    },
+    {
+      "label": "top",
+      "t_seconds": 300,
+      "selected_oav": {
+        "Dihydromyrcenol": 14570.339186219706,
+        "Florol": 0.9688352408731382,
+        "Helional": 54.85687056766295,
+        "Hydroxycitronellol": 0.23136592639399076,
+        "Lilyreal ND": 8.224267339982417,
+        "Nympheal": 1.2901999189041842,
+        "Phenethyl Alcohol": 1.8020158651161011
+      },
+      "note_distribution": {
+        "top": 16.7,
+        "heart": 59.9,
+        "base": 23.4
+      }
+    },
+    {
+      "label": "heart",
+      "t_seconds": 1800,
+      "selected_oav": {
+        "Dihydromyrcenol": 15133.160574636593,
+        "Florol": 1.0788912618643163,
+        "Helional": 61.08720840039194,
+        "Hydroxycitronellol": 0.2576046202593829,
+        "Lilyreal ND": 9.158421579984868,
+        "Nympheal": 1.4367494566463415,
+        "Phenethyl Alcohol": 2.0055109079990796
+      },
+      "note_distribution": {
+        "top": 12.1,
+        "heart": 62.7,
+        "base": 25.3
+      }
+    },
+    {
+      "label": "late_heart",
+      "t_seconds": 7200,
+      "selected_oav": {
+        "Dihydromyrcenol": 12500.419683936581,
+        "Florol": 1.1453457277391152,
+        "Helional": 64.84531607808067,
+        "Hydroxycitronellol": 0.2733052486499911,
+        "Lilyreal ND": 9.722186449094844,
+        "Nympheal": 1.525199259960741,
+        "Phenethyl Alcohol": 2.124433620102079
+      },
+      "note_distribution": {
+        "top": 9,
+        "heart": 64.6,
+        "base": 26.4
+      }
+    },
+    {
+      "label": "drydown",
+      "t_seconds": 14400,
+      "selected_oav": {
+        "Dihydromyrcenol": 9298.87209081148,
+        "Florol": 1.190494996148006,
+        "Helional": 67.3951736017917,
+        "Hydroxycitronellol": 0.2838482007456625,
+        "Lilyreal ND": 10.104948544267277,
+        "Nympheal": 1.585257146614521,
+        "Phenethyl Alcohol": 2.20180957905378
+      },
+      "note_distribution": {
+        "top": 6.4,
+        "heart": 66.4,
+        "base": 27.2
+      }
+    }
+  ],
+  "raw_pipeline": {
+    "encoding": "base64 of gzip of full original stdout bytes",
+    "decoded_bytes": 1034791,
+    "decoded_sha256": "801d7ee05f5767ae8e3b74b093b7d3601476f5ab12f2f491da3a538ab969161e"
+  },
+  "formatter": {
+    "script": "scripts/format_pipeline_analysis.py",
+    "execution": "main invoked against unchanged decompressed payload with in-memory load_pipeline transport; no extra pipeline run or file/script mutation",
+    "bound_full_analysis_in_formula": true,
+    "standalone_output": "docs/verification/AHS_MuguetFullHeart_20260907_formatter.txt"
+  },
+  "stock_issues_of_interest": [
+    {
+      "material": "Lilyreal ND",
+      "issue": "stock_fraction_not_declared",
+      "authority": "HAVE_PRODUCT_BASIS_COMPOSITION_NOT_INFERRED"
+    },
+    {
+      "material": "Hydroxycitronellol",
+      "issue": "not_in_inventory_in_gate",
+      "authority": "Live inventory line84 neat and H.yaml owned; stale governance binding, not actual absence"
+    },
+    {
+      "material": "Nympheal",
+      "issue": "unresolved_product_basis",
+      "authority": "Actual use now user-reported; exact-mass/product-basis gate remains unresolved"
+    }
+  ],
+  "parent_adjudication": [
+    "User report of insufficient fullness accepted; cause not isolated.",
+    "Lilyreal ND is_opaque_preblend=false and single MW/VP/ODT in run are inappropriate as product-level physical truth; reject OAV authority.",
+    "Hydroxycitronellol OAV~0.22 is a derived-threshold weak signal; no perceptible-texture or synergy claim is accepted.",
+    "Registry-based authoritative_active_g for Hydroxycitronellol/PEA are model outputs, not independently measured current-lot masses.",
+    "G15 PASS establishes no aesthetic, similarity, safety or release authority.",
+    "Exact ppm w/w, finished ethanol/water matrix, named AHS contract and stock bindings unresolved.",
+    "Original 0.1mL discrepancy and unknown actual remaining volume retained.",
+    "All new quantities are exploratory raw supplied-stock-volume hypotheses; no formula optimum or physical success claim."
+  ],
+  "native_workers": [
+    {
+      "task": "muguet_inventory_census",
+      "role": "Read-only inventory and role coverage audit",
+      "parent_verified": true
+    },
+    {
+      "task": "muguet_bottle_parent",
+      "role": "Read-only row/stock preservation, sample scaling and evidence-status audit",
+      "parent_verified": true
+    }
+  ],
+  "authority": {
+    "parent_physical_additions": "USER_REPORTED_F240_N60",
+    "new_candidate_physical": "NOT_EXECUTED",
+    "sensory": "NOT_TESTED",
+    "safety": "HOLD",
+    "stability": "NOT_TESTED",
+    "similarity": "NOT_TESTED",
+    "release": "HOLD"
+  },
+  "no_core_or_inventory_edits": true,
+  "no_git_commit_or_push": true
+}

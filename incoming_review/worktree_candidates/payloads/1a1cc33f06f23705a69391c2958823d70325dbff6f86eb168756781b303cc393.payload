@@ -1,0 +1,29 @@
+﻿Code,ACC-FG-HON-01
+Accord,Honey Tobacco v1.0
+Category,Fruit & Gourmand
+Brief,"A dark honey-tobacco base using PADMA, phenethyl alcohol, immortelle, damascenone, dry tobacco, coumarin, benzoin and warm woods."
+Recommended use,0.5–6% of perfume concentrate
+Maturation,14–21 days
+Monte Carlo pass,0.9712
+Final design score,100.0
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Tobacco Absolute 10%,Tobacco Absolute 10% in DPG,0.1,130.0,13.0,130.0,650.0,PREPARED STOCK,tobacco,Dry tobacco leaf,Dry tobacco leaf.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.08342975221258936
+2,base,Siam Benzoin 50%,Siam Benzoin 50%,0.5,80.0,40.0,80.0,400.0,PREPARED STOCK,benzoin,Benzoin,Dense Siam benzoin.,HAVE — MULTIPLE BENZOINS,Treat each benzoin source and solvent as a separate stock.,,STRUCTURALLY IMPORTANT,0.027270160844137702
+3,base,Kephalis,neat/as supplied,1.0,70.0,70.0,70.0,350.0,DIRECT,warm_wood,Tobacco-like wood,Warm tobacco-like wood.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.021675508173992265
+4,base,Coumarin 20%,20% in DPG,0.2,60.0,12.0,60.0,300.0,PREPARED STOCK,tonka,Hay warmth,Hay-almond warmth.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.023905013378964862
+5,base,Vanillin 10%,10% working stock,0.1,45.0,4.5,45.0,225.0,PREPARED STOCK,vanilla,Sweet body,Vanilla warmth.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.010504191590296598
+6,base,Tonka Bean Absolute 10%,10% working stock,0.1,40.0,4.0,40.0,200.0,PREPARED STOCK,tonka,Tonka depth,Natural tonka warmth.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.013333056947916703
+7,base,Cedarwood Virginia,neat / as supplied,1.0,35.0,35.0,35.0,175.0,DIRECT,cedar,Dry frame,Dry cedar frame.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.007122027691150936
+8,base,Labdanum 10%,10% working stock,0.1,35.0,3.5,35.0,175.0,PREPARED STOCK,amber_resin,Dark amber,Cistus amber-leather.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.007122027691150936
+9,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,25.0,25.0,25.0,125.0,DIRECT,musk,Diffusion,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.004344059634875001
+10,base,Olibanum 50%,50% in DPG,0.5,25.0,12.5,25.0,125.0,PREPARED STOCK,incense,Dry resin,Frankincense mineral resin.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.004344059634875001
+11,heart_base,Immortelle Absolute 10%,10% working stock,0.1,80.0,8.0,80.0,400.0,PREPARED STOCK,honey_tobacco,Hay-maple honey,Hay-maple honey warmth.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.03727220236162904
+12,heart,Phenylacetaldehyde Dimethyl Acetal (PADMA),neat/as supplied; CAS 101-48-4,1.0,120.0,120.0,120.0,600.0,DIRECT,honey,Honeyed floral body,Honeyed floral aldehydic body.,HAVE,Use only with exact label/stock-strength accounting.,,IDENTITY CRITICAL,0.07328131007786355
+13,heart,Phenethyl Alcohol,neat / as supplied,1.0,100.0,100.0,100.0,500.0,DIRECT,rose_floral,Honey-floral softness,Soft floral petal body.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.040954004548838734
+14,heart,Beta Damascone 10%,10% working stock,0.1,20.0,2.0,20.0,100.0,PREPARED STOCK,rose_fruit,Warm bloom,Rosy-fruity bloom.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0031936193624445925
+15,heart,Rose de Mai 10% in DPG,10% in DPG,0.1,20.0,2.0,20.0,100.0,PREPARED STOCK,rose,Floral honey trace,Natural Rose de Mai petal texture.,HAVE,Use only with exact label/stock-strength accounting.,,TEXTURAL SUPPORT,0.003195160278700186
+16,heart,Damascenone 1%,1% working stock,0.01,10.0,0.1,10.0,50.0,PREPARED STOCK,rose_fruit,Honey-fruit radiance,Trace high-impact radiance.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0012968651213506202
+17,top_heart,Benzaldehyde 10%,Prepare 10% from neat Benzaldehyde,0.1,30.0,3.0,30.0,150.0,PREPARED STOCK,almond,Kernel nuance,Bitter almond kernel.,HAVE — NEAT / PREPARE,Use only at the listed supplied-stock strength.,Prepare only when required.,TEXTURAL SUPPORT,0.005720002997255839
+18,carrier,DPG,neat,0.0,75.0,0.0,75.0,375.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

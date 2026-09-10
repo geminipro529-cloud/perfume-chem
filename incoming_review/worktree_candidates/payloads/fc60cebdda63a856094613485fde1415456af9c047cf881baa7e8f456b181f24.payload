@@ -1,0 +1,226 @@
+# YSL L'Homme Apple Pie — AP-T1 v3 — 30 mL EDT
+
+**Formula UID:** `ysl20:LH-04:AP-T1:v3`  
+**Purpose:** Next controlled Apple Pie realism trial  
+**Concentration:** 15% v/v  
+**Perfume concentrate:** 4,500 uL  
+**Ethanol 96%:** 25,500 uL  
+**Finished volume:** 30,000 uL / 30 mL  
+**Authority:** Formulation hypothesis, not an authenticated YSL recipe or a sensory-success claim.
+**Current execution authority:** [`../evidence/inventory_overlay_2026-08-28.json`](../evidence/inventory_overlay_2026-08-28.json) plus the current `inventory.txt`.  
+**Dose-table state:** `LOCKED_UNCHANGED_AFTER_2026-08-28_STOCK_CORRECTION`; the correction below changes availability interpretation, not any row or dose.
+
+## Target identity and functional architecture
+
+This must smell like L'Homme first: ginger-citrus ignition, cool violet-green tailoring, transparent cedar, dry vetiver, and restrained tonka. Apple pie is a connected subplot: crisp peel and fresh flesh move into rounded cooked fruit, then a restrained butter/crust/cinnamon shadow. It must not become pear-drop candy, peach syrup, popcorn, cinnamon candy, or vanilla dessert.
+
+Functional sequence:
+
+1. Bergamot, citrus peel, and ginger open the recognizable L'Homme structure.
+2. Green apple esters connect to violet-woody tailoring.
+3. Damascenone supplies the perceptible cooked-fruit transition missing from v2.
+4. Isobutavan, pyrazine, cinnamon, vanillin, and tonka remain subordinate pastry shadows.
+5. Cedar, vetiver, and one structural musk restore a dry tailored finish.
+
+## TARGET / IDEAL FORMULA
+
+Inventory-independent design hypothesis, active ppm w/w of concentrate. Total: **1,000,000 ppm**.
+
+```text
+TAILORED STRUCTURAL CORE
+Iso E Super                                      160,000.000 ppm
+Cedarwood Virginia                               110,000.000 ppm
+Ethylene Brassylate                               80,000.000 ppm
+Hedione                                          100,925.926 ppm
+Vertofix                                          65,000.000 ppm
+Ethyl Linalool                                    50,000.000 ppm
+Dihydromyrcenol                                   35,000.000 ppm
+Sandalwood                                        60,000.000 ppm
+Vetiver Haiti                                     45,000.000 ppm
+Alpha Isomethyl Ionone                            50,000.000 ppm
+Violet Leaf                                       25,000.000 ppm
+
+L'HOMME SIGNATURE
+Bergamot                                          45,000.000 ppm
+Cedrat                                            15,000.000 ppm
+Ginger                                            22,000.000 ppm
+Basil                                              3,000.000 ppm
+White Pepper                                       4,000.000 ppm
+Tonka                                             38,000.000 ppm
+Coumarin                                          10,000.000 ppm
+
+TRANSITIONS
+Linalyl Acetate                                    5,000.000 ppm
+Florol                                             8,000.000 ppm
+Parmavert                                         16,000.000 ppm
+Ambroxide                                         10,000.000 ppm
+Hedione HC                                        11,074.074 ppm
+
+APPLE AND PASTRY REALISM
+Hexyl Acetate                                      8,000.000 ppm
+Allyl Cyclohexyl Propionate                       10,000.000 ppm
+Ethyl 2-Methylbutyrate                             1,000.000 ppm
+cis-3-Hexenol                                        500.000 ppm
+Gamma Decalactone                                  1,975.000 ppm
+Damascenone                                           25.000 ppm
+Isobutavan                                         8,000.000 ppm
+2-Acetyl Pyrazine                                    750.000 ppm
+Cinnamaldehyde                                       250.000 ppm
+Vanillin                                           1,500.000 ppm
+```
+
+Gamma Decalactone remains ideal-only for this trial. Delta Decalactone and Gamma Nonalactone are not treated as identity-equivalent replacements.
+
+## CURRENT-INVENTORY BUILD — AP-T1 v3
+
+This is the locked 4,500 uL trial formula. Active ppm values are nominal odorant ppm on the 4,500 uL concentrate basis; percentage-stock concentration bases must be verified from their labels or preparation receipts before compounding.
+
+**BASKET 1 — ALWAYS USED** (high to low uL)
+| # | Material | Stock | Raw uL | Active uL | Active ppm | Function |
+|---:|---|---:|---:|---:|---:|---|
+| 1 | Iso E Super | neat | 600 | 600 | 133333.333 | transparent cedar halo |
+| 2 | Hedione | neat | 420 | 420 | 93333.333 | radiant heart air |
+
+**BASKET 2 — VETIVERS** (high to low uL)
+| # | Material | Stock | Raw uL | Active uL | Active ppm | Function |
+|---:|---|---:|---:|---:|---:|---|
+| 3 | Indian Vetiver EO | neat | 180 | 180 | 40000.000 | dry root tension |
+
+**BASKET 3 — WOODS** (high to low uL)
+| # | Material | Stock | Raw uL | Active uL | Active ppm | Function |
+|---:|---|---:|---:|---:|---:|---|
+| 4 | Cedarwood EO | neat | 450 | 450 | 100000.000 | literal cedar rebase |
+| 5 | Sandalore | neat | 240 | 240 | 53333.333 | dry creamy support |
+| 6 | Timberol | neat | 50 | 50 | 11111.111 | dry cedar reinforcement |
+
+**BASKET 4 — WOOD MODIFIERS AND AMBERS** (high to low uL)
+| # | Material | Stock | Raw uL | Active uL | Active ppm | Function |
+|---:|---|---:|---:|---:|---:|---|
+| 7 | Vertofix | neat | 300 | 300 | 66666.667 | cedar-vetiver bridge |
+| 8 | Amberwood F | neat | 20 | 20 | 4444.444 | dry persistence |
+
+**BASKET 5 — MUSKS** (high to low uL)
+| # | Material | Stock | Raw uL | Active uL | Active ppm | Function |
+|---:|---|---:|---:|---:|---:|---|
+| 9 | Ethylene Brassylate | neat | 350 | 350 | 77777.778 | sole structural musk |
+
+**BASKET 6 — MUGUET AND LAVENDER** (high to low uL)
+| # | Material | Stock | Raw uL | Active uL | Active ppm | Function |
+|---:|---|---:|---:|---:|---:|---|
+| 10 | Linalyl Acetate | neat | 196 | 196 | 43555.556 | citrus-heart transition |
+| 11 | Linalool | neat | 162 | 162 | 36000.000 | fresh floral lift |
+| 12 | Florol | neat | 50 | 50 | 11111.111 | clean floral volume |
+
+**BASKET 7 — IRIS AND ORRIS** (high to low uL)
+| # | Material | Stock | Raw uL | Active uL | Active ppm | Function |
+|---:|---|---:|---:|---:|---:|---|
+| 13 | Alpha Isomethyl Ionone | neat | 300 | 300 | 66666.667 | violet-woody tailoring |
+
+**BASKET 8 — EDIBLE SPICES** (high to low uL)
+| # | Material | Stock | Raw uL | Active uL | Active ppm | Function |
+|---:|---|---:|---:|---:|---:|---|
+| 14 | Tonkarome | 20% w/w in TEC | 248 | 49.6 | 11022.222 | dry tonka plus pastry rounding |
+| 15 | Ginger EO | neat | 100 | 100 | 22222.222 | protected ginger recognizer |
+| 16 | Black Pepper EO | neat | 10 | 10 | 2222.222 | dry antidessert bite |
+| 17 | Cinnamaldehyde | 1% | 10 | 0.1 | 22.222 | warm spice edge |
+
+**BASKET 9 — EDIBLE SMELLS** (high to low uL)
+| # | Material | Stock | Raw uL | Active uL | Active ppm | Function |
+|---:|---|---:|---:|---:|---:|---|
+| 18 | Isobutavan | neat | 40 | 40 | 8888.889 | buttery pastry shadow |
+| 19 | Vanillin | 10% | 20 | 2 | 444.444 | pastry rounding |
+| 20 | 2-Acetyl Pyrazine | 1% in DPG | 10 | 0.1 | 22.222 | baked crust shadow |
+
+**BASKET 10 — FRUITS** (high to low uL)
+| # | Material | Stock | Raw uL | Active uL | Active ppm | Function |
+|---:|---|---:|---:|---:|---:|---|
+| 21 | Bergamot FCF oil Sicilian | neat | 340 | 340 | 75555.556 | bright citrus opening |
+| 22 | Hexyl Acetate | 10% | **90** | 9 | 2000.000 | green apple body |
+| 23 | Grapefruit FCF oil Sicilian | neat | 80 | 80 | 17777.778 | citron peel rebase |
+| 24 | Allyl Cyclohexyl Propionate | 10% in DPG | 70 | 7 | 1555.556 | apple-green continuity |
+| 25 | Ethyl 2-Methylbutyrate | 0.1% | 20 | 0.02 | 4.444 | crisp apple lift |
+| 26 | Damascenone | 1% | **10** | 0.1 | 22.222 | cooked-fruit transition |
+
+**BASKET 11 — ALDEHYDES** (high to low uL)
+| # | Material | Stock | Raw uL | Active uL | Active ppm | Function |
+|---:|---|---:|---:|---:|---:|---|
+| 27 | Dihydromyrcenol | neat | 104 | 104 | 23111.111 | kinetic freshness |
+| 28 | Lemonile | neat | 30 | 30 | 6666.667 | persistent lemon-peel rebase |
+
+**Concentrate total** |  | **4,500** | **4,089.92** | **908871.111** | raw-stock basis totals 1,000,000 ppm |
+
+All directly measured stock doses are **10 uL or greater**. No additional sub-10 uL dilution is required for AP-T1 v3.
+
+### User-authorized NYSUPPLY cinnamon alternate — 2026-08-28
+
+For this exact Apple Pie trial dose, the user authorizes replacing **10 uL of
+Cinnamaldehyde 1%** with **3 uL of NYSUPPLY Cinnamon Bark EO 10%** as a
+sensory-use substitution. This is not a chemical, active-mass, OAV, safety,
+stability, or generally scalable equivalence.
+
+The direct 3 uL dose is below the program's 10 uL raw-stock pipetting floor.
+For an executable constant-total arm, first verify the 10% bottle's carrier
+and concentration basis, then prepare a nominal 3% working stock using **3
+parts of the NYSUPPLY 10% stock plus 7 parts of the verified matching
+carrier**. Dose **10 uL of that working stock** in place of the original 10 uL
+Cinnamaldehyde 1% row. A practical 1 mL preparation is 300 uL bottle stock +
+700 uL matching carrier. The concentrate subtotal remains 4,500 uL.
+
+No modeled Cinnamon Bark EO OAV is promoted from this substitution: supplier
+lot identity, composite constituent model, carrier, concentration basis, and
+safety authority remain HOLD.
+
+## Pour sequence
+
+Pour basket by basket, high to low raw uL within each basket:
+
+1. **BASKET 1 — Always used:** Iso E Super (600), Hedione (420).
+2. **BASKET 2 — Vetivers:** Indian Vetiver EO (180).
+3. **BASKET 3 — Woods:** Cedarwood EO (450), Sandalore (240), Timberol (50).
+4. **BASKET 4 — Wood modifiers and ambers:** Vertofix (300), Amberwood F (20).
+5. **BASKET 5 — Musks:** Ethylene Brassylate (350).
+6. **BASKET 6 — Muguet and lavender:** Linalyl Acetate (196), Linalool (162), Florol (50).
+7. **BASKET 7 — Iris and orris:** Alpha Isomethyl Ionone (300).
+8. **BASKET 8 — Edible spices:** Tonkarome (248), Ginger EO (100), Black Pepper EO (10), Cinnamaldehyde (10).
+9. **BASKET 9 — Edible smells:** Isobutavan (40), Vanillin (20), 2-Acetyl Pyrazine (10).
+10. **BASKET 10 — Fruits:** Bergamot FCF (340), Hexyl Acetate (90), Grapefruit FCF (80), Allyl Cyclohexyl Propionate (70), Ethyl 2-Methylbutyrate (20), Damascenone (10).
+11. **BASKET 11 — Aldehydes:** Dihydromyrcenol (104), Lemonile (30).
+
+Stir after each basket. Add 25,500 uL ethanol only after the 4,500 uL concentrate is complete.
+
+## Diagnostic constraints
+
+At 305 K, the current governed model gives the following diagnostic—not measured—opening OAV values:
+
+| Material | Nominal active ppm | ODT air ppm | Opening OAV | Interpretation |
+|---|---:|---:|---:|---|
+| Hexyl Acetate | 2000.000 | 0.002 | 4498.915 | dominant fresh green-apple body |
+| Ethyl 2-Methylbutyrate | 4.444 | 0.000060 | 6.343 | perceptible crisp apple impact |
+| Allyl Cyclohexyl Propionate | 1555.556 | 0.008 | 22.086 | perceptible apple-green continuity |
+| Damascenone | 22.222 | 0.000040 | 6.509 | perceptible cooked-fruit transition |
+| Isobutavan | 8888.889 | 0.0005 | 3.210 | threshold-to-perceptible pastry body |
+| 2-Acetyl Pyrazine | 22.222 | 0.062 | 0.043 | modeled sub-threshold crust shadow |
+| Cinnamaldehyde | 22.222 | 0.062 | 0.0003 | modeled sub-threshold spice shadow |
+| Vanillin | 444.444 | 0.02 | 0.159 | modeled sub-threshold rounding |
+
+Modeled Damascenone OAV remains approximately 6.5-7.0 through the five temporal windows. Hexyl Acetate falls from approximately 4499 at opening to 4.6 at modeled drydown. These are diagnostic constraints, not measured headspace or sensory evidence. Grapefruit FCF oil Sicilian lacks complete governed MW, VP, and ODT data, so strict total-vapor and grapefruit OAV claims remain HOLD.
+
+## Missing-chemical impact gate
+
+- At the AP-T1 v3 formula lock, Cedarwood Virginia and Lemon FCF had been treated as depleted. The superseding 2026-08-28 authority now confirms canonical **Cedarwood oil Virginia** and **Lemon FCF oil Sicilian** are owned neat. The existing Cedarwood EO plus Timberol and Grapefruit plus Lemonile rows remain unchanged as locked design choices for this controlled article; they are no longer forced by current availability and are not identity-equivalent substitutions. Any reversion to the now-owned materials belongs in a future constant-total arm after AP-T1 v3 is reviewed, never as a silent edit to this batch.
+- Gamma Decalactone remains in TARGET / IDEAL only and is omitted from CURRENT. Damascenone tests cooked-fruit continuity; it does not reproduce creamy lactone body.
+- Exact cedrat, white pepper, Haitian vetiver, Parmavert, Ambroxide, and Hedione HC remain target-level gaps or non-equivalently covered functions.
+- All tinctures are excluded. Ethylene Brassylate is owned neat under current authority and remains the only musk.
+- Percentage-stock labels or preparation receipts remain required for Ethyl 2-Methylbutyrate 0.1%, Hexyl Acetate 10%, Damascenone 1%, Cinnamaldehyde 1%, and Vanillin 10%.
+
+## Purchase and preparation recommendation
+
+Do not purchase new materials before this isolated trial identifies the failed facet. Cedarwood oil Virginia, Lemon FCF oil Sicilian, and Ethylene Brassylate require no procurement under current authority; inspect ordinary bottle identity and condition before use. Verify the percentage-stock labels and preparation bases listed above. No new dilution is required when using the original verified Cinnamaldehyde 1% row. The user-authorized NYSUPPLY alternate requires the nominal 3% working-stock preparation above; do not pipette its 10% bottle at 3 uL directly under the current measurement-floor rule.
+
+## Controlled blinded test plan
+
+Compare AP-T1 v3 against the original LH-04 v2 and the L'Homme parent in coded, equal-concentration, equal-mass samples. Use balanced order and two independently prepared batches. Evaluate at 0, 5, and 30 minutes and at 2 and 4 hours. Score L'Homme identity first, then fresh apple, cooked filling, apple-to-heart transition, pastry subordination, cinnamon integration, cedar-vetiver tailoring, defects, and liking. Retain ties and null results. Do not combine further changes until this one-axis intervention is interpreted.
+
+## Claim ceiling
+
+Physical liking, similarity to YSL L'Homme, stability, safety, measured headspace, strict grapefruit OAV, and release success are **NOT TESTED / NOT CLEARED**.

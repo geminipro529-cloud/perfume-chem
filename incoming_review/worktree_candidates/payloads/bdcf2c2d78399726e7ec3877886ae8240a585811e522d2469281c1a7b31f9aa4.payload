@@ -1,0 +1,249 @@
+from __future__ import annotations
+
+import re
+from pathlib import Path
+
+import pytest
+
+from engine.odor_thresholds import (
+    lookup_odt_entry,
+    lookup_odt_raw_name,
+    odt_collision_names,
+)
+from engine.pipeline.formula_state import build_formula_state
+from engine.pipeline.natural_absolute_decomposition import get_composite_metadata
+from scripts.verify_formula_workflow import parse_formula_markdown
+
+ROOT = Path(__file__).resolve().parents[1]
+FORMULA_PATH = ROOT / "formulas" / "DHI-11_Velours_d_Iris_05443A_30mL_20pct.md"
+
+EXPECTED_INGREDIENTS = {
+    "Hedione": 570.0,
+    "Iso E Super": 300.0,
+    "Vetiver EO (India)": 240.0,
+    "Cedarwood oil Virginia": 300.0,
+    "Cashmeran": 180.0,
+    "Benzyl Benzoate": 200.0,
+    "Ambrettolide": 1800.0,
+    "Lavender EO High Altitude": 140.0,
+    "Linalyl Acetate": 80.0,
+    "Alpha Isomethyl Ionone (Methyl Ionone Pure)": 1140.0,
+    "Alpha Ionone": 450.0,
+    "Alpha Irone": 180.0,
+    "Orivone": 20.0,
+    "Tonkarome": 400.0,
+}
+
+
+@pytest.fixture(scope="module")
+def formula():
+    parsed = parse_formula_markdown(FORMULA_PATH)
+    assert len(parsed) == 1
+    return parsed[0]
+
+
+def test_formula_is_one_exact_6000_ul_parser_visible_build(formula):
+    assert formula["ingredients_ul"] == EXPECTED_INGREDIENTS
+    assert sum(formula["ingredients_ul"].values()) == pytest.approx(6000.0)
+    assert len(formula["ingredients_ul"]) == 14
+    assert all(amount >= 10.0 for amount in formula["ingredients_ul"].values())
+    assert formula["family_archetype"] == "iris_coumarin_amber.dhi2011"
+
+
+def test_dilutions_and_nominal_active_ppm_are_arithmetically_closed(formula):
+    expected_dilutions = {name: 1.0 for name in EXPECTED_INGREDIENTS}
+    expected_dilutions.update(
+        {
+            "Ambrettolide": 0.10,
+            "Alpha Irone": 0.10,
+            "Tonkarome": 0.20,
+        }
+    )
+    assert formula["dilutions"] == expected_dilutions
+
+    active_ul = sum(
+        amount * expected_dilutions[name]
+        for name, amount in formula["ingredients_ul"].items()
+    )
+    assert active_ul == pytest.approx(3898.0)
+    assert active_ul / 6000.0 * 1_000_000.0 == pytest.approx(649666.6666667)
+
+
+def test_formula_uses_one_precise_musk_and_excludes_held_or_drift_materials(formula):
+    musks = {
+        "Ambrettolide",
+        "Romandolide",
+        "Habanolide",
+        "Ethylene Brassylate",
+        "Exaltolide",
+        "Zenolide",
+        "Galaxolide",
+        "Tonalide",
+        "Macrolide",
+        "Musk Ketone",
+    }
+    assert musks.intersection(formula["ingredients_ul"]) == {"Ambrettolide"}
+
+    excluded = {
+        "Orris Liquid",
+        "Liffarome",
+        "Ambrofix",
+        "Ambrox Super",
+        "Bacdanol",
+        "Guaiacwood EO",
+        "Vanillin",
+        "Heliotropin",
+        "Coumarin",
+        "Isobutavan",
+        "Cocoa Absolute",
+        "Isobutyl Quinoline",
+        "Suederal",
+        "Oud Oil",
+        "Tonalide",
+        "Macrolide",
+        "Musk Ketone",
+    }
+    assert excluded.isdisjoint(formula["ingredients_ul"])
+
+
+def test_naturals_have_constituent_composite_oav_profiles(formula):
+    naturals = {
+        "Lavender EO High Altitude",
+        "Vetiver EO (India)",
+        "Cedarwood oil Virginia",
+    }
+    assert naturals.issubset(formula["ingredients_ul"])
+    for material in naturals:
+        metadata = get_composite_metadata(material)
+        assert metadata is not None, material
+        assert metadata.characterized_fraction > 0.0
+        assert metadata.batch_specific is False
+
+
+def test_declared_character_roles_clear_the_modeled_oav_floor(formula):
+    state = build_formula_state(
+        formula["ingredients_ul"],
+        formula["dilutions"],
+        stock_specs=formula["stock_specs"],
+        batch_volume_ml=30.0,
+        temperature_K=305.0,
+        matrix_moles=formula["matrix_moles"],
+        matrix_mass_g=formula["matrix_mass_g"],
+        matrix_source=formula["matrix_source"],
+    )
+    rows = {material.name: material for material in state.materials}
+
+    structural_only = {"Benzyl Benzoate"}
+    character_roles = set(EXPECTED_INGREDIENTS).difference(structural_only)
+    assert all((rows[name].oav or 0.0) >= 1.0 for name in character_roles)
+    assert 1.0 <= (rows["Ambrettolide"].oav or 0.0) < 5.0
+    assert (rows["Benzyl Benzoate"].oav or 0.0) < 1.0
+
+
+def test_each_selected_material_has_unique_odt_and_complete_physics(formula):
+    state = build_formula_state(
+        formula["ingredients_ul"],
+        formula["dilutions"],
+        stock_specs=formula["stock_specs"],
+        batch_volume_ml=30.0,
+        temperature_K=305.0,
+        matrix_moles=formula["matrix_moles"],
+        matrix_mass_g=formula["matrix_mass_g"],
+        matrix_source=formula["matrix_source"],
+    )
+
+    for name in formula["ingredients_ul"]:
+        assert lookup_odt_raw_name(name) is not None, name
+        assert lookup_odt_entry(name) is not None, name
+        assert odt_collision_names(name) == (), name
+    for material in state.materials:
+        assert material.is_known is True, material.name
+        assert material.mw_g_mol is not None and material.mw_g_mol > 0, material.name
+        assert material.vp_pure_pa is not None and material.vp_pure_pa > 0, material.name
+        assert material.odt_air_ppm is not None and material.odt_air_ppm > 0, material.name
+        assert material.oav is not None, material.name
+
+
+def test_target_current_separation_and_authority_ceiling_are_explicit():
+    text = FORMULA_PATH.read_text(encoding="utf-8")
+
+    assert "## TARGET / IDEAL architecture — independent of inventory" in text
+    assert "## CURRENT-INVENTORY PROJECTION — parser-visible formula" in text
+    assert "**Physical state:** `NOT COMPOUNDED`" in text
+    assert "**Sensory / liking / depth / similarity / performance / stability:** `NOT TESTED`" in text
+    assert "**Safety / IFRA / skin-use / release:** `HOLD`" in text
+    assert "**Observed hedonism:** false" in text
+    assert "**Observed sensory similarity:** false" in text
+    assert "**Compounding authority:** false" in text
+    assert "HOLD_CURRENT_INVENTORY_OVERLAY_NOT_BOUND_TO_LIVE_TEXT" in text
+    assert "No public analysis located" in text
+    assert "Exact molecular composition and proportions therefore remain" in text
+
+
+def test_formula_uses_all_17_baskets_and_descends_within_each_occupied_basket():
+    text = FORMULA_PATH.read_text(encoding="utf-8")
+    current = text.split(
+        "## CURRENT-INVENTORY PROJECTION — parser-visible formula", 1
+    )[1].split("## Finished Matrix Inputs", 1)[0]
+
+    headings = re.findall(r"^\*\*BASKET (\d+) —", current, flags=re.MULTILINE)
+    assert headings == [str(number) for number in range(1, 18)]
+
+    for basket in range(1, 18):
+        start = current.index(f"**BASKET {basket} —")
+        if basket < 17:
+            end = current.index(f"**BASKET {basket + 1} —", start)
+        else:
+            end = current.index("**CARRIER / TECHNICAL", start)
+        section = current[start:end]
+        values = [
+            float(value.replace(",", ""))
+            for value in re.findall(
+                r"^\|\s*\d+\s*\|[^\n]*?\|\s*([\d,]+(?:\.\d+)?)\s*\|",
+                section,
+                flags=re.MULTILINE,
+            )
+        ]
+        assert values == sorted(values, reverse=True)
+
+
+def test_formula_bound_pour_protocol_matches_the_basket_definition():
+    text = FORMULA_PATH.read_text(encoding="utf-8")
+    rendered = text.split("<!-- FORMULA_MIXING_PROTOCOL_START -->", 1)[1].split(
+        "<!-- FORMULA_MIXING_PROTOCOL_END -->", 1
+    )[0]
+
+    assert "Use a fresh tip whenever moving to a new material" in rendered
+    assert "1. **Always used:** Hedione 570; Iso E Super 300." in rendered
+    assert "2. **Vetivers:** Vetiver EO (India) 240." in rendered
+    assert "11. **Iris and Orris:** Alpha Isomethyl Ionone 1140" in rendered
+    assert "12. **Edible smells:** Tonkarome 20% w/w in TEC 400" in rendered
+    assert "17. **Green smelling things:** none." in rendered
+
+
+def test_controlled_trials_are_constant_total_and_separate_endpoints():
+    text = FORMULA_PATH.read_text(encoding="utf-8")
+
+    assert "0 Cocoa + 80 Benzyl Benzoate replacement space" in text
+    assert "40 Cocoa + 40 Benzyl Benzoate replacement space" in text
+    assert "80 Cocoa + 0 Benzyl Benzoate replacement space" in text
+    assert "0 / 20 / 40 µL Orivone, inverse Benzyl Benzoate adjustment" in text
+    assert "100 / 140 / 180 µL Lavender EO, inverse Benzyl Benzoate adjustment" in text
+    assert "360:180, 300:240 selected, and 240:300 µL" in text
+    assert "same ethanol lot" in text
+    assert "opaque codes" in text
+    assert "hidden repeated control" in text
+    assert "identity, target" in text
+    assert "liking" in text
+    assert "separate endpoints" in text
+
+
+def test_pipeline_section_reports_the_real_blocker_not_a_fake_pass():
+    text = FORMULA_PATH.read_text(encoding="utf-8")
+    section = text.split(
+        "## Release-pipeline status — BLOCKED, no fabricated analysis artifact", 1
+    )[1]
+
+    assert "overlay is not bound to the live `inventory.txt`" in section
+    assert "overlay pin was not edited or bypassed" in section
+    assert "PASS /" not in section

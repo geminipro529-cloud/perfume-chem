@@ -1,0 +1,1305 @@
+{
+  "schema_version": "complexity_evidence_sources_v2",
+  "sources": [
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "ARAUJO-2005",
+      "stable_identifier": "doi:10.1016/j.neuron.2005.04.021",
+      "uri": "https://doi.org/10.1016/j.neuron.2005.04.021",
+      "title": "Cognitive modulation of olfactory processing",
+      "publication_year": 2005,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "controlled human neuroimaging experiment",
+      "population": "human participants in the reported experiment",
+      "matrix": "labeled odor presentations",
+      "exposure": "controlled sniff and label context",
+      "endpoints": [
+        "pleasantness judgment",
+        "olfactory activation"
+      ],
+      "result_used": "Labels and cognitive context can alter odor evaluation and neural response.",
+      "limitations": [
+        "Not a finished-perfume preference trial.",
+        "Does not validate any formula-specific liking claim."
+      ],
+      "source_tier": "DIRECT_HUMAN_OLFACTION",
+      "transfer_disposition": "NARROWER_SCOPE",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "blind code maps and freeze criterion wording"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "ASTM-E2263-25",
+      "stable_identifier": "astm:e2263-25",
+      "uri": "https://store.astm.org/e2263-25.html",
+      "title": "Standard Test Method for Paired Preference Test",
+      "publication_year": 2025,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "STANDARD",
+      "study_design": "authoritative paired-preference test standard",
+      "population": "consumer or assessor population as specified by the protocol",
+      "matrix": "products within a declared application matrix",
+      "exposure": "paired coded presentation under the purchased standard",
+      "endpoints": [
+        "paired preference"
+      ],
+      "result_used": "Use only official metadata to bind the current paired-preference protocol edition.",
+      "limitations": [
+        "Copyrighted standard text is not retained or reproduced.",
+        "Method compliance requires access to the official edition."
+      ],
+      "source_tier": "TRANSFERABLE_SENSORY_METHOD",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "PUBLIC_STANDARD_METADATA_ONLY",
+      "code_requirements": [
+        "bind protocol edition and paired-preference semantics"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "BRADLEY-TERRY-1952",
+      "stable_identifier": "doi:10.1093/biomet/39.3-4.324",
+      "uri": "https://doi.org/10.1093/biomet/39.3-4.324",
+      "title": "Rank Analysis of Incomplete Block Designs: I. The Method of Paired Comparisons",
+      "publication_year": 1952,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "STATISTICAL_METHOD",
+      "study_design": "foundational paired-comparison probability model",
+      "population": "not a fragrance population study",
+      "matrix": "abstract paired comparisons",
+      "exposure": "not applicable",
+      "endpoints": [
+        "directional pair outcome probability"
+      ],
+      "result_used": "Provides the baseline paired-comparison likelihood without explicit tie modeling.",
+      "limitations": [
+        "Does not model ties in the required form.",
+        "Does not establish fragrance preference."
+      ],
+      "source_tier": "STATISTICAL_FOUNDATION",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "retain legacy replay only and require tie-aware V2 fitting"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "CAMPBELL-FISKE-1959",
+      "stable_identifier": "doi:10.1037/h0046016",
+      "uri": "https://doi.org/10.1037/h0046016",
+      "title": "Convergent and Discriminant Validation by the Multitrait-Multimethod Matrix",
+      "publication_year": 1959,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "STATISTICAL_METHOD",
+      "study_design": "construct-validity framework",
+      "population": "not a fragrance population study",
+      "matrix": "multiple traits and methods",
+      "exposure": "not applicable",
+      "endpoints": [
+        "convergent validity",
+        "discriminant validity"
+      ],
+      "result_used": "Supports isolating liking, richness, depth, fidelity, intensity, familiarity, and detectability as separate constructs.",
+      "limitations": [
+        "General measurement framework rather than olfactory evidence."
+      ],
+      "source_tier": "STATISTICAL_FOUNDATION",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "reject synthetic beauty scores and mixed criteria"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "DALTON-2000",
+      "stable_identifier": "doi:10.1093/chemse/25.4.487",
+      "uri": "https://doi.org/10.1093/chemse/25.4.487",
+      "title": "Psychophysical and Behavioral Characteristics of Olfactory Adaptation",
+      "publication_year": 2000,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "REVIEW",
+      "study_design": "review of human olfactory adaptation",
+      "population": "human olfaction studies summarized by the paper",
+      "matrix": "odor exposure across reported matrices",
+      "exposure": "repeated or sustained odor exposure",
+      "endpoints": [
+        "adaptation",
+        "recovery",
+        "perceived intensity"
+      ],
+      "result_used": "Adaptation depends on exposure and protocol, so predicted volatility cannot substitute for observed time behavior.",
+      "limitations": [
+        "Review spans heterogeneous stimuli and methods.",
+        "Does not predict one perfume's temporal profile."
+      ],
+      "source_tier": "SYSTEMATIC_SYNTHESIS",
+      "transfer_disposition": "NARROWER_SCOPE",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "require observed timepoint cells and qualified exposure"
+      ],
+      "primary_source_ids": [
+        "LAING-FRANCIS-1989"
+      ],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "DAVIDSON-1970",
+      "stable_identifier": "doi:10.1080/01621459.1970.10481082",
+      "uri": "https://doi.org/10.1080/01621459.1970.10481082",
+      "title": "On Extending the Bradley-Terry Model to Accommodate Ties in Paired Comparison Experiments",
+      "publication_year": 1970,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "STATISTICAL_METHOD",
+      "study_design": "paired-comparison likelihood extension",
+      "population": "not a fragrance population study",
+      "matrix": "abstract paired comparisons",
+      "exposure": "not applicable",
+      "endpoints": [
+        "left outcome probability",
+        "right outcome probability",
+        "tie probability"
+      ],
+      "result_used": "Provides an explicit likelihood term for preference ties.",
+      "limitations": [
+        "Does not define sensory ballot semantics.",
+        "Does not establish perfume liking."
+      ],
+      "source_tier": "STATISTICAL_FOUNDATION",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "fit explicit preference ties with deterministic convergence receipts"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "EFRON-1979",
+      "stable_identifier": "doi:10.1214/aos/1176344552",
+      "uri": "https://doi.org/10.1214/aos/1176344552",
+      "title": "Bootstrap Methods: Another Look at the Jackknife",
+      "publication_year": 1979,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "STATISTICAL_METHOD",
+      "study_design": "foundational resampling method",
+      "population": "not a fragrance population study",
+      "matrix": "generic sampled data",
+      "exposure": "not applicable",
+      "endpoints": [
+        "sampling uncertainty"
+      ],
+      "result_used": "Supports deterministic bootstrap uncertainty when the resampling unit matches the sampling design.",
+      "limitations": [
+        "The correct cluster unit is domain-specific.",
+        "Row bootstrap is invalid when assessor dependence is present."
+      ],
+      "source_tier": "STATISTICAL_FOUNDATION",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "resample assessors and preserve within-assessor rows"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "GROSCH-2001",
+      "stable_identifier": "doi:10.1093/chemse/26.5.533",
+      "uri": "https://doi.org/10.1093/chemse/26.5.533",
+      "title": "Evaluation of the Key Odorants of Foods by Dilution Experiments, Aroma Models and Omission",
+      "publication_year": 2001,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "REVIEW",
+      "study_design": "review of aroma-model and omission methodology",
+      "population": "food-aroma studies summarized by the paper",
+      "matrix": "food matrices and aroma models",
+      "exposure": "dilution, reconstruction, and omission comparisons",
+      "endpoints": [
+        "key-odorant contribution",
+        "omission effect"
+      ],
+      "result_used": "Supports omission and reconstruction as controlled experimental logic.",
+      "limitations": [
+        "Food-matrix evidence does not directly establish perfume architecture.",
+        "OAV alone is not sensory contribution."
+      ],
+      "source_tier": "TRANSFERABLE_SENSORY_METHOD",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "require isolated omission or addition arms"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "HERZ-VON-CLEF-2001",
+      "stable_identifier": "doi:10.1068/p3179",
+      "uri": "https://doi.org/10.1068/p3179",
+      "title": "The Influence of Verbal Labeling on the Perception of Odors",
+      "publication_year": 2001,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "controlled human labeling experiment",
+      "population": "human participants in the reported experiments",
+      "matrix": "odorants presented with alternative labels",
+      "exposure": "controlled odor presentation with verbal context",
+      "endpoints": [
+        "pleasantness",
+        "character ratings"
+      ],
+      "result_used": "Verbal labels can alter odor evaluation, requiring blinded codes and protected semantic labels.",
+      "limitations": [
+        "Not a finished-perfume formula experiment."
+      ],
+      "source_tier": "DIRECT_HUMAN_OLFACTION",
+      "transfer_disposition": "NARROWER_SCOPE",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "protect blind codes and semantic labels"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "ISO-11132-2021",
+      "stable_identifier": "iso:11132:2021",
+      "uri": "https://www.iso.org/standard/76669.html",
+      "title": "Sensory analysis — Methodology — Guidelines for monitoring the performance of a quantitative sensory panel",
+      "publication_year": 2021,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "STANDARD",
+      "study_design": "authoritative panel-performance guidance",
+      "population": "trained quantitative sensory panels",
+      "matrix": "declared product matrix",
+      "exposure": "repeated assessed samples under the purchased standard",
+      "endpoints": [
+        "panel repeatability",
+        "discrimination",
+        "agreement"
+      ],
+      "result_used": "Use official metadata to bind panel-performance monitoring requirements.",
+      "limitations": [
+        "Under systematic review on the retrieval date.",
+        "Copyrighted standard text is not retained or reproduced."
+      ],
+      "source_tier": "TRANSFERABLE_SENSORY_METHOD",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "PUBLIC_STANDARD_METADATA_ONLY",
+      "code_requirements": [
+        "audit assessor and panel repeatability"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "ISO-11136-2014",
+      "stable_identifier": "iso:11136:2014",
+      "uri": "https://www.iso.org/standard/50125.html",
+      "title": "Sensory analysis — Methodology — General guidance for conducting hedonic tests with consumers in a controlled area",
+      "publication_year": 2014,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "STANDARD",
+      "study_design": "authoritative controlled consumer hedonic methodology",
+      "population": "consumer population defined by the protocol",
+      "matrix": "declared consumer product matrix",
+      "exposure": "controlled-area coded presentations",
+      "endpoints": [
+        "hedonic response"
+      ],
+      "result_used": "Use official metadata to bind controlled consumer hedonic test scope and current amendment status.",
+      "limitations": [
+        "Copyrighted standard text is not retained or reproduced.",
+        "Base standard confirmed in 2025 with Amendment 1:2020."
+      ],
+      "source_tier": "TRANSFERABLE_SENSORY_METHOD",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "PUBLIC_STANDARD_METADATA_ONLY",
+      "code_requirements": [
+        "bind population, controlled area, criterion, and amendment"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "ISO-13299-2016",
+      "stable_identifier": "iso:13299:2016",
+      "uri": "https://www.iso.org/standard/58042.html",
+      "title": "Sensory analysis — Methodology — General guidance for establishing a sensory profile",
+      "publication_year": 2016,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "STANDARD",
+      "study_design": "authoritative sensory-profile guidance",
+      "population": "selected or trained sensory assessors",
+      "matrix": "declared product matrix",
+      "exposure": "profile assessment under the purchased standard",
+      "endpoints": [
+        "sensory profile"
+      ],
+      "result_used": "Use official metadata to bind profiling scope and assessor requirements.",
+      "limitations": [
+        "Under systematic review on the retrieval date.",
+        "Copyrighted standard text is not retained or reproduced."
+      ],
+      "source_tier": "TRANSFERABLE_SENSORY_METHOD",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "PUBLIC_STANDARD_METADATA_ONLY",
+      "code_requirements": [
+        "keep sensory-profile endpoints separate from liking"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "ISO-5495-2005",
+      "stable_identifier": "iso:5495:2005",
+      "uri": "https://www.iso.org/standard/31621.html",
+      "title": "Sensory analysis — Methodology — Paired comparison test",
+      "publication_year": 2005,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "STANDARD",
+      "study_design": "authoritative paired-comparison methodology",
+      "population": "assessors selected for the declared test",
+      "matrix": "declared product matrix",
+      "exposure": "paired coded presentation under the purchased standard",
+      "endpoints": [
+        "difference or directional paired comparison"
+      ],
+      "result_used": "Use official metadata to bind paired-comparison protocol edition and Amendment 1:2016.",
+      "limitations": [
+        "Copyrighted standard text is not retained or reproduced."
+      ],
+      "source_tier": "TRANSFERABLE_SENSORY_METHOD",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "PUBLIC_STANDARD_METADATA_ONLY",
+      "code_requirements": [
+        "distinguish difference testing from preference"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "ISO-6658-2017",
+      "stable_identifier": "iso:6658:2017",
+      "uri": "https://www.iso.org/standard/65519.html",
+      "title": "Sensory analysis — Methodology — General guidance",
+      "publication_year": 2017,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "STANDARD",
+      "study_design": "authoritative general sensory methodology",
+      "population": "assessor population defined by the protocol",
+      "matrix": "declared product matrix",
+      "exposure": "controlled sensory presentation",
+      "endpoints": [
+        "sensory method design"
+      ],
+      "result_used": "Use official metadata to bind the current general sensory methodology edition.",
+      "limitations": [
+        "Copyrighted standard text is not retained or reproduced.",
+        "Edition confirmed in 2024."
+      ],
+      "source_tier": "TRANSFERABLE_SENSORY_METHOD",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "PUBLIC_STANDARD_METADATA_ONLY",
+      "code_requirements": [
+        "bind protocol, assessor, sample, environment, and endpoint"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "JINKS-LAING-2001",
+      "stable_identifier": "doi:10.1016/s0031-9384(00)00407-8",
+      "uri": "https://doi.org/10.1016/S0031-9384(00)00407-8",
+      "title": "The Analysis of Odor Mixtures by Humans: Evidence for a Configurational Process",
+      "publication_year": 2001,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "controlled human odor-mixture experiment",
+      "population": "human assessors in the reported experiments",
+      "matrix": "laboratory odor mixtures",
+      "exposure": "controlled mixture and component presentations",
+      "endpoints": [
+        "component recognition",
+        "configurational perception"
+      ],
+      "result_used": "Supports treating configurational integration as an empirical construct rather than ingredient count.",
+      "limitations": [
+        "Simple laboratory mixtures are not finished perfumes.",
+        "Does not establish liking."
+      ],
+      "source_tier": "DIRECT_HUMAN_OLFACTION",
+      "transfer_disposition": "NARROWER_SCOPE",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "separate configurational integration from richness and liking"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "KELLER-2007",
+      "stable_identifier": "doi:10.1038/nature06162",
+      "uri": "https://doi.org/10.1038/nature06162",
+      "title": "Genetic Variation in a Human Odorant Receptor Alters Odour Perception",
+      "publication_year": 2007,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "human genotype-perception association experiment",
+      "population": "human participants with characterized receptor variation",
+      "matrix": "individual odorants",
+      "exposure": "controlled psychophysical odor presentation",
+      "endpoints": [
+        "intensity",
+        "pleasantness",
+        "odor quality"
+      ],
+      "result_used": "Supports assessor heterogeneity as a real olfactory source of variation.",
+      "limitations": [
+        "Single-odorant genotype effects do not predict perfume preference."
+      ],
+      "source_tier": "DIRECT_HUMAN_OLFACTION",
+      "transfer_disposition": "NARROWER_SCOPE",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "report assessor heterogeneity and influence"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "KERMEN-2011",
+      "stable_identifier": "doi:10.1038/srep00206",
+      "uri": "https://doi.org/10.1038/srep00206",
+      "title": "Molecular Complexity Determines the Number of Olfactory Notes and the Pleasantness of Smells",
+      "publication_year": 2011,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "human ratings related to molecular descriptors",
+      "population": "human odor raters in the reported study",
+      "matrix": "monomolecular odorants",
+      "exposure": "controlled odorant ratings",
+      "endpoints": [
+        "reported olfactory notes",
+        "pleasantness"
+      ],
+      "result_used": "Supports only a monomolecular structure-perception hypothesis.",
+      "limitations": [
+        "Molecular structural complexity is not formula ingredient count.",
+        "Does not support a beauty score for mixtures."
+      ],
+      "source_tier": "DIRECT_HUMAN_OLFACTION",
+      "transfer_disposition": "HOLD",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "forbid ingredient-count and molecular-complexity substitution"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "LAING-FRANCIS-1989",
+      "stable_identifier": "doi:10.1016/0031-9384(89)90041-3",
+      "uri": "https://doi.org/10.1016/0031-9384(89)90041-3",
+      "title": "The Capacity of Humans to Identify Odors in Mixtures",
+      "publication_year": 1989,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "controlled human mixture-identification experiment",
+      "population": "human assessors in the reported experiments",
+      "matrix": "laboratory odor mixtures",
+      "exposure": "controlled component and mixture presentations",
+      "endpoints": [
+        "component identification"
+      ],
+      "result_used": "Identification of components becomes limited as mixture complexity rises.",
+      "limitations": [
+        "Identification capacity is not liking, richness, or perfume quality.",
+        "Stimuli were not finished perfumes."
+      ],
+      "source_tier": "DIRECT_HUMAN_OLFACTION",
+      "transfer_disposition": "NARROWER_SCOPE",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "reject ingredient-count scoring and preserve component-identification scope"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "LANCASTER-QUADE-1983",
+      "stable_identifier": "pmid:6871353",
+      "uri": "https://pubmed.ncbi.nlm.nih.gov/6871353/",
+      "title": "Random Effects in Paired-Comparison Experiments Using the Bradley-Terry Model",
+      "publication_year": 1983,
+      "retrieved_on": "2026-08-28",
+      "source_kind": "STATISTICAL_METHOD",
+      "study_design": "paired-comparison random-effects model for sampled judges",
+      "population": "a sampled population of judges in repeated paired comparisons",
+      "matrix": "abstract paired-comparison treatments",
+      "exposure": "multiple judgments may be supplied by the same judge",
+      "endpoints": [
+        "judge-specific preference variation",
+        "within-judge outcome dependence"
+      ],
+      "result_used": "Repeated judgments from one assessor are correlated and assessor-specific preference variation must not be treated as independent treatment evidence.",
+      "limitations": [
+        "The paper is a statistical method, not a finished-perfume trial.",
+        "It does not establish a universal assessor-count threshold or any formula liking claim."
+      ],
+      "source_tier": "STATISTICAL_FOUNDATION",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "cluster uncertainty by assessor and preserve assessor heterogeneity",
+        "do not count repeated judgments as independent population evidence"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "LAPID-2008",
+      "stable_identifier": "doi:10.1093/chemse/bjn026",
+      "uri": "https://doi.org/10.1093/chemse/bjn026",
+      "title": "Prediction Models for the Pleasantness of Binary Mixtures in Olfaction",
+      "publication_year": 2008,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "controlled human binary-mixture pleasantness experiment",
+      "population": "human participants in the reported experiments",
+      "matrix": "binary odorant mixtures",
+      "exposure": "controlled binary odor presentations",
+      "endpoints": [
+        "mixture pleasantness"
+      ],
+      "result_used": "Binary-mixture pleasantness may be modeled within the tested odorants and protocol.",
+      "limitations": [
+        "Binary results do not establish multi-layer perfume liking.",
+        "External formula transfer is unvalidated."
+      ],
+      "source_tier": "DIRECT_HUMAN_OLFACTION",
+      "transfer_disposition": "NARROWER_SCOPE",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "withhold formula liking without exact-scope blinded comparisons"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "LENOCHOVA-2012",
+      "stable_identifier": "doi:10.1371/journal.pone.0033810",
+      "uri": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0033810",
+      "title": "Psychology of Fragrance Use: Perception of Individual Odor and Perfume Blends Reveals a Mechanism for Idiosyncratic Effects on Fragrance Choice",
+      "publication_year": 2012,
+      "retrieved_on": "2026-08-28",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "three human experiments comparing body odor, perfume, and perfume-body-odor blends",
+      "population": "odor donors and independent raters in the reported studies",
+      "matrix": "pure perfume, axillary body odor, and donor-specific perfume-body-odor blends",
+      "exposure": "controlled ratings of coded odor samples from declared donors and perfume assignments",
+      "endpoints": [
+        "pleasantness",
+        "attractiveness",
+        "intensity",
+        "donor-by-perfume interaction"
+      ],
+      "result_used": "Perfume pleasantness on its own did not determine the pleasantness of its wearer-specific body-odor blend; skin or wear evidence must bind the wearer and body-odor context.",
+      "limitations": [
+        "The experiments do not validate a general model of perfume beauty.",
+        "The reported body-odor collection protocol does not transfer automatically to ordinary live-skin wear testing."
+      ],
+      "source_tier": "DIRECT_FINE_FRAGRANCE",
+      "transfer_disposition": "NARROWER_SCOPE",
+      "rights": "OPEN_ACCESS_METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "bind wearer and body-odor context for skin or wear evidence",
+        "prohibit silent transfer from blotter liking to wear acceptance"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "LIVERMORE-LAING-1998",
+      "stable_identifier": "doi:10.3758/bf03206052",
+      "uri": "https://doi.org/10.3758/BF03206052",
+      "title": "The Influence of Chemical Complexity on the Perception of Multicomponent Odor Mixtures",
+      "publication_year": 1998,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "controlled human multicomponent-mixture experiment",
+      "population": "human assessors in the reported experiments",
+      "matrix": "laboratory multicomponent odor mixtures",
+      "exposure": "controlled odor presentations",
+      "endpoints": [
+        "component perception",
+        "mixture perception"
+      ],
+      "result_used": "Supports empirical testing of mixture perception as components increase.",
+      "limitations": [
+        "Chemical/component count is not perceived richness or depth.",
+        "Stimuli were not finished perfumes."
+      ],
+      "source_tier": "DIRECT_HUMAN_OLFACTION",
+      "transfer_disposition": "NARROWER_SCOPE",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "treat count as a trap rather than a complexity score"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "MA-2020",
+      "stable_identifier": "doi:10.1093/chemse/bjaa020",
+      "uri": "https://doi.org/10.1093/chemse/bjaa020",
+      "title": "Rules and Prediction for Binary-Mixture Pleasantness",
+      "publication_year": 2020,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "controlled human binary-mixture pleasantness modeling",
+      "population": "human odor assessors in the reported study",
+      "matrix": "binary odor mixtures",
+      "exposure": "controlled binary presentations",
+      "endpoints": [
+        "pleasantness",
+        "mixture interaction"
+      ],
+      "result_used": "Supports bounded hypotheses about binary-mixture pleasantness within the tested domain.",
+      "limitations": [
+        "Does not establish n-ary synergy or perfume preference."
+      ],
+      "source_tier": "DIRECT_HUMAN_OLFACTION",
+      "transfer_disposition": "NARROWER_SCOPE",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "block pairwise evidence from proving n-ary synergy"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "MA-2021",
+      "stable_identifier": "doi:10.1016/j.foodchem.2021.129483",
+      "uri": "https://doi.org/10.1016/j.foodchem.2021.129483",
+      "title": "Masking, Synergy, and Intensity Interactions in Binary Food-Odor Mixtures",
+      "publication_year": 2021,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "controlled binary food-odor mixture experiment",
+      "population": "human sensory assessors in the reported study",
+      "matrix": "binary food-odor mixtures",
+      "exposure": "controlled mixture presentations",
+      "endpoints": [
+        "intensity",
+        "masking",
+        "synergy"
+      ],
+      "result_used": "Supports an interaction-test design vocabulary for binary mixtures.",
+      "limitations": [
+        "Food-odor matrix and intensity endpoint do not transfer directly to perfume liking.",
+        "Pairwise evidence cannot establish layered synergy."
+      ],
+      "source_tier": "TRANSFERABLE_SENSORY_METHOD",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "require isolated n-ary arms before an interaction claim"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "MACFIE-1989",
+      "stable_identifier": "doi:10.1111/j.1745-459x.1989.tb00463.x",
+      "uri": "https://doi.org/10.1111/j.1745-459X.1989.tb00463.x",
+      "title": "Designs to Balance the Effect of Order of Presentation and First-Order Carry-Over Effects in Hall Tests",
+      "publication_year": 1989,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "balanced presentation-sequence methodology",
+      "population": "consumer sensory assessors in hall tests",
+      "matrix": "food and consumer-product sensory tests",
+      "exposure": "sequential product presentations",
+      "endpoints": [
+        "order balance",
+        "first-order carryover balance"
+      ],
+      "result_used": "Supports Williams-type sequence balancing and predecessor accounting as method design.",
+      "limitations": [
+        "Transfer is methodological; washout adequacy remains matrix-specific."
+      ],
+      "source_tier": "TRANSFERABLE_SENSORY_METHOD",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "bind schedule hash, presentation order, and predecessor"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "PINEAU-2009",
+      "stable_identifier": "doi:10.1016/j.foodqual.2009.04.005",
+      "uri": "https://doi.org/10.1016/j.foodqual.2009.04.005",
+      "title": "Temporal Dominance of Sensations: Construction of the TDS Curves and Comparison with Time-Intensity",
+      "publication_year": 2009,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "temporal sensory method-development experiment",
+      "population": "trained or selected assessors in the reported food studies",
+      "matrix": "food products",
+      "exposure": "qualified repeated temporal sensory recording",
+      "endpoints": [
+        "dominant sensation over time",
+        "time-intensity"
+      ],
+      "result_used": "Supports observed temporal sensory protocol structure and prespecified timing.",
+      "limitations": [
+        "Food matrices and TDS dominance do not directly establish perfume transitions.",
+        "No interpolation of missing observations is justified."
+      ],
+      "source_tier": "TRANSFERABLE_SENSORY_METHOD",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "bind apparatus, clock, timepoint, endpoint, and missing cells"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "STONE-1974",
+      "stable_identifier": "doi:10.1111/j.2517-6161.1974.tb00994.x",
+      "uri": "https://doi.org/10.1111/j.2517-6161.1974.tb00994.x",
+      "title": "Cross-Validatory Choice and Assessment of Statistical Predictions",
+      "publication_year": 1974,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "STATISTICAL_METHOD",
+      "study_design": "foundational cross-validation methodology",
+      "population": "not a fragrance population study",
+      "matrix": "generic prediction problems",
+      "exposure": "not applicable",
+      "endpoints": [
+        "held-out predictive performance"
+      ],
+      "result_used": "Supports separating model development from held-out assessment.",
+      "limitations": [
+        "Split unit and proper score remain domain-specific.",
+        "Does not define a fragrance baseline margin."
+      ],
+      "source_tier": "STATISTICAL_FOUNDATION",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "freeze grouped split and require held-out baseline gain"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "TRIMMER-2019",
+      "stable_identifier": "doi:10.1073/pnas.1804106115",
+      "uri": "https://doi.org/10.1073/pnas.1804106115",
+      "title": "Genetic Variation across the Human Olfactory Receptor Repertoire Alters Odor Perception",
+      "publication_year": 2019,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "human receptor-genotype and perception association study",
+      "population": "human participants in the reported cohorts",
+      "matrix": "individual odorants",
+      "exposure": "controlled psychophysical odor ratings",
+      "endpoints": [
+        "intensity",
+        "pleasantness",
+        "odor quality"
+      ],
+      "result_used": "Supports meaningful between-assessor variation in odor perception.",
+      "limitations": [
+        "Individual odorants and genotype associations do not predict perfume preference."
+      ],
+      "source_tier": "DIRECT_HUMAN_OLFACTION",
+      "transfer_disposition": "NARROWER_SCOPE",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "cluster uncertainty by assessor and audit heterogeneity"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "TRISCOLI-2014",
+      "stable_identifier": "doi:10.3389/fpsyg.2014.00526",
+      "uri": "https://pubmed.ncbi.nlm.nih.gov/24910630/",
+      "title": "Liking and Wanting Pleasant Odors: Different Effects of Repetitive Exposure in Men and Women",
+      "publication_year": 2014,
+      "retrieved_on": "2026-08-28",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "repeated controlled odor-exposure experiment with separate liking and wanting ratings",
+      "population": "18 participants in the reported experiment",
+      "matrix": "three pleasant odors",
+      "exposure": "40 presentations per odor in randomized order with a reported inter-stimulus interval",
+      "endpoints": [
+        "liking",
+        "wanting another exposure",
+        "change across repetitions"
+      ],
+      "result_used": "Liking and wanting-to-resmell are separable responses and may change differently across repeated exposure.",
+      "limitations": [
+        "The sample is small and does not establish universal sex effects.",
+        "The tested odors and repeated laboratory schedule are not a fine-fragrance wear trial."
+      ],
+      "source_tier": "DIRECT_HUMAN_OLFACTION",
+      "transfer_disposition": "NARROWER_SCOPE",
+      "rights": "OPEN_ACCESS_METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "keep liking and wanting-to-resmell as separate criteria",
+        "bind exposure count and schedule for repetition-sensitive endpoints"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "WEISS-2012",
+      "stable_identifier": "doi:10.1073/pnas.1208110109",
+      "uri": "https://doi.org/10.1073/pnas.1208110109",
+      "title": "Perceptual Convergence of Multicomponent Mixtures in Olfaction Implies an Olfactory White",
+      "publication_year": 2012,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "controlled human multicomponent-mixture experiment",
+      "population": "human assessors in the reported experiments",
+      "matrix": "laboratory mixtures with many equal-intensity components",
+      "exposure": "controlled mixture presentations",
+      "endpoints": [
+        "perceptual similarity",
+        "mixture convergence"
+      ],
+      "result_used": "Many-component mixtures can converge perceptually under the tested equal-intensity design.",
+      "limitations": [
+        "Does not imply that ingredient count creates richness, depth, liking, or luxury.",
+        "Experimental mixtures were not perfumes."
+      ],
+      "source_tier": "DIRECT_HUMAN_OLFACTION",
+      "transfer_disposition": "HOLD",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "treat count inflation as a critical benchmark trap"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    }
+  ],
+  "authority_flags": {
+    "formula": false,
+    "inventory_mutation": false,
+    "liking": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "runtime": false,
+    "safety": false,
+    "scientific_claim": false,
+    "sensory": false
+  }
+}

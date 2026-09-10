@@ -1,0 +1,29 @@
+﻿Code,ACC-FR-PET-01
+Accord,Petrichor Moss v1.0
+Category,Fresh & Musk
+Brief,"A controlled wet-earth accord combining geosmin, moss, vetiver, patchouli, wet leaves, mineral incense and transparent woods."
+Recommended use,0.5–5% of perfume concentrate
+Maturation,14–21 days
+Monte Carlo pass,0.9986
+Final design score,100.0
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Oakmoss Absolute 10%,10% working stock,0.1,90.0,9.0,90.0,450.0,PREPARED STOCK,moss,Natural moss,Natural moss depth.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.04434632305196634
+2,base,Vetiver EO,neat / as supplied,1.0,80.0,80.0,80.0,400.0,DIRECT,vetiver,Rooty earth,Natural rooty vetiver.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.0366159469809197
+3,base,Vetival,neat,1.0,70.0,70.0,70.0,350.0,DIRECT,vetiver,Polished vetiver,Polished vetiver.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.02967752724865333
+4,base,Evernyl 20%,Evernyl nominal 20% in DPG; not a true solution,0.2,60.0,12.0,60.0,300.0,PREPARED STOCK,moss,Dry moss,Dry moss support; shake suspension.,HAVE — SUSPENSION / MIXTURE,"Shake thoroughly before every use; record as a heterogeneous mixture, not a clear solution.",,IDENTITY CRITICAL,0.02349949532996931
+5,base,Ambrofix 30%,30% working stock,0.3,50.0,15.0,50.0,250.0,PREPARED STOCK,ambergris,Mineral persistence,Mineral ambergris persistence.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.012110261367036725
+6,base,Patchouli EO,neat / as supplied,1.0,50.0,50.0,50.0,250.0,DIRECT,patchouli,Earthy body,Earthy patchouli structure.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.012110261367036725
+7,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,40.0,40.0,40.0,200.0,DIRECT,musk,Clean diffusion,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.00848332103256694
+8,base,Cedarwood Himalayan EO,neat/as supplied,1.0,35.0,35.0,35.0,175.0,DIRECT,cedar,Damp cedar,Smokier Himalayan cedar texture.,HAVE,Use only with exact label/stock-strength accounting.,,TEXTURAL SUPPORT,0.006969604500365647
+9,base,Olibanum 50%,50% in DPG,0.5,30.0,15.0,30.0,150.0,PREPARED STOCK,incense,Mineral resin,Frankincense mineral resin.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.00554640653903303
+10,base,Romandolide,Romandolide neat/as supplied,1.0,30.0,30.0,30.0,150.0,DIRECT,musk,Soft musk,Fruity-clean musk body.,HAVE — NEAT,Use as neat Romandolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.0054932048855084546
+11,base,Geosmin 0.1%,Geosmin 0.1% in TEC,0.001,20.0,0.02,20.0,100.0,PREPARED STOCK,earth_moss,Petrichor trigger,Wet earth and petrichor.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.005820084156826303
+12,base,Labdanum 10%,10% working stock,0.1,20.0,2.0,20.0,100.0,PREPARED STOCK,amber_resin,Dark resin,Cistus amber-leather.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.003129891491557483
+13,heart_base,Iso E Super,neat / as supplied,1.0,130.0,130.0,130.0,650.0,DIRECT,transparent_wood,Transparent wood,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.06368968398800505
+14,heart,Helional 10%,Helional 10% working dilution,0.1,40.0,4.0,40.0,200.0,PREPARED STOCK,marine,Wet air,Watery-green floral air.,HAVE — NEAT + 10%,Formula must specify exact strength.,,TEXTURAL SUPPORT,0.008698051176035912
+15,top_heart,Undecavertol 1%,1% working stock,0.01,25.0,0.25,25.0,125.0,PREPARED STOCK,green_leaf,Wet greenery,Wet green leaf.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.007696809352850685
+16,top_heart,Violet Leaf Absolute 10%,10% working stock,0.1,20.0,2.0,20.0,100.0,PREPARED STOCK,green_leaf,Wet leaf,Metallic wet-stem violet leaf.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0058437897894376015
+17,top,cis-3-Hexenol 1%,1% working stock,0.01,15.0,0.15,15.0,75.0,PREPARED STOCK,green_leaf,Fresh stem,Cut-leaf freshness.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.004177455715491701
+18,carrier,DPG,neat,0.0,195.0,0.0,195.0,975.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

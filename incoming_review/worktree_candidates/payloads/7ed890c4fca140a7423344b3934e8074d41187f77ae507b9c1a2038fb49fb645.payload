@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,0.9943
+identity_system_probability,1.0
+oav_probability,0.9943
+temporal_probability,1.0
+dominance_failure_probability,0.006099999999999994
+overall_probability,0.9882
+dose_closure_probability,0.9812
+temporal_q05,0.9659612625796481
+temporal_median,0.9875933327415564
+max_share_q95,0.5935705791190514
+marker_coverage_q05,0.7142857142857143
+phase_sum_q05,"{""top"": 16.39882371346118, ""heart"": 2.347704789971347, ""base"": 11.192599183662654}"
+release_shape_median,"[0.3936309375220467, 0.3132943929966321, 0.21327292158008432, 0.06924708554593106]"
+phase_shape_median,"[0.26192428836855447, 0.34518992500862367, 0.3926957494483714]"
+marker_probabilities,"{""Bergamot FCF Oil Sicilian | top"": 1.0, ""Black Pepper EO | top"": 1.0, ""Olibanum 50% | heart"": 0.8162, ""Cedarwood Virginia | heart"": 0.9731, ""Vetiver EO | base"": 0.9991, ""Amberwood F | base"": 1.0, ""Iso E Super | base"": 0.6859}"
+marker_quantiles,"{""Bergamot FCF Oil Sicilian | top"": [4.894702340381988, 13.50123655352586, 37.160272623055405], ""Black Pepper EO | top"": [7.103106380228153, 17.2317334935154, 42.20828570316582], ""Olibanum 50% | heart"": [0.6354644141906841, 1.7070840279765536, 4.595739221820579], ""Cedarwood Virginia | heart"": [1.1841814872883036, 3.039190597794524, 7.858604815674072], ""Vetiver EO | base"": [2.4436913696769538, 6.335899782854563, 16.210349511925205], ""Amberwood F | base"": [5.141100053176749, 13.039105472756948, 34.8852242646266], ""Iso E Super | base"": [0.5017395088656472, 1.3378510765599279, 3.579551846687376]}"
+classification,ROBUST

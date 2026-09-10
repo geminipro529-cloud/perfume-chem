@@ -1,0 +1,342 @@
+r"""Build the provider-neutral perfume knowledge-base JSONL artifact.
+
+Sources:
+  1. Perfumer's World parsed.json -> ``pw_sku_*`` reference entries
+  2. the pinned current-inventory materialization -> distinct stock and
+     requirement entries
+  3. engine.odor_thresholds.ODT_DATA -> ``odt_*`` entries
+  4. engine.reference_contracts.REFERENCE_CONTRACTS -> ``ref_*`` entries
+  5. engine.families.registry.ARCHETYPES -> ``fam_*`` entries
+
+The inventory section deliberately does not parse ``inventory.txt`` directly.
+Ownership, dilution basis, carrier, provenance, and execution readiness must
+come from ``materialize_current_inventory()`` so that held and unavailable
+records cannot be promoted by a permissive text parser.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import re
+import sys
+from collections.abc import Mapping
+from pathlib import Path
+from typing import Any
+
+ROOT = Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+OUTPUT = ROOT / "data" / "reference" / "perfume_kb" / "perfume_kb.jsonl"
+
+
+def slugify(value: str) -> str:
+    return re.sub(r"[^a-z0-9_]", "_", value.lower().strip())[:80]
+
+
+def sha8(value: str) -> str:
+    return hashlib.sha256(value.encode()).hexdigest()[:8]
+
+
+def _fraction_label(
+    fraction: float,
+    basis: str,
+    carrier: str,
+    *,
+    approximate: bool = False,
+    fraction_range: tuple[float, float] | None = None,
+) -> str:
+    if basis == "neat" and not carrier:
+        return "neat / as supplied"
+
+    basis_label = {
+        "mass_fraction": "w/w",
+        "mass_per_volume": "w/v",
+        "volume_fraction": "v/v",
+        "unspecified": "basis unspecified",
+    }.get(basis, basis or "basis unspecified")
+    carrier_label = f" in {carrier.upper()}" if carrier else ""
+    if approximate and fraction_range is not None:
+        low, high = fraction_range
+        return (
+            f"approximately {low * 100:g}-{high * 100:g}%{carrier_label} "
+            f"({basis_label})"
+        )
+    return f"{fraction * 100:g}%{carrier_label} ({basis_label})"
+
+
+def load_inventory() -> list[dict[str, object]]:
+    """Return lossless KB rows from the pinned current inventory authority."""
+
+    from engine.inventory_parser import materialize_current_inventory
+
+    materialized = materialize_current_inventory()
+    source_pins = {
+        "source_workbook_sha256": materialized.source_workbook_sha256,
+        "snapshot_sha256": materialized.snapshot_sha256,
+        "overlay_sha256": materialized.overlay_sha256,
+    }
+    entries: list[dict[str, object]] = []
+
+    for stock in materialized.stocks:
+        identity_name = stock.identity_name or stock.name
+        entries.append(
+            {
+                "id": (
+                    f"local_stock_{slugify(identity_name)}_"
+                    f"{sha8(stock.stock_id)}"
+                ),
+                "source": "inventory",
+                "record_kind": "stock",
+                "name": stock.name,
+                "identity_name": identity_name,
+                "stock_id": stock.stock_id,
+                "dilution": _fraction_label(
+                    stock.dilution,
+                    stock.fraction_basis,
+                    stock.carrier,
+                    approximate=stock.approximate,
+                    fraction_range=stock.fraction_range,
+                ),
+                "dilution_fraction": stock.dilution,
+                "dilution_pct": stock.dilution * 100,
+                "fraction_basis": stock.fraction_basis,
+                "carrier": stock.carrier,
+                "approximate": stock.approximate,
+                "fraction_range": (
+                    list(stock.fraction_range) if stock.fraction_range is not None else None
+                ),
+                "category": stock.category,
+                "status": stock.status,
+                "in_stock": stock.status == "owned",
+                "execution_ready": stock.execution_ready,
+                "execution_hold_reason": stock.execution_hold_reason,
+                "authority": stock.authority,
+                "source_rows": list(stock.source_rows),
+                "source_ref": stock.source_ref,
+                "requirement_state": stock.requirement_state,
+                **source_pins,
+            }
+        )
+
+    for requirement in materialized.requirements:
+        entries.append(
+            {
+                "id": (
+                    f"local_requirement_r{requirement.source_row}_"
+                    f"{slugify(requirement.identity_name)}"
+                ),
+                "source": "inventory",
+                "record_kind": "requirement",
+                "name": requirement.canonical_name,
+                "identity_name": requirement.identity_name,
+                "requested_fraction": requirement.requested_fraction,
+                "fraction_basis": requirement.fraction_basis,
+                "carrier": requirement.carrier,
+                "category": requirement.category,
+                "status": requirement.status,
+                "requirement_disposition": requirement.disposition,
+                "actual_stock_text": requirement.actual_stock_text,
+                "can_prepare": requirement.can_prepare,
+                "in_stock": False,
+                "execution_ready": False,
+                "authority": "CURRENT_INVENTORY_REQUIREMENT_NOT_STOCK_AUTHORITY",
+                "source_rows": [requirement.source_row],
+                "source_ref": (
+                    "Current Inventory Master!"
+                    f"A{requirement.source_row}:N{requirement.source_row}"
+                ),
+                **source_pins,
+            }
+        )
+
+    return entries
+
+
+def _jsonable(value: Any) -> Any:
+    if isinstance(value, Mapping):
+        return {str(key): _jsonable(item) for key, item in value.items()}
+    if isinstance(value, (set, frozenset)):
+        return [_jsonable(item) for item in sorted(value, key=str)]
+    if isinstance(value, (list, tuple)):
+        return [_jsonable(item) for item in value]
+    if hasattr(value, "value"):
+        return _jsonable(value.value)
+    return value
+
+
+def _build_entries() -> list[dict[str, object]]:
+    from engine.name_utils import normalize_name
+
+    inventory_entries = load_inventory()
+    owned_stocks = [
+        entry
+        for entry in inventory_entries
+        if entry["record_kind"] == "stock" and entry["in_stock"] is True
+    ]
+    stock_names = {
+        normalize_name(str(entry["identity_name"])) for entry in owned_stocks
+    }
+    entries: list[dict[str, object]] = []
+
+    pw_path = ROOT / "data" / "materials" / "_sources" / "perfumersworld_stock.parsed.json"
+    pw_data: list[dict[str, object]] = []
+    if pw_path.exists():
+        pw_data = json.loads(pw_path.read_text(encoding="utf-8"))
+    pw_names = {
+        normalize_name(str(entry.get("base_name", "")))
+        for entry in pw_data
+        if entry.get("base_name")
+    }
+    for entry in sorted(
+        pw_data,
+        key=lambda row: (str(row.get("sku") or ""), str(row.get("base_name") or "")),
+    ):
+        name = str(entry.get("base_name", ""))
+        normalized_name = normalize_name(name)
+        price_total = entry.get("price_usd") if entry.get("price_unit") == "gram" else None
+        entries.append(
+            {
+                "id": f"pw_sku_{entry.get('sku') or sha8(name)}",
+                "source": "perfumersworld",
+                "base_name": name,
+                "dilution_pct": entry.get("dilution_pct"),
+                "solvent": entry.get("dilution_solvent"),
+                "sku": entry.get("sku"),
+                "price_usd_per_gram": price_total,
+                "in_local_inventory": normalized_name in stock_names,
+                "local_inventory_execution_ready": False,
+                "local_inventory_execution_authority": (
+                    "NOT_INHERITED_FROM_SUPPLIER_IDENTITY_MATCH"
+                ),
+                "inventory_match_kind": "EXACT_NORMALIZED_IDENTITY",
+            }
+        )
+
+    for entry in inventory_entries:
+        current = dict(entry)
+        current["in_perfumersworld"] = (
+            normalize_name(str(current["identity_name"])) in pw_names
+        )
+        current["perfumersworld_match_kind"] = "EXACT_NORMALIZED_IDENTITY"
+        entries.append(current)
+
+    try:
+        from engine.odor_thresholds import ODT_DATA
+
+        for name in sorted(ODT_DATA):
+            values = ODT_DATA[name]
+            if isinstance(values, Mapping):
+                entries.append(
+                    {
+                        "id": f"odt_{slugify(name)}",
+                        "source": "odor_thresholds",
+                        "name": name,
+                        **{
+                            key: _jsonable(value)
+                            for key, value in values.items()
+                            if key not in ("_note", "_source")
+                        },
+                    }
+                )
+    except ImportError as error:
+        print(f"  ODT import failed: {error}")
+
+    try:
+        from engine.reference_contracts import REFERENCE_CONTRACTS
+
+        for contract_id in sorted(REFERENCE_CONTRACTS):
+            contract = REFERENCE_CONTRACTS[contract_id]
+            ref_entry: dict[str, object] = {
+                "id": f"ref_{contract_id}",
+                "source": "reference_contracts",
+                "contract_id": contract_id,
+                "display_name": contract.display_name,
+                "source_url": contract.source_url,
+                "evidence_class": _jsonable(contract.evidence_class),
+            }
+            if getattr(contract, "marker_groups", None):
+                ref_entry["marker_groups"] = [
+                    {"name": group.name, "alternatives": list(group.alternatives)}
+                    for group in contract.marker_groups
+                ]
+            if getattr(contract, "target_aliases", None):
+                ref_entry["target_aliases"] = list(contract.target_aliases)
+            entries.append(ref_entry)
+    except ImportError as error:
+        print(f"  reference_contracts import failed: {error}")
+
+    try:
+        from engine.families.registry import ARCHETYPES
+
+        for key in sorted(ARCHETYPES):
+            spec = ARCHETYPES[key]
+            family_entry: dict[str, object] = {
+                "id": f"fam_{slugify(key)}",
+                "source": "families_registry",
+                "archetype": key,
+            }
+            for attr in (
+                "family",
+                "key",
+                "label",
+                "role",
+                "novelty_reference",
+                "forbidden_materials",
+            ):
+                value = getattr(spec, attr, None)
+                if value is not None:
+                    family_entry[attr] = _jsonable(value)
+
+            for attr in ("anchors", "drift_limits"):
+                groups = getattr(spec, attr, None)
+                if groups:
+                    family_entry[attr] = [
+                        {
+                            "name": group.name,
+                            "materials": list(group.materials),
+                            "basis": getattr(group, "basis", "active"),
+                            "minimum": getattr(group, "minimum", None),
+                            "maximum": getattr(group, "maximum", None),
+                        }
+                        for group in groups
+                    ]
+
+            for attr in ("repair_pool", "oav_targets"):
+                value = getattr(spec, attr, None)
+                if value is not None:
+                    family_entry[attr] = _jsonable(value)
+
+            entries.append(family_entry)
+    except ImportError as error:
+        print(f"  families_registry import failed: {error}")
+
+    return entries
+
+
+def build_perfume_kb(output: Path = OUTPUT) -> tuple[int, int]:
+    """Write the deterministic JSONL artifact and return entry and byte counts."""
+
+    entries = _build_entries()
+    payload = "".join(
+        json.dumps(entry, ensure_ascii=False, sort_keys=True) + "\n" for entry in entries
+    )
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(payload, encoding="utf-8", newline="\n")
+    return len(entries), len(payload.encode("utf-8"))
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path, default=OUTPUT)
+    args = parser.parse_args(argv)
+    line_count, size_bytes = build_perfume_kb(args.output)
+    print(f"Built {args.output}")
+    print(f"  {line_count} entries, {size_bytes / 1024:.1f} KB")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

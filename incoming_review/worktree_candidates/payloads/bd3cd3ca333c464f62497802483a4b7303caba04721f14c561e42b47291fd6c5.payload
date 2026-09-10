@@ -1,0 +1,868 @@
+{
+  "schema": "perfume-chem-ysl-candidate-v1",
+  "candidate_id": "LH-10",
+  "name": "Bangkok Air",
+  "family": "ysl_lhomme",
+  "mode": "STYLISTIC",
+  "source_bindings": {
+    "formula_uid": "ysl20:LH-10:v2",
+    "read_at_utc": "2026-08-27T02:41:12.424077Z",
+    "runtime_git_commit": "0eb764d0aa184839949d26ba094d679321e32166",
+    "agents_sha256": "88CB7B4C3C0727F63ED679A591676869710894AA824B765F596445BFDEEB7CA1",
+    "copilot_instructions_sha256": "55E9BA73B49689D335E5ECF2C264AF44CCE6BF18B74CC0E7B6AEAB0B461F36E0",
+    "inventory_sha256": "DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC",
+    "family_reference_sha256": "7C9968795E3A1662295D16C9DE73DAE6386C1EB8C06D05B5335AC546574350EF",
+    "inventory_overlay_sha256": "1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072",
+    "family_target_file_sha256": "BBDCE33122C1F0E2FCDC2A37A645429F5174B58A2112AFD1D406EDEE7A35B5E8",
+    "family_target_sha256": "637EF8CE63575A406C5EC27EC2A1CBFCA910E3303CA3B3B100572F64A4E539BA",
+    "chassis_file_sha256": "F793BCFA8C87C7256DB364656ACCA014342760C640FC6D64AC71B4A1D9EF1E94",
+    "natural_decomposition_sha256": "AAD32FAD612E7CFD12412FA7043F866E99D9B4011BD9540B997AA6E17F480F37",
+    "parent_formula_uid": "ysl20:LH-01:v2",
+    "parent_formula_definition_sha256": "504c9bb498c1679dfedc2da171ed7649967a51b36ac520453358cb485684453c",
+    "parent_candidate_sha256": "A5CF83E3120D1782E4BCF2713D45F5DAE21E560037E26BB2A0796714F7836C16",
+    "lineage_type": "CONTROLLED_CHILD",
+    "active_dose_change_authorizations": [
+      "Amberwood F=reduced from 74 to 20 uL as the shared socket donor while retaining dry persistence",
+      "Lemonile=tenacious dry citron extension inside the fixed 300 uL socket",
+      "Paradisamide (10%)=single low-vapor citrus-fruit continuity material inside the fixed 300 uL socket"
+    ],
+    "runtime_worktree_state": "UNCOMMITTED_ISOLATED_STUDIO_PATCH",
+    "formula_definition_sha256": "bd01d533ae35d056049ce35a72bd5fa700048b028d8f0162e03dbd010aca9ade"
+  },
+  "target_identity": {
+    "north_star": "L'Homme's bergamot, ginger, violet-green tailoring, cedar, and vetiver expressed as lucid moving air under Bangkok heat, with dry citrus continuity rather than aquatic cleanliness or a clean-musk shortcut.",
+    "functional_architecture": [
+      "expanded bergamot-ginger kinetic opening",
+      "protected violet-green tailored heart",
+      "dry cedar-vetiver heat anchor",
+      "one low-vapor citrus-fruit bridge across opening to drydown"
+    ],
+    "protected_identity": [
+      "Ginger Oil",
+      "Violet Leaf",
+      "Cedarwood Virginia",
+      "Vetiver Haiti"
+    ],
+    "primary_axis": "warm-climate citrus-ginger continuity over dry tailored woods",
+    "variant_socket": {
+      "active_ppm_w_w": 66666.667,
+      "current_raw_ul": 300.0,
+      "target_allocation": {
+        "Bergamot Oil increment": 15000.0,
+        "Ginger Oil increment": 12000.0,
+        "Cedrat Oil increment": 12000.0,
+        "Hedione HC increment": 8000.0,
+        "Iso E Super increment": 8000.0,
+        "Vetiver Haiti increment": 5000.0,
+        "Paradisamide": 6666.6666
+      },
+      "current_allocation_ul": {
+        "Bergamot FCF oil Sicilian": 55.0,
+        "Ginger EO": 45.0,
+        "Lemonile": 45.0,
+        "Hedione": 30.0,
+        "Iso E Super": 50.0,
+        "Indian Vetiver EO (volume grade)": 30.0,
+        "Paradisamide (10%)": 45.0
+      }
+    },
+    "temperature_screen_k": [
+      298.15,
+      308.15
+    ],
+    "temperature_authority": "MODELED_SENSITIVITY_ONLY_NOT_MEASURED_BANGKOK_PERFORMANCE",
+    "drift_risk": "Aquatic materials, excessive dihydromyrcenol, clean-musk layering, or tropical-fruit prominence would erase L'Homme tailoring."
+  },
+  "target_ideal": {
+    "basis": "active_ppm_w_w_of_concentrate",
+    "total_active_ppm_w_w": 1000000.0,
+    "target_sha256": "B21FE54097DD5F38765304631CD4B43204659F8D6F095CEE874EA54C5D0DB0F2",
+    "inventory_independent": true,
+    "materials": [
+      {
+        "identity": "Iso E Super",
+        "active_ppm_w_w": 168000.0,
+        "function": "expanded abstract cedar airflow without aquatic drift",
+        "time_windows": [
+          "opening",
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LH-FROZEN",
+          "STUDY-DESIGN-LH-10"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Cedarwood Virginia",
+        "active_ppm_w_w": 110000.0,
+        "function": "literal tailored cedar backbone",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "YSL-LH-OFFICIAL-UK"
+        ],
+        "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"
+      },
+      {
+        "identity": "Ethylene Brassylate",
+        "active_ppm_w_w": 80000.0,
+        "function": "single structural musk only",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LH-FROZEN"
+        ],
+        "quantity_authority": "SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Hedione",
+        "active_ppm_w_w": 100925.926,
+        "function": "radiant heart air",
+        "time_windows": [
+          "opening",
+          "heart",
+          "late_heart"
+        ],
+        "evidence_ids": [
+          "SOL-LH-FROZEN"
+        ],
+        "quantity_authority": "TRANSITION_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Vertofix Coeur",
+        "active_ppm_w_w": 65000.0,
+        "function": "cedar-vetiver bridge",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LH-FROZEN"
+        ],
+        "quantity_authority": "SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Ethyl Linalool",
+        "active_ppm_w_w": 50000.0,
+        "function": "fresh floral-woody tenacity",
+        "time_windows": [
+          "opening",
+          "heart",
+          "late_heart"
+        ],
+        "evidence_ids": [
+          "SOL-LH-FROZEN"
+        ],
+        "quantity_authority": "TRANSITION_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Dihydromyrcenol",
+        "active_ppm_w_w": 35000.0,
+        "function": "controlled kinetic freshness below aquatic dominance",
+        "time_windows": [
+          "opening",
+          "top"
+        ],
+        "evidence_ids": [
+          "YSL-LH-OFFICIAL-UK",
+          "SOL-LH-FROZEN"
+        ],
+        "quantity_authority": "OZONE_FUNCTION_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Sandalwood",
+        "active_ppm_w_w": 55000.0,
+        "function": "fresh-light lower-register counterweight",
+        "time_windows": [
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "YSL-LH-OFFICIAL-UK"
+        ],
+        "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"
+      },
+      {
+        "identity": "Vetiver Haiti",
+        "active_ppm_w_w": 50000.0,
+        "function": "expanded dry rooty heat anchor",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "YSL-LH-OFFICIAL-UK",
+          "STUDY-DESIGN-LH-10"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Alpha Isomethyl Ionone",
+        "active_ppm_w_w": 50000.0,
+        "function": "violet-woody tailored body",
+        "time_windows": [
+          "heart",
+          "late_heart"
+        ],
+        "evidence_ids": [
+          "YSL-LH-OFFICIAL-UK"
+        ],
+        "quantity_authority": "ALLERGEN_AND_NOTE_FUNCTION_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Violet Leaf",
+        "active_ppm_w_w": 25000.0,
+        "function": "cool green signature",
+        "time_windows": [
+          "opening",
+          "heart"
+        ],
+        "evidence_ids": [
+          "YSL-LH-OFFICIAL-UK"
+        ],
+        "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"
+      },
+      {
+        "identity": "Bergamot Oil",
+        "active_ppm_w_w": 60000.0,
+        "function": "expanded luminous cologne opening",
+        "time_windows": [
+          "opening",
+          "top"
+        ],
+        "evidence_ids": [
+          "YSL-LH-OFFICIAL-UK",
+          "STUDY-DESIGN-LH-10"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Cedrat Oil",
+        "active_ppm_w_w": 27000.0,
+        "function": "expanded bitter citron edge resisting tropical sweetness",
+        "time_windows": [
+          "opening",
+          "top"
+        ],
+        "evidence_ids": [
+          "YSL-LH-OFFICIAL-UK",
+          "STUDY-DESIGN-LH-10"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Ginger Oil",
+        "active_ppm_w_w": 34000.0,
+        "function": "expanded warm-cool kinetic signature",
+        "time_windows": [
+          "opening",
+          "top",
+          "heart"
+        ],
+        "evidence_ids": [
+          "YSL-LH-OFFICIAL-UK",
+          "STUDY-DESIGN-LH-10"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Basil",
+        "active_ppm_w_w": 3000.0,
+        "function": "restrained aromatic contour",
+        "time_windows": [
+          "opening",
+          "heart"
+        ],
+        "evidence_ids": [
+          "YSL-LH-OFFICIAL-UK"
+        ],
+        "quantity_authority": "DOCUMENTARY_IDENTITY_TRACE_DESIGN"
+      },
+      {
+        "identity": "White Pepper",
+        "active_ppm_w_w": 4000.0,
+        "function": "dry bright articulation",
+        "time_windows": [
+          "opening",
+          "top",
+          "heart"
+        ],
+        "evidence_ids": [
+          "YSL-LH-OFFICIAL-UK"
+        ],
+        "quantity_authority": "DOCUMENTARY_IDENTITY_TRACE_DESIGN"
+      },
+      {
+        "identity": "Tonka",
+        "active_ppm_w_w": 35000.0,
+        "function": "dry intimate warmth",
+        "time_windows": [
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "YSL-LH-OFFICIAL-UK"
+        ],
+        "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"
+      },
+      {
+        "identity": "Coumarin",
+        "active_ppm_w_w": 10000.0,
+        "function": "dry hay-tonka articulation",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "YSL-LH-OFFICIAL-UK"
+        ],
+        "quantity_authority": "DECLARED_ALLERGEN_FUNCTION_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Linalyl Acetate",
+        "active_ppm_w_w": 907.4074,
+        "function": "retained citrus-floral ester seam",
+        "time_windows": [
+          "opening",
+          "top",
+          "heart"
+        ],
+        "evidence_ids": [
+          "SOL-LH-FROZEN"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_CORE"
+      },
+      {
+        "identity": "Florol",
+        "active_ppm_w_w": 2500.0,
+        "function": "retained clean floral volume",
+        "time_windows": [
+          "heart",
+          "late_heart"
+        ],
+        "evidence_ids": [
+          "SOL-LH-FROZEN"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_CORE"
+      },
+      {
+        "identity": "Parmavert",
+        "active_ppm_w_w": 16000.0,
+        "function": "green violet-leaf snap",
+        "time_windows": [
+          "opening",
+          "heart"
+        ],
+        "evidence_ids": [
+          "SOL-LH-FROZEN"
+        ],
+        "quantity_authority": "VIOLET_GREEN_SUPPORT_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Ambroxide",
+        "active_ppm_w_w": 2000.0,
+        "function": "retained mineral persistence",
+        "time_windows": [
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LH-FROZEN"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_CORE"
+      },
+      {
+        "identity": "Hedione HC",
+        "active_ppm_w_w": 10000.0,
+        "function": "restrained high-cis opening-to-heart polish below crowding",
+        "time_windows": [
+          "opening",
+          "heart",
+          "late_heart"
+        ],
+        "evidence_ids": [
+          "SOL-LH-FROZEN",
+          "STUDY-DESIGN-LH-10"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Paradisamide",
+        "active_ppm_w_w": 6666.6666,
+        "function": "single low-vapor citrus-fruit continuity bridge",
+        "time_windows": [
+          "top",
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "STUDY-DESIGN-LH-10"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      }
+    ]
+  },
+  "current_inventory_build": {
+    "basis": "raw_stock_ppm_w_w_of_concentrate",
+    "total_raw_stock_ppm_w_w": 1000000.0,
+    "total_odorant_active_ppm_w_w": 961244.444444,
+    "finished_product_concentrate_fraction_w_w": 0.15,
+    "inventory_sha256": "DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC",
+    "inventory_overlay_sha256": "1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072",
+    "materials": [
+      {
+        "inventory_name": "Iso E Super",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 144444.444444,
+        "odorant_active_ppm_w_w": 144444.444444,
+        "finished_product_active_ppm_w_w": 21666.666667,
+        "mapping_status": "EXPANDED_MOLECULAR_AIRFLOW",
+        "target_functions": [
+          "abstract cedar airflow"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Abstract rather than literal wood; only one added airflow material.",
+        "dose_authority": "CONTROLLED_SOCKET_MAPPING"
+      },
+      {
+        "inventory_name": "Cedarwood oil Virginia",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 111111.111111,
+        "odorant_active_ppm_w_w": 111111.111111,
+        "finished_product_active_ppm_w_w": 16666.666667,
+        "mapping_status": "DIRECT_CORE",
+        "target_functions": [
+          "literal cedar"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Lot unmeasured.",
+        "dose_authority": "CONTROLLED_CHILD_CORE"
+      },
+      {
+        "inventory_name": "Ethylene Brassylate",
+        "stock_status": "OWNED_OVERLAY_ROSTER_MISSING",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 77777.777778,
+        "odorant_active_ppm_w_w": 77777.777778,
+        "finished_product_active_ppm_w_w": 11666.666667,
+        "mapping_status": "OVERLAY_DIRECT_WITH_INVENTORY_DRIFT_CAVEAT",
+        "target_functions": [
+          "single structural musk"
+        ],
+        "is_musk": true,
+        "musk_function": "transparent structural continuity",
+        "loss_statement": "Verify label or receipt before physical dosing; native roster stale.",
+        "dose_authority": "DIRECT_USER_OWNERSHIP_VERIFY_FIRST"
+      },
+      {
+        "inventory_name": "Hedione",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 107000.0,
+        "odorant_active_ppm_w_w": 107000.0,
+        "finished_product_active_ppm_w_w": 16050.0,
+        "mapping_status": "HC_FUNCTIONAL_SUBSTITUTION_BELOW_CROWDING",
+        "target_functions": [
+          "radiant heart air",
+          "controlled high-cis functional mapping",
+          "single low-vapor transition bridge",
+          "partial current-inventory coverage for removed Paradisamide (10%)"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Regular Hedione does not reproduce Hedione HC texture. Exact 10% strength is recorded but carrier and w/w versus v/v basis are not; active ppm is conditional and requires stock-basis verification before physical dosing. Keep tropical fruit subordinate. Hedione is not identity-equivalent to Paradisamide (10%); test by blinded constant-total omission/addition.",
+        "dose_authority": "CONTROLLED_SOCKET_MAPPING"
+      },
+      {
+        "inventory_name": "Vertofix",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 66666.666667,
+        "odorant_active_ppm_w_w": 66666.666667,
+        "finished_product_active_ppm_w_w": 10000.0,
+        "mapping_status": "GRADE_UNVERIFIED_CORE",
+        "target_functions": [
+          "wood bridge"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Coeur grade unverified.",
+        "dose_authority": "CONTROLLED_CHILD_CORE"
+      },
+      {
+        "inventory_name": "Linalool",
+        "stock_status": "IN_STOCK_CURRENT_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 36000.0,
+        "odorant_active_ppm_w_w": 36000.0,
+        "finished_product_active_ppm_w_w": 5400.0,
+        "mapping_status": "CURRENT_INVENTORY_REBASE_WITH_EXPLICIT_FUNCTION_LOSS",
+        "target_functions": [
+          "fresh tenacity",
+          "partial current-inventory coverage for removed Ethyl Linalool",
+          "basil contour",
+          "partial current-inventory coverage for removed Basil EO (India, Ocimum Basilicum)"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Unchanged. Linalool is not identity-equivalent to Ethyl Linalool; test by blinded constant-total omission/addition. Composite coverage absent in current runtime; HOLD rather than monomolecular OAV. Linalool is not identity-equivalent to Basil EO (India, Ocimum Basilicum); test by blinded constant-total omission/addition.",
+        "dose_authority": "CURRENT_BUILD_DESIGN_HYPOTHESIS_NOT_SENSORY_EVIDENCE"
+      },
+      {
+        "inventory_name": "Linalyl Acetate",
+        "stock_status": "IN_STOCK_CURRENT_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 43555.555556,
+        "odorant_active_ppm_w_w": 43555.555556,
+        "finished_product_active_ppm_w_w": 6533.333333,
+        "mapping_status": "CURRENT_INVENTORY_REBASE_WITH_EXPLICIT_FUNCTION_LOSS",
+        "target_functions": [
+          "fresh tenacity",
+          "partial current-inventory coverage for removed Ethyl Linalool",
+          "green tailoring",
+          "partial current-inventory coverage for removed Parmavert",
+          "ester seam"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Unchanged. Linalyl Acetate is not identity-equivalent to Ethyl Linalool; test by blinded constant-total omission/addition. Not literal violet leaf. Linalyl Acetate is not identity-equivalent to Parmavert; test by blinded constant-total omission/addition. Reduced to fund the socket.",
+        "dose_authority": "CURRENT_BUILD_DESIGN_HYPOTHESIS_NOT_SENSORY_EVIDENCE"
+      },
+      {
+        "inventory_name": "Dihydromyrcenol",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 23111.111111,
+        "odorant_active_ppm_w_w": 23111.111111,
+        "finished_product_active_ppm_w_w": 3466.666667,
+        "mapping_status": "REDUCED_DONOR_CORE",
+        "target_functions": [
+          "controlled kinetic freshness"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Held below aquatic-clean dominance.",
+        "dose_authority": "CONTROLLED_SOCKET_DONOR"
+      },
+      {
+        "inventory_name": "Sandalore",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 53333.333333,
+        "odorant_active_ppm_w_w": 53333.333333,
+        "finished_product_active_ppm_w_w": 8000.0,
+        "mapping_status": "FRESH_LIGHT_SANDALWOOD_CORE",
+        "target_functions": [
+          "fresh-light sandalwood counterweight"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Chosen over Ebanol/Bacdanol/Javanol because this axis needs the lightest, least creamy sandalwood register.",
+        "dose_authority": "CONTROLLED_CHILD_CORE"
+      },
+      {
+        "inventory_name": "Indian Vetiver EO",
+        "stock_status": "IN_STOCK_CURRENT_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 46666.666667,
+        "odorant_active_ppm_w_w": 46666.666667,
+        "finished_product_active_ppm_w_w": 7000.0,
+        "mapping_status": "CURRENT_INVENTORY_REBASE_WITH_EXPLICIT_FUNCTION_LOSS",
+        "target_functions": [
+          "dry heat anchor",
+          "partial current-inventory coverage for removed Indian Vetiver EO (volume grade)"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Not Haitian; natural mixture requires composite OAV. Indian Vetiver EO is not identity-equivalent to Indian Vetiver EO (volume grade); test by blinded constant-total omission/addition.",
+        "dose_authority": "CURRENT_BUILD_DESIGN_HYPOTHESIS_NOT_SENSORY_EVIDENCE"
+      },
+      {
+        "inventory_name": "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 66666.666667,
+        "odorant_active_ppm_w_w": 66666.666667,
+        "finished_product_active_ppm_w_w": 10000.0,
+        "mapping_status": "NAME_NORMALIZATION",
+        "target_functions": [
+          "violet body",
+          "green tailoring",
+          "partial current-inventory coverage for removed Parmavert"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Grade unverified. Not literal violet leaf. Alpha Isomethyl Ionone (Methyl Ionone Pure) is not identity-equivalent to Parmavert; test by blinded constant-total omission/addition.",
+        "dose_authority": "CONTROLLED_CHILD_CORE"
+      },
+      {
+        "inventory_name": "Bergamot FCF oil Sicilian",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 87777.777778,
+        "odorant_active_ppm_w_w": 87777.777778,
+        "finished_product_active_ppm_w_w": 13166.666667,
+        "mapping_status": "EXPANDED_PROCESSED_ORIGIN_MAPPING",
+        "target_functions": [
+          "luminous kinetic opening",
+          "dry zest",
+          "partial current-inventory coverage for removed Pamzest"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Chosen over sweeter orange/mandarin because classical bergamot is part of documented L'Homme identity; FCF lot is not exact oil and requires composite OAV. Support only. Bergamot FCF oil Sicilian is not identity-equivalent to Pamzest; test by blinded constant-total omission/addition.",
+        "dose_authority": "CONTROLLED_SOCKET_MAPPING"
+      },
+      {
+        "inventory_name": "Lemon FCF oil Sicilian",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 24444.444444,
+        "odorant_active_ppm_w_w": 24444.444444,
+        "finished_product_active_ppm_w_w": 3666.666667,
+        "mapping_status": "CEDRAT_SUBSTITUTION_CORE",
+        "target_functions": [
+          "citron peel field",
+          "dry zest",
+          "partial current-inventory coverage for removed Pamzest"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Brighter and juicier than true cedrat; composite OAV required. Support only. Lemon FCF oil Sicilian is not identity-equivalent to Pamzest; test by blinded constant-total omission/addition.",
+        "dose_authority": "CONTROLLED_CHILD_CORE"
+      },
+      {
+        "inventory_name": "Lemonile",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 10000.0,
+        "odorant_active_ppm_w_w": 10000.0,
+        "finished_product_active_ppm_w_w": 1500.0,
+        "mapping_status": "CEDRAT_DRY_CITRUS_EXTENSION",
+        "target_functions": [
+          "tenacious dry lemon-citron extension"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Chosen over Neroli support because orange blossom is not central; Lemonile is not cedrat bitterness.",
+        "dose_authority": "AUTHORIZED_CONTROLLED_SOCKET_ADDITION"
+      },
+      {
+        "inventory_name": "Ginger EO",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 32222.222222,
+        "odorant_active_ppm_w_w": 32222.222222,
+        "finished_product_active_ppm_w_w": 4833.333333,
+        "mapping_status": "EXPANDED_DIRECT_NATURAL_CLASS",
+        "target_functions": [
+          "warm-cool kinetic signature"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Lot and measured headspace unknown; composite OAV required.",
+        "dose_authority": "CONTROLLED_SOCKET_MAPPING"
+      },
+      {
+        "inventory_name": "Black Pepper EO",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 2222.222222,
+        "odorant_active_ppm_w_w": 2222.222222,
+        "finished_product_active_ppm_w_w": 333.333333,
+        "mapping_status": "WHITE_PEPPER_SUBSTITUTION",
+        "target_functions": [
+          "dry articulation"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Rougher than white pepper; composite OAV required.",
+        "dose_authority": "TRACE_CORE"
+      },
+      {
+        "inventory_name": "Tonkarome (20% w/w in TEC)",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 0.2,
+        "concentration_basis": "w/w",
+        "carrier": "TEC",
+        "raw_stock_ppm_w_w": 48444.444444,
+        "odorant_active_ppm_w_w": 9688.888889,
+        "finished_product_active_ppm_w_w": 1453.333333,
+        "mapping_status": "TONKA_COUMARIN_CORE",
+        "target_functions": [
+          "dry tonka warmth",
+          "hay articulation"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Known basis; held away from dessert emphasis.",
+        "dose_authority": "KNOWN_20_PERCENT_W_W_CORE"
+      },
+      {
+        "inventory_name": "Florol",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 14111.111111,
+        "odorant_active_ppm_w_w": 14111.111111,
+        "finished_product_active_ppm_w_w": 2116.666667,
+        "mapping_status": "REDUCED_DONOR",
+        "target_functions": [
+          "floral volume",
+          "single low-vapor transition bridge",
+          "partial current-inventory coverage for removed Paradisamide (10%)"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Reduced to fund the socket. Exact 10% strength is recorded but carrier and w/w versus v/v basis are not; active ppm is conditional and requires stock-basis verification before physical dosing. Keep tropical fruit subordinate. Florol is not identity-equivalent to Paradisamide (10%); test by blinded constant-total omission/addition.",
+        "dose_authority": "CONTROLLED_SOCKET_DONOR"
+      },
+      {
+        "inventory_name": "Amberwood F",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 4444.444444,
+        "odorant_active_ppm_w_w": 4444.444444,
+        "finished_product_active_ppm_w_w": 666.666667,
+        "mapping_status": "REDUCED_DONOR",
+        "target_functions": [
+          "dry persistence"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Reduced; retained as transparent warmth rather than crystalline Ambrox pressure.",
+        "dose_authority": "CONTROLLED_SOCKET_DONOR"
+      }
+    ],
+    "formula_state": "COMPLETE_DESIGN__PHYSICAL_VALIDATION_PENDING"
+  },
+  "volume_adapter": {
+    "authority": "HEURISTIC_VOLUME_ADAPTER_NOT_PPM_W_W",
+    "concentrate_total_ul": 4500.0,
+    "finished_product_nominal_ml": 30.0,
+    "nominal_concentrate_fraction": 0.15,
+    "matrix_omissions": [
+      "stock densities",
+      "finished ethanol-water mass fractions",
+      "volume contraction"
+    ],
+    "formula_definition_status": "CURRENT_BUILD_PIPELINE_SCREENED__PHYSICAL_VALIDATION_PENDING"
+  },
+  "missing_chemical_impact": {
+    "status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+    "architecture_locked": true,
+    "auto_integrated_materials": [],
+    "gaps": [
+      "Paradisamide stock-basis receipt and physical warm-climate continuity evidence",
+      "exact cedrat and white pepper",
+      "Haitian vetiver and sandalwood provenance",
+      "Vertofix Coeur and Hedione HC textures",
+      "physical family-retention evidence"
+    ],
+    "authority": "NO_SENSORY_SUCCESS_NO_AUTOMATIC_PURCHASE_NO_RELEASE_CONCLUSION"
+  },
+  "purchase_preparation": {
+    "state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+    "recommendation": "TARGET / IDEAL retains Paradisamide as a low-vapor citrus-fruit bridge. CURRENT omits the recorded 10% Paradisamide stock because its carrier and w/w versus v/v basis are unverified; Lemonile, Hedione, and Florol provide only non-equivalent dry-citrus transition support. Unavailable Ethyl Linalool, uncovered Basil, and unresolved Pamzest/Parmavert are also omitted. Verify EB and the Paradisamide label or preparation receipt; evaluate Paradisamide only in a constant-total carrier-matched arm. No modeled warm-climate result is sensory evidence.",
+    "lost_tinctures": "NO_USE_ALL_TINCTURES_LOST",
+    "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+    "musk_rule": "Ethylene Brassylate is the sole musk; verify label or receipt before compounding."
+  },
+  "diagnostics": {
+    "parser_preflight": {
+      "status": "PASS_PARSE_AND_STOCK__PREFLIGHT_WARNINGS_RETAINED",
+      "formula_uid": "ysl20:LH-10:v2",
+      "rendered_file": "formulas/ysl_twenty_variant_study/rendered/LH-10_Bangkok_Air_30mL_EDT.md",
+      "material_count": 19,
+      "raw_concentrate_ul": 4500.0,
+      "formula_definition_sha256": "bd01d533ae35d056049ce35a72bd5fa700048b028d8f0162e03dbd010aca9ade",
+      "rendered_file_sha256": "8f1466ae14c70a5a92003980db7a777919a146d0315f535a81be107097493761"
+    },
+    "ppm_arithmetic": "PASS_NOMINAL_DESIGN_PPM__PHYSICAL_MASS_RECEIPT_PENDING",
+    "odt_oav": "MODELED_305K_DIAGNOSTIC__ODT_AUTHORITY_WARNINGS_RETAINED__NOT_MEASURED",
+    "composite_natural_oav": "LITERATURE_PROXY_COMPOSITE_MODELS_APPLIED__NOT_USER_LOT_MEASUREMENTS",
+    "temporal_headspace": "FIVE_WINDOW_FINITE_FILM_MODEL__NOT_MEASURED",
+    "stock_rebase_oav_per_time": "CURRENT_STOCK_BASIS_MODELED__PHYSICAL_REBASE_NOT_TESTED",
+    "pipette_floor": "PASS_ALL_RAW_STOCK_DOSES_AT_OR_ABOVE_10_UL",
+    "pipeline_release_gate": "WARN__111_PASS__18_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+    "pipeline_json_sha256": "888bba0fb246fdab27d6d329400670c7674df78e241516a96262f5b700bdfb74",
+    "formatter_output_sha256": "47592b8832834c01ef33c33ea5670b9066c55395ff3f4bd10d3788055a3840a6",
+    "screening_summary_sha256": "a4779473e6c7ae0794e350d0873fe4a007583163ff221838a6261397aeeba34b",
+    "sensory_authority": false
+  },
+  "blind_test": {
+    "status": "PROTOCOL_ONLY_NOT_EXECUTED",
+    "role": "L'Homme Bangkok Air child",
+    "comparison": "Balanced-order equal-mass and equal-concentration comparison against LH-01, with warm-climate continuity versus aquatic or tropical drift as the axis.",
+    "time_cells": [
+      "0_min",
+      "5_min",
+      "30_min",
+      "2_hr",
+      "4_hr"
+    ],
+    "liking_result": "NOT TESTED"
+  },
+  "claim_ceiling": {
+    "exact_commercial_formula": "NOT CLAIMED",
+    "physical_liking": "NOT TESTED",
+    "sensory_similarity": "NOT TESTED",
+    "stability": "NOT TESTED",
+    "safety": "NOT CLEARED",
+    "measured_headspace": "NOT TESTED",
+    "modeled_temperature_performance": "COMPUTATIONAL_SCREEN_ONLY",
+    "release": "NOT CLEARED"
+  }
+}

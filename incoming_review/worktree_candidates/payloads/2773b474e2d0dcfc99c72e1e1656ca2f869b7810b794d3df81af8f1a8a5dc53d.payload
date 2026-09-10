@@ -1,0 +1,63 @@
+﻿Code,Y07
+Target,L’Homme Libre
+Version,HISTORICAL FLANKER
+Concentration,0.15
+30 mL concentrate µL,4500.0
+30 mL carrier µL,25500.0
+5 mL concentrate µL,750.0
+5 mL carrier µL,4250.0
+Maturation,21 days
+Engine V2 score,96.09395228195484
+Monte Carlo pass probability,0.9961111111111111
+Outcome,SOL_5_6_PRO_ENGINE_V2_PASS
+Formula hash,e8bfb4b263fa2c485dc0e742a90f084826d4385199c4e4690cfea1b3b565be55
+
+Order,Stage,Material,Stock,Active fraction,Parts / 1000,30 mL µL,5 mL µL,Execution,Signature phase,Role,Module ancestry
+1,1 · Resins and sweet fixatives,Anisaldehyde 10%,10% working stock,0.1,49.895741364381806,224.5308361397181,37.42180602328635,PREPARED STOCK,top,Anisic licorice powder.,Libre Aromatic Leather | Target-Specific Reinforcement
+2,1 · Resins and sweet fixatives,Coumarin 20%,20% in DPG,0.2,17.066429220694896,76.79893149312704,12.799821915521173,PREPARED STOCK,,Hay-almond tonka warmth.,Lhomme Woody Tonka
+3,1 · Resins and sweet fixatives,Labdanum 10%,10% working stock,0.1,12.634371808505035,56.85467313827266,9.475778856378776,PREPARED STOCK,,Cistus amber and leather.,Libre Aromatic Leather
+4,1 · Resins and sweet fixatives,Tonka Bean Absolute 10%,10% working stock,0.1,10.239857532416938,46.079358895876226,7.679893149312703,PREPARED STOCK,,Natural tonka warmth.,Lhomme Woody Tonka
+5,"2 · Woods, leather and amber",Iso E Super,neat / as supplied,1.0,80.7637176939865,363.4367296229392,60.572788270489866,DIRECT,,Transparent woody scaffold.,Lhomme Ginger Violet | Lhomme Woody Tonka | Libre Aromatic Leather | White Musk Frame
+6,"2 · Woods, leather and amber",Patchouli EO,neat / as supplied,1.0,54.949490087783815,247.27270539502715,41.21211756583786,DIRECT,base,Earthy patchouli.,Libre Aromatic Leather | Target-Specific Reinforcement
+7,"2 · Woods, leather and amber",Suederal 10%,10% working stock,0.1,54.949490087783815,247.27270539502715,41.21211756583786,PREPARED STOCK,base,Soft suede leather.,Libre Aromatic Leather | Target-Specific Reinforcement
+8,"2 · Woods, leather and amber",Vetiver EO,neat / as supplied,1.0,40.69470995844194,183.12619481298873,30.521032468831454,DIRECT,,Rooty natural vetiver.,Lhomme Woody Tonka | Libre Aromatic Leather
+9,"2 · Woods, leather and amber",Cedarwood Virginia,neat / as supplied,1.0,39.17858534142134,176.303634036396,29.383939006066004,DIRECT,,Dry cedar frame.,Lhomme Ginger Violet | Lhomme Woody Tonka
+10,"2 · Woods, leather and amber",Vertofix,neat / as supplied,1.0,17.066429220694896,76.79893149312704,12.799821915521173,DIRECT,,Vetiver-cedar volume.,Lhomme Woody Tonka
+11,"2 · Woods, leather and amber",Ambrofix 30%,30% working stock,0.3,13.801547108909787,62.10696199009404,10.35116033168234,PREPARED STOCK,,Mineral ambergris persistence.,Lhomme Woody Tonka | White Musk Frame
+12,"2 · Woods, leather and amber",Clearwood,neat / as supplied,1.0,10.239857532416938,46.079358895876226,7.679893149312703,DIRECT,,Clean patchouli wood.,Lhomme Woody Tonka
+13,3 · Musks and diffusion,Habanolide,neat / verify label,1.0,31.609994991374027,142.2449774611831,23.70749624353052,DIRECT · VERIFY LABEL,,Radiant metallic-clean musk.,Lhomme Woody Tonka | White Musk Frame
+14,3 · Musks and diffusion,Romandolide,neat / verify label,1.0,24.6350195707422,110.85758806833991,18.47626467805665,DIRECT · VERIFY LABEL,,Fruity-clean musk body.,Lhomme Woody Tonka | White Musk Frame
+15,3 · Musks and diffusion,Galaxolide 50%,50% in DEP,0.5,12.46591351772497,56.09661082976236,9.349435138293726,PREPARED STOCK,,Soft musk volume.,White Musk Frame
+16,3 · Musks and diffusion,Zenolide,neat / as supplied,1.0,8.904223941232122,40.069007735544545,6.678167955924091,DIRECT,,Smooth musk.,White Musk Frame
+17,3 · Musks and diffusion,Ambrettolide 10%,10% in DPG,0.1,7.123379152985697,32.05520618843563,5.342534364739273,PREPARED STOCK,,Warm ambrette musk.,White Musk Frame
+18,3 · Musks and diffusion,Exaltolide 10%,10% working stock,0.1,7.123379152985697,32.05520618843563,5.342534364739273,PREPARED STOCK,,Soft macrocyclic musk.,White Musk Frame
+19,3 · Musks and diffusion,Macrolide,as supplied,1.0,4.452111970616061,20.034503867772273,3.3390839779620456,DIRECT,,Soft macrocyclic musk.,White Musk Frame
+20,"4 · Iris, floral and green heart",Violet Leaf Absolute 10%,10% working stock,0.1,66.8217886760933,300.6980490424198,50.116341507069976,PREPARED STOCK,heart,Cool metallic violet leaf.,Lhomme Ginger Violet | Libre Aromatic Leather | Target-Specific Reinforcement
+21,"4 · Iris, floral and green heart",Alpha Isomethyl Ionone,neat / as supplied,1.0,35.05536812899493,157.74915658047718,26.291526096746196,DIRECT,,Powdery violet-orris body.,Lhomme Ginger Violet | Libre Aromatic Leather
+22,"4 · Iris, floral and green heart",cis-3-Hexenol 1%,1% working stock,0.01,25.26874361701007,113.70934627654532,18.951557712757552,PREPARED STOCK,,Cut-leaf freshness.,Libre Aromatic Leather
+23,"4 · Iris, floral and green heart",Undecavertol 1%,1% working stock,0.01,20.214994893608058,90.96747702123626,15.161246170206045,PREPARED STOCK,,Wet green-leaf detail.,Libre Aromatic Leather
+24,"4 · Iris, floral and green heart",Helional 10%,10% working stock,0.1,17.688120531907053,79.59654239358174,13.266090398930292,PREPARED STOCK,,Watery-green floral air.,Libre Aromatic Leather
+25,"4 · Iris, floral and green heart",Hedione,neat / as supplied,1.0,14.840373235386869,66.78167955924091,11.130279926540151,DIRECT,,Airy jasmine diffusion.,Lhomme Ginger Violet
+26,"4 · Iris, floral and green heart",Methyl Nonyl Ketone,neat / as supplied,1.0,12.634371808505035,56.85467313827266,9.475778856378776,DIRECT,,Metallic green nuance.,Libre Aromatic Leather
+27,"4 · Iris, floral and green heart",Dihydro Beta Ionone,neat / as supplied,1.0,10.388261264770808,46.74717569146864,7.791195948578107,DIRECT,,Dry woody violet.,Lhomme Ginger Violet
+28,"4 · Iris, floral and green heart",Jasmine Absolute 10%,10% working stock,0.1,0.667816795592409,3.0051755801658406,0.5008625966943068,TRACE PREMIX,,Warm natural jasmine.,Precision Trace Architecture
+29,"4 · Iris, floral and green heart",Rose Oxide 1%,1% working stock,0.01,0.667816795592409,3.0051755801658406,0.5008625966943068,TRACE PREMIX,,Metallic rose and pepper lift.,Precision Trace Architecture
+30,"4 · Iris, floral and green heart",Magnolia EO,neat / as supplied,1.0,0.5750644628712412,2.5877900829205855,0.43129834715343096,TRACE PREMIX,,Creamy citrus-white-floral detail.,Precision Trace Architecture
+31,"4 · Iris, floral and green heart",Alpha Irone 30%,30% w/w in IPM,0.3,0.4823121301500733,2.1704045856753296,0.36173409761255493,TRACE PREMIX,,Naturalistic irone signature.,Precision Trace Architecture
+32,"4 · Iris, floral and green heart",Indole 10%,10% working stock,0.1,0.4823121301500733,2.1704045856753296,0.36173409761255493,TRACE PREMIX,,Indolic floral shadow.,Precision Trace Architecture
+33,"4 · Iris, floral and green heart",Carrot Seed EO 10%,10% working stock,0.1,0.38955979742890534,1.753019088430074,0.292169848071679,TRACE PREMIX,,Rooty carrot-rhizome nuance.,Precision Trace Architecture
+34,"4 · Iris, floral and green heart",Farnesol,neat / as supplied,1.0,0.38955979742890534,1.753019088430074,0.292169848071679,TRACE PREMIX,,Warm floral persistence.,Precision Trace Architecture
+35,"4 · Iris, floral and green heart",Damascenone 1%,1% working stock,0.01,0.29680746470773733,1.335633591184818,0.22260559853080303,TRACE PREMIX,,High-impact fruit-rose radiance.,Precision Trace Architecture
+36,"4 · Iris, floral and green heart",Jasmine Sambac Absolute 10%,10% working stock,0.1,0.29680746470773733,1.335633591184818,0.22260559853080303,TRACE PREMIX,,Green-fruity jasmine.,Precision Trace Architecture
+37,5 · Aromatics and spices,Clary Sage EO,neat / as supplied,1.0,51.41988780477288,231.38949512147795,38.564915853579656,DIRECT,heart,Dry aromatic sage.,Lhomme Ginger Violet | Libre Aromatic Leather
+38,5 · Aromatics and spices,Linalool,neat / as supplied,1.0,50.53748723402014,227.41869255309064,37.903115425515104,DIRECT,,Fresh floral-aromatic lift.,Libre Aromatic Leather
+39,5 · Aromatics and spices,Coriander EO,neat / as supplied,1.0,47.68973993749996,214.60382971874984,35.76730495312497,DIRECT,,Citrus-spicy seed.,Lhomme Ginger Violet | Libre Aromatic Leather
+40,5 · Aromatics and spices,Pine EO,neat / as supplied,1.0,20.214994893608058,90.96747702123626,15.161246170206045,DIRECT,,Coniferous lift.,Libre Aromatic Leather
+41,5 · Aromatics and spices,Black Pepper EO,neat / as supplied,1.0,20.05455842619847,90.24551291789311,15.040918819648851,DIRECT,,Dry pepper sparkle.,Lhomme Ginger Violet | Libre Aromatic Leather
+42,5 · Aromatics and spices,Cardamom EO,neat / as supplied,1.0,8.904223941232122,40.069007735544545,6.678167955924091,DIRECT,,Cool green cardamom.,Lhomme Ginger Violet
+43,6 · Citrus and volatile top,Petitgrain EO Paraguay,neat / as supplied,1.0,47.850176404909554,215.32579382209298,35.88763230368216,DIRECT,,Green bitter-orange twig.,Lhomme Ginger Violet | Libre Aromatic Leather
+44,6 · Citrus and volatile top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,42.47555474668837,191.13999636009765,31.856666060016277,DIRECT,top,Floral bitter citrus lift.,Lhomme Ginger Violet | Libre Aromatic Leather
+45,6 · Citrus and volatile top,Citral 10%,10% working stock,0.1,4.452111970616061,20.034503867772273,3.3390839779620456,PREPARED STOCK,,Lemon-citral edge.,Lhomme Ginger Violet
+46,6 · Citrus and volatile top,Aldehyde C12 MNA 1%,1% working stock,0.01,0.5750644628712412,2.5877900829205855,0.43129834715343096,TRACE PREMIX,,Waxy aldehydic diffusion.,Precision Trace Architecture
+47,6 · Citrus and volatile top,Aldehyde C11 1%,1% working stock,0.01,0.4823121301500733,2.1704045856753296,0.36173409761255493,TRACE PREMIX,,Fresh aldehydic extension.,Precision Trace Architecture
+48,6 · Citrus and volatile top,Aldehyde C10 1%,1% working stock,0.01,0.38955979742890534,1.753019088430074,0.292169848071679,TRACE PREMIX,,Citrus aldehydic lift.,Precision Trace Architecture

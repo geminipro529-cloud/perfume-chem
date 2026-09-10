@@ -1,0 +1,1477 @@
+"""Deterministic, evidence-limited Deep Plane runtime diagnostics.
+
+This module operationalizes the reusable parts of the Deep Plane Perfumery
+grammar: named identity, opposed but connected states, anatomy, spatial and
+temporal continuity, relational complexity, inventory truth, physical-model
+traceability, and controlled-experiment requirements.
+
+It is deliberately not a formulator and never grants release authority.  Its
+in-memory assessment can feed a release gate, but a completed check remains
+authority-limited: calculations are computational diagnostics and do not
+establish smell, liking, similarity, safety, stability, performance, physical
+execution, compounding, purchase, formula execution, or release.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import math
+import os
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Mapping, Sequence
+
+
+SCHEMA_VERSION = "deep_plane_runtime_check_v1"
+PLANE_SCHEMA_VERSION = "deep_plane_plane_assessment_v1"
+ERROR_SCHEMA_VERSION = "deep_plane_runtime_error_v1"
+PIPELINE_GATE_SCHEMA_VERSION = "deep_plane_pipeline_gate_v1"
+
+DEEP_PLANE_IDS: tuple[str, ...] = (
+    "identity",
+    "morphology",
+    "function",
+    "relation",
+    "mixture",
+    "temporal",
+    "spatial_composition",
+    "physicochemical",
+    "biological_sensitivity",
+    "hedonic",
+    "inventory_build",
+    "evidence_authority",
+    "experiment",
+)
+
+DEFAULT_WINDOWS: tuple[tuple[str, float], ...] = (
+    ("opening", 0.0),
+    ("top", 300.0),
+    ("heart", 1800.0),
+    ("late_heart", 7200.0),
+    ("drydown", 14400.0),
+    ("late_drydown", 21600.0),
+    ("fabric_echo", 86400.0),
+)
+
+METHOD_SOURCES: tuple[dict[str, str], ...] = (
+    {
+        "source_id": "DHP2025_STRUCTURAL_FORMULATION_LEARNING_PROTOCOL",
+        "sha256": "50d108570dea367a0d377de1dc41bbf17e8911b522d67d8d2a7aa237085edeb1",
+        "role": "structural_grammar_and_experiment_boundary",
+    },
+    {
+        "source_id": "perfume_intelligence_plane_synthesis_design",
+        "sha256": "7c36ca312a281a78afa929844f3f1fcd67af8b2406221bb7f76d7f85f8dee5e4",
+        "role": "thirteen_plane_contract_and_authority_boundary",
+    },
+    {
+        "source_id": "perfume_intelligence_plane_synthesis_implementation_plan",
+        "sha256": "d7702b28b7860d69fe7ed857e623ffb9c8ef4a6e65adc82f76b1cd9a7e0f754e",
+        "role": "deterministic_runtime_and_admission_constraints",
+    },
+)
+
+AUTHORITY_FLAGS: tuple[str, ...] = (
+    "observed_smell",
+    "liking",
+    "target_similarity",
+    "safety",
+    "stability",
+    "physical_performance",
+    "physical_execution",
+    "compounding",
+    "purchase",
+    "formula_execution",
+    "release",
+)
+
+NATURAL_TOKENS: tuple[str, ...] = (
+    " absolute",
+    " eo",
+    "essential oil",
+    " resinoid",
+    " co2",
+    " extract",
+    " balsam",
+    " oleoresin",
+    " tincture",
+)
+
+PSEUDO_MATERIAL_TOKENS: tuple[str, ...] = (
+    "final bottle total",
+    "batch total",
+    "concentrate total",
+    "fragrance concentrate subtotal",
+    "matured concentrate",
+)
+
+STRUCTURAL_PLANE_IDS: tuple[str, ...] = (
+    "identity",
+    "morphology",
+    "function",
+    "relation",
+    "temporal",
+    "spatial_composition",
+    "experiment",
+)
+
+GLOBAL_LIMITATIONS: tuple[str, ...] = (
+    "Modeled output does not establish observed smell or odor identity.",
+    "No liking, pleasantness, preference, or target-similarity claim is authorized.",
+    "No safety, IFRA compliance, toxicology, sensitization, or stability claim is authorized.",
+    "No physical performance, longevity, diffusion, or wear-time claim is authorized.",
+    "No physical execution, compounding, purchase, formula-execution, or release authority is granted.",
+    "OAV and temporal evolution are computational diagnostics, not percent perceived contribution.",
+    "Nominal dose arithmetic is not a stock-lineage, mass-metrology, or carrier-equivalence receipt.",
+)
+
+
+class DeepPlaneRuntimeError(ValueError):
+    """Base class for structured, fail-closed runtime-check errors."""
+
+    code = "DEEP_PLANE_RUNTIME_ERROR"
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": ERROR_SCHEMA_VERSION,
+            "code": self.code,
+            "message": str(self),
+        }
+
+
+class StaleInventoryAuthorityError(DeepPlaneRuntimeError):
+    """Raised before physics when live inventory bytes do not match authority."""
+
+    code = "STALE_INVENTORY_AUTHORITY"
+
+    def __init__(
+        self,
+        *,
+        path: Path,
+        expected_sha256: str,
+        observed_sha256: str,
+    ) -> None:
+        self.path = Path(path)
+        self.expected_sha256 = expected_sha256
+        self.observed_sha256 = observed_sha256
+        super().__init__(
+            "Inventory authority changed: expected "
+            f"{expected_sha256}, observed {observed_sha256} at {self.path}"
+        )
+
+    def as_dict(self) -> dict[str, Any]:
+        payload = super().as_dict()
+        payload.update(
+            {
+                "inventory_path": str(self.path),
+                "expected_sha256": self.expected_sha256,
+                "observed_sha256": self.observed_sha256,
+            }
+        )
+        return payload
+
+
+@dataclass(frozen=True, slots=True)
+class DeepPlaneCheckConfig:
+    """Explicit deterministic calculation context for a Deep Plane check."""
+
+    batch_volume_ml: float = 30.0
+    temperature_k: float = 305.0
+    context: str = "skin"
+    windows: tuple[tuple[str, float], ...] = DEFAULT_WINDOWS
+
+    def __post_init__(self) -> None:
+        if not math.isfinite(self.batch_volume_ml) or self.batch_volume_ml <= 0:
+            raise DeepPlaneRuntimeError("batch_volume_ml must be finite and positive")
+        if not math.isfinite(self.temperature_k) or self.temperature_k <= 0:
+            raise DeepPlaneRuntimeError("temperature_k must be finite and positive")
+        if not self.context.strip():
+            raise DeepPlaneRuntimeError("context must not be blank")
+        labels: set[str] = set()
+        for label, seconds in self.windows:
+            clean = str(label).strip()
+            if not clean or clean in labels:
+                raise DeepPlaneRuntimeError("window labels must be unique and non-blank")
+            if not math.isfinite(float(seconds)) or float(seconds) < 0:
+                raise DeepPlaneRuntimeError("window seconds must be finite and non-negative")
+            labels.add(clean)
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "batch_volume_ml": float(self.batch_volume_ml),
+            "temperature_k": float(self.temperature_k),
+            "context": self.context,
+            "windows": [
+                {"label": str(label), "t_seconds": float(seconds)}
+                for label, seconds in self.windows
+            ],
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class DeepPlaneRun:
+    """Immutable wrapper around a canonical runtime-check payload."""
+
+    payload: Mapping[str, Any]
+
+    def as_dict(self) -> dict[str, Any]:
+        base = _json_clone(dict(self.payload))
+        base["content_sha256"] = _content_sha256(base)
+        return base
+
+    def to_json(self, *, pretty: bool = True) -> str:
+        payload = self.as_dict()
+        if pretty:
+            return json.dumps(
+                payload,
+                ensure_ascii=False,
+                sort_keys=True,
+                indent=2,
+                allow_nan=False,
+            ) + "\n"
+        return _canonical_json(payload).decode("utf-8")
+
+    def to_markdown(self) -> str:
+        data = self.as_dict()
+        lines = [
+            "# Deep Plane Runtime Check",
+            "",
+            f"- Check state: `{data['check_state']}`",
+            f"- Authority status: `{data['status']}`",
+            f"- Authority ceiling: `{data['authority_ceiling']}`",
+            f"- Inventory SHA-256: `{data['inventory_source_sha256']}`",
+            f"- Content SHA-256: `{data['content_sha256']}`",
+            "",
+            "> This is a deterministic computational diagnostic. It is not sensory, safety, physical, compounding, purchase, or release authority.",
+            "",
+        ]
+        for formula in data["formulas"]:
+            lines.extend(
+                [
+                    f"## {formula['name']}",
+                    "",
+                    f"Formula semantic SHA-256: `{formula['formula_semantic_sha256']}`",
+                    "",
+                    "| Plane | Status | Ceiling |",
+                    "|---|---|---|",
+                ]
+            )
+            for plane in formula["planes"]:
+                lines.append(
+                    f"| {plane['plane_id']} | {plane['status']} | {plane['authority_ceiling']} |"
+                )
+            lines.extend(
+                [
+                    "",
+                    "### Physicochemical evidence",
+                    "",
+                    "| Material | Dilution | Raw µL | Active µL | Active-mass ppm | ODT air ppm | OAV | OAV authority |",
+                    "|---|---:|---:|---:|---:|---:|---:|---|",
+                ]
+            )
+            for row in formula["physicochemical_evidence"]["materials"]:
+                odt = "—" if row["odt_air_ppm"] is None else _format_number(row["odt_air_ppm"])
+                oav = "WITHHELD" if row["oav"] is None else _format_number(row["oav"])
+                lines.append(
+                    "| {material} | {dilution} | {raw} | {active} | {ppm} | {odt} | {oav} | {authority} |".format(
+                        material=str(row["material"]).replace("|", "\\|"),
+                        dilution=_format_number(row["dilution"]),
+                        raw=_format_number(row["raw_ul"]),
+                        active=_format_number(row["active_ul"]),
+                        ppm=_format_number(row["concentration_ppm_active_mass_basis"]),
+                        odt=odt,
+                        oav=oav,
+                        authority=row["oav_authority"],
+                    )
+                )
+            guard = formula["pre_mix_guard"]
+            lines.extend(
+                [
+                    "",
+                    "### Parent-aware pre-mix screen",
+                    "",
+                    f"- Status: `{guard['status']}`",
+                    f"- Parent comparison available: `{str(guard['parent_comparison_available']).lower()}`",
+                    f"- Findings: `{len(guard['findings'])}`",
+                    "",
+                ]
+            )
+        lines.extend(["## Authority limitations", ""])
+        lines.extend(f"- {item}" for item in data["limitations"])
+        return "\n".join(lines).rstrip() + "\n"
+
+
+def _format_number(value: object) -> str:
+    if isinstance(value, (int, float)) and not isinstance(value, bool):
+        return f"{float(value):.6g}"
+    return str(value)
+
+
+def _canonical_json(value: object) -> bytes:
+    return json.dumps(
+        value,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+        allow_nan=False,
+    ).encode("utf-8")
+
+
+def _json_clone(value: object) -> Any:
+    return json.loads(_canonical_json(value).decode("utf-8"))
+
+
+def _content_sha256(value: Mapping[str, Any]) -> str:
+    without_self = dict(value)
+    without_self.pop("content_sha256", None)
+    return hashlib.sha256(_canonical_json(without_self)).hexdigest()
+
+
+def _sha256_bytes(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def _sha256_file(path: Path) -> str:
+    return _sha256_bytes(path.read_bytes())
+
+
+def _validate_expected_hash(value: str | None, *, label: str) -> str | None:
+    if value is None:
+        return None
+    normalized = value.strip().lower()
+    if len(normalized) != 64 or any(ch not in "0123456789abcdef" for ch in normalized):
+        raise DeepPlaneRuntimeError(f"{label} must be a 64-character SHA-256 hex digest")
+    return normalized
+
+
+def _check_expected_file_hash(
+    path: Path,
+    *,
+    expected: str | None,
+    label: str,
+) -> str:
+    observed = _sha256_file(path)
+    expected = _validate_expected_hash(expected, label=label)
+    if expected is not None and expected != observed:
+        raise DeepPlaneRuntimeError(
+            f"{label} changed: expected {expected}, observed {observed} at {path}"
+        )
+    return observed
+
+
+def _project_root() -> Path:
+    return Path(__file__).resolve().parents[2]
+
+
+def _source_bindings(root: Path) -> list[dict[str, str]]:
+    paths = (
+        Path(__file__).resolve(),
+        root / "engine" / "fuckups" / "pre_mix_guard.py",
+        root / "engine" / "inventory_parser.py",
+        root / "engine" / "name_utils.py",
+        root / "engine" / "pipeline" / "formula_state.py",
+        root / "engine" / "pipeline" / "simulator.py",
+        root / "engine" / "pipeline" / "natural_absolute_decomposition.py",
+        root / "scripts" / "verify_formula_workflow.py",
+        root / "AGENTS.md",
+    )
+    bindings: list[dict[str, str]] = []
+    for path in paths:
+        if not path.is_file():
+            continue
+        try:
+            label = path.relative_to(root).as_posix()
+        except ValueError:
+            label = str(path)
+        bindings.append({"path": label, "sha256": _sha256_file(path)})
+    return sorted(bindings, key=lambda item: item["path"])
+
+
+def _is_natural_mixture(name: str, canonical_name: str) -> bool:
+    text = f" {name.casefold()} {canonical_name.casefold()} "
+    return any(token in text for token in NATURAL_TOKENS)
+
+
+def _marker_hits(text: str, markers: Sequence[str]) -> list[str]:
+    low = " ".join(text.casefold().split())
+    return [marker for marker in markers if marker in low]
+
+
+def _plane(
+    plane_id: str,
+    *,
+    status: str,
+    evidence: Mapping[str, Any],
+    limitations: Sequence[str],
+    test_requirement: str,
+    authority_ceiling: str,
+) -> dict[str, Any]:
+    if plane_id not in DEEP_PLANE_IDS:
+        raise DeepPlaneRuntimeError(f"Unknown Deep Plane ID: {plane_id}")
+    return {
+        "schema_version": PLANE_SCHEMA_VERSION,
+        "plane_id": plane_id,
+        "status": status,
+        "evidence": _json_clone(dict(evidence)),
+        "limitations": list(limitations),
+        "falsification_or_test_requirement": test_requirement,
+        "authority_ceiling": authority_ceiling,
+    }
+
+
+def _structural_plane(
+    plane_id: str,
+    text: str,
+    markers: Sequence[str],
+    *,
+    minimum_hits: int,
+    test_requirement: str,
+) -> dict[str, Any]:
+    hits = _marker_hits(text, markers)
+    status = "DOCUMENTED" if len(hits) >= minimum_hits else "HOLD"
+    return _plane(
+        plane_id,
+        status=status,
+        evidence={
+            "declared_marker_hits": hits,
+            "required_marker_count": minimum_hits,
+            "observed_marker_count": len(hits),
+            "evidence_class": "declaration_presence",
+        },
+        limitations=(
+            "Text-marker presence proves only that the formula document declares this structure.",
+            "No sensory realization or quality is inferred from declarations.",
+        ),
+        test_requirement=test_requirement,
+        authority_ceiling="structural_only" if status == "DOCUMENTED" else "withheld",
+    )
+
+
+def _formula_semantic_payload(formula: Mapping[str, Any]) -> dict[str, Any]:
+    ingredients = {
+        str(name): float(value)
+        for name, value in sorted(
+            dict(formula["ingredients_ul"]).items(), key=lambda item: item[0].casefold()
+        )
+    }
+    dilutions = {
+        name: float(dict(formula["dilutions"]).get(name, 1.0))
+        for name in ingredients
+    }
+    return {
+        "number": int(formula.get("number", 1)),
+        "name": str(formula.get("name", "")),
+        "ingredients_ul": ingredients,
+        "dilutions": dilutions,
+        "family_archetype": str(formula.get("family_archetype", "")),
+    }
+
+
+def _formula_semantic_sha256(formula: Mapping[str, Any]) -> str:
+    return _sha256_bytes(_canonical_json(_formula_semantic_payload(formula)))
+
+
+def _normalize_formula_record(formula: Mapping[str, Any]) -> dict[str, Any]:
+    """Mirror pipeline defaults while making stock fractions explicit."""
+
+    ingredients_raw = formula.get("ingredients_ul")
+    if not isinstance(ingredients_raw, Mapping) or not ingredients_raw:
+        raise DeepPlaneRuntimeError("formula ingredients_ul must be a non-empty mapping")
+    dilutions_raw = formula.get("dilutions", {})
+    if not isinstance(dilutions_raw, Mapping):
+        raise DeepPlaneRuntimeError("formula dilutions must be a mapping when supplied")
+
+    normalized = dict(formula)
+    ingredients = {
+        str(name): float(amount) for name, amount in ingredients_raw.items()
+    }
+    normalized["ingredients_ul"] = ingredients
+    normalized["dilutions"] = {
+        name: float(dilutions_raw.get(name, 1.0)) for name in ingredients
+    }
+    return normalized
+
+
+def _reject_pseudo_materials(formula: Mapping[str, Any]) -> None:
+    bad: list[str] = []
+    for name in dict(formula["ingredients_ul"]):
+        low = " ".join(str(name).casefold().split())
+        if any(token in low for token in PSEUDO_MATERIAL_TOKENS):
+            bad.append(str(name))
+    if bad:
+        raise DeepPlaneRuntimeError(
+            "Formula parser produced non-material total rows; correct the source table before checking: "
+            + ", ".join(sorted(bad, key=str.casefold))
+        )
+
+
+def _inventory_evidence(
+    formula: Mapping[str, Any],
+    *,
+    inventory_path: Path,
+) -> dict[str, Any]:
+    from engine.inventory_parser import inventory_counts, parse_inventory
+    from engine.name_utils import normalize_name
+
+    all_rows = parse_inventory(
+        inventory_path,
+        unique=False,
+        include_solvents=True,
+        include_unavailable=True,
+    )
+    available_rows = [row for row in all_rows if row.status == "owned"]
+    all_by_name: dict[str, list[Any]] = {}
+    available_by_name: dict[str, list[Any]] = {}
+    for row in all_rows:
+        all_by_name.setdefault(normalize_name(row.name), []).append(row)
+    for row in available_rows:
+        available_by_name.setdefault(normalize_name(row.name), []).append(row)
+
+    missing: list[str] = []
+    unavailable: list[dict[str, Any]] = []
+    dilution_mismatches: list[dict[str, Any]] = []
+    matched: list[dict[str, Any]] = []
+    ingredients = dict(formula["ingredients_ul"])
+    dilutions = dict(formula["dilutions"])
+    for material in sorted(ingredients, key=str.casefold):
+        key = normalize_name(material)
+        supplied = float(dilutions.get(material, 1.0))
+        any_variants = all_by_name.get(key, [])
+        owned_variants = available_by_name.get(key, [])
+        if not any_variants:
+            missing.append(material)
+            continue
+        if not owned_variants:
+            unavailable.append(
+                {
+                    "material": material,
+                    "statuses": sorted({row.status for row in any_variants}),
+                }
+            )
+            continue
+        declared = sorted({float(row.dilution) for row in owned_variants})
+        if not any(math.isclose(supplied, value, rel_tol=1e-9, abs_tol=1e-12) for value in declared):
+            dilution_mismatches.append(
+                {
+                    "material": material,
+                    "formula_dilution": supplied,
+                    "owned_dilutions": declared,
+                }
+            )
+            continue
+        matched.append(
+            {
+                "material": material,
+                "formula_dilution": supplied,
+                "inventory_dilutions": declared,
+            }
+        )
+
+    return {
+        "counts": inventory_counts(inventory_path),
+        "matched": matched,
+        "missing": missing,
+        "unavailable": unavailable,
+        "dilution_mismatches": dilution_mismatches,
+        "all_formula_materials_executable_from_declared_inventory": not (
+            missing or unavailable or dilution_mismatches
+        ),
+    }
+
+
+def _sanitize_temporal_frames(
+    frames: Sequence[Any],
+    *,
+    unresolved_naturals: set[str],
+) -> list[dict[str, Any]]:
+    from engine.name_utils import normalize_name
+
+    output: list[dict[str, Any]] = []
+    for frame in frames:
+        item = frame.as_dict()
+        materials = item["state"]["materials"]
+        for row in materials:
+            if normalize_name(str(row.get("name", ""))) in unresolved_naturals:
+                row["oav"] = None
+                row["intensity"] = None
+        item["dominant_oav"] = [
+            {
+                "material": row["name"],
+                "oav": row["oav"],
+                "ppm": row["vapor_ppm"],
+                "intensity": row["intensity"],
+                "family": row["family"],
+            }
+            for row in sorted(
+                (row for row in materials if row.get("oav") is not None),
+                key=lambda row: float(row["oav"]),
+                reverse=True,
+            )[:8]
+        ]
+        output.append(item)
+    return output
+
+
+def _physical_evidence(
+    state: Any,
+    frames: Sequence[Any],
+) -> tuple[dict[str, Any], set[str]]:
+    from engine.name_utils import normalize_name
+    from engine.pipeline.natural_absolute_decomposition import get_constituents
+
+    total_active_g = sum(float(material.active_g) for material in state.materials) or 1.0
+    withheld_oav: set[str] = set()
+    rows: list[dict[str, Any]] = []
+    for material in state.materials:
+        constituents = get_constituents(material.canonical_name)
+        natural = constituents is not None or _is_natural_mixture(
+            material.name, material.canonical_name
+        )
+        unresolved_natural = natural and constituents is None
+        if unresolved_natural:
+            withheld_oav.add(normalize_name(material.name))
+
+        missing_physics = bool(material.missing_fields) or not material.is_known
+        if unresolved_natural:
+            authority = "withheld_missing_composite_natural_model"
+            oav_value = None
+        elif natural:
+            authority = "composite_natural"
+            oav_value = material.oav
+        elif material.is_opaque_preblend:
+            authority = "withheld_opaque_preblend_constituents"
+            oav_value = None
+            withheld_oav.add(normalize_name(material.name))
+        elif missing_physics or material.odt_air_ppm is None:
+            authority = "withheld_missing_physics"
+            oav_value = None
+        else:
+            authority = "monomolecular_model"
+            oav_value = material.oav
+
+        rows.append(
+            {
+                "material": material.name,
+                "canonical_name": material.canonical_name,
+                "dilution": float(material.dilution),
+                "raw_ul": float(material.raw_ul),
+                "active_ul": float(material.active_ul),
+                "active_g": float(material.active_g),
+                "concentration_ppm_active_mass_basis": (
+                    float(material.active_g) / total_active_g * 1_000_000.0
+                ),
+                "concentration_ppm_finished_batch_nominal_volume_basis": (
+                    float(material.active_ul)
+                    / (float(state.batch_volume_ml) * 1000.0)
+                    * 1_000_000.0
+                ),
+                "mw_g_mol": material.mw_g_mol,
+                "mole_fraction": float(material.mole_fraction),
+                "vp_pure_pa": material.vp_pure_pa,
+                "activity_coefficient_gamma": float(material.gamma),
+                "gamma_source": material.gamma_source,
+                "vapor_ppm": float(material.vapor_ppm),
+                "odt_air_ppm": material.odt_air_ppm,
+                "oav": oav_value,
+                "oav_authority": authority,
+                "note": material.note,
+                "is_known": bool(material.is_known),
+                "is_opaque_preblend": bool(material.is_opaque_preblend),
+                "is_natural_mixture": natural,
+                "composite_constituent_count": len(constituents or ()),
+                "missing_fields": list(material.missing_fields),
+                "sources": dict(material.sources),
+            }
+        )
+
+    sanitized_frames = _sanitize_temporal_frames(
+        frames,
+        unresolved_naturals=withheld_oav,
+    )
+    return (
+        {
+            "ppm_basis": (
+                "active mass divided by total modeled active mass; finished-batch ppm is a nominal "
+                "active-volume proxy and is not a density-complete w/w stock-lineage receipt"
+            ),
+            "odt_basis": "air threshold converted and resolved by engine.pipeline.formula_state",
+            "oav_equation": "modified Raoult headspace vapor ppm divided by ODT air ppm",
+            "natural_mixture_policy": (
+                "Mapped naturals use composite GC-O constituent OAV; OAV is withheld for unresolved naturals."
+            ),
+            "materials": rows,
+            "unresolved_natural_composites": sorted(
+                [row["material"] for row in rows if row["oav_authority"] == "withheld_missing_composite_natural_model"],
+                key=str.casefold,
+            ),
+            "opaque_preblends_withheld": sorted(
+                [row["material"] for row in rows if row["oav_authority"] == "withheld_opaque_preblend_constituents"],
+                key=str.casefold,
+            ),
+            "missing_physics_materials": sorted(
+                [row["material"] for row in rows if row["oav_authority"] == "withheld_missing_physics"],
+                key=str.casefold,
+            ),
+            "note_distribution_active_volume_pct": state.note_distribution(),
+            "total_vapor_ppm": float(state.total_vapor_ppm),
+            "time_series": sanitized_frames,
+        },
+        withheld_oav,
+    )
+
+
+def _guard_report(
+    child: Mapping[str, Any],
+    child_series: Sequence[Mapping[str, Any]],
+    *,
+    parent: Mapping[str, Any] | None,
+    parent_series: Sequence[Mapping[str, Any]] | None,
+) -> dict[str, Any]:
+    from engine.fuckups.pre_mix_guard import PreMixGuardError, evaluate_pre_mix_guard
+
+    kwargs: dict[str, Any] = {
+        "child_ingredients_ul": dict(child["ingredients_ul"]),
+        "child_dilutions": {
+            name: float(dict(child["dilutions"]).get(name, 1.0))
+            for name in dict(child["ingredients_ul"])
+        },
+        "child_time_series": child_series,
+    }
+    if parent is not None:
+        kwargs.update(
+            {
+                "parent_ingredients_ul": dict(parent["ingredients_ul"]),
+                "parent_dilutions": {
+                    name: float(dict(parent["dilutions"]).get(name, 1.0))
+                    for name in dict(parent["ingredients_ul"])
+                },
+                "parent_time_series": parent_series,
+            }
+        )
+    try:
+        return evaluate_pre_mix_guard(**kwargs).as_dict()
+    except PreMixGuardError as exc:
+        raise DeepPlaneRuntimeError(f"Parent-aware pre-mix screen rejected the input: {exc}") from exc
+
+
+def _build_planes(
+    *,
+    formula: Mapping[str, Any],
+    physical: Mapping[str, Any],
+    inventory: Mapping[str, Any],
+    guard: Mapping[str, Any],
+    source_bindings: Sequence[Mapping[str, str]],
+    parent: Mapping[str, Any] | None,
+) -> list[dict[str, Any]]:
+    text = f"{formula.get('name', '')}\n{formula.get('body', '')}"
+    material_rows = list(physical["materials"])
+    unresolved = list(physical["unresolved_natural_composites"])
+    opaque_withheld = list(physical["opaque_preblends_withheld"])
+    missing = list(physical["missing_physics_materials"])
+    inventory_ok = bool(inventory["all_formula_materials_executable_from_declared_inventory"])
+
+    planes: dict[str, dict[str, Any]] = {}
+    planes["identity"] = _structural_plane(
+        "identity",
+        text,
+        (
+            "target identity",
+            "named subject",
+            "protected identity",
+            "protected nucleus",
+            "excluded takeover",
+            "excluded drift",
+            "forbidden drift",
+        ),
+        minimum_hits=2,
+        test_requirement=(
+            "State the named subject, protected nucleus, and forbidden drift; then test identity retention blind against the immediate parent."
+        ),
+    )
+    planes["morphology"] = _structural_plane(
+        "morphology",
+        text,
+        ("surface", "interior", "anatomy", "petal", "stem", "flesh", "fiber", "residue", "silhouette"),
+        minimum_hits=2,
+        test_requirement="Declare at least two target-native anatomical zones and falsify them by blinded omission.",
+    )
+    planes["function"] = _structural_plane(
+        "function",
+        text,
+        ("function", "role", "bridge", "contrast", "shadow", "lift", "diffusion", "fixation", "texture"),
+        minimum_hits=2,
+        test_requirement="Map each retained material to a target-linked role and test role loss by controlled omission.",
+    )
+    planes["relation"] = _structural_plane(
+        "relation",
+        text,
+        ("bridge", "handoff", "recurrence", "recurs", "opposition", "support", "takeover", "omission", "transition", "pressure", "release"),
+        minimum_hits=2,
+        test_requirement=(
+            "Use constant-total parent/child or omission comparisons to test the declared bridge, recurrence, opposition, and takeover relationships."
+        ),
+    )
+    planes["mixture"] = _plane(
+        "mixture",
+        status="MODELED" if material_rows else "HOLD",
+        evidence={
+            "material_count": len(material_rows),
+            "total_raw_ul": sum(float(row["raw_ul"]) for row in material_rows),
+            "total_active_ul": sum(float(row["active_ul"]) for row in material_rows),
+            "natural_mixture_count": sum(bool(row["is_natural_mixture"]) for row in material_rows),
+            "opaque_preblend_count": sum(bool(row["is_opaque_preblend"]) for row in material_rows),
+            "complexity_definition": "target-linked depth, transformations, and relations; never ingredient count",
+        },
+        limitations=(
+            "Material count is reported only as inventory arithmetic and is not a complexity score.",
+            "Opaque preblends cannot support constituent-level attribution without lineage evidence.",
+        ),
+        test_requirement="Use controlled omissions and relation-specific criteria; do not reward ingredient count.",
+        authority_ceiling="hypothesis_only" if material_rows else "withheld",
+    )
+    planes["temporal"] = _structural_plane(
+        "temporal",
+        text,
+        ("opening", "top", "heart", "drydown", "late drydown", "fabric echo", "recurrence", "recurs", "residue", "returns"),
+        minimum_hits=2,
+        test_requirement=(
+            "Compare opening through fabric-echo windows physically; the modeled evaporation sequence is only a pretest hypothesis."
+        ),
+    )
+    planes["temporal"]["evidence"].update(
+        {
+            "modeled_windows": [
+                {"label": frame["label"], "t_seconds": frame["t_seconds"]}
+                for frame in physical["time_series"]
+            ],
+            "model_class": "heuristic_finite_film_evaporation",
+        }
+    )
+    planes["spatial_composition"] = _structural_plane(
+        "spatial_composition",
+        text,
+        ("front", "middle", "rear", "skin", "aura", "air", "aperture", "width", "density", "projection field", "negative space"),
+        minimum_hits=3,
+        test_requirement="Use blinded blotter/skin/fabric observation to test front-middle-rear, skin, and aura placement.",
+    )
+    physics_hold = bool(unresolved or opaque_withheld or missing)
+    planes["physicochemical"] = _plane(
+        "physicochemical",
+        status="HOLD" if physics_hold else "MODELED",
+        evidence={
+            "materials": material_rows,
+            "unresolved_natural_composites": unresolved,
+            "opaque_preblends_withheld": opaque_withheld,
+            "missing_physics_materials": missing,
+            "total_vapor_ppm": physical["total_vapor_ppm"],
+            "note_distribution_active_volume_pct": physical["note_distribution_active_volume_pct"],
+            "ppm_basis": physical["ppm_basis"],
+            "odt_basis": physical["odt_basis"],
+            "oav_equation": physical["oav_equation"],
+        },
+        limitations=(
+            "OAV is a threshold-normalized computational screen, not perceived intensity or percent contribution.",
+            "Temporal evolution uses a heuristic finite-film loss model.",
+            "Nominal mass and volume conversions inherit density, threshold, vapor-pressure, and activity-coefficient uncertainty.",
+        ),
+        test_requirement=(
+            "Resolve every missing physical field and natural composite, then measure headspace and compare carrier-matched physical samples."
+        ),
+        authority_ceiling="withheld" if physics_hold else "hypothesis_only",
+    )
+    planes["biological_sensitivity"] = _plane(
+        "biological_sensitivity",
+        status="HOLD",
+        evidence={
+            "receptor_activation": None,
+            "receptor_source": "unavailable:material_specific_assay_required",
+            "sensitization_assessment": None,
+        },
+        limitations=(
+            "OAV is not receptor activation, toxicology, sensitization, or safety evidence.",
+        ),
+        test_requirement="Require material-specific biological assay and safety evidence under an authorized safety workflow.",
+        authority_ceiling="withheld",
+    )
+    planes["hedonic"] = _plane(
+        "hedonic",
+        status="NOT_TESTED",
+        evidence={
+            "liking_observation": None,
+            "preference_observation": None,
+            "assessor_identity": None,
+            "blinding_receipt": None,
+        },
+        limitations=(
+            "No liking or preference is inferred from materials, cost, prestige, OAV, or structural compliance.",
+        ),
+        test_requirement="Collect blinded, randomized assessor responses with criterion and assessor identity recorded.",
+        authority_ceiling="withheld",
+    )
+    planes["inventory_build"] = _plane(
+        "inventory_build",
+        status="CHECKED" if inventory_ok else "HOLD",
+        evidence=inventory,
+        limitations=(
+            "This check reads declared inventory bytes; it cannot observe bottle contents, stock age, measurement error, or unrecorded user corrections.",
+            "Inventory truth constrains only current executability and never mutates the ideal target.",
+        ),
+        test_requirement="Reconcile every material, dilution, carrier, and stock label against a fresh physical inventory receipt before dosing.",
+        authority_ceiling="structural_only" if inventory_ok else "withheld",
+    )
+    planes["evidence_authority"] = _plane(
+        "evidence_authority",
+        status="HOLD",
+        evidence={
+            "source_bindings": list(source_bindings),
+            "method_sources": list(METHOD_SOURCES),
+            "parent_source_present": parent is not None,
+            "pre_mix_screen_status": guard["status"],
+            "authority_flags": {name: False for name in AUTHORITY_FLAGS},
+        },
+        limitations=(
+            "The checker binds the files it reads but does not prove a complete transitive Python/runtime/data closure.",
+            "Method-source digests identify implementation-time source snapshots; they are not live external verification receipts.",
+            "A completed diagnostic is not runtime admission, benchmark success, or release authority.",
+        ),
+        test_requirement=(
+            "Require independent frozen-benchmark, lint, typecheck, test, recursive-closure, and performance receipts before any admission claim."
+        ),
+        authority_ceiling="withheld",
+    )
+    planes["experiment"] = _structural_plane(
+        "experiment",
+        text,
+        ("constant-total", "constant total", "matched-carrier", "matched carrier", "blind", "a/b", "ab/ba", "abba", "factorial", "omission", "protected nucleus"),
+        minimum_hits=3,
+        test_requirement=(
+            "Execute protected-nucleus constant-total, carrier-matched blinded A/B or factorial tests with complete paired trajectories and recorded order."
+        ),
+    )
+    planes["experiment"]["evidence"].update(
+        {
+            "parent_comparison_available": guard["parent_comparison_available"],
+            "pre_mix_screen_status": guard["status"],
+            "pre_mix_findings": guard["findings"],
+            "physical_trial_executed": False,
+        }
+    )
+    return [planes[plane_id] for plane_id in DEEP_PLANE_IDS]
+
+
+def _gate_blockers_and_warnings(
+    *,
+    planes: Sequence[Mapping[str, Any]],
+    physical: Mapping[str, Any],
+    inventory: Mapping[str, Any],
+    guard: Mapping[str, Any],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Map evidence gaps onto the pipeline's non-compensatory gate protocol."""
+
+    blockers: list[dict[str, Any]] = []
+    warnings: list[dict[str, Any]] = []
+
+    def add_blocker(
+        code: str,
+        plane_id: str,
+        detail: str,
+        *,
+        materials: Sequence[str] = (),
+        findings: Sequence[Mapping[str, Any]] = (),
+    ) -> None:
+        item: dict[str, Any] = {
+            "code": code,
+            "plane_id": plane_id,
+            "detail": detail,
+        }
+        if materials:
+            item["materials"] = sorted(
+                {str(material) for material in materials}, key=str.casefold
+            )
+        if findings:
+            item["findings"] = _json_clone(list(findings))
+        blockers.append(item)
+
+    missing_inventory = list(inventory["missing"])
+    unavailable_inventory = list(inventory["unavailable"])
+    dilution_mismatches = list(inventory["dilution_mismatches"])
+    if missing_inventory:
+        add_blocker(
+            "INVENTORY_MATERIAL_MISSING",
+            "inventory_build",
+            "Formula materials are absent from the declared inventory authority.",
+            materials=missing_inventory,
+        )
+    if unavailable_inventory:
+        add_blocker(
+            "INVENTORY_MATERIAL_UNAVAILABLE",
+            "inventory_build",
+            "Formula materials exist in inventory but are not currently owned/available.",
+            materials=[str(item["material"]) for item in unavailable_inventory],
+            findings=unavailable_inventory,
+        )
+    if dilution_mismatches:
+        add_blocker(
+            "INVENTORY_DILUTION_MISMATCH",
+            "inventory_build",
+            "Formula stock fractions do not match any owned inventory dilution.",
+            materials=[str(item["material"]) for item in dilution_mismatches],
+            findings=dilution_mismatches,
+        )
+
+    unresolved_naturals = list(physical["unresolved_natural_composites"])
+    opaque_preblends = list(physical["opaque_preblends_withheld"])
+    missing_physics = list(physical["missing_physics_materials"])
+    if unresolved_naturals:
+        add_blocker(
+            "NATURAL_COMPOSITE_OAV_WITHHELD",
+            "physicochemical",
+            "Natural-mixture OAV is withheld because no composite constituent model resolved.",
+            materials=unresolved_naturals,
+        )
+    if opaque_preblends:
+        add_blocker(
+            "OPAQUE_PREBLEND_OAV_WITHHELD",
+            "physicochemical",
+            "Constituent-level OAV is withheld for opaque preblends without lineage.",
+            materials=opaque_preblends,
+        )
+    if missing_physics:
+        add_blocker(
+            "REQUIRED_PHYSICS_MISSING",
+            "physicochemical",
+            "Required physical or ODT fields are missing for formula materials.",
+            materials=missing_physics,
+        )
+
+    guard_findings = list(guard["findings"])
+    if guard["status"] == "SCREEN_BLOCK":
+        add_blocker(
+            "PARENT_PRE_MIX_SCREEN_BLOCK",
+            "experiment",
+            "The parent-aware active-dose/temporal pre-mix screen blocked this revision.",
+            findings=guard_findings,
+        )
+    elif guard["status"] == "SCREEN_REVIEW":
+        warnings.append(
+            {
+                "code": "PRE_MIX_SCREEN_REVIEW",
+                "plane_id": "experiment",
+                "detail": "The non-authoritative pre-mix screen has findings requiring review.",
+                "findings": _json_clone(guard_findings),
+            }
+        )
+
+    plane_by_id = {str(plane["plane_id"]): plane for plane in planes}
+    incomplete = [
+        plane_id
+        for plane_id in STRUCTURAL_PLANE_IDS
+        if plane_by_id[plane_id]["status"] != "DOCUMENTED"
+    ]
+    if incomplete:
+        warnings.append(
+            {
+                "code": "INCOMPLETE_STRUCTURAL_DECLARATIONS",
+                "plane_ids": incomplete,
+                "detail": (
+                    "One or more Deep Plane structural declarations are incomplete; "
+                    "this is a document-level warning, not a sensory finding."
+                ),
+            }
+        )
+
+    blockers.sort(key=lambda item: (item["code"], item["plane_id"]))
+    warnings.sort(key=lambda item: item["code"])
+    return blockers, warnings
+
+
+def evaluate_deep_plane_gate(
+    formula: Mapping[str, Any],
+    state: Any,
+    simulation: Sequence[Any],
+    *,
+    inventory_path: str | Path | None = None,
+    parent_formula: Mapping[str, Any] | None = None,
+    parent_state: Any | None = None,
+    parent_simulation: Sequence[Any] | None = None,
+) -> dict[str, Any]:
+    """Evaluate Deep Plane evidence from already-built pipeline calculations.
+
+    The child ``state`` and ``simulation`` are required inputs so callers such
+    as :func:`engine.pipeline.gates.gate_formula` do not rebuild physics.  If a
+    parent is supplied, its state and simulation must also be supplied by the
+    caller.  The returned ``gate_status`` concerns computational input quality
+    only; ``authority_status`` remains ``HOLD`` under every outcome.
+    """
+
+    root = _project_root()
+    inv_file = (
+        Path(inventory_path).resolve()
+        if inventory_path is not None
+        else root / "inventory.txt"
+    )
+    if not inv_file.is_file():
+        raise DeepPlaneRuntimeError(
+            f"Inventory authority file does not exist: {inv_file}"
+        )
+    if parent_formula is None and (
+        parent_state is not None or parent_simulation is not None
+    ):
+        raise DeepPlaneRuntimeError(
+            "parent_state and parent_simulation require parent_formula"
+        )
+    if parent_formula is not None and (
+        parent_state is None or parent_simulation is None
+    ):
+        raise DeepPlaneRuntimeError(
+            "parent_formula requires parent_state and parent_simulation"
+        )
+
+    normalized_formula = _normalize_formula_record(formula)
+    normalized_parent = (
+        _normalize_formula_record(parent_formula)
+        if parent_formula is not None
+        else None
+    )
+    _reject_pseudo_materials(normalized_formula)
+    inventory_sha = _sha256_file(inv_file)
+    physical, _unresolved = _physical_evidence(state, simulation)
+
+    parent_series: list[dict[str, Any]] | None = None
+    if parent_formula is not None:
+        parent_physical, _ = _physical_evidence(parent_state, parent_simulation or ())
+        parent_series = list(parent_physical["time_series"])
+
+    guard = _guard_report(
+        normalized_formula,
+        physical["time_series"],
+        parent=normalized_parent,
+        parent_series=parent_series,
+    )
+    inventory = _inventory_evidence(normalized_formula, inventory_path=inv_file)
+    source_bindings = _source_bindings(root)
+    planes = _build_planes(
+        formula=normalized_formula,
+        physical=physical,
+        inventory=inventory,
+        guard=guard,
+        source_bindings=source_bindings,
+        parent=normalized_parent,
+    )
+    blockers, warnings = _gate_blockers_and_warnings(
+        planes=planes,
+        physical=physical,
+        inventory=inventory,
+        guard=guard,
+    )
+    gate_status = "FAIL" if blockers else ("WARN" if warnings else "PASS")
+
+    plane_statuses = {
+        str(plane["plane_id"]): str(plane["status"]) for plane in planes
+    }
+    plane_summaries = [
+        {
+            "plane_id": str(plane["plane_id"]),
+            "status": str(plane["status"]),
+            "authority_ceiling": str(plane["authority_ceiling"]),
+        }
+        for plane in planes
+    ]
+    structural_declarations = {
+        plane_id: _json_clone(
+            next(
+                plane["evidence"]
+                for plane in planes
+                if plane["plane_id"] == plane_id
+            )
+        )
+        for plane_id in STRUCTURAL_PLANE_IDS
+    }
+    test_requirements = {
+        str(plane["plane_id"]): str(
+            plane["falsification_or_test_requirement"]
+        )
+        for plane in planes
+    }
+    limitations = list(GLOBAL_LIMITATIONS)
+    limitations.append(
+        "The native gate reuses the caller's FormulaState and SimulationFrame objects; it does not independently reproduce their calculations."
+    )
+    if parent_formula is None:
+        limitations.append(
+            "No immediate parent was supplied, so revision continuity and stock-rebase equivalence were not compared."
+        )
+
+    final_inventory_sha = _sha256_file(inv_file)
+    if final_inventory_sha != inventory_sha:
+        raise StaleInventoryAuthorityError(
+            path=inv_file,
+            expected_sha256=inventory_sha,
+            observed_sha256=final_inventory_sha,
+        )
+
+    return {
+        "schema_version": PIPELINE_GATE_SCHEMA_VERSION,
+        "gate_status": gate_status,
+        "authority_status": "HOLD",
+        "authority_ceiling": "withheld",
+        "formula_semantic_sha256": _formula_semantic_sha256(normalized_formula),
+        "inventory_path": str(inv_file),
+        "inventory_source_sha256": inventory_sha,
+        "source_bindings": source_bindings,
+        "method_sources": list(METHOD_SOURCES),
+        "plane_statuses": plane_statuses,
+        "planes": plane_summaries,
+        "structural_declarations": structural_declarations,
+        "falsification_or_test_requirements": test_requirements,
+        "physicochemical_findings": {
+            "unresolved_natural_composites": list(
+                physical["unresolved_natural_composites"]
+            ),
+            "opaque_preblends_withheld": list(
+                physical["opaque_preblends_withheld"]
+            ),
+            "missing_physics_materials": list(
+                physical["missing_physics_materials"]
+            ),
+        },
+        "inventory_evidence": inventory,
+        "pre_mix_guard": guard,
+        "parent_comparison_available": bool(
+            guard["parent_comparison_available"]
+        ),
+        "blockers": blockers,
+        "warnings": warnings,
+        "calculation_reuse": {
+            "formula_state_reused": True,
+            "simulation_reused": True,
+            "simulation_frame_count": len(simulation),
+        },
+        "intrinsic_non_promoting_planes": [
+            "biological_sensitivity",
+            "hedonic",
+            "evidence_authority",
+        ],
+        "authority_flags": {name: False for name in AUTHORITY_FLAGS},
+        "limitations": limitations,
+    }
+
+
+def _parse_formula_file(path: Path) -> list[dict[str, Any]]:
+    from scripts.verify_formula_workflow import parse_formula_markdown
+
+    formulas = parse_formula_markdown(path)
+    if not formulas:
+        raise DeepPlaneRuntimeError(f"No parseable formulas found in {path}")
+    for formula in formulas:
+        _reject_pseudo_materials(formula)
+    return formulas
+
+
+def _state_and_series(
+    formula: Mapping[str, Any],
+    config: DeepPlaneCheckConfig,
+) -> tuple[Any, list[Any]]:
+    from engine.pipeline.formula_state import build_formula_state
+    from engine.pipeline.simulator import simulate_formula
+
+    ingredients = dict(formula["ingredients_ul"])
+    dilutions = {
+        name: float(dict(formula["dilutions"]).get(name, 1.0))
+        for name in ingredients
+    }
+    state = build_formula_state(
+        ingredients,
+        dilutions,
+        batch_volume_ml=config.batch_volume_ml,
+        temperature_K=config.temperature_k,
+        context=config.context,
+    )
+    frames = simulate_formula(
+        ingredients,
+        dilutions,
+        batch_volume_ml=config.batch_volume_ml,
+        temperature_K=config.temperature_k,
+        context=config.context,
+        windows=config.windows,
+        initial_state=state,
+    )
+    return state, frames
+
+
+def run_deep_plane_check(
+    formula_path: str | Path,
+    *,
+    parent_formula_path: str | Path | None = None,
+    inventory_path: str | Path | None = None,
+    expected_inventory_sha256: str | None = None,
+    expected_formula_sha256: str | None = None,
+    config: DeepPlaneCheckConfig | None = None,
+    runtime_entrypoint: str = "engine.formulation_intelligence.deep_plane_runtime",
+) -> DeepPlaneRun:
+    """Run the deterministic, non-promoting Deep Plane diagnostic.
+
+    Inventory freshness is checked before formula parsing or physical modeling.
+    The optional parent is the immediate predecessor used by the existing
+    parent-aware pre-mix screen.  No network, audit log, clock, randomness, or
+    hidden mutable state is consulted.
+    """
+
+    root = _project_root()
+    formula_file = Path(formula_path).resolve()
+    parent_file = Path(parent_formula_path).resolve() if parent_formula_path else None
+    inv_file = Path(inventory_path).resolve() if inventory_path else root / "inventory.txt"
+    cfg = config or DeepPlaneCheckConfig()
+
+    if not inv_file.is_file():
+        raise DeepPlaneRuntimeError(f"Inventory authority file does not exist: {inv_file}")
+    inventory_sha = _sha256_file(inv_file)
+    expected_inventory = _validate_expected_hash(
+        expected_inventory_sha256,
+        label="expected_inventory_sha256",
+    )
+    if expected_inventory is not None and expected_inventory != inventory_sha:
+        raise StaleInventoryAuthorityError(
+            path=inv_file,
+            expected_sha256=expected_inventory,
+            observed_sha256=inventory_sha,
+        )
+
+    if not formula_file.is_file():
+        raise DeepPlaneRuntimeError(f"Formula file does not exist: {formula_file}")
+    formula_sha = _check_expected_file_hash(
+        formula_file,
+        expected=expected_formula_sha256,
+        label="expected_formula_sha256",
+    )
+    if parent_file is not None and not parent_file.is_file():
+        raise DeepPlaneRuntimeError(f"Parent formula file does not exist: {parent_file}")
+    parent_sha = _sha256_file(parent_file) if parent_file is not None else None
+
+    formulas = _parse_formula_file(formula_file)
+    parents = _parse_formula_file(parent_file) if parent_file is not None else []
+    if parents and len(parents) not in {1, len(formulas)}:
+        raise DeepPlaneRuntimeError(
+            "Parent formula file must contain one formula or the same number of formulas as the child file"
+        )
+
+    source_bindings = _source_bindings(root)
+    config_payload = cfg.as_dict()
+    config_sha = _sha256_bytes(_canonical_json(config_payload))
+    reports: list[dict[str, Any]] = []
+    for index, formula in enumerate(formulas):
+        parent = parents[0] if len(parents) == 1 else (parents[index] if parents else None)
+        state, frames = _state_and_series(formula, cfg)
+        physical, _unresolved = _physical_evidence(state, frames)
+
+        parent_series: list[dict[str, Any]] | None = None
+        parent_semantic_sha: str | None = None
+        if parent is not None:
+            parent_state, parent_frames = _state_and_series(parent, cfg)
+            parent_physical, _ = _physical_evidence(parent_state, parent_frames)
+            parent_series = list(parent_physical["time_series"])
+            parent_semantic_sha = _formula_semantic_sha256(parent)
+
+        guard = _guard_report(
+            formula,
+            physical["time_series"],
+            parent=parent,
+            parent_series=parent_series,
+        )
+        inventory = _inventory_evidence(formula, inventory_path=inv_file)
+        planes = _build_planes(
+            formula=formula,
+            physical=physical,
+            inventory=inventory,
+            guard=guard,
+            source_bindings=source_bindings,
+            parent=parent,
+        )
+        reports.append(
+            {
+                "number": int(formula.get("number", index + 1)),
+                "name": str(formula["name"]),
+                "formula_semantic_sha256": _formula_semantic_sha256(formula),
+                "parent_formula_semantic_sha256": parent_semantic_sha,
+                "family_archetype": str(formula.get("family_archetype", "")),
+                "status": "HOLD",
+                "authority_ceiling": "withheld",
+                "physicochemical_evidence": physical,
+                "inventory_evidence": inventory,
+                "pre_mix_guard": guard,
+                "planes": planes,
+            }
+        )
+
+    payload = {
+        "schema_version": SCHEMA_VERSION,
+        "runtime_entrypoint": runtime_entrypoint,
+        "check_state": "COMPLETE",
+        "status": "HOLD",
+        "authority_ceiling": "withheld",
+        "formula_path": str(formula_file),
+        "formula_source_sha256": formula_sha,
+        "parent_formula_path": str(parent_file) if parent_file is not None else None,
+        "parent_source_sha256": parent_sha,
+        "inventory_path": str(inv_file),
+        "inventory_source_sha256": inventory_sha,
+        "config": config_payload,
+        "config_sha256": config_sha,
+        "source_bindings": source_bindings,
+        "method_sources": list(METHOD_SOURCES),
+        "authority_flags": {name: False for name in AUTHORITY_FLAGS},
+        "limitations": list(GLOBAL_LIMITATIONS),
+        "formulas": reports,
+    }
+
+    final_inventory_sha = _sha256_file(inv_file)
+    if final_inventory_sha != inventory_sha:
+        raise StaleInventoryAuthorityError(
+            path=inv_file,
+            expected_sha256=inventory_sha,
+            observed_sha256=final_inventory_sha,
+        )
+    final_formula_sha = _sha256_file(formula_file)
+    if final_formula_sha != formula_sha:
+        raise DeepPlaneRuntimeError(
+            "Formula source changed during the check: "
+            f"started at {formula_sha}, ended at {final_formula_sha}"
+        )
+    if parent_file is not None and _sha256_file(parent_file) != parent_sha:
+        raise DeepPlaneRuntimeError("Parent formula source changed during the check")
+    return DeepPlaneRun(payload)
+
+
+def _atomic_write(path: Path, data: bytes) -> None:
+    temporary = path.with_name(path.name + ".tmp")
+    temporary.write_bytes(data)
+    os.replace(temporary, path)
+
+
+def write_deep_plane_artifacts(
+    run: DeepPlaneRun,
+    output_dir: str | Path,
+) -> dict[str, Path]:
+    """Write stable JSON and Markdown artifacts to an explicit directory."""
+
+    destination = Path(output_dir).resolve()
+    destination.mkdir(parents=True, exist_ok=True)
+    json_path = destination / "deep-plane-report.json"
+    markdown_path = destination / "deep-plane-report.md"
+    _atomic_write(json_path, run.to_json(pretty=True).encode("utf-8"))
+    _atomic_write(markdown_path, run.to_markdown().encode("utf-8"))
+    return {"json": json_path, "markdown": markdown_path}
+
+
+__all__ = [
+    "DEEP_PLANE_IDS",
+    "PIPELINE_GATE_SCHEMA_VERSION",
+    "DeepPlaneCheckConfig",
+    "DeepPlaneRun",
+    "DeepPlaneRuntimeError",
+    "StaleInventoryAuthorityError",
+    "evaluate_deep_plane_gate",
+    "run_deep_plane_check",
+    "write_deep_plane_artifacts",
+]

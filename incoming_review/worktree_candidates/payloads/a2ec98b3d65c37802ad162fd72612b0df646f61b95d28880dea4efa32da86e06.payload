@@ -1,0 +1,47 @@
+{
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "decisions": [
+    {
+      "module_id": "temporal_sensory_ledger",
+      "placebo_wins": 1,
+      "plain_control_wins": 1,
+      "reasons": [
+        "PLAIN_CONTROL_TWO_WINS_REQUIRED",
+        "PLACEBO_TWO_WINS_REQUIRED"
+      ],
+      "state": "STOP"
+    },
+    {
+      "module_id": "hedonic_preference_learner",
+      "placebo_wins": 1,
+      "plain_control_wins": 2,
+      "reasons": [
+        "PLACEBO_TWO_WINS_REQUIRED",
+        "CRITICAL_REGRESSION"
+      ],
+      "state": "STOP"
+    },
+    {
+      "module_id": "temporal_oav_error_sentinel",
+      "placebo_wins": 1,
+      "plain_control_wins": 1,
+      "reasons": [
+        "PLAIN_CONTROL_TWO_WINS_REQUIRED",
+        "PLACEBO_TWO_WINS_REQUIRED"
+      ],
+      "state": "STOP"
+    }
+  ],
+  "receipt_sha256": "579d10bb1ce26434cba8d02ac95e482fbc82090ee63036237bef00072f7a6396",
+  "run_id": "evidence-foundation-screen-20260826-xhigh-v2-effective-c1",
+  "schema_version": "evidence_foundation_screen_decisions_v1"
+}

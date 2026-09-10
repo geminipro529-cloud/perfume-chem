@@ -1,0 +1,28 @@
+﻿Code,ACC-LR-AMB-01
+Accord,Storax Opoponax Amber v1.0
+Category,Leather & Resin
+Brief,"A broad resin amber with separate storax, opoponax, Siam and Vietnamese benzoins, labdanum, Peru balsam and smoky patchouli-wood support."
+Recommended use,1–10% of perfume concentrate
+Maturation,21–28 days
+Monte Carlo pass,0.9952
+Final design score,99.5
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Turkish Storax Tincture,Turkish Storax Tincture: 10 g resin + 40 g ethanol,,130.0,,130.0,650.0,PRODUCT BASIS,amber_resin,Storax smoke,Smoky cinnamic storax product basis.,HAVE — CANONICAL,Canonical record for items 192/193.,,IDENTITY CRITICAL,0.03874274603020442
+2,base,Opoponax Resinoid 50%,Opoponax Resinoid 50% in DPG,0.5,100.0,50.0,100.0,500.0,PREPARED STOCK,amber_resin,Sweet opoponax,Sweet opoponax resin.,HAVE,Do not substitute silently; target-required material is not in stock.,,IDENTITY CRITICAL,0.026273036642993214
+3,base,Siam Benzoin 50%,Siam Benzoin 50%,0.5,100.0,50.0,100.0,500.0,PREPARED STOCK,benzoin,Dense benzoin,Dense Siam benzoin.,HAVE — MULTIPLE BENZOINS,Treat each benzoin source and solvent as a separate stock.,,IDENTITY CRITICAL,0.03317591953872394
+4,base,Labdanum 10%,10% working stock,0.1,80.0,8.0,80.0,400.0,PREPARED STOCK,amber_resin,Cistus amber,Cistus amber-leather.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.019453281649484247
+5,base,Kephalis,neat/as supplied,1.0,60.0,60.0,60.0,300.0,DIRECT,warm_wood,Warm wood,Warm tobacco-like wood.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.010868069039015195
+6,base,Vietnamese Benzoin Tincture,10 g resin + 40 g ethanol; product basis,,60.0,,60.0,300.0,PRODUCT BASIS,benzoin,Tincture texture,Vietnamese benzoin tincture product basis.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.01619269990206758
+7,base,Ambrofix 30%,30% working stock,0.3,55.0,16.5,55.0,275.0,PREPARED STOCK,ambergris,Mineral persistence,Mineral ambergris persistence.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.009586956721928087
+8,base,Olibanum 50%,50% in DPG,0.5,50.0,25.0,50.0,250.0,PREPARED STOCK,incense,Dry resin lift,Frankincense mineral resin.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.013027670702867186
+9,base,Patchouli EO,neat / as supplied,1.0,45.0,45.0,45.0,225.0,DIRECT,patchouli,Earthy body,Earthy patchouli structure.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.007231754922411184
+10,base,Vanillin 10%,10% working stock,0.1,35.0,3.5,35.0,175.0,PREPARED STOCK,vanilla,Vanillic warmth,Vanilla warmth.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.005150548445719664
+11,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,30.0,30.0,30.0,150.0,DIRECT,musk,Diffusion,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.0042074555063192
+12,base,Peru Balsam 10%,Peru Balsam Resinoid 50%,0.5,30.0,15.0,30.0,150.0,PREPARED STOCK,amber_resin,Balsamic richness,Peru balsam resinoid at confirmed 50% stock.,HAVE — 50% ONLY,Recalculate formulas written for 10% stock.,Dilute to 10% only if required.,TEXTURAL SUPPORT,0.006153798213017611
+13,base,Coumarin 20%,20% in DPG,0.2,25.0,5.0,25.0,125.0,PREPARED STOCK,tonka,Hay warmth,Hay-almond warmth.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.003341355779393633
+14,base,Romandolide,Romandolide neat/as supplied,1.0,25.0,25.0,25.0,125.0,DIRECT,musk,Soft musk,Fruity-clean musk body.,HAVE — NEAT,Use as neat Romandolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.003336768612222822
+15,base,Guaiacol 10%,Guaiacol 10% working dilution,0.1,10.0,1.0,10.0,50.0,PREPARED STOCK,smoke,Smoke,Phenolic smoke/cocoa shadow.,HAVE — NEAT + 10%,Formula must specify exact strength.,,TEXTURAL SUPPORT,0.0011345104871534719
+16,heart_base,Iso E Super,neat / as supplied,1.0,100.0,100.0,100.0,500.0,DIRECT,transparent_wood,Transparent structure,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.02383090751526931
+17,carrier,DPG,neat,0.0,65.0,0.0,65.0,325.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

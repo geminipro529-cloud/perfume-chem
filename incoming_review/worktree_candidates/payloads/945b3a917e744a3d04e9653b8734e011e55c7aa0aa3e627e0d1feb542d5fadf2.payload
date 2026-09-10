@@ -1,0 +1,30 @@
+﻿Code,ACC-FL-MAG-01
+Accord,Magnolia White Petal v1.0
+Category,Floral
+Brief,"A creamy, citrus-edged magnolia with linalool brightness, soft white-petal volume, jasmine life and a clean sandalwood-musk base."
+Recommended use,2–10% of perfume concentrate
+Maturation,7–14 days
+Monte Carlo pass,1.0
+Final design score,99.75
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,45.0,45.0,45.0,225.0,DIRECT,musk,Clean musk,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,STRUCTURALLY IMPORTANT,0.007779569965776302
+2,base,Sandalore,neat / as supplied,1.0,40.0,40.0,40.0,200.0,DIRECT,sandalwood,Creamy wood,Creamy sandalwood.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0065878965240545396
+3,heart_base,Benzyl Salicylate,neat / as supplied,1.0,80.0,80.0,80.0,400.0,DIRECT,floral_air,Floral binder,Floral binder and substantivity.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.020930642908163107
+4,heart_base,Iso E Super,neat / as supplied,1.0,65.0,65.0,65.0,325.0,DIRECT,transparent_wood,Transparent wood,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.013013569983500044
+5,heart_base,Jasmine Absolute 10%,10% working stock,0.1,25.0,2.5,25.0,125.0,PREPARED STOCK,jasmine,Natural floral life,Natural jasmine warmth.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0034361592677841484
+6,heart_base,Methyl Anthranilate,neat / as supplied,1.0,8.0,8.0,8.0,40.0,DIRECT,jasmine,White-floral depth,Orange-flower and jasmine depth.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.0008943282284510183
+7,heart_base,Indole 10%,10% working stock,0.1,3.0,0.30000000000000004,3.0,15.0,PREPARED STOCK,jasmine,Living shadow,Living-flower indolic shadow.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.0003131954917853228
+8,heart,Hedione,neat / as supplied,1.0,230.0,230.0,230.0,1150.0,DIRECT,floral_air,Floral air,Transparent floral diffusion.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.12863435995521022
+9,heart,Magnolia EO,neat / as supplied,1.0,100.0,100.0,100.0,500.0,DIRECT,magnolia,Natural magnolia identity,Creamy citrus-white-floral life.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.035420267656890436
+10,heart,Hydroxycitronellal,neat / as supplied,1.0,50.0,50.0,50.0,250.0,DIRECT,muguet,Soft muguet body,Soft muguet body.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.013344400475389675
+11,heart,Florol,neat / as supplied,1.0,45.0,45.0,45.0,225.0,DIRECT,muguet,Clean flower body,Clean floral volume.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.01164272344060089
+12,heart,Phenethyl Alcohol,neat / as supplied,1.0,45.0,45.0,45.0,225.0,DIRECT,rose_floral,Petal body,Soft floral petal body.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.007566793066318546
+13,heart,Nympheal,as supplied; product basis,,40.0,,40.0,200.0,PRODUCT BASIS,muguet,Watery petal volume,Modern watery muguet product basis.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0100265441994224
+14,heart,Beta Damascone 10%,10% working stock,0.1,5.0,0.5,5.0,25.0,PREPARED STOCK,rose_fruit,Warm petal bloom,Rosy-fruity bloom.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.0005377167707386994
+15,top_heart,Linalool,neat/as supplied,1.0,70.0,70.0,70.0,350.0,DIRECT,aromatic,Magnolia freshness,Floral-citrus bridge.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.014604727408187978
+16,top_heart,Benzyl Acetate,neat/as supplied,1.0,45.0,45.0,45.0,225.0,DIRECT,jasmine,White-flower ester,Characteristic jasmine fruit-floral ester.,HAVE,Use only with exact label/stock-strength accounting.,,STRUCTURALLY IMPORTANT,0.00759670004108184
+17,top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,40.0,40.0,40.0,200.0,DIRECT,citrus,Floral citrus,Floral bergamot peel.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.006672849192386112
+18,top,Lemon FCF Oil Sicilian,neat / as supplied,1.0,25.0,25.0,25.0,125.0,DIRECT,citrus,Lemon-petal edge,Bright lemon peel.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0035341853897718416
+19,carrier,DPG,neat,0.0,39.0,0.0,39.0,195.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

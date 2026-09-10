@@ -1,0 +1,88 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v2",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-05",
+  "predecessor": {
+    "kind": "USER_AUTHORITY_OVERLAY",
+    "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+    "effective_date": "2026-09-04",
+    "path": "data/governance/inventory_user_authority_overlay_20260904.json",
+    "normalized_text_sha256": "e2fe66cb8077da38142913a73b0d77acd14b6e4953f6155bb2011e1e2bb851a4"
+  },
+  "source": {
+    "kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+    "asserted_date": "2026-09-05",
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 20884,
+    "inventory_text_sha256": "146f74d7cd40ea7b8b8d57285625cc36c2ab84a3663309d8ef0c903860b97fbc"
+  },
+  "policy": {
+    "inherit_predecessor_policy": true,
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "raw_volume_transfer_does_not_establish_exact_mass_or_volume_conversion": true
+  },
+  "records": [
+    {
+      "record_id": "INV-USER-20260905-001",
+      "canonical_name": "Orris Liquid",
+      "aliases": [
+        "Orris Liquid (9% w/w in DEP)",
+        "Orris Liquid — PerfumersWorld product basis"
+      ],
+      "state": "OWNED",
+      "category": "orris_violet",
+      "stock": {
+        "fraction": 0.09,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "fraction_authority": "EXPLICIT_USER_CURRENT_STOCK_CORRECTION",
+        "execution_ready": true,
+        "execution_scope": "STOCK_IDENTITY_AND_FRACTION_BINDING_ONLY",
+        "execution_hold_reason": ""
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 195,
+          "disposition": "OWNED",
+          "status": "HAVE - USER-CONFIRMED ORRIS LIQUID PRODUCT AT 9% W/W IN DEP",
+          "actual_stock_text": "Orris Liquid (PerfumersWorld product) 9% w/w in DEP; product mass fraction, not pure irone content",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-05",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "source_quote": "it is 9% w/w in DEP",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_known": true,
+        "product_mass_from_weighed_stock_known": true,
+        "stock_solution_density_asserted": false,
+        "exact_active_mass_from_raw_volume_authorized": false,
+        "literal_active_volume_asserted": false,
+        "carrier_displacement_volume_authorized": false,
+        "pure_irone_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "formula_compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false
+      },
+      "superseded_stock_declaration": {
+        "source_path": "inventory.txt",
+        "fraction": 0.3,
+        "fraction_basis": "mass_fraction",
+        "carrier": "unspecified",
+        "historical_only": true
+      },
+      "note": "Direct user confirmation replaces the prior 30% working-stock declaration. The 9% refers to the supplied Orris Liquid product by mass; it does not assert 9% pure irones. 1.000 g stock contains 0.090 g product and 0.910 g DEP. Existing formulas and physical batches are not silently rebased."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,0.9994
+identity_system_probability,1.0
+oav_probability,0.9994
+temporal_probability,1.0
+dominance_failure_probability,0.0014999999999999458
+overall_probability,0.9979
+dose_closure_probability,0.9838
+temporal_q05,0.967427822836185
+temporal_median,0.9920059201776994
+max_share_q95,0.5370516054997864
+marker_coverage_q05,0.7142857142857143
+phase_sum_q05,"{""top"": 18.072178794794215, ""heart"": 21.12741300832161, ""base"": 2.878867202411382}"
+release_shape_median,"[0.44759768154466156, 0.32275638595670675, 0.1668821338678988, 0.05356317552997548]"
+phase_shape_median,"[0.32639153531641807, 0.36053202922146066, 0.3130229898500516]"
+marker_probabilities,"{""Bergamot FCF Oil Sicilian | top"": 1.0, ""Black Pepper EO | top"": 1.0, ""Dihydromyrcenol | top"": 0.9993, ""Linalool | heart"": 1.0, ""Patchouli EO | heart"": 0.8074, ""Ambrofix 30% | base"": 0.9984, ""Cedarwood Virginia | base"": 0.4509}"
+marker_quantiles,"{""Bergamot FCF Oil Sicilian | top"": [4.919767248765488, 14.039882012792102, 39.50121971129178], ""Black Pepper EO | top"": [4.355204441509513, 10.580983985812015, 26.178282636997682], ""Dihydromyrcenol | top"": [2.5510340715836355, 6.778472555332207, 18.288746322512896], ""Linalool | heart"": [19.48333659641313, 36.98171521664662, 70.3926398348671], ""Patchouli EO | heart"": [0.6558683072401443, 1.6273421759348807, 4.061964504423213], ""Ambrofix 30% | base"": [2.0553752031401205, 5.307843400892914, 14.021180871068333], ""Cedarwood Virginia | base"": [0.34109071505906474, 0.9336575546914361, 2.495138150199377]}"
+classification,ROBUST

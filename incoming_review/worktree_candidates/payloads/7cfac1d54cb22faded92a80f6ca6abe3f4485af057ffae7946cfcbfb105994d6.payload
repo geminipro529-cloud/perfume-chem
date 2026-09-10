@@ -1,0 +1,199 @@
+{
+  "authorizations": {
+    "cross_study_generalization_authorized": false,
+    "database_admission_authorized": false,
+    "formula_prediction_authorized": false,
+    "inventory_mutation_authorized": false,
+    "nonlinear_model_training_authorized": false,
+    "novelty_claim_authorized": false,
+    "participant_level_inference_authorized": false,
+    "physical_experiment_authorized": false,
+    "publication_claim_authorized": false,
+    "quality_endpoint_claim_authorized": false,
+    "release_authorized": false,
+    "safety_claim_authorized": false,
+    "sensory_claim_authorized": false,
+    "stock_closure_authorized": false,
+    "universal_mixture_law_authorized": false
+  },
+  "baseline_metrics": {
+    "intensity_strongest_component": {
+      "bias_prediction_minus_observed": "-0.262898641588",
+      "mae": "0.382108556833",
+      "n": 198,
+      "pearson_r": "0.719960608084",
+      "rmse": "0.468534976465"
+    },
+    "pleasantness_arithmetic": {
+      "bias_prediction_minus_observed": "0.029319807268",
+      "mae": "0.336141878556",
+      "n": 198,
+      "pearson_r": "0.912842661085",
+      "rmse": "0.448986508730"
+    },
+    "pleasantness_intensity_weighted": {
+      "bias_prediction_minus_observed": "0.012816656944",
+      "mae": "0.319625480986",
+      "n": 198,
+      "pearson_r": "0.925782618126",
+      "rmse": "0.418151070790"
+    },
+    "pleasantness_squared_intensity_weighted": {
+      "bias_prediction_minus_observed": "-0.003084942630",
+      "mae": "0.304951777949",
+      "n": 198,
+      "pearson_r": "0.933181208160",
+      "rmse": "0.394525286290"
+    }
+  },
+  "decision": "DATA_AMBER_MA2021_SOURCE_INTERNAL_BASELINES_QUANTIFIED_NONLINEAR_ESCALATION_NOT_AUTHORIZED",
+  "design": {
+    "bootstrap_iterations": 20000,
+    "bootstrap_seed": 20260812,
+    "bootstrap_unit": "UNIQUE_MIXTURE_KEY",
+    "duplicate_policy": "AVERAGE_SOURCE_AGGREGATE_REPEAT_ROWS_WITHIN_MIXTURE_KEY",
+    "duplicated_mixture_groups": 24,
+    "model_fitting_performed": false,
+    "participant_rows_used_for_benchmark": 0,
+    "participant_trial_rows": 6660,
+    "source_aggregate_recomputed": false,
+    "source_trial_rows": 222,
+    "unique_mixture_groups": 198,
+    "unit_of_analysis": "UNIQUE_MIXTURE_KEY"
+  },
+  "evidence_id": "ma_2021_binary_mixture_baseline_benchmark",
+  "interpretation": {
+    "cross_study_transportability_tested": false,
+    "intensity_baseline_status": "SOURCE_INTERNAL_ERROR_APPROXIMATES_IAB_REPEAT_DISAGREEMENT",
+    "intensity_sc_to_repeat_rmse_ratio": "1.020672096823",
+    "nonlinear_residual_model_authorized": false,
+    "pleasantness_baseline_status": "SQUARED_INTENSITY_WEIGHTING_DESCRIPTIVELY_BEST_OF_PREDEFINED_SET",
+    "recommended_next_step": "SEEK_INDEPENDENT_SOURCE_TRANSPORTABILITY_OR_CLOSE_PHYSICAL_STOCK_GATES_BEFORE_PREREGISTERED_LOCAL_REPLICATION",
+    "same_source_reproduction_not_novel": true
+  },
+  "literature_boundary": {
+    "claim": "SOURCE_INTERNAL_CALIBRATION_ONLY",
+    "dataset_article_doi": "10.1016/j.dib.2021.107143",
+    "independent_baseline_context_doi": "10.1093/chemse/bjn026",
+    "recent_intensity_preprint_doi": "10.1101/2025.08.08.668954",
+    "same_source_intensity_doi": "10.1016/j.foodchem.2021.129483",
+    "same_source_pleasantness_doi": "10.1093/chemse/bjaa020"
+  },
+  "paired_bootstrap_comparisons": {
+    "pleasantness_arithmetic_minus_squared_rmse": {
+      "bootstrap_probability_delta_le_zero": "0.000000000000",
+      "ci95_percentile": [
+        "0.031269285912",
+        "0.078107275333"
+      ],
+      "definition": "RMSE_REFERENCE_MINUS_CANDIDATE",
+      "observed_delta": "0.054461222440"
+    },
+    "pleasantness_intensity_weighted_minus_squared_rmse": {
+      "bootstrap_probability_delta_le_zero": "0.000050000000",
+      "ci95_percentile": [
+        "0.012685213376",
+        "0.034746459299"
+      ],
+      "definition": "RMSE_REFERENCE_MINUS_CANDIDATE",
+      "observed_delta": "0.023625784501"
+    }
+  },
+  "predefined_baselines": {
+    "intensity_strongest_component": "max(IA, IB) predicts IAB",
+    "pleasantness_arithmetic": "(PA + PB) / 2 predicts PAB",
+    "pleasantness_intensity_weighted": "(IA*PA + IB*PB) / (IA + IB) predicts PAB",
+    "pleasantness_squared_intensity_weighted": "(IA^2*PA + IB^2*PB) / (IA^2 + IB^2) predicts PAB"
+  },
+  "repeatability": {
+    "IA": {
+      "mae": "0.536757662835",
+      "n_repeat_groups": 24,
+      "pearson_r": "0.605793189871",
+      "rmse": "0.667238336197",
+      "rmse_ci95_percentile": [
+        "0.481774348532",
+        "0.856320464294"
+      ]
+    },
+    "IAB": {
+      "mae": "0.375028735632",
+      "n_repeat_groups": 24,
+      "pearson_r": "0.511246496657",
+      "rmse": "0.459045542563",
+      "rmse_ci95_percentile": [
+        "0.338781577707",
+        "0.576630813621"
+      ]
+    },
+    "IAmix": {
+      "mae": "0.694042909483",
+      "n_repeat_groups": 24,
+      "pearson_r": "0.525407085507",
+      "rmse": "0.815762958366",
+      "rmse_ci95_percentile": [
+        "0.644849695032",
+        "0.972221446135"
+      ]
+    },
+    "IB": {
+      "mae": "0.447231800766",
+      "n_repeat_groups": 24,
+      "pearson_r": "0.683881069774",
+      "rmse": "0.517577184523",
+      "rmse_ci95_percentile": [
+        "0.410527854583",
+        "0.613180039092"
+      ]
+    },
+    "IBmix": {
+      "mae": "0.549547631705",
+      "n_repeat_groups": 24,
+      "pearson_r": "0.626501002067",
+      "rmse": "0.709753598538",
+      "rmse_ci95_percentile": [
+        "0.523047428445",
+        "0.878377320662"
+      ]
+    },
+    "PA": {
+      "mae": "0.561743295019",
+      "n_repeat_groups": 24,
+      "pearson_r": "0.773544787232",
+      "rmse": "0.741526108161",
+      "rmse_ci95_percentile": [
+        "0.507076445805",
+        "0.954150644154"
+      ]
+    },
+    "PAB": {
+      "mae": "0.644123563218",
+      "n_repeat_groups": 24,
+      "pearson_r": "0.733174492626",
+      "rmse": "0.756865213527",
+      "rmse_ci95_percentile": [
+        "0.590929545504",
+        "0.906823202784"
+      ]
+    },
+    "PB": {
+      "mae": "0.398227969349",
+      "n_repeat_groups": 24,
+      "pearson_r": "0.723375567594",
+      "rmse": "0.553617549499",
+      "rmse_ci95_percentile": [
+        "0.334192492277",
+        "0.771324608034"
+      ]
+    }
+  },
+  "schema_version": "perfume-chem-ma2021-baseline-benchmark-v1",
+  "scientific_payload_sha256": "4be6d6ff3d36fe152b682c7c8474fd51a6815ff94e4a0f34e0f8eab046e403f0",
+  "source_binding": {
+    "artifact_bytes": 487926,
+    "artifact_sha256": "c540f18ba71b778c36756810fff38bdf177c2af9d593567a6dba57a30503c950",
+    "dataset_doi": "10.15454/51OVY6",
+    "file_pid": "doi:10.15454/51OVY6/COAY4H",
+    "source_family_count": 1
+  }
+}

@@ -1,0 +1,444 @@
+{
+  "schema_version": 1,
+  "card_id": "AVENTUS-ASTRA-V3-UL-DENSITY-ESTIMATED-R2-20260905",
+  "status": "DENSITY_ESTIMATED_DESIGN_CARD_PRE_MIX_HOLD",
+  "parent_candidate": {
+    "path": "data/reference/aventus_astra_v3_woody_candidate_stock_confirmed_r1.json",
+    "sha256": "835635799199b99bd2d16875315428bc5be8b2864726f4d6560d3f6e823fdc63"
+  },
+  "parent_card": {
+    "path": "formulas/Aventus_Architecture_First_Astra_V3_Pour_Card_Stock_Confirmed_R1.md",
+    "sha256": "05d9c97361e5d250be47772a6fe561115392ef2bdef2a72c12ee6dbdc63bea47"
+  },
+  "inventory_sha256": "5da7ecdab4ce9c297f95a61051b38d9183f796c1971dd276546ef15c7856c497",
+  "user_authorization": {
+    "reply": "yes",
+    "question": "May I use clearly labelled density estimates to make a practical microlitre pour card?",
+    "date": "2026-09-05",
+    "scope": "Estimated stock-volume conversion only; preserve all parent aromatic mass targets, stock strengths and carriers; do not infer measured density, changed batch size or safety release."
+  },
+  "batch": {
+    "parent_finished_target_g": 30,
+    "parent_aromatic_target_g": 6,
+    "additional_ethanol_96_ul": 25326,
+    "summed_stock_additions_ul": 35169.8,
+    "aromatic_stock_additions_ul": 9843.8,
+    "estimated_finished_mass_g": 30.001162,
+    "estimated_aromatic_mass_g": 6.00022318,
+    "estimated_stock_blend_mass_g": 9.588406,
+    "estimated_aromatic_w_w_percent": 19.99996927,
+    "final_mixed_volume_ml": null,
+    "top_up_to_volume": false
+  },
+  "conversion": {
+    "equation": "raw_uL = target_stock_g * 1000 / estimated_stock_density_g_ml",
+    "active_equation": "estimated_active_g = raw_uL * estimated_stock_density_g_ml / 1000 * stock_mass_fraction",
+    "ppm_equation": "estimated_stock_blend_ppm_w_w = estimated_active_g / estimated_stock_blend_mass_g * 1000000",
+    "rounding": "Nearest 1 uL, except Suederal nearest 0.1 uL. These are display settings, not demonstrated pipette accuracy.",
+    "temperature_scope": "Approximate room-temperature 20-25 C references; mixed source temperatures, no thermal expansion correction. No validity claim for warm 30-35 C stocks.",
+    "specific_gravity_note": "Published specific gravity values are used numerically as approximate g/mL proxies. Reference-water and temperature differences are not corrected.",
+    "measured_density": false
+  },
+  "mixture_models": {
+    "ambrox": {
+      "formula": "rho = 12 / (3 / 1.000 + 7 / 1.022 + 0.5 / 0.850 + 1.5 / 0.806)",
+      "unrounded_density_g_ml": 0.975721405102971,
+      "selected_density_g_ml": 0.98,
+      "note": "Round coarse estimate to 0.98 g/mL. Ambrox apparent specific volume 1.000 mL/g is an explicit unmeasured modelling assumption, not a literature crystal density. Ethanol component uses the 96% reference proxy; actual concentration unresolved. No excess volume, dissolution contraction, precipitation or phase separation is modelled. Highest-priority density calibration."
+    },
+    "aag": {
+      "formula": "rho = 1 / (0.10 / 0.935 + 0.90 / 1.120)",
+      "unrounded_density_g_ml": 1.0982695332983745,
+      "selected_density_g_ml": 1.098,
+      "note": "Ideal additive specific-volume estimate for the confirmed 10% w/w DEP stock. Not a measured solution density."
+    },
+    "carrier_proxies": {
+      "materials": [
+        "Blackcurrant Absolute",
+        "Evernyl",
+        "Cade Oil Rectified"
+      ],
+      "note": "Use carrier density as first-order stock estimate. Solute effects are omitted, not asserted zero. Do not describe these as density-matched actual solutions."
+    }
+  },
+  "sources_checked_date": "2026-09-05",
+  "sources": {
+    "ethanol": {
+      "url": "https://www.merckmillipore.com/INTERSHOP/web/WFS/Merck-SK-Site/cs_CZ/-/EUR/ShowDocument-File?DocumentType=COA&Origin=PDP&ProductSKU=MDA_CHEM-1590100500",
+      "finding": "Reference ethanol 96% specification relative density d20/20 0.805-0.812; 0.806 selected as a working proxy, not an assay or identification of the user's ethanol."
+    },
+    "bergamot": {
+      "url": "https://www.perfumersworld.com/view.php?pro_id=7CL24020",
+      "finding": "Bergamot FCF oil Sicilian product page specific gravity 0.862; temperature not given on product page."
+    },
+    "dpg": {
+      "url": "https://doccenter.dow.com/content/dam/internal/documents/117/117-42002-dipropylene-glycol-regular-grade-technical-data-sheet-french.pdf",
+      "finding": "Dow regular-grade DPG typical density 1.022 g/cm3 at 25 C; not a certificate for user stock."
+    },
+    "hedione": {
+      "url": "https://www.madarcorporation.com/spec-sheets/raw-materials/hedione/Hedione%20-%204507704%20All%20docs.pdf",
+      "finding": "Hedione specific gravity range 0.9950-1.0080 at 25 C; midpoint 1.0015 rounded to 1.002 as a density proxy."
+    },
+    "lemon": {
+      "url": "https://www.perfumersworld.com/view.php?pro_id=7CC24029",
+      "finding": "Lemon FCF oil Sicilian product page specific gravity 0.849; temperature not given on product page."
+    },
+    "ipm": {
+      "url": "https://www.sigmaaldrich.com/GB/en/product/aldrich/172472",
+      "finding": "Isopropyl myristate reference density 0.85 g/mL at 25 C."
+    },
+    "iso_e": {
+      "url": "https://www.perfumersworld.com/document-list.php?pro_id=3WY00244&tab=ifra",
+      "finding": "Iso E Super legacy physical-properties section specific gravity 0.961-0.969 at 25 C; midpoint 0.965. Do not promote unrelated generic conformity text into safety authority."
+    },
+    "cedar": {
+      "url": "https://www.pentafineingredients.com/catalog/03-16010",
+      "finding": "Virginia cedarwood oil specific gravity 0.940-0.970 at 25 C; midpoint 0.955. Generic grade proxy, not the user's lot."
+    },
+    "suederal": {
+      "url": "https://www.perfumersworld.com/document-list.php?pro_id=3UP14351",
+      "finding": "Suederal legacy physical-properties section lists specific gravity 0.94-0.99 at 25 C; midpoint 0.965. Exact Suederal grade/lot remains unverified."
+    },
+    "habanolide": {
+      "url": "https://www.industrialchemicals.gov.au/sites/default/files/NA577%20Public%20Report%20PDF.pdf",
+      "finding": "Government Habanolide assessment reports specific gravity 0.964 at 20 C, submitted for Firmenich. Not a user lot measurement."
+    },
+    "aag": {
+      "url": "https://www.perfumersworld.com/view.php?pro_id=4FG00029",
+      "finding": "Neat Allyl Amyl Glycolate product specific gravity 0.935; used only as a neat-component proxy, not the user's DEP stock density."
+    },
+    "dep": {
+      "url": "https://www.sigmaaldrich.com/US/en/product/aldrich/524972",
+      "finding": "Diethyl phthalate reference density 1.12 g/mL at 25 C."
+    },
+    "patchouli": {
+      "url": "https://berjeinc.com/products/patchouli-oil-light/",
+      "finding": "Patchouli oil light specific gravity 0.9500-0.9750; midpoint 0.9625 rounded to 0.963. Related-oil proxy only, does not reidentify Aroma&More oil as light/fractionated."
+    },
+    "schinus": {
+      "url": "https://berjeinc.com/products/schinus-molle-oil-pink-peppercorn-oil/",
+      "finding": "Schinus molle oil specific gravity 0.8300-0.8800; midpoint 0.855. No species substitution; user lot not measured."
+    }
+  },
+  "rows": [
+    {
+      "material": "Ethanol 96%",
+      "basket": "SOLVENTS / CARRIERS",
+      "stock_label": "As supplied",
+      "stock_mass_fraction": 0,
+      "target_stock_mass_g": 20.4126,
+      "target_active_g": 0,
+      "estimated_stock_density_g_ml": 0.806,
+      "density_method": "REFERENCE_PROXY",
+      "source_ids": [
+        "ethanol"
+      ],
+      "raw_ul": 25326,
+      "rounding_step_ul": 1,
+      "estimated_stock_mass_g": 20.412756,
+      "estimated_active_g": 0,
+      "rounding_only_error_percent": 0.00076423,
+      "estimated_stock_blend_ppm_w_w": 0,
+      "estimated_finished_ppm_w_w": 0
+    },
+    {
+      "material": "Bergamot FCF oil Sicilian",
+      "basket": "CITRUS / TOP",
+      "stock_label": "Neat",
+      "stock_mass_fraction": 1,
+      "target_stock_mass_g": 0.54,
+      "target_active_g": 0.54,
+      "estimated_stock_density_g_ml": 0.862,
+      "density_method": "REFERENCE_PROXY",
+      "source_ids": [
+        "bergamot"
+      ],
+      "raw_ul": 626,
+      "rounding_step_ul": 1,
+      "estimated_stock_mass_g": 0.539612,
+      "estimated_active_g": 0.539612,
+      "rounding_only_error_percent": -0.07185185,
+      "estimated_stock_blend_ppm_w_w": 56277.5502,
+      "estimated_finished_ppm_w_w": 17986.37
+    },
+    {
+      "material": "Blackcurrant Absolute",
+      "basket": "GREEN / FRESH / MARINE",
+      "stock_label": "10% w/w in DPG",
+      "stock_mass_fraction": 0.1,
+      "target_stock_mass_g": 0.09,
+      "target_active_g": 0.009,
+      "estimated_stock_density_g_ml": 1.022,
+      "density_method": "CARRIER_ONLY_PROXY",
+      "source_ids": [
+        "dpg"
+      ],
+      "raw_ul": 88,
+      "rounding_step_ul": 1,
+      "estimated_stock_mass_g": 0.089936,
+      "estimated_active_g": 0.0089936,
+      "rounding_only_error_percent": -0.07111111,
+      "estimated_stock_blend_ppm_w_w": 937.9661,
+      "estimated_finished_ppm_w_w": 299.7751
+    },
+    {
+      "material": "Hedione",
+      "basket": "FLORAL MATERIALS",
+      "stock_label": "Neat",
+      "stock_mass_fraction": 1,
+      "target_stock_mass_g": 0.72,
+      "target_active_g": 0.72,
+      "estimated_stock_density_g_ml": 1.002,
+      "density_method": "REFERENCE_PROXY",
+      "source_ids": [
+        "hedione"
+      ],
+      "raw_ul": 719,
+      "rounding_step_ul": 1,
+      "estimated_stock_mass_g": 0.720438,
+      "estimated_active_g": 0.720438,
+      "rounding_only_error_percent": 0.06083333,
+      "estimated_stock_blend_ppm_w_w": 75136.3678,
+      "estimated_finished_ppm_w_w": 24013.6699
+    },
+    {
+      "material": "Lemon FCF oil Sicilian",
+      "basket": "FLORAL MATERIALS",
+      "stock_label": "Neat",
+      "stock_mass_fraction": 1,
+      "target_stock_mass_g": 0.12,
+      "target_active_g": 0.12,
+      "estimated_stock_density_g_ml": 0.849,
+      "density_method": "REFERENCE_PROXY",
+      "source_ids": [
+        "lemon"
+      ],
+      "raw_ul": 141,
+      "rounding_step_ul": 1,
+      "estimated_stock_mass_g": 0.119709,
+      "estimated_active_g": 0.119709,
+      "rounding_only_error_percent": -0.2425,
+      "estimated_stock_blend_ppm_w_w": 12484.7655,
+      "estimated_finished_ppm_w_w": 3990.1454
+    },
+    {
+      "material": "Ambrox Super",
+      "basket": "WOODS / AMBER / STRUCTURE",
+      "stock_label": "25% w/w in DPG + IPM + ethanol",
+      "stock_mass_fraction": 0.25,
+      "target_stock_mass_g": 3.84,
+      "target_active_g": 0.96,
+      "estimated_stock_density_g_ml": 0.98,
+      "density_method": "MIXTURE_MODEL_WITH_UNMEASURED_SOLUTE_SPECIFIC_VOLUME",
+      "source_ids": [
+        "dpg",
+        "ipm",
+        "ethanol"
+      ],
+      "raw_ul": 3918,
+      "rounding_step_ul": 1,
+      "estimated_stock_mass_g": 3.83964,
+      "estimated_active_g": 0.95991,
+      "rounding_only_error_percent": -0.009375,
+      "estimated_stock_blend_ppm_w_w": 100111.5305,
+      "estimated_finished_ppm_w_w": 31995.7607
+    },
+    {
+      "material": "Iso E Super",
+      "basket": "WOODS / AMBER / STRUCTURE",
+      "stock_label": "Neat",
+      "stock_mass_fraction": 1,
+      "target_stock_mass_g": 2.04,
+      "target_active_g": 2.04,
+      "estimated_stock_density_g_ml": 0.965,
+      "density_method": "REFERENCE_PROXY",
+      "source_ids": [
+        "iso_e"
+      ],
+      "raw_ul": 2114,
+      "rounding_step_ul": 1,
+      "estimated_stock_mass_g": 2.04001,
+      "estimated_active_g": 2.04001,
+      "rounding_only_error_percent": 0.0004902,
+      "estimated_stock_blend_ppm_w_w": 212757.9913,
+      "estimated_finished_ppm_w_w": 67997.6996
+    },
+    {
+      "material": "Cedarwood oil Virginia",
+      "basket": "WOODS / AMBER / STRUCTURE",
+      "stock_label": "Neat",
+      "stock_mass_fraction": 1,
+      "target_stock_mass_g": 0.36,
+      "target_active_g": 0.36,
+      "estimated_stock_density_g_ml": 0.955,
+      "density_method": "REFERENCE_PROXY",
+      "source_ids": [
+        "cedar"
+      ],
+      "raw_ul": 377,
+      "rounding_step_ul": 1,
+      "estimated_stock_mass_g": 0.360035,
+      "estimated_active_g": 0.360035,
+      "rounding_only_error_percent": 0.00972222,
+      "estimated_stock_blend_ppm_w_w": 37548.9941,
+      "estimated_finished_ppm_w_w": 12000.7018
+    },
+    {
+      "material": "Suederal",
+      "basket": "WOODS / AMBER / STRUCTURE",
+      "stock_label": "Neat (not 10%)",
+      "stock_mass_fraction": 1,
+      "target_stock_mass_g": 0.0114,
+      "target_active_g": 0.0114,
+      "estimated_stock_density_g_ml": 0.965,
+      "density_method": "REFERENCE_PROXY",
+      "source_ids": [
+        "suederal"
+      ],
+      "raw_ul": 11.8,
+      "rounding_step_ul": 0.1,
+      "estimated_stock_mass_g": 0.011387,
+      "estimated_active_g": 0.011387,
+      "rounding_only_error_percent": -0.11403509,
+      "estimated_stock_blend_ppm_w_w": 1187.5801,
+      "estimated_finished_ppm_w_w": 379.552
+    },
+    {
+      "material": "Habanolide",
+      "basket": "MUSKS",
+      "stock_label": "Neat",
+      "stock_mass_fraction": 1,
+      "target_stock_mass_g": 0.72,
+      "target_active_g": 0.72,
+      "estimated_stock_density_g_ml": 0.964,
+      "density_method": "REFERENCE_PROXY",
+      "source_ids": [
+        "habanolide"
+      ],
+      "raw_ul": 747,
+      "rounding_step_ul": 1,
+      "estimated_stock_mass_g": 0.720108,
+      "estimated_active_g": 0.720108,
+      "rounding_only_error_percent": 0.015,
+      "estimated_stock_blend_ppm_w_w": 75101.9513,
+      "estimated_finished_ppm_w_w": 24002.6703
+    },
+    {
+      "material": "Allyl Amyl Glycolate",
+      "basket": "SWEET / GOURMAND / BALSAMIC",
+      "stock_label": "10% w/w in DEP",
+      "stock_mass_fraction": 0.1,
+      "target_stock_mass_g": 0.15,
+      "target_active_g": 0.015,
+      "estimated_stock_density_g_ml": 1.098,
+      "density_method": "ADDITIVE_SPECIFIC_VOLUME_MODEL",
+      "source_ids": [
+        "aag",
+        "dep"
+      ],
+      "raw_ul": 137,
+      "rounding_step_ul": 1,
+      "estimated_stock_mass_g": 0.150426,
+      "estimated_active_g": 0.0150426,
+      "rounding_only_error_percent": 0.284,
+      "estimated_stock_blend_ppm_w_w": 1568.8322,
+      "estimated_finished_ppm_w_w": 501.4006
+    },
+    {
+      "material": "Evernyl",
+      "basket": "LEATHER / SMOKY / PHENOLIC",
+      "stock_label": "10% w/w in DEP",
+      "stock_mass_fraction": 0.1,
+      "target_stock_mass_g": 0.48,
+      "target_active_g": 0.048,
+      "estimated_stock_density_g_ml": 1.12,
+      "density_method": "CARRIER_ONLY_PROXY",
+      "source_ids": [
+        "dep"
+      ],
+      "raw_ul": 429,
+      "rounding_step_ul": 1,
+      "estimated_stock_mass_g": 0.48048,
+      "estimated_active_g": 0.048048,
+      "rounding_only_error_percent": 0.1,
+      "estimated_stock_blend_ppm_w_w": 5011.0519,
+      "estimated_finished_ppm_w_w": 1601.538
+    },
+    {
+      "material": "Cade Oil Rectified",
+      "basket": "LEATHER / SMOKY / PHENOLIC",
+      "stock_label": "1% w/w in DPG",
+      "stock_mass_fraction": 0.01,
+      "target_stock_mass_g": 0.06,
+      "target_active_g": 0.0006,
+      "estimated_stock_density_g_ml": 1.022,
+      "density_method": "CARRIER_ONLY_PROXY",
+      "source_ids": [
+        "dpg"
+      ],
+      "raw_ul": 59,
+      "rounding_step_ul": 1,
+      "estimated_stock_mass_g": 0.060298,
+      "estimated_active_g": 0.00060298,
+      "rounding_only_error_percent": 0.49666667,
+      "estimated_stock_blend_ppm_w_w": 62.8864,
+      "estimated_finished_ppm_w_w": 20.0986
+    },
+    {
+      "material": "Patchouli EO",
+      "basket": "SPICE / AROMATIC",
+      "stock_label": "Neat / Aroma&More",
+      "stock_mass_fraction": 1,
+      "target_stock_mass_g": 0.432,
+      "target_active_g": 0.432,
+      "estimated_stock_density_g_ml": 0.963,
+      "density_method": "RELATED_GRADE_PROXY",
+      "source_ids": [
+        "patchouli"
+      ],
+      "raw_ul": 449,
+      "rounding_step_ul": 1,
+      "estimated_stock_mass_g": 0.432387,
+      "estimated_active_g": 0.432387,
+      "rounding_only_error_percent": 0.08958333,
+      "estimated_stock_blend_ppm_w_w": 45094.7738,
+      "estimated_finished_ppm_w_w": 14412.3418
+    },
+    {
+      "material": "Schinus molle EO",
+      "basket": "SPICE / AROMATIC",
+      "stock_label": "Neat / Schinus molle",
+      "stock_mass_fraction": 1,
+      "target_stock_mass_g": 0.024,
+      "target_active_g": 0.024,
+      "estimated_stock_density_g_ml": 0.855,
+      "density_method": "REFERENCE_PROXY",
+      "source_ids": [
+        "schinus"
+      ],
+      "raw_ul": 28,
+      "rounding_step_ul": 1,
+      "estimated_stock_mass_g": 0.02394,
+      "estimated_active_g": 0.02394,
+      "rounding_only_error_percent": -0.25,
+      "estimated_stock_blend_ppm_w_w": 2496.7654,
+      "estimated_finished_ppm_w_w": 797.9691
+    }
+  ],
+  "authorities": {
+    "estimated_volume_conversion_authorized": true,
+    "measured_density": false,
+    "exact_active_equivalence": false,
+    "physical_compounding_release": false,
+    "safety_release": false,
+    "sensory_equivalence": false,
+    "global_inventory_modified": false
+  },
+  "unresolved_checks": [
+    "Carry forward parent stock-registry synchronization holds; no global inventory pins or overlays altered.",
+    "Cade rectified-grade lot and PAH documentation, complete formula safety review remain outstanding.",
+    "Homogeneous fully dissolved working stocks and verified pipetting of viscous or volatile liquids required; a suspension is not made quantitative by this density estimate.",
+    "Immediate-parent active-dose plus OAV-per-time release checks not completed; local rounding checks are not that release gate.",
+    "No measured headspace, final mixed volume, natural-lot composition, ODT/OAV, stability or sensory result asserted."
+  ]
+}

@@ -1,0 +1,29 @@
+﻿Code,ACC-FG-CHO-01
+Accord,Dark Chocolate Coffee v1.0
+Category,Fruit & Gourmand
+Brief,"A bitter dark chocolate-coffee base with two cocoa extracts, roasted pyrazine, coffee absolute, guaiacol, vanilla and tobacco-like woods."
+Recommended use,0.5–5% of perfume concentrate
+Maturation,14–21 days
+Monte Carlo pass,0.9916
+Final design score,100.0
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Cocoa Absolute 10%,Prepare 10% in DPG from Cocoa Absolute,0.1,160.0,16.0,160.0,800.0,PREPARED STOCK,cocoa,Cocoa absolute,Dark cocoa absolute.,HAVE — PREPARE 10%,Use the explicit 10% DPG dilution in formulas written for Cocoa Absolute 10%.,Prepare explicit 10% stock.,IDENTITY CRITICAL,0.09535512617740428
+2,base,Coffee Absolute Grasse 10% in DPG,10% in DPG,0.1,100.0,10.0,100.0,500.0,PREPARED STOCK,coffee,Coffee body,Roasted coffee depth.,HAVE,Use only with exact label/stock-strength accounting.,,IDENTITY CRITICAL,0.046658945933674485
+3,base,Cocoa CO2 Extract 7.7%,7.7% stock,0.077,70.0,5.39,70.0,350.0,PREPARED STOCK,cocoa,Dense cocoa CO2,Dense cocoa CO2 body.,HAVE,Use only with exact label/stock-strength accounting.,,IDENTITY CRITICAL,0.02271099803197952
+4,base,Isobutavan,as supplied,1.0,70.0,70.0,70.0,350.0,DIRECT,gourmand,Creamy gourmand body,Creamy vanilla-nut texture.,HAVE,Use only with exact label/stock-strength accounting.,,IDENTITY CRITICAL,0.027104313097624046
+5,base,Vanillin 10%,10% working stock,0.1,70.0,7.0,70.0,350.0,PREPARED STOCK,vanilla,Vanilla warmth,Vanilla warmth.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.018610006564738924
+6,base,Siam Benzoin 50%,Siam Benzoin 50%,0.5,65.0,32.5,65.0,325.0,PREPARED STOCK,benzoin,Balsamic body,Dense Siam benzoin.,HAVE — MULTIPLE BENZOINS,Treat each benzoin source and solvent as a separate stock.,,STRUCTURALLY IMPORTANT,0.016538520999626955
+7,base,Kephalis,neat/as supplied,1.0,50.0,50.0,50.0,250.0,DIRECT,warm_wood,Tobacco-like wood,Warm tobacco-like wood.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.010912482741823012
+8,base,Tonka Bean Absolute 10%,10% working stock,0.1,40.0,4.0,40.0,200.0,PREPARED STOCK,tonka,Natural tonka,Natural tonka warmth.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.007724150363119145
+9,base,Coumarin 20%,20% in DPG,0.2,35.0,7.0,35.0,175.0,PREPARED STOCK,tonka,Tonka warmth,Hay-almond warmth.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.006336837499876877
+10,base,Patchouli EO,neat / as supplied,1.0,30.0,30.0,30.0,150.0,DIRECT,patchouli,Dark earth,Earthy patchouli structure.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.005119472957740842
+11,base,Ethyl Vanillin 10%,10% in DPG,0.1,20.0,2.0,20.0,100.0,PREPARED STOCK,vanilla,Projection,Vanilla projection.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.00289093287790738
+12,base,Guaiacol 10%,Guaiacol 10% working dilution,0.1,20.0,2.0,20.0,100.0,PREPARED STOCK,smoke,Smoky cocoa,Phenolic smoke/cocoa shadow.,HAVE — NEAT + 10%,Formula must specify exact strength.,,TEXTURAL SUPPORT,0.0029407463224542223
+13,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,20.0,20.0,20.0,100.0,DIRECT,musk,Clean diffusion,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.0029407463224542223
+14,heart_base,2-Acetyl Pyrazine,Prepare 1% in DPG from neat 2-Acetyl Pyrazine,0.01,50.0,0.5,50.0,250.0,PREPARED STOCK,roasted,Roasted pyrazine,Roasted nut/praline pyrazine.,HAVE — NEAT,Use neat only for controlled premix preparation; use the prepared 1% stock in formulas unless a different strength is explicitly named.,Routine bench stock per inventory policy.,IDENTITY CRITICAL,0.016836707324989916
+15,heart_base,Iso E Super,neat / as supplied,1.0,50.0,50.0,50.0,250.0,DIRECT,transparent_wood,Dry frame,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.01095120705746718
+16,heart_base,Immortelle Absolute 10%,10% working stock,0.1,15.0,1.5,15.0,75.0,PREPARED STOCK,honey_tobacco,Maple-roast nuance,Hay-maple honey warmth.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0020321792253486224
+17,top_heart,Benzaldehyde 10%,Prepare 10% from neat Benzaldehyde,0.1,25.0,2.5,25.0,125.0,PREPARED STOCK,almond,Kernel nuance,Bitter almond kernel.,HAVE — NEAT / PREPARE,Use only at the listed supplied-stock strength.,Prepare only when required.,TEXTURAL SUPPORT,0.004031796154009863
+18,carrier,DPG,neat,0.0,110.0,0.0,110.0,550.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

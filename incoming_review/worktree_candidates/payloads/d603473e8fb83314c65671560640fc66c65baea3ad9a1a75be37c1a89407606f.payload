@@ -1,0 +1,102 @@
+{
+  "schema_version": "perfume_chem_inventory_v5_historical_receipt_compatibility_v1",
+  "report_id": "inventory_v5_historical_receipt_compatibility_20260904",
+  "generated_at": "2026-09-04",
+  "decision": "HISTORICAL_PARENT_BYTES_PRESERVED_CURRENT_AUTHORITY_NOT_REBASED",
+  "purpose": "Provide portable exact-byte witnesses for immutable 2026-08-12 inventory-v5 receipt parents after current inventory and the living reconciliation document advanced, without rewriting historical receipts or granting current stock, experiment, sensory, safety, or release authority.",
+  "semantic_self_sha256": "5d4375b6fb35d600d14456925f74f563a1884346a75fdd1e8d7f9f483bec7e25",
+  "historical_bindings": [
+    {
+      "historical_path": "inventory.txt",
+      "historical_size_bytes": 17140,
+      "historical_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "portable_snapshot_path": "tests/fixtures/inventory_v5_inventory_20260812.txt.snapshot",
+      "portable_snapshot_size_bytes": 17140,
+      "portable_snapshot_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "normalization": "NONE_EXACT_CRLF_BYTES",
+      "role": "USER_STOCK_ASSERTION_SOURCE_AS_BOUND_BY_2026_08_12_RECEIPTS"
+    },
+    {
+      "historical_path": "docs/research/PERFUME_CHEM_CHATGPT_PROJECT_RECONCILIATION_2026-08-10.md",
+      "historical_size_bytes": 168762,
+      "historical_sha256": "b79fceec56999fbe515970af0353941e9410ebd76756597bf52aa3f10fbb30d7",
+      "portable_snapshot_path": "tests/fixtures/inventory_v5_project_reconciliation_20260812.md.snapshot",
+      "portable_snapshot_size_bytes": 168762,
+      "portable_snapshot_sha256": "b79fceec56999fbe515970af0353941e9410ebd76756597bf52aa3f10fbb30d7",
+      "normalization": "NONE_EXACT_LF_BYTES",
+      "role": "PROJECT_RECONCILIATION_STATE_AS_BOUND_BY_CLOSURE_QUEUE"
+    },
+    {
+      "historical_path": "incoming_review/PERFUME_CHEM_LITERATURE_VERIFICATION_LEDGER.md",
+      "historical_size_bytes": 27155,
+      "historical_sha256": "4f2206893d6f8d682aa6df798a3a5c8c9b2a815b8ed2c4025c20cd108544b9e7",
+      "portable_snapshot_path": "tests/fixtures/inventory_v5_literature_verification_ledger_20260812.md.snapshot",
+      "portable_snapshot_size_bytes": 27155,
+      "portable_snapshot_sha256": "4f2206893d6f8d682aa6df798a3a5c8c9b2a815b8ed2c4025c20cd108544b9e7",
+      "normalization": "NONE_EXACT_LF_BYTES",
+      "source_class": "PROJECT_AUTHORED_CLAIM_TO_SOURCE_LEDGER_WITH_CITATIONS_NOT_SOURCE_TEXT",
+      "role": "LOCAL_LITERATURE_VERIFICATION_BOUNDARY_AS_BOUND_BY_CLOSURE_QUEUE"
+    }
+  ],
+  "host_eol_bindings": [
+    {
+      "path": "data/governance/inventory_v5_alias_crosswalk_20260811.json",
+      "size_bytes": 7700,
+      "sha256": "4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6"
+    },
+    {
+      "path": "data/governance/inventory_v5_authority_delta_20260811.json",
+      "size_bytes": 7027,
+      "sha256": "0ecbfc09bb826c89d1180006e2eb195c5db87b40bad77f250256e8ef89fd6774"
+    },
+    {
+      "path": "data/governance/inventory_v5_authority_delta_20260811_02.json",
+      "size_bytes": 4352,
+      "sha256": "388e25561f679f0c46a2c320b49c3ebfc1c8c00c51aa6dd9e9564fbd60aeee92"
+    },
+    {
+      "path": "data/governance/inventory_v5_experiment_readiness_closure_queue_20260812.json",
+      "size_bytes": 24578,
+      "sha256": "ff228b72a155e14902416b1de8d92e75f7302123c80f292abfc85adbd997ee2a"
+    },
+    {
+      "path": "data/governance/inventory_v5_experiment_readiness_closure_evidence_audit_20260812.json",
+      "size_bytes": 8834,
+      "sha256": "fbd0ae580b2b13684d9dc3a12f51157f3aa0b9f9aba38399a8e4775f7d88a800"
+    },
+    {
+      "path": "data/governance/inventory_v5_experiment_readiness_remaining_evidence_audit_20260812.json",
+      "size_bytes": 17181,
+      "sha256": "d8d403f6de81b56e26fa6fe24722f378d77f639c1020c6e940c80b43e03078d2"
+    },
+    {
+      "path": "data/governance/inventory_v5_direct_stock_assertion_reconciliation_20260812.json",
+      "size_bytes": 12396,
+      "sha256": "c97f24f964170e456490f76230a61a99d444ef495efc447dadfde3e686be986b"
+    }
+  ],
+  "claim_boundary": {
+    "current_inventory_rebound_to_historical_receipt": false,
+    "historical_receipts_rewritten": false,
+    "historical_stock_authority_promoted": false,
+    "current_stock_authority_granted": false,
+    "physical_experiment_authorized": false,
+    "sensory_claim_created": false,
+    "safety_claim_created": false,
+    "release_ready": false
+  },
+  "authority": {
+    "formula": false,
+    "inventory_mutation": false,
+    "stock_identity": false,
+    "preparation": false,
+    "physical_experiment": false,
+    "sensory_claim": false,
+    "scientific_claim": false,
+    "safety": false,
+    "procurement": false,
+    "collection": false,
+    "installation": false,
+    "release": false
+  }
+}

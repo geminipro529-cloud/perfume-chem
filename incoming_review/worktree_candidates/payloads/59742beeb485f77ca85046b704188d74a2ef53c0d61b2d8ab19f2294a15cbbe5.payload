@@ -1,0 +1,920 @@
+"""Target-first Cypress--floral heart architecture frontier.
+
+The frontier answers a narrow computational-design question: which relational
+heart architecture is presently the strongest theory for making high-quality
+French Cypress EO the beautiful, unmistakable subject of a perfume without
+turning the perfume into either a photorealistic tree study or a generic floral
+with Cypress as decoration?
+
+It does *not* infer beauty from ingredient count, prestige, ownership, shared
+constituents, OAV, or repeated module opinions.  Each candidate must address
+the same explicit target-linked criteria.  Selection is by Pareto dominance;
+equal or genuinely non-dominated candidates remain a frontier and require a
+controlled comparison.  Current inventory can block an executable candidate,
+but it cannot rewrite the ideal target.
+
+All conclusions remain computational experiment design.  No observed liking,
+perception, similarity, safety, stability, performance, preparation,
+compounding, purchase, formula mutation, or release authority is granted.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field, fields, is_dataclass
+from enum import Enum, IntEnum
+from typing import Any, Iterable
+
+from engine.evidence_contracts import canonical_json_bytes, sha256_hex
+from engine.material_capability_atlas import MaterialCapabilityAtlas
+from engine.perception.harmonic_synthesis import (
+    HarmonicMaterialIntentV1,
+    HarmonicTargetContractV1,
+)
+
+
+class CypressHeartFrontierState(str, Enum):
+    """Decision state for an exact Cypress-heart comparison scope."""
+
+    THEORY_SELECTED = "THEORY_SELECTED"
+    FRONTIER = "FRONTIER"
+    HOLD = "HOLD"
+
+
+class CypressHeartCriterion(str, Enum):
+    """Non-interchangeable criteria for the Cypress perfume brief."""
+
+    CYPRESS_SUBJECT_PRESERVATION = "CYPRESS_SUBJECT_PRESERVATION"
+    FLORAL_RELIEF = "FLORAL_RELIEF"
+    ROOTED_DEPTH = "ROOTED_DEPTH"
+    TEMPORAL_HANDOFF = "TEMPORAL_HANDOFF"
+    DISTINCTIVE_IDENTITY = "DISTINCTIVE_IDENTITY"
+    CURRENT_INVENTORY_FEASIBILITY = "CURRENT_INVENTORY_FEASIBILITY"
+    HEDONIC_MECHANISM_TESTABILITY = "HEDONIC_MECHANISM_TESTABILITY"
+
+
+class DesignSupportLevel(IntEnum):
+    """Ordinal support for one criterion, never a scalar beauty measure."""
+
+    CONTRAINDICATED = 0
+    UNRESOLVED = 1
+    PLAUSIBLE = 2
+    STRONGLY_TARGET_LINKED = 3
+
+
+def _text(value: object, field_name: str) -> str:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"{field_name} must be nonblank text")
+    return " ".join(value.split())
+
+
+def _text_tuple(
+    values: Iterable[str],
+    field_name: str,
+    *,
+    allow_empty: bool = False,
+) -> tuple[str, ...]:
+    normalized = tuple(_text(value, field_name) for value in values)
+    if not allow_empty and not normalized:
+        raise ValueError(f"{field_name} must not be empty")
+    if len(normalized) != len(set(normalized)):
+        raise ValueError(f"{field_name} must contain unique values")
+    return normalized
+
+
+def _json_value(value: object) -> object:
+    if isinstance(value, Enum):
+        return value.value
+    if isinstance(value, tuple):
+        return [_json_value(item) for item in value]
+    if isinstance(value, list):
+        return [_json_value(item) for item in value]
+    if isinstance(value, dict):
+        return {str(key): _json_value(item) for key, item in value.items()}
+    if is_dataclass(value) and hasattr(value, "as_dict"):
+        return value.as_dict()  # type: ignore[no-any-return, union-attr]
+    return value
+
+
+class _CanonicalRecord:
+    SCHEMA_VERSION: str
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": self.SCHEMA_VERSION,
+            **{item.name: _json_value(getattr(self, item.name)) for item in fields(self)},
+        }
+
+    @property
+    def record_sha256(self) -> str:
+        return sha256_hex(canonical_json_bytes(self.as_dict()))
+
+
+@dataclass(frozen=True, slots=True)
+class CypressHeartAssessmentV1(_CanonicalRecord):
+    """Criterion-scoped theory, uncertainty, and falsifier for one candidate."""
+
+    SCHEMA_VERSION = "cypress_heart_assessment_v1"
+
+    criterion: CypressHeartCriterion
+    support_level: DesignSupportLevel
+    rationale: str
+    uncertainty: str
+    failure_mode: str
+    evidence_refs: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "criterion", CypressHeartCriterion(self.criterion))
+        object.__setattr__(
+            self,
+            "support_level",
+            DesignSupportLevel(self.support_level),
+        )
+        for field_name in ("rationale", "uncertainty", "failure_mode"):
+            object.__setattr__(
+                self,
+                field_name,
+                _text(getattr(self, field_name), field_name),
+            )
+        object.__setattr__(
+            self,
+            "evidence_refs",
+            _text_tuple(self.evidence_refs, "evidence_refs"),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class CypressHeartCandidateV1(_CanonicalRecord):
+    """One complete relational-heart hypothesis, not a finished formula."""
+
+    SCHEMA_VERSION = "cypress_heart_candidate_v1"
+
+    candidate_id: str
+    heart_identity: str
+    floral_subjects: tuple[str, ...]
+    relation_to_cypress: str
+    smell_hypothesis: str
+    assessments: tuple[CypressHeartAssessmentV1, ...]
+    material_intents: tuple[HarmonicMaterialIntentV1, ...]
+    inherited_model_refs: tuple[str, ...]
+    controlled_comparison_ref: str
+
+    def __post_init__(self) -> None:
+        for field_name in (
+            "candidate_id",
+            "heart_identity",
+            "relation_to_cypress",
+            "smell_hypothesis",
+            "controlled_comparison_ref",
+        ):
+            object.__setattr__(
+                self,
+                field_name,
+                _text(getattr(self, field_name), field_name),
+            )
+        object.__setattr__(
+            self,
+            "floral_subjects",
+            _text_tuple(self.floral_subjects, "floral_subjects", allow_empty=True),
+        )
+        assessments = tuple(self.assessments)
+        if any(not isinstance(item, CypressHeartAssessmentV1) for item in assessments):
+            raise TypeError("assessments must contain CypressHeartAssessmentV1 values")
+        assessment_criteria = tuple(item.criterion for item in assessments)
+        if len(assessment_criteria) != len(set(assessment_criteria)):
+            raise ValueError("candidate assessments must use unique criteria")
+        object.__setattr__(self, "assessments", assessments)
+        intents = tuple(self.material_intents)
+        if any(not isinstance(item, HarmonicMaterialIntentV1) for item in intents):
+            raise TypeError("material_intents must contain HarmonicMaterialIntentV1 values")
+        intent_ids = tuple(item.intent_id for item in intents)
+        if len(intent_ids) != len(set(intent_ids)):
+            raise ValueError("candidate material intent IDs must be unique")
+        object.__setattr__(self, "material_intents", intents)
+        object.__setattr__(
+            self,
+            "inherited_model_refs",
+            _text_tuple(
+                self.inherited_model_refs,
+                "inherited_model_refs",
+                allow_empty=True,
+            ),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class CypressDominanceRecordV1(_CanonicalRecord):
+    """Why one candidate dominates another over the declared criteria."""
+
+    SCHEMA_VERSION = "cypress_dominance_record_v1"
+
+    dominant_candidate_id: str
+    dominated_candidate_id: str
+    criteria_equal: tuple[CypressHeartCriterion, ...]
+    criteria_stronger: tuple[CypressHeartCriterion, ...]
+
+    def __post_init__(self) -> None:
+        object.__setattr__(
+            self,
+            "dominant_candidate_id",
+            _text(self.dominant_candidate_id, "dominant_candidate_id"),
+        )
+        object.__setattr__(
+            self,
+            "dominated_candidate_id",
+            _text(self.dominated_candidate_id, "dominated_candidate_id"),
+        )
+        if self.dominant_candidate_id == self.dominated_candidate_id:
+            raise ValueError("dominance must connect distinct candidates")
+        equal = tuple(CypressHeartCriterion(item) for item in self.criteria_equal)
+        stronger = tuple(CypressHeartCriterion(item) for item in self.criteria_stronger)
+        if not stronger:
+            raise ValueError("dominance requires at least one stronger criterion")
+        if set(equal) & set(stronger):
+            raise ValueError("equal and stronger criterion sets must not overlap")
+        object.__setattr__(self, "criteria_equal", equal)
+        object.__setattr__(self, "criteria_stronger", stronger)
+
+
+@dataclass(frozen=True, slots=True)
+class CypressHeartFrontierRequestV1(_CanonicalRecord):
+    """Frozen comparison scope for candidate architecture evaluation."""
+
+    SCHEMA_VERSION = "cypress_heart_frontier_request_v1"
+
+    target: HarmonicTargetContractV1
+    criteria_priority: tuple[CypressHeartCriterion, ...]
+    candidates: tuple[CypressHeartCandidateV1, ...]
+    prohibited_inherited_model_refs: tuple[str, ...]
+    literature_refs: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.target, HarmonicTargetContractV1):
+            raise TypeError("target must be HarmonicTargetContractV1")
+        criteria = tuple(CypressHeartCriterion(item) for item in self.criteria_priority)
+        if not criteria:
+            raise ValueError("criteria_priority must not be empty")
+        if len(criteria) != len(set(criteria)):
+            raise ValueError("criteria_priority must contain unique criteria")
+        object.__setattr__(self, "criteria_priority", criteria)
+        candidates = tuple(self.candidates)
+        if not candidates:
+            raise ValueError("candidates must not be empty")
+        if any(not isinstance(item, CypressHeartCandidateV1) for item in candidates):
+            raise TypeError("candidates must contain CypressHeartCandidateV1 values")
+        candidate_ids = tuple(item.candidate_id for item in candidates)
+        if len(candidate_ids) != len(set(candidate_ids)):
+            raise ValueError("candidate IDs must be unique")
+        object.__setattr__(self, "candidates", candidates)
+        object.__setattr__(
+            self,
+            "prohibited_inherited_model_refs",
+            _text_tuple(
+                self.prohibited_inherited_model_refs,
+                "prohibited_inherited_model_refs",
+                allow_empty=True,
+            ),
+        )
+        object.__setattr__(
+            self,
+            "literature_refs",
+            _text_tuple(self.literature_refs, "literature_refs"),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class CypressHeartFrontierResultV1(_CanonicalRecord):
+    """Deterministic receipt for one exact Cypress-heart frontier."""
+
+    SCHEMA_VERSION = "cypress_heart_frontier_result_v1"
+
+    state: CypressHeartFrontierState
+    request_sha256: str
+    target: HarmonicTargetContractV1
+    selected_candidate: CypressHeartCandidateV1 | None
+    frontier_candidate_ids: tuple[str, ...]
+    dominance_records: tuple[CypressDominanceRecordV1, ...]
+    blockers: tuple[str, ...]
+    inventory_holds: tuple[str, ...]
+    selection_basis: str
+    next_comparison: str | None
+    claim_ceiling: str = "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY"
+    hedonic_truth_state: str = "NOT_TESTED"
+    scalar_score_used: bool = False
+    formula_mutation_authorized: bool = field(default=False, init=False)
+    physical_execution_authorized: bool = field(default=False, init=False)
+    compounding_authorized: bool = field(default=False, init=False)
+    purchase_authority: bool = field(default=False, init=False)
+    sensory_authority: bool = field(default=False, init=False)
+    hedonic_authority: bool = field(default=False, init=False)
+    similarity_authority: bool = field(default=False, init=False)
+    performance_authority: bool = field(default=False, init=False)
+    safety_authority: bool = field(default=False, init=False)
+    stability_authority: bool = field(default=False, init=False)
+    release_authority: bool = field(default=False, init=False)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "state", CypressHeartFrontierState(self.state))
+        digest = _text(self.request_sha256, "request_sha256").casefold()
+        if len(digest) != 64 or any(ch not in "0123456789abcdef" for ch in digest):
+            raise ValueError("request_sha256 must be a SHA-256 hexadecimal digest")
+        object.__setattr__(self, "request_sha256", digest)
+        if not isinstance(self.target, HarmonicTargetContractV1):
+            raise TypeError("target must be HarmonicTargetContractV1")
+        if self.selected_candidate is not None and not isinstance(
+            self.selected_candidate,
+            CypressHeartCandidateV1,
+        ):
+            raise TypeError("selected_candidate must be CypressHeartCandidateV1 or None")
+        object.__setattr__(
+            self,
+            "frontier_candidate_ids",
+            _text_tuple(
+                self.frontier_candidate_ids,
+                "frontier_candidate_ids",
+                allow_empty=True,
+            ),
+        )
+        object.__setattr__(self, "dominance_records", tuple(self.dominance_records))
+        object.__setattr__(
+            self,
+            "blockers",
+            _text_tuple(self.blockers, "blockers", allow_empty=True),
+        )
+        object.__setattr__(
+            self,
+            "inventory_holds",
+            _text_tuple(self.inventory_holds, "inventory_holds", allow_empty=True),
+        )
+        object.__setattr__(
+            self,
+            "selection_basis",
+            _text(self.selection_basis, "selection_basis"),
+        )
+        if self.next_comparison is not None:
+            object.__setattr__(
+                self,
+                "next_comparison",
+                _text(self.next_comparison, "next_comparison"),
+            )
+        object.__setattr__(
+            self,
+            "claim_ceiling",
+            _text(self.claim_ceiling, "claim_ceiling"),
+        )
+        object.__setattr__(
+            self,
+            "hedonic_truth_state",
+            _text(self.hedonic_truth_state, "hedonic_truth_state"),
+        )
+        if self.scalar_score_used:
+            raise ValueError("the Cypress frontier may not use a scalar score")
+        authority_fields = (
+            "formula_mutation_authorized",
+            "physical_execution_authorized",
+            "compounding_authorized",
+            "purchase_authority",
+            "sensory_authority",
+            "hedonic_authority",
+            "similarity_authority",
+            "performance_authority",
+            "safety_authority",
+            "stability_authority",
+            "release_authority",
+        )
+        if any(getattr(self, name) for name in authority_fields):
+            raise ValueError("frontier results may not grant authority")
+
+
+def _assessment_map(
+    candidate: CypressHeartCandidateV1,
+) -> dict[CypressHeartCriterion, CypressHeartAssessmentV1]:
+    return {item.criterion: item for item in candidate.assessments}
+
+
+def _candidate_inventory_holds(
+    candidate: CypressHeartCandidateV1,
+    atlas: MaterialCapabilityAtlas,
+) -> tuple[str, ...]:
+    holds: list[str] = []
+    for intent in candidate.material_intents:
+        if not intent.current_build_intent:
+            continue
+        projection = atlas.project(intent.material_name)
+        ready = (
+            projection.quantitative_execution_ready
+            if intent.quantitative_required
+            else projection.qualitative_selectable
+        )
+        if ready:
+            continue
+        requirement = (
+            "quantitative execution"
+            if intent.quantitative_required
+            else "qualitative selection"
+        )
+        details = ", ".join(projection.blockers) or projection.inventory_state.value
+        holds.append(
+            f"{candidate.candidate_id}: {intent.material_name} cannot satisfy "
+            f"{requirement}; current state {projection.inventory_state.value}; {details}"
+        )
+    return tuple(holds)
+
+
+def _dominance(
+    candidate_a: CypressHeartCandidateV1,
+    candidate_b: CypressHeartCandidateV1,
+    criteria: tuple[CypressHeartCriterion, ...],
+) -> CypressDominanceRecordV1 | None:
+    assessments_a = _assessment_map(candidate_a)
+    assessments_b = _assessment_map(candidate_b)
+    equal: list[CypressHeartCriterion] = []
+    stronger: list[CypressHeartCriterion] = []
+    for criterion in criteria:
+        level_a = assessments_a[criterion].support_level
+        level_b = assessments_b[criterion].support_level
+        if level_a < level_b:
+            return None
+        if level_a == level_b:
+            equal.append(criterion)
+        else:
+            stronger.append(criterion)
+    if not stronger:
+        return None
+    return CypressDominanceRecordV1(
+        dominant_candidate_id=candidate_a.candidate_id,
+        dominated_candidate_id=candidate_b.candidate_id,
+        criteria_equal=tuple(equal),
+        criteria_stronger=tuple(stronger),
+    )
+
+
+def evaluate_cypress_heart_frontier(
+    request: CypressHeartFrontierRequestV1,
+    *,
+    atlas: MaterialCapabilityAtlas,
+) -> CypressHeartFrontierResultV1:
+    """Evaluate a fixed candidate set without averaging unlike criteria."""
+
+    if not isinstance(request, CypressHeartFrontierRequestV1):
+        raise TypeError("request must be CypressHeartFrontierRequestV1")
+    if not isinstance(atlas, MaterialCapabilityAtlas):
+        raise TypeError("atlas must be MaterialCapabilityAtlas")
+
+    declared = set(request.criteria_priority)
+    prohibited = {item.casefold() for item in request.prohibited_inherited_model_refs}
+    blockers: list[str] = []
+    inventory_holds: list[str] = []
+    eligible: list[CypressHeartCandidateV1] = []
+
+    for candidate in request.candidates:
+        candidate_blocked = False
+        observed = {item.criterion for item in candidate.assessments}
+        if observed != declared:
+            missing = sorted(item.value for item in declared - observed)
+            extra = sorted(item.value for item in observed - declared)
+            blockers.append(
+                f"{candidate.candidate_id}: criterion coverage mismatch; "
+                f"missing={missing}; extra={extra}"
+            )
+            candidate_blocked = True
+
+        inherited = {item.casefold() for item in candidate.inherited_model_refs}
+        overlap = sorted(inherited & prohibited)
+        if overlap:
+            blockers.append(
+                f"{candidate.candidate_id}: prohibited inherited architecture "
+                f"references={overlap}; this frontier requires a Cypress-native design"
+            )
+            candidate_blocked = True
+
+        candidate_holds = _candidate_inventory_holds(candidate, atlas)
+        if candidate_holds:
+            inventory_holds.extend(candidate_holds)
+            candidate_blocked = True
+
+        if not candidate_blocked:
+            eligible.append(candidate)
+
+    if not eligible:
+        return CypressHeartFrontierResultV1(
+            state=CypressHeartFrontierState.HOLD,
+            request_sha256=request.record_sha256,
+            target=request.target,
+            selected_candidate=None,
+            frontier_candidate_ids=(),
+            dominance_records=(),
+            blockers=tuple(blockers),
+            inventory_holds=tuple(inventory_holds),
+            selection_basis=(
+                "No candidate is eligible at the frozen criterion and current-inventory "
+                "scope; the ideal target remains unchanged."
+            ),
+            next_comparison=(
+                "Resolve criterion coverage or stock authority, then repeat the exact "
+                "frontier without changing the Cypress target."
+            ),
+        )
+
+    dominance_records: list[CypressDominanceRecordV1] = []
+    dominated_ids: set[str] = set()
+    for candidate_a in eligible:
+        for candidate_b in eligible:
+            if candidate_a.candidate_id == candidate_b.candidate_id:
+                continue
+            record = _dominance(candidate_a, candidate_b, request.criteria_priority)
+            if record is not None:
+                dominance_records.append(record)
+                dominated_ids.add(candidate_b.candidate_id)
+
+    frontier = tuple(
+        candidate
+        for candidate in eligible
+        if candidate.candidate_id not in dominated_ids
+    )
+    if len(frontier) == 1:
+        selected = frontier[0]
+        return CypressHeartFrontierResultV1(
+            state=CypressHeartFrontierState.THEORY_SELECTED,
+            request_sha256=request.record_sha256,
+            target=request.target,
+            selected_candidate=selected,
+            frontier_candidate_ids=(selected.candidate_id,),
+            dominance_records=tuple(dominance_records),
+            blockers=tuple(blockers),
+            inventory_holds=tuple(inventory_holds),
+            selection_basis=(
+                "The selected architecture Pareto-dominates every other eligible "
+                "candidate over all declared target-linked criteria. Ingredient count, "
+                "ownership prestige, OAV magnitude, and repeated module opinions were "
+                "not selection variables."
+            ),
+            next_comparison=selected.controlled_comparison_ref,
+        )
+
+    frontier_ids = tuple(candidate.candidate_id for candidate in frontier)
+    comparison_refs = ", ".join(
+        candidate.controlled_comparison_ref for candidate in frontier
+    )
+    return CypressHeartFrontierResultV1(
+        state=CypressHeartFrontierState.FRONTIER,
+        request_sha256=request.record_sha256,
+        target=request.target,
+        selected_candidate=None,
+        frontier_candidate_ids=frontier_ids,
+        dominance_records=tuple(dominance_records),
+        blockers=tuple(blockers),
+        inventory_holds=tuple(inventory_holds),
+        selection_basis=(
+            "Two or more candidates are equal or non-dominated at this exact scope. "
+            "No material-count, alphabetical, or aggregate-number tie break is allowed."
+        ),
+        next_comparison=(
+            "Run a constant-total, carrier-matched, blinded comparison among frontier "
+            f"arms using these frozen protocols: {comparison_refs}"
+        ),
+    )
+
+
+def _assessment(
+    criterion: CypressHeartCriterion,
+    support_level: DesignSupportLevel,
+    rationale: str,
+    uncertainty: str,
+    failure_mode: str,
+    *evidence_refs: str,
+) -> CypressHeartAssessmentV1:
+    return CypressHeartAssessmentV1(
+        criterion=criterion,
+        support_level=support_level,
+        rationale=rationale,
+        uncertainty=uncertainty,
+        failure_mode=failure_mode,
+        evidence_refs=tuple(evidence_refs),
+    )
+
+
+def _intent(
+    candidate_id: str,
+    material_name: str,
+    role_id: str,
+    target_function: str,
+    omission_loss: str,
+    failure_mode: str,
+) -> HarmonicMaterialIntentV1:
+    return HarmonicMaterialIntentV1(
+        intent_id=f"{candidate_id.casefold()}.{role_id}",
+        material_name=material_name,
+        role_id=role_id,
+        target_function=target_function,
+        ideal_required=True,
+        current_build_intent=True,
+        quantitative_required=True,
+        omission_loss=omission_loss,
+        failure_mode=failure_mode,
+    )
+
+
+def _default_target() -> HarmonicTargetContractV1:
+    return HarmonicTargetContractV1(
+        target_id="CYP-02",
+        target_identity=(
+            "A luxurious Cypress-subject perfume in which high-quality French Cypress "
+            "EO is made more beautiful by a relational floral heart, rooted depth, "
+            "controlled contrast, and temporal reveal rather than by botanical literalism"
+        ),
+        primary_subject="High-quality French Cypress EO",
+        supporting_subjects=(
+            "floral light",
+            "cool rhizome shadow",
+            "dry transparent wood",
+        ),
+        positive_invariants=(
+            "Cypress remains the sole named and continuously recognizable subject",
+            "floral material creates relief and intimacy without replacing Cypress",
+            "depth arises from linked registers and temporal reveal, not ingredient count",
+            "the drydown retains elegant green-woody tension without pencil, sauna, or scrub",
+        ),
+        forbidden_drift=(
+            "photographic conifer forest or aromatherapy oil blend",
+            "generic iris, generic white floral, cosmetic violet, or orange-blossom cologne",
+            "opaque woody-amber wall that erases Cypress articulation",
+            "material-count complexity, prestige logic, or unobserved liking claims",
+        ),
+        ideal_formula_ref="formula://cyp-02/target-ideal/pending-v1",
+        current_inventory_build_ref="formula://cyp-02/current-inventory/pending-v1",
+        claim_ceiling="COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+    )
+
+
+def _magnolia_orris_candidate() -> CypressHeartCandidateV1:
+    candidate_id = "CYP-H01-MAGNOLIA-ORRIS"
+    return CypressHeartCandidateV1(
+        candidate_id=candidate_id,
+        heart_identity=(
+            "Magnolia petal-light over an Orris rhizome-shadow dual-register heart"
+        ),
+        floral_subjects=(
+            "Magnolia petal-light register",
+            "Orris rhizome-shadow register",
+        ),
+        relation_to_cypress=(
+            "Cypress remains the sole named subject. Magnolia opens pale petal-light "
+            "between the aromatic needles while Orris supplies a cool, tactile shadow "
+            "beneath the trunk line; neither floral register is allowed to become the lead."
+        ),
+        smell_hypothesis=(
+            "A polished, dry-green Cypress presence with luminous cream-white petal air, "
+            "a cool violet-rhizome undertone, and a soft mineral-wood descent. It should "
+            "feel intimate, expensive, dimensional, and composed rather than forest-like."
+        ),
+        assessments=(
+            _assessment(
+                CypressHeartCriterion.CYPRESS_SUBJECT_PRESERVATION,
+                DesignSupportLevel.STRONGLY_TARGET_LINKED,
+                "The two floral registers are explicitly subordinate and spectrally split: Magnolia supplies light and Orris supplies shadow, leaving Cypress to carry identity through the center.",
+                "The actual French Cypress lot lacks GC-MS/GC-O and sensory calibration, so takeover boundaries remain unmeasured.",
+                "Too much Magnolia makes a clean floral; too much irone makes a cosmetic iris; excessive dry wood turns Cypress into generic cedar.",
+                "doi:10.1186/1472-6882-14-179",
+                "doi:10.1080/10412905.2003.9712130",
+                "doi:10.1080/14786419.2012.755680",
+            ),
+            _assessment(
+                CypressHeartCriterion.FLORAL_RELIEF,
+                DesignSupportLevel.STRONGLY_TARGET_LINKED,
+                "Magnolia's petal/benzenoid-terpenoid breadth can make the dry monoterpenic Cypress line feel smoother and more bodily, while the Orris register prevents the light from becoming shampoo-clean.",
+                "Magnolia species, plant part, extraction, and lot are unresolved in current stock; literature supports variability, not exact odor equivalence.",
+                "An over-bright Hedione/Florol frame can bleach both Cypress and Magnolia into generic floral air.",
+                "doi:10.1080/14786419.2012.696256",
+                "doi:10.1186/s12864-017-3846-8",
+            ),
+            _assessment(
+                CypressHeartCriterion.ROOTED_DEPTH,
+                DesignSupportLevel.STRONGLY_TARGET_LINKED,
+                "Orris contributes a lower, cool rhizome register and ionone continuity rather than merely adding another flower; this creates vertical relation between petal light, aromatic wood, and root shadow.",
+                "Irone stereoisomer and stock-specific response are not established by the cited beta-irone study; Alpha Irone must remain a separate material identity.",
+                "Irone saturation or powder excess collapses dimensional root shadow into lipstick and erases Cypress dryness.",
+                "doi:10.1038/s41598-025-08925-z",
+            ),
+            _assessment(
+                CypressHeartCriterion.TEMPORAL_HANDOFF,
+                DesignSupportLevel.STRONGLY_TARGET_LINKED,
+                "The architecture has an explicit sequence: Cypress aromatic lift, Magnolia petal expansion, then Orris/wood shadow. Separate registers make a handoff testable instead of assuming all layers appear simultaneously.",
+                "Volatility models cannot establish perceived order in this matrix; timing remains a protocol-bound hypothesis.",
+                "If the floral frame peaks too early Cypress reads as top-note decoration; if Orris arrives too heavily the perfume becomes static and powdery.",
+                "doi:10.1016/j.foodchem.2021.129483",
+                "doi:10.1242/jeb.242274",
+            ),
+            _assessment(
+                CypressHeartCriterion.DISTINCTIVE_IDENTITY,
+                DesignSupportLevel.STRONGLY_TARGET_LINKED,
+                "A petal-light/rhizome-shadow heart is newly defined for the Cypress brief and does not import a previous Dior Homme, DHP, or generic iris chassis. Cypress remains the reason the contrast exists.",
+                "Distinctiveness is a design distinction, not measured consumer recognition or novelty.",
+                "Failure to keep Magnolia and Orris relationally subordinate produces an already-familiar clean-iris woody floral.",
+                "target://cyp-02/brief/v1",
+            ),
+            _assessment(
+                CypressHeartCriterion.CURRENT_INVENTORY_FEASIBILITY,
+                DesignSupportLevel.STRONGLY_TARGET_LINKED,
+                "The proposed character, light, shadow, diffusion, and continuity roles can be mapped to current quantitative-ready stocks without using unavailable Benzyl Salicylate or unresolved Bacdanol dosing.",
+                "Executable stock identity does not prove sensory fitness, natural-lot composition, density, safety, or formula success.",
+                "Any later stock refresh can invalidate quantitative readiness and must be reparsed before dosing.",
+                "inventory://current-v7/reparse-at-execution",
+            ),
+            _assessment(
+                CypressHeartCriterion.HEDONIC_MECHANISM_TESTABILITY,
+                DesignSupportLevel.STRONGLY_TARGET_LINKED,
+                "The claimed mechanisms are separable: Cypress identity, Magnolia relief, Orris depth, and their interaction can each receive constant-total omission and ratio arms rather than one untestable kitchen-sink claim.",
+                "Pleasantness of mixtures is intensity- and ratio-dependent; no theoretical mechanism establishes actual liking.",
+                "Without blinded criterion-separated evidence, target fidelity, depth, richness, and liking could be wrongly collapsed into one impression.",
+                "doi:10.1093/chemse/bjn026",
+                "doi:10.1016/j.foodchem.2021.129483",
+                "doi:10.1242/jeb.242274",
+            ),
+        ),
+        material_intents=(
+            _intent(candidate_id, "Cypress EO", "subject.cypress", "continuous dry-green aromatic-wood subject", "the perfume loses its named subject", "terpene scrub or pencil-like dryness"),
+            _intent(candidate_id, "Magnolia EO", "heart.magnolia_light", "cream-white petal relief around Cypress", "the subject can remain severe and planar", "clean white-floral takeover"),
+            _intent(candidate_id, "Alpha Irone", "heart.orris_shadow", "cool violet-rhizome shadow", "the heart loses root-like depth", "lipstick and cosmetic powder takeover"),
+            _intent(candidate_id, "Orris Liquid", "heart.orris_body", "tactile rhizome body behind irone", "the shadow becomes abstract and thin", "buttery cosmetic opacity"),
+            _intent(candidate_id, "Hedione", "bridge.petal_air", "diffusive negative space between Cypress and Magnolia", "the handoff can feel abrupt", "radiant jasmine cloud erases subject"),
+            _intent(candidate_id, "Florol", "bridge.floral_volume", "clean petal volume below the subject line", "Magnolia may lack body", "detergent-clean floral block"),
+            _intent(candidate_id, "Alpha Ionone", "bridge.violet_wood", "violet-to-wood mobility between Orris and Cypress", "root and wood registers may separate", "woody-violet makeup effect"),
+            _intent(candidate_id, "Hexyl Salicylate", "bridge.slow_floral", "slow floral continuity without unavailable Benzyl Salicylate", "the petal register may shorten", "heavy salicylate veil"),
+        ),
+        inherited_model_refs=(),
+        controlled_comparison_ref="comparison://cyp-02/magnolia-orris-factorial/v1",
+    )
+
+
+def _neroli_petitgrain_candidate() -> CypressHeartCandidateV1:
+    candidate_id = "CYP-H02-NEROLI-PETITGRAIN"
+    common_refs = ("doi:10.1186/1472-6882-14-179", "doi:10.1016/j.foodchem.2021.129483")
+    return CypressHeartCandidateV1(
+        candidate_id=candidate_id,
+        heart_identity="Neroli-petal and Petitgrain green-floral echo",
+        floral_subjects=("Neroli petal register",),
+        relation_to_cypress="A bitter-green citrus-leaf bridge extends Cypress into a restrained orange-blossom heart while Cypress remains the intended subject.",
+        smell_hypothesis="Bright bitter-green Cypress with polished orange-flower air and a dry aromatic cologne tension.",
+        assessments=(
+            _assessment(CypressHeartCriterion.CYPRESS_SUBJECT_PRESERVATION, DesignSupportLevel.STRONGLY_TARGET_LINKED, "Bitter-green Petitgrain can echo Cypress without requiring a dense competing flower.", "Shared freshness can also blur identities.", "The whole perfume becomes petitgrain cologne.", *common_refs),
+            _assessment(CypressHeartCriterion.FLORAL_RELIEF, DesignSupportLevel.PLAUSIBLE, "Neroli supplies petal light and indolic warmth.", "The current target does not call for orange blossom as a subject.", "Soap, cologne, or orange-flower takeover.", "target://cyp-02/brief/v1"),
+            _assessment(CypressHeartCriterion.ROOTED_DEPTH, DesignSupportLevel.UNRESOLVED, "A leaf-to-wood bridge is coherent but does not itself provide a lower root register.", "No distinct depth mechanism is specified.", "Linear bright-green structure.", *common_refs),
+            _assessment(CypressHeartCriterion.TEMPORAL_HANDOFF, DesignSupportLevel.PLAUSIBLE, "Citrus-leaf lift can hand into floral heart and wood.", "Literal persistence is not established.", "Top-heavy cologne collapse.", *common_refs),
+            _assessment(CypressHeartCriterion.DISTINCTIVE_IDENTITY, DesignSupportLevel.PLAUSIBLE, "Cypress-orange flower can be elegant but belongs to familiar cologne territory.", "Novelty is not measured.", "Generic aromatic citrus-floral.", "target://cyp-02/brief/v1"),
+            _assessment(CypressHeartCriterion.CURRENT_INVENTORY_FEASIBILITY, DesignSupportLevel.STRONGLY_TARGET_LINKED, "Cypress, Neroli, Petitgrain, and Hedione are currently selectable.", "Stock readiness is not sensory success.", "A future inventory refresh can change execution.", "inventory://current-v7/reparse-at-execution"),
+            _assessment(CypressHeartCriterion.HEDONIC_MECHANISM_TESTABILITY, DesignSupportLevel.PLAUSIBLE, "Neroli and Petitgrain omissions are separable.", "Liking remains unobserved.", "Freshness may be mistaken for pleasure.", "doi:10.1093/chemse/bjn026"),
+        ),
+        material_intents=(
+            _intent(candidate_id, "Cypress EO", "subject.cypress", "continuous Cypress subject", "named subject is lost", "terpenic scrub"),
+            _intent(candidate_id, "Neroli EO", "heart.neroli", "restrained orange-flower relief", "less petal warmth", "soap and cologne"),
+            _intent(candidate_id, "Petitgrain EO Paraguay", "bridge.petitgrain", "bitter-green top-to-heart echo", "less continuity", "leafy cologne takeover"),
+            _intent(candidate_id, "Hedione", "bridge.diffusion", "floral air", "abrupt transition", "generic radiance"),
+        ),
+        inherited_model_refs=(),
+        controlled_comparison_ref="comparison://cyp-02/neroli-petitgrain/v1",
+    )
+
+
+def _rose_violet_candidate() -> CypressHeartCandidateV1:
+    candidate_id = "CYP-H03-ROSE-VIOLET"
+    return CypressHeartCandidateV1(
+        candidate_id=candidate_id,
+        heart_identity="Cool rose petal and violet-wood heart",
+        floral_subjects=("Cool rose petal register", "Violet-wood register"),
+        relation_to_cypress="Rose softens the Cypress contour and violet material ties petal to wood, but both remain subordinate in the intended architecture.",
+        smell_hypothesis="Dry green Cypress polished by cool rose petals and a muted violet-wood suede shadow.",
+        assessments=(
+            _assessment(CypressHeartCriterion.CYPRESS_SUBJECT_PRESERVATION, DesignSupportLevel.PLAUSIBLE, "Cool rose can soften without necessarily replacing Cypress.", "Rose salience is highly dose-dependent.", "Rose-violet becomes the subject.", "doi:10.1093/chemse/bjn026"),
+            _assessment(CypressHeartCriterion.FLORAL_RELIEF, DesignSupportLevel.STRONGLY_TARGET_LINKED, "Rose supplies immediate petal body and violet supplies cool contrast.", "Relief may become cosmetic color.", "Powdery makeup accord.", "target://cyp-02/brief/v1"),
+            _assessment(CypressHeartCriterion.ROOTED_DEPTH, DesignSupportLevel.PLAUSIBLE, "Ionone woodiness can create a lower violet-wood register.", "This is not a distinct rhizome mechanism.", "Flat woody violet.", "doi:10.1242/jeb.242274"),
+            _assessment(CypressHeartCriterion.TEMPORAL_HANDOFF, DesignSupportLevel.PLAUSIBLE, "Rose petal can mediate aromatic top and ionone wood.", "Order remains unobserved.", "Simultaneous cosmetic block.", "doi:10.1016/j.foodchem.2021.129483"),
+            _assessment(CypressHeartCriterion.DISTINCTIVE_IDENTITY, DesignSupportLevel.PLAUSIBLE, "Cypress/rose/violet is coherent but less Cypress-native than the dual light-shadow design.", "Distinctiveness is not consumer-tested.", "Familiar rose-violet woody floral.", "target://cyp-02/brief/v1"),
+            _assessment(CypressHeartCriterion.CURRENT_INVENTORY_FEASIBILITY, DesignSupportLevel.STRONGLY_TARGET_LINKED, "Current Rose, ionone, Cypress, and diffusion materials support a build.", "Exact natural lot properties remain unresolved.", "Inventory changes before dosing.", "inventory://current-v7/reparse-at-execution"),
+            _assessment(CypressHeartCriterion.HEDONIC_MECHANISM_TESTABILITY, DesignSupportLevel.PLAUSIBLE, "Rose and violet arms can be isolated.", "Pleasantness cannot be inferred from each pleasant component.", "Masking is misread as harmony.", "doi:10.1016/j.foodchem.2021.129483"),
+        ),
+        material_intents=(
+            _intent(candidate_id, "Cypress EO", "subject.cypress", "continuous Cypress subject", "named subject is lost", "terpene scrub"),
+            _intent(candidate_id, "Rose Essential Oil (Rosa Damascena, India)", "heart.rose", "cool petal body", "less floral tenderness", "rose takeover"),
+            _intent(candidate_id, "Alpha Ionone", "heart.violet_wood", "violet-to-wood bridge", "less continuity", "cosmetic powder"),
+            _intent(candidate_id, "Hedione", "bridge.diffusion", "petal air", "abrupt contrast", "generic radiance"),
+        ),
+        inherited_model_refs=(),
+        controlled_comparison_ref="comparison://cyp-02/rose-violet/v1",
+    )
+
+
+def _jasmine_magnolia_candidate() -> CypressHeartCandidateV1:
+    candidate_id = "CYP-H04-JASMINE-MAGNOLIA-AIR"
+    return CypressHeartCandidateV1(
+        candidate_id=candidate_id,
+        heart_identity="Jasmine-Magnolia living floral air",
+        floral_subjects=("Jasmine living-bloom register", "Magnolia petal-air register"),
+        relation_to_cypress="A breathing white-floral volume is placed around the dry Cypress line while the wood remains the intended axis.",
+        smell_hypothesis="Luminous Cypress framed by creamy living white petals and spacious floral air.",
+        assessments=(
+            _assessment(CypressHeartCriterion.CYPRESS_SUBJECT_PRESERVATION, DesignSupportLevel.PLAUSIBLE, "Airy white florals can provide contrast around a dry axis.", "Jasmine diffusion can dominate.", "Cypress becomes a background twig.", "doi:10.1186/s12864-017-3846-8"),
+            _assessment(CypressHeartCriterion.FLORAL_RELIEF, DesignSupportLevel.STRONGLY_TARGET_LINKED, "Magnolia and Jasmine provide body, bloom, and air.", "The pair may be redundant in the same register.", "Generic clean white floral.", "doi:10.1080/14786419.2012.696256"),
+            _assessment(CypressHeartCriterion.ROOTED_DEPTH, DesignSupportLevel.UNRESOLVED, "The architecture has expansion but no distinct lower root or shadow register.", "Wood support alone does not establish depth.", "Large but shallow floral volume.", "target://cyp-02/brief/v1"),
+            _assessment(CypressHeartCriterion.TEMPORAL_HANDOFF, DesignSupportLevel.STRONGLY_TARGET_LINKED, "Volatile Cypress lift into expanding floral diffusion is a clear temporal hypothesis.", "Perceived timing remains unmeasured.", "White floral arrives too early and masks Cypress.", "doi:10.1242/jeb.242274"),
+            _assessment(CypressHeartCriterion.DISTINCTIVE_IDENTITY, DesignSupportLevel.PLAUSIBLE, "The Cypress axis can distinguish the white floral, but the heart itself is conventional.", "Recognition is not tested.", "Clean woody white floral.", "target://cyp-02/brief/v1"),
+            _assessment(CypressHeartCriterion.CURRENT_INVENTORY_FEASIBILITY, DesignSupportLevel.STRONGLY_TARGET_LINKED, "Cypress, Magnolia, Jasmine materials, and diffusers are represented in current stock.", "Identity coverage is not formula readiness.", "Wrong jasmine grade changes the architecture.", "inventory://current-v7/reparse-at-execution"),
+            _assessment(CypressHeartCriterion.HEDONIC_MECHANISM_TESTABILITY, DesignSupportLevel.PLAUSIBLE, "White-floral components can receive omissions.", "Redundancy and masking require interaction arms.", "Material count is mistaken for richness.", "doi:10.1016/j.foodchem.2021.129483"),
+        ),
+        material_intents=(
+            _intent(candidate_id, "Cypress EO", "subject.cypress", "continuous Cypress subject", "named subject is lost", "terpene scrub"),
+            _intent(candidate_id, "Magnolia EO", "heart.magnolia", "petal body", "less creamy relief", "clean floral takeover"),
+            _intent(candidate_id, "Jasmine Absolute", "heart.jasmine", "living bloom", "less floral life", "indolic or floral takeover"),
+            _intent(candidate_id, "Hedione", "bridge.diffusion", "floral air", "less expansion", "radiance wall"),
+        ),
+        inherited_model_refs=(),
+        controlled_comparison_ref="comparison://cyp-02/jasmine-magnolia-air/v1",
+    )
+
+
+def _orris_solo_candidate() -> CypressHeartCandidateV1:
+    candidate_id = "CYP-H05-ORRIS-SOLO"
+    return CypressHeartCandidateV1(
+        candidate_id=candidate_id,
+        heart_identity="Single-register Orris floral-root heart",
+        floral_subjects=("Orris floral-root register",),
+        relation_to_cypress="Orris cools and softens the Cypress axis, but the relation relies on one familiar powdery-root register.",
+        smell_hypothesis="Dry Cypress passing into cool violet powder, rhizome, and pale wood.",
+        assessments=(
+            _assessment(CypressHeartCriterion.CYPRESS_SUBJECT_PRESERVATION, DesignSupportLevel.PLAUSIBLE, "Orris can remain behind a strong dry-green subject.", "Irone is highly salient.", "Generic iris perfume with Cypress garnish.", "doi:10.1038/s41598-025-08925-z"),
+            _assessment(CypressHeartCriterion.FLORAL_RELIEF, DesignSupportLevel.PLAUSIBLE, "Orris adds softness and floral abstraction.", "It provides shadow more readily than petal light.", "Cold cosmetic powder.", "doi:10.1038/s41598-025-08925-z"),
+            _assessment(CypressHeartCriterion.ROOTED_DEPTH, DesignSupportLevel.STRONGLY_TARGET_LINKED, "Rhizome and violet-wood facets provide a coherent lower register.", "Depth can collapse into opacity.", "Heavy lipstick root block.", "doi:10.1038/s41598-025-08925-z"),
+            _assessment(CypressHeartCriterion.TEMPORAL_HANDOFF, DesignSupportLevel.STRONGLY_TARGET_LINKED, "Cypress lift into slower Orris/wood is a clear transition.", "The transition is not observed.", "Abrupt powder drop.", "doi:10.1242/jeb.242274"),
+            _assessment(CypressHeartCriterion.DISTINCTIVE_IDENTITY, DesignSupportLevel.CONTRAINDICATED, "A solo Orris heart risks reusing the project's existing iris grammar rather than creating a Cypress-native relational system.", "The risk is architectural, not a claim that all Orris perfumes smell alike.", "The result reads as another woody iris instead of the Cypress perfume.", "target://cyp-02/brief/v1"),
+            _assessment(CypressHeartCriterion.CURRENT_INVENTORY_FEASIBILITY, DesignSupportLevel.STRONGLY_TARGET_LINKED, "Cypress, Alpha Irone, Orris Liquid, and Alpha Ionone are current quantitative-ready stocks.", "Stock readiness does not settle dose or beauty.", "Stale stock assumptions can invalidate build math.", "inventory://current-v7/reparse-at-execution"),
+            _assessment(CypressHeartCriterion.HEDONIC_MECHANISM_TESTABILITY, DesignSupportLevel.PLAUSIBLE, "Orris omission and ratio arms are simple.", "A simple experiment does not make the mechanism true.", "Target fidelity and liking are collapsed.", "doi:10.1093/chemse/bjn026"),
+        ),
+        material_intents=(
+            _intent(candidate_id, "Cypress EO", "subject.cypress", "continuous Cypress subject", "named subject is lost", "terpene scrub"),
+            _intent(candidate_id, "Alpha Irone", "heart.irone", "violet-rhizome shadow", "less root identity", "lipstick takeover"),
+            _intent(candidate_id, "Orris Liquid", "heart.orris_body", "tactile root body", "thin shadow", "buttery powder"),
+            _intent(candidate_id, "Alpha Ionone", "bridge.violet_wood", "violet-wood continuity", "less transition", "cosmetic wood"),
+        ),
+        inherited_model_refs=(),
+        controlled_comparison_ref="comparison://cyp-02/orris-solo/v1",
+    )
+
+
+def build_default_cypress_heart_frontier_request(
+    atlas: MaterialCapabilityAtlas,
+) -> CypressHeartFrontierRequestV1:
+    """Build the frozen, research-grounded CYP-02 architecture comparison."""
+
+    if not isinstance(atlas, MaterialCapabilityAtlas):
+        raise TypeError("atlas must be MaterialCapabilityAtlas")
+    return CypressHeartFrontierRequestV1(
+        target=_default_target(),
+        criteria_priority=(
+            CypressHeartCriterion.CYPRESS_SUBJECT_PRESERVATION,
+            CypressHeartCriterion.FLORAL_RELIEF,
+            CypressHeartCriterion.ROOTED_DEPTH,
+            CypressHeartCriterion.TEMPORAL_HANDOFF,
+            CypressHeartCriterion.DISTINCTIVE_IDENTITY,
+            CypressHeartCriterion.CURRENT_INVENTORY_FEASIBILITY,
+            CypressHeartCriterion.HEDONIC_MECHANISM_TESTABILITY,
+        ),
+        candidates=(
+            _magnolia_orris_candidate(),
+            _neroli_petitgrain_candidate(),
+            _rose_violet_candidate(),
+            _jasmine_magnolia_candidate(),
+            _orris_solo_candidate(),
+        ),
+        prohibited_inherited_model_refs=(
+            "DHP",
+            "DHP2025",
+            "Dior Homme",
+            "Dior Homme Parfum",
+            "Dior Homme Intense",
+        ),
+        literature_refs=(
+            "doi:10.1186/1472-6882-14-179",
+            "doi:10.1080/10412905.2003.9712130",
+            "doi:10.1080/14786419.2012.755680",
+            "doi:10.1002/cbdv.201200045",
+            "doi:10.1080/14786419.2012.696256",
+            "doi:10.1186/s12864-017-3846-8",
+            "doi:10.1038/s41598-025-08925-z",
+            "doi:10.1016/j.foodchem.2021.129483",
+            "doi:10.1093/chemse/bjn026",
+            "doi:10.1242/jeb.242274",
+        ),
+    )
+
+
+__all__ = [
+    "CypressDominanceRecordV1",
+    "CypressHeartAssessmentV1",
+    "CypressHeartCandidateV1",
+    "CypressHeartCriterion",
+    "CypressHeartFrontierRequestV1",
+    "CypressHeartFrontierResultV1",
+    "CypressHeartFrontierState",
+    "DesignSupportLevel",
+    "build_default_cypress_heart_frontier_request",
+    "evaluate_cypress_heart_frontier",
+]

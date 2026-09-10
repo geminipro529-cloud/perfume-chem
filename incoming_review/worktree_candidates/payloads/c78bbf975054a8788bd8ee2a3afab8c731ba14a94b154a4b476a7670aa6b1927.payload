@@ -1,0 +1,125 @@
+# Unified Perfume-Intelligence Package — Final Structural Freeze
+
+Date: 2026-09-05
+Worktree: `D:\chatbots\perfume-chem-unified-package`
+Branch: `codex/unified-perfume-intelligence-package`
+Delta base: `ff4ef3e9ebfa084ac57c1c1064bea6baafa9f26c`
+
+## Status and authority
+
+`SOFTWARE PACKAGE STRUCTURAL ACCEPTANCE CANDIDATE / SECURITY HOLD / RELEASE HOLD`
+
+The machine-readable receipt is
+`data/governance/unified_perfume_intelligence_package_manifest_20260904.json`.
+It freezes the complete Git delta relative to the named base commit. It is a
+software and provenance acceptance artifact, not evidence that any perfume has
+been smelled, liked, matched to a commercial reference, compounded, shown safe
+or stable, or released.
+
+The following therefore remain false and on `HOLD`: observed-smell acceptance,
+hedonic acceptance, strict similarity, safety, stability, physical compounding,
+purchasing, and release. OAV, headspace simulation, benchmark performance,
+passing software tests, and repeated model agreement cannot promote those
+authorities.
+
+## Exact delta closure
+
+The current null-delimited Git census contains **1,596 unique paths**:
+
+- **1,019 semantic deliverables**, each bound to its live byte size and SHA-256.
+- **165 retired paths**, each verified absent and bound to its base-commit blob.
+- **411 explicitly excluded scratch/private paths**, each bound to either live
+  bytes or its base-commit blob.
+- **1 self-reference exclusion** for the top manifest itself. The top manifest
+  is intentionally not self-hashed.
+
+The census comprises 1,293 tracked changes and 303 untracked files. Every path
+is classified exactly once. The direct test reconstructs the delta from Git and
+fails closed on any omission, overlap, unexpected exclusion, missing file,
+size drift, hash drift, absent base blob, or unknown lower-manifest schema.
+
+The explicit exclusion boundary is limited to the already classified private
+or generated trees under `.codex/environments/`, `.playwright-mcp/`,
+`chat_bridge/complex_perfumery/`, and `data/external/`, five
+`backend/.coverage.*` scratch records, and
+`data/pipeline_audit/events.jsonl`. No runtime, test, formula, inventory,
+knowledge, governance, benchmark, or documentation deliverable is discarded as
+scratch.
+
+## Complete semantic coverage
+
+The frozen semantic set includes, without flattening or partial adaptation:
+
+- the full 285-path SolForge benchmark delta, including replacement screen V5
+  and its manifest/checksum;
+- the full 65-path `historical_quarantine_v1` tree, preserved with authority
+  `NONE / HOLD` rather than promoted into executable truth;
+- the C0 physical-model compatibility successor, complexity registry V9,
+  B4 rule-corpus current binding V3, and SolForge foundation acceptance V5;
+- all live inventory, Coumarin, Guaiacwood, knowledge-base, pairing,
+  formula-compatibility, architecture-plane, hedonic, Cypress, YSL, SUKHUM,
+  floral, woody, and historical compatibility changes in the delta;
+- all backend source-rights, external-study, reporting, migration, MA-2021
+  adapter, portability, configuration, and current test changes;
+- `conftest.py`, `external_evidence_pytest.py`, project-verification exact-cover
+  logic, lower-receipt integrity tests, OpenAI-only policy/configuration files,
+  and the current governance documentation.
+
+The SolForge tree has computational-benchmark authority only. Historical
+quarantine remains non-authoritative. Supplier prose, external-study metadata,
+and source-rights records do not prove olfactory, safety, or release outcomes.
+
+## Lower import receipts
+
+Nine lower receipts are bound from their current live bytes. Their heterogeneous
+schemas are parsed explicitly, including separate `artifacts` and `tests`
+arrays. The direct top test validates every imported destination record and
+rejects unknown schemas or missing path/size/hash fields.
+
+| Receipt | Bytes | SHA-256 |
+|---|---:|---|
+| BR540 successor | 6,226 | `3fe275468890be17e7be8fcacb98cea99a0e00af08f08e93d92c98fa4cc918f5` |
+| CYP-01 | 5,103 | `bb25a8a7e955a5b11c36579197da0f276eebbf8a9a053ec00449f802d3b7c5ff` |
+| Deep Plane compatibility | 8,476 | `c88d2cbd6dd79d8d9db271a4ebe9c95bec824014f96956e1e0f6b590d7146873` |
+| DHI 2011 | 17,534 | `39e1c7a2912ae54ab7d60d4d3a7774b4dced64509c101f9e8f1a691fdc65aa0d` |
+| EDD7 lineage | 14,431 | `aa8af2950c6d06b827fbad95e0e86782c8f37e2668bbad621a60ef39fc53a14e` |
+| LNDL successor | 9,866 | `5b16b1e2954bcab436e6331ab8c61c010c57466ba5d47082d513e1aa2a7b8009` |
+| Structural studio | 28,806 | `7c5beda777b105a0b374ba6aa50d002d3b8e97c367cbdc9c80b3b4c282c0a7b2` |
+| SUKHUM/Rose | 14,113 | `cae38cc0b250660a4ba7cd2bf3911f1507f474a52481bc888c74f3acf19a8714` |
+| YSL twenty-variant | 92,921 | `b5947d0b54111c1d49a56fdae8e0425ff70cfa7ea709c80e1e6ba228e36f0bd2` |
+
+CYP preserves its historical source receipt and explicitly records the
+one-byte destination formatting adaptation. The top-level validator selects
+the destination binding for live verification. No semantic equivalence is
+silently inferred from a byte mismatch.
+
+## Git and security boundary
+
+The sanitized reconstruction deliberately excludes the credential-bearing
+canonical descendant `e7002d4dacde0ae4c6b92db454fa4034c830e8f4`. The paths
+`incoming_review/openai-api-key.txt` and
+`incoming_review/openai-api-key (1).txt` are absent. Their contents were not
+read, reproduced, or hashed by this lane. Credential revocation and rotation
+remain an external user action; deleting files in a later commit would not
+remove a secret from already published history.
+
+Commit `ff4ef3e9ebfa084ac57c1c1064bea6baafa9f26c` was the
+pre-acceptance parent HEAD and pre-push remote HEAD. Any correction must be a
+forward commit after final verification: no force-push, reset, history rewrite,
+silent conflict resolution, or destructive cleanup.
+
+## Verification contract
+
+The final direct checks are:
+
+1. parse the top manifest as JSON;
+2. reconstruct and exactly cover the Git delta;
+3. verify every live and base-blob byte size and SHA-256;
+4. recursively validate all nine lower receipts and every imported destination;
+5. verify required landmarks and exact semantic-group counts;
+6. run the focused manifest test and Ruff on the direct test;
+7. inspect the final diff for only the three leased top-freeze paths.
+
+Passing these checks establishes package structure and provenance only. Push
+authorization remains false until the parent coordinator performs final Git
+acceptance and the security hold is resolved.

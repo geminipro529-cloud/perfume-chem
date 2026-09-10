@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-9c7d19e538252b9298d5",
+  "case_id": "RPL-ARC-S01",
+  "module_id": "architectural_delta",
+  "arm": "CONTROL",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "01a03aa9-ad0b-7b00-a27a-ca76f92f486d",
+  "dispatch_sha256": "07339dd1885600a2e34b2fd6526f5f15ab5ece07991f26ee098a14bab0ad048b",
+  "output_text": "{\n  \"decision\": \"Advance the owned candidate as the sole one-material addition; reject all higher-count proposals.\",\n  \"target_linked_reasoning\": \"The candidate uniquely provides target-specific, nonredundant evidence for a dry mineral bridge in the spare iris structure while preserving negative space. Additional materials would duplicate existing functions, not increase target-linked complexity.\",\n  \"controlled_comparison\": \"Compare the unchanged base against the isolated candidate-addition arm, holding every other variable constant. Assess whether the bridge strengthens iris relationships and dry mineral depth without filling the negative space.\",\n  \"physical_liking_state\": \"NOT TESTED\",\n  \"claim_ceiling\": \"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\"\n}",
+  "output_sha256": "9ab213663742890ff98f16c922f2d36122af655c255a3517011bbee6cb507b02",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

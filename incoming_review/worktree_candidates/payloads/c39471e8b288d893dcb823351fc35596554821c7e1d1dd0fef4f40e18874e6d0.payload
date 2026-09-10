@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,0.991
+identity_system_probability,1.0
+oav_probability,0.991
+temporal_probability,1.0
+dominance_failure_probability,0.0023999999999999577
+overall_probability,0.9886
+dose_closure_probability,0.9829
+temporal_q05,0.953526749330842
+temporal_median,0.9867620566287519
+max_share_q95,0.5644121945532913
+marker_coverage_q05,0.7142857142857143
+phase_sum_q05,"{""top"": 11.801632145347929, ""heart"": 5.504618555623626, ""base"": 5.693664911483213}"
+release_shape_median,"[0.5776167622401209, 0.2862809311368263, 0.09991306679805198, 0.02808677333071309]"
+phase_shape_median,"[0.39270870323512874, 0.3219659646223916, 0.2852046264824967]"
+marker_probabilities,"{""Blood Orange Oil Sicilian | top"": 1.0, ""Grapefruit FCF Oil | top"": 0.9997, ""Black Pepper EO | heart"": 1.0, ""Geraniol 10% | heart"": 0.003, ""Habanolide | base"": 0.9978, ""Sandalore | base"": 0.6365, ""Vetiver EO | base"": 0.9877}"
+marker_quantiles,"{""Blood Orange Oil Sicilian | top"": [6.041110759346371, 17.175242087543808, 49.36697674745171], ""Grapefruit FCF Oil | top"": [3.013641481600656, 8.697570307389977, 24.876535623432996], ""Black Pepper EO | heart"": [5.3658718166954795, 14.24650841415149, 37.6355204697106], ""Geraniol 10% | heart"": [0.06381984239639442, 0.1794881865996443, 0.49496809451357976], ""Habanolide | base"": [2.1221729918984664, 5.605066574222443, 14.927475730628808], ""Sandalore | base"": [0.45368442386537466, 1.2408029977299844, 3.4458107102067808], ""Vetiver EO | base"": [1.4237982382113437, 3.732286224623664, 9.820166462589004]}"
+classification,ROBUST

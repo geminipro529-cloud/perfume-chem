@@ -1,0 +1,124 @@
+from pathlib import Path
+
+import pytest
+
+from engine.data_spine.loader import load_registry
+from engine.inventory_parser import parse_inventory
+from engine.pipeline.formula_state import build_formula_state
+from engine.pipeline.preflight import run_release_preflight
+
+
+AUTHORITY_DOC = (
+    Path(__file__).resolve().parents[1]
+    / "docs"
+    / "research"
+    / "AMBROFIX_STOCK_AUTHORITY_2026-08-29.md"
+)
+
+
+def test_owned_non_executable_hold_is_not_available_for_formulation(tmp_path):
+    inventory = tmp_path / "inventory.txt"
+    inventory.write_text(
+        "--- WOODS / AMBER / STRUCTURE ---\n"
+        "- Ambrofix  # OWNED NON-EXECUTABLE HOLD; heterogeneous bottle\n",
+        encoding="utf-8",
+    )
+
+    all_records = parse_inventory(inventory, include_unavailable=True)
+    available_records = parse_inventory(inventory, include_unavailable=False)
+
+    assert len(all_records) == 1
+    assert all_records[0].name == "Ambrofix"
+    assert all_records[0].status == "owned_non_executable"
+    assert available_records == []
+
+
+def test_live_ambrofix_liquid_is_owned_but_excluded_from_executable_inventory():
+    all_records = {
+        record.name: record
+        for record in parse_inventory(include_unavailable=True)
+    }
+    available_names = {
+        record.name
+        for record in parse_inventory(include_unavailable=False)
+    }
+
+    ambrofix = all_records["Ambrofix"]
+    assert ambrofix.status == "owned_non_executable"
+    assert "Ambrofix" not in available_names
+    assert "Ambrox Super" in available_names
+    assert "Ambrofix Crystals" in available_names
+    assert all_records["Ambrofix Crystals"].name != ambrofix.name
+
+
+def test_data_spine_preserves_whole_bottle_mass_authority_without_liquid_dilution():
+    material = load_registry().get("Ambrofix")
+
+    assert material is not None
+    assert material.user_stock_dilution is None
+    assert material.user_stock_status == "owned_non_executable"
+
+    authority = material.user_stock_authority
+    assert authority["effective_date"] == "2026-08-29"
+    assert authority["empty_bottle_mass_g"] == pytest.approx(11.45)
+    assert authority["final_bottle_mass_g"] == pytest.approx(14.09)
+    assert authority["contents_mass_g"] == pytest.approx(2.64)
+    assert authority["added_ethanol_mass_g"] == pytest.approx(2.0)
+    assert authority["remaining_original_stock_mass_g"] == pytest.approx(0.64)
+    assert authority["ambrofix_mass_g"] == pytest.approx(0.192)
+    assert authority["dep_mass_g"] == pytest.approx(0.448)
+    assert authority["nominal_whole_bottle_active_mass_fraction"] == pytest.approx(
+        0.192 / 2.64
+    )
+    assert authority["applies_to"] == "whole bottle including visible solid"
+    assert authority["liquid_phase_strength"] is None
+    assert authority["volume_dosing_status"] == "HOLD"
+    assert authority["homogeneity_status"] == "HOLD"
+
+
+@pytest.mark.parametrize(
+    "material_name",
+    ("Ambrofix", "Ambrofix (30% w/v, 3 g in 10 mL)"),
+)
+def test_release_preflight_blocks_formula_rows_using_held_liquid_ambrofix(
+    material_name,
+):
+    formula = {
+        "name": "Held Ambrofix Regression",
+        "ingredients_ul": {material_name: 100.0, "Iso E Super": 900.0},
+        "dilutions": {material_name: 0.3, "Iso E Super": 1.0},
+    }
+    state = build_formula_state(
+        formula["ingredients_ul"],
+        dilutions=formula["dilutions"],
+        batch_volume_ml=30.0,
+    )
+
+    report = run_release_preflight(formula, state)
+    availability = next(
+        check for check in report.checks if check.name == "inventory_availability"
+    )
+
+    assert availability.status == "FAIL"
+    assert availability.data["blocked_materials"] == [
+        {"material": material_name, "status": "owned_non_executable"}
+    ]
+
+
+def test_authority_receipt_sets_claim_and_action_boundaries():
+    text = AUTHORITY_DOC.read_text(encoding="utf-8")
+
+    required = (
+        "7.27% w/w",
+        "whole bottle including solid",
+        "pipetted liquid phase",
+        "do not rebase",
+        "Ambrox Super",
+        "Ambrofix Crystals",
+        "48-hour",
+        "density",
+        "NOT TESTED / HOLD",
+        "No procurement, stock preparation, or physical compounding is authorized",
+    )
+    for phrase in required:
+        assert phrase.casefold() in text.casefold()

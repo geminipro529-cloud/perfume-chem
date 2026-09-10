@@ -1,0 +1,35 @@
+from engine.optimizer import models
+
+
+class _BroadAliasFirst(set):
+    """Model a hash-seed order that yields a broad alias before the exact key."""
+
+    def __iter__(self):
+        yield "test sicilian"
+        yield "test oil sicilian"
+
+
+def test_lookup_material_prefers_exact_normalized_name_over_alias_iteration_order(
+    monkeypatch,
+):
+    exact = {"name": "Test Oil Sicilian", "mw": 170.0}
+    broad = {"name": "Test Sicilian", "mw": 136.0}
+    monkeypatch.setattr(
+        models,
+        "get_materials_db",
+        lambda: {
+            "test oil sicilian": exact,
+            "test sicilian": broad,
+        },
+    )
+    monkeypatch.setattr(
+        models,
+        "_material_alias_keys",
+        lambda _name: _BroadAliasFirst(
+            {"test oil sicilian", "test sicilian"}
+        ),
+    )
+
+    resolved = models._lookup_material("Test Oil Sicilian")
+
+    assert resolved is exact

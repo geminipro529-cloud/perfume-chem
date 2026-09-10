@@ -1,0 +1,40 @@
+{
+  "socket_raw_ul": 300.0,
+  "active_range": [
+    0.0,
+    300.0
+  ],
+  "carrier_range": [
+    0.0,
+    300.0
+  ],
+  "anchor_minimums": {
+    "Iso E Super": 576.0,
+    "Cedarwood Virginia": 495.0,
+    "Ethylene Brassylate": 288.0,
+    "Hedione": 363.333334,
+    "Vertofix Coeur": 234.0,
+    "Ethyl Linalool": 180.0,
+    "Dihydromyrcenol": 126.0,
+    "Sandalwood": 198.0,
+    "Vetiver Haiti": 202.5,
+    "Alpha Isomethyl Ionone": 180.0,
+    "Violet Leaf": 112.5,
+    "Bergamot Oil": 162.0,
+    "Cedrat Oil": 54.0,
+    "Ginger Oil": 99.0,
+    "Basil": 10.8,
+    "White Pepper": 14.4,
+    "Tonka": 126.0,
+    "Coumarin": 36.0,
+    "Parmavert": 57.6
+  },
+  "required_roles": [],
+  "family_caps": {},
+  "temporal_ranges": {},
+  "forbidden_materials": [
+    "Tonalide",
+    "Macrolide",
+    "Musk Ketone"
+  ]
+}

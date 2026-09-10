@@ -1,0 +1,8 @@
+{
+  "case_id": "SCR-PREF-11",
+  "phase": "SCREEN",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "01a03a4d-ba71-71d1-a5a8-6dcff19492e6",
+  "output_text": "{\"decision\":\"HOLD\",\"interventions\":[{\"type\":\"balanced_blinded_order_comparison\",\"criterion\":\"LIKING\",\"target_identity\":\"same formula comparison under blinded liking\",\"constant_total\":true,\"arms\":[\"A_THEN_B\",\"B_THEN_A\"],\"nary_factors\":{\"presentation_order\":[\"A_THEN_B\",\"B_THEN_A\"]}}],\"materials\":[],\"blockers\":[\"ORDER_CONFOUNDED\"],\"inventory_statuses\":{\"current_inventory_build\":\"A always first; B always second; 8 of 10 comparisons favored B; preference not learned\",\"ideal_architecture\":\"balanced presentation order under blinded liking\",\"inventory_sha256\":\"e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331\"},\"arms\":[\"A_THEN_B\",\"B_THEN_A\"],\"nary_factors\":{\"presentation_order\":[\"A_THEN_B\",\"B_THEN_A\"]},\"next_comparison\":\"Repeat the same blinded A-versus-B liking comparison with presentation order balanced between A-then-B and B-then-A.\",\"authority_flags\":{\"compounding\":false,\"formula\":false,\"hedonic\":false,\"physical\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}"
+}

@@ -1,0 +1,185 @@
+<#
+.SYNOPSIS
+Activates a validated OpenAI Codex-native reasoning profile.
+
+.DESCRIPTION
+Codex reads .codex/config.toml. This script derives either the high- or
+ultra-reasoning profile from .codex/config_codex_native.toml, validates that
+the result cannot activate a non-OpenAI model or provider, preserves a changed
+active config under the ignored .codex/runtime/config-backups directory, and
+replaces config.toml atomically.
+
+.PARAMETER Mode
+OpenAI Codex-native reasoning effort to activate: "high" or "ultra".
+
+.PARAMETER Status
+Show the active model and reasoning effort without changing files.
+
+.EXAMPLE
+.\scripts\swap_codex_config.ps1 -Mode high
+
+.EXAMPLE
+.\scripts\swap_codex_config.ps1 -Mode ultra
+
+.EXAMPLE
+.\scripts\swap_codex_config.ps1 -Status
+#>
+
+[CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = "Medium")]
+param(
+    [ValidateSet("high", "ultra")]
+    [string]$Mode,
+
+    [switch]$Status
+)
+
+$ErrorActionPreference = "Stop"
+$Root = Split-Path -Parent $PSScriptRoot
+$ConfigToml = Join-Path $Root ".codex\config.toml"
+$NativeTemplate = Join-Path $Root ".codex\config_codex_native.toml"
+$RuntimeBackupDir = Join-Path $Root ".codex\runtime\config-backups"
+$Utf8NoBom = [System.Text.UTF8Encoding]::new($false)
+
+function Assert-OpenAICodexConfig {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Content,
+
+        [Parameter(Mandatory = $true)]
+        [string]$Source
+    )
+
+    $modelMatches = [regex]::Matches(
+        $Content,
+        '(?m)^[ \t]*model[ \t]*=[ \t]*"(?<value>[^"]+)"[ \t]*(?:#[^\r\n]*)?\r?$'
+    )
+    if ($modelMatches.Count -ne 1) {
+        throw "$Source must declare exactly one model."
+    }
+    if ($modelMatches[0].Groups["value"].Value -notmatch '^gpt-') {
+        throw "$Source must use an OpenAI Codex-native GPT model."
+    }
+
+    $reasoningMatches = [regex]::Matches(
+        $Content,
+        '(?m)^[ \t]*model_reasoning_effort[ \t]*=[ \t]*"(?<value>[^"]+)"[ \t]*(?:#[^\r\n]*)?\r?$'
+    )
+    if ($reasoningMatches.Count -ne 1) {
+        throw "$Source must declare exactly one model_reasoning_effort."
+    }
+    if ($reasoningMatches[0].Groups["value"].Value -notin @("high", "ultra")) {
+        throw "$Source has an unsupported reasoning effort."
+    }
+
+    $activationPatterns = @(
+        '(?im)^[ \t]*model_provider[ \t]*=',
+        '(?im)^[ \t]*\[model_providers(?:\.|\])',
+        '(?im)^[ \t]*\[mcp_servers(?:\.|\])',
+        '(?im)^[ \t]*(base_url|env_key|wire_api)[ \t]*=',
+        '(?im)^[ \t]*(command|args)[ \t]*='
+    )
+    foreach ($pattern in $activationPatterns) {
+        if ($Content -match $pattern) {
+            throw "$Source contains a provider or executable activation field."
+        }
+    }
+}
+
+function Get-ActiveConfigStatus {
+    if (-not (Test-Path -LiteralPath $ConfigToml -PathType Leaf)) {
+        return "MISSING -- no .codex/config.toml found"
+    }
+
+    $content = Get-Content -LiteralPath $ConfigToml -Raw
+    try {
+        Assert-OpenAICodexConfig -Content $content -Source $ConfigToml
+    }
+    catch {
+        return "INVALID -- $($_.Exception.Message)"
+    }
+
+    $model = [regex]::Match(
+        $content,
+        '(?m)^[ \t]*model[ \t]*=[ \t]*"(?<value>[^"]+)"'
+    ).Groups["value"].Value
+    $effort = [regex]::Match(
+        $content,
+        '(?m)^[ \t]*model_reasoning_effort[ \t]*=[ \t]*"(?<value>[^"]+)"'
+    ).Groups["value"].Value
+    return "OpenAI Codex native ($model, $effort reasoning)"
+}
+
+if ($Status -and $Mode) {
+    throw "Choose either -Status or -Mode, not both."
+}
+
+if ($Status) {
+    Write-Host "Active: $(Get-ActiveConfigStatus)" -ForegroundColor Cyan
+    Write-Host "Available modes: high, ultra" -ForegroundColor Gray
+    return
+}
+
+if (-not $Mode) {
+    Write-Host "Usage: swap_codex_config.ps1 -Mode <high|ultra> OR -Status" -ForegroundColor Yellow
+    Write-Host "Active: $(Get-ActiveConfigStatus)" -ForegroundColor Cyan
+    return
+}
+
+if (-not (Test-Path -LiteralPath $NativeTemplate -PathType Leaf)) {
+    throw "Native template not found: $NativeTemplate"
+}
+
+$template = Get-Content -LiteralPath $NativeTemplate -Raw
+Assert-OpenAICodexConfig -Content $template -Source $NativeTemplate
+$reasoningReplacement = '${prefix}"' + $Mode + '"${suffix}'
+$desired = [regex]::Replace(
+    $template,
+    '(?m)^(?<prefix>[ \t]*model_reasoning_effort[ \t]*=[ \t]*)"[^"]+"(?<suffix>[ \t]*(?:#[^\r\n]*)?\r?)$',
+    $reasoningReplacement
+)
+Assert-OpenAICodexConfig -Content $desired -Source "derived $Mode profile"
+
+$current = if (Test-Path -LiteralPath $ConfigToml -PathType Leaf) {
+    Get-Content -LiteralPath $ConfigToml -Raw
+} else {
+    $null
+}
+
+if ($current -ceq $desired) {
+    Write-Host "Already active: OpenAI Codex native ($Mode reasoning)" -ForegroundColor Cyan
+    return
+}
+
+if (-not $PSCmdlet.ShouldProcess($ConfigToml, "Activate OpenAI Codex $Mode profile")) {
+    return
+}
+
+$backupPath = $null
+if ($null -ne $current) {
+    New-Item -ItemType Directory -Path $RuntimeBackupDir -Force | Out-Null
+    $timestamp = Get-Date -Format "yyyyMMdd-HHmmss-fff"
+    $backupId = [Guid]::NewGuid().ToString("N")
+    $backupPath = Join-Path $RuntimeBackupDir "config.toml.$timestamp.$backupId.bak"
+}
+
+$temporaryPath = Join-Path (
+    Split-Path -Parent $ConfigToml
+) "config.toml.$([Guid]::NewGuid().ToString('N')).tmp"
+
+try {
+    [System.IO.File]::WriteAllText($temporaryPath, $desired, $Utf8NoBom)
+    if (Test-Path -LiteralPath $ConfigToml -PathType Leaf) {
+        [System.IO.File]::Replace($temporaryPath, $ConfigToml, $backupPath, $true)
+        Write-Host "Preserved prior active config: $backupPath" -ForegroundColor Yellow
+    }
+    else {
+        [System.IO.File]::Move($temporaryPath, $ConfigToml)
+    }
+}
+finally {
+    if (Test-Path -LiteralPath $temporaryPath) {
+        Remove-Item -LiteralPath $temporaryPath -Force
+    }
+}
+
+Write-Host "Activated: OpenAI Codex native ($Mode reasoning)" -ForegroundColor Green

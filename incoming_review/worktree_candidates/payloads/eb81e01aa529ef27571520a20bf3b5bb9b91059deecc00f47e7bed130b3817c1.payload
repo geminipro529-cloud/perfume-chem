@@ -1,0 +1,63 @@
+{
+  "schema_version": "complexity_replacement_benchmark_cases_v6",
+  "predecessor_corpus": "complexity_replacement_benchmark_cases_v5.json",
+  "predecessor_corpus_sha256": "e2acab0e75358dbe5fc89838a0c7ac31e14bef0ca1ab3218e7f5554ce6c6670f",
+  "state_taxonomy": {
+    "architectural_delta": ["PROPOSED", "NO_CHANGE", "HOLD"],
+    "temporal_sensory_ledger": ["COMPLETE", "INCOMPLETE", "HOLD"],
+    "hedonic_preference_learner": ["VALIDATED", "WITHHELD", "DIAGNOSTIC"]
+  },
+  "module_packet_overrides": {
+    "architectural_delta": {
+      "operating_contract_append": [
+        "Evaluate target-function coverage before defects in a rejected proposal: when every target function is covered, a count- or prestige-only expansion resolves to NO_CHANGE even if inventory must later be reparsed for execution.",
+        "Reserve HOLD for a specific target-inverting intervention, unresolved evidence needed to decide the ideal architecture, or an unsupported interaction claim; ordinary redundancy is NO_CHANGE."
+      ],
+      "evidence_refs_append": ["architectural-delta-state-precedence-repair-v2"]
+    },
+    "temporal_sensory_ledger": {
+      "operating_contract_append": [
+        "A directly observed, scope-matched answer is COMPLETE even when no further comparison is needed; a single nonconflicting absent cell is INCOMPLETE rather than HOLD.",
+        "The next-action count does not determine state: state follows evidence completeness, conflict, and protocol validity."
+      ],
+      "evidence_refs_append": ["temporal-ledger-state-precedence-repair-v2"]
+    },
+    "hedonic_preference_learner": {
+      "operating_contract_append": [
+        "A recommended bridge pair does not validate a disconnected graph: report WITHHELD; a measurable perfect position effect is DIAGNOSTIC; only a fully passing scoped fit is VALIDATED.",
+        "State describes current evidence, never the usefulness of the proposed next comparison."
+      ],
+      "evidence_refs_append": ["hedonic-preference-state-precedence-repair-v2"]
+    }
+  },
+  "case_overrides": [
+    {"case_id": "AUG-ARC-S01", "expected_decision": "PROPOSED: one nonredundant constant-total bridge arm.", "objective_expected_state": "PROPOSED"},
+    {"case_id": "AUG-ARC-S02", "expected_decision": "NO_CHANGE: reject count expansion while retaining the complete target.", "objective_expected_state": "NO_CHANGE"},
+    {"case_id": "AUG-ARC-S03", "expected_decision": "HOLD: reject the specific target-inverting Neroli-primary arm.", "objective_expected_state": "HOLD"},
+    {"case_id": "AUG-ARC-C01", "expected_decision": "PROPOSED computationally; physical addition remains unauthorized.", "objective_expected_state": "PROPOSED"},
+    {"case_id": "AUG-ARC-C02", "expected_decision": "NO_CHANGE: one precise musk already covers the target.", "objective_expected_state": "NO_CHANGE"},
+    {"case_id": "AUG-ARC-C03", "expected_decision": "HOLD: pairwise observations cannot establish the n-ary exception claim.", "objective_expected_state": "HOLD"},
+    {"case_id": "AUG-TEM-S01", "expected_decision": "COMPLETE: the observed median transition resolves the endpoint.", "objective_expected_state": "COMPLETE"},
+    {"case_id": "AUG-TEM-S02", "expected_decision": "INCOMPLETE: preserve the one absent canonical cell.", "objective_expected_state": "INCOMPLETE"},
+    {"case_id": "AUG-TEM-S03", "expected_decision": "HOLD: conflicting duplicate provenance is unresolved.", "objective_expected_state": "HOLD"},
+    {"case_id": "AUG-TEM-C01", "expected_decision": "HOLD: order and carryover are unresolved.", "objective_expected_state": "HOLD"},
+    {"case_id": "AUG-TEM-C02", "expected_decision": "HOLD: temporal scopes are incommensurate.", "objective_expected_state": "HOLD"},
+    {"case_id": "AUG-TEM-C03", "expected_decision": "HOLD: within-sniff timing is unqualified.", "objective_expected_state": "HOLD"},
+    {"case_id": "AUG-HED-S01", "expected_decision": "VALIDATED for DEPTH only.", "objective_expected_state": "VALIDATED"},
+    {"case_id": "AUG-HED-S02", "expected_decision": "WITHHELD until a bridge comparison connects the graph.", "objective_expected_state": "WITHHELD"},
+    {"case_id": "AUG-HED-S03", "expected_decision": "DIAGNOSTIC for perfect first-position confounding.", "objective_expected_state": "DIAGNOSTIC"},
+    {"case_id": "AUG-HED-C01", "expected_decision": "WITHHELD: ties contain no directional utility.", "objective_expected_state": "WITHHELD"},
+    {"case_id": "AUG-HED-C02", "expected_decision": "DIAGNOSTIC: preserve the temporal crossover.", "objective_expected_state": "DIAGNOSTIC"},
+    {"case_id": "AUG-HED-C03", "expected_decision": "WITHHELD for split leakage and baseline failure.", "objective_expected_state": "WITHHELD"}
+  ],
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

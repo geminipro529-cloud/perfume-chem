@@ -1,0 +1,45 @@
+# Prada L'Homme Intense Zero Astra Z1 — DIAGNOSTIC ONLY
+
+**Date:** 2026-09-05
+**Claim mode:** named_reference
+**Reference contract:** prada_lhomme_intense
+**Reference scope:** architecture
+
+NO PHYSICAL DOSING AUTHORITY. New-origin design; no predecessor recipe. The following numbers are a nonphysical coordinate projection of a 6000 mg scaled raw-stock master. Physical stock volumes are unknown. Refer to the accounting JSON for exact weighed product and carrier masses. The nominal 30 mL setting is not a measured bottle. No safety, similarity, sensory, performance or release claim.
+
+| Material | Stock / dilution | Amount (µL) |
+|---|---|---:|
+| Ambrox Super | 25% w/w in DPG + IPM + ethanol | 516.923076923077 |
+| Iso E Super | neat | 406.153846153846 |
+| Hedione | neat | 387.692307692308 |
+| Patchouli EO | neat | 240.000000000000 |
+| Hexyl Salicylate | neat | 129.230769230769 |
+| Sandalore | neat | 406.153846153846 |
+| Cedarwood oil Virginia | neat | 131.868131868132 |
+| Ebanol | neat | 55.384615384615 |
+| Romandolide | neat | 184.615384615385 |
+| Linalyl Acetate | neat | 36.923076923077 |
+| Alpha-Isomethyl Ionone | neat | 1052.307692307692 |
+| Alpha Irone | 10% w/w in DEP | 396.170353251898 |
+| Heliotropal | 10% w/w in DEP | 184.615384615385 |
+| Orivone | 10% w/w in DEP | 184.615384615385 |
+| Dihydro Beta Ionone | neat | 147.692307692308 |
+| Tonkarome | 20% w/w in TEC | 830.769230769231 |
+| Coumarin | 20% w/w in DEP | 738.461538461538 |
+| **Total** | | **6029.576946658492** |
+
+## Finished Matrix Inputs
+
+**Matrix authority:** declared_volume_proxy
+
+These artificial Volume and Density entries encode independently declared scenario masses, not physical volumes or measured densities. The scenario diluent is 24000 mg of 96 percent ethanol by mass, with 4 percent water by mass. The owned ethanol's percentage basis is unconfirmed. Matrix mass includes the externally added scenario diluent and all known stock carriers, with no double counting of odorant product.
+
+| Component | Volume µL | Density g/mL | MW g/mol | Source |
+|---|---:|---:|---:|---|
+| DEP | 1255.384615384615 | 1 | 222.24 | NONPHYSICAL_MASS_ENCODING: known stock carrier masses plus explicit hypothetical external diluent |
+| TEC | 664.615384615385 | 1 | 276.28 | NONPHYSICAL_MASS_ENCODING: known stock carrier masses plus explicit hypothetical external diluent |
+| DPG | 301.538461538462 | 1 | 134.17 | NONPHYSICAL_MASS_ENCODING: known stock carrier masses plus explicit hypothetical external diluent |
+| IPM | 21.538461538462 | 1 | 270.45 | NONPHYSICAL_MASS_ENCODING: known stock carrier masses plus explicit hypothetical external diluent |
+| Ethanol | 23104.615384615383 | 1 | 46.06844 | NONPHYSICAL_MASS_ENCODING: known stock carrier masses plus explicit hypothetical external diluent |
+| Water | 960.000000000000 | 1 | 18.01528 | NONPHYSICAL_MASS_ENCODING: known stock carrier masses plus explicit hypothetical external diluent |
+

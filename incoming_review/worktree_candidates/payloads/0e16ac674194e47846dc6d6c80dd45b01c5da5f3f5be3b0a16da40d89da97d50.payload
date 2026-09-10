@@ -1,0 +1,657 @@
+{
+  "schema": "published_ratio_descriptor_means_v1",
+  "source_doi": "10.20870/oeno-one.2023.57.2.7089",
+  "source_url": "https://oeno-one.eu/article/download/7089/29614",
+  "source_sha256": "6221afaf67f5a70c6597f2c6f9d1b2afc293b916ed6186a2a4961606dcfa56ee",
+  "source_table": "A4, PDF page4",
+  "panel_n": 14,
+  "scale": "0-7 descriptor intensity",
+  "descriptor_names": [
+    "fruit",
+    "strawberry",
+    "blackcurrant",
+    "apple",
+    "dried_fruit",
+    "wood",
+    "clove",
+    "vanilla",
+    "caramel",
+    "coconut"
+  ],
+  "reported_spread_kind": "NOT_DEFINED_IN_TABLE_CAPTION",
+  "factor_basis": "Published experimental level labels, not liquid ppm or formula stock fractions",
+  "deduplication": "Three no-wood controls repeated under three wood types are identical and retained once",
+  "formula_transfer_validated": false,
+  "rows": [
+    {
+      "sample_id": "B",
+      "ester_level": "B",
+      "wood_type": "NONE",
+      "wood_level": 0,
+      "mean": [
+        1.93,
+        0.64,
+        1.14,
+        0.57,
+        3.36,
+        1.21,
+        0.71,
+        1.5,
+        1.43,
+        0.29
+      ],
+      "reported_spread": [
+        0.5,
+        0.4,
+        0.39,
+        0.33,
+        0.61,
+        0.54,
+        0.3,
+        0.57,
+        0.44,
+        0.22
+      ]
+    },
+    {
+      "sample_id": "BHAO1",
+      "ester_level": "B",
+      "wood_type": "HAO",
+      "wood_level": 1,
+      "mean": [
+        1.5,
+        1.14,
+        1.36,
+        1.64,
+        1.57,
+        2.71,
+        1,
+        0.71,
+        1.29,
+        0.71
+      ],
+      "reported_spread": [
+        0.43,
+        0.4,
+        0.45,
+        0.6,
+        0.4,
+        0.53,
+        0.36,
+        0.35,
+        0.37,
+        0.38
+      ]
+    },
+    {
+      "sample_id": "BHAO2",
+      "ester_level": "B",
+      "wood_type": "HAO",
+      "wood_level": 2,
+      "mean": [
+        1.43,
+        0.64,
+        1.21,
+        1,
+        1.36,
+        3.43,
+        1.21,
+        1.36,
+        1.36,
+        1.36
+      ],
+      "reported_spread": [
+        0.42,
+        0.31,
+        0.38,
+        0.43,
+        0.5,
+        0.57,
+        0.48,
+        0.46,
+        0.55,
+        0.4
+      ]
+    },
+    {
+      "sample_id": "E1",
+      "ester_level": "E1",
+      "wood_type": "NONE",
+      "wood_level": 0,
+      "mean": [
+        1.79,
+        2.07,
+        1.71,
+        0.86,
+        1.71,
+        1.79,
+        1.21,
+        0.86,
+        0.64,
+        0.57
+      ],
+      "reported_spread": [
+        0.45,
+        0.52,
+        0.5,
+        0.38,
+        0.5,
+        0.59,
+        0.41,
+        0.39,
+        0.37,
+        0.43
+      ]
+    },
+    {
+      "sample_id": "E1HAO1",
+      "ester_level": "E1",
+      "wood_type": "HAO",
+      "wood_level": 1,
+      "mean": [
+        2.5,
+        1,
+        2,
+        1.21,
+        1.64,
+        2.93,
+        0.5,
+        1.29,
+        0.71,
+        0.57
+      ],
+      "reported_spread": [
+        0.5,
+        0.35,
+        0.51,
+        0.41,
+        0.43,
+        0.61,
+        0.36,
+        0.53,
+        0.3,
+        0.31
+      ]
+    },
+    {
+      "sample_id": "E1HAO2",
+      "ester_level": "E1",
+      "wood_type": "HAO",
+      "wood_level": 2,
+      "mean": [
+        1.5,
+        0.79,
+        1,
+        0.71,
+        1.79,
+        2.79,
+        1.36,
+        1.29,
+        1.36,
+        2.36
+      ],
+      "reported_spread": [
+        0.44,
+        0.48,
+        0.42,
+        0.3,
+        0.5,
+        0.54,
+        0.44,
+        0.52,
+        0.37,
+        0.71
+      ]
+    },
+    {
+      "sample_id": "E2",
+      "ester_level": "E2",
+      "wood_type": "NONE",
+      "wood_level": 0,
+      "mean": [
+        2.29,
+        1.79,
+        1.36,
+        1.86,
+        2.86,
+        0.86,
+        0.57,
+        0.79,
+        0.79,
+        0.57
+      ],
+      "reported_spread": [
+        0.62,
+        0.55,
+        0.5,
+        0.61,
+        0.64,
+        0.52,
+        0.31,
+        0.41,
+        0.38,
+        0.31
+      ]
+    },
+    {
+      "sample_id": "E2HAO1",
+      "ester_level": "E2",
+      "wood_type": "HAO",
+      "wood_level": 1,
+      "mean": [
+        2,
+        1.36,
+        1.21,
+        1,
+        1.21,
+        1.64,
+        1.07,
+        1.57,
+        1.14,
+        0.5
+      ],
+      "reported_spread": [
+        0.51,
+        0.43,
+        0.48,
+        0.33,
+        0.39,
+        0.39,
+        0.45,
+        0.56,
+        0.4,
+        0.34
+      ]
+    },
+    {
+      "sample_id": "E2HAO2",
+      "ester_level": "E2",
+      "wood_type": "HAO",
+      "wood_level": 2,
+      "mean": [
+        2,
+        0.79,
+        1.43,
+        1.29,
+        0.86,
+        3,
+        1.57,
+        1.86,
+        1.86,
+        1.36
+      ],
+      "reported_spread": [
+        0.6,
+        0.39,
+        0.4,
+        0.51,
+        0.25,
+        0.55,
+        0.37,
+        0.55,
+        0.61,
+        0.5
+      ]
+    },
+    {
+      "sample_id": "BHFO1",
+      "ester_level": "B",
+      "wood_type": "HFO",
+      "wood_level": 1,
+      "mean": [
+        1.57,
+        1.07,
+        1.21,
+        0.86,
+        1.5,
+        2.5,
+        1.29,
+        1.79,
+        1.29,
+        0.71
+      ],
+      "reported_spread": [
+        0.44,
+        0.35,
+        0.41,
+        0.35,
+        0.45,
+        0.57,
+        0.47,
+        0.59,
+        0.46,
+        0.41
+      ]
+    },
+    {
+      "sample_id": "BHFO2",
+      "ester_level": "B",
+      "wood_type": "HFO",
+      "wood_level": 2,
+      "mean": [
+        1.79,
+        0.93,
+        1.57,
+        1.14,
+        1.57,
+        3.07,
+        1.36,
+        1.5,
+        0.93,
+        0.86
+      ],
+      "reported_spread": [
+        0.48,
+        0.4,
+        0.48,
+        0.46,
+        0.37,
+        0.46,
+        0.58,
+        0.5,
+        0.29,
+        0.43
+      ]
+    },
+    {
+      "sample_id": "E1HFO1",
+      "ester_level": "E1",
+      "wood_type": "HFO",
+      "wood_level": 1,
+      "mean": [
+        1.64,
+        1.29,
+        1.14,
+        0.36,
+        1.36,
+        2.93,
+        1.07,
+        1.43,
+        0.93,
+        0.21
+      ],
+      "reported_spread": [
+        0.46,
+        0.35,
+        0.36,
+        0.29,
+        0.37,
+        0.53,
+        0.55,
+        0.48,
+        0.43,
+        0.15
+      ]
+    },
+    {
+      "sample_id": "E1HFO2",
+      "ester_level": "E1",
+      "wood_type": "HFO",
+      "wood_level": 2,
+      "mean": [
+        2.29,
+        1.57,
+        1.64,
+        0.86,
+        1.21,
+        2.29,
+        1.07,
+        1.36,
+        1.57,
+        0.5
+      ],
+      "reported_spread": [
+        0.51,
+        0.43,
+        0.5,
+        0.33,
+        0.33,
+        0.54,
+        0.49,
+        0.55,
+        0.39,
+        0.29
+      ]
+    },
+    {
+      "sample_id": "E2HFO1",
+      "ester_level": "E2",
+      "wood_type": "HFO",
+      "wood_level": 1,
+      "mean": [
+        2.36,
+        1.64,
+        2.57,
+        1,
+        1.71,
+        2.36,
+        1.93,
+        1.07,
+        1.07,
+        0.64
+      ],
+      "reported_spread": [
+        0.46,
+        0.41,
+        0.6,
+        0.42,
+        0.55,
+        0.48,
+        0.46,
+        0.53,
+        0.38,
+        0.31
+      ]
+    },
+    {
+      "sample_id": "E2HFO2",
+      "ester_level": "E2",
+      "wood_type": "HFO",
+      "wood_level": 2,
+      "mean": [
+        2.21,
+        1.36,
+        1.29,
+        1.21,
+        1.71,
+        2.36,
+        1.43,
+        1.43,
+        1,
+        0.86
+      ],
+      "reported_spread": [
+        0.54,
+        0.45,
+        0.42,
+        0.57,
+        0.44,
+        0.54,
+        0.6,
+        0.47,
+        0.52,
+        0.36
+      ]
+    },
+    {
+      "sample_id": "BMFO1",
+      "ester_level": "B",
+      "wood_type": "MFO",
+      "wood_level": 1,
+      "mean": [
+        2.07,
+        1.36,
+        2.21,
+        1.64,
+        1.36,
+        1.29,
+        0.86,
+        1.57,
+        1.07,
+        0.71
+      ],
+      "reported_spread": [
+        0.44,
+        0.45,
+        0.55,
+        0.52,
+        0.53,
+        0.46,
+        0.31,
+        0.45,
+        0.47,
+        0.4
+      ]
+    },
+    {
+      "sample_id": "BMFO2",
+      "ester_level": "B",
+      "wood_type": "MFO",
+      "wood_level": 2,
+      "mean": [
+        1.64,
+        1.5,
+        0.57,
+        0.43,
+        1.36,
+        3,
+        1.36,
+        1.29,
+        1.14,
+        0.71
+      ],
+      "reported_spread": [
+        0.4,
+        0.48,
+        0.27,
+        0.2,
+        0.41,
+        0.52,
+        0.54,
+        0.42,
+        0.46,
+        0.38
+      ]
+    },
+    {
+      "sample_id": "E1MFO1",
+      "ester_level": "E1",
+      "wood_type": "MFO",
+      "wood_level": 1,
+      "mean": [
+        2.29,
+        1.57,
+        1,
+        0.93,
+        1.36,
+        1.93,
+        1.64,
+        1.43,
+        1.21,
+        1.21
+      ],
+      "reported_spread": [
+        0.58,
+        0.53,
+        0.36,
+        0.43,
+        0.48,
+        0.52,
+        0.55,
+        0.44,
+        0.52,
+        0.52
+      ]
+    },
+    {
+      "sample_id": "E1MFO2",
+      "ester_level": "E1",
+      "wood_type": "MFO",
+      "wood_level": 2,
+      "mean": [
+        1.64,
+        1.29,
+        1.71,
+        1.14,
+        1.79,
+        1.93,
+        0.93,
+        1.43,
+        1.79,
+        0.71
+      ],
+      "reported_spread": [
+        0.45,
+        0.5,
+        0.51,
+        0.4,
+        0.49,
+        0.54,
+        0.35,
+        0.4,
+        0.58,
+        0.27
+      ]
+    },
+    {
+      "sample_id": "E2MFO1",
+      "ester_level": "E2",
+      "wood_type": "MFO",
+      "wood_level": 1,
+      "mean": [
+        2.86,
+        2,
+        2.57,
+        1.93,
+        1,
+        1.14,
+        0.43,
+        1.07,
+        0.86,
+        0.57
+      ],
+      "reported_spread": [
+        0.55,
+        0.5,
+        0.5,
+        0.52,
+        0.39,
+        0.39,
+        0.29,
+        0.57,
+        0.35,
+        0.27
+      ]
+    },
+    {
+      "sample_id": "E2MFO2",
+      "ester_level": "E2",
+      "wood_type": "MFO",
+      "wood_level": 2,
+      "mean": [
+        2.29,
+        1.93,
+        1.5,
+        1.64,
+        1.21,
+        2.36,
+        1,
+        1.79,
+        1.57,
+        1.14
+      ],
+      "reported_spread": [
+        0.55,
+        0.44,
+        0.42,
+        0.49,
+        0.46,
+        0.58,
+        0.43,
+        0.49,
+        0.52,
+        0.4
+      ]
+    }
+  ]
+}

@@ -1,0 +1,270 @@
+# OpenCode Configuration Guide — Perfume Chemistry
+
+All OpenCode features, MCP servers, commands, skills, agents, plugins, and optimizations configured for this project. Restart OpenCode for changes to take effect.
+
+---
+
+## 1. Core Config (`opencode.json`)
+
+### What was added
+
+| Key | Value | Why |
+|-----|-------|-----|
+| `model` | (provider default) | No hardcoded model — configure per your provider in `.env`. |
+| `instructions` | `["AGENTS.md", ".github/copilot-instructions.md", ".opencode/FORMULATION_PREFLIGHT.md"]` | Auto-loads the governing rules and mandatory authority contract into every built-in and custom agent session. The contract still requires fresh live-file reads before each formula batch. |
+| `compaction` | `{"auto": true, "prune": true, "reserved": 12000}` | Pipeline JSON output is ~6000 lines + 473-line AGENTS.md. Without compaction tuning, long formula sessions blow the context window. `prune` removes stale tool outputs. 12K reserved tokens provide generous buffer. |
+| `permission` | Primary session may edit/run local tools; specialist agents are read-only except `git status` | `.env` reads remain denied. The formulation authority plugin blocks formula writes and formula gates until the fresh per-batch authority preflight is complete; all seven custom specialists remain unable to edit or run arbitrary shell commands. |
+| `lsp` | `{"pyright": {}}` | Catches Python type errors in `engine/` and `backend/` as agents edit files. Auto-detects from pyproject.toml. |
+| `formatter` | `{"ruff": {}}` | Auto-formats `.py` files after every edit. Matches your CI's `ruff check` step — no more CI failure surprises. |
+| `watcher` | Excludes `__pycache__`, `*.pyc`, `node_modules`, `output/`, `archive/`, `*.db`, `*.xlsx` | Reduces file-watching noise from build artifacts, generated data, and database files. |
+
+### How to use
+
+- **Compaction** fires automatically when context nears limits — no user action needed
+- **Permissions** prompt interactively in the TUI when a disallowed action is attempted
+- **LSP** starts automatically when a `.py` file is opened in an agent session
+- **Formatter** runs automatically after every `edit` or `write` to `.py` files
+
+---
+
+## 2. MCP Servers
+
+### Existing (unchanged)
+
+| Server | Purpose |
+|--------|---------|
+| `filesystem` | Secure file operations with configurable access controls |
+| `git` | Read, search, and manipulate Git repositories |
+| `github` | Repository management, file operations, GitHub API |
+| `playwright` | Browser automation and web scraping |
+| `context7` | Search library documentation and code examples |
+| `fetch` | Web content fetching and conversion |
+| `sequential_thinking` | Step-by-step reasoning for complex problems |
+| `grep` (Vercel) | Search code patterns across GitHub repositories |
+| `repo_map` | Project structure visualization and module tracing |
+| `pubchem` | Chemical compound lookup — MW, logP, VP, ODT, CAS, structures |
+
+### New
+
+| Server | Config | Purpose |
+|--------|--------|---------|
+| `memory` | `npx -y @modelcontextprotocol/server-memory` | **Persistent knowledge graph across sessions.** Remembers formula iterations, material decisions, pipeline results. No more "what did we decide last time?" |
+
+### How to use
+
+Reference MCP servers by name in prompts:
+```
+use context7 to search for FastAPI query parameter documentation
+use pubchem to find the vapor pressure of linalool
+use memory to recall our last vetiver formula iteration
+```
+
+**Important:** MCP servers consume context tokens. Prefer built-in tools (`read`, `grep`, `glob`, `bash`) for simple operations. Use MCPs when they add concrete value.
+
+---
+
+## 3. Slash Commands
+
+Type `/` in the TUI to see all available commands. Custom commands take arguments.
+
+### Perfume Pipeline Commands
+
+| Command | Arguments | What it does |
+|---------|-----------|--------------|
+| `/gate` | `<formula-file> <concentrate-uL> <brief-family>` | Full pipeline: inventory check → gate run → format analysis → present OAV table + perfumer analysis → append to formula file |
+| `/formulation-preflight` | `[target-or-study]` | Reads and records every current authority, source/control formula, user physical override, and git state required before a formula batch |
+| `/audit` | `[brief-family]` | Historical formula scanning via `pipeline_audit.py` |
+| `/analyze` | `[json-file]` | Format analysis from an existing pipeline JSON output |
+| `/inventory` | _none_ | Read inventory.txt and produce structured summary: categories, depleted markers, dilutions, data gaps |
+
+### Quality Commands
+
+| Command | Arguments | What it does |
+|---------|-----------|--------------|
+| `/lint` | _none_ | CI-order linting: `ruff check app` → `mypy app` (Poetry environment) |
+| `/test-backend` | _none_ | Backend tests with coverage: `poetry run pytest --cov=app` |
+| `/test-engine` | _none_ | Engine tests: `pytest tests/` (pip environment) |
+
+### Examples
+```
+/gate formulas/My_Formula_30mL_EDP.md 6000 vetiver_woody
+/audit layton_dna
+/lint
+```
+
+---
+
+## 4. Agent Skills
+
+Skills are reusable behavior units loaded on-demand via the `skill` tool. Agents see available skills and load full content when needed.
+
+### `formula-gate` — Full Pipeline Workflow
+
+**When to use:** Running any formula through the release gate pipeline.
+
+**Covers:**
+1. Pre-flight: execute `.opencode/FORMULATION_PREFLIGHT.md`, read all current authorities and source/controls, verify stock, confirm family, verify ODT/physics/profile data, and check duplicate ODT entries
+2. Run `scripts/formula_release_gate.py` with correct parameters
+3. Run `scripts/format_pipeline_analysis.py` on output
+4. Present OAV headspace table, temporal evolution, note distribution, and perfumer analysis
+5. Append analysis to formula markdown file
+
+**Rules enforced:** Never skip the full authority preflight, never silently compress Luxe/DHP lineage, present OAV table before gates, append verbatim, and flag OAV < 1 materials by functional role.
+
+### `material-audit` — 4-Place Verification
+
+**When to use:** Adding materials, debugging wrong OAV values, checking pipeline readiness.
+
+**Checks 4 locations plus extras:**
+1. `inventory.txt` — exists? dilution? depleted?
+2. `data/materials/<LETTER>.yaml` — mw, logp, vp, odt_air, odt_eth, stock_dilution, in_inventory
+3. `engine/ingredient_intelligence.py` — _PROFILES, _TYPICAL_DOSE, _ODOR_FAMILY_MAP, _ACTIVITY_COEF_MAP
+4. `engine/odor_thresholds.py` — ODT_DATA entries, duplicate count
+5. Alias check in `name_utils._ALIASES`
+
+### `duplicate-odt-scanner` — ODT Data Quality
+
+**When to use:** Before pipeline runs, after editing ODT_DATA, investigating 100M+ OAVs.
+
+**Checks:** Parses ODT_DATA, counts key occurrences, flags duplicates with conflicting values, cross-references against inventory.txt (in-stock only), reports which value "wins" (last entry in file).
+
+---
+
+## 5. Custom Agents
+
+Seven perfume-domain agents, each with:
+- **Temperature 0.1** for deterministic research
+- **Read-only execution permissions** (edit: deny; bash denied except `git status`) — each agent can satisfy the mandatory git-state preflight while remaining unable to edit formulas or run arbitrary shell commands
+- **Domain-specific prompts** covering material families, volatility, synergy, dosing, and IFRA
+- **Fresh-batch enforcement** — the runtime guard rejects partial authority reads, resets evidence when the formula target changes or a formula gate closes the batch, and covers `edit`, `write`, `apply_patch`, and recognized shell-based formula writes
+
+| Agent | Domain | Key competencies |
+|-------|--------|------------------|
+| `agent-citrus-top` | Citrus, green, top-note | Volatility matching, odor synergy, Schiff base conflicts, ester hydrolysis |
+| `agent-floral-heart` | Floral, heart-note | Floral classification, hedione radiance, ionone diffusion, salicylate fixation |
+| `agent-woody-base` | Woody, amber, base | Cedar/sandal/vetiver families, ISO E Super boosting, Ambroxan radiance |
+| `agent-musk-fixative` | Musks, fixatives, gourmand, leather | Project-specific musk architecture; depth/projection/character hypotheses without count completion; vanillin-coumarin warmth |
+| `agent-spice-aromatic` | Spice, aromatic, specialty | Fougere triad, spice families, aldehydic construction, calone/ozonic |
+| `agent-formula-reviewer` | Formula governance | Full-authority, identity, source-lineage, material-function, and project-specific musk-rule audit |
+| `agent-inventory-scout` | Inventory/data authority | Stock, dilution, alias, ODT, physics, profile, and data-drift audit |
+
+### How to use
+
+Invoke directly via `@mention`:
+```
+@agent-citrus-top evaluate bergamot + linalool + petitgrain pairing
+```
+
+Agents are also invoked automatically by the Task tool when primary agents delegate.
+
+Every custom prompt and every `.opencode/agents/*.md` definition begins with the same mandatory authority gate. Built-in OpenCode agents receive it through the global `instructions` list. The active `.opencode/plugins/inventory-guard.js` guard blocks formula edits and pipeline gates until the current core authorities and a source/control formula have been read; DHP/Luxe/L'Homme/LNDL/Apple Pie/Pomme work additionally requires the DHP protocol. For Luxe/DHP successors, unexplained loss is `HARD FAIL — SOURCE COMPRESSION`, while exact donor ontology, a governed donor-heavy structural chassis, hash drift, incomplete predecessor dispositions, or parser under-read is the separate `HARD FAIL — DONOR TEMPLATE CONTAMINATION`. Both gates must pass; neither can waive the other.
+
+---
+
+## 6. Plugin: `env-guard.js`
+
+**Location:** `.opencode/plugins/env-guard.js`
+
+**What it does:**
+1. **Blocks reading** `.env` files (except `.env.example`) — `tool.execute.before` hook throws error
+2. **Blocks writing** `.env` files — prevents accidental secret leakage
+3. **Injects test env vars** — `OPENAI_API_KEY=test-key`, `SECRET_KEY=test-secret-key-for-ci` into all shell execution environments
+
+**Why:** Your `AGENTS.md` and CI config reference these test keys. The plugin ensures agents in test mode always have the right environment without manual setup.
+
+---
+
+## 7. File Structure
+
+```
+.opencode/
+  FORMULATION_PREFLIGHT.md            Canonical authority and lineage contract loaded by every agent
+  agents/
+    agent-*.md                         Custom agent definitions with the mandatory preflight gate
+  commands/
+    formulation-preflight.md          /formulation-preflight [target-or-study]
+    gate.md              /gate <formula> <uL> <brief>
+    audit.md             /audit [brief]
+    analyze.md           /analyze [json-file]
+    inventory.md         /inventory
+    lint.md              /lint
+    test-backend.md      /test-backend
+    test-engine.md       /test-engine
+  skills/
+    formula-gate/SKILL.md         Full pipeline workflow skill
+    material-audit/SKILL.md       4-place material verification skill
+    duplicate-odt-scanner/SKILL.md ODT_DATA duplicate detection skill
+  plugins/
+    env-guard.js         .env protection + test env injection
+    inventory-guard.js   Full formulation-authority and Luxe/DHP lineage preflight guard
+  prompts/
+    agent-citrus-top.txt
+    agent-floral-heart.txt
+    agent-woody-base.txt
+    agent-musk-fixative.txt
+    agent-spice-aromatic.txt
+
+opencode.json            Core config (modified: +model, +instructions, +compaction,
+                          +permission, +lsp, +formatter, +watcher, +memory MCP,
+                          upgraded all 7 agent configs)
+```
+
+---
+
+## 8. Quick Reference
+
+### Pipeline workflow (old vs new)
+
+**Before:**
+```bash
+# Step 1: Read inventory manually
+# Step 2: Verify each material's ODT/physics/profile data
+# Step 3: Run gate
+python scripts/formula_release_gate.py --formula-file formulas/X.md --expected-concentrate-ul 6000 --brief vetiver_woody --json > output/result.json
+# Step 4: Run analysis
+python scripts/format_pipeline_analysis.py --input output/result.json
+# Step 5: Manually append to formula file
+```
+
+**After:**
+```
+/gate formulas/X.md 6000 vetiver_woody
+```
+
+### Material verification
+
+```
+load skill material-audit
+check geraniol
+```
+
+### Code quality
+
+```
+/lint
+/test-backend
+/test-engine
+```
+
+---
+
+## 9. Best Practices
+
+1. **Run `/formulation-preflight` before every distinct formula batch** — no inherited summary, memory, prior-session read, or another agent's report can replace the current authority/source reads
+2. **Use `/gate` not manual pipeline runs** — it enforces the recorded preflight and proper formatting
+3. **Use `sequential_thinking` before complex tasks** — your AGENTS.md recommends this for DeepSeek
+4. **Use `context7` and `grep` for research** — not web search or raw grep
+5. **Use `pubchem` for compound data** — MW, logP, VP, ODT lookups
+6. **MCP servers consume tokens** — only invoke when they add unique value beyond built-in `read`/`grep`/`glob`
+7. **Use `/inventory` as a stock check, not as a substitute for `/formulation-preflight`**
+8. **Permissions protect secrets** — `.env` files are blocked, bash commands require approval for destructive operations
+
+## 10. Windows Launcher Fix
+
+If `opencode db` or `opencode models` errors with SQLite write failures on this machine, launch OpenCode through the repo wrapper:
+
+```powershell
+.\scripts\start_opencode.ps1
+```
+
+That wrapper pins `XDG_CONFIG_HOME`, `XDG_DATA_HOME`, `XDG_CACHE_HOME`, `XDG_STATE_HOME`, and `TMPDIR` into `D:\tmp`, which avoids the default user-profile state path problems in this environment.

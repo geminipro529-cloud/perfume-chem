@@ -1,0 +1,25 @@
+# HISTORICAL / SUPERSEDED / NONEXECUTABLE
+
+## Retired OpenCode configuration guide
+
+**Status: QUARANTINED. Do not follow, install, launch, or restore the setup that
+was previously documented here.**
+
+This path is retained only so old links resolve to an explicit retirement
+notice. The former document was an operational guide for a superseded external
+model-provider control plane. Its provider routing, credentials, plugins,
+commands, agents, caches, launchers, and configuration examples are not active
+repository instructions and carry no execution or scientific authority.
+
+Current authority is:
+
+1. [`AGENTS.md`](../AGENTS.md) for provider, delegation, safety, and acceptance
+   boundaries.
+2. [`QUICKSTART.md`](QUICKSTART.md) for the supported OpenAI backend and
+   Codex-native development workflow.
+3. [`.codex/cost-cache-policy.md`](../.codex/cost-cache-policy.md) for local-first
+   context, cost, and verification policy.
+
+Historical files elsewhere in the repository remain evidence only. They must
+not be used to reactivate another model provider or to override the current
+OpenAI ChatGPT/Codex-native policy.

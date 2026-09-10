@@ -1,0 +1,17 @@
+{
+  "project_id": "brand_agnostic_example",
+  "target_version": "exact bottle batch and region must be recorded",
+  "concentrate_total_parts": 1000.0,
+  "odorant_active_budget_parts": 780.0,
+  "rank_prior": {
+    "exponent_candidates": [0.55, 0.70, 0.85],
+    "offset": 0.0
+  },
+  "hard_gates": {
+    "target_before_inventory": true,
+    "no_unlogged_substitution": true,
+    "no_multi_target_collapse_without_loss_statement": true,
+    "no_similarity_claim_without_blind_sensory": true,
+    "no_oav_deletion_rule": true
+  }
+}

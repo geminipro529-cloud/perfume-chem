@@ -1,0 +1,27 @@
+﻿Code,ACC-FL-MUG-01
+Accord,Muguet Dew v1.0
+Category,Floral
+Brief,"A modern dewy muguet with hydroxycitronellal, Florol, Nympheal, Mayol, cyclamen-water and a controlled clean musk drydown."
+Recommended use,2–12% of perfume concentrate
+Maturation,5–10 days
+Monte Carlo pass,1.0
+Final design score,99.5
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,33.793103448275865,33.793103448275865,33.793103448275865,168.96551724137933,DIRECT,musk,Clean musk,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.004361964566924066
+2,base,Romandolide,Romandolide neat/as supplied,1.0,28.965517241379313,28.965517241379313,28.965517241379313,144.82758620689657,DIRECT,musk,Soft musk,Fruity-clean musk body.,HAVE — NEAT,Use as neat Romandolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.003616989214966594
+3,base,Sandalore,neat / as supplied,1.0,24.137931034482758,24.137931034482758,24.137931034482758,120.6896551724138,DIRECT,sandalwood,Creamy base,Creamy sandalwood.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0029152191872859343
+4,heart_base,Benzyl Salicylate,neat / as supplied,1.0,77.24137931034483,77.24137931034483,77.24137931034483,386.2068965517241,DIRECT,floral_air,Binding,Floral binder and substantivity.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.014780310789186266
+5,heart,Hedione,neat / as supplied,1.0,173.79310344827587,173.79310344827587,173.79310344827587,868.9655172413793,DIRECT,floral_air,Air,Transparent floral diffusion.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.047526510194753346
+6,heart,Hydroxycitronellal,neat / as supplied,1.0,173.79310344827587,173.79310344827587,173.79310344827587,868.9655172413793,DIRECT,muguet,Classic muguet body,Soft muguet body.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.035714616744771485
+7,heart,Florol,neat / as supplied,1.0,115.86206896551725,115.86206896551725,115.86206896551725,579.3103448275863,DIRECT,muguet,Clean floral volume,Clean floral volume.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.02007697209088699
+8,heart,Nympheal,as supplied; product basis,,77.24137931034483,,77.24137931034483,386.2068965517241,PRODUCT BASIS,muguet,Modern watery muguet,Modern watery muguet product basis.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.012144199613882443
+9,heart,Cyclamen Aldehyde 10%,Cyclamen Aldehyde 10% working dilution,0.1,57.931034482758626,5.793103448275863,57.931034482758626,289.65517241379314,PREPARED STOCK,marine,Watery flower,Clean watery floral.,HAVE — NEAT + 10%,Formula must name the exact stock strength.,,IDENTITY CRITICAL,0.010434159857014489
+10,heart,Mayol,neat,1.0,57.931034482758626,57.931034482758626,57.931034482758626,289.65517241379314,DIRECT,muguet,Bright muguet lift,Bright modern muguet lift.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.008716608418729918
+11,heart,Lilyreal ND,as supplied; product basis,,43.44827586206897,,43.44827586206897,217.24137931034483,PRODUCT BASIS,muguet,Product-basis muguet body,Muguet product basis.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.006337913218857129
+12,heart,Helional 10%,Helional 10% working dilution,0.1,38.62068965517241,3.8620689655172415,38.62068965517241,193.10344827586206,PREPARED STOCK,marine,Green floral water,Watery-green floral air.,HAVE — NEAT + 10%,Formula must specify exact strength.,,TEXTURAL SUPPORT,0.0063545476963593715
+13,top_heart,Linalool,neat/as supplied,1.0,28.965517241379313,28.965517241379313,28.965517241379313,144.82758620689657,DIRECT,aromatic,Fresh floral lift,Floral-citrus bridge.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.003559712610021422
+14,top,Dihydromyrcenol,neat / as supplied,1.0,28.965517241379313,28.965517241379313,28.965517241379313,144.82758620689657,DIRECT,fresh_aromatic,Dewy diffusion,High-diffusion freshness.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0036636619862759692
+15,top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,19.310344827586206,19.310344827586206,19.310344827586206,96.55172413793103,DIRECT,citrus,Opening sparkle,Floral bergamot peel.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0022711909144518157
+16,carrier,DPG,neat,0.0,20.0,0.0,20.0,100.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

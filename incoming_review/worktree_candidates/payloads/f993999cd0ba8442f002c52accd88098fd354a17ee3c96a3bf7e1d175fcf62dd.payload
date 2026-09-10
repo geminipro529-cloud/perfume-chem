@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,0.9997
+identity_system_probability,1.0
+oav_probability,0.9997
+temporal_probability,1.0
+dominance_failure_probability,0.0
+overall_probability,0.9997
+dose_closure_probability,0.9886
+temporal_q05,0.951306268741623
+temporal_median,0.9767219386494066
+max_share_q95,0.4563564713996212
+marker_coverage_q05,0.8571428571428571
+phase_sum_q05,"{""top"": 5.758476471729688, ""heart"": 9.944476698589765, ""base"": 6.631337558479334}"
+release_shape_median,"[0.19958995496813753, 0.3077339787412657, 0.36069400296938264, 0.11981821036354104]"
+phase_shape_median,"[0.08877874936605717, 0.3586021888535691, 0.5526087907096033]"
+marker_probabilities,"{""Black Pepper EO | top"": 0.9994, ""Coriander EO | top"": 0.9982, ""Cedarwood Virginia | heart"": 0.9956, ""Vetiver EO | heart"": 1.0, ""Patchouli EO | base"": 0.9999, ""Iso E Super | base"": 0.8831, ""Ambrofix 30% | base"": 0.9178}"
+marker_quantiles,"{""Black Pepper EO | top"": [2.5793123684482966, 6.277484203205452, 15.790743594893673], ""Coriander EO | top"": [1.9330083366776745, 4.812571589094908, 11.876967406759956], ""Cedarwood Virginia | heart"": [1.7594960521505418, 4.5238208622252944, 11.771733819778701], ""Vetiver EO | heart"": [6.55128851112821, 15.71259936890251, 39.96666377993623], ""Patchouli EO | base"": [3.2515902968789034, 8.45052929822182, 21.81776409077898], ""Iso E Super | base"": [0.7574081403514381, 2.0281935076744366, 5.324201869701604], ""Ambrofix 30% | base"": [0.8592891955348225, 2.1936696222595247, 5.708905448168198]}"
+classification,ROBUST

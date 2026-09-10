@@ -1,0 +1,131 @@
+{
+  "schema_version": "perfume-chem.chatgpt-exact-byte-capture.v1",
+  "created_at_utc": "2026-08-11T13:55:55Z",
+  "artifact_class": "NON_AUTHORITATIVE_SOURCE_CAPTURE",
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a7992db-96b8-83ec-aab0-6a7447b97da1",
+  "source_conversation_title": "Perfume Project Planning",
+  "capture_method": "AUTHENTICATED_CHATGPT_ATTACHMENT_DOWNLOAD_THEN_EXACT_LOCAL_COPY",
+  "accepted_by_codex": false,
+  "admitted": false,
+  "installation_authorized": false,
+  "files": [
+    {
+      "name": "Perfume_Chem_Exact_Byte_Recovery_SUCCESSOR_2026-08-11_v1.zip",
+      "bytes": 15332522,
+      "sha256": "ee0486d348699528ac40c4d4fd4e4340dec46141903ea335711fd6d7708141f7",
+      "source_locator_scope": "EXTERNAL_LOCAL_PATH",
+      "source_path": "C:/Users/ASUS/Downloads/Perfume_Chem_Exact_Byte_Recovery_SUCCESSOR_2026-08-11_v1.zip",
+      "capture_path": "incoming_review/chatgpt/20260811T135555Z-planning-successor-republish-6a7992db/Perfume_Chem_Exact_Byte_Recovery_SUCCESSOR_2026-08-11_v1.zip",
+      "zip_member_count": 123,
+      "zip_file_count": 123,
+      "zip_uncompressed_bytes": 17665526,
+      "zip_crc_clean": true,
+      "safe_normalized_member_names": true,
+      "duplicate_normalized_member_names": false,
+      "controlling_ledgers": [
+        {
+          "member": "Perfume_Chem_Exact_Byte_Recovery_SUCCESSOR_2026-08-11_v1/SHA256SUMS.json",
+          "declared": 122,
+          "matched": 122
+        },
+        {
+          "member": "Perfume_Chem_Exact_Byte_Recovery_SUCCESSOR_2026-08-11_v1/SHA256SUMS.txt",
+          "declared": 121,
+          "matched": 121
+        }
+      ],
+      "native_graph": {
+        "state": "GRAPH_COMPLETE_QUARANTINED",
+        "nodes": 18,
+        "edges": 51,
+        "max_depth": 2,
+        "all_nodes_terminal": true,
+        "promotion_allowed": false,
+        "node_state_counts": {
+          "CLEAR_FOR_RECEIPT_REVIEW": 11,
+          "QUARANTINE_HOLD": 7
+        },
+        "hold_code_counts": {
+          "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT": 51,
+          "PARTIAL_MEMBER_SCAN": 16
+        }
+      },
+      "package_self_state": "SUCCESSOR_RECOVERY__NOT_PARENT_BYTE_IDENTICAL__NOT_READY_TO_INSTALL"
+    },
+    {
+      "name": "Perfume_Chem_Cloud_Work_Chat_Codex_Delivery_PC-EXACT-BYTE-RECOVERY-REPUBLISH-20260811T104537Z-9977bd49f4c9.zip",
+      "bytes": 17213537,
+      "sha256": "2de1e341f2cea95356c49e509b0226bbe3d8a2a2256ff4e2fca2112771a99589",
+      "source_locator_scope": "EXTERNAL_LOCAL_PATH",
+      "source_path": "C:/Users/ASUS/Downloads/Perfume_Chem_Cloud_Work_Chat_Codex_Delivery_PC-EXACT-BYTE-RECOVERY-REPUBLISH-20260811T104537Z-9977bd49f4c9.zip",
+      "capture_path": "incoming_review/chatgpt/20260811T135555Z-planning-successor-republish-6a7992db/Perfume_Chem_Cloud_Work_Chat_Codex_Delivery_PC-EXACT-BYTE-RECOVERY-REPUBLISH-20260811T104537Z-9977bd49f4c9.zip",
+      "zip_member_count": 18,
+      "zip_file_count": 18,
+      "zip_uncompressed_bytes": 17441127,
+      "zip_crc_clean": true,
+      "safe_normalized_member_names": true,
+      "duplicate_normalized_member_names": false,
+      "controlling_ledgers": [
+        {
+          "member": "PC-EXACT-BYTE-RECOVERY-REPUBLISH-20260811T104537Z-9977bd49f4c9/metadata/SHA256SUMS.txt",
+          "declared": 17,
+          "matched": 17
+        }
+      ],
+      "native_graph": {
+        "state": "GRAPH_COMPLETE_QUARANTINED",
+        "nodes": 19,
+        "edges": 60,
+        "max_depth": 3,
+        "all_nodes_terminal": true,
+        "promotion_allowed": false,
+        "node_state_counts": {
+          "CLEAR_FOR_RECEIPT_REVIEW": 11,
+          "QUARANTINE_HOLD": 8
+        },
+        "hold_code_counts": {
+          "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT": 60,
+          "PARTIAL_MEMBER_SCAN": 18
+        }
+      },
+      "package_self_state": "READY_FOR_REMOTE_INTAKE__TRANSPORT_UNAVAILABLE_IN_SOURCE_RUNTIME"
+    },
+    {
+      "name": "Perfume_Chem_Exact_Byte_Recovery_SUCCESSOR_2026-08-11_v1.zip.sha256",
+      "bytes": 127,
+      "sha256": "cf297b65adbaf5cb8abf418a04d2ae3bab1a99ea6cd466b20c3d6afe8eb52a77",
+      "declares_archive_sha256": "ee0486d348699528ac40c4d4fd4e4340dec46141903ea335711fd6d7708141f7"
+    }
+  ],
+  "known_target_hash_reconciliation": {
+    "target_hashes_checked": 48,
+    "recursive_archive_nodes_streamed": 14,
+    "recursive_bytes_streamed": 73974819,
+    "newly_recovered_outer_targets": [
+      "ee0486d348699528ac40c4d4fd4e4340dec46141903ea335711fd6d7708141f7",
+      "2de1e341f2cea95356c49e509b0226bbe3d8a2a2256ff4e2fca2112771a99589"
+    ],
+    "already_recovered_child_targets_seen": [
+      "b0db328ed79b08ab4e66fe0097d5c5a01d1b24dc2fb8f78b94721cf96ec8df5f",
+      "ccdc1d7afe395018223ecffb540918663e72d529d9bba40cc5677b75c4884666"
+    ],
+    "new_still_queued_child_targets_found": [],
+    "p6_package_found": false,
+    "p6_wheel_found": false
+  },
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "physical_execution": false,
+    "sensory": false,
+    "measured_headspace": false,
+    "oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "release": false
+  }
+}

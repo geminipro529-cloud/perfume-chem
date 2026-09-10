@@ -1,0 +1,195 @@
+{
+  "status": "PAPER_EXPERIMENT_ONLY_NOT_PREPARED",
+  "product_budget_mg": 1000,
+  "finished_test_mass_mg": 10000,
+  "final_topup": "Same ethanol lot with verified composition, by mass to final 10000mg; NOT nominal 30mL perfume",
+  "arms": {
+    "V1": {
+      "Hedione": 157.56302521008402,
+      "Ambrox Super": 31.512605042016805,
+      "Iso E Super": 118.17226890756302,
+      "Benzyl Salicylate": 55.14705882352941,
+      "Patchouli EO": 47.26890756302521,
+      "Bacdanol": 105.04201680672269,
+      "Kephalis": 31.512605042016805,
+      "Cashmeran": 15.756302521008402,
+      "Suederal": 10.504201680672269,
+      "Ambrettolide": 21.008403361344538,
+      "Alpha Isomethyl Ionone": 315.12605042016804,
+      "Alpha Irone": 6.302521008403361,
+      "Orris Liquid": 4.726890756302521,
+      "Alpha Ionone": 26.26050420168067,
+      "Orivone": 10.504201680672269,
+      "Tonkarome": 31.512605042016805,
+      "Coumarin": 9.453781512605042,
+      "Heliotropal": 2.6260504201680672
+    },
+    "A": {
+      "Alpha Isomethyl Ionone": 400,
+      "Alpha Irone": 10,
+      "Hedione": 100,
+      "Iso E Super": 100,
+      "Patchouli EO": 70,
+      "Bacdanol": 130,
+      "Ambrox Super": 50,
+      "Tonkarome": 95,
+      "Coumarin": 20,
+      "Ambrettolide": 25
+    },
+    "B": {
+      "Ambrox Super": 35.61949993015784,
+      "Hedione": 125.71588210643944,
+      "Iso E Super": 94.98533314708759,
+      "Patchouli EO": 58.66741164967174,
+      "Benzyl Salicylate": 36.31792149741584,
+      "Bacdanol": 131.30325464450343,
+      "Kephalis": 27.936862690319877,
+      "Cashmeran": 8.381058807095963,
+      "Suederal": 5.587372538063976,
+      "Ambrettolide": 16.762117614191926,
+      "Alpha Isomethyl Ionone": 346.4170973599665,
+      "Alpha Irone": 8.381058807095963,
+      "Orris Liquid": 5.028635284257578,
+      "Alpha Ionone": 22.349490152255903,
+      "Orivone": 5.587372538063976,
+      "Tonkarome": 55.873725380639755,
+      "Coumarin": 13.409694091353542,
+      "Heliotropal": 1.6762117614191927
+    },
+    "C": {
+      "Alpha Isomethyl Ionone": 350,
+      "Alpha Irone": 10,
+      "Orivone": 10,
+      "Hedione": 70,
+      "Iso E Super": 70,
+      "Benzyl Salicylate": 20,
+      "Patchouli EO": 80,
+      "Bacdanol": 140,
+      "Kephalis": 50,
+      "Ambrox Super": 60,
+      "Tonkarome": 95,
+      "Coumarin": 15,
+      "Ambrettolide": 20,
+      "CHARACTERIZED_BALSAMIC_AMBER_PRODUCT": 10
+    }
+  },
+  "C_status": "IDEAL_ONLY_NO_EXECUTABLE_STOCK_MAPPING_FOR_BALSAMIC_CLASS",
+  "comparisons_ready_on_paper": [
+    "V1",
+    "A",
+    "B"
+  ],
+  "common_carriers_mg": {
+    "dpg": 341.6666666666667,
+    "ipm": 8.333333333333332,
+    "ethanol": 25,
+    "dep": 194.99930157843275,
+    "tec": 380
+  },
+  "stock_masses_mg": {
+    "V1": {
+      "Hedione": 157.56302521008402,
+      "Ambrox Super": 126.05042016806722,
+      "Iso E Super": 118.17226890756302,
+      "Benzyl Salicylate": 55.14705882352941,
+      "Patchouli EO": 47.26890756302521,
+      "Bacdanol": 105.04201680672269,
+      "Kephalis": 31.512605042016805,
+      "Cashmeran": 15.756302521008402,
+      "Suederal": 10.504201680672269,
+      "Ambrettolide": 210.08403361344537,
+      "Alpha Isomethyl Ionone": 315.12605042016804,
+      "Alpha Irone": 63.02521008403361,
+      "Orris Liquid": 52.52100840336135,
+      "Alpha Ionone": 26.26050420168067,
+      "Orivone": 10.504201680672269,
+      "Tonkarome": 157.56302521008402,
+      "Coumarin": 47.26890756302521,
+      "Heliotropal": 26.26050420168067
+    },
+    "A": {
+      "Alpha Isomethyl Ionone": 400,
+      "Alpha Irone": 100,
+      "Hedione": 100,
+      "Iso E Super": 100,
+      "Patchouli EO": 70,
+      "Bacdanol": 130,
+      "Ambrox Super": 200,
+      "Tonkarome": 475,
+      "Coumarin": 100,
+      "Ambrettolide": 250
+    },
+    "B": {
+      "Ambrox Super": 142.47799972063137,
+      "Hedione": 125.71588210643944,
+      "Iso E Super": 94.98533314708759,
+      "Patchouli EO": 58.66741164967174,
+      "Benzyl Salicylate": 36.31792149741584,
+      "Bacdanol": 131.30325464450343,
+      "Kephalis": 27.936862690319877,
+      "Cashmeran": 8.381058807095963,
+      "Suederal": 5.587372538063976,
+      "Ambrettolide": 167.62117614191925,
+      "Alpha Isomethyl Ionone": 346.4170973599665,
+      "Alpha Irone": 83.81058807095962,
+      "Orris Liquid": 55.873725380639755,
+      "Alpha Ionone": 22.349490152255903,
+      "Orivone": 5.587372538063976,
+      "Tonkarome": 279.36862690319873,
+      "Coumarin": 67.0484704567677,
+      "Heliotropal": 16.762117614191926
+    }
+  },
+  "added_carriers_mg": {
+    "V1": {
+      "dpg": 79.06162464986,
+      "ipm": 3.0812324929971986,
+      "ethanol": 9.243697478991598,
+      "dep": 29.032915023810915,
+      "tec": 253.9495798319328
+    },
+    "A": {
+      "dpg": 0,
+      "ipm": 0,
+      "ethanol": 0,
+      "dep": 24.99930157843275,
+      "tec": 0
+    },
+    "B": {
+      "dpg": 107.6954416352377,
+      "ipm": 2.396750011640359,
+      "ethanol": 7.190250034921078,
+      "dep": 0,
+      "tec": 156.50509847744098
+    }
+  },
+  "intrinsic_V1_carriers_mg": {
+    "dpg": 262.6050420168067,
+    "ipm": 5.252100840336134,
+    "ethanol": 15.756302521008402,
+    "dep": 165.96638655462183,
+    "tec": 126.05042016806722
+  },
+  "intrinsic_A_carriers_mg": {
+    "dep": 170,
+    "dpg": 341.6666666666667,
+    "ipm": 8.333333333333332,
+    "ethanol": 25,
+    "tec": 380
+  },
+  "intrinsic_B_carriers_mg": {
+    "dpg": 233.971225031429,
+    "ipm": 5.936583321692973,
+    "ethanol": 17.80974996507892,
+    "dep": 194.99930157843275,
+    "tec": 223.49490152255902
+  },
+  "common_known_carriers_total_mg": 949.9993015784328,
+  "ethanol_lot_topup_mg": 8050.000698421567,
+  "limitations": [
+    "1000mg supplied product is not 1000mg pure odorants and not equal odor intensity",
+    "Opaque products contain unknown internal carriers; those cannot be matched",
+    "Gram-normalized architecture trial is not a constant-volume nominal bottle comparison",
+    "Do not physically execute until stock preparation, handling/safety review, ethanol basis and minimum-measurement requirements are resolved"
+  ]
+}

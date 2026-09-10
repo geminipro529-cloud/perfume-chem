@@ -1,0 +1,127 @@
+# Archive / scratch work — not shipped to GitHub
+archive/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+build/
+dist/
+.mypy_cache/
+.pytest_cache/
+
+# Virtual envs
+venv/
+.venv/
+.worktrees/
+
+# Environment
+.env
+.env.local
+
+# Databases & workbooks (binary / regenerable)
+*.db
+*.db-journal
+*.xlsx
+*.csv
+
+# Large / temp outputs
+*.png
+.coverage
+coverage.xml
+htmlcov/
+output.txt
+output/
+verification_runs/
+debug_*.log
+temporal_test_*.png
+
+# LLM response cache (engine.llm_cache) — local cache + savings ledger.
+# Never commit: contains model responses and per-call usage logs.
+cache/
+cache/**
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.claude/
+.codex/runtime/
+
+# Node / frontend build
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+
+# BEGIN oh-my-opencode-slim worktrees
+.slim/worktrees/
+.slim/worktrees.json
+# END oh-my-opencode-slim worktrees
+
+# Retired OpenCode harness. Keep any accidental recreation out of Git.
+.opencode/
+
+# PCV3 + program run artifacts (regenerable; contain keys/holds/scratch)
+runs/
+
+# Cheapluna / DeepLuna orchestrator state (project secrets, tokens)
+.cheapluna-home/
+.deepluna-home/
+
+# Secrets / credentials (defense in depth)
+.env.*
+!.env.example
+*.pem
+*.p12
+*.key
+id_rsa
+id_ed25519
+*.token
+*_token.json
+*.credential
+.vault/
+
+# Generated archives / raw downloads / temp databases
+*.zip
+*.tar.gz
+*.7z
+*.sqlite
+*.sqlite3
+tmp/
+*.tmp
+*.crdownload
+
+
+# Scratch backups (codex test-time isolation)
+.archive/
+
+# SSH keys (never push)
+a
+a.pub
+key
+key.pub
+*.pub
+
+
+.pub
+
+# Large executables
+incoming_review/*.exe
+
+# Local credentials and imported review payloads are never source artifacts.
+incoming_review/*api-key*.txt
+incoming_review/**/.*env*
+incoming_review/**/*.pem
+incoming_review/**/*.key
+incoming_review/**/*.p12
+incoming_review/**/*.pfx
+
+# Machine/session state and regenerated review caches.
+.codex/environments/
+.playwright-mcp/
+.tmp-*/
+chat_bridge/
+data/external/
+UsersASUSAppDataLocalTemp*/

@@ -1,0 +1,193 @@
+from __future__ import annotations
+
+import hashlib
+import json
+from pathlib import Path
+
+import pytest
+
+from engine.perception.complexity_registry import (
+    ModuleState,
+    census_complexity_artifacts,
+    load_complexity_registry,
+)
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+HISTORICAL_REGISTRY_PATH = (
+    PROJECT_ROOT / "configs/complexity/complexity_module_registry_v1.json"
+)
+REGISTRY_PATH = PROJECT_ROOT / "configs/complexity/complexity_module_registry_v2.json"
+
+
+def _write_registry_fixture(root: Path):
+    module = root / "engine/perception/construction_complexity.py"
+    module.parent.mkdir(parents=True)
+    module.write_text("VALUE = 1\n", encoding="utf-8")
+    digest = hashlib.sha256(module.read_bytes()).hexdigest()
+    registry_path = root / "registry.json"
+    registry_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "complexity_module_registry_v1",
+                "discovery": {
+                    "roots": ["engine", "future_modules"],
+                    "terms": ["complexity", "hedonic", "musk"],
+                    "metadata_keys": [],
+                },
+                "modules": [
+                    {
+                        "module_id": "construction-profile",
+                        "family_id": "construction_profile",
+                        "role": "CAPABILITY",
+                        "state": "ACTIVE_CANDIDATE",
+                        "path": "engine/perception/construction_complexity.py",
+                        "import_path": "engine.perception.construction_complexity",
+                        "sha256": digest,
+                        "evidence_refs": [],
+                    }
+                ],
+                "artifact_rules": [],
+                "dismissal_rules": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+    return load_complexity_registry(root, registry_path)
+
+
+def test_registry_loads_only_exact_hash_bound_native_candidates(tmp_path: Path) -> None:
+    registry = _write_registry_fixture(tmp_path)
+    assert registry.modules[0].state is ModuleState.ACTIVE_CANDIDATE
+    assert census_complexity_artifacts(tmp_path, registry).state == "PASS"
+
+
+def test_historical_v1_registry_remains_exactly_frozen() -> None:
+    assert hashlib.sha256(HISTORICAL_REGISTRY_PATH.read_bytes()).hexdigest() == (
+        "7567f3ca00ccbf3e1b2b41f50645ed21f4d163612872b8449db6cc022818c639"
+    )
+
+
+def test_census_holds_on_hash_drift_or_unclassified_match(tmp_path: Path) -> None:
+    registry = _write_registry_fixture(tmp_path)
+    (tmp_path / registry.modules[0].path).write_text("VALUE = 2\n", encoding="utf-8")
+    candidate = tmp_path / "future_modules/family_hedonic_optimizer.py"
+    candidate.parent.mkdir(parents=True)
+    candidate.write_text("VALUE = 3\n", encoding="utf-8")
+    result = census_complexity_artifacts(tmp_path, registry)
+    assert result.state == "HOLD"
+    assert result.hash_drift
+    assert result.unclassified
+
+
+def test_unknown_rights_rule_can_never_be_runtime_eligible() -> None:
+    registry = load_complexity_registry(PROJECT_ROOT, REGISTRY_PATH)
+    external = [
+        module
+        for module in registry.modules
+        if module.state is ModuleState.EVIDENCE_ONLY_NOT_ADMITTED
+    ]
+    assert external
+    assert all(not item.runtime_eligible for item in external)
+
+
+def test_future_advanced_musk_has_no_runtime_import() -> None:
+    registry = load_complexity_registry(PROJECT_ROOT, REGISTRY_PATH)
+    advanced = registry.module_by_id("advanced-musk-intelligence")
+    assert advanced.state is ModuleState.FUTURE_CANDIDATE_NOT_VALIDATED
+    assert advanced.import_path is None
+    assert advanced.runtime_eligible is False
+
+
+def test_failed_benchmark_families_are_recoverably_retired() -> None:
+    registry = load_complexity_registry(PROJECT_ROOT, REGISTRY_PATH)
+    retired_ids = {
+        "construction-profile",
+        "complexity-expansion-frontier",
+        "musk-design-restraint",
+        "complexity-model-admission",
+        "complexity-model-lifecycle",
+        "within-sniff-observation-contract",
+        "temporal-observation-contract",
+        "order-balance-contract",
+        "sensory-panel-contract",
+        "citrus-architecture-selector",
+    }
+
+    for module_id in retired_ids:
+        module = registry.module_by_id(module_id)
+        assert module.state is ModuleState.RETIRED_BENCHMARK_UNDERPERFORMER
+        assert module.runtime_eligible is False
+
+    experimental = registry.module_by_id("complexity-experimental-design")
+    assert experimental.state is ModuleState.ACTIVE_CANDIDATE
+    assert experimental.runtime_eligible is True
+
+
+def test_replacement_modules_remain_unreachable_until_new_xhigh_admission() -> None:
+    registry = load_complexity_registry(PROJECT_ROOT, REGISTRY_PATH)
+    replacement_ids = {
+        "architectural-delta-engine",
+        "temporal-sensory-ledger",
+        "hedonic-preference-learner",
+    }
+    for module_id in replacement_ids:
+        module = registry.module_by_id(module_id)
+        assert module.state is ModuleState.FUTURE_CANDIDATE_NOT_VALIDATED
+        assert module.import_path is None
+        assert module.runtime_eligible is False
+
+    runtime_ids = {
+        module.module_id for module in registry.modules if module.runtime_eligible
+    }
+    assert runtime_ids == {"complexity-experimental-design"}
+
+
+def test_frozen_v2_census_records_superseded_source_drift() -> None:
+    registry = load_complexity_registry(PROJECT_ROOT, REGISTRY_PATH)
+    result = census_complexity_artifacts(PROJECT_ROOT, registry)
+    assert result.multiply_classified == ()
+    assert result.state == "HOLD"
+    # Post-V2 evidence-ceiling correction removed an unsupported fixed-dose claim.
+    assert {
+        "engine/hedonic_evidence.py",
+        "engine/perception/architectural_delta.py",
+        "engine/preference.py",
+        "engine/sensory/ledger.py",
+        "future_modules/advanced_musk_intelligence.py",
+    }.issubset(set(result.hash_drift))
+    assert set(result.unclassified) == {
+        "engine/formulation_intelligence/admission.py",
+        "engine/formulation_intelligence/hedonic_platform.py",
+        "engine/formulation_intelligence/temporal_architecture.py",
+    }
+
+
+def test_registry_rejects_paths_outside_the_project(tmp_path: Path) -> None:
+    module = tmp_path / "safe.py"
+    module.write_text("VALUE = 1\n", encoding="utf-8")
+    registry_path = tmp_path / "registry.json"
+    registry_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "complexity_module_registry_v1",
+                "discovery": {"roots": ["."], "terms": ["complexity"], "metadata_keys": []},
+                "modules": [
+                    {
+                        "module_id": "unsafe",
+                        "family_id": "unsafe",
+                        "role": "CAPABILITY",
+                        "state": "ACTIVE_CANDIDATE",
+                        "path": "../outside.py",
+                        "import_path": "outside",
+                        "sha256": "0" * 64,
+                        "evidence_refs": [],
+                    }
+                ],
+                "artifact_rules": [],
+                "dismissal_rules": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="repository-relative"):
+        load_complexity_registry(tmp_path, registry_path)

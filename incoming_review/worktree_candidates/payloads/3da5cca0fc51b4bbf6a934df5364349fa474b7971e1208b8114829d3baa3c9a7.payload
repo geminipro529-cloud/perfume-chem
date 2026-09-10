@@ -1,0 +1,98 @@
+from __future__ import annotations
+
+import hashlib
+import json
+import re
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+MANIFEST_PATH = (
+    ROOT
+    / "data"
+    / "governance"
+    / "unified_import_deep_plane_compat_20260904.json"
+)
+SHA256_PATTERN = re.compile(r"^[0-9a-f]{64}$")
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _manifest() -> dict[str, object]:
+    return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+
+
+def test_source_snapshot_uses_valid_exact_byte_bindings() -> None:
+    source = _manifest()["source"]
+
+    assert source["snapshot_scope"] == "EXACT_WORKTREE_BYTES_NOT_COMMIT_CONTENT"
+    assert source["snapshot_verification"] == {
+        "method": "LIVE_BYTE_SIZE_AND_SHA256_RECHECK",
+        "source_runtime_correction": (
+            "DECLARATION_TYPO_ONLY_INVALID_63_HEX_CHARACTER_SHA256_REPLACED_"
+            "WITH_LIVE_64_HEX_CHARACTER_SHA256_FOR_55561_BYTE_FILE"
+        ),
+        "all_other_source_artifact_hashes_match_previous_declaration": True,
+        "source_bytes_imported_by_this_refresh": False,
+    }
+
+    artifacts = source["artifacts"]
+    assert artifacts[0]["size_bytes"] == 55561
+    assert artifacts[0]["sha256"] == (
+        "7261076fc71c9c82fb09dc46b5f9ea0457deac9265315c1dcdba594656430700"
+    )
+    assert all(record["size_bytes"] > 0 for record in artifacts)
+    assert all(SHA256_PATTERN.fullmatch(record["sha256"]) for record in artifacts)
+
+
+def test_current_target_bindings_match_live_destination_bytes() -> None:
+    target = _manifest()["target_bindings"]
+
+    assert target["snapshot_scope"] == "POINT_IN_TIME_CURRENT_DESTINATION_BYTES"
+    for record in target["artifacts"]:
+        path = ROOT / record["path"]
+        assert path.stat().st_size == record["size_bytes"]
+        assert _sha256(path) == record["sha256"]
+
+    workflow = next(
+        record
+        for record in target["artifacts"]
+        if record["path"] == "scripts/verify_formula_workflow.py"
+    )
+    assert workflow["earliest_recorded_sha256"] == (
+        "b696c517894c2bb0d2262d753ee271fe9e33d8748f3dc5e7db7aebaa83ffa6dc"
+    )
+    assert workflow["previous_sha256"] == (
+        "8dcae2141c5f6272ba8150cacebaa1d551e2a311d13814eea36c76bf42e19095"
+    )
+    assert workflow["refresh_disposition"] == (
+        "POINT_IN_TIME_BINDING_REFRESH_FOR_FAIL_CLOSED_UNKNOWN_STOCK_STRENGTH_"
+        "FIREWALL_NO_IMPORT_SEMANTIC_CHANGE"
+    )
+
+
+def test_adapter_and_adapted_tests_remain_exactly_bound() -> None:
+    manifest = _manifest()
+    implementation = manifest["implementation"]
+    adapter = ROOT / implementation["adapter_path"]
+
+    assert adapter.stat().st_size == implementation["adapter_size_bytes"]
+    assert _sha256(adapter) == implementation["adapter_sha256"]
+
+    for record in manifest["adapted_tests"]:
+        path = ROOT / record["path"]
+        assert path.stat().st_size == record["size_bytes"]
+        assert _sha256(path) == record["sha256"]
+
+
+def test_refresh_preserves_compatibility_only_hold_authority() -> None:
+    manifest = _manifest()
+
+    assert manifest["state"] == "IMPLEMENTED_AND_FOCUSED_TESTED_NOT_RUNTIME_ADMITTED"
+    assert manifest["claim_ceiling"] == (
+        "COMPATIBILITY_AND_PRE_MIX_SCREENING_ONLY_NO_FORMULA_RELEASE_CLAIM"
+    )
+    assert manifest["implementation"]["source_runtime_imported"] is False
+    assert manifest["implementation"]["existing_unified_runtime_modified"] is False
+    assert all(value is False for value in manifest["authority"].values())

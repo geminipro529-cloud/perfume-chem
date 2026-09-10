@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S01",
+  "completed_utc": "2026-08-26T07:32:58.544657+00:00",
+  "dispatch_sha256": "358d786a3429a532051434e89ddbfb49bd748d6ae9c9f58f97b3c707ef5fe9c1",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "8f265a58c4bc08a3178db88094c8c0fffb93e713afe1d11f6c35a62548caf4e4",
+  "output_text": "{\"decision_state\":\"PROPOSED\",\"target_linked_reasoning\":\"Candidate A uniquely addresses the deficient root-to-wood linkage (score 1, below threshold 2) with low redundancy overlap (0.1), while preserving the dry mineral iris identity. Candidates B and C add unwanted sweet amber residue and exceed the 0.75 redundancy-rejection threshold. This is a computational selection only; sensory performance remains uncertain.\",\"controlled_comparison\":\"At constant total quantity, compare an isovolumetric Candidate A substitution against a no-change control, assessing continuity of the root-to-wood transition and any loss of iris, root, dry-wood, or mineral character.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"MISSING_ROOT_TO_WOOD_LINKAGE\",\"LOW_REDUNDANCY_BRIDGE\",\"SWEETNESS_TARGET_MISMATCH\",\"REDUNDANCY_THRESHOLD_EXCEEDED\",\"CONSTANT_QUANTITY_REQUIRED\"],\"calculations\":{\"candidate_count_before_filter\":3,\"candidate_count_after_filter\":1},\"next_actions\":[\"Run the controlled Candidate A versus no-change comparison at constant total quantity.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "c1bc39c03182760344845aaa6df141176f80d72845a00144b3e65cf0bd3f4800",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-cdf012181c9215adbbfc",
+  "role": "POSITIVE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:32:34.411787+00:00",
+  "stderr_sha256": "e66d869e5757557bec7b4906069e21b340e9e814f597850ddff9719637898c7a",
+  "stderr_tail": "s\":{\"candidate_count_after_filter\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"PROPOSED\",\"target_linked_reasoning\":\"Candidate A uniquely addresses the deficient root-to-wood linkage (score 1, below threshold 2) with low redundancy overlap (0.1), while preserving the dry mineral iris identity. Candidates B and C add unwanted sweet amber residue and exceed the 0.75 redundancy-rejection threshold. This is a computational selection only; sensory performance remains uncertain.\",\"controlled_comparison\":\"At constant total quantity, compare an isovolumetric Candidate A substitution against a no-change control, assessing continuity of the root-to-wood transition and any loss of iris, root, dry-wood, or mineral character.\",\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"MISSING_ROOT_TO_WOOD_LINKAGE\",\"LOW_REDUNDANCY_BRIDGE\",\"SWEETNESS_TARGET_MISMATCH\",\"REDUNDANCY_THRESHOLD_EXCEEDED\",\"CONSTANT_QUANTITY_REQUIRED\"],\"calculations\":{\"candidate_count_before_filter\":3,\"candidate_count_after_filter\":1},\"next_actions\":[\"Run the controlled Candidate A versus no-change comparison at constant total quantity.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n5,708\n",
+  "stdout_sha256": "d3f3b454837c90eb1c4c05d615e1213645cae30639d45a7da087ee87b90a2eb3"
+}

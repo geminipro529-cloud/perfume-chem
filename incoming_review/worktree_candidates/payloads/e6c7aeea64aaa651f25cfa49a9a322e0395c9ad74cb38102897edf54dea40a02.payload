@@ -1,0 +1,477 @@
+# YSL L'Homme and La Nuit de L'Homme Twenty-Variant Study Design
+
+**Date:** 2026-08-26<br>
+**Status:** Draft for written-specification review<br>
+**Operating mode:** `RECONSTRUCTION` for original-reference controls; `CREATIVE_FORMULATION` / `FLANKER_MODULE` for variants<br>
+**Study size:** 10 L'Homme candidates + 10 La Nuit de L'Homme candidates<br>
+**Required named arms:** L'Homme Apple Pie, La Nuit de L'Homme Original 2009 Fidelity, La Nuit de L'Homme Immortelle Nuit<br>
+**Claim ceiling:** documentary and computational formulation hypotheses until controlled physical testing
+
+## 1. Objective
+
+Develop twenty original, evidence-informed formula hypotheses that preserve the recognizable identity of either YSL L'Homme or YSL La Nuit de L'Homme while exploring one controlled hedonic direction per candidate.
+
+The study is not an attempt to claim possession of either proprietary YSL formula. Public brand descriptions, launch reporting, ingredient disclosures, published odor research, and repository baselines can support target architecture and formula hypotheses; they cannot establish exact commercial percentages, physical similarity, liking, stability, safety, or release readiness.
+
+The north star is the candidate's name and target identity. Numerical outputs are diagnostic floors and alarms, not the optimization objective.
+
+## 2. Authority and Isolation Boundary
+
+Two repository roots have distinct roles:
+
+| Root | Role | Allowed actions |
+|---|---|---|
+| `D:\chatbots\perfume-chem` | Authoritative current instructions, inventory, runtime, and existing Sol baselines | Read and execute existing programs only; do not edit, merge, stage, commit, or write audit artifacts here |
+| `C:\Users\ASUS\.codex\worktrees\6992\perfume-chem` | Isolated formulation studio and study artifact root | Create study specifications, formula artifacts, generated reports, and redirected program outputs |
+
+Before each formula is authored or revised, the worker must freshly read:
+
+1. `D:\chatbots\perfume-chem\AGENTS.md`.
+2. `D:\chatbots\perfume-chem\.github\copilot-instructions.md`.
+3. `D:\chatbots\perfume-chem\inventory.txt`.
+
+Every analytical run must record the SHA-256 hashes of the authoritative instructions, inventory, relevant runtime files, input formula, parent formula, and baseline formula. If a bound hash changes during a run, the run is stale and must stop rather than silently continue.
+
+No program-integration change is to be copied into this worktree, and no formulation artifact is to be merged into the program-integration branch as part of this study.
+
+## 3. Frozen Starting Evidence
+
+The written design is based on the following current snapshot. These hashes are provenance anchors, not promises that the files will remain unchanged by the main integration task.
+
+| Artifact | SHA-256 |
+|---|---|
+| Authoritative inventory | `DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC` |
+| Existing Sol L'Homme baseline | `44ABA8B5153D26A8AFA5CD07B20974EAAF66A5D659FEECC13D59EEF6F917E0FD` |
+| Existing Sol La Nuit baseline | `254A73B6B45420CF89034FC5C2CAABCAACE9A197BE315C31E9958E4A5CFDAEBB` |
+| Authoritative runtime Git commit at design time | `281d389ca76424ace2438e1f6cabdad75163a4d6` |
+
+The authoritative runtime is actively modified by another task. Isolated formula authoring may proceed after this written design is approved, but program analysis that claims current integration behavior must wait for a stable source snapshot and then bind to fresh hashes. The frozen hashes above remain useful only for lineage and baseline comparison.
+
+**Post-snapshot stock correction:** the user directly confirmed on 2026-08-26 that Ethylene Brassylate is physically present. The inventory roster omits its own material row but contains historical comments identifying it as current stock, while repository dosing references consistently describe the stock as neat. This study therefore treats possession as `OWNED` and the working stock basis as `neat`, with a one-time container-label or preparation-receipt check required before physical compounding.
+
+**Post-approval loss correction:** the user directly confirmed on 2026-08-27 that all tinctures were lost. Every stock whose preparation form is a tincture is therefore `OUT_OF_STOCK`, even when the frozen inventory snapshot still lists it. The two currently enumerated affected rows are `Vietnamese Benzoin Styrax Tonkinensis resin ethanol tincture (20%)` and `Turkish Storax Liquidambar Orientalis resin ethanol tincture (20%)`. No CURRENT-INVENTORY BUILD may dose either row or any later-discovered tincture; TARGET/IDEAL may retain a uniquely required tincture function only with an explicit impact and substitution statement.
+
+### 3.1 Public target evidence
+
+The target architecture is supported by the following source classes:
+
+| Target | Evidence-backed architecture | Sources |
+|---|---|---|
+| L'Homme, 2006 | Bergamot/cedrat/Chinese ginger opening; violet leaf, basil flower, and white pepper heart; cedar, Haitian vetiver, sandalwood, tonka/amber and an airy-ozonic finish | [YSL UK product description](https://www.yslbeauty.co.uk/fragrances/fragrances-for-him/l-homme/l-homme-eau-de-toilette-spray/284YSL.html), [2006 launch report](https://be.fashionnetwork.com/news/Yves-saint-laurent-cree-une-nouvelle-fragrance-masculine%2C16123.html), [Perfumer & Flavorist launch report](https://www.perfumerflavorist.com/home/news/21869747/iff-concocts-lhomme-yves-saint-laurent) |
+| La Nuit de L'Homme, 2009 | Cardamom/bergamot tension; lavender and cedar heart; vetiver and coumarin/tonka drydown; caraway retained as a secondary historical hypothesis rather than a mandatory official claim | [YSL international product description](https://www.yslbeauty.com/int/fragrance/fragrance-for-him/la-nuit-de-l-homme/la-nuit-de-l-homme-eau-de-toilette/426YSL.html), [YSL vetiver feature](https://www.yslbeauty.com/int/vetiver-heart-haiti/ingredients-vetiver.html), [2009 Vogue launch report](https://www.vogue.fr/beaute/news-beaute/articles/la-nuit-de-lhomme-dyves-saint-laurent/18496) |
+| Immortelle direction | Immortelle is more than maple sweetness; published GC-O work identifies high-impact curry, hay, herbal, floral, and fruity contributors, including 4,6-dimethyloctan-3,5-dione, 1,8-cineole, and nerol | [2019 GC-O study](https://www.sciencedirect.com/science/article/pii/S0926669019301001), [2023 concrete/absolute study](https://www.sciencedirect.com/science/article/pii/S0254629923002843) |
+| Apple direction | Apple identity should be built as an ester/green-fruit relationship, not as generic sweetness; ethyl 2-methylbutyrate, hexyl acetate, butyl acetate, and related esters are useful public aroma anchors | [Character-impact odorants of Elstar and Cox Orange apples](https://pubmed.ncbi.nlm.nih.gov/12108219/), [headspace GC-O study of potent apple odorants](https://www.sciencedirect.com/science/article/abs/pii/S0023643805000629); used as function evidence rather than a YSL formula claim |
+
+Public note pyramids may corroborate vocabulary but cannot determine dose. Ingredient disclosures can support presence constraints but cannot recover a complete perfume formula.
+
+## 4. Target Identity and Functional Architecture
+
+### 4.1 L'Homme protected identity
+
+Every L'Homme arm must preserve a recognizable relationship among these functions:
+
+1. **Citrus-ginger ignition:** bergamot and/or cedrat character with a clear fresh ginger spark.
+2. **Violet-green tailoring:** violet leaf or a functionally faithful violet-green system, supported by restrained basil and pepper.
+3. **Transparent woody body:** cedar must remain legible inside a modern woody halo rather than disappearing under a generic woody-amber mass.
+4. **Dry soft finish:** vetiver, sandalwood and restrained tonka/coumarin warmth provide continuity without turning the scent into a dark oriental or dessert gourmand.
+5. **Air and transition:** enough transparent diffusion to connect top, heart, and base without using radiance as a substitute for identity.
+
+Hard drift blockers:
+
+- no cardamom-led dark oriental profile;
+- no lipstick iris or powder-musk takeover;
+- no sport-fresh dihydromyrcenol takeover;
+- no apple candy or pastry accord that erases ginger, violet-green tailoring, cedar, or vetiver;
+- no ingredient-count target.
+
+### 4.2 La Nuit de L'Homme protected identity
+
+Every La Nuit arm must preserve a recognizable relationship among these functions:
+
+1. **Cardamom tension:** cardamom remains the primary recognizer and must be shaped, not merely overdosed.
+2. **Aromatic floral bridge:** lavender links the cool spice opening to cedar and coumarin warmth.
+3. **Cedar-vetiver vertical:** dry woods carry the formula from heart to skin rather than collapsing into undifferentiated amberwood.
+4. **Coumarinic intimacy:** coumarin/tonka supplies soft nocturnal warmth without vanilla-dessert drift.
+5. **Controlled shadow:** optional caraway, textile woods, immortelle, or musk may deepen the night character only when the cardamom-lavender-cedar relationship remains intact.
+
+Hard drift blockers:
+
+- no daytime L'Homme-style ginger/citrus dominance;
+- no syrupy amber-vanilla mass;
+- no heavy smoke, leather, oud, or curry-maple immortelle takeover;
+- no detergent-clean musk curtain;
+- no ingredient-count target.
+
+### 4.3 Hedonic optimization rule
+
+"As hedonic as possible" means maximizing target-linked polish while preserving identity:
+
+- smoother top-to-heart and heart-to-base transitions;
+- richer but nonmuddy internal relationships;
+- tactile contrast between cool spice, soft heart, and warm skin base;
+- removal of harsh, redundant, hollow, or disconnected functions;
+- sufficient depth and surprise without forcing material count upward.
+
+Pipeline hedonic scores, contrast scores, and recommendation scores may identify risks. They cannot prove liking. A candidate may be called **computationally preferred** only on declared diagnostic criteria; **hedonically preferred** is reserved for controlled blinded observations.
+
+## 5. Candidate Matrix
+
+Each family uses one common protected chassis. Each variant receives one primary module or balance-axis intervention at constant total. Secondary repairs are allowed only to preserve the protected identity after the primary intervention; they must be declared and must not introduce a second uncontrolled theme.
+
+### 5.1 L'Homme candidates
+
+| ID | Name | Primary axis | Identity lock | Main drift risk |
+|---|---|---|---|---|
+| `LH-01` | Original Fidelity | Closest documentary 2006 architecture | Ginger, violet-green heart, cedar/vetiver/tonka | Treating public notes as exact percentages |
+| `LH-02` | Vintage Magnetique | Rounder amber-tonka and sandalwood texture | Bright ginger and green tailoring remain clear | Becoming La Nuit or generic amber |
+| `LH-03` | Tailored Luxe | Higher material polish and cleaner transitions | Narrow citrus-spice-violet-wood palette | Prestige-material clutter |
+| `LH-04` | Apple Pie | Apple ester/green-fruit module plus restrained baked spice/pastry shadow | Ginger, violet-green tailoring, cedar and vetiver remain dominant architecture | Candy apple, cinnamon dessert, or vanillic gourmand takeover |
+| `LH-05` | Ginger-Cedrat Spark | Expanded fresh ginger-citron tension | Violet-green and cedar-tonka body unchanged | Thin cologne or sport-fresh drift |
+| `LH-06` | Violet Leaf Silk | More tactile violet-leaf/ionone-green heart | Ginger opening and cedar-vetiver base unchanged | Iris powder or cucumber-green literalism |
+| `LH-07` | White Pepper-Basil | Sharper aromatic green-spice articulation | Citrus-ginger lead and soft woody finish retained | Culinary basil or pepper harshness |
+| `LH-08` | Cedar-Vetiver Tailoring | More legible dry woody architecture | Ginger and violet-green recognizers retained | Dry pencil-shaving austerity |
+| `LH-09` | Tonka-Sandalwood | Creamier dry-soft lower register | Fresh ginger and green heart remain audible | Sweet oriental or dessert drift |
+| `LH-10` | Bangkok Air | Hot-weather lift, clarity, and lower sweetness | Full L'Homme recognizer set retained | Generic aquatic/fresh-musk simplification |
+
+### 5.2 La Nuit de L'Homme candidates
+
+| ID | Name | Primary axis | Identity lock | Main drift risk |
+|---|---|---|---|---|
+| `LN-01` | Original 2009 Fidelity | Closest documentary launch architecture | Cardamom, lavender, cedar, vetiver, coumarin/tonka | Treating note pyramids as exact formula evidence |
+| `LN-02` | Current Transparent Style | Cleaner, lighter contemporary transparency | Cardamom-lavender tension remains unmistakable | Weak generic designer freshness |
+| `LN-03` | Cardamom Velvet | More dimensional cardamom texture and soft diffusion | Cedar-vetiver and dry coumarin remain balanced | Cineolic or culinary cardamom overdose |
+| `LN-04` | Lavender Heart | Richer aromatic-floral bridge | Cardamom stays primary recognizer | Barbershop fougere or laundry drift |
+| `LN-05` | Immortelle Nuit | Immortelle hay/herbal/maple shadow integrated into the coumarinic base | Cardamom-lavender-cedar vertical remains dominant | Curry-maple gourmand or medicinal takeover |
+| `LN-06` | Cedar-Vetiver Vertical | More articulated dry wood progression | Cardamom and lavender remain connected | Austere or overly smoky woods |
+| `LN-07` | Dry Coumarin Skin | Drier skin-warm coumarin/tonka texture | Cardamom remains cool counterpoint | Sweet powder or weak projection |
+| `LN-08` | Caraway Shadow | Controlled caraway aromatic shadow | Lavender and cardamom remain distinguishable | Savory culinary spice |
+| `LN-09` | Dark Textile Woods | Cashmeran-like textile darkness and warm wood depth | Cedar-vetiver identity stays explicit | Generic woody-amber darkness |
+| `LN-10` | Intimate Diffusion | Close-wearing sensual diffusion with one exact musk if justified | Cardamom-lavender-coumarin signature remains exposed | Clean-musk curtain or anosmic flatness |
+
+## 6. Formula Representation
+
+### 6.1 TARGET / IDEAL FORMULA
+
+The target formula is inventory-independent and records the desired odor architecture. It is the authority for identity and function.
+
+Each target row must include:
+
+- canonical identity and unambiguous grade where known;
+- amount in active ppm w/w of perfume concentrate;
+- active amount uncertainty or explicit low dosage confidence;
+- stock-independent functional role;
+- target-linked reason for inclusion;
+- top/heart/base and time-window roles;
+- evidence/provenance tag;
+- ODT source and matrix, or `ODT_UNKNOWN`;
+- missing-data and natural-lot caveats.
+
+The active target concentrate is normalized to `1,000,000 ppm w/w`. Solvents and operational stock carriers do not alter the target identities or their active ratios.
+
+### 6.2 CURRENT-INVENTORY BUILD
+
+The current-inventory build is a separate executable mapping. It may substitute, omit, or hold materials but may not rewrite the accepted target.
+
+Each build row must include:
+
+- inventory name exactly as listed;
+- authoritative inventory status and snapshot hash;
+- stock concentration and concentration basis;
+- carrier identity;
+- raw stock mass or volume;
+- active material mass or volume;
+- active ppm in concentrate and finished perfume;
+- target material/function mapped;
+- substitution loss statement;
+- preparation receipt requirement;
+- parent-version link and reason for any active-dose change.
+
+If stock concentration, concentration basis, density, or preparation receipt is unknown, the row is `VERIFY_FIRST` and not doseable. Unknown stock strength never defaults to neat.
+
+### 6.3 Generated practical views
+
+All candidates use a common comparison basis:
+
+- **canonical basis:** active ppm w/w of concentrate;
+- **program adapter:** 30 mL EDT at 15%, using a 4,500 uL concentrate view only where the native program requires volume input and every density/stock assumption is disclosed;
+- **blind trial view:** 10.00 g finished fragrance at 15% w/w, or a smaller constant-mass trial if physical authorization specifies one.
+
+The mass/ppm record is authoritative. A volume view is generated, not canonical. No density is silently assumed to be `1.0 g/mL`.
+
+## 7. Inventory and Missing-Chemical Gate
+
+### 7.1 Current special material states
+
+The design adopts these explicit states:
+
+| Material | State for this study | Consequence |
+|---|---|---|
+| Habanolide | `OWNED` by direct user assertion; stock basis not recorded in current inventory | May be considered available in design, but remains `VERIFY_FIRST` for raw dosing until concentration basis/receipt is supplied |
+| Romandolide | `OWNED` by direct user assertion; stock basis not recorded in current inventory | Same handling as Habanolide |
+| Ambrettolide 10% | Design-available, procurement pending; current inventory says out of stock | May appear in TARGET/IDEAL; not in CURRENT-INVENTORY BUILD |
+| Ethylene Brassylate | `OWNED` by direct user confirmation; roster row missing; repository records consistently describe neat stock | Available to CURRENT-INVENTORY BUILDS as neat with the inventory-drift caveat; verify container label or receipt before first physical dose |
+| Tonalide | Depleted and exception-only | Excluded unless a documented nonredundant design exception is approved |
+| Macrolide | Depleted and exception-only | Excluded unless a documented nonredundant design exception is approved |
+| Musk Ketone | Depleted and exception-only | Excluded unless a documented nonredundant design exception is approved |
+| Cedrat FCF oil Sicilian | Out of stock | Preserve cedrat in relevant targets; map or omit only in CURRENT-INVENTORY BUILD with an explicit loss statement |
+| All tinctures, including Vietnamese Benzoin 20% and Turkish Storax 20% | `OUT_OF_STOCK` by direct user confirmation on 2026-08-27 | Excluded from every CURRENT-INVENTORY BUILD; preserve only target-level functions and assess current-stock substitutes |
+| Caraway Seed Oil 10% w/w in DPG | Present | Available to the caraway arm with its declared stock basis |
+| Neroli 10% | Present but support-only | Use only at support level because neither target is neroli/orange-blossom centered |
+| Immortelle Absolute 10% in DPG and Helichrysum EO | Present | Candidate materials for `LN-05`, subject to composite-natural OAV and lot/chemotype caveats |
+
+### 7.2 Musk policy
+
+Default to zero or one functionally exact musk per candidate. A musk is included only when it supplies a target-linked projection, texture, persistence, or character-echo function that the rest of the formula does not already provide.
+
+Multiple musks require an explicit controlled exception showing distinct nonredundant axes and a constant-total comparison. Tonalide, Macrolide, and Musk Ketone remain excluded absent such an approved exception.
+
+### 7.3 Impact-gate sequence
+
+For every target identity or function not executable from current stock:
+
+1. Lock the architecture and target formula first.
+2. Classify the candidate using the native vocabulary: `ESSENTIAL UNBLOCKER`, `HIGH_VALUE ARCHITECTURAL EXPANSION`, `USEFUL SPECIALIST`, `EVIDENCE GAP, NOT INVENTORY GAP`, or `REDUNDANT WITH CURRENT STOCK`.
+3. Record inventory state as `OWNED`, `VERIFY_FIRST`, `PREPARABLE`, `PLANNED_ACQUISITION`, `MISSING`, or `OUT_OF_STOCK`.
+4. Compare the accepted target with the current-stock mapping and state the identity, timing, texture, and transition loss.
+5. If the function is plausibly important, propose a constant-total `CONTROL` plus `OMISSION`, `ADDITION`, or `RATIO` comparison with a true `REPLICATE` and blinded allocation.
+6. Preserve the module's authority-false contract: a computational assessment can support only `HOLD`, `INCONCLUSIVE`, `REJECT_REDUNDANT`, or `SUPPORTS_FURTHER_REVIEW`. It cannot authorize purchase, formula mutation, safety, sensory success, or release.
+
+Every final candidate report must include a concise missing-chemical impact section even when the conclusion is `REDUNDANT_WITH_CURRENT_STOCK` or `EVIDENCE GAP, NOT INVENTORY GAP`.
+
+## 8. Experimental Design and Candidate Generation
+
+### 8.1 Common chassis
+
+Each family receives one protected chassis derived from its accepted target. The chassis contains every function whose removal would materially damage identity or continuity. Module-mobile material total is fixed within each family.
+
+The native reconstruction path is:
+
+```text
+evidence ledger
+  -> accepted target
+  -> protected structural chassis
+  -> one named module at constant total
+  -> current-inventory mapping
+  -> immutable formula version
+  -> diagnostics
+  -> blinded physical experiment
+```
+
+Existing native commands (`reconstruct.py build`, `chassis`, `module`, `validate`, and `release-review`) are used where implemented. Stub commands are not treated as completed analysis. No new pipeline script may be created for this study.
+
+### 8.2 Constant-total rule
+
+Within a family:
+
+- finished concentration is constant;
+- concentrate total is constant;
+- module total is constant;
+- carrier contribution is explicitly reconciled;
+- the primary axis is changed while protected chassis amounts remain fixed unless an identity-preserving correction is necessary;
+- every correction is listed as a second-order controlled change.
+
+This structure allows useful comparison. Twenty unrelated formulas would confound theme, total dose, and chassis differences.
+
+### 8.3 Formula lineage
+
+`LH-01` and `LN-01` are the family parent controls. Each variant is an immutable `STYLISTIC` child of its family control. A stock-strength correction is a separate `CORRECTION` / stock-normalization edge, never silently combined with a creative change.
+
+The formula graph records target hash, inventory-mapping hash, parent hash, child hash, change type, active dose before/after, and rationale.
+
+## 9. Program and Diagnostic Workflow
+
+### 9.1 Stage A: static authority and arithmetic checks for all 20
+
+Every candidate must pass:
+
+- target/current-inventory separation;
+- exact inventory-name and status check;
+- stock concentration basis validation;
+- raw, active, carrier, concentrate, and finished-product mass balance;
+- conversion to active ppm;
+- ODT availability and compatible-unit check;
+- composite-natural decomposition for all covered essential oils, absolutes, resinoids, and natural mixtures;
+- ingredient-intelligence and physical-data coverage check;
+- family identity and module-envelope check;
+- musk redundancy policy;
+- missing-chemical impact gate;
+- formula hash and parent lineage binding.
+
+An absent or incompatible ODT produces `ODT_UNKNOWN`, not a fabricated OAV. An uncovered natural produces a data-quality hold, not a monomolecular shortcut.
+
+### 9.2 Stage B: headspace and time diagnostics for all 20
+
+For each candidate, collect:
+
+- active ppm in concentrate and finished product;
+- ODT source/matrix and OAV where computable;
+- composite-natural OAV contribution;
+- headspace material table;
+- OAV-weighted top/heart/base distribution;
+- opening, top, heart, late-heart, and drydown windows;
+- sub-threshold character or projection functions;
+- persistent-leader and contrast warnings;
+- missing physics or duplicate-ODT warnings.
+
+Interpret OAV as a diagnostic constraint. It may flag likely inactivity or domination, but it does not prove perceptibility, odor quality, similarity, or liking.
+
+### 9.3 Stage C: mandatory stock-rebase/OAV-per-time guard
+
+Every child formula is compared with its immediate parent using `--parent-formula-file`.
+
+The guard must:
+
+- rebase raw dose changes to active dose;
+- hard-fail unacknowledged stock-strength discontinuities of `>=3x`;
+- warn at `1.5x` to `<3x`;
+- warn on same-stock `>=3x` dose changes paired with `>=10x` temporal OAV jumps;
+- warn on a material leading the runner-up by `>=20x` across at least two windows while OAV is at least `100`;
+- require explicit authority text for intentional large active-dose revisions.
+
+No candidate advances while a hard failure or unexplained stock discontinuity remains.
+
+### 9.4 Stage D: release-pipeline depth
+
+All twenty candidates receive lightweight release-gate screening. Full pipeline analysis is mandatory for:
+
+1. `LH-04 Apple Pie`;
+2. `LN-01 Original 2009 Fidelity`;
+3. `LN-05 Immortelle Nuit`;
+4. the highest-priority remaining L'Homme finalist;
+5. the highest-priority remaining La Nuit finalist;
+6. any candidate proposed as better than an existing Sol baseline.
+
+Each full run must use the native formatter and preserve, in the formula artifact and final handoff, the complete headspace table, note distribution, temporal windows, perfumer analysis, gate details, and data-quality flags. The required order is raw headspace physics before gate outcomes.
+
+### 9.5 Safety and release ceiling
+
+IFRA/allergen outputs are screening only unless authoritative material certificates, exact natural lots, finished-product concentration, jurisdiction, and category are bound. A program `PASS` does not establish skin safety, stability, manufacturability, or release success.
+
+## 10. Comparison With Existing Sol Baselines
+
+The two current Sol formula files are frozen comparison controls by hash. They are not automatically accepted as current-inventory-executable because their instructions, inventory assumptions, and musk architecture may be stale.
+
+Comparison dimensions are:
+
+- target-evidence coverage;
+- preservation of protected identity;
+- target versus inventory separation;
+- active-dose and carrier arithmetic;
+- ppm/ODT/OAV data completeness;
+- composite-natural handling;
+- temporal balance and dominance warnings;
+- stock-rebase guard status;
+- missing-chemical impact quality;
+- musk redundancy;
+- transition logic and declared hedonic rationale;
+- safety-data and claim-ceiling discipline.
+
+A candidate may be reported as analytically cleaner, more complete, or lower-risk than the frozen Sol baseline when the bound outputs support that statement. It may not be reported as physically more similar, better smelling, more stable, or more liked without matched blinded evidence.
+
+## 11. Controlled Blinded Test Plan
+
+### 11.1 Screening design
+
+Physical compounding is a later user-authorized step. When authorized:
+
+- prepare equal-mass, equal-concentration samples from verified stocks;
+- use random nonsemantic blind codes held by a separate key;
+- balance presentation order across judges and sessions;
+- include the family control in every block;
+- evaluate no more than a practical number of samples per session to limit adaptation;
+- use standardized blotter loading and application quantity;
+- record opening, 5 min, 30 min, 2 h, and 4 h observations;
+- repeat each advancing arm on a separate occasion;
+- preserve missing cells as `GOVERNED_MISSING` rather than imputing them.
+
+### 11.2 Phase 1: within-family screen
+
+Use paired or incomplete-block comparisons to compare each variant with its family control on:
+
+- recognizability as L'Homme or La Nuit;
+- pleasantness/liking;
+- transition smoothness;
+- richness/depth without muddiness;
+- named-module fit;
+- opening harshness;
+- drydown quality;
+- off-target drift.
+
+Identity is a guardrail: an arm that gains liking while losing family recognition does not satisfy the brief.
+
+### 11.3 Phase 2: finalist confirmation
+
+For each family, compare the control, top two variants, and frozen Sol baseline in balanced blinded sessions with at least two repeats. Include the three mandatory named arms even if they are not preliminary score leaders, because their value is brief-specific rather than rank-only.
+
+### 11.4 Missing-chemical microtrials
+
+Any purchase/preparation recommendation that depends on a missing function uses a separate constant-total control/addition-or-omission/replicate protocol. The complete expected observation grid is locked before smelling. Missing or tied outcomes force `HOLD` or `INCONCLUSIVE`.
+
+### 11.5 Permitted conclusions
+
+Until physical observations exist, all sensory fields remain `NOT TESTED`. After testing, conclusions are scoped to the exact stock receipts, sample hashes, application basis, panel, repeats, and timepoints observed.
+
+## 12. Deliverables
+
+The implementation phase will produce:
+
+1. One research and evidence ledger with source authority and claim limits.
+2. Two accepted family targets and two protected chassis artifacts.
+3. Twenty TARGET / IDEAL FORMULAS.
+4. Twenty separate CURRENT-INVENTORY BUILDS.
+5. Twenty missing-chemical impact summaries.
+6. Twenty preparation/purchase recommendations, including explicit `NO PURCHASE` where appropriate.
+7. Twenty controlled blinded test plans, plus family-level screening and finalist protocols.
+8. Program outputs for all twenty and full formatted analyses for the mandatory set and finalists.
+9. A comparison report against the two frozen Sol baselines.
+10. A master index mapping every rendered Markdown view to its canonical structured artifact and hashes.
+
+Each final candidate proposal must present, in this order:
+
+1. target identity and functional architecture;
+2. TARGET / IDEAL FORMULA;
+3. CURRENT-INVENTORY BUILD;
+4. missing-chemical impact;
+5. purchase/preparation recommendation;
+6. ppm/ODT/OAV, composite-natural, temporal, and stock-rebase diagnostics;
+7. controlled blinded test plan;
+8. claim-ceiling statement.
+
+## 13. Failure and Abstention Rules
+
+Stop or hold a candidate when:
+
+- authoritative inventory or runtime hashes drift during analysis;
+- a current-build material lacks a verified stock basis;
+- active/raw/carrier arithmetic does not reconcile;
+- a natural lacks required composite treatment;
+- a character-critical material has incompatible or absent ODT data and the uncertainty is hidden;
+- the stock-rebase guard hard-fails;
+- a variant breaks the protected chassis or changes more than its declared primary axis without justification;
+- missing-chemical evidence is promoted into purchase or sensory authority;
+- a program writes into the active integration root;
+- a result would require claiming physical similarity, liking, safety, stability, or release without evidence.
+
+The correct output under these conditions is `HOLD`, `NOT TESTED`, `NOT CLEARED`, or an explicitly scoped partial result.
+
+## 14. DeepLuna Advisory Record
+
+A bounded DeepLuna Chat extraction was attempted for inventory and baseline gruntwork after an exact-project readiness check returned `READY`. The four-shard run failed closed because of source-range/token-limit failures and incomplete or inconsistent extraction. No worker result is accepted as evidence, no paid duplicate retry is authorized, and all frozen hashes and inventory findings in this design were verified locally by Sol.
+
+## 15. Acceptance Criteria
+
+The study is complete only when:
+
+- all twenty named candidates exist as separate target and inventory artifacts;
+- `LH-04`, `LN-01`, and `LN-05` are present and receive full required analysis;
+- every formula can be traced to freshly read instructions and inventory;
+- every dose is expressed in ppm and reconciled through stock concentration and carrier;
+- every available OAV states its ODT source and matrix;
+- every natural uses composite OAV where supported;
+- every revision passes or explicitly holds on the parent stock-rebase/OAV-time guard;
+- every missing function receives an authority-false impact assessment;
+- the zero/one-musk default is respected or a controlled exception is documented;
+- the final comparison with Sol baselines is limited to evidence actually produced;
+- all sensory, liking, stability, safety, similarity, and release claims remain held unless their specific physical evidence exists.
+
+Success is not the largest ingredient list or the highest program score. Success is twenty legible, target-linked hypotheses with depth, richness, relationships, transitions, and controlled hedonism—and an experiment capable of discovering which ones actually earn preference.

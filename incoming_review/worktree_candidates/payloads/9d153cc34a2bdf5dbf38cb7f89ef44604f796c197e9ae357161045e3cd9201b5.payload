@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,0.963
+identity_system_probability,0.9949
+oav_probability,0.9619
+temporal_probability,1.0
+dominance_failure_probability,9.999999999998899e-05
+overall_probability,0.9618
+dose_closure_probability,0.9873
+temporal_q05,0.9547205730386377
+temporal_median,0.9839538231678019
+max_share_q95,0.42659896042738416
+marker_coverage_q05,0.7142857142857143
+phase_sum_q05,"{""top"": 9.772862232073903, ""heart"": 12.69325016044577, ""base"": 1.56315865144155}"
+release_shape_median,"[0.39528561608506707, 0.3408524310279819, 0.19990978690673666, 0.05437379623339175]"
+phase_shape_median,"[0.2753319777092976, 0.4115743063125997, 0.31298422216995936]"
+marker_probabilities,"{""Cedrat FCF Oil Sicilian | top"": 0.9999, ""Coriander EO | top"": 0.9998, ""Hedione | heart"": 0.1925, ""Orris Liquid 30% | heart"": 0.9999, ""Leafovert | heart"": 0.9999, ""Cedarwood Virginia | base"": 0.9484, ""Iso E Super | base"": 0.3517}"
+marker_quantiles,"{""Cedrat FCF Oil Sicilian | top"": [4.102897375982151, 11.104965645162904, 31.259061312857117], ""Coriander EO | top"": [3.103619314681818, 7.7092161350032615, 19.061593753931742], ""Hedione | heart"": [0.22094238909352604, 0.58921527379956, 1.6259069079226567], ""Orris Liquid 30% | heart"": [3.6266636976638096, 10.823337903176895, 32.37306366343518], ""Leafovert | heart"": [4.791741610365497, 14.01819182829825, 39.300987439463675], ""Cedarwood Virginia | base"": [0.99181923581121, 2.677547263986132, 7.255060883061922], ""Iso E Super | base"": [0.2956840387836435, 0.7937928818892697, 2.098656457799162]}"
+classification,ROBUST

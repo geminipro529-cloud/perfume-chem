@@ -1,0 +1,71 @@
+"""Keep backend ``AI_PROVIDER`` pinned to OpenAI.
+
+Usage::
+
+    python switch_provider.py openai
+"""
+
+import sys
+from pathlib import Path
+
+OPENAI_PROVIDER = "openai"
+
+
+def update_env_file(provider: str) -> bool:
+    """Pin ``AI_PROVIDER`` in ``.env`` when OpenAI is requested."""
+    normalized = provider.strip().lower()
+    if normalized != OPENAI_PROVIDER:
+        print(f"[ERROR] Unsupported provider: {provider}")
+        print("   OpenAI is the only enabled provider.")
+        return False
+
+    env_path = Path(__file__).parent / ".env"
+    if env_path.exists():
+        lines = env_path.read_text(encoding="utf-8").splitlines(keepends=True)
+    else:
+        print(f"[WARN] .env file not found; creating {env_path}")
+        lines = []
+    replacement = f"AI_PROVIDER={OPENAI_PROVIDER}\n"
+    for index, line in enumerate(lines):
+        if line.startswith("AI_PROVIDER="):
+            lines[index] = replacement
+            break
+    else:
+        lines.insert(0, replacement)
+
+    env_path.write_text("".join(lines), encoding="utf-8")
+    print("[OK] AI provider is pinned to OpenAI")
+    print("   Ensure OPENAI_API_KEY is configured in .env")
+    return True
+
+
+def show_current_provider() -> None:
+    """Show the effective provider without exposing other environment values."""
+    env_path = Path(__file__).parent / ".env"
+    if env_path.exists():
+        for line in env_path.read_text(encoding="utf-8").splitlines():
+            if line.startswith("AI_PROVIDER="):
+                configured = line.partition("=")[2].strip().lower()
+                if configured == OPENAI_PROVIDER:
+                    print("Current provider: OPENAI")
+                else:
+                    print(
+                        "[WARN] Unsupported AI_PROVIDER is configured; "
+                        "the backend will reject it"
+                    )
+                return
+    print("AI_PROVIDER not set in .env (defaulting to OpenAI)")
+
+
+def main() -> int:
+    print("AI Provider Configuration (OpenAI only)")
+    print("=" * 40)
+    if len(sys.argv) == 1:
+        show_current_provider()
+        print("\nUsage: python switch_provider.py openai")
+        return 0
+    return 0 if update_env_file(sys.argv[1]) else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

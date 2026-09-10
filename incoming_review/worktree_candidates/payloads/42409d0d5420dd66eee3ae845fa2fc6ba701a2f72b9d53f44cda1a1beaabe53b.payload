@@ -1,0 +1,26 @@
+{
+  "schema_version": "perfume_chem_direct_stock_addition_receipt_v1",
+  "effective_date": "2026-09-10",
+  "source_kind": "DIRECT_USER_MESSAGE",
+  "verbatim_user_message": "romandolide is stocked again",
+  "canonical_name": "Romandolide",
+  "disposition": "OWNED",
+  "stock": {
+    "fraction": null,
+    "fraction_basis": "unspecified",
+    "carrier": "",
+    "stock_form_authority": "NOT_STATED_FOR_RESTOCKED_BOTTLE"
+  },
+  "authority_limits": {
+    "availability_confirmed": true,
+    "stock_fraction_confirmed": false,
+    "fraction_basis_confirmed": false,
+    "carrier_confirmed": false,
+    "quantitative_dosing_ready": false,
+    "prior_neat_stock_form_inherited": false,
+    "historical_depletion_reversed": true,
+    "formula_rebase_authorized": false,
+    "physical_compounding_performed": false,
+    "safety_or_release_asserted": false
+  }
+}

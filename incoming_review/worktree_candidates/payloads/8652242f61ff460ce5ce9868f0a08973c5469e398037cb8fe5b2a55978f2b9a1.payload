@@ -1,0 +1,60 @@
+{
+  "schema": "b4-rule-corpus-current-binding-v3",
+  "authority": "REGRESSION_FIXTURE_ONLY_NOT_CANONICAL_RULE_AUTHORITY",
+  "predecessors": {
+    "historical_v1": {
+      "path": "backend/tests/fixtures/b4_rule_corpus_baseline.json",
+      "schema": "b4-rule-corpus-baseline-v1",
+      "canonical_json_sha256": "619a7cfced4cedadced3cbbe0350a82b2420974ada67ee967cc21ab66ce104b2"
+    },
+    "portability_v2": {
+      "path": "backend/tests/fixtures/b4_rule_corpus_portability_binding_v2.json",
+      "schema": "b4-rule-corpus-portability-binding-v2",
+      "canonical_json_sha256": "3b727b8f87b272f01f50f86da8b0fac9e76f8d3860200cbd9eea82991b8e742e"
+    }
+  },
+  "identity_resolution_snapshot": {
+    "path": "backend/tests/fixtures/b4_identity_resolution_baseline.json",
+    "canonical_json_sha256": "123e0637588dbc55dfd0c49ca17711229963ae2e26174fbf07007c35cca6ef51",
+    "labels": 454,
+    "authority": "REGRESSION_FIXTURE_ONLY_NOT_CANONICAL_IDENTITY_AUTHORITY"
+  },
+  "migration": {
+    "classification": "ACTIVE_ENDPOINT_IDENTITY_CANONICALIZATION_WITH_LOSSLESS_HISTORICAL_LABELS",
+    "changed_source": "data/knowledge_graph/pairing_rules_discovered.json",
+    "migrated_records": 18,
+    "historical_labels": [
+      "Alpha Irone (30% in DEP)",
+      "Coumarin (20%)"
+    ],
+    "historical_labels_preserved": true,
+    "inventory_join_required": true,
+    "runtime_authority_promoted": false,
+    "scientific_authority_promoted": false
+  },
+  "current_semantic_sources": {
+    "data/knowledge_graph/pairing_rules.json": {
+      "records": 2408,
+      "canonical_json_sha256": "fb90acb23588187db06078ea30fb0893e06baffc4c981fb81e10a75b3235538e"
+    },
+    "data/knowledge_graph/pairing_rules_discovered.json": {
+      "records": 915,
+      "canonical_json_sha256": "730ace5c2c5812f4d4b401bd603e909c5072374e13aadff104830f84e5d0a189"
+    },
+    "data/knowledge_graph/synergy_matrix.json": {
+      "records": 53,
+      "canonical_json_sha256": "9658c33cfd811906812e0f9a74b17df5ce8b79ef0d76e50bc630f7d5407e1f1b"
+    },
+    "data/knowledge_graph/theory_rules.json": {
+      "records": 5,
+      "canonical_json_sha256": "0dadddee6afc7b422c2303bfe62de5cbdbdf854ac710c86abb16649c75adbcc9"
+    }
+  },
+  "total_records": 3381,
+  "invalid_exact_count_ceiling": 137,
+  "blocking_count": 0,
+  "numerical_model_count": 0,
+  "duplicate_count": 68,
+  "cycle_count": 1,
+  "report_sha256": "b967678d0c743e2528098ceda9d019342618d861b520346d42ab204d49df160a"
+}

@@ -1,0 +1,8 @@
+{
+  "case_id": "SCR-MUSK-09",
+  "phase": "SCREEN",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "01a03a4d-a894-7e80-b750-bcff74f16340",
+  "output_text": "{\"decision\":\"HOLD\",\"interventions\":[],\"materials\":[\"Habanolide\",\"Tonalide\",\"Macrolide\",\"Musk Ketone\"],\"blockers\":[\"MUSK_EXCEPTION_NOT_JUSTIFIED\",\"No tonal exception or distinct-function evidence supports combining Tonalide, Macrolide, and Musk Ketone\",\"Only Habanolide is permitted and present in the current inventory build\",\"No constant-total formula, musk level, or compensating component is supplied\"],\"inventory_statuses\":{\"Habanolide\":\"CURRENT_INVENTORY_PERMITTED_NOT_TARGET_REQUIRED\",\"Tonalide\":\"NOT_PERMITTED\",\"Macrolide\":\"NOT_PERMITTED\",\"Musk Ketone\":\"NOT_PERMITTED\"},\"arms\":[],\"nary_factors\":[],\"next_comparison\":\"When a constant-total formula, musk level, and compensating component are supplied, compare zero musk against Habanolide as the sole precise musk under TARGET_FIDELITY.\",\"authority_flags\":{\"compounding\":false,\"formula\":false,\"hedonic\":false,\"physical\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}"
+}

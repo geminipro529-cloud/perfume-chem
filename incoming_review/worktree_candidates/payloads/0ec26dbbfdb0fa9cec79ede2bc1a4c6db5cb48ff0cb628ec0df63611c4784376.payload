@@ -1,0 +1,172 @@
+"""Native mixture/temporal/spatial execution with lossless source retention.
+
+Structural hypotheses only: this is not a sensory predictor or admitted
+runtime. Native condition scopes are preserved, never coerced to one matrix.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Any, Mapping
+
+from .contracts import _CanonicalRecord, _normalized_identifier, _payload
+from .floral_integration import FloralFamilyIntegrationAdapter
+from .floral_whole_perfume import FloralWholePerfumeAssembly
+from .inventory_projection import IdealProposal, InventoryProjection
+from .mixture_hypotheses import MixtureHypothesis, build_mixture_plane_assessment
+from .plane_synthesis import PlaneSynthesisResult, synthesize_plane_assessments
+from .source_bound_assembly import SourceBoundCandidateAssembly, SourceBoundWholePerfume
+from .source_bound_floral import SourceBoundFloralWholePerfume
+from .spatial_architecture import SpatialArchitecture, build_spatial_plane_assessment
+from .temporal_architecture import TemporalArchitecture, build_temporal_plane_assessment
+from .whole_perfume_assembler import assemble_integrated_whole_perfume_blueprint
+
+
+def _canonical_sources(values: Any, record_type: type, id_field: str) -> tuple:
+    records = tuple(values)
+    if not records:
+        raise ValueError("each perceptual source plane must be nonempty")
+    by_id = {}
+    for record in records:
+        if not isinstance(record, record_type):
+            raise TypeError(f"sources must contain {record_type.__name__}")
+        key = getattr(record, id_field)
+        if key in by_id and by_id[key] != record:
+            raise ValueError("conflicting source records share an identifier")
+        by_id[key] = record
+    return tuple(by_id[key] for key in sorted(by_id))
+
+
+@dataclass(frozen=True, slots=True)
+class PerceptualArchitectureSources(_CanonicalRecord):
+    """Full native records for three specialists, not user-supplied assessments."""
+
+    SCHEMA_VERSION = "perceptual_architecture_sources_v1"
+
+    target_id: str
+    mixtures: tuple[MixtureHypothesis, ...]
+    temporal: tuple[TemporalArchitecture, ...]
+    spatial: tuple[SpatialArchitecture, ...]
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "target_id", _normalized_identifier(self.target_id, "target_id"))
+        for name, record_type, id_field in (
+            ("mixtures", MixtureHypothesis, "hypothesis_id"),
+            ("temporal", TemporalArchitecture, "architecture_id"),
+            ("spatial", SpatialArchitecture, "architecture_id"),
+        ):
+            object.__setattr__(
+                self, name, _canonical_sources(getattr(self, name), record_type, id_field)
+            )
+        targets = {
+            *(item.scope.target_scope for item in self.mixtures),
+            *(item.assessment_scope.target_scope for item in self.temporal),
+            *(item.scope.target_scope for item in self.spatial),
+        }
+        if targets != {self.target_id}:
+            raise ValueError("every native source must bind the exact target")
+
+    def to_synthesis(self) -> PlaneSynthesisResult:
+        groups: dict[tuple, list[MixtureHypothesis]] = {}
+        for hypothesis in self.mixtures:
+            groups.setdefault(hypothesis.scope.key, []).append(hypothesis)
+        assessments = [build_mixture_plane_assessment(groups[key]) for key in sorted(groups)]
+        assessments.extend(build_temporal_plane_assessment(item) for item in self.temporal)
+        assessments.extend(build_spatial_plane_assessment(item) for item in self.spatial)
+        return synthesize_plane_assessments(assessments)
+
+    @classmethod
+    def from_dict(cls, payload: Mapping[str, Any]) -> PerceptualArchitectureSources:
+        data = _payload(payload, cls.SCHEMA_VERSION)
+        for name in ("mixtures", "temporal", "spatial"):
+            if not isinstance(data[name], list):
+                raise TypeError(f"{name} must be a JSON array")
+        return cls(
+            data["target_id"],
+            tuple(MixtureHypothesis.from_dict(item) for item in data["mixtures"]),
+            tuple(TemporalArchitecture.from_dict(item) for item in data["temporal"]),
+            tuple(SpatialArchitecture.from_dict(item) for item in data["spatial"]),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class PerceptualWholePerfume(_CanonicalRecord):
+    """Whole result retaining all participating native specialist sources."""
+
+    SCHEMA_VERSION = "perceptual_whole_perfume_v1"
+
+    joint: SourceBoundFloralWholePerfume
+    sources: PerceptualArchitectureSources
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.joint, SourceBoundFloralWholePerfume):
+            raise TypeError("joint must be SourceBoundFloralWholePerfume")
+        if not isinstance(self.sources, PerceptualArchitectureSources):
+            raise TypeError("sources must be PerceptualArchitectureSources")
+        whole = self.joint.floral.blueprint
+        if self.sources.target_id != whole.ideal_proposal.ideal_target_id:
+            raise ValueError("perceptual sources must bind the exact ideal target")
+        synthesis = self.sources.to_synthesis()
+        planes = {plane.plane_id: plane for plane in whole.planes}
+        for assessment in synthesis.assessments:
+            plane = planes[assessment.plane_id]
+            if assessment not in plane.assessments or synthesis not in plane.syntheses:
+                raise ValueError("whole result must retain the exact perceptual synthesis")
+
+    @classmethod
+    def from_dict(cls, payload: Mapping[str, Any]) -> PerceptualWholePerfume:
+        data = _payload(payload, cls.SCHEMA_VERSION)
+        return cls(
+            SourceBoundFloralWholePerfume.from_dict(data["joint"]),
+            PerceptualArchitectureSources.from_dict(data["sources"]),
+        )
+
+
+def assemble_perceptual_whole_perfume(
+    ideal: IdealProposal,
+    projection: InventoryProjection,
+    source: SourceBoundCandidateAssembly,
+    floral_source: FloralFamilyIntegrationAdapter,
+    perceptual_sources: PerceptualArchitectureSources,
+    *,
+    selected_alternative_id: str,
+    version: int,
+    predecessor_sha256: str | None = None,
+) -> PerceptualWholePerfume:
+    """Run specialists, preserving target/build and non-promoting source checks.
+
+    Physics, biology, hedonic and experiment source execution are not asserted
+    here. Presence of their generic plane envelopes is not specialist coverage.
+    """
+    if not isinstance(ideal, IdealProposal):
+        raise TypeError("ideal must be IdealProposal")
+    if not isinstance(projection, InventoryProjection):
+        raise TypeError("projection must be InventoryProjection")
+    if not isinstance(source, SourceBoundCandidateAssembly):
+        raise TypeError("source must be SourceBoundCandidateAssembly")
+    if not isinstance(floral_source, FloralFamilyIntegrationAdapter):
+        raise TypeError("floral_source must be FloralFamilyIntegrationAdapter")
+    if not isinstance(perceptual_sources, PerceptualArchitectureSources):
+        raise TypeError("perceptual_sources must be PerceptualArchitectureSources")
+    if {floral_source.scope.target_scope, perceptual_sources.target_id} != {ideal.ideal_target_id}:
+        raise ValueError("specialist sources must bind the exact ideal target")
+    integrated = assemble_integrated_whole_perfume_blueprint(
+        ideal,
+        projection,
+        source.assembly,
+        syntheses=(floral_source.to_synthesis(), perceptual_sources.to_synthesis()),
+        version=version,
+        predecessor_sha256=predecessor_sha256,
+    )
+    joint = SourceBoundFloralWholePerfume(
+        SourceBoundWholePerfume(source, integrated, selected_alternative_id),
+        FloralWholePerfumeAssembly(floral_source, integrated.whole_blueprint),
+    )
+    return PerceptualWholePerfume(joint, perceptual_sources)
+
+
+__all__ = [
+    "PerceptualArchitectureSources",
+    "PerceptualWholePerfume",
+    "assemble_perceptual_whole_perfume",
+]

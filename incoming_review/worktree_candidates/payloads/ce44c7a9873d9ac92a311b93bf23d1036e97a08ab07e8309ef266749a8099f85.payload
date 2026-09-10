@@ -1,0 +1,63 @@
+﻿Code,O05
+Target,Vietnamese Benzoin Vetiver
+Version,ORIGINAL DESIGN
+Concentration,0.22
+30 mL concentrate µL,6600.0
+30 mL carrier µL,23400.0
+5 mL concentrate µL,1100.0
+5 mL carrier µL,3900.0
+Maturation,28 days
+Engine V2 score,96.18333129368986
+Monte Carlo pass probability,0.9972222222222222
+Outcome,SOL_5_6_PRO_ENGINE_V2_PASS
+Formula hash,c8a3100f7d28c9b266b563e2dbc3c660a434fc63e4443f1012f7a72295a84f1f
+
+Order,Stage,Material,Stock,Active fraction,Parts / 1000,30 mL µL,5 mL µL,Execution,Signature phase,Role,Module ancestry
+1,1 · Resins and sweet fixatives,Vietnamese Benzoin Tincture,10 g resin + 40 g ethanol; product basis,,58.96612723579899,389.17643975627334,64.86273995937889,PRODUCT BASIS,base,Natural benzoin tincture.,Target-Specific Reinforcement
+2,1 · Resins and sweet fixatives,Coumarin 20%,20% in DPG,0.2,33.63253183078905,221.97471008320773,36.99578501386795,PREPARED STOCK,,Hay-almond tonka warmth.,La Nuit Dark Resin | Lhomme Woody Tonka
+3,1 · Resins and sweet fixatives,Labdanum 10%,10% working stock,0.1,19.65537574526633,129.72547991875777,21.620913319792965,PREPARED STOCK,,Cistus amber and leather.,La Nuit Dark Resin
+4,1 · Resins and sweet fixatives,Tonka Bean Absolute 10%,10% working stock,0.1,16.903623140929046,111.5639127301317,18.59398545502195,PREPARED STOCK,,Natural tonka warmth.,Lhomme Woody Tonka
+5,1 · Resins and sweet fixatives,Turkish Storax Tincture,10 g resin + 40 g ethanol; product basis,,10.919653191814628,72.06971106597655,12.01161851099609,PRODUCT BASIS,,Smoky cinnamic storax.,La Nuit Dark Resin
+6,1 · Resins and sweet fixatives,Olibanum 50%,50% in DPG,0.5,8.735722553451703,57.655768852781236,9.609294808796873,PREPARED STOCK,,Frankincense resin.,La Nuit Dark Resin
+7,1 · Resins and sweet fixatives,Vanillin 10%,10% working stock,0.1,4.367861276725852,28.827884426390618,4.804647404398437,PREPARED STOCK,,Vanilla warmth.,La Nuit Dark Resin
+8,"2 · Woods, leather and amber",Vetiver EO,neat / as supplied,1.0,90.58944287929417,597.8903230033416,99.64838716722359,DIRECT,base,Rooty natural vetiver.,La Nuit Dark Resin | Lhomme Woody Tonka | Target-Specific Reinforcement
+9,"2 · Woods, leather and amber",Iso E Super,neat / as supplied,1.0,85.52272379829218,564.4499770687283,94.0749961781214,DIRECT,,Transparent woody scaffold.,La Nuit Dark Resin | Lhomme Woody Tonka | White Musk Frame
+10,"2 · Woods, leather and amber",Ambrofix 30%,30% working stock,0.3,53.81205092926248,355.1595361331324,59.193256022188734,PREPARED STOCK,base,Mineral ambergris persistence.,La Nuit Dark Resin | Lhomme Woody Tonka | Target-Specific Reinforcement | White Musk Frame
+11,"2 · Woods, leather and amber",Cedarwood Virginia,neat / as supplied,1.0,53.81205092926248,355.1595361331324,59.193256022188734,DIRECT,,Dry cedar frame.,La Nuit Dark Resin | Lhomme Woody Tonka
+12,"2 · Woods, leather and amber",Vertofix,neat / as supplied,1.0,28.17270523488174,185.93985455021948,30.989975758369912,DIRECT,,Vetiver-cedar volume.,Lhomme Woody Tonka
+13,"2 · Woods, leather and amber",Clearwood,neat / as supplied,1.0,16.903623140929046,111.5639127301317,18.59398545502195,DIRECT,,Clean patchouli wood.,Lhomme Woody Tonka
+14,"2 · Woods, leather and amber",Patchouli EO,neat / as supplied,1.0,10.919653191814628,72.06971106597655,12.01161851099609,DIRECT,,Earthy patchouli.,La Nuit Dark Resin
+15,"2 · Woods, leather and amber",Suederal 10%,10% working stock,0.1,4.367861276725852,28.827884426390618,4.804647404398437,PREPARED STOCK,,Soft suede leather.,La Nuit Dark Resin
+16,3 · Musks and diffusion,Habanolide,neat / verify label,1.0,48.352224333355174,319.1246806001442,53.18744676669069,DIRECT · VERIFY LABEL,,Radiant metallic-clean musk.,Lhomme Woody Tonka | White Musk Frame
+17,3 · Musks and diffusion,Romandolide,neat / verify label,1.0,37.4762497543078,247.34324837843147,41.22387472973858,DIRECT · VERIFY LABEL,,Fruity-clean musk body.,Lhomme Woody Tonka | White Musk Frame
+18,3 · Musks and diffusion,Galaxolide 50%,50% in DEP,0.5,18.345017362248573,121.07711459084058,20.17951909847343,PREPARED STOCK,,Soft musk volume.,White Musk Frame
+19,3 · Musks and diffusion,Zenolide,neat / as supplied,1.0,13.103583830177554,86.48365327917186,14.413942213195309,DIRECT,,Smooth musk.,White Musk Frame
+20,3 · Musks and diffusion,Ambrettolide 10%,10% in DPG,0.1,10.482867064142043,69.1869226233375,11.531153770556248,PREPARED STOCK,,Warm ambrette musk.,White Musk Frame
+21,3 · Musks and diffusion,Exaltolide 10%,10% working stock,0.1,10.482867064142043,69.1869226233375,11.531153770556248,PREPARED STOCK,,Soft macrocyclic musk.,White Musk Frame
+22,3 · Musks and diffusion,Macrolide,as supplied,1.0,6.551791915088777,43.24182663958593,7.2069711065976545,DIRECT,,Soft macrocyclic musk.,White Musk Frame
+23,"4 · Iris, floral and green heart",Hedione,neat / as supplied,1.0,44.22459542684924,291.882329817205,48.64705496953417,DIRECT,heart,Airy jasmine diffusion.,Iris Petal Air
+24,"4 · Iris, floral and green heart",Benzyl Salicylate,neat / as supplied,1.0,28.14292436254043,185.74330079276686,30.957216798794473,DIRECT,,Floral body and fixation.,Iris Petal Air
+25,"4 · Iris, floral and green heart",Phenethyl Alcohol,neat / as supplied,1.0,20.10208883038602,132.67378628054774,22.112297713424624,DIRECT,,Rose-floral body.,Iris Petal Air
+26,"4 · Iris, floral and green heart",Orivone,neat / as supplied,1.0,16.37947978772194,108.10456659896482,18.017427766494137,DIRECT,heart,Dry rooty iris-wood.,Target-Specific Reinforcement
+27,"4 · Iris, floral and green heart",Florol,neat / as supplied,1.0,16.081671064308818,106.1390290244382,17.689838170739698,DIRECT,,Clean floral volume.,Iris Petal Air
+28,"4 · Iris, floral and green heart",Nympheal,as supplied; product basis,,16.081671064308818,106.1390290244382,17.689838170739698,PRODUCT BASIS,,Modern watery muguet.,Iris Petal Air
+29,"4 · Iris, floral and green heart",Hydroxycitronellal,neat / as supplied,1.0,14.071462181270215,92.87165039638343,15.478608399397237,DIRECT,,Muguet softness.,Iris Petal Air
+30,"4 · Iris, floral and green heart",Jasmine Absolute 10%,10% working stock,0.1,8.040835532154409,53.0695145122191,8.844919085369849,PREPARED STOCK,,Warm natural jasmine.,Iris Petal Air
+31,"4 · Iris, floral and green heart",Magnolia EO,neat / as supplied,1.0,8.040835532154409,53.0695145122191,8.844919085369849,DIRECT,,Creamy citrus-white-floral detail.,Iris Petal Air
+32,"4 · Iris, floral and green heart",Jasmine Sambac Absolute 10%,10% working stock,0.1,6.030626649115806,39.80213588416432,6.633689314027387,PREPARED STOCK,,Green-fruity jasmine.,Iris Petal Air
+33,"4 · Iris, floral and green heart",Farnesol,neat / as supplied,1.0,4.0204177660772045,26.53475725610955,4.4224595426849245,DIRECT,,Warm floral persistence.,Iris Petal Air
+34,"4 · Iris, floral and green heart",Methyl Anthranilate,neat / as supplied,1.0,2.0102088830386022,13.267378628054775,2.2112297713424622,DIRECT,,Orange-flower and jasmine depth.,Iris Petal Air
+35,"4 · Iris, floral and green heart",Rose Oxide 1%,1% working stock,0.01,0.5896612723579899,3.891764397562733,0.6486273995937889,TRACE PREMIX,,Metallic rose and pepper lift.,Precision Trace Architecture
+36,"4 · Iris, floral and green heart",Damascenone 1%,1% working stock,0.01,0.2620716766035511,1.7296730655834371,0.2882788442639062,TRACE PREMIX,,High-impact fruit-rose radiance.,Precision Trace Architecture
+37,5 · Aromatics and spices,Coriander EO,neat / as supplied,1.0,39.31075149053266,259.45095983751554,43.24182663958593,DIRECT,top,Citrus-spicy seed.,Target-Specific Reinforcement
+38,5 · Aromatics and spices,Linalool,neat / as supplied,1.0,20.412017676263638,134.71931666334,22.45321944389,DIRECT,,Fresh floral-aromatic lift.,Citrus Polish | Iris Petal Air
+39,5 · Aromatics and spices,Black Pepper EO,neat / as supplied,1.0,13.103583830177554,86.48365327917186,14.413942213195309,DIRECT,,Dry pepper sparkle.,La Nuit Dark Resin
+40,5 · Aromatics and spices,Linalyl Acetate,neat / as supplied,1.0,10.360973261070624,68.38242352306612,11.397070587177687,DIRECT,,Lavender-citrus diffusion.,Citrus Polish
+41,6 · Citrus and volatile top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,28.492676467944214,188.0516646884318,31.341944114738634,DIRECT,,Floral bitter citrus lift.,Citrus Polish
+42,6 · Citrus and volatile top,Lemon FCF Oil Sicilian,neat / as supplied,1.0,20.72194652214125,136.76484704613225,22.794141174355374,DIRECT,,Bright lemon peel.,Citrus Polish
+43,6 · Citrus and volatile top,Grapefruit FCF Oil,neat / verify label,1.0,12.951216576338279,85.47802940383264,14.246338233972107,DIRECT · VERIFY LABEL,,Bitter grapefruit peel.,Citrus Polish
+44,6 · Citrus and volatile top,Petitgrain EO Paraguay,neat / as supplied,1.0,12.951216576338279,85.47802940383264,14.246338233972107,DIRECT,,Green bitter-orange twig.,Citrus Polish
+45,6 · Citrus and volatile top,Blood Orange Oil Sicilian,neat / as supplied,1.0,10.360973261070624,68.38242352306612,11.397070587177687,DIRECT,,Rounded orange peel.,Citrus Polish
+46,6 · Citrus and volatile top,Aldehyde C10 1%,1% working stock,0.01,2.590243315267656,17.09560588076653,2.849267646794422,PREPARED STOCK,,Citrus aldehydic lift.,Citrus Polish
+47,6 · Citrus and volatile top,Aldehyde C11 1%,1% working stock,0.01,1.295121657633828,8.547802940383265,1.424633823397211,PREPARED STOCK,,Fresh aldehydic extension.,Citrus Polish
+48,6 · Citrus and volatile top,Aldehyde C12 MNA 1%,1% working stock,0.01,1.295121657633828,8.547802940383265,1.424633823397211,PREPARED STOCK,,Waxy aldehydic diffusion.,Citrus Polish

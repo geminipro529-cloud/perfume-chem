@@ -1,0 +1,78 @@
+{
+  "schema": "perfume-chem-missing-chemical-assessment-v1",
+  "assessment_id": "MCI-LH-07-v1",
+  "source_package_sha256": "44075249f194101e19451a67b29e0ca6ecd9ce3402c5361b2ff48688ed3e0333",
+  "source_payload_sha256": "3dc0897e6cd428fc58b9e7ed41793fa70db7238c9650fa58f6d8be547ad48c72",
+  "target_formula_id": "LH-07",
+  "lineage": {
+    "target_hypothesis_sha256": "3ac6a2ccfe72fbd7c6b1d75613de4e9fd40c177b09ee9be5b79e403ed84c049c",
+    "accepted_target_sha256": "637ef8ce63575a406c5ec27ec2a1cbfca910e3303ca3b3b100572f64a4e539ba",
+    "inventory_mapping_sha256": "9108c7936f520dc2b46f47d5b4a87b89f8699e760e6491d1c139a3951f783e58",
+    "build_plan_sha256": "32ff44a9a30843ef8e3a0c0cca88e4211aba92fd7435122230e47f2f35ebf955",
+    "parent_formula_sha256": "520924f1d02e25a68fc3740179f8d5950b07f710a7e88959f7b9000bc6c3d77b",
+    "inventory_snapshot_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+    "formula_edge_set_sha256": "ea2ee04cd5bfba72fd9837960e8883e7fc34a9e02fcc87cecb4247a97b1e15c4",
+    "stock_receipts": []
+  },
+  "architecture_locked": true,
+  "strongly_covered_functions": [
+    "Design-mapped current function: protected citrus-ginger ignition",
+    "Design-mapped current function: expanded white-pepper brightness"
+  ],
+  "weakly_covered_functions": [
+    "Approximate or evidence-limited mapping: White Pepper exact identity",
+    "Approximate or evidence-limited mapping: Basil EO composite-natural decomposition"
+  ],
+  "genuinely_missing_functions": [
+    "White Pepper exact identity",
+    "Basil EO composite-natural decomposition",
+    "Basil target flower-versus-leaf chemotype",
+    "Vetiver Haiti origin"
+  ],
+  "candidates": [
+    {
+      "function_id": "lh-07.gap.01",
+      "candidate": "White Pepper exact identity",
+      "inventory_status": "MISSING",
+      "classification": "USEFUL SPECIALIST",
+      "nonredundancy": "This exact function or evidence state is not established by the current mapping: White Pepper exact identity.",
+      "loss_if_omitted": "The controlled arm remains testable, but exact-fidelity authority for White Pepper exact identity remains withheld.",
+      "overdose_or_failure_mode": "Treating public notes or this formula hypothesis as authenticated commercial percentages.",
+      "source_controlled_comparison_text": "Free text only: after exact stock and preparation receipts, compare the current mapped build with a role-matched addition or omission at constant total; no physical protocol is locked here.",
+      "source_integration_state": "NOT_AUTOMATICALLY_ADDED"
+    },
+    {
+      "function_id": "lh-07.gap.02",
+      "candidate": "Basil EO composite-natural decomposition",
+      "inventory_status": "VERIFY_FIRST",
+      "classification": "EVIDENCE GAP, NOT INVENTORY GAP",
+      "nonredundancy": "This exact function or evidence state is not established by the current mapping: Basil EO composite-natural decomposition.",
+      "loss_if_omitted": "The controlled arm remains testable, but exact-fidelity authority for Basil EO composite-natural decomposition remains withheld.",
+      "overdose_or_failure_mode": "Treating public notes or this formula hypothesis as authenticated commercial percentages.",
+      "source_controlled_comparison_text": "Free text only: after exact stock and preparation receipts, compare the current mapped build with a role-matched addition or omission at constant total; no physical protocol is locked here.",
+      "source_integration_state": "NOT_AUTOMATICALLY_ADDED"
+    },
+    {
+      "function_id": "lh-07.gap.03",
+      "candidate": "Basil target flower-versus-leaf chemotype",
+      "inventory_status": "VERIFY_FIRST",
+      "classification": "EVIDENCE GAP, NOT INVENTORY GAP",
+      "nonredundancy": "This exact function or evidence state is not established by the current mapping: Basil target flower-versus-leaf chemotype.",
+      "loss_if_omitted": "The controlled arm remains testable, but exact-fidelity authority for Basil target flower-versus-leaf chemotype remains withheld.",
+      "overdose_or_failure_mode": "Treating public notes or this formula hypothesis as authenticated commercial percentages.",
+      "source_controlled_comparison_text": "Free text only: after exact stock and preparation receipts, compare the current mapped build with a role-matched addition or omission at constant total; no physical protocol is locked here.",
+      "source_integration_state": "NOT_AUTOMATICALLY_ADDED"
+    }
+  ],
+  "package_auto_integrated_materials": [],
+  "state": "CANDIDATE_ONLY",
+  "formula_authority": false,
+  "inventory_authority": false,
+  "purchase_authority": false,
+  "execution_authorized": false,
+  "scientific_authority": false,
+  "oav_authority": false,
+  "sensory_authority": false,
+  "safety_authority": false,
+  "release_authority": false
+}

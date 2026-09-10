@@ -1,0 +1,156 @@
+{
+  "schema_version": "complex_perfumery_exact_byte_capture_v1",
+  "capture_id": "20260811T153000Z-continuation-exact-byte-recovery-6a762995",
+  "generated_at_utc": "2026-08-11T15:26:34.0043296Z",
+  "authority": "SOURCE_CAPTURE",
+  "admission_state": "QUARANTINED_NOT_ADMITTED",
+  "source_project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+  "source_conversation_id": "6a762995-0d8c-83ec-aee3-66c90e56811e",
+  "source_turn_id": "c3f478ba-8b2b-40e0-b19b-8bcaeea487cd",
+  "source_response_id": "75f5f707-d67e-4916-939e-b8b2e4b8d051",
+  "artifacts": [
+    {
+      "filename": "COMPLEX_PERFUMERY_V5_FULL_CHAIN_REGENERATION_V1_20260811.zip",
+      "downloaded_filename": "COMPLEX_PERFUMERY_V5_FULL_CHAIN_REGENERATION_V1_20260811(1).zip",
+      "bytes": 1410479,
+      "sha256": "16eb6805414c1a96f30609e7dc9eed5377f522f9872e2017222b23635a73f530",
+      "content_reference_index": 1,
+      "zip_member_count": 20,
+      "embedded_ledger": "SHA256SUMS.txt",
+      "embedded_ledger_declared_count": 19,
+      "embedded_ledger_match_count": 19,
+      "native_graph": {
+        "status": "GRAPH_COMPLETE_QUARANTINED",
+        "nodes": 2,
+        "edges": 1,
+        "max_depth": 1,
+        "all_nodes_terminal": true,
+        "graph_findings": []
+      },
+      "node_finding_codes": [
+        "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT",
+        "PARTIAL_MEMBER_SCAN"
+      ],
+      "package_boundary": {
+        "canonical_mutation_claimed": false,
+        "phase_g_authorized": false,
+        "release_authority": false,
+        "physical_dose_nonzero_rows": 0,
+        "presentation_true_rows": 0
+      },
+      "promotion_allowed": false
+    },
+    {
+      "filename": "COMPLEX_PERFUMERY_DHP25_EXACT_V5_FORMULA_AUDIT_V1_20260811.zip",
+      "downloaded_filename": "COMPLEX_PERFUMERY_DHP25_EXACT_V5_FORMULA_AUDIT_V1_20260811(1).zip",
+      "bytes": 2345643,
+      "sha256": "7e38c19a83b25de1edbc190f568b5725655d5e60dca63dec951e8f7c01a98efc",
+      "content_reference_index": 7,
+      "zip_member_count": 28,
+      "embedded_ledger": "COMPLEX_PERFUMERY_DHP25_EXACT_V5_FORMULA_AUDIT_V1_20260811/SHA256SUMS.json",
+      "embedded_ledger_declared_count": 27,
+      "embedded_ledger_match_count": 27,
+      "native_graph": {
+        "status": "GRAPH_COMPLETE_QUARANTINED",
+        "nodes": 5,
+        "edges": 5,
+        "max_depth": 2,
+        "all_nodes_terminal": true,
+        "graph_findings": []
+      },
+      "node_finding_codes": [
+        "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT",
+        "PARTIAL_MEMBER_SCAN"
+      ],
+      "package_boundary": {
+        "formula_gate": "HOLD_BEFORE_MODELED_STATE_CONSTRUCTION",
+        "compounding_authority": false,
+        "current_build_formula_mutated": false,
+        "target_formula_mutated": false,
+        "modeled_ingredients_emitted": false,
+        "physical_execution_authority": false,
+        "strict_oav_claimed": false,
+        "release_authority": false
+      },
+      "promotion_allowed": false
+    },
+    {
+      "filename": "Violet_Complexities_and_Dior_Homme_Parfum_2025_Complexity_Reconstruction_v1_Package.zip",
+      "downloaded_filename": "Violet_Complexities_and_Dior_Homme_Parfum_2025_Complexity_Reconstruction_v1_Package(1).zip",
+      "bytes": 89913,
+      "sha256": "ec27bcd4dd1b9a3e54d4de49ace3293d91af868ba6c6005a581b1646d3905dcd",
+      "content_reference_index": 12,
+      "zip_member_count": 6,
+      "embedded_sidecar_declared_count": 3,
+      "embedded_sidecar_match_count": 3,
+      "native_graph": {
+        "status": "GRAPH_COMPLETE_QUARANTINED",
+        "nodes": 2,
+        "edges": 1,
+        "max_depth": 1,
+        "all_nodes_terminal": true,
+        "graph_findings": []
+      },
+      "node_finding_codes": [
+        "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT"
+      ],
+      "package_boundary": {
+        "state": "COMPUTATIONAL_CANDIDATE_HOLD_FOR_PHYSICAL_VALIDATION",
+        "physical_similarity": "NOT_TESTED",
+        "strict_oav": "NOT_TESTED",
+        "measured_headspace": "NOT_TESTED",
+        "stability": "NOT_TESTED",
+        "safety_release": "NOT_TESTED"
+      },
+      "promotion_allowed": false
+    }
+  ],
+  "source_sidecar_locators": [
+    {"content_reference_index": 2, "filename": "SHA256SUMS.txt", "bytes": 2088, "sha256": "3c23333320e858dd9d79582217446ac03bcf99ead4a686e9ae316aad66a612b2"},
+    {"content_reference_index": 3, "filename": "SOURCE_MANIFEST.json", "bytes": 912, "sha256": "c00c9a7e3203702996bd3f03d1be1654fc7180bb856df0bd4a7e92195e6980b5"},
+    {"content_reference_index": 4, "filename": "VALIDATION_REPORT.json", "bytes": 1473, "sha256": "5ab92ce1c093b1f0d60e4dbad20e6af4a55cecbe5b43804f8a7c72cb85d43425"},
+    {"content_reference_index": 5, "filename": "REGENERATION_RECEIPT.json", "bytes": 2715, "sha256": "a68b1ee55c8e14d9d5d4819d320adb57fa6ebcd7105e63009738626d31b69b9c"},
+    {"content_reference_index": 6, "filename": "SELECTIVE_INVALIDATION_MANIFEST.json", "bytes": 909, "sha256": "093d8e9f02344fe39b285f5ac34709cebeebf8a27ebb43b472ea857c289ee902"},
+    {"content_reference_index": 8, "filename": "SHA256SUMS.json", "bytes": 4745, "sha256": "6869a619d8df937ef64d00aa84a61b3147340024c88f03c64ce67ff2ee5f858c"},
+    {"content_reference_index": 9, "filename": "SOURCE_MANIFEST.json", "bytes": 1401, "sha256": "52338e2086ff13cf5bcfeafb996042cd04f2fb607cc7572399aa2226b1fdb604"},
+    {"content_reference_index": 10, "filename": "VALIDATION_RECEIPT.json", "bytes": 502, "sha256": "87978fea904b9dbf1c08f11a55e2881cb294a03262a2a556c6383d1b1e8476ab"},
+    {"content_reference_index": 11, "filename": "DHP25_EXACT_V5_FORMULA_AUDIT_RECEIPT_v1.json", "bytes": 2195, "sha256": "1ada2884842aab8f832fd14e65a909c02834e134a5f5b88f2aaf5c8243867385"},
+    {"content_reference_index": 13, "filename": "Violet_Complexities_and_Dior_Homme_Parfum_2025_Complexity_Reconstruction_v1_release.json", "bytes": 1871, "sha256": "034127b77d8b17d47f428d8b5bb1c7994df9165bb7b02013fbd5962c878ca939"},
+    {"content_reference_index": 14, "filename": "Violet_Complexities_and_Dior_Homme_Parfum_2025_Complexity_Reconstruction_v1.xlsx.sha256", "bytes": 147, "sha256": "184aec743f74a0a4f64a9bac132f7fea952f267a5a930b2940d875fc97152a41"},
+    {"content_reference_index": 15, "filename": "Violet_Complexities_and_Dior_Homme_Parfum_2025_Complexity_Reconstruction_v1.md.sha256", "bytes": 145, "sha256": "d63dafa401e0aa82d78f752060252544689f02369678b43fba35852273a3a4ad"},
+    {"content_reference_index": 16, "filename": "Violet_Complexities_and_Dior_Homme_Parfum_2025_Complexity_Reconstruction_v1_release.json.sha256", "bytes": 155, "sha256": "3a17f445eb1f13d10c8cec1a8050156c291a8fb01cc70abe099daf6890b90d99"}
+  ],
+  "copy_policy": {
+    "source_cards_downloaded": true,
+    "captured_with_original_filenames": true,
+    "byte_content_changed": false,
+    "standalone_sidecar_duplicates_downloaded": false,
+    "reason": "Outer archives contain and cryptographically bind the controlling sidecars."
+  },
+  "verification": {
+    "outer_size_and_sha256_exact": true,
+    "zip_streams_crc_clean": true,
+    "unsafe_paths_found": 0,
+    "casefold_duplicate_paths_found": 0,
+    "embedded_ledger_mismatches": 0,
+    "all_native_graph_nodes_terminal": true,
+    "native_graph_findings": 0,
+    "promotion_allowed_count": 0
+  },
+  "authority_flags": {
+    "accepted_by_codex": false,
+    "admitted": false,
+    "canonical_promotion": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "stock_authority": false,
+    "bottle_authority": false,
+    "physical_execution_authority": false,
+    "sensory_authority": false,
+    "strict_oav_authority": false,
+    "safety_authority": false,
+    "publication_authority": false,
+    "release_authority": false,
+    "installation_authorized": false
+  }
+}

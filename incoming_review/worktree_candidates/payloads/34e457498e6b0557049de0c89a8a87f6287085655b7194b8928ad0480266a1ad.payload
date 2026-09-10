@@ -1,0 +1,121 @@
+"""Focused tests for OpenAI-only rate-limit configuration."""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+import pytest
+import yaml
+
+from app.utils.api_rate_limiter import APIRateLimiter
+
+BACKEND_ROOT = Path(__file__).resolve().parents[2]
+RATE_LIMIT_CONFIGS = (
+    BACKEND_ROOT / "app" / "config" / "rate_limits.yaml",
+    BACKEND_ROOT / "config" / "rate_limits.yaml",
+)
+
+
+def test_committed_rate_limit_configs_are_synchronized() -> None:
+    parsed_configs = [
+        yaml.safe_load(path.read_text(encoding="utf-8"))
+        for path in RATE_LIMIT_CONFIGS
+    ]
+
+    assert parsed_configs[0] == parsed_configs[1]
+
+
+@pytest.mark.parametrize("config_path", RATE_LIMIT_CONFIGS)
+def test_committed_rate_limit_configs_have_only_allowed_profiles(
+    config_path: Path,
+) -> None:
+    config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
+
+    assert set(config["providers"]) == {"openai"}
+
+
+@pytest.mark.parametrize("config_path", RATE_LIMIT_CONFIGS)
+def test_rate_limiter_loads_only_openai(config_path: Path) -> None:
+    limiter = APIRateLimiter(str(config_path))
+
+    assert set(limiter.providers) == {"openai"}
+    assert limiter.providers["openai"].requests_per_minute == 500
+
+
+def test_rate_limiter_rejects_unknown_provider_config_atomically(
+    tmp_path: Path,
+) -> None:
+    limiter = APIRateLimiter(str(RATE_LIMIT_CONFIGS[0]))
+    original_providers = dict(limiter.providers)
+    config_path = tmp_path / "rate_limits.yaml"
+    config_path.write_text(
+        """
+providers:
+  openai:
+    requests_per_minute: 10
+  other:
+    requests_per_minute: 10
+""".lstrip(),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="only OpenAI"):
+        limiter.load_config(str(config_path))
+
+    assert limiter.providers == original_providers
+
+
+def test_rate_limiter_rejects_default_provider_identity(tmp_path: Path) -> None:
+    config_path = tmp_path / "rate_limits.yaml"
+    config_path.write_text(
+        "providers:\n  default:\n    requests_per_minute: 60\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="only OpenAI is enabled"):
+        APIRateLimiter(str(config_path))
+
+
+@pytest.mark.parametrize("provider", ["default", "other"])
+def test_add_provider_rejects_non_openai_provider(provider: str) -> None:
+    limiter = APIRateLimiter(str(RATE_LIMIT_CONFIGS[0]))
+
+    with pytest.raises(ValueError, match="only OpenAI"):
+        limiter.add_provider(provider, requests_per_minute=10)
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("provider", ["default", "other"])
+async def test_acquire_rejects_unconfigured_provider_without_waiting(
+    provider: str,
+) -> None:
+    limiter = APIRateLimiter(str(RATE_LIMIT_CONFIGS[0]))
+
+    with pytest.raises(ValueError, match="Unknown provider"):
+        await limiter.acquire(provider)
+
+
+def test_missing_canonical_config_fails_closed(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(Path, "exists", lambda _path: False)
+
+    with pytest.raises(FileNotFoundError, match="Required OpenAI rate limit config"):
+        APIRateLimiter()
+
+
+@pytest.mark.parametrize(
+    "contents",
+    [
+        "",
+        "[]\n",
+        "providers: {}\n",
+        "providers:\n  openai: []\n",
+    ],
+)
+def test_malformed_config_fails_closed(tmp_path: Path, contents: str) -> None:
+    config_path = tmp_path / "rate_limits.yaml"
+    config_path.write_text(contents, encoding="utf-8")
+
+    with pytest.raises(ValueError):
+        APIRateLimiter(str(config_path))

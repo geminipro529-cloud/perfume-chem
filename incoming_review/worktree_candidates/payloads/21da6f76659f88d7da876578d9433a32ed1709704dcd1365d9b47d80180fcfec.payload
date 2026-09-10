@@ -1,0 +1,385 @@
+{
+  "package_id": "PERFUME-CHEM-V19-V20-EXACT-DECIMAL-FORMULA-ARTIFACT-SUCCESSOR-20260817-v2",
+  "created_at_utc": "2026-08-17T05:25:00Z",
+  "state": "FORMULA_ARTIFACT_EXACT_DECIMAL_PASS__QUICK_VERIFICATION_HOLD",
+  "operation_scope": "DERIVED_DOSE_EXPORT_REPAIR_ONLY",
+  "parent_artifact": {
+    "filename": "Nine_Finished_Hedonic_High_Complexity_Perfumes_2026-08-16_v1.zip",
+    "bytes": 815495,
+    "sha256": "f1e0f2aae2143fe2638c151032f686ee7b36579280445e86e1878c79b54f240b",
+    "zip_members": 84,
+    "manifest_sha256": "6ce2ecfceb11b6d7757af3310c493c36212a7c55ad119dbf30b8ad3e459133fb",
+    "internal_receipt_sha256": "436d8ee92c245c669c86eea4de1432d63f5ff3902633059ae81d727664154da1",
+    "formula_pack_sha256": "06f77940349a2d850806624f22e4e08320e96fa6738c5002196ed309ec4be454"
+  },
+  "parent_revalidation": {
+    "filename": "Perfume_Chem_V19_V20_Formula_Artifact_Revalidation_2026-08-17_v1.zip",
+    "bytes": 68317,
+    "sha256": "f2da9b5c3a993538a3602a57db5b1f38020d1d97cbf3dd76fa966082985b0504"
+  },
+  "inventory_authority": {
+    "filename": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5(1).xlsx",
+    "bytes": 199635,
+    "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331"
+  },
+  "counts": {
+    "formula_artifacts": 9,
+    "formula_rows": 663,
+    "stock_lineage_holds": 63,
+    "formula_signatures": 9,
+    "anti_chassis_pairs": 36,
+    "nary_records": 27,
+    "validation_checks": 21
+  },
+  "members": [
+    {
+      "path": "ALL_NINE_V19_V20_EXACT_DECIMAL_SUCCESSOR_FORMULA_BOOK.md",
+      "bytes": 328023,
+      "sha256": "88602743faa643985e2dbd7d878d55ea76d04b2625041c2012056705b65b3975",
+      "role": "report_or_control"
+    },
+    {
+      "path": "ANTI_CHASSIS_DIMENSIONS_SEPARATE.csv",
+      "bytes": 17640,
+      "sha256": "0ef3aeb2f584d90875ab1c79a6105c2b4b89f37189bc3143d5fc25795f52fa6f",
+      "role": "ledger"
+    },
+    {
+      "path": "COMPLEXITY_DIMENSIONS_SEPARATE.csv",
+      "bytes": 3725,
+      "sha256": "25f1131ce75bb2160d72d7cd70a907d73e246d6c87175c1f87d6d739916eb5b2",
+      "role": "ledger"
+    },
+    {
+      "path": "CURRENT_BUILD_BOUNDARY.md",
+      "bytes": 1338,
+      "sha256": "c22b0b7261c579e7c28eaecf7abeeb50536eb2f67a6b5e01a5148d8d4888f310",
+      "role": "report_or_control"
+    },
+    {
+      "path": "CURRENT_BUILD_EXACT_DECIMAL_ALL_ROWS.csv",
+      "bytes": 417187,
+      "sha256": "2d901595e196f71c236254bace6d04a1921e7e11484eb91c5257cb6ed7e4ff9b",
+      "role": "ledger"
+    },
+    {
+      "path": "EXACT_DECIMAL_ROW_PATCH_LEDGER.csv",
+      "bytes": 94311,
+      "sha256": "f92c08caf4be65986744644d1a0d805e01c27d495afca1de58d51072bec5253b",
+      "role": "ledger"
+    },
+    {
+      "path": "EXACT_DECIMAL_SUCCESSOR_REPORT.md",
+      "bytes": 3090,
+      "sha256": "f9a575a700c68a2dd875a72ebe57d48bde7535d3f3255936cae92671821c05b9",
+      "role": "report_or_control"
+    },
+    {
+      "path": "FORMULA_ARITHMETIC_CLOSURE.csv",
+      "bytes": 3237,
+      "sha256": "4ebd39917fa26d1076f4b61850c317c87291613bbf8fbbc5c0b15b5268b9e61c",
+      "role": "ledger"
+    },
+    {
+      "path": "FORMULA_HASH_ANCESTRY.csv",
+      "bytes": 2537,
+      "sha256": "e80393aac68dd5ba98409c55156b571dbc70a9ef167ff866bc861b53a4568a30",
+      "role": "ledger"
+    },
+    {
+      "path": "FORMULA_HASH_RECOMPUTATION.csv",
+      "bytes": 1322,
+      "sha256": "1d5f22eeffd4c3cf13fb2ce4e549d42d062b0d1ea9c6bee104a72d44263df1d4",
+      "role": "ledger"
+    },
+    {
+      "path": "FORMULA_SIGNATURE_VIEW.json",
+      "bytes": 49778,
+      "sha256": "0fbde5cfedd902f61613e09a3d2a47f9d050643cbdde3d8eb0e6cd5a1c9eab64",
+      "role": "machine_readable"
+    },
+    {
+      "path": "MISSING_EXACT_BYTE_DEPENDENCIES.json",
+      "bytes": 943,
+      "sha256": "23fc6f47c0029c7cdef13041787fdac67802b00c2150cc9ecd731ffb5ea1f48a",
+      "role": "machine_readable"
+    },
+    {
+      "path": "NEXT_CLOSURE_PLAN.md",
+      "bytes": 958,
+      "sha256": "edcab80339d14a7e478ad8e80c333c290e601604bcff8c51087e56247882b3c6",
+      "role": "report_or_control"
+    },
+    {
+      "path": "Perfume_Chem_V19_V20_Exact_Decimal_Formula_Artifact_Successor_v2.xlsx",
+      "bytes": 132565,
+      "sha256": "8d93951a2ffed25becd13307cf3e2f92ad3e1372fe16d21c99b1bb6306ed5f94",
+      "role": "workbook"
+    },
+    {
+      "path": "QUICK_VERIFICATION_GATE.json",
+      "bytes": 1208,
+      "sha256": "538e63a3dd5e6cc9f8d85db703814956f50ec75e4137c2683c5bfa5c24d20869",
+      "role": "machine_readable"
+    },
+    {
+      "path": "RATIO_BOUND_NARY_INTERACTION_REGISTER.json",
+      "bytes": 35284,
+      "sha256": "660639f629d00ec1df4831c0e43b32dce4b29076dd05b19dc922a57a2849e291",
+      "role": "machine_readable"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1258,
+      "sha256": "7055a09c67b464fdecdccc856b18e71d614c424b7ae2e3ce655fbaf3536a2d49",
+      "role": "report_or_control"
+    },
+    {
+      "path": "RECEIPT.json",
+      "bytes": 2852,
+      "sha256": "ea397fbc87e3d3983570c2f97c6ea4bb5ecfc9b35b118ab83645c99a591c2445",
+      "role": "machine_readable"
+    },
+    {
+      "path": "SOURCE_USE_LEDGER.json",
+      "bytes": 1772,
+      "sha256": "901eb4e03102b144ee3c6702aea928468b1717cab30ce1ac73d3c132c58d0b48",
+      "role": "machine_readable"
+    },
+    {
+      "path": "STOCK_LINEAGE_HOLDS_PRESERVED.csv",
+      "bytes": 28563,
+      "sha256": "ce16993a407e7673e2aeccd152ac3b45b427d76c2a480f5b0012c84f873050d2",
+      "role": "ledger"
+    },
+    {
+      "path": "V19_V20_EXACT_DECIMAL_FORMULA_ARTIFACT_SUCCESSOR_PACK.json",
+      "bytes": 2318938,
+      "sha256": "48fffb87d4132b09f0215d5262f797491f939e31d4511e3da9dbf932288ff8dc",
+      "role": "machine_readable"
+    },
+    {
+      "path": "VALIDATION_REPORT.md",
+      "bytes": 1661,
+      "sha256": "7bfb80cf5d2987d9a05b17ef0a80a331cd3fab47e11e44838c14163990979f4a",
+      "role": "report_or_control"
+    },
+    {
+      "path": "ancestry/Nine_Finished_Hedonic_High_Complexity_Perfumes_2026-08-16_v1_RECEIPT.json",
+      "bytes": 2153,
+      "sha256": "dfc70120fdc621cd2b42affccbb1227a1fd8cedc48352d09dac992fe0630b88f",
+      "role": "parent_ancestry_exact_copy"
+    },
+    {
+      "path": "ancestry/PARENT_BOUNDED_REPAIR_PLAN.md",
+      "bytes": 2242,
+      "sha256": "8abad964534e6b11f6d78b425fce35c7319c89e07affd112b4ebba22fafa44df",
+      "role": "parent_ancestry_exact_copy"
+    },
+    {
+      "path": "ancestry/PARENT_INTERNAL_RECEIPT.json",
+      "bytes": 974,
+      "sha256": "436d8ee92c245c669c86eea4de1432d63f5ff3902633059ae81d727664154da1",
+      "role": "parent_ancestry_exact_copy"
+    },
+    {
+      "path": "ancestry/PARENT_MANIFEST.json",
+      "bytes": 17951,
+      "sha256": "6ce2ecfceb11b6d7757af3310c493c36212a7c55ad119dbf30b8ad3e459133fb",
+      "role": "parent_ancestry_exact_copy"
+    },
+    {
+      "path": "ancestry/PARENT_REVALIDATION_REPORT.md",
+      "bytes": 6678,
+      "sha256": "962c18dc8525c70ad0b7d1d6b7075b6a586344131667377f09b9942bfb01419f",
+      "role": "parent_ancestry_exact_copy"
+    },
+    {
+      "path": "perfumes/AHS/AHS_CURRENT_BUILD_EXACT_DECIMAL.csv",
+      "bytes": 23932,
+      "sha256": "ff23252faf4080298978acc11962480d8aa046ee74ded0b433df189b090be8b4",
+      "role": "exact_decimal_formula_rows"
+    },
+    {
+      "path": "perfumes/AHS/AHS_SUCCESSOR_FORMULA_PACKET.json",
+      "bytes": 144955,
+      "sha256": "f8c5702d819e8a0190b7cc56d97297bc88f303352b6d742f0af96df99ed82297",
+      "role": "formula_packet"
+    },
+    {
+      "path": "perfumes/AHS/AHS_V19_V20_EXACT_DECIMAL_SUCCESSOR_FORMULA_BOOK.md",
+      "bytes": 34363,
+      "sha256": "d149fb2dfb1a0e55dfcbd35a4119d373d00dd89e22c7f8ac73bb19cedcab3209",
+      "role": "formula_book"
+    },
+    {
+      "path": "perfumes/BDCP/BDCP_CURRENT_BUILD_EXACT_DECIMAL.csv",
+      "bytes": 26153,
+      "sha256": "f3c781cf62aed8f47b1ca16d9fd031fd8299dabbc42abfd92ad906ad1396fc2f",
+      "role": "exact_decimal_formula_rows"
+    },
+    {
+      "path": "perfumes/BDCP/BDCP_SUCCESSOR_FORMULA_PACKET.json",
+      "bytes": 157090,
+      "sha256": "05aa79794f2c2dbd886d21539d7033846e30157787b12a9f71f8e3652b682d56",
+      "role": "formula_packet"
+    },
+    {
+      "path": "perfumes/BDCP/BDCP_V19_V20_EXACT_DECIMAL_SUCCESSOR_FORMULA_BOOK.md",
+      "bytes": 36618,
+      "sha256": "91dd9bcbd95821d245f1cdd3c2b027d099663fcebea277f9b0b833be92f576f4",
+      "role": "formula_book"
+    },
+    {
+      "path": "perfumes/DHI12/DHI12_CURRENT_BUILD_EXACT_DECIMAL.csv",
+      "bytes": 24843,
+      "sha256": "59fdb6c4da31117b96917d413db9c73667b221e177cd806e0be471ea8337994b",
+      "role": "exact_decimal_formula_rows"
+    },
+    {
+      "path": "perfumes/DHI12/DHI12_SUCCESSOR_FORMULA_PACKET.json",
+      "bytes": 151614,
+      "sha256": "b700a97e29b69bf8ad15008909efb074c3c379954d91459a023ed8328c85bc94",
+      "role": "formula_packet"
+    },
+    {
+      "path": "perfumes/DHI12/DHI12_V19_V20_EXACT_DECIMAL_SUCCESSOR_FORMULA_BOOK.md",
+      "bytes": 37454,
+      "sha256": "613ce5171f9b6080d441d1bd7575fe9ec63fb9f400979f38d0558eceaf32b4f2",
+      "role": "formula_book"
+    },
+    {
+      "path": "perfumes/DHP25/DHP25_CURRENT_BUILD_EXACT_DECIMAL.csv",
+      "bytes": 25148,
+      "sha256": "4505983f406a036b5bda5285e11de7a675fcb5ffd74cf1af208cb3d98f9954d0",
+      "role": "exact_decimal_formula_rows"
+    },
+    {
+      "path": "perfumes/DHP25/DHP25_SUCCESSOR_FORMULA_PACKET.json",
+      "bytes": 151643,
+      "sha256": "53396822643b9f8e4af3ff8a6ce6ebb4dfceb88ee9f85faccc22714727060319",
+      "role": "formula_packet"
+    },
+    {
+      "path": "perfumes/DHP25/DHP25_V19_V20_EXACT_DECIMAL_SUCCESSOR_FORMULA_BOOK.md",
+      "bytes": 36698,
+      "sha256": "0a1f5e8862c9b05d93981624b96abdaf65657136ab061e93695bc421dbf62083",
+      "role": "formula_book"
+    },
+    {
+      "path": "perfumes/EB/EB_CURRENT_BUILD_EXACT_DECIMAL.csv",
+      "bytes": 23902,
+      "sha256": "fcc0902d5526842ba1514717cb34cddd7f4b5d73c5ab4f2e4f14ab84498eee0f",
+      "role": "exact_decimal_formula_rows"
+    },
+    {
+      "path": "perfumes/EB/EB_SUCCESSOR_FORMULA_PACKET.json",
+      "bytes": 145902,
+      "sha256": "5da06d2e7db9abaa10fe46ab5a723df272c7454a2e476545e1d48c7ebaefd9a2",
+      "role": "formula_packet"
+    },
+    {
+      "path": "perfumes/EB/EB_V19_V20_EXACT_DECIMAL_SUCCESSOR_FORMULA_BOOK.md",
+      "bytes": 34918,
+      "sha256": "cb56939cbd30440b95cc8010db6d417a5fb88c9de5efd7285f93ea4ca4b4ac4c",
+      "role": "formula_book"
+    },
+    {
+      "path": "perfumes/EE/EE_CURRENT_BUILD_EXACT_DECIMAL.csv",
+      "bytes": 23553,
+      "sha256": "c5fd0b357122f46b9f4e3983c6229157050c29b548947880149e9ba2442ae192",
+      "role": "exact_decimal_formula_rows"
+    },
+    {
+      "path": "perfumes/EE/EE_SUCCESSOR_FORMULA_PACKET.json",
+      "bytes": 145593,
+      "sha256": "624c911334d51fb38d0584056b8b74c3d858b68bab89df48db22c9a203b155c0",
+      "role": "formula_packet"
+    },
+    {
+      "path": "perfumes/EE/EE_V19_V20_EXACT_DECIMAL_SUCCESSOR_FORMULA_BOOK.md",
+      "bytes": 34307,
+      "sha256": "89f33614370b2d2273918c069b2a7a4e30b08ccfb21057d4bd24eca27e7b5428",
+      "role": "formula_book"
+    },
+    {
+      "path": "perfumes/ELIXIR/ELIXIR_CURRENT_BUILD_EXACT_DECIMAL.csv",
+      "bytes": 24867,
+      "sha256": "5829d4908b69932bffbabe3ed7799f671db0e2f443aed79b7aec7d1e4d92181b",
+      "role": "exact_decimal_formula_rows"
+    },
+    {
+      "path": "perfumes/ELIXIR/ELIXIR_SUCCESSOR_FORMULA_PACKET.json",
+      "bytes": 152026,
+      "sha256": "b243db8d4ff22ccaba4511557c157d829e285b6ceb103a770e037aa8558a8316",
+      "role": "formula_packet"
+    },
+    {
+      "path": "perfumes/ELIXIR/ELIXIR_V19_V20_EXACT_DECIMAL_SUCCESSOR_FORMULA_BOOK.md",
+      "bytes": 36041,
+      "sha256": "15f9faa981e0a834934aa04910d2f5a803a2c11eefcaa655eac1a7edcc9862bc",
+      "role": "formula_book"
+    },
+    {
+      "path": "perfumes/LANUIT/LANUIT_CURRENT_BUILD_EXACT_DECIMAL.csv",
+      "bytes": 24300,
+      "sha256": "e43cd4c182ecfa29cbed7dc9c5b3548e804c2a91348383c06da6e5a9bf190c60",
+      "role": "exact_decimal_formula_rows"
+    },
+    {
+      "path": "perfumes/LANUIT/LANUIT_SUCCESSOR_FORMULA_PACKET.json",
+      "bytes": 146324,
+      "sha256": "41ad0112447140d5f8e0d553684774e7228af4a53052ff1e0061257659a97cd9",
+      "role": "formula_packet"
+    },
+    {
+      "path": "perfumes/LANUIT/LANUIT_V19_V20_EXACT_DECIMAL_SUCCESSOR_FORMULA_BOOK.md",
+      "bytes": 43327,
+      "sha256": "cdecabb62fa1c4e1a57c3344801113cc949993466c927a68d89b06b1b033fa3d",
+      "role": "formula_book"
+    },
+    {
+      "path": "perfumes/LHOMME/LHOMME_CURRENT_BUILD_EXACT_DECIMAL.csv",
+      "bytes": 23329,
+      "sha256": "abf663d607fc6d3abbb20da9dfbb7dfb6cddf6b975db26903b5336b9161f7d6f",
+      "role": "exact_decimal_formula_rows"
+    },
+    {
+      "path": "perfumes/LHOMME/LHOMME_SUCCESSOR_FORMULA_PACKET.json",
+      "bytes": 141617,
+      "sha256": "9dbaa387507fe46588568324637a627f2a35eaf389b78daace81606c3606d964",
+      "role": "formula_packet"
+    },
+    {
+      "path": "perfumes/LHOMME/LHOMME_V19_V20_EXACT_DECIMAL_SUCCESSOR_FORMULA_BOOK.md",
+      "bytes": 33850,
+      "sha256": "05792b7c37f9225436798fcbd495e30af9b743460122c8caaafb57130fe9d02f",
+      "role": "formula_book"
+    },
+    {
+      "path": "v19_v20_exact_decimal_successor_v2.schema.json",
+      "bytes": 3617,
+      "sha256": "e39885d9891bf381260b5aadc1855a2d4633253bfb0028f51098f5cf1713faa5",
+      "role": "machine_readable"
+    }
+  ],
+  "authority_false": [
+    "source_admission",
+    "package_installation",
+    "formula_authority",
+    "inventory_mutation",
+    "stock_authority",
+    "bottle_authority",
+    "physical_execution",
+    "sensory_authority",
+    "analytical_authority",
+    "measured_headspace",
+    "strict_empirical_oav",
+    "safety",
+    "procurement",
+    "compounding",
+    "repository_installation",
+    "publication",
+    "release"
+  ]
+}

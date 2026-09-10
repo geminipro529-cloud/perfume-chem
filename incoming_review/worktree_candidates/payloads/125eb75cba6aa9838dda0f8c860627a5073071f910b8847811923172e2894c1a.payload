@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-a800c520961dc520ce7c",
+  "case_id": "RPL-TEM-S02",
+  "module_id": "temporal_sensory_ledger",
+  "arm": "TREATMENT",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "6a8e64f0-bd00-83ec-87cf-8777d03db650",
+  "dispatch_sha256": "d89e2c1c389c127a8c570039cea5e0009761b2d8e2f0319192899e6ee01b3f2c",
+  "output_text": "{\"decision\":\"DIAGNOSTIC: preserve the missing cell and report only observed temporal summaries.\",\"target_linked_reasoning\":\"The qualified protocol does not make an unrecorded repeat-timepoint cell observable. Neighboring timepoints may be summarized as recorded but cannot fill, estimate, or support a transition through the missing cell because interpolation was not authorized. Any affected repeat-level transition or complete-grid comparison must be marked incomplete. Physical liking is NOT TESTED.\",\"controlled_comparison\":\"Re-measure the missing assessor/sample/repeat/timepoint/endpoint cell under the same qualified protocol, sequence, and schedule binding; then compare the completed repeat trajectory with the other observed repeats. Until then, retain the cell as missing and exclude it from paired complete-cell claims.\",\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\"}",
+  "output_sha256": "7329529a762d002f4a204d3503f969c731d20abcada745781f1e389b7296fdb0",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

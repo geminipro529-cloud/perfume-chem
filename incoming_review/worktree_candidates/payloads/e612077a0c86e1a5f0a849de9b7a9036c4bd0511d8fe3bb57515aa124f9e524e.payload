@@ -1,0 +1,65 @@
+# DHI-11 V5 stock reconciliation — 2026-09-05
+
+Outcome: all 23 planned raw-stock transfers bind uniquely. **109 PASS / 36 WARN / 0 FAIL / 1 SKIP; overall WARN; release HOLD.** The formula has not been compounded or smelled. Neither the ingredient list nor a dose was changed in this step. The 30 mL card still contains 6,000 µL of raw stocks plus 24,000 µL ethanol 96%; the 15 mL card is exactly half. Irotyl remains absent and no ingredient-count cap was imposed.
+
+## Evidence and implementation scope
+
+The literature-first and verification skills kept this step local and receipt-led: no new chemical-property assertions or external model calls. Canonical user-correction records had already established the five stocks, but c4d5 used a different inventory lineage. No generic successor writer exists; the existing dated-successor validator in `engine/inventory_parser.py` was extended narrowly. No pipeline script was created.
+
+The new head is `data/governance/inventory_user_authority_overlay_20260905_reconciled.json`, normalized SHA-256 `6b484bb4bfe2be531026d9fda3422d587bdff76f3a4758348b1453d63b1ea170`. Its parent remains the unchanged c4d5 September 4 `_002` overlay, SHA-256 `e24ecddb690760a1f0d545855ba93c4d60680ebd83c9585d60e4e36ae2f7ce09`.
+
+Byte-identical copies of the canonical source receipts are in `data/governance/evidence/`. Their hashes are `e2fe66cb8077da38142913a73b0d77acd14b6e4953f6155bb2011e1e2bb851a4` (September 4) and `08d0f0e41f90741200b3e915789ddd044cbbf7b0ce1b1aa266053452781bb17f` (September 5). Only the explicitly selected records are imported. Canonical September 4 IDs collide with different materials in c4d5, so new local IDs preserve source-record provenance without conflating the chains.
+
+| Binding | Current physical-stock meaning | Local stock ID |
+|---|---|---|
+| AIMI / Methyl Ionone Pure | One confirmed neat bottle; not equivalence between methyl-ionone grades | inventory:user-20260905:19dbde34171aec1e9868 |
+| Indian vetiver | Neat, owned Indian volume grade; not Haiti/Java/Ruh Khus | inventory:user-20260905:46eaa4afb0cbf45f8cfe |
+| Ambrettolide | 10% w/w in DPG, prepared homogeneous raw-transfer stock | inventory:user-20260905:44394ef87ec2fc6f4c98 |
+| Tonkarome | 20% w/w supplied base in TEC; not pure coumarin | inventory:user-20260905:bc7dfa244a5e2344c0b4 |
+| Orris Liquid | 9% w/w supplied product in DEP; not 9% pure irone | inventory:user-20260905:35dcce111e91d8f411cb |
+| Coriander Essential Oil / Seed EO | Exact documented seed-EO naming; leaf oil not admitted | inventory:v5:8f24d01cce6349e9cf63, unchanged |
+
+All 226 unrelated stock records match the predecessor in every field, including IDs, authority, source refs, fractions, ranges and execution holds. All 274 unaffected requirement records also match. Coumarin's three forms, unresolved Guaiacwood carrier/preparation, unavailable Ambrofix liquid and non-executable solids were not promoted. The text loses one duplicate AIMI bottle entry (281 to 280 raw rows); its historical declaration is preserved, not erased.
+
+The sync attestation `data/governance/inventory_worktree_sync_20260905_001.json` binds the new source files and immutable prior attestation. The old head now validates its historical text hash; the new pinned head validates the live text hash. Historical pins were not rewritten to match changed bytes.
+
+## Verification and diagnosed failures
+
+Baseline: 12 predecessor tests passed after a Windows temporary-directory access error was retried with permission. The direct stock check reproduced all five failures. Initial new/predecessor suite: 46 passed. An expanded 160-test consumer run found 14 failures, chiefly stale current-head/preparation/duplicate-stock expectations. Historical assertions were retained as historical checks, new current-state checks were added, and ambiguity rejection was preserved with an explicit duplicate-bottle negative test.
+
+An independent native review found a real public-resolver regression: stripping `(India)` made the new vetiver stock unreachable. The parent reproduced it and fixed exact verified-label routing and preservation of identity-bearing parentheses. Positive tests cover four admitted Indian-vetiver labels; negatives cover Haiti, Java, unconfirmed Ruh Khus, and coriander leaf oils. The combined affected-consumer run passed **215 tests, 0 failures**, with 5,640 instances of one `pytest_asyncio` deprecation under Python 3.14. Ruff passed all changed Python files. A final receipt replay test and final artifact checks are recorded below after execution.
+
+The fresh release diagnostic changes only these gate states:
+
+| Gate | Before | Current |
+|---|---|---|
+| inventory_stock_contract | FAIL | PASS |
+| pipeline_preflight | FAIL | WARN |
+
+The warning count rises from 35 to 36 because preflight is reclassified. The planned-volume dose receipt is now `BOUND` with `quantity_authority=PLANNED_VOLUME_SCREEN_ONLY`; `physical_metrology_authority=false` and `release_authority=false`. G15 passes against the byte-unchanged V4 parent. The six-group architecture declaration contract passes, while the different OAV-qualified skeleton diagnostic remains WARN at four of five markers.
+
+The 23 opening OAV values are exactly unchanged from the prior matched-solvent proxy report. This is evidence of corrected bookkeeping at fixed design inputs, not a sensory improvement. All five temporal windows and the required complete formatter analysis are preserved in the master formula; the standalone output is `output/dhi2011_v5_stock_reconciliation_20260905/analysis.txt`.
+
+## What remains unresolved
+
+- Exact concentrate and finished-product ppm w/w are unavailable. Seventeen materials use density fallbacks; nineteen lack authoritative active mass. Four w/w preparations do not establish carrier displacement volume. Named carriers are known; their exact volumes are not.
+- Safety/IFRA remains HOLD, with thirteen missing explicit Category 4 limit records. An empty violation list or software PASS does not close that gap. No skin-use or sale approval is given.
+- Orris lot assay, stereoisomer composition, measured thresholds and the catalog-derived 82.5% modeled irone pool remain unverified for this bottle. Tonkarome's pseudo-monocomponent treatment and the substring-generated glycoside assertion remain model defects/unsupported inferences.
+- Several displayed warnings are heuristic or reporting defects, including concentration-basis field selection, generic receptor caps, fixed price assumptions and non-target OAV ranges. No dose was altered to satisfy them.
+- Eight intended relationships remain unobserved. Six intended sensory-role helpers screen below OAV 1; the model cannot establish whether omission would improve or damage the perfume. Liking, similarity, smoothness, sillage, longevity and stability remain NOT TESTED.
+
+The system has gained tested stock-identity rules and documented failure knowledge. No measured hedonic evidence, learned scent-quality relationship, model-weight update or sensory promotion has occurred. The next useful work is qualified mass/carrier and supplier-safety evidence, plus correction of the Orris/Tonkarome model assumptions before treating numerical dose advice as trustworthy.
+
+## Current artifacts
+
+Report: `output/dhi2011_v5_stock_reconciliation_20260905/release_gate.json`, SHA-256 `0591a40e78b0cf0568e43ff19021e807050db4e758e76689a71ca16242b85aba`.
+
+Semantic formula-definition SHA-256: `279ba9f447847b63313b151bb0d5b059b10c160305947d514739ba3617c27232`. The binding includes the dirty worktree's source digests; Git HEAD alone does not identify this implementation.
+
+Historical V4 file SHA-256 remains `27017d190bff711ef91a9bb0c2d17fb20624012559f0a6e2e2ed91dccea6544e`. Both older V5 reports are preserved. Full repository/release verification, physical execution and sensory tests were not run. No commit or push was requested or performed.
+
+## Final verification
+
+The final combined run passed **216 tests, 0 failures**, including current-file/immutable-parent receipt replay. It emitted 5,680 instances of the same Python 3.14 `pytest_asyncio` deprecation. Ruff passed all changed Python files and `git diff --check` found no whitespace errors (Git issued normal LF-to-CRLF notices). Independent native re-review found no remaining actionable concern in the narrow alias fix; the parent verified its source and executed the tests.
+
+Artifact checks verify that the master, pour-card columns and design JSON agree on all 23 doses; totals remain 6,000/3,000 µL; basket order is correct; all design runtime stock IDs match the fresh report; the full formatter output is preserved; the semantic formula hash still matches after analysis was appended; all 23 numeric opening OAVs equal the previous proxy report; sensory-observation and promotion arrays remain empty. A Windows default-code-page decoding error in the read-only artifact check was corrected by explicitly selecting UTF-8; no formula bytes were changed for that retry.

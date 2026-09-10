@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,0.9991
+identity_system_probability,0.9948
+oav_probability,0.9943
+temporal_probability,1.0
+dominance_failure_probability,0.0009000000000000119
+overall_probability,0.9935
+dose_closure_probability,0.9981
+temporal_q05,0.9454503468949607
+temporal_median,0.972311897184216
+max_share_q95,0.5131727616904777
+marker_coverage_q05,0.8571428571428571
+phase_sum_q05,"{""top"": 1.6640108731808152, ""heart"": 12.128788263795297, ""base"": 6.711737526888905}"
+release_shape_median,"[0.21102786347333202, 0.31190859345386646, 0.347227067866841, 0.11522345164904238]"
+phase_shape_median,"[0.13200195385500546, 0.4727836822635282, 0.3949602808324211]"
+marker_probabilities,"{""Blood Orange Oil Sicilian | top"": 0.9948, ""Orris Liquid 30% | heart"": 1.0, ""Rose EO | heart"": 0.9935, ""Suederal 10% | heart"": 0.9803, ""Sandalore | base"": 0.9932, ""Black Agarwood Artificial 10% | base"": 0.9997, ""Ambrettolide 10% | base"": 0.0363}"
+marker_quantiles,"{""Blood Orange Oil Sicilian | top"": [1.6640108731808152, 4.686301012324103, 13.510836423379642], ""Orris Liquid 30% | heart"": [5.01528030401013, 15.822038151815516, 48.35879348186506], ""Rose EO | heart"": [1.6125699302143561, 4.204250519340551, 10.909428032722863], ""Suederal 10% | heart"": [1.3016764499867033, 3.535727985445341, 9.756793809456317], ""Sandalore | base"": [1.658068506731191, 4.548833087992839, 12.24185074407218], ""Black Agarwood Artificial 10% | base"": [3.0469967973550807, 8.722272806868407, 24.93374827362002], ""Ambrettolide 10% | base"": [0.12930305769860095, 0.3389337700444346, 0.915915503824956]}"
+classification,ROBUST

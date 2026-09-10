@@ -1,0 +1,135 @@
+{
+  "schema_version": "complex_perfumery_exact_source_capture_v1",
+  "recorded_at": "2026-08-17T04:59:03+07:00",
+  "project": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "parent_v17_delta_path": "data/governance/complex_perfumery_v17_post_v16_nine_finished_hedonic_delta_20260816.json",
+    "parent_v17_delta_byte_size": 10650,
+    "parent_v17_delta_sha256": "7afd3c83cb5d718a6bcaca0f8da00a065888ddc1a017a65d6b4992f2cb174e23",
+    "parent_v17_delta_semantic_sha256": "71ba345a3c29f941a54d5e8a8d84c596cdf1bd45b661564fd1ac83c58a200af0"
+  },
+  "source": {
+    "conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+    "title": "Perfume Making Consultant",
+    "generation_turn_id": "310f1e23-52cb-4bf3-8329-3a3a4347190e",
+    "generation_message_id": "a0be155a-bd2c-4af9-b1cc-5cae8248d95e",
+    "file_object_id": "file_00000000249081fa88b3abe6e2debd42",
+    "content_reference_index": 7,
+    "source_rights_state": "UNKNOWN"
+  },
+  "retrieval": {
+    "method": "EXACT_SOURCE_PROVIDED_BASE64_BLOCK_TRANSPORT",
+    "source_path": "C:/Users/ASUS/Downloads/Floral_Complexity_Expansion_10_Hedonic_Formula_Portfolio_Aug2026_v1_Package.zip",
+    "capture_path": "incoming_review/chatgpt/20260817T045903+0700-v18-floral-hedonic-portfolio-6a79b172-n1654f03a/Floral_Complexity_Expansion_10_Hedonic_Formula_Portfolio_Aug2026_v1_Package.zip",
+    "source_and_capture_byte_size_match": true,
+    "source_and_capture_sha256_match": true,
+    "exact_source_transport_reassembled": true,
+    "archive_regenerated": false,
+    "artifact_substituted": false,
+    "block_count": 118,
+    "full_base64_byte_size": 482528,
+    "full_base64_sha256": "abb6f264f34aea6737591d08c443186644e3fc2729bf7271acfd0ab35b4d8d93",
+    "standard_block_length": 4096,
+    "standard_block_count": 117,
+    "terminal_block_length": 3296,
+    "terminal_block_sha256": "ee0f3f06582951d9d3ca1020cabaf26264590674bcc4911635518b4a0c803563",
+    "all_blocks_length_and_sha256_verified": true,
+    "late_duplicate_transport_blocks": [81, 82],
+    "duplicate_transport_changed_bytes": false
+  },
+  "package": {
+    "file_name": "Floral_Complexity_Expansion_10_Hedonic_Formula_Portfolio_Aug2026_v1_Package.zip",
+    "byte_size": 361894,
+    "sha256": "1654f03ad0b55fa310a46e6e0ed11a0f9070ab9c94037e726380389f177a35e6",
+    "archive_entry_count": 13,
+    "archive_file_count": 13,
+    "archive_directory_count": 0,
+    "safe_paths": true,
+    "casefold_duplicate_paths": 0,
+    "zip_crc_clean": true,
+    "embedded_checksum_ledger": {
+      "path": "Floral_Complexity_Expansion_10_Hedonic_Formula_Portfolio_Aug2026_v1_SHA256SUMS.txt",
+      "byte_size": 871,
+      "sha256": "82929e31581f4c90be8ea6082dc807ac17d87ab639a7e4f02856a851bf192e34",
+      "declared_records": 6,
+      "verified_records": 6,
+      "missing_records": 0,
+      "mismatched_records": 0,
+      "self_excluding": true
+    },
+    "embedded_workbook": {
+      "path": "Floral_Complexity_Expansion_10_Hedonic_Formula_Portfolio_Aug2026_v1.xlsx",
+      "byte_size": 241911,
+      "sha256": "ac4598ddd9d2130137ec57761d834059405094fb6e4c2ff05093a5dc451c1d64",
+      "sheet_count": 17,
+      "formula_cell_count": 2760,
+      "stored_formula_error_count": 0
+    }
+  },
+  "native_archive_graph": {
+    "status": "GRAPH_COMPLETE_QUARANTINED",
+    "root_status": "QUARANTINE_HOLD",
+    "root_finding_codes": [
+      "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT",
+      "PARTIAL_MEMBER_SCAN"
+    ],
+    "partial_member": "Floral_Complexity_Expansion_10_Hedonic_Formula_Portfolio_Aug2026_v1.json",
+    "node_count": 2,
+    "edge_count": 1,
+    "max_depth": 1,
+    "all_nodes_terminal": true,
+    "graph_findings": [],
+    "child_workbook_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "promotion_allowed": false
+  },
+  "content_boundary": {
+    "package_id": "FLORAL-COMPLEXITY-EXPANSION-10-FORMULA-PORTFOLIO-AUG2026-V1",
+    "role": "COMPUTATIONAL_FORMULA_HEDONIC_HYPOTHESIS_AND_DESIGN_ANCESTRY_ONLY",
+    "formula_candidate_count": 10,
+    "current_formula_rows": 670,
+    "target_formula_rows": 680,
+    "preparation_rows": 31,
+    "target_missing_rows": 10,
+    "anti_collapse_pair_count": 45,
+    "formula_arithmetic_total_parts": 1000,
+    "source_inventory_v5_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "source_named_floral_atlas_exact_hash_bound": false,
+    "source_named_complexity_engine_exact_hash_bound": false,
+    "unhashed_source_names_are_parent_edges": false,
+    "package_formulas_imported": false,
+    "physical_compounding": false,
+    "sensory_liking": false,
+    "stability": false,
+    "measured_headspace": false,
+    "strict_oav": false,
+    "safety_cleared": false,
+    "release_authorized": false
+  },
+  "collection_delta": {
+    "prior_v17_exact_outer_candidates": 51,
+    "same_turn_post_v17_exact_outer_candidates": 2,
+    "same_turn_post_v17_hashes": [
+      "eb291f96fdf6e0ec8805d1f7d82f74e92ee5fa3ca6439a00c19f7e4cc15ef769",
+      "1654f03ad0b55fa310a46e6e0ed11a0f9070ab9c94037e726380389f177a35e6"
+    ],
+    "cumulative_exact_outer_candidates": 53,
+    "all_project_packages_collected": false,
+    "denominator_complete": false
+  },
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "physical_execution": false,
+    "sensory": false,
+    "analytical": false,
+    "measured_headspace": false,
+    "strict_empirical_oav": false,
+    "safety": false,
+    "procurement": false,
+    "installation": false,
+    "publication": false,
+    "release": false
+  }
+}

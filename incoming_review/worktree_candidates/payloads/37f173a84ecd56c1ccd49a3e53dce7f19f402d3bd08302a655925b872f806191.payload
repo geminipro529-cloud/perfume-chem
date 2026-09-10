@@ -1,0 +1,90 @@
+"""Tests for provider-neutral ODT review exports."""
+
+from __future__ import annotations
+
+import json
+import sys
+
+from engine import odt_verifier
+
+
+def test_offline_review_batch_contains_only_research_records(tmp_path, monkeypatch):
+    monkeypatch.setattr(
+        odt_verifier,
+        "ODT_DATA",
+        {"Linalool": {"odt_air": 6.0}, "Unknown Material": {}},
+    )
+    output = tmp_path / "review.jsonl"
+    count = odt_verifier.generate_offline_review_batch(["Linalool", "Unknown Material"], output)
+
+    records = [json.loads(line) for line in output.read_text(encoding="utf-8").splitlines()]
+    assert count == 2
+    assert records[0] == {
+        "current_local_odt_ppb": 6.0,
+        "material": "Linalool",
+        "quantity": "odor detection threshold in air",
+        "record_type": "odt_offline_research_request",
+        "request_id": "odt-verify-0000",
+        "result_schema": {
+            "confidence": "high|medium|low|none",
+            "odt_ppb": "number|null",
+            "source": "citation",
+        },
+        "review_instruction": (
+            "Record a peer-reviewed air-phase ODT and citation. If none is "
+            "available, record null and state that explicitly."
+        ),
+        "source_scope": [
+            "Leffingwell 1991",
+            "van Gemert 2011",
+            "Devos et al. 1990",
+            "Nagata 2003",
+            "Rychlik et al. 1998",
+        ],
+        "unit": "ppb v/v at 25 C",
+    }
+    assert records[1]["current_local_odt_ppb"] is None
+    forbidden_transport_fields = {"body", "messages", "method", "model", "url"}
+    assert forbidden_transport_fields.isdisjoint(records[0])
+
+
+def test_run_verification_writes_offline_review_queue(tmp_path, monkeypatch, capsys):
+    monkeypatch.setattr(odt_verifier, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(
+        odt_verifier,
+        "ODT_DATA",
+        {"Unknown Material": {"odt_air": 1.0}},
+    )
+    monkeypatch.setattr(odt_verifier, "ODT_VERIFICATION", {})
+
+    odt_verifier.run_verification(
+        mode="all",
+        no_network=True,
+        export_format="jsonl",
+        review_batch=True,
+    )
+
+    output = tmp_path / "output" / "odt_offline_review_batch.jsonl"
+    assert output.is_file()
+    record = json.loads(output.read_text(encoding="utf-8"))
+    assert record["material"] == "Unknown Material"
+    assert "Offline review batch written" in capsys.readouterr().out
+
+
+def test_cli_routes_review_batch_flag(monkeypatch):
+    captured = {}
+
+    def _capture(**kwargs):
+        captured.update(kwargs)
+
+    monkeypatch.setattr(odt_verifier, "run_verification", _capture)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["odt_verifier.py", "--mode", "unverified", "--review-batch", "--export", "jsonl"],
+    )
+    odt_verifier.main()
+
+    assert captured["mode"] == "unverified"
+    assert captured["export_format"] == "jsonl"
+    assert captured["review_batch"] is True

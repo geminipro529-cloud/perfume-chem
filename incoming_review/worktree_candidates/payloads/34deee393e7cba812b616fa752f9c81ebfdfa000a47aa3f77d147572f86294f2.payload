@@ -1,0 +1,379 @@
+{
+  "schema":"perfume-chem-ysl-candidate-v1",
+  "candidate_id":"LH-04",
+  "name":"Apple Pie",
+  "family":"ysl_lhomme",
+  "mode":"STYLISTIC",
+  "source_bindings":{
+    "formula_uid":"ysl20:LH-04:v1",
+    "read_at_utc":"2026-08-26T18:30:15.9026057Z",
+    "runtime_git_commit":"281d389ca76424ace2438e1f6cabdad75163a4d6",
+    "agents_sha256":"A3FF5D3B0165947AD8C96AFF6B16925442E3D7383214D7ADB90D7C1216EDAFB0",
+    "copilot_instructions_sha256":"97640F0EA0FE8B79A073BE13AD84649C12EA548955CAB3D06CF3C5368D841AE9",
+    "inventory_sha256":"DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC",
+    "family_reference_sha256":"467C759EA52412BE0EA8AF7C77F0F14D9FB59DE7B99722FCE57EE2415FBB7401",
+    "inventory_overlay_sha256":"1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072",
+    "family_target_file_sha256":"BBDCE33122C1F0E2FCDC2A37A645429F5174B58A2112AFD1D406EDEE7A35B5E8",
+    "family_target_sha256":"637EF8CE63575A406C5EC27EC2A1CBFCA910E3303CA3B3B100572F64A4E539BA",
+    "chassis_file_sha256":"F793BCFA8C87C7256DB364656ACCA014342760C640FC6D64AC71B4A1D9EF1E94",
+    "parent_formula_uid":"ysl20:LH-01:v1",
+    "parent_formula_definition_sha256":"520924f1d02e25a68fc3740179f8d5950b07f710a7e88959f7b9000bc6c3d77b",
+    "parent_candidate_sha256":"935E53ADFE9DAA5FA7CEE0FDFDDDA5127BD977FB7E4CE4595695C8174FA1DB24",
+    "lineage_type":"CONTROLLED_CHILD",
+    "active_dose_change_authorizations":[
+      "Amberwood F=reduced from 74 to 20 uL as the shared socket donor while retaining dry persistence",
+      "Ethyl 2-Methylbutyrate (0.1%)=trace apple-impact key inside the fixed 300 uL socket",
+      "Hexyl Acetate (10%)=green apple ester body inside the fixed 300 uL socket",
+      "Allyl Cyclohexyl Propionate (10% in DPG)=apple-green fruit continuity inside the fixed 300 uL socket",
+      "Isobutavan=restrained creamy pastry shadow inside the fixed 300 uL socket",
+      "2-Acetyl Pyrazine (1% in DPG)=trace baked-crust shadow inside the fixed 300 uL socket",
+      "Cinnamaldehyde (1%)=trace warm crust-spice edge inside the fixed 300 uL socket",
+      "Vanillin (10%)=trace pastry rounding inside the fixed 300 uL socket"
+    ]
+  },
+  "target_identity":{
+    "north_star":"A recognizable L'Homme whose ginger-citrus and violet-green tailoring fold around a crisp green apple accord and a restrained dry pastry shadow; cedar and vetiver must still define the perfume.",
+    "functional_architecture":["protected bergamot-cedrat-ginger ignition","ester and green-fruit apple relationship","microdosed crust/cream/cinnamon pastry shadow","protected violet-green cedar-vetiver tailoring"],
+    "protected_identity":["Ginger Oil","Violet Leaf","Cedarwood Virginia","Vetiver Haiti"],
+    "primary_axis":"crisp ester-green apple over a restrained dry pastry shadow",
+    "variant_socket":{
+      "active_ppm_w_w":66666.667,
+      "current_raw_ul":300.0,
+      "target_allocation":{"Hexyl Acetate":18000.0,"Allyl Cyclohexyl Propionate":14000.0,"Ethyl 2-Methylbutyrate":3000.0,"Isobutavan":8000.0,"2-Acetyl Pyrazine":500.0,"Cinnamaldehyde":1500.0,"Vanillin":4500.0,"Tonka increment":7000.0,"Sandalwood increment":10166.6666},
+      "current_allocation_ul":{"Ethyl 2-Methylbutyrate (0.1%)":20.0,"Hexyl Acetate (10%)":100.0,"Allyl Cyclohexyl Propionate (10% in DPG)":70.0,"Isobutavan":40.0,"2-Acetyl Pyrazine (1% in DPG)":10.0,"Cinnamaldehyde (1%)":10.0,"Vanillin (10%)":20.0,"Tonkarome (20% w/w in TEC)":30.0}
+    },
+    "drift_risk":"A loud fruity ester cloud, popcorn pyrazine, cinnamon candy, or vanilla dessert would erase L'Homme and fail the name."
+  },
+  "target_ideal":{
+    "basis":"active_ppm_w_w_of_concentrate","total_active_ppm_w_w":1000000.0,"target_sha256":"97918DE3911BCA142F13D287EF90DDE9F1FD900250E896297C5C53B957338B1C","inventory_independent":true,
+    "materials":[
+      {"identity":"Iso E Super","active_ppm_w_w":160000.0,"function":"transparent cedar halo and lateral diffusion","time_windows":["opening","heart","late_heart","drydown"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"DESIGN_HYPOTHESIS_NOT_COMMERCIAL_PERCENTAGE"},
+      {"identity":"Cedarwood Virginia","active_ppm_w_w":110000.0,"function":"literal tailored cedar backbone","time_windows":["heart","late_heart","drydown"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"},
+      {"identity":"Ethylene Brassylate","active_ppm_w_w":80000.0,"function":"single clean structural musk for continuity","time_windows":["heart","late_heart","drydown"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS"},
+      {"identity":"Hedione","active_ppm_w_w":100925.926,"function":"radiant air joining apple-green heart to woods","time_windows":["opening","heart","late_heart"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"TRANSITION_DESIGN_HYPOTHESIS"},
+      {"identity":"Vertofix Coeur","active_ppm_w_w":65000.0,"function":"cedar-vetiver bridge and dry persistence","time_windows":["heart","late_heart","drydown"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS"},
+      {"identity":"Ethyl Linalool","active_ppm_w_w":50000.0,"function":"fresh floral-woody tenacity between fruit and cedar","time_windows":["opening","heart","late_heart"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"TRANSITION_DESIGN_HYPOTHESIS"},
+      {"identity":"Dihydromyrcenol","active_ppm_w_w":35000.0,"function":"kinetic freshness held below sport-blue dominance","time_windows":["opening","top"],"evidence_ids":["YSL-LH-OFFICIAL-UK","SOL-LH-FROZEN"],"quantity_authority":"OZONE_FUNCTION_DESIGN_HYPOTHESIS"},
+      {"identity":"Sandalwood","active_ppm_w_w":65166.6666,"function":"dry-creamy pastry-to-cedar counterweight","time_windows":["late_heart","drydown"],"evidence_ids":["YSL-LH-OFFICIAL-UK","STUDY-DESIGN-LH-04"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_DESIGN"},
+      {"identity":"Vetiver Haiti","active_ppm_w_w":45000.0,"function":"dry rooty Haitian-vetiver tension preventing dessert drift","time_windows":["heart","late_heart","drydown"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"},
+      {"identity":"Alpha Isomethyl Ionone","active_ppm_w_w":50000.0,"function":"violet-woody body supporting green apple texture","time_windows":["heart","late_heart"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"ALLERGEN_AND_NOTE_FUNCTION_DESIGN_HYPOTHESIS"},
+      {"identity":"Violet Leaf","active_ppm_w_w":25000.0,"function":"crushed cool green signature heart","time_windows":["opening","heart"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"},
+      {"identity":"Bergamot Oil","active_ppm_w_w":45000.0,"function":"luminous citrus opening around ginger and apple","time_windows":["opening","top"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"},
+      {"identity":"Cedrat Oil","active_ppm_w_w":15000.0,"function":"bitter peel edge keeping apple crisp","time_windows":["opening","top"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"},
+      {"identity":"Ginger Oil","active_ppm_w_w":22000.0,"function":"warm-cool signature and apple-pastry counterpoint","time_windows":["opening","top","heart"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"},
+      {"identity":"Basil","active_ppm_w_w":3000.0,"function":"restrained aromatic contour","time_windows":["opening","heart"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_TRACE_DESIGN"},
+      {"identity":"White Pepper","active_ppm_w_w":4000.0,"function":"dry bright bite preventing syrupy fruit","time_windows":["opening","top","heart"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_TRACE_DESIGN"},
+      {"identity":"Tonka","active_ppm_w_w":42000.0,"function":"restrained dry pastry warmth, not dessert sweetness","time_windows":["late_heart","drydown"],"evidence_ids":["YSL-LH-OFFICIAL-UK","STUDY-DESIGN-LH-04"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_DESIGN"},
+      {"identity":"Coumarin","active_ppm_w_w":10000.0,"function":"dry hay-tonka continuity","time_windows":["heart","late_heart","drydown"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DECLARED_ALLERGEN_FUNCTION_DESIGN_HYPOTHESIS"},
+      {"identity":"Linalyl Acetate","active_ppm_w_w":907.4074,"function":"retained core citrus-floral ester seam","time_windows":["opening","top","heart"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_CORE"},
+      {"identity":"Florol","active_ppm_w_w":2500.0,"function":"retained core clean floral volume","time_windows":["heart","late_heart"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_CORE"},
+      {"identity":"Parmavert","active_ppm_w_w":16000.0,"function":"green violet-leaf snap connecting apple to tailoring","time_windows":["opening","heart"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"VIOLET_GREEN_SUPPORT_DESIGN_HYPOTHESIS"},
+      {"identity":"Ambroxide","active_ppm_w_w":2000.0,"function":"retained core mineral persistence","time_windows":["late_heart","drydown"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_CORE"},
+      {"identity":"Hedione HC","active_ppm_w_w":2000.0,"function":"retained core high-cis radiance","time_windows":["opening","heart","late_heart"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_CORE"},
+      {"identity":"Hexyl Acetate","active_ppm_w_w":18000.0,"function":"green juicy apple ester body","time_windows":["opening","top","heart"],"evidence_ids":["APPLE-IMPACT-ODORANTS-2002","APPLE-HEADSPACE-GCO-2005"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_DESIGN"},
+      {"identity":"Allyl Cyclohexyl Propionate","active_ppm_w_w":14000.0,"function":"green-fruit apple continuity into the heart","time_windows":["opening","top","heart"],"evidence_ids":["APPLE-IMPACT-ODORANTS-2002"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_DESIGN"},
+      {"identity":"Ethyl 2-Methylbutyrate","active_ppm_w_w":3000.0,"function":"trace high-impact crisp apple lift","time_windows":["opening","top"],"evidence_ids":["APPLE-IMPACT-ODORANTS-2002","APPLE-HEADSPACE-GCO-2005"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_DESIGN"},
+      {"identity":"Isobutavan","active_ppm_w_w":8000.0,"function":"restrained creamy-buttery pastry shadow","time_windows":["heart","late_heart"],"evidence_ids":["STUDY-DESIGN-LH-04"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_DESIGN"},
+      {"identity":"2-Acetyl Pyrazine","active_ppm_w_w":500.0,"function":"trace baked-crust articulation below popcorn dominance","time_windows":["heart","late_heart"],"evidence_ids":["STUDY-DESIGN-LH-04"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_DESIGN"},
+      {"identity":"Cinnamaldehyde","active_ppm_w_w":1500.0,"function":"trace warm crust-spice edge, never cinnamon candy","time_windows":["opening","heart"],"evidence_ids":["STUDY-DESIGN-LH-04"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_DESIGN"},
+      {"identity":"Vanillin","active_ppm_w_w":4500.0,"function":"trace pastry rounding below vanilla-dessert identity","time_windows":["late_heart","drydown"],"evidence_ids":["STUDY-DESIGN-LH-04"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_DESIGN"}
+    ]
+  },
+  "current_inventory_build":{
+    "basis":"raw_stock_ppm_w_w_of_concentrate","total_raw_stock_ppm_w_w":1000000.0,"total_odorant_active_ppm_w_w":908715.555553,"finished_product_concentrate_fraction_w_w":0.15,"inventory_sha256":"DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC","inventory_overlay_sha256":"1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072",
+    "materials":[
+      {"inventory_name":"Iso E Super","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":133333.333333,"odorant_active_ppm_w_w":133333.333333,"finished_product_active_ppm_w_w":20000.0,"mapping_status":"DIRECT_CORE_MAPPING","target_functions":["transparent cedar halo"],"is_musk":false,"musk_function":null,"loss_statement":"Unchanged parent core.","dose_authority":"CONTROLLED_CHILD_CORE"},
+      {"inventory_name":"Cedarwood oil Virginia","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":111111.111111,"odorant_active_ppm_w_w":111111.111111,"finished_product_active_ppm_w_w":16666.666667,"mapping_status":"DIRECT_CORE_MAPPING","target_functions":["literal cedar backbone"],"is_musk":false,"musk_function":null,"loss_statement":"Lot and chemotype unmeasured.","dose_authority":"CONTROLLED_CHILD_CORE"},
+      {"inventory_name":"Ethylene Brassylate","stock_status":"OWNED_OVERLAY_ROSTER_MISSING","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":77777.777778,"odorant_active_ppm_w_w":77777.777778,"finished_product_active_ppm_w_w":11666.666667,"mapping_status":"OVERLAY_DIRECT_WITH_INVENTORY_DRIFT_CAVEAT","target_functions":["single structural musk"],"is_musk":true,"musk_function":"transparent structural continuity","loss_statement":"Verify label or receipt before physical dosing; native roster remains stale.","dose_authority":"DIRECT_USER_OWNERSHIP_VERIFY_FIRST"},
+      {"inventory_name":"Hedione","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":93333.333333,"odorant_active_ppm_w_w":93333.333333,"finished_product_active_ppm_w_w":14000.0,"mapping_status":"REDUCED_MOBILE_DONOR_CORE","target_functions":["radiant air","retained HC transition"],"is_musk":false,"musk_function":null,"loss_statement":"Cannot reproduce Hedione HC exactly.","dose_authority":"CONTROLLED_SOCKET_DONOR"},
+      {"inventory_name":"Vertofix","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":66666.666667,"odorant_active_ppm_w_w":66666.666667,"finished_product_active_ppm_w_w":10000.0,"mapping_status":"GRADE_UNVERIFIED_CORE_MAPPING","target_functions":["cedar-vetiver bridge"],"is_musk":false,"musk_function":null,"loss_statement":"Coeur grade equivalence unverified.","dose_authority":"CONTROLLED_CHILD_CORE"},
+      {"inventory_name":"Ethyl Linalool","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":48888.888889,"odorant_active_ppm_w_w":48888.888889,"finished_product_active_ppm_w_w":7333.333333,"mapping_status":"DIRECT_CORE_MAPPING","target_functions":["fresh floral-woody tenacity"],"is_musk":false,"musk_function":null,"loss_statement":"Unchanged parent core.","dose_authority":"CONTROLLED_CHILD_CORE"},
+      {"inventory_name":"Dihydromyrcenol","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":23111.111111,"odorant_active_ppm_w_w":23111.111111,"finished_product_active_ppm_w_w":3466.666667,"mapping_status":"REDUCED_MOBILE_DONOR_CORE","target_functions":["controlled kinetic freshness"],"is_musk":false,"musk_function":null,"loss_statement":"Reduced 26 uL to fund the exact socket.","dose_authority":"CONTROLLED_SOCKET_DONOR"},
+      {"inventory_name":"Sandalore","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":53333.333333,"odorant_active_ppm_w_w":53333.333333,"finished_product_active_ppm_w_w":8000.0,"mapping_status":"FUNCTIONAL_CORE_SUBSTITUTION","target_functions":["dry-creamy pastry-to-cedar support"],"is_musk":false,"musk_function":null,"loss_statement":"Does not reproduce natural sandalwood facets.","dose_authority":"CONTROLLED_CHILD_CORE"},
+      {"inventory_name":"Indian Vetiver EO (volume grade)","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":40000.0,"odorant_active_ppm_w_w":40000.0,"finished_product_active_ppm_w_w":6000.0,"mapping_status":"ORIGIN_GRADE_SUBSTITUTION","target_functions":["dry rooty antidessert tension"],"is_musk":false,"musk_function":null,"loss_statement":"Indian volume grade is not Haitian vetiver; composite OAV required.","dose_authority":"CONTROLLED_CHILD_CORE"},
+      {"inventory_name":"Alpha Isomethyl Ionone (Methyl Ionone Pure)","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":48888.888889,"odorant_active_ppm_w_w":48888.888889,"finished_product_active_ppm_w_w":7333.333333,"mapping_status":"INVENTORY_NAME_NORMALIZATION","target_functions":["violet-woody apple support"],"is_musk":false,"musk_function":null,"loss_statement":"Specific commercial grade unverified.","dose_authority":"CONTROLLED_CHILD_CORE"},
+      {"inventory_name":"Parmavert","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":35555.555556,"odorant_active_ppm_w_w":35555.555556,"finished_product_active_ppm_w_w":5333.333333,"mapping_status":"VIOLET_LEAF_FUNCTIONAL_SUBSTITUTION","target_functions":["green apple-to-violet tailoring"],"is_musk":false,"musk_function":null,"loss_statement":"Not literal violet leaf.","dose_authority":"CONTROLLED_CHILD_CORE"},
+      {"inventory_name":"Bergamot FCF oil Sicilian","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":73333.333333,"odorant_active_ppm_w_w":73333.333333,"finished_product_active_ppm_w_w":11000.0,"mapping_status":"PROCESSED_ORIGIN_MAPPING","target_functions":["luminous citrus-apple opening"],"is_musk":false,"musk_function":null,"loss_statement":"FCF lot is not exact target oil; composite OAV required.","dose_authority":"CONTROLLED_CHILD_CORE"},
+      {"inventory_name":"Lemon FCF oil Sicilian","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":22222.222222,"odorant_active_ppm_w_w":22222.222222,"finished_product_active_ppm_w_w":3333.333333,"mapping_status":"CEDRAT_SUBSTITUTION","target_functions":["bitter crisp peel function"],"is_musk":false,"musk_function":null,"loss_statement":"Lacks true cedrat bitterness; composite OAV required.","dose_authority":"CONTROLLED_CHILD_CORE"},
+      {"inventory_name":"Pamzest","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":4444.444444,"odorant_active_ppm_w_w":4444.444444,"finished_product_active_ppm_w_w":666.666667,"mapping_status":"CEDRAT_SUPPORT","target_functions":["dry zesty edge"],"is_musk":false,"musk_function":null,"loss_statement":"Support only, not cedrat identity.","dose_authority":"CONTROLLED_CHILD_CORE"},
+      {"inventory_name":"Ginger EO","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":22222.222222,"odorant_active_ppm_w_w":22222.222222,"finished_product_active_ppm_w_w":3333.333333,"mapping_status":"DIRECT_NATURAL_CLASS","target_functions":["protected ginger recognizer"],"is_musk":false,"musk_function":null,"loss_statement":"Lot and measured headspace unknown; composite OAV required.","dose_authority":"CONTROLLED_CHILD_CORE"},
+      {"inventory_name":"Basil EO (India, Ocimum Basilicum)","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":1777.777778,"odorant_active_ppm_w_w":1777.777778,"finished_product_active_ppm_w_w":266.666667,"mapping_status":"NATURAL_CLASS_CHEMOTYPE_UNVERIFIED","target_functions":["basil contour"],"is_musk":false,"musk_function":null,"loss_statement":"May be culinary; composite OAV required.","dose_authority":"TRACE_CONTROLLED_CORE"},
+      {"inventory_name":"Black Pepper EO","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":1777.777778,"odorant_active_ppm_w_w":1777.777778,"finished_product_active_ppm_w_w":266.666667,"mapping_status":"WHITE_PEPPER_SUBSTITUTION","target_functions":["dry pepper antidessert bite"],"is_musk":false,"musk_function":null,"loss_statement":"Rougher than white pepper; composite OAV required.","dose_authority":"TRACE_CONTROLLED_CORE"},
+      {"inventory_name":"Tonkarome (20% w/w in TEC)","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":0.2,"concentration_basis":"w/w","carrier":"TEC","raw_stock_ppm_w_w":55555.555556,"odorant_active_ppm_w_w":11111.111111,"finished_product_active_ppm_w_w":1666.666667,"mapping_status":"CORE_PLUS_PASTRY_SOCKET_MAPPING","target_functions":["dry tonka warmth","pastry rounding"],"is_musk":false,"musk_function":null,"loss_statement":"Known basis; dose remains deliberately dry and below target-active mass.","dose_authority":"KNOWN_20_PERCENT_W_W_CONTROLLED_SOCKET"},
+      {"inventory_name":"Linalyl Acetate","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":11111.111111,"odorant_active_ppm_w_w":11111.111111,"finished_product_active_ppm_w_w":1666.666667,"mapping_status":"REDUCED_MOBILE_DONOR_CORE","target_functions":["citrus-floral seam"],"is_musk":false,"musk_function":null,"loss_statement":"Reduced to fund the socket.","dose_authority":"CONTROLLED_SOCKET_DONOR"},
+      {"inventory_name":"Florol","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":11111.111111,"odorant_active_ppm_w_w":11111.111111,"finished_product_active_ppm_w_w":1666.666667,"mapping_status":"REDUCED_MOBILE_DONOR_CORE","target_functions":["clean floral volume"],"is_musk":false,"musk_function":null,"loss_statement":"Reduced to fund the socket.","dose_authority":"CONTROLLED_SOCKET_DONOR"},
+      {"inventory_name":"Amberwood F","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":4444.444444,"odorant_active_ppm_w_w":4444.444444,"finished_product_active_ppm_w_w":666.666667,"mapping_status":"REDUCED_AMBROXIDE_SUBSTITUTION_CORE","target_functions":["dry persistence"],"is_musk":false,"musk_function":null,"loss_statement":"Reduced and more forceful than Ambroxide.","dose_authority":"CONTROLLED_SOCKET_DONOR"},
+      {"inventory_name":"Ethyl 2-Methylbutyrate (0.1%)","stock_status":"VERIFY_FIRST_FROZEN_INVENTORY_PERCENT_BASIS_AMBIGUOUS","stock_fraction":0.001,"concentration_basis":"UNRECORDED_PERCENT_BASIS","carrier":null,"raw_stock_ppm_w_w":4444.444444,"odorant_active_ppm_w_w":4.444444,"finished_product_active_ppm_w_w":0.666667,"mapping_status":"CONDITIONAL_APPLE_IMPACT_MAPPING","target_functions":["trace crisp apple lift"],"is_musk":false,"musk_function":null,"loss_statement":"0.1% label is recorded but carrier and w/w basis are not; ppm is a conditional working estimate and physical dosing is HOLD pending receipt.","dose_authority":"VERIFY_STOCK_BASIS_BEFORE_PHYSICAL_DOSE"},
+      {"inventory_name":"Hexyl Acetate (10%)","stock_status":"VERIFY_FIRST_FROZEN_INVENTORY_PERCENT_BASIS_AMBIGUOUS","stock_fraction":0.1,"concentration_basis":"UNRECORDED_PERCENT_BASIS","carrier":null,"raw_stock_ppm_w_w":22222.222222,"odorant_active_ppm_w_w":2222.222222,"finished_product_active_ppm_w_w":333.333333,"mapping_status":"CONDITIONAL_APPLE_ESTER_MAPPING","target_functions":["green juicy apple body"],"is_musk":false,"musk_function":null,"loss_statement":"10% label is recorded but carrier and w/w basis are not; active ppm is conditional and physical dosing is HOLD pending receipt.","dose_authority":"VERIFY_STOCK_BASIS_BEFORE_PHYSICAL_DOSE"},
+      {"inventory_name":"Allyl Cyclohexyl Propionate (10% in DPG)","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":0.1,"concentration_basis":"w/w","carrier":"DPG","raw_stock_ppm_w_w":15555.555556,"odorant_active_ppm_w_w":1555.555556,"finished_product_active_ppm_w_w":233.333333,"mapping_status":"APPLE_GREEN_FRUIT_MAPPING","target_functions":["green-fruit apple continuity"],"is_musk":false,"musk_function":null,"loss_statement":"Fruity-pineapple facet must remain integrated into apple rather than tropical drift.","dose_authority":"KNOWN_10_PERCENT_W_W_CONTROLLED_SOCKET"},
+      {"inventory_name":"Isobutavan","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":8888.888889,"odorant_active_ppm_w_w":8888.888889,"finished_product_active_ppm_w_w":1333.333333,"mapping_status":"PASTRY_SHADOW_MAPPING","target_functions":["creamy-buttery pastry shadow"],"is_musk":false,"musk_function":null,"loss_statement":"Must remain a shadow beneath ginger, green tailoring, cedar, and vetiver.","dose_authority":"AUTHORIZED_CONTROLLED_SOCKET_ADDITION"},
+      {"inventory_name":"2-Acetyl Pyrazine (1% in DPG)","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":0.01,"concentration_basis":"w/w","carrier":"DPG","raw_stock_ppm_w_w":2222.222222,"odorant_active_ppm_w_w":22.222222,"finished_product_active_ppm_w_w":3.333333,"mapping_status":"TRACE_CRUST_MAPPING","target_functions":["baked crust articulation"],"is_musk":false,"musk_function":null,"loss_statement":"High odor impact may become popcorn or roasted; OAV gate must control it.","dose_authority":"KNOWN_1_PERCENT_W_W_TRACE_SOCKET"},
+      {"inventory_name":"Cinnamaldehyde (1%)","stock_status":"VERIFY_FIRST_FROZEN_INVENTORY_PERCENT_BASIS_AMBIGUOUS","stock_fraction":0.01,"concentration_basis":"UNRECORDED_PERCENT_BASIS","carrier":null,"raw_stock_ppm_w_w":2222.222222,"odorant_active_ppm_w_w":22.222222,"finished_product_active_ppm_w_w":3.333333,"mapping_status":"CONDITIONAL_TRACE_CRUST_SPICE_MAPPING","target_functions":["warm crust-spice edge"],"is_musk":false,"musk_function":null,"loss_statement":"1% label lacks carrier and w/w receipt; conditional estimate only, with safety and physical dosing held.","dose_authority":"VERIFY_STOCK_BASIS_BEFORE_PHYSICAL_DOSE"},
+      {"inventory_name":"Vanillin (10%)","stock_status":"VERIFY_FIRST_FROZEN_INVENTORY_PERCENT_BASIS_AMBIGUOUS","stock_fraction":0.1,"concentration_basis":"UNRECORDED_PERCENT_BASIS","carrier":null,"raw_stock_ppm_w_w":4444.444444,"odorant_active_ppm_w_w":444.444444,"finished_product_active_ppm_w_w":66.666667,"mapping_status":"CONDITIONAL_TRACE_PASTRY_MAPPING","target_functions":["trace pastry rounding"],"is_musk":false,"musk_function":null,"loss_statement":"10% label lacks carrier and w/w receipt; conditional estimate only and must not become vanilla dessert.","dose_authority":"VERIFY_STOCK_BASIS_BEFORE_PHYSICAL_DOSE"}
+    ]
+  },
+  "volume_adapter":{"authority":"HEURISTIC_VOLUME_ADAPTER_NOT_PPM_W_W","concentrate_total_ul":4500.0,"finished_product_nominal_ml":30.0,"nominal_concentrate_fraction":0.15,"matrix_omissions":["stock densities","finished ethanol-water mass fractions","volume contraction","unverified percentage-stock bases flagged per row"],"formula_definition_status":"SOURCE_ONLY_NO_PIPELINE_ANALYSIS_YET"},
+  "missing_chemical_impact":{"status":"PENDING_NATIVE_ASSESSMENT_TASK_8","architecture_locked":true,"auto_integrated_materials":[],"gaps":["Cedrat Oil exact bitter-peel identity","Violet Leaf exact identity","verified w/w bases for Ethyl 2-Methylbutyrate 0.1%, Hexyl Acetate 10%, Cinnamaldehyde 1%, and Vanillin 10%","physical evidence that pastry remains subordinate"],"authority":"NO_PURCHASE_NO_FORMULA_MUTATION_NO_SENSORY_CONCLUSION"},
+  "purchase_preparation":{"state":"VERIFY_STOCK_BASIS","recommendation":"Do not buy new apple or pastry materials. First recover label/preparation receipts for the four ambiguous percentage stocks and verify EB. If w/w bases cannot be established, prepare new owned-neat stocks by mass before any physical trial; all current numerical values for those rows remain conditional.","lost_tinctures":"NO_USE","ambrettolide":"NO_USE_PROCUREMENT_PENDING"},
+  "diagnostics":{
+    "parser_preflight": {
+      "status": "PASS_WITH_WARNINGS_AND_STOCK_HOLDS",
+      "authoritative_runtime": "D:/chatbots/perfume-chem",
+      "formula_uid": "ysl20:LH-04:v1",
+      "formula_definition_sha256": "449c26b6382bbe5d585934add360f6dad2b7ef79d55f94e16f0046463ba45883",
+      "rendered_file_sha256": "F7F2774FC608317F76A23C23D083178D8D19BE2DE51FE437F66D15E6CA7005DA",
+      "parsed_material_count": 28,
+      "parsed_raw_ul": 4500.0,
+      "hedione_percent_of_concentrate": 9.3,
+      "warnings": [
+        "VP_WALL: Cedarwood oil Virginia (VP=0.005 Pa, role=character) is predicted as skin-only and nonprojecting by the legacy evaluator."
+      ],
+      "study_holds": [
+        "Ethyl 2-Methylbutyrate (0.1%) percent basis and carrier VERIFY_FIRST",
+        "Hexyl Acetate (10%) percent basis and carrier VERIFY_FIRST",
+        "Cinnamaldehyde (1%) percent basis and carrier VERIFY_FIRST",
+        "Vanillin (10%) percent basis and carrier VERIFY_FIRST"
+      ],
+      "score_authority": "LEGACY_NUMERICAL_SCORE_IGNORED_NOT_SENSORY_EVIDENCE"
+    },
+    "ppm_arithmetic": "PASS_WITH_CONDITIONAL_STOCK_BASES",
+    "odt_oav": "HOLD_MODELED_ACTIVE_CONCENTRATE_SCREEN_NOT_MEASURED",
+    "composite_natural_oav": "NOT RUN",
+    "temporal_headspace": "COMPUTED_HEURISTIC_UNCALIBRATED_NOT_MEASURED",
+    "stock_rebase_oav_per_time": "FAIL_G15_CHILD_STOCK_AUTHORITY_INVALID",
+    "pipeline_release_gate": "FAIL_HOLD",
+    "sensory_authority": false,
+    "pipeline_artifact_binding": "PERSISTED_VERIFIED",
+    "pipeline_298k": {
+      "screening_summary_sha256": "23356e17dee310dfb15dadd4f621ee501b7bd83bf96d4f28cb673b45a57af395",
+      "formula_definition_sha256": "449c26b6382bbe5d585934add360f6dad2b7ef79d55f94e16f0046463ba45883",
+      "rendered_file_sha256": "F7F2774FC608317F76A23C23D083178D8D19BE2DE51FE437F66D15E6CA7005DA",
+      "pipeline_json_sha256": "c9442756415fa0f2017a0e438aaae08b292bb1db37f52e40b0a1dd796be46e26",
+      "formatter_output_sha256": "96a9f8bd89dea6edd1ab717a5163b30ccb68adbba5a0938fc1df6bad193636f5",
+      "analysis_artifact_sha256": "e14222c6e2678964d36152b142e1e16c019e6c3f027c1e9df3392a5d4ecf5008",
+      "temperature_K": 298.15,
+      "parsed_subtotal_ul": 4500.0,
+      "oav_authority": {
+        "status": "WITHHELD",
+        "strict_oav_status": "ABSTAINED",
+        "headspace_basis": "MODELED_ACTIVE_CONCENTRATE_SCREEN",
+        "model_class": "HEURISTIC_NOT_MEASURED",
+        "quantitative_authority": {
+          "active_concentrate_ppm_w_w": "UNAVAILABLE",
+          "active_finished_product_ppm_w_w": "UNAVAILABLE",
+          "headspace_oav": "MODELED_ACTIVE_CONCENTRATE_SCREEN",
+          "headspace_model_class": "HEURISTIC_NOT_MEASURED",
+          "matrix_source": "omitted",
+          "stock_carrier_inclusion": "UNRESOLVED",
+          "unavailable_active_mass_materials": [
+            "2-Acetyl Pyrazine (1% in DPG)",
+            "Allyl Cyclohexyl Propionate (10% in DPG)",
+            "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+            "Amberwood F",
+            "Basil EO (India, Ocimum Basilicum)",
+            "Bergamot FCF oil Sicilian",
+            "Black Pepper EO",
+            "Cinnamaldehyde (1%)",
+            "Dihydromyrcenol",
+            "Ethyl 2-Methylbutyrate (0.1%)",
+            "Ethyl Linalool",
+            "Ethylene Brassylate",
+            "Florol",
+            "Ginger EO",
+            "Hedione",
+            "Hexyl Acetate (10%)",
+            "Indian Vetiver EO (volume grade)",
+            "Iso E Super",
+            "Isobutavan",
+            "Linalyl Acetate",
+            "Parmavert",
+            "Sandalore",
+            "Tonkarome (20% w/w in TEC)",
+            "Vanillin (10%)",
+            "Vertofix"
+          ],
+          "density_fallback_materials": [
+            "2-Acetyl Pyrazine (1% in DPG)",
+            "Allyl Cyclohexyl Propionate (10% in DPG)",
+            "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+            "Amberwood F",
+            "Basil EO (India, Ocimum Basilicum)",
+            "Bergamot FCF oil Sicilian",
+            "Black Pepper EO",
+            "Cinnamaldehyde (1%)",
+            "Dihydromyrcenol",
+            "Ethyl 2-Methylbutyrate (0.1%)",
+            "Ethyl Linalool",
+            "Ethylene Brassylate",
+            "Florol",
+            "Ginger EO",
+            "Hedione",
+            "Hexyl Acetate (10%)",
+            "Indian Vetiver EO (volume grade)",
+            "Iso E Super",
+            "Isobutavan",
+            "Linalyl Acetate",
+            "Parmavert",
+            "Sandalore",
+            "Tonkarome (20% w/w in TEC)",
+            "Vanillin (10%)",
+            "Vertofix"
+          ]
+        },
+        "oav_release_authority": false,
+        "sensory_authority": false,
+        "opening_known_vapor_ppm": 552.213709,
+        "opening_unknown_material_count": 2,
+        "opening_vapor_total_scope": "SUM_OF_RESOLVED_ROWS_ONLY_UNKNOWN_NATURALS_EXCLUDED"
+      },
+      "composite_natural_status": {
+        "gate": "natural_composite_coverage",
+        "status": "FAIL",
+        "detail": "Natural mixtures lack required composite GC-O decomposition: Basil EO (India, Ocimum Basilicum), Indian Vetiver EO (volume grade)"
+      },
+      "g15": {
+        "status": "FAIL",
+        "detail": "G15 requires every child row to have a uniquely resolved live inventory stock.",
+        "failure_code": "G15_CHILD_STOCK_AUTHORITY_INVALID",
+        "authorized_active_dose_changes": {
+          "Amberwood F": "reduced from 74 to 20 uL as the shared socket donor while retaining dry persistence",
+          "Ethyl 2-Methylbutyrate (0.1%)": "trace apple-impact key inside the fixed 300 uL socket",
+          "Hexyl Acetate (10%)": "green apple ester body inside the fixed 300 uL socket",
+          "Allyl Cyclohexyl Propionate (10% in DPG)": "apple-green fruit continuity inside the fixed 300 uL socket",
+          "Isobutavan": "restrained creamy pastry shadow inside the fixed 300 uL socket",
+          "2-Acetyl Pyrazine (1% in DPG)": "trace baked-crust shadow inside the fixed 300 uL socket",
+          "Cinnamaldehyde (1%)": "trace warm crust-spice edge inside the fixed 300 uL socket",
+          "Vanillin (10%)": "trace pastry rounding inside the fixed 300 uL socket"
+        },
+        "oav_release_authority": false
+      },
+      "stock_contract": {
+        "status": "FAIL",
+        "detail": "13 material stock contract failure(s): 2-Acetyl Pyrazine (1% in DPG), Allyl Cyclohexyl Propionate (10% in DPG), Basil EO (India, Ocimum Basilicum), Cinnamaldehyde (1%), Ethyl 2-Methylbutyrate (0.1%), Ethyl Linalool, Ethylene Brassylate, Hexyl Acetate (10%), Indian Vetiver EO (volume grade), Pamzest, Parmavert, Tonkarome (20% w/w in TEC), Vanillin (10%)",
+        "holds": [
+          {
+            "material": "Ethylene Brassylate",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "OWNED_OVERLAY_ROSTER_MISSING",
+            "classification": "HOLD_STALE_INVENTORY_ROSTER"
+          },
+          {
+            "material": "Ethyl Linalool",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Indian Vetiver EO (volume grade)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Parmavert",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Pamzest",
+            "native_reason": "inventory_stock_unavailable",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Basil EO (India, Ocimum Basilicum)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Tonkarome (20% w/w in TEC)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Ethyl 2-Methylbutyrate (0.1%)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "VERIFY_FIRST_FROZEN_INVENTORY_PERCENT_BASIS_AMBIGUOUS",
+            "classification": "HOLD_UNVERIFIED_STOCK_BASIS"
+          },
+          {
+            "material": "Hexyl Acetate (10%)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "VERIFY_FIRST_FROZEN_INVENTORY_PERCENT_BASIS_AMBIGUOUS",
+            "classification": "HOLD_UNVERIFIED_STOCK_BASIS"
+          },
+          {
+            "material": "Allyl Cyclohexyl Propionate (10% in DPG)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "2-Acetyl Pyrazine (1% in DPG)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Cinnamaldehyde (1%)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "VERIFY_FIRST_FROZEN_INVENTORY_PERCENT_BASIS_AMBIGUOUS",
+            "classification": "HOLD_UNVERIFIED_STOCK_BASIS"
+          },
+          {
+            "material": "Vanillin (10%)",
+            "native_reason": "inventory_stock_metadata_incomplete",
+            "candidate_stock_status": "VERIFY_FIRST_FROZEN_INVENTORY_PERCENT_BASIS_AMBIGUOUS",
+            "classification": "HOLD_UNVERIFIED_STOCK_BASIS"
+          }
+        ]
+      },
+      "artifact_binding": {
+        "status": "PERSISTED_VERIFIED",
+        "analysis_sha256": "ef667c66abd5c725e8edb455d6b03bad3a4587b947f7f0cab30ebcc6d33863b0",
+        "artifact_sha256": "e14222c6e2678964d36152b142e1e16c019e6c3f027c1e9df3392a5d4ecf5008",
+        "rendered_file_sha256": "F7F2774FC608317F76A23C23D083178D8D19BE2DE51FE437F66D15E6CA7005DA"
+      },
+      "overall_gate_status": "FAIL",
+      "finalist_eligibility": {
+        "status": "HOLD_STALE_INVENTORY_ROSTER_AND_DATA_COVERAGE",
+        "eligible": false,
+        "reasons": [
+          "STOCK_CONTRACT_FAIL",
+          "QUANTITATIVE_AUTHORITY_UNAVAILABLE",
+          "NATURAL_COMPOSITE_GAP",
+          "CORE_PHYSICS_OR_ODT_GAP",
+          "FAMILY_ARCHETYPE_UNMAPPED"
+        ],
+        "sensory_authority": false
+      },
+      "subthreshold_character_rows": [
+        {
+          "material": "2-Acetyl Pyrazine (1% in DPG)",
+          "oav": 0.024493,
+          "role": "character",
+          "model_source": "heuristic:monomolecular_headspace"
+        },
+        {
+          "material": "Cinnamaldehyde (1%)",
+          "oav": 0.000304,
+          "role": "character",
+          "model_source": "heuristic:monomolecular_headspace"
+        },
+        {
+          "material": "Vanillin (10%)",
+          "oav": 0.165799,
+          "role": "character",
+          "model_source": "heuristic:monomolecular_headspace"
+        }
+      ],
+      "temporal_authority": "HEURISTIC_UNCALIBRATED_NOT_MEASURED",
+      "sensory_authority": false
+    }
+  },
+  "blind_test":{"status":"PROTOCOL_ONLY_NOT_EXECUTED","role":"Required L'Homme Apple Pie controlled child","comparison":"Balanced-order equal-mass and equal-concentration comparison against LH-01 after all stock-basis receipts, with family identity scored before apple and pastry quality.","time_cells":["0_min","5_min","30_min","2_hr","4_hr"],"liking_result":"NOT TESTED"},
+  "claim_ceiling":{"exact_commercial_formula":"NOT CLAIMED","physical_liking":"NOT TESTED","sensory_similarity":"NOT TESTED","stability":"NOT TESTED","safety":"NOT CLEARED","measured_headspace":"NOT TESTED","release":"NOT CLEARED"}
+}

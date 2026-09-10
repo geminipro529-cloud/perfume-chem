@@ -1,0 +1,79 @@
+{
+  "schema": "perfume-chem-sukhum-35-computational-decision-v1",
+  "inventory_sha256": "EB33C04236A4640413BA5289125F04CFA278BD0614EB9BD12EA1CC4D88379967",
+  "pipeline_sha256": {
+    "S35-R1": "207682D597C918F5BC0D1B46A89BE7D9179528EDC29B2DB0F9CC0EC3F8FAA5E1",
+    "S35-F2": "AF650A32ECCE948A2EAF13B983B4B80CC11CFE5749824DE4850492E7EA16B9CF",
+    "S35-D2": "DF2A25086819DE7335145F119AB62AA962D05E1EC9B71FA52D27B95BDCF8FC37",
+    "S35-T4": "BFDA04BF019B5AE9719120FF70384F7C10C13F1701C08D0411E6378FB8301DE6"
+  },
+  "selected_candidate": "S35-F2",
+  "selection_authority": "DIAGNOSTIC_EXPERIMENT_SELECTION_ONLY",
+  "selection_reason": [
+    "The minimum Hexyl factor preserved constant total and nominal active fruit ester while producing a bounded modeled opening change.",
+    "The selected factor is target-linked to pineapple relief and does not require another ingredient to claim complexity.",
+    "The Juniper/Petitgrain dry module more than doubled modeled opening vapor and was rejected at the tested dose before physical work.",
+    "No generic score, gate count, or ingredient count was used as sensory-success evidence."
+  ],
+  "generic_hedonic_scores": {
+    "S35-R1": 83.3,
+    "S35-F2": 83.3,
+    "S35-D2": 83.3,
+    "S35-T4": 83.3
+  },
+  "target_linked_metrics": {
+    "S35-R1": {
+      "opening_top_oav_percent": 9.1,
+      "opening_total_vapor_ppm": 49.5569,
+      "drydown_total_vapor_ppm": 12.5072,
+      "allyl_cyclohexyl_propionate_oav": 291.9704
+    },
+    "S35-F2": {
+      "opening_top_oav_percent": 11.2,
+      "opening_total_vapor_ppm": 50.6787,
+      "drydown_total_vapor_ppm": 12.487,
+      "hexyl_acetate_oav": 578.1736
+    },
+    "S35-D2": {
+      "opening_top_oav_percent": 21.9,
+      "opening_total_vapor_ppm": 113.1002,
+      "drydown_total_vapor_ppm": 12.9741,
+      "juniper_berry_eo_oav": 3520.3900,
+      "petitgrain_eo_paraguay_oav": 487.8646
+    },
+    "S35-T4": {
+      "opening_top_oav_percent": 23.4,
+      "opening_total_vapor_ppm": 114.2095,
+      "drydown_total_vapor_ppm": 12.9539,
+      "hexyl_acetate_oav": 575.1901,
+      "juniper_berry_eo_oav": 3520.0159,
+      "petitgrain_eo_paraguay_oav": 487.8128
+    }
+  },
+  "pipeline_outcome": {
+    "all_arms": "FAIL",
+    "shared_blockers": [
+      "PIPELINE_PREFLIGHT_CONFIDENCE_AND_AUTHORITY_WARNINGS",
+      "GRAPEFRUIT_FCF_OIL_SICILIAN_EXACT_PHYSICS_AND_ODT_MISSING",
+      "CASSIS_BASE_345B_OPAQUE_PREBLEND_IN_COMMERCIAL_TRIAL_MODE"
+    ],
+    "interpretation": "These blockers prevent release and strict quantitative interpretation. They are not physical smell-test results."
+  },
+  "xhigh_comparison": {
+    "status": "NOT RUN",
+    "reason": "No same-formula, same-inventory, same-pipeline, same-blind-panel xhigh control exists."
+  },
+  "next_test": {
+    "stage": "A",
+    "arms": ["S35-R1", "S35-F2"],
+    "status": "HOLD_PENDING_HEXYL_CARRIER_IDENTITY_AND_PHYSICAL_AUTHORIZATION"
+  },
+  "claim_ceiling": {
+    "physical_liking": "NOT TESTED",
+    "market_success": "NOT TESTED",
+    "sensory_similarity": "NOT TESTED",
+    "safety": "HOLD",
+    "stability": "HOLD",
+    "release": "HOLD"
+  }
+}

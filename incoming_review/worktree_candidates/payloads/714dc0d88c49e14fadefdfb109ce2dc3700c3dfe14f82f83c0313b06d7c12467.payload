@@ -1,0 +1,332 @@
+{
+  "schema": "c5-inventory-rebase-assessment-v1",
+  "assessment_id": "c5-inventory-v5-rebase-20260810",
+  "assessed_on": "2026-08-10",
+  "parent_program": {
+    "program_id": "c5-calibration-program-inventory-20260803-v1",
+    "content_sha256": "0b45099e41e661739128f8d5f397a9c98ea01e1c6eba905bd62c562c8fff2f60",
+    "inventory_sha256": "9d778721db1f5a0a10d1f278eeef9b7fab0bc73ce7f0d58b26c501be70fe0eb8",
+    "material_count": 19,
+    "matrix_count": 8,
+    "preserved_unchanged": true
+  },
+  "candidate_inventory": {
+    "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+    "snapshot_path": "data/governance/inventory_v5_current_stock_snapshot.json",
+    "snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+    "record_count": 280,
+    "workbook_path": "incoming_review/Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+    "workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "sheet": "Current Inventory Master",
+    "range": "A5:N285"
+  },
+  "decision": "HOLD_REDESIGN_REQUIRED",
+  "decision_reasons": [
+    "Ambrettolide physical receipt and ExactStockRef are pending",
+    "Gamma Decalactone and Myristic Acid Powder are absent from authoritative V5",
+    "six strength-matched stocks still lack complete concentration-basis or carrier authority",
+    "Raspberry Ketone and Eugenol no longer match the v1 stock form",
+    "Citral must be rebound explicitly to the Citral Natural stock identity",
+    "V5 does not independently qualify every bulk matrix carrier required by the eight frozen matrices"
+  ],
+  "classification_counts": {
+    "EXACT_V5_STOCK_MATCH": 7,
+    "CANONICAL_IDENTITY_REBIND_REQUIRED": 1,
+    "STRENGTH_MATCH_BASIS_OR_CARRIER_UNRESOLVED": 6,
+    "STOCK_FORM_CHANGED": 2,
+    "NOT_V5_QUALIFIED": 2,
+    "DESIGN_ONLY_PHYSICAL_RECEIPT_PENDING": 1
+  },
+  "material_diffs": [
+    {
+      "parent_inventory_name": "Aldehyde C10",
+      "parent_stock_fraction": 0.01,
+      "parent_stock_fraction_basis": "unspecified",
+      "parent_carrier": "",
+      "classification": "STRENGTH_MATCH_BASIS_OR_CARRIER_UNRESOLVED",
+      "v5_source_rows": [9],
+      "v5_canonical_material": "Aldehyde C10 1%",
+      "v5_actual_stock": "1% working stock",
+      "v5_status": "HAVE",
+      "required_action": "Bind exact bottle, carrier, and concentration basis before any child program line."
+    },
+    {
+      "parent_inventory_name": "Alpha Ionone",
+      "parent_stock_fraction": 1.0,
+      "parent_stock_fraction_basis": "neat",
+      "parent_carrier": "",
+      "classification": "EXACT_V5_STOCK_MATCH",
+      "v5_source_rows": [18],
+      "v5_canonical_material": "Alpha Ionone",
+      "v5_actual_stock": "neat / as supplied",
+      "v5_status": "HAVE",
+      "required_action": "Retain only with exact current stock binding."
+    },
+    {
+      "parent_inventory_name": "Ambermax",
+      "parent_stock_fraction": 0.5,
+      "parent_stock_fraction_basis": "unspecified",
+      "parent_carrier": "",
+      "classification": "STRENGTH_MATCH_BASIS_OR_CARRIER_UNRESOLVED",
+      "v5_source_rows": [25],
+      "v5_canonical_material": "Ambermax 50%",
+      "v5_actual_stock": "50% working stock",
+      "v5_status": "HAVE",
+      "required_action": "Bind exact bottle, carrier, and concentration basis before any child program line."
+    },
+    {
+      "parent_inventory_name": "Ambrettolide",
+      "parent_stock_fraction": 0.1,
+      "parent_stock_fraction_basis": "unspecified",
+      "parent_carrier": "dpg",
+      "classification": "DESIGN_ONLY_PHYSICAL_RECEIPT_PENDING",
+      "v5_source_rows": [27],
+      "v5_canonical_material": "Ambrettolide 10%",
+      "v5_actual_stock": "Ambrettolide 10% in DPG planned; physical receipt pending",
+      "v5_status": "PLANNED ACQUISITION • DESIGN-AVAILABLE",
+      "required_action": "Do not include in a physical child program until receipt and ExactStockRef exist."
+    },
+    {
+      "parent_inventory_name": "Citral",
+      "parent_stock_fraction": 1.0,
+      "parent_stock_fraction_basis": "neat",
+      "parent_carrier": "",
+      "classification": "CANONICAL_IDENTITY_REBIND_REQUIRED",
+      "v5_source_rows": [72],
+      "v5_canonical_material": "Citral Natural",
+      "v5_actual_stock": "Citral Natural neat",
+      "v5_status": "HAVE — NEAT ONLY",
+      "required_action": "Bind the child line explicitly to Citral Natural; do not assume the generic v1 name is identical."
+    },
+    {
+      "parent_inventory_name": "D-Limonene",
+      "parent_stock_fraction": 1.0,
+      "parent_stock_fraction_basis": "neat",
+      "parent_carrier": "",
+      "classification": "EXACT_V5_STOCK_MATCH",
+      "v5_source_rows": [89],
+      "v5_canonical_material": "D-Limonene",
+      "v5_actual_stock": "D-Limonene neat/as supplied",
+      "v5_status": "HAVE — NEAT",
+      "required_action": "Retain only with exact current stock binding."
+    },
+    {
+      "parent_inventory_name": "Damascenone",
+      "parent_stock_fraction": 0.01,
+      "parent_stock_fraction_basis": "unspecified",
+      "parent_carrier": "",
+      "classification": "STRENGTH_MATCH_BASIS_OR_CARRIER_UNRESOLVED",
+      "v5_source_rows": [90],
+      "v5_canonical_material": "Damascenone 1%",
+      "v5_actual_stock": "1% working stock",
+      "v5_status": "HAVE",
+      "required_action": "Bind exact bottle, carrier, and concentration basis before any child program line."
+    },
+    {
+      "parent_inventory_name": "Ethyl 2-Methylbutyrate",
+      "parent_stock_fraction": 0.001,
+      "parent_stock_fraction_basis": "unspecified",
+      "parent_carrier": "",
+      "classification": "STRENGTH_MATCH_BASIS_OR_CARRIER_UNRESOLVED",
+      "v5_source_rows": [101],
+      "v5_canonical_material": "Ethyl 2-Methylbutyrate 0.1%",
+      "v5_actual_stock": "0.1% in DPG",
+      "v5_status": "HAVE",
+      "required_action": "Bind exact bottle and concentration basis; record DPG as the carrier."
+    },
+    {
+      "parent_inventory_name": "Eugenol",
+      "parent_stock_fraction": 1.0,
+      "parent_stock_fraction_basis": "neat",
+      "parent_carrier": "",
+      "classification": "STOCK_FORM_CHANGED",
+      "v5_source_rows": [104],
+      "v5_canonical_material": "Eugenol 10%",
+      "v5_actual_stock": "10% in DPG",
+      "v5_status": "HAVE",
+      "required_action": "Redesign the child line for the 10% DPG stock after concentration-basis qualification; do not preserve the neat v1 dose."
+    },
+    {
+      "parent_inventory_name": "Galaxolide",
+      "parent_stock_fraction": 0.5,
+      "parent_stock_fraction_basis": "unspecified",
+      "parent_carrier": "dep",
+      "classification": "STRENGTH_MATCH_BASIS_OR_CARRIER_UNRESOLVED",
+      "v5_source_rows": [113],
+      "v5_canonical_material": "Galaxolide 50%",
+      "v5_actual_stock": "50% in DEP",
+      "v5_status": "HAVE",
+      "required_action": "Bind exact bottle and concentration basis; retain DEP as the carrier."
+    },
+    {
+      "parent_inventory_name": "Gamma Decalactone",
+      "parent_stock_fraction": 1.0,
+      "parent_stock_fraction_basis": "neat",
+      "parent_carrier": "",
+      "classification": "NOT_V5_QUALIFIED",
+      "v5_source_rows": [],
+      "v5_canonical_material": null,
+      "v5_actual_stock": null,
+      "v5_status": null,
+      "required_action": "Hold the lactone slot or select a documented non-equivalent coverage replacement through design review."
+    },
+    {
+      "parent_inventory_name": "Geosmin",
+      "parent_stock_fraction": 0.01,
+      "parent_stock_fraction_basis": "unspecified",
+      "parent_carrier": "tec",
+      "classification": "STRENGTH_MATCH_BASIS_OR_CARRIER_UNRESOLVED",
+      "v5_source_rows": [118],
+      "v5_canonical_material": "Geosmin 1%",
+      "v5_actual_stock": "1% in TEC",
+      "v5_status": "HAVE",
+      "required_action": "Bind exact bottle and concentration basis; retain TEC as the carrier."
+    },
+    {
+      "parent_inventory_name": "Hedione",
+      "parent_stock_fraction": 1.0,
+      "parent_stock_fraction_basis": "neat",
+      "parent_carrier": "",
+      "classification": "EXACT_V5_STOCK_MATCH",
+      "v5_source_rows": [129],
+      "v5_canonical_material": "Hedione",
+      "v5_actual_stock": "neat / as supplied",
+      "v5_status": "HAVE",
+      "required_action": "Retain only with exact current stock binding."
+    },
+    {
+      "parent_inventory_name": "Iso E Super",
+      "parent_stock_fraction": 1.0,
+      "parent_stock_fraction_basis": "neat",
+      "parent_carrier": "",
+      "classification": "EXACT_V5_STOCK_MATCH",
+      "v5_source_rows": [140],
+      "v5_canonical_material": "Iso E Super",
+      "v5_actual_stock": "neat / as supplied",
+      "v5_status": "HAVE",
+      "required_action": "Retain only with exact current stock binding."
+    },
+    {
+      "parent_inventory_name": "Linalool",
+      "parent_stock_fraction": 1.0,
+      "parent_stock_fraction_basis": "neat",
+      "parent_carrier": "",
+      "classification": "EXACT_V5_STOCK_MATCH",
+      "v5_source_rows": [162],
+      "v5_canonical_material": "Linalool",
+      "v5_actual_stock": "neat/as supplied",
+      "v5_status": "HAVE",
+      "required_action": "Retain only with exact current stock binding."
+    },
+    {
+      "parent_inventory_name": "Linalyl Acetate",
+      "parent_stock_fraction": 1.0,
+      "parent_stock_fraction_basis": "neat",
+      "parent_carrier": "",
+      "classification": "EXACT_V5_STOCK_MATCH",
+      "v5_source_rows": [163],
+      "v5_canonical_material": "Linalyl Acetate",
+      "v5_actual_stock": "neat/as supplied",
+      "v5_status": "HAVE",
+      "required_action": "Retain only with exact current stock binding."
+    },
+    {
+      "parent_inventory_name": "Myristic Acid Powder",
+      "parent_stock_fraction": 1.0,
+      "parent_stock_fraction_basis": "neat",
+      "parent_carrier": "",
+      "classification": "NOT_V5_QUALIFIED",
+      "v5_source_rows": [],
+      "v5_canonical_material": null,
+      "v5_actual_stock": null,
+      "v5_status": null,
+      "required_action": "Hold the acid and solid-abstention slot until an exact qualified stock or documented non-equivalent replacement is reviewed."
+    },
+    {
+      "parent_inventory_name": "Phenethyl Alcohol",
+      "parent_stock_fraction": 1.0,
+      "parent_stock_fraction_basis": "neat",
+      "parent_carrier": "",
+      "classification": "EXACT_V5_STOCK_MATCH",
+      "v5_source_rows": [204],
+      "v5_canonical_material": "Phenethyl Alcohol",
+      "v5_actual_stock": "Phenethyl Alcohol neat/as supplied",
+      "v5_status": "HAVE — NEAT",
+      "required_action": "Retain only with exact current stock binding."
+    },
+    {
+      "parent_inventory_name": "Raspberry Ketone",
+      "parent_stock_fraction": 1.0,
+      "parent_stock_fraction_basis": "neat",
+      "parent_carrier": "",
+      "classification": "STOCK_FORM_CHANGED",
+      "v5_source_rows": [272],
+      "v5_canonical_material": "Raspberry Ketone 20% in DPG",
+      "v5_actual_stock": "Raspberry Ketone 20% w/w in DPG",
+      "v5_status": "HAVE — 20% W/W IN DPG",
+      "required_action": "Redesign the child line for the exact 20% w/w DPG stock; do not preserve the neat v1 dose."
+    }
+  ],
+  "matrix_assessments": [
+    {
+      "matrix_id": "CURRENT_DECLARED_STOCK",
+      "classification": "HOLD_PER_MATERIAL_REBIND",
+      "blockers": ["Each material must bind its exact V5 stock and all unresolved basis/carrier fields."]
+    },
+    {
+      "matrix_id": "DEP_HEAVY",
+      "classification": "HOLD_BULK_MATRIX_AUTHORITY_INCOMPLETE",
+      "blockers": ["No standalone DEP stock authority in V5.", "No standalone ethanol stock authority in V5."]
+    },
+    {
+      "matrix_id": "DPG_HEAVY",
+      "classification": "HOLD_BULK_MATRIX_AUTHORITY_INCOMPLETE",
+      "blockers": ["DPG is present in V5, but standalone ethanol stock authority is not."]
+    },
+    {
+      "matrix_id": "FINISHED_10_PERCENT",
+      "classification": "HOLD_BULK_MATRIX_AUTHORITY_INCOMPLETE",
+      "blockers": ["No standalone ethanol stock authority in V5.", "No standalone water stock authority in V5."]
+    },
+    {
+      "matrix_id": "FINISHED_20_PERCENT",
+      "classification": "HOLD_BULK_MATRIX_AUTHORITY_INCOMPLETE",
+      "blockers": ["No standalone ethanol stock authority in V5.", "No standalone water stock authority in V5."]
+    },
+    {
+      "matrix_id": "HIGH_ETHANOL_STOCK",
+      "classification": "HOLD_BULK_MATRIX_AUTHORITY_INCOMPLETE",
+      "blockers": ["No standalone ethanol stock authority in V5."]
+    },
+    {
+      "matrix_id": "IPM_OIL",
+      "classification": "HOLD_BULK_MATRIX_AUTHORITY_INCOMPLETE",
+      "blockers": ["No standalone IPM stock authority in V5.", "No standalone ethanol stock authority in V5."]
+    },
+    {
+      "matrix_id": "TEC_HEAVY",
+      "classification": "HOLD_BULK_MATRIX_AUTHORITY_INCOMPLETE",
+      "blockers": ["No standalone TEC stock authority in V5.", "No standalone ethanol stock authority in V5."]
+    }
+  ],
+  "required_next_actions": [
+    "Qualify exact current bulk carrier stocks separately from the material snapshot.",
+    "Resolve basis and carrier evidence for every held strength-matched stock.",
+    "Decide the missing lactone and acid coverage slots without claiming chemical equivalence.",
+    "Acquire and receipt Ambrettolide or redesign the musk slot.",
+    "Create a new child CalibrationProgram only after the design review closes every selected line and matrix."
+  ],
+  "authority": {
+    "program_v2_created": false,
+    "inventory_mutation_authority": false,
+    "formula_authority": false,
+    "physical_execution_authority": false,
+    "empirical_calibration_authority": false,
+    "headspace_authority": false,
+    "oav_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "release_authority": false
+  },
+  "content_sha256": "4a95a6b40f5da991b7b9faccc99f9ab18235277e61461dd31d3c7134790cebf3"
+}

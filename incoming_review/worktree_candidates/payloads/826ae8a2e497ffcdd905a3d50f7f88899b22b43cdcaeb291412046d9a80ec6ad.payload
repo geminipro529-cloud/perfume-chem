@@ -1,0 +1,68 @@
+# Donor-Independent Luxe / DHP Rebuild Implementation Plan
+
+> Implement with `superpowers:executing-plans`, use test-driven development for behavior changes, and use `superpowers:verification-before-completion` before any completion claim. No Codex subagents or alternate providers.
+
+**Goal:** Make donor independence an executable release requirement, preserve the current L'Homme V4 and LNDL V5.1 as immutable controls, and produce target-native L'Homme V5 and LNDL V6 successors whose depth architectures derive from their named subjects rather than White Fire.
+
+**Authority:** The exact clean predecessor is the Git object at `e25b264:formulas/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_30mL_20pct_Development.md`, SHA-256 `9C00B35BC00479849DBE537A7BA90FFC633C1346A5EFB2DC2CA1D50BD4A53E0E`. The White Fire donor artifact is represented by a checked-in immutable signature whose source SHA-256 is `B0604A4BEB49FA24DE34099EF84E4B4A13877684DF14B0F7D2395E379A5651C4`.
+
+## Task 1 — Lock the failure in tests
+
+- Add a parser regression proving repeated tables headed `Raw µL` all parse.
+- Add donor-audit tests proving exact donor ontology, incomplete parser coverage, source hash drift, Boolean-only/incomplete row or module ledgers, and donor-heavy structural clusters fail.
+- Add a clean independent candidate fixture proving ordinary shared workhorses alone do not fail.
+- Extend the OpenCode guard test so a DHP/Luxe release command cannot run without a donor-independence verification receipt.
+- Run focused tests and observe the expected failures before production changes.
+
+## Task 2 — Implement the deterministic gate
+
+- Extend the existing Markdown parser to accept `Raw µL` and equivalent raw-volume headers.
+- Add manifest parsing, immutable-predecessor row/module extraction, exact disposition-ledger verification, and donor audit functions to existing verification tooling; do not create a new pipeline script.
+- Add the donor-independence result to `formula_release_gate.py` before overall status is computed.
+- Make missing manifest a hard failure for DHP/Luxe/LNDL/L'Homme formula paths.
+- Preserve structured diagnostics in JSON and the formatted pipeline analysis.
+- Extend the OpenCode guard to require the deterministic donor audit for the active batch before release or commit.
+
+## Task 3 — Propagate the permanent rule
+
+- Add the dual hard-gate rule to `AGENTS.md`, `.github/copilot-instructions.md`, the DHP protocol, and `.opencode/FORMULATION_PREFLIGHT.md`.
+- Add it to every formulation-capable OpenCode agent, prompt, command, and skill already governed by the preflight contract.
+- Update compaction-pinned rules so the requirement survives context compression.
+
+## Task 4 — Checkpoint the controls
+
+- Commit only the approved authority, inventory, donor-gate, test, and control-formula artifacts on the isolated feature branch.
+- Bind L'Homme V4 and LNDL V5.1 to that immutable commit and record their exact SHA-256 values in their successors.
+- Do not stage unrelated experimental formulas, generated verification bundles, or another worktree's changes.
+
+## Task 5 — Build target-native L'Homme V5
+
+- Preserve L'Homme V4 unchanged as the computational control.
+- Repeat the complete authority preflight immediately before dosing.
+- Conserve every V4 ideal row and functional module through an exact disposition ledger; current-inventory absence changes only the executable build.
+- Keep at least the predecessor's 58 ideal rows and nine functional modules, with ginger recurrence, tailoring, transitions, texture, and spatial planes explicitly owned.
+- Remove the White-Fire-like executable wood/amber cluster rather than merely renaming its baskets; use one Romandolide musk.
+- Keep the named L'Homme arc recognizable: ginger/bergamot/lemon-like lift, violet-leaf/basil/white-pepper tailoring, and tonka/cedar/vetiver foundation.
+- Require every additional row to survive identity, OAV/physics, alternative, safety, and omission gates; count alone is never acceptance.
+
+## Task 6 — Build interiorized LNDL V6
+
+- Preserve LNDL V5.1 unchanged as the computational control.
+- Repeat the complete authority preflight immediately before dosing.
+- Create a new V6 artifact with target identity and architecture before dosing.
+- Keep inventory-independent ideal and current-inventory build separate.
+- Use one flat parser-visible current table totaling exactly 6,000 uL, with every direct aliquot at least 10 uL.
+- Carry every V5.1 row/function through a complete conservation ledger.
+- Rebase the approved constant-total interiorization: cardamom 250→230, Bontoux lavender 170→160, linalyl acetate 120→100, Hedione 220→200, terpinyl acetate 200→220, Jessemal 210→225, Cedarwood EO 330→345, Indian vetiver 280→290, and Polysantol 300→310 uL.
+- Use the same one functionally exact Ethylene Brassylate musk unless a separately tested nonredundant exception is documented.
+- Apply current authority for owned Cedarwood oil Virginia, neat Lemon FCF, neat Givaudan AIMI, unavailable Parmavert and Gamma Decalactone, lost tinctures, and NYSUPPLY Cinnamon Bark EO.
+- Include missing-chemical impacts, stock preparations, and a protected-nucleus constant-total blinded trial.
+
+## Task 7 — Verify without overclaiming
+
+- Run parser subtotal/count/floor assertions.
+- Run donor-independence against the immutable White Fire signature.
+- Run inventory and canonical-name checks.
+- Run the existing release/OAV/temporal pipeline once on each final successor and append each full formatted analysis to its formula artifact.
+- Run focused Python and OpenCode tests, then broader relevant tests if focused tests pass.
+- Inspect Git diff/status, preserve unrelated dirty-worktree changes, and report exact paths, hashes, test results, and all `NOT TESTED / HOLD` boundaries.

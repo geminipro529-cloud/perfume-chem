@@ -1,0 +1,151 @@
+"""Application configuration using Pydantic Settings"""
+
+import re
+from functools import lru_cache
+from pathlib import Path
+from typing import List, Literal, Optional
+
+from pydantic import field_validator
+from pydantic_settings import BaseSettings
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+DEFAULT_DATABASE_PATH = (PROJECT_ROOT / "perfume_chem.db").resolve()
+OPENAI_MODEL_PATTERNS = (
+    r"^gpt-",
+    r"^chatgpt-",
+    r"^o[1-9](?:-|$)",
+    r"^ft:",
+    r"^text-",
+    r"^davinci(?:-|$)",
+    r"^curie(?:-|$)",
+    r"^babbage(?:-|$)",
+    r"^ada(?:-|$)",
+)
+
+
+def is_openai_model_name(value: object) -> bool:
+    """Return whether a model identifier is accepted by the OpenAI runtime."""
+    normalized = str(value).strip().lower()
+    return any(re.search(pattern, normalized) for pattern in OPENAI_MODEL_PATTERNS)
+
+
+class Settings(BaseSettings):
+    """Application settings with environment variable support"""
+
+    # Application
+    APP_NAME: str = "Perfume Chemistry API"
+    APP_VERSION: str = "1.0.0"
+    DEBUG: bool = False
+    ENVIRONMENT: str = "development"
+
+    # API
+    API_V1_PREFIX: str = "/api/v1"
+
+    # Database
+    DATABASE_URL: str = f"sqlite+aiosqlite:///{DEFAULT_DATABASE_PATH.as_posix()}"
+    DB_POOL_SIZE: int = 5
+    DB_MAX_OVERFLOW: int = 10
+    DB_ECHO: bool = False
+
+    # Redis Cache
+    REDIS_URL: Optional[str] = None
+    CACHE_TTL: int = 3600  # 1 hour default
+
+    # AI Services
+    OPENAI_API_KEY: str = ""
+    OPENAI_MODEL: str = "gpt-4"
+    OPENAI_MAX_TOKENS: int = 2000
+    OPENAI_TEMPERATURE: float = 0.7
+
+    # AI Provider Selection
+    AI_PROVIDER: Literal["openai"] = "openai"
+
+    @field_validator("OPENAI_MODEL", mode="before")
+    @classmethod
+    def require_openai_model(cls, value: object) -> str:
+        """Reject stale model settings that name another provider."""
+        normalized = str(value).strip()
+        if not is_openai_model_name(normalized):
+            raise ValueError("OPENAI_MODEL must identify an OpenAI model")
+        return normalized
+
+    @field_validator("AI_PROVIDER", mode="before")
+    @classmethod
+    def require_openai_provider(cls, value: object) -> str:
+        """Fail closed when stale configuration selects another provider."""
+        normalized = str(value).strip().lower()
+        if normalized != "openai":
+            raise ValueError("AI_PROVIDER must be 'openai'")
+        return normalized
+
+    # Security
+    SECRET_KEY: str = "CHANGE_THIS_TO_A_SECURE_RANDOM_STRING"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    ALGORITHM: str = "HS256"
+
+    # CORS
+    CORS_ORIGINS: List[str] = ["http://localhost:5173", "http://localhost:3000"]
+    CORS_ALLOW_CREDENTIALS: bool = True
+    CORS_ALLOW_METHODS: List[str] = ["*"]
+    CORS_ALLOW_HEADERS: List[str] = ["*"]
+
+    # Perfumery Settings
+    DEFAULT_DILUTION_SOLVENT: str = "ethanol"
+    DEFAULT_DROP_SIZE_ML: float = 0.05
+    IFRA_COMPLIANCE_CHECK: bool = True
+    ENABLE_AI_SUGGESTIONS: bool = True
+
+    # OpenTelemetry Tracing
+    # Exporting is an operational opt-in.  The API remains fully functional
+    # with the OpenTelemetry API's no-op provider when no collector is
+    # configured.
+    OTEL_ENABLED: bool = False
+    OTEL_SERVICE_NAME: str = "perfume-chem-api"
+    OTEL_OTLP_ENDPOINT: str = "http://localhost:4318"  # HTTP OTLP endpoint
+    OTEL_TRACES_SAMPLER: str = "parentbased_traceidratio"
+    OTEL_TRACES_SAMPLER_ARG: float = 1.0  # 1.0 = 100% sampling
+
+    # File Storage
+    DATA_DIR: str = "./data"
+    UPLOAD_DIR: str = "./uploads"
+    MAX_UPLOAD_SIZE_MB: int = 50
+
+    @field_validator("DEBUG", mode="before")
+    @classmethod
+    def parse_debug_flag(cls, value):
+        if isinstance(value, str):
+            normalized = value.strip().lower()
+            if normalized in {"release", "prod", "production", "false", "0", "no", "off"}:
+                return False
+            if normalized in {"dev", "development", "debug", "true", "1", "yes", "on"}:
+                return True
+        return value
+
+    @field_validator("DATABASE_URL", mode="before")
+    @classmethod
+    def resolve_sqlite_database_url(cls, value):
+        text = str(value)
+        prefixes = ("sqlite+aiosqlite:///", "sqlite:///")
+        for prefix in prefixes:
+            if text.startswith(prefix):
+                raw_path = text.removeprefix(prefix)
+                path_text, separator, query = raw_path.partition("?")
+                if path_text == ":memory:" or path_text.startswith("file:"):
+                    return text
+                path = Path(path_text)
+                if not path.is_absolute():
+                    path = PROJECT_ROOT / path
+                resolved = prefix + path.resolve().as_posix()
+                return resolved + (separator + query if separator else "")
+        return text
+
+    class Config:
+        env_file = ".env"
+        case_sensitive = True
+        extra = "allow"
+
+
+@lru_cache
+def get_settings() -> Settings:
+    """Get cached settings instance"""
+    return Settings()

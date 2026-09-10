@@ -1,0 +1,77 @@
+# DHI-11 V6 — Complexity-First Orris-Led — Pour Card
+
+**Completed development card — 2026-09-06. NOT COMPOUNDED. Physical compounding / skin use / safety / release: HOLD.**
+
+33 stock rows • 6,000 µL raw-stock concentrate • 24,000 µL Ethanol 96% • nominal 30 mL. “20%” means raw-stock v/v under additive-volume convention, not neat odorants or w/w.
+
+DHI 2011 is the target; DHP 2025 supplies the structural method. Irotyl is excluded. This is a new batch, NOT a V5 bottle addition. The four-part iris nucleus is unchanged. Ten extra rows test target-linked relationships; they do not prove more perceived layers.
+
+## Before using this card
+
+Use the exact stocks below. Orris 9% w/w DEP, Alpha Irone 10% w/w DEP, Ambrettolide 10% w/w DPG and Tonkarome 20% w/w TEC are not interchangeable with similarly named volume-fraction or differently diluted stocks. All other selected rows are neat/as supplied. Carrot Seed, Cedramber and Cashmeran must be the selected NEAT principal stocks, despite stale runtime dilution display labels.
+
+Stock IDs, provenance and qualification limits are in [the canonical V6 design](C:/Users/ASUS/.codex/worktrees/c4d5/perfume-chem/formulas/DHI-11_V6_Complexity_First_Orris_Led_30mL_20pct.design.json). Record actual delivered stock masses; do not treat µL × w/w fraction as measured active volume. Exact ppm and blend safety cannot yet be certified. Orris/Tonkarome composition and the formal DHP donor gate remain unresolved.
+
+## Basket-first pour sequence
+
+Finish one basket before the next. Raw transfers descend within each basket; only reset upward when changing baskets. Ties are alphabetical. No prepared dilution below the stated stock strength is silently assumed.
+
+| # | Basket | Material | Dilution / actual stock | Amount (µL) |
+|---:|---|---|---|---:|
+| 1 | 1 — Always used | Hedione | neat | 240 |
+| 2 | 1 — Always used | Iso E Super | neat | 130 |
+| 3 | 1 — Always used | Vetival | neat | 120 |
+| 4 | 1 — Always used | Benzyl Benzoate | neat | 80 |
+| 5 | 1 — Always used | Hexyl Salicylate | neat | 80 |
+| 6 | 1 — Always used | Benzyl Salicylate | neat | 50 |
+| 7 | 2 — Vetivers | Vetiver EO (India) | neat | 100 |
+| 8 | 3 — Woods | Cedarwood oil Virginia | neat | 320 |
+| 9 | 3 — Woods | Cashmeran | neat | 60 |
+| 10 | 3 — Woods | Sandalore | neat | 50 |
+| 11 | 3 — Woods | Ebanol | neat | 30 |
+| 12 | 4 — Wood modifiers / ambers | Cedramber | neat | 80 |
+| 13 | 4 — Wood modifiers / ambers | Kephalis | neat | 40 |
+| 14 | 6 — Musks | Ambrettolide | 10% w/w in DPG | 850 |
+| 15 | 6 — Musks | Ethylene Brassylate | neat | 350 |
+| 16 | 6 — Musks | Romandolide | neat | 180 |
+| 17 | 7 — Muguet / lavender | Lavender EO High Altitude | neat | 120 |
+| 18 | 7 — Muguet / lavender | Linalyl Acetate | neat | 100 |
+| 19 | 7 — Muguet / lavender | Linalool | neat | 30 |
+| 20 | 11 — Iris / orris | Orris Liquid | 9% w/w in DEP | 1500 |
+| 21 | 11 — Iris / orris | Alpha Isomethyl Ionone (Methyl Ionone Pure) | neat | 600 |
+| 22 | 11 — Iris / orris | Alpha Irone | 10% w/w in DEP | 160 |
+| 23 | 11 — Iris / orris | Alpha Ionone | neat | 60 |
+| 24 | 11 — Iris / orris | Dihydro Beta Ionone | neat | 60 |
+| 25 | 11 — Iris / orris | Beta Ionone | neat | 20 |
+| 26 | 11 — Iris / orris | Carrot Seed EO | neat | 10 |
+| 27 | 11 — Iris / orris | Orivone | neat | 10 |
+| 28 | 12 — Edible smells | Tonkarome | 20% w/w in TEC | 320 |
+| 29 | 12 — Edible smells | Isobutavan | neat | 50 |
+| 30 | 12 — Edible smells | Delta Decalactone | neat | 10 |
+| 31 | 13 — Edible spices | Coriander Essential Oil | neat | 10 |
+| 32 | 15 — Fruits | Benzyl Acetate | neat | 90 |
+| 33 | 15 — Fruits | Verdox | neat | 90 |
+
+**Raw-stock concentrate total: 6,000 µL.**
+
+## Separate final diluent
+
+| Solvent | Planned transfer |
+|---|---:|
+| Ethanol 96% | 24,000 µL |
+
+**Nominal total: 30,000 µL.** Do not add the model's ethanol/water constituents again. Contraction, evaporation and transfer loss are unmeasured.
+
+Minimum listed raw transfer: 10 µL. No direct solid dosing is authorized. If any stock is not a homogeneous pipettable liquid at handling conditions, stop and qualify it; do not guess a preparation. Do not scale every row down for a smaller bottle. After qualification, an aliquot of a properly prepared master concentrate can avoid sub-10 µL individual additions.
+
+Use appropriate SDS handling, ventilation and ignition control. This card does not authorize skin testing, heating, commercial release or a claim of stability. It gives planned transfers, not evidence that a perfume was physically compounded.
+
+## Verification and sensory boundary
+
+**Artifact and regression checks:** 86 passed, 0 failed. These verify software records and arithmetic, not physical smell or safety.
+
+**Current diagnostic:** 108 PASS / 34 WARN / 3 FAIL / 1 SKIP. All 33 exact stock bindings and the V5-to-V6 dose guard PASS; overall release remains HOLD. The failures are missing Orris composite evidence, Tonkarome opacity, and aggregate preflight. Formal DHP donor-independence is separately NOT RUN / HOLD. [Full warning diagnosis and learnings](C:/Users/ASUS/.codex/worktrees/c4d5/perfume-chem/formulas/DHI-11_V6_Complexity_First_VERIFICATION_AND_LEARNINGS.md).
+
+The fixed table and stock bindings are available now. Current numerical diagnostics are attached to [the master formula](C:/Users/ASUS/.codex/worktrees/c4d5/perfume-chem/formulas/DHI-11_V6_Complexity_First_Orris_Led_30mL_20pct.md); the machine-readable status is in [the V6 design record](C:/Users/ASUS/.codex/worktrees/c4d5/perfume-chem/formulas/DHI-11_V6_Complexity_First_Orris_Led_30mL_20pct.design.json). Regardless of a software pass, the physical release state remains HOLD.
+
+Ten proposed modules / seven connections are design hypotheses. The critical next sensory questions are whether the cold root and warm cream remain simultaneously legible, whether iris survives at distance, and whether the third musk earns its role. [Controlled-trial sheet](C:/Users/ASUS/.codex/worktrees/c4d5/perfume-chem/formulas/DHI-11_V6_Complexity_First_CONTROLLED_TRIAL.md).

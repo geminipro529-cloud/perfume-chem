@@ -1,0 +1,1090 @@
+{
+  "schema": "prada_lhomme_intense_development_accounting_v1",
+  "formula_id": "PLI-ASTRA-V1",
+  "date": "2026-09-05",
+  "status": "DESIGN_COMPLETE_COMPUTATIONAL_SCREENED_HOLD",
+  "parent_formula": null,
+  "claim_ceiling": "Original inspired development design. Not a proprietary reconstruction, observed sensory result, safety determination, or physical compounding authorization.",
+  "basis": {
+    "master_mass_mg": 6000,
+    "nominal_finished_volume_ml": 30,
+    "nominal_concentrate_aliquot_ml": 6,
+    "concentration_definition": "6.00 mL homogeneous concentrate aliquot, ethanol q.s. final 30.00 mL at a recorded temperature; not 20% w/w or 20% pure odorants.",
+    "mass_to_bottle": "Measure aliquot mass m6_g; each master dose scales by m6_g/6.000. A 6 g master is a ratio reference, not guaranteed sufficient volume.",
+    "product_ppm": "product_mg / 6000 * 1000000; neat means supplied product, not analytical purity; Tonkarome, Suederal, Orris Liquid and Patchouli EO remain mixtures/products.",
+    "actual_pure_odorant_fraction": null,
+    "actual_final_mass_ppm": null,
+    "stock_densities_verified": false
+  },
+  "totals": {
+    "raw_mg": 6000,
+    "product_mg": 3808,
+    "carriers_mg": {
+      "dpg": 1000,
+      "ipm": 20,
+      "ethanol": 60,
+      "dep": 632,
+      "tec": 480
+    }
+  },
+  "rows": [
+    {
+      "name": "Hedione",
+      "raw_mg": 600,
+      "fraction": 1,
+      "basket": 1,
+      "stock": "neat / as supplied",
+      "carriers_mg": {},
+      "role": "Air between iris and warm base",
+      "product_mg": 600,
+      "product_ppm_w_w": 100000,
+      "preparation_required": false,
+      "raw_ul_authoritative": null,
+      "literal_active_ul": null,
+      "odt_authority": "Repository modeled/transfer screening only; product identity or lot-specific threshold not established.",
+      "ideal_product_ppm": 157563.02521008402,
+      "stock_runtime_binding": {
+        "material": "Hedione",
+        "inventory_lookup_label": "Hedione",
+        "inventory_identity": "Hedione",
+        "fraction": 1,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "stock_id": "inventory:v5:0f9d7e0971aad1594be4",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          129
+        ],
+        "inventory_source_ref": "Current Inventory Master!A129:N129",
+        "identity_crosswalk_contract_id": null
+      },
+      "diagnostic_screen": {
+        "odt_air_ppm": 0.00005,
+        "oav": 2827.107022018196,
+        "evidence_status": "MODELED_NOT_MEASURED",
+        "repository_provenance_labels": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "reference:vp_25c",
+          "dhvap": "not_required:vp_25c_reference_temperature",
+          "gamma": "heuristic:hansen_distance",
+          "odt": "literature:peer_reviewed.odt_air",
+          "ifra": "literature:ifra_safety",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "repository_density_g_ml": 1,
+        "repository_density_source": "fallback:default_1_g_ml",
+        "pipeline_authoritative_active_g": null,
+        "product_specific_threshold_verified": false
+      }
+    },
+    {
+      "name": "Ambrox Super",
+      "raw_mg": 480,
+      "fraction": 0.25,
+      "basket": 1,
+      "stock": "25% w/w in DPG + IPM + ethanol",
+      "carriers_mg": {
+        "dpg": 280,
+        "ipm": 20,
+        "ethanol": 60
+      },
+      "role": "Dry amber continuation",
+      "product_mg": 120,
+      "product_ppm_w_w": 20000,
+      "preparation_required": false,
+      "raw_ul_authoritative": null,
+      "literal_active_ul": null,
+      "odt_authority": "Repository modeled/transfer screening only; product identity or lot-specific threshold not established.",
+      "ideal_product_ppm": 31512.605042016807,
+      "stock_runtime_binding": {
+        "material": "Ambrox Super",
+        "inventory_lookup_label": "Ambrox Super",
+        "inventory_identity": "Ambrox Super",
+        "fraction": 0.25,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg + ipm + ethanol",
+        "stock_id": "inventory:user-20260904:ea3db9e73a1d529f6a97",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260904",
+        "source_rows": [
+          30
+        ],
+        "inventory_source_ref": "data/governance/inventory_user_authority_overlay_20260904.json#INV-USER-20260904-005",
+        "identity_crosswalk_contract_id": null
+      },
+      "diagnostic_screen": {
+        "odt_air_ppm": 0.0003,
+        "oav": 48.60387103416421,
+        "evidence_status": "MODELED_NOT_MEASURED",
+        "repository_provenance_labels": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "reference:vp_25c",
+          "dhvap": "not_required:vp_25c_reference_temperature",
+          "gamma": "heuristic:hansen_distance",
+          "odt": "derived:odor_thresholds.odt_air",
+          "ifra": "literature:ifra_safety",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "repository_density_g_ml": 1,
+        "repository_density_source": "fallback:default_1_g_ml",
+        "pipeline_authoritative_active_g": null,
+        "product_specific_threshold_verified": false
+      }
+    },
+    {
+      "name": "Iso E Super",
+      "raw_mg": 450,
+      "fraction": 1,
+      "basket": 1,
+      "stock": "neat / as supplied",
+      "carriers_mg": {},
+      "role": "Transparent woody space",
+      "product_mg": 450,
+      "product_ppm_w_w": 75000,
+      "preparation_required": false,
+      "raw_ul_authoritative": null,
+      "literal_active_ul": null,
+      "odt_authority": "Repository modeled/transfer screening only; product identity or lot-specific threshold not established.",
+      "ideal_product_ppm": 118172.26890756302,
+      "stock_runtime_binding": {
+        "material": "Iso E Super",
+        "inventory_lookup_label": "Iso E Super",
+        "inventory_identity": "Iso E Super",
+        "fraction": 1,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "stock_id": "inventory:v5:66c8443970c7354dd89a",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          140
+        ],
+        "inventory_source_ref": "Current Inventory Master!A140:N140",
+        "identity_crosswalk_contract_id": null
+      },
+      "diagnostic_screen": {
+        "odt_air_ppm": 0.00005,
+        "oav": 5378.702748512614,
+        "evidence_status": "MODELED_NOT_MEASURED",
+        "repository_provenance_labels": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "reference:vp_25c",
+          "dhvap": "not_required:vp_25c_reference_temperature",
+          "gamma": "heuristic:hansen_distance",
+          "odt": "literature:peer_reviewed.odt_air",
+          "ifra": "literature:ifra_safety",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "repository_density_g_ml": 1,
+        "repository_density_source": "fallback:default_1_g_ml",
+        "pipeline_authoritative_active_g": null,
+        "product_specific_threshold_verified": false
+      }
+    },
+    {
+      "name": "Benzyl Salicylate",
+      "raw_mg": 210,
+      "fraction": 1,
+      "basket": 1,
+      "stock": "neat / as supplied",
+      "carriers_mg": {},
+      "role": "Cosmetic floral cushion",
+      "product_mg": 210,
+      "product_ppm_w_w": 35000,
+      "preparation_required": false,
+      "raw_ul_authoritative": null,
+      "literal_active_ul": null,
+      "odt_authority": "Repository modeled/transfer screening only; product identity or lot-specific threshold not established.",
+      "ideal_product_ppm": 55147.05882352941,
+      "stock_runtime_binding": {
+        "material": "Benzyl Salicylate",
+        "inventory_lookup_label": "Benzyl Salicylate",
+        "inventory_identity": "Benzyl Salicylate",
+        "fraction": 1,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "stock_id": "inventory:user-20260904:8263471c0cfb6737d169",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260904",
+        "source_rows": [
+          41
+        ],
+        "inventory_source_ref": "data/governance/inventory_user_authority_overlay_20260904.json#INV-USER-20260904-004",
+        "identity_crosswalk_contract_id": null
+      },
+      "diagnostic_screen": {
+        "odt_air_ppm": 0.01,
+        "oav": 0.6137533151213905,
+        "evidence_status": "MODELED_NOT_MEASURED",
+        "repository_provenance_labels": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "reference:vp_25c",
+          "dhvap": "not_required:vp_25c_reference_temperature",
+          "gamma": "heuristic:hansen_distance",
+          "odt": "literature:peer_reviewed.odt_air",
+          "ifra": "literature:ifra_safety",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "repository_density_g_ml": 1,
+        "repository_density_source": "fallback:default_1_g_ml",
+        "pipeline_authoritative_active_g": null,
+        "product_specific_threshold_verified": false
+      }
+    },
+    {
+      "name": "Patchouli EO",
+      "raw_mg": 180,
+      "fraction": 1,
+      "basket": 1,
+      "stock": "neat / as supplied",
+      "carriers_mg": {},
+      "role": "Dark earthy identity anchor",
+      "product_mg": 180,
+      "product_ppm_w_w": 30000,
+      "preparation_required": false,
+      "raw_ul_authoritative": null,
+      "literal_active_ul": null,
+      "odt_authority": "Repository modeled/transfer screening only; product identity or lot-specific threshold not established.",
+      "ideal_product_ppm": 47268.90756302521,
+      "stock_runtime_binding": {
+        "material": "Patchouli EO",
+        "inventory_lookup_label": "Patchouli EO",
+        "inventory_identity": "Patchouli EO",
+        "fraction": 1,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "stock_id": "inventory:user-20260830:c84084216d3a15ca7271",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260904",
+        "source_rows": [
+          198
+        ],
+        "inventory_source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260830-003",
+        "identity_crosswalk_contract_id": null
+      },
+      "diagnostic_screen": {
+        "odt_air_ppm": 0.003,
+        "oav": 42.26460714507573,
+        "evidence_status": "MODELED_NOT_MEASURED",
+        "repository_provenance_labels": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "literature:natural_composite_constituent_mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "literature:natural_composite_constituent_vp",
+          "vp_temperature": "heuristic:clausius_clapeyron_vp25_dhvap_correlation",
+          "dhvap": "literature_correlation:doi:10.1021/es980812j",
+          "gamma": "modeled:natural_composite_constituent_gamma",
+          "odt": "modeled:natural_composite_constituent_odt",
+          "ifra": "literature:ifra_safety",
+          "oav_model": "literature:natural_composite_gc_o",
+          "natural_composite": "LITERATURE_PARTIAL_PROFILE;profile=patchouli eo;coverage=0.690000;resolution=direct_identity;lookup=patchouli eo;batch_specific=false"
+        },
+        "repository_density_g_ml": 1,
+        "repository_density_source": "fallback:default_1_g_ml",
+        "pipeline_authoritative_active_g": null,
+        "product_specific_threshold_verified": false
+      }
+    },
+    {
+      "name": "Bacdanol",
+      "raw_mg": 400,
+      "fraction": 1,
+      "basket": 3,
+      "stock": "neat / as supplied",
+      "carriers_mg": {},
+      "role": "Sandalwood body",
+      "product_mg": 400,
+      "product_ppm_w_w": 66666.66666666667,
+      "preparation_required": false,
+      "raw_ul_authoritative": null,
+      "literal_active_ul": null,
+      "odt_authority": "Repository modeled/transfer screening only; product identity or lot-specific threshold not established.",
+      "ideal_product_ppm": 105042.01680672269,
+      "stock_runtime_binding": {
+        "material": "Bacdanol",
+        "inventory_lookup_label": "Bacdanol",
+        "inventory_identity": "Bacdanol",
+        "fraction": 1,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "stock_id": "inventory:user-20260904:253450f4be4656be1093",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260904",
+        "source_rows": [],
+        "inventory_source_ref": "data/governance/inventory_user_authority_overlay_20260904.json#INV-USER-20260904-001",
+        "identity_crosswalk_contract_id": null
+      },
+      "diagnostic_screen": {
+        "odt_air_ppm": 0.012,
+        "oav": 0.0766818089062119,
+        "evidence_status": "MODELED_NOT_MEASURED",
+        "repository_provenance_labels": {
+          "density": "registry:data_spine.density_25c",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "reference:vp_25c",
+          "dhvap": "not_required:vp_25c_reference_temperature",
+          "gamma": "profile:ingredient_intelligence.activity_coef",
+          "odt": "literature:peer_reviewed.odt_air",
+          "ifra": "missing_or_unrestricted",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "repository_density_g_ml": 0.866,
+        "repository_density_source": "registry:data_spine.density_25c",
+        "pipeline_authoritative_active_g": 0.3464,
+        "product_specific_threshold_verified": false
+      }
+    },
+    {
+      "name": "Kephalis",
+      "raw_mg": 120,
+      "fraction": 1,
+      "basket": 3,
+      "stock": "neat / as supplied",
+      "carriers_mg": {},
+      "role": "Iris-to-amber woody bridge",
+      "product_mg": 120,
+      "product_ppm_w_w": 20000,
+      "preparation_required": false,
+      "raw_ul_authoritative": null,
+      "literal_active_ul": null,
+      "odt_authority": "Repository modeled/transfer screening only; product identity or lot-specific threshold not established.",
+      "ideal_product_ppm": 31512.605042016807,
+      "stock_runtime_binding": {
+        "material": "Kephalis",
+        "inventory_lookup_label": "Kephalis",
+        "inventory_identity": "Kephalis",
+        "fraction": 1,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "stock_id": "inventory:v5:7c0e8f327e111a82e0c5",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          153
+        ],
+        "inventory_source_ref": "Current Inventory Master!A153:N153",
+        "identity_crosswalk_contract_id": null
+      },
+      "diagnostic_screen": {
+        "odt_air_ppm": 0.05,
+        "oav": 4.124891134459661,
+        "evidence_status": "MODELED_NOT_MEASURED",
+        "repository_provenance_labels": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "reference:vp_25c",
+          "dhvap": "not_required:vp_25c_reference_temperature",
+          "gamma": "profile:ingredient_intelligence.activity_coef",
+          "odt": "unverified:odor_thresholds.odt_air",
+          "ifra": "missing_or_unrestricted",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "repository_density_g_ml": 1,
+        "repository_density_source": "fallback:default_1_g_ml",
+        "pipeline_authoritative_active_g": null,
+        "product_specific_threshold_verified": false
+      }
+    },
+    {
+      "name": "Cashmeran",
+      "raw_mg": 60,
+      "fraction": 1,
+      "basket": 3,
+      "stock": "neat / as supplied",
+      "carriers_mg": {},
+      "role": "Dry textile grain",
+      "product_mg": 60,
+      "product_ppm_w_w": 10000,
+      "preparation_required": false,
+      "raw_ul_authoritative": null,
+      "literal_active_ul": null,
+      "odt_authority": "Repository modeled/transfer screening only; product identity or lot-specific threshold not established.",
+      "ideal_product_ppm": 15756.302521008403,
+      "stock_runtime_binding": {
+        "material": "Cashmeran",
+        "inventory_lookup_label": "Cashmeran",
+        "inventory_identity": "Cashmeran",
+        "fraction": 1,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "stock_id": "inventory:v5:0b5d75dffb251876ec11",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          59
+        ],
+        "inventory_source_ref": "Current Inventory Master!A59:N59",
+        "identity_crosswalk_contract_id": null
+      },
+      "diagnostic_screen": {
+        "odt_air_ppm": 0.002,
+        "oav": 100.92586880686044,
+        "evidence_status": "MODELED_NOT_MEASURED",
+        "repository_provenance_labels": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "reference:vp_25c",
+          "dhvap": "not_required:vp_25c_reference_temperature",
+          "gamma": "profile:ingredient_intelligence.activity_coef",
+          "odt": "literature:peer_reviewed.odt_air",
+          "ifra": "literature:ifra_safety",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "repository_density_g_ml": 1,
+        "repository_density_source": "fallback:default_1_g_ml",
+        "pipeline_authoritative_active_g": null,
+        "product_specific_threshold_verified": false
+      }
+    },
+    {
+      "name": "Suederal",
+      "raw_mg": 40,
+      "fraction": 1,
+      "basket": 3,
+      "stock": "neat / as supplied",
+      "carriers_mg": {},
+      "role": "Subordinate suede interpretation",
+      "product_mg": 40,
+      "product_ppm_w_w": 6666.666666666667,
+      "preparation_required": false,
+      "raw_ul_authoritative": null,
+      "literal_active_ul": null,
+      "odt_authority": "Repository modeled/transfer screening only; product identity or lot-specific threshold not established.",
+      "ideal_product_ppm": 10504.20168067227,
+      "stock_runtime_binding": {
+        "status": "UNBOUND_IN_WORKTREE_RUNTIME",
+        "source_note": "Live inventory explicit neat stock line; runtime exposes different 10% stock"
+      },
+      "diagnostic_screen": {
+        "odt_air_ppm": 0.0005,
+        "oav": 2.6565399888633983,
+        "evidence_status": "MODELED_NOT_MEASURED",
+        "repository_provenance_labels": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "reference:vp_25c",
+          "dhvap": "not_required:vp_25c_reference_temperature",
+          "gamma": "profile:ingredient_intelligence.activity_coef",
+          "odt": "unverified:odor_thresholds.odt_air",
+          "ifra": "missing_or_unrestricted",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "repository_density_g_ml": 1,
+        "repository_density_source": "fallback:default_1_g_ml",
+        "pipeline_authoritative_active_g": null,
+        "product_specific_threshold_verified": false
+      }
+    },
+    {
+      "name": "Ambrettolide",
+      "raw_mg": 800,
+      "fraction": 0.1,
+      "basket": 6,
+      "stock": "10% w/w in DPG",
+      "carriers_mg": {
+        "dpg": 720
+      },
+      "role": "Single soft close musk",
+      "product_mg": 80,
+      "product_ppm_w_w": 13333.333333333334,
+      "preparation_required": false,
+      "raw_ul_authoritative": null,
+      "literal_active_ul": null,
+      "odt_authority": "Repository modeled/transfer screening only; product identity or lot-specific threshold not established.",
+      "ideal_product_ppm": 21008.40336134454,
+      "stock_runtime_binding": {
+        "status": "UNBOUND_IN_WORKTREE_RUNTIME",
+        "source_note": "Canonical user 2026-09-04 exact mass-stock record used in design"
+      },
+      "diagnostic_screen": {
+        "odt_air_ppm": 0.000136,
+        "oav": 5.860479024793444,
+        "evidence_status": "MODELED_NOT_MEASURED",
+        "repository_provenance_labels": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "reference:vp_25c",
+          "dhvap": "not_required:vp_25c_reference_temperature",
+          "gamma": "profile:ingredient_intelligence.activity_coef",
+          "odt": "literature:peer_reviewed.odt_air",
+          "ifra": "missing_or_unrestricted",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "repository_density_g_ml": 1,
+        "repository_density_source": "fallback:default_1_g_ml",
+        "pipeline_authoritative_active_g": null,
+        "product_specific_threshold_verified": false
+      }
+    },
+    {
+      "name": "Alpha Isomethyl Ionone",
+      "raw_mg": 1200,
+      "fraction": 1,
+      "basket": 11,
+      "stock": "neat / as supplied",
+      "carriers_mg": {},
+      "role": "Floral woody iris body",
+      "product_mg": 1200,
+      "product_ppm_w_w": 200000,
+      "preparation_required": false,
+      "raw_ul_authoritative": null,
+      "literal_active_ul": null,
+      "odt_authority": "Repository modeled/transfer screening only; product identity or lot-specific threshold not established.",
+      "ideal_product_ppm": 315126.05042016803,
+      "stock_runtime_binding": {
+        "material": "Alpha Isomethyl Ionone",
+        "inventory_lookup_label": "Alpha Isomethyl Ionone",
+        "inventory_identity": "Alpha Isomethyl Ionone",
+        "fraction": 1,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "stock_id": "inventory:v5:3db3b3193ffb5bdd672a",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          21
+        ],
+        "inventory_source_ref": "Current Inventory Master!A21:N21",
+        "identity_crosswalk_contract_id": null
+      },
+      "diagnostic_screen": {
+        "odt_air_ppm": 0.0008,
+        "oav": 2112.575056188369,
+        "evidence_status": "MODELED_NOT_MEASURED",
+        "repository_provenance_labels": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "reference:vp_25c",
+          "dhvap": "not_required:vp_25c_reference_temperature",
+          "gamma": "profile:ingredient_intelligence.activity_coef",
+          "odt": "literature:peer_reviewed.odt_air",
+          "ifra": "literature:ifra_safety",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "repository_density_g_ml": 1,
+        "repository_density_source": "fallback:default_1_g_ml",
+        "pipeline_authoritative_active_g": null,
+        "product_specific_threshold_verified": false
+      }
+    },
+    {
+      "name": "Alpha Irone",
+      "raw_mg": 240,
+      "fraction": 0.1,
+      "basket": 11,
+      "stock": "10% w/w in DEP",
+      "carriers_mg": {
+        "dep": 216
+      },
+      "role": "Specific irone accent",
+      "product_mg": 24,
+      "product_ppm_w_w": 4000,
+      "preparation_required": false,
+      "raw_ul_authoritative": null,
+      "literal_active_ul": null,
+      "odt_authority": "Repository modeled/transfer screening only; product identity or lot-specific threshold not established.",
+      "ideal_product_ppm": 6302.5210084033615,
+      "stock_runtime_binding": {
+        "material": "Alpha Irone",
+        "inventory_lookup_label": "Alpha Irone",
+        "inventory_identity": "Alpha Irone",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "stock_id": "inventory:user-20260828:7fe094eca01cedacae09",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260904",
+        "source_rows": [
+          19,
+          20
+        ],
+        "inventory_source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260828-003",
+        "identity_crosswalk_contract_id": null
+      },
+      "diagnostic_screen": {
+        "odt_air_ppm": 0.0009,
+        "oav": 37.628247978580056,
+        "evidence_status": "MODELED_NOT_MEASURED",
+        "repository_provenance_labels": {
+          "density": "registry:data_spine.density_25c",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "reference:vp_25c",
+          "dhvap": "not_required:vp_25c_reference_temperature",
+          "gamma": "profile:ingredient_intelligence.activity_coef",
+          "odt": "derived:odor_thresholds.odt_air",
+          "ifra": "missing_or_unrestricted",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "repository_density_g_ml": 0.932,
+        "repository_density_source": "registry:data_spine.density_25c",
+        "pipeline_authoritative_active_g": null,
+        "product_specific_threshold_verified": false
+      }
+    },
+    {
+      "name": "Orris Liquid",
+      "raw_mg": 200,
+      "fraction": 0.09,
+      "basket": 11,
+      "stock": "9% w/w in DEP",
+      "carriers_mg": {
+        "dep": 182
+      },
+      "role": "Supplied-product root texture, not 9% irones",
+      "product_mg": 18,
+      "product_ppm_w_w": 3000,
+      "preparation_required": false,
+      "raw_ul_authoritative": null,
+      "literal_active_ul": null,
+      "odt_authority": "Repository modeled/transfer screening only; product identity or lot-specific threshold not established.",
+      "ideal_product_ppm": 4726.8907563025205,
+      "stock_runtime_binding": {
+        "material": "Orris Liquid",
+        "inventory_lookup_label": "Orris Liquid",
+        "inventory_identity": "Orris Liquid",
+        "fraction": 0.09,
+        "fraction_basis": "mass_fraction",
+        "carrier": "",
+        "stock_id": "inventory:user-20260901:a47b9cc572ceeb148e8e",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260904",
+        "source_rows": [
+          195
+        ],
+        "inventory_source_ref": "data/governance/inventory_user_authority_overlay_20260901.json#INV-USER-20260901-003",
+        "identity_crosswalk_contract_id": null
+      },
+      "diagnostic_screen": {
+        "odt_air_ppm": 0.0009,
+        "oav": 30.138532777190168,
+        "evidence_status": "MODELED_NOT_MEASURED",
+        "repository_provenance_labels": {
+          "density": "registry:data_spine.density_25c",
+          "mw": "literature:natural_composite_constituent_mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "literature:natural_composite_constituent_vp",
+          "vp_temperature": "heuristic:clausius_clapeyron_vp25_dhvap_correlation",
+          "dhvap": "literature_correlation:doi:10.1021/es980812j",
+          "gamma": "modeled:natural_composite_constituent_gamma",
+          "odt": "modeled:natural_composite_constituent_odt",
+          "ifra": "missing_or_unrestricted",
+          "oav_model": "literature:natural_composite_gc_o",
+          "natural_composite": "LITERATURE_PARTIAL_PROFILE;profile=orris liquid;coverage=0.825000;resolution=direct_identity;lookup=orris liquid;batch_specific=false"
+        },
+        "repository_density_g_ml": 0.93,
+        "repository_density_source": "registry:data_spine.density_25c",
+        "pipeline_authoritative_active_g": null,
+        "product_specific_threshold_verified": false
+      }
+    },
+    {
+      "name": "Alpha Ionone",
+      "raw_mg": 100,
+      "fraction": 1,
+      "basket": 11,
+      "stock": "neat / as supplied",
+      "carriers_mg": {},
+      "role": "Violet-petal lift",
+      "product_mg": 100,
+      "product_ppm_w_w": 16666.666666666668,
+      "preparation_required": false,
+      "raw_ul_authoritative": null,
+      "literal_active_ul": null,
+      "odt_authority": "Repository modeled/transfer screening only; product identity or lot-specific threshold not established.",
+      "ideal_product_ppm": 26260.504201680673,
+      "stock_runtime_binding": {
+        "material": "Alpha Ionone",
+        "inventory_lookup_label": "Alpha Ionone",
+        "inventory_identity": "Alpha Ionone",
+        "fraction": 1,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "stock_id": "inventory:v5:948e98d704540c4db323",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          18
+        ],
+        "inventory_source_ref": "Current Inventory Master!A18:N18",
+        "identity_crosswalk_contract_id": null
+      },
+      "diagnostic_screen": {
+        "odt_air_ppm": 0.0004,
+        "oav": 1089.7098023740555,
+        "evidence_status": "MODELED_NOT_MEASURED",
+        "repository_provenance_labels": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "reference:vp_25c",
+          "dhvap": "not_required:vp_25c_reference_temperature",
+          "gamma": "profile:ingredient_intelligence.activity_coef",
+          "odt": "literature:peer_reviewed.odt_air",
+          "ifra": "literature:ifra_safety",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "repository_density_g_ml": 1,
+        "repository_density_source": "fallback:default_1_g_ml",
+        "pipeline_authoritative_active_g": null,
+        "product_specific_threshold_verified": false
+      }
+    },
+    {
+      "name": "Orivone",
+      "raw_mg": 40,
+      "fraction": 1,
+      "basket": 11,
+      "stock": "neat / as supplied",
+      "carriers_mg": {},
+      "role": "Dry root counterpoint",
+      "product_mg": 40,
+      "product_ppm_w_w": 6666.666666666667,
+      "preparation_required": false,
+      "raw_ul_authoritative": null,
+      "literal_active_ul": null,
+      "odt_authority": "Repository modeled/transfer screening only; product identity or lot-specific threshold not established.",
+      "ideal_product_ppm": 10504.20168067227,
+      "stock_runtime_binding": {
+        "material": "Orivone",
+        "inventory_lookup_label": "Orivone",
+        "inventory_identity": "Orivone",
+        "fraction": 1,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "stock_id": "inventory:v5:fcd20111111c9f97c404",
+        "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+        "source_rows": [
+          194
+        ],
+        "inventory_source_ref": "Current Inventory Master!A194:N194",
+        "identity_crosswalk_contract_id": null
+      },
+      "diagnostic_screen": {
+        "odt_air_ppm": 0.0003,
+        "oav": 4950.019512582132,
+        "evidence_status": "MODELED_NOT_MEASURED",
+        "repository_provenance_labels": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "reference:vp_25c",
+          "dhvap": "not_required:vp_25c_reference_temperature",
+          "gamma": "profile:ingredient_intelligence.activity_coef",
+          "odt": "unverified:odor_thresholds.odt_air",
+          "ifra": "missing_or_unrestricted",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "repository_density_g_ml": 1,
+        "repository_density_source": "fallback:default_1_g_ml",
+        "pipeline_authoritative_active_g": null,
+        "product_specific_threshold_verified": false
+      }
+    },
+    {
+      "name": "Tonkarome",
+      "raw_mg": 600,
+      "fraction": 0.2,
+      "basket": 12,
+      "stock": "20% w/w in TEC",
+      "carriers_mg": {
+        "tec": 480
+      },
+      "role": "Roasted tonka bridge",
+      "product_mg": 120,
+      "product_ppm_w_w": 20000,
+      "preparation_required": false,
+      "raw_ul_authoritative": null,
+      "literal_active_ul": null,
+      "odt_authority": "Repository modeled/transfer screening only; product identity or lot-specific threshold not established.",
+      "ideal_product_ppm": 31512.605042016807,
+      "stock_runtime_binding": {
+        "status": "UNBOUND_IN_WORKTREE_RUNTIME",
+        "source_note": "Canonical user 2026-09-04 exact mass-stock record used in design"
+      },
+      "diagnostic_screen": {
+        "odt_air_ppm": 0.0005,
+        "oav": 25.146143399583714,
+        "evidence_status": "MODELED_NOT_MEASURED",
+        "repository_provenance_labels": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "reference:vp_25c",
+          "dhvap": "not_required:vp_25c_reference_temperature",
+          "gamma": "profile:ingredient_intelligence.activity_coef",
+          "odt": "literature:odor_thresholds.odt_air",
+          "ifra": "missing_or_unrestricted",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "repository_density_g_ml": 1,
+        "repository_density_source": "fallback:default_1_g_ml",
+        "pipeline_authoritative_active_g": null,
+        "product_specific_threshold_verified": false
+      }
+    },
+    {
+      "name": "Coumarin",
+      "raw_mg": 180,
+      "fraction": 0.2,
+      "basket": 12,
+      "stock": "20% w/w in DEP",
+      "carriers_mg": {
+        "dep": 144
+      },
+      "role": "Dry hay-tonka definition",
+      "product_mg": 36,
+      "product_ppm_w_w": 6000,
+      "preparation_required": true,
+      "raw_ul_authoritative": null,
+      "literal_active_ul": null,
+      "odt_authority": "Repository modeled/transfer screening only; product identity or lot-specific threshold not established.",
+      "ideal_product_ppm": 9453.781512605041,
+      "stock_runtime_binding": {
+        "status": "UNBOUND_IN_WORKTREE_RUNTIME",
+        "source_note": "Planned new working stock, no preparation receipt exists"
+      },
+      "diagnostic_screen": {
+        "odt_air_ppm": 0.0007,
+        "oav": 57.6466053037111,
+        "evidence_status": "MODELED_NOT_MEASURED",
+        "repository_provenance_labels": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "reference:vp_25c",
+          "dhvap": "not_required:vp_25c_reference_temperature",
+          "gamma": "heuristic:hansen_distance",
+          "odt": "literature:peer_reviewed.odt_air",
+          "ifra": "literature:ifra_safety",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "repository_density_g_ml": 1,
+        "repository_density_source": "fallback:default_1_g_ml",
+        "pipeline_authoritative_active_g": null,
+        "product_specific_threshold_verified": false
+      }
+    },
+    {
+      "name": "Heliotropal",
+      "raw_mg": 100,
+      "fraction": 0.1,
+      "basket": 12,
+      "stock": "10% w/w in DEP",
+      "carriers_mg": {
+        "dep": 90
+      },
+      "role": "Almond-powder link",
+      "product_mg": 10,
+      "product_ppm_w_w": 1666.6666666666667,
+      "preparation_required": true,
+      "raw_ul_authoritative": null,
+      "literal_active_ul": null,
+      "odt_authority": "Repository modeled/transfer screening only; product identity or lot-specific threshold not established.",
+      "ideal_product_ppm": 2626.0504201680674,
+      "stock_runtime_binding": {
+        "status": "UNBOUND_IN_WORKTREE_RUNTIME",
+        "source_note": "Planned new working stock, no preparation receipt exists"
+      },
+      "diagnostic_screen": {
+        "odt_air_ppm": 0.000006,
+        "oav": 11397.071330207054,
+        "evidence_status": "MODELED_NOT_MEASURED",
+        "repository_provenance_labels": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "registry:data_spine.mw",
+          "logp": "profile:ingredient_intelligence.clogp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "reference:vp_25c",
+          "dhvap": "not_required:vp_25c_reference_temperature",
+          "gamma": "profile:ingredient_intelligence.activity_coef",
+          "odt": "literature:peer_reviewed.odt_air",
+          "ifra": "missing_or_unrestricted",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "repository_density_g_ml": 1,
+        "repository_density_source": "fallback:default_1_g_ml",
+        "pipeline_authoritative_active_g": null,
+        "product_specific_threshold_verified": false
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "PRADA_PRODUCT",
+      "url": "https://www.prada.com/ww/en/p/lhomme-prada-intense-edp-100-ml/2A1252_2HC1_F0Z99_P_ML100",
+      "type": "official_brand",
+      "accessed": "2026-09-05",
+      "supports": "Amber, patchouli, iris and tonka in description; sandalwood and roasted tonka in notes. No proprietary ratios."
+    },
+    {
+      "id": "PRADA_CAMPAIGN",
+      "url": "https://www.prada.com/us/en/pradasphere/fragrances/la-femme-et-l-homme-prada/la-femme-et-l-homme-prada-intense.html",
+      "type": "official_brand",
+      "accessed": "2026-09-05",
+      "supports": "Floral iris against intensified amber/patchouli and airy tonka dimension; leather not stated."
+    },
+    {
+      "id": "IFF_BACDANOL",
+      "url": "https://www.iff.com/scent/ingredients-compendium/bacdanol/",
+      "type": "manufacturer",
+      "accessed": "2026-09-05",
+      "supports": "Sandalwood/floral support character; VP 0.001065 mmHg at 23 C, approximately 0.14199 Pa. Not a certificate for the owned lot."
+    },
+    {
+      "id": "GIVAUDAN_KEPHALIS",
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/kephalis",
+      "type": "manufacturer",
+      "accessed": "2026-09-05",
+      "supports": "Woody-amber/tobacco heart-base bridging; VP 0.0053 hPa = 0.53 Pa."
+    },
+    {
+      "id": "IFF_AMBRETTOLIDE",
+      "url": "https://www.iff.com/scent/ingredients-compendium/ambrettolide/",
+      "type": "manufacturer",
+      "accessed": "2026-09-05",
+      "supports": "Substantive musk with floral/red-fruit facets; VP 0.000158 mmHg at 23 C, approximately 0.02107 Pa. Supports candidate character, not this product lot or blend performance."
+    }
+  ],
+  "inventory_bindings": [
+    {
+      "path": "inventory.txt",
+      "sha256": "5da7ecdab4ce9c297f95a61051b38d9183f796c1971dd276546ef15c7856c497",
+      "role": "worktree physical list"
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260904_002.json",
+      "sha256": "e24ecddb690760a1f0d545855ba93c4d60680ebd83c9585d60e4e36ae2f7ce09",
+      "role": "worktree runtime overlay; materialization successful"
+    },
+    {
+      "path": "D:/chatbots/perfume-chem/inventory.txt",
+      "sha256": "e9c53eaa3c32f9c21396ce14aa3c1d5a7091529e6aa47867b66a676559512be4",
+      "role": "canonical user correction source; not a replacement runtime pin"
+    },
+    {
+      "path": "D:/chatbots/perfume-chem/data/governance/inventory_user_authority_overlay_20260904.json",
+      "sha256": "e2fe66cb8077da38142913a73b0d77acd14b6e4953f6155bb2011e1e2bb851a4",
+      "role": "Exact Ambrettolide 10% w/w DPG and Tonkarome 20% w/w TEC records, plus AIMI alias and Ambrox preparation"
+    },
+    {
+      "path": "D:/chatbots/perfume-chem/data/governance/inventory_user_authority_overlay_20260905.json",
+      "sha256": "08d0f0e41f90741200b3e915789ddd044cbbf7b0ce1b1aa266053452781bb17f",
+      "role": "INV-USER-20260905-001 Orris Liquid 9% w/w supplied PW product in DEP"
+    }
+  ],
+  "preparations": [
+    {
+      "id": "PLI-PREP-C20",
+      "material": "Coumarin",
+      "status": "PLANNED_NOT_PREPARED",
+      "solute_mg": 2000,
+      "carrier": "DEP",
+      "carrier_mg": 8000,
+      "total_mg": 10000,
+      "fraction": 0.2,
+      "basis": "w/w",
+      "source": "Owned neat powder; do not use existing basis-unspecified 20% DEP or saturated DPG stock."
+    },
+    {
+      "id": "PLI-PREP-H10",
+      "material": "Heliotropal (Piperonal)",
+      "status": "PLANNED_NOT_PREPARED",
+      "solute_mg": 1000,
+      "carrier": "DEP",
+      "carrier_mg": 9000,
+      "total_mg": 10000,
+      "fraction": 0.1,
+      "basis": "w/w",
+      "source": "Owned neat Heliotropal; not Heliotropin Fleuressence."
+    }
+  ],
+  "model_projection": {
+    "path": "docs/research/Prada_LHomme_Intense_Astra_V1_DIAGNOSTIC_ONLY.md",
+    "rule": "Each mass mg is encoded as the same number of surrogate uL, holding stock fractions. Unit density is an explicitly artificial interface assumption, not a measured or traceably estimated volume. Engine may then impose its own densities. Do not compound from this table.",
+    "usable_for": "Parser/lineage diagnostic, provisional headspace sensitivity alarm and deep-plane evidence structure only.",
+    "not_usable_for": [
+      "exact physical headspace",
+      "final w/w safety compliance",
+      "perceived shares",
+      "literal active volume",
+      "confirmed target similarity",
+      "release"
+    ],
+    "named_archetype": "iris_amber_woody.prada_lhomme_intense_reference",
+    "archetype_status": "No matching registry contract found; do not substitute base Prada or Dior."
+  },
+  "authority_flags": {
+    "observed_smell": false,
+    "similarity": false,
+    "liking": false,
+    "safety": false,
+    "stability": false,
+    "physical_performance": false,
+    "physical_compounding": false,
+    "release": false
+  },
+  "screen_result": {
+    "pipeline_overall": "FAIL",
+    "release_evidence_overall": "HOLD",
+    "integrated_run_count": 1,
+    "formatter_exit_code": 0,
+    "config": {
+      "expected_concentrate_ul": 6000,
+      "batch_volume_ml": 30,
+      "temperature_K": 298.15,
+      "brief": "auto",
+      "family_archetype": "iris_amber_woody.prada_lhomme_intense_reference",
+      "concentration_bracket": "EdP",
+      "allow_preblends": true,
+      "min_confidence_score": 25,
+      "ifra_headroom": 1,
+      "effective_ifra_headroom": 1,
+      "commercial_mode": false,
+      "quantitative_claim": false,
+      "matrix_components_moles": [],
+      "matrix_mass_g": 0,
+      "matrix_source": "omitted",
+      "requires_exact_quantitation": false,
+      "commercial_confidence_policy": "block",
+      "commercial_trial": false,
+      "batch_scaling_targets_ml": [],
+      "audit_source": "docs/research/Prada_LHomme_Intense_Astra_V1_DIAGNOSTIC_ONLY.md"
+    },
+    "stock_contract_failed_materials": [
+      "Ambrettolide",
+      "Coumarin",
+      "Heliotropal",
+      "Suederal",
+      "Tonkarome"
+    ],
+    "false_reference_match": "Prada L'Homme base. Inapplicable to Intense; missing formal diagnostic reference metadata is retained as an explicit format defect, not a design instruction.",
+    "deep_plane": {
+      "gate_status": "PASS",
+      "status": "HOLD",
+      "check_state": "COMPLETE",
+      "authority_ceiling": "withheld",
+      "all_13_planes": "WITHHELD",
+      "all_downstream_authority_flags": false
+    },
+    "scope": "No code/governance edits; no repeated integrated run; no physical execution."
+  }
+}

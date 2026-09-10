@@ -1,0 +1,112 @@
+{
+  "schema_version": "unified_import_cyp01_v1",
+  "manifest_id": "UNIFIED-IMPORT-CYP01-20260904",
+  "created_date": "2026-09-04",
+  "source": {
+    "worktree": "D:\\chatbots\\perfume-chem\\.worktrees\\cypress-mineral-traverse-v1",
+    "branch": "codex/cypress-mineral-traverse-v1",
+    "source_commit": "2290fa3a687f9b24d011072cd50089bb192aaf86",
+    "observed_head": "2290fa3a687f9b24d011072cd50089bb192aaf86",
+    "worktree_dirty": true,
+    "scoped_files_clean": true,
+    "scope_note": "The source worktree had unrelated local configuration and instruction-file modifications. The four imported paths were tracked and clean at the observed source commit. No unrelated source change was imported, and the source files were not modified."
+  },
+  "destination": {
+    "worktree": "D:\\chatbots\\perfume-chem-unified-package",
+    "branch": "codex/unified-perfume-intelligence-package",
+    "base_commit": "4a0e5b8b302595a7bf21f50e4bfa7fa11592571e",
+    "worktree_dirty": true,
+    "scope_note": "The destination contained extensive unrelated work. All four artifact paths and this manifest path were absent before import; only these five assigned add-only paths were written."
+  },
+  "transfer_policy": {
+    "add_only": true,
+    "byte_exact": false,
+    "rewritten": false,
+    "source_untouched": true,
+    "unrelated_source_changes_imported": false,
+    "optimizer_or_scoring_changes_imported": false,
+    "staged": false,
+    "committed": false,
+    "pushed": false
+  },
+  "files": [
+    {
+      "source_path": "docs/research/CYPRES_DE_VERRE_ARCHITECTURE_AND_HEDONIC_PROTOCOL_20260830.md",
+      "destination_path": "docs/research/CYPRES_DE_VERRE_ARCHITECTURE_AND_HEDONIC_PROTOCOL_20260830.md",
+      "byte_size": 20726,
+      "sha256": "cfffc01fffad846d1a9226985a3483efd1ba4c68d7ee87143aef99e5e3b1c9eb",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "docs/research/CYPRES_DE_VERRE_DIAGNOSTIC_RECEIPT_20260830.md",
+      "destination_path": "docs/research/CYPRES_DE_VERRE_DIAGNOSTIC_RECEIPT_20260830.md",
+      "byte_size": 5845,
+      "sha256": "cfe790dbd6f01ffd2820fa19bdc9eea181529c8039d741083e4187b584893954",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "formulas/CYP_01_Cypres_de_Verre_French_Cypress_30mL_20pct.md",
+      "destination_path": "formulas/CYP_01_Cypres_de_Verre_French_Cypress_30mL_20pct.md",
+      "byte_size": 15357,
+      "sha256": "d40eca49f3c45121399399a8eca74a7e795cf94503bacac4c67a65d3f7f453d6",
+      "source_destination_match": true
+    },
+    {
+      "source_path": "tests/test_cypres_de_verre_formula.py",
+      "destination_path": "tests/test_cypres_de_verre_formula.py",
+      "source_byte_size": 7689,
+      "source_sha256": "5307e1d4876a43023f18b61c3550c69057c23b270ea987147c1c19e6f6d6307c",
+      "byte_size": 7688,
+      "sha256": "a5a134c1f8fdd61121e08d03cb58eb76b340480155530743559058a34fec7de2",
+      "destination_size_bytes": 7688,
+      "destination_sha256": "a5a134c1f8fdd61121e08d03cb58eb76b340480155530743559058a34fec7de2",
+      "source_destination_match": false,
+      "destination_adaptation_required": true,
+      "destination_adaptation": "LF_ONLY_FORMATTING_NORMALIZATION_REMOVED_ONE_BLANK_LINE_AT_BYTE_OFFSET_262__NO_TEST_SEMANTICS_CHANGED"
+    }
+  ],
+  "manifest_file_count": 4,
+  "manifest_byte_count": 49617,
+  "destination_manifest_byte_count": 49616,
+  "verification": {
+    "command": "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe -m pytest tests\\test_cypres_de_verre_formula.py -q",
+    "working_directory": "D:\\chatbots\\perfume-chem-unified-package",
+    "result": "10 passed, 410 warnings in 12.40s",
+    "passed": true,
+    "test_file_adapted": true,
+    "warning_note": "Warnings were emitted by pytest-asyncio for a Python asyncio API deprecation and did not affect the focused test result."
+  },
+  "scientific_status": {
+    "formula_status": "DEVELOPMENT CANDIDATE",
+    "release_status": "HOLD",
+    "hold_reason": "Blinded sensory testing and required safety, stability, preparation, and release evidence are not complete.",
+    "natural_composite_oav": {
+      "status": "UNRESOLVED",
+      "materials": [
+        "Cypress EO",
+        "Elemi EO"
+      ],
+      "composite_oav": "UNKNOWN",
+      "reason": "Bottle-scope composite GC-O decomposition is unavailable; unrelated published natural-oil composition was intentionally not assigned to the user's bottles."
+    }
+  },
+  "authority": {
+    "formula_mutation_authorized": false,
+    "physical_execution_authorized": false,
+    "compounding_authorized": false,
+    "purchase_authority": false,
+    "sensory_authority": false,
+    "hedonic_authority": false,
+    "similarity_authority": false,
+    "performance_authority": false,
+    "safety_authority": false,
+    "stability_authority": false,
+    "release_authority": false
+  },
+  "exclusions": [
+    "all optimizer and scoring implementation changes",
+    "all unrelated tracked and untracked source-worktree changes",
+    "all unrelated destination-worktree changes",
+    "credentials, caches, generated runtime output, and local configuration"
+  ]
+}

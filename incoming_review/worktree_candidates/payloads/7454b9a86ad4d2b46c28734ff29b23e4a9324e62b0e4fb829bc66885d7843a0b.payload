@@ -1,0 +1,49 @@
+# Complex Perfumery full-objective completion handoff - V14
+
+Status: `EXACT_COLLECTION_48__RECOVERED_NON_P6_NATIVE_SOFTWARE_SCOPE_COMPLETE__INPUTS_RIGHTS_AND_PHYSICAL_EVIDENCE_HELD`
+
+## Outcome
+
+V14 cleanly captures and receipts the post-V13 30 mL formula-scaling package. This advances exact-byte quarantine; it does not install package code, select a canonical formula, or create physical or release authority.
+
+- Exact outer candidate lower bound: 48.
+- Defensible chat denominator lower bound: 48; denominator completeness remains false.
+- New exact package: 289,626 B, SHA-256 `c01c9bfd6e18b17968fd2530c7a548f2c3a41c6d4f74e9e64973aef4c950618e`.
+- Integrity: 126 safe members, ledger 125/125, manifest 124/124, native `CLEAR_FOR_RECEIPT_REVIEW`, promotion false.
+- Contents: nine perfume books, 110 individual 30 mL arm formulas, and one quick table. These are raw-volume design geometry only.
+- The Complexity Model v2.0 original card is live, but its exact bytes have not landed locally.
+- Source rights remain unknown.
+- Universal Accord, the declared cutover parent, and both P6 parents remain exact-byte unavailable.
+
+## Requirement decision
+
+| Requirement | Decision |
+|---|---|
+| Gather newest completed files | Partial: V14 is exact; one live card and four older parents remain unmaterialized; the dynamic denominator is incomplete. |
+| Diff against native Perfume-Chem | Passed for recovered scopes: no new native gap. |
+| Preserve information and complexity | Passed for immutable, authority-false quarantine ancestry. |
+| Literature-first planning | Passed for the present boundary: raw scaling and OAV screens are not physical or sensory evidence. |
+| Best native implementation | Complete for authorized recovered non-P6 scope. No migration, schema, truth store, pipeline, or package-code installation is justified. |
+| Global installation and release | Not achieved. |
+
+## Next gates
+
+1. Download only the unchanged Complexity Model v2.0 original to Downloads and verify 172,172 B / SHA-256 `f4be1041bb8e2e8b5665962e580aa740996bd2f77b61299cca1d3cdf55014a5d`. Do not reconstruct, substitute, capture, or receipt it in this handoff.
+2. Recover the four residual exact parents only if unchanged bytes become available, then bind field-specific reuse rights.
+3. Close CLR-001 2-Acetyl Pyrazine and CLR-002 Lemonile exact stock and preparation receipts.
+4. Create four real preparations, close nine verifications, and register nine authenticated references from measured physical evidence.
+5. Lock C10/P3 protocol, separately authorize Laboratory Beta execution, collect bottle-bound observations, bind all 17 C0 artifacts, and run release verification only after prior gates pass.
+
+## Hard boundaries
+
+- Raw volume is not active dose or exact-stock authority.
+- No canonical formula has been selected.
+- Source v/v metadata cannot alter mass fraction or mass inventory movements.
+- No physical, sensory, analytical, measured-headspace, strict empirical-OAV, similarity, stability, safety, procurement, installation, publication, or release result exists.
+- The full release verifier has a known timeout/non-PASS state and was not rerun because release inputs remain absent.
+
+## Sol decision
+
+No additional software implementation is justified by V14. Preserve the current native worktree and quarantined ancestry. The only immediate in-scope collection action is the exact live-card download; every scientific or installation action remains gated by rights and physical evidence.
+
+All source-admission, formula, inventory, stock, bottle, physical, sensory, analytical, headspace, strict-OAV, safety, procurement, installation, publication, and release authority remains false.

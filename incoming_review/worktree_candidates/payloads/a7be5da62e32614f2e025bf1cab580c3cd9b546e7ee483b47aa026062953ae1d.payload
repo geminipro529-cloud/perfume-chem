@@ -1,0 +1,2509 @@
+"""Data-driven perfume family and archetype grammar.
+The registry is intentionally lightweight: it expresses perfumer-readable
+anchors and drift limits in terms of raw or active concentrate percentages.
+Release gates and optimizers can use the same specs without hardcoded family
+thresholds scattered across the codebase.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from typing import Mapping
+
+from engine.name_utils import normalize_name
+
+
+@dataclass(frozen=True, slots=True)
+class GroupRule:
+    name: str
+    materials: tuple[str, ...]
+    basis: str = "active"  # "active" or "raw"
+    minimum: float | None = None
+    maximum: float | None = None
+    detail: str = ""
+
+    @property
+    def normalized_materials(self) -> frozenset[str]:
+        return frozenset(normalize_name(material) for material in self.materials)
+
+
+@dataclass(frozen=True, slots=True)
+class ArchetypeSpec:
+    key: str
+    family: str
+    label: str
+    role: str
+    anchors: tuple[GroupRule, ...]
+    drift_limits: tuple[GroupRule, ...]
+    forbidden_materials: tuple[str, ...] = ()
+    forbidden_tokens: tuple[str, ...] = ()
+    oav_targets: Mapping[str, Mapping[str, float]] = field(default_factory=dict)
+    repair_pool: Mapping[str, float] = field(default_factory=dict)
+    novelty_reference: str = ""
+    novelty_message: str = ""
+
+
+@dataclass(frozen=True, slots=True)
+class FamilyCheck:
+    name: str
+    status: str
+    detail: str
+    value: float
+    rule: GroupRule | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class FamilyEvaluation:
+    archetype: str
+    family: str
+    label: str
+    status: str
+    checks: tuple[FamilyCheck, ...]
+    forbidden_hits: tuple[str, ...] = ()
+
+
+AROMATIC = (
+    "Lavender EO",
+    "Lavender EO High Altitude",
+    "Spike Lavender EO",
+    "Lavender Spike Essential Oil",
+    "Clary Sage EO",
+    "Petitgrain EO",
+    "Juniper Berry EO",
+    "Beta-Pinene",
+    "Pine EO",
+    "Pine Essential Oil",
+    "Linalool",
+    "Linalyl Acetate",
+    "Ethyl Linalool",
+    "Dihydromyrcenol",
+    "Terpinyl Acetate",
+)
+CITRUS = (
+    "Bergamot FCF",
+    "Bergamot",
+    "Bergamot FCF Sicilian",
+    "Bergamot FCF oil Sicilian",
+    "Cedrat FCF Sicilian",
+    "Cedrat FCF oil Sicilian",
+    "Grapefruit FCF",
+    "Red Mandarin EO",
+    "Lime Distilled EO",
+    "Lime Distilled Essential Oil",
+    "Limonene",
+    "D-Limonene",
+    "Petitgrain EO",
+)
+FOUGERE_BASE = (
+    "Coumarin",
+    "Evernyl",
+    "Vetiver EO",
+    "Patchouli EO",
+    "Cedarwood EO",
+    "Cedarwood oil Virginia",
+    "Iso E Super",
+)
+MARINE = ("Calone", "Floralozone", "Scentenal")
+FRESH_POWER = ("Dihydromyrcenol", "Calone", "Floralozone", "Scentenal")
+LOUD_FRUIT = (
+    "Apritone",
+    "Hexyl Acetate",
+    "Ethyl 2-Methylbutyrate",
+    "Methyl Pamplemousse",
+)
+GOURMAND = (
+    "Vanillin",
+    "Ethyl Vanillin",
+    "Ethyl Maltol",
+    "Benzoin Resinoid",
+    "Coumarin",
+)
+APPLE = ("Apritone", "Hexyl Acetate", "Ethyl 2-Methylbutyrate")
+LAYTON_SPICE = ("Terpinyl Acetate", "Eugenol")
+LAVENDER_SUPPORT = ("Lavender EO", "Linalool", "Linalyl Acetate", "Ethyl Linalool")
+RADIANCE = ("Hedione", "Hedione HC", "Dihydrojasmone")
+AMBER_WOOD_MUSK = (
+    "Ambrox Super",
+    "Ambrofix",
+    "Azarbre",
+    "Ambermax",
+    "Iso E Super",
+    "Sandalore",
+    "Timberol",
+    "Norlimbanol Dextro",
+    "Cashmeran",
+    "Habanolide",
+    "Romandolide",
+    "Galaxolide",
+    "Ethylene Brassylate",
+    "Ambrettolide",
+)
+FOUGERE_SHADOW = (
+    "Coumarin",
+    "Evernyl",
+    "Vetiver EO",
+    "Patchouli EO",
+    "Cedarwood EO",
+    "Cedarwood oil Virginia",
+)
+VETIVER_WOODY = (
+    "Vetiver EO",
+    "Vetiver EO (India)",
+    "Vetival",
+    "Vetikon",
+    "Cedarwood EO",
+    "Cedarwood oil Virginia",
+    "Iso E Super",
+    "Vertofix",
+    "Timberol",
+    "Evernyl",
+    "Patchouli EO",
+    "Koavone",
+    "Clearwood",
+    "Nagarmortha Oil",
+)
+WOODY_SPICE = (
+    "Black Pepper EO",
+    "Black Pepper FTEC",
+    "Cardamom EO",
+    "Cardamom FTEC",
+    "Ethyl Safranate",
+    "Eugenol",
+    "Isoeugenol",
+)
+OPAQUE_PREBLENDS = "Pink Pepper Base"
+ALDEHYDES = (
+    "Aldehyde C10",
+    "Aldehyde C11",
+    "Aldehyde C11 undecylenic",
+    "Aldehyde C12 MNA",
+)
+NEROLI_ORANGE_BLOSSOM = (
+    "Neroli EO",
+    "Aurantiol",
+    "Nerol",
+    "Oranger Crystals",
+    "Nerolin Bromelia",
+    "Methyl Anthranilate",
+    "Petitgrain EO",
+)
+ROSE_CORE = (
+    "Phenethyl Alcohol (PEA)",
+    "Geraniol",
+    "Citronellol",
+    "Rhodinol ex Citronella",
+    "Nerol",
+    "Rose Oxide",
+    "Alpha Damascone",
+    "Damascone Beta",
+    "Damascenone",
+    "Damascol",
+    "Phenyl Ethyl Dimethyl Carbinol (PEDMC)",
+)
+WHITE_FLORAL_CORE = (
+    "Jasmine FO",
+    "Hedione",
+    "Hedione HC",
+    "Benzyl Acetate",
+    "Methyl Anthranilate",
+    "Indole",
+    "Ylang Comoros Complete EO F3255",
+    "Ylang Comoros III EO F3295",
+    "Ylang Ylang EO (Extra grade)",
+    "Dimethyl Benzyl Carbinyl Acetate (DBCA)",
+    "Aurantiol",
+    "Benzyl Salicylate",
+    "Hexyl Salicylate",
+    "Mayol",
+    "Oranger Crystals",
+    "Nerolin Bromelia",
+)
+JASMINE_WHITE = (
+    "Jasmine FO",
+    "Hedione",
+    "Hedione HC",
+    "Benzyl Acetate",
+    "Methyl Anthranilate",
+    "Indole",
+    "Aurantiol",
+    "Ylang Comoros Complete EO F3255",
+    "Ylang Comoros III EO F3295",
+    "Ylang Ylang EO (Extra grade)",
+)
+MUGUET_CORE = (
+    "Hydroxycitronellal",
+    "Florol",
+    "Lilyreal ND",
+    "Bourgeonal",
+    "Cyclimal Aldehyde",
+    "Cyclamen Aldehyde",
+    "Mayol",
+    "Nympheal",
+    "Freesia HDI",
+    "Phenyl Ethyl Dimethyl Carbinol (PEDMC)",
+    "Farnesol",
+)
+CARNATION_SPICE = (
+    "Eugenol",
+    "Isoeugenol",
+    "Cinnamyl alcohol 50% in DPG",
+    "Cinnamaldehyde",
+    "Methyl Salicylate",
+)
+CARNATION_FLORAL = (
+    "Phenethyl Alcohol (PEA)",
+    "Geraniol",
+    "Ylang Comoros Complete EO F3255",
+    "Ylang Comoros III EO F3295",
+    "Ylang Ylang EO (Extra grade)",
+    "Benzyl Salicylate",
+    "Hexyl Salicylate",
+)
+POWDERY_FLORAL_CORE = (
+    "Heliotropal (Piperonal)",
+    "Coumarin",
+    "Vanillin",
+    "Ethyl Vanillin",
+    "Musk Ketone",
+    "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+    "Alpha Ionone",
+    "Beta Ionone",
+    "Allyl Ionone (Ketone V)",
+    "Alpha Irone (30% in DEP)",
+    "Irotyl",
+    "Benzyl Salicylate",
+    "Mayol",
+    "Ylang Comoros Complete EO F3255",
+    "Ylang Comoros III EO F3295",
+    "Ylang Ylang EO (Extra grade)",
+)
+GREEN_FLORAL_CORE = (
+    "Galbanum Resinoid (10%)",
+    "Verdox",
+    "Parmavert",
+    "Leafovert",
+    "Triplal",
+    "Cyclamen Aldehyde",
+    "Cyclimal Aldehyde",
+    "Florol",
+    "Phenethyl Alcohol (PEA)",
+    "Peonile",
+    "p-Cresyl Methyl Ether (PCME) (10%)",
+)
+FLORAL_BOUQUET_CORE = (
+    ROSE_CORE
+    + JASMINE_WHITE
+    + MUGUET_CORE
+    + (
+        "Peonile",
+        "Dimethyl Benzyl Carbinyl Acetate (DBCA)",
+    )
+)
+CHYPRE_CORE = (
+    "Bergamot FCF",
+    "Bergamot EO",
+    "Bergamot FCF oil Sicilian",
+    "Evernyl",
+    "Patchouli EO",
+    "Labdanum Absolute (10%)",
+    "Vetiver EO",
+    "Vetiver EO (India)",
+    "Cedarwood EO",
+    "Cedarwood oil Virginia",
+    "Iso E Super",
+)
+LEATHER_CHYPRE = (
+    "Isobutyl Quinoline (10%)",
+    "Birch Tar Rectified",
+    "Suederal (10%)",
+    "Guaiacol (10%)",
+)
+FRUITY_CHYPRE = (
+    "Gamma Decalactone",
+    "Gamma Undecalactone",
+    "Apritone (10%)",
+    "Raspberry Ketone",
+    "Damascone Beta (10%)",
+    "Methyl Pamplemousse (10% in TEC)",
+)
+LABDANUM_MEMORY = (
+    "Siam Benzoin (50% in DPG)",
+    "Benzoin Sumatra Resinoid (10%)",
+    "Olibanum Resinoid Absolute (10%)",
+    "Patchouli EO",
+)
+ORIENTAL_CLASSICAL_CORE = (
+    "Siam Benzoin (50% in DPG)",
+    "Benzoin Sumatra Resinoid (10%)",
+    "Vanillin (10%)",
+    "Ethyl Vanillin (10%)",
+    "Coumarin (20%)",
+    "Olibanum Resinoid Absolute (10%)",
+    "Patchouli EO",
+    "Labdanum Absolute (10%)",
+    "Ambrofix",
+    "Ambrox Super (~33% w/v in DEP:EtOH 53:47 — 5g/15mL: 8mL DEP + ~7mL EtOH)",
+    "Iso E Super",
+)
+SOFT_ORIENTAL_CORE = (
+    "Siam Benzoin (50% in DPG)",
+    "Benzoin Sumatra Resinoid (10%)",
+    "Vanillin (10%)",
+    "Coumarin (20%)",
+    "Lavender EO",
+    "Linalool",
+    "Linalyl Acetate",
+    "Bergamot FCF",
+    "Bergamot FCF oil Sicilian",
+    "Hedione",
+    "Ethylene Brassylate",
+    "Habanolide",
+    "Galaxolide (50% in DEP)",
+)
+ORIENTAL_FLORAL_CORE = (
+    "Siam Benzoin (50% in DPG)",
+    "Benzoin Sumatra Resinoid (10%)",
+    "Vanillin (10%)",
+    "Coumarin (20%)",
+    "Heliotropal (Piperonal)",
+    "Jasmine FO",
+    "Hedione",
+    "Ylang Comoros Complete EO F3255",
+    "Ylang Comoros III EO F3295",
+    "Ylang Ylang EO (Extra grade)",
+    "Phenethyl Alcohol (PEA)",
+    "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+    "Alpha Ionone",
+    "Benzyl Salicylate",
+)
+MODERN_FRESH_FLOOD = (
+    "Dihydromyrcenol",
+    "Floralozone (10%)",
+    "Scentenal (1%)",
+    "Calone (1%)",
+)
+MODERN_AMBERWOOD_FLOOD = (
+    "Ambrox Super (~33% w/v in DEP:EtOH 53:47 — 5g/15mL: 8mL DEP + ~7mL EtOH)",
+    "Ambrofix",
+    "Amberwood F",
+    "Ambermax (50%)",
+    "Timberol",
+    "Norlimbanol Dextro",
+    "Clearwood",
+)
+
+# ── GOURMAND FLORAL (gourmand-floral hybrid: tuberose + cocoa-vanilla) ──
+GOURMAND_FLORAL_GOURMANDS = (
+    "Vanillin",
+    "Ethyl Vanillin",
+    "Ethyl Maltol",
+    "Coumarin",
+    "Benzoin Resinoid",
+    "Siam Benzoin (50% in DPG)",
+    "Benzoin Sumatra Resinoid (10%)",
+    "Maple Lactone (20%)",
+    "Heliotropal (Piperonal)",
+    "Tonka Bean FO",
+)
+GOURMAND_FLORAL_FLORALS = (
+    "Hedione",
+    "Hedione HC",
+    "Jasmine FO",
+    "Jasmine Sambac (10% in DPG)",
+    "Jasmine Absolute",
+    "Ylang Comoros Complete EO F3255",
+    "Ylang Comoros III EO F3295",
+    "Ylang Ylang EO (Extra grade)",
+    "Phenethyl Alcohol (PEA)",
+    "Benzyl Acetate",
+    "Benzyl Salicylate",
+    "Hexyl Salicylate",
+    "Dimethyl Benzyl Carbinyl Acetate (DBCA)",
+    "Mayol",
+    "Peonile",
+    "Methyl Anthranilate",
+    "Aurantiol",
+    "Indole",
+    "Oranger Crystals",
+    "Nerolin Bromelia",
+)
+GOURMAND_FLORAL_WOODS = (
+    "Vetiver EO",
+    "Vetiver EO (India)",
+    "Vetival",
+    "Cedarwood EO",
+    "Cedarwood oil Virginia",
+    "Iso E Super",
+    "Patchouli EO",
+    "Sandalore",
+    "Javanol",
+    "Ebanol",
+    "Cashmeran",
+)
+GOURMAND_FLORAL_MUSKS = (
+    "Ethylene Brassylate",
+    "Habanolide",
+    "Romandolide",
+    "Ambrettolide",
+    "Galaxolide (50% in DEP)",
+    "Galaxolide",
+    "Exaltolide (10%)",
+    "Musk Ketone",
+)
+
+# ── WOODY FLORAL MUSK (Reflection Man DNA / luxury white-floral woods) ──
+WOODY_FLORAL_MUSK_WOODS = (
+    "Iso E Super",
+    "Sandalore",
+    "Javanol",
+    "Ebanol",
+    "Cedarwood EO",
+    "Cedarwood oil Virginia",
+    "Patchouli EO",
+    "Cashmeran",
+    "Vertofix Coeur",
+    "Timberol",
+    "Koavone",
+    "Kephalis",
+    "Azarbre",
+)
+WOODY_FLORAL_MUSK_FLORALS = (
+    "Hedione",
+    "Hedione HC",
+    "Jasmine Sambac",
+    "Jasmine FO",
+    "Jasmine Absolute",
+    "Phenethyl Alcohol (PEA)",
+    "Rose de Mai Absolute",
+    "Ylang Comoros III EO F3295",
+    "Rosemary EO",
+)
+WOODY_FLORAL_MUSK_MUSKS = (
+    "Galaxolide (50% in DEP)",
+    "Galaxolide",
+    "Habanolide",
+    "Romandolide",
+    "Ethylene Brassylate",
+    "Ambrettolide",
+    "Zenolide",
+    "Exaltolide",
+    "Musk Ketone",
+    "Molecule Iris",
+)
+WOODY_FLORAL_MUSK_IRIS = (
+    "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+    "Alpha Ionone",
+    "Alpha Irone",
+    "Orivone",
+    "I-IRIS F-TEC",
+    "Methyl Ionone",
+    "Dihydro Beta Ionone",
+    "Ultralia",
+)
+
+
+def _rule(
+    name: str,
+    materials: tuple[str, ...],
+    *,
+    basis: str = "active",
+    minimum=None,
+    maximum=None,
+    detail="",
+) -> GroupRule:
+    return GroupRule(
+        name=name,
+        materials=materials,
+        basis=basis,
+        minimum=minimum,
+        maximum=maximum,
+        detail=detail,
+    )
+
+
+def _reference_spec(
+    *,
+    key: str,
+    family: str,
+    label: str,
+    anchors: tuple[GroupRule, ...],
+    drift_limits: tuple[GroupRule, ...],
+    forbidden_materials: tuple[str, ...] = OPAQUE_PREBLENDS,
+    forbidden_tokens: tuple[str, ...] = (),
+    oav_targets: Mapping[str, Mapping[str, float]],
+    repair_pool: Mapping[str, float],
+    novelty_reference: str = "",
+    novelty_message: str = "",
+) -> ArchetypeSpec:
+    return ArchetypeSpec(
+        key=key,
+        family=family,
+        label=label,
+        role="reference_control",
+        anchors=anchors,
+        drift_limits=drift_limits,
+        forbidden_materials=forbidden_materials,
+        forbidden_tokens=forbidden_tokens,
+        oav_targets=oav_targets,
+        repair_pool=repair_pool,
+        novelty_reference=novelty_reference,
+        novelty_message=novelty_message or "Reference/control archetype; familiar by design.",
+    )
+
+
+generic_fallback = ArchetypeSpec(
+    key="generic_fallback",
+    family="generic",
+    label="Generic (no specific family archetype)",
+    role="fallback",
+    anchors=(),
+    drift_limits=(),
+    forbidden_materials=(),
+    repair_pool={},
+    novelty_reference="generic fallback for backward compatibility",
+    novelty_message="This archetype is intentionally permissive. Formulas should declare a specific family before release.",
+)
+
+ARCHETYPES: dict[str, ArchetypeSpec] = {
+    "generic_fallback": generic_fallback,
+    "aromatic_fougere.classic_reference": ArchetypeSpec(
+        key="aromatic_fougere.classic_reference",
+        family="aromatic_fougere",
+        label="Classic/reference aromatic fougere",
+        role="reference_control",
+        anchors=(
+            _rule("fougere_aromatic_lavender_axis", AROMATIC, minimum=5.0),
+            _rule("fougere_citrus_fresh_top", CITRUS, minimum=4.0),
+            _rule("fougere_coumarin_tonka_axis", ("Coumarin",), minimum=0.35),
+            _rule("fougere_moss_wood_drydown", FOUGERE_BASE, minimum=3.0),
+        ),
+        drift_limits=(
+            _rule("marine_not_shower_gel", MARINE, basis="raw", maximum=7.5),
+            _rule("fruit_not_candy_axis", LOUD_FRUIT, maximum=1.0),
+        ),
+        forbidden_materials=OPAQUE_PREBLENDS,
+        oav_targets={
+            "top": {"citrus": 900, "aromatic": 260, "fresh": 210},
+            "heart": {"aromatic": 260, "coumarin": 16, "green": 80},
+            "base": {"aromatic": 95, "wood": 45, "moss": 10, "coumarin": 12},
+        },
+        repair_pool={
+            "Iso E Super": 2.0,
+            "Vetiver EO": 1.5,
+            "Patchouli EO": 1.2,
+            "Habanolide": 0.8,
+        },
+        novelty_message="Reference/control archetype; expected to be familiar rather than new.",
+    ),
+    "aromatic_fougere.modern_mineral": ArchetypeSpec(
+        key="aromatic_fougere.modern_mineral",
+        family="aromatic_fougere",
+        label="Modern mineral aromatic fougere",
+        role="modern_exploration",
+        anchors=(
+            _rule("mineral_fougere_lavender_axis", AROMATIC, minimum=4.5),
+            _rule("mineral_fougere_citrus_lift", CITRUS, minimum=4.0),
+            _rule("mineral_fougere_coumarin_trace", ("Coumarin",), minimum=0.20),
+            _rule("mineral_fougere_moss_wood_backbone", FOUGERE_BASE, minimum=3.0),
+            _rule(
+                "mineral_signature_present",
+                MARINE + ("Dihydromyrcenol",),
+                basis="raw",
+                minimum=3.0,
+            ),
+        ),
+        drift_limits=(
+            _rule("marine_not_shower_gel", MARINE, basis="raw", maximum=7.5),
+            _rule(
+                "dhm_not_functional_flood",
+                ("Dihydromyrcenol",),
+                basis="raw",
+                maximum=8.0,
+            ),
+            _rule("fruit_not_candy_axis", LOUD_FRUIT, maximum=0.8),
+        ),
+        forbidden_materials=OPAQUE_PREBLENDS,
+        oav_targets={
+            "top": {"citrus": 1800, "fresh": 1200, "aromatic": 180, "marine": 45},
+            "heart": {"fresh": 3200, "aromatic": 700, "marine": 260},
+            "base": {"marine": 160, "wood": 70, "aromatic": 30},
+        },
+        repair_pool={
+            "Iso E Super": 2.0,
+            "Cedarwood EO": 1.5,
+            "Vetiver EO": 1.0,
+            "Habanolide": 0.8,
+        },
+        novelty_reference="aromatic_fougere.classic_reference",
+        novelty_message="Modernity should come from mineral/fresh air while the fougere backbone remains readable.",
+    ),
+    "aromatic_fougere.modern_tonka_mass": ArchetypeSpec(
+        key="aromatic_fougere.modern_tonka_mass",
+        family="aromatic_fougere",
+        label="Modern tonka mass-appeal aromatic fougere",
+        role="modern_exploration",
+        anchors=(
+            _rule("tonka_fougere_lavender_axis", AROMATIC, minimum=5.0),
+            _rule("tonka_fougere_citrus_top", CITRUS, minimum=3.5),
+            _rule("tonka_fougere_coumarin_tonka_axis", ("Coumarin",), minimum=0.35),
+            _rule("tonka_fougere_moss_wood_backbone", FOUGERE_BASE, minimum=3.0),
+            _rule(
+                "tonka_mass_hook_present",
+                LOUD_FRUIT + ("Vanillin", "Ethyl Vanillin"),
+                minimum=0.25,
+            ),
+        ),
+        drift_limits=(
+            _rule("fruit_not_amber_fruity", LOUD_FRUIT, maximum=1.2),
+            _rule("gourmand_not_amber_gourmand", GOURMAND, maximum=3.0),
+            _rule("marine_not_shower_gel", MARINE, basis="raw", maximum=2.5),
+        ),
+        forbidden_materials=OPAQUE_PREBLENDS,
+        oav_targets={
+            "top": {"citrus": 1500, "fruity": 160, "aromatic": 180},
+            "heart": {"aromatic": 700, "fruity": 900, "coumarin": 18},
+            "base": {"wood": 40, "musk": 18, "coumarin": 12},
+        },
+        repair_pool={
+            "Iso E Super": 2.0,
+            "Vetiver EO": 1.2,
+            "Habanolide": 1.0,
+            "Ambrox Super": 0.5,
+        },
+        novelty_reference="aromatic_fougere.classic_reference",
+        novelty_message="Novelty should come from a controlled fruit/tonka hook, not an amber-gourmand family switch.",
+    ),
+    "layton_dna.fresh_thai": ArchetypeSpec(
+        key="layton_dna.fresh_thai",
+        family="layton_dna",
+        label="Fresh Thai Layton DNA-inspired amber",
+        role="transparent_layton_trial",
+        anchors=(
+            _rule("layton_apple_hook", APPLE, minimum=0.12),
+            _rule("layton_citrus_lift", CITRUS, minimum=4.0),
+            _rule("layton_cardamom_like_spice", LAYTON_SPICE, minimum=0.25),
+            _rule("layton_hedione_radiance", RADIANCE, minimum=4.0),
+            _rule("layton_amber_wood_musk_base", AMBER_WOOD_MUSK, minimum=18.0),
+            _rule("layton_vanilla_coumarin_comfort", GOURMAND, minimum=1.25),
+        ),
+        drift_limits=(
+            _rule("lavender_support_not_theme", LAVENDER_SUPPORT, basis="raw", maximum=8.0),
+            _rule("fougere_shadow_not_mossy", FOUGERE_SHADOW, maximum=3.0),
+            _rule("fresh_layton_gourmand_not_heavy", GOURMAND, maximum=3.0),
+        ),
+        forbidden_materials=(),
+        forbidden_tokens=(
+            " ftec",
+            " f-tec",
+            " fleuressence",
+            " accord",
+            " base",
+            " fo",
+        ),
+        oav_targets={
+            "top": {"citrus": 1700, "fruity": 85, "fresh": 420, "aromatic": 230},
+            "heart": {"citrus": 900, "fruity": 110, "fresh": 780, "amber": 140},
+            "base": {"amber": 280, "wood": 45, "musk": 24, "gourmand": 12},
+        },
+        repair_pool={
+            "Iso E Super": 2.0,
+            "Ambrox Super": 1.5,
+            "Habanolide": 1.2,
+            "Sandalore": 1.0,
+        },
+    ),
+    "layton_dna.indoor_amber": ArchetypeSpec(
+        key="layton_dna.indoor_amber",
+        family="layton_dna",
+        label="Air-conditioned amber Layton DNA-inspired trial",
+        role="transparent_layton_trial",
+        anchors=(
+            _rule("layton_apple_hook", APPLE, minimum=0.10),
+            _rule("layton_citrus_lift", CITRUS, minimum=3.0),
+            _rule("layton_cardamom_like_spice", LAYTON_SPICE, minimum=0.20),
+            _rule("layton_hedione_radiance", RADIANCE, minimum=5.0),
+            _rule("layton_amber_wood_musk_base", AMBER_WOOD_MUSK, minimum=20.0),
+            _rule("layton_vanilla_coumarin_comfort", GOURMAND, minimum=1.25),
+        ),
+        drift_limits=(
+            _rule("lavender_support_not_theme", LAVENDER_SUPPORT, basis="raw", maximum=8.0),
+            _rule("fougere_shadow_not_mossy", FOUGERE_SHADOW, maximum=3.0),
+            _rule("indoor_gourmand_not_heavy", GOURMAND, maximum=3.4),
+        ),
+        forbidden_materials=(),
+        forbidden_tokens=(
+            " ftec",
+            " f-tec",
+            " fleuressence",
+            " accord",
+            " base",
+            " fo",
+        ),
+        oav_targets={
+            "top": {"citrus": 1150, "fruity": 65, "aromatic": 175, "amber": 190},
+            "heart": {"amber": 145, "fruity": 85, "radiance": 140, "wood": 70},
+            "base": {"amber": 145, "wood": 42, "musk": 24, "gourmand": 12},
+        },
+        repair_pool={
+            "Iso E Super": 2.0,
+            "Ambrox Super": 1.5,
+            "Habanolide": 1.2,
+            "Sandalore": 1.0,
+        },
+    ),
+    "layton_dna.night_intense": ArchetypeSpec(
+        key="layton_dna.night_intense",
+        family="layton_dna",
+        label="Night intense Layton DNA-inspired trial",
+        role="transparent_layton_trial",
+        anchors=(
+            _rule("layton_apple_hook", APPLE, minimum=0.12),
+            _rule("layton_citrus_lift", CITRUS, minimum=3.0),
+            _rule("layton_cardamom_like_spice", LAYTON_SPICE, minimum=0.25),
+            _rule("layton_hedione_radiance", RADIANCE, minimum=3.5),
+            _rule("layton_amber_wood_musk_base", AMBER_WOOD_MUSK, minimum=20.0),
+            _rule("layton_vanilla_coumarin_comfort", GOURMAND, minimum=1.5),
+        ),
+        drift_limits=(
+            _rule("lavender_support_not_theme", LAVENDER_SUPPORT, basis="raw", maximum=8.0),
+            _rule("fougere_shadow_not_mossy", FOUGERE_SHADOW, maximum=3.2),
+            _rule("night_gourmand_not_overweight", GOURMAND, maximum=4.2),
+        ),
+        forbidden_materials=(),
+        forbidden_tokens=(
+            " ftec",
+            " f-tec",
+            " fleuressence",
+            " accord",
+            " base",
+            " fo",
+        ),
+        oav_targets={
+            "top": {"citrus": 1200, "fruity": 85, "aromatic": 180, "amber": 190},
+            "heart": {"amber": 165, "fruity": 115, "radiance": 105, "wood": 70},
+            "base": {"amber": 165, "wood": 72, "musk": 25, "gourmand": 20},
+        },
+        repair_pool={
+            "Iso E Super": 2.0,
+            "Ambrox Super": 1.5,
+            "Habanolide": 1.2,
+            "Sandalore": 1.0,
+        },
+    ),
+    "woody.vetiver_classical": ArchetypeSpec(
+        key="woody.vetiver_classical",
+        family="woody",
+        label="Classical vetiver woody",
+        role="reference_control",
+        anchors=(
+            _rule(
+                "vetiver_star_axis",
+                ("Vetiver EO", "Vetiver EO (India)", "Vetival"),
+                minimum=8.0,
+            ),
+            _rule("citrus_fresh_top", CITRUS, minimum=6.0),
+            _rule("woody_spine", VETIVER_WOODY, minimum=12.0),
+            _rule("moss_structure", ("Evernyl",), minimum=0.3),
+            _rule("coumarin_warmth", ("Coumarin",), minimum=0.3),
+            _rule("warm_resin_depth", ("Tobacco Absolute", "Kephalis"), minimum=0.1),
+        ),
+        drift_limits=(
+            _rule("not_gourmand", GOURMAND, maximum=2.5),
+            _rule("not_aquatic", MARINE, basis="raw", maximum=2.0),
+            _rule("not_aromatic_fougere", AROMATIC, maximum=4.0),
+            _rule("fruit_not_candy", LOUD_FRUIT, maximum=0.8),
+        ),
+        forbidden_materials=OPAQUE_PREBLENDS,
+        forbidden_tokens=(
+            " ftec",
+            " f-tec",
+            " fleuressence",
+            " accord",
+            " base",
+            " fo",
+        ),
+        oav_targets={
+            "top": {"citrus": 1200, "spice": 80, "aromatic": 120, "green": 60},
+            "heart": {"woody": 800, "floral": 250, "spice": 40, "radiance": 150},
+            "base": {"wood": 120, "musk": 35, "moss": 12, "coumarin": 18},
+        },
+        repair_pool={
+            "Iso E Super": 2.0,
+            "Vetiver EO": 1.5,
+            "Cedarwood EO": 1.2,
+            "Habanolide": 0.8,
+        },
+        novelty_message="Classical vetiver reference; expected to be familiar rather than novel.",
+    ),
+    "floral_aldehydic_amber.classic": ArchetypeSpec(
+        key="floral_aldehydic_amber.classic",
+        family="floral_aldehydic_amber",
+        label="Classic floral aldehydic amber",
+        role="reference_control",
+        anchors=(
+            _rule(
+                "aldehydic_sparkle_top",
+                ("Aldehyde C10", "Aldehyde C12 MNA"),
+                minimum=0.2,
+            ),
+            _rule(
+                "floral_jasmine_rose_heart",
+                ("Hedione", "PEA", "Citronellol", "Peonile"),
+                minimum=10.0,
+            ),
+            _rule("amber_woody_base", AMBER_WOOD_MUSK, minimum=15.0),
+        ),
+        drift_limits=(
+            _rule("not_overly_gourmand", GOURMAND, maximum=5.0),
+            _rule("not_overly_citrus", CITRUS, maximum=10.0),
+        ),
+        forbidden_materials=OPAQUE_PREBLENDS,
+        oav_targets={
+            "top": {"aldehydic": 250, "citrus": 450, "green": 100},
+            "heart": {"floral": 800, "rose": 300, "jasmine": 200},
+            "base": {"amber": 100, "musk": 25, "wood": 30},
+        },
+        repair_pool={
+            "Iso E Super": 2.0,
+            "Hedione": 2.0,
+            "Habanolide": 1.5,
+            "Ethylene Brassylate": 1.0,
+        },
+        novelty_message="Classic floral aldehydic amber; familiar mass-market structure.",
+    ),
+    "citrus_classical.4711_reference": _reference_spec(
+        key="citrus_classical.4711_reference",
+        family="citrus_classical",
+        label="Eau de Cologne / 4711 reference",
+        anchors=(
+            _rule("hesperidic_mass", CITRUS, minimum=20.0),
+            _rule("neroli_orange_blossom_surrogate", NEROLI_ORANGE_BLOSSOM, minimum=0.4),
+            _rule(
+                "clean_cologne_backbone",
+                (
+                    "Hedione",
+                    "Galaxolide (50% in DEP)",
+                    "Ethylene Brassylate",
+                    "Cedarwood oil Virginia",
+                ),
+                minimum=2.0,
+            ),
+        ),
+        drift_limits=(
+            _rule("not_woody_amber", MODERN_AMBERWOOD_FLOOD, maximum=4.0),
+            _rule("not_marine", MODERN_FRESH_FLOOD, basis="raw", maximum=1.0),
+            _rule("not_gourmand", GOURMAND, maximum=0.6),
+        ),
+        oav_targets={
+            "top": {"citrus": 1500, "fresh": 300, "floral": 140},
+            "heart": {"citrus": 500, "floral": 220, "green": 80},
+            "base": {"musk": 16, "wood": 10},
+        },
+        repair_pool={
+            "Bergamot FCF oil Sicilian": 2.0,
+            "Cedrat FCF oil Sicilian": 1.7,
+            "Hedione": 1.0,
+            "Galaxolide (50% in DEP)": 0.8,
+        },
+    ),
+    "citrus_aromatic.eau_sauvage_reference": _reference_spec(
+        key="citrus_aromatic.eau_sauvage_reference",
+        family="citrus_aromatic",
+        label="Citrus aromatic / Eau Sauvage reference",
+        anchors=(
+            _rule("hesperidic_mass", CITRUS, minimum=10.0),
+            _rule(
+                "aromatic_bridge",
+                (
+                    "Lavender EO",
+                    "Rosemary EO (French Rosmarinus Officinalis leaf oil)",
+                    "Clary Sage EO",
+                    "Linalool",
+                    "Linalyl Acetate",
+                ),
+                minimum=3.0,
+            ),
+            _rule("hedione_radiance", ("Hedione", "Hedione HC"), minimum=3.0),
+            _rule(
+                "vetiver_wood_clean_base",
+                (
+                    "Vetiver EO",
+                    "Vetiver EO (India)",
+                    "Cedarwood oil Virginia",
+                    "Iso E Super",
+                ),
+                minimum=2.0,
+            ),
+        ),
+        drift_limits=(
+            _rule("not_blue_fresh", MODERN_FRESH_FLOOD, basis="raw", maximum=1.5),
+            _rule("not_gourmand", GOURMAND, maximum=0.8),
+            _rule(
+                "not_dark_chypre",
+                ("Evernyl", "Patchouli EO", "Labdanum Absolute (10%)"),
+                maximum=2.2,
+            ),
+        ),
+        oav_targets={
+            "top": {"citrus": 1200, "aromatic": 220, "fresh": 220},
+            "heart": {"floral": 260, "aromatic": 180, "green": 80},
+            "base": {"wood": 18, "musk": 12, "amber": 8},
+        },
+        repair_pool={
+            "Bergamot FCF oil Sicilian": 2.0,
+            "Hedione": 1.8,
+            "Rosemary EO (French Rosmarinus Officinalis leaf oil)": 1.2,
+            "Vetiver EO (India)": 1.0,
+        },
+    ),
+    "floral_soliflore.rose_reference": _reference_spec(
+        key="floral_soliflore.rose_reference",
+        family="floral_soliflore",
+        label="Rose soliflore / classical French rose study",
+        anchors=(
+            _rule("rose_core", ROSE_CORE, minimum=16.0),
+            _rule(
+                "rose_diffusion_support",
+                (
+                    "Hedione",
+                    "Benzyl Salicylate",
+                    "Hexyl Salicylate",
+                    "Habanolide",
+                    "Ethylene Brassylate",
+                ),
+                minimum=3.0,
+            ),
+        ),
+        drift_limits=(
+            _rule("not_white_floral_takeover", WHITE_FLORAL_CORE, maximum=4.0),
+            _rule("not_gourmand", GOURMAND, maximum=1.2),
+            _rule(
+                "not_green_chypre",
+                ("Evernyl", "Patchouli EO", "Galbanum Resinoid (10%)"),
+                maximum=1.2,
+            ),
+        ),
+        oav_targets={
+            "top": {"rose": 260, "floral": 600, "citrus": 150},
+            "heart": {"rose": 360, "floral": 900},
+            "base": {"musk": 18, "wood": 10, "powder": 10},
+        },
+        repair_pool={
+            "Phenethyl Alcohol (PEA)": 2.0,
+            "Geraniol": 1.6,
+            "Citronellol": 1.6,
+            "Rhodinol ex Citronella": 1.2,
+        },
+    ),
+    "floral_bouquet.quelques_fleurs_reference": _reference_spec(
+        key="floral_bouquet.quelques_fleurs_reference",
+        family="floral_bouquet",
+        label="Floral bouquet / Quelques Fleurs reference",
+        anchors=(
+            _rule("multi_floral_bouquet", FLORAL_BOUQUET_CORE, minimum=20.0),
+            _rule("rose_present", ROSE_CORE, minimum=4.0),
+            _rule("muguet_present", MUGUET_CORE, minimum=2.0),
+            _rule("aldehydic_lift", ALDEHYDES, minimum=0.08),
+        ),
+        drift_limits=(
+            _rule("not_tuberose_white_floral", JASMINE_WHITE, maximum=18.0),
+            _rule("not_gourmand", GOURMAND, maximum=1.5),
+            _rule(
+                "not_green_bitter",
+                ("Galbanum Resinoid (10%)", "Parmavert", "Leafovert"),
+                maximum=1.5,
+            ),
+        ),
+        oav_targets={
+            "top": {"floral": 420, "citrus": 220, "aldehydic": 180},
+            "heart": {"floral": 1100, "rose": 260, "jasmine": 220, "muguet": 160},
+            "base": {"musk": 20, "wood": 12, "amber": 8},
+        },
+        repair_pool={
+            "Phenethyl Alcohol (PEA)": 1.6,
+            "Hedione": 1.4,
+            "Hydroxycitronellal": 1.0,
+            "Benzyl Salicylate": 0.9,
+        },
+    ),
+    "floral_white.fracas_reference": _reference_spec(
+        key="floral_white.fracas_reference",
+        family="floral_white",
+        label="White floral / Fracas reference",
+        anchors=(
+            _rule("white_floral_core", WHITE_FLORAL_CORE, minimum=18.0),
+            _rule(
+                "narcotic_white_floral",
+                (
+                    "Indole",
+                    "Methyl Anthranilate",
+                    "Jasmine FO",
+                    "Ylang Ylang EO (Extra grade)",
+                ),
+                minimum=2.5,
+            ),
+            _rule(
+                "salicylate_cushion",
+                ("Benzyl Salicylate", "Hexyl Salicylate"),
+                minimum=2.0,
+            ),
+        ),
+        drift_limits=(
+            _rule("not_green_stemmy", GREEN_FLORAL_CORE, maximum=2.0),
+            _rule("not_cologne", CITRUS, maximum=3.0),
+            _rule("not_amberwood_modern", MODERN_AMBERWOOD_FLOOD, maximum=4.0),
+        ),
+        oav_targets={
+            "top": {"floral": 360, "green": 60, "citrus": 120},
+            "heart": {"floral": 1200, "jasmine": 260, "muguet": 150},
+            "base": {"musk": 22, "wood": 12, "amber": 8},
+        },
+        repair_pool={
+            "Hedione": 1.6,
+            "Benzyl Acetate": 1.3,
+            "Methyl Benzoate": 1.2,
+            "Ylang Ylang EO (Extra grade)": 1.0,
+        },
+    ),
+    "floral_muguet.diorissimo_reference": _reference_spec(
+        key="floral_muguet.diorissimo_reference",
+        family="floral_muguet",
+        label="Muguet floral / Diorissimo reference",
+        anchors=(
+            _rule("muguet_barcode", MUGUET_CORE, minimum=12.0),
+            _rule("radiant_lift", ("Hedione", "Hedione HC"), minimum=1.5),
+            _rule(
+                "supportive_green_citrus",
+                (
+                    "Bergamot FCF oil Sicilian",
+                    "Bergamot FCF",
+                    "Cyclamen Aldehyde",
+                    "Freesia HDI",
+                ),
+                minimum=0.5,
+            ),
+        ),
+        drift_limits=(
+            _rule(
+                "not_white_floral_narcotic",
+                ("Indole", "Methyl Anthranilate", "Jasmine FO"),
+                maximum=1.0,
+            ),
+            _rule("not_amber", ORIENTAL_CLASSICAL_CORE, maximum=1.2),
+            _rule("not_woody_modern", MODERN_AMBERWOOD_FLOOD, maximum=2.2),
+        ),
+        oav_targets={
+            "top": {"muguet": 220, "green": 100, "citrus": 140},
+            "heart": {"muguet": 420, "floral": 700},
+            "base": {"musk": 16, "wood": 8},
+        },
+        repair_pool={
+            "Hydroxycitronellal": 1.8,
+            "Lilyreal ND": 1.5,
+            "Bourgeonal": 1.0,
+            "Mayol": 1.0,
+        },
+    ),
+    "floral_carnation.bellodgia_reference": _reference_spec(
+        key="floral_carnation.bellodgia_reference",
+        family="floral_carnation",
+        label="Carnation floral / Bellodgia reference",
+        anchors=(
+            _rule("carnation_spice_axis", CARNATION_SPICE, minimum=1.2),
+            _rule("carnation_floral_cushion", CARNATION_FLORAL, minimum=4.0),
+            _rule(
+                "powder_warmth",
+                ("Heliotropal (Piperonal)", "Coumarin", "Benzyl Salicylate"),
+                minimum=0.8,
+            ),
+        ),
+        drift_limits=(
+            _rule("not_oriental_overload", ORIENTAL_CLASSICAL_CORE, maximum=4.0),
+            _rule("not_green", GREEN_FLORAL_CORE, maximum=1.5),
+            _rule("not_fruity", LOUD_FRUIT + FRUITY_CHYPRE, maximum=0.8),
+        ),
+        oav_targets={
+            "top": {"spicy": 140, "floral": 180},
+            "heart": {"spicy": 220, "floral": 700, "rose": 120},
+            "base": {"powder": 30, "musk": 14, "wood": 10},
+        },
+        repair_pool={
+            "Eugenol": 1.3,
+            "Isoeugenol": 1.2,
+            "Phenethyl Alcohol (PEA)": 1.1,
+            "Benzyl Salicylate": 0.8,
+        },
+    ),
+    "floral_powdery.apres_londee_reference": _reference_spec(
+        key="floral_powdery.apres_londee_reference",
+        family="floral_powdery",
+        label="Powdery floral / Après l'Ondée reference",
+        anchors=(
+            _rule("powder_floral_core", POWDERY_FLORAL_CORE, minimum=9.0),
+            _rule(
+                "iris_ionone_axis",
+                (
+                    "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+                    "Alpha Ionone",
+                    "Beta Ionone",
+                    "Alpha Irone (30% in DEP)",
+                    "Irotyl",
+                ),
+                minimum=3.0,
+            ),
+            _rule(
+                "heliotrope_tonka_axis",
+                ("Heliotropal (Piperonal)", "Coumarin", "Vanillin (10%)"),
+                minimum=1.0,
+            ),
+        ),
+        drift_limits=(
+            _rule("not_white_floral", WHITE_FLORAL_CORE, maximum=3.0),
+            _rule(
+                "not_gourmand",
+                ("Ethyl Maltol (10%)", "Maple Lactone (20%)"),
+                maximum=0.5,
+            ),
+            _rule("not_modern_amberwood", MODERN_AMBERWOOD_FLOOD, maximum=3.5),
+        ),
+        oav_targets={
+            "top": {"powder": 60, "citrus": 120, "floral": 220},
+            "heart": {"powder": 180, "floral": 720, "iris": 80},
+            "base": {"powder": 45, "musk": 18, "amber": 12},
+        },
+        repair_pool={
+            "Heliotropal (Piperonal)": 1.4,
+            "Alpha Isomethyl Ionone (Methyl Ionone Pure)": 1.2,
+            "Coumarin": 0.9,
+            "Benzyl Salicylate": 0.8,
+        },
+    ),
+    "floral_green.no19_reference": _reference_spec(
+        key="floral_green.no19_reference",
+        family="floral_green",
+        label="Green floral / Chanel No. 19 reference",
+        anchors=(
+            _rule("green_stem_bite", GREEN_FLORAL_CORE, minimum=3.0),
+            _rule(
+                "powder_iris_bridge",
+                (
+                    "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+                    "Alpha Ionone",
+                    "Beta Ionone",
+                    "Alpha Irone (30% in DEP)",
+                    "Irotyl",
+                ),
+                minimum=1.2,
+            ),
+            _rule(
+                "green_floral_body",
+                ("Phenethyl Alcohol (PEA)", "Peonile", "Mayol", "Hydroxycitronellal"),
+                minimum=3.0,
+            ),
+        ),
+        drift_limits=(
+            _rule("not_fruity", LOUD_FRUIT + FRUITY_CHYPRE, maximum=0.5),
+            _rule("not_oriental", ORIENTAL_CLASSICAL_CORE, maximum=1.2),
+            _rule("not_blue_marine", MODERN_FRESH_FLOOD, basis="raw", maximum=0.8),
+        ),
+        oav_targets={
+            "top": {"green": 260, "citrus": 220, "floral": 140},
+            "heart": {"green": 220, "floral": 620, "powder": 40},
+            "base": {"wood": 18, "musk": 14, "green": 30},
+        },
+        repair_pool={
+            "Galbanum Resinoid (10%)": 1.6,
+            "Parmavert": 1.1,
+            "Phenethyl Alcohol (PEA)": 1.0,
+            "Alpha Isomethyl Ionone (Methyl Ionone Pure)": 0.8,
+        },
+    ),
+    "floral_aldehydic.no5_reference": _reference_spec(
+        key="floral_aldehydic.no5_reference",
+        family="floral_aldehydic",
+        label="Floral aldehydic / Chanel No. 5 reference",
+        anchors=(
+            _rule("aldehydic_halo", ALDEHYDES, minimum=0.18),
+            _rule(
+                "rose_jasmine_ylang_heart",
+                ROSE_CORE
+                + JASMINE_WHITE
+                + (
+                    "Ylang Comoros Complete EO F3255",
+                    "Ylang Comoros III EO F3295",
+                    "Ylang Ylang EO (Extra grade)",
+                ),
+                minimum=10.0,
+            ),
+            _rule(
+                "powder_musk_base",
+                (
+                    "Musk Ketone",
+                    "Benzyl Salicylate",
+                    "Habanolide",
+                    "Ethylene Brassylate",
+                    "Heliotropal (Piperonal)",
+                    "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+                ),
+                minimum=3.0,
+            ),
+        ),
+        drift_limits=(
+            _rule("not_fruity", LOUD_FRUIT + FRUITY_CHYPRE, maximum=0.6),
+            _rule(
+                "not_green_chypre",
+                ("Galbanum Resinoid (10%)", "Evernyl", "Patchouli EO"),
+                maximum=1.0,
+            ),
+            _rule("not_dark_oriental", ORIENTAL_CLASSICAL_CORE, maximum=2.5),
+        ),
+        oav_targets={
+            "top": {"aldehydic": 260, "citrus": 220, "floral": 180},
+            "heart": {"floral": 1000, "rose": 220, "jasmine": 220, "muguet": 120},
+            "base": {"musk": 26, "powder": 30, "wood": 12},
+        },
+        repair_pool={
+            "Aldehyde C12 MNA": 1.0,
+            "Hedione": 1.4,
+            "Phenethyl Alcohol (PEA)": 1.0,
+            "Benzyl Salicylate": 0.8,
+        },
+    ),
+    "fougere_classical.fougere_royale_reference": _reference_spec(
+        key="fougere_classical.fougere_royale_reference",
+        family="fougere_classical",
+        label="Classic fougere / Fougere Royale reference",
+        anchors=(
+            _rule(
+                "lavender_axis",
+                (
+                    "Lavender EO",
+                    "Lavender EO High Altitude (angustifolia, France)",
+                    "Lavender EO (BONTAUX SAS)",
+                    "Linalool",
+                    "Linalyl Acetate",
+                ),
+                minimum=4.0,
+            ),
+            _rule("citrus_top", CITRUS, minimum=4.0),
+            _rule("coumarin_shadow", ("Coumarin",), minimum=0.35),
+            _rule("moss_wood_backbone", FOUGERE_BASE, minimum=3.0),
+        ),
+        drift_limits=(
+            _rule("not_blue_fresh", MODERN_FRESH_FLOOD, basis="raw", maximum=1.0),
+            _rule("not_gourmand", GOURMAND, maximum=1.5),
+            _rule("not_modern_amberwood", MODERN_AMBERWOOD_FLOOD, maximum=3.0),
+        ),
+        oav_targets={
+            "top": {"citrus": 900, "aromatic": 220, "fresh": 180},
+            "heart": {"aromatic": 260, "green": 90, "coumarin": 16},
+            "base": {"wood": 30, "moss": 12, "coumarin": 14, "musk": 12},
+        },
+        repair_pool={
+            "Lavender EO": 1.8,
+            "Coumarin": 1.1,
+            "Vetiver EO (India)": 1.0,
+            "Evernyl": 0.8,
+        },
+    ),
+    "aromatic_fougere.azzaro_reference": _reference_spec(
+        key="aromatic_fougere.azzaro_reference",
+        family="aromatic_fougere",
+        label="Aromatic fougere / Azzaro pour Homme reference",
+        anchors=(
+            _rule("aromatic_herb_axis", AROMATIC, minimum=6.0),
+            _rule("citrus_fresh_top", CITRUS, minimum=3.5),
+            _rule("coumarin_axis", ("Coumarin",), minimum=0.30),
+            _rule("moss_wood_base", FOUGERE_BASE, minimum=3.5),
+            _rule(
+                "spice_herb_detail",
+                WOODY_SPICE + ("Rosemary EO (French Rosmarinus Officinalis leaf oil)",),
+                minimum=0.4,
+            ),
+        ),
+        drift_limits=(
+            _rule("not_marine", MODERN_FRESH_FLOOD, basis="raw", maximum=1.0),
+            _rule("not_fruit_hook", LOUD_FRUIT, maximum=0.6),
+            _rule("not_vanilla_heavy", GOURMAND, maximum=1.8),
+        ),
+        oav_targets={
+            "top": {"citrus": 850, "aromatic": 300, "fresh": 180},
+            "heart": {"aromatic": 320, "green": 100, "floral": 160},
+            "base": {"wood": 38, "moss": 13, "coumarin": 14, "musk": 14},
+        },
+        repair_pool={
+            "Lavender EO": 1.5,
+            "Rosemary EO (French Rosmarinus Officinalis leaf oil)": 1.2,
+            "Coumarin": 1.0,
+            "Vetiver EO": 0.9,
+        },
+        novelty_reference="fougere_classical.fougere_royale_reference",
+    ),
+    "chypre_classical.coty_reference": _reference_spec(
+        key="chypre_classical.coty_reference",
+        family="chypre_classical",
+        label="Classic chypre / Coty Chypre reference",
+        anchors=(
+            _rule("citrus_flash", CITRUS, minimum=3.5),
+            _rule("chypre_spine", CHYPRE_CORE, minimum=6.0),
+            _rule(
+                "labdanum_memory_substitute",
+                LABDANUM_MEMORY,
+                minimum=0.5,
+                detail="Use benzoin-olibanum-patchouli shadow until real labdanum is back in stock.",
+            ),
+            _rule(
+                "iris_floral_shadow",
+                (
+                    "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+                    "Alpha Ionone",
+                    "Beta Ionone",
+                    "Phenethyl Alcohol (PEA)",
+                    "Jasmine FO",
+                ),
+                minimum=1.0,
+            ),
+        ),
+        drift_limits=(
+            _rule("not_fruity", FRUITY_CHYPRE + LOUD_FRUIT, maximum=0.5),
+            _rule(
+                "not_green_vent_vert",
+                ("Galbanum Resinoid (10%)", "Parmavert", "Leafovert"),
+                maximum=1.0,
+            ),
+            _rule("not_gourmand", GOURMAND, maximum=1.0),
+        ),
+        oav_targets={
+            "top": {"citrus": 700, "green": 80},
+            "heart": {"floral": 260, "moss": 16, "wood": 30},
+            "base": {"moss": 22, "wood": 52, "amber": 12, "musk": 14},
+        },
+        repair_pool={
+            "Evernyl": 1.4,
+            "Patchouli EO": 1.2,
+            "Siam Benzoin (50% in DPG)": 1.0,
+            "Vetiver EO (India)": 1.0,
+        },
+    ),
+    "chypre_floral.miss_dior_reference": _reference_spec(
+        key="chypre_floral.miss_dior_reference",
+        family="chypre_floral",
+        label="Floral chypre / Miss Dior reference",
+        anchors=(
+            _rule("chypre_spine", CHYPRE_CORE, minimum=5.0),
+            _rule("floral_heart", ROSE_CORE + JASMINE_WHITE + MUGUET_CORE, minimum=8.0),
+            _rule("bergamot_flash", CITRUS, minimum=2.5),
+        ),
+        drift_limits=(
+            _rule("not_fruity", FRUITY_CHYPRE + LOUD_FRUIT, maximum=0.8),
+            _rule(
+                "not_green_bitter",
+                ("Galbanum Resinoid (10%)", "Parmavert", "Leafovert"),
+                maximum=1.2,
+            ),
+            _rule("not_gourmand", GOURMAND, maximum=1.3),
+        ),
+        oav_targets={
+            "top": {"citrus": 650, "floral": 180},
+            "heart": {"floral": 850, "rose": 200, "jasmine": 180, "moss": 12},
+            "base": {"moss": 18, "wood": 42, "musk": 16},
+        },
+        repair_pool={
+            "Phenethyl Alcohol (PEA)": 1.2,
+            "Hedione": 1.1,
+            "Evernyl": 1.0,
+            "Patchouli EO": 0.9,
+        },
+    ),
+    "chypre_fruity.mitsouko_reference": _reference_spec(
+        key="chypre_fruity.mitsouko_reference",
+        family="chypre_fruity",
+        label="Fruity chypre / Mitsouko reference",
+        anchors=(
+            _rule("chypre_spine", CHYPRE_CORE, minimum=5.0),
+            _rule("fruit_lactone_axis", FRUITY_CHYPRE, minimum=0.18),
+            _rule(
+                "floral_shadow",
+                ROSE_CORE + JASMINE_WHITE + ("Alpha Isomethyl Ionone (Methyl Ionone Pure)",),
+                minimum=2.0,
+            ),
+        ),
+        drift_limits=(
+            _rule("not_modern_fruit_flood", LOUD_FRUIT, maximum=0.5),
+            _rule("not_vanilla_gourmand", GOURMAND, maximum=1.5),
+            _rule("not_blue_fresh", MODERN_FRESH_FLOOD, basis="raw", maximum=0.8),
+        ),
+        oav_targets={
+            "top": {"citrus": 650, "fruity": 80},
+            "heart": {"floral": 300, "peach": 25, "rose": 140},
+            "base": {"moss": 22, "wood": 50, "musk": 16},
+        },
+        repair_pool={
+            "Gamma Decalactone": 1.0,
+            "Evernyl": 1.1,
+            "Patchouli EO": 1.0,
+            "Labdanum Absolute (10%)": 0.9,
+        },
+    ),
+    "chypre_green.vent_vert_reference": _reference_spec(
+        key="chypre_green.vent_vert_reference",
+        family="chypre_green",
+        label="Green chypre / Vent Vert reference",
+        anchors=(
+            _rule(
+                "green_axis",
+                (
+                    "Galbanum Resinoid (10%)",
+                    "Parmavert",
+                    "Leafovert",
+                    "Triplal",
+                    "Verdox",
+                ),
+                minimum=1.5,
+            ),
+            _rule("chypre_spine", CHYPRE_CORE, minimum=4.5),
+            _rule(
+                "green_floral_body",
+                (
+                    "Cyclamen Aldehyde",
+                    "Florol",
+                    "Phenethyl Alcohol (PEA)",
+                    "Hydroxycitronellal",
+                ),
+                minimum=1.5,
+            ),
+        ),
+        drift_limits=(
+            _rule("not_fruity", FRUITY_CHYPRE + LOUD_FRUIT, maximum=0.4),
+            _rule("not_gourmand", GOURMAND, maximum=0.8),
+            _rule("not_marine", MODERN_FRESH_FLOOD, basis="raw", maximum=0.7),
+        ),
+        oav_targets={
+            "top": {"green": 300, "citrus": 420},
+            "heart": {"green": 180, "floral": 260, "moss": 12},
+            "base": {"moss": 18, "wood": 48, "musk": 14},
+        },
+        repair_pool={
+            "Galbanum Resinoid (10%)": 1.6,
+            "Evernyl": 1.1,
+            "Patchouli EO": 1.0,
+            "Vetiver EO": 0.9,
+        },
+    ),
+    "chypre_leathery.bandit_reference": _reference_spec(
+        key="chypre_leathery.bandit_reference",
+        family="chypre_leathery",
+        label="Leather chypre / Bandit reference",
+        anchors=(
+            _rule("chypre_spine", CHYPRE_CORE, minimum=4.5),
+            _rule("leather_axis", LEATHER_CHYPRE, minimum=0.12),
+            _rule(
+                "dry_woody_support",
+                (
+                    "Vetiver EO",
+                    "Vetiver EO (India)",
+                    "Cedarwood oil Virginia",
+                    "Iso E Super",
+                ),
+                minimum=2.0,
+            ),
+        ),
+        drift_limits=(
+            _rule("not_fruity", FRUITY_CHYPRE + LOUD_FRUIT, maximum=0.25),
+            _rule("not_gourmand", GOURMAND, maximum=0.5),
+            _rule("not_marine", MODERN_FRESH_FLOOD, basis="raw", maximum=0.5),
+        ),
+        oav_targets={
+            "top": {"green": 100, "citrus": 240},
+            "heart": {"leather": 20, "wood": 40, "moss": 14},
+            "base": {"leather": 18, "wood": 60, "moss": 18, "musk": 12},
+        },
+        repair_pool={
+            "Isobutyl Quinoline (10%)": 0.9,
+            "Birch Tar Rectified": 0.7,
+            "Evernyl": 1.0,
+            "Patchouli EO": 1.0,
+        },
+    ),
+    "oriental_classical.shalimar_reference": _reference_spec(
+        key="oriental_classical.shalimar_reference",
+        family="oriental_classical",
+        label="Classic oriental / Shalimar reference",
+        anchors=(
+            _rule("oriental_core", ORIENTAL_CLASSICAL_CORE, minimum=6.5),
+            _rule("citrus_spice_opening", CITRUS + WOODY_SPICE, minimum=1.2),
+            _rule(
+                "powder_vanilla_resin",
+                (
+                    "Vanillin (10%)",
+                    "Ethyl Vanillin (10%)",
+                    "Heliotropal (Piperonal)",
+                    "Coumarin (20%)",
+                ),
+                minimum=1.2,
+            ),
+        ),
+        drift_limits=(
+            _rule("not_blue_fresh", MODERN_FRESH_FLOOD, basis="raw", maximum=0.8),
+            _rule("not_fruity", FRUITY_CHYPRE + LOUD_FRUIT, maximum=0.5),
+            _rule("not_white_floral", WHITE_FLORAL_CORE, maximum=5.0),
+        ),
+        oav_targets={
+            "top": {"citrus": 420, "spicy": 90},
+            "heart": {"floral": 220, "amber": 80, "resin": 45},
+            "base": {"vanilla": 38, "resin": 52, "wood": 28, "musk": 12},
+        },
+        repair_pool={
+            "Siam Benzoin (50% in DPG)": 1.4,
+            "Vanillin (10%)": 1.0,
+            "Olibanum Resinoid": 1.0,
+            "Patchouli EO": 0.8,
+        },
+    ),
+    "oriental_soft.jicky_reference": _reference_spec(
+        key="oriental_soft.jicky_reference",
+        family="oriental_soft",
+        label="Soft oriental / Jicky reference",
+        anchors=(
+            _rule("soft_oriental_core", SOFT_ORIENTAL_CORE, minimum=5.0),
+            _rule(
+                "bergamot_lavender_opening",
+                (
+                    "Bergamot FCF",
+                    "Bergamot FCF oil Sicilian",
+                    "Lavender EO",
+                    "Linalool",
+                    "Linalyl Acetate",
+                ),
+                minimum=4.0,
+            ),
+            _rule(
+                "vanilla_coumarin_shadow",
+                ("Vanillin (10%)", "Coumarin (20%)"),
+                minimum=0.7,
+            ),
+        ),
+        drift_limits=(
+            _rule(
+                "not_dark_resinous",
+                (
+                    "Labdanum Absolute (10%)",
+                    "Olibanum Resinoid Absolute (10%)",
+                    "Patchouli EO",
+                ),
+                maximum=2.5,
+            ),
+            _rule("not_fruity", FRUITY_CHYPRE + LOUD_FRUIT, maximum=0.4),
+            _rule("not_marine", MODERN_FRESH_FLOOD, basis="raw", maximum=0.5),
+        ),
+        oav_targets={
+            "top": {"citrus": 550, "aromatic": 180},
+            "heart": {"floral": 220, "amber": 55, "coumarin": 16},
+            "base": {"vanilla": 26, "musk": 18, "wood": 18, "resin": 28},
+        },
+        repair_pool={
+            "Lavender EO": 1.3,
+            "Bergamot FCF oil Sicilian": 1.3,
+            "Coumarin (20%)": 0.9,
+            "Siam Benzoin (50% in DPG)": 0.8,
+        },
+    ),
+    "oriental_floral.lheure_bleue_reference": _reference_spec(
+        key="oriental_floral.lheure_bleue_reference",
+        family="oriental_floral",
+        label="Floral oriental / L'Heure Bleue reference",
+        anchors=(
+            _rule("oriental_floral_core", ORIENTAL_FLORAL_CORE, minimum=8.0),
+            _rule(
+                "powder_iris_axis",
+                (
+                    "Heliotropal (Piperonal)",
+                    "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+                    "Alpha Ionone",
+                    "Benzyl Salicylate",
+                ),
+                minimum=1.4,
+            ),
+            _rule(
+                "floral_heart",
+                (
+                    "Jasmine FO",
+                    "Hedione",
+                    "Phenethyl Alcohol (PEA)",
+                    "Ylang Ylang EO (Extra grade)",
+                ),
+                minimum=4.0,
+            ),
+        ),
+        drift_limits=(
+            _rule("not_green", GREEN_FLORAL_CORE, maximum=1.2),
+            _rule("not_fruity", FRUITY_CHYPRE + LOUD_FRUIT, maximum=0.5),
+            _rule("not_blue_fresh", MODERN_FRESH_FLOOD, basis="raw", maximum=0.5),
+        ),
+        oav_targets={
+            "top": {"floral": 240, "citrus": 100, "powder": 50},
+            "heart": {"floral": 700, "amber": 80, "powder": 120},
+            "base": {"vanilla": 30, "resin": 34, "powder": 35, "musk": 16},
+        },
+        repair_pool={
+            "Heliotropal (Piperonal)": 1.2,
+            "Hedione": 1.1,
+            "Vanillin (10%)": 0.9,
+            "Benzyl Salicylate": 0.8,
+        },
+    ),
+    "iris_amber_woody.classic": ArchetypeSpec(
+        key="iris_amber_woody.classic",
+        family="iris_amber_woody",
+        label="Iris-amber-woody DHI niche DNA",
+        role="reference_control",
+        anchors=(
+            _rule(
+                "iris_ionone_axis",
+                ("Alpha Ionone", "Beta Ionone", "Alpha Irone (30% in DEP)", "Irotyl"),
+                minimum=1.5,
+            ),
+            _rule(
+                "coumarin_vanilla_base",
+                ("Coumarin", "Vanillin", "Ethyl Vanillin"),
+                minimum=0.5,
+            ),
+            _rule("cashmeran_amber_core", ("Cashmeran",), minimum=0.2),
+            _rule("sandalwood_duo", ("Sandalore", "Polysantol"), minimum=0.5),
+            _rule(
+                "musk_depth_base",
+                (
+                    "Galaxolide (50% in DEP)",
+                    "Ethylene Brassylate",
+                    "Ambrettolide",
+                    "Musk Ketone (10% in DPG)",
+                    "Habanolide",
+                ),
+                minimum=3.0,
+            ),
+            _rule("diffusive_glow", ("Hedione", "Iso E Super"), minimum=5.0),
+        ),
+        drift_limits=(
+            _rule("not_citrus_dominant", CITRUS, maximum=8.0),
+            _rule(
+                "not_overly_animalic",
+                ("Costus Olifac (10%)", "Skatole (1%)", "Indole (1%)"),
+                basis="raw",
+                maximum=0.5,
+            ),
+            _rule("not_fresh_marine", MODERN_FRESH_FLOOD, basis="raw", maximum=1.0),
+        ),
+        forbidden_materials=OPAQUE_PREBLENDS,
+        oav_targets={
+            "top": {"citrus": 200, "iris": 40, "powder": 30, "spicy": 20},
+            "heart": {
+                "iris": 500,
+                "powder": 200,
+                "wood": 80,
+                "amber": 60,
+                "floral": 150,
+            },
+            "base": {
+                "wood": 150,
+                "amber": 100,
+                "vanilla": 50,
+                "musk": 25,
+                "coumarin": 18,
+                "iris": 30,
+            },
+        },
+        repair_pool={
+            "Alpha Ionone": 1.5,
+            "Hedione": 1.5,
+            "Iso E Super": 1.5,
+            "Sandalore": 1.2,
+            "Polysantol": 1.0,
+            "Cashmeran": 1.0,
+        },
+        novelty_message="Iris-amber-woody DHI niche DNA: sandalwood-iris backbone, Ambrofix-modern, transparent wood diffusion.",
+    ),
+    "iris_amber_woody.prada_lhomme_reference": ArchetypeSpec(
+        key="iris_amber_woody.prada_lhomme_reference",
+        family="iris_amber_woody",
+        label="Clean iris-neroli amber-wood / Prada L'Homme architecture control",
+        role="reference_control",
+        anchors=(
+            _rule("neroli_marker", ("Neroli EO",), minimum=0.10),
+            _rule(
+                "violet_iris_core",
+                (
+                    "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+                    "Alpha Ionone",
+                    "Beta Ionone",
+                    "Dihydro Beta Ionone",
+                    "Alpha Irone (30% in DEP)",
+                    "Orris Liquid (30%)",
+                    "Orivone",
+                ),
+                minimum=4.0,
+            ),
+            _rule(
+                "geranium_marker",
+                (
+                    "Geranium EO (Pelargonium graveolens flower oil)",
+                    "Geranium Flower EO",
+                    "Geraniol",
+                    "Rhodinol ex Citronella",
+                ),
+                minimum=0.10,
+            ),
+            _rule(
+                "black_pepper_marker",
+                ("Black Pepper EO", "Black Pepper FTEC"),
+                minimum=0.02,
+            ),
+            _rule(
+                "amber_marker",
+                ("Ambrox Super", "Ambrofix", "Amberwood F", "Cedramber"),
+                minimum=0.75,
+            ),
+            _rule(
+                "cedar_frame",
+                (
+                    "Cedarwood EO",
+                    "Cedarwood oil Virginia",
+                    "Timberol",
+                    "Iso E Super",
+                ),
+                minimum=7.0,
+            ),
+            _rule("patchouli_marker", ("Patchouli EO", "Clearwood"), minimum=0.35),
+            _rule(
+                "clean_musk_chord",
+                (
+                    "Zenolide",
+                    "Ethylene Brassylate",
+                    "Exaltolide (10%)",
+                    "Ambrettolide (10% in DPG)",
+                ),
+                minimum=3.0,
+            ),
+        ),
+        drift_limits=(
+            _rule("not_gourmand", GOURMAND + LOUD_FRUIT, maximum=0.75),
+            _rule(
+                "not_leathery_or_smoky",
+                (
+                    "Isobutyl Quinoline (10%)",
+                    "Birch Tar Rectified",
+                    "Guaiacol (10%)",
+                    "Suederal (10%)",
+                ),
+                basis="raw",
+                maximum=0.20,
+            ),
+            _rule("not_marine", MARINE, basis="raw", maximum=0.30),
+            _rule("not_citrus_cologne", CITRUS, maximum=4.0),
+        ),
+        forbidden_materials=OPAQUE_PREBLENDS,
+        oav_targets={
+            "top": {"neroli": 180, "citrus": 120, "spicy": 35},
+            "heart": {"iris": 500, "floral": 350, "muguet": 160, "wood": 80},
+            "base": {"amber": 100, "wood": 140, "musk": 30, "patchouli": 25},
+        },
+        repair_pool={
+            "Alpha Isomethyl Ionone (Methyl Ionone Pure)": 1.5,
+            "Neroli EO": 1.2,
+            "Mayol": 1.0,
+            "Iso E Super": 1.0,
+            "Ethylene Brassylate": 0.9,
+            "Patchouli EO": 0.7,
+        },
+        novelty_reference="Prada L'Homme official note architecture only",
+        novelty_message=(
+            "Clean iris-neroli amber-wood architecture; no formula ratios or sensory-equivalence claim."
+        ),
+    ),
+    "iris_coumarin_amber.dhi2011": ArchetypeSpec(
+        key="iris_coumarin_amber.dhi2011",
+        family="iris_coumarin_amber",
+        label="Iris-coumarin-amber DHI 2011 niche DNA",
+        role="reference_control",
+        anchors=(
+            _rule(
+                "iris_ionone_axis",
+                ("Alpha Ionone", "Beta Ionone", "Alpha Irone (30% in DEP)", "Irotyl"),
+                minimum=1.5,
+            ),
+            _rule("leather_ghost", ("Isobutyl Quinoline (10%)",), minimum=0.045),
+            _rule("coumarin_cocoa_base", ("Coumarin", "Vanillin"), minimum=2.0),
+            _rule(
+                "musk_cold_base",
+                (
+                    "Zenolide",
+                    "Macrolide",
+                    "Romandolide",
+                    "Benzyl Salicylate",
+                    "Benzyl Benzoate",
+                ),
+                minimum=2.0,
+            ),
+            _rule("diffusive_glow", ("Hedione", "Iso E Super"), minimum=4.0),
+            _rule(
+                "muguet_floral",
+                ("Mayol", "Lilyreal ND", "Farnesol", "Jasmine Sambac (10% in DPG)"),
+                minimum=0.5,
+            ),
+            _rule(
+                "cedar_anchor",
+                ("Cedarwood oil Virginia", "Cedarwood EO", "Koavone", "Timberol"),
+                minimum=0.5,
+            ),
+            _rule("aromatic_top", AROMATIC, minimum=0.3),
+        ),
+        drift_limits=(
+            _rule("not_citrus_dominant", CITRUS, maximum=5.0),
+            _rule(
+                "not_overly_animalic",
+                ("Costus Olifac (10%)", "Skatole (1%)", "Indole (1%)"),
+                basis="raw",
+                maximum=0.5,
+            ),
+            _rule("not_fresh_marine", MODERN_FRESH_FLOOD, basis="raw", maximum=1.0),
+        ),
+        forbidden_materials=OPAQUE_PREBLENDS,
+        oav_targets={
+            "top": {"citrus": 20, "iris": 15, "aromatic": 25, "spicy": 10},
+            "heart": {
+                "iris": 250,
+                "leather": 10,
+                "powder": 50,
+                "wood": 40,
+                "floral": 60,
+                "gourmand": 25,
+            },
+            "base": {
+                "leather": 5,
+                "wood": 80,
+                "amber": 10,
+                "musk": 25,
+                "gourmand": 20,
+                "powder": 10,
+            },
+        },
+        repair_pool={
+            "Alpha Ionone": 1.5,
+            "Hedione": 1.5,
+            "Iso E Super": 1.5,
+            "Coumarin": 1.0,
+            "Cedarwood oil Virginia": 1.0,
+            "Cashmeran": 1.0,
+        },
+        novelty_message="Iris-coumarin-amber DHI 2011 niche DNA: atmospheric iris, ghost leather, coumarin-cocoa heart.",
+    ),
+    "iris_ambrox_amber.dhi2025": ArchetypeSpec(
+        key="iris_ambrox_amber.dhi2025",
+        family="iris_ambrox_amber",
+        label="Iris-ambrox-amber DHI 2025 niche DNA",
+        role="reference_control",
+        anchors=(
+            _rule(
+                "iris_ionone_axis",
+                (
+                    "Alpha Ionone",
+                    "Beta Ionone",
+                    "Alpha-Isomethyl Ionone",
+                    "Alpha Irone (30% in DEP)",
+                    "Irotyl",
+                    "Dihydro Beta Ionone",
+                ),
+                minimum=1.5,
+            ),
+            _rule("ambrox_backbone", ("Ambrofix",), minimum=1.5),
+            _rule("muguet_floral", ("Mayol", "Lilyreal ND", "Farnesol"), minimum=0.5),
+            _rule("diffusive_glow", ("Hedione", "Iso E Super"), minimum=4.0),
+            _rule(
+                "musk_cold_base",
+                (
+                    "Zenolide",
+                    "Macrolide",
+                    "Romandolide",
+                    "Benzyl Salicylate",
+                    "Benzyl Benzoate",
+                ),
+                minimum=2.0,
+            ),
+            _rule("coumarin_cocoa", ("Coumarin", "Vanillin"), minimum=1.5),
+        ),
+        drift_limits=(
+            _rule("not_citrus_dominant", CITRUS, maximum=5.0),
+            _rule("not_overly_animalic", ("Skatole (1%)",), basis="raw", maximum=0.5),
+            _rule("not_fresh_marine", MODERN_FRESH_FLOOD, basis="raw", maximum=1.0),
+        ),
+        forbidden_materials=OPAQUE_PREBLENDS,
+        oav_targets={
+            "top": {"citrus": 200, "aromatic": 40, "iris": 20, "fresh": 30},
+            "heart": {
+                "iris": 300,
+                "muguet": 100,
+                "amber": 150,
+                "wood": 80,
+                "floral": 120,
+                "powder": 60,
+            },
+            "base": {
+                "wood": 120,
+                "amber": 100,
+                "musk": 30,
+                "vanilla": 30,
+                "coumarin": 15,
+            },
+        },
+        repair_pool={
+            "Alpha Ionone": 1.5,
+            "Hedione": 1.5,
+            "Iso E Super": 1.5,
+            "Coumarin": 1.0,
+        },
+        novelty_message="Iris-ambrox-amber DHI 2025 niche DNA: ambroxan-clean iris, transparent wood, muguet heart.",
+    ),
+    "iris_sandalwood.dhp2025": ArchetypeSpec(
+        key="iris_sandalwood.dhp2025",
+        family="iris_sandalwood",
+        label="Iris-sandalwood DHP 2025 niche DNA",
+        role="reference_control",
+        anchors=(
+            _rule(
+                "iris_ionone_axis",
+                (
+                    "Alpha Ionone",
+                    "Beta Ionone",
+                    "Alpha-Isomethyl Ionone",
+                    "Alpha Irone (30% in DEP)",
+                    "Irotyl",
+                    "Dihydro Beta Ionone",
+                ),
+                minimum=1.5,
+            ),
+            _rule("sandalwood_dual", ("Sandalore", "Polysantol"), minimum=3.0),
+            _rule("diffusive_glow", ("Hedione", "Iso E Super"), minimum=4.0),
+            _rule(
+                "musk_cold_base",
+                (
+                    "Zenolide",
+                    "Macrolide",
+                    "Romandolide",
+                    "Benzyl Salicylate",
+                    "Benzyl Benzoate",
+                ),
+                minimum=2.0,
+            ),
+            _rule("coumarin_cocoa", ("Coumarin", "Vanillin"), minimum=1.5),
+        ),
+        drift_limits=(
+            _rule("not_citrus_dominant", CITRUS, maximum=5.0),
+            _rule("not_leather", ("Isobutyl Quinoline (10%)",), basis="raw", maximum=0.1),
+            _rule("not_fresh_marine", MODERN_FRESH_FLOOD, basis="raw", maximum=1.0),
+        ),
+        forbidden_materials=OPAQUE_PREBLENDS,
+        oav_targets={
+            "top": {"citrus": 200, "iris": 30, "aromatic": 20},
+            "heart": {
+                "iris": 500,
+                "wood": 100,
+                "powder": 150,
+                "floral": 100,
+                "sandalwood": 80,
+            },
+            "base": {
+                "sandalwood": 120,
+                "wood": 100,
+                "amber": 60,
+                "musk": 25,
+                "vanilla": 30,
+            },
+        },
+        repair_pool={
+            "Alpha Ionone": 1.5,
+            "Hedione": 1.5,
+            "Sandalore": 1.2,
+            "Polysantol": 1.0,
+            "Iso E Super": 1.0,
+        },
+        novelty_message="Iris-sandalwood DHP 2025 niche DNA: iris-first, dual sandalwood co-star, no leather.",
+    ),
+    "leather_iris_amber.dhp2014": ArchetypeSpec(
+        key="leather_iris_amber.dhp2014",
+        family="leather_iris_amber",
+        label="Leather-iris-amber DHP 2014 niche DNA",
+        role="reference_control",
+        anchors=(
+            _rule("leather_anchor", ("Isobutyl Quinoline",), minimum=0.74),
+            _rule("oud_bridge", ("Nagarmotha Oil", "Cypriol EO"), minimum=0.5),
+            _rule(
+                "iris_support",
+                ("Alpha Ionone", "Alpha-Isomethyl Ionone", "Alpha Irone (30% in DEP)"),
+                minimum=1.0,
+            ),
+            _rule("diffusive_glow", ("Hedione", "Iso E Super"), minimum=3.0),
+            _rule(
+                "musk_cold_base",
+                (
+                    "Zenolide",
+                    "Macrolide",
+                    "Romandolide",
+                    "Benzyl Salicylate",
+                    "Benzyl Benzoate",
+                ),
+                minimum=2.0,
+            ),
+        ),
+        drift_limits=(
+            _rule(
+                "not_floral_dominant",
+                ("Hedione", "Alpha Ionone"),
+                basis="raw",
+                maximum=12.0,
+            ),
+            _rule("not_overly_clean", MODERN_FRESH_FLOOD, basis="raw", maximum=0.5),
+        ),
+        forbidden_materials=OPAQUE_PREBLENDS,
+        oav_targets={
+            "top": {"citrus": 200, "aromatic": 30, "leather": 10},
+            "heart": {
+                "leather": 150,
+                "wood": 100,
+                "iris": 100,
+                "amber": 80,
+                "floral": 60,
+            },
+            "base": {"leather": 80, "wood": 150, "amber": 50, "musk": 25, "oud": 30},
+        },
+        repair_pool={
+            "Isobutyl Quinoline (10%)": 2.0,
+            "Hedione": 1.2,
+            "Nagarmotha Oil": 1.0,
+            "Iso E Super": 1.0,
+        },
+        novelty_message="Leather-iris-amber DHP 2014 niche DNA: leather-first, IBQ dominant, smoky oud bridge.",
+    ),
+    # ── WOODY FLORAL MUSK ──
+    "woody_floral_musk.classic": ArchetypeSpec(
+        key="woody_floral_musk.classic",
+        family="woody_floral_musk",
+        label="Classic woody floral musk (Reflection Man DNA)",
+        role="reference_control",
+        anchors=(
+            _rule("wfm_wood_structure", WOODY_FLORAL_MUSK_WOODS, minimum=8.0),
+            _rule("wfm_floral_core", WOODY_FLORAL_MUSK_FLORALS, minimum=4.0),
+            _rule("wfm_musk_base", WOODY_FLORAL_MUSK_MUSKS, minimum=2.5),
+            _rule("wfm_iris_modifier", WOODY_FLORAL_MUSK_IRIS, minimum=0.5),
+            _rule("wfm_radiance", RADIANCE, minimum=4.0),
+        ),
+        drift_limits=(
+            _rule("not_gourmand", GOURMAND, maximum=0.5),
+            _rule("not_marine", MARINE, basis="raw", maximum=0.5),
+            _rule("not_heavy_oriental", ORIENTAL_CLASSICAL_CORE, maximum=20.0),
+        ),
+        forbidden_materials=OPAQUE_PREBLENDS,
+        oav_targets={
+            "top": {"citrus": 400, "aromatic": 80, "floral": 120},
+            "heart": {"floral": 400, "wood": 150, "iris": 100, "musk": 60},
+            "base": {"wood": 120, "musk": 80, "sandalwood": 60, "amber": 30},
+        },
+        repair_pool={
+            "Iso E Super": 2.0,
+            "Sandalore": 1.5,
+            "Hedione": 1.5,
+            "Galaxolide": 1.0,
+            "Javanol": 1.0,
+        },
+        novelty_message="Classic woody floral musk: transparent iris-sandalwood over clean musk. Familiar luxury signature.",
+    ),
+    # ── GOURMAND FLORAL ──
+    "gourmand_floral.classic_reference": ArchetypeSpec(
+        key="gourmand_floral.classic_reference",
+        family="gourmand_floral",
+        label="Classic gourmand-floral hybrid (tuberose + cocoa-vanilla)",
+        role="reference_control",
+        anchors=(
+            _rule(
+                "gourmand_core",
+                GOURMAND,
+                minimum=0.5,
+                detail="Vanillin, ethyl maltol, coumarin — the edible backbone. Trace gourmand suffices for hybrid character.",
+            ),
+            _rule(
+                "floral_heart",
+                GOURMAND_FLORAL_FLORALS,
+                minimum=10.0,
+                detail="White floral heart: jasmine, tuberose, hedione radiance.",
+            ),
+            _rule(
+                "woody_base",
+                GOURMAND_FLORAL_WOODS,
+                minimum=5.0,
+                detail="Vetiver, cedar, Iso E Super — structural wood frame.",
+            ),
+            _rule(
+                "musk_fixative",
+                GOURMAND_FLORAL_MUSKS,
+                minimum=2.5,
+                detail="Ethylene brassylate, habanolide — warm-skin musk depth.",
+            ),
+        ),
+        drift_limits=(
+            _rule("not_marine", MARINE, basis="raw", maximum=1.5),
+            _rule("not_citrus_dominant", CITRUS, maximum=10.0),
+            _rule(
+                "not_overly_aromatic",
+                AROMATIC,
+                maximum=6.0,
+                detail="Aromatic dominance pulls toward fougère.",
+            ),
+            _rule(
+                "not_modern_amberwood",
+                MODERN_AMBERWOOD_FLOOD,
+                maximum=6.0,
+                detail="Transparent amberwood floods dilute the gourmand warmth.",
+            ),
+        ),
+        forbidden_materials=OPAQUE_PREBLENDS,
+        oav_targets={
+            "top": {"citrus": 350, "gourmand": 35, "floral": 180, "green": 60},
+            "heart": {
+                "floral": 900,
+                "gourmand": 65,
+                "vanilla": 25,
+                "coumarin": 18,
+            },
+            "base": {
+                "gourmand": 100,
+                "vanilla": 45,
+                "coumarin": 25,
+                "wood": 35,
+                "musk": 25,
+            },
+        },
+        repair_pool={
+            "Vanillin": 1.5,
+            "Hedione": 1.5,
+            "Coumarin": 1.0,
+            "Iso E Super": 1.0,
+            "Ethylene Brassylate": 0.8,
+            "Vetiver EO": 0.8,
+        },
+        novelty_message="Classic gourmand-floral hybrid: tuberose-jasmine heart over cocoa-vanilla-tonka base. Edible warmth through a floral lens.",
+    ),
+    "prada_clean_iris": ArchetypeSpec(
+        key="prada_clean_iris",
+        family="clean_iris",
+        label="Prada Clean Iris DNA",
+        role="from_scratch_reconstruction",
+        anchors=(
+            GroupRule(
+                "iris_violet",
+                (
+                    "Alpha Isomethyl Ionone",
+                    "Methyl Ionone Gamma Coeur",
+                    "Isoraldeine 95",
+                    "Dihydro Beta Ionone",
+                ),
+                minimum=8.0,
+                detail="Core iris-violet ionone complex must dominate the heart",
+            ),
+            GroupRule(
+                "soap_muguet",
+                (
+                    "Hydroxycitronellal",
+                    "Florol",
+                    "Helional",
+                    "Bourgeonal",
+                ),
+                minimum=5.0,
+                detail="Soapy-clean muguet accord defines the Prada clean signature",
+            ),
+            GroupRule(
+                "clean_musk",
+                (
+                    "Galaxolide",
+                    "Ethylene Brassylate",
+                    "Habanolide",
+                    "Exaltolide",
+                    "Zenolide",
+                ),
+                minimum=12.0,
+                detail="Clean musk scaffold supports the iris-soap character",
+            ),
+        ),
+        drift_limits=(
+            GroupRule(
+                "sweet_amber_drift",
+                (
+                    "Coumarin",
+                    "Vanillin",
+                    "Ethyl Vanillin",
+                    "Heliotropin",
+                    "Benzoin Resinoid",
+                    "Ambermax",
+                ),
+                maximum=8.0,
+                detail="Sweet-amber must not overtake iris",
+            ),
+            GroupRule(
+                "dominant_citrus",
+                (
+                    "Bergamot FCF",
+                    "Bergamot FCF Sicilian",
+                    "Cedrat FCF Sicilian",
+                    "Grapefruit FCF",
+                    "Red Mandarin EO",
+                    "Lemon FCF oil Sicilian",
+                ),
+                maximum=6.0,
+                detail="Citrus must remain supporting, not primary",
+            ),
+        ),
+        forbidden_materials=(
+            "Cashmeran",  # textile-wood clashes with iris transparency
+            "Suederal",  # leather conflicts with clean character
+            "IBQ",  # animalic leather clashes
+            "Isopropyl Quinoline",
+        ),
+        oav_targets={
+            "iris_violet": {"heart": 10.0, "drydown": 5.0},
+            "soap_muguet": {"heart": 5.0, "drydown": 2.0},
+            "clean_musk": {"top": 3.0, "heart": 5.0, "drydown": 10.0},
+        },
+        repair_pool={
+            "Methyl Ionone Gamma Coeur": 15.0,
+            "Isoraldeine 95": 10.0,
+            "Hydroxycitronellal": 12.0,
+            "Florol": 8.0,
+            "Ethylene Brassylate": 15.0,
+        },
+        novelty_reference="Prada L'Homme EDT (2016)",
+        novelty_message="From-scratch functional hypothesis based on official notes, label evidence, and perfumery priors.",
+    ),
+}
+
+BRIEF_DEFAULTS = {
+    "aromatic_fougere": "aromatic_fougere.classic_reference",
+    "layton_dna": "layton_dna.fresh_thai",
+    "vetiver_woody": "woody.vetiver_classical",
+    "floral_aldehydic_amber": "floral_aldehydic_amber.classic",
+    "iris_amber_woody": "iris_amber_woody.classic",
+    "prada_lhomme": "iris_amber_woody.prada_lhomme_reference",
+    "iris_leather_amber": "iris_leather_amber.classic",
+    "dhi_2011": "iris_coumarin_amber.dhi2011",
+    "dhi_2025": "iris_ambrox_amber.dhi2025",
+    "dhp_2025": "iris_sandalwood.dhp2025",
+    "dhp_2014": "leather_iris_amber.dhp2014",
+    "woody_floral_musk": "woody_floral_musk.classic",
+    "gourmand_floral": "gourmand_floral.classic_reference",
+    "prada_clean_iris": "prada_clean_iris",
+}
+
+
+def all_archetypes() -> tuple[ArchetypeSpec, ...]:
+    return tuple(ARCHETYPES.values())
+
+
+def infer_archetype(brief: str = "auto", family_archetype: str = "") -> str:
+    requested = str(family_archetype or "").strip()
+    if requested:
+        return requested
+    return BRIEF_DEFAULTS.get(str(brief or "").strip(), "")
+
+
+def get_archetype(key: str) -> ArchetypeSpec | None:
+    return ARCHETYPES.get(str(key or "").strip())
+
+
+def _formula_percentages(
+    formula: Mapping,
+) -> tuple[Mapping[str, float], Mapping[str, float]]:
+    ingredients = formula.get("ingredients_pct") or {}
+    if not ingredients and formula.get("ingredients_ul"):
+        total = sum(float(v or 0.0) for v in formula.get("ingredients_ul", {}).values()) or 1.0
+        ingredients = {
+            material: float(amount or 0.0) / total * 100.0
+            for material, amount in formula.get("ingredients_ul", {}).items()
+        }
+    dilutions = formula.get("dilutions") or {}
+    return ingredients, dilutions
+
+
+def group_value(formula: Mapping, rule: GroupRule) -> float:
+    ingredients, dilutions = _formula_percentages(formula)
+    material_set = rule.normalized_materials
+    total = 0.0
+    for material, raw_pct in ingredients.items():
+        if normalize_name(str(material)) not in material_set:
+            continue
+        value = float(raw_pct or 0.0)
+        if rule.basis == "active":
+            value *= float(dilutions.get(material, 1.0) or 1.0)
+        total += value
+    return total
+
+
+def forbidden_hits(formula: Mapping, spec: ArchetypeSpec) -> tuple[str, ...]:
+    ingredients, _dilutions = _formula_percentages(formula)
+    forbidden = {normalize_name(material) for material in spec.forbidden_materials}
+    token_hits = []
+    exact_hits = []
+    for material in ingredients:
+        normalized = normalize_name(str(material))
+        raw = f" {str(material).lower()} "
+        if normalized in forbidden:
+            exact_hits.append(str(material))
+        elif any(token in raw for token in spec.forbidden_tokens):
+            token_hits.append(str(material))
+    return tuple(sorted(set(exact_hits + token_hits)))
+
+
+def _check_rule(rule: GroupRule, value: float) -> FamilyCheck:
+    status = "PASS"
+    parts = []
+    unit = "% raw" if rule.basis == "raw" else "% active"
+    if rule.minimum is not None:
+        parts.append(f"{value:.3f}{unit} >= {rule.minimum:.3f}")
+        if value < rule.minimum:
+            status = "FAIL"
+            parts[-1] = f"{value:.3f}{unit} below {rule.minimum:.3f}"
+    if rule.maximum is not None:
+        parts.append(f"{value:.3f}{unit} <= {rule.maximum:.3f}")
+        if value > rule.maximum:
+            status = "FAIL"
+            parts[-1] = f"{value:.3f}{unit} above {rule.maximum:.3f}"
+    if rule.detail:
+        parts.append(rule.detail)
+    return FamilyCheck(
+        name=rule.name,
+        status=status,
+        detail="; ".join(parts),
+        value=round(value, 6),
+        rule=rule,
+    )
+
+
+def evaluate_family_archetype(formula: Mapping, archetype: str) -> FamilyEvaluation:
+    spec = get_archetype(archetype)
+    if spec is None:
+        return FamilyEvaluation(
+            archetype=str(archetype or ""),
+            family="unknown",
+            label="unknown",
+            status="FAIL" if archetype else "PASS",
+            checks=(
+                FamilyCheck(
+                    name="unknown_archetype",
+                    status="FAIL",
+                    detail="unknown family archetype — must declare a valid family before evaluating drift",
+                    value=0.0,
+                ),
+            ),
+        )
+    checks = [
+        _check_rule(rule, group_value(formula, rule))
+        for rule in (*spec.anchors, *spec.drift_limits)
+    ]
+    hits = forbidden_hits(formula, spec)
+    if hits:
+        checks.append(
+            FamilyCheck(
+                name="forbidden_archetype_materials",
+                status="FAIL",
+                detail=", ".join(hits),
+                value=float(len(hits)),
+            )
+        )
+    status = "FAIL" if any(check.status == "FAIL" for check in checks) else "PASS"
+    return FamilyEvaluation(
+        archetype=spec.key,
+        family=spec.family,
+        label=spec.label,
+        status=status,
+        checks=tuple(checks),
+        forbidden_hits=hits,
+    )
+
+
+def archetype_penalty(formula: Mapping, archetype: str, *, fail_weight: float = 4.0) -> float:
+    evaluation = evaluate_family_archetype(formula, archetype)
+    return sum(fail_weight for check in evaluation.checks if check.status == "FAIL")
+
+
+def novelty_assessment(formula: Mapping, archetype: str) -> dict:
+    spec = get_archetype(archetype)
+    if spec is None:
+        return {"status": "PASS", "detail": "not requested", "score": 1.0}
+    if spec.role == "reference_control":
+        return {
+            "status": "WARN",
+            "detail": "reference/control archetype; familiar by design, not the new exploration target",
+            "score": 0.0,
+        }
+    if spec.key == "aromatic_fougere.modern_mineral":
+        signature = group_value(
+            formula,
+            _rule("mineral_signature_present", MARINE + ("Dihydromyrcenol",), basis="raw"),
+        )
+        status = "PASS" if signature >= 3.0 else "WARN"
+        return {
+            "status": status,
+            "detail": f"mineral/fresh signature {signature:.2f}% raw; target >= 3.00 for meaningful modernity",
+            "score": min(signature / 3.0, 1.0),
+        }
+    if spec.key == "aromatic_fougere.modern_tonka_mass":
+        signature = group_value(
+            formula,
+            _rule("tonka_mass_hook_present", LOUD_FRUIT + ("Vanillin", "Ethyl Vanillin")),
+        )
+        status = "PASS" if signature >= 0.25 else "WARN"
+        return {
+            "status": status,
+            "detail": f"fruit/tonka mass hook {signature:.2f}% active; target >= 0.25 for meaningful modernity",
+            "score": min(signature / 0.25, 1.0),
+        }
+    if spec.key == "woody_floral_musk.classic":
+        woods = group_value(formula, _rule("wfm_wood_audit", WOODY_FLORAL_MUSK_WOODS))
+        florals = group_value(formula, _rule("wfm_floral_audit", WOODY_FLORAL_MUSK_FLORALS))
+        musks = group_value(formula, _rule("wfm_musk_audit", WOODY_FLORAL_MUSK_MUSKS))
+        total = woods + florals + musks
+        wood_ratio = woods / total if total > 0 else 0
+        floral_ratio = florals / total if total > 0 else 0
+        # Classic woody floral musk: woods ~50-65%, florals ~20-35%, musks ~10-20%
+        balance_score = 1.0
+        if wood_ratio < 0.40:
+            balance_score *= wood_ratio / 0.40
+        if floral_ratio < 0.15:
+            balance_score *= floral_ratio / 0.15
+        status = "PASS" if balance_score >= 0.7 else "WARN"
+        return {
+            "status": status,
+            "detail": f"woods {wood_ratio:.0%} / florals {floral_ratio:.0%} / musks {musks / total if total else 0:.0%}; classic ratio ~55/25/20",
+            "score": min(balance_score, 1.0),
+        }
+    if spec.key == "gourmand_floral.classic_reference":
+        gourmands = group_value(formula, _rule("gf_gourmand_audit", GOURMAND_FLORAL_GOURMANDS))
+        florals = group_value(formula, _rule("gf_floral_audit", GOURMAND_FLORAL_FLORALS))
+        woods = group_value(formula, _rule("gf_wood_audit", GOURMAND_FLORAL_WOODS))
+        total = gourmands + florals + woods
+        gourmand_ratio = gourmands / total if total > 0 else 0
+        floral_ratio = florals / total if total > 0 else 0
+        # Classic gourmand-floral: florals ~55-70%, gourmand ~8-18%, woods ~12-25%
+        balance_score = 1.0
+        if gourmand_ratio < 0.06:
+            balance_score *= gourmand_ratio / 0.06
+        if floral_ratio < 0.45:
+            balance_score *= floral_ratio / 0.45
+        if gourmand_ratio > 0.25:
+            balance_score *= 0.25 / gourmand_ratio
+        status = "PASS" if balance_score >= 0.7 else "WARN"
+        return {
+            "status": status,
+            "detail": f"florals {floral_ratio:.0%} / gourmand {gourmand_ratio:.0%} / woods {woods / total if total else 0:.0%}; classic ratio ~60/12/25",
+            "score": min(balance_score, 1.0),
+        }
+    return {
+        "status": "PASS",
+        "detail": f"{spec.label}; novelty judged against Layton DNA transparency rather than fougere reference",
+        "score": 1.0,
+    }

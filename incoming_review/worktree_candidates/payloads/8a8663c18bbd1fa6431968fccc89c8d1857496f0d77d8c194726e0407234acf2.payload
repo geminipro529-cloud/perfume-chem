@@ -1,0 +1,43 @@
+{
+  "schema_version": "chatgpt_browser_capture_manifest_v1",
+  "capture_id": "chat-b-exact-ratio-6a753b14-20260819t115321z",
+  "recorded_at": "2026-08-19T11:53:21Z",
+  "source": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "project_name": "Complex Perfumery",
+    "conversation_id": "6a753b14-8180-83ec-84f9-38e1e13e01ec",
+    "conversation_url": "https://chatgpt.com/g/g-p-6a74ab83668081919f5cbd0dfe80eb09-complex-perfumery/c/6a753b14-8180-83ec-84f9-38e1e13e01ec",
+    "conversation_title": "B Lane Validation Complete",
+    "attachment_name": "CHAT_B_EXACT_RATIO_CAUSAL_XHIGH_v1.zip",
+    "capture_surface": "AUTHENTICATED_CHATGPT_BROWSER_ATTACHMENT_DOWNLOAD",
+    "claimed_sha256": "15ef920283d457ec06e39af6009ae6153e5d835f39d26539d3463806d7c53cd6"
+  },
+  "package": {
+    "path": "incoming_review/chatgpt/20260819T115321Z-chat-b-exact-ratio-6a753b14/CHAT_B_EXACT_RATIO_CAUSAL_XHIGH_v1.zip",
+    "byte_size": 50235,
+    "sha256": "15ef920283d457ec06e39af6009ae6153e5d835f39d26539d3463806d7c53cd6",
+    "media_type": "application/zip",
+    "archive_entry_count": 14,
+    "archive_file_count": 14,
+    "package_root": "CHAT_B_EXACT_RATIO_CAUSAL_XHIGH_v1",
+    "internal_checksum_entries_verified": 13,
+    "archive_scan_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "archive_scan_promotion_allowed": false
+  },
+  "rights": {
+    "reuse_status": "UNKNOWN",
+    "redistribution_allowed": false,
+    "reason": "The ChatGPT attachment contains no license or reuse declaration; private possession and exact hash verification do not establish redistribution, publication, or source-table reuse rights."
+  },
+  "disposition": {
+    "state": "EXACT_BROWSER_ATTACHMENT_CAPTURED_QUARANTINED",
+    "package_content_import_allowed": false,
+    "generated_row_projection_allowed": false,
+    "source_table_admission_allowed": false,
+    "formula_mutation_allowed": false,
+    "physical_truth_upgrade_allowed": false,
+    "release_allowed": false,
+    "notes": "The 253 generated arms remain secondary reconstruction content. The package's 125-row Le Berre grid incorrectly treats the separate target reference as a fifth factorial level; the official source abstract specifies four concentration levels per component and every combination, yielding 64 experimental mixtures. No generated row may replace source-bound observations."
+  },
+  "receipt_sha256": "cac9557124e05a23fd7185e044c9f98b9dee92838b9b823cd07429e880113957"
+}

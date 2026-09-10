@@ -1,0 +1,330 @@
+{
+  "schema": "perfume-chem.inventory-independent-family-target.v1",
+  "study_id": "ysl-lhomme-la-nuit-twenty-variant-study",
+  "target_id": "ysl-la-nuit-2009-family-control",
+  "name": "YSL La Nuit de L'Homme 2009 Family Control",
+  "family": "ysl_la_nuit",
+  "basis": "active_ppm_w_w_of_concentrate",
+  "total_active_ppm_w_w": 1000000.0,
+  "authority_label": "DOCUMENTARY_FUNCTIONAL_FORMULA_HYPOTHESIS",
+  "target_sha256": "A952263E405CDBBEC6A36A52105AC719F9D2EB89BF886EC1174EC4A753CA1CC2",
+  "inventory_independence": "This accepted target is locked before inventory mapping. Availability may alter only the separate CURRENT-INVENTORY BUILD.",
+  "target_identity": {
+    "north_star": "La Nuit de L'Homme's cool cardamom-bergamot clash, lavender-cedar heart, and sensual vetiver-coumarin-tonka drydown in a dark but still fresh woody field.",
+    "olfactive_family": "fresh ambery aromatic woody with cardamom tension and close coumarinic warmth",
+    "protected_transitions": [
+      "powerful cool cardamom against sparkling bergamot",
+      "cardamom oxygenated-terpene character into lavender",
+      "lavender and cedar braided rather than staged separately",
+      "cedar-vetiver vertical into dry coumarin-tonka intimacy"
+    ],
+    "drift_rejections": [
+      "generic sweet amber",
+      "barbershop lavender",
+      "culinary cardamom or caraway",
+      "opaque woody-amber wall",
+      "clean-musk curtain"
+    ]
+  },
+  "functional_architecture": [
+    {
+      "block": "cardamom_bergamot_tension",
+      "target_fraction": 0.105,
+      "function": "A high-contrast cool spice and citrus opening, with freshness supporting rather than diluting cardamom."
+    },
+    {
+      "block": "lavender_bridge",
+      "target_fraction": 0.223,
+      "function": "Aromatic-floral continuity from cardamom to cedar, dimensional but never barbershop."
+    },
+    {
+      "block": "cedar_vetiver_dark_woods",
+      "target_fraction": 0.555,
+      "function": "A transparent dark-wood field with literal cedar and Haitian vetiver readable through modern structure."
+    },
+    {
+      "block": "coumarin_tonka_skin_intimacy",
+      "target_fraction": 0.115,
+      "function": "Dry hay-tonka sensuality and one exact skin musk, restrained below gourmand sweetness."
+    },
+    {
+      "block": "restrained_aromatic_shadow",
+      "target_fraction": 0.002,
+      "function": "A secondary historical caraway hypothesis held at shadow level, never made culinary."
+    }
+  ],
+  "variant_socket": {
+    "active_ppm_w_w_budget": 66666.667,
+    "adapter_socket_raw_ul": 300.0,
+    "donor_pool_full_active_ppm_w_w": 74074.074,
+    "donor_pool_core_retention_ppm_w_w": 7407.407,
+    "donor_identities": [
+      "Dihydromyrcenol",
+      "Linalyl Acetate",
+      "Ambroxide",
+      "Caraway",
+      "Florol",
+      "Vanillin"
+    ],
+    "rule": "A variant changes the 66,666.667 ppm mobile portion at constant total; cardamom, lavender, cedar, vetiver, coumarin, and tonka are not funded from this socket."
+  },
+  "materials": [
+    {
+      "identity": "Iso E Super",
+      "active_ppm_w_w": 170000.0,
+      "function": "transparent dark-cedar halo and lateral diffusion",
+      "time_windows": ["opening", "heart", "late_heart", "drydown"],
+      "evidence_ids": ["SOL-LN-FROZEN"],
+      "quantity_authority": "DESIGN_HYPOTHESIS_NOT_COMMERCIAL_PERCENTAGE",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Amberwood F",
+      "active_ppm_w_w": 65000.0,
+      "function": "dry ambery pressure behind the aromatic heart",
+      "time_windows": ["heart", "late_heart", "drydown"],
+      "evidence_ids": ["SOL-LN-FROZEN"],
+      "quantity_authority": "SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Vertofix Coeur",
+      "active_ppm_w_w": 70000.0,
+      "function": "vetiver-wood spine and dark dry persistence",
+      "time_windows": ["heart", "late_heart", "drydown"],
+      "evidence_ids": ["SOL-LN-FROZEN"],
+      "quantity_authority": "SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Hedione",
+      "active_ppm_w_w": 80925.926,
+      "function": "transparent diffusion joining lavender to dark woods",
+      "time_windows": ["opening", "heart", "late_heart"],
+      "evidence_ids": ["SOL-LN-FROZEN"],
+      "quantity_authority": "TRANSITION_DESIGN_HYPOTHESIS",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Cashmeran",
+      "active_ppm_w_w": 50000.0,
+      "function": "warm textile shadow and spicy-wood depth",
+      "time_windows": ["heart", "late_heart", "drydown"],
+      "evidence_ids": ["SOL-LN-FROZEN"],
+      "quantity_authority": "TEXTURE_DESIGN_HYPOTHESIS",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Ethyl Linalool",
+      "active_ppm_w_w": 40000.0,
+      "function": "fresh aromatic-floral tenacity linking bergamot, lavender, and cedar",
+      "time_windows": ["opening", "heart", "late_heart"],
+      "evidence_ids": ["SOL-LN-FROZEN"],
+      "quantity_authority": "TRANSITION_DESIGN_HYPOTHESIS",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Dihydromyrcenol",
+      "active_ppm_w_w": 25000.0,
+      "function": "mobile cool kinetic tension around cardamom",
+      "time_windows": ["opening", "top"],
+      "evidence_ids": ["SOL-LN-FROZEN"],
+      "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DONOR",
+      "mobility_class": "module_mobile",
+      "control_floor_fraction": 0.1
+    },
+    {
+      "identity": "Exaltolide",
+      "active_ppm_w_w": 45000.0,
+      "function": "single exact soft skin musk for close sensual continuity",
+      "time_windows": ["heart", "late_heart", "drydown"],
+      "evidence_ids": ["SOL-LN-FROZEN"],
+      "quantity_authority": "SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8,
+      "is_musk": true,
+      "musk_function": "soft close-wearing skin continuity"
+    },
+    {
+      "identity": "Bergamot Oil",
+      "active_ppm_w_w": 45000.0,
+      "function": "sparkling citrus counterforce to cool cardamom",
+      "time_windows": ["opening", "top"],
+      "evidence_ids": ["YSL-LN-OFFICIAL-INT", "YSL-LN-LAUNCH-2009"],
+      "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY",
+      "mobility_class": "immutable_recognizer",
+      "control_floor_fraction": 1.0
+    },
+    {
+      "identity": "Cardamom Oil",
+      "active_ppm_w_w": 35000.0,
+      "function": "powerful cool cineolic-spicy opening recognizer",
+      "time_windows": ["opening", "top", "heart"],
+      "evidence_ids": ["YSL-LN-LAUNCH-2009"],
+      "quantity_authority": "CONTEMPORANEOUS_DOCUMENTARY_IDENTITY_DESIGN_QUANTITY",
+      "mobility_class": "immutable_recognizer",
+      "control_floor_fraction": 1.0
+    },
+    {
+      "identity": "Lavender",
+      "active_ppm_w_w": 60000.0,
+      "function": "aromatic-floral heart braided with cedar",
+      "time_windows": ["opening", "heart", "late_heart"],
+      "evidence_ids": ["YSL-LN-OFFICIAL-INT", "YSL-LN-LAUNCH-2009"],
+      "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY",
+      "mobility_class": "immutable_recognizer",
+      "control_floor_fraction": 1.0
+    },
+    {
+      "identity": "Linalool",
+      "active_ppm_w_w": 20000.0,
+      "function": "fresh floral support inside the lavender bridge",
+      "time_windows": ["opening", "heart"],
+      "evidence_ids": ["YSL-LN-OFFICIAL-INT"],
+      "quantity_authority": "DECLARED_ALLERGEN_FUNCTION_DESIGN_HYPOTHESIS",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Linalyl Acetate",
+      "active_ppm_w_w": 4074.074,
+      "function": "mobile bergamot-lavender ester seam",
+      "time_windows": ["opening", "top", "heart"],
+      "evidence_ids": ["SOL-LN-FROZEN"],
+      "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DONOR",
+      "mobility_class": "module_mobile",
+      "control_floor_fraction": 0.1
+    },
+    {
+      "identity": "Cedarwood Virginia",
+      "active_ppm_w_w": 70000.0,
+      "function": "literal cedar heart and vertical backbone",
+      "time_windows": ["heart", "late_heart", "drydown"],
+      "evidence_ids": ["YSL-LN-OFFICIAL-INT", "YSL-LN-LAUNCH-2009"],
+      "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY",
+      "mobility_class": "immutable_recognizer",
+      "control_floor_fraction": 1.0
+    },
+    {
+      "identity": "Vetiver Haiti",
+      "active_ppm_w_w": 45000.0,
+      "function": "dry rooty Haitian-vetiver base and evening tension",
+      "time_windows": ["heart", "late_heart", "drydown"],
+      "evidence_ids": ["YSL-LN-OFFICIAL-INT", "YSL-LN-VETIVER-HAITI", "YSL-LN-LAUNCH-2009"],
+      "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY",
+      "mobility_class": "immutable_recognizer",
+      "control_floor_fraction": 1.0
+    },
+    {
+      "identity": "Coumarin",
+      "active_ppm_w_w": 35000.0,
+      "function": "dry hay warmth and sensual fougere memory",
+      "time_windows": ["heart", "late_heart", "drydown"],
+      "evidence_ids": ["YSL-LN-LAUNCH-2009"],
+      "quantity_authority": "CONTEMPORANEOUS_DOCUMENTARY_IDENTITY_DESIGN_QUANTITY",
+      "mobility_class": "immutable_recognizer",
+      "control_floor_fraction": 1.0
+    },
+    {
+      "identity": "Tonka",
+      "active_ppm_w_w": 30000.0,
+      "function": "rounded dry intimacy beneath coumarin without gourmand excess",
+      "time_windows": ["late_heart", "drydown"],
+      "evidence_ids": ["YSL-LN-OFFICIAL-INT"],
+      "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY",
+      "mobility_class": "immutable_recognizer",
+      "control_floor_fraction": 1.0
+    },
+    {
+      "identity": "Sandalwood",
+      "active_ppm_w_w": 35000.0,
+      "function": "creamy dry-wood rounding under cedar and vetiver",
+      "time_windows": ["late_heart", "drydown"],
+      "evidence_ids": ["SOL-LN-FROZEN"],
+      "quantity_authority": "SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Alpha Isomethyl Ionone",
+      "active_ppm_w_w": 20000.0,
+      "function": "soft violet-woody body smoothing lavender into woods",
+      "time_windows": ["heart", "late_heart"],
+      "evidence_ids": ["YSL-LN-OFFICIAL-INT"],
+      "quantity_authority": "DECLARED_ALLERGEN_FUNCTION_DESIGN_HYPOTHESIS",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Ambroxide",
+      "active_ppm_w_w": 20000.0,
+      "function": "mobile mineral-dry persistence in the woody field",
+      "time_windows": ["late_heart", "drydown"],
+      "evidence_ids": ["SOL-LN-FROZEN"],
+      "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DONOR",
+      "mobility_class": "module_mobile",
+      "control_floor_fraction": 0.1
+    },
+    {
+      "identity": "Caraway",
+      "active_ppm_w_w": 2000.0,
+      "function": "mobile restrained aromatic shadow, never a savory theme",
+      "time_windows": ["opening", "heart"],
+      "evidence_ids": ["YSL-LN-LAUNCH-2009"],
+      "quantity_authority": "SECONDARY_HISTORICAL_HYPOTHESIS_NOT_MANDATORY_OFFICIAL_CLAIM",
+      "mobility_class": "module_mobile",
+      "control_floor_fraction": 0.1
+    },
+    {
+      "identity": "Florol",
+      "active_ppm_w_w": 18000.0,
+      "function": "mobile clean floral volume preventing a hollow lavender-to-wood seam",
+      "time_windows": ["heart", "late_heart"],
+      "evidence_ids": ["SOL-LN-FROZEN"],
+      "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DONOR",
+      "mobility_class": "module_mobile",
+      "control_floor_fraction": 0.1
+    },
+    {
+      "identity": "Patchouli",
+      "active_ppm_w_w": 10000.0,
+      "function": "quiet earthy dark-wood depth behind vetiver",
+      "time_windows": ["late_heart", "drydown"],
+      "evidence_ids": ["SOL-LN-FROZEN"],
+      "quantity_authority": "SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS",
+      "mobility_class": "protected_anchor",
+      "control_floor_fraction": 0.8
+    },
+    {
+      "identity": "Vanillin",
+      "active_ppm_w_w": 5000.0,
+      "function": "mobile trace warmth rounding coumarin without vanilla-gourmand identity",
+      "time_windows": ["late_heart", "drydown"],
+      "evidence_ids": ["SOL-LN-FROZEN"],
+      "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DONOR",
+      "mobility_class": "module_mobile",
+      "control_floor_fraction": 0.1
+    }
+  ],
+  "diagnostic_constraints": {
+    "ppm": "REQUIRED",
+    "odt_oav": "REQUIRED_BEFORE_ADVANCEMENT",
+    "composite_natural_oav": "REQUIRED_FOR_EVERY_NATURAL_MIXTURE",
+    "temporal_windows": ["opening", "top", "heart", "late_heart", "drydown"],
+    "stock_rebase_oav_per_time": "REQUIRED_FOR_EVERY_CHILD"
+  },
+  "claim_ceiling": {
+    "exact_commercial_formula": "NOT CLAIMED",
+    "sensory_similarity": "NOT TESTED",
+    "physical_liking": "NOT TESTED",
+    "stability": "NOT TESTED",
+    "safety": "NOT CLEARED",
+    "release": "NOT CLEARED"
+  }
+}

@@ -1,0 +1,422 @@
+{
+  "schema": "perfume-chem-ysl-impact-index-v2",
+  "study_id": "ysl-lhomme-la-nuit-twenty-variant-study",
+  "generated_at_utc": "2026-08-27T03:25:57Z",
+  "source_bindings": {
+    "inventory_sha256": "DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC",
+    "screening_summary_sha256": "a4779473e6c7ae0794e350d0873fe4a007583163ff221838a6261397aeeba34b"
+  },
+  "authority": "DESIGN_COMPLETE__NO_AUTOMATIC_PURCHASE_OR_PHYSICAL_EXECUTION_AUTHORITY",
+  "pipette_rule": "ALL_RAW_STOCK_DOSES_AT_OR_ABOVE_10_UL",
+  "candidates": [
+    {
+      "candidate_id": "LH-01",
+      "name": "Original Fidelity",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LH-01.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-01_assessment.json",
+      "assessment_sha256": "2c005ac402b22c950fdee59ec307d77ede53ac42c5ea702dc91e2f35935367e5",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "exact cedrat and white pepper",
+        "Haitian vetiver and sandalwood provenance",
+        "Vertofix Coeur and Hedione HC textures",
+        "physical family-retention evidence"
+      ],
+      "purchase_preparation_state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+      "purchase_recommendation": "TARGET / IDEAL remains inventory-independent. CURRENT omits unavailable Ethyl Linalool and uncovered Basil, and removes unresolved Pamzest/Parmavert; owned linalool, linalyl acetate, ionone, bergamot, and lemon cover only partial functions; a subthreshold Terpinyl Acetate neat trace is intentionally omitted. Exact cedrat, white pepper, Haitian vetiver, sandalwood, Vertofix Coeur, and Hedione HC remain gaps. Verify EB; purchase only after a constant-total missing-material arm.",
+      "minimum_raw_stock_dose_ul": 10.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    },
+    {
+      "candidate_id": "LH-02",
+      "name": "Vintage Magnetique",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LH-02.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-02_assessment.json",
+      "assessment_sha256": "b1183a9f81f4363277b7b530e447644cccaf4320d9638b6d6d83760f4b6d6c30",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "exact cedrat and white pepper",
+        "Haitian vetiver and sandalwood provenance",
+        "Vertofix Coeur and Hedione HC textures",
+        "physical family-retention evidence"
+      ],
+      "purchase_preparation_state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+      "purchase_recommendation": "TARGET / IDEAL remains inventory-independent. CURRENT omits unavailable Ethyl Linalool and uncovered Basil, and removes unresolved Pamzest/Parmavert; owned linalool, linalyl acetate, ionone, bergamot, and lemon cover only partial functions; a subthreshold Terpinyl Acetate neat trace is intentionally omitted. Exact cedrat, white pepper, Haitian vetiver, sandalwood, Vertofix Coeur, and Hedione HC remain gaps. Verify EB; purchase only after a constant-total missing-material arm.",
+      "minimum_raw_stock_dose_ul": 10.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    },
+    {
+      "candidate_id": "LH-03",
+      "name": "Tailored Luxe",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LH-03.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-03_assessment.json",
+      "assessment_sha256": "6b4908d55421deda81e260284e3fd73808126f6afbfca7ff629ce0fe857a78f4",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "exact cedrat and white pepper",
+        "Haitian vetiver and sandalwood provenance",
+        "Vertofix Coeur and Hedione HC textures",
+        "physical family-retention evidence"
+      ],
+      "purchase_preparation_state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+      "purchase_recommendation": "TARGET / IDEAL remains inventory-independent. CURRENT omits unavailable Ethyl Linalool and uncovered Basil, and removes unresolved Pamzest/Parmavert; owned linalool, linalyl acetate, ionone, bergamot, and lemon cover only partial functions; a subthreshold Terpinyl Acetate neat trace is intentionally omitted. Exact cedrat, white pepper, Haitian vetiver, sandalwood, Vertofix Coeur, and Hedione HC remain gaps. Verify EB; purchase only after a constant-total missing-material arm.",
+      "minimum_raw_stock_dose_ul": 10.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    },
+    {
+      "candidate_id": "LH-04",
+      "name": "Apple Pie",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LH-04.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-04_assessment.json",
+      "assessment_sha256": "04feb10d3a104b829e109cb3691d408141e6b4e7e04d01f49e9727c98edc23f7",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "exact cedrat and white pepper",
+        "verified basis for apple/pastry percentage stocks",
+        "physical evidence that pastry remains subordinate"
+      ],
+      "purchase_preparation_state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+      "purchase_recommendation": "TARGET / IDEAL retains exact apple-pastry materials. CURRENT uses the owned apple/pastry stocks conditionally, but every 0.1%, 1%, and 10% row remains HOLD until its label or preparation receipt proves the concentration basis. Unavailable Ethyl Linalool and uncovered Basil were removed; no replacement is identity-equivalent. Verify EB. Purchase nothing until a carrier-matched omission test shows a specific deficit.",
+      "minimum_raw_stock_dose_ul": 10.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    },
+    {
+      "candidate_id": "LH-05",
+      "name": "Ginger-Cedrat Spark",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LH-05.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-05_assessment.json",
+      "assessment_sha256": "492595172c239ce70a89c1cfce1d72f490fc912a7c29bb02f7f0e1544b9fe03b",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "exact cedrat and white pepper",
+        "Haitian vetiver and sandalwood provenance",
+        "Vertofix Coeur and Hedione HC textures",
+        "physical family-retention evidence"
+      ],
+      "purchase_preparation_state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+      "purchase_recommendation": "TARGET / IDEAL remains inventory-independent. CURRENT omits unavailable Ethyl Linalool and uncovered Basil, and removes unresolved Pamzest/Parmavert; owned linalool, linalyl acetate, ionone, bergamot, and lemon cover only partial functions; a subthreshold Terpinyl Acetate neat trace is intentionally omitted. Exact cedrat, white pepper, Haitian vetiver, sandalwood, Vertofix Coeur, and Hedione HC remain gaps. Verify EB; purchase only after a constant-total missing-material arm.",
+      "minimum_raw_stock_dose_ul": 10.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    },
+    {
+      "candidate_id": "LH-06",
+      "name": "Violet Leaf Silk",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LH-06.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-06_assessment.json",
+      "assessment_sha256": "3674bc9f1969fc55b42f32b95bc626d01045103218141fcad0b41aa5ccd7c734",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "exact cedrat and white pepper",
+        "Haitian vetiver and sandalwood provenance",
+        "Vertofix Coeur and Hedione HC textures",
+        "physical family-retention evidence"
+      ],
+      "purchase_preparation_state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+      "purchase_recommendation": "TARGET / IDEAL remains inventory-independent. CURRENT omits unavailable Ethyl Linalool and uncovered Basil, and removes unresolved Pamzest/Parmavert; owned linalool, linalyl acetate, ionone, bergamot, and lemon cover only partial functions; a subthreshold Terpinyl Acetate neat trace is intentionally omitted. Exact cedrat, white pepper, Haitian vetiver, sandalwood, Vertofix Coeur, and Hedione HC remain gaps. Verify EB; purchase only after a constant-total missing-material arm.",
+      "minimum_raw_stock_dose_ul": 10.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    },
+    {
+      "candidate_id": "LH-07",
+      "name": "White Pepper-Basil",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LH-07.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-07_assessment.json",
+      "assessment_sha256": "b2495ba18f07a4656a94c6cacca4a097479117a4896babb461e5173126685d8b",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "basil identity pending lot-relevant composite authority",
+        "exact white pepper",
+        "physical family-retention evidence"
+      ],
+      "purchase_preparation_state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+      "purchase_recommendation": "TARGET / IDEAL retains basil and white pepper. CURRENT omits Basil because the lot lacks defensible composite-natural authority; linalool and terpinyl acetate cover only aromatic lift. Unavailable Ethyl Linalool and unresolved Pamzest/Parmavert were also removed with explicit losses. Verify EB; procure nothing before a constant-total addition/omission test.",
+      "minimum_raw_stock_dose_ul": 20.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    },
+    {
+      "candidate_id": "LH-08",
+      "name": "Cedar-Vetiver Tailoring",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LH-08.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-08_assessment.json",
+      "assessment_sha256": "033f30aea4531ae6a6eaca4e96e03518a14396c9ff23101c94697dbb800ef4f4",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "exact cedrat and white pepper",
+        "Haitian vetiver and sandalwood provenance",
+        "Vertofix Coeur and Hedione HC textures",
+        "physical family-retention evidence"
+      ],
+      "purchase_preparation_state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+      "purchase_recommendation": "TARGET / IDEAL remains inventory-independent. CURRENT omits unavailable Ethyl Linalool and uncovered Basil, and removes unresolved Pamzest/Parmavert; owned linalool, linalyl acetate, ionone, bergamot, and lemon cover only partial functions; a subthreshold Terpinyl Acetate neat trace is intentionally omitted. Exact cedrat, white pepper, Haitian vetiver, sandalwood, Vertofix Coeur, and Hedione HC remain gaps. Verify EB; purchase only after a constant-total missing-material arm.",
+      "minimum_raw_stock_dose_ul": 10.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    },
+    {
+      "candidate_id": "LH-09",
+      "name": "Tonka-Sandalwood",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LH-09.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-09_assessment.json",
+      "assessment_sha256": "172e103e028bdc87fb46b376f111fae635a3c279417587cc6d9bbbd678d1e4a2",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "exact cedrat and white pepper",
+        "Haitian vetiver and sandalwood provenance",
+        "Vertofix Coeur and Hedione HC textures",
+        "physical family-retention evidence"
+      ],
+      "purchase_preparation_state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+      "purchase_recommendation": "TARGET / IDEAL remains inventory-independent. CURRENT omits unavailable Ethyl Linalool and uncovered Basil, and removes unresolved Pamzest/Parmavert; owned linalool, linalyl acetate, ionone, bergamot, and lemon cover only partial functions; a subthreshold Terpinyl Acetate neat trace is intentionally omitted. Exact cedrat, white pepper, Haitian vetiver, sandalwood, Vertofix Coeur, and Hedione HC remain gaps. Verify EB; purchase only after a constant-total missing-material arm.",
+      "minimum_raw_stock_dose_ul": 10.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    },
+    {
+      "candidate_id": "LH-10",
+      "name": "Bangkok Air",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LH-10.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LH-10_assessment.json",
+      "assessment_sha256": "2cc3e823884418c401edfa4102f9df24e9f65012ff9e131a0c923a0a2d1b87c4",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "Paradisamide stock-basis receipt and physical warm-climate continuity evidence",
+        "exact cedrat and white pepper",
+        "Haitian vetiver and sandalwood provenance",
+        "Vertofix Coeur and Hedione HC textures",
+        "physical family-retention evidence"
+      ],
+      "purchase_preparation_state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+      "purchase_recommendation": "TARGET / IDEAL retains Paradisamide as a low-vapor citrus-fruit bridge. CURRENT omits the recorded 10% Paradisamide stock because its carrier and w/w versus v/v basis are unverified; Lemonile, Hedione, and Florol provide only non-equivalent dry-citrus transition support. Unavailable Ethyl Linalool, uncovered Basil, and unresolved Pamzest/Parmavert are also omitted. Verify EB and the Paradisamide label or preparation receipt; evaluate Paradisamide only in a constant-total carrier-matched arm. No modeled warm-climate result is sensory evidence.",
+      "minimum_raw_stock_dose_ul": 10.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-01",
+      "name": "Original 2009 Fidelity",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LN-01.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-01_assessment.json",
+      "assessment_sha256": "5c0de785670c33176b6ae56992422c3020b79956851aa313690ef52677623af7",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "Exaltolide texture",
+        "Haitian vetiver and target lavender",
+        "Ambroxide and Vertofix Coeur textures",
+        "physical family-retention evidence"
+      ],
+      "purchase_preparation_state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+      "purchase_recommendation": "TARGET / IDEAL remains inventory-independent. CURRENT omits unavailable Ethyl Linalool and unmodeled Caraway, reallocating only transition functions to linalool, linalyl acetate, and cardamom. Lavender, Cashmeran, Patchouli, and Indian Vetiver use current canonical labels. Exact Exaltolide texture, Haitian vetiver, target lavender, Ambroxide, and Vertofix Coeur remain gaps. Verify EB; purchase only after a constant-total missing-material arm.",
+      "minimum_raw_stock_dose_ul": 50.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-02",
+      "name": "Current Transparent Style",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LN-02.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-02_assessment.json",
+      "assessment_sha256": "9f99f7ee394f31c9dd5cbcb442c5a14350e6b61e7471a2c6de2225f19db8a889",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "Exaltolide texture",
+        "Haitian vetiver and target lavender",
+        "Ambroxide and Vertofix Coeur textures",
+        "physical family-retention evidence"
+      ],
+      "purchase_preparation_state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+      "purchase_recommendation": "TARGET / IDEAL remains inventory-independent. CURRENT omits unavailable Ethyl Linalool and unmodeled Caraway, reallocating only transition functions to linalool, linalyl acetate, and cardamom. Lavender, Cashmeran, Patchouli, and Indian Vetiver use current canonical labels. Exact Exaltolide texture, Haitian vetiver, target lavender, Ambroxide, and Vertofix Coeur remain gaps. Verify EB; purchase only after a constant-total missing-material arm.",
+      "minimum_raw_stock_dose_ul": 40.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-03",
+      "name": "Cardamom Velvet",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LN-03.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-03_assessment.json",
+      "assessment_sha256": "9a95190bc747016e586c23b7e3524ee0701e51357ec2ea953bae6ea88a7003c7",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "Exaltolide texture",
+        "Haitian vetiver and target lavender",
+        "Ambroxide and Vertofix Coeur textures",
+        "physical family-retention evidence"
+      ],
+      "purchase_preparation_state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+      "purchase_recommendation": "TARGET / IDEAL remains inventory-independent. CURRENT omits unavailable Ethyl Linalool and unmodeled Caraway, reallocating only transition functions to linalool, linalyl acetate, and cardamom. Lavender, Cashmeran, Patchouli, and Indian Vetiver use current canonical labels. Exact Exaltolide texture, Haitian vetiver, target lavender, Ambroxide, and Vertofix Coeur remain gaps. Verify EB; purchase only after a constant-total missing-material arm.",
+      "minimum_raw_stock_dose_ul": 40.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-04",
+      "name": "Lavender Heart",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LN-04.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-04_assessment.json",
+      "assessment_sha256": "b3e0ee01dcc8b3f477cfb9fae64f757d04b6e6547f889c982ef4ffa9863dbcdd",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "Exaltolide texture",
+        "Haitian vetiver and target lavender",
+        "Ambroxide and Vertofix Coeur textures",
+        "physical family-retention evidence"
+      ],
+      "purchase_preparation_state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+      "purchase_recommendation": "TARGET / IDEAL remains inventory-independent. CURRENT omits unavailable Ethyl Linalool and unmodeled Caraway, reallocating only transition functions to linalool, linalyl acetate, and cardamom. Lavender, Cashmeran, Patchouli, and Indian Vetiver use current canonical labels. Exact Exaltolide texture, Haitian vetiver, target lavender, Ambroxide, and Vertofix Coeur remain gaps. Verify EB; purchase only after a constant-total missing-material arm.",
+      "minimum_raw_stock_dose_ul": 10.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-05",
+      "name": "Immortelle Nuit",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LN-05.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-05_assessment.json",
+      "assessment_sha256": "1e0c4ad66f6b237b2231f83c672e697175666315cfc30b0a5d8b350379b5638f",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "Immortelle and Maple stock-basis receipts",
+        "Exaltolide texture",
+        "Haitian vetiver and target lavender",
+        "physical anti-curry and anti-gourmand evidence"
+      ],
+      "purchase_preparation_state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+      "purchase_recommendation": "TARGET / IDEAL keeps the immortelle concept. CURRENT removes Helichrysum, Hay, Caraway, and unavailable Ethyl Linalool; it centers covered Immortelle Absolute with nerol, maple lactone, dry Tonkarome, lavender, cardamom, cedar, and vetiver. Immortelle and Maple percentage-stock bases remain VERIFY_FIRST. No curry, maple, gourmand, liking, or similarity success is inferred. Verify EB; buy nothing before the carrier-matched omission arm.",
+      "minimum_raw_stock_dose_ul": 20.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-06",
+      "name": "Cedar-Vetiver Vertical",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LN-06.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-06_assessment.json",
+      "assessment_sha256": "b12b1f44de7ff9bca42ad644aa19e4f2c776a56f6883a5fbd6f248fbf88feb77",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "Exaltolide texture",
+        "Haitian vetiver and target lavender",
+        "Ambroxide and Vertofix Coeur textures",
+        "physical family-retention evidence"
+      ],
+      "purchase_preparation_state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+      "purchase_recommendation": "TARGET / IDEAL remains inventory-independent. CURRENT omits unavailable Ethyl Linalool and unmodeled Caraway, reallocating only transition functions to linalool, linalyl acetate, and cardamom. Lavender, Cashmeran, Patchouli, and Indian Vetiver use current canonical labels. Exact Exaltolide texture, Haitian vetiver, target lavender, Ambroxide, and Vertofix Coeur remain gaps. Verify EB; purchase only after a constant-total missing-material arm.",
+      "minimum_raw_stock_dose_ul": 40.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-07",
+      "name": "Dry Coumarin Skin",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LN-07.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-07_assessment.json",
+      "assessment_sha256": "a032de3462459167fe7c10fd569f7aa6a5882ecc9d28195b3946014b75ac72f6",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "prepared 10% w/w Coumarin receipt for the optional role control",
+        "Hay Absolute stock-basis and composite-natural authority",
+        "Exaltolide texture",
+        "Haitian vetiver and target lavender",
+        "Ambroxide and Vertofix Coeur textures",
+        "physical family-retention evidence"
+      ],
+      "purchase_preparation_state": "PREPARE_10_PERCENT_W_W_COUMARIN_FROM_OWNED_NEAT_FOR_OPTIONAL_CONTROL",
+      "purchase_recommendation": "CURRENT uses owned Tonkarome as the executable dry coumarinic body and requires no raw-stock dose below 10 uL. The optional pure-Coumarin role control requires a verified 10% w/w stock prepared from owned neat powder: dissolve 1.000 g Coumarin into 9.000 g TEC, label by mass, and dose that stock only at 10 uL or more in a carrier-matched constant-total arm. Hay Absolute remains omitted pending stock-basis and composite-natural authority. Verify EB before any physical trial; this preparation does not authorize compounding or release.",
+      "minimum_raw_stock_dose_ul": 40.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-08",
+      "name": "Caraway Shadow",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LN-08.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-08_assessment.json",
+      "assessment_sha256": "1b45e563aff854353ffd40915932d23ca35e9808fb2696aecd63d1f68e41a156",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "Caraway composite and stock authority",
+        "Exaltolide texture",
+        "Haitian vetiver and target lavender",
+        "physical caraway-benefit evidence"
+      ],
+      "purchase_preparation_state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+      "purchase_recommendation": "TARGET / IDEAL retains a restrained historical caraway shadow. CURRENT deliberately omits Caraway because the owned 10% lot has no defensible composite-natural model; cardamom and linalool preserve only spice-to-lavender continuity. Unavailable Ethyl Linalool is also omitted. Verify EB; evaluate caraway only in a constant-total, carrier-matched arm after stock-basis verification.",
+      "minimum_raw_stock_dose_ul": 40.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-09",
+      "name": "Dark Textile Woods",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LN-09.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-09_assessment.json",
+      "assessment_sha256": "f4002ffc201d17ae7ad4da62c08298459de2e4a7341aee72d193f73ab0f6ceaf",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "Exaltolide texture",
+        "Haitian vetiver and target lavender",
+        "Ambroxide and Vertofix Coeur textures",
+        "physical family-retention evidence"
+      ],
+      "purchase_preparation_state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+      "purchase_recommendation": "TARGET / IDEAL remains inventory-independent. CURRENT omits unavailable Ethyl Linalool and unmodeled Caraway, reallocating only transition functions to linalool, linalyl acetate, and cardamom. Lavender, Cashmeran, Patchouli, and Indian Vetiver use current canonical labels. Exact Exaltolide texture, Haitian vetiver, target lavender, Ambroxide, and Vertofix Coeur remain gaps. Verify EB; purchase only after a constant-total missing-material arm.",
+      "minimum_raw_stock_dose_ul": 10.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    },
+    {
+      "candidate_id": "LN-10",
+      "name": "Intimate Diffusion",
+      "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LN-10.json",
+      "assessment_file": "formulas/ysl_twenty_variant_study/impact/LN-10_assessment.json",
+      "assessment_sha256": "3812e49ad7726afefe78e5b311a65fbc95e407ea10b3e588d2781ae3e2a2db09",
+      "impact_status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+      "architecture_locked": true,
+      "gaps": [
+        "Exaltolide texture",
+        "Haitian vetiver and target lavender",
+        "Ambroxide and Vertofix Coeur textures",
+        "physical family-retention evidence"
+      ],
+      "purchase_preparation_state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+      "purchase_recommendation": "TARGET / IDEAL remains inventory-independent. CURRENT omits unavailable Ethyl Linalool and unmodeled Caraway, reallocating only transition functions to linalool, linalyl acetate, and cardamom. Lavender, Cashmeran, Patchouli, and Indian Vetiver use current canonical labels. Exact Exaltolide texture, Haitian vetiver, target lavender, Ambroxide, and Vertofix Coeur remain gaps. Verify EB; purchase only after a constant-total missing-material arm.",
+      "minimum_raw_stock_dose_ul": 40.0,
+      "purchase_authority": false,
+      "physical_execution_authorized": false
+    }
+  ],
+  "claim_ceiling": {
+    "physical_liking": "NOT TESTED",
+    "sensory_similarity": "NOT TESTED",
+    "stability": "NOT TESTED",
+    "safety": "NOT CLEARED",
+    "measured_headspace": "NOT TESTED",
+    "release": "NOT CLEARED"
+  }
+}

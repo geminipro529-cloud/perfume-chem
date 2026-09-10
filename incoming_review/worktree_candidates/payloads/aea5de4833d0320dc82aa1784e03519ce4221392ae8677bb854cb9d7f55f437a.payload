@@ -1,0 +1,73 @@
+# AVENTUS — ASTRA V3
+## Basket-order weigh / pour card
+
+**DRAFT — DO NOT START MIXING. Unresolved rows prevent a complete batch.**
+
+Target finished batch: **30.000 g, not 30 mL**. Target aromatic materials: **6.000 g / 200,000 ppm w/w (20%)**.
+Formula, material selections and active targets are unchanged from the layered whole-batch candidate.
+
+Batch ID: ____________________   Date: ____________________   Operator: ____________________
+
+Balance ID / verified resolution: ____________________   Container tare: ____________________
+
+### Card rows — quantities are grams of the listed stock
+
+**Do not interpret these numbers as mL or microlitres.** No stock-density conversion has been made.
+Keep each physical basket together. Resolved stock masses descend within each basket; unresolved rows remain marked HOLD. There is no validated raw-volume ordering yet.
+The “actual g” column records each individual addition, not a cumulative scale target.
+
+| Check | Basket | Material | Stock to use | Stock target (g) | Active target (g) | Finished target ppm w/w | Actual g / initials |
+|---|---|---|---|---:|---:|---:|---|
+| [ ] | CITRUS / TOP | Bergamot FCF oil Sicilian | Neat / as supplied | 0.5400 | 0.5400 | 18000 | __________ |
+| HOLD | GREEN / FRESH / MARINE | Blackcurrant Absolute | 10% in DPG; basis unresolved | HOLD | 0.0090 | 300 | NOT AUTHORIZED |
+| [ ] | FLORAL MATERIALS | Hedione | Neat / as supplied | 0.7200 | 0.7200 | 24000 | __________ |
+| [ ] | FLORAL MATERIALS | Lemon FCF oil Sicilian | Neat / as supplied | 0.1200 | 0.1200 | 4000 | __________ |
+| [ ] | WOODS / AMBER / STRUCTURE | Ambrox Super | **25% w/w**, DPG + IPM + ethanol | **3.8400** | 0.9600 | 32000 | __________ |
+| [ ] | WOODS / AMBER / STRUCTURE | Iso E Super | Neat / as supplied | 2.0400 | 2.0400 | 68000 | __________ |
+| [ ] | WOODS / AMBER / STRUCTURE | Cedarwood oil Virginia | Neat / as supplied | 0.3600 | 0.3600 | 12000 | __________ |
+| HOLD | WOODS / AMBER / STRUCTURE | Suederal | **Neat**, not the 10% stock | 0.0114 | 0.0114 | 380 | SCALE / STOCK CHECK |
+| [ ] | MUSKS | Habanolide | User-confirmed neat | 0.7200 | 0.7200 | 24000 | __________ |
+| HOLD | SWEET / GOURMAND / BALSAMIC | Allyl Amyl Glycolate | 10%; current basis/carrier not synchronized | HOLD | 0.0150 | 500 | NOT AUTHORIZED |
+| [ ] | LEATHER / SMOKY / PHENOLIC | Evernyl | **10% w/w in DEP**, not the old 20% stock | **0.4800** | 0.0480 | 1600 | __________ |
+| HOLD | LEATHER / SMOKY / PHENOLIC | Cade Oil Rectified | 1% in DPG; basis / lot hold | HOLD | 0.0006 | 20 | NOT AUTHORIZED |
+| [ ] | SPICE / AROMATIC | Patchouli EO | Current neat / as supplied stock | 0.4320 | 0.4320 | 14400 | __________ |
+| HOLD | SPICE / AROMATIC | Schinus molle EO | User-confirmed neat; inventory sync hold | 0.0240 | 0.0240 | 800 | NOT AUTHORIZED |
+
+All rows remain subject to the **whole-card mixing hold**, including rows with checkboxes.
+The active column is an accounting target, **not an instruction to add neat material**. In particular, never attempt to dispense the 0.0006 g Cade active target directly.
+
+### Batch closure — not yet calculable
+
+| Quantity | Value |
+|---|---:|
+| Sum of all aromatic targets | **6.0000 g** |
+| Sum of resolved stock-mass numbers above, including held Suederal and Schinus | **9.2874 g — partial arithmetic subtotal only** |
+| Complete stock blend | **HOLD** |
+| Final solvent addition | **HOLD — do not subtract the partial subtotal from 30 g** |
+| Finished mass target | **30.0000 g** |
+| Finished volume / total raw microlitres | **UNKNOWN** |
+
+The 3.8400 g Ambrox stock already includes **2.2400 g DPG + 0.1600 g IPM + 0.4800 g ethanol**.
+The 0.4800 g Evernyl stock already includes **0.4320 g DEP**. **Do not add those carriers again.**
+The final solvent product, its water content and the complete carried-solvent matrix must be recorded on the executable successor.
+
+### Clear these items before an executable card is issued
+
+- [ ] Confirm the stock preparation/label basis for Blackcurrant Absolute 10% and Cade 1%: w/w, w/v or v/v.
+- [ ] Reconcile AAG's current stock record. A prior architecture note records **10% w/w in IPM**, but the current canonical candidate/inventory does not authorize that mass conversion; this card does not silently rebase it.
+- [ ] Synchronize the already user-confirmed Schinus molle stock with inventory. **Do not substitute Black Pepper EO.**
+- [ ] Resolve Cade's exact rectified-grade/lot documentation and the formula's safety checks. Do not replace it with birch tar.
+- [ ] Verify homogeneous stocks and suitable weighing capability, particularly **0.0114 g Suederal**. If a working dilution is needed, document it and preserve active mass and carriers in a new card; do not guess drops or round doses for convenience.
+- [ ] Resolve all stock amounts and the complete solvent addition, then run the applicable immediate-parent active-dose and OAV-per-time checks with supported inputs.
+
+No material, dose, stock strength or aromatic ratio was changed to make this layout. Do not omit a HOLD row, treat it as zero, start with only the known rows, or fill to 30 mL.
+
+### Traceability and validation boundary
+
+Immediate parent: `Aventus_Architecture_First_Astra_V3_Layered_Whole_Batch_Candidate.md`.
+Parent SHA-256: `64fc003362bc8d0cd00cd0eda081b2e30d4ac095c47e90946e90d2f2110b185a`.
+Canonical candidate: `data/reference/aventus_astra_v3_woody_candidate.json`.
+Candidate SHA-256: `2fa0a3deb155d4381a2a13d17ab9b825440f1db9808d54de301dba9ad757e2f3`.
+Live inventory SHA-256, rechecked 2026-09-05: `5da7ecdab4ce9c297f95a61051b38d9183f796c1971dd276546ef15c7856c497`.
+
+This is a **format-only, mass-based draft**, not a released compounding formula. ODT/OAV, natural-composite headspace, concentrate ppm on the full stock-blend denominator, sensory performance, safety and stability remain unresolved. Target finished-batch ppm above are not observed headspace or perceptibility values. The volumetric release pipeline was not run on invented densities or unresolved stock bases; no gate pass is claimed.

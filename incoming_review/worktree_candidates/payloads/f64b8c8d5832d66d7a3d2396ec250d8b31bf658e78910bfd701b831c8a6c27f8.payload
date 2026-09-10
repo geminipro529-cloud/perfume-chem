@@ -1,0 +1,96 @@
+from __future__ import annotations
+
+import pytest
+
+from engine.formulation_intelligence.deep_plane_pipeline_adapter import (
+    DEEP_PLANE_IDS,
+    evaluate_deep_plane_gate,
+)
+
+
+def _formula(dilution: float, raw_ul: float) -> dict:
+    return {
+        "number": 1,
+        "name": "Target-Neutral Compatibility Fixture",
+        "body": "Compatibility fixture only; no target or sensory claim.",
+        "ingredients_ul": {"Citronellol": raw_ul},
+        "dilutions": {"Citronellol": dilution},
+        "stock_specs": {},
+        "matrix_moles": {},
+        "matrix_mass_g": 0.0,
+        "matrix_source": "omitted",
+    }
+
+
+def _frame(oav: float) -> dict:
+    return {
+        "label": "opening",
+        "t_seconds": 0.0,
+        "state": {"materials": [{"name": "Citronellol", "oav": oav}]},
+    }
+
+
+def _evaluate(child: dict, *, parent: dict | None = None) -> dict:
+    return evaluate_deep_plane_gate(
+        child,
+        {"materials": [], "total_raw_ul": 63.0, "total_active_ul": 63.0},
+        [_frame(10.0)],
+        parent_formula=parent,
+        parent_state=(
+            None
+            if parent is None
+            else {"materials": [], "total_raw_ul": 63.0, "total_active_ul": 6.3}
+        ),
+        parent_simulation=None if parent is None else [_frame(1.0)],
+    )
+
+
+def test_unified_formula_gate_maps_stock_rebase_failure_without_authority_promotion() -> None:
+    gate = _evaluate(_formula(1.0, 63.0), parent=_formula(0.1, 63.0))
+
+    assert gate["gate_status"] == "FAIL"
+    assert gate["authority_status"] == "HOLD"
+    assert gate["authority_ceiling"] == "withheld"
+    assert gate["pre_mix_guard"]["status"] == "FAIL"
+    assert any(
+        item["code"] == "STOCK_REBASE_ACTIVE_EQUIVALENCE"
+        for item in gate["blockers"]
+    )
+    assert gate["unified_runtime"]["plane_count"] == 13
+    assert gate["unified_runtime"]["plane_ids"] == list(DEEP_PLANE_IDS)
+    assert gate["unified_runtime"]["pass_fail_authority"] is False
+    assert gate["unified_runtime"]["release_authority"] is False
+    assert set(gate["authority_flags"].values()) == {False}
+
+
+def test_unified_formula_gate_preserves_current_warn_status() -> None:
+    gate = _evaluate(_formula(1.0, 18.0), parent=_formula(0.1, 100.0))
+
+    assert gate["gate_status"] == "WARN"
+    assert gate["blockers"] == []
+    assert any(
+        item["code"] == "STOCK_REBASE_ACTIVE_DRIFT"
+        for item in gate["warnings"]
+    )
+    assert gate["parent_comparison_available"] is True
+
+
+def test_unified_formula_gate_preserves_current_pass_status() -> None:
+    gate = _evaluate(_formula(1.0, 6.3), parent=_formula(0.1, 63.0))
+
+    assert gate["gate_status"] == "PASS"
+    assert gate["blockers"] == []
+    assert gate["warnings"] == []
+    assert gate["authority_status"] == "HOLD"
+    assert set(gate["plane_statuses"]) == set(DEEP_PLANE_IDS)
+    assert set(gate["plane_statuses"].values()) == {"WITHHELD"}
+
+
+def test_unified_formula_gate_requires_complete_parent_calculation_tuple() -> None:
+    with pytest.raises(ValueError, match="requires parent_state and parent_simulation"):
+        evaluate_deep_plane_gate(
+            _formula(1.0, 6.3),
+            {},
+            [_frame(1.0)],
+            parent_formula=_formula(0.1, 63.0),
+        )

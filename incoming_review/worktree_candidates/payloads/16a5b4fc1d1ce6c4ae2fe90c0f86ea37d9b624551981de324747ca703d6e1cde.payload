@@ -1,0 +1,66 @@
+{
+  "schema_version": "perfume-chem.inventory-v5-authority-delta-historical-portability.v1",
+  "receipt_id": "INV-V5-AUTHORITY-DELTA-HISTORICAL-PORTABILITY-20260904",
+  "generated_at_utc": "2026-09-04T00:00:00Z",
+  "state": "HISTORICAL_SOURCE_WITNESSES_ONLY",
+  "operational_effect": "VALIDATE_FROZEN_SUPPLEMENT_SOURCE_PINS_ONLY",
+  "supersedes_scope": "NONE_APPEND_ONLY_COMPATIBILITY",
+  "purpose": "Preserve exact repository-local witnesses for all immutable source pins in the 2026-08-11 Orris supplement after living inventory sources advance. The witnesses validate historical provenance only and do not rebind current inventory or grant execution authority.",
+  "frozen_supplement": {
+    "path": "data/governance/inventory_v5_authority_delta_20260811_02.json",
+    "size_bytes": 4352,
+    "sha256": "388e25561f679f0c46a2c320b49c3ebfc1c8c00c51aa6dd9e9564fbd60aeee92",
+    "semantic_self_sha256": "e1c7a422580184bd4745868d0f6036ad7fb6d91d41867ca95630924d14578bbb"
+  },
+  "historical_bindings": [
+    {
+      "historical_path": "data/governance/inventory_v5_current_stock_snapshot.json",
+      "historical_size_bytes": 226125,
+      "historical_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+      "portable_snapshot_path": "backend/tests/fixtures/inventory_v5_history_20260811/inventory_v5_current_stock_snapshot.json.snapshot",
+      "portable_snapshot_size_bytes": 226125,
+      "portable_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+      "normalization": "NONE_EXACT_BYTES",
+      "role": "GENERATED_INVENTORY_V5_SNAPSHOT_AS_BOUND_BY_FROZEN_SUPPLEMENT"
+    },
+    {
+      "historical_path": "inventory.txt",
+      "historical_size_bytes": 17140,
+      "historical_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "portable_snapshot_path": "backend/tests/fixtures/inventory_v5_history_20260811/inventory.txt.snapshot",
+      "portable_snapshot_size_bytes": 17140,
+      "portable_snapshot_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+      "normalization": "NONE_EXACT_BYTES",
+      "role": "USER_INVENTORY_TEXT_AS_BOUND_BY_FROZEN_SUPPLEMENT"
+    },
+    {
+      "historical_path": "data/materials/O.yaml",
+      "historical_size_bytes": 44686,
+      "historical_sha256": "d507afde090bf541bb39bc276a9d2723bbe1dca92b3c345a3f1928e47070d911",
+      "portable_snapshot_path": "backend/tests/fixtures/inventory_v5_history_20260811/O.yaml.snapshot",
+      "portable_snapshot_size_bytes": 44686,
+      "portable_snapshot_sha256": "d507afde090bf541bb39bc276a9d2723bbe1dca92b3c345a3f1928e47070d911",
+      "normalization": "NONE_EXACT_BYTES",
+      "role": "ORRIS_MATERIAL_RECORD_AS_BOUND_BY_FROZEN_SUPPLEMENT"
+    }
+  ],
+  "claim_boundary": {
+    "current_inventory_rebound_to_historical_sources": false,
+    "historical_receipts_rewritten": false,
+    "stock_identity_or_fraction_inferred": false,
+    "physical_execution_authorized": false,
+    "formula_or_procurement_authorized": false,
+    "scientific_or_sensory_claim_created": false,
+    "safety_or_release_claim_created": false
+  },
+  "authority": {
+    "formula_authority": false,
+    "inventory_stock_authority": false,
+    "physical_execution_authority": false,
+    "procurement_authority": false,
+    "release_authority": false,
+    "safety_authority": false,
+    "scientific_authority": false
+  },
+  "semantic_self_sha256": "2e0c5573a3e86fbaf25965eeb636961e582c44d83bc4c287c95f7d108395c63e"
+}

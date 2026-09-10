@@ -1,0 +1,254 @@
+from __future__ import annotations
+
+from dataclasses import replace
+
+import pytest
+from sqlalchemy import func, select
+
+from app.models.lab_properties import LabPropertyObservation
+from app.models.lab_sources import (
+    LabSourceDocumentVersion,
+    LabSourceExtractionRecord,
+)
+from app.services.lab_service import LabService
+from tests.unit.test_b1_source_service import (
+    _accept_extraction,
+    _extraction_input,
+    _source_input,
+)
+from tests.unit.test_b2_property_service import _observation_input
+
+
+def _section(payload: dict, key: str) -> dict:
+    return next(section for section in payload["sections"] if section["key"] == key)
+
+
+def _keys(value: object) -> set[str]:
+    if isinstance(value, dict):
+        found = {str(key).casefold() for key in value}
+        for item in value.values():
+            found.update(_keys(item))
+        return found
+    if isinstance(value, list):
+        found: set[str] = set()
+        for item in value:
+            found.update(_keys(item))
+        return found
+    return set()
+
+
+@pytest.mark.asyncio
+async def test_b9_empty_api_and_markdown_have_closed_nonpromoting_contract(client):
+    strict = await client.get("/api/v1/lab/science/authority?view=strict")
+    exploratory = await client.get(
+        "/api/v1/lab/science/authority?view=exploratory"
+    )
+    invalid = await client.get("/api/v1/lab/science/authority?view=promote")
+    markdown_first = await client.get(
+        "/api/v1/lab/science/report.md?view=strict"
+    )
+    markdown_second = await client.get(
+        "/api/v1/lab/science/report.md?view=strict"
+    )
+
+    assert strict.status_code == 200
+    assert exploratory.status_code == 200
+    assert invalid.status_code == 422
+    strict_payload = strict.json()
+    assert strict_payload["schema_version"] == "lab-science-authority-report-v1"
+    assert strict_payload["view"] == "strict"
+    assert strict_payload["authority_state"] == "READ_ONLY_NON_PROMOTING"
+    assert strict_payload["evidence_classes"] == [
+        "MEASURED",
+        "LITERATURE_DERIVED",
+        "SUPPLIER_PROVIDED",
+        "EMPIRICALLY_CALIBRATED",
+        "MODEL_ESTIMATED",
+        "HEURISTIC",
+        "SPECULATIVE",
+        "UNKNOWN",
+    ]
+    assert len(strict_payload["sections"]) == 21
+    assert strict_payload["totals"] == {
+        "section_count": 21,
+        "total_records": 0,
+        "included_records": 0,
+        "withheld_records": 0,
+    }
+    assert len(strict_payload["report_sha256"]) == 64
+    assert exploratory.json()["view"] == "exploratory"
+
+    assert markdown_first.status_code == 200
+    assert markdown_first.headers["content-type"].startswith("text/markdown")
+    assert markdown_first.content == markdown_second.content
+    assert "READ_ONLY_NON_PROMOTING" in markdown_first.text
+    assert "MEASURED" in markdown_first.text
+    assert "UNKNOWN" in markdown_first.text
+    assert "numeric score" in markdown_first.text
+    assert "confidence percentage" not in markdown_first.text.casefold()
+
+
+@pytest.mark.asyncio
+async def test_b9_api_round_trips_provenance_and_keeps_weak_evidence_visible(
+    client,
+    db_session,
+):
+    service = LabService(db_session)
+    reviewed_source = await service.register_source_document(
+        _source_input(
+            review_state="REVIEWED",
+            default_locator={"page": 12, "table": "2"},
+            artifact_sha256="1" * 64,
+            independence_group="b9-reviewed-source",
+        )
+    )
+    measured_extraction = await service.record_source_extraction(
+        _extraction_input(
+            reviewed_source.id,
+            output_observation_id="b9-measured-observation",
+            locator={"page": 12, "table": "2", "row": "Linalool"},
+            input_sha256="2" * 64,
+            output_sha256="3" * 64,
+        )
+    )
+    await _accept_extraction(
+        service,
+        measured_extraction.id,
+        scope="property:vapor_pressure",
+    )
+    measured = await service.record_property_observation(
+        _observation_input(
+            "b9-measured-observation",
+            reviewed_source.id,
+            measured_extraction.id,
+            review_state="ACCEPTED_FOR_SCOPED_USE",
+        )
+    )
+
+    heuristic_source = await service.register_source_document(
+        _source_input(
+            title="Heuristic source",
+            artifact_sha256="4" * 64,
+            independence_group="b9-heuristic-source",
+        )
+    )
+    heuristic_extraction = await service.record_source_extraction(
+        _extraction_input(
+            heuristic_source.id,
+            output_observation_id="b9-heuristic-observation",
+            locator={"page": 12, "table": "2", "row": "Linalool"},
+            input_sha256="5" * 64,
+            output_sha256="6" * 64,
+        )
+    )
+    await _accept_extraction(
+        service,
+        heuristic_extraction.id,
+        scope="property:vapor_pressure",
+    )
+    heuristic = await service.record_property_observation(
+        replace(
+            _observation_input(
+                "b9-heuristic-observation",
+                heuristic_source.id,
+                heuristic_extraction.id,
+                review_state="ACCEPTED_FOR_SCOPED_USE",
+            ),
+            evidence_class="HEURISTIC",
+            method="bounded heuristic estimate",
+        )
+    )
+
+    models = (
+        LabSourceDocumentVersion,
+        LabSourceExtractionRecord,
+        LabPropertyObservation,
+    )
+    counts_before = [
+        int(await db_session.scalar(select(func.count()).select_from(model)) or 0)
+        for model in models
+    ]
+
+    strict_response = await client.get(
+        "/api/v1/lab/science/authority?view=strict"
+    )
+    exploratory_response = await client.get(
+        "/api/v1/lab/science/authority?view=exploratory"
+    )
+    markdown = await client.get(
+        "/api/v1/lab/science/report.md?view=strict"
+    )
+    counts_after = [
+        int(await db_session.scalar(select(func.count()).select_from(model)) or 0)
+        for model in models
+    ]
+
+    assert strict_response.status_code == 200
+    assert exploratory_response.status_code == 200
+    strict = strict_response.json()
+    exploratory = exploratory_response.json()
+    strict_observations = _section(strict, "property_observations")
+    exploratory_observations = _section(exploratory, "property_observations")
+    assert [record["id"] for record in strict_observations["included"]] == [
+        measured.id
+    ]
+    assert [record["id"] for record in strict_observations["withheld"]] == [
+        heuristic.id
+    ]
+    assert strict_observations["withheld"][0]["evidence_class"] == "HEURISTIC"
+    assert "NON_AUTHORITATIVE_EVIDENCE_CLASS" in (
+        strict_observations["withheld"][0]["strict_reason_codes"]
+    )
+    assert {
+        record["id"] for record in exploratory_observations["included"]
+    } == {measured.id, heuristic.id}
+    assert exploratory_observations["withheld"] == []
+    exploratory_heuristic = next(
+        record
+        for record in exploratory_observations["included"]
+        if record["id"] == heuristic.id
+    )
+    assert exploratory_heuristic["evidence_class"] == "HEURISTIC"
+    assert exploratory_heuristic["strict_eligible"] is False
+
+    sources = _section(strict, "source_documents")
+    strict_source = next(
+        record for record in sources["included"] if record["id"] == reviewed_source.id
+    )
+    assert strict_source["provenance"]["default_locator"] == {
+        "page": 12,
+        "table": "2",
+    }
+    extractions = _section(strict, "source_extractions")
+    strict_extraction = next(
+        record
+        for record in extractions["included"]
+        if record["id"] == measured_extraction.id
+    )
+    assert strict_extraction["provenance"]["locator"] == {
+        "page": 12,
+        "row": "Linalool",
+        "table": "2",
+    }
+
+    all_keys = _keys(strict)
+    assert all_keys.isdisjoint(
+        {
+            "confidence",
+            "confidence_percent",
+            "confidence_percentage",
+            "coverage",
+            "coverage_score",
+            "overall_score",
+            "preserved_artifact_path",
+            "raw_source_path",
+            "database_path",
+            "database_url",
+        }
+    )
+    assert markdown.status_code == 200
+    assert measured.id in markdown.text
+    assert heuristic.id in markdown.text
+    assert '"page":12' in markdown.text
+    assert "HEURISTIC" in markdown.text
+    assert counts_after == counts_before

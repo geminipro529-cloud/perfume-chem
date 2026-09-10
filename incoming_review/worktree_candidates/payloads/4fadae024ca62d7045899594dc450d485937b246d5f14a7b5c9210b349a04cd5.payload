@@ -1,0 +1,57 @@
+{
+  "schema_version": "chatgpt_source_claim_manifest_v1",
+  "manifest_id": "complex-perfumery-working-stock-dep-claim-20260819",
+  "recorded_at": "2026-08-19T15:05:00Z",
+  "conversation": {
+    "conversation_id": "6a830dfe-c4c8-83ec-bb1e-f859fa6375f9",
+    "project_id": "6a74ab83668081919f5cbd0dfe80eb09",
+    "title": "Working Stock Preparation DEP",
+    "url": "https://chatgpt.com/g/g-p-6a74ab83668081919f5cbd0dfe80eb09-complex-perfumery/c/6a830dfe-c4c8-83ec-bb1e-f859fa6375f9"
+  },
+  "retrieval": {
+    "method": "AUTHENTICATED_CHATGPT_BROWSER_DOM_READ",
+    "message_text_stored_verbatim": false,
+    "message_text_binding": "UTF8_SHA256_OF_RENDERED_INNER_TEXT",
+    "source_photo_or_attachment_recovered": false
+  },
+  "source_messages": [
+    {"message_id":"f00e082e-2616-449a-90cb-069f327905b3","role":"user","utf8_byte_count":100,"sha256":"9d7d4aa47ead3702655bcf731affd6a4794db9e23b156c68cc3e187e0951d99a","scope":"WORKING_STOCK_RECOMMENDATION_REQUEST"},
+    {"message_id":"22efe29c-edcb-4535-a9d7-9de2dba02cc3","role":"assistant","utf8_byte_count":3995,"sha256":"c23419d6094a71ce0c6df74773fd5d24059c76c136a27aae90fce324dba2c8af","scope":"TWENTY_THREE_MATERIAL_DEP_WORKING_STOCK_TABLE"},
+    {"message_id":"cc886f2c-1ed6-445e-86ee-a1653771546b","role":"assistant","utf8_byte_count":1367,"sha256":"34a3353fc4074557f9108ff4a6fdaa74f0352bb285d2e3d113ea0593aaa18696","scope":"HELVETOLIDE_NEAT_OR_50_PERCENT_DEP_RECOMMENDATION"},
+    {"message_id":"a96bc4e8-f4be-4444-8090-6c525a24c37b","role":"user","utf8_byte_count":22,"sha256":"a333c3c7737e0606a9d43023f5e46a70f6f08e90ce4b9dc9b9e30f6b67df2717","scope":"ONE_GRAM_HELVETOLIDE_POSSESSION_CLAIM"},
+    {"message_id":"423c84e9-bd0c-4c60-8caa-c448002345c1","role":"assistant","utf8_byte_count":356,"sha256":"406c01455359bc106acd4605c80d086ee9af43cadddaacbed071534599f53622","scope":"ONE_GRAM_HELVETOLIDE_DEP_DILUTION_ARITHMETIC"},
+    {"message_id":"f5ef2ee8-3bb9-4117-ae05-fe941e3fa0f6","role":"user","utf8_byte_count":1019,"sha256":"feac650087c274b1f5711a6eed3a721e9e50efde0a7bada82e1b434c5073f1b8","scope":"PERFUME_CHEM_AUTHORITY_BOUNDARY_STATUS_NOTICE"},
+    {"message_id":"f88d9e88-6ce0-4b16-a823-aaf23059e6d4","role":"assistant","utf8_byte_count":744,"sha256":"092cb6f2857ddbb9689fc5dfe975777fcc38c115de18f7c36890a128ad7d499a","scope":"AUTHORITY_BOUNDARY_ACKNOWLEDGEMENT"}
+  ],
+  "source_claims": {
+    "working_stock_material_count": 23,
+    "helvetolide_chat_reported_mass_g": "1.00",
+    "recommended_helvetolide_general_state": "NEAT_OR_50_PERCENT_W_W_IN_DEP",
+    "fifty_percent_arithmetic": "1.00_G_SOURCE_PRODUCT_PLUS_1.00_G_DEP_EQUALS_2.00_G_AT_50_PERCENT_SOURCE_PRODUCT_BASIS",
+    "exact_bottle_identity_bound": false,
+    "physical_receipt_bound": false
+  },
+  "authority": {
+    "source_admission": false,
+    "identity": false,
+    "inventory": false,
+    "possession": false,
+    "stock": false,
+    "stock_preparation": false,
+    "formula": false,
+    "compounding": false,
+    "trial_execution": false,
+    "physical_result": false,
+    "sensory_result": false,
+    "analytical_result": false,
+    "safety": false,
+    "skin_use": false,
+    "purchase": false,
+    "cart": false,
+    "installation": false,
+    "publication": false,
+    "release": false
+  },
+  "receipt_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_RECEIPT_SHA256_OMITTED",
+  "receipt_sha256": "1dfae62bc9c6c5e25dbfc5e63b654dee1727dfa4b1f032f9368167432ddecd62"
+}

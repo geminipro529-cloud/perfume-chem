@@ -1,0 +1,284 @@
+# LN-05 Immortelle Nuit — 30 mL EDT Study
+
+**Formula UID:** `ysl20:LN-05:v2`
+**Parent Formula UID:** `ysl20:LN-01:v2`
+**Mode:** `STYLISTIC`
+**Family archetype:** `ysl_la_nuit_de_lhomme`
+**Concentrate Volume:** 4,500 µL
+**Nominal bottle:** 30 mL at 15% concentrate
+**Authority:** Controlled formula hypothesis only; not an authenticated YSL recipe or sensory-equivalence claim.
+**Claim mode:** `FORMULA_HYPOTHESIS_NOT_AUTHENTICATED_RECIPE`
+**Reference contract:** `YSL_LA_NUIT_DOCUMENTARY_CHARACTER_TARGET`
+**Reference scope:** `CHARACTER_ARCHITECTURE_ONLY_NOT_SIMILARITY`
+**Inventory overlay:** `../evidence/inventory_overlay.json`
+
+
+## Target Identity and Functional Architecture
+
+Immortelle Nuit keeps La Nuit's cool cardamom-lavender-cedar vertical intact, then adds a honeyed-dry immortelle afterglow. TARGET / IDEAL combines Immortelle Absolute, Helichrysum lift, hay, a restrained maple echo, and Nerol continuity. CURRENT keeps Immortelle Absolute, Maple Lactone, Nerol, and dry Tonkarome but omits Helichrysum and Hay pending their data gates. Tobacco, balsams, Neroli, extra musk, and every lost tincture are excluded. TARGET / IDEAL remains separate in `../candidates/LN-05.json`.
+
+## Current-Inventory Build — Heuristic Volume Adapter
+
+The shared La Nuit child core is 4,200 µL and this controlled module is exactly 300 µL. Active values for the Immortelle and Maple percentage stocks are conditional until their concentration bases are verified; Tonkarome is the recorded 20% w/w stock.
+
+| # | Ingredient | Dilution | Amount (uL) | Active uL | Active ppm w/w status | Specific function |
+|---:|---|---|---:|---:|---|---|
+| 1 | Iso E Super | neat | 520.000 | 520.000 | current stock; nominal design arithmetic | dark-cedar halo |
+| 2 | Amberwood F | neat | 180.000 | 180.000 | current stock; nominal design arithmetic | dry amber pressure; Ambroxide loss mapping |
+| 3 | Vertofix | neat | 300.000 | 300.000 | current stock; nominal design arithmetic | vetiver-wood spine |
+| 4 | Hedione | neat | 340.000 | 340.000 | current stock; nominal design arithmetic | immortelle-lavender-cedar continuity |
+| 5 | Cashmeran | neat | 200.000 | 200.000 | current stock; non-equivalent replacement | warm textile shadow; partial current-inventory coverage for removed Cashmeran (neat) |
+| 6 | Linalool | neat | 203.000 | 203.000 | current stock; non-equivalent replacement | aromatic-floral tenacity; partial current-inventory coverage for removed Ethyl Linalool; molecular aromatic continuity; restrained shadow; partial current-inventory coverage for removed Caraway Seed Oil (10% w/w in DPG) |
+| 7 | Linalyl Acetate | neat | 91.000 | 91.000 | current stock; non-equivalent replacement | aromatic-floral tenacity; partial current-inventory coverage for removed Ethyl Linalool; mobile lavender ester seam |
+| 8 | Dihydromyrcenol | neat | 50.000 | 50.000 | current stock; nominal design arithmetic | cool tension |
+| 9 | Ethylene Brassylate | neat | 250.000 | 250.000 | overlay-owned; verify label before compounding | soft skin continuity |
+| 10 | Bergamot FCF oil Sicilian | neat | 250.000 | 250.000 | current stock; nominal design arithmetic | sparkling counterforce |
+| 11 | Cardamom EO | neat | 196.000 | 196.000 | current stock; nominal design arithmetic | cool recognizer against honeyed-dry warmth; restrained shadow; partial current-inventory coverage for removed Caraway Seed Oil (10% w/w in DPG) |
+| 12 | Lavender EO High Altitude | neat | 270.000 | 270.000 | current stock; non-equivalent replacement | aromatic bridge into immortelle; partial current-inventory coverage for removed Lavender EO (BONTAUX SAS) |
+| 13 | Cedarwood oil Virginia | neat | 350.000 | 350.000 | current stock; nominal design arithmetic | literal cedar under velvet |
+| 14 | Indian Vetiver EO | neat | 180.000 | 180.000 | current stock; non-equivalent replacement | dry evening tension; partial current-inventory coverage for removed Indian Vetiver EO (volume grade) |
+| 15 | Tonkarome (20% w/w in TEC) | 20% w/w in TEC | 325.000 | 65.000 | current stock; nominal design arithmetic | dry hay warmth; tonka intimacy; dry coumarinic hay bridge; partial current-inventory coverage for removed Hay Absolute (10%) |
+| 16 | Sandalore | neat | 200.000 | 200.000 | current stock; nominal design arithmetic | fresh-light dry-wood rounding |
+| 17 | Alpha Isomethyl Ionone (Methyl Ionone Pure) | neat | 100.000 | 100.000 | current stock; nominal design arithmetic | violet-woody smoothing |
+| 18 | Florol | neat | 40.000 | 40.000 | current stock; nominal design arithmetic | clean floral seam |
+| 19 | Patchouli EO | neat | 50.000 | 50.000 | current stock; non-equivalent replacement | quiet dark-earth depth; partial current-inventory coverage for removed Patchouli EO (volume grade) |
+| 20 | Immortelle Absolute (10% in DPG) | 10% in DPG | 345.000 | 34.500 | stock present; concentration basis VERIFY_FIRST | honeyed-dry immortelle body; volatile immortelle herbal lift; partial current-inventory coverage for removed Helichrysum EO; dry coumarinic hay bridge; partial current-inventory coverage for removed Hay Absolute (10%) |
+| 21 | Maple Lactone (20%) | 20% | 20.000 | 4.000 | stock present; concentration basis VERIFY_FIRST | restrained maple-caramel echo |
+| 22 | Nerol | neat | 40.000 | 40.000 | current stock; nominal design arithmetic | citrus-rose continuity into lavender |
+|  | **Concentrate total** |  | **4500.000** | **3913.500** |  |  |
+
+## Missing-Chemical Impact and Preparation
+
+TARGET / IDEAL keeps the immortelle concept. CURRENT removes Helichrysum, Hay, Caraway, and unavailable Ethyl Linalool; it centers covered Immortelle Absolute with nerol, maple lactone, dry Tonkarome, lavender, cardamom, cedar, and vetiver. Immortelle and Maple percentage-stock bases remain VERIFY_FIRST. No curry, maple, gourmand, liking, or similarity success is inferred. Verify EB; buy nothing before the carrier-matched omission arm.
+
+## Controlled Blinded Test Plan
+
+After stock-basis verification, compare coded equal-mass, equal-concentration LN-05, LN-01, and a carrier-matched immortelle-module omission control in balanced order at 0, 5, and 30 minutes and 2 and 4 hours. Judge immortelle identity, cardamom authority, lavender-to-cedar continuity, curry/maple/gourmand drift, and liking. No physical result exists.
+
+## Claim Ceiling
+
+Physical liking, sensory similarity, stability, and measured headspace are `NOT TESTED`; safety and release are `NOT CLEARED`.
+
+## Pipeline Analysis
+
+```text
+# LN-05 Immortelle Nuit — 30 mL EDT Study
+
+## Gate Summary
+
+**110 PASS** / **19 WARN** / **0 FAIL**
+
+  WARN pipeline_preflight: 9 checks; 4 warnings
+  WARN odt_coverage: 10 material(s) rely on derived/unverified ODTs (60% OAV share)
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 28.8% active mass across 4 materials
+  WARN safety_ifra_allergen: 11 materials lack explicit IFRA Cat4 limits; 2 EU allergen declarations
+  WARN eu_allergen_declaration: EU allergens requiring label: linalool, alpha-isomethyl ionone
+  WARN novelty_vs_reference: reference/control archetype; familiar by design, not the new exploration target
+  WARN perfume_knowledge: Pyramid needs improvement: Expected T:20% H:40% B:40%, Actual T:28.1% H:17.8% B:54.0%
+  WARN carles_accord_ratio: Extreme ratios (>8:1, Carles limit): iso e super:amberwood f = 6253:1; iso e super:vertofix = 3166:1; iso e super:cashmeran = 12:1
+  WARN literature_compliance: Literature compliance: 2/5 principles passed (40%) [advisory guideline; not release-blocking]
+  WARN edge_cases: Musk coverage: 1%, gaps: 2, Bangkok VP ×2.2
+  WARN jnd_redundancy: Potentially redundant pairs: linalool vs lavender eo high altitude in aromatic (OAV 10933/11276)
+  WARN guerlain_rose_jasmine_balance: Rose:jasmine OAV ratio = 3.4:1 — Guerlain recommends <3:1
+  WARN jellinek_psychology: Jellinek categories weak: erogenic
+  WARN adaptation_timing: fast tier < 5% (no immediate impact); slow tier < 10% (poor longevity)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 93%) — collapse risk
+  WARN oav_intelligence: material_class_distribution: Class distribution: citrus:4%, florals:14%, musks:6%, woods:20%; volatility_balance: T:87% H:6% B:7% (target 30
+  WARN olfactory_fatigue: Olfactory fatigue risk: hedione=7.6% of concentrate (<10% minimum for radiance)
+  WARN tenacity_projection: VP<0.001Pa = 0% (<3%, may lack depth)
+  WARN confidence_minimum: combined confidence 29.5; preflight science penalty 25.9
+
+
+## Headspace OAV — Opening (0s)
+
+| # | Material | OAV | Note | Percept | VP Pa | Vapor ppm | ODT ppm | Act g | MF% | Role |
+|---|--------|---|----|-------|-----|---------|-------|-----|---|----|
+|   1 | Bergamot FCF oil Sicilian    |    18757.9 | top   |      massive |   2.500 |  293.0643 |  0.015623 |  0.2500 |  7.75 | Bergamot FCF oil Sicilian     
+|   2 | Lavender EO High Altitude    |    11275.8 | top   |      massive |  22.000 |   57.3951 |  0.005090 |  0.2376 |  8.12 | Lavender EO High Altitude     
+|   3 | Linalool                     |    10933.5 | top   |      massive |  21.300 |   16.4002 |  0.001500 |  0.2030 |  6.93 | Linalool                      
+|   4 | Cardamom EO                  |     5698.2 | top   |  very strong |  15.000 |  131.9370 |  0.023154 |  0.1823 |  5.64 | Cardamom EO                   
+|   5 | Iso E Super                  |     3746.4 | base  |  very strong |   0.150 |    0.1873 |  0.000050 |  0.5200 | 11.69 | Iso E Super                   
+|   6 | Hedione                      |     3295.6 | heart |  very strong |   0.210 |    0.1648 |  0.000050 |  0.3400 |  7.92 | Hedione                       
+|   7 | Dihydromyrcenol              |     2828.5 | top   |  very strong |  17.000 |    2.8285 |  0.001000 |  0.0500 |  1.69 | Dihydromyrcenol               
+|   8 | Linalyl Acetate              |     1562.8 | top   |  very strong |  17.500 |    4.2194 |  0.002700 |  0.0910 |  2.44 | Linalyl Acetate               
+|   9 | Nerol                        |      971.1 | top   |       strong |   2.000 |    0.4855 |  0.000500 |  0.0400 |  1.37 | Nerol                         
+|  10 | Immortelle Absolute (10% in DPG) |      330.0 | heart |       strong |   0.020 |    3.4731 |  0.010526 |  0.0345 |  0.91 | Immortelle Absolute           
+|  11 | Cashmeran                    |      302.5 | base  |       strong |   1.200 |    0.6051 |  0.002000 |  0.2000 |  5.11 | Cashmeran                     
+|  12 | Alpha Isomethyl Ionone (Methyl Ionone Pure) |      163.9 | heart |       strong |   0.400 |    0.1311 |  0.000800 |  0.1000 |  2.55 | Alpha-Isomethyl Ionone        
+|  13 | Cedarwood oil Virginia       |      131.1 | base  |       strong |   0.005 |    0.9954 |  0.007592 |  0.3430 |  8.13 | Cedarwood oil Virginia        
+|  14 | Indian Vetiver EO            |       45.1 | heart |     moderate |   0.040 |    0.1312 |  0.002908 |  0.1782 |  4.22 |                               
+|  15 | Tonkarome (20% w/w in TEC)   |       12.7 | base  |     moderate |   0.050 |    0.0063 |  0.000500 |  0.0650 |  2.14 | Tonkarome                     
+|  16 | Patchouli EO                 |        8.7 | base  |  perceptible |   0.001 |    0.0352 |  0.004031 |  0.0500 |  1.18 | Patchouli EO                  
+|  17 | Sandalore                    |        5.9 | base  |  perceptible |   0.080 |    0.0593 |  0.010000 |  0.2000 |  5.01 | Sandalore                     
+|  18 | Ethylene Brassylate          |        3.2 | base  | at threshold |   0.008 |    0.0031 |  0.000970 |  0.2500 |  4.87 | Ethylene Brassylate           
+|  19 | Vertofix                     |        1.2 | base  | at threshold |   0.011 |    0.0075 |  0.006300 |  0.3000 |  6.74 | Vertofix                      
+|  20 | Amberwood F                  |        0.6 | base  | sub-threshold |   0.001 |    0.0006 |  0.001000 |  0.1800 |  4.05 | Amberwood F                   
+|  21 | Maple Lactone (20%)          |        0.2 | heart | sub-threshold |   0.010 |    0.0002 |  0.001000 |  0.0040 |  0.16 | Maple Lactone                 
+|  22 | Florol                       |        0.1 | heart | sub-threshold |   0.007 |    0.0009 |  0.010000 |  0.0400 |  1.37 | Florol                        
+
+**Materials:** 22 total (7 top, 6 heart, 9 base)
+**Total vapor:** 512.13 ppm
+
+### Note Distribution
+
+**TOP:** 7 mats, 28.1% active, 86.6% OAV
+  - Bergamot FCF oil Sicilian    OAV= 18757.9 (massive) VP=2.500Pa
+  - Lavender EO High Altitude    OAV= 11275.8 (massive) VP=22.000Pa
+  - Linalool                     OAV= 10933.5 (massive) VP=21.300Pa
+  - Cardamom EO                  OAV=  5698.2 (very strong) VP=15.000Pa
+  - Dihydromyrcenol              OAV=  2828.5 (very strong) VP=17.000Pa
+  - Linalyl Acetate              OAV=  1562.8 (very strong) VP=17.500Pa
+  ... and 1 more
+**HEART:** 6 mats, 17.8% active, 6.4% OAV
+  - Hedione                      OAV=  3295.6 (very strong) VP=0.210Pa
+  - Immortelle Absolute (10% in DPG) OAV=   330.0 (strong) VP=0.020Pa
+  - Alpha Isomethyl Ionone (Methyl Ionone Pure) OAV=   163.9 (strong) VP=0.400Pa
+  - Indian Vetiver EO            OAV=    45.1 (moderate) VP=0.040Pa
+  - Maple Lactone (20%)          OAV=     0.2 (sub-threshold) VP=0.010Pa
+  - Florol                       OAV=     0.1 (sub-threshold) VP=0.007Pa
+**BASE:** 9 mats, 54.0% active, 7.0% OAV
+  - Iso E Super                  OAV=  3746.4 (very strong) VP=0.150Pa
+  - Cashmeran                    OAV=   302.5 (strong) VP=1.200Pa
+  - Cedarwood oil Virginia       OAV=   131.1 (strong) VP=0.005Pa
+  - Tonkarome (20% w/w in TEC)   OAV=    12.7 (moderate) VP=0.050Pa
+  - Patchouli EO                 OAV=     8.7 (perceptible) VP=0.001Pa
+  - Sandalore                    OAV=     5.9 (perceptible) VP=0.080Pa
+  ... and 3 more
+
+### Sub-threshold Materials (OAV < 1)
+3/22 materials below perceptible threshold
+  - Amberwood F: OAV=0.60 VP=0.001Pa act=180uL role=Amberwood F [Structural (acceptable)]
+  - Florol: OAV=0.09 VP=0.007Pa act=40uL role=Florol [Structural (acceptable)]
+  - Maple Lactone (20%): OAV=0.16 VP=0.010Pa act=4uL role=Maple Lactone [Structural (acceptable)]
+### High-OAV Flags (>5000)
+  - Linalool OAV=10933 dominates headspace — may mask subtler notes
+  - Bergamot FCF oil Sicilian OAV=18758 dominates headspace — may mask subtler notes
+  - Cardamom EO OAV=5698 dominates headspace — may mask subtler notes
+  - Lavender EO High Altitude OAV=11276 dominates headspace — may mask subtler notes
+
+### OAV by Odor Family
+
+         aromatic  39.6% ===================  (3 mats)
+           citrus  31.2% ===============  (1 mats)
+            woody  11.7% =====  (7 mats)
+            spice   9.5% ====  (1 mats)
+           floral   7.9% ===  (5 mats)
+                ?   0.1% =  (1 mats)
+         gourmand   0.0% =  (2 mats)
+             musk   0.0% =  (1 mats)
+            amber   0.0% =  (1 mats)
+
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Raw uL | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s | 86.6/6.4/ 7.0 | 512.13ppm |   4500 | Bergamot FCF(18758), Lavender EO (11276), Linalool(10933)
+| top          |    300s | 85.3/6.9/ 7.8 | 393.66ppm |   4487 | Bergamot FCF(15310), Linalool(10850), Lavender EO (10667)
+| heart        |   1800s | 80.8/8.9/10.3 | 140.29ppm |   4425 | Linalool(10437), Lavender EO (9083), Bergamot FCF(7613)
+| late_heart   |   7200s | 75.1/11.5/13.4 |  49.27ppm |   4237 | Linalool(9002), Lavender EO (6729), Bergamot FCF(4269)
+| drydown      |  14400s | 68.7/14.4/16.9 |  36.99ppm |   4051 | Linalool(7267), Lavender EO (4583), Iso E Super(4327)
+
+### Per-Window Detail
+
+**OPENING** (0.0s) — Evap:0%
+  T:86.6% H:6.4% B:7.0%  Vapor:512.13ppm
+  Leaders: Bergamot FCF oil Sicilian OAV 18758 | Lavender EO High Altitude OAV 11276 | Linalool OAV 10933 | Cardamom EO OAV 5698 | Iso E Super OAV 3746
+
+**TOP** (300.0s) — Evap:0%
+  T:85.3% H:6.9% B:7.8%  Vapor:393.66ppm
+  Leaders: Bergamot FCF oil Sicilian OAV 15310 | Linalool OAV 10850 | Lavender EO High Altitude OAV 10667 | Cardamom EO OAV 4160 | Iso E Super OAV 3761
+
+**HEART** (1800.0s) — Evap:2%
+  T:80.8% H:8.9% B:10.3%  Vapor:140.29ppm
+  Leaders: Linalool OAV 10437 | Lavender EO High Altitude OAV 9083 | Bergamot FCF oil Sicilian OAV 7613 | Iso E Super OAV 3832 | Hedione OAV 3371
+
+**LATE_HEART** (7200.0s) — Evap:6%
+  T:75.1% H:11.5% B:13.4%  Vapor:49.27ppm
+  Leaders: Linalool OAV 9002 | Lavender EO High Altitude OAV 6729 | Bergamot FCF oil Sicilian OAV 4269 | Iso E Super OAV 4066 | Hedione OAV 3575
+
+**DRYDOWN** (14400.0s) — Evap:10%
+  T:68.7% H:14.4% B:16.9%  Vapor:36.99ppm
+  Leaders: Linalool OAV 7267 | Lavender EO High Altitude OAV 4583 | Iso E Super OAV 4327 | Hedione OAV 3803 | Bergamot FCF oil Sicilian OAV 2947
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Bergamot FCF oil Sicilian(massive) + Lavender EO High Altitude(massive) + Linalool(massive)
+  Heart: Hedione(very strong) + Immortelle Absolute (10% in DPG)(strong)
+  Base: Iso E Super(very strong) + Cashmeran(strong) + Cedarwood oil Virginia(strong) + Tonkarome (20% w/w in TEC)(moderate) + Patchouli EO(perceptible)
+
+### 2. Opening (0-5min)
+  Bergamot FCF oil Sicilian dominates at OAV 18758 (massive).
+  - Bergamot FCF oil Sicilian OAV=18758 VP=2.5Pa (citrus)
+  - Lavender EO High Altitude OAV=11276 VP=22.0Pa (aromatic)
+  - Linalool OAV=10933 VP=21.3Pa (aromatic)
+  - Cardamom EO OAV=5698 VP=15.0Pa (spice)
+  Total vapor: 512.1 ppm
+
+### 3. Heart (30min-2hr)
+  Linalool OAV=10437 (massive)
+  Lavender EO High Altitude OAV=9083 (very strong)
+  Bergamot FCF oil Sicilian OAV=7613 (very strong)
+  Iso E Super OAV=3832 (very strong)
+  T:80.8% H:8.9% B:10.3%
+  Vapor: 140.3 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Top leads modeled headspace at 69%
+  - Linalool OAV=7267
+  - Lavender EO High Altitude OAV=4583
+  - Iso E Super OAV=4327
+  - Hedione OAV=3803
+  - Bergamot FCF oil Sicilian OAV=2947
+  - Dihydromyrcenol OAV=2215
+  Vapor: 37.0 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Bergamot FCF oil Sicilian(18758) + Lavender EO High Altitude(11276) + Linalool(10933) + Cardamom EO(5698)
+  OAV by family: aromatic40% citrus31% woody12% spice9%
+
+### 6. Longevity
+  Evaporation: 10% over 4h
+  Vapor: 512.1 > 37.0 ppm
+  Base @ drydown: 17%
+  Est. skin life: 9h moderate + 5h skin scent
+
+### 7. Balance
+  Pyramid: T:86.6% H:6.4% B:7.0%
+  OAV range: 0.09 to 18758 (sigma-log=1.66)
+  Wide contrast: citrus (OAV 18758) dominates opening before burning off to reveal base.
+  Thin heart (6.4%) — top-to-base architecture, authentic for vetiver.
+    massive: 3
+    sub-threshold: 3
+
+### 8. Flags
+  SUB: Amberwood F OAV=0.60 role=Amberwood F
+  SUB: Maple Lactone (20%) OAV=0.16 role=Maple Lactone
+  SUB: Florol OAV=0.09 role=Florol
+  IFRA: Cardamom EO at 5.01% active — near/above Cat4 limit (5.0%)
+
+
+## Structural OAV Analysis
+
+**Vapor:** 512 ppm  |  **Active:** 13.0%  |  **Perceptible:** 19/22
+
+### OAV Tiers
+  **massive** (8): Iso E Super(3746), Hedione(3296), Linalool(10933), Linalyl Acetate(1563), Dihydromyrcenol(2828), Bergamot FCF oil Sicilian(18758), Cardamom EO(5698), Lavender EO High Altitude(11276)  ! fatigue risk, overload risk
+  **v.strong** (5): Cashmeran(303), Cedarwood oil Virginia(131), Alpha Isomethyl Ionone (Methyl Ionone Pure)(164), Immortelle Absolute (10% in DPG)(330), Nerol(971)
+  **moderate** (2): Indian Vetiver EO(45), Tonkarome (20% w/w in TEC)(13)
+  **perceptible** (2): Sandalore(6), Patchouli EO(9)
+  **threshold** (2): Vertofix(1), Ethylene Brassylate(3)
+  **sub** (3): Amberwood F(1), Florol(0), Maple Lactone (20%)(0)
+
+### Block Balance
+  **Citrus**    18758 (70%)
+  **Floral**     3835 (14%)
+  **Base**       4212 (16%)
+  **Ratio:** 5:1 between strongest/weakest block — CITRUS DOMINANT
+
+### Issues
+  ! 3 sub-threshold material(s): Amberwood F, Florol, Maple Lactone (20%)
+  ! Missing 'strong' tier (OAV 50-100)
+  ! Citrus dominates at 70% of total OAV
+  ! 8 massive-OAV materials — sensory overload likely
+```

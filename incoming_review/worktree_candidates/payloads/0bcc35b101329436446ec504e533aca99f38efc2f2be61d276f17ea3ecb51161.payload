@@ -1,0 +1,259 @@
+{
+  "schema":"perfume-chem-ysl-candidate-v1","candidate_id":"LH-09","name":"Tonka-Sandalwood","family":"ysl_lhomme","mode":"STYLISTIC",
+  "source_bindings":{"formula_uid":"ysl20:LH-09:v1","read_at_utc":"2026-08-26T18:52:15.0463524Z","runtime_git_commit":"281d389ca76424ace2438e1f6cabdad75163a4d6","agents_sha256":"A3FF5D3B0165947AD8C96AFF6B16925442E3D7383214D7ADB90D7C1216EDAFB0","copilot_instructions_sha256":"97640F0EA0FE8B79A073BE13AD84649C12EA548955CAB3D06CF3C5368D841AE9","inventory_sha256":"DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC","family_reference_sha256":"467C759EA52412BE0EA8AF7C77F0F14D9FB59DE7B99722FCE57EE2415FBB7401","inventory_overlay_sha256":"1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072","family_target_file_sha256":"BBDCE33122C1F0E2FCDC2A37A645429F5174B58A2112AFD1D406EDEE7A35B5E8","family_target_sha256":"637EF8CE63575A406C5EC27EC2A1CBFCA910E3303CA3B3B100572F64A4E539BA","chassis_file_sha256":"F793BCFA8C87C7256DB364656ACCA014342760C640FC6D64AC71B4A1D9EF1E94","natural_decomposition_sha256":"6698477AFDF4572C5A5B9A6C24AE5114C2D4AB392D9272A384CE75D5ABB66B85","parent_formula_uid":"ysl20:LH-01:v1","parent_formula_definition_sha256":"520924f1d02e25a68fc3740179f8d5950b07f710a7e88959f7b9000bc6c3d77b","parent_candidate_sha256":"935E53ADFE9DAA5FA7CEE0FDFDDDA5127BD977FB7E4CE4595695C8174FA1DB24","lineage_type":"CONTROLLED_CHILD","active_dose_change_authorizations":["Amberwood F=reduced from 74 to 20 uL as the shared socket donor while retaining dry persistence","Ebanol=deep sandalwood polish inside the fixed 300 uL socket","Tonka Bean Absolute (10% in DPG)=natural tonka richness inside the fixed 300 uL socket"]},
+  "target_identity":{"north_star":"L'Homme's dry tonka and sandalwood lower register made richer and more tactile while ginger, violet-green tailoring, cedar, and vetiver keep it bright and unmistakably separate from La Nuit or dessert gourmand.","functional_architecture":["protected bright ginger-green opening","unchanged tailored cedar-vetiver body","Sandalwood/Ebanol creamy-dry depth","Tonka/coumarin/natural-tonka richness without vanilla dessert"],"protected_identity":["Ginger Oil","Violet Leaf","Cedarwood Virginia","Vetiver Haiti"],"primary_axis":"dry tonka richness braided with polished sandalwood","variant_socket":{"active_ppm_w_w":66666.667,"current_raw_ul":300.0,"target_allocation":{"Sandalwood increment":22000.0,"Tonka increment":18000.0,"Coumarin increment":10000.0,"Tonka Bean Absolute":10000.0,"Ebanol":6666.6666},"current_allocation_ul":{"Sandalore":100.0,"Ebanol":60.0,"Tonkarome (20% w/w in TEC)":80.0,"Tonka Bean Absolute (10% in DPG)":60.0}},"drift_risk":"Vanilla dessert, powder, dark cardamom, tobacco, or balsamic tincture would turn this into gourmand or La Nuit rather than L'Homme."},
+  "target_ideal":{"basis":"active_ppm_w_w_of_concentrate","total_active_ppm_w_w":1000000.0,"target_sha256":"8F9E6B238532C276860695580C88AEFB8691C7746AA04FB39B003AFBA1FA5DC2","inventory_independent":true,"materials":[
+    {"identity":"Iso E Super","active_ppm_w_w":160000.0,"function":"transparent cedar halo","time_windows":["opening","heart","late_heart","drydown"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"DESIGN_HYPOTHESIS_NOT_COMMERCIAL_PERCENTAGE"},
+    {"identity":"Cedarwood Virginia","active_ppm_w_w":110000.0,"function":"literal tailored cedar backbone","time_windows":["heart","late_heart","drydown"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"},
+    {"identity":"Ethylene Brassylate","active_ppm_w_w":80000.0,"function":"single clean structural musk","time_windows":["heart","late_heart","drydown"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS"},
+    {"identity":"Hedione","active_ppm_w_w":100925.926,"function":"radiant air preventing dark heaviness","time_windows":["opening","heart","late_heart"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"TRANSITION_DESIGN_HYPOTHESIS"},
+    {"identity":"Vertofix Coeur","active_ppm_w_w":65000.0,"function":"cedar-vetiver bridge","time_windows":["heart","late_heart","drydown"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS"},
+    {"identity":"Ethyl Linalool","active_ppm_w_w":50000.0,"function":"fresh floral-woody tenacity","time_windows":["opening","heart","late_heart"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"TRANSITION_DESIGN_HYPOTHESIS"},
+    {"identity":"Dihydromyrcenol","active_ppm_w_w":35000.0,"function":"kinetic freshness","time_windows":["opening","top"],"evidence_ids":["YSL-LH-OFFICIAL-UK","SOL-LH-FROZEN"],"quantity_authority":"OZONE_FUNCTION_DESIGN_HYPOTHESIS"},
+    {"identity":"Sandalwood","active_ppm_w_w":77000.0,"function":"expanded creamy-dry lower-register body","time_windows":["late_heart","drydown"],"evidence_ids":["YSL-LH-OFFICIAL-UK","STUDY-DESIGN-LH-09"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_DESIGN"},
+    {"identity":"Vetiver Haiti","active_ppm_w_w":45000.0,"function":"dry rooty tension preventing dessert drift","time_windows":["heart","late_heart","drydown"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"},
+    {"identity":"Alpha Isomethyl Ionone","active_ppm_w_w":50000.0,"function":"violet-woody body","time_windows":["heart","late_heart"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"ALLERGEN_AND_NOTE_FUNCTION_DESIGN_HYPOTHESIS"},
+    {"identity":"Violet Leaf","active_ppm_w_w":25000.0,"function":"cool green signature","time_windows":["opening","heart"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"},
+    {"identity":"Bergamot Oil","active_ppm_w_w":45000.0,"function":"luminous opening","time_windows":["opening","top"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"},
+    {"identity":"Cedrat Oil","active_ppm_w_w":15000.0,"function":"bitter citron edge","time_windows":["opening","top"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"},
+    {"identity":"Ginger Oil","active_ppm_w_w":22000.0,"function":"warm-cool kinetic signature","time_windows":["opening","top","heart"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"},
+    {"identity":"Basil","active_ppm_w_w":3000.0,"function":"restrained basil contour","time_windows":["opening","heart"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_TRACE_DESIGN"},
+    {"identity":"White Pepper","active_ppm_w_w":4000.0,"function":"dry bright articulation","time_windows":["opening","top","heart"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_TRACE_DESIGN"},
+    {"identity":"Tonka","active_ppm_w_w":53000.0,"function":"expanded dry intimate warmth without dessert","time_windows":["late_heart","drydown"],"evidence_ids":["YSL-LH-OFFICIAL-UK","STUDY-DESIGN-LH-09"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_DESIGN"},
+    {"identity":"Coumarin","active_ppm_w_w":20000.0,"function":"expanded dry hay articulation","time_windows":["heart","late_heart","drydown"],"evidence_ids":["YSL-LH-OFFICIAL-UK","STUDY-DESIGN-LH-09"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_DESIGN"},
+    {"identity":"Linalyl Acetate","active_ppm_w_w":907.4074,"function":"retained core ester seam","time_windows":["opening","top","heart"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_CORE"},
+    {"identity":"Florol","active_ppm_w_w":2500.0,"function":"retained core floral volume","time_windows":["heart","late_heart"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_CORE"},
+    {"identity":"Parmavert","active_ppm_w_w":16000.0,"function":"green violet-leaf snap","time_windows":["opening","heart"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"VIOLET_GREEN_SUPPORT_DESIGN_HYPOTHESIS"},
+    {"identity":"Ambroxide","active_ppm_w_w":2000.0,"function":"retained core mineral persistence","time_windows":["late_heart","drydown"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_CORE"},
+    {"identity":"Hedione HC","active_ppm_w_w":2000.0,"function":"retained core high-cis radiance","time_windows":["opening","heart","late_heart"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_CORE"},
+    {"identity":"Tonka Bean Absolute","active_ppm_w_w":10000.0,"function":"natural coumarinic-hay-almond richness","time_windows":["heart","late_heart","drydown"],"evidence_ids":["STUDY-DESIGN-LH-09"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_DESIGN"},
+    {"identity":"Ebanol","active_ppm_w_w":6666.6666,"function":"deep polished sandalwood resonance","time_windows":["late_heart","drydown"],"evidence_ids":["STUDY-DESIGN-LH-09"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_DESIGN"}
+  ]},
+  "current_inventory_build":{"basis":"raw_stock_ppm_w_w_of_concentrate","total_raw_stock_ppm_w_w":1000000.0,"total_odorant_active_ppm_w_w":934666.666665,"finished_product_concentrate_fraction_w_w":0.15,"inventory_sha256":"DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC","inventory_overlay_sha256":"1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072","materials":[
+    {"inventory_name":"Iso E Super","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":133333.333333,"odorant_active_ppm_w_w":133333.333333,"finished_product_active_ppm_w_w":20000.0,"mapping_status":"DIRECT_CORE","target_functions":["cedar halo"],"is_musk":false,"musk_function":null,"loss_statement":"Unchanged.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Cedarwood oil Virginia","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":111111.111111,"odorant_active_ppm_w_w":111111.111111,"finished_product_active_ppm_w_w":16666.666667,"mapping_status":"DIRECT_CORE","target_functions":["literal cedar"],"is_musk":false,"musk_function":null,"loss_statement":"Lot unmeasured.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Ethylene Brassylate","stock_status":"OWNED_OVERLAY_ROSTER_MISSING","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":77777.777778,"odorant_active_ppm_w_w":77777.777778,"finished_product_active_ppm_w_w":11666.666667,"mapping_status":"OVERLAY_DIRECT_WITH_INVENTORY_DRIFT_CAVEAT","target_functions":["single structural musk"],"is_musk":true,"musk_function":"transparent continuity","loss_statement":"Verify label; roster stale.","dose_authority":"DIRECT_USER_OWNERSHIP_VERIFY_FIRST"},
+    {"inventory_name":"Hedione","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":93333.333333,"odorant_active_ppm_w_w":93333.333333,"finished_product_active_ppm_w_w":14000.0,"mapping_status":"REDUCED_DONOR_CORE","target_functions":["air against darkness"],"is_musk":false,"musk_function":null,"loss_statement":"Not HC equivalent.","dose_authority":"CONTROLLED_SOCKET_DONOR"},
+    {"inventory_name":"Vertofix","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":66666.666667,"odorant_active_ppm_w_w":66666.666667,"finished_product_active_ppm_w_w":10000.0,"mapping_status":"GRADE_UNVERIFIED_CORE","target_functions":["wood bridge"],"is_musk":false,"musk_function":null,"loss_statement":"Coeur grade unverified.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Ethyl Linalool","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":48888.888889,"odorant_active_ppm_w_w":48888.888889,"finished_product_active_ppm_w_w":7333.333333,"mapping_status":"DIRECT_CORE","target_functions":["fresh tenacity"],"is_musk":false,"musk_function":null,"loss_statement":"Unchanged.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Dihydromyrcenol","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":23111.111111,"odorant_active_ppm_w_w":23111.111111,"finished_product_active_ppm_w_w":3466.666667,"mapping_status":"REDUCED_DONOR","target_functions":["freshness"],"is_musk":false,"musk_function":null,"loss_statement":"Reduced.","dose_authority":"CONTROLLED_SOCKET_DONOR"},
+    {"inventory_name":"Sandalore","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":75555.555556,"odorant_active_ppm_w_w":75555.555556,"finished_product_active_ppm_w_w":11333.333333,"mapping_status":"EXPANDED_AXIS_SUBSTITUTION","target_functions":["creamy-dry sandalwood body"],"is_musk":false,"musk_function":null,"loss_statement":"Not natural sandalwood equivalence.","dose_authority":"CONTROLLED_SOCKET_MAPPING"},
+    {"inventory_name":"Indian Vetiver EO (volume grade)","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":40000.0,"odorant_active_ppm_w_w":40000.0,"finished_product_active_ppm_w_w":6000.0,"mapping_status":"ORIGIN_SUBSTITUTION","target_functions":["anti-dessert tension"],"is_musk":false,"musk_function":null,"loss_statement":"Not Haitian; composite OAV required.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Alpha Isomethyl Ionone (Methyl Ionone Pure)","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":48888.888889,"odorant_active_ppm_w_w":48888.888889,"finished_product_active_ppm_w_w":7333.333333,"mapping_status":"NAME_NORMALIZATION","target_functions":["violet body"],"is_musk":false,"musk_function":null,"loss_statement":"Grade unverified.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Parmavert","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":35555.555556,"odorant_active_ppm_w_w":35555.555556,"finished_product_active_ppm_w_w":5333.333333,"mapping_status":"VIOLET_SUPPORT","target_functions":["green tailoring"],"is_musk":false,"musk_function":null,"loss_statement":"Not literal violet leaf.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Bergamot FCF oil Sicilian","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":73333.333333,"odorant_active_ppm_w_w":73333.333333,"finished_product_active_ppm_w_w":11000.0,"mapping_status":"PROCESSED_ORIGIN_CORE","target_functions":["opening"],"is_musk":false,"musk_function":null,"loss_statement":"Composite OAV required.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Lemon FCF oil Sicilian","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":22222.222222,"odorant_active_ppm_w_w":22222.222222,"finished_product_active_ppm_w_w":3333.333333,"mapping_status":"CEDRAT_SUBSTITUTION","target_functions":["citron edge"],"is_musk":false,"musk_function":null,"loss_statement":"Not cedrat.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Pamzest","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":4444.444444,"odorant_active_ppm_w_w":4444.444444,"finished_product_active_ppm_w_w":666.666667,"mapping_status":"CEDRAT_SUPPORT","target_functions":["dry zest"],"is_musk":false,"musk_function":null,"loss_statement":"Support only.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Ginger EO","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":22222.222222,"odorant_active_ppm_w_w":22222.222222,"finished_product_active_ppm_w_w":3333.333333,"mapping_status":"DIRECT_NATURAL_CORE","target_functions":["ginger recognizer"],"is_musk":false,"musk_function":null,"loss_statement":"Composite OAV required.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Basil EO (India, Ocimum Basilicum)","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":1777.777778,"odorant_active_ppm_w_w":1777.777778,"finished_product_active_ppm_w_w":266.666667,"mapping_status":"CHEMOTYPE_UNVERIFIED_CORE","target_functions":["basil"],"is_musk":false,"musk_function":null,"loss_statement":"Composite coverage to verify.","dose_authority":"TRACE_CORE"},
+    {"inventory_name":"Black Pepper EO","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":1777.777778,"odorant_active_ppm_w_w":1777.777778,"finished_product_active_ppm_w_w":266.666667,"mapping_status":"WHITE_PEPPER_SUBSTITUTION","target_functions":["pepper"],"is_musk":false,"musk_function":null,"loss_statement":"Composite OAV required.","dose_authority":"TRACE_CORE"},
+    {"inventory_name":"Tonkarome (20% w/w in TEC)","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":0.2,"concentration_basis":"w/w","carrier":"TEC","raw_stock_ppm_w_w":66666.666667,"odorant_active_ppm_w_w":13333.333333,"finished_product_active_ppm_w_w":2000.0,"mapping_status":"EXPANDED_AXIS_TONKA_COUMARIN_MAPPING","target_functions":["dry tonka and coumarin"],"is_musk":false,"musk_function":null,"loss_statement":"Known basis; not commercial accord evidence.","dose_authority":"KNOWN_20_PERCENT_W_W_CONTROLLED_SOCKET"},
+    {"inventory_name":"Linalyl Acetate","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":11111.111111,"odorant_active_ppm_w_w":11111.111111,"finished_product_active_ppm_w_w":1666.666667,"mapping_status":"REDUCED_DONOR","target_functions":["ester seam"],"is_musk":false,"musk_function":null,"loss_statement":"Reduced.","dose_authority":"CONTROLLED_SOCKET_DONOR"},
+    {"inventory_name":"Florol","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":11111.111111,"odorant_active_ppm_w_w":11111.111111,"finished_product_active_ppm_w_w":1666.666667,"mapping_status":"REDUCED_DONOR","target_functions":["floral volume"],"is_musk":false,"musk_function":null,"loss_statement":"Reduced.","dose_authority":"CONTROLLED_SOCKET_DONOR"},
+    {"inventory_name":"Amberwood F","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":4444.444444,"odorant_active_ppm_w_w":4444.444444,"finished_product_active_ppm_w_w":666.666667,"mapping_status":"REDUCED_DONOR","target_functions":["dry persistence"],"is_musk":false,"musk_function":null,"loss_statement":"Reduced; not Ambroxide.","dose_authority":"CONTROLLED_SOCKET_DONOR"},
+    {"inventory_name":"Ebanol","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":13333.333333,"odorant_active_ppm_w_w":13333.333333,"finished_product_active_ppm_w_w":2000.0,"mapping_status":"AXIS_SANDALWOOD_POLISH","target_functions":["deep sandalwood resonance"],"is_musk":false,"musk_function":null,"loss_statement":"Must remain polished, not dark.","dose_authority":"AUTHORIZED_CONTROLLED_SOCKET_ADDITION"},
+    {"inventory_name":"Tonka Bean Absolute (10% in DPG)","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":0.1,"concentration_basis":"w/w","carrier":"DPG","raw_stock_ppm_w_w":13333.333333,"odorant_active_ppm_w_w":1333.333333,"finished_product_active_ppm_w_w":200.0,"mapping_status":"AXIS_NATURAL_TONKA_RICHNESS","target_functions":["coumarinic hay-almond richness"],"is_musk":false,"musk_function":null,"loss_statement":"Natural mixture requires composite OAV; must not become dessert.","dose_authority":"KNOWN_10_PERCENT_W_W_CONTROLLED_SOCKET"}
+  ]},
+  "volume_adapter":{"authority":"HEURISTIC_VOLUME_ADAPTER_NOT_PPM_W_W","concentrate_total_ul":4500.0,"finished_product_nominal_ml":30.0,"nominal_concentrate_fraction":0.15,"matrix_omissions":["stock densities","finished ethanol-water mass fractions","volume contraction"],"formula_definition_status":"SOURCE_ONLY_NO_PIPELINE_ANALYSIS_YET"},
+  "missing_chemical_impact":{"status":"PENDING_NATIVE_ASSESSMENT_TASK_8","architecture_locked":true,"auto_integrated_materials":[],"gaps":["Sandalwood exact target material","Tonka target lot equivalence","Vetiver Haiti origin","physical evidence against dessert drift"],"authority":"NO_PURCHASE_NO_FORMULA_MUTATION_NO_SENSORY_CONCLUSION"},
+  "purchase_preparation":{"state":"NO_PURCHASE","recommendation":"Sandalore, Ebanol, Tonkarome 20%, and Tonka Bean Absolute 10% are stocked with usable bases. Do not use the ambiguous saturated Coumarin stock or buy balsams/tinctures; verify EB and run the controlled comparison.","lost_tinctures":"NO_USE","ambrettolide":"NO_USE_PROCUREMENT_PENDING"},
+  "diagnostics":{
+    "parser_preflight": {
+      "status": "PASS_WITH_WARNINGS",
+      "authoritative_runtime": "D:/chatbots/perfume-chem",
+      "formula_uid": "ysl20:LH-09:v1",
+      "formula_definition_sha256": "f6987220810a7c6ed4af3f2c0e6f656a8ad1a3c4b4851ffdfcedc96d8985a3e8",
+      "rendered_file_sha256": "4A3E11B4FA2F84F7ABECDC7AE0AB826CE2CBE3BF203B30A981123FBBE93F93EF",
+      "parsed_material_count": 23,
+      "parsed_raw_ul": 4500.0,
+      "hedione_percent_of_concentrate": 9.3,
+      "warnings": [
+        "VP_WALL: Cedarwood oil Virginia (VP=0.005 Pa, role=character) is predicted as skin-only and nonprojecting by the legacy evaluator."
+      ],
+      "score_authority": "LEGACY_NUMERICAL_SCORE_IGNORED_NOT_SENSORY_EVIDENCE"
+    },
+    "ppm_arithmetic": "PASS_LOCAL_STATIC",
+    "odt_oav": "HOLD_MODELED_ACTIVE_CONCENTRATE_SCREEN_NOT_MEASURED",
+    "composite_natural_oav": "PENDING_RUN_COVERAGE_CONFIRMED_TONKA_BEAN_ABSOLUTE",
+    "temporal_headspace": "COMPUTED_HEURISTIC_UNCALIBRATED_NOT_MEASURED",
+    "stock_rebase_oav_per_time": "FAIL_G15_CHILD_STOCK_AUTHORITY_INVALID",
+    "pipeline_release_gate": "FAIL_HOLD",
+    "sensory_authority": false,
+    "pipeline_artifact_binding": "PERSISTED_VERIFIED",
+    "pipeline_298k": {
+      "screening_summary_sha256": "23356e17dee310dfb15dadd4f621ee501b7bd83bf96d4f28cb673b45a57af395",
+      "formula_definition_sha256": "f6987220810a7c6ed4af3f2c0e6f656a8ad1a3c4b4851ffdfcedc96d8985a3e8",
+      "rendered_file_sha256": "4A3E11B4FA2F84F7ABECDC7AE0AB826CE2CBE3BF203B30A981123FBBE93F93EF",
+      "pipeline_json_sha256": "2eac745db2304ef77b822d19d03e5b643bcf6fd5da9604eaf8db5826a10dd0c6",
+      "formatter_output_sha256": "ff1ceefd76dd7250d4b56f3de3378acd0f626b31c8b710e486062a4811b29d29",
+      "analysis_artifact_sha256": "08d09121a0c1089f6f6026ffbb018d169ca9a5894e4c9627d783aaa258726908",
+      "temperature_K": 298.15,
+      "parsed_subtotal_ul": 4500.0,
+      "oav_authority": {
+        "status": "WITHHELD",
+        "strict_oav_status": "ABSTAINED",
+        "headspace_basis": "MODELED_ACTIVE_CONCENTRATE_SCREEN",
+        "model_class": "HEURISTIC_NOT_MEASURED",
+        "quantitative_authority": {
+          "active_concentrate_ppm_w_w": "UNAVAILABLE",
+          "active_finished_product_ppm_w_w": "UNAVAILABLE",
+          "headspace_oav": "MODELED_ACTIVE_CONCENTRATE_SCREEN",
+          "headspace_model_class": "HEURISTIC_NOT_MEASURED",
+          "matrix_source": "omitted",
+          "stock_carrier_inclusion": "UNRESOLVED",
+          "unavailable_active_mass_materials": [
+            "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+            "Amberwood F",
+            "Basil EO (India, Ocimum Basilicum)",
+            "Bergamot FCF oil Sicilian",
+            "Black Pepper EO",
+            "Dihydromyrcenol",
+            "Ebanol",
+            "Ethyl Linalool",
+            "Ethylene Brassylate",
+            "Florol",
+            "Ginger EO",
+            "Hedione",
+            "Indian Vetiver EO (volume grade)",
+            "Iso E Super",
+            "Linalyl Acetate",
+            "Parmavert",
+            "Sandalore",
+            "Tonka Bean Absolute (10% in DPG)",
+            "Tonkarome (20% w/w in TEC)",
+            "Vertofix"
+          ],
+          "density_fallback_materials": [
+            "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+            "Amberwood F",
+            "Basil EO (India, Ocimum Basilicum)",
+            "Bergamot FCF oil Sicilian",
+            "Black Pepper EO",
+            "Dihydromyrcenol",
+            "Ebanol",
+            "Ethyl Linalool",
+            "Ethylene Brassylate",
+            "Florol",
+            "Ginger EO",
+            "Hedione",
+            "Indian Vetiver EO (volume grade)",
+            "Iso E Super",
+            "Linalyl Acetate",
+            "Parmavert",
+            "Sandalore",
+            "Tonka Bean Absolute (10% in DPG)",
+            "Tonkarome (20% w/w in TEC)",
+            "Vertofix"
+          ]
+        },
+        "oav_release_authority": false,
+        "sensory_authority": false,
+        "opening_known_vapor_ppm": 527.685128,
+        "opening_unknown_material_count": 2,
+        "opening_vapor_total_scope": "SUM_OF_RESOLVED_ROWS_ONLY_UNKNOWN_NATURALS_EXCLUDED"
+      },
+      "composite_natural_status": {
+        "gate": "natural_composite_coverage",
+        "status": "FAIL",
+        "detail": "Natural mixtures lack required composite GC-O decomposition: Basil EO (India, Ocimum Basilicum), Indian Vetiver EO (volume grade)"
+      },
+      "g15": {
+        "status": "FAIL",
+        "detail": "G15 requires every child row to have a uniquely resolved live inventory stock.",
+        "failure_code": "G15_CHILD_STOCK_AUTHORITY_INVALID",
+        "authorized_active_dose_changes": {
+          "Amberwood F": "reduced from 74 to 20 uL as the shared socket donor while retaining dry persistence",
+          "Ebanol": "deep sandalwood polish inside the fixed 300 uL socket",
+          "Tonka Bean Absolute (10% in DPG)": "natural tonka richness inside the fixed 300 uL socket"
+        },
+        "oav_release_authority": false
+      },
+      "stock_contract": {
+        "status": "FAIL",
+        "detail": "8 material stock contract failure(s): Basil EO (India, Ocimum Basilicum), Ethyl Linalool, Ethylene Brassylate, Indian Vetiver EO (volume grade), Pamzest, Parmavert, Tonka Bean Absolute (10% in DPG), Tonkarome (20% w/w in TEC)",
+        "holds": [
+          {
+            "material": "Ethylene Brassylate",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "OWNED_OVERLAY_ROSTER_MISSING",
+            "classification": "HOLD_STALE_INVENTORY_ROSTER"
+          },
+          {
+            "material": "Ethyl Linalool",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Indian Vetiver EO (volume grade)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Parmavert",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Pamzest",
+            "native_reason": "inventory_stock_unavailable",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Basil EO (India, Ocimum Basilicum)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Tonkarome (20% w/w in TEC)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Tonka Bean Absolute (10% in DPG)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          }
+        ]
+      },
+      "artifact_binding": {
+        "status": "PERSISTED_VERIFIED",
+        "analysis_sha256": "cb33ea61adb6b9697d88922e51162ffd33c634bc76c8738e1be6411a1450d020",
+        "artifact_sha256": "08d09121a0c1089f6f6026ffbb018d169ca9a5894e4c9627d783aaa258726908",
+        "rendered_file_sha256": "4A3E11B4FA2F84F7ABECDC7AE0AB826CE2CBE3BF203B30A981123FBBE93F93EF"
+      },
+      "overall_gate_status": "FAIL",
+      "finalist_eligibility": {
+        "status": "HOLD_STALE_INVENTORY_ROSTER_AND_DATA_COVERAGE",
+        "eligible": false,
+        "reasons": [
+          "STOCK_CONTRACT_FAIL",
+          "QUANTITATIVE_AUTHORITY_UNAVAILABLE",
+          "NATURAL_COMPOSITE_GAP",
+          "CORE_PHYSICS_OR_ODT_GAP",
+          "REFERENCE_CLAIM_CONTRACT_FAIL",
+          "FAMILY_ARCHETYPE_UNMAPPED"
+        ],
+        "sensory_authority": false
+      },
+      "subthreshold_character_rows": [
+        {
+          "material": "Tonka Bean Absolute (10% in DPG)",
+          "oav": 0.206331,
+          "role": "character",
+          "model_source": "literature:natural_composite_gc_o"
+        }
+      ],
+      "temporal_authority": "HEURISTIC_UNCALIBRATED_NOT_MEASURED",
+      "sensory_authority": false
+    }
+  },
+  "blind_test":{"status":"PROTOCOL_ONLY_NOT_EXECUTED","role":"L'Homme tonka-sandalwood child","comparison":"Balanced-order comparison against LH-01 with dry richness versus dessert/darkness as the axis.","time_cells":["0_min","5_min","30_min","2_hr","4_hr"],"liking_result":"NOT TESTED"},
+  "claim_ceiling":{"exact_commercial_formula":"NOT CLAIMED","physical_liking":"NOT TESTED","sensory_similarity":"NOT TESTED","stability":"NOT TESTED","safety":"NOT CLEARED","measured_headspace":"NOT TESTED","release":"NOT CLEARED"}
+}

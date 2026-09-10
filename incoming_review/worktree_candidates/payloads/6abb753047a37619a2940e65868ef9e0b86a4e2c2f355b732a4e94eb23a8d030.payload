@@ -1,0 +1,150 @@
+{
+  "schema_version": "solforge_research_source_seeds_v1",
+  "seeds": [
+    {
+      "seed_id": "FRANK-2017",
+      "stable_identifier": "doi:10.1093/chemse/bjx031",
+      "uri": "https://doi.org/10.1093/chemse/bjx031",
+      "title": "Recognition of the Component Odors in Mixtures",
+      "intended_methodological_use": "Constrain component-recognition, suppression, and selective-adaptation hypotheses.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "MCCLINTOCK-2020",
+      "stable_identifier": "doi:10.1093/chemse/bjaa032",
+      "uri": "https://doi.org/10.1093/chemse/bjaa032",
+      "title": "Mixture and Concentration Effects on Odorant Receptor Response Patterns In Vivo",
+      "intended_methodological_use": "Constrain concentration, mixture-interaction, and receptor-to-perception uncertainty.",
+      "identity_note": "The DOI resolves to McClintock et al.; an earlier planning note incorrectly attributed it to Zak et al.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "LABBE-2009",
+      "stable_identifier": "doi:10.1016/j.foodqual.2008.10.001",
+      "uri": "https://doi.org/10.1016/j.foodqual.2008.10.001",
+      "title": "Temporal dominance of sensations and sensory profiling: A comparative study",
+      "intended_methodological_use": "Inform temporal endpoint and dominance-profile design while preserving product-domain limits.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "PINEAU-2009",
+      "stable_identifier": "doi:10.1016/j.foodqual.2009.04.005",
+      "uri": "https://doi.org/10.1016/j.foodqual.2009.04.005",
+      "title": "Temporal Dominance of Sensations: Construction of the TDS curves and comparison with time-intensity",
+      "intended_methodological_use": "Constrain TDS data construction to predeclared dominance observations and method-specific temporal curves; do not reinterpret ordinary intensity ratings as dominance.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "MEYNERS-PINEAU-2010",
+      "stable_identifier": "doi:10.1016/j.foodqual.2010.04.004",
+      "uri": "https://doi.org/10.1016/j.foodqual.2010.04.004",
+      "title": "Statistical inference for Temporal Dominance of Sensations data using randomization tests",
+      "intended_methodological_use": "Constrain inferential TDS claims to a declared valid procedure; version three reports descriptive activation rates only and does not manufacture significance from sparse trajectories.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "CASTURA-2016",
+      "stable_identifier": "doi:10.1016/j.foodqual.2015.06.017",
+      "uri": "https://doi.org/10.1016/j.foodqual.2015.06.017",
+      "title": "Temporal Check-All-That-Apply (TCATA): A novel dynamic method for characterizing products",
+      "intended_methodological_use": "Keep TCATA concurrent attribute selection distinct from TDS single-dominance observations and from discrete intensity ratings.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "MACFIE-1989",
+      "stable_identifier": "doi:10.1111/j.1745-459X.1989.tb00463.x",
+      "uri": "https://doi.org/10.1111/j.1745-459X.1989.tb00463.x",
+      "title": "Designs to balance the effect of order of presentation and first-order carry-over effects in hall tests",
+      "intended_methodological_use": "Require order and carry-over control in the frozen presentation design while separately auditing what sequence each assessor actually received.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "ZHOU-2024",
+      "stable_identifier": "doi:10.1038/s41562-024-01984-8",
+      "uri": "https://doi.org/10.1038/s41562-024-01984-8",
+      "title": "Human olfactory perception embeds fine temporal resolution within a single sniff",
+      "intended_methodological_use": "Permit within-sniff questions only with a qualified sniff-triggered apparatus and protocol.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "ARSHAMIAN-2022",
+      "stable_identifier": "pmid:35381183",
+      "uri": "https://pubmed.ncbi.nlm.nih.gov/35381183/",
+      "title": "The perception of odor pleasantness is shared across cultures",
+      "intended_methodological_use": "Require both population scope and individual-heterogeneity reporting for pleasantness.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "LIU-2020",
+      "stable_identifier": "pmid:33093474",
+      "uri": "https://pubmed.ncbi.nlm.nih.gov/33093474/",
+      "title": "Assessment of odor hedonic perception: the Sniffin' sticks parosmia test (SSParoT)",
+      "intended_methodological_use": "Inform pairwise hedonic assessment, separate intensity ratings, and test-retest requirements.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "NIST-MIXTURE-DESIGN",
+      "stable_identifier": "nist:eda-handbook-5.5.4",
+      "uri": "https://www.itl.nist.gov/div898/handbook/pri/section5/pri54.htm",
+      "title": "What is a mixture design?",
+      "intended_methodological_use": "Require constrained proportions, explicit response variables, and adequate mixture designs.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "ISO-8586-2023",
+      "stable_identifier": "iso:8586:2023",
+      "uri": "https://www.iso.org/standard/76667.html",
+      "title": "Sensory analysis — Selection and training of sensory assessors",
+      "intended_methodological_use": "Public metadata only: define assessor selection and training scope.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "ISO-13299-2016",
+      "stable_identifier": "iso:13299:2016",
+      "uri": "https://www.iso.org/standard/58042.html",
+      "title": "Sensory analysis — Methodology — General guidance for establishing a sensory profile",
+      "intended_methodological_use": "Public metadata only: define descriptive-profile methodology scope.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "ISO-11136-2014",
+      "stable_identifier": "iso:11136:2014",
+      "uri": "https://www.iso.org/standard/50125.html",
+      "title": "Sensory analysis — Methodology — General guidance for conducting hedonic tests with consumers in a controlled area",
+      "intended_methodological_use": "Public metadata only: keep controlled consumer liking separate from trained-panel description.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "LINDLEY-1956",
+      "stable_identifier": "doi:10.1214/aoms/1177728069",
+      "uri": "https://doi.org/10.1214/aoms/1177728069",
+      "title": "On a Measure of the Information Provided by an Experiment",
+      "intended_methodological_use": "Constrain claims of expected information: Bayesian information gain requires a prior distribution and a predictive experiment model; when those are absent, do not invent outcome probabilities.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "CHALONER-VERDINELLI-1995",
+      "stable_identifier": "doi:10.1214/ss/1177009939",
+      "uri": "https://doi.org/10.1214/ss/1177009939",
+      "title": "Bayesian Experimental Design: A Review",
+      "intended_methodological_use": "Constrain experimental utility to a declared decision problem, prior, likelihood, and utility; prevent an unsupported composite hedonic utility from being smuggled into experiment ranking.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    },
+    {
+      "seed_id": "ATKINSON-FEDOROV-1975",
+      "stable_identifier": "doi:10.1093/biomet/62.1.57",
+      "uri": "https://doi.org/10.1093/biomet/62.1.57",
+      "title": "The Design of Experiments for Discriminating Between Two Rival Models",
+      "intended_methodological_use": "Support explicit model-discrimination experiments while preserving the transfer limit from regression-model design to finite predeclared perfume hypotheses.",
+      "authority": "METHOD_OR_HYPOTHESIS_ONLY"
+    }
+  ],
+  "authority_flags": {
+    "formula": false,
+    "hedonic": false,
+    "release": false,
+    "safety": false,
+    "scientific_claim": false,
+    "sensory": false
+  }
+}

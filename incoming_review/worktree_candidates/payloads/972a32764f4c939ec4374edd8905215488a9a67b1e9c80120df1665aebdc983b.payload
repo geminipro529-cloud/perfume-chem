@@ -1,0 +1,44 @@
+{
+  "task_id": "perfume-chem-next-plan-downstream-dependency-table-20260826-v1",
+  "objective": "Perform low-level sequencing support only. Extract a dependency table for the five retained Downloads references and the rejected count-trap. For each, record current disposition, obsolete/conflicting authority, evidence missing, and whether it depends on the temporal/OAV/hedonic foundation before any benchmark. Do not choose implementation priority beyond reporting explicit dependencies.",
+  "tier": "PRO",
+  "workspace": "D:/chatbots/perfume-chem",
+  "allowed_paths": ["incoming_review/next-plan-20260826/CURRENT_GAP_MAP.md"],
+  "required_reads": [
+    {"path": "incoming_review/next-plan-20260826/CURRENT_GAP_MAP.md", "unit": "line", "start": 52, "end": 74}
+  ],
+  "coverage_spec": {"mode": "ALL_REQUIRED_READS", "citations_required_for": ["positive_findings", "negative_findings"]},
+  "forbidden_actions": [
+    "modify local or remote state",
+    "browse or use external sources",
+    "inspect files outside required_reads",
+    "turn formula breadth or source count into evidence quality",
+    "recommend wholesale archive installation",
+    "resolve inventory conflicts",
+    "grant formula, sensory, hedonic, safety, runtime, or release authority",
+    "use Fast, Luna, Codex, or alternate-provider fallback"
+  ],
+  "commands_tests": [],
+  "definition_of_done": [
+    "Represent each named candidate exactly once.",
+    "Preserve the obsolete Inventory V3 and Ambrettolide conflicts.",
+    "Mark the count-trap as rejected rather than an implementation dependency."
+  ],
+  "required_output": ["Candidate dependency table", "Authority-conflict list", "Evidence prerequisites"],
+  "timeout_minutes": 8,
+  "max_output_tokens": 3000,
+  "reuse_cache": true,
+  "require_cache": false,
+  "route_constraints": {
+    "allowed_routes": ["DIRECT_PRO"],
+    "fallback_policy": "NO_LUNA",
+    "maximum_attempts": 1,
+    "maximum_provider_calls": 2,
+    "maximum_estimated_cost_usd": 0.007,
+    "privacy_class": "PROVIDER_ALLOWED",
+    "maximum_input_tokens": 9000,
+    "maximum_cached_input_tokens": 9000,
+    "maximum_output_tokens_total": 6000,
+    "maximum_total_tokens": 15000
+  }
+}

@@ -1,0 +1,282 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_v3",
+  "successor_id": "INVENTORY-USER-AUTHORITY-20260901-001",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-01",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260831.json",
+    "normalized_text_sha256": "06a999b636c950b5d47f2fce0f6b79d74d83b686a06aa98e0bd141192b394297",
+    "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+    "effective_date": "2026-08-31"
+  },
+  "source": {
+    "kind": "DIRECT_USER_CURRENT_STOCK_AND_FORMULATION_ROLE_CORRECTION",
+    "source_context": "CURRENT_CODEX_TASK_DIRECT_USER_MESSAGES_2026-09-01",
+    "statements": [
+      {
+        "text": "evernyl is now 10% in DEP",
+        "authority_effect": "Previously planned Evernyl 10% w/w in DEP is now the sole current liquid Evernyl working stock; the 20% w/w DPG stock becomes provenance only."
+      },
+      {
+        "text": "orris liquid I have is in 9%",
+        "authority_effect": "Orris Liquid current working fraction becomes 9%; its previously established w/w basis is retained and its carrier remains unrecorded."
+      },
+      {
+        "text": "treat orris liquid like one of those root only orris tinctures" ,
+        "authority_effect": "Use a root-only orris-tincture-like formulation role without asserting literal tincture extraction."
+      },
+      {
+        "text": "dry",
+        "authority_effect": "The user-authoritative formulation role is dry rather than buttery, creamy, cosmetic, or lipsticky."
+      }
+    ],
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 20934,
+    "inventory_text_sha256": "1974b3495027178a16fb6d9d59c6bc6eaac07e0dce97855e77ffcada8da02ee3"
+  },
+  "policy": {
+    "predecessor_immutable": true,
+    "historical_formula_bytes_immutable": true,
+    "formula_rebase_authorized": false,
+    "aesthetic_dose_change_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "nominal_product_equivalent_math_is_not_measured_active_equivalence": true,
+    "quantitative_hold_is_not_unavailability": true
+  },
+  "carried_forward_record_ids": [
+    "INV-USER-20260828-001",
+    "INV-USER-20260828-002",
+    "INV-USER-20260828-003",
+    "INV-USER-20260828-004",
+    "INV-USER-20260828-005",
+    "INV-USER-20260828-006",
+    "INV-USER-20260828-007",
+    "INV-USER-20260828-008",
+    "INV-USER-20260828-009",
+    "INV-USER-20260828-010",
+    "INV-USER-20260828-011",
+    "INV-USER-20260828-012",
+    "INV-USER-20260828-013",
+    "INV-USER-20260828-014",
+    "INV-USER-20260828-015",
+    "INV-USER-20260829-002",
+    "INV-USER-20260829-003",
+    "INV-USER-20260830-001",
+    "INV-USER-20260830-002",
+    "INV-USER-20260830-003",
+    "INV-USER-20260830-004",
+    "INV-USER-20260830-005",
+    "INV-USER-20260830-006",
+    "INV-USER-20260830-007",
+    "INV-USER-20260830-008",
+    "INV-USER-20260830-009",
+    "INV-USER-20260830-010",
+    "INV-USER-20260830-011",
+    "INV-USER-20260831-001",
+    "INV-USER-20260831-002",
+    "INV-USER-20260831-003"
+  ],
+  "replaced_canonical_names": [
+    "Evernyl",
+    "Orris Liquid"
+  ],
+  "delta_records": [
+    {
+      "record_id": "INV-USER-20260901-001",
+      "canonical_name": "Evernyl",
+      "aliases": [
+        "Evernyl 10% w/w in DEP"
+      ],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_REBASES_PLANNED_STOCK",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 105,
+          "fraction": 0.2
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-01",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_known": true,
+        "prepared_current_working_stock": true,
+        "sole_current_liquid_evernyl_stock": true,
+        "neat_liquid_stock_owned": false,
+        "solid_crystals_owned": true,
+        "historical_20pct_dpg_preserved": true,
+        "density_asserted": false,
+        "exact_active_volume_asserted": false,
+        "historical_formula_rewrite_authorized": false,
+        "aesthetic_dose_change_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "release_success_asserted": false
+      },
+      "note": "The previously planned 10% w/w DEP stock is now prepared/current. The former 20% w/w DPG stock remains historical provenance and is not current execution authority. Evernyl crystals remain a distinct solid stock."
+    },
+    {
+      "record_id": "INV-USER-20260901-002",
+      "canonical_name": "Evernyl Crystals",
+      "aliases": [
+        "Evernyl (crystals)",
+        "Evernyl solid"
+      ],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_DISTINCT_SOLID_STOCK_CARRY_FORWARD",
+        "execution_ready": false,
+        "execution_hold_reason": "SOLID_STOCK_VOLUME_DOSING_UNBOUND"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-01",
+      "source_kind": "LEGACY_CURRENT_STOCK_CARRY_FORWARD",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "distinct_from_10pct_solution": true,
+        "solid_as_supplied_confirmed": true,
+        "mass_dosing_receipt_required": true,
+        "volume_dosing_ready": false,
+        "density_asserted": false,
+        "liquid_equivalence_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "release_success_asserted": false
+      },
+      "note": "The solid crystals are preserved as a separate current record. They are not a second current liquid stock and are not volume-dose equivalent to the 10% DEP solution."
+    },
+    {
+      "record_id": "INV-USER-20260901-003",
+      "canonical_name": "Orris Liquid",
+      "aliases": [
+        "Orris Liquid 9% w/w",
+        "PerfumersWorld Orris Liquid 8IQ24653"
+      ],
+      "state": "OWNED",
+      "category": "orris_violet",
+      "stock": {
+        "fraction": 0.09,
+        "fraction_basis": "mass_fraction",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_REBASES_EXISTING_W_W_BASIS",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 195,
+          "disposition": "OWNED",
+          "status": "HAVE - 9% W/W NAMED PRODUCT STOCK; CARRIER AND DENSITY UNRECORDED",
+          "actual_stock_text": "PerfumersWorld Orris Liquid 8IQ24653 at 9% w/w; carrier not recorded",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-01",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_AND_FORMULATION_ROLE_CORRECTION",
+      "supplier": {
+        "perfumersworld_sku": "8IQ24653",
+        "identity_authority": "CARRIED_FORWARD_PRODUCT_IDENTITY_ONLY"
+      },
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "raw_stock_transfer_ready": true,
+        "carrier_asserted": false,
+        "density_asserted": false,
+        "species_asserted": false,
+        "plant_part_asserted": false,
+        "literal_tincture_extraction_asserted": false,
+        "extraction_method_asserted": false,
+        "supplier_composition_asserted": false,
+        "irone_assay_asserted": false,
+        "isomer_split_asserted": false,
+        "measured_odt_asserted": false,
+        "measured_gc_o_asserted": false,
+        "quantitative_irone_equivalence_asserted": false,
+        "nominal_product_equivalent_only": true,
+        "exact_active_mass_or_volume_asserted": false,
+        "exact_carrier_displacement_asserted": false,
+        "carrier_matched_control_ready": false,
+        "exact_ppm_w_w_asserted": false,
+        "physical_rebase_equivalence_asserted": false,
+        "headspace_oav_equivalence_asserted": false,
+        "user_sensory_role_asserted": true,
+        "user_sensory_role": "DRY_ROOT_ONLY_ORRIS_TINCTURE_LIKE",
+        "liking_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "release_success_asserted": false,
+        "historical_formula_rewrite_authorized": false
+      },
+      "note": "Treat this named product as a dry root-only orris-tincture-like register in CYP-02. This is a formulation-role instruction, not proof of literal tincture extraction, botanical identity, chemical assay, ODT, GC-O, safety, or equivalence to orris butter or isolated irones."
+    }
+  ],
+  "historical_stock_records": [
+    {
+      "historical_record_id": "INV-HIST-20260901-EVERNYL-20-DPG",
+      "canonical_name": "Evernyl",
+      "prior_state": "CURRENT_WORKING_STOCK",
+      "current_state": "SUPERSEDED_CURRENT_STOCK_PROVENANCE_ONLY",
+      "stock": {
+        "fraction": 0.2,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg"
+      },
+      "source_refs": [
+        "inventory.txt@aeefeaa1e8b5d65210309060952025019bb4428e:262",
+        "data/governance/inventory_v5_current_stock_snapshot.json#source_row=105"
+      ],
+      "historical_handling_provenance": "V5 recorded a suspension/heterogeneous 20% DPG stock requiring mixing before use.",
+      "current_execution_authority": false,
+      "historical_formula_rewrite_authorized": false
+    },
+    {
+      "historical_record_id": "INV-HIST-20260901-ORRIS-LIQUID-30",
+      "canonical_name": "Orris Liquid",
+      "prior_state": "CURRENT_WORKING_STOCK",
+      "current_state": "SUPERSEDED_CURRENT_STOCK_PROVENANCE_ONLY",
+      "stock": {
+        "fraction": 0.3,
+        "fraction_basis": "mass_fraction",
+        "carrier": ""
+      },
+      "source_refs": [
+        "inventory.txt@aeefeaa1e8b5d65210309060952025019bb4428e:158",
+        "formulas/CYP-02_Cypress_Magnolia_Orris_30mL_Parfum.md"
+      ],
+      "current_execution_authority": false,
+      "historical_formula_rewrite_authorized": false
+    }
+  ],
+  "authority_limits": {
+    "formula_mutation_authority": false,
+    "sensory_role_authority": "USER_DESCRIPTION_ONLY",
+    "observed_formula_sensory_authority": false,
+    "liking_authority": false,
+    "similarity_authority": false,
+    "measured_oav_authority": false,
+    "safety_authority": false,
+    "stability_authority": false,
+    "procurement_authority": false,
+    "preparation_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  }
+}

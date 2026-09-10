@@ -1,0 +1,235 @@
+from pathlib import Path
+
+import pytest
+
+from engine.inventory_parser import parse_inventory
+from engine.optimizer.models import FormulaVector
+from engine.optimizer.scoring import FormulaScorer
+from scripts.verify_formula_workflow import parse_formula_markdown
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+FORMULA = (
+    PROJECT_ROOT
+    / "formulas"
+    / "CYP_01_Cypres_de_Verre_French_Cypress_30mL_20pct.md"
+)
+THEORY = (
+    PROJECT_ROOT
+    / "docs"
+    / "research"
+    / "CYPRES_DE_VERRE_ARCHITECTURE_AND_HEDONIC_PROTOCOL_20260830.md"
+)
+INVENTORY = PROJECT_ROOT / "inventory.txt"
+
+
+EXPECTED_RAW_UL = {
+    "Iso E Super": 1050.0,
+    "Hedione": 600.0,
+    "Indian Vetiver EO": 260.0,
+    "Cedarwood oil Virginia": 320.0,
+    "Sandalore": 80.0,
+    "Cashmeran": 80.0,
+    "Benzyl Benzoate": 650.0,
+    "Elemi EO": 70.0,
+    "Cedramber": 30.0,
+    "Clearwood": 160.0,
+    "Patchouli EO": 40.0,
+    "Ambrettolide": 300.0,
+    "Linalyl Acetate": 100.0,
+    "Dihydrojasmone": 100.0,
+    "Alpha Isomethyl Ionone (Methyl Ionone Pure)": 50.0,
+    "Alpha Ionone": 30.0,
+    "Bergamot FCF oil Sicilian": 240.0,
+    "Lemon FCF oil Sicilian": 30.0,
+    "Cypress EO": 180.0,
+    "Petitgrain EO Paraguay": 80.0,
+    "Terpinyl Acetate": 50.0,
+    "Dipropylene Glycol": 1500.0,
+}
+
+
+def _formula_text() -> str:
+    return FORMULA.read_text(encoding="utf-8")
+
+
+def _inventory_records():
+    return parse_inventory(
+        INVENTORY,
+        unique=False,
+        include_solvents=True,
+        include_unavailable=True,
+    )
+
+
+def test_cypres_de_verre_is_an_exact_6000_ul_cypress_centered_formula():
+    formulas = parse_formula_markdown(FORMULA)
+    assert len(formulas) == 1
+    formula = formulas[0]
+
+    assert formula["ingredients_ul"] == pytest.approx(EXPECTED_RAW_UL)
+    assert sum(formula["ingredients_ul"].values()) == pytest.approx(6000.0)
+    assert formula["ingredients_ul"]["Cypress EO"] == pytest.approx(180.0)
+    assert formula["dilutions"]["Cypress EO"] == pytest.approx(1.0)
+    assert formula["dilutions"]["Ambrettolide"] == pytest.approx(0.10)
+    assert min(formula["ingredients_ul"].values()) >= 30.0
+
+
+def test_every_formula_stock_is_owned_and_quantitatively_executable():
+    rows = _inventory_records()
+    resolved = {
+        "Iso E Super": "Iso E Super",
+        "Hedione": "Hedione",
+        "Indian Vetiver EO": "Indian Vetiver EO",
+        "Cedarwood oil Virginia": "Cedarwood oil Virginia",
+        "Sandalore": "Sandalore",
+        "Cashmeran": "Cashmeran",
+        "Benzyl Benzoate": "Benzyl Benzoate",
+        "Elemi EO": "Elemi EO",
+        "Cedramber": "Cedramber",
+        "Clearwood": "Clearwood",
+        "Patchouli EO": "Patchouli EO",
+        "Ambrettolide": "Ambrettolide",
+        "Linalyl Acetate": "Linalyl Acetate",
+        "Dihydrojasmone": "Dihydrojasmone",
+        "Alpha Isomethyl Ionone (Methyl Ionone Pure)": "Alpha Isomethyl Ionone",
+        "Alpha Ionone": "Alpha Ionone",
+        "Bergamot FCF oil Sicilian": "Bergamot FCF oil Sicilian",
+        "Lemon FCF oil Sicilian": "Lemon FCF oil Sicilian",
+        "Cypress EO": "Cypress EO",
+        "Petitgrain EO Paraguay": "Petitgrain EO Paraguay",
+        "Terpinyl Acetate": "Terpinyl Acetate",
+        "Dipropylene Glycol": "Dipropylene Glycol",
+    }
+
+    for formula_name, inventory_name in resolved.items():
+        matches = [row for row in rows if row.name == inventory_name]
+        assert matches, formula_name
+        assert any(
+            row.status == "owned" and row.execution_ready for row in matches
+        ), formula_name
+
+
+def test_cypress_stock_claim_is_user_authoritative_and_does_not_invent_identity():
+    text = _formula_text().casefold()
+    for phrase in (
+        "high-quality french cypress eo",
+        "user-authoritative stock description",
+        "species: not established",
+        "chemotype: not established",
+        "bottle quality: not independently proved",
+    ):
+        assert phrase in text
+
+
+def test_formula_has_one_precise_musk_and_excludes_disfavored_musks():
+    text = _formula_text().casefold()
+    assert "sole musk" in text
+    assert text.count("| ambrettolide |") == 1
+    for excluded in ("tonalide", "macrolide", "musk ketone"):
+        assert excluded not in text
+
+
+def test_formula_preserves_target_inventory_and_claim_boundaries():
+    text = _formula_text().casefold()
+    for heading in (
+        "## a. target / ideal formula",
+        "## b. current-inventory build",
+        "## c. missing-chemical impact",
+        "## d. purchase / preparation recommendation",
+        "## e. controlled test plan",
+        "## basket-by-basket mixing order",
+    ):
+        assert heading in text
+
+    for phrase in (
+        "hedonic status: not tested",
+        "sensory status: not tested",
+        "safety status: not tested",
+        "release authority: false",
+        "no compounding authority",
+    ):
+        assert phrase in text
+
+
+def test_basket_order_matches_user_workflow_and_is_high_to_low_within_basket():
+    text = _formula_text()
+    headings = [
+        "BASKET 1 -- ALWAYS USED",
+        "BASKET 2 -- VETIVERS",
+        "BASKET 3 -- WOODS",
+        "BASKET 4 -- WOOD MODIFIERS AND AMBERS",
+        "BASKET 5 -- WOOD-VETIVERS",
+        "BASKET 6 -- MUSKS",
+        "BASKET 7 -- MUGUET AND LAVENDER",
+        "BASKET 8 -- JASMINE, INDOLE, AND MAGNOLIA",
+        "BASKET 11 -- IRIS AND ORRIS",
+        "BASKET 15 -- FRUITS",
+        "BASKET 17 -- GREEN SMELLING THINGS",
+        "CARRIER / TECHNICAL",
+    ]
+    positions = [text.index(heading) for heading in headings]
+    assert positions == sorted(positions)
+
+    assert text.index("| Cypress EO | neat | 180") < text.index(
+        "| Petitgrain EO Paraguay | neat | 80"
+    )
+    assert text.index("| Petitgrain EO Paraguay | neat | 80") < text.index(
+        "| Terpinyl Acetate | neat | 50"
+    )
+    assert "use a new, clean tip for every material" in text.casefold()
+    assert "never return a used tip to any stock bottle" in text.casefold()
+
+
+def test_protocol_tests_architecture_with_cypress_held_constant():
+    text = THEORY.read_text(encoding="utf-8").casefold()
+    for phrase in (
+        "cypress eo remains 180",
+        "constant-total",
+        "bridge-ablation control",
+        "target fidelity",
+        "depth",
+        "richness",
+        "overall liking",
+        "ties remain ties",
+        "order-balanced",
+        "no synthetic beauty score",
+        "cannot prove liking",
+    ):
+        assert phrase in text
+
+    # Unicode case-folding maps the micro sign (U+00B5) to Greek mu (U+03BC).
+    assert "120 μl" in text
+    assert "180 μl" in text
+    assert "240 μl" in text
+
+
+def test_theory_requires_isolated_arms_before_any_synergy_claim():
+    text = THEORY.read_text(encoding="utf-8").casefold()
+    for phrase in (
+        "individual omission arms",
+        "pairwise evidence cannot establish layered synergy",
+        "n-ary",
+        "physical blinded observations",
+        "not tested",
+    ):
+        assert phrase in text
+
+
+def test_formula_scorer_does_not_crash_on_legacy_text_character_profiles():
+    """Legacy natural-oil profiles may have descriptive text, not radar data."""
+
+    score = FormulaScorer(batch_volume_ml=30.0).score_luxury(
+        FormulaVector(ingredients={"Cypress EO": 60.0, "Elemi EO": 40.0})
+    )
+
+    assert 0.0 <= score <= 100.0
+
+
+def test_complete_formula_score_treats_legacy_text_profiles_as_uncalibrated():
+    scores = FormulaScorer(batch_volume_ml=30.0).score(
+        FormulaVector(ingredients={"Cypress EO": 60.0, "Elemi EO": 40.0})
+    )
+
+    assert 0.0 <= scores["total"] <= 100.0
+    assert 0.0 <= scores["texture"] <= 100.0
+    assert 0.0 <= scores["perceptual_clarity"] <= 100.0

@@ -1,0 +1,423 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_v4",
+  "successor_id": "INVENTORY-USER-AUTHORITY-20260904-001",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-04",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260901.json",
+    "normalized_text_sha256": "b0eaf0ffdf2c2519fff3b083d02632be7f9fb41e847db25dea71a346e63a7885",
+    "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+    "effective_date": "2026-09-01"
+  },
+  "source": {
+    "kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION_HANDOFF",
+    "source_thread_id": "01a056d0-6d07-7a90-a0ab-48dd0eea3889",
+    "source_context": "CODEX_DELEGATION_TO_CURRENT_TASK_2026-09-04",
+    "statements": [
+      {
+        "text": "Bacdanol is owned neat",
+        "authority_effect": "Bacdanol is the current physically owned neat/as-supplied stock; the prior fraction-unspecified record becomes provenance only."
+      },
+      {
+        "text": "Guaiacwood EO is owned at exactly 1/3 w/w, with the remaining 2/3 composition/carrier not established unless live authoritative records now resolve it",
+        "authority_effect": "Guaiacwood EO stock fraction is exactly one third by mass; the remaining two-thirds composition and carrier stay unresolved and quantitative volume execution remains HOLD."
+      },
+      {
+        "text": "Galbanum EO is out of stock",
+        "authority_effect": "Galbanum EO is unavailable for current builds; historical formulas remain unchanged and Galbanum Resinoid remains a distinct gap."
+      },
+      {
+        "text": "Benzyl Salicylate is back in stock",
+        "authority_effect": "Benzyl Salicylate is again owned neat/as supplied; the 2026-08-30 unavailable statement becomes superseded provenance."
+      },
+      {
+        "text": "Ambrox Super is a 25% w/w stock made from 3.0 g Ambrox Super, 7.0 g DPG, 0.5 g IPM, and 1.5 g ethanol, 12.0 g total",
+        "authority_effect": "Ambrox Super is owned at exactly 25% by mass in DPG + IPM + ethanol; the former 33% working-stock record becomes superseded provenance."
+      }
+    ],
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 21210,
+    "inventory_text_sha256": "3e26b4dd3b6bfc1eeedc6bf613834de372389509e2875ef6684550fe41bd9caa"
+  },
+  "policy": {
+    "predecessor_immutable": true,
+    "historical_formula_bytes_immutable": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "exact_mass_fraction_does_not_establish_carrier_or_density": true,
+    "quantitative_hold_is_not_unavailability": true
+  },
+  "carried_forward_record_ids": [
+    "INV-USER-20260828-001",
+    "INV-USER-20260828-002",
+    "INV-USER-20260828-003",
+    "INV-USER-20260828-004",
+    "INV-USER-20260828-005",
+    "INV-USER-20260828-006",
+    "INV-USER-20260828-007",
+    "INV-USER-20260828-008",
+    "INV-USER-20260828-009",
+    "INV-USER-20260828-010",
+    "INV-USER-20260828-011",
+    "INV-USER-20260828-012",
+    "INV-USER-20260828-013",
+    "INV-USER-20260828-014",
+    "INV-USER-20260828-015",
+    "INV-USER-20260829-002",
+    "INV-USER-20260829-003",
+    "INV-USER-20260830-001",
+    "INV-USER-20260830-002",
+    "INV-USER-20260830-003",
+    "INV-USER-20260830-004",
+    "INV-USER-20260830-005",
+    "INV-USER-20260830-006",
+    "INV-USER-20260830-007",
+    "INV-USER-20260830-008",
+    "INV-USER-20260830-009",
+    "INV-USER-20260830-010",
+    "INV-USER-20260830-011",
+    "INV-USER-20260831-001",
+    "INV-USER-20260831-002",
+    "INV-USER-20260831-003",
+    "INV-USER-20260901-001",
+    "INV-USER-20260901-002",
+    "INV-USER-20260901-003"
+  ],
+  "replaced_canonical_names": [
+    "Bacdanol",
+    "Guaiacwood EO",
+    "Galbanum EO",
+    "Benzyl Salicylate",
+    "Ambrox Super"
+  ],
+  "delta_records": [
+    {
+      "record_id": "INV-USER-20260904-001",
+      "canonical_name": "Bacdanol",
+      "aliases": [
+        "Bacnadol"
+      ],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_CURRENT_STOCK_CORRECTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-04",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION_HANDOFF",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "formulation_selection_ready": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_known": true,
+        "quantitative_dosing_ready": true,
+        "supplier_asserted": false,
+        "lot_asserted": false,
+        "purity_beyond_neat_as_supplied_asserted": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "historical_formula_rewrite_authorized": false
+      },
+      "note": "The user directly corrected Bacdanol to neat/as supplied. This resolves the stock fraction and basis only; it does not establish supplier, lot, density, safety, sensory equivalence, or any formula dose."
+    },
+    {
+      "record_id": "INV-USER-20260904-002",
+      "canonical_name": "Guaiacwood EO",
+      "aliases": [
+        "Guaiacwood Essential Oil"
+      ],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "fraction": 0.3333333333333333,
+        "fraction_exact": "1/3",
+        "fraction_basis": "mass_fraction",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_CURRENT_STOCK_CORRECTION",
+        "execution_ready": false,
+        "execution_hold_reason": "REMAINING_TWO_THIRDS_COMPOSITION_AND_CARRIER_UNRESOLVED"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 125,
+          "disposition": "OWNED",
+          "status": "HAVE - EXACTLY 1/3 W/W; REMAINING 2/3 COMPOSITION AND CARRIER UNRESOLVED; QUANTITATIVE EXECUTION HOLD",
+          "actual_stock_text": "Guaiacwood EO exactly 1/3 w/w; remaining 2/3 composition and carrier unresolved",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-04",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION_HANDOFF",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "formulation_selection_ready": true,
+        "stock_fraction_known": true,
+        "fraction_exact": "1/3",
+        "fraction_basis_known": true,
+        "carrier_known": false,
+        "remaining_two_thirds_composition_known": false,
+        "quantitative_dosing_ready": false,
+        "active_ul_ppm_oav_math_authorized": false,
+        "carrier_displacement_math_authorized": false,
+        "supplier_asserted": false,
+        "botanical_identity_asserted": false,
+        "lot_asserted": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false,
+        "historical_formula_rewrite_authorized": false
+      },
+      "note": "Exactly one third by mass is user-authoritative. The remaining two-thirds composition/carrier, density, supplier, botanical identity, lot, safety, stability, OAV, and sensory equivalence remain unresolved. Selection is allowed; quantitative volume execution is HOLD."
+    },
+    {
+      "record_id": "INV-USER-20260904-003",
+      "canonical_name": "Galbanum EO",
+      "aliases": [
+        "Galbanum Essential Oil"
+      ],
+      "state": "UNAVAILABLE",
+      "category": "green_resinous",
+      "stock": null,
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 114
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 114,
+          "disposition": "GAP",
+          "status": "OUT OF STOCK - USER CONFIRMED 2026-09-02",
+          "actual_stock_text": "",
+          "can_prepare": ""
+        },
+        {
+          "source_row": 115,
+          "disposition": "GAP",
+          "status": "GAP - GALBANUM EO OUT OF STOCK; GALBANUM RESINOID NOT OWNED",
+          "actual_stock_text": "",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-04",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION_HANDOFF",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "formulation_selection_ready": false,
+        "quantitative_dosing_ready": false,
+        "formula_rebase_authorized": false,
+        "substitution_authorized": false,
+        "safety_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "historical_formula_rewrite_authorized": false
+      },
+      "note": "Galbanum EO is unavailable for current construction. This does not silently substitute Galbanum Resinoid or rewrite historical formulas."
+    },
+    {
+      "record_id": "INV-USER-20260904-004",
+      "canonical_name": "Benzyl Salicylate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "air_floral",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_CURRENT_STOCK_CORRECTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 41,
+          "fraction": 1.0
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 41,
+          "disposition": "OWNED",
+          "status": "HAVE - NEAT / AS SUPPLIED; USER RECONFIRMED 2026-09-01",
+          "actual_stock_text": "Benzyl Salicylate neat / as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-04",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION_HANDOFF",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "formulation_selection_ready": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_known": true,
+        "quantitative_dosing_ready": true,
+        "supplier_asserted": false,
+        "lot_asserted": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "historical_formula_rewrite_authorized": false
+      },
+      "note": "Benzyl Salicylate is back in stock neat/as supplied. This restores availability only and does not establish supplier, lot, density, safety, sensory performance, or formula authority."
+    },
+    {
+      "record_id": "INV-USER-20260904-005",
+      "canonical_name": "Ambrox Super",
+      "aliases": [
+        "Ambrox Super 25%"
+      ],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "fraction": 0.25,
+        "fraction_exact": "1/4",
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg + ipm + ethanol",
+        "fraction_authority": "EXPLICIT_USER_CURRENT_STOCK_CORRECTION",
+        "execution_ready": true,
+        "preparation_mass_g": {
+          "ambrox_super": 3.0,
+          "dpg": 7.0,
+          "ipm": 0.5,
+          "ethanol": 1.5,
+          "total": 12.0
+        }
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 30,
+          "fraction": 0.33
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 30,
+          "disposition": "OWNED",
+          "status": "HAVE - 25% W/W IN DPG + IPM + ETHANOL",
+          "actual_stock_text": "3.0 g Ambrox Super + 7.0 g DPG + 0.5 g IPM + 1.5 g ethanol; 12.0 g total",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-04",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION_HANDOFF",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "formulation_selection_ready": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_components_known": true,
+        "preparation_mass_balance_known": true,
+        "quantitative_mass_dosing_ready": true,
+        "volume_dosing_ready": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "formula_rebase_authorized": false,
+        "historical_formula_rewrite_authorized": false
+      },
+      "note": "The user-authoritative stock is exactly 25% w/w by the stated 3.0/7.0/0.5/1.5 g mass balance. Density, volume-dose equivalence, safety, stability, sensory equivalence, and formula rebasing remain unasserted."
+    }
+  ],
+  "historical_stock_records": [
+    {
+      "historical_record_id": "INV-HIST-20260904-BACDANOL-UNSPECIFIED",
+      "canonical_name": "Bacdanol",
+      "prior_state": "OWNED_STOCK_FRACTION_UNSPECIFIED",
+      "current_state": "SUPERSEDED_CURRENT_STOCK_PROVENANCE_ONLY",
+      "stock": {
+        "fraction": null,
+        "fraction_basis": "unspecified",
+        "carrier": ""
+      },
+      "source_refs": [
+        "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260829-002"
+      ],
+      "current_execution_authority": false,
+      "historical_formula_rewrite_authorized": false
+    },
+    {
+      "historical_record_id": "INV-HIST-20260904-GUAIACWOOD-NOMINAL-33",
+      "canonical_name": "Guaiacwood EO",
+      "prior_state": "OWNED_NOMINAL_33_PERCENT_BASIS_UNSPECIFIED",
+      "current_state": "SUPERSEDED_CURRENT_STOCK_PROVENANCE_ONLY",
+      "stock": {
+        "fraction": 0.33,
+        "fraction_basis": "unspecified",
+        "carrier": ""
+      },
+      "source_refs": [
+        "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260829-003"
+      ],
+      "current_execution_authority": false,
+      "historical_formula_rewrite_authorized": false
+    },
+    {
+      "historical_record_id": "INV-HIST-20260904-GALBANUM-OWNED",
+      "canonical_name": "Galbanum EO",
+      "prior_state": "OWNED_NEAT_AS_SUPPLIED",
+      "current_state": "SUPERSEDED_CURRENT_STOCK_PROVENANCE_ONLY",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": ""
+      },
+      "source_refs": [
+        "data/governance/inventory_v5_current_stock_snapshot.json#row-114"
+      ],
+      "current_execution_authority": false,
+      "historical_formula_rewrite_authorized": false
+    },
+    {
+      "historical_record_id": "INV-HIST-20260904-BENZYL-SALICYLATE-UNAVAILABLE",
+      "canonical_name": "Benzyl Salicylate",
+      "prior_state": "NOT_OWNED_20260830",
+      "current_state": "SUPERSEDED_CURRENT_STOCK_PROVENANCE_ONLY",
+      "stock": null,
+      "source_refs": [
+        "inventory.txt@2026-08-30"
+      ],
+      "current_execution_authority": false,
+      "historical_formula_rewrite_authorized": false
+    },
+    {
+      "historical_record_id": "INV-HIST-20260904-AMBROX-SUPER-33",
+      "canonical_name": "Ambrox Super",
+      "prior_state": "OWNED_33_PERCENT_WORKING_STOCK",
+      "current_state": "SUPERSEDED_CURRENT_STOCK_PROVENANCE_ONLY",
+      "stock": {
+        "fraction": 0.33,
+        "fraction_basis": "unspecified",
+        "carrier": ""
+      },
+      "source_refs": [
+        "data/governance/inventory_v5_current_stock_snapshot.json#row-30"
+      ],
+      "current_execution_authority": false,
+      "historical_formula_rewrite_authorized": false
+    }
+  ],
+  "authority_limits": {
+    "formula_mutation_authority": false,
+    "observed_formula_sensory_authority": false,
+    "liking_authority": false,
+    "similarity_authority": false,
+    "measured_oav_authority": false,
+    "safety_authority": false,
+    "stability_authority": false,
+    "procurement_authority": false,
+    "preparation_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  }
+}

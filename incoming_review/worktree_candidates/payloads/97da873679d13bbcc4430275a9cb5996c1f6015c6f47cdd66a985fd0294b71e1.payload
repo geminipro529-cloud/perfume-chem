@@ -1,0 +1,27 @@
+﻿Code,ACC-FG-APP-01
+Accord,Green Apple v1.0
+Category,Fruit & Gourmand
+Brief,"A crisp apple architecture separating high-impact ester sparkle, juicy hexyl acetate, green body, stem freshness and damascenone bloom."
+Recommended use,1–8% of perfume concentrate
+Maturation,3–7 days
+Monte Carlo pass,1.0
+Final design score,100.0
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,30.0,30.0,30.0,150.0,DIRECT,musk,Clean projection,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.004296786748494866
+2,heart_base,Iso E Super,neat / as supplied,1.0,60.0,60.0,60.0,300.0,DIRECT,transparent_wood,Dry peel support,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.010815227290409828
+3,heart,Verdox,neat / as supplied,1.0,120.0,120.0,120.0,600.0,DIRECT,green_fruit,Green apple body,Green woody-fruit body.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.042138145367680124
+4,heart,Verdyl Acetate,neat/as supplied,1.0,80.0,80.0,80.0,400.0,DIRECT,green,Fresh green volume,Green diffusive leaf body.,HAVE,Use only with exact label/stock-strength accounting.,,STRUCTURALLY IMPORTANT,0.01623260343662423
+5,heart,Allyl Cyclohexyl Propionate 10%,10% working stock,0.1,70.0,7.0,70.0,350.0,PREPARED STOCK,fruit_green,Green fruit body,Green pineapple-fruit body.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.014820725345989506
+6,heart,Beta Damascone 10%,10% working stock,0.1,12.0,1.2000000000000002,12.0,60.0,PREPARED STOCK,rose_fruit,Fruit bloom,Rosy-fruity bloom.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0013825576965361287
+7,heart,Damascenone 1%,1% working stock,0.01,5.0,0.05,5.0,25.0,PREPARED STOCK,rose_fruit,Trace apple radiance,Trace high-impact radiance.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.0005316517305242626
+8,top_heart,Hexyl Acetate 10%,Hexyl Acetate 10% working dilution,0.1,180.0,18.0,180.0,900.0,PREPARED STOCK,fruit_green,Juicy apple ester,Green apple/pear ester.,HAVE — NEAT + 10%,Formula must specify exact strength.,,IDENTITY CRITICAL,0.05362593271574714
+9,top_heart,Allyl Amyl Glycolate (AAG),Prepare 10% from neat AAG,0.1,80.0,8.0,80.0,400.0,PREPARED STOCK,fruit_green,Green pear-apple lift,Green pear/pineapple lift.,HAVE — NEAT,Old formula rows written for AAG 10% require stock-strength recalculation; do not dose neat at the old 10% volume.,Prepare only when required.,IDENTITY CRITICAL,0.01713075505540814
+10,top_heart,Linalool,neat/as supplied,1.0,20.0,20.0,20.0,100.0,DIRECT,aromatic,Fresh bridge,Floral-citrus bridge.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0024933287180388215
+11,top_heart,Undecavertol 1%,1% working stock,0.01,20.0,0.2,20.0,100.0,PREPARED STOCK,green_leaf,Wet peel,Wet green leaf.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.004150303334289033
+12,top,Ethyl 2-Methylbutyrate 0.1%,0.1% in DPG,0.001,60.0,0.06,60.0,300.0,PREPARED STOCK,fruit_green,High-impact apple top,High-impact apple ester.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.0127278550824728
+13,top,Dihydromyrcenol,neat / as supplied,1.0,45.0,45.0,45.0,225.0,DIRECT,fresh_aromatic,Juicy diffusion,High-diffusion freshness.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.007268690936589568
+14,top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,35.0,35.0,35.0,175.0,DIRECT,citrus,Citrus brightness,Floral bergamot peel.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0051691815704018075
+15,top,cis-3-Hexenol 1%,1% working stock,0.01,25.0,0.25,25.0,125.0,PREPARED STOCK,green_leaf,Stem freshness,Cut-leaf freshness.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.005433311470228063
+16,carrier,DPG,neat,0.0,158.0,0.0,158.0,790.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

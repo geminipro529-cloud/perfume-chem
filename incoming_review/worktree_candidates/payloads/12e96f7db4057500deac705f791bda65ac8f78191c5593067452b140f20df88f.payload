@@ -1,0 +1,189 @@
+"""OpenAI-only scientific AI service factory."""
+
+from typing import Any, Dict, Optional, cast
+
+from app.core.config import get_settings
+from app.core.logging import get_logger
+from app.core.models_config import (
+    ModelConfig,
+    ModelPurpose,
+    get_model_for_purpose,
+    get_model_registry,
+    validate_scientific_query,
+)
+from app.services.ai.base import BaseAIService
+from app.services.ai.factory import OPENAI_PROVIDER, AIModelDetector
+from app.services.ai.openai_service import OpenAIService
+
+logger = get_logger(__name__)
+
+
+def _require_registered_scientific_model(model_id: str) -> ModelConfig:
+    """Return the authoritative registry entry or reject the model fail-closed."""
+    ScientificAIModelDetector.detect_provider(model_id)
+    model_config = get_model_registry().get_model(model_id)
+    if model_config is None:
+        raise ValueError(
+            f"OpenAI model '{model_id}' is not registered for scientific use"
+        )
+    provider = str(getattr(model_config.provider, "value", model_config.provider))
+    if provider != OPENAI_PROVIDER:
+        raise ValueError(
+            f"Scientific model '{model_id}' is not registered as an OpenAI model"
+        )
+    return model_config
+
+
+class ScientificAIModelDetector(AIModelDetector):
+    """OpenAI model validation plus scientific-query guardrails."""
+
+    @classmethod
+    def validate_scientific_query(cls, model_id: str, query: str) -> Dict[str, Any]:
+        """Apply registry restrictions to an authoritative OpenAI model entry."""
+        _require_registered_scientific_model(model_id)
+        return cast(Dict[str, Any], validate_scientific_query(model_id, query))
+
+    @classmethod
+    def get_scientific_prompt_template(cls, model_id: str, task_type: str) -> str:
+        """Return a registered OpenAI model's scientific prompt template."""
+        _require_registered_scientific_model(model_id)
+        registry = get_model_registry()
+        return cast(str, registry.get_scientific_prompt_template(model_id, task_type))
+
+
+def create_scientific_ai_service(
+    model: Optional[str] = None,
+    purpose: Optional[ModelPurpose] = None,
+    cache: Optional[Any] = None,
+    verbose: bool = False,
+    force_provider: Optional[str] = None,
+    validate_query: Optional[str] = None,
+) -> BaseAIService:
+    """Create an OpenAI service with optional scientific-query validation."""
+    if force_provider and force_provider.strip().lower() != OPENAI_PROVIDER:
+        raise ValueError(
+            f"Unsupported scientific AI provider '{force_provider}': "
+            "only OpenAI is enabled"
+        )
+
+    settings = get_settings()
+    if model is not None:
+        service_model = model
+    elif purpose is not None:
+        purpose_model = get_model_for_purpose(purpose)
+        if purpose_model is None:
+            raise ValueError(f"No registered OpenAI model found for purpose: {purpose}")
+        service_model = purpose_model.model_id
+    else:
+        service_model = settings.OPENAI_MODEL
+    model_config = _require_registered_scientific_model(service_model)
+
+    if validate_query:
+        validation = ScientificAIModelDetector.validate_scientific_query(
+            service_model, validate_query
+        )
+        if not validation["valid"]:
+            violations = "\n".join(validation["violations"])
+            raise ValueError(
+                f"Query validation failed for model {service_model}:\n{violations}"
+            )
+
+    if verbose:
+        purpose_text = purpose.value if purpose else "unspecified"
+        logger.info(
+            "Creating registered OpenAI scientific service %s for %s (%s)",
+            service_model,
+            purpose_text,
+            model_config.data_provenance,
+        )
+
+    service = OpenAIService(cache=cache, model=service_model)
+    if validate_query:
+        template = ScientificAIModelDetector.get_scientific_prompt_template(
+            service_model, "chemical_literature"
+        )
+        if template:
+            service.system_prompt = template.format(task=validate_query)
+    return service
+
+
+def get_scientific_model_selector() -> Dict[str, Any]:
+    """Return scientific selector metadata without advertising other providers."""
+    settings = get_settings()
+    configured_model = _require_registered_scientific_model(settings.OPENAI_MODEL)
+    registry = get_model_registry()
+    purpose_metadata = {
+        "chemical_literature_analysis": (
+            "Chemical Literature Analysis",
+            "Analysis of GCMS data and chemical compositions",
+        ),
+        "scientific_paper_analysis": (
+            "Scientific Paper Analysis",
+            "Extraction and analysis of scientific literature",
+        ),
+        "perfume_formulation_analysis": (
+            "Perfume Formulation Analysis",
+            "Analysis of perfume formulations and patents",
+        ),
+        "general_knowledge": (
+            "General Knowledge",
+            "General information and analysis",
+        ),
+    }
+    purposes: Dict[str, Dict[str, Any]] = {
+        key: {
+            "name": name,
+            "description": description,
+            "models": [],
+        }
+        for key, (name, description) in purpose_metadata.items()
+    }
+    for model_config in registry.models.values():
+        provider = str(getattr(model_config.provider, "value", model_config.provider))
+        if provider != OPENAI_PROVIDER:
+            continue
+        purpose_key = str(getattr(model_config.purpose, "value", model_config.purpose))
+        if purpose_key not in purposes:
+            continue
+        license_value = str(getattr(model_config.license, "value", model_config.license))
+        purposes[purpose_key]["models"].append(
+            {
+                "id": model_config.model_id,
+                "name": model_config.display_name,
+                "provider": provider,
+                "context_window": model_config.context_window,
+                "scientific_accuracy": model_config.scientific_accuracy_score,
+                "restrictions": list(model_config.restrictions),
+                "data_provenance": model_config.data_provenance,
+                "license": license_value,
+            }
+        )
+    return {
+        "purposes": purposes,
+        "data_provenance_requirements": [
+            "All models must track source, version, and training data",
+            "No synthetic data generation allowed",
+            "Citations required for all data sources",
+            "Cross-referencing required for scientific claims",
+        ],
+        "default_purpose": "chemical_literature_analysis",
+        "default_provider": OPENAI_PROVIDER,
+        "default_model": configured_model.model_id,
+    }
+
+
+def validate_and_create_service(
+    query: str,
+    purpose: ModelPurpose = ModelPurpose.CHEMICAL_LITERATURE_ANALYSIS,
+    cache: Optional[Any] = None,
+    verbose: bool = False,
+) -> BaseAIService:
+    """Validate a scientific query and create the configured OpenAI service."""
+    service = create_scientific_ai_service(
+        purpose=purpose,
+        cache=cache,
+        verbose=verbose,
+        validate_query=query,
+    )
+    logger.info("Created OpenAI scientific service for %s", purpose.value)
+    return service

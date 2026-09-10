@@ -1,0 +1,50 @@
+{
+  "schema": "direct_user_inventory_confirmation_receipt_v1",
+  "date": "2026-09-06",
+  "source_kind": "DIRECT_USER_STATEMENT",
+  "source_quote": "I have black pepper, geranium EO in both neat and 10%, violet in violet leaf absolute, and neat neroli",
+  "canonical_inventory_sync": "PENDING_SUPPORTED_SUCCESSOR_UPDATE",
+  "engine_authority_applied": false,
+  "records": [
+    {
+      "material": "Black Pepper EO",
+      "state": "OWNED",
+      "basis": "existing inventory neat/as-supplied convention",
+      "note": "User reconfirms black pepper availability; mapped to the existing Black Pepper EO entry. Exact lot and remaining quantity are not asserted."
+    },
+    {
+      "material": "Geranium EO",
+      "state": "OWNED",
+      "fraction": 1.0,
+      "fraction_basis": "neat",
+      "carrier": "none",
+      "note": "Direct confirmation of a neat Geranium EO bottle. Supplier, species and exact relationship to the separately named Geranium Flower EO entry are not newly asserted."
+    },
+    {
+      "material": "Geranium EO",
+      "state": "OWNED",
+      "fraction": 0.1,
+      "fraction_basis": "nominal volumetric under prior user convention",
+      "carrier": "ethanol assumed under prior user fallback",
+      "note": "Separate 10% bottle confirmed. Carrier and basis were not restated; the user's standing nominal convention is retained as an assumption, not a measurement."
+    },
+    {
+      "material": "Violet Leaf Absolute",
+      "state": "OWNED",
+      "last_recorded_stock": "10% in DPG",
+      "stock_strength_reconfirmed_in_this_message": false,
+      "note": "Availability reconfirmed. Keep the prior 10% DPG record pending a direct strength correction; do not infer neat absolute or substitute this for ionone/irone materials."
+    },
+    {
+      "material": "Neroli EO",
+      "state": "OWNED",
+      "fraction": 1.0,
+      "fraction_basis": "neat",
+      "carrier": "none",
+      "note": "New direct confirmation of neat Neroli EO. Preserve distinction from the previously recorded 10% DPG stock; this statement does not explicitly withdraw that older bottle."
+    }
+  ],
+  "formula_effect": "No dose change to Prada L'Homme Intense Astra V2. Newly confirmed availability does not establish that these materials belong in the Intense formula or that the regular EDT reference gate is applicable.",
+  "kephalis_correction": "Kephalis remains not owned per the earlier direct statement and is absent from V2.",
+  "authority_limit": "This sidecar preserves direct user evidence. It is not a hash-pinned successor overlay loaded by the current engine. No existing pins, inventory text or stock records were overwritten."
+}

@@ -1,0 +1,532 @@
+[
+  {
+    "name": "Allyl Amyl Glycolate",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 158.19,
+        "pubchem_value": 186.25,
+        "delta": 28.06,
+        "name": "Allyl Amyl Glycolate",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      },
+      {
+        "field": "logp",
+        "db_value": 1.5,
+        "pubchem_value": 2.3,
+        "delta": 0.8,
+        "name": "Allyl Amyl Glycolate",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Allyl Ionone",
+    "flags": [
+      {
+        "field": "logp",
+        "db_value": 5.3,
+        "pubchem_value": 4,
+        "delta": 1.3,
+        "name": "Allyl Ionone",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Alpha Isomethyl Ionone",
+    "flags": [
+      {
+        "field": "logp",
+        "db_value": 4.1,
+        "pubchem_value": 3.3,
+        "delta": 0.8,
+        "name": "Alpha Isomethyl Ionone",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Amber Xtreme",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 236.0,
+        "pubchem_value": 264.4,
+        "delta": 28.4,
+        "name": "Amber Xtreme",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      },
+      {
+        "field": "logp",
+        "db_value": 4.5,
+        "pubchem_value": 5.3,
+        "delta": 0.8,
+        "name": "Amber Xtreme",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Apritone",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 178.27,
+        "pubchem_value": 220.35,
+        "delta": 42.08,
+        "name": "Apritone",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      },
+      {
+        "field": "logp",
+        "db_value": 3.2,
+        "pubchem_value": 4.2,
+        "delta": 1.0,
+        "name": "Apritone",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Aurantiol",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 305.4,
+        "pubchem_value": 254.26,
+        "delta": 51.14,
+        "name": "Aurantiol",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      },
+      {
+        "field": "logp",
+        "db_value": 4.8,
+        "pubchem_value": 0,
+        "delta": 4.8,
+        "name": "Aurantiol",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Azarbre",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 220.0,
+        "pubchem_value": 180.29,
+        "delta": 39.71,
+        "name": "Azarbre",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      },
+      {
+        "field": "logp",
+        "db_value": 4.8,
+        "pubchem_value": 2.9,
+        "delta": 1.9,
+        "name": "Azarbre",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Benzyl Salicylate",
+    "flags": [
+      {
+        "field": "logp",
+        "db_value": 4.31,
+        "pubchem_value": 3.2,
+        "delta": 1.11,
+        "name": "Benzyl Salicylate",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Bourgeonal",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 176.25,
+        "pubchem_value": 190.28,
+        "delta": 14.03,
+        "name": "Bourgeonal",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Citronellol",
+    "flags": [
+      {
+        "field": "logp",
+        "db_value": 3.91,
+        "pubchem_value": 3.2,
+        "delta": 0.71,
+        "name": "Citronellol",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Damascenone",
+    "flags": [
+      {
+        "field": "logp",
+        "db_value": 3.9,
+        "pubchem_value": 3.2,
+        "delta": 0.7,
+        "name": "Damascenone",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Dihydro Beta Ionone",
+    "flags": [
+      {
+        "field": "logp",
+        "db_value": 4.5,
+        "pubchem_value": 2.7,
+        "delta": 1.8,
+        "name": "Dihydro Beta Ionone",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Dihydromyrcenol",
+    "flags": [
+      {
+        "field": "logp",
+        "db_value": 3.47,
+        "pubchem_value": 2.9,
+        "delta": 0.57,
+        "name": "Dihydromyrcenol",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Dipropylene Glycol",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 134.17,
+        "pubchem_value": 268.35,
+        "delta": 134.18,
+        "name": "Dipropylene Glycol",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Ebanol",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 220.35,
+        "pubchem_value": 208.34,
+        "delta": 12.01,
+        "name": "Ebanol",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      },
+      {
+        "field": "logp",
+        "db_value": 4.5,
+        "pubchem_value": 3.3,
+        "delta": 1.2,
+        "name": "Ebanol",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Ethyl Linalool",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 182.3,
+        "pubchem_value": 168.28,
+        "delta": 14.02,
+        "name": "Ethyl Linalool",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Ethyl Maltol",
+    "flags": [
+      {
+        "field": "logp",
+        "db_value": 0.03,
+        "pubchem_value": 0.8,
+        "delta": 0.77,
+        "name": "Ethyl Maltol",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Ethyl Safranate",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 168.23,
+        "pubchem_value": 194.27,
+        "delta": 26.04,
+        "name": "Ethyl Safranate",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Floralozone",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 192.26,
+        "pubchem_value": 184.27,
+        "delta": 7.99,
+        "name": "Floralozone",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      },
+      {
+        "field": "logp",
+        "db_value": 2.6,
+        "pubchem_value": 3.4,
+        "delta": 0.8,
+        "name": "Floralozone",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Florol",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 154.25,
+        "pubchem_value": 138.21,
+        "delta": 16.04,
+        "name": "Florol",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      },
+      {
+        "field": "logp",
+        "db_value": 2.3,
+        "pubchem_value": 1.4,
+        "delta": 0.9,
+        "name": "Florol",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Geraniol",
+    "flags": [
+      {
+        "field": "logp",
+        "db_value": 3.56,
+        "pubchem_value": 2.9,
+        "delta": 0.66,
+        "name": "Geraniol",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Helional",
+    "flags": [
+      {
+        "field": "logp",
+        "db_value": 1.7,
+        "pubchem_value": 2.2,
+        "delta": 0.5,
+        "name": "Helional",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Hexyl Salicylate",
+    "flags": [
+      {
+        "field": "logp",
+        "db_value": 4.87,
+        "pubchem_value": 5.7,
+        "delta": 0.83,
+        "name": "Hexyl Salicylate",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Mayol",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 166.3,
+        "pubchem_value": 156.26,
+        "delta": 10.04,
+        "name": "Mayol",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Melonal",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 156.22,
+        "pubchem_value": 140.22,
+        "delta": 16.0,
+        "name": "Melonal",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Peonile",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 197.27,
+        "pubchem_value": 192.3,
+        "delta": 4.97,
+        "name": "Peonile",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Romandolide",
+    "flags": [
+      {
+        "field": "logp",
+        "db_value": 4.56,
+        "pubchem_value": 4,
+        "delta": 0.56,
+        "name": "Romandolide",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Terpinyl Acetate",
+    "flags": [
+      {
+        "field": "logp",
+        "db_value": 3.48,
+        "pubchem_value": 2.4,
+        "delta": 1.08,
+        "name": "Terpinyl Acetate",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Timberol",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 210.36,
+        "pubchem_value": 226.4,
+        "delta": 16.04,
+        "name": "Timberol",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      },
+      {
+        "field": "logp",
+        "db_value": 4.1,
+        "pubchem_value": 5.2,
+        "delta": 1.1,
+        "name": "Timberol",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Triethyl Citrate",
+    "flags": [
+      {
+        "field": "logp",
+        "db_value": 1.2,
+        "pubchem_value": 0.1,
+        "delta": 1.1,
+        "name": "Triethyl Citrate",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Triplal",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 152.23,
+        "pubchem_value": 138.21,
+        "delta": 14.02,
+        "name": "Triplal",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      },
+      {
+        "field": "logp",
+        "db_value": 2.5,
+        "pubchem_value": 1.4,
+        "delta": 1.1,
+        "name": "Triplal",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Verdox",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 170.25,
+        "pubchem_value": 198.3,
+        "delta": 28.05,
+        "name": "Verdox",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Vertofix",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 234.38,
+        "pubchem_value": 246.4,
+        "delta": 12.02,
+        "name": "Vertofix",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      },
+      {
+        "field": "logp",
+        "db_value": 5.0,
+        "pubchem_value": 4,
+        "delta": 1.0,
+        "name": "Vertofix",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  },
+  {
+    "name": "Vetival",
+    "flags": [
+      {
+        "field": "mw",
+        "db_value": 218.33,
+        "pubchem_value": 262.4,
+        "delta": 44.07,
+        "name": "Vetival",
+        "action": "AUTO-OVERRIDE: PubChem trusted"
+      }
+    ]
+  }
+]

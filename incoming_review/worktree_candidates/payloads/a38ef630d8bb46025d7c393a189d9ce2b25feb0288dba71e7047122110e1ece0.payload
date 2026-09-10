@@ -1,0 +1,43 @@
+{
+  "schema_version": "chatgpt_browser_capture_manifest_v1",
+  "capture_id": "chat-f-rights-6a753b43-20260819t121134z",
+  "recorded_at": "2026-08-19T12:11:34Z",
+  "source": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "project_name": "Complex Perfumery",
+    "conversation_id": "6a753b43-9644-83ec-92ad-7d66d62e7ebe",
+    "conversation_url": "https://chatgpt.com/g/g-p-6a74ab83668081919f5cbd0dfe80eb09-complex-perfumery/c/6a753b43-9644-83ec-92ad-7d66d62e7ebe",
+    "conversation_title": "Chat F Completion",
+    "attachment_name": "Perfume_Chem_External_Evidence_F_Lane_v1.zip",
+    "capture_surface": "AUTHENTICATED_CHATGPT_BROWSER_ATTACHMENT_DOWNLOAD",
+    "claimed_sha256": "ca290ec0819bc2381beec4a3a53d504517996ac092d050d0bd5d11bf5556b6b0"
+  },
+  "package": {
+    "path": "incoming_review/chatgpt/20260819T121134Z-chat-f-rights-6a753b43/Perfume_Chem_External_Evidence_F_Lane_v1.zip",
+    "byte_size": 68531,
+    "sha256": "ca290ec0819bc2381beec4a3a53d504517996ac092d050d0bd5d11bf5556b6b0",
+    "media_type": "application/zip",
+    "archive_entry_count": 20,
+    "archive_file_count": 20,
+    "package_root": null,
+    "internal_checksum_entries_verified": 19,
+    "archive_scan_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "archive_scan_promotion_allowed": false
+  },
+  "rights": {
+    "reuse_status": "UNKNOWN",
+    "redistribution_allowed": false,
+    "reason": "The package supplies no exact source-rights artifacts and no included terms snapshots; its source classifications cannot establish permission, redistribution, commercial, publication, or ML rights."
+  },
+  "disposition": {
+    "state": "EXACT_BROWSER_ATTACHMENT_CAPTURED_QUARANTINED",
+    "package_content_import_allowed": false,
+    "generated_row_projection_allowed": false,
+    "source_table_admission_allowed": false,
+    "formula_mutation_allowed": false,
+    "physical_truth_upgrade_allowed": false,
+    "release_allowed": false,
+    "notes": "The exact 80-row secondary governance package is recovered, but every row declares that its rights artifact is absent, 65 rows were not live-verified in the F lane, and the baseline parent bytes are not included. Do not import blanket permission labels. Any future source use must bind exact source and terms bytes into native operation-scoped constraints and remain HOLD until reviewed."
+  },
+  "receipt_sha256": "89e330f2dd5201267de98e56540628630ca9befce81c06616e0d5eba66a58f3a"
+}

@@ -1,0 +1,32 @@
+{
+  "arm": "CONTROL",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-C02",
+  "completed_utc": "2026-08-26T07:36:58.232547+00:00",
+  "dispatch_sha256": "995d87a3585aa9ed582c9075523968c288967925c394cff712946204c401ed52",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "aa7acb5cd88b20a818e15b32ed292508a31bfcbd45591c24b5f0b132d4b4de2d",
+  "output_text": "{\"decision_state\":\"NO_CHANGE\",\"target_linked_reasoning\":\"The single declared musk function is already covered by Habanolide. Romandolide is proposed only to increase ingredient count, with no evidence of a distinct target-linked function, added depth, or nonredundancy. The current composition therefore satisfies the stated cool diffusive mineral musk-tail target without replacement or addition.\",\"controlled_comparison\":{\"baseline\":\"Habanolide alone\",\"variant\":\"Habanolide plus Romandolide, all other variables held constant\",\"discriminator\":\"A distinct, reproducible contribution to the declared target beyond the already-covered musk function\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"DECLARED_FUNCTION_ALREADY_COVERED\",\"SECOND_MUSK_FUNCTION_UNSPECIFIED\",\"NONREDUNDANCY_NOT_ESTABLISHED\",\"INGREDIENT_COUNT_NOT_COMPLEXITY\"],\"calculations\":{\"declared_musk_function_count\":1,\"covered_musk_function_count\":1,\"unmet_musk_function_count\":0},\"next_actions\":[\"Only if further differentiation is sought, conduct the specified controlled comparison and retain Romandolide only upon evidence of a distinct target-linked contribution.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "CONFIRM",
+  "prompt_sha256": "f6b325efbbd0066a7b32eab62da983a1620a2d009e252c2081980f65c4aa24a8",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-be3050e8cfc748bba37b",
+  "role": "CONTROL",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:36:37.270218+00:00",
+  "stderr_sha256": "fe4c2a7f504d195e83860a528fb132482bf1c5bb6d4eed00fbfd859213f412e8",
+  "stderr_tail": "OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"NO_CHANGE\",\"target_linked_reasoning\":\"The single declared musk function is already covered by Habanolide. Romandolide is proposed only to increase ingredient count, with no evidence of a distinct target-linked function, added depth, or nonredundancy. The current composition therefore satisfies the stated cool diffusive mineral musk-tail target without replacement or addition.\",\"controlled_comparison\":{\"baseline\":\"Habanolide alone\",\"variant\":\"Habanolide plus Romandolide, all other variables held constant\",\"discriminator\":\"A distinct, reproducible contribution to the declared target beyond the already-covered musk function\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"DECLARED_FUNCTION_ALREADY_COVERED\",\"SECOND_MUSK_FUNCTION_UNSPECIFIED\",\"NONREDUNDANCY_NOT_ESTABLISHED\",\"INGREDIENT_COUNT_NOT_COMPLEXITY\"],\"calculations\":{\"declared_musk_function_count\":1,\"covered_musk_function_count\":1,\"unmet_musk_function_count\":0},\"next_actions\":[\"Only if further differentiation is sought, conduct the specified controlled comparison and retain Romandolide only upon evidence of a distinct target-linked contribution.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n1,219\n",
+  "stdout_sha256": "2a6e17595576132b37493fb2ab282c571f2d251372668156f07e174776206354"
+}

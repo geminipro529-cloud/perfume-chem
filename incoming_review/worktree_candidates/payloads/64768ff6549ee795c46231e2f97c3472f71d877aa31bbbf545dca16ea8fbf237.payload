@@ -1,0 +1,3084 @@
+"""Shared inventory parsing and physical-stock authority utilities.
+
+``inventory.txt`` remains a legacy compatibility surface. Executable stock
+binding uses the hash-pinned Inventory V5 ``Current Inventory Master``
+snapshot, while requirement/preparation rows remain non-owned evidence.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import re
+from dataclasses import dataclass, replace
+from pathlib import Path
+from typing import Any, Mapping
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+INVENTORY_PATH = PROJECT_ROOT / "inventory.txt"
+CURRENT_INVENTORY_SNAPSHOT_PATH = (
+    PROJECT_ROOT / "data" / "governance" / "inventory_v5_current_stock_snapshot.json"
+)
+CURRENT_INVENTORY_ALIAS_CROSSWALK_PATH = (
+    PROJECT_ROOT / "data" / "governance" / "inventory_v5_alias_crosswalk_20260811.json"
+)
+BASE_USER_INVENTORY_OVERLAY_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "governance"
+    / "inventory_user_authority_overlay_20260828.json"
+)
+PREVIOUS_USER_INVENTORY_OVERLAY_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "governance"
+    / "inventory_user_authority_overlay_20260904.json"
+)
+ORRIS_USER_INVENTORY_OVERLAY_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "governance"
+    / "inventory_user_authority_overlay_20260905.json"
+)
+NEROLI_USER_INVENTORY_OVERLAY_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "governance"
+    / "inventory_user_authority_overlay_20260906.json"
+)
+RECONCILED_USER_INVENTORY_OVERLAY_PATH = (
+    PROJECT_ROOT / "data/governance/inventory_user_authority_overlay_20260907.json"
+)
+TINCTURES_USER_INVENTORY_OVERLAY_PATH = (
+    PROJECT_ROOT / "data/governance/inventory_user_authority_overlay_20260908.json"
+)
+AHSEE_USER_INVENTORY_OVERLAY_PATH = (
+    PROJECT_ROOT / "data/governance/inventory_user_authority_overlay_20260908_ahsee.json"
+)
+ROMANDOLIDE_USER_INVENTORY_OVERLAY_PATH = (
+    PROJECT_ROOT / "data/governance/inventory_user_authority_overlay_20260908_romandolide.json"
+)
+FLORHYDRAL_USER_INVENTORY_OVERLAY_PATH = (
+    PROJECT_ROOT / "data/governance/inventory_user_authority_overlay_20260910_florhydral.json"
+)
+CURRENT_USER_INVENTORY_OVERLAY_PATH = (
+    PROJECT_ROOT / "data/governance/inventory_user_authority_overlay_20260910_romandolide_restocked.json"
+)
+CURRENT_INVENTORY_WORKBOOK_SHA256 = (
+    "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331"
+)
+CURRENT_INVENTORY_SNAPSHOT_SHA256 = (
+    "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99"
+)
+CURRENT_INVENTORY_ALIAS_CROSSWALK_SHA256 = (
+    "4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6"
+)
+CURRENT_INVENTORY_AUTHORITY = "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT"
+BASE_USER_INVENTORY_OVERLAY_SHA256 = (
+    "9d0f3750e897e13758a1180e158adca464449e9d6dfac176460ba18868a17564"
+)
+BASE_USER_INVENTORY_TEXT_SIZE_BYTES = 20256
+BASE_USER_INVENTORY_TEXT_SHA256 = (
+    "46b34ae73406ff3d71c60d77298a0c22f6aeafe74aa2a4c510f554e3840595bf"
+)
+PREVIOUS_USER_INVENTORY_OVERLAY_SHA256 = (
+    "e2fe66cb8077da38142913a73b0d77acd14b6e4953f6155bb2011e1e2bb851a4"
+)
+PREVIOUS_USER_INVENTORY_TEXT_SIZE_BYTES = 20906
+PREVIOUS_USER_INVENTORY_TEXT_SHA256 = (
+    "f5c1c046f4654c76c94e0aa77c39976cae6b7bba263f9654e20b92881ecdfb14"
+)
+ORRIS_USER_INVENTORY_OVERLAY_SHA256 = (
+    "08d0f0e41f90741200b3e915789ddd044cbbf7b0ce1b1aa266053452781bb17f"
+)
+ORRIS_USER_INVENTORY_TEXT_SIZE_BYTES = 20884
+ORRIS_USER_INVENTORY_TEXT_SHA256 = (
+    "146f74d7cd40ea7b8b8d57285625cc36c2ab84a3663309d8ef0c903860b97fbc"
+)
+NEROLI_USER_INVENTORY_OVERLAY_SHA256 = (
+    "b06024fdef65355c354a4c5a2618d482f215df42a21c2d56aed896bbfb8c305f"
+)
+RECONCILED_USER_INVENTORY_OVERLAY_SHA256 = "4868678b5e742b309c929d4021530912630ef7ff172c6a7124a08baa07db7f77"
+TINCTURES_USER_INVENTORY_OVERLAY_SHA256 = "1e5d1cedeeeaa7adef9116f8e4896b5e3e68e10f817fd0ce0338c30187548419"
+AHSEE_USER_INVENTORY_OVERLAY_SHA256 = "dd779bd93e1e9191988b67aeb637f8362dfefb9e4696f86354ef6a371b85ee5d"
+ROMANDOLIDE_USER_INVENTORY_OVERLAY_SHA256 = "7265242bd4136333d592004b4ddb9382cd0cd8a1ad364b75085e98290f1a98d8"
+FLORHYDRAL_USER_INVENTORY_OVERLAY_SHA256 = "73d004a40c217c3c071b047f2fbaac6285df174d131bcfa7a394d3d18fb93205"
+CURRENT_USER_INVENTORY_OVERLAY_SHA256 = "8e6e58203c50db9cb2c73c03cb0a9477127a3143807caf8e3bf849fc8fd7f9fc"
+ROMANDOLIDE_DEPLETION_CONFIRMATION_SHA256 = "5b94ac7cf95a0ee0bb4fc0754a97bda4b0be5aae910c13c7fc4557317f823ade"
+FLORHYDRAL_ADDITION_CONFIRMATION_SHA256 = "ff481e5e993f749ce6a5ee0dd8a9606b698c03a17caeac86d1c3adf85065389d"
+ROMANDOLIDE_RESTOCK_CONFIRMATION_SHA256 = "42409d0d5420dd66eee3ae845fa2fc6ba701a2f72b9d53f44cda1a1beaabe53b"
+AHSEE_STOCK_CONFIRMATION_SHA256 = "08f165d17c3128256a4d98b3eed0762aceb5df8fb4dc728608b96355cc37afec"
+CURRENT_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260908"
+FLORHYDRAL_USER_INVENTORY_AUTHORITY = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260910"
+
+_HEADING_RE = re.compile(r"^---\s+(.+?)\s+---$")
+_BULLET_RE = re.compile(r"^[-•]\s+(.+?)\s*$")
+_PERCENT_RE = re.compile(r"\(\s*~?\s*(\d+(?:\.\d+)?)\s*%(?:[^)]*)\)")
+
+_SOLVENT_CATEGORY_TOKENS = ("solvent", "carrier")
+_SOLVENT_MATERIALS = {
+    "ethanol 96%",
+    "dipropylene glycol",
+    "dpg",
+    "isopropyl myristate",
+    "ipm",
+    "triethyl citrate",
+    "tec",
+    "diethyl phthalate",
+    "dep",
+}
+
+
+def _identity_crosswalk_key(value: object) -> str:
+    """Normalize case/spacing only; never expand the exact source-label set."""
+
+    return re.sub(r"\s+", " ", str(value or "").strip()).casefold()
+
+
+@dataclass(frozen=True)
+class InventoryMaterial:
+    name: str
+    dilution: float
+    category: str
+    raw_name: str
+    status: str
+    fraction_basis: str = "unspecified"
+    carrier: str = ""
+    approximate: bool = False
+    identity_name: str = ""
+    stock_id: str = ""
+    authority: str = "LEGACY_INVENTORY_TEXT"
+    source_rows: tuple[int, ...] = ()
+    source_ref: str = ""
+    execution_ready: bool = True
+    execution_hold_reason: str = ""
+    requirement_state: str = ""
+
+
+@dataclass(frozen=True)
+class InventoryRequirement:
+    """One V5 requirement/demand row; never proof of physical ownership."""
+
+    canonical_name: str
+    identity_name: str
+    requested_fraction: float | None
+    fraction_basis: str
+    carrier: str
+    disposition: str
+    source_row: int
+    status: str
+    actual_stock_text: str
+    can_prepare: str
+    category: str
+
+
+@dataclass(frozen=True)
+class CurrentInventoryMaterialization:
+    """Lossless V5 authority projection split into stocks and requirements."""
+
+    stocks: tuple[InventoryMaterial, ...]
+    requirements: tuple[InventoryRequirement, ...]
+    source_workbook_sha256: str
+    snapshot_sha256: str
+    overlay_sha256: str = ""
+
+
+@dataclass(frozen=True)
+class InventoryV5AliasContract:
+    """One identity-only route into an exact, unchanged V5 source row."""
+
+    contract_id: str
+    source: str
+    destination: str
+    current_master_row: int
+    expected_route: str
+    required_witnesses: tuple[str, ...]
+    native_disposition: str
+
+
+@dataclass(frozen=True)
+class CurrentInventoryAliasCrosswalk:
+    """Hash- and row-bound V5 label crosswalk with no stock authority."""
+
+    contracts: tuple[InventoryV5AliasContract, ...]
+    crosswalk_sha256: str
+    source_workbook_sha256: str
+    snapshot_sha256: str
+
+    def resolve(self, source_label: str) -> InventoryV5AliasContract | None:
+        source_key = _identity_crosswalk_key(source_label)
+        for contract in self.contracts:
+            if _identity_crosswalk_key(contract.source) == source_key:
+                return contract
+        return None
+
+
+class InventoryAuthorityError(ValueError):
+    """Raised when the executable inventory authority is absent or drifts."""
+
+
+@dataclass(frozen=True)
+class StockSpecification:
+    """One declared stock fraction without pretending unlike bases are equivalent."""
+
+    fraction: float
+    fraction_basis: str
+    carrier: str
+    approximate: bool
+    declared: bool
+    raw: str
+
+    def as_dict(self) -> dict[str, object]:
+        return {
+            "fraction": self.fraction,
+            "fraction_basis": self.fraction_basis,
+            "carrier": self.carrier,
+            "approximate": self.approximate,
+            "declared": self.declared,
+            "raw": self.raw,
+        }
+
+
+def _parse_dilution(raw_name: str) -> float:
+    match = _PERCENT_RE.search(raw_name)
+    if not match:
+        raise ValueError("stock concentration is not explicitly declared")
+    return float(match.group(1)) / 100.0
+
+
+def _normalize_carrier(value: str) -> str:
+    value = re.sub(r"\b\d+\s*:\s*\d+\b", "", value)
+    value = re.sub(r"\s+", " ", value.strip(" .,:;)-").lower())
+    return value
+
+
+def parse_stock_specification(
+    raw: str,
+    *,
+    assume_neat_when_missing: bool = False,
+) -> StockSpecification:
+    """Parse fraction, physical basis, and carrier from inventory/formula text.
+
+    A bare inventory entry means neat by repository convention.  A blank or dash
+    in a formula does not: callers can therefore distinguish an explicit neat
+    declaration from missing stock metadata.
+    """
+
+    text = str(raw or "").strip().replace("**", "").replace("`", "")
+    low = text.lower()
+    explicit_neat = low in {"neat", "pure", "undiluted"}
+    match = re.search(r"~?\s*(\d+(?:[.,]\d+)?)\s*%", text)
+    fraction_match = re.search(
+        r"\bexactly\s+(\d+)\s*/\s*(\d+)\b",
+        text,
+        flags=re.IGNORECASE,
+    )
+
+    if fraction_match is not None:
+        numerator = int(fraction_match.group(1))
+        denominator = int(fraction_match.group(2))
+        if numerator <= 0 or denominator <= 0 or numerator > denominator:
+            raise ValueError("stock fraction must be within (0, 1]")
+        fraction = numerator / denominator
+        if re.search(r"\bw\s*/\s*w\b", low):
+            basis = "mass_fraction"
+        elif re.search(r"\bw\s*/\s*v\b", low):
+            basis = "mass_per_volume"
+        elif re.search(r"\bv\s*/\s*v\b", low):
+            basis = "volume_fraction"
+        else:
+            basis = "unspecified"
+        declared = True
+    elif explicit_neat or (match is None and assume_neat_when_missing):
+        fraction = 1.0
+        basis = "neat"
+        declared = True
+    elif match is not None:
+        fraction = float(match.group(1).replace(",", ".")) / 100.0
+        if re.search(r"\bw\s*/\s*w\b", low):
+            basis = "mass_fraction"
+        elif re.search(r"\bw\s*/\s*v\b", low):
+            basis = "mass_per_volume"
+        elif re.search(r"\bv\s*/\s*v\b", low):
+            basis = "volume_fraction"
+        else:
+            basis = "unspecified"
+        declared = True
+    else:
+        fraction = 1.0
+        basis = "unspecified"
+        declared = False
+
+    carrier_match = re.search(r"\bin\s+([^),;#—–]+)", text, flags=re.IGNORECASE)
+    carrier = _normalize_carrier(carrier_match.group(1)) if carrier_match else ""
+    # A preparation statement such as "30% w/v, 3 g in 10 mL" declares a
+    # concentration denominator, not the identity of a solvent. Treating
+    # "10 mL" as a carrier silently fabricates finished-matrix provenance.
+    if re.fullmatch(
+        r"\d+(?:[.,]\d+)?\s*(?:ml|ul|µl|μl|l)",
+        carrier,
+        flags=re.IGNORECASE,
+    ):
+        carrier = ""
+    approximate = bool("~" in text or re.search(r"\b(?:approx|approximately)\b", low))
+    return StockSpecification(
+        fraction=fraction,
+        fraction_basis=basis,
+        carrier=carrier,
+        approximate=approximate,
+        declared=declared,
+        raw=text,
+    )
+
+
+def _parse_status(raw_name: str) -> str:
+    upper = raw_name.upper()
+    if "PLANNED PREPARATION" in upper or "NOT YET PREPARED" in upper:
+        return "planned_preparation"
+    if "DEPLETED" in upper:
+        return "depleted"
+    if "OUT OF STOCK" in upper:
+        return "out_of_stock"
+    if "RAN OUT" in upper:
+        return "ran_out"
+    if "DON'T HAVE" in upper or "DONT HAVE" in upper or "NOT OWNED" in upper:
+        return "not_owned"
+    if "NON-EXECUTABLE" in upper or "HOMOGENEITY HOLD" in upper:
+        return "owned_non_executable"
+    return "owned"
+
+
+def _parse_execution_hold_reason(raw_name: str, status: str) -> str:
+    upper = raw_name.upper()
+    if (
+        "QUANTITATIVE DOSING REMAINS ON HOLD" in upper
+        or "NEW BOTTLE STRENGTH/CARRIER NOT STATED" in upper
+    ):
+        return "STOCK_FRACTION_UNSPECIFIED"
+    if "STOCK FRACTION UNSPECIFIED" in upper:
+        return "STOCK_FRACTION_UNSPECIFIED"
+    if "CONCENTRATION BASIS AND CARRIER UNSPECIFIED" in upper:
+        return "FRACTION_BASIS_AND_CARRIER_UNSPECIFIED"
+    if "CONCENTRATION BASIS UNSPECIFIED" in upper:
+        return "FRACTION_BASIS_UNSPECIFIED"
+    if "CARRIER UNSPECIFIED" in upper:
+        return "CARRIER_UNSPECIFIED"
+    if status == "planned_preparation":
+        return "NOT_YET_PREPARED"
+    if status == "owned_non_executable":
+        return "LEGACY_TEXT_CURRENT_STOCK_HOLD"
+    return ""
+
+
+def _strip_status(raw_name: str) -> str:
+    return re.sub(r"\s*\[[^\]]+\]\s*$", "", raw_name).strip()
+
+
+def _canonical_name(raw_name: str) -> str:
+    clean = _strip_status(re.sub(r"\s*#.*$", "", raw_name).strip())
+    # Remove trailing `# comment` before stripping parenthetical
+    clean = re.sub(r"\s*#.*$", "", clean).strip()
+    return re.sub(r"\s*\([^)]*\)\s*$", "", clean).strip()
+
+
+def _identity_name(raw_name: str) -> str:
+    """Remove stock preparation text while preserving identity-bearing variants."""
+
+    clean = _strip_status(re.sub(r"\s*#.*$", "", raw_name).strip())
+    clean = re.sub(r"\s*#.*$", "", clean).strip()
+    clean = re.sub(r"\s+\d+(?:\.\d+)?\s*%(?:\s*(?:w/w|v/v|w/v))?(?:\s+in\s+.*)?$", "", clean, flags=re.IGNORECASE).strip()
+    parenthetical = re.search(r"\s*\(([^)]*)\)\s*$", clean)
+    if not parenthetical:
+        return clean
+    content = parenthetical.group(1).lower()
+    stock_tokens = ("%", "w/w", "w/v", "v/v", "neat", "dilut", " in dpg", " in dep", " in tec", " in ipm")
+    if any(token in content for token in stock_tokens):
+        return clean[: parenthetical.start()].strip()
+    return clean
+
+
+def _is_solvent(record: InventoryMaterial) -> bool:
+    category = record.category.lower()
+    if any(token in category for token in _SOLVENT_CATEGORY_TOKENS):
+        return True
+    return record.name.lower() in _SOLVENT_MATERIALS
+
+
+def _file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def _normalized_text_bytes(path: Path) -> bytes:
+    """Return stable UTF-8 bytes independent of Git CRLF/LF checkout policy."""
+
+    return path.read_bytes().replace(b"\r\n", b"\n")
+
+
+def _normalized_text_sha256(path: Path) -> str:
+    return hashlib.sha256(_normalized_text_bytes(path)).hexdigest()
+
+
+def load_current_inventory_snapshot(
+    path: Path | None = None,
+    *,
+    require_pinned_snapshot: bool = True,
+) -> dict[str, Any]:
+    """Load and validate the lossless Current Inventory Master projection."""
+
+    snapshot_path = path or CURRENT_INVENTORY_SNAPSHOT_PATH
+    if not snapshot_path.exists():
+        raise InventoryAuthorityError(
+            f"current inventory authority is missing: {snapshot_path}"
+        )
+    snapshot_sha = _file_sha256(snapshot_path)
+    if require_pinned_snapshot and snapshot_sha != CURRENT_INVENTORY_SNAPSHOT_SHA256:
+        raise InventoryAuthorityError(
+            "current inventory snapshot hash drift: "
+            f"expected {CURRENT_INVENTORY_SNAPSHOT_SHA256}, got {snapshot_sha}"
+        )
+    try:
+        payload = json.loads(snapshot_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise InventoryAuthorityError(
+            f"current inventory snapshot is unreadable: {exc}"
+        ) from exc
+
+    source = payload.get("source") or {}
+    records = payload.get("records")
+    expected_headers = {
+        "Canonical material",
+        "Status",
+        "Actual stock(s)",
+        "Can prepare",
+        "Prior active fraction",
+    }
+    if payload.get("authority") != CURRENT_INVENTORY_AUTHORITY:
+        raise InventoryAuthorityError("current inventory authority class is invalid")
+    if source.get("sha256") != CURRENT_INVENTORY_WORKBOOK_SHA256:
+        raise InventoryAuthorityError("current inventory workbook hash is not pinned V5")
+    if source.get("sheet") != "Current Inventory Master":
+        raise InventoryAuthorityError(
+            "physical ownership must come from Current Inventory Master"
+        )
+    if not isinstance(records, list) or payload.get("row_count") != len(records):
+        raise InventoryAuthorityError("current inventory row count is inconsistent")
+    if not expected_headers.issubset(set(payload.get("headers") or [])):
+        raise InventoryAuthorityError("current inventory snapshot headers are incomplete")
+    return payload
+
+
+def _witness_text(value: object) -> str:
+    return re.sub(
+        r"\s+",
+        " ",
+        str(value or "").replace("\u2013", "-").replace("\u2014", "-").casefold(),
+    ).strip()
+
+
+def _validate_current_inventory_alias_crosswalk(
+    payload: Mapping[str, Any],
+    snapshot_payload: Mapping[str, Any],
+    *,
+    crosswalk_sha256: str,
+) -> CurrentInventoryAliasCrosswalk:
+    """Validate every package alias against the exact pinned V5 row evidence."""
+
+    if payload.get("schema_version") != "perfume_chem_inventory_v5_alias_crosswalk_v1":
+        raise InventoryAuthorityError("current inventory alias crosswalk schema is invalid")
+    if payload.get("authority_class") != "IDENTITY_CROSSWALK_ONLY":
+        raise InventoryAuthorityError("inventory alias crosswalk authority class is invalid")
+
+    source = payload.get("source")
+    if not isinstance(source, Mapping):
+        raise InventoryAuthorityError("inventory alias crosswalk source receipt is missing")
+    expected_source = {
+        "package_sha256": "7c3951ca3266b84b1fe5376375f1ca1f5588a589370ece8e21b5ac1000f22205",
+        "member_byte_size": 5003,
+        "member_sha256": "edacba08056296321ae0f7987002ea18cd0c2690913ea9d79fef495a0c10913d",
+        "inventory_workbook_sha256": CURRENT_INVENTORY_WORKBOOK_SHA256,
+        "inventory_snapshot_sha256": CURRENT_INVENTORY_SNAPSHOT_SHA256,
+    }
+    for key, expected in expected_source.items():
+        if source.get(key) != expected:
+            raise InventoryAuthorityError(
+                f"inventory alias crosswalk source binding drift: {key}"
+            )
+
+    policy = payload.get("policy")
+    expected_policy = {
+        "scope": "V5_CANDIDATE_LOOKUP_ONLY",
+        "fuzzy_matching": False,
+        "preserve_original_formula_label": True,
+        "preserve_native_stock_and_requirement_state": True,
+        "creates_stock": False,
+        "creates_preparation": False,
+        "creates_ownership": False,
+        "changes_stock_fraction": False,
+    }
+    if policy != expected_policy:
+        raise InventoryAuthorityError("inventory alias crosswalk policy is not fail closed")
+    authority = payload.get("authority")
+    if not isinstance(authority, Mapping) or not authority or any(
+        value is not False for value in authority.values()
+    ):
+        raise InventoryAuthorityError("inventory alias crosswalk authority must remain false")
+
+    raw_contracts = payload.get("contracts")
+    if not isinstance(raw_contracts, list) or len(raw_contracts) != 18:
+        raise InventoryAuthorityError("inventory alias crosswalk must contain 18 contracts")
+    snapshot_records = snapshot_payload.get("records")
+    if not isinstance(snapshot_records, list):
+        raise InventoryAuthorityError("current inventory snapshot records are missing")
+    rows: dict[int, Mapping[str, Any]] = {}
+    for raw_row in snapshot_records:
+        if not isinstance(raw_row, Mapping):
+            raise InventoryAuthorityError("current inventory snapshot row is invalid")
+        source_row = int(raw_row.get("_source_row") or 0)
+        if source_row in rows:
+            raise InventoryAuthorityError("current inventory snapshot row is duplicated")
+        rows[source_row] = raw_row
+
+    allowed_dispositions = {
+        "GUARDED_ALIAS",
+        "GUARDED_ALIAS_ABSTAIN_UNTIL_EXACT_STOCK",
+        "GUARDED_ALIAS_GAP",
+        "GUARDED_ALIAS_PREPARATION_REQUIRED",
+        "GUARDED_ALIAS_PRESERVE_HOLD",
+        "NATIVE_NOOP",
+    }
+    expected_keys = {
+        "contract_id",
+        "source",
+        "destination",
+        "current_master_row",
+        "expected_route",
+        "required_witnesses",
+        "native_disposition",
+    }
+    contracts: list[InventoryV5AliasContract] = []
+    seen_ids: set[str] = set()
+    seen_sources: set[str] = set()
+    for index, raw_contract in enumerate(raw_contracts, start=1):
+        if not isinstance(raw_contract, Mapping) or set(raw_contract) != expected_keys:
+            raise InventoryAuthorityError("inventory alias contract fields are invalid")
+        contract_id = str(raw_contract.get("contract_id") or "")
+        if contract_id != f"IDCL-{index:03d}" or contract_id in seen_ids:
+            raise InventoryAuthorityError("inventory alias contract ID sequence is invalid")
+        source_label = str(raw_contract.get("source") or "").strip()
+        destination = str(raw_contract.get("destination") or "").strip()
+        source_key = _identity_crosswalk_key(source_label)
+        if not source_key or source_key in seen_sources:
+            raise InventoryAuthorityError("inventory alias source is blank or duplicated")
+        source_row = int(raw_contract.get("current_master_row") or 0)
+        row = rows.get(source_row)
+        if row is None:
+            raise InventoryAuthorityError(
+                f"inventory alias destination row is absent: {contract_id}"
+            )
+        if str(row.get("Canonical material") or "").strip() != destination:
+            raise InventoryAuthorityError(
+                f"inventory alias destination label drift: {contract_id}"
+            )
+        witnesses = raw_contract.get("required_witnesses")
+        if (
+            not isinstance(witnesses, list)
+            or len(witnesses) != 2
+            or any(not str(value).strip() for value in witnesses)
+        ):
+            raise InventoryAuthorityError(
+                f"inventory alias witnesses are invalid: {contract_id}"
+            )
+        row_evidence = " | ".join(_witness_text(value) for value in row.values())
+        for witness in witnesses:
+            if _witness_text(witness) not in row_evidence:
+                raise InventoryAuthorityError(
+                    f"inventory alias row witness drift: {contract_id}"
+                )
+        native_disposition = str(raw_contract.get("native_disposition") or "")
+        if native_disposition not in allowed_dispositions:
+            raise InventoryAuthorityError(
+                f"inventory alias native disposition is invalid: {contract_id}"
+            )
+        contracts.append(
+            InventoryV5AliasContract(
+                contract_id=contract_id,
+                source=source_label,
+                destination=destination,
+                current_master_row=source_row,
+                expected_route=str(raw_contract.get("expected_route") or ""),
+                required_witnesses=tuple(str(value) for value in witnesses),
+                native_disposition=native_disposition,
+            )
+        )
+        seen_ids.add(contract_id)
+        seen_sources.add(source_key)
+
+    return CurrentInventoryAliasCrosswalk(
+        contracts=tuple(contracts),
+        crosswalk_sha256=crosswalk_sha256,
+        source_workbook_sha256=CURRENT_INVENTORY_WORKBOOK_SHA256,
+        snapshot_sha256=CURRENT_INVENTORY_SNAPSHOT_SHA256,
+    )
+
+
+def load_current_inventory_alias_crosswalk(
+    path: Path | None = None,
+    *,
+    snapshot_path: Path | None = None,
+    require_pinned_crosswalk: bool = True,
+    require_pinned_snapshot: bool = True,
+) -> CurrentInventoryAliasCrosswalk:
+    """Load the exact V5 lookup crosswalk or abort the binding operation.
+
+    Bypassing this optional compatibility surface can only leave a label
+    unresolved. It cannot create a stock. Any caller that uses the crosswalk
+    receives a fully hash-, row-, destination-, and witness-validated object.
+    """
+
+    crosswalk_path = path or CURRENT_INVENTORY_ALIAS_CROSSWALK_PATH
+    if not crosswalk_path.exists():
+        raise InventoryAuthorityError(
+            f"current inventory alias crosswalk is missing: {crosswalk_path}"
+        )
+    crosswalk_sha = _file_sha256(crosswalk_path)
+    if require_pinned_crosswalk and crosswalk_sha != CURRENT_INVENTORY_ALIAS_CROSSWALK_SHA256:
+        raise InventoryAuthorityError(
+            "current inventory alias crosswalk hash drift: "
+            f"expected {CURRENT_INVENTORY_ALIAS_CROSSWALK_SHA256}, got {crosswalk_sha}"
+        )
+    try:
+        payload = json.loads(crosswalk_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise InventoryAuthorityError(
+            f"current inventory alias crosswalk is unreadable: {exc}"
+        ) from exc
+    snapshot_payload = load_current_inventory_snapshot(
+        snapshot_path,
+        require_pinned_snapshot=require_pinned_snapshot,
+    )
+    return _validate_current_inventory_alias_crosswalk(
+        payload,
+        snapshot_payload,
+        crosswalk_sha256=crosswalk_sha,
+    )
+
+
+def _v5_identity_name(canonical_name: str) -> str:
+    """Strip a requested stock suffix without stripping chemical identity text."""
+
+    clean = re.sub(r"\s+", " ", str(canonical_name or "").strip())
+    clean = re.sub(
+        r"\s+~?\d+(?:[.,]\d+)?\s*%"
+        r"(?:\s*(?:w\s*/\s*w|w\s*/\s*v|v\s*/\s*v))?"
+        r"(?:\s+in\s+(?:dpg|dep|tec|ipm|ethanol))?\s*$",
+        "",
+        clean,
+        flags=re.IGNORECASE,
+    )
+    return re.sub(r"\s+", " ", clean).strip()
+
+
+def _carrier_from_stock_text(text: str, *, start: int = 0) -> str:
+    tail = text[start:]
+    match = re.search(
+        r"\b(dpg|dipropylene glycol|dep|diethyl phthalate|tec|triethyl citrate|"
+        r"ipm|isopropyl myristate|ethanol|ethyl alcohol)\b",
+        tail,
+        flags=re.IGNORECASE,
+    )
+    return _normalize_carrier(match.group(1)) if match else ""
+
+
+def _actual_stock_specs(
+    actual_stock_text: str,
+    status: str,
+) -> list[tuple[StockSpecification, str]]:
+    """Extract only explicit physical concentrations from a V5 actual-stock cell."""
+
+    actual = re.sub(r"\s+", " ", str(actual_stock_text or "").strip())
+    if not actual:
+        return []
+    segments = [
+        segment.strip()
+        for segment in re.split(r"\s*;\s*|\s+\+\s+", actual)
+        if segment.strip()
+    ]
+    extracted: list[tuple[StockSpecification, str]] = []
+    seen: set[tuple[float, str, str, str]] = set()
+    for segment in segments:
+        low = segment.lower()
+        if re.search(r"\bneat\b", low):
+            spec = StockSpecification(
+                fraction=1.0,
+                fraction_basis="neat",
+                carrier="",
+                approximate=False,
+                declared=True,
+                raw=segment,
+            )
+            key = (1.0, "neat", "", low)
+            if key not in seen:
+                seen.add(key)
+                extracted.append((spec, segment))
+
+        for match in re.finditer(r"~?\s*(\d+(?:[.,]\d+)?)\s*%", segment):
+            fraction = float(match.group(1).replace(",", ".")) / 100.0
+            if not 0.0 < fraction <= 1.0:
+                continue
+            basis_context = segment[max(0, match.start() - 8) : match.end() + 12].lower()
+            if re.search(r"\bw\s*/\s*w\b", basis_context):
+                basis = "mass_fraction"
+            elif re.search(r"\bw\s*/\s*v\b", basis_context):
+                basis = "mass_per_volume"
+            elif re.search(r"\bv\s*/\s*v\b", basis_context):
+                basis = "volume_fraction"
+            else:
+                basis = "unspecified"
+            carrier = _carrier_from_stock_text(segment, start=match.end())
+            descriptor = f"{segment} [{fraction:.12g}]"
+            spec = StockSpecification(
+                fraction=fraction,
+                fraction_basis=basis,
+                carrier=carrier,
+                approximate="~" in match.group(0),
+                declared=True,
+                raw=segment,
+            )
+            key = (fraction, basis, carrier, descriptor.lower())
+            if key not in seen:
+                seen.add(key)
+                extracted.append((spec, descriptor))
+
+    if not extracted and "NEAT" in status.upper() and actual:
+        extracted.append(
+            (
+                StockSpecification(
+                    fraction=1.0,
+                    fraction_basis="neat",
+                    carrier="",
+                    approximate=False,
+                    declared=True,
+                    raw=actual,
+                ),
+                actual,
+            )
+        )
+    return extracted
+
+
+def _requested_stock_spec(
+    row: Mapping[str, Any],
+    actual_specs: list[tuple[StockSpecification, str]],
+) -> StockSpecification | None:
+    canonical = str(row.get("Canonical material") or "").strip()
+    parsed = parse_stock_specification(canonical)
+    if parsed.declared:
+        return parsed
+    prior = row.get("Prior active fraction")
+    if isinstance(prior, (int, float)) and 0.0 < float(prior) <= 1.0:
+        fraction = float(prior)
+        return StockSpecification(
+            fraction=fraction,
+            fraction_basis="neat" if fraction == 1.0 else "unspecified",
+            carrier="",
+            approximate=False,
+            declared=True,
+            raw=f"Prior active fraction={fraction:g}",
+        )
+    if len(actual_specs) == 1:
+        return actual_specs[0][0]
+    return None
+
+
+def _requirement_disposition(
+    status: str,
+    requested: StockSpecification | None,
+    actual_specs: list[tuple[StockSpecification, str]],
+    can_prepare: str,
+) -> str:
+    upper = status.upper()
+    if any(token in upper for token in ("GAP", "DO NOT USE", "OUT OF STOCK", "BANNED")):
+        return "GAP"
+    if any(token in upper for token in ("CONSTRUCTIBLE", "PLANNED ACQUISITION")):
+        return "PREPARATION_REQUIRED"
+    if not upper.startswith("HAVE"):
+        return "UNRESOLVED"
+    if requested is None:
+        return "OWNED" if actual_specs else "UNRESOLVED"
+    if any(abs(spec.fraction - requested.fraction) <= 1e-9 for spec, _ in actual_specs):
+        return "OWNED"
+    if actual_specs and (
+        can_prepare.strip()
+        or any(token in upper for token in ("ONLY", "DIFFERENT STOCK", "PREPARE"))
+    ):
+        return "PREPARATION_REQUIRED"
+    return "UNRESOLVED"
+
+
+def _stock_execution_ready(
+    status: str,
+    spec: StockSpecification,
+    descriptor: str,
+) -> bool:
+    context = f"{status} {descriptor}".upper()
+    unresolved_tokens = (
+        "CARRIER UNSTATED",
+        "PRODUCT BASIS",
+        "HETEROGENEOUS",
+        "PHYSICAL FORM OPEN",
+        "SPECIES UNRESOLVED",
+        "LOT DETAIL OPEN",
+        "IDENTITY KEPT SEPARATE",
+        "TWO PRODUCTS",
+        "MULTIPLE BENZOINS",
+        "UNCONFIRMED",
+    )
+    if any(token in context for token in unresolved_tokens):
+        return False
+    if spec.fraction == 1.0:
+        return spec.fraction_basis == "neat"
+    return bool(spec.carrier)
+
+
+def _load_20260904_user_inventory_successor(
+    successor: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Validate the dated two-record successor and merge its immutable base."""
+
+    predecessor = successor.get("predecessor")
+    source = successor.get("source")
+    policy = successor.get("policy")
+    head_records = successor.get("records")
+    if (
+        successor.get("schema_version")
+        != "perfume_chem_user_inventory_authority_successor_overlay_v1"
+        or successor.get("authority")
+        != "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY"
+        or successor.get("effective_date") != "2026-09-04"
+        or not isinstance(predecessor, Mapping)
+        or not isinstance(source, Mapping)
+        or not isinstance(policy, Mapping)
+        or not isinstance(head_records, list)
+    ):
+        raise InventoryAuthorityError(
+            "2026-09-04 user inventory successor metadata is invalid"
+        )
+
+    expected_predecessor = {
+        "kind": "USER_AUTHORITY_OVERLAY",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+        "effective_date": "2026-08-28",
+        "path": "data/governance/inventory_user_authority_overlay_20260828.json",
+        "normalized_text_sha256": BASE_USER_INVENTORY_OVERLAY_SHA256,
+    }
+    if dict(predecessor) != expected_predecessor:
+        raise InventoryAuthorityError(
+            "2026-09-04 inventory successor predecessor pin drift"
+        )
+    if (
+        _normalized_text_sha256(BASE_USER_INVENTORY_OVERLAY_PATH)
+        != BASE_USER_INVENTORY_OVERLAY_SHA256
+    ):
+        raise InventoryAuthorityError(
+            "2026-09-04 inventory successor predecessor bytes drift"
+        )
+
+    expected_source = {
+        "kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+        "asserted_date": "2026-09-04",
+        "inventory_text_path": "inventory.txt",
+        "inventory_text_size_bytes": PREVIOUS_USER_INVENTORY_TEXT_SIZE_BYTES,
+        "inventory_text_sha256": PREVIOUS_USER_INVENTORY_TEXT_SHA256,
+    }
+    if dict(source) != expected_source:
+        raise InventoryAuthorityError(
+            "2026-09-04 inventory successor historical source binding drift"
+        )
+
+    expected_policy = {
+        "inherit_predecessor_policy": True,
+        "predecessor_overlay_immutable": True,
+        "merge_other_task_branch": False,
+        "formula_rebase_authorized": False,
+        "general_substitution_authorized": False,
+        "unknown_metadata_fails_closed": True,
+        "raw_volume_transfer_does_not_establish_exact_mass_or_volume_conversion": (
+            True
+        ),
+    }
+    if dict(policy) != expected_policy:
+        raise InventoryAuthorityError("2026-09-04 inventory successor policy drift")
+
+    by_id = {
+        str(record.get("record_id") or ""): record
+        for record in head_records
+        if isinstance(record, Mapping)
+    }
+    expected_ids = {
+        "INV-USER-20260901-001",
+        "INV-USER-20260901-002",
+        "INV-USER-20260901-003",
+        "INV-USER-20260902-001",
+        "INV-USER-20260902-002",
+        "INV-USER-20260904-001",
+        "INV-USER-20260904-002",
+        "INV-USER-20260904-003",
+        "INV-USER-20260904-004",
+    }
+    if len(by_id) != len(head_records) or set(by_id) != expected_ids:
+        raise InventoryAuthorityError(
+            "2026-09-04 inventory successor record set drift"
+        )
+
+    shared_limits = {
+        "availability_confirmed": True,
+        "stock_fraction_known": True,
+        "fraction_basis_known": True,
+        "carrier_known": True,
+        "homogeneous_confirmed": True,
+        "clear_confirmed": True,
+        "pipetteable_confirmed": True,
+        "raw_stock_volume_transfer_ready": True,
+        "remaining_quantity_asserted": False,
+        "stock_solution_density_asserted": False,
+        "exact_active_mass_from_raw_volume_authorized": False,
+        "literal_active_volume_asserted": False,
+        "carrier_displacement_volume_authorized": False,
+        "exact_active_ppm_oav_math_authorized": False,
+        "formula_rebase_authorized": False,
+        "procurement_authorized": False,
+        "formula_compounding_authorized": False,
+        "safety_asserted": False,
+        "stability_asserted": False,
+        "sensory_equivalence_asserted": False,
+        "release_success_asserted": False,
+    }
+    ambrettolide = by_id["INV-USER-20260904-001"]
+    tonkarome = by_id["INV-USER-20260904-002"]
+    expected_ambrettolide_stock = {
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": True,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_CONFIRMED_HOMOGENEOUS_CLEAR_PIPETTABLE_20260904",
+    }
+    expected_ambrettolide_overrides = [
+        {
+            "source_row": 27,
+            "disposition": "OWNED",
+            "status": (
+                "HAVE - USER-CONFIRMED 10% W/W IN DPG; RAW-VOLUME EXECUTABLE"
+            ),
+            "actual_stock_text": (
+                "Ambrettolide 10% w/w in DPG; homogeneous, clear, pipetteable, "
+                "and raw-volume executable"
+            ),
+            "can_prepare": "",
+        },
+        {
+            "source_row": 28,
+            "disposition": "OWNED",
+            "status": (
+                "DUPLICATE REQUIREMENT ROW - SAME OWNED 10% W/W IN DPG STOCK; "
+                "COUNT ONCE"
+            ),
+            "actual_stock_text": (
+                "Ambrettolide 10% w/w in DPG; homogeneous, clear, pipetteable, "
+                "and raw-volume executable"
+            ),
+            "can_prepare": "",
+        },
+    ]
+    if (
+        ambrettolide.get("canonical_name") != "Ambrettolide"
+        or ambrettolide.get("aliases")
+        != [
+            "Ambrettolide 10%",
+            "Ambrettolide 10% in DPG",
+            "Ambrettolide 10% w/w in DPG",
+        ]
+        or ambrettolide.get("state") != "OWNED"
+        or ambrettolide.get("category") != "musk"
+        or ambrettolide.get("stock") != expected_ambrettolide_stock
+        or ambrettolide.get("supersedes_parent_stocks") != []
+        or ambrettolide.get("requirement_overrides")
+        != expected_ambrettolide_overrides
+        or ambrettolide.get("effective_date") != "2026-09-04"
+        or ambrettolide.get("source_kind")
+        != "DIRECT_USER_CURRENT_STOCK_CORRECTION"
+        or ambrettolide.get("authority_limits") != shared_limits
+    ):
+        raise InventoryAuthorityError("Ambrettolide successor contract drift")
+
+    expected_tonkarome_stock = {
+        "fraction": 0.2,
+        "fraction_basis": "mass_fraction",
+        "carrier": "tec",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION",
+        "execution_ready": True,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_CONFIRMED_HOMOGENEOUS_CLEAR_PIPETTABLE_20260904",
+    }
+    expected_tonkarome_overrides = [
+        {
+            "source_row": 264,
+            "disposition": "OWNED",
+            "status": (
+                "HAVE - USER-CONFIRMED 20% W/W IN TEC; RAW-VOLUME EXECUTABLE"
+            ),
+            "actual_stock_text": (
+                "Tonkarome 20% w/w in TEC; homogeneous, clear, pipetteable, and "
+                "raw-volume executable"
+            ),
+            "can_prepare": "",
+        }
+    ]
+    if (
+        tonkarome.get("canonical_name") != "Tonkarome"
+        or tonkarome.get("aliases")
+        != ["Tonkarome 20%", "Tonkarome 20% w/w in TEC"]
+        or tonkarome.get("state") != "OWNED"
+        or tonkarome.get("category") != "tonka / powder"
+        or tonkarome.get("stock") != expected_tonkarome_stock
+        or tonkarome.get("supersedes_parent_stocks")
+        != [{"source_row": 264, "fraction": 0.2}]
+        or tonkarome.get("requirement_overrides") != expected_tonkarome_overrides
+        or tonkarome.get("effective_date") != "2026-09-04"
+        or tonkarome.get("source_kind")
+        != "DIRECT_USER_CURRENT_STOCK_CORRECTION"
+        or tonkarome.get("authority_limits") != shared_limits
+    ):
+        raise InventoryAuthorityError("Tonkarome successor contract drift")
+
+    expected_signatures = {
+        "INV-USER-20260901-001": (
+            "Bacdanol",
+            "OWNED",
+            1.0,
+            "neat",
+            "",
+            True,
+            (),
+            (),
+        ),
+        "INV-USER-20260901-002": (
+            "Guaiacwood EO",
+            "OWNED",
+            1.0 / 3.0,
+            "mass_fraction",
+            "ethanol + dep",
+            True,
+            (),
+            (125,),
+        ),
+        "INV-USER-20260901-003": (
+            "Benzyl Salicylate",
+            "OWNED",
+            1.0,
+            "neat",
+            "",
+            True,
+            (41,),
+            (41,),
+        ),
+        "INV-USER-20260902-001": (
+            "Galbanum EO",
+            "UNAVAILABLE",
+            None,
+            None,
+            None,
+            None,
+            (114,),
+            (114,),
+        ),
+        "INV-USER-20260902-002": (
+            "Ambrox Super",
+            "OWNED",
+            0.25,
+            "mass_fraction",
+            "dpg + ipm + ethanol",
+            True,
+            (30,),
+            (30,),
+        ),
+        "INV-USER-20260904-003": (
+            "Givaudan AIMI",
+            "OWNED",
+            1.0,
+            "neat",
+            "",
+            True,
+            (21,),
+            (21,),
+        ),
+        "INV-USER-20260904-004": (
+            "Vetiver EO (India)",
+            "OWNED",
+            1.0,
+            "neat",
+            "",
+            True,
+            (245,),
+            (245,),
+        ),
+    }
+    for record_id, signature in expected_signatures.items():
+        record = by_id[record_id]
+        stock = record.get("stock")
+        selector_rows = tuple(
+            int(selector["source_row"])
+            for selector in record.get("supersedes_parent_stocks", [])
+        )
+        override_rows = tuple(
+            int(override["source_row"])
+            for override in record.get("requirement_overrides", [])
+        )
+        observed = (
+            record.get("canonical_name"),
+            record.get("state"),
+            stock.get("fraction") if isinstance(stock, Mapping) else None,
+            stock.get("fraction_basis") if isinstance(stock, Mapping) else None,
+            stock.get("carrier") if isinstance(stock, Mapping) else None,
+            stock.get("execution_ready") if isinstance(stock, Mapping) else None,
+            selector_rows,
+            override_rows,
+        )
+        if observed != signature:
+            raise InventoryAuthorityError(
+                f"{record_id} inventory successor contract drift"
+            )
+
+    base = load_current_user_inventory_overlay(
+        BASE_USER_INVENTORY_OVERLAY_PATH,
+        require_pinned_overlay=True,
+    )
+    base_records = base.get("records")
+    if not isinstance(base_records, list):
+        raise InventoryAuthorityError("base inventory overlay record set is invalid")
+    replacement_names = {"bacdanol", "givaudan aimi", "guaiacwood eo"}
+    retained_base_records = [
+        record
+        for record in base_records
+        if isinstance(record, Mapping)
+        and str(record.get("canonical_name") or "").casefold()
+        not in replacement_names
+    ]
+    base_ids = {
+        str(record.get("record_id") or "")
+        for record in retained_base_records
+        if isinstance(record, Mapping)
+    }
+    base_names = {
+        str(record.get("canonical_name") or "").casefold()
+        for record in retained_base_records
+        if isinstance(record, Mapping)
+    }
+    head_names = {
+        str(record.get("canonical_name") or "").casefold()
+        for record in head_records
+        if isinstance(record, Mapping)
+    }
+    if base_ids.intersection(expected_ids) or base_names.intersection(head_names):
+        raise InventoryAuthorityError(
+            "2026-09-04 inventory successor collides with predecessor records"
+        )
+    base_override_rows = {
+        int(override["source_row"])
+        for record in retained_base_records
+        if isinstance(record, Mapping)
+        for override in record.get("requirement_overrides", [])
+    }
+    if base_override_rows.intersection({27, 28, 264}):
+        raise InventoryAuthorityError(
+            "2026-09-04 inventory successor duplicates predecessor overrides"
+        )
+
+    consolidated = dict(successor)
+    consolidated["head_policy"] = dict(policy)
+    consolidated["parent"] = dict(base["parent"])
+    consolidated["base_policy"] = dict(base["policy"])
+    consolidated["policy"] = {**dict(base["policy"]), **dict(policy)}
+    consolidated["delta_records"] = list(head_records)
+    consolidated["records"] = [*retained_base_records, *head_records]
+    return consolidated
+
+
+def _load_20260905_user_inventory_successor(
+    successor: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Add the confirmed Orris working stock without rebasing prior records."""
+
+    if (
+        successor.get("schema_version")
+        != "perfume_chem_user_inventory_authority_successor_overlay_v2"
+        or successor.get("authority") != "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY"
+        or successor.get("effective_date") != "2026-09-05"
+    ):
+        raise InventoryAuthorityError("2026-09-05 inventory successor metadata drift")
+    expected_predecessor = {
+        "kind": "USER_AUTHORITY_OVERLAY",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+        "effective_date": "2026-09-04",
+        "path": "data/governance/inventory_user_authority_overlay_20260904.json",
+        "normalized_text_sha256": PREVIOUS_USER_INVENTORY_OVERLAY_SHA256,
+    }
+    if successor.get("predecessor") != expected_predecessor:
+        raise InventoryAuthorityError("2026-09-05 inventory predecessor pin drift")
+    expected_source = {
+        "kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+        "asserted_date": "2026-09-05",
+        "inventory_text_path": "inventory.txt",
+        "inventory_text_size_bytes": ORRIS_USER_INVENTORY_TEXT_SIZE_BYTES,
+        "inventory_text_sha256": ORRIS_USER_INVENTORY_TEXT_SHA256,
+    }
+    if successor.get("source") != expected_source:
+        raise InventoryAuthorityError(
+            "2026-09-05 inventory successor historical text receipt drift"
+        )
+    expected_policy = {
+        "inherit_predecessor_policy": True,
+        "predecessor_overlay_immutable": True,
+        "preserve_inherited_stock_ids": True,
+        "formula_rebase_authorized": False,
+        "general_substitution_authorized": False,
+        "unknown_metadata_fails_closed": True,
+        "raw_volume_transfer_does_not_establish_exact_mass_or_volume_conversion": True,
+    }
+    if successor.get("policy") != expected_policy:
+        raise InventoryAuthorityError("2026-09-05 inventory successor policy drift")
+    records = successor.get("records")
+    if not isinstance(records, list) or len(records) != 1:
+        raise InventoryAuthorityError("2026-09-05 inventory successor record set drift")
+    record = records[0]
+    expected_stock = {
+        "fraction": 0.09,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "fraction_authority": "EXPLICIT_USER_CURRENT_STOCK_CORRECTION",
+        "execution_ready": True,
+        "execution_scope": "STOCK_IDENTITY_AND_FRACTION_BINDING_ONLY",
+        "execution_hold_reason": "",
+    }
+    expected_override = {
+        "source_row": 195,
+        "disposition": "OWNED",
+        "status": "HAVE - USER-CONFIRMED ORRIS LIQUID PRODUCT AT 9% W/W IN DEP",
+        "actual_stock_text": (
+            "Orris Liquid (PerfumersWorld product) 9% w/w in DEP; "
+            "product mass fraction, not pure irone content"
+        ),
+        "can_prepare": "",
+    }
+    expected_limits = {
+        "availability_confirmed": True,
+        "stock_fraction_known": True,
+        "fraction_basis_known": True,
+        "carrier_known": True,
+        "product_mass_from_weighed_stock_known": True,
+        "stock_solution_density_asserted": False,
+        "exact_active_mass_from_raw_volume_authorized": False,
+        "literal_active_volume_asserted": False,
+        "carrier_displacement_volume_authorized": False,
+        "pure_irone_assay_asserted": False,
+        "formula_rebase_authorized": False,
+        "formula_compounding_authorized": False,
+        "safety_asserted": False,
+        "stability_asserted": False,
+        "sensory_equivalence_asserted": False,
+        "release_success_asserted": False,
+    }
+    if (
+        not isinstance(record, Mapping)
+        or record.get("record_id") != "INV-USER-20260905-001"
+        or record.get("canonical_name") != "Orris Liquid"
+        or record.get("state") != "OWNED"
+        or record.get("category") != "orris_violet"
+        or record.get("stock") != expected_stock
+        or record.get("supersedes_parent_stocks") != []
+        or record.get("requirement_overrides") != [expected_override]
+        or record.get("authority_limits") != expected_limits
+        or record.get("effective_date") != "2026-09-05"
+        or record.get("source_kind") != "DIRECT_USER_CURRENT_STOCK_CORRECTION"
+    ):
+        raise InventoryAuthorityError("2026-09-05 Orris stock contract drift")
+
+    previous = load_current_user_inventory_overlay(PREVIOUS_USER_INVENTORY_OVERLAY_PATH)
+    inherited = previous["records"]
+    if any(
+        row.get("canonical_name") == "Orris Liquid"
+        or any(item["source_row"] == 195 for item in row["requirement_overrides"])
+        for row in inherited
+    ):
+        raise InventoryAuthorityError("2026-09-05 Orris successor collision")
+    previous_head_ids = {row["record_id"] for row in previous["delta_records"]}
+    origins = {
+        row["record_id"]: {
+            "path": (
+                expected_predecessor["path"]
+                if row["record_id"] in previous_head_ids
+                else "data/governance/inventory_user_authority_overlay_20260828.json"
+            ),
+            "sha256": (
+                PREVIOUS_USER_INVENTORY_OVERLAY_SHA256
+                if row["record_id"] in previous_head_ids
+                else BASE_USER_INVENTORY_OVERLAY_SHA256
+            ),
+        }
+        for row in inherited
+    }
+    origins[record["record_id"]] = {
+        "path": "data/governance/inventory_user_authority_overlay_20260905.json",
+        "sha256": ORRIS_USER_INVENTORY_OVERLAY_SHA256,
+    }
+    return {
+        **dict(successor),
+        "parent": dict(previous["parent"]),
+        "base_policy": dict(previous["base_policy"]),
+        "head_policy": dict(expected_policy),
+        "policy": {**dict(previous["policy"]), **expected_policy},
+        "delta_records": records,
+        "records": [*inherited, record],
+        "record_origins": origins,
+    }
+
+
+def _load_20260906_user_inventory_successor(
+    successor: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Retire the old Neroli dilution while preserving every inherited record."""
+
+    if (
+        successor.get("schema_version")
+        != "perfume_chem_user_inventory_authority_successor_overlay_v3"
+        or successor.get("authority") != "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY"
+        or successor.get("effective_date") != "2026-09-06"
+    ):
+        raise InventoryAuthorityError("2026-09-06 inventory successor metadata drift")
+    expected_predecessor = {
+        "kind": "USER_AUTHORITY_OVERLAY",
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+        "effective_date": "2026-09-05",
+        "path": "data/governance/inventory_user_authority_overlay_20260905.json",
+        "normalized_text_sha256": ORRIS_USER_INVENTORY_OVERLAY_SHA256,
+    }
+    if successor.get("predecessor") != expected_predecessor:
+        raise InventoryAuthorityError("2026-09-06 inventory predecessor pin drift")
+    expected_source = {
+        "kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+        "asserted_date": "2026-09-06",
+        "inventory_text_path": "inventory.txt",
+        "inventory_text_size_bytes": 20904,
+        "inventory_text_sha256": "214b2ef6bc84a04ae2e3318088a8d5d0f559bdee3dcd7afcc95ff272ff480243",
+    }
+    if successor.get("source") != expected_source:
+        raise InventoryAuthorityError(
+            "2026-09-06 inventory successor is historical inventory binding drift"
+        )
+    expected_policy = {
+        "inherit_predecessor_policy": True,
+        "predecessor_overlay_immutable": True,
+        "preserve_inherited_stock_ids": True,
+        "formula_rebase_authorized": False,
+        "general_substitution_authorized": False,
+        "unknown_metadata_fails_closed": True,
+        "raw_volume_transfer_does_not_establish_exact_mass_or_volume_conversion": True,
+    }
+    if successor.get("policy") != expected_policy:
+        raise InventoryAuthorityError("2026-09-06 inventory successor policy drift")
+    records = successor.get("records")
+    if not isinstance(records, list) or len(records) != 1:
+        raise InventoryAuthorityError("2026-09-06 inventory successor record set drift")
+    record = records[0]
+    expected_stock = {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_CURRENT_STOCK_CORRECTION",
+        "execution_ready": True,
+        "execution_scope": "STOCK_IDENTITY_AND_FRACTION_BINDING_ONLY",
+        "execution_hold_reason": "",
+    }
+    expected_override = {
+        "source_row": 180,
+        "disposition": "OWNED",
+        "status": "HAVE - USER-CONFIRMED NEROLI EO NEAT ONLY",
+        "actual_stock_text": (
+            "Neroli EO neat / as supplied; prior 10% in DPG stock no longer owned"
+        ),
+        "can_prepare": "",
+    }
+    expected_limits = {
+        "availability_confirmed": True,
+        "stock_fraction_known": True,
+        "fraction_basis_known": True,
+        "carrier_known": True,
+        "stock_solution_density_asserted": False,
+        "exact_active_mass_from_raw_volume_authorized": False,
+        "chemical_purity_assay_asserted": False,
+        "formula_rebase_authorized": False,
+        "formula_compounding_authorized": False,
+        "safety_asserted": False,
+        "stability_asserted": False,
+        "sensory_equivalence_asserted": False,
+        "release_success_asserted": False,
+    }
+    if (
+        not isinstance(record, Mapping)
+        or record.get("record_id") != "INV-USER-20260906-001"
+        or record.get("canonical_name") != "Neroli EO"
+        or record.get("state") != "OWNED"
+        or record.get("category") != "air_floral"
+        or record.get("stock") != expected_stock
+        or record.get("supersedes_parent_stocks") != [{"source_row": 180, "fraction": 0.1}]
+        or record.get("requirement_overrides") != [expected_override]
+        or record.get("authority_limits") != expected_limits
+        or record.get("effective_date") != "2026-09-06"
+        or record.get("source_kind") != "DIRECT_USER_CURRENT_STOCK_CORRECTION"
+        or record.get("source_quote") != "I only have neroli EO neat"
+    ):
+        raise InventoryAuthorityError("2026-09-06 Neroli stock contract drift")
+
+    previous = load_current_user_inventory_overlay(ORRIS_USER_INVENTORY_OVERLAY_PATH)
+    inherited = previous["records"]
+    if any(
+        row.get("canonical_name") == "Neroli EO"
+        or any(item["source_row"] == 180 for item in row["requirement_overrides"])
+        for row in inherited
+    ):
+        raise InventoryAuthorityError("2026-09-06 Neroli successor collision")
+    origins = {key: dict(value) for key, value in previous["record_origins"].items()}
+    origins[record["record_id"]] = {
+        "path": "data/governance/inventory_user_authority_overlay_20260906.json",
+        "sha256": NEROLI_USER_INVENTORY_OVERLAY_SHA256,
+    }
+    return {
+        **dict(successor),
+        "parent": dict(previous["parent"]),
+        "base_policy": dict(previous["base_policy"]),
+        "head_policy": dict(expected_policy),
+        "policy": {**dict(previous["policy"]), **expected_policy},
+        "delta_records": records,
+        "records": [*inherited, record],
+        "record_origins": origins,
+    }
+
+
+def _load_20260907_user_inventory_successor(
+    successor: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Apply a pinned, source-bound delta; never rewrite predecessor records."""
+    if successor.get("effective_date") != "2026-09-07" or successor.get("authority") != "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY":
+        raise InventoryAuthorityError("2026-09-07 successor metadata drift")
+    if successor.get("predecessor") != {
+        "path": "data/governance/inventory_user_authority_overlay_20260906.json",
+        "normalized_text_sha256": NEROLI_USER_INVENTORY_OVERLAY_SHA256,
+    }:
+        raise InventoryAuthorityError("2026-09-07 predecessor pin drift")
+    source = successor.get("source", {})
+    # This immutable predecessor now describes its September 7 inventory snapshot.
+    # The September 8 head separately requires an exact binding to live text.
+    if (source.get("inventory_text_path") != "inventory.txt"
+        or source.get("inventory_text_size_bytes") != 21331
+        or source.get("inventory_text_sha256") != "d2c2c405625aa01b2d77069a7907222db40a6156e3971844376100b58c300066"):
+        raise InventoryAuthorityError("2026-09-07 historical inventory binding drift")
+    previous = load_current_user_inventory_overlay(NEROLI_USER_INVENTORY_OVERLAY_PATH)
+    retired = successor.get("superseded_record_ids")
+    if retired != ["INV-USER-20260829-001"]:
+        raise InventoryAuthorityError("2026-09-07 retired record set drift")
+    inherited = [row for row in previous["records"] if row["record_id"] not in retired]
+    records = successor.get("records", [])
+    if len(records) != 14 or len({r["record_id"] for r in records}) != len(records):
+        raise InventoryAuthorityError("2026-09-07 successor record set drift")
+    for record in records:
+        if record["state"] not in {"OWNED", "NOT_OWNED"}:
+            raise InventoryAuthorityError("2026-09-07 invalid stock state")
+        if record["state"] == "OWNED":
+            stock = record["stock"]
+            if not 0 < stock["fraction"] <= 1:
+                raise InventoryAuthorityError("2026-09-07 invalid stock fraction")
+            if stock["execution_ready"] and stock["fraction"] < 1 and (
+                stock["fraction_basis"] == "unspecified" or not stock["carrier"]
+            ):
+                raise InventoryAuthorityError("2026-09-07 ambiguous executable stock")
+    origins = {key: dict(value) for key, value in previous["record_origins"].items()}
+    origins.update({row["record_id"]: {
+        "path": "data/governance/inventory_user_authority_overlay_20260907.json",
+        "sha256": RECONCILED_USER_INVENTORY_OVERLAY_SHA256,
+    } for row in records})
+    return {
+        **dict(successor), "parent": dict(previous["parent"]),
+        "base_policy": dict(previous["base_policy"]),
+        "policy": {**dict(previous["policy"]), **dict(successor["policy"])},
+        "delta_records": records, "records": [*inherited, *records],
+        "record_origins": origins,
+        "retired_records": [r for r in previous["records"] if r["record_id"] in retired],
+    }
+
+
+def _load_20260908_user_inventory_successor(
+    successor: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Apply four current tinctures and one removal without rebasing old stocks."""
+    if (successor.get("effective_date") != "2026-09-08"
+        or successor.get("authority") != "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY"
+        or successor.get("predecessor") != {
+            "path": "data/governance/inventory_user_authority_overlay_20260907.json",
+            "normalized_text_sha256": RECONCILED_USER_INVENTORY_OVERLAY_SHA256,
+        }):
+        raise InventoryAuthorityError("2026-09-08 successor metadata drift")
+    source = successor.get("source", {})
+    if (source.get("inventory_text_path") != "inventory.txt"
+        or source.get("inventory_text_size_bytes") != 22172
+        or source.get("inventory_text_sha256") != "0615da4d06418a7c58b9cfa6e387f7529c10dc8f97b9820862aaaf2ee811471b"):
+        raise InventoryAuthorityError("2026-09-08 historical inventory binding drift")
+    retired = ["INV-USER-20260828-014", "INV-USER-20260828-015", "INV-USER-20260830-005"]
+    if successor.get("superseded_record_ids") != retired:
+        raise InventoryAuthorityError("2026-09-08 retired record set drift")
+    records = successor.get("records", [])
+    if len(records) != 5 or [r.get("record_id") for r in records] != [
+        f"INV-USER-20260908-00{i}" for i in range(1, 6)
+    ]:
+        raise InventoryAuthorityError("2026-09-08 successor record set drift")
+    expected = [
+        ("Turkish Storax Tincture", 0.2, [{"source_row": 236}], 236),
+        ("Vietnamese Benzoin Tincture", 0.4, [{"source_row": 222, "fraction": 0.2}, {"source_row": 246}], 246),
+        ("Kenyan Myrrh Ethanol Tincture", 0.2, [], None),
+        ("Oman Frankincense Ethanol Tincture", 0.33, [], None),
+    ]
+    for record, (name, fraction, selectors, requirement_row) in zip(records[:4], expected):
+        stock = record.get("stock", {})
+        overrides = record.get("requirement_overrides", [])
+        if (record.get("canonical_name") != name or record.get("state") != "OWNED"
+            or record.get("supersedes_parent_stocks") != selectors
+            or stock.get("fraction") != fraction
+            or stock.get("fraction_basis") != "unspecified"
+            or stock.get("carrier") != "ethanol"
+            or stock.get("execution_ready") is not False
+            or stock.get("execution_hold_reason") != "TINCTURE_PERCENTAGE_BASIS_AND_EXTRACTED_SOLIDS_UNSPECIFIED"
+            or [o.get("source_row") for o in overrides] != ([] if requirement_row is None else [requirement_row])
+            or any(o.get("disposition") != "OWNED" for o in overrides)):
+            raise InventoryAuthorityError("2026-09-08 tincture stock contract drift")
+    lavender = records[4]
+    if (lavender.get("canonical_name") != "Lavender EO High Altitude"
+        or lavender.get("state") != "NOT_OWNED" or lavender.get("stock") is not None
+        or lavender.get("supersedes_parent_stocks") != [{"source_row": 156}]
+        or len(lavender.get("requirement_overrides", [])) != 1
+        or lavender["requirement_overrides"][0].get("source_row") != 156
+        or lavender["requirement_overrides"][0].get("disposition") != "GAP"):
+        raise InventoryAuthorityError("2026-09-08 lavender removal contract drift")
+    previous = load_current_user_inventory_overlay(RECONCILED_USER_INVENTORY_OVERLAY_PATH)
+    if {r["record_id"] for r in previous["records"] if r["record_id"] in retired} != set(retired):
+        raise InventoryAuthorityError("2026-09-08 predecessor stock selectors drift")
+    inherited = [r for r in previous["records"] if r["record_id"] not in retired]
+    origins = {key: dict(value) for key, value in previous["record_origins"].items()}
+    origins.update({r["record_id"]: {
+        "path": "data/governance/inventory_user_authority_overlay_20260908.json",
+        "sha256": TINCTURES_USER_INVENTORY_OVERLAY_SHA256,
+    } for r in records})
+    return {
+        **dict(successor), "parent": dict(previous["parent"]),
+        "base_policy": dict(previous["base_policy"]),
+        "policy": {**dict(previous["policy"]), **dict(successor["policy"])},
+        "delta_records": records, "records": [*inherited, *records],
+        "record_origins": origins,
+        "retired_records": [*previous.get("retired_records", []),
+                            *(r for r in previous["records"] if r["record_id"] in retired)],
+    }
+
+
+def _load_20260908_ahsee_inventory_successor(
+    successor: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Bind ten source-declared stocks without changing scientific authority."""
+    expected_policy = {
+        "predecessor_overlay_immutable": True,
+        "preserve_inherited_stock_ids": True,
+        "formula_rebase_authorized": False,
+        "general_substitution_authorized": False,
+        "unknown_metadata_fails_closed": True,
+        "bind_only_source_declared_stock_facts": True,
+        "stock_solution_density_assumed": False,
+        "safety_or_release_asserted": False,
+    }
+    if (successor.get("effective_date") != "2026-09-08"
+        or successor.get("authority") != "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY"
+        or successor.get("predecessor") != {
+            "path": "data/governance/inventory_user_authority_overlay_20260908.json",
+            "normalized_text_sha256": TINCTURES_USER_INVENTORY_OVERLAY_SHA256,
+        }
+        or successor.get("policy") != expected_policy
+        or successor.get("superseded_record_ids") != []):
+        raise InventoryAuthorityError("AHSEE stock successor metadata drift")
+    source = successor.get("source", {})
+    # Immutable AHSEE predecessor retains its reviewed September 8 text receipt.
+    # The Romandolide successor independently binds the changed live inventory.
+    if (source.get("inventory_text_path") != "inventory.txt"
+        or source.get("inventory_text_size_bytes") != 23705
+        or source.get("inventory_text_sha256") != "216bd300c709b453d9e9786bf8cfff1c6a62aca65203013b47782891d9f3269c"):
+        raise InventoryAuthorityError("AHSEE historical inventory binding drift")
+    receipt_path = PROJECT_ROOT / "data/governance/inventory_user_confirmation_20260908_ahsee_stocks.json"
+    if (source.get("confirmed_receipt") != receipt_path.relative_to(PROJECT_ROOT).as_posix()
+        or source.get("confirmed_receipt_sha256") != AHSEE_STOCK_CONFIRMATION_SHA256
+        or not receipt_path.is_file()
+        or _file_sha256(receipt_path) != AHSEE_STOCK_CONFIRMATION_SHA256):
+        raise InventoryAuthorityError("AHSEE stock confirmation receipt drift")
+    try:
+        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise InventoryAuthorityError("AHSEE stock receipt is unreadable") from exc
+    if receipt.get("new_direct_confirmation") != {
+        "question": "For the stock check: have you prepared the separate 10% v/v ethanol working stocks of neroli and peppermint, and is your neat PEDMC currently a clear liquid? Please say which are ready.",
+        "answer": "yes all",
+    }:
+        raise InventoryAuthorityError("AHSEE direct confirmation scope drift")
+    if receipt.get("identity_confirmation") != {
+        "question": "Your inventory currently treats “Givaudan AIMI” and “Alpha Isomethyl Ionone / Methyl Ionone Pure” as one bottle. Do you have one bottle or two separate bottles? This determines which stock the 60 µL row should name.",
+        "answer": "i only have gividuan AIMI now",
+        "canonical_current_label": "Givaudan AIMI",
+        "existing_stock_id": "inventory:user-20260904:a45ff6250b56cec5bbad",
+        "new_stock_or_chemical_equivalence_asserted": False,
+    }:
+        raise InventoryAuthorityError("AHSEE AIMI ownership confirmation drift")
+    for entry in receipt.get("source_files", []):
+        path = (PROJECT_ROOT / entry["path"]).resolve()
+        if (not path.is_relative_to(PROJECT_ROOT.resolve()) or not path.is_file()
+            or _file_sha256(path) != entry["sha256"]):
+            raise InventoryAuthorityError("AHSEE historical source receipt drift")
+    convention = "USER_NOMINAL_VOLUMETRIC_CONVENTION_NOT_MEASURED_STOCK_DENSITY"
+    expected = [
+        ("Phenyl Ethyl Dimethyl Carbinol", 1.0, "neat", "", None, None,
+         "DIRECT_USER_NEAT_CONFIRMATION", ["PEDMC_NEAT_20260907", "PREPARATIONS_AND_PEDMC_PHASE_20260908"]),
+        ("Neroli EO", 0.1, "volume_fraction", "ethanol", None, None,
+         "DIRECT_USER_PREPARED_STOCK_CONFIRMATION", ["PREPARATIONS_AND_PEDMC_PHASE_20260908"]),
+        ("Peppermint EO", 0.1, "volume_fraction", "ethanol", None, None,
+         "DIRECT_USER_PREPARED_STOCK_CONFIRMATION", ["PREPARATIONS_AND_PEDMC_PHASE_20260908"]),
+        ("Lilyreal ND", 1.0, "neat", "", None, 160,
+         "USER_REPORTED_AS_SUPPLIED_PRODUCT_TRANSFER", ["AHS_LILYREAL_USER_TRANSFER_20260907"]),
+        ("Nympheal", 1.0, "neat", "", None, 185,
+         "USER_REPORTED_NEAT_AS_SUPPLIED_TRANSFER", ["AHS_NYMPHEAL_USER_TRANSFER_20260907"]),
+        ("Lavender EO (BONTAUX SAS)", 1.0, "neat", "", None, None,
+         "BARE_INVENTORY_ROW_NEAT_CONVENTION_NOT_DIRECT_NEAT_QUOTE", ["BONTAX_CURRENT_INVENTORY_BARE_ROW"]),
+        ("Tonka Bean Absolute", 0.1, "volume_fraction", "dpg", 232, 232,
+         convention, ["NOMINAL_VOLUME_CONVENTION", "TONKA_CURRENT_INVENTORY_DPG"]),
+        ("Vanillin", 0.1, "volume_fraction", "ethanol", 239, 239,
+         convention, ["NOMINAL_VOLUME_CONVENTION", "UNKNOWN_CARRIER_ETHANOL_DEFAULT", "VANILLIN_CURRENT_INVENTORY"]),
+        ("Aldehyde C10", 0.01, "volume_fraction", "ethanol", 9, 9,
+         convention, ["NOMINAL_VOLUME_CONVENTION", "UNKNOWN_CARRIER_ETHANOL_DEFAULT", "C10_CURRENT_INVENTORY"]),
+        ("Aldehyde C12 MNA", 0.01, "volume_fraction", "ethanol", 13, 13,
+         convention, ["NOMINAL_VOLUME_CONVENTION", "UNKNOWN_CARRIER_ETHANOL_DEFAULT", "C12_CURRENT_INVENTORY"]),
+    ]
+    limits = {key: False for key in (
+        "density_asserted", "assay_asserted", "exact_active_mass_from_raw_volume_authorized",
+        "physical_dose_performed", "formula_rebase_authorized", "safety_asserted",
+        "stability_asserted", "sensory_equivalence_asserted", "release_authorized",
+    )}
+    records = successor.get("records", [])
+    if len(records) != len(expected):
+        raise InventoryAuthorityError("AHSEE exact stock record set drift")
+    for index, (record, contract) in enumerate(zip(records, expected), 1):
+        name, fraction, basis, carrier, selector_row, requirement_row, authority, evidence = contract
+        expected_stock = {
+            "fraction": fraction, "fraction_basis": basis, "carrier": carrier,
+            "fraction_authority": authority, "density_g_ml": None,
+            "execution_ready": True,
+            "execution_scope": "DECLARED_RAW_STOCK_TRANSFER_BINDING_ONLY",
+            "execution_hold_reason": "",
+        }
+        if name == "Phenyl Ethyl Dimethyl Carbinol":
+            expected_stock["phase"] = "USER_CONFIRMED_CLEAR_LIQUID"
+        if name == "Lilyreal ND":
+            expected_stock.update({
+                "fraction_meaning": "UNDILUTED_SUPPLIED_PRODUCT_NOT_IDENTIFIED_ODORANT_PURITY",
+                "material_kind": "OPAQUE_PREBLEND", "constituent_fractions": None,
+                "monomolecular_oav_authority": False,
+            })
+        selectors = [] if selector_row is None else [{"source_row": selector_row, "fraction": fraction}]
+        overrides = record.get("requirement_overrides", [])
+        expected_rows = [] if requirement_row is None else [requirement_row]
+        if (record.get("record_id") != f"INV-USER-20260908-AHSEE-{index:03d}"
+            or record.get("canonical_name") != name or record.get("state") != "OWNED"
+            or record.get("stock") != expected_stock
+            or record.get("supersedes_parent_stocks") != selectors
+            or record.get("evidence_refs") != evidence
+            or any(ref not in receipt.get("evidence", {}) for ref in evidence)
+            or record.get("authority_limits") != limits
+            or [r.get("source_row") for r in overrides] != expected_rows
+            or any(r.get("disposition") != "OWNED" for r in overrides)):
+            raise InventoryAuthorityError(f"AHSEE stock declaration drift: {name}")
+    previous = load_current_user_inventory_overlay(TINCTURES_USER_INVENTORY_OVERLAY_PATH)
+    origins = {key: dict(value) for key, value in previous["record_origins"].items()}
+    origins.update({r["record_id"]: {
+        "path": "data/governance/inventory_user_authority_overlay_20260908_ahsee.json",
+        "sha256": AHSEE_USER_INVENTORY_OVERLAY_SHA256,
+    } for r in records})
+    return {
+        **dict(successor), "parent": dict(previous["parent"]),
+        "base_policy": dict(previous["base_policy"]),
+        "policy": {**dict(previous["policy"]), **expected_policy},
+        "delta_records": records, "records": [*previous["records"], *records],
+        "record_origins": origins,
+        "retired_records": list(previous.get("retired_records", [])),
+    }
+
+
+def _load_20260908_romandolide_inventory_successor(
+    successor: Mapping[str, Any],
+    *,
+    require_live_inventory_binding: bool = True,
+) -> dict[str, Any]:
+    """Retire only the source-confirmed depleted Romandolide physical stock."""
+    expected_policy = {
+        "predecessor_overlay_immutable": True,
+        "preserve_inherited_stock_ids": True,
+        "formula_rebase_authorized": False,
+        "general_substitution_authorized": False,
+        "unknown_metadata_fails_closed": True,
+        "bind_only_source_declared_stock_facts": True,
+        "stock_solution_density_assumed": False,
+        "safety_or_release_asserted": False,
+    }
+    if (successor.get("schema_version") != "perfume_chem_user_inventory_authority_successor_overlay_v7"
+        or successor.get("effective_date") != "2026-09-08"
+        or successor.get("authority") != "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY"
+        or successor.get("predecessor") != {
+            "path": "data/governance/inventory_user_authority_overlay_20260908_ahsee.json",
+            "normalized_text_sha256": AHSEE_USER_INVENTORY_OVERLAY_SHA256,
+        }
+        or successor.get("policy") != expected_policy
+        or successor.get("superseded_record_ids") != []):
+        raise InventoryAuthorityError("Romandolide depletion successor metadata drift")
+    source = successor.get("source", {})
+    if (
+        not isinstance(source, Mapping)
+        or source.get("inventory_text_path") != "inventory.txt"
+        or (
+            require_live_inventory_binding
+            and (
+                source.get("inventory_text_size_bytes")
+                != len(_normalized_text_bytes(INVENTORY_PATH))
+                or source.get("inventory_text_sha256")
+                != _normalized_text_sha256(INVENTORY_PATH)
+            )
+        )
+    ):
+        raise InventoryAuthorityError("Romandolide successor is not bound to live inventory text")
+    receipt_path = PROJECT_ROOT / "data/governance/inventory_user_confirmation_20260908_romandolide_depleted.json"
+    if (source.get("confirmed_receipt") != receipt_path.relative_to(PROJECT_ROOT).as_posix()
+        or source.get("confirmed_receipt_sha256") != ROMANDOLIDE_DEPLETION_CONFIRMATION_SHA256
+        or not receipt_path.is_file()
+        or _file_sha256(receipt_path) != ROMANDOLIDE_DEPLETION_CONFIRMATION_SHA256):
+        raise InventoryAuthorityError("Romandolide depletion confirmation receipt drift")
+    try:
+        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise InventoryAuthorityError("Romandolide depletion receipt is unreadable") from exc
+    if receipt != {
+        "schema_version": "perfume_chem_direct_stock_depletion_receipt_v1",
+        "effective_date": "2026-09-08",
+        "source_kind": "DIRECT_USER_MESSAGE",
+        "verbatim_user_message": "im out of romandolide",
+        "canonical_name": "Romandolide",
+        "disposition": "DEPLETED",
+        "retired_stock_id": "inventory:v5:caba57d5d5c78d414d5c",
+        "retired_source_row": 211,
+        "retired_stock_fraction": 1.0,
+        "prior_ownership_is_historical": True,
+        "authority_limits": {
+            "new_stock_or_substitute_confirmed": False,
+            "density_or_assay_asserted": False,
+            "physical_compounding_performed": False,
+            "safety_or_release_asserted": False,
+        },
+    }:
+        raise InventoryAuthorityError("Romandolide direct depletion confirmation scope drift")
+    expected_record = {
+        "record_id": "INV-USER-20260908-ROMANDOLIDE-001",
+        "canonical_name": "Romandolide",
+        "aliases": [],
+        "state": "NOT_OWNED",
+        "category": "musk",
+        "stock": None,
+        "supersedes_parent_stocks": [{"source_row": 211, "fraction": 1.0}],
+        "requirement_overrides": [{
+            "source_row": 211,
+            "disposition": "GAP",
+            "status": "DEPLETED - USER CONFIRMED 2026-09-08",
+            "actual_stock_text": "No Romandolide remains",
+            "can_prepare": "",
+        }],
+        "effective_date": "2026-09-08",
+        "source_kind": "DIRECT_USER_DEPLETION_CONFIRMATION",
+        "evidence_refs": ["ROMANDOLIDE_DEPLETED_20260908"],
+        "authority_limits": {
+            "formula_rebase_authorized": False,
+            "substitute_identity_or_stock_asserted": False,
+            "safety_or_release_asserted": False,
+        },
+    }
+    records = successor.get("records", [])
+    if records != [expected_record]:
+        raise InventoryAuthorityError("Romandolide exact depletion record drift")
+    previous = load_current_user_inventory_overlay(AHSEE_USER_INVENTORY_OVERLAY_PATH)
+    origins = {key: dict(value) for key, value in previous["record_origins"].items()}
+    origins[expected_record["record_id"]] = {
+        "path": "data/governance/inventory_user_authority_overlay_20260908_romandolide.json",
+        "sha256": ROMANDOLIDE_USER_INVENTORY_OVERLAY_SHA256,
+    }
+    return {
+        **dict(successor), "parent": dict(previous["parent"]),
+        "base_policy": dict(previous["base_policy"]),
+        "policy": {**dict(previous["policy"]), **expected_policy},
+        "delta_records": records, "records": [*previous["records"], *records],
+        "record_origins": origins,
+        "retired_records": list(previous.get("retired_records", [])),
+    }
+
+
+def _load_20260910_florhydral_inventory_successor(
+    successor: Mapping[str, Any],
+    *,
+    require_live_inventory_binding: bool = True,
+) -> dict[str, Any]:
+    """Add only the user-confirmed neat Simple Scents DIY Florhydral stock."""
+    expected_policy = {
+        "predecessor_overlay_immutable": True,
+        "preserve_inherited_stock_ids": True,
+        "formula_rebase_authorized": False,
+        "general_substitution_authorized": False,
+        "unknown_metadata_fails_closed": True,
+        "bind_only_source_declared_stock_facts": True,
+        "stock_solution_density_assumed": False,
+        "safety_or_release_asserted": False,
+    }
+    if (
+        successor.get("schema_version")
+        != "perfume_chem_user_inventory_authority_successor_overlay_v8"
+        or successor.get("effective_date") != "2026-09-10"
+        or successor.get("authority") != "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY"
+        or successor.get("predecessor")
+        != {
+            "path": "data/governance/inventory_user_authority_overlay_20260908_romandolide.json",
+            "normalized_text_sha256": ROMANDOLIDE_USER_INVENTORY_OVERLAY_SHA256,
+        }
+        or successor.get("policy") != expected_policy
+        or successor.get("superseded_record_ids") != []
+    ):
+        raise InventoryAuthorityError("Florhydral stock successor metadata drift")
+
+    source = successor.get("source", {})
+    if (
+        not isinstance(source, Mapping)
+        or source.get("inventory_text_path") != "inventory.txt"
+        or (
+            require_live_inventory_binding
+            and (
+                source.get("inventory_text_size_bytes")
+                != len(_normalized_text_bytes(INVENTORY_PATH))
+                or source.get("inventory_text_sha256")
+                != _normalized_text_sha256(INVENTORY_PATH)
+            )
+        )
+    ):
+        raise InventoryAuthorityError("Florhydral successor is not bound to live inventory text")
+
+    receipt_path = (
+        PROJECT_ROOT
+        / "data/governance/inventory_user_confirmation_20260910_florhydral.json"
+    )
+    if (
+        source.get("confirmed_receipt") != receipt_path.relative_to(PROJECT_ROOT).as_posix()
+        or source.get("confirmed_receipt_sha256")
+        != FLORHYDRAL_ADDITION_CONFIRMATION_SHA256
+        or not receipt_path.is_file()
+        or _file_sha256(receipt_path) != FLORHYDRAL_ADDITION_CONFIRMATION_SHA256
+    ):
+        raise InventoryAuthorityError("Florhydral addition confirmation receipt drift")
+    try:
+        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise InventoryAuthorityError("Florhydral addition receipt is unreadable") from exc
+
+    expected_receipt = {
+        "schema_version": "perfume_chem_direct_stock_addition_receipt_v1",
+        "effective_date": "2026-09-10",
+        "source_kind": "DIRECT_USER_MESSAGES",
+        "verbatim_user_messages": [
+            "Also, add Florhydral to inventory",
+            "it is from simplescentsdiy",
+            "neat",
+        ],
+        "canonical_name": "Florhydral",
+        "disposition": "OWNED",
+        "supplier": {
+            "name": "Simple Scents DIY",
+            "sku": "8F3094005319",
+            "package": "5 mL",
+            "product_url": "https://www.simplescentsdiy.com/product/35447-34947/florhydral",
+        },
+        "stock": {
+            "fraction": 1.0,
+            "fraction_basis": "neat",
+            "carrier": "",
+            "stock_form_authority": "DIRECT_USER_CONFIRMATION",
+        },
+        "authority_limits": {
+            "availability_confirmed": True,
+            "supplier_confirmed": True,
+            "stock_form_confirmed": True,
+            "analytical_purity_asserted": False,
+            "lot_assay_asserted": False,
+            "density_asserted": False,
+            "formula_use_authorized": False,
+            "historical_formula_rebase_authorized": False,
+            "physical_compounding_performed": False,
+            "safety_or_release_asserted": False,
+        },
+    }
+    if receipt != expected_receipt:
+        raise InventoryAuthorityError("Florhydral direct addition confirmation scope drift")
+
+    expected_record = {
+        "record_id": "INV-USER-20260910-FLORHYDRAL-001",
+        "canonical_name": "Florhydral",
+        "aliases": ["Florhydral(TM)"],
+        "state": "OWNED",
+        "category": "floral materials",
+        "stock": {
+            "fraction": 1.0,
+            "fraction_basis": "neat",
+            "carrier": "",
+            "fraction_authority": "DIRECT_USER_CONFIRMATION",
+            "execution_ready": True,
+        },
+        "supersedes_parent_stocks": [],
+        "requirement_overrides": [],
+        "effective_date": "2026-09-10",
+        "source_kind": "DIRECT_USER_CURRENT_STOCK_ADDITION_WITH_SUPPLIER_IDENTITY",
+        "source_quotes": [
+            "Also, add Florhydral to inventory",
+            "it is from simplescentsdiy",
+            "neat",
+        ],
+        "supplier": {
+            "name": "Simple Scents DIY",
+            "sku": "8F3094005319",
+            "package": "5 mL",
+            "product_url": "https://www.simplescentsdiy.com/product/35447-34947/florhydral",
+        },
+        "evidence_refs": ["FLORHYDRAL_CURRENT_STOCK_20260910"],
+        "authority_limits": {
+            "availability_confirmed": True,
+            "supplier_confirmed": True,
+            "stock_form_confirmed": True,
+            "formulation_selection_ready": True,
+            "analytical_purity_asserted": False,
+            "lot_assay_asserted": False,
+            "density_asserted": False,
+            "specific_formula_addition_directed": False,
+            "historical_formula_rebase_authorized": False,
+            "physical_compounding_performed": False,
+            "safety_or_release_asserted": False,
+        },
+    }
+    records = successor.get("records", [])
+    if records != [expected_record]:
+        raise InventoryAuthorityError("Florhydral exact addition record drift")
+
+    if (
+        _normalized_text_sha256(ROMANDOLIDE_USER_INVENTORY_OVERLAY_PATH)
+        != ROMANDOLIDE_USER_INVENTORY_OVERLAY_SHA256
+    ):
+        raise InventoryAuthorityError("Florhydral predecessor overlay hash drift")
+    try:
+        predecessor_payload = json.loads(
+            ROMANDOLIDE_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8")
+        )
+    except (OSError, json.JSONDecodeError) as exc:
+        raise InventoryAuthorityError("Florhydral predecessor overlay is unreadable") from exc
+    previous = _load_20260908_romandolide_inventory_successor(
+        predecessor_payload,
+        require_live_inventory_binding=False,
+    )
+    origins = {key: dict(value) for key, value in previous["record_origins"].items()}
+    origins[expected_record["record_id"]] = {
+        "path": "data/governance/inventory_user_authority_overlay_20260910_florhydral.json",
+        "sha256": FLORHYDRAL_USER_INVENTORY_OVERLAY_SHA256,
+    }
+    return {
+        **dict(successor),
+        "parent": dict(previous["parent"]),
+        "base_policy": dict(previous["base_policy"]),
+        "policy": {**dict(previous["policy"]), **expected_policy},
+        "delta_records": records,
+        "records": [*previous["records"], *records],
+        "record_origins": origins,
+        "retired_records": list(previous.get("retired_records", [])),
+    }
+
+
+def _load_20260910_romandolide_restock_inventory_successor(
+    successor: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Restore Romandolide availability without inheriting the old bottle form."""
+    expected_policy = {
+        "predecessor_overlay_immutable": True,
+        "preserve_inherited_stock_ids": True,
+        "formula_rebase_authorized": False,
+        "general_substitution_authorized": False,
+        "unknown_metadata_fails_closed": True,
+        "bind_only_source_declared_stock_facts": True,
+        "stock_solution_density_assumed": False,
+        "safety_or_release_asserted": False,
+    }
+    expected_predecessor = {
+        "path": "data/governance/inventory_user_authority_overlay_20260910_florhydral.json",
+        "normalized_text_sha256": FLORHYDRAL_USER_INVENTORY_OVERLAY_SHA256,
+    }
+    if (
+        successor.get("schema_version")
+        != "perfume_chem_user_inventory_authority_successor_overlay_v9"
+        or successor.get("effective_date") != "2026-09-10"
+        or successor.get("authority") != "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY"
+        or successor.get("predecessor") != expected_predecessor
+        or successor.get("policy") != expected_policy
+        or successor.get("superseded_record_ids")
+        != ["INV-USER-20260908-ROMANDOLIDE-001"]
+    ):
+        raise InventoryAuthorityError("Romandolide restock successor metadata drift")
+
+    source = successor.get("source", {})
+    if (
+        not isinstance(source, Mapping)
+        or source.get("inventory_text_path") != "inventory.txt"
+        or source.get("inventory_text_size_bytes") != len(_normalized_text_bytes(INVENTORY_PATH))
+        or source.get("inventory_text_sha256") != _normalized_text_sha256(INVENTORY_PATH)
+    ):
+        raise InventoryAuthorityError("Romandolide restock is not bound to live inventory text")
+
+    receipt_path = (
+        PROJECT_ROOT
+        / "data/governance/inventory_user_confirmation_20260910_romandolide_restocked.json"
+    )
+    if (
+        source.get("confirmed_receipt") != receipt_path.relative_to(PROJECT_ROOT).as_posix()
+        or source.get("confirmed_receipt_sha256")
+        != ROMANDOLIDE_RESTOCK_CONFIRMATION_SHA256
+        or not receipt_path.is_file()
+        or _file_sha256(receipt_path) != ROMANDOLIDE_RESTOCK_CONFIRMATION_SHA256
+    ):
+        raise InventoryAuthorityError("Romandolide restock confirmation receipt drift")
+    try:
+        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise InventoryAuthorityError("Romandolide restock receipt is unreadable") from exc
+    if (
+        receipt.get("verbatim_user_message") != "romandolide is stocked again"
+        or receipt.get("canonical_name") != "Romandolide"
+        or receipt.get("disposition") != "OWNED"
+        or receipt.get("stock")
+        != {
+            "fraction": None,
+            "fraction_basis": "unspecified",
+            "carrier": "",
+            "stock_form_authority": "NOT_STATED_FOR_RESTOCKED_BOTTLE",
+        }
+        or receipt.get("authority_limits", {}).get("quantitative_dosing_ready")
+        is not False
+        or receipt.get("authority_limits", {}).get("prior_neat_stock_form_inherited")
+        is not False
+    ):
+        raise InventoryAuthorityError("Romandolide restock confirmation scope drift")
+
+    records = successor.get("records", [])
+    if len(records) != 1 or not isinstance(records[0], Mapping):
+        raise InventoryAuthorityError("Romandolide restock record count drift")
+    record = records[0]
+    expected_stock = {
+        "fraction": None,
+        "fraction_basis": "unspecified",
+        "carrier": "",
+        "fraction_authority": "NOT_STATED_FOR_RESTOCKED_BOTTLE",
+        "execution_ready": False,
+        "execution_scope": "AVAILABILITY_ONLY",
+        "execution_hold_reason": "RESTOCKED_BOTTLE_STRENGTH_AND_CARRIER_NOT_STATED",
+    }
+    expected_override = {
+        "source_row": 211,
+        "disposition": "OWNED",
+        "status": "HAVE - RESTOCKED; STOCK FORM UNCONFIRMED",
+        "actual_stock_text": (
+            "Romandolide is stocked again; new bottle strength and carrier were not stated"
+        ),
+        "can_prepare": "",
+    }
+    if (
+        record.get("record_id") != "INV-USER-20260910-ROMANDOLIDE-RESTOCK-001"
+        or record.get("canonical_name") != "Romandolide"
+        or record.get("aliases") != []
+        or record.get("state") != "OWNED"
+        or record.get("category") != "musk"
+        or record.get("stock") != expected_stock
+        or record.get("supersedes_parent_stocks")
+        != [{"source_row": 211, "fraction": 1.0}]
+        or record.get("requirement_overrides") != [expected_override]
+        or record.get("source_quote") != "romandolide is stocked again"
+        or record.get("evidence_refs") != ["ROMANDOLIDE_RESTOCKED_20260910"]
+        or record.get("authority_limits", {}).get("quantitative_dosing_ready")
+        is not False
+        or record.get("authority_limits", {}).get("prior_neat_stock_form_inherited")
+        is not False
+    ):
+        raise InventoryAuthorityError("Romandolide exact restock record drift")
+
+    if (
+        _normalized_text_sha256(FLORHYDRAL_USER_INVENTORY_OVERLAY_PATH)
+        != FLORHYDRAL_USER_INVENTORY_OVERLAY_SHA256
+    ):
+        raise InventoryAuthorityError("Romandolide restock predecessor overlay hash drift")
+    try:
+        predecessor_payload = json.loads(
+            FLORHYDRAL_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8")
+        )
+    except (OSError, json.JSONDecodeError) as exc:
+        raise InventoryAuthorityError(
+            "Romandolide restock predecessor overlay is unreadable"
+        ) from exc
+    previous = _load_20260910_florhydral_inventory_successor(
+        predecessor_payload,
+        require_live_inventory_binding=False,
+    )
+    retired_ids = set(successor["superseded_record_ids"])
+    inherited = [
+        row for row in previous["records"] if row["record_id"] not in retired_ids
+    ]
+    origins = {
+        key: dict(value)
+        for key, value in previous["record_origins"].items()
+        if key not in retired_ids
+    }
+    origins[str(record["record_id"])] = {
+        "path": "data/governance/inventory_user_authority_overlay_20260910_romandolide_restocked.json",
+        "sha256": CURRENT_USER_INVENTORY_OVERLAY_SHA256,
+    }
+    return {
+        **dict(successor),
+        "parent": dict(previous["parent"]),
+        "base_policy": dict(previous["base_policy"]),
+        "policy": {**dict(previous["policy"]), **expected_policy},
+        "delta_records": records,
+        "records": [*inherited, *records],
+        "record_origins": origins,
+        "retired_records": [
+            *previous.get("retired_records", []),
+            *(row for row in previous["records"] if row["record_id"] in retired_ids),
+        ],
+    }
+
+
+def load_current_user_inventory_overlay(
+    path: Path | None = None,
+    *,
+    require_pinned_overlay: bool = True,
+) -> dict[str, Any]:
+    """Load the dated user-authority overlay without mutating the V5 parent."""
+
+    overlay_path = path or CURRENT_USER_INVENTORY_OVERLAY_PATH
+    if not overlay_path.exists():
+        raise InventoryAuthorityError(
+            f"current user inventory overlay is missing: {overlay_path}"
+        )
+    overlay_sha = _normalized_text_sha256(overlay_path)
+    pinned_overlays = {
+        BASE_USER_INVENTORY_OVERLAY_PATH.resolve(): BASE_USER_INVENTORY_OVERLAY_SHA256,
+        PREVIOUS_USER_INVENTORY_OVERLAY_PATH.resolve(): PREVIOUS_USER_INVENTORY_OVERLAY_SHA256,
+        ORRIS_USER_INVENTORY_OVERLAY_PATH.resolve(): ORRIS_USER_INVENTORY_OVERLAY_SHA256,
+        NEROLI_USER_INVENTORY_OVERLAY_PATH.resolve(): NEROLI_USER_INVENTORY_OVERLAY_SHA256,
+        RECONCILED_USER_INVENTORY_OVERLAY_PATH.resolve(): RECONCILED_USER_INVENTORY_OVERLAY_SHA256,
+        TINCTURES_USER_INVENTORY_OVERLAY_PATH.resolve(): TINCTURES_USER_INVENTORY_OVERLAY_SHA256,
+        AHSEE_USER_INVENTORY_OVERLAY_PATH.resolve(): AHSEE_USER_INVENTORY_OVERLAY_SHA256,
+        ROMANDOLIDE_USER_INVENTORY_OVERLAY_PATH.resolve(): ROMANDOLIDE_USER_INVENTORY_OVERLAY_SHA256,
+        FLORHYDRAL_USER_INVENTORY_OVERLAY_PATH.resolve(): FLORHYDRAL_USER_INVENTORY_OVERLAY_SHA256,
+    }
+    expected_overlay_sha = pinned_overlays.get(overlay_path.resolve(), CURRENT_USER_INVENTORY_OVERLAY_SHA256)
+    if require_pinned_overlay and overlay_sha != expected_overlay_sha:
+        raise InventoryAuthorityError(
+            "current user inventory overlay hash drift: "
+            f"expected {expected_overlay_sha}, got {overlay_sha}"
+        )
+    try:
+        payload = json.loads(overlay_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise InventoryAuthorityError(
+            f"current user inventory overlay is unreadable: {exc}"
+        ) from exc
+
+    if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v9":
+        return _load_20260910_romandolide_restock_inventory_successor(payload)
+    if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v8":
+        return _load_20260910_florhydral_inventory_successor(payload)
+    if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v7":
+        return _load_20260908_romandolide_inventory_successor(payload)
+    if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v6":
+        return _load_20260908_ahsee_inventory_successor(payload)
+    if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v5":
+        return _load_20260908_user_inventory_successor(payload)
+    if payload.get("schema_version") == "perfume_chem_user_inventory_authority_successor_overlay_v4":
+        return _load_20260907_user_inventory_successor(payload)
+    if (
+        payload.get("schema_version")
+        == "perfume_chem_user_inventory_authority_successor_overlay_v3"
+    ):
+        return _load_20260906_user_inventory_successor(payload)
+    if (
+        payload.get("schema_version")
+        == "perfume_chem_user_inventory_authority_successor_overlay_v2"
+    ):
+        return _load_20260905_user_inventory_successor(payload)
+    if (
+        payload.get("schema_version")
+        == "perfume_chem_user_inventory_authority_successor_overlay_v1"
+    ):
+        return _load_20260904_user_inventory_successor(payload)
+
+    parent = payload.get("parent")
+    source = payload.get("source")
+    policy = payload.get("policy")
+    records = payload.get("records")
+    if (
+        payload.get("schema_version")
+        != "perfume_chem_user_inventory_authority_overlay_v1"
+        or payload.get("authority") != "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY"
+        or payload.get("effective_date") != "2026-08-28"
+        or not isinstance(parent, Mapping)
+        or not isinstance(source, Mapping)
+        or not isinstance(policy, Mapping)
+        or not isinstance(records, list)
+    ):
+        raise InventoryAuthorityError("current user inventory overlay metadata is invalid")
+    expected_parent = {
+        "authority": CURRENT_INVENTORY_AUTHORITY,
+        "workbook_sha256": CURRENT_INVENTORY_WORKBOOK_SHA256,
+        "snapshot_sha256": CURRENT_INVENTORY_SNAPSHOT_SHA256,
+    }
+    if dict(parent) != expected_parent:
+        raise InventoryAuthorityError("current user inventory overlay parent pin is invalid")
+    if (
+        source.get("kind") != "USER_AUTHORITATIVE_CROSS_TASK_HANDOFF"
+        or source.get("source_thread_id")
+        != "01a03ee5-7db4-7083-a396-fb1207225757"
+        or source.get("inventory_text_path") != "inventory.txt"
+        or source.get("inventory_text_size_bytes")
+        != BASE_USER_INVENTORY_TEXT_SIZE_BYTES
+        or source.get("inventory_text_sha256") != BASE_USER_INVENTORY_TEXT_SHA256
+    ):
+        raise InventoryAuthorityError(
+            "base user inventory overlay historical source binding is invalid"
+        )
+    expected_policy = {
+        "parent_snapshot_immutable": True,
+        "merge_other_task_branch": False,
+        "formula_rebase_authorized": False,
+        "general_substitution_authorized": False,
+        "preserve_exact_ap_t1_cinnamon_substitution": True,
+        "require_sub_10_ul_working_stock": True,
+        "unknown_fraction_fails_closed": True,
+        "unlisted_tinctures_available": False,
+    }
+    if dict(policy) != expected_policy:
+        raise InventoryAuthorityError("current user inventory overlay policy drift")
+
+    expected_ids = {
+        *(f"INV-USER-20260828-{index:03d}" for index in range(1, 16)),
+        "INV-USER-20260829-001",
+        "INV-USER-20260829-002",
+        "INV-USER-20260829-003",
+        *(f"INV-USER-20260830-{index:03d}" for index in range(1, 12)),
+    }
+    observed_ids: set[str] = set()
+    observed_names: set[str] = set()
+    allowed_states = {"OWNED", "UNAVAILABLE", "IDENTITY_ALIAS"}
+    allowed_bases = {"neat", "mass_fraction", "volume_fraction", "mass_per_volume", "unspecified"}
+    for record in records:
+        if not isinstance(record, Mapping):
+            raise InventoryAuthorityError("current user inventory overlay record is invalid")
+        record_id = str(record.get("record_id") or "")
+        canonical_name = str(record.get("canonical_name") or "").strip()
+        state = str(record.get("state") or "")
+        aliases = record.get("aliases")
+        selectors = record.get("supersedes_parent_stocks")
+        overrides = record.get("requirement_overrides")
+        if (
+            not record_id
+            or not canonical_name
+            or record_id in observed_ids
+            or canonical_name.casefold() in observed_names
+            or state not in allowed_states
+            or not isinstance(aliases, list)
+            or not isinstance(selectors, list)
+            or not isinstance(overrides, list)
+        ):
+            raise InventoryAuthorityError("current user inventory overlay record shape is invalid")
+        stock = record.get("stock")
+        if state == "OWNED":
+            if not isinstance(stock, Mapping):
+                raise InventoryAuthorityError("owned overlay record requires one stock")
+            fraction = stock.get("fraction")
+            if (
+                (
+                    fraction is not None
+                    and (
+                        not isinstance(fraction, (int, float))
+                        or not 0.0 < float(fraction) <= 1.0
+                    )
+                )
+                or (fraction is None and stock.get("execution_ready") is not False)
+                or stock.get("fraction_basis") not in allowed_bases
+                or not isinstance(stock.get("carrier"), str)
+                or not isinstance(stock.get("fraction_authority"), str)
+                or not isinstance(stock.get("execution_ready"), bool)
+                or (
+                    stock.get("execution_ready") is False
+                    and not str(stock.get("execution_hold_reason") or "").strip()
+                )
+            ):
+                raise InventoryAuthorityError("owned overlay stock declaration is invalid")
+        elif stock is not None:
+            raise InventoryAuthorityError("non-stock overlay record cannot declare a stock")
+        for selector in selectors:
+            if (
+                not isinstance(selector, Mapping)
+                or not isinstance(selector.get("source_row"), int)
+                or int(selector["source_row"]) <= 0
+                or (
+                    "fraction" in selector
+                    and (
+                        not isinstance(selector["fraction"], (int, float))
+                        or not 0.0 < float(selector["fraction"]) <= 1.0
+                    )
+                )
+            ):
+                raise InventoryAuthorityError("overlay parent-stock selector is invalid")
+        for override in overrides:
+            if (
+                not isinstance(override, Mapping)
+                or set(override)
+                != {
+                    "source_row",
+                    "disposition",
+                    "status",
+                    "actual_stock_text",
+                    "can_prepare",
+                }
+                or not isinstance(override.get("source_row"), int)
+                or int(override["source_row"]) <= 0
+                or override.get("disposition")
+                not in {"OWNED", "GAP", "PREPARATION_REQUIRED", "UNRESOLVED"}
+            ):
+                raise InventoryAuthorityError("overlay requirement override is invalid")
+        observed_ids.add(record_id)
+        observed_names.add(canonical_name.casefold())
+    if observed_ids != expected_ids:
+        raise InventoryAuthorityError("current user inventory overlay record set is incomplete")
+
+    ambrofix = next(
+        (record for record in records if record.get("record_id") == "INV-USER-20260829-001"),
+        None,
+    )
+    expected_mass_balance = {
+        "empty_bottle_g": 11.45,
+        "final_bottle_g": 14.09,
+        "contents_g": 2.64,
+        "added_ethanol_g": 2.0,
+        "original_30pct_stock_g": 0.64,
+        "ambrofix_g": 0.192,
+        "dep_g": 0.448,
+        "ethanol_g": 2.0,
+        "nominal_whole_bottle_mass_fraction": 0.07272727272727272,
+        "prior_withdrawal": False,
+    }
+    expected_authority_limits = {
+        "whole_bottle_including_solid_only": True,
+        "liquid_phase_strength_known": False,
+        "active_ul_ppm_oav_math_authorized": False,
+        "volume_dose_math_authorized": False,
+        "formula_rebase_authorized": False,
+        "procurement_authorized": False,
+        "stock_preparation_authorized": False,
+        "compounding_authorized": False,
+        "sensory_tested": False,
+        "performance_tested": False,
+        "safety_tested": False,
+        "stability_tested": False,
+        "release_authorized": False,
+    }
+    if (
+        not isinstance(ambrofix, Mapping)
+        or ambrofix.get("effective_date") != "2026-08-29"
+        or ambrofix.get("source_thread_id")
+        != "01a04493-752a-79e1-99ff-26f0a47fd079"
+        or ambrofix.get("mass_balance") != expected_mass_balance
+        or ambrofix.get("authority_limits") != expected_authority_limits
+        or ambrofix.get("stock", {}).get("fraction")
+        != expected_mass_balance["nominal_whole_bottle_mass_fraction"]
+        or ambrofix.get("stock", {}).get("fraction_basis") != "mass_fraction"
+        or ambrofix.get("stock", {}).get("carrier") != "dep + ethanol"
+        or ambrofix.get("stock", {}).get("execution_ready") is not False
+        or ambrofix.get("stock", {}).get("execution_hold_reason")
+        != "VISIBLE_CRYSTALS_LIQUID_PHASE_STRENGTH_UNKNOWN"
+    ):
+        raise InventoryAuthorityError("Ambrofix current-stock authority contract drift")
+
+    bacdanol = next(
+        (record for record in records if record.get("record_id") == "INV-USER-20260829-002"),
+        None,
+    )
+    expected_bacdanol_limits = {
+        "availability_confirmed": True,
+        "formulation_selection_ready": True,
+        "stock_fraction_known": False,
+        "fraction_basis_known": False,
+        "carrier_known": False,
+        "quantitative_dosing_ready": False,
+        "supplier_asserted": False,
+        "purity_asserted": False,
+        "density_asserted": False,
+        "safety_asserted": False,
+        "sensory_equivalence_asserted": False,
+    }
+    if (
+        not isinstance(bacdanol, Mapping)
+        or bacdanol.get("canonical_name") != "Bacdanol"
+        or bacdanol.get("aliases") != ["Bacnadol"]
+        or bacdanol.get("effective_date") != "2026-08-29"
+        or bacdanol.get("source_thread_id")
+        != "01a041bd-477c-75e3-be6b-7e3136bf5990"
+        or bacdanol.get("authority_limits") != expected_bacdanol_limits
+        or bacdanol.get("stock", {}).get("fraction") is not None
+        or bacdanol.get("stock", {}).get("fraction_basis") != "unspecified"
+        or bacdanol.get("stock", {}).get("carrier") != ""
+        or bacdanol.get("stock", {}).get("execution_ready") is not False
+        or bacdanol.get("stock", {}).get("execution_hold_reason")
+        != "STOCK_FRACTION_UNSPECIFIED"
+    ):
+        raise InventoryAuthorityError("Bacdanol current-stock authority contract drift")
+
+    guaiacwood = next(
+        (record for record in records if record.get("record_id") == "INV-USER-20260829-003"),
+        None,
+    )
+    expected_guaiacwood_limits = {
+        "availability_confirmed": True,
+        "formulation_selection_ready": True,
+        "stock_fraction_known": True,
+        "fraction_basis_known": False,
+        "carrier_known": False,
+        "quantitative_dosing_ready": False,
+        "supplier_asserted": False,
+        "purity_asserted": False,
+        "density_asserted": False,
+        "safety_asserted": False,
+        "stability_asserted": False,
+        "sensory_equivalence_asserted": False,
+        "release_success_asserted": False,
+    }
+    if (
+        not isinstance(guaiacwood, Mapping)
+        or guaiacwood.get("canonical_name") != "Guaiacwood EO"
+        or guaiacwood.get("effective_date") != "2026-08-29"
+        or guaiacwood.get("source_thread_id")
+        != "01a041bd-477c-75e3-be6b-7e3136bf5990"
+        or guaiacwood.get("authority_limits") != expected_guaiacwood_limits
+        or guaiacwood.get("stock", {}).get("fraction") != 0.33
+        or guaiacwood.get("stock", {}).get("fraction_basis") != "unspecified"
+        or guaiacwood.get("stock", {}).get("carrier") != ""
+        or guaiacwood.get("stock", {}).get("execution_ready") is not False
+        or guaiacwood.get("stock", {}).get("execution_hold_reason")
+        != "FRACTION_BASIS_AND_CARRIER_UNSPECIFIED"
+    ):
+        raise InventoryAuthorityError("Guaiacwood EO current-stock authority contract drift")
+
+    expected_v7_recovered_stocks = {
+        "INV-USER-20260830-008": ("Liffarome", [], 0.1),
+        "INV-USER-20260830-009": (
+            "Cis-3-Hexenyl Salicylate",
+            ["Cis-3 Hexenyl Salicylate"],
+            0.2,
+        ),
+        "INV-USER-20260830-010": ("Caryophyllene Acetate", [], 0.2),
+    }
+    expected_v7_recovered_limits = {
+        "availability_confirmed": True,
+        "formulation_selection_ready": True,
+        "only_current_working_concentration_confirmed": True,
+        "neat_current_stock_owned": False,
+        "parallel_current_stock_authorized": False,
+        "stock_fraction_known": True,
+        "fraction_basis_known": True,
+        "carrier_known": False,
+        "quantitative_dosing_ready": False,
+        "supplier_asserted": False,
+        "purity_asserted": False,
+        "density_asserted": False,
+        "safety_asserted": False,
+        "stability_asserted": False,
+        "sensory_equivalence_asserted": False,
+        "release_success_asserted": False,
+        "historical_formula_rebase_authorized": False,
+    }
+    records_by_id = {str(record.get("record_id")): record for record in records}
+    for record_id, (canonical_name, aliases, fraction) in expected_v7_recovered_stocks.items():
+        recovered = records_by_id.get(record_id)
+        if (
+            not isinstance(recovered, Mapping)
+            or recovered.get("canonical_name") != canonical_name
+            or recovered.get("aliases") != aliases
+            or recovered.get("state") != "OWNED"
+            or recovered.get("effective_date") != "2026-08-30"
+            or recovered.get("source_conversation_id")
+            != "6a8b30b9-0a2c-83ec-b485-fcb1aabc6790"
+            or recovered.get("authority_limits") != expected_v7_recovered_limits
+            or recovered.get("stock", {}).get("fraction") != fraction
+            or recovered.get("stock", {}).get("fraction_basis") != "mass_fraction"
+            or recovered.get("stock", {}).get("carrier") != ""
+            or recovered.get("stock", {}).get("fraction_authority")
+            != "EXPLICIT_USER_ASSERTION"
+            or recovered.get("stock", {}).get("execution_ready") is not False
+            or recovered.get("stock", {}).get("execution_hold_reason")
+            != "CARRIER_UNSPECIFIED"
+        ):
+            raise InventoryAuthorityError(
+                f"{canonical_name} recovered V7 current-stock authority contract drift"
+            )
+
+    clearwood = next(
+        (record for record in records if record.get("record_id") == "INV-USER-20260828-009"),
+        None,
+    )
+    expected_clearwood_limits = {
+        "availability_confirmed": True,
+        "formulation_selection_ready": True,
+        "stock_fraction_known": True,
+        "fraction_basis_known": True,
+        "carrier_required": False,
+        "quantitative_dosing_ready": True,
+        "supplier_asserted": False,
+        "purity_asserted": False,
+        "density_asserted": False,
+        "safety_asserted": False,
+        "stability_asserted": False,
+        "sensory_equivalence_asserted": False,
+        "release_success_asserted": False,
+    }
+    if (
+        not isinstance(clearwood, Mapping)
+        or clearwood.get("canonical_name") != "Clearwood"
+        or clearwood.get("state") != "OWNED"
+        or clearwood.get("effective_date") != "2026-08-29"
+        or clearwood.get("source_thread_id")
+        != "01a041bd-477c-75e3-be6b-7e3136bf5990"
+        or clearwood.get("authority_limits") != expected_clearwood_limits
+        or clearwood.get("stock")
+        != {
+            "fraction": 1.0,
+            "fraction_basis": "neat",
+            "carrier": "",
+            "fraction_authority": "EXPLICIT_USER_ASSERTION",
+            "execution_ready": True,
+        }
+    ):
+        raise InventoryAuthorityError("Clearwood current-stock authority contract drift")
+    return payload
+
+
+def _overlay_selector_matches(
+    record: InventoryMaterial,
+    selector: Mapping[str, Any],
+) -> bool:
+    if int(selector["source_row"]) not in record.source_rows:
+        return False
+    if "fraction" not in selector:
+        return True
+    return abs(record.dilution - float(selector["fraction"])) <= 1e-12
+
+
+def _apply_current_user_inventory_overlay(
+    materialized: CurrentInventoryMaterialization,
+    payload: Mapping[str, Any],
+) -> CurrentInventoryMaterialization:
+    """Apply exact stock selectors and additions from the validated overlay."""
+
+    records = list(payload["records"])
+    head_record_ids = {
+        str(record.get("record_id") or "")
+        for record in payload.get("delta_records", [])
+        if isinstance(record, Mapping)
+    }
+    selectors = [
+        selector
+        for record in records
+        for selector in record["supersedes_parent_stocks"]
+    ]
+    removed_selectors: set[tuple[int, float | None]] = set()
+    retained_stocks: list[InventoryMaterial] = []
+    for stock in materialized.stocks:
+        matched = False
+        for selector in selectors:
+            if _overlay_selector_matches(stock, selector):
+                removed_selectors.add(
+                    (
+                        int(selector["source_row"]),
+                        float(selector["fraction"])
+                        if "fraction" in selector
+                        else None,
+                    )
+                )
+                matched = True
+                # A broad row selector and an exact-fraction selector can both
+                # describe a retired stock. Record every real match so dated
+                # successor order cannot hide one of the validated selectors.
+        if not matched:
+            retained_stocks.append(stock)
+
+    expected_selectors = {
+        (
+            int(selector["source_row"]),
+            float(selector["fraction"]) if "fraction" in selector else None,
+        )
+        for selector in selectors
+    }
+    if removed_selectors != expected_selectors:
+        raise InventoryAuthorityError(
+            "current user inventory overlay no longer matches every parent-stock selector"
+        )
+
+    overrides_by_row = {
+        int(override["source_row"]): override
+        for record in records
+        for override in record["requirement_overrides"]
+    }
+    if len(overrides_by_row) != sum(
+        len(record["requirement_overrides"]) for record in records
+    ):
+        raise InventoryAuthorityError("overlay requirement rows are duplicated")
+    observed_override_rows: set[int] = set()
+    requirements: list[InventoryRequirement] = []
+    for requirement in materialized.requirements:
+        override = overrides_by_row.get(requirement.source_row)
+        if override is None:
+            requirements.append(requirement)
+            continue
+        observed_override_rows.add(requirement.source_row)
+        requirements.append(
+            replace(
+                requirement,
+                disposition=str(override["disposition"]),
+                status=str(override["status"]),
+                actual_stock_text=str(override["actual_stock_text"]),
+                can_prepare=str(override["can_prepare"]),
+            )
+        )
+    if observed_override_rows != set(overrides_by_row):
+        raise InventoryAuthorityError(
+            "current user inventory overlay no longer matches every parent requirement row"
+        )
+
+    for record in records:
+        if record["state"] != "OWNED":
+            continue
+        stock = record["stock"]
+        record_id = str(record["record_id"])
+        canonical_name = str(record["canonical_name"])
+        parent_rows = {
+            int(selector["source_row"])
+            for selector in record["supersedes_parent_stocks"]
+        } | {
+            int(override["source_row"])
+            for override in record["requirement_overrides"]
+        }
+        origin_overlay_sha256 = (
+            PREVIOUS_USER_INVENTORY_OVERLAY_SHA256
+            if record_id in head_record_ids
+            else BASE_USER_INVENTORY_OVERLAY_SHA256
+        )
+        origin_path = (
+            "data/governance/inventory_user_authority_overlay_20260904.json"
+            if record_id in head_record_ids
+            else "data/governance/inventory_user_authority_overlay_20260828.json"
+        )
+        origin = payload.get("record_origins", {}).get(record_id)
+        if origin is not None:
+            origin_overlay_sha256 = str(origin["sha256"])
+            origin_path = str(origin["path"])
+        stock_digest = hashlib.sha256(
+            f"{origin_overlay_sha256}|{record_id}".encode("utf-8")
+        ).hexdigest()[:20]
+        authority_date = record_id.split("-")[2]
+        raw_fraction = stock.get("fraction")
+        fraction = float(raw_fraction) if raw_fraction is not None else 0.0
+        basis = str(stock["fraction_basis"])
+        carrier = str(stock["carrier"])
+        descriptor = (
+            "neat / as supplied"
+            if fraction == 1.0
+            else (
+                "owned / stock fraction unspecified"
+                if raw_fraction is None
+                else f"{fraction * 100:g}% in {carrier.upper() or 'carrier unstated'}"
+            )
+        )
+        retained_stocks.append(
+            InventoryMaterial(
+                name=canonical_name,
+                dilution=fraction,
+                category=str(record["category"]),
+                raw_name=descriptor,
+                status="owned",
+                fraction_basis=basis,
+                carrier=carrier,
+                approximate=False,
+                identity_name=_v5_identity_name(canonical_name),
+                stock_id=f"inventory:user-{authority_date}:{stock_digest}",
+                authority=(
+                    FLORHYDRAL_USER_INVENTORY_AUTHORITY
+                    if authority_date == "20260910"
+                    else CURRENT_USER_INVENTORY_AUTHORITY
+                    if authority_date == "20260908"
+                    else "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907"
+                ),
+                source_rows=tuple(sorted(parent_rows)),
+                source_ref=f"{origin_path}#{record_id}",
+                execution_ready=bool(stock["execution_ready"]),
+                execution_hold_reason=str(stock.get("execution_hold_reason") or ""),
+            )
+        )
+
+    return CurrentInventoryMaterialization(
+        stocks=tuple(
+            sorted(
+                retained_stocks,
+                key=lambda stock: (
+                    stock.source_rows,
+                    stock.identity_name.lower(),
+                    stock.stock_id,
+                ),
+            )
+        ),
+        requirements=tuple(requirements),
+        source_workbook_sha256=materialized.source_workbook_sha256,
+        snapshot_sha256=materialized.snapshot_sha256,
+        overlay_sha256=CURRENT_USER_INVENTORY_OVERLAY_SHA256,
+    )
+
+
+def materialize_current_inventory(
+    path: Path | None = None,
+    *,
+    require_pinned_snapshot: bool = True,
+    apply_user_overlay: bool = True,
+    require_pinned_overlay: bool = True,
+) -> CurrentInventoryMaterialization:
+    """Materialize immutable V5 stocks plus the pinned user successor overlay."""
+
+    snapshot_path = path or CURRENT_INVENTORY_SNAPSHOT_PATH
+    payload = load_current_inventory_snapshot(
+        snapshot_path,
+        require_pinned_snapshot=require_pinned_snapshot,
+    )
+    stock_by_fingerprint: dict[tuple[str, float, str, str, str], InventoryMaterial] = {}
+    requirements: list[InventoryRequirement] = []
+    for raw_row in payload["records"]:
+        row = dict(raw_row)
+        source_row = int(row.get("_source_row") or 0)
+        canonical = str(row.get("Canonical material") or "").strip()
+        if not canonical or source_row <= 0:
+            continue
+        identity = _v5_identity_name(canonical)
+        status = str(row.get("Status") or "").strip()
+        actual = str(row.get("Actual stock(s)") or "").strip()
+        can_prepare = str(row.get("Can prepare") or "").strip()
+        category = str(row.get("Family") or "").strip().lower()
+        actual_specs = _actual_stock_specs(actual, status)
+        requested = _requested_stock_spec(row, actual_specs)
+        disposition = _requirement_disposition(
+            status,
+            requested,
+            actual_specs,
+            can_prepare,
+        )
+        requirements.append(
+            InventoryRequirement(
+                canonical_name=canonical,
+                identity_name=identity,
+                requested_fraction=requested.fraction if requested else None,
+                fraction_basis=requested.fraction_basis if requested else "unspecified",
+                carrier=requested.carrier if requested else "",
+                disposition=disposition,
+                source_row=source_row,
+                status=status,
+                actual_stock_text=actual,
+                can_prepare=can_prepare,
+                category=category,
+            )
+        )
+
+        upper = status.upper()
+        if not upper.startswith("HAVE") or any(
+            token in upper for token in ("DIFFERENT MATERIAL", "VIA NAGARMOTHA")
+        ):
+            continue
+        for spec, descriptor in actual_specs:
+            descriptor_key = re.sub(r"\s+", " ", descriptor.strip().lower())
+            distinct_stock_marker = descriptor_key if any(
+                token in upper
+                for token in (
+                    "MULTIPLE",
+                    "TWO PRODUCTS",
+                    "LOT",
+                    "IDENTITY KEPT SEPARATE",
+                )
+            ) else ""
+            fingerprint = (
+                identity.lower(),
+                round(spec.fraction, 12),
+                spec.fraction_basis,
+                spec.carrier,
+                distinct_stock_marker,
+            )
+            existing = stock_by_fingerprint.get(fingerprint)
+            if existing is not None:
+                stock_by_fingerprint[fingerprint] = replace(
+                    existing,
+                    source_rows=tuple(sorted(set(existing.source_rows) | {source_row})),
+                )
+                continue
+            stock_digest = hashlib.sha256(
+                (
+                    f"{CURRENT_INVENTORY_WORKBOOK_SHA256}|{identity.lower()}|"
+                    f"{spec.fraction:.12g}|{spec.fraction_basis}|{spec.carrier}|"
+                    f"{distinct_stock_marker}"
+                ).encode("utf-8")
+            ).hexdigest()[:20]
+            stock_by_fingerprint[fingerprint] = InventoryMaterial(
+                name=canonical,
+                dilution=spec.fraction,
+                category=category,
+                raw_name=descriptor,
+                status="owned",
+                fraction_basis=spec.fraction_basis,
+                carrier=spec.carrier,
+                approximate=spec.approximate,
+                identity_name=identity,
+                stock_id=f"inventory:v5:{stock_digest}",
+                authority=CURRENT_INVENTORY_AUTHORITY,
+                source_rows=(source_row,),
+                source_ref=f"Current Inventory Master!A{source_row}:N{source_row}",
+                execution_ready=_stock_execution_ready(status, spec, descriptor),
+            )
+
+    stocks = tuple(
+        sorted(
+            stock_by_fingerprint.values(),
+            key=lambda record: (record.source_rows, record.identity_name.lower(), record.stock_id),
+        )
+    )
+    materialized = CurrentInventoryMaterialization(
+        stocks=stocks,
+        requirements=tuple(requirements),
+        source_workbook_sha256=str(payload["source"]["sha256"]),
+        snapshot_sha256=_file_sha256(snapshot_path),
+    )
+    if not apply_user_overlay:
+        return materialized
+    overlay = load_current_user_inventory_overlay(
+        require_pinned_overlay=require_pinned_overlay,
+    )
+    return _apply_current_user_inventory_overlay(materialized, overlay)
+
+
+def parse_current_inventory(
+    path: Path | None = None,
+    *,
+    unique: bool = True,
+    include_solvents: bool = True,
+    include_unavailable: bool = True,
+    require_pinned_snapshot: bool = True,
+) -> list[InventoryMaterial]:
+    """Return V5 physical stocks plus explicit non-owned requirement states.
+
+    ``unique=True`` deduplicates stable stock/requirement IDs, never material
+    names or concentrations. Multiple real stocks therefore remain separate.
+    """
+
+    materialized = materialize_current_inventory(
+        path,
+        require_pinned_snapshot=require_pinned_snapshot,
+    )
+    records = list(materialized.stocks)
+    if include_unavailable:
+        for requirement in materialized.requirements:
+            if requirement.disposition == "OWNED":
+                continue
+            records.append(
+                InventoryMaterial(
+                    name=requirement.canonical_name,
+                    dilution=requirement.requested_fraction or 0.0,
+                    category=requirement.category,
+                    raw_name=f"{requirement.canonical_name} [{requirement.status}]",
+                    status=requirement.disposition.lower(),
+                    fraction_basis=requirement.fraction_basis,
+                    carrier=requirement.carrier,
+                    identity_name=requirement.identity_name,
+                    stock_id=f"requirement:v5:r{requirement.source_row}",
+                    authority=CURRENT_INVENTORY_AUTHORITY,
+                    source_rows=(requirement.source_row,),
+                    source_ref=(
+                        f"Current Inventory Master!A{requirement.source_row}:"
+                        f"N{requirement.source_row}"
+                    ),
+                    execution_ready=False,
+                    requirement_state=requirement.disposition,
+                )
+            )
+    if not include_solvents:
+        records = [record for record in records if not _is_solvent(record)]
+    if unique:
+        by_id: dict[str, InventoryMaterial] = {}
+        for record in records:
+            key = record.stock_id or (
+                f"legacy:{record.identity_name.lower()}:{record.dilution:.12g}:"
+                f"{record.fraction_basis}:{record.carrier}"
+            )
+            by_id.setdefault(key, record)
+        records = list(by_id.values())
+    return sorted(
+        records,
+        key=lambda record: (record.source_rows, record.identity_name.lower(), record.stock_id),
+    )
+
+
+def parse_inventory(
+    path: Path | None = None,
+    *,
+    unique: bool = True,
+    include_solvents: bool = True,
+    include_unavailable: bool = True,
+) -> list[InventoryMaterial]:
+    """Parse inventory.txt into normalized material records.
+
+    When `unique=True`, duplicate canonical materials are collapsed by keeping
+    the highest-available dilution entry.
+    """
+    path = path or INVENTORY_PATH
+    if not path.exists():
+        return []
+
+    materials: list[InventoryMaterial] = []
+    current_category = ""
+
+    for line_number, raw_line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+        line = raw_line.strip()
+        if not line:
+            continue
+
+        heading_match = _HEADING_RE.match(line)
+        if heading_match:
+            current_category = heading_match.group(1).strip().lower()
+            continue
+
+        bullet_match = _BULLET_RE.match(line)
+        if not bullet_match:
+            continue
+
+        raw_name = bullet_match.group(1).strip()
+        stock_source = re.sub(r"\s*#.*$", "", raw_name).strip()
+        status = _parse_status(raw_name)
+        execution_hold_reason = _parse_execution_hold_reason(raw_name, status)
+        stock = parse_stock_specification(
+            stock_source,
+            assume_neat_when_missing=execution_hold_reason != "STOCK_FRACTION_UNSPECIFIED",
+        )
+        if not execution_hold_reason and status == "owned":
+            if stock.approximate:
+                execution_hold_reason = "APPROXIMATE_STOCK_FRACTION"
+            elif stock.fraction < 1 and (stock.fraction_basis == "unspecified" or not stock.carrier):
+                execution_hold_reason = "FRACTION_BASIS_OR_CARRIER_UNSPECIFIED"
+        record = InventoryMaterial(
+            name=_canonical_name(raw_name),
+            dilution=(
+                0.0
+                if execution_hold_reason == "STOCK_FRACTION_UNSPECIFIED"
+                else stock.fraction
+            ),
+            category=current_category,
+            raw_name=raw_name,
+            status=status,
+            fraction_basis=stock.fraction_basis,
+            carrier=stock.carrier,
+            approximate=stock.approximate,
+            identity_name=_identity_name(raw_name),
+            source_rows=(line_number,),
+            source_ref=f"{path.name}:{line_number}",
+            stock_id="inventory:text:" + hashlib.sha256(
+                f"{current_category}|{raw_name}".encode("utf-8")
+            ).hexdigest()[:20],
+            execution_ready=status == "owned" and not execution_hold_reason,
+            execution_hold_reason=execution_hold_reason,
+        )
+        if not include_unavailable and record.status != "owned":
+            continue
+        if not include_solvents and _is_solvent(record):
+            continue
+        materials.append(record)
+
+    if not unique:
+        return materials
+
+    deduped: dict[str, InventoryMaterial] = {}
+    for record in materials:
+        key = record.name.lower()
+        existing = deduped.get(key)
+        if existing is None or (record.status == "owned", record.dilution) > (
+            existing.status == "owned", existing.dilution
+        ):
+            deduped[key] = record
+
+    return list(deduped.values())
+
+
+def inventory_names(
+    path: Path | None = None,
+    *,
+    unique: bool = True,
+    include_solvents: bool = True,
+    include_unavailable: bool = True,
+) -> list[str]:
+    return [
+        record.name
+        for record in parse_inventory(
+            path,
+            unique=unique,
+            include_solvents=include_solvents,
+            include_unavailable=include_unavailable,
+        )
+    ]
+
+
+def inventory_counts(path: Path | None = None) -> dict[str, int]:
+    """Return raw and normalized inventory counts for reporting."""
+    path = path or INVENTORY_PATH
+    raw = parse_inventory(path, unique=False, include_solvents=True)
+    unique_all = parse_inventory(path, unique=True, include_solvents=True)
+    unique_fragrance = parse_inventory(path, unique=True, include_solvents=False)
+    return {
+        "raw_entries": len(raw),
+        "unique_normalized": len(unique_all),
+        "unique_fragrance": len(unique_fragrance),
+        "solvent_or_carrier": len(unique_all) - len(unique_fragrance),
+        "duplicate_canonical_entries": len(raw) - len(unique_all),
+    }

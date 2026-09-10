@@ -1,0 +1,290 @@
+"""Pre-bonding chemistry rules for reactive material pairs.
+
+Classifies material pairs as:
+  must-prebond        — reactive pairs that form new compounds (Schiff bases)
+  benefits-from-prebond — H-bonding or solubility-matched pairs (better homogeneity)
+  neutral             — no special interaction
+  keep-separate       — incompatible pairs that degrade each other
+"""
+
+import re
+
+from engine.optimizer.models import _lookup_material
+
+# ── Functional group detection ──
+
+# Maps material names → functional groups (from IUPAC/CAS/SAR data)
+FUNCTIONAL_GROUPS = {
+    # Aldehydes (-CHO)
+    "aldehyde c10": ["aldehyde"], "aldehyde c11": ["aldehyde"], "aldehyde c12 mna": ["aldehyde"],
+    "citral": ["aldehyde", "terpene"], "citronellal": ["aldehyde", "terpene"],
+    "hydroxycitronellal": ["aldehyde", "hydroxyl"], "lilial": ["aldehyde"],
+    "cinnamaldehyde": ["aldehyde", "phenyl"],
+    # Amines
+    "methyl anthranilate": ["amine", "ester"], "indole": ["amine"],
+    # Phenols
+    "eugenol": ["phenol"], "isoeugenol": ["phenol"],
+    "thymol": ["phenol"], "carvacrol": ["phenol"],
+    # Esters
+    "hedione": ["ester"], "benzyl acetate": ["ester"],
+    "linalyl acetate": ["ester"], "benzyl benzoate": ["ester"],
+    "methyl salicylate": ["ester", "phenol"],
+    # Alcohols
+    "linalool": ["alcohol", "terpene"], "geraniol": ["alcohol", "terpene"],
+    "citronellol": ["alcohol", "terpene"], "santalol": ["alcohol"],
+    "menthol": ["alcohol", "terpene"],
+    # Ketones
+    "iso e super": ["ketone"], "cashmeran": ["ketone"],
+    "raspberry ketone": ["ketone", "phenol"],
+    # Lactones
+    "coumarin": ["lactone"], "galaxolide": ["lactone"],
+    "habanolide": ["lactone"], "exaltolide": ["lactone"],
+    # Acids (can catalyze hydrolysis)
+    "cinnamic acid": ["acid"],
+    # Terpenes (oxidation-prone)
+    "limonene": ["terpene"], "pinene": ["terpene"],
+    "myrcene": ["terpene"],
+}
+
+# Materials that are crystalline solids at room temperature
+CRYSTALLINE_SOLIDS = {
+    "vanillin", "ethyl vanillin", "coumarin", "acetanisole",
+    "raspberry ketone", "musk ketone", "musk xylene",
+    "heliotropin", "tonalid",
+}
+
+CRYSTALLINE_ALIASES = {
+    "heliotropin fleuressence": "heliotropin",
+    "musk ketone (10%)": "musk ketone",
+    "vanillin (10%)": "vanillin",
+    "ethyl vanillin (10%)": "ethyl vanillin",
+    "coumarin (20%)": "coumarin",
+    "raspberry ketone (10%)": "raspberry ketone",
+    "tonalide (10%)": "tonalid",
+}
+
+_DILUTED_STOCK_HINTS = (
+    r"\b\d{1,3}%\b",
+    "dilution",
+    "diluted",
+    "solution",
+    "dissolved",
+    "pre-diluted",
+    "pre blended",
+    "pre-blended",
+    "preblend",
+    "pre-blend",
+    "in dpg",
+    "in ethanol",
+    "in tec",
+    "in carrier",
+    "fragrance oil",
+    "ftec",
+)
+
+_SOLID_STOCK_HINTS = (
+    "solid",
+    "crystal",
+    "crystalline",
+    "powder",
+    "flakes",
+)
+
+_SPECIALTY_BLEND_NAME_HINTS = (
+    "fleuressence",
+    "ftec",
+    "fragrance oil",
+    "pre-blended",
+    "pre blended",
+    "accord",
+    "blend",
+)
+
+
+def _normalize_stock_form_text(value: object) -> str:
+    """Return stock-form metadata as comparison-safe text.
+
+    Historical material records sometimes store ``user_stock_dilution`` as a
+    numeric fraction and expose it through ``stock_form``.  The pre-bonding
+    classifier only needs text hints about physical form, so numeric values are
+    kept opaque here.  In particular, this function must not translate a
+    number into a concentration, basis, carrier, or execution-ready claim.
+    """
+    if isinstance(value, str):
+        return value.strip().casefold()
+    if isinstance(value, (int, float)) and not isinstance(value, bool):
+        return str(value).strip().casefold()
+    return ""
+
+# Reactive pair rules: (group_a, group_b) → classification
+REACTIVE_PAIRS = {
+    ("aldehyde", "amine"): {
+        "classification": "must-prebond",
+        "reaction": "Schiff base formation",
+        "note": "Creates new aromatic compound — intentional use creates Aurantiol-type bases. "
+                "Mix the aldehyde and amine first, let react 30-60 min before adding to formula."
+    },
+    ("aldehyde", "acid"): {
+        "classification": "keep-separate",
+        "reaction": "Acid-catalyzed aldol condensation",
+        "note": "Acids accelerate aldehyde degradation. Add aldehyde last, after acid is diluted."
+    },
+    ("phenol", "amine"): {
+        "classification": "keep-separate",
+        "reaction": "Discoloration — forms colored quinone-type compounds",
+        "note": "Separate temporally by at least 2 intermediary additions."
+    },
+    ("ester", "acid"): {
+        "classification": "keep-separate",
+        "reaction": "Acid-catalyzed hydrolysis",
+        "note": "Acids break esters into alcohol + acid. Keep separate; add ester after pH is neutral."
+    },
+}
+
+
+def get_functional_groups(material_name: str) -> list[str]:
+    """Get functional groups for a material."""
+    key = material_name.lower().strip()
+    if key in FUNCTIONAL_GROUPS:
+        return FUNCTIONAL_GROUPS[key]
+
+    # Heuristic fallback: check material name and SAR class
+    mat = _lookup_material(material_name)
+    groups = []
+    if mat:
+        sar = (mat.get("sar_class") or "").lower()
+        name_lower = mat.get("name", "").lower()
+        if "aldehyde" in sar or "aldehyde" in name_lower:
+            groups.append("aldehyde")
+        if "alcohol" in sar:
+            groups.append("alcohol")
+        if "ester" in sar or "acetate" in name_lower:
+            groups.append("ester")
+        if "ketone" in sar or "ketone" in name_lower:
+            groups.append("ketone")
+        if "phenol" in sar or "eugenol" in name_lower:
+            groups.append("phenol")
+        if "terpene" in sar or "terpen" in sar:
+            groups.append("terpene")
+        if "lactone" in sar or "macrolide" in sar or "macrocyclic" in sar:
+            groups.append("lactone")
+        if "musk" in sar:
+            groups.append("musk")
+    return groups
+
+
+def is_crystalline(material_name: str) -> bool:
+    """Check if a material is a crystalline solid at room temperature."""
+    key = material_name.lower().strip()
+    key = CRYSTALLINE_ALIASES.get(key, key)
+
+    mat = _lookup_material(material_name)
+    if mat:
+        name = (mat.get("name") or material_name).lower()
+        stock = _normalize_stock_form_text(mat.get("stock_form"))
+        if any(
+            (term.startswith(r"\b") and re.search(term, stock))
+            or (not term.startswith(r"\b") and term in stock)
+            for term in _DILUTED_STOCK_HINTS
+        ):
+            return False
+        if any(term in stock for term in _SOLID_STOCK_HINTS):
+            return True
+        if any(term in name for term in _SPECIALTY_BLEND_NAME_HINTS):
+            return False
+    if key in CRYSTALLINE_SOLIDS:
+        return True
+    return False
+
+
+class PreBondingAnalyzer:
+    """Analyze a formula for pre-bonding requirements."""
+
+    def analyze_pair(self, mat_a: str, mat_b: str) -> dict:
+        """Classify the interaction between two materials.
+
+        Returns: {classification, reaction, note}
+        classification is one of: must-prebond, benefits-from-prebond, neutral, keep-separate
+        """
+        groups_a = get_functional_groups(mat_a)
+        groups_b = get_functional_groups(mat_b)
+
+        # Check reactive pair rules
+        for ga in groups_a:
+            for gb in groups_b:
+                key = (ga, gb)
+                if key in REACTIVE_PAIRS:
+                    return REACTIVE_PAIRS[key]
+                key_rev = (gb, ga)
+                if key_rev in REACTIVE_PAIRS:
+                    return REACTIVE_PAIRS[key_rev]
+
+        # Check solubility matching (CLP similarity → benefits from pre-mixing)
+        mat_a_data = _lookup_material(mat_a)
+        mat_b_data = _lookup_material(mat_b)
+        if mat_a_data and mat_b_data:
+            clp_a = mat_a_data.get("clp")
+            clp_b = mat_b_data.get("clp")
+            if clp_a is not None and clp_b is not None:
+                if abs(clp_a - clp_b) < 0.8:
+                    return {
+                        "classification": "benefits-from-prebond",
+                        "reaction": "Solubility matching (similar CLP → better miscibility)",
+                        "note": f"CLP {clp_a:.1f} vs {clp_b:.1f} — pre-mixing improves homogeneity."
+                    }
+
+            # H-bond donors + acceptors benefit from pre-mixing
+            both_hbond = (
+                any(g in ["alcohol", "phenol", "acid"] for g in groups_a) and
+                any(g in ["ketone", "ester", "aldehyde", "lactone"] for g in groups_b)
+            )
+            if both_hbond:
+                return {
+                    "classification": "benefits-from-prebond",
+                    "reaction": "H-bonding (donor + acceptor pairing)",
+                    "note": "Pre-mixing allows H-bonds to form before dilution."
+                }
+
+        return {
+            "classification": "neutral",
+            "reaction": "No significant chemical interaction",
+            "note": "Standard sequential addition is fine."
+        }
+
+    def analyze_formula(self, ingredients: dict[str, float]) -> dict:
+        """Analyze all pairs in a formula for pre-bonding requirements.
+
+        Returns: {
+            must_prebond: [(mat_a, mat_b, details), ...],
+            benefits: [(mat_a, mat_b, details), ...],
+            keep_separate: [(mat_a, mat_b, details), ...],
+            crystalline: [mat_name, ...],
+        }
+        """
+        names = list(ingredients.keys())
+        result = {
+            "must_prebond": [],
+            "benefits": [],
+            "keep_separate": [],
+            "crystalline": [],
+        }
+
+        # Check crystalline materials
+        for name in names:
+            if is_crystalline(name):
+                result["crystalline"].append(name)
+
+        # Check all pairs
+        for i in range(len(names)):
+            for j in range(i + 1, len(names)):
+                pair_result = self.analyze_pair(names[i], names[j])
+                cls = pair_result["classification"]
+                entry = (names[i], names[j], pair_result)
+                if cls == "must-prebond":
+                    result["must_prebond"].append(entry)
+                elif cls == "benefits-from-prebond":
+                    result["benefits"].append(entry)
+                elif cls == "keep-separate":
+                    result["keep_separate"].append(entry)
+
+        return result

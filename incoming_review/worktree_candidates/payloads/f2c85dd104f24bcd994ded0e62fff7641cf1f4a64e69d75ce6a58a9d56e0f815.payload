@@ -1,0 +1,197 @@
+from __future__ import annotations
+
+import hashlib
+import json
+from pathlib import Path
+from typing import Any
+
+from engine.optimizer.models import FormulaVector
+from engine.optimizer.scoring import FormulaScorer
+from scripts.formula_simulator import simulate
+from scripts.verify_c0_physical_model_inventory import capture_legacy_case
+
+ROOT = Path(__file__).resolve().parents[1]
+SUCCESSOR_PATH = (
+    ROOT / "data" / "governance" / "c0_physical_model_compatibility_successor_20260905.json"
+)
+INVENTORY_PATH = ROOT / "docs" / "verification" / "c0" / "physical_model_inventory.json"
+FIXTURE_PATH = ROOT / "tests" / "fixtures" / "c0_legacy_physical_model_cases.json"
+
+
+def _load_json(path: Path) -> dict[str, Any]:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _formula() -> FormulaVector:
+    return FormulaVector(
+        ingredients={
+            "Hedione": 40.0,
+            "Iso E Super": 35.0,
+            "Coumarin": 15.0,
+            "Lavender EO": 10.0,
+        },
+        dilutions={
+            "Hedione": 1.0,
+            "Iso E Super": 1.0,
+            "Coumarin": 0.2,
+            "Lavender EO": 1.0,
+        },
+    )
+
+
+def test_successor_preserves_exact_predecessor_receipts() -> None:
+    successor = _load_json(SUCCESSOR_PATH)
+
+    assert successor["schema_version"] == "c0-physical-model-compatibility-successor-v1"
+    assert successor["compatibility"]["kind"] == "CURRENT_EXACT_BYTE_SUCCESSOR"
+    assert successor["compatibility"]["promotion_effect"] == "NONE"
+
+    predecessor = successor["compatibility"]["predecessor"]
+    for binding in predecessor.values():
+        path = ROOT / binding["path"]
+        assert path.stat().st_size == binding["bytes"]
+        assert _sha256(path) == binding["sha256"]
+
+
+def test_successor_binds_exact_current_scoring_bytes_and_implementation() -> None:
+    successor = _load_json(SUCCESSOR_PATH)
+    inventory = _load_json(INVENTORY_PATH)
+    source = successor["current_source_binding"]
+    implementation = successor["implementation_binding"]
+    historical = next(
+        record
+        for record in inventory["implementations"]
+        if record["id"] == implementation["id"]
+    )
+    source_path = ROOT / source["path"]
+
+    assert source_path.stat().st_size == source["bytes"]
+    assert _sha256(source_path) == source["sha256"]
+    assert source["sha256"] != source["previous_sha256"]
+    assert historical["source_sha256"][source["path"]] == source["previous_sha256"]
+    assert implementation["category"] == historical["category"]
+    assert implementation["classification"] == historical["classification"]
+    assert implementation["runtime_status"] == historical["runtime_status"]
+
+    symbol = implementation["source"]
+    line = source_path.read_text(encoding="utf-8").splitlines()[symbol["line"] - 1]
+    assert symbol["path"] == source["path"]
+    assert f"class {symbol['symbol']}" in line
+
+
+def test_successor_binds_fixture_only_verifier_transition() -> None:
+    successor = _load_json(SUCCESSOR_PATH)
+    transition = successor["compatibility"]["verifier_transition"]
+    verifier_path = ROOT / transition["path"]
+
+    assert transition["previous_sha256"] == (
+        "a8fa49ec7ad6f73dc6f00ece7c750ed749e3efbc1a10d64e5d753ae2fbd660db"
+    )
+    assert transition["sha256"] != transition["previous_sha256"]
+    assert verifier_path.stat().st_size == transition["bytes"]
+    assert _sha256(verifier_path) == transition["sha256"]
+    assert transition["change_kind"] == "FIXTURE_ONLY_EXPLICIT_LEGACY_SCALAR_REPLAY"
+
+
+def test_successor_call_edges_are_exact_predecessor_to_current_bindings() -> None:
+    successor = _load_json(SUCCESSOR_PATH)
+    inventory = _load_json(INVENTORY_PATH)
+
+    for binding in successor["call_edge_bindings"]:
+        historical = inventory["call_edges"][binding["index"]]
+        source_lines = (ROOT / binding["path"]).read_text(encoding="utf-8").splitlines()
+        assert binding["caller"] == historical["caller"]
+        assert binding["callee_id"] == historical["callee_id"]
+        assert binding["path"] == historical["evidence"]["path"]
+        assert binding["token"] == historical["evidence"]["token"]
+        assert binding["predecessor_line"] == historical["evidence"]["line"]
+        assert binding["token"] in source_lines[binding["current_line"] - 1]
+
+    hedonic_edge = next(
+        binding
+        for binding in successor["call_edge_bindings"]
+        if binding["callee_id"] == "C0-PM-038"
+    )
+    assert hedonic_edge["current_scope"] == "LEGACY_REPLAY_ONLY"
+
+
+def test_successor_binds_legacy_fixture_provenance_without_rewriting_outputs() -> None:
+    successor = _load_json(SUCCESSOR_PATH)
+    fixtures = _load_json(FIXTURE_PATH)
+    current_hash = successor["current_source_binding"]["sha256"]
+
+    for binding in successor["legacy_fixture_bindings"]:
+        historical = next(case for case in fixtures["cases"] if case["id"] == binding["id"])
+        assert historical["classification"] == binding["classification"]
+        assert historical["source_sha256"][binding["path"]] == binding["predecessor_sha256"]
+        assert binding["current_sha256"] == current_hash
+
+    scalar = successor["legacy_replay_scalar_binding"]
+    assert scalar == {
+        "fixture_ids": ["C0-LH-021", "C0-LH-022", "C0-LH-023"],
+        "material": "Hedione",
+        "field": "clp",
+        "frozen_value": 2.7,
+        "current_value": 3.0,
+        "scope": "EXPLICIT_C0_LEGACY_FIXTURE_REPLAY_ONLY",
+        "active_runtime_effect": "NONE",
+    }
+
+
+def test_successor_preserves_non_promoting_authority_ceiling() -> None:
+    successor = _load_json(SUCCESSOR_PATH)
+    authority = successor["authority"]
+
+    assert authority.pop("state") == "COMPATIBILITY_ONLY"
+    assert authority
+    assert all(value is False for value in authority.values())
+    assert successor["claim_ceiling"] == {
+        "active_scoring": "DIAGNOSTIC_ONLY",
+        "legacy_scoring": "LEGACY_REPLAY_ONLY",
+        "physical_liking": "NOT_TESTED",
+        "sensory_similarity": "NOT_TESTED",
+        "safety": "NOT_TESTED",
+        "release": "HOLD",
+    }
+
+
+def test_bound_runtime_separates_active_diagnostics_from_legacy_replay() -> None:
+    scorer = FormulaScorer()
+    active = scorer.score(_formula())
+    legacy = scorer.score_legacy_replay(_formula())
+
+    assert "hedonic" not in active
+    assert active["_hedonic_evidence"]["state"] == "NOT_TESTED"
+    assert active["_decision_authority"] == {
+        "state": "DIAGNOSTIC_ONLY",
+        "ranking_authority": False,
+        "formula_mutation_authority": False,
+        "sensory_claim_authority": False,
+        "basis": (
+            "Composition-derived heuristic axes cannot establish target fidelity, "
+            "depth, richness, liking, or beauty."
+        ),
+    }
+    assert "hedonic" in legacy
+    assert legacy["_decision_authority"]["state"] == "LEGACY_REPLAY_ONLY"
+    assert legacy["_decision_authority"]["ranking_authority"] is False
+    assert legacy["_decision_authority"]["formula_mutation_authority"] is False
+    assert legacy["_decision_authority"]["sensory_claim_authority"] is False
+
+
+def test_fixture_only_replay_context_does_not_change_active_simulator() -> None:
+    fixtures = _load_json(FIXTURE_PATH)
+    case = next(item for item in fixtures["cases"] if item["id"] == "C0-LH-021")
+
+    replay = capture_legacy_case(case["selector"], case["input"])
+    active = simulate(dict(case["input"]["formula"]), dict(case["input"]["deltas"]))
+
+    assert replay == case["output"]
+    assert replay["scores"]["hedonic"] == 86.2
+    assert "hedonic" not in active["scores"]
+    assert active["scores"]["longevity"] == 73.4
+    assert FormulaVector(ingredients={"Hedione": 100.0}).avg_property("clp") == 3.0

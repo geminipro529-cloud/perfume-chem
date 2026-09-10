@@ -1,0 +1,848 @@
+[
+  {
+    "record_id": "DHI12-NARY-DOMINANT-SYSTEM-TRIAD-v2",
+    "perfume_id": "DHI12",
+    "record_type": "DOMINANT_SYSTEM_TRIAD",
+    "members": [
+      {
+        "member": "CEDAR-VETIVER FRAME",
+        "parts_per_1000": "192.2331",
+        "ratio_within_record": "0.3924678342037459728953912365303814163158"
+      },
+      {
+        "member": "TAILORED AROMATIC OPENING",
+        "parts_per_1000": "150.9709",
+        "ratio_within_record": "0.3082259098500222537086111644201990175702"
+      },
+      {
+        "member": "MUSK SKIN",
+        "parts_per_1000": "146.6020",
+        "ratio_within_record": "0.2993062559462317733959975990494195661139"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "source_formula_hash": "d2b3206b72e749a611b87d110373c4ce92d74ef7dd27a3e01be70f3385c9808d",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-DHI12-v2",
+    "parent_formula_hash": "30aa985b4a2d430b165bb9d11b5549d35d7aa4a4899d50e538a230553b8e367c",
+    "record_hash": "1d7f229787a114840519ad0da30e1a9d5bb7ad6b1bd8df26ad95eea309e4157c"
+  },
+  {
+    "record_id": "DHI12-NARY-TEMPORAL-RELAY-v2",
+    "perfume_id": "DHI12",
+    "record_type": "TEMPORAL_RELAY_TRIAD",
+    "members": [
+      {
+        "phase": "opening",
+        "member": "TAILORED AROMATIC OPENING",
+        "parts_per_1000": "150.9709",
+        "ratio_within_record": "0.3911949656200313845477743712207428229095"
+      },
+      {
+        "phase": "heart",
+        "member": "IRIS PETAL",
+        "parts_per_1000": "85.4369",
+        "ratio_within_record": "0.2213836253091295037551590682479171978615"
+      },
+      {
+        "phase": "drydown",
+        "member": "CEDAR-VETIVER FRAME",
+        "parts_per_1000": "149.5146",
+        "ratio_within_record": "0.3874214090708391116970665605313399792290"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "source_formula_hash": "d2b3206b72e749a611b87d110373c4ce92d74ef7dd27a3e01be70f3385c9808d",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-DHI12-v2",
+    "parent_formula_hash": "30aa985b4a2d430b165bb9d11b5549d35d7aa4a4899d50e538a230553b8e367c",
+    "record_hash": "d6a04e5d418db5252c0e92aeb72af07093e367c8dde8b128df82fb5148c56094"
+  },
+  {
+    "record_id": "DHI12-NARY-BRIDGE-TRIAD-v2",
+    "perfume_id": "DHI12",
+    "record_type": "BRIDGE_TRIAD",
+    "members": [
+      {
+        "role": "source_system",
+        "member": "PEAR-SILK HALO",
+        "parts_per_1000": "84.4660",
+        "ratio_within_record": "0.3020832103949870481099324527550170468546"
+      },
+      {
+        "role": "bridge_material",
+        "member": "Ambrettolide 10%",
+        "parts_per_1000": "48.5437",
+        "ratio_within_record": "0.1736111185619199768822263159946454315038"
+      },
+      {
+        "role": "target_system",
+        "member": "MUSK SKIN",
+        "parts_per_1000": "146.6020",
+        "ratio_within_record": "0.5243056710430929750078412312503375216416"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "physical_test": "A/B omission and ±20% dose perturbation in the full matured formula.",
+    "source_formula_hash": "d2b3206b72e749a611b87d110373c4ce92d74ef7dd27a3e01be70f3385c9808d",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-DHI12-v2",
+    "parent_formula_hash": "30aa985b4a2d430b165bb9d11b5549d35d7aa4a4899d50e538a230553b8e367c",
+    "record_hash": "ab649874d62c6b63b22ad4e422ca651cd65901b498d786de58d96bcf3bf4122e"
+  },
+  {
+    "record_id": "DHP25-NARY-DOMINANT-SYSTEM-TRIAD-v2",
+    "perfume_id": "DHP25",
+    "record_type": "DOMINANT_SYSTEM_TRIAD",
+    "members": [
+      {
+        "member": "RHIZOME DENSITY",
+        "parts_per_1000": "212.9316",
+        "ratio_within_record": "0.3584291317050934664312506512291756057252"
+      },
+      {
+        "member": "IRIS PETAL AIR",
+        "parts_per_1000": "207.0976",
+        "ratio_within_record": "0.3486087219849414773269565196898878227761"
+      },
+      {
+        "member": "AMBERWOOD GRIP",
+        "parts_per_1000": "174.0397",
+        "ratio_within_record": "0.2929621463099650562417928290809365714987"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "source_formula_hash": "f69cb4e5133bbe12d280ca9c075fb828ac8637fc2aba60f613731b9c90aa4646",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-DHP25-v2",
+    "parent_formula_hash": "bfd507ceab9636f80c35c3ded77fe3f70d2f78c99c6e561a25bc49d824dc3187",
+    "record_hash": "44e5506bfb59d158124d9888b27a122fd6ac5a8915f3d8911ad785500f749d3d"
+  },
+  {
+    "record_id": "DHP25-NARY-TEMPORAL-RELAY-v2",
+    "perfume_id": "DHP25",
+    "record_type": "TEMPORAL_RELAY_TRIAD",
+    "members": [
+      {
+        "phase": "opening",
+        "member": "PETAL IGNITION",
+        "parts_per_1000": "54.9344",
+        "ratio_within_record": "0.1434011517116439822283479777175643856929"
+      },
+      {
+        "phase": "heart",
+        "member": "IRIS PETAL AIR",
+        "parts_per_1000": "192.9994",
+        "ratio_within_record": "0.5038070178186393513660260727468270500833"
+      },
+      {
+        "phase": "drydown",
+        "member": "VETIVER TENSION",
+        "parts_per_1000": "135.1482",
+        "ratio_within_record": "0.3527918304697166664056259495356085642238"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "source_formula_hash": "f69cb4e5133bbe12d280ca9c075fb828ac8637fc2aba60f613731b9c90aa4646",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-DHP25-v2",
+    "parent_formula_hash": "bfd507ceab9636f80c35c3ded77fe3f70d2f78c99c6e561a25bc49d824dc3187",
+    "record_hash": "8a04a3b827799817d4f5b5d43779e99c3c6a2586f1a06ca764e95e933886c48e"
+  },
+  {
+    "record_id": "DHP25-NARY-BRIDGE-TRIAD-v2",
+    "perfume_id": "DHP25",
+    "record_type": "BRIDGE_TRIAD",
+    "members": [
+      {
+        "role": "source_system",
+        "member": "RHIZOME DENSITY",
+        "parts_per_1000": "212.9316",
+        "ratio_within_record": "0.4781658403118193632243311443669127803586"
+      },
+      {
+        "role": "bridge_material",
+        "member": "Patchouli EO",
+        "parts_per_1000": "58.3378",
+        "ratio_within_record": "0.1310051826922018885309103272311300173295"
+      },
+      {
+        "role": "target_system",
+        "member": "AMBERWOOD GRIP",
+        "parts_per_1000": "174.0397",
+        "ratio_within_record": "0.3908289769959787482447585284019572023118"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "physical_test": "A/B omission and ±20% dose perturbation in the full matured formula.",
+    "source_formula_hash": "f69cb4e5133bbe12d280ca9c075fb828ac8637fc2aba60f613731b9c90aa4646",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-DHP25-v2",
+    "parent_formula_hash": "bfd507ceab9636f80c35c3ded77fe3f70d2f78c99c6e561a25bc49d824dc3187",
+    "record_hash": "0a903d76ea88e114424756a662f1530490d0859ce7c209b9fdeef2490797393b"
+  },
+  {
+    "record_id": "AHS-NARY-DOMINANT-SYSTEM-TRIAD-v2",
+    "perfume_id": "AHS",
+    "record_type": "DOMINANT_SYSTEM_TRIAD",
+    "members": [
+      {
+        "member": "OPEN-AIR FRESHNESS",
+        "parts_per_1000": "264.5669",
+        "ratio_within_record": "0.3681520338074312839523936285309828398259"
+      },
+      {
+        "member": "CEDAR SPINE",
+        "parts_per_1000": "238.3202",
+        "ratio_within_record": "0.3316290372204300125140039817158893897304"
+      },
+      {
+        "member": "MANDARIN PROPULSION",
+        "parts_per_1000": "215.7478",
+        "ratio_within_record": "0.3002189289721387035336023897531277704437"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "source_formula_hash": "bcf964ae509241ca90034457fb31ba0637ca84576fa9d65c9527d2b3b635bce7",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-AHS-v2",
+    "parent_formula_hash": "8a37913e690f2ca08eafb20a076ac3e907f5b9da2fefe0ed0ca5e83779e52837",
+    "record_hash": "2991526ff639d5e739ba719090e24c7c873a1f193a9cf89c85b4fa8bc75767d0"
+  },
+  {
+    "record_id": "AHS-NARY-TEMPORAL-RELAY-v2",
+    "perfume_id": "AHS",
+    "record_type": "TEMPORAL_RELAY_TRIAD",
+    "members": [
+      {
+        "phase": "opening",
+        "member": "MANDARIN PROPULSION",
+        "parts_per_1000": "207.3488",
+        "ratio_within_record": "0.4493737988094071915828018548073197097984"
+      },
+      {
+        "phase": "heart",
+        "member": "OPEN-AIR FRESHNESS",
+        "parts_per_1000": "92.3885",
+        "ratio_within_record": "0.2002276898217058228431883336815359288730"
+      },
+      {
+        "phase": "drydown",
+        "member": "CEDAR SPINE",
+        "parts_per_1000": "161.6799",
+        "ratio_within_record": "0.3503985113688869855740098115111443613285"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "source_formula_hash": "bcf964ae509241ca90034457fb31ba0637ca84576fa9d65c9527d2b3b635bce7",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-AHS-v2",
+    "parent_formula_hash": "8a37913e690f2ca08eafb20a076ac3e907f5b9da2fefe0ed0ca5e83779e52837",
+    "record_hash": "b34df3ee8cdf91dd06a27571506e967f42c46f5cc2d7e52d79aac85b1380c3dc"
+  },
+  {
+    "record_id": "AHS-NARY-BRIDGE-TRIAD-v2",
+    "perfume_id": "AHS",
+    "record_type": "BRIDGE_TRIAD",
+    "members": [
+      {
+        "role": "source_system",
+        "member": "MANDARIN PROPULSION",
+        "parts_per_1000": "215.7478",
+        "ratio_within_record": "0.3986419980972156859049653653713579778824"
+      },
+      {
+        "role": "bridge_material",
+        "member": "Blood Orange Oil Sicilian",
+        "parts_per_1000": "60.8922",
+        "ratio_within_record": "0.1125118693054356845783008309761017459312"
+      },
+      {
+        "role": "target_system",
+        "member": "OPEN-AIR FRESHNESS",
+        "parts_per_1000": "264.5669",
+        "ratio_within_record": "0.4888461325973486295167338036525402761864"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "physical_test": "A/B omission and ±20% dose perturbation in the full matured formula.",
+    "source_formula_hash": "bcf964ae509241ca90034457fb31ba0637ca84576fa9d65c9527d2b3b635bce7",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-AHS-v2",
+    "parent_formula_hash": "8a37913e690f2ca08eafb20a076ac3e907f5b9da2fefe0ed0ca5e83779e52837",
+    "record_hash": "36e48c3fa03ce5ef628b120ca8512b353e3384a100f90c49b033069ba578f73f"
+  },
+  {
+    "record_id": "EB-NARY-DOMINANT-SYSTEM-TRIAD-v2",
+    "perfume_id": "EB",
+    "record_type": "DOMINANT_SYSTEM_TRIAD",
+    "members": [
+      {
+        "member": "LEMON ENERGY",
+        "parts_per_1000": "270.8021",
+        "ratio_within_record": "0.4578008284304957903951155667641880809740"
+      },
+      {
+        "member": "SANDALWOOD CREAM",
+        "parts_per_1000": "222.8946",
+        "ratio_within_record": "0.3768114520998322649706303097637610514596"
+      },
+      {
+        "member": "FLORAL AIR",
+        "parts_per_1000": "97.8315",
+        "ratio_within_record": "0.1653877194696719446342541234720508675664"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "source_formula_hash": "436ccfff9b8cbc70ee1587cd8b12eec9917d0a830706578d7c91a31da3716f16",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-EB-v2",
+    "parent_formula_hash": "097103e8459c9c893c65571181ec5066ac9f56b9e93428c1216d5d6b472cdd7d",
+    "record_hash": "bd86aa1ceb03d5c36c97523cc7df9381d7dcc3e6292c859b09d0dc8b69ee5772"
+  },
+  {
+    "record_id": "EB-NARY-TEMPORAL-RELAY-v2",
+    "perfume_id": "EB",
+    "record_type": "TEMPORAL_RELAY_TRIAD",
+    "members": [
+      {
+        "phase": "opening",
+        "member": "LEMON ENERGY",
+        "parts_per_1000": "242.5621",
+        "ratio_within_record": "0.4711071602191359601240452325770422316644"
+      },
+      {
+        "phase": "heart",
+        "member": "FLORAL AIR",
+        "parts_per_1000": "93.7972",
+        "ratio_within_record": "0.1821741011003216886683743894412001941436"
+      },
+      {
+        "phase": "drydown",
+        "member": "SANDALWOOD CREAM",
+        "parts_per_1000": "178.5174",
+        "ratio_within_record": "0.3467187386805423512075803779817575741920"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "source_formula_hash": "436ccfff9b8cbc70ee1587cd8b12eec9917d0a830706578d7c91a31da3716f16",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-EB-v2",
+    "parent_formula_hash": "097103e8459c9c893c65571181ec5066ac9f56b9e93428c1216d5d6b472cdd7d",
+    "record_hash": "b307b48da8a9c9b9f6df498d59caffb25f38d2ea5b01fcbfc379f3886e82282d"
+  },
+  {
+    "record_id": "EB-NARY-BRIDGE-TRIAD-v2",
+    "perfume_id": "EB",
+    "record_type": "BRIDGE_TRIAD",
+    "members": [
+      {
+        "role": "source_system",
+        "member": "LEMON ENERGY",
+        "parts_per_1000": "270.8021",
+        "ratio_within_record": "0.5332671021253719351656206861920731287058"
+      },
+      {
+        "role": "bridge_material",
+        "member": "Lemon FCF Oil Sicilian",
+        "parts_per_1000": "151.2863",
+        "ratio_within_record": "0.2979149969378732889997774788949562539261"
+      },
+      {
+        "role": "target_system",
+        "member": "COLD AIR",
+        "parts_per_1000": "85.7286",
+        "ratio_within_record": "0.1688179009367547758346018349129706173681"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "physical_test": "A/B omission and ±20% dose perturbation in the full matured formula.",
+    "source_formula_hash": "436ccfff9b8cbc70ee1587cd8b12eec9917d0a830706578d7c91a31da3716f16",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-EB-v2",
+    "parent_formula_hash": "097103e8459c9c893c65571181ec5066ac9f56b9e93428c1216d5d6b472cdd7d",
+    "record_hash": "25049278404e8cc727d7ffced828d2214715210c436dd7c7ae3b325d7e938926"
+  },
+  {
+    "record_id": "EE-NARY-DOMINANT-SYSTEM-TRIAD-v2",
+    "perfume_id": "EE",
+    "record_type": "DOMINANT_SYSTEM_TRIAD",
+    "members": [
+      {
+        "member": "WOODY FRAME",
+        "parts_per_1000": "210.6483",
+        "ratio_within_record": "0.4044441406582249510928719912924288175448"
+      },
+      {
+        "member": "WHITE-MUSK VOLUME",
+        "parts_per_1000": "168.9815",
+        "ratio_within_record": "0.3244440024184284400733362120490958637309"
+      },
+      {
+        "member": "CYPRESS SPINE",
+        "parts_per_1000": "141.2043",
+        "ratio_within_record": "0.2711118569233466088337917966584753187243"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "source_formula_hash": "a69363ef6497e9876ef4aff987534d6daf436129efc9768eb84e9ca54c40d3d5",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-EE-v2",
+    "parent_formula_hash": "32e19e6e2b9085f7da2131a786de1c8eff17817a15272b1417d0d7ee72712093",
+    "record_hash": "d8b3fd5b172ab31d2632073ddb675ff7618cc108d290681ec7ca419e1e402f52"
+  },
+  {
+    "record_id": "EE-NARY-TEMPORAL-RELAY-v2",
+    "perfume_id": "EE",
+    "record_type": "TEMPORAL_RELAY_TRIAD",
+    "members": [
+      {
+        "phase": "opening",
+        "member": "MANDARIN SPARKLE",
+        "parts_per_1000": "115.1619",
+        "ratio_within_record": "0.3692021377207690408789405009601790196877"
+      },
+      {
+        "phase": "heart",
+        "member": "COOL AIR",
+        "parts_per_1000": "49.7683",
+        "ratio_within_record": "0.1595541819883880854447119623237935246425"
+      },
+      {
+        "phase": "drydown",
+        "member": "WOODY FRAME",
+        "parts_per_1000": "146.9908",
+        "ratio_within_record": "0.4712436802908428736763475367160274556699"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "source_formula_hash": "a69363ef6497e9876ef4aff987534d6daf436129efc9768eb84e9ca54c40d3d5",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-EE-v2",
+    "parent_formula_hash": "32e19e6e2b9085f7da2131a786de1c8eff17817a15272b1417d0d7ee72712093",
+    "record_hash": "83dbd1c88dd85db7ec7ba469ccd2169008b6e542334984e9f609596915809025"
+  },
+  {
+    "record_id": "EE-NARY-BRIDGE-TRIAD-v2",
+    "perfume_id": "EE",
+    "record_type": "BRIDGE_TRIAD",
+    "members": [
+      {
+        "role": "source_system",
+        "member": "MANDARIN SPARKLE",
+        "parts_per_1000": "115.1619",
+        "ratio_within_record": "0.3425120446792987957848752912092504088752"
+      },
+      {
+        "role": "bridge_material",
+        "member": "Cypress EO",
+        "parts_per_1000": "81.0192",
+        "ratio_within_record": "0.2409655610951282064246419014755791692108"
+      },
+      {
+        "role": "target_system",
+        "member": "TONKA WARMTH",
+        "parts_per_1000": "140.0462",
+        "ratio_within_record": "0.4165223942255729977904828073151704219140"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "physical_test": "A/B omission and ±20% dose perturbation in the full matured formula.",
+    "source_formula_hash": "a69363ef6497e9876ef4aff987534d6daf436129efc9768eb84e9ca54c40d3d5",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-EE-v2",
+    "parent_formula_hash": "32e19e6e2b9085f7da2131a786de1c8eff17817a15272b1417d0d7ee72712093",
+    "record_hash": "a676fe4c3ac229b73c21061321e2aed92ab3dbc37fe4b0c3a04051354925473a"
+  },
+  {
+    "record_id": "ELIXIR-NARY-DOMINANT-SYSTEM-TRIAD-v2",
+    "perfume_id": "ELIXIR",
+    "record_type": "DOMINANT_SYSTEM_TRIAD",
+    "members": [
+      {
+        "member": "RICH WOODS",
+        "parts_per_1000": "265.0862",
+        "ratio_within_record": "0.4190799932716057970427948636551622086839"
+      },
+      {
+        "member": "LAVENDER CROWN",
+        "parts_per_1000": "212.2845",
+        "ratio_within_record": "0.3356047460473845897007508736162209948664"
+      },
+      {
+        "member": "GRAPEFRUIT SPEAR",
+        "parts_per_1000": "155.1725",
+        "ratio_within_record": "0.2453152606810096132564542627286167964496"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "source_formula_hash": "08e37cd88366d002300741291c857636abd416b0d38f80e80152559b067ec5ad",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-ELIXIR-v2",
+    "parent_formula_hash": "cb0962e4170823a37e11086901fbdaede507d809afbc3a36b5fb4d1e87f9904b",
+    "record_hash": "e9f2b36e7b6c47187445fa3b0c22aca1fabbdbbe747a61e51f06c52dfabfef0f"
+  },
+  {
+    "record_id": "ELIXIR-NARY-TEMPORAL-RELAY-v2",
+    "perfume_id": "ELIXIR",
+    "record_type": "TEMPORAL_RELAY_TRIAD",
+    "members": [
+      {
+        "phase": "opening",
+        "member": "GRAPEFRUIT SPEAR",
+        "parts_per_1000": "109.9139",
+        "ratio_within_record": "0.2297298455319642552960245460065189879371"
+      },
+      {
+        "phase": "heart",
+        "member": "LAVENDER CROWN",
+        "parts_per_1000": "173.4914",
+        "ratio_within_record": "0.3626124859833398996966235655457170416461"
+      },
+      {
+        "phase": "drydown",
+        "member": "RICH WOODS",
+        "parts_per_1000": "195.0432",
+        "ratio_within_record": "0.4076576684846958450073518884477639704169"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "source_formula_hash": "08e37cd88366d002300741291c857636abd416b0d38f80e80152559b067ec5ad",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-ELIXIR-v2",
+    "parent_formula_hash": "cb0962e4170823a37e11086901fbdaede507d809afbc3a36b5fb4d1e87f9904b",
+    "record_hash": "f55aa7e7a4d2ccb1f781c4d1ba4a6788bd5216b9419d8f19d35f4e49d66ccd71"
+  },
+  {
+    "record_id": "ELIXIR-NARY-BRIDGE-TRIAD-v2",
+    "perfume_id": "ELIXIR",
+    "record_type": "BRIDGE_TRIAD",
+    "members": [
+      {
+        "role": "source_system",
+        "member": "GRAPEFRUIT SPEAR",
+        "parts_per_1000": "155.1725",
+        "ratio_within_record": "0.4848489109275941045422021415872242167459"
+      },
+      {
+        "role": "bridge_material",
+        "member": "Grapefruit FCF Oil Sicilian",
+        "parts_per_1000": "66.8103",
+        "ratio_within_record": "0.2087541361629531031767606227913124173939"
+      },
+      {
+        "role": "target_system",
+        "member": "SPICE CROWN",
+        "parts_per_1000": "98.0602",
+        "ratio_within_record": "0.3063969529094527922810372356214633658602"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "physical_test": "A/B omission and ±20% dose perturbation in the full matured formula.",
+    "source_formula_hash": "08e37cd88366d002300741291c857636abd416b0d38f80e80152559b067ec5ad",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-ELIXIR-v2",
+    "parent_formula_hash": "cb0962e4170823a37e11086901fbdaede507d809afbc3a36b5fb4d1e87f9904b",
+    "record_hash": "ab28a03187d20a4514db8b7ce64116e58a141c6289fc9ebfbea8cf865fdbace7"
+  },
+  {
+    "record_id": "LHOMME-NARY-DOMINANT-SYSTEM-TRIAD-v2",
+    "perfume_id": "LHOMME",
+    "record_type": "DOMINANT_SYSTEM_TRIAD",
+    "members": [
+      {
+        "member": "WOODY ROOT",
+        "parts_per_1000": "254.9899",
+        "ratio_within_record": "0.4583327566499976722963542409052843905631"
+      },
+      {
+        "member": "FLORAL-SPICE BRIDGE",
+        "parts_per_1000": "151.3202",
+        "ratio_within_record": "0.2719911824069462271698556805765083834179"
+      },
+      {
+        "member": "CITRUS-PEPPER FLASH",
+        "parts_per_1000": "150.0322",
+        "ratio_within_record": "0.2696760609430561005337900785182072260189"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "source_formula_hash": "631a1e77edc0d2f8188763dfa95294946a6e47b0595861da3553c53e0e2e4f02",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-LHOMME-v2",
+    "parent_formula_hash": "2821caa6b573b4b0fc68fadaa4af56f286e073afcbe6ea0d8cc7975102e94d2a",
+    "record_hash": "4e14d2ebba606d617975fd1391362d733ebe73b054ebce444c7eb22c946c4474"
+  },
+  {
+    "record_id": "LHOMME-NARY-TEMPORAL-RELAY-v2",
+    "perfume_id": "LHOMME",
+    "record_type": "TEMPORAL_RELAY_TRIAD",
+    "members": [
+      {
+        "phase": "opening",
+        "member": "CITRUS-PEPPER FLASH",
+        "parts_per_1000": "150.0322",
+        "ratio_within_record": "0.3216346337303453743216573576997168936420"
+      },
+      {
+        "phase": "heart",
+        "member": "FLORAL-SPICE BRIDGE",
+        "parts_per_1000": "146.1689",
+        "ratio_within_record": "0.3133526044027047526110055184945241665127"
+      },
+      {
+        "phase": "drydown",
+        "member": "WOODY ROOT",
+        "parts_per_1000": "170.2667",
+        "ratio_within_record": "0.3650127618669498730673371238057589398454"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "source_formula_hash": "631a1e77edc0d2f8188763dfa95294946a6e47b0595861da3553c53e0e2e4f02",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-LHOMME-v2",
+    "parent_formula_hash": "2821caa6b573b4b0fc68fadaa4af56f286e073afcbe6ea0d8cc7975102e94d2a",
+    "record_hash": "a0a2efaf94afa68aa6c661eed7f7c7f8a45d3a8854a54932d1866c8b5a518372"
+  },
+  {
+    "record_id": "LHOMME-NARY-BRIDGE-TRIAD-v2",
+    "perfume_id": "LHOMME",
+    "record_type": "BRIDGE_TRIAD",
+    "members": [
+      {
+        "role": "source_system",
+        "member": "GINGER KINETICS",
+        "parts_per_1000": "117.1926",
+        "ratio_within_record": "0.2637684812773322589865879212515839487194"
+      },
+      {
+        "role": "bridge_material",
+        "member": "Hedione",
+        "parts_per_1000": "72.1185",
+        "ratio_within_record": "0.1623190134615947296990103555922674043047"
+      },
+      {
+        "role": "target_system",
+        "member": "WOODY ROOT",
+        "parts_per_1000": "254.9899",
+        "ratio_within_record": "0.5739125052610730113144017231561486469758"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "physical_test": "A/B omission and ±20% dose perturbation in the full matured formula.",
+    "source_formula_hash": "631a1e77edc0d2f8188763dfa95294946a6e47b0595861da3553c53e0e2e4f02",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-LHOMME-v2",
+    "parent_formula_hash": "2821caa6b573b4b0fc68fadaa4af56f286e073afcbe6ea0d8cc7975102e94d2a",
+    "record_hash": "9516e3707c60c4ff9c1f643059804cf119dda9081b2cf67d623fc38bc539d287"
+  },
+  {
+    "record_id": "LANUIT-NARY-DOMINANT-SYSTEM-TRIAD-v2",
+    "perfume_id": "LANUIT",
+    "record_type": "DOMINANT_SYSTEM_TRIAD",
+    "members": [
+      {
+        "member": "CEDAR DARK FRAME",
+        "parts_per_1000": "283.8860",
+        "ratio_within_record": "0.4477064440104363799690138428386146058854"
+      },
+      {
+        "member": "TONKA-COUMARIN WARMTH",
+        "parts_per_1000": "179.1740",
+        "ratio_within_record": "0.2825688987802354746080049254868712560496"
+      },
+      {
+        "member": "INTIMATE MUSK",
+        "parts_per_1000": "171.0296",
+        "ratio_within_record": "0.2697246572093281454229812316745141380650"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "source_formula_hash": "6ebad0f5788f1035f9a0e242d3dfa044d77b3400b63af562a2810a3433bb498d",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-LANUIT-v2",
+    "parent_formula_hash": "ace858cca8c70d68e9b7634bb248a7a814bee38e461cb751f2fd5414bebee6d1",
+    "record_hash": "1dd3456dfd758de98f52d8ada777880c62fb0746579656656343a97f9864e4cc"
+  },
+  {
+    "record_id": "LANUIT-NARY-TEMPORAL-RELAY-v2",
+    "perfume_id": "LANUIT",
+    "record_type": "TEMPORAL_RELAY_TRIAD",
+    "members": [
+      {
+        "phase": "opening",
+        "member": "BERGAMOT ELECTRIC LIFT",
+        "parts_per_1000": "54.6829",
+        "ratio_within_record": "0.1362317331354905701648396272809757541302"
+      },
+      {
+        "phase": "heart",
+        "member": "LAVENDER HEART",
+        "parts_per_1000": "115.1833",
+        "ratio_within_record": "0.2869566278903487377309501186109883451811"
+      },
+      {
+        "phase": "drydown",
+        "member": "CEDAR DARK FRAME",
+        "parts_per_1000": "231.5300",
+        "ratio_within_record": "0.5768116389741606921042102541080359006886"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "source_formula_hash": "6ebad0f5788f1035f9a0e242d3dfa044d77b3400b63af562a2810a3433bb498d",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-LANUIT-v2",
+    "parent_formula_hash": "ace858cca8c70d68e9b7634bb248a7a814bee38e461cb751f2fd5414bebee6d1",
+    "record_hash": "112a51be7152c21e94ac0070fc2da1525da77144536abf30b6fb3924b00ff6eb"
+  },
+  {
+    "record_id": "LANUIT-NARY-BRIDGE-TRIAD-v2",
+    "perfume_id": "LANUIT",
+    "record_type": "BRIDGE_TRIAD",
+    "members": [
+      {
+        "role": "source_system",
+        "member": "CARDAMOM NIGHT",
+        "parts_per_1000": "82.0245",
+        "ratio_within_record": "0.4533759232011602956896828090298773929164"
+      },
+      {
+        "role": "bridge_material",
+        "member": "Cedarwood Virginia",
+        "parts_per_1000": "79.1159",
+        "ratio_within_record": "0.4372991508926074262903812415915595563549"
+      },
+      {
+        "role": "target_system",
+        "member": "LATE RESIDUE",
+        "parts_per_1000": "19.7790",
+        "ratio_within_record": "0.1093249259062322780199359493785630507287"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "physical_test": "A/B omission and ±20% dose perturbation in the full matured formula.",
+    "source_formula_hash": "6ebad0f5788f1035f9a0e242d3dfa044d77b3400b63af562a2810a3433bb498d",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-LANUIT-v2",
+    "parent_formula_hash": "ace858cca8c70d68e9b7634bb248a7a814bee38e461cb751f2fd5414bebee6d1",
+    "record_hash": "96b59d653c7e67b363642d3236a15856cf3f02e3e440cf2f41df2bfb2cbfebb0"
+  },
+  {
+    "record_id": "BDCP-NARY-DOMINANT-SYSTEM-TRIAD-v2",
+    "perfume_id": "BDCP",
+    "record_type": "DOMINANT_SYSTEM_TRIAD",
+    "members": [
+      {
+        "member": "CEDAR BODY",
+        "parts_per_1000": "214.4648",
+        "ratio_within_record": "0.4215697509735535081441183529701760720981"
+      },
+      {
+        "member": "SANDALWOOD CREAM",
+        "parts_per_1000": "181.5461",
+        "ratio_within_record": "0.3568620312854130027159838114234078608831"
+      },
+      {
+        "member": "MUSKY WOOD AURA",
+        "parts_per_1000": "112.7182",
+        "ratio_within_record": "0.2215682177410334891398978356064160670188"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "source_formula_hash": "a98cee9f56b8201ff4b3cf2a48b19e91c792dfe2da65179b77f37a4ff9ba4128",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-BDCP-v2",
+    "parent_formula_hash": "cd77515d72f4cfe28ada73622c3b80a019947403269bbcb39597e197d1f141dd",
+    "record_hash": "bc5e01973fc0b6d2c47a3a951265410c0da37e0355b851662bd4673cc3760fc4"
+  },
+  {
+    "record_id": "BDCP-NARY-TEMPORAL-RELAY-v2",
+    "perfume_id": "BDCP",
+    "record_type": "TEMPORAL_RELAY_TRIAD",
+    "members": [
+      {
+        "phase": "opening",
+        "member": "BITTER AROMATIC FRESHNESS",
+        "parts_per_1000": "100.7481",
+        "ratio_within_record": "0.2790057184096567984937007213299255684554"
+      },
+      {
+        "phase": "heart",
+        "member": "FLORAL AIR",
+        "parts_per_1000": "78.8027",
+        "ratio_within_record": "0.2182314497853623224126266384452483530044"
+      },
+      {
+        "phase": "drydown",
+        "member": "SANDALWOOD CREAM",
+        "parts_per_1000": "181.5461",
+        "ratio_within_record": "0.5027628318049808790936726402248260785401"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "source_formula_hash": "a98cee9f56b8201ff4b3cf2a48b19e91c792dfe2da65179b77f37a4ff9ba4128",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-BDCP-v2",
+    "parent_formula_hash": "cd77515d72f4cfe28ada73622c3b80a019947403269bbcb39597e197d1f141dd",
+    "record_hash": "95f464117718701f955e5dd34db7ff230083ebf277d1058504b6dbecdcd061d2"
+  },
+  {
+    "record_id": "BDCP-NARY-BRIDGE-TRIAD-v2",
+    "perfume_id": "BDCP",
+    "record_type": "BRIDGE_TRIAD",
+    "members": [
+      {
+        "role": "source_system",
+        "member": "AROMATIC RELAY",
+        "parts_per_1000": "59.3515",
+        "ratio_within_record": "0.1910103500212407152328111121123569470012"
+      },
+      {
+        "role": "bridge_material",
+        "member": "Cedarwood Virginia",
+        "parts_per_1000": "69.8264",
+        "ratio_within_record": "0.2247216178988427028488304733461206730088"
+      },
+      {
+        "role": "target_system",
+        "member": "SANDALWOOD CREAM",
+        "parts_per_1000": "181.5461",
+        "ratio_within_record": "0.5842680320799165819183584145415223799900"
+      }
+    ],
+    "ratio_binding": "EXACT_FORMULA_PARTS",
+    "physical_test": "A/B omission and ±20% dose perturbation in the full matured formula.",
+    "source_formula_hash": "a98cee9f56b8201ff4b3cf2a48b19e91c792dfe2da65179b77f37a4ff9ba4128",
+    "state": "DERIVED_CLEAN_ROOM_RECORD__NOT_EMPIRICAL__REBOUND_TO_EXACT_DECIMAL_SUCCESSOR",
+    "authority": "FORMULA-SIGNATURE SUPPORT ONLY; NOT SENSORY, PHYSICAL, OAV, OR RELEASE AUTHORITY",
+    "source_formula_id": "FIN-HEDONIC-BDCP-v2",
+    "parent_formula_hash": "cd77515d72f4cfe28ada73622c3b80a019947403269bbcb39597e197d1f141dd",
+    "record_hash": "36f47f3762aa9e85027b84a4616a2ecb2070ce5efb2a970d6fa9ef0859d61554"
+  }
+]

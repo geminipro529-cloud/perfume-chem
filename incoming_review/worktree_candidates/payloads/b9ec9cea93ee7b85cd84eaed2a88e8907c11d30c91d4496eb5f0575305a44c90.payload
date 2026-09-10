@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-TEM-S03",
+  "completed_utc": "2026-08-26T07:33:27.551318+00:00",
+  "dispatch_sha256": "d1d28c9efb1ece86151ae37d29732fa1d21d534d8719a2b6d06f4f3b1f9e4ede",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "temporal_sensory_ledger",
+  "output_sha256": "005bd9f3f36ebfa6776a7a5d4b862b65f0a685fe155f39f94cd40d8ed4bb5506",
+  "output_text": "{\"decision\":{\"decision_state\":\"HOLD\",\"reason_codes\":[\"CONFLICTING_DUPLICATE_CANONICAL_CELL\",\"NO_SUPERSESSION_PROVENANCE\"],\"next_actions\":[\"Apply an established provenance rule that uniquely resolves which source record governs; otherwise retain both records on HOLD.\"]},\"target_linked_reasoning\":\"The ledger contains two distinct source records with values 3 and 7 for one canonical observed cell. Because neither record supersedes the other, averaging them to 5 would conceal an unresolved provenance conflict and cannot support continued analysis.\",\"controlled_comparison\":{\"status\":\"HELD\",\"observed_values\":[3,7],\"proposed_average\":5,\"average_admissible\":false},\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"duplicate_excess_record_count\":1}},\"physical_liking_state\":\"NOT TESTED\"}",
+  "phase": "SCREEN",
+  "prompt_sha256": "5335f7bb37260feee639387bbf225e7837ffaaa06809d1d64c567afbcab456f8",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-83b0a6e9b9e1d293bbca",
+  "role": "CRITICAL_TRAP",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:33:07.882793+00:00",
+  "stderr_sha256": "3ec457e470951bbad6192bd63d383351558fd78fa2acd7299b0a4eed7a130378",
+  "stderr_tail": "ety, or release authority.\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"duplicate_excess_record_count\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":{\"decision_state\":\"HOLD\",\"reason_codes\":[\"CONFLICTING_DUPLICATE_CANONICAL_CELL\",\"NO_SUPERSESSION_PROVENANCE\"],\"next_actions\":[\"Apply an established provenance rule that uniquely resolves which source record governs; otherwise retain both records on HOLD.\"]},\"target_linked_reasoning\":\"The ledger contains two distinct source records with values 3 and 7 for one canonical observed cell. Because neither record supersedes the other, averaging them to 5 would conceal an unresolved provenance conflict and cannot support continued analysis.\",\"controlled_comparison\":{\"status\":\"HELD\",\"observed_values\":[3,7],\"proposed_average\":5,\"average_admissible\":false},\"claim_ceiling\":\"OBSERVATIONAL_SUMMARY_ONLY\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"duplicate_excess_record_count\":1}},\"physical_liking_state\":\"NOT TESTED\"}\ntokens used\n5,586\n",
+  "stdout_sha256": "aa104a5f38d0a9caf539be966a6277c36de7e93ceeb078a070498ed737e57181"
+}

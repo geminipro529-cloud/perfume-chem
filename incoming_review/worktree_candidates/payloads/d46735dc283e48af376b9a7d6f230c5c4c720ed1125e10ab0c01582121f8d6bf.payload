@@ -1,0 +1,27 @@
+﻿Code,ACC-LR-SUE-01
+Accord,Pale Suede v1.0
+Category,Leather & Resin
+Brief,"A light, tactile suede from Suederal, clean musks, transparent woods, sandalwood and tiny violet/incense shadows."
+Recommended use,1–10% of perfume concentrate
+Maturation,10–21 days
+Monte Carlo pass,1.0
+Final design score,100.0
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Suederal 10%,10% working stock,0.1,200.0,20.0,200.0,1000.0,PREPARED STOCK,leather,Suede core,Soft suede leather.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.1078805793207374
+2,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,100.0,100.0,100.0,500.0,DIRECT,musk,Metallic clean lift,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,IDENTITY CRITICAL,0.03033894013836152
+3,base,Romandolide,Romandolide neat/as supplied,1.0,80.0,80.0,80.0,400.0,DIRECT,musk,Soft body,Fruity-clean musk body.,HAVE — NEAT,Use as neat Romandolide; no dilution or solvent assumption.,,IDENTITY CRITICAL,0.021268429498931384
+4,base,Sandalore,neat / as supplied,1.0,80.0,80.0,80.0,400.0,DIRECT,sandalwood,Creamy suede,Creamy sandalwood.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.02356169891920431
+5,base,Cashmeran 20%,Cashmeran 20% in DPG,0.2,55.0,11.0,55.0,275.0,PREPARED STOCK,warm_wood,Textile warmth,Warm textile wood.,HAVE — MULTIPLE STOCKS,Formula must specify neat or 20% stock.,,STRUCTURALLY IMPORTANT,0.010703979058300468
+6,base,Ambrettolide 10%,10% in DPG,0.1,45.0,4.5,45.0,225.0,PREPARED STOCK,musk,Warm skin,Warm skin musk.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.00939684761348842
+7,base,Olibanum 50%,50% in DPG,0.5,25.0,12.5,25.0,125.0,PREPARED STOCK,incense,Mineral lift,Frankincense mineral resin.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.003570052578131981
+8,base,Castoreum Synthetic,Castoreum Synthetic 10% in DPG,0.1,10.0,1.0,10.0,50.0,PREPARED STOCK,leather_animalic,Animalic trace,Animalic leather warmth.,HAVE — NEAT + 10%,Use exact stock named in formula.,,TEXTURAL SUPPORT,0.0011710211428883556
+9,base,Labdanum 10%,10% working stock,0.1,10.0,1.0,10.0,50.0,PREPARED STOCK,amber_resin,Amber shadow,Cistus amber-leather.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0011710211428883556
+10,base,Birch Tar 1%,Birch Tar 1%,0.01,5.0,0.05,5.0,25.0,PREPARED STOCK,leather_smoke,Smoky trace,Controlled smoky leather.,HAVE — MULTIPLE STOCKS,Formula must name the exact stock strength.,,MICRO POLISH,0.0005427478493213896
+11,heart_base,Iso E Super,neat / as supplied,1.0,170.0,170.0,170.0,850.0,DIRECT,transparent_wood,Transparent leather frame,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.08053308814155355
+12,heart,Alpha Isomethyl Ionone,neat / as supplied,1.0,35.0,35.0,35.0,175.0,DIRECT,violet,Violet softness,Modern violet body.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0057044503733857145
+13,heart,Phenethyl Alcohol,neat / as supplied,1.0,20.0,20.0,20.0,100.0,DIRECT,rose_floral,Soft floral skin,Soft floral petal body.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.002717901652556213
+14,top_heart,Violet Leaf Absolute 10%,10% working stock,0.1,10.0,1.0,10.0,50.0,PREPARED STOCK,green_leaf,Cool leather edge,Metallic wet-stem violet leaf.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.001181059897340624
+15,top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,20.0,20.0,20.0,100.0,DIRECT,citrus,Opening brightness,Floral bergamot peel.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0027663550514620532
+16,carrier,DPG,neat,0.0,135.0,0.0,135.0,675.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

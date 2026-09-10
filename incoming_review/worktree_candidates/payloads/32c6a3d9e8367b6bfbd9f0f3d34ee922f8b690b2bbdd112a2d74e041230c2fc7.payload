@@ -1,0 +1,44 @@
+# Prada L'Homme Intense Zero Astra Z2 — DIAGNOSTIC ONLY
+
+**Date:** 2026-09-05
+**Claim mode:** named_reference
+**Reference contract:** prada_lhomme_intense
+**Reference scope:** architecture
+
+NO PHYSICAL DOSING AUTHORITY. Immediate recipe parent is Z1. Four intentional product-dose changes; no stock-strength rebase. Coordinates are not physical microlitres. The full 6000 mg scaled stock-plus-carrier master comprises 5900.307692307692 mg fragrant stocks and 99.692307692308 mg free DEP. Free DEP is represented only in the finished matrix below, not duplicated as an odorant row. Product 3692.307692307692 mg + matrix 26307.692307692308 mg =30000 mg hypothetical modeled mixture. The matrix is identical to Z1, including all stock carriers. No sensory, safety, performance or release authority.
+
+| Material | Stock / dilution | Amount (µL) |
+|---|---|---:|
+| Ambrox Super | 25% w/w in DPG + IPM + ethanol | 516.923076923077 |
+| Iso E Super | neat | 350.769230769231 |
+| Hedione | neat | 332.307692307692 |
+| Patchouli EO | neat | 240.000000000000 |
+| Hexyl Salicylate | neat | 129.230769230769 |
+| Sandalore | neat | 406.153846153846 |
+| Cedarwood oil Virginia | neat | 131.868131868132 |
+| Ebanol | neat | 55.384615384615 |
+| Romandolide | neat | 184.615384615385 |
+| Linalyl Acetate | neat | 36.923076923077 |
+| Alpha-Isomethyl Ionone | neat | 1174.153846153846 |
+| Alpha Irone | 10% w/w in DEP | 396.170353251898 |
+| Orivone | 10% w/w in DEP | 184.615384615385 |
+| Dihydro Beta Ionone | neat | 147.692307692308 |
+| Heliotropal | 10% w/w in DEP | 73.846153846154 |
+| Tonkarome | 20% w/w in TEC | 830.769230769231 |
+| Coumarin | 20% w/w in DEP | 738.461538461538 |
+| **Total** | | **5929.884638966184** |
+
+## Finished Matrix Inputs
+
+**Matrix authority:** declared_volume_proxy
+
+Artificial Volume and Density fields encode declared scenario masses, not measured volumes/densities. External diluent 24000 mg is hypothesized 96% ethanol by mass plus 4% water; the owned ethanol's basis is unconfirmed. Every known carrier, including the 99.692307692308 mg scaled free-DEP top-up, appears once in the matrix. Matrix matches the immediate parent exactly.
+
+| Component | Volume µL | Density g/mL | MW g/mol | Source |
+|---|---:|---:|---:|---|
+| DEP | 1255.384615384615 | 1 | 222.24 | NONPHYSICAL_MASS_ENCODING: all known carriers plus hypothetical external diluent |
+| TEC | 664.615384615385 | 1 | 276.28 | NONPHYSICAL_MASS_ENCODING: all known carriers plus hypothetical external diluent |
+| DPG | 301.538461538462 | 1 | 134.17 | NONPHYSICAL_MASS_ENCODING: all known carriers plus hypothetical external diluent |
+| IPM | 21.538461538462 | 1 | 270.45 | NONPHYSICAL_MASS_ENCODING: all known carriers plus hypothetical external diluent |
+| Ethanol | 23104.615384615383 | 1 | 46.06844 | NONPHYSICAL_MASS_ENCODING: all known carriers plus hypothetical external diluent |
+| Water | 960.000000000000 | 1 | 18.01528 | NONPHYSICAL_MASS_ENCODING: all known carriers plus hypothetical external diluent |

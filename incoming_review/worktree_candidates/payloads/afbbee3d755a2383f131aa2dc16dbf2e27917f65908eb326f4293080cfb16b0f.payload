@@ -1,0 +1,63 @@
+﻿Code,C02
+Target,Allure Homme Édition Blanche Eau de Parfum
+Version,CURRENT OFFICIAL
+Concentration,0.2
+30 mL concentrate µL,6000.0
+30 mL carrier µL,24000.0
+5 mL concentrate µL,1000.0
+5 mL carrier µL,4000.0
+Maturation,28 days
+Engine V2 score,93.37637497053768
+Monte Carlo pass probability,0.9988888888888889
+Outcome,SOL_5_6_PRO_ENGINE_V2_PASS
+Formula hash,4de0e16b65a40748b343fe4aec7b78620bb19ae8ea54a2e65a50ebaa8b82675b
+
+Order,Stage,Material,Stock,Active fraction,Parts / 1000,30 mL µL,5 mL µL,Execution,Signature phase,Role,Module ancestry
+1,1 · Resins and sweet fixatives,Vanillin 10%,10% working stock,0.1,57.551937113980905,345.31162268388545,57.551937113980905,PREPARED STOCK,base,Vanilla warmth.,Edition Blanche Core | Target-Specific Reinforcement
+2,1 · Resins and sweet fixatives,Coumarin 20%,20% in DPG,0.2,24.985962942167323,149.91577765300394,24.985962942167323,PREPARED STOCK,,Hay-almond tonka warmth.,Edition Blanche Core | Sport Cedar Tonka
+3,1 · Resins and sweet fixatives,Tonka Bean Absolute 10%,10% working stock,0.1,5.053340819764178,30.320044918585065,5.053340819764178,PREPARED STOCK,,Natural tonka warmth.,Sport Cedar Tonka
+4,"2 · Woods, leather and amber",Sandalore,neat / as supplied,1.0,127.31611454239192,763.8966872543515,127.31611454239192,DIRECT,heart,Creamy sandalwood.,Edition Blanche Core | Sport Cedar Tonka | Target-Specific Reinforcement
+5,"2 · Woods, leather and amber",Vetiver EO,neat / as supplied,1.0,71.30825379000562,427.8495227400337,71.30825379000562,DIRECT,base,Rooty natural vetiver.,Edition Blanche Core | Sport Cedar Tonka | Target-Specific Reinforcement
+6,"2 · Woods, leather and amber",Iso E Super,neat / as supplied,1.0,64.0791690061763,384.4750140370578,64.0791690061763,DIRECT,,Transparent woody scaffold.,Edition Blanche Core | Sport Cedar Tonka | White Musk Frame
+7,"2 · Woods, leather and amber",Polysantol,neat / as supplied,1.0,43.23413812464908,259.4048287478945,43.23413812464908,DIRECT,,Persistent sandalwood.,Edition Blanche Core | Sport Cedar Tonka
+8,"2 · Woods, leather and amber",Cedarwood Virginia,neat / as supplied,1.0,11.79112857944975,70.74677147669848,11.79112857944975,DIRECT,,Dry cedar frame.,Sport Cedar Tonka
+9,"2 · Woods, leather and amber",Ambrofix 30%,30% working stock,0.3,10.106681639528356,60.64008983717013,10.106681639528356,PREPARED STOCK,,Mineral ambergris persistence.,Sport Cedar Tonka | White Musk Frame
+10,"2 · Woods, leather and amber",Vertofix,neat / as supplied,1.0,5.895564289724875,35.37338573834924,5.895564289724875,DIRECT,,Vetiver-cedar volume.,Sport Cedar Tonka
+11,3 · Musks and diffusion,Habanolide,neat / verify label,1.0,30.32004491858507,181.9202695115104,30.32004491858507,DIRECT · VERIFY LABEL,base,Radiant metallic-clean musk.,Sport Cedar Tonka | White Musk Frame
+12,3 · Musks and diffusion,Romandolide,neat / verify label,1.0,21.055586749017408,126.33352049410445,21.055586749017408,DIRECT · VERIFY LABEL,,Fruity-clean musk body.,White Musk Frame
+13,3 · Musks and diffusion,Galaxolide 50%,50% in DEP,0.5,14.738910724312186,88.43346434587312,14.738910724312186,PREPARED STOCK,,Soft musk volume.,White Musk Frame
+14,3 · Musks and diffusion,Zenolide,neat / as supplied,1.0,10.527793374508704,63.166760247052224,10.527793374508704,DIRECT,,Smooth musk.,White Musk Frame
+15,3 · Musks and diffusion,Ambrettolide 10%,10% in DPG,0.1,8.422234699606964,50.533408197641776,8.422234699606964,PREPARED STOCK,,Warm ambrette musk.,White Musk Frame
+16,3 · Musks and diffusion,Exaltolide 10%,10% working stock,0.1,8.422234699606964,50.533408197641776,8.422234699606964,PREPARED STOCK,,Soft macrocyclic musk.,White Musk Frame
+17,3 · Musks and diffusion,Macrolide,as supplied,1.0,5.263896687254352,31.583380123526112,5.263896687254352,DIRECT,,Soft macrocyclic musk.,White Musk Frame
+18,"4 · Iris, floral and green heart",Hedione,neat / as supplied,1.0,15.791690061763058,94.75014037057834,15.791690061763058,DIRECT,,Airy jasmine diffusion.,Iris Petal Air
+19,"4 · Iris, floral and green heart",Benzyl Salicylate,neat / as supplied,1.0,10.049257312031035,60.295543872186215,10.049257312031035,DIRECT,,Floral body and fixation.,Iris Petal Air
+20,"4 · Iris, floral and green heart",Geraniol 10%,10% working stock,0.1,9.124087591240876,54.744525547445264,9.124087591240876,PREPARED STOCK,,Rose-geranium brightness.,Edition Blanche Core
+21,"4 · Iris, floral and green heart",Phenethyl Alcohol,neat / as supplied,1.0,7.178040937165026,43.068245622990155,7.178040937165026,DIRECT,,Rose-floral body.,Iris Petal Air
+22,"4 · Iris, floral and green heart",Florol,neat / as supplied,1.0,5.7424327497320204,34.45459649839213,5.7424327497320204,DIRECT,,Clean floral volume.,Iris Petal Air
+23,"4 · Iris, floral and green heart",Nympheal,as supplied; product basis,,5.7424327497320204,34.45459649839213,5.7424327497320204,PRODUCT BASIS,,Modern watery muguet.,Iris Petal Air
+24,"4 · Iris, floral and green heart",Hydroxycitronellal,neat / as supplied,1.0,5.024628656015517,30.147771936093108,5.024628656015517,DIRECT,,Muguet softness.,Iris Petal Air
+25,"4 · Iris, floral and green heart",Jasmine Absolute 10%,10% working stock,0.1,2.8712163748660102,17.227298249196064,2.8712163748660102,PREPARED STOCK,,Warm natural jasmine.,Iris Petal Air
+26,"4 · Iris, floral and green heart",Magnolia EO,neat / as supplied,1.0,2.8712163748660102,17.227298249196064,2.8712163748660102,DIRECT,,Creamy citrus-white-floral detail.,Iris Petal Air
+27,"4 · Iris, floral and green heart",Jasmine Sambac Absolute 10%,10% working stock,0.1,2.1534122811495076,12.920473686897045,2.1534122811495076,PREPARED STOCK,,Green-fruity jasmine.,Iris Petal Air
+28,"4 · Iris, floral and green heart",Farnesol,neat / as supplied,1.0,1.4356081874330051,8.613649124598032,1.4356081874330051,DIRECT,,Warm floral persistence.,Iris Petal Air
+29,"4 · Iris, floral and green heart",Methyl Anthranilate,neat / as supplied,1.0,0.7178040937165026,4.306824562299016,0.7178040937165026,TRACE PREMIX,,Orange-flower and jasmine depth.,Iris Petal Air
+30,"4 · Iris, floral and green heart",Molecule Iris,as supplied,1.0,0.6316676024705222,3.790005614823133,0.6316676024705222,TRACE PREMIX,,Transparent iris texture.,Precision Trace Architecture
+31,"4 · Iris, floral and green heart",Rose Oxide 1%,1% working stock,0.01,0.6316676024705222,3.790005614823133,0.6316676024705222,TRACE PREMIX,,Metallic rose and pepper lift.,Precision Trace Architecture
+32,"4 · Iris, floral and green heart",Beta Ionone,neat / as supplied,1.0,0.5439359910162831,3.2636159460976986,0.5439359910162831,TRACE PREMIX,,Deep violet body.,Precision Trace Architecture
+33,"4 · Iris, floral and green heart",Alpha Irone 30%,30% w/w in IPM,0.3,0.45620437956204385,2.737226277372263,0.45620437956204385,TRACE PREMIX,,Naturalistic irone signature.,Precision Trace Architecture
+34,"4 · Iris, floral and green heart",Indole 10%,10% working stock,0.1,0.45620437956204385,2.737226277372263,0.45620437956204385,TRACE PREMIX,,Indolic floral shadow.,Precision Trace Architecture
+35,"4 · Iris, floral and green heart",Carrot Seed EO 10%,10% working stock,0.1,0.3684727681078047,2.2108366086468285,0.3684727681078047,TRACE PREMIX,,Rooty carrot-rhizome nuance.,Precision Trace Architecture
+36,"4 · Iris, floral and green heart",Damascenone 1%,1% working stock,0.01,0.2807411566535654,1.6844469399213926,0.2807411566535654,TRACE PREMIX,,High-impact fruit-rose radiance.,Precision Trace Architecture
+37,5 · Aromatics and spices,Lavender EO High Altitude,neat / as supplied,1.0,18.248175182481752,109.48905109489053,18.248175182481752,DIRECT,,Lavender body.,Edition Blanche Core
+38,5 · Aromatics and spices,Linalool,neat / as supplied,1.0,17.952521506671903,107.71512904003143,17.952521506671903,DIRECT,,Fresh floral-aromatic lift.,Citrus Polish | Iris Petal Air
+39,5 · Aromatics and spices,Linalyl Acetate,neat / as supplied,1.0,14.363501038089396,86.18100622853638,14.363501038089396,DIRECT,,Lavender-citrus diffusion.,Citrus Polish
+40,6 · Citrus and volatile top,Lemon FCF Oil Sicilian,neat / as supplied,1.0,191.9077993810637,1151.446796286382,191.9077993810637,DIRECT,top,Bright lemon peel.,Citrus Polish | Edition Blanche Core | Target-Specific Reinforcement
+41,6 · Citrus and volatile top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,85.12006581095022,510.72039486570134,85.12006581095022,DIRECT,top,Floral bitter citrus lift.,Citrus Polish | Edition Blanche Core
+42,6 · Citrus and volatile top,Citral 10%,10% working stock,0.1,22.810218978102192,136.86131386861317,22.810218978102192,PREPARED STOCK,,Lemon-citral edge.,Edition Blanche Core
+43,6 · Citrus and volatile top,Grapefruit FCF Oil,neat / verify label,1.0,17.95437629761174,107.72625778567046,17.95437629761174,DIRECT · VERIFY LABEL,,Bitter grapefruit peel.,Citrus Polish
+44,6 · Citrus and volatile top,Petitgrain EO Paraguay,neat / as supplied,1.0,17.95437629761174,107.72625778567046,17.95437629761174,DIRECT,,Green bitter-orange twig.,Citrus Polish
+45,6 · Citrus and volatile top,Blood Orange Oil Sicilian,neat / as supplied,1.0,14.363501038089396,86.18100622853638,14.363501038089396,DIRECT,,Rounded orange peel.,Citrus Polish
+46,6 · Citrus and volatile top,Aldehyde C10 1%,1% working stock,0.01,3.590875259522349,21.545251557134094,3.590875259522349,PREPARED STOCK,,Citrus aldehydic lift.,Citrus Polish
+47,6 · Citrus and volatile top,Aldehyde C11 1%,1% working stock,0.01,1.7954376297611745,10.772625778567047,1.7954376297611745,PREPARED STOCK,,Fresh aldehydic extension.,Citrus Polish
+48,6 · Citrus and volatile top,Aldehyde C12 MNA 1%,1% working stock,0.01,1.7954376297611745,10.772625778567047,1.7954376297611745,PREPARED STOCK,,Waxy aldehydic diffusion.,Citrus Polish

@@ -1,0 +1,100 @@
+from engine.data_spine import load_registry
+from engine.ingredient_catalog import build_ingredient_catalog
+from engine.inventory_parser import inventory_counts, parse_current_inventory
+
+
+def _dynamic_catalog_index() -> dict[str, dict]:
+    return {item["identity_key"]: item for item in build_ingredient_catalog()}
+
+
+def test_opoponax_tracks_the_current_v5_stock_without_reusing_the_old_rebase():
+    stock = next(
+        row
+        for row in parse_current_inventory(unique=False, include_unavailable=True)
+        if row.identity_name == "Opoponax Resinoid"
+    )
+
+    assert stock is not None
+    assert stock.status == "owned"
+    assert stock.dilution == 0.50
+    assert stock.fraction_basis == "unspecified"
+    assert stock.carrier == "dep"
+    assert stock.execution_ready is True
+    assert "50% in dep" in stock.raw_name.casefold()
+
+    material = load_registry().get("Opoponax Resinoid")
+    assert material is not None
+    assert material.user_in_inventory is True
+    assert material.user_stock_dilution == 50.0
+
+
+def test_current_aimi_identity_does_not_promote_the_hyphenated_legacy_alias():
+    rows = parse_current_inventory(unique=False, include_unavailable=True)
+    stock = next(row for row in rows if row.identity_name == "Alpha Isomethyl Ionone")
+
+    assert stock is not None
+    assert stock.status == "owned"
+    assert stock.dilution == 1.0
+    assert stock.execution_ready is True
+    assert stock.fraction_basis == "neat"
+
+    material = load_registry().get("Alpha Isomethyl Ionone")
+    assert material is not None
+    assert material.user_in_inventory is True
+    assert material.user_stock_dilution == "Methyl Ionone Pure"
+
+    hyphenated = load_registry().get("Alpha-Isomethyl Ionone")
+    assert hyphenated is not None
+    assert hyphenated.canonical_name == "Methyl Ionone Pure"
+    methyl_ionone_product = load_registry().get("Methyl Ionone Pure")
+    assert methyl_ionone_product is not None
+    assert methyl_ionone_product.user_in_inventory is False
+
+
+def test_current_woody_and_hay_rows_do_not_promote_absent_legacy_products():
+    rows = parse_current_inventory(unique=False, include_unavailable=True)
+    identities = {row.identity_name for row in rows}
+    assert "Vetiveryl Acetate" not in identities
+    assert "Vetiver EO Haiti" not in identities
+    assert "Patchouli Light Oil" not in identities
+
+    vetiver = next(row for row in rows if row.identity_name == "Vetiver EO")
+    patchouli = next(row for row in rows if row.identity_name == "Patchouli EO")
+    hay = next(row for row in rows if row.identity_name == "Hay Absolute")
+    for stock in (vetiver, patchouli):
+        assert stock.status == "owned"
+        assert stock.dilution == 1.0
+        assert stock.fraction_basis == "neat"
+        assert stock.execution_ready is True
+
+    assert hay.status == "owned"
+    assert hay.dilution == 0.10
+    assert hay.fraction_basis == "unspecified"
+    assert hay.execution_ready is False
+
+
+def test_dynamic_catalog_does_not_promote_absent_legacy_stock_identities():
+    catalog = _dynamic_catalog_index()
+
+    assert catalog["vetiveryl acetate"]["owned_now"] is False
+    assert "vetiver eo haiti" not in catalog
+    assert "patchouli light oil" not in catalog
+    assert catalog["hay absolute"]["owned_now"] is True
+
+    counts = inventory_counts()
+    assert counts == {
+        "raw_entries": 281,
+        "unique_normalized": 258,
+        "unique_fragrance": 252,
+        "solvent_or_carrier": 6,
+        "duplicate_canonical_entries": 23,
+    }
+
+    records = parse_current_inventory(unique=False, include_unavailable=True)
+    names = [record.identity_name for record in records]
+    for canonical in (
+        "Cedarwood Virginia",
+        "Red Mandarin EO",
+        "Rose Essential Oil (Rosa Damascena, India)",
+    ):
+        assert names.count(canonical) == 1

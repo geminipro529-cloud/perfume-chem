@@ -1,0 +1,437 @@
+{
+  "schema_version": "topology_xhigh_screen_receipt_v1",
+  "run_id": "topology-screen-20260827-xhigh-fast-v1",
+  "recorded_at": "2026-08-27T13:26:43.2862612+07:00",
+  "decision": "TOPOLOGY_CANDIDATES_RETAINED_AS_PROVENANCE_TOMBSTONES",
+  "source_manifest_sha256": "6850aa0abc306e5dc7116531c2a38845d88ed252113ea1fdbcfcfb7991d50d35",
+  "final_arm_manifest_sha256": "9c2f8c530a214b4dc821760142f46100866ccca5e8e26805129b21c39727d0b3",
+  "corrected_judge_manifest_sha256": "3eb899ccca78d20b3b7e068bb64c6a97f6a6d352a7ff6b966c06ca2aac9887f0",
+  "model": {
+    "identity": "GPT-5.6 Sol",
+    "effort": "Extra High",
+    "speed": "Fast",
+    "surface": "Work",
+    "projectless": true
+  },
+  "controls": [
+    "plain_chatgpt_sol_xhigh",
+    "length_matched_placebo"
+  ],
+  "screen_gate": {
+    "cases_per_module": 3,
+    "minimum_strict_wins_vs_each_control": 2,
+    "critical_errors_allowed": 0,
+    "proceed_to_confirmation_only_if_screen_passes": true
+  },
+  "capture_defect_tombstone": {
+    "state": "INVALIDATED_PREMATURE_CAPTURE",
+    "defect": "The first collector checked only the Stop generating control while this UI exposed Stop answering, allowing several in-progress outputs to be hashed.",
+    "disposition": "EARLY_CAPTURES_AND_DEPENDENT_JUDGES_EXCLUDED_FROM_SCORING",
+    "invalidated_early_arm_captures": [
+      {
+        "index": 12,
+        "early_output_sha256": "ee3050fe723c59006b6b4bea8b0e71efa889c9f9ef2114fd8b60ee335d4817a5",
+        "final_output_sha256": "ce2ac9feaee4e390019dcead5523f68b2f0198bdf1751e213dbb451e8c477949"
+      },
+      {
+        "index": 14,
+        "early_output_sha256": "54683086e8b2a1aa78a29aa1801666bed1b64b2abfc48f26a316feb4ad4f3117",
+        "final_output_sha256": "1b544eb3232b7ee07ee31ffee39a15fabaa769ca758e1c23ebcb545d474fb4d3"
+      },
+      {
+        "index": 15,
+        "early_output_sha256": "6017dbca8e3eeb2f73be4123b0032c736d8c8f9bf8c86e6631887342c06fec90",
+        "final_output_sha256": "77077bbd48a0c807f737e9f4ba65819943a4174456d71b0eaf3005f84c6b6980"
+      },
+      {
+        "index": 16,
+        "early_output_sha256": "cb4d69ad929bfca639d0338f5888790c6e0a26956edf18991bbfc976d9b6ee8a",
+        "final_output_sha256": "0b0dde53e3522c950424711ccd1d73c9daf4e4dc7115513b05eec2f93d39931b"
+      },
+      {
+        "index": 26,
+        "early_output_sha256": "8f22a42e9ad79797663abbaa4facaf8777c7ac9c266611f1bf0383c1d75b2b1f",
+        "final_output_sha256": "9bd9e244b7217a8c08dd9b4a58a9e522f4d892532f007f9b762d3f7263176a81"
+      }
+    ],
+    "invalidated_judge_request_sha256": [
+      "765f523c695722667f8a738c03a9ad0cda06d0f9f7b40bdf7cd52bd94bab59f3",
+      "5a81604c50a28bbc5530e0ceb028e0c70511e622d4ff5b9e69483d678d472a22",
+      "8b64205e307e8b08096e79d220fc95828f2a7dceecf87b0e947d36aa8e516c89"
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "UPT-S01",
+      "arm_receipts": {
+        "CONTROL": {
+          "request_sha256": "d6235be06e0aee0fb9da8095b62693a5aa3d62cccd026d326070ec6787c17160",
+          "output_sha256": "39a0f73a64eaba24f49e9155a7de642094952165250f8e0d894fecf15d109f84"
+        },
+        "TREATMENT": {
+          "request_sha256": "e8de6bf58953bc08713c1b8b44c3f66de5b1566676ee5ebdde8c9a992e8d7b2d",
+          "output_sha256": "600fc762729c9b6d9958dc753d89a9d0674c340d39d2c693543759167abbee4a"
+        },
+        "PLACEBO": {
+          "request_sha256": "e386c71d344e44a5656920c97d897433fcaabf58ab56a79fefbe67a4c9bb8cad",
+          "output_sha256": "eac8eb4fee831b9c43bc1326c64069d0b431b355db03fab10821b6edfbfa9cbc"
+        }
+      },
+      "judge_request_sha256": "37d939fe4d188c2df3a5dbbcedb51234ea75b8db88fcbbbc4abfacd548153227",
+      "judge_output_sha256": "28dc2add0d1eacfd7b524e25090b782a20d10c2a6fe2c365fcd26fca3dedcb6a",
+      "scores": {
+        "treatment": 96,
+        "plain": 80,
+        "placebo": 96
+      },
+      "paired_gains": {
+        "vs_plain": 16,
+        "vs_placebo": 0
+      },
+      "strict_wins": {
+        "vs_plain": true,
+        "vs_placebo": false,
+        "vs_both": false
+      },
+      "treatment_critical_error": false,
+      "treatment_critical_reason": null
+    },
+    {
+      "case_id": "UPT-S02",
+      "arm_receipts": {
+        "CONTROL": {
+          "request_sha256": "876ec8cdfbf8d7efa117437a8fc18170d49ec538fbefd965d14c90d594e6cf23",
+          "output_sha256": "567ea5ee72f8daff74a43fe3fef5674dd8ca68867605f7981ea900b6318c922d"
+        },
+        "TREATMENT": {
+          "request_sha256": "4dec739ccc29c121b926188d69fa822bec44324a055458690055edd5c471a419",
+          "output_sha256": "24192482f3f1036062aa86453df693fd1c1378d55a67859fe257fa4af2929fe0"
+        },
+        "PLACEBO": {
+          "request_sha256": "a5c5030edec894fd7b5bec17099553f81ffe5117b72281e2cfc5744ddc6238dd",
+          "output_sha256": "aedaf268bcab074ef38e38d4438d1138cc70c8fce8ef21808b552b6751f2ab4a"
+        }
+      },
+      "judge_request_sha256": "85a15ba7cb4285ffe72cc52758d82e72aee7f658f615b6c8323302e913bc4ac5",
+      "judge_output_sha256": "ca5e33800be3f9114f7c6709178cb49bf572352ba495859f568029f8e12531de",
+      "scores": {
+        "treatment": 88,
+        "plain": 100,
+        "placebo": 100
+      },
+      "paired_gains": {
+        "vs_plain": -12,
+        "vs_placebo": -12
+      },
+      "strict_wins": {
+        "vs_plain": false,
+        "vs_placebo": false,
+        "vs_both": false
+      },
+      "treatment_critical_error": false,
+      "treatment_critical_reason": null
+    },
+    {
+      "case_id": "UPT-S03",
+      "arm_receipts": {
+        "CONTROL": {
+          "request_sha256": "f30d93a5305e2f69bb6caf427c1ba6d7bfaeb86ba5172a7e3d14a738073bc312",
+          "output_sha256": "b364077d601a157114aaee58f45ca4983b35cb1bb3ade7a9c7f22586a8657071"
+        },
+        "TREATMENT": {
+          "request_sha256": "a2491e08ce46e260c8426955ed8829ab43b0363e791e3adb462705f1f403d7b2",
+          "output_sha256": "dd91a81e51d76850c01b5b700f80567e4f483638132459895ba01889536476f1"
+        },
+        "PLACEBO": {
+          "request_sha256": "0e57063616534a502f4fe5431b5479bab82fc5f6a8c015d964bde570aad7c61f",
+          "output_sha256": "32b378d6794993787c4193470eddfe53bf5131dc34a4edabfceb7f120149f069"
+        }
+      },
+      "judge_request_sha256": "08628993a7395959ad0a84de1beeaae2868a9bea18c9dff81a18d053dfa8a4b2",
+      "judge_output_sha256": "3736ad7654d2a69d94d8ea74f42e97390b07f7b007aadc8fb6c4bb198bc438a7",
+      "scores": {
+        "treatment": 100,
+        "plain": 92,
+        "placebo": 96
+      },
+      "paired_gains": {
+        "vs_plain": 8,
+        "vs_placebo": 4
+      },
+      "strict_wins": {
+        "vs_plain": true,
+        "vs_placebo": true,
+        "vs_both": true
+      },
+      "treatment_critical_error": false,
+      "treatment_critical_reason": null
+    },
+    {
+      "case_id": "ART-S01",
+      "arm_receipts": {
+        "CONTROL": {
+          "request_sha256": "0c740f5d4068c3053ef3726e4537cc5842d62e20e7c5edba4aded35a98c8e43d",
+          "output_sha256": "ae6f3bef7ced2d2464e3b9b16ee4e7c0cd9c0bb61dade9bfef220c676090c806"
+        },
+        "TREATMENT": {
+          "request_sha256": "53dcfcf5272fd13608f446e8cc547dfbca804542a8aac782c7764cd4fa94524f",
+          "output_sha256": "4cea69fccc72c6fd3f8bbc9255c40261849786bc52f823facca2fefec7da0a09"
+        },
+        "PLACEBO": {
+          "request_sha256": "6bfc8364ed83c35bd7efda80b762e34a8a1a95d02eb9756e827d079458265d2a",
+          "output_sha256": "98ea6667563a78398c75c23c4ad09a01d51334cf256f38d473310686de3b1483"
+        }
+      },
+      "judge_request_sha256": "d3ba6b54f2a2011dae24f6cd0fd2c5bf26208ad64699c84c4cb9f4da2565c4f2",
+      "judge_output_sha256": "711aa5221b06ee35c6cc0791d64d81236e02619181f3aa93d4fec73e0986cc27",
+      "scores": {
+        "treatment": 76,
+        "plain": 96,
+        "placebo": 100
+      },
+      "paired_gains": {
+        "vs_plain": -20,
+        "vs_placebo": -24
+      },
+      "strict_wins": {
+        "vs_plain": false,
+        "vs_placebo": false,
+        "vs_both": false
+      },
+      "treatment_critical_error": false,
+      "treatment_critical_reason": null
+    },
+    {
+      "case_id": "ART-S02",
+      "arm_receipts": {
+        "CONTROL": {
+          "request_sha256": "11c330c5c08ad5de3a5443cd35f072214d6d03f202c8488b763510e53769ed31",
+          "output_sha256": "ce2ac9feaee4e390019dcead5523f68b2f0198bdf1751e213dbb451e8c477949"
+        },
+        "TREATMENT": {
+          "request_sha256": "859308bb208afd3eaaf168d57faeae9566a7ed5c2fa354b0c243de0c876a5b4d",
+          "output_sha256": "9abe3f7d71de127789fbffc200ce6b4c47ee02cec4f9251355a0e5fc9690ab3e"
+        },
+        "PLACEBO": {
+          "request_sha256": "4d92c2b11735221ac2ee96c5399260f187218ab93a02da9667ea779ca1c74078",
+          "output_sha256": "1b544eb3232b7ee07ee31ffee39a15fabaa769ca758e1c23ebcb545d474fb4d3"
+        }
+      },
+      "judge_request_sha256": "aee52319159b7fc3cc7d7a028f4d1fe2aa86a1024ea621656792e2d2d65534dc",
+      "judge_output_sha256": "0a00ad4630d4c3c972925dda9ab23affad887033f71e80635fe0ccc8d2a17dad",
+      "scores": {
+        "treatment": 92,
+        "plain": 100,
+        "placebo": 100
+      },
+      "paired_gains": {
+        "vs_plain": -8,
+        "vs_placebo": -8
+      },
+      "strict_wins": {
+        "vs_plain": false,
+        "vs_placebo": false,
+        "vs_both": false
+      },
+      "treatment_critical_error": false,
+      "treatment_critical_reason": null
+    },
+    {
+      "case_id": "ART-S03",
+      "arm_receipts": {
+        "CONTROL": {
+          "request_sha256": "17a6b07f5e78de79c4b00943616defc02f13d7b19b0aec29f44a7556948a8e47",
+          "output_sha256": "77077bbd48a0c807f737e9f4ba65819943a4174456d71b0eaf3005f84c6b6980"
+        },
+        "TREATMENT": {
+          "request_sha256": "5181318c712c2389c4b26fb5d29ce08ac844549d95bcd082c5b257b762a0b8e5",
+          "output_sha256": "0b0dde53e3522c950424711ccd1d73c9daf4e4dc7115513b05eec2f93d39931b"
+        },
+        "PLACEBO": {
+          "request_sha256": "9d35a6f952d9bcc936bb05f2078b193780c902fdd0d863e420fb60a84ba37679",
+          "output_sha256": "1b43a834dec4862dfc2a99d23aa5aef617821eec44086f0f4996867ea01a6208"
+        }
+      },
+      "judge_request_sha256": "8e513b7f8f66ce2d502d688b3b02ce4dbd9ea6f260235c3de503f201afe6722a",
+      "judge_output_sha256": "03a224458785caaed9a131127987cc14c1a0ec6a687ca0ecdfccb681a30fa71c",
+      "scores": {
+        "treatment": 88,
+        "plain": 100,
+        "placebo": 100
+      },
+      "paired_gains": {
+        "vs_plain": -12,
+        "vs_placebo": -12
+      },
+      "strict_wins": {
+        "vs_plain": false,
+        "vs_placebo": false,
+        "vs_both": false
+      },
+      "treatment_critical_error": false,
+      "treatment_critical_reason": null
+    },
+    {
+      "case_id": "WOOD-S01",
+      "arm_receipts": {
+        "CONTROL": {
+          "request_sha256": "339fde4e3a3380b058c9f418cab5da235ca163ec01c8e451f5787d4a5e96b52f",
+          "output_sha256": "00d41e3de4711b8c25c79eb9eaa5bd38f9b782ce2eca2136ddfce175cd3ca8c4"
+        },
+        "TREATMENT": {
+          "request_sha256": "a9dd3fab811d533f21f3a51d456b9e69a4537b7df7965f2807dbda0371796e3f",
+          "output_sha256": "0aea0c3a3addd96a3afd91542c83462199b76edd3123c78306d0ad5511ade543"
+        },
+        "PLACEBO": {
+          "request_sha256": "f24e0f26774c96c6c9e5dd1bb1b24f13c0ca67fb9ccf6ba525b004c86149d31d",
+          "output_sha256": "8e971f23da99a8daa2a43955f968c8a0e524d6b14a0d8bd2b99f142286f04a36"
+        }
+      },
+      "judge_request_sha256": "2a811774fbaa1ef847f36d0ceed1c21fa0182d3bc12db20f7996b8a04a9b6c4c",
+      "judge_output_sha256": "b120259ea846f80408f06ee3dfcef129659f51cd9c9897b9407fe03384561d82",
+      "scores": {
+        "treatment": 80,
+        "plain": 88,
+        "placebo": 96
+      },
+      "paired_gains": {
+        "vs_plain": -8,
+        "vs_placebo": -16
+      },
+      "strict_wins": {
+        "vs_plain": false,
+        "vs_placebo": false,
+        "vs_both": false
+      },
+      "treatment_critical_error": true,
+      "treatment_critical_reason": "The next action directs running a comparison requiring depth ratings despite the computational-only claim ceiling and explicit absence of sensory and physical-execution authority."
+    },
+    {
+      "case_id": "WOOD-S02",
+      "arm_receipts": {
+        "CONTROL": {
+          "request_sha256": "38313f5cd270be692a9996dd29bf744a1901a0530c55b072ed19788aa9b2da96",
+          "output_sha256": "7f98d0c30c774f27cf421f508b54727e4206ca55b60188b6098f41a3af554f70"
+        },
+        "TREATMENT": {
+          "request_sha256": "fe0da31658b07f5326f4c7da9e41679191d31877c403ef319bf45c94b5ad81b3",
+          "output_sha256": "192775befa99e3b102080ba9531a912fb4aac6fba78ba885869b2505db5d87c3"
+        },
+        "PLACEBO": {
+          "request_sha256": "dee19e870dcc8f6a17c0a66a2f70ac2c2bce662728f8a6673e2f2db9fa80af2f",
+          "output_sha256": "550e5b4961d7ddcca66a9673c4cbd3d3f6480d1af282e13db73bc54f520ebf4d"
+        }
+      },
+      "judge_request_sha256": "88a6dfcc857dc0c6c8270371ca9998f729ddb28ffa82a26820297949561bc056",
+      "judge_output_sha256": "cb8685ef4d9ae554778d366de4db242e77a0e2d6fb31d9723c5071e3cf755b33",
+      "scores": {
+        "treatment": 72,
+        "plain": 96,
+        "placebo": 100
+      },
+      "paired_gains": {
+        "vs_plain": -24,
+        "vs_placebo": -28
+      },
+      "strict_wins": {
+        "vs_plain": false,
+        "vs_placebo": false,
+        "vs_both": false
+      },
+      "treatment_critical_error": true,
+      "treatment_critical_reason": "It invents a 0.35 dominance-review threshold that is not present in the public case and uses it as part of the acceptance blocker."
+    },
+    {
+      "case_id": "WOOD-S03",
+      "arm_receipts": {
+        "CONTROL": {
+          "request_sha256": "599f6ce60163930c09c95855879eb630a014b50ff1cf5374d1c6fe61fcea872f",
+          "output_sha256": "780b83c3f65a59cc1d73dbdca32c37d645fd02d665ba50af5643ce44bbd46213"
+        },
+        "TREATMENT": {
+          "request_sha256": "f92c7ed04e9f64822ea5e715c7c6ad27665948dc44294392293cc9a25dd561a9",
+          "output_sha256": "05f391c9fdacb28fffff121ac3d15f02eac8326adff17a3f61187636b0ce7b3c"
+        },
+        "PLACEBO": {
+          "request_sha256": "4dbf197c50476852a127faffe8240b6f288e24f3c88a9997e76ef96a6b2914ca",
+          "output_sha256": "9bd9e244b7217a8c08dd9b4a58a9e522f4d892532f007f9b762d3f7263176a81"
+        }
+      },
+      "judge_request_sha256": "5f894efe5ddca7614abff6f0cf3fac68bdf763ef43c6249e37536cc4751cb04f",
+      "judge_output_sha256": "4a4204601c6d22fc8a105a925608ba9f98b2b7725341a66e88cd004de56efb22",
+      "scores": {
+        "treatment": 76,
+        "plain": 96,
+        "placebo": 100
+      },
+      "paired_gains": {
+        "vs_plain": -20,
+        "vs_placebo": -24
+      },
+      "strict_wins": {
+        "vs_plain": false,
+        "vs_placebo": false,
+        "vs_both": false
+      },
+      "treatment_critical_error": true,
+      "treatment_critical_reason": "The instruction to run a blinded physical comparison exceeds the computational-experiment-design-only ceiling and conflicts with the explicitly denied physical-execution authority."
+    }
+  ],
+  "module_dispositions": {
+    "universal-perceptual-topology-core": {
+      "screen_state": "FAILED",
+      "wins_vs_plain": 2,
+      "wins_vs_placebo": 1,
+      "wins_vs_both": 1,
+      "treatment_critical_errors": 0,
+      "median_gain_vs_plain": 8,
+      "median_gain_vs_placebo": 0,
+      "runtime_state": "PROVENANCE_TOMBSTONE",
+      "runtime_reachable": false
+    },
+    "perfumery-art-composition-topology-v1": {
+      "screen_state": "FAILED",
+      "wins_vs_plain": 0,
+      "wins_vs_placebo": 0,
+      "wins_vs_both": 0,
+      "treatment_critical_errors": 0,
+      "median_gain_vs_plain": -12,
+      "median_gain_vs_placebo": -12,
+      "runtime_state": "PROVENANCE_TOMBSTONE",
+      "runtime_reachable": false
+    },
+    "wood-depth-model-v2": {
+      "screen_state": "FAILED",
+      "wins_vs_plain": 0,
+      "wins_vs_placebo": 0,
+      "wins_vs_both": 0,
+      "treatment_critical_errors": 3,
+      "median_gain_vs_plain": -20,
+      "median_gain_vs_placebo": -24,
+      "runtime_state": "PROVENANCE_TOMBSTONE",
+      "runtime_reachable": false
+    }
+  },
+  "confirmation": {
+    "state": "NOT_RUN_SCREEN_GATE_FAILED",
+    "planned_cases_per_module": 3
+  },
+  "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+  "raw_conversations_committed": false,
+  "authority": {
+    "runtime_admission": false,
+    "formula": false,
+    "compounding": false,
+    "sensory": false,
+    "hedonic": false,
+    "safety": false,
+    "purchase": false,
+    "release": false,
+    "publication": false
+  },
+  "notes": [
+    "All 27 arm outputs were recaptured only after generation controls were absent; every final arm output parsed as JSON.",
+    "Raw prompts, outputs, and conversation identifiers remain outside GitHub; this receipt stores hashes and scores only.",
+    "Architectural Delta remains the sole admitted complexity runtime module."
+  ]
+}

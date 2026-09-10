@@ -1,0 +1,4 @@
+rank,identity,stock_fraction,required,lower_active_parts,upper_active_parts,manual_multiplier,block,roles,evidence_status,notes
+1,Material A,1,true,0,,1.0,scaffold,volume|diffusion,ranked_identity,Replace with canonical supplier identity
+2,Material B,0.5,true,0,,1.2,musk,body|diffusion,ranked_identity,Stock is 50 percent active
+3,Material C,0.1,true,0,15,0.15,trace,signature|modifier,ranked_identity,Potent material held by explicit upper bound

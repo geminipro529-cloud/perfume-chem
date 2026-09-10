@@ -1,0 +1,93 @@
+[tool.poetry]
+name = "perfume-chem-api"
+version = "1.0.0"
+description = "AI-powered perfume chemistry and formulation API"
+authors = ["Your Name <you@example.com>"]
+packages = [{include = "app"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.141.1"
+uvicorn = {extras = ["standard"], version = "^0.52.4"}
+sqlalchemy = "^2.0.52"
+aiosqlite = "^0.22.1"
+alembic = "^1.19.1"
+pydantic = "^2.13.4"
+pydantic-settings = "^2.15.0"
+openai = "^1.3.0"
+tenacity = "^8.2.0"
+pyjwt = {extras = ["crypto"], version = "^2.13.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+bcrypt = "4.0.1"
+python-multipart = "^0.0.32"
+redis = {extras = ["hiredis"], version = "^5.0.0", optional = true}
+transformers = {version = "^4.36.0", optional = true}
+torch = {version = "^2.1.0", optional = true}
+accelerate = {version = "^0.25.0", optional = true}
+requests = "^2.34.2"
+opentelemetry-api = "^1.44.0"
+opentelemetry-sdk = "^1.44.0"
+opentelemetry-instrumentation-fastapi = "^0.65b0"
+opentelemetry-instrumentation-sqlalchemy = "^0.65b0"
+opentelemetry-instrumentation-redis = "^0.65b0"
+opentelemetry-instrumentation-httpx = "^0.65b0"
+opentelemetry-exporter-otlp-proto-http = "^1.44.0"
+perfume-chem-engine = {path = "..", develop = true}
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.1.1"
+pytest-asyncio = "^1.4.0"
+pytest-cov = "^7.1.0"
+httpx = "^0.28.1"
+ruff = "^0.16.4"
+mypy = "^2.3.1"
+black = "^26.5.1"
+pip-audit = "^2.10.1"
+setuptools = "^84.0.0"
+
+[tool.poetry.extras]
+redis = ["redis"]
+huggingface = ["transformers", "torch", "accelerate"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+
+[tool.coverage.run]
+source = ["app"]
+omit = ["*/tests/*", "*/__init__.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"app/api/v1/endpoints/enhancements.py" = ["E402"]
+"app/api/v1/endpoints/knowledge.py" = ["E402"]
+"app/api/v1/endpoints/mixer.py" = ["E402"]
+"app/api/v1/endpoints/optimizer.py" = ["E402"]
+"app/core/exceptions.py" = ["N818"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

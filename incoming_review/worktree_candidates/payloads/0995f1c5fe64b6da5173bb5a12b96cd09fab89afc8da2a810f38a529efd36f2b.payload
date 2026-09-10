@@ -1,0 +1,253 @@
+from __future__ import annotations
+
+from dataclasses import replace
+
+from engine.inventory_parser import load_current_user_inventory_overlay
+from engine.material_capability_atlas import build_material_capability_atlas
+from engine.perception.cypress_heart_frontier import (
+    CypressHeartCriterion,
+    CypressHeartFrontierRequestV1,
+    CypressHeartFrontierState,
+    DesignSupportLevel,
+    build_default_cypress_heart_frontier_request,
+    evaluate_cypress_heart_frontier,
+)
+from engine.perception.harmonic_synthesis import HarmonicMaterialIntentV1
+
+
+def test_default_frontier_selects_new_magnolia_orris_dual_register_architecture() -> None:
+    atlas = build_material_capability_atlas()
+    request = build_default_cypress_heart_frontier_request(atlas)
+
+    result = evaluate_cypress_heart_frontier(request, atlas=atlas)
+
+    assert result.state is CypressHeartFrontierState.THEORY_SELECTED
+    assert result.selected_candidate is not None
+    assert result.selected_candidate.candidate_id == "CYP-H01-MAGNOLIA-ORRIS"
+    assert result.selected_candidate.floral_subjects == (
+        "Magnolia petal-light register",
+        "Orris rhizome-shadow register",
+    )
+    assert result.selected_candidate.inherited_model_refs == ()
+    assert "DHP" not in result.selected_candidate.heart_identity
+    assert "Dior Homme" not in result.selected_candidate.heart_identity
+    assert result.claim_ceiling == "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY"
+
+
+def test_selected_architecture_keeps_cypress_as_subject_and_floral_as_relational_heart() -> None:
+    atlas = build_material_capability_atlas()
+    result = evaluate_cypress_heart_frontier(
+        build_default_cypress_heart_frontier_request(atlas),
+        atlas=atlas,
+    )
+    selected = result.selected_candidate
+    assert selected is not None
+
+    assessments = {item.criterion: item for item in selected.assessments}
+    assert assessments[
+        CypressHeartCriterion.CYPRESS_SUBJECT_PRESERVATION
+    ].support_level is DesignSupportLevel.STRONGLY_TARGET_LINKED
+    assert assessments[
+        CypressHeartCriterion.FLORAL_RELIEF
+    ].support_level is DesignSupportLevel.STRONGLY_TARGET_LINKED
+    assert "sole named subject" in selected.relation_to_cypress
+    assert len(selected.floral_subjects) == 2
+    assert "photorealistic" not in selected.smell_hypothesis.casefold()
+
+
+def test_frontier_inventory_assessments_bind_current_successor_without_stale_holds() -> None:
+    atlas = build_material_capability_atlas()
+    request = build_default_cypress_heart_frontier_request(atlas)
+    successor_id = load_current_user_inventory_overlay()["successor_id"]
+    expected_ref = f"inventory://{successor_id}/reparse-at-execution"
+    current_assessments = [
+        assessment
+        for candidate in request.candidates
+        for assessment in candidate.assessments
+        if assessment.criterion is CypressHeartCriterion.CURRENT_INVENTORY_FEASIBILITY
+    ]
+    rendered = str(request.as_dict())
+
+    assert current_assessments
+    assert all(expected_ref in assessment.evidence_refs for assessment in current_assessments)
+    assert "inventory://current-v7" not in rendered
+    assert "unavailable Benzyl Salicylate" not in rendered
+    assert "unresolved Bacdanol dosing" not in rendered
+
+
+def test_default_selected_material_intents_are_current_quantitatively_ready() -> None:
+    atlas = build_material_capability_atlas()
+    result = evaluate_cypress_heart_frontier(
+        build_default_cypress_heart_frontier_request(atlas),
+        atlas=atlas,
+    )
+    selected = result.selected_candidate
+    assert selected is not None
+
+    assert result.inventory_holds == ()
+    for intent in selected.material_intents:
+        if intent.current_build_intent and intent.quantitative_required:
+            assert atlas.project(intent.material_name).quantitative_execution_ready
+
+
+def test_frontier_uses_pareto_and_declared_target_priority_not_aggregate_score() -> None:
+    atlas = build_material_capability_atlas()
+    result = evaluate_cypress_heart_frontier(
+        build_default_cypress_heart_frontier_request(atlas),
+        atlas=atlas,
+    )
+    payload = result.as_dict()
+    rendered = str(payload).casefold()
+
+    assert result.scalar_score_used is False
+    assert "overall_score" not in rendered
+    assert "beauty_score" not in rendered
+    assert "hedonic_score" not in rendered
+    assert "vote" not in rendered
+    assert result.dominance_records
+
+
+def test_equal_nondominated_candidates_remain_frontier_instead_of_arbitrary_selection() -> None:
+    atlas = build_material_capability_atlas()
+    base = build_default_cypress_heart_frontier_request(atlas)
+    candidate = base.candidates[0]
+    twin = replace(
+        candidate,
+        candidate_id="CYP-H99-EQUAL-TWIN",
+        heart_identity="Equal-evidence Magnolia-Orris alternative",
+        controlled_comparison_ref="comparison://cyp-02/equal-twin/v1",
+    )
+    request = CypressHeartFrontierRequestV1(
+        target=base.target,
+        criteria_priority=base.criteria_priority,
+        candidates=(candidate, twin),
+        prohibited_inherited_model_refs=base.prohibited_inherited_model_refs,
+        literature_refs=base.literature_refs,
+    )
+
+    result = evaluate_cypress_heart_frontier(request, atlas=atlas)
+
+    assert result.state is CypressHeartFrontierState.FRONTIER
+    assert result.selected_candidate is None
+    assert result.frontier_candidate_ids == (
+        "CYP-H01-MAGNOLIA-ORRIS",
+        "CYP-H99-EQUAL-TWIN",
+    )
+    assert result.next_comparison is not None
+
+
+def test_more_materials_do_not_improve_frontier_position() -> None:
+    atlas = build_material_capability_atlas()
+    base = build_default_cypress_heart_frontier_request(atlas)
+    selected = base.candidates[0]
+    padded = replace(
+        selected,
+        candidate_id="CYP-H98-PADDED",
+        heart_identity="Padded Magnolia-Orris alternative",
+        material_intents=(
+            *selected.material_intents,
+            HarmonicMaterialIntentV1(
+                intent_id="decorative_extra_musk",
+                material_name="Ethylene Brassylate",
+                role_id="role.decorative_extra",
+                target_function="no distinct target function",
+                ideal_required=False,
+                current_build_intent=True,
+                quantitative_required=True,
+                omission_loss="none",
+                failure_mode="unnecessary musk blur",
+            ),
+        ),
+        controlled_comparison_ref="comparison://cyp-02/padded/v1",
+    )
+    request = CypressHeartFrontierRequestV1(
+        target=base.target,
+        criteria_priority=base.criteria_priority,
+        candidates=(selected, padded),
+        prohibited_inherited_model_refs=base.prohibited_inherited_model_refs,
+        literature_refs=base.literature_refs,
+    )
+
+    result = evaluate_cypress_heart_frontier(request, atlas=atlas)
+
+    assert result.state is CypressHeartFrontierState.FRONTIER
+    assert result.selected_candidate is None
+    assert result.scalar_score_used is False
+
+
+def test_quantitatively_held_current_material_creates_hold_and_cannot_be_selected() -> None:
+    atlas = build_material_capability_atlas()
+    base = build_default_cypress_heart_frontier_request(atlas)
+    selected = base.candidates[0]
+    blocked = replace(
+        selected,
+        material_intents=(
+            *selected.material_intents,
+            HarmonicMaterialIntentV1(
+                intent_id="held_guaiacwood_root",
+                material_name="Guaiacwood EO",
+                role_id="role.held_rooted_wood",
+                target_function="rooted woody bridge under the cypress subject",
+                ideal_required=True,
+                current_build_intent=True,
+                quantitative_required=True,
+                omission_loss="rooted transition may weaken",
+                failure_mode="unresolved stock carrier prevents quantitative execution",
+            ),
+        ),
+    )
+    request = CypressHeartFrontierRequestV1(
+        target=base.target,
+        criteria_priority=base.criteria_priority,
+        candidates=(blocked,),
+        prohibited_inherited_model_refs=base.prohibited_inherited_model_refs,
+        literature_refs=base.literature_refs,
+    )
+
+    result = evaluate_cypress_heart_frontier(request, atlas=atlas)
+
+    assert result.state is CypressHeartFrontierState.HOLD
+    assert result.selected_candidate is None
+    assert any("Guaiacwood EO" in item for item in result.inventory_holds)
+
+
+def test_candidate_must_assess_every_declared_criterion() -> None:
+    atlas = build_material_capability_atlas()
+    base = build_default_cypress_heart_frontier_request(atlas)
+    incomplete = replace(base.candidates[0], assessments=base.candidates[0].assessments[:-1])
+    request = CypressHeartFrontierRequestV1(
+        target=base.target,
+        criteria_priority=base.criteria_priority,
+        candidates=(incomplete,),
+        prohibited_inherited_model_refs=base.prohibited_inherited_model_refs,
+        literature_refs=base.literature_refs,
+    )
+
+    result = evaluate_cypress_heart_frontier(request, atlas=atlas)
+
+    assert result.state is CypressHeartFrontierState.HOLD
+    assert any("criterion coverage" in item.casefold() for item in result.blockers)
+
+
+def test_frontier_never_claims_observed_hedonism_or_grants_authority() -> None:
+    atlas = build_material_capability_atlas()
+    result = evaluate_cypress_heart_frontier(
+        build_default_cypress_heart_frontier_request(atlas),
+        atlas=atlas,
+    )
+
+    assert result.hedonic_truth_state == "NOT_TESTED"
+    for field_name in (
+        "formula_mutation_authorized",
+        "physical_execution_authorized",
+        "compounding_authorized",
+        "purchase_authority",
+        "sensory_authority",
+        "hedonic_authority",
+        "similarity_authority",
+        "performance_authority",
+        "safety_authority",
+        "stability_authority",
+        "release_authority",
+    ):
+        assert getattr(result, field_name) is False

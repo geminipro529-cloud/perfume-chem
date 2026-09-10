@@ -1,0 +1,108 @@
+import re
+from pathlib import Path
+
+from engine.inventory_parser import parse_inventory
+from scripts.verify_formula_workflow import (
+    audit_donor_independence,
+    parse_formula_markdown,
+)
+
+
+ROOT = Path(__file__).resolve().parents[1]
+FORMULA = ROOT / "formulas" / (
+    "LNDL_Luxe_Azulene_Juniper_Chiaroscuro_DHP2025_V2_"
+    "30mL_20pct_Development.md"
+)
+GUIDE = ROOT / "formulas" / "mixing_guides" / (
+    "LNDL_Luxe_Azulene_Juniper_Chiaroscuro_DHP2025_V2_"
+    "Factorial_Blind_Trial.md"
+)
+
+
+def _formula() -> dict:
+    formulas = parse_formula_markdown(FORMULA)
+    assert len(formulas) == 1
+    return formulas[0]
+
+
+def test_v2_formula_subtotal_rows_floor_and_one_musk() -> None:
+    formula = _formula()
+    amounts = formula["ingredients_ul"]
+    assert len(amounts) == 51
+    assert sum(amounts.values()) == 6000.0
+    assert min(amounts.values()) >= 10.0
+    assert amounts["Juniper Berry EO"] == 20.0
+    assert amounts["Blue Chamomile EO"] == 20.0
+    assert amounts["Ebanol"] == 30.0
+    assert amounts["Cedarwood oil Virginia"] == 600.0
+    assert amounts["Cedarwood EO"] == 395.0
+    assert amounts["Vetiver EO (India)"] == 340.0
+    assert amounts["Hexyl Salicylate"] == 200.0
+    assert amounts["Benzyl Benzoate"] == 300.0
+    assert "Polysantol" not in amounts
+    musks = {
+        "Ethylene Brassylate",
+        "Habanolide",
+        "Romandolide",
+        "Tonalide",
+        "Macrolide",
+        "Musk Ketone",
+    } & set(amounts)
+    assert musks == {"Ethylene Brassylate"}
+
+
+def test_v2_ideal_preserves_source_count_floor_and_exact_target_total() -> None:
+    text = FORMULA.read_text(encoding="utf-8")
+    ideal = text.split("## TARGET / IDEAL FORMULA", 1)[1].split(
+        "## CURRENT-INVENTORY BUILD", 1
+    )[0]
+    rows: list[tuple[int, float]] = []
+    for line in ideal.splitlines():
+        match = re.match(
+            r"^\|\s*(\d+)\s*\|.*?\|.*?\|\s*([0-9,]+(?:\.\d+)?)\s*\|",
+            line,
+        )
+        if match:
+            rows.append(
+                (int(match.group(1)), float(match.group(2).replace(",", "")))
+            )
+    assert len(rows) == 59
+    assert [number for number, _ in rows] == list(range(1, 60))
+    assert sum(amount for _, amount in rows) == 6000.0
+
+
+def test_v2_motif_source_stocks_are_owned_neat_and_execution_ready() -> None:
+    rows = {row.identity_name: row for row in parse_inventory(unique=False)}
+    for name in ("Juniper Berry EO", "Blue Chamomile EO"):
+        row = rows[name]
+        assert row.status == "owned"
+        assert row.dilution == 1.0
+        assert row.fraction_basis == "neat"
+        assert row.carrier == ""
+        assert row.execution_ready is True
+        assert row.execution_hold_reason == ""
+
+
+def test_v2_donor_independence_and_source_lineage_gate_passes() -> None:
+    formula = _formula()
+    audit = audit_donor_independence(FORMULA, formula, project_root=ROOT)
+    assert audit["status"] == "PASS", audit
+    assert audit["failure_codes"] == []
+
+
+def test_v2_factorial_slots_are_complete_total_and_carrier_matched() -> None:
+    common = 5960.0
+    arms = {
+        "A/00": (20.0, 20.0),
+        "B/10": (20.0, 20.0),
+        "C/01": (20.0, 20.0),
+        "D/11": (20.0, 20.0),
+    }
+    assert all(common + sum(slots) == 6000.0 for slots in arms.values())
+    guide = GUIDE.read_text(encoding="utf-8")
+    assert "SUPERSEDED COMPUTATIONAL CANDIDATE" not in guide
+    for arm in arms:
+        assert arm.replace("/", " / ") in guide
+    assert "Interaction = D - B - C + A" in guide
+    assert "D-versus-A does **not** prove synergy" in guide
+    assert "two complete, independent 6,000 uL concentrate batches" in guide

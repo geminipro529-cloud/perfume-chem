@@ -1,0 +1,165 @@
+{
+  "schema_version": "perfume_chem_complex_perfumery_v6_historical_compatibility_v2",
+  "recorded_at": "2026-09-04T00:00:00+07:00",
+  "purpose": "Preserve the V6 verifier-reconciliation evidence as a versioned historical contract without treating ignored outputs or evolved live paths as clean-checkout fixtures.",
+  "source_receipt": {
+    "path": "data/governance/complex_perfumery_v6_verifier_reconciliation_20260812.json",
+    "schema_version": "perfume_chem_complex_perfumery_v6_verifier_reconciliation_v1",
+    "semantic_self_sha256": "b95e55ae31e1a240a03529bece13f0c44520e13b0eafb3d68f7fd2ddae94ec5f"
+  },
+  "historical_parent_pins": [
+    {
+      "path": "data/governance/complex_perfumery_v4_recovered_scope_installation_acceptance_20260812.json",
+      "byte_size": 7716,
+      "sha256": "9b510bfc51da0b4d0b0470313ccda3a00612f4cdca47cd9c57a7e2ed6e9f3382",
+      "role": "PRIOR_TIMEOUT_AND_RECOVERED_SCOPE_ACCEPTANCE"
+    },
+    {
+      "path": "data/governance/complex_perfumery_v6_am_e01_collection_acceptance_20260812.json",
+      "byte_size": 5152,
+      "sha256": "2208dc8cbee8832adfbdde13a4c90cbd9bd01555b325e305ed9c161fa26c5877",
+      "role": "CURRENT_V6_COLLECTION_ACCEPTANCE"
+    },
+    {
+      "path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V6_20260812.json",
+      "byte_size": 5520,
+      "sha256": "5709250a6623f991d3a3de26d9001b015737dff1fd83d6d5f5aef2d3c9f8b80b",
+      "role": "CURRENT_V6_COLLECTION_STATE"
+    },
+    {
+      "path": "output/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V6_20260812.md",
+      "byte_size": 3174,
+      "sha256": "31ce6f301fa12949f4cbeb7f73ef2bdc356c01ecace0aafc2eae01d8b9be2507",
+      "role": "CURRENT_V6_NATIVE_FIT_PLAN"
+    },
+    {
+      "path": "formulas/Prada_LHomme_Architecture_Control_30mL_EdT.md",
+      "byte_size": 27762,
+      "sha256": "151de70b2983a7902a67daf8ddd43e0692bfea4ee5f8c92e553c3174827e1d00",
+      "role": "D0_BYTE_PINNED_QUARANTINED_CONTROL"
+    },
+    {
+      "path": "scripts/verify_d0_claim_matrix.py",
+      "byte_size": 9472,
+      "sha256": "377e61ba6f5ab85bb79a1977bd99267ae8ee5f1390981df69b69630cb2aff072",
+      "role": "D0_LIVE_HASH_VERIFIER"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-08-03-build-d0-claim-matrix.md",
+      "byte_size": 52178,
+      "sha256": "841e5cbe068e3e1c6ac65c3a2d70207b51b5f17dfbbe757d290fc4b09fbf0a85",
+      "role": "D0_BYTE_IDENTITY_CONTRACT"
+    }
+  ],
+  "parent_dispositions": {
+    "data/governance/complex_perfumery_v4_recovered_scope_installation_acceptance_20260812.json": "TRACKED_IMMUTABLE_REPLAY",
+    "data/governance/complex_perfumery_v6_am_e01_collection_acceptance_20260812.json": "TRACKED_IMMUTABLE_REPLAY",
+    "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V6_20260812.json": "IGNORED_HISTORICAL_HASH_ONLY",
+    "output/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V6_20260812.md": "IGNORED_HISTORICAL_HASH_ONLY",
+    "formulas/Prada_LHomme_Architecture_Control_30mL_EdT.md": "VERSIONED_MUTABLE_PATH_HISTORICAL_HASH_ONLY",
+    "scripts/verify_d0_claim_matrix.py": "VERSIONED_MUTABLE_PATH_HISTORICAL_HASH_ONLY",
+    "docs/superpowers/plans/2026-08-03-build-d0-claim-matrix.md": "VERSIONED_MUTABLE_PATH_HISTORICAL_HASH_ONLY"
+  },
+  "clean_checkout_contract": {
+    "ignored_output_required": false,
+    "historical_external_content_embedded": false,
+    "tracked_immutable_parents_replayed": 2,
+    "historical_hash_only_parents": 5,
+    "parent_pins_preserved": 7
+  },
+  "d0_compatibility": {
+    "historical_control_sha256": "151de70b2983a7902a67daf8ddd43e0692bfea4ee5f8c92e553c3174827e1d00",
+    "current_formula_is_historical_fixture": false,
+    "current_root_d0_replay_required": false,
+    "historical_formula_rebased_to_current": false,
+    "formula_write_performed": false,
+    "d0_binding_write_performed": false,
+    "current_root_result": "FAIL_CLOSED",
+    "current_root_error_category": "ValueError",
+    "current_root_error_reason": "control formula binding changed",
+    "study_authorized": false,
+    "release_authority": false,
+    "scientific_outcome": "unmeasured"
+  },
+  "classification_compatibility": {
+    "historical_v6_diagnosis": {
+      "status": "TAMPERED",
+      "artifact_binding_status": "TAMPERED",
+      "integrity_issues": [
+        "analysis_input_hash"
+      ],
+      "explicitly_quarantined": true,
+      "release_authority": false
+    },
+    "current_runtime_policy": {
+      "status": "QUARANTINED",
+      "artifact_binding_status": "STALE",
+      "integrity_issues": [],
+      "quarantine_explicit": true,
+      "release_authority": false
+    },
+    "relationship": "VERSIONED_SEMANTICS_NOT_RETROACTIVE_REWRITE"
+  },
+  "v6_am_e01_capture_compatibility": {
+    "artifact_receipt": {
+      "path": "data/governance/complex_perfumery_am_e01_file_library_artifact_receipt_20260812.json",
+      "receipt_sha256": "0e59136ec3dce0edf73a1a740534d1964de05eefe4a7c234c7bd8444864d8d9a"
+    },
+    "collection_acceptance": {
+      "path": "data/governance/complex_perfumery_v6_am_e01_collection_acceptance_20260812.json",
+      "receipt_sha256": "69b7b2a48daaaa4983d2bb2587fdc640812098dd89cc1d071dd9a723edb97319"
+    },
+    "successor_summary": {
+      "parent_path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V5_20260812.json",
+      "parent_byte_size": 6694,
+      "parent_sha256": "99a705720fe915cafc1864902e234a3bc62b3c590eb70a327355451e5180caef",
+      "parent_relationship": "SUPERSEDES_WITHOUT_MUTATING_PARENT",
+      "cumulative_exact_outer_candidates": 33,
+      "cumulative_exact_nonarchive_candidates": 1,
+      "new_exact_nonarchive_candidates": 1,
+      "optional_identities_closed_by_new_capture": 1,
+      "optional_identities_remaining": 4,
+      "new_exact_nonarchive_candidate_sha256": "965b02beba5faec32dcbe8d5d97aa3df8cb47fe43fc3c1cf040e4fd3b03ff5e2",
+      "new_exact_nonarchive_candidate_formula_authority": false,
+      "collection_complete": false,
+      "implementation_complete": false,
+      "installation_authorized": false,
+      "reconstruction_allowed": false,
+      "substitution_allowed": false
+    },
+    "portable_replay": {
+      "external_candidate_content_required": false,
+      "ignored_successor_content_required": false,
+      "ignored_plan_content_required": false,
+      "ignored_ledger_content_required": false,
+      "source_receipt_hashes_required": true,
+      "authority_promotion_allowed": false
+    }
+  },
+  "decision": {
+    "historical_receipt_mutated": false,
+    "historical_formula_restored_over_current": false,
+    "runtime_verifier_mutated": false,
+    "inventory_mutated": false,
+    "scientific_authority_promoted": false,
+    "physical_execution_authorized": false,
+    "release_authorized": false
+  },
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "bottle": false,
+    "physical_execution": false,
+    "sensory": false,
+    "headspace": false,
+    "strict_oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "installation": false,
+    "release": false
+  },
+  "semantic_self_sha256": "118d735d203cd0f686dee9f0548af3cc7e5cfa4014367d436eafbd089968949c"
+}

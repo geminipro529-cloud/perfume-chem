@@ -1,0 +1,385 @@
+{
+  "schema": "perfume-chem.inventory-overlay.v2",
+  "study_id": "ysl-lhomme-la-nuit-twenty-variant-study",
+  "effective_date": "2026-08-28",
+  "predecessor": {
+    "path": "inventory_overlay.json",
+    "sha256": "1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072",
+    "diagnostic_state": "FROZEN_DO_NOT_REBIND",
+    "purpose": "Historical stock authority used by the twenty frozen candidate diagnostics."
+  },
+  "current_inventory": {
+    "path": "../../../inventory.txt",
+    "sha256": "F8244E7B069B5D24C194FBA5F27B5A9504E94624839453464E37398680FFAC3E",
+    "read_at_utc": "2026-08-28T12:00:00Z",
+    "authority_state": "CURRENT_FOR_NEXT_FORMULA_AND_PHYSICAL_PREPARATION"
+  },
+  "scope": {
+    "applies_to": "Physical availability, canonical inventory identity, executable stock form, and preparation gating from 2026-08-28 forward.",
+    "never_overrides": [
+      "target identity",
+      "target architecture",
+      "sensory evidence",
+      "safety or release authority",
+      "the locked AP-T1 v3 dose table",
+      "the historical inputs or hashes of the twenty frozen candidate diagnostics"
+    ],
+    "precedence": "The current inventory bytes plus the latest direct-user event supersede earlier stock descriptions for future formulation. The predecessor remains the immutable input receipt for already-generated diagnostics."
+  },
+  "events": [
+    {
+      "event_id": "USR-STOCK-MUSKS-2026-08-26",
+      "authority": "DIRECT_USER_THREAD_INSTRUCTION",
+      "effective_date": "2026-08-26",
+      "statement": "Habanolide and Romandolide are owned; Ambrettolide 10% is design-available and procurement-pending.",
+      "limits": "Ambrettolide remains unavailable to current builds even if a stale roster row says purchased."
+    },
+    {
+      "event_id": "USR-STOCK-EB-2026-08-28-CONSOLIDATED",
+      "authority": "DIRECT_USER_CONFIRMATION_PLUS_CURRENT_INVENTORY",
+      "effective_date": "2026-08-28",
+      "statement": "Ethylene Brassylate is owned neat.",
+      "limits": "Ownership and stock basis do not establish identity, condition, liking, stability, safety, or release readiness."
+    },
+    {
+      "event_id": "USR-STOCK-TINCTURES-2026-08-27",
+      "authority": "DIRECT_USER_CONFIRMATION",
+      "effective_date": "2026-08-27",
+      "statement": "All tinctures are lost.",
+      "limits": "Every tincture is out of stock, including any tincture not enumerated in this file."
+    },
+    {
+      "event_id": "USR-STOCK-CORRECTION-2026-08-28",
+      "authority": "DIRECT_USER_CONSOLIDATED_CORRECTION",
+      "effective_date": "2026-08-28",
+      "statement": "Earlier same-day stock description retained as chronology only.",
+      "superseded_by": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE",
+      "limits": "Do not use this superseded event to downgrade the later w/w and execution-ready confirmation."
+    },
+    {
+      "event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE",
+      "authority": "DIRECT_USER_LATEST_CORRECTION",
+      "effective_date": "2026-08-28",
+      "statement": "Every stated percentage is w/w; all listed stocks are ready as described. Neroli is owned neat. Red Saffron Infusion is the maximum-concentration as-supplied DPG product and is execution-ready at product-stock fraction 1.0, while its proprietary saffron-active fraction remains undisclosed. Geranyl Acetate is owned neat. Ambrofix remains heterogeneous and verify-first because crystals are visible.",
+      "limits": "Product-stock readiness is not a claim about undisclosed saffron-active fraction. Ambrofix cannot support a pipetted active dose, strict OAV, stability, safety, or release claim while the liquid phase is heterogeneous."
+    },
+    {
+      "event_id": "USR-CANONICAL-ALIASES-2026-08-28",
+      "authority": "DIRECT_USER_NAMING_CORRECTION",
+      "effective_date": "2026-08-28",
+      "statement": "Virginian cedarwood, Red Mandarin Oil, and Rose Otto Oil canonicalize to existing inventory records without duplicate rows.",
+      "limits": "Alias resolution does not create new stock or a new material identity."
+    },
+    {
+      "event_id": "USR-STOCK-POLYSANTOL-OUT-2026-08-28-LATE",
+      "authority": "DIRECT_USER_LATEST_STOCK_CORRECTION",
+      "effective_date": "2026-08-28",
+      "statement": "Polysantol is out of stock.",
+      "limits": "Exclude Polysantol from current builds. This stock correction does not establish a sensory substitute, require repurchase, or rewrite historical formula diagnostics."
+    },
+    {
+      "event_id": "USR-AP-T1-CINNAMON-SUBSTITUTION-2026-08-28",
+      "authority": "DIRECT_USER_FORMULA_SPECIFIC_SENSORY_SUBSTITUTION",
+      "effective_date": "2026-08-28",
+      "statement": "Only in AP-T1 v3, 10 uL Cinnamaldehyde 1% may be replaced by the sensory use of 3 uL NYSUPPLY Cinnamon Bark EO 10%.",
+      "limits": "This is not chemical, active-mass, OAV, safety, stability, or generally scalable equivalence. The direct 3 uL dose is below the 10 uL floor and therefore requires the disclosed nominal 3% working-stock preparation after carrier verification."
+    }
+  ],
+  "global_rules": [
+    {
+      "selector": {
+        "preparation_form_casefold_contains": "tincture"
+      },
+      "status": "OUT_OF_STOCK",
+      "execution_state": "EXCLUDE_FROM_CURRENT_BUILD",
+      "authority_event_id": "USR-STOCK-TINCTURES-2026-08-27"
+    }
+  ],
+  "overrides": [
+    {
+      "inventory_name": "Ethylene Brassylate",
+      "status": "OWNED",
+      "stock_form": "neat",
+      "concentration_basis": "w/w",
+      "stock_fraction": 1.0,
+      "carrier": null,
+      "current_build_design_state": "AVAILABLE",
+      "authority_event_id": "USR-STOCK-EB-2026-08-28-CONSOLIDATED"
+    },
+    {
+      "inventory_name": "Habanolide",
+      "status": "OWNED",
+      "stock_form": "neat",
+      "concentration_basis": "w/w",
+      "stock_fraction": 1.0,
+      "carrier": null,
+      "current_build_design_state": "AVAILABLE",
+      "authority_event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE"
+    },
+    {
+      "inventory_name": "Romandolide",
+      "status": "OWNED",
+      "stock_form": "neat",
+      "concentration_basis": "w/w",
+      "stock_fraction": 1.0,
+      "carrier": null,
+      "current_build_design_state": "AVAILABLE",
+      "authority_event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE"
+    },
+    {
+      "inventory_name": "Ambrettolide (10% w/w in DPG)",
+      "status": "OUT_OF_STOCK",
+      "stock_form": "solution",
+      "concentration_basis": "w/w",
+      "stock_fraction": 0.1,
+      "carrier": "DPG",
+      "target_design_state": "DESIGN_AVAILABLE_PROCUREMENT_PENDING",
+      "current_build_design_state": "EXCLUDE_FROM_CURRENT_BUILD",
+      "physical_compounding_state": "PROCUREMENT_REQUIRED",
+      "authority_event_id": "USR-STOCK-MUSKS-2026-08-26"
+    },
+    {
+      "inventory_name": "Polysantol",
+      "status": "OUT_OF_STOCK",
+      "stock_form": "neat",
+      "concentration_basis": "w/w",
+      "stock_fraction": 1.0,
+      "carrier": null,
+      "target_design_state": "DESIGN_AVAILABLE_PROCUREMENT_REQUIRED",
+      "current_build_design_state": "EXCLUDE_FROM_CURRENT_BUILD",
+      "physical_compounding_state": "PROCUREMENT_REQUIRED",
+      "authority_event_id": "USR-STOCK-POLYSANTOL-OUT-2026-08-28-LATE"
+    },
+    {
+      "inventory_name": "Amber Xtreme (10% w/w in DEP)",
+      "status": "OWNED",
+      "stock_form": "solution",
+      "concentration_basis": "w/w",
+      "stock_fraction": 0.1,
+      "carrier": "DEP",
+      "current_build_design_state": "AVAILABLE",
+      "authority_event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE"
+    },
+    {
+      "inventory_name": "Alpha Irone (10% w/w in DEP)",
+      "status": "OWNED",
+      "stock_form": "solution",
+      "concentration_basis": "w/w",
+      "stock_fraction": 0.1,
+      "carrier": "DEP",
+      "current_build_design_state": "AVAILABLE_SINGLE_SELECTED_DILUTION",
+      "authority_event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE"
+    },
+    {
+      "inventory_name": "Opoponax Resinoid (50% w/w in DEP)",
+      "status": "OWNED",
+      "stock_form": "solution",
+      "concentration_basis": "w/w",
+      "stock_fraction": 0.5,
+      "carrier": "DEP",
+      "current_build_design_state": "AVAILABLE",
+      "authority_event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE"
+    },
+    {
+      "inventory_name": "Myrrh EO (50% w/w in DEP)",
+      "status": "OWNED",
+      "stock_form": "solution",
+      "concentration_basis": "w/w",
+      "stock_fraction": 0.5,
+      "carrier": "DEP",
+      "current_build_design_state": "AVAILABLE",
+      "authority_event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE"
+    },
+    {
+      "inventory_name": "Osmanthus Absolute (10% w/w in DPG)",
+      "status": "OWNED",
+      "stock_form": "solution",
+      "concentration_basis": "w/w",
+      "stock_fraction": 0.1,
+      "carrier": "DPG",
+      "grade": "premium",
+      "current_build_design_state": "AVAILABLE",
+      "authority_event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE"
+    },
+    {
+      "inventory_name": "Osmanthus Absolute (volume grade)",
+      "status": "OWNED",
+      "stock_form": "neat_natural_mixture",
+      "concentration_basis": "w/w",
+      "stock_fraction": 1.0,
+      "carrier": null,
+      "grade": "volume",
+      "current_build_design_state": "AVAILABLE_WITH_GRADE_IDENTITY_PRESERVED",
+      "authority_event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE"
+    },
+    {
+      "inventory_name": "Rose de Mai Absolute (10% w/w in DPG)",
+      "status": "OWNED",
+      "stock_form": "solution",
+      "concentration_basis": "w/w",
+      "stock_fraction": 0.1,
+      "carrier": "DPG",
+      "current_build_design_state": "AVAILABLE",
+      "authority_event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE"
+    },
+    {
+      "inventory_name": "Lemon FCF oil Sicilian",
+      "status": "OWNED",
+      "stock_form": "neat_natural_mixture",
+      "concentration_basis": "w/w",
+      "stock_fraction": 1.0,
+      "carrier": null,
+      "current_build_design_state": "AVAILABLE",
+      "authority_event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE"
+    },
+    {
+      "inventory_name": "Clearwood",
+      "status": "OWNED",
+      "stock_form": "neat",
+      "concentration_basis": "w/w",
+      "stock_fraction": 1.0,
+      "carrier": null,
+      "current_build_design_state": "AVAILABLE",
+      "authority_event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE"
+    },
+    {
+      "inventory_name": "Alpha-Isomethyl Ionone (AIMI, Givaudan)",
+      "status": "OWNED",
+      "stock_form": "neat",
+      "concentration_basis": "w/w",
+      "stock_fraction": 1.0,
+      "carrier": null,
+      "current_build_design_state": "AVAILABLE",
+      "authority_event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE"
+    },
+    {
+      "inventory_name": "Neroli EO",
+      "status": "OWNED",
+      "stock_form": "neat_natural_mixture",
+      "concentration_basis": "w/w",
+      "stock_fraction": 1.0,
+      "carrier": null,
+      "current_build_design_state": "AVAILABLE_SUPPORT_ONLY_UNLESS_CENTRAL",
+      "authority_event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE"
+    },
+    {
+      "inventory_name": "Geranyl Acetate",
+      "status": "OWNED",
+      "stock_form": "neat",
+      "concentration_basis": "w/w",
+      "stock_fraction": 1.0,
+      "carrier": null,
+      "current_build_design_state": "AVAILABLE",
+      "authority_event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE"
+    },
+    {
+      "inventory_name": "Red Saffron Infusion",
+      "status": "OWNED",
+      "stock_form": "as_supplied_product",
+      "concentration_basis": "w/w",
+      "stock_fraction": 1.0,
+      "carrier": "DPG",
+      "current_build_design_state": "AVAILABLE_AS_SUPPLIED_PRODUCT_ACTIVE_FRACTION_UNDISCLOSED",
+      "physical_compounding_state": "AVAILABLE_SUBJECT_TO_10_PERCENT_COMPOUND_MAXIMUM",
+      "authority_event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE"
+    },
+    {
+      "inventory_name": "Ambrofix",
+      "status": "OWNED",
+      "stock_form": "heterogeneous_solution_with_visible_crystals",
+      "concentration_basis": "w/w",
+      "stock_fraction": 0.0727,
+      "carrier": "DEP/ETHANOL",
+      "current_build_design_state": "VERIFY_FIRST_HETEROGENEOUS_PIPETTABLE_PHASE",
+      "physical_compounding_state": "HOLD_UNTIL_CLEAR_AND_STABLE",
+      "authority_event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE"
+    },
+    {
+      "inventory_name": "Cedarwood oil Virginia",
+      "status": "OWNED",
+      "stock_form": "neat_natural_mixture",
+      "concentration_basis": "w/w",
+      "stock_fraction": 1.0,
+      "carrier": null,
+      "current_build_design_state": "AVAILABLE_CANONICAL_RECORD",
+      "authority_event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE"
+    },
+    {
+      "inventory_name": "Red Mandarin EO",
+      "status": "OWNED",
+      "stock_form": "neat_natural_mixture",
+      "concentration_basis": "w/w",
+      "stock_fraction": 1.0,
+      "carrier": null,
+      "current_build_design_state": "AVAILABLE_CANONICAL_RECORD",
+      "authority_event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE"
+    },
+    {
+      "inventory_name": "Rose Essential Oil (Rosa Damascena, India)",
+      "status": "OWNED",
+      "stock_form": "solution",
+      "concentration_basis": "w/w",
+      "stock_fraction": 0.1,
+      "carrier": null,
+      "current_build_design_state": "AVAILABLE_CANONICAL_RECORD_CARRIER_UNRECORDED",
+      "authority_event_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE"
+    }
+  ],
+  "canonical_aliases": [
+    {
+      "user_name": "Virginian cedarwood",
+      "canonical_inventory_name": "Cedarwood oil Virginia",
+      "duplicate_record_allowed": false
+    },
+    {
+      "user_name": "Red Mandarin Oil",
+      "canonical_inventory_name": "Red Mandarin EO",
+      "duplicate_record_allowed": false
+    },
+    {
+      "user_name": "Rose Otto Oil",
+      "canonical_inventory_name": "Rose Essential Oil (Rosa Damascena, India)",
+      "duplicate_record_allowed": false
+    }
+  ],
+  "special_substitutions": [
+    {
+      "substitution_id": "AP-T1-CINNAMON-SENSORY-ONLY-2026-08-28",
+      "scope_formula_uid": "ysl20:LH-04:AP-T1:v3",
+      "generalizable": false,
+      "source": "10 uL Cinnamaldehyde 1%",
+      "replacement": "NYSUPPLY Cinnamon Bark EO 10%",
+      "direct_10_percent_stock_ul": 3.0,
+      "direct_dose_floor_state": "BELOW_10_UL_NOT_DIRECTLY_EXECUTABLE",
+      "working_stock_preparation": "3 parts verified 10% bottle stock plus 7 parts verified matching carrier; nominal 3% working stock",
+      "executable_working_stock_ul": 10.0,
+      "preparation_gate": "VERIFY_BOTTLE_CARRIER_FIRST",
+      "equivalence_limits": [
+        "not chemical equivalence",
+        "not active-mass equivalence",
+        "not OAV equivalence",
+        "not safety equivalence",
+        "not stability equivalence",
+        "not a scalable substitution rule"
+      ]
+    }
+  ],
+  "execution_constraints": {
+    "minimum_direct_raw_stock_ul": 10.0,
+    "musk_default": "ZERO_OR_ONE_FUNCTIONALLY_EXACT_MUSK",
+    "excluded_without_nonredundant_exception": [
+      "Tonalide",
+      "Macrolide",
+      "Musk Ketone"
+    ],
+    "neroli": "SUPPORT_ONLY_UNLESS_NEROLI_OR_ORANGE_BLOSSOM_IS_CENTRAL",
+    "diagnostic_only": [
+      "ppm",
+      "ODT",
+      "OAV",
+      "composite-natural OAV",
+      "stock-rebase/OAV-per-time"
+    ]
+  },
+  "claim_ceiling": "This cumulative overlay records stock and preparation authority only. It does not prove material identity or condition, physical liking, similarity, stability, safety, measured headspace, strict OAV, or release readiness."
+}

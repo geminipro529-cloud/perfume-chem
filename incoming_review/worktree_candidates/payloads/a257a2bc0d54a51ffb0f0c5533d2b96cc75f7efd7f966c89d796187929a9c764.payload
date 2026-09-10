@@ -1,0 +1,380 @@
+# LNDL Luxe DHP 2025 Theory Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:executing-plans` to implement this plan task-by-task. Codex subagents are forbidden by project policy. Explicit `$delegate` use is limited to bounded read-only arithmetic or label review and never replaces local olfactive judgment or final verification.
+
+**Goal:** Produce the first 30 mL, 20% LNDL Luxe formula that transfers DHP 2025's dual-state compositional theory into a recognizable cardamom–lavender identity, with separate ideal/current formulas, governed physics, stock preparation, and a constant-total blind diagnostic packet.
+
+**Architecture:** One parser-safe development formula file contains the identity architecture, a non-parseable 58-material ideal ppm block, and the sole parseable current-inventory dosing table. The local release pipeline evaluates only the current table. A separate mixing-guide file contains the four diagnostic arms so their rows cannot inflate the formula parser's 6,000 uL subtotal.
+
+**Tech Stack:** Markdown formula artifacts, PowerShell 7, repository Python environment, `scripts/formula_release_gate.py`, `scripts/format_pipeline_analysis.py`, `scripts.verify_formula_workflow.parse_formula_markdown`, ppm/ODT/OAV and composite-natural OAV pipeline modules.
+
+**Spec:** `docs/superpowers/specs/2026-08-27-lndl-luxe-dhp2025-theory-design.md`
+
+## Global Constraints
+
+- Re-read `AGENTS.md`, `inventory.txt`, `.github/copilot-instructions.md`, `docs/fragrance_families_reference.md`, the design spec, and relevant existing LNDL files before every formula or revision batch.
+- Use the user-supplied physical authority where it overrides stale checked-in inventory: Ethylene Brassylate present; all tinctures lost; Cedarwood Virginia and Lemon FCF depleted; corrected lactones limited to Delta Decalactone and Gamma Nonalactone; Bontoux Cinnamon Oil present at a 10% working dilution.
+- Treat the Bontoux result narrowly: 10% was physically preferred in the user's 3 mL context. It does not establish plant part, ideal active dose, LNDL similarity, overall liking, or a tenfold batch-scaling rule.
+- Use no tincture, Lemon FCF, Cedarwood Virginia, Gamma Decalactone, neat Lemonile, Tonalide, Macrolide, Musk Ketone, or redundant second musk in the current build.
+- The current formula is 30 mL EdP: exactly 6,000 uL concentrate plus 24 mL ethanol.
+- The ideal formula has 58 unique odor-active materials. The current candidate architecture begins with 56. The final current count may fall when a candidate fails its function or physics gate; never pad the count back upward.
+- The baseline has exactly one musk: Ethylene Brassylate. A Romandolide comparison is permitted only as an equal-active, one-for-one, one-musk-per-arm diagnostic.
+- Every current ingredient row records stock strength, raw uL, active uL, active ppm, ODT provenance/status, modeled OAV/status, and one primary functional owner.
+- Use composite-natural OAV for every EO, absolute, and resinoid. Missing natural decomposition or physics is `PARTIAL DATA` or `HOLD`, never modeled proof of absence.
+- Character and transition roles require predicted OAV >= 1 or explicit `HOLD`; OAV < 1 may survive only as one of at most six declared structural/matrix rows with an omission rationale.
+- Hedione plus Hedione HC begins below 12% raw concentrate and may be reduced after headspace review.
+- Any desired raw-stock dose below 10 uL must be delivered through an explicitly prepared dilution whose measured aliquot is at least 10 uL.
+- Model outputs are diagnostic. They do not establish smell, similarity, depth, liking, safety, stability, measured headspace, performance, or release.
+- Do not run the full standalone verifier because this is a controlled prototype, not a release claim. Use the release gate and required full pipeline analysis only.
+- Do not create a new pipeline script. Use `apply_patch` for authored Markdown edits; generated pipeline outputs may be written under gitignored `output/`.
+- Do not modify, merge, or hand off the program-integration branch. Preserve all unrelated untracked files.
+- Keep delicate architecture, dose selection, sensory interpretation, and final acceptance local. `$delegate` may receive only a minimal packet for fast mechanical review; the timed-out delegate call from planning is not retried.
+
+## File Structure
+
+- Create `formulas/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_30mL_20pct_Development.md`: authoritative design-to-dose packet, ideal formula, current formula, missing-impact gate, preparations, claim ceiling, and appended final pipeline analysis.
+- Create `formulas/mixing_guides/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_Blind_Trial.md`: isolated four-arm factorial diagnostic, module-master instructions, randomization, ballot, and inference limits.
+- Generate `output/lndl_luxe_dhp2025_v1/pipeline_v1.json` and later versioned JSON outputs: gitignored computational evidence only.
+- Modify no engine, backend, inventory, or program-integration files.
+
+---
+
+### Task 1: Build the Parser-Safe 56-Candidate Formula Hypothesis
+
+**Files:**
+- Create: `formulas/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_30mL_20pct_Development.md`
+- Read: `docs/superpowers/specs/2026-08-27-lndl-luxe-dhp2025-theory-design.md`
+- Read: `formulas/La_Nuit_de_LHomme_Luxe_30mL_EDT.md`
+- Read: `formulas/LH_04X_Pomme_Couture_100_V1_30mL_15pct_Development.md`
+
+**Interfaces:**
+- Consumes: the eleven approved modules and 56 unique candidate identities in the design spec.
+- Produces: one Markdown formula parsed by `parse_formula_markdown()` as exactly one current formula totaling 6,000 raw uL.
+
+- [ ] **Step 1: Refresh all formulation authority before dosing**
+
+Run from the repository root:
+
+```powershell
+Get-Content -LiteralPath AGENTS.md -Raw
+Get-Content -LiteralPath inventory.txt -Raw
+Get-Content -LiteralPath .github/copilot-instructions.md -Raw
+Get-Content -LiteralPath docs/fragrance_families_reference.md -Raw
+Get-Content -LiteralPath docs/superpowers/specs/2026-08-27-lndl-luxe-dhp2025-theory-design.md -Raw
+```
+
+Record the user-supplied physical overrides in the formula header. Do not edit `inventory.txt` merely to reconcile the stale file.
+
+- [ ] **Step 2: Apply the initial raw-volume module budget**
+
+Use this exact 6,000 uL starting allocation:
+
+| Module | Raw uL | % concentrate |
+|---|---:|---:|
+| Tailored aperture | 350 | 5.833% |
+| Cold cardamom shell | 600 | 10.000% |
+| Lavender prism | 750 | 12.500% |
+| Warm seed/coumarin interior | 550 | 9.167% |
+| Tailored iris/suede seam | 300 | 5.000% |
+| Vertical cedar/vetiver woods | 1,100 | 18.333% |
+| Sculpted sandalwood volume | 850 | 14.167% |
+| Pressure and dark contour | 400 | 6.667% |
+| Quiet matrix | 400 | 6.667% |
+| Exact skin echo | 350 | 5.833% |
+| Dedicated stitches | 350 | 5.833% |
+| **Total** | **6,000** | **100.000%** |
+
+These are starting spatial budgets, not sensory evidence. Dose inside each module by identity and interaction, then let Task 2 move volume across modules only when the OAV/time or redundancy audit gives a target-linked reason. Document any module change greater than 15% of its starting raw budget.
+
+- [ ] **Step 3: Write the target architecture and 58-material ideal formula**
+
+Create the formula file with these sections in this order:
+
+1. authority, concentration, status, and claim ceiling;
+2. target identity and DHP 2025 theory translation;
+3. functional architecture before dosing;
+4. spatial and temporal transition map;
+5. `TARGET / IDEAL FORMULA` as a fenced text block of 58 unique materials whose nominal active ppm sum to exactly 1,000,000;
+6. ideal-only rows for Cardamom CO2/absolute and Caraway EO;
+7. `CURRENT-INVENTORY BUILD` as the only Markdown ingredient table in this file.
+
+The ideal block is text, not a Markdown table, so the current formula remains the sole parse target.
+
+- [ ] **Step 4: Dose the current 56-row table locally**
+
+For every candidate, select a dose that preserves its single owned function. Use stock dilutions already in inventory where available. If a neat powerhouse would require less than 10 uL, assign a future working stock now and dose at least 10 uL of that stock. Do not keep a row merely to reach 56.
+
+Use exactly these columns:
+
+```text
+| # | Ingredient | Dilution | Raw uL | Active uL | Active ppm | ODT source/status | Modeled OAV/status | Primary functional owner |
+```
+
+Compute `Active uL = Raw uL × stock fraction` and `Active ppm = Active uL / 6000 × 1,000,000`. For w/w stocks where a strict volume-equivalent active value cannot be established without density, label the value `nominal` and preserve the stock basis.
+
+- [ ] **Step 5: Verify parser isolation, subtotal, count, raw floor, and musk discipline**
+
+Run:
+
+```powershell
+python -c "from pathlib import Path; from scripts.verify_formula_workflow import parse_formula_markdown; p=Path(r'formulas/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_30mL_20pct_Development.md'); fs=parse_formula_markdown(p); assert len(fs)==1, len(fs); f=fs[0]; assert abs(sum(f['ingredients_ul'].values())-6000)<1e-6, sum(f['ingredients_ul'].values()); assert len(f['ingredients_ul'])==56, len(f['ingredients_ul']); assert min(f['ingredients_ul'].values())>=10, min(f['ingredients_ul'].values()); musks={'Ethylene Brassylate','Habanolide','Romandolide','Tonalide','Macrolide','Musk Ketone'} & set(f['ingredients_ul']); assert musks=={'Ethylene Brassylate'}, musks; print('PASS', len(f['ingredients_ul']), sum(f['ingredients_ul'].values()), min(f['ingredients_ul'].values()), musks)"
+```
+
+Expected: `PASS 56 6000.0` followed by a minimum raw dose of at least `10` and `{'Ethylene Brassylate'}`.
+
+- [ ] **Step 6: Commit the formula hypothesis only**
+
+```powershell
+git add -- formulas/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_30mL_20pct_Development.md
+git diff --cached --check
+git commit -m "feat: formulate LNDL Luxe DHP theory prototype"
+```
+
+---
+
+### Task 2: Run the Physics Gate and Rebase Without Losing the Dual Subject
+
+**Files:**
+- Modify: `formulas/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_30mL_20pct_Development.md`
+- Generate: `output/lndl_luxe_dhp2025_v1/pipeline_v1.json`
+- Generate as needed: `output/lndl_luxe_dhp2025_v1/pipeline_v2.json`, `pipeline_v3.json`
+
+**Interfaces:**
+- Consumes: the parser-valid current formula from Task 1.
+- Produces: a constant-total current prototype with ppm/ODT/OAV and temporal diagnostics, plus the required verbatim appended pipeline analysis.
+
+- [ ] **Step 1: Refresh authority again before the first modeled formula batch**
+
+Repeat Task 1 Step 1 in full. Confirm the physical override list is unchanged before running the formula.
+
+- [ ] **Step 2: Run the first local release gate with the generic brief**
+
+Do not use the `dhp_2025` family archetype: this perfume transfers DHP theory but must not be rewarded for becoming iris-sandalwood. Run:
+
+```powershell
+New-Item -ItemType Directory -Force -Path output/lndl_luxe_dhp2025_v1 | Out-Null
+python scripts/formula_release_gate.py --formula-file formulas/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_30mL_20pct_Development.md --expected-concentrate-ul 6000 --batch-volume-ml 30 --brief generic --json --append-analysis | Set-Content -LiteralPath output/lndl_luxe_dhp2025_v1/pipeline_v1.json -Encoding utf8
+python scripts/format_pipeline_analysis.py --input output/lndl_luxe_dhp2025_v1/pipeline_v1.json
+```
+
+Present the formatter's complete output verbatim in chat before discussing gate decisions, as required by `AGENTS.md`.
+
+- [ ] **Step 3: Apply the material-survival audit**
+
+Read these exact JSON sections:
+
+- `formulas[0].formula_state.materials[]` or the current equivalent OAV table;
+- `formulas[0].formula_state.note_distribution`;
+- `formulas[0].time_series[]` or `time_windows[]`;
+- `oav_authority`;
+- `oav_intelligence` gate data;
+- `safety_ifra_allergen` gate data;
+- `config_summary`;
+- parser subtotal and canonical-duplicate results.
+
+For each current row, make one of four explicit decisions in the formula rationale: `KEEP_PERCEPTIBLE`, `KEEP_STRUCTURAL`, `REDOSE/REDILUTE`, or `REMOVE/REBASE`.
+
+For every `REDOSE/REDILUTE` decision, preserve or intentionally change active amount explicitly, then compare OAV in every modeled time window. A raw-volume match without active-dose rebasing is invalid.
+
+Reject or rework any result with:
+
+- a character or transition row modeled below OAV 1 without a data `HOLD`;
+- more than six declared structural rows below OAV 1;
+- duplicate canonical identities;
+- a row below the 10 uL direct-measurement floor;
+- Hedione + Hedione HC at or above 12% raw concentrate;
+- a generic amberwood or Iso E dominance that erases cardamom–lavender identity;
+- a warm block whose likely interpretation is pastry, vanilla, or cinnamon candy;
+- a missing-data zero interpreted as sensory dormancy;
+- an IFRA or allergen warning represented as clearance.
+
+- [ ] **Step 4: Rebase one causal problem at a time**
+
+Before every revised batch, reread all five authority files. Edit only with `apply_patch`. Keep the table subtotal exactly 6,000 uL by moving removed raw volume to the nearest neutral compatible owner inside the same spatial plane. Preserve Cardamom EO, Bontoux lavender, Coumarin/Tonkarome continuity, cedar/vetiver identity, and one-musk discipline.
+
+Save each run under the next versioned JSON filename, append its full analysis through `--append-analysis`, and show the full formatted analysis in chat. Stop after the first locally coherent computational prototype; do not optimize numerical scores indefinitely.
+
+- [ ] **Step 5: Re-run the structural assertions after the accepted rebase**
+
+Run the parser assertion from Task 1 with the ingredient-count check changed from `==56` to `<=56`. Also assert that the count remains at least 1 only to catch parser failure; do not impose an artificial complexity floor.
+
+- [ ] **Step 6: Commit the governed computational prototype**
+
+```powershell
+git add -- formulas/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_30mL_20pct_Development.md
+git diff --cached --check
+git commit -m "refine: rebase LNDL Luxe through OAV and temporal gates"
+```
+
+Do not commit the gitignored JSON outputs.
+
+---
+
+### Task 3: Complete Stock Preparations and Missing-Chemical Impact
+
+**Files:**
+- Modify: `formulas/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_30mL_20pct_Development.md`
+
+**Interfaces:**
+- Consumes: final surviving doses and stock labels from Task 2.
+- Produces: executable preparation instructions with no requested raw-stock measurement below 10 uL, plus a bounded procurement recommendation.
+
+- [ ] **Step 1: Classify every current dose by measurement route**
+
+Add a preparation ledger with one status per row:
+
+- `DIRECT`: owned stock, raw aliquot >= 10 uL;
+- `PREPARE_10_PERCENT`: desired neat equivalent from 1 to <10 uL;
+- `PREPARE_1_PERCENT`: desired neat equivalent below 1 uL;
+- `HOLD_LABEL`: physical bottle exists but stock basis or identity is incomplete;
+- `IDEAL_ONLY`: absent and not executable.
+
+Do not hide a small active dose inside a nominal neat row.
+
+- [ ] **Step 2: Write exact stock recipes for every non-direct current row**
+
+Use these preparation bases unless material-specific solubility requires a documented alternative:
+
+```text
+10% w/w in DPG: 1.000 g material + 9.000 g DPG = 10.000 g stock
+1% w/w in DPG: 0.100 g material + 9.900 g DPG = 10.000 g stock
+```
+
+For solids already specified in TEC or IPM, preserve the inventory carrier. Each instruction must state material, concentration basis, carrier, preparation mass, label fields, exact formula aliquot, nominal active equivalent, and why the dilution is required. Do not describe a gravimetric stock as an exact volume unless density is measured.
+
+- [ ] **Step 3: Add the final missing-chemical impact gate**
+
+Cover at least Cardamom CO2/absolute, Caraway EO, Cedarwood Virginia, Lemon FCF, and any surviving partial-data current material. For each, record exact lost function, current approximation, residual limitation, impact severity, and `BUY NOW`, `BUY AFTER BLIND EVIDENCE`, or `DO NOT BUY FOR THIS CONCEPT`.
+
+No recommendation authorizes procurement.
+
+- [ ] **Step 4: Verify no current raw aliquot is below the floor**
+
+```powershell
+python -c "from pathlib import Path; from scripts.verify_formula_workflow import parse_formula_markdown; f=parse_formula_markdown(Path(r'formulas/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_30mL_20pct_Development.md'))[0]; bad={k:v for k,v in f['ingredients_ul'].items() if v<10}; assert not bad, bad; assert abs(sum(f['ingredients_ul'].values())-6000)<1e-6; print('PASS raw-floor and subtotal')"
+```
+
+- [ ] **Step 5: Commit the preparation and impact packet**
+
+```powershell
+git add -- formulas/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_30mL_20pct_Development.md
+git diff --cached --check
+git commit -m "docs: add LNDL Luxe preparation and impact gates"
+```
+
+---
+
+### Task 4: Build the Constant-Total DHP-Coupling Blind Trial
+
+**Files:**
+- Create: `formulas/mixing_guides/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_Blind_Trial.md`
+- Read: `formulas/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_30mL_20pct_Development.md`
+
+**Interfaces:**
+- Consumes: the final current formula, its surviving cold-shell and warm-seed deltas, and all stock preparations.
+- Produces: a four-arm 2×2 factorial test that isolates cold extension, warm extension, and their interaction while preserving a recognizable LNDL nucleus.
+
+- [ ] **Step 1: Define the protected nucleus and two intervention blocks**
+
+The protected nucleus remains identical in every arm and must include at least Cardamom EO, Lavender EO (BONTAUX SAS), a retained Coumarin/Tonkarome floor, the primary cedar/vetiver skeleton, and the selected sole musk.
+
+Define:
+
+- `COLD_EXTENSION`: the surviving cold-shell amount above the protected cardamom/lavender nucleus;
+- `WARM_EXTENSION`: the surviving warm-seed amount above the protected coumarinic nucleus;
+- `BASE_MATRIX`: every other surviving row at the same dose in all arms.
+
+Record exact material-level deltas from the final current formula. Do not classify a material into both intervention blocks.
+
+- [ ] **Step 2: Write the four constant-total arms**
+
+Use a 2×2 factorial:
+
+| Arm | Cold extension | Warm extension | Question |
+|---|---|---|---|
+| A / 00 | absent | absent | Protected LNDL nucleus control |
+| B / 10 | present | absent | Cold shell main effect |
+| C / 01 | absent | present | Warm seed main effect |
+| D / 11 | present | present | DHP-style coupling and interaction |
+
+Replace each omitted block one-for-one by raw volume with DPG in that arm. Every concentrate remains exactly 6,000 uL and every finished reference remains 20% when scaled.
+
+- [ ] **Step 3: Make the trial physically measurable through module masters**
+
+Specify a 1:10 finished-volume trial scale: 3 mL finished per arm, containing 600 uL concentrate plus 2.4 mL ethanol. Individual ingredients are first combined into full-scale `BASE_MATRIX`, `COLD_EXTENSION`, and `WARM_EXTENSION` masters using the formula's original >=10 uL aliquots. One-tenth aliquots of those masters are then used per 3 mL arm. Prepare two independent master sets for two independently compounded replicate sets; do not treat repeated strips from one preparation as independent replicates.
+
+If any one-tenth module aliquot would be below 10 uL, increase the finished trial scale only enough to make that module aliquot measurable. State the resulting scale explicitly; never round a module to zero.
+
+- [ ] **Step 4: Add randomization, evaluation windows, ballot, and inference rules**
+
+Use randomized three-character codes and balanced serving order. Evaluate blotters at 0, 5, 30, and 120 minutes, then 6 and 24 hours. Score these axes separately before discussion:
+
+- LNDL recognizability;
+- cardamom identity;
+- lavender continuity;
+- cold-shell clarity;
+- warm crushed-seed plausibility;
+- airy/dense simultaneity;
+- tenderness under pressure;
+- spatial depth and late identity echo;
+- tailored style and textural complexion;
+- overall liking;
+- muddiness, harshness, pastry drift, iris takeover, leather takeover, amberwood wall, and fatigue.
+
+The interaction claim is supported only if D differs from the additive expectation formed by B and C under the same protocol. A null result means only no detected effect under this test; it does not prove universal dormancy.
+
+- [ ] **Step 5: Verify all four arm totals mechanically**
+
+Use an inline Python or PowerShell assertion over the written arm deltas. Do not create a helper script. Assert each concentrate total is 6,000 uL before scaling and every module aliquot at the selected physical scale is at least 10 uL.
+
+- [ ] **Step 6: Commit the blind trial packet**
+
+```powershell
+git add -- formulas/mixing_guides/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_Blind_Trial.md
+git diff --cached --check
+git commit -m "docs: add blinded LNDL Luxe coupling trial"
+```
+
+---
+
+### Task 5: Final Local Acceptance and Handoff
+
+**Files:**
+- Review: `formulas/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_30mL_20pct_Development.md`
+- Review: `formulas/mixing_guides/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_Blind_Trial.md`
+- Review: latest `output/lndl_luxe_dhp2025_v1/pipeline_v*.json`
+
+**Interfaces:**
+- Consumes: all prior deliverables.
+- Produces: a locally accepted computational prototype and explicit physical-test `NOT TESTED/HOLD` handoff.
+
+- [ ] **Step 1: Run the final parser and governance assertions**
+
+Verify exactly one parseable formula, 6,000 uL subtotal, no current raw aliquot below 10 uL, no depleted materials, one musk exactly, no duplicate canonical identities, and no more than six declared structural OAV<1 rows.
+
+- [ ] **Step 2: Verify spec coverage and claim ceilings**
+
+Confirm the packet contains:
+
+- target identity and DHP-theory architecture before dosing;
+- separate ideal and current formula presentations;
+- ppm, ODT, OAV, composite-natural handling, and temporal diagnostics;
+- exact stock preparations;
+- missing-chemical impact and bounded purchase recommendations;
+- full pipeline analysis in the formula file and verbatim in chat;
+- four-arm constant-total blinded protocol;
+- explicit `NOT TESTED/HOLD` for physical smell, similarity, hedonic success, safety, stability, measured headspace, performance, and release.
+
+- [ ] **Step 3: Inspect only intended Git changes**
+
+```powershell
+git status --short --branch
+git diff --check HEAD
+git log --oneline -5
+```
+
+Do not stage `.codex/`, the unrelated Pomme formula, its verification run, or any program-integration artifact.
+
+- [ ] **Step 4: Report the exact outcome**
+
+Lead with the final surviving ingredient count and the two-state architecture. Report pipeline status and every remaining data/safety hold. State that no procurement or physical compounding occurred. Link both local files. Do not describe the perfume as hedonic, deep, realistic, stable, safe, similar, or successful until blinded physical evidence exists.

@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,0.9729
+identity_system_probability,0.9998
+oav_probability,0.9729
+temporal_probability,1.0
+dominance_failure_probability,0.0
+overall_probability,0.9729
+dose_closure_probability,0.992
+temporal_q05,0.965933980030557
+temporal_median,0.9929114067042883
+max_share_q95,0.3834829250680705
+marker_coverage_q05,0.75
+phase_sum_q05,"{""top"": 11.493732809450444, ""heart"": 7.448632198845417, ""base"": 3.1034415427869115}"
+release_shape_median,"[0.48804401050992957, 0.3178476306560396, 0.145077796169845, 0.04163881289523834]"
+phase_shape_median,"[0.37768036341959454, 0.3379169355700685, 0.28436995728711784]"
+marker_probabilities,"{""Lemon FCF Oil Sicilian | top"": 0.9999, ""Grapefruit FCF Oil | top"": 0.9996, ""Olibanum 50% | top"": 0.8619, ""Coriander EO | heart"": 1.0, ""Lavender EO High Altitude | heart"": 0.96, ""Vetiver EO | base"": 0.9606, ""Cedarwood Virginia | base"": 0.5472, ""Sandalore | base"": 0.8876}"
+marker_quantiles,"{""Lemon FCF Oil Sicilian | top"": [4.036266914057924, 11.401083275366668, 31.817976355557175], ""Grapefruit FCF Oil | top"": [3.160339175289686, 8.722255174151694, 24.449374420997344], ""Olibanum 50% | top"": [0.7152047986956965, 1.9859614786165491, 5.607211628072197], ""Coriander EO | heart"": [5.475089560571807, 14.039167805090301, 35.97549712430747], ""Lavender EO High Altitude | heart"": [1.0608846062519457, 2.731881605145304, 7.132836806173332], ""Vetiver EO | base"": [1.071483933085911, 2.7593173416799806, 6.948443611523262], ""Cedarwood Virginia | base"": [0.4009495648501313, 1.0736456512370425, 2.9021452168478845], ""Sandalore | base"": [0.7810278880238921, 2.108529463053666, 5.497980534788181]}"
+classification,ROBUST

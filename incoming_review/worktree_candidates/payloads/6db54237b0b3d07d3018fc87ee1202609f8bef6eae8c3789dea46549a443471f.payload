@@ -1,0 +1,455 @@
+- generic [ref=e2]:
+  - banner:
+    - navigation [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - link "PerfumersWorld":
+            - /url: index.php
+            - img "PerfumersWorld" [ref=e6] [cursor=pointer]
+          - link [ref=e7] [cursor=pointer]:
+            - /url: index.php
+            - strong [ref=e8]: Perfumers
+            - text: World
+          - button "" [ref=e9] [cursor=pointer]
+        - text:                
+        - list [ref=e12]:
+          - link [ref=e13] [cursor=pointer]:
+            - /url: "#translate"
+          - listitem [ref=e15]:
+            - link "Tracking" [ref=e16] [cursor=pointer]:
+              - /url: cart-tracking.php
+          - listitem [ref=e19]:
+            - generic "Login" [ref=e20]
+          - listitem [ref=e21]:
+            - link "" [ref=e22] [cursor=pointer]:
+              - /url: wishlist.php
+          - listitem [ref=e24]:
+            - link "" [ref=e25] [cursor=pointer]:
+              - /url: cart.php
+    - generic: Fast Track
+    - generic: RM Search 'n Compare
+    - generic: Aroma Chemicals
+    - generic: Natural & Essential Oils
+    - generic: Specialty Bases & Blends
+    - generic: Perfume Kits
+    - generic: Carrier Oils & Bases
+    - generic: Perfumery Equipment
+    - generic: Bottle
+    - generic: Compound To Go
+    - generic: All Courses
+    - generic: Workshops
+    - generic: Online Training - Foundation
+    - generic: FREE
+    - generic: Online Training - Professional Course
+    - generic: PRO
+    - generic: View Formulas Bulletin
+    - generic: Formula Compounding (SOP)
+    - generic: Software All
+    - generic: The Perfumer's Workbook
+    - generic: The Perfumer's Wizard Online Version
+    - generic: The Perfumer's Wizard ("TPW") API Platform
+    - generic: All Resources
+    - generic: My Unique Perfume
+    - generic: FAQ
+    - generic: Reviews
+    - generic: Short Introduction to Perfumery
+    - generic: The ABCs of Perfumery
+    - generic: Raw Materials Overview
+    - generic: A Perfume History Timeline
+    - generic: Videos
+    - generic: Contact
+    - generic: Visit Us (Map)
+    - generic: All Services
+    - generic: Professional-Account-Package
+    - generic: Consultant Perfumer
+    - generic: Custom Signature Perfume Creation
+    - generic: GCMS Analysis
+    - generic: The Perfumer's Studio
+  - generic [ref=e29]:
+    - generic [ref=e30]:
+      - heading "The Art and Technology of Perfumery" [level=1] [ref=e31]
+      - paragraph [ref=e32]: Be the perfumer...
+    - generic [ref=e34]:
+      - link "Menu" [ref=e35] [cursor=pointer]:
+        - /url: javascript:void(0)
+      - link "About Us" [ref=e48] [cursor=pointer]:
+        - /url: javascript:void(0)
+  - generic [ref=e60]:
+    - generic [ref=e61]:
+      - text: — ◆ —
+      - heading "The Perfumer's Covenant" [level=2] [ref=e62]
+      - heading [level=3] [ref=e63]:
+        - text: Four Pillars of
+        - emphasis [ref=e64]: Trust
+      - generic [ref=e65]: ✦
+      - text: — ◆ —
+    - generic [ref=e66]:
+      - generic [ref=e67]:
+        - generic [ref=e68]: I
+        - generic [ref=e69]: Pillar
+      - generic [ref=e73]:
+        - generic [ref=e74]: ◆ The Freedom
+        - heading "No Boundaries" [level=3] [ref=e75]
+        - paragraph [ref=e76]: From a single gram for the curious student to metric tons for the established house — we serve the perfumer, not the order size. Every artisan deserves access to the finest materials, regardless of scale. This is our founding principle.
+        - generic [ref=e77]: "\""
+    - generic [ref=e78]:
+      - generic [ref=e79]:
+        - generic [ref=e80]: II
+        - generic [ref=e81]: Pillar
+      - generic [ref=e87]:
+        - generic [ref=e88]: ◆ The Excellence
+        - heading "The Finest Source" [level=3] [ref=e89]
+        - paragraph [ref=e90]: We travel to the origin. Bergamot from Sicily. Oud from Siam. Rose from Grass. Each material is selected at its source, tested in our laboratory, and documented to pharmaceutical standards. First-grade, always.
+        - generic [ref=e91]: "\""
+    - generic [ref=e92]:
+      - generic [ref=e93]:
+        - generic [ref=e94]: III
+        - generic [ref=e95]: Pillar
+      - generic [ref=e99]:
+        - generic [ref=e100]: ◆ The Promise
+        - heading "Confidentiality" [level=3] [ref=e101]
+        - paragraph [ref=e102]: In the world of perfumery, a formula is an artist's soul. Your business, and your product formulation details are confidential. We never share.
+        - generic [ref=e103]: "\""
+    - generic [ref=e104]:
+      - generic [ref=e105]:
+        - generic [ref=e106]: IV
+        - generic [ref=e107]: Pillar
+      - generic [ref=e111]:
+        - generic [ref=e112]: ◆ The Partnership
+        - heading "Partner, Not Competitor" [level=3] [ref=e113]
+        - paragraph [ref=e114]: We do not sell finished fragrances. We empower you to create your own. Your success is our success, your brand is your own. We are the silent partner behind your masterpiece — providing tools, materials, and knowledge while you take center stage.
+        - generic [ref=e115]: "\""
+    - generic [ref=e116]:
+      - generic [ref=e117]:
+        - heading "Delivering to the World" [level=2] [ref=e118]
+        - paragraph [ref=e119]: Your materials, anywhere on Earth
+      - generic [ref=e120] [cursor=pointer]:
+        - generic:
+          - generic:
+            - text: ✦
+            - emphasis: Hover to Discover
+            - text: ✦
+        - img [ref=e121]:
+          - generic [ref=e122]:
+            - generic "United Arab Emirates" [ref=e123]
+            - generic "Afghanistan" [ref=e124]
+            - generic "Albania" [ref=e125]
+            - generic "Armenia" [ref=e126]
+            - generic "Angola" [ref=e127]
+            - generic "Argentina" [ref=e128]
+            - generic "Austria" [ref=e129]
+            - generic "Australia" [ref=e130]
+            - generic "Azerbaijan" [ref=e131]
+            - generic "Bosnia and Herzegovina" [ref=e132]
+            - generic "Bangladesh" [ref=e133]
+            - generic "Belgium" [ref=e134]
+            - generic "Burkina Faso" [ref=e135]
+            - generic "Bulgaria" [ref=e136]
+            - generic "Burundi" [ref=e137]
+            - generic "Benin" [ref=e138]
+            - generic "Brunei Darussalam" [ref=e139]
+            - generic "Bolivia" [ref=e140]
+            - generic "Brazil" [ref=e141]
+            - generic "Bahamas" [ref=e142]
+            - generic "Bhutan" [ref=e143]
+            - generic "Botswana" [ref=e144]
+            - generic "Belarus" [ref=e145]
+            - generic "Belize" [ref=e146]
+            - generic "Canada" [ref=e147]
+            - generic "Democratic Republic of Congo" [ref=e148]
+            - generic "Central African Republic" [ref=e149]
+            - generic "Republic of Congo" [ref=e150]
+            - generic "Switzerland" [ref=e151]
+            - generic "Côte d'Ivoire" [ref=e152]
+            - generic "Chile" [ref=e153]
+            - generic "Cameroon" [ref=e154]
+            - generic "China" [ref=e155]
+            - generic "Colombia" [ref=e156]
+            - generic "Costa Rica" [ref=e157]
+            - generic "Cuba" [ref=e158]
+            - generic "Cyprus" [ref=e159]
+            - generic "Czechia" [ref=e160]
+            - generic "Germany" [ref=e161]
+            - generic "Djibouti" [ref=e162]
+            - generic "Denmark" [ref=e163]
+            - generic "Dominican Republic" [ref=e164]
+            - generic "Algeria" [ref=e165]
+            - generic "Ecuador" [ref=e166]
+            - generic "Estonia" [ref=e167]
+            - generic "Egypt" [ref=e168]
+            - generic "Western Sahara" [ref=e169]
+            - generic "Eritrea" [ref=e170]
+            - generic "Spain" [ref=e171]
+            - generic "Ethiopia" [ref=e172]
+            - generic "Falkland Islands" [ref=e173]
+            - generic "Finland" [ref=e174]
+            - generic "Fiji" [ref=e175]
+            - generic "France" [ref=e176]
+            - generic "Gabon" [ref=e177]
+            - generic "United Kingdom" [ref=e178]
+            - generic "Georgia" [ref=e179]
+            - generic "French Guiana" [ref=e180]
+            - generic "Ghana" [ref=e181]
+            - generic "Greenland" [ref=e182]
+            - generic "Gambia" [ref=e183]
+            - generic "Guinea" [ref=e184]
+            - generic "Equatorial Guinea" [ref=e185]
+            - generic "Greece" [ref=e186]
+            - generic "Guatemala" [ref=e187]
+            - generic "Guinea-Bissau" [ref=e188]
+            - generic "Guyana" [ref=e189]
+            - generic "Honduras" [ref=e190]
+            - generic "Croatia" [ref=e191]
+            - generic "Haiti" [ref=e192]
+            - generic "Hungary" [ref=e193]
+            - generic "Indonesia" [ref=e194]
+            - generic "Ireland" [ref=e195]
+            - generic "Israel" [ref=e196]
+            - generic "India" [ref=e197]
+            - generic "Iraq" [ref=e198]
+            - generic "Iran" [ref=e199]
+            - generic "Iceland" [ref=e200]
+            - generic "Italy" [ref=e201]
+            - generic "Jamaica" [ref=e202]
+            - generic "Jordan" [ref=e203]
+            - generic "Japan" [ref=e204]
+            - generic "Kenya" [ref=e205]
+            - generic "Kyrgyzstan" [ref=e206]
+            - generic "Cambodia" [ref=e207]
+            - generic "North Korea" [ref=e208]
+            - generic "South Korea" [ref=e209]
+            - generic "Kosovo" [ref=e210]
+            - generic "Kuwait" [ref=e211]
+            - generic "Kazakhstan" [ref=e212]
+            - generic "Lao People's Democratic Republic" [ref=e213]
+            - generic "Lebanon" [ref=e214]
+            - generic "Sri Lanka" [ref=e215]
+            - generic "Liberia" [ref=e216]
+            - generic "Lesotho" [ref=e217]
+            - generic "Lithuania" [ref=e218]
+            - generic "Luxembourg" [ref=e219]
+            - generic "Latvia" [ref=e220]
+            - generic "Libya" [ref=e221]
+            - generic "Morocco" [ref=e222]
+            - generic "Moldova" [ref=e223]
+            - generic "Montenegro" [ref=e224]
+            - generic "Madagascar" [ref=e225]
+            - generic "Macedonia" [ref=e226]
+            - generic "Mali" [ref=e227]
+            - generic "Myanmar" [ref=e228]
+            - generic "Mongolia" [ref=e229]
+            - generic "Mauritania" [ref=e230]
+            - generic "Malawi" [ref=e231]
+            - generic "Mexico" [ref=e232]
+            - generic "Malaysia" [ref=e233]
+            - generic "Mozambique" [ref=e234]
+            - generic "Namibia" [ref=e235]
+            - generic "New Caledonia" [ref=e236]
+            - generic "Niger" [ref=e237]
+            - generic "Nigeria" [ref=e238]
+            - generic "Nicaragua" [ref=e239]
+            - generic "Netherlands" [ref=e240]
+            - generic "Norway" [ref=e241]
+            - generic "Nepal" [ref=e242]
+            - generic "New Zealand" [ref=e243]
+            - generic "Oman" [ref=e244]
+            - generic "Panama" [ref=e245]
+            - generic "Peru" [ref=e246]
+            - generic "Papua New Guinea" [ref=e247]
+            - generic "Philippines" [ref=e248]
+            - generic "Poland" [ref=e249]
+            - generic "Pakistan" [ref=e250]
+            - generic "Puerto Rico" [ref=e251]
+            - generic "Palestinian Territories" [ref=e252]
+            - generic "Portugal" [ref=e253]
+            - generic "Paraguay" [ref=e254]
+            - generic "Qatar" [ref=e255]
+            - generic "Romania" [ref=e256]
+            - generic "Serbia" [ref=e257]
+            - generic "Russia" [ref=e258]
+            - generic "Rwanda" [ref=e259]
+            - generic "Saudi Arabia" [ref=e260]
+            - generic "Solomon Islands" [ref=e261]
+            - generic "Sudan" [ref=e262]
+            - generic "Sweden" [ref=e263]
+            - generic "Slovenia" [ref=e264]
+            - generic "Svalbard and Jan Mayen" [ref=e265]
+            - generic "Slovakia" [ref=e266]
+            - generic "Sierra Leone" [ref=e267]
+            - generic "Senegal" [ref=e268]
+            - generic "Somalia" [ref=e269]
+            - generic "Suriname" [ref=e270]
+            - generic "South Sudan" [ref=e271]
+            - generic "El Salvador" [ref=e272]
+            - generic "Syria" [ref=e273]
+            - generic "Swaziland" [ref=e274]
+            - generic "Chad" [ref=e275]
+            - generic "French Southern and Antarctic Lands" [ref=e276]
+            - generic "Togo" [ref=e277]
+            - generic "Thailand" [ref=e278]
+            - generic "Tajikistan" [ref=e279]
+            - generic "Timor-Leste" [ref=e280]
+            - generic "Turkmenistan" [ref=e281]
+            - generic "Tunisia" [ref=e282]
+            - generic "Turkey" [ref=e283]
+            - generic "Trinidad and Tobago" [ref=e284]
+            - generic "Taiwan" [ref=e285]
+            - generic "Tanzania" [ref=e286]
+            - generic "Ukraine" [ref=e287]
+            - generic "Uganda" [ref=e288]
+            - generic "United States" [ref=e289]
+            - generic "Uruguay" [ref=e290]
+            - generic "Uzbekistan" [ref=e291]
+            - generic "Venezuela" [ref=e292]
+            - generic "Vietnam" [ref=e293]
+            - generic "Vanuatu" [ref=e294]
+            - generic "Yemen" [ref=e295]
+            - generic "South Africa" [ref=e296]
+            - generic "Zambia" [ref=e297]
+            - generic "Zimbabwe" [ref=e298]
+      - generic [ref=e299]: Free Shipping Worldwide
+      - generic [ref=e303]:
+        - generic [ref=e304]:
+          - generic [ref=e305]: 180+
+          - generic [ref=e306]: Countries Served
+        - generic [ref=e307]:
+          - generic [ref=e308]: 25+
+          - generic [ref=e309]: Years Shipping
+        - generic [ref=e310]:
+          - generic [ref=e311]: $150
+          - generic [ref=e312]: Free Shipping Over
+    - generic [ref=e313]:
+      - text: — ◆ —
+      - generic [ref=e314]:
+        - heading "Begin Your Journey" [level=4] [ref=e315]
+        - paragraph [ref=e316]: The atelier awaits
+      - generic [ref=e317]:
+        - link "Menu" [ref=e318] [cursor=pointer]:
+          - /url: javascript:void(0)
+        - link [ref=e330] [cursor=pointer]:
+          - /url: material-by-abc.php?f=X
+          - generic [ref=e331]: MaterialsA Z
+        - link [ref=e332] [cursor=pointer]:
+          - /url: essential-oils.php
+          - generic [ref=e333]: EssentialOils
+        - link [ref=e334] [cursor=pointer]:
+          - /url: perfume-kits.php
+          - generic [ref=e335]: CreationKits
+        - link "Compounds" [ref=e336] [cursor=pointer]:
+          - /url: compounds.php
+        - link [ref=e338] [cursor=pointer]:
+          - /url: wizardhelp.php
+          - generic [ref=e339]: Perfumer'sWizard
+      - generic [ref=e340]:
+        - text: — ◆ —
+        - generic [ref=e341]:
+          - generic [ref=e342]: ✦ New ✦
+          - heading "Pro Account Now Available" [level=3] [ref=e343]
+          - paragraph [ref=e344]: Unlock exclusive pricing, priority shipping, GCMS analysis, and dedicated support for professional perfumers.
+        - link "Learn More" [ref=e345] [cursor=pointer]:
+          - /url: professional-account-package.php
+  - text:    — ◆ —
+  - contentinfo [ref=e347]:
+    - generic [ref=e349]:
+      - generic [ref=e350]:
+        - heading "Information" [level=3] [ref=e351]
+        - list [ref=e352]:
+          - listitem [ref=e353]:
+            - link "About Us" [ref=e354] [cursor=pointer]:
+              - /url: about-us.php
+          - listitem [ref=e355]:
+            - link "Our Mission" [ref=e356] [cursor=pointer]:
+              - /url: about-us.php
+          - listitem [ref=e357]:
+            - link "Shipping Information" [ref=e358] [cursor=pointer]:
+              - /url: shipping-information.php
+          - listitem [ref=e359]:
+            - link "Frequently Asked Questions" [ref=e360] [cursor=pointer]:
+              - /url: frequently-asked-questions.php
+          - listitem [ref=e361]:
+            - link "Privacy Policy" [ref=e362] [cursor=pointer]:
+              - /url: privacy-policy.php
+          - listitem [ref=e363]:
+            - link "Terms and Conditions" [ref=e364] [cursor=pointer]:
+              - /url: terms-and-conditions.php
+      - generic [ref=e365]:
+        - heading "Products" [level=3] [ref=e366]
+        - list [ref=e367]:
+          - listitem [ref=e368]:
+            - link "Aroma Chemicals" [ref=e369] [cursor=pointer]:
+              - /url: aroma-ingredients.php
+          - listitem [ref=e370]:
+            - link "Essential Oils & Absolutes" [ref=e371] [cursor=pointer]:
+              - /url: essential-oils.php
+          - listitem [ref=e372]:
+            - link "Specialty Bases & Blends" [ref=e373] [cursor=pointer]:
+              - /url: specialty-bases-blends.php
+          - listitem [ref=e374]:
+            - link "Carrier Oils & Toiletry Bases" [ref=e375] [cursor=pointer]:
+              - /url: carrier-oils-toiletry-bases.php
+          - listitem [ref=e376]:
+            - link "Perfume Kits" [ref=e377] [cursor=pointer]:
+              - /url: perfume-kits.php
+          - listitem [ref=e378]:
+            - link "Perfumery Equipment" [ref=e379] [cursor=pointer]:
+              - /url: perfumery-equipment.php
+      - generic [ref=e380]:
+        - heading "Customer Service" [level=3] [ref=e381]
+        - list [ref=e382]:
+          - listitem [ref=e383]:
+            - link "Contact Us" [ref=e384] [cursor=pointer]:
+              - /url: contact.php
+          - listitem [ref=e385]:
+            - link "Professional-Account-Package" [ref=e386] [cursor=pointer]:
+              - /url: professional-account-package.php
+          - listitem [ref=e387]:
+            - link "Site Directory" [ref=e388] [cursor=pointer]:
+              - /url: sitemap.php
+          - listitem [ref=e389]:
+            - link "Safety Guidelines" [ref=e390] [cursor=pointer]:
+              - /url: safety-guidelines.php
+          - listitem [ref=e391]:
+            - link "Mixing Instructions" [ref=e392] [cursor=pointer]:
+              - /url: mixing-instructions.php
+          - listitem [ref=e393]:
+            - link "Reviews" [ref=e394] [cursor=pointer]:
+              - /url: reviews.php
+      - generic [ref=e395]:
+        - heading "Contact Info" [level=3] [ref=e396]
+        - list [ref=e397]:
+          - listitem [ref=e398]:
+            - generic [ref=e399]:
+              - generic [ref=e400]:
+                - strong [ref=e401]: Perfumers
+                - text: World
+              - text: Ltd.
+          - listitem [ref=e402]:
+            - link "Address & Contact" [ref=e403] [cursor=pointer]:
+              - /url: contact.php
+          - listitem [ref=e404]:
+            - link "Google Maps Location" [ref=e405] [cursor=pointer]:
+              - /url: https://maps.app.goo.gl/MnQGpXt9QonnCR4d7
+          - listitem [ref=e406]: "Tel: +66 (0)2 99-800-80"
+    - list [ref=e408]:
+      - listitem [ref=e409]:
+        - link "" [ref=e410] [cursor=pointer]:
+          - /url: https://www.tiktok.com/@perfumersworld.official
+      - listitem [ref=e412]:
+        - link "" [ref=e413] [cursor=pointer]:
+          - /url: https://www.facebook.com/PerfumersWorldThailand
+      - listitem [ref=e415]:
+        - link "" [ref=e416] [cursor=pointer]:
+          - /url: https://twitter.com/perfumersworld
+      - listitem [ref=e418]:
+        - link "" [ref=e419] [cursor=pointer]:
+          - /url: https://maps.app.goo.gl/7yhgkzrQKZrs9KeC9
+      - listitem [ref=e421]:
+        - link "" [ref=e422] [cursor=pointer]:
+          - /url: https://www.youtube.com/user/PerfumersWorld
+    - generic [ref=e424]:
+      - text: Copyright © 2026
+      - link [ref=e425] [cursor=pointer]:
+        - /url: index.php
+        - strong [ref=e426]: Perfumers
+        - text: World
+      - text: .  

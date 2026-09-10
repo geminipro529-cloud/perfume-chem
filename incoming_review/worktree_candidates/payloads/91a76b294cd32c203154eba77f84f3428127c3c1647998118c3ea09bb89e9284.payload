@@ -1,0 +1,80 @@
+{
+  "schema_version": "floral_training_directions_v1",
+  "authority_date": "2026-08-28",
+  "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+  "directions": [
+    {
+      "direction_id": "white-fire-reliquary",
+      "name": "White Fire Reliquary",
+      "emotional_tone": "lucid ceremonial calm opening into narcotic intimacy",
+      "texture_model": "translucent floral air against waxed flesh; dry mineral wood against creamy yielding wood",
+      "floral_subjects": ["White Champi", "Jasmine", "Tuberose", "Orange Blossom"],
+      "allowed_source_classes": ["ESSENTIAL_OIL", "ABSOLUTE", "KNOWN_CHEMICAL"],
+      "required_inventory_materials": [
+        "Magnolia EO", "Jasmine Absolute", "Tuberose Absolute", "Neroli EO",
+        "Hedione", "Methyl Benzoate", "Benzyl Acetate", "Jessemal",
+        "Cis Jasmone", "Indole", "Methyl Salicylate", "Nerolin Bromelia",
+        "Nerolidol", "Hexyl Salicylate", "Benzyl Salicylate", "Iso E Super",
+        "Javanol", "Ebanol", "Ambrettolide", "Dipropylene Glycol"
+      ]
+    },
+    {
+      "direction_id": "immortelle-sable-diris",
+      "name": "Immortelle Sable d'Iris",
+      "emotional_tone": "sun-warmed immortelle held inside poised iris suede and a many-register dry wood reliquary",
+      "texture_model": "salted hay and pollen against cool orris butter, apricot jasmine skin, dry fiber, mineral suede, and yielding sandalwood",
+      "floral_subjects": ["Immortelle", "Iris", "Jasmine", "Osmanthus"],
+      "allowed_source_classes": ["ESSENTIAL_OIL", "ABSOLUTE", "KNOWN_CHEMICAL"],
+      "required_inventory_materials": [
+        "Immortelle Absolute", "Helichrysum EO", "Alpha Irone", "Orris Liquid",
+        "Jasmine Absolute", "Osmanthus Absolute", "Hay Absolute", "Coumarin",
+        "Ethyl Safranate", "Alpha Ionone", "Alpha Isomethyl Ionone", "Hedione",
+        "Iso E Super", "Polysantol", "Ebanol", "Kephalis", "Ambrettolide",
+        "Dipropylene Glycol"
+      ]
+    },
+    {
+      "direction_id": "rain-before-pollen",
+      "name": "Rain Before Pollen",
+      "emotional_tone": "cool expectancy resolving into soft golden pollen",
+      "texture_model": "damp negative space and wet green stems against powdery mimosa bloom, translucent muguet, freesia silk, and cyclamen water",
+      "floral_subjects": ["Mimosa", "Muguet", "Freesia", "Cyclamen"],
+      "allowed_source_classes": ["ESSENTIAL_OIL", "ABSOLUTE", "KNOWN_CHEMICAL"],
+      "required_inventory_materials": [
+        "Mimosa Absolute", "Mayol", "Freesia HDI", "Cyclamen Aldehyde",
+        "Florol", "Lilyreal ND", "Bourgeonal", "Nympheal", "Helional",
+        "Adoxal", "PADMA", "Hedione", "Hexyl Salicylate", "Zenolide",
+        "Dipropylene Glycol"
+      ]
+    },
+    {
+      "direction_id": "apricot-eclipse",
+      "name": "Apricot Eclipse",
+      "emotional_tone": "sun-warmed fruit-flower radiance crossing into dry dusk",
+      "texture_model": "osmanthus apricot suede against immortelle hay, jasmine light, violet shadow, and polished dark wood",
+      "floral_subjects": ["Osmanthus", "Immortelle", "Jasmine", "Violet"],
+      "allowed_source_classes": ["ESSENTIAL_OIL", "ABSOLUTE", "KNOWN_CHEMICAL"],
+      "required_inventory_materials": [
+        "Osmanthus Absolute", "Immortelle Absolute", "Jasmine Absolute",
+        "Violet Leaf Absolute", "Beta Ionone", "Gamma Decalactone",
+        "Allyl Ionone", "Alpha Isomethyl Ionone", "Phenyl Ethyl Acetate",
+        "Benzyl Benzoate", "Kephalis", "Ambrettolide"
+      ]
+    },
+    {
+      "direction_id": "ivoire-de-seve",
+      "name": "Ivoire de Sève",
+      "emotional_tone": "cultivated white-flower opulence crossed by living green sap and quiet ivory woods",
+      "texture_model": "tuberose wax and gardenia cream against ylang oil, hyacinth-green sap, bitter ketonic shadow, and smooth ivory grain",
+      "floral_subjects": ["Tuberose", "Gardenia", "Ylang-Ylang", "Hyacinth"],
+      "allowed_source_classes": ["ESSENTIAL_OIL", "ABSOLUTE", "KNOWN_CHEMICAL"],
+      "required_inventory_materials": [
+        "Tuberose Absolute", "Ylang Comoros Complete EO F3255", "PADMA",
+        "Dimethyl Benzyl Carbinol", "Dimethyl Benzyl Carbinyl Acetate",
+        "Methyl Nonyl Ketone", "Stralyl Acetate", "Benzyl Acetate",
+        "Methyl Salicylate", "Hexyl Salicylate", "Benzyl Salicylate",
+        "Hedione", "Ethylene Brassylate", "Dipropylene Glycol"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "complex-perfumery-perfume-box-workflow-formula-book-v2-20260815",
+  "recorded_at": "2026-08-15T22:37:41+07:00",
+  "package": {
+    "file_name": "Perfume_Box_Workflow_Formula_Book_Aug2026_v2_Package.zip",
+    "locator": "incoming_review/chatgpt/20260815T223741+0700-perfume-box-v2-recovery-6a79b172-ndb057976/Perfume_Box_Workflow_Formula_Book_Aug2026_v2_Package.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 208163,
+    "sha256": "db0579760159e7438b83e92de399aa0a9f5862f0f547fa030a682c339bd54e84",
+    "media_type": "application/zip",
+    "archive_entry_count": 8,
+    "archive_file_count": 8,
+    "declared_payload_count": 4,
+    "package_root": null,
+    "embedded_integrity_records": [
+      {
+        "path": "Perfume_Box_Workflow_Formula_Book_Aug2026_v2_release.json",
+        "byte_size": 3913,
+        "sha256": "045a9295ddfc633714305d3476c46b430ab03348f1a803818c81614243644f9c",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "Perfume_Box_Workflow_Formula_Book_Aug2026_v2.xlsx.sha256",
+        "byte_size": 116,
+        "sha256": "8f325370016526074bac60b899435464cfcaff1ec8afe674599758b4f749c31c",
+        "role": "CHECKSUM_LEDGER"
+      },
+      {
+        "path": "Perfume_Box_Workflow_Formula_Book_Aug2026_v2.md.sha256",
+        "byte_size": 114,
+        "sha256": "31312e1bbe5d56756e8947d9cd6136e86668751bbded18ac8ef005b6c1be494e",
+        "role": "CHECKSUM_LEDGER"
+      },
+      {
+        "path": "Perfume_Box_Workflow_Formula_Book_Aug2026_v2.json.sha256",
+        "byte_size": 116,
+        "sha256": "76d03e81186a807a0c0099590da7e2537606629716b7d8b71749f4f99a766a54",
+        "role": "CHECKSUM_LEDGER"
+      },
+      {
+        "path": "Perfume_Box_Workflow_Formula_Book_Aug2026_v2_release.json.sha256",
+        "byte_size": 124,
+        "sha256": "47004e33aad2c82c28d6deb43bfa3259ef84cac73e5ce830cde46e3323813df1",
+        "role": "CHECKSUM_LEDGER"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a79b172-0264-83ec-b77a-306a37ecb832:perfume-box-workflow-formula-book-v2",
+    "conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+    "turn_id": "83040f7e-d688-44c8-a1ce-71250f53fdb7",
+    "message_id": "c9bce857-51bb-4429-b1a0-683d76ce0266",
+    "lineage_resolution": "EXACT_ORIGINAL_ATTACHMENT_IDENTITY_RECOVERED_THROUGH_HASH_VERIFIED_68_BLOCK_BASE64_TRANSPORT_AND_CAPTURED",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "Exact possession and hash verification do not establish reuse, redistribution, publication, formula installation, stock binding, compounding, or canonical import permission.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Retain the package in quarantine as formula and build ancestry only. Every row remains subject to native target/build separation, exact V5 stock and preparation lineage, active-dose checks, safety review, and separately authorized physical validation."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "FORMULA_AND_BUILD_ANCESTRY_NOT_NATIVE_TARGET_OR_EXECUTION_RECEIPTS",
+      "TWENTY_FIVE_PREPARATION_OR_IDENTITY_QUEUE_ITEMS_OPEN",
+      "FORMULA_NAME_STOCK_FRACTION_BINDINGS_REQUIRE_LINE_BY_LINE_NATIVE_REVIEW",
+      "RAW_VOLUME_TOTAL_PASS_DOES_NOT_PROVE_ACTIVE_DOSE_EQUIVALENCE",
+      "NATIVE_GRAPH_COMPLETE_QUARANTINED_NESTED_WORKBOOK_AND_PARTIAL_JSON_SCAN",
+      "PHYSICAL_SIMILARITY_LIKING_STABILITY_SAFETY_HEADSPACE_AND_STRICT_OAV_NOT_TESTED"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "Perfume_Box_Workflow_Formula_Book_Aug2026_v2.xlsx",
+      "byte_size": 159218,
+      "sha256": "90191bed8d702c023cbbae883a2320b656c6ba47355fe5cee3ecf6a63a619ba0",
+      "relation": "PACKAGE_EMBEDS_EXACT_EXISTING_WORKBOOK_BYTES",
+      "support_scope": "BYTE_IDENTITY_AND_DESIGN_ANCESTRY_ONLY_NO_FORMULA_STOCK_OR_EXECUTION_AUTHORITY",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "PERFUME_BOX_V2_EXACT_BYTES_QUARANTINED_FORMULA_AND_BUILD_ANCESTRY_ONLY",
+    "formula_count": 9,
+    "formula_row_count": 625,
+    "preparation_or_verification_queue_count": 25,
+    "formula_ids": [
+      "VMC-REC-01",
+      "VMC-LEAF-02",
+      "VMC-SAN-03",
+      "VMC-ROOT-04",
+      "VMC-MUSK-05",
+      "VMC-FLOR-06",
+      "VMC-MOD-07",
+      "DHP25-BUILD",
+      "DHP25-TARGET"
+    ],
+    "package_release_formula_error_scan": "PASS",
+    "formula_validation_scope": "RAW_PARTS_AND_RAW_MICROLITRE_TOTALS_ONLY",
+    "physical_state": "HOLD_NOT_PHYSICALLY_VALIDATED",
+    "similarity": "NOT_TESTED",
+    "liking": "NOT_TESTED",
+    "stability": "NOT_TESTED",
+    "safety_release": "NOT_TESTED",
+    "release_manifest": {
+      "path": "Perfume_Box_Workflow_Formula_Book_Aug2026_v2_release.json",
+      "byte_size": 3913,
+      "sha256": "045a9295ddfc633714305d3476c46b430ab03348f1a803818c81614243644f9c"
+    },
+    "formula_json": {
+      "path": "Perfume_Box_Workflow_Formula_Book_Aug2026_v2.json",
+      "byte_size": 568876,
+      "sha256": "770042d0a0aa4da4ef907994b91a75e77d5ee0cc9d0f60799283ac6d410040dc"
+    },
+    "capture_graph_binding": {
+      "capture_manifest_path": "incoming_review/chatgpt/20260815T223741+0700-perfume-box-v2-recovery-6a79b172-ndb057976/capture_manifest.json",
+      "capture_manifest_byte_size": 6520,
+      "capture_manifest_sha256": "3b94c2c4a64d2accbc95b079e9da0602f48ee9b7f5921b7bf3eabcdf8c0e492d",
+      "root_package_sha256": "db0579760159e7438b83e92de399aa0a9f5862f0f547fa030a682c339bd54e84",
+      "single_status": "QUARANTINE_HOLD",
+      "graph_status": "GRAPH_COMPLETE_QUARANTINED",
+      "node_count": 2,
+      "edge_count": 1,
+      "max_depth": 1,
+      "all_nodes_terminal": true,
+      "graph_findings": [],
+      "root_node_findings": [
+        "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT",
+        "PARTIAL_MEMBER_SCAN"
+      ],
+      "promotion_allowed": false
+    },
+    "native_handling": "IMMUTABLE_FORMULA_AND_BUILD_ANCESTRY_ONLY_NO_CANONICAL_IMPORT_OR_EXECUTION",
+    "native_fit": "TARGET_FORMULA_BUILD_PLAN_STOCK_LINEAGE_AND_PRE_MIX_ACTIVE_DOSE_CONTRACTS_CONTROL"
+  },
+  "receipt_sha256": "2b8d82b02412af1ada25e3934c0f0fda4add4df80feac23e45594db3b55e5c72"
+}

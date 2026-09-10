@@ -1,0 +1,171 @@
+# La Rose Monolithe — Zero-Stock Damage-Control Rescue — 30 to 50 mL
+
+**Target identity:** Salvage the Rose de Mai already trapped in the bottle by broadening and rounding the sensory-rejected Rose EO contour. No new Rose de Mai exists. The correction must remain a rose soliflore and must not become citrus, musk, wood, amber, iris, gourmand, or another natural-floral composition.  
+**Family archetype:** `floral_soliflore.rose_reference`  
+**Claim mode:** `ZERO_ROSE_DE_MAI_STOCK__NONSELECTIVE_DAMAGE_CONTROL_HYPOTHESIS`  
+**Execution status:** `DIRECT_ADDITION_READY__SENSORY_SAFETY_AND_STABILITY_HOLD`  
+**Starting material:** 30.00 mL existing finished perfume  
+**Final volume:** 50.00 mL  
+**Inventory path:** `../inventory.txt`  
+**Inventory authority:** `inventory.txt` refreshed 2026-08-29; SHA-256 `6278A846882412F2F026171D0B4910C4613C35D6C7B6680BF4B98C923E4BB5D7`  
+**Physical-batch authority:** direct user corrections through 2026-08-29; remaining Rose de Mai stock is assumed zero  
+
+## Target Identity and Functional Architecture
+
+The 2.00 mL Rose de Mai 10% stock recorded in the source formula is already trapped in the bottle. There is little to nothing left outside the bottle, so current-inventory dosing authority is **zero additional Rose de Mai**. The prior add-2-mL instruction is withdrawn and must not be executed.
+
+No household operation can selectively remove the dissolved Rose EO while leaving Rose de Mai intact. This damage-control intervention therefore changes the *surrounding rose field* rather than pretending to extract the rejected oil:
+
+1. **Preserved petal mass — PEA:** 800 µL keeps final PEA near the original finished concentration, approximately 3.94%, without pushing it toward the project's 5% local Cat-4 limit.
+2. **Soft contour placed above the rejected oil — PEDMC:** 1200 µL raises clean rose-magnolia thickness to modeled OAV 240.48 opening, above the rejected Rose EO at 169.37 but below the Rose de Mai already in the bottle at 485.74.
+3. **Rounded lower transition — Damascol:** 700 µL of 10% stock provides 70 µL active-equivalent. Its modeled OAV 115.38 remains below both the rejected oil and Rose de Mai, adding rose-plum curvature rather than a new dominant note.
+4. **Preserved adhesion gradient — Benzyl and Hexyl Salicylate:** 400 and 200 µL preserve their original finished concentrations at approximately 2.0% and 1.0%, respectively. They cushion without adding another named floral subject.
+5. **Non-odorant spacing and dilution — DPG plus ethanol:** 1700 µL DPG completes a 5.00 mL correction field without another odorant; 15.00 mL ethanol lowers every material already in the bottle to 60% of its former concentration.
+
+No Rose de Mai, Rose EO, Citronellol, Geraniol, Nerol, Rose Oxide, Linalool, damascone, Damascenone, Phenyl Ethyl Acetate, Geranyl Acetate, Hedione, musk, wood, amber, citrus, iris, vanilla/tonka, or another natural is added. Tonalide, Macrolide, and Musk Ketone remain excluded. The existing Romandolide is not increased.
+
+## TARGET / IDEAL FORMULA
+
+The true ideal is a fresh La Rose Monolithe rebuild with the rejected Rose EO absent. That ideal cannot be achieved by adding materials to the existing bottle. The constrained damage-control target is instead:
+
+- preserve the Rose de Mai already present at approximately 4000 active ppm after expansion to 50 mL;
+- reduce rejected Rose EO concentration from approximately 3000 to 1800 active ppm;
+- keep every added support below the existing Rose de Mai modeled OAV;
+- place PEDMC above the rejected Rose EO modeled OAV so the objectionable contour sits inside a softer rose body;
+- use Damascol below the rejected oil as a rounded transition rather than a plum/jam replacement;
+- preserve the PEA and salicylate mass architecture rather than thinning the perfume to a weak ethanol dilution;
+- make no claim that the fixed Rose de Mai-to-Rose EO relationship has improved.
+
+The active-odorant architecture of the **5.00 mL correction field** is:
+
+| Target material | Added active-equivalent parts | Exact target-linked function | Rejected alternatives |
+|---|---:|---|---|
+| Phenethyl Alcohol (PEA) | 800 | preserve fresh-petal mass without crossing the known PEA limit | more PEA increases generic floral blur and safety-edge pressure |
+| PEDMC | 1200 | soft rose-magnolia contour above the rejected-oil modeled signal | Rhodinol, Geraniol, Citronellol, and Nerol repeat the unwanted alcohol/EO axis |
+| Damascol | 70 | rounded rose-plum transition below Rose EO and Rose de Mai | Alpha/Beta Damascone and Damascenone risk metallic, woody-plum, or jam takeover |
+| Benzyl Salicylate | 400 | preserve warm inner petal adhesion | more would create opaque cosmetic masking |
+| Hexyl Salicylate | 200 | preserve sheer outer petal adhesion | more Benzyl Salicylate would be heavier; extra musk would change the texture |
+| **Total added odorant-active equivalent** | **2670** |  |  |
+
+The remaining 2.33 mL of the correction field is direct DPG plus carrier in the Damascol stock. Damascol's carrier is unrecorded. Active µL-equivalents use the project density≈1 convention and are approximate.
+
+## CURRENT-INVENTORY BUILD
+
+Begin with the complete 30.00 mL existing perfume. Add exactly these currently owned materials and solvents; add no Rose de Mai:
+
+| Step | Addition | Stock form | Raw µL | Approx. active µL | Final-product raw ppm | Final-product active ppm | Function |
+|---:|---|---|---:|---:|---:|---:|---|
+| 1 | Phenethyl Alcohol (PEA) | neat | 800 | 800.0 | 16000 | 16000 | preserve fresh-petal mass near its original concentration |
+| 2 | Phenyl Ethyl Dimethyl Carbinol (PEDMC) | neat | 1200 | 1200.0 | 24000 | 24000 | broad soft rose-magnolia contour above the rejected-oil signal |
+| 3 | Damascol | 10% | 700 | 70.0 | 14000 | 1400 | rounded rose-plum bridge below the two natural-rose signals |
+| 4 | Benzyl Salicylate | neat | 400 | 400.0 | 8000 | 8000 | preserve the warm inner salicylate cushion |
+| 5 | Hexyl Salicylate | neat | 200 | 200.0 | 4000 | 4000 | preserve the sheer outer salicylate film |
+| 6 | Dipropylene Glycol (DPG) | carrier | 1700 | 0.0 | 34000 | 0 | non-odorant spacing; completes the correction field |
+| 7 | Ethanol 96% | solvent | 15000 | 0.0 | 300000 | 0 | dilute the existing bottle and bring total volume to 50.00 mL |
+|  | **Total direct additions** |  | **20000** | **2670.0 odorant-active equivalent** | **400000** | **53400** | **30.00 mL existing + 20.00 mL additions = 50.00 mL final** |
+
+The first six rows total the **5.00 mL correction field**; ethanol contributes the remaining 15.00 mL. The minimum direct addition is 200 µL, so no sub-10 µL dose and no new working dilution are required.
+
+## Physical-Bottle Stock Rebase
+
+The physical reconstruction and its limits are:
+
+- The starting bottle is user-reported as **30.00 mL finished perfume**.
+- The physical free-rose-alcohol dose is **40 µL neat Citronellol**, not 400 µL and not zero.
+- The source formula records **900 µL of 10% w/w Rose Essential Oil stock**, approximately 90 µL active-equivalent. That rejected lot is already trapped in the bottle and is not dosed again. This reconstruction requires correction if the actual Rose EO dose differs.
+- The source formula records **2000 µL of Rose de Mai 10% stock**, approximately 200 µL active-equivalent, already trapped in the bottle. No Rose de Mai remains available for dosing.
+- The unknown material or solvent occupying the 360 µL difference created by the corrected Citronellol dose is not inferred and is excluded from odorant modeling.
+- Rose de Mai and the rejected Rose EO are both non-executable for every future formula: Rose de Mai is depleted; the Rose EO lot is sensory-rejected.
+
+### Final-product concentration diagnostics
+
+| Material or field | Working final amount | Final active ppm | Relationship to the reported 30 mL bottle |
+|---|---:|---:|---|
+| Rose de Mai Absolute already present | approximately 200 µL active-equivalent | 4000 | amount unchanged; concentration falls from approximately 6667 ppm by 40% |
+| Sensory-rejected Rose EO lot | approximately 90 µL active-equivalent | 1800 | amount unchanged; concentration falls from approximately 3000 ppm by 40% |
+| Free Citronellol | 40 µL | 800 | amount unchanged; concentration falls from approximately 1333 ppm by 40% |
+| PEA | 1970 µL total | 39400 | approximately preserves the starting 39000 ppm; 3.94% finished product |
+| PEDMC | 1420 µL total | 28400 | soft contour rises from approximately 7333 ppm to 2.84% finished product |
+| Damascol | approximately 77.5 µL active-equivalent total | 1550 | rounded transition rises from approximately 250 ppm to 0.155% finished product |
+| Benzyl Salicylate | 1000 µL total | 20000 | preserves its original 2.0% finished concentration |
+| Hexyl Salicylate | 500 µL total | 10000 | preserves its original 1.0% finished concentration |
+
+## ppm / ODT / Composite-Natural OAV Guard
+
+This is a bounded local `FormulaState` diagnostic at 305 K using the reconstructed source formula, corrected 40 µL Citronellol, zero additional Rose de Mai, all damage-control additions, direct DPG, a 50 mL batch, composite-natural headspace for the two naturals already present, and current project ODT records. Ethanol and the unidentified 360 µL are not represented in the model's odorant mole-fraction denominator. These are not measured headspace values or proof of masking.
+
+### Opening diagnostic
+
+| Material | Final active ppm | Modeled OAV | Functional reading |
+|---|---:|---:|---|
+| Hedione — already present | 5600 | 973.65 | existing radiance pole; not increased |
+| Rose de Mai Absolute — already present | 4000 | 485.74 composite | desired natural remains above every added support material in the model |
+| PEDMC | 28400 | 240.48 | added soft contour is above rejected Rose EO but below Rose de Mai |
+| Rose Essential Oil — rejected lot | 1800 | 169.37 composite | still modeled very strong; dilution and cushioning do not remove it |
+| Damascol | 1550 | 115.38 | added rounded transition remains below the rejected oil |
+| PEA | 39400 | 1.73 | high-mass petal body with low modeled headspace activity |
+| Benzyl Salicylate | 20000 | approximately 0.93 | structural inner cushion, near threshold |
+| Hexyl Salicylate | 10000 | approximately 0.44 | structural outer adhesion, sub-threshold |
+
+### Temporal guard
+
+| Window | T/H/B modeled OAV distribution | Total vapor ppm | Rose de Mai OAV | Rejected Rose EO OAV | Rose de Mai : Rose EO | PEDMC OAV | Damascol OAV |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Opening, 0 s | 16.3 / 83.0 / 0.7 | 4.7946 | 485.74 | 169.37 | 2.87 : 1 | 240.48 | 115.38 |
+| Top, 5 min | 16.2 / 83.0 / 0.7 | 4.7730 | 480.10 | 167.52 | 2.87 : 1 | 240.47 | 115.36 |
+| Heart, 30 min | 15.8 / 83.5 / 0.7 | 4.6692 | 453.36 | 158.75 | 2.86 : 1 | 240.41 | 115.26 |
+| Late heart, 2 h | 14.2 / 85.0 / 0.8 | 4.3438 | 374.45 | 132.99 | 2.82 : 1 | 240.19 | 114.90 |
+| Drydown, 4 h | 12.3 / 86.9 / 0.8 | 4.0024 | 300.83 | 109.06 | 2.76 : 1 | 239.85 | 114.39 |
+
+Because no new Rose de Mai is added, the intervention **does not improve the Rose de Mai-to-Rose EO ratio**. Its testable hypothesis is relational: PEDMC is modeled above the rejected oil but below Rose de Mai, while Damascol remains below the oil as a rounded bridge. This may make the rejected fingerprint less individually recognizable, but it **does not prove that the rejected Rose EO is covered** and cannot selectively remove Rose EO.
+
+## Missing-Chemical Impact Gate
+
+| Gap or hard limit | Target impact | Best executable response | Decision |
+|---|---|---|---|
+| Rose de Mai stock depleted | **Critical:** no additional desired natural can raise its ratio against the rejected oil | preserve the natural already present and keep every added support modeled below it | zero-stock authority enforced |
+| Selective removal of Rose EO | **Impossible by direct addition:** every dissolved material is retained | dilute the bottle and place a softer rose contour around the rejected signal | no extraction or selective-masking claim |
+| Exact physical Rose EO dose not separately reconfirmed | **High arithmetic uncertainty:** the 900 µL reconstruction controls the ratio | use the source-formula value only as disclosed working authority | recalculate if the actual dose differs |
+| Unidentified 360 µL in the bottle | **Medium model uncertainty** | do not invent its identity, active ppm, or OAV | excluded from the model |
+| Damascol carrier and formula-level PEDMC/Damascol safety limits unrecorded | **High for skin/release use** | record phase behavior and complete intended-use safety review | skin and release use remain HOLD |
+| Physical rejection may survive the broader rose field | **High sensory risk** | one exact irreversible intervention, followed by 48-hour and 14-day evaluation | no success claim before physical testing |
+
+**Gate result:** `ZERO_STOCK_DAMAGE_CONTROL_EXECUTABLE__SELECTIVE_RESCUE_IMPOSSIBLE`. The build can broaden the rose field, but no current-inventory addition can guarantee that the rejected lot disappears without also modifying perception of the Rose de Mai already present.
+
+## Purchase / Preparation Recommendation
+
+No purchase and no new dilution are required to execute this exact damage-control intervention. All direct doses are at least 200 µL. Do not source or use more of the rejected Rose EO lot.
+
+This is a single intervention. After it is mixed, further additions are not authorized before the 14-day evaluation. If it fails, the target-faithful next step is a fresh rebuild without Rose EO or a separately authorized partial-discard/replacement operation—not escalating PEDMC, Damascol, PEA, musk, wood, or sweetness in this bottle.
+
+## Direct Mixing Instructions
+
+Use a clean, dry, compatible bottle with at least 55–60 mL capacity. Transfer the complete 30.00 mL existing perfume only if the current bottle lacks sufficient headspace.
+
+1. Add **1.70 mL DPG**.
+2. Add **0.40 mL Benzyl Salicylate** and **0.20 mL Hexyl Salicylate**. Mix gently until visibly uniform.
+3. Add **0.80 mL PEA**, **1.20 mL PEDMC**, and **0.70 mL Damascol 10%**. Mix gently.
+4. Confirm that the non-ethanol correction field totals **5.00 mL**. Add no Rose de Mai and no Rose EO.
+5. Add **15.00 mL ethanol 96%** in three 5.00 mL portions, mixing gently after each portion.
+6. Confirm and record **50.00 mL final** volume, appearance, haze, sediment, separation, and spray behavior. Visible uniformity is not a stability result.
+7. Label the bottle `La Rose Monolithe Zero-Stock Damage Control`, the date, all additions, and the rejected-lot warning.
+
+Do not add anything else before the 14-day evaluation. Do not heat, air out, freeze, distill, or carbon-treat the perfume.
+
+## Controlled Blinded Test Plan
+
+All 30 mL of the original bottle is being altered directly and no untreated aliquot was retained, so a rigorous blinded pre-rescue versus post-rescue comparison is impossible. Do not call an ordinary before/after memory comparison blinded evidence.
+
+1. Rest the closed bottle for 48 hours. Have a helper prepare identical coded blotters containing two V2 duplicates plus one or two available external rose references or neutral distractors. Randomize the codes and withhold the key.
+2. Evaluate at 0, 5, and 30 minutes, then 2, 4, and 8 hours. Record the first named subject and score separately: Rose de Mai waxy petal, honeyed interior, velvet density, rejected metallic/spicy/citronella/steam-distilled fingerprint, PEDMC magnolia-clean thickness, Damascol plum, generic PEA blur, salicylate cosmeticity, diffusion, and hedonic preference.
+3. Repeat with new codes after 14 days. Do not inspect the code key or compare score sheets until both sessions are finished.
+4. Success requires natural velvet rose to remain the named subject, the rejected-oil fingerprint to stop being objectionable, and PEDMC/Damascol/salicylate character not to become the perfume's subject.
+5. If no helper or references are available, perform the same timed evaluation openly and label it `NON_BLINDED_SINGLE_BOTTLE_OBSERVATION`.
+
+If the rejected fingerprint remains dominant after 14 days, stop. Under the retain-all-30-mL and zero-Rose-de-Mai-stock constraints, more additives would make a different perfume rather than selectively fix this one.
+
+Do not begin skin testing until the intended-use safety/IFRA review is accepted.
+
+## Claim Ceiling
+
+This document is a zero-stock, nonselective damage-control hypothesis. Inventory presence, volume arithmetic, active ppm, ODT, composite-natural OAV, stock rebasing, and temporal simulation do not prove selective removal, sensory masking, physical liking, similarity, safety, stability, measured headspace, projection, longevity, or release success. The user's physical rejection of the Rose EO lot is authoritative. The intervention is irreversible and may fail even when every dose is executed correctly.

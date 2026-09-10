@@ -1,0 +1,35 @@
+{
+  "package_id": "Nine_Finished_Hedonic_High_Complexity_Perfumes_2026-08-16_v1",
+  "state": "ART-DIRECTED, HEDONICALLY TUNED, HIGH-COMPLEXITY COMPUTATIONAL PERFUME CANDIDATES / PHYSICAL HOLD",
+  "perfumes": 9,
+  "current_build_rows": 663,
+  "target_rows": 740,
+  "interactions": 81,
+  "mci_records": 23,
+  "pairwise_anti_collapse_records": 36,
+  "workbook": {
+    "filename": "Nine_Finished_Hedonic_High_Complexity_Perfumes_v1.xlsx",
+    "bytes": 311757,
+    "sha256": "afed9ecf7849ec7e017280fdf4b676ce2b212b86e4dfd7f5433cc802521b2b68"
+  },
+  "authority_false": [
+    "factory_formula",
+    "canonical_formula",
+    "physical_batch",
+    "bottle_addition",
+    "physical_liking",
+    "hedonic_proof",
+    "commercial_similarity",
+    "measured_headspace",
+    "strict_empirical_OAV",
+    "stability",
+    "safety",
+    "skin_use",
+    "inventory_mutation",
+    "procurement_authority",
+    "compounding_authority",
+    "installation",
+    "publication",
+    "release"
+  ]
+}

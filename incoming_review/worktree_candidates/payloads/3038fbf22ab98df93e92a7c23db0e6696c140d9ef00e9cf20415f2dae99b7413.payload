@@ -1,0 +1,91 @@
+{
+  "schema_version": "ingredient_identity_reconciliation_v1",
+  "effective_date": "2026-09-07",
+  "pre_repair_evidence": "docs/research/INVENTORY_CHEMICAL_AUDIT_20260907.md",
+  "authority_ceiling": "IDENTITY_AND_DATA_RECONCILIATION_ONLY_NOT_SENSORY_SAFETY_OR_RELEASE",
+  "identity_corrections": {
+    "Florol": {
+      "fields": {
+        "mw": 172.26,
+        "cas": "63500-71-0",
+        "formula_str": "C10H20O2",
+        "pubchem_cid": 3017432
+      },
+      "source": "https://studio.dsm-firmenich.com/product/florolr-pe-966458"
+    },
+    "Floralozone": {
+      "fields": {
+        "mw": 190.28,
+        "cas": null,
+        "formula_str": "C13H18O",
+        "pubchem_cid": null
+      },
+      "cas_candidates": [
+        "67634-15-5",
+        "67634-14-4"
+      ],
+      "source": "https://www.iff.com/scent/ingredients-compendium/floralozone/"
+    },
+    "Peonile": {
+      "fields": {
+        "mw": 197.27,
+        "cas": "10461-98-0",
+        "formula_str": "C14H15N",
+        "pubchem_cid": null
+      },
+      "source": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/peoniletm"
+    },
+    "Aurantiol": {
+      "fields": {
+        "mw": 305.4,
+        "cas": "89-43-0",
+        "formula_str": "C18H27NO3",
+        "pubchem_cid": null
+      },
+      "scope": "Schiff-base entity, commercial product composition not a pure-compound assay",
+      "source": "https://www.iff.com/scent/ingredients-compendium/aurantiol/"
+    },
+    "Dipropylene Glycol": {
+      "fields": {
+        "mw": 134.17,
+        "cas": "25265-71-8",
+        "formula_str": "C6H14O3",
+        "pubchem_cid": null
+      },
+      "scope": "Isomer-mixture entity mass; reject disconnected two-molecule CID134692469",
+      "source": "docs/verification/INVENTORY_CHEMICAL_AUDIT_20260907_pubchem_cas.json"
+    },
+    "Damascone Beta": {
+      "fields": {
+        "mw": 192.3,
+        "cas": "23726-91-2",
+        "formula_str": "C13H20O",
+        "pubchem_cid": null
+      },
+      "source": "https://www.iff.com/scent/ingredients-compendium/damascone-beta/"
+    },
+    "Amber Xtreme": {
+      "fields": {
+        "mw": 264.4,
+        "cas": "476332-65-7",
+        "formula_str": "C18H32O",
+        "pubchem_cid": null
+      },
+      "source": "https://www.iff.com/scent/ingredients-compendium/amber-xtreme-2/"
+    },
+    "Methyl Laitone": {
+      "fields": {
+        "mw": 168.23,
+        "cas": null,
+        "formula_str": "C10H16O2",
+        "pubchem_cid": null
+      },
+      "cas_candidates": [
+        "94201-19-1",
+        "91069-37-3"
+      ],
+      "source": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-laitone-10dpg",
+      "scope": "Active identity; user stock20% carrier/basis unknown, not catalog10%DPG"
+    }
+  }
+}

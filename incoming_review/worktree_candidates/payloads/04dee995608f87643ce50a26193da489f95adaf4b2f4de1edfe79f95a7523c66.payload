@@ -1,0 +1,119 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+import pytest
+
+from engine.formulation_intelligence.deep_plane_pipeline_adapter import (
+    DEEP_PLANE_IDS,
+    DeepPlaneCheckConfig,
+    StaleInventoryAuthorityError,
+    run_deep_plane_check,
+)
+
+
+def _write_formula(path: Path) -> Path:
+    path.write_text(
+        """# Deep Plane Compatibility Fixture
+
+This is a target-neutral parser and runtime fixture. It makes no sensory claim.
+
+| # | Ingredient | Dilution | Amount (µL) |
+|---|---|---|---:|
+| 1 | Hedione | neat | 100 |
+""",
+        encoding="utf-8",
+    )
+    return path
+
+
+def test_formula_check_is_deterministic_and_executes_all_unified_planes(
+    tmp_path: Path,
+) -> None:
+    formula = _write_formula(tmp_path / "formula.md")
+    config = DeepPlaneCheckConfig(
+        batch_volume_ml=30.0,
+        temperature_k=305.0,
+        windows=(("opening", 0.0), ("heart", 1800.0)),
+    )
+
+    first = run_deep_plane_check(formula, config=config).as_dict()
+    second = run_deep_plane_check(formula, config=config).as_dict()
+
+    assert first == second
+    assert json.dumps(first, sort_keys=True) == json.dumps(second, sort_keys=True)
+    assert first["schema_version"] == "deep_plane_pipeline_adapter_check_v1"
+    assert first["check_state"] == "COMPLETE"
+    assert first["status"] == "HOLD"
+    assert len(first["content_sha256"]) == 64
+    report = first["formulas"][0]
+    assert report["unified_runtime"]["plane_ids"] == list(DEEP_PLANE_IDS)
+    assert [item["plane_id"] for item in report["planes"]] == list(DEEP_PLANE_IDS)
+    assert report["unified_runtime"]["plane_count"] == 13
+    assert report["unified_runtime"]["candidate_state"] == (
+        "future_candidate_not_validated"
+    )
+    assert report["unified_runtime"]["authority_ceiling"] == "withheld"
+    assert report["unified_runtime"]["pass_fail_authority"] is False
+    assert set(first["authority_flags"].values()) == {False}
+
+
+def test_formula_check_fails_closed_on_stale_inventory_hash(tmp_path: Path) -> None:
+    formula = _write_formula(tmp_path / "formula.md")
+
+    with pytest.raises(StaleInventoryAuthorityError) as error:
+        run_deep_plane_check(
+            formula,
+            expected_inventory_sha256="0" * 64,
+        )
+
+    assert error.value.code == "STALE_INVENTORY_AUTHORITY"
+    assert error.value.expected_sha256 == "0" * 64
+    assert error.value.observed_sha256 != error.value.expected_sha256
+
+
+def test_configuration_rejects_non_monotonic_unified_simulation_windows() -> None:
+    with pytest.raises(ValueError, match="nondecreasing"):
+        DeepPlaneCheckConfig(windows=(("heart", 1800.0), ("opening", 0.0)))
+
+
+def test_compatibility_markdown_keeps_the_claim_ceiling_explicit(
+    tmp_path: Path,
+) -> None:
+    markdown = run_deep_plane_check(_write_formula(tmp_path / "formula.md")).to_markdown()
+
+    assert "Authority status: `HOLD`" in markdown
+    assert "Authority ceiling: `withheld`" in markdown
+    assert "no sensory, safety, physical, compounding, or release authority" in markdown
+
+
+def test_governance_receipt_preserves_source_test_provenance() -> None:
+    project_root = Path(__file__).resolve().parents[1]
+    receipt = json.loads(
+        (
+            project_root
+            / "data"
+            / "governance"
+            / "unified_import_deep_plane_compat_20260904.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    source_tests = {
+        item["path"]: item["sha256"]
+        for item in receipt["source"]["artifacts"]
+        if item["path"].startswith("tests/")
+    }
+    assert source_tests == {
+        "tests/test_deep_plane_runtime.py": (
+            "15595605fc5df2270ab64c21fd6eb5ff08e9425f67a5a04d44e1c1a256a87306"
+        ),
+        "tests/test_deep_plane_pipeline_gate.py": (
+            "5f1da4fe2241f0fd4c10d560a078ca1f0237b0156879911382dea86de4c1007e"
+        ),
+        "tests/test_formula_release_gate_deep_plane.py": (
+            "06e0a3892698f8fceee070ac47a14cd6458b0e8cfcefe89d196c715b3b321335"
+        ),
+    }
+    assert set(receipt["authority"].values()) == {False}
+    assert receipt["claim_ceiling"].endswith("NO_FORMULA_RELEASE_CLAIM")

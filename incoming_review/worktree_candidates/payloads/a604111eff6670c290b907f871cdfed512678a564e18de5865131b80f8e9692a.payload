@@ -1,0 +1,13 @@
+"""Static guard against shipping shadow backend provider configuration."""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+BACKEND_ROOT = Path(__file__).resolve().parents[2]
+
+
+def test_backend_core_has_no_shadow_config_backup() -> None:
+    """Only the active, reviewed config module may ship as backend config."""
+
+    assert not (BACKEND_ROOT / "app" / "core" / "config.py.backup").exists()

@@ -1,0 +1,834 @@
+{
+  "schema_version": "perfume_pipeline_historical_artifact_registry_v2",
+  "registry_version": 2,
+  "purpose": "Append-only exact-byte historical bindings for pipeline artifacts whose recorded inputs are no longer current, without granting current, sensory, safety, stability, compounding, purchase, or release authority.",
+  "predecessor": {
+    "path": "data/governance/pipeline_historical_artifact_registry_v1.json",
+    "file_sha256": "02b39c56dd263d548199d119e89f46deb247dea8cc86812dbed510edff22fec9"
+  },
+  "authority_flags": {
+    "compounding": false,
+    "current": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false,
+    "stability": false
+  },
+  "policy": {
+    "verified_status": "HISTORICAL_VERIFIED",
+    "artifact_binding_status": "HISTORICAL_RECORDED",
+    "formula_file_hash": "UTF8_CRLF_OR_CR_TO_LF_SHA256",
+    "current_repository_bindings": false,
+    "release_authority": false
+  },
+  "records": [
+    {
+      "record_id": "historical-pipeline-artifact:v2:cyp-02-cypress-magnolia-orris-30ml-parfum:e3de9639699d077a",
+      "formula_path": "formulas/CYP-02_Cypress_Magnolia_Orris_30mL_Parfum.md",
+      "formula_text_lf_sha256": "cc20085be316d32467bbc8675b9ac2b3b55daf36a8a1a9b489b8ffc764b1d957",
+      "formula_source_sha256": "28ff38406a6455da9ee1521c74305caca396a416b2757e5978c0646de167e6d7",
+      "artifact_text_sha256": "f481dd25e540b5d491643067323dd9d73118d85f7469c11725f4fc3b57111237",
+      "manifest_sha256": "092065cc02024c8aeaeab238ae71b54530af907ae3bb1715f23ac39f4d95eb20",
+      "manifest_artifact_sha256": "e3de9639699d077a5c932d58aa53c358a1b1b54403dd38f5b165db6c3d130b31",
+      "analysis_sha256": "0a0f55525340a2be8bc6c419c07543a286159b042b762d5cc6d30c1a7732ea66",
+      "analysis_input_sha256": "0741a6fda6986fa497ed44606191c32b4657f198664ddf6b31585e2aa6770260",
+      "formula_definitions": [
+        {
+          "name": "CURRENT-INVENTORY BUILD — parser-visible formula",
+          "number": 4,
+          "sha256": "761bc8fc204e5496fb8166f97f37dfa54d6805c42d60996e3c11ac171fc2c28b"
+        }
+      ],
+      "g15_parent_formula_definitions": [],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "761bc8fc204e5496fb8166f97f37dfa54d6805c42d60996e3c11ac171fc2c28b",
+          "record_id": "formula:4:current-inventory-build-parser-visible-formula",
+          "record_version": 4
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "f5706666510e84073b0c8a26c43fb2124c42a2b97c83f4709fb6056ca57273ae",
+        "inventory_sha256": "06d5785656ea4eb644dfe9a355d5e98c8b0d8932d76caa24b997a68b4726ad13",
+        "scientific_inputs_sha256": "0389a18c2654c2cc3c8b1929090cc8b40249599b617de59a4aa6aa60f700c8bf",
+        "pipeline_source_sha256": "d88b32089e128f8f7f18aa53a0abf70356fca54d6048bdaa651b8ba0219f539d"
+      },
+      "recorded_repository_commit": "c89e6a87ae5c9912ff988c758eab2cf8cc7e6582",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:v2:dpp-01-mandarin-ember-sandalwood-30ml-edp:5f1fba47927b23c8",
+      "formula_path": "formulas/DPP_01_Mandarin_Ember_Sandalwood_30mL_EDP.md",
+      "formula_text_lf_sha256": "0d356df0d4bec4c685b07cf38b5c94f20b28c895816bce327b645bdad2063471",
+      "formula_source_sha256": "995e5d8358b6d4664b66b4357b13b7d54c4762a6d3b10fd6571f39b851c963e9",
+      "artifact_text_sha256": "f36056818d86d8becc49a4426ef5a2d0b09d04410ae7c2c1204031f746131aef",
+      "manifest_sha256": "f85f2294a6210db7a359747ed8d7d453b99aab12110bf442de27f81fd8f2f84c",
+      "manifest_artifact_sha256": "5f1fba47927b23c8fefac7525ac37c1855ce439f4c32e378c951ab25417bce8d",
+      "analysis_sha256": "e911770cf0a73127a5ea9c4a43085386c72d3face72a55b6f4feafeb05b25e12",
+      "analysis_input_sha256": "c6bffd6e85fb1e56431cb5c494a9d59780676f98de53dcfbe67f3a89fb03f20a",
+      "formula_definitions": [
+        {
+          "name": "DPP-01-R1 Mandarin Ember Sandalwood — 30 mL EDP",
+          "number": 1,
+          "sha256": "5482eedb6479865dbbbf485060a15d736acb7da25b5a890e0fb67963d43e6a8c"
+        }
+      ],
+      "g15_parent_formula_definitions": [],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "5482eedb6479865dbbbf485060a15d736acb7da25b5a890e0fb67963d43e6a8c",
+          "record_id": "formula:1:dpp-01-r1-mandarin-ember-sandalwood-30-ml-edp",
+          "record_version": 1
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "22064de49736d6674a231da70fdf1f15d571f4d3633d9bd0b113d23dfddd8204",
+        "inventory_sha256": "41cae9d8b65bb34ec0535f89fb7818c1378ce5c8790aa413b704d21801bd5c76",
+        "scientific_inputs_sha256": "5fa4ff5ba58ecaa4a99b48bb024e80f5efd647d16df406eb4f6ab4c13746dc5d",
+        "pipeline_source_sha256": "88b272c7c7394a02699fc6a52076f53d01271d08523530412555b538563717b7"
+      },
+      "recorded_repository_commit": "8c2a6071299c088875ae7cd0c2850b22d55e26d2",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:v2:dpp-01-mandarin-ember-sandalwood-30ml-edp-r2:355694555ab26fd4",
+      "formula_path": "formulas/DPP_01_Mandarin_Ember_Sandalwood_30mL_EDP_R2.md",
+      "formula_text_lf_sha256": "2a9459a0c4eaebe0d9605558ac1903faa171e4d435814a2a58d0b87c88c0c71a",
+      "formula_source_sha256": "9a0293fd62444870888d16e093f864f323f4540524f2a8621f427e67f5a9ba54",
+      "artifact_text_sha256": "4ef4b8edabc40e1fe73b2374581fede88eeb79465c36815bc55b5861426db882",
+      "manifest_sha256": "89b610e467b0338c480cc1a13f88df97870b8e4a6cded12dc29cf2bda6bd1dfd",
+      "manifest_artifact_sha256": "355694555ab26fd4462ce4c399522d6293039a1e55b31ad7a839e13646cee2ae",
+      "analysis_sha256": "30aff3090442b3897e5d07e024eb62e868aa7c8055bcf832b736a1246a2598a5",
+      "analysis_input_sha256": "bd7d89d6444f7ba4d3aa7c36c15bcf55a7ebf9941735ae46965c1e119299b51a",
+      "formula_definitions": [
+        {
+          "name": "DPP-01-R2 Mandarin Ember Sandalwood — Basket Form — 30 mL EDP",
+          "number": 1,
+          "sha256": "70ba3edda5fd72cdf8d2c18b9caa998e473100eeb8488d842cbda8839d2b3d5a"
+        }
+      ],
+      "g15_parent_formula_definitions": [
+        {
+          "name": "DPP-01-R1 Mandarin Ember Sandalwood — 30 mL EDP",
+          "number": 1,
+          "sha256": "5482eedb6479865dbbbf485060a15d736acb7da25b5a890e0fb67963d43e6a8c"
+        }
+      ],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "70ba3edda5fd72cdf8d2c18b9caa998e473100eeb8488d842cbda8839d2b3d5a",
+          "record_id": "formula:1:dpp-01-r2-mandarin-ember-sandalwood-basket-form-30-ml-edp",
+          "record_version": 1
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "22064de49736d6674a231da70fdf1f15d571f4d3633d9bd0b113d23dfddd8204",
+        "inventory_sha256": "41cae9d8b65bb34ec0535f89fb7818c1378ce5c8790aa413b704d21801bd5c76",
+        "scientific_inputs_sha256": "5fa4ff5ba58ecaa4a99b48bb024e80f5efd647d16df406eb4f6ab4c13746dc5d",
+        "pipeline_source_sha256": "88b272c7c7394a02699fc6a52076f53d01271d08523530412555b538563717b7"
+      },
+      "recorded_repository_commit": "8c2a6071299c088875ae7cd0c2850b22d55e26d2",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:v2:dpp-02-tuberose-sandal-cream-30ml-edp:148b7b484b8fe01c",
+      "formula_path": "formulas/DPP_02_Tuberose_Sandal_Cream_30mL_EDP.md",
+      "formula_text_lf_sha256": "015d03319842956345d1f17fa94f11b38108eecde3303b88d50a9c5aa141b27e",
+      "formula_source_sha256": "bed1af9b7f9ab7f67f9e992f46f2559aa27acd29a91025169f932c123fff744f",
+      "artifact_text_sha256": "d86ebd7246abe50f8f09757869d797826b6ccfe432662e9fecd3961c476f2058",
+      "manifest_sha256": "0414be5f61bd8bb0fa57f113d31734e54c9b74656bb5d9cdfab49734cad67137",
+      "manifest_artifact_sha256": "148b7b484b8fe01cd79bf7cb7e943e0108be7707688d2c3f6a2c38c2fa7f9a04",
+      "analysis_sha256": "6d8250e8fce43551469b389cd9301204d201fbf288280a610106d4e4b8dccc96",
+      "analysis_input_sha256": "e81dfb3d7220d41f9fa7c3bc687eb74d81d35da9d16d18c9d60a6778a3a3728c",
+      "formula_definitions": [
+        {
+          "name": "DPP-02-R1 Tuberose Sandal Cream — 30 mL EDP",
+          "number": 1,
+          "sha256": "b23011bc88f4b58178c8c67cf146bad7f7c677cd5ee1cf69a37af5e7b105c47f"
+        }
+      ],
+      "g15_parent_formula_definitions": [],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "b23011bc88f4b58178c8c67cf146bad7f7c677cd5ee1cf69a37af5e7b105c47f",
+          "record_id": "formula:1:dpp-02-r1-tuberose-sandal-cream-30-ml-edp",
+          "record_version": 1
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "a4423518a7b3eb054575f803da4de2ec2f772693720ff02a2fd42518bd9b0a6f",
+        "inventory_sha256": "41cae9d8b65bb34ec0535f89fb7818c1378ce5c8790aa413b704d21801bd5c76",
+        "scientific_inputs_sha256": "5fa4ff5ba58ecaa4a99b48bb024e80f5efd647d16df406eb4f6ab4c13746dc5d",
+        "pipeline_source_sha256": "88b272c7c7394a02699fc6a52076f53d01271d08523530412555b538563717b7"
+      },
+      "recorded_repository_commit": "8c2a6071299c088875ae7cd0c2850b22d55e26d2",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:v2:dpp-02-tuberose-sandal-cream-30ml-edp-r2:2e9940ea80bea240",
+      "formula_path": "formulas/DPP_02_Tuberose_Sandal_Cream_30mL_EDP_R2.md",
+      "formula_text_lf_sha256": "49847097aa73f74f158fe690c5dbbf74f258fc9ed1a985f120dd1f1003fe030b",
+      "formula_source_sha256": "f0646ba7ee7ea82197072daeb8574c084a6d88d54afa25cc79b21c451f4a53c8",
+      "artifact_text_sha256": "c7fe24c15eefbacd5fd9701ede7e9c3922b4158488523304b59dc0f002c4d6a7",
+      "manifest_sha256": "718cc893c1045c9757597be477d7e6b3f180fb581d3db9248b516f0a53b0a61b",
+      "manifest_artifact_sha256": "2e9940ea80bea24079d849a3844554efe184797faeec733265323cadd76f37b4",
+      "analysis_sha256": "0fe35e26380cc5b32e672b6bb5ba1478ac9aa36afb4f35561b317ee6892e15fa",
+      "analysis_input_sha256": "ad75b0d0d4f44da54a8d36bee31e249f4c5b179e6b061d5a1d127f349ad4fe1b",
+      "formula_definitions": [
+        {
+          "name": "DPP-02-R2 Tuberose Sandal Cream — Basket Form — 30 mL EDP",
+          "number": 1,
+          "sha256": "ecdf0d20630c40e6dc5284e0732ebee77750f0bb59dd2ab29da70662c3063870"
+        }
+      ],
+      "g15_parent_formula_definitions": [
+        {
+          "name": "DPP-02-R1 Tuberose Sandal Cream — 30 mL EDP",
+          "number": 1,
+          "sha256": "b23011bc88f4b58178c8c67cf146bad7f7c677cd5ee1cf69a37af5e7b105c47f"
+        }
+      ],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "ecdf0d20630c40e6dc5284e0732ebee77750f0bb59dd2ab29da70662c3063870",
+          "record_id": "formula:1:dpp-02-r2-tuberose-sandal-cream-basket-form-30-ml-edp",
+          "record_version": 1
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "a4423518a7b3eb054575f803da4de2ec2f772693720ff02a2fd42518bd9b0a6f",
+        "inventory_sha256": "41cae9d8b65bb34ec0535f89fb7818c1378ce5c8790aa413b704d21801bd5c76",
+        "scientific_inputs_sha256": "5fa4ff5ba58ecaa4a99b48bb024e80f5efd647d16df406eb4f6ab4c13746dc5d",
+        "pipeline_source_sha256": "88b272c7c7394a02699fc6a52076f53d01271d08523530412555b538563717b7"
+      },
+      "recorded_repository_commit": "8c2a6071299c088875ae7cd0c2850b22d55e26d2",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:v2:dpp-03-tobacco-resin-amber-reserve-30ml-edp:7677f1552f51db59",
+      "formula_path": "formulas/DPP_03_Tobacco_Resin_Amber_Reserve_30mL_EDP.md",
+      "formula_text_lf_sha256": "c6d839c612971584da44fa48beffa38554c79057e1e0b56ea9f7a48d93a0c7f3",
+      "formula_source_sha256": "6715f530df51d622c6a722264f6339b44d23a3c6a9dadb6397b90725007ce63e",
+      "artifact_text_sha256": "8d3d3c034ff34a74df2d293c9a8348595fe8f3a75987f84863111bc5c4325a4e",
+      "manifest_sha256": "ccde2081a3a5ca058628b53466d325ff14da97058a736ae0e5ba6abe599c8167",
+      "manifest_artifact_sha256": "7677f1552f51db599992cdbd1cc1b52923b20bcb7b69be42987b1477b92affb3",
+      "analysis_sha256": "62ff9e91cc238d2f835960220226762bb9117b48b5d2997cbf503471607c545c",
+      "analysis_input_sha256": "ab09534b249c413f28699b968b0aa63b0b9e78eed19f59fb21da19f1ddc6e090",
+      "formula_definitions": [
+        {
+          "name": "DPP-03-R1 Tobacco Resin Amber Reserve — 30 mL EDP",
+          "number": 1,
+          "sha256": "691906e6404a9ff96b365d965489b68a7153d8e6435f46a1870c97e29fb17331"
+        }
+      ],
+      "g15_parent_formula_definitions": [],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "691906e6404a9ff96b365d965489b68a7153d8e6435f46a1870c97e29fb17331",
+          "record_id": "formula:1:dpp-03-r1-tobacco-resin-amber-reserve-30-ml-edp",
+          "record_version": 1
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "22064de49736d6674a231da70fdf1f15d571f4d3633d9bd0b113d23dfddd8204",
+        "inventory_sha256": "41cae9d8b65bb34ec0535f89fb7818c1378ce5c8790aa413b704d21801bd5c76",
+        "scientific_inputs_sha256": "5fa4ff5ba58ecaa4a99b48bb024e80f5efd647d16df406eb4f6ab4c13746dc5d",
+        "pipeline_source_sha256": "88b272c7c7394a02699fc6a52076f53d01271d08523530412555b538563717b7"
+      },
+      "recorded_repository_commit": "8c2a6071299c088875ae7cd0c2850b22d55e26d2",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:v2:dpp-03-tobacco-resin-amber-reserve-30ml-edp-r2:50f89b388a2f566d",
+      "formula_path": "formulas/DPP_03_Tobacco_Resin_Amber_Reserve_30mL_EDP_R2.md",
+      "formula_text_lf_sha256": "c3d17496f4ad81498db9eeaf6580fd9d973ec8a190ba3f34de7c7e63db4c6476",
+      "formula_source_sha256": "92dbf13e605d61636db4b5270a7fdc12d25f77cb7454e816b81a9c4ac430bdb1",
+      "artifact_text_sha256": "487e3f970afb82e6fcf2a1585fc5dfd971c66a1f3f059b63c950875abee5c798",
+      "manifest_sha256": "7d72b17173c0f7094a4587ffd5cacd6b263d6dae28007da5fbd5a22be5f8e4d0",
+      "manifest_artifact_sha256": "50f89b388a2f566dba429571c9552bba9bcf54538edf577a0795bee7901bc130",
+      "analysis_sha256": "574d0bd051804d7aad76432e90dd7a919e9d55a3e978d051ad882ffec10ac6e9",
+      "analysis_input_sha256": "6c9c8314bb678a0ae689d82a2205c2b9fd1169100c29ac37355e295884921133",
+      "formula_definitions": [
+        {
+          "name": "DPP-03-R2 Tobacco Resin Amber Reserve — Basket Form — 30 mL EDP",
+          "number": 1,
+          "sha256": "30ee0a199c50d033b6cc9e1a1cceecf32f609670c7a9ced4b8931b5b485bd937"
+        }
+      ],
+      "g15_parent_formula_definitions": [
+        {
+          "name": "DPP-03-R1 Tobacco Resin Amber Reserve — 30 mL EDP",
+          "number": 1,
+          "sha256": "691906e6404a9ff96b365d965489b68a7153d8e6435f46a1870c97e29fb17331"
+        }
+      ],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "30ee0a199c50d033b6cc9e1a1cceecf32f609670c7a9ced4b8931b5b485bd937",
+          "record_id": "formula:1:dpp-03-r2-tobacco-resin-amber-reserve-basket-form-30-ml-edp",
+          "record_version": 1
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "22064de49736d6674a231da70fdf1f15d571f4d3633d9bd0b113d23dfddd8204",
+        "inventory_sha256": "41cae9d8b65bb34ec0535f89fb7818c1378ce5c8790aa413b704d21801bd5c76",
+        "scientific_inputs_sha256": "5fa4ff5ba58ecaa4a99b48bb024e80f5efd647d16df406eb4f6ab4c13746dc5d",
+        "pipeline_source_sha256": "88b272c7c7394a02699fc6a52076f53d01271d08523530412555b538563717b7"
+      },
+      "recorded_repository_commit": "8c2a6071299c088875ae7cd0c2850b22d55e26d2",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:v2:hed-floral-01-rose-de-mai-unadorned-30ml-20pct-edp-v1:9bbca19da362a138",
+      "formula_path": "formulas/HED-FLORAL-01_Rose_de_Mai_Unadorned_30mL_20pct_EdP_v1.md",
+      "formula_text_lf_sha256": "51c8cf0b6fb24fe10ace4c43d285e5298e7abe0081e427eb99276a61327f3aec",
+      "formula_source_sha256": "f2fa51c1dac0ee3961ccb21e1c4573460747a900e56f06b3fa40e6a46d48db3d",
+      "artifact_text_sha256": "3984b12d226362c733209679b3d850890461696f27437d5b821913b0b3d9b5b5",
+      "manifest_sha256": "1f52ac35ec66f5bbc7fc76929672323e6c530e9341918fe12fd8ce87ef76a42d",
+      "manifest_artifact_sha256": "9bbca19da362a13837c4bc2574b66ab678e411972981abccb7fd91fb32e49dcd",
+      "analysis_sha256": "89451b91fc9baa995444773251356fe16d1c3f21db7268b2deae41bdab0e382a",
+      "analysis_input_sha256": "9baae07bcad161e3b28b7649a49d1f272036d9a14c964e444be413b08f4fe023",
+      "formula_definitions": [
+        {
+          "name": "HED-FLORAL-01 — Rose de Mai Unadorned — 30 mL / 20% EdP — v1",
+          "number": 1,
+          "sha256": "9e3865931347d6cf855ca0363da78ec02fa7576a8497374de5af51d92bec0529"
+        }
+      ],
+      "g15_parent_formula_definitions": [],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "9e3865931347d6cf855ca0363da78ec02fa7576a8497374de5af51d92bec0529",
+          "record_id": "formula:1:hed-floral-01-rose-de-mai-unadorned-30-ml-20-edp-v1",
+          "record_version": 1
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "73cfca5a08ac2108b1764877686c4031082fc4e1b581ac2946a272e44a3bc701",
+        "inventory_sha256": "fc0249eb1329b15cf7c3b43d8c06114860090a5222ca3fc3341e64d6e3059e2a",
+        "scientific_inputs_sha256": "78b502c79094986620a81eaf5082f1409a534dded8409dc602aefe5a3c8d734d",
+        "pipeline_source_sha256": "9e63dd53191069d96a3eddfd714536ab49d52ca4f68c84b3047d0605520c348a"
+      },
+      "recorded_repository_commit": "d99ecdca8b0a4bf741bd4dda7bd564649cf05982",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:v2:hed-floral-01-rose-de-mai-unadorned-30ml-3mlstock-final-v3:8c2376a0f2dbc9f2",
+      "formula_path": "formulas/HED-FLORAL-01_Rose_de_Mai_Unadorned_30mL_3mLstock_FINAL_v3.md",
+      "formula_text_lf_sha256": "2ad6972b7928e39d51d84abd8d48dfa1611f354f854ca91eebe22ec655797e50",
+      "formula_source_sha256": "ce768f8d2439c5cd7301ebf218c5bb22399e105367b8af3ce6386745bd69e9a4",
+      "artifact_text_sha256": "81426e397ea13e449cf00e713ae5dc2c2b095991c927502bbe371ae99ac2092e",
+      "manifest_sha256": "7377124ac732122b41294a26235566a43451bab97a4076593a6889ee4b8b3957",
+      "manifest_artifact_sha256": "8c2376a0f2dbc9f296bca298bbde7adfd63fe54ccf8e77cdaac34805ee7bf19b",
+      "analysis_sha256": "b61d3b9cd4890640d7945667b9a689fa6268b33108f9db3e583e7963d9173741",
+      "analysis_input_sha256": "0ba8101105c2576ee766c2e789da2dfb265997c5c0bf953156c74a50ea17a450",
+      "formula_definitions": [
+        {
+          "name": "HED-FLORAL-01 — Rose de Mai Unadorned — 3 mL Stock Final — 30 mL — v3",
+          "number": 1,
+          "sha256": "3e1a448e4273c0c5883d779b0b1acee989b54a1ba828bac0c79447adc8d8c283"
+        }
+      ],
+      "g15_parent_formula_definitions": [
+        {
+          "name": "HED-FLORAL-01 — Rose de Mai Unadorned — FINAL — 30 mL / nominal 20% stock concentrate — v2",
+          "number": 1,
+          "sha256": "24812743829a25c9d22030fd74fb4ea86b2414a9ed4b626037131c7b38eab6e5"
+        }
+      ],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "3e1a448e4273c0c5883d779b0b1acee989b54a1ba828bac0c79447adc8d8c283",
+          "record_id": "formula:1:hed-floral-01-rose-de-mai-unadorned-3-ml-stock-final-30-ml-v3",
+          "record_version": 1
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "3cfccd52e49b8cf514523bdfb866bfcc96458541b6b070f43a38f46836e7505b",
+        "inventory_sha256": "fc0249eb1329b15cf7c3b43d8c06114860090a5222ca3fc3341e64d6e3059e2a",
+        "scientific_inputs_sha256": "8a8994b92cc098aeacc167e80f829ee69cc99d51f062ca277390916a47da4a71",
+        "pipeline_source_sha256": "6158a01e885c4effb57b6ecae7f2fd2d0193a7e846097baafd69fe213dadafd0"
+      },
+      "recorded_repository_commit": "d99ecdca8b0a4bf741bd4dda7bd564649cf05982",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:v2:hed-floral-01-rose-de-mai-unadorned-deepplane-30ml-v5:28e2a57aaca2cab4",
+      "formula_path": "formulas/HED-FLORAL-01_Rose_de_Mai_Unadorned_DeepPlane_30mL_v5.md",
+      "formula_text_lf_sha256": "f2349f2c67e4655e38e82fb2db67fe9e20d9a267c9fb15888339401856618084",
+      "formula_source_sha256": "4986c75f26e15cbbd938ca2f7517dd05c4d8aeff8fc62e34aacee84f3618d822",
+      "artifact_text_sha256": "58616fad8f216c5919acb772a4d6aa4f63b9ded9ded37be56c9b290982e6a0c8",
+      "manifest_sha256": "9100ec8277305967785f7ea00a47a744c9df194271e7637e96fb8190c5f17418",
+      "manifest_artifact_sha256": "28e2a57aaca2cab4e5e9496ec31f2b48c25c8efce3132a1d74a4f98f15f121d1",
+      "analysis_sha256": "1a0ee34e160c265af63d3d2f0374096484dd93e8a7842584ad241556e274b6ac",
+      "analysis_input_sha256": "a0a0473e320e717d02581abbb45f8971ae0760ba1861355f6f0fd5751dfaa9fc",
+      "formula_definitions": [
+        {
+          "name": "HED-FLORAL-01 — Rose de Mai Unadorned — Deep-Plane Perfume — 30 mL — v5",
+          "number": 1,
+          "sha256": "ea2c4bbdb9f0710cab8ed36e367c1fce1575894c499e08327b4eb0cbb16901bd"
+        }
+      ],
+      "g15_parent_formula_definitions": [
+        {
+          "name": "HED-FLORAL-01 — Rose de Mai Unadorned — Deep-Plane Fingerprint-Preserved Final — 30 mL — v4",
+          "number": 1,
+          "sha256": "596e86bf80f587d8835ebe92a135a8426de19d8acf4f1d4787030dc02a1dd256"
+        }
+      ],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "ea2c4bbdb9f0710cab8ed36e367c1fce1575894c499e08327b4eb0cbb16901bd",
+          "record_id": "formula:1:hed-floral-01-rose-de-mai-unadorned-deep-plane-perfume-30-ml-v5",
+          "record_version": 1
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "afa3071e6bae5bcab671b8ce24f58de2f21d97220007893a9c64c3a8f2fe35b2",
+        "inventory_sha256": "2d81824aa7206d0c8bd19d68e2bd955664fa9d805c948417de076b3373eb3ada",
+        "scientific_inputs_sha256": "8a8994b92cc098aeacc167e80f829ee69cc99d51f062ca277390916a47da4a71",
+        "pipeline_source_sha256": "c0f69062b6ce1ded8f7546018645bda2f81047d41eb0b04e299f9a1f8579aee0"
+      },
+      "recorded_repository_commit": "d99ecdca8b0a4bf741bd4dda7bd564649cf05982",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:v2:hed-floral-01-rose-de-mai-unadorned-deepplane-final-30ml-v4:ed8420bdc8da5542",
+      "formula_path": "formulas/HED-FLORAL-01_Rose_de_Mai_Unadorned_DeepPlane_FINAL_30mL_v4.md",
+      "formula_text_lf_sha256": "736c42cd753274a7c0010d41e93977e4d222a85ebc64f5f55f0fc70472fa5b43",
+      "formula_source_sha256": "13bf4dbcd69ce8abc0f0bb7a2c5f4c7fe37f80cdf3c4fd2cac4e1727d85df873",
+      "artifact_text_sha256": "86d4cb2326b11a86027f02fdd28cc629459b51176fd4d77672c52ea6de57902d",
+      "manifest_sha256": "10e70456757803154f053fad9b615aa86d618eeb2ceb6d43af18266f84c990a4",
+      "manifest_artifact_sha256": "ed8420bdc8da5542e53da5a309ace8c08d1a6abb08d378714061070f08b708a6",
+      "analysis_sha256": "7ef015ed57b2f434e6f28b91af6567400d608b0df45c26fe7389399c93488405",
+      "analysis_input_sha256": "b9b54705a673f70b7bdd5dbdf36fbc97ff67893beed0488a67a398926390acd2",
+      "formula_definitions": [
+        {
+          "name": "HED-FLORAL-01 — Rose de Mai Unadorned — Deep-Plane Fingerprint-Preserved Final — 30 mL — v4",
+          "number": 1,
+          "sha256": "fb4e42564cd6bbfa2b24d5848c4036bcc2a92510a994fff5ee207013fe028ea4"
+        }
+      ],
+      "g15_parent_formula_definitions": [
+        {
+          "name": "HED-FLORAL-01 — Rose de Mai Unadorned — 3 mL Stock Final — 30 mL — v3",
+          "number": 1,
+          "sha256": "3e1a448e4273c0c5883d779b0b1acee989b54a1ba828bac0c79447adc8d8c283"
+        }
+      ],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "fb4e42564cd6bbfa2b24d5848c4036bcc2a92510a994fff5ee207013fe028ea4",
+          "record_id": "formula:1:hed-floral-01-rose-de-mai-unadorned-deep-plane-fingerprint-preserved-final-30-ml-v4",
+          "record_version": 1
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "da45d9c8c8dddcb769d3188ff41aba4463b1f55e831c9a538adb315b65eb0435",
+        "inventory_sha256": "2d81824aa7206d0c8bd19d68e2bd955664fa9d805c948417de076b3373eb3ada",
+        "scientific_inputs_sha256": "8a8994b92cc098aeacc167e80f829ee69cc99d51f062ca277390916a47da4a71",
+        "pipeline_source_sha256": "82eec41c1a2b4ebd38978d3c6e32f4fd1f1da31fc410eea46ea1e290e1825efb"
+      },
+      "recorded_repository_commit": "d99ecdca8b0a4bf741bd4dda7bd564649cf05982",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:v2:hed-floral-01-rose-de-mai-unadorned-final-30ml-20pct-edp-v2:11b5a49010b44162",
+      "formula_path": "formulas/HED-FLORAL-01_Rose_de_Mai_Unadorned_FINAL_30mL_20pct_EdP_v2.md",
+      "formula_text_lf_sha256": "128b9bd71a10a627ea05dfdbd69f84a912cf2e2daec5685b9e1705fe5fddb57d",
+      "formula_source_sha256": "bb76068e79f5336d009f86e380abb2f1fce92c99d36b1dffcfb5354f0bfac167",
+      "artifact_text_sha256": "1cb997d0bac8fb9543ede19362f296219f6b425dce9de81e72cd338ad831f5cd",
+      "manifest_sha256": "55409f2560ec455b2aa9a3e477aa9b344f9ad6bd6edaf5416080dd1666e47575",
+      "manifest_artifact_sha256": "11b5a49010b44162be8eb050790e741a2a51530fdcbd9351f557a9fb49481884",
+      "analysis_sha256": "bf842793df0af4f1425172256b0e12c70a52269b820611f20bdfd6aa8102db0b",
+      "analysis_input_sha256": "b5239346dc1dfb0a9d3d50298677ac3d0f748bd8e5b61eabd4169d0aaadf6a09",
+      "formula_definitions": [
+        {
+          "name": "HED-FLORAL-01 — Rose de Mai Unadorned — FINAL — 30 mL / nominal 20% stock concentrate — v2",
+          "number": 1,
+          "sha256": "24812743829a25c9d22030fd74fb4ea86b2414a9ed4b626037131c7b38eab6e5"
+        }
+      ],
+      "g15_parent_formula_definitions": [
+        {
+          "name": "HED-FLORAL-01 — Rose de Mai Unadorned — 30 mL / 20% EdP — v1",
+          "number": 1,
+          "sha256": "9e3865931347d6cf855ca0363da78ec02fa7576a8497374de5af51d92bec0529"
+        }
+      ],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "24812743829a25c9d22030fd74fb4ea86b2414a9ed4b626037131c7b38eab6e5",
+          "record_id": "formula:1:hed-floral-01-rose-de-mai-unadorned-final-30-ml-nominal-20-stock-concentrate-v2",
+          "record_version": 1
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "75d42e21858b20f00367f6afd3dab5369a1d367843eac367d52fa796055dadcb",
+        "inventory_sha256": "fc0249eb1329b15cf7c3b43d8c06114860090a5222ca3fc3341e64d6e3059e2a",
+        "scientific_inputs_sha256": "8a8994b92cc098aeacc167e80f829ee69cc99d51f062ca277390916a47da4a71",
+        "pipeline_source_sha256": "69da44d8dca828b154daab7bf73caab2fef75c91b985f85af7a7c0867d6eadd5"
+      },
+      "recorded_repository_commit": "d99ecdca8b0a4bf741bd4dda7bd564649cf05982",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:v2:hed-floral-02-hyacinth-three-petal-bouquet-30ml-20pct-edp-v1:3653b2603b275af7",
+      "formula_path": "formulas/HED-FLORAL-02_Hyacinth_Three_Petal_Bouquet_30mL_20pct_EdP_v1.md",
+      "formula_text_lf_sha256": "b0068621f1586cf77abc7cbe451984be74bc84237f41b33f898c2352039f2769",
+      "formula_source_sha256": "374c71a3b8568d142ee57c78d3ed50933dc13e34a3187654dc204ab6e154add6",
+      "artifact_text_sha256": "497ced1f08bb87e6ed983be28fe29c7b42d94b12d98d446156bc7d6737f28f36",
+      "manifest_sha256": "9e4fec6f0387c2d75e5f24cce9b2906aaaa2ca3d7163dc1667778c45aa55f067",
+      "manifest_artifact_sha256": "3653b2603b275af713c1255957f409736005b7a0c757c3049fd01ed043eb9cef",
+      "analysis_sha256": "0fb42d4c2846b7beef4297fca9f46f4e067f2cb792f6980c7f7535b8ad8acdbf",
+      "analysis_input_sha256": "841949c85b49681a0901fef5c43d3204763a633f6a9573b7a48d761d19d3f009",
+      "formula_definitions": [
+        {
+          "name": "HED-FLORAL-02 — Hyacinth Three-Petal Bouquet — 30 mL / 20% EdP — v1",
+          "number": 1,
+          "sha256": "020d451fab485027b25ebe6e7563abb48f262a9da6f2794171ea63129dbbcdc0"
+        }
+      ],
+      "g15_parent_formula_definitions": [],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "020d451fab485027b25ebe6e7563abb48f262a9da6f2794171ea63129dbbcdc0",
+          "record_id": "formula:1:hed-floral-02-hyacinth-three-petal-bouquet-30-ml-20-edp-v1",
+          "record_version": 1
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "60b27663b96568535dd0cae17fbb95ec5919672b1b5677009cb2da333d1d0cd0",
+        "inventory_sha256": "fc0249eb1329b15cf7c3b43d8c06114860090a5222ca3fc3341e64d6e3059e2a",
+        "scientific_inputs_sha256": "78b502c79094986620a81eaf5082f1409a534dded8409dc602aefe5a3c8d734d",
+        "pipeline_source_sha256": "9e63dd53191069d96a3eddfd714536ab49d52ca4f68c84b3047d0605520c348a"
+      },
+      "recorded_repository_commit": "d99ecdca8b0a4bf741bd4dda7bd564649cf05982",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:v2:hed-floral-02-hyacinth-three-petal-bouquet-final-30ml-v2:3abf543318819b38",
+      "formula_path": "formulas/HED-FLORAL-02_Hyacinth_Three_Petal_Bouquet_FINAL_30mL_v2.md",
+      "formula_text_lf_sha256": "0a18eb04576a01c93e64d3446fa40bd0a7561719315137113f19bf925a119ae6",
+      "formula_source_sha256": "e556335c1103606d728ea67fe44a92bfbf366b04755f5f519b1ae71a412e2d9a",
+      "artifact_text_sha256": "eda465eb66a5bf2aab1d49887d52a0d84a48a91741e37b362b64c92ff834aa8d",
+      "manifest_sha256": "9452e3186efe68fd20121fa54ac3c76e647756432555391c50e7ffb9d2f74e08",
+      "manifest_artifact_sha256": "3abf543318819b387880b77d940d19ab8dc40c3cfcef9c594ec529c17f211cce",
+      "analysis_sha256": "39c2929654b15601828814cf5c7207cfd95801cfe650154c24d7e2d7d813c4b5",
+      "analysis_input_sha256": "cd37017b6f308eb7a2ca07812f32f8edc4e7958fca3dfc478fceb6f9bc6ac3fc",
+      "formula_definitions": [
+        {
+          "name": "HED-FLORAL-02 — Hyacinth Three-Petal Bouquet — Final Design — 30 mL — v2",
+          "number": 1,
+          "sha256": "fd1a62733d78238fdaa4c8b29a69b3df843fb478dc8916f7903336112f4dbf4a"
+        }
+      ],
+      "g15_parent_formula_definitions": [
+        {
+          "name": "HED-FLORAL-02 — Hyacinth Three-Petal Bouquet — 30 mL / 20% EdP — v1",
+          "number": 1,
+          "sha256": "020d451fab485027b25ebe6e7563abb48f262a9da6f2794171ea63129dbbcdc0"
+        }
+      ],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "fd1a62733d78238fdaa4c8b29a69b3df843fb478dc8916f7903336112f4dbf4a",
+          "record_id": "formula:1:hed-floral-02-hyacinth-three-petal-bouquet-final-design-30-ml-v2",
+          "record_version": 1
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "f66cf8599cf8ad5a1724bc951924f8d66d8d21fac9938226daf88a8e87636f54",
+        "inventory_sha256": "317cc52e866eb33c5590e8435b1ae35b306992192a14e9ef8501247b437fc4f2",
+        "scientific_inputs_sha256": "5fa4ff5ba58ecaa4a99b48bb024e80f5efd647d16df406eb4f6ab4c13746dc5d",
+        "pipeline_source_sha256": "39a225d6d18b2a2e7bfda8bae8e78a668718f253d5625235d7e6593283a6da23"
+      },
+      "recorded_repository_commit": "cfcdfa6bbc6a18dd3838d60b7b3cae97e09429a6",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:v2:hed-floral-02-hyacinth-three-petal-bouquet-final-30ml-v3:a17c650b82b22e93",
+      "formula_path": "formulas/HED-FLORAL-02_Hyacinth_Three_Petal_Bouquet_FINAL_30mL_v3.md",
+      "formula_text_lf_sha256": "9c7dbb472985f0058f92fe8b55265453f201d36cd056a4ab05b1cab7d0eaa327",
+      "formula_source_sha256": "3f68f985f17ac2fd509347ad05ffb468ea6dab582ee4a560e4867b0035a03a6b",
+      "artifact_text_sha256": "df8e1cd4e35bc4b3ca97bae46e87032e19872085a05e633b735e8e982830afcf",
+      "manifest_sha256": "04ef0e51df16b0f6966858179e8b5b6bcc01dbf99b0a17e4f0816b6bb7c86971",
+      "manifest_artifact_sha256": "a17c650b82b22e93ca9a1c5248cccc7f0090bb853bbfc41b4547b91481c5947f",
+      "analysis_sha256": "4b79b188995020e2e6c3592aaf29074b2bb3344e28e43d2e8eca7f2b13136361",
+      "analysis_input_sha256": "856a58865ee316adecb1390e75ad905120f642f90aaaf17301ba6d716638d2b4",
+      "formula_definitions": [
+        {
+          "name": "HED-FLORAL-02 — Hyacinth Three-Petal Bouquet — Final Design — 30 mL — v3",
+          "number": 1,
+          "sha256": "9a67596f647dd2dd5a28be1fc630f51a8f3b62f26457dc3a8b09ffe4d7848795"
+        }
+      ],
+      "g15_parent_formula_definitions": [
+        {
+          "name": "HED-FLORAL-02 — Hyacinth Three-Petal Bouquet — Final Design — 30 mL — v2",
+          "number": 1,
+          "sha256": "fd1a62733d78238fdaa4c8b29a69b3df843fb478dc8916f7903336112f4dbf4a"
+        }
+      ],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "9a67596f647dd2dd5a28be1fc630f51a8f3b62f26457dc3a8b09ffe4d7848795",
+          "record_id": "formula:1:hed-floral-02-hyacinth-three-petal-bouquet-final-design-30-ml-v3",
+          "record_version": 1
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "6aca1259278806df6e6b97b2b487d399a1092d5f021539f11e863d4d9cc8ca15",
+        "inventory_sha256": "41cae9d8b65bb34ec0535f89fb7818c1378ce5c8790aa413b704d21801bd5c76",
+        "scientific_inputs_sha256": "5fa4ff5ba58ecaa4a99b48bb024e80f5efd647d16df406eb4f6ab4c13746dc5d",
+        "pipeline_source_sha256": "88b272c7c7394a02699fc6a52076f53d01271d08523530412555b538563717b7"
+      },
+      "recorded_repository_commit": "8c2a6071299c088875ae7cd0c2850b22d55e26d2",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:v2:hed-floral-03-magnolia-peony-satin-30ml-20pct-edp-v1:77e1722f7dffaee2",
+      "formula_path": "formulas/HED-FLORAL-03_Magnolia_Peony_Satin_30mL_20pct_EdP_v1.md",
+      "formula_text_lf_sha256": "dabedb643bbfc286fe6fc598bc8bc9032315deef9382158d844f4f0022b01b5a",
+      "formula_source_sha256": "9f174558948f4d4afedbe4aeca154474461fdf1e9dd6f21f3bab46231537f84b",
+      "artifact_text_sha256": "09bee43888dc062e23a052017be427bbf2b220b3f7da3385666f5c9ed3521850",
+      "manifest_sha256": "1284e3ef60b56e2df41f58f7c0a20c8efc82909b410d961a670d6f79054634b3",
+      "manifest_artifact_sha256": "77e1722f7dffaee2a6fbc9022e8c48df2f8c9110ad5dc3cf48600d017eeb3272",
+      "analysis_sha256": "4ad8228a776559d236c5aa38c8298aecd0f6f321e13d685bae116f10a27e517c",
+      "analysis_input_sha256": "d846ea58e3ec07dca3ae6b50342cef8ea6a7423170e166f098bcd456582d8250",
+      "formula_definitions": [
+        {
+          "name": "HED-FLORAL-03 — Magnolia-Peony Satin — 30 mL / 20% EdP — v1",
+          "number": 1,
+          "sha256": "1a171494eebaa17c464242df6d88beefd20293ed51fe26160561d2e2122cdf34"
+        }
+      ],
+      "g15_parent_formula_definitions": [],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "1a171494eebaa17c464242df6d88beefd20293ed51fe26160561d2e2122cdf34",
+          "record_id": "formula:1:hed-floral-03-magnolia-peony-satin-30-ml-20-edp-v1",
+          "record_version": 1
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "2cf46f16e36c791f9fde3fd265d0997de00873ee6093767ce7fc26df33417c82",
+        "inventory_sha256": "fc0249eb1329b15cf7c3b43d8c06114860090a5222ca3fc3341e64d6e3059e2a",
+        "scientific_inputs_sha256": "78b502c79094986620a81eaf5082f1409a534dded8409dc602aefe5a3c8d734d",
+        "pipeline_source_sha256": "9e63dd53191069d96a3eddfd714536ab49d52ca4f68c84b3047d0605520c348a"
+      },
+      "recorded_repository_commit": "d99ecdca8b0a4bf741bd4dda7bd564649cf05982",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:v2:hed-floral-03-magnolia-peony-satin-final-30ml-v2:fb1600102842b901",
+      "formula_path": "formulas/HED-FLORAL-03_Magnolia_Peony_Satin_FINAL_30mL_v2.md",
+      "formula_text_lf_sha256": "0d5672dbc864219c08be045804ca63c1034371467187a9b82bba34ab5c887e7a",
+      "formula_source_sha256": "260561bbd094ba83bdf0bf4842f3ac592a17fd0e0d83b26e75deb16249dc96de",
+      "artifact_text_sha256": "70a0bbe31732942e5f9657d74cd433b13dc4c031ea7f26f7d2e103b5d9045f53",
+      "manifest_sha256": "9d15a0f56ae0e07a2afc403f406099dd1189096524a21d669112dee7f1f0a031",
+      "manifest_artifact_sha256": "fb1600102842b90129e59d597a48572c176b8e03fabb85f68acc5680cf70da59",
+      "analysis_sha256": "81d340011ba25a9ce5c4f09bf60650dfd7995ef7e654899b1246f2c5bb196af2",
+      "analysis_input_sha256": "1c96082f8ea40df22104d75c78127a712cb427b67bdc659e30744e0d79840b83",
+      "formula_definitions": [
+        {
+          "name": "HED-FLORAL-03 — Magnolia–Peony Satin — Final Design — 30 mL — v2",
+          "number": 1,
+          "sha256": "33cd82a29bcd452a0b648e1ff709f06bfbfe69e737f2b6cab590f5ec6fccca5c"
+        }
+      ],
+      "g15_parent_formula_definitions": [
+        {
+          "name": "HED-FLORAL-03 — Magnolia-Peony Satin — 30 mL / 20% EdP — v1",
+          "number": 1,
+          "sha256": "1a171494eebaa17c464242df6d88beefd20293ed51fe26160561d2e2122cdf34"
+        }
+      ],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "33cd82a29bcd452a0b648e1ff709f06bfbfe69e737f2b6cab590f5ec6fccca5c",
+          "record_id": "formula:1:hed-floral-03-magnolia-peony-satin-final-design-30-ml-v2",
+          "record_version": 1
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "649060d877463f635f2f49a021f71518a11414f8728c5876b77530b27209510e",
+        "inventory_sha256": "317cc52e866eb33c5590e8435b1ae35b306992192a14e9ef8501247b437fc4f2",
+        "scientific_inputs_sha256": "5fa4ff5ba58ecaa4a99b48bb024e80f5efd647d16df406eb4f6ab4c13746dc5d",
+        "pipeline_source_sha256": "39a225d6d18b2a2e7bfda8bae8e78a668718f253d5625235d7e6593283a6da23"
+      },
+      "recorded_repository_commit": "cfcdfa6bbc6a18dd3838d60b7b3cae97e09429a6",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:v2:immortelle-ambre-fossile-v2-30ml-24pct-parfum:7ca46fed091ff5f5",
+      "formula_path": "formulas/Immortelle_Ambre_Fossile_V2_30mL_24pct_Parfum.md",
+      "formula_text_lf_sha256": "410d157c29a6d71846e8405883d9baabf71fa19e639b16e22c13a4d4556ae5a7",
+      "formula_source_sha256": "c98429d7e5a24d3f76623e658d25c6b5b16445daf857630de0d0f313cab99abc",
+      "artifact_text_sha256": "781ae1f1d179d4951b2c9d6cb9f427beed5afb534d9e4a1034cd60b00f9ef817",
+      "manifest_sha256": "3b8ae6258c79dd5640ff3a11955dddf5e98dfaf4ebcba47ea15fb3e35232ee0a",
+      "manifest_artifact_sha256": "7ca46fed091ff5f51539bc937bf0afe4247f72b9282880280db2d138392f48f5",
+      "analysis_sha256": "ecba9d73165e825772561789e659be8db63b21e1ebcd53ee215d2f982dda07aa",
+      "analysis_input_sha256": "91776a735ce7a6de76c66c75828b270e4796e915c937468ca009ecaa5df95a51",
+      "formula_definitions": [
+        {
+          "name": "Immortelle Ambre Fossile V2 — 30 mL / 24% Parfum",
+          "number": 1,
+          "sha256": "2fa3414d9c78f8dccb5c54c0c0ff2c8bc53c59ab6043c2870a8fc3bc276283bb"
+        }
+      ],
+      "g15_parent_formula_definitions": [
+        {
+          "name": "Immortelle Ambre Fossile V1 — Deep Amber Structural Theory — 30 mL / 24% Parfum",
+          "number": 1,
+          "sha256": "6bbf2191b988682acfa4550a1fa9c8446f04563ccb10bd2560f2b54c6dfaaaef"
+        }
+      ],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "2fa3414d9c78f8dccb5c54c0c0ff2c8bc53c59ab6043c2870a8fc3bc276283bb",
+          "record_id": "formula:1:immortelle-ambre-fossile-v2-30-ml-24-parfum",
+          "record_version": 1
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "044a8b11bacfa5b3e3f9718d4c46f44c6fe11ac40cfd13bcdcecf8f51de37613",
+        "inventory_sha256": "fc0249eb1329b15cf7c3b43d8c06114860090a5222ca3fc3341e64d6e3059e2a",
+        "scientific_inputs_sha256": "8a8994b92cc098aeacc167e80f829ee69cc99d51f062ca277390916a47da4a71",
+        "pipeline_source_sha256": "4c26344dbf4ec2fc165ee4c77fa8cddfd1f0f535d2a978dc45cf4527b1a34e6c"
+      },
+      "recorded_repository_commit": "d99ecdca8b0a4bf741bd4dda7bd564649cf05982",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:v2:orr-01-final-full-rum-30ml-21-8pct:700612829b610b03",
+      "formula_path": "formulas/ORR-01_FINAL_FULL_RUM_30mL_21.8PCT.md",
+      "formula_text_lf_sha256": "1253aaf20b6b95b94331533ed9a42760d797bb96725037df0b7a9d5c6059b29e",
+      "formula_source_sha256": "cf24e77d2f9ecf6af48bca3d76af7dadd54d66adccf59387c2a0530ffbee71be",
+      "artifact_text_sha256": "cda22da8158be706db9501e334fc2ffe707e4bd4522d278d033d93854a94be63",
+      "manifest_sha256": "fecae86b911c5a023f8eb8d1e65e9c4720bc7017f4ed23dc4bf9b2ab1408d2a8",
+      "manifest_artifact_sha256": "700612829b610b03c2e64e2f63dc149f8e336cf7f23b21669e818a8524fdbb0c",
+      "analysis_sha256": "3c71895a493e27c7b54db5b65ab4e18aa433502a84e0345bd8bc561f29174858",
+      "analysis_input_sha256": "7df4313a2502c3d15c7143108d33bb764ab6f8d6ce3f781c1a2401f3641f68c9",
+      "formula_definitions": [
+        {
+          "name": "ORR-01 Sweet Orris Rootwood — Opus V + DHP 2025 · FULL STACK · 30 mL",
+          "number": 1,
+          "sha256": "d36686fea2556f1f0effc63cbbc15d973d7de099ac66ce2e2b1b918f18332b11"
+        }
+      ],
+      "g15_parent_formula_definitions": [],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "d36686fea2556f1f0effc63cbbc15d973d7de099ac66ce2e2b1b918f18332b11",
+          "record_id": "formula:1:orr-01-sweet-orris-rootwood-opus-v-dhp-2025-full-stack-30-ml",
+          "record_version": 1
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "3b7b3764aca00b6867b0c78c3babc93e68f13ddda6fb1c799270a2638ab6061b",
+        "inventory_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+        "scientific_inputs_sha256": "5091618a6dea9a7a7ddbe0289022e3dabe7fbb65b33be892de247e42871e3400",
+        "pipeline_source_sha256": "0e65c7d9c3608c8b780bf98883c8220f67c2a7e50107ecbfba37fc20a6bb2e21"
+      },
+      "recorded_repository_commit": "281d389ca76424ace2438e1f6cabdad75163a4d6",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:v2:pink-pepper-lavender-masculine-30ml-edp:1beeaf6af6cddf61",
+      "formula_path": "formulas/Pink_Pepper_Lavender_Masculine_30mL_EDP.md",
+      "formula_text_lf_sha256": "e8bb3f4a7c73535eb1cab17cb08712dff9c92bc25f54e09f927135a4f471a5fc",
+      "formula_source_sha256": "3b4d725f01ac4b729b9a39c1187d3cb2d070ea4706a3948b9649f91ced65a099",
+      "artifact_text_sha256": "b82897211f5c8ca7ed1a88bbd6d7f7f7f451ffc0b47882d246a95df9865578ee",
+      "manifest_sha256": "89fefc6220f4efc8552256fd80f81b94f6b5bbd1c9976726336cf07ba2b43859",
+      "manifest_artifact_sha256": "1beeaf6af6cddf6187f21063c0e9af1171d6b8bc745fd347329cf6d873c26073",
+      "analysis_sha256": "13682fa97af434bbac4638973dfcd0f0fc91a9e1e4cf2fe38d827f45d67192dd",
+      "analysis_input_sha256": "3a4bc21432f7296f6c6744ccc3d2b71176c56c58c34a1a0e40938f2132462532",
+      "formula_definitions": [
+        {
+          "name": "Pink Pepper Lavender — Masculine Aromatic-Fougère",
+          "number": 1,
+          "sha256": "3311aa9c986118884ed2fc410c61f58c829beefb37259959b60ad429974bf26a"
+        }
+      ],
+      "g15_parent_formula_definitions": [],
+      "canonical_records": [
+        {
+          "canonical_content_sha256": "3311aa9c986118884ed2fc410c61f58c829beefb37259959b60ad429974bf26a",
+          "record_id": "formula:1:pink-pepper-lavender-masculine-aromatic-foug-re",
+          "record_version": 1
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "a7e1cf6ede9f4e9977f32f00c81ffb8a99d0e69477f180a18106663ad7699104",
+        "inventory_sha256": "60b308fef39c843e603635c69239cd1ac746023a8c214e72a4fef145438ae370",
+        "scientific_inputs_sha256": "f3aef7ed6e41af1fec8b0fbee2ce00943675fcf754b8893b2255d07f7c62d048",
+        "pipeline_source_sha256": "d6c97250cb94af705e0e5f1261f27c86ade181918e7ab2e184a643b36472336c"
+      },
+      "recorded_repository_commit": "e58f8431e2d973b1af48879fea57e69fbb2a8154",
+      "current_repository_bindings": false,
+      "release_authority": false
+    },
+    {
+      "record_id": "historical-pipeline-artifact:white-fire-reliquary:2026-08-28T07:57:36.980646Z",
+      "formula_path": "formulas/White_Fire_Reliquary_30mL_Parfum.md",
+      "formula_text_lf_sha256": "b0604a4beb49fa24de34099ef84e4b4a13877684df14b0f7d2395e379a5651c4",
+      "formula_source_sha256": "74ecf7bca81969c0084a3f5c9d801f92c01eaaa33f336b82227e4a46a9f5c201",
+      "artifact_text_sha256": "1ab9cfc1568effe2cce168eeb57ab068b8bdd6bf5c609f38bb07c476364a069b",
+      "manifest_sha256": "3cd3ee3a87d5ed972a42a879ab2d9fd3a8dd7c9053bfa1b37645d3948b927778",
+      "manifest_artifact_sha256": "6ca1c96a94475c0094d70903e9eac0cbf911775e7128e3ce1cb907d01f116843",
+      "analysis_sha256": "3a9dba951b5fad47d7ca49a60ca7439e0b881f31627bb3fadb7317bdec3deca6",
+      "analysis_input_sha256": "c2b9e45ab369ef280ed6a68b85f94aaef523d6e4c57613ee5b1288d9cb4a8a77",
+      "formula_definitions": [
+        {
+          "name": "CURRENT-INVENTORY BUILD — parser-visible formula",
+          "number": 4,
+          "sha256": "86a30d52bfe945dffa5a66d982ba7b5693ab55b072a6a0d83058bf1c63892e6e"
+        }
+      ],
+      "g15_parent_formula_definitions": [
+        {
+          "name": "White Fire Reliquary v1 — Historical Compressed Parent",
+          "number": 1,
+          "sha256": "e75a5b8403657f602b22fad16605520e6477b37dc4da67ef484697bec93e79e6"
+        }
+      ],
+      "canonical_records": [
+        {
+          "record_id": "formula:4:current-inventory-build-parser-visible-formula",
+          "record_version": 4,
+          "canonical_content_sha256": "86a30d52bfe945dffa5a66d982ba7b5693ab55b072a6a0d83058bf1c63892e6e"
+        }
+      ],
+      "recorded_input_hashes": {
+        "config_sha256": "52ce43c61e44e335483e6d16188191ef0b005914213d0451efba3d8d1df03977",
+        "inventory_sha256": "dca7518332d25b235d1dc175363eca533aca13282c6b5aea00485af9068d8c55",
+        "scientific_inputs_sha256": "1c2398b44714c47acbd57ae3e6dae8ec053b7b68358dfd6fa7258e33eafaf091",
+        "pipeline_source_sha256": "b9a5f3bd50d5dddc4811388f7e8c913b9d6c672273d5449a4d5e8951aa9b909d"
+      },
+      "recorded_repository_commit": "9991108157d8b26098974dc4980804f827204e0c",
+      "current_repository_bindings": false,
+      "release_authority": false
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": "solforge_judge_round_manifest_v1",
+  "round": 3,
+  "phase": "SCREEN",
+  "status": "COMPLETE_PENDING_SCORE",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "protocol": "minimal public case plus three anonymous outputs; one fresh projectless conversation per case",
+  "case_count": 12,
+  "task_ids": {
+    "SCR-CITRUS-01": "01a03a9f-b672-7c20-b225-3dd9129aea4b",
+    "SCR-CITRUS-02": "01a03a9f-c0f5-7a40-9acf-ecd18f960f23",
+    "SCR-CITRUS-03": "01a03a9f-ffad-7103-8a4a-a63444cfa886",
+    "SCR-COUNT-04": "01a03aa0-2c38-7aa2-a3fe-48fadaf8f2f2",
+    "SCR-MUSK-05": "01a03aa0-33da-7cd0-a073-fa0c17a128c6",
+    "SCR-MUSK-06": "01a03aa0-4247-7d92-88b4-dfc15efb611e",
+    "SCR-MUSK-07": "01a03aa0-505c-79f1-b45d-d2c50d347d8a",
+    "SCR-MUSK-08": "01a03a9f-7dac-76a3-a28e-04210f792ebd",
+    "SCR-MUSK-09": "01a03aa0-7e97-7411-b2db-6f6e42713a3e",
+    "SCR-EVIDENCE-10": "01a03aa0-897b-7781-83dd-86bb2afb2389",
+    "SCR-PREF-11": "01a03aa0-9516-73a3-a554-2ba06faba12f",
+    "SCR-AMBER-12": "01a03aa0-a29e-7931-85b4-6c5a64d00c95"
+  },
+  "authority_flags": {
+    "compounding": false,
+    "formula": false,
+    "hedonic": false,
+    "physical": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "capture_id": "V20-OUTER-ZIP-EXACT-20260818T043819+0700",
+  "captured_at": "2026-08-18T04:38:19+07:00",
+  "validated_at": "2026-08-18T04:40:18.3805364+07:00",
+  "source": {
+    "chat_id": "6a74ba21-0d30-83ec-b211-e80baca66948",
+    "content_reference_index": 0,
+    "retrieval_mode": "BOUNDED_ORIGINAL_ATTACHMENT_BASE64",
+    "corrective_range": "1-18000",
+    "regenerated": false
+  },
+  "outer_zip": {
+    "filename": "PERFUME_CHEM_V20_GAP_CLOSURE_CANDIDATE_2026-08-17.zip",
+    "bytes": 96905,
+    "sha256": "2cd1f5a3894badc0fde11eb3e5edc8c0219525b5a5ed3d3beaeacd6f0e6b6a79",
+    "local_materialized": true,
+    "admission_state": "PASS_EXACT_QUARANTINE_ONLY"
+  },
+  "members": {
+    "zip_entries": 46,
+    "crc": "PASS",
+    "safe_paths": true,
+    "ledger_entries": 45,
+    "ledger_matched": 45,
+    "ledger_self_exact": true,
+    "extracted_quarantine_only": true
+  },
+  "identity_census": {
+    "downloadable_identities": 48,
+    "local_exact_identities": 48,
+    "cloud_only_identities": 0
+  },
+  "authority": {
+    "canonical_installation": false,
+    "scientific": false,
+    "formula": false,
+    "inventory": false,
+    "physical": false,
+    "sensory": false,
+    "release": false,
+    "promotion": false
+  }
+}

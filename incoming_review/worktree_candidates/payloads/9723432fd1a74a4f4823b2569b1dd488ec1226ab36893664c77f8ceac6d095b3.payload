@@ -1,0 +1,63 @@
+﻿Code,Y02
+Target,L’Homme Le Parfum
+Version,CURRENT OFFICIAL
+Concentration,0.22
+30 mL concentrate µL,6600.0
+30 mL carrier µL,23400.0
+5 mL concentrate µL,1100.0
+5 mL carrier µL,3900.0
+Maturation,28 days
+Engine V2 score,93.10318651433973
+Monte Carlo pass probability,0.9583333333333334
+Outcome,SOL_5_6_PRO_ENGINE_V2_PASS
+Formula hash,309b1d13bf372ce567a93057363d65d5170a120caf1e6f6f3e2c38ea87b73e5a
+
+Order,Stage,Material,Stock,Active fraction,Parts / 1000,30 mL µL,5 mL µL,Execution,Signature phase,Role,Module ancestry
+1,1 · Resins and sweet fixatives,Coumarin 20%,20% in DPG,0.2,49.978263319754625,329.85653791038055,54.97608965173009,PREPARED STOCK,,Hay-almond tonka warmth.,Apple Amber Electric | Lhomme Woody Tonka
+2,1 · Resins and sweet fixatives,Tonka Bean Absolute 10%,10% working stock,0.1,22.799362390712805,150.47579177870452,25.079298629784088,PREPARED STOCK,,Natural tonka warmth.,Lhomme Woody Tonka
+3,1 · Resins and sweet fixatives,Vanillin 10%,10% working stock,0.1,15.972434669199933,105.41806881671955,17.569678136119926,PREPARED STOCK,,Vanilla warmth.,Apple Amber Electric
+4,"2 · Woods, leather and amber",Cedarwood Virginia,neat / as supplied,1.0,119.76105752974705,790.4229796963306,131.73716328272175,DIRECT,base,Dry cedar frame.,Dry Woods | Lhomme Ginger Violet | Lhomme Woody Tonka | Target-Specific Reinforcement
+5,"2 · Woods, leather and amber",Iso E Super,neat / as supplied,1.0,116.57301109375754,769.3818732187998,128.2303122031333,DIRECT,base,Transparent woody scaffold.,Dry Woods | Lhomme Ginger Violet | Lhomme Woody Tonka | White Musk Frame
+6,"2 · Woods, leather and amber",Vetiver EO,neat / as supplied,1.0,45.9207496739498,303.0769478480687,50.512824641344785,DIRECT,,Rooty natural vetiver.,Dry Woods | Lhomme Woody Tonka
+7,"2 · Woods, leather and amber",Ambrofix 30%,30% working stock,0.3,38.417569678136125,253.55595987569842,42.259326645949734,PREPARED STOCK,,Mineral ambergris persistence.,Apple Amber Electric | Dry Woods | Lhomme Woody Tonka | White Musk Frame
+8,"2 · Woods, leather and amber",Vertofix,neat / as supplied,1.0,38.256557231874034,252.4932777303686,42.082212955061436,DIRECT,,Vetiver-cedar volume.,Dry Woods | Lhomme Woody Tonka
+9,"2 · Woods, leather and amber",Amberwood F,neat / as supplied,1.0,37.83792487159258,249.73030415251102,41.62171735875184,DIRECT,base,Dry woody-amber pressure.,Apple Amber Electric | Dry Woods | Target-Specific Reinforcement
+10,"2 · Woods, leather and amber",Clearwood,neat / as supplied,1.0,22.863767369217644,150.90086463683645,25.150144106139408,DIRECT,,Clean patchouli wood.,Dry Woods | Lhomme Woody Tonka
+11,"2 · Woods, leather and amber",Sandalore,neat / as supplied,1.0,0.32202489252419214,2.125364290659668,0.3542273817766114,TRACE PREMIX,,Creamy sandalwood.,Dry Woods
+12,"2 · Woods, leather and amber",Vetival,neat / as supplied,1.0,0.25761991401935375,1.7002914325277347,0.2833819054212891,TRACE PREMIX,,Polished vetiver.,Dry Woods
+13,"2 · Woods, leather and amber",Polysantol,neat / as supplied,1.0,0.1932149355145153,1.2752185743958009,0.21253642906596681,TRACE PREMIX,,Persistent sandalwood.,Dry Woods
+14,"2 · Woods, leather and amber",Ambrox Super 33%,33% working stock,0.33,0.16101244626209607,1.062682145329834,0.1771136908883057,TRACE PREMIX,,Dry mineral amber.,Dry Woods
+15,3 · Musks and diffusion,Habanolide,neat / verify label,1.0,65.24224322540132,430.59880528764876,71.76646754794146,DIRECT · VERIFY LABEL,,Radiant metallic-clean musk.,Apple Amber Electric | Lhomme Woody Tonka | White Musk Frame
+16,3 · Musks and diffusion,Romandolide,neat / verify label,1.0,42.24966589917401,278.84779493454846,46.47463248909141,DIRECT · VERIFY LABEL,,Fruity-clean musk body.,Lhomme Woody Tonka | White Musk Frame
+17,3 · Musks and diffusion,Galaxolide 50%,50% in DEP,0.5,18.9350636804225,124.97142029078849,20.828570048464748,PREPARED STOCK,,Soft musk volume.,White Musk Frame
+18,3 · Musks and diffusion,Zenolide,neat / as supplied,1.0,13.52504548601607,89.26530020770606,14.877550034617677,DIRECT,,Smooth musk.,White Musk Frame
+19,3 · Musks and diffusion,Ambrettolide 10%,10% in DPG,0.1,10.820036388812857,71.41224016616485,11.902040027694142,PREPARED STOCK,,Warm ambrette musk.,White Musk Frame
+20,3 · Musks and diffusion,Exaltolide 10%,10% working stock,0.1,10.820036388812857,71.41224016616485,11.902040027694142,PREPARED STOCK,,Soft macrocyclic musk.,White Musk Frame
+21,3 · Musks and diffusion,Macrolide,as supplied,1.0,6.762522743008035,44.63265010385303,7.4387750173088385,DIRECT,,Soft macrocyclic musk.,White Musk Frame
+22,"4 · Iris, floral and green heart",AAG 10%,10% prepared from neat AAG,0.1,61.699969407635216,407.21979809039243,67.86996634839873,PREPARED STOCK,top,Green pear-pineapple lift.,Apple Amber Electric | Target-Specific Reinforcement
+23,"4 · Iris, floral and green heart",Hedione,neat / as supplied,1.0,32.71772908045793,215.9370119310223,35.98950198850372,DIRECT,,Airy jasmine diffusion.,Apple Amber Electric | Lhomme Ginger Violet
+24,"4 · Iris, floral and green heart",Violet Leaf Absolute 10%,10% working stock,0.1,26.27723122997408,173.42972611782892,28.904954352971487,PREPARED STOCK,heart,Cool metallic violet leaf.,Lhomme Ginger Violet | Target-Specific Reinforcement
+25,"4 · Iris, floral and green heart",Hexyl Acetate 10%,10% working stock,0.1,23.958652003799898,158.12710322507934,26.35451720417989,PREPARED STOCK,,Juicy green fruit.,Apple Amber Electric
+26,"4 · Iris, floral and green heart",Alpha Isomethyl Ionone,neat / as supplied,1.0,16.745294411257994,110.51894311430276,18.419823852383793,DIRECT,,Powdery violet-orris body.,Lhomme Ginger Violet
+27,"4 · Iris, floral and green heart",Verdox,neat / as supplied,1.0,15.972434669199933,105.41806881671955,17.569678136119926,DIRECT,,Green woody-fruit body.,Apple Amber Electric
+28,"4 · Iris, floral and green heart",Dihydro Beta Ionone,neat / as supplied,1.0,11.721706087880595,77.36326018001193,12.893876696668654,DIRECT,,Dry woody violet.,Lhomme Ginger Violet
+29,"4 · Iris, floral and green heart",Jasmine Absolute 10%,10% working stock,0.1,0.5796448065435459,3.8256557231874027,0.6376092871979004,TRACE PREMIX,,Warm natural jasmine.,Precision Trace Architecture
+30,"4 · Iris, floral and green heart",Rose Oxide 1%,1% working stock,0.01,0.5796448065435459,3.8256557231874027,0.6376092871979004,TRACE PREMIX,,Metallic rose and pepper lift.,Precision Trace Architecture
+31,"4 · Iris, floral and green heart",Magnolia EO,neat / as supplied,1.0,0.4991385834124979,3.294314650522486,0.5490524417537477,TRACE PREMIX,,Creamy citrus-white-floral detail.,Precision Trace Architecture
+32,"4 · Iris, floral and green heart",Alpha Irone 30%,30% w/w in IPM,0.3,0.4186323602814498,2.7629735778575686,0.4604955963095948,TRACE PREMIX,,Naturalistic irone signature.,Precision Trace Architecture
+33,"4 · Iris, floral and green heart",Indole 10%,10% working stock,0.1,0.4186323602814498,2.7629735778575686,0.4604955963095948,TRACE PREMIX,,Indolic floral shadow.,Precision Trace Architecture
+34,"4 · Iris, floral and green heart",Carrot Seed EO 10%,10% working stock,0.1,0.3381261371504018,2.2316325051926515,0.3719387508654419,TRACE PREMIX,,Rooty carrot-rhizome nuance.,Precision Trace Architecture
+35,"4 · Iris, floral and green heart",Farnesol,neat / as supplied,1.0,0.3381261371504018,2.2316325051926515,0.3719387508654419,TRACE PREMIX,,Warm floral persistence.,Precision Trace Architecture
+36,"4 · Iris, floral and green heart",Damascenone 1%,1% working stock,0.01,0.25761991401935375,1.7002914325277347,0.2833819054212891,TRACE PREMIX,,High-impact fruit-rose radiance.,Precision Trace Architecture
+37,"4 · Iris, floral and green heart",Jasmine Sambac Absolute 10%,10% working stock,0.1,0.25761991401935375,1.7002914325277347,0.2833819054212891,TRACE PREMIX,,Green-fruity jasmine.,Precision Trace Architecture
+38,5 · Aromatics and spices,Cardamom EO,neat / as supplied,1.0,26.019611315954727,171.7294346853012,28.6215724475502,DIRECT,,Cool green cardamom.,Apple Amber Electric | Lhomme Ginger Violet
+39,5 · Aromatics and spices,Coriander EO,neat / as supplied,1.0,16.745294411257994,110.51894311430276,18.419823852383793,DIRECT,,Citrus-spicy seed.,Lhomme Ginger Violet
+40,5 · Aromatics and spices,Dihydromyrcenol,neat / as supplied,1.0,15.972434669199933,105.41806881671955,17.569678136119926,DIRECT,,High-diffusion freshness.,Apple Amber Electric
+41,5 · Aromatics and spices,Black Pepper EO,neat / as supplied,1.0,8.372647205628997,55.25947155715138,9.209911926191896,DIRECT,,Dry pepper sparkle.,Lhomme Ginger Violet
+42,5 · Aromatics and spices,Clary Sage EO,neat / as supplied,1.0,6.698117764503197,44.2075772457211,7.367929540953517,DIRECT,,Dry aromatic sage.,Lhomme Ginger Violet
+43,6 · Citrus and volatile top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,41.090376286086915,271.19648348817367,45.199413914695604,DIRECT,top,Floral bitter citrus lift.,Apple Amber Electric | Lhomme Ginger Violet
+44,6 · Citrus and volatile top,Petitgrain EO Paraguay,neat / as supplied,1.0,8.372647205628997,55.25947155715138,9.209911926191896,DIRECT,,Green bitter-orange twig.,Lhomme Ginger Violet
+45,6 · Citrus and volatile top,Citral 10%,10% working stock,0.1,5.023588323377398,33.15568293429082,5.525947155715137,PREPARED STOCK,,Lemon-citral edge.,Lhomme Ginger Violet
+46,6 · Citrus and volatile top,Aldehyde C12 MNA 1%,1% working stock,0.01,0.4991385834124979,3.294314650522486,0.5490524417537477,TRACE PREMIX,,Waxy aldehydic diffusion.,Precision Trace Architecture
+47,6 · Citrus and volatile top,Aldehyde C11 1%,1% working stock,0.01,0.4186323602814498,2.7629735778575686,0.4604955963095948,TRACE PREMIX,,Fresh aldehydic extension.,Precision Trace Architecture
+48,6 · Citrus and volatile top,Aldehyde C10 1%,1% working stock,0.01,0.3381261371504018,2.2316325051926515,0.3719387508654419,TRACE PREMIX,,Citrus aldehydic lift.,Precision Trace Architecture

@@ -1,0 +1,450 @@
+from engine.pipeline import preflight as preflight_module
+from engine.pipeline.formula_state import build_formula_state
+from engine.pipeline.gates import (
+    GateResult,
+    ReleaseGateConfig,
+    _apply_preflight_confidence_penalty,
+)
+from engine.pipeline.preflight import (
+    build_formula_dose_receipt,
+    resolve_inventory_stock_contract,
+    resolved_stock_specs_for_state,
+    run_release_preflight,
+)
+
+
+def _formula():
+    return {
+        "name": "Preflight Test",
+        "ingredients_ul": {
+            "Hedione": 900.0,
+            "Iso E Super": 1500.0,
+        },
+        "dilutions": {
+            "Hedione": 1.0,
+            "Iso E Super": 1.0,
+        },
+    }
+
+
+def _bound_state_and_receipt(formula):
+    stock_contract = resolve_inventory_stock_contract(formula)
+    receipt = build_formula_dose_receipt(formula, stock_contract)
+    state = build_formula_state(
+        formula["ingredients_ul"],
+        formula["dilutions"],
+        stock_specs=resolved_stock_specs_for_state(formula, stock_contract),
+        batch_volume_ml=30.0,
+        dose_receipt_sha256=receipt.receipt_sha256,
+        dose_receipt_status=receipt.status,
+    )
+    return state, receipt, stock_contract
+
+
+def test_release_preflight_contract_has_expected_checks():
+    formula = _formula()
+    state, receipt, stock_contract = _bound_state_and_receipt(formula)
+    report = run_release_preflight(
+        formula,
+        state,
+        stock_contract=stock_contract,
+        dose_receipt=receipt,
+    ).as_dict()
+
+    assert report["status"] in {"PASS", "WARN"}
+    names = [check.get("check_name") for check in report["checks"]]
+    assert "input_normalization" in names
+    assert "formula_dose_receipt" in names
+    assert "knowledge_graph_schema" in names
+    assert "literature_rule_contract" in names
+    assert "knowledge_rule_quality" in names
+    assert "odt_authority" in names
+    assert "data_authority" in names
+    assert "science_coverage" in names
+    assert "material_identity_and_physics" in names
+    assert report["confidence_penalty"] >= 0.0
+    science = next(
+        check for check in report["checks"]
+        if check.get("check_name") == "science_coverage"
+    )
+    assert science["data"]["scope"] == "formula_runtime"
+    assert science["data"]["confidence_penalty"] == 0.0
+    assert (
+        science["data"]["catalogue_context"]["formula_penalty_authority"]
+        is False
+    )
+
+
+def test_release_preflight_fails_when_formula_state_has_no_dose_receipt():
+    formula = _formula()
+    state = build_formula_state(
+        formula["ingredients_ul"],
+        formula["dilutions"],
+        batch_volume_ml=30.0,
+    )
+
+    report = run_release_preflight(formula, state).as_dict()
+
+    receipt_check = next(
+        check
+        for check in report["checks"]
+        if check.get("check_name") == "formula_dose_receipt"
+    )
+    assert receipt_check["status"] == "FAIL"
+
+
+def test_release_preflight_fails_when_formula_state_receipt_hash_is_tampered():
+    formula = _formula()
+    stock_contract = resolve_inventory_stock_contract(formula)
+    receipt = build_formula_dose_receipt(formula, stock_contract)
+    state = build_formula_state(
+        formula["ingredients_ul"],
+        formula["dilutions"],
+        stock_specs=resolved_stock_specs_for_state(formula, stock_contract),
+        batch_volume_ml=30.0,
+        dose_receipt_sha256="0" * 64,
+        dose_receipt_status=receipt.status,
+    )
+
+    report = run_release_preflight(
+        formula,
+        state,
+        stock_contract=stock_contract,
+        dose_receipt=receipt,
+    ).as_dict()
+
+    receipt_check = next(
+        check
+        for check in report["checks"]
+        if check.get("check_name") == "formula_dose_receipt"
+    )
+    assert receipt_check["status"] == "FAIL"
+    assert "identities do not match" in receipt_check["detail"]
+
+
+def test_release_preflight_rejects_receipt_from_a_different_formula_argument():
+    formula = _formula()
+    state, receipt, stock_contract = _bound_state_and_receipt(formula)
+    replayed_as_another_formula = dict(formula)
+    replayed_as_another_formula["name"] = "Different Formula"
+
+    report = run_release_preflight(
+        replayed_as_another_formula,
+        state,
+        stock_contract=stock_contract,
+        dose_receipt=receipt,
+    ).as_dict()
+
+    receipt_check = next(
+        check
+        for check in report["checks"]
+        if check.get("check_name") == "formula_dose_receipt"
+    )
+    assert receipt_check["status"] == "FAIL"
+    assert "formula input bound" in receipt_check["detail"]
+    assert (
+        receipt_check["data"]["receipt_formula_input_sha256"]
+        != receipt_check["data"]["current_formula_input_sha256"]
+    )
+
+
+def test_release_preflight_rejects_tampered_receipt_payload():
+    formula = _formula()
+    state, receipt, stock_contract = _bound_state_and_receipt(formula)
+    object.__setattr__(receipt, "formula_name", "Tampered Formula")
+
+    report = run_release_preflight(
+        formula,
+        state,
+        stock_contract=stock_contract,
+        dose_receipt=receipt,
+    ).as_dict()
+
+    receipt_check = next(
+        check
+        for check in report["checks"]
+        if check.get("check_name") == "formula_dose_receipt"
+    )
+    assert receipt_check["status"] == "FAIL"
+    assert "content hash" in receipt_check["detail"]
+    assert (
+        receipt_check["data"]["receipt_sha256"]
+        != receipt_check["data"]["recomputed_receipt_sha256"]
+    )
+
+
+def test_release_preflight_rejects_abstained_receipt():
+    formula = {
+        "name": "Unknown Stock",
+        "ingredients_ul": {"Definitely Not In Inventory": 10.0},
+        "dilutions": {"Definitely Not In Inventory": 1.0},
+    }
+    stock_contract = resolve_inventory_stock_contract(formula)
+    receipt = build_formula_dose_receipt(formula, stock_contract)
+    state = build_formula_state(
+        formula["ingredients_ul"],
+        formula["dilutions"],
+        dose_receipt_sha256=receipt.receipt_sha256,
+        dose_receipt_status=receipt.status,
+    )
+
+    report = run_release_preflight(
+        formula,
+        state,
+        stock_contract=stock_contract,
+        dose_receipt=receipt,
+    ).as_dict()
+
+    receipt_check = next(
+        check
+        for check in report["checks"]
+        if check.get("check_name") == "formula_dose_receipt"
+    )
+    assert receipt.status == "ABSTAINED"
+    assert receipt_check["status"] == "FAIL"
+    assert receipt_check["data"]["receipt_status"] == "ABSTAINED"
+    assert receipt_check["data"]["receipt_reasons"]
+
+
+def test_release_preflight_fails_when_bound_state_dose_does_not_replay():
+    formula = _formula()
+    stock_contract = resolve_inventory_stock_contract(formula)
+    receipt = build_formula_dose_receipt(formula, stock_contract)
+    changed_ingredients = dict(formula["ingredients_ul"])
+    changed_ingredients["Iso E Super"] += 1.0
+    state = build_formula_state(
+        changed_ingredients,
+        formula["dilutions"],
+        stock_specs=resolved_stock_specs_for_state(formula, stock_contract),
+        batch_volume_ml=30.0,
+        dose_receipt_sha256=receipt.receipt_sha256,
+        dose_receipt_status=receipt.status,
+    )
+
+    report = run_release_preflight(
+        formula,
+        state,
+        stock_contract=stock_contract,
+        dose_receipt=receipt,
+    ).as_dict()
+
+    receipt_check = next(
+        check
+        for check in report["checks"]
+        if check.get("check_name") == "formula_dose_receipt"
+    )
+    assert receipt_check["status"] == "FAIL"
+    assert receipt_check["data"]["state_mismatches"] == ["Iso E Super:raw_ul", "Iso E Super:active_ul"]
+
+
+def test_formula_state_cache_separates_receipt_bindings_and_serializes_them():
+    formula = _formula()
+    _, receipt, stock_contract = _bound_state_and_receipt(formula)
+    stock_specs = resolved_stock_specs_for_state(formula, stock_contract)
+    build_formula_state.cache_clear()
+
+    unbound = build_formula_state(
+        formula["ingredients_ul"],
+        formula["dilutions"],
+        stock_specs=stock_specs,
+    )
+    bound = build_formula_state(
+        formula["ingredients_ul"],
+        formula["dilutions"],
+        stock_specs=stock_specs,
+        dose_receipt_sha256=receipt.receipt_sha256,
+        dose_receipt_status=receipt.status,
+    )
+    bound_replay = build_formula_state(
+        formula["ingredients_ul"],
+        formula["dilutions"],
+        stock_specs=stock_specs,
+        dose_receipt_sha256=receipt.receipt_sha256,
+        dose_receipt_status=receipt.status,
+    )
+
+    assert unbound is not bound
+    assert bound_replay is bound
+    assert unbound.as_dict()["dose_receipt_status"] == "UNBOUND"
+    assert bound.as_dict()["dose_receipt_sha256"] == receipt.receipt_sha256
+    assert bound.as_dict()["dose_receipt_status"] == "BOUND"
+
+
+def test_formula_state_from_base_explicitly_clears_receipt_binding():
+    formula = _formula()
+    state, receipt, _ = _bound_state_and_receipt(formula)
+
+    evolved = type(state).from_base(
+        state,
+        new_raw_ul=dict(formula["ingredients_ul"]),
+    )
+
+    assert state.dose_receipt_sha256 == receipt.receipt_sha256
+    assert evolved.dose_receipt_sha256 == ""
+    assert evolved.dose_receipt_status == "UNBOUND"
+    assert evolved.as_dict()["dose_receipt_sha256"] == ""
+    assert evolved.as_dict()["dose_receipt_status"] == "UNBOUND"
+
+
+def test_formula_science_check_does_not_build_catalogue_audit(monkeypatch):
+    from engine import science_audit
+
+    formula = _formula()
+    state = build_formula_state(
+        formula["ingredients_ul"],
+        formula["dilutions"],
+        batch_volume_ml=30.0,
+    )
+    monkeypatch.setattr(
+        science_audit,
+        "build_science_audit_contract",
+        lambda: (_ for _ in ()).throw(
+            AssertionError("formula preflight must not scan the catalogue")
+        ),
+    )
+
+    check, penalty = preflight_module._science_check(state)
+
+    assert check.data["scope"] == "formula_runtime"
+    assert check.data["catalogue_context"]["evaluated_in_formula_preflight"] is False
+    assert penalty == 0.0
+    assert check.data["confidence_penalty"] == 0.0
+
+
+def test_total_preflight_penalty_is_not_mislabeled_as_science():
+    confidence = {
+        "combined_confidence": 60.0,
+        "required_minimum": 25.0,
+    }
+    gate = GateResult(
+        gate="confidence_minimum",
+        status="PASS",
+        detail="combined confidence 60.0",
+        data=confidence,
+    )
+    preflight = {
+        "confidence_penalty": 16.0,
+        "checks": [
+            {
+                "check_name": "science_coverage",
+                "data": {"confidence_penalty": 0.0},
+            }
+        ],
+    }
+
+    updated_gate, updated = _apply_preflight_confidence_penalty(
+        gate,
+        confidence,
+        preflight,
+        ReleaseGateConfig(),
+    )
+
+    assert updated["preflight_evidence_penalty"] == 16.0
+    assert updated["science_preflight_penalty"] == 0.0
+    assert updated["preflight_penalty_components"] == {
+        "science_coverage": 0.0,
+        "other_formula_evidence": 16.0,
+    }
+    assert "preflight evidence penalty 16.0" in updated_gate.detail
+    assert "science penalty" not in updated_gate.detail
+
+
+def test_release_preflight_fails_negative_input():
+    formula = _formula()
+    formula["ingredients_ul"]["Iso E Super"] = -1.0
+    state = build_formula_state(formula["ingredients_ul"], formula["dilutions"], batch_volume_ml=30.0)
+    report = run_release_preflight(formula, state).as_dict()
+    normalization = next(check for check in report["checks"] if check.get("check_name") == "input_normalization")
+    assert normalization["status"] == "FAIL"
+
+
+def _single_stock_formula(
+    material: str,
+    fraction: float,
+    *,
+    basis: str = "unspecified",
+    carrier: str = "",
+):
+    return {
+        "name": f"{material} inventory authority probe",
+        "ingredients_ul": {material: 10.0},
+        "dilutions": {material: fraction},
+        "stock_specs": {
+            material: {
+                "fraction": fraction,
+                "fraction_basis": basis,
+                "carrier": carrier,
+                "declared": True,
+            }
+        },
+    }
+
+
+def test_current_stock_contract_accepts_exact_cedrat_and_bontaux_neat_rows():
+    for material, expected_source_rows in (
+        ("Cedrat FCF oil Sicilian", [66]),
+        ("Lavender EO (BONTAUX SAS)", []),
+    ):
+        contract = resolve_inventory_stock_contract(
+            _single_stock_formula(material, 1.0, basis="neat")
+        )
+
+        assert contract.status == "PASS"
+        assert contract.data["issues"] == []
+        assert contract.data["current_user_inventory_overlay_path"] == (
+            "data/governance/inventory_user_authority_overlay_20260904_002.json"
+        )
+        assert len(contract.data["current_user_inventory_overlay_sha256"]) == 64
+        assert contract.data["matched_stocks"][0]["fraction"] == 1.0
+        assert contract.data["matched_stocks"][0]["fraction_basis"] == "neat"
+        assert contract.data["matched_stocks"][0]["stock_id"].startswith(
+            "inventory:user-20260904:"
+        )
+        assert contract.data["matched_stocks"][0]["stock_id"]
+        assert contract.data["matched_stocks"][0]["material"] == material
+        assert contract.data["matched_stocks"][0]["authority"].endswith(
+            "_20260904"
+        )
+        assert contract.data["matched_stocks"][0]["source_rows"] == (
+            expected_source_rows
+        )
+        assert contract.data["matched_stocks"][0]["inventory_source_ref"].endswith(
+            (
+                "#INV-USER-20260904-006"
+                if material.startswith("Cedrat")
+                else "#INV-USER-20260904-007"
+            )
+        )
+        receipt = build_formula_dose_receipt(
+            _single_stock_formula(material, 1.0, basis="neat"),
+            contract,
+        )
+        assert receipt.status == "BOUND"
+        assert receipt.lines[0].inventory_source_ref == (
+            contract.data["matched_stocks"][0]["inventory_source_ref"]
+        )
+
+
+def test_current_stock_contract_holds_every_coumarin_volume_fraction_guess():
+    for fraction in (0.2, 0.25, 0.3, 1.0):
+        contract = resolve_inventory_stock_contract(
+            _single_stock_formula("Coumarin", fraction)
+        )
+
+        assert contract.status == "FAIL"
+        assert contract.data["resolved_stock_specs"] == {}
+        issue = contract.data["issues"][0]
+        assert issue["material"] == "Coumarin"
+        assert issue["reason"] == "inventory_stock_non_executable"
+        assert issue["execution_holds"] == [
+            "APPROXIMATE_RANGE_AND_FRACTION_BASIS_UNSPECIFIED",
+            "FRACTION_BASIS_UNSPECIFIED",
+            "SOLID_STOCK_REQUIRES_MASS_DOSING_OR_EXACT_PREPARED_STOCK",
+        ]
+        assert len(issue["inventory_source_refs"]) == 3
+        assert all(
+            ref.startswith(
+                "data/governance/inventory_user_authority_overlay_20260904_002.json#"
+            )
+            for ref in issue["inventory_source_refs"]
+        )

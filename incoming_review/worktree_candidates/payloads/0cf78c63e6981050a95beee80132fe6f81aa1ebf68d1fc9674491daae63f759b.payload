@@ -1,0 +1,12 @@
+import subprocess
+import sys
+
+
+def test_odt_module_import_has_no_normalized_key_collision() -> None:
+    completed = subprocess.run(
+        [sys.executable, "-c", "import engine.odor_thresholds"],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert completed.returncode == 0, completed.stderr

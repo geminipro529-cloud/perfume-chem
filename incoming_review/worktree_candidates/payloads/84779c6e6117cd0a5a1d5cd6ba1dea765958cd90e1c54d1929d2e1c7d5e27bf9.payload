@@ -1,0 +1,88 @@
+{
+  "protocol_id": "PERFUME-CHEM-C0-V0.1",
+  "claim_domain": "SEALED_STATIC_GLASS_HEADSPACE",
+  "attributes": [
+    "airiness",
+    "separability",
+    "density",
+    "coherence",
+    "target_fidelity",
+    "contrast",
+    "emergence",
+    "recognition"
+  ],
+  "artifacts": {
+    "C0_PREPILOT_PROTOCOL": {
+      "state": "UNBOUND",
+      "hash": null
+    },
+    "LEXICON": {
+      "state": "UNBOUND",
+      "hash": null
+    },
+    "ATTRIBUTE_ANCHOR_CANDIDATES": {
+      "state": "UNBOUND",
+      "hash": null
+    },
+    "SAMPLE_PREPARATION_MANIFEST": {
+      "state": "UNBOUND",
+      "hash": null
+    },
+    "APPARATUS_VALIDATION": {
+      "state": "UNBOUND",
+      "hash": null
+    },
+    "SAFETY_ETHICS_PRIVACY_HOLD": {
+      "state": "UNBOUND",
+      "hash": null
+    },
+    "PARTICIPANT_QUALIFICATION": {
+      "state": "UNBOUND",
+      "hash": null
+    },
+    "ENVIRONMENT_TIMING": {
+      "state": "UNBOUND",
+      "hash": null
+    },
+    "RANDOMIZATION_LEDGER": {
+      "state": "UNBOUND",
+      "hash": null
+    },
+    "BLIND_CODE_KEY": {
+      "state": "UNBOUND",
+      "hash": null
+    },
+    "OBSERVATION_SCHEMA": {
+      "state": "UNBOUND",
+      "hash": null
+    },
+    "ANALYSIS_PLAN": {
+      "state": "UNBOUND",
+      "hash": null
+    },
+    "STOP_GO_GATES": {
+      "state": "UNBOUND",
+      "hash": null
+    },
+    "DEVIATION_LOG": {
+      "state": "UNBOUND",
+      "hash": null
+    },
+    "RESULTS_RECEIPT": {
+      "state": "UNBOUND",
+      "hash": null
+    },
+    "SOURCE_MANIFEST": {
+      "state": "UNBOUND",
+      "hash": null
+    },
+    "DECISION_RECORD": {
+      "state": "UNBOUND",
+      "hash": null
+    }
+  },
+  "pleasantness_in_go_decision": false,
+  "human_execution_authorized": false,
+  "transfer_claims": [],
+  "decision_state": "HOLD"
+}

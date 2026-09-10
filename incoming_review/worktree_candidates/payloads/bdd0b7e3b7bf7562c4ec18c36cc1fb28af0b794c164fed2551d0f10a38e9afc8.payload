@@ -1,0 +1,304 @@
+from __future__ import annotations
+
+import hashlib
+import json
+from pathlib import Path
+
+import pytest
+
+from scripts import build_perfume_kb, verify_formula_protocol
+
+ROOT = Path(__file__).resolve().parents[1]
+KB_ROOT = ROOT / "data" / "reference" / "perfume_kb"
+
+ASSET_SHA256 = {
+    "citations.jsonl": "5c2367c231ae2d2f105e2cf1d24dffeb3d8113090b8b9e080557fd1d7677cf69",
+    "eu_2023_1545_allergens.json": "e783a2d5ae65a17b11748abc6aa4078c75bb5fb926bac973c236a64fa2e3df7d",
+    "perfume_kb.jsonl": "c1dcbacc176b8bb3721dedf47df20d38a757c4817670bb28e174be37c61a5eb6",
+    "phototoxic_oils.json": "b71ed8c8c49f5282cada23365ec731356a7e406aaf2622cb15b25c54d3ed175b",
+}
+
+
+@pytest.mark.parametrize(("name", "expected_sha256"), ASSET_SHA256.items())
+def test_provider_neutral_kb_asset_is_byte_preserved(
+    name: str,
+    expected_sha256: str,
+) -> None:
+    path = KB_ROOT / name
+
+    assert path.is_file()
+    assert hashlib.sha256(path.read_bytes()).hexdigest() == expected_sha256
+
+
+def test_obsolete_non_openai_harness_is_absent() -> None:
+    retired_paths = (
+        ".opencode",
+        "opencode.json",
+        "package.json",
+        "package-lock.json",
+        "_set_key.ps1",
+        "scripts/start_opencode.ps1",
+        "scripts/start_cheapluna_vscode.ps1",
+        "scripts/toggle-mcp.ps1",
+        "config_backup.toml",
+        "00_MODEL_CATALOG.json",
+        "00_MODEL_RESOLUTION.json",
+        "test_ds_only.txt",
+        "test_gate.ps1",
+        "pw_links.txt",
+        "pw_search_hits.txt",
+        "architecture_for_perplexity.md",
+        "prompts",
+    )
+
+    assert not [relative for relative in retired_paths if (ROOT / relative).exists()]
+
+
+def test_current_consumers_use_provider_neutral_kb_location() -> None:
+    consumer_paths = (
+        ROOT / "scripts" / "build_perfume_kb.py",
+        ROOT / "scripts" / "verify_formula_protocol.py",
+        ROOT / "engine" / "pipeline" / "gates.py",
+    )
+
+    for path in consumer_paths:
+        source = path.read_text(encoding="utf-8").lower()
+        assert ".opencode" not in source
+        assert "data" in source
+        assert "reference" in source
+        assert "perfume_kb" in source
+
+
+def _inventory_records() -> tuple[list[dict[str, object]], list[dict[str, object]]]:
+    records = build_perfume_kb.load_inventory()
+    stocks = [record for record in records if record["record_kind"] == "stock"]
+    requirements = [
+        record for record in records if record["record_kind"] == "requirement"
+    ]
+    return stocks, requirements
+
+
+def _stock_by_name(
+    stocks: list[dict[str, object]], name: str
+) -> dict[str, object]:
+    matches = [stock for stock in stocks if stock["name"] == name]
+    assert len(matches) == 1
+    return matches[0]
+
+
+def test_perfume_kb_uses_pinned_lossless_inventory_authority() -> None:
+    stocks, requirements = _inventory_records()
+
+    assert stocks
+    assert requirements
+    assert all(stock["in_stock"] is True for stock in stocks)
+    assert all(stock["stock_id"] and stock["source_ref"] for stock in stocks)
+    assert all(stock["authority"] for stock in stocks)
+    assert all(requirement["in_stock"] is False for requirement in requirements)
+    assert all(requirement["execution_ready"] is False for requirement in requirements)
+
+    alpha_irone = _stock_by_name(stocks, "Alpha Irone")
+    assert alpha_irone["dilution_fraction"] == pytest.approx(0.1)
+    assert alpha_irone["fraction_basis"] == "mass_fraction"
+    assert alpha_irone["carrier"] == "dep"
+    assert alpha_irone["execution_ready"] is True
+    assert not [
+        stock
+        for stock in stocks
+        if stock["identity_name"] == "Alpha Irone"
+        and stock["dilution_fraction"] != pytest.approx(0.1)
+    ]
+
+    black_agarwood = _stock_by_name(stocks, "Black Agarwood Artificial")
+    assert black_agarwood["dilution_fraction"] == pytest.approx(0.1)
+    assert black_agarwood["fraction_basis"] == "mass_fraction"
+    assert black_agarwood["carrier"] == "dpg"
+    assert black_agarwood["execution_ready"] is True
+
+    assert not [stock for stock in stocks if stock["identity_name"] == "Ambrofix"]
+    ambrofix_gaps = [
+        requirement
+        for requirement in requirements
+        if requirement["identity_name"] == "Ambrofix"
+    ]
+    assert ambrofix_gaps
+    assert all(gap["requirement_disposition"] == "GAP" for gap in ambrofix_gaps)
+    ambrofix_crystals = _stock_by_name(stocks, "Ambrofix Crystals")
+    assert ambrofix_crystals["execution_ready"] is False
+    assert ambrofix_crystals["execution_hold_reason"] == (
+        "SOLID_STOCK_VOLUME_DOSING_UNBOUND"
+    )
+
+    castoreum = _stock_by_name(stocks, "Castoreum Synthetic")
+    assert castoreum["dilution_fraction"] == pytest.approx(0.1)
+    assert castoreum["fraction_basis"] == "unspecified"
+    assert castoreum["carrier"] == "dep"
+    assert castoreum["execution_ready"] is False
+    assert castoreum["execution_hold_reason"] == "FRACTION_BASIS_UNSPECIFIED"
+
+    for name in (
+        "Bacdanol",
+        "Benzyl Salicylate",
+        "Cedrat FCF Oil Sicilian",
+        "Clearwood",
+        "Lavender EO (BONTAUX SAS)",
+        "Magnolia EO",
+    ):
+        stock = _stock_by_name(stocks, name)
+        assert stock["dilution_fraction"] == pytest.approx(1.0)
+        assert stock["fraction_basis"] == "neat"
+        assert stock["carrier"] == ""
+        assert stock["execution_ready"] is True
+
+    guaiacwood = _stock_by_name(stocks, "Guaiacwood EO")
+    assert guaiacwood["dilution_fraction"] == pytest.approx(1 / 3)
+    assert guaiacwood["fraction_basis"] == "mass_fraction"
+    assert guaiacwood["carrier"] == ""
+    assert guaiacwood["execution_ready"] is False
+    assert guaiacwood["execution_hold_reason"] == (
+        "REMAINING_TWO_THIRDS_COMPOSITION_AND_CARRIER_UNRESOLVED"
+    )
+
+
+def test_perfume_kb_keeps_all_three_coumarin_stocks_distinct_and_held() -> None:
+    stocks, _requirements = _inventory_records()
+    coumarin = [stock for stock in stocks if stock["identity_name"] == "Coumarin"]
+
+    assert {stock["name"] for stock in coumarin} == {
+        "Coumarin (20% in DEP)",
+        "Coumarin (DPG-saturated)",
+        "Coumarin (neat powder)",
+    }
+    assert len({stock["stock_id"] for stock in coumarin}) == 3
+    assert all(stock["in_stock"] is True for stock in coumarin)
+    assert all(stock["execution_ready"] is False for stock in coumarin)
+
+    dep = _stock_by_name(coumarin, "Coumarin (20% in DEP)")
+    assert dep["dilution_fraction"] == pytest.approx(0.2)
+    assert dep["fraction_basis"] == "unspecified"
+    assert dep["carrier"] == "dep"
+    assert dep["execution_hold_reason"] == "FRACTION_BASIS_UNSPECIFIED"
+    assert dep["dilution"] == "20% in DEP (basis unspecified)"
+
+    saturated = _stock_by_name(coumarin, "Coumarin (DPG-saturated)")
+    assert saturated["approximate"] is True
+    assert saturated["fraction_range"] == pytest.approx([0.25, 0.30])
+    assert saturated["carrier"] == "dpg"
+    assert saturated["fraction_basis"] == "unspecified"
+    assert saturated["execution_hold_reason"] == (
+        "APPROXIMATE_RANGE_AND_FRACTION_BASIS_UNSPECIFIED"
+    )
+
+    powder = _stock_by_name(coumarin, "Coumarin (neat powder)")
+    assert powder["fraction_basis"] == "neat"
+    assert powder["execution_hold_reason"] == (
+        "SOLID_STOCK_REQUIRES_MASS_DOSING_OR_EXACT_PREPARED_STOCK"
+    )
+
+
+def test_perfume_kb_build_is_deterministic(tmp_path: Path) -> None:
+    first = tmp_path / "first.jsonl"
+    second = tmp_path / "second.jsonl"
+
+    first_count, first_size = build_perfume_kb.build_perfume_kb(first)
+    second_count, second_size = build_perfume_kb.build_perfume_kb(second)
+
+    assert first_count == second_count
+    assert first_size == second_size
+    assert first.read_bytes() == second.read_bytes()
+    assert first.read_bytes() == (KB_ROOT / "perfume_kb.jsonl").read_bytes()
+    records = [json.loads(line) for line in first.read_text(encoding="utf-8").splitlines()]
+    assert len(records) == first_count
+    assert len({record["id"] for record in records}) == first_count
+
+
+def test_supplier_identity_matches_never_inherit_local_execution_authority() -> None:
+    rows = [
+        json.loads(line)
+        for line in (KB_ROOT / "perfume_kb.jsonl").read_text(encoding="utf-8").splitlines()
+    ]
+    supplier_rows = [row for row in rows if row["source"] == "perfumersworld"]
+
+    assert supplier_rows
+    assert all(row["local_inventory_execution_ready"] is False for row in supplier_rows)
+    assert all(
+        row["local_inventory_execution_authority"]
+        == "NOT_INHERITED_FROM_SUPPLIER_IDENTITY_MATCH"
+        for row in supplier_rows
+    )
+    alpha_irone = [row for row in supplier_rows if row["base_name"] == "Alpha Irone"]
+    assert alpha_irone
+    assert all(row["in_local_inventory"] is True for row in alpha_irone)
+    assert all(row["local_inventory_execution_ready"] is False for row in alpha_irone)
+
+
+def test_protocol_substitutes_require_executable_stock_authority(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    rows = [
+        {
+            "source": "inventory",
+            "record_kind": "stock",
+            "name": "Bergamot FCF Held",
+            "dilution": "20% in DEP (basis unspecified)",
+            "in_stock": True,
+            "execution_ready": False,
+            "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED",
+            "stock_id": "held-stock",
+            "source_ref": "authority.json#held",
+            "authority": "CURRENT",
+        },
+        {
+            "source": "inventory",
+            "record_kind": "requirement",
+            "name": "Bergamot FCF Unavailable",
+            "in_stock": False,
+            "execution_ready": False,
+            "stock_id": "",
+            "source_ref": "Current Inventory Master!A1:N1",
+            "authority": "REQUIREMENT_NOT_STOCK",
+        },
+        {
+            "source": "inventory",
+            "record_kind": "stock",
+            "name": "Bergamot FCF Ready",
+            "dilution": "neat / as supplied",
+            "fraction_basis": "neat",
+            "carrier": "",
+            "in_stock": True,
+            "execution_ready": True,
+            "execution_hold_reason": "",
+            "stock_id": "ready-stock",
+            "source_ref": "authority.json#ready",
+            "authority": "CURRENT",
+        },
+    ]
+    kb_path = tmp_path / "perfume_kb.jsonl"
+    kb_path.write_text(
+        "".join(json.dumps(row) + "\n" for row in rows),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(verify_formula_protocol, "PERFUME_KB_ROOT", tmp_path)
+
+    substitutes = verify_formula_protocol._find_substitutes(
+        "Bergamot EO", "phototoxic"
+    )
+
+    assert [substitute["name"] for substitute in substitutes] == [
+        "Bergamot FCF Ready"
+    ]
+    assert substitutes[0]["stock_id"] == "ready-stock"
+    assert substitutes[0]["execution_ready"] is True
+
+
+def test_windows_lifecycle_hooks_are_worktree_local() -> None:
+    payload = json.loads((ROOT / ".codex" / "hooks.json").read_text(encoding="utf-8"))
+    commands = [
+        hook["commandWindows"]
+        for groups in payload["hooks"].values()
+        for group in groups
+        for hook in group["hooks"]
+    ]
+
+    assert len(commands) == 10
+    assert set(commands) == {'python -S ".codex\\hooks\\lifecycle.py"'}

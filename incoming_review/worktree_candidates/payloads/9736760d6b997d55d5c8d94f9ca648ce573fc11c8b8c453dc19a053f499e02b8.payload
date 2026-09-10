@@ -1,0 +1,230 @@
+from __future__ import annotations
+
+from decimal import Decimal
+
+import pytest
+
+from engine.inventory_parser import (
+    INVENTORY_PATH,
+    materialize_current_inventory,
+    parse_inventory,
+)
+from engine.material_capability_atlas import (
+    InventoryCapabilityState,
+    KnowledgeState,
+    MaterialClass,
+    build_material_capability_atlas,
+)
+
+
+@pytest.fixture(scope="module")
+def atlas():
+    return build_material_capability_atlas()
+
+
+def test_atlas_reparses_every_current_row_and_v5_requirement(atlas) -> None:
+    inventory_rows = parse_inventory(
+        INVENTORY_PATH,
+        unique=False,
+        include_solvents=True,
+        include_unavailable=True,
+    )
+    materialized = materialize_current_inventory()
+    expected_identity_count = len({record.name.casefold() for record in inventory_rows})
+
+    assert atlas.current_stock_row_count == len(inventory_rows)
+    assert atlas.current_identity_count == expected_identity_count
+    assert atlas.v5_stock_count == len(materialized.stocks)
+    assert atlas.v5_requirement_count == len(materialized.requirements)
+    assert len(atlas.records) == expected_identity_count
+    assert len({record.identity_key for record in atlas.records}) == expected_identity_count
+    assert atlas.inventory_text_sha256
+    assert atlas.v5_workbook_sha256
+    assert atlas.v5_snapshot_sha256
+    assert atlas.user_overlay_sha256
+
+
+def test_latest_user_stock_text_restores_benzyl_salicylate_neat_stock(atlas) -> None:
+    benzyl = atlas.project("Benzyl Salicylate")
+
+    assert benzyl.inventory_state is InventoryCapabilityState.OWNED_EXECUTABLE
+    assert benzyl.qualitative_selectable is True
+    assert benzyl.quantitative_execution_ready is True
+    assert len(benzyl.current_stocks) == 1
+    stock = benzyl.current_stocks[0]
+    assert stock.active_fraction == Decimal("1.0")
+    assert stock.fraction_basis == "neat"
+    assert stock.carrier is None
+    assert stock.execution_ready is True
+    assert any(
+        conflict.field == "profile_stock"
+        and conflict.effective_source == "PINNED_CURRENT_INVENTORY_AUTHORITY"
+        for conflict in benzyl.conflicts
+    )
+    assert benzyl.legacy_hedonic_value_ignored is True
+    assert benzyl.hedonic_claims == ()
+
+
+def test_profile_stock_matches_current_alpha_irone_stock(atlas) -> None:
+    irone = atlas.project("Alpha Irone")
+
+    assert irone.inventory_state is InventoryCapabilityState.OWNED_EXECUTABLE
+    assert len(irone.current_stocks) == 1
+    stock = irone.current_stocks[0]
+    assert stock.active_fraction == Decimal("0.1")
+    assert stock.fraction_basis == "mass_fraction"
+    assert stock.carrier == "dep"
+    assert stock.execution_ready is True
+    assert all(item.active_fraction != Decimal("0.3") for item in irone.current_stocks)
+    assert not any(conflict.field == "profile_stock" for conflict in irone.conflicts)
+
+
+def test_all_three_current_coumarin_stocks_remain_distinct_and_held(atlas) -> None:
+    coumarin = atlas.project("Coumarin")
+
+    assert coumarin.inventory_state is InventoryCapabilityState.OWNED_HELD
+    assert coumarin.qualitative_selectable is True
+    assert coumarin.quantitative_execution_ready is False
+    assert len(coumarin.current_stocks) == 3
+    assert len({stock.stock_id for stock in coumarin.current_stocks}) == 3
+    assert all(
+        stock.source == "PINNED_CURRENT_INVENTORY_AUTHORITY"
+        and stock.source_ref
+        and not stock.execution_ready
+        for stock in coumarin.current_stocks
+    )
+
+    dep = next(stock for stock in coumarin.current_stocks if stock.carrier == "dep")
+    assert dep.active_fraction == Decimal("0.2")
+    assert dep.fraction_basis == "unspecified"
+    assert dep.approximate is False
+    assert dep.hold_reason == "FRACTION_BASIS_UNSPECIFIED"
+
+    dpg = next(stock for stock in coumarin.current_stocks if stock.carrier == "dpg")
+    assert dpg.active_fraction is None
+    assert dpg.fraction_basis == "unspecified"
+    assert dpg.approximate is True
+    assert dpg.fraction_range == (Decimal("0.25"), Decimal("0.3"))
+    assert dpg.hold_reason == "APPROXIMATE_RANGE_AND_FRACTION_BASIS_UNSPECIFIED"
+
+    neat = next(stock for stock in coumarin.current_stocks if stock.fraction_basis == "neat")
+    assert neat.active_fraction == Decimal("1.0")
+    assert neat.carrier is None
+    assert neat.approximate is False
+    assert neat.hold_reason == "SOLID_STOCK_REQUIRES_MASS_DOSING_OR_EXACT_PREPARED_STOCK"
+
+    assert set(coumarin.blockers) == {
+        "FRACTION_BASIS_UNSPECIFIED",
+        "APPROXIMATE_RANGE_AND_FRACTION_BASIS_UNSPECIFIED",
+        "SOLID_STOCK_REQUIRES_MASS_DOSING_OR_EXACT_PREPARED_STOCK",
+    }
+
+
+def test_corrected_bacdanol_and_held_guaiacwood_stocks_remain_distinct(atlas) -> None:
+    bacdanol = atlas.project("Bacnadol")
+    guaiacwood = atlas.project("Guaiacwood EO")
+
+    assert bacdanol.canonical_name == "Bacdanol"
+    assert bacdanol.inventory_state is InventoryCapabilityState.OWNED_EXECUTABLE
+    assert bacdanol.qualitative_selectable is True
+    assert bacdanol.quantitative_execution_ready is True
+    assert bacdanol.current_stocks[0].active_fraction == Decimal("1.0")
+    assert bacdanol.current_stocks[0].fraction_basis == "neat"
+    assert bacdanol.current_stocks[0].carrier is None
+    assert bacdanol.blockers == ()
+
+    assert guaiacwood.inventory_state is InventoryCapabilityState.OWNED_HELD
+    assert guaiacwood.qualitative_selectable is True
+    assert guaiacwood.quantitative_execution_ready is False
+    assert float(guaiacwood.current_stocks[0].active_fraction) == pytest.approx(
+        1.0 / 3.0
+    )
+    assert guaiacwood.current_stocks[0].fraction_basis == "mass_fraction"
+    assert guaiacwood.current_stocks[0].carrier is None
+    assert guaiacwood.current_stocks[0].execution_ready is False
+    assert "REMAINING_TWO_THIRDS_COMPOSITION_AND_CARRIER_UNRESOLVED" in (
+        guaiacwood.blockers
+    )
+
+
+def test_current_ambrox_super_and_galbanum_capabilities_follow_user_authority(
+    atlas,
+) -> None:
+    ambrox = atlas.project("Ambrox Super")
+    galbanum = atlas.project("Galbanum EO")
+
+    assert ambrox.inventory_state is InventoryCapabilityState.OWNED_EXECUTABLE
+    assert ambrox.qualitative_selectable is True
+    assert ambrox.quantitative_execution_ready is True
+    assert len(ambrox.current_stocks) == 1
+    ambrox_stock = ambrox.current_stocks[0]
+    assert ambrox_stock.active_fraction == Decimal("0.25")
+    assert ambrox_stock.fraction_basis == "mass_fraction"
+    assert ambrox_stock.carrier == "dpg + ipm + ethanol"
+    assert ambrox_stock.execution_ready is True
+
+    assert galbanum.inventory_state is InventoryCapabilityState.UNAVAILABLE
+    assert galbanum.qualitative_selectable is False
+    assert galbanum.quantitative_execution_ready is False
+    assert "MATERIAL_UNAVAILABLE" in galbanum.blockers
+
+
+def test_partial_knowledge_profile_does_not_invent_cypress_capabilities(atlas) -> None:
+    cypress = atlas.project("Cypress EO")
+
+    assert cypress.inventory_state is InventoryCapabilityState.OWNED_EXECUTABLE
+    assert cypress.knowledge_state is KnowledgeState.PARTIAL_PROFILE
+    assert cypress.material_class is MaterialClass.NATURAL_MIXTURE
+    assert cypress.science_evidence == ()
+    assert cypress.contextual_functions == ()
+    assert cypress.temporal_registers == ()
+    assert cypress.interfaces == ()
+    assert cypress.takeover_modes == ()
+    assert cypress.hedonic_claims == ()
+    assert "MATERIAL_CAPABILITY_PROFILE_MISSING" not in cypress.blockers
+    assert cypress.constituent_identity_authority is False
+    assert cypress.composite_oav_authority is False
+    assert cypress.sensory_authority is False
+    assert cypress.liking_authority is False
+    assert cypress.similarity_authority is False
+    assert cypress.safety_authority is False
+    assert cypress.stability_authority is False
+    assert cypress.procurement_authority is False
+    assert cypress.preparation_authority is False
+    assert cypress.compounding_authority is False
+    assert cypress.release_authority is False
+
+
+def test_naturals_never_gain_constituent_or_composite_oav_authority(atlas) -> None:
+    cypress = atlas.project("Cypress EO")
+
+    assert cypress.constituent_identity_authority is False
+    assert cypress.composite_oav_authority is False
+    assert cypress.sensory_authority is False
+    assert cypress.liking_authority is False
+    assert cypress.similarity_authority is False
+    assert cypress.safety_authority is False
+    assert cypress.stability_authority is False
+    assert cypress.compounding_authority is False
+    assert cypress.release_authority is False
+
+
+def test_profile_physics_is_field_provenance_not_a_beauty_claim(atlas) -> None:
+    irone = atlas.project("Alpha Irone")
+
+    cas = irone.evidence_for("cas")
+    assert cas is not None
+    assert cas.value == "79-69-6"
+    assert cas.source_ref == "pubchem:alpha-Irone"
+    assert irone.hedonic_claims == ()
+    assert irone.liking_authority is False
+
+
+def test_unknown_material_projection_fails_closed(atlas) -> None:
+    unknown = atlas.project("Imaginary Cypress Captive")
+
+    assert unknown.inventory_state is InventoryCapabilityState.UNLISTED
+    assert unknown.qualitative_selectable is False
+    assert unknown.quantitative_execution_ready is False
+    assert unknown.knowledge_state is KnowledgeState.MISSING_PROFILE
+    assert unknown.blockers == ("MATERIAL_UNLISTED",)

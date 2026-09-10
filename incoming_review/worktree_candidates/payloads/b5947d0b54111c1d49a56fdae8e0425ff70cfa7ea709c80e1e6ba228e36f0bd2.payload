@@ -1,0 +1,1577 @@
+{
+  "schema": "perfume-chem.unified-import-manifest.v1",
+  "import_id": "UNIFIED-IMPORT-YSL-TWENTY-VARIANT-20260904",
+  "import_date": "2026-09-04",
+  "purpose": "Byte-preserving import of the complete YSL twenty-variant study from worktree 6992 into the unified package checkout.",
+  "provider_policy": "OPENAI_CHATGPT_CODEX_NATIVE_ONLY",
+  "source_repository": {
+    "root": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem",
+    "git_commit": "398800c5da43038f3159956362681a2ed92091f0",
+    "git_branch": "DETACHED",
+    "source_was_mutated": false
+  },
+  "destination_repository": {
+    "root": "D:\\chatbots\\perfume-chem-unified-package",
+    "git_commit_at_import": "4a0e5b8b302595a7bf21f50e4bfa7fa11592571e",
+    "git_branch": "codex/unified-perfume-intelligence-package",
+    "preexisting_study_directory": false,
+    "preexisting_focused_test": false
+  },
+  "census": {
+    "authoritative_source_delta_paths": 72,
+    "required_support_dependency_paths": 13,
+    "complete_study_directory_paths": 85,
+    "focused_test_paths": 1,
+    "total_imported_source_paths": 86
+  },
+  "inventory_context": {
+    "source_inventory_sha256": "6745156000796fa3abe7072acb0629c0c63f56b5ad7ab94714b086a941234079",
+    "destination_inventory_sha256": "68acd5b325b2fa4fe56d6cac7e3e22598ecd82d88efcd5ae435d1bb91527b7e1",
+    "hashes_match": false,
+    "authority": "DESTINATION_INVENTORY_BYTES_ARE_CURRENT_FOR_DESTINATION_EXECUTION__IMPORTED_STUDY_INVENTORY_HASHES_REMAIN_FROZEN_HISTORICAL_PROVENANCE",
+    "consequence": "No imported CURRENT-INVENTORY BUILD is promoted to current executable authority by this import."
+  },
+  "authority_ceilings": {
+    "authenticated_ysl_recipe": false,
+    "sensory_similarity": "NOT TESTED",
+    "physical_liking": "NOT TESTED",
+    "stability": "NOT TESTED",
+    "measured_headspace": "NOT TESTED",
+    "safety": "NOT CLEARED",
+    "release": "HOLD",
+    "physical_compounding_authority": false,
+    "purchase_authority": false,
+    "automatic_finalist_authority": false,
+    "oav": "HEURISTIC_OR_COMPUTATIONAL_ONLY_WHERE_RECORDED__NOT_MEASURED_PERCEPTION",
+    "inventory": "IMPORTED_SNAPSHOTS_AND_OVERLAYS_ARE_PROVENANCE_ONLY_UNLESS_REVALIDATED_AGAINST_CURRENT_DESTINATION_INVENTORY"
+  },
+  "preservation": {
+    "complete_study_byte_identity": true,
+    "historical_study_artifacts_edited_after_copy": false,
+    "source_tree_edited": false,
+    "imported_test_initial_byte_identity": true,
+    "adjudicated_test_successor_created": true,
+    "historical_study_artifacts_changed_by_adjudication": false
+  },
+  "focused_test": {
+    "repository_relative_path": "tests/studies/test_ysl_twenty_variant_study.py",
+    "source": {
+      "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\tests\\studies\\test_ysl_twenty_variant_study.py",
+      "size_bytes": 59068,
+      "sha256": "661a7584e87233f9943fb54634427587df968d23b77daef8c25043ca12bd270f"
+    },
+    "destination": {
+      "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\tests\\studies\\test_ysl_twenty_variant_study.py",
+      "size_bytes": 59030,
+      "sha256": "a73cb576744b35c66ac3580918ef6d160803d873f7b5be99654c4ac45e343cef"
+    },
+    "byte_identity": false,
+    "adjudication": "ADJUDICATED_TEST_SUCCESSOR__HISTORICAL_2026_08_28_INVENTORY_HASHES_ARE_FROZEN_PROVENANCE__CURRENT_RUNTIME_MUST_REJECT_LEGACY_PER_FORMULA_OVERLAY_EXECUTION",
+    "adjudication_scope": "Only historical/current inventory expectation assertions and the legacy-overlay rejection expectation changed; no study artifact, formula, sensory, safety, purchase, physical-compounding, or release authority changed.",
+    "authority_ceiling": "TEST_EVIDENCE_ONLY__NO_FORMULA_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+  },
+  "verification": {
+    "status": "PASSED",
+    "release_status": "HOLD",
+    "attempts": [
+      {
+        "command": ".\\.venv\\Scripts\\python.exe -m pytest tests\\studies\\test_ysl_twenty_variant_study.py -q",
+        "interpreter": "D:\\chatbots\\perfume-chem-unified-package\\.venv\\Scripts\\python.exe",
+        "exit_code": 2,
+        "outcome": "NOT RUN",
+        "reason": "Required destination .venv interpreter is absent."
+      },
+      {
+        "command": "& 'D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe' -m pytest tests\\studies\\test_ysl_twenty_variant_study.py -q",
+        "interpreter": "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe",
+        "exit_code": 1,
+        "outcome": "COLLECTION ERROR",
+        "collected_tests": 0,
+        "reason": "ImportError: cannot import name 'resolve_inventory_material' from destination engine.inventory_parser."
+      },
+      {
+        "command": "& 'D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe' -m pytest tests\\studies\\test_ysl_twenty_variant_study.py -q",
+        "interpreter": "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe",
+        "exit_code": 1,
+        "outcome": "9 FAILED, 52 PASSED",
+        "collected_tests": 61,
+        "reason": "Runtime dependency was available. Four failures were stale historical/current inventory expectations; five were unrelated parser-contract incompatibilities."
+      },
+      {
+        "command": "& 'D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe' -m pytest tests\\studies\\test_ysl_twenty_variant_study.py -q",
+        "interpreter": "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe",
+        "exit_code": 1,
+        "outcome": "5 FAILED, 56 PASSED",
+        "collected_tests": 61,
+        "reason": "The adjudicated inventory-expectation successor passed all inventory-authority assertions. Five non-inventory parser-contract failures remain."
+      },
+      {
+        "command": "& 'D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe' -m pytest tests\\studies\\test_ysl_twenty_variant_study.py -q -k \"successor_overlay or manifest_separates_frozen_diagnostics_from_current_inventory_authority or evidence_ledger_records_current_inventory\"",
+        "interpreter": "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe",
+        "exit_code": 0,
+        "outcome": "4 PASSED, 57 DESELECTED",
+        "collected_tests": 61,
+        "reason": "All four test-only historical/current inventory authority adjudications pass against the current unified inventory and overlay rejection contract."
+      },
+      {
+        "command": "& 'D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe' -m pytest tests\\studies\\test_ysl_twenty_variant_study.py -q",
+        "interpreter": "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe",
+        "exit_code": 0,
+        "outcome": "61 PASSED",
+        "collected_tests": 61,
+        "duration_seconds": 2.37,
+        "reason": "Fresh pinned-Python-3.11 verification after canonical parser consolidation; the complete focused YSL study suite passed without changing imported study artifacts or authority ceilings."
+      }
+    ],
+    "blocker": null,
+    "remaining_failures": [],
+    "retry_rule": "Rerun this focused suite after changes to formula parsing, inventory authority handling, or imported YSL study contracts; never rewrite historical study artifacts or weaken authority ceilings."
+  },
+  "artifacts": [
+    {
+      "classification": "required_coherence_support_dependency",
+      "source_state": "tracked_unchanged_support_dependency",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/baselines/source/.gitattributes",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\baselines\\source\\.gitattributes",
+        "size_bytes": 11,
+        "sha256": "166ed80450dc0bc0cba414bd62eec0730bfb0f9cf70254625c9787e85d10624c"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\baselines\\source\\.gitattributes",
+        "size_bytes": 11,
+        "sha256": "166ed80450dc0bc0cba414bd62eec0730bfb0f9cf70254625c9787e85d10624c"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "required_coherence_support_dependency",
+      "source_state": "tracked_unchanged_support_dependency",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/baselines/source/La_Nuit_de_LHomme_Luxe_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\baselines\\source\\La_Nuit_de_LHomme_Luxe_30mL_EDT.md",
+        "size_bytes": 19445,
+        "sha256": "254a73b6b45420cf89034fc5c2caabcaace9a197be315c31e9958e4a5cfdaebb"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\baselines\\source\\La_Nuit_de_LHomme_Luxe_30mL_EDT.md",
+        "size_bytes": 19445,
+        "sha256": "254a73b6b45420cf89034fc5c2caabcaace9a197be315c31e9958e4a5cfdaebb"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "required_coherence_support_dependency",
+      "source_state": "tracked_unchanged_support_dependency",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/baselines/source/L_Homme_Luxe_30mL_EdP.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\baselines\\source\\L_Homme_Luxe_30mL_EdP.md",
+        "size_bytes": 19811,
+        "sha256": "44aba8b5153d26a8afa5cd07b20974eaaf66a5d659feecc13d59eef6f917e0fd"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\baselines\\source\\L_Homme_Luxe_30mL_EdP.md",
+        "size_bytes": 19811,
+        "sha256": "44aba8b5153d26a8afa5cd07b20974eaaf66a5d659feecc13d59eef6f917e0fd"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LH-01.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LH-01.json",
+        "size_bytes": 32636,
+        "sha256": "19790c2d91be44fc49348f65deb631f2126f112bac0baebf76127b518e309d34"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LH-01.json",
+        "size_bytes": 32636,
+        "sha256": "19790c2d91be44fc49348f65deb631f2126f112bac0baebf76127b518e309d34"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LH-02.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LH-02.json",
+        "size_bytes": 33760,
+        "sha256": "ab098be3c43f73f3d92009bcfc5cb11c22394222163abbb9a7370be1cd7ac772"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LH-02.json",
+        "size_bytes": 33760,
+        "sha256": "ab098be3c43f73f3d92009bcfc5cb11c22394222163abbb9a7370be1cd7ac772"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LH-03.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LH-03.json",
+        "size_bytes": 33936,
+        "sha256": "9438b268b919bff0d5a787264cbd9d33a6ca14d01b2fb67c04fd498e4045b040"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LH-03.json",
+        "size_bytes": 33936,
+        "sha256": "9438b268b919bff0d5a787264cbd9d33a6ca14d01b2fb67c04fd498e4045b040"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LH-04.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LH-04.json",
+        "size_bytes": 40986,
+        "sha256": "950bd481b21e5695307c65ff74015b53fc1cc67e66312f0eaa3fcf67019a3c46"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LH-04.json",
+        "size_bytes": 40986,
+        "sha256": "950bd481b21e5695307c65ff74015b53fc1cc67e66312f0eaa3fcf67019a3c46"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LH-05.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LH-05.json",
+        "size_bytes": 32676,
+        "sha256": "f8bfaf0c4799d624c9e7248a02a77633b34c944d5566c3f607910547224b4786"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LH-05.json",
+        "size_bytes": 32676,
+        "sha256": "f8bfaf0c4799d624c9e7248a02a77633b34c944d5566c3f607910547224b4786"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LH-06.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LH-06.json",
+        "size_bytes": 33128,
+        "sha256": "780573e39c0b4ebdb50c57a825298f3e64dee348278889ef2c52a63f1617a550"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LH-06.json",
+        "size_bytes": 33128,
+        "sha256": "780573e39c0b4ebdb50c57a825298f3e64dee348278889ef2c52a63f1617a550"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LH-07.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LH-07.json",
+        "size_bytes": 32494,
+        "sha256": "cc5b40a7a57adf03232dde437c2cc76debc888dcb9b404dbf09cadd2ad69be15"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LH-07.json",
+        "size_bytes": 32494,
+        "sha256": "cc5b40a7a57adf03232dde437c2cc76debc888dcb9b404dbf09cadd2ad69be15"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LH-08.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LH-08.json",
+        "size_bytes": 31624,
+        "sha256": "d14a603c1f40cc0ef9c11c0a7902282103c4e2ab2412c4d9c247f259d2c7c6e8"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LH-08.json",
+        "size_bytes": 31624,
+        "sha256": "d14a603c1f40cc0ef9c11c0a7902282103c4e2ab2412c4d9c247f259d2c7c6e8"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LH-09.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LH-09.json",
+        "size_bytes": 32773,
+        "sha256": "745ecdb564d145fd0ba909349b81ed1e6784edb1efc424d110d10bc40164ca2a"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LH-09.json",
+        "size_bytes": 32773,
+        "sha256": "745ecdb564d145fd0ba909349b81ed1e6784edb1efc424d110d10bc40164ca2a"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LH-10.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LH-10.json",
+        "size_bytes": 34343,
+        "sha256": "bd3cd3ca333c464f62497802483a4b7303caba04721f14c561e42b47291fd6c5"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LH-10.json",
+        "size_bytes": 34343,
+        "sha256": "bd3cd3ca333c464f62497802483a4b7303caba04721f14c561e42b47291fd6c5"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LN-01.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LN-01.json",
+        "size_bytes": 34599,
+        "sha256": "fe8477845165a2e5db047c2a75d7df8d52925bb0fe52be7690e2fc565e696c7f"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LN-01.json",
+        "size_bytes": 34599,
+        "sha256": "fe8477845165a2e5db047c2a75d7df8d52925bb0fe52be7690e2fc565e696c7f"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LN-02.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LN-02.json",
+        "size_bytes": 34547,
+        "sha256": "172b663932b2869e3e82bf19338f258e14e87f2c34b89eff2665da189b37ae8f"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LN-02.json",
+        "size_bytes": 34547,
+        "sha256": "172b663932b2869e3e82bf19338f258e14e87f2c34b89eff2665da189b37ae8f"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LN-03.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LN-03.json",
+        "size_bytes": 34359,
+        "sha256": "4f4eb1be5f15162d3197073600bdd2c1097d1b242dfeefe503bccb12245d939e"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LN-03.json",
+        "size_bytes": 34359,
+        "sha256": "4f4eb1be5f15162d3197073600bdd2c1097d1b242dfeefe503bccb12245d939e"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LN-04.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LN-04.json",
+        "size_bytes": 36024,
+        "sha256": "6c3a709886179ba1c3141459648ea5bfd063dea3bc2edcb9b78949beed54c33d"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LN-04.json",
+        "size_bytes": 36024,
+        "sha256": "6c3a709886179ba1c3141459648ea5bfd063dea3bc2edcb9b78949beed54c33d"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LN-05.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LN-05.json",
+        "size_bytes": 40937,
+        "sha256": "a1afe653a10a64fb82730dd9aff4750bbc71f06c70195b5fbe4ed11973190835"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LN-05.json",
+        "size_bytes": 40937,
+        "sha256": "a1afe653a10a64fb82730dd9aff4750bbc71f06c70195b5fbe4ed11973190835"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LN-06.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LN-06.json",
+        "size_bytes": 35679,
+        "sha256": "690c4ca1a0878330b8e916efc9532b49dcf5a9c2981a936c86386977fd576502"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LN-06.json",
+        "size_bytes": 35679,
+        "sha256": "690c4ca1a0878330b8e916efc9532b49dcf5a9c2981a936c86386977fd576502"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LN-07.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LN-07.json",
+        "size_bytes": 35195,
+        "sha256": "1b104ef7f64789de9fd9eff529f1859447d103bd245047ec0bc87fdcf7584f99"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LN-07.json",
+        "size_bytes": 35195,
+        "sha256": "1b104ef7f64789de9fd9eff529f1859447d103bd245047ec0bc87fdcf7584f99"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LN-08.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LN-08.json",
+        "size_bytes": 34671,
+        "sha256": "20d770700146b1775d3685bfe10e6f70077951963e3e9e4acc97fe7a909be6e2"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LN-08.json",
+        "size_bytes": 34671,
+        "sha256": "20d770700146b1775d3685bfe10e6f70077951963e3e9e4acc97fe7a909be6e2"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LN-09.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LN-09.json",
+        "size_bytes": 36611,
+        "sha256": "2391ffef463920a5e19b77baa87b3ae9a1fd289eaca7900251fb86f8c8bcd55d"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LN-09.json",
+        "size_bytes": 36611,
+        "sha256": "2391ffef463920a5e19b77baa87b3ae9a1fd289eaca7900251fb86f8c8bcd55d"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/candidates/LN-10.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\candidates\\LN-10.json",
+        "size_bytes": 34822,
+        "sha256": "06dc07b8d6f723bb719c7dc6a42c5e82bb4f7e6e241d89f385eb25424109eac3"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\candidates\\LN-10.json",
+        "size_bytes": 34822,
+        "sha256": "06dc07b8d6f723bb719c7dc6a42c5e82bb4f7e6e241d89f385eb25424109eac3"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "required_coherence_support_dependency",
+      "source_state": "tracked_unchanged_support_dependency",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/chassis/la_nuit_chassis.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\chassis\\la_nuit_chassis.json",
+        "size_bytes": 7088,
+        "sha256": "1870509670ed0b515d4a27243889b7d246a26c627b1c893f2a3169c07f84cfd9"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\chassis\\la_nuit_chassis.json",
+        "size_bytes": 7088,
+        "sha256": "1870509670ed0b515d4a27243889b7d246a26c627b1c893f2a3169c07f84cfd9"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "required_coherence_support_dependency",
+      "source_state": "tracked_unchanged_support_dependency",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/chassis/lhomme_chassis.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\chassis\\lhomme_chassis.json",
+        "size_bytes": 6955,
+        "sha256": "f793bcfa8c87c7256db364656acca014342760c640fc6d64ac71b4a1d9ef1e94"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\chassis\\lhomme_chassis.json",
+        "size_bytes": 6955,
+        "sha256": "f793bcfa8c87c7256db364656acca014342760c640fc6d64ac71b4a1d9ef1e94"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/evidence/evidence_ledger.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\evidence\\evidence_ledger.json",
+        "size_bytes": 12688,
+        "sha256": "274b0ece942427b25b950e586eb1b7ae4e654f2d5f2c9257fe67b22e21bc21fa"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\evidence\\evidence_ledger.json",
+        "size_bytes": 12688,
+        "sha256": "274b0ece942427b25b950e586eb1b7ae4e654f2d5f2c9257fe67b22e21bc21fa"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "untracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/evidence/inventory_overlay_2026-08-28.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\evidence\\inventory_overlay_2026-08-28.json",
+        "size_bytes": 15555,
+        "sha256": "3e699d4f08db62b27603a05a2da97f4690e96c0215a321f7ee5509d442bb6618"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\evidence\\inventory_overlay_2026-08-28.json",
+        "size_bytes": 15555,
+        "sha256": "3e699d4f08db62b27603a05a2da97f4690e96c0215a321f7ee5509d442bb6618"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "required_coherence_support_dependency",
+      "source_state": "tracked_unchanged_support_dependency",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/evidence/inventory_overlay.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\evidence\\inventory_overlay.json",
+        "size_bytes": 6288,
+        "sha256": "1562990890644eeeff55d7f37cc0df43b2d42915b094057cf90ac31f5a449072"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\evidence\\inventory_overlay.json",
+        "size_bytes": 6288,
+        "sha256": "1562990890644eeeff55d7f37cc0df43b2d42915b094057cf90ac31f5a449072"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "required_coherence_support_dependency",
+      "source_state": "tracked_unchanged_support_dependency",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/families/la_nuit_envelope.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\families\\la_nuit_envelope.json",
+        "size_bytes": 771,
+        "sha256": "972ff355162f7756c3cb2afda7485573558b8f100c23a7efbd362c68c8ce51df"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\families\\la_nuit_envelope.json",
+        "size_bytes": 771,
+        "sha256": "972ff355162f7756c3cb2afda7485573558b8f100c23a7efbd362c68c8ce51df"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "required_coherence_support_dependency",
+      "source_state": "tracked_unchanged_support_dependency",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/families/la_nuit_target.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\families\\la_nuit_target.json",
+        "size_bytes": 13270,
+        "sha256": "aa6ce7fe51fe16b114705a26cd12d32dd5504362cb013cf5a890b23f7083c216"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\families\\la_nuit_target.json",
+        "size_bytes": 13270,
+        "sha256": "aa6ce7fe51fe16b114705a26cd12d32dd5504362cb013cf5a890b23f7083c216"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "required_coherence_support_dependency",
+      "source_state": "tracked_unchanged_support_dependency",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/families/lhomme_envelope.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\families\\lhomme_envelope.json",
+        "size_bytes": 807,
+        "sha256": "571592bd8b2f496781441bf2d75a8c3a47e5f8a40b09f90a0dbfc425248954a4"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\families\\lhomme_envelope.json",
+        "size_bytes": 807,
+        "sha256": "571592bd8b2f496781441bf2d75a8c3a47e5f8a40b09f90a0dbfc425248954a4"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "required_coherence_support_dependency",
+      "source_state": "tracked_unchanged_support_dependency",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/families/lhomme_target.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\families\\lhomme_target.json",
+        "size_bytes": 12460,
+        "sha256": "bbdce33122c1f0e2fcdc2a37a645429f5174b58a2112afd1d406edee7a35b5e8"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\families\\lhomme_target.json",
+        "size_bytes": 12460,
+        "sha256": "bbdce33122c1f0e2fcdc2a37a645429f5174b58a2112afd1d406edee7a35b5e8"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "required_coherence_support_dependency",
+      "source_state": "tracked_unchanged_support_dependency",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/.gitattributes",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\.gitattributes",
+        "size_bytes": 24,
+        "sha256": "df74bcde5e61320200415b72f696f24ec85a38c6a65c19b47fbf9b5969e8925e"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\.gitattributes",
+        "size_bytes": 24,
+        "sha256": "df74bcde5e61320200415b72f696f24ec85a38c6a65c19b47fbf9b5969e8925e"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LH-01_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LH-01_assessment.json",
+        "size_bytes": 4351,
+        "sha256": "2c005ac402b22c950fdee59ec307d77ede53ac42c5ea702dc91e2f35935367e5"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LH-01_assessment.json",
+        "size_bytes": 4351,
+        "sha256": "2c005ac402b22c950fdee59ec307d77ede53ac42c5ea702dc91e2f35935367e5"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LH-02_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LH-02_assessment.json",
+        "size_bytes": 4349,
+        "sha256": "b1183a9f81f4363277b7b530e447644cccaf4320d9638b6d6d83760f4b6d6c30"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LH-02_assessment.json",
+        "size_bytes": 4349,
+        "sha256": "b1183a9f81f4363277b7b530e447644cccaf4320d9638b6d6d83760f4b6d6c30"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LH-03_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LH-03_assessment.json",
+        "size_bytes": 4366,
+        "sha256": "6b4908d55421deda81e260284e3fd73808126f6afbfca7ff629ce0fe857a78f4"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LH-03_assessment.json",
+        "size_bytes": 4366,
+        "sha256": "6b4908d55421deda81e260284e3fd73808126f6afbfca7ff629ce0fe857a78f4"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LH-04_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LH-04_assessment.json",
+        "size_bytes": 4345,
+        "sha256": "04feb10d3a104b829e109cb3691d408141e6b4e7e04d01f49e9727c98edc23f7"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LH-04_assessment.json",
+        "size_bytes": 4345,
+        "sha256": "04feb10d3a104b829e109cb3691d408141e6b4e7e04d01f49e9727c98edc23f7"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LH-05_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LH-05_assessment.json",
+        "size_bytes": 4362,
+        "sha256": "492595172c239ce70a89c1cfce1d72f490fc912a7c29bb02f7f0e1544b9fe03b"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LH-05_assessment.json",
+        "size_bytes": 4362,
+        "sha256": "492595172c239ce70a89c1cfce1d72f490fc912a7c29bb02f7f0e1544b9fe03b"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LH-06_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LH-06_assessment.json",
+        "size_bytes": 4357,
+        "sha256": "3674bc9f1969fc55b42f32b95bc626d01045103218141fcad0b41aa5ccd7c734"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LH-06_assessment.json",
+        "size_bytes": 4357,
+        "sha256": "3674bc9f1969fc55b42f32b95bc626d01045103218141fcad0b41aa5ccd7c734"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LH-07_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LH-07_assessment.json",
+        "size_bytes": 4168,
+        "sha256": "b2495ba18f07a4656a94c6cacca4a097479117a4896babb461e5173126685d8b"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LH-07_assessment.json",
+        "size_bytes": 4168,
+        "sha256": "b2495ba18f07a4656a94c6cacca4a097479117a4896babb461e5173126685d8b"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LH-08_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LH-08_assessment.json",
+        "size_bytes": 4327,
+        "sha256": "033f30aea4531ae6a6eaca4e96e03518a14396c9ff23101c94697dbb800ef4f4"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LH-08_assessment.json",
+        "size_bytes": 4327,
+        "sha256": "033f30aea4531ae6a6eaca4e96e03518a14396c9ff23101c94697dbb800ef4f4"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LH-09_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LH-09_assessment.json",
+        "size_bytes": 4374,
+        "sha256": "172e103e028bdc87fb46b376f111fae635a3c279417587cc6d9bbbd678d1e4a2"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LH-09_assessment.json",
+        "size_bytes": 4374,
+        "sha256": "172e103e028bdc87fb46b376f111fae635a3c279417587cc6d9bbbd678d1e4a2"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LH-10_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LH-10_assessment.json",
+        "size_bytes": 4642,
+        "sha256": "2cc3e823884418c401edfa4102f9df24e9f65012ff9e131a0c923a0a2d1b87c4"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LH-10_assessment.json",
+        "size_bytes": 4642,
+        "sha256": "2cc3e823884418c401edfa4102f9df24e9f65012ff9e131a0c923a0a2d1b87c4"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LN-01_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LN-01_assessment.json",
+        "size_bytes": 4441,
+        "sha256": "5c0de785670c33176b6ae56992422c3020b79956851aa313690ef52677623af7"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LN-01_assessment.json",
+        "size_bytes": 4441,
+        "sha256": "5c0de785670c33176b6ae56992422c3020b79956851aa313690ef52677623af7"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LN-02_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LN-02_assessment.json",
+        "size_bytes": 4404,
+        "sha256": "9f99f7ee394f31c9dd5cbcb442c5a14350e6b61e7471a2c6de2225f19db8a889"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LN-02_assessment.json",
+        "size_bytes": 4404,
+        "sha256": "9f99f7ee394f31c9dd5cbcb442c5a14350e6b61e7471a2c6de2225f19db8a889"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LN-03_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LN-03_assessment.json",
+        "size_bytes": 4541,
+        "sha256": "9a95190bc747016e586c23b7e3524ee0701e51357ec2ea953bae6ea88a7003c7"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LN-03_assessment.json",
+        "size_bytes": 4541,
+        "sha256": "9a95190bc747016e586c23b7e3524ee0701e51357ec2ea953bae6ea88a7003c7"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LN-04_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LN-04_assessment.json",
+        "size_bytes": 4618,
+        "sha256": "b3e0ee01dcc8b3f477cfb9fae64f757d04b6e6547f889c982ef4ffa9863dbcdd"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LN-04_assessment.json",
+        "size_bytes": 4618,
+        "sha256": "b3e0ee01dcc8b3f477cfb9fae64f757d04b6e6547f889c982ef4ffa9863dbcdd"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LN-05_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LN-05_assessment.json",
+        "size_bytes": 4785,
+        "sha256": "1e0c4ad66f6b237b2231f83c672e697175666315cfc30b0a5d8b350379b5638f"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LN-05_assessment.json",
+        "size_bytes": 4785,
+        "sha256": "1e0c4ad66f6b237b2231f83c672e697175666315cfc30b0a5d8b350379b5638f"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LN-06_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LN-06_assessment.json",
+        "size_bytes": 4689,
+        "sha256": "b12b1f44de7ff9bca42ad644aa19e4f2c776a56f6883a5fbd6f248fbf88feb77"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LN-06_assessment.json",
+        "size_bytes": 4689,
+        "sha256": "b12b1f44de7ff9bca42ad644aa19e4f2c776a56f6883a5fbd6f248fbf88feb77"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LN-07_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LN-07_assessment.json",
+        "size_bytes": 4931,
+        "sha256": "a032de3462459167fe7c10fd569f7aa6a5882ecc9d28195b3946014b75ac72f6"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LN-07_assessment.json",
+        "size_bytes": 4931,
+        "sha256": "a032de3462459167fe7c10fd569f7aa6a5882ecc9d28195b3946014b75ac72f6"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LN-08_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LN-08_assessment.json",
+        "size_bytes": 4766,
+        "sha256": "1b45e563aff854353ffd40915932d23ca35e9808fb2696aecd63d1f68e41a156"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LN-08_assessment.json",
+        "size_bytes": 4766,
+        "sha256": "1b45e563aff854353ffd40915932d23ca35e9808fb2696aecd63d1f68e41a156"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LN-09_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LN-09_assessment.json",
+        "size_bytes": 4647,
+        "sha256": "f4002ffc201d17ae7ad4da62c08298459de2e4a7341aee72d193f73ab0f6ceaf"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LN-09_assessment.json",
+        "size_bytes": 4647,
+        "sha256": "f4002ffc201d17ae7ad4da62c08298459de2e4a7341aee72d193f73ab0f6ceaf"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/impact/LN-10_assessment.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\impact\\LN-10_assessment.json",
+        "size_bytes": 4736,
+        "sha256": "3812e49ad7726afefe78e5b311a65fbc95e407ea10b3e588d2781ae3e2a2db09"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\impact\\LN-10_assessment.json",
+        "size_bytes": 4736,
+        "sha256": "3812e49ad7726afefe78e5b311a65fbc95e407ea10b3e588d2781ae3e2a2db09"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/README.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\README.md",
+        "size_bytes": 10795,
+        "sha256": "79b08c66adbd401f9f12511bb66618ef8b4400ee8786ec0f05a789b14bae81ac"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\README.md",
+        "size_bytes": 10795,
+        "sha256": "79b08c66adbd401f9f12511bb66618ef8b4400ee8786ec0f05a789b14bae81ac"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "untracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/RECIPES/LH-04-APPLE-PIE-AP-T1-v3.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\RECIPES\\LH-04-APPLE-PIE-AP-T1-v3.md",
+        "size_bytes": 14476,
+        "sha256": "fc60cebdda63a856094613485fde1415456af9c047cf881baa7e8f456b181f24"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\RECIPES\\LH-04-APPLE-PIE-AP-T1-v3.md",
+        "size_bytes": 14476,
+        "sha256": "fc60cebdda63a856094613485fde1415456af9c047cf881baa7e8f456b181f24"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "untracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/RECIPES/LH-04-RECIPE.html",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\RECIPES\\LH-04-RECIPE.html",
+        "size_bytes": 7608,
+        "sha256": "c405534bdfda1c9af636d9adab6d7ec25e06b263ea0870b2a1e34bacd95ce84a"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\RECIPES\\LH-04-RECIPE.html",
+        "size_bytes": 7608,
+        "sha256": "c405534bdfda1c9af636d9adab6d7ec25e06b263ea0870b2a1e34bacd95ce84a"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "untracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/RECIPES/LH-04-RECIPE.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\RECIPES\\LH-04-RECIPE.md",
+        "size_bytes": 3071,
+        "sha256": "6f34176c49d7eaf6e4dc1250d48dd0097cb22997961fcef1ac62fd7803249d8e"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\RECIPES\\LH-04-RECIPE.md",
+        "size_bytes": 3071,
+        "sha256": "6f34176c49d7eaf6e4dc1250d48dd0097cb22997961fcef1ac62fd7803249d8e"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LH-01_Original_Fidelity_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LH-01_Original_Fidelity_30mL_EDT.md",
+        "size_bytes": 17973,
+        "sha256": "153a7fa7ec046bb343ebc669425e01d130ac724f5992d8c9fd8e0dfb501f20de"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LH-01_Original_Fidelity_30mL_EDT.md",
+        "size_bytes": 17973,
+        "sha256": "153a7fa7ec046bb343ebc669425e01d130ac724f5992d8c9fd8e0dfb501f20de"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LH-02_Vintage_Magnetique_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LH-02_Vintage_Magnetique_30mL_EDT.md",
+        "size_bytes": 18097,
+        "sha256": "fc235ba7381e5327c8029738d060175f3dd88445b179432cc975c1336b29c1a3"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LH-02_Vintage_Magnetique_30mL_EDT.md",
+        "size_bytes": 18097,
+        "sha256": "fc235ba7381e5327c8029738d060175f3dd88445b179432cc975c1336b29c1a3"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LH-03_Tailored_Luxe_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LH-03_Tailored_Luxe_30mL_EDT.md",
+        "size_bytes": 17995,
+        "sha256": "192be92a3980e61ebe0a548190b79118d69a82ed3b366ec2e7f63cac816ff129"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LH-03_Tailored_Luxe_30mL_EDT.md",
+        "size_bytes": 17995,
+        "sha256": "192be92a3980e61ebe0a548190b79118d69a82ed3b366ec2e7f63cac816ff129"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LH-04_Apple_Pie_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LH-04_Apple_Pie_30mL_EDT.md",
+        "size_bytes": 21471,
+        "sha256": "1a7a711a8f800911a79ba3039bf461ece7567c8bc81f1254a5f3e3bdaa6e82c5"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LH-04_Apple_Pie_30mL_EDT.md",
+        "size_bytes": 21471,
+        "sha256": "1a7a711a8f800911a79ba3039bf461ece7567c8bc81f1254a5f3e3bdaa6e82c5"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LH-05_Ginger_Cedrat_Spark_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LH-05_Ginger_Cedrat_Spark_30mL_EDT.md",
+        "size_bytes": 18033,
+        "sha256": "7aa9e9ddd001946a041d826bc080c349bb44097daa85fe3732d4a2e44709f800"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LH-05_Ginger_Cedrat_Spark_30mL_EDT.md",
+        "size_bytes": 18033,
+        "sha256": "7aa9e9ddd001946a041d826bc080c349bb44097daa85fe3732d4a2e44709f800"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LH-06_Violet_Leaf_Silk_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LH-06_Violet_Leaf_Silk_30mL_EDT.md",
+        "size_bytes": 18238,
+        "sha256": "92095ea1b4f73509fadce2c20a075d2617fe34d7c673b0e98009e1812ef7bbe5"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LH-06_Violet_Leaf_Silk_30mL_EDT.md",
+        "size_bytes": 18238,
+        "sha256": "92095ea1b4f73509fadce2c20a075d2617fe34d7c673b0e98009e1812ef7bbe5"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LH-07_White_Pepper_Basil_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LH-07_White_Pepper_Basil_30mL_EDT.md",
+        "size_bytes": 17928,
+        "sha256": "9dabb6201047200458270130e9fda5a05bd958a32c6ca42c4f26a2fc5f3aef15"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LH-07_White_Pepper_Basil_30mL_EDT.md",
+        "size_bytes": 17928,
+        "sha256": "9dabb6201047200458270130e9fda5a05bd958a32c6ca42c4f26a2fc5f3aef15"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LH-08_Cedar_Vetiver_Tailoring_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LH-08_Cedar_Vetiver_Tailoring_30mL_EDT.md",
+        "size_bytes": 17627,
+        "sha256": "457d7c22c641a9df708dee8d28ff20a641ede727badbeaf76c96ac8f5f35553c"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LH-08_Cedar_Vetiver_Tailoring_30mL_EDT.md",
+        "size_bytes": 17627,
+        "sha256": "457d7c22c641a9df708dee8d28ff20a641ede727badbeaf76c96ac8f5f35553c"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LH-09_Tonka_Sandalwood_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LH-09_Tonka_Sandalwood_30mL_EDT.md",
+        "size_bytes": 18362,
+        "sha256": "feb2ecb73068c163d65b89b6f54dada3492ab35e3bc8a3d79f0a30d331d1257f"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LH-09_Tonka_Sandalwood_30mL_EDT.md",
+        "size_bytes": 18362,
+        "sha256": "feb2ecb73068c163d65b89b6f54dada3492ab35e3bc8a3d79f0a30d331d1257f"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LH-10_Bangkok_Air_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LH-10_Bangkok_Air_30mL_EDT.md",
+        "size_bytes": 18528,
+        "sha256": "8f1466ae14c70a5a92003980db7a777919a146d0315f535a81be107097493761"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LH-10_Bangkok_Air_30mL_EDT.md",
+        "size_bytes": 18528,
+        "sha256": "8f1466ae14c70a5a92003980db7a777919a146d0315f535a81be107097493761"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LN-01_Original_2009_Fidelity_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LN-01_Original_2009_Fidelity_30mL_EDT.md",
+        "size_bytes": 18709,
+        "sha256": "dd55bba06b221bf397d7eb07644c84ed827055ea9ed962b8248a14e3010d1727"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LN-01_Original_2009_Fidelity_30mL_EDT.md",
+        "size_bytes": 18709,
+        "sha256": "dd55bba06b221bf397d7eb07644c84ed827055ea9ed962b8248a14e3010d1727"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LN-02_Current_Transparent_Style_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LN-02_Current_Transparent_Style_30mL_EDT.md",
+        "size_bytes": 18133,
+        "sha256": "bd0024bb6636c6b05bf45b13bf3213d3b191caa29b23677c3a9eefff3614fce8"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LN-02_Current_Transparent_Style_30mL_EDT.md",
+        "size_bytes": 18133,
+        "sha256": "bd0024bb6636c6b05bf45b13bf3213d3b191caa29b23677c3a9eefff3614fce8"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LN-03_Cardamom_Velvet_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LN-03_Cardamom_Velvet_30mL_EDT.md",
+        "size_bytes": 18162,
+        "sha256": "5af860aa6d9b51d6a4fc738ee55bd72a885bdc3e283093d8c3561ef0724103f4"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LN-03_Cardamom_Velvet_30mL_EDT.md",
+        "size_bytes": 18162,
+        "sha256": "5af860aa6d9b51d6a4fc738ee55bd72a885bdc3e283093d8c3561ef0724103f4"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LN-04_Lavender_Heart_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LN-04_Lavender_Heart_30mL_EDT.md",
+        "size_bytes": 18584,
+        "sha256": "19cad5542ec8ff8ae08af4aa80827571e2f11d1c956732a353cc60049f2ef516"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LN-04_Lavender_Heart_30mL_EDT.md",
+        "size_bytes": 18584,
+        "sha256": "19cad5542ec8ff8ae08af4aa80827571e2f11d1c956732a353cc60049f2ef516"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LN-05_Immortelle_Nuit_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LN-05_Immortelle_Nuit_30mL_EDT.md",
+        "size_bytes": 20212,
+        "sha256": "3a8430e0ff362ee522746df75f5b7e3ab75b9b0b1d700dad60861c547a66718e"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LN-05_Immortelle_Nuit_30mL_EDT.md",
+        "size_bytes": 20212,
+        "sha256": "3a8430e0ff362ee522746df75f5b7e3ab75b9b0b1d700dad60861c547a66718e"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LN-06_Cedar_Vetiver_Vertical_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LN-06_Cedar_Vetiver_Vertical_30mL_EDT.md",
+        "size_bytes": 18211,
+        "sha256": "1ca8c7d7708c0a5045821a469d6445295c933e1264fb8da20d206711a57a4424"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LN-06_Cedar_Vetiver_Vertical_30mL_EDT.md",
+        "size_bytes": 18211,
+        "sha256": "1ca8c7d7708c0a5045821a469d6445295c933e1264fb8da20d206711a57a4424"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LN-07_Dry_Coumarin_Skin_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LN-07_Dry_Coumarin_Skin_30mL_EDT.md",
+        "size_bytes": 18282,
+        "sha256": "23485b606f0f10fda207226d2621af30c35742fda22dd09ec58cf969ab7cb5ce"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LN-07_Dry_Coumarin_Skin_30mL_EDT.md",
+        "size_bytes": 18282,
+        "sha256": "23485b606f0f10fda207226d2621af30c35742fda22dd09ec58cf969ab7cb5ce"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LN-08_Caraway_Shadow_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LN-08_Caraway_Shadow_30mL_EDT.md",
+        "size_bytes": 18417,
+        "sha256": "988f66fafe601333cf5a350c10d93245618e5a36bdfb278226731d99426e6ac9"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LN-08_Caraway_Shadow_30mL_EDT.md",
+        "size_bytes": 18417,
+        "sha256": "988f66fafe601333cf5a350c10d93245618e5a36bdfb278226731d99426e6ac9"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LN-09_Dark_Textile_Woods_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LN-09_Dark_Textile_Woods_30mL_EDT.md",
+        "size_bytes": 18620,
+        "sha256": "ce34e812a3554ae2225c57331319a947a792040e37d27ba73e04486f5b95dfae"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LN-09_Dark_Textile_Woods_30mL_EDT.md",
+        "size_bytes": 18620,
+        "sha256": "ce34e812a3554ae2225c57331319a947a792040e37d27ba73e04486f5b95dfae"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/rendered/LN-10_Intimate_Diffusion_30mL_EDT.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\rendered\\LN-10_Intimate_Diffusion_30mL_EDT.md",
+        "size_bytes": 18254,
+        "sha256": "ef9fd987f31c5806a4dec004819e1bb4bf4a2a6dbaba795f5ff0a5f36f91c4b1"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\rendered\\LN-10_Intimate_Diffusion_30mL_EDT.md",
+        "size_bytes": 18254,
+        "sha256": "ef9fd987f31c5806a4dec004819e1bb4bf4a2a6dbaba795f5ff0a5f36f91c4b1"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/reports/final_index.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\reports\\final_index.md",
+        "size_bytes": 11062,
+        "sha256": "feba89a5c74c47812063026065d0f1243893089e949f6ecc0cfeb1b24c012976"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\reports\\final_index.md",
+        "size_bytes": 11062,
+        "sha256": "feba89a5c74c47812063026065d0f1243893089e949f6ecc0cfeb1b24c012976"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/reports/missing_chemical_impact_index.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\reports\\missing_chemical_impact_index.json",
+        "size_bytes": 29050,
+        "sha256": "44ebb8660749cf75353993456b88e7b221b825d22b735ba95c1d5bc6e32114ad"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\reports\\missing_chemical_impact_index.json",
+        "size_bytes": 29050,
+        "sha256": "44ebb8660749cf75353993456b88e7b221b825d22b735ba95c1d5bc6e32114ad"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/reports/screening_summary.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\reports\\screening_summary.json",
+        "size_bytes": 476015,
+        "sha256": "d80c8b9892ca05b4962e803c6abf58f868577fccf92dc05769266f8cb778492a"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\reports\\screening_summary.json",
+        "size_bytes": 476015,
+        "sha256": "d80c8b9892ca05b4962e803c6abf58f868577fccf92dc05769266f8cb778492a"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/reports/sol_comparison.md",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\reports\\sol_comparison.md",
+        "size_bytes": 9809,
+        "sha256": "ea905067814a4b87811e8f8d02bbd3fac4e3a2ddf7b8ac2fd5da8bba5a7f22b4"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\reports\\sol_comparison.md",
+        "size_bytes": 9809,
+        "sha256": "ea905067814a4b87811e8f8d02bbd3fac4e3a2ddf7b8ac2fd5da8bba5a7f22b4"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "required_coherence_support_dependency",
+      "source_state": "tracked_unchanged_support_dependency",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/runtime_adapters/la_nuit_target_4500ul.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\runtime_adapters\\la_nuit_target_4500ul.json",
+        "size_bytes": 7567,
+        "sha256": "c8257c263a5050e7aa0f595cf33f74cc6b0a5ba0fdf8a6f9c144d1afbc51d9dc"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\runtime_adapters\\la_nuit_target_4500ul.json",
+        "size_bytes": 7567,
+        "sha256": "c8257c263a5050e7aa0f595cf33f74cc6b0a5ba0fdf8a6f9c144d1afbc51d9dc"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "required_coherence_support_dependency",
+      "source_state": "tracked_unchanged_support_dependency",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/runtime_adapters/lhomme_target_4500ul.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\runtime_adapters\\lhomme_target_4500ul.json",
+        "size_bytes": 7279,
+        "sha256": "f882e143e042c37029bb26c196dcff70ed837b18cc894ca43958a7d775c283e3"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\runtime_adapters\\lhomme_target_4500ul.json",
+        "size_bytes": 7279,
+        "sha256": "f882e143e042c37029bb26c196dcff70ed837b18cc894ca43958a7d775c283e3"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/study_manifest.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\study_manifest.json",
+        "size_bytes": 25451,
+        "sha256": "303ae99bb958399f7a5453d3cee9a2604f2e6851196f2a42fd8ac6f7cc82ed03"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\study_manifest.json",
+        "size_bytes": 25451,
+        "sha256": "303ae99bb958399f7a5453d3cee9a2604f2e6851196f2a42fd8ac6f7cc82ed03"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    },
+    {
+      "classification": "authoritative_source_delta_package",
+      "source_state": "modified_tracked",
+      "repository_relative_path": "formulas/ysl_twenty_variant_study/testing/blind_protocol.json",
+      "source": {
+        "absolute_path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\formulas\\ysl_twenty_variant_study\\testing\\blind_protocol.json",
+        "size_bytes": 22545,
+        "sha256": "62f45d3bcaeb745c15947393da9e66c99da7f56a40c27b1c745774262c2f408b"
+      },
+      "destination": {
+        "absolute_path": "D:\\chatbots\\perfume-chem-unified-package\\formulas\\ysl_twenty_variant_study\\testing\\blind_protocol.json",
+        "size_bytes": 22545,
+        "sha256": "62f45d3bcaeb745c15947393da9e66c99da7f56a40c27b1c745774262c2f408b"
+      },
+      "byte_identity": true,
+      "authority_ceiling": "PROVENANCE_AND_COMPUTATIONAL_STUDY_ARTIFACT_ONLY__NO_AUTHENTICATED_YSL_RECIPE__NO_SENSORY_SAFETY_RELEASE_PURCHASE_OR_PHYSICAL_COMPOUNDING_AUTHORITY"
+    }
+  ]
+}

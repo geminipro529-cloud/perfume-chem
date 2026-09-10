@@ -1,0 +1,305 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_v5",
+  "successor_id": "INVENTORY-USER-AUTHORITY-20260904-002",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-04",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260904.json",
+    "normalized_text_sha256": "63c4abb4d809ddf7e5620288cf88e9f533455deecada4dd9df063770c7cf417f",
+    "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+    "effective_date": "2026-09-04"
+  },
+  "source": {
+    "kind": "CURRENT_WORKING_INVENTORY_AUTHORITY_RECONCILIATION",
+    "source_context": "CURRENT_INVENTORY_TEXT_RUNTIME_SYNC_2026-09-04",
+    "statements": [
+      {
+        "text": "Cedrat FCF oil Sicilian is physically found/reconfirmed owned neat",
+        "authority_effect": "Cedrat FCF Oil Sicilian is current owned neat/as supplied; frozen V5 row 66 remains historical out-of-stock provenance."
+      },
+      {
+        "text": "Lavender EO (BONTAUX SAS) is purchased and listed without a dilution",
+        "authority_effect": "Under the inventory.txt bare-stock convention, Lavender EO (BONTAUX SAS) is current owned neat/as supplied."
+      },
+      {
+        "text": "Coumarin has a DPG-saturated approximately 25–30% stock and a distinct neat powder stock",
+        "authority_effect": "The frozen V5 20% DPG stock is superseded. No exact liquid fraction is inferred from the approximate range, and neither the approximate solution nor the solid powder has quantitative volume-execution authority."
+      },
+      {
+        "text": "I have a coumarin 20% in DEP.",
+        "authority_effect": "A distinct Coumarin stock is current owned at 20% in DEP. The concentration basis is unspecified, so quantitative execution remains HOLD and no equivalence to the former V5 20% DPG stock is asserted."
+      }
+    ],
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_hash_normalization": "CRLF_TO_LF",
+    "inventory_text_size_bytes": 21326,
+    "inventory_text_sha256": "e8db8e4401601c79d0f1e2ad16b3651bfc45d933d10c07deb005eadafd05596a"
+  },
+  "policy": {
+    "predecessor_immutable": true,
+    "historical_formula_bytes_immutable": true,
+    "frozen_v5_snapshot_immutable": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "approximate_range_is_not_point_fraction_authority": true,
+    "solid_stock_is_not_volume_dosing_authority": true,
+    "quantitative_hold_is_not_unavailability": true
+  },
+  "replaced_canonical_names": [],
+  "delta_records": [
+    {
+      "record_id": "INV-USER-20260904-006",
+      "canonical_name": "Cedrat FCF Oil Sicilian",
+      "aliases": [
+        "Cedrat FCF oil Sicilian"
+      ],
+      "state": "OWNED",
+      "category": "citrus_top",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "CURRENT_INVENTORY_TEXT_BARE_STOCK_CONVENTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 66,
+          "disposition": "OWNED",
+          "status": "HAVE - NEAT / AS SUPPLIED; PHYSICALLY RECONFIRMED 2026-08-30",
+          "actual_stock_text": "Cedrat FCF oil Sicilian neat / as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-04",
+      "source_kind": "CURRENT_WORKING_INVENTORY_AUTHORITY_RECONCILIATION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "formulation_selection_ready": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_known": true,
+        "quantitative_dosing_ready": true,
+        "supplier_asserted": false,
+        "lot_asserted": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "historical_formula_rewrite_authorized": false
+      },
+      "note": "Current ownership and neat/as-supplied stock form are restored from the live inventory authority. This does not establish supplier, lot, density, safety, sensory equivalence, or formula authority."
+    },
+    {
+      "record_id": "INV-USER-20260904-007",
+      "canonical_name": "Lavender EO (BONTAUX SAS)",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "spice_aromatic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "CURRENT_INVENTORY_TEXT_BARE_STOCK_CONVENTION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-04",
+      "source_kind": "CURRENT_WORKING_INVENTORY_AUTHORITY_RECONCILIATION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "formulation_selection_ready": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_known": true,
+        "quantitative_dosing_ready": true,
+        "supplier_name_asserted": true,
+        "species_asserted": false,
+        "lot_asserted": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "historical_formula_rewrite_authorized": false
+      },
+      "note": "The purchased bare-stock inventory row establishes current ownership and the repository's implicit neat/as-supplied stock form. It does not establish species certificate, lot, density, safety, sensory equivalence, or formula authority."
+    },
+    {
+      "record_id": "INV-USER-20260904-008",
+      "canonical_name": "Coumarin (DPG-saturated)",
+      "identity_name": "Coumarin",
+      "aliases": [
+        "Coumarin"
+      ],
+      "state": "OWNED",
+      "category": "sweet_gourmand_balsamic",
+      "stock": {
+        "fraction": null,
+        "fraction_range": [
+          0.25,
+          0.3
+        ],
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "approximate": true,
+        "fraction_authority": "CURRENT_INVENTORY_TEXT_APPROXIMATE_RANGE_ONLY",
+        "execution_ready": false,
+        "execution_hold_reason": "APPROXIMATE_RANGE_AND_FRACTION_BASIS_UNSPECIFIED"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 85,
+          "fraction": 0.2
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 85,
+          "disposition": "OWNED",
+          "status": "HAVE - DPG-SATURATED APPROXIMATELY 25–30%; EXACT FRACTION/BASIS UNRESOLVED; QUANTITATIVE EXECUTION HOLD",
+          "actual_stock_text": "Coumarin DPG-saturated, approximately 25–30%; distinct neat powder also owned",
+          "can_prepare": "Prepare and label a new exact-basis stock before quantitative volume dosing"
+        }
+      ],
+      "effective_date": "2026-09-04",
+      "source_kind": "CURRENT_WORKING_INVENTORY_AUTHORITY_RECONCILIATION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "formulation_selection_ready": true,
+        "stock_fraction_known": false,
+        "fraction_range_known": true,
+        "fraction_range_min": 0.25,
+        "fraction_range_max": 0.3,
+        "fraction_basis_known": false,
+        "carrier_known": true,
+        "quantitative_dosing_ready": false,
+        "active_ul_ppm_oav_math_authorized": false,
+        "carrier_displacement_math_authorized": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "historical_formula_rewrite_authorized": false
+      },
+      "note": "The liquid stock is physically owned, but 25–30% is a range, not an exact fraction, and its basis is unstated. Selection is allowed; quantitative volume dosing, active-dose, ppm, OAV, and carrier-displacement calculations are HOLD."
+    },
+    {
+      "record_id": "INV-USER-20260904-009",
+      "canonical_name": "Coumarin (neat powder)",
+      "identity_name": "Coumarin",
+      "aliases": [
+        "Coumarin Powder"
+      ],
+      "state": "OWNED",
+      "category": "sweet_gourmand_balsamic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "solid_powder",
+        "fraction_authority": "CURRENT_INVENTORY_TEXT_EXACT_NEAT_SOLID",
+        "execution_ready": false,
+        "execution_hold_reason": "SOLID_STOCK_REQUIRES_MASS_DOSING_OR_EXACT_PREPARED_STOCK"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-04",
+      "source_kind": "CURRENT_WORKING_INVENTORY_AUTHORITY_RECONCILIATION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "formulation_selection_ready": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_known": true,
+        "physical_form_known": true,
+        "quantitative_mass_dosing_ready": false,
+        "quantitative_volume_dosing_ready": false,
+        "exact_prepared_stock_exists": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "historical_formula_rewrite_authorized": false
+      },
+      "note": "The neat Coumarin powder is a distinct owned solid. The current volume-formula preflight must not treat it as a liquid neat stock; use requires a mass-dosing receipt or a new exact-basis labeled preparation."
+    },
+    {
+      "record_id": "INV-USER-20260904-010",
+      "canonical_name": "Coumarin (20% in DEP)",
+      "identity_name": "Coumarin",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet_gourmand_balsamic",
+      "stock": {
+        "fraction": 0.2,
+        "fraction_basis": "unspecified",
+        "carrier": "dep",
+        "fraction_authority": "EXPLICIT_USER_CURRENT_STOCK_CORRECTION",
+        "execution_ready": false,
+        "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-04",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "formulation_selection_ready": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": false,
+        "carrier_known": true,
+        "quantitative_dosing_ready": false,
+        "active_ul_ppm_oav_math_authorized": false,
+        "carrier_displacement_math_authorized": false,
+        "density_asserted": false,
+        "safety_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "former_v5_dpg_stock_equivalence_asserted": false,
+        "historical_formula_rewrite_authorized": false
+      },
+      "note": "The user directly confirmed a distinct 20% Coumarin stock in DEP. Because the concentration basis was not stated, it is selectable but not quantitatively executable; it does not revive or equal the frozen V5 20% DPG stock."
+    }
+  ],
+  "historical_stock_records": [
+    {
+      "historical_record_id": "INV-HIST-20260904-CEDRAT-V5-UNAVAILABLE",
+      "canonical_name": "Cedrat FCF Oil Sicilian",
+      "prior_state": "V5_OUT_OF_STOCK_CONFIRMED_20260807",
+      "current_state": "SUPERSEDED_CURRENT_STOCK_PROVENANCE_ONLY",
+      "stock": null,
+      "source_refs": [
+        "data/governance/inventory_v5_current_stock_snapshot.json#row-66"
+      ],
+      "current_execution_authority": false,
+      "historical_formula_rewrite_authorized": false
+    },
+    {
+      "historical_record_id": "INV-HIST-20260904-COUMARIN-V5-20-DPG",
+      "canonical_name": "Coumarin",
+      "prior_state": "OWNED_20_PERCENT_IN_DPG",
+      "current_state": "SUPERSEDED_CURRENT_STOCK_PROVENANCE_ONLY",
+      "stock": {
+        "fraction": 0.2,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg"
+      },
+      "source_refs": [
+        "data/governance/inventory_v5_current_stock_snapshot.json#row-85"
+      ],
+      "current_execution_authority": false,
+      "historical_formula_rewrite_authorized": false
+    }
+  ],
+  "authority_limits": {
+    "formula_mutation_authority": false,
+    "observed_formula_sensory_authority": false,
+    "liking_authority": false,
+    "similarity_authority": false,
+    "measured_oav_authority": false,
+    "safety_authority": false,
+    "stability_authority": false,
+    "procurement_authority": false,
+    "preparation_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  }
+}

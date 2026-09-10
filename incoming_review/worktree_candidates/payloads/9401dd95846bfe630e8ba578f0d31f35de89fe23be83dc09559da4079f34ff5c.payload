@@ -1,0 +1,63 @@
+﻿Code,O02
+Target,Magnolia Violet Suede
+Version,ORIGINAL DESIGN
+Concentration,0.22
+30 mL concentrate µL,6600.0
+30 mL carrier µL,23400.0
+5 mL concentrate µL,1100.0
+5 mL carrier µL,3900.0
+Maturation,28 days
+Engine V2 score,92.73436253138397
+Monte Carlo pass probability,0.9972222222222222
+Outcome,SOL_5_6_PRO_ENGINE_V2_PASS
+Formula hash,6c41fa1b0b3f252b15717366684518b2566b70fa70087dae32669af6ced8bf0a
+
+Order,Stage,Material,Stock,Active fraction,Parts / 1000,30 mL µL,5 mL µL,Execution,Signature phase,Role,Module ancestry
+1,1 · Resins and sweet fixatives,Coumarin 20%,20% in DPG,0.2,8.255597648240933,54.48694447839016,9.081157413065027,PREPARED STOCK,,Hay-almond tonka warmth.,Sport Cedar Tonka
+2,1 · Resins and sweet fixatives,Labdanum 10%,10% working stock,0.1,8.20354755341924,54.14341385256698,9.023902308761164,PREPARED STOCK,,Cistus amber and leather.,Suede Orange Blossom
+3,1 · Resins and sweet fixatives,Tonka Bean Absolute 10%,10% working stock,0.1,6.191698236180699,40.865208358792614,6.810868059798769,PREPARED STOCK,,Natural tonka warmth.,Sport Cedar Tonka
+4,"2 · Woods, leather and amber",Iso E Super,neat / as supplied,1.0,51.4390719694398,339.4978749983027,56.58297916638378,DIRECT,,Transparent woody scaffold.,Sport Cedar Tonka | Suede Orange Blossom | White Musk Frame
+5,"2 · Woods, leather and amber",Suederal 10%,10% working stock,0.1,46.335899629312806,305.8169375534645,50.96948959224408,PREPARED STOCK,base,Soft suede leather.,Suede Orange Blossom | Target-Specific Reinforcement
+6,"2 · Woods, leather and amber",Sandalore,neat / as supplied,1.0,25.509072557832177,168.35987888169237,28.059979813615396,DIRECT,base,Creamy sandalwood.,Sport Cedar Tonka | Suede Orange Blossom
+7,"2 · Woods, leather and amber",Cedarwood Virginia,neat / as supplied,1.0,14.447295884421633,95.35215283718279,15.892025472863796,DIRECT,,Dry cedar frame.,Sport Cedar Tonka
+8,"2 · Woods, leather and amber",Ambrofix 30%,30% working stock,0.3,13.089467323855692,86.39048433744756,14.39841405624126,PREPARED STOCK,,Mineral ambergris persistence.,Sport Cedar Tonka | White Musk Frame
+9,"2 · Woods, leather and amber",Polysantol,neat / as supplied,1.0,8.255597648240933,54.48694447839016,9.081157413065027,DIRECT,,Persistent sandalwood.,Sport Cedar Tonka
+10,"2 · Woods, leather and amber",Vetiver EO,neat / as supplied,1.0,8.255597648240933,54.48694447839016,9.081157413065027,DIRECT,,Rooty natural vetiver.,Sport Cedar Tonka
+11,"2 · Woods, leather and amber",Vertofix,neat / as supplied,1.0,7.223647942210817,47.67607641859139,7.946012736431898,DIRECT,,Vetiver-cedar volume.,Sport Cedar Tonka
+12,"2 · Woods, leather and amber",Amberwood F,neat / as supplied,1.0,6.5628380427353905,43.31473108205358,7.219121847008929,DIRECT,,Dry woody-amber pressure.,Suede Orange Blossom
+13,"2 · Woods, leather and amber",Castoreum Synthetic 10%,10% prepared from neat,0.1,4.922128532051543,32.48604831154018,5.414341385256697,PREPARED STOCK,,Animalic leather warmth.,Suede Orange Blossom
+14,3 · Musks and diffusion,Habanolide,neat / verify label,1.0,49.59016207946918,327.2950697244966,54.5491782874161,DIRECT · VERIFY LABEL,base,Radiant metallic-clean musk.,Sport Cedar Tonka | Suede Orange Blossom | White Musk Frame
+15,3 · Musks and diffusion,Romandolide,neat / verify label,1.0,29.32909690822437,193.57203959428085,32.262006599046806,DIRECT · VERIFY LABEL,,Fruity-clean musk body.,White Musk Frame
+16,3 · Musks and diffusion,Galaxolide 50%,50% in DEP,0.5,20.530367835757055,135.50042771599655,22.58340461933276,PREPARED STOCK,,Soft musk volume.,White Musk Frame
+17,3 · Musks and diffusion,Zenolide,neat / as supplied,1.0,14.664548454112184,96.78601979714043,16.131003299523403,DIRECT,,Smooth musk.,White Musk Frame
+18,3 · Musks and diffusion,Ambrettolide 10%,10% in DPG,0.1,11.731638763289748,77.42881583771234,12.904802639618723,PREPARED STOCK,,Warm ambrette musk.,White Musk Frame
+19,3 · Musks and diffusion,Exaltolide 10%,10% working stock,0.1,11.731638763289748,77.42881583771234,12.904802639618723,PREPARED STOCK,,Soft macrocyclic musk.,White Musk Frame
+20,3 · Musks and diffusion,Macrolide,as supplied,1.0,7.332274227056092,48.39300989857021,8.065501649761702,DIRECT,,Soft macrocyclic musk.,White Musk Frame
+21,"4 · Iris, floral and green heart",Hedione,neat / as supplied,1.0,79.43297079310766,524.2576072345105,87.37626787241842,DIRECT,,Airy jasmine diffusion.,Iris Petal Air | Suede Orange Blossom
+22,"4 · Iris, floral and green heart",Magnolia EO,neat / as supplied,1.0,48.881828180373944,322.62006599046805,53.770010998411344,DIRECT,heart,Creamy citrus-white-floral detail.,Iris Petal Air | Target-Specific Reinforcement
+23,"4 · Iris, floral and green heart",Orris Liquid 30%,30% product stock,,44.97128192594403,296.8104607112306,49.46841011853843,PRODUCT BASIS,,Orris product body.,Iris Root
+24,"4 · Iris, floral and green heart",Phenethyl Alcohol,neat / as supplied,1.0,40.282247296789635,265.8628321588116,44.310472026468595,DIRECT,,Rose-floral body.,Iris Petal Air | Suede Orange Blossom
+25,"4 · Iris, floral and green heart",Alpha Isomethyl Ionone,neat / as supplied,1.0,39.97447282306136,263.83152063220496,43.971920105367495,DIRECT,,Powdery violet-orris body.,Iris Root
+26,"4 · Iris, floral and green heart",Benzyl Salicylate,neat / as supplied,1.0,38.019199695846396,250.92671799258622,41.821119665431034,DIRECT,,Floral body and fixation.,Iris Petal Air
+27,"4 · Iris, floral and green heart",Alpha Irone 30%,30% w/w in IPM,0.3,36.28117913832199,239.45578231292512,39.90929705215419,PREPARED STOCK,heart,Naturalistic irone signature.,Iris Root | Target-Specific Reinforcement
+28,"4 · Iris, floral and green heart",Orivone,neat / as supplied,1.0,29.980854617296018,197.87364047415372,32.97894007902562,DIRECT,,Dry rooty iris-wood.,Iris Root
+29,"4 · Iris, floral and green heart",Violet Leaf Absolute 10%,10% working stock,0.1,27.15657121131886,179.23336999470447,29.872228332450746,PREPARED STOCK,heart,Cool metallic violet leaf.,Target-Specific Reinforcement
+30,"4 · Iris, floral and green heart",Neroli EO 10%,10% working stock,0.1,26.251352170941562,173.2589243282143,28.876487388035716,PREPARED STOCK,,Neroli and orange-flower detail.,Suede Orange Blossom
+31,"4 · Iris, floral and green heart",Dihydro Beta Ionone,neat / as supplied,1.0,22.485640962972013,148.4052303556153,24.734205059269215,DIRECT,,Dry woody violet.,Iris Root
+32,"4 · Iris, floral and green heart",Irotyl,as supplied; product basis,,22.485640962972013,148.4052303556153,24.734205059269215,PRODUCT BASIS,,Iris speciality texture.,Iris Root
+33,"4 · Iris, floral and green heart",Florol,neat / as supplied,1.0,21.72525696905509,143.38669599576357,23.897782665960598,DIRECT,,Clean floral volume.,Iris Petal Air
+34,"4 · Iris, floral and green heart",Nympheal,as supplied; product basis,,21.72525696905509,143.38669599576357,23.897782665960598,PRODUCT BASIS,,Modern watery muguet.,Iris Petal Air
+35,"4 · Iris, floral and green heart",Ultralia,neat / as supplied,1.0,19.98723641153068,131.91576031610248,21.985960052683748,DIRECT,,Modern ionone volume.,Iris Root
+36,"4 · Iris, floral and green heart",Hydroxycitronellal,neat / as supplied,1.0,19.009599847923198,125.46335899629311,20.910559832715517,DIRECT,,Muguet softness.,Iris Petal Air
+37,"4 · Iris, floral and green heart",Jasmine Sambac Absolute 10%,10% working stock,0.1,16.350518916814895,107.91342485097832,17.985570808496387,PREPARED STOCK,,Green-fruity jasmine.,Iris Petal Air | Suede Orange Blossom
+38,"4 · Iris, floral and green heart",Alpha Ionone,neat / as supplied,1.0,12.492022757206675,82.44735019756405,13.74122503292734,DIRECT,,Warm violet floral.,Iris Root
+39,"4 · Iris, floral and green heart",Molecule Iris,as supplied,1.0,12.492022757206675,82.44735019756405,13.74122503292734,DIRECT,,Transparent iris texture.,Iris Root
+40,"4 · Iris, floral and green heart",Methyl Anthranilate,neat / as supplied,1.0,10.919204674551125,72.06675085203743,12.011125142006238,DIRECT,,Orange-flower and jasmine depth.,Iris Petal Air | Suede Orange Blossom
+41,"4 · Iris, floral and green heart",Jasmine Absolute 10%,10% working stock,0.1,10.862628484527544,71.69334799788179,11.948891332980299,PREPARED STOCK,,Warm natural jasmine.,Iris Petal Air
+42,"4 · Iris, floral and green heart",Beta Ionone,neat / as supplied,1.0,9.99361820576534,65.95788015805124,10.992980026341874,DIRECT,,Deep violet body.,Iris Root
+43,"4 · Iris, floral and green heart",Heliotropal 10%,10% working stock,0.1,9.99361820576534,65.95788015805124,10.992980026341874,PREPARED STOCK,,Powdered almond-heliotrope.,Iris Root
+44,"4 · Iris, floral and green heart",Farnesol,neat / as supplied,1.0,5.431314242263772,35.846673998940894,5.9744456664901495,DIRECT,,Warm floral persistence.,Iris Petal Air
+45,"4 · Iris, floral and green heart",Carrot Seed EO 10%,10% working stock,0.1,4.99680910288267,32.97894007902562,5.496490013170937,PREPARED STOCK,,Rooty carrot-rhizome nuance.,Iris Root
+46,5 · Aromatics and spices,Linalool,neat / as supplied,1.0,13.57828560565943,89.61668499735224,14.936114166225373,DIRECT,,Fresh floral-aromatic lift.,Iris Petal Air
+47,6 · Citrus and volatile top,Aldehyde C11 1%,1% working stock,0.01,0.3530354257471452,2.3300338099311584,0.3883389683218597,TRACE PREMIX,,Fresh aldehydic extension.,Precision Trace Architecture
+48,6 · Citrus and volatile top,Aldehyde C10 1%,1% working stock,0.01,0.285143997718848,1.881950384944397,0.3136583974907328,TRACE PREMIX,,Citrus aldehydic lift.,Precision Trace Architecture

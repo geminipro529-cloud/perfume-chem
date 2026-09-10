@@ -1,0 +1,999 @@
+{
+  "schema": "perfume-chem-ysl-candidate-v1",
+  "candidate_id": "LN-05",
+  "name": "Immortelle Nuit",
+  "family": "ysl_la_nuit_de_lhomme",
+  "mode": "STYLISTIC",
+  "source_bindings": {
+    "formula_uid": "ysl20:LN-05:v2",
+    "read_at_utc": "2026-08-27T02:41:12.424077Z",
+    "runtime_git_commit": "0eb764d0aa184839949d26ba094d679321e32166",
+    "agents_sha256": "88CB7B4C3C0727F63ED679A591676869710894AA824B765F596445BFDEEB7CA1",
+    "copilot_instructions_sha256": "55E9BA73B49689D335E5ECF2C264AF44CCE6BF18B74CC0E7B6AEAB0B461F36E0",
+    "inventory_sha256": "DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC",
+    "family_reference_sha256": "7C9968795E3A1662295D16C9DE73DAE6386C1EB8C06D05B5335AC546574350EF",
+    "inventory_overlay_sha256": "1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072",
+    "family_target_file_sha256": "AA6CE7FE51FE16B114705A26CD12D32DD5504362CB013CF5A890B23F7083C216",
+    "family_target_sha256": "A952263E405CDBBEC6A36A52105AC719F9D2EB89BF886EC1174EC4A753CA1CC2",
+    "chassis_file_sha256": "1870509670ED0B515D4A27243889B7D246A26C627B1C893F2A3169C07F84CFD9",
+    "natural_decomposition_sha256": "AAD32FAD612E7CFD12412FA7043F866E99D9B4011BD9540B997AA6E17F480F37",
+    "parent_formula_uid": "ysl20:LN-01:v2",
+    "parent_formula_definition_sha256": "bf0ffa2cf6076a633055c150397909a463f9ba72d4113042aa317938d3d402ac",
+    "parent_candidate_sha256": "F749F599FC44A274A2BFB3BB88BF29906FB56F6EDFEFD232A1DFF2D094EE9BF3",
+    "lineage_type": "CONTROLLED_CHILD",
+    "active_dose_change_authorizations": [
+      "Caraway Seed Oil (10% w/w in DPG)=reduced from 30 to 10 uL as a shared socket donor while retaining only a historical shadow",
+      "Immortelle Absolute (10% in DPG)=honeyed-dry immortelle body inside the fixed 300 uL socket with stock basis VERIFY_FIRST",
+      "Helichrysum EO=volatile immortelle lift inside the fixed 300 uL socket with composite-model coverage HOLD",
+      "Hay Absolute (10%)=restrained dry hay bridge inside the fixed 300 uL socket with carrier and basis VERIFY_FIRST",
+      "Maple Lactone (20%)=trace maple-caramel character echo inside the fixed 300 uL socket with carrier and basis VERIFY_FIRST",
+      "Nerol=citrus-rose floral seam keeping immortelle connected to lavender inside the fixed 300 uL socket"
+    ],
+    "runtime_worktree_state": "UNCOMMITTED_ISOLATED_STUDIO_PATCH",
+    "formula_definition_sha256": "0b394dcc67b1870af51ddade6ac880d6b01f26b771eb5760f2364c380cb8ff5e"
+  },
+  "target_identity": {
+    "north_star": "La Nuit's cool cardamom-lavender-cedar vertical lit by an immortelle afterglow: honeyed hay, dry herbal warmth, and a restrained maple-curry shadow that reads sensual and nocturnal, never syrupy gourmand, savory curry, tobacco, or balsamic amber.",
+    "functional_architecture": [
+      "cardamom remains the cool opening recognizer",
+      "immortelle absolute supplies honeyed-dry body while Helichrysum EO supplies volatile herbal lift",
+      "hay and maple facets are subordinate character echoes rather than a gourmand accord",
+      "Nerol and lavender preserve floral-terpenic continuity into literal cedar and vetiver"
+    ],
+    "protected_identity": [
+      "Cardamom Oil",
+      "Lavender",
+      "Cedarwood Virginia",
+      "Vetiver Haiti",
+      "Coumarin"
+    ],
+    "primary_axis": "honeyed-dry immortelle afterglow nested inside the protected cardamom-lavender-cedar vertical",
+    "variant_socket": {
+      "active_ppm_w_w": 66666.667,
+      "current_raw_ul": 300,
+      "target_allocation": {
+        "Immortelle Absolute": 18000,
+        "Helichrysum EO": 12000,
+        "Hay Absolute": 8000,
+        "Maple Lactone": 4000,
+        "Nerol": 6000,
+        "Cardamom increment": 8000,
+        "Lavender increment": 6000,
+        "Hedione increment": 4666.6666
+      },
+      "current_allocation_ul": {
+        "Immortelle Absolute (10% in DPG)": 80,
+        "Helichrysum EO": 40,
+        "Hay Absolute (10%)": 50,
+        "Maple Lactone (20%)": 20,
+        "Nerol": 40,
+        "Cardamom EO": 30,
+        "Lavender EO (BONTAUX SAS)": 20,
+        "Hedione": 20
+      }
+    },
+    "selection_rationale": [
+      "Immortelle Absolute is the honeyed-dry body and Helichrysum EO is its more volatile lift; using both is target-linked, but only the absolute has current composite decomposition coverage.",
+      "Hay Absolute extends coumarinic dryness and Maple Lactone supplies only a trace italidione-like maple echo; larger sweet materials, vanillin, balsams, tobacco, and the lost tinctures were rejected as genre-changing shortcuts.",
+      "Nerol was selected over Neroli because orange blossom is not central; Nerol gives a precise floral-terpenic seam without introducing a neroli identity.",
+      "The immortelle, cardamom, lavender, bergamot, and Nerol materials share terpene/oxygenated-terpene continuity; no unrelated natural-flower kitchen sink is added.",
+      "EB remains the sole structural musk; additional musks would blur the dry honeyed character."
+    ],
+    "drift_risk": "Maple, hay, curry, coumarin, tobacco, balsams, or musk excess would turn Immortelle Nuit into a gourmand-oriental or savory novelty and erase La Nuit."
+  },
+  "target_ideal": {
+    "basis": "active_ppm_w_w_of_concentrate",
+    "total_active_ppm_w_w": 1000000,
+    "target_sha256": "BF3C89A95689E59079067C46CA5E9F52044CF54DB360AFB47C83D0A95ED50175",
+    "inventory_independent": true,
+    "materials": [
+      {
+        "identity": "Iso E Super",
+        "active_ppm_w_w": 170000,
+        "function": "transparent dark-cedar halo and lateral diffusion",
+        "time_windows": [
+          "opening",
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "DESIGN_HYPOTHESIS_NOT_COMMERCIAL_PERCENTAGE"
+      },
+      {
+        "identity": "Amberwood F",
+        "active_ppm_w_w": 65000,
+        "function": "dry ambery pressure behind the aromatic heart",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Vertofix Coeur",
+        "active_ppm_w_w": 70000,
+        "function": "vetiver-wood spine and dark dry persistence",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Hedione",
+        "active_ppm_w_w": 85592.5926,
+        "function": "expanded transparent transition air around the immortelle heart",
+        "time_windows": [
+          "opening",
+          "heart",
+          "late_heart"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN",
+          "STUDY-DESIGN-LN-05"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Cashmeran",
+        "active_ppm_w_w": 50000,
+        "function": "warm textile shadow and spicy-wood depth",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "TEXTURE_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Ethyl Linalool",
+        "active_ppm_w_w": 40000,
+        "function": "fresh aromatic-floral tenacity linking bergamot, lavender, and cedar",
+        "time_windows": [
+          "opening",
+          "heart",
+          "late_heart"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "TRANSITION_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Dihydromyrcenol",
+        "active_ppm_w_w": 2500,
+        "function": "retained cool kinetic trace",
+        "time_windows": [
+          "opening",
+          "top"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_CORE"
+      },
+      {
+        "identity": "Exaltolide",
+        "active_ppm_w_w": 45000,
+        "function": "single exact soft skin musk for close sensual continuity",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Bergamot Oil",
+        "active_ppm_w_w": 45000,
+        "function": "sparkling citrus counterforce to cool cardamom",
+        "time_windows": [
+          "opening",
+          "top"
+        ],
+        "evidence_ids": [
+          "YSL-LN-OFFICIAL-INT",
+          "YSL-LN-LAUNCH-2009"
+        ],
+        "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"
+      },
+      {
+        "identity": "Cardamom Oil",
+        "active_ppm_w_w": 43000,
+        "function": "retained cool-spice recognizer against immortelle warmth",
+        "time_windows": [
+          "opening",
+          "top",
+          "heart"
+        ],
+        "evidence_ids": [
+          "YSL-LN-LAUNCH-2009",
+          "STUDY-DESIGN-LN-05"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Immortelle Absolute",
+        "active_ppm_w_w": 18000,
+        "function": "honeyed-dry immortelle body with maple-curry nuance held below gourmand or savory drift",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "IMMORTELLE-GC-O-2023",
+          "STUDY-DESIGN-LN-05"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Helichrysum EO",
+        "active_ppm_w_w": 12000,
+        "function": "volatile herbal-immortelle lift and opening-to-heart continuity",
+        "time_windows": [
+          "opening",
+          "top",
+          "heart"
+        ],
+        "evidence_ids": [
+          "IMMORTELLE-GC-O-2023",
+          "STUDY-DESIGN-LN-05"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Hay Absolute",
+        "active_ppm_w_w": 8000,
+        "function": "dry coumarinic hay bridge beneath immortelle",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "STUDY-DESIGN-LN-05"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Maple Lactone",
+        "active_ppm_w_w": 4000,
+        "function": "restrained maple-caramel character echo, never a syrup accord",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "STUDY-DESIGN-LN-05"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Nerol",
+        "active_ppm_w_w": 6000,
+        "function": "citrus-rose floral seam connecting immortelle to lavender",
+        "time_windows": [
+          "opening",
+          "heart"
+        ],
+        "evidence_ids": [
+          "STUDY-DESIGN-LN-05"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Lavender",
+        "active_ppm_w_w": 66000,
+        "function": "expanded aromatic-floral continuity into immortelle and cedar",
+        "time_windows": [
+          "opening",
+          "heart",
+          "late_heart"
+        ],
+        "evidence_ids": [
+          "YSL-LN-OFFICIAL-INT",
+          "YSL-LN-LAUNCH-2009",
+          "STUDY-DESIGN-LN-05"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Linalool",
+        "active_ppm_w_w": 20000,
+        "function": "fresh floral support inside the lavender bridge",
+        "time_windows": [
+          "opening",
+          "heart"
+        ],
+        "evidence_ids": [
+          "YSL-LN-OFFICIAL-INT"
+        ],
+        "quantity_authority": "DECLARED_ALLERGEN_FUNCTION_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Linalyl Acetate",
+        "active_ppm_w_w": 407.4074,
+        "function": "retained mobile ester trace",
+        "time_windows": [
+          "opening",
+          "top",
+          "heart"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_CORE"
+      },
+      {
+        "identity": "Cedarwood Virginia",
+        "active_ppm_w_w": 70000,
+        "function": "literal cedar heart and vertical backbone",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "YSL-LN-OFFICIAL-INT",
+          "YSL-LN-LAUNCH-2009"
+        ],
+        "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"
+      },
+      {
+        "identity": "Vetiver Haiti",
+        "active_ppm_w_w": 45000,
+        "function": "dry rooty Haitian-vetiver base and evening tension",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "YSL-LN-OFFICIAL-INT",
+          "YSL-LN-VETIVER-HAITI",
+          "YSL-LN-LAUNCH-2009"
+        ],
+        "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"
+      },
+      {
+        "identity": "Coumarin",
+        "active_ppm_w_w": 35000,
+        "function": "dry hay warmth and sensual fougere memory",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "YSL-LN-LAUNCH-2009"
+        ],
+        "quantity_authority": "CONTEMPORANEOUS_DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"
+      },
+      {
+        "identity": "Tonka",
+        "active_ppm_w_w": 30000,
+        "function": "rounded dry intimacy beneath coumarin without gourmand excess",
+        "time_windows": [
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "YSL-LN-OFFICIAL-INT"
+        ],
+        "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"
+      },
+      {
+        "identity": "Sandalwood",
+        "active_ppm_w_w": 35000,
+        "function": "creamy dry-wood rounding under cedar and vetiver",
+        "time_windows": [
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Alpha Isomethyl Ionone",
+        "active_ppm_w_w": 20000,
+        "function": "soft violet-woody body smoothing lavender into woods",
+        "time_windows": [
+          "heart",
+          "late_heart"
+        ],
+        "evidence_ids": [
+          "YSL-LN-OFFICIAL-INT"
+        ],
+        "quantity_authority": "DECLARED_ALLERGEN_FUNCTION_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Ambroxide",
+        "active_ppm_w_w": 2000,
+        "function": "retained mineral-dry trace",
+        "time_windows": [
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_CORE"
+      },
+      {
+        "identity": "Caraway",
+        "active_ppm_w_w": 200,
+        "function": "retained historical shadow below the immortelle axis",
+        "time_windows": [
+          "opening",
+          "heart"
+        ],
+        "evidence_ids": [
+          "YSL-LN-LAUNCH-2009"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_CORE"
+      },
+      {
+        "identity": "Florol",
+        "active_ppm_w_w": 1800,
+        "function": "retained clean floral seam",
+        "time_windows": [
+          "heart",
+          "late_heart"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_CORE"
+      },
+      {
+        "identity": "Patchouli",
+        "active_ppm_w_w": 10000,
+        "function": "quiet earthy dark-wood depth behind vetiver",
+        "time_windows": [
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Vanillin",
+        "active_ppm_w_w": 500,
+        "function": "retained trace warmth below gourmand identity",
+        "time_windows": [
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_CORE"
+      }
+    ]
+  },
+  "current_inventory_build": {
+    "basis": "raw_stock_ppm_w_w_of_concentrate",
+    "total_raw_stock_ppm_w_w": 1000000.0,
+    "total_odorant_active_ppm_w_w": 869666.666668,
+    "finished_product_concentrate_fraction_w_w": 0.15,
+    "inventory_sha256": "DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC",
+    "inventory_overlay_sha256": "1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072",
+    "materials": [
+      {
+        "inventory_name": "Iso E Super",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 115555.555556,
+        "odorant_active_ppm_w_w": 115555.555556,
+        "finished_product_active_ppm_w_w": 17333.333333,
+        "mapping_status": "MOLECULAR_SKIN_CORE",
+        "target_functions": [
+          "dark-cedar halo"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Reduced as shared donor; literal cedar remains separate.",
+        "dose_authority": "CONTROLLED_SOCKET_DONOR"
+      },
+      {
+        "inventory_name": "Amberwood F",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 40000.0,
+        "odorant_active_ppm_w_w": 40000.0,
+        "finished_product_active_ppm_w_w": 6000.0,
+        "mapping_status": "REDUCED_SHARED_DONOR",
+        "target_functions": [
+          "dry amber pressure",
+          "Ambroxide loss mapping"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Reduced; not Ambroxide equivalence.",
+        "dose_authority": "CONTROLLED_SOCKET_DONOR"
+      },
+      {
+        "inventory_name": "Vertofix",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 66666.666667,
+        "odorant_active_ppm_w_w": 66666.666667,
+        "finished_product_active_ppm_w_w": 10000.0,
+        "mapping_status": "GRADE_UNVERIFIED_CORE",
+        "target_functions": [
+          "vetiver-wood spine"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Coeur grade unverified.",
+        "dose_authority": "CONTROLLED_CHILD_CORE"
+      },
+      {
+        "inventory_name": "Hedione",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 75555.555556,
+        "odorant_active_ppm_w_w": 75555.555556,
+        "finished_product_active_ppm_w_w": 11333.333333,
+        "mapping_status": "RETAINED_TRANSITION_AIR",
+        "target_functions": [
+          "immortelle-lavender-cedar continuity"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Slightly below parent; keeps the natural module exposed.",
+        "dose_authority": "CONTROLLED_SOCKET_MAPPING"
+      },
+      {
+        "inventory_name": "Cashmeran",
+        "stock_status": "IN_STOCK_CURRENT_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 44444.444444,
+        "odorant_active_ppm_w_w": 44444.444444,
+        "finished_product_active_ppm_w_w": 6666.666667,
+        "mapping_status": "CURRENT_INVENTORY_REBASE_WITH_EXPLICIT_FUNCTION_LOSS",
+        "target_functions": [
+          "warm textile shadow",
+          "partial current-inventory coverage for removed Cashmeran (neat)"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Retained as darker textile counterpoint to Ebanol. Cashmeran is not identity-equivalent to Cashmeran (neat); test by blinded constant-total omission/addition.",
+        "dose_authority": "CURRENT_BUILD_DESIGN_HYPOTHESIS_NOT_SENSORY_EVIDENCE"
+      },
+      {
+        "inventory_name": "Linalool",
+        "stock_status": "IN_STOCK_CURRENT_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 45111.111111,
+        "odorant_active_ppm_w_w": 45111.111111,
+        "finished_product_active_ppm_w_w": 6766.666667,
+        "mapping_status": "CURRENT_INVENTORY_REBASE_WITH_EXPLICIT_FUNCTION_LOSS",
+        "target_functions": [
+          "aromatic-floral tenacity",
+          "partial current-inventory coverage for removed Ethyl Linalool",
+          "molecular aromatic continuity",
+          "restrained shadow",
+          "partial current-inventory coverage for removed Caraway Seed Oil (10% w/w in DPG)"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Unchanged. Linalool is not identity-equivalent to Ethyl Linalool; test by blinded constant-total omission/addition. Expanded as a continuity constituent, not a separate laundry note. Reduced threefold; composite OAV required. Linalool is not identity-equivalent to Caraway Seed Oil (10% w/w in DPG); test by blinded constant-total omission/addition.",
+        "dose_authority": "CURRENT_BUILD_DESIGN_HYPOTHESIS_NOT_SENSORY_EVIDENCE"
+      },
+      {
+        "inventory_name": "Linalyl Acetate",
+        "stock_status": "IN_STOCK_CURRENT_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 20222.222222,
+        "odorant_active_ppm_w_w": 20222.222222,
+        "finished_product_active_ppm_w_w": 3033.333333,
+        "mapping_status": "CURRENT_INVENTORY_REBASE_WITH_EXPLICIT_FUNCTION_LOSS",
+        "target_functions": [
+          "aromatic-floral tenacity",
+          "partial current-inventory coverage for removed Ethyl Linalool",
+          "mobile lavender ester seam"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Unchanged. Linalyl Acetate is not identity-equivalent to Ethyl Linalool; test by blinded constant-total omission/addition. Expanded; commercial percentage not claimed.",
+        "dose_authority": "CURRENT_BUILD_DESIGN_HYPOTHESIS_NOT_SENSORY_EVIDENCE"
+      },
+      {
+        "inventory_name": "Dihydromyrcenol",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 11111.111111,
+        "odorant_active_ppm_w_w": 11111.111111,
+        "finished_product_active_ppm_w_w": 1666.666667,
+        "mapping_status": "REDUCED_MOBILE_CORE",
+        "target_functions": [
+          "cool tension"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Reduced to prevent fresh dilution of cardamom.",
+        "dose_authority": "CONTROLLED_SOCKET_DONOR"
+      },
+      {
+        "inventory_name": "Ethylene Brassylate",
+        "stock_status": "OWNED_OVERLAY_ROSTER_MISSING",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 55555.555556,
+        "odorant_active_ppm_w_w": 55555.555556,
+        "finished_product_active_ppm_w_w": 8333.333333,
+        "mapping_status": "SINGLE_MUSK_FUNCTIONAL_SUBSTITUTION_WITH_INVENTORY_DRIFT_CAVEAT",
+        "target_functions": [
+          "soft skin continuity"
+        ],
+        "is_musk": true,
+        "musk_function": "single structural continuity",
+        "loss_statement": "Cleaner than target Exaltolide; verify label; no extra velvet musk added.",
+        "dose_authority": "DIRECT_USER_OWNERSHIP_VERIFY_FIRST"
+      },
+      {
+        "inventory_name": "Bergamot FCF oil Sicilian",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 55555.555556,
+        "odorant_active_ppm_w_w": 55555.555556,
+        "finished_product_active_ppm_w_w": 8333.333333,
+        "mapping_status": "DOCUMENTARY_CITRUS_CORE",
+        "target_functions": [
+          "sparkling counterforce"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Documentary identity; composite OAV required.",
+        "dose_authority": "CONTROLLED_CHILD_CORE"
+      },
+      {
+        "inventory_name": "Cardamom EO",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 43555.555555,
+        "odorant_active_ppm_w_w": 43555.555555,
+        "finished_product_active_ppm_w_w": 6533.333333,
+        "mapping_status": "RETAINED_DIRECT_NATURAL_CLASS",
+        "target_functions": [
+          "cool recognizer against honeyed-dry warmth",
+          "restrained shadow",
+          "partial current-inventory coverage for removed Caraway Seed Oil (10% w/w in DPG)"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Natural lot and measured headspace unknown; composite OAV required. Reduced threefold; composite OAV required. Cardamom EO is not identity-equivalent to Caraway Seed Oil (10% w/w in DPG); test by blinded constant-total omission/addition.",
+        "dose_authority": "CONTROLLED_SOCKET_MAPPING"
+      },
+      {
+        "inventory_name": "Lavender EO High Altitude",
+        "stock_status": "IN_STOCK_CURRENT_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 60000.0,
+        "odorant_active_ppm_w_w": 60000.0,
+        "finished_product_active_ppm_w_w": 9000.0,
+        "mapping_status": "CURRENT_INVENTORY_REBASE_WITH_EXPLICIT_FUNCTION_LOSS",
+        "target_functions": [
+          "aromatic bridge into immortelle",
+          "partial current-inventory coverage for removed Lavender EO (BONTAUX SAS)"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Lot and chemotype unverified; composite OAV required. Lavender EO High Altitude is not identity-equivalent to Lavender EO (BONTAUX SAS); test by blinded constant-total omission/addition.",
+        "dose_authority": "CURRENT_BUILD_DESIGN_HYPOTHESIS_NOT_SENSORY_EVIDENCE"
+      },
+      {
+        "inventory_name": "Cedarwood oil Virginia",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 77777.777778,
+        "odorant_active_ppm_w_w": 77777.777778,
+        "finished_product_active_ppm_w_w": 11666.666667,
+        "mapping_status": "EXPANDED_LITERAL_CEDAR",
+        "target_functions": [
+          "literal cedar under velvet"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Lot unmeasured; composite OAV required.",
+        "dose_authority": "CONTROLLED_SOCKET_MAPPING"
+      },
+      {
+        "inventory_name": "Indian Vetiver EO",
+        "stock_status": "IN_STOCK_CURRENT_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 40000.0,
+        "odorant_active_ppm_w_w": 40000.0,
+        "finished_product_active_ppm_w_w": 6000.0,
+        "mapping_status": "CURRENT_INVENTORY_REBASE_WITH_EXPLICIT_FUNCTION_LOSS",
+        "target_functions": [
+          "dry evening tension",
+          "partial current-inventory coverage for removed Indian Vetiver EO (volume grade)"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Not Haitian; composite OAV required. Indian Vetiver EO is not identity-equivalent to Indian Vetiver EO (volume grade); test by blinded constant-total omission/addition.",
+        "dose_authority": "CURRENT_BUILD_DESIGN_HYPOTHESIS_NOT_SENSORY_EVIDENCE"
+      },
+      {
+        "inventory_name": "Tonkarome (20% w/w in TEC)",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 0.2,
+        "concentration_basis": "w/w",
+        "carrier": "TEC",
+        "raw_stock_ppm_w_w": 72222.222223,
+        "odorant_active_ppm_w_w": 14444.444445,
+        "finished_product_active_ppm_w_w": 2166.666667,
+        "mapping_status": "COUMARIN_TONKA_CORE",
+        "target_functions": [
+          "dry hay warmth",
+          "tonka intimacy",
+          "dry coumarinic hay bridge",
+          "partial current-inventory coverage for removed Hay Absolute (10%)"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Known 20% w/w basis; no extra sweetness added. Nominal percentage lacks recorded basis and carrier; active ppm is conditional. Tonkarome (20% w/w in TEC) is not identity-equivalent to Hay Absolute (10%); test by blinded constant-total omission/addition.",
+        "dose_authority": "KNOWN_20_PERCENT_W_W_CORE"
+      },
+      {
+        "inventory_name": "Sandalore",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 44444.444444,
+        "odorant_active_ppm_w_w": 44444.444444,
+        "finished_product_active_ppm_w_w": 6666.666667,
+        "mapping_status": "FRESH_LIGHT_SANDALWOOD_CORE",
+        "target_functions": [
+          "fresh-light dry-wood rounding"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Keeps the base lifted; distinct from Ebanol's yielding texture.",
+        "dose_authority": "CONTROLLED_CHILD_CORE"
+      },
+      {
+        "inventory_name": "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 22222.222222,
+        "odorant_active_ppm_w_w": 22222.222222,
+        "finished_product_active_ppm_w_w": 3333.333333,
+        "mapping_status": "NAME_NORMALIZATION",
+        "target_functions": [
+          "violet-woody smoothing"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Grade unverified.",
+        "dose_authority": "CONTROLLED_CHILD_CORE"
+      },
+      {
+        "inventory_name": "Florol",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 8888.888889,
+        "odorant_active_ppm_w_w": 8888.888889,
+        "finished_product_active_ppm_w_w": 1333.333333,
+        "mapping_status": "REDUCED_MOBILE_CORE",
+        "target_functions": [
+          "clean floral seam"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Reduced so velvet comes from texture, not generic floral volume.",
+        "dose_authority": "CONTROLLED_SOCKET_DONOR"
+      },
+      {
+        "inventory_name": "Patchouli EO",
+        "stock_status": "IN_STOCK_CURRENT_INVENTORY",
+        "stock_fraction": 1.0,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 11111.111111,
+        "odorant_active_ppm_w_w": 11111.111111,
+        "finished_product_active_ppm_w_w": 1666.666667,
+        "mapping_status": "CURRENT_INVENTORY_REBASE_WITH_EXPLICIT_FUNCTION_LOSS",
+        "target_functions": [
+          "quiet dark-earth depth",
+          "partial current-inventory coverage for removed Patchouli EO (volume grade)"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Composite OAV required. Patchouli EO is not identity-equivalent to Patchouli EO (volume grade); test by blinded constant-total omission/addition.",
+        "dose_authority": "CURRENT_BUILD_DESIGN_HYPOTHESIS_NOT_SENSORY_EVIDENCE"
+      },
+      {
+        "inventory_name": "Immortelle Absolute (10% in DPG)",
+        "stock_status": "VERIFY_FIRST_PERCENT_BASIS",
+        "stock_fraction": 0.1,
+        "concentration_basis": "UNRECORDED_PERCENT_BASIS",
+        "carrier": "DPG",
+        "raw_stock_ppm_w_w": 76666.666666,
+        "odorant_active_ppm_w_w": 7666.666667,
+        "finished_product_active_ppm_w_w": 1150.0,
+        "mapping_status": "CONDITIONAL_DIRECT_ABSOLUTE",
+        "target_functions": [
+          "honeyed-dry immortelle body",
+          "volatile immortelle herbal lift",
+          "partial current-inventory coverage for removed Helichrysum EO",
+          "dry coumarinic hay bridge",
+          "partial current-inventory coverage for removed Hay Absolute (10%)"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Nominal 10% and DPG carrier are rostered, but w/w versus v/v is unrecorded; active ppm is conditional; composite OAV covered only after basis verification. Current runtime defines constituents but does not register Helichrysum EO for composite decomposition; strict OAV and release remain HOLD. Immortelle Absolute (10% in DPG) is not identity-equivalent to Helichrysum EO; test by blinded constant-total omission/addition. Nominal percentage lacks recorded basis and carrier; active ppm is conditional. Immortelle Absolute (10% in DPG) is not identity-equivalent to Hay Absolute (10%); test by blinded constant-total omission/addition. named-material accent rebase: 200 uL raw stock shifted from scaffold to covered immortelle absolute.",
+        "dose_authority": "AUTHORIZED_CONTROLLED_SOCKET_ADDITION_VERIFY_FIRST"
+      },
+      {
+        "inventory_name": "Maple Lactone (20%)",
+        "stock_status": "VERIFY_FIRST_PERCENT_BASIS_AND_CARRIER",
+        "stock_fraction": 0.2,
+        "concentration_basis": "UNRECORDED_PERCENT_BASIS",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 4444.444444,
+        "odorant_active_ppm_w_w": 888.888889,
+        "finished_product_active_ppm_w_w": 133.333333,
+        "mapping_status": "CONDITIONAL_TRACE_MAPLE_ECHO",
+        "target_functions": [
+          "restrained maple-caramel echo"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Nominal percentage lacks recorded basis and carrier; active ppm is conditional and this is not a gourmand dose claim.",
+        "dose_authority": "AUTHORIZED_CONTROLLED_SOCKET_ADDITION_VERIFY_FIRST"
+      },
+      {
+        "inventory_name": "Nerol",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 8888.888889,
+        "odorant_active_ppm_w_w": 8888.888889,
+        "finished_product_active_ppm_w_w": 1333.333333,
+        "mapping_status": "DIRECT_FLORAL_TERPENE_SEAM",
+        "target_functions": [
+          "citrus-rose continuity into lavender"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Chosen instead of support-only Neroli because orange blossom is not central.",
+        "dose_authority": "AUTHORIZED_CONTROLLED_SOCKET_ADDITION"
+      }
+    ],
+    "formula_state": "COMPLETE_DESIGN__PHYSICAL_VALIDATION_PENDING"
+  },
+  "volume_adapter": {
+    "authority": "HEURISTIC_VOLUME_ADAPTER_NOT_PPM_W_W",
+    "concentrate_total_ul": 4500,
+    "finished_product_nominal_ml": 30,
+    "nominal_concentrate_fraction": 0.15,
+    "matrix_omissions": [
+      "stock densities",
+      "finished ethanol-water mass fractions",
+      "volume contraction"
+    ],
+    "formula_definition_status": "CURRENT_BUILD_PIPELINE_SCREENED__PHYSICAL_VALIDATION_PENDING"
+  },
+  "missing_chemical_impact": {
+    "status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+    "architecture_locked": true,
+    "auto_integrated_materials": [],
+    "gaps": [
+      "Immortelle and Maple stock-basis receipts",
+      "Exaltolide texture",
+      "Haitian vetiver and target lavender",
+      "physical anti-curry and anti-gourmand evidence"
+    ],
+    "authority": "NO_SENSORY_SUCCESS_NO_AUTOMATIC_PURCHASE_NO_RELEASE_CONCLUSION"
+  },
+  "purchase_preparation": {
+    "state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+    "recommendation": "TARGET / IDEAL keeps the immortelle concept. CURRENT removes Helichrysum, Hay, Caraway, and unavailable Ethyl Linalool; it centers covered Immortelle Absolute with nerol, maple lactone, dry Tonkarome, lavender, cardamom, cedar, and vetiver. Immortelle and Maple percentage-stock bases remain VERIFY_FIRST. No curry, maple, gourmand, liking, or similarity success is inferred. Verify EB; buy nothing before the carrier-matched omission arm.",
+    "lost_tinctures": "NO_USE_ALL_TINCTURES_LOST",
+    "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+    "musk_rule": "Ethylene Brassylate is the sole musk; verify label or receipt before compounding."
+  },
+  "diagnostics": {
+    "parser_preflight": {
+      "status": "PASS_PARSE_AND_STOCK__PREFLIGHT_WARNINGS_RETAINED",
+      "formula_uid": "ysl20:LN-05:v2",
+      "rendered_file": "formulas/ysl_twenty_variant_study/rendered/LN-05_Immortelle_Nuit_30mL_EDT.md",
+      "material_count": 22,
+      "raw_concentrate_ul": 4500.0,
+      "formula_definition_sha256": "0b394dcc67b1870af51ddade6ac880d6b01f26b771eb5760f2364c380cb8ff5e",
+      "rendered_file_sha256": "3a8430e0ff362ee522746df75f5b7e3ab75b9b0b1d700dad60861c547a66718e"
+    },
+    "ppm_arithmetic": "PASS_NOMINAL_DESIGN_PPM__PHYSICAL_MASS_RECEIPT_PENDING",
+    "odt_oav": "MODELED_305K_DIAGNOSTIC__ODT_AUTHORITY_WARNINGS_RETAINED__NOT_MEASURED",
+    "composite_natural_oav": "LITERATURE_PROXY_COMPOSITE_MODELS_APPLIED__NOT_USER_LOT_MEASUREMENTS",
+    "temporal_headspace": "FIVE_WINDOW_FINITE_FILM_MODEL__NOT_MEASURED",
+    "stock_rebase_oav_per_time": "CURRENT_STOCK_BASIS_MODELED__PHYSICAL_REBASE_NOT_TESTED",
+    "pipette_floor": "PASS_ALL_RAW_STOCK_DOSES_AT_OR_ABOVE_10_UL",
+    "pipeline_release_gate": "WARN__110_PASS__19_WARN__0_FAIL__NOT_RELEASE_AUTHORITY",
+    "pipeline_json_sha256": "8686c5b5a019a69c8072adbda3387e787bb0417b1f1eb885da2e9a29c67d313c",
+    "formatter_output_sha256": "cb8afcbbd0bcad8c9afdaefd94cca34be5cf9437ff68f10a41e56e4fd07a6fa1",
+    "screening_summary_sha256": "a4779473e6c7ae0794e350d0873fe4a007583163ff221838a6261397aeeba34b",
+    "sensory_authority": false
+  },
+  "blind_test": {
+    "status": "PROTOCOL_ONLY_NOT_EXECUTED",
+    "role": "La Nuit immortelle child",
+    "comparison": "Balanced-order equal-mass and equal-concentration comparison against LN-01 plus a carrier-matched immortelle-module omission control after stock bases are verified; assess immortelle identity and La Nuit retention versus curry, maple, gourmand, tobacco, balsamic, or cardamom-loss failure.",
+    "time_cells": [
+      "0_min",
+      "5_min",
+      "30_min",
+      "2_hr",
+      "4_hr"
+    ],
+    "liking_result": "NOT TESTED"
+  },
+  "claim_ceiling": {
+    "exact_commercial_formula": "NOT CLAIMED",
+    "physical_liking": "NOT TESTED",
+    "sensory_similarity": "NOT TESTED",
+    "stability": "NOT TESTED",
+    "safety": "NOT CLEARED",
+    "measured_headspace": "NOT TESTED",
+    "release": "NOT CLEARED"
+  }
+}

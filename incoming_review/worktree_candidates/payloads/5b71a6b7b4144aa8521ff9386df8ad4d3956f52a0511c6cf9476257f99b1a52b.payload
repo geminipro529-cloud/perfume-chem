@@ -1,0 +1,215 @@
+"""Selected receipt reconciliation is stock binding, never perfume release."""
+from __future__ import annotations
+
+import hashlib
+import json
+from dataclasses import asdict
+from pathlib import Path
+
+import pytest
+
+from engine import inventory_parser as inventory
+from engine.name_utils import normalize_name
+from engine.pipeline.preflight import resolve_inventory_stock_contract
+from scripts.verify_formula_workflow import parse_formula_markdown
+
+ROOT = Path(__file__).resolve().parents[1]
+SELECTED_ROWS = {21, 245, 27, 28, 264, 195}
+
+
+def _digest(value: object) -> str:
+    return hashlib.sha256(json.dumps(value, sort_keys=True, ensure_ascii=True).encode()).hexdigest()
+
+
+def test_pinned_reconciliation_preserves_every_unrelated_stock_and_requirement() -> None:
+    current = inventory.materialize_current_inventory()
+    stable = [asdict(stock) for stock in current.stocks
+              if not SELECTED_ROWS.intersection(stock.source_rows)
+              and stock.name not in {"Givaudan AIMI", "Orris Liquid"}]
+    requirements = [asdict(row) for row in current.requirements
+                    if row.source_row not in SELECTED_ROWS]
+    # Captured from the live, pinned September 4 predecessor BEFORE this change.
+    # Includes all fields: IDs, authority, holds, basis, range and source refs.
+    assert len(stable) == 226
+    assert _digest(sorted(stable, key=lambda row: row["stock_id"])) == (
+        "4296a764de1b31fe0aa9b4108de2c8ad2b0f8bf714f61ebaa2331c04cd02f2be"
+    )
+    assert len(requirements) == 274
+    assert _digest(requirements) == (
+        "e705ee3a7b9a31cffb8854a6b288e9fb64e3c3162c9c4715af404a3b7b171fc1"
+    )
+
+
+def test_successor_sync_receipt_binds_current_files_and_immutable_previous_receipt() -> None:
+    receipt = json.loads((ROOT / "data/governance/inventory_worktree_sync_20260905_001.json").read_text())
+    assert receipt["parent"]["sha256"] == (
+        "9013ac59b822dfcca10f9f282f05fd34ff10bdbf204cc3e70ab535eb529cc0d9"
+    )
+    for row in [receipt["parent"], *receipt["current_files"]]:
+        content = (ROOT / row["path"]).read_bytes().replace(b"\r\n", b"\n")
+        assert len(content) == row["size_bytes"]
+        assert hashlib.sha256(content).hexdigest() == row["sha256"]
+    assert set(receipt["authority_limits"].values()) == {False}
+
+
+@pytest.mark.parametrize("name,fraction,basis,carrier,rows", [
+    ("Givaudan AIMI", 1.0, "neat", "", (21,)),
+    ("Vetiver EO (India)", 1.0, "neat", "", (245,)),
+    ("Ambrettolide", 0.1, "mass_fraction", "dpg", (27, 28)),
+    ("Tonkarome", 0.2, "mass_fraction", "tec", (264,)),
+    ("Orris Liquid", 0.09, "mass_fraction", "dep", (195,)),
+])
+def test_exact_selected_stocks_are_unique(name, fraction, basis, carrier, rows) -> None:
+    stocks = [stock for stock in inventory.materialize_current_inventory().stocks
+              if normalize_name(stock.name) == normalize_name(name)]
+    assert len(stocks) == 1
+    stock = stocks[0]
+    assert (stock.dilution, stock.fraction_basis, stock.carrier, stock.source_rows) == (
+        fraction, basis, carrier, rows,
+    )
+    assert stock.execution_ready is True
+    assert stock.authority == inventory.CURRENT_USER_INVENTORY_AUTHORITY
+    assert stock.stock_id.startswith("inventory:user-20260905:")
+
+
+def test_selected_records_are_exact_source_copies_except_local_id_and_provenance() -> None:
+    payload = inventory.load_current_user_inventory_overlay()
+    previous = inventory.load_current_user_inventory_overlay(
+        inventory.PREVIOUS_USER_INVENTORY_OVERLAY_20260904_002_PATH
+    )
+    assert len(payload["delta_records"]) == 5
+    for row in payload["delta_records"]:
+        source = row["source_receipt"]
+        path = ROOT / source["local_evidence_path"]
+        assert inventory._normalized_text_sha256(path) == source["normalized_text_sha256"]
+        original = next(record for record in json.loads(path.read_text(encoding="utf-8"))["records"]
+                        if record["record_id"] == source["record_id"])
+        restored = {key: value for key, value in row.items() if key != "source_receipt"}
+        restored["record_id"] = source["record_id"]
+        assert restored == original
+    history = payload["historical_stock_records"]
+    assert history[:len(previous["historical_stock_records"])] == previous["historical_stock_records"]
+    old_records = {row["record_id"]: row for row in previous["records"]}
+    for row in history[len(previous["historical_stock_records"]):]:
+        assert row["superseded_record"] == old_records[row["superseded_record"]["record_id"]]
+        assert row["current_execution_authority"] is False
+        assert row["historical_formula_rewrite_authorized"] is False
+    assert all(value is False for value in payload["authority_limits"].values())
+
+
+@pytest.mark.parametrize("mutation", [
+    "replace_unrelated_record", "duplicate_import", "wrong_source_record", "carrier_injection",
+    "promote_safety", "promote_density", "promote_compounding", "remove_ceiling",
+    "weaken_preservation", "predecessor_drift", "live_text_drift",
+])
+def test_semantic_validation_rejects_scope_and_authority_drift(tmp_path, mutation) -> None:
+    payload = json.loads(inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8"))
+    if mutation == "replace_unrelated_record":
+        payload["replaced_record_ids"].append("INV-USER-20260904-002")
+    elif mutation == "duplicate_import":
+        payload["record_imports"].append(payload["record_imports"][0])
+    elif mutation == "wrong_source_record":
+        payload["record_imports"][0]["source_record_id"] = "INV-USER-20260904-005"
+    elif mutation == "carrier_injection":
+        payload["delta_records"] = [{"stock": {"carrier": "ethanol"}}]
+    elif mutation.startswith("promote_"):
+        key = {"promote_safety": "safety_asserted", "promote_density": "density_asserted",
+               "promote_compounding": "formula_compounding_authorized"}[mutation]
+        payload["authority_limits"][key] = True
+    elif mutation == "remove_ceiling":
+        payload["authority_limits"].pop("pure_irone_assay_asserted")
+    elif mutation == "weaken_preservation":
+        payload["policy"]["preserve_inherited_stock_ids_and_authority"] = False
+    elif mutation == "predecessor_drift":
+        payload["predecessor"]["normalized_text_sha256"] = "0" * 64
+    else:
+        payload["source"]["inventory_text_sha256"] = "0" * 64
+    path = tmp_path / "mutated.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    with pytest.raises(inventory.InventoryAuthorityError):
+        inventory.load_current_user_inventory_overlay(path, require_pinned_overlay=False)
+
+
+@pytest.mark.parametrize("target", [
+    "head", "predecessor", "receipt_20260904", "receipt_20260905", "inventory",
+])
+def test_byte_drift_is_rejected_even_for_imported_source_receipts(monkeypatch, target) -> None:
+    original = inventory._normalized_text_sha256
+    paths = {
+        "head": inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH,
+        "predecessor": inventory.PREVIOUS_USER_INVENTORY_OVERLAY_20260904_002_PATH,
+        "receipt_20260904": ROOT / "data/governance/evidence/canonical_inventory_user_authority_20260904.json",
+        "receipt_20260905": ROOT / "data/governance/evidence/canonical_inventory_user_authority_20260905.json",
+        "inventory": inventory.INVENTORY_PATH,
+    }
+    monkeypatch.setattr(inventory, "_normalized_text_sha256",
+                        lambda path: "0" * 64 if path == paths[target] else original(path))
+    with pytest.raises(inventory.InventoryAuthorityError):
+        inventory.load_current_user_inventory_overlay()
+
+
+def test_coriander_seed_alias_does_not_admit_leaf_oil_or_change_stock_id() -> None:
+    assert normalize_name("Coriander Seed EO") == normalize_name("Coriander Essential Oil")
+    assert normalize_name("Coriander Leaf EO") != normalize_name("Coriander Essential Oil")
+    assert normalize_name("Cilantro Leaf Oil") != normalize_name("Coriander Essential Oil")
+    stock = next(stock for stock in inventory.materialize_current_inventory().stocks
+                 if stock.name == "Coriander Seed EO")
+    assert stock.stock_id == "inventory:v5:8f24d01cce6349e9cf63"
+
+
+@pytest.mark.parametrize("label", [
+    "Vetiver EO", "Indian Vetiver EO", "Indian Vetiver EO (volume grade)", "Vetiver EO (India)",
+])
+def test_public_resolver_and_preflight_use_verified_vetiver_labels(label) -> None:
+    stock = inventory.resolve_inventory_material(label)
+    assert stock is not None
+    assert stock.name == "Vetiver EO (India)"
+    assert stock.stock_id == "inventory:user-20260905:46eaa4afb0cbf45f8cfe"
+    contract = resolve_inventory_stock_contract({
+        "ingredients_ul": {label: 120}, "dilutions": {label: 1.0},
+        "stock_specs": {label: {"fraction": 1.0, "fraction_basis": "neat", "declared": True}},
+    })
+    assert contract.status == "PASS"
+    assert contract.data["matched_stocks"][0]["stock_id"] == stock.stock_id
+
+
+@pytest.mark.parametrize("label", [
+    "Vetiver EO (Haiti)", "Vetiver EO (Java)", "Indian Vetiver EO (Ruh Khus)",
+    "Coriander Leaf EO", "Coriander Essential Oil (leaf)",
+])
+def test_other_origins_grades_and_leaf_oils_are_not_admitted(label) -> None:
+    assert inventory.resolve_inventory_material(label) is None
+    contract = resolve_inventory_stock_contract({
+        "ingredients_ul": {label: 20}, "dilutions": {label: 1.0},
+        "stock_specs": {label: {"fraction": 1.0, "fraction_basis": "neat", "declared": True}},
+    })
+    assert contract.status == "FAIL"
+
+
+def test_v5_fixed_doses_bind_all_23_stocks_without_aesthetic_or_mass_promotion() -> None:
+    formula = parse_formula_markdown(ROOT / "formulas/DHI-11_V5_Orris_Led_From_Zero_30mL_20pct.md")[0]
+    assert formula["ingredients_ul"] == {
+        "Hedione": 240, "Iso E Super": 160, "Vetival": 100, "Benzyl Benzoate": 100,
+        "Benzyl Salicylate": 60, "Vetiver EO (India)": 120, "Cedarwood oil Virginia": 260,
+        "Cashmeran": 70, "Ebanol": 30, "Kephalis": 50, "Ambrettolide": 1000,
+        "Ethylene Brassylate": 600, "Lavender EO High Altitude": 140, "Linalyl Acetate": 80,
+        "Orris Liquid": 1500, "Alpha Isomethyl Ionone (Methyl Ionone Pure)": 600,
+        "Alpha Irone": 160, "Alpha Ionone": 60, "Tonkarome": 400, "Isobutavan": 80,
+        "Coriander Essential Oil": 20, "Verdox": 100, "Benzyl Acetate": 70,
+    }
+    assert sum(formula["ingredients_ul"].values()) == 6000
+    contract = resolve_inventory_stock_contract(formula)
+    assert contract.status == "PASS"
+    assert contract.data["issues"] == []
+    assert len(contract.data["matched_stocks"]) == 23
+    for name, fraction, carrier in (("Ambrettolide", .1, "dpg"), ("Tonkarome", .2, "tec"),
+                                    ("Orris Liquid", .09, "dep"), ("Alpha Irone", .1, "dep")):
+        spec = contract.data["resolved_stock_specs"][name]
+        assert (spec["fraction"], spec["fraction_basis"], spec["carrier"]) == (
+            fraction, "mass_fraction", carrier,
+        )
+        assert "stock_solution_density_g_ml" not in spec
+    parent = ROOT / "formulas/DHI-11_Velours_d_Iris_05443A_30mL_20pct_V4_Orris_Led.md"
+    assert hashlib.sha256(parent.read_bytes()).hexdigest() == (
+        "27017d190bff711ef91a9bb0c2d17fb20624012559f0a6e2e2ed91dccea6544e"
+    )

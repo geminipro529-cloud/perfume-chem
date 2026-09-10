@@ -1,0 +1,294 @@
+from __future__ import annotations
+
+import hashlib
+import json
+import shutil
+from dataclasses import replace
+from pathlib import Path
+
+import pytest
+
+from engine.inventory_parser import (
+    CURRENT_USER_INVENTORY_OVERLAY_PATH,
+    CURRENT_USER_INVENTORY_OVERLAY_SHA256,
+)
+from engine.perception.harmonic_runtime_registry import (
+    CURRENT_HARMONIC_RUNTIME_REGISTRY_PATH,
+    V9_ADMITTED_ARCHITECTURE_MODULE_IDS,
+    V9_EVIDENCE_ONLY_MODULE_IDS,
+    V9_GUARDRAIL_MODULE_IDS,
+    V9_REGISTRY_PATH,
+    HarmonicRuntimeRegistryV9,
+    _load_harmonic_runtime_registry_v8,
+    _material_data_fingerprint,
+    _normalized_utf8_sha256,
+    load_harmonic_runtime_registry,
+)
+
+ROOT = Path(__file__).resolve().parents[1]
+REGISTRY_DIR = ROOT / "configs/complexity"
+V8 = REGISTRY_DIR / "complexity_module_registry_v8.json"
+V9 = REGISTRY_DIR / "complexity_module_registry_v9.json"
+FROZEN_V8_SHA256 = (
+    "41090d7b6322f3563c42363c96826c26cfd902c9761fb6d7e93a486feacd86db"
+)
+FROZEN_V9_SHA256 = (
+    "7057ed5905655df4e3a85b484c6f056dd07800f4252892a002e58ca2e8ec1391"
+)
+ALL_FALSE_AUTHORITY = {
+    "compounding": False,
+    "formula": False,
+    "hedonic": False,
+    "physical_execution": False,
+    "purchase": False,
+    "release": False,
+    "safety": False,
+    "scientific": False,
+    "sensory": False,
+    "similarity": False,
+    "stability": False,
+}
+
+
+def _write_registry_payload(path: Path, payload: dict[str, object]) -> None:
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+
+
+def _same_path_successors(payload: dict[str, object]) -> dict[str, str]:
+    rows = payload["compatibility_rebindings"]
+    assert isinstance(rows, list)
+    return {
+        row["historical"]["path"]: row["current"]["sha256"]
+        for row in rows
+        if row["historical"]["path"] == row["current"]["path"]
+    }
+
+
+def _load_v8_as_v9_predecessor(project: Path, registry_path: Path) -> object:
+    payload = json.loads(V9.read_text(encoding="utf-8"))
+    return _load_harmonic_runtime_registry_v8(
+        project.resolve(),
+        registry_path.resolve(),
+        successor_source_digests=_same_path_successors(payload),
+        successor_material_data_digest=payload["material_data_fingerprint"],
+    )
+
+
+def _copy_v9_project(tmp_path: Path) -> tuple[Path, Path]:
+    project = tmp_path / "project"
+    registry_paths = tuple(
+        REGISTRY_DIR / f"complexity_module_registry_v{version}.json"
+        for version in range(1, 10)
+    )
+    relative_paths = {
+        path.relative_to(ROOT).as_posix() for path in registry_paths
+    }
+    for registry_path in registry_paths:
+        payload = json.loads(registry_path.read_text(encoding="utf-8"))
+        for key in (
+            "admission_evidence",
+            "source_bindings",
+            "runtime_bindings",
+            "current_source_bindings",
+            "required_evidence",
+            "support_source_additions",
+        ):
+            rows = payload.get(key, [])
+            if isinstance(rows, list):
+                for row in rows:
+                    if isinstance(row, dict) and isinstance(row.get("path"), str):
+                        relative_paths.add(row["path"])
+        for key in ("modules", "module_additions"):
+            rows = payload.get(key, [])
+            if not isinstance(rows, list):
+                continue
+            for row in rows:
+                if not isinstance(row, dict):
+                    continue
+                if isinstance(row.get("path"), str):
+                    relative_paths.add(row["path"])
+                for reference in row.get("evidence_refs", []):
+                    if isinstance(reference, str) and reference.startswith(
+                        ("configs/", "data/", "docs/", "tests/")
+                    ):
+                        relative_paths.add(reference)
+        rebindings = payload.get("compatibility_rebindings", [])
+        if isinstance(rebindings, list):
+            for row in rebindings:
+                if not isinstance(row, dict):
+                    continue
+                for key in ("historical", "current"):
+                    record = row.get(key)
+                    if isinstance(record, dict) and isinstance(
+                        record.get("path"), str
+                    ):
+                        relative_paths.add(record["path"])
+
+    relative_paths.update(
+        path.relative_to(ROOT).as_posix()
+        for path in (ROOT / "data/materials").glob("*.yaml")
+    )
+    for relative in sorted(relative_paths):
+        source = ROOT / relative
+        if not source.is_file():
+            continue
+        target = project / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source, target)
+    return project, project / V9.relative_to(ROOT)
+
+
+def test_v9_is_default_append_only_successor_of_frozen_v8() -> None:
+    assert hashlib.sha256(V8.read_bytes()).hexdigest() == FROZEN_V8_SHA256
+    assert hashlib.sha256(V9.read_bytes()).hexdigest() == FROZEN_V9_SHA256
+    assert CURRENT_HARMONIC_RUNTIME_REGISTRY_PATH == V9_REGISTRY_PATH
+
+    payload = json.loads(V9.read_text(encoding="utf-8"))
+    assert payload["predecessor_registry"] == {
+        "path": "configs/complexity/complexity_module_registry_v8.json",
+        "sha256": FROZEN_V8_SHA256,
+    }
+    registry = load_harmonic_runtime_registry(ROOT)
+    explicit = load_harmonic_runtime_registry(ROOT, registry_path=V9)
+    assert isinstance(registry, HarmonicRuntimeRegistryV9)
+    assert registry.schema_version == "complexity_module_registry_v9"
+    assert registry.registry_sha256 == explicit.registry_sha256 == FROZEN_V9_SHA256
+    assert registry.predecessor_registry_sha256 == FROZEN_V8_SHA256
+    assert registry.base_registry_sha256 == FROZEN_V8_SHA256
+
+
+def test_v9_replays_v8_modules_and_authority_without_promotion() -> None:
+    registry = load_harmonic_runtime_registry(ROOT)
+    predecessor = _load_v8_as_v9_predecessor(ROOT, V8)
+    assert len(registry.modules) == len(predecessor.modules) == 34
+    assert registry.admitted_architecture_module_ids == (
+        V9_ADMITTED_ARCHITECTURE_MODULE_IDS
+    )
+    assert registry.evidence_only_module_ids == V9_EVIDENCE_ONLY_MODULE_IDS
+    assert registry.guardrail_module_ids == V9_GUARDRAIL_MODULE_IDS
+    assert registry.admitted_scope == predecessor.admitted_scope
+    assert registry.authority_flags == predecessor.authority_flags == ALL_FALSE_AUTHORITY
+    assert registry.full_gate == predecessor.full_gate
+
+    current = {item.module_id: item for item in registry.modules}
+    historical = {item.module_id: item for item in predecessor.modules}
+    rebound = {
+        "material-capability-atlas": (
+            "8e7fc1e36217c0e11a68733a9e28079181dae63b01eef5a0f8818fe5b83ebf3c"
+        ),
+        "cypress-heart-frontier": (
+            "5be3fa59c0cfadc0bf6b7c56b4ecef858948236c6529e5ef9550d5e24152ba58"
+        ),
+    }
+    for module_id, old in historical.items():
+        expected = replace(old, sha256=rebound.get(module_id, old.sha256))
+        assert current[module_id] == expected
+
+
+def test_v9_binds_exact_current_sources_and_support_without_authority() -> None:
+    payload = json.loads(V9.read_text(encoding="utf-8"))
+    registry = load_harmonic_runtime_registry(ROOT)
+    sources = {row["path"]: row["sha256"] for row in payload["current_source_bindings"]}
+    assert len(sources) == len(payload["current_source_bindings"])
+    for relative, digest in sources.items():
+        assert _normalized_utf8_sha256(ROOT / relative) == digest
+
+    assert {row["binding_id"] for row in payload["compatibility_rebindings"]} == {
+        "inventory-overlay",
+        "inventory-sync",
+        "ingredient-catalog",
+        "inventory-parser",
+        "legacy-inventory-text",
+        "material-capability-atlas",
+        "material-properties",
+        "name-aliases",
+        "cypress-benchmark",
+        "cypress-heart-frontier",
+        "harmonic-registry-loader",
+    }
+    support = {row["binding_id"]: row for row in payload["support_source_additions"]}
+    assert set(support) == {
+        "guaiacwood-inventory-projection",
+        "guaiacwood-wood-registry",
+        "coumarin-ingredient-catalog-runtime",
+        "hedonic-luxury-active-scorer",
+        "inventory-preflight-authority",
+        "material-property-generator",
+        "intervention-profile-authority",
+        "formula-recommendation-authority",
+    }
+    assert all(row["authority_effect"] == "NONE" for row in support.values())
+    assert registry.support_source_additions == tuple(
+        payload["support_source_additions"]
+    )
+    assert registry.material_data_fingerprint == _material_data_fingerprint(ROOT)
+    assert registry.material_data_fingerprint == (
+        "bff1ee8ff7753d175b785a89dbb808c9a7edf2e22e83b8e0070306ba4039da11"
+    )
+    assert CURRENT_USER_INVENTORY_OVERLAY_PATH.relative_to(ROOT).as_posix() == (
+        "data/governance/inventory_user_authority_overlay_20260904_002.json"
+    )
+    assert CURRENT_USER_INVENTORY_OVERLAY_SHA256 == sources[
+        "data/governance/inventory_user_authority_overlay_20260904_002.json"
+    ]
+
+
+def test_v9_rejects_policy_authority_and_predecessor_tampering(
+    tmp_path: Path,
+) -> None:
+    payload = json.loads(V9.read_text(encoding="utf-8"))
+    payload["authority_flags"]["physical_execution"] = True
+    authority_path = tmp_path / "authority-v9.json"
+    _write_registry_payload(authority_path, payload)
+    with pytest.raises(ValueError, match="V9 authority flags"):
+        load_harmonic_runtime_registry(ROOT, registry_path=authority_path)
+
+    payload = json.loads(V9.read_text(encoding="utf-8"))
+    payload["predecessor_registry"]["sha256"] = "0" * 64
+    predecessor_path = tmp_path / "predecessor-v9.json"
+    _write_registry_payload(predecessor_path, payload)
+    with pytest.raises(ValueError, match="V9 predecessor registry hash mismatch"):
+        load_harmonic_runtime_registry(ROOT, registry_path=predecessor_path)
+
+
+def test_v9_current_support_source_tampering_fails_closed(tmp_path: Path) -> None:
+    project, registry_path = _copy_v9_project(tmp_path)
+    assert load_harmonic_runtime_registry(
+        project,
+        registry_path=registry_path,
+    ).schema_version == "complexity_module_registry_v9"
+    scoring = project / "engine/optimizer/scoring.py"
+    scoring.write_bytes(scoring.read_bytes() + b"\n# undeclared drift\n")
+    with pytest.raises(
+        ValueError,
+        match="V9 current source binding hash mismatch: engine/optimizer/scoring.py",
+    ):
+        load_harmonic_runtime_registry(project, registry_path=registry_path)
+
+
+def test_v9_rejects_rehashed_undeclared_predecessor_source_drift(
+    tmp_path: Path,
+) -> None:
+    project, registry_path = _copy_v9_project(tmp_path)
+    payload = json.loads(registry_path.read_text(encoding="utf-8"))
+    source = project / "engine/perception/architecture_contracts.py"
+    source.write_bytes(source.read_bytes() + b"\n# undeclared semantic drift\n")
+    next(
+        row
+        for row in payload["current_source_bindings"]
+        if row["path"] == "engine/perception/architecture_contracts.py"
+    )["sha256"] = _normalized_utf8_sha256(source)
+    _write_registry_payload(registry_path, payload)
+    with pytest.raises(ValueError, match="V9 undeclared historical source drift"):
+        load_harmonic_runtime_registry(project, registry_path=registry_path)
+
+
+def test_v9_rejects_module_source_rebinding_authority_promotion(
+    tmp_path: Path,
+) -> None:
+    payload = json.loads(V9.read_text(encoding="utf-8"))
+    payload["module_source_rebindings"][0]["authority_effect"] = "PROMOTE"
+    path = tmp_path / "module-promotion-v9.json"
+    _write_registry_payload(path, payload)
+    with pytest.raises(ValueError, match="V9 module source rebinding contract drifted"):
+        load_harmonic_runtime_registry(ROOT, registry_path=path)

@@ -1,0 +1,591 @@
+from datetime import datetime, timezone
+
+import pytest
+
+from app.models.lab import LabBatch, LabBottle, LabInventoryMovement
+from app.services.lab_execution import (
+    BottleActionConfirmationInput,
+    BottleActionMeasurementInput,
+    BottleActionProposalInput,
+    ExecutionConflictError,
+)
+from app.services.lab_service import LabTransactionError
+from tests.a2_planning_fixtures import (
+    _approved_plan,
+    _build_plan_command,
+    _planning_graph,
+    _target_command,
+)
+
+
+async def _reserved_action_fixture(db_session):
+    service, approved, line, stock = await _approved_plan(db_session)
+    reservation = await service.reserve_inventory(
+        build_plan_version_id=approved.id,
+        build_plan_line_id=line.id,
+        stock_solution_id=stock.id,
+        reserved_mass_g=1.0,
+        idempotency_key="execution-reservation",
+        actor="planner",
+        rationale="Reserve the approved build line",
+    )
+    bottle = await service.create_bottle("A2 execution bottle")
+    proposal = await service.propose_bottle_action(
+        BottleActionProposalInput(
+            schema_version="a2-bottle-action-v1",
+            reservation_id=reservation.reservation_id,
+            bottle_id=bottle.id,
+            action_type="ADD_STOCK",
+            planned_mass_g=1.0,
+            expected_sequence=1,
+            idempotency_key="execution-proposal",
+            actor="operator",
+            rationale="Execute the reserved line",
+        )
+    )
+    return service, reservation, bottle, proposal, stock
+
+
+@pytest.mark.asyncio
+async def test_confirmed_measured_action_commits_atomically_and_replays(
+    db_session,
+):
+    service, reservation, bottle, proposal, stock = (
+        await _reserved_action_fixture(db_session)
+    )
+
+    with pytest.raises(ExecutionConflictError) as unconfirmed:
+        await service.commit_bottle_action(
+            proposal.id,
+            actor="operator",
+            rationale="Premature commit",
+        )
+    assert unconfirmed.value.code == "ACTION_NOT_CONFIRMED"
+
+    confirmation = await service.confirm_bottle_action(
+        proposal.id,
+        BottleActionConfirmationInput(
+            decision="CONFIRMED",
+            confirmer_pseudonym="human-operator-1",
+            confirmed_at=datetime(2026, 7, 30, 3, 0, tzinfo=timezone.utc),
+            rationale="Bottle, stock, and balance verified",
+        ),
+    )
+    assert confirmation.decision == "CONFIRMED"
+
+    with pytest.raises(ExecutionConflictError) as unmeasured:
+        await service.commit_bottle_action(
+            proposal.id,
+            actor="operator",
+            rationale="Still premature",
+        )
+    assert unmeasured.value.code == "ACTION_MEASUREMENT_REQUIRED"
+
+    measurement = await service.record_bottle_action_measurement(
+        proposal.id,
+        BottleActionMeasurementInput(
+            quantity_kind="mass",
+            value=0.98,
+            unit="g",
+            standard_uncertainty=0.002,
+            method="gravimetric",
+            measured_at=datetime(2026, 7, 30, 3, 1, tzinfo=timezone.utc),
+            actor="human-operator-1",
+        ),
+    )
+    assert measurement.proposal_id == proposal.id
+    assert measurement.bottle_event_id is None
+
+    commit = await service.commit_bottle_action(
+        proposal.id,
+        actor="operator",
+        rationale="Confirmed gravimetric addition",
+    )
+    replay = await service.reconstruct_bottle(bottle.id)
+    diff = await service.bottle_action_diff(proposal.id)
+    latest_reservation = await service.repository.latest_reservation_event(
+        reservation.reservation_id
+    )
+
+    assert commit.proposal_id == proposal.id
+    assert replay.stream_sequence == 2
+    assert replay.total_mass_g == pytest.approx(0.98)
+    assert replay.stock_masses_g == {stock.id: pytest.approx(0.98)}
+    assert diff["from_sequence"] == 1
+    assert diff["to_sequence"] == 2
+    assert diff["total_mass_delta_g"] == pytest.approx(0.98)
+    assert diff["stock_mass_deltas_g"] == {stock.id: pytest.approx(0.98)}
+    assert latest_reservation is not None
+    assert latest_reservation.state == "FULFILLED"
+
+    replayed_commit = await service.commit_bottle_action(
+        proposal.id,
+        actor="operator",
+        rationale="Confirmed gravimetric addition",
+    )
+    assert replayed_commit.id == commit.id
+    assert (await service.reconstruct_bottle(bottle.id)).stream_sequence == 2
+
+
+@pytest.mark.asyncio
+async def test_proposal_revalidates_target_after_reservation(db_session):
+    service, target, acceptance, mapping, target_line, stock, evidence = (
+        await _planning_graph(db_session)
+    )
+    draft = await service.create_build_plan(
+        _build_plan_command(
+            target,
+            acceptance,
+            mapping,
+            target_line,
+            stock,
+            evidence,
+        )
+    )
+    review = await service.transition_build_plan(
+        draft.id,
+        next_status="UNDER_REVIEW",
+        actor="reviewer",
+        rationale="Review current target",
+    )
+    approved = await service.transition_build_plan(
+        review.id,
+        next_status="APPROVED",
+        actor="reviewer",
+        rationale="Approve current target",
+    )
+    line = (await service.repository.build_plan_lines(approved.id))[0]
+    reservation = await service.reserve_inventory(
+        build_plan_version_id=approved.id,
+        build_plan_line_id=line.id,
+        stock_solution_id=stock.id,
+        reserved_mass_g=1.0,
+        idempotency_key="target-superseded-after-reservation",
+        actor="planner",
+        rationale="Reserve while target is current",
+    )
+    await service.revise_target_hypothesis(
+        target.id,
+        _target_command(
+            evidence_id=evidence.id,
+            rationale="Supersede the target after reservation",
+        ),
+    )
+    bottle = await service.create_bottle("Stale target proposal bottle")
+
+    with pytest.raises(ExecutionConflictError) as error:
+        await service.propose_bottle_action(
+            BottleActionProposalInput(
+                schema_version="a2-bottle-action-v1",
+                reservation_id=reservation.reservation_id,
+                bottle_id=bottle.id,
+                action_type="ADD_STOCK",
+                planned_mass_g=1.0,
+                expected_sequence=1,
+                idempotency_key="stale-target-proposal",
+                actor="operator",
+                rationale="Stale target cannot authorize a physical proposal",
+            )
+        )
+
+    assert error.value.code == "STALE_TARGET_HYPOTHESIS_VERSION"
+
+
+@pytest.mark.asyncio
+async def test_proposal_rejects_reservation_stock_identity_drift(db_session):
+    service, approved, line, stock = await _approved_plan(db_session)
+    reservation = await service.reserve_inventory(
+        build_plan_version_id=approved.id,
+        build_plan_line_id=line.id,
+        stock_solution_id=stock.id,
+        reserved_mass_g=1.0,
+        idempotency_key="reservation-stock-drift",
+        actor="planner",
+        rationale="Create reservation before corruption simulation",
+    )
+    other_material = await service.create_material("Unrelated stock")
+    other_stock = await service.create_stock_solution(
+        material_id=other_material.id,
+        active_fraction=1.0,
+        fraction_basis="mass_fraction",
+        initial_mass_g=1.0,
+    )
+    reservation.stock_solution_id = other_stock.id
+    await db_session.flush()
+    bottle = await service.create_bottle("Reservation stock drift bottle")
+
+    with pytest.raises(ExecutionConflictError) as error:
+        await service.propose_bottle_action(
+            BottleActionProposalInput(
+                schema_version="a2-bottle-action-v1",
+                reservation_id=reservation.reservation_id,
+                bottle_id=bottle.id,
+                action_type="ADD_STOCK",
+                planned_mass_g=0.1,
+                expected_sequence=1,
+                idempotency_key="reservation-stock-drift-proposal",
+                actor="operator",
+                rationale="Corrupted reservation stock must fail closed",
+            )
+        )
+
+    assert error.value.code == "RESERVATION_STOCK_MISMATCH"
+
+
+@pytest.mark.asyncio
+async def test_commit_revalidates_stock_fraction_after_proposal(db_session):
+    service, _reservation, bottle, proposal, stock = (
+        await _reserved_action_fixture(db_session)
+    )
+    stock.active_fraction = 0.2
+    await db_session.flush()
+    await service.confirm_bottle_action(
+        proposal.id,
+        BottleActionConfirmationInput(
+            decision="CONFIRMED",
+            confirmer_pseudonym="human-operator-1",
+            confirmed_at=datetime(2026, 7, 30, 3, 5, tzinfo=timezone.utc),
+            rationale="Confirm before detecting stale stock authority",
+        ),
+    )
+    await service.record_bottle_action_measurement(
+        proposal.id,
+        BottleActionMeasurementInput(
+            quantity_kind="mass",
+            value=0.98,
+            unit="g",
+            standard_uncertainty=0.002,
+            method="gravimetric",
+            measured_at=datetime(2026, 7, 30, 3, 6, tzinfo=timezone.utc),
+            actor="human-operator-1",
+        ),
+    )
+
+    with pytest.raises(ExecutionConflictError) as error:
+        await service.commit_bottle_action(
+            proposal.id,
+            actor="operator",
+            rationale="Changed stock fraction must fail closed",
+        )
+
+    assert error.value.code == "BUILD_LINE_STOCK_FRACTION_MISMATCH"
+    assert (await service.reconstruct_bottle(bottle.id)).stream_sequence == 1
+
+
+@pytest.mark.asyncio
+async def test_commit_rejects_measurement_above_confirmed_proposal(db_session):
+    service, approved, line, stock = await _approved_plan(db_session)
+    reservation = await service.reserve_inventory(
+        build_plan_version_id=approved.id,
+        build_plan_line_id=line.id,
+        stock_solution_id=stock.id,
+        reserved_mass_g=1.0,
+        idempotency_key="proposal-cap-reservation",
+        actor="planner",
+        rationale="Reserve the full line",
+    )
+    bottle = await service.create_bottle("Proposal quantity cap")
+    proposal = await service.propose_bottle_action(
+        BottleActionProposalInput(
+            schema_version="a2-bottle-action-v1",
+            reservation_id=reservation.reservation_id,
+            bottle_id=bottle.id,
+            action_type="ADD_STOCK",
+            planned_mass_g=0.5,
+            expected_sequence=1,
+            idempotency_key="proposal-cap-action",
+            actor="operator",
+            rationale="Confirm a 0.5 g action",
+        )
+    )
+    await service.confirm_bottle_action(
+        proposal.id,
+        BottleActionConfirmationInput(
+            decision="CONFIRMED",
+            confirmer_pseudonym="human-operator-1",
+            confirmed_at=datetime(2026, 7, 30, 3, 10, tzinfo=timezone.utc),
+            rationale="Confirmed only 0.5 g",
+        ),
+    )
+    await service.record_bottle_action_measurement(
+        proposal.id,
+        BottleActionMeasurementInput(
+            quantity_kind="mass",
+            value=0.75,
+            unit="g",
+            standard_uncertainty=0.002,
+            method="gravimetric",
+            measured_at=datetime(2026, 7, 30, 3, 11, tzinfo=timezone.utc),
+            actor="human-operator-1",
+        ),
+    )
+
+    with pytest.raises(ExecutionConflictError) as error:
+        await service.commit_bottle_action(
+            proposal.id,
+            actor="operator",
+            rationale="Must not exceed confirmed proposal",
+        )
+    assert error.value.code == "MEASUREMENT_EXCEEDS_PROPOSAL"
+    assert (await service.reconstruct_bottle(bottle.id)).stream_sequence == 1
+
+
+@pytest.mark.asyncio
+async def test_action_is_independently_capped_to_immutable_build_line(db_session):
+    service, approved, line, stock = await _approved_plan(db_session)
+    reservation = await service.reserve_inventory(
+        build_plan_version_id=approved.id,
+        build_plan_line_id=line.id,
+        stock_solution_id=stock.id,
+        reserved_mass_g=1.0,
+        idempotency_key="execution-line-cap-reservation",
+        actor="planner",
+        rationale="Create canonical reservation before tamper simulation",
+    )
+    # Simulate a corrupted imported/legacy reservation that claims 2 g.  The
+    # action layer must not trust reservation mass as a proxy for line authority.
+    reservation.reserved_mass_g = 2.0
+    await db_session.flush()
+    bottle = await service.create_bottle("Line cap tamper bottle")
+
+    with pytest.raises(ExecutionConflictError) as error:
+        await service.propose_bottle_action(
+            BottleActionProposalInput(
+                schema_version="a2-bottle-action-v1",
+                reservation_id=reservation.reservation_id,
+                bottle_id=bottle.id,
+                action_type="ADD_STOCK",
+                planned_mass_g=1.1,
+                expected_sequence=1,
+                idempotency_key="execution-line-cap-proposal",
+                actor="operator",
+                rationale="Reservation corruption must not enlarge line authority",
+            )
+        )
+    assert error.value.code == "ACTION_EXCEEDS_BUILD_LINE_TARGET"
+
+
+@pytest.mark.asyncio
+async def test_commit_is_independently_capped_to_cumulative_build_line_target(db_session):
+    service, approved, line, stock = await _approved_plan(db_session)
+    reservation = await service.reserve_inventory(
+        build_plan_version_id=approved.id,
+        build_plan_line_id=line.id,
+        stock_solution_id=stock.id,
+        reserved_mass_g=1.0,
+        idempotency_key="execution-cumulative-reservation",
+        actor="planner",
+        rationale="Reserve immutable line",
+    )
+    bottle = await service.create_bottle("Cumulative cap bottle")
+    proposal = await service.propose_bottle_action(
+        BottleActionProposalInput(
+            schema_version="a2-bottle-action-v1",
+            reservation_id=reservation.reservation_id,
+            bottle_id=bottle.id,
+            action_type="ADD_STOCK",
+            planned_mass_g=0.5,
+            expected_sequence=1,
+            idempotency_key="execution-cumulative-proposal",
+            actor="operator",
+            rationale="Second partial addition",
+        )
+    )
+    await service.confirm_bottle_action(
+        proposal.id,
+        BottleActionConfirmationInput(
+            decision="CONFIRMED",
+            confirmer_pseudonym="human-operator-1",
+            confirmed_at=datetime(2026, 7, 30, 4, 0, tzinfo=timezone.utc),
+            rationale="Confirmed partial addition",
+        ),
+    )
+    await service.record_bottle_action_measurement(
+        proposal.id,
+        BottleActionMeasurementInput(
+            quantity_kind="mass",
+            value=0.5,
+            unit="g",
+            standard_uncertainty=0.001,
+            method="gravimetric",
+            measured_at=datetime(2026, 7, 30, 4, 1, tzinfo=timezone.utc),
+            actor="human-operator-1",
+        ),
+    )
+    # Simulate 0.6 g already committed to the same immutable line through a
+    # prior canonical transaction.  Commit must evaluate cumulative line mass.
+    await service.repository.add(
+        LabInventoryMovement(
+            stock_solution_id=stock.id,
+            build_plan_line_id=line.id,
+            movement_type="CONSUMPTION",
+            raw_quantity=0.6,
+            active_quantity=0.06,
+            unit="g",
+            basis="mass",
+            balance_before=10.0,
+            balance_after=9.4,
+            standard_uncertainty=None,
+            actor="operator",
+            transaction_id="prior-line-commit",
+            idempotency_key="prior-line-commit",
+            mass_delta_g=-0.6,
+            measured_volume_ul=None,
+            reason="bottle_addition",
+        )
+    )
+
+    with pytest.raises(ExecutionConflictError) as error:
+        await service.commit_bottle_action(
+            proposal.id,
+            actor="operator",
+            rationale="Must reject cumulative overfill",
+        )
+    assert error.value.code == "CUMULATIVE_COMMIT_EXCEEDS_BUILD_LINE_TARGET"
+
+
+@pytest.mark.asyncio
+async def test_orphan_formula_revision_cannot_drive_bound_bottle_execution(db_session):
+    service, approved, line, stock = await _approved_plan(db_session)
+    formula = await service.create_formula("Orphan revision formula")
+    await service.add_formula_version(
+        formula.id,
+        brief={"revision": 1},
+        constraints={},
+        components=(),
+    )
+    orphan = await service.add_formula_version(
+        formula.id,
+        brief={"revision": 2},
+        constraints={},
+        components=(),
+    )
+    batch = await service.repository.add(
+        LabBatch(formula_version_id=orphan.id, batch_code="ORPHAN-REVISION-002")
+    )
+    bound = await service.repository.add(
+        LabBottle(label="Orphan revision bound bottle", batch_id=batch.id)
+    )
+    reservation = await service.reserve_inventory(
+        build_plan_version_id=approved.id,
+        build_plan_line_id=line.id,
+        stock_solution_id=stock.id,
+        reserved_mass_g=1.0,
+        idempotency_key="orphan-revision-reservation",
+        actor="planner",
+        rationale="Canonical build reservation",
+    )
+    proposal = await service.propose_bottle_action(
+        BottleActionProposalInput(
+            schema_version="a2-bottle-action-v1",
+            reservation_id=reservation.reservation_id,
+            bottle_id=bound.id,
+            action_type="ADD_STOCK",
+            planned_mass_g=0.1,
+            expected_sequence=0,
+            idempotency_key="orphan-revision-proposal",
+            actor="operator",
+            rationale="Must fail at physical lineage boundary",
+        )
+    )
+    await service.confirm_bottle_action(
+        proposal.id,
+        BottleActionConfirmationInput(
+            decision="CONFIRMED",
+            confirmer_pseudonym="human-operator-1",
+            confirmed_at=datetime(2026, 7, 30, 5, 0, tzinfo=timezone.utc),
+            rationale="Confirm only to reach final physical boundary",
+        ),
+    )
+    await service.record_bottle_action_measurement(
+        proposal.id,
+        BottleActionMeasurementInput(
+            quantity_kind="mass",
+            value=0.1,
+            unit="g",
+            standard_uncertainty=0.001,
+            method="gravimetric",
+            measured_at=datetime(2026, 7, 30, 5, 1, tzinfo=timezone.utc),
+            actor="human-operator-1",
+        ),
+    )
+    with pytest.raises(LabTransactionError, match="FORMULA_TRANSITION_CLASS_REQUIRED"):
+        await service.commit_bottle_action(
+            proposal.id,
+            actor="operator",
+            rationale="Orphan revision must not compound",
+        )
+
+
+@pytest.mark.asyncio
+async def test_batch_bound_bottles_reject_freeform_additions_and_transfers(db_session):
+    service, _approved, _line, stock = await _approved_plan(db_session)
+    formula = await service.create_formula("Bound bottle formula")
+    formula_version = await service.add_formula_version(
+        formula.id,
+        brief={},
+        constraints={},
+        components=(),
+    )
+    batch = await service.repository.add(
+        LabBatch(
+            formula_version_id=formula_version.id,
+            batch_code="BOUND-BOTTLE-001",
+        )
+    )
+    bound = await service.repository.add(
+        LabBottle(label="Bound bottle", batch_id=batch.id)
+    )
+    free = await service.create_bottle("Free destination")
+
+    with pytest.raises(LabTransactionError, match="proposal-confirm-measure-commit"):
+        await service.add_stock_to_bottle(
+            bottle_id=bound.id,
+            stock_solution_id=stock.id,
+            mass_g=0.1,
+            expected_sequence=0,
+            command_id="forbidden-direct-add",
+            actor="operator",
+        )
+    with pytest.raises(LabTransactionError, match="cannot use freeform bottle transfers"):
+        await service.transfer_between_bottles(
+            source_bottle_id=bound.id,
+            destination_bottle_id=free.id,
+            mass_g=0.1,
+            source_expected_sequence=0,
+            destination_expected_sequence=1,
+            command_id="forbidden-bound-transfer",
+        )
+
+
+@pytest.mark.asyncio
+async def test_proposal_requires_active_matching_reservation_and_fresh_stream(
+    db_session,
+):
+    service, reservation, bottle, proposal, _stock = (
+        await _reserved_action_fixture(db_session)
+    )
+    assert proposal.reservation_id == reservation.reservation_id
+
+    await service.transition_reservation(
+        reservation.reservation_id,
+        "RELEASED",
+        idempotency_key="execution-release",
+        actor="planner",
+        rationale="Cancel the build",
+    )
+    with pytest.raises(ExecutionConflictError) as inactive:
+        await service.propose_bottle_action(
+            BottleActionProposalInput(
+                schema_version="a2-bottle-action-v1",
+                reservation_id=reservation.reservation_id,
+                bottle_id=bottle.id,
+                action_type="ADD_STOCK",
+                planned_mass_g=1.0,
+                expected_sequence=1,
+                idempotency_key="execution-after-release",
+                actor="operator",
+                rationale="Must fail closed",
+            )
+        )
+    assert inactive.value.code == "RESERVATION_NOT_ACTIVE"

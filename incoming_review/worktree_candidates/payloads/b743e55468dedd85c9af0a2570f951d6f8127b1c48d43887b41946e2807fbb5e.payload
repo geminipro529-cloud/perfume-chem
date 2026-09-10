@@ -1,0 +1,244 @@
+{
+  "schema_version": "complex_perfumery_full_objective_completion_audit_v6",
+  "generated_at_utc": "2026-08-16T09:23:23.6409786Z",
+  "state": "V17_EXACT_COLLECTION_51_RECOVERED_NON_P6_NATIVE_SCOPE_APPLIED_EXTERNAL_RIGHTS_PARENT_BYTES_AND_PHYSICAL_EVIDENCE_HELD",
+  "objective_complete": false,
+  "collection_complete": false,
+  "implementation_complete": false,
+  "implementation_complete_for_authorized_recovered_non_p6_native_scopes_in_current_worktree": true,
+  "package_installation_complete": false,
+  "installation_authorized": false,
+  "release_complete": false,
+  "repository_fence": {
+    "branch": "codex/add-inventory-materials",
+    "head": "c876ab128845c2e055251fdce4fb1c3f5d661045",
+    "index_tree": "b4dcfb3932f5156f9397fee876199001fff66611",
+    "staged_paths": 0,
+    "preexisting_dirty_tree_preserved": true
+  },
+  "parent_evidence": [
+    {
+      "path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_AUDIT_V16_20260816.json",
+      "byte_size": 11030,
+      "sha256": "7cd274a28b7858050a4cb9167ffccc7c0c59f357884fb0ae890f5206ce066283",
+      "semantic_receipt_sha256": "8334881bdbc2640979d4c8500f7cd6e24509710cd8b7d7043290a787ff39cf28",
+      "role": "PREVIOUS_FULL_OBJECTIVE_AUDIT"
+    },
+    {
+      "path": "data/governance/complex_perfumery_v17_post_v16_nine_finished_hedonic_delta_20260816.json",
+      "byte_size": 10650,
+      "sha256": "7afd3c83cb5d718a6bcaca0f8da00a065888ddc1a017a65d6b4992f2cb174e23",
+      "semantic_receipt_sha256": "71ba345a3c29f941a54d5e8a8d84c596cdf1bd45b661564fd1ac83c58a200af0",
+      "role": "CURRENT_COLLECTION_STATE"
+    },
+    {
+      "path": "data/governance/complex_perfumery_nine_finished_hedonic_high_complexity_package_receipt_20260816.json",
+      "byte_size": 7210,
+      "sha256": "bb116e1668ee715001e4c896d2dd4a673d4045baf22ac101cff6cab122e153c7",
+      "receipt_sha256": "dc5d5cba59a006e1306bb083475d75248d875f8c9b7214afb3b82940b19755a4",
+      "role": "STRICT_AUTHORITY_FALSE_PACKAGE_RECEIPT"
+    },
+    {
+      "path": "incoming_review/chatgpt/20260816T160448+0700-v17-nine-finished-hedonic-6a7992db-nf1e0f2aa/capture_manifest.json",
+      "byte_size": 8917,
+      "sha256": "d561154d7b95ba4c50d4ac172622cefce4b40913a8c7643b4d92950a0b7e5f7c",
+      "role": "EXACT_SOURCE_CAPTURE"
+    },
+    {
+      "path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_DELTA_V17_20260816.md",
+      "byte_size": 4431,
+      "sha256": "795fbd17cc9415af66f60d09a0a815b057a5495548d85de5dc175fe8a3d7d0cc",
+      "role": "V17_COLLECTION_REPORT"
+    },
+    {
+      "path": "tests/test_complex_perfumery_v17_post_v16_nine_finished_hedonic_capture.py",
+      "byte_size": 10847,
+      "sha256": "b819be0d912db7291cc099b734dec4a25a0988e55a08ac4fa6cc194e9a8aa3aa",
+      "role": "V17_FOCUSED_ACCEPTANCE_TEST"
+    }
+  ],
+  "current_collection_state": {
+    "exact_outer_candidate_lower_bound": 51,
+    "defensible_chat_denominator_lower_bound": 51,
+    "denominator_complete": false,
+    "new_v17_exact_outer_candidates": 1,
+    "new_v17_receipts": 1,
+    "new_v17_packages_verified_quarantined": 1,
+    "promotion_allowed": false,
+    "all_project_packages_collected": false,
+    "source_rights_state": "UNKNOWN",
+    "redistribution_authorized": false
+  },
+  "new_v17_package": {
+    "path": "incoming_review/chatgpt/20260816T160448+0700-v17-nine-finished-hedonic-6a7992db-nf1e0f2aa/Nine_Finished_Hedonic_High_Complexity_Perfumes_2026-08-16_v1.zip",
+    "byte_size": 815495,
+    "sha256": "f1e0f2aae2143fe2638c151032f686ee7b36579280445e86e1878c79b54f240b",
+    "archive_members": 84,
+    "checksum_records_verified": 83,
+    "manifest_records_verified": 82,
+    "native_graph_status": "GRAPH_COMPLETE_QUARANTINED",
+    "native_graph_nodes": 2,
+    "native_graph_edges": 1,
+    "native_graph_max_depth": 1,
+    "native_graph_all_terminal": true,
+    "strict_receipt_status": "VERIFIED_QUARANTINED",
+    "role": "COMPUTATIONAL_FORMULA_ART_DIRECTION_AND_DESIGN_ANCESTRY_ONLY",
+    "perfumes": 9,
+    "current_build_rows": 663,
+    "target_rows": 740,
+    "gate_rows": 135,
+    "open_stock_rows": 51,
+    "blank_active_fraction_rows": 17,
+    "product_basis_rows": 17,
+    "interaction_rows": 81,
+    "structured_hypothesis_interaction_rows": 80,
+    "all_formulas_physical_state": "NOT_TESTED_PHYSICAL_HOLD",
+    "package_formula_rows_imported": 0,
+    "physical_results_created": 0,
+    "sensory_results_created": 0,
+    "analytical_results_created": 0,
+    "promotion_allowed": false
+  },
+  "lineage_boundary": {
+    "architecture_parent_sha256": "09318ed20c9c29c6d0f171a4333f74fde4d9c3f213ac64eca53997d4e5c20f3b",
+    "bench_activation_parent_sha256": "1282620cfdb6b48a4f091c12da73414790f1b00461dba5fd4ed63cbacde0cb8f",
+    "package_inventory_ancestry_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "parent_packages_state": "SEPARATELY_QUARANTINED_NOT_ADMITTED",
+    "native_inventory_authority": "CURRENT_V5_ONLY",
+    "package_may_promote_parent_or_inventory_authority": false
+  },
+  "requirement_audit": [
+    {
+      "requirement": "GATHER_NEWEST_COMPLETED_PROJECT_FILES_AND_DELIVERABLES",
+      "status": "PARTIAL_DYNAMIC_DENOMINATOR_AND_RESIDUAL_PARENT_BYTES_UNAVAILABLE",
+      "evidence": "V17 captures one exact post-V16 package and raises the exact-outer lower bound to 51. Four named parent-byte holds remain and the dynamic chat denominator is incomplete."
+    },
+    {
+      "requirement": "DIFF_PROJECT_PACKAGES_AGAINST_LIVE_PERFUME_CHEM_AND_LEDGER",
+      "status": "PASS_FOR_RECOVERED_SCOPES",
+      "evidence": "The package is computational formula and design ancestry only. Existing native target/build, C10/P3, B1, Laboratory Beta, C0, V5, OAV, safety, and release contracts remain controlling."
+    },
+    {
+      "requirement": "LITERATURE_FIRST_AND_SECOND_PASS_RESEARCH",
+      "status": "PASS_FOR_CURRENT_DECISION_SCOPE",
+      "evidence": "Art direction, hedonic tuning, interaction hypotheses, and anti-collapse diagnostics do not establish physical, sensory, analytical, safety, or release results."
+    },
+    {
+      "requirement": "IMPLEMENT_BEST_NATIVE_NON_DUPLICATIVE_SOFTWARE_FIT",
+      "status": "PASS_FOR_AUTHORIZED_RECOVERED_NON_P6_SCOPES",
+      "evidence": "V17 demonstrates no native software gap. Package formulas remain unimported; migration 0017, a new schema, truth store, pipeline, or parallel authority are not justified."
+    },
+    {
+      "requirement": "PROVIDE_A_WHOLE_PLAN_READY_FOR_SAFE_INSTALLATION",
+      "status": "PLAN_READY_INPUTS_RIGHTS_AND_PHYSICAL_EVIDENCE_NOT_READY",
+      "evidence": "The ordered plan remains executable, but package installation and physical execution are correctly withheld."
+    },
+    {
+      "requirement": "VALIDATE_PHYSICAL_PERFUME_SCIENCE_AND_RELEASE",
+      "status": "NOT_ACHIEVED",
+      "evidence": "All nine formulas remain NOT TESTED / PHYSICAL HOLD. Open stock, blank active-fraction, product-basis, bottle, measured headspace, empirical OAV, sensory, stability, safety, and release evidence remain unresolved."
+    }
+  ],
+  "native_implementation_state": {
+    "migration_head": "20260810_0016",
+    "migration_0017_required": false,
+    "new_schema_required": false,
+    "new_truth_store_required": false,
+    "new_pipeline_script_required": false,
+    "package_formula_import_allowed": false,
+    "package_experiment_execution_allowed": false,
+    "package_code_install_allowed": false,
+    "package_schema_install_allowed": false,
+    "package_record_import_allowed": false,
+    "g2_metadata_seam_complete": true,
+    "g2_physical_execution_complete": false,
+    "source_design_projection": "IMMUTABLE_AUTHORITY_FALSE_ANCESTRY_INTO_EXISTING_NATIVE_CONTRACTS_ONLY"
+  },
+  "ordered_next_actions": [
+    {
+      "gate": "G0_EXTERNAL_BYTES_AND_RIGHTS",
+      "action": "Recover exact unchanged residual parents only if they become available and bind field-specific reuse rights before any admission or mapping.",
+      "execution_authorized": false,
+      "authority_promoted": false
+    },
+    {
+      "gate": "G1_NATIVE_STOCK_AND_PREPARATION_CLOSURE",
+      "action": "Close CLR-001 2-Acetyl Pyrazine and CLR-002 Lemonile exact stock, carrier, lot, parent-stock, and preparation receipts; preserve the V17 package's 51 open-stock and 17 blank-active-fraction rows as non-authoritative source findings.",
+      "execution_authorized": false,
+      "authority_promoted": false
+    },
+    {
+      "gate": "G2_TO_G5_PHYSICAL_SENSORY_AND_RELEASE",
+      "action": "Create real preparations and references, lock C10/P3 protocol, separately authorize Laboratory Beta execution, collect bottle-bound observations, bind all C0 artifacts, and run release verification only after prior gates pass.",
+      "execution_authorized": false,
+      "authority_promoted": false
+    }
+  ],
+  "blocking_parent_bytes": [
+    {
+      "name": "UNIVERSAL_ACCORD_INTELLIGENCE_MODULE_v1.zip",
+      "byte_size": 539050,
+      "sha256": "8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998",
+      "state": "EXACT_ORIGINAL_BYTES_UNAVAILABLE_NO_RECONSTRUCTION_OR_SUBSTITUTION"
+    },
+    {
+      "name": "PERFUME_CHEM_CANONICAL_CUTOVER_READY_20260808_v2.zip",
+      "byte_size": 1228587,
+      "sha256": "e9e325bea9117dbe2a97ff67e77d57705a54244591278fac7a34915a7f0ae523",
+      "state": "DECLARED_PARENT_EXACT_BYTES_UNAVAILABLE"
+    },
+    {
+      "name": "Perfume_Chem_Physics_OAV_Decision_Model_v3_4_0_CALIBRATION_READY.zip",
+      "byte_size": 540402,
+      "sha256": "8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db",
+      "state": "EXPLICIT_UNAVAILABLE_PARENT_BYTES"
+    },
+    {
+      "name": "perfume_chem_physics_oav_v3-3.4.0-py3-none-any.whl",
+      "byte_size": 65724,
+      "sha256": "582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5",
+      "state": "EXPLICIT_UNAVAILABLE_PARENT_BYTES"
+    }
+  ],
+  "verification": {
+    "v17_focused_tests": "5_PASS",
+    "v16_v17_receipt_and_archive_neighborhood": "82_PASS",
+    "v17_checksum_records": "83_OF_83_EXACT",
+    "v17_manifest_records": "82_OF_82_EXACT",
+    "v17_native_graph": "GRAPH_COMPLETE_QUARANTINED_PROMOTION_FALSE",
+    "deepluna_job_id": "DS-b6a5c47e302b8da9772fdef24794646b",
+    "deepluna_job_state": "TERMINAL_CONTRACT_ERROR_UNRESOLVED_NOT_ACCEPTED_NO_RETRY",
+    "deep_luna_route": "DIRECT_PRO",
+    "deep_luna_fast_used": false,
+    "deep_luna_fallback_used": false,
+    "full_release_verifier": "KNOWN_TIMEOUT_NOT_PASS_NOT_RERUN_OBJECTIVE_NOT_RELEASE_READY",
+    "sol_final_acceptance": true
+  },
+  "rollback": {
+    "path": "D:/perfume-chem-rollback/20260816T163000+0700-full-objective-v17/parents.pax.tar",
+    "byte_size": 79360,
+    "sha256": "60678cd23d08d33752185f7a4937aab142db26b4a65f5f8a87cf29d070d8788f",
+    "member_count": 9,
+    "restoration_verified": true
+  },
+  "authority": {
+    "source_admission": false,
+    "schema": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "bottle": false,
+    "physical_execution": false,
+    "sensory": false,
+    "analytical": false,
+    "measured_headspace": false,
+    "strict_empirical_oav": false,
+    "safety": false,
+    "procurement": false,
+    "installation": false,
+    "publication": false,
+    "release": false
+  },
+  "semantic_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_SEMANTIC_RECEIPT_SHA256_OMITTED",
+  "semantic_receipt_sha256": "4d56b9ca6546fec8a57dfc7b4330ed0cd72d8ef631eb1eb660332e9d8842fb68"
+}

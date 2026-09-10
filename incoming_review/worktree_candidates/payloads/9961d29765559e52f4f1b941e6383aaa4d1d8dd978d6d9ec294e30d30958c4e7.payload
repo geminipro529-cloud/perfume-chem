@@ -1,0 +1,420 @@
+{
+  "schema_version": "complexity_evidence_sources_v3",
+  "predecessor_sha256": "42aa71ac05e3ee74b3120897d69a76b01a3af10ce3ce7b0eb7e5a3e85cc02f5b",
+  "added_sources": [
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "ABRAHAM-2012",
+      "stable_identifier": "doi:10.1093/chemse/bjr094",
+      "uri": "https://pubmed.ncbi.nlm.nih.gov/21976369/",
+      "title": "An Algorithm for 353 Odor Detection Thresholds in Humans",
+      "publication_year": 2012,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "cross-dataset quantitative odor-threshold modeling",
+      "population": "human threshold observations aggregated from multiple published datasets",
+      "matrix": "air-phase odor detection datasets using source-specific methods",
+      "exposure": "source-specific odor-threshold presentations",
+      "endpoints": [
+        "odor detection threshold",
+        "out-of-sample threshold estimate error"
+      ],
+      "result_used": "Predicted odor thresholds carry material method and model error and therefore require an explicit modeled evidence tier and interval.",
+      "limitations": [
+        "Threshold datasets used different methods and require scale reconciliation.",
+        "Predicted thresholds are not exact-matrix measured thresholds and cannot create strict OAV authority."
+      ],
+      "source_tier": "DIRECT_HUMAN_OLFACTION",
+      "transfer_disposition": "HOLD",
+      "rights": "OPEN_ACCESS_METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "classify predicted thresholds below measured thresholds",
+        "retain interval uncertainty and source method"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "ARSHAMIAN-2022",
+      "stable_identifier": "doi:10.1016/j.cub.2022.02.062",
+      "uri": "https://pubmed.ncbi.nlm.nih.gov/35381183/",
+      "title": "The Perception of Odor Pleasantness Is Shared across Cultures",
+      "publication_year": 2022,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "cross-cultural human odorant-ranking experiment",
+      "population": "225 participants from nine nonwestern cultures with a western comparison group",
+      "matrix": "monomolecular odorants",
+      "exposure": "controlled ranking of coded odorants",
+      "endpoints": [
+        "pleasantness rank",
+        "between-person and between-culture variability"
+      ],
+      "result_used": "Pleasantness contains both cross-population structure and large person-level variation, requiring declared population scope and assessor heterogeneity reporting.",
+      "limitations": [
+        "Stimuli were monomolecular odorants rather than finished perfumes.",
+        "Cross-cultural ranking cannot establish liking for a new formula or owner."
+      ],
+      "source_tier": "DIRECT_HUMAN_OLFACTION",
+      "transfer_disposition": "NARROWER_SCOPE",
+      "rights": "OPEN_ACCESS_METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "separate owner panel and consumer scopes",
+        "report assessor heterogeneity without universalizing preference"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "ASTM-E679-26",
+      "stable_identifier": "astm:e679-26",
+      "uri": "https://store.astm.org/e0679-26.html",
+      "title": "Standard Practice for Determination of Odor and Taste Thresholds By a Forced-Choice Ascending Concentration Series Method of Limits",
+      "publication_year": 2026,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "STANDARD",
+      "study_design": "authoritative forced-choice ascending concentration threshold methodology",
+      "population": "assessors selected and trained for the declared threshold test",
+      "matrix": "declared gas liquid or solid medium",
+      "exposure": "multiple forced-choice ascending concentration presentation under the official standard",
+      "endpoints": [
+        "detection threshold",
+        "recognition threshold"
+      ],
+      "result_used": "The current active edition requires threshold results to remain bound to presentation method medium and assessor training.",
+      "limitations": [
+        "Copyrighted standard text is not retained or reproduced.",
+        "Thresholds from different presentation methods are not automatically equivalent."
+      ],
+      "source_tier": "TRANSFERABLE_SENSORY_METHOD",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "PUBLIC_STANDARD_METADATA_ONLY",
+      "code_requirements": [
+        "bind threshold method matrix presentation and assessor protocol",
+        "do not substitute recognition threshold for detection threshold"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "BARTELT-1997",
+      "stable_identifier": "doi:10.1021/ac960820n",
+      "uri": "https://pubmed.ncbi.nlm.nih.gov/21639189/",
+      "title": "Calibration of a Commercial Solid-Phase Microextraction Device for Measuring Headspace Concentrations of Organic Volatiles",
+      "publication_year": 1997,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "analytical calibration study of SPME headspace sampling",
+      "population": "not applicable to an analytical calibration study",
+      "matrix": "controlled headspace volatile standards",
+      "exposure": "SPME fiber sampling followed by chromatographic analysis",
+      "endpoints": [
+        "headspace concentration",
+        "compound-specific calibration factor"
+      ],
+      "result_used": "SPME signal requires compound and apparatus calibration before it can represent quantitative headspace concentration.",
+      "limitations": [
+        "Calibration factors are fiber compound apparatus and condition specific.",
+        "Analytical concentration is not perceived intensity liking richness or depth."
+      ],
+      "source_tier": "ANALYTICAL_METHOD",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "distinguish calibrated from uncalibrated modeled headspace",
+        "bind compound apparatus method and context"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "HADJIEFSTATHIOU-2025",
+      "stable_identifier": "doi:10.1016/j.talanta.2024.126851",
+      "uri": "https://pubmed.ncbi.nlm.nih.gov/39265418/",
+      "title": "An Innovative Device for In Vivo and In Vitro Study of Fragrance Evaporation after Application on Skin or Model Surfaces",
+      "publication_year": 2025,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "repeatability and surface-comparison study using HS-SPME-GC",
+      "population": "forearm skin volunteers plus glass Strat-M and test-strip model surfaces",
+      "matrix": "eight-molecule fragrance in ethanol applied to declared surfaces",
+      "exposure": "time-resolved sealed headspace collection above applied fragrance",
+      "endpoints": [
+        "fragrance-molecule evaporation",
+        "headspace abundance over time",
+        "apparatus repeatability"
+      ],
+      "result_used": "Temporal headspace evidence must bind surface temperature dimensions seal integrity SPME method and time rather than rely on generic volatility labels.",
+      "limitations": [
+        "The tested eight-molecule perfume and apparatus do not transfer quantitatively to an unmeasured formula.",
+        "Headspace chemistry does not establish perceived temporal behavior or liking."
+      ],
+      "source_tier": "DIRECT_FINE_FRAGRANCE",
+      "transfer_disposition": "NARROWER_SCOPE",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "bind time surface temperature apparatus method and matrix",
+        "keep measured and modeled temporal cells separate"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "ISO-13301-2018",
+      "stable_identifier": "iso:13301:2018",
+      "uri": "https://www.iso.org/standard/68901.html",
+      "title": "Sensory Analysis — Methodology — General Guidance for Measuring Odour, Flavour and Taste Detection Thresholds by a Three-Alternative Forced-Choice Procedure",
+      "publication_year": 2018,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "STANDARD",
+      "study_design": "authoritative 3-AFC detection-threshold methodology",
+      "population": "assessors in the declared sensitivity or stimulus-detection study",
+      "matrix": "declared reference and test matrices",
+      "exposure": "three-alternative forced-choice presentation under the official standard",
+      "endpoints": [
+        "detection threshold",
+        "threshold error bounds",
+        "dose-response slope"
+      ],
+      "result_used": "Detection thresholds require a declared 3-AFC design data treatment and error bounds and remain distinct from recognition thresholds.",
+      "limitations": [
+        "Copyrighted standard text is not retained or reproduced.",
+        "The standard does not create a transferable perfume liking or recognition claim."
+      ],
+      "source_tier": "TRANSFERABLE_SENSORY_METHOD",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "PUBLIC_STANDARD_METADATA_ONLY",
+      "code_requirements": [
+        "retain threshold error bounds and method identity",
+        "separate detection from recognition and liking"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "ISO-8586-2023",
+      "stable_identifier": "iso:8586:2023",
+      "uri": "https://www.iso.org/standard/76667.html",
+      "title": "Sensory Analysis — Selection and Training of Sensory Assessors",
+      "publication_year": 2023,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "STANDARD",
+      "study_design": "authoritative assessor selection and training methodology",
+      "population": "trained sensory assessors and expert sensory assessors",
+      "matrix": "food beverage home-care and personal-care products under a declared protocol",
+      "exposure": "controlled sensory assessment under the official standard",
+      "endpoints": [
+        "assessor selection",
+        "assessor training",
+        "assessor qualification"
+      ],
+      "result_used": "Owner trained-panel and consumer evidence must remain separate and trained-assessor claims require declared selection and training.",
+      "limitations": [
+        "Copyrighted standard text is not retained or reproduced.",
+        "Assessor qualification does not establish formula liking or consumer preference."
+      ],
+      "source_tier": "TRANSFERABLE_SENSORY_METHOD",
+      "transfer_disposition": "METHOD_ONLY",
+      "rights": "PUBLIC_STANDARD_METADATA_ONLY",
+      "code_requirements": [
+        "bind assessor role selection and training to protocol scope",
+        "reject owner-to-panel and panel-to-consumer scope leakage"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "LIU-2020",
+      "stable_identifier": "doi:10.1038/s41598-020-74967-0",
+      "uri": "https://pubmed.ncbi.nlm.nih.gov/33093474/",
+      "title": "Assessment of Odor Hedonic Perception: The Sniffin' Sticks Parosmia Test",
+      "publication_year": 2020,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "multicenter method-development and test-retest study",
+      "population": "162 normosmic participants across four experiments",
+      "matrix": "paired oppositely valenced odor pens",
+      "exposure": "coded paired odor presentations with repeated assessment",
+      "endpoints": [
+        "hedonic range",
+        "hedonic direction",
+        "test-retest agreement"
+      ],
+      "result_used": "Hedonic direction can be operationalized in a repeated paired protocol but remains bound to the tested odors population and criterion.",
+      "limitations": [
+        "The work is a clinical olfactory method study rather than a finished-perfume preference trial.",
+        "Its derived hedonic measures cannot be converted into a universal beauty score."
+      ],
+      "source_tier": "DIRECT_HUMAN_OLFACTION",
+      "transfer_disposition": "NARROWER_SCOPE",
+      "rights": "OPEN_ACCESS_METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "bind hedonic criterion stimulus pair assessor and repeat",
+        "retain test-retest evidence separately from preference direction"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    },
+    {
+      "schema_version": "evidence_source_record_v2",
+      "source_id": "VUILLEUMIER-1995",
+      "stable_identifier": "doi:10.1111/j.1467-2494.1995.tb00110.x",
+      "uri": "https://pubmed.ncbi.nlm.nih.gov/19250472/",
+      "title": "Headspace Analysis Study of Evaporation Rate of Perfume Ingredients Applied onto Skin",
+      "publication_year": 1995,
+      "retrieved_on": "2026-08-26",
+      "source_kind": "PRIMARY_RESEARCH",
+      "study_design": "dynamic headspace comparison of individual and mixed fragrance ingredients on skin",
+      "population": "human forearm skin under the reported collection protocol",
+      "matrix": "eleven synthetic odorants individually and mixed in an alcoholic fragrance matrix",
+      "exposure": "controlled application followed by time-resolved Tenax headspace collection",
+      "endpoints": [
+        "gas-phase concentration over time",
+        "relative diffusion from skin",
+        "individual-versus-mixture diffusion"
+      ],
+      "result_used": "Skin diffusion and mixture context can alter temporal headspace behavior so neat-material volatility cannot substitute for measured formula-specific time cells.",
+      "limitations": [
+        "The reported average-skin conditions and composition do not transfer quantitatively to every wearer or perfume.",
+        "Headspace diffusion does not establish perceived contribution or liking."
+      ],
+      "source_tier": "DIRECT_FINE_FRAGRANCE",
+      "transfer_disposition": "NARROWER_SCOPE",
+      "rights": "METADATA_AND_DERIVED_SUMMARY_ONLY",
+      "code_requirements": [
+        "bind matrix skin protocol and timepoint to headspace evidence",
+        "forbid neat volatility from becoming observed mixture behavior"
+      ],
+      "primary_source_ids": [],
+      "authority_flags": {
+        "formula": false,
+        "inventory_mutation": false,
+        "liking": false,
+        "physical_execution": false,
+        "publication": false,
+        "purchase": false,
+        "release": false,
+        "runtime": false,
+        "safety": false,
+        "scientific_claim": false,
+        "sensory": false
+      }
+    }
+  ],
+  "authority_flags": {
+    "formula": false,
+    "inventory_mutation": false,
+    "liking": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "runtime": false,
+    "safety": false,
+    "scientific_claim": false,
+    "sensory": false
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": "complexity_replacement_blind_judge_raw_v1",
+  "judge_request_id": "rpljudge-rpl-arc-s03",
+  "case_id": "RPL-ARC-S03",
+  "module_id": "architectural_delta",
+  "role": "CRITICAL_TRAP",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "surface": "ChatGPT Work",
+  "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+  "conversation_id": "6a8e6fa9-b7d4-83ec-81ff-8989cb096832",
+  "dispatch_sha256": "57982ecd6928d8b829312b4cf10407c0ef795b85518f0ae63c8e5cafb845b33d",
+  "output_text": "{\"results\":[{\"candidate_id\":\"CANDIDATE-01-07361c12\",\"criterion_scores\":{\"decision_correctness\":30,\"evidence_fidelity\":20,\"depth_richness_reasoning\":15,\"next_discriminating_test\":14,\"module_safeguards\":15,\"authority_boundary\":5},\"rubric_score\":99,\"critical_error_codes\":[],\"safe_countercase_pass\":true,\"critical_trap_pass\":true,\"specialist_checks_pass\":true,\"rationale\":\"Correctly rejects the availability-driven target inversion, preserves Neroli as restrained support at most, and isolates the role change in a blinded comparison. The comparison loses one point because the non-primary arm does not explicitly specify support-only versus complete removal or hold total citrus dosage constant.\"},{\"candidate_id\":\"CANDIDATE-02-e3346111\",\"criterion_scores\":{\"decision_correctness\":30,\"evidence_fidelity\":20,\"depth_richness_reasoning\":15,\"next_discriminating_test\":12,\"module_safeguards\":14,\"authority_boundary\":5},\"rubric_score\":96,\"critical_error_codes\":[],\"safe_countercase_pass\":true,\"critical_trap_pass\":true,\"specialist_checks_pass\":true,\"rationale\":\"Reaches the expected support-only disposition and stays within the evidence and authority ceiling. Its comparison tests absent versus support-only Neroli rather than directly comparing the rejected primary role with the compliant support role, and it does not explicitly control total citrus dosage.\"},{\"candidate_id\":\"CANDIDATE-03-ef11dce2\",\"criterion_scores\":{\"decision_correctness\":30,\"evidence_fidelity\":20,\"depth_richness_reasoning\":15,\"next_discriminating_test\":15,\"module_safeguards\":15,\"authority_boundary\":5},\"rubric_score\":100,\"critical_error_codes\":[],\"safe_countercase_pass\":true,\"critical_trap_pass\":true,\"specialist_checks_pass\":true,\"rationale\":\"Fully matches the expected disposition, distinguishes availability from target fidelity, and treats complexity through recognizer integrity rather than ingredient count. The support-only versus primary comparison holds other materials and total citrus dosage constant, assesses the target-relevant attributes, and makes no unsupported physical or liking claim.\"}]}",
+  "output_sha256": "5acff086efa4ba440785f2e856ab460ccf66c2b79bfae160f5fde7b2eda9a37c",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

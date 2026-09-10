@@ -1,0 +1,202 @@
+"""Tests for deterministic, provider-free local knowledge retrieval."""
+
+from __future__ import annotations
+
+import importlib
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+import pytest
+
+from engine.knowledge import embeddings
+
+
+@pytest.fixture()
+def isolated_index(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> Path:
+    project_root = tmp_path / "project"
+    knowledge_dir = project_root / "knowledge"
+    data_dir = project_root / "data" / "embeddings"
+    knowledge_dir.mkdir(parents=True)
+    data_dir.mkdir(parents=True)
+
+    (knowledge_dir / "architecture.md").write_text(
+        "Roudnitska transparency uses deliberate olfactory space.\n\n"
+        "A cypress architecture can bridge aromatic lift into a dry woody base.",
+        encoding="utf-8",
+    )
+    (knowledge_dir / "floral.md").write_text(
+        "A magnolia floral heart can use citrus facets and creamy petals.",
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(embeddings, "PROJECT_ROOT", project_root)
+    monkeypatch.setattr(embeddings, "KNOWLEDGE_DIR", knowledge_dir)
+    monkeypatch.setattr(embeddings, "DATA_DIR", data_dir)
+    return data_dir
+
+
+def test_import_never_loads_model_or_vector_runtimes() -> None:
+    code = """
+import json
+import sys
+import engine.knowledge.embeddings
+blocked = ('sentence_transformers', 'faiss', 'torch', 'transformers')
+print(json.dumps(sorted(name for name in sys.modules if name.split('.')[0] in blocked)))
+"""
+    completed = subprocess.run(
+        [sys.executable, "-c", code],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert completed.returncode == 0, completed.stderr
+    assert json.loads(completed.stdout) == []
+
+
+def test_build_and_search_are_deterministic_and_readable(isolated_index: Path) -> None:
+    first_index = embeddings.KnowledgeIndex()
+    first_build = first_index.build(force=True)
+    first_results = first_index.search("Roudnitska transparent architecture", k=2)
+
+    second_index = embeddings.KnowledgeIndex()
+    second_build = second_index.build()
+    second_results = second_index.search("Roudnitska transparent architecture", k=2)
+
+    assert first_build["status"] == "built"
+    assert second_build["status"] == "loaded_existing"
+    assert first_build["backend"] == embeddings.RETRIEVAL_BACKEND
+    assert first_build["index_path"] == str(isolated_index / "chunk_map.json")
+    assert first_results == second_results
+    assert first_results[0]["source"] == "knowledge/architecture.md"
+    assert 0.0 < first_results[0]["score"] <= 1.0
+
+    payload = json.loads(
+        (isolated_index / "chunk_map.json").read_text(encoding="utf-8")
+    )
+    assert payload
+    assert set(payload[0]) == {
+        "text",
+        "source",
+        "chunk_idx",
+        "authority_scope",
+        "inventory_authority",
+        "inventory_authority_note",
+    }
+    assert payload[0]["authority_scope"] == embeddings.CHUNK_AUTHORITY_SCOPE
+    assert payload[0]["inventory_authority"] is False
+    assert payload[0]["inventory_authority_note"] == (
+        embeddings.INVENTORY_AUTHORITY_NOTE
+    )
+
+
+def test_search_returns_no_fabricated_match(isolated_index: Path) -> None:
+    index = embeddings.KnowledgeIndex()
+    index.build(force=True)
+
+    assert index.search("") == []
+    assert index.search("zzqxxvv unrelatedtoken") == []
+    assert index.search("cypress", k=0) == []
+
+
+def test_search_with_context_preserves_adjacent_chunks(
+    monkeypatch: pytest.MonkeyPatch,
+    isolated_index: Path,
+) -> None:
+    monkeypatch.setattr(embeddings, "CHUNK_SIZE", 80)
+    monkeypatch.setattr(embeddings, "CHUNK_OVERLAP", 10)
+    index = embeddings.KnowledgeIndex()
+    index.build(force=True)
+
+    results = index.search_with_context("cypress architecture", context_chunks=1)
+    assert results
+    assert "context_before" in results[0]
+    assert "context_after" in results[0]
+
+    with pytest.raises(ValueError, match="non-negative"):
+        index.search_with_context("cypress", context_chunks=-1)
+
+
+def test_empty_context_search_does_not_require_an_index() -> None:
+    index = embeddings.KnowledgeIndex()
+    assert index.search_with_context("") == []
+
+
+def test_corrupt_chunk_map_fails_closed(isolated_index: Path) -> None:
+    (isolated_index / "chunk_map.json").write_text("{}", encoding="utf-8")
+    index = embeddings.KnowledgeIndex()
+
+    with pytest.raises(ValueError, match="JSON list"):
+        index.search("cypress")
+
+
+def test_loaded_legacy_map_cannot_claim_inventory_authority(
+    isolated_index: Path,
+) -> None:
+    legacy_payload = [
+        {
+            "text": "Coumarin 10% in DPG was in an old inventory table.",
+            "source": "knowledge/chemical_inventory.md",
+            "chunk_idx": 0,
+            "inventory_authority": True,
+        }
+    ]
+    (isolated_index / "chunk_map.json").write_text(
+        json.dumps(legacy_payload),
+        encoding="utf-8",
+    )
+
+    results = embeddings.KnowledgeIndex().search("Coumarin inventory", k=1)
+
+    assert results
+    assert results[0]["authority_scope"] == embeddings.CHUNK_AUTHORITY_SCOPE
+    assert results[0]["inventory_authority"] is False
+    assert results[0]["inventory_authority_note"] == (
+        embeddings.INVENTORY_AUTHORITY_NOTE
+    )
+
+
+def test_public_package_export_uses_offline_implementation() -> None:
+    package = importlib.import_module("engine.knowledge")
+    assert package.KnowledgeIndex is embeddings.KnowledgeIndex
+    assert package.KnowledgeIndex().backend == embeddings.RETRIEVAL_BACKEND
+
+
+def test_repository_has_no_legacy_embedding_runtime_or_binary() -> None:
+    project_root = Path(__file__).resolve().parents[1]
+    requirements = (project_root / "requirements.txt").read_text(encoding="utf-8")
+
+    assert "sentence-transformers" not in requirements.casefold()
+    assert "faiss-cpu" not in requirements.casefold()
+    assert not (project_root / "data" / "embeddings" / "knowledge_index.faiss").exists()
+
+
+@pytest.mark.parametrize(
+    ("query", "expected_source"),
+    [
+        (
+            "Chemical Inventory Ambrofix Coumarin Alpha Irone historical form",
+            "knowledge/chemical_inventory.md",
+        ),
+        (
+            "Alpha-Irone 3 percent neat Ambrofix material-specific failure rules",
+            "knowledge/science/aromachemical_failure_taxonomy.md",
+        ),
+    ],
+)
+def test_repository_stale_inventory_prose_is_never_inventory_authority(
+    query: str,
+    expected_source: str,
+) -> None:
+    index = embeddings.KnowledgeIndex()
+    results = index.search_with_context(query, k=50, context_chunks=1)
+    matching = [result for result in results if result["source"] == expected_source]
+
+    assert matching, f"expected an active retrieval result from {expected_source}"
+    assert all(
+        result["authority_scope"] == embeddings.CHUNK_AUTHORITY_SCOPE
+        and result["inventory_authority"] is False
+        and result["inventory_authority_note"] == embeddings.INVENTORY_AUTHORITY_NOTE
+        for result in matching
+    )

@@ -1,0 +1,1134 @@
+- canonical_name: V-VANILLA F-TEC
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6VW18054
+    perfumersworld_price_usd_per_g: 0.15
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: V-Vanilla Fleuressence
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6VW10849
+    perfumersworld_price_usd_per_g: 0.2
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Valeraldehyde Iso
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 5FD11577
+    perfumersworld_price_usd_per_g: 0.27
+    perfumersworld_form: 1.0% in DPG
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 1.0% in TEC
+        sku: 5FD19193
+        price_usd_per_g: 0.27
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Vanilla Absolute
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 8VW08619
+    perfumersworld_price_usd_per_g: 45.0
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5VW09926
+        price_usd_per_g: 4.95
+      - form: 5.0% in DPG
+        sku: 5VW08955
+        price_usd_per_g: 2.55
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Vanillin
+  aliases:
+  - vanillin
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol: 152.2
+  density_25c_g_ml:
+  logp: 1.2
+  functional_groups: []
+  chirality:
+  # VERIFIED: Profile VP from ingredient_intelligence, 2026-05-30 (was 0.0003, corrected to 0.2)
+  vp_25c_pa: 0.2
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff: 0.0002
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+    TRPM8: 0.0
+    TRPA1: 0.0
+    TRPV1: 0.05
+    TRPV3:
+    nasal_pungency:
+  hedonic_valence: 0.9
+  ifra_max_pct_edp:
+  user_stock_dilution: 10%
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 1VW00456
+    perfumersworld_price_usd_per_g: 0.19
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5VW07530
+        price_usd_per_g: 0.04
+  families:
+  - sweet / gourmand / balsamic
+  character:
+  notes:
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    trp.TRPM8: engine.trigeminal
+    trp.TRPA1: engine.trigeminal
+    trp.TRPV1: engine.trigeminal
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    user_stock_dilution: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Veloutone
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3LH00459
+    perfumersworld_price_usd_per_g: 0.51
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Velvione
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 4XU11429
+    perfumersworld_price_usd_per_g: 1.57
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Verbena Oil
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7CH17055
+    perfumersworld_price_usd_per_g: 2.82
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Verdantiol
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 4NM04579
+    perfumersworld_price_usd_per_g: 0.38
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Verdox
+  aliases:
+  - verdox
+  cas:
+  smiles:
+  inchikey:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 170.25)
+  mw_g_mol: 170.25
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.3)
+  vp_25c_pa: 0.3
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution: 1.0 # SYNCED: matched inventory.txt, 2026-05-30
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 3FG00463
+    perfumersworld_price_usd_per_g: 0.18
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - green / fresh / marine
+  character:
+  notes:
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Verdyl Acetate
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3LJ01926
+    perfumersworld_price_usd_per_g: 0.08
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Verdyl Propionate
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3LN08954
+    perfumersworld_price_usd_per_g: 0.18
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Vertenex
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3LW00464
+    perfumersworld_price_usd_per_g: 0.09
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Vertofix Coeur
+  aliases:
+  - vertofix coeur
+  - Vertofix
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol: 234.4
+  density_25c_g_ml:
+  logp: 4.0
+  functional_groups: []
+  chirality:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 0.08, corrected to 0.0112)
+  vp_25c_pa: 0.0112
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff: 0.0005
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence: 0.55
+  ifra_max_pct_edp:
+  user_stock_dilution: 1.0 # SYNCED: matched inventory.txt, 2026-05-30
+  user_in_inventory: true
+  supplier:
+  families:
+  - woods / amber / structure
+  character:
+  notes:
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+- canonical_name: Vertofix Couer
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 3WY00465
+    perfumersworld_price_usd_per_g: 0.22
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Vetival
+  aliases:
+  - vetival
+  cas:
+  smiles:
+  inchikey:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 206.3, corrected to 218.33)
+  mw_g_mol: 218.33
+  density_25c_g_ml:
+  logp: 3.0
+  functional_groups: []
+  chirality:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 0.2, corrected to 6.53)
+  vp_25c_pa: 6.53
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff: 0.0008
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence: 0.4
+  ifra_max_pct_edp:
+  user_stock_dilution: 1.0 # SYNCED: matched inventory.txt, 2026-05-30
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 4WL15944
+    perfumersworld_price_usd_per_g: 0.6
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - woods / amber / structure
+  character:
+  notes:
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Vetikon
+  aliases:
+  - vetikon
+  - methyl cedryl ketone
+  cas: 7403-42-1
+  smiles: CC1(C)C2CCC1(C)C(C)(C)C2C(=O)C
+  inchikey:
+  mw_g_mol: 176.25
+  density_25c_g_ml:
+  logp: 2.7
+  functional_groups: []
+  chirality:
+  vp_25c_pa: 4.16
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff: 0.0012
+  hsp:
+  odt_air_ppb: 5.0
+  odt_eth_ppm: 1.0
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence: 0.5
+  ifra_max_pct_edp:
+  user_stock_dilution: 1.0
+  user_in_inventory: true
+  supplier:
+  families:
+  - woods / amber / structure
+  character: woody:7, freshness:3, green:2, powdery:2
+  notes: Vetikon (methyl cedryl ketone) — woody-vetiver volume material, diffusive, fills space between Iso E Super and Vertofix
+  provenance:
+    mw_g_mol: engine.ingredient_intelligence
+    vp_25c_pa: engine.ingredient_intelligence
+    logp: engine.ingredient_intelligence
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    user_in_inventory: inventory.txt
+- canonical_name: Vetiver EO
+  aliases:
+  - vetiver
+  - vetiver eo
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol: 222.4
+  density_25c_g_ml:
+  logp: 3.8
+  functional_groups: []
+  chirality:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 0.05, corrected to 0.003)
+  vp_25c_pa: 0.003
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff: 0.0003
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence: 0.45
+  ifra_max_pct_edp:
+  user_stock_dilution: 1.0 # SYNCED: matched inventory.txt, 2026-05-30
+  user_in_inventory: true
+  supplier:
+  families:
+  - woods / amber / structure
+  character:
+  notes:
+  provenance:
+    mw_g_mol: engine.diffusion_model
+    vp_25c_pa: engine.diffusion_model
+    kaw_eff: engine.diffusion_model
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    logp: engine.skin_interaction
+    hedonic_valence: engine.hedonic_model
+    user_in_inventory: inventory.txt
+- canonical_name: Vetiver EO (India)
+  aliases:
+  - vetiver eo (india)
+  - indian vetiver eo
+  - vetiver india
+  - ruh khus
+  cas: '8016-96-4'
+  smiles:
+  inchikey:
+  mw_g_mol: 222.4
+  density_25c_g_ml: 0.99
+  logp: 3.8
+  functional_groups:
+  - sesquiterpenol
+  - ketone
+  - essential oil
+  chirality:
+  vp_25c_pa: 0.04
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff: 0.0002
+  hsp:
+  odt_air_ppb: 15.0
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence: 0.5
+  ifra_max_pct_edp:
+  user_stock_dilution: neat
+  user_in_inventory: true
+  supplier:
+  families:
+  - woods / amber / structure
+  character: Earthy, smoky, rooty, dark, slightly green; the most prized origin for vetiver with deep woody-earthy complexity and superior tenacity compared to Haitian or Javanese varieties.
+  notes: Indian ruh khus vetiver (Chrysopogon zizanioides); deeper and more complex than standard Vetiver EO; excellent fixative properties for woody-amber structures.
+  provenance:
+    mw_g_mol: manual:2026-05-08 vetiver essential oil approximation
+    density_25c_g_ml: manual:2026-05-08 vetiver essential oil typical density
+    logp: manual:2026-05-08 sesquiterpenoid-rich EO approximation
+    vp_25c_pa: manual:2026-05-08 optimizer physics override
+    odt_air_ppb: manual:2026-05-08 optimizer ODT override
+    hedonic_valence: engine.hedonic_model
+    user_stock_dilution: inventory.txt
+    user_in_inventory: inventory.txt
+    character: docs/dosing_reference.md
+- canonical_name: Vetiver Essential Oil
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 7WY00466
+    perfumersworld_price_usd_per_g: 1.55
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Vetiver F-TEC
+  aliases:
+  - VETIVER F-TEC
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6WY18702
+    perfumersworld_price_usd_per_g: 0.45
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Vetivert Fleuressence
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6WY09425
+    perfumersworld_price_usd_per_g: 0.54
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Vetiveryl Acetate
+  aliases:
+  - vetiveryl acetate
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution: 10% w/w; carrier unrecorded
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 3WY00468
+    perfumersworld_price_usd_per_g: 2.72
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - woods / amber / structure
+  character:
+  notes:
+  provenance:
+    odt_air_ppb: engine.odor_thresholds
+    odt_eth_ppm: engine.odor_thresholds
+    stevens_n: engine.odor_thresholds
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    user_in_inventory: inventory.txt
+    user_stock_dilution: inventory.txt
+- canonical_name: Violet F-TEC
+  aliases:
+  - VIOLET F-TEC
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 6IG18244
+    perfumersworld_price_usd_per_g: 0.28
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Violet Fleuressence
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 190.0)
+  mw_g_mol: 190.0
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.01)
+  vp_25c_pa: 0.01
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 6IG08436
+    perfumersworld_price_usd_per_g: 0.15
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families:
+  - iris / violet
+  - pre-blended
+  character:
+  notes:
+  provenance:
+    user_in_inventory: inventory.txt
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Violet Leaf Absolute
+  aliases:
+  - Violet Leaf Absolute (10% in DPG)
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol: 200.0
+  density_25c_g_ml:
+  logp: 3.5
+  functional_groups: []
+  chirality: mixture
+  vp_25c_pa: 0.02
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb: 1.0
+  odt_eth_ppm: 0.1
+  stevens_n: 0.35
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution: 10% in DPG
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 8IG00469
+    perfumersworld_price_usd_per_g: 14.0
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other:
+      pw_alternate_forms:
+      - form: 10.0% in DPG
+        sku: 5IG07712
+        price_usd_per_g: 1.5
+  families:
+  - green
+  - iris / violet
+  - natural mixture
+  character: cool wet violet leaf, cucumber-green, metallic and softly iononic
+  notes: Effective whole-mixture physics and ODT are DERIVED screening placeholders; composite OAV uses a representative Egyptian Viola odorata absolute proxy, not the user lot or proprietary supplier composition.
+  provenance:
+    mw_g_mol: Effective natural-mixture pseudo-MW for screening only
+    logp: Estimated effective whole-mixture value
+    vp_25c_pa: Estimated effective whole-mixture value
+    odt_air_ppb: Derived whole-mixture placeholder; no strict air ODT located
+    odt_eth_ppm: Derived whole-mixture placeholder; no measured ethanol ODT located
+    composite_proxy: Saint-Lary et al. 2014 establishes origin variability; Lotus Garden batch VLHF320AB568 supplies representative GC-MS fractions only
+    user_in_inventory: D:/chatbots/perfume-chem/inventory.txt SHA256 DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Vetiver EO Haiti
+  aliases:
+  - vetiver eo haiti
+  - haitian vetiver eo
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: neat w/w; exact supplier/chemotype unrecorded
+  user_in_inventory: true
+  supplier: null
+  families:
+  - woods / amber / structure
+  character: null
+  notes: Physical stock is user-confirmed. Lot-specific chemistry, supplier,
+    chemotype, MW, VP, and ODT remain unverified; do not infer strict OAV.
+  provenance:
+    user_in_inventory: inventory.txt
+    user_stock_dilution: inventory.txt
+- canonical_name: Virgin Coconut Oil - Fixed Oil
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 0ZV01460
+    perfumersworld_price_usd_per_g: 0.08
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Vitamin E Acetate - Fixed Oil
+  aliases: []
+  cas:
+  smiles:
+  inchikey:
+  mw_g_mol:
+  density_25c_g_ml:
+  logp:
+  functional_groups: []
+  chirality:
+  vp_25c_pa:
+  antoine:
+  dhvap_kj_mol:
+  kaw_eff:
+  hsp:
+  odt_air_ppb:
+  odt_eth_ppm:
+  stevens_n:
+  or_targets: []
+  trp_targets:
+  hedonic_valence:
+  ifra_max_pct_edp:
+  user_stock_dilution:
+  user_in_inventory: false
+  supplier:
+    perfumersworld_sku: 0ZA07519
+    perfumersworld_price_usd_per_g: 0.23
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-04-11'
+    other: {}
+  families: []
+  character:
+  notes:
+  provenance:
+    supplier.perfumersworld: knowledge/perfumersworld_stock.md

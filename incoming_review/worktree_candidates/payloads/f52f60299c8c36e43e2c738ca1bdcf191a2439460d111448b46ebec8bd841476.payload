@@ -1,0 +1,80 @@
+{
+  "receipt_id": "COMPLEX-PERFUMERY-CURRENT-STATE-SUPERSESSION-V2-20260809",
+  "state": "PASS_STATE_SUPERSESSION__TUNNEL_USABLE__BATCH05_BYTES_RECOVERED__PREMIX_LOCAL_PRESENT_REMOTE_ABSENT__GLOBAL_RELEASE_HOLDS_PRESERVED",
+  "supersedes_status_only": "COMPLEX_PERFUMERY_CURRENT_STATE_RECONCILIATION_V1_20260809",
+  "supersession_reasons": [
+    "Perfume Chem Tunnel access is now working for list/read/write operations; the earlier HTTP 401 workspace-access status is stale.",
+    "The exact Batch 05 source workbook is present and SHA-bound to its sidecar, so the two v3.2 SOURCE_BYTES_MISSING targets no longer have a byte-availability problem, although workbook extraction/canonical ingestion remains held.",
+    "pre_mix_guard.py, its test source, and G15 gate wiring are present in the local tunnel workspace; the checked GitHub branch still lacks the guard path.",
+    "Chat2 Experimental Data Model exact-source adapter review was already resolved by the exact physicalBatch + componentAddition object crosswalk; literal PhysicalPreparation absence is not an open source-byte blocker. Runtime activation remains separate."
+  ],
+  "current_local_workspace": {
+    "inventory_v5": {
+      "path": "incoming_review/Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+      "bytes": 199635,
+      "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "state": "PRESENT_LOCAL_WORKSPACE__CURRENT_INVENTORY_AUTHORITY"
+    },
+    "batch05_source_workbook": {
+      "path": "incoming_review/Fragrance_80_Completion_Batch_05_Mixed_Designer_Niche_Sol_Pass.xlsx",
+      "bytes": 127439,
+      "sha256": "d272ca3615acb6194c8f2c9a082333615f5f87992b99d5237e53a956de8278c3",
+      "state": "SOURCE_BYTES_RECOVERED__HOLD_BINARY_EXTRACTION_AND_CANONICAL_INGESTION"
+    },
+    "pre_mix_guard": {
+      "path": "engine/fuckups/pre_mix_guard.py",
+      "sha256": "bbf4be5d2e18babbeaad03e909b99de0969fb31199036451a8f620741649c391",
+      "state": "PRESENT_LOCAL_WORKSPACE__STATIC_WIRING_AUDITED"
+    },
+    "pre_mix_guard_tests": {
+      "path": "tests/test_pre_mix_guard.py",
+      "sha256": "639e4ccca7dda4a928cb953ca7124c4eedcdda0cfdf2d0af986d59ec72953dff",
+      "state": "TEST_SOURCE_PRESENT__NOT_EXECUTED_BY_THIS_TEXT_ONLY_TUNNEL"
+    }
+  },
+  "pcv3_exact_source_state": {
+    "meaningful_complexity_v3": {
+      "outer_sha256": "10acff0eb8f9e40dc0bd0e8152e04eb3c6440393c39dc950ccc3e96dccc1f6e1",
+      "ledger": "10/10",
+      "state": "PASS_EXACT_BYTE_PACKAGE_INTEGRITY"
+    },
+    "experimental_data_model_chat2": {
+      "outer_sha256": "db638ab82c7e1a798297a9f4376014b9f51965511ae1d65132e57b4d12c9c9eb",
+      "ledger": "11/11",
+      "physical_preparation_crosswalk": ["physicalBatch", "componentAddition"],
+      "state": "PASS_EXACT_BYTE_PACKAGE_INTEGRITY__OBJECT_CROSSWALK_RESOLVED__NO_RUNTIME_ACTIVATION"
+    }
+  },
+  "remote_repository_state": {
+    "repository": "geminipro529-cloud/perfume-chem",
+    "branch": "codex/add-inventory-materials",
+    "pre_mix_guard_path": "404_NOT_FOUND",
+    "bounded_branch_writes": "HTTP_403_RESOURCE_NOT_ACCESSIBLE_BY_INTEGRATION",
+    "state": "REMOTE_DEPLOYMENT_HOLD"
+  },
+  "new_high_priority_findings": [
+    {
+      "id": "PREMIX-AUDIT-FND-001",
+      "state": "HOLD_TARGETED_PATCH_AND_RUNTIME_TESTS_BEFORE_CANONICAL_DEPLOYMENT",
+      "summary": "G15 dilution helper can fall back to 1.0 when formula-level stock fraction is absent instead of consuming the already-resolved inventory stock_specs; harden before canonical deployment."
+    }
+  ],
+  "next_chain": [
+    "Independently parse/extract Batch 05 workbook formula sheets and bind the two recovered targets into canonical source intake without changing physical/release state.",
+    "Patch G15 to consume resolved stock_specs and remove unjustified 1.0 fallback; add focused regressions; run repository-native tests before deployment.",
+    "Publish local pre_mix and other validated patches only through a bounded writable child branch; remote GitHub still blocks writes.",
+    "Materialize V5 as a hashed repository source snapshot/ExactStockRef authority when a writable path exists.",
+    "Preserve G12, candidate-air, strict OAV, safety, sensory, presentation, and release HOLDs."
+  ],
+  "authority_mutations": {
+    "formula": 0,
+    "inventory": 0,
+    "physical_truth": 0,
+    "candidate_air": 0,
+    "strict_oav": 0,
+    "safety": 0,
+    "presentation": 0,
+    "release": 0,
+    "repository": 0
+  }
+}

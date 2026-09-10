@@ -1,0 +1,87 @@
+import json
+from pathlib import Path
+
+import pytest
+
+from engine.data_spine import load_registry
+from engine.ingredient_catalog import find_ingredient
+from engine.ingredient_intelligence import get_profile
+from engine.inventory_parser import resolve_inventory_material
+from engine.odor_thresholds import lookup_odt_entry, verify_odt
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_amber_xtreme_stock_is_owned_at_ten_percent_w_w_in_dep():
+    stock = resolve_inventory_material("Amber Xtreme")
+
+    assert stock is not None
+    assert stock.status == "owned"
+    assert stock.dilution == pytest.approx(0.10)
+    # The pinned V5 inventory authority intentionally exposes the broader
+    # workbook family, while the data-spine/catalog retain the richer design
+    # category used by perfume architecture modules.
+    assert stock.category == "woods / amber"
+    assert stock.concentration_basis == "w/w"
+    assert stock.carrier == "dep"
+
+
+def test_amber_xtreme_identity_and_stock_authorities_are_available_without_rebasing():
+    material = load_registry().get("Amber Xtreme")
+    profile = get_profile("Amber Xtreme")
+    odt = lookup_odt_entry("Amber Xtreme")
+    verification = verify_odt("Amber Xtreme")
+    graph = json.loads(
+        (PROJECT_ROOT / "data/knowledge_graph/material_properties.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    graph_entry = next(
+        row for row in graph if row["name"].casefold() == "amber xtreme"
+    )
+
+    assert material is not None
+    assert material.user_in_inventory is True
+    assert material.user_stock_dilution == "10% w/w in DEP"
+    assert material.cas == "476332-65-7"
+    assert material.mw_g_mol is None
+    assert material.logp is None
+    assert material.vp_25c_pa is None
+
+    assert profile is not None
+    # The profile and generated material-properties record retain their
+    # pre-existing quantitative model; neither is stock authority.
+    assert graph_entry["mw"] == pytest.approx(profile.mw)
+    assert graph_entry["clp"] == pytest.approx(profile.clogp)
+    assert graph_entry["vp"] == pytest.approx(profile.vp)
+
+    assert odt is not None
+    assert odt["odt_air"] == pytest.approx(0.05)
+    assert odt["odt_eth"] == pytest.approx(0.15)
+    assert verification is not None
+    assert verification["vfy"] == "UNVERIFIED"
+
+    assert graph_entry["cas"] == material.cas
+
+
+def test_amber_xtreme_is_available_through_the_runtime_ingredient_catalog():
+    catalog_payload = json.loads(
+        (PROJECT_ROOT / "data/knowledge_graph/ingredient_catalog.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    catalog_entry = find_ingredient("Amber Xtreme")
+
+    assert catalog_payload["_meta"]["entry_count"] == len(
+        catalog_payload["ingredients"]
+    )
+    assert catalog_entry is not None
+    assert catalog_entry["category"] == "woods / amber / structure"
+    assert catalog_entry["current_status"] == "owned"
+    assert catalog_entry["owned_now"] is True
+    assert catalog_entry["executable_now"] is True
+    assert catalog_entry["authority_holds"] == [
+        "physical_constant_conflict_not_promoted"
+    ]
+    assert catalog_entry["properties"]["stock_form"] == "10% w/w in DEP"
+    assert "10% w/w in DEP" in catalog_entry["observed_forms"]

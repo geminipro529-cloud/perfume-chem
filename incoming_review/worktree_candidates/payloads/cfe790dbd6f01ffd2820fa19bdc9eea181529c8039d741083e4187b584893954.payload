@@ -1,0 +1,97 @@
+# CYP-01 Cyprès de Verre diagnostic receipt — 2026-08-30
+
+## Artifact identity
+
+- Branch: `codex/cypress-mineral-traverse-v1`
+- Base commit: `d99ecdca8b0a4bf741bd4dda7bd564649cf05982`
+- Formula path: `formulas/CYP_01_Cypres_de_Verre_French_Cypress_30mL_20pct.md`
+- Formula file SHA-256: `d40eca49f3c45121399399a8eca74a7e795cf94503bacac4c67a65d3f7f453d6`
+- Parsed formula-definition SHA-256: `ff25622b132edd600fbda460c1ad3f2c464042a0e2d706f693b624e82153d467`
+- Theory/protocol path: `docs/research/CYPRES_DE_VERRE_ARCHITECTURE_AND_HEDONIC_PROTOCOL_20260830.md`
+- Theory/protocol SHA-256: `cfffc01fffad846d1a9226985a3483efd1ba4c68d7ee87143aef99e5e3b1c9eb`
+- Inventory SHA-256 used by the gate: `eb33c04236a4640413ba5289125f04cfa278bd0614eb9bd12ea1cc4d88379967`
+
+## Formula contract result
+
+Command:
+
+```text
+python -m pytest -q tests/test_cypres_de_verre_formula.py
+```
+
+Fresh result: `10 passed`.
+
+The focused contract verifies:
+
+- exactly 22 parsed raw rows and exactly 6,000 µL total;
+- Cypress EO fixed at 180 µL neat in the selected arm;
+- exact current-stock resolution and execution readiness for every formula row;
+- Ambrettolide resolved as the owned 10% in DPG stock and retained as the sole musk;
+- no raw row below 30 µL at 30 mL scale, so the one-third 10 mL scale has no row below 10 µL;
+- the user's basket order, high-to-low sequence, and strict clean-tip discipline;
+- TARGET / IDEAL separation, current-inventory build, missing-chemical gate, preparation recommendation, controlled-test plan, and explicit authority ceilings;
+- constant-total Cypress dose and architecture controls;
+- isolated omission arms before any higher-order interaction claim.
+
+## Unified formula gate result
+
+Command:
+
+```text
+python scripts/formula_release_gate.py --formula-file formulas/CYP_01_Cypres_de_Verre_French_Cypress_30mL_20pct.md --expected-concentrate-ul 6000 --batch-volume-ml 30 --brief generic --no-audit --no-append-analysis --json
+```
+
+Fresh exit/result: `1 / FAIL`.
+
+This failure is preserved, not repaired away:
+
+- `input_normalization`: PASS — 22 ingredients parsed.
+- `inventory_stock_contract`: PASS — every formula row resolves uniquely to a declared live inventory stock.
+- `science_coverage`: PASS for runtime identity, MW, VP, and ODT fields; optional axes remain advisory.
+- `natural_composite_coverage`: FAIL — Cypress EO and Elemi EO lack required bottle-scope composite GC-O decomposition.
+- `quantitative_authority`: WARN — exact active concentrate ppm w/w is unavailable.
+- `headspace_scope`: WARN — active-concentrate screening omits the finished ethanol/water/solvent matrix.
+- `confidence_minimum`: FAIL — combined confidence 4.8/100 after evidence penalties; grade VERY LOW.
+
+The composite-oil failure is the correct outcome. No unrelated published Cypress or elemi composition was assigned to the user's bottles. Cypress and elemi OAV remain `UNKNOWN` at composite scope.
+
+## Heuristic diagnostics — not outcome evidence
+
+The now-runnable legacy scorer returned these deterministic indices:
+
+- hedonic: 79.6;
+- perceptual clarity: 80.0;
+- texture: 96.4;
+- stacking depth: 69.0;
+- synergy: 30.4;
+- diagnostic aggregate: 71.8.
+
+These are `HEURISTIC_DIAGNOSTIC_INDICES`, with release authority false and combined confidence 4.8/100. They cannot prove liking, beauty, target fidelity, sensory depth, richness, performance, similarity, safety, stability, or release. In particular, the Cypress subject has unknown composite OAV, so formula-level model values must not be represented as proof of Cypress prominence.
+
+## Compatibility correction
+
+The unified gate originally crashed because legacy Cypress EO and Elemi EO profiles store qualitative text in `character`, while three scorer paths assumed a numeric mapping. `engine/optimizer/scoring.py` now treats non-mapping character data as uncalibrated: it does not crash and does not fabricate radar values. Numeric profile dimensions for other materials remain unchanged.
+
+Regression coverage is included in `tests/test_cypres_de_verre_formula.py` for both the luxury screen and the complete formula score.
+
+## Pre-existing baseline exclusions
+
+Before CYP-01 implementation, a clean focused baseline produced `102 passed, 4 failed`. The four failures were pre-existing: three stale stock-strength expectations and one separate profile-shape crash in the chemical-life-graph path. CYP-01 does not rewrite those stock expectations and does not claim the unrelated chemical-life-graph defect is fixed.
+
+A broader selected verification batch after implementation produced `85 passed, 1 failed`. The remaining failure is `test_formula_release_gate_cli_accepts_commercial_trial_and_scaling_target`, where an unrelated temporary fougère formula fails its generated-artifact `analysis_input_hash` binding after the test rewrites that temporary file.
+
+An unfiltered repository-wide `pytest -q` snapshot stopped during collection with 21 pre-existing environment/repository errors before executing the suite. The blockers include missing optional backend packages (`pytest_asyncio`, SQLAlchemy, and Alembic), archived recovery trees being collected as live test roots, and complexity tests importing missing base-commit symbols such as `FormulaDoseReceipt`. This receipt does not misrepresent that collection failure as a green full suite.
+
+## Authority conclusion
+
+- Architecture specification: PRESENT and causally testable.
+- Arithmetic: PASS.
+- Current-stock resolution: PASS.
+- Basket-ready mixing order: PRESENT.
+- Composite Cypress/elemi OAV: UNKNOWN / HOLD.
+- Physical Cypress prominence: NOT TESTED.
+- Physical hedonism: NOT TESTED.
+- Safety and stability: NOT TESTED.
+- Compounding and release authority: FALSE.
+
+The next evidence-producing action is a blinded, order-balanced dose frontier and architecture comparison—not another model score.

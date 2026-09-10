@@ -1,0 +1,179 @@
+from __future__ import annotations
+
+import hashlib
+import json
+import sys
+from pathlib import Path
+from types import SimpleNamespace
+
+import pytest
+from openpyxl import Workbook
+
+from engine.solforge.contracts import (
+    SolForgeCaseState,
+    SolForgeCaseV1,
+    SolHypothesisSetV1,
+)
+from engine.solforge.governance import GateFoundationPreflight
+from engine.solforge.orchestrator import run_solforge_shadow
+from engine.solforge.runtime import ComplexityRuntimeAdmissionError
+from scripts import intervention_recommend
+
+H = "a" * 64
+
+
+@pytest.fixture
+def solforge_inputs(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setattr(
+        "engine.solforge.orchestrator.verify_gate_foundation_receipt",
+        lambda *_: GateFoundationPreflight(True, H, ()),
+    )
+    workbook_path = tmp_path / "inventory.xlsx"
+    workbook = Workbook(write_only=True)
+    sheet = workbook.create_sheet("Current Inventory Master")
+    for row in (["title"], ["authority"], [], []):
+        sheet.append(row)
+    sheet.append(
+        [
+            "Canonical material", "Status", "Actual stock(s)", "Can prepare",
+            "Family", "Alias / non-equivalent", "Formula-use policy", "User note",
+        ]
+    )
+    sheet.append(["Habanolide", "HAVE — NEAT", "Habanolide neat", None, "musk"])
+    workbook.save(workbook_path)
+    workbook.close()
+    inventory_hash = hashlib.sha256(workbook_path.read_bytes()).hexdigest()
+
+    root = Path(__file__).resolve().parents[1]
+    catalog = json.loads(
+        (root / "data/governance/complexity_inventory_catalog_v1.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    catalog["authority"]["workbook_sha256"] = inventory_hash
+    catalog["authority"]["current_record_count"] = 1
+    catalog["current_records"] = [
+        {
+            "source_row": 6, "canonical_material": "Habanolide",
+            "status": "HAVE — NEAT", "actual_stocks": "Habanolide neat",
+            "can_prepare": None, "family": "musk", "alias_or_non_equivalent": None,
+            "formula_use_policy": None, "user_note": None,
+        }
+    ]
+    catalog_path = tmp_path / "catalog.json"
+    catalog_path.write_text(json.dumps(catalog), encoding="utf-8")
+    from engine.perception import complexity_inventory
+
+    monkeypatch.setattr(complexity_inventory, "_EXPECTED_WORKBOOK_SHA256", inventory_hash)
+    monkeypatch.setattr(complexity_inventory, "_CATALOG_PATH", catalog_path)
+
+    case = SolForgeCaseV1(
+        case_id="NO-CHANGE", state=SolForgeCaseState.READY,
+        target_identity="austere iris with deliberate negative space",
+        ideal_architecture={"heart": ["iris"]}, current_inventory_build={"materials": {}},
+        inventory_path=str(workbook_path), inventory_sha256=inventory_hash,
+        formula_sha256="b" * 64, dose_receipt_sha256="c" * 64,
+        constraints=("one intervention",), criterion="DEPTH",
+        forbidden_claims=("release",),
+    )
+    hypotheses = SolHypothesisSetV1(
+        case_sha256=case.record_sha256, model_identity="Sol 5.6 xhigh",
+        reasoning_setting="xhigh", prompt_sha256=H, input_sha256="b" * 64,
+        output_sha256="c" * 64, hypotheses=(), uncertainty="no change is plausible",
+    )
+    case_path = tmp_path / "case.json"
+    hypotheses_path = tmp_path / "hypotheses.json"
+    case_path.write_bytes(case.canonical_bytes())
+    hypotheses_path.write_bytes(hypotheses.canonical_bytes())
+    return case_path, hypotheses_path, case, hypotheses
+
+
+def test_solforge_mode_requires_hypotheses_and_output_dir(monkeypatch, solforge_inputs) -> None:
+    case_path, _, _, _ = solforge_inputs
+    monkeypatch.setattr(sys, "argv", ["intervention_recommend.py", "--solforge-case", str(case_path)])
+    with pytest.raises(SystemExit):
+        intervention_recommend.main()
+
+
+def test_solforge_no_change_writes_atomic_hash_named_records(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, solforge_inputs
+) -> None:
+    case_path, hypotheses_path, case, hypotheses = solforge_inputs
+    output = tmp_path / "published"
+    registry_sha256 = "d" * 64
+    state = run_solforge_shadow(case, hypotheses)
+    monkeypatch.setattr(
+        intervention_recommend,
+        "run_admitted_solforge",
+        lambda *_args, **_kwargs: SimpleNamespace(
+            registry_sha256=registry_sha256,
+            admitted_module_ids=("architectural-delta-engine",),
+            state=state,
+        ),
+    )
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "intervention_recommend.py", "--solforge-case", str(case_path),
+            "--solforge-hypotheses", str(hypotheses_path), "--output-dir", str(output),
+        ],
+    )
+    assert intervention_recommend.main() == 0
+    manifest = json.loads((output / "MANIFEST.json").read_text(encoding="utf-8"))
+    assert manifest["input_file_sha256"][str(case_path)] == hashlib.sha256(
+        case_path.read_bytes()
+    ).hexdigest()
+    assert manifest["input_file_sha256"][str(hypotheses_path)] == hashlib.sha256(
+        hypotheses_path.read_bytes()
+    ).hexdigest()
+    assert (output / f"solforge_case_v1--{case.record_sha256}.json").read_bytes() == case.canonical_bytes()
+    assert (
+        output / f"sol_hypothesis_set_v1--{hypotheses.record_sha256}.json"
+    ).read_bytes() == hypotheses.canonical_bytes()
+    decision_file = next(output.glob("decision_receipt_v1--*.json"))
+    assert json.loads(decision_file.read_text(encoding="utf-8"))["decision"] == "NO_CHANGE"
+    assert manifest["complexity_runtime_registry_sha256"] == registry_sha256
+    assert manifest["complexity_runtime_modules"] == ["architectural-delta-engine"]
+    assert manifest["publication_authorized"] is False
+
+
+def test_solforge_current_rebuild_refuses_runtime_before_fresh_admission(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, solforge_inputs
+) -> None:
+    case_path, hypotheses_path, _, _ = solforge_inputs
+    output = tmp_path / "not-published"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "intervention_recommend.py", "--solforge-case", str(case_path),
+            "--solforge-hypotheses", str(hypotheses_path), "--output-dir", str(output),
+        ],
+    )
+    with pytest.raises(
+        ComplexityRuntimeAdmissionError,
+        match="no exact-byte replacement module is currently admitted",
+    ):
+        intervention_recommend.main()
+    assert not output.exists()
+
+
+def test_solforge_refuses_existing_nonempty_output(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, solforge_inputs
+) -> None:
+    case_path, hypotheses_path, _, _ = solforge_inputs
+    output = tmp_path / "published"
+    output.mkdir()
+    (output / "owned.txt").write_text("preserve", encoding="utf-8")
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "intervention_recommend.py", "--solforge-case", str(case_path),
+            "--solforge-hypotheses", str(hypotheses_path), "--output-dir", str(output),
+        ],
+    )
+    with pytest.raises(FileExistsError, match="nonempty"):
+        intervention_recommend.main()
+    assert (output / "owned.txt").read_text(encoding="utf-8") == "preserve"

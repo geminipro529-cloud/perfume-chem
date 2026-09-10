@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0",
+  "capture_id": "20260811T090138Z-dark-chat2-6a74ba3d-99e3d1c0",
+  "capture_nonce": "99e3d1c0-8153-40ad-8824-c344eaf61f35",
+  "captured_at": "2026-08-11T09:01:38.2688266Z",
+  "source": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "conversation_id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+    "chat_title": "Chat 2 Completion",
+    "codex_thread_id": "019fe7ed-5972-7091-a906-c2fcfdc4576c",
+    "source_revision": "local-mirror:94c6b75573d7:90f610273aa3:18270ef6603d",
+    "source_reference": "Chat 2 / DARK MATERIALS outputs in the Complex Perfumery local project mirror"
+  },
+  "transport": {
+    "method": "local ChatGPT project mirror exact-byte copy",
+    "transformation_history": [
+      "Copied each ZIP byte-for-byte from the Complex Perfumery mirror into append-only Perfume-Chem quarantine; no extraction, normalization, or content rewrite."
+    ]
+  },
+  "files": [
+    {
+      "original_name": "ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_20260810.zip",
+      "mime_type": "application/zip",
+      "size_bytes": 158952,
+      "sha256": "94c6b75573d71189c58b16737a1a5d2b9f7bb6bc8f1b41b9e76ef727e00e3c33",
+      "acquired_at": "2026-08-11T09:01:38.2688266Z",
+      "source_reference": "outputs/ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_20260810.zip in the Complex Perfumery mirror",
+      "validation": {
+        "zip_entry_count": 14,
+        "crc_error_member": null,
+        "safe_relative_paths": true,
+        "declared_hash_count": 13,
+        "declared_hash_mismatches": 0,
+        "archive_graph_status": "GRAPH_COMPLETE_QUARANTINED",
+        "all_nodes_terminal": true,
+        "node_count": 2,
+        "edge_count": 1,
+        "max_depth": 1,
+        "finding_codes": [
+          "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT",
+          "OOXML_PART_SCAN_LIMIT_EXCEEDED",
+          "PARTIAL_MEMBER_SCAN"
+        ],
+        "promotion_allowed": false
+      }
+    },
+    {
+      "original_name": "ACCORD_INTEL_DARK_DARK-SCR-03_GUAIACWOOD_GUAIACOL_v1_20260810.zip",
+      "mime_type": "application/zip",
+      "size_bytes": 166497,
+      "sha256": "90f610273aa3c8fab21895a5ca11dd67051e4631509376f03bf5a38337181d2e",
+      "acquired_at": "2026-08-11T09:01:38.2688266Z",
+      "source_reference": "outputs/ACCORD_INTEL_DARK_DARK-SCR-03_GUAIACWOOD_GUAIACOL_v1_20260810.zip in the Complex Perfumery mirror",
+      "validation": {
+        "zip_entry_count": 14,
+        "crc_error_member": null,
+        "safe_relative_paths": true,
+        "declared_hash_count": 13,
+        "declared_hash_mismatches": 0,
+        "archive_graph_status": "GRAPH_COMPLETE_QUARANTINED",
+        "all_nodes_terminal": true,
+        "node_count": 2,
+        "edge_count": 1,
+        "max_depth": 1,
+        "finding_codes": [
+          "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT",
+          "OOXML_PART_SCAN_LIMIT_EXCEEDED",
+          "PARTIAL_MEMBER_SCAN"
+        ],
+        "promotion_allowed": false
+      }
+    },
+    {
+      "original_name": "ACCORD_INTEL_DARK_DARK-SCR-20A_GUAIACOL_BIRCH_TAR_v1_20260810.zip",
+      "mime_type": "application/zip",
+      "size_bytes": 217032,
+      "sha256": "18270ef6603d2eb594ba57cb72326c4167eee1f655d6950d7e1dec5f00b3527d",
+      "acquired_at": "2026-08-11T09:01:38.2688266Z",
+      "source_reference": "outputs/ACCORD_INTEL_DARK_DARK-SCR-20A_GUAIACOL_BIRCH_TAR_v1_20260810.zip in the Complex Perfumery mirror",
+      "validation": {
+        "zip_entry_count": 14,
+        "crc_error_member": null,
+        "safe_relative_paths": true,
+        "declared_hash_count": 13,
+        "declared_hash_mismatches": 0,
+        "archive_graph_status": "GRAPH_COMPLETE_QUARANTINED",
+        "all_nodes_terminal": true,
+        "node_count": 2,
+        "edge_count": 1,
+        "max_depth": 1,
+        "finding_codes": [
+          "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT",
+          "OOXML_PART_SCAN_LIMIT_EXCEEDED",
+          "PARTIAL_MEMBER_SCAN"
+        ],
+        "promotion_allowed": false
+      }
+    }
+  ],
+  "authority": {
+    "level": "UNTRUSTED_LOCAL_MIRROR_CAPTURE",
+    "inventory_authority": false,
+    "scientific_authority": false,
+    "formula_authority": false,
+    "physical_authority": false,
+    "release_authority": false
+  }
+}

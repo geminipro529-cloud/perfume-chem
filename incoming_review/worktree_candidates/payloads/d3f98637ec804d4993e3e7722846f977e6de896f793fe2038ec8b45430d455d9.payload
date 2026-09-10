@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,0.9994
+identity_system_probability,0.9998
+oav_probability,0.9993
+temporal_probability,1.0
+dominance_failure_probability,0.00029999999999996696
+overall_probability,0.999
+dose_closure_probability,0.983
+temporal_q05,0.9612802107239707
+temporal_median,0.9866285324651448
+max_share_q95,0.4855436323955307
+marker_coverage_q05,0.8571428571428571
+phase_sum_q05,"{""top"": 22.47678059110487, ""heart"": 7.537246432980589, ""base"": 2.237646068260945}"
+release_shape_median,"[0.3643288224213601, 0.33209210121398103, 0.2255061207344073, 0.0696391420743037]"
+phase_shape_median,"[0.24225718981073396, 0.4131302497719461, 0.3444963130166431]"
+marker_probabilities,"{""Coriander EO | top"": 1.0, ""Grapefruit FCF Oil | top"": 1.0, ""Bergamot FCF Oil Sicilian | top"": 0.9988, ""Orris Liquid 30% | heart"": 0.9999, ""Alpha Isomethyl Ionone | heart"": 0.9839, ""Cedarwood Virginia | base"": 0.924, ""Ambrofix 30% | base"": 0.8884}"
+marker_quantiles,"{""Coriander EO | top"": [9.502240791514188, 22.75131541501728, 57.264506739036946], ""Grapefruit FCF Oil | top"": [3.5217372417079846, 9.783612193833187, 27.296896270419975], ""Bergamot FCF Oil Sicilian | top"": [2.390862767211311, 6.6874179093258554, 18.8463377301899], ""Orris Liquid 30% | heart"": [4.834589292624583, 14.216149188129389, 42.31083497857828], ""Alpha Isomethyl Ionone | heart"": [1.3386109363274674, 3.481567326077602, 9.116738329573364], ""Cedarwood Virginia | base"": [0.8873870591280009, 2.3764137749472685, 6.181480392459024], ""Ambrofix 30% | base"": [0.77722917505703, 1.9994738707195694, 5.3361790176044295]}"
+classification,ROBUST

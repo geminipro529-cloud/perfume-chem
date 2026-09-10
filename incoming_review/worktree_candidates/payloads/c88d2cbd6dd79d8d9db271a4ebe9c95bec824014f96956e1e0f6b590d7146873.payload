@@ -1,0 +1,170 @@
+{
+  "schema_version": "unified_import_deep_plane_compat_v1",
+  "recorded_date": "2026-09-04",
+  "artifact_class": "NONAUTHORITATIVE_TARGET_NEUTRAL_COMPATIBILITY_IMPORT_RECEIPT",
+  "state": "IMPLEMENTED_AND_FOCUSED_TESTED_NOT_RUNTIME_ADMITTED",
+  "source": {
+    "worktree": "C:\\Users\\ASUS\\.codex\\worktrees\\6155\\perfume-chem",
+    "git_head": "974ff4737bc08c4d215b34013cdd174cd22c8003",
+    "git_head_recorded_at": "2026-07-16T00:38:37+07:00",
+    "snapshot_scope": "EXACT_WORKTREE_BYTES_NOT_COMMIT_CONTENT",
+    "snapshot_observed_at": "2026-09-04T17:59:52+07:00",
+    "snapshot_caution": "The 6155 source implementation and tests were untracked or accompanied by modified gate and CLI files. Artifact SHA-256 values, not git HEAD alone, bind the reviewed source bytes.",
+    "snapshot_verification": {
+      "method": "LIVE_BYTE_SIZE_AND_SHA256_RECHECK",
+      "source_runtime_correction": "DECLARATION_TYPO_ONLY_INVALID_63_HEX_CHARACTER_SHA256_REPLACED_WITH_LIVE_64_HEX_CHARACTER_SHA256_FOR_55561_BYTE_FILE",
+      "all_other_source_artifact_hashes_match_previous_declaration": true,
+      "source_bytes_imported_by_this_refresh": false
+    },
+    "artifacts": [
+      {
+        "path": "engine/formulation_intelligence/deep_plane_runtime.py",
+        "size_bytes": 55561,
+        "sha256": "7261076fc71c9c82fb09dc46b5f9ea0457deac9265315c1dcdba594656430700",
+        "disposition": "SEMANTICS_REVIEWED_NOT_COPIED"
+      },
+      {
+        "path": "tests/test_deep_plane_runtime.py",
+        "size_bytes": 7274,
+        "sha256": "15595605fc5df2270ab64c21fd6eb5ff08e9425f67a5a04d44e1c1a256a87306",
+        "disposition": "PRESERVED_AT_SOURCE_ADAPTED_UNDER_NEW_TARGET_NAME"
+      },
+      {
+        "path": "tests/test_deep_plane_pipeline_gate.py",
+        "size_bytes": 14947,
+        "sha256": "5f1da4fe2241f0fd4c10d560a078ca1f0237b0156879911382dea86de4c1007e",
+        "disposition": "PRESERVED_AT_SOURCE_ADAPTED_TO_CURRENT_PRE_MIX_CONTRACT"
+      },
+      {
+        "path": "tests/test_formula_release_gate_deep_plane.py",
+        "size_bytes": 3287,
+        "sha256": "06e0a3892698f8fceee070ac47a14cd6458b0e8cfcefe89d196c715b3b321335",
+        "disposition": "PRESERVED_AT_SOURCE_ADAPTED_AS_PARSER_COMPATIBILITY_TEST"
+      },
+      {
+        "path": "engine/pipeline/gates.py",
+        "size_bytes": 186203,
+        "sha256": "35fcc540170ba805b0cffb77632c7e7c36a4a1f25ba886ecc191754b898dda65",
+        "disposition": "NOT_IMPORTED_NOT_MODIFIED"
+      },
+      {
+        "path": "scripts/formula_release_gate.py",
+        "size_bytes": 14317,
+        "sha256": "a17897544a43026577eae62723295ded1d2599a469bf24ec2083f3b66b4e26df",
+        "disposition": "NOT_IMPORTED_NOT_MODIFIED"
+      }
+    ]
+  },
+  "target_bindings": {
+    "worktree": "D:\\chatbots\\perfume-chem-unified-package",
+    "snapshot_scope": "POINT_IN_TIME_CURRENT_DESTINATION_BYTES",
+    "snapshot_observed_at": "2026-09-04T17:59:52+07:00",
+    "snapshot_refresh_reason": "SHARED_WORKFLOW_BINDING_ADVANCED_AFTER_INITIAL_COMPATIBILITY_IMPORT_AND_AGAIN_FOR_THE_FAIL_CLOSED_UNKNOWN_STOCK_STRENGTH_FIREWALL; RECEIPT_REFRESHES_LIVE_BYTES_WITHOUT_IMPORTING_OR_REWRITING_THE_SHARED_SCRIPT",
+    "artifacts": [
+      {
+        "path": "engine/formulation_intelligence/deep_plane_runtime.py",
+        "size_bytes": 22077,
+        "sha256": "bde1bfe2aa2eac318e1f5851e9da07e3fc5c2c7ef9887f7df170936c81a7b99a",
+        "role": "UNIFIED_EXACT_THIRTEEN_PLANE_RUNTIME"
+      },
+      {
+        "path": "engine/fuckups/pre_mix_guard.py",
+        "size_bytes": 17851,
+        "sha256": "ab548ecd6bb54650b48773f7dff9298060c5df5ce8b23cd2acbd0616aef31604",
+        "role": "CURRENT_FAIL_WARN_PASS_DOSE_LINEAGE_AND_MODELED_OAV_SCREEN"
+      },
+      {
+        "path": "scripts/verify_formula_workflow.py",
+        "size_bytes": 87983,
+        "earliest_recorded_sha256": "b696c517894c2bb0d2262d753ee271fe9e33d8748f3dc5e7db7aebaa83ffa6dc",
+        "previous_sha256": "8dcae2141c5f6272ba8150cacebaa1d551e2a311d13814eea36c76bf42e19095",
+        "sha256": "ab009800d7595f3ee1f0955291c06ca9b77498fd23269ef21afd878740bae4ad",
+        "refresh_disposition": "POINT_IN_TIME_BINDING_REFRESH_FOR_FAIL_CLOSED_UNKNOWN_STOCK_STRENGTH_FIREWALL_NO_IMPORT_SEMANTIC_CHANGE",
+        "role": "EXISTING_FORMULA_MARKDOWN_PARSER"
+      }
+    ]
+  },
+  "implementation": {
+    "adapter_path": "engine/formulation_intelligence/deep_plane_pipeline_adapter.py",
+    "adapter_size_bytes": 37778,
+    "adapter_sha256": "bd7862f01d3e7c5d53d9f2a3d8d7bc9339b6c50987a9f23669117ee267ef57a3",
+    "surface": [
+      "DeepPlaneCheckConfig",
+      "run_deep_plane_check",
+      "evaluate_deep_plane_gate"
+    ],
+    "target_scope_policy": "TARGET_NEUTRAL_FORMULA_HASH_SCOPE",
+    "plane_contract": "EXACT_THIRTEEN_PLANES_UNIFIED_RUNTIME_RECEIPT",
+    "gate_contract": "EXACT_CURRENT_PRE_MIX_FAIL_WARN_PASS",
+    "inventory_contract": "FILE_EXISTENCE_AND_SHA256_FRESHNESS_ONLY",
+    "source_runtime_imported": false,
+    "existing_unified_runtime_modified": false,
+    "existing_pipeline_gates_modified": false,
+    "existing_formula_release_cli_modified": false,
+    "existing_pre_mix_guard_modified": false,
+    "existing_inventory_authority_or_parser_modified": false,
+    "new_pipeline_script_created": false
+  },
+  "semantic_deltas": [
+    "The unified runtime remains the sole thirteen-plane executor; 6155 plane dictionaries are not copied into production code.",
+    "Gate status is projected only from the current pre-mix guard as FAIL, WARN, or PASS; the historical SCREEN_BLOCK vocabulary is not retained.",
+    "Every plane truth status remains WITHHELD even when the pre-mix screen passes.",
+    "The adapter does not duplicate material availability or dilution authority logic from the historical runtime; inventory handling is hash freshness only.",
+    "The existing formula parser, formula-state builder, simulator, and pre-mix guard are reused without modification.",
+    "No CLI or pipeline-gate registration is asserted by this compatibility-only import."
+  ],
+  "adapted_tests": [
+    {
+      "path": "tests/test_deep_plane_pipeline_gate.py",
+      "size_bytes": 3237,
+      "sha256": "f64b8c8d5832d66d7a3d2396ec250d8b31bf658e78910bfd701b831c8a6c27f8",
+      "source_path": "tests/test_deep_plane_pipeline_gate.py",
+      "coverage": "FAIL_WARN_PASS_PROJECTION_AND_AUTHORITY_CEILING"
+    },
+    {
+      "path": "tests/test_deep_plane_runtime_compat.py",
+      "size_bytes": 4133,
+      "sha256": "04dee995608f87643ce50a26193da489f95adaf4b2f4de1edfe79f95a7523c66",
+      "source_path": "tests/test_deep_plane_runtime.py",
+      "coverage": "FORMULA_RUN_DETERMINISM_THIRTEEN_PLANES_HASH_FRESHNESS_AND_CLAIM_CEILING"
+    },
+    {
+      "path": "tests/test_formula_release_gate_deep_plane.py",
+      "size_bytes": 1864,
+      "sha256": "8f08dd8c21d1bd36d8e127692759b116e3fcdc657ff54aef403cf376bfea4804",
+      "source_path": "tests/test_formula_release_gate_deep_plane.py",
+      "coverage": "EXISTING_FORMULA_PARSER_COMPATIBILITY_WITHOUT_CLI_OR_RELEASE_PROMOTION"
+    }
+  ],
+  "verification": {
+    "interpreter": "D:\\chatbots\\perfume-chem\\output\\verification-envs\\a2-slice2-py311\\Scripts\\python.exe",
+    "python_version": "3.11.15",
+    "focused_ruff": "PASS",
+    "focused_pytest": "11 passed",
+    "adjacent_pre_mix_plus_compat_pytest": "21 passed",
+    "focused_typecheck": "NOT_RUN_MISSING_BASEDPYRIGHT_IN_AVAILABLE_PROJECT_PYTHON_3_11_ENVIRONMENT",
+    "adjacent_unified_runtime_pytest": "NOT_RUN_COLLECTION_REQUIRES_JSONSCHEMA_MISSING_FROM_AVAILABLE_PROJECT_PYTHON_3_11_ENVIRONMENT",
+    "full_project_verify": "NOT_RUN_NOT_REQUIRED_FOR_COMPATIBILITY_LEAF_HANDOFF",
+    "final_destination_import_artifact_integrity": "PASS_4_OF_4_ADAPTER_AND_ADAPTED_TEST_DESTINATION_BYTES_MATCH_RECEIPT",
+    "final_destination_support_binding_integrity": "PASS_3_OF_3_TARGET_BINDING_DESTINATION_BYTES_MATCH_RECEIPT",
+    "final_freeze_authority_effect": "NONE_COMPATIBILITY_AND_PRE_MIX_SCREENING_CEILING_UNCHANGED"
+  },
+  "authority": {
+    "runtime_admission": false,
+    "production_integration": false,
+    "formula_generation": false,
+    "formula_mutation": false,
+    "inventory_mutation": false,
+    "physical_execution": false,
+    "compounding": false,
+    "purchase": false,
+    "sensory": false,
+    "hedonic": false,
+    "similarity": false,
+    "performance": false,
+    "safety": false,
+    "stability": false,
+    "release": false
+  },
+  "claim_ceiling": "COMPATIBILITY_AND_PRE_MIX_SCREENING_ONLY_NO_FORMULA_RELEASE_CLAIM"
+}

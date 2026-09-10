@@ -1,0 +1,191 @@
+"""Nonruntime assembly boundary enforcing complete selection/graph lineage.
+
+This boundary verifies real FUNCTION and RELATION adapter outputs. It does not
+claim execution of other specialist planes or reinterpret structural graph
+nodes as physical materials. Legacy envelope-only assemblies remain unchanged.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Any, Mapping
+
+from .accord_graph import accord_graph_to_plane_assessment
+from .candidate_assembler import AssemblyLayer, CandidateAssemblyBlueprint, CandidateDisposition
+from .candidate_selector import selection_to_function_plane_assessment
+from .contracts import _CanonicalRecord, _payload
+from .inventory_projection import IdealProposal, InventoryProjection
+from .relation_binding import GraphRelationBinding
+from .selection_binding import SelectionDecisionBinding
+from .whole_perfume_assembler import (
+    IntegratedWholePerfumeBlueprint,
+    assemble_integrated_whole_perfume_blueprint,
+)
+
+
+@dataclass(frozen=True, slots=True)
+class SourceBoundCandidateAssembly(_CanonicalRecord):
+    """All candidate decisions/relations, complete sources, real adapter output."""
+
+    SCHEMA_VERSION = "source_bound_candidate_assembly_v1"
+
+    assembly: CandidateAssemblyBlueprint
+    selections: tuple[SelectionDecisionBinding, ...]
+    relations: tuple[GraphRelationBinding, ...]
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.assembly, CandidateAssemblyBlueprint):
+            raise TypeError("assembly must be CandidateAssemblyBlueprint")
+        selections = tuple(self.selections)
+        relations = tuple(self.relations)
+        if any(not isinstance(s, SelectionDecisionBinding) for s in selections):
+            raise TypeError("selections must contain SelectionDecisionBinding")
+        if any(not isinstance(r, GraphRelationBinding) for r in relations):
+            raise TypeError("relations must contain GraphRelationBinding")
+        decision_ids = [s.decision.decision_id for s in selections]
+        relation_ids = [r.packet.packet_id for r in relations]
+        if len(set(decision_ids)) != len(decision_ids) or len(set(relation_ids)) != len(
+            relation_ids
+        ):
+            raise ValueError("duplicate source bindings are not allowed")
+        actual_decisions = {d.decision_id: d for d in self.assembly.candidate_decisions}
+        actual_relations = {r.packet_id: r for r in self.assembly.relation_packets}
+        if {s.decision.decision_id: s.decision for s in selections} != actual_decisions:
+            raise ValueError("source bindings must exactly cover every candidate decision")
+        if {r.packet.packet_id: r.packet for r in relations} != actual_relations:
+            raise ValueError("source bindings must exactly cover every relation packet")
+        assessments = self.assembly.plane_assessments
+        for source in selections:
+            expected = selection_to_function_plane_assessment(
+                source.requirement, source.report, source.declarations
+            )
+            if expected not in assessments:
+                raise ValueError("assembly must retain the real selection adapter output")
+        for source in relations:
+            expected = accord_graph_to_plane_assessment(source.graph)
+            if expected not in assessments:
+                raise ValueError("assembly must retain the real graph adapter output")
+        object.__setattr__(
+            self, "selections", tuple(sorted(selections, key=lambda s: s.decision.decision_id))
+        )
+        object.__setattr__(
+            self, "relations", tuple(sorted(relations, key=lambda r: r.packet.packet_id))
+        )
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": self.SCHEMA_VERSION,
+            "assembly": self.assembly.as_dict(),
+            "selections": [s.as_dict() for s in self.selections],
+            "relations": [r.as_dict() for r in self.relations],
+        }
+
+    @classmethod
+    def from_dict(cls, payload: Mapping[str, Any]) -> SourceBoundCandidateAssembly:
+        data = _payload(payload, cls.SCHEMA_VERSION)
+        return cls(
+            assembly=CandidateAssemblyBlueprint.from_dict(data["assembly"]),
+            selections=tuple(SelectionDecisionBinding.from_dict(s) for s in data["selections"]),
+            relations=tuple(GraphRelationBinding.from_dict(r) for r in data["relations"]),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class SourceBoundWholePerfume(_CanonicalRecord):
+    """Whole result retaining, rather than discarding, checked source bindings."""
+
+    SCHEMA_VERSION = "source_bound_whole_perfume_v1"
+
+    source: SourceBoundCandidateAssembly
+    integrated: IntegratedWholePerfumeBlueprint
+    selected_alternative_id: str
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.source, SourceBoundCandidateAssembly):
+            raise TypeError("source must be SourceBoundCandidateAssembly")
+        if not isinstance(self.integrated, IntegratedWholePerfumeBlueprint):
+            raise TypeError("integrated must be IntegratedWholePerfumeBlueprint")
+        if self.integrated.candidate_assembly != self.source.assembly:
+            raise ValueError("whole result must retain the exact source-bound assembly")
+        if self.selected_alternative_id not in {
+            alternative.alternative_id for alternative in self.source.assembly.alternatives
+        }:
+            raise ValueError("selected alternative must exist in the bound assembly")
+        selected = [
+            s
+            for s in self.source.selections
+            if s.decision.alternative_id == self.selected_alternative_id
+            and s.decision.layer is AssemblyLayer.TARGET_IDEAL
+            and s.decision.disposition is CandidateDisposition.SELECT
+        ]
+        # Exact native names/functions only. Alias or identity substitution needs
+        # a separate explicit mapping contract; labels cannot prove chemistry.
+        expected = []
+        for binding in selected:
+            declaration = next(
+                d for d in binding.declarations if d.candidate_id == binding.decision.candidate_id
+            )
+            expected.append((declaration.material_name, binding.decision.target_linked_function))
+        actual = [
+            (s.material_name, s.target_function)
+            for s in self.integrated.whole_blueprint.ideal_proposal.selections
+        ]
+        if (
+            not expected
+            or len(set(expected)) != len(expected)
+            or sorted(actual) != sorted(expected)
+        ):
+            raise ValueError(
+                "ideal material/function list must exactly match one selected alternative"
+            )
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": self.SCHEMA_VERSION,
+            "source": self.source.as_dict(),
+            "integrated": self.integrated.as_dict(),
+            "selected_alternative_id": self.selected_alternative_id,
+        }
+
+    @classmethod
+    def from_dict(cls, payload: Mapping[str, Any]) -> SourceBoundWholePerfume:
+        data = _payload(payload, cls.SCHEMA_VERSION)
+        return cls(
+            SourceBoundCandidateAssembly.from_dict(data["source"]),
+            IntegratedWholePerfumeBlueprint.from_dict(data["integrated"]),
+            data["selected_alternative_id"],
+        )
+
+
+def assemble_source_bound_whole_perfume(
+    ideal: IdealProposal,
+    projection: InventoryProjection,
+    source: SourceBoundCandidateAssembly,
+    *,
+    selected_alternative_id: str,
+    version: int,
+    predecessor_sha256: str | None = None,
+) -> SourceBoundWholePerfume:
+    """Compose an exact target/build with complete decision and graph sources.
+
+    This explicit entrypoint is unadmitted and does not replace legacy runtime.
+    Its output must remain intact; exporting only the inner blueprint loses the
+    source-binding evidence and cannot be called a source-bound whole result.
+    """
+    if not isinstance(source, SourceBoundCandidateAssembly):
+        raise TypeError("source must be SourceBoundCandidateAssembly")
+    result = assemble_integrated_whole_perfume_blueprint(
+        ideal,
+        projection,
+        source.assembly,
+        version=version,
+        predecessor_sha256=predecessor_sha256,
+    )
+    return SourceBoundWholePerfume(source, result, selected_alternative_id)
+
+
+__all__ = [
+    "SourceBoundCandidateAssembly",
+    "SourceBoundWholePerfume",
+    "assemble_source_bound_whole_perfume",
+]

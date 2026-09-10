@@ -1,0 +1,158 @@
+import hashlib
+import re
+from pathlib import Path
+
+from engine.inventory_parser import parse_current_inventory
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+FORMULA_PATH = (
+    PROJECT_ROOT
+    / "formulas"
+    / "La_Rose_Monolithe_Direct_Dilution_50mL_Rescue.md"
+)
+FORMULA_SHA256 = "FFC5AD337BC750288568C52C789201639F1216FB5266B252CEF5FBB2B8BC87C9"
+FROZEN_INVENTORY_SHA256 = (
+    "6278A846882412F2F026171D0B4910C4613C35D6C7B6680BF4B98C923E4BB5D7"
+)
+
+
+def _current_build() -> str:
+    text = FORMULA_PATH.read_text(encoding="utf-8")
+    return text.split("## CURRENT-INVENTORY BUILD", 1)[1].split(
+        "## Physical-Bottle Stock Rebase", 1
+    )[0]
+
+
+def test_current_rose_stocks_do_not_rewrite_the_frozen_rescue_authority():
+    records = parse_current_inventory(unique=False, include_unavailable=True)
+    by_name = {record.name: record for record in records}
+    rose_de_mai = by_name["Rose de Mai Absolute"]
+    rose_eo = by_name["Rose Essential Oil (Rosa Damascena, India)"]
+
+    assert (
+        rose_de_mai.status,
+        rose_de_mai.dilution,
+        rose_de_mai.fraction_basis,
+        rose_de_mai.carrier,
+        rose_de_mai.execution_ready,
+    ) == ("owned", 0.10, "unspecified", "dpg", True)
+    assert (
+        rose_eo.status,
+        rose_eo.dilution,
+        rose_eo.fraction_basis,
+        rose_eo.execution_ready,
+    ) == ("owned", 1.0, "neat", True)
+
+    text = FORMULA_PATH.read_text(encoding="utf-8")
+    assert "remaining Rose de Mai stock is assumed zero" in text
+    assert "zero additional Rose de Mai" in text
+    assert "SENSORY_SAFETY_AND_STABILITY_HOLD" in text
+
+
+def test_damage_control_build_uses_no_additional_rose_de_mai():
+    build = _current_build()
+
+    for expected_row in (
+        "| 1 | Phenethyl Alcohol (PEA) | neat | 800 | 800.0 |",
+        "| 2 | Phenyl Ethyl Dimethyl Carbinol (PEDMC) | neat | 1200 | 1200.0 |",
+        "| 3 | Damascol | 10% | 700 | 70.0 |",
+        "| 4 | Benzyl Salicylate | neat | 400 | 400.0 |",
+        "| 5 | Hexyl Salicylate | neat | 200 | 200.0 |",
+        "| 6 | Dipropylene Glycol (DPG) | carrier | 1700 | 0.0 |",
+        "| 7 | Ethanol 96% | solvent | 15000 | 0.0 |",
+    ):
+        assert expected_row in build
+
+    for forbidden in (
+        "Rose de Mai Absolute",
+        "Rose Essential Oil",
+        "Citronellol",
+        "Geraniol",
+        "Nerol",
+        "Rose Oxide",
+        "Linalool",
+        "Alpha Damascone",
+        "Hedione",
+        "Romandolide",
+        "Iso E Super",
+        "Amber Xtreme",
+    ):
+        assert not re.search(
+            rf"\|\s*\d+\s*\|\s*{re.escape(forbidden)}(?:\s|\|)", build
+        )
+
+
+def test_damage_control_preserves_exact_volume_arithmetic_and_dose_floor():
+    text = FORMULA_PATH.read_text(encoding="utf-8")
+
+    assert "30.00 mL existing perfume" in text
+    assert "zero additional Rose de Mai" in text
+    assert "5.00 mL correction field" in text
+    assert "15.00 mL ethanol" in text
+    assert "50.00 mL final" in text
+    assert "minimum direct addition is 200 µL" in text
+    assert "add 2.00 mL Rose de Mai" not in text
+    assert "Add the complete **2.00 mL Rose de Mai" not in text
+
+
+def test_damage_control_records_physical_batch_authority():
+    text = FORMULA_PATH.read_text(encoding="utf-8")
+
+    assert "40 µL neat Citronellol" in text
+    assert "not 400 µL" in text
+    assert "900 µL" in text
+    assert "2000 µL of Rose de Mai 10% stock" in text
+    assert "already trapped in the bottle" in text
+    assert "requires correction if the actual Rose EO dose differs" in text
+
+
+def test_damage_control_preserves_its_frozen_oav_diagnostics_without_resimulation():
+    text = FORMULA_PATH.read_text(encoding="utf-8")
+    assert hashlib.sha256(FORMULA_PATH.read_bytes()).hexdigest().upper() == FORMULA_SHA256
+
+    for expected_row in (
+        "| Rose de Mai Absolute — already present | 4000 | 485.74 composite |",
+        "| PEDMC | 28400 | 240.48 |",
+        "| Rose Essential Oil — rejected lot | 1800 | 169.37 composite |",
+        "| Damascol | 1550 | 115.38 |",
+        "| Opening, 0 s | 16.3 / 83.0 / 0.7 | 4.7946 | 485.74 | 169.37 | 2.87 : 1 | 240.48 | 115.38 |",
+        "| Drydown, 4 h | 12.3 / 86.9 / 0.8 | 4.0024 | 300.83 | 109.06 | 2.76 : 1 | 239.85 | 114.39 |",
+    ):
+        assert expected_row in text
+
+    assert "These are not measured headspace values or proof of masking" in text
+
+
+def test_damage_control_states_the_nonselective_rescue_boundary():
+    text = FORMULA_PATH.read_text(encoding="utf-8")
+
+    assert "cannot selectively remove Rose EO" in text
+    assert "does not improve the Rose de Mai-to-Rose EO ratio" in text
+    assert "does not prove that the rejected Rose EO is covered" in text
+    assert "further additions are not authorized" in text
+
+
+def test_damage_control_contains_required_proposal_sections():
+    text = FORMULA_PATH.read_text(encoding="utf-8")
+
+    for section in (
+        "## Target Identity and Functional Architecture",
+        "## TARGET / IDEAL FORMULA",
+        "## CURRENT-INVENTORY BUILD",
+        "## Missing-Chemical Impact Gate",
+        "## Purchase / Preparation Recommendation",
+        "## Controlled Blinded Test Plan",
+        "## Claim Ceiling",
+    ):
+        assert section in text
+
+
+def test_damage_control_preserves_its_frozen_2026_08_29_inventory_binding():
+    text = FORMULA_PATH.read_text(encoding="utf-8")
+    current_inventory_sha = hashlib.sha256(
+        (PROJECT_ROOT / "inventory.txt").read_bytes()
+    ).hexdigest().upper()
+
+    assert "**Inventory path:** `../inventory.txt`" in text
+    assert current_inventory_sha != FROZEN_INVENTORY_SHA256
+    assert f"SHA-256 `{FROZEN_INVENTORY_SHA256}`" in text

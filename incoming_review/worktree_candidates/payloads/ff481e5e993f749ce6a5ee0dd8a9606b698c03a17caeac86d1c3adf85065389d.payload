@@ -1,0 +1,36 @@
+{
+  "schema_version": "perfume_chem_direct_stock_addition_receipt_v1",
+  "effective_date": "2026-09-10",
+  "source_kind": "DIRECT_USER_MESSAGES",
+  "verbatim_user_messages": [
+    "Also, add Florhydral to inventory",
+    "it is from simplescentsdiy",
+    "neat"
+  ],
+  "canonical_name": "Florhydral",
+  "disposition": "OWNED",
+  "supplier": {
+    "name": "Simple Scents DIY",
+    "sku": "8F3094005319",
+    "package": "5 mL",
+    "product_url": "https://www.simplescentsdiy.com/product/35447-34947/florhydral"
+  },
+  "stock": {
+    "fraction": 1.0,
+    "fraction_basis": "neat",
+    "carrier": "",
+    "stock_form_authority": "DIRECT_USER_CONFIRMATION"
+  },
+  "authority_limits": {
+    "availability_confirmed": true,
+    "supplier_confirmed": true,
+    "stock_form_confirmed": true,
+    "analytical_purity_asserted": false,
+    "lot_assay_asserted": false,
+    "density_asserted": false,
+    "formula_use_authorized": false,
+    "historical_formula_rebase_authorized": false,
+    "physical_compounding_performed": false,
+    "safety_or_release_asserted": false
+  }
+}

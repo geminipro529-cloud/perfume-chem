@@ -1,0 +1,849 @@
+import hashlib
+import json
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+import pytest
+
+from engine.pipeline.formula_state import build_formula_state
+from engine.pipeline.preflight import run_release_preflight
+from scripts.verify_formula_workflow import audit_donor_independence, parse_formula_markdown
+
+ROOT = Path(__file__).resolve().parents[1]
+FORMULAS = ROOT / "formulas"
+RUN_ROOT = ROOT / "verification_runs" / "20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1"
+SIGNATURES = ROOT / "docs" / "research" / "donor_signatures"
+LH_CONTROL = FORMULAS / "L_Homme_Luxe_Ginger_Silhouette_DHP2025_StockCorrected_Control_V6_30mL_20pct_Development.md"
+LH01 = FORMULAS / "L_Homme_Luxe_Neroli_Gingembre_Luminous_Silk_DHP2025_V1_30mL_20pct_Development.md"
+LH02 = FORMULAS / "L_Homme_Luxe_Osmanthus_Suede_Apricot_Shadow_DHP2025_V1_30mL_20pct_Development.md"
+LH03 = FORMULAS / "L_Homme_Luxe_Mandarine_Tonka_Golden_Chamber_DHP2025_V1_30mL_20pct_Development.md"
+LH04 = FORMULAS / "L_Homme_Luxe_Genievre_Cedre_Cool_Dry_Tailoring_DHP2025_V1_30mL_20pct_Development.md"
+LH05 = FORMULAS / "L_Homme_Luxe_Pluie_Violette_Wet_Mineral_Cloth_DHP2025_V1_30mL_20pct_Development.md"
+LH_GUIDE = FORMULAS / "mixing_guides" / "L_Homme_Luxe_Hedonic_Flanker_Suite_DHP2025_V1_Blind_Trial.md"
+LNDL_CONTROL = FORMULAS / "LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_StockCorrected_Control_V8_30mL_20pct_Development.md"
+LN01 = FORMULAS / "LNDL_Luxe_Coriander_Silk_Polished_Seed_Wood_DHP2025_V1_30mL_20pct_Development.md"
+LN02 = FORMULAS / "LNDL_Luxe_Cinnamon_Cashmere_Warm_Almond_Spice_DHP2025_V1_30mL_20pct_Development.md"
+LN03 = FORMULAS / "LNDL_Luxe_Orris_Santal_Violet_Root_Skin_DHP2025_V1_30mL_20pct_Development.md"
+LN04 = FORMULAS / "LNDL_Luxe_Olibanum_Cedar_Halo_Luminous_Incense_DHP2025_V1_30mL_20pct_Development.md"
+LN05 = FORMULAS / "LNDL_Luxe_Tobacco_Plum_Cashmere_Cured_Fruit_Shadow_DHP2025_V1_30mL_20pct_Development.md"
+LNDL_GUIDE = FORMULAS / "mixing_guides" / "LNDL_Luxe_Hedonic_Flanker_Suite_DHP2025_V1_Blind_Trial.md"
+MUSKS = {
+    "Ethylene Brassylate", "Habanolide", "Romandolide", "Exaltolide",
+    "Ambrettolide", "Tonalide", "Macrolide", "Musk Ketone",
+}
+FORBIDDEN_CURRENT = {
+    "Polysantol", "Ambrofix", "Bacdanol", "Guaiacwood EO 33%",
+    "Benzyl Salicylate", "Tonalide", "Macrolide", "Musk Ketone",
+}
+CANDIDATES: list[dict[str, object]] = []
+CANDIDATES.append({"id": "LH-01", "family": "L'Homme", "path": LH01})
+CANDIDATES.append({"id": "LH-02", "family": "L'Homme", "path": LH02})
+CANDIDATES.append({"id": "LH-03", "family": "L'Homme", "path": LH03})
+CANDIDATES.append({"id": "LH-04", "family": "L'Homme", "path": LH04})
+CANDIDATES.append({"id": "LH-05", "family": "L'Homme", "path": LH05})
+CANDIDATES.append({"id": "LN-01", "family": "LNDL", "path": LN01})
+CANDIDATES.append({"id": "LN-02", "family": "LNDL", "path": LN02})
+CANDIDATES.append({"id": "LN-03", "family": "LNDL", "path": LN03})
+CANDIDATES.append({"id": "LN-04", "family": "LNDL", "path": LN04})
+CANDIDATES.append({"id": "LN-05", "family": "LNDL", "path": LN05})
+REQUIRED_SECTIONS = (
+    "## Authority and status",
+    "## Target identity",
+    "## Functional architecture before dosing",
+    "## Spatial, temporal, textural, transition, pressure/release, and recurrence maps",
+    "## Source-lineage conservation ledger",
+    "donor-independence-manifest",
+    "## TARGET / IDEAL FORMULA",
+    "## CURRENT-INVENTORY BUILD",
+    "## Candidate-survival and omission audit",
+    "## Inventory and stock audit",
+    "## Working-stock preparation ledger",
+    "## Missing-chemical impact gate",
+    "## Future mixing order",
+    "## Controlled blinded test plan",
+    "## Pipeline Analysis",
+    "## Claim ceiling",
+)
+CURRENT_ROW_HEADERS = (
+    "#", "Ingredient", "Canonical stock identity", "Stock strength",
+    "Concentration basis", "Carrier", "Raw Amount uL", "Justified active uL",
+    "Active ppm", "ODT authority / quality", "OAV / status", "Primary owner",
+)
+SURVIVAL_HEADERS = (
+    "#", "Material", "Modeled OAV", "Disposition", "Rationale class / precise role",
+    "Executable constant-total omission test",
+)
+ALLOWED_SURVIVAL_DISPOSITIONS = {
+    "KEEP_STRUCTURAL", "REDOSE/REDILUTE", "REMOVE/REBASE", "DATA_HOLD",
+}
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest().upper()
+
+
+def _section(text: str, heading: str) -> str:
+    start = text.index(heading)
+    end = text.find("\n## ", start + len(heading))
+    return text[start:] if end == -1 else text[start:end]
+
+
+def _subsection(text: str, heading: str) -> str:
+    start = text.index(heading)
+    end = text.find("\n### ", start + len(heading))
+    return text[start:] if end == -1 else text[start:end]
+
+
+def _rows(section: str) -> list[tuple[str, float]]:
+    found = []
+    for line in section.splitlines():
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if len(cells) < 3 or not cells[0].isdigit():
+            continue
+        for cell in reversed(cells[2:]):
+            try:
+                amount = float(cell.replace(",", ""))
+            except ValueError:
+                continue
+            found.append((cells[1], amount))
+            break
+    return found
+
+
+def _current_formula(path: Path) -> dict:
+    parsed = parse_formula_markdown(path)
+    assert len(parsed) == 1
+    return parsed[0]
+
+
+def _markdown_table(section: str, expected_headers: tuple[str, ...]) -> list[list[str]]:
+    lines = section.splitlines()
+    header_index = next(
+        index
+        for index, line in enumerate(lines)
+        if [cell.strip() for cell in line.strip().strip("|").split("|")] == list(expected_headers)
+    )
+    rows: list[list[str]] = []
+    for line in lines[header_index + 2:]:
+        if not line.lstrip().startswith("|"):
+            if rows:
+                break
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if not cells or (expected_headers[0] == "#" and not cells[0].isdigit()):
+            if rows:
+                break
+            continue
+        rows.append(cells)
+    return rows
+
+
+def _manifest(path: Path) -> dict:
+    text = path.read_text(encoding="utf-8")
+    match = re.search(
+        r"<!-- donor-independence-manifest:\s*(\{.*?\})\s*-->",
+        text,
+        re.DOTALL,
+    )
+    assert match, path
+    return json.loads(match.group(1))
+
+
+def _stock_sync(path: Path) -> dict:
+    text = path.read_text(encoding="utf-8")
+    match = re.search(r"<!-- current-table-stock-sync:\s*(\{.*?\})\s*-->", text, re.DOTALL)
+    assert match, path
+    return json.loads(match.group(1))
+
+
+def _assert_formula_contract(
+    path: Path,
+    *,
+    required: set[str],
+    forbidden: set[str],
+    expected_musks: set[str],
+    ideal_floor: int = 58,
+    module_floor: int = 10,
+) -> None:
+    text = path.read_text(encoding="utf-8")
+    assert all(section in text for section in REQUIRED_SECTIONS)
+    ideal_rows = _rows(_section(text, "## TARGET / IDEAL FORMULA"))
+    assert len(ideal_rows) >= ideal_floor
+    assert sum(amount for _, amount in ideal_rows) == pytest.approx(6000.0)
+    formula = _current_formula(path)
+    amounts = formula["ingredients_ul"]
+    assert sum(amounts.values()) == pytest.approx(6000.0)
+    assert min(amounts.values()) >= 10.0
+    assert required <= set(amounts)
+    assert (FORBIDDEN_CURRENT | forbidden).isdisjoint(amounts)
+    assert MUSKS & set(amounts) == expected_musks
+    assert "DPG carrier reserve" not in amounts
+    dilutions = {name: formula.get("dilutions", {}).get(name, 1.0) for name in amounts}
+    state = build_formula_state(amounts, dilutions=dilutions, batch_volume_ml=30.0)
+    preflight = run_release_preflight(formula, state)
+    availability = next(check for check in preflight.checks if check.name == "inventory_availability")
+    assert availability.status == "PASS", availability.detail
+    identity = next(check for check in preflight.checks if check.name == "material_identity_and_physics")
+    if identity.status != "PASS":
+        assert not identity.data["unknown_materials"], identity.detail
+        held = set(identity.data["missing_fields"]) | set(identity.data["missing_odt"])
+        current_rows = {
+            row[1]: row
+            for row in _markdown_table(_section(text, "## CURRENT-INVENTORY BUILD"), CURRENT_ROW_HEADERS)
+        }
+        assert held
+        assert all(
+            "DATA HOLD" in current_rows[name][9] and "DATA HOLD" in current_rows[name][10]
+            for name in held
+        ), identity.detail
+    audit = audit_donor_independence(path, formula, project_root=ROOT)
+    assert audit["status"] == "PASS", audit
+    assert len(audit["data"]["target_modules"]) >= module_floor
+    folded = text.casefold()
+    assert "not tested" in folded
+    assert "hold" in folded
+    assert "no compounding" in folded
+    assert "no release" in folded
+
+
+def _assert_candidate_review_contract(path: Path) -> None:
+    text = path.read_text(encoding="utf-8")
+    ordered = (
+        "## Authority and status", "## Target identity",
+        "## Functional architecture before dosing",
+        "## Spatial, temporal, textural, transition, pressure/release, and recurrence maps",
+        "## Source-lineage conservation ledger", "<!-- donor-independence-manifest:",
+        "## TARGET / IDEAL FORMULA", "## CURRENT-INVENTORY BUILD",
+        "## Candidate-survival and omission audit", "## Inventory and stock audit",
+        "## Working-stock preparation ledger", "## Missing-chemical impact gate",
+        "## Future mixing order",
+        "## Controlled blinded test plan", "## Pipeline Analysis", "## Claim ceiling",
+    )
+    section_positions = [text.index(heading) for heading in ordered]
+    assert section_positions == sorted(section_positions)
+    assert text.index("## Claim ceiling") > text.index("## Pipeline Analysis")
+
+    current = _section(text, "## CURRENT-INVENTORY BUILD")
+    rows = _markdown_table(current, CURRENT_ROW_HEADERS)
+    assert rows
+    assert [int(row[0]) for row in rows] == list(range(1, len(rows) + 1))
+    assert all(len(row) == len(CURRENT_ROW_HEADERS) for row in rows)
+    assert all(all(cell for cell in row) for row in rows)
+    assert all(row[9] != "-" and row[10] != "-" for row in rows)
+    assert all(row[11].count(";") == 0 for row in rows), "one primary owner per row"
+
+    formula = _current_formula(path)
+    audit = audit_donor_independence(path, formula, project_root=ROOT)
+    headings = audit["data"]["candidate_basket_headings"]
+    target_modules = audit["data"]["target_modules"]
+    assert headings, "candidate body must expose nonempty basket ontology"
+    assert [heading.casefold() for heading in headings] == [module.casefold() for module in target_modules]
+
+
+@pytest.mark.parametrize("name,source", [
+    ("dhp_2025_niche_house_v1.json", FORMULAS / "DHP_2025_Niche_House_30mL_EdP.md"),
+    ("opus_v_woods_symphony_v1.json", FORMULAS / "Opus_V_Woods_Symphony_30mL_EdP.md"),
+])
+def test_theory_donor_signatures_bind_current_source_bytes(name: str, source: Path) -> None:
+    signature = json.loads((SIGNATURES / name).read_text(encoding="utf-8"))
+    assert signature["schema_version"] == "donor-signature-v1"
+    assert signature["source_artifact"] == source.relative_to(ROOT).as_posix()
+    assert signature["source_sha256"] == _sha256(source)
+    assert signature["ordered_basket_headings"]
+    assert signature["structural_materials"]
+
+
+def test_lhomme_control_is_stock_corrected_constant_total_and_manifest_complete() -> None:
+    text = LH_CONTROL.read_text(encoding="utf-8")
+    formula = _current_formula(LH_CONTROL)
+    amounts = formula["ingredients_ul"]
+    assert sum(amounts.values()) == pytest.approx(6000.0)
+    assert min(amounts.values()) >= 10.0
+    assert len(amounts) == 53
+    assert "DPG carrier reserve" not in amounts
+    assert amounts["Ginger EO"] == pytest.approx(890.0)
+    ginger_fraction = formula["dilutions"]["Ginger EO"]
+    assert ginger_fraction == pytest.approx(0.25842697)
+    assert amounts["Ginger EO"] * ginger_fraction == pytest.approx(230.0, abs=1e-5)
+    assert amounts["Ginger EO"] * (1.0 - ginger_fraction) == pytest.approx(660.0, abs=1e-5)
+    assert sum(
+        amount * formula.get("dilutions", {}).get(name, 1.0)
+        for name, amount in amounts.items()
+    ) == pytest.approx(4527.72, abs=1e-5)
+    assert FORBIDDEN_CURRENT.isdisjoint(amounts)
+    assert MUSKS & set(amounts) == {"Romandolide"}
+
+    temporal = _subsection(text, "### Five temporal windows")
+    temporal_windows = [
+        line.split("|")[1].strip()
+        for line in temporal.splitlines()
+        if line.rstrip().endswith("| NOT TESTED |")
+    ]
+    assert temporal_windows == [
+        "opening, 0-5 min",
+        "top, 5-30 min",
+        "heart, 30-120 min",
+        "late heart, 2-6 h",
+        "drydown, 6-24 h",
+    ]
+
+    transitions = _subsection(text, "### Ten transition and recurrence links")
+    assert [
+        int(value)
+        for value in re.findall(r"^\|\s*(\d+)\s*\|", transitions, re.MULTILINE)
+    ] == list(range(1, 11))
+
+    textures = _subsection(text, "### Nineteen conserved textural roles")
+    texture_line = next(line for line in textures.splitlines()[1:] if line.strip())
+    assert texture_line.rstrip(".").split("; ") == [
+        "Polished", "waxed", "wet-cut", "crisp", "fatty", "fibrous",
+        "tailored-cloth", "leafy", "metallic", "bitter", "humid", "mineral",
+        "pencil-dry", "rooty", "hayed", "creamy-yielding", "textile", "slow",
+        "clean-woody",
+    ]
+
+    assert (
+        "nominal 33% Guaiacwood EO + 33% ethanol + 33% DEP, stated total 99%, "
+        "carrier ethanol + DEP, basis unspecified, unresolved 1%, execution_ready false, "
+        "quantitative HOLD"
+    ) in text
+    assert "2/53 materials below perceptible threshold" in text
+    assert "    sub-threshold: 2" in text
+    assert "  **sub** (2):" in text
+    assert "FAIL material_spine_coverage" not in text
+    assert "FAIL physics_data_coverage" not in text
+    assert "FAIL odt_coverage" not in text
+    audit = audit_donor_independence(LH_CONTROL, formula, project_root=ROOT)
+    assert audit["status"] == "PASS", audit
+    assert len(audit["data"]["target_modules"]) == 10
+    _assert_formula_contract(
+        LH_CONTROL,
+        required=set(),
+        forbidden=set(),
+        expected_musks={"Romandolide"},
+    )
+
+
+def test_lh01_neroli_gingembre_formula_contract() -> None:
+    _assert_formula_contract(
+        LH01,
+        required={"Bergamot FCF oil Sicilian", "Petitgrain EO Paraguay", "Ginger EO", "Neroli EO"},
+        forbidden=set(),
+        expected_musks={"Romandolide"},
+    )
+    _assert_candidate_review_contract(LH01)
+    text = LH01.read_text(encoding="utf-8")
+    assert "Opus V structural overlap" in text
+    assert "White Fire structural overlap" not in text
+
+
+def test_lh02_osmanthus_suede_formula_contract() -> None:
+    _assert_formula_contract(
+        LH02,
+        required={"Osmanthus Absolute", "Ginger EO", "Petitgrain EO Paraguay", "Suederal", "Ambrettolide"},
+        forbidden={"Tobacco Absolute", "Javanol"},
+        expected_musks={"Ambrettolide"},
+    )
+    _assert_candidate_review_contract(LH02)
+    text = LH02.read_text(encoding="utf-8")
+    assert "Damascol/Damascenone carrier-vector HOLD" in text
+
+
+def test_lh03_mandarine_tonka_formula_contract() -> None:
+    _assert_formula_contract(
+        LH03,
+        required={"Red Mandarin EO", "Ginger EO", "Tonka Bean Absolute"},
+        forbidden={"Cardamom EO", "Cinnamaldehyde", "Javanol", "Tonkarome", "Coumarin"},
+        expected_musks=set(),
+    )
+    _assert_candidate_review_contract(LH03)
+    text = LH03.read_text(encoding="utf-8")
+    assert "Tonkarome/Coumarin mass-dose HOLD" in text
+    assert "no volume-active arithmetic" in text
+
+
+def test_lh04_genievre_cedre_formula_contract() -> None:
+    _assert_formula_contract(
+        LH04,
+        required={"Juniper Berry EO", "Ginger EO", "Cedarwood oil Virginia", "Bergamot FCF oil Sicilian"},
+        forbidden={"Pine EO", "Rosemary EO", "Spike Lavender EO", "Eucalyptus EO", "Peppermint EO"},
+        expected_musks=set(),
+    )
+    _assert_candidate_review_contract(LH04)
+    formula = _current_formula(LH04)
+    assert formula["dilutions"]["Juniper Berry EO"] <= 0.10
+    assert 10.0 <= formula["ingredients_ul"]["Juniper Berry EO"] <= 100.0
+    text = LH04.read_text(encoding="utf-8")
+    for phrase in (
+        "Juniper dose-isolation triangle", "juniper omission", "juniper low",
+        "carrier-matched", "survival remains NOT TESTED",
+    ):
+        assert phrase in text
+
+
+def test_lh05_pluie_violette_formula_contract() -> None:
+    _assert_formula_contract(
+        LH05,
+        required={"Ginger EO", "Givaudan AIMI", "Beta Ionone", "Cedarwood oil Virginia", "Indian Vetiver EO", "Romandolide"},
+        forbidden={"Calone", "Floralozone", "Dihydromyrcenol", "Javanol"},
+        expected_musks={"Romandolide"},
+    )
+    _assert_candidate_review_contract(LH05)
+    text = LH05.read_text(encoding="utf-8")
+    current = _section(text, "## CURRENT-INVENTORY BUILD")
+    damascol_row = next(row for row in _markdown_table(current, CURRENT_ROW_HEADERS) if row[1] == "Damascol")
+    assert f"Use the full {damascol_row[6]} uL Damascol working stock" in text
+    mixing_order = _section(text, "## Future mixing order")
+    assert "Orris" not in mixing_order
+
+
+def test_working_stock_ledgers_match_current_table_dose_and_carrier() -> None:
+    expected = {
+        LH01: {"Basil EO (India, Ocimum Basilicum)": ("10%", "DPG", "20")},
+        LH03: {
+            "Citral": ("10%", "DPG", "20"),
+            "Basil EO (India, Ocimum Basilicum)": ("10%", "DPG", "20"),
+            "Alpha Ionone": ("10%", "DEP", "20"),
+        },
+        LH04: {
+            "Citral": ("10%", "DPG", "20"),
+            "Alpha Ionone": ("10%", "DEP", "20"),
+            "Basil EO (India, Ocimum Basilicum)": ("10%", "DPG", "100"),
+        },
+        LH05: {"Suederal": ("10%", "unverified carrier", "150")},
+    }
+    for path, required in expected.items():
+        text = path.read_text(encoding="utf-8")
+        current_rows = {
+            row[1]: (row[3], row[5], row[6])
+            for row in _markdown_table(_section(text, "## CURRENT-INVENTORY BUILD"), CURRENT_ROW_HEADERS)
+        }
+        ledger_rows = {
+            material: (entry["stock_strength"], entry["carrier"], str(entry["formula_dose_ul"]))
+            for material, entry in _stock_sync(path).items()
+        }
+        for material, expected_tuple in required.items():
+            assert current_rows[material] == expected_tuple
+            assert ledger_rows[material] == expected_tuple
+
+
+def test_every_modeled_subthreshold_current_row_has_an_executable_survival_disposition() -> None:
+    slugs = {
+        LH01: "lh01-neroli-gingembre",
+        LH02: "lh02-osmanthus-suede",
+        LH03: "lh03-mandarine-tonka",
+        LH04: "lh04-genievre-cedre",
+        LH05: "lh05-pluie-violette",
+    }
+    for path, slug in slugs.items():
+        text = path.read_text(encoding="utf-8")
+        pipeline = json.loads((RUN_ROOT / slug / "pipeline.json").read_text(encoding="utf-8-sig"))
+        materials = pipeline["formulas"][0]["formula_state"]["materials"]
+        expected = {material["name"] for material in materials if material["oav"] < 1.0}
+        rows = _markdown_table(
+            _subsection(text, "### Modeled OAV < 1 survival dispositions"),
+            SURVIVAL_HEADERS,
+        )
+        assert {row[1] for row in rows} == expected
+        current = {
+            row[1]: row
+            for row in _markdown_table(_section(text, "## CURRENT-INVENTORY BUILD"), CURRENT_ROW_HEADERS)
+        }
+        for row in rows:
+            material, modeled_oav, disposition, rationale, omission = row[1:]
+            assert float(modeled_oav) < 1.0
+            assert disposition in ALLOWED_SURVIVAL_DISPOSITIONS
+            assert any(tag in rationale for tag in ("MATRIX", "FIXATION", "SUBRECOGNITION", "SKIN_TEXTURE"))
+            assert "perceptible" not in rationale.casefold()
+            assert "constant-total" in omission
+            assert "carrier-matched" in omission
+            assert f"{current[material][6]} uL" in omission
+
+
+def test_lh03_lh04_lh05_source_dispositions_are_target_semantic_not_cycled() -> None:
+    required_fragments = {
+        LH03: {
+            "Bergamot FCF oil Sicilian": "single red-mandarin peel pressure",
+            "Dihydrojasmone": "transparent floral breathing plane",
+            "Alpha Isomethyl Ionone": "violet tailored cloth",
+            "Parmavert": "Green pith seam",
+            "Leafovert": "Green pith seam",
+            "Cedarwood EO": "cedar-vetiver echo",
+            "Tonka Bean Absolute": "hayed tonka aperture",
+            "Romandolide": "musk-free recurrence matrix",
+        },
+        LH04: {
+            "Bergamot FCF oil Sicilian": "cool berry capsule",
+            "Ginger EO": "Wet ginger incision",
+            "Citral": "Wet ginger incision",
+            "Parmavert": "Basil-green seam",
+            "Basil EO (India, Ocimum Basilicum)": "Basil-green seam",
+            "Leafovert": "Basil-green seam",
+            "Scentenal": "Basil-green seam",
+            "Alpha Isomethyl Ionone": "Violet tailored cloth",
+            "Cedarwood EO": "Three-grain cedar field",
+            "Vetiver EO (India)": "Root-dry residue",
+            "Tonka Bean Absolute": "root-dry residue",
+            "Romandolide": "zero-musk edge",
+        },
+        LH05: {
+            "Bergamot FCF oil Sicilian": "humid reflective surface",
+            "Ginger EO": "wet ginger cortex",
+            "Parmavert": "Green mineral seam",
+            "Scentenal": "Green mineral seam",
+            "Alpha Isomethyl Ionone": "violet textile suspension",
+            "Dihydrojasmone": "molecular air release",
+            "Cedarwood EO": "cedar receiving wall",
+            "Vetiver EO (India)": "Vetiver landing axis",
+            "Tonka Bean Absolute": "yielding sandal interior",
+            "Romandolide": "sole Romandolide cloth recurrence",
+        },
+    }
+    forbidden_boilerplate = (
+        "on the front-to-heart plane",
+        "on the suspended-heart plane",
+        "on the heart-to-base plane",
+    )
+    for path, expected in required_fragments.items():
+        manifest = _manifest(path)
+        source_rows = manifest["source_dispositions"]
+        target_modules = {module.casefold() for module in manifest["target_modules"]}
+        dispositions = {
+            row["source_row"]: row["rationale"]
+            for row in source_rows
+        }
+        assert len(source_rows) == 58
+        for row in source_rows:
+            if row["disposition"] in {"KEEP", "REBASE", "EXACT REPLACEMENT"}:
+                owner = re.search(
+                    r"by transferring it to the (.*?) in the ",
+                    row["rationale"],
+                    flags=re.IGNORECASE,
+                )
+                assert owner is not None, row["source_row"]
+                assert owner.group(1).casefold() in target_modules, row["source_row"]
+        for source_row, fragment in expected.items():
+            assert fragment in dispositions[source_row]
+        combined = "\n".join(dispositions.values())
+        assert all(phrase not in combined for phrase in forbidden_boilerplate)
+
+
+def test_lh03_has_no_stale_current_javanol_approximation_claim() -> None:
+    text = LH03.read_text(encoding="utf-8")
+    assert "Sandalore/Ebanol/Javanol are a bounded functional approximation" not in text
+    current_start = text.index("## CURRENT-INVENTORY BUILD")
+    assert "current approximation includes Javanol" not in text[current_start:].casefold()
+
+
+def test_lhomme_candidates_do_not_share_a_major_volume_chassis() -> None:
+    formulas = [_current_formula(candidate["path"])["ingredients_ul"] for candidate in CANDIDATES]
+    common = set.intersection(*(set(formula) for formula in formulas))
+    assert len(common) <= 12
+    common_raw_by_formula = [sum(formula[name] for name in common) for formula in formulas]
+    assert max(common_raw_by_formula) / 6000.0 < 0.35
+
+
+def test_formatter_uses_final_product_cat4_basis_and_emits_no_trailing_whitespace(tmp_path: Path) -> None:
+    script = ROOT / "scripts" / "format_pipeline_analysis.py"
+
+    def run(active_ul: float) -> str:
+        payload = {
+            "formulas": [{
+                "name": "Cat4 basis fixture",
+                "formula_state": {
+                    "materials": [{
+                        "name": "Cyclamen Aldehyde",
+                        "raw_ul": active_ul,
+                        "active_ul": active_ul,
+                        "oav": 10.0,
+                        "note": "heart",
+                        "vp_pa": 1.0,
+                        "vapor_ppm": 1.0,
+                        "odt_ppm": 0.1,
+                        "moles": 0.001,
+                        "mole_fraction": 0.01,
+                        "gamma": 1.0,
+                        "mw": 180.0,
+                        "role": "watery floral",
+                        "ifra_limit_pct": 0.62,
+                        "evaporation_fraction_4h": 0.5,
+                    }],
+                    "total_active_ul": 4500.0,
+                    "batch_volume_ml": 30.0,
+                    "note_distribution": {"top": 0.0, "heart": 100.0, "base": 0.0},
+                    "total_vapor_ppm": 1.0,
+                },
+                "time_series": [],
+                "gates": [],
+                "overall_status": "HOLD",
+            }]
+        }
+        input_path = tmp_path / f"fixture-{active_ul}.json"
+        input_path.write_text(json.dumps(payload), encoding="utf-8")
+        result = subprocess.run(
+            [sys.executable, str(script), "--input", str(input_path)],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        return result.stdout
+
+    below = run(30.0)  # 0.10% of final 30 mL; old concentrate-basis bug read 0.667%.
+    above = run(180.0)  # 0.60% of final 30 mL; inside the 90%-of-limit warning zone.
+    assert "near/above Cat4 limit" not in below
+    assert "near/above Cat4 limit" in above
+    assert all(line == line.rstrip() for line in below.splitlines())
+    assert "{role:30s}" not in script.read_text(encoding="utf-8")
+
+
+def test_lhomme_blind_guide_has_independent_counterbalanced_family_screens() -> None:
+    text = LH_GUIDE.read_text(encoding="utf-8")
+    for path in (LH_CONTROL, LH01, LH02, LH03, LH04, LH05):
+        assert path.relative_to(ROOT).as_posix() in text
+    for phrase in (
+        "two independently prepared complete sets", "AB/BA", "anonymous codes",
+        "free description before scoring", "0 minutes", "5 minutes", "30 minutes",
+        "120 minutes", "6 hours", "24 hours", "overall liking", "transition pleasure",
+        "drydown pleasure", "re-smell desire", "muddiness", "NOT AUTHORIZED",
+        "Exact causal dose arms and carrier-vector gates", "Damascol and Damascenone carriers are unresolved",
+        "Juniper dose-isolation triangle", "50% v/v DPG-in-ethanol completion stock",
+        "Tonkarome/Coumarin stay absent and mass-dose HOLD",
+        "Individually executable modeled-OAV-below-1 survival arms",
+        "Suederal 10% 150 uL", "`DATA_HOLD`: not executable while carrier identity is unresolved",
+    ):
+        assert phrase in text
+
+
+def test_lhomme_pipeline_analysis_files_match_json_and_formula() -> None:
+    slugs = {
+        "LH-01": "lh01-neroli-gingembre",
+        "LH-02": "lh02-osmanthus-suede",
+        "LH-03": "lh03-mandarine-tonka",
+        "LH-04": "lh04-genievre-cedre",
+        "LH-05": "lh05-pluie-violette",
+    }
+    for candidate in CANDIDATES:
+        slug = slugs[candidate["id"]]
+        run_dir = RUN_ROOT / slug
+        pipeline = json.loads((run_dir / "pipeline.json").read_text(encoding="utf-8-sig"))
+        expected = pipeline["analysis_markdown"].replace("\r\n", "\n").strip()
+        persisted = (run_dir / "pipeline_analysis.md").read_text(encoding="utf-8-sig").replace("\r\n", "\n").strip()
+        formula_text = candidate["path"].read_text(encoding="utf-8")
+        assert persisted == expected
+        assert expected in formula_text
+
+
+def test_lhomme_verification_receipts_bind_complete_current_bundles() -> None:
+    slugs = {
+        "LH-01": "lh01-neroli-gingembre",
+        "LH-02": "lh02-osmanthus-suede",
+        "LH-03": "lh03-mandarine-tonka",
+        "LH-04": "lh04-genievre-cedre",
+        "LH-05": "lh05-pluie-violette",
+    }
+    for candidate in CANDIDATES:
+        run_dir = RUN_ROOT / slugs[candidate["id"]]
+        receipt = json.loads((run_dir / "verification_receipt.json").read_text(encoding="utf-8"))
+        formula_path = ROOT / receipt["formula"]
+        pipeline_path = ROOT / receipt["pipeline"]["path"]
+        analysis_path = ROOT / receipt["analysis"]["path"]
+        assert receipt["formula_sha256"] == _sha256(formula_path)
+        assert receipt["formula_size_bytes"] == formula_path.stat().st_size
+        assert receipt["pipeline"]["sha256"] == _sha256(pipeline_path)
+        assert receipt["pipeline"]["size_bytes"] == pipeline_path.stat().st_size
+        assert receipt["analysis"]["sha256"] == _sha256(analysis_path)
+        assert receipt["analysis"]["size_bytes"] == analysis_path.stat().st_size
+        assert receipt["analysis"]["appended_to_formula"] is True
+        assert receipt["donor_independence"]["status"] == "PASS"
+        assert receipt["donor_independence"]["target_basket_headings_consumed"] == 10
+        formula = _current_formula(formula_path)
+        assert receipt["current_rows"] == len(formula["ingredients_ul"])
+        assert receipt["current_total_ul"] == pytest.approx(sum(formula["ingredients_ul"].values()))
+        pipeline = json.loads(pipeline_path.read_text(encoding="utf-8"))
+        statuses = [gate["status"] for gate in pipeline["formulas"][0]["gates"]]
+        assert receipt["pipeline"]["gate_counts"] == {
+            status: statuses.count(status) for status in ("PASS", "WARN", "FAIL")
+        }
+
+
+def test_lndl_control_is_stock_corrected_constant_total_and_manifest_complete() -> None:
+    text = LNDL_CONTROL.read_text(encoding="utf-8")
+    formula = _current_formula(LNDL_CONTROL)
+    amounts = formula["ingredients_ul"]
+    assert sum(amounts.values()) == pytest.approx(6000.0)
+    assert min(amounts.values()) >= 10.0
+    assert FORBIDDEN_CURRENT.isdisjoint(amounts)
+    assert MUSKS & set(amounts) == {"Ethylene Brassylate"}
+    assert "USER-REJECTED DESIGN / CLARITY" in text
+    assert "not the family control" in text
+    audit = audit_donor_independence(LNDL_CONTROL, formula, project_root=ROOT)
+    assert audit["status"] == "PASS", audit
+    assert len(audit["data"]["target_modules"]) >= 11
+
+
+def test_ln01_coriander_silk_formula_contract() -> None:
+    _assert_formula_contract(
+        LN01,
+        required={"Cardamom EO", "Coriander Essential Oil", "Lavender EO (BONTAUX SAS)", "Cedarwood oil Virginia", "Romandolide"},
+        forbidden={"Juniper Berry EO", "Pine EO", "Rosemary EO", "Spike Lavender EO", "Calone"},
+        expected_musks={"Romandolide"},
+        module_floor=11,
+    )
+    _assert_candidate_review_contract(LN01)
+
+
+def test_ln02_cinnamon_cashmere_formula_contract() -> None:
+    _assert_formula_contract(
+        LN02,
+        required={"Cardamom EO", "Cinnamaldehyde", "Lavender EO (BONTAUX SAS)", "Cashmeran", "Ethylene Brassylate"},
+        forbidden={"Cinnamon Bark EO", "Cassia EO", "Clove EO", "Eugenol"},
+        expected_musks={"Ethylene Brassylate"},
+        module_floor=11,
+    )
+    _assert_candidate_review_contract(LN02)
+    text = LN02.read_text(encoding="utf-8")
+    for phrase in ("Cinnamaldehyde dose-isolation triangle", "cinnamaldehyde omission", "cinnamaldehyde low", "carrier-matched"):
+        assert phrase in text
+
+
+def test_ln03_orris_santal_formula_contract() -> None:
+    _assert_formula_contract(
+        LN03,
+        required={"Cardamom EO", "Lavender EO (BONTAUX SAS)", "Givaudan AIMI", "Alpha Irone", "Exaltolide"},
+        forbidden=set(),
+        expected_musks={"Exaltolide"},
+        module_floor=11,
+    )
+    _assert_candidate_review_contract(LN03)
+    assert "stock-specific OAV: DATA HOLD" in LN03.read_text(encoding="utf-8")
+
+
+def test_ln04_olibanum_cedar_formula_contract() -> None:
+    _assert_formula_contract(
+        LN04,
+        required={"Cardamom EO", "Elemi EO", "Olibanum Resinoid", "Cedarwood oil Virginia", "Romandolide"},
+        forbidden={"Myrrh EO", "Opoponax Resinoid", "Cade Oil Rectified", "Guaiacol"},
+        expected_musks={"Romandolide"},
+        module_floor=11,
+    )
+    _assert_candidate_review_contract(LN04)
+    text = LN04.read_text(encoding="utf-8")
+    for phrase in ("Olibanum dose-isolation triangle", "olibanum omission", "olibanum low", "carrier-matched"):
+        assert phrase in text
+
+
+def test_ln05_tobacco_plum_formula_contract() -> None:
+    _assert_formula_contract(
+        LN05,
+        required={"Cardamom EO", "Damascenone", "Tobacco Absolute", "Tonka Bean Absolute", "Ambrettolide"},
+        forbidden={"Blue Chamomile EO", "Coffee EO", "Cocoa Absolute", "Castoreum Synthetic"},
+        expected_musks={"Ambrettolide"},
+        module_floor=11,
+    )
+    _assert_candidate_review_contract(LN05)
+    text = LN05.read_text(encoding="utf-8")
+    for phrase in ("Tobacco-plum factorial", "D - B - C + A", "damascenone-only", "tobacco-only", "carrier-matched"):
+        assert phrase in text
+
+
+def test_lndl_current_stock_ledgers_match_current_table() -> None:
+    for path in (LN01, LN02, LN03, LN04, LN05):
+        current_rows = {
+            row[1]: (row[2], row[3], row[4], row[5], row[6])
+            for row in _markdown_table(_section(path.read_text(encoding="utf-8"), "## CURRENT-INVENTORY BUILD"), CURRENT_ROW_HEADERS)
+        }
+        sync = _stock_sync(path)
+        assert set(sync) == set(current_rows)
+        for material, current_tuple in current_rows.items():
+            entry = sync[material]
+            assert (entry["canonical_identity"], entry["stock_strength"], entry["basis"], entry["carrier"], str(entry["formula_dose_ul"])) == current_tuple
+
+
+def test_lndl_modeled_subthreshold_rows_have_explicit_survival_dispositions() -> None:
+    slugs = {
+        LN01: "ln01-coriander-silk",
+        LN02: "ln02-cinnamon-cashmere",
+        LN03: "ln03-orris-santal",
+        LN04: "ln04-olibanum-cedar",
+        LN05: "ln05-tobacco-plum",
+    }
+    for path, slug in slugs.items():
+        text = path.read_text(encoding="utf-8")
+        pipeline = json.loads((RUN_ROOT / slug / "pipeline.json").read_text(encoding="utf-8-sig"))
+        expected = {material["name"] for material in pipeline["formulas"][0]["formula_state"]["materials"] if material["oav"] < 1.0}
+        rows = _markdown_table(_subsection(text, "### Modeled OAV < 1 survival dispositions"), SURVIVAL_HEADERS)
+        assert {row[1] for row in rows} == expected
+        current = {row[1]: row for row in _markdown_table(_section(text, "## CURRENT-INVENTORY BUILD"), CURRENT_ROW_HEADERS)}
+        for row in rows:
+            material, modeled_oav, disposition, rationale, omission = row[1:]
+            assert float(modeled_oav) < 1.0
+            assert disposition in ALLOWED_SURVIVAL_DISPOSITIONS
+            assert any(tag in rationale for tag in ("MATRIX", "FIXATION", "SUBRECOGNITION", "SKIN_TEXTURE", "DATA"))
+            assert "perceptible" not in rationale.casefold()
+            assert "constant-total" in omission and "carrier-matched" in omission
+            assert f"{current[material][6]} uL" in omission
+
+
+def test_lndl_manifest_receiving_owners_are_exact_target_modules() -> None:
+    for path in (LN01, LN02, LN03, LN04, LN05):
+        manifest = _manifest(path)
+        modules = {module.casefold() for module in manifest["target_modules"]}
+        assert len(modules) >= 11
+        assert len(manifest["source_dispositions"]) == 58
+        for row in manifest["source_dispositions"]:
+            assert row["rationale"]
+            if row["disposition"] in {"KEEP", "REBASE", "EXACT REPLACEMENT"}:
+                match = re.search(r"receiving owner: (.*?);", row["rationale"], flags=re.IGNORECASE)
+                assert match is not None, row
+                assert match.group(1).casefold() in modules, row
+
+
+def test_lndl_candidates_do_not_share_a_major_volume_chassis() -> None:
+    paths = (LN01, LN02, LN03, LN04, LN05)
+    formulas = {path: _current_formula(path)["ingredients_ul"] for path in paths}
+    common = set.intersection(*(set(formula) for formula in formulas.values()))
+    assert len(common) <= 12
+    assert max(sum(formula[name] for name in common) for formula in formulas.values()) / 6000.0 < 0.35
+    for left_index, left in enumerate(paths):
+        for right in paths[left_index + 1:]:
+            left_set, right_set = set(formulas[left]), set(formulas[right])
+            assert len(left_set & right_set) / len(left_set | right_set) < 0.85
+            shared_raw = sum(min(formulas[left][name], formulas[right][name]) for name in left_set & right_set)
+            assert shared_raw / 6000.0 < 0.50
+
+
+def test_lndl_pipeline_analysis_and_receipts_bind_exact_formula_bytes() -> None:
+    slugs = {LN01: "ln01-coriander-silk", LN02: "ln02-cinnamon-cashmere", LN03: "ln03-orris-santal", LN04: "ln04-olibanum-cedar", LN05: "ln05-tobacco-plum"}
+    for path, slug in slugs.items():
+        run_dir = RUN_ROOT / slug
+        pipeline_path = run_dir / "pipeline.json"
+        analysis_path = run_dir / "pipeline_analysis.md"
+        receipt_path = run_dir / "verification_receipt.json"
+        pipeline = json.loads(pipeline_path.read_text(encoding="utf-8-sig"))
+        expected = pipeline["analysis_markdown"].replace("\r\n", "\n").strip()
+        assert analysis_path.read_text(encoding="utf-8-sig").replace("\r\n", "\n").strip() == expected
+        assert expected in path.read_text(encoding="utf-8")
+        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+        assert receipt["formula_sha256"] == _sha256(path)
+        assert receipt["formula_size_bytes"] == path.stat().st_size
+        assert receipt["pipeline"]["sha256"] == _sha256(pipeline_path)
+        assert receipt["analysis"]["sha256"] == _sha256(analysis_path)
+        assert receipt["donor_independence"]["status"] == "PASS"
+        assert receipt["donor_independence"]["target_basket_headings_consumed"] >= 11
+
+
+def test_lndl_blind_guide_has_independent_counterbalanced_family_screens() -> None:
+    text = LNDL_GUIDE.read_text(encoding="utf-8")
+    for path in (LNDL_CONTROL, LN01, LN02, LN03, LN04, LN05):
+        assert path.relative_to(ROOT).as_posix() in text
+    for phrase in (
+        "two independently prepared complete sets", "AB/BA", "anonymous codes",
+        "free description before scoring", "0 minutes", "5 minutes", "30 minutes",
+        "120 minutes", "6 hours", "24 hours", "overall liking", "transition pleasure",
+        "drydown pleasure", "re-smell desire", "D - B - C + A", "NOT AUTHORIZED",
+        "cardamom/coriander", "cinnamaldehyde", "tobacco-plum", "incense takeover",
+    ):
+        assert phrase in text

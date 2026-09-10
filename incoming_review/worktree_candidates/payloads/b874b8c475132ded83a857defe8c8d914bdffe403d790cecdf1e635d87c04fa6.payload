@@ -1,0 +1,200 @@
+from __future__ import annotations
+
+import csv
+import hashlib
+import json
+from collections import Counter
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+RECEIPT_PATH = ROOT / "data/governance/unified_import_edd7_lineage_20260904.json"
+
+EXPECTED_ARTIFACT_INDEX_SHA256 = (
+    "6260336b72a3e9e516af68ce3dc3c1d78eece426b0ca0f0b7be9fe152fcd0c09"
+)
+
+EXPECTED_PATHS = frozenset(
+    {
+        "formulas/LH_04X_Pomme_Couture_100_V1_30mL_15pct_Development.md",
+        "formulas/LNDL_Luxe_Azulene_Juniper_Chiaroscuro_DHP2025_V1_30mL_20pct_Development.md",
+        "formulas/LNDL_Luxe_Azulene_Juniper_Chiaroscuro_DHP2025_V2_30mL_20pct_Development.md",
+        "formulas/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_30mL_20pct_Development.md",
+        "formulas/LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_CarawayRestored_V7_30mL_20pct_Development.md",
+        "formulas/LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_DonorIndependent_V5_30mL_20pct_Development.md",
+        "formulas/LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_Interiorized_V6_30mL_20pct_Development.md",
+        "formulas/LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_LineageLocked_V4_30mL_20pct_Development.md",
+        "formulas/LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_StockCorrected_Control_V8_30mL_20pct_Development.md",
+        "formulas/LNDL_Luxe_Cardamom_Nocturne_DHP2025_Theory_V2_30mL_20pct_Development.md",
+        "formulas/LNDL_Luxe_Cardamom_Nocturne_DHP2025_Theory_V3_30mL_20pct_Development.md",
+        "formulas/LNDL_Luxe_Cardamom_Nocturne_DHP2025_Theory_V4_30mL_20pct_Development.md",
+        "formulas/L_Homme_Luxe_Genievre_Cedre_Cool_Dry_Tailoring_DHP2025_V1_30mL_20pct_Development.md",
+        "formulas/L_Homme_Luxe_Ginger_Prism_DHP2025_Theory_V2_30mL_EdP.md",
+        "formulas/L_Homme_Luxe_Ginger_Silhouette_DHP2025_StockCorrected_Control_V6_30mL_20pct_Development.md",
+        "formulas/L_Homme_Luxe_Ginger_Silhouette_DHP2025_TargetNative_V5_30mL_20pct_Development.md",
+        "formulas/L_Homme_Luxe_Ginger_Silhouette_DHP2025_Theory_V3_30mL_20pct_Development.md",
+        "formulas/L_Homme_Luxe_Ginger_Silhouette_DHP2025_Theory_V4_30mL_20pct_Development.md",
+        "formulas/L_Homme_Luxe_Ginger_Silhouette_DHP2025_Theory_V5_30mL_20pct_Development.md",
+        "formulas/L_Homme_Luxe_Mandarine_Tonka_Golden_Chamber_DHP2025_V1_30mL_20pct_Development.md",
+        "formulas/L_Homme_Luxe_Neroli_Gingembre_Luminous_Silk_DHP2025_V1_30mL_20pct_Development.md",
+        "formulas/L_Homme_Luxe_Osmanthus_Suede_Apricot_Shadow_DHP2025_V1_30mL_20pct_Development.md",
+        "formulas/L_Homme_Luxe_Pluie_Violette_Wet_Mineral_Cloth_DHP2025_V1_30mL_20pct_Development.md",
+        "formulas/mixing_guides/LNDL_Luxe_Azulene_Juniper_Chiaroscuro_DHP2025_V1_Factorial_Blind_Trial.md",
+        "formulas/mixing_guides/LNDL_Luxe_Azulene_Juniper_Chiaroscuro_DHP2025_V2_Factorial_Blind_Trial.md",
+        "formulas/mixing_guides/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_Blind_Trial.md",
+        "formulas/mixing_guides/L_Homme_Luxe_Hedonic_Flanker_Suite_DHP2025_V1_Blind_Trial.md",
+        "docs/research/APPLE_PIE_LUXE_SCOPED_FILE_MANIFEST_2026-08-29.tsv",
+        "docs/research/APPLE_PIE_LUXE_ISOLATED_WORKTREE_INTEGRATION_LEDGER_2026-08-29.md",
+        "docs/research/DHP2025_STRUCTURAL_FORMULATION_LEARNING_PROTOCOL.md",
+        "docs/research/donor_signatures/dhp_2025_niche_house_v1.json",
+        "docs/research/donor_signatures/opus_v_woods_symphony_v1.json",
+        "docs/research/donor_signatures/white_fire_reliquary_v2.json",
+    }
+)
+
+EXCLUDED_PATHS = frozenset(
+    {
+        "formulas/LNDL_Luxe_Coriander_Silk_Polished_Seed_Wood_DHP2025_V1_30mL_20pct_Development.md",
+        "formulas/L_Homme_Luxe_30mL_EdP.md",
+        "tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py",
+        "data/pipeline_audit/events.jsonl",
+    }
+)
+
+
+def _sha256(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def _load_receipt() -> dict[str, object]:
+    return json.loads(RECEIPT_PATH.read_text(encoding="utf-8"))
+
+
+def _artifact_index_sha256(artifacts: list[dict[str, object]]) -> str:
+    canonical = json.dumps(
+        artifacts,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return _sha256(canonical)
+
+
+def _historical_manifest_rows(path: Path) -> list[dict[str, str]]:
+    lines = (
+        line
+        for line in path.read_text(encoding="utf-8").splitlines()
+        if not line.startswith("#")
+    )
+    return list(csv.DictReader(lines, delimiter="\t"))
+
+
+def test_edd7_receipt_freezes_the_complete_assigned_scope() -> None:
+    receipt = _load_receipt()
+    artifacts = receipt["artifacts"]
+    assert isinstance(artifacts, list)
+
+    artifact_paths = {artifact["path"] for artifact in artifacts}
+    assert artifact_paths == EXPECTED_PATHS
+    assert not artifact_paths.intersection(EXCLUDED_PATHS)
+    assert all(not path.startswith("verification_runs/") for path in artifact_paths)
+    assert all(not path.startswith("docs/superpowers/") for path in artifact_paths)
+
+    assert receipt["schema_version"] == "perfume-chem.unified-import-lineage.v1"
+    assert receipt["status"] == "COMPLETE_FOR_ASSIGNED_SCOPE"
+    assert receipt["source"]["head_commit"] == (
+        "4b550054b6c491c8ad424936f632ce25bc02800d"
+    )
+    assert receipt["source"]["selected_paths_git_status"] == "CLEAN"
+    assert receipt["scope"]["artifact_count"] == len(EXPECTED_PATHS) == 33
+    assert Counter(artifact["kind"] for artifact in artifacts) == {
+        "formula": 23,
+        "guide": 4,
+        "governance": 3,
+        "donor_signature": 3,
+    }
+    assert _artifact_index_sha256(artifacts) == EXPECTED_ARTIFACT_INDEX_SHA256
+
+
+def test_edd7_imported_artifacts_match_pinned_live_source_bytes() -> None:
+    receipt = _load_receipt()
+
+    for artifact in receipt["artifacts"]:
+        path = ROOT / artifact["path"]
+        assert path.is_file(), artifact["path"]
+        data = path.read_bytes()
+        assert len(data) == artifact["bytes"], artifact["path"]
+        assert _sha256(data) == artifact["sha256"], artifact["path"]
+
+
+def test_edd7_receipt_links_and_historical_manifest_are_complete() -> None:
+    receipt = _load_receipt()
+    artifact_by_path = {
+        artifact["path"]: artifact for artifact in receipt["artifacts"]
+    }
+    links = receipt["links"]
+    linked_paths = {
+        links["historical_scoped_manifest"],
+        links["integration_ledger"],
+        links["governing_protocol"],
+        *links["donor_signatures"],
+    }
+    assert linked_paths.issubset(artifact_by_path)
+    assert all((ROOT / path).is_file() for path in linked_paths)
+
+    manifest_record = receipt["historical_scoped_manifest"]
+    manifest_path = ROOT / manifest_record["path"]
+    manifest_data = manifest_path.read_bytes()
+    assert len(manifest_data) == manifest_record["bytes"]
+    assert _sha256(manifest_data) == manifest_record["sha256"]
+
+    rows = _historical_manifest_rows(manifest_path)
+    assert len(rows) == manifest_record["declared_row_count"] == 104
+    row_by_path = {row["path"]: row for row in rows}
+    overlap = EXPECTED_PATHS.intersection(row_by_path)
+    assert len(overlap) == manifest_record["imported_path_overlap_count"] == 10
+
+    variants = manifest_record["live_worktree_line_ending_variants"]
+    variant_by_path = {variant["path"]: variant for variant in variants}
+    assert len(variant_by_path) == 5
+    assert manifest_record["exact_live_worktree_match_count"] == 5
+
+    for path in overlap:
+        historical = row_by_path[path]
+        live = artifact_by_path[path]
+        if path in variant_by_path:
+            variant = variant_by_path[path]
+            assert int(historical["bytes"]) == variant["manifest_bytes"]
+            assert historical["sha256"] == variant["manifest_sha256"]
+            assert live["bytes"] == variant["live_worktree_bytes"]
+            assert live["sha256"] == variant["live_worktree_sha256"]
+            normalized = (ROOT / path).read_bytes().replace(b"\r\n", b"\n")
+            assert _sha256(normalized) == historical["sha256"]
+        else:
+            assert int(historical["bytes"]) == live["bytes"]
+            assert historical["sha256"] == live["sha256"]
+
+
+def test_edd7_rejected_v7_and_hold_boundaries_remain_explicit() -> None:
+    receipt = _load_receipt()
+    boundaries = receipt["preserved_authority_boundaries"]
+    assert boundaries["lndl_v7_design_status"] == (
+        "USER-REJECTED DESIGN / CLARITY - PRESERVED FAILED CANDIDATE"
+    )
+    assert boundaries["lndl_v7_rejection_is_physical_smell_result"] is False
+    assert boundaries["lndl_v7_caraway_oav_status"] == "MISSING-DATA HOLD"
+    assert boundaries["lndl_v7_release_ready"] is False
+    assert boundaries["pipeline_or_formula_success_proves_sensory_or_release_success"] is False
+    assert receipt["scope"]["physical_compounding_authorized"] is False
+    assert receipt["scope"]["release_authority"] is False
+
+    ledger = (ROOT / receipt["links"]["integration_ledger"]).read_text(
+        encoding="utf-8"
+    )
+    v7 = (
+        ROOT
+        / "formulas/LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_CarawayRestored_V7_30mL_20pct_Development.md"
+    ).read_text(encoding="utf-8")
+    assert "USER-REJECTED DESIGN / CLARITY" in ledger
+    assert "MISSING-DATA HOLD" in ledger
+    assert "USER-REJECTED DESIGN / CLARITY" in v7
+    assert "MISSING-DATA HOLD" in v7
+    assert "NO PHYSICAL COMPOUNDING AUTHORIZED" in v7

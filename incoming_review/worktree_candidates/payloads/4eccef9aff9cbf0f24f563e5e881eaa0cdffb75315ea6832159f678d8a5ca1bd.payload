@@ -1,0 +1,93 @@
+{
+  "status": "PASS",
+  "errors": [],
+  "results": [
+    {
+      "path": "/mnt/data/DNA_preserving_perfume_reconstruction_and_chassis_suite/formulas/YSL_LHomme_chassis_partition.csv",
+      "target": 4500.0,
+      "core": 4200.0,
+      "module": 300.0,
+      "errors": [],
+      "case": "YSL_LHomme",
+      "anchor_errors": []
+    },
+    {
+      "path": "/mnt/data/DNA_preserving_perfume_reconstruction_and_chassis_suite/formulas/YSL_La_Nuit_chassis_partition.csv",
+      "target": 4500.0,
+      "core": 4200.0,
+      "module": 300.0,
+      "errors": [],
+      "case": "YSL_La_Nuit",
+      "anchor_errors": []
+    },
+    {
+      "path": "/mnt/data/DNA_preserving_perfume_reconstruction_and_chassis_suite/formulas/Prada_LHomme_chassis_partition.csv",
+      "target": 4500.0,
+      "core": 4150.0,
+      "module": 350.0,
+      "errors": [],
+      "case": "Prada_LHomme",
+      "anchor_errors": []
+    },
+    {
+      "path": "/mnt/data/DNA_preserving_perfume_reconstruction_and_chassis_suite/modules/Prada_LHomme_green_mate_violet_350.csv",
+      "total": 350.0,
+      "errors": []
+    },
+    {
+      "path": "/mnt/data/DNA_preserving_perfume_reconstruction_and_chassis_suite/modules/Prada_LHomme_leau_style_ginger_neroli_350.csv",
+      "total": 350.0,
+      "errors": []
+    },
+    {
+      "path": "/mnt/data/DNA_preserving_perfume_reconstruction_and_chassis_suite/modules/Prada_LHomme_parent_module_350.csv",
+      "total": 350.0,
+      "errors": []
+    },
+    {
+      "path": "/mnt/data/DNA_preserving_perfume_reconstruction_and_chassis_suite/modules/Prada_LHomme_soft_amber_tonka_350.csv",
+      "total": 350.0,
+      "errors": []
+    },
+    {
+      "path": "/mnt/data/DNA_preserving_perfume_reconstruction_and_chassis_suite/modules/YSL_LHomme_dry_woody_pepper_300.csv",
+      "total": 300.0,
+      "errors": []
+    },
+    {
+      "path": "/mnt/data/DNA_preserving_perfume_reconstruction_and_chassis_suite/modules/YSL_LHomme_electric_citrus_violet_300.csv",
+      "total": 300.0,
+      "errors": []
+    },
+    {
+      "path": "/mnt/data/DNA_preserving_perfume_reconstruction_and_chassis_suite/modules/YSL_LHomme_green_aromatic_basil_300.csv",
+      "total": 300.0,
+      "errors": []
+    },
+    {
+      "path": "/mnt/data/DNA_preserving_perfume_reconstruction_and_chassis_suite/modules/YSL_LHomme_parent_module_300.csv",
+      "total": 300.0,
+      "errors": []
+    },
+    {
+      "path": "/mnt/data/DNA_preserving_perfume_reconstruction_and_chassis_suite/modules/YSL_La_Nuit_dry_vetiver_cedar_300.csv",
+      "total": 300.0,
+      "errors": []
+    },
+    {
+      "path": "/mnt/data/DNA_preserving_perfume_reconstruction_and_chassis_suite/modules/YSL_La_Nuit_electric_cardamom_lavender_300.csv",
+      "total": 300.0,
+      "errors": []
+    },
+    {
+      "path": "/mnt/data/DNA_preserving_perfume_reconstruction_and_chassis_suite/modules/YSL_La_Nuit_immortelle_tobacco_night_300.csv",
+      "total": 300.0,
+      "errors": []
+    },
+    {
+      "path": "/mnt/data/DNA_preserving_perfume_reconstruction_and_chassis_suite/modules/YSL_La_Nuit_parent_module_300.csv",
+      "total": 300.0,
+      "errors": []
+    }
+  ]
+}

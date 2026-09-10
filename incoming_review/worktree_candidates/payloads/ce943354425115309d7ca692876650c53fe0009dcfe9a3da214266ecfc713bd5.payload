@@ -1,0 +1,3877 @@
+{
+  "title": "Live inventory parse for the unisex Jasmine Sambac project",
+  "generated_date": "2026-09-08",
+  "latest_stock_correction_notice": "User confirmed Romandolide is out on 2026-09-08. Inventory now has five depleted rows; original counts and row data below remain historical. The V1 formula is superseded by stock-corrected V2.",
+  "post_parse_correction_notice": "Historical snapshot. User subsequently confirmed Jasmine Sambac absolute 10% w/w in DPG. PerfumersWorld 6JN07707 Jasmine Sambac Blossoms is a liquid proprietary jasmine base, not dried flowers. Original source labels and flags below are retained as historical evidence only; see Jasmine_Sambac_Stock_Clarifications_2026-09-08.md.",
+  "source_path": "C:\\Users\\ASUS\\.codex\\worktrees\\52e4\\perfume-chem\\inventory.txt",
+  "source_sha256": "DF5421C5B013330375A1856CCCD6AFCEB2382A1519135BC0C63579CB6441AA0B",
+  "parser_path": "engine/inventory_parser.py",
+  "parser_options": {
+    "unique": false,
+    "include_solvents": true,
+    "include_unavailable": true
+  },
+  "authority_notice": "Derived audit only. Original stock labels are preserved. Parser values are diagnostic output, not validated dosing fractions, stock amounts, skin-safety clearance or physical stock verification. DEPLETED source labels override parser status. No inventory or parser code was changed.",
+  "counts": {
+    "raw_entries": 240,
+    "unique_normalized": 226,
+    "unique_fragrance": 220,
+    "solvent_or_carrier": 6,
+    "duplicate_canonical_entries": 14,
+    "source_rows_not_marked_depleted": 236,
+    "parser_names_after_depleted_filter": 223,
+    "duplicate_name_groups": 13,
+    "depleted_source_rows": 4
+  },
+  "records": [
+    {
+      "source_line": 6,
+      "stock_label": "Ethanol 96%",
+      "original_label": "Ethanol 96%",
+      "category": "solvents / carriers",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "96%",
+      "parser_result": {
+        "name": "Ethanol 96%",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "ETHANOL_96_PERCENT_NOT_REPRESENTED_BY_PARSER_DILUTION",
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 7,
+      "stock_label": "Dipropylene Glycol (DPG)",
+      "original_label": "Dipropylene Glycol (DPG)",
+      "category": "solvents / carriers",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Dipropylene Glycol",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 8,
+      "stock_label": "Isopropyl Myristate (IPM)",
+      "original_label": "Isopropyl Myristate (IPM)",
+      "category": "solvents / carriers",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Isopropyl Myristate",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 9,
+      "stock_label": "Triethyl Citrate (TEC)",
+      "original_label": "Triethyl Citrate (TEC)",
+      "category": "solvents / carriers",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Triethyl Citrate",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 10,
+      "stock_label": "Diethyl Phthalate (DEP)",
+      "original_label": "Diethyl Phthalate (DEP)",
+      "category": "solvents / carriers",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Diethyl Phthalate",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 11,
+      "stock_label": "Myristic Acid Powder",
+      "original_label": "Myristic Acid Powder",
+      "category": "solvents / carriers",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Myristic Acid Powder",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL",
+        "NON_LIQUID_FORM_REQUIRES_SEPARATE_PREPARATION"
+      ]
+    },
+    {
+      "source_line": 14,
+      "stock_label": "Citral",
+      "original_label": "Citral",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Citral",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 15,
+      "stock_label": "Citronellal",
+      "original_label": "Citronellal",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Citronellal",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 16,
+      "stock_label": "D-Limonene",
+      "original_label": "D-Limonene",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "D-Limonene",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 17,
+      "stock_label": "Linalool",
+      "original_label": "Linalool",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Linalool",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 18,
+      "stock_label": "Linalyl Acetate",
+      "original_label": "Linalyl Acetate",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Linalyl Acetate",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 19,
+      "stock_label": "Ethyl Linalool",
+      "original_label": "Ethyl Linalool  # added 2026-04-17 — purchased; linalool-type with more woody-floral character and better tenacity",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Ethyl Linalool",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 20,
+      "stock_label": "Terpinyl Acetate",
+      "original_label": "Terpinyl Acetate  # confirmed 2026-04-30 — pine-citrus herbal acetate; useful for fougere lift",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Terpinyl Acetate",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 21,
+      "stock_label": "Apritone (10%)",
+      "original_label": "Apritone (10%)",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Apritone",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 22,
+      "stock_label": "Hexyl Acetate (10%)",
+      "original_label": "Hexyl Acetate (10%)",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Hexyl Acetate",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 23,
+      "stock_label": "Aldehyde C10 (1%)",
+      "original_label": "Aldehyde C10 (1%)",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "1%",
+      "parser_result": {
+        "name": "Aldehyde C10",
+        "dilution_fraction": 0.01,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 24,
+      "stock_label": "Aldehyde C11 (1%)",
+      "original_label": "Aldehyde C11 (1%)",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "1%",
+      "parser_result": {
+        "name": "Aldehyde C11",
+        "dilution_fraction": 0.01,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 25,
+      "stock_label": "Aldehyde C11 undecylenic",
+      "original_label": "Aldehyde C11 undecylenic",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Aldehyde C11 undecylenic",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 26,
+      "stock_label": "Aldehyde C12 MNA (1%)",
+      "original_label": "Aldehyde C12 MNA (1%)",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "1%",
+      "parser_result": {
+        "name": "Aldehyde C12 MNA",
+        "dilution_fraction": 0.01,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 27,
+      "stock_label": "Methyl Pamplemousse (10% in TEC)",
+      "original_label": "Methyl Pamplemousse (10% in TEC)",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Methyl Pamplemousse",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 28,
+      "stock_label": "Bergamot EO",
+      "original_label": "Bergamot EO",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Bergamot EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 29,
+      "stock_label": "Bergamot FCF",
+      "original_label": "Bergamot FCF  # restocked 2026-05-20",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Bergamot FCF",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 30,
+      "stock_label": "Bergamot FCF oil Sicilian",
+      "original_label": "Bergamot FCF oil Sicilian",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Bergamot FCF oil Sicilian",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 31,
+      "stock_label": "Grapefruit FCF",
+      "original_label": "Grapefruit FCF",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Grapefruit FCF",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 32,
+      "stock_label": "Cedrat FCF oil Sicilian",
+      "original_label": "Cedrat FCF oil Sicilian",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Cedrat FCF oil Sicilian",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 33,
+      "stock_label": "Blood Orange oil Sicilian",
+      "original_label": "Blood Orange oil Sicilian",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Blood Orange oil Sicilian",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 34,
+      "stock_label": "Red Mandarin EO",
+      "original_label": "Red Mandarin EO",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Red Mandarin EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 35,
+      "stock_label": "Lime Distilled EO",
+      "original_label": "Lime Distilled EO  # added 2026-04-29 — purchased; cold tart lime top; cleaner and less phototoxic than expressed lime",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Lime Distilled EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 36,
+      "stock_label": "Ethyl 2-Methylbutyrate (0.1%)",
+      "original_label": "Ethyl 2-Methylbutyrate (0.1%)",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "0.1%",
+      "parser_result": {
+        "name": "Ethyl 2-Methylbutyrate",
+        "dilution_fraction": 0.001,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 37,
+      "stock_label": "Lemonile",
+      "original_label": "Lemonile",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Lemonile",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 38,
+      "stock_label": "Lemonile (1% in DPG)",
+      "original_label": "Lemonile (1% in DPG)  # diluted 2026-05-25 from neat stock; for micro-dose citrus lift in cologne styles",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "1%",
+      "parser_result": {
+        "name": "Lemonile",
+        "dilution_fraction": 0.01,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 39,
+      "stock_label": "Orange Peel EO",
+      "original_label": "Orange Peel EO",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Orange Peel EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 40,
+      "stock_label": "Pamzest",
+      "original_label": "Pamzest  # added 2026-05-23 — Synarome; powerful grapefruit zest specialty base; citrus top note",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Pamzest",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 41,
+      "stock_label": "Petitgrain EO Paraguay",
+      "original_label": "Petitgrain EO Paraguay  # lighter, greener variant; different from standard Petitgrain EO",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Petitgrain EO Paraguay",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 42,
+      "stock_label": "Ginger EO",
+      "original_label": "Ginger EO  # added 2026-06-22 — Zingiber officinale; warm spicy-citrus; fresh ginger zing",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Ginger EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 43,
+      "stock_label": "Neroli EO (10% in DPG)",
+      "original_label": "Neroli EO (10% in DPG)  # added 2026-06-22 — Citrus aurantium flower oil; exquisite orange blossom; IFRA-restricted",
+      "category": "citrus / top",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Neroli EO",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 46,
+      "stock_label": "Dihydromyrcenol",
+      "original_label": "Dihydromyrcenol",
+      "category": "green / fresh / marine",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Dihydromyrcenol",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 47,
+      "stock_label": "Verdox",
+      "original_label": "Verdox",
+      "category": "green / fresh / marine",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Verdox",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 48,
+      "stock_label": "Galbanum Resinoid (10%)",
+      "original_label": "Galbanum Resinoid (10%)",
+      "category": "green / fresh / marine",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Galbanum Resinoid",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 49,
+      "stock_label": "Galbanum EO",
+      "original_label": "Galbanum EO  # steam-distilled; greener/sharper than the resinoid; powerful top note",
+      "category": "green / fresh / marine",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Galbanum EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 50,
+      "stock_label": "Cyclamen Aldehyde",
+      "original_label": "Cyclamen Aldehyde",
+      "category": "green / fresh / marine",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Cyclamen Aldehyde",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 51,
+      "stock_label": "Scentenal (1%)",
+      "original_label": "Scentenal (1%)",
+      "category": "green / fresh / marine",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "1%",
+      "parser_result": {
+        "name": "Scentenal",
+        "dilution_fraction": 0.01,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 52,
+      "stock_label": "Calone (1%)",
+      "original_label": "Calone (1%)  # restocked — user confirmed in-stock 2026-07-08",
+      "category": "green / fresh / marine",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "1%",
+      "parser_result": {
+        "name": "Calone",
+        "dilution_fraction": 0.01,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 53,
+      "stock_label": "Floralozone (10%)",
+      "original_label": "Floralozone (10%)",
+      "category": "green / fresh / marine",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Floralozone",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 54,
+      "stock_label": "Undecavertol (1%)",
+      "original_label": "Undecavertol (1%)",
+      "category": "green / fresh / marine",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "1%",
+      "parser_result": {
+        "name": "Undecavertol",
+        "dilution_fraction": 0.01,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 55,
+      "stock_label": "Dynascone (10%)",
+      "original_label": "Dynascone (10%)",
+      "category": "green / fresh / marine",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Dynascone",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 56,
+      "stock_label": "Parmavert",
+      "original_label": "Parmavert",
+      "category": "green / fresh / marine",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Parmavert",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 57,
+      "stock_label": "Leafovert",
+      "original_label": "Leafovert",
+      "category": "green / fresh / marine",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Leafovert",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 58,
+      "stock_label": "Triplal",
+      "original_label": "Triplal  # added 2026-04-17 — purchased; ultra-powerful fresh-watery-aldehydic; use ≤ 0.05% in composition",
+      "category": "green / fresh / marine",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Triplal",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 59,
+      "stock_label": "Geosmin (0.1% in TEC)",
+      "original_label": "Geosmin (0.1% in TEC)  # diluted 2026-05-11 from original 1% stock; petrichor / rain-on-earth; ODT ≈ 6 ppt; use ≤ 50 µL/100 mL of dilution",
+      "category": "green / fresh / marine",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "0.1%",
+      "parser_result": {
+        "name": "Geosmin",
+        "dilution_fraction": 0.001,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 60,
+      "stock_label": "Peppermint Essential Oil (Mentha piperita, India)",
+      "original_label": "Peppermint Essential Oil (Mentha piperita, India)  # added 2026-06-15 — steam-distilled; 100% pure; INCI: Mentha Piperita Oil; crisp herbal-fresh menthol cooling",
+      "category": "green / fresh / marine",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Peppermint Essential Oil",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": []
+    },
+    {
+      "source_line": 61,
+      "stock_label": "Eucalyptus Essential Oil (Eucalyptus globulus, India)",
+      "original_label": "Eucalyptus Essential Oil (Eucalyptus globulus, India)  # added 2026-06-15 — steam-distilled; 100% pure; INCI: Eucalyptus Globulus Leaf Oil; sharp camphoraceous-cineole freshness",
+      "category": "green / fresh / marine",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Eucalyptus Essential Oil",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": []
+    },
+    {
+      "source_line": 62,
+      "stock_label": "Tagetes EO (10% in DPG)",
+      "original_label": "Tagetes EO (10% in DPG)  # added 2026-06-22 — Tagetes minuta/marigold; green-herbaceous-floral; apple-fruity undertone; powerful, use sparingly",
+      "category": "green / fresh / marine",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Tagetes EO",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 65,
+      "stock_label": "Geranium EO (Pelargonium graveolens flower oil)",
+      "original_label": "Geranium EO (Pelargonium graveolens flower oil)  # neat — fresh rosy-green floral with minty lift; period-correct fougère material",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Geranium EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": []
+    },
+    {
+      "source_line": 66,
+      "stock_label": "Hedione",
+      "original_label": "Hedione  # restocked 2026-05-23",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Hedione",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 67,
+      "stock_label": "Hedione HC (high cis)",
+      "original_label": "Hedione HC (high cis)  # restocked 2026-04-29 — high-cis jasmonate radiance restored to working stock",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Hedione HC",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 68,
+      "stock_label": "Dihydrojasmone",
+      "original_label": "Dihydrojasmone",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Dihydrojasmone",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 69,
+      "stock_label": "Jessemal (Jasmonyl)",
+      "original_label": "Jessemal (Jasmonyl)  # added 2026-05-09 — purchased; warm-fatty jasmine body; CAS 38285-49-3; (3-butyl-5-methyloxan-4-yl) acetate; tetrahydropyran acetate jasmine heart",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Jessemal",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 70,
+      "stock_label": "Hydroxycitronellal",
+      "original_label": "Hydroxycitronellal  # DEPLETED 2026-06-15",
+      "category": "floral materials",
+      "label_availability": "DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Hydroxycitronellal",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "DEPLETED_LABEL_IGNORED_BY_PARSER",
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 71,
+      "stock_label": "Phenethyl Alcohol (PEA)",
+      "original_label": "Phenethyl Alcohol (PEA)",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Phenethyl Alcohol",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 72,
+      "stock_label": "Cinnamyl alcohol 50% in DPG",
+      "original_label": "Cinnamyl alcohol 50% in DPG",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "50%",
+      "parser_result": {
+        "name": "Cinnamyl alcohol 50% in DPG",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_DILUTION_INCORRECT",
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 73,
+      "stock_label": "Florol",
+      "original_label": "Florol",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Florol",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 74,
+      "stock_label": "Peonile",
+      "original_label": "Peonile",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Peonile",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 75,
+      "stock_label": "Aurantiol (neat)",
+      "original_label": "Aurantiol (neat)",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Aurantiol",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": []
+    },
+    {
+      "source_line": 76,
+      "stock_label": "Geraniol",
+      "original_label": "Geraniol",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Geraniol",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 77,
+      "stock_label": "Geraniol (10% in DPG)",
+      "original_label": "Geraniol (10% in DPG)  # prepared 2026-06-03 — for rose-accord dosing at pipeline-safe OAV",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Geraniol",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 78,
+      "stock_label": "Citronellol",
+      "original_label": "Citronellol",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Citronellol",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 79,
+      "stock_label": "Rhodinol ex Citronella",
+      "original_label": "Rhodinol ex Citronella  # added 2026-05-13 — natural geranium-rose heart; richer than Geraniol+Citronellol separately",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Rhodinol ex Citronella",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 80,
+      "stock_label": "Geranium Flower EO",
+      "original_label": "Geranium Flower EO",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Geranium Flower EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 81,
+      "stock_label": "Rose Oxide (1%)",
+      "original_label": "Rose Oxide (1%)",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "1%",
+      "parser_result": {
+        "name": "Rose Oxide",
+        "dilution_fraction": 0.01,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 82,
+      "stock_label": "Rose Oxide (10%)",
+      "original_label": "Rose Oxide (10%)",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Rose Oxide",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 83,
+      "stock_label": "Benzyl Salicylate",
+      "original_label": "Benzyl Salicylate",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Benzyl Salicylate",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 84,
+      "stock_label": "Hexyl Salicylate",
+      "original_label": "Hexyl Salicylate",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Hexyl Salicylate",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 85,
+      "stock_label": "Benzyl Benzoate",
+      "original_label": "Benzyl Benzoate",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Benzyl Benzoate",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 86,
+      "stock_label": "Benzyl Alcohol (50% in DPG)",
+      "original_label": "Benzyl Alcohol (50% in DPG)  # mild balsamic-floral fixative; present naturally in tuberose/jasmine",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "50%",
+      "parser_result": {
+        "name": "Benzyl Alcohol",
+        "dilution_fraction": 0.5,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 87,
+      "stock_label": "Benzaldehyde (1% in DPG)",
+      "original_label": "Benzaldehyde (1% in DPG)  # bitter almond/cherry; extremely potent, trace use only",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "1%",
+      "parser_result": {
+        "name": "Benzaldehyde",
+        "dilution_fraction": 0.01,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 88,
+      "stock_label": "Benzyl Acetate",
+      "original_label": "Benzyl Acetate",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Benzyl Acetate",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 89,
+      "stock_label": "Indole (10%)",
+      "original_label": "Indole (10%)",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Indole",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 90,
+      "stock_label": "Bourgeonal",
+      "original_label": "Bourgeonal",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Bourgeonal",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 91,
+      "stock_label": "Freesia HDI",
+      "original_label": "Freesia HDI",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Freesia HDI",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 92,
+      "stock_label": "Lilyreal ND",
+      "original_label": "Lilyreal ND",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Lilyreal ND",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 93,
+      "stock_label": "Lilial",
+      "original_label": "Lilial",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Lilial",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 94,
+      "stock_label": "Cyclimal Aldehyde",
+      "original_label": "Cyclimal Aldehyde",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Cyclimal Aldehyde",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 95,
+      "stock_label": "Nympheal",
+      "original_label": "Nympheal",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Nympheal",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 96,
+      "stock_label": "Helional",
+      "original_label": "Helional",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Helional",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 97,
+      "stock_label": "Petitgrain EO",
+      "original_label": "Petitgrain EO  # DEPLETED 2026-05-25",
+      "category": "floral materials",
+      "label_availability": "DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Petitgrain EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "DEPLETED_LABEL_IGNORED_BY_PARSER",
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 98,
+      "stock_label": "Lemon FCF oil Sicilian",
+      "original_label": "Lemon FCF oil Sicilian",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Lemon FCF oil Sicilian",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 99,
+      "stock_label": "Ylang Comoros Complete EO F3255",
+      "original_label": "Ylang Comoros Complete EO F3255",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Ylang Comoros Complete EO F3255",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 100,
+      "stock_label": "Ylang Comoros III EO F3295",
+      "original_label": "Ylang Comoros III EO F3295",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Ylang Comoros III EO F3295",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 101,
+      "stock_label": "Ylang Ylang EO (Extra grade)",
+      "original_label": "Ylang Ylang EO (Extra grade)  # added 2026-04-11 — purchased",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Ylang Ylang EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 102,
+      "stock_label": "Champaca Flower EO",
+      "original_label": "Champaca Flower EO",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Champaca Flower EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 103,
+      "stock_label": "Methyl Benzoate",
+      "original_label": "Methyl Benzoate",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Methyl Benzoate",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 104,
+      "stock_label": "p-Cresyl Methyl Ether (PCME) (10%)",
+      "original_label": "p-Cresyl Methyl Ether (PCME) (10%)  # added 2026-04-11 — purchased",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "p-Cresyl Methyl Ether (PCME)",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 105,
+      "stock_label": "Paradisamide (10%)",
+      "original_label": "Paradisamide (10%)",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Paradisamide",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 106,
+      "stock_label": "Cis Jasmone",
+      "original_label": "Cis Jasmone",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Cis Jasmone",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 107,
+      "stock_label": "Methyl Salicylate",
+      "original_label": "Methyl Salicylate",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Methyl Salicylate",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 108,
+      "stock_label": "Methyl Anthranilate",
+      "original_label": "Methyl Anthranilate",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Methyl Anthranilate",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 109,
+      "stock_label": "Alpha Damascone (10%)",
+      "original_label": "Alpha Damascone (10%)  # added 2026-04-20 — purchased; 10% in DPG; rose-ketone damascone; richer, more metallic-rose than Beta",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Alpha Damascone",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 110,
+      "stock_label": "Damascone Beta (10%)",
+      "original_label": "Damascone Beta (10%)",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Damascone Beta",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 111,
+      "stock_label": "Damascenone (1%)",
+      "original_label": "Damascenone (1%)",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "1%",
+      "parser_result": {
+        "name": "Damascenone",
+        "dilution_fraction": 0.01,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 112,
+      "stock_label": "Damascol (10%)",
+      "original_label": "Damascol (10%)  # added 2026-04-20 — purchased; rose-plum damascone alcohol; softer, more rounded than Alpha/Beta",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Damascol",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 113,
+      "stock_label": "Heliotropal (Piperonal)",
+      "original_label": "Heliotropal (Piperonal)  # added 2026-04-17 — purchased; neat; distinct from Heliotropin Fleuressence; sweet-almond-heliotrope-powdery",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Heliotropal",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": []
+    },
+    {
+      "source_line": 114,
+      "stock_label": "Amyl Cinnamic Aldehyde (ACA)",
+      "original_label": "Amyl Cinnamic Aldehyde (ACA)  # added 2026-04-17 — purchased; jasmine-muguet-waxy diffusant; IFRA-restricted skin sensitizer",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Amyl Cinnamic Aldehyde",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 115,
+      "stock_label": "Phenyl Ethyl Dimethyl Carbinol (PEDMC)",
+      "original_label": "Phenyl Ethyl Dimethyl Carbinol (PEDMC)  # added 2026-04-17 — purchased; rose-magnolia-clean; softer rose than PEA",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Phenyl Ethyl Dimethyl Carbinol",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 116,
+      "stock_label": "Farnesol",
+      "original_label": "Farnesol  # added 2026-04-17 — purchased; lily-muguet fixative; low dose only; IFRA-restricted",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Farnesol",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 117,
+      "stock_label": "Mayol",
+      "original_label": "Mayol  # added 2026-04-17 — purchased; clean transparent muguet-lily; post-Lyral muguet material",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Mayol",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 118,
+      "stock_label": "Oranger Crystals (10% in DPG)",
+      "original_label": "Oranger Crystals (10% in DPG)  # added 2026-04-17 — purchased; neroli-grape-floral; orange blossom direction; crystalline solid, dilute to 10% w/v",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Oranger Crystals",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": []
+    },
+    {
+      "source_line": 119,
+      "stock_label": "Nerol",
+      "original_label": "Nerol  # added 2026-05-23 — rose alcohol; sweeter, more citrusy-rose than Geraniol; heart note",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Nerol",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 120,
+      "stock_label": "Nerolin Bromelia (10% in DPG)",
+      "original_label": "Nerolin Bromelia (10% in DPG)  # added 2026-05-23 — also known as Nerolia Bromelia; 2-ethoxynaphthalene; orange blossom floralizer, naphthyl-floral",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Nerolin Bromelia",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 121,
+      "stock_label": "Rose de Mai Absolute (10% in DPG)",
+      "original_label": "Rose de Mai Absolute (10% in DPG)",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Rose de Mai Absolute",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 122,
+      "stock_label": "Osmanthus Absolute (10% in DPG)",
+      "original_label": "Osmanthus Absolute (10% in DPG)",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Osmanthus Absolute",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 123,
+      "stock_label": "Tuberalia base",
+      "original_label": "Tuberalia base",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Tuberalia base",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 124,
+      "stock_label": "Tuberose Absolute (10% in DPG)",
+      "original_label": "Tuberose Absolute (10% in DPG)",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Tuberose Absolute",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 125,
+      "stock_label": "Tuberose Absolute (India)",
+      "original_label": "Tuberose Absolute (India)  # neat — Polianthes tuberosa solvent extraction, India origin; CAS 8024-05-3; use where tuberose is supporting, not the star",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Tuberose Absolute",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME"
+      ]
+    },
+    {
+      "source_line": 126,
+      "stock_label": "Phenyl Ethyl Acetate",
+      "original_label": "Phenyl Ethyl Acetate",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Phenyl Ethyl Acetate",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 127,
+      "stock_label": "Immortelle Absolute (10% in DPG)",
+      "original_label": "Immortelle Absolute (10% in DPG)",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Immortelle Absolute",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 128,
+      "stock_label": "Rose Essential Oil (Rosa Damascena, India)",
+      "original_label": "Rose Essential Oil (Rosa Damascena, India)  # added 2026-06-15 — steam-distilled; 100% pure; INCI: Rosa Damascena P.Mill (Flower) Oil; rich honeyed rose character",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Rose Essential Oil",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": []
+    },
+    {
+      "source_line": 129,
+      "stock_label": "Jasmine Sambac Blossoms",
+      "original_label": "Jasmine Sambac Blossoms  # added 2026-06-22 — Jasminum sambac whole dried blossoms; for tincturing/infusion; delicate fresh jasmine-tea character",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Jasmine Sambac Blossoms",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL",
+        "NON_LIQUID_FORM_REQUIRES_SEPARATE_PREPARATION"
+      ]
+    },
+    {
+      "source_line": 130,
+      "stock_label": "Blue Chamomile EO",
+      "original_label": "Blue Chamomile EO  # added 2026-06-22 — Matricaria chamomilla; deep blue azulene-rich; sweet-herbaceous-tobacco; powerful fixative at trace",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Blue Chamomile EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 131,
+      "stock_label": "Mimosa Absolute (10% in DPG)",
+      "original_label": "Mimosa Absolute (10% in DPG)  # added 2026-06-22 — Acacia dealbata; honeyed-powdery-green; anisic-floral; pairs with violet and heliotrope",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Mimosa Absolute",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 132,
+      "stock_label": "Osmanthus Absolute (volume grade)",
+      "original_label": "Osmanthus Absolute (volume grade)  # added 2026-06-22 — lower-cost osmanthus for structural use; lower β-ionone content than premium",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Osmanthus Absolute",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 133,
+      "stock_label": "Tuberose Absolute (volume grade)",
+      "original_label": "Tuberose Absolute (volume grade)  # added 2026-06-22 — lower-cost tuberose for structural volume; use where tuberose supports, not stars",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Tuberose Absolute",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 134,
+      "stock_label": "Isobutavan",
+      "original_label": "Isobutavan  # added 2026-06-22 — isobutyl vanillin; creamy-buttery-vanillic; less sweet than ethyl vanillin; pastry/cream character",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Isobutavan",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 135,
+      "stock_label": "Allyl Cyclohexyl Propionate",
+      "original_label": "Allyl Cyclohexyl Propionate  # added 2026-06-22 — fruity-pineapple-herbal; allyl ester; green apple-pineapple top-to-heart; tropical modifier",
+      "category": "floral materials",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Allyl Cyclohexyl Propionate",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 138,
+      "stock_label": "Alpha Ionone",
+      "original_label": "Alpha Ionone",
+      "category": "iris / violet",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Alpha Ionone",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 139,
+      "stock_label": "Beta Ionone",
+      "original_label": "Beta Ionone",
+      "category": "iris / violet",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Beta Ionone",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 140,
+      "stock_label": "Beta Ionone (1% in TEC)",
+      "original_label": "Beta Ionone (1% in TEC)  # added 2026-05-09 — pre-diluted for precise woody-violet dosing",
+      "category": "iris / violet",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "1%",
+      "parser_result": {
+        "name": "Beta Ionone",
+        "dilution_fraction": 0.01,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 141,
+      "stock_label": "Allyl Ionone (Ketone V)",
+      "original_label": "Allyl Ionone (Ketone V)",
+      "category": "iris / violet",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Allyl Ionone",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 142,
+      "stock_label": "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+      "original_label": "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+      "category": "iris / violet",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Alpha Isomethyl Ionone",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": []
+    },
+    {
+      "source_line": 143,
+      "stock_label": "Alpha Irone (30% w/w in IPM)",
+      "original_label": "Alpha Irone (30% w/w in IPM)  # added 2026-06-04 — 1g in 2.33mL IPM; true iris butter",
+      "category": "iris / violet",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "30%",
+      "parser_result": {
+        "name": "Alpha Irone",
+        "dilution_fraction": 0.3,
+        "status": "owned"
+      },
+      "review_flags": []
+    },
+    {
+      "source_line": 144,
+      "stock_label": "Irotyl",
+      "original_label": "Irotyl",
+      "category": "iris / violet",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Irotyl",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 145,
+      "stock_label": "Dihydro Beta Ionone",
+      "original_label": "Dihydro Beta Ionone",
+      "category": "iris / violet",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Dihydro Beta Ionone",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 146,
+      "stock_label": "Orivone",
+      "original_label": "Orivone",
+      "category": "iris / violet",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Orivone",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 147,
+      "stock_label": "Ultralia",
+      "original_label": "Ultralia",
+      "category": "iris / violet",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Ultralia",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 148,
+      "stock_label": "Carrot Seed EO",
+      "original_label": "Carrot Seed EO",
+      "category": "iris / violet",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Carrot Seed EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 151,
+      "stock_label": "Iso E Super",
+      "original_label": "Iso E Super",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Iso E Super",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 152,
+      "stock_label": "Cashmeran (neat)",
+      "original_label": "Cashmeran (neat)  # restocked 2026-05-23",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Cashmeran",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME"
+      ]
+    },
+    {
+      "source_line": 153,
+      "stock_label": "Cashmeran (20%)",
+      "original_label": "Cashmeran (20%)",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "20%",
+      "parser_result": {
+        "name": "Cashmeran",
+        "dilution_fraction": 0.2,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 154,
+      "stock_label": "Polysantol",
+      "original_label": "Polysantol",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Polysantol",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 155,
+      "stock_label": "Cedramber",
+      "original_label": "Cedramber",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Cedramber",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 156,
+      "stock_label": "Ambermax (50%)",
+      "original_label": "Ambermax (50%)",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "50%",
+      "parser_result": {
+        "name": "Ambermax",
+        "dilution_fraction": 0.5,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 157,
+      "stock_label": "Amber Core (10%)",
+      "original_label": "Amber Core (10%)",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Amber Core",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 158,
+      "stock_label": "Ebanol",
+      "original_label": "Ebanol",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Ebanol",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 159,
+      "stock_label": "Sandalore",
+      "original_label": "Sandalore",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Sandalore",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 160,
+      "stock_label": "Vetival",
+      "original_label": "Vetival",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Vetival",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 161,
+      "stock_label": "Vetikon",
+      "original_label": "Vetikon",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Vetikon",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 162,
+      "stock_label": "Vertofix",
+      "original_label": "Vertofix",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Vertofix",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 163,
+      "stock_label": "Suederal (10%)",
+      "original_label": "Suederal (10%)",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Suederal",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 164,
+      "stock_label": "Javanol",
+      "original_label": "Javanol",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Javanol",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 165,
+      "stock_label": "Amberwood F",
+      "original_label": "Amberwood F",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Amberwood F",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 166,
+      "stock_label": "Ambrox Super (30% w/v, 3 g in 10 mL)",
+      "original_label": "Ambrox Super (30% w/v, 3 g in 10 mL)  # DEPLETED 2026-05-03",
+      "category": "woods / amber / structure",
+      "label_availability": "DEPLETED",
+      "label_strength": "30%",
+      "parser_result": {
+        "name": "Ambrox Super",
+        "dilution_fraction": 0.3,
+        "status": "owned"
+      },
+      "review_flags": [
+        "DEPLETED_LABEL_IGNORED_BY_PARSER",
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME"
+      ]
+    },
+    {
+      "source_line": 167,
+      "stock_label": "Ambrox Super (~33% w/v in DEP:EtOH 53:47 — 5g/15mL: 8mL DEP + ~7mL EtOH)",
+      "original_label": "Ambrox Super (~33% w/v in DEP:EtOH 53:47 — 5g/15mL: 8mL DEP + ~7mL EtOH)",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "~33%",
+      "parser_result": {
+        "name": "Ambrox Super",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_DILUTION_INCORRECT",
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME"
+      ]
+    },
+    {
+      "source_line": 168,
+      "stock_label": "Ambrofix (30% w/v, 3 g in 10 mL)",
+      "original_label": "Ambrofix (30% w/v, 3 g in 10 mL)",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "30%",
+      "parser_result": {
+        "name": "Ambrofix",
+        "dilution_fraction": 0.3,
+        "status": "owned"
+      },
+      "review_flags": []
+    },
+    {
+      "source_line": 169,
+      "stock_label": "Ambrofix Crystals (solid)",
+      "original_label": "Ambrofix Crystals (solid)  # added 2026-05-09 — pure crystalline Ambrofix for custom dilution",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Ambrofix Crystals",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "NON_LIQUID_FORM_REQUIRES_SEPARATE_PREPARATION"
+      ]
+    },
+    {
+      "source_line": 170,
+      "stock_label": "Timberol",
+      "original_label": "Timberol",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Timberol",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 171,
+      "stock_label": "Koavone",
+      "original_label": "Koavone",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Koavone",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 172,
+      "stock_label": "Cedarwood EO",
+      "original_label": "Cedarwood EO",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Cedarwood EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 173,
+      "stock_label": "Cedarwood oil Virginia",
+      "original_label": "Cedarwood oil Virginia",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Cedarwood oil Virginia",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 174,
+      "stock_label": "Himalayan Cedarwood EO",
+      "original_label": "Himalayan Cedarwood EO",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Himalayan Cedarwood EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 175,
+      "stock_label": "Vetiver EO (India)",
+      "original_label": "Vetiver EO (India)  # added 2026-05-08 — purchased; Indian ruh khus vetiver; deeper and more complex than standard Vetiver EO; excellent fixative",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Vetiver EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 176,
+      "stock_label": "Nagarmortha Oil",
+      "original_label": "Nagarmortha Oil  # added 2026-04-29 — purchased; cypriol profile; dry earthy smoky woody material, useful as budget oud/vetiver bridge",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Nagarmortha Oil",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 177,
+      "stock_label": "Vetikon (7403-42-1)",
+      "original_label": "Vetikon (7403-42-1)",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Vetikon",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 178,
+      "stock_label": "Clearwood",
+      "original_label": "Clearwood",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Clearwood",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 179,
+      "stock_label": "Norlimbanol Dextro",
+      "original_label": "Norlimbanol Dextro",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Norlimbanol Dextro",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 180,
+      "stock_label": "Azarbre",
+      "original_label": "Azarbre  # added 2026-04-17 — purchased; cedar-amber-smooth; warmer than Ambrox, softer than Timberol",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Azarbre",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 181,
+      "stock_label": "Kephalis",
+      "original_label": "Kephalis  # added 2026-05-05 — purchased; woody-amber-tobacco with ionone-iris undertone; mid-to-base structural",
+      "category": "woods / amber / structure",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Kephalis",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 184,
+      "stock_label": "Galaxolide (50% in DEP)",
+      "original_label": "Galaxolide (50% in DEP)",
+      "category": "musks",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "50%",
+      "parser_result": {
+        "name": "Galaxolide",
+        "dilution_fraction": 0.5,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 185,
+      "stock_label": "Tonalide (10%)",
+      "original_label": "Tonalide (10%)",
+      "category": "musks",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Tonalide",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 186,
+      "stock_label": "Habanolide",
+      "original_label": "Habanolide",
+      "category": "musks",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Habanolide",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 187,
+      "stock_label": "Zenolide",
+      "original_label": "Zenolide",
+      "category": "musks",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Zenolide",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 188,
+      "stock_label": "Romandolide",
+      "original_label": "Romandolide",
+      "category": "musks",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Romandolide",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 189,
+      "stock_label": "Exaltolide (10%)",
+      "original_label": "Exaltolide (10%)  # 10% in DPG",
+      "category": "musks",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Exaltolide",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 190,
+      "stock_label": "Macrolide (10%)",
+      "original_label": "Macrolide (10%)",
+      "category": "musks",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Macrolide",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 191,
+      "stock_label": "Ambrettolide (10% in DPG)",
+      "original_label": "Ambrettolide (10% in DPG)  # added 2026-04-17 — purchased; macrocyclic fruity-musky; most naturalistic musk in inventory",
+      "category": "musks",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Ambrettolide",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 192,
+      "stock_label": "Musk Ketone (pure powder)",
+      "original_label": "Musk Ketone (pure powder)",
+      "category": "musks",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Musk Ketone",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "NON_LIQUID_FORM_REQUIRES_SEPARATE_PREPARATION"
+      ]
+    },
+    {
+      "source_line": 193,
+      "stock_label": "Musk Ketone (10% in DPG)",
+      "original_label": "Musk Ketone (10% in DPG)",
+      "category": "musks",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Musk Ketone",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 194,
+      "stock_label": "Ethylene Brassylate",
+      "original_label": "Ethylene Brassylate",
+      "category": "musks",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Ethylene Brassylate",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 197,
+      "stock_label": "Ethyl Maltol (10%)",
+      "original_label": "Ethyl Maltol (10%)",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Ethyl Maltol",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 198,
+      "stock_label": "Coumarin (20%)",
+      "original_label": "Coumarin (20%)",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "20%",
+      "parser_result": {
+        "name": "Coumarin",
+        "dilution_fraction": 0.2,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 199,
+      "stock_label": "Coumarin (neat powder)",
+      "original_label": "Coumarin (neat powder)  # added 2026-04-17 — purchased; solid crystalline; use to prepare custom dilutions",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Coumarin",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "NON_LIQUID_FORM_REQUIRES_SEPARATE_PREPARATION"
+      ]
+    },
+    {
+      "source_line": 200,
+      "stock_label": "Vanillin (10%)",
+      "original_label": "Vanillin (10%)",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Vanillin",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 201,
+      "stock_label": "Ethyl Vanillin (10%)",
+      "original_label": "Ethyl Vanillin (10%)",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Ethyl Vanillin",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 202,
+      "stock_label": "Maple Lactone (20%)",
+      "original_label": "Maple Lactone (20%)",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "20%",
+      "parser_result": {
+        "name": "Maple Lactone",
+        "dilution_fraction": 0.2,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 203,
+      "stock_label": "Raspberry Ketone",
+      "original_label": "Raspberry Ketone",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Raspberry Ketone",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 204,
+      "stock_label": "Siam Benzoin (50% in DPG)",
+      "original_label": "Siam Benzoin (50% in DPG)",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "50%",
+      "parser_result": {
+        "name": "Siam Benzoin",
+        "dilution_fraction": 0.5,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 205,
+      "stock_label": "Benzoin Sumatra Resinoid (10%)",
+      "original_label": "Benzoin Sumatra Resinoid (10%)",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Benzoin Sumatra Resinoid",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 206,
+      "stock_label": "Anisaldehyde",
+      "original_label": "Anisaldehyde",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Anisaldehyde",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 207,
+      "stock_label": "Gamma Decalactone",
+      "original_label": "Gamma Decalactone",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Gamma Decalactone",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 208,
+      "stock_label": "Gamma Undecalactone",
+      "original_label": "Gamma Undecalactone",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Gamma Undecalactone",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 209,
+      "stock_label": "Delta Decalactone",
+      "original_label": "Delta Decalactone",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Delta Decalactone",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 210,
+      "stock_label": "Allyl Amyl Glycolate (10%)",
+      "original_label": "Allyl Amyl Glycolate (10%)",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Allyl Amyl Glycolate",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 211,
+      "stock_label": "Labdanum Resinoid (10% in DPG)",
+      "original_label": "Labdanum Resinoid (10% in DPG)",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Labdanum Resinoid",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 212,
+      "stock_label": "Tonkarome (20% w/w in TEC)",
+      "original_label": "Tonkarome (20% w/w in TEC)  # solid; Firmenich coumarinic-tonka base; 4 g Tonkarome + 16 g TEC; prepared 2026-06-03",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "20%",
+      "parser_result": {
+        "name": "Tonkarome",
+        "dilution_fraction": 0.2,
+        "status": "owned"
+      },
+      "review_flags": []
+    },
+    {
+      "source_line": 213,
+      "stock_label": "Cocoa Absolute (10% in TEC)",
+      "original_label": "Cocoa Absolute (10% in TEC)",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Cocoa Absolute",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 214,
+      "stock_label": "Tonka Bean Absolute (10% in DPG)",
+      "original_label": "Tonka Bean Absolute (10% in DPG)  # added 2026-06-22 — Dipteryx odorata; coumarinic-hay-almond; natural richness vs synthetic Tonkarome",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Tonka Bean Absolute",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 215,
+      "stock_label": "Cocoa CO2 Absolute",
+      "original_label": "Cocoa CO2 Absolute  # added 2026-06-22 — Theobroma cacao CO2 extract; richer, less solventy than standard absolute; true dark chocolate",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Cocoa CO2 Absolute",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 216,
+      "stock_label": "Peru Balsam Resinoid",
+      "original_label": "Peru Balsam Resinoid  # added 2026-06-22 — Myroxylon pereirae; warm-vanillic-cinnamon balsamic; sweet resinous fixative",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Peru Balsam Resinoid",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 217,
+      "stock_label": "Opoponax Resinoid (50% in DPG)",
+      "original_label": "Opoponax Resinoid (50% in DPG)  # added 2026-06-22 — Commiphora guidottii; sweet-balsamic-myhrr; warm animalic undertone; natural fixative",
+      "category": "sweet / gourmand / balsamic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "50%",
+      "parser_result": {
+        "name": "Opoponax Resinoid",
+        "dilution_fraction": 0.5,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 220,
+      "stock_label": "Tobacco Absolute (10% in DPG)",
+      "original_label": "Tobacco Absolute (10% in DPG)",
+      "category": "leather / smoky / phenolic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Tobacco Absolute",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 221,
+      "stock_label": "Isobutyl Quinoline (10%)",
+      "original_label": "Isobutyl Quinoline (10%)",
+      "category": "leather / smoky / phenolic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Isobutyl Quinoline",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 222,
+      "stock_label": "Birch Tar Rectified (10% in DPG)",
+      "original_label": "Birch Tar Rectified (10% in DPG)  # IFRA PROHIBITED; use at trace only (0.05-0.15% active)",
+      "category": "leather / smoky / phenolic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Birch Tar Rectified",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 223,
+      "stock_label": "Costus Olifac (10% in DPG)",
+      "original_label": "Costus Olifac (10% in DPG)",
+      "category": "leather / smoky / phenolic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Costus Olifac",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 224,
+      "stock_label": "Cade Oil Rectified (1% in DPG)",
+      "original_label": "Cade Oil Rectified (1% in DPG)  # added 2026-07-05 — Juniperus oxycedrus; rectified juniper wood tar; dry ashy campfire smoke; IFRA Standard 119 compliant (rectified grade only)",
+      "category": "leather / smoky / phenolic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "1%",
+      "parser_result": {
+        "name": "Cade Oil Rectified",
+        "dilution_fraction": 0.01,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 225,
+      "stock_label": "Guaiacol (10%)",
+      "original_label": "Guaiacol (10%)",
+      "category": "leather / smoky / phenolic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Guaiacol",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 226,
+      "stock_label": "Evernyl",
+      "original_label": "Evernyl",
+      "category": "leather / smoky / phenolic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Evernyl",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 227,
+      "stock_label": "Skatole (1%)",
+      "original_label": "Skatole (1%)",
+      "category": "leather / smoky / phenolic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "1%",
+      "parser_result": {
+        "name": "Skatole",
+        "dilution_fraction": 0.01,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 228,
+      "stock_label": "Oakmoss Absolute (10% in DPG)",
+      "original_label": "Oakmoss Absolute (10% in DPG)",
+      "category": "leather / smoky / phenolic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Oakmoss Absolute",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 229,
+      "stock_label": "Evernyl (50% w/w in DPG)",
+      "original_label": "Evernyl (50% w/w in DPG)  # 2 g Evernyl + 2 g DPG; prepared 2026-06-03",
+      "category": "leather / smoky / phenolic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "50%",
+      "parser_result": {
+        "name": "Evernyl",
+        "dilution_fraction": 0.5,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME"
+      ]
+    },
+    {
+      "source_line": 232,
+      "stock_label": "Black Pepper EO",
+      "original_label": "Black Pepper EO",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Black Pepper EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 233,
+      "stock_label": "Cardamom EO",
+      "original_label": "Cardamom EO  # added 2026-05-08 — purchased; green cardamom essential oil; spicy-cineolic-aromatic; pairs with rose, bergamot",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Cardamom EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 234,
+      "stock_label": "Ethyl Safranate",
+      "original_label": "Ethyl Safranate",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Ethyl Safranate",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 235,
+      "stock_label": "Eugenol",
+      "original_label": "Eugenol",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Eugenol",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 236,
+      "stock_label": "Isoeugenol",
+      "original_label": "Isoeugenol",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Isoeugenol",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 237,
+      "stock_label": "Clove EO (India)",
+      "original_label": "Clove EO (India)",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Clove EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 238,
+      "stock_label": "Anise EO (China)",
+      "original_label": "Anise EO (China)",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Anise EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 239,
+      "stock_label": "Cinnamaldehyde",
+      "original_label": "Cinnamaldehyde",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Cinnamaldehyde",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 240,
+      "stock_label": "Lavender EO",
+      "original_label": "Lavender EO",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Lavender EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 241,
+      "stock_label": "Lavender EO High Altitude (angustifolia, France)",
+      "original_label": "Lavender EO High Altitude (angustifolia, France)",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Lavender EO High Altitude",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 242,
+      "stock_label": "Lavender EO (BONTAUX SAS)",
+      "original_label": "Lavender EO (BONTAUX SAS)  # added 2026-05-08 — purchased; premium French lavender angustifolia; floral-herbaceous with soft honeyed sweetness",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Lavender EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "MULTIPLE_SOURCE_ROWS_SHARE_PARSER_NAME",
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 243,
+      "stock_label": "Spike Lavender EO",
+      "original_label": "Spike Lavender EO  # added 2026-04-29 — purchased; camphoraceous lavender, more aromatic/masculine and less soft-floral than Lavender EO",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Spike Lavender EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 244,
+      "stock_label": "Beta-Pinene",
+      "original_label": "Beta-Pinene  # added 2026-04-29 — purchased; pine-green terpene top note; useful for Thai aromatic fougere lift, oxidizes like other terpenes",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Beta-Pinene",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 245,
+      "stock_label": "Pine EO",
+      "original_label": "Pine EO  # added 2026-04-30 — purchased; coniferous pine needle/forest top, terpene-rich and oxidation-sensitive",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Pine EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 246,
+      "stock_label": "Juniper Berry EO",
+      "original_label": "Juniper Berry EO  # added 2026-05-05 — purchased; fresh-green-coniferous-spicy top; gin-like clarity, useful for aromatic-fougere lift",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Juniper Berry EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 247,
+      "stock_label": "Rosemary EO (French Rosmarinus Officinalis leaf oil)",
+      "original_label": "Rosemary EO (French Rosmarinus Officinalis leaf oil)  # added 2026-05-05 — purchased; herbal-camphoraceous-aromatic; cineole-rich freshness for fougère/aromatic structures",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Rosemary EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 248,
+      "stock_label": "Clary Sage EO",
+      "original_label": "Clary Sage EO",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Clary Sage EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 249,
+      "stock_label": "Basil EO (India, Ocimum Basilicum)",
+      "original_label": "Basil EO (India, Ocimum Basilicum)",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Basil EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 250,
+      "stock_label": "Patchouli EO",
+      "original_label": "Patchouli EO",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Patchouli EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 251,
+      "stock_label": "Cassia Essential Oil (Cinnamomum cassia, India)",
+      "original_label": "Cassia Essential Oil (Cinnamomum cassia, India)  # added 2026-06-15 — steam-distilled from bark/branches; INCI: Cinnamomum Cassia Oil; rich cinnamaldehyde sweetness; warming spicy; use at 0.05-0.5% due to skin sensitization risk",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Cassia Essential Oil",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 252,
+      "stock_label": "Olibanum Resinoid Absolute (10%)",
+      "original_label": "Olibanum Resinoid Absolute (10%)  # DEPLETED",
+      "category": "spice / aromatic",
+      "label_availability": "DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Olibanum Resinoid Absolute",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "DEPLETED_LABEL_IGNORED_BY_PARSER",
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 253,
+      "stock_label": "Frankincense EO",
+      "original_label": "Frankincense EO  # Boswellia carterii/serrata essential oil",
+      "category": "spice / aromatic",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Frankincense EO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 256,
+      "stock_label": "Jasmine FO",
+      "original_label": "Jasmine FO",
+      "category": "accord bases / other",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Jasmine FO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 257,
+      "stock_label": "Jasmine Sambac (10% in DPG)",
+      "original_label": "Jasmine Sambac (10% in DPG)",
+      "category": "accord bases / other",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": "10%",
+      "parser_result": {
+        "name": "Jasmine Sambac",
+        "dilution_fraction": 0.1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "STRENGTH_FRACTION_BASIS_UNSPECIFIED"
+      ]
+    },
+    {
+      "source_line": 258,
+      "stock_label": "Leather FO",
+      "original_label": "Leather FO",
+      "category": "accord bases / other",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Leather FO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 259,
+      "stock_label": "Tonka Bean FO",
+      "original_label": "Tonka Bean FO",
+      "category": "accord bases / other",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Tonka Bean FO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 260,
+      "stock_label": "Sandalwood FO",
+      "original_label": "Sandalwood FO",
+      "category": "accord bases / other",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Sandalwood FO",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 261,
+      "stock_label": "BHT (Butylated Hydroxytoluene) — antioxidant stabilizer",
+      "original_label": "BHT (Butylated Hydroxytoluene) — antioxidant stabilizer",
+      "category": "accord bases / other",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "BHT (Butylated Hydroxytoluene) — antioxidant stabilizer",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 262,
+      "stock_label": "Melonal",
+      "original_label": "Melonal",
+      "category": "accord bases / other",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Melonal",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 263,
+      "stock_label": "Dimethyl Benzyl Carbinyl Acetate (DBCA)",
+      "original_label": "Dimethyl Benzyl Carbinyl Acetate (DBCA)",
+      "category": "accord bases / other",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Dimethyl Benzyl Carbinyl Acetate",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 264,
+      "stock_label": "Methyl Nonyl Ketone",
+      "original_label": "Methyl Nonyl Ketone",
+      "category": "accord bases / other",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Methyl Nonyl Ketone",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    },
+    {
+      "source_line": 265,
+      "stock_label": "Cassis Base 345B",
+      "original_label": "Cassis Base 345B",
+      "category": "accord bases / other",
+      "label_availability": "NOT_MARKED_DEPLETED",
+      "label_strength": null,
+      "parser_result": {
+        "name": "Cassis Base 345B",
+        "dilution_fraction": 1,
+        "status": "owned"
+      },
+      "review_flags": [
+        "PARSER_100_PERCENT_IS_DEFAULT_NOT_EXPLICIT_LABEL"
+      ]
+    }
+  ]
+}

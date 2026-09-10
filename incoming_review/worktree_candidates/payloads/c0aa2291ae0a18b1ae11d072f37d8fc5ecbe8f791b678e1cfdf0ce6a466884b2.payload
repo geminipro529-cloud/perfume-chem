@@ -1,0 +1,864 @@
+"""Perfume knowledge integration module — unified API for the pipeline.
+
+**RULE 1: All perfume calculations must use ppm, ODT, and OAV.**
+
+This module provides a single import point for the complete perfume knowledge
+system and bridges it to the pipeline's formula evaluation, scoring,
+and optimization workflows.
+
+Usage:
+    from engine.knowledge.perfume_knowledge import (
+        PerfumeKnowledge,
+        get_family_for_formula,
+        evaluate_pyramid_balance,
+        suggest_accord,
+        evaluate_oav_family_targets,
+    )
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from typing import Any
+
+from engine.knowledge.accord_library import (
+    AccordMaterial,
+    AccordRecipe,
+    accords_by_family,
+    accords_by_type,
+    all_accords,
+    get_accord,
+)
+from engine.knowledge.perfume_taxonomy import (
+    AccordType,
+    ConcentrationBracket,
+    PerfumeFamily,
+    PerfumeSubfamily,
+    SolifloreType,
+    all_families,
+    all_subfamilies,
+    get_family_description,
+    get_parent_family,
+    get_subfamilies,
+    get_subfamily_description,
+    taxonomy_tree,
+)
+from engine.knowledge.pyramid_targets import (
+    CROSS_FAMILY_COMPATIBILITY,
+    DEFAULT_PYRAMID,
+    MATERIAL_ROLE_RATIOS,
+    OAV_TARGETS_BY_FAMILY,
+    PYRAMID_RATIOS,
+    PyramidRatio,
+    get_compatibility,
+    get_material_role_range,
+    get_oav_target,
+    get_oav_targets,
+    get_pyramid,
+)
+from engine.knowledge.soliflore_structures import (
+    SolifloreComponent,
+    SolifloreStructure,
+    all_soliflores,
+    get_soliflore,
+    soliflore_material_list,
+)
+from engine.name_utils import normalize_name
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# UNIFIED KNOWLEDGE ENGINE
+# ═══════════════════════════════════════════════════════════════════════════════
+
+
+@dataclass(frozen=True, slots=True)
+class PerfumeKnowledge:
+    """Unified access to the complete perfume knowledge system.
+
+    Provides taxonomy lookup, accord retrieval, soliflore structures,
+    pyramid ratios, OAV targets, and cross-family compatibility.
+    """
+
+    families: tuple[str, ...] = field(
+        default_factory=lambda: tuple(f.value for f in all_families())
+    )
+    subfamilies: tuple[str, ...] = field(
+        default_factory=lambda: tuple(s.value for s in all_subfamilies())
+    )
+    accord_names: tuple[str, ...] = field(
+        default_factory=lambda: tuple(a.name for a in all_accords())
+    )
+    soliflore_names: tuple[str, ...] = field(
+        default_factory=lambda: tuple(
+            s.value for s in SolifloreType.__members__.values()
+        )
+    )
+
+    def get_family_description(self, name: str) -> str:
+        return get_family_description(name)
+
+    def get_subfamilies(self, family: str) -> tuple[str, ...]:
+        subs = get_subfamilies(family)
+        return tuple(s.value for s in subs)
+
+    def get_subfamily_description(self, name: str) -> str:
+        return get_subfamily_description(name)
+
+    def get_parent_family(self, subfamily: str) -> str | None:
+        parent = get_parent_family(subfamily)
+        return parent.value if parent else None
+
+    def get_accord(self, name: str) -> AccordRecipe | None:
+        return get_accord(name)
+
+    def get_soliflore(self, name: str) -> SolifloreStructure | None:
+        return get_soliflore(name)
+
+    def get_pyramid(
+        self, family_key: str, bracket: str = "EdP"
+    ) -> dict[str, Any] | None:
+        br = self._parse_bracket(bracket)
+        ratio = get_pyramid(family_key, br)
+        if ratio is None:
+            return None
+        return {
+            "top": ratio.top,
+            "heart": ratio.heart,
+            "base": ratio.base,
+            "bracket": ratio.bracket.value,
+            "description": ratio.description,
+        }
+
+    def get_oav_targets(self, family_key: str) -> dict[str, dict[str, float]]:
+        return get_oav_targets(family_key)
+
+    def get_compatibility(self, family_a: str, family_b: str) -> str:
+        return get_compatibility(family_a, family_b)
+
+    @staticmethod
+    def _parse_bracket(bracket: str) -> ConcentrationBracket:
+        mapping = {
+            "edc": ConcentrationBracket.EDC,
+            "edt": ConcentrationBracket.EDT,
+            "edp": ConcentrationBracket.EDP,
+            "extrait": ConcentrationBracket.EXTRAIT,
+            "body_spray": ConcentrationBracket.BODY_SPRAY,
+        }
+        return mapping.get(bracket.lower(), ConcentrationBracket.EDP)
+
+
+# Singleton instance
+perfume_knowledge = PerfumeKnowledge()
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PIPELINE BRIDGE FUNCTIONS
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ── Family name token lookup for pipeline matching ──
+_FAMILY_TOKEN_MAP: dict[str, str] = {
+    "citrus": "citrus",
+    "hesperidic": "citrus",
+    "eau de cologne": "citrus_classical",
+    "cologne classique": "citrus_classical",
+    "citrus classical": "citrus_classical",
+    "citrus cologne": "citrus_classical",
+    "citrus_classical": "citrus_classical",
+    "dior homme cologne": "dior_homme_cologne",
+    "dior_homme_cologne": "dior_homme_cologne",
+    "citrus aromatic": "citrus_aromatic",
+    "citrus_aromatic": "citrus_aromatic",
+    "fougere": "aromatic_fougere",
+    "fougere classical": "fougere_classical",
+    "classic fougere": "fougere_classical",
+    "fougere_classical": "fougere_classical",
+    "aromatic_fougere": "aromatic_fougere",
+    "aromatic fougere": "aromatic_fougere",
+    "floral": "floral",
+    "single floral": "floral_soliflore",
+    "floral soliflore": "floral_soliflore",
+    "floral rose": "floral_rose",
+    "floral bouquet": "floral_bouquet",
+    "floral_bouquet": "floral_bouquet",
+    "floral jasmine": "floral_white",
+    "white floral": "floral_white",
+    "muguet floral": "floral_muguet",
+    "muguet soliflore": "floral_muguet",
+    "floral_muguet": "floral_muguet",
+    "carnation floral": "floral_carnation",
+    "carnation": "floral_carnation",
+    "floral_carnation": "floral_carnation",
+    "powdery floral": "floral_powdery",
+    "floral_powdery": "floral_powdery",
+    "green floral": "floral_green",
+    "floral_green": "floral_green",
+    "floral aldehydic": "floral_aldehydic",
+    "aldehydic floral": "floral_aldehydic",
+    "chypre": "chypre",
+    "classic chypre": "chypre_classical",
+    "chypre classical": "chypre_classical",
+    "chypre_classical": "chypre_classical",
+    "floral chypre": "chypre_floral",
+    "fruity chypre": "chypre_fruity",
+    "green chypre": "chypre_green",
+    "chypre_green": "chypre_green",
+    "leather chypre": "chypre_leathery",
+    "patchouli leather chypre": "chypre_leathery",
+    "chypre_leathery": "chypre_leathery",
+    "oriental": "oriental",
+    "classic oriental": "oriental_classical",
+    "classic amber": "oriental_classical",
+    "oriental_classical": "oriental_classical",
+    "soft oriental": "oriental_soft",
+    "soft amber": "oriental_soft",
+    "oriental_soft": "oriental_soft",
+    "amber oriental": "oriental_amber",
+    "amber": "oriental_amber",
+    "oriental amber": "oriental_amber",
+    "oriental_amber": "oriental_amber",
+    "floral oriental": "oriental_floral",
+    "floral amber": "oriental_floral",
+    "oriental_floral": "oriental_floral",
+    "woody": "woody",
+    "woody amber": "woody_amber",
+    "woody_amber": "woody_amber",
+    "iris amber woody": "iris_amber_woody",
+    "iris_amber_woody": "iris_amber_woody",
+    "iris coumarin amber": "iris_amber_woody",
+    "iris_coumarin_amber": "iris_amber_woody",
+    "iris leather amber": "iris_leather_amber",
+    "iris_leather_amber": "iris_leather_amber",
+    "aromatic": "aromatic_fougere",
+    "layton": "layton_dna_fresh",
+    "layton dna": "layton_dna_fresh",
+    "woody floral musk": "woody_floral_musk",
+    "woody_floral_musk": "woody_floral_musk",
+    "floral woody musk": "woody_floral_musk",
+    "floral woody": "woody_floral_musk",
+    "woody musk": "woody_floral_musk",
+    "soliflore": "floral_soliflore",
+    "gourmand floral": "gourmand_floral",
+    "gourmand_floral": "gourmand_floral",
+    "floral gourmand": "gourmand_floral",
+    "cocoa floral": "gourmand_floral",
+    "gourmand white floral": "gourmand_floral",
+    "vanilla floral": "gourmand_floral",
+}
+
+
+def resolve_family_key(family: str) -> str:
+    """Resolve a family name string to a canonical key used in PYRAMID_RATIOS and OAV_TARGETS."""
+    token = family.lower().strip().replace("_", " ").replace("-", " ")
+    # Strip archetype suffix (e.g., "iris_amber_woody.classic" → "iris_amber_woody")
+    if "." in token:
+        token = token.split(".")[0].strip()
+    if token in _FAMILY_TOKEN_MAP:
+        return _FAMILY_TOKEN_MAP[token]
+    # Longest-match-first to prevent substring collisions (e.g. "amber" matching before "iris amber woody")
+    candidates = sorted(
+        [
+            (search_key, mapped)
+            for search_key, mapped in _FAMILY_TOKEN_MAP.items()
+            if search_key in token
+        ],
+        key=lambda x: -len(x[0]),
+    )
+    if candidates:
+        return candidates[0][1]
+    return token.replace(" ", "_")
+
+
+@dataclass(frozen=True, slots=True)
+class PyramidEvaluation:
+    """Result of evaluating a formula's pyramid balance against family targets."""
+
+    family_key: str
+    bracket: str
+    target_top: float
+    target_heart: float
+    target_base: float
+    actual_top: float
+    actual_heart: float
+    actual_base: float
+    top_deviation: float
+    heart_deviation: float
+    base_deviation: float
+    overall_fit: float  # 0.0-1.0 where 1.0 = perfect match
+    status: str  # "optimal", "acceptable", "needs_improvement", "off_target"
+    details: str
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "family_key": self.family_key,
+            "bracket": self.bracket,
+            "target_top": self.target_top,
+            "target_heart": self.target_heart,
+            "target_base": self.target_base,
+            "actual_top": self.actual_top,
+            "actual_heart": self.actual_heart,
+            "actual_base": self.actual_base,
+            "top_deviation": round(self.top_deviation, 4),
+            "heart_deviation": round(self.heart_deviation, 4),
+            "base_deviation": round(self.base_deviation, 4),
+            "overall_fit": round(self.overall_fit, 4),
+            "status": self.status,
+            "details": self.details,
+        }
+
+
+def evaluate_pyramid_balance(
+    formula_raw_pct: dict[str, float],
+    family: str = "floral",
+    bracket: str = "EdP",
+    note_map: dict[str, str] | None = None,
+) -> PyramidEvaluation:
+    """Evaluate a formula's top/heart/base balance against the target pyramid for its family.
+
+    Args:
+        formula_raw_pct: {material_name: % of concentrate}
+        family: family key string
+        bracket: concentration bracket ("EdC", "EdT", "EdP", "Extrait")
+        note_map: optional {material_name: "top"|"heart"|"base"} mapping.
+                  If not provided, uses a heuristic based on known materials.
+
+    Returns:
+        PyramidEvaluation with fit assessment
+    """
+    resolved = resolve_family_key(family)
+    br = perfume_knowledge._parse_bracket(bracket)
+    target = get_pyramid(resolved, br) or get_pyramid("floral", br)
+    if target is None:
+        target = DEFAULT_PYRAMID.get(br, DEFAULT_PYRAMID[ConcentrationBracket.EDP])
+
+    if note_map is None:
+        note_map = _default_note_map()
+
+    top_pct = sum(
+        pct
+        for mat, pct in formula_raw_pct.items()
+        if note_map.get(normalize_name(mat), "heart") == "top"
+    )
+    heart_pct = sum(
+        pct
+        for mat, pct in formula_raw_pct.items()
+        if note_map.get(normalize_name(mat), "heart") == "heart"
+    )
+    base_pct = sum(
+        pct
+        for mat, pct in formula_raw_pct.items()
+        if note_map.get(normalize_name(mat), "heart") == "base"
+    )
+    total = top_pct + heart_pct + base_pct or 1.0
+    actual_top = (top_pct / total) * 100.0
+    actual_heart = (heart_pct / total) * 100.0
+    actual_base = (base_pct / total) * 100.0
+
+    top_dev = abs(actual_top - target.top) / max(target.top, 1.0)
+    heart_dev = abs(actual_heart - target.heart) / max(target.heart, 1.0)
+    base_dev = abs(actual_base - target.base) / max(target.base, 1.0)
+
+    avg_dev = (top_dev + heart_dev + base_dev) / 3.0
+    fit = max(0.0, 1.0 - avg_dev)
+
+    if fit >= 0.90:
+        status = "optimal"
+    elif fit >= 0.70:
+        status = "acceptable"
+    elif fit >= 0.50:
+        status = "needs_improvement"
+    else:
+        status = "off_target"
+
+    details = (
+        f"Expected T:{target.top:.0f}% H:{target.heart:.0f}% B:{target.base:.0f}%, "
+        f"Actual T:{actual_top:.1f}% H:{actual_heart:.1f}% B:{actual_base:.1f}%"
+    )
+
+    return PyramidEvaluation(
+        family_key=resolved,
+        bracket=br.value,
+        target_top=target.top,
+        target_heart=target.heart,
+        target_base=target.base,
+        actual_top=round(actual_top, 2),
+        actual_heart=round(actual_heart, 2),
+        actual_base=round(actual_base, 2),
+        top_deviation=top_dev,
+        heart_deviation=heart_dev,
+        base_deviation=base_dev,
+        overall_fit=round(fit, 4),
+        status=status,
+        details=details,
+    )
+
+
+@dataclass(frozen=True, slots=True)
+class OAVFamilyEvaluation:
+    """Result of evaluating formula OAVs against family targets."""
+
+    family_key: str
+    time_window: str
+    targets: dict[str, float]  # odour_family → target OAV
+    actuals: dict[str, float]  # odour_family → actual summed OAV
+    hits: tuple[dict[str, Any], ...]  # per-target evaluation
+    overall_fit: float
+    status: str
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "family_key": self.family_key,
+            "time_window": self.time_window,
+            "targets": dict(self.targets),
+            "actuals": dict(self.actuals),
+            "hits": [dict(h) for h in self.hits],
+            "overall_fit": round(self.overall_fit, 4),
+            "status": self.status,
+        }
+
+
+def evaluate_oav_family_targets(
+    material_oavs: dict[str, float],
+    material_families: dict[str, str],
+    family: str,
+    time_window: str = "heart",
+) -> OAVFamilyEvaluation:
+    """Evaluate formula OAVs against per-family, per-window OAV targets.
+
+    Args:
+        material_oavs: {material_name: computed OAV}
+        material_families: {material_name: odour_family tag}
+        family: target perfume family key
+        time_window: "top" | "heart" | "base"
+
+    Returns:
+        OAVFamilyEvaluation with per-odour-family fit assessment
+    """
+    resolved = resolve_family_key(family)
+    target_map = get_oav_targets(resolved)
+    window_targets = target_map.get(time_window.lower(), {})
+
+    if not window_targets:
+        return OAVFamilyEvaluation(
+            family_key=resolved,
+            time_window=time_window,
+            targets={},
+            actuals={},
+            hits=(),
+            overall_fit=0.0,
+            status="no_targets_defined",
+        )
+
+    actuals: dict[str, float] = {}
+    for material, oav in material_oavs.items():
+        odour_family = material_families.get(material, "unknown").lower()
+        actuals[odour_family] = actuals.get(odour_family, 0.0) + oav
+
+    hits: list[dict[str, Any]] = []
+    scores: list[float] = []
+
+    for odour_family, target in window_targets.items():
+        actual = actuals.get(odour_family, 0.0)
+        ratio = actual / target if target > 0 else float("inf")
+        if 0.5 <= ratio <= 2.0:
+            hit_status = "within_range"
+            score = 1.0
+        elif 0.3 <= ratio <= 3.0:
+            hit_status = "moderate_deviation"
+            score = 0.6
+        else:
+            hit_status = "off_target"
+            score = 0.0
+        scores.append(score)
+        hits.append(
+            {
+                "odour_family": odour_family,
+                "target_oav": target,
+                "actual_oav": round(actual, 2),
+                "ratio": round(ratio, 3),
+                "status": hit_status,
+                "score": score,
+            }
+        )
+
+    overall = sum(scores) / len(scores) if scores else 0.0
+    if overall >= 0.85:
+        status = "optimal"
+    elif overall >= 0.60:
+        status = "acceptable"
+    elif overall >= 0.30:
+        status = "needs_improvement"
+    else:
+        status = "off_target"
+
+    return OAVFamilyEvaluation(
+        family_key=resolved,
+        time_window=time_window,
+        targets=dict(window_targets),
+        actuals={k: round(v, 2) for k, v in actuals.items()},
+        hits=tuple(hits),
+        overall_fit=round(overall, 4),
+        status=status,
+    )
+
+
+@dataclass(frozen=True, slots=True)
+class AccordSuggestion:
+    """A suggested accord with fit score for bridging a formula gap."""
+
+    accord_name: str
+    accord_type: str
+    fit_score: float  # 0.0-1.0
+    reason: str
+    materials: tuple[dict[str, Any], ...]
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "accord_name": self.accord_name,
+            "accord_type": self.accord_type,
+            "fit_score": round(self.fit_score, 4),
+            "reason": self.reason,
+            "materials": [dict(m) for m in self.materials],
+        }
+
+
+def suggest_accord(
+    missing_odour_families: list[str],
+    desired_family: str = "",
+) -> list[AccordSuggestion]:
+    """Suggest accords to fill missing odour families in a formula.
+
+    Args:
+        missing_odour_families: list of odour family tags missing from formula
+        desired_family: optional target perfume family for filtering
+
+    Returns:
+        List of AccordSuggestion ranked by fit score
+    """
+    if not missing_odour_families:
+        return []
+
+    suggestions: list[AccordSuggestion] = []
+    for accord in all_accords():
+        accord_type = accord.accord_type.value.replace("_accord", "")
+
+        matches = 0
+        for missing in missing_odour_families:
+            if missing.lower() in accord_type.lower():
+                matches += 1
+            elif missing.lower() in accord.description.lower():
+                matches += 0.5
+
+        if matches > 0:
+            fit = min(matches / len(missing_odour_families), 1.0)
+            if desired_family and accord.family:
+                if desired_family.lower().replace(" ", "_") == accord.family.value:
+                    fit += 0.2
+
+            suggestions.append(
+                AccordSuggestion(
+                    accord_name=accord.name,
+                    accord_type=accord.accord_type.value,
+                    fit_score=min(fit, 1.0),
+                    reason=f"Fills {int(matches)} of {len(missing_odour_families)} missing odour families",
+                    materials=tuple(
+                        {
+                            "material": m.material,
+                            "percent": m.percent,
+                            "role": m.role,
+                            "target_oav": m.target_oav,
+                        }
+                        for m in accord.materials
+                    ),
+                )
+            )
+
+    suggestions.sort(key=lambda s: -s.fit_score)
+    return suggestions[:5]
+
+
+def get_family_for_formula(
+    formula_pct: dict[str, float],
+    material_families: dict[str, str],
+) -> dict[str, float]:
+    """Infer the dominant perfume family for a formula based on material proportions.
+
+    Returns a dict of family → proportion score (0.0-1.0).
+    """
+    scores: dict[str, float] = {}
+    total = sum(formula_pct.values()) or 1.0
+
+    for material, pct in formula_pct.items():
+        odour_family = material_families.get(material, "").lower()
+        if not odour_family:
+            continue
+        weight = pct / total
+
+        # Map odour families to root perfume families
+        for perfume_family in PerfumeFamily.__members__.values():
+            if (
+                odour_family in perfume_family.value
+                or perfume_family.value in odour_family
+            ):
+                scores[perfume_family.value] = (
+                    scores.get(perfume_family.value, 0.0) + weight
+                )
+                break
+        else:
+            scores[odour_family] = scores.get(odour_family, 0.0) + weight
+
+    # Normalize
+    score_total = sum(scores.values()) or 1.0
+    return {k: round(v / score_total, 4) for k, v in scores.items()}
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# HEURISTIC NOTE MAP
+# ═══════════════════════════════════════════════════════════════════════════════
+
+
+class SubstringNoteMap(dict[str, str]):
+    """A dict that falls back to substring matching when exact key lookup fails.
+
+    If ``d.get("bergamot fcf", "heart")`` doesn't find "bergamot fcf" exactly,
+    it searches for any token in ``top_tokens`` or ``base_tokens`` within the key,
+    then caches the result for O(1) subsequent access.
+    """
+
+    top_tokens: frozenset[str] = frozenset()
+    heart_tokens: frozenset[str] = frozenset()
+    base_tokens: frozenset[str] = frozenset()
+
+    def __missing__(self, key: str) -> str:
+        result = self._resolve(key)
+        self[key] = result
+        return result
+
+    def get(self, key: str, default: str | None = None) -> str | None:
+        if key in self:
+            return self[key]
+        result = self._resolve(key)
+        if result is not None:
+            self[key] = result
+            return result
+        return default
+
+    def _resolve(self, key: str) -> str | None:
+        lower = key.lower()
+        if any(t in lower for t in self.top_tokens):
+            return "top"
+        if any(t in lower for t in self.heart_tokens):
+            return "heart"
+        if any(t in lower for t in self.base_tokens):
+            return "base"
+        return None
+
+
+def _default_note_map() -> SubstringNoteMap:
+    """Build a SubstringNoteMap that handles inventory-suffixed names
+    like "Bergamot FCF" and "Vetiver EO (India)" automatically.
+
+    Substring matching means you never need to maintain an exhaustive
+    list of every inventory variant.
+    """
+    m = SubstringNoteMap()
+    m.top_tokens = frozenset(
+        {
+            "bergamot",
+            "cedrat",
+            "citron",
+            "lemon",
+            "lime",
+            "grapefruit",
+            "mandarin",
+            "blood orange",
+            "sweet orange",
+            "neroli",
+            "petitgrain",
+            "limonene",
+            "d-limonene",
+            "dihydromyrcenol",
+            "calone",
+            "floralozone",
+            "aldehyde c10",
+            "aldehyde c11",
+            "aldehyde c12 mna",
+            "cis-3-hexenol",
+            "hexyl acetate",
+            "ethyl 2-methylbutyrate",
+            "allyl amyl glycolate",
+            "methyl pamplemousse",
+            "linalool",
+            "linalyl acetate",
+            "benzyl acetate",
+            "benzyl alcohol",
+            "galbanum",
+            "dynascone",
+            "leafovert",
+            "verdox",
+            "parmavert",
+            "scentenal",
+            "triplal",
+            "apritone",
+            "terpinyl acetate",
+            "lemonile",
+        }
+    )
+    m.heart_tokens = frozenset(
+        {
+            "hedione",
+            "flower",
+            "floral",
+            "jasmine",
+            "rose",
+            "lavender",
+            "ylang",
+            "champaca",
+            "muguet",
+            "lily",
+            "orris",
+            "ionone",
+            "kephalis",
+            "vetival",
+            "helional",
+            "cyclamen",
+            "freesia",
+            "hydroxycitronellal",
+            "geraniol",
+            "citronellol",
+            "phenethyl",
+            "peonile",
+            "bourgeonal",
+            "lilyreal",
+            "nympheal",
+            "mayol",
+            "farnesol",
+            "rhodinol",
+            "rose oxide",
+            "damascone",
+            "damascenone",
+            "jasmone",
+            "jessemal",
+            "dihydrojasmone",
+            "phenyl ethyl",
+            "heliotropin",
+            "heliotropal",
+            "indole",
+            "styrax",
+            "ethyl safranate",
+        }
+    )
+    m.base_tokens = frozenset(
+        {
+            "vanillin",
+            "ethyl vanillin",
+            "coumarin",
+            "benzoin",
+            "labdanum",
+            "patchouli",
+            "vetiver",
+            "cedarwood",
+            "sandalore",
+            "ebanol",
+            "javanol",
+            "bacdanol",
+            "polysantol",
+            "iso e super",
+            "ambrox",
+            "ambrofix",
+            "ambermax",
+            "cashmeran",
+            "norlimbanol",
+            "timberol",
+            "ethylene brassylate",
+            "galaxolide",
+            "habanolide",
+            "romandolide",
+            "exaltolide",
+            "ambrettolide",
+            "zenolide",
+            "macrolide",
+            "vertofix",
+            "koavone",
+            "cedramber",
+            "vetival",
+            "clearwood",
+            "evernyl",
+            "musk ketone",
+            "birch tar",
+            "styrax",
+            "isobutyl quinoline",
+            "oud",
+            "guaiacol",
+            "olibanum",
+            "myrrh",
+            "tonka bean",
+            "ethyl maltol",
+            "heliotropin",
+            "maple lactone",
+            "alpha irone",
+            "dihydro beta ionone",
+            "allyl ionone",
+            "tobacco",
+            "cinnamon",
+            "eugenol",
+            "isoeugenol",
+            "cinnamaldehyde",
+        }
+    )
+    return m
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# EXPORT LIST
+# ═══════════════════════════════════════════════════════════════════════════════
+
+__all__ = [
+    # From taxonomy
+    "PerfumeFamily",
+    "PerfumeSubfamily",
+    "AccordType",
+    "SolifloreType",
+    "ConcentrationBracket",
+    "all_families",
+    "all_subfamilies",
+    "get_family_description",
+    "get_subfamilies",
+    "get_parent_family",
+    "get_subfamily_description",
+    "taxonomy_tree",
+    # From accord library
+    "AccordMaterial",
+    "AccordRecipe",
+    "all_accords",
+    "get_accord",
+    "accords_by_family",
+    "accords_by_type",
+    # From soliflore structures
+    "SolifloreComponent",
+    "SolifloreStructure",
+    "all_soliflores",
+    "get_soliflore",
+    "soliflore_material_list",
+    # From pyramid targets
+    "PyramidRatio",
+    "get_pyramid",
+    "get_oav_targets",
+    "get_oav_target",
+    "get_compatibility",
+    "get_material_role_range",
+    "PYRAMID_RATIOS",
+    "OAV_TARGETS_BY_FAMILY",
+    "CROSS_FAMILY_COMPATIBILITY",
+    "MATERIAL_ROLE_RATIOS",
+    # Unified engine
+    "PerfumeKnowledge",
+    "perfume_knowledge",
+    # Pipeline bridge
+    "resolve_family_key",
+    "evaluate_pyramid_balance",
+    "PyramidEvaluation",
+    "evaluate_oav_family_targets",
+    "OAVFamilyEvaluation",
+    "suggest_accord",
+    "AccordSuggestion",
+    "get_family_for_formula",
+]

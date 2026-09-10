@@ -1,0 +1,135 @@
+import json
+from pathlib import Path
+
+from engine.pipeline.formula_state import build_formula_state
+from engine.pipeline.preflight import run_release_preflight
+from engine.inventory_parser import parse_inventory
+
+
+def _formula():
+    return {
+        "name": "Preflight Test",
+        "ingredients_ul": {
+            "Lavender EO": 700.0,
+            "Hedione": 900.0,
+            "Coumarin": 300.0,
+            "Iso E Super": 1500.0,
+        },
+        "dilutions": {
+            "Lavender EO": 1.0,
+            "Hedione": 1.0,
+            "Coumarin": 0.2,
+            "Iso E Super": 1.0,
+        },
+    }
+
+
+def test_release_preflight_contract_has_expected_checks():
+    formula = _formula()
+    state = build_formula_state(formula["ingredients_ul"], formula["dilutions"], batch_volume_ml=30.0)
+    report = run_release_preflight(formula, state).as_dict()
+
+    assert report["status"] in {"PASS", "WARN"}
+    names = [check.get("check_name") for check in report["checks"]]
+    assert "input_normalization" in names
+    assert "knowledge_graph_schema" in names
+    assert "literature_rule_contract" in names
+    assert "knowledge_rule_quality" in names
+    assert "odt_authority" in names
+    assert "data_authority" in names
+    assert "science_coverage" in names
+    assert "material_identity_and_physics" in names
+    assert report["confidence_penalty"] >= 0.0
+
+
+def test_release_preflight_fails_negative_input():
+    formula = _formula()
+    formula["ingredients_ul"]["Iso E Super"] = -1.0
+    state = build_formula_state(formula["ingredients_ul"], formula["dilutions"], batch_volume_ml=30.0)
+    report = run_release_preflight(formula, state).as_dict()
+    normalization = next(check for check in report["checks"] if check.get("check_name") == "input_normalization")
+    assert normalization["status"] == "FAIL"
+
+
+def test_ambrofix_rebased_stock_is_owned_but_not_pipette_executable():
+    records = [
+        record
+        for record in parse_inventory(unique=False, include_unavailable=True)
+        if record.name == "Ambrofix"
+    ]
+
+    assert len(records) == 1
+    stock = records[0]
+    assert stock.status == "owned"
+    assert abs(stock.dilution - 0.0727) < 1e-12
+    assert getattr(stock, "concentration_basis", "unspecified") == "w/w"
+    assert getattr(stock, "carrier", "") == "DEP/ETHANOL"
+    assert getattr(stock, "execution_ready", True) is False
+
+
+def test_release_preflight_blocks_ambrofix_while_pipettable_strength_is_on_hold():
+    formula = {
+        "name": "Superseded Ambrofix stock",
+        "ingredients_ul": {"Ambrofix": 200.0},
+        "dilutions": {"Ambrofix": 0.30},
+    }
+    state = build_formula_state(
+        formula["ingredients_ul"], formula["dilutions"], batch_volume_ml=30.0
+    )
+    report = run_release_preflight(formula, state).as_dict()
+    checks = {check["check_name"]: check for check in report["checks"]}
+
+    assert "inventory_stock_contract" in checks
+    assert checks["inventory_stock_contract"]["status"] == "FAIL"
+    assert checks["inventory_stock_contract"]["data"]["issues"] == [
+        {"material": "Ambrofix", "reason": "stock_basis_verify_first"}
+    ]
+
+
+def test_generated_ambrofix_metadata_does_not_publish_a_pipette_dilution():
+    path = Path("data/knowledge_graph/material_properties.json")
+    materials = json.loads(path.read_text(encoding="utf-8"))
+    ambrofix = next(
+        material
+        for material in materials
+        if str(material.get("name", "")).casefold() == "ambrofix"
+    )
+
+    assert ambrofix["dilution_pct"] is None
+    assert ambrofix["execution_ready"] is False
+    assert ambrofix["concentration_basis"] == "w/w"
+    assert ambrofix["carrier"] == "DEP/ETHANOL"
+
+
+def test_generated_ingredient_catalog_keeps_ambrofix_owned_but_not_executable():
+    path = Path("data/knowledge_graph/ingredient_catalog.json")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    ambrofix = next(
+        material
+        for material in payload["ingredients"]
+        if material.get("identity_key") == "ambrofix"
+    )
+
+    assert ambrofix["owned_now"] is True
+    assert ambrofix.get("execution_ready", True) is False
+    current_stock = next(
+        stock
+        for stock in ambrofix.get("inventory_stocks", [])
+        if stock["status"] == "owned"
+    )
+    assert current_stock == {
+        "raw_name": (
+            "Ambrofix (7.27% w/w whole-bottle nominal in DEP/ethanol; "
+            "visible excess crystals; heterogeneous; pipettable active "
+            "concentration HOLD)  # user-rebased 2026-08-28: empty bottle "
+            "11.45 g; final bottle 14.09 g; contents 2.64 g = 0.192 g "
+            "Ambrofix + 0.448 g DEP + 2.000 g ethanol; no prior withdrawal; "
+            "do not pipette until clear and stable for 48 h"
+        ),
+        "dilution": 0.0727,
+        "concentration_basis": "w/w",
+        "carrier": "DEP/ETHANOL",
+        "status": "owned",
+        "execution_ready": False,
+        "dilution_authoritative": True,
+    }

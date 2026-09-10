@@ -1,0 +1,765 @@
+# L'Homme Luxe — Ginger Silhouette — DHP 2025 Stock-Corrected Control V6
+
+## Authority and status
+
+**Date:** 2026-09-02
+**Concentration:** 20% EdP; 6,000 uL concentrate + 24.00 mL ethanol 96%
+**Batch size:** 30 mL finished perfume
+**Family:** daylight fresh woody aromatic L'Homme; `aromatic_fougere` is a computational routing label, not permission to add a generic fougere chassis
+**Predecessor:** `formulas/L_Homme_Luxe_Ginger_Silhouette_DHP2025_TargetNative_V5_30mL_20pct_Development.md`, commit `2de52df4e254258aeb79f924f7ea8cec33989e98`; current working-byte SHA-256 `C3D6EDD26A06C9B13947AB2916B324524D9CD0EE7CF94B814FDF2C4B4DFA7D8B`; Git-normalized immutable bytes used by the manifest SHA-256 `3709F1DB9E187B3C67215C3AA39B5D96DAC76B7B857631D7A020047D6C56F33E`
+**Status:** `DESIGN HYPOTHESIS / STOCK-CORRECTED FAMILY CONTROL / NOT TESTED / HOLD`
+**Authority boundary:** `NO COMPOUNDING`, `NO PROCUREMENT`, `NO SAFETY OR STABILITY CLEARANCE`, `NO PERFORMANCE CLAIM`, and `NO RELEASE`.
+
+This versioned control preserves the immutable V5 ideal and its target-native topology while correcting its executable stock assumptions against `inventory.txt` dated 2026-08-30. It does not rewrite V5. All 660 uL of carrier required by the three stock gaps is parser-resolved inside one target-specific, whole-use Ginger EO working stock; the carrier is not aromatic complexity and does not prove that the missing functions have been recovered.
+
+<!-- donor-independence-manifest:
+{
+  "schema_version": "donor-independence-v1",
+  "predecessor": {
+    "path": "formulas/L_Homme_Luxe_Ginger_Silhouette_DHP2025_TargetNative_V5_30mL_20pct_Development.md",
+    "git_revision": "2de52df4e254258aeb79f924f7ea8cec33989e98",
+    "sha256": "3709F1DB9E187B3C67215C3AA39B5D96DAC76B7B857631D7A020047D6C56F33E"
+  },
+  "donor_signatures": [
+    {
+      "path": "docs/research/donor_signatures/dhp_2025_niche_house_v1.json",
+      "signature_sha256": "7FAC8B1159E161E3AD6CF9E02FD1695B0798C46676748550F2E532CCF150C5F1",
+      "source_sha256": "6DC50A2ACA5705EFAEEC3326F07B74DB8645CA91314227E167A85209AFC7475C"
+    },
+    {
+      "path": "docs/research/donor_signatures/opus_v_woods_symphony_v1.json",
+      "signature_sha256": "DB8D21CAEBD01E348406EC967C600DBE89B05DFE4C9705812730295BEAACD139",
+      "source_sha256": "73DE02D9E28D65866EFD68B9B6D1FD2F29B797AAEE959D5C8C6D2DC86EAB9C9B"
+    },
+    {
+      "path": "docs/research/donor_signatures/white_fire_reliquary_v2.json",
+      "signature_sha256": "4457D54DD69A30AA9EAED42958B938AD1FE729C6090C6FC74C2A3B004EB3760A",
+      "source_sha256": "B0604A4BEB49FA24DE34099EF84E4B4A13877684DF14B0F7D2395E379A5651C4"
+    }
+  ],
+  "declared_current_rows": 53,
+  "declared_current_total_ul": 6000,
+  "source_dispositions": [
+    {"source_row":"Bergamot FCF oil Sicilian","disposition":"KEEP","rationale":"V5 polished rind dose and target-linked aperture function remain unchanged."},
+    {"source_row":"Lemon FCF oil Sicilian","disposition":"KEEP","rationale":"V5 literal cold peel edge remains unchanged and subordinate to ginger."},
+    {"source_row":"Lemonile","disposition":"KEEP","rationale":"V5 persistent lemon seam remains at the owned 1% DPG stock and dose."},
+    {"source_row":"Aldehyde C10","disposition":"KEEP","rationale":"V5 warm peel expansion remains at the owned 1% stock and dose."},
+    {"source_row":"Aldehyde C11","disposition":"KEEP","rationale":"V5 waxed metallic glint remains at the owned 1% stock and dose."},
+    {"source_row":"Linalyl Acetate","disposition":"KEEP","rationale":"V5 peel-to-aromatic ester seam remains unchanged."},
+    {"source_row":"Linalool","disposition":"KEEP","rationale":"V5 restrained aromatic body remains unchanged."},
+    {"source_row":"White Pepper EO","disposition":"IDEAL-ONLY","rationale":"Exact pale pepper remains in the ideal; current Black Pepper is an earthier proxy and is not declared equivalent."},
+    {"source_row":"Ginger EO","disposition":"REBASE","rationale":"The protected nominal 230 uL wet-cut ginger identity dose remains unchanged inside a parser-resolved 890 uL whole-use Ginger EO/DPG working stock; no sensory change is inferred."},
+    {"source_row":"Dihydrojasmone","disposition":"KEEP","rationale":"V5 living green-floral hinge remains unchanged."},
+    {"source_row":"Jessemal","disposition":"KEEP","rationale":"V5 fatty-fibrous rhizome body remains unchanged."},
+    {"source_row":"Ginger CO2 Extract","disposition":"IDEAL-ONLY","rationale":"Exact oily rhizome interior remains ideal-only; the Jessemal-centered current tissue is only a functional approximation."},
+    {"source_row":"Citral","disposition":"KEEP","rationale":"V5 cut-surface flash remains at its prepared 10% route and dose."},
+    {"source_row":"Ethyl Linalool","disposition":"IDEAL-ONLY","rationale":"The exact material is absent from live inventory; 120 uL of the DPG inside the whole-use Ginger EO working stock preserves raw volume while Jessemal and Terpinyl Acetate only approximate tissue continuity."},
+    {"source_row":"Terpinyl Acetate","disposition":"KEEP","rationale":"V5 aromatic fiber into cedar remains unchanged."},
+    {"source_row":"Cardamom EO","disposition":"KEEP","rationale":"V5 subordinate 10% cineolic facet remains unchanged and below LNDL scale."},
+    {"source_row":"Clary Sage EO","disposition":"KEEP","rationale":"V5 dry stem and fiber seam remains unchanged."},
+    {"source_row":"Alpha Isomethyl Ionone","disposition":"KEEP","rationale":"The owned Alpha Isomethyl Ionone row preserves the V5 violet-cloth body; no stock-specific AIMI physics claim is made."},
+    {"source_row":"Parmavert","disposition":"IDEAL-ONLY","rationale":"The dated inventory now records Parmavert as owned, but this control does not add a new green variable to the historical V5 current topology."},
+    {"source_row":"Leafovert","disposition":"KEEP","rationale":"V5 sharp cut-leaf face and dose remain unchanged."},
+    {"source_row":"Violet Leaf Absolute","disposition":"IDEAL-ONLY","rationale":"The owned 10% DPG stock remains visible in the ideal; this stock correction isolates non-executable V5 rows instead of adding a new natural variable."},
+    {"source_row":"Alpha Ionone","disposition":"KEEP","rationale":"V5 bright violet edge remains unchanged."},
+    {"source_row":"Beta Ionone","disposition":"KEEP","rationale":"V5 bruised violet-root trace remains at the owned 1% TEC stock and dose."},
+    {"source_row":"Allyl Ionone","disposition":"KEEP","rationale":"V5 leaf-to-cedar seam remains unchanged."},
+    {"source_row":"Basil EO (India, Ocimum Basilicum)","disposition":"KEEP","rationale":"V5 recognizable basil tailoring remains at its measurable prepared-stock dose."},
+    {"source_row":"PEDMC","disposition":"KEEP","rationale":"V5 magnolia-like cloth veil remains unchanged."},
+    {"source_row":"Mayol","disposition":"KEEP","rationale":"V5 bounded transparent muguet volume remains unchanged."},
+    {"source_row":"Hedione HC","disposition":"REBASE","rationale":"Hedione HC is absent from live inventory; owned Hedione is bounded at 200 uL and 150 uL of the DPG inside the whole-use Ginger EO working stock holds the removed volume without claiming high-cis equivalence."},
+    {"source_row":"Dihydromyrcenol","disposition":"KEEP","rationale":"V5 prepared 10% sub-blue propulsion remains unchanged."},
+    {"source_row":"Cyclamen Aldehyde","disposition":"KEEP","rationale":"V5 watery-green perimeter remains unchanged."},
+    {"source_row":"Calone","disposition":"KEEP","rationale":"V5 trace humidity separator remains at the owned 1% stock and dose."},
+    {"source_row":"Helional","disposition":"KEEP","rationale":"V5 mineral-air spacing remains unchanged."},
+    {"source_row":"Iso E Super","disposition":"KEEP","rationale":"V5 bounded abstract cedar corridor remains below literal cedar mass."},
+    {"source_row":"Cedarwood EO","disposition":"KEEP","rationale":"V5 broad natural cedar body remains unchanged."},
+    {"source_row":"Cedarwood oil Virginia","disposition":"KEEP","rationale":"V5 pencil-dry literal grain remains unchanged as an omission-test hypothesis."},
+    {"source_row":"Himalayan Cedarwood EO","disposition":"KEEP","rationale":"V5 cool mineral-balsamic cedar grain remains unchanged."},
+    {"source_row":"Vetiver EO (India)","disposition":"KEEP","rationale":"V5 current earthy root shadow remains unchanged."},
+    {"source_row":"Haitian Vetiver EO","disposition":"IDEAL-ONLY","rationale":"Exact clean-dry Haitian register remains in the ideal; Indian vetiver is darker and is not declared equivalent."},
+    {"source_row":"Vetikon","disposition":"KEEP","rationale":"V5 diffusive vetiver continuity remains unchanged."},
+    {"source_row":"Vetival","disposition":"KEEP","rationale":"V5 suede-dry root fiber remains unchanged."},
+    {"source_row":"Koavone","disposition":"KEEP","rationale":"V5 ginger-residue-to-wood connector remains unchanged."},
+    {"source_row":"Tonkarome","disposition":"KEEP","rationale":"V5 dry synthetic tonka contour remains at the recorded 20% w/w TEC stock and dose."},
+    {"source_row":"Tonka Bean Absolute","disposition":"KEEP","rationale":"V5 natural hay-almond grain remains at the recorded 10% DPG stock and dose."},
+    {"source_row":"Coumarin","disposition":"KEEP","rationale":"V5 dry hay edge remains unchanged and subordinate."},
+    {"source_row":"Sandalore","disposition":"KEEP","rationale":"V5 fresh sandalwood face remains unchanged."},
+    {"source_row":"Polysantol","disposition":"IDEAL-ONLY","rationale":"Polysantol is depleted; 30 uL Ebanol plus 390 uL of the DPG inside the whole-use Ginger EO working stock is a bounded yielding-texture hypothesis, not chemical or sensory equivalence."},
+    {"source_row":"Cashmeran","disposition":"KEEP","rationale":"V5 small textile warmth remains unchanged and does not become a pressure chassis."},
+    {"source_row":"Dihydro Beta Ionone","disposition":"KEEP","rationale":"V5 soft woody-violet interior remains unchanged."},
+    {"source_row":"Cis Jasmone","disposition":"KEEP","rationale":"V5 ginger-to-cloth green-petal curvature remains unchanged."},
+    {"source_row":"Freesia HDI","disposition":"KEEP","rationale":"V5 transparent green-floral textile veil remains unchanged."},
+    {"source_row":"Beta-Pinene","disposition":"KEEP","rationale":"V5 measurable prepared 1% dry-cortex cut remains unchanged."},
+    {"source_row":"Rose Oxide","disposition":"KEEP","rationale":"V5 metallic leaf glint remains at the owned 1% stock and dose, not as a rose subject."},
+    {"source_row":"Triplal","disposition":"KEEP","rationale":"V5 two-stage 0.1% wet-cut incision remains unchanged."},
+    {"source_row":"Floralozone","disposition":"KEEP","rationale":"V5 bounded ozone glint remains at the recorded 10% stock and dose."},
+    {"source_row":"Scentenal","disposition":"KEEP","rationale":"V5 secondary 0.1% metallic perimeter remains unchanged."},
+    {"source_row":"Benzyl Benzoate","disposition":"KEEP","rationale":"V5 quiet slow mass remains unchanged and is not counted as audible complexity."},
+    {"source_row":"Dynascone","disposition":"KEEP","rationale":"V5 trace bitter-green incision remains unchanged."},
+    {"source_row":"Romandolide","disposition":"KEEP","rationale":"Romandolide remains the sole exact clean-woody musk and recurrence aura."}
+  ],
+  "source_module_dispositions": [
+    {"source_module":"Polished peel aperture","disposition":"KEEP","rationale":"The V5 front-plane peel, pepper, and waxed-glint allocation remains unchanged."},
+    {"source_module":"Wet-cut ginger cortex","disposition":"KEEP","rationale":"The protected V5 wet-cut ginger surface and incision chemistry remain unchanged."},
+    {"source_module":"Warm rhizome heart","disposition":"REBASE","rationale":"Exact Ethyl Linalool becomes ideal-only; 120 uL of the DPG encoded in the whole-use Ginger EO working stock preserves module volume while retained ginger-tissue owners remain testable."},
+    {"source_module":"Violet tailored cloth","disposition":"KEEP","rationale":"The V5 ionone, muguet, and green-petal cloth remains unchanged."},
+    {"source_module":"Green-metallic incision field","disposition":"KEEP","rationale":"The V5 basil, leaf, metallic, and bitter perimeter remains unchanged."},
+    {"source_module":"Air and negative space","disposition":"REBASE","rationale":"Owned Hedione 200 uL plus a 150 uL DPG allocation encoded in the whole-use Ginger EO working stock replaces unavailable Hedione HC 350 uL without claiming equivalence."},
+    {"source_module":"Literal cedar-vetiver grain","disposition":"KEEP","rationale":"All V5 literal cedar, vetiver, and root-fiber rows remain unchanged."},
+    {"source_module":"Natural tonka-sandal yielding chamber","disposition":"REBASE","rationale":"Depleted Polysantol 420 uL is held in the ideal; Ebanol 30 uL plus a 390 uL DPG allocation encoded in the whole-use Ginger EO working stock is a bounded functional approximation requiring omission testing."},
+    {"source_module":"Slow transition and recurrence matrix","disposition":"KEEP","rationale":"V5 Cashmeran and Benzyl Benzoate slow-matrix doses remain unchanged."},
+    {"source_module":"Sole Romandolide aura","disposition":"KEEP","rationale":"V5 one-musk outward clean-woody aura remains unchanged."}
+  ],
+  "target_modules": [
+    "polished peel aperture",
+    "wet-cut ginger cortex",
+    "stock-bounded warm rhizome heart",
+    "violet tailored cloth",
+    "green-metallic incision field",
+    "bounded air and negative space",
+    "literal cedar-vetiver grain",
+    "stock-corrected tonka-sandal yielding chamber",
+    "slow transition and recurrence matrix",
+    "sole Romandolide aura"
+  ]
+}
+-->
+
+## Target identity
+
+The protected subject is L'Homme rendered as a daylight tailored ginger silhouette: polished bergamot and literal lemon reveal a wet-cut ginger cortex; warm fibrous ginger tissue passes into violet-green cloth with restrained basil and pepper; literal cedar and vetiver carry the subject into a hayed, yielding base; one Romandolide aura extends the dry woody outline.
+
+The pleasure hypothesis is continuity between crisp cut, supple cloth, and dry wood. This control does not optimize for scores and does not claim pleasure. It exists to provide one current-stock family comparator for later blinded flanker work.
+
+Excluded takeovers remain: cardamom-led LNDL; lipstick iris or Prada/Dior Homme drift; literal rose; sweet amber, vanilla, pastry, or cinnamon; leather, oud, smoke, tinctures, opoponax, or myrrh; Dihydromyrcenol sport-blue identity; Hedione or Iso E identity; hard amberwood walls; and multi-musk laundry effects.
+
+## Functional architecture before dosing
+
+The budgets below conserve V5's ten modules and 6,000 uL topology. The current parser row for the whole-use Ginger EO working stock crosses module bookkeeping: its 230 uL nominal Ginger EO fraction belongs to the cortex, while its 660 uL DPG fraction is allocated as 120 uL warm-heart volume hold, 150 uL air-field volume hold, and 390 uL yielding-chamber volume hold.
+
+| Module | Raw uL | % concentrate | Plane / texture | V6 current mapping and owned function |
+|---|---:|---:|---|---|
+| Polished peel aperture | 530 | 8.833 | front / polished-waxed | V5 rind, lemon, aldehydes, aromatic ester, and pepper remain unchanged |
+| Wet-cut ginger cortex | 290 | 4.833 | front-middle / wet-cut-crisp | The working stock contributes 230 uL nominal Ginger EO here; Citral, Dihydrojasmone, and trace incisions retain the cold cut |
+| Warm rhizome heart | 560 | 9.333 | living middle / fatty-fibrous | V5 ginger tissue remains; absent Ethyl Linalool's 120 uL is held by 120 uL of the DPG encoded in the Ginger EO working stock |
+| Violet tailored cloth | 670 | 11.167 | middle / tailored-cloth | Ionones, PEDMC, Mayol, Freesia, and Cis Jasmone remain the cloth |
+| Green-metallic incision field | 90 | 1.500 | perimeter / leafy-metallic-bitter | Basil, Leafovert, Rose Oxide, Dynascone, and Scentenal remain bounded |
+| Air and negative space | 490 | 8.167 | around-behind / humid-mineral-radiant | Hedione 200 plus 150 uL of the DPG encoded in the Ginger EO working stock replaces unavailable Hedione HC 350 without equivalence; the other air rows remain |
+| Literal cedar-vetiver grain | 1,380 | 23.000 | rear vertical / pencil-mineral-rooty | Literal cedar and vetiver rows remain unchanged |
+| Natural tonka-sandal yielding chamber | 1,320 | 22.000 | interior base / hayed-creamy-yielding | Polysantol 420 becomes Ebanol 30 plus 390 uL of the DPG encoded in the Ginger EO working stock; all other tonka/sandal rows remain |
+| Slow transition and recurrence matrix | 320 | 5.333 | through-line / textile-slow | Cashmeran and Benzyl Benzoate remain unchanged |
+| Sole Romandolide aura | 350 | 5.833 | outer aura / clean-woody | Romandolide remains the only musk |
+| **Total** | **6,000** | **100.000** | | **Ten conserved modules; three transparent stock rebases** |
+
+## Spatial, temporal, textural, transition, pressure/release, and recurrence maps
+
+### Spatial planes
+
+| Plane | Owners | Intended relationship |
+|---|---|---|
+| Front glint | Bergamot, lemon, aldehydes, pepper | Polish and cold cut disclose ginger rather than obscure it |
+| Living middle | Ginger EO, Jessemal, Dihydrojasmone, Cis Jasmone, ionones | Warm tissue and violet cloth remain one subject |
+| Rear contour | literal cedars, vetiver set, Koavone, Sandalore, Ebanol hypothesis | Dry grain and yielding interior oppose without forming an amberwood wall |
+| Through-line / residue | Terpinyl Acetate, Coumarin, Tonka, Cashmeran, Benzyl Benzoate | Fiber, hay, textile, and quiet mass transform ginger into late residue |
+| Aura | air field plus Romandolide | Negative space and one clean-woody musk outline the subject |
+
+### Five temporal windows
+
+| Window | Intended front | Intended middle | Intended rear / recurrence | Evidence state |
+|---|---|---|---|---|
+| opening, 0-5 min | polished rind, lemon, pepper, wet ginger | citral and terpene incision | first violet-metal and cedar glints | NOT TESTED |
+| top, 5-30 min | ginger cortex contracts | Jessemal and jasmone expose warm fiber | leaf and metallic stitches sharpen the cloth | NOT TESTED |
+| heart, 30-120 min | violet-green fiber | ionone and muguet cloth | cedar and vetiver become legible through bounded air | NOT TESTED |
+| late heart, 2-6 h | dry violet-root line | tonka, coumarin, Sandalore, and Ebanol hypothesis yield inward | literal woods and Romandolide hold contour | NOT TESTED |
+| drydown, 6-24 h | faint dry cut | hayed tonka and sandal warmth | cedar-vetiver residue inside one musk aura | NOT TESTED |
+
+### Ten transition and recurrence links
+
+| # | Link | Shared chemical or textural edge | Failure mode |
+|---:|---|---|---|
+| 1 | peel -> ginger cortex | citral, linalyl acetate, pepper, beta-pinene | citrus cleaner beside unrelated ginger |
+| 2 | cortex -> rhizome heart | Ginger EO, Jessemal, Dihydrojasmone, Cis Jasmone | volatile ginger falls into a hollow middle |
+| 3 | rhizome -> violet cloth | Cis Jasmone, retained floral tissue, ionones | violet appears as detached powder |
+| 4 | cloth -> green incision | Leafovert, basil, Rose Oxide, Dynascone, Scentenal | tailored leaf perimeter disappears |
+| 5 | green incision -> air | Cyclamen, Floralozone, Helional, bounded Hedione | green becomes flat, harsh, or marine |
+| 6 | violet cloth -> cedar grain | Allyl Ionone, Dihydro Beta Ionone, Cashmeran, Iso E | cosmetic-to-wood splice |
+| 7 | ginger fiber -> vetiver root | Terpinyl Acetate, clary, Koavone, Vetival | base loses the named subject |
+| 8 | cedar grain -> yielding sandal | Koavone, Sandalore, bounded Ebanol hypothesis | woods become a rigid stack or creamy takeover |
+| 9 | vetiver root -> tonka grain | Coumarin, Tonkarome, Tonka Absolute | tonka reads edible or pasted on |
+| 10 | base interior -> aura | Ebanol hypothesis, Cashmeran, Romandolide | musk floats outside the perfume as detergent |
+
+### Nineteen conserved textural roles
+
+Polished; waxed; wet-cut; crisp; fatty; fibrous; tailored-cloth; leafy; metallic; bitter; humid; mineral; pencil-dry; rooty; hayed; creamy-yielding; textile; slow; clean-woody.
+
+### Pressure, release, and recurrence
+
+Ginger cut, bitter-green incision, literal dry grain, and mineral air provide pressure. Jasmone tissue, the violet cloth, bounded Hedione, Sandalore, the Ebanol hypothesis, and quiet matrix provide release. Late recurrence is relational rather than literal: terpinyl fiber, vetiver root, hayed tonka, cedar grain, and Romandolide recall ginger's dryness, warmth, and outline. None of these temporal or sensory effects has been observed.
+
+## Source-lineage conservation ledger
+
+V5 provides 58 TARGET / IDEAL rows, ten target-native modules, five temporal windows, ten transition/recurrence links, nineteen textures, and one exact musk. V6 preserves those floors. The ideal is unchanged. The current table makes three explicit stock corrections, encodes their conserved carrier inside one target-specific Ginger EO working stock, and otherwise holds V5 active doses constant.
+
+| # | V5 ideal row | Disposition | V6 control conservation |
+|---:|---|---|---|
+| 1 | Bergamot FCF oil Sicilian | KEEP | Same ideal and current dose; polished rind |
+| 2 | Lemon FCF oil Sicilian | KEEP | Same ideal and current dose; literal cold edge |
+| 3 | Lemonile | KEEP | Same ideal and owned 1% DPG current dose |
+| 4 | Aldehyde C10 | KEEP | Same ideal and owned 1% current dose |
+| 5 | Aldehyde C11 | KEEP | Same ideal and owned 1% current dose |
+| 6 | Linalyl Acetate | KEEP | Same ester seam and dose |
+| 7 | Linalool | KEEP | Same restrained aromatic body and dose |
+| 8 | White Pepper EO | IDEAL-ONLY | Black Pepper remains an earthier current proxy, not an equivalent |
+| 9 | Ginger EO | REBASE | Protected nominal active dose unchanged at 230 uL; current row is the parser-resolved, whole-use Ginger EO/DPG working stock |
+| 10 | Dihydrojasmone | KEEP | Living hinge unchanged |
+| 11 | Jessemal | KEEP | Fatty-fibrous tissue unchanged |
+| 12 | Ginger CO2 Extract | IDEAL-ONLY | Exact oily interior absent; current approximation remains bounded |
+| 13 | Citral | KEEP | Prepared 10% cut flash unchanged |
+| 14 | Ethyl Linalool | IDEAL-ONLY | Absent live stock; 120 uL of DPG inside the Ginger EO working stock holds raw volume |
+| 15 | Terpinyl Acetate | KEEP | Fibrous aromatic bridge unchanged |
+| 16 | Cardamom EO | KEEP | Subordinate prepared 10% dose unchanged |
+| 17 | Clary Sage EO | KEEP | Dry stem seam unchanged |
+| 18 | Alpha Isomethyl Ionone | KEEP | Owned canonical material and cloth role unchanged |
+| 19 | Parmavert | IDEAL-ONLY | Now owned, but not added to this isolated stock-correction control |
+| 20 | Leafovert | KEEP | V5 current cut-leaf face unchanged |
+| 21 | Violet Leaf Absolute | IDEAL-ONLY | Owned 10% DPG stock retained in ideal; not added as a new current variable |
+| 22 | Alpha Ionone | KEEP | Bright violet edge unchanged |
+| 23 | Beta Ionone | KEEP | Owned 1% TEC bruised-root trace unchanged |
+| 24 | Allyl Ionone | KEEP | Leaf-to-cedar seam unchanged |
+| 25 | Basil EO (India, Ocimum Basilicum) | KEEP | Prepared 10% tailoring dose unchanged |
+| 26 | PEDMC | KEEP | Cloth veil unchanged |
+| 27 | Mayol | KEEP | Muguet volume unchanged |
+| 28 | Hedione HC | REBASE | Ideal retained; current is Hedione 200 plus 150 uL of the DPG inside the Ginger EO working stock, not high-cis equivalence |
+| 29 | Dihydromyrcenol | KEEP | Prepared 10% sub-blue propulsion unchanged |
+| 30 | Cyclamen Aldehyde | KEEP | Watery-green perimeter unchanged |
+| 31 | Calone | KEEP | Owned 1% humidity trace unchanged |
+| 32 | Helional | KEEP | Mineral air unchanged |
+| 33 | Iso E Super | KEEP | Bounded abstract corridor unchanged |
+| 34 | Cedarwood EO | KEEP | Broad literal cedar body unchanged |
+| 35 | Cedarwood oil Virginia | KEEP | Pencil-dry grain unchanged |
+| 36 | Himalayan Cedarwood EO | KEEP | Cool balsamic-mineral grain unchanged |
+| 37 | Vetiver EO (India) | KEEP | Earthy root shadow unchanged |
+| 38 | Haitian Vetiver EO | IDEAL-ONLY | Exact clean-dry register remains absent |
+| 39 | Vetikon | KEEP | Diffusive root continuity unchanged |
+| 40 | Vetival | KEEP | Suede-dry fiber unchanged |
+| 41 | Koavone | KEEP | Ginger-residue-to-wood seam unchanged |
+| 42 | Tonkarome | KEEP | Recorded 20% w/w TEC contour unchanged |
+| 43 | Tonka Bean Absolute | KEEP | Recorded 10% DPG natural grain unchanged |
+| 44 | Coumarin | KEEP | Dry hay edge unchanged |
+| 45 | Sandalore | KEEP | Fresh sandal face unchanged |
+| 46 | Polysantol | IDEAL-ONLY | Depleted; current Ebanol 30 plus 390 uL of the DPG inside the Ginger EO working stock is a non-equivalent test hypothesis |
+| 47 | Cashmeran | KEEP | Small textile warmth unchanged |
+| 48 | Dihydro Beta Ionone | KEEP | Soft woody-violet interior unchanged |
+| 49 | Cis Jasmone | KEEP | Ginger-to-cloth curvature unchanged |
+| 50 | Freesia HDI | KEEP | Transparent textile veil unchanged |
+| 51 | Beta-Pinene | KEEP | Prepared 1% dry cut unchanged |
+| 52 | Rose Oxide | KEEP | Owned 1% metallic leaf glint unchanged |
+| 53 | Triplal | KEEP | Two-stage 0.1% wet incision unchanged |
+| 54 | Floralozone | KEEP | Owned 10% bounded ozone glint unchanged |
+| 55 | Scentenal | KEEP | Secondary 0.1% metallic perimeter unchanged |
+| 56 | Benzyl Benzoate | KEEP | Quiet slow mass unchanged |
+| 57 | Dynascone | KEEP | Owned 10% bitter-green incision unchanged |
+| 58 | Romandolide | KEEP | Sole exact musk unchanged |
+
+No row or function disappears without an allowed disposition. `IDEAL-ONLY` records a conserved ideal row, not sensory dormancy or a procurement instruction.
+
+## TARGET / IDEAL FORMULA
+
+This inventory-independent source-complete ideal is identical to V5: 58 rows and exactly 6,000 target parts. Ideal rows do not authorize procurement or compounding. Active ppm is nominal under the stated target stock form; `Target parts` is deliberately the final numeric column for deterministic conservation tests.
+
+| # | Material | Target stock form | Nominal active ppm | Target parts |
+|---:|---|---:|---:|---:|
+| 1 | Bergamot FCF oil Sicilian | 100% | 50000.000 | 300 |
+| 2 | Lemon FCF oil Sicilian | 100% | 1666.667 | 10 |
+| 3 | Lemonile | 1% | 83.333 | 50 |
+| 4 | Aldehyde C10 | 1% | 50.000 | 30 |
+| 5 | Aldehyde C11 | 1% | 50.000 | 30 |
+| 6 | Linalyl Acetate | 100% | 13333.333 | 80 |
+| 7 | Linalool | 100% | 1666.667 | 10 |
+| 8 | White Pepper EO | 100% | 3333.333 | 20 |
+| 9 | Ginger EO | 100% | 38333.333 | 230 |
+| 10 | Dihydrojasmone | 100% | 3333.333 | 20 |
+| 11 | Jessemal | 100% | 16666.667 | 100 |
+| 12 | Ginger CO2 Extract | 10% | 1333.333 | 80 |
+| 13 | Citral | 10% | 333.333 | 20 |
+| 14 | Ethyl Linalool | 100% | 20000.000 | 120 |
+| 15 | Terpinyl Acetate | 100% | 20000.000 | 120 |
+| 16 | Cardamom EO | 10% | 166.667 | 10 |
+| 17 | Clary Sage EO | 10% | 166.667 | 10 |
+| 18 | Alpha Isomethyl Ionone | 100% | 30000.000 | 180 |
+| 19 | Parmavert | 100% | 16666.667 | 100 |
+| 20 | Leafovert | 100% | 3333.333 | 20 |
+| 21 | Violet Leaf Absolute | 10% | 1000.000 | 60 |
+| 22 | Alpha Ionone | 100% | 1666.667 | 10 |
+| 23 | Beta Ionone | 1% | 33.333 | 20 |
+| 24 | Allyl Ionone | 100% | 8333.333 | 50 |
+| 25 | Basil EO (India, Ocimum Basilicum) | 10% | 500.000 | 30 |
+| 26 | PEDMC | 100% | 16666.667 | 100 |
+| 27 | Mayol | 100% | 13333.333 | 80 |
+| 28 | Hedione HC | 100% | 58333.333 | 350 |
+| 29 | Dihydromyrcenol | 10% | 166.667 | 10 |
+| 30 | Cyclamen Aldehyde | 100% | 5000.000 | 30 |
+| 31 | Calone | 1% | 33.333 | 20 |
+| 32 | Helional | 100% | 10000.000 | 60 |
+| 33 | Iso E Super | 100% | 31666.667 | 190 |
+| 34 | Cedarwood EO | 100% | 18333.333 | 110 |
+| 35 | Cedarwood oil Virginia | 100% | 50000.000 | 300 |
+| 36 | Himalayan Cedarwood EO | 100% | 53333.333 | 320 |
+| 37 | Vetiver EO (India) | 100% | 18333.333 | 110 |
+| 38 | Haitian Vetiver EO | 100% | 20000.000 | 120 |
+| 39 | Vetikon | 100% | 15000.000 | 90 |
+| 40 | Vetival | 100% | 5000.000 | 30 |
+| 41 | Koavone | 100% | 18333.333 | 110 |
+| 42 | Tonkarome | 20% | 3333.333 | 100 |
+| 43 | Tonka Bean Absolute | 10% | 7500.000 | 450 |
+| 44 | Coumarin | 20% | 1666.667 | 50 |
+| 45 | Sandalore | 100% | 50000.000 | 300 |
+| 46 | Polysantol | 100% | 70000.000 | 420 |
+| 47 | Cashmeran | 100% | 6666.667 | 40 |
+| 48 | Dihydro Beta Ionone | 100% | 25000.000 | 150 |
+| 49 | Cis Jasmone | 100% | 5000.000 | 30 |
+| 50 | Freesia HDI | 100% | 13333.333 | 80 |
+| 51 | Beta-Pinene | 1% | 16.667 | 10 |
+| 52 | Rose Oxide | 1% | 16.667 | 10 |
+| 53 | Triplal | 0.1% | 1.667 | 10 |
+| 54 | Floralozone | 10% | 333.333 | 20 |
+| 55 | Scentenal | 0.1% | 1.667 | 10 |
+| 56 | Benzyl Benzoate | 100% | 36666.667 | 220 |
+| 57 | Dynascone | 10% | 166.667 | 10 |
+| 58 | Romandolide | 100% | 58333.333 | 350 |
+| | **Target total** | | | **6000** |
+
+## CURRENT-INVENTORY BUILD
+
+This is the only parser-visible current recipe. It contains 53 rows and totals exactly 6,000 uL. Every direct source-stock measurement and formula aliquot is at least 10 uL. The Ginger EO working-stock percentage is nominal v/v volume arithmetic only; it does not establish w/w equivalence, density, homogeneity, or stability. Other nominal active-equivalent and ppm values are likewise volume-design bookkeeping only; w/w, natural-mixture, or density-unknown stocks retain their stated uncertainty. ODT and OAV values are computational diagnostics in the fresh analysis below, not sensory evidence.
+
+| # | Ingredient | Canonical stock identity | Dilution | Basis | Carrier | Raw Amount uL | Nominal active uL | Nominal active ppm | ODT / modeled OAV status | Primary functional owner |
+|---:|---|---|---:|---|---|---:|---:|---:|---|---|
+| 1 | Bergamot FCF oil Sicilian | Bergamot FCF oil Sicilian | 100% | implicit supplied stock | none recorded | 300 | 300.000 | 50000.000 | composite-natural diagnostic below | polished complex rind |
+| 2 | Lemon FCF oil Sicilian | Lemon FCF oil Sicilian | 100% | implicit supplied stock | none recorded | 10 | 10.000 | 1666.667 | composite-natural diagnostic below | literal cold peel edge |
+| 3 | Lemonile | Lemonile 1% in DPG | 1% | stated dilution; basis unspecified | DPG | 50 | 0.500 | 83.333 | local ODT diagnostic below | persistent lemon seam |
+| 4 | Aldehyde C10 | Aldehyde C10 1% | 1% | stated dilution; basis unspecified | unspecified | 30 | 0.300 | 50.000 | local ODT diagnostic below | warm peel expansion |
+| 5 | Aldehyde C11 | Aldehyde C11 undecylenic 1% | 1% | stated dilution; basis unspecified | unspecified | 30 | 0.300 | 50.000 | local ODT diagnostic below | cold waxed-metal edge |
+| 6 | Linalyl Acetate | Linalyl Acetate | 100% | implicit neat | none recorded | 80 | 80.000 | 13333.333 | local ODT diagnostic below | peel-to-aromatic ester seam |
+| 7 | Linalool | Linalool | 100% | implicit neat | none recorded | 10 | 10.000 | 1666.667 | local ODT diagnostic below | restrained aromatic body |
+| 8 | Black Pepper EO | Black Pepper EO | 100% | implicit supplied stock | none recorded | 20 | 20.000 | 3333.333 | composite-natural diagnostic below | earthier available pepper proxy |
+| 9 | Ginger EO | future `Ginger EO 25.842697% v/v in DPG` whole-use working stock | 25.842697% | nominal v/v preparation design; use whole stock | DPG | 890 | 230.000 nominal | 38333.333 nominal | composite-natural diagnostic below; homogeneity/stability NOT TESTED | 230 uL wet-cut ginger cortex + 660 uL conserved carrier |
+| 10 | Dihydrojasmone | Dihydrojasmone | 100% | implicit neat | none recorded | 20 | 20.000 | 3333.333 | local ODT diagnostic below | living green-floral hinge |
+| 11 | Jessemal | Jessemal (Jasmonyl) | 100% | implicit neat | none recorded | 270 | 270.000 | 45000.000 | local ODT diagnostic below | warm fatty-fibrous rhizome body |
+| 12 | Citral | future Citral 10% working stock | 10% | preparation design | DPG | 20 | 2.000 | 333.333 | local ODT diagnostic below | lemon-ginger cut flash |
+| 13 | Terpinyl Acetate | Terpinyl Acetate | 100% | implicit neat | none recorded | 120 | 120.000 | 20000.000 | local ODT diagnostic below | aromatic fiber into cedar |
+| 14 | Cardamom EO | future Cardamom EO 10% working stock | 10% | preparation design | DPG | 10 | 1.000 | 166.667 | composite-natural diagnostic below | subordinate cineolic facet |
+| 15 | Clary Sage EO | future Clary Sage EO 10% working stock | 10% | preparation design | DPG | 10 | 1.000 | 166.667 | composite-natural diagnostic below | dry stem and fiber seam |
+| 16 | Cis Jasmone | Cis Jasmone | 100% | implicit neat | none recorded | 30 | 30.000 | 5000.000 | local ODT diagnostic below | green-petal curvature in ginger tissue |
+| 17 | Beta-Pinene | future Beta-Pinene 1% working stock | 1% | preparation design | DPG | 10 | 0.100 | 16.667 | local ODT diagnostic below | dry terpene cortex cut |
+| 18 | Alpha Isomethyl Ionone | Alpha Isomethyl Ionone (Methyl Ionone Pure) | 100% | implicit neat | none recorded | 180 | 180.000 | 30000.000 | local ODT diagnostic below | violet-cloth body |
+| 19 | Leafovert | Leafovert neat | 100% | user-confirmed neat | none | 30 | 30.000 | 5000.000 | local ODT diagnostic below | sharp cut-leaf face |
+| 20 | Alpha Ionone | Alpha Ionone | 100% | implicit neat | none recorded | 10 | 10.000 | 1666.667 | local ODT diagnostic below | bright violet edge |
+| 21 | Beta Ionone | Beta Ionone 1% in TEC | 1% | stated dilution; basis unspecified | TEC | 20 | 0.200 | 33.333 | local ODT diagnostic below | bruised violet root |
+| 22 | Allyl Ionone | Allyl Ionone (Ketone V) | 100% | implicit neat | none recorded | 50 | 50.000 | 8333.333 | local ODT diagnostic below | leaf-to-cedar seam |
+| 23 | Dihydro Beta Ionone | Dihydro Beta Ionone | 100% | implicit neat | none recorded | 150 | 150.000 | 25000.000 | local ODT diagnostic below | soft woody-violet interior |
+| 24 | Basil EO (India, Ocimum Basilicum) | future Basil EO 10% working stock | 10% | preparation design | DPG | 30 | 3.000 | 500.000 | composite-natural diagnostic below | recognizable basil tailoring |
+| 25 | PEDMC | Phenyl Ethyl Dimethyl Carbinol | 100% | implicit neat | none recorded | 100 | 100.000 | 16666.667 | local ODT diagnostic below | magnolia veil around cloth |
+| 26 | Mayol | Mayol | 100% | implicit neat | none recorded | 80 | 80.000 | 13333.333 | local ODT diagnostic below | transparent muguet volume |
+| 27 | Freesia HDI | Freesia HDI | 100% | implicit supplied stock | none recorded | 80 | 80.000 | 13333.333 | local ODT diagnostic below | green-floral textile veil |
+| 28 | Rose Oxide | Rose Oxide 1% | 1% | stated dilution; basis unspecified | unspecified | 10 | 0.100 | 16.667 | local ODT diagnostic below | metallic leafy glint, not rose subject |
+| 29 | Dynascone | Dynascone 10% | 10% | stated dilution; basis unspecified | unspecified | 10 | 1.000 | 166.667 | local ODT diagnostic below | bitter galbanic incision |
+| 30 | Scentenal | future Scentenal 0.1% working stock | 0.1% | secondary preparation design | DPG | 10 | 0.010 | 1.667 | local ODT diagnostic below | metallic perimeter |
+| 31 | Hedione | Hedione | 100% | implicit neat | none recorded | 200 | 200.000 | 33333.333 | local ODT diagnostic below; not HC equivalence | bounded rear radiance and negative space |
+| 32 | Dihydromyrcenol | future Dihydromyrcenol 10% working stock | 10% | preparation design | DPG | 10 | 1.000 | 166.667 | local ODT diagnostic below | sub-blue propulsion |
+| 33 | Cyclamen Aldehyde | Cyclamen Aldehyde | 100% | implicit neat | none recorded | 30 | 30.000 | 5000.000 | local ODT diagnostic below | watery-green perimeter |
+| 34 | Calone | Calone 1% | 1% | stated dilution; basis unspecified | unspecified | 20 | 0.200 | 33.333 | local ODT diagnostic below | trace humidity separator |
+| 35 | Helional | Helional | 100% | implicit neat | none recorded | 60 | 60.000 | 10000.000 | local ODT diagnostic below | mineral air |
+| 36 | Floralozone | Floralozone 10% | 10% | stated dilution; basis unspecified | unspecified | 20 | 2.000 | 333.333 | local ODT diagnostic below | bounded ozone glint |
+| 37 | Triplal | future Triplal 0.1% working stock | 0.1% | two-stage preparation design | DPG | 10 | 0.010 | 1.667 | local ODT diagnostic below | fresh wet-cut incision |
+| 38 | Iso E Super | Iso E Super | 100% | implicit neat | none recorded | 190 | 190.000 | 31666.667 | local ODT diagnostic below | bounded abstract cedar corridor |
+| 39 | Cedarwood EO | Cedarwood EO | 100% | implicit supplied stock | none recorded | 110 | 110.000 | 18333.333 | composite-natural diagnostic below | broad natural cedar body |
+| 40 | Cedarwood oil Virginia | Cedarwood oil Virginia | 100% | canonical implicit neat | none recorded | 300 | 300.000 | 50000.000 | composite-natural diagnostic below | pencil-dry literal grain |
+| 41 | Himalayan Cedarwood EO | Himalayan Cedarwood EO | 100% | implicit supplied stock | none recorded | 320 | 320.000 | 53333.333 | composite-natural diagnostic below | cool mineral-balsamic grain |
+| 42 | Vetiver EO (India) | Indian Vetiver EO (volume grade) | 100% | implicit supplied stock | none recorded | 230 | 230.000 | 38333.333 | composite-natural diagnostic below | earthy root shadow |
+| 43 | Vetikon | Vetikon (7403-42-1) | 100% | implicit neat | none recorded | 90 | 90.000 | 15000.000 | local ODT diagnostic below | diffusive vetiver continuity |
+| 44 | Vetival | Vetival | 100% | implicit neat | none recorded | 30 | 30.000 | 5000.000 | local ODT diagnostic below | suede-dry root fiber |
+| 45 | Koavone | Koavone | 100% | implicit neat | none recorded | 110 | 110.000 | 18333.333 | local ODT diagnostic below | ginger-residue-to-wood connector |
+| 46 | Tonkarome | Tonkarome 20% w/w in TEC | 20% | w/w; volume conversion nominal | TEC | 100 | 20.000 nominal | 3333.333 nominal | density and OAV interpretation HOLD | dry synthetic tonka contour |
+| 47 | Tonka Bean Absolute | Tonka Bean Absolute 10% in DPG | 10% | basis unspecified | DPG | 450 | 45.000 nominal | 7500.000 nominal | composite-natural diagnostic; exact active volume HOLD | natural hay-almond grain |
+| 48 | Coumarin | Coumarin 20% design stock | 20% | preparation design | DPG | 50 | 10.000 | 1666.667 | local ODT diagnostic below | hayed tonka-vetiver edge |
+| 49 | Sandalore | Sandalore | 100% | implicit neat | none recorded | 300 | 300.000 | 50000.000 | local ODT diagnostic below | fresh sandalwood face |
+| 50 | Ebanol | Ebanol | 100% | implicit neat | none recorded | 30 | 30.000 | 5000.000 | local ODT diagnostic; approximation only | bounded yielding-sandal hypothesis |
+| 51 | Cashmeran | Cashmeran neat | 100% | explicit neat | none | 40 | 40.000 | 6666.667 | local ODT diagnostic below | warm textile seam |
+| 52 | Benzyl Benzoate | Benzyl Benzoate | 100% | implicit neat | none recorded | 280 | 280.000 | 46666.667 | local ODT diagnostic below | quiet slow transition mass |
+| 53 | Romandolide | Romandolide neat | 100% | user-confirmed neat | none | 350 | 350.000 | 58333.333 | local ODT diagnostic below | sole musk and clean-woody aura |
+| | **Concentrate total** | | | | | **6000** | | | | |
+
+Arithmetic identity: starting from the 6,000 uL V5 current topology, `6000 - 230 Ginger EO neat - 120 Ethyl Linalool - 350 Hedione HC - 420 Polysantol + 890 Ginger EO/DPG working stock + 200 Hedione + 30 Ebanol = 6000 uL`. The working-stock identity is `230 uL Ginger EO + 660 uL DPG = 890 uL`; `230 / 890 = 25.8426966...% v/v`, displayed as 25.842697%, so its nominal active is 230 uL and its conserved carrier is 660 uL. Parser-visible rows: 53. Parser-resolved nominal aromatic active total: 4,527.72 uL. Minimum direct source-stock measurement and formula aliquot: 10 uL. Exact musks: Romandolide only.
+
+## Candidate-survival and omission audit
+
+| Decision | Rows / function | Evidence-bound ruling |
+|---|---|---|
+| KEEP | 50 unchanged V5 current rows, including sole Romandolide | Preserve control topology; no sensory success inferred |
+| REBASE | Ginger EO 230 neat + all 660 uL conserved DPG -> whole-use Ginger EO working stock 890 | Parser-safe carrier encoding preserves exactly 230 uL nominal Ginger EO and 660 uL DPG; nominal v/v arithmetic is not a w/w, homogeneity, stability, or sensory claim |
+| IDEAL-ONLY | Ethyl Linalool | Missing exact stock; 120 uL of the DPG encoded in the Ginger EO working stock preserves volume and retained tissue owners only approximate continuity |
+| REBASE | Hedione HC -> Hedione 200 + 150 uL encoded DPG | Current stock correction; the DPG allocation is inside the Ginger EO working stock and does not provide chemical, cis-content, OAV, or sensory equivalence |
+| IDEAL-ONLY + functional approximation | Polysantol -> Ebanol 30 + 390 uL encoded DPG | Depletion correction; the DPG allocation is inside the Ginger EO working stock, and Ebanol must beat carrier omission without creamy takeover |
+| IDEAL-ONLY by control isolation | Parmavert and Violet Leaf Absolute | Both are currently owned, but adding either would confound the minimal control rebase |
+| REJECT WITH ISOLATED TEST/RATIONALE | Cis-3-Hexenol 1% | Owned but not a V5 source row; a new literal cut-grass variable is excluded from the control |
+| REJECT | Ambrofix, Bacdanol, Guaiacwood user-prepared record, Benzyl Salicylate, depleted musks, tinctures | Non-executable, quantitative HOLD, unavailable, depleted, or outside the exact one-musk target |
+
+The stock corrections are hypotheses, not a finding that neutral carrier can recover an absent odor function. A null or adverse omission result leaves the affected module on HOLD.
+
+## Inventory and stock audit
+
+**Authority read:** `inventory.txt`, updated 2026-08-30. Current inventory outranks stale V5 stock prose while V5's historical statements remain unchanged.
+
+| Authority item | Current ruling | Formula consequence |
+|---|---|---|
+| Polysantol | DEPLETED 2026-08-29 | Ideal-only; absent from current; Ebanol 30 uL plus the 390 uL DPG allocation inside the Ginger EO working stock is explicitly non-equivalent |
+| Liquid Ambrofix | owned but heterogeneous liquid-phase strength unknown; NON-EXECUTABLE / HOLD | absent; no active-uL, ppm, OAV, or volume-dose math |
+| Ambrofix Crystals | separate solid record | no substitution or equivalence inferred |
+| Bacdanol | owned; stock fraction unspecified; quantitative HOLD | no current dose or active calculation |
+| Guaiacwood user-prepared record | nominal 33% Guaiacwood EO + 33% ethanol + 33% DEP, stated total 99%, carrier ethanol + DEP, basis unspecified, unresolved 1%, execution_ready false, quantitative HOLD | absent; no active-uL, ppm, OAV, or volume-dose math |
+| Parmavert | restored owned implicit-neat stock | retained in ideal; deliberately not introduced into this minimal control |
+| Cis-3-Hexenol 1% | restored owned stock | not a V5 source row; excluded from control |
+| Violet Leaf Absolute 10% DPG | owned | retained in ideal; not introduced as a second control variable |
+| Hedione HC | absent from live inventory; Hedione is owned | ideal retained; current Hedione 200 plus the 150 uL DPG allocation inside the Ginger EO working stock, no equivalence claim |
+| Ethyl Linalool | absent from live inventory | ideal retained; current 120 uL DPG volume hold is inside the Ginger EO working stock |
+| White Pepper EO / Ginger CO2 Extract / Haitian Vetiver EO | absent exact identities | ideal-only; existing proxies remain explicitly limited |
+| All prepared tinctures | lost and unavailable | none used |
+| Benzyl Salicylate | not owned | none used |
+| Tonalide, Macrolide, Musk Ketone | depleted | none used; Romandolide is sole musk |
+| Givaudan AIMI | owned but stock-specific identity/physics unresolved | current row selects canonical Alpha Isomethyl Ionone, not a stock-specific AIMI OAV claim |
+
+No current row uses Polysantol, liquid Ambrofix, Bacdanol, the Guaiacwood user-prepared record, Benzyl Salicylate, a lost tincture, or a depleted musk.
+
+## Working-stock preparation ledger
+
+Preparations are future design instructions only and do not authorize compounding. Each prepared stock requires exact source, carrier, concentration, basis, date, preparer, complete dissolution, and label. Every source-stock measurement and formula aliquot is at least 10 uL.
+
+| Formula stock | Preparation route | Formula aliquot | Source equivalent | Binding note |
+|---|---|---:|---:|---|
+| Lemonile 1% DPG | existing stock | 50 uL | 0.5 uL nominal neat | never dose neat as the micro-intervention |
+| Aldehyde C10 1% | existing stock | 30 uL | 0.3 uL nominal neat | use owned dilution |
+| Aldehyde C11 1% | existing stock | 30 uL | 0.3 uL nominal neat | use owned dilution |
+| Citral 10% DPG | 100 uL Citral + 900 uL DPG | 20 uL | 2 uL neat | prepare before formula dosing |
+| Cardamom EO 10% DPG | 100 uL source + 900 uL DPG | 10 uL | 1 uL neat | subordinate only |
+| Clary Sage EO 10% DPG | 100 uL source + 900 uL DPG | 10 uL | 1 uL neat | prepare before dosing |
+| Beta-Pinene 1% DPG | 10 uL neat source + 990 uL DPG | 10 uL | 0.1 uL neat | direct source measurement meets floor |
+| Beta Ionone 1% TEC | existing stock | 20 uL | 0.2 uL nominal neat | use owned 1% stock |
+| Basil EO 10% DPG | 100 uL source + 900 uL DPG | 30 uL | 3 uL neat | removes historical sub-10-uL neat request |
+| Rose Oxide 1% | existing stock | 10 uL | 0.1 uL nominal neat | use 1%, not 10%, bottle |
+| Dynascone 10% | existing stock | 10 uL | 1 uL nominal neat | use owned dilution |
+| Scentenal 0.1% DPG | 100 uL owned 1% + 900 uL DPG | 10 uL | 0.01 uL neat | secondary stock required |
+| Dihydromyrcenol 10% DPG | 100 uL source + 900 uL DPG | 10 uL | 1 uL neat | prepare before dosing |
+| Calone 1% | existing stock | 20 uL | 0.2 uL nominal neat | use owned dilution |
+| Floralozone 10% | existing stock | 20 uL | 2 uL nominal neat | use owned dilution |
+| Triplal 0.1% DPG | 10 uL neat + 990 uL DPG = 1%; then 100 uL of 1% + 900 uL DPG | 10 uL | 0.01 uL neat | two-stage route; no sub-floor source measurement |
+| Tonkarome 20% w/w TEC | existing recorded stock | 100 uL | 20 uL nominal active | density prevents exact active-volume claim |
+| Tonka Bean Absolute 10% DPG | existing recorded stock | 450 uL | 45 uL nominal active | exact basis/density retained as uncertainty |
+| Coumarin 20% DPG | prepare from owned powder only under separate handling authority | 50 uL | 10 uL nominal active | current saturated stock is not silently relabeled 20% |
+| `Ginger EO 25.842697% v/v in DPG` | combine exactly 230 uL Ginger EO with 660 uL DPG to make 890 uL; label with material, nominal v/v percentage, DPG carrier, date, preparer, and `WHOLE STOCK FOR V6 CONTROL` | 890 uL; use the entire stock | 230 uL nominal Ginger EO + 660 uL DPG | nominal volume arithmetic only; do not infer w/w equivalence; homogeneity and stability are NOT TESTED; no partial-dose reinterpretation |
+
+## Missing-chemical impact gate
+
+| Exact source material / state | Current handling | Residual limitation | Impact | Future controlled action |
+|---|---|---|---|---|
+| Ethyl Linalool | 120 uL of the DPG inside the whole-use Ginger EO working stock is the volume hold; Jessemal and Terpinyl remain | slower floral-woody tissue continuity may be thinner | HIGH-MEDIUM | procure only after control utility; then constant-total exact-row comparison |
+| Hedione HC | Hedione 200 plus 150 uL of the DPG inside the whole-use Ginger EO working stock | high-cis lift, spatiality, and temporal behavior are not equivalent | HIGH-MEDIUM | compare exact verified HC stock against carrier-matched control if acquired |
+| Polysantol | Ebanol 30 plus 390 uL of the DPG inside the whole-use Ginger EO working stock | Ebanol may be creamier, more volatile, or less slowly yielding | HIGH | run Ebanol omission first; Polysantol procurement only if yielding module matters |
+| Ginger CO2 Extract | V5 Jessemal/jasmone tissue remains | oily warm rhizome may remain less literal | HIGH | exact-stock acquisition only after ginger-interior module survives |
+| Violet Leaf Absolute / Parmavert current admission | owned but held outside this minimal control | control may understate now-executable leaf realism | MEDIUM | later isolated constant-total leaf-module comparison, not silent insertion |
+| Haitian Vetiver EO | Indian vetiver, Vetikon, Vetival | current root is darker and less clean-dry | MEDIUM | exact-stock comparison after recurrence survives |
+| White Pepper EO | Black Pepper EO | current pepper is earthier and less luminous | MEDIUM-LOW | optional exact-stock comparison |
+
+The HIGH and HIGH-MEDIUM gaps block claims of full V5 olfactive equivalence. None blocks using this artifact as a theory-only current-stock comparator after separate compounding authority.
+
+## Future mixing order
+
+`FUTURE WORK / NO COMPOUNDING AUTHORIZED.` If physical work is later authorized: prepare and label all working stocks first; prepare the Ginger EO working stock from exactly 230 uL Ginger EO plus 660 uL DPG and reserve the complete 890 uL for one whole-stock addition; do not dose it by a rounded-percentage back-calculation; verify inventory identity and observed homogeneity under separate authority; combine quiet matrix and base rows, then cedar/vetiver and sandal/tonka rows, then violet/ginger tissue, then air/green traces, then volatile aperture; add the entire Ginger EO working stock once; add ethanol only after concentrate reconciliation; mature and inspect under a separately approved protocol. This route is NOT TESTED for homogeneity or stability. No mixing order is a safety, compatibility, or release clearance.
+
+## Controlled blinded test plan
+
+### Control qualification: Ebanol functional-approximation omission
+
+- `A / EC+`: this V6 control, including Ebanol 30 uL and the complete 890 uL Ginger EO working stock made from 230 uL Ginger EO plus 660 uL DPG.
+- `B / EC0`: omit Ebanol and instead prepare one separately labeled, whole-use B stock from 230 uL Ginger EO plus 690 uL DPG = 920 uL (`Ginger EO 25.000000% v/v in DPG — EC0`); this replaces A's combined 890 uL Ginger stock + 30 uL Ebanol block one-for-one. Every other row is identical. Nominal v/v arithmetic does not establish w/w equivalence, homogeneity, or stability.
+- Both are raw-volume constant at 6,000 uL and 20% finished concentration. They are not active-mass constant because the exact question is whether the bounded Ebanol hypothesis adds useful yielding texture versus neutral carrier.
+- Use at least two independently prepared master sets, duplicate coded pours, anonymous codes, AB/BA counterbalancing, equal application mass and substrate, separated sessions, and free description before scores.
+- Read at 0, 5, 30, and 120 minutes, then 6 and 24 hours. Score L'Homme identity, ginger-to-violet continuity, cedar grain, yielding texture, creamy takeover, woody clutter, drydown pleasure, overall liking, re-smell desire, muddiness, harshness, and fatigue separately.
+- Retain Ebanol in the family control only if both independent preparations show non-worse identity and liking plus a useful yielding transition without creamy/oriental drift. Null, discordant, or intensity-confounded outcomes remain `HOLD / NON-INFORMATIVE`.
+
+### Secondary stock-gap diagnostics
+
+Only after the Ebanol decision, test one axis at a time: bounded Hedione versus a carrier-matched omission in which the same complete 890 uL Ginger EO stock is retained and a separately labeled 200 uL DPG comparator aliquot replaces Hedione; then, if warranted, a current-owned leaf module versus matched carrier. Do not combine stock corrections in one causal claim. Later flankers compare against the qualified V6 control, never against historical V5 as if Polysantol were executable.
+
+## Pipeline Analysis
+
+```text
+# L'Homme Luxe — Ginger Silhouette — DHP 2025 Stock-Corrected Control V6
+
+## Gate Summary
+
+**94 PASS** / **36 WARN** / **0 FAIL**
+
+  WARN pipeline_preflight: 10 checks; 6 warnings
+  WARN odt_coverage: 28 material(s) rely on derived/unverified ODTs (58% OAV share)
+  WARN chemistry_stability: immature: predicted maturation 7 days (industry standard 14-42 days); predicted maturation shelf life 7 days
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 9.1% active mass across 4 materials
+  WARN fougere_skeleton: Fougère skeleton missing: lavender, oakmoss/evernyl [advisory guideline; not release-blocking]
+  WARN small_diluted_traces: Beta-Pinene=10.0uL at 1.0%; Cardamom EO=10.0uL at 10.0%; Clary Sage EO=10.0uL at 10.0%; Dihydromyrcenol=10.0uL at 10.0%; Dynascone=10.0uL at
+  WARN safety_ifra_allergen: 29 materials lack explicit IFRA Cat4 limits; 6 EU allergen declarations
+  WARN eu_allergen_declaration: EU allergens requiring label: linalool, alpha-isomethyl ionone, coumarin
+  WARN perfumer_logic: aromatic_fougere.classic_reference; rerun optimizer: fougere_aromatic_lavender_axis: 3.535% active below 5.000; fougere_coumarin_tonka_axis:
+  WARN family_drift_detector: aromatic_fougere.classic_reference; fougere_aromatic_lavender_axis: 3.535% active below 5.000; fougere_coumarin_tonka_axis: 0.167% active be
+  WARN novelty_vs_reference: reference/control archetype; familiar by design, not the new exploration target
+  WARN perfume_knowledge: top OAV off-target for family aromatic_fougere; heart OAV off-target for family aromatic_fougere; base OAV needs improvement for family arom
+  WARN carles_material_count: 53 materials — Carles upper limit is 40
+  WARN carles_accord_ratio: Extreme ratios (>8:1, Carles limit): bergamot fcf sicilian:lemonile = 300:1; bergamot fcf sicilian:aldehyde c10 = 51:1; bergamot fcf sicilia
+  WARN literature_compliance: Literature compliance: 1/5 principles passed (20%) [advisory guideline; not release-blocking]
+  WARN captive_availability: 1 captive, 2 now-available
+  WARN edge_cases: Musk coverage: 1%, gaps: 2, Bangkok VP ×157728.0
+  WARN dosing_tables: Potent: 2, solids: 1, viscous: 5 defined
+  WARN balance_axes: Balance axes evaluation skipped: type object 'MarketSegment' has no attribute 'MASS_MARKET'
+  WARN character_shifts: Gate skipped (API mismatch): check_zone_boundaries() missing 1 required positional argument: 'concentration_pct'
+  WARN musk_intelligence: Gate skipped (API mismatch): 'WoodyInfrastructureTrio' object has no attribute 'primary'
+  WARN jnd_redundancy: Potentially redundant pairs: leafovert vs triplal in green (OAV 5/5); dynascone vs scentenal in green (OAV 10/11); dihydromyrcenol vs vetive
+  WARN guerlain_rose_jasmine_balance: Rose:jasmine OAV ratio = 789.0:1 — Guerlain recommends <3:1
+  WARN jellinek_psychology: Jellinek categories weak: erogenic
+  WARN roudnitska_hedione_pct: Hedione = 3.3% of concentrate (<5%, minimal radiance effect)
+  WARN adaptation_timing: fast tier < 5% (no immediate impact)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 88%) — collapse risk
+  WARN mixture_suppression: 5 families each >10% OAV — mixture suppression likely (humans perceive ≤4)
+  WARN oav_intelligence: iso e super OAV 1157.1 is above aromatic_fougere target 30.0-80.0; linalool OAV 454.6 is above aromatic_fougere target 40.0-80.0; coumarin O
+  WARN olfactory_fatigue: Olfactory fatigue risk: hedione=3.3% of concentrate (<10% minimum for radiance)
+  WARN roudnitska_transparence: Transparency ratio 20% — too opaque, no lift (Roudnitska aesthetic) [advisory guideline; not release-blocking]
+  WARN tenacity_projection: VP<0.001Pa = 0% (<3%, may lack depth)
+  WARN master_perfumer_gate: too many materials for a readable formula
+  WARN mass_market_tier_check: 53 materials is high for mass production. Each material adds compounding cost and quality control risk. Aim for 18-28 for scalable manufactu
+  WARN robustness_perturbation: 106 fragile perturbation(s) across 106 checks; Bergamot FCF oil Sicilian up: brief grammar failure under perturbation; Bergamot FCF oil Sici
+  WARN confidence_minimum: combined confidence 26.4; preflight science penalty 28.9
+
+
+## Headspace OAV — Opening (0s)
+
+| # | Material | OAV | Note | Percept | VP Pa | Vapor ppm | ODT ppm | Act g | MF% | Role |
+|---|--------|---|----|-------|-----|---------|-------|-----|---|----|
+|   1 | Ginger EO                    |     3697.7 | top   |  very strong |  10.000 |   18.4886 |  0.005000 |  0.2300 |  7.49 | Ginger EO
+|   2 | Lemon FCF oil Sicilian       |     2153.9 | top   |  very strong | 210.000 |   17.2311 |  0.008000 |  0.0086 |  0.28 | Lemon FCF oil Sicilian
+|   3 | Hedione                      |     1631.8 | heart |  very strong |   0.210 |    0.0816 |  0.000050 |  0.2000 |  3.92 | Hedione
+|   4 | Iso E Super                  |     1157.1 | heart |  very strong |   0.150 |    0.0579 |  0.000050 |  0.1900 |  3.59 | Iso E Super
+|   5 | Linalyl Acetate              |     1155.1 | top   |  very strong |  17.500 |    3.1188 |  0.002700 |  0.0800 |  1.81 | Linalyl Acetate
+|   6 | Bergamot FCF oil Sicilian    |      964.6 | heart |       strong |   2.500 |    5.7877 |  0.006000 |  0.3000 |  7.82 | Bergamot FCF oil Sicilian
+|   7 | Dihydrojasmone               |      537.1 | heart |       strong |   7.660 |    0.4028 |  0.000750 |  0.0200 |  0.53 | Dihydrojasmone
+|   8 | Linalool                     |      454.6 | top   |       strong |  21.300 |    0.6820 |  0.001500 |  0.0100 |  0.29 | Linalool
+|   9 | Ebanol                       |      378.4 | heart |       strong |   0.890 |    0.0795 |  0.000210 |  0.0300 |  0.60 | Ebanol
+|  10 | Alpha Isomethyl Ionone       |      248.0 | heart |       strong |   0.400 |    0.1984 |  0.000800 |  0.1800 |  3.87 | Alpha-Isomethyl Ionone
+|  11 | Cis Jasmone                  |      201.2 | heart |       strong |   1.333 |    0.1006 |  0.000500 |  0.0284 |  0.76 | Cis Jasmone
+|  12 | Vetikon                      |      157.9 | base  |       strong |   4.160 |    0.7896 |  0.005000 |  0.0900 |  2.26 | Vetikon
+|  13 | Mayol                        |      136.7 | heart |       strong |   1.500 |    0.4102 |  0.003000 |  0.0800 |  2.13 | Mayol
+|  14 | Beta-Pinene                  |      128.4 | top   |       strong | 400.000 |    0.3853 |  0.003000 |  0.0001 |  0.00 | Beta-Pinene
+|  15 | Alpha Ionone                 |       85.3 | heart | moderate-strong |   1.500 |    0.0341 |  0.000400 |  0.0100 |  0.23 | Alpha Ionone
+|  16 | Vetival                      |       84.1 | heart | moderate-strong |   6.530 |    0.5886 |  0.007000 |  0.0300 |  0.61 | Vetival
+|  17 | Beta Ionone                  |       78.0 | heart | moderate-strong |   1.200 |    0.0005 |  0.000007 |  0.0002 |  0.00 | Beta Ionone
+|  18 | Cyclamen Aldehyde            |       61.3 | heart | moderate-strong |   0.520 |    0.0466 |  0.000760 |  0.0300 |  0.70 | Cyclamen Aldehyde
+|  19 | Jessemal                     |       55.1 | heart | moderate-strong |   0.500 |    0.2755 |  0.005000 |  0.2700 |  5.58 | Jessemal
+|  20 | Cashmeran                    |       50.9 | base  | moderate-strong |   1.200 |    0.1017 |  0.002000 |  0.0400 |  0.86 | Cashmeran
+|  21 | Aldehyde C11                 |       50.0 | top   | moderate-strong |  50.000 |    0.0385 |  0.000770 |  0.0003 |  0.01 | Aldehyde C11
+|  22 | Vetiver EO (India)           |       48.5 | base  |     moderate |   0.040 |    0.0358 |  0.005000 |  0.2277 |  4.54 | Vetiver EO
+|  23 | Dihydromyrcenol              |       47.6 | top   |     moderate |  17.000 |    0.0476 |  0.001000 |  0.0010 |  0.03 | Dihydromyrcenol
+|  24 | PEDMC                        |       39.9 | heart |     moderate |   0.300 |    0.1198 |  0.003000 |  0.1000 |  2.70 | PEDMC
+|  25 | Cedarwood EO                 |       35.4 | base  |     moderate |   0.250 |    0.1177 |  0.015000 |  0.1100 |  2.38 | Cedarwood EO
+|  26 | Cardamom EO                  |       24.4 | top   |     moderate |  15.000 |    0.0717 |  0.003000 |  0.0009 |  0.02 | Cardamom EO
+|  27 | Koavone                      |       21.0 | base  |     moderate |   0.300 |    0.1049 |  0.005000 |  0.1100 |  2.36 | Koavone
+|  28 | Basil EO (India, Ocimum Basilicum) |       20.7 | top   |     moderate |   8.000 |    0.1036 |  0.005000 |  0.0030 |  0.09 | Basil EO (India, Ocimum Basili
+|  29 | Aldehyde C10                 |       19.1 | top   |     moderate |  10.000 |    0.0084 |  0.000440 |  0.0003 |  0.01 | Aldehyde C10
+|  30 | Romandolide                  |       17.3 | base  |     moderate |   0.100 |    0.0849 |  0.004900 |  0.3500 |  5.74 | Romandolide
+|  31 | Helional                     |       16.4 | heart |     moderate |   0.010 |    0.0016 |  0.000100 |  0.0600 |  1.38 | Helional
+|  32 | Black Pepper EO              |       12.8 | top   |     moderate |   0.300 |    0.0257 |  0.002000 |  0.0200 |  0.43 | Black Pepper EO
+|  33 | Coumarin                     |       12.5 | base  |     moderate |   0.190 |    0.0088 |  0.000700 |  0.0100 |  0.30 | Coumarin
+|  34 | Clary Sage EO                |       11.1 | top   |     moderate |   5.000 |    0.0223 |  0.002000 |  0.0010 |  0.02 | Clary Sage EO
+|  35 | Scentenal                    |       11.1 | heart |     moderate |   6.000 |    0.0002 |  0.000020 |  0.0000 |  0.00 | Scentenal
+|  36 | Dynascone                    |       10.2 | top   |     moderate |   0.150 |    0.0005 |  0.000050 |  0.0010 |  0.02 | Dynascone
+|  37 | Allyl Ionone                 |        7.6 | heart |  perceptible |   0.066 |    0.0076 |  0.001000 |  0.0466 |  0.89 | Allyl Ionone
+|  38 | Sandalore                    |        7.5 | base  |  perceptible |   0.080 |    0.0748 |  0.010000 |  0.3000 |  6.32 | Sandalore
+|  39 | Triplal                      |        5.3 | top   |  perceptible |  66.100 |    0.0027 |  0.000500 |  0.0000 |  0.00 | Triplal
+|  40 | Leafovert                    |        5.3 | top   |  perceptible |   0.500 |    0.0425 |  0.008000 |  0.0300 |  0.86 | Leafovert
+|  41 | Calone                       |        4.3 | heart | at threshold |   0.293 |    0.0002 |  0.000050 |  0.0002 |  0.00 | Calone
+|  42 | Tonkarome                    |        3.3 | base  | at threshold |   0.050 |    0.0016 |  0.000500 |  0.0200 |  0.55 | Tonkarome
+|  43 | Lemonile                     |        3.2 | top   | at threshold |   1.200 |    0.0016 |  0.000500 |  0.0005 |  0.01 | Lemonile
+|  44 | Terpinyl Acetate             |        3.1 | base  | at threshold |   0.400 |    0.1069 |  0.035000 |  0.1200 |  2.71 | Terpinyl Acetate
+|  45 | Rose Oxide                   |        3.0 | heart | at threshold |   5.300 |    0.0015 |  0.000500 |  0.0001 |  0.00 | Rose Oxide
+|  46 | Floralozone                  |        2.0 | heart | at threshold |   0.431 |    0.0020 |  0.001000 |  0.0020 |  0.05 | Floralozone
+|  47 | Himalayan Cedarwood EO       |        1.8 | base  | at threshold |   0.020 |    0.0274 |  0.015000 |  0.3200 |  6.94 | Himalayan Cedarwood EO
+|  48 | Citral                       |        1.5 | top   | at threshold |   3.500 |    0.0302 |  0.020000 |  0.0020 |  0.06 | Citral
+|  49 | Freesia HDI                  |        1.4 | heart | at threshold |   0.020 |    0.0041 |  0.003000 |  0.0800 |  2.08 | Freesia HDI
+|  50 | Dihydro Beta Ionone          |        1.4 | heart | at threshold |   0.020 |    0.0068 |  0.005000 |  0.1500 |  3.42 | Dihydro Beta Ionone
+|  51 | Tonka Bean Absolute          |        1.2 | base  | at threshold |   0.020 |    0.0012 |  0.001000 |  0.0450 |  1.02 | Tonka Bean Absolute
+|  52 | Cedarwood oil Virginia       |        0.5 | base  | sub-threshold |   0.005 |    0.0072 |  0.015000 |  0.2940 |  5.86 | Cedarwood oil Virginia
+|  53 | Benzyl Benzoate              |        0.0 | base  | sub-threshold |   0.001 |    0.0008 |  0.810000 |  0.2800 |  5.85 | Benzyl Benzoate
+
+**Materials:** 53 total (17 top, 22 heart, 14 base)
+**Total vapor:** 49.97 ppm
+
+### Note Distribution
+
+**TOP:** 17 mats, 8.6% active, 56.3% OAV
+  - Ginger EO                    OAV=  3697.7 (very strong) VP=10.000Pa
+  - Lemon FCF oil Sicilian       OAV=  2153.9 (very strong) VP=210.000Pa
+  - Linalyl Acetate              OAV=  1155.1 (very strong) VP=17.500Pa
+  - Linalool                     OAV=   454.6 (strong) VP=21.300Pa
+  - Beta-Pinene                  OAV=   128.4 (strong) VP=400.000Pa
+  - Aldehyde C11                 OAV=    50.0 (moderate-strong) VP=50.000Pa
+  ... and 11 more
+**HEART:** 22 mats, 40.0% active, 41.1% OAV
+  - Hedione                      OAV=  1631.8 (very strong) VP=0.210Pa
+  - Iso E Super                  OAV=  1157.1 (very strong) VP=0.150Pa
+  - Bergamot FCF oil Sicilian    OAV=   964.6 (strong) VP=2.500Pa
+  - Dihydrojasmone               OAV=   537.1 (strong) VP=7.660Pa
+  - Ebanol                       OAV=   378.4 (strong) VP=0.890Pa
+  - Alpha Isomethyl Ionone       OAV=   248.0 (strong) VP=0.400Pa
+  ... and 16 more
+**BASE:** 14 mats, 51.4% active, 2.6% OAV
+  - Vetikon                      OAV=   157.9 (strong) VP=4.160Pa
+  - Cashmeran                    OAV=    50.9 (moderate-strong) VP=1.200Pa
+  - Vetiver EO (India)           OAV=    48.5 (moderate) VP=0.040Pa
+  - Cedarwood EO                 OAV=    35.4 (moderate) VP=0.250Pa
+  - Koavone                      OAV=    21.0 (moderate) VP=0.300Pa
+  - Romandolide                  OAV=    17.3 (moderate) VP=0.100Pa
+  ... and 8 more
+
+### Sub-threshold Materials (OAV < 1)
+2/53 materials below perceptible threshold
+  - Cedarwood oil Virginia: OAV=0.48 VP=0.005Pa act=300uL role=Cedarwood oil Virgin [Structural (acceptable)]
+  - Benzyl Benzoate: OAV=0.00 VP=0.001Pa act=280uL role=Benzyl Benzoate [Structural (acceptable)]
+
+### OAV by Odor Family
+
+            spice  26.9% =============  (3 mats)
+           citrus  22.5% ===========  (4 mats)
+           floral  20.2% ==========  (7 mats)
+            woody  14.4% =======  (13 mats)
+         aromatic  12.8% ======  (6 mats)
+           muguet   1.4% =  (2 mats)
+             iris   0.6% =  (1 mats)
+        aldehydic   0.5% =  (2 mats)
+            green   0.2% =  (5 mats)
+          aquatic   0.1% =  (2 mats)
+             musk   0.1% =  (1 mats)
+         gourmand   0.1% =  (3 mats)
+                ?   0.1% =  (1 mats)
+             rose   0.0% =  (1 mats)
+            ozone   0.0% =  (1 mats)
+         fixative   0.0% =  (1 mats)
+
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Raw uL | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s |  8.6/40.0/51.4 |  49.97ppm |   6000 | Ginger EO(3698), Lemon FCF oi(2154), Hedione(1632)
+| top          |    300s |  8.5/40.1/51.4 |  44.84ppm |   5977 | Ginger EO(3659), Hedione(1636), Lemon FCF oi(1563)
+| heart        |   1800s |  8.0/40.2/51.8 |  33.51ppm |   5890 | Ginger EO(3464), Hedione(1650), Iso E Super(1170)
+| late_heart   |   7200s |  6.9/40.4/52.7 |  27.12ppm |   5650 | Ginger EO(2820), Hedione(1691), Iso E Super(1200)
+| drydown      |  14400s |  5.6/40.6/53.8 |  22.82ppm |   5401 | Ginger EO(2132), Hedione(1738), Iso E Super(1233)
+
+### Per-Window Detail
+
+**OPENING** (0.0s) — Evap:0%
+  T:8.6% H:40.0% B:51.4%  Vapor:49.97ppm
+  Leaders: Ginger EO OAV 3698 | Lemon FCF oil Sicilian OAV 2154 | Hedione OAV 1632 | Iso E Super OAV 1157 | Linalyl Acetate OAV 1155
+
+**TOP** (300.0s) — Evap:0%
+  T:8.5% H:40.1% B:51.4%  Vapor:44.84ppm
+  Leaders: Ginger EO OAV 3659 | Hedione OAV 1636 | Lemon FCF oil Sicilian OAV 1563 | Iso E Super OAV 1160 | Linalyl Acetate OAV 1149
+
+**HEART** (1800.0s) — Evap:2%
+  T:8.0% H:40.2% B:51.8%  Vapor:33.51ppm
+  Leaders: Ginger EO OAV 3464 | Hedione OAV 1650 | Iso E Super OAV 1170 | Linalyl Acetate OAV 1117 | Bergamot FCF oil Sicilian OAV 956
+
+**LATE_HEART** (7200.0s) — Evap:6%
+  T:6.9% H:40.4% B:52.7%  Vapor:27.12ppm
+  Leaders: Ginger EO OAV 2820 | Hedione OAV 1691 | Iso E Super OAV 1200 | Linalyl Acetate OAV 1002 | Bergamot FCF oil Sicilian OAV 922
+
+**DRYDOWN** (14400.0s) — Evap:10%
+  T:5.6% H:40.6% B:53.8%  Vapor:22.82ppm
+  Leaders: Ginger EO OAV 2132 | Hedione OAV 1738 | Iso E Super OAV 1233 | Bergamot FCF oil Sicilian OAV 874 | Linalyl Acetate OAV 862
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Ginger EO(very strong) + Lemon FCF oil Sicilian(very strong) + Linalyl Acetate(very strong)
+  Heart: Hedione(very strong) + Iso E Super(very strong)
+  Base: Vetikon(strong) + Cashmeran(moderate-strong) + Vetiver EO (India)(moderate) + Cedarwood EO(moderate) + Koavone(moderate)
+
+### 2. Opening (0-5min)
+  Ginger EO dominates at OAV 3698 (very strong).
+  - Ginger EO OAV=3698 VP=10.0Pa (spice)
+  - Lemon FCF oil Sicilian OAV=2154 VP=210.0Pa (citrus)
+  - Linalyl Acetate OAV=1155 VP=17.5Pa (aromatic)
+  - Linalool OAV=455 VP=21.3Pa (aromatic)
+  Total vapor: 50.0 ppm
+
+### 3. Heart (30min-2hr)
+  Ginger EO OAV=3464 (very strong)
+  Hedione OAV=1650 (very strong)
+  Iso E Super OAV=1170 (very strong)
+  Linalyl Acetate OAV=1117 (very strong)
+  T:8.0% H:40.2% B:51.8%
+  Vapor: 33.5 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base dominates at 54% of headspace
+  - Ginger EO OAV=2132
+  - Hedione OAV=1738
+  - Iso E Super OAV=1233
+  - Bergamot FCF oil Sicilian OAV=874
+  - Linalyl Acetate OAV=862
+  - Dihydrojasmone OAV=484
+  Vapor: 22.8 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Ginger EO(3698) + Lemon FCF oil Sicilian(2154) + Hedione(1632) + Iso E Super(1157)
+  OAV by family: spice27% citrus23% floral20% woody14%
+
+### 6. Longevity
+  Evaporation: 10% over 4h
+  Vapor: 50.0 > 22.8 ppm
+  Base @ drydown: 54%
+  Est. skin life: 8h moderate + 4h skin scent
+
+### 7. Balance
+  Pyramid: T:8.6% H:40.0% B:51.4%
+  OAV range: 0.00 to 3698 (sigma-log=1.14)
+    sub-threshold: 2
+
+### 8. Flags
+  SUB: Cedarwood oil Virginia OAV=0.48 role=Cedarwood oil Virginia
+  SUB: Benzyl Benzoate OAV=0.00 role=Benzyl Benzoate
+  IFRA: Cyclamen Aldehyde at 0.66% active — near/above Cat4 limit (0.62%)
+
+
+## Structural OAV Analysis
+
+**Vapor:** 50 ppm  |  **Active:** 15.1%  |  **Perceptible:** 51/53
+
+### OAV Tiers
+  **massive** (5): Lemon FCF oil Sicilian(2154), Linalyl Acetate(1155), Ginger EO(3698), Hedione(1632), Iso E Super(1157)
+  **v.strong** (9): Bergamot FCF oil Sicilian(965), Linalool(455), Dihydrojasmone(537), Cis Jasmone(201), Beta-Pinene(128), Alpha Isomethyl Ionone(248), Mayol(137), Vetikon(158), Ebanol(378)
+  **strong** (7): Aldehyde C11(50), Jessemal(55), Alpha Ionone(85), Beta Ionone(78), Cyclamen Aldehyde(61), Vetival(84), Cashmeran(51)
+  **moderate** (15): Aldehyde C10(19), Black Pepper EO(13), Cardamom EO(24), Clary Sage EO(11), Basil EO (India, Ocimum Basilicum)(21), PEDMC(40), Dynascone(10), Scentenal(11), Dihydromyrcenol(48), Helional(16), Cedarwood EO(35), Vetiver EO (India)(48), Koavone(21), Coumarin(13), Romandolide(17)
+  **perceptible** (4): Leafovert(5), Allyl Ionone(8), Triplal(5), Sandalore(7)
+  **threshold** (11): Lemonile(3), Citral(2), Terpinyl Acetate(3), Dihydro Beta Ionone(1), Freesia HDI(1), Rose Oxide(3), Calone(4), Floralozone(2), Himalayan Cedarwood EO(2), Tonkarome(3), Tonka Bean Absolute(1)
+  **sub** (2): Cedarwood oil Virginia(0), Benzyl Benzoate(0)
+
+### Block Balance
+  **Citrus**     2159 (26%)
+  **Floral**     5706 (69%)
+  **Base**        361 (4%)
+  **Ratio:** 16:1 between strongest/weakest block
+
+### Issues
+  ! 2 sub-threshold material(s): Cedarwood oil Virginia, Benzyl Benzoate
+```
+
+## Claim ceiling
+
+This artifact is `DESIGN HYPOTHESIS / STOCK-CORRECTED CONTROL / NOT TESTED / HOLD`. Arithmetic, parser coverage, current-stock exclusion, source-ledger completeness, and deterministic donor-independence may be verified computationally. The artifact has not been physically compounded or smelled. It does not establish similarity, family recognition, pleasure, hedonism, depth, complexity, luxury, transition quality, diffusion, sillage, longevity, stability, safety, compatibility, or release readiness. No compounding, procurement, physical execution, safety decision, or release is authorized.

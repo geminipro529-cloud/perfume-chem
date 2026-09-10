@@ -1,0 +1,103 @@
+{
+  "schema": "xhigh-stock-basis-local-integration-v1",
+  "date": "2026-08-09",
+  "state": "LOCAL_WORKTREE_INTEGRATED__TESTS_NOT_RUN__REMOTE_NOT_VISIBLE__XHIGH_NOT_FROZEN",
+  "pro_review_authorized": false,
+  "repository": {
+    "repository": "geminipro529-cloud/perfume-chem",
+    "branch": "codex/add-inventory-materials",
+    "historical_remote_control_sha": "a7bacff3539bf5e60c94d1fbe48df3d0f1f90da3",
+    "local_branch_ref_sha": "c876ab128845c2e055251fdce4fb1c3f5d661045",
+    "local_branch_ref_remote_visibility": "NOT_VISIBLE__GITHUB_FETCH_COMMIT_RETURNED_422",
+    "remote_branch_formula_import_blob_sha": "0aad016326c66db01b6f6e67101431065f389fa9",
+    "remote_branch_formula_import_state": "FAIL_OPEN_MISSING_DILUTION_DEFAULTS_NEAT_AND_INVALID_DILUTION_WARNING_SKIPS",
+    "working_tree_mutated": true,
+    "commit_claimed": false
+  },
+  "inventory_authority": {
+    "version": "v5",
+    "file_name": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+    "local_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "repository_pin": "inventory:v5:sha256:e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "independent_library_byte_recheck_this_run": "HOLD_RETRIEVAL_401"
+  },
+  "incident_quarantine": {
+    "source": "PORTFOLIO_STOCK_REBASE_TRIAGE_261_ROWS.csv",
+    "source_sha256": "ae47139ee77ff314d95d73b4c0e5709b7f9d784edb3a256b1906944eaa16e604",
+    "rows": 261,
+    "targets": 104,
+    "formula_uids": 104,
+    "compounding_authorized_rows": 0,
+    "state": "QUARANTINED_UNTIL_LINEAGE_RECEIPTS_CLEAR",
+    "draft_rebuilds_allowed": true,
+    "approval_and_reservation_blocked_without_receipts": true,
+    "non_demotable_by": ["OAV", "complexity", "quality", "hedonic", "confidence", "advisory_score"]
+  },
+  "mandatory_gate_local_code_state": {
+    "v5_inventory_authority_pin": "IMPLEMENTED_LOCAL_UNVERIFIED",
+    "parent_child_transition_classification": "IMPLEMENTED_LOCAL_UNVERIFIED",
+    "stock_normalization_active_equivalence": "IMPLEMENTED_LOCAL_UNVERIFIED",
+    "design_revision_separated_from_stock_normalization": "IMPLEMENTED_LOCAL_UNVERIFIED",
+    "unknown_stock_strength_fail_closed": "IMPLEMENTED_LOCAL_UNVERIFIED",
+    "build_plan_fraction_basis_exact_stock_match": "IMPLEMENTED_LOCAL_UNVERIFIED",
+    "exact_identity_target_active_preservation": "IMPLEMENTED_LOCAL_UNVERIFIED",
+    "reservation_cap_to_immutable_line": "IMPLEMENTED_LOCAL_UNVERIFIED",
+    "action_and_commit_cap_to_immutable_line": "IMPLEMENTED_LOCAL_UNVERIFIED",
+    "bound_bottle_freeform_bypass_prevention": "IMPLEMENTED_LOCAL_UNVERIFIED",
+    "orphan_formula_revision_physical_block": "IMPLEMENTED_LOCAL_UNVERIFIED",
+    "workspace_import_invariant_replay_before_commit": "IMPLEMENTED_LOCAL_UNVERIFIED",
+    "v5_stock_strength_recalc_quarantine": "IMPLEMENTED_LOCAL_UNVERIFIED",
+    "repository_native_integration_tests": "NOT_RUN",
+    "full_project_verifier": "NOT_RUN",
+    "remote_branch_visibility": "NOT_VERIFIED"
+  },
+  "citronellol_regression": {
+    "parent_raw_units": 14.363,
+    "parent_fraction": 0.1,
+    "parent_active_units": 1.4363,
+    "child_raw_units": 14.0,
+    "child_fraction": 1.0,
+    "child_active_units": 14.0,
+    "inflation_multiplier": 9.747267283993594,
+    "required_result": "HARD_FAIL_NON_DEMOTABLE",
+    "repository_integration_test_added": "backend/tests/integration/test_stock_lineage.py",
+    "test_execution_state": "NOT_RUN"
+  },
+  "critical_file_sha256": {
+    "backend/app/services/inventory_authority.py": "1d025d95da0a9635150f493b5ae8dd232ddcf1aaa71137a6d0b4a17c9d02c315",
+    "backend/app/services/stock_lineage.py": "c9eb162b34d7083c90c90d4734bfa7bf15648b0d86cdf05347bc7d3511f576c6",
+    "backend/app/services/stock_strength_quarantine.py": "4fd1b6a20acd9cce8de049bc81a8e29b4eb593a46207b5086d883cbd69635f87",
+    "backend/app/services/workspace_invariants.py": "aeb78ed4c59f86bb6b784630e89fbd1e3019119253e3ae2584fe45074bcd5f7e",
+    "backend/app/services/lab_planning.py": "c7f072575086445d29f3b044bc8ff3503b724dc613de90de44d2ff4c55bb0030",
+    "backend/app/services/lab_service.py": "c45f5cfbca0b0225026ba92a393cd6ecd8f27d93f4714e9312ccef575c63fe8e",
+    "backend/app/services/lab_execution.py": "273f8b26daa1b4aa8270d50430cfa20944685122f22a56e25df3cbd8e615a6ad",
+    "backend/app/repositories/lab.py": "de631a95edc27f04366e629ef2ba07ed1c39034b89f8b25d75db70c968ecec96",
+    "backend/app/services/lab_export.py": "bc6e8b5ea2f4d87ad437de3d42da3a6fa0d261d4621c65db24adda5213b7ce5f",
+    "backend/app/services/formula_import.py": "543e842cf74029bfa63203324469ba63e6a4dc72f028c6e3db1ed9a543ac6f1c",
+    "engine/target/formula.py": "fbeca487886856029b125f1c223f48abdc8993e2a10c5615574899ac5864196f",
+    "engine/inventory/stock_model.py": "4b75888f4f522aeec78dfeb4ee83f3819180d9f7505448892a54f56697443b00",
+    "engine/build/ledger.py": "563ae24b3d6e67073bfc4e53f5cb8e91e93331b66f3fdeeecc6c1378602baa72",
+    "engine/pipeline/preflight.py": "cbd31d274c1b4754a7a790424db375a1367feb5d2d7e642d1b579a97c4a4b5e9",
+    "data/governance/stock_strength_recalc_quarantine_v5.json": "44a3a3f99d7c3cea5ef5519f26de109c495240789f15ce9f5a89d803aa54b187"
+  },
+  "regression_test_sha256": {
+    "backend/tests/integration/test_stock_lineage.py": "bb7ea831b74d48ce995861e4a8c245113ef03f6d0396d2a8f22da06805dcb236",
+    "backend/tests/unit/test_formula_import.py": "870d53aba4138f5bcbc57f9d626c6b849f6e144fba6e85bd3ab8729b3f8159f3",
+    "backend/tests/unit/test_a2_planning_service.py": "a86b68a3e11ac1efd9c69ad8c102439390e34ec3f27aa0755fdd3a117578a860",
+    "backend/tests/integration/test_a2_planning_transactions.py": "6bbc2371af2f91b81ecad13f195c2d72c621d04650bce020723cfc38c17b6e2e",
+    "backend/tests/integration/test_a2_planning_export.py": "f269ff4d54659fc9d0ef7a607f97fa42de3c35355d2cd154b66fbc39a1f1183e",
+    "backend/tests/integration/test_a2_execution_lifecycle.py": "34dbff1bf9f11db5fda74db243d706b779197e1d59af950ee1eea646eb437b13",
+    "tests/test_inventory_stock_model.py": "f20cc9cef4385838787c42d3fba6ed2fbf15d61e407b2131943ae39ca7042acb",
+    "tests/test_target_formula.py": "fc71803a4a7d468c0a4006046263db7bb56a1e2e46a3dc6ebeee353dafb5daed",
+    "tests/test_run_evidence_contract.py": "1235e188de6c1ac18b084d0f987e3d97bd198df835d3639e344187f0ae43bc3c"
+  },
+  "remaining_freeze_blockers": [
+    "Run targeted repository-native regression tests on the actual worktree.",
+    "Run Ruff/mypy/backend pytest/root pytest and the full project verifier after the stock-basis rebase.",
+    "Independently recheck the V5 workbook bytes against File Library once retrieval authorization recovers.",
+    "Recover/verify the exact user-mandated Perfume_Chem_Stock_Basis_Hardening_v2_Rebased.zip provenance input; v1 remains STALE_REBASE_REQUIRED.",
+    "Make the local worktree commit independently visible on the canonical GitHub branch and obtain exact-head CI receipts.",
+    "Do not begin PRO review until all of the above are closed."
+  ],
+  "freeze_decision": "DO_NOT_FREEZE"
+}

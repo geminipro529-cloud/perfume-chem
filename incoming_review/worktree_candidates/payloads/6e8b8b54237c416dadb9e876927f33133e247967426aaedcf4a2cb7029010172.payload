@@ -1,0 +1,62 @@
+<!doctype html><html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Modern Violet High-Complexity Formula Library</title><style>
+:root{--ink:#282131;--violet:#574173;--plum:#7b5b8e;--paper:#fcfaf8;--gold:#c69b49}
+*{box-sizing:border-box}body{font-family:Inter,Segoe UI,Arial,sans-serif;background:#f3f0f6;color:var(--ink);margin:0}
+header{background:linear-gradient(135deg,#241b35,#6b5186);color:white;padding:28px 5vw}
+main{max-width:1450px;margin:auto;padding:24px}.card{background:var(--paper);border-radius:16px;padding:20px;margin:16px 0;box-shadow:0 6px 22px #241b3514}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}.metric{background:#eee7f4;border-radius:10px;padding:12px}
+table{width:100%;border-collapse:collapse;font-size:13px}th{background:#574173;color:white;padding:9px;text-align:left;position:sticky;top:0}
+td{padding:8px;border-bottom:1px solid #e3dce8;vertical-align:top}.stage td{background:#faf1db;font-weight:700}
+.badge{display:inline-block;background:#e3f1e7;color:#2f6f4e;font-weight:700;border-radius:999px;padding:5px 10px}
+.warn{background:#faf1db}.product{background:#eee7f4}.small{color:#6c6476;font-size:12px}
+a{color:#574173;font-weight:700}
+
+.search{width:100%;padding:14px;border:2px solid #7b5b8e;border-radius:10px;font-size:18px}</style></head>
+<body><header><h1>Modern Violet · High-Complexity Formula Library</h1>
+<p>Five inventory-locked 30 mL formulas with 74–82 meaningful odor rows.</p></header>
+<main><div class="card"><input id="q" class="search" placeholder="Search Crystalline, Rain, Midnight..."></div>
+<div id="cards"><article class="card recipe" data-search="v01-hc crystalline violet hc">
+<h2>Crystalline Violet HC</h2><p><span class="badge">V01-HC</span> Blind C71</p>
+<div class="grid"><div class="metric"><b>Rows</b><br>74</div>
+<div class="metric"><b>MC pass</b><br>99.14%</div>
+<div class="metric"><b>Score</b><br>92.00</div>
+<div class="metric"><b>Maturation</b><br>21 days</div></div>
+<p><a href="V01-HC_Crystalline_Violet_HC/V01-HC_30mL_Recipe.html">Open bench card</a> ·
+<a href="V01-HC_Crystalline_Violet_HC/V01-HC_30mL_Recipe.csv">CSV</a> ·
+<a href="V01-HC_Crystalline_Violet_HC/V01-HC_30mL_Recipe.md">Markdown</a></p></article><article class="card recipe" data-search="v02-hc velvet violet hc">
+<h2>Velvet Violet HC</h2><p><span class="badge">V02-HC</span> Blind V24</p>
+<div class="grid"><div class="metric"><b>Rows</b><br>82</div>
+<div class="metric"><b>MC pass</b><br>99.83%</div>
+<div class="metric"><b>Score</b><br>92.00</div>
+<div class="metric"><b>Maturation</b><br>28 days</div></div>
+<p><a href="V02-HC_Velvet_Violet_HC/V02-HC_30mL_Recipe.html">Open bench card</a> ·
+<a href="V02-HC_Velvet_Violet_HC/V02-HC_30mL_Recipe.csv">CSV</a> ·
+<a href="V02-HC_Velvet_Violet_HC/V02-HC_30mL_Recipe.md">Markdown</a></p></article><article class="card recipe" data-search="v03-hc rain violet hc">
+<h2>Rain Violet HC</h2><p><span class="badge">V03-HC</span> Blind R58</p>
+<div class="grid"><div class="metric"><b>Rows</b><br>79</div>
+<div class="metric"><b>MC pass</b><br>100.00%</div>
+<div class="metric"><b>Score</b><br>92.00</div>
+<div class="metric"><b>Maturation</b><br>21 days</div></div>
+<p><a href="V03-HC_Rain_Violet_HC/V03-HC_30mL_Recipe.html">Open bench card</a> ·
+<a href="V03-HC_Rain_Violet_HC/V03-HC_30mL_Recipe.csv">CSV</a> ·
+<a href="V03-HC_Rain_Violet_HC/V03-HC_30mL_Recipe.md">Markdown</a></p></article><article class="card recipe" data-search="v04-hc midnight violet hc">
+<h2>Midnight Violet HC</h2><p><span class="badge">V04-HC</span> Blind M83</p>
+<div class="grid"><div class="metric"><b>Rows</b><br>81</div>
+<div class="metric"><b>MC pass</b><br>95.75%</div>
+<div class="metric"><b>Score</b><br>92.00</div>
+<div class="metric"><b>Maturation</b><br>35 days</div></div>
+<p><a href="V04-HC_Midnight_Violet_HC/V04-HC_30mL_Recipe.html">Open bench card</a> ·
+<a href="V04-HC_Midnight_Violet_HC/V04-HC_30mL_Recipe.csv">CSV</a> ·
+<a href="V04-HC_Midnight_Violet_HC/V04-HC_30mL_Recipe.md">Markdown</a></p></article><article class="card recipe" data-search="v05-hc violet pastille hc">
+<h2>Violet Pastille HC</h2><p><span class="badge">V05-HC</span> Blind P46</p>
+<div class="grid"><div class="metric"><b>Rows</b><br>81</div>
+<div class="metric"><b>MC pass</b><br>95.44%</div>
+<div class="metric"><b>Score</b><br>92.00</div>
+<div class="metric"><b>Maturation</b><br>28 days</div></div>
+<p><a href="V05-HC_Violet_Pastille_HC/V05-HC_30mL_Recipe.html">Open bench card</a> ·
+<a href="V05-HC_Violet_Pastille_HC/V05-HC_30mL_Recipe.csv">CSV</a> ·
+<a href="V05-HC_Violet_Pastille_HC/V05-HC_30mL_Recipe.md">Markdown</a></p></article></div></main>
+<script>const q=document.getElementById('q'),cards=[...document.querySelectorAll('.recipe')];
+q.addEventListener('input',()=>{const s=q.value.toLowerCase();cards.forEach(c=>c.style.display=!s||c.dataset.search.includes(s)?'block':'none')});</script>
+</body></html>

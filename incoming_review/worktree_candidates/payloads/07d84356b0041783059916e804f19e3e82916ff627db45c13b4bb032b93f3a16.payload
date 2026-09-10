@@ -1,0 +1,111 @@
+diff --git a/engine/inventory_parser.py b/engine/inventory_parser.py
+--- a/engine/inventory_parser.py
++++ b/engine/inventory_parser.py
+@@
+-    if explicit_neat or (match is None and assume_neat_when_missing):
++    if explicit_neat:
+         fraction = 1.0
+         basis = "neat"
+         declared = True
+     elif match is not None:
+         fraction = float(match.group(1).replace(",", ".")) / 100.0
+@@
+-        declared = True
++        declared = True
++    elif assume_neat_when_missing and low not in missing_tokens:
++        # Historical repository inventory convention: a bare material entry
++        # means the owned stock is neat/as supplied. Executable formula parsers
++        # MUST call with assume_neat_when_missing=False.
++        fraction = 1.0
++        basis = "neat"
++        declared = True
+     else:
+         fraction = 1.0
+         basis = "unspecified"
+-        declared = low not in missing_tokens
++        # Unknown prose, blank cells, and dashes are unresolved.  They are not
++        # evidence that the formula intends a neat stock.
++        declared = False
+ 
+     carrier_match = re.search(r"\bin\s+([^),;#—–]+)", text, flags=re.IGNORECASE)
+
+diff --git a/backend/app/services/formula_import.py b/backend/app/services/formula_import.py
+--- a/backend/app/services/formula_import.py
++++ b/backend/app/services/formula_import.py
+@@
+                 dilution_str = parts[2].strip() if len(parts) > 2 else "neat"
+                 dilution = cls._parse_dilution(dilution_str)
+                 if dilution is None:
+-                    warnings.append(
+-                        f"Skipping {material_name}: could not parse dilution from '{dilution_str}'"
++                    errors.append(
++                        f"Blocking {material_name}: stock strength is not explicit in '{dilution_str}'"
+                     )
+                     continue
+@@
+-        text = text.strip().lower()
+-        if text == "neat" or text == "-" or not text:
++        text = text.strip().lower()
++        if text in {"neat", "pure", "undiluted"}:
+             return 1.0
++        if text in {"", "-", "--", "---", "—", "–", "na", "n/a"}:
++            return None
+         m = re.fullmatch(r"(\d+(?:\.\d+)?)\s*%(?:\s+in\s+.+)?", text)
+         if m:
+             percentage = float(m.group(1))
+             if 0 < percentage <= 100:
+                 return percentage / 100.0
+         return None
+
+diff --git a/backend/app/services/lab_service.py b/backend/app/services/lab_service.py
+--- a/backend/app/services/lab_service.py
++++ b/backend/app/services/lab_service.py
+@@
+ from app.repositories.lab import BottleLedgerState, LabRepository
++from app.services.stock_lineage import validate_proposed_formula_components
+@@
+         async with self._transaction():
+             if await self.repository.get_formula(formula_id) is None:
+                 raise KeyError(f"Unknown formula: {formula_id}")
++            # Hard stock-lineage gate. A change of exact stock, active fraction,
++            # or fraction basis is a stock-normalization event and must preserve
++            # active-equivalent dose. Any desired design-dose change must occur
++            # in a later immutable formula version.
++            stock_lineage_checks = await validate_proposed_formula_components(
++                self.session,
++                formula_id,
++                component_rows,
++            )
+             for component in component_rows:
+                 if await self.repository.get_stock(component.stock_solution_id) is None:
+                     raise KeyError(
+                         f"Unknown stock solution: {component.stock_solution_id}"
+                     )
++            source_payload = dict(source or {})
++            # Do not trust caller-provided receipts. Runtime replaces the field
++            # with independently calculated checks.
++            source_payload["stock_lineage_checks"] = stock_lineage_checks
+             version = LabFormulaVersion(
+                 formula_id=formula_id,
+                 version_number=await self.repository.next_formula_version(formula_id),
+@@
+-                source_json=dict(source or {}),
++                source_json=source_payload,
+             )
+
+diff --git a/backend/app/services/lab_export.py b/backend/app/services/lab_export.py
+--- a/backend/app/services/lab_export.py
++++ b/backend/app/services/lab_export.py
+@@
+ from app.models.base import Base
++from app.services.stock_lineage import validate_workspace_stock_lineage
+@@
+                     values = _deserialize_row(table, incoming)
+                     await self.session.execute(table.insert().values(**values))
+                     inserted += 1
++            # Imported bytes do not inherit authority from their source. Re-run
++            # all formula-version stock-lineage invariants before the transaction
++            # may commit. A legacy invalid transition rolls the entire import back.
++            await validate_workspace_stock_lineage(self.session)
+             if owns_transaction:
+                 await self.session.commit()

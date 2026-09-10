@@ -1,0 +1,170 @@
+# Frozen Sol Baseline Comparison
+
+**Study:** YSL L'Homme / La Nuit de L'Homme Twenty-Variant Formulation Study
+
+**Comparison date:** 2026-08-27
+
+**Decision class:** `COMPUTATIONAL_COMPARISON_ONLY`
+
+**Finalist result:** `NO_ELIGIBLE_FINALIST_CURRENTLY`
+
+**Sensory result:** `NOT TESTED`
+
+## Bottom Line
+
+The twenty-arm study is more complete than the frozen Sol xhigh formulas as a formulation-research and governance package: it defines the target identity before dosing, separates TARGET / IDEAL from CURRENT-INVENTORY BUILD, balances each target to exactly 1,000,000 active ppm w/w, records the current stock arithmetic separately, limits each current build to one functionally explicit musk, runs authority-false missing-chemical impact assessments, and locks controlled blind tests and claim ceilings.
+
+That does **not** establish a better-smelling, more similar, more stable, safer, or more hedonic perfume. All twenty candidates and both frozen Sol baselines fail the current release screen. No candidate satisfies the predeclared finalist-eligibility contract because stock resolution, exact quantitative authority, composite-natural coverage, core physics/ODT coverage, and custom-family mapping remain unresolved. Physical superiority over Sol xhigh is therefore `NOT TESTED`, not inferred from OAV, gate counts, or prose.
+
+## Authority and Frozen Bindings
+
+The authoritative runtime and integration checkout were read-only throughout this comparison.
+
+| Binding | SHA-256 / value |
+|---|---|
+| Runtime commit | `281d389ca76424ace2438e1f6cabdad75163a4d6` |
+| Authoritative inventory | `DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC` |
+| Screening summary | `23356e17dee310dfb15dadd4f621ee501b7bd83bf96d4f28cb673b45a57af395` |
+| Frozen Sol L'Homme source snapshot | `44ABA8B5153D26A8AFA5CD07B20974EAAF66A5D659FEECC13D59EEF6F917E0FD` |
+| Frozen Sol L'Homme parsed definition | `086f59c390b38671b8fd22c072ba74bcf3a4952f511c12e0616691e01190c06d` |
+| Sol L'Homme 298.15 K JSON | `DA40FB784644296B561C9AECAB9EDBFFEDEE847A5BDF678AB3CD1289DCD3B3E5` |
+| Sol L'Homme formatter output | `65F514922C92F6119A1DAF940E104C5C1401844FB636348BF850362CD6F6603B` |
+| Frozen Sol La Nuit source snapshot | `254A73B6B45420CF89034FC5C2CAABCAACE9A197BE315C31E9958E4A5CFDAEBB` |
+| Frozen Sol La Nuit parsed definition | `3045488a2b04782708a66f595f422c479277a4a4fcf60337623ae1f5b2a03d93` |
+| Sol La Nuit 298.15 K JSON | `83F8414AC214EE783077EC48412D6F171D955CDAF4213C0C23060FE4F6539033` |
+| Sol La Nuit formatter output | `24194CA72020DDA76B01532AA8CD44F0CAC25742B4E90E82378EBDE3FF7C586F` |
+
+Tracked immutable snapshots:
+
+- `../baselines/source/L_Homme_Luxe_30mL_EdP.md`
+- `../baselines/source/La_Nuit_de_LHomme_Luxe_30mL_EDT.md`
+
+Generated disposable runs and full outputs are under `output/ysl_twenty_variant_study/baselines/` and remain gitignored.
+
+### Legacy-stock-basis compatibility limitation
+
+An unmodified current-CLI attempt against the exact frozen L'Homme bytes aborted before JSON with:
+
+```text
+ValueError: Iso E Super: OAV request stock basis does not match gate receipt
+```
+
+Root cause: the frozen formulas use legacy numeric dilution cells such as `1.0`. The current preflight resolves those cells to a live inventory basis, while the OAV receipt validator compares the literal parser value `unspecified` against the resolved basis. Both persisted baseline outputs were therefore generated with a one-run, in-memory compatibility shim that removed only the literal `fraction_basis: unspecified` field from the OAV request before receipt validation. It changed no file, dose, dilution, inventory record, scientific input, or pipeline source. The pre/post parsed definition hashes remained identical and the frozen snapshots retained their manifest-bound file hashes.
+
+These are `COMPATIBILITY_PATCHED_DIAGNOSTIC` outputs, not evidence that the unmodified native CLI completed normally. Both still returned exit code 1 and overall `FAIL`.
+
+## Finalist Eligibility
+
+The additional-finalist selection returned no eligible arm in either family. The contract required protected identity, no unapproved stock/rebase failure, no hidden natural or ODT gap, and one coherent named axis. Every arm has `HOLD_STALE_INVENTORY_ROSTER_AND_DATA_COVERAGE`; naming an official finalist would falsify the predeclared rule.
+
+Two held children receive conditional re-screen reviews so there is a concrete next comparison after the shared blockers are repaired:
+
+- **LH-05 Ginger-Cedrat Spark:** conditional L'Homme re-screen priority, not a finalist.
+- **LN-02 Current Transparent Style:** conditional La Nuit re-screen priority, not a finalist.
+
+The choices are based on isolated target-linked architecture and the lowest observed unresolved-risk tier among child variants, not on a modeled hedonic score. Substantive risk ties remain: LH-05 shares the same gate-count tier with LH-07, and LN-02 shares it with several La Nuit children.
+
+## Mandatory Named-Arm Reviews
+
+### LH-04 Apple Pie — required arm, held
+
+**Target identity.** A recognizably tailored L'Homme in which bergamot/cedrat/ginger folds into crisp green apple, a microdosed dry pastry shadow, violet-green heart, and cedar-vetiver drydown. The named failure modes are ester-cloud fruit, popcorn pyrazine, cinnamon candy, and vanilla dessert.
+
+**Architecture and accounting.** The TARGET / IDEAL formula totals 1,000,000 active ppm w/w. The separate current build totals 1,000,000 raw-stock ppm w/w and uses one musk, Ethylene Brassylate. The native family skeleton passed.
+
+**Diagnostic result.** Overall `FAIL`; 13 stock-contract holds; two unknown natural rows (Basil EO and Indian Vetiver EO); modeled known-row opening vapor 552.214 ppm with unknown naturals excluded; active note distribution T/H/B 16.1/48.1/35.8. Hexyl Acetate 10% is a modeled high-impact apple row at OAV 5029.7, but three assigned pastry-character rows are modeled sub-threshold: 2-Acetyl Pyrazine 1% OAV 0.0245, Cinnamaldehyde 1% OAV 0.000304, and Vanillin 10% OAV 0.1658. These values diagnose a likely imbalance in the model; they do not prove what the mixture smells like.
+
+**Missing-chemical impact.** `CANDIDATE_ONLY`; all formula, inventory, purchase, execution, scientific, OAV, sensory, safety, and release authorities are false. Exact cedrat and violet-leaf identity remain unresolved, as do verified w/w bases for Ethyl 2-Methylbutyrate 0.1%, Hexyl Acetate 10%, Cinnamaldehyde 1%, and Vanillin 10%. Physical evidence that pastry remains subordinate is absent.
+
+**Purchase/preparation decision.** Do not buy more apple or pastry materials. Recover stock/preparation receipts or remake ambiguous percentage stocks by mass, verify the EB label, repair the shared natural/physics gaps, then run the locked family-control and pastry-module tests. LH-04 remains in the blind protocol because the requested Apple Pie brief cannot be adjudicated from screening numbers.
+
+### LN-01 Original 2009 Fidelity — family control, held
+
+**Target identity.** Cool cardamom and bergamot ignition; lavender/cedar aromatic braid; Haitian vetiver, dry coumarin, tonka intimacy, and restrained caraway shadow. Caraway must remain a shadow and tonka must not become gourmand.
+
+**Architecture and accounting.** The TARGET / IDEAL formula totals 1,000,000 active ppm w/w. The separate current build totals 1,000,000 raw-stock ppm w/w and uses one musk, Ethylene Brassylate. The native family skeleton passed; the reference-claim gate failed, so no similarity authority follows.
+
+**Diagnostic result.** Overall `FAIL`; eight stock-contract holds; two unknown natural rows (Caraway Seed Oil 10% and Indian Vetiver EO); modeled known-row opening vapor 404.072 ppm with those rows excluded; active note distribution T/H/B 14.2/46.8/39.0. The resolved model keeps cardamom, lavender, cedar-related woods, coumarin/tonka support, and vetiver intent, but strict OAV and physical identity remain unavailable.
+
+**Missing-chemical impact.** `CANDIDATE_ONLY` with every downstream authority false. Unresolved functions include the exact Exaltolide skin-musk texture and stock basis, Haitian-vetiver origin/grade, Vertofix Coeur grade, exact target sandalwood, literal Ambroxide persistence, and the lavender target lot/chemotype.
+
+**Purchase/preparation decision.** Verify the EB container first. Do not buy Exaltolide, Haitian vetiver, Vertofix Coeur, sandalwood, or Ambroxide until constant-total tests isolate a nonredundant loss. LN-01 remains the family parent control, not an authenticated YSL formula.
+
+### LN-05 Immortelle Nuit — required arm, held
+
+**Target identity.** La Nuit's cool cardamom-lavender-cedar vertical with honeyed-dry immortelle afterglow; maple, curry, hay, tobacco, balsamic amber, gourmand sweetness, and musk excess are explicit drift failures.
+
+**Architecture and accounting.** The TARGET / IDEAL formula totals 1,000,000 active ppm w/w. The separate current build totals 1,000,000 raw-stock ppm w/w and uses one musk, Ethylene Brassylate. The native family skeleton passed.
+
+**Diagnostic result.** Overall `FAIL`; 12 stock-contract holds; four unknown natural rows (Caraway Seed Oil, Hay Absolute, Helichrysum EO, and Indian Vetiver EO); modeled known-row opening vapor 432.482 ppm with those rows excluded; active note distribution T/H/B 13.8/47.5/38.6. Immortelle Absolute 10% has modeled composite OAV 93.95, while Helichrysum and Hay remain unknown and Maple Lactone is modeled at OAV 0.155. This cannot establish an immortelle accord, curry suppression, or hedonic success.
+
+**Missing-chemical impact.** `CANDIDATE_ONLY` with every downstream authority false. Helichrysum composite registration, Immortelle 10% basis, Hay 10% basis/carrier, Maple Lactone 20% basis/carrier, exact Exaltolide texture, Haitian-vetiver origin, and physical anti-drift evidence are missing.
+
+**Purchase/preparation decision.** Do not buy another immortelle, hay, maple, tobacco, balsam, or musk. Recover the three percentage-stock receipts or omit those rows; register Helichrysum composite decomposition; verify EB; then compare LN-05 with LN-01 and a carrier-matched immortelle-module omission control.
+
+## Conditional Re-screen Reviews
+
+### LH-05 Ginger-Cedrat Spark — held conditional priority
+
+LH-05 has one coherent axis: amplify L'Homme's own bergamot/cedrat/ginger ignition while leaving the violet-green cedar-vetiver chassis protected. It is in the lowest observed L'Homme child risk tier: seven stock holds, two unknown shared naturals, no modeled sub-threshold character row, skeleton `PASS`, and one EB musk. The model reports 704.011 ppm for resolved opening rows and retains ginger among drydown leaders, but neither quantity proves quality or correct transition. Exact cedrat, white pepper, Hedione HC texture, and Haitian-vetiver identity remain missing. Do not buy generic citrus or Neroli; exact cedrat is the only later purchase review justified by this name, and only after shared authority repairs.
+
+### LN-02 Current Transparent Style — held conditional priority
+
+LN-02 isolates a transparent cardamom-led opening and an open lavender-to-literal-cedar seam while protecting dry vetiver/coumarin/tonka intimacy. It is in the lowest observed La Nuit child risk tier: eight stock holds, two unknown shared naturals, no modeled sub-threshold character row, skeleton `PASS`, and one EB musk. The model reports 491.656 ppm for resolved opening rows, but cannot establish that added transparency avoids generic freshness. Exaltolide texture/basis, Hedione HC, Haitian vetiver, Vertofix Coeur, and literal Ambroxide remain missing. No new clean musk, ozonic material, or citrus purchase is justified.
+
+## Frozen Sol Baseline Results
+
+| Axis | Sol L'Homme Luxe | Sol La Nuit Luxe |
+|---|---|---|
+| Declared concentrate | 6,000 uL / 20% EDP | 4,500 uL / 15% EDT |
+| Formula rows | 22 | 20 |
+| Declared musks | 3: Habanolide, Zenolide, Ambrettolide 10% | 2: Habanolide, Romandolide |
+| Gate summary | 110 PASS / 31 WARN / 6 FAIL | 111 PASS / 30 WARN / 6 FAIL |
+| Stock contract | FAIL, 7 rows | FAIL, 6 rows |
+| Unknown composite row | Basil EO | Spike Lavender EO |
+| Quantitative ppm w/w | UNAVAILABLE | UNAVAILABLE |
+| Headspace authority | Modeled active-concentrate screen only | Modeled active-concentrate screen only |
+| Resolved opening vapor | 434.53 ppm; total remains unknown because Basil is unresolved | 378.15 ppm; total remains unknown because Spike Lavender is unresolved |
+| Active T/H/B | 9.4 / 53.0 / 37.6 | 6.3 / 52.9 / 40.8 |
+| Functional flags | Ambrettolide and Zenolide modeled sub-threshold for assigned character/modifier functions | Habanolide modeled sub-threshold but classified structural/fixative |
+| Overall | FAIL | FAIL |
+
+The Sol L'Homme reference evaluator routed the prose to a La Nuit marker contract and reported missing lavender. That is an evaluator-routing artifact, not valid evidence that the L'Homme baseline lacks its intended identity. The Sol La Nuit marker screen matched all six documentary groups, but the reference contract still failed because explicit claim mode and scope metadata were absent. Neither result authorizes sensory similarity.
+
+Absolute OAV and vapor values are not compared as performance measures between Sol L'Homme and the 4,500 uL study arms because the declared concentrate bases differ. Even matched-volume comparisons remain modeled and matrix-incomplete.
+
+## Evidence-Limited Comparison With Sol xhigh
+
+| Comparison axis | Twenty-arm study | Frozen Sol baselines | Supported conclusion |
+|---|---|---|---|
+| Target evidence | Evidence IDs bind official note architecture, local baseline lineage, and variant-specific research | Strong perfumer prose and some reference checks, but no structured claim contract | Study is more traceable on target evidence |
+| TARGET vs CURRENT | Separate canonical target and current-build objects | One volumetric formula table | Study is structurally clearer |
+| Active accounting | Exact 1,000,000 target ppm and separate current raw/active design arithmetic; strict runtime mass authority still unavailable | Legacy uL/dilution arithmetic with unspecified concentration bases; strict ppm unavailable | Study is more complete as design accounting, but neither is strict physical ppm authority |
+| Composite naturals | Explicit per-natural source and HOLD for every uncovered natural | One uncovered natural per baseline | Sol baselines have fewer uncovered rows in this run; study has better explicit gap accounting, not better coverage |
+| Temporal diagnostics | Bound five-window outputs for all 20 plus one 308.15 K sensitivity arm | Bound five-window outputs only through the disclosed compatibility shim | Study is broader; all temporal results remain heuristic |
+| Stock-rebase / OAV-per-time | Every child bound to its family parent; all G15 results honestly fail on stock authority | No immediate-parent comparison; G15 also fails on stock authority | Neither supplies release authority; study has the stronger experimental contract |
+| Missing-chemical impact | One architecture-locked, authority-false receipt per arm | No equivalent structured impact gate | Study is more complete and less purchase-prone |
+| Musk design | One explicit EB function per current build | Three musks in Sol L'Homme; two in Sol La Nuit | Study has lower untested musk redundancy |
+| Lost tinctures | Excluded from all current builds | Not central to either frozen baseline | Study respects the current loss state |
+| Transition logic | Named sockets and protected chassis with explicit drift failures | Strong prose architecture, but no constant-total socket lineage | Study is more testable |
+| Claim discipline | Similarity, liking, stability, safety, measured headspace, and release explicitly held | Baseline prose includes expectations such as “should track”; current pipeline withholds authority | Study is more disciplined |
+| Physical perfume result | Not tested | Not tested | No winner |
+
+## Decision and Next Gate
+
+The answer to “can this bring a better result than Sol xhigh?” is split by authority:
+
+- **As a target-first formulation system:** yes, the twenty-arm package is more complete, more current-inventory-aware, less musk-redundant, and more falsifiable.
+- **As a perfume on skin or blotter:** `NOT TESTED`; no superiority or hedonic conclusion is authorized.
+- **As a release candidate:** no; every arm and both baselines remain `FAIL/HOLD`.
+
+Before physical compounding or finalist naming:
+
+1. refresh the native inventory/V5 crosswalk for user-owned EB and the frozen-roster materials;
+2. establish exact stock bases and carriers for every ambiguous dilution, with all lost tinctures remaining excluded;
+3. add or validate composite-natural and physics/ODT coverage for Basil, Indian Vetiver, Caraway, Helichrysum, Hay, and other arm-specific gaps;
+4. map `ysl_lhomme` and `ysl_la_nuit` to governed family archetypes without changing the protected study formulas;
+5. rerun all affected gates from a stable runtime snapshot;
+6. only then compound equal-mass, equal-concentration coded samples and execute the locked blind protocol.
+
+No purchase, preparation, safety clearance, physical test result, or integration-branch mutation is authorized by this report.

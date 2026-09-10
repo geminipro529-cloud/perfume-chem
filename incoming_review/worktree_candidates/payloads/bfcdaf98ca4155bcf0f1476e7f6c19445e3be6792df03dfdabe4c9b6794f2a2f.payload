@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S03",
+  "completed_utc": "2026-08-26T07:33:22.862513+00:00",
+  "dispatch_sha256": "69e67fb5e7d379f7fb2329227fc8f019af5da1478268c5b9d27d4f855f7baf4c",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "01327bbee5f235487d8c501138d3140eaf5e4ab18857c890648318126ca83c64",
+  "output_text": "{\"decision\":\"NO_AUGMENTATION\",\"target_linked_reasoning\":\"Replacing 2.0 of the 8.0 support parts with 2.0 parts Neroli 10% preserves the 100.0-part total but promotes an orange-blossom identity that conflicts with the bitter lemon-peel/green-tea target. No blinded evidence supports that inversion, so augmentation is not justified; this does not establish sensory inferiority.\",\"controlled_comparison\":{\"arms\":[\"Current 100.0-part baseline\",\"100.0-part arm replacing 2.0 support parts with 2.0 parts Neroli 10%\"],\"method\":\"Evaluate blind for target fidelity, specifically bitter lemon-peel/green-tea clarity and whether orange blossom becomes central; verify Neroli 10% inventory identity before execution.\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidate_total_parts\":100.0},\"decision_state\":\"NO_AUGMENTATION\",\"next_actions\":[\"Run the specified blinded baseline-versus-replacement comparison after inventory verification.\"],\"reason_codes\":[\"TARGET_IDENTITY_MISMATCH\",\"NO_BLINDED_SUPPORT\",\"TOTAL_PARTS_PRESERVED\",\"INVENTORY_VERIFICATION_REQUIRED\"]}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "f3075ddee198bda9a340bd587a3f0f935e7a6b2fb438d1930bfb77c3220a7b02",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-3f24396567cc4e9d75c1",
+  "role": "CRITICAL_TRAP",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:32:34.419047+00:00",
+  "stderr_sha256": "cda927caa44c5db4835336a364edc5661158f9ed97803b840bb53289ab82f8c7",
+  "stderr_tail": "\\\\\\\\\\\\\\\\.cache\\\\\\\\\\\\\\\\codex-runtimes\\\\\\\\\\\\\\\\codex-primary-runtime\\\\\\\\\\\\\\\\dependencies\\\\\\\\\\\\\\\\native\\\\\\\\\\\\\\\\powershell\\\\\\\\\\\\\\\\pwsh.exe\\\\\\\" -Command 'Get-ChildItem -Force | Select-Object Name,FullName,Mode'` rejected: blocked by policy\\\")\" }\n2026-08-26T07:33:00.941987Z ERROR codex_core::tools::router: error=exec_command failed for `\"C:\\\\Windows\\\\system32\\\\cmd.exe\" /c \"type C:\\\\Users\\\\ASUS\\\\.codex\\\\skills\\\\deepluna-chat\\\\SKILL.md\"`: CreateProcess { message: \"Rejected(\\\"`\\\\\\\"C:\\\\\\\\\\\\\\\\Windows\\\\\\\\\\\\\\\\system32\\\\\\\\\\\\\\\\cmd.exe\\\\\\\" /c \\\\\\\"type C:\\\\\\\\\\\\\\\\Users\\\\\\\\\\\\\\\\ASUS\\\\\\\\\\\\\\\\.codex\\\\\\\\\\\\\\\\skills\\\\\\\\\\\\\\\\deepluna-chat\\\\\\\\\\\\\\\\SKILL.md\\\\\\\"` rejected: blocked by policy\\\")\" }\ncodex\n{\"decision\":\"NO_AUGMENTATION\",\"target_linked_reasoning\":\"Replacing 2.0 of the 8.0 support parts with 2.0 parts Neroli 10% preserves the 100.0-part total but promotes an orange-blossom identity that conflicts with the bitter lemon-peel/green-tea target. No blinded evidence supports that inversion, so augmentation is not justified; this does not establish sensory inferiority.\",\"controlled_comparison\":{\"arms\":[\"Current 100.0-part baseline\",\"100.0-part arm replacing 2.0 support parts with 2.0 parts Neroli 10%\"],\"method\":\"Evaluate blind for target fidelity, specifically bitter lemon-peel/green-tea clarity and whether orange blossom becomes central; verify Neroli 10% inventory identity before execution.\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidate_total_parts\":100.0},\"decision_state\":\"NO_AUGMENTATION\",\"next_actions\":[\"Run the specified blinded baseline-versus-replacement comparison after inventory verification.\"],\"reason_codes\":[\"TARGET_IDENTITY_MISMATCH\",\"NO_BLINDED_SUPPORT\",\"TOTAL_PARTS_PRESERVED\",\"INVENTORY_VERIFICATION_REQUIRED\"]}}\ntokens used\n27,234\n",
+  "stdout_sha256": "2f4247e29bd427191e3656f1576c227ac587b69a7e8bf251389661816ed477d9"
+}

@@ -1,0 +1,47 @@
+# P2.2 Six-Source Compatibility Decision
+
+State: `P2_2_FIELD_MAPPING_COMPLETE_NO_CANONICAL_IMPORT_AUTHORIZED`
+
+This is a nonauthoritative installation-planning artifact. It maps the six clear source artifacts from the exact v3 quarantine graph to existing Perfume-Chem contracts. It does not extract files to the workspace, create records, alter inventory, install schemas, or promote package claims.
+
+## Coverage
+
+- Sources: 6
+- Field groups: 72 mapped of 72 expected
+- Source fields: 798 mapped
+- Missing, unexpected, or duplicate field groups: 0
+- Exact v3 parent: `343a6f5f82398047f22bc5dfa3477461b24ffb8a62457d98ed39737c469aa4d3`
+
+## Source decisions
+
+| Source | Exact SHA-256 | Native fit | Required handling | Hard stop |
+|---|---|---|---|---|
+| Inventory V5 | `e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331` | Existing snapshot and scoped authority pin | Reuse current native V5 projection; receipt-bind exact stock separately | Labels with unresolved carrier, lot, basis, amount, or strength cannot mint stock authority |
+| Interaction Atlas | `f5e381ee4a338784ed9c25a5058b9a5ef6567423e72cec8c799952d4ed38f468` | Existing read-only interaction registry plus B1 provenance | Preserve groups/interactions as structured hypotheses; rights-bind cited evidence | No writable interaction truth store and no pair claim as an observation |
+| Floral Foundation | `5d04a47a5663a79e334eb96c44c3515cdc6cfee0d78761de76e9bef9f5e5ee6d` | Existing target architecture, identity, B1, and candidate-projection lanes | Preserve architecture; human-review any family or alias translation; rebind stock fields to V5 | No static family-code generation, exact-stock import, or empirical authority |
+| Six-Pilot lattice | `2b5c2bff9d8b26c50d481442f87ea6cee0d9c4f0e46578b14c4137f1b75659e3` | Existing target/project-design and C0 experiment contracts | Keep branches, axes, and handoffs as target ancestry; translate a physical protocol only after authorization | Phase G remains false; plans are not formulas, executions, observations, or winners |
+| Meaningful Complexity pack | `76c98fa8d5b92e7c0be252d83356d49dd662ad69c9ab79f377dc386a6d3e2178` | Existing target/build separation, read-only interaction registry, and authority-withheld construction diagnostics | Preserve schema as transport ancestry; rebind exact decimals and stock receipts before any typed build projection | G0-G14 and 50/65 row thresholds are package diagnostics, not universal gates; JSON floats are not exact authority |
+| Qualification workbook | `da5e008e64dbaacd553bd9e9344ae99f2b59b39a526f17cfbab9e56fecacbb91` | Existing test, gate, replay, and deterministic-run contracts | Treat fixtures/results as software-validation ancestry and rerun against current engine/config/seed | The target engine was not run; package rules cannot override live gates or authorize release |
+
+## Dependency and invalidation decision
+
+Every mapping binds the exact source hash, field-set hash, transform policy, and relevant native contract. Stock-bound projections also depend on the V5 scope pin and selected stock/preparation receipts; evidence-bound projections depend on operation-scoped rights and accepted B1 extraction; qualification outputs depend on current engine, adapter, configuration, and seed hashes.
+
+Inventory-only changes invalidate inventory/build projections, not independently bound target ancestry, source evidence, physical measurements, empirical OAV, or observations. A source or transform change invalidates its descendants unless a typed, tested semantic-equivalence rule proves invariance. Unchanged aggregate counts are never equivalence evidence. No standalone dependency DAG or invalidation truth store is justified at P2.2.
+
+## Migration and authority verdict
+
+- Native overlap is substantial; reuse is mandatory.
+- No new schema or migration is proven by this six-source diff.
+- If a future real persistence gap is demonstrated, an additive migration must descend from `20260810_0016`.
+- The known missing typed sensory-assurance slice remains a separate future design gap; these package fields do not authorize reconstructing it.
+- No package `physically_authorized` value, unknown stock strength, float active-lineage value, proxy OAV, dose-firewall heuristic, package gate, or reference result is promoted.
+- Canonical import and project installation remain unauthorized at this gate.
+
+## Bound machine artifacts
+
+- `output/P2_2_SOURCE_FIELD_CATALOG_2026-08-11.json`
+- `output/P2_2_MAPPING_POLICY_REGISTRY_2026-08-11.json`
+- `output/P2_2_FIELD_COMPATIBILITY_MATRIX_2026-08-11.json`
+
+Next gate: `H0_LEGACY_ADVISORY_ANALYSIS_UNKNOWN_STRENGTH_LEAK`, followed by the first real authority-false Ma-2021 source-admission pilot before reporting work.

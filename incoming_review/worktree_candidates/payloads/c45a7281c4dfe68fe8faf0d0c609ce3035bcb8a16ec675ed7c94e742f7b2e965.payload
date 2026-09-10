@@ -1,0 +1,12 @@
+{
+  "schema": "direct_user_inventory_correction_receipt_v1",
+  "date": "2026-09-06",
+  "material": "Kephalis",
+  "state": "NOT_OWNED",
+  "source_kind": "DIRECT_USER_STATEMENT",
+  "source_quote": "I do not have kephalis",
+  "supersedes_availability_in": "inventory.txt Kephalis row and V5 requirement source row 153",
+  "applied_to_formula": "Prada_LHomme_Intense_From_Zero_Astra_V2",
+  "canonical_inventory_sync": "PENDING_SUPPORTED_SUCCESSOR_UPDATE",
+  "authority_limit": "User absence is authoritative for this recipe. This receipt is not a loaded/pinned engine overlay. No inventory hash or loader pin was changed."
+}

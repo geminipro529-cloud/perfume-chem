@@ -1,0 +1,83 @@
+{
+  "schema_version": "external_artifact_receipt_v1",
+  "receipt_id": "complex-perfumery-pack-metadata-file-library-exact-recovery-20260812",
+  "recorded_at": "2026-08-12T18:36:00+07:00",
+  "artifact": {
+    "file_name": "PACK_METADATA.json",
+    "locator": "incoming_review/chatgpt/20260812T183600+0700-pack-metadata-file-library-recovery-6a7992db/PACK_METADATA.json",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 14116,
+    "sha256": "d051505ea9144716fb860c5ff74e92b2bed2b33e419c830460cc60278b94f869",
+    "media_type": "application/json",
+    "json_parse_valid": true
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_PACKAGE_METADATA",
+    "independence_group": "chatgpt:6a7992db-96b8-83ec-aab0-6a7447b97da1:pack-metadata",
+    "conversation_id": "6a7992db-96b8-83ec-aab0-6a7447b97da1",
+    "conversation_title": "Perfume Project Planning",
+    "turn_id": "e0c8046a-b8b8-4180-8b2f-a84c1363d0f4",
+    "file_library_reference": "filenavlist 123:0",
+    "retrieval_method": "AUTHENTICATED_CHATGPT_FILE_LIBRARY_CARD_DOWNLOAD_AND_LOCAL_SHA256_REPLAY",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "redistribution_allowed": false,
+      "canonical_import_allowed": false,
+      "notes": "Exact metadata possession and integrity do not prove referenced payload completeness, source admission, formula authority, or execution authority."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_FILE_BYTES_VERIFIED_QUARANTINED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "metadata_projection_allowed": false,
+    "formula_projection_allowed": false,
+    "execution_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "AI_GENERATED_METADATA_ONLY",
+      "REFERENCED_TARGET_AND_PROTOCOL_ARTIFACTS_REQUIRE_INDEPENDENT_EXACT_BYTE_RECEIPTS",
+      "CURRENT_V5_STOCK_PREPARATION_AND_FORMULA_REBIND_REQUIRED",
+      "NO_MEASURED_HEADSPACE_STRICT_OAV_PHYSICAL_SENSORY_STABILITY_SAFETY_OR_RELEASE_EVIDENCE"
+    ]
+  },
+  "evidence_summary": {
+    "classification": "PACK_METADATA_EXACT_FILE_LIBRARY_BYTES_RECOVERED_QUARANTINED_METADATA_ONLY",
+    "metadata_only": true,
+    "pack_id": "Six_Perfume_Latest_Integrated_Recipe_Pack_Aug2026",
+    "target_ids": ["AM-E01", "C03", "H07", "PR-E01", "PR-E07", "S06"],
+    "referenced_inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "global_boundary_formula_mutation_authorized_by_oav": false,
+    "measured_headspace_state": "NOT TESTED",
+    "strict_oav_state": "NOT TESTED",
+    "physical_liking_state": "NOT TESTED",
+    "reference_similarity_state": "NOT TESTED",
+    "stability_state": "NOT TESTED",
+    "safety_release_state": "NOT TESTED",
+    "capture_manifest": {
+      "path": "incoming_review/chatgpt/20260812T183600+0700-pack-metadata-file-library-recovery-6a7992db/capture_manifest.json",
+      "byte_size": 2017,
+      "sha256": "ea63d30abb7c1a72d392c6bf8fa0a951949c60929c03d1c75bacb6905f246585"
+    }
+  },
+  "authority": {
+    "source_admission": false,
+    "metadata": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "bottle": false,
+    "physical_execution": false,
+    "sensory": false,
+    "headspace": false,
+    "strict_oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "installation": false,
+    "release": false
+  },
+  "receipt_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_RECEIPT_SHA256_OMITTED",
+  "receipt_sha256": "1c6d806894f3976940a924de55ff4a402eb3171c407ac0a27c9607f7d0579da5"
+}

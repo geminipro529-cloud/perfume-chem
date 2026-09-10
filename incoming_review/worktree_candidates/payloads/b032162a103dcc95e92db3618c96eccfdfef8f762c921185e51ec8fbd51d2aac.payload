@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,0.909
+identity_system_probability,0.9987
+oav_probability,0.909
+temporal_probability,1.0
+dominance_failure_probability,0.00029999999999996696
+overall_probability,0.9087
+dose_closure_probability,0.9953
+temporal_q05,0.9370870633456392
+temporal_median,0.9781010602497532
+max_share_q95,0.44649834803551147
+marker_coverage_q05,0.5714285714285714
+phase_sum_q05,"{""top"": 3.3270441559545834, ""heart"": 4.14738651588807, ""base"": 1.7569555003200574}"
+release_shape_median,"[0.39339329618648783, 0.32184762674781753, 0.208040096130114, 0.06819347910980814]"
+phase_shape_median,"[0.29656843195326477, 0.3781229464345288, 0.32513461554810463]"
+marker_probabilities,"{""Blood Orange Oil Sicilian | top"": 0.9761, ""Neroli EO 10% | top"": 0.0003, ""Lavender EO High Altitude | top"": 0.9662, ""Cardamom EO | heart"": 0.997, ""Orris Liquid 30% | heart"": 0.9662, ""Vetiver EO | base"": 0.9716, ""Suederal 10% | base"": 0.2424}"
+marker_quantiles,"{""Blood Orange Oil Sicilian | top"": [1.2063628096919337, 3.383447229418156, 9.217303810173282], ""Neroli EO 10% | top"": [0.06118782822694263, 0.15061330674279533, 0.37635510975786524], ""Lavender EO High Altitude | top"": [1.0983235702559109, 2.7024793149947137, 6.838224646515944], ""Cardamom EO | heart"": [1.8326408233557299, 4.744054661444609, 11.976661482172139], ""Orris Liquid 30% | heart"": [1.1309616111874903, 3.369859188535002, 10.285438453845112], ""Vetiver EO | base"": [1.1522345241419003, 2.99969696756726, 7.755991004354861], ""Suederal 10% | base"": [0.25823129808560374, 0.6556897495184291, 1.7377054107218224]}"
+classification,ROBUST

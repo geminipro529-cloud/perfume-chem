@@ -1,0 +1,206 @@
+{
+  "schema_version": "external_chat_claim_receipt_v1",
+  "receipt_id": "complex-perfumery-immortelle-absolute-helichrysum-eo-substitution-diff-20260819",
+  "recorded_at": "2026-08-19T14:15:21Z",
+  "source_manifest": {
+    "path": "incoming_review/chatgpt/20260819T141521Z-immortelle-helichrysum-6a818995/source_manifest.json",
+    "semantic_receipt_sha256": "0c64e989a0f3332a6be2cccd33ecfd504b3cd27bf4a9a9f3b386fb6682a375b9",
+    "conversation_id": "6a818995-0090-83ec-9b8e-22ad37dd42f7",
+    "conversation_title": "Immortelle Abs to Helichrysum",
+    "source_message_count": 2
+  },
+  "parents": [
+    {
+      "path": "incoming_review/chatgpt/20260819T141521Z-immortelle-helichrysum-6a818995/source_manifest.json",
+      "byte_size": 2834,
+      "sha256": "88be5f47f7df634c52e92b29947ed06bb1978632bdfaf06123f77ac20917ff40",
+      "relation": "BINDS_AUTHENTICATED_CHATGPT_MESSAGE_IDENTITIES_AND_RENDERED_TEXT_HASHES",
+      "authority_state": "SOURCE_POINTER_ONLY"
+    },
+    {
+      "path": ".archive/20260819_immortelle-helichrysum-intake-v1/docs/research/PERFUME_CHEM_CHATGPT_PROJECT_RECONCILIATION_2026-08-10.md",
+      "byte_size": 195102,
+      "sha256": "d997f778824a58ed6479106728bb3550b92b202de3b75d1fdb0009d72e2a0a6d",
+      "relation": "ARCHIVE_FIRST_PRECHANGE_RECONCILIATION_SNAPSHOT",
+      "authority_state": "HISTORICAL_PARENT_ONLY"
+    },
+    {
+      "path": "data/governance/inventory_v5_current_stock_snapshot.json",
+      "byte_size": 226125,
+      "sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+      "relation": "CURRENT_LOCAL_STOCK_IDENTITY_PARENT",
+      "authority_state": "CONTROLLING_LOCAL_INVENTORY_SNAPSHOT"
+    },
+    {
+      "path": "data/materials/I.yaml",
+      "byte_size": 28485,
+      "sha256": "430fb98aeed9a361ea858acfda2641d97cc46b2c2d21f7bdd61f3b11caa6c8f1",
+      "relation": "IMMORTELLE_ABSOLUTE_LEGACY_MATERIAL_CONTEXT",
+      "authority_state": "SUBORDINATE_TO_CURRENT_STOCK_SNAPSHOT"
+    },
+    {
+      "path": "data/materials/H.yaml",
+      "byte_size": 38863,
+      "sha256": "d92c07c8ec5bd7f9bb88de2f44d3400ab0f3b99bb66b3d8e915c1433e36b108d",
+      "relation": "HELICHRYSUM_EO_LEGACY_MATERIAL_CONTEXT",
+      "authority_state": "SUBORDINATE_TO_CURRENT_STOCK_SNAPSHOT"
+    },
+    {
+      "path": "engine/quantities.py",
+      "byte_size": 18269,
+      "sha256": "0d0eae52962175dde8a188df13035e0e2e8a26895fe347853af76b247f233a33",
+      "relation": "APPLICABLE_DENSITY_REQUIRED_FOR_MASS_VOLUME_CONVERSION",
+      "authority_state": "EXISTING_NATIVE_GUARD"
+    },
+    {
+      "path": "engine/intervention_trial.py",
+      "byte_size": 18252,
+      "sha256": "0cfc570ea155a08780d8cdff9127e5ec981545b70bdbb092a326358f93a6413f",
+      "relation": "STOCK_DENSITY_AND_DENSITY_SOURCE_REQUIRED_FOR_TRIAL_READINESS",
+      "authority_state": "EXISTING_NATIVE_GUARD"
+    },
+    {
+      "path": "backend/app/adapters/lab_legacy.py",
+      "byte_size": 50635,
+      "sha256": "25adaaaf4137ae2f2f2c5a53aa1f2399d92848cfc90c700253ccfc6420c751e6",
+      "relation": "MIXED_DIMENSION_PROJECTION_ABSTAINS_WITHOUT_DENSITY",
+      "authority_state": "EXISTING_NATIVE_GUARD"
+    }
+  ],
+  "source_claim": {
+    "source_stock_volume_ul": "49",
+    "source_nominal_strength_pct": "10",
+    "computed_nominal_active_volume_ul": "4.9",
+    "calculation_requires_fraction_basis": "VOLUME_PER_VOLUME",
+    "fraction_basis_was_stated_in_chat": false,
+    "density_was_used": false,
+    "target_stock_named": "Helichrysum EO",
+    "claimed_target_volume_ul": "APPROXIMATELY_5",
+    "identity_equivalence_was_established": false,
+    "sensory_equivalence_was_established": false
+  },
+  "local_identity_diff": {
+    "immortelle_absolute_stock": {
+      "identity": "Immortelle Absolute",
+      "listed_strength": "10%",
+      "carrier": "DPG",
+      "inventory_state": "OWNED_AS_WORKING_STOCK"
+    },
+    "helichrysum_eo_stock": {
+      "identity": "Helichrysum EO",
+      "botanical_context": "Helichrysum italicum",
+      "listed_strength": "NEAT_AS_SUPPLIED",
+      "inventory_state": "OWNED_LOT_DETAIL_OPEN"
+    },
+    "same_inventory_identity": false,
+    "same_extraction_product": false,
+    "exact_user_lot_density_known": false,
+    "exact_user_lot_composition_known": false,
+    "exact_user_lot_botanical_origin_known": false,
+    "psychophysical_substitution_curve_exists": false
+  },
+  "supplier_context": {
+    "pw_product": {
+      "sku": "5NY23688",
+      "name": "Immortelle Absolute 10% in DPG",
+      "availability": "IN_STOCK",
+      "price_usd_per_g": "0.59",
+      "catalog_specific_gravity": "0.9010",
+      "catalog_url": "https://www.perfumersworld.com/view.php?pro_id=5NY23688"
+    },
+    "local_prior_price_usd_per_g": "0.52",
+    "price_drift_state": "OBSERVED_NOT_CART_OR_PURCHASE_AUTHORITY",
+    "catalog_density_is_user_lot_density": false,
+    "nominal_10_percent_fraction_basis_explicitly_bound": false,
+    "supplier_page_proves_helichrysum_eo_equivalence": false
+  },
+  "literature_sources": [
+    {
+      "source_id": "PMCID:PMC8399527",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8399527/",
+      "role": "HELICHRYSUM_EXTRACT_CLASS_AND_COMPOSITION_VARIABILITY_CONTEXT",
+      "finding_scope": "ESSENTIAL_OIL_VOLATILE_TERPENES_DIFFER_FROM_POLAR_AND_SEMIPOLAR_ORGANIC_EXTRACT_FRACTIONS",
+      "supports_identity_equivalence": false
+    },
+    {
+      "source_id": "PMCID:PMC11836004",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11836004/",
+      "role": "HELICHRYSUM_ITALICUM_ESSENTIAL_OIL_CHEMOTYPE_VARIATION_CONTEXT",
+      "finding_scope": "MULTIPLE_CHEMOTYPES_AND_GEOGRAPHIC_OR_GENETIC_VARIATION",
+      "supports_fixed_eo_composition": false
+    },
+    {
+      "source_id": "PMCID:PMC9957194",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9957194/",
+      "role": "BOTANICAL_AUTHENTICATION_EXTRACTION_AND_DISTILLATION_VARIABILITY_CONTEXT",
+      "supports_generic_LOT_substitution": false
+    },
+    {
+      "source_id": "DOI:10.1080/01496395.2016.1237967",
+      "url": "https://doi.org/10.1080/01496395.2016.1237967",
+      "role": "DIRECT_SUPERCRITICAL_EXTRACT_VERSUS_ESSENTIAL_OIL_COMPOSITION_COMPARISON",
+      "finding_scope": "EXTRACT_AND_ESSENTIAL_OIL_COMPOSITIONS_DIFFER_MATERIALLY",
+      "supports_extract_to_eo_volume_substitution": false
+    },
+    {
+      "source_id": "DOI:10.3390/chromatography9100280",
+      "url": "https://doi.org/10.3390/chromatography9100280",
+      "role": "DISTILLATION_METHOD_EFFECT_ON_ESSENTIAL_OIL_YIELD_AND_COMPOSITION",
+      "supports_universal_eo_profile": false
+    },
+    {
+      "source_id": "SUPPLIER:PW_5NY23688",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=5NY23688",
+      "role": "CURRENT_CATALOG_PRODUCT_IDENTITY_PRICE_AVAILABILITY_AND_COARSE_SPECIFIC_GRAVITY",
+      "catalog_density_is_user_lot_density": false,
+      "supports_helichrysum_eo_equivalence": false
+    }
+  ],
+  "unlock_requirements": [
+    "BIND_IMMORTELLE_STOCK_FRACTION_BASIS_AND_DENSITY",
+    "BIND_HELICHRYSUM_STOCK_BOTANICAL_ORIGIN_LOT_AND_DENSITY",
+    "BIND_BOTH_LOT_COMPOSITIONS_OR_ANALYTICAL_PROFILES",
+    "DEFINE_THE_TARGET_ODOR_ATTRIBUTE_AND_MATRIX",
+    "RUN_BLINDED_DOSE_RESPONSE_OR_MATCHING_CALIBRATION"
+  ],
+  "native_guard_diff": {
+    "mass_volume_conversion_without_applicable_density": "ALREADY_REJECTED",
+    "intervention_trial_without_stock_density_and_source": "ALREADY_REJECTED",
+    "mixed_dimension_legacy_projection_without_density": "ALREADY_ABSTAINS",
+    "new_conversion_or_substitution_code_needed": false
+  },
+  "disposition": {
+    "classification": "IDENTITY_AND_FRACTION_BASIS_UNRESOLVED_SUBSTITUTION_NOT_CALCULABLE",
+    "substitution_volume_state": "ABSTAINED_NOT_CALCULABLE",
+    "nominal_vv_arithmetic_is_equivalence_authority": false,
+    "source_answer_reusable_as_conditional_arithmetic_only": true,
+    "formula_or_inventory_mutated": false,
+    "purchase_or_cart_mutated": false,
+    "trial_execution_allowed": false,
+    "native_runtime_change_required": false,
+    "governance_receipt_only": true
+  },
+  "authority": {
+    "source_admission": false,
+    "identity": false,
+    "composition": false,
+    "density": false,
+    "inventory": false,
+    "purchase": false,
+    "cart": false,
+    "stock": false,
+    "formula": false,
+    "compounding": false,
+    "trial_execution": false,
+    "physical_result": false,
+    "sensory_result": false,
+    "analytical_result": false,
+    "strict_oav": false,
+    "safety": false,
+    "installation": false,
+    "publication": false,
+    "release": false
+  },
+  "receipt_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_RECEIPT_SHA256_OMITTED",
+  "receipt_sha256": "5523b051462c9298f600d68befbb154d420720b2ab2736451ea324c99eeb0aca"
+}

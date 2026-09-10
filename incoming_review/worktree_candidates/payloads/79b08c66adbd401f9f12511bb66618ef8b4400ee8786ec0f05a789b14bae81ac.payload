@@ -1,0 +1,82 @@
+# YSL L'Homme / La Nuit de L'Homme Twenty-Variant Study
+
+This is a target-first formulation study containing ten L'Homme and ten La Nuit de L'Homme hypotheses. Every canonical candidate keeps **TARGET / IDEAL** separate from **CURRENT-INVENTORY BUILD**, includes an authority-false missing-chemical impact result, states its purchase/preparation decision, binds its ppm/ODT/OAV/composite-natural/temporal/G15 diagnostics, and defines a controlled blind plan.
+
+## Current Decision
+
+- 20/20 candidates are complete formula hypotheses.
+- 20/20 TARGET / IDEAL formulas total exactly 1,000,000 active ppm w/w.
+- 20/20 current builds total exactly 1,000,000 raw-stock ppm w/w and use one explicit musk, Ethylene Brassylate.
+- All lost tinctures are excluded from every current build.
+- 20/20 native 305 K screens are persisted as `WARN` with zero hard gate failures; all 20 pass the 10 µL raw-stock floor.
+- The 20 screens remain bound to their frozen inventory and overlay hashes. The cumulative [2026-08-28 inventory overlay](evidence/inventory_overlay_2026-08-28.json) is authoritative for the next formula and physical preparation; it does not retrospectively rewrite those diagnostics.
+- No sensory finalist exists. All 20 remain physical `HOLD` pending label verification, compounding, stability checks, and balanced-order blind testing.
+- The formulation package is better governed and more falsifiable than the frozen Sol xhigh formulas; physical liking, similarity, stability, safety, measured headspace, and overall sensory superiority are **NOT TESTED**.
+
+## Start Here
+
+- [Study manifest](study_manifest.json)
+- [Evidence ledger](evidence/evidence_ledger.json)
+- [Frozen diagnostic inventory overlay](evidence/inventory_overlay.json)
+- [Current cumulative inventory overlay — 2026-08-28](evidence/inventory_overlay_2026-08-28.json)
+- [All-candidate screening summary](reports/screening_summary.json)
+- [Missing-chemical impact index](reports/missing_chemical_impact_index.json)
+- [Frozen Sol comparison](reports/sol_comparison.md)
+- [Controlled blinded test protocol](testing/blind_protocol.json)
+- [Detailed final index](reports/final_index.md)
+- [Apple Pie AP-T1 v3 locked trial recipe](RECIPES/LH-04-APPLE-PIE-AP-T1-v3.md)
+
+## Inventory Authority Update — 2026-08-28
+
+The current authoritative inventory is the worktree `inventory.txt`, SHA-256 `F8244E7B069B5D24C194FBA5F27B5A9504E94624839453464E37398680FFAC3E`. The historical twenty-candidate diagnostics remain bound to inventory SHA-256 `DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC` and frozen overlay SHA-256 `1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072`; those hashes are provenance, not current stock authority.
+
+The successor overlay records Ethylene Brassylate, Habanolide, Romandolide, Neroli, and Geranyl Acetate as owned neat; Amber Xtreme and Alpha Irone as 10% w/w in DEP; Opoponax and Myrrh as 50% w/w in DEP; premium Osmanthus and Rose de Mai as 10% w/w in DPG; Rose Otto as 10% w/w with carrier still unrecorded; the corrected citrus, wood, and saffron stocks; canonical aliases without duplicate rows; all tinctures and Polysantol out of stock; and Ambrettolide still procurement-pending. Red Saffron Infusion is executable as the as-supplied product stock at fraction 1.0, but its proprietary saffron-active fraction remains unknown, so strict active ppm/OAV stays on HOLD. Ambrofix remains owned but non-executable while visible crystals make its pipettable phase heterogeneous.
+
+AP-T1 v3 remains a locked 4,500 µL physical test article. Its stale depletion explanation was corrected, but none of its 28 dose rows changed. Cedarwood oil Virginia and Lemon FCF oil Sicilian are now owned; testing either in AP-T1 belongs in a later carrier- and total-matched arm after the locked trial is reviewed.
+
+## L'Homme Formulas
+
+Each canonical candidate link contains, in order, target identity, TARGET / IDEAL formula, CURRENT-INVENTORY BUILD, missing-chemical summary, purchase/preparation recommendation, diagnostics, blind plan, and claim ceiling. The rendered link contains the pipeline-parseable current build and its full bound diagnostic analysis; the impact link is the nonexecuting missing-chemical receipt.
+
+| ID and name | Canonical target/current proposal | Rendered current build + analysis | Impact receipt | Status |
+|---|---|---|---|---|
+| LH-01 Original Fidelity | [candidates/LH-01.json](candidates/LH-01.json) | [rendered/LH-01_Original_Fidelity_30mL_EDT.md](rendered/LH-01_Original_Fidelity_30mL_EDT.md) | [impact/LH-01_assessment.json](impact/LH-01_assessment.json) | Family control; HOLD |
+| LH-02 Vintage Magnetique | [candidates/LH-02.json](candidates/LH-02.json) | [rendered/LH-02_Vintage_Magnetique_30mL_EDT.md](rendered/LH-02_Vintage_Magnetique_30mL_EDT.md) | [impact/LH-02_assessment.json](impact/LH-02_assessment.json) | HOLD |
+| LH-03 Tailored Luxe | [candidates/LH-03.json](candidates/LH-03.json) | [rendered/LH-03_Tailored_Luxe_30mL_EDT.md](rendered/LH-03_Tailored_Luxe_30mL_EDT.md) | [impact/LH-03_assessment.json](impact/LH-03_assessment.json) | HOLD |
+| LH-04 Apple Pie | [candidates/LH-04.json](candidates/LH-04.json) | [rendered/LH-04_Apple_Pie_30mL_EDT.md](rendered/LH-04_Apple_Pie_30mL_EDT.md) | [impact/LH-04_assessment.json](impact/LH-04_assessment.json) | Mandatory blind arm; HOLD |
+| LH-05 Ginger-Cedrat Spark | [candidates/LH-05.json](candidates/LH-05.json) | [rendered/LH-05_Ginger_Cedrat_Spark_30mL_EDT.md](rendered/LH-05_Ginger_Cedrat_Spark_30mL_EDT.md) | [impact/LH-05_assessment.json](impact/LH-05_assessment.json) | Computational WARN; physical HOLD |
+| LH-06 Violet Leaf Silk | [candidates/LH-06.json](candidates/LH-06.json) | [rendered/LH-06_Violet_Leaf_Silk_30mL_EDT.md](rendered/LH-06_Violet_Leaf_Silk_30mL_EDT.md) | [impact/LH-06_assessment.json](impact/LH-06_assessment.json) | HOLD |
+| LH-07 White Pepper-Basil | [candidates/LH-07.json](candidates/LH-07.json) | [rendered/LH-07_White_Pepper_Basil_30mL_EDT.md](rendered/LH-07_White_Pepper_Basil_30mL_EDT.md) | [impact/LH-07_assessment.json](impact/LH-07_assessment.json) | HOLD |
+| LH-08 Cedar-Vetiver Tailoring | [candidates/LH-08.json](candidates/LH-08.json) | [rendered/LH-08_Cedar_Vetiver_Tailoring_30mL_EDT.md](rendered/LH-08_Cedar_Vetiver_Tailoring_30mL_EDT.md) | [impact/LH-08_assessment.json](impact/LH-08_assessment.json) | HOLD |
+| LH-09 Tonka-Sandalwood | [candidates/LH-09.json](candidates/LH-09.json) | [rendered/LH-09_Tonka_Sandalwood_30mL_EDT.md](rendered/LH-09_Tonka_Sandalwood_30mL_EDT.md) | [impact/LH-09_assessment.json](impact/LH-09_assessment.json) | HOLD |
+| LH-10 Bangkok Air | [candidates/LH-10.json](candidates/LH-10.json) | [rendered/LH-10_Bangkok_Air_30mL_EDT.md](rendered/LH-10_Bangkok_Air_30mL_EDT.md) | [impact/LH-10_assessment.json](impact/LH-10_assessment.json) | Computational WARN; physical HOLD |
+
+## La Nuit de L'Homme Formulas
+
+| ID and name | Canonical target/current proposal | Rendered current build + analysis | Impact receipt | Status |
+|---|---|---|---|---|
+| LN-01 Original 2009 Fidelity | [candidates/LN-01.json](candidates/LN-01.json) | [rendered/LN-01_Original_2009_Fidelity_30mL_EDT.md](rendered/LN-01_Original_2009_Fidelity_30mL_EDT.md) | [impact/LN-01_assessment.json](impact/LN-01_assessment.json) | Family control and mandatory arm; HOLD |
+| LN-02 Current Transparent Style | [candidates/LN-02.json](candidates/LN-02.json) | [rendered/LN-02_Current_Transparent_Style_30mL_EDT.md](rendered/LN-02_Current_Transparent_Style_30mL_EDT.md) | [impact/LN-02_assessment.json](impact/LN-02_assessment.json) | Computational WARN; physical HOLD |
+| LN-03 Cardamom Velvet | [candidates/LN-03.json](candidates/LN-03.json) | [rendered/LN-03_Cardamom_Velvet_30mL_EDT.md](rendered/LN-03_Cardamom_Velvet_30mL_EDT.md) | [impact/LN-03_assessment.json](impact/LN-03_assessment.json) | HOLD |
+| LN-04 Lavender Heart | [candidates/LN-04.json](candidates/LN-04.json) | [rendered/LN-04_Lavender_Heart_30mL_EDT.md](rendered/LN-04_Lavender_Heart_30mL_EDT.md) | [impact/LN-04_assessment.json](impact/LN-04_assessment.json) | HOLD |
+| LN-05 Immortelle Nuit | [candidates/LN-05.json](candidates/LN-05.json) | [rendered/LN-05_Immortelle_Nuit_30mL_EDT.md](rendered/LN-05_Immortelle_Nuit_30mL_EDT.md) | [impact/LN-05_assessment.json](impact/LN-05_assessment.json) | Mandatory blind arm; HOLD |
+| LN-06 Cedar-Vetiver Vertical | [candidates/LN-06.json](candidates/LN-06.json) | [rendered/LN-06_Cedar_Vetiver_Vertical_30mL_EDT.md](rendered/LN-06_Cedar_Vetiver_Vertical_30mL_EDT.md) | [impact/LN-06_assessment.json](impact/LN-06_assessment.json) | HOLD |
+| LN-07 Dry Coumarin Skin | [candidates/LN-07.json](candidates/LN-07.json) | [rendered/LN-07_Dry_Coumarin_Skin_30mL_EDT.md](rendered/LN-07_Dry_Coumarin_Skin_30mL_EDT.md) | [impact/LN-07_assessment.json](impact/LN-07_assessment.json) | HOLD |
+| LN-08 Caraway Shadow | [candidates/LN-08.json](candidates/LN-08.json) | [rendered/LN-08_Caraway_Shadow_30mL_EDT.md](rendered/LN-08_Caraway_Shadow_30mL_EDT.md) | [impact/LN-08_assessment.json](impact/LN-08_assessment.json) | HOLD |
+| LN-09 Dark Textile Woods | [candidates/LN-09.json](candidates/LN-09.json) | [rendered/LN-09_Dark_Textile_Woods_30mL_EDT.md](rendered/LN-09_Dark_Textile_Woods_30mL_EDT.md) | [impact/LN-09_assessment.json](impact/LN-09_assessment.json) | HOLD |
+| LN-10 Intimate Diffusion | [candidates/LN-10.json](candidates/LN-10.json) | [rendered/LN-10_Intimate_Diffusion_30mL_EDT.md](rendered/LN-10_Intimate_Diffusion_30mL_EDT.md) | [impact/LN-10_assessment.json](impact/LN-10_assessment.json) | HOLD |
+
+## Frozen Sol Comparison Sources
+
+- [Sol L'Homme frozen source](baselines/source/L_Homme_Luxe_30mL_EdP.md)
+- [Sol La Nuit frozen source](baselines/source/La_Nuit_de_LHomme_Luxe_30mL_EDT.md)
+
+The source snapshots remain frozen. Fresh unmodified 305 K native runs are under `output/ysl_twenty_variant_study/baselines/current/`: Sol L'Homme is `FAIL` only because its 8 µL Basil row violates the new floor, while Sol La Nuit is `WARN` with no hard failures. See the comparison report; neither outcome is a sensory ranking.
+
+## Tracked Versus Generated Evidence
+
+Tracked canonical artifacts are under this study directory. Generated full JSON, formatter text, hot-temperature sensitivity output, and disposable baseline runs are under `output/ysl_twenty_variant_study/` and are gitignored. The generated outputs are evidence only when their hashes match the tracked summary or report bindings.
+
+## Claim Ceiling
+
+These are research formulas, not authenticated YSL recipes. ODT/OAV, composite-natural models, note distributions, and time windows are diagnostics. Ingredient count is not treated as complexity. Physical liking, sensory similarity, stability, measured headspace, and release are **NOT TESTED**; safety is **NOT CLEARED**.

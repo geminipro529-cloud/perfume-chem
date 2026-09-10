@@ -1,0 +1,380 @@
+{
+  "schema_version": "perfume-chem.complex-perfumery-collection-successor.v2",
+  "generated_at_utc": "2026-08-11T14:17:42.6922706Z",
+  "artifact_class": "NON_AUTHORITATIVE_RECOVERY_AND_NATIVE_FIT_INDEX",
+  "state": "PARTIAL_COLLECTION_EXACT_BYTES_QUARANTINED_P6_AND_OPTIONAL_TARGETS_REMAIN",
+  "parent": {
+    "path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_DELTA_20260811T125326Z.json",
+    "bytes": 10437,
+    "sha256": "749c2d9ddab9f75215b693fb059268ccb163fb415e7c9a4d452fb0fc7d7895e0",
+    "relationship": "SUPERSEDES_WITHOUT_MUTATING_PARENT"
+  },
+  "collection_complete": false,
+  "implementation_complete": false,
+  "installation_authorized": false,
+  "recovered_exact_byte_candidates": [
+    {"name": "COMPLEX_PERFUMERY_V5_RUNTIME_AUTHORITY_CUTOVER_V1_20260811.zip", "bytes": 499200, "sha256": "e69dff7450ba8fce6c62ed4f3a82f7803570f48a240efd0419aa75d7b18c953e", "state": "QUARANTINED_NOT_ADMITTED"},
+    {"name": "COMPLEX_PERFUMERY_V5_EVIDENCE_BOUND_IDENTITY_CLOSURE_V1_20260811.zip", "bytes": 1452144, "sha256": "7c3951ca3266b84b1fe5376375f1ca1f5588a589370ece8e21b5ac1000f22205", "state": "QUARANTINED_NOT_ADMITTED"},
+    {"name": "Violet_Leaf_Complexity_Portfolio_Aug2026_v1_Package.zip", "bytes": 1108147, "sha256": "051411e3af906a3f2fa06fe996c98ce2d7083b69201c07481c6240a0c24ca999", "state": "QUARANTINED_NOT_ADMITTED"},
+    {"name": "Inventory_V5_Reconciliation_and_Priority_Patch_v1.xlsx", "bytes": 52420, "sha256": "189708f1f69f326898f4d8a87f742949b70d9f1252990fc1bc019c27ce9f5513", "state": "SOURCE_CAPTURE_NOT_INVENTORY_AUTHORITY"},
+    {"name": "ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_20260810.zip", "bytes": 158952, "sha256": "94c6b75573d71189c58b16737a1a5d2b9f7bb6bc8f1b41b9e76ef727e00e3c33", "state": "QUARANTINED_NOT_TESTED"},
+    {"name": "ACCORD_INTEL_DARK_DARK-SCR-03_GUAIACWOOD_GUAIACOL_v1_20260810.zip", "bytes": 166497, "sha256": "90f610273aa3c8fab21895a5ca11dd67051e4631509376f03bf5a38337181d2e", "state": "QUARANTINED_NOT_TESTED"},
+    {"name": "ACCORD_INTEL_DARK_DARK-SCR-20A_GUAIACOL_BIRCH_TAR_v1_20260810.zip", "bytes": 217032, "sha256": "18270ef6603d2eb594ba57cb72326c4167eee1f655d6950d7e1dec5f00b3527d", "state": "QUARANTINED_NOT_TESTED"},
+    {"name": "Perfume_Chem_Complexity_Gap_Detection_Ensemble_2026-08-11_v1.zip", "bytes": 58306, "sha256": "ccdc1d7afe395018223ecffb540918663e72d529d9bba40cc5677b75c4884666", "state": "QUARANTINED_DESIGN_ANCESTRY"},
+    {"name": "COMPLEX_PERFUMERY_OPUS_V_COMPLEXITY_SYSTEM_V1_20260811.zip", "bytes": 53948, "sha256": "bab9ab3ee9431f395fc14d15e04a219b3a2b8214f56911789488671a290af7bf", "state": "QUARANTINED_DESIGN_ANCESTRY"},
+    {"name": "Complexity_Model_Gap_Atlas_and_New_Model_Roadmap_Aug2026_v1_Package.zip", "bytes": 104844, "sha256": "9a1724e38c6ff1bf0c8274c6f239d3b55309fdbabefedb55b23562480cbb33c0", "state": "QUARANTINED_DESIGN_ANCESTRY"},
+    {"name": "ACCORD_INTEL_DARK_DARK-SCR-01_SAFRALEINE_SUEDERAL_v1_1_20260811.zip", "bytes": 164814, "sha256": "2a87c58c9c4a354b3db357e215623f23f9cc655e1679f2f62cf856263741cbb5", "state": "QUARANTINED_NOT_TESTED"},
+    {"name": "ACCORD_INTEL_CHAT2_DARK_MATERIALS_v2.zip", "bytes": 68633, "sha256": "20ac62a0a5e639f8a5225937690b582c6c6837b74c6c1311786071bc50ba40ba", "state": "QUARANTINED_PASS_WITH_HOLDS"},
+    {"name": "Perfume_Chem_Codex_Implementation_Handoff_2026-08-10_v2.zip", "bytes": 1766574, "sha256": "b0db328ed79b08ab4e66fe0097d5c5a01d1b24dc2fb8f78b94721cf96ec8df5f", "state": "EXACT_BYTES_RECOVERED_AS_V3_NESTED_CONTAINER_QUARANTINED_NOT_ADMITTED"},
+    {"name": "ACCORD_INTEL_CHAT2_DARK_SCREEN02_EVIDENCE_REPAIR_v1.zip", "bytes": 53799, "sha256": "dd9fb19c03da6c401aa1bdb718446b830148cc2856be6c525abf836788ce90fb", "state": "GRAPH_COMPLETE_QUARANTINED_PASS_WITH_EXECUTION_HOLD"},
+    {"name": "Perfume_Chem_Exact_Byte_Recovery_SUCCESSOR_2026-08-11_v1.zip", "bytes": 15332522, "sha256": "ee0486d348699528ac40c4d4fd4e4340dec46141903ea335711fd6d7708141f7", "state": "GRAPH_COMPLETE_QUARANTINED_PRESERVATION_ENVELOPE_NOT_READY_TO_INSTALL"},
+    {"name": "Perfume_Chem_Cloud_Work_Chat_Codex_Delivery_PC-EXACT-BYTE-RECOVERY-REPUBLISH-20260811T104537Z-9977bd49f4c9.zip", "bytes": 17213537, "sha256": "2de1e341f2cea95356c49e509b0226bbe3d8a2a2256ff4e2fca2112771a99589", "state": "GRAPH_COMPLETE_QUARANTINED_TRANSPORT_ENVELOPE_NOT_OPUS_V_FORMULA_ANCESTRY"},
+    {"name": "COMPLEX_PERFUMERY_OPUS_V_COMPLEXITY_SYSTEM_V1R2_20260811.zip", "bytes": 165408, "sha256": "cf369b9464be6b661a7fb8c9fc6c2e299c1f82e8bcd60027674aef3232662751", "state": "CLEAR_FOR_RECEIPT_REVIEW_REFERENCE_IMPLEMENTATION_REPOSITORY_AND_PHYSICAL_GATES_HELD"},
+    {"name": "COMPLEX_PERFUMERY_OPUS_V_V1R2_REPOSITORY_APPLY_QUALIFICATION_V1_20260811.zip", "bytes": 233169, "sha256": "2a5b79f399b51eb6e7bf70ab4da57aab4518a63e044de7abe4b9bfb84116e055", "state": "GRAPH_COMPLETE_QUARANTINED_QUALIFICATION_ONLY_NO_APPLY_AUTHORITY"},
+    {"name": "OPUS_V_V1R2_EXECUTOR_HANDOFF_20260811.zip", "bytes": 187937, "sha256": "0bdc954d56c1e08e7767db0c21ab09393c142a6d5ad3e5a4c51f3f1e2b25c37e", "state": "GRAPH_COMPLETE_QUARANTINED_TRANSPORT_ONLY_NO_EXECUTION_AUTHORITY"},
+    {"name": "COMPLEX_PERFUMERY_OPUS_V_INCIDENT_RECONSTRUCTION_V1R1_20260811.zip", "bytes": 273754, "sha256": "52aac9f8254c58a6f9268a543d62d486d2a79cbb1b5f14095fa072cdc67e1500", "state": "GRAPH_COMPLETE_QUARANTINED_HOLD_INCIDENT_INPUTS_REQUIRED"}
+  ],
+  "latest_exact_byte_capture": {
+    "path": "incoming_review/chatgpt/20260811T141445Z-opus-v-exact-byte-recovery-6a7aaa83",
+    "manifest_path": "incoming_review/chatgpt/20260811T141445Z-opus-v-exact-byte-recovery-6a7aaa83/capture_manifest.json",
+    "manifest_bytes": 9137,
+    "manifest_sha256": "64710c5e68ed960c600413bd2f9ebb841af9b42017adb3615c5175e273b708dd",
+    "copied_files": 5,
+    "authority_promoted": false,
+    "accepted_by_codex": false
+  },
+  "opus_v_exact_byte_recovery_validation": {
+    "source_conversation_id": "6a7aaa83-757c-83ec-866d-33ef347febe6",
+    "archives": [
+      {
+        "sha256": "cf369b9464be6b661a7fb8c9fc6c2e299c1f82e8bcd60027674aef3232662751",
+        "zip_members": 69,
+        "uncompressed_bytes": 490541,
+        "controlling_ledger": "68_OF_68_EXACT",
+        "native_graph": "CLEAR_FOR_RECEIPT_REVIEW",
+        "nodes": 1,
+        "edges": 0,
+        "max_depth": 0,
+        "all_nodes_terminal": true,
+        "promotion_allowed": false
+      },
+      {
+        "sha256": "2a5b79f399b51eb6e7bf70ab4da57aab4518a63e044de7abe4b9bfb84116e055",
+        "zip_members": 73,
+        "uncompressed_bytes": 370914,
+        "controlling_ledger": "72_OF_72_EXACT",
+        "native_graph": "GRAPH_COMPLETE_QUARANTINED",
+        "nodes": 2,
+        "edges": 1,
+        "max_depth": 1,
+        "all_nodes_terminal": true,
+        "promotion_allowed": false
+      },
+      {
+        "sha256": "0bdc954d56c1e08e7767db0c21ab09393c142a6d5ad3e5a4c51f3f1e2b25c37e",
+        "zip_members": 9,
+        "uncompressed_bytes": 285316,
+        "controlling_ledger": "8_OF_8_EXACT",
+        "native_graph": "GRAPH_COMPLETE_QUARANTINED",
+        "nodes": 2,
+        "edges": 1,
+        "max_depth": 1,
+        "all_nodes_terminal": true,
+        "promotion_allowed": false
+      },
+      {
+        "sha256": "52aac9f8254c58a6f9268a543d62d486d2a79cbb1b5f14095fa072cdc67e1500",
+        "zip_members": 21,
+        "uncompressed_bytes": 696188,
+        "controlling_ledger": "19_OF_19_EXACT",
+        "native_graph": "GRAPH_COMPLETE_QUARANTINED",
+        "nodes": 3,
+        "edges": 2,
+        "max_depth": 1,
+        "all_nodes_terminal": true,
+        "promotion_allowed": false
+      }
+    ],
+    "graph_findings": [],
+    "expected_node_holds_only": [
+      "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT",
+      "PARTIAL_MEMBER_SCAN"
+    ],
+    "classification": "EXACT_BYTES_RECOVERED_INTEGRITY_VERIFIED_QUARANTINED_NO_APPLY_OR_FORMULA_AUTHORITY"
+  },
+  "aggregate_recovery_validation": {
+    "outer_archives": [
+      {
+        "sha256": "ee0486d348699528ac40c4d4fd4e4340dec46141903ea335711fd6d7708141f7",
+        "zip_members": 123,
+        "uncompressed_bytes": 17665526,
+        "controlling_ledgers": ["122_OF_122_EXACT", "121_OF_121_EXACT"],
+        "native_graph": "GRAPH_COMPLETE_QUARANTINED",
+        "nodes": 18,
+        "edges": 51,
+        "max_depth": 2,
+        "all_nodes_terminal": true,
+        "promotion_allowed": false
+      },
+      {
+        "sha256": "2de1e341f2cea95356c49e509b0226bbe3d8a2a2256ff4e2fca2112771a99589",
+        "zip_members": 18,
+        "uncompressed_bytes": 17441127,
+        "controlling_ledgers": ["17_OF_17_EXACT"],
+        "native_graph": "GRAPH_COMPLETE_QUARANTINED",
+        "nodes": 19,
+        "edges": 60,
+        "max_depth": 3,
+        "all_nodes_terminal": true,
+        "promotion_allowed": false
+      }
+    ],
+    "recursive_known_target_hashes_checked": 48,
+    "recursive_archive_nodes_streamed": 14,
+    "recursive_bytes_streamed": 73974819,
+    "new_still_queued_target_hashes_found": 0,
+    "p6_package_found": false,
+    "p6_wheel_found": false,
+    "classification": "BYTE_INTEGRITY_AND_PRESERVATION_ONLY_NO_ADMISSION"
+  },
+  "aggregate_nested_package_native_fit": [
+    {
+      "package": "Perfume_Chem_Experimental_Evidence_Calibration_Spine_2026-08-11_v1_2_VALIDATED.zip",
+      "sha256": "595b2e61d0b9016d9b9de242ae33705202b726939a06a8676697cbcc8f5ca180",
+      "decision": "TRANSPORT_AND_DESIGN_ANCESTRY_ONLY_REUSE_NATIVE_B1_C5_C10_C0_AND_LABORATORY_BETA",
+      "migration_required": false
+    },
+    {
+      "package": "Perfume_Chem_V5_Authority_Drift_Closure_2026-08-11_v1.zip",
+      "sha256": "9415623e0e639e46978c6a1c8348f6493bffdce0b9b074f952ab5d211f90f42b",
+      "decision": "HISTORICAL_V5_ATLAS_OVERLAY_ANCESTRY_CURRENT_NATIVE_V5_AND_P0A_SUPERSEDE_AT_OPERATIONAL_SCOPE",
+      "migration_required": false
+    },
+    {
+      "package": "Perfume_Making_Consultant_Operations_Patch_2026-08-11_v1.zip",
+      "sha256": "0452467f438e071923ccb0760c3413bb7331b7b9b9492f972547bb26966c1ac5",
+      "decision": "BENCH_RENDERER_REQUIREMENTS_MAP_TO_EXISTING_READ_ONLY_REPORTING; TWELVE_ARM_CAUSAL_ISOLATES_MAP_TO_C10_P3_C0; DO_NOT_INSTALL_PARALLEL_SCRIPTS_OR_MODEL_STORE",
+      "migration_required": false
+    },
+    {
+      "package": "Perfume_Chem_Seven_Artifact_SUCCESSOR_RECOVERY_2026-08-11_v1.zip",
+      "sha256": "eac7945902900c6c1c01347aa55f760244ed4971b0d0f2691eb515a38839479c",
+      "decision": "TRANSPORT_PRESERVATION_ENVELOPE_NO_NEW_SCIENTIFIC_OR_FORMULA_CONTRACT",
+      "migration_required": false
+    }
+  ],
+  "scr02_acceptance": {
+    "path": "incoming_review/chatgpt/20260811T115527Z-dark-chat2-base64-recovery-6a74ba3d-n7f3c2d1/ACCORD_INTEL_CHAT2_DARK_SCREEN02_EVIDENCE_REPAIR_v1.zip",
+    "zip_crc_clean": true,
+    "safe_members": 15,
+    "embedded_sha256_ledger": "14_OF_14_EXACT",
+    "native_graph_state": "GRAPH_COMPLETE_QUARANTINED",
+    "native_graph_nodes": 1,
+    "native_graph_edges": 0,
+    "native_graph_all_terminal": true,
+    "native_node_hold": "PARTIAL_MEMBER_SCAN",
+    "promotion_allowed": false,
+    "self_validation": "35_OF_35_PASS_WITH_EXECUTION_HOLD",
+    "observations": 0,
+    "physical_batches": 0,
+    "decisions": 0,
+    "analytical_measurements": 0,
+    "template_rows_are_data": false,
+    "stock_boundary": "CASTOREUM_AS_SUPPLIED_OPAQUE_PRODUCT_BASIS; TEN_PERCENT_DPG_PREPARATION_UNPROVEN; SUEDERAL_CARRIER_AND_LOT_VERIFY_FIRST"
+  },
+  "installation_critical_exact_byte_blocker": {
+    "lane": "P6_PHYSICS_OAV_3_4",
+    "state": "BLOCKED_EXACT_BYTES_UNRECOVERED",
+    "required": [
+      {"name": "Perfume_Chem_Physics_OAV_Decision_Model_v3_4_0_CALIBRATION_READY.zip", "expected_bytes": 540402, "sha256": "8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db"},
+      {"name": "perfume_chem_physics_oav_v3-3.4.0-py3-none-any.whl", "expected_bytes": 65724, "sha256": "582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5"}
+    ],
+    "source_chat_recovery_outcome": "BOTH_UNAVAILABLE_NO_REPLACEMENT",
+    "source_chat_files_hashed": 131,
+    "source_chat_archives_scanned": 21,
+    "source_chat_nested_members_scanned": 1236,
+    "source_chat_exact_matches": 0,
+    "substitution_allowed": false,
+    "reconstruction_from_chat_prose_allowed": false
+  },
+  "optional_collection_targets_unrecovered_from_accessible_surfaces": [
+    {"name": "full-chain wrapper", "sha256": "16eb6805414c1a96f30609e7dc9eed5377f522f9872e2017222b23635a73f530"},
+    {"name": "DHP initial wrapper", "sha256": "ec27bcd4dd1b9a3e54d4de49ace3293d91af868ba6c6005a581b1646d3905dcd"},
+    {"name": "DHP exact-V5 audit wrapper", "sha256": "7e38c19a83b25de1edbc190f568b5725655d5e60dca63dec951e8f7c01a98efc"},
+    {"name": "Perfume Box Workflow wrapper", "sha256": "db0579760159e7438b83e92de399aa0a9f5862f0f547fa030a682c339bd54e84"},
+    {"name": "Floral Chat Bridge packet ZIP", "sha256": "e6a083498f350ea8ceaf7ee3a97d725cd394463eebfdf136a95bdc81a65e19aa"},
+    {"name": "Floral packet manifest", "sha256": "8b1124fa6eb9e97c2918488aad7525a610b6d5a23e11f1fb2747add5d5ada368"},
+    {"name": "Floral packet content set", "sha256": "c0ef8354069b727c40d8e67c7eae3e47636e222fd29987e531c7d0d52f7f8483"},
+    {"name": "Earlier floral-heart package", "sha256": "e04630c9936fc2da54f7444b0bf085b3ee1d0797fb9aa52518e1f8c5f61e1092"},
+    {"name": "Earlier floral-heart workbook", "sha256": "8b867681174c15debeb632a11eae81efcddda78433ecdc8a7900d5c7b54acdba"},
+    {"name": "Data Parsing handoff ZIP", "sha256": "1ac667b6bfe8fce2c7d8667b2d21bab12f5b73359a2660fadcc375365fe7b4e1"},
+    {"name": "Data Parsing command", "sha256": "52b2edc4e63c48b3d0831d3e5353ed0a93a1bd62f7bdc48a68b1cca3f92a041a"},
+    {"name": "Data Parsing refresh-route packet", "sha256": "8a0ca735281bebb2680f65c900dbcb2afab77616bf67a2f78f0d7780064883f9"},
+    {"name": "Universal Accord current claimed package", "sha256": "8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998"},
+    {"name": "PCV3 experimental-data package", "sha256": "db638ab82c7e1a798297a9f4376014b9f51965511ae1d65132e57b4d12c9c9eb"},
+    {"name": "Universal Perfume Complexity Support System v1 package", "sha256": "fce8e5611aba6b70d6b09b1f9adc9f62ea6a3c59da5739c771b314bcb27af88c"},
+    {"name": "Universal Perfume Complexity Support System v1 workbook", "sha256": "ac9ae38f85d97b5846d80fc712f563476de52af25b5568b1ef1eed62894895fe"},
+    {"name": "Universal Perfume Complexity Support System v1 registry", "sha256": "90c68af32575a926bae2afb1634973cf47faa470a2a84f77fdf6ab8dc355014d"},
+    {"name": "Aroma Chemical Analysis final package", "sha256": "d2ba0ed7b97812edb69a7e3ae38be729fdebbbee4ddaa7173fea5d5534d12ae7"},
+    {"name": "Perfume Chem Tunnel Courier v1.0.1", "sha256": "19674416f7ec025105af2967f66a7eb625ccb6d1f542fb24dcded61671259145"},
+    {"name": "Perfume Chem Tunnel initial package", "sha256": "8e593656e78639e8205ddfc57c45e1c5c2edcd91107166ea402bc1b93f183b2f"},
+    {"name": "AM-E01_Amouage_Opus_V_Woods_Symphony_30mL_Formula.md", "expected_bytes": 40713, "sha256": "965b02beba5faec32dcbe8d5d97aa3df8cb47fe43fc3c1cf040e4fd3b03ff5e2"},
+    {"name": "PACK_METADATA.json", "expected_bytes": 14116, "sha256": "d051505ea9144716fb860c5ff74e92b2bed2b33e419c830460cc60278b94f869"}
+  ],
+  "post_cutoff_opus_lineage_delta": {
+    "canonical_formula_selected": false,
+    "prior_republish_label_correction": "THE_RECOVERED_2de1e341_PACKET_IS_A_GENERIC_EXACT_BYTE_RECOVERY_TRANSPORT_ENVELOPE_AND_DOES_NOT_CONTAIN_OR_RECOVER_OPUS_V_V1R2",
+    "exact_recovered_archives": [
+      {
+        "role": "V1R2_REFERENCE_IMPLEMENTATION",
+        "sha256": "cf369b9464be6b661a7fb8c9fc6c2e299c1f82e8bcd60027674aef3232662751"
+      },
+      {
+        "role": "V1R2_REPOSITORY_APPLY_QUALIFICATION",
+        "sha256": "2a5b79f399b51eb6e7bf70ab4da57aab4518a63e044de7abe4b9bfb84116e055"
+      },
+      {
+        "role": "V1R2_EXECUTOR_TRANSPORT_HANDOFF",
+        "sha256": "0bdc954d56c1e08e7767db0c21ab09393c142a6d5ad3e5a4c51f3f1e2b25c37e"
+      },
+      {
+        "role": "V1R1_INCIDENT_RECONSTRUCTION",
+        "sha256": "52aac9f8254c58a6f9268a543d62d486d2a79cbb1b5f14095fa072cdc67e1500"
+      }
+    ],
+    "exact_recovery_effect": "REMOVES_FOUR_HASHES_FROM_OPTIONAL_QUEUE_BUT_GRANTS_NO_REPOSITORY_APPLY_OR_FORMULA_AUTHORITY",
+    "source_companion_state": "NINE_LIVE_METADATA_ONLY_COMPANIONS_RETAINED_IN_CAPTURE_MANIFEST",
+    "merge_performed": false,
+    "supersession_declared": false,
+    "integrated_lineage": {
+      "workbook": {
+        "name": "Six_Perfume_Latest_Integrated_Recipe_Book_Aug2026.xlsx",
+        "expected_bytes": 137608,
+        "expected_sha256": "ad96143939c2bcaf751119056a331e21ebdb5fee5668bd48f06c6db5e96bbb55",
+        "local_state": "PRESENT_EXACT_NAME_SIZE_AND_HASH_VERIFIED_BY_SHARED_READ",
+        "locator_scope": "EXTERNAL_LOCAL_PATH",
+        "path": "C:/Users/ASUS/Downloads/Six_Perfume_Latest_Integrated_Recipe_Book_Aug2026.xlsx"
+      },
+      "target_sha256": "240e3c07aa86d1a6dccd3184fadf85b5035fbc0576bf0b54e0ecfc43a2308174",
+      "build_sha256": "71b8fa80a8d594fbb724f3a0153c7515bf744019989c5f9d826d03ea6fd8f953"
+    },
+    "conflicting_lineage_exact_local_sidecars": [
+      {
+        "name": "Commercial_Reconstruction_Recipe_Pack_Aug2026.xlsx",
+        "bytes": 152424,
+        "sha256": "459b9b8f5e6e4546d05248b93248519645eb002dfcf38e8bc2f2f8ae30e876e9"
+      },
+      {
+        "name": "Amouage_Opus_V_Woods_Symphony_30mL_FORMULA.md",
+        "bytes": 44169,
+        "sha256": "dd05d9115280d39f0c1ff4aee209f22fef0ed0176a151b33da6786d76d4b5fe5"
+      }
+    ],
+    "conflicting_target_sha256": "6e2ef4bf724b795a1df12b526f556a2ae383e1c10f9c3a83bbc0bcae98d652fc",
+    "conflicting_build_sha256": "17a583c81eb33dfeef197866e2b7c31f943349d719250cb8e60c76bbc41c19d7"
+  },
+  "native_fit_decision": {
+    "migration_required": false,
+    "new_truth_store_allowed": false,
+    "canonical_reuse": [
+      "B1_SOURCE_RIGHTS_AND_PROVENANCE",
+      "V5_INVENTORY_AUTHORITY",
+      "TARGET_ACCEPTED_TARGET_MAPPING_BUILD_LINEAGE",
+      "C10_STOCK_DOSE_CANDIDATE_PROPOSAL_REVIEW",
+      "P3_MISSING_CHEMICAL_CONTROLLED_COMPARISON_WRAPPER",
+      "C0_BLINDING_QUALIFICATION_AND_PANEL_CONTRACT",
+      "LABORATORY_BETA_PHYSICAL_PERSISTENCE",
+      "C3_C8_PHYSICS_OAV_BINDING"
+    ],
+    "package_intake_form": "IMMUTABLE_PROJECT_DESIGN_ANCESTRY_PLUS_TYPED_AUTHORITY_FALSE_CANDIDATE_PROJECTIONS",
+    "opus_v_v1r2_fit": "FIELD_LEVEL_DIFF_ONLY_AGAINST_CURRENT_NATIVE_TARGET_BUILD_V5_C10_P3_C0_C3_C8; DO_NOT_APPLY_OVERLAY_OR_PATCH; DO_NOT_SELECT_CANONICAL_FORMULA",
+    "prohibited_promotions": [
+      "PACKAGE_PHYSICALLY_AUTHORIZED_FLAGS",
+      "TEMPLATE_ROWS_AS_OBSERVATIONS",
+      "FLOAT_ONLY_ACTIVE_LINEAGE_AS_EXACT_DECIMAL_AUTHORITY",
+      "PROXY_OAV_AS_STRICT_C8",
+      "PACKAGE_STOCK_LABELS_AS_EXACT_STOCK_RECEIPTS",
+      "HEDONIC_DESIGN_SCORES_AS_PHYSICAL_RESULTS",
+      "FORMULA_OR_INVENTORY_MUTATION_FROM_PACKAGE_CLAIMS"
+    ]
+  },
+  "inventory_execution_readiness_boundary": [
+    {
+      "material": "Cypress EO",
+      "owned": true,
+      "stock_basis": "NEAT_AS_SUPPLIED",
+      "execution_ready": false,
+      "blocker": "SUPPLIER_BOTANICAL_AND_LOT_IDENTITY"
+    },
+    {
+      "material": "PADMA / Phenylacetaldehyde Dimethyl Acetal",
+      "owned": true,
+      "stock_basis": "NEAT",
+      "execution_ready": true
+    },
+    {
+      "material": "Ambrettolide 10% DPG",
+      "owned": false,
+      "design_available": true,
+      "stock_basis": "PLANNED_ACQUISITION",
+      "execution_ready": false,
+      "blocker": "PHYSICAL_RECEIPT_AND_EXACT_STOCK_REFERENCE"
+    },
+    {
+      "material": "Beta Ionone",
+      "owned": true,
+      "stock_basis": "NEAT",
+      "active_fraction": 1.0,
+      "execution_ready": true
+    },
+    {
+      "material": "Beta Ionone 0.1% working dilution",
+      "owned": true,
+      "stock_basis": "WORKING_DILUTION",
+      "active_fraction": 0.001,
+      "execution_ready": false,
+      "blocker": "EXACT_PREPARATION_AND_CARRIER_LINEAGE"
+    },
+    {
+      "material": "Beta Ionone 1% requirement",
+      "owned": false,
+      "stock_basis": "PREPARATION_REQUIRED",
+      "execution_ready": false,
+      "prohibited_interpretation": "DO_NOT_DOSE_EXISTING_0_1_PERCENT_STOCK_AS_1_PERCENT"
+    }
+  ],
+  "post_cutoff_data_parsing_planning_delta": {
+    "conversation_id": "6a7aa702-a7e4-83ec-851e-ff48c6ce1822",
+    "state": "SOURCE_ONLY_PLANNING_PROVENANCE_NO_ATTACHMENTS_OR_EXACT_PACKAGE_HASH",
+    "claimed_endpoints": 175,
+    "claimed_work_packages": 14,
+    "claimed_first_causal_isolate_arms": 12,
+    "reconstruction_allowed": false,
+    "native_fit_effect": "NONE_UNTIL_EXACT_BYTES_OR_FIELD_LEVEL_EVIDENCE_EXIST",
+    "authority_promoted": false
+  },
+  "deepluna_chat": {
+    "profile": "cheapluna-chat",
+    "route": "DIRECT_PRO",
+    "fallback_used": false,
+    "maximum_parallel_read_lanes_used": 5,
+    "accepted_worker_role": "BOUNDED_ADVERSARIAL_REVIEW_ONLY",
+    "sol_final_acceptance": true,
+    "efficiency_rule": "ONE_FRESH_CLIENT_PER_LANE; LOCAL_EVIDENCE_PACKING; NO_MULTIPLEXED_HEALTH_DURING_ACTIVE_LANES; HARD_STOP_AFTER_FAILED_ADMISSION",
+    "latest_exact_project_check": "TRANSPORT_CLOSED_FAIL_CLOSED",
+    "latest_update_provider_transmissions": 0,
+    "latest_update_retry_or_fallback_used": false
+  },
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "release": false
+  }
+}

@@ -1,0 +1,95 @@
+"""Joint native floral/selection/accord execution, without runtime admission.
+
+Retain both complete source-bound results around the same whole blueprint.
+Other planes remain explicit unknowns or separately supplied source assessments;
+this module does not claim full specialist execution or physical authority.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Any, Mapping
+
+from .contracts import _CanonicalRecord, _payload
+from .floral_integration import FloralFamilyIntegrationAdapter
+from .floral_whole_perfume import FloralWholePerfumeAssembly
+from .inventory_projection import IdealProposal, InventoryProjection
+from .source_bound_assembly import SourceBoundCandidateAssembly, SourceBoundWholePerfume
+from .whole_perfume_assembler import assemble_integrated_whole_perfume_blueprint
+
+
+@dataclass(frozen=True, slots=True)
+class SourceBoundFloralWholePerfume(_CanonicalRecord):
+    """Lossless joint result; neither inner view can substitute for the whole."""
+
+    SCHEMA_VERSION = "source_bound_floral_whole_perfume_v1"
+
+    bound: SourceBoundWholePerfume
+    floral: FloralWholePerfumeAssembly
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.bound, SourceBoundWholePerfume):
+            raise TypeError("bound must be SourceBoundWholePerfume")
+        if not isinstance(self.floral, FloralWholePerfumeAssembly):
+            raise TypeError("floral must be FloralWholePerfumeAssembly")
+        if self.bound.integrated.whole_blueprint != self.floral.blueprint:
+            raise ValueError("joint sources must bind the same whole blueprint")
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": self.SCHEMA_VERSION,
+            "bound": self.bound.as_dict(),
+            "floral": self.floral.as_dict(),
+        }
+
+    @classmethod
+    def from_dict(cls, payload: Mapping[str, Any]) -> SourceBoundFloralWholePerfume:
+        data = _payload(payload, cls.SCHEMA_VERSION)
+        return cls(
+            SourceBoundWholePerfume.from_dict(data["bound"]),
+            FloralWholePerfumeAssembly.from_dict(data["floral"]),
+        )
+
+
+def assemble_source_bound_floral_whole_perfume(
+    ideal: IdealProposal,
+    projection: InventoryProjection,
+    source: SourceBoundCandidateAssembly,
+    floral_source: FloralFamilyIntegrationAdapter,
+    *,
+    selected_alternative_id: str,
+    version: int,
+    predecessor_sha256: str | None = None,
+) -> SourceBoundFloralWholePerfume:
+    """Execute real floral adapters and retain checked selector/graph lineage.
+
+    Family/morphology scopes remain native and are not coerced into the
+    selector's temporal or matrix scope. Synthesis preserves their differences.
+    The shared target and current build must match exactly. This does not infer
+    that an ingredient realizes a floral facet without supporting evidence.
+    """
+    if not isinstance(ideal, IdealProposal):
+        raise TypeError("ideal must be IdealProposal")
+    if not isinstance(projection, InventoryProjection):
+        raise TypeError("projection must be InventoryProjection")
+    if not isinstance(source, SourceBoundCandidateAssembly):
+        raise TypeError("source must be SourceBoundCandidateAssembly")
+    if not isinstance(floral_source, FloralFamilyIntegrationAdapter):
+        raise TypeError("floral_source must be FloralFamilyIntegrationAdapter")
+    if floral_source.scope.target_scope != ideal.ideal_target_id:
+        raise ValueError("floral source must bind the exact ideal target")
+    integrated = assemble_integrated_whole_perfume_blueprint(
+        ideal,
+        projection,
+        source.assembly,
+        syntheses=(floral_source.to_synthesis(),),
+        version=version,
+        predecessor_sha256=predecessor_sha256,
+    )
+    return SourceBoundFloralWholePerfume(
+        SourceBoundWholePerfume(source, integrated, selected_alternative_id),
+        FloralWholePerfumeAssembly(floral_source, integrated.whole_blueprint),
+    )
+
+
+__all__ = ["SourceBoundFloralWholePerfume", "assemble_source_bound_floral_whole_perfume"]

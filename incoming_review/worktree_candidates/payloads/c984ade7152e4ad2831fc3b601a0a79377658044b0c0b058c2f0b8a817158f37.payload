@@ -1,0 +1,280 @@
+{
+  "schema_version": 1,
+  "capture_id": "20260818T013500+0700-multi-chat-exact-byte-reexposure",
+  "captured_at": "2026-08-18T01:35:00+07:00",
+  "updated_at": "2026-08-18T04:49:09.9815788+07:00",
+  "scope": "CHATGPT_PRO_EXACT_BYTE_CENSUS_AND_LOCAL_QUARANTINE_ONLY",
+  "chat_census": {
+    "terminal_reexposure_chats": 5,
+    "active_primary_formula_chat": 0,
+    "deep_luna_provider_calls": 0,
+    "deep_luna_cache_hits": 0,
+    "paid_jobs_created_or_retried": 0
+  },
+  "attachment_identity_census": {
+    "downloadable_identities": 84,
+    "local_exact_identities": 78,
+    "cloud_only_identities": 6,
+    "pointer_only_claimed_files": 4
+  },
+  "captures": [
+    {
+      "chat_id": "6a8054e9-1ee0-83ec-bab5-b617ab3e5b60",
+      "chat_title": "Perfume Chem Package Update",
+      "turn_id": "c4993049-1e0b-4b82-b894-3bac5e8e4e91",
+      "message_id": "018bccd1-02ef-5c15-968d-be5767f886de",
+      "metadata_correction_turn_id": "caa407b8-7a8e-4286-98b5-c19a27302d17",
+      "metadata_correction_message_id": "d01c43cc-6663-5ebe-baa3-6fb702a0e386",
+      "downloadable_object_count": 3,
+      "objects": [
+        {
+          "content_reference_index": 0,
+          "filename": "Perfume_Chem_10_Deep_Hedonic_Floral_Candidates_2026-08-17_v1.zip",
+          "bytes": 22113775,
+          "sha256": "8fe45248e3de79cccba60f68562564a80199245846d46d8912b5cd432658ecab",
+          "relationship": "original_zip_51_entries",
+          "local_materialized": false
+        },
+        {
+          "content_reference_index": 1,
+          "filename": "Perfume_Chem_10_Deep_Hedonic_Floral_Candidates_2026-08-17_v1.xlsx",
+          "bytes": 281502,
+          "sha256": "e22018bd5510cda1ff90934cb7052b235777ad2619e535e238263235336e39e7",
+          "relationship": "standalone_original_and_byte_identical_zip_member",
+          "local_materialized": false
+        },
+        {
+          "content_reference_index": 2,
+          "filename": "MANIFEST.json",
+          "bytes": 8953,
+          "sha256": "e990e7cb84f6646d130afc1e0b5a3fd5007cddf77817dbfa0aae423d6d6ce758",
+          "relationship": "original_sidecar_and_byte_identical_zip_member",
+          "local_materialized": false
+        }
+      ]
+    },
+    {
+      "chat_id": "6a74ba21-0d30-83ec-b211-e80baca66948",
+      "chat_title": "PCV3 Complexity Lane Complete",
+      "turn_id": "ba9e95a9-16c2-4b83-855f-b5fc81ac3a27",
+      "message_id": "2c235153-e3b2-4fe9-966d-5300b8dd5bf3",
+      "downloadable_object_count": 48,
+      "outer_package": {
+        "content_reference_index": 0,
+        "filename": "PERFUME_CHEM_V20_GAP_CLOSURE_CANDIDATE_2026-08-17.zip",
+        "bytes": 96905,
+        "sha256": "2cd1f5a3894badc0fde11eb3e5edc8c0219525b5a5ed3d3beaeacd6f0e6b6a79",
+        "zip_members": 46,
+        "zip_crc_reported": "PASS",
+        "internal_checksum_ledger_reported": "45_OF_45_PASS",
+        "local_materialized": true,
+        "local_admission_state": "PASS_EXACT_QUARANTINE_ONLY",
+        "local_capture_manifest": "D:\\chatbots\\perfume-chem\\incoming_review\\chatgpt\\20260818T043819+0700-v20-outer-zip-6a74ba21\\capture_manifest.json",
+        "local_crc_validation": "PASS",
+        "local_internal_ledger_validation": "45_OF_45_PASS"
+      },
+      "standalone_receipt": {
+        "content_reference_index": 1,
+        "filename": "PERFUME_CHEM_V20_GAP_CLOSURE_CANDIDATE_2026-08-17_RECEIPT.json",
+        "bytes": 519,
+        "sha256": "77e1eb86c38e5a6e19a222240274deeaee1694707106b5daa04ba25bec73d89c",
+        "local_materialized": true,
+        "local_capture_manifest": "D:\\chatbots\\perfume-chem\\incoming_review\\chatgpt\\20260818T020850+0700-v20-small-sidecars-6a74ba21\\capture_manifest.json"
+      },
+      "key_internal_objects": [
+        {
+          "content_reference_index": 2,
+          "filename": "AUTHORITY_FLAGS.json",
+          "bytes": 573,
+          "sha256": "7d4df3efa566c61319e37ee30332cadd8769509200130137b9bea79607823c5d",
+          "local_materialized": true
+        },
+        {
+          "content_reference_index": 8,
+          "filename": "PACKAGE_MANIFEST.json",
+          "bytes": 8143,
+          "sha256": "50c2e9b4738823cbe70cbc05102733c68f74fcf2b2aeb1e3da0bef241a01cc93",
+          "local_materialized": true
+        },
+        {
+          "content_reference_index": 10,
+          "filename": "SHA256SUMS.json",
+          "bytes": 7953,
+          "sha256": "8ceacd1d28f0339e0be2c7c9703ad5c90f84a413d75f983a561d861f8091dd43",
+          "local_materialized": true
+        },
+        {
+          "content_reference_index": 13,
+          "filename": "VALIDATION_REPORT.json",
+          "bytes": 7229,
+          "sha256": "32bbc1de781f23e43f2fc08eb8157e71238143852ad64c4775d155a98bb0e7cc",
+          "local_materialized": true
+        }
+      ],
+      "all_reported_source_bytes_available": true,
+      "local_materialized": true,
+      "local_materialized_identity_count": 48,
+      "local_capture_manifest": "D:\\chatbots\\perfume-chem\\incoming_review\\chatgpt\\20260818T043819+0700-v20-outer-zip-6a74ba21\\capture_manifest.json",
+      "local_admission_state": "FORTY_EIGHT_OF_FORTY_EIGHT_EXACT_IDENTITIES_LOCAL_QUARANTINE_ONLY"
+    },
+    {
+      "chat_id": "6a762995-0d8c-83ec-aee3-66c90e56811e",
+      "chat_title": "Complex Perfumery Continuation",
+      "turn_id": "95bff87e-86e8-4641-8f79-851c0231a1a4",
+      "message_id": "330346ab-16e7-4688-ad0a-ac67bcb2fac4",
+      "downloadable_object_count": 23,
+      "outer_package": {
+        "content_reference_index": 0,
+        "filename": "COMPLEX_PERFUMERY_TEN_FLORALS_STOCK_BASIS_REPAIR_AND_CF01_ADMISSION_V2_20260817.zip",
+        "bytes": 116771,
+        "sha256": "d9abe68882edc86dfff47ab2cb4890e11c5bbe3e1e9c37dbd0c22930e628e54e",
+        "zip_members": 22,
+        "zip_crc_reported": "PASS",
+        "local_materialized": false,
+        "local_admission_state": "REJECTED_OUTER_SHA256_AND_MEMBER_CRC_MISMATCH",
+        "observed_candidate_sha256": "f8766945a3c02500e7774c1b0ecfa1343a9acaf437c644916ca3f447dd7ec473"
+      },
+      "key_internal_checksum": {
+        "content_reference_index": 15,
+        "filename": "INTEGRITY_RECEIPT.json",
+        "bytes": 3899,
+        "sha256": "5abff128fcfce28eb891176c93cfed080e3e7bfc22fbb068ef41d52129f88b65",
+        "local_materialized": true,
+        "local_capture_manifest": "D:\\chatbots\\perfume-chem\\incoming_review\\chatgpt\\20260818T021436+0700-repaired-floral-integrity-receipt-6a762995\\capture_manifest.json"
+      },
+      "external_sidecar": {
+        "filename": "COMPLEX_PERFUMERY_TEN_FLORALS_STOCK_BASIS_REPAIR_AND_CF01_ADMISSION_V2_20260817_INTEGRITY_RECEIPT.json",
+        "state": "SOURCE_BYTES_NOT_MATERIALIZED"
+      },
+      "local_materialized_identity_count": 22,
+      "local_capture_manifest": "D:\\chatbots\\perfume-chem\\incoming_review\\chatgpt\\20260818T044149+0700-floral-members-6a762995\\capture_manifest.json",
+      "local_admission_state": "TWENTY_TWO_OF_TWENTY_THREE_EXACT_IDENTITIES_LOCAL_QUARANTINE_ONLY_OUTER_ZIP_REJECTED"
+    },
+    {
+      "chat_id": "6a7992db-96b8-83ec-aab0-6a7447b97da1",
+      "chat_title": "Perfume Project Planning",
+      "turn_id": "bab83c58-17ea-4d91-bda8-6ff2d4549e5b",
+      "message_id": "85b6d251-dffc-4d7b-bb0f-dff9de633b72",
+      "downloadable_object_count": 8,
+      "outer_package": {
+        "content_reference_index": 1,
+        "filename": "Perfume_Chem_V19_V20_Exact_Decimal_Formula_Artifact_Successor_2026-08-17_v2.zip",
+        "bytes": 780032,
+        "sha256": "822f202fee13875f864bf4acdfdbc9364097eb52b224529b4ea248b9032ab31f",
+        "zip_members": 57,
+        "local_materialized": true,
+        "local_capture_manifest": "D:\\chatbots\\perfume-chem\\incoming_review\\chatgpt\\20260818T013100+0700-exact-decimal-successor-6a7992db\\capture_manifest.json"
+      },
+      "inventory_workbook": {
+        "content_reference_index": 0,
+        "filename": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5_Aug17_Intake_CANDIDATE.xlsx",
+        "bytes": 208318,
+        "sha256": "d633858887596945f3b115fba66d76ef230129dda193460f3df3f2c819153a56",
+        "local_materialized": false
+      },
+      "internal_checksum_ledger_locally_verified": "56_OF_56_PASS",
+      "local_materialized_identity_count": 7,
+      "cloud_only_identity_count": 1,
+      "local_sidecar_capture_manifest": "D:\\chatbots\\perfume-chem\\incoming_review\\chatgpt\\20260818T021436+0700-exact-decimal-small-sidecars-6a7992db\\capture_manifest.json",
+      "local_admission_state": "QUARANTINE_ONLY_NATIVE_INSTALLATION_INELIGIBLE"
+    },
+    {
+      "chat_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+      "chat_title": "Perfume Making Consultant",
+      "source_turn_id": "7be4588c-1e7c-45f7-9721-13a19c0a42ba",
+      "source_message_id": "2467d5f7-8168-439b-a330-3ebb12c536b2",
+      "exact_reexposure_turn_id": "25c5d535-38ee-405e-a008-523714fb6fde",
+      "exact_reexposure_message_id": "742a0bf5-112a-4e2c-89ed-e8c73f0a48f4",
+      "metadata_confirmation_turn_id": "f5c336f3-8201-4c6e-ba4e-a2039d539d33",
+      "metadata_confirmation_message_id": "e4e7eb72-114f-4b09-8a64-2c5851b9e759",
+      "portfolio_id": "Complex_Perfumery_11_Commercial_Formula_Portfolio_Aug2026_v1",
+      "downloadable_object_count": 2,
+      "objects": [
+        {
+          "original_content_reference_index": 6,
+          "reexposed_content_reference_index": 1,
+          "filename": "Complex_Perfumery_11_Formula_Portfolio.json",
+          "bytes": 2617388,
+          "sha256": "869757d6de9cca844475c9437b2e0de7d87596ba69cb2a0f1c568d205612e9f6",
+          "mime_type": "application/json",
+          "relationship": "standalone_primary_machine_readable_portfolio",
+          "reported_original_object": true,
+          "local_materialized": false
+        },
+        {
+          "original_content_reference_index": 7,
+          "reexposed_content_reference_index": 2,
+          "filename": "VALIDATION_REPORT.json",
+          "bytes": 7672,
+          "sha256": "2f01d1e3a16927a4d49e98f258293d62104de5ca1f1db9d909ebf33583770494",
+          "mime_type": "application/json",
+          "relationship": "standalone_validation_companion",
+          "reported_original_object": true,
+          "local_materialized": true,
+          "local_capture_manifest": "D:\\chatbots\\perfume-chem\\incoming_review\\chatgpt\\20260818T015707+0700-validation-report-base64-6a79b172\\capture_manifest.json"
+        }
+      ],
+      "reported_structure": {
+        "formula_candidates": 11,
+        "current_build_rows": 771,
+        "open_stock_actions": 49,
+        "current_build_parts_per_formula": 1000,
+        "target_parts_per_formula": 1000,
+        "g15_oav_headspace_gate": "HOLD",
+        "measured_candidate_headspace": "NOT_TESTED",
+        "strict_empirical_oav": "NOT_CALCULABLE",
+        "automatic_formula_mutation": false,
+        "aggregate_quality_authority": "WITHHELD",
+        "individual_markdown_exports_complete": false,
+        "consolidated_xlsx_export_complete": false
+      },
+      "local_admission_state": "ONE_OF_TWO_EXACT_BYTES_LOCAL_QUARANTINE_ONLY"
+    }
+  ],
+  "pointer_only_capture": {
+    "chat_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+    "turn_id": "7d4b15fc-7334-4f03-a6bc-dd1d59f6afec",
+    "message_id": "86b8abe9-511a-400c-ac54-1f4a4040bde6",
+    "claimed_files": 4,
+    "local_exact_bytes": 0,
+    "capture_manifest": "D:\\chatbots\\perfume-chem\\incoming_review\\chatgpt\\20260818T010601+0700-oav-must-do-cloud-pointer-6a79b172-n86b8abe9\\capture_manifest.json"
+  },
+  "tunnel_probe": {
+    "local_healthz": "200 live",
+    "local_readyz": "200 ready",
+    "pinned_tunnel_id": "tunnel_6a76371038e0819187fd46fb04b45977",
+    "remote_canary_chat_id": "6a8054e9-1ee0-83ec-bab5-b617ab3e5b60",
+    "remote_canary_turn_id": "bc3ffb4f-d575-467d-b64c-b4296e1f94c3",
+    "remote_agent_response_present": false,
+    "expected_local_path_present": false,
+    "remote_attachment_write_proven": false
+  },
+  "tooling_boundary": {
+    "chatgpt_content_reference_metadata_readable": true,
+    "chatgpt_attachment_download_tool_available": false,
+    "chatgpt_attachment_base64_exact_byte_canary_verified": true,
+    "base64_canary_filename": "VALIDATION_REPORT.json",
+    "base64_canary_bytes": 7672,
+    "base64_canary_sha256": "2f01d1e3a16927a4d49e98f258293d62104de5ca1f1db9d909ebf33583770494",
+    "metadata_treated_as_exact_bytes": false
+  },
+  "authority": {
+    "source_admission": false,
+    "package_installation": false,
+    "formula_authority": false,
+    "inventory_mutation": false,
+    "stock_authority": false,
+    "bottle_authority": false,
+    "physical_execution": false,
+    "sensory_authority": false,
+    "analytical_authority": false,
+    "measured_headspace_authority": false,
+    "strict_empirical_oav_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "repository_installation": false,
+    "publication_authority": false,
+    "release_authority": false
+  }
+}

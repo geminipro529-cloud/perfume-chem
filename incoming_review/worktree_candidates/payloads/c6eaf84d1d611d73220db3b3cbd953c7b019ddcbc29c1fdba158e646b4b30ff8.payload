@@ -1,0 +1,108 @@
+"""Lossless, unadmitted binding of assembly decisions to actual selection.
+
+Eligibility is not a command to select, evidence of beauty, or stock execution
+authority. The caller's design rationale remains a proposal. This binding
+prevents a proposal from silently promoting a non-frontier source result.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Any, Mapping
+
+from .candidate_assembler import (
+    AssemblyLayer,
+    CandidateDecisionPacket,
+)
+from .candidate_assembler import (
+    CandidateDisposition as AssemblyDisposition,
+)
+from .candidate_selector import (
+    CandidateDisposition,
+    CandidateRequirement,
+    CandidateSelectionReport,
+    MaterialCapabilityDeclaration,
+    select_candidates,
+    selection_to_function_plane_assessment,
+)
+from .contracts import PlaneId, _CanonicalRecord, _payload
+
+
+@dataclass(frozen=True, slots=True)
+class SelectionDecisionBinding(_CanonicalRecord):
+    """Complete native source inputs, derived report, and checked decision."""
+
+    SCHEMA_VERSION = "selection_decision_binding_v1"
+
+    requirement: CandidateRequirement
+    declarations: tuple[MaterialCapabilityDeclaration, ...]
+    report: CandidateSelectionReport
+    decision: CandidateDecisionPacket
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.decision, CandidateDecisionPacket):
+            raise TypeError("decision must be CandidateDecisionPacket")
+        if not isinstance(self.report, CandidateSelectionReport):
+            raise TypeError("report must be CandidateSelectionReport")
+        declarations = tuple(self.declarations)
+        expected = select_candidates(self.requirement, declarations)
+        if self.report != expected:
+            raise ValueError("report must match exact selection inputs")
+        object.__setattr__(
+            self, "declarations", tuple(sorted(declarations, key=lambda item: item.candidate_id))
+        )
+        decision = self.decision
+        if decision.target_ideal_id != self.requirement.target_id:
+            raise ValueError("decision must bind the exact selection target")
+        if decision.plane_id is not PlaneId.FUNCTION:
+            raise ValueError("selection decisions must belong to the function plane")
+        assessment = selection_to_function_plane_assessment(
+            self.requirement, expected, declarations
+        )
+        if decision.scope != assessment.scope:
+            raise ValueError("decision must preserve the exact selection adapter scope")
+        candidates = (
+            expected.ideal_assessments
+            if decision.layer is AssemblyLayer.TARGET_IDEAL
+            else expected.current_inventory_assessments
+        )
+        source = next((c for c in candidates if c.candidate_id == decision.candidate_id), None)
+        if source is None:
+            raise ValueError("decision candidate is absent from selection inputs")
+        if not decision.authority_ceiling.is_no_stronger_than(source.authority_ceiling):
+            raise ValueError("decision cannot promote source authority")
+        if (
+            decision.disposition is AssemblyDisposition.SELECT
+            and source.disposition is not CandidateDisposition.FRONTIER
+        ):
+            raise ValueError("SELECT requires a frontier candidate in the exact selection view")
+        required_hashes = {self.requirement.content_sha256, self.report.content_sha256}
+        if not required_hashes.issubset(decision.freshness_hashes):
+            raise ValueError("decision freshness must bind the requirement and report")
+
+    def as_dict(self) -> dict[str, Any]:
+        # Selection records use a distinct canonical base. Preserve each native
+        # schema tag rather than allowing generic dataclass serialization to
+        # strip it from nested records.
+        return {
+            "schema_version": self.SCHEMA_VERSION,
+            "requirement": self.requirement.as_dict(),
+            "declarations": [item.as_dict() for item in self.declarations],
+            "report": self.report.as_dict(),
+            "decision": self.decision.as_dict(),
+        }
+
+    @classmethod
+    def from_dict(cls, payload: Mapping[str, Any]) -> SelectionDecisionBinding:
+        data = _payload(payload, cls.SCHEMA_VERSION)
+        return cls(
+            requirement=CandidateRequirement.from_dict(data["requirement"]),
+            declarations=tuple(
+                MaterialCapabilityDeclaration.from_dict(item) for item in data["declarations"]
+            ),
+            report=CandidateSelectionReport.from_dict(data["report"]),
+            decision=CandidateDecisionPacket.from_dict(data["decision"]),
+        )
+
+
+__all__ = ["SelectionDecisionBinding"]

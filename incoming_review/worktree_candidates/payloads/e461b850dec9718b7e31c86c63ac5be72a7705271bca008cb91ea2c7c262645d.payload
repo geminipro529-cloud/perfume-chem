@@ -1,0 +1,284 @@
+{
+  "record_schema": "creative_formula_candidate_v1",
+  "record_id": "GIN-VETIVER-CYPRESS-AIR-30ML-V2-20260908",
+  "name": "Gin Vetiver - Cypress Air",
+  "version": 2,
+  "created_date_local": "2026-09-08",
+  "operating_mode": "CREATIVE_FORMULATION",
+  "status": "CURRENT_STOCK_SUCCESSOR_DEVELOPMENT_TRIAL_NOT_SKIN_RELEASED",
+  "physical_batch_status": "NOT_COMPOUNDED_BY_ASSISTANT_NO_USER_MIX_CONFIRMATION",
+  "sensory_status": "NOT_TESTED",
+  "safety_status": "HOLD_PRODUCT_SPECIFIC_ASSESSMENT",
+  "user_direction": "One complete gin-vetiver perfume with light cypress. No no-cypress comparison, no coffee, no required ginger.",
+  "batch_size_authority": "ASSISTANT_DEFAULT_30ML_ANNOUNCED_IN_CONVERSATION_NOT_EXPLICIT_USER_SIZE_SELECTION",
+  "target_ideal": "Dry unisex botanical gin-vetiver, juniper and vetiver as the subjects, cypress as a small green accent, bitter grapefruit peel and restrained coriander detail, transparent floral support and one restrained musk.",
+  "current_inventory_build": "Seven neat/as-supplied stocks from the live, Romandolide-depleted successor registry. Zenolide replaces the unavailable musk; the other six ingredient rows and the ethanol dose are unchanged. Physical remaining quantities and lot condition are not measured.",
+  "design_review": {
+    "change_classification": "BOUNDED_SINGLE_MUSK_REPLACEMENT",
+    "user_authorization": "User answered Yes to synchronizing the Romandolide depletion and choosing an in-stock replacement for the same light-cypress gin-vetiver perfume.",
+    "independent_review": "Codex-native GPT-5.6 Sol compared primary-source musk descriptions; preferred Habanolide for woody linkage, with Zenolide as the quieter alternative.",
+    "parent_selection": "Zenolide selected by parent for restrained support and low manufacturer-described base impact. Transparency takes priority over adding a stronger woody/powdery musk signature. Its red-fruit facet remains a sensory risk, not a desired new fruit accord.",
+    "dose_rationale": "250 uL neat/as supplied is a new trial hypothesis occupying the same nominal raw-volume slot. Equal volume does not imply equal mass, strength, odor effect, fixation, or safety. This holds the six botanical/floral quantities and total supplied-stock volume constant.",
+    "batch_concentration_rationale": "12% nominal supplied-stock volume loading is selected for a transparent botanical structure; it is not an active w/w percentage or an optimized sensory result.",
+    "physical_or_safety_authority_delegated": false
+  },
+  "inventory_evidence": {
+    "inventory_path": "inventory.txt",
+    "inventory_raw_sha256_at_stock_check": "d6f7ff5389fbd5e807b98fee3ce6a87ce2c70dd6253b26a82f49a0872da42369",
+    "verification_method": "materialize_current_inventory with default pinned snapshot and current successor overlays; plus full live inventory text read",
+    "basis": "The legacy V5 stock IDs below are stable identities retained through the current successor overlays, not a request to revert current inventory to V5.",
+    "current_successor": "data/governance/inventory_user_authority_overlay_20260908_romandolide.json",
+    "sync_action": "Supported depletion successor was already present and loading successfully when this authorization was executed. Parent verified it; no authority pin or inventory mutation was performed for this formula."
+  },
+  "nominal_batch_ul": 30000,
+  "nominal_fragrance_stock_subtotal_ul": 3600,
+  "nominal_fragrance_stock_volume_fraction": 0.12,
+  "exact_finished_volume_ml": null,
+  "exact_finished_mass_g": null,
+  "exact_active_ppm_ww": null,
+  "volume_model": "Sum of nominal dispensed raw volumes; non-additivity, transfer losses and temperature effects are not measured. Do not treat as exact final volumetric-flask volume.",
+  "ingredients": [
+    {
+      "step": 1,
+      "basket": 1,
+      "basket_category": "Always used",
+      "material": "Hedione",
+      "raw_ul": 1250,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:0f9d7e0971aad1594be4",
+      "inventory_identity": "Hedione",
+      "source_ref": "Current Inventory Master!A129:N129",
+      "intended_role": "Transparent floral volume around the juniper-vetiver accord, not a white-floral subject or guaranteed projection increase"
+    },
+    {
+      "step": 2,
+      "basket": 2,
+      "basket_category": "Vetivers",
+      "material": "Vetiver EO (India)",
+      "inventory_text_label": "Indian Vetiver EO (volume grade)",
+      "raw_ul": 650,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:user-20260904:20f36a0658891ff50ea4",
+      "inventory_identity": "Vetiver EO (India)",
+      "source_ref": "data/governance/inventory_user_authority_overlay_20260904.json#INV-USER-20260904-004",
+      "intended_role": "Recognizable dry root-wood subject in the heart and drydown; volume grade is the inventory grade description, not a dilution"
+    },
+    {
+      "step": 3,
+      "basket": 3,
+      "basket_category": "Woods",
+      "material": "Cypress EO",
+      "raw_ul": 30,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:user-20260830:6db445a212d6344de07c",
+      "inventory_identity": "Cypress EO",
+      "source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260830-002",
+      "intended_role": "Small dry-green conifer accent; not a dominant cypress subject and not an indispensable bridge"
+    },
+    {
+      "step": 4,
+      "basket": 6,
+      "basket_category": "Musks",
+      "material": "Zenolide",
+      "raw_ul": 250,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:3fec3fbd1ff43a62aac7",
+      "inventory_identity": "Zenolide",
+      "source_ref": "Current Inventory Master!A252:N252",
+      "intended_role": "Single restrained musky support selected for a delicate profile rather than a strongly woody, powdery, or sweet base. Red-fruit coloration and excessive softening must be judged by smell."
+    },
+    {
+      "step": 5,
+      "basket": 13,
+      "basket_category": "Edible spices",
+      "basket_assignment_authority": "Category-based placement as a gin botanical; exact physical storage of juniper was not separately recorded",
+      "material": "Juniper Berry EO",
+      "raw_ul": 800,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:44479b1b43ba8def3143",
+      "inventory_identity": "Juniper Berry EO",
+      "source_ref": "Current Inventory Master!A152:N152",
+      "intended_role": "Principal gin-botanical identity, without substituting juniper needle, wood or cade oil"
+    },
+    {
+      "step": 6,
+      "basket": 13,
+      "basket_category": "Edible spices",
+      "material": "Coriander Seed EO",
+      "inventory_text_label": "Coriander Essential Oil",
+      "raw_ul": 70,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:8f24d01cce6349e9cf63",
+      "inventory_identity": "Coriander Seed EO",
+      "source_ref": "Current Inventory Master!A83:N83",
+      "intended_role": "Restrained aromatic seed detail connecting gin botanical and peel; not coriander leaf oil"
+    },
+    {
+      "step": 7,
+      "basket": 15,
+      "basket_category": "Fruits",
+      "material": "Grapefruit FCF oil Sicilian",
+      "raw_ul": 550,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:52a88f156b00633a842d",
+      "inventory_identity": "Grapefruit FCF Oil Sicilian",
+      "source_ref": "Current Inventory Master!A123:N123",
+      "intended_role": "Bitter citrus peel counterpoint. Exact supplier describes this product as furocoumarin-free; do not substitute expressed grapefruit or infer a measured furocoumarin problem from a generic model warning."
+    }
+  ],
+  "diluent": {
+    "material": "Ethanol 96%",
+    "raw_ul": 26400,
+    "stock_authority": "Current inventory solvent row; use the owned perfume-suitable stock as supplied",
+    "stock_fraction_basis": "SUPPLIED_96_PERCENT_LABEL_BASIS_NOT_SEPARATELY_ESTABLISHED",
+    "exact_pure_ethanol_volume_ul": null,
+    "exact_water_volume_ul": null
+  },
+  "excluded_first_build": [
+    "Bergamot FCF",
+    "Iso E Super",
+    "Vetiveryl Acetate",
+    "Coffee",
+    "Ginger",
+    "Magnolia",
+    "Orris",
+    "Resin tinctures",
+    "Additional musks",
+    "Sweet creamy multiwood base",
+    "Romandolide (depleted)"
+  ],
+  "comparison_policy": "One selected full composition only. No no-cypress variant or mandatory paired comparison.",
+  "prior_formula_policy": "Intentional successor to v1 following user-authorized single-musk replacement. This is a new-bottle design, not additions to an existing bottle; no past compounding is inferred.",
+  "serialization_reconciliation": "Two dose-row names use the current structured inventory's canonical identity: Vetiver EO (India) is the explicitly aliased Indian Vetiver EO (volume grade), and Coriander Seed EO is the single neat seed-oil stock described as Coriander Essential Oil in inventory.txt. Original text labels remain attached. Only the explicitly documented Romandolide-to-Zenolide identity and stock ID change; all six other ingredient rows remain unchanged. Inventory, alias crosswalk and authority pins were not edited for this formula.",
+  "quantitative_claim_ceiling": "Nominal raw-volume recipe. Exact active mass and w/w ppm require measured masses or valid stock densities. Natural-mixture OAV is a literature/proxy diagnostic, not proof of sensory contribution.",
+  "release_requirements": [
+    "Product/lot-specific safety and restricted-constituent review for the finished product",
+    "Current physical stock identity and usable condition",
+    "No phase separation or visible instability",
+    "Sensory assessment before any performance or richness claim"
+  ],
+  "physical_action_limits": "No skin-use or commercial-release authorization is implied. The assistant has not compounded a bottle or recorded a physical addition.",
+  "verification_result": {
+    "date_local": "2026-09-08",
+    "status": "VERIFIED_DEVELOPMENT_SUCCESSOR_NOT_SKIN_RELEASED",
+    "exact_current_stock_id_fraction_basis_carrier_binding": "PASS_7_OF_7",
+    "parser_roundtrip": "PASS",
+    "basket_order_and_minimum_raw_transfer": "PASS_30_UL_MINIMUM_AT_30_ML",
+    "nominal_volume_arithmetic": "PASS_3600_PLUS_26400_EQUALS_30000_UL",
+    "six_nonmusk_rows_and_ethanol_preserved": "PASS",
+    "immediate_parent_guard": "PASS_PARENT_COMPARISON_AND_TEMPORAL_COMPARISON_AVAILABLE",
+    "inventory_sync": "CURRENT_SUPPORTED_ROMANDOLIDE_DEPLETION_SUCCESSOR_VERIFIED_NO_PIN_EDIT",
+    "focused_regressions": {
+      "stock_authority_tests": 53,
+      "profile_formula_state_and_parent_guard_tests": 41,
+      "total": 94
+    },
+    "pipeline_overall": "FAIL",
+    "pipeline_counts": {
+      "FAIL": 2,
+      "PASS": 107,
+      "WARN": 38,
+      "SKIP": 1
+    },
+    "pipeline_failures": [
+      "Legacy preflight requires missing whole-oil ODT inputs for coriander seed and Sicilian grapefruit FCF despite partial composite profiles.",
+      "Aggregate confidence 17.4 below configured 25 threshold."
+    ],
+    "artifact_binding": "CURRENT_NO_INTEGRITY_OR_STALE_ISSUES",
+    "pipeline_evidence": "output/gin_vetiver_cypress_air_v2_20260908_zenolide_pipeline.json",
+    "formatted_diagnostic": "output/gin_vetiver_cypress_air_v2_20260908_zenolide_analysis.md",
+    "verification_receipt": "output/gin_vetiver_cypress_air_v2_20260908_verification.json",
+    "zenolide_warning": {
+      "modeled_opening_oav": 0.0676309568420326,
+      "interpretation": "UNRESOLVED_FUNCTIONAL_SCREEN_NOT_PROOF_OF_IMPERCEPTIBILITY",
+      "model_reference_vp_pa_at_25c": 0.0001,
+      "model_vp_pa_at_305k": 0.00025933444281251393,
+      "manufacturer_reference_vp_mm_hg_at_23c": 0.000054,
+      "manufacturer_reference_vp_pa_at_23c_approx": 0.0072,
+      "manufacturer_source": "https://www.iff.com/scent/ingredients-compendium/zenolide/",
+      "temperature_matched_comparison": "NOT_COMPUTED",
+      "dose_increased_to_satisfy_warning": false
+    },
+    "remaining_limitations": [
+      "No measured sensory or stability result.",
+      "No skin-use or commercial release; product-specific safety review remains incomplete.",
+      "Exact mass and ppm w/w unavailable; finished ethanol/water matrix omitted from model.",
+      "Zero-top classification and ingredient-count/price claims are not adopted.",
+      "Generic grapefruit warning retains an unsupported FCF assumption and a concentrate-versus-finished denominator error.",
+      "Legacy side-consumer emits an Indian-vetiver inventory warning despite exact current stock contract PASS; its substitution suggestion is not adopted."
+    ],
+    "parent_decision": "ACCEPT_SINGLE_ZENOLIDE_SUCCESSOR_AS_MEASURED_DEVELOPMENT_HYPOTHESIS_ONLY; KEEP_V1_UNCHANGED; NO_SKIN_RELEASE",
+    "release_authority": false,
+    "sensory_authority": "NOT_AUTHORIZED_NOT_MEASURED"
+  },
+  "lineage": {
+    "immediate_parent": "formulas/Gin_Vetiver_Cypress_Air_30mL_v1.md",
+    "parent_record": "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v1.json",
+    "parent_markdown_raw_sha256": "d8473b139e7e5516b5b2f2f99251f1d476fb494f14b36daf3b0ba9f68c779cff",
+    "parent_record_raw_sha256": "2c4a3efd4352410ad793b9028dd4fea42ab22a281b09420cd972b08ae2d92bdc",
+    "removed": {
+      "material": "Romandolide",
+      "raw_ul": 250,
+      "stock_fraction": 1,
+      "stock_id": "inventory:v5:caba57d5d5c78d414d5c",
+      "reason": "USER_CONFIRMED_DEPLETED"
+    },
+    "added": {
+      "material": "Zenolide",
+      "raw_ul": 250,
+      "stock_fraction": 1,
+      "stock_id": "inventory:v5:3fec3fbd1ff43a62aac7",
+      "reason": "AUTHORIZED_NEW_SINGLE_MUSK_HYPOTHESIS"
+    },
+    "unchanged_material_count": 6,
+    "other_raw_doses_fractions_carriers_stock_ids_unchanged": true,
+    "ethanol_raw_ul_unchanged": true,
+    "active_equivalence_between_distinct_molecules": "NOT_CLAIMED",
+    "historical_v1_policy": "Preserve unchanged; unavailable and not a current-stock mixing card."
+  },
+  "preferred_first_trial": {
+    "nominal_ml": 10,
+    "scale_factor": "1/3 of the complete 30 mL recipe including ethanol",
+    "same_composition_not_another_variant": true,
+    "minimum_unrounded_raw_transfer_ul": 10,
+    "warning": "Do not scale further below the 10 uL transfer floor without an explicitly prepared labeled working stock; record actual transfers."
+  },
+  "primary_material_sources": [
+    {
+      "material": "Zenolide",
+      "url": "https://www.iff.com/scent/ingredients-compendium/zenolide/",
+      "cas": "54982-83-1",
+      "source_role": "Manufacturer olfactory and identity reference, not owned-lot COA",
+      "retrieved_date": "2026-09-08"
+    },
+    {
+      "material": "Habanolide",
+      "url": "https://studio.dsm-firmenich.com/product/habanolider-pe-947303",
+      "source_role": "Manufacturer comparison; not selected"
+    },
+    {
+      "material": "Coriander Seed EO",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=7SL00125",
+      "source_role": "User-specified supplier product; explicitly seed oil"
+    },
+    {
+      "material": "Grapefruit FCF oil Sicilian",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=7CA24030",
+      "source_role": "User-specified exact Sicilian FCF product"
+    }
+  ]
+}

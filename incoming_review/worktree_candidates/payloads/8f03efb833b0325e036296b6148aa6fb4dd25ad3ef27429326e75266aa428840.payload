@@ -1,0 +1,90 @@
+"""Exact pairwise graph-source binding; not an interaction or release proof.
+
+Packet endpoints must use the native structural graph node IDs. Labels are not
+material identities, and a pairwise graph cannot authorize a higher-order edge.
+The complete graph retains condition scope, alternatives, and unknowns that a
+standalone relation packet cannot represent.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Any, Mapping
+
+from .accord_graph import AccordRelationGraph, EdgeOrientation, EpistemicState
+from .candidate_assembler import RelationDisposition, RelationPacket
+from .contracts import AuthorityCeiling, _CanonicalRecord, _payload
+
+
+@dataclass(frozen=True, slots=True)
+class GraphRelationBinding(_CanonicalRecord):
+    SCHEMA_VERSION = "graph_relation_binding_v1"
+
+    graph: AccordRelationGraph
+    edge_id: str
+    packet: RelationPacket
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.graph, AccordRelationGraph):
+            raise TypeError("graph must be AccordRelationGraph")
+        if not isinstance(self.packet, RelationPacket):
+            raise TypeError("packet must be RelationPacket")
+        edge = next((e for e in self.graph.edges if e.edge_id == self.edge_id), None)
+        if edge is None:
+            raise ValueError("edge_id must name an exact graph edge")
+        packet = self.packet
+        scope = edge.scope
+        if (
+            packet.target_ideal_id != scope.target_scope
+            or packet.scope.target_scope != scope.target_scope
+            or packet.scope.temporal_scope != scope.temporal_scope
+            or packet.scope.matrix_scope != scope.matrix_scope
+        ):
+            raise ValueError("packet must preserve exact edge target, time and matrix")
+        if packet.relation_kind != edge.relation_kind.value:
+            raise ValueError("packet must preserve edge relation kind")
+        endpoints = (packet.subject_candidate_ids, packet.object_candidate_ids)
+        forward = ((edge.source_node_id,), (edge.target_node_id,))
+        reverse = (forward[1], forward[0])
+        if endpoints != forward and not (
+            edge.orientation is EdgeOrientation.UNDIRECTED and endpoints == reverse
+        ):
+            raise ValueError("packet must preserve native pairwise endpoints and direction")
+        nodes = {node.node_id: node for node in self.graph.nodes}
+        source_nodes = (nodes[edge.source_node_id], nodes[edge.target_node_id])
+        ceiling = AuthorityCeiling.minimum(
+            (
+                self.graph.authority_ceiling,
+                edge.authority_ceiling,
+                *(node.authority_ceiling for node in source_nodes),
+            )
+        )
+        if not packet.authority_ceiling.is_no_stronger_than(ceiling):
+            raise ValueError("packet cannot promote graph, edge or endpoint authority")
+        if (
+            edge.epistemic_state is EpistemicState.UNKNOWN
+            or any(node.epistemic_state is EpistemicState.UNKNOWN for node in source_nodes)
+        ) and packet.disposition is RelationDisposition.PROPOSED:
+            raise ValueError("unknown edge or endpoint cannot become an unheld proposal")
+        if not {self.graph.content_sha256, edge.content_sha256}.issubset(packet.freshness_hashes):
+            raise ValueError("packet freshness must bind exact graph and edge")
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": self.SCHEMA_VERSION,
+            "graph": self.graph.as_dict(),
+            "edge_id": self.edge_id,
+            "packet": self.packet.as_dict(),
+        }
+
+    @classmethod
+    def from_dict(cls, payload: Mapping[str, Any]) -> GraphRelationBinding:
+        data = _payload(payload, cls.SCHEMA_VERSION)
+        return cls(
+            graph=AccordRelationGraph.from_dict(data["graph"]),
+            edge_id=data["edge_id"],
+            packet=RelationPacket.from_dict(data["packet"]),
+        )
+
+
+__all__ = ["GraphRelationBinding"]

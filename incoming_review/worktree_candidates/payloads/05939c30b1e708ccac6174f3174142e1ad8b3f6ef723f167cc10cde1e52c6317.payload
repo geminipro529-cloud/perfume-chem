@@ -1,0 +1,117 @@
+from __future__ import annotations
+
+from pathlib import Path
+
+import yaml
+
+from engine.formula_recommendations import _material_in_inventory, load_inventory
+from engine.intervention_profiles import iter_observation_rules, iter_profiles
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+
+def _material_entry(path: Path, canonical_name: str) -> dict:
+    rows = yaml.safe_load(path.read_text(encoding="utf-8"))
+    return next(row for row in rows if row["canonical_name"] == canonical_name)
+
+
+def test_data_spine_preserves_coumarin_multi_stock_hold_and_current_woods() -> None:
+    coumarin = _material_entry(PROJECT_ROOT / "data/materials/C.yaml", "Coumarin")
+    assert coumarin["user_in_inventory"] is True
+    assert coumarin["user_stock_dilution"] is None
+    notes = coumarin["notes"]
+    assert "20% in DEP with fraction basis unspecified" in notes
+    assert "DPG-saturated approximately 25-30%" in notes
+    assert "neat solid powder" in notes
+    assert "Explicit stock_id selection is required" in notes
+    assert "20% in DPG" not in notes
+
+    bacdanol = _material_entry(PROJECT_ROOT / "data/materials/B.yaml", "Bacdanol")
+    assert bacdanol["user_in_inventory"] is True
+    assert bacdanol["user_stock_dilution"] == "neat / as supplied"
+
+    clearwood = _material_entry(PROJECT_ROOT / "data/materials/C.yaml", "Clearwood")
+    assert clearwood["user_in_inventory"] is True
+    assert clearwood["user_stock_dilution"] == 1.0
+
+    guaiacwood = _material_entry(
+        PROJECT_ROOT / "data/materials/G.yaml", "Guaiacwood EO"
+    )
+    assert guaiacwood["user_in_inventory"] is True
+    assert guaiacwood["user_stock_dilution"].startswith("1/3 w/w")
+    assert guaiacwood["quantitative_execution_state"] == "HOLD"
+    assert guaiacwood["quantitative_execution_hold_reason"] == (
+        "REMAINING_TWO_THIRDS_COMPOSITION_AND_CARRIER_UNRESOLVED"
+    )
+
+
+def test_recommendation_inventory_keeps_coumarin_stocks_distinct_and_held() -> None:
+    inventory = load_inventory()
+    stocks = [item for item in inventory if item["name"] == "Coumarin"]
+
+    assert {item["stock_name"] for item in stocks} == {
+        "Coumarin (20% in DEP)",
+        "Coumarin (DPG-saturated)",
+        "Coumarin (neat powder)",
+    }
+    assert len({item["stock_id"] for item in stocks}) == 3
+    assert all(item["execution_ready"] is False for item in stocks)
+    assert all(_material_in_inventory("Coumarin", [item]) is None for item in stocks)
+    assert _material_in_inventory("Coumarin", inventory) is None
+
+    dep = next(item for item in stocks if item["stock_name"] == "Coumarin (20% in DEP)")
+    assert dep["dilution"] == 0.2
+    assert dep["fraction_basis"] == "unspecified"
+    assert dep["carrier"] == "dep"
+    assert dep["execution_hold_reason"] == "FRACTION_BASIS_UNSPECIFIED"
+
+    saturated = next(
+        item for item in stocks if item["stock_name"] == "Coumarin (DPG-saturated)"
+    )
+    assert saturated["dilution"] == 0.0
+    assert saturated["fraction_range"] == (0.25, 0.3)
+    assert saturated["approximate"] is True
+
+    powder = next(item for item in stocks if item["stock_name"] == "Coumarin (neat powder)")
+    assert powder["dilution"] == 1.0
+    assert powder["fraction_basis"] == "neat"
+    assert powder["execution_hold_reason"] == (
+        "SOLID_STOCK_REQUIRES_MASS_DOSING_OR_EXACT_PREPARED_STOCK"
+    )
+
+
+def test_recommendation_stock_resolution_requires_one_exact_executable_stock() -> None:
+    first = {
+        "name": "Coumarin",
+        "stock_name": "Coumarin exact test stock A",
+        "raw_name": "20% w/w in DEP",
+        "dilution": 0.2,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "execution_ready": True,
+        "stock_id": "inventory:test:coumarin-a",
+    }
+    second = {
+        **first,
+        "stock_name": "Coumarin exact test stock B",
+        "stock_id": "inventory:test:coumarin-b",
+    }
+
+    assert _material_in_inventory("Coumarin", [first]) is first
+    assert _material_in_inventory("Coumarin", [first, second]) is None
+    assert _material_in_inventory("inventory:test:coumarin-b", [first, second]) is second
+    assert _material_in_inventory("Coumarin exact test stock A", [first, second]) is first
+
+
+def test_intervention_profiles_reference_identity_not_ambiguous_stock_label() -> None:
+    profile_materials = {
+        material
+        for profile in iter_profiles()
+        for material in (*profile.anchor_materials, *profile.bridge_materials)
+    }
+    rule_materials = {
+        material for rule in iter_observation_rules() for material in rule.materials
+    }
+
+    assert "Coumarin" in profile_materials | rule_materials
+    assert "Coumarin (20%)" not in profile_materials | rule_materials

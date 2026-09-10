@@ -1,0 +1,96 @@
+{
+  "schema_version": "complexity_module_registry_v2",
+  "base_registry": "complexity_module_registry_v1.json",
+  "module_overrides": [
+    {
+      "module_id": "musk-design-restraint",
+      "state": "PROVENANCE_TOMBSTONE",
+      "import_path": null,
+      "sha256": "25232d083fd8d6060ca4fabc4e5bf535d27b01f3dde5c8546b64fe75f4a19b1b"
+    },
+    {
+      "module_id": "family-hedonic-optimizer",
+      "sha256": "8d2860987512b0dd95c8e7ad410ea29636d9e04d5a85c37c59fcbc5344b0e0bd"
+    },
+    {
+      "module_id": "advanced-musk-intelligence",
+      "sha256": "b513bd973fde04b62a3c425d91d7ceaed5625221948002ea3309d38a3902d002"
+    },
+    {
+      "module_id": "citrus-architecture-selector",
+      "state": "PROVENANCE_TOMBSTONE",
+      "import_path": null,
+      "sha256": "bf26f5ce3206582a07f14f3f1850d66c349640933eb374f514fd44f651de9319"
+    }
+  ],
+  "module_additions": [
+    {
+      "module_id": "hedonic-evidence-gate-v2",
+      "family_id": "hedonic_evidence_governance",
+      "role": "EVIDENCE",
+      "state": "EVIDENCE_ONLY_NOT_ADMITTED",
+      "path": "engine/hedonic_evidence.py",
+      "import_path": null,
+      "sha256": "1a1d148abb2f0a7ca33a6771727b106f42b12ccfc69c0aefbbfe4185f474933f",
+      "evidence_refs": [
+        "configs/solforge/complexity_construct_registry_v1.json",
+        "tests/test_hedonic_evidence_gate_v3.py"
+      ],
+      "notes": [
+        "This compatibility classification preserves the current exact bytes without admitting the evidence gate to the legacy xhigh treatment ensemble.",
+        "No composition-derived beauty, liking, formula, sensory, safety, or release authority is granted."
+      ]
+    },
+    {
+      "module_id": "formulation-intelligence-admission-guardrail",
+      "family_id": "formulation_intelligence_admission",
+      "role": "GUARDRAIL",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/formulation_intelligence/admission.py",
+      "import_path": null,
+      "sha256": "f555ae09238f7075521b6d4fcc50775d1db88ccd6c2c7ab4977d05f6d5dc07f6",
+      "evidence_refs": [
+        "docs/superpowers/specs/2026-08-31-perfume-intelligence-plane-synthesis-design.md",
+        "tests/test_formulation_intelligence_admission.py"
+      ],
+      "notes": [
+        "The native authority-closure module is classified for census completeness but is not admitted to the legacy xhigh treatment ensemble.",
+        "Its presence grants no formula, sensory, hedonic, safety, or release authority."
+      ]
+    },
+    {
+      "module_id": "formulation-intelligence-hedonic-platform",
+      "family_id": "formulation_intelligence_hedonic_platform",
+      "role": "EVIDENCE",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/formulation_intelligence/hedonic_platform.py",
+      "import_path": null,
+      "sha256": "ef9e6f16add2c39d89fdb51578c8555f137e907422da9d1af97186afb727d567",
+      "evidence_refs": [
+        "docs/superpowers/specs/2026-08-31-perfume-intelligence-plane-synthesis-design.md",
+        "tests/test_formulation_intelligence_hedonic_platform.py"
+      ],
+      "notes": [
+        "The evidence-limited hedonic plane is classified for census completeness but is not admitted to the legacy xhigh treatment ensemble.",
+        "Predicted priors and hypotheses do not prove observed liking or beauty."
+      ]
+    },
+    {
+      "module_id": "formulation-intelligence-temporal-architecture",
+      "family_id": "formulation_intelligence_temporal_architecture",
+      "role": "CAPABILITY",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "path": "engine/formulation_intelligence/temporal_architecture.py",
+      "import_path": null,
+      "sha256": "f07bb551c10fc24e9a3f03af17ac1967d8f6ce791017936c1e7b3e94d29e98b8",
+      "evidence_refs": [
+        "docs/superpowers/specs/2026-08-31-perfume-intelligence-plane-synthesis-design.md",
+        "tests/test_formulation_intelligence_mixture_temporal.py"
+      ],
+      "notes": [
+        "The design-only temporal plane is classified for census completeness but is not admitted to the legacy xhigh treatment ensemble.",
+        "Modeled temporal structure does not prove measured headspace, sensory performance, longevity, or release readiness."
+      ]
+    }
+  ]
+}

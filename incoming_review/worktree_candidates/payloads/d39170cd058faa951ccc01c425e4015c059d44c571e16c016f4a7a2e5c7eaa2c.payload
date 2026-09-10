@@ -1,0 +1,481 @@
+{
+  "schema_version": "chatgpt_data_integration_source_manifest_v1",
+  "manifest_id": "complex-perfumery-data-integration-historical-control-20260819",
+  "recorded_at": "2026-08-19T16:00:00Z",
+  "conversation": {
+    "conversation_id": "6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf",
+    "project_id": "6a74ab83668081919f5cbd0dfe80eb09",
+    "title": "Data Integration for Perfume-Chem",
+    "url": "https://chatgpt.com/g/g-p-6a74ab83668081919f5cbd0dfe80eb09-complex-perfumery/c/6a77b1b5-fabc-83ec-896b-9b7c5c5a2ebf"
+  },
+  "retrieval": {
+    "method": "AUTHENTICATED_CHATGPT_BROWSER_DOM_READ_AND_ATTACHMENT_DOWNLOAD",
+    "message_text_stored_verbatim": false,
+    "message_text_binding": "UTF8_SHA256_OF_RENDERED_INNER_TEXT",
+    "complete_rendered_message_census": true,
+    "rendered_message_count": 63,
+    "user_message_count": 45,
+    "assistant_message_count": 18,
+    "recovered_attachment_count": 4,
+    "declared_task_output_count": 16,
+    "declared_task_outputs_recovered": false,
+    "declared_task_outputs_absent_inferred": false,
+    "note": "The four inline historical control artifacts were recovered exactly. Later task-output citations were not admitted as exact bytes; successor presence and historical status were assessed separately."
+  },
+  "recovered_attachments": [
+    {
+      "file_name": "PERFUME_CHEM_LOSSLESS_INTEGRATION_CONTROL_REPORT_2026-08-09.md",
+      "byte_size": 28047,
+      "sha256": "157115c3a71c259808c48715705b7a2d68f68320f1019cfd0e38e4979501afe7",
+      "role": "HISTORICAL_CONTROL_REPORT"
+    },
+    {
+      "file_name": "PERFUME_CHEM_ALL_CHAT_REPORT_REQUEST_2026-08-09.md",
+      "byte_size": 10698,
+      "sha256": "f9b563eb58457452fe3703373ed62f50e7858837a6c1cb3580b88afe0c314875",
+      "role": "HISTORICAL_REPORT_REQUEST_TEMPLATE"
+    },
+    {
+      "file_name": "perfume_chem_chat_report.schema.json",
+      "byte_size": 33671,
+      "sha256": "151f42f085e7301fad1309104eac74391f96acbd384003fd2be71ac44a39495e",
+      "role": "HISTORICAL_REPORT_SCHEMA"
+    },
+    {
+      "file_name": "PERFUME_CHEM_CHAT_COLLECTION_LEDGER_2026-08-09.csv",
+      "byte_size": 16589,
+      "sha256": "4e5e125f2a014607f6b6c479b10951e23c36d37008a7905b5f64c3d24e69c7a6",
+      "role": "HISTORICAL_PROVISIONAL_DESTINATION_LEDGER"
+    }
+  ],
+  "source_messages": [
+    {
+      "message_id": "6fdffc30-741e-4778-9ebb-758cc19b196b",
+      "role": "user",
+      "utf8_byte_count": 509,
+      "sha256": "fc41a732272407d1765ab0ac1a614eaf6448134da2d52c79b03e923b9e0638b1"
+    },
+    {
+      "message_id": "d1a9078b-22a0-416b-a56f-cb85828ca235",
+      "role": "user",
+      "utf8_byte_count": 57,
+      "sha256": "26d23a77b34fb75ed611a21366a007765b4dd018c98b93ab9aa795432aece540"
+    },
+    {
+      "message_id": "28493464-7767-40f7-b4bd-365b9283c8d7",
+      "role": "user",
+      "utf8_byte_count": 26,
+      "sha256": "9886fc1307f1d642319cf8994413514ce01be13555cfc2b22762e4e8a6ef1d64"
+    },
+    {
+      "message_id": "6ffca352-0bab-48c5-a416-61655f4db9c2",
+      "role": "user",
+      "utf8_byte_count": 169,
+      "sha256": "0394eb23de556fb39fdb509992736b4693cab5a31e56380e392c5459c3f8ce4a"
+    },
+    {
+      "message_id": "d5e205e7-a0c2-4e22-a56b-489fab071d11",
+      "role": "user",
+      "utf8_byte_count": 142,
+      "sha256": "cd639344ea6f1547bc5a857467db6280db49eb7b4554d5258019a8457325d4a0"
+    },
+    {
+      "message_id": "0c975563-b401-5187-991f-9f1e1f575fcf",
+      "role": "assistant",
+      "utf8_byte_count": 575,
+      "sha256": "c07d90842333af8370a136bf15bf34b07214e2fafbfac173479890c2270d4b56"
+    },
+    {
+      "message_id": "5f8ca150-ab41-4e25-9495-c0590c33571d",
+      "role": "user",
+      "utf8_byte_count": 165,
+      "sha256": "36039ca3e62a6abccd87a8d73cb13b2503618d882d30d505a7339e9db27fd287"
+    },
+    {
+      "message_id": "317b1fea-e361-5f00-b2ef-a8abf4d7cef5",
+      "role": "assistant",
+      "utf8_byte_count": 2777,
+      "sha256": "65ae783700bc93851d33ba78001ab3f389f18d3c94891dad0163890a57ddb1f0"
+    },
+    {
+      "message_id": "96aaab8f-68b0-4809-a9f1-b453aebd9ff5",
+      "role": "user",
+      "utf8_byte_count": 100,
+      "sha256": "fac104c29869a522e8940c72c2947e0cc34c1bc4fb0e5e3b59d3069de4a6f7d5"
+    },
+    {
+      "message_id": "cbb65163-b697-58d9-aa26-d2e79054d49f",
+      "role": "assistant",
+      "utf8_byte_count": 631,
+      "sha256": "213df7dee95e45479a35bf5f4c55d66606fdfea49828370d4ecd4cb469b57d76"
+    },
+    {
+      "message_id": "3d3867c1-3f46-57fb-a8a6-2e5368d4b463",
+      "role": "assistant",
+      "utf8_byte_count": 1279,
+      "sha256": "fc00808be2db4e2fb2992b84264efb1236dc8064919405425620a645c46c148a"
+    },
+    {
+      "message_id": "789568ad-f009-44a4-a4e1-6a8d681252fa",
+      "role": "user",
+      "utf8_byte_count": 802,
+      "sha256": "88a0b01bea91eb5100a5916699f21bd60ec38bae62115c622655bb9cf063d381"
+    },
+    {
+      "message_id": "89c141ba-8b9d-4c26-ab04-be7a509cc804",
+      "role": "user",
+      "utf8_byte_count": 866,
+      "sha256": "3c9171970cde53b3df56c0f1996d82c3c0a0ed20d5b4aa716f90ef9d364cb292"
+    },
+    {
+      "message_id": "5706135d-52ba-4f2d-a130-31eb5e6f39df",
+      "role": "user",
+      "utf8_byte_count": 1,
+      "sha256": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+    },
+    {
+      "message_id": "43c6f02f-815d-5ea9-bf02-6b31166a0d87",
+      "role": "assistant",
+      "utf8_byte_count": 355,
+      "sha256": "14ca1072f1069df8ccecda51b206b2b447f2d353051feacb52c8cbf86e64c887"
+    },
+    {
+      "message_id": "19e23f96-bf28-4278-9993-35f8562ac14c",
+      "role": "user",
+      "utf8_byte_count": 16,
+      "sha256": "24f18f593554afd111d000b77b542f7b560d03f18545496e817f76dc9ad8f30a"
+    },
+    {
+      "message_id": "cd9f8ab1-2b8b-54d0-8c0b-cd1e1bf93ab6",
+      "role": "assistant",
+      "utf8_byte_count": 374,
+      "sha256": "bf80117dd3917655ed83bdd82f4bf87b7a31421cd60af21ddec0373063247bab"
+    },
+    {
+      "message_id": "37f6d31e-8551-4dea-bd3a-1faeebb86c66",
+      "role": "user",
+      "utf8_byte_count": 333,
+      "sha256": "ee7e0a850b268193a572dd41fb7cba824f8c6d13d44ee55a39ebc24a515842f1"
+    },
+    {
+      "message_id": "3912cdb7-85c8-4ed7-ba3a-5376cdd1bc12",
+      "role": "user",
+      "utf8_byte_count": 17,
+      "sha256": "6ff7a3c3e6c7cd00313bb301b0b1f989733ec6410bb588808bb59e8bcb833ced"
+    },
+    {
+      "message_id": "bea00b25-68f0-4609-8ae3-0b4d7fb9bde6",
+      "role": "user",
+      "utf8_byte_count": 8,
+      "sha256": "31fbef162594de01bab0cd525c51f74de7bcb15063029fa1a54b2cf5944c80d8"
+    },
+    {
+      "message_id": "ccec6346-ac69-41ae-b8ce-4cd55a71ee6a",
+      "role": "user",
+      "utf8_byte_count": 18,
+      "sha256": "f8700f45a40598cb36274cdd655125741ed62c8e51afab1754f43a742e0d316b"
+    },
+    {
+      "message_id": "0f8aaf13-7c98-410d-8188-5f9824893f44",
+      "role": "user",
+      "utf8_byte_count": 1259,
+      "sha256": "47a5a35e8309a687560a42039d6bd8820ea8762d3326fbe9b90021cb38a80a46"
+    },
+    {
+      "message_id": "4aade855-2d49-5216-8474-beb4b4e28520",
+      "role": "assistant",
+      "utf8_byte_count": 1280,
+      "sha256": "9cb789cb9d6435c8ae15da2d015a2ccbbab972f5e05639b0c37760da39d0d6a9"
+    },
+    {
+      "message_id": "e9e4afd2-8814-4041-9895-bfaf3932148f",
+      "role": "user",
+      "utf8_byte_count": 301,
+      "sha256": "52007eacd0fabee8e4da86074ca01ae7944263af9c57657f2e6eb20171bfb831"
+    },
+    {
+      "message_id": "2f9be21e-aac5-4e1e-8293-09690805584d",
+      "role": "user",
+      "utf8_byte_count": 8,
+      "sha256": "e256ee8e7aff6957a781d8328f0f68e26996564c81fa458da59fbca2305138ad"
+    },
+    {
+      "message_id": "de3a5648-68d6-462a-996b-f6a77f3d0b99",
+      "role": "user",
+      "utf8_byte_count": 3318,
+      "sha256": "f119a7db669bb66ac22ada0d56c1a86fc2dddb490f62582456cb68ac77079b5b"
+    },
+    {
+      "message_id": "b3cefe52-4a4c-511a-81b1-209742308924",
+      "role": "assistant",
+      "utf8_byte_count": 9089,
+      "sha256": "851a54dfbe77a9c4bd68fe3d2c8f265721262f098ee0e5cda4706b5433144614"
+    },
+    {
+      "message_id": "b9ae0d7b-3035-492e-99d6-eb831a187897",
+      "role": "user",
+      "utf8_byte_count": 1963,
+      "sha256": "8275c7e5746140b07e392f92327f380930de540cb1b2ecd77815a5ba40c34440"
+    },
+    {
+      "message_id": "ca7b77f9-032b-4c68-9e5d-f73f9f3755cd",
+      "role": "user",
+      "utf8_byte_count": 1189,
+      "sha256": "7ff5160c41452cf577e9a2c338a54ae1925fae642daca97ddef22eeb9e1bd37e"
+    },
+    {
+      "message_id": "27930869-3a36-4fca-bde3-71b008d534a2",
+      "role": "user",
+      "utf8_byte_count": 2071,
+      "sha256": "6206b77d74b80e64dc0f7c4d224e5ca733451e4a3a2db5aa80c7be0043158037"
+    },
+    {
+      "message_id": "2df62a4c-ae62-410d-a0a8-10606493fb66",
+      "role": "user",
+      "utf8_byte_count": 1548,
+      "sha256": "6256e714877571314de3525917e87c2547585d31ad01aa5ca7e2a0ca1ac05e06"
+    },
+    {
+      "message_id": "93f9f568-cc8c-5f88-a6cc-354ce7a782f1",
+      "role": "assistant",
+      "utf8_byte_count": 614,
+      "sha256": "5b6f3e1809ea4cb024fe3cdefe0482b466a8d8b04fab50681cf26917827a0ac2"
+    },
+    {
+      "message_id": "5c94c31d-5816-4aa3-b3eb-48eedcd4ffbf",
+      "role": "user",
+      "utf8_byte_count": 55,
+      "sha256": "2ca1ad63b02a06764b6763ce87c2066bcc154dfccc9f38d8723b12306446a21e"
+    },
+    {
+      "message_id": "650237b3-7482-57a5-8b9e-a73090e91894",
+      "role": "assistant",
+      "utf8_byte_count": 1447,
+      "sha256": "68d8ddd7296f03ab4f5194e6c88c4ba1bdd34cb19624e2ba2557138f20bf8f12"
+    },
+    {
+      "message_id": "4c27434e-c01b-4167-ae70-68539a03dd8b",
+      "role": "user",
+      "utf8_byte_count": 105,
+      "sha256": "cbe71365096d5041a0073088401a1525620ad1fc918be0b0788b02ae6d3e4923"
+    },
+    {
+      "message_id": "7f48825c-a9e6-4a04-b2c0-8bdf25d6c05a",
+      "role": "user",
+      "utf8_byte_count": 8,
+      "sha256": "31fbef162594de01bab0cd525c51f74de7bcb15063029fa1a54b2cf5944c80d8"
+    },
+    {
+      "message_id": "e75aa9f2-a959-46ac-a447-4cb7bb85a89e",
+      "role": "user",
+      "utf8_byte_count": 1537,
+      "sha256": "4f10c88b51c80c7d611f37f959690664fd3682201d71549e76972677f4ec9f13"
+    },
+    {
+      "message_id": "a172202b-0c40-5b72-9c49-03409e9d5f79",
+      "role": "assistant",
+      "utf8_byte_count": 557,
+      "sha256": "37fae3d496ce6e82ad8d27ee3238db03f686158d982c2050ad68ae34d93369fb"
+    },
+    {
+      "message_id": "4805f3fb-f5f8-4e55-a812-a65e74fada4e",
+      "role": "user",
+      "utf8_byte_count": 2237,
+      "sha256": "20e38112ade10b3379db9a45d9e28a52f6e80269d6b6154fc7f166e0c1c95ad6"
+    },
+    {
+      "message_id": "13a08589-a32a-4abd-8669-de18c4da7350",
+      "role": "user",
+      "utf8_byte_count": 1655,
+      "sha256": "537e64014f94ea9e25f7addba69bbbf31e66f3f6c23470ff3092dd8a1fd851b0"
+    },
+    {
+      "message_id": "649359ad-1d54-43a3-bcb6-026e43c4a7fb",
+      "role": "user",
+      "utf8_byte_count": 658,
+      "sha256": "507021e1c70f99fe707a62164d7dbd23f6d6c122983f31c8e2a39ada258defd6"
+    },
+    {
+      "message_id": "b550dded-e1d6-5ddf-b682-8774b6c019cc",
+      "role": "assistant",
+      "utf8_byte_count": 695,
+      "sha256": "c2f1ea6b568c3b6759e55b5584e4ce4a45feafd3fde473db9a6637380b19cbc8"
+    },
+    {
+      "message_id": "92e081b4-8a1e-422b-b9a6-b9fbf9d31d5b",
+      "role": "user",
+      "utf8_byte_count": 980,
+      "sha256": "72aedf5e5e8c7c5d6e52f41d567b30226e576cd08b792e3b0e57f68d50ab2042"
+    },
+    {
+      "message_id": "7041db59-8957-502b-8f29-16f5c3de1c7a",
+      "role": "assistant",
+      "utf8_byte_count": 1077,
+      "sha256": "fe2b05fcbd45ea059748c83b846df5914419f3a4ac87e6a29fe7e6c811b12436"
+    },
+    {
+      "message_id": "1699086a-8fab-40ef-9956-480cc010b546",
+      "role": "user",
+      "utf8_byte_count": 17,
+      "sha256": "b0c63118ba3798e77cb4b0b5b0d1e1ce9798e73684b1cb85e656d5a0b5dde86b"
+    },
+    {
+      "message_id": "30258e6f-0c6d-5d47-9e6d-04844f8261be",
+      "role": "assistant",
+      "utf8_byte_count": 859,
+      "sha256": "4790c479e35342154192ef6304ed956789d4f65c190a867fca2932e0dd3c0175"
+    },
+    {
+      "message_id": "be710b1b-b883-4bbb-b330-a172a6cd905e",
+      "role": "user",
+      "utf8_byte_count": 57,
+      "sha256": "e2af8531f50646dff6991e31fe6e78351f354dcb83a9a89e741c3325620df5be"
+    },
+    {
+      "message_id": "178d44df-90db-51f1-b17b-8e8083977822",
+      "role": "assistant",
+      "utf8_byte_count": 1525,
+      "sha256": "aff8f8d69e1be6e8edc928a75650fa45e970691e27843b3d38b1f75ce2d22ef0"
+    },
+    {
+      "message_id": "5106f8eb-de73-415e-b718-daf04e9b98b6",
+      "role": "user",
+      "utf8_byte_count": 26,
+      "sha256": "dd0c0f4c6d26df701749bdf952841a26d0285d987f3e6060a393b3ee9a5f5d14"
+    },
+    {
+      "message_id": "35ca9229-ddce-5559-877b-8fc9012baa25",
+      "role": "assistant",
+      "utf8_byte_count": 626,
+      "sha256": "f446117f149a03013237315590e80ed249fdfa5b60447110e7ffa201d6754466"
+    },
+    {
+      "message_id": "04597411-6fa2-42f0-9861-6afabc0a5903",
+      "role": "user",
+      "utf8_byte_count": 41,
+      "sha256": "5ee284992d49f292aabda05422365ebb0dd944478e2f0bed7e37f073fec5f9bf"
+    },
+    {
+      "message_id": "7f0c233c-2df4-4881-bc77-d5876dd1ef9f",
+      "role": "user",
+      "utf8_byte_count": 37,
+      "sha256": "cfd6a5678fc20295deb60fde23111cef69b4e9c8ef5f4e30a340a0c16e85918b"
+    },
+    {
+      "message_id": "60f3c948-7f16-53f9-a667-d93cd808611e",
+      "role": "assistant",
+      "utf8_byte_count": 1224,
+      "sha256": "b979b432f1d0f3d068cbbe6d519bd0226d8be6fe02202191cd31267332694a30"
+    },
+    {
+      "message_id": "f95fbcc5-489f-4ba5-94ed-7b42d3ea8aab",
+      "role": "user",
+      "utf8_byte_count": 84,
+      "sha256": "dd4c311f6a3a9cf175146d15cc4e1fa491fbc7b4f4a0e17a70d50cd2da4dca4a"
+    },
+    {
+      "message_id": "6c555d5a-c45d-4ea5-8beb-2e55382d8270",
+      "role": "user",
+      "utf8_byte_count": 20,
+      "sha256": "a49c0c5b13cce485e826d1dd7f95f9567b9e3912e75fca11ff6b1ffc0e43e328"
+    },
+    {
+      "message_id": "6bd31782-0b7a-49bd-adb6-735c4124770d",
+      "role": "user",
+      "utf8_byte_count": 9,
+      "sha256": "d31d3eb7fcbaddf0419413df10bedc8393fd26203feb5e7307562ee785f98ba4"
+    },
+    {
+      "message_id": "64706277-d08e-4d84-9d0a-098daf774ef1",
+      "role": "user",
+      "utf8_byte_count": 2,
+      "sha256": "e270aeb347f2165574c3a5c5bf11d038bcd3acd5abfdb5ae8a1b52d91cb842f0"
+    },
+    {
+      "message_id": "183be200-6691-496d-b158-cc60193407c0",
+      "role": "user",
+      "utf8_byte_count": 180,
+      "sha256": "077c1553edf98a3b406f727dd1f08894b361805370355f0c3187c9088da3a3f7"
+    },
+    {
+      "message_id": "ac19e6a7-cbbf-449d-bacc-7b11106a4182",
+      "role": "user",
+      "utf8_byte_count": 2,
+      "sha256": "e270aeb347f2165574c3a5c5bf11d038bcd3acd5abfdb5ae8a1b52d91cb842f0"
+    },
+    {
+      "message_id": "81ebdacf-84f7-5417-9bff-95fa5e57e795",
+      "role": "assistant",
+      "utf8_byte_count": 690,
+      "sha256": "af3c849cef8e245f44223a0d3c233b3aed99312c495232df5d0572af29f87525"
+    },
+    {
+      "message_id": "2ab7c9c8-752a-4ef7-847f-33913915c539",
+      "role": "user",
+      "utf8_byte_count": 121,
+      "sha256": "72b290c9d5e547aa586840bcd0a484e23487d1e97859c2a040e813b0abf92b72"
+    },
+    {
+      "message_id": "7bcefd54-eda9-49ac-83eb-024255cf43f5",
+      "role": "user",
+      "utf8_byte_count": 19,
+      "sha256": "92e69b20f8a64c5911f6bf15e578dfcf441c98c3625170c2d8013deaf461c495"
+    },
+    {
+      "message_id": "d76b0ecd-2985-4042-9198-dcf99992b683",
+      "role": "user",
+      "utf8_byte_count": 78,
+      "sha256": "9b1f31d94e63bb134459750a69227f9faed84fd19cdbb93b9e68e555733fd95a"
+    }
+  ],
+  "declared_unrecovered_task_output_groups": [
+    {
+      "group": "P0_AUDIT_PACKAGE",
+      "declared_member_count": 4,
+      "successor_state": "HISTORICAL_HEAD_AND_LATER_LOCAL_RECONCILIATION_PRESENT"
+    },
+    {
+      "group": "C0_PREPILOT_PACKAGE",
+      "declared_member_count": 6,
+      "successor_state": "LOCAL_NATIVE_C0_PACKAGE_AND_TESTS_PRESENT"
+    },
+    {
+      "group": "C0_PROTOCOL",
+      "declared_member_count": 1,
+      "successor_state": "LOCAL_C0_PROTOCOL_AND_NATIVE_LABORATORY_BETA_PRESENT"
+    },
+    {
+      "group": "EVIDENCE_ADMISSION_TECHNICAL_REPORT",
+      "declared_member_count": 4,
+      "successor_state": "LATER_NATIVE_B1_AND_EXTERNAL_STUDY_ADMISSION_PRESENT"
+    },
+    {
+      "group": "MA2021_QUALIFICATION_PACKAGE",
+      "declared_member_count": 1,
+      "successor_state": "LOCAL_EXACT_SOURCE_BENCHMARK_PRESENT"
+    }
+  ],
+  "authority": {
+    "source_admission": false,
+    "historical_state": false,
+    "current_project_state": false,
+    "bridge_state": false,
+    "github_state": false,
+    "automation": false,
+    "runtime": false,
+    "model": false,
+    "training": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "compounding": false,
+    "physical_result": false,
+    "sensory_result": false,
+    "analytical_result": false,
+    "safety": false,
+    "publication": false,
+    "release": false
+  },
+  "receipt_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_RECEIPT_SHA256_OMITTED",
+  "receipt_sha256": "470c2c5a495fe53503f66418e335b8000dd2b674a6a6a75789045a41e7945226"
+}

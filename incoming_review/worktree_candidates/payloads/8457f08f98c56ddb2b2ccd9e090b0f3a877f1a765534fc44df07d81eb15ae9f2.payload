@@ -1,0 +1,279 @@
+# White Suede Honey — Opoponax Amber (30mL EdP, Ellena-style)
+
+**Base:** Shared Premix half (~2,608 µL) + Ellena-simplified flanker (~1,650 µL)  
+**Style:** Jean-Claude Ellena — ≤24 total materials, "what you remove is as important as what you add"  
+**Honey type:** 🍯 AMBER — resinous, balsamic
+
+## Part A — Premix (half portion)
+
+| # | Ingredient | Dilution | µL |
+|---:|---|:|---:|
+| P1 | Galaxolide | 50% in DEP | 400 |
+| P2 | Iso E Super | neat | 250 |
+| P3 | Hedione | neat | 200 |
+| P4 | Ethylene Brassylate | neat | 200 |
+| P5 | Ambrettolide | 10% in DPG | 150 |
+| P6 | Romandolide | neat | 120 |
+| P7 | Bergamot FCF | neat | 110 |
+| P8 | Suederal | 10% | 110 |
+| P9 | Cashmeran | 20% | 100 |
+| P10 | Sandalore | neat | 90 |
+| P11 | Ambrofix | 30% | 70 |
+| P12 | Blood Orange Sicilian | neat | 60 |
+| P13 | Coumarin | 20% | 55 |
+| P14 | Ebanol | neat | 50 |
+| P15 | Vanillin | 10% | 27.5 |
+| P16 | Isobutyl Quinoline (IBQ) | 10% | 15 |
+
+## Part B — Opoponax Amber (Ellena-simplified, 8 materials)
+
+| # | Ingredient | Dilution | µL | Function |
+|---:|---|:|---:|-------|
+| 17 | Opoponax Resinoid | 50% in DEP | 500 | ★ STAR — sweet-balsamic myrrh honey |
+| 18 | Labdanum Resinoid | 10% in DPG | 350 | Amber warmth — the resin that makes amber amber |
+| 19 | Siam Benzoin | 50% in DPG | 300 | Vanilla-balsamic — the sweet face |
+| 20 | Immortelle Absolute | 10% in DPG | 200 | Curry-maple honey — the ONE honey |
+| 21 | Cedarwood EO | neat | 100 | Natural cedar — the ONE added wood |
+| 22 | Heliotropal (Piperonal) | neat | 80 | Almond-vanilla powder — bridges honey to amber |
+| 23 | Alpha Isomethyl Ionone | neat | 30 | Powdery iris — family iris modifier anchor |
+| 24 | Ethyl Safranate | neat | 30 | Saffron trace — suede-to-opoponax bridge |
+| 25 | Cassia Essential Oil | neat | 10 | Cinnamon trace — honey-balsamic bridge |
+
+| Section | µL |
+|--------|----:|
+| Premix (A) | 2,007.5 |
+| Flanker (B) | 1,600 |
+| **Total** | **3,607.5** |
+
+## Solvent
+
+| # | Ingredient | Amount |
+|---:|---|:---:|
+| 26 | Ethanol 96% | 24.000 mL |
+
+**Submission note:** The raw concentrate defined by the ingredient tables sums to `3,607.5 µL`, not `6,000 µL`. With `24.000 mL` ethanol, the current written formula yields about `27.61 mL` total at about `13.0%` concentrate, so it is underfilled for a true `30 mL EdP` unless the concentrate or solvent target is revised.
+
+---
+
+## Ellena's Cuts (Part B: 25 → 9 materials)
+
+| Cut | Reason |
+|-----|--------|
+| Mimosa Absolute, PEA, PEDMC, Ethyl Maltol | Immortelle + Heliotropal = enough honey. "One honey" |
+| Tuberose Absolute, Rose de Mai, Damascenone | Floral is suggested by the resins, not stated |
+| Tonka Bean Absolute, Isobutavan, Peru Balsam | Redundant with Coumarin (premix) + Vanillin (premix) + Siam Benzoin |
+| Patchouli EO, Vetiver EO | Too heavy. Cedarwood + Iso E Super + Sandalore = enough wood |
+| Red Mandarin EO | One citrus (Bergamot in premix) opens. Silence follows |
+| Alpha Isomethyl Ionone | Iris unnecessary for amber honey |
+| Coumarin/Vanillin supplements | Premix already provides tonka + vanilla |
+
+**Total: 24 materials** (16 premix + 8 flanker). Ellena would approve.
+
+## Pipeline Analysis
+
+```text
+## Gate Summary
+
+**108 PASS** / **18 WARN** / **3 FAIL**
+
+  FAIL exact_subtotal: 3607.5 uL parsed; expected 6000.0 uL
+  FAIL perfume_knowledge: top OAV off-target for family chypre; heart OAV off-target for family chypre; base OAV off-target for family chypre
+  FAIL literature_compliance: Literature compliance: 2/5 principles passed (40%)
+  WARN pipeline_preflight: 9 checks; 4 warnings
+  WARN chemistry_stability: immature: predicted maturation 7 days (industry standard 14-42 days); predicted maturation shelf life 7 days
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 33.3% active mass across 6 materials
+  WARN small_diluted_traces: Isobutyl Quinoline (IBQ)=15.0uL at 10.0%
+  WARN safety_ifra_allergen: 11 materials lack explicit IFRA Cat4 limits; 3 EU allergen declarations
+  WARN eu_allergen_declaration: EU allergens requiring label: coumarin, alpha-isomethyl ionone
+  WARN perfumer_logic: generic; perfumer_logic_brief: No brief-specific logic selected.
+  WARN carles_accord_ratio: Extreme ratios (>8:1, Carles limit): galaxolide:iso e super = 18:1; galaxolide:hedione = 20:1; galaxolide:ethylene brassylate = 38:1
+  WARN beaux_registres: Beaux registers missing: soprano
+  WARN balance_axes: Balance axes evaluation skipped: type object 'MarketSegment' has no attribute 'MASS_MARKET'
+  WARN character_shifts: Gate skipped (API mismatch): check_zone_boundaries() missing 1 required positional argument: 'concentration_pct'
+  WARN musk_intelligence: Gate skipped (API mismatch): 'WoodyInfrastructureTrio' object has no attribute 'primary'
+  WARN jellinek_psychology: Jellinek categories weak: erogenic, stimulating
+  WARN adaptation_timing: fast tier < 5% (no immediate impact)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 81%) — collapse risk
+  WARN olfactory_fatigue: Olfactory fatigue risk: hedione=5.5% of concentrate (<10% minimum for radiance)
+  WARN evaporation_rate_balance: Pyramid imbalance: base = 63%
+  WARN confidence_minimum: combined confidence 28.6; preflight science penalty 25.9
+
+## Headspace OAV — Opening (0s)
+
+| # | Material | OAV | Note | Percept | VP Pa | Vapor ppm | ODT ppm | Act g | MF% | Role |
+|---|--------|---|----|-------|-----|---------|-------|-----|---|----|
+|   1 | Bergamot FCF                 |    16525.1 | top   |      massive |   1.500 |    3.0322 |  0.006000 |  0.1100 |  6.83 | Bergamot FCF                  
+|   2 | Hedione                      |     3892.6 | heart |  very strong |   0.210 |    0.1946 |  0.000050 |  0.2000 |  9.33 | Hedione                       
+|   3 | Iso E Super                  |     3546.5 | heart |  very strong |   0.150 |    0.1773 |  0.000050 |  0.2500 | 11.25 | Iso E Super                   
+|   4 | Ebanol                       |     1501.8 | heart |  very strong |   0.890 |    0.3154 |  0.000210 |  0.0500 |  2.39 | Ebanol                        
+|   5 | Cassia Essential Oil         |      834.5 | heart |       strong |   2.500 |    0.1316 |  0.001500 |  0.0105 |  0.82 | Cassia Essential Oil          
+|   6 | Blood Orange Sicilian        |      436.1 | top   |       strong |   3.000 |    3.4888 |  0.008000 |  0.0507 |  3.93 | Blood Orange Sicilian         
+|   7 | Immortelle Absolute          |      383.0 | heart |       strong |   0.020 |    0.0012 |  0.001000 |  0.0200 |  1.06 | Immortelle Absolute           
+|   8 | Galaxolide                   |      195.4 | base  |       strong |   0.073 |    0.0606 |  0.000310 |  0.2000 |  8.17 | Galaxolide                    
+|   9 | Heliotropal (Piperonal)      |      154.6 | base  |       strong |   0.150 |    0.1082 |  0.000700 |  0.0800 |  5.62 | Heliotropal                   
+|  10 | Alpha Isomethyl Ionone       |       98.4 | heart | moderate-strong |   0.400 |    0.0787 |  0.000800 |  0.0300 |  1.53 | Alpha-Isomethyl Ionone        
+|  11 | Cedarwood EO                 |       76.5 | base  | moderate-strong |   0.250 |    0.2547 |  0.015000 |  0.1000 |  5.16 | Cedarwood EO                  
+|  12 | Cashmeran                    |       60.6 | base  | moderate-strong |   1.200 |    0.1211 |  0.002000 |  0.0200 |  1.02 | Cashmeran                     
+|  13 | Coumarin                     |       33.8 | base  |     moderate |   0.190 |    0.0237 |  0.000700 |  0.0110 |  0.79 | Coumarin                      
+|  14 | Ethyl Safranate              |       24.1 | heart |     moderate |   0.050 |    0.0121 |  0.000500 |  0.0300 |  1.88 | Ethyl Safranate               
+|  15 | Isobutyl Quinoline (IBQ)     |       21.8 | base  |     moderate |   0.129 |    0.0011 |  0.000050 |  0.0015 |  0.09 | Isobutyl Quinoline            
+|  16 | Ambrofix                     |       20.7 | base  |     moderate |   0.066 |    0.0062 |  0.000300 |  0.0210 |  0.94 | Ambrox Super                  
+|  17 | Romandolide                  |       14.1 | base  |     moderate |   0.100 |    0.0693 |  0.004900 |  0.1200 |  4.68 | Romandolide                   
+|  18 | Sandalore                    |        5.3 | base  |  perceptible |   0.080 |    0.0535 |  0.010000 |  0.0900 |  4.51 | Sandalore                     
+|  19 | Ethylene Brassylate          |        5.1 | base  |  perceptible |   0.008 |    0.0049 |  0.000970 |  0.2000 |  7.80 | Ethylene Brassylate           
+|  20 | Ambrettolide                 |        2.0 | base  | at threshold |   0.003 |    0.0003 |  0.000136 |  0.0150 |  0.63 | Ambrettolide                  
+|  21 | Opoponax Resinoid            |        1.4 | base  | at threshold |   0.020 |    0.0142 |  0.010000 |  0.2500 | 11.99 | Opoponax Resinoid             
+|  22 | Suederal                     |        1.4 | base  | at threshold |   0.010 |    0.0007 |  0.000500 |  0.0110 |  0.69 | Suederal                      
+|  23 | Vanillin                     |        0.5 | base  | sub-threshold |   0.200 |    0.0094 |  0.020000 |  0.0027 |  0.19 | Vanillin                      
+|  24 | Siam Benzoin                 |        0.0 | base  | sub-threshold |   0.000 |    0.0000 |  0.040000 |  0.1500 |  7.46 | Siam Benzoin                  
+|  25 | Labdanum Resinoid            |        0.0 | base  | sub-threshold |   0.000 |    0.0000 |  0.005000 |  0.0350 |  1.23 | Labdanum Resinoid             
+
+**Materials:** 25 total (2 top, 7 heart, 16 base)
+**Total vapor:** 8.16 ppm
+### Note Distribution
+
+**TOP:** 2 mats, 8.2% active, 60.9% OAV
+  - Bergamot FCF                 OAV= 16525.1 (massive) VP=1.500Pa
+  - Blood Orange Sicilian        OAV=   436.1 (strong) VP=3.000Pa
+**HEART:** 7 mats, 28.5% active, 36.9% OAV
+  - Hedione                      OAV=  3892.6 (very strong) VP=0.210Pa
+  - Iso E Super                  OAV=  3546.5 (very strong) VP=0.150Pa
+  - Ebanol                       OAV=  1501.8 (very strong) VP=0.890Pa
+  - Cassia Essential Oil         OAV=   834.5 (strong) VP=2.500Pa
+  - Immortelle Absolute          OAV=   383.0 (strong) VP=0.020Pa
+  - Alpha Isomethyl Ionone       OAV=    98.4 (moderate-strong) VP=0.400Pa
+  ... and 1 more
+**BASE:** 16 mats, 63.2% active, 2.1% OAV
+  - Galaxolide                   OAV=   195.4 (strong) VP=0.073Pa
+  - Heliotropal (Piperonal)      OAV=   154.6 (strong) VP=0.150Pa
+  - Cedarwood EO                 OAV=    76.5 (moderate-strong) VP=0.250Pa
+  - Cashmeran                    OAV=    60.6 (moderate-strong) VP=1.200Pa
+  - Coumarin                     OAV=    33.8 (moderate) VP=0.190Pa
+  - Isobutyl Quinoline (IBQ)     OAV=    21.8 (moderate) VP=0.129Pa
+  ... and 10 more
+### OAV by Odor Family
+
+           citrus  60.9% ==============================  (2 mats)
+            woody  18.6% =========  (5 mats)
+           floral  15.7% =======  (3 mats)
+            spice   3.1% =  (2 mats)
+             musk   0.8% =  (4 mats)
+             iris   0.6% =  (1 mats)
+         gourmand   0.1% =  (3 mats)
+            smoky   0.1% =  (2 mats)
+            amber   0.1% =  (2 mats)
+         balsamic   0.0% =  (1 mats)
+### Sub-threshold Materials (OAV < 1)
+3/25 materials below perceptible threshold
+  - Vanillin: OAV=0.47 VP=0.200Pa act=3uL role=Vanillin [Structural (acceptable)]
+  - Labdanum Resinoid: OAV=0.00 VP=0.000Pa act=35uL role=Labdanum Resinoid [Structural (acceptable)]
+  - Siam Benzoin: OAV=0.00 VP=0.000Pa act=150uL role=Siam Benzoin [Structural (acceptable)]
+### High-OAV Flags (>5000)
+  - Bergamot FCF OAV=16525 dominates headspace — may mask subtler notes
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Raw uL | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s |  8.2/28.5/63.2 |   8.16ppm |   3608 | Bergamot FCF(16525), Hedione(3893), Iso E Super(3547)
+| top          |    300s |  8.2/28.5/63.3 |   8.14ppm |   3607 | Bergamot FCF(16497), Hedione(3894), Iso E Super(3548)
+| heart        |   1800s |  8.1/28.6/63.3 |   8.04ppm |   3603 | Bergamot FCF(16359), Hedione(3900), Iso E Super(3554)
+| late_heart   |   7200s |  7.7/28.7/63.6 |   7.71ppm |   3591 | Bergamot FCF(15868), Hedione(3920), Iso E Super(3574)
+| drydown      |  14400s |  7.2/28.8/64.0 |   7.28ppm |   3576 | Bergamot FCF(15230), Hedione(3946), Iso E Super(3599)
+
+### Per-Window Detail
+
+**OPENING** (0.0s) — Evap:0%
+  T:8.2% H:28.5% B:63.2%  Vapor:8.16ppm
+  Leaders: Bergamot FCF OAV 16525 | Hedione OAV 3893 | Iso E Super OAV 3547 | Ebanol OAV 1502 | Cassia Essential Oil OAV 835
+
+**TOP** (300.0s) — Evap:0%
+  T:8.2% H:28.5% B:63.3%  Vapor:8.14ppm
+  Leaders: Bergamot FCF OAV 16497 | Hedione OAV 3894 | Iso E Super OAV 3548 | Ebanol OAV 1502 | Cassia Essential Oil OAV 834
+
+**HEART** (1800.0s) — Evap:0%
+  T:8.1% H:28.6% B:63.3%  Vapor:8.04ppm
+  Leaders: Bergamot FCF OAV 16359 | Hedione OAV 3900 | Iso E Super OAV 3554 | Ebanol OAV 1500 | Cassia Essential Oil OAV 832
+
+**LATE_HEART** (7200.0s) — Evap:0%
+  T:7.7% H:28.7% B:63.6%  Vapor:7.71ppm
+  Leaders: Bergamot FCF OAV 15868 | Hedione OAV 3920 | Iso E Super OAV 3574 | Ebanol OAV 1496 | Cassia Essential Oil OAV 825
+
+**DRYDOWN** (14400.0s) — Evap:1%
+  T:7.2% H:28.8% B:64.0%  Vapor:7.28ppm
+  Leaders: Bergamot FCF OAV 15230 | Hedione OAV 3946 | Iso E Super OAV 3599 | Ebanol OAV 1490 | Cassia Essential Oil OAV 816
+## Structural OAV Analysis
+
+**Vapor:** 8 ppm  |  **Active:** 6.9%  |  **Perceptible:** 22/25
+
+### OAV Tiers
+  **massive** (4): Iso E Super(3547), Hedione(3893), Bergamot FCF(16525), Ebanol(1502)  ! fatigue risk
+  **v.strong** (5): Galaxolide(195), Blood Orange Sicilian(436), Immortelle Absolute(383), Heliotropal (Piperonal)(155), Cassia Essential Oil(835)
+  **strong** (3): Cashmeran(61), Cedarwood EO(77), Alpha Isomethyl Ionone(98)
+  **moderate** (5): Romandolide(14), Ambrofix(21), Coumarin(34), Isobutyl Quinoline (IBQ)(22), Ethyl Safranate(24)
+  **perceptible** (2): Ethylene Brassylate(5), Sandalore(5)
+  **threshold** (3): Ambrettolide(2), Suederal(1), Opoponax Resinoid(1)
+  **sub** (3): Vanillin(0), Labdanum Resinoid(0), Siam Benzoin(0)
+
+### Block Balance
+  **Citrus**    16961 (61%)
+  **Floral**    10281 (37%)
+  **Base**        593 (2%)
+  **Ratio:** 29:1 between strongest/weakest block — CITRUS DOMINANT
+
+### Issues
+  ! 3 sub-threshold material(s): Vanillin, Labdanum Resinoid, Siam Benzoin
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Bergamot FCF(massive) + Blood Orange Sicilian(strong)
+  Heart: Hedione(very strong) + Iso E Super(very strong)
+  Base: Galaxolide(strong) + Heliotropal (Piperonal)(strong) + Cedarwood EO(moderate-strong) + Cashmeran(moderate-strong) + Coumarin(moderate)
+
+### 2. Opening (0-5min)
+  Bergamot FCF dominates at OAV 16525 (massive).
+  - Bergamot FCF OAV=16525 VP=1.5Pa (citrus)
+  - Blood Orange Sicilian OAV=436 VP=3.0Pa (citrus)
+  Total vapor: 8.2 ppm
+
+### 3. Heart (30min-2hr)
+  Bergamot FCF OAV=16359 (massive)
+  Hedione OAV=3900 (very strong)
+  Iso E Super OAV=3554 (very strong)
+  Ebanol OAV=1500 (very strong)
+  T:8.1% H:28.6% B:63.3%
+  Vapor: 8.0 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base dominates at 64% of headspace
+  - Bergamot FCF OAV=15230
+  - Hedione OAV=3946
+  - Iso E Super OAV=3599
+  - Ebanol OAV=1490
+  - Cassia Essential Oil OAV=816
+  - Immortelle Absolute OAV=390
+  Vapor: 7.3 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Bergamot FCF(16525) + Hedione(3893) + Iso E Super(3547) + Ebanol(1502)
+  OAV by family: citrus61% woody19% floral16% spice3%
+
+### 6. Longevity
+  Evaporation: 1% over 4h
+  Vapor: 8.2 > 7.3 ppm
+  Base @ drydown: 64%
+  Est. skin life: 8h moderate + 4h skin scent
+
+### 7. Balance
+  Pyramid: T:8.2% H:28.5% B:63.2%
+  OAV range: 0.00 to 16525 (sigma-log=1.83)
+  Wide contrast: citrus (OAV 16525) dominates opening before burning off to reveal base.
+    massive: 1
+    sub-threshold: 3
+
+### 8. Flags
+  SUB: Vanillin OAV=0.47 role=Vanillin
+  SUB: Siam Benzoin OAV=0.00 role=Siam Benzoin
+  SUB: Labdanum Resinoid OAV=0.00 role=Labdanum Resinoid
+  IFRA: Galaxolide at 9.67% active — near/above Cat4 limit (10.0%)
+```

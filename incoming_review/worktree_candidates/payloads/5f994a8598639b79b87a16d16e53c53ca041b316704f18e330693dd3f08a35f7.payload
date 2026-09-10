@@ -1,0 +1,297 @@
+{
+  "schema_version": "complex_perfumery_full_objective_completion_audit_v2",
+  "generated_at_utc": "2026-08-16T07:48:00Z",
+  "state": "PARTIAL_OBJECTIVE_RECOVERED_NON_P6_NATIVE_SCOPES_APPLIED_EXTERNAL_BYTES_RIGHTS_AND_PHYSICAL_EVIDENCE_HELD",
+  "objective_complete": false,
+  "collection_complete": false,
+  "implementation_complete": false,
+  "implementation_complete_for_authorized_recovered_non_p6_native_scopes_in_current_worktree": true,
+  "package_installation_complete": false,
+  "installation_authorized": false,
+  "release_complete": false,
+  "repository_fence": {
+    "branch": "codex/add-inventory-materials",
+    "head": "c876ab128845c2e055251fdce4fb1c3f5d661045",
+    "index_tree": "b4dcfb3932f5156f9397fee876199001fff66611",
+    "staged_paths": 0,
+    "preexisting_dirty_tree_preserved": true
+  },
+  "parent_evidence": [
+    {
+      "path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_AUDIT_V12_20260816.json",
+      "byte_size": 12557,
+      "sha256": "ef1d225164ccc6b83caf815490362c097fb23bc1a92c442a3d378731a20679e0",
+      "role": "PREVIOUS_FULL_OBJECTIVE_AUDIT"
+    },
+    {
+      "path": "data/governance/complex_perfumery_v13_chat_estate_delta_20260816.json",
+      "byte_size": 16874,
+      "sha256": "044bb689366e4eaf8b23be956756f2866526d65039da2123cedad9f673faee13",
+      "semantic_receipt_sha256": "1a928bed05d190c5b5f82bf7fa4e55ca393e5456c4ba2da09750c507474e4d83",
+      "role": "CURRENT_POINT_IN_TIME_CHAT_ESTATE_AND_COLLECTION_STATE"
+    },
+    {
+      "path": "output/quarantine/COMPLEX_PERFUMERY_CHAT_ESTATE_DELTA_V13_20260816.md",
+      "byte_size": 4527,
+      "sha256": "7abd053ca85800775afc81a83f7147f167188d9a98e439bee8eb85afaf06f8b5",
+      "role": "CURRENT_CHAT_ESTATE_REPORT"
+    },
+    {
+      "path": "incoming_review/chatgpt/20260816T141500+0700-v13-post-v12-five-package-recovery-multi-chat/capture_manifest.json",
+      "byte_size": 12948,
+      "sha256": "2ea8051ea61e92ce47f71b7ea6abcb42c05e7d0c9557b83cc7ebc70d97793bcc",
+      "role": "CURRENT_FIVE_PACKAGE_SOURCE_CAPTURE"
+    }
+  ],
+  "current_collection_state": {
+    "v13_sealed_exact_outer_candidate_lower_bound": 47,
+    "current_exact_outer_candidate_lower_bound": 48,
+    "registry_point_in_time_chats": 38,
+    "defensible_chat_denominator_lower_bound": 48,
+    "denominator_complete": false,
+    "new_v13_exact_outer_candidates": 5,
+    "new_v13_receipts": 5,
+    "new_v13_packages_verified_quarantined": 5,
+    "promotion_allowed": false,
+    "all_project_packages_collected": false,
+    "source_rights_state": "UNKNOWN",
+    "redistribution_authorized": false,
+    "post_v13_source_delta": {
+      "exact_outer_available_outside_repository": {
+        "path": "C:/Users/ASUS/Downloads/Nine_Perfume_All_30mL_Concentrate_Formulas_2026-08-16_v1.zip",
+        "byte_size": 289626,
+        "sha256": "c01c9bfd6e18b17968fd2530c7a548f2c3a41c6d4f74e9e64973aef4c950618e",
+        "source_conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+        "source_user_turn_id_prefix": "c90871c5",
+        "source_agent_message_id_prefix": "999eceb3",
+        "content_reference_indices": [3, 4, 5, 6],
+        "members": 126,
+        "embedded_ledger_records_verified": 125,
+        "embedded_manifest_records_verified": 124,
+        "native_scan": "CLEAR_FOR_RECEIPT_REVIEW",
+        "promotion_allowed": false,
+        "repository_capture_created": false,
+        "package_receipt_created": false,
+        "native_fit_applied": false,
+        "source_state": "30ML_CONCENTRATE_SCALING_COMPLETE_NO_CANONICAL_SELECTION"
+      },
+      "source_only_unrecovered_candidate": {
+        "filename": "Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0.zip",
+        "byte_size": 172172,
+        "sha256": "f4be1041bb8e2e8b5665962e580aa740996bd2f77b61299cca1d3cdf55014a5d",
+        "members_declared": 75,
+        "source_conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+        "source_recovery_turn_id": "b8c1827f-c327-4c8d-b0ed-ec5b81953cf9",
+        "source_agent_message_id": "b2ecd3f7-04e0-4fc3-84df-018530ba0704",
+        "content_reference_index": 0,
+        "file_object_id": "file_000000002ff081faa6a1a57e3fc62d3e",
+        "exact_original_card_available": true,
+        "exact_bytes_available_locally": false
+      }
+    }
+  },
+  "g2_native_metadata_boundary": {
+    "metadata_contract_complete": true,
+    "physical_preparations_executed": false,
+    "canonical_quantity_and_stock_authority": "MASS_FRACTION_AND_MASS_INVENTORY_MOVEMENTS_ONLY",
+    "source_vv_role": "IMMUTABLE_NONAUTHORITATIVE_INTENT_OR_MEASUREMENT_METADATA",
+    "observed_vv_derivation": "SEPARATELY_MEASURED_PREMIX_COMPONENT_DELIVERY_VOLUMES_ONLY",
+    "final_mixed_solution_volume_allowed": false,
+    "volume_fraction_stock_creation_allowed": false,
+    "mass_volume_conversion_allowed": false,
+    "active_dose_or_stock_gate_satisfaction_allowed": false,
+    "physical_or_scientific_authority": false,
+    "files": [
+      {
+        "path": "backend/app/schemas/lab.py",
+        "byte_size": 9454,
+        "sha256": "915cf711d0a62a9bc26f305b0d4cd6d4b9f20e1704fb2d948eda28fd040c19b4"
+      },
+      {
+        "path": "backend/app/services/lab_service.py",
+        "byte_size": 89347,
+        "sha256": "0a15591c4d0ecb42ca681506ffccc16d6e11904d20c637d8988ac9d5ffc4a78d"
+      },
+      {
+        "path": "backend/tests/integration/test_stock_preparation_receipt.py",
+        "byte_size": 34084,
+        "sha256": "c96384e2545315542e07b384425a65bac7d03920f797778c3271b3b20fe5b9bd"
+      }
+    ],
+    "focused_tests": "12_PASS",
+    "related_transaction_api_lifecycle_lineage_tests": "31_PASS",
+    "ruff": "PASS",
+    "changed_file_mypy": "PASS_BOUNDED",
+    "standard_mypy": "UNRELATED_PREEXISTING_ERROR_APP_SERVICES_STOCK_STRENGTH_QUARANTINE_PY_LINE_55_RETURNING_ANY"
+  },
+  "requirement_audit": [
+    {
+      "requirement": "GATHER_NEWEST_COMPLETED_PROJECT_FILES_AND_DELIVERABLES",
+      "status": "PARTIAL_DYNAMIC_DENOMINATOR_AND_EXTERNAL_BYTES_UNAVAILABLE",
+      "evidence": "V13 seals five exact quarantined outers at a lower bound of 47. A later exact 30 mL package raises the current lower bound to 48 but is not yet captured or receipted; a newer Complexity Model v2.0 package remains source-only. The dynamic project census is not denominator-complete.",
+      "missing": [
+        "COMPLEXITY_MODEL_V2_0_f4be1041bb8e2e8b5665962e580aa740996bd2f77b61299cca1d3cdf55014a5d",
+        "UNIVERSAL_ACCORD_8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998",
+        "CANONICAL_CUTOVER_PARENT_e9e325bea9117dbe2a97ff67e77d57705a54244591278fac7a34915a7f0ae523",
+        "P6_ZIP_8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db",
+        "P6_WHEEL_582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5"
+      ]
+    },
+    {
+      "requirement": "DIFF_PROJECT_PACKAGES_AGAINST_LIVE_PERFUME_CHEM_AND_LEDGER",
+      "status": "PASS_FOR_RECOVERED_SCOPES",
+      "evidence": "V13 packages remain immutable design, protocol, governance, or negative-search ancestry. Existing P2.2, V5, C10/P3, Laboratory Beta, C0, external-study, and B9 contracts remain authoritative; no parallel schema, migration, truth store, or pipeline is justified."
+    },
+    {
+      "requirement": "LITERATURE_FIRST_AND_SECOND_PASS_RESEARCH",
+      "status": "PASS_FOR_CURRENT_DECISION_SCOPE",
+      "evidence": "The V12 primary-literature ledger remains controlling: OAV is a screen, matrix and concentration matter, and interaction or pleasantness claims require governed physical observations. V13 adds no evidence that changes this boundary."
+    },
+    {
+      "requirement": "IMPLEMENT_BEST_NATIVE_NON_DUPLICATIVE_SOFTWARE_FIT",
+      "status": "PASS_FOR_AUTHORIZED_RECOVERED_NON_P6_SCOPES",
+      "evidence": "The native G2 v/v metadata seam is implemented without changing mass_fraction or mass movement authority. DeepLuna and local review found no additional software gap before physical inputs."
+    },
+    {
+      "requirement": "PROVIDE_A_WHOLE_PLAN_READY_FOR_SAFE_INSTALLATION",
+      "status": "PLAN_READY_INPUTS_RIGHTS_AND_PHYSICAL_EVIDENCE_NOT_READY",
+      "evidence": "G0-G5 are ordered and executable, but installation and release remain correctly withheld."
+    },
+    {
+      "requirement": "VALIDATE_PHYSICAL_PERFUME_SCIENCE_AND_RELEASE",
+      "status": "NOT_ACHIEVED",
+      "evidence": "Four package preparations, nine verification templates, nine authenticated references, physical arms, observations, measured headspace, strict empirical OAV, stability, similarity, safety clearance, and release verification remain absent."
+    }
+  ],
+  "native_implementation_state": {
+    "migration_head": "20260810_0016",
+    "migration_0017_required": false,
+    "new_schema_required": false,
+    "new_truth_store_required": false,
+    "new_pipeline_script_required": false,
+    "package_code_install_allowed": false,
+    "g2_metadata_seam_complete": true,
+    "g2_physical_execution_complete": false,
+    "source_design_projection": "IMMUTABLE_AUTHORITY_FALSE_ANCESTRY_INTO_EXISTING_NATIVE_CONTRACTS_ONLY",
+    "physical_projection": "LAB_EXPERIMENT_TO_BOTTLE_BOUND_SAMPLE_TO_APPLICATION_TO_OBSERVATION_AFTER_SEPARATE_AUTHORIZATION",
+    "sensory_projection": "C0_HOLD_UNTIL_ALL_17_ARTIFACTS_QUALIFICATION_AND_HUMAN_EXECUTION_ARE_BOUND",
+    "reporting_projection": "AUTHENTICATED_READ_ONLY_LAB_SCIENCE_REPORT_V2"
+  },
+  "ordered_next_actions": [
+    {
+      "gate": "G0_EXTERNAL_BYTES_AND_RIGHTS",
+      "action": "Recover exact unchanged residual parent bytes only if they become available, bind field-specific reuse rights, receipt and quarantine before any mapping.",
+      "owner_input_required": true,
+      "execution_authorized": false
+    },
+    {
+      "gate": "G1_NATIVE_STOCK_AND_PREPARATION_CLOSURE",
+      "action": "Close CLR-001 2-Acetyl Pyrazine and CLR-002 Lemonile exact stock, carrier, lot, parent-stock, and preparation receipts; preserve all other closure-queue holds.",
+      "owner_input_required": true,
+      "execution_authorized": false
+    },
+    {
+      "gate": "G2_PACKAGE_SPECIFIC_BENCH_PREREQUISITES",
+      "action": "Use the completed native metadata contract to record four real package preparations, nine verifications, and nine authenticated references only from measured physical evidence. Source v/v cannot alter mass authority.",
+      "owner_input_required": true,
+      "execution_authorized": false
+    },
+    {
+      "gate": "G3_PROTOCOL_LOCK_AND_PHYSICAL_AUTHORIZATION",
+      "action": "Bind one selected candidate through C10 and P3 with exact formula, fork, stock, matrix, and qualification hashes, then separately authorize Laboratory Beta physical execution.",
+      "owner_input_required": true,
+      "execution_authorized": false
+    },
+    {
+      "gate": "G4_FIRST_NATIVE_EXPERIMENT",
+      "action": "After identity and preparation closure, run the governed concentration-aware binary-mixture benchmark with linear-quality and strongest-component-intensity baselines before any nonlinear residual model.",
+      "owner_input_required": true,
+      "execution_authorized": false
+    },
+    {
+      "gate": "G5_SENSORY_AND_RELEASE",
+      "action": "Bind all C0 artifacts and qualifications, execute governed observations, revalidate semantic readback, then run quick and full project verification before any release decision.",
+      "owner_input_required": true,
+      "execution_authorized": false
+    }
+  ],
+  "blocking_parent_bytes": [
+    {
+      "name": "Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0.zip",
+      "byte_size": 172172,
+      "sha256": "f4be1041bb8e2e8b5665962e580aa740996bd2f77b61299cca1d3cdf55014a5d",
+      "state": "LIVE_ORIGINAL_CARD_AVAILABLE_LOCAL_DOWNLOAD_PENDING"
+    },
+    {
+      "name": "UNIVERSAL_ACCORD_INTELLIGENCE_MODULE_v1.zip",
+      "byte_size": 539050,
+      "sha256": "8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998",
+      "state": "EXACT_ORIGINAL_BYTES_UNAVAILABLE_NO_RECONSTRUCTION_OR_SUBSTITUTION"
+    },
+    {
+      "name": "PERFUME_CHEM_CANONICAL_CUTOVER_READY_20260808_v2.zip",
+      "byte_size": 1228587,
+      "sha256": "e9e325bea9117dbe2a97ff67e77d57705a54244591278fac7a34915a7f0ae523",
+      "state": "DECLARED_PARENT_EXACT_BYTES_UNAVAILABLE"
+    },
+    {
+      "name": "Perfume_Chem_Physics_OAV_Decision_Model_v3_4_0_CALIBRATION_READY.zip",
+      "byte_size": 540402,
+      "sha256": "8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db",
+      "state": "EXPLICIT_UNAVAILABLE_PARENT_BYTES"
+    },
+    {
+      "name": "perfume_chem_physics_oav_v3-3.4.0-py3-none-any.whl",
+      "byte_size": 65724,
+      "sha256": "582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5",
+      "state": "EXPLICIT_UNAVAILABLE_PARENT_BYTES"
+    }
+  ],
+  "verification": {
+    "v13_collection_receipt_and_quarantine_neighborhood": "110_PASS",
+    "v13_focused_tests": "6_PASS",
+    "g2_focused_tests": "12_PASS",
+    "g2_related_tests": "31_PASS",
+    "v13_deepluna_batch": "DLB-20260816T073419644Z-2c6b5f",
+    "v13_deepluna_accepted_positive_lanes": 8,
+    "v13_deepluna_contract_error_lanes": 1,
+    "v13_deepluna_expected_blocked_lanes": 1,
+    "completion_gap_deepluna_job": "DS-a7c3aff2068f893b27e0f1c8e30ceda1",
+    "completion_gap_deepluna_verdict": "PHYSICAL_INPUT_ONLY_NO_ADDITIONAL_SOFTWARE_REQUIRED",
+    "post_v13_exact_outer_replay": "CRC_PATH_LEDGER_MANIFEST_AND_NATIVE_SCAN_VERIFIED_READ_ONLY_OUTSIDE_REPOSITORY",
+    "post_v13_exact_outer_receipt_state": "NOT_CREATED_FUTURE_SUCCESSOR_OWNER_CONTROLS",
+    "post_v13_source_only_candidate_state": "LIVE_ORIGINAL_CARD_AVAILABLE_LOCAL_DOWNLOAD_PENDING",
+    "full_release_verifier": "KNOWN_TIMEOUT_NOT_PASS_NOT_RERUN_OBJECTIVE_NOT_RELEASE_READY",
+    "deep_luna_route": "DIRECT_PRO",
+    "deep_luna_fast_used": false,
+    "deep_luna_fallback_used": false,
+    "sol_final_acceptance": true
+  },
+  "rollback": {
+    "path": "D:/perfume-chem-rollback/20260816T162000+0700-full-objective-v13/parents.tar",
+    "byte_size": 201216,
+    "sha256": "771ca67822af674551b3ab9c2584a8d5aac8c216d0f6157c7e7ae610ab47ffb",
+    "member_count": 8,
+    "restoration_verified": true
+  },
+  "authority": {
+    "source_admission": false,
+    "schema": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "bottle": false,
+    "physical_execution": false,
+    "sensory": false,
+    "analytical": false,
+    "measured_headspace": false,
+    "strict_empirical_oav": false,
+    "safety": false,
+    "procurement": false,
+    "installation": false,
+    "publication": false,
+    "release": false
+  },
+  "semantic_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_SEMANTIC_RECEIPT_SHA256_OMITTED",
+  "semantic_receipt_sha256": "1b6c2cd4c17eba07aa823453ff06bd9919cb464867edbfe36ae04a58e2800d0a"
+}

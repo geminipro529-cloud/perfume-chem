@@ -1,0 +1,23 @@
+{
+  "schema_version": "complexity_replacement_raw_output_v1",
+  "request_id": "rplreq-65d4d2e23f7ad08da254",
+  "case_id": "RPL-ARC-S03",
+  "module_id": "architectural_delta",
+  "arm": "TREATMENT",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "01a03abb-a0f8-78e2-8f8d-17b1b5e14ad0",
+  "dispatch_sha256": "d253d004cad05a161e49c3dcd8128d865ed3c313a08658ed4f032c040848f497",
+  "output_text": "{\n  \"decision\": \"Reject promotion of Neroli 10% to primary citrus. Define the ideal opening as bitter-peel-led, with Neroli absent from the primary role and, at most, retained as restrained support.\",\n  \"target_linked_reasoning\": \"Availability is not target evidence. Neroli risks introducing the orange-blossom identity explicitly excluded by the target, whereas the required architecture is peel-led bitter citrus. V5 ownership supports feasibility only and must not redefine the ideal.\",\n  \"controlled_comparison\": {\n    \"arm_A\": \"Proposed architecture with Neroli 10% promoted to primary citrus.\",\n    \"arm_B\": \"Otherwise identical architecture with Neroli removed from the primary role.\",\n    \"assessment\": \"Blindly compare bitter-peel dominance and emergence of orange-blossom identity. This isolates the single role intervention; no physical result is inferred.\"\n  },\n  \"physical_liking_state\": \"NOT TESTED\",\n  \"claim_ceiling\": \"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\"\n}",
+  "output_sha256": "07361c1215e31fc81693cb8278f2fc2c8ea4714a968449126b4240f3a3e72c9a",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

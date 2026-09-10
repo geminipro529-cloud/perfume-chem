@@ -1,0 +1,208 @@
+from __future__ import annotations
+
+import json
+import os
+import subprocess
+import sys
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+GENERATOR_PATH = PROJECT_ROOT / "_generate_material_properties.py"
+
+
+def _offline_subprocess_env(tmp_path: Path) -> dict[str, str]:
+    """Return an environment that turns any HTTP attempt into a test failure."""
+
+    blocker_dir = tmp_path / "network_blocker"
+    blocker_dir.mkdir()
+    (blocker_dir / "sitecustomize.py").write_text(
+        """
+import os
+from pathlib import Path
+import requests
+import time
+
+def _blocked_request(*args, **kwargs):
+    Path(os.environ["PERFUME_NETWORK_ATTEMPT_MARKER"]).write_text(
+        "attempted", encoding="utf-8"
+    )
+    raise AssertionError("network access is forbidden in generator tests")
+
+requests.get = _blocked_request
+requests.sessions.Session.request = _blocked_request
+time.sleep = lambda *args, **kwargs: None
+""".lstrip(),
+        encoding="utf-8",
+    )
+
+    env = os.environ.copy()
+    env["PYTHONPATH"] = os.pathsep.join(
+        [str(blocker_dir), str(PROJECT_ROOT), env.get("PYTHONPATH", "")]
+    )
+    env["PERFUME_NETWORK_ATTEMPT_MARKER"] = str(tmp_path / "network_attempted")
+    env["PYTHONUTF8"] = "1"
+    return env
+
+
+def test_import_is_inert_and_does_not_generate_files(tmp_path: Path):
+    (tmp_path / "data" / "knowledge_graph").mkdir(parents=True)
+    env = _offline_subprocess_env(tmp_path)
+
+    result = subprocess.run(
+        [sys.executable, "-c", "import _generate_material_properties"],
+        cwd=tmp_path,
+        env=env,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        timeout=15,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert result.stdout == ""
+    assert not Path(env["PERFUME_NETWORK_ATTEMPT_MARKER"]).exists()
+    assert not (tmp_path / "data" / "knowledge_graph" / "material_properties.json").exists()
+    assert not (tmp_path / "data" / "knowledge_graph" / "audit_flags.json").exists()
+
+
+def test_offline_generator_writes_configured_paths_without_remote_calls(
+    tmp_path: Path,
+):
+    configured_dir = tmp_path / "configured"
+    configured_dir.mkdir()
+    properties_path = configured_dir / "material_properties.json"
+    audit_path = configured_dir / "audit_flags.json"
+    preserved_audit = [
+        {
+            "name": "Existing material",
+            "flags": [
+                {
+                    "field": "mw",
+                    "db_value": 100.0,
+                    "pubchem_value": 101.0,
+                }
+            ],
+        }
+    ]
+    audit_path.write_text(json.dumps(preserved_audit), encoding="utf-8")
+    (tmp_path / "data" / "knowledge_graph").mkdir(parents=True)
+    env = _offline_subprocess_env(tmp_path)
+    env.update(
+        {
+            "PERFUME_SKIP_PUBCHEM": "1",
+            "PERFUME_MATERIAL_PROPERTIES_PATH": str(properties_path),
+            "PERFUME_AUDIT_FLAGS_PATH": str(audit_path),
+        }
+    )
+
+    result = subprocess.run(
+        [sys.executable, str(GENERATOR_PATH)],
+        cwd=tmp_path,
+        env=env,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        timeout=15,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert not Path(env["PERFUME_NETWORK_ATTEMPT_MARKER"]).exists()
+    assert properties_path.exists()
+    assert json.loads(audit_path.read_text(encoding="utf-8")) == preserved_audit
+    entries = {
+        row["name"].casefold(): row
+        for row in json.loads(properties_path.read_text(encoding="utf-8"))
+    }
+
+    assert entries["benzyl salicylate"]["dilution_pct"] == 1.0
+    assert entries["benzyl salicylate"]["stock_execution_ready"] is True
+    assert entries["benzyl salicylate"]["stock_form"] == "neat/as supplied"
+
+    assert entries["bacdanol"]["dilution_pct"] == 1.0
+    assert entries["bacdanol"]["in_inventory"] is True
+    assert entries["bacdanol"]["stock_execution_ready"] is True
+    assert entries["bacdanol"]["stock_form"] == "neat/as supplied"
+
+    assert entries["clearwood"]["dilution_pct"] == 1.0
+    assert entries["clearwood"]["in_inventory"] is True
+    assert entries["clearwood"]["stock_execution_ready"] is True
+    assert entries["clearwood"]["stock_form"] == "neat/as supplied"
+
+    coumarin = entries["coumarin"]
+    assert coumarin["in_inventory"] is True
+    assert coumarin["dilution_pct"] is None
+    assert coumarin["stock_fraction_basis"] is None
+    assert coumarin["stock_carrier"] is None
+    assert coumarin["stock_execution_ready"] is False
+    assert coumarin["legacy_single_stock_projection_authoritative"] is False
+    assert coumarin["requires_explicit_stock_id"] is True
+    assert coumarin["stock_execution_hold_reason"] == (
+        "NO_CURRENT_COUMARIN_STOCK_IS_QUANTITATIVELY_EXECUTABLE"
+    )
+    current_stocks = {
+        record["stock_name"]: record for record in coumarin["current_stock_records"]
+    }
+    assert set(current_stocks) == {
+        "Coumarin (20% in DEP)",
+        "Coumarin (DPG-saturated)",
+        "Coumarin (neat powder)",
+    }
+    dep = current_stocks["Coumarin (20% in DEP)"]
+    assert dep["declared_fraction"] == 0.2
+    assert dep["fraction_basis"] == "unspecified"
+    assert dep["fraction_basis_known"] is False
+    assert dep["carrier"] == "dep"
+    assert dep["execution_ready"] is False
+    assert dep["active_fraction_for_execution"] is None
+    assert dep["execution_hold_reason"] == "FRACTION_BASIS_UNSPECIFIED"
+    saturated = current_stocks["Coumarin (DPG-saturated)"]
+    assert saturated["declared_fraction"] is None
+    assert saturated["declared_fraction_range"] == [0.25, 0.3]
+    assert saturated["fraction_basis"] == "unspecified"
+    assert saturated["carrier"] == "dpg"
+    assert saturated["approximate"] is True
+    assert saturated["active_fraction_for_execution"] is None
+    assert saturated["execution_hold_reason"] == (
+        "APPROXIMATE_RANGE_AND_FRACTION_BASIS_UNSPECIFIED"
+    )
+    powder = current_stocks["Coumarin (neat powder)"]
+    assert powder["declared_fraction"] == 1.0
+    assert powder["fraction_basis"] == "neat"
+    assert powder["physical_form"] == "solid_powder"
+    assert powder["execution_ready"] is False
+    assert powder["active_fraction_for_execution"] is None
+    assert powder["execution_hold_reason"] == (
+        "SOLID_STOCK_REQUIRES_MASS_DOSING_OR_EXACT_PREPARED_STOCK"
+    )
+    assert not any(
+        record["stock_name"] == "Coumarin (20% in DPG)"
+        for record in coumarin["current_stock_records"]
+    )
+
+    assert entries["ambrox super"]["dilution_pct"] == 0.25
+    assert entries["ambrox super"]["stock_fraction_basis"] == "mass_fraction"
+    assert entries["ambrox super"]["stock_carrier"] == "dpg + ipm + ethanol"
+    assert entries["ambrox super"]["stock_execution_ready"] is True
+
+    assert entries["guaiacwood eo"]["dilution_pct"] is None
+    assert entries["guaiacwood eo"]["nominal_stock_fraction"] == 1 / 3
+    assert entries["guaiacwood eo"]["stock_fraction_basis"] == "mass_fraction"
+    assert entries["guaiacwood eo"]["stock_carrier"] is None
+    assert entries["guaiacwood eo"]["stock_execution_ready"] is False
+    assert entries["guaiacwood eo"]["stock_execution_hold_reason"] == (
+        "REMAINING_TWO_THIRDS_COMPOSITION_AND_CARRIER_UNRESOLVED"
+    )
+    assert entries["guaiacwood eo"]["stock_record"].endswith(
+        "inventory_user_authority_overlay_20260904.json#INV-USER-20260904-002"
+    )
+
+    assert entries["castoreum synthetic"]["dilution_pct"] is None
+    assert entries["castoreum synthetic"]["nominal_stock_fraction"] == 0.1
+    assert entries["castoreum synthetic"]["stock_fraction_basis"] is None
+    assert entries["castoreum synthetic"]["stock_carrier"] == "dep"
+    assert entries["castoreum synthetic"]["stock_execution_ready"] is False
+    assert entries["castoreum synthetic"]["stock_execution_hold_reason"] == (
+        "FRACTION_BASIS_UNSPECIFIED"
+    )

@@ -1,0 +1,218 @@
+"""Synthetic integration inputs; these tests are not sensory observations."""
+
+import json
+from dataclasses import replace
+
+import pytest
+
+from engine.formulation_intelligence.contracts import PlaneId
+from engine.formulation_intelligence.floral_integration import FloralFamilyIntegrationAdapter
+from engine.formulation_intelligence.floral_lattice import (
+    FloralAbstraction,
+    FloralMorphologyIntent,
+    FloralSubject,
+    FloralSubtype,
+)
+from engine.formulation_intelligence.floral_whole_perfume import (
+    FloralWholePerfumeAssembly,
+    assemble_floral_whole_perfume,
+)
+from engine.formulation_intelligence.whole_perfume_assembler import WholePerfumeBlueprint
+from tests.test_formulation_intelligence_floral_integration import _resolution, _scope
+from tests.test_formulation_intelligence_inventory_whole_perfume import _ideal, _project
+
+
+def _inputs(*, resolved=True):
+    ideal = _ideal("Magnolia EO")
+    scope = replace(_scope(), target_scope=ideal.ideal_target_id)
+    resolution = _resolution(resolved=resolved)
+    resolution = replace(
+        resolution,
+        request=replace(
+            resolution.request,
+            target_scope=scope.target_scope,
+            named_target="Magnolia de Verre",
+        ),
+        named_target="Magnolia de Verre",
+    )
+    intent = FloralMorphologyIntent(
+        flower_subject=FloralSubject.MAGNOLIA_CHAMPACA,
+        exact_subtype=FloralSubtype.MAGNOLIA,
+        abstraction_level=FloralAbstraction.STYLIZED,
+        requested_expression=("watery", "tea"),
+        protected_recognizers=("magnolia petal subject",),
+        forbidden_drift=("generic floral heart",),
+        intended_temporal_transformations=(),
+        selected_facets=(),
+        deliberate_omissions=(),
+        bouquet_hierarchy=(),
+    )
+    return ideal, _project(ideal, ()), FloralFamilyIntegrationAdapter(resolution, intent, scope)
+
+
+def test_real_family_morphology_outputs_reach_whole_blueprint():
+    ideal, projection, source = _inputs()
+    result = assemble_floral_whole_perfume(ideal, projection, source, version=1)
+    assert result.floral_source is source
+    planes = {p.plane_id: p for p in result.blueprint.planes}
+    expected = source.to_synthesis()
+    for assessment in expected.assessments:
+        assert assessment in planes[assessment.plane_id].assessments
+        assert expected in planes[assessment.plane_id].syntheses
+    assert result.blueprint.ideal_proposal == ideal
+    assert result.blueprint.inventory_projection == projection
+    assert not result.blueprint.physical_execution_authorized
+    assert not result.blueprint.observed_smell
+    assert not result.blueprint.release_authorized
+    assert WholePerfumeBlueprint.from_dict(result.blueprint.as_dict()) == result.blueprint
+
+
+def test_changed_floral_source_changes_derived_whole_hash_without_rewriting_ideal():
+    ideal, projection, source = _inputs()
+    changed = replace(source, intent=replace(source.intent, requested_expression=("waxy",)))
+    left = assemble_floral_whole_perfume(ideal, projection, source, version=1)
+    right = assemble_floral_whole_perfume(ideal, projection, changed, version=1)
+    assert left.blueprint.content_sha256 != right.blueprint.content_sha256
+    assert left.blueprint.ideal_proposal == right.blueprint.ideal_proposal == ideal
+    with pytest.raises(ValueError, match="exact floral synthesis"):
+        FloralWholePerfumeAssembly(changed, left.blueprint)
+
+
+def test_cross_target_and_cross_projection_fail_closed():
+    ideal, projection, source = _inputs()
+    wrong = replace(
+        source,
+        scope=replace(source.scope, target_scope="other"),
+        resolution=replace(
+            source.resolution, request=replace(source.resolution.request, target_scope="other")
+        ),
+    )
+    with pytest.raises(ValueError, match="exact ideal target"):
+        assemble_floral_whole_perfume(ideal, projection, wrong, version=1)
+    with pytest.raises(ValueError, match="exact ideal proposal"):
+        assemble_floral_whole_perfume(_ideal("Clearwood"), projection, source, version=1)
+
+
+def test_unknown_family_and_missing_stock_survive_composition():
+    ideal, projection, source = _inputs(resolved=False)
+    result = assemble_floral_whole_perfume(ideal, projection, source, version=1)
+    planes = {p.plane_id: p for p in result.blueprint.planes}
+    family = source.to_synthesis().assessments
+    assert any(a.unknowns for a in family if a.plane_id == PlaneId.IDENTITY)
+    assert all(a in planes[a.plane_id].assessments for a in family)
+    assert result.blueprint.inventory_projection == projection
+    assert result.floral_source.resolution.definition is None
+    assert not result.blueprint.physical_execution_authorized
+
+
+def test_duplicate_synthesis_does_not_amplify_result():
+    ideal, projection, source = _inputs()
+    left = assemble_floral_whole_perfume(ideal, projection, source, version=1)
+    right = assemble_floral_whole_perfume(
+        ideal, projection, source, syntheses=(source.to_synthesis(),), version=1
+    )
+    assert left.blueprint == right.blueprint
+
+
+def test_complete_native_floral_source_round_trip():
+    from engine.formulation_intelligence.floral_lattice import (
+        CustomFloralExpression,
+        CustomFloralFacet,
+        FacetRole,
+        FacetSelection,
+        FloralCandidateSignals,
+        MorphologyEvidence,
+        NaturalMixtureRepresentation,
+        NaturalMixtureTreatment,
+        TemporalTransformation,
+        TemporalWindow,
+        TransformationKind,
+    )
+
+    ideal, projection, source = _inputs()
+    intent = replace(
+        source.intent,
+        custom_expressions=(
+            CustomFloralExpression("mineral-glass", "Mineral glass", "Explicit target vocabulary"),
+        ),
+        selected_facets=(
+            FacetSelection(
+                FloralSubject.MAGNOLIA_CHAMPACA,
+                CustomFloralFacet("glass-edge", "Glass edge"),
+                FacetRole.CORE_RECOGNIZER,
+                "Synthetic target-specific facet",
+            ),
+        ),
+        intended_temporal_transformations=(
+            TemporalTransformation(
+                "petal-reveal",
+                FloralSubject.MAGNOLIA_CHAMPACA,
+                TemporalWindow.OPENING,
+                TemporalWindow.TWO_HOUR,
+                TransformationKind.REVEAL,
+                "Petal to mineral hypothesis",
+            ),
+        ),
+    )
+    signals = FloralCandidateSignals(
+        declared_material_count=7,
+        natural_mixtures=(
+            NaturalMixtureRepresentation("magnolia-mixture", NaturalMixtureTreatment.COMPOSITE),
+        ),
+    )
+    evidence = MorphologyEvidence(
+        "synthetic-morphology",
+        "morphology.subject",
+        source.scope,
+        0.1,
+        0.3,
+        source.resolution.provenance_refs,
+    )
+    source = replace(source, intent=intent, candidate_signals=signals, evidence=(evidence,))
+    result = assemble_floral_whole_perfume(ideal, projection, source, version=1)
+    restored = FloralWholePerfumeAssembly.from_dict(json.loads(json.dumps(result.as_dict())))
+    assert restored == result
+    assert restored.content_sha256 == result.content_sha256
+    assert restored.floral_source.intent == intent
+    assert restored.floral_source.evidence == (evidence,)
+    assert restored.floral_source.candidate_signals == signals
+
+
+def test_raw_material_count_is_preserved_without_inflating_assessment():
+    ideal, projection, source = _inputs()
+    first = replace(
+        source, candidate_signals=replace(source.candidate_signals, declared_material_count=7)
+    )
+    second = replace(
+        source, candidate_signals=replace(source.candidate_signals, declared_material_count=70)
+    )
+    left = assemble_floral_whole_perfume(ideal, projection, first, version=1)
+    right = assemble_floral_whole_perfume(ideal, projection, second, version=1)
+    assert left.blueprint == right.blueprint
+    assert left.content_sha256 != right.content_sha256
+    assert (
+        FloralWholePerfumeAssembly.from_dict(
+            right.as_dict()
+        ).floral_source.candidate_signals.declared_material_count
+        == 70
+    )
+
+
+@pytest.mark.parametrize("mutation", ["extra", "unknown_schema", "missing", "wrong_type", "scope"])
+def test_native_flower_loader_rejects_invalid_sources(mutation):
+    ideal, projection, source = _inputs()
+    result = assemble_floral_whole_perfume(ideal, projection, source, version=1)
+    payload = result.as_dict()
+    native = payload["floral_source"]
+    if mutation == "extra":
+        native["intent"]["release_authorized"] = True
+    elif mutation == "unknown_schema":
+        native["intent"]["schema_version"] = "arbitrary_import"
+    elif mutation == "missing":
+        del native["intent"]["custom_expressions"]
+    elif mutation == "wrong_type":
+        native["intent"] = native["candidate_signals"]
+    else:
+        native["scope"]["matrix_scope"] = "unrelated matrix"
+    with pytest.raises((ValueError, TypeError)):
+        FloralWholePerfumeAssembly.from_dict(payload)

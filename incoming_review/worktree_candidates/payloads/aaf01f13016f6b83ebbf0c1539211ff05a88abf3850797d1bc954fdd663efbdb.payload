@@ -1,0 +1,157 @@
+# Aventus Architecture First — Astra V3
+## µL pour card · density-estimated R2
+
+**All pour settings below are µL of the labelled stock bottle. Stocks remain w/w.**
+**Approximate design card — PRE-MIX HOLD; not a safety or skin-use release.**
+
+Same whole-batch target as the stock-confirmed R1 parent: nominal **30 g finished / 6 g aromatic materials / 20% w/w**. This is a unit conversion only: **not a reformulation, and not a 30 mL rescale**.
+
+**Total stock additions: 35,169.8 µL (about 35.17 mL before mixing).** Final mixed volume is unmeasured and need not equal that sum. Use a vessel with capacity/headspace above this amount, such as 50 mL; **not a 30 mL bottle**. Do not top up to a fill mark.
+
+Batch ID: __________  Date: __________  Operator: __________
+Stock temperature: __________  Pipette / verification: __________
+
+### Pour sequence — finish each basket, descending µL inside the basket
+
+Each row is an individual addition, not a cumulative reading. Complete one basket before resetting the pipette upward for the next.
+
+| Check | Basket | Material | Stock bottle to use | Amount (µL) | Actual µL / initials |
+|---|---|---|---|---:|---|
+| [ ] | SOLVENTS / CARRIERS | Ethanol 96% | As supplied | **25,326** | ______ |
+| [ ] | CITRUS / TOP | Bergamot FCF oil Sicilian | Neat | **626** | ______ |
+| [ ] | GREEN / FRESH / MARINE | Blackcurrant Absolute | 10% w/w in DPG | **88** | ______ |
+| [ ] | FLORAL MATERIALS | Hedione | Neat | **719** | ______ |
+| [ ] | FLORAL MATERIALS | Lemon FCF oil Sicilian | Neat | **141** | ______ |
+| [ ] | WOODS / AMBER / STRUCTURE | Ambrox Super | 25% w/w in DPG + IPM + ethanol | **3,918** | ______ |
+| [ ] | WOODS / AMBER / STRUCTURE | Iso E Super | Neat | **2,114** | ______ |
+| [ ] | WOODS / AMBER / STRUCTURE | Cedarwood oil Virginia | Neat | **377** | ______ |
+| [ ] | WOODS / AMBER / STRUCTURE | Suederal | Neat (not 10%) | **11.8** | ______ |
+| [ ] | MUSKS | Habanolide | Neat | **747** | ______ |
+| [ ] | SWEET / GOURMAND / BALSAMIC | Allyl Amyl Glycolate | 10% w/w in DEP | **137** | ______ |
+| [ ] | LEATHER / SMOKY / PHENOLIC | Evernyl | 10% w/w in DEP | **429** | ______ |
+| [ ] | LEATHER / SMOKY / PHENOLIC | Cade Oil Rectified | 1% w/w in DPG | **59** | ______ |
+| [ ] | SPICE / AROMATIC | Patchouli EO | Neat / Aroma&More | **449** | ______ |
+| [ ] | SPICE / AROMATIC | Schinus molle EO | Neat / Schinus molle | **28** | ______ |
+| | **TOTAL ADDITIONS** | All 15 rows | Includes additional ethanol | **35,169.8** | ______ |
+
+Large transfers can be divided without changing their totals:
+
+- Ethanol: **25 × 1,000 + 326 µL**.
+- Ambrox stock: **3 × 1,000 + 918 µL**.
+- Iso E Super: **2 × 1,000 + 114 µL**.
+
+**Suederal is 11.8 µL NEAT, not 118 µL and not the 10% bottle.** Use a verified pipette appropriate to that small setting; do not round it up to a convenient large dose. No row is below 10 µL. A reduced-size batch would need its own measurement/dilution review.
+
+DPG, DEP, IPM and ethanol already carried by the diluted stocks are included in these additions. **Do not add them again.** No ACP, additional pineapple accord or extra musk is added.
+
+### Architecture retained
+
+Active-aromatic mass targets, not perceived contribution or stock-volume shares:
+
+| Module | Target share of aromatic materials |
+|---|---:|
+| Dry woods — Iso E Super + Virginia cedar | 40% |
+| Ambrox | 16% |
+| Habanolide musk | 12% |
+| Patchouli + Evernyl | 8% |
+| Hedione bridge | 12% |
+| Bergamot + lemon | 11% |
+| Schinus molle | 0.40% |
+| Blackcurrant | 0.15% |
+| AAG pineapple accent | 0.25% |
+| Suederal + Cade | 0.20% |
+| **Total** | **100%** |
+
+At the selected densities and rounded settings, AAG delivers an estimated **15.043 mg**, blackcurrant **8.994 mg**, and Ambrox **959.910 mg** of their aromatic materials. The high Ambrox stock volume includes its 75% carrier mass: raw stock volumes are not geometric weights.
+
+These are a woody/Ambrox-first candidate's design proportions, not a disclosed Creed formula or proven sensory match.
+
+### Density assumptions — every row is an estimate for your bottle
+
+The user explicitly approved density estimates on 2026-09-05. These are approximate room-temperature conversions using references around 20–25°C. No lot density has been measured. Published specific gravities are used numerically as approximate g/mL proxies; water-reference and temperature differences are not corrected. Do not claim the same precision for warm 30–35°C stocks.
+
+| Stock | Density used (g/mL, estimated) | Method | Reference |
+|---|---:|---|---|
+| Ethanol 96% | 0.806 | reference proxy | [ethanol](https://www.merckmillipore.com/INTERSHOP/web/WFS/Merck-SK-Site/cs_CZ/-/EUR/ShowDocument-File?DocumentType=COA&Origin=PDP&ProductSKU=MDA_CHEM-1590100500) |
+| Bergamot FCF oil Sicilian | 0.862 | reference proxy | [bergamot](https://www.perfumersworld.com/view.php?pro_id=7CL24020) |
+| Blackcurrant Absolute | 1.022 | carrier only proxy | [dpg](https://doccenter.dow.com/content/dam/internal/documents/117/117-42002-dipropylene-glycol-regular-grade-technical-data-sheet-french.pdf) |
+| Hedione | 1.002 | reference proxy | [hedione](https://www.madarcorporation.com/spec-sheets/raw-materials/hedione/Hedione%20-%204507704%20All%20docs.pdf) |
+| Lemon FCF oil Sicilian | 0.849 | reference proxy | [lemon](https://www.perfumersworld.com/view.php?pro_id=7CC24029) |
+| Ambrox Super | 0.980 | mixture model with unmeasured solute specific volume | [dpg](https://doccenter.dow.com/content/dam/internal/documents/117/117-42002-dipropylene-glycol-regular-grade-technical-data-sheet-french.pdf), [ipm](https://www.sigmaaldrich.com/GB/en/product/aldrich/172472), [ethanol](https://www.merckmillipore.com/INTERSHOP/web/WFS/Merck-SK-Site/cs_CZ/-/EUR/ShowDocument-File?DocumentType=COA&Origin=PDP&ProductSKU=MDA_CHEM-1590100500) |
+| Iso E Super | 0.965 | reference proxy | [iso_e](https://www.perfumersworld.com/document-list.php?pro_id=3WY00244&tab=ifra) |
+| Cedarwood oil Virginia | 0.955 | reference proxy | [cedar](https://www.pentafineingredients.com/catalog/03-16010) |
+| Suederal | 0.965 | reference proxy | [suederal](https://www.perfumersworld.com/document-list.php?pro_id=3UP14351) |
+| Habanolide | 0.964 | reference proxy | [habanolide](https://www.industrialchemicals.gov.au/sites/default/files/NA577%20Public%20Report%20PDF.pdf) |
+| Allyl Amyl Glycolate | 1.098 | additive specific volume model | [aag](https://www.perfumersworld.com/view.php?pro_id=4FG00029), [dep](https://www.sigmaaldrich.com/US/en/product/aldrich/524972) |
+| Evernyl | 1.120 | carrier only proxy | [dep](https://www.sigmaaldrich.com/US/en/product/aldrich/524972) |
+| Cade Oil Rectified | 1.022 | carrier only proxy | [dpg](https://doccenter.dow.com/content/dam/internal/documents/117/117-42002-dipropylene-glycol-regular-grade-technical-data-sheet-french.pdf) |
+| Patchouli EO | 0.963 | related grade proxy | [patchouli](https://berjeinc.com/products/patchouli-oil-light/) |
+| Schinus molle EO | 0.855 | reference proxy | [schinus](https://berjeinc.com/products/schinus-molle-oil-pink-peppercorn-oil/) |
+
+Reference selection notes:
+
+- Ethanol 0.806 is a working choice within the reference 96% product's d20/20 range 0.805–0.812; it does not identify your ethanol grade or determine its ethanol/water mass split.
+- Hedione 1.002 is the rounded midpoint of 0.995–1.008 at 25°C; this is ordinary Hedione, not HC.
+- Iso E Super 0.965, Virginia cedar 0.955, and Suederal 0.965 are midpoints of the cited supplier ranges 0.961–0.969, 0.940–0.970, and 0.94–0.99 respectively.
+- Habanolide 0.964 is a published reference at 20°C. Patchouli 0.963 is a related-oil density proxy from a 0.950–0.975 range, not a claim that your Aroma&More oil is the supplier's light grade. Schinus 0.855 is the midpoint of the cited 0.830–0.880 range.
+- Blackcurrant and Cade use DPG's 1.022 g/mL as first-order stock-density proxies. Evernyl uses DEP's 1.120. The effect of the dissolved material on density is omitted, **not known to be zero**.
+- **AAG 10% w/w DEP:** ideal additive specific-volume estimate `1 / (0.10 / 0.935 + 0.90 / 1.120) = 1.09827 g/mL`, using **1.098** for the card. This is not the density of neat AAG and not a DPG-stock conversion.
+- **Ambrox 25% w/w custom stock:** `12 / (3 / 1.000 + 7 / 1.022 + 0.5 / 0.850 + 1.5 / 0.806) = 0.97572 g/mL`; coarsely rounded to **0.980**. The 1.000 mL/g apparent specific volume for dissolved Ambrox is an explicit modelling assumption, **not a measured solution or crystal property**. The ethanol component also uses the reference-ethanol proxy. Mixing contraction, dissolution effects and precipitation are not modelled. **Calibrate this stock first if improving the card.**
+
+Calculation: `raw µL = parent stock g × 1000 / estimated stock density`.
+Estimated aromatic mass: `raw µL × estimated density / 1000 × w/w fraction`.
+Carrier-only proxy estimates and the Ambrox model have unquantified density error; no confidence interval is claimed. For a fixed pipetted volume, a 5% error in the assumed stock density creates a 5% active-mass error before pipette/stock-strength errors. This is a sensitivity example, not a validated error bound.
+
+### Arithmetic audit — not another pouring table
+
+The settings are rounded to the nearest 1 µL, except Suederal to 0.1 µL. Under the selected density assumptions:
+
+- Estimated finished mass: **30.001162 g**.
+- Estimated aromatic materials: **6.00022318 g**.
+- Estimated aromatic-stock blend, including its carried solvents: **9.588406 g**, corresponding to **9,843.8 µL** of stock additions.
+- Additional ethanol 96%: **25,326 µL**, estimated **20.412756 g**.
+- Estimated aromatic fraction: **19.99997% w/w**.
+- Largest per-row **rounding-only** mass deviation from the parent: **0.497%**, for Cade. This does not include density, pipette, evaporation or stock-strength error.
+
+| Material | Estimated aromatic g | ppm w/w in stock blend | ppm w/w finished | Rounding-only error % |
+|---|---:|---:|---:|---:|
+| Bergamot FCF oil Sicilian | 0.53961200 | 56277.55 | 17986.37 | -0.072 |
+| Blackcurrant Absolute | 0.00899360 | 937.97 | 299.78 | -0.071 |
+| Hedione | 0.72043800 | 75136.37 | 24013.67 | 0.061 |
+| Lemon FCF oil Sicilian | 0.11970900 | 12484.77 | 3990.15 | -0.242 |
+| Ambrox Super | 0.95991000 | 100111.53 | 31995.76 | -0.009 |
+| Iso E Super | 2.04001000 | 212757.99 | 67997.70 | 0.000 |
+| Cedarwood oil Virginia | 0.36003500 | 37548.99 | 12000.70 | 0.010 |
+| Suederal | 0.01138700 | 1187.58 | 379.55 | -0.114 |
+| Habanolide | 0.72010800 | 75101.95 | 24002.67 | 0.015 |
+| Allyl Amyl Glycolate | 0.01504260 | 1568.83 | 501.40 | 0.284 |
+| Evernyl | 0.04804800 | 5011.05 | 1601.54 | 0.100 |
+| Cade Oil Rectified | 0.00060298 | 62.89 | 20.10 | 0.497 |
+| Patchouli EO | 0.43238700 | 45094.77 | 14412.34 | 0.090 |
+| Schinus molle EO | 0.02394000 | 2496.77 | 797.97 | -0.250 |
+
+The ppm denominators are the estimated mass of the complete aromatic-stock blend (including carriers) and estimated finished batch respectively. These are not vapor ppm or OAV. Naturals and proprietary materials remain aromatic-material mass amounts, not claims of chemically pure odorant mass.
+
+### Pre-mix status and handling checks
+
+The density-estimation approval resolves the requested **unit-format choice**, not the parent's remaining release checks:
+
+- Keep working stocks homogeneous and completely dissolved. Do not pipette a settled suspension or separated phase as though it had the nominal whole-stock concentration.
+- Validate transfers for the actual viscous/volatile liquids, particularly Ambrox stock, DPG stocks and the 11.8 µL Suederal setting.
+- Carry forward the formula-specific stock-registry synchronization holds, including Schinus molle; no frozen inventory pin has been forced and no material has been substituted.
+- Cade's exact rectified-grade/lot and PAH documentation, complete-formula safety review, and the immediate-parent pre-mix active-dose/OAV-per-time checks remain outstanding. Do not treat this arithmetic-checked card as clearance to compound or apply to skin.
+
+### Pipeline Analysis
+
+**NOT RUN for this estimated unit-conversion card.** Rounding/ppm arithmetic checks are not the pre-mix release pipeline. The mass parent cannot be relabelled v/v, and no exact active-µL or natural monomolecular ODT has been invented to make it parse. ODT/OAV, phase-matched headspace, natural-lot composition, temporal evolution, stability and sensory equivalence remain unverified. No pipeline PASS is claimed.
+
+### Version and traceability
+
+Canonical conversion record: `data/reference/aventus_astra_v3_ul_density_estimated_r2.json`.
+Immediate parent card: `formulas/Aventus_Architecture_First_Astra_V3_Pour_Card_Stock_Confirmed_R1.md`.
+Parent card SHA-256: `05d9c97361e5d250be47772a6fe561115392ef2bdef2a72c12ee6dbdc63bea47`.
+Parent stock/target record: `data/reference/aventus_astra_v3_woody_candidate_stock_confirmed_r1.json`.
+Parent record SHA-256: `835635799199b99bd2d16875315428bc5be8b2864726f4d6560d3f6e823fdc63`.
+Inventory snapshot SHA-256: `5da7ecdab4ce9c297f95a61051b38d9183f796c1971dd276546ef15c7856c497`.
+
+Sources checked 2026-09-05. Every density method and source is retained in the canonical conversion record. The parent candidates, mass cards, global inventory and engine are unchanged by this R2 card.

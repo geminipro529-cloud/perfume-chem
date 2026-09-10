@@ -1,0 +1,254 @@
+"""Artifact and evidence-boundary tests for the V6 development candidate.
+
+These checks validate records and arithmetic, never smell, skin safety or release.
+The optional diagnostic tests read an explicitly supplied existing report; they do
+not run the formula pipeline or contact external services.
+"""
+from __future__ import annotations
+
+import hashlib
+import json
+import os
+from pathlib import Path
+
+import pytest
+
+from engine.inventory_parser import parse_current_inventory
+from scripts.verify_formula_workflow import parse_formula_markdown
+
+ROOT = Path(__file__).resolve().parents[1]
+DESIGN_PATH = ROOT / "formulas/DHI-11_V6_Complexity_First_Orris_Led_30mL_20pct.design.json"
+DESIGN = json.loads(DESIGN_PATH.read_text(encoding="utf-8"))
+ROWS = DESIGN["rows"]
+
+
+@pytest.fixture(scope="module")
+def parsed():
+    return parse_formula_markdown(ROOT / DESIGN["paths"]["master"])[0]
+
+
+@pytest.fixture(scope="module")
+def live_stocks():
+    return {
+        stock.stock_id: stock
+        for stock in parse_current_inventory(include_unavailable=False)
+    }
+
+
+@pytest.fixture(scope="module")
+def diagnostic():
+    requested = os.environ.get("PERFUME_V6_DIAGNOSTIC_REPORT")
+    if not requested:
+        pytest.skip("Explicit existing V6 diagnostic report not supplied")
+    path = Path(requested)
+    assert path.is_file(), "Requested diagnostic report is missing"
+    return json.loads(path.read_text(encoding="utf-8-sig"))
+
+
+def test_one_real_formula_not_ideal_or_ledger_double_counting(parsed):
+    formulas = parse_formula_markdown(ROOT / DESIGN["paths"]["master"])
+    assert len(formulas) == 1
+    expected = {row["material"]: row["raw_ul"] for row in ROWS}
+    assert parsed["ingredients_ul"] == expected
+    assert len(expected) == 33
+    assert sum(expected.values()) == 6000
+    assert min(expected.values()) == 10
+
+
+def test_pour_card_and_master_have_identical_order_and_transfers(parsed):
+    cards = parse_formula_markdown(ROOT / DESIGN["paths"]["card"])
+    assert len(cards) == 1
+    assert list(cards[0]["ingredients_ul"].items()) == list(parsed["ingredients_ul"].items())
+    assert cards[0]["stock_specs"] == parsed["stock_specs"]
+
+
+def test_physical_baskets_are_contiguous_and_descending():
+    expected = sorted(ROWS, key=lambda row: (row["basket"], -row["raw_ul"], row["material"]))
+    assert ROWS == expected
+    assert [row["row"] for row in ROWS] == list(range(1, 34))
+
+
+@pytest.mark.parametrize("row", ROWS, ids=[row["material"] for row in ROWS])
+def test_each_stock_is_live_and_fraction_carrier_matched(row, parsed, live_stocks):
+    stock = live_stocks[row["stock_id"]]
+    declared = parsed["stock_specs"][row["material"]]
+    assert stock.status == "owned"
+    assert stock.execution_ready
+    assert stock.dilution == row["nominal_fraction"] == declared["fraction"]
+    assert stock.fraction_basis == row["fraction_basis"] == declared["fraction_basis"]
+    assert (stock.carrier or "").lower() == (row["carrier"] or "").lower() == declared["carrier"]
+    assert row["runtime_stock_source_ref"] == stock.source_ref
+
+
+def test_all_unmeasured_mass_and_exact_ppm_fields_remain_unknown():
+    for row in ROWS:
+        assert row["delivered_mass_g"] is None
+        assert row["authoritative_product_mass_g"] is None
+        assert row["concentrate_ppm_ww"] is None
+        assert row["sensory_status"] == "NOT_TESTED"
+
+
+def test_protected_nucleus_and_parent_stock_strengths_are_unchanged(parsed):
+    parent = parse_formula_markdown(ROOT / DESIGN["parent"]["path"])[0]
+    for row in DESIGN["protected_nucleus"]:
+        name = row["material"]
+        assert row["raw_ul"] == parsed["ingredients_ul"][name] == parent["ingredients_ul"][name]
+        assert parsed["stock_specs"][name] == parent["stock_specs"][name]
+    assert len(DESIGN["protected_nucleus"]) == 4
+    for name in parent["ingredients_ul"]:
+        assert parsed["stock_specs"][name] == parent["stock_specs"][name]
+
+
+def test_every_immediate_source_row_and_function_has_a_disposition():
+    ledger = DESIGN["source_conservation"]["source_dispositions"]
+    parent = json.loads(
+        (ROOT / "formulas/DHI-11_V5_Orris_Led_From_Zero_30mL_20pct.design.json").read_text(encoding="utf-8")
+    )
+    assert len(ledger) == len(parent["rows"]) == 23
+    assert {r["material"] for r in ledger} == {r["material"] for r in parent["rows"]}
+    for old in parent["rows"]:
+        record = next(r for r in ledger if r["source_row"] == old["row"])
+        assert record["source_function_verbatim"] == old["role_hypothesis"]
+        assert record["source_raw_ul"] == old["raw_ul"]
+        assert record["disposition"] in {"KEEP", "REBASE"}
+        assert record["rationale"]
+    assert len(DESIGN["source_conservation"]["source_module_dispositions"]) == 8
+    assert len(DESIGN["source_conservation"]["v4_removed_function_history"]) == 6
+
+
+def test_primary_module_budgets_do_not_double_count():
+    modules = DESIGN["layers"]
+    assert len(modules) == 10
+    assignments = [name for module in modules for name in module["materials"]]
+    assert len(assignments) == len(set(assignments)) == 32
+    assert set(assignments) == {row["material"] for row in ROWS} - {"Benzyl Benzoate"}
+    for module in modules:
+        assert module["raw_stock_budget_ul"] == sum(
+            row["raw_ul"] for row in ROWS if row["primary_module"] == module["id"]
+        )
+        assert not module["accepted_sensory_layer"]
+    assert sum(module["raw_stock_budget_ul"] for module in modules) + DESIGN["vehicle_budget_ul"] == 6000
+    ids = {module["id"] for module in modules}
+    assert len(DESIGN["transitions"]) == 7
+    assert all(t["from"] in ids and t["to"] in ids for t in DESIGN["transitions"])
+
+
+def test_ideal_is_separate_exactly_normalized_and_not_stock_authority():
+    ideal = DESIGN["ideal"]
+    assert len(ideal["rows"]) == 42
+    assert sum(row["target_ppm"] for row in ideal["rows"]) == ideal["total_ppm"] == 1000000
+    assert all(row["target_ppm"] > 0 for row in ideal["rows"])
+    assert not ideal["quantitative_equivalence_to_current_build"]
+    selected = {row["material"] for row in ROWS}
+    ideal_only = {row["material"] for row in ideal["rows"] if row["current_build_state"] == "IDEAL_ONLY"}
+    assert len(ideal_only) == 9
+    assert ideal_only.isdisjoint(selected)
+    assert ideal_only == set(DESIGN["excluded_current_materials"])
+    total_parts = sum(row["relative_design_parts"] for row in ideal["rows"])
+    for row in ideal["rows"]:
+        exact = row["relative_design_parts"] * 1000000 / total_parts
+        assert abs(row["target_ppm"] - exact) < 1
+
+
+def test_four_trial_arms_are_raw_volume_equal_not_falsely_matrix_matched():
+    exp = DESIGN["experiment"]
+    assert exp["common_core_ul"] == 5760
+    assert sum(r["raw_ul"] for r in exp["cold_module"]) == 100
+    assert sum(r["raw_ul"] for r in exp["warm_module"]) == 140
+    names = {r["material"] for r in exp["cold_module"] + exp["warm_module"]}
+    assert len(names) == 8
+    assert names.isdisjoint({r["material"] for r in DESIGN["protected_nucleus"]})
+    for row in ROWS:
+        if row["material"] in names:
+            assert row["fraction_basis"] == "neat"
+            assert row["raw_ul"] >= 10
+    for arm in exp["arms"]:
+        assert arm["core_ul"] + arm["cold_ul"] + arm["warm_ul"] + arm["balance_ethanol_96_ul"] == 6000
+        assert arm["final_ethanol_96_addition_ul"] == 24000
+    assert 576 + 24 + 2400 == 3000
+    assert "not perfect" in exp["carrier_caveat"]
+    assert not exp["physical_authority"]
+
+
+def test_three_musks_have_all_pairwise_tests_and_no_projection_promotion():
+    musk = DESIGN["musk_contract"]
+    assert set(musk["selected"]) == {"Ambrettolide", "Ethylene Brassylate", "Romandolide"}
+    assert len({frozenset(pair) for pair in musk["pairwise_tests"]}) == 3
+    assert musk["all_pairwise_observations"] == []
+    assert not musk["unique_projector_claim"]
+
+
+def test_user_exclusions_and_unmet_acceptance_remain_explicit():
+    assert "Irotyl" not in {row["material"] for row in ROWS}
+    assert not DESIGN["irotyl"]["selected"]
+    assert DESIGN["reference_model_preference"]["selected_model"] == "iris_sandalwood.dhp2025"
+    assert DESIGN["donor_independence"]["status"] == "HOLD_NOT_RUN"
+    assert not DESIGN["donor_independence"]["signature_comparison_executed"]
+    assert DESIGN["physical_state"] == "NOT_COMPOUNDED"
+    assert DESIGN["release_state"] == "HOLD"
+    assert DESIGN["sensory_observations"] == DESIGN["promotions"] == []
+
+
+def test_input_bindings_and_predecessor_bytes_remain_current():
+    # Frozen source-artifact integrity, not a requirement to change future stocks.
+    for source in DESIGN["source_bindings"]:
+        path = ROOT / source["path"]
+        if str(source["path"]).startswith("output/") and not path.exists():
+            continue
+        assert hashlib.sha256(path.read_bytes()).hexdigest() == source["sha256"], source["path"]
+
+
+def test_diagnostic_matches_current_formula_and_bound_full_analysis(diagnostic):
+    from scripts.formula_release_gate import _verify_pipeline_analysis_artifact
+    from scripts.format_pipeline_analysis import build_analysis
+
+    _verify_pipeline_analysis_artifact(
+        ROOT / DESIGN["paths"]["master"],
+        diagnostic["run_evidence_contract"],
+        diagnostic["analysis_markdown"],
+    )
+    # The bound release renderer has a different section order. Preserve its
+    # manifest, and separately require the exact standalone formatter in the file.
+    master_text = (ROOT / DESIGN["paths"]["master"]).read_text(encoding="utf-8")
+    assert build_analysis(diagnostic).strip() in master_text
+    assert diagnostic["run_evidence_contract"]["g15_parent_formula_definitions"][0]["sha256"] == (
+        "279ba9f447847b63313b151bb0d5b059b10c160305947d514739ba3617c27232"
+    )
+
+
+def test_diagnostic_resolves_all_33_current_stock_ids(diagnostic):
+    formula = diagnostic["formulas"][0]
+    gate = next(g for g in formula["gates"] if g["gate"] == "inventory_stock_contract")
+    assert gate["status"] == "PASS"
+    matched = gate["data"]["matched_stocks"]
+    assert {r["material"]: r["stock_id"] for r in matched} == {
+        r["material"]: r["stock_id"] for r in ROWS
+    }
+    assert formula["dose_receipt"]["quantity_authority"] == "PLANNED_VOLUME_SCREEN_ONLY"
+    assert not formula["dose_receipt"]["physical_metrology_authority"]
+
+
+def test_diagnostic_never_turns_opaque_products_or_missing_mass_into_certainty(diagnostic):
+    formula = diagnostic["formulas"][0]
+    gates = {g["gate"]: g for g in formula["gates"]}
+    mats = {m["name"]: m for m in formula["formula_state"]["materials"]}
+    assert gates["g15_oav_firewall"]["status"] == "PASS"
+    for name in ("Orris Liquid", "Tonkarome"):
+        assert mats[name]["oav"] is None
+    assert formula["formula_state"]["quantitative_authority"]["active_concentrate_ppm_w_w"] == "UNAVAILABLE"
+    assert formula["release_evidence"]["status"] == "HOLD"
+    assert not formula["release_evidence"]["release_authority"]
+    assert gates["natural_composite_coverage"]["status"] == "FAIL"
+    assert gates["opaque_preblends"]["status"] == "FAIL"
+
+
+def test_diagnostic_keeps_v5_matrix_convention(diagnostic, parsed):
+    config = diagnostic["formulas"][0]["config_summary"]
+    parent = parse_formula_markdown(ROOT / DESIGN["parent"]["path"])[0]
+    assert parsed["matrix_moles"] == parent["matrix_moles"]
+    assert parsed["matrix_mass_g"] == parent["matrix_mass_g"]
+    assert config["temperature_K"] == 305
+    assert config["brief"] == "dhi_2011"
+    assert config["family_archetype"] == "iris_coumarin_amber.dhi2011"
+    assert config["matrix_source"] == "declared_volume_proxy"
+    assert not config["allow_preblends"]

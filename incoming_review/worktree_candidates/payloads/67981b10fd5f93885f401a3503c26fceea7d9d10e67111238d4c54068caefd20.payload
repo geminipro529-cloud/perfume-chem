@@ -1,0 +1,100 @@
+{
+  "schema": "perfume-chem-sukhum-35-staged-blind-v1",
+  "study_id": "SUKHUM-35-STAGED-PHYSICAL-VALIDATION",
+  "computational_selection": {
+    "candidate": "S35-F2",
+    "authority": "TARGET_LINKED_DIAGNOSTIC_SELECTION_ONLY",
+    "physical_liking": "NOT TESTED",
+    "market_success": "NOT TESTED"
+  },
+  "selection_reason": {
+    "fruit_factor": "At the 10-uL direct-stock floor, Hexyl Acetate remains modeled as a strong but subordinate top facet and moves opening top share from 9.1% to 11.2% without changing constant total or nominal active fruit ester.",
+    "dry_factor": "The tested neat Juniper/Petitgrain module more than doubled modeled opening vapor and is not selected. This is a model-based dose rejection, not a sensory rejection of either material.",
+    "generic_hedonic_score": "All compared arms received the same uncalibrated hedonic subscore. It has no selection authority."
+  },
+  "stage_a": {
+    "status": "HOLD_PENDING_PRECONDITIONS",
+    "question": "Does minimum-dose Hexyl contrast improve pineapple realism and liking without apple or candy drift?",
+    "arms": ["S35-R1", "S35-F2"],
+    "independent_preparations_per_arm": 2,
+    "presentation_orders": ["AB", "BA"],
+    "primary_endpoint": "overall_liking_at_30_minutes",
+    "technical_endpoints": [
+      "pineapple_realism",
+      "pineapple_flesh_skin_relief",
+      "cassis_secondary_quality",
+      "citrus_pith_quality",
+      "transition_continuity",
+      "depth",
+      "SUKHUM_name_fit"
+    ],
+    "guardrails": [
+      "apple_drift",
+      "candy_drift",
+      "catty_cassis",
+      "sweetness",
+      "harshness",
+      "muddiness",
+      "fatigue"
+    ],
+    "times_minutes": [0, 5, 30, 120, 240, 480],
+    "contexts": [
+      "warm_humid_with_temperature_and_relative_humidity_recorded",
+      "air_conditioned_with_temperature_and_relative_humidity_recorded"
+    ]
+  },
+  "stage_b": {
+    "status": "HOLD",
+    "entry_condition": "Advance only after Stage A selection and explicit stock-preparation authorization.",
+    "question": "Does a trace juniper hinge improve fruit-to-wood depth without gin, cologne, or pine-cleaner drift?",
+    "working_stock_required": {
+      "material": "Juniper Berry EO",
+      "target_fraction": 0.10,
+      "basis": "w/w",
+      "carrier": "DPG",
+      "minimum_dose_ul": 10,
+      "nominal_active_ul": 1.0
+    },
+    "note": "The intended neat-equivalent dose is below the 10-uL direct-liquid floor. Do not direct-dose 1 uL neat; prepare and label the working stock first."
+  },
+  "thai_target_panel": {
+    "minimum_valid_n": 30,
+    "population": "Thai male fragrance buyers",
+    "age_range": [22, 40],
+    "foreign_tourist_preferences_in_primary_endpoint": false
+  },
+  "panel_market_endpoints": [
+    "overall_liking_at_30_minutes",
+    "heat_appropriateness",
+    "office_appropriateness",
+    "composed_trustworthy_character",
+    "modern_fruity_dry_wood_recognition_without_clone_prompt",
+    "uniqueness",
+    "value_expectation",
+    "purchase_intent_at_blinded_price_bands"
+  ],
+  "data_integrity": {
+    "preserve_assessor_identity": true,
+    "preserve_realized_order": true,
+    "preserve_ties": true,
+    "preserve_exclusions": true,
+    "preserve_complete_time_trajectories": true,
+    "do_not_pool_stable_preference_clusters": true
+  },
+  "preconditions": [
+    "HEXYL_ACETATE_CARRIER_IDENTITY",
+    "CARRIER_MATCHED_CONSTANT_TOTAL_PREPARATION_PLAN",
+    "TWO_INDEPENDENT_PREPARATIONS_PER_ARM",
+    "SUPPLIER_SAFETY_DOCUMENT_REVIEW",
+    "EXPLICIT_PHYSICAL_COMPOUNDING_AUTHORIZATION"
+  ],
+  "physical_test_authorized": false,
+  "claim_ceiling": {
+    "sensory_superiority": "NOT TESTED",
+    "physical_liking": "NOT TESTED",
+    "market_success": "NOT TESTED",
+    "safety": "HOLD",
+    "stability": "HOLD",
+    "release": "HOLD"
+  }
+}

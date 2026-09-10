@@ -1,0 +1,94 @@
+from __future__ import annotations
+
+import hashlib
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+MANIFEST_PATH = (
+    ROOT / "data" / "governance" / "unified_import_dhi_2011_20260904.json"
+)
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _manifest() -> dict[str, object]:
+    return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+
+
+def test_destination_remains_bound_to_the_accepted_source_snapshot() -> None:
+    manifest = _manifest()
+
+    for record in manifest["files"]:  # type: ignore[index]
+        destination = ROOT / record["path"]
+        assert record["source_size_bytes"] == record["destination_size_bytes"]
+        assert record["source_sha256"] == record["destination_sha256"]
+        assert destination.stat().st_size == record["destination_size_bytes"]
+        assert _sha256(destination) == record["destination_sha256"]
+        assert record["exact_match"] is True
+
+
+def test_current_source_drift_is_exactly_observed_and_fails_closed() -> None:
+    manifest = _manifest()
+    source = manifest["source"]  # type: ignore[index]
+    audit = source["current_source_audit"]  # type: ignore[index]
+    records = audit["records"]  # type: ignore[index]
+
+    assert audit["status"] == "DRIFT_DETECTED_HOLD_NO_REIMPORT"  # type: ignore[index]
+    assert audit["declared_path_count"] == 7  # type: ignore[index]
+    assert audit["unchanged_from_accepted_snapshot_count"] == 3  # type: ignore[index]
+    assert audit["drifted_from_accepted_snapshot_count"] == 4  # type: ignore[index]
+    assert audit["destination_matches_accepted_snapshot_count"] == 7  # type: ignore[index]
+
+    drifted = {
+        record["path"]
+        for record in records
+        if record["relation_to_accepted_snapshot"] == "DRIFTED_NOT_IMPORTED"
+    }
+    assert drifted == {
+        "engine/perception/dhi_2011_architecture.py",
+        "formulas/DHI-11_Velours_d_Iris_05443A_30mL_20pct.md",
+        "tests/test_dhi_2011_architecture.py",
+        "tests/test_dhi_2011_formula.py",
+    }
+
+    accepted_files = {
+        record["path"]: record for record in manifest["files"]  # type: ignore[index]
+    }
+    for record in records:
+        accepted = accepted_files[record["path"]]
+        assert record["accepted_source_size_bytes"] == accepted["source_size_bytes"]
+        assert record["accepted_source_sha256"] == accepted["source_sha256"]
+        observed_identity = (
+            record["current_source_size_bytes"] == record["accepted_source_size_bytes"]
+            and record["current_source_sha256"] == record["accepted_source_sha256"]
+        )
+        if record["relation_to_accepted_snapshot"] == "BYTE_FOR_BYTE_EXACT":
+            assert observed_identity is True
+        else:
+            assert record["relation_to_accepted_snapshot"] == "DRIFTED_NOT_IMPORTED"
+            assert observed_identity is False
+
+
+def test_current_source_drift_does_not_promote_import_or_release_authority() -> None:
+    manifest = _manifest()
+    source = manifest["source"]  # type: ignore[index]
+    adjudication = manifest["adjudication"]  # type: ignore[index]
+    authority = manifest["authority"]  # type: ignore[index]
+
+    assert (
+        adjudication["package_relation"]
+        == "ACCEPTED_SNAPSHOT_BYTE_IDENTICAL_DESTINATION_CURRENT_SOURCE_DRIFT_HELD"
+    )
+    assert adjudication["current_source_reimport_status"] == "NOT_AUTHORIZED_NOT_PERFORMED"
+    assert source["mutation_by_import_lane"] == "NONE"  # type: ignore[index]
+    assert source["source_files_rewritten_or_staged"] is False  # type: ignore[index]
+    assert authority["claim_ceiling"] == "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY"  # type: ignore[index]
+    assert authority["import_authority"] is True  # type: ignore[index]
+    assert all(
+        value is False
+        for key, value in authority.items()  # type: ignore[union-attr]
+        if key not in {"claim_ceiling", "import_authority"}
+    )

@@ -1,0 +1,121 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+from scripts.formula_release_gate import main
+
+
+def test_existing_release_gate_exposes_deep_plane_only_json(
+    tmp_path: Path, capsys
+) -> None:
+    formula = tmp_path / "deep_plane.md"
+    formula.write_text(
+        """# CLI Deep Plane
+
+**Target identity:** transparent floral wood.
+
+| # | Ingredient | Dilution | Amount (µL) |
+|---|---|---|---:|
+| 1 | Hedione | neat | 600 |
+| 2 | Iso E Super | neat | 300 |
+| 3 | Habanolide | neat | 100 |
+""",
+        encoding="utf-8",
+    )
+
+    return_code = main(
+        [
+            "--formula-file",
+            str(formula),
+            "--deep-plane-only",
+            "--json",
+            "--no-audit",
+        ]
+    )
+
+    payload = json.loads(capsys.readouterr().out)
+    assert return_code == 0
+    assert payload["schema_version"] == "deep_plane_runtime_check_v1"
+    assert payload["runtime_entrypoint"] == "scripts.formula_release_gate"
+    assert len(payload["formulas"][0]["planes"]) == 13
+
+
+def test_deep_plane_cli_reports_stale_inventory_on_stderr(
+    tmp_path: Path, capsys
+) -> None:
+    formula = tmp_path / "deep_plane.md"
+    formula.write_text(
+        """# CLI Stale Inventory
+
+| # | Ingredient | Dilution | Amount (µL) |
+|---|---|---|---:|
+| 1 | Hedione | neat | 1000 |
+""",
+        encoding="utf-8",
+    )
+
+    return_code = main(
+        [
+            "--formula-file",
+            str(formula),
+            "--deep-plane-only",
+            "--json",
+            "--expected-inventory-sha256",
+            "0" * 64,
+        ]
+    )
+
+    captured = capsys.readouterr()
+    error = json.loads(captured.err)
+    assert return_code == 2
+    assert captured.out == ""
+    assert error["schema_version"] == "deep_plane_runtime_error_v1"
+    assert error["code"] == "STALE_INVENTORY_AUTHORITY"
+    assert error["expected_sha256"] == "0" * 64
+    assert error["observed_sha256"] != error["expected_sha256"]
+
+
+def test_normal_release_gate_json_includes_one_native_deep_plane_gate(
+    tmp_path: Path, capsys
+) -> None:
+    formula = tmp_path / "native_gate.md"
+    formula.write_text(
+        """# Native Deep Plane Gate
+
+**Target identity:** clear jasmine wood with a protected nucleus and forbidden drift.
+
+Surface and interior anatomy. Each material has a function and role.
+Bridge and handoff create recurrence and opposition.
+Opening, heart, and drydown preserve a fabric echo.
+Front, middle, and rear define skin and aura.
+Protected-nucleus constant-total matched-carrier blinded A/B omission with AB/BA order.
+
+| # | Ingredient | Dilution | Amount (µL) |
+|---|---|---|---:|
+| 1 | Hedione | neat | 1000 |
+""",
+        encoding="utf-8",
+    )
+
+    return_code = main(
+        [
+            "--formula-file",
+            str(formula),
+            "--expected-concentrate-ul",
+            "1000",
+            "--json",
+            "--no-audit",
+        ]
+    )
+
+    payload = json.loads(capsys.readouterr().out)
+    matches = [
+        gate
+        for gate in payload["formulas"][0]["gates"]
+        if gate["gate"] == "deep_plane_runtime"
+    ]
+    assert len(matches) == 1
+    assert matches[0]["data"]["authority_status"] == "HOLD"
+    assert return_code == (1 if payload["overall"] == "FAIL" else 0)
+    assert "deep_plane" not in payload

@@ -1,0 +1,286 @@
+"""Aventus woody-first mass geometry, not a perceptual or release engine.
+
+The centre and bounds are explicit, uncalibrated design choices for Astra V3.
+They are NOT measured Creed proportions. Mass is allocated once to one module;
+functional overlap does not duplicate a material's mass. Missing quantities are
+unknown, not zero. No density, stock basis, threshold or sensory result is inferred.
+"""
+
+from __future__ import annotations
+
+import math
+from dataclasses import dataclass
+from typing import Any, Mapping
+
+MODEL_ID = "aventus.woody_geometry.astra_v3.design_v1"
+QUANTITATIVE_AUTHORITY = "UNCALIBRATED_DESIGN_TARGET_NOT_CREED_FORMULA"
+
+
+@dataclass(frozen=True)
+class Module:
+    key: str
+    centre_ppm: float
+    minimum_ppm: float
+    maximum_ppm: float
+
+
+# All ppm here use the aromatic-material mass denominator, excluding carriers.
+# These are joint constraints, not ten independently spendable allowances.
+MODULES = (
+    Module("dry_wood", 400000, 340000, 460000),
+    Module("ambrox", 160000, 120000, 200000),
+    Module("musk", 120000, 80000, 150000),
+    Module("patchouli_moss", 80000, 50000, 100000),
+    Module("floral_bridge", 120000, 80000, 160000),
+    Module("citrus", 110000, 80000, 140000),
+    Module("pepper", 4000, 1000, 8000),
+    Module("cassis", 1500, 500, 3000),
+    Module("pineapple", 2500, 500, 4000),
+    Module("smoke_leather", 2000, 300, 3500),
+)
+
+# Closed accounting vocabulary: relabeling fruit as wood must never earn a pass.
+# This mapping is bookkeeping, NOT proof of chemical or sensory equivalence.
+MATERIAL_MODULES = {
+    "Iso E Super": "dry_wood",
+    "Cedarwood oil Virginia": "dry_wood",
+    "Ambrox Super": "ambrox",
+    "Romandolide": "musk",
+    "Habanolide": "musk",
+    "Patchouli EO": "patchouli_moss",
+    "Evernyl": "patchouli_moss",
+    "Hedione": "floral_bridge",
+    "Bergamot FCF oil Sicilian": "citrus",
+    "Lemon FCF oil Sicilian": "citrus",
+    "Schinus molle EO": "pepper",
+    "Blackcurrant Absolute": "cassis",
+    "Allyl Amyl Glycolate": "pineapple",
+    "Allyl Cyclohexyl Propionate": "pineapple",
+    "Suederal": "smoke_leather",
+    "Cade Oil Rectified": "smoke_leather",
+}
+
+# Identity supports within shared modules. These remain design floors, not ODT
+# or IFRA limits. An absent smoke stock means a design gap, never permission to
+# add an unsafe one. A passing module sum cannot conceal a missing constituent.
+IDENTITY_FLOORS_PPM = {
+    "Cedarwood oil Virginia": 20000,
+    "Patchouli EO": 30000,
+    "Evernyl": 1000,
+    "Bergamot FCF oil Sicilian": 50000,
+    "Suederal": 100,
+    "Cade Oil Rectified": 10,
+}
+
+
+def _number(value: object, label: str, *, positive: bool = False) -> float:
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise ValueError(f"{label} must be a finite number")
+    number = float(value)
+    if not math.isfinite(number) or number < 0 or (positive and number == 0):
+        raise ValueError(f"{label} must be finite and {'positive' if positive else 'nonnegative'}")
+    return number
+
+
+def _authorities() -> dict[str, bool]:
+    return dict.fromkeys(
+        ("commercial_formula", "sensory_similarity", "liking", "physical_compounding",
+         "safety", "stability", "release"), False,
+    )
+
+
+def assess_geometry(active_mass_g: Mapping[str, float | None]) -> dict[str, Any]:
+    """Evaluate a COMPLETE aromatic mass ledger; absent modules get zero.
+
+    A caller must supply every material used, including unresolved quantities as
+    None. Solvents do not enter this ledger. Unsupported names fail closed.
+    CLR coordinates are descriptive log geometry, never an aesthetic score.
+    """
+    unknown_names = set(active_mass_g) - MATERIAL_MODULES.keys()
+    if unknown_names:
+        raise ValueError(f"Unsupported material names: {sorted(unknown_names)}")
+    unresolved = []
+    totals = dict.fromkeys((module.key for module in MODULES), 0.0)
+    for name, value in active_mass_g.items():
+        if value is None:
+            unresolved.append(name)
+        else:
+            totals[MATERIAL_MODULES[name]] += _number(value, name)
+    if unresolved:
+        return {
+            "model_id": MODEL_ID, "status": "HOLD_INCOMPLETE_MASS_LEDGER",
+            "unresolved": sorted(unresolved), "module_ppm": None,
+            "ratios": None, "clr_displacement": None,
+            "quantitative_authority": QUANTITATIVE_AUTHORITY,
+            "authorities": _authorities(),
+        }
+    total = sum(totals.values())
+    _number(total, "total aromatic mass", positive=True)
+    ppm = {key: value / total * 1e6 for key, value in totals.items()}
+    violations = [
+        module.key for module in MODULES
+        if not module.minimum_ppm - 1e-7 <= ppm[module.key] <= module.maximum_ppm + 1e-7
+    ]
+    for material, floor in IDENTITY_FLOORS_PPM.items():
+        mass = active_mass_g.get(material, 0.0)
+        assert mass is not None  # the incomplete-ledger return is above
+        if mass / total * 1e6 < floor - 1e-7:
+            violations.append(f"identity_support:{material}")
+    backbone = ppm["dry_wood"] + ppm["ambrox"]
+    if backbone < 500000 - 1e-7:
+        violations.append("wood_plus_ambrox_below_50_percent")
+    if ppm["pineapple"] + ppm["cassis"] > 6000 + 1e-7:
+        violations.append("combined_fruit_above_0_6_percent")
+    ratios: dict[str, float | None] = {}
+    for label, numerator, minimum in (
+        ("wood_ambrox_to_pineapple", backbone, 125),
+        ("ambrox_to_pineapple", ppm["ambrox"], 30),
+        ("citrus_to_pineapple", ppm["citrus"], 20),
+    ):
+        # Zero denominator is undefined, not infinity or a successful ratio.
+        ratio = numerator / ppm["pineapple"] if ppm["pineapple"] > 0 else None
+        ratios[label] = ratio
+        if ratio is None or ratio < minimum - 1e-7:
+            violations.append(label)
+    log_changes = (
+        {m.key: math.log(ppm[m.key] / m.centre_ppm) for m in MODULES}
+        if all(value > 0 for value in ppm.values()) else None
+    )
+    clr = None
+    if log_changes is not None:
+        mean = sum(log_changes.values()) / len(MODULES)
+        clr = {key: value - mean for key, value in log_changes.items()}
+    return {
+        "model_id": MODEL_ID,
+        "status": "DESIGN_BOUNDS_MET" if not violations else "OUTSIDE_DESIGN_BOUNDS",
+        "aromatic_mass_g": total, "module_ppm": ppm, "ratios": ratios,
+        "violations": violations, "clr_displacement": clr,
+        "quantitative_authority": QUANTITATIVE_AUTHORITY,
+        "secondary_facet_flags": (
+            ["Romandolide has a documented fruit facet; musk mass is not a fruit-free guarantee"]
+            if active_mass_g.get("Romandolide", 0) else []
+        ),
+        "oav_status": "NOT_CALCULATED_REQUIRES_MATRIX_AND_THRESHOLD_EVIDENCE",
+        "authorities": _authorities(),
+    }
+
+
+def stock_mass_for_active(
+    active_g: float, *, fraction: float | None, basis: str,
+) -> float | None:
+    """Mass rebasing only. A percent without a basis cannot produce a dose."""
+    active = _number(active_g, "active_g")
+    if basis not in {"neat", "w/w", "unspecified", "w/v", "v/v"}:
+        raise ValueError(f"Unsupported fraction basis: {basis}")
+    if fraction is not None:
+        fraction = _number(fraction, "fraction", positive=True)
+        if fraction > 1:
+            raise ValueError("fraction must be <= 1")
+    if basis == "neat":
+        if fraction != 1:
+            raise ValueError("neat requires fraction 1")
+    elif basis != "w/w" or fraction is None:
+        return None
+    return active / fraction
+
+
+def plan_candidate(
+    candidate: Mapping[str, Any], *, aromatic_mass_g: float = 6.0,
+    finished_mass_g: float = 30.0,
+) -> dict[str, Any]:
+    """Plan a whole batch by mass without fabricating a volumetric mixing card.
+
+    The default is a DESIGN for 30 g at 20% w/w aromatic materials, not 30 mL
+    or 20% v/v. Stocks, purity and supplier blends are represented as supplied;
+    the declared aromatic product may itself be a natural/proprietary mixture.
+    """
+    aromatic = _number(aromatic_mass_g, "aromatic_mass_g", positive=True)
+    finished = _number(finished_mass_g, "finished_mass_g", positive=True)
+    if aromatic > finished:
+        raise ValueError("aromatic mass exceeds finished mass")
+    if candidate.get("model_id") != MODEL_ID:
+        raise ValueError("candidate model_id mismatch")
+    targets = candidate.get("materials")
+    if not isinstance(targets, list) or not targets:
+        raise ValueError("materials must be a nonempty list")
+    ledger: dict[str, float] = {}
+    rows = []
+    known_carriers: dict[str, float] = {}
+    holds = []
+    for row in targets:
+        name = row["material"]
+        if name not in MATERIAL_MODULES or name in ledger:
+            raise ValueError(f"Unsupported or duplicate material: {name}")
+        if row["module"] != MATERIAL_MODULES[name]:
+            raise ValueError(f"Incorrect accounting module: {name}")
+        if row.get("mixture_kind") not in {"natural", "proprietary", "single_material"}:
+            raise ValueError(f"Unsupported mixture kind: {name}")
+        target_ppm = _number(row["aromatic_ppm"], f"{name} aromatic_ppm", positive=True)
+        active = aromatic * target_ppm / 1e6
+        ledger[name] = active
+        stock = row["current_stock"]
+        mass = stock_mass_for_active(active, fraction=stock["fraction"], basis=stock["basis"])
+        if not isinstance(stock.get("inventory_synchronized"), bool):
+            raise ValueError(f"inventory_synchronized must be boolean: {name}")
+        ready = stock["inventory_synchronized"]
+        basis_known = mass is not None
+        if not ready:
+            holds.append(f"{name}: inventory synchronization unresolved")
+        if not basis_known:
+            holds.append(f"{name}: stock mass unresolved ({stock['basis']})")
+        carrier_map = stock.get("carrier_mass_fractions")
+        if carrier_map is not None:
+            if not basis_known:
+                raise ValueError(f"Carrier mass fractions require mass basis: {name}")
+            if not isinstance(carrier_map, dict):
+                raise ValueError(f"carrier_mass_fractions must be an object: {name}")
+            fractions = {
+                key: _number(value, f"{name} carrier {key}")
+                for key, value in carrier_map.items()
+            }
+            if not math.isclose(sum(fractions.values()) + stock["fraction"], 1, abs_tol=1e-9):
+                raise ValueError(f"Stock mass fractions do not close: {name}")
+            for key, fraction in fractions.items():
+                assert mass is not None  # checked by basis_known above
+                known_carriers[key] = known_carriers.get(key, 0.0) + mass * fraction
+        elif basis_known and stock["fraction"] < 1:
+            holds.append(f"{name}: carrier composition unresolved")
+        rows.append({
+            "material": name, "module": row["module"], "target_active_g": active,
+            "ppm_aromatic_basis": target_ppm,
+            "target_ppm_finished_w_w": active / finished * 1e6,
+            "stock_mass_g": mass, "stock_mass_arithmetic_resolved": basis_known,
+            "inventory_synchronized": ready,
+            "ppm_stock_blend_w_w": None,
+            "odt_ppm": None, "oav": None,
+            "oav_evidence_required": (
+                "COMPOSITE_GC_O_AND_MATRIX" if row["mixture_kind"] == "natural"
+                else "PRODUCT_COMPOSITION_AND_MATRIX" if row["mixture_kind"] == "proprietary"
+                else "PHASE_MATCHED_THRESHOLD_AND_MATRIX"
+            ),
+        })
+    if not math.isclose(sum(row["aromatic_ppm"] for row in targets), 1e6, abs_tol=1e-6):
+        raise ValueError("Aromatic design must close at 1,000,000 ppm; no silent normalization")
+    complete_masses = all(row["stock_mass_g"] is not None for row in rows)
+    known_stock_mass = sum(row["stock_mass_g"] or 0 for row in rows)
+    if known_stock_mass > finished + 1e-9:
+        raise ValueError("Stock masses exceed the finished batch; solvent cannot be negative")
+    stock_total = known_stock_mass if complete_masses else None
+    if stock_total is not None:
+        for row in rows:
+            row["ppm_stock_blend_w_w"] = row["target_active_g"] / stock_total * 1e6
+    holds.extend(candidate.get("physical_holds", []))
+    return {
+        "model_id": MODEL_ID, "candidate_id": candidate["candidate_id"],
+        "status": "DESIGN_ONLY_PHYSICAL_HOLD",
+        "target_aromatic_mass_g": aromatic, "target_finished_mass_g": finished,
+        "target_finished_aromatic_ppm_w_w": aromatic / finished * 1e6,
+        "geometry": assess_geometry(ledger), "materials": rows,
+        "known_stock_mass_subtotal_g": known_stock_mass,
+        "stock_blend_mass_g": stock_total,
+        "additional_solvent_mass_g": finished - stock_total if stock_total is not None else None,
+        "known_carrier_mass_g": known_carriers,
+        "finished_volume_ml": None, "holds": holds,
+        "oav_status": "HOLD_NO_PHASE_MATCHED_HEADSPACE_REPORT",
+        "authorities": _authorities(),
+    }

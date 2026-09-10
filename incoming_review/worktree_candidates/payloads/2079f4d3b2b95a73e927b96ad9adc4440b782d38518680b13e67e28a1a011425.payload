@@ -1,0 +1,234 @@
+import hashlib
+import json
+
+from engine.inventory_parser import parse_inventory, resolve_inventory_material
+from engine.pipeline.formula_state import build_formula_state
+from engine.pipeline import preflight
+from engine.pipeline.preflight import run_release_preflight
+
+
+def _formula():
+    return {
+        "name": "Preflight Test",
+        "ingredients_ul": {
+            "Lavender EO": 700.0,
+            "Hedione": 900.0,
+            "Coumarin": 300.0,
+            "Iso E Super": 1500.0,
+        },
+        "dilutions": {
+            "Lavender EO": 1.0,
+            "Hedione": 1.0,
+            "Coumarin": 0.2,
+            "Iso E Super": 1.0,
+        },
+    }
+
+
+def test_release_preflight_contract_has_expected_checks():
+    formula = _formula()
+    state = build_formula_state(formula["ingredients_ul"], formula["dilutions"], batch_volume_ml=30.0)
+    report = run_release_preflight(formula, state).as_dict()
+
+    assert report["status"] in {"PASS", "WARN"}
+    names = [check.get("check_name") for check in report["checks"]]
+    assert "input_normalization" in names
+    assert "inventory_authority_freshness" in names
+    assert "inventory_stock_contract" in names
+    assert "knowledge_graph_schema" in names
+    assert "literature_rule_contract" in names
+    assert "knowledge_rule_quality" in names
+    assert "odt_authority" in names
+    assert "data_authority" in names
+    assert "science_coverage" in names
+    assert "material_identity_and_physics" in names
+    assert report["confidence_penalty"] >= 0.0
+
+
+def test_release_preflight_fails_negative_input():
+    formula = _formula()
+    formula["ingredients_ul"]["Iso E Super"] = -1.0
+    state = build_formula_state(formula["ingredients_ul"], formula["dilutions"], batch_volume_ml=30.0)
+    report = run_release_preflight(formula, state).as_dict()
+    normalization = next(check for check in report["checks"] if check.get("check_name") == "input_normalization")
+    assert normalization["status"] == "FAIL"
+
+
+def test_inventory_overlay_is_hash_bound_and_applies_direct_user_events(tmp_path):
+    inventory_path = tmp_path / "inventory.txt"
+    inventory_path.write_text(
+        """--- MUSKS ---
+- Habanolide
+- Old Resin ethanol tincture (20%)
+""",
+        encoding="utf-8",
+    )
+    inventory_hash = hashlib.sha256(inventory_path.read_bytes()).hexdigest().upper()
+    overlay_path = tmp_path / "overlay.json"
+    overlay_path.write_text(
+        json.dumps(
+            {
+                "schema": "perfume-chem.inventory-overlay.v1",
+                "frozen_inventory": {
+                    "path": str(inventory_path),
+                    "sha256": inventory_hash,
+                },
+                "global_rules": [
+                    {
+                        "selector": {"preparation_form_casefold_contains": "tincture"},
+                        "status": "OUT_OF_STOCK",
+                        "execution_state": "EXCLUDE_FROM_CURRENT_BUILD",
+                        "authority_event_id": "USR-TINCTURES",
+                    }
+                ],
+                "overrides": [
+                    {
+                        "inventory_name": "Ethylene Brassylate",
+                        "status": "OWNED",
+                        "stock_fraction": 1.0,
+                        "concentration_basis": "w/w",
+                        "carrier": None,
+                        "current_build_design_state": "AVAILABLE_WITH_INVENTORY_DRIFT_CAVEAT",
+                        "authority_event_id": "USR-EB",
+                    },
+                    {
+                        "inventory_name": "Habanolide",
+                        "status": "OWNED",
+                        "stock_fraction": None,
+                        "concentration_basis": "UNRECORDED",
+                        "carrier": None,
+                        "current_build_design_state": "VERIFY_FIRST",
+                        "authority_event_id": "USR-HAB",
+                    },
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    records = parse_inventory(
+        overlay_path=overlay_path,
+        unique=False,
+        include_unavailable=True,
+    )
+    by_name = {record.name: record for record in records}
+
+    assert by_name["Old Resin ethanol tincture"].status == "out_of_stock"
+    assert by_name["Old Resin ethanol tincture"].execution_ready is False
+    assert by_name["Ethylene Brassylate"].dilution == 1.0
+    assert by_name["Ethylene Brassylate"].concentration_basis == "w/w"
+    assert by_name["Ethylene Brassylate"].authority_event_id == "USR-EB"
+    assert by_name["Habanolide"].execution_ready is False
+    assert resolve_inventory_material("Ethylene Brassylate", overlay_path=overlay_path).execution_ready
+
+
+def test_inventory_stock_contract_fails_missing_rows_instead_of_assuming_neat(tmp_path):
+    inventory_path = tmp_path / "inventory.txt"
+    inventory_path.write_text("--- FLORALS ---\n- Hedione\n", encoding="utf-8")
+    formula_path = tmp_path / "formula.md"
+    formula_path.write_text("# Formula\n", encoding="utf-8")
+    formula = {
+        "name": "Missing stock",
+        "source_path": str(formula_path),
+        "inventory_path": str(inventory_path),
+        "ingredients_ul": {"Hedione": 500.0, "Definitely Missing": 100.0},
+        "dilutions": {"Hedione": 1.0, "Definitely Missing": 1.0},
+    }
+    state = build_formula_state(formula["ingredients_ul"], formula["dilutions"], batch_volume_ml=30.0)
+
+    report = run_release_preflight(formula, state).as_dict()
+    stock = next(check for check in report["checks"] if check["check_name"] == "inventory_stock_contract")
+
+    assert stock["status"] == "FAIL"
+    assert stock["data"]["issues"] == [
+        {"material": "Definitely Missing", "reason": "not_in_inventory"}
+    ]
+
+
+def test_inventory_authority_freshness_fails_when_formula_hash_is_stale(tmp_path):
+    inventory_path = tmp_path / "inventory.txt"
+    inventory_path.write_text("--- FLORALS ---\n- Hedione\n", encoding="utf-8")
+    formula_path = tmp_path / "formula.md"
+    formula_path.write_text("# Formula\n", encoding="utf-8")
+    formula = {
+        "name": "Stale inventory authority",
+        "source_path": str(formula_path),
+        "inventory_path": str(inventory_path),
+        "inventory_sha256": "0" * 64,
+        "ingredients_ul": {"Hedione": 100.0},
+        "dilutions": {"Hedione": 1.0},
+    }
+    state = build_formula_state(
+        formula["ingredients_ul"], formula["dilutions"], batch_volume_ml=30.0
+    )
+
+    report = run_release_preflight(formula, state).as_dict()
+    freshness = next(
+        row
+        for row in report["checks"]
+        if row["check_name"] == "inventory_authority_freshness"
+    )
+
+    actual = hashlib.sha256(inventory_path.read_bytes()).hexdigest().upper()
+    assert freshness["status"] == "FAIL"
+    assert freshness["data"] == {
+        "inventory_path": str(inventory_path.resolve()),
+        "expected_sha256": "0" * 64,
+        "actual_sha256": actual,
+    }
+
+
+def test_static_preflight_blocks_raw_stock_dose_below_ten_ul(tmp_path):
+    inventory_path = tmp_path / "inventory.txt"
+    inventory_path.write_text(
+        "--- WOODS ---\n- Iso E Super\n- Vertofix\n",
+        encoding="utf-8",
+    )
+    run_static_preflight = getattr(preflight, "run_static_preflight", None)
+    assert run_static_preflight is not None, "static preflight entry point is missing"
+
+    report = run_static_preflight(
+        {
+            "name": "Pipette floor",
+            "inventory_path": str(inventory_path),
+            "ingredients_ul": {"Iso E Super": 92.0, "Vertofix": 8.0},
+            "dilutions": {"Iso E Super": 1.0, "Vertofix": 1.0},
+        },
+        expected_concentrate_ul=100.0,
+        minimum_raw_stock_ul=10.0,
+    ).as_dict()
+
+    checks = {row["check_name"]: row for row in report["checks"]}
+    assert report["status"] == "FAIL"
+    assert checks["exact_subtotal"]["status"] == "PASS"
+    assert checks["pipette_floor"]["status"] == "FAIL"
+    assert checks["pipette_floor"]["data"]["preparation_required"] == [
+        {"material": "Vertofix", "raw_ul": 8.0, "stock_fraction": 1.0}
+    ]
+
+
+def test_static_preflight_uses_declared_concentrate_for_exact_subtotal(tmp_path):
+    inventory_path = tmp_path / "inventory.txt"
+    inventory_path.write_text(
+        "--- WOODS ---\n- Iso E Super\n- Vertofix\n",
+        encoding="utf-8",
+    )
+    run_static_preflight = getattr(preflight, "run_static_preflight", None)
+    assert run_static_preflight is not None, "static preflight entry point is missing"
+
+    report = run_static_preflight(
+        {
+            "name": "Wrong subtotal",
+            "inventory_path": str(inventory_path),
+            "ingredients_ul": {"Iso E Super": 88.0, "Vertofix": 10.0},
+            "dilutions": {"Iso E Super": 1.0, "Vertofix": 1.0},
+        },
+        expected_concentrate_ul=100.0,
+    ).as_dict()
+
+    exact = next(
+        row for row in report["checks"] if row["check_name"] == "exact_subtotal"
+    )
+    assert report["status"] == "FAIL"
+    assert exact["status"] == "FAIL"
+    assert exact["data"] == {"parsed_ul": 98.0, "expected_ul": 100.0}

@@ -1,0 +1,107 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "chat-g-external-evidence-xhigh-v1-20260819",
+  "recorded_at": "2026-08-19T12:21:23Z",
+  "package": {
+    "file_name": "Perfume_Chem_External_Evidence_CHAT_G_XHIGH_v1.zip",
+    "locator": "incoming_review/chatgpt/20260819T122123Z-chat-g-external-schema-6a753b49/Perfume_Chem_External_Evidence_CHAT_G_XHIGH_v1.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 62670,
+    "sha256": "feb747fa9589dfeb621e9c6312bfce291f1aa9fe306ad988aa841cf90eb6c278",
+    "media_type": "application/zip",
+    "archive_entry_count": 31,
+    "archive_file_count": 31,
+    "declared_payload_count": 30,
+    "package_root": "CHAT_G_EXTERNAL_EVIDENCE_CORE_v1",
+    "embedded_integrity_records": [
+      {
+        "path": "CHAT_G_EXTERNAL_EVIDENCE_CORE_v1/SHA256SUMS.json",
+        "byte_size": 4702,
+        "sha256": "7b260171bd86791eb8733884270733f23a77cf9c6c3b3d2a68f3ab5fce26179f",
+        "role": "CHECKSUM_LEDGER"
+      },
+      {
+        "path": "CHAT_G_EXTERNAL_EVIDENCE_CORE_v1/WORKER_MANIFEST.json",
+        "byte_size": 11082,
+        "sha256": "4b4a1fe97354209158b986407ae408d723d26a256319914a3d45a811c90694bb",
+        "role": "MANIFEST"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a753b49-e6dc-83ec-9224-48e24f28e73d:external-evidence-chat-g-xhigh-v1",
+    "conversation_id": "6a753b49-e6dc-83ec-9224-48e24f28e73d",
+    "turn_id": null,
+    "message_id": null,
+    "lineage_resolution": "EXACT_ORIGINAL_CHAT_ATTACHMENT_RECOVERED_HASH_VERIFIED_AND_QUARANTINED_WITH_PARENT_DATABASE_AND_A_F_BINDINGS_ABSENT",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "The attachment includes source code and schema proposals but no reusable software-license declaration. Exact possession and hash verification do not establish installation, redistribution, or publication rights.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "This receipt preserves the package as historical architecture evidence only and is not a source, scientific, or legal conclusion."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "EXACT_PARENT_SQL_BYTES_NOT_INCLUDED",
+      "EXACT_PARENT_SQLITE_BYTES_NOT_INCLUDED",
+      "BASELINE_MIGRATION_NOT_REPLAYED",
+      "EXACT_A_F_PACKAGE_BINDINGS_NOT_COMPLETED",
+      "PARALLEL_PERSISTENCE_NAMESPACE_REJECTED",
+      "NATIVE_LABORATORY_BETA_PERSISTENCE_CONTROLS",
+      "PACKAGE_CODE_NOT_INSTALLED",
+      "NO_EXTERNAL_SOURCE_ROWS_INCLUDED",
+      "NO_AUTHORITY_UPGRADE"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "incoming_review/chatgpt/20260819T122123Z-chat-g-external-schema-6a753b49/source_manifest.json",
+      "byte_size": 2476,
+      "sha256": "b6213daed96f7e96bf8da8592387265f73684bad04b9fb3eb89c9453c3e19884",
+      "relation": "BINDS_BROWSER_CAPTURE_MANIFEST",
+      "support_scope": "AUTHENTICATED_CONVERSATION_AND_EXACT_ATTACHMENT_CAPTURE_ONLY",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "EXACT_CHAT_G_PACKAGE_QUARANTINED_PARALLEL_SCHEMA_PROPOSAL_PARENT_DATABASE_AND_A_F_BINDINGS_ABSENT",
+    "archive_scan_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "archive_members": 31,
+    "internal_checksum_entries_verified": 30,
+    "proposed_external_tables": 34,
+    "proposed_indexes": 10,
+    "proposed_views": 2,
+    "proposed_append_only_triggers": 64,
+    "exact_parent_sql_bytes_included": false,
+    "exact_parent_sqlite_bytes_included": false,
+    "exact_a_f_parser_bindings_complete": false,
+    "native_external_study_persistence_present": true,
+    "parallel_store_installed": false,
+    "external_source_rows_admitted": 0,
+    "package_code_installed": false,
+    "promotion_allowed": false
+  },
+  "receipt_sha256": "fada0db8011a01327b2a6c990ccdca26fb83b0644196dfeb01b5756046508bba"
+}

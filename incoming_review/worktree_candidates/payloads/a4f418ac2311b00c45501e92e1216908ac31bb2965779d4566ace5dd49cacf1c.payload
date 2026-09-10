@@ -1,0 +1,53 @@
+{
+  "schema_version": "perfume_chem_external_capture_manifest_v1",
+  "recorded_at": "2026-08-12T16:40:00+07:00",
+  "state": "SOURCE_CAPTURE_QUARANTINED_NOT_ADMITTED",
+  "source": {
+    "conversation_id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+    "source_path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/outputs/ACCORD_INTEL_DARK_DARK-SCR-02_CASTOREUM_SUEDERAL_INTERPRETATION_v2_20260812.zip",
+    "retrieval_method": "EXACT_LOCAL_SOURCE_COPY"
+  },
+  "captured_artifact": {
+    "file_name": "ACCORD_INTEL_DARK_DARK-SCR-02_CASTOREUM_SUEDERAL_INTERPRETATION_v2_20260812.zip",
+    "byte_size": 12330,
+    "sha256": "741a357d8099b30081e1f44d4aace97d18b8bdc7f0d6a4e30a6c6aad81cb67ad",
+    "media_type": "application/zip",
+    "copy_matches_source": true
+  },
+  "integrity": {
+    "zip_crc_clean": true,
+    "safe_member_paths": true,
+    "archive_members": 7,
+    "embedded_ledger_entries": 6,
+    "embedded_ledger_mismatches": 0
+  },
+  "native_quarantine": {
+    "single_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "nodes": 1,
+    "edges": 0,
+    "all_nodes_terminal": true,
+    "finding_codes": [],
+    "promotion_allowed": false
+  },
+  "parent": {
+    "file_name": "ACCORD_INTEL_CHAT2_DARK_SCREEN02_EVIDENCE_REPAIR_v1.zip",
+    "byte_size": 53799,
+    "sha256": "dd9fb19c03da6c401aa1bdb718446b830148cc2856be6c525abf836788ce90fb",
+    "included_or_mutated": false,
+    "native_graph_status": "GRAPH_COMPLETE_QUARANTINED"
+  },
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "physical_execution": false,
+    "sensory": false,
+    "mechanism": false,
+    "model_training": false,
+    "safety": false,
+    "publication": false,
+    "release": false
+  }
+}

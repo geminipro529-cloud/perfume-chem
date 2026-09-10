@@ -1,0 +1,499 @@
+{
+  "schema": "perfume-chem-ysl-blind-protocol-v1",
+  "protocol_id": "YSL20-BLIND-v1",
+  "status": "PROTOCOL_ONLY_NOT_EXECUTED",
+  "study_scope": "Twenty target-first formula hypotheses, two family controls, and two frozen Sol comparison baselines",
+  "claim_ceiling": "The protocol defines future observations. It contains no physical result and authorizes no claim of liking, similarity, stability, safety, measured headspace, or release.",
+  "engineering_benchmark": {
+    "benchmark_id": "YSL-XHIGH-PROGRAM-LIFT-v1",
+    "status": "PROTOCOL_ONLY_NOT_EXECUTED",
+    "purpose": "Separate program lift from model lift under matched formula-generation and validation conditions.",
+    "arms": [
+      {
+        "arm_id": "A_XHIGH_ALONE",
+        "required": true,
+        "model": "gpt-5.6-sol",
+        "reasoning_effort": "xhigh",
+        "program_condition": "No Perfume-Chem repair or optimization feedback before output lock"
+      },
+      {
+        "arm_id": "B_XHIGH_CURRENT_PROGRAM",
+        "required": true,
+        "model": "gpt-5.6-sol",
+        "reasoning_effort": "xhigh",
+        "program_condition": "Current frozen pipeline and inventory contracts"
+      },
+      {
+        "arm_id": "C_XHIGH_UPGRADED_PROGRAM",
+        "required": true,
+        "model": "gpt-5.6-sol",
+        "reasoning_effort": "xhigh",
+        "program_condition": "Staged static preflight, content-addressed cache, timing telemetry, and target-first controlled discovery"
+      },
+      {
+        "arm_id": "D_ULTRA_UPGRADED_PROGRAM_OPTIONAL",
+        "required": false,
+        "model": "gpt-5.6-sol",
+        "reasoning_effort": "ultra",
+        "program_condition": "Same upgraded program as arm C; optional model-lift comparison"
+      }
+    ],
+    "causal_contrasts": {
+      "program_lift": "C_XHIGH_UPGRADED_PROGRAM minus A_XHIGH_ALONE and B_XHIGH_CURRENT_PROGRAM",
+      "model_lift": "D_ULTRA_UPGRADED_PROGRAM_OPTIONAL minus C_XHIGH_UPGRADED_PROGRAM"
+    },
+    "causal_contrast_pairs": [
+      {
+        "contrast_id": "program_vs_alone",
+        "baseline_arm_id": "A_XHIGH_ALONE",
+        "candidate_arm_id": "C_XHIGH_UPGRADED_PROGRAM"
+      },
+      {
+        "contrast_id": "program_vs_current",
+        "baseline_arm_id": "B_XHIGH_CURRENT_PROGRAM",
+        "candidate_arm_id": "C_XHIGH_UPGRADED_PROGRAM"
+      },
+      {
+        "contrast_id": "model_lift_optional",
+        "baseline_arm_id": "C_XHIGH_UPGRADED_PROGRAM",
+        "candidate_arm_id": "D_ULTRA_UPGRADED_PROGRAM_OPTIONAL",
+        "optional": true
+      }
+    ],
+    "matched_controls": {
+      "same_inventory_bytes": true,
+      "same_stock_basis_and_lost_tincture_overlay": true,
+      "same_prompt_and_target_contract": true,
+      "same_concentrate_and_application_basis": true,
+      "same_temperature_and_pipeline_source_hash": true,
+      "same_time_budget": true,
+      "same_missing_chemical_policy": true,
+      "same_output_schema": true,
+      "same_seed_when_supported": true,
+      "no_external_feedback_before_output_lock": true
+    },
+    "pilot": {
+      "briefs": [
+        "ysl_lhomme",
+        "ysl_la_nuit_de_lhomme",
+        "unrelated_family_control"
+      ],
+      "independent_runs_per_brief_per_arm": 3,
+      "minimum_formula_generation_cells_per_required_arm": 9,
+      "expansion_rule": "Expand only after the engineering pilot is complete and frozen; do not select a showcase run post hoc."
+    },
+    "metrics": {
+      "engineering": [
+        "wall_clock_seconds",
+        "time_to_first_executable_formula_seconds",
+        "static_preflight_seconds",
+        "full_gate_seconds",
+        "cache_hit_rate",
+        "model_or_provider_cost",
+        "iteration_count",
+        "manual_intervention_count",
+        "unknown_or_unavailable_stock_count",
+        "stock_fraction_mismatch_count",
+        "sub_10_ul_violation_count",
+        "exact_subtotal_failure_count",
+        "family_drift_failure_count",
+        "stale_receipt_count"
+      ],
+      "discovery": [
+        "identity_retaining_target_linked_axes",
+        "nonredundant_missing_functions_identified",
+        "constant_total_one_axis_variant_rate",
+        "redundant_material_or_function_rate"
+      ],
+      "sensory": [
+        "family_identity_pass",
+        "protected_anchor_presence",
+        "named_axis_fit",
+        "opening_heart_drydown_transition",
+        "depth_richness_and_relationships",
+        "identity_retaining_paired_preference",
+        "no_preference_or_tie",
+        "defect_flags"
+      ]
+    },
+    "receipt_contract": {
+      "schema": "perfume-chem.matched-benchmark-receipts.v1",
+      "required_fields": [
+        "arm_id",
+        "brief_id",
+        "run_id",
+        "model",
+        "reasoning_effort",
+        "formula_path",
+        "formula_sha256",
+        "prompt_contract_sha256",
+        "inventory_sha256",
+        "stock_basis_sha256",
+        "evaluation_pipeline_sha256",
+        "concentrate_ul",
+        "temperature_K",
+        "time_budget_seconds",
+        "output_schema",
+        "metrics"
+      ],
+      "matched_fields": [
+        "prompt_contract_sha256",
+        "inventory_sha256",
+        "stock_basis_sha256",
+        "evaluation_pipeline_sha256",
+        "concentrate_ul",
+        "temperature_K",
+        "time_budget_seconds",
+        "output_schema"
+      ],
+      "positive_fields": [
+        "concentrate_ul",
+        "temperature_K",
+        "time_budget_seconds"
+      ],
+      "metric_directions": {
+        "wall_clock_seconds": "lower",
+        "time_to_first_executable_formula_seconds": "lower",
+        "static_preflight_seconds": "lower",
+        "full_gate_seconds": "lower",
+        "cache_hit_rate": "higher",
+        "model_or_provider_cost": "lower",
+        "iteration_count": "lower",
+        "manual_intervention_count": "lower",
+        "unknown_or_unavailable_stock_count": "lower",
+        "stock_fraction_mismatch_count": "lower",
+        "sub_10_ul_violation_count": "lower",
+        "exact_subtotal_failure_count": "lower",
+        "family_drift_failure_count": "lower",
+        "stale_receipt_count": "lower",
+        "identity_retaining_target_linked_axes": "higher",
+        "nonredundant_missing_functions_identified": "higher",
+        "constant_total_one_axis_variant_rate": "higher",
+        "redundant_material_or_function_rate": "lower"
+      },
+      "metric_units": {
+        "wall_clock_seconds": "seconds",
+        "time_to_first_executable_formula_seconds": "seconds",
+        "static_preflight_seconds": "seconds",
+        "full_gate_seconds": "seconds",
+        "cache_hit_rate": "fraction_0_1",
+        "model_or_provider_cost": "usd",
+        "iteration_count": "count",
+        "manual_intervention_count": "count",
+        "unknown_or_unavailable_stock_count": "count",
+        "stock_fraction_mismatch_count": "count",
+        "sub_10_ul_violation_count": "count",
+        "exact_subtotal_failure_count": "count",
+        "family_drift_failure_count": "count",
+        "stale_receipt_count": "count",
+        "identity_retaining_target_linked_axes": "count",
+        "nonredundant_missing_functions_identified": "count",
+        "constant_total_one_axis_variant_rate": "fraction_0_1",
+        "redundant_material_or_function_rate": "fraction_0_1"
+      },
+      "duplicate_cell_rule": "Reject duplicate arm_id, brief_id, and run_id cells; never average or select one post hoc.",
+      "artifact_rule": "Every formula_path must exist at evaluation time and its bytes must match formula_sha256.",
+      "missing_cell_rule": "Report every missing required cell and do not impute it."
+    },
+    "decision_rules": {
+      "faster": "Lower paired median time to first executable formula and lower total cost without a lower identity-pass rate.",
+      "better_discovery": "More nonredundant target-linked axes while preserving family identity; ingredient count is not rewarded.",
+      "more_effective": "Higher blinded identity-retaining paired preference with ties retained and assessor-level observations preserved.",
+      "historical_baseline": "Frozen Sol formulas are diagnostic context only; they do not replace fresh matched XHIGH cells."
+    },
+    "claim_ceiling": "Engineering measurements can compare speed, validity, and cost. Only future controlled blinded observations can compare identity-retaining preference or liking."
+  },
+  "realism_learning": {
+    "status": "PROTOCOL_ONLY_NOT_EXECUTED",
+    "purpose": "Convert physical accord-realism observations into reviewable, target-linked learning candidates without treating ingredient presence, modeled scores, or one formula as proof of realism.",
+    "minimum_distinct_formulas_for_rule_review": 2,
+    "minimum_independent_batches_for_rule_review": 2,
+    "identity_retention_required": true,
+    "blinding_required_for_rule_review": true,
+    "automatic_optimizer_mutation": false,
+    "single_formula_generalization": "FORBIDDEN",
+    "trial_contract": {
+      "minimum_direct_stock_ul": 10.0,
+      "minimum_character_oav": 1.0,
+      "accepted_oav_authorities": [
+        "MEASURED",
+        "GOVERNED_MODELED",
+        "GOVERNED_COMPOSITE_MODELED"
+      ],
+      "required_trial_fields": [
+        "trial_id",
+        "formula_id",
+        "accord_id",
+        "facet_id",
+        "control_arm_id",
+        "candidate_arm_id",
+        "baseline_total_ul",
+        "candidate_total_ul",
+        "changed_variables",
+        "carrier_matrix_matched",
+        "identity_measure_planned",
+        "intervention"
+      ],
+      "required_intervention_fields": [
+        "material",
+        "stock_dilution_fraction",
+        "direct_stock_ul",
+        "stock_basis_verified",
+        "role_requires_perceptibility",
+        "predicted_oav",
+        "oav_authority"
+      ],
+      "admission_rule": "A primary realism trial must be constant-total, change exactly one named variable, retain the carrier matrix, plan an identity measure, use a verified stock at or above the 10 uL direct-dose floor, and use a governed OAV model when the intervention must be perceptible.",
+      "partial_data_rule": "Sensitivity proxies and missing exact-label physics remain HOLD and may not be presented as strict OAV.",
+      "dormant_intervention_rule": "A character-critical intervention with predicted OAV below 1 is rejected as non-informative before compounding; a null result from such an arm cannot test the named hypothesis."
+    },
+    "generic_facets": [
+      "subject_recognition",
+      "material_or_tissue_realism",
+      "internal_facet_relationships",
+      "accord_to_chassis_integration",
+      "opening_heart_drydown_transition",
+      "synthetic_or_schematic_defects"
+    ],
+    "apple_pie_facets": [
+      "fresh_apple_flesh_and_peel",
+      "cooked_apple_filling",
+      "browned_pastry_crust",
+      "butter_or_fat_impression",
+      "spice_integration",
+      "layer_transition"
+    ],
+    "promotion_rule": "A repeated blinded physical defect may become a human-reviewed rule candidate only when it appears in at least two distinct identity-retaining formulas and two independent batches. Promotion never edits formulas or optimizer weights automatically.",
+    "claim_ceiling": "One user's Apple Pie observation supports a formula-specific realism revision only. Untested files remain design-risk hypotheses, not failed perfumes."
+  },
+  "mandatory_arms": [
+    "LH-04",
+    "LN-01",
+    "LN-05"
+  ],
+  "conditional_rescreen_priorities": [
+    "LH-05",
+    "LN-02"
+  ],
+  "prerequisites": {
+    "inventory_and_stock_basis": "Every dosed row must resolve to one current stock with an exact fraction basis and carrier; EB requires label or receipt verification; all lost tinctures remain excluded.",
+    "data_coverage": "Character naturals require composite decomposition and every active row requires governed MW, VP, ODT, and activity-coefficient authority.",
+    "safety": "NOT CLEARED; no skin application before formula-specific safety review and applicable IFRA/allergen assessment.",
+    "stability": "NOT TESTED; complete carrier compatibility, solubility, and short stability screening before sensory evaluation.",
+    "release_gate": "All shared HOLD conditions must be repaired and rerun from a stable runtime snapshot before any arm may be called eligible.",
+    "compounding_authority": false
+  },
+  "blinding": {
+    "codes": "RANDOM_NONSEMANTIC",
+    "code_format": "Three independently generated alphanumeric characters excluding candidate numbers, names, family initials, and obvious sequences",
+    "assignment_timing": "Assign only after sample preparation and container randomization",
+    "key_storage": "SEPARATE_FROM_ASSESSORS",
+    "key_keeper": "A person or sealed file not available to assessors until every expected cell is locked",
+    "decode_rule": "Decode once per phase after missing cells, exclusions, and protocol deviations are frozen"
+  },
+  "sample_control": {
+    "equal_odorant_active_mass_concentration": true,
+    "equal_applied_mass": true,
+    "equal_application_method": true,
+    "carrier_matched": true
+  },
+  "sample_preparation": {
+    "basis": "w/w after exact stock fractions, densities where required, and carrier contributions are verified",
+    "comparison_concentration": "One predeclared odorant-active mass fraction shared by every coded sample in a block; the 20% Sol L'Homme source is rebased for the matched comparison rather than compared at unmatched strength.",
+    "application": "Use calibrated applied mass on identical coded blotters. Skin testing is a separate later protocol and remains blocked until safety clearance.",
+    "maturation": "Same sealed maturation time, temperature, headspace, container type, fill mass, and handling for all arms in one phase",
+    "replicate_definition": "A true replicate is independently weighed and prepared, not a second blotter from the same vial.",
+    "solvent_blank": "Include a coded carrier blank in training and contamination checks, but do not score it as a perfume arm."
+  },
+  "order_control": {
+    "balanced_order": true,
+    "method": "Williams-balanced order when complete blocks are feasible; otherwise randomize within assessor and balance first-position counts before decoding",
+    "family_blocking": "Do not mix L'Homme and La Nuit arms in one adaptation block",
+    "carryover_control": "Use fresh blotters and isolated holders; record contamination and order deviations before decoding"
+  },
+  "adaptation_control": {
+    "maximum_perfume_arms_per_block": 4,
+    "minimum_unscented_break_minutes_between_blocks": 20,
+    "same_arm_retest": "Use a different session or day for advancing-arm replicates",
+    "prohibited": [
+      "forcing a decision during anosmia or fatigue",
+      "revealing formula names before decoding",
+      "using coffee as evidence that olfactory sensitivity is restored"
+    ]
+  },
+  "time_cells": [
+    "0_min",
+    "5_min",
+    "30_min",
+    "2_hr",
+    "4_hr"
+  ],
+  "replication": {
+    "minimum_true_replicates_for_advancement": 2,
+    "independent_batch_preparation": true,
+    "repeat_sessions": "Separate sessions or days with newly randomized codes and balanced order",
+    "single_assessor_scope": "Repeated personal-preference evidence only; never a population preference claim",
+    "group_claim_minimum": "No group claim is authorized by this protocol; sample-size and analysis plans require separate approval before recruitment."
+  },
+  "scorecard": {
+    "identity_first": [
+      "family_recognition before name reveal",
+      "protected-anchor presence",
+      "family drift or genre change"
+    ],
+    "target_linked_complexity": [
+      "depth and richness",
+      "relationships among named axes and protected chassis",
+      "opening-to-heart and heart-to-drydown transitions",
+      "coherence without counting ingredients"
+    ],
+    "hedonic": [
+      "personal liking on a declared ordinal scale",
+      "paired preference: left, right, or no preference",
+      "desire to continue smelling"
+    ],
+    "defect_flags": [
+      "harsh",
+      "muddy",
+      "thin",
+      "generic fresh",
+      "laundry musk",
+      "dessert drift",
+      "curry or maple drift",
+      "savory caraway",
+      "cardamom loss",
+      "cedar-vetiver loss"
+    ],
+    "rule": "Identity and named-axis fit are evaluated before hedonic preference. A high liking score cannot rescue loss of the perfume's name."
+  },
+  "phases": {
+    "phase_0_readiness": {
+      "status": "BLOCKED_PENDING_AUTHORITY_REPAIR",
+      "required_receipts": [
+        "current inventory and stock-basis ledger",
+        "formula-specific safety review",
+        "stability and phase-compatibility screen",
+        "current bound pipeline outputs with required composite-natural coverage"
+      ],
+      "stop_rule": "Any unresolved prerequisite keeps the affected physical arm on HOLD."
+    },
+    "phase_1_family_controlled_screen": {
+      "status": "LOCKED_NOT_EXECUTED",
+      "purpose": "Compare each child with its immediate documentary family control while varying one named axis.",
+      "pairs": [
+        {"control": "LH-01", "variant": "LH-02"},
+        {"control": "LH-01", "variant": "LH-03"},
+        {"control": "LH-01", "variant": "LH-04"},
+        {"control": "LH-01", "variant": "LH-05"},
+        {"control": "LH-01", "variant": "LH-06"},
+        {"control": "LH-01", "variant": "LH-07"},
+        {"control": "LH-01", "variant": "LH-08"},
+        {"control": "LH-01", "variant": "LH-09"},
+        {"control": "LH-01", "variant": "LH-10"},
+        {"control": "LN-01", "variant": "LN-02"},
+        {"control": "LN-01", "variant": "LN-03"},
+        {"control": "LN-01", "variant": "LN-04"},
+        {"control": "LN-01", "variant": "LN-05"},
+        {"control": "LN-01", "variant": "LN-06"},
+        {"control": "LN-01", "variant": "LN-07"},
+        {"control": "LN-01", "variant": "LN-08"},
+        {"control": "LN-01", "variant": "LN-09"},
+        {"control": "LN-01", "variant": "LN-10"}
+      ],
+      "advancement_record": "Preserve assessor-level values, paired choices, no-preference responses, defect flags, order, session, replicate batch, and every missing cell."
+    },
+    "phase_2_family_comparison": {
+      "status": "LOCKED_PENDING_PHASE_1_AND_AUTHORITY_REPAIR",
+      "purpose": "Compare the family control, top two eligible variants selected after decoding Phase 1, and the frozen Sol baseline at matched active concentration.",
+      "lhomme_arms": [
+        "LH-01",
+        "TOP_TWO_ELIGIBLE_LH_VARIANTS_POST_PHASE_1",
+        "SOL-LH-FROZEN"
+      ],
+      "la_nuit_arms": [
+        "LN-01",
+        "TOP_TWO_ELIGIBLE_LN_VARIANTS_POST_PHASE_1",
+        "SOL-LN-FROZEN"
+      ],
+      "selection_lock": "No current arm is predeclared a sensory finalist. LH-04, LN-01, and LN-05 remain mandatory inclusions in the appropriate family evidence package regardless of screening rank."
+    }
+  },
+  "decision_rules": {
+    "identity_gate": "An arm cannot advance on liking alone if repeated blinded observations show protected-family loss or the named drift failure.",
+    "hedonic_rule": "Among identity-retaining arms, preserve assessor-level paired preference and no-preference responses; do not turn a numerical mean into a universal liking claim.",
+    "ties": "RETAIN_AS_TIE_OR_INCONCLUSIVE",
+    "missing_cells": "DO_NOT_IMPUTE",
+    "protocol_deviation": "Record before decoding; affected comparisons remain HOLD unless a predeclared valid repeat replaces the cell.",
+    "negative_result": "Retain the failed or nonpreferred arm and its receipt; do not silently optimize after decoding.",
+    "advancement_authority": "A future evidence-bound decision only; this protocol itself advances nothing."
+  },
+  "missing_chemical_microtrial_templates": [
+    {
+      "template_id": "MC-EXACT-IDENTITY-v1",
+      "scope": "Exact cedrat, white pepper, violet leaf, Haitian vetiver, target sandalwood, Vertofix Coeur, Ambroxide, or other target-identity material",
+      "arm_types": ["CONTROL", "ADDITION", "OMISSION", "RATIO"],
+      "constant_total": true,
+      "carrier_matched": true,
+      "minimum_true_replicates": 2,
+      "expected_cells_locked_before_observation": true,
+      "design": "Fund addition and ratio arms by a predeclared function-adjacent donor; return equivalent carrier and mass in control and omission arms; change no second target axis.",
+      "tie_or_missing_result": "INCONCLUSIVE",
+      "execution_authorized": false
+    },
+    {
+      "template_id": "MC-TEXTURE-SPECIALIST-v1",
+      "scope": "Exaltolide, Hedione HC, or another exact texture specialist after stock basis and nonredundancy are established",
+      "arm_types": ["CONTROL", "ADDITION", "OMISSION", "RATIO"],
+      "constant_total": true,
+      "carrier_matched": true,
+      "minimum_true_replicates": 2,
+      "expected_cells_locked_before_observation": true,
+      "design": "Hold total musk or radiance function mass constant across arms; compare the specialist with the current single-function substitute and an omission without adding a second uncontrolled musk chord.",
+      "tie_or_missing_result": "HOLD",
+      "execution_authorized": false
+    },
+    {
+      "template_id": "MC-IMMORTELLE-MODULE-v1",
+      "scope": "LN-05 verified Immortelle Absolute, Helichrysum, Hay, and Maple module",
+      "arm_types": ["CONTROL", "ADDITION", "OMISSION", "RATIO"],
+      "constant_total": true,
+      "carrier_matched": true,
+      "minimum_true_replicates": 2,
+      "expected_cells_locked_before_observation": true,
+      "design": "Compare the verified module with a full carrier-matched omission and a predeclared low/high ratio while holding the protected cardamom-lavender-cedar chassis constant; score curry, maple, gourmand, tobacco, and balsamic drift explicitly.",
+      "tie_or_missing_result": "INCONCLUSIVE",
+      "execution_authorized": false
+    }
+  ],
+  "observation_record": {
+    "required_fields": [
+      "protocol_id",
+      "phase",
+      "anonymous_code",
+      "assessor_id",
+      "session_id",
+      "replicate_batch_id",
+      "order_position",
+      "time_cell",
+      "identity_response",
+      "protected_anchor_responses",
+      "named_axis_fit",
+      "transition_notes",
+      "depth_richness_relationship_notes",
+      "liking_ordinal",
+      "paired_preference_or_no_preference",
+      "defect_flags",
+      "missing_reason",
+      "protocol_deviation"
+    ],
+    "immutable_after_decode": true
+  },
+  "authority": {
+    "protocol_execution": false,
+    "physical_liking": false,
+    "sensory_similarity": false,
+    "stability": false,
+    "safety": false,
+    "release": false
+  }
+}

@@ -1,0 +1,13 @@
+import engine.mixer.prebonding as prebonding
+
+
+def test_numeric_legacy_stock_forms_are_normalized_before_crystallinity_checks(
+    monkeypatch,
+):
+    def numeric_stock_record(material_name: str) -> dict:
+        assert material_name == "Red Mandarin EO"
+        return {"name": "Red Mandarin EO", "stock_form": 1.0}
+
+    monkeypatch.setattr(prebonding, "_lookup_material", numeric_stock_record)
+
+    assert prebonding.is_crystalline("Red Mandarin EO") is False

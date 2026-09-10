@@ -1,0 +1,257 @@
+"""Lossless execution of physics, biology, hedonic and experiment specialists.
+
+Inputs are supplied evidence records, not authenticated observations. Exact
+scope and output reproduction do not establish source truth or runtime admission.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Any, Mapping
+
+from .biological_sensitivity import (
+    BiologicalSensitivityArchitecture,
+    BiologicalSensitivityPlaneAdapter,
+)
+from .contracts import AssessmentScope, _CanonicalRecord, _normalized_identifier, _payload
+from .experiment_selector import (
+    ExperimentProtocol,
+    ProtocolBindings,
+    ProtocolQuestion,
+    protocol_to_plane_assessment,
+    select_experiment,
+)
+from .floral_whole_perfume import FloralWholePerfumeAssembly
+from .hedonic_platform import HedonicEvidencePlatform, HedonicPlatformPlaneAdapter
+from .perceptual_source_execution import PerceptualWholePerfume, _canonical_sources
+from .physicochemical_plane import PhysicochemicalPacket, PhysicochemicalPlaneAdapter
+from .plane_synthesis import PlaneSynthesisResult, synthesize_plane_assessments
+from .source_bound_assembly import SourceBoundWholePerfume
+from .source_bound_floral import SourceBoundFloralWholePerfume
+from .whole_perfume_assembler import assemble_integrated_whole_perfume_blueprint
+
+
+@dataclass(frozen=True, slots=True)
+class EvidenceSpecialistSources(_CanonicalRecord):
+    """Native inputs and external scopes; no observation or execution authority."""
+
+    SCHEMA_VERSION = "evidence_specialist_sources_v1"
+
+    target_id: str
+    physicochemical: tuple[PhysicochemicalPacket, ...]
+    biological: tuple[BiologicalSensitivityArchitecture, ...]
+    hedonic: HedonicEvidencePlatform
+    hedonic_scope: AssessmentScope
+    question: ProtocolQuestion
+    bindings: ProtocolBindings
+    experiment_scope: AssessmentScope
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "target_id", _normalized_identifier(self.target_id, "target_id"))
+        object.__setattr__(
+            self,
+            "physicochemical",
+            _canonical_sources(self.physicochemical, PhysicochemicalPacket, "packet_id"),
+        )
+        object.__setattr__(
+            self,
+            "biological",
+            _canonical_sources(self.biological, BiologicalSensitivityArchitecture, "assessment_id"),
+        )
+        for name, record_type in (
+            ("hedonic", HedonicEvidencePlatform),
+            ("hedonic_scope", AssessmentScope),
+            ("question", ProtocolQuestion),
+            ("bindings", ProtocolBindings),
+            ("experiment_scope", AssessmentScope),
+        ):
+            if not isinstance(getattr(self, name), record_type):
+                raise TypeError(f"{name} must be {record_type.__name__}")
+        targets = {
+            *(item.scope.target_scope for item in self.physicochemical),
+            *(item.scope.target_scope for item in self.biological),
+            self.hedonic_scope.target_scope,
+            self.experiment_scope.target_scope,
+            self.question.semantic_target_id,
+        }
+        if targets != {self.target_id}:
+            raise ValueError("all specialist sources must bind the exact target")
+
+    def as_dict(self) -> dict[str, Any]:
+        # Physics uses its own native _Record base; generic dataclass conversion
+        # would silently omit its nested schema discriminators.
+        return {
+            "schema_version": self.SCHEMA_VERSION,
+            "target_id": self.target_id,
+            "physicochemical": [item.as_dict() for item in self.physicochemical],
+            "biological": [item.as_dict() for item in self.biological],
+            "hedonic": self.hedonic.as_dict(),
+            "hedonic_scope": self.hedonic_scope.as_dict(),
+            "question": self.question.as_dict(),
+            "bindings": self.bindings.as_dict(),
+            "experiment_scope": self.experiment_scope.as_dict(),
+        }
+
+    @classmethod
+    def from_dict(cls, payload: Mapping[str, Any]) -> EvidenceSpecialistSources:
+        data = _payload(payload, cls.SCHEMA_VERSION)
+        if not isinstance(data["physicochemical"], list) or not isinstance(
+            data["biological"], list
+        ):
+            raise TypeError("native specialist collections must be JSON arrays")
+        return cls(
+            data["target_id"],
+            tuple(PhysicochemicalPacket.from_dict(item) for item in data["physicochemical"]),
+            tuple(BiologicalSensitivityArchitecture.from_dict(item) for item in data["biological"]),
+            HedonicEvidencePlatform.from_dict(data["hedonic"]),
+            AssessmentScope.from_dict(data["hedonic_scope"]),
+            ProtocolQuestion.from_dict(data["question"]),
+            ProtocolBindings.from_dict(data["bindings"]),
+            AssessmentScope.from_dict(data["experiment_scope"]),
+        )
+
+    def derive(self) -> tuple[ExperimentProtocol, PlaneSynthesisResult]:
+        """Actual native calls; missing experiment preparation facts remain holds."""
+        protocol = select_experiment(self.question, self.bindings)
+        assessments = [
+            *(
+                PhysicochemicalPlaneAdapter(item).to_plane_assessment()
+                for item in self.physicochemical
+            ),
+            *(
+                BiologicalSensitivityPlaneAdapter(item).to_plane_assessment()
+                for item in self.biological
+            ),
+            HedonicPlatformPlaneAdapter(self.hedonic, self.hedonic_scope).to_plane_assessment(),
+            protocol_to_plane_assessment(protocol, self.experiment_scope),
+        ]
+        return protocol, synthesize_plane_assessments(assessments)
+
+
+@dataclass(frozen=True, slots=True)
+class EvidenceSpecialistExecution(_CanonicalRecord):
+    """Derived protocol and synthesis checked against complete native inputs."""
+
+    SCHEMA_VERSION = "evidence_specialist_execution_v1"
+
+    sources: EvidenceSpecialistSources
+    protocol: ExperimentProtocol
+    synthesis: PlaneSynthesisResult
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.sources, EvidenceSpecialistSources):
+            raise TypeError("sources must be EvidenceSpecialistSources")
+        if not isinstance(self.protocol, ExperimentProtocol):
+            raise TypeError("protocol must be ExperimentProtocol")
+        if not isinstance(self.synthesis, PlaneSynthesisResult):
+            raise TypeError("synthesis must be PlaneSynthesisResult")
+        if (self.protocol, self.synthesis) != self.sources.derive():
+            raise ValueError("execution must reproduce exact native source outputs")
+
+    @classmethod
+    def from_dict(cls, payload: Mapping[str, Any]) -> EvidenceSpecialistExecution:
+        data = _payload(payload, cls.SCHEMA_VERSION)
+        return cls(
+            EvidenceSpecialistSources.from_dict(data["sources"]),
+            ExperimentProtocol.from_dict(data["protocol"]),
+            PlaneSynthesisResult.from_dict(data["synthesis"]),
+        )
+
+
+def execute_evidence_specialists(sources: EvidenceSpecialistSources) -> EvidenceSpecialistExecution:
+    if not isinstance(sources, EvidenceSpecialistSources):
+        raise TypeError("sources must be EvidenceSpecialistSources")
+    protocol, synthesis = sources.derive()
+    return EvidenceSpecialistExecution(sources, protocol, synthesis)
+
+
+@dataclass(frozen=True, slots=True)
+class EvidenceWholePerfume(_CanonicalRecord):
+    """Combined native execution, still unadmitted and source-truth unverified."""
+
+    SCHEMA_VERSION = "evidence_whole_perfume_v1"
+
+    perceptual: PerceptualWholePerfume
+    evidence: EvidenceSpecialistExecution
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.perceptual, PerceptualWholePerfume):
+            raise TypeError("perceptual must be PerceptualWholePerfume")
+        if not isinstance(self.evidence, EvidenceSpecialistExecution):
+            raise TypeError("evidence must be EvidenceSpecialistExecution")
+        whole = self.perceptual.joint.floral.blueprint
+        if self.evidence.sources.target_id != whole.ideal_proposal.ideal_target_id:
+            raise ValueError("evidence must bind the exact ideal target")
+        planes = {plane.plane_id: plane for plane in whole.planes}
+        for assessment in self.evidence.synthesis.assessments:
+            plane = planes[assessment.plane_id]
+            if (
+                assessment not in plane.assessments
+                or self.evidence.synthesis not in plane.syntheses
+            ):
+                raise ValueError("whole result must retain the exact evidence synthesis")
+
+    @classmethod
+    def from_dict(cls, payload: Mapping[str, Any]) -> EvidenceWholePerfume:
+        data = _payload(payload, cls.SCHEMA_VERSION)
+        return cls(
+            PerceptualWholePerfume.from_dict(data["perceptual"]),
+            EvidenceSpecialistExecution.from_dict(data["evidence"]),
+        )
+
+
+def assemble_evidence_whole_perfume(
+    base: PerceptualWholePerfume,
+    sources: EvidenceSpecialistSources,
+    *,
+    version: int,
+) -> EvidenceWholePerfume:
+    """Version a whole result with four additional native specialist calls.
+
+    Keeps all prior assessments/syntheses, including scoped conflicts. The
+    predecessor is the earlier integrated blueprint, not a rewritten target.
+    Protocol source references and observation provenance still require external
+    authentication before admission; this function does not grant that authority.
+    """
+    if not isinstance(base, PerceptualWholePerfume):
+        raise TypeError("base must be PerceptualWholePerfume")
+    if not isinstance(sources, EvidenceSpecialistSources):
+        raise TypeError("sources must be EvidenceSpecialistSources")
+    prior = base.joint.bound.integrated
+    whole = prior.whole_blueprint
+    if sources.target_id != whole.ideal_proposal.ideal_target_id:
+        raise ValueError("evidence must bind the exact ideal target")
+    if isinstance(version, bool) or not isinstance(version, int) or version <= prior.version:
+        raise ValueError("successor version must advance the prior integrated version")
+    evidence = execute_evidence_specialists(sources)
+    syntheses = {s.content_sha256: s for plane in whole.planes for s in plane.syntheses}
+    syntheses[evidence.synthesis.content_sha256] = evidence.synthesis
+    integrated = assemble_integrated_whole_perfume_blueprint(
+        whole.ideal_proposal,
+        whole.inventory_projection,
+        base.joint.bound.source.assembly,
+        syntheses=tuple(syntheses[key] for key in sorted(syntheses)),
+        version=version,
+        predecessor_sha256=prior.content_sha256,
+    )
+    result = PerceptualWholePerfume(
+        SourceBoundFloralWholePerfume(
+            SourceBoundWholePerfume(
+                base.joint.bound.source,
+                integrated,
+                base.joint.bound.selected_alternative_id,
+            ),
+            FloralWholePerfumeAssembly(base.joint.floral.floral_source, integrated.whole_blueprint),
+        ),
+        base.sources,
+    )
+    return EvidenceWholePerfume(result, evidence)
+
+
+__all__ = [
+    "EvidenceSpecialistSources",
+    "EvidenceSpecialistExecution",
+    "execute_evidence_specialists",
+    "EvidenceWholePerfume",
+    "assemble_evidence_whole_perfume",
+]

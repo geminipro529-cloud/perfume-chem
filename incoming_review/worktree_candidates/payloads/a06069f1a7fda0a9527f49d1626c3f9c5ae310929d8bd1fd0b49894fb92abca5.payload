@@ -1,0 +1,121 @@
+from dataclasses import replace
+
+import pytest
+
+from engine.formulation_intelligence.candidate_assembler import (
+    AssemblyLayer,
+    CandidateDecisionPacket,
+    CandidateDisposition,
+)
+from engine.formulation_intelligence.candidate_selector import InventoryState, select_candidates
+from engine.formulation_intelligence.contracts import (
+    AssessmentScope,
+    AuthorityCeiling,
+    EvidenceClass,
+    PlaneId,
+    ProvenanceRef,
+)
+from engine.formulation_intelligence.selection_binding import SelectionDecisionBinding
+from tests.test_formulation_intelligence_candidate_selector import _candidate, _requirement
+
+
+def _inputs(*, owned=True, layer=AssemblyLayer.TARGET_IDEAL):
+    requirement = _requirement()
+    declarations = (
+        _candidate(
+            "candidate:iris",
+            recognizers=("rooty iris",),
+            inventory_state=InventoryState.OWNED if owned else InventoryState.NOT_OWNED,
+            execution_ready=owned,
+        ),
+    )
+    report = select_candidates(requirement, declarations)
+    decision = CandidateDecisionPacket(
+        decision_id="decision:iris",
+        alternative_id="alternative:iris",
+        target_ideal_id=requirement.target_id,
+        current_inventory_build_id=None if layer is AssemblyLayer.TARGET_IDEAL else "build:iris",
+        layer=layer,
+        plane_id=PlaneId.FUNCTION,
+        scope=AssessmentScope(
+            requirement.target_id,
+            "declared-temporal-role-scope",
+            "ideal-and-current-inventory-views",
+        ),
+        candidate_id="candidate:iris",
+        disposition=CandidateDisposition.SELECT,
+        target_linked_function="iris recognizer",
+        omission_loss="iris recognizer absent",
+        failure_mode="target identity loss",
+        provenance_refs=(
+            ProvenanceRef(
+                "test:decision",
+                "test://synthetic-design",
+                EvidenceClass.USER_REPORT,
+                "test:decision",
+                "a" * 64,
+            ),
+        ),
+        freshness_hashes=(requirement.content_sha256, report.content_sha256),
+        authority_ceiling=AuthorityCeiling.HYPOTHESIS_ONLY,
+    )
+    return requirement, declarations, report, decision
+
+
+def test_binding_round_trip_retains_exact_inputs_and_actual_report():
+    values = _inputs()
+    bound = SelectionDecisionBinding(*values)
+    restored = SelectionDecisionBinding.from_dict(bound.as_dict())
+    assert restored == bound
+    assert restored.content_sha256 == bound.content_sha256
+    assert not bound.report.execution_authorized
+    assert bound.report == select_candidates(bound.requirement, bound.declarations)
+
+
+def test_unavailable_stock_does_not_rewrite_ideal_but_blocks_build_select():
+    SelectionDecisionBinding(*_inputs(owned=False))
+    values = _inputs(owned=False, layer=AssemblyLayer.CURRENT_INVENTORY_BUILD)
+    with pytest.raises(ValueError, match="frontier"):
+        SelectionDecisionBinding(*values)
+    held = replace(values[-1], disposition=CandidateDisposition.HOLD)
+    assert SelectionDecisionBinding(*values[:-1], held).decision == held
+
+
+@pytest.mark.parametrize("change", ["target", "candidate", "authority", "freshness"])
+def test_decision_cannot_forge_source_binding(change):
+    requirement, declarations, report, decision = _inputs()
+    if change == "target":
+        decision = replace(
+            decision, target_ideal_id="other", scope=replace(decision.scope, target_scope="other")
+        )
+    elif change == "candidate":
+        decision = replace(decision, candidate_id="unknown")
+    elif change == "authority":
+        declarations = (
+            replace(declarations[0], authority_ceiling=AuthorityCeiling.HYPOTHESIS_ONLY),
+        )
+        report = select_candidates(requirement, declarations)
+        decision = replace(
+            decision,
+            authority_ceiling=AuthorityCeiling.DESIGN_ONLY,
+            freshness_hashes=(requirement.content_sha256, report.content_sha256),
+        )
+    else:
+        decision = replace(decision, freshness_hashes=("b" * 64,))
+    with pytest.raises(ValueError):
+        SelectionDecisionBinding(requirement, declarations, report, decision)
+
+
+def test_changed_declarations_cannot_reuse_old_report():
+    requirement, declarations, report, decision = _inputs()
+    changed = (replace(declarations[0], execution_ready=False),)
+    with pytest.raises(ValueError, match="exact selection inputs"):
+        SelectionDecisionBinding(requirement, changed, report, decision)
+
+
+@pytest.mark.parametrize("field", ["temporal_scope", "matrix_scope"])
+def test_selection_decision_cannot_reassign_adapter_scope(field):
+    requirement, declarations, report, decision = _inputs()
+    decision = replace(decision, scope=replace(decision.scope, **{field: "different"}))
+    with pytest.raises(ValueError, match="exact selection adapter scope"):
+        SelectionDecisionBinding(requirement, declarations, report, decision)

@@ -1,0 +1,653 @@
+# Pepper Current Parfum V1.1 — Black Pepper First / Pink-Facet EO Halo — 30 mL / 22% Parfum Theory Formula
+
+**Status:** THEORY ONLY / NOT TESTED / NO COMPOUNDING AUTHORIZED  
+**Formula ID:** PCP-V1.1-BP-PH-20260829  
+**Exact predecessor:** `PEPPER_CURRENT_PARFUM_V1_PINK_PEPPER_SPORT_30mL_22pct_THEORY.md`  
+**Design class:** versioned DHP-architectured successor; Black-Pepper-led athletic aromatic woody parfum  
+**Family archetype:** `aromatic_fougere`  
+**Concentrate target:** 6,600 uL raw concentrate  
+**Finished-volume context:** 30 mL at 22% raw concentrate only if separately authorized later  
+**Musk policy:** one musk only — Romandolide, assigned solely to outward woody-fabric diffusion  
+**Lead policy:** owned neat Black Pepper EO is the literal subject; Pink Pepper EO stock and synthetic Rose Oxide are absent  
+**Physical claim ceiling:** identity leadership, pink-facet illusion, sport character, luxury, depth, completion, hedonism, liking, diffusion, longevity, safety, stability, and release readiness are **NOT TESTED** or **HOLD**
+
+## Batch Evidence Ledger
+
+| Authority | Fresh read / verification | Provenance |
+|---|---|---|
+| `AGENTS.md` | 2026-08-29 | SHA-256 `88CB7B4C3C0727F63ED679A591676869710894AA824B765F596445BFDEEB7CA1` |
+| `inventory.txt` | 2026-08-29 | SHA-256 `7AB994C88522001137527771CE4AF9C24E66C2890AA5371A232366B5011C9CB9` |
+| `.github/copilot-instructions.md` | 2026-08-29 | SHA-256 `2BF76476D98ED67938F00914009A24FE898EF82B692CBF2E1D6578F9B0418CC2` |
+| `docs/fragrance_families_reference.md` | 2026-08-29 | aromatic fougere, aromatic, citrus, aquatic, clean-woods, and woody-amber sections; SHA-256 `7C9968795E3A1662295D16C9DE73DAE6386C1EB8C06D05B5335AC546574350EF` |
+| authoritative DHP2025 protocol | 2026-08-29 | read-only source `C:\Users\ASUS\.codex\worktrees\edd7\perfume-chem\docs\research\DHP2025_STRUCTURAL_FORMULATION_LEARNING_PROTOCOL.md`; SHA-256 `50D108570DEA367A0D377DE1DC41BBF17E8911B522D67D8D2A7AA237085EDEB1` |
+| studio `METHOD.md` SFSM-1.3 | 2026-08-29 | SHA-256 `1F8E4BE598E08B92B16A252A309CA9706DC75ACBB899567BB817B3D149C0EA1A` |
+| exact predecessor | 2026-08-29 | SHA-256 `7199D3614E710C8987A1759019BBFDB4FD9F9CDBE8BF38E19D6B9E908EAE20AD` |
+| predecessor validation plan | 2026-08-29 | SHA-256 `4272D477AC804C6936C63E11E0E2164DF8957866659FF12332DBAC7E3552118B` |
+| exact-project DeepLuna Chat check | 2026-08-29 | `BLOCKED`; `budget-unsafe`; provider calls disabled; one unknown reservation; no payload transmitted and no fallback used |
+
+**User-directed successor condition:** “Use Black pepper EO first and surround it with pink pepper facets from other EOs.” This explicitly changes the literal subject from the predecessor's Pink Pepper stock to Black Pepper EO and authorizes a versioned successor, not a silent rewrite. It is a design instruction, not a sensory result.
+
+No purchase, stock preparation, compounding, skin application, provider transmission, commit, merge, or release action occurred in this batch.
+
+## Research Basis and Non-Equivalence Boundary
+
+The EO halo is based on overlapping volatile families, not an equivalence claim:
+
+- A primary GC-MS study of *Piper nigrum* fruit oils reports variable monoterpene/sesquiterpene compositions whose recurrent major constituents include alpha-pinene, beta-pinene, sabinene, delta-3-carene, limonene, and beta-caryophyllene: [Volatiles of Black Pepper Fruits](https://pmc.ncbi.nlm.nih.gov/articles/PMC6930617/).
+- A primary study of *Schinus terebinthifolius* fruit oils reports alpha-pinene, limonene, and p-cymene as major constituents in one unripe oil and phellandrene/sylvestrene/alpha-pinene dominance in one ripe oil: [Pink pepper essential-oil study](https://doi.org/10.1080/14786419.2023.2283756). This supports a variable pinene/limonene/phellandrene “pink” direction, not a universal recipe.
+- A primary GC/FID-GC/MS study reports juniper berry oil dominated by alpha-pinene with myrcene, sabinene, limonene, and beta-pinene: [Juniper berry essential-oil composition](https://pmc.ncbi.nlm.nih.gov/articles/PMC4665443/). It is therefore used as a small berry/pinene lens, never as a gin subject.
+- A primary ginger-oil study reports a monoterpenoid-rich oil containing cineole, linalool, borneol, neral, geraniol, geranial, and geranyl acetate: [Ginger rhizome essential-oil composition](https://doi.org/10.1177/1934578X1100600122). Ginger is used only for bright warm cut-surface motion.
+- The local composite-natural registry covers Grapefruit FCF, Juniper Berry EO, and Geranium EO. It does not cover the exact Black Pepper EO, Ginger EO, or Red Mandarin EO names. Their whole-mixture composite OAV therefore remains **HOLD**, regardless of any monomolecular pipeline output.
+
+The selected EOs are all terpenoid-dominant, but supplier lot, botanical chemotype, oxidation state, and exact constituent ratios are not established for the owned bottles. No literature composition is silently assigned to the user's stock.
+
+## Reference-Axis Preservation — Structure Only
+
+- [BLEU DE CHANEL Parfum](https://www.chanel.com/us/fragrance/p/107180/bleu-de-chanel-parfum-spray/) remains an abstract freshness-to-warm-wood-to-dense-trail axis.
+- [Prada Luna Rossa Carbon](https://www.prada.com/ww/en/pradasphere/fragrances/prada-luna-rossa/prada-luna-rossa-carbon.html) remains an abstract air/mineral-to-aromatic-cloth-to-dry-ambrox axis.
+- [Prada Luna Rossa Ocean Le Parfum](https://www.prada-beauty.com/fragrance/luna-rossa/luna-rossa-ocean-le-parfum/3614274089349.html) remains an abstract vigorous-aperture-to-dark-rear-pressure axis.
+
+No donor formula, signature accord, or ingredient identity is inferred. Saffron leather, smoky oak, incense, pineapple/cassis/birch, and recognizable Chanel/Prada reconstruction remain excluded.
+
+## Named Identity Contract
+
+**Name:** Pepper Current Parfum.  
+**One-sentence identity:** a literal Black Pepper kernel drives through a pink-lit berry/citrus aura and cold athletic air, then turns into a dry peppered cedar-sandalwood current.  
+**Recognizable subject:** Black Pepper first — dry, piquant, woody, cracked, and warm — with a subordinate illusion of rosy-fruity effervescence.  
+**Emotional effect:** immediate athletic acceleration, then the gratification of warm polished wood moving in behind the cool pepper current.  
+**Wear context:** polished sport and hot-weather evening; energetic without becoming shower gel, aquatic melon, or a static amberwood extrait.  
+**Minimum recognizable nucleus:** Black Pepper EO + a smaller five-EO pink halo + Dihydromyrcenol sport shear + cedar/vetiver recurrence.  
+**Explicit non-equivalence:** this is not Pink Pepper EO and is not represented as a reconstruction of one supplier product.
+
+### What the perfume holds
+
+| Structural object | Owner | What it does |
+|---|---|---|
+| central object | literal Black Pepper kernel | supplies the first named odor object and the dry woody-spice invariant |
+| left arm | cold athletic shear | Dihydromyrcenol, restrained aldehydic/mineral points, linalyl cloth, Hedione air |
+| right arm | warm Parfum wood | Virginia cedar, Sandalore, Ebanol, vetiver, restrained ambrox/amberwood contour |
+| colored aura around the object | pink-facet EO halo | grapefruit pith + ginger sparkle + juniper berry/pinene + minimum geranium rosy-green tint + red-mandarin fruit light |
+| object carried into the base | peppered cedar-root fabric | cedar grain, vetiver root, patchouli shadow, Cashmeran/AIMI polish, one outward musk |
+
+The architecture is DHP-derived only in grammar: one object is shown in multiple states, held between opposed arms, separated across planes, and recalled in the base. It does not copy DHP 2025's iris/leather/amber ingredient identity.
+
+### Lead-Note Ownership Gate
+
+| Ownership job | Owner | Observable requirement | Veto |
+|---|---|---|---|
+| first object | Black Pepper EO | “black pepper,” “cracked pepper,” or an unmistakably dry pepper object is named before sport-fresh/citrus/wood terms | Dihydromyrcenol, grapefruit, ginger, juniper, geranium, lavender, or generic blue is named first |
+| transformed heart | Black Pepper through ginger/juniper/linalyl cloth and a trace geranium-mandarin color wash | pepper becomes brighter and smoother while remaining black pepper | gin, rose/geranium, orange, ginger, or lavender becomes the perfume |
+| late echo | peppered cedar-root fabric | the late odor recalls dry pepper grain rather than merely persistent amberwood/musk | generic Iso E/ambrox, sandalwood cream, vetiver, patchouli, or laundry musk is the only identity |
+
+Raw mass is not proof of leadership. The lead is structurally protected because the 240-uL neat Black Pepper nucleus exceeds the 80-uL neat Dihydromyrcenol dose and the entire 50-uL raw-volume EO halo. Each halo row is a 10-uL aliquot of a future nominal 10% DEP working stock, so the Black Pepper nucleus is also 48 times the halo's combined nominal EO-active volume. Higher-mass air/base materials are assigned non-identity jobs. Blind free description remains decisive.
+
+## One Subject / Multiple States
+
+| State | Same-subject anatomy | Primary material causes | Transition owner |
+|---|---|---|---|
+| cold pink-lit crack | dry pepper core inside grapefruit pith, ginger flash, juniper berry air, tiny rosy-green and mandarin color | Black Pepper, five-EO halo, Dihydromyrcenol, aldehydic/mineral points, linalyl cloth | Dihydromyrcenol + Linalyl Acetate + Hedione |
+| warm peppered wood | the same dry woody spice embedded in cedar grain, vetiver root, yielding sandalwood, and clean patchouli shadow | Black Pepper residue hypothesis, Cedarwood Virginia, Vetiver, Patchouli, Cashmeran, AIMI, Sandalore/Ebanol | Hexyl Salicylate + AIMI + Ebanol |
+| invariant cue | dry cracked woody spice surrounded by a brighter berry-terpene rim | literal Black Pepper dose plus pinene/citrus halo and cedar-vetiver echo | protected-nucleus and time-ranked blind ballot |
+
+## Three-Dimensional Spatial Planes
+
+| Plane | Primary owners | Perceptual job | Failure mode |
+|---|---|---|---|
+| front glint | Black Pepper, Grapefruit, Ginger, Red Mandarin, Aldehyde C10, Scentenal | directional crack, pink pith, acceleration | hot spice, citrus cleaner, ginger tonic, metallic glare |
+| near-body identity | Black Pepper, Juniper, Geranium trace, Dihydromyrcenol, Linalyl Acetate, low Bontaux lavender | recognizable pepper on taut athletic cloth | gin, rose, shower gel, or generic fresh chemical |
+| living middle | Hedione, Hexyl Salicylate, Helional, Cyclamen, Dihydrojasmone, trace Floralozone | lateral air, release, transition continuity | hollow Hedione wash, muguet, aquatic/ozone identity |
+| rear contour/mass | Cedarwood Virginia, Iso E, Ambrofix, Clearwood, Timberol, Amberwood F | dark Parfum perspective around the pepper object | generic woody-amber block or fatigue |
+| skin/fabric echo | Sandalore, Ebanol, Vetiver, Patchouli, AIMI, Cashmeran, Vetival, sole Romandolide | warm yielding peppered fabric residue | cream, powder, vetiver perfume, laundry musk, anonymous drydown |
+
+## Temporal Recurrence and Pressure / Release
+
+| Window | Pepper-current state | Material-level cause | Required recognition |
+|---|---|---|---|
+| 0-5 min | cracked Black Pepper inside a pink-lit terpene burst | Black Pepper + five-EO halo + cold shear points | Black Pepper first; sport movement second; halo only as color |
+| 30 min | dry pepper on aromatic cloth | Black Pepper through juniper, linalyl/lavender, Hedione/Hexyl release | pepper remains classifiable; no gin/rose/shower-gel takeover |
+| 2 h | peppered cedar current | cedar/Iso E contour meets AIMI, Cashmeran, Clearwood, vetiver, and sandalwood | same subject becomes darker and smoother |
+| 6 h | dry pepper-root fabric | vetiver, patchouli shadow, cedar grain, Cashmeran, Romandolide | opening object is recalled rather than replaced by performance materials |
+| 24 h | warm woody-spice trace | sandalwood pair, cedar, benzoate matrix, one musk | peppered identity echo or explicit recurrence failure |
+
+**Pressure module:** Black Pepper + Dihydromyrcenol + five-EO halo + tiny metallic points + restrained Ambrofix/Amber Xtreme rear edge.  
+**Release module:** Hedione + Hexyl Salicylate + yielding Sandalore/Ebanol + declared DEP negative space + quiet Benzyl Benzoate mass.  
+**Opposed textures:** cracked/hot/dry/taut versus pink-lit/cool/airy/yielding.  
+**Expected collision:** 5-120 minutes.  
+**Re-smell hypothesis:** the desirable moment is the conversion of a bright pepper crack into a warm peppered cedar-sandalwood fabric while the pink aura fades rather than disappears abruptly. This is **NOT TESTED**.
+
+## Takeover Exclusions
+
+| Exclusion | Observable endpoint | Stop rule |
+|---|---|---|
+| hot Black-Pepper overload | burning, dusty, culinary pepper, harsh nasal heat, or pepper fatigue | reject the tested Black Pepper level; do not cover it with sweetness |
+| halo becomes separate objects | grapefruit, ginger, gin/juniper, geranium/rose, or mandarin is named as a distinct note before Black Pepper | reject or lower the responsible EO; the halo is not a five-note bouquet |
+| shower-gel takeover | Dihydromyrcenol, lavender, soap, deodorant, or “generic blue” is a better name than Pepper Current | reject the sport-support level regardless of liking |
+| ambrox/Iso E wall | dry mineral wood is the only object after 30 minutes or fatigue/anosmia collapse rises | reduce rear pressure; do not add another amberwood |
+| aquatic/muguet takeover | melon, sea spray, loud ozone, apple blossom, detergent, or muguet is reported | reject the mineral-air module at the tested dose |
+| powder/cream drift | lipstick, violet makeup, cosmetic powder, or creamy sandalwood displaces pepper | reduce AIMI/Ebanol/Sandalore before adding pepper |
+| sweet Parfum drift | vanilla, tonka dessert, balsam, syrup, or sweet amber becomes the base identity | reject; no sweet rescue |
+| donor-signature drift | saffron leather, smoky oak, incense, pineapple/cassis/birch, or recognizable Chanel/Prada accord | reject even if preferred |
+
+## Donor-Independence Manifest and Source-Lineage Conservation Gate
+
+**Predecessor authority:** PCP V1, SHA-256 `7199D3614E710C8987A1759019BBFDB4FD9F9CDBE8BF38E19D6B9E908EAE20AD`.  
+**Predecessor topology:** 35 TARGET rows; 35 CURRENT aromatic rows; five spatial planes; two subject states plus invariant cue; five temporal transitions; pressure/release opposition; identity-bearing base; eight controlled-test stages/modules in the linked plan.  
+**Successor topology:** 37 TARGET active rows; 37 CURRENT aromatic rows plus one declared carrier row; the same five planes; two subject states plus invariant cue; five temporal transitions; pressure/release opposition; identity-bearing base; nine planned controlled-test stages/modules.  
+**Theory donor:** DHP2025 protocol grammar only, immutable hash `50D108570DEA367A0D377DE1DC41BBF17E8911B522D67D8D2A7AA237085EDEB1`.  
+**Public references:** abstract motion/texture axes only; no formula or accord is a donor.  
+**Parser-visible declaration:** one CURRENT dosing table, 38 rows, exactly 6,600 uL raw subtotal.  
+**Target-specific modules:** literal Black-Pepper nucleus; five-EO pink halo; athletic shear; aromatic cloth; living middle; mineral/rear pressure; yielding woody current; pepper-root echo; declared negative space/one-musk fabric.  
+
+A local code search found no callable `donor_independence` gate despite the governing protocol describing one. Donor independence is therefore documented but **NOT DETERMINISTICALLY GATED**. This successor may be called DHP-architectured theory, not DHP-level validated, complete, equal, better, or equivalent.
+
+### Individual predecessor-row disposition ledger
+
+| V1 row/function | Allowed disposition | Successor treatment | Evidence-bounded rationale / controlled owner |
+|---|---|---|---|
+| Pink Pepper EO subject | REJECT WITH ISOLATED TEST/RATIONALE | replaced as the literal subject by Black Pepper EO; retained only in the frozen predecessor control | explicit user direction changes subject; no chemical or sensory equivalence claimed |
+| Dihydromyrcenol athletic velocity | REBASE | reduced below the Black Pepper raw dose | protects sport motion while lowering generic-blue displacement risk; sport-support ladder |
+| Grapefruit FCF pink pith | REBASE | retained at a much smaller halo dose | remains pith/color, not opening leader; halo factorial and leave-one-out |
+| Lemon FCF vigorous flash | REJECT WITH ISOLATED TEST/RATIONALE | omitted from the default | removes the most obvious citrus-lead/cleaner risk; optional lemon add-back only after lead passes |
+| Aldehyde C10 directional glint | KEEP | retained | smallest waxy edge point; compressed-control candidate |
+| Scentenal charged-air pin | KEEP | retained | carbon-like point at the direct-stock floor; compressed-control candidate |
+| Linalyl Acetate athletic cloth | REBASE | reduced | protects cloth while lowering lavender/shower-gel competition |
+| Bontaux lavender recognition | REBASE | reduced | keeps fougere grammar subordinate to pepper |
+| Clary Sage dry tailoring | KEEP | retained | dry aromatic seam, separately vetoed for camphor/herbal takeover |
+| Ethyl Linalool woody-floral seam | REBASE | reduced | continuity without floral blur |
+| Hedione living air | REBASE | reduced | preserves release while lowering radiance masking |
+| Dihydrojasmone moving fabric | REBASE | reduced to the 10-uL direct-stock floor | keeps a moving-fabric bridge while lowering jasmine/fatty competition; isolated omission after module survival |
+| Hexyl Salicylate tensile cushion | KEEP | retained | middle-to-base release and fixation hypothesis |
+| Helional wet-mineral depth | REBASE | reduced | less muguet/aquatic takeover risk |
+| Cyclamen tensile line | KEEP | retained | narrow contour at the predecessor dose |
+| Floralozone lateral aperture | REBASE | reduced | minimum measurable stock dose; compressed-control candidate |
+| Rose Oxide metallic rosy lens | REJECT WITH ISOLATED TEST/RATIONALE | omitted; minimum Geranium EO becomes a non-equivalent natural rosy-green lens | follows “facets from other EOs” and avoids synthetic pink shorthand; halo factorial |
+| Alpha Isomethyl Ionone woody-violet hinge | KEEP | retained | warm pepper-to-sandalwood seam with powder veto |
+| Terpinyl Acetate pine-citrus stitch | KEEP | retained | links juniper/pepper terpenes to aromatic cloth; compressed-control candidate |
+| Iso E Super radiant rear volume | REBASE | reduced | lowers generic woody-shell dominance while retaining space |
+| Ambrofix mineral persistence | KEEP | retained at the physical 30% w/v stock record | sport/Parfum persistence hypothesis; exact volume-active basis remains HOLD |
+| Cedarwood oil Virginia grain | KEEP | retained | identity-bearing peppered cedar contour |
+| Sandalore fresh yielding wood | KEEP | retained | warm release face, not subject |
+| Ebanol creamy bridge | REBASE | reduced | lowers creamy/strong modeled takeover while preserving a distinct interior seam |
+| Clearwood clean patchouli shadow | KEEP | retained | clean earth/root contour; high-count survival test required |
+| Vetiver EO root recurrence | KEEP | retained | pepper-peel-to-root late echo |
+| Patchouli EO dark shadow | KEEP | retained | tiny natural rear shadow; mud veto |
+| Timberol architectural edge | KEEP | retained | rear-line tension without another subject |
+| Amberwood F warm rear bridge | KEEP | retained | connects Ambrofix to sandalwood; warm-module owner |
+| Amber Xtreme distal point | KEEP | retained only as 10% w/w DEP stock | tiny pressure point; compressed-control candidate; exact active-volume ppm HOLD |
+| Cashmeran peppered textile flex | KEEP | retained | helps dry spice become fabric rather than vanish |
+| Coumarin dry fougere cohesion | KEEP | retained only as 20% stock | below-sweetness closure; compressed-control candidate |
+| Romandolide outward fabric halo | KEEP | retained as the sole musk | exact one-musk necessity test |
+| Vetival polished dry finish | KEEP | retained | finishing line; compressed-control candidate |
+| Benzyl Benzoate quiet matrix | KEEP | retained | low-character matrix hypothesis; not assumed neutral |
+
+### New rows admitted by the changed subject
+
+- **Black Pepper EO:** literal nucleus; dose ladder and no-lead control.
+- **Ginger EO:** warm citrus-spice sparkle; halo factorial and leave-one-out; exact composite OAV HOLD.
+- **Juniper Berry EO:** pinene/berry air; halo factorial and leave-one-out; gin veto.
+- **Geranium EO:** minimum measurable rosy-green tint; halo factorial and leave-one-out; literal geranium/rose veto.
+- **Red Mandarin EO:** minimum warm fruit light; halo factorial and leave-one-out; exact composite OAV HOLD.
+- **Diethyl Phthalate:** declared carrier/negative-space compensator replacing much of the predecessor Pink Pepper stock carrier and all deliberate aromatic reductions; not credited as an odor object.
+
+No predecessor row or function disappears without a disposition. Counts, planes, state links, recurrence windows, texture opposition, and controlled-test scope meet or exceed the predecessor floor. Higher count remains a topology hypothesis, not proof of quality.
+
+## TARGET / IDEAL — Inventory-Independent Active-Phase Architecture
+
+The target totals exactly **1,000,000 active-phase ppm across 37 aromatic rows** after carriers are removed. It is not a purchase list, safety limit, sensory result, or instruction to compound.
+
+| Ideal material or function | Active ppm | State / plane / time | Nonredundant identity job | Exclusion risk |
+|---|---:|---|---|---|
+| exact Black Pepper identity material | 69,802 | both / front-to-echo / 0-24 h | literal cracked pepper subject and recurrence seed | culinary heat, dust, harshness |
+| Ginger EO facet | 291 | cold / front / 0-30 m | bright warm cut-surface sparkle around pepper | ginger tonic leads |
+| Juniper Berry EO facet | 291 | cold / front-near / 0-2 h | berry/pinene lift and terpenic overlap | gin/conifer leads |
+| Geranium EO facet | 291 | both / near-middle / 0-2 h | minimum rosy-green tint without rose identity | geranium/rose takeover |
+| Red Mandarin EO facet | 291 | cold / front / 0-30 m | warm fruit light, not citrus subject | orange sweetness |
+| Dihydromyrcenol | 23,267 | cold / near-middle / 0-6 h | athletic acceleration below the pepper nucleus | shower gel/generic blue |
+| Grapefruit FCF facet | 291 | cold / front / 0-30 m | bitter pink pith around the pepper object | grapefruit leads |
+| Aldehyde C10 | 58 | cold / front / 0-5 m | waxy directional glint | fatty-metallic glare |
+| metallic-green air point | 29 | cold / front-middle / 0-30 m | carbon-like charged-air pin | ozone identity |
+| Linalyl Acetate | 2,908 | cold / near / 0-2 h | taut aromatic cloth | lavender fabric leads |
+| premium lavender | 291 | cold / near / 0-2 h | subordinate fougere recognition | soap/barbershop |
+| Clary Sage | 2,908 | cold / near / 5-120 m | dry aromatic tailoring | camphor/herbal takeover |
+| Ethyl Linalool | 14,542 | both / near-middle / 5 m-6 h | woody-floral seam into the rear | floral blur |
+| Hedione | 72,710 | both / middle / 0-24 h | living air and release | blank radiance becomes identity |
+| Dihydrojasmone | 2,908 | warm / middle / 30 m-6 h | dry moving fabric | jasmine/grease |
+| Hexyl Salicylate | 75,619 | both / middle-echo / 30 m-24 h | tensile cushion and sheer fixation | inert mass/green floral |
+| Helional | 5,817 | cold / middle / 5 m-6 h | wet-mineral depth | muguet/apple/aquatic |
+| Cyclamen Aldehyde | 5,817 | cold / middle / 5 m-2 h | narrow tensile line | detergent/muguet |
+| Floralozone | 291 | cold / middle / 0-2 h | lateral aperture | ozone/aquatic |
+| Alpha Isomethyl Ionone | 8,725 | warm / middle-echo / 30 m-24 h | woody-violet hinge into warm peppered wood | lipstick/powder |
+| Terpinyl Acetate | 5,817 | cold / front-near / 0-30 m | pepper/juniper-to-cloth stitch | turpentine; modeled dormancy |
+| Iso E Super | 145,421 | both / rear-echo / 0-24 h | dry radiant volume, explicitly non-identity | anosmia/generic woody shell |
+| smooth ambroxide | 34,901 | both / rear / 0-24 h | mineral persistence below the subject | ambrox wall |
+| Virginia cedar | 87,252 | warm / rear / 30 m-24 h | identifiable peppered grain and Parfum silhouette | pencil-shaving dryness |
+| fresh-light sandalwood | 116,337 | warm / rear-echo / 30 m-24 h | yielding fresh wood face | generic sandalwood perfume |
+| creamy-soft sandalwood | 2,908 | warm / interior / 30 m-24 h | warm fullness behind the sport surface | cream/heaviness |
+| clean patchouli heart | 58,168 | warm / rear / 30 m-24 h | carbon-earth shadow without crude patchouli | silent mass/no effect |
+| Vetiver EO | 43,626 | warm / rear-echo / 30 m-24 h | pepper-peel-to-root recurrence | vetiver perfume |
+| Patchouli EO | 11,634 | warm / far rear / 2-24 h | tiny natural dark shadow | mud/camphor |
+| Timberol | 20,359 | warm / rear edge / 30 m-24 h | architectural cedar line | rigidity/fatigue |
+| Amberwood F | 29,084 | warm / interior-rear / 30 m-24 h | transparent warmth behind Ambrofix | generic amber |
+| Amber Xtreme | 873 | warm / far edge / 2-24 h | tiny distal pressure point | harsh woody spike |
+| Cashmeran | 14,542 | warm / middle-echo / 30 m-24 h | peppered textile flex | powder/overwarmth |
+| Coumarin | 2,327 | warm / echo / 2-24 h | dry fougere closure below sweetness | tonka/sweetness |
+| Romandolide | 93,069 | both / skin-fabric echo / 30 m-24 h | sole outward woody-fabric diffusion role | laundry/blank musk |
+| Vetival | 14,542 | warm / rear-echo / 2-24 h | polished dry-vetiver finishing line | suede/vetiver leads |
+| quiet benzoate matrix | 31,993 | warm / echo / 2-24 h | low-character adhesion and texture hypothesis | flattening; not assumed neutral |
+| **TOTAL** | **1,000,000** |  |  |  |
+
+## CURRENT-INVENTORY BUILD — Theory Screen
+
+This is the **only parser-visible raw dosing table** in this file. It totals exactly **6,600 uL**, contains **37 aromatic materials plus one declared carrier row**, uses **one musk**, and preserves the 10-uL minimum direct raw-stock aliquot. It is not a compounding instruction.
+
+| Layer | # | Material | Dilution | Amount uL |
+|---|---:|---|---|---:|
+| TOP | 1 | Black Pepper EO | neat | 240 |
+| TOP | 2 | Ginger EO | nominal 10% v/v in DEP; future working stock, preparation NOT AUTHORIZED | 10 |
+| TOP | 3 | Juniper Berry EO | nominal 10% v/v in DEP; future working stock, preparation NOT AUTHORIZED | 10 |
+| HEART | 4 | Geranium EO (Pelargonium graveolens flower oil) | nominal 10% v/v in DEP; future working stock, preparation NOT AUTHORIZED | 10 |
+| TOP | 5 | Red Mandarin EO | nominal 10% v/v in DEP; future working stock, preparation NOT AUTHORIZED | 10 |
+| TOP | 6 | Dihydromyrcenol | neat | 80 |
+| TOP | 7 | Grapefruit FCF | nominal 10% v/v in DEP; future working stock, preparation NOT AUTHORIZED | 10 |
+| TOP | 8 | Aldehyde C10 | 1% | 20 |
+| TOP | 9 | Scentenal | 1% | 10 |
+| TOP | 10 | Linalyl Acetate | neat | 10 |
+| HEART | 11 | Lavender EO (BONTAUX SAS) | nominal 10% v/v in DEP; future working stock, preparation NOT AUTHORIZED | 10 |
+| HEART | 12 | Clary Sage EO | neat | 10 |
+| HEART | 13 | Ethyl Linalool | neat | 50 |
+| HEART | 14 | Hedione | neat | 250 |
+| HEART | 15 | Dihydrojasmone | neat | 10 |
+| HEART | 16 | Hexyl Salicylate | neat | 260 |
+| HEART | 17 | Helional | neat | 20 |
+| HEART | 18 | Cyclamen Aldehyde | neat | 20 |
+| HEART | 19 | Floralozone | 10% | 10 |
+| HEART | 20 | Alpha Isomethyl Ionone | neat | 30 |
+| TOP | 21 | Terpinyl Acetate | neat | 20 |
+| BASE | 22 | Iso E Super | neat | 500 |
+| BASE | 23 | Ambrofix | 30% w/v; 3 g in 10 mL; carrier HOLD | 400 |
+| BASE | 24 | Cedarwood oil Virginia | neat | 300 |
+| BASE | 25 | Sandalore | neat | 400 |
+| BASE | 26 | Ebanol | neat | 10 |
+| BASE | 27 | Clearwood | neat | 200 |
+| BASE | 28 | Vetiver EO (India) | neat | 150 |
+| BASE | 29 | Patchouli EO | neat | 40 |
+| BASE | 30 | Timberol | neat | 70 |
+| BASE | 31 | Amberwood F | neat | 100 |
+| BASE | 32 | Amber Xtreme | 10% w/w in DEP | 30 |
+| BASE | 33 | Cashmeran | neat | 50 |
+| BASE | 34 | Coumarin | 20% | 40 |
+| BASE | 35 | Romandolide | neat | 320 |
+| BASE | 36 | Vetival | neat | 50 |
+| BASE | 37 | Benzyl Benzoate | neat | 110 |
+| BASE | 38 | Diethyl Phthalate | carrier / negative-space compensator | 2730 |
+|  |  | **TOTAL** |  | **6600** |
+
+### Current nominal concentration accounting
+
+Under the repository's volume-fraction approximation, the current table contains **3,438.3 uL-equivalent nominal aromatic material** and **3,161.7 uL-equivalent carrier**, or **520,955 nominal active ppm** and **479,045 nominal carrier ppm** in the raw concentrate. In a 22% finished-volume context this is approximately 11.46% nominal aromatic-volume equivalent. Exact ppm w/w remains **HOLD** because densities and stock bases are not fully reconciled.
+
+- Black Pepper EO: 240 uL neat = **36,364 nominal raw-concentrate ppm**, 3.636% raw concentrate, and 0.800% in the finished-volume context. The registry's broad 0.6-4% concentrate interval and 3% takeover warning are screening context only; bottle-specific safety and optimality are HOLD/NOT TESTED.
+- Five-EO halo total: 50 uL raw working-stock volume = **7,576 raw-stock ppm**, but only 5 uL nominal EO-active equivalent = **758 nominal active ppm**. Black Pepper raw volume is 4.8 times the complete halo, while its nominal EO-active volume is 48 times the complete halo and 240 times every individual halo EO-active equivalent.
+- Dihydromyrcenol: 80 uL = **12,121 nominal raw-concentrate ppm**, 1.212% raw concentrate. It is intentionally three times smaller by raw volume than Black Pepper and lower than the predecessor's 320-uL level.
+- Ambrofix: 400 uL of 30% w/v stock maps to 120 uL-equivalent / **18,182 nominal ppm** only for pipeline arithmetic; exact volume-active and carrier identity remain HOLD.
+- Amber Xtreme: 30 uL of 10% w/w DEP stock maps to 3 uL-equivalent / **455 nominal ppm** only as a numerical screen; exact volume-active ppm is HOLD.
+- One musk: Romandolide 320 uL, assigned only to outward woody-fabric diffusion.
+- Minimum direct raw-stock aliquot: **10 uL**.
+- Pink Pepper EO 10% stock: **not used**.
+
+### Future halo-working-stock ledger — preparation not authorized
+
+Each halo EO and Bontaux lavender remain physically owned neat. If a later authorization permits stock preparation, create a separate clearly labeled nominal 10% v/v DEP working stock for Ginger EO, Juniper Berry EO, Geranium EO, Red Mandarin EO, Grapefruit FCF, and Lavender EO (BONTAUX SAS). Each bottle must consume at least 100 uL of its neat source plus 900 uL verified DEP, so no direct neat-source aliquot violates the 10-uL floor. The formula then measures 10 uL from each finished working stock, corresponding to 1 uL nominal active equivalent. This is a volume-ratio plan only; it does not establish w/w concentration, density-corrected ppm, chemical equivalence, safety, stability, or sensory performance. No stock preparation is authorized by this document.
+
+### Row-level nominal ppm, data status, and omission ownership
+
+The row numbers below map only to the parser-visible table; they intentionally omit material names so they cannot be parsed as a second formula.
+
+| Row | Nominal active ppm in raw concentrate | Primary plane/time | Composite/physics status | Controlled omission owner |
+|---:|---:|---|---|---|
+| 1 | 36,364 | front-to-echo / 0-24 h | whole-oil composite HOLD; local monomolecular profile/ODT is derived | protected nucleus; no/low/center/high lead ladder |
+| 2 | 152 nominal | front / 0-30 m | exact-name composite HOLD; future 10% stock | halo sparkle submodule; leave-one-out |
+| 3 | 152 nominal | front-near / 0-2 h | composite covered; future 10% stock | halo sparkle submodule; leave-one-out |
+| 4 | 152 nominal | near-middle / 0-2 h | canonical Geranium EO composite covered; future 10% stock | halo color submodule; leave-one-out; rose veto |
+| 5 | 152 nominal | front / 0-30 m | exact-name composite HOLD; future 10% stock | halo color submodule; leave-one-out |
+| 6 | 12,121 | near-middle / 0-6 h | monomolecular model present | sport-support ladder |
+| 7 | 152 nominal | front / 0-30 m | composite covered; future 10% stock | halo color submodule; leave-one-out |
+| 8 | 30 | front / 0-5 m | monomolecular model present | high-count compression/add-back |
+| 9 | 15 | front-middle / 0-30 m | monomolecular model present | high-count compression/add-back |
+| 10 | 1,515 | near / 0-2 h | monomolecular model present | cloth module |
+| 11 | 152 nominal | near / 0-2 h | composite covered; future 10% stock | cloth module; soap veto |
+| 12 | 1,515 | near / 5-120 m | exact-name composite HOLD | cloth module; herbal veto |
+| 13 | 7,576 | near-middle / 5 m-6 h | monomolecular model present | cloth-to-air bridge omission |
+| 14 | 37,879 | middle / 0-24 h | monomolecular model present | release module; radiance veto |
+| 15 | 1,515 | middle / 30 m-6 h | monomolecular model present | fabric-motion omission |
+| 16 | 39,394 | middle-echo / 30 m-24 h | monomolecular model present | release module; salicylate cushion test |
+| 17 | 3,030 | middle / 5 m-6 h | monomolecular model present | mineral module |
+| 18 | 3,030 | middle / 5 m-2 h | monomolecular model present | mineral module |
+| 19 | 152 | middle / 0-2 h | stock-model diagnostic | mineral module; high-count compression |
+| 20 | 4,545 | middle-echo / 30 m-24 h | monomolecular model present | warm module; powder veto |
+| 21 | 3,030 | front-near / 0-30 m | monomolecular model present | high-count compression/add-back |
+| 22 | 75,758 | rear-echo / 0-24 h | monomolecular model present | rear-volume module; anosmia control |
+| 23 | 18,182 nominal | rear / 0-24 h | exact volume-active basis HOLD | rear-pressure module |
+| 24 | 45,455 | rear / 30 m-24 h | exact current composite alias coverage requires diagnostic confirmation | base identity module |
+| 25 | 60,606 | rear-echo / 30 m-24 h | monomolecular model present | yielding-wood module |
+| 26 | 1,515 | interior / 30 m-24 h | monomolecular model present | warm module; cream veto |
+| 27 | 30,303 | rear / 30 m-24 h | monomolecular model present; perceptibility must be checked | high-count compression/add-back |
+| 28 | 22,727 | rear-echo / 30 m-24 h | composite covered | base recurrence module |
+| 29 | 6,061 | far rear / 2-24 h | composite covered | base recurrence module; mud veto |
+| 30 | 10,606 | rear edge / 30 m-24 h | monomolecular model present | rear-pressure module |
+| 31 | 15,152 | interior-rear / 30 m-24 h | monomolecular model present | warm module |
+| 32 | 455 nominal | far edge / 2-24 h | w/w-to-volume mapping and exact ppm HOLD | high-count compression/add-back |
+| 33 | 7,576 | middle-echo / 30 m-24 h | monomolecular model present | peppered-fabric echo omission |
+| 34 | 1,212 | echo / 2-24 h | stock-model diagnostic | high-count compression/add-back; sweetness veto |
+| 35 | 48,485 | skin/fabric echo / 30 m-24 h | ODT discrepancy remains low-authority | exact one-musk necessity test |
+| 36 | 7,576 | rear-echo / 2-24 h | monomolecular model present | high-count compression/add-back |
+| 37 | 16,667 | echo / 2-24 h | low-character matrix model; not assumed neutral | structural omission and compensator-control test |
+| 38 | 0 | matrix / all windows | carrier; not an odor object | every constant-total module; carrier-matched control |
+
+## TARGET-to-CURRENT Gap Map
+
+| Ideal item | Current translation | Structural consequence | Evidence status | Procurement status |
+|---|---|---|---|---|
+| exact Black Pepper identity material with lot-specific constituent/physics data | owned neat Black Pepper EO with no supplier/lot or applicable exact-name composite decomposition | literal material is present, but modeled leadership and recurrence are underdetermined | identity physical; composite OAV/safety HOLD; sensory NOT TESTED | NOT AUTHORIZED / not required for theory |
+| pink-facet aura | five owned EOs at subordinate doses | can suggest pinene/limonene/berry/rosy-fruit color but cannot become actual Pink Pepper EO | design hypothesis only; three composite-covered, two composite HOLD | NOT AUTHORIZED / no purchase requested |
+| matched negative space | direct DEP plus known/unknown stock carriers | preserves 6,600-uL raw total and avoids aromatic padding; DEP neutrality is not assumed | computationally explicit; sensory effect NOT TESTED | NOT AUTHORIZED / owned |
+| exact smooth ambroxide | Ambrofix 30% w/v | active-mass and carrier conversion remain approximate | HOLD | NOT AUTHORIZED / owned |
+| exact distal amberwood point | Amber Xtreme 10% w/w DEP | nominal pipeline mapping only | HOLD | NOT AUTHORIZED / owned |
+| outward woody-fabric echo | one Romandolide | exact projection and ODT authority are unresolved | modeled diagnostic only; sensory NOT TESTED | NOT AUTHORIZED / owned |
+
+## Controlled-Omission and Compression Contract
+
+The protected nucleus is Black Pepper EO at the selected arm dose plus cedar/vetiver recurrence. No support optimization may change the selected Black Pepper dose unless the experiment is explicitly the lead ladder.
+
+1. **Whole-formula predecessor comparison:** frozen V1 versus V1.1 at equal 6,600-uL raw concentrate and equal finished raw-concentrate fraction. This tests the complete direction only; it cannot attribute causality.
+2. **Black Pepper ladder:** no lead, low, center, and high Black Pepper at constant raw total with DEP displacement. The center is this formula. Leadership must peak before hot/culinary/harshness failures rise.
+3. **Pink-halo 2 x 2:** color submodule (grapefruit + geranium + mandarin) crossed with sparkle/berry submodule (ginger + juniper), all at constant total and with Black Pepper/Dihydromyrcenol fixed.
+4. **Halo leave-one-out:** only after the complete halo defeats both single submodules; each EO is omitted individually and replaced by DEP.
+5. **Sport-support ladder:** Dihydromyrcenol low/center/high at constant total with Black Pepper fixed; reject any level where generic blue/shower gel displaces pepper.
+6. **Mineral x warm 2 x 2:** mineral-motion points crossed with AIMI/Ebanol/Amberwood warm interior, using DEP as declared non-neutral compensator.
+7. **Complete versus compressed:** remove the eight lowest-evidence finishing candidates together — Aldehyde C10, Scentenal, Floralozone, Terpinyl Acetate, Clearwood, Amber Xtreme stock, Coumarin stock, and Vetival — and return their raw volume to DEP. Add back individually only if the complete version first wins.
+8. **Base-echo test:** peppered-fabric recurrence module versus equal-volume DEP to determine whether the base loss is describable as loss of Pepper Current rather than merely less intensity.
+9. **One-musk necessity:** Romandolide versus equal-volume DEP, with laundry/masking vetoes.
+
+Every comparison requires carrier-matched constant raw total, coded samples, balanced order, duplicate readings, and two independently prepared blocks before replicated scoped learning. Exact preparation is defined in the linked validation artifact. Execution remains unauthorized.
+
+## Disciplined Finishing Decision
+
+This version adds only five aromatic rows relative to the predecessor while replacing three predecessor rows and reducing seven likely displacement sources. Each new EO owns one distinguishable facet and one leave-one-out test. The large DEP row is declared negative space, not prestige filler or sensorially neutral mass. No cardamom, rose oil, extra musk, calone, vanilla, tonka base, saffron, leather, incense, pineapple, cassis, or birch is admitted because each would create a separate object or donor drift.
+
+The 38-row current table is not claimed superior to a 30-row compressed control. High count survives only if the complete version preserves Black Pepper leadership and improves identity continuity or liking without additional takeover failures.
+
+## Evidence Ceiling and Authorization
+
+- Formula arithmetic, inventory resolution, target normalization, and pipeline results can establish only computational consistency under the recorded inputs.
+- The local whole-oil OAV gap for Black Pepper prevents a valid claim that the model proves leadership. Monomolecular output is retained only as a limited displacement diagnostic.
+- Literature compositions are material- and method-specific and are not bottle-specific assays.
+- No formula can establish sensory identity, similarity, sport feel, dimensionality, luxury, depth, completion, hedonism, diffusion, longevity, safety, stability, or release readiness without the appropriate physical evidence.
+- No procurement, working-stock preparation, physical compounding, blotter/skin test, or release is authorized.
+
+**Final status: THEORY ONLY / NOT TESTED / NO COMPOUNDING AUTHORIZED.**
+
+## Pipeline Analysis
+
+```text
+# Pepper Current Parfum V1.1 — Black Pepper First / Pink-Facet EO Halo — 30 mL / 22% Parfum Theory Formula
+
+## Gate Summary
+
+**98 PASS** / **31 WARN** / **0 FAIL**
+
+  WARN pipeline_preflight: 9 checks; 6 warnings
+  WARN chemistry_stability: immature: predicted maturation 7 days (industry standard 14-42 days); predicted maturation shelf life 7 days
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 14.9% active mass across 5 materials
+  WARN fougere_skeleton: Fougère skeleton missing: oakmoss/evernyl
+  WARN odt_sanity: 1 materials with suspect ODT values: Diethyl Phthalate=1.0ppm (possible sentinel)
+  WARN small_diluted_traces: Floralozone=10.0uL at 10.0%; Geranium EO (Pelargonium graveolens flower oil)=10.0uL at 10.0%; Ginger EO=10.0uL at 10.0%; Grapefruit FCF=10.0
+  WARN safety_ifra_allergen: 18 materials lack explicit IFRA Cat4 limits; 5 EU allergen declarations
+  WARN eu_allergen_declaration: EU allergens requiring label: alpha-isomethyl ionone, coumarin
+  WARN perfumer_logic: aromatic_fougere; family_archetype_known: No family archetype spec for 'aromatic_fougere'.
+  WARN family_drift_detector: unknown family archetype: aromatic_fougere
+  WARN perfume_knowledge: Pyramid needs improvement: Expected T:20% H:40% B:40%, Actual T:11.5% H:26.0% B:62.6%; top OAV needs improvement for family aromatic_fougere
+  WARN carles_pyramid: Carles pyramid: empty windows = 3h_top_heart (need >2% active in each of 5 windows)
+  WARN carles_accord_ratio: Extreme ratios (>8:1, Carles limit): black pepper eo:ginger eo = 10:1; black pepper eo:geranium eo = 15:1; black pepper eo:red mandarin eo =
+  WARN oav_legibility: 49% active mass is near-subliminal by OAV
+  WARN literature_compliance: Literature compliance: 1/5 principles passed (20%) [advisory guideline; not release-blocking]
+  WARN edge_cases: Musk coverage: 1%, gaps: 2, Bangkok VP ×157728.0
+  WARN balance_axes: Balance axes evaluation skipped: type object 'MarketSegment' has no attribute 'MASS_MARKET'
+  WARN character_shifts: Gate skipped (API mismatch): check_zone_boundaries() missing 1 required positional argument: 'concentration_pct'
+  WARN musk_intelligence: Gate skipped (API mismatch): 'WoodyInfrastructureTrio' object has no attribute 'primary'
+  WARN stevens_n_efficiency: Inefficient materials: diethyl phthalate: 41% raw -> 0% perceived
+  WARN jnd_redundancy: Potentially redundant pairs: juniper berry eo vs linalyl acetate in aromatic (OAV 109/117); ebanol vs vetival in woody (OAV 102/114)
+  WARN jellinek_psychology: Jellinek categories weak: erogenic
+  WARN coty_single_material_limit: diethyl phthalate = 41% of concentrate (>40% Coty limit) [advisory guideline; not release-blocking]
+  WARN roudnitska_hedione_pct: Hedione = 3.8% of concentrate (<5%, minimal radiance effect)
+  WARN adaptation_timing: fast tier < 5% (no immediate impact)
+  WARN oav_intelligence: iso e super OAV 2445.2 is above aromatic_fougere target 30.0-80.0; clary sage eo OAV 90.3 is above aromatic_fougere target 10.0-25.0; gerani
+  WARN olfactory_fatigue: Olfactory fatigue risk: dihydromyrcenol=3084 (limit 3000); hedione=3.8% of concentrate (<10% minimum for radiance)
+  WARN tenacity_projection: VP<0.001Pa = 0% (<3%, may lack depth)
+  WARN master_perfumer_gate: too many materials for a readable formula
+  WARN mass_market_tier_check: 38 materials is high for mass production. Each material adds compounding cost and quality control risk. Aim for 18-28 for scalable manufactu
+  WARN confidence_minimum: combined confidence 25.1; preflight science penalty 28.9
+
+
+## Headspace OAV — Opening (0s)
+
+| # | Material | OAV | Note | Percept | VP Pa | Vapor ppm | ODT ppm | Act g | MF% | Role |
+|---|--------|---|----|-------|-----|---------|-------|-----|---|----|
+|   1 | Dihydromyrcenol              |     3084.3 | top   |  very strong |  17.000 |    3.0843 |  0.001000 |  0.0800 |  1.84 | Dihydromyrcenol               
+|   2 | Iso E Super                  |     2445.2 | heart |  very strong |   0.150 |    0.1223 |  0.000050 |  0.5000 |  7.66 | Iso E Super                   
+|   3 | Hedione                      |     1653.9 | heart |  very strong |   0.210 |    0.0827 |  0.000050 |  0.2500 |  3.97 | Hedione                       
+|   4 | Dihydrojasmone               |      217.7 | heart |       strong |   7.660 |    0.1633 |  0.000750 |  0.0100 |  0.22 | Dihydrojasmone                
+|   5 | Black Pepper EO              |      124.9 | top   |       strong |   0.300 |    0.2498 |  0.002000 |  0.2400 |  4.22 | Black Pepper EO               
+|   6 | Linalyl Acetate              |      117.0 | top   |       strong |  17.500 |    0.3160 |  0.002700 |  0.0100 |  0.18 | Linalyl Acetate               
+|   7 | Vetival                      |      113.6 | heart |       strong |   6.530 |    0.7951 |  0.007000 |  0.0500 |  0.82 | Vetival                       
+|   8 | Juniper Berry EO             |      109.4 | top   |       strong |  65.000 |    0.4229 |  0.015000 |  0.0010 |  0.03 | Juniper Berry EO              
+|   9 | Ebanol                       |      102.2 | heart |       strong |   0.890 |    0.0215 |  0.000210 |  0.0100 |  0.16 | Ebanol                        
+|  10 | Clary Sage EO                |       90.3 | top   | moderate-strong |   5.000 |    0.1806 |  0.002000 |  0.0100 |  0.18 | Clary Sage EO                 
+|  11 | Scentenal                    |       89.6 | heart | moderate-strong |   6.000 |    0.0018 |  0.000020 |  0.0001 |  0.00 | Scentenal                     
+|  12 | Grapefruit FCF               |       80.0 | top   | moderate-strong |   1.800 |    0.0141 |  0.003000 |  0.0010 |  0.03 | Grapefruit FCF                
+|  13 | Cashmeran                    |       51.5 | base  | moderate-strong |   1.200 |    0.1031 |  0.002000 |  0.0500 |  0.87 | Cashmeran                     
+|  14 | Ambrofix                     |       40.6 | base  |     moderate |   0.066 |    0.0122 |  0.000300 |  0.1200 |  1.82 | Ambrox Super                  
+|  15 | Timberol                     |       35.4 | base  |     moderate |   0.120 |    0.0212 |  0.000600 |  0.0700 |  1.20 | Timberol                      
+|  16 | Alpha Isomethyl Ionone       |       33.5 | heart |     moderate |   0.400 |    0.0268 |  0.000800 |  0.0300 |  0.52 | Alpha-Isomethyl Ionone        
+|  17 | Cyclamen Aldehyde            |       33.1 | heart |     moderate |   0.520 |    0.0252 |  0.000760 |  0.0200 |  0.38 | Cyclamen Aldehyde             
+|  18 | Lavender EO (BONTAUX SAS)    |       28.5 | heart |     moderate |  22.000 |    0.0445 |  0.002000 |  0.0009 |  0.02 | Lavender EO (BONTAUX SAS)     
+|  19 | Vetiver EO (India)           |       25.6 | base  |     moderate |   0.040 |    0.0189 |  0.005000 |  0.1485 |  2.40 | Vetiver EO                    
+|  20 | Ginger EO                    |       13.0 | top   |     moderate |  10.000 |    0.0652 |  0.005000 |  0.0010 |  0.03 | Ginger EO                     
+|  21 | Romandolide                  |       12.8 | base  |     moderate |   0.100 |    0.0629 |  0.004900 |  0.3200 |  4.25 | Romandolide                   
+|  22 | Aldehyde C10                 |       10.3 | top   |     moderate |  10.000 |    0.0045 |  0.000440 |  0.0002 |  0.00 | Aldehyde C10                  
+|  23 | Geranium EO (Pelargonium graveolens flower oil) |        8.3 | heart |  perceptible |   2.500 |    0.0102 |  0.000300 |  0.0010 |  0.02 | Geranium EO                   
+|  24 | Coumarin                     |        8.2 | base  |  perceptible |   0.190 |    0.0058 |  0.000700 |  0.0080 |  0.20 | Coumarin                      
+|  25 | Sandalore                    |        8.1 | base  |  perceptible |   0.080 |    0.0809 |  0.010000 |  0.4000 |  6.83 | Sandalore                     
+|  26 | Patchouli EO                 |        4.8 | base  | at threshold |   0.001 |    0.0001 |  0.003000 |  0.0400 |  0.65 | Patchouli EO                  
+|  27 | Helional                     |        4.4 | heart | at threshold |   0.010 |    0.0004 |  0.000100 |  0.0200 |  0.37 | Helional                      
+|  28 | Red Mandarin EO              |        2.8 | top   | at threshold |   1.800 |    0.0141 |  0.005000 |  0.0010 |  0.03 | Red Mandarin EO               
+|  29 | Floralozone                  |        0.8 | heart | sub-threshold |   0.431 |    0.0008 |  0.001000 |  0.0010 |  0.02 | Floralozone                   
+|  30 | Ethyl Linalool               |        0.5 | top   | sub-threshold |   0.080 |    0.0078 |  0.015000 |  0.0500 |  0.99 | Ethyl Linalool                
+|  31 | Hexyl Salicylate             |        0.4 | base  | sub-threshold |   0.050 |    0.0155 |  0.035000 |  0.2600 |  4.20 | Hexyl Salicylate              
+|  32 | Terpinyl Acetate             |        0.4 | base  | sub-threshold |   0.400 |    0.0144 |  0.035000 |  0.0200 |  0.37 | Terpinyl Acetate              
+|  33 | Cedarwood oil Virginia       |        0.4 | base  | sub-threshold |   0.005 |    0.0059 |  0.015000 |  0.2940 |  4.75 | Cedarwood oil Virginia        
+|  34 | Amberwood F                  |        0.2 | base  | sub-threshold |   0.001 |    0.0002 |  0.001000 |  0.1000 |  1.53 | Amberwood F                   
+|  35 | Amber Xtreme                 |        0.1 | base  | sub-threshold |   0.001 |    0.0000 |  0.000050 |  0.0030 |  0.05 | Amber Xtreme                  
+|  36 | Clearwood                    |        0.1 | base  | sub-threshold |   0.002 |    0.0011 |  0.010000 |  0.2000 |  3.23 | Clearwood                     
+|  37 | Diethyl Phthalate            |        0.0 | carrier | sub-threshold |   0.002 |    0.0096 |  1.000000 |  2.7300 | 44.12 | Diethyl Phthalate             
+|  38 | Benzyl Benzoate              |        0.0 | base  | sub-threshold |   0.001 |    0.0002 |  0.810000 |  0.1100 |  1.86 | Benzyl Benzoate               
+
+**Materials:** 38 total (10 top, 12 heart, 15 base)
+**Total vapor:** 6.01 ppm
+
+### Note Distribution
+
+**TOP:** 10 mats, 6.4% active, 42.5% OAV
+  - Dihydromyrcenol              OAV=  3084.3 (very strong) VP=17.000Pa
+  - Black Pepper EO              OAV=   124.9 (strong) VP=0.300Pa
+  - Linalyl Acetate              OAV=   117.0 (strong) VP=17.500Pa
+  - Juniper Berry EO             OAV=   109.4 (strong) VP=65.000Pa
+  - Clary Sage EO                OAV=    90.3 (moderate-strong) VP=5.000Pa
+  - Grapefruit FCF               OAV=    80.0 (moderate-strong) VP=1.800Pa
+  ... and 4 more
+**HEART:** 12 mats, 14.5% active, 55.3% OAV
+  - Iso E Super                  OAV=  2445.2 (very strong) VP=0.150Pa
+  - Hedione                      OAV=  1653.9 (very strong) VP=0.210Pa
+  - Dihydrojasmone               OAV=   217.7 (strong) VP=7.660Pa
+  - Vetival                      OAV=   113.6 (strong) VP=6.530Pa
+  - Ebanol                       OAV=   102.2 (strong) VP=0.890Pa
+  - Scentenal                    OAV=    89.6 (moderate-strong) VP=6.000Pa
+  ... and 6 more
+**BASE:** 15 mats, 34.9% active, 2.2% OAV
+  - Cashmeran                    OAV=    51.5 (moderate-strong) VP=1.200Pa
+  - Ambrofix                     OAV=    40.6 (moderate) VP=0.066Pa
+  - Timberol                     OAV=    35.4 (moderate) VP=0.120Pa
+  - Vetiver EO (India)           OAV=    25.6 (moderate) VP=0.040Pa
+  - Romandolide                  OAV=    12.8 (moderate) VP=0.100Pa
+  - Coumarin                     OAV=     8.2 (perceptible) VP=0.190Pa
+  ... and 9 more
+
+### Sub-threshold Materials (OAV < 1)
+10/38 materials below perceptible threshold
+  - Ethyl Linalool: OAV=0.52 VP=0.080Pa act=50uL role=Ethyl Linalool [Structural (acceptable)]
+  - Hexyl Salicylate: OAV=0.44 VP=0.050Pa act=260uL role=Hexyl Salicylate [Structural (acceptable)]
+  - Floralozone: OAV=0.79 VP=0.431Pa act=1uL role=Floralozone [Structural (acceptable)]
+  - Terpinyl Acetate: OAV=0.41 VP=0.400Pa act=20uL role=Terpinyl Acetate [Structural (acceptable)]
+  - Cedarwood oil Virginia: OAV=0.39 VP=0.005Pa act=300uL role=Cedarwood oil Virgin [Structural (acceptable)]
+  - Clearwood: OAV=0.11 VP=0.002Pa act=200uL role=Clearwood [Structural (acceptable)]
+  - Amberwood F: OAV=0.23 VP=0.001Pa act=100uL role=Amberwood F [Structural (acceptable)]
+  - Amber Xtreme: OAV=0.14 VP=0.001Pa act=3uL role=Amber Xtreme [Structural (acceptable)]
+  - Benzyl Benzoate: OAV=0.00 VP=0.001Pa act=110uL role=Benzyl Benzoate [Structural (acceptable)]
+  - Diethyl Phthalate: OAV=0.01 VP=0.002Pa act=2730uL role=Diethyl Phthalate [Structural (acceptable)]
+
+### OAV by Odor Family
+
+            woody  68.7% ==================================  (11 mats)
+           floral  22.4% ===========  (4 mats)
+         aromatic   3.7% =  (4 mats)
+            spice   1.6% =  (2 mats)
+            green   1.0% =  (1 mats)
+           citrus   1.0% =  (2 mats)
+            amber   0.5% =  (3 mats)
+           muguet   0.4% =  (1 mats)
+                ?   0.3% =  (1 mats)
+             musk   0.2% =  (1 mats)
+        aldehydic   0.1% =  (1 mats)
+         gourmand   0.1% =  (1 mats)
+          aquatic   0.1% =  (1 mats)
+            ozone   0.0% =  (1 mats)
+           fruity   0.0% =  (1 mats)
+       salicylate   0.0% =  (1 mats)
+         fixative   0.0% =  (2 mats)
+
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Raw uL | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s |  6.4/58.7/34.9 |   6.01ppm |   6600 | Dihydromyrce(3084), Iso E Super(2445), Hedione(1654)
+| top          |    300s |  6.4/58.7/34.9 |   5.94ppm |   6598 | Dihydromyrce(3060), Iso E Super(2446), Hedione(1654)
+| heart        |   1800s |  6.3/58.8/34.9 |   5.65ppm |   6586 | Dihydromyrce(2942), Iso E Super(2448), Hedione(1656)
+| late_heart   |   7200s |  6.1/58.9/35.0 |   4.93ppm |   6554 | Dihydromyrce(2551), Iso E Super(2456), Hedione(1660)
+| drydown      |  14400s |  5.9/59.0/35.1 |   4.28ppm |   6520 | Iso E Super(2465), Dihydromyrce(2108), Hedione(1665)
+
+### Per-Window Detail
+
+**OPENING** (0.0s) — Evap:0%
+  T:6.4% H:58.7% B:34.9%  Vapor:6.01ppm
+  Leaders: Dihydromyrcenol OAV 3084 | Iso E Super OAV 2445 | Hedione OAV 1654 | Dihydrojasmone OAV 218 | Black Pepper EO OAV 125
+
+**TOP** (300.0s) — Evap:0%
+  T:6.4% H:58.7% B:34.9%  Vapor:5.94ppm
+  Leaders: Dihydromyrcenol OAV 3060 | Iso E Super OAV 2446 | Hedione OAV 1654 | Dihydrojasmone OAV 217 | Black Pepper EO OAV 125
+
+**HEART** (1800.0s) — Evap:0%
+  T:6.3% H:58.8% B:34.9%  Vapor:5.65ppm
+  Leaders: Dihydromyrcenol OAV 2942 | Iso E Super OAV 2448 | Hedione OAV 1656 | Dihydrojasmone OAV 213 | Black Pepper EO OAV 125
+
+**LATE_HEART** (7200.0s) — Evap:1%
+  T:6.1% H:58.9% B:35.0%  Vapor:4.93ppm
+  Leaders: Dihydromyrcenol OAV 2551 | Iso E Super OAV 2456 | Hedione OAV 1660 | Dihydrojasmone OAV 201 | Black Pepper EO OAV 125
+
+**DRYDOWN** (14400.0s) — Evap:1%
+  T:5.9% H:59.0% B:35.1%  Vapor:4.28ppm
+  Leaders: Iso E Super OAV 2465 | Dihydromyrcenol OAV 2108 | Hedione OAV 1665 | Dihydrojasmone OAV 185 | Black Pepper EO OAV 125
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Dihydromyrcenol(very strong) + Black Pepper EO(strong) + Linalyl Acetate(strong)
+  Heart: Iso E Super(very strong) + Hedione(very strong)
+  Base: Cashmeran(moderate-strong) + Ambrofix(moderate) + Timberol(moderate) + Vetiver EO (India)(moderate) + Romandolide(moderate)
+
+### 2. Opening (0-5min)
+  Dihydromyrcenol dominates at OAV 3084 (very strong).
+  - Dihydromyrcenol OAV=3084 VP=17.0Pa (woody)
+  - Black Pepper EO OAV=125 VP=0.3Pa (spice)
+  - Linalyl Acetate OAV=117 VP=17.5Pa (aromatic)
+  - Juniper Berry EO OAV=109 VP=65.0Pa (aromatic)
+  Total vapor: 6.0 ppm
+
+### 3. Heart (30min-2hr)
+  Dihydromyrcenol OAV=2942 (very strong)
+  Iso E Super OAV=2448 (very strong)
+  Hedione OAV=1656 (very strong)
+  Dihydrojasmone OAV=213 (strong)
+  T:6.3% H:58.8% B:34.9%
+  Vapor: 5.7 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base dominates at 35% of headspace
+  - Iso E Super OAV=2465
+  - Dihydromyrcenol OAV=2108
+  - Hedione OAV=1665
+  - Dihydrojasmone OAV=185
+  - Black Pepper EO OAV=125
+  - Ebanol OAV=101
+  Vapor: 4.3 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Dihydromyrcenol(3084) + Iso E Super(2445) + Hedione(1654)
+  OAV by family: woody69% floral22% aromatic4% spice2%
+
+### 6. Longevity
+  Evaporation: 1% over 4h
+  Vapor: 6.0 > 4.3 ppm
+  Base @ drydown: 35%
+  Est. skin life: 8h moderate + 4h skin scent
+
+### 7. Balance
+  Pyramid: T:6.4% H:58.7% B:34.9%
+  OAV range: 0.00 to 3084 (sigma-log=1.45)
+  Wide contrast: citrus (OAV 3084) dominates opening before burning off to reveal base.
+    sub-threshold: 10
+
+### 8. Flags
+  SUB: Floralozone OAV=0.79 role=Floralozone
+  SUB: Ethyl Linalool OAV=0.52 role=Ethyl Linalool
+  SUB: Hexyl Salicylate OAV=0.44 role=Hexyl Salicylate
+  SUB: Terpinyl Acetate OAV=0.41 role=Terpinyl Acetate
+  SUB: Cedarwood oil Virginia OAV=0.39 role=Cedarwood oil Virginia
+  SUB: Amberwood F OAV=0.23 role=Amberwood F
+  SUB: Amber Xtreme OAV=0.14 role=Amber Xtreme
+  SUB: Clearwood OAV=0.11 role=Clearwood
+  SUB: Diethyl Phthalate OAV=0.01 role=Diethyl Phthalate
+  SUB: Benzyl Benzoate OAV=0.00 role=Benzyl Benzoate
+
+
+## Structural OAV Analysis
+
+**Vapor:** 6 ppm  |  **Active:** 20.6%  |  **Perceptible:** 28/38
+
+### OAV Tiers
+  **massive** (3): Dihydromyrcenol(3084), Hedione(1654), Iso E Super(2445)
+  **v.strong** (6): Black Pepper EO(125), Juniper Berry EO(109), Linalyl Acetate(117), Dihydrojasmone(218), Ebanol(102), Vetival(114)
+  **strong** (4): Grapefruit FCF(80), Scentenal(90), Clary Sage EO(90), Cashmeran(52)
+  **moderate** (9): Ginger EO(13), Aldehyde C10(10), Lavender EO (BONTAUX SAS)(28), Cyclamen Aldehyde(33), Alpha Isomethyl Ionone(34), Ambrofix(41), Vetiver EO (India)(26), Timberol(35), Romandolide(13)
+  **perceptible** (3): Geranium EO (Pelargonium graveolens flower oil)(8), Sandalore(8), Coumarin(8)
+  **threshold** (3): Red Mandarin EO(3), Helional(4), Patchouli EO(5)
+  **sub** (10): Ethyl Linalool(1), Hexyl Salicylate(0), Floralozone(1), Terpinyl Acetate(0), Cedarwood oil Virginia(0), Clearwood(0), Amberwood F(0), Amber Xtreme(0), Benzyl Benzoate(0), Diethyl Phthalate(0)
+
+### Block Balance
+  **Citrus**       83 (2%)
+  **Floral**     4731 (95%)
+  **Base**        189 (4%)
+  **Ratio:** 57:1 between strongest/weakest block
+
+### Issues
+  ! 10 sub-threshold material(s): Ethyl Linalool, Hexyl Salicylate, Floralozone, Terpinyl Acetate, Cedarwood oil Virginia, Clearwood, Amberwood F, Amber Xtreme, Benzyl Benzoate, Diethyl Phthalate
+```

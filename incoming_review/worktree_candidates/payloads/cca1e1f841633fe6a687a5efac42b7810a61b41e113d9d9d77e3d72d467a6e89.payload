@@ -1,0 +1,228 @@
+"""Design arithmetic and authority regressions, not sensory validation."""
+
+import copy
+import hashlib
+import json
+from pathlib import Path
+
+import pytest
+
+from engine.formulation_intelligence.aventus_woody_geometry import (
+    MODULES,
+    assess_geometry,
+    plan_candidate,
+    stock_mass_for_active,
+)
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+@pytest.fixture
+def candidate():
+    return json.loads((ROOT / "data/reference/aventus_astra_v3_woody_candidate.json").read_text())
+
+
+def ledger(candidate):
+    return {r["material"]: r["aromatic_ppm"] / 1e6 for r in candidate["materials"]}
+
+
+def test_centre_closes_and_ratios_are_mass_not_perception(candidate):
+    report = assess_geometry(ledger(candidate))
+    assert sum(m.centre_ppm for m in MODULES) == 1000000
+    assert report["status"] == "DESIGN_BOUNDS_MET"
+    assert sum(report["module_ppm"].values()) == pytest.approx(1e6)
+    assert report["ratios"] == pytest.approx({
+        "wood_ambrox_to_pineapple": 224,
+        "ambrox_to_pineapple": 64,
+        "citrus_to_pineapple": 44,
+    })
+    assert all(abs(x) < 1e-12 for x in report["clr_displacement"].values())
+    assert not any(report["authorities"].values())
+
+
+def test_more_iso_e_cannot_replace_ambrox(candidate):
+    masses = ledger(candidate)
+    masses["Iso E Super"] += masses.pop("Ambrox Super")
+    report = assess_geometry(masses)
+    assert "ambrox" in report["violations"]
+    assert report["status"] == "OUTSIDE_DESIGN_BOUNDS"
+    assert report["clr_displacement"] is None
+
+
+def test_pineapple_overload_fails_even_with_large_woody_base(candidate):
+    masses = ledger(candidate)
+    masses["Allyl Cyclohexyl Propionate"] = 0.04
+    report = assess_geometry(masses)
+    assert "pineapple" in report["violations"]
+    assert "combined_fruit_above_0_6_percent" in report["violations"]
+
+
+def test_cassis_and_floral_bridge_are_independently_protected(candidate):
+    for material, module in (("Blackcurrant Absolute", "cassis"), ("Hedione", "floral_bridge")):
+        masses = ledger(candidate)
+        masses["Iso E Super"] += masses.pop(material)
+        assert module in assess_geometry(masses)["violations"]
+
+
+def test_zero_fruit_is_undefined_ratio_not_infinite_success(candidate):
+    masses = ledger(candidate)
+    masses["Allyl Amyl Glycolate"] = 0
+    report = assess_geometry(masses)
+    assert report["ratios"]["ambrox_to_pineapple"] is None
+    assert "pineapple" in report["violations"]
+
+
+def test_unknown_mass_blocks_whole_geometry(candidate):
+    masses = ledger(candidate)
+    masses["Blackcurrant Absolute"] = None
+    report = assess_geometry(masses)
+    assert report["status"] == "HOLD_INCOMPLETE_MASS_LEDGER"
+    assert report["module_ppm"] is None
+    assert report["ratios"] is None
+
+
+@pytest.mark.parametrize("bad", [float("nan"), float("inf"), -1, True, "1"])
+def test_invalid_numbers_fail_closed(bad):
+    with pytest.raises(ValueError):
+        assess_geometry({"Iso E Super": bad})
+
+
+def test_unsupported_material_and_empty_ledger_fail():
+    for value in ({"Mystery fruit": 1}, {}, {"Iso E Super": 0}):
+        with pytest.raises(ValueError):
+            assess_geometry(value)
+
+
+def test_mass_geometry_is_scale_invariant(candidate):
+    original = assess_geometry(ledger(candidate))
+    scaled = assess_geometry({k: v * 37 for k, v in ledger(candidate).items()})
+    assert original["module_ppm"] == pytest.approx(scaled["module_ppm"])
+    assert original["ratios"] == pytest.approx(scaled["ratios"])
+
+
+def test_stock_rebase_preserves_active_mass():
+    assert stock_mass_for_active(.96, fraction=.25, basis="w/w") == pytest.approx(3.84)
+    assert stock_mass_for_active(.96, fraction=1, basis="neat") == pytest.approx(.96)
+    assert stock_mass_for_active(.01, fraction=.1, basis="w/w") * .1 == pytest.approx(.01)
+
+
+@pytest.mark.parametrize("basis", ["unspecified", "w/v", "v/v"])
+def test_volume_or_unknown_stock_basis_never_becomes_mass(basis):
+    assert stock_mass_for_active(.01, fraction=.1, basis=basis) is None
+
+
+@pytest.mark.parametrize("fraction,basis", [(0, "w/w"), (2, "w/w"), (.1, "neat"), (None, "neat")])
+def test_invalid_stock_fraction(fraction, basis):
+    with pytest.raises(ValueError):
+        stock_mass_for_active(.01, fraction=fraction, basis=basis)
+
+
+def test_whole_batch_design_keeps_missing_ppm_and_solvent_unknown(candidate):
+    original = copy.deepcopy(candidate)
+    report = plan_candidate(candidate)
+    assert candidate == original
+    assert report["target_finished_aromatic_ppm_w_w"] == 200000
+    assert report["known_stock_mass_subtotal_g"] == pytest.approx(9.2874)
+    assert report["stock_blend_mass_g"] is None
+    assert report["additional_solvent_mass_g"] is None
+    assert report["finished_volume_ml"] is None
+    assert report["known_carrier_mass_g"] == pytest.approx({
+        "DPG": 2.24, "IPM": .16, "ethanol": .48, "DEP": .432,
+    })
+    assert all(r["ppm_stock_blend_w_w"] is None for r in report["materials"])
+    assert all(r["oav"] is None for r in report["materials"])
+    assert not any(report["authorities"].values())
+
+
+def test_complete_synthetic_fixture_closes_mass_without_release(candidate):
+    # Test fixture ONLY: not a claim that these current bottles are w/w.
+    for row in candidate["materials"]:
+        stock = row["current_stock"]
+        if stock["basis"] == "unspecified":
+            stock["basis"] = "w/w"
+            stock["carrier_mass_fractions"] = {"TEST_CARRIER": 1 - stock["fraction"]}
+    report = plan_candidate(candidate)
+    assert report["stock_blend_mass_g"] == pytest.approx(9.5874)
+    assert report["additional_solvent_mass_g"] == pytest.approx(20.4126)
+    assert sum(report["known_carrier_mass_g"].values()) + 6 == pytest.approx(9.5874)
+    assert sum(r["ppm_stock_blend_w_w"] for r in report["materials"]) == pytest.approx(6 / 9.5874 * 1e6)
+    assert report["status"] == "DESIGN_ONLY_PHYSICAL_HOLD"
+    assert not any(report["authorities"].values())
+
+
+def test_no_negative_solvent(candidate):
+    with pytest.raises(ValueError, match="exceed"):
+        plan_candidate(candidate, aromatic_mass_g=6, finished_mass_g=7)
+
+
+def test_bad_carrier_closure(candidate):
+    ambrox = next(r for r in candidate["materials"] if r["material"] == "Ambrox Super")
+    ambrox["current_stock"]["carrier_mass_fractions"]["DPG"] = .7
+    with pytest.raises(ValueError, match="do not close"):
+        plan_candidate(candidate)
+
+
+def test_no_silent_normalization_or_module_relabel(candidate):
+    candidate["materials"][0]["aromatic_ppm"] += 100
+    with pytest.raises(ValueError, match="close"):
+        plan_candidate(candidate)
+    candidate["materials"][0]["aromatic_ppm"] -= 100
+    candidate["materials"][0]["module"] = "dry_wood"
+    with pytest.raises(ValueError, match="module"):
+        plan_candidate(candidate)
+
+
+def test_duplicate_rows_are_not_double_counted(candidate):
+    candidate["materials"].append(copy.deepcopy(candidate["materials"][0]))
+    with pytest.raises(ValueError, match="duplicate"):
+        plan_candidate(candidate)
+
+
+def test_shared_module_cannot_hide_missing_identity_support(candidate):
+    for missing, replacement in (
+        ("Cedarwood oil Virginia", "Iso E Super"),
+        ("Patchouli EO", "Evernyl"),
+        ("Cade Oil Rectified", "Suederal"),
+    ):
+        masses = ledger(candidate)
+        masses[replacement] += masses.pop(missing)
+        assert f"identity_support:{missing}" in assess_geometry(masses)["violations"]
+
+
+def test_fruity_musk_is_not_a_silent_fruit_free_substitution(candidate):
+    masses = ledger(candidate)
+    masses["Romandolide"] = masses.pop("Habanolide")
+    report = assess_geometry(masses)
+    assert report["secondary_facet_flags"]
+    assert not report["authorities"]["sensory_similarity"]
+
+
+def test_snapshot_matches_current_inventory_without_mutating_authority(candidate):
+    assert hashlib.sha256((ROOT / "inventory.txt").read_bytes()).hexdigest() == candidate["inventory_sha256"]
+    text = (ROOT / "inventory.txt").read_text(encoding="utf-8")
+    for row in candidate["materials"]:
+        if row["current_stock"]["inventory_synchronized"]:
+            assert row["material"] in text
+    assert not any(r["material"] in {"Birch Tar Rectified", "Guaiacwood EO", "Paradisamide"} for r in candidate["materials"])
+
+
+def test_discoverable_from_existing_aventus_module_without_changing_official_contract():
+    from future_modules.iconic_formulas import (
+        get_aventus_architecture_module,
+        get_aventus_woody_mass_design,
+    )
+    assert get_aventus_architecture_module().quantitative_authority == "UNKNOWN"
+    assert get_aventus_woody_mass_design()["geometry"]["status"] == "DESIGN_BOUNDS_MET"
+
+
+def test_opt_in_entry_point_fails_on_inventory_drift(monkeypatch):
+    from future_modules.iconic_formulas import get_aventus_woody_mass_design
+
+    original = Path.read_bytes
+
+    def changed_inventory(path):
+        return b"changed inventory" if path.name == "inventory.txt" else original(path)
+
+    monkeypatch.setattr(Path, "read_bytes", changed_inventory)
+    with pytest.raises(ValueError, match="snapshot drift"):
+        get_aventus_woody_mass_design()

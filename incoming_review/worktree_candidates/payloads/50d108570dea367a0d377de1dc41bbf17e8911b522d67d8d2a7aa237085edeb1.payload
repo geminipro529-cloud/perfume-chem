@@ -1,0 +1,446 @@
+# DHP 2025 Structural Formulation Learning Protocol
+
+**Date integrated:** 2026-08-28
+**Scope:** Reusable formulation, evaluation, learning, and workload protocol for named-perfume studies in Perfume-Chem
+**Status:** GOVERNING WORKSTYLE REFERENCE — not a perfume formula, sensory result, safety clearance, or release authorization
+
+## Purpose and preservation rule
+
+This document preserves the transferable learning from the YSL L'Homme / La Nuit de L'Homme study, the Apple Pie realism correction, and the LNDL Luxe DHP-2025-theory build. It must improve later work without flattening the original evidence into a slogan.
+
+The source artifacts remain authoritative for their own exact recipes, tables, analyses, and protocols. They are not overwritten, silently normalized, or replaced by this synthesis. Future work must consult the applicable source artifact when exact quantities, pipeline output, blind-arm construction, or historical reasoning is needed.
+
+## HARD RULE — source-lineage conservation gate
+
+This rule is binding for every Luxe/DHP successor. It exists because a later LNDL regeneration retained the broad DHP grammar and even increased the current-build row count, yet silently compressed parts of the 58-row Chiaroscuro ideal. That must never recur.
+
+1. Designate the exact predecessor and record its hash, TARGET/IDEAL row count, current-build row count, module count, spatial planes, textural roles, transitions, recurrence mechanisms, and controlled-test modules.
+2. Give every predecessor row and every predecessor function an individual disposition: `KEEP`, `REBASE`, `EXACT REPLACEMENT`, `IDEAL-ONLY`, or `REJECT WITH ISOLATED TEST/RATIONALE`.
+3. Do not bundle several lost functions under one vague statement such as “redundant,” “cleaner,” or “more controlled.” Each loss needs its own evidence-bounded rationale and, when sensory value is at issue, an isolated constant-total test.
+4. Current-inventory absence can force an approximation in the executable build, but it cannot delete the material or function from the inventory-independent ideal or the conservation ledger.
+5. A successor represented as equal or better in complexity/depth may not reduce TARGET/IDEAL row count, functional modules, spatial planes, transition links, textural roles, or recurrence mechanisms below the designated source unless the user explicitly approves the displayed compression.
+6. Higher count is a required conservation floor in this user-directed workflow, not proof of sensory complexity. It never substitutes for target-linked function, transition, legibility, or hedonism.
+7. If the ledger is incomplete, counts are lower without explicit approval, or a source function disappears unexplained, status is `HARD FAIL — SOURCE COMPRESSION`; do not present the successor as complete, Luxe, DHP-level, same, or better.
+
+## HARD RULE — donor-independence gate
+
+Source conservation does not authorize donor-template inheritance. The failure that triggered this rule preserved the LNDL source count while copying White Fire Reliquary's exact seventeen-basket ontology and a large shared structural chassis. That is not DHP theory transfer.
+
+1. Designate every theory donor separately from the predecessor and bind each donor to an immutable source/signature SHA-256.
+2. Every Luxe/DHP formula artifact must carry a `donor-independence-manifest` with predecessor authority, donor signatures, declared parser-visible rows and raw subtotal, target-specific modules, and exact disposition arrays covering every ideal row and functional module extracted from the immutable predecessor. Every entry requires one allowed disposition and a nonempty rationale. A Boolean or prose-only completeness claim is invalid.
+3. Run the deterministic `donor_independence` gate through the existing formula release entry point. Do not create or use a prose-only substitute.
+4. Predecessor/signature hash drift, unreadable predecessor lineage, incomplete/invalid/extra source dispositions, parser under-read, exact donor module/basket ontology, or a governed donor-heavy structural cluster is a hard failure. Report source-lineage failures separately from donor-template contamination; neither may be waived by the other.
+5. Shared workhorse materials are not individually forbidden. The failure concerns architecture and combined unexplained chassis inheritance; every retained shared row still requires a named-target function.
+6. Source-lineage conservation and donor independence are orthogonal. Both must pass before a successor can be represented as complete, Luxe, DHP-level, same, better, deeper, more complex, or more luxurious.
+7. Preserve the contaminated predecessor as evidence and create a versioned corrected successor. Never rewrite the failed artifact into apparent compliance.
+
+## Full-fidelity source ledger
+
+| Source artifact | SHA-256 at integration | Preserved authority |
+|---|---|---|
+| `docs/superpowers/specs/2026-08-27-lndl-luxe-dhp2025-theory-design.md` | `CA7C3E11CAD3F29DEC840D4DC66760143BC5BD610A79D7C9C75C71CD346ECA41` | Approved DHP-theory translation, identity hierarchy, anti-padding gates, and staged sensory logic |
+| `docs/superpowers/plans/2026-08-27-lndl-luxe-dhp2025-theory.md` | `A257A2BC0D54A51FFB0F0C5533D2B96CC75F7EFD7F966C89D796187929A9C764` | Implementation sequence and acceptance contract |
+| `formulas/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_30mL_20pct_Development.md` | `9C00B35BC00479849DBE537A7BA90FFC633C1346A5EFB2DC2CA1D50BD4A53E0E` | Exact 58-row ideal, 49-row governed current build, preparation ledger, missing-impact gate, OAV/temporal analysis, and claim ceiling |
+| `formulas/mixing_guides/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_Blind_Trial.md` | `7348A5AAEC561E827634600DB892AD5102107CC051A982FDDEDB6C1780346DB9` | Exact constant-total 2 x 2 coupled-subject protocol and inference rules |
+| `formulas/L_Homme_Luxe_30mL_EdP.md` | `4EBC23EC1F9D22B693D1C2ED488B09BDA3598C8B7C06ED170A01E88008ACA9F2` | Earlier 22-row L'Homme Luxe attempt and its modeled dominance/sub-threshold risks |
+| `formulas/L_Homme_Reserve_30mL_EdP.md` | `4B1014C6CBCE2B55EFDBEB8F1A0CD85402F46C4F8E6811DA5F84BC8A353E3974` | Physical muddiness/chaos lesson attributed to the prior natural-luxury kitchen-sink direction |
+| `formulas/L_Homme_Approximation_30mL_EdP.md` | `30DC8302BD77937E290C50BFF588CFBA3A1FFCB8D40EECC381A22BDE1E8FB3C0` | Historical L'Homme skeleton research and known incomplete 800 uL formula gap |
+| `formulas/LH_04X_Pomme_Couture_100_V1_30mL_15pct_Development.md` | `C10CAB643E46EE657F61369623E5B00FB0DFEFCC3FF21557561A31844CE3A6D0` | Apple realism architecture, diluted-Lemonile correction, Bontoux 10% observation, and missing-data gate |
+
+The LNDL Luxe implementation is additionally preserved in commits:
+
+- `ea58b7c` — initial DHP-theory formulation;
+- `25890ab` — OAV and temporal rebase;
+- `e25b264` — preparation and missing-impact gates;
+- `ba7601c` — blinded coupled-subject trial.
+
+An AP-T1 v3 artifact was verified in another isolated worktree and is not silently reconstructed here. Its recorded lineage remains: `formulas/ysl_twenty_variant_study/RECIPES/LH-04-APPLE-PIE-AP-T1-v3.md`, SHA-256 `CE96C3A47760A231207572432460951EF083F26B97A4579DB9E11CEEA18BE1DF`, 28 rows, 4,500 uL concentrate, 10 uL minimum raw aliquot. If exact bytes are needed, retrieve that artifact; do not recreate it from this prose.
+
+## Evidence taxonomy: what can be learned from what
+
+Every statement entering a future formulation must carry one of these evidence classes. They are not interchangeable.
+
+| Evidence class | What it can establish | What it cannot establish |
+|---|---|---|
+| `USER_OBSERVED_PHYSICAL` | The user smelled, preferred, rejected, depleted, lost, owns, or physically handled the stated object under the stated condition | General liking, causality, universal dose, similarity, safety, stability, or behavior in another formula |
+| `BLINDED_PHYSICAL` | Directional sensory evidence under the recorded samples, assessors, order, dose, environment, and time windows | Universal preference or effects outside the tested design |
+| `UNBLINDED_PHYSICAL` | A genuine observation that can guide diagnosis | Bias-free preference or causal attribution |
+| `COMPUTATIONAL_GOVERNED` | Arithmetic, parsed dose, modeled ppm, ODT lookup, OAV, composite-natural model output, temporal model output, and gate result under the recorded code/data version | Measured headspace, actual smell, liking, similarity, realism, safety, stability, longevity, or release success |
+| `DESIGN_HYPOTHESIS` | A reasoned target/function/transition proposal suitable for controlled testing | Any physical outcome |
+| `LITERATURE_DERIVED` | What the cited source directly reports within its method and material identity | Behavior of a different supplier product, stock basis, formula, or person |
+| `INVENTORY_FILE` | What the checked-in inventory file declares at the read time | Current physical truth when later user authority conflicts, exact identity/lot, or usable stock quality |
+| `USER_PHYSICAL_OVERRIDE` | Newer physical stock/depletion fact supplied directly by the user | Missing supplier metadata or safety/physics fields |
+| `MISSING_DATA_HOLD` | The exact claim that cannot be adjudicated because identity, physics, ODT, stock basis, or safety data are absent | Sensory dormancy or harmlessness |
+| `NOT_TESTED` | The claim has not been physically established | Nothing positive; this state must not be promoted by confident prose |
+
+When sources conflict, use this precedence for physical buildability: newer direct user physical authority, then verified bottle/label/receipt, then live inventory file, then older formula text or memory. Preserve the conflict in the artifact instead of silently editing history.
+
+## Current physical authority carried forward
+
+Until the user changes these facts, every formula batch must apply them after reading the live inventory:
+
+- Ethylene Brassylate, Habanolide, and Romandolide are physically owned.
+- Amber Xtreme is 10% w/w in DEP; Alpha Irone is 10% w/w in DEP.
+- Opoponax Resinoid and Myrrh EO are each 50% in DEP with concentration basis unspecified.
+- Premium Osmanthus Absolute and Rose de Mai Absolute are each 10% in DPG; volume-grade osmanthus is neat.
+- Lemon FCF oil Sicilian, Clearwood, and Givaudan Alpha Isomethyl Ionone are owned neat.
+- `Cedarwood oil Virginia`, `Red Mandarin EO`, and `Rose Essential Oil (Rosa Damascena, India)` are the canonical owned rows for Virginian cedarwood, Red Mandarin Oil, and steam-distilled Rose Otto; each retains its existing implicit neat basis.
+- All tinctures are lost and unavailable. The corrected owned lactone set is Delta Decalactone and Gamma Nonalactone; Gamma Decalactone is unavailable.
+- Parmavert is unavailable by direct user authority even where an older inventory row remains.
+- NYSUPPLY Cinnamon Bark EO is an owned 10% bottle stock with carrier and concentration basis unspecified. User authority dated 2026-08-28 maps exactly 10 uL of that bottle stock to 10 uL Cinnamaldehyde 1% for formula-design substitution. This is not chemical, constituent-content, OAV, safety, stability, carrier, concentration-basis, or general-ratio equivalence.
+- No raw-stock aliquot below 10 uL may be requested. A smaller desired neat equivalent must be delivered from an explicitly prepared and labeled working stock using a measured aliquot of at least 10 uL.
+- A past preference for one stock strength under one formula/scale does not prove the same dose or material interpretation is optimal elsewhere.
+
+## DHP 2025 is a design grammar, not an ingredient list
+
+The transferable theory is structural:
+
+1. Select one named-perfume subject, not a collection of attractive notes.
+2. Render that subject in two opposed but genetically connected states.
+3. Let tenderness and pressure coexist instead of alternating as unrelated top and base accords.
+4. Give the subject anatomy: surface, interior, connective tissue, silhouette, and residue.
+5. Build spatial perspective: front glint, near body, living middle, rear contour, and skin/fabric echo.
+6. Build temporal recurrence: the drydown recalls the subject through related chemistry and texture rather than merely retaining a high-VP top note.
+7. Make the base identity-bearing. A detachable generic amberwood/musk base fails even if it is powerful or technically balanced.
+8. Use airy and dense effects simultaneously. Density alone is heaviness; air alone is thinness.
+9. Use contrast to reveal the subject, not to import the donor perfume's iris, sandalwood, amber, or darkness automatically.
+10. Preserve the named perfume's hierarchy above the borrowed theory.
+
+For Apple Pie the object was fresh peel/flesh to cooked filling to pastry shadow. For LNDL it was a cold cardamom shell opening into warm crushed seed through lavender. For L'Homme Luxe it becomes cold wet-cut ginger surface opening into warm fibrous ginger-violet/cedar interior.
+
+## Complexity ontology
+
+Ingredient count is only capacity. A structurally complex perfume may use many materials, but complexity is accepted only when the following dimensions are built and connected:
+
+1. **Identity depth:** multiple materials reinforce different anatomy of the same named subject.
+2. **Spatial depth:** recognizably different front, middle, rear, skin, and aura positions.
+3. **Temporal depth:** meaningful evolution and recurrence across opening, top, heart, late heart, and drydown.
+4. **Textural depth:** surfaces such as wet, waxed, fibrous, petal-soft, suede, granular, mineral, creamy, or dry are differentiated rather than described generically.
+5. **Relational depth:** materials form interpretable bridges and tensions instead of merely coexisting.
+6. **Transition depth:** each major state change has dedicated chemistry and a testable transition owner.
+7. **Anatomical depth:** surface, flesh/interior, stem/root/fiber, and residue are represented where the target requires them.
+8. **Pressure/release depth:** a tender or pleasurable core is shaped by restraint, contour, dryness, bitterness, mineral tension, or negative space.
+9. **Recurrence:** target-linked chemistry reappears at later times in transformed form.
+10. **Diffusion/fixation depth:** projection, bloom, adhesion, and persistence are distinct functions, not one generic "performance" block.
+11. **Hedonic coherence:** complexity supports pleasure and ease of reading; it cannot be redeemed by technical sophistication if physically less liked.
+12. **Legibility under adaptation:** the perfume still presents a small number of coherent perceptual objects despite a high material count.
+
+A material count may rise without a preset ceiling when these dimensions require it. Within one formula's internal optimization, a material may be proposed for removal when it does not own a nonredundant function. For a Luxe/DHP successor, however, the source-lineage conservation gate controls: the predecessor row/function remains visible in the ideal and ledger, and no lower-count or lower-function successor may be called equal/better without explicit user approval of the documented compression.
+
+## Material admission and survival contract
+
+Before dosing, define the target identity, the two-state subject, the functional modules, the transition map, excluded takeovers, and acceptance criteria. Then apply these gates to every candidate:
+
+1. **Name gate:** Does it strengthen the named perfume or the structural theory without changing genre?
+2. **Function gate:** Does it own a spatial plane, texture, interface, recurrence, pressure/release mechanism, or necessary diffusion/fixation function?
+3. **Alternative gate:** Which live-inventory alternatives can fill the function, why is this one more exact, and why were the others rejected?
+4. **Compatibility gate:** For complex naturals, is there a chemically coherent constituent-family relationship with the neighboring naturals?
+5. **Audibility gate:** If the role requires recognition, is the governed predicted OAV at least 1? If not, re-dose safely, re-dilute, replace, or remove it.
+6. **Structural exception gate:** OAV below 1 may survive only as a declared matrix, solvent/fixative mass, sub-recognition pressure, or skin-texture hypothesis with an omission test. It is not counted as audible complexity.
+7. **Missing-data gate:** A modeled zero caused by absent physics/ODT is `HOLD`, not evidence of dormancy.
+8. **Stock-rebase gate:** Rebase active amount when stock strength changes, then recalculate OAV and temporal behavior. Raw volume is not active equivalence.
+9. **Measurability gate:** Every raw aliquot is at least 10 uL. Explicitly prepare a working dilution when the desired neat equivalent is smaller.
+10. **Alias gate:** Canonically normalize names and remove duplicate identities such as parallel Hedione labels when the local resolver collapses them.
+11. **Safety gate:** Do not increase a low-VP or restricted material merely to force OAV. Check the relevant safety data first and keep unresolved claims on HOLD.
+12. **Survival audit:** After the first governed run, record KEEP, REDOSE/REDILUTE, REMOVE/REBASE, STRUCTURAL EXCEPTION, or DATA HOLD for every candidate.
+
+Removed volume returns to the most target-neutral compatible structural owner. It is not used to pad another prestige material.
+
+## Accord realism learning
+
+Representing a named facet with one associated ingredient is not the same as constructing a realistic accord. Realism depends on anatomy and transitions.
+
+For any concrete object or material, diagnose at least:
+
+- surface or peel;
+- fresh flesh/interior;
+- transformed, cooked, crushed, oxidized, or dried interior where applicable;
+- fat, wax, moisture, air, or fabric medium;
+- browned, mineral, woody, or structural boundary;
+- spice or character integration;
+- transitions between these layers.
+
+Apple Pie taught that increasing sweetness or adding a dormant lactone does not test cooked-filling realism. A primary diagnostic must be practically measurable and predicted perceptible; otherwise mark it `HOLD/NON-INFORMATIVE`. Damascenone 1% replaced the unavailable/dormant Gamma Decalactone intervention in AP-T1 v3. Verdyl Acetate was treated as a peel-to-violet/wood bridge, not as literal apple. Lemonile was corrected to the existing 1% DPG stock, not neat. Bontoux at 10% was preserved as a user-observed stock-strength preference while cinnamon identity and safety stayed on HOLD.
+
+The same realism rule applies to abstract perfumery subjects. "Ginger" needs cut surface, volatile citrus-spice lift, moist/fibrous interior, floral warmth, dry woody residue, and continuous passage into violet/cedar if those are the target. Merely listing Ginger EO, citrus, ionone, and cedar does not establish that architecture.
+
+## OAV, temporal, and natural-mixture diagnostics
+
+- Express active concentration in concentrate ppm.
+- Record stock strength and basis; distinguish w/w from w/v and do not claim exact active volume for a gravimetric stock without density.
+- Use the local ODT source and record its authority/quality.
+- Use composite-natural OAV for essential oils, absolutes, resinoids, and other mixtures covered by the decomposition model.
+- Treat natural composite models as diagnostic floors where degradation pathways or missing GC-O constituents may matter.
+- Inspect the full material table, total vapor, active top/heart/base distribution, and all five temporal windows before discussing gate totals.
+- Run the stock-rebase/OAV-per-time guard when dilution or dose changes.
+- Flag high-OAV takeover risks and adaptation-tier collapse; do not optimize to a uniform numerical range.
+- A character material predicted far above the target subject may need dilution rather than simple removal.
+- A material below OAV 0.1 is normally dormant unless its exact physical matrix function is declared and tested.
+- OAV does not add linearly to perceived character, and high OAV does not establish pleasantness.
+
+The LNDL rebase demonstrated the method:
+
+- Beta-Pinene moved from 30 uL neat, modeled OAV about 33,810, to 10 uL of a prepared 10% stock, modeled OAV about 1,138.
+- Javanol moved from 100 uL neat, modeled OAV about 16,179, to 30 uL of 10% stock, modeled OAV about 490.
+- Orivone moved from 80 uL neat to the 10 uL direct-measurement floor, modeled OAV about 858.
+- Hedione HC, Tonka Absolute, Dihydro Beta Ionone, Cedramber, Clearwood, Vertofix, and Amberwood F were removed/rebased where they created duplicate identity, modeled dormancy, or generic labeled complexity.
+- Four governed sub-threshold rows remained only as explicit matrix/pressure hypotheses; Bontoux remained a separate missing-data HOLD.
+
+These values belong to that exact formula/data run and must not be copied as universal doses.
+
+## Natural compatibility and anti-kitchen-sink rule
+
+The user-observed L'Homme Reserve failure is physical evidence that its accords felt muddy/chaotic; the proposed chemical explanation remains a design diagnosis, not a universally proven incompatibility law. Future work should nevertheless prevent the same high-risk pattern:
+
+- Do not combine many complex naturals merely because each is luxurious.
+- Map dominant constituent families and overlap before combining naturals.
+- Prefer one or two identity-bearing naturals plus controlled single molecules for missing facets.
+- Avoid simultaneous unrelated floral species and spice families when they create competing recognizable objects.
+- Specifically retain the historical warnings: blue chamomile plus rose; osmanthus plus clove; and geranium plus violet-leaf were implicated in the prior muddy direction.
+- Run a small controlled test before committing expensive materials, especially Alpha Irone or rare absolutes.
+
+The evidence ceiling is: the prior Reserve was physically rejected as muddy/chaotic; the exact causal contribution of each pairing was not isolated.
+
+## Named-identity and drift controls
+
+For every named-perfume study:
+
+1. Write the recognizable public arc before choosing luxury materials.
+2. Protect a compact identity nucleus in every blind arm.
+3. Test identity before realism, abstract depth, strength, or liking.
+4. Reject an intervention that improves depth while moving into another perfume's signature.
+5. Treat modern support materials as aura and architecture unless they are part of the target identity.
+6. Keep family-shifting materials below concept-specific ceilings and re-evaluate them as a group.
+
+For L'Homme specifically, preserve:
+
+- ginger plus bergamot/lemon-like lift in the opening;
+- violet leaf, restrained basil/herbal accent, and pepper/spice tailoring in the heart;
+- tonka/coumarinic warmth, cedar, and vetiver in the base;
+- transparent woody-floral-musk character and daytime poise.
+
+Prevent:
+
+- Dihydromyrcenol turning the perfume sporty-blue;
+- Hedione or Iso E Super becoming the identity;
+- cardamom turning it into La Nuit;
+- iris/irone turning it into Dior Homme or Prada L'Homme;
+- creamy sandalwood, sweet amber, vanilla, or balsams turning it oriental;
+- multiple clean musks turning it laundry-like;
+- literal rose, clove, osmanthus, chamomile, or other prestige naturals becoming separate objects;
+- ginger disappearing after the opening with no fibrous or woody recurrence.
+
+## Musk, fixative, and base discipline
+
+The current Copilot instruction defers to the project protocol. For this study, the governing rule is zero or one functionally exact musk by default. More musks require an explicit, nonredundant exception and a controlled comparison.
+
+- LNDL used Ethylene Brassylate as one creamy, coumarin-compatible skin echo.
+- L'Homme should evaluate one fresh-woody exact musk rather than inherit LNDL's choice automatically. Romandolide is a candidate for outward woody diffusion; Ethylene Brassylate is a candidate only if creamy skin continuity is target-linked; either baseline must remain one musk.
+- Tonalide, Macrolide, and Musk Ketone remain excluded absent an explicit nonredundant exception.
+- A modeled sub-threshold musk cannot be described as projection or character without physical evidence.
+
+Fixatives must be differentiated:
+
+- Hexyl Salicylate: transparent green-floral film and bridge.
+- Benzyl Salicylate: heavier cosmetic/waxy bloom; avoid reflex use in daylight-transparent work.
+- Benzyl Benzoate: quiet mass and solvent/fixative hypothesis; not audible complexity.
+- Low-VP mass is not automatically depth. Retain it only when the omission trial can test the claimed texture or transition.
+
+## Controlled learning designs
+
+### Protected-nucleus rule
+
+Every test arm retains the smallest recognizable target nucleus. If the nucleus changes, the experiment cannot attribute a result to the tested extension.
+
+### Constant-total rule
+
+Every compared concentrate keeps the same raw total. Omitted module volume is replaced with a declared neutral compatible carrier or matrix. State whether the comparison is raw-volume constant, active-mass constant, or both.
+
+### 2 x 2 coupled-subject test
+
+Use when two extensions are hypothesized to create more than additive depth:
+
+- A / 00: protected nucleus and constant background;
+- B / 10: cold/surface extension only;
+- C / 01: warm/interior extension only;
+- D / 11: both extensions.
+
+For any scored axis within each independent preparation:
+
+```text
+COLD main effect = ((B + D) - (A + C)) / 2
+WARM main effect = ((C + D) - (A + B)) / 2
+Additive expectation for D = B + C - A
+COLD x WARM interaction = D - B - C + A
+```
+
+The coupling hypothesis is supported only if D improves identity-linked depth, transition, spatiality, or liking beyond the additive expectation without increasing drift, harshness, muddiness, or fatigue.
+
+### High-count versus compressed test
+
+After module-level learning, compare the surviving high-count build against a compressed build in which redundant members are removed and totals are rebased. Hide ingredient count from evaluators. High count survives only if it improves a target-linked axis without losing identity or liking.
+
+### Replication, blinding, and order
+
+- Use at least two independently compounded module-master sets; repeated strips from one master are not independent preparations.
+- Use anonymous randomized codes and seal the mapping.
+- Use balanced serving order across assessors or properly separated sessions.
+- If the formulator remembers the mapping, label evidence `PARTIALLY BLINDED`.
+- Record free description before scores and discussion.
+- Do not average discordant independent preparations before auditing preparation and serving records.
+- A null result means no detected effect under that exact dose/protocol; it does not prove universal dormancy.
+
+### Default time windows and axes
+
+Read blotters at 0, 5, 30, and 120 minutes, then 6 and 24 hours. Add concept-specific windows only with a reason.
+
+Score separately:
+
+- named-perfume recognizability;
+- subject recognizability;
+- surface/cold-state clarity;
+- interior/warm-state plausibility;
+- transition continuity;
+- spatial dimensionality;
+- textural complexion;
+- airy/dense simultaneity;
+- identity-bearing late echo;
+- tailored style;
+- overall liking;
+- muddiness;
+- harshness;
+- fatigue/adaptation collapse;
+- concept-specific drift flags.
+
+Liking is independent. Do not use a depth score as a proxy for liking.
+
+## Workstyle and workload routing
+
+### Before every formula batch
+
+1. Read the current `AGENTS.md` completely.
+2. Read `inventory.txt` completely.
+3. Read `.github/copilot-instructions.md` completely.
+4. Read the relevant family section and buildability table.
+5. Re-open the target's existing formula files, physical feedback, and current blind controls.
+6. Reconcile direct user physical overrides against the file inventory.
+7. Check git status and preserve unrelated/user-owned changes.
+8. Define target identity and functional architecture before any dose.
+9. For a Luxe/DHP successor, complete the source-lineage conservation ledger and count/plane/transition comparison before dosing. Any unexplained loss is `HARD FAIL — SOURCE COMPRESSION`.
+
+### Local-first workload order
+
+1. Use `rg`, direct file reads, existing parsers, and focused calculations first.
+2. Use the existing formula pipeline; never create a new pipeline script.
+3. Use exact-project DeepLuna Chat only after a fresh health check and only if readiness is `READY`, provider calls are enabled, reservations are zero, and a bounded non-sensitive preprocessing task materially helps.
+4. If readiness is not `READY`, transmit nothing and use no fallback provider.
+5. Keep architecture, scientific judgment, evidence classification, patching, and final acceptance local.
+6. Use focused tests for formula/document work. Run the full verifier or full suite only when making a release or integration claim, or when the changed code scope requires it.
+7. Separate formula-specific failures from unrelated repository failures; never turn partial green checks into release readiness.
+
+### Artifact and version discipline
+
+- Preserve old formulas as historical evidence. Create a clearly versioned successor instead of rewriting the old sensory or computational record.
+- Keep TARGET / IDEAL and CURRENT-INVENTORY BUILD visibly separate.
+- Keep superseded pipeline runs labeled and do not let parsers treat both as current recipes.
+- Put generated JSON and scratch outputs under ignored output locations.
+- Append the required final formatted pipeline analysis to the formula artifact and present it in the active chat.
+- Commit only intended tracked artifacts; do not absorb unrelated untracked work.
+- Do not merge, hand off, procure, or physically compound without specific authority.
+
+### Learning-state progression
+
+```text
+DESIGN_HYPOTHESIS
+    -> COMPUTATIONAL_GOVERNED
+    -> CONTROLLED_PHYSICAL_PROTOTYPE
+    -> BLINDED_PHYSICAL_EVIDENCE
+    -> REPLICATED_SCOPED_LEARNING
+    -> SAFETY/STABILITY/RELEASE GATES
+```
+
+No stage is skipped through confidence, ingredient count, pipeline score, or prose.
+
+## Required future formula packet
+
+Every complete proposal should contain, in this order:
+
+1. authority, status, concentration, and claim ceiling;
+2. target identity and excluded takeovers;
+3. functional architecture before dosing;
+4. spatial and temporal transition map;
+5. inventory-independent TARGET / IDEAL formula in ppm;
+6. CURRENT-INVENTORY BUILD with raw uL, stock strength/basis, nominal active uL, active ppm, ODT authority, modeled OAV/status, and one primary functional owner;
+7. candidate-survival audit after the first governed run;
+8. inventory and canonical-name audit;
+9. complete preparation ledger, including every sub-10-uL neat-equivalent dilution;
+10. missing-chemical impact gate with exact lost function, approximation, residual limitation, severity, and purchase recommendation;
+11. mixing order explicitly labeled future work unless compounded;
+12. constant-total blinded trial with protected nucleus, modules, arms, preparation scale, randomization, timing, ballot, and inference rules;
+13. full required pipeline analysis;
+14. explicit physical/sensory/safety/stability/release claim ceiling.
+
+## L'Homme Luxe V2 carry-forward contract
+
+The next L'Homme Luxe must not merely enlarge the earlier 22-material Luxe. It must explicitly correct these risks:
+
+- apply the current canonical owned `Cedarwood oil Virginia` row; the earlier V2 depletion assumption is superseded and must not be propagated into a new current build;
+- remove the prior 8 uL neat Basil EO violation by using a measurable prepared stock if basil is retained;
+- replace the three-musk chord with one exact musk;
+- avoid the earlier Hedione/Hedione-HC identity duplication;
+- prevent Hedione, Iso E Super, Dihydromyrcenol, Ebanol, or a musk block from outranking ginger identity by accident;
+- do not retain sub-threshold projection-musks as prestige filler;
+- keep cardamom subordinate so the result does not become LNDL;
+- keep violet/ionone tailored and green rather than lipstick-iris;
+- use owned `Cedarwood oil Virginia` for pencil-dry grain and keep Cedarwood EO/Himalayan Cedarwood, vetiver/Vetikon, and differentiated modern woods only for their separate target-linked planes;
+- use Lemonile only from the verified 1% DPG stock if selected; never dose neat Lemonile as a micro-intervention;
+- use the restored owned neat Lemon FCF at a target-subordinate dose; Cedrat remains an optional different bitter-citron register, not a required depletion substitute;
+- preserve the public L'Homme arc and create ginger recurrence in the drydown through fibrous violet/cedar relationships;
+- include a high-count-versus-compressed test only after the dual-state modules survive.
+
+## Worked case: L'Homme Luxe Ginger Prism V2 (2026-08-28)
+
+The versioned case artifact is `formulas/L_Homme_Luxe_Ginger_Prism_DHP2025_Theory_V2_30mL_EdP.md`. It is the first direct application of this protocol and must be consulted, not reconstructed from this synopsis, whenever exact doses, target parts, preparation instructions, pipeline rows, missing-material impacts, or blind modules are needed.
+
+### Target and structure
+
+- Named target: daylight fresh woody aromatic L'Homme, with bergamot/lemon-like lift, a wet-to-warm ginger prism, violet-leaf/basil tailoring, and a cedar-vetiver-tonka base.
+- DHP 2025 contribution: one protected identity viewed through cold/warm, airy/dense, grain/yield, and front/interior planes. It is not an iris/leather/oud ingredient transfer.
+- Final module budgets at 6,000 uL: aperture 580; dual ginger 640; violet-basil 700; air/ozone 550; cedar-vetiver fiber 1,530; tonka-sandal interior 950; pressure/mineral 330; adhesion matrix 370; one Romandolide musk 350.
+- Hard drifts: LNDL cardamom/amber, lipstick iris, leather/oud/smoke, blue aquatic, gourmand cinnamon/pastry, sweet tonka, and laundry musk.
+
+### Admission, rebase, and pruning evidence
+
+- The first governed screen contained 54 current-inventory rows at constant 6,000 uL. It modeled 41.33 ppm opening vapor, eight massive-OAV rows, Cedrat at OAV 5,682 as the accidental leader, 48/54 perceptible rows, six sub-threshold rows, and a modeled Cyclamen Cat-4 edge.
+- Rebase reduced Cedrat 120->20 uL, Linalyl Acetate 170->100, Linalool 80->30, Dihydromyrcenol 40->20, Dihydrojasmone 40->20, Geraniol 10% stock 40->10, Ebanol 80->30, Javanol 10% stock 40->20, Azarbre 100->50, Scentenal 1% stock 30->10, Vetikon 120->80, Vetival 60->30, Cyclamen 60->30, and Benzyl Alcohol 50% stock 60->20. Ginger remained the protected leader; quieter cedar/vetiver/adhesion mass received the released volume.
+- Clearwood was then removed at modeled OAV 0.06 because its assigned clean-earth/root role required perceptibility. Its 100 uL went to Cedarwood EO +40, Himalayan Cedarwood +30, and Indian Vetiver +30. This is the canonical example of pruning ingredient coverage while increasing target-linked depth.
+- Final current build: 53 rows, exactly 6,000 uL, minimum raw aliquot 10 uL, one Romandolide musk, 100 PASS / 29 WARN / 0 FAIL, 31.35 ppm modeled opening vapor, Ginger OAV 3,137 as leader, 50/53 modeled-perceptible rows, three structural sub-threshold rows, and modeled 55.4% base share at four hours. Every result remains computational.
+- Historical V2 ideal: 57 rows, exactly 6,000 target parts. At that run, six materials were classified missing/depleted: Lemon FCF, White Pepper EO, Ginger CO2 10%, Violet Leaf Absolute 10%, Cedarwood Virginia, and Haitian Vetiver. Current authority now reclassifies neat Lemon FCF and canonical `Cedarwood oil Virginia` as owned; preserve V2's historical table, but do not copy its old depletion status into a successor.
+
+### Reusable material decisions
+
+- Lemonile is only the verified 1% DPG stock at 50 uL, never neat.
+- Citral 10%, Cardamom EO 10%, Basil EO 10%, Javanol 10%, and Norlimbanol Dextro 10% must be prepared from at least 100 uL raw material plus 900 uL DPG so the formula aliquots remain at least 10 uL.
+- Romandolide owns outward clean-woody projection. EB was rejected for this formula because lactonic thickness would work against the fresh-tailored target, not because EB is unavailable.
+- Four sandalwood rows survive only as a hypothesis of distinct planes: Sandalore fresh face, Ebanol volatile creamy bridge, Polysantol slow yielding interior, and diluted Javanol dry-mineral line. Blind collapse means prune.
+- Verdox was rejected because its fruity apple-green signature broadens away from the violet-leaf target. Verdyl acetate lacks live inventory authority. Bontoux Cinnamon Oil is on-hand user authority but excluded because cinnamon shifts this L'Homme toward La Nuit/amber/gourmand territory; the earlier favorable 10% in a 3 mL context is not transferable evidence.
+
+### Reusable high-count blind method
+
+The first sensory design is a constant-total 2x2, not a 53-way material screen:
+
+- G+ adds Dihydrojasmone +10 and Jessemal +20 uL, compensated by Benzyl Benzoate -30.
+- Historical V+ adds Alpha Ionone +10, Parmavert +20, and Scentenal 1% +10 uL, compensated by Benzyl Benzoate -40. Under current authority Parmavert is IDEAL-ONLY/unavailable, so this historical arm is not executable without a target-linked replacement and a new constant-total diagnostic.
+- Arms A/B/C/D are control, G+, V+, and G+V+; each remains 6,000 uL.
+- For practical 3 mL bottles, build a 5,490 uL common core and four 510 uL variable modules. Dose 549 uL core + 51 uL coded module + 2,400 uL ethanol. This keeps every direct raw measurement at or above 10 uL while preserving 20% EdP and constant total.
+- Screen duplicate coded pours, then confirm control versus the winner using a freshly prepared independent core and modules. Same-master duplicates estimate read consistency, not independent compounding reproducibility.
+- Separate identity, the two ginger states, violet-leaf realism, both transitions, wood grain, interior warmth, spatial depth, texture, style, intensity, and liking. A stronger sample is not automatically deeper or more liked.
+- An unnoticed or discordant intervention is `HOLD / NON-INFORMATIVE`, not evidence that the hypothesis is false.
+
+### Case claim ceiling
+
+This case is `COMPUTATIONAL EXPERIMENT DESIGN ONLY / NOT TESTED`. The high ingredient count is a testable topology, not evidence of complexity or luxury. No olfactory similarity, liking, dimensionality, stability, safety, longevity, diffusion, or release claim may be inherited from the pipeline or this protocol.
+
+## Claim ceiling
+
+This protocol contains design rules, user-observed facts, local computational results, and controlled-test methods. It does not establish that any future perfume is complex, deep, luxurious, realistic, similar, hedonic, stable, safe, long-lasting, or release-ready. Those claims remain `NOT TESTED` until supported by the appropriate physical and governance stage.

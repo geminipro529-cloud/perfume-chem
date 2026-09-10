@@ -1,0 +1,39 @@
+{
+  "schema_version": "solforge_judge_round_tombstone_v1",
+  "round": 1,
+  "status": "INVALIDATED_AFTER_OBSERVED_CRITICAL_ERROR_AND_COMPILER_REPAIR",
+  "reason": "The governed condition embedded the full frozen source text. A blinded judge marked this as apparent condition-specific resampling in SCR-MUSK-08. The compiler was repaired to retain only the source SHA-256 and the full screen must be reblinded and rejudged.",
+  "regeneration_commit": "f060346",
+  "seed": 91273,
+  "condition_outputs_sha256": "fb03e14dfa33f32e1f095f221212490cf0f41239a31a8b5fc57fd41087a6b38c",
+  "invariant_scores_sha256": "f6d6f4f12c9e6261c62b91853909bebcfd3a247cbb0be0cd707f549cd177eac5",
+  "judge_packets_sha256": "b44ce537db72b26a235c62c66a55a2ce5e19f01fb386c1609820d4dba77570d2",
+  "judge_answer_key_sha256": "9ef4390cbc22a4e21ee0c6443ef030a2a898cb8db8ad5ad5d0bef20e28cc6ab5",
+  "critical_case_id": "SCR-MUSK-08",
+  "critical_candidate_id": "CANDIDATE-02-a15bce9f",
+  "critical_condition_after_unblinding": "SOLFORGE",
+  "judge_task_ids": [
+    "01a03a51-2e0b-7f51-b747-cb43161bf074",
+    "01a03a51-3569-7b61-b915-add65f94dc98",
+    "01a03a51-3d07-7f23-b8d6-950103272a5a",
+    "01a03a51-4529-7d51-a136-842dbb7f4fd6",
+    "01a03a51-4cbe-76e0-ba7b-e42908f14a1e",
+    "01a03a51-561f-7131-b5c0-8e9a20ac0492",
+    "01a03a51-5f4b-7b80-bd5d-90f9b80c6240",
+    "01a03a51-68ff-7620-a892-043e753673c3",
+    "01a03a51-70ae-78e3-89ba-aa6dd242eae8",
+    "01a03a51-7ac0-76c3-bb0c-4907c6ab33e5",
+    "01a03a51-84b4-7670-9dcf-1c292f38e1ee",
+    "01a03a51-9075-7743-a29f-0eeb4d05f797"
+  ],
+  "authority_flags": {
+    "compounding": false,
+    "formula": false,
+    "hedonic": false,
+    "physical": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  }
+}

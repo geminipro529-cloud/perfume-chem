@@ -1,0 +1,66 @@
+"""Regression coverage for inventory-safe Aventus failure-pattern guidance."""
+
+from __future__ import annotations
+
+from engine.fuckups.patterns import COMBINATION_RULES, MATERIAL_RULES, CombinationRule
+
+
+def _combination_rule(name: str) -> CombinationRule:
+    return next(rule for rule in COMBINATION_RULES if rule.name == name)
+
+
+def test_material_rules_preserve_aventus_opening_articulation() -> None:
+    juniper = next(rule for rule in MATERIAL_RULES if "juniper berry eo" in rule.material_names)
+    petitgrain = next(
+        rule for rule in MATERIAL_RULES if "petitgrain eo paraguay" in rule.material_names
+    )
+
+    assert "bergamot and blackcurrant" in juniper.reason
+    assert "bergamot-blackcurrant opening" in petitgrain.reason
+    assert "bright-fruity" not in juniper.reason
+    assert "bright-fruity" not in petitgrain.reason
+
+
+def test_aromatic_green_repair_is_role_first_and_quantitatively_gated() -> None:
+    rule = _combination_rule("aromatic_green_opening")
+    guidance = f"{rule.effect} {rule.recommendation}"
+
+    assert "bergamot-blackcurrant" in rule.effect
+    assert "dry-wood/smoky-base continuity" in rule.effect
+    assert "secondary heart-reaching accent" in rule.recommendation
+    for required_gate in ("stock-specific", "ppm", "ODT", "composite-natural OAV", "OAV-per-time"):
+        assert required_gate in rule.recommendation
+    assert "µL" not in guidance
+
+
+def test_missing_dna_repair_excludes_prohibited_birch_tar_and_fixed_doses() -> None:
+    rule = _combination_rule("missing_aventus_dna")
+
+    for architectural_role in (
+        "primary bergamot-blackcurrant head",
+        "controlled pepper-jasmine",
+        "secondary pineapple bridge",
+        "cross-layer dry-wood/musk continuity",
+        "smoky-birch/patchouli/musk base",
+    ):
+        assert architectural_role in rule.effect
+    assert "current inventory" in rule.recommendation
+    assert "Birch Tar is excluded" in rule.recommendation
+    assert "marked prohibited" in rule.recommendation
+    assert "Cade/Suederal" in rule.recommendation
+    assert "explicitly non-equivalent" in rule.recommendation
+    assert "one precise musk by default" in rule.recommendation
+    assert "omission test" in rule.recommendation
+    assert "µL" not in rule.recommendation
+
+
+def test_smoke_repair_keeps_cade_and_suederal_as_separate_hypotheses() -> None:
+    rule = _combination_rule("earth_smoke_mismatch")
+
+    assert "do not use Birch Tar" in rule.recommendation
+    assert "live inventory" in rule.recommendation
+    assert "marks it prohibited" in rule.recommendation
+    assert "Cade Oil Rectified 1% and Suederal" in rule.recommendation
+    assert "separate, non-equivalent" in rule.recommendation
+    assert "pre-mix/OAV/safety gates" in rule.recommendation
+    assert "µL" not in rule.recommendation

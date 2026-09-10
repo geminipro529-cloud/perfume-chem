@@ -1,0 +1,414 @@
+{
+  "schema_version": "historical_quarantine_compatibility_v1",
+  "recorded_at": "2026-09-04",
+  "state": "REPOSITORY_AUTHORED_HISTORICAL_EVIDENCE_STABILIZED",
+  "artifact_count": 64,
+  "artifacts": [
+    {
+      "legacy_path": "output/P2_2_COMPATIBILITY_DECISION_2026-08-11.md",
+      "stable_path": "data/governance/historical_quarantine_v1/output_root/P2_2_COMPATIBILITY_DECISION_2026-08-11.md",
+      "byte_size": 4745,
+      "sha256": "1bcd4ab7d6b538e79e0e166dbc1f58365229260c662db4bf312848d7bd27f105"
+    },
+    {
+      "legacy_path": "output/P2_2_FIELD_COMPATIBILITY_MATRIX_2026-08-11.json",
+      "stable_path": "data/governance/historical_quarantine_v1/output_root/P2_2_FIELD_COMPATIBILITY_MATRIX_2026-08-11.json",
+      "byte_size": 29131,
+      "sha256": "a09cd9868100aa9ed71c20513350dfe4384ff17684b60b69733cab87994117f9"
+    },
+    {
+      "legacy_path": "output/P2_2_MAPPING_POLICY_REGISTRY_2026-08-11.json",
+      "stable_path": "data/governance/historical_quarantine_v1/output_root/P2_2_MAPPING_POLICY_REGISTRY_2026-08-11.json",
+      "byte_size": 12538,
+      "sha256": "bf3bab244c1ebcf7de686b1b874b4bcd27793b90fbe68cb1f160b1ef5286e5b9"
+    },
+    {
+      "legacy_path": "output/P2_2_SHA256SUMS_2026-08-11.txt",
+      "stable_path": "data/governance/historical_quarantine_v1/output_root/P2_2_SHA256SUMS_2026-08-11.txt",
+      "byte_size": 718,
+      "sha256": "ef0dbb10d8f83c8872e01011e372af35a4e01b43f5a301f1178611dcf67c9a0b"
+    },
+    {
+      "legacy_path": "output/P2_2_SOURCE_FIELD_CATALOG_2026-08-11.json",
+      "stable_path": "data/governance/historical_quarantine_v1/output_root/P2_2_SOURCE_FIELD_CATALOG_2026-08-11.json",
+      "byte_size": 33004,
+      "sha256": "4cad42a50fdab9abbb0fba51c308a5a19da00fa675b12bcfddae6c8b60d7d32e"
+    },
+    {
+      "legacy_path": "output/P2_2_VALIDATION_2026-08-11.json",
+      "stable_path": "data/governance/historical_quarantine_v1/output_root/P2_2_VALIDATION_2026-08-11.json",
+      "byte_size": 4770,
+      "sha256": "3061952667801242384ecde441336bf675c114af8356e95f050ed7159975120b"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_CHAT_ESTATE_DELTA_V13_20260816.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_CHAT_ESTATE_DELTA_V13_20260816.md",
+      "byte_size": 4527,
+      "sha256": "7abd053ca85800775afc81a83f7147f167188d9a98e439bee8eb85afaf06f8b5"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_DELTA_20260811T125326Z.json",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_COLLECTION_DELTA_20260811T125326Z.json",
+      "byte_size": 10437,
+      "sha256": "749c2d9ddab9f75215b693fb059268ccb163fb415e7c9a4d452fb0fc7d7895e0"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_DELTA_V14_20260816.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_COLLECTION_DELTA_V14_20260816.md",
+      "byte_size": 3458,
+      "sha256": "dfc38161ffaca64941c702a068e6b767508a7aa386f2bff4381ace11e8b45333"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_DELTA_V15_20260816.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_COLLECTION_DELTA_V15_20260816.md",
+      "byte_size": 2995,
+      "sha256": "eb8a3b479393e810ff6e83dd0a95bba85c0c1cb2446f8ece5b5b25f35de1c1a8"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_DELTA_V16_20260816.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_COLLECTION_DELTA_V16_20260816.md",
+      "byte_size": 3478,
+      "sha256": "95529b4ac6b542edcc40df2d5d5ea23a64fe2d7b251027bccec2bb83d3b50ffb"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_DELTA_V17_20260816.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_COLLECTION_DELTA_V17_20260816.md",
+      "byte_size": 4431,
+      "sha256": "795fbd17cc9415af66f60d09a0a815b057a5495548d85de5dc175fe8a3d7d0cc"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_DELTA_V18_20260817.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_COLLECTION_DELTA_V18_20260817.md",
+      "byte_size": 4554,
+      "sha256": "8a0872a8a200d33b0669475304e02c0c8b745a70179c4e5810ce2b4a8d5116e5"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V10_20260815.json",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V10_20260815.json",
+      "byte_size": 10054,
+      "sha256": "1ea13d5709dfb6d199929b88ded680abf776f7ad1b127f4230125ae31a9c61e5"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V12_20260816.json",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V12_20260816.json",
+      "byte_size": 9243,
+      "sha256": "7e67167b180f611774b6a63372c91207fc8bdef1a7d19de993c7029eeccf2bd2"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V2_20260811.json",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V2_20260811.json",
+      "byte_size": 21359,
+      "sha256": "63be0077ab12e3d0870f2e683201f123113e17c8d70faf15774f527e496d01ee"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V3_20260811.json",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V3_20260811.json",
+      "byte_size": 12232,
+      "sha256": "a6402bbf7e3b57f1cc43fd782d79151fe6582258cae82260db357d1f78d08362"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V4_20260811.json",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V4_20260811.json",
+      "byte_size": 8550,
+      "sha256": "ff781236849094addc2d72ea930f5d02d145e28cd89759e6a8797d098cc9057f"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V5_20260812.json",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V5_20260812.json",
+      "byte_size": 6694,
+      "sha256": "99a705720fe915cafc1864902e234a3bc62b3c590eb70a327355451e5180caef"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V6_20260812.json",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V6_20260812.json",
+      "byte_size": 5520,
+      "sha256": "5709250a6623f991d3a3de26d9001b015737dff1fd83d6d5f5aef2d3c9f8b80b"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V7_20260812.json",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V7_20260812.json",
+      "byte_size": 5446,
+      "sha256": "9d37e67ee8fc62398d33d9d52799d797d6ff8e08266b4394788c3f4e9e38004e"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V8_20260815.json",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V8_20260815.json",
+      "byte_size": 6888,
+      "sha256": "f48bb0461207f2551e62aa2e5dd0e35a90b86e2957549142988bc318342e1f3c"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V9_20260815.json",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V9_20260815.json",
+      "byte_size": 7362,
+      "sha256": "b9e573e94d787cfd5f80cb914ad37bfd8ce3581ac18c443635abd9d7cb16794b"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_AUDIT_V12_20260816.json",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_AUDIT_V12_20260816.json",
+      "byte_size": 12557,
+      "sha256": "ef1d225164ccc6b83caf815490362c097fb23bc1a92c442a3d378731a20679e0"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_AUDIT_V13_20260816.json",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_AUDIT_V13_20260816.json",
+      "byte_size": 14758,
+      "sha256": "5f994a8598639b79b87a16d16e53c53ca041b316704f18e330693dd3f08a35f7"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_AUDIT_V14_20260816.json",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_AUDIT_V14_20260816.json",
+      "byte_size": 11847,
+      "sha256": "a1fa3d929295517804d3907239d041aeb6e656607426ef01dc2edf9282c29c05"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_AUDIT_V15_20260816.json",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_AUDIT_V15_20260816.json",
+      "byte_size": 11430,
+      "sha256": "cd8a21db8f71f85312f8e3296760453f4bf71527546702dd370edfe88693d867"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_AUDIT_V16_20260816.json",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_AUDIT_V16_20260816.json",
+      "byte_size": 11030,
+      "sha256": "7cd274a28b7858050a4cb9167ffccc7c0c59f357884fb0ae890f5206ce066283"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_AUDIT_V17_20260816.json",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_AUDIT_V17_20260816.json",
+      "byte_size": 11400,
+      "sha256": "b743e55468dedd85c9af0a2570f951d6f8127b1c48d43887b41946e2807fbb5e"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_PLAN_V12_20260816.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_PLAN_V12_20260816.md",
+      "byte_size": 6489,
+      "sha256": "9dae185072e998f8bf7a3b36a594a2d26c439ba1be57fa8e65f3f477cc9a50dc"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_PLAN_V13_20260816.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_PLAN_V13_20260816.md",
+      "byte_size": 6960,
+      "sha256": "91dd7f085b63f174ec6dd919613ddf10bfb51403939c1e0bdfe3849277d7269a"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_PLAN_V14_20260816.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_PLAN_V14_20260816.md",
+      "byte_size": 3691,
+      "sha256": "7454b9a86ad4d2b46c28734ff29b23e4a9324e62b0e4fb829bc66885d7843a0b"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_PLAN_V15_20260816.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_PLAN_V15_20260816.md",
+      "byte_size": 3591,
+      "sha256": "038cc1eb7a06623259a02c2284ef3618f561b19ef216bc76f13c4f578607cbad"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_PLAN_V16_20260816.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_PLAN_V16_20260816.md",
+      "byte_size": 3467,
+      "sha256": "65f9c1274955176fe3c41286d0632e0a15d6088bcbd8eb6135db60264808d6cf"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_PLAN_V17_20260816.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_PLAN_V17_20260816.md",
+      "byte_size": 3706,
+      "sha256": "162a08f4ef1c2bbaa7ee781ff0bcfbd792eddd89d1df437d0a251c4ab6ba9105"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_SHA256SUMS_V12_20260816.txt",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_SHA256SUMS_V12_20260816.txt",
+      "byte_size": 1365,
+      "sha256": "5c76bf2922ba2e553c34aa8da7fc13a10cfb80f2e00222b73169fba19692c5a4"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_SHA256SUMS_V13_20260816.txt",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_SHA256SUMS_V13_20260816.txt",
+      "byte_size": 1242,
+      "sha256": "ab18d787416c672831dc279224033dc3e2667e1278edee7903696b856d73cf47"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_SHA256SUMS_V14_20260816.txt",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_SHA256SUMS_V14_20260816.txt",
+      "byte_size": 1371,
+      "sha256": "48139069a76cae2c103199ba5dcee06402eca248190d5d06969d905621b6bf25"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_SHA256SUMS_V15_20260816.txt",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_SHA256SUMS_V15_20260816.txt",
+      "byte_size": 1372,
+      "sha256": "c8a410622d4cb02c4ed5fb8023fb0438d20a8b4c844dbfc41044c6e4473775ab"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_SHA256SUMS_V16_20260816.txt",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_SHA256SUMS_V16_20260816.txt",
+      "byte_size": 1400,
+      "sha256": "0de3328099b54ebbf6aa6984d46612cc75393d67dc1369643a06ec82a377b436"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_SHA256SUMS_V17_20260816.txt",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_FULL_OBJECTIVE_COMPLETION_SHA256SUMS_V17_20260816.txt",
+      "byte_size": 1398,
+      "sha256": "c16a1b0a0de827ba991a794f3691e72a2dab0c1e6bed12994431470975f901d1"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V10_20260815.txt",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V10_20260815.txt",
+      "byte_size": 3434,
+      "sha256": "a121fd13dccf5bb329c04ec48d1c6af3014ad97e9cc1d3cbb2de52918b81ba12"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V12_20260816.txt",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V12_20260816.txt",
+      "byte_size": 2672,
+      "sha256": "70ee5e9c7fde5e90f8d0ddcbd456033e12d68957c41887f7360a01f96ebf05c7"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V2_20260811.txt",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V2_20260811.txt",
+      "byte_size": 2973,
+      "sha256": "4c28b6cce35651ff2c117eaf32a2eb7e757b1f2c8fc25971963226371d16ef73"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V3_20260811.txt",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V3_20260811.txt",
+      "byte_size": 2481,
+      "sha256": "9d649b7474fe69075633f14ba9f1c37b35b350f3a8afc2d435511c9acb112dc5"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V4_20260811.txt",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V4_20260811.txt",
+      "byte_size": 1600,
+      "sha256": "e8c66cda7eadb01f3f99edca131a458430bd240c617c45fbe930d079962ed876"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V5_20260812.txt",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V5_20260812.txt",
+      "byte_size": 1868,
+      "sha256": "f45558798f5f141535d95d81d7689a7eefb2a8e43a5bce5923e9505d5cb964d1"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V6_20260812.txt",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V6_20260812.txt",
+      "byte_size": 1402,
+      "sha256": "49989037506f138aee66720e69b56975e78e82b0c812aab9bec684b0ef56e021"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V7_20260812.txt",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V7_20260812.txt",
+      "byte_size": 1396,
+      "sha256": "5b5fd3da911e782669d48b50d9099c2851d9c551799acdb478e7f13268f76a4c"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V8_20260815.txt",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V8_20260815.txt",
+      "byte_size": 1441,
+      "sha256": "e4aa499fcadae7ea90144aedade25799695491434716f6d13de38a53241719d4"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V9_20260815.txt",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V9_20260815.txt",
+      "byte_size": 1438,
+      "sha256": "dc2c9e514f937284fb073509a53b7047e15ed085eb40425fa2cc8eefda05a1e8"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V10_20260815.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V10_20260815.md",
+      "byte_size": 3871,
+      "sha256": "0ec32670143f3c3a0b49c62049ba359d6f6454d4b17c23a6d04eddcdbc423bf5"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V12_20260816.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V12_20260816.md",
+      "byte_size": 4857,
+      "sha256": "660432e77c63447437371f77ce2090b24927c3aaf12fdf8112e10cfdd09db575"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V2_20260811.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V2_20260811.md",
+      "byte_size": 19891,
+      "sha256": "4ccb39add8fef0660228c2650dd9ca818f4f7d8e8449d4adcc3fd7b894a3521c"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V3_20260811.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V3_20260811.md",
+      "byte_size": 12245,
+      "sha256": "15a8f6356448a57c8f287b34c102c0401b2554d77e7655cc15a72e2a551b27c4"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V4_20260811.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V4_20260811.md",
+      "byte_size": 6910,
+      "sha256": "49e1dd1bb3cde508feb82f501145a718363c8a3d51ed38710e128496e4eba860"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V5_20260812.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V5_20260812.md",
+      "byte_size": 3817,
+      "sha256": "d85c598af4591db83759cce7d3920f8d9768d972b1e24934e5f3b9134d8bcd47"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V6_20260812.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V6_20260812.md",
+      "byte_size": 3174,
+      "sha256": "31ce6f301fa12949f4cbeb7f73ef2bdc356c01ecace0aafc2eae01d8b9be2507"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V7_20260812.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V7_20260812.md",
+      "byte_size": 2749,
+      "sha256": "542aaa2890161e36802175813a905b256351e75cdc2a423415008366c1e32168"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V8_20260815.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V8_20260815.md",
+      "byte_size": 3599,
+      "sha256": "e7646f45b109debdaefb2b2f854453a80d5955ebbee1644c9904434f32511e2f"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V9_20260815.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V9_20260815.md",
+      "byte_size": 4222,
+      "sha256": "073614af73a05b3ecb9617b28def642e73fff2ca3c1aa4b02a3002172734f1e1"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_RECOVERED_SCOPE_INSTALLATION_HANDOFF_20260812.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_RECOVERED_SCOPE_INSTALLATION_HANDOFF_20260812.md",
+      "byte_size": 2699,
+      "sha256": "d2e208e8fd9487697ba6f541c3b837ff3cb3765be9e843cc90322f896e41efdb"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_RECOVERED_SCOPE_INSTALLATION_SHA256SUMS_20260812.txt",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_RECOVERED_SCOPE_INSTALLATION_SHA256SUMS_20260812.txt",
+      "byte_size": 1875,
+      "sha256": "106961df56e0c0c55a28e1e660cdac69e48ec8e610b86362c149e20c9235cf07"
+    },
+    {
+      "legacy_path": "output/quarantine/COMPLEX_PERFUMERY_V11_EMBEDDED_PACKAGE_CENSUS_20260816.md",
+      "stable_path": "data/governance/historical_quarantine_v1/quarantine/COMPLEX_PERFUMERY_V11_EMBEDDED_PACKAGE_CENSUS_20260816.md",
+      "byte_size": 3892,
+      "sha256": "8690f3e555bddf4ca16ad4ac6a0a50ffe922a53b99c17164e9e1e182552c5631"
+    }
+  ],
+  "provenance": {
+    "source_workspace": "canonical-local-perfume-chem-output",
+    "copy_method": "EXACT_BYTE_COPY",
+    "external_or_private_package_bytes_included": false,
+    "provider_output_artifacts_included": false
+  },
+  "admission": {
+    "runtime_scientific_authority_promoted": false,
+    "formula_authority_promoted": false,
+    "inventory_authority_promoted": false,
+    "sensory_authority_promoted": false,
+    "safety_authority_promoted": false,
+    "release_authority_promoted": false,
+    "test_compatibility_materialization_allowed": true
+  },
+  "blockers": [
+    "HISTORICAL_EVIDENCE_ONLY",
+    "NO_PRIVATE_PACKAGE_BYTES",
+    "NO_SCIENTIFIC_PROMOTION",
+    "NO_RELEASE_AUTHORITY"
+  ],
+  "receipt_sha256": "aa249a318fd76ef0bfe7591dec00ee3adb315bf3450b1ba036662cdad4e08947"
+}

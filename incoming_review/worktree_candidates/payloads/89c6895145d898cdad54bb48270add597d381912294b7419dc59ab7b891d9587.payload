@@ -1,0 +1,29 @@
+﻿Code,ACC-WD-VIO-01
+Accord,Crystalline Violetwood v1.0
+Category,Woods
+Brief,"A high-definition violetwood system with transparent cedar-vetiver grain, layered sandalwoods, mineral amber, cool incense and pale suede."
+Recommended use,3–15% of perfume concentrate
+Maturation,14–21 days
+Monte Carlo pass,1.0
+Final design score,100.0
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Cedarwood Virginia,neat / as supplied,1.0,99.49238578680203,99.49238578680203,99.49238578680203,497.4619289340102,DIRECT,cedar,Dry grain,Dry cedar frame.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.03730280164244873
+2,base,Vetival,neat,1.0,79.59390862944163,79.59390862944163,79.59390862944163,397.9695431472081,DIRECT,vetiver,Polished root wood,Polished vetiver.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.026649232978150715
+3,base,Sandalore,neat / as supplied,1.0,69.64467005076142,69.64467005076142,69.64467005076142,348.2233502538071,DIRECT,sandalwood,Creamy fiber,Creamy sandalwood.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.021185711366647732
+4,base,Vertofix,neat/as supplied,1.0,69.64467005076142,69.64467005076142,69.64467005076142,348.2233502538071,DIRECT,vetiver_cedar,Vetiver-cedar body,Vetiver-cedar body.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.01588635131270671
+5,base,Ambrofix 30%,30% working stock,0.3,59.69543147208122,17.908629441624363,59.69543147208122,298.47715736040607,PREPARED STOCK,ambergris,Mineral persistence,Mineral ambergris persistence.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.01250665596772918
+6,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,49.746192893401016,49.746192893401016,49.746192893401016,248.7309644670051,DIRECT,musk,Radiant musk,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,STRUCTURALLY IMPORTANT,0.009503929706714917
+7,base,Javanol 20% in DPG,Javanol 20% in DPG,0.2,49.746192893401016,9.949238578680204,49.746192893401016,248.7309644670051,PREPARED STOCK,sandalwood,Radiant sandalwood,Radiant sandalwood lift.,HAVE — 20% IN DPG,Use the exact 20% in DPG stock.,,STRUCTURALLY IMPORTANT,0.013198001942435913
+8,base,Cashmeran 20%,Cashmeran 20% in DPG,0.2,39.796954314720814,7.959390862944163,39.796954314720814,198.98477157360406,PREPARED STOCK,warm_wood,Textile texture,Warm textile wood.,HAVE — MULTIPLE STOCKS,Formula must specify neat or 20% stock.,,TEXTURAL SUPPORT,0.006873056303319915
+9,base,Olibanum 50%,50% in DPG,0.5,34.82233502538071,17.411167512690355,34.82233502538071,174.11167512690355,PREPARED STOCK,incense,Cool mineral shimmer,Frankincense mineral resin.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.005695742359537035
+10,base,Polysantol,neat / as supplied,1.0,29.84771573604061,29.84771573604061,29.84771573604061,149.23857868020303,DIRECT,sandalwood,Persistent sandalwood,Persistent sandalwood texture.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.006842449978849401
+11,base,Amberwood F,neat/as supplied,1.0,24.873096446700508,24.873096446700508,24.873096446700508,124.36548223350255,DIRECT,amberwood,Dry amberwood,Dry woody-amber pressure.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0036152427748739465
+12,base,Suederal 10%,10% working stock,0.1,19.898477157360407,1.9898477157360408,19.898477157360407,99.49238578680203,PREPARED STOCK,leather,Pale suede,Soft suede leather.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0027113844645391106
+13,base,Ebanol,neat/as supplied,1.0,14.923857868020304,14.923857868020304,14.923857868020304,74.61928934010152,DIRECT,sandalwood,Dark wood line,Dark sandalwood depth.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0030469205319689882
+14,heart_base,Iso E Super,neat / as supplied,1.0,248.73096446700507,248.73096446700507,248.73096446700507,1243.6548223350253,DIRECT,transparent_wood,Transparent volume,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.18428201119320758
+15,heart_base,Orivone,neat,1.0,24.873096446700508,24.873096446700508,24.873096446700508,124.36548223350255,DIRECT,orris,Rooty violet wood,Dry rooty orris structure.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0036157698407835353
+16,heart_base,Alpha Irone 30%,30% w/w in IPM,0.3,14.923857868020304,4.477157360406091,14.923857868020304,74.61928934010152,PREPARED STOCK,orris,Irone lift,Irone realism and luxury lift.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0018969724411961372
+17,heart,Alpha Isomethyl Ionone,neat / as supplied,1.0,49.746192893401016,49.746192893401016,49.746192893401016,248.7309644670051,DIRECT,violet,Violet identity bridge,Modern violet body.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.009663508862505669
+18,carrier,DPG,neat,0.0,20.0,0.0,20.0,100.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

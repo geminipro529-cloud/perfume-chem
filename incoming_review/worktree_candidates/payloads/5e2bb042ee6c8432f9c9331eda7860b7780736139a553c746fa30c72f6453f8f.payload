@@ -1,0 +1,176 @@
+# DHI2011 V5 from-zero research, design and experiments — 2026-09-05
+
+**Subsequent stock-reconciliation checkpoint:** See `DHI2011_V5_STOCK_RECONCILIATION_20260905.md` for the current 109 PASS / 36 WARN / 0 FAIL / 1 SKIP result and 216 passing focused tests. The older stock-failure diagnostics below are preserved history, not the current stock status. Formula doses are unchanged and release remains HOLD.
+
+**Authority:** design intent / evidence review only. **Claim ceiling:** COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY.  
+**User objective:** richly layered, Orris-led DHI2011-inspired perfume; Irotyl excluded; no ingredient-count ceiling.  
+**Deliverables:** new V5 master, structured design-intent JSON and 30/15 mL pour card. V4 and its card preserved byte-for-byte.  
+**Not claimed:** recovered Dior formula; exhaustive access to all science; authenticated 05443/A ingredient list; proven maximum complexity; optimal liking; physical safety/stability/performance; learning from unsmelled output.
+
+## Plan and scope applied
+
+1. Re-read active instructions, current inventory, later direct-user corrections, V4 scope and pre-mix guard.
+2. Recheck the house/contemporaneous identity evidence and primary irone research; independently review layers and stock/physics coverage.
+3. Reconstruct all subsystems and dose proportions, keeping no non-iris frame fixed. Author versioned design/card; no pipeline or inventory-authority edits.
+4. Verify parsing, raw totals, stock labels, basket order, parent preservation, modeled chemistry coverage and fresh V4-to-V5 screening.
+5. Record actual warnings/failures and falsifiable experiments. Promote no unobserved sensory result.
+
+The native-only research, architecture and stock-review lanes were advisory. Parent verified the pivotal source text, later inventory receipts, intended doses and artifacts. Skills kept the work literature-first and local-first with proportionate verification; no non-OpenAI provider, install, credential request, or release decision was delegated.
+
+## Research evidence ledger
+
+| ID | Source class | Finding and limit |
+|---|---|---|
+| [H1](https://www.dior.com/en_ch/beauty/products/dior-homme-intense-Y0479201.html) | current house description not 2011 formula | Iris, ambrette-related fruity talc and cedar/amber-wood architecture; current disclosure #21961 is not an authenticated 05443/A formula. |
+| [H2](https://www.fragrantica.com/news/Dior-Homme-2011-by-Francois-Demachy-Dior-Homme-Intense-2011-Francois-Demachy-Dior-J-adore-Eau-de-Toilette-2011-2383.html) | contemporaneous secondary launch report | DHI section lists lavender, iris/ambrette/pear/powder, cedar and vetiver. Cocoa/leather occur in the separate EDT discussion; omission from this note report does not prove chemical absence. |
+| [R1](https://www.nature.com/articles/s41598-025-08925-z) | peer reviewed primary small sensory study | 2025 comparisons of orris absolute, a commercial IRONE ALPHA product, synthesized beta-irone and beta-ionone show distinct odor profiles and impurity effects. Three-perfumer descriptive panel is not a finished-perfume liking study or assay of owned products. |
+| [R2](https://comptes-rendus.academie-sciences.fr/chimie/articles/10.1016/S1631-0748(03)00087-0/) | primary irone stereochemistry research | Irone-isomer distinctions preclude generic equivalence; method-dependent observations do not supply a universal swap ratio. |
+| [M1](https://www.perfumersworld.com/view.php?pro_id=8IQ24653) | stock supplier product | Orris supplied-product character; catalog irone range is not a lot assay or preparation density. |
+| [M2](https://www.perfumersworld.com/ifra/COA/8II00243.pdf) | supplier coa | Generic Alpha Irone supplied-product COA does not establish this user's purity or isomer composition. |
+| [M3](https://www.iff.com/scent/ingredients-compendium/cashmeran/) | maker profile | Powdery/woody warm textile-role hypothesis; manufacturer use guidance is not formula safety approval. |
+| [M4](https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/kephalis) | maker profile | Woody/amber/tobacco, heart/base and violet/lavender compatibility; tobacco drift remains a risk. |
+| [M5](https://www.iff.com/scent/ingredients-compendium/ambrettolide/) | maker profile | Substantive floral/fruity musk supports a bridge hypothesis, not whole-ambrette or pear equivalence. |
+| [M6](https://studio.dsm-firmenich.com/product/romandolider-pe-979031) | maker profile with technical conflicts | Powdery/mossy/balsamic musk description does not validate V4's unique outward-projection claim; technical identity fields need reconciliation. |
+| [M7](https://www.iff.com/scent/ingredients-compendium/orivone/) | maker profile | Earthy/camphoraceous orris edge: optional root-contrast alternative, not mandatory buttery cushion. |
+| [P1](https://academic.oup.com/chemse/article/33/7/599/330603) | peer reviewed primary binary ratio study | Use measured intensity and pleasantness, not concentration or OAV alone, to study mixture balance; binary results do not certify V5. |
+| [P2](https://pubmed.ncbi.nlm.nih.gov/15944134/) | peer reviewed primary label effect study | Blind identities and collect unprompted descriptors before suggested layers because verbal context can influence odor evaluation. |
+| [P3](https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2015.00920/full) | peer reviewed primary exposure study | Include repeated sessions; exposure effects on liking are not uniformly positive. |
+| [P4](https://www.iso.org/standard/50125.html) | standard scope not full protocol access | Controlled consumer hedonic comparisons are the appropriate kind of evidence; this local protocol does not claim ISO compliance. |
+| [P5](https://doi.org/10.1073/pnas.1208110109) | peer reviewed primary olfactory white | Mixture convergence under selected component/intensity conditions is not a 30-ingredient ceiling for perfumes. |
+| [P6](https://www.biorxiv.org/content/10.64898/2026.07.03.736426v1.full) | 2026 preprint not peer reviewed | Mixture pleasantness modeling is a candidate external-validation direction, not an absolute-hedonism score or evidence of V5 liking. |
+
+The 2025 irone paper materially changed the design logic: the whole preferred Orris product remains the reference-bearing input, while Alpha Irone is only an omission-testable accent. Isomer concentration, nominal “irone content,” or a commercial product name cannot supply sensory equivalence. This is an inference for experimental design, not proof of which material Dior used.
+
+Historical identity and creative extensions are kept separate. Public notes establish architecture at most. A note absent from a list is not a chemical absence result. Irotyl is nevertheless excluded because the user explicitly rejects it. Cocoa/leather are not imported from a neighboring EDT description. Coriander, Ebanol, Kephalis and the exact two-musk design are explicitly new design choices.
+
+The freshest located 2026 mixture-model preprint is not a reason to fabricate a hedonic score. Its proposed mixture relationships would require measured component/mixture judgments and a relevant held-out validation set. Peer-reviewed binary-mixture studies likewise do not certify a 23-stock perfume.
+
+## From-zero architecture and evidence-generating comparisons
+
+| Intended facet | Materials, not historical ingredient claims | Relationship to establish | Evaluation window / failure |
+|---|---|---|---|
+| 1. Aromatic contour | Lavender, Linalyl Acetate, Coriander | A fine aromatic/spicy entry hands into floral iris rather than a separate lavender perfume. | 0–5 min; aromatic dominance or culinary spice fails. |
+| 2. Fruit-to-ambrette relation | Verdox, Benzyl Acetate, Ambrettolide | A restrained green-fruit glint becomes musky/talc-like beside iris. | Opening into heart; literal apple/banana/candy dominance fails. |
+| 3. Root-rich centre | Orris Liquid, Alpha Irone | The preferred supplied Orris product leads; the irone stock is an independently testable accent. | Heart and later return; root identity must survive powder and wood. |
+| 4. Cosmetic powder with violet movement | Alpha Isomethyl Ionone, Alpha Ionone | Powder has body without becoming a detached violet flower; it frames the root. | Heart; compare root exposure and powder integration separately. |
+| 5. Air around the dense centre | Hedione, provisional Benzyl Salicylate | Separation and a soft cosmetic surface, not another floral accord. | Heart; first-line omissions test redundant film/air helpers. |
+| 6. Warm interior and darker grain | Tonkarome, Isobutavan, Cashmeran, Kephalis | Coumarinic/vanillic warmth and a darker woody-textile seam sit beneath iris. | Heart to late heart; pastry, named tobacco or amberwood takeover fails. |
+| 7. Dry wood and root return | Virginia cedar, Indian vetiver, Vetival, Iso E Super, small Ebanol seam | Literal cedar grain and dry root emerge through a smoother wood/skin transition. | Late heart/drydown; anonymous wood, pencil shavings or sandalwood takeover fails. |
+| 8. Powder-to-skin persistence | Ambrettolide, Ethylene Brassylate | Fruity skin relation and powdered body are separate hypotheses, not a three-musk default. | Late heart/drydown; a musk blanket that erases iris fails. |
+
+Every chosen material, including overlaps likely to be redundant, has a zero/alternative arm in the master. The main recipe is an intentionally layered starting candidate, not a collection of already demonstrated synergists. Strong early omission priorities are Benzyl Salicylate, Benzyl Acetate, Ebanol, secondary musk and the Cashmeran/Kephalis pair.
+
+### Why some old materials recur
+
+The user asked to remake the design, not to exclude every ingredient used before. Cedar, iris materials, lavender and an ambrette-like relation still follow the brief. Their re-selection is independently justified. The old frame's untouched proportions were not kept. The design is not called “from zero” because the source file is new; the criterion is that the entire brief-to-material-to-ratio chain was reconsidered.
+
+### Full inventory-category pass and hidden fixatives
+
+Solvents, citrus/top, green/fresh/marine, floral/heart, iris/violet, woods/amber, musks, sweet/balsamic, leather/smoke, spice/aromatic and accord/other categories were reviewed against the same target. No citrus recognizer, yellow-flower subject, rose, incense, oud, heavy resin, moss or opaque corrective accord is added without a specific useful gap.
+
+The existing hidden-fixative function was run read-only. Its low-VP candidates across non-base categories included Paradisamide, Raspberry Ketone, Nerolidol, Cocoa Absolute and salicylates. Low VP alone is not iris affinity, compatibility, longevity on skin, or a reason to use them. No library properties were regenerated.
+
+## Quantitative contracts and unresolved model truth
+
+- Exact supplied-product concentration is ppm w/w in the concentrate from measured delivered stock masses; pure constituent ppm additionally needs assay.
+- Solution OAV requires compatible solution ppm and solution ODT. Gas-phase OAV requires gas concentration and an air ODT expressed in the **same units**. If vapor concentration is ppm and air ODT is ppb, use 1,000 × vapor_ppm / ODT_air_ppb. Never divide ppm by ppb without conversion.
+- For naturals, use the existing composite model rather than a single fictional constituent. Its composition remains a model until supported by the actual product/lot.
+- Orris's old YAML description and modeled 82.5% irone pool are not authenticated by the new 9% w/w stock correction. Inventory fraction, supplied-product assay and component potency are separate questions.
+- Stock-aware preflight may reject the current Markdown recipe where the newer canonical receipt is not materialized in c4d5. Do not hand-edit pins or label a planned stock manifest as execution authority.
+- Activity coefficients, threshold provenance, density coverage, proprietary-product MW/ODT and supplier/runtime VP differences limit predictions. An OAV <1 is a screen, not proof that the helper has no mixture effect; it earns no independent note claim.
+- Per-material or total modeled OAV, summed OAV “shares,” pyramid percentages and simulated persistence are not measured intensity, relative contribution, skin life, liking or similarity.
+- No weight-trained model was updated by this work. The new persistent knowledge is an evidence/decision record, model-diagnostic findings and predeclared experimental questions. Sensory observation and promotion arrays remain empty.
+
+## Physical evaluation protocol — after authority/safety holds resolve
+
+### Phase A: complete-blend comparison
+
+Blind V4 and V5 with randomized neutral codes, matched application mass, carrier composition, age, substrate and evaluation environment. Because many active doses change, this is a whole-formula comparison only. Record the authentic reference sample identity/lot if available; without it, report target resemblance to the written brief, not measured DHI2011 similarity.
+
+Do not call unequal DEP/DPG/TEC matrices controlled. With measured stock masses, total each carrier separately. Choose a common carrier vector at least as large as each candidate's carrier contributions; top up only deficits, then equalize total mass/diluent while preserving the specified non-target doses. Log the resulting concentrate strength. Omitted neat material may be replaced by the declared control diluent, but this is not an “odorless physical equivalent” and its matrix change is a limitation. Unknown fractions or masses mean MATCHING INCOMPLETE.
+
+### Phase B: layer omissions before endless additions
+
+Start with whole-layer/support omissions from V5: supplemental iris accent; fruit bridge; warm wood shadow; late wood transition; secondary musk; cosmetic-film support. Preserve all other active doses and known carrier contributions. Ask whether the missing layer creates a repeatable target-linked loss. Stronger is not automatically better, and “more notes named” is not the success criterion.
+
+Only prepare exact variant cards after the measured mass/basis chain is available. Do not subtract neat liquid from a finished bottle or use a guessed carrier replacement. This record supplies experiment designs, not extra executable formulas.
+
+### Phase C: interactions and ratio sweeps
+
+Use small 2 × 2 presence/absence comparisons for Ambrettolide × EB, Cashmeran × Kephalis, and natural vetiver × Vetival. Test combined benefit against each single arm; do not assume the pair is synergistic because both are pleasant alone.
+
+For Orris-to-powder, test a local three-point ratio sweep around the new design using measured supplied-product masses and known stock fractions. Predeclare a bounded ±15% transfer of the selected powder support between arms, with Orris and all remaining materials held as required by the chosen question and total/carrier matched. This is an experimental range, not a scientific optimum. Separate “increase root at fixed powder” from “reduce powder at fixed root”; do not confound both and claim one mechanism.
+
+Orivone, Osmanthus, Piperonal, Exaltolide, Cocoa and Suederal remain alternative branches until stock qualified. Do not add all of them simultaneously and attribute any improvement to a particular layer.
+
+### Measurement sheet and decision rules
+
+At approximately 0, 5, 30, 120 and 240 minutes, collect **unprompted descriptors first**, then independent 0–10 ratings for liking, intensity, orris identity, powder integration, fruit integration, late wood continuity, meaningful dimensionality and harshness/drift. The proposed facets are hidden until free description is complete. Longer time points may be added if odor remains, not assumed from a maker substantivity number.
+
+The wearer can start with repeated blinded sessions for personal preference, but this is n=1 evidence. A broader consumer preference claim needs an appropriate panel, prespecified endpoint/effect size, power planning and held-out confirmation. Repeated time points from one assessor are not independent people.
+
+Predeclare a primary endpoint such as within-assessor overall liking difference at the chosen heart window, a secondary whole-wear preference, and separate identity/drift criteria. Keep intensity apart from liking. Aggregate within assessor before group comparison; inspect paired differences and uncertainty. No arbitrary “90/100 hedonism” score is assigned.
+
+Retain a helper only when its addition yields a repeatable relevant benefit without unacceptable identity drift. If confidence is insufficient, label INCONCLUSIVE, not PASS. If liking rises while resemblance falls, record both rather than hiding the tradeoff. Select among arms using exploratory data, then confirm the selected arm in a fresh blinded session/set.
+
+## Learning ledger to fill with actual evidence
+
+| Question | Present knowledge | Admissible next update |
+|---|---|---|
+| Is the supplied Orris product interchangeable with Alpha Irone? | No justified equivalence; product/isomer research and stock truth distinguish them. | Controlled comparison of exact stocks, with assay and matrix limits recorded. |
+| Does V5 smell more layered or more pleasant than V4? | NOT TESTED. | Blinded whole-formula paired data; no causal attribution to one changed row. |
+| Do both musks earn their place? | Distinct intended roles, no observed nonredundancy. | Single-arm/pair omissions and role-matched alternatives. |
+| Does a modeled dominance warning predict masking? | UNCALIBRATED. | Compare matched measured headspace and sensory observations; validate out of sample. |
+| Is the perfume skin-safe/stable? | HOLD / NOT TESTED. | Current documentation, appropriate assessment and physical stability testing. |
+| Has Astra learned its actual smell from software tests? | No sensory evidence and no model-weight update. | Evidence may be stored and interpreted after real observations; do not claim subjective smelling. |
+
+## Provenance and preservation
+
+- c4d5 Git HEAD at design start: 0af42cc68730499f54b7c29c67c2320a3f92a9a2.
+- V4 master SHA-256: 27017d190bff711ef91a9bb0c2d17fb20624012559f0a6e2e2ed91dccea6544e.
+- V4 pour card SHA-256: a2275718f7d49c4aa828f4a86007c858e189e412df5c59c59a5e1760edc1a6b8.
+- Live inventory SHA-256: 5da7ecdab4ce9c297f95a61051b38d9183f796c1971dd276546ef15c7856c497.
+- Canonical September 4 receipt: D:/chatbots/perfume-chem/data/governance/inventory_user_authority_overlay_20260904.json; SHA-256 e2fe66cb8077da38142913a73b0d77acd14b6e4953f6155bb2011e1e2bb851a4.
+- Canonical September 5 receipt: D:/chatbots/perfume-chem/data/governance/inventory_user_authority_overlay_20260905.json; SHA-256 08d0f0e41f90741200b3e915789ddd044cbbf7b0ce1b1aa266053452781bb17f.
+
+## Current verification
+
+### Final findings and acceptance
+
+**Current run:** 108 PASS / 35 WARN / 2 FAIL / 1 SKIP. Pipeline overall FAIL; controlling release-evidence decision HOLD. Diagnostic candidate complete; physical compounding, skin use, exact active mass, safety, stability, sensory similarity and liking are not authorized.
+
+- **G15 PASS:** the immediate V4 parent was supplied, and the final matched ethanol/water proxy convention produces no stock-rebase or temporal-jump findings. This clears the first run's setup-confounded warnings, not a physical safety or sensory test.
+- **Reference architecture PASS:** all six declaration-level marker groups match. This is presence/role coverage, not Dior ingredient authentication or smell similarity.
+- **Two FAIL gates:** inventory_stock_contract and its pipeline_preflight aggregate. Five unresolved runtime bindings are listed below; they are not five demonstrated odor failures.
+- **Exact ppm remains unavailable:** 17/23 registry resolutions lack density; the four prepared w/w stocks cannot yield exact active volume from raw µL. Full stock-carrier effects remain unresolved. Switching the architecture claim back to its intended scope changes a quantitative gate from FAIL to WARN, but does not create quantitative authority.
+- **Software regression test:** tests/test_pre_mix_guard.py — 10 passed. The environment emitted 400 repeated pytest-asyncio deprecation warnings about asyncio.iscoroutinefunction on Python 3.14; these are not 400 perfume defects. No full repository or release suite was claimed.
+- **Raw-dose invariants:** 23 unique rows, 6,000 µL, basket-contiguous descending transfers, Irotyl absent, 15 mL minimum transfer 10 µL. V4 and its card retained their original SHA-256 values.
+
+| Runtime stock issue | Verified meaning | Required reconciliation |
+|---|---|---|
+| Alpha Isomethyl Ionone (Methyl Ionone Pure) — ambiguous_live_stock | c4d5 still exposes two old stock records; newer canonical user receipt identifies one bottle. | Apply the existing authorized inventory successor workflow; do not duplicate or swap grades. |
+| Ambrettolide — preparation_required | Newer canonical receipt confirms prepared 10% w/w DPG, but c4d5 still marks preparation required. | Reconcile the receipt and physical-stock binding. |
+| Tonkarome — inventory_stock_metadata_incomplete | Newer canonical receipt confirms 20% w/w TEC; current binding remains incomplete. | Reconcile stock fraction/basis/carrier; not a request to assume pure coumarin. |
+| Vetiver EO (India) — not_in_inventory | Owned Indian EO is confirmed in newer canonical receipt, not resolved by this runtime chain. | Bind the exact owned grade; do not assume Haiti or ruh khus. |
+| Coriander Essential Oil — not_in_inventory | Inventory materializes Coriander Seed EO stock inventory:v5:8f24d01cce6349e9cf63; physics resolves Coriander Essential Oil. The stock name misses physics and the physics name misses stock binding. | Reconcile the exact documented seed-EO alias. No ownership gap is inferred; no global alias edited here. |
+
+### What the warnings actually teach
+
+1. **Sensitivity to model scope is real.** Adding the already prescribed solvent convention changes the model, not the perfume. The first run's roughly 10–97× jumps are not evidence of amplified smell. Both runs are preserved so this error is visible.
+2. **Orris composition and Tonkarome treatment remain model gaps.** The 82.5% irone pool is an unverified supplied-product assumption. Tonkarome is a base with no composite path, yet receives monomolecular estimates. Neither result should drive “optimal” dosing.
+3. **Not all displayed categories are true assignments.** Lavender's heart/modifier and Benzyl Benzoate's heart/modifier come from missing profiles. The OAV “floral block” is therefore not a clean sensory-family measure.
+4. **The concentration-basis warning reads the wrong field.** It checks concentration_basis although the state stores stock_fraction_basis; the warning count includes a second carrier check. It does not establish that all 23 card labels omit basis. Exact mass is still genuinely unavailable for independent reasons.
+5. **Two reference checks ask different questions.** The declaration-level contract finds six groups. The older skeleton requires name markers with modeled OAV ≥1 and reports four of five required markers. This is not contradictory sensory evidence.
+6. **Literal name rules can invent chemistry.** The skin-degradation warning matches “tonka” inside Tonkarome and assigns glycoside chemistry without a composition record. That assertion is not accepted as a finding about the supplied base.
+7. **Safety is not cleared by an empty violation list.** Thirteen explicit limit records are missing. Two allergen-reporting paths return different declaration lists, and the 23 dermal-exposure rows are estimates, not measurements. None authorizes a final label or skin use.
+8. **Balance/robustness scores are advisory.** The iris and wood percentage floors, Jellinek categories, receptor caps, low-VP quotas, generic woody-amber OAV targets and a default 1,500 THB price assumption are not authenticated Dior requirements or validated liking criteria. The 46 perturbation warnings report brief-grammar failures, not measured physical fragility.
+9. **Data-quality warnings are substantive.** Derived/uncertain thresholds, cross-source VP/ODT conflicts, inferred enthalpies, heuristic activity coefficients and only 14.2% modeled active-mass HSP coverage constrain any smoothness/stability interpretation.
+10. **Six sensory-role hypotheses screen below OAV 1:** Ambrettolide, EB, Isobutavan, Verdox, Benzyl Acetate and Kephalis. Their proposed contribution is NOT demonstrated. The generic structural tags for EB/Isobutavan cannot excuse their intended sensory roles. Benzyl Salicylate's film hypothesis is also unresolved; Benzyl Benzoate receives no sensory-note credit.
+
+No ingredient was increased merely to cross OAV 1 or satisfy an unvalidated “beauty” score. The new dose choices remain experimental. G15 and architecture passes establish narrow software properties; they do not demonstrate eight perceptible layers.
+
+### First useful sensory questions after holds resolve
+
+Prioritize root exposure versus powder, whether the fruit/ambrette transition exists, whether the two musks differ usefully, whether Cashmeran/Kephalis add separate texture, and whether floral-air/wood support obscures the named iris. Compare V4 and V5 blind as complete formulas, then carrier-matched layer omissions. Keep liking, intensity, similarity and dimensionality as separate outcomes. No real sensory results or model-weight updates exist.
+
+**Evidence paths:** output/dhi2011_v5_from_zero_20260905/final_release_gate.json and final_analysis.txt. Final report file SHA-256: 54ed9d071fec946db315673649dc964cfdcbdbaad0fd44131b9a56a6521ba825. Semantic formula definition: 5a7654cd414f395b59e6d967db240d260b0ab46d93cad203e82a03775ec1db89. Initial report SHA-256: 2cb30fad33b2d6e0b9b16bc8989b96922aa03685ac9fc098c9eb2ba900a5fac0.

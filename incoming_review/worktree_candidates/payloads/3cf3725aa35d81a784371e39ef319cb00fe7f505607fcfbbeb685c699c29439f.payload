@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#153d5b">
+  <title>Perfume Chem Laboratory</title>
+  <link rel="stylesheet" href="/static/lab.css">
+</head>
+<body>
+  <div class="paper-grid" aria-hidden="true"></div>
+  <header class="masthead">
+    <a class="wordmark" href="#dashboard" aria-label="Perfume Chem Laboratory home">
+      <span class="wordmark-mark">PC</span>
+      <span><strong>Perfume Chem</strong><small>Laboratory ledger</small></span>
+    </a>
+    <div class="system-state"><span class="state-dot"></span> Local laboratory beta</div>
+  </header>
+
+  <div class="app-shell">
+    <nav class="rail" aria-label="Laboratory views">
+      <button class="nav-item is-active" data-view="dashboard"><span>01</span> Dashboard</button>
+      <button class="nav-item" data-view="materials"><span>02</span> Materials</button>
+      <button class="nav-item" data-view="formulas"><span>03</span> Formulas</button>
+      <button class="nav-item" data-view="bottles"><span>04</span> Bottles</button>
+      <button class="nav-item" data-view="experiments"><span>05</span> Experiments</button>
+      <button class="nav-item" data-view="perfumery"><span>06</span> Perfumer</button>
+      <button class="nav-item" data-view="assistant"><span>07</span> Assistant</button>
+      <button class="nav-item" data-view="science"><span>08</span> Science</button>
+      <a class="nav-item" href="/solforge"><span>09</span> SolForge Workbench</a>
+      <div class="rail-note">
+        <strong>Evidence first.</strong>
+        Unknown is a result, not an error.
+      </div>
+    </nav>
+
+    <main>
+      <div id="status" class="status-line" role="status" aria-live="polite">Ready for a local record.</div>
+
+      <section class="view is-visible" data-panel="dashboard" aria-labelledby="dashboard-title">
+        <div class="view-heading">
+          <div><p class="eyebrow">Live workspace</p><h1 id="dashboard-title">Bench overview</h1></div>
+          <button class="quiet-button" id="refresh-all" type="button">Refresh ledger</button>
+        </div>
+        <div id="dashboard-counts" class="metric-grid" aria-label="Laboratory record counts"></div>
+        <div class="split-grid">
+          <article class="panel warning-panel">
+            <p class="panel-index">A</p><h2>Release posture</h2>
+            <ul id="dashboard-warnings" class="warning-list"></ul>
+          </article>
+          <article class="panel evidence-panel">
+            <p class="panel-index">B</p><h2>Evidence posture</h2>
+            <dl class="evidence-key">
+              <div><dt class="evidence exact">Exact</dt><dd>Deterministic arithmetic on stated inputs.</dd></div>
+              <div><dt class="evidence literature">Literature</dt><dd>Versioned external basis with limits.</dd></div>
+              <div><dt class="evidence empirical">Empirical</dt><dd>Passed held-out local validation.</dd></div>
+              <div><dt class="evidence unknown">Unknown</dt><dd>Required evidence is missing or unvalidated.</dd></div>
+            </dl>
+          </article>
+        </div>
+        <article class="panel backup-panel">
+          <p class="panel-index">C</p><h2>Portability & recovery</h2>
+          <div class="backup-actions">
+            <form id="backup-form" class="inline-form">
+              <label>Backup label<input name="label" value="manual" required></label>
+              <button type="submit">Create verified backup</button>
+            </form>
+            <button class="quiet-button" id="export-workspace" type="button">Export JSON workspace</button>
+            <form id="stage-restore-form" class="inline-form">
+              <label>Managed snapshot path<input name="snapshot_path" placeholder="Path returned by a verified backup" required></label>
+              <button type="submit">Validate & stage restore</button>
+            </form>
+          </div>
+          <pre id="backup-output" class="compact-output">No backup action yet.</pre>
+        </article>
+      </section>
+
+      <section class="view" data-panel="materials" aria-labelledby="materials-title">
+        <div class="view-heading"><div><p class="eyebrow">Inventory authority</p><h1 id="materials-title">Materials & stocks</h1></div></div>
+        <div class="split-grid">
+          <form id="material-form" class="panel form-panel">
+            <p class="panel-index">M1</p><h2>Register material</h2>
+            <label>Canonical name<input name="canonical_name" required maxlength="255" autocomplete="off"></label>
+            <button type="submit">Create material</button>
+          </form>
+          <form id="stock-form" class="panel form-panel">
+            <p class="panel-index">M2</p><h2>Prepare stock</h2>
+            <label>Material<select name="material_id" data-material-select required></select></label>
+            <div class="field-pair">
+              <label>Active fraction<input name="active_fraction" type="number" value="0.1" min="0.000001" max="1" step="0.000001" required></label>
+              <label>Initial mass, g<input name="initial_mass_g" type="number" value="10" min="0" step="0.001" required></label>
+            </div>
+            <label>Fraction basis<select name="fraction_basis"><option value="mass_fraction">Mass fraction</option><option value="volume_fraction">Volume fraction</option><option value="amount_fraction">Amount fraction</option></select></label>
+            <label>Density, g/mL <span>(optional)</span><input name="density_g_ml" type="number" min="0.000001" step="0.000001"></label>
+            <button type="submit">Create stock</button>
+          </form>
+        </div>
+        <div class="panel"><h2>Material register</h2><div id="material-list" class="record-list"></div></div>
+      </section>
+
+      <section class="view" data-panel="formulas" aria-labelledby="formulas-title">
+        <div class="view-heading"><div><p class="eyebrow">Immutable intent</p><h1 id="formulas-title">Formula desk</h1></div></div>
+        <div class="three-grid">
+          <form id="formula-form" class="panel form-panel">
+            <p class="panel-index">F1</p><h2>Start formula</h2>
+            <label>Name<input name="name" required></label>
+            <button type="submit">Create formula</button>
+          </form>
+          <form id="version-form" class="panel form-panel">
+            <p class="panel-index">F2</p><h2>Commit version</h2>
+            <label>Formula<select name="formula_id" data-formula-select required></select></label>
+            <label>Identity brief<textarea name="identity" required>iris and incense</textarea></label>
+            <label>Concentration mass fraction<input name="concentration_fraction" type="number" value="0.2" min="0" max="1" step="0.001"></label>
+            <fieldset class="component-fieldset">
+              <legend>Stock components</legend>
+              <p class="field-help">Record the requested stock mass for every material. These rows become immutable with the version.</p>
+              <div id="component-editor" class="component-editor">
+                <div class="component-row" data-component-row>
+                  <label>Stock<select name="component_stock" data-stock-select required></select></label>
+                  <label>Mass, g<input name="component_mass_g" type="number" value="0.1" min="0.000001" step="0.000001" required></label>
+                  <label>Volume, uL <span>(optional)</span><input name="component_volume_ul" type="number" min="0.000001" step="0.000001"></label>
+                  <label>Role<select name="component_role"><option value="">Unspecified</option><option value="top">Top</option><option value="heart">Heart</option><option value="base">Base</option><option value="support">Support</option><option value="trace">Trace</option></select></label>
+                  <button class="quiet-button remove-component" type="button" data-remove-component>Remove</button>
+                </div>
+              </div>
+              <button class="quiet-button" id="add-component-row" type="button">Add component</button>
+            </fieldset>
+            <button type="submit">Add immutable version</button>
+          </form>
+          <form id="analysis-form" class="panel form-panel">
+            <p class="panel-index">F3</p><h2>Canonical analysis</h2>
+            <label>Formula label<input name="name" value="Bench analysis" required></label>
+            <label>Material<input name="material" value="Hedione" required></label>
+            <button type="submit">Run evidence analysis</button>
+          </form>
+        </div>
+        <div class="panel"><h2>Formula register</h2><div id="formula-list" class="record-list"></div></div>
+        <pre id="analysis-output" class="output-block" tabindex="0">No analysis run yet.</pre>
+      </section>
+
+      <section class="view" data-panel="bottles" aria-labelledby="bottles-title">
+        <div class="view-heading"><div><p class="eyebrow">Append-only history</p><h1 id="bottles-title">Bottle ledger</h1></div></div>
+        <div class="split-grid">
+          <form id="bottle-form" class="panel form-panel">
+            <p class="panel-index">B1</p><h2>Open bottle</h2>
+            <label>Label<input name="label" required></label>
+            <label>Initial mass, g<input name="initial_mass_g" type="number" value="0" min="0" step="0.001" required></label>
+            <button type="submit">Create bottle</button>
+          </form>
+          <form id="addition-form" class="panel form-panel">
+            <p class="panel-index">B2</p><h2>Record addition</h2>
+            <label>Bottle<select name="bottle_id" data-bottle-select required></select></label>
+            <label>Stock<select name="stock_solution_id" data-stock-select required></select></label>
+            <div class="field-pair">
+              <label>Mass, g<input name="mass_g" type="number" value="0.1" min="0.001" step="0.001" required></label>
+              <label>Expected sequence<input name="expected_sequence" type="number" value="1" min="0" step="1" required></label>
+            </div>
+            <button type="submit">Append event</button>
+          </form>
+        </div>
+        <div class="panel"><h2>Active bottles</h2><div id="bottle-list" class="record-list"></div></div>
+      </section>
+
+      <section class="view" data-panel="experiments" aria-labelledby="experiments-title">
+        <div class="view-heading"><div><p class="eyebrow">Measured learning</p><h1 id="experiments-title">Experiment loop</h1></div></div>
+        <div class="three-grid">
+          <form id="experiment-form" class="panel form-panel">
+            <p class="panel-index">E1</p><h2>Define protocol</h2>
+            <label>Name<input name="name" required></label>
+            <label>Observation times, seconds<input name="times" value="0, 1800, 14400" required></label>
+            <button type="submit">Create experiment</button>
+          </form>
+          <form id="sample-form" class="panel form-panel">
+            <p class="panel-index">E2</p><h2>Blind sample</h2>
+            <label>Experiment<select name="experiment_id" data-experiment-select required></select></label>
+            <label>Bottle<select name="bottle_id" data-bottle-select required></select></label>
+            <label>Blind code<input name="blind_code" value="A1" required></label>
+            <button type="submit">Create sample</button>
+          </form>
+          <form id="application-form" class="panel form-panel">
+            <p class="panel-index">E3</p><h2>Record application</h2>
+            <label>Sample ID<input name="sample_id" id="latest-sample" required></label>
+            <label>Dose mass, mg<input name="mass_mg" type="number" value="20" min="0.1" step="0.1" required></label>
+            <button type="submit">Apply to blotter</button>
+          </form>
+          <form id="observation-form" class="panel form-panel">
+            <p class="panel-index">E4</p><h2>Timed observation</h2>
+            <label>Application ID<input name="application_id" id="latest-application" required></label>
+            <label>Elapsed seconds<input name="elapsed_seconds" type="number" value="1800" min="0" required></label>
+            <label>Observation<textarea name="observation" required>iris clear, incense moderate</textarea></label>
+            <button type="submit">Record observation</button>
+          </form>
+          <form id="outcome-form" class="panel form-panel">
+            <p class="panel-index">E5</p><h2>Record outcome</h2>
+            <label>Experiment<select name="experiment_id" data-experiment-select required></select></label>
+            <label>Outcome<textarea name="outcome" required>brief preserved</textarea></label>
+            <button type="submit">Record outcome</button>
+          </form>
+        </div>
+        <div class="panel"><h2>Experiment register</h2><div id="experiment-list" class="record-list"></div></div>
+      </section>
+
+      <section class="view" data-panel="perfumery" aria-labelledby="perfumery-title">
+        <div class="view-heading"><div><p class="eyebrow">Brief-first diagnosis</p><h1 id="perfumery-title">Perfumer workbench</h1></div></div>
+        <div class="split-grid">
+          <form id="hypothesis-form" class="panel form-panel">
+            <p class="panel-index">P1</p><h2>Generate bench hypotheses</h2>
+            <label>Perfume name / concept<input name="brief_name" value="Iris Cathedral" required maxlength="255"></label>
+            <label>Observed issues <span>(comma separated)</span><textarea name="observations" required>too powdery, needs texture</textarea></label>
+            <label>Fragrance family <span>(optional)</span><input name="family" value="iris" placeholder="iris, muguet, amber..."></label>
+            <label>Intervention stage<select name="mode"><option value="post_mix">Post-mix bottle</option><option value="between_mix">Between trials</option><option value="pre_mix">Pre-mix design</option></select></label>
+            <label>Forbidden materials <span>(comma separated)</span><input name="forbidden_materials" placeholder="Materials that violate the brief"></label>
+            <label>Maximum hypotheses<input name="limit" type="number" value="5" min="1" max="20" step="1" required></label>
+            <button type="submit">Generate inventory-valid hypotheses</button>
+          </form>
+          <article class="panel evidence-panel">
+            <p class="panel-index">P2</p><h2>Scientific boundary</h2>
+            <p>These are qualitative directions from the live inventory, not causal diagnoses or dosing instructions.</p>
+            <p>Dose, ppm, ODT/OAV, safety, and brief preservation remain unknown until supplied to their dedicated calculation and trial contracts.</p>
+            <span class="evidence unknown">Smell before accepting</span>
+          </article>
+        </div>
+        <pre id="hypothesis-output" class="output-block" tabindex="0">No hypotheses generated yet.</pre>
+        <div class="split-grid">
+          <form id="trial-plan-form" class="panel form-panel">
+            <p class="panel-index">P3</p><h2>Plan a separate trial aliquot</h2>
+            <label>Perfume name / concept<input name="brief_name" value="Iris Cathedral" required maxlength="255"></label>
+            <label>Inventory material<input name="material" value="Hedione" required maxlength="255"></label>
+            <div class="field-pair">
+              <label>Bottle mass, g<input name="bottle_total_mass_g" type="number" value="10" min="0.001" step="0.001" required></label>
+              <label>Current material mass, g<input name="current_material_active_mass_g" type="number" value="0" min="0" step="0.000001" required></label>
+            </div>
+            <div class="field-pair">
+              <label>Stock active mass fraction<input name="stock_active_mass_fraction" type="number" value="0.1" min="0.000001" max="1" step="0.000001" required></label>
+              <label>Stock density, g/mL <span>(optional)</span><input name="stock_density_g_ml" type="number" value="1" min="0.000001" step="0.000001"></label>
+            </div>
+            <label>Target active ppm w/w<input name="target_active_ppm_w_w" type="number" value="100" min="0.000001" max="1000000" step="0.000001" required></label>
+            <label>Threshold matrix<select name="threshold_matrix"><option value="unknown">Unknown, withhold OAV</option><option value="ethanol">Ethanol solution</option></select></label>
+            <div class="field-pair">
+              <label>Pipette minimum, µL<input name="pipette_minimum_ul" type="number" value="1" min="0.001" step="0.001" required></label>
+              <label>Pipette increment, µL<input name="pipette_increment_ul" type="number" value="1" min="0.001" step="0.001" required></label>
+            </div>
+            <label>Pipette maximum step, µL<input name="pipette_maximum_ul" type="number" value="1000" min="0.001" step="0.001" required></label>
+            <label>Directional evaluation attribute<input name="evaluation_attribute" value="iris clarity" required maxlength="255"></label>
+            <label>Observation times, seconds<input name="evaluation_times_seconds" value="0, 300, 1800, 7200, 14400" required></label>
+            <button type="submit">Calculate trial plan</button>
+          </form>
+          <article class="panel warning-panel">
+            <p class="panel-index">P4</p><h2>Bench boundary</h2>
+            <p>The planner uses exact mass balance and declared pipette constraints. It prepares a separate candidate aliquot and never mutates the source bottle.</p>
+            <p><strong>Safety remains unverified</strong> until a versioned category-specific screen passes. OAV is withheld unless its matrix and material model are appropriate.</p>
+          </article>
+        </div>
+        <pre id="trial-plan-output" class="output-block" tabindex="0">No trial planned yet.</pre>
+      </section>
+
+      <section class="view" data-panel="assistant" aria-labelledby="assistant-title">
+        <div class="view-heading"><div><p class="eyebrow">Deterministic routing</p><h1 id="assistant-title">Lab assistant</h1></div></div>
+        <div class="split-grid">
+          <form id="assistant-form" class="panel form-panel">
+            <p class="panel-index">A1</p><h2>Build evidence packet</h2>
+            <label>Intent<select name="intent"><option>bottle_status</option><option>formula_analysis</option><option>safety_assessment</option><option>rank_interventions</option><option>preference_status</option><option>dashboard</option><option>backup_status</option></select></label>
+            <label>Subject ID<input name="subject_id" placeholder="Required for subject-specific intents"></label>
+            <button type="submit">Build canonical packet</button>
+          </form>
+          <article class="panel assistant-note">
+            <p class="panel-index">A2</p><h2>Claim boundary</h2>
+            <p>This assistant routes typed facts to deterministic tools. It does not improvise safety, longevity, or preference claims.</p>
+            <span class="evidence unknown">Unknown stays visible</span>
+          </article>
+        </div>
+        <pre id="assistant-output" class="output-block" tabindex="0">No packet built yet.</pre>
+      </section>
+
+      <section class="view" data-panel="science" aria-labelledby="science-title">
+        <div class="view-heading">
+          <div>
+            <p class="eyebrow">Canonical evidence ledger</p>
+            <h1 id="science-title">Science authority</h1>
+          </div>
+          <button class="quiet-button" id="science-refresh" type="button">Refresh report</button>
+        </div>
+
+        <div class="science-toolbar panel">
+          <label>
+            Evidence view
+            <select id="science-view-mode">
+              <option value="strict">Strict science</option>
+              <option value="exploratory">Exploratory science</option>
+            </select>
+          </label>
+          <div class="science-downloads" aria-label="Science report downloads">
+            <a class="quiet-button" id="science-json-download" href="/api/v1/lab/science/authority?view=strict" download>Download JSON</a>
+            <a class="quiet-button" id="science-markdown-download" href="/api/v1/lab/science/report.md?view=strict" download>Download Markdown</a>
+          </div>
+        </div>
+
+        <article class="panel science-boundary">
+          <p class="panel-index">S1</p>
+          <h2>Authority boundary</h2>
+          <p><strong>READ_ONLY_NON_PROMOTING</strong> — this report cannot release, select, or promote a scientific claim.</p>
+          <p>Strict-withheld records remain visible with their reason codes. Exploratory mode changes the partition, never the underlying authority or provenance.</p>
+          <p>Evidence classes remain separate and are never flattened into a numeric score.</p>
+        </article>
+
+        <div class="science-legend panel" aria-label="Evidence class legend">
+          <span class="evidence evidence-measured" data-evidence-class="MEASURED">MEASURED</span>
+          <span class="evidence evidence-literature-derived" data-evidence-class="LITERATURE_DERIVED">LITERATURE_DERIVED</span>
+          <span class="evidence evidence-supplier-provided" data-evidence-class="SUPPLIER_PROVIDED">SUPPLIER_PROVIDED</span>
+          <span class="evidence evidence-empirically-calibrated" data-evidence-class="EMPIRICALLY_CALIBRATED">EMPIRICALLY_CALIBRATED</span>
+          <span class="evidence evidence-model-estimated" data-evidence-class="MODEL_ESTIMATED">MODEL_ESTIMATED</span>
+          <span class="evidence evidence-heuristic" data-evidence-class="HEURISTIC">HEURISTIC</span>
+          <span class="evidence evidence-speculative" data-evidence-class="SPECULATIVE">SPECULATIVE</span>
+          <span class="evidence evidence-unknown" data-evidence-class="UNKNOWN">UNKNOWN</span>
+        </div>
+
+        <div id="science-summary" class="metric-grid" aria-live="polite"></div>
+        <div id="science-sections" class="science-sections" aria-live="polite">
+          <p class="empty">Open this view to load the canonical science authority report.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="/static/lab.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "complex-perfumery-vmc-rec01-empirical-loop-20260816",
+  "recorded_at": "2026-08-16T14:15:00+07:00",
+  "package": {
+    "file_name": "VMC_REC_01_Empirical_Loop_Aug2026_v1_Package.zip",
+    "locator": "incoming_review/chatgpt/20260816T141500+0700-v13-post-v12-five-package-recovery-multi-chat/VMC_REC_01_Empirical_Loop_Aug2026_v1_Package.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 45186,
+    "sha256": "3bcaec98bb637cb8070a11582044e3ce1b9cb2b317cd40761ae7ba529feeb745",
+    "media_type": "application/zip",
+    "archive_entry_count": 10,
+    "archive_file_count": 10,
+    "declared_payload_count": 5,
+    "package_root": null,
+    "embedded_integrity_records": [
+      {
+        "path": "VMC_REC_01_Empirical_Loop_release_Aug2026_v1.json",
+        "byte_size": 1631,
+        "sha256": "2dfcc2043242b3dc5795fd603dd6a21af35def74381ffe903d5d5bdf71dba951",
+        "role": "MANIFEST"
+      },
+      {
+        "path": "VMC_REC_01_Empirical_Loop_release_Aug2026_v1.json.sha256",
+        "byte_size": 116,
+        "sha256": "5fdc5bd3b491541df9279120bc7a3da61aa4fa5b3fffee613d28c2e1e06f0dd5",
+        "role": "CHECKSUM_LEDGER"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a79b172-0264-83ec-b77a-306a37ecb832:vmc-rec01-empirical-loop-20260816-v1",
+    "conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+    "turn_id": null,
+    "message_id": "1cd871e1-6e50-45e4-a857-c8fbcff41269",
+    "lineage_resolution": "EXACT_ORIGINAL_FILE_OBJECT_BYTES_RECOVERED_HASH_VERIFIED_AND_CAPTURED_WITH_BLANK_PROTOCOL_TEMPLATE_STATE_PRESERVED",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "External AI-generated empirical-loop protocol and blank templates; exact bytes do not authorize preparation, compounding, human execution, analysis, or release.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "The source READY_TO_COMPOUND_AFTER_PREFLIGHT wording is source perspective only and cannot supersede current V5/native readiness gates."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "SOURCE_NOT_B1_ADMITTED",
+      "NESTED_XLSX_CHILD_RECEIPTS_REQUIRED",
+      "PREFLIGHT_NOT_STARTED",
+      "ARMS_NOT_MIXED",
+      "PHYSICAL_CHECKS_NOT_RUN",
+      "SENSORY_ROWS_BLANK",
+      "DECISION_NOT_RUN_HOLD",
+      "NO_PREPARATION_COMPOUNDING_SAFETY_OR_RELEASE_AUTHORITY"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+      "byte_size": 199635,
+      "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "relation": "SOURCE_RELEASE_DECLARES_INVENTORY_PARENT_EXACT_HASH",
+      "support_scope": "HISTORICAL_INVENTORY_DESIGN_ANCESTRY_ONLY",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "VMC_REC01_EMPIRICAL_LOOP_EXACT_BYTES_PROTOCOL_AND_BLANK_TEMPLATE_ANCESTRY_ONLY",
+    "preflight_rows": 11,
+    "preflight_completed": 0,
+    "arms": 4,
+    "arms_mixed": 0,
+    "physical_checks": 12,
+    "physical_checks_run": 0,
+    "sensory_results": 0,
+    "decision_state": "NOT_RUN_HOLD",
+    "native_single_status": "QUARANTINE_HOLD",
+    "native_graph_status": "GRAPH_COMPLETE_QUARANTINED",
+    "native_graph_nodes": 3,
+    "native_graph_edges": 2,
+    "promotion_allowed": false,
+    "capture_manifest": {
+      "path": "incoming_review/chatgpt/20260816T141500+0700-v13-post-v12-five-package-recovery-multi-chat/capture_manifest.json",
+      "byte_size": 12948,
+      "sha256": "2ea8051ea61e92ce47f71b7ea6abcb42c05e7d0c9557b83cc7ebc70d97793bcc"
+    }
+  },
+  "receipt_sha256": "ae4f2e1a8274f5623279e3e4663b065313263f13bffa2dc97a27af5561db36ff"
+}

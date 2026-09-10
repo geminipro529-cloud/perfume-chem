@@ -1,0 +1,25 @@
+{
+  "schema_version": "complexity_replacement_blind_judge_raw_v1",
+  "judge_request_id": "rpljudge-rpl-hed-s02",
+  "case_id": "RPL-HED-S02",
+  "module_id": "hedonic_preference_learner",
+  "role": "SAFE_COUNTERCASE",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "surface": "ChatGPT Work",
+  "context_requirement": "FRESH_PROJECTLESS_CONVERSATION",
+  "conversation_id": "6a8e721c-17d8-83ec-a39b-f9a55c390ab8",
+  "dispatch_sha256": "628ff80fe9bed4edf2f327092e689a6f34154d707ba71a4b3c59f62c2bcf1776",
+  "output_text": "{\"results\":[{\"candidate_id\":\"CANDIDATE-01-9db13413\",\"criterion_scores\":{\"decision_correctness\":30,\"evidence_fidelity\":20,\"depth_richness_reasoning\":15,\"next_discriminating_test\":12,\"module_safeguards\":15,\"authority_boundary\":5},\"rubric_score\":97,\"critical_error_codes\":[],\"safe_countercase_pass\":true,\"critical_trap_pass\":true,\"specialist_checks_pass\":true,\"rationale\":\"Correctly withholds the global fit, preserves ties as indifference evidence while excluding them directionally, and respects the claim ceiling. It includes strong order, criterion, validation, and conditional bootstrap safeguards, but requests multiple bridge comparisons and additional validation rather than the smallest single bridge pair.\"},{\"candidate_id\":\"CANDIDATE-02-e83bef25\",\"criterion_scores\":{\"decision_correctness\":30,\"evidence_fidelity\":20,\"depth_richness_reasoning\":15,\"next_discriminating_test\":15,\"module_safeguards\":14,\"authority_boundary\":5},\"rubric_score\":99,\"critical_error_codes\":[],\"safe_countercase_pass\":true,\"critical_trap_pass\":true,\"specialist_checks_pass\":true,\"rationale\":\"Faithfully withholds global preference inference, preserves genuine ties without directional conversion, isolates unsupported depth and richness conclusions, and proposes the minimal blinded, order-balanced bridge comparison. It omits an explicit held-out validation or conditional bootstrap safeguard.\"},{\"candidate_id\":\"CANDIDATE-03-fe0a55f5\",\"criterion_scores\":{\"decision_correctness\":30,\"evidence_fidelity\":20,\"depth_richness_reasoning\":15,\"next_discriminating_test\":13,\"module_safeguards\":11,\"authority_boundary\":5},\"rubric_score\":94,\"critical_error_codes\":[],\"safe_countercase_pass\":true,\"critical_trap_pass\":true,\"specialist_checks_pass\":true,\"rationale\":\"Correctly withholds the global fit, limits inference to connected components, retains ties, and requests bridging evidence. The proposed test is broader than the smallest bridge pair and lacks explicit order balancing, assessor-structure preservation, and bootstrap safeguards.\"}]}",
+  "output_sha256": "4a23622d5ca653b7f932ec2ac5953b834ca6fb1ef930c9e793f742869b972ba2",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

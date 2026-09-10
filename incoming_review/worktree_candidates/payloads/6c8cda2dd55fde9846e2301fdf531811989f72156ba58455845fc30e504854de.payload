@@ -1,0 +1,29 @@
+﻿Code,ACC-FL-JAS-01
+Accord,Jasmine Night Bloom v1.0
+Category,Floral
+Brief,"A dimensional jasmine built from fresh headspace esters, floral air, indolic shadow, sambac greenness and warm night-bloom persistence."
+Recommended use,2–10% of perfume concentrate
+Maturation,7–14 days
+Monte Carlo pass,1.0
+Final design score,100.0
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,30.0,30.0,30.0,150.0,DIRECT,musk,Clean diffusion,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.00369779093139955
+2,base,Nerolidol,neat/as supplied,1.0,30.0,30.0,30.0,150.0,DIRECT,floral_air,Warm persistence,Warm floral-woody persistence.,HAVE,Use only with exact label/stock-strength accounting.,,TEXTURAL SUPPORT,0.004508775834928861
+3,base,Farnesol,neat / as supplied,1.0,15.0,15.0,15.0,75.0,DIRECT,floral_air,Floral tenacity,Warm floral persistence.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.002129479070078176
+4,heart_base,Benzyl Salicylate,neat / as supplied,1.0,80.0,80.0,80.0,400.0,DIRECT,floral_air,Floral binder,Floral binder and substantivity.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.014022598345903203
+5,heart_base,Jasmine Absolute 10%,10% working stock,0.1,80.0,8.0,80.0,400.0,PREPARED STOCK,jasmine,Natural jasmine body,Natural jasmine warmth.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.013596830306334871
+6,heart_base,Jasmine Sambac Absolute 10%,10% working stock,0.1,50.0,5.0,50.0,250.0,PREPARED STOCK,jasmine,Sambac greenness,Green-fruity jasmine sambac texture.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.007747572660588495
+7,heart_base,Methyl Anthranilate,neat / as supplied,1.0,35.0,35.0,35.0,175.0,DIRECT,jasmine,Orange-floral depth,Orange-flower and jasmine depth.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.005186721943734105
+8,heart_base,Amyl Cinnamic Aldehyde (ACA),Prepare 10% from neat ACA,0.1,20.0,2.0,20.0,100.0,PREPARED STOCK,jasmine,Jasmine volume,Jasmine-supporting cinnamic volume.,HAVE — NEAT,Use as a distinct jasmine-supporting cinnamic aldehyde; do not confuse with HCA or cinnamaldehyde.,Prepare fresh 10% working stock.,TEXTURAL SUPPORT,0.0028378031534420462
+9,heart_base,Ylang-Ylang EO,Ylang-Ylang Comoros Complete EO,1.0,20.0,20.0,20.0,100.0,DIRECT,white_floral,Creamy flower depth,Creamy natural ylang body.,HAVE — COMOROS COMPLETE + III,Use Comoros Complete when a formula calls generically for Ylang-Ylang EO. Use III only when its drier/technical profile is specifically appropriate.,,TEXTURAL SUPPORT,0.002278835251800663
+10,heart_base,Indole 10%,10% working stock,0.1,8.0,0.8,8.0,40.0,PREPARED STOCK,jasmine,Living indolic shadow,Living-flower indolic shadow.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.001097272291596251
+11,heart,Hedione,neat / as supplied,1.0,260.0,260.0,260.0,1300.0,DIRECT,floral_air,Air and bloom,Transparent floral diffusion.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.0838496814582089
+12,heart,Dihydrojasmone,as supplied,1.0,45.0,45.0,45.0,225.0,DIRECT,jasmine,Smooth petal body,Smooth jasmine petal body.,HAVE,Use only with exact label/stock-strength accounting.,,STRUCTURALLY IMPORTANT,0.0068466743585222384
+13,heart,Phenethyl Alcohol,neat / as supplied,1.0,30.0,30.0,30.0,150.0,DIRECT,rose_floral,Soft petal support,Soft floral petal body.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.003618379902036731
+14,heart,cis-Jasmone,as supplied,1.0,25.0,25.0,25.0,125.0,DIRECT,jasmine,Tea-petal detail,Jasmine petal and tea nuance.,HAVE,Use only with exact label/stock-strength accounting.,,TEXTURAL SUPPORT,0.0035919034841695547
+15,top_heart,Benzyl Acetate,neat/as supplied,1.0,160.0,160.0,160.0,800.0,DIRECT,jasmine,Jasmine headspace ester,Characteristic jasmine fruit-floral ester.,HAVE,Use only with exact label/stock-strength accounting.,,IDENTITY CRITICAL,0.035957689155360045
+16,top_heart,Linalool,neat/as supplied,1.0,60.0,60.0,60.0,300.0,DIRECT,aromatic,Fresh floral lift,Floral-citrus bridge.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.008588039030784662
+17,top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,20.0,20.0,20.0,100.0,DIRECT,citrus,Opening lift,Floral bergamot peel.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0023383555873651854
+18,carrier,DPG,neat,0.0,32.0,0.0,32.0,160.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

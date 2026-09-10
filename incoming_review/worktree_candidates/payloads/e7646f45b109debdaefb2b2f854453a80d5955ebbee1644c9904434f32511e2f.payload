@@ -1,0 +1,51 @@
+# Complex Perfumery V8 exact-byte recovery and native-fit plan
+
+State: `PCV3_EXACT_BYTES_QUARANTINED_NOT_ADMITTED__COLLECTION_AND_INSTALLATION_INCOMPLETE`.
+
+## New exact recovery
+
+`PCV3_CHAT2_EXPERIMENTAL_DATA_MODEL_v1.zip` is now locally captured as exact source bytes:
+
+- 32,196 bytes
+- SHA-256 `db638ab82c7e1a798297a9f4376014b9f51965511ae1d65132e57b4d12c9c9eb`
+- 12 safe, case-fold-unique members
+- full ZIP CRC clean
+- embedded `SHA256SUMS.json` replay: 11/11 exact, no missing or extra payloads
+- native single and graph state: `CLEAR_FOR_RECEIPT_REVIEW`
+- native promotion: false
+
+The package is specification-only. Its worker state is `COMPLETE_WITH_HOLDS`; the sensory-observation, physical-batch, and coded-sample templates each contain zero data rows. Its validation report proves schema parsing and synthetic/minimal smoke tests, not scientific observations, physical execution, or host adoption.
+
+## Native fit
+
+Do not install the package's 30-array canonical model as a parallel database, truth store, or migration. Current native contracts remain controlling:
+
+- target formula, build, bottle, reservation, and committed lifecycle records;
+- Laboratory Beta experiment, real sample/bottle, application, observation, and outcome records;
+- C0 sensory protocol, qualification, expected-cell, and semantic readback contracts;
+- B5 analytical authority;
+- migration `20260810_0016` external-study source, unit, observation, conflict, and projection contracts.
+
+The exact `experimental_data_model.schema.json` member may later be registered through the existing schema registry as immutable `REFERENCE` ancestry only, hash-bound to member SHA-256 `ea8b84e03297bacf1d253c6a9d5d1467a103c9c9f6271693ed7c50fcbe5a8710`. It must never become `CURRENT_CANONICAL`, own ingestion transforms, or confer schema/migration authority. Wrapper schemas, the migration map, package documentation, and worker manifest remain source artifacts.
+
+No migration, new truth store, new pipeline script, package-code installation, or formula/inventory mutation is indicated.
+
+## Remaining prior optional exact-byte queue
+
+1. `Perfume_Box_Workflow_Formula_Book_Aug2026_v2_Package.zip`, 208,163 bytes, SHA-256 `db0579760159e7438b83e92de399aa0a9f5862f0f547fa030a682c339bd54e84`: a live source content reference is present, but the application download is stalled; an exact-byte base64 transport fallback has been requested. No bytes are accepted yet.
+2. `UNIVERSAL_ACCORD_INTELLIGENCE_MODULE_v1.zip`, 539,050 bytes, SHA-256 `8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998`: source reports exact bytes unavailable. Reconstruction and substitution remain forbidden.
+
+Three additional post-V7 package identities are retained as source-card-only recovery candidates: the 41,882,040-byte latest-state compilation, its 41,858,464-byte bridge packet, and the 549,190-byte Opus V hedonic regeneration package. None has local bytes or authority.
+
+## Installation-critical hold
+
+P6 remains blocked on exact unavailable parents:
+
+- ZIP SHA-256 `8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db`
+- wheel SHA-256 `582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5`
+
+No reconstruction, wheel substitution, package installation, calibration activation, or C8 release/OAV authority is allowed.
+
+## Authority boundary
+
+Collection completion, source admission, schema authority, formula/build authority, inventory/stock/bottle authority, physical or sensory execution, analytical truth, headspace, strict OAV, safety, procurement, publication, installation, and release all remain false.

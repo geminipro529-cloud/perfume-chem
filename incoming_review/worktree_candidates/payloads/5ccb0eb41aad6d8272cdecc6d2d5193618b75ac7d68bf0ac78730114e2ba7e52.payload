@@ -1,0 +1,227 @@
+# Structural Formulation Studio Design
+
+**Date:** 2026-08-28  
+**Status:** Approved for theory-only implementation  
+**Scope:** Reusable formulation method plus one first application; no procurement and no physical compounding
+
+## Objective
+
+Create an isolated Perfume-Chem studio for original perfumes that pursue the structural completion, depth, spatial articulation, and hedonic coherence associated with highly resolved luxury perfumery without copying the ingredient identity of a reference perfume.
+
+The first application is **Silver Traverse**, an original Pink-Pepper-led sporty aromatic woody amber. V1.4 replaces the former Explorer comparison axis with the fruit-lit propulsion of Creed Aventus and the sharper ginger/grapefruit-to-warm-root contrast of Creed Absolu Aventus, while retaining Prada Luna Rossa's athletic lavender-aromatic sailcloth axis. The formula uses the DHP 2025 protocol as structural grammar only: one subject in multiple states, foreground/middle/background depth, temporal recurrence, opposed textures, an identity-bearing base, and controlled pressure/release. V1.4 is the current theory successor; finalized V1.3 and earlier versions remain preserved as historical computational evidence.
+
+All sensory outcomes, including luxury, depth, completion, diffusion, and liking, remain **NOT TESTED** until blinded physical evaluation.
+
+## Authority and Evidence Model
+
+Before every formula batch, the operator must re-read:
+
+1. `AGENTS.md`
+2. `inventory.txt`
+3. `.github/copilot-instructions.md`
+4. `docs/fragrance_families_reference.md`
+5. the current DHP 2025 structural formulation learning protocol
+6. the studio method and the formula's named reference set
+7. relevant existing formulas selected for structural comparison
+
+The authority order is:
+
+1. current user-supplied physical overrides;
+2. live `inventory.txt` and stock labels;
+3. current repository physics, ODT, composite-natural, and profile data;
+4. supplier or official product documentation;
+5. secondary references and historical formulas.
+
+Conflict handling is fail-closed. A conflict is recorded as **HOLD** and cannot be silently resolved by a modeled default. Pipeline output is diagnostic, not sensory evidence. Formula rows, active ppm, ODT, OAV, and natural-mixture composite OAV must preserve source basis and uncertainty.
+
+Current physical overrides that must remain explicit in this studio are:
+
+- Parmavert and all tinctures are unavailable. Cedarwood oil Virginia and Lemon FCF oil Sicilian are owned/reconfirmed neat under the 2026-08-28 authority sync; neither is automatically required in Silver Traverse.
+- Ethylene Brassylate is present, but is not a default permission to add a second musk.
+- The only owned corrected lactones are Delta Decalactone and Gamma Nonalactone.
+- Lemonile may be dosed only from the existing 1% DPG stock.
+- Cinnamon Bark Oil is NYSUPPLY. Supplier and bark identity are known; botanical species, lot, exact 10% stock basis, material physics/composite OAV, and material-specific safety are HOLD. Bontoux authority applies only to premium Lavender EO.
+- Ginger EO is owned neat, but applicable exact-name composite-natural decomposition remains HOLD.
+- Paradisamide is recorded only as 10%; carrier/basis, lot/container, ODT reconciliation, and material-specific safety remain HOLD. It is excluded from the default V1.4 CURRENT build after a preliminary modeled OAV of 0.0029 at the screened dose.
+- Every direct aliquot from a raw or working stock must be at least 10 uL. Smaller effects require a separately authorized working dilution whose preparation basis is recorded.
+
+## Studio Architecture
+
+The studio has four permanent artifacts:
+
+1. `README.md` — index, authority boundary, and batch-start checklist.
+2. `METHOD.md` — reusable architecture method, material admission, calculations, omission discipline, and claim ceilings.
+3. one formula packet per perfume — TARGET / IDEAL and CURRENT-INVENTORY are distinct tables with explicit gap mapping.
+4. one blinded validation packet per perfume — protected nucleus, controlled arms, coding, evaluation schedule, stopping rules, and evidence ledger.
+
+The studio does not maintain a shadow inventory and does not convert modeled outputs into formula authority. The live repository remains authoritative.
+
+## Reusable Design Method
+
+### 1. Named identity contract
+
+Define the perfume name, one-sentence identity, recognizable subject, intended emotional effect, allowed reference axes, and takeover exclusions before selecting materials. Numerical scores and ingredient count are subordinate to this contract.
+
+### 2. One subject in multiple states
+
+Choose one recognizable subject and express it in at least two causally connected states. Each state must change texture, temperature, moisture, distance, or time while remaining recognizably the same subject. A material or module that creates an unrelated second subject fails admission.
+
+### 3. Three-dimensional spatial planes
+
+Assign each admitted material to one primary spatial ownership role:
+
+- front glint or edge;
+- near-body identity;
+- living middle or diffusion bridge;
+- rear contour or mass;
+- skin/fabric echo.
+
+Planes must overlap through bridges rather than form a simple top/heart/base stack. The rear contour must alter perception of the opening before it becomes the drydown.
+
+### 4. Temporal recurrence
+
+Select at least one identity motif that appears in the opening, is transformed in the heart, and is echoed by the base. Recurrence must be caused by linked materials or modules, not asserted from note labels.
+
+### 5. Opposed textures and pressure/release
+
+Specify one controlled opposition, such as cold/warm, taut/supple, dry/diffusive, bright/shadowed, or mineral/skin-like. Identify the pressure module, the release module, their collision interval, and the material that prevents fracture between them.
+
+### 6. Identity-bearing base
+
+The base must continue the named subject rather than become generic woody amber, sweet musk, or fixation. At least one base material must echo a top or heart facet, and the formula must state what recognizable identity would be lost if that material were removed.
+
+### 7. Hedonic coherence
+
+Pleasure is treated as a physical hypothesis. The design must include a comfort path, a tension path, and a release path. Irritation, muddiness, fatigue, generic cleanliness, and sweetness takeover are explicit blinded endpoints. Luxury and completion cannot be inferred from ingredient prestige or modeled smoothness.
+
+### 8. Hedonic successor rebase
+
+When a version is asked to become more hedonic, preserve the predecessor and begin by subtracting likely glare, rigidity, fatigue, and generic-family competition. Keep the protected lead fixed. Reallocate released volume only to existing release/cushion owners or declared negative space. Compare one musk per arm against no musk; never infer that separate winners should be combined. Identity, liking, desire to re-smell, comfort, harshness, fatigue, and takeover flags remain separate endpoints.
+
+### 9. Disciplined finishing
+
+Use zero or one functionally exact musk by default. Every row must own a nonredundant target-linked function, a predicted omission consequence, and an omission test or protected-nucleus rationale. New rows are admitted only when an existing row cannot take over the function without a named identity loss.
+
+### 10. Reference-axis replacement
+
+Freeze the exact predecessor before replacing a named reference. Translate the new reference only into abstract motion, texture, contrast, or temporal structure; official note descriptions define exclusion guards, not a donor formula. Preserve the perfume's name, lead-note ownership, recurrence, and identity-bearing base. Separate fruit-lit propulsion, projection texture, and base-depth changes into net-zero modules, compare each at constant total, then confirm the exact combined successor against its predecessor. “Sport” means observable motion and tension/release, not automatically more citrus, Dihydromyrcenol, ambrox, or musk.
+
+## Material and Calculation Contract
+
+For each formula row, record material, live stock basis, raw uL, nominal active uL, concentrate ppm, spatial plane, temporal job, identity function, and omission test. The concentrate is normalized to 1,000,000 ppm.
+
+For conventional stock solutions:
+
+`nominal_active_uL = raw_uL x stock_fraction`
+
+`concentrate_ppm = nominal_active_uL / total_concentrate_uL x 1,000,000`
+
+For w/v, density-unknown, natural-mixture, or otherwise uncertain stocks, the conversion is explicitly nominal and the exact w/w active ppm remains HOLD. OAV is diagnostic:
+
+`OAV = modeled_headspace_concentration / applicable_ODT`
+
+Natural mixtures use the repository composite decomposition when covered. Missing composite coverage is HOLD, never a modeled zero. Any duplicate ODT, alias mismatch, unknown activity coefficient, absent profile, or conflicting stock strength is recorded in the formula's data-quality ledger.
+
+## Silver Traverse Design
+
+### Identity
+
+**Subject:** charged technical sailcloth.  
+**Main note:** luminous Pink Pepper — rosy, effervescent, and tensile rather than hot, dry, or culinary.  
+**Cold state:** pink-pepper sparks and dimensional bergamot-citron peel move across a wet, taut, mineral-aromatic surface.  
+**Warm state:** the same peppered cloth becomes dry, flexed, and sun-warmed through ambrox, transparent woods, vetiver, patchouli, Cashmeran, and a trace resin shadow.  
+**Desired transition:** the peppered aromatic surface remains as a silver edge while the warm identity-bearing interior expands behind it.
+
+The current design takes broad official axes only: Luna Rossa's lavender/mint/amber athletic sailcloth, Aventus's fruit-lit fresh-to-dry-wood acceleration, and Absolu Aventus's stronger ginger/grapefruit tension against warmer vetiver/patchouli/labdanum depth. It does not reconstruct any reference formula or transfer DHP/Opus/Aventus ingredient identity.
+
+### Exclusions
+
+- no iris, orris, lipstick powder, or DHP material signature;
+- no oud, rum, leather accord, or Opus V material signature;
+- no blue shower-gel or literal marine/calone identity;
+- no hot, dry, culinary Black Pepper takeover that fails the Pink Pepper subject;
+- no vanilla/tonka sweetness takeover;
+- no creamy sandalwood stack;
+- no smoke, leather, or chypre takeover from the trace resin shadow;
+- no pineapple, apple, cassis/blackcurrant, birch smoke, oakmoss, or recognizable Aventus accord;
+- no cinnamon/cardamom signature, ginger beverage, tropical fruit heart, or sweet Absolu-like labdanum takeover;
+- no laundry-musk cloud;
+- no unavailable or incorrectly rebased material;
+- no second musk without a demonstrated, non-overlapping role.
+
+### Spatial and temporal construction
+
+- **Front glint:** TARGET Pink Pepper, Bergamot, cedrat, grapefruit sulfur/peel accent, aldehydic edge, mint trace, mineral air.
+- **Near body:** premium lavender, clary sage, linalyl acetate, ethyl linalool, and the rosy pepper bridge.
+- **Living middle:** Hedione diffusion, watery floral bridge, cyclamen air, dry petal/fabric body.
+- **Rear contour:** ambroxan-type mineral warmth, transparent wood, dry ambery wood, vetiver, restrained patchouli, and trace Labdanum.
+- **Fabric echo:** Iso E Super, Cashmeran, one woody-clean musk, hexyl salicylate, and benzyl benzoate.
+
+The protected peppered aromatic state supplies pressure. The expanding woody-amber textile state supplies release. Geraniol, Bergamot, Hexyl Salicylate, Hedione, Iso E Super, and the lavender-linalyl axis prevent a hard seam. The recurrence chain is pink pepper/bergamot-citron -> lavender cloth -> Cashmeran/patchouli/vetiver/ambrox dry glow.
+
+### Finalized V1.3 predecessor representations
+
+The current V1.3 formula packet contains:
+
+- **TARGET / IDEAL:** 34 active-function rows totaling 1,000,000 ppm, including Pink Pepper EO fixed at 80,000 ppm as the protected hero note.
+- **CURRENT-INVENTORY:** 36 rows totaling 6,000 uL for a future 30 mL, 20% EdP context; Pink Pepper is absent, so Black Pepper EO, Rose Oxide 1%, Damascone Beta 10%, and Geraniol 10% have separate jobs inside a declared non-equivalent reconstruction screen. Habanolide is the sole V1.3 musk hypothesis.
+- **Gap map:** every substitution or absent ideal material, with expected identity consequence and HOLD status.
+
+V1.3 preserves V1.2's 34-row TARGET and 36-row CURRENT topology. Pink Pepper remains fixed at 80,000 target ppm. The `G` module removes 230 raw uL of citrus/fresh/aromatic/muguet glare and moves it to declared Benzyl Benzoate negative space. The `S` module removes 110 raw uL of abstract/rigid rear pressure and reallocates exactly 110 uL to Hedione, Helional, Dihydrojasmone, and Hexyl Salicylate release/cushion. Rounded Clearwood/Azarbre rear body stays at V1.2 levels. Romandolide is not combined with Habanolide: it becomes an equal-volume comparator alongside Ethylene Brassylate and no musk. Peppermint remains limited to a future 10% w/w DPG working stock. Ambrox exact w/w active ppm remains HOLD.
+
+### Current V1.4 representations
+
+V1.4 contains a 36-row TARGET totaling 1,000,000 active ppm and a 37-row CURRENT totaling 6,000 uL. Pink Pepper remains fixed at 80,000 TARGET ppm. Three exact net-zero modules are declared: `F` adds 20 uL Methyl Pamplemousse stock, 30 uL Ginger EO, and 20 uL Hedione while removing 70 uL Benzyl Benzoate; `P` replaces Habanolide 250 with Romandolide 300 while reducing Iso E by 30 and Ambrox stock by 20; `D` adds 20 uL each of Azarbre, Indian Vetiver, and Patchouli while removing 60 uL Benzyl Benzoate. Paradisamide remains a TARGET function and contingent arm, not a default CURRENT row. Romandolide is the sole V1.4 musk hypothesis.
+
+## Blinded Validation Design
+
+V1.3 validation is staged and constant-total:
+
+1. test CURRENT spicy pressure x rosy-effervescence as a 2x2, followed by a half-pepper rescue and isolated Damascone omission;
+2. if exact Pink Pepper later becomes available under separate authority, compare 480 uL exact material with the reconstruction and a null on a matched 5,520 uL background;
+3. test `G` glare relief x `S` softened-pressure/release as a 2x2 while Romandolide is held fixed;
+4. compare Romandolide, Habanolide, Ethylene Brassylate, and no musk one at a time on the selected architecture;
+5. confirm V1.2 against the selected V1.3 branch in fresh independent blocks, then refine citrus and isolate low-OAV cloth/far-rear hypotheses;
+6. compare the surviving 36-row topology with a 31-row compressed formula and run isolated add-backs.
+
+V1.4 validation inherits the V1.3 Pink-Pepper identity veto, then proceeds at constant raw total:
+
+1. test `F` fruit-lit propulsion x `D` dry-rear depth as a 2x2 with the V1.3 projection system fixed;
+2. localize the complete `P` projection-role transfer, rear-pressure relief, and equal-volume Romandolide/Habanolide/Ethylene-Brassylate/no-musk tournament;
+3. dissect Methyl Pamplemousse x Ginger, the Methyl Pamplemousse zero/dose condition, and the Hedione increment;
+4. quarantine Paradisamide to a contingent post-reconciliation arm only;
+5. localize the Azarbre, vetiver, and patchouli rear increments by leave-one-out controls;
+6. confirm exact finalized V1.3 against the selected V1.4 branch in fresh independent blocks;
+7. compare the surviving 37-row topology with a 31-row compressed control and run isolated add-backs.
+
+Every direct formula or module row is at least 10 uL. Practical article scaling, master construction, and mixing order remain future work under separate compounding authorization.
+
+Use two independently randomized preparation blocks, balanced presentation, and fresh coding. Evaluate blotter and skin separately at 0, 5, 30, and 120 minutes, then 6 and 24 hours. Required endpoints include free description, Silver Traverse identity, Pink Pepper fit, dry/hot pepper, state legibility, citrus dimensionality, far-rear base shadow, transition, planes, recurrence, liking, harshness, muddiness, fatigue, takeover flags, and base identity.
+
+No arm is accepted on a numerical aggregate alone. The winner must preserve the named identity, pass takeover exclusions, and show reproducible blinded structural or hedonic value. Pink Pepper equivalence remains HOLD unless an exact-material comparison is separately authorized and run.
+
+## Error Handling and Claim Ceilings
+
+- If a stock basis, identity, physics record, ODT, composite-natural model, or safety datum is missing or conflicting: **HOLD** that datum or row.
+- If a pipeline result is produced without physical smelling: performance, luxury, depth, balance, and liking remain **NOT TESTED**.
+- If a direct aliquot would be below 10 uL: redesign through a documented working stock or remove the effect.
+- If an unavailable material appears: the current-inventory build is invalid until corrected.
+- If a second musk appears: require an explicit functional collision test against the existing musk.
+- If an omission cannot be predicted and tested: merge its role into another material or remove it.
+- If a reference-specific ingredient identity begins to dominate: reject the version even if modeled metrics improve.
+
+## Verification and Acceptance
+
+Implementation is accepted only when:
+
+1. all permanent artifacts exist and link to each other;
+2. every current-inventory row resolves to live inventory or a clearly unauthorized future working-stock preparation;
+3. all unavailable materials and current physical overrides are preserved;
+4. TARGET / IDEAL and CURRENT-INVENTORY remain separate;
+5. raw totals and ppm totals reconcile;
+6. every direct formula or module aliquot is at least 10 uL;
+7. the one-musk default is respected;
+8. every row has a nonredundant function and omission control;
+9. the local pipeline is run, its full formatted analysis is appended to the formula, and all data-quality problems are labeled;
+10. the final status is **THEORY ONLY / NOT TESTED / NO COMPOUNDING AUTHORIZED**.
+

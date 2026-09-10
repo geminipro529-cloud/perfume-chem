@@ -1,0 +1,25 @@
+from pathlib import Path
+
+from engine.inventory_parser import parse_inventory
+
+
+def test_depleted_inventory_rows_are_unavailable(tmp_path: Path) -> None:
+    inventory = tmp_path / "inventory.txt"
+    inventory.write_text(
+        """PERFUMERY INVENTORY — CURRENT WORKING MATERIALS
+
+--- FLORAL MATERIALS ---
+- Hydroxycitronellal  # DEPLETED 2026-06-15
+- Hedione
+""",
+        encoding="utf-8",
+    )
+
+    all_rows = parse_inventory(inventory, unique=False, include_unavailable=True)
+    available = parse_inventory(inventory, unique=False, include_unavailable=False)
+
+    assert {row.name: row.status for row in all_rows} == {
+        "Hydroxycitronellal": "depleted",
+        "Hedione": "owned",
+    }
+    assert [row.name for row in available] == ["Hedione"]

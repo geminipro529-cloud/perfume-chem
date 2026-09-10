@@ -1,0 +1,583 @@
+# Aventus / Absolu / Explorer / Extreme Hedonic-Context Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Add four distinct, source-bounded named-reference architectures and a formula-evaluating, all-family hedonic-context candidate that fails closed without claiming liking or similarity.
+
+**Architecture:** The existing registry remains the authority for named identity, independent functional axes, source observations, and temporal relationships. `future_modules/family_hedonic_optimizer.py` gains a separate `FUTURE_CANDIDATE_NOT_VALIDATED` context evaluator that consumes already-computed OAV observations and returns component results plus coverage; `gates.py` and `oav_intelligence.py` expose those diagnostics without collapsing incompatible hedonic scales or turning broad-family compatibility into named-reference evidence.
+
+**Tech Stack:** Python 3, frozen dataclasses, existing FormulaState/SimulationFrame pipeline, pytest.
+
+**Spec:** `docs/superpowers/specs/2026-08-31-aventus-explorer-reference-model-design.md`
+
+## Global Constraints
+
+- Use only OpenAI Codex-native subagents; no DeepLuna, DeepSeek, OpenRouter, `$delegate`, plugin worker, subprocess stand-in, or provider fallback.
+- Work only in `C:\Users\ASUS\.codex\worktrees\6992\perfume-chem`; preserve the detached, dirty baseline.
+- Allowed production paths: `future_modules/family_hedonic_optimizer.py`, `engine/families/registry.py`, `engine/pipeline/gates.py`, `engine/pipeline/oav_intelligence.py`.
+- Allowed tests: new `tests/test_family_hedonic_optimizer.py` and focused additions to `tests/test_family_archetypes.py`, `tests/test_pipeline_gates.py`, and `tests/test_oav_intelligence.py`.
+- Allowed documentation: the linked spec and this plan only.
+- Forbidden: inventory, inventory overlays, `engine/hedonic_model.py`, `engine/family_scorer.py`, ledger, CLI, simulator, formulas, historical artifacts, Cypress paths, commits, merges, cherry-picks, pushes, purchases, stock preparation, physical dosing, and release actions.
+- Do not normalize or aggregate the legacy `-1..+1` valence scale, material-profile `-5..+5` hypotheses, OAV bands, temporal ratios, and observed preferences into one score.
+- Every candidate report says `FUTURE_CANDIDATE_NOT_VALIDATED`; `proves_liking=False`, `proves_similarity=False`, and measured headspace remains false.
+- Missing, held, scale-mismatched, or absent required evidence is `UNKNOWN/HOLD`, never numerical zero.
+- Named-reference and market-target identity failures are blocking; generic aesthetic guidance is advisory.
+- Preserve exact Ambrofix and Ambrox Super identities; a functional class must be labeled non-equivalent.
+- Ingredient count never improves context fit. Complexity is target-linked relationships, depth, transitions, texture, and hedonism potential.
+- Use ppm/ODT/OAV from the existing pipeline and composite-natural OAV; do not recompute physics inside the future module.
+- No production code before the corresponding focused test has been run and observed failing for the intended missing behavior.
+- Baseline: `59 passed, 1 failed` in the three relevant existing files; the sole failure is the pre-existing `test_lhomme_current_tonkarome_label_counts_toward_dry_tonka_anchor` and is outside this lease.
+- Because the allowed files already contain uncommitted user/task bytes, do not commit. Record before/after SHA-256 hashes and exact path diffs instead.
+
+---
+
+### Task 1: Cross-family hedonic-context candidate
+
+**Files:**
+- Create: `tests/test_family_hedonic_optimizer.py`
+- Modify: `future_modules/family_hedonic_optimizer.py`
+
+**Interfaces:**
+- Consumes: existing `FragranceFamily`, `NoteTier`, `FamilyMaterialTarget`, and `FamilyHedonicProfile`.
+- Produces: `FUTURE_CANDIDATE_STATUS`, `HedonicObservation`, `HedonicCriterion`, `HedonicContextReport`, `resolve_family_context()`, and `evaluate_family_hedonic_context()`.
+
+- [ ] **Step 1: Write literal RED tests for explicit family resolution**
+
+Add a table-driven test with this hand-declared mapping:
+
+```python
+EXPECTED_CONTEXTS = {
+    "aromatic_fougere": FragranceFamily.AROMATIC_FOUGERE,
+    "fougere_classical": FragranceFamily.AROMATIC_FOUGERE,
+    "chypre": FragranceFamily.CHYPRE,
+    "chypre_classical": FragranceFamily.CHYPRE,
+    "chypre_floral": FragranceFamily.CHYPRE,
+    "chypre_fruity": FragranceFamily.CHYPRE,
+    "chypre_green": FragranceFamily.CHYPRE,
+    "chypre_leathery": FragranceFamily.CHYPRE,
+    "citrus_aromatic": FragranceFamily.CITRUS,
+    "citrus_classical": FragranceFamily.CITRUS,
+    "floral_aldehydic": FragranceFamily.FLORAL_JASMINE,
+    "floral_aldehydic_amber": FragranceFamily.FLORAL_JASMINE,
+    "floral_bouquet": FragranceFamily.FLORAL_JASMINE,
+    "floral_carnation": FragranceFamily.FLORAL_JASMINE,
+    "floral_green": FragranceFamily.FLORAL_JASMINE,
+    "floral_muguet": FragranceFamily.FLORAL_JASMINE,
+    "floral_powdery": FragranceFamily.FLORAL_JASMINE,
+    "floral_soliflore": FragranceFamily.FLORAL_ROSE,
+    "floral_white": FragranceFamily.FLORAL_JASMINE,
+    "gourmand_floral": FragranceFamily.GOURMAND,
+    "iris_amber_woody": FragranceFamily.WOODY_AMBER,
+    "iris_ambrox_amber": FragranceFamily.WOODY_AMBER,
+    "iris_coumarin_amber": FragranceFamily.AMBER_ORIENTAL,
+    "iris_sandalwood": FragranceFamily.WOODY_AMBER,
+    "layton_dna": FragranceFamily.AMBER_ORIENTAL,
+    "leather_iris_amber": FragranceFamily.LEATHER,
+    "oriental_classical": FragranceFamily.AMBER_ORIENTAL,
+    "oriental_floral": FragranceFamily.AMBER_ORIENTAL,
+    "oriental_soft": FragranceFamily.AMBER_ORIENTAL,
+    "woody": FragranceFamily.WOODY_AMBER,
+    "woody_amber": FragranceFamily.WOODY_AMBER,
+    "woody_floral_musk": FragranceFamily.WOODY_AMBER,
+    "ysl_lhomme": FragranceFamily.WOODY_AMBER,
+    "ysl_la_nuit_de_lhomme": FragranceFamily.AMBER_ORIENTAL,
+}
+
+def test_every_registry_family_resolves_to_one_explicit_context():
+    actual_families = {spec.family for spec in all_archetypes()}
+    assert actual_families == set(EXPECTED_CONTEXTS)
+    assert {
+        key: resolve_family_context(key) for key in sorted(actual_families)
+    } == EXPECTED_CONTEXTS
+
+def test_woody_amber_never_falls_through_to_amber_oriental():
+    assert resolve_family_context("woody_amber") is FragranceFamily.WOODY_AMBER
+
+def test_unknown_family_returns_none_instead_of_arbitrary_fallback():
+    assert resolve_family_context("missing_reference_family") is None
+```
+
+- [ ] **Step 2: Run the resolver tests and verify RED**
+
+Run: `pytest tests/test_family_hedonic_optimizer.py -k "registry_family or woody_amber or unknown_family" -q`
+
+Expected: collection/import failure because `resolve_family_context` does not exist.
+
+- [ ] **Step 3: Add the explicit resolver and candidate records**
+
+Add the spec-defined immutable records verbatim. Use an explicit `_FAMILY_CONTEXT_MAP`; normalize only whitespace, hyphens, dots, and case. Do not use token-order fallbacks.
+
+```python
+FUTURE_CANDIDATE_STATUS = "FUTURE_CANDIDATE_NOT_VALIDATED"
+
+def resolve_family_context(family_key: str) -> FragranceFamily | None:
+    token = "_".join(
+        family_key.strip().casefold().replace("-", "_").replace(".", "_").split()
+    )
+    return _FAMILY_CONTEXT_MAP.get(token)
+```
+
+- [ ] **Step 4: Run the resolver tests and verify GREEN**
+
+Run: `pytest tests/test_family_hedonic_optimizer.py -k "registry_family or woody_amber or unknown_family" -q`
+
+Expected: all selected tests pass.
+
+- [ ] **Step 5: Write RED tests for real context evaluation**
+
+Use direct immutable observations; do not mock the evaluator:
+
+```python
+def _observation(oavs, *, authority=None, extra_active=None):
+    return HedonicObservation(
+        family_key="woody_amber",
+        archetype_key=None,
+        window_oavs={
+            "opening": dict(oavs),
+            "top": dict(oavs),
+            "heart": dict(oavs),
+            "late_heart": dict(oavs),
+            "drydown": dict(oavs),
+        },
+        active_percentages={**{name: 1.0 for name in oavs}, **(extra_active or {})},
+        material_authority=authority or {name: "MODELED" for name in oavs},
+    )
+
+def test_report_is_candidate_only_and_cannot_prove_liking_or_similarity():
+    report = evaluate_family_hedonic_context(
+        _observation({"Iso E Super": 50.0, "Sandalore": 20.0}),
+        get_family_profile(FragranceFamily.WOODY_AMBER),
+    )
+    assert report.claim_ceiling == FUTURE_CANDIDATE_STATUS
+    assert report.proves_liking is False
+    assert report.proves_similarity is False
+    assert "overall_score" not in report.as_dict()
+
+def test_missing_present_oav_holds_instead_of_becoming_zero():
+    report = evaluate_family_hedonic_context(
+        _observation(
+            {"Iso E Super": None, "Sandalore": 20.0},
+            authority={"Iso E Super": "HOLD", "Sandalore": "MODELED"},
+        ),
+        get_family_profile(FragranceFamily.WOODY_AMBER),
+    )
+    assert report.authority_status == "HOLD"
+    assert "Iso E Super" in report.unknowns
+    assert report.status != "PASS"
+
+def test_redundant_unrecognized_rows_cannot_improve_component_results():
+    base = evaluate_family_hedonic_context(
+        _observation({"Iso E Super": 50.0, "Sandalore": 20.0}),
+        get_family_profile(FragranceFamily.WOODY_AMBER),
+    )
+    crowded = evaluate_family_hedonic_context(
+        _observation(
+            {"Iso E Super": 50.0, "Sandalore": 20.0},
+            extra_active={f"Unrecognized {index}": 1.0 for index in range(25)},
+        ),
+        get_family_profile(FragranceFamily.WOODY_AMBER),
+    )
+    assert crowded.components == base.components
+
+def test_material_hedonic_prior_is_reported_as_separate_not_aggregated():
+    report = evaluate_family_hedonic_context(
+        _observation({"Iso E Super": 50.0}),
+        get_family_profile(FragranceFamily.WOODY_AMBER),
+    )
+    assert report.components["intrinsic_valence_prior"]["status"] == "SEPARATE_NOT_AGGREGATED"
+```
+
+- [ ] **Step 6: Run evaluator tests and verify RED**
+
+Run: `pytest tests/test_family_hedonic_optimizer.py -k "candidate_only or missing_present or redundant_unrecognized or separate_not_aggregated" -q`
+
+Expected: failures because the evaluator and report serialization do not exist.
+
+- [ ] **Step 7: Implement the minimum context evaluator**
+
+Implement material-band and cliff observations using profile targets and their declared note-tier windows (`TOP -> top`, `HEART -> heart`, `BASE -> drydown`). Normalize material names once. For a present target:
+
+```python
+if authority in {"HOLD", "UNKNOWN"} or observed_oav is None:
+    criterion_status = "HOLD"
+elif target.cliff_oav is not None and observed_oav > target.cliff_oav:
+    criterion_status = "FAIL"
+elif target.target_oav_min <= observed_oav <= target.target_oav_max:
+    criterion_status = "PASS"
+else:
+    criterion_status = "WARN"
+```
+
+Omit absent optional profile targets from the denominator. If zero substantive criteria were evaluated, return `status="WARN"`, `authority_status="HOLD"`. Build separate components for dose context, cliffs, temporal fit, role fit, diffusion/texture, reference alignment, evidence coverage, and the explicitly separated intrinsic prior. Do not emit an aggregate numerical score.
+
+- [ ] **Step 8: Run the complete new test file and verify GREEN**
+
+Run: `pytest tests/test_family_hedonic_optimizer.py -q`
+
+Expected: all tests pass.
+
+- [ ] **Step 9: Record Task 1 evidence without committing**
+
+Record SHA-256 and `git diff -- future_modules/family_hedonic_optimizer.py tests/test_family_hedonic_optimizer.py` in the SDD report. Confirm no other path changed during this task.
+
+---
+
+### Task 2: Four distinct named-reference registries and independent axes
+
+**Files:**
+- Modify: `engine/families/registry.py`
+- Modify: `tests/test_family_archetypes.py`
+
+**Interfaces:**
+- Consumes: existing `GroupRule`, `TemporalOAVRule`, `ArchetypeSpec`, `_reference_spec()`, and normalized material groups.
+- Produces: source-labeled reference observations; `creed_absolu_aventus.reference`; `montblanc_explorer_extreme.reference`; strengthened Aventus/Explorer axes; temporal rules for all named references and SUKHUM.
+
+- [ ] **Step 1: Write RED tests for separate identities, sources, and authority**
+
+```python
+def test_four_reference_briefs_resolve_to_distinct_archetypes():
+    expected = {
+        "creed_aventus": "creed_aventus.reference",
+        "creed_absolu_aventus": "creed_absolu_aventus.reference",
+        "montblanc_explorer": "montblanc_explorer.reference",
+        "montblanc_explorer_extreme": "montblanc_explorer_extreme.reference",
+    }
+    assert {brief: infer_archetype(brief) for brief in expected} == expected
+    assert len({get_archetype(key) for key in expected.values()}) == 4
+
+def test_every_named_reference_has_source_observations_and_temporal_rules():
+    for key in (
+        "creed_aventus.reference",
+        "creed_absolu_aventus.reference",
+        "montblanc_explorer.reference",
+        "montblanc_explorer_extreme.reference",
+    ):
+        spec = get_archetype(key)
+        assert spec.role == "named_reference"
+        assert spec.evidence_tier == "OFFICIAL_NOTES_PLUS_DESIGN_HEURISTICS"
+        assert spec.quantitative_authority == "INTERNAL_UNCALIBRATED_GUARDRAILS"
+        assert spec.reference_observations
+        assert spec.temporal_oav_rules
+        assert all(rule.evidence_tier == "DESIGN_HEURISTIC" for rule in spec.temporal_oav_rules)
+        assert all(rule.measured_reference_headspace is False for rule in spec.temporal_oav_rules)
+```
+
+- [ ] **Step 2: Write RED tests preventing pooled-anchor impersonation**
+
+```python
+def test_aventus_patchouli_cannot_impersonate_blackcurrant_and_birch_axes():
+    evaluation = evaluate_family_archetype(
+        _formula({
+            "Bergamot FCF oil Sicilian": 400.0,
+            "Allyl Cyclohexyl Propionate": 30.0,
+            "Patchouli EO": 40.0,
+            "Iso E Super": 5530.0,
+        }, archetype="creed_aventus.reference"),
+        "creed_aventus.reference",
+    )
+    failed = {row.name for row in evaluation.checks if row.status == "FAIL"}
+    assert {"aventus_blackcurrant_tension", "aventus_birch_leather_transition"} <= failed
+
+def test_explorer_bergamot_ambrox_iso_e_cannot_impersonate_complete_architecture():
+    evaluation = evaluate_family_archetype(
+        _formula({
+            "Bergamot FCF oil Sicilian": 300.0,
+            "Ambrox Super": 300.0,
+            "Iso E Super": 5400.0,
+        }, archetype="montblanc_explorer.reference"),
+        "montblanc_explorer.reference",
+    )
+    failed = {row.name for row in evaluation.checks if row.status == "FAIL"}
+    assert {
+        "explorer_pepper_axis",
+        "explorer_sage_axis",
+        "explorer_mahonial_axis",
+        "explorer_patchouli_axis",
+        "explorer_ambrofix_axis",
+        "explorer_leather_axis",
+        "explorer_vetiver_axis",
+        "explorer_cedar_axis",
+    } <= failed
+```
+
+- [ ] **Step 3: Run Task 2 tests and verify RED**
+
+Run: `pytest tests/test_family_archetypes.py -k "four_reference or source_observations or patchouli_cannot or bergamot_ambrox" -q`
+
+Expected: missing reference keys/fields and pooled-anchor failures.
+
+- [ ] **Step 4: Implement source observations and distinct profiles**
+
+Add immutable `ReferenceSourceObservation` and `ArchetypeSpec.reference_observations`. Store source URL, access date `2026-08-31`, concentration label, head/heart/base observations, and explicit conflict note. Populate the official source packets listed in the spec.
+
+Split Aventus and Explorer pooled anchors into the exact test-named axes. Add independent Absolu axes for bergamot, grapefruit, ginger, pineapple, cardamom, cinnamon, labdanum, vetiver, and patchouli. Add independent Explorer Extreme axes for bergamot, sage, patchouli, exact-target Ambrofix, warm amber, leather, and vetiver. Existing active-percent limits remain internal uncalibrated guardrails.
+
+Add brief aliases exactly as tested. Preserve historical registry bytes unrelated to this scope.
+
+- [ ] **Step 5: Implement temporal-rule metadata and minimum continuity rules**
+
+Extend `TemporalOAVRule` with:
+
+```python
+evidence_tier: str = "DESIGN_HEURISTIC"
+source_or_derivation: str = "internal target-linked regression guardrail"
+quantitative_authority: str = "INTERNAL_UNCALIBRATED_GUARDRAILS"
+measured_reference_headspace: bool = False
+```
+
+Use the following rule keys and uncalibrated ratios:
+
+| Target | Rule | Min | Max |
+|---|---|---:|---:|
+| Aventus | `aventus_opening_fruit_under_citrus` | — | `0.85` |
+| Aventus | `aventus_heart_bridge_over_fruit` | `0.20` | — |
+| Aventus | `aventus_late_heart_wood_overlap` | `0.50` | — |
+| Aventus | `aventus_drydown_fruit_under_wood` | — | `0.25` |
+| Absolu | `absolu_opening_fruit_under_citrus` | — | `0.75` |
+| Absolu | `absolu_heart_spice_over_fruit` | `0.10` | `2.00` |
+| Absolu | `absolu_late_heart_resin_root_overlap` | `0.50` | — |
+| Absolu | `absolu_drydown_fruit_under_resin_root` | — | `0.25` |
+| Explorer | `explorer_opening_fruit_under_aromatic_citrus` | — | `0.20` |
+| Explorer | `explorer_heart_core_over_opening_residue` | `0.30` | — |
+| Explorer | `explorer_late_heart_base_overlap` | `0.20` | — |
+| Explorer | `explorer_drydown_fruit_under_base` | — | `0.05` |
+| Extreme | `explorer_extreme_opening_fruit_under_citrus` | — | `0.10` |
+| Extreme | `explorer_extreme_heart_core_over_citrus` | `0.50` | — |
+| Extreme | `explorer_extreme_late_heart_warm_base_overlap` | `0.30` | — |
+| Extreme | `explorer_extreme_drydown_fruit_under_base` | — | `0.02` |
+| SUKHUM | existing three rules | preserve | preserve |
+| SUKHUM | `s35_heart_bridge_over_fruit` | `0.25` | — |
+| SUKHUM | `s35_late_heart_wood_overlap` | `0.60` | — |
+| SUKHUM | `s35_drydown_fruit_under_wood` | — | `0.15` |
+
+Each rule's numerator/denominator groups must match its name and the spec's functional architecture. The values are regression guardrails only, never measured-reference claims.
+
+- [ ] **Step 6: Run Task 2 tests and verify GREEN**
+
+Run: `pytest tests/test_family_archetypes.py -k "four_reference or source_observations or patchouli_cannot or bergamot_ambrox" -q`
+
+Expected: all selected tests pass.
+
+- [ ] **Step 7: Record Task 2 evidence without committing**
+
+Record SHA-256 and `git diff -- engine/families/registry.py tests/test_family_archetypes.py`. Confirm unrelated YSL registry bytes were preserved.
+
+---
+
+### Task 3: Fail-closed temporal, frame-authority, and family-context gates
+
+**Files:**
+- Modify: `engine/pipeline/gates.py`
+- Modify: `tests/test_pipeline_gates.py`
+
+**Interfaces:**
+- Consumes: Task 1 evaluator and Task 2 registry metadata/rules.
+- Produces: formula-evaluating `_gate_family_hedonic(state, simulation, config)`; missing-OAV-aware temporal results; named-frame integrity; role-conditional drift blocking.
+
+- [ ] **Step 1: Write RED tests for missing OAV and missing windows**
+
+Create synthetic frames using `dataclasses.replace` so expectations are literal and independent of the simulator:
+
+```python
+def _frame_with_oavs(state, label, seconds, oavs):
+    return SimulationFrame(
+        label=label,
+        t_seconds=seconds,
+        state=replace(
+            state,
+            materials=tuple(replace(row, oav=oavs.get(row.name)) for row in state.materials),
+        ),
+    )
+
+def test_named_ratio_holds_when_present_member_has_unknown_oav():
+    state = build_formula_state({"Hexyl Acetate": 100.0, "Grapefruit FCF oil Sicilian": 100.0}, {})
+    frames = (
+        _frame_with_oavs(state, "opening", 0.0, {"Hexyl Acetate": 10.0, "Grapefruit FCF oil Sicilian": None}),
+        _frame_with_oavs(state, "heart", 1800.0, {"Hexyl Acetate": 3.0, "Grapefruit FCF oil Sicilian": None}),
+    )
+    result = _gate_reference_temporal_relationships(state, frames, ReleaseGateConfig(family_archetype="sukhum_35.thai_aventus_adjacent"))
+    check = next(row for row in result.data["checks"] if row["name"] == "s35_opening_fruit_not_over_citrus")
+    assert check["status"] == "FAIL"
+    assert check["ratio"] is None
+    assert check["quantitative_authority"] == "HOLD"
+    assert check["missing_oav_materials"] == ["Grapefruit FCF oil Sicilian"]
+
+def test_named_perfume_knowledge_fails_when_drydown_frame_is_missing(monkeypatch):
+    result = _gate_perfume_knowledge(state, named_config, frames_without_drydown)
+    assert result.status == "FAIL"
+    assert result.data["missing_simulation_windows"] == ["drydown"]
+```
+
+- [ ] **Step 2: Write RED tests for real family evaluation and claim ceiling**
+
+```python
+def test_static_profile_text_cannot_create_family_hedonic_pass():
+    state = build_formula_state({"Iso E Super": 6000.0}, {})
+    frames = tuple(simulate_formula({"Iso E Super": 6000.0}, {}, initial_state=state))
+    result = _gate_family_hedonic(state, frames, ReleaseGateConfig(family_archetype="chypre_classical.coty_reference"))
+    assert result.data["candidate_status"] == "FUTURE_CANDIDATE_NOT_VALIDATED"
+    assert result.data["evaluated_criteria"] >= 0
+    assert result.data["proves_liking"] is False
+    assert result.data["proves_similarity"] is False
+    assert result.status != "PASS"
+
+def test_generic_family_drift_is_advisory_but_named_drift_is_blocking():
+    generic = _apply_guideline_policy(_result("family_drift_detector", "FAIL", "miss"), ReleaseGateConfig(family_archetype="aromatic_fougere.classic_reference"))
+    named = _apply_guideline_policy(_result("family_drift_detector", "FAIL", "miss"), ReleaseGateConfig(family_archetype="creed_aventus.reference"))
+    assert generic.status == "WARN"
+    assert named.status == "FAIL"
+```
+
+- [ ] **Step 3: Run Task 3 tests and verify RED**
+
+Run: `pytest tests/test_pipeline_gates.py -k "unknown_oav or drydown_frame or static_profile_text or generic_family_drift" -q`
+
+Expected: signature, missing-authority, fallback-frame, and policy failures.
+
+- [ ] **Step 4: Implement missing-OAV-aware group aggregation**
+
+Make `_group_oav()` return known subtotal plus a sorted tuple of present matching materials whose `oav is None` or `strict_quantitation_hold` is true. If either side has missing authority, publish `ratio=None`, `quantitative_authority="HOLD"`, the missing names, and a `FAIL` for named/market targets. Do not publish a partial exact ratio.
+
+- [ ] **Step 5: Implement frame and output claim ceilings**
+
+For named/market targets, require all windows referenced by exact OAV targets and temporal rules. Never fall back to opening. Add to `perfume_knowledge` and temporal payloads:
+
+```python
+{
+    "evidence_tier": spec.evidence_tier,
+    "quantitative_authority": spec.quantitative_authority,
+    "measured_reference_headspace": False,
+    "sensory_similarity": "NOT_TESTED",
+    "liking": "NOT_TESTED",
+}
+```
+
+- [ ] **Step 6: Integrate the Task 1 context evaluator**
+
+Change the signature and call site to `_gate_family_hedonic(state, simulation, config)`. Build `HedonicObservation` from canonical material names, every real simulation label, active percentages, and per-material authority (`HOLD` for `oav is None` or strict quantitation hold; otherwise `MODELED`). Preserve tips and pitfalls as advice fields, not pass evidence. Encode a candidate authority hold as gate `WARN` plus `data.authority_status="HOLD"` where appropriate.
+
+- [ ] **Step 7: Make family drift role-conditional**
+
+Remove `family_drift_detector` from unconditional `HARD_BLOCKING_GATES`. In `_apply_guideline_policy`, retain its `FAIL` only for resolved `named_reference`/`market_target` roles or an unresolved explicit target; demote generic/reference-control aesthetic failures to `WARN`.
+
+- [ ] **Step 8: Run Task 3 focused and file-level tests**
+
+Run: `pytest tests/test_pipeline_gates.py -k "unknown_oav or drydown_frame or static_profile_text or generic_family_drift" -q`
+
+Then: `pytest tests/test_pipeline_gates.py -q`
+
+Expected: focused tests pass; any unrelated baseline failure is reported and not repaired outside lease.
+
+- [ ] **Step 9: Record Task 3 evidence without committing**
+
+Record SHA-256 and `git diff -- engine/pipeline/gates.py tests/test_pipeline_gates.py`.
+
+---
+
+### Task 4: OAV-intelligence compatibility semantics and exact material identity
+
+**Files:**
+- Modify: `engine/pipeline/oav_intelligence.py`
+- Modify: `tests/test_oav_intelligence.py`
+
+**Interfaces:**
+- Consumes: Task 1 explicit family resolver and Task 2 named keys.
+- Produces: exhaustive family mapping; compatibility-only intrinsic warning; exact Ambrofix/Ambrox rows; `named_reference_similarity_evidence=False`.
+
+- [ ] **Step 1: Write RED tests**
+
+```python
+def test_all_four_named_targets_map_only_as_broad_compatibility():
+    cases = {
+        "creed_aventus.reference": "chypre",
+        "creed_absolu_aventus.reference": "chypre",
+        "montblanc_explorer.reference": "woody_amber",
+        "montblanc_explorer_extreme.reference": "woody_amber",
+    }
+    for key, family in cases.items():
+        result = _analyze({"Bergamot FCF oil Sicilian": 600.0, "Patchouli EO": 300.0, "Iso E Super": 5100.0}, key)
+        assert result.mapped_family == family
+        assert result.family_target_alignment["scope"] == "broad_family_compatibility_only"
+        assert result.family_target_alignment["named_reference_similarity_evidence"] is False
+        assert result.intelligence_status != "PASS"
+        assert any("not named-reference similarity" in reason for reason in result.intelligence_warning_reasons)
+
+def test_ambrofix_and_ambrox_super_are_not_collapsed_to_one_identity():
+    result = _analyze({"Ambrofix": 100.0, "Ambrox Super": 100.0, "Iso E Super": 5800.0}, "montblanc_explorer.reference")
+    serialized = result.as_dict()
+    assert "Ambrofix" in str(serialized)
+    assert "Ambrox Super" in str(serialized)
+    assert not any(row.get("mapped_material") == "Ambroxan" for row in serialized["performance_projection"].get("materials", []) if row.get("material") in {"Ambrofix", "Ambrox Super"})
+```
+
+- [ ] **Step 2: Run Task 4 tests and verify RED**
+
+Run: `pytest tests/test_oav_intelligence.py -k "all_four_named or not_collapsed" -q`
+
+Expected: missing aliases/metadata and compatibility fallthrough failures.
+
+- [ ] **Step 3: Use the explicit resolver and add named keys**
+
+Have `_map_family()` consult `resolve_family_context()` for registry-family values. Add exact named aliases and compatibility-only tokens for Absolu and Explorer Extreme. Preserve pre-existing YSL bytes and identify them separately in the final manifest.
+
+- [ ] **Step 4: Prevent compatibility-only PASS and product collapse**
+
+Add an intrinsic compatibility warning and `named_reference_similarity_evidence=False`; status is at most `WARN`. Remove unqualified Ambrofix/Ambrox Super to `Ambroxan` mappings from both material and balance aliases. If a functional-class note is retained, expose it as `functional_class="ambrox_type"`, `equivalence=False` without replacing the exact product name.
+
+- [ ] **Step 5: Run Task 4 tests and verify GREEN**
+
+Run: `pytest tests/test_oav_intelligence.py -q`
+
+Expected: all tests pass.
+
+- [ ] **Step 6: Record Task 4 evidence without committing**
+
+Record SHA-256 and `git diff -- engine/pipeline/oav_intelligence.py tests/test_oav_intelligence.py`, with pre-existing YSL hunks identified separately.
+
+---
+
+### Task 5: Integrated verification and exact SUKHUM diagnostic rerun
+
+**Files:**
+- Verify only: all allowed paths from Tasks 1-4
+- Do not modify: any formula or generated historical artifact
+
+**Interfaces:**
+- Consumes: all prior task outputs.
+- Produces: focused test evidence, exact parser-executable F2 gate/analysis evidence, hashes, exclusions, and readiness boundary.
+
+- [ ] **Step 1: Run focused combined tests**
+
+Run:
+
+```powershell
+pytest tests/test_family_hedonic_optimizer.py tests/test_family_archetypes.py tests/test_pipeline_gates.py tests/test_oav_intelligence.py -q
+```
+
+Expected: new tests pass. The pre-existing YSL Tonkarome-label failure may remain only if unchanged and proven identical to baseline.
+
+- [ ] **Step 2: Run the exact latest parser-executable SUKHUM control in memory**
+
+Parse `formulas/sukhum_35_t4/S35-F2_Realistic_Fruit_Minimum_Arm_30mL_EdP.md`, preserve its bytes, and use `family_archetype="sukhum_35.thai_aventus_adjacent"` with audit disabled. Do not mutate `data/pipeline_audit/events.jsonl`.
+
+- [ ] **Step 3: Format and inspect the full required analysis**
+
+Run the existing formatter against the in-memory/output JSON. Present the complete OAV table, note distribution, five temporal windows, and eight-part perfumer analysis in the user-facing handoff. Do not append to the immutable F2 formula.
+
+- [ ] **Step 4: Verify the corrected failure semantics**
+
+Confirm:
+
+- Grapefruit or any present identity-critical unknown causes `ratio=None` plus authority `HOLD`, not a fabricated exact ratio.
+- The known wet-fruit/dry-base trajectory fails bridge/overlap/drydown rules where evidence permits evaluation.
+- Passing broad-family compatibility does not imply Aventus, Explorer, hedonism, or liking.
+- No F2 Ambrox result is credited to F3 Ambrofix.
+
+- [ ] **Step 5: Run exact diff and hash manifest**
+
+Record SHA-256, byte size, and `git diff --` for every allowed changed file. Verify `git status --short` and prove no forbidden path changed during this plan.
+
+- [ ] **Step 6: Stop at the authorized boundary**
+
+Do not create or edit a rescue formula. Report that a versioned rescue remains blocked on synchronized inventory authority and a separate formula lease. Physical liking, similarity, performance, safety, stability, compounding success, market success, and release remain `NOT_TESTED/HOLD`.
+

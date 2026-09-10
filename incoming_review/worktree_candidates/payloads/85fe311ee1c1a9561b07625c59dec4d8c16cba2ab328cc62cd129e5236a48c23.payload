@@ -1,0 +1,32 @@
+{
+  "arm": "TREATMENT",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-C03",
+  "completed_utc": "2026-08-26T07:37:04.396711+00:00",
+  "dispatch_sha256": "bbc7af5a54287258479a00241a68b0cf106dead820ed966b3a0ff9939cbd6d8c",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "28113583dfbfc07791f4e94a4b09c8e516923b2772f8e81bb316a82fb1f1b971",
+  "output_text": "{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"Tonalide is target-faithful because the dated animalic-powder shadow explicitly permits its exception, and the dry-wood modifier serves the required dry-wood layer. However, existing pairwise observations cannot establish Tonalide-by-dry-wood layered synergy because the joint arm is unobserved. Tonalide stock also requires verification before any inventory-dependent execution.\",\"controlled_comparison\":{\"design\":\"constant-total 2x2 full factorial\",\"arms\":[\"base\",\"Tonalide-only\",\"dry-wood-modifier-only\",\"Tonalide-plus-dry-wood-modifier\"],\"required_isolated_arm_count\":4},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"TARGET_FAITHFUL_TONALIDE_EXCEPTION\",\"UNOBSERVED_JOINT_INTERACTION\",\"FULL_FACTORIAL_REQUIRED\"],\"next_actions\":[\"Run one constant-total four-arm comparison covering base, Tonalide-only, modifier-only, and joint conditions, subject to Tonalide stock verification.\"],\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"required_isolated_arm_count\":4}}}",
+  "phase": "CONFIRM",
+  "prompt_sha256": "f3d24784716c71fd2e58f5c3ceba42a5424fb82a48d82ee8c70cd4a6e6e740b7",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-0e38677fa8f5201a2134",
+  "role": "UNSEEN_VARIANT",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:36:37.279119+00:00",
+  "stderr_sha256": "1c95d11544c546a0ca7c56a574206f21cd9602e0a97a0008e604825ade2941be",
+  "stderr_tail": "alse,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"required_isolated_arm_count\":\"compute from the supplied evidence\"},\"decision_state\":\"AUGMENT | NO_AUGMENTATION | HOLD\",\"next_actions\":\"array containing zero or one discriminating action\",\"reason_codes\":\"array of unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\"},\"physical_liking_state\":\"NOT TESTED\",\"required_fields\":[\"decision\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision\":\"HOLD\",\"target_linked_reasoning\":\"Tonalide is target-faithful because the dated animalic-powder shadow explicitly permits its exception, and the dry-wood modifier serves the required dry-wood layer. However, existing pairwise observations cannot establish Tonalide-by-dry-wood layered synergy because the joint arm is unobserved. Tonalide stock also requires verification before any inventory-dependent execution.\",\"controlled_comparison\":{\"design\":\"constant-total 2x2 full factorial\",\"arms\":[\"base\",\"Tonalide-only\",\"dry-wood-modifier-only\",\"Tonalide-plus-dry-wood-modifier\"],\"required_isolated_arm_count\":4},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"TARGET_FAITHFUL_TONALIDE_EXCEPTION\",\"UNOBSERVED_JOINT_INTERACTION\",\"FULL_FACTORIAL_REQUIRED\"],\"next_actions\":[\"Run one constant-total four-arm comparison covering base, Tonalide-only, modifier-only, and joint conditions, subject to Tonalide stock verification.\"],\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"required_isolated_arm_count\":4}}}\ntokens used\n5,633\n",
+  "stdout_sha256": "3c653767ff7be77e5b2f0e7cf2b6eb1c1d88bca9c0e3e09157c732e86a988afd"
+}

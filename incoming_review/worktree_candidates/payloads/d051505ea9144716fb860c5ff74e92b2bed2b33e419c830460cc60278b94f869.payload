@@ -1,0 +1,388 @@
+{
+  "authority": {
+    "complexity_contract": "Meaningful_Complexity_Audit_v2.md",
+    "interaction_atlas": "Perfumery_Interaction_Layering_Atlas_v1.xlsx",
+    "inventory_file": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5(1).xlsx",
+    "inventory_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "literature_ledger": "PERFUME_CHEM_LITERATURE_VERIFICATION_LEDGER.md",
+    "protocol": "PROTOCOL.md"
+  },
+  "created": "2026-08-09",
+  "global_boundaries": {
+    "formula_mutation_authorized_by_oav": false,
+    "measured_headspace": "NOT TESTED",
+    "physical_liking": "NOT TESTED",
+    "proprietary_factory_formula": false,
+    "reference_similarity": "NOT TESTED",
+    "safety_release": "NOT TESTED",
+    "stability": "NOT TESTED",
+    "strict_empirical_oav": "NOT TESTED"
+  },
+  "pack_id": "Six_Perfume_Latest_Integrated_Recipe_Pack_Aug2026",
+  "targets": {
+    "AM-E01": {
+      "build_hash": "71b8fa80a8d594fbb724f3a0153c7515bf744019989c5f9d826d03ea6fd8f953",
+      "concentration_fraction": 0.24,
+      "current_build_csv": "AM-E01_Amouage_Opus_V_Woods_Symphony_CURRENT_BUILD.csv",
+      "current_build_parts": 1000.0,
+      "current_build_rows": 101,
+      "current_build_stock_g_30ml": 7.199999999999999,
+      "dose_firewall": {
+        "checked_rows": 81,
+        "hard_failures": 0,
+        "max_ratio": 1.0000000000000002,
+        "skipped": [
+          [
+            "Orris Liquid 30%",
+            "product-basis or unresolved active fraction"
+          ],
+          [
+            "Orris Absolute reference lot",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Orris Concrete reference lot",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Rum Accord 10%",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Nutmeg EO",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Cedrat FCF Oil Sicilian",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Red Mandarin EO",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Jasmonyl",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Castoreum 10%",
+            "product-basis or unresolved active fraction"
+          ],
+          [
+            "Agarwood (Oud) reference material",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Guaiacwood EO",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Civet reference product basis",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Clearwood",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Amber Core 10%",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Amber Xtreme 0.1%",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Javanol",
+            "DO NOT USE — NEAT STOCK NOT CONFIRMED"
+          ],
+          [
+            "Turkish Storax Tincture",
+            "target active fraction unresolved"
+          ],
+          [
+            "Vietnamese Benzoin Tincture",
+            "target active fraction unresolved"
+          ],
+          [
+            "Ambrettolide 10%",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Globanone 50%",
+            "proxy/planned/omitted/non-equivalent"
+          ]
+        ],
+        "skipped_rows": 20,
+        "status": "PASS",
+        "tenx_material": "Dihydro Beta Ionone 10% deliberately executed neat",
+        "tenx_ratio": 10.0,
+        "tenx_status": "FAIL"
+      },
+      "name": "Amouage Opus V Woods Symphony",
+      "official_url": "https://amouage.com/en-ap/products/opus-v-woods-symphony",
+      "physical_scope": "1 mL research pilot only. The official product specifies 3 weeks maceration plus 3 weeks maturation; this candidate is not authorized as a 30 mL physical batch.",
+      "recipe_markdown": "AM-E01_Amouage_Opus_V_Woods_Symphony_30mL_Formula.md",
+      "target_csv": "AM-E01_Amouage_Opus_V_Woods_Symphony_TARGET.csv",
+      "target_hash": "240e3c07aa86d1a6dccd3184fadf85b5035fbc0576bf0b54e0ecfc43a2308174",
+      "target_parts": 1000.0,
+      "target_rows": 101,
+      "target_stock_g_30ml": 7.199999999999999,
+      "version": "Latest-integrated Tier-2 candidate v1.0"
+    },
+    "C03": {
+      "build_hash": "74a5c29cc29fb832dfdbab9746b8252414bc9bd833ea4706bb4769c4510245a3",
+      "concentration_fraction": 0.15,
+      "current_build_csv": "C03_Chanel_Allure_Homme_Sport_EDT_CURRENT_BUILD.csv",
+      "current_build_parts": 1000.0,
+      "current_build_rows": 55,
+      "current_build_stock_g_30ml": 4.5,
+      "dose_firewall": {
+        "checked_rows": 53,
+        "hard_failures": 0,
+        "max_ratio": 1.0,
+        "skipped": [
+          [
+            "Red Mandarin EO",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Ambrettolide 10%",
+            "proxy/planned/omitted/non-equivalent"
+          ]
+        ],
+        "skipped_rows": 2,
+        "status": "PASS",
+        "tenx_material": "Floralozone 10% deliberately executed neat",
+        "tenx_ratio": 10.0,
+        "tenx_status": "FAIL"
+      },
+      "name": "Chanel Allure Homme Sport Eau de Toilette",
+      "official_url": "https://www.chanel.com/rs/fragrance/p/123630/allure-homme-sport-eau-de-toilette-spray/",
+      "physical_scope": "5 mL pilot recommended before any 30 mL bottle.",
+      "recipe_markdown": "C03_Chanel_Allure_Homme_Sport_EDT_30mL_Formula.md",
+      "target_csv": "C03_Chanel_Allure_Homme_Sport_EDT_TARGET.csv",
+      "target_hash": "1384efd0e2d368d2c6f726d385b52c859934e6cf462c117efeeb74faa39f7fc9",
+      "target_parts": 1000.0,
+      "target_rows": 55,
+      "target_stock_g_30ml": 4.5,
+      "version": "Latest-integrated Tier-2 candidate v1.0"
+    },
+    "H07": {
+      "build_hash": "c4f6168ee967ed75684e8cadebd7ff43b979fc70d875f557cdbcd987ff57ef08",
+      "concentration_fraction": 0.25,
+      "current_build_csv": "H07_Dior_Homme_Parfum_Current_FK_CURRENT_BUILD.csv",
+      "current_build_parts": 1000.0,
+      "current_build_rows": 61,
+      "current_build_stock_g_30ml": 7.5,
+      "dose_firewall": {
+        "checked_rows": 54,
+        "hard_failures": 0,
+        "max_ratio": 1.0,
+        "skipped": [
+          [
+            "Orris Liquid 30%",
+            "product-basis or unresolved active fraction"
+          ],
+          [
+            "Irotyl",
+            "target active fraction unresolved"
+          ],
+          [
+            "Rose EO",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Coffee CO2 10%",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Clearwood",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Ambrettolide 10%",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Castoreum Synthetic 10%",
+            "product-basis or unresolved active fraction"
+          ]
+        ],
+        "skipped_rows": 7,
+        "status": "PASS",
+        "tenx_material": "Heliotropal 10% deliberately executed neat",
+        "tenx_ratio": 9.999999999999998,
+        "tenx_status": "FAIL"
+      },
+      "name": "Dior Homme Parfum — current Francis Kurkdjian edition",
+      "official_url": "https://www.dior.com/en_int/beauty/products/dior-homme-parfum-E000000226.html",
+      "physical_scope": "5 mL coded pilot; literal Coffee CO2 is excluded from the main build and reserved for comparator testing.",
+      "recipe_markdown": "H07_Dior_Homme_Parfum_Current_FK_30mL_Formula.md",
+      "target_csv": "H07_Dior_Homme_Parfum_Current_FK_TARGET.csv",
+      "target_hash": "8534e215df95af18b13d13c5455c66d5d0e667129f0529ea47bf193de350560d",
+      "target_parts": 1000.0,
+      "target_rows": 61,
+      "target_stock_g_30ml": 7.5,
+      "version": "Latest-integrated Tier-2 candidate v1.0"
+    },
+    "PR-E01": {
+      "build_hash": "8a85c51ac6d96c90f9c8d2507749b6bd9727e5b3f6302fc1f9ed75e0b630e594",
+      "concentration_fraction": 0.15,
+      "current_build_csv": "PR-E01_Prada_LHomme_EDT_CURRENT_BUILD.csv",
+      "current_build_parts": 1070.8044966691339,
+      "current_build_rows": 49,
+      "current_build_stock_g_30ml": 4.818620235011102,
+      "dose_firewall": {
+        "checked_rows": 46,
+        "hard_failures": 0,
+        "max_ratio": 1.0,
+        "skipped": [
+          [
+            "Metallic Linen Aldehyde Accord 10%",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Jasmonyl",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Clearwood",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Ambrettolide 10%",
+            "proxy/planned/omitted/non-equivalent"
+          ]
+        ],
+        "skipped_rows": 4,
+        "status": "PASS",
+        "tenx_material": "Citral 10% deliberately executed neat",
+        "tenx_ratio": 10.0,
+        "tenx_status": "FAIL"
+      },
+      "name": "Prada L’Homme Eau de Toilette",
+      "official_url": "https://www.prada-beauty.com/fragrance/lhomme-prada/lhomme-prada-eau-de-toilette/8435137749607.html",
+      "physical_scope": "5 mL pilot. Current 10% Neroli stock creates an active-equivalent stock-mass overflow; the bench build therefore uses 4.819 g supplied stock blend for a 30 mL final volume while preserving the 15% target active architecture.",
+      "recipe_markdown": "PR-E01_Prada_LHomme_EDT_30mL_Formula.md",
+      "target_csv": "PR-E01_Prada_LHomme_EDT_TARGET.csv",
+      "target_hash": "0b4816300cf28aa55c0a3def42a8abbda49a29774f54f53be80f2232044ceac2",
+      "target_parts": 1000.0,
+      "target_rows": 50,
+      "target_stock_g_30ml": 4.5,
+      "version": "Current L’Oréal-era clean rebuild, latest-integrated Tier-2 candidate v1.0"
+    },
+    "PR-E07": {
+      "build_hash": "96abe30249ecba52f07fb1a8a0b9ada8703b365b5ed52215a77169bf23356c04",
+      "concentration_fraction": 0.25,
+      "current_build_csv": "PR-E07_Prada_Luna_Rossa_Ocean_Le_Parfum_CURRENT_BUILD.csv",
+      "current_build_parts": 1000.0,
+      "current_build_rows": 54,
+      "current_build_stock_g_30ml": 7.5,
+      "dose_firewall": {
+        "checked_rows": 47,
+        "hard_failures": 0,
+        "max_ratio": 1.0,
+        "skipped": [
+          [
+            "Cedrat FCF Oil Sicilian",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Oakwood CO2 10%",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Castoreum 10%",
+            "product-basis or unresolved active fraction"
+          ],
+          [
+            "Clearwood",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Amber Xtreme 0.1%",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Ambrettolide 10%",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Globanone 50%",
+            "proxy/planned/omitted/non-equivalent"
+          ]
+        ],
+        "skipped_rows": 7,
+        "status": "PASS",
+        "tenx_material": "Citral 10% deliberately executed neat",
+        "tenx_ratio": 10.0,
+        "tenx_status": "FAIL"
+      },
+      "name": "Prada Luna Rossa Ocean Le Parfum",
+      "official_url": "https://www.prada-beauty.com/fragrance/luna-rossa/luna-rossa-ocean-le-parfum/3614274089349.html",
+      "physical_scope": "5 mL pilot only until Oakwood CO2 and high-impact amberwood proxy comparisons are completed.",
+      "recipe_markdown": "PR-E07_Prada_Luna_Rossa_Ocean_Le_Parfum_30mL_Formula.md",
+      "target_csv": "PR-E07_Prada_Luna_Rossa_Ocean_Le_Parfum_TARGET.csv",
+      "target_hash": "380693c14686c0cbe987f330912106c007800745e6bd02dac3f95873685b841d",
+      "target_parts": 1000.0,
+      "target_rows": 54,
+      "target_stock_g_30ml": 7.5,
+      "version": "Latest-integrated Tier-2 candidate v1.0"
+    },
+    "S06": {
+      "build_hash": "7673700d82fc1428c61be664ebfcadc19cc55c44e0e52140c82a502f5178ac57",
+      "concentration_fraction": 0.3,
+      "current_build_csv": "S06_Dior_Sauvage_Elixir_CURRENT_BUILD.csv",
+      "current_build_parts": 1000.0,
+      "current_build_rows": 51,
+      "current_build_stock_g_30ml": 9.0,
+      "dose_firewall": {
+        "checked_rows": 45,
+        "hard_failures": 0,
+        "max_ratio": 1.0,
+        "skipped": [
+          [
+            "Nutmeg EO",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Cinnamon Bark EO 1%",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Treemoss Extract product basis",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Clearwood",
+            "proxy/planned/omitted/non-equivalent"
+          ],
+          [
+            "Javanol",
+            "DO NOT USE — NEAT STOCK NOT CONFIRMED"
+          ],
+          [
+            "Ambrettolide 10%",
+            "proxy/planned/omitted/non-equivalent"
+          ]
+        ],
+        "skipped_rows": 6,
+        "status": "PASS",
+        "tenx_material": "Eugenol 10% deliberately executed neat",
+        "tenx_ratio": 10.0,
+        "tenx_status": "FAIL"
+      },
+      "name": "Dior Sauvage Elixir",
+      "official_url": "https://www.dior.com/en_int/beauty/products/sauvage-elixir-Y0996460.html",
+      "physical_scope": "5 mL pilot only until nutmeg and treemoss comparisons are evaluated.",
+      "recipe_markdown": "S06_Dior_Sauvage_Elixir_30mL_Formula.md",
+      "target_csv": "S06_Dior_Sauvage_Elixir_TARGET.csv",
+      "target_hash": "2c9029c33258206ec696f5d7e7a8c946bbacb299376e26d5267eb1dc20328d13",
+      "target_parts": 1000.0,
+      "target_rows": 51,
+      "target_stock_g_30ml": 9.0,
+      "version": "Latest-integrated Tier-2 candidate v1.0"
+    }
+  }
+}

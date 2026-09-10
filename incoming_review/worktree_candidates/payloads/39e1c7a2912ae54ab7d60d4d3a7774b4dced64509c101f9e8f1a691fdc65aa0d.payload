@@ -1,0 +1,332 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "unified_import_dhi_2011_20260904",
+  "created_at_utc": "2026-09-04T08:52:42.6692047Z",
+  "import_kind": "bounded_dirty_worktree_byte_copy",
+  "source": {
+    "cwd": "D:\\chatbots\\perfume-chem",
+    "head": "e7002d4dacde0ae4c6b92db454fa4034c830e8f4",
+    "branch": "codex/add-inventory-materials",
+    "status": {
+      "format": "git status --porcelain=v1 --untracked-files=all",
+      "dirty": true,
+      "entry_count": 91,
+      "counts_by_xy": {
+        " M": 9,
+        "D ": 74,
+        "??": 8
+      },
+      "full_snapshot_lf_utf8_sha256": "feb80f5c47023d999d249efb6de13f1084f1d13cf2bf0e868d174c739441fa02",
+      "imported_path_entries": [
+        "?? docs/research/AVENTUS_ARCHITECTURE_CYPRESS_TRANSFER_BENCHMARK_2026-09-04.md",
+        "?? engine/perception/dhi_2011_architecture.py",
+        "?? formulas/DHI-11_Velours_d_Iris_05443A_30mL_20pct.md",
+        "?? formulas/Rouge_Cristal_Extrait_Hedonic_Test_First_30mL_v1.md",
+        "?? tests/test_aventus_architecture_module.py",
+        "?? tests/test_dhi_2011_architecture.py",
+        "?? tests/test_dhi_2011_formula.py"
+      ],
+      "related_unimported_entries": [
+        "?? formulas/Rouge_Cristal_BR540_EDP_Hedonic_Test_First_30mL_v1.md"
+      ],
+      "initial_import_snapshot": {
+        "entry_count": 90,
+        "counts_by_xy": {
+          " M": 9,
+          "D ": 74,
+          "??": 7
+        },
+        "full_snapshot_lf_utf8_sha256": "a6bed9de70d4c8da458a6be7102d9ad34089c3956d24b8bf3617a7e4816b853d"
+      },
+      "interpretation": "All imported source paths are untracked members of a dirty source checkout. The current status gained one separate, unimported BR540 EDP successor after initial import. Status hashes fingerprint complete porcelain path/state snapshots but are not content backups."
+    },
+    "mutation_by_import_lane": "NONE",
+    "source_files_rewritten_or_staged": false,
+    "snapshot_lineage": {
+      "accepted_snapshot_binding": "The source_size_bytes/source_sha256 fields in files[] bind the exact source bytes accepted at import, including the separately documented Rouge Cristal authority-notice refresh.",
+      "destination_snapshot_binding": "The destination_size_bytes/destination_sha256 fields in files[] bind the preserved destination copy of that accepted source snapshot.",
+      "live_source_semantics": "The canonical source worktree is mutable and is not assumed to remain byte-identical after capture.",
+      "successor_admission_policy": "Any later source bytes require a separate reviewed manifest and explicit integration decision; drift alone never updates this accepted snapshot."
+    },
+    "current_source_audit": {
+      "audited_at_utc": "2026-09-04T10:57:54.9097760Z",
+      "status": "DRIFT_DETECTED_HOLD_NO_REIMPORT",
+      "declared_path_count": 7,
+      "unchanged_from_accepted_snapshot_count": 3,
+      "drifted_from_accepted_snapshot_count": 4,
+      "destination_matches_accepted_snapshot_count": 7,
+      "records": [
+        {
+          "path": "docs/research/AVENTUS_ARCHITECTURE_CYPRESS_TRANSFER_BENCHMARK_2026-09-04.md",
+          "accepted_source_size_bytes": 3862,
+          "accepted_source_sha256": "c742f63af80de46d6478fe39eb27ccdb72e98ff41803a965d7f74d34a2ffdfce",
+          "current_source_size_bytes": 3862,
+          "current_source_sha256": "c742f63af80de46d6478fe39eb27ccdb72e98ff41803a965d7f74d34a2ffdfce",
+          "relation_to_accepted_snapshot": "BYTE_FOR_BYTE_EXACT"
+        },
+        {
+          "path": "engine/perception/dhi_2011_architecture.py",
+          "accepted_source_size_bytes": 65041,
+          "accepted_source_sha256": "3af9ba10d752f067808cfa33edb25e9458bd8fcdcd6960c1e107624590b7b19e",
+          "current_source_size_bytes": 65475,
+          "current_source_sha256": "96ff9360ced32831e25808a2856f9bbc2ba64a99718605cacfbac0b5ca2ae74c",
+          "relation_to_accepted_snapshot": "DRIFTED_NOT_IMPORTED"
+        },
+        {
+          "path": "formulas/DHI-11_Velours_d_Iris_05443A_30mL_20pct.md",
+          "accepted_source_size_bytes": 42972,
+          "accepted_source_sha256": "55314140b226ab7f313118dd2f7af7c1b803314a9a0de7bc8d31660ee33dd944",
+          "current_source_size_bytes": 48319,
+          "current_source_sha256": "a774b4b761e879dbd2066b217fce94ea448d79b8a2e9716aa54df1347d43b529",
+          "relation_to_accepted_snapshot": "DRIFTED_NOT_IMPORTED"
+        },
+        {
+          "path": "formulas/Rouge_Cristal_Extrait_Hedonic_Test_First_30mL_v1.md",
+          "accepted_source_size_bytes": 18974,
+          "accepted_source_sha256": "fce9c95911c8229c660e5e3ef36ca28108db2c6837b7c3e5ce9328ff2b274162",
+          "current_source_size_bytes": 18974,
+          "current_source_sha256": "fce9c95911c8229c660e5e3ef36ca28108db2c6837b7c3e5ce9328ff2b274162",
+          "relation_to_accepted_snapshot": "BYTE_FOR_BYTE_EXACT"
+        },
+        {
+          "path": "tests/test_aventus_architecture_module.py",
+          "accepted_source_size_bytes": 6061,
+          "accepted_source_sha256": "233eeabb162ebe48acf7a5fe89f691f38a9b10bfa76dfe66cf9871d7f0b801a8",
+          "current_source_size_bytes": 6061,
+          "current_source_sha256": "233eeabb162ebe48acf7a5fe89f691f38a9b10bfa76dfe66cf9871d7f0b801a8",
+          "relation_to_accepted_snapshot": "BYTE_FOR_BYTE_EXACT"
+        },
+        {
+          "path": "tests/test_dhi_2011_architecture.py",
+          "accepted_source_size_bytes": 11517,
+          "accepted_source_sha256": "01615e5a3f01b66e45fb8a91964c250fb4ea07bd641f8415befe601a1d74136b",
+          "current_source_size_bytes": 12704,
+          "current_source_sha256": "4751ac5037d0be4e3960221df998dc8618ab06ce4e7198f0996be946449b1268",
+          "relation_to_accepted_snapshot": "DRIFTED_NOT_IMPORTED"
+        },
+        {
+          "path": "tests/test_dhi_2011_formula.py",
+          "accepted_source_size_bytes": 9186,
+          "accepted_source_sha256": "bdcf2c2d78399726e7ec3877886ae8240a585811e522d2469281c1a7b31f9aa4",
+          "current_source_size_bytes": 9847,
+          "current_source_sha256": "097aaed71a766aacc822c4224691746cf026297c2f469019ce7e68df19056f26",
+          "relation_to_accepted_snapshot": "DRIFTED_NOT_IMPORTED"
+        }
+      ],
+      "admission_effect": "HOLD: current source successors are outside this accepted import and were not copied, merged, staged, committed, pushed, or granted authority."
+    }
+  },
+  "destination": {
+    "cwd": "D:\\chatbots\\perfume-chem-unified-package",
+    "head_at_import": "4a0e5b8b302595a7bf21f50e4bfa7fa11592571e",
+    "branch_at_import": "codex/unified-perfume-intelligence-package",
+    "preexisting_state": "DIRTY_OUTSIDE_IMPORT_SCOPE",
+    "owned_paths_preexisting": false,
+    "staged_by_import_lane": false,
+    "committed_by_import_lane": false,
+    "pushed_by_import_lane": false
+  },
+  "files": [
+    {
+      "path": "docs/research/AVENTUS_ARCHITECTURE_CYPRESS_TRANSFER_BENCHMARK_2026-09-04.md",
+      "source_size_bytes": 3862,
+      "source_sha256": "c742f63af80de46d6478fe39eb27ccdb72e98ff41803a965d7f74d34a2ffdfce",
+      "destination_size_bytes": 3862,
+      "destination_sha256": "c742f63af80de46d6478fe39eb27ccdb72e98ff41803a965d7f74d34a2ffdfce",
+      "relation": "BYTE_FOR_BYTE_EXACT",
+      "exact_match": true
+    },
+    {
+      "path": "engine/perception/dhi_2011_architecture.py",
+      "source_size_bytes": 65041,
+      "source_sha256": "3af9ba10d752f067808cfa33edb25e9458bd8fcdcd6960c1e107624590b7b19e",
+      "destination_size_bytes": 65041,
+      "destination_sha256": "3af9ba10d752f067808cfa33edb25e9458bd8fcdcd6960c1e107624590b7b19e",
+      "relation": "BYTE_FOR_BYTE_EXACT",
+      "exact_match": true
+    },
+    {
+      "path": "formulas/DHI-11_Velours_d_Iris_05443A_30mL_20pct.md",
+      "source_size_bytes": 42972,
+      "source_sha256": "55314140b226ab7f313118dd2f7af7c1b803314a9a0de7bc8d31660ee33dd944",
+      "destination_size_bytes": 42972,
+      "destination_sha256": "55314140b226ab7f313118dd2f7af7c1b803314a9a0de7bc8d31660ee33dd944",
+      "relation": "BYTE_FOR_BYTE_EXACT",
+      "exact_match": true
+    },
+    {
+      "path": "formulas/Rouge_Cristal_Extrait_Hedonic_Test_First_30mL_v1.md",
+      "source_size_bytes": 18974,
+      "source_sha256": "fce9c95911c8229c660e5e3ef36ca28108db2c6837b7c3e5ce9328ff2b274162",
+      "destination_size_bytes": 18974,
+      "destination_sha256": "fce9c95911c8229c660e5e3ef36ca28108db2c6837b7c3e5ce9328ff2b274162",
+      "relation": "BYTE_FOR_BYTE_EXACT",
+      "exact_match": true,
+      "pre_refresh_import_snapshot": {
+        "source_size_bytes": 18618,
+        "source_sha256": "25c077de9356a2a103fb5dce3808e04ebe8698fd8a1d4e3e9a59a31ff2b90616",
+        "destination_size_bytes": 18618,
+        "destination_sha256": "25c077de9356a2a103fb5dce3808e04ebe8698fd8a1d4e3e9a59a31ff2b90616",
+        "relation": "BYTE_FOR_BYTE_EXACT"
+      },
+      "refresh": {
+        "refreshed_at_utc": "2026-09-04T10:03:15.8503877Z",
+        "source_diff": "Two inserted lines: a SUPERSEDED 2026-09-04 authority paragraph and its separating blank line.",
+        "classification": "NON_EXECUTABLE_AUTHORITY_NOTICE_ONLY",
+        "formula_dose_table_or_diagnostic_change": false
+      }
+    },
+    {
+      "path": "tests/test_aventus_architecture_module.py",
+      "source_size_bytes": 6061,
+      "source_sha256": "233eeabb162ebe48acf7a5fe89f691f38a9b10bfa76dfe66cf9871d7f0b801a8",
+      "destination_size_bytes": 6061,
+      "destination_sha256": "233eeabb162ebe48acf7a5fe89f691f38a9b10bfa76dfe66cf9871d7f0b801a8",
+      "relation": "BYTE_FOR_BYTE_EXACT",
+      "exact_match": true
+    },
+    {
+      "path": "tests/test_dhi_2011_architecture.py",
+      "source_size_bytes": 11517,
+      "source_sha256": "01615e5a3f01b66e45fb8a91964c250fb4ea07bd641f8415befe601a1d74136b",
+      "destination_size_bytes": 11517,
+      "destination_sha256": "01615e5a3f01b66e45fb8a91964c250fb4ea07bd641f8415befe601a1d74136b",
+      "relation": "BYTE_FOR_BYTE_EXACT",
+      "exact_match": true
+    },
+    {
+      "path": "tests/test_dhi_2011_formula.py",
+      "source_size_bytes": 9186,
+      "source_sha256": "bdcf2c2d78399726e7ec3877886ae8240a585811e522d2469281c1a7b31f9aa4",
+      "destination_size_bytes": 9186,
+      "destination_sha256": "bdcf2c2d78399726e7ec3877886ae8240a585811e522d2469281c1a7b31f9aa4",
+      "relation": "BYTE_FOR_BYTE_EXACT",
+      "exact_match": true
+    }
+  ],
+  "adjudication": {
+    "package_relation": "ACCEPTED_SNAPSHOT_BYTE_IDENTICAL_DESTINATION_CURRENT_SOURCE_DRIFT_HELD",
+    "current_source_reimport_status": "NOT_AUTHORIZED_NOT_PERFORMED",
+    "test_successor_created": false,
+    "test_adaptations": [],
+    "assertion_policy": "Six shared-integration assertions remain unchanged; no conditional skip, xfail, deletion, or weakened expectation was introduced.",
+    "shared_dependencies_outside_import_ownership": [
+      "engine/reference_contracts.py: Aventus V2 and DHI 2011 named-reference contracts",
+      "engine/knowledge/perfume_knowledge.py: DHI dotted-archetype family resolution",
+      "engine/pipeline/oav_intelligence.py: DHI dotted-archetype OAV-family mapping",
+      "engine/pipeline/gates.py: DHI dotted-archetype skeleton activation"
+    ]
+  },
+  "verification_environment": {
+    "destination_local_venv": "ABSENT",
+    "interpreter": "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe",
+    "interpreter_use": "Executed with destination cwd so repository imports resolve from destination bytes.",
+    "python": "3.14.6",
+    "pytest": "9.1.1",
+    "ruff": "0.15.15"
+  },
+  "verification": [
+    {
+      "check": "accepted_source_snapshot_to_destination_size_and_sha256",
+      "status": "PASS",
+      "result": "7/7 accepted source snapshot records are byte-for-byte exact with the preserved destination artifacts"
+    },
+    {
+      "command": "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe -m ruff check engine\\perception\\dhi_2011_architecture.py tests\\test_aventus_architecture_module.py tests\\test_dhi_2011_architecture.py tests\\test_dhi_2011_formula.py",
+      "status": "PASS",
+      "result": "All checks passed"
+    },
+    {
+      "command": "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe -m pytest tests\\test_aventus_architecture_module.py tests\\test_dhi_2011_architecture.py tests\\test_dhi_2011_formula.py -q",
+      "status": "ERROR",
+      "result": "Collection stopped because destination engine.reference_contracts does not yet export CREED_AVENTUS_OFFICIAL_NOTES_V2.",
+      "acceptance_effect": "HISTORICAL_TRANSIENT_GAP_SUPERSEDED_BY_FRESH_PASS"
+    },
+    {
+      "command": "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe -m pytest tests\\test_dhi_2011_architecture.py tests\\test_dhi_2011_formula.py -q",
+      "status": "FAIL",
+      "result": "19 passed, 4 failed",
+      "failing_assertions": [
+        "test_dhi_named_reference_contract_is_explicit_and_architecture_only",
+        "test_each_reference_marker_group_is_individually_required",
+        "test_dhi_family_routes_to_iris_woody_knowledge_and_active_archetype",
+        "test_dhi_skeleton_is_exercised_for_the_dotted_archetype"
+      ],
+      "failure_class": "EXPECTED_MISSING_SHARED_INTEGRATION",
+      "acceptance_effect": "HISTORICAL_TRANSIENT_GAP_SUPERSEDED_BY_FRESH_PASS"
+    },
+    {
+      "verified_at_utc": "2026-09-04T09:57:47.5146482Z",
+      "command": "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe -m pytest tests\\test_aventus_architecture_module.py tests\\test_dhi_2011_architecture.py tests\\test_dhi_2011_formula.py -q",
+      "status": "PASS",
+      "result": "31 passed, 1351 warnings in 6.57s",
+      "assertion_changes": "NONE",
+      "acceptance_effect": "IMPORTED_PACKAGE_FOCUSED_TESTS_PASS"
+    },
+    {
+      "verified_at_utc": "2026-09-04T09:57:47.5146482Z",
+      "command": "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe -m pytest tests\\test_oav_intelligence.py tests\\test_pipeline_gates.py -q",
+      "status": "PASS",
+      "result": "35 passed, 1353 warnings in 16.00s",
+      "acceptance_effect": "RELEVANT_DHI_FAMILY_AND_SKELETON_ROUTING_TESTS_PASS"
+    },
+    {
+      "verified_at_utc": "2026-09-04T10:03:15.8503877Z",
+      "check": "post_import_source_refresh_review",
+      "status": "PASS",
+      "result": "Rouge Cristal source refresh was exactly a two-line non-executable SUPERSEDED authority notice; no formula, dose, table, or diagnostic content changed. Destination refreshed byte-for-byte."
+    },
+    {
+      "verified_at_utc": "2026-09-04T10:03:15.8503877Z",
+      "command": "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe -m pytest tests\\test_aventus_architecture_module.py tests\\test_dhi_2011_architecture.py tests\\test_dhi_2011_formula.py tests\\test_oav_intelligence.py tests\\test_pipeline_gates.py -q",
+      "status": "PASS",
+      "result": "66 passed, 2836 warnings in 15.48s",
+      "assertion_changes": "NONE",
+      "acceptance_effect": "POST_REFRESH_IMPORTED_PACKAGE_AND_ROUTING_TESTS_PASS"
+    },
+    {
+      "verified_at_utc": "2026-09-04T10:03:15.8503877Z",
+      "check": "final_focused_acceptance",
+      "status": "PASS",
+      "result": "66 tests passed across the imported package and relevant shared routing suites; at this verification timestamp, seven imported artifacts were source-byte-identical.",
+      "scope": "HISTORICAL_POINT_IN_TIME_SUPERSEDED_FOR_LIVE_SOURCE_EQUALITY_BY_CURRENT_SOURCE_AUDIT"
+    },
+    {
+      "verified_at_utc": "2026-09-04T10:57:54.9097760Z",
+      "check": "current_source_drift_against_accepted_snapshot",
+      "status": "HOLD",
+      "result": "4/7 canonical source paths now differ from the accepted snapshot; 7/7 destination artifacts remain byte-identical to the accepted snapshot.",
+      "acceptance_effect": "NO_REIMPORT_NO_AUTHORITY_PROMOTION_EXPLICIT_SUCCESSOR_REVIEW_REQUIRED"
+    },
+    {
+      "verified_date": "2026-09-04",
+      "check": "final_destination_manifest_freeze",
+      "status": "PASS",
+      "result": "7/7 accepted destination snapshot records match their declared byte sizes and SHA-256 hashes.",
+      "acceptance_effect": "DESTINATION_INTEGRITY_ONLY_CURRENT_CANONICAL_SOURCE_DRIFT_HOLD_REMAINS"
+    }
+  ],
+  "authority": {
+    "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+    "import_authority": true,
+    "exact_formula_authority": false,
+    "quantitative_reference_authority": false,
+    "sensory_similarity_authority": false,
+    "hedonic_authority": false,
+    "physical_compounding_authority": false,
+    "inventory_authority": false,
+    "safety_authority": false,
+    "stability_authority": false,
+    "ifra_release_authority": false,
+    "release_authority": false
+  },
+  "exclusions": [
+    "No shared engine, gate, inventory, material-data, or authority-overlay file was imported or edited by this lane.",
+    "No source file was modified, staged, committed, or pushed.",
+    "No destination file was staged, committed, or pushed by this lane.",
+    "No external model/provider, network literature lookup, or paid delegation was used.",
+    "Byte equality proves artifact identity only; it does not prove scientific truth, target similarity, liking, safety, stability, inventory executability, physical performance, or release readiness.",
+    "The two formula markdown artifacts remain evidence-bounded records and are not physical compounding instructions authorized by this manifest.",
+    "Focused destination integration verification passed; this remains a computational software acceptance only and does not elevate any scientific, sensory, physical, safety, inventory, or release authority."
+  ]
+}

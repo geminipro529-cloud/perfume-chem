@@ -1,0 +1,215 @@
+from engine.pipeline.formula_state import build_formula_state
+from engine.pipeline.gates import ReleaseGateConfig, gate_formula
+from engine.pipeline.oav_intelligence import analyze_oav_intelligence
+from engine.pipeline.simulator import simulate_formula
+
+
+def _analyze(ingredients, family_archetype=""):
+    state = build_formula_state(
+        ingredients,
+        {},
+        batch_volume_ml=30.0,
+        temperature_K=305.0,
+    )
+    frames = simulate_formula(
+        ingredients,
+        {},
+        batch_volume_ml=30.0,
+        temperature_K=305.0,
+    )
+    return analyze_oav_intelligence(state, frames, family_archetype)
+
+
+def test_oav_intelligence_contract_and_family_mapping():
+    result = _analyze(
+        {
+            "Bergamot FCF": 1200.0,
+            "Lavender EO": 900.0,
+            "Hedione": 1200.0,
+            "Coumarin": 300.0,
+            "Iso E Super": 1500.0,
+        },
+        family_archetype="aromatic_fougere",
+    )
+
+    payload = result.as_dict()
+
+    assert payload["mapped_family"] == "aromatic_fougere"
+    assert set(payload) == {
+        "family_archetype",
+        "mapped_family",
+        "family_target_alignment",
+        "material_cliff_findings",
+        "shift_zone_findings",
+        "balance_reports",
+        "performance_projection",
+        "synergy_findings",
+        "intelligence_status",
+        "intelligence_blocking_reasons",
+        "intelligence_warning_reasons",
+        "unmapped_materials",
+    }
+    assert payload["family_target_alignment"]["materials"]
+
+
+def test_composite_natural_oav_decays_by_constituent_volatility():
+    frames = simulate_formula(
+        {"Bergamot FCF oil Sicilian": 100.0, "Iso E Super": 900.0},
+        {},
+        batch_volume_ml=30.0,
+        temperature_K=305.0,
+    )
+
+    opening = next(
+        row.oav
+        for row in frames[0].state.materials
+        if row.name == "Bergamot FCF oil Sicilian"
+    )
+    drydown = next(
+        row.oav
+        for row in frames[-1].state.materials
+        if row.name == "Bergamot FCF oil Sicilian"
+    )
+
+    assert opening is not None
+    assert drydown is not None
+    assert drydown < opening * 0.25
+
+
+def test_oav_intelligence_surfaces_shift_zone_failures():
+    result = _analyze(
+        {
+            "Calone": 5000.0,
+            "Dihydromyrcenol": 1000.0,
+        },
+        family_archetype="marine_aquatic",
+    )
+
+    assert result.intelligence_status == "FAIL"
+    assert any(item["material"].lower() == "calone" for item in result.shift_zone_findings)
+    assert result.intelligence_blocking_reasons
+
+
+def test_oav_intelligence_surfaces_synergy_and_performance_warnings():
+    result = _analyze(
+        {
+            "Dihydromyrcenol": 2500.0,
+            "Hedione": 1500.0,
+            "Bergamot FCF": 1200.0,
+            "Iso E Super": 800.0,
+        },
+        family_archetype="citrus",
+    )
+
+    positive = result.synergy_findings["positive"]
+    assert any(
+        row["mapped_material_a"] == "Hedione" and row["mapped_material_b"] == "Bergamot FCF"
+        for row in positive
+    )
+    assert result.performance_projection["warnings"]
+
+
+def test_oav_intelligence_maps_historical_archetypes_to_supported_family_targets():
+    cases = {
+        "citrus_classical.4711_reference": "citrus",
+        "citrus_aromatic.eau_sauvage_reference": "citrus",
+        "floral_soliflore.rose_reference": "floral_rose",
+        "floral_bouquet.quelques_fleurs_reference": "floral_jasmine",
+        "floral_muguet.diorissimo_reference": "floral_jasmine",
+        "fougere_classical.fougere_royale_reference": "aromatic_fougere",
+        "chypre_classical.coty_reference": "chypre",
+        "chypre_leathery.bandit_reference": "chypre",
+        "oriental_classical.shalimar_reference": "amber_oriental",
+        "oriental_soft.jicky_reference": "amber_oriental",
+        "oriental_floral.lheure_bleue_reference": "amber_oriental",
+    }
+
+    for archetype, expected in cases.items():
+        result = _analyze(
+            {
+                "Bergamot FCF oil Sicilian": 600.0,
+                "Hedione": 500.0,
+                "Patchouli EO": 300.0,
+                "Iso E Super": 500.0,
+            },
+            family_archetype=archetype,
+        )
+        assert result.as_dict()["mapped_family"] == expected
+
+
+def test_oav_intelligence_maps_native_ysl_archetypes_to_compatible_broad_families():
+    cases = {
+        "ysl_lhomme": "woody_amber",
+        "ysl_la_nuit_de_lhomme": "amber_oriental",
+    }
+
+    for archetype, expected in cases.items():
+        result = _analyze(
+            {
+                "Bergamot FCF oil Sicilian": 600.0,
+                "Hedione": 500.0,
+                "Iso E Super": 500.0,
+                "Tonkarome": 100.0,
+            },
+            family_archetype=archetype,
+        )
+        assert result.as_dict()["mapped_family"] == expected
+        assert not any(
+            "Unmapped family archetype" in reason
+            for reason in result.intelligence_warning_reasons
+        )
+        assert not any(
+            " target " in reason
+            for reason in result.intelligence_warning_reasons
+        )
+        assert result.family_target_alignment["scope"] == "broad_family_compatibility_only"
+
+
+def test_oav_intelligence_maps_aventus_explorer_and_sukhum_named_targets():
+    cases = {
+        "creed_aventus.reference": "chypre",
+        "montblanc_explorer.reference": "woody_amber",
+        "sukhum_35.thai_aventus_adjacent": "woody_amber",
+    }
+
+    for archetype, expected in cases.items():
+        result = _analyze(
+            {
+                "Bergamot FCF oil Sicilian": 600.0,
+                "Hedione": 500.0,
+                "Patchouli EO": 300.0,
+                "Iso E Super": 500.0,
+            },
+            family_archetype=archetype,
+        )
+        assert result.as_dict()["mapped_family"] == expected
+        assert not any(
+            "Unmapped family archetype" in reason
+            for reason in result.intelligence_warning_reasons
+        )
+        assert result.family_target_alignment["scope"] == "broad_family_compatibility_only"
+
+
+def test_gate_formula_exposes_oav_intelligence_gate():
+    report = gate_formula(
+        {
+            "number": 1,
+            "name": "Marine Intelligence Gate",
+            "body": "Marine Intelligence Gate",
+            "family_archetype": "marine_aquatic",
+            "ingredients_ul": {
+                "Calone": 5000.0,
+                "Dihydromyrcenol": 1000.0,
+            },
+            "ingredients_pct": {
+                "Calone": 83.333333,
+                "Dihydromyrcenol": 16.666667,
+            },
+            "dilutions": {},
+        },
+        ReleaseGateConfig(brief="generic", family_archetype="marine_aquatic", audit_enabled=False),
+    )
+
+    gate_map = {gate.gate: gate for gate in report.gates}
+    assert "oav_intelligence" in gate_map
+    assert gate_map["oav_intelligence"].status in {"WARN", "FAIL"}

@@ -1,0 +1,30 @@
+﻿Code,ACC-FL-ORR-01
+Accord,Wet Orris Rhizome v1.0
+Category,Floral
+Brief,"A wet-root orris accord that moves from irone wax and rhizome earth into violet petals, polished vetiver and mineral musk."
+Recommended use,1–8% of perfume concentrate
+Maturation,14–21 days
+Monte Carlo pass,1.0
+Final design score,99.75
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,50.0,50.0,50.0,250.0,DIRECT,musk,Radiant musk,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,STRUCTURALLY IMPORTANT,0.008962581205804373
+2,base,Sandalore,neat / as supplied,1.0,45.0,45.0,45.0,225.0,DIRECT,sandalwood,Creamy root rounding,Creamy sandalwood.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.007719218280585928
+3,base,Vetival,neat,1.0,35.0,35.0,35.0,175.0,DIRECT,vetiver,Polished root wood,Polished vetiver.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.008884049144344023
+4,base,Ambrofix 30%,30% working stock,0.3,30.0,9.0,30.0,150.0,PREPARED STOCK,ambergris,Mineral persistence,Mineral ambergris persistence.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.004426089170371858
+5,base,Zenolide,neat / as supplied,1.0,25.0,25.0,25.0,125.0,DIRECT,musk,Smooth skin musk,Smooth musk body.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0034729377588262203
+6,base,Cedarwood Virginia,neat / as supplied,1.0,20.0,20.0,20.0,100.0,DIRECT,cedar,Dry grain,Dry cedar frame.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0026327212618901955
+7,base,Olibanum 50%,50% in DPG,0.5,15.0,7.5,15.0,75.0,PREPARED STOCK,incense,Cool mineral lift,Frankincense mineral resin.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0018556454993632163
+8,heart_base,Orris Liquid — PerfumersWorld product basis,"PerfumersWorld Orris Liquid, as supplied; proprietary/product composition not converted to a single active fraction",,100.0,,100.0,500.0,PRODUCT BASIS,orris,Waxy orris body,Waxy product-basis orris texture.,HAVE — PRODUCT BASIS,Use only as a named product-basis material. Do not calculate active-equivalent concentration from a guessed 30%.,,IDENTITY CRITICAL,0.029401338347626777
+9,heart_base,Orivone,neat,1.0,90.0,90.0,90.0,450.0,DIRECT,orris,Dry rhizome,Dry rooty orris structure.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.025241717049889235
+10,heart_base,Alpha Irone 30%,30% w/w in IPM,0.3,50.0,15.0,50.0,250.0,PREPARED STOCK,orris,Irone signature,Irone realism and luxury lift.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.011755717561945551
+11,heart_base,Irotyl,Irotyl neat,1.0,50.0,50.0,50.0,250.0,DIRECT,orris,Speciality root texture,Rooty iris speciality texture.,HAVE — NEAT,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.011755717561945551
+12,heart_base,Carrot Seed EO 10%,Prepare 10% from neat Carrot Seed EO,0.1,15.0,1.5,15.0,75.0,PREPARED STOCK,orris,Trace rhizome realism,Trace rhizome realism.,HAVE — NEAT ONLY,Duplicate dilution entry; canonical stock is neat Carrot Seed EO.,Prepare fresh 10% working stock.,TEXTURAL SUPPORT,0.003075022335844417
+13,heart,Hedione,neat / as supplied,1.0,120.0,120.0,120.0,600.0,DIRECT,floral_air,Petal air,Transparent floral diffusion.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.03522266617259266
+14,heart,Alpha Isomethyl Ionone,neat / as supplied,1.0,100.0,100.0,100.0,500.0,DIRECT,violet,Violet bridge,Modern violet body.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.03603449964923316
+15,heart,Dihydro Beta Ionone,neat / as supplied,1.0,40.0,40.0,40.0,200.0,DIRECT,violet,Dry woody violet,Dry mobile violet texture.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.010161978662637891
+16,heart,Alpha Ionone,neat / as supplied,1.0,30.0,30.0,30.0,150.0,DIRECT,violet,Warm floral lift,Warm luminous violet-wood.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.007146367734093492
+17,heart,Phenethyl Alcohol,neat / as supplied,1.0,30.0,30.0,30.0,150.0,DIRECT,rose_floral,Flower softness,Soft floral petal body.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.004409567307574272
+18,top_heart,Violet Leaf Absolute 10%,10% working stock,0.1,8.0,0.8,8.0,40.0,PREPARED STOCK,green_leaf,Cool leaf,Metallic wet-stem violet leaf.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.0009030236612129421
+19,carrier,DPG,neat,0.0,147.0,0.0,147.0,735.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

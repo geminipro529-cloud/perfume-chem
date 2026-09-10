@@ -1,0 +1,74 @@
+# Complex Perfumery V16 collection delta
+
+Recorded 2026-08-16T15:44:23+07:00.
+
+## Decision
+
+`V16_EXACT_COMPLEXITY_EXPANSION_ENGINE_CAPTURED_QUARANTINED_NOT_ADMITTED`
+
+The original ChatGPT file-card bytes for
+`Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0.zip`
+are now captured append-only. The exact outer is 172,172 bytes with SHA-256
+`f4be1041bb8e2e8b5665962e580aa740996bd2f77b61299cca1d3cdf55014a5d`.
+This closes the V15 pending source card and advances the defensible exact-outer
+lower bound from 49 to 50. It does not complete the dynamic chat estate.
+
+## Integrity replay
+
+- 75 archive members and 75 files; safe member paths; no normalized duplicate
+  paths; full ZIP CRC replay passed.
+- The self-excluding `SHA256SUMS.json` ledger replays 74/74 byte lengths and
+  SHA-256 values exactly.
+- `MANIFEST.json` replays its 73/73 non-manifest/non-ledger records exactly.
+- Native archive scan is `CLEAR_FOR_RECEIPT_REVIEW`: one terminal node, zero
+  edges, zero findings. Promotion remains false.
+- The strict external-package receipt verifies as `VERIFIED_QUARANTINED` with
+  both embedded integrity records exact.
+
+## Source claims and controlling interpretation
+
+The package calls itself a portable reference implementation with 214
+directions, 16 domains, 48 models, 32 overlays, 64 gaps, 17 admission gates,
+and 12 proposed first-wave arms. Its own repository state is `BRIDGE_BLOCKED`.
+Its tests and schema checks establish only internal software coherence.
+
+The package records zero formula or inventory mutations, zero bottle events,
+and zero physical, sensory, or analytical results. Liking, similarity, measured
+headspace, strict empirical OAV, and stability are not tested; safety is not
+cleared and release is withheld.
+
+The bundled Python engine, schemas, registries, examples, and tests are not
+installed. They do not become a second model registry, experiment store, or
+canonical truth path. Existing native construction-complexity, C10 proposal,
+P3 missing-chemical comparison, B1 provenance, Laboratory Beta, C0 sensory,
+Inventory V5, headspace/OAV, safety, and release contracts remain controlling.
+No migration, new schema, new truth store, or new pipeline script is justified
+by exact package possession.
+
+## Parent lineage
+
+The package binds three pointer-only parents:
+
+- parent engine v1.2, 826,528 bytes, SHA-256 `108624938e183af41da63f5ef77e31c875b196389f3467d7acd896ccf7b274df`;
+  exact parent bytes remain unrecovered in the current workspace;
+- separately quarantined VMC empirical-loop package, 45,186 bytes, SHA-256
+  `3bcaec98bb637cb8070a11582044e3ce1b9cb2b317cd40761ae7ba529feeb745`;
+- current Inventory V5 workbook, 199,635 bytes, SHA-256
+  `e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331`.
+
+These pointers preserve computational ancestry only. They do not transfer
+scientific, inventory, physical, or installation authority to the child.
+
+## Residual exact-byte holds
+
+The following remain unavailable without reconstruction or substitution:
+
+1. Universal Accord package `8dd04ea6...5a998`;
+2. canonical-cutover parent `e9e325be...ae523`;
+3. P6 ZIP `8224f8a1...f97db`;
+4. P6 wheel `582ae990...d28c5`.
+
+Collection completion, source admission, implementation completion, package
+installation, formula/inventory mutation, physical or sensory execution,
+analytical authority, measured-headspace or strict-OAV authority, safety,
+publication, procurement, compounding, and release authority all remain false.

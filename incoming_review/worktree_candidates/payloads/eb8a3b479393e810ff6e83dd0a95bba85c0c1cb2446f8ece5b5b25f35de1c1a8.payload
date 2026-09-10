@@ -1,0 +1,49 @@
+# Complex Perfumery Collection Delta V15 — 2026-08-16
+
+## Decision
+
+`V15_EXACT_FLORAL_COMPLEXITY_EXPANSION_PACKAGE_CAPTURED_COMPUTATIONAL_DESIGN_ANCESTRY_ONLY__COLLECTION_AND_INSTALLATION_INCOMPLETE`
+
+V15 is an append-only successor to V14. It captures one exact original ChatGPT package from the Package Update chat. It does not import its formulas, alter Inventory V5, create a migration, install package code, authorize compounding, or establish a physical or sensory result.
+
+## Exact package
+
+- Package: `Floral_Complexity_Expansion_10_Diverse_Formula_Screens_2026-08-16_v1.zip`
+- Size: 351,409 bytes
+- SHA-256: `0eb388b6ceb420997210e7c6096d4f0e6951e06fc8bd06ab1c45ad0df369780b`
+- Source chat: `6a8054e9-1ee0-83ec-bab5-b617ab3e5b60`
+- Source file object: `file_000000006dc481f793904349227bb356`
+- Archive: 21 safe entries, 20 files, one directory, CRC clean, no case-fold duplicate paths.
+- Embedded manifest: 19/19 self-excluding payload records exact.
+- Embedded workbook: 197,667 bytes, SHA-256 `04907dd395430a6381d444952caf08d993f1f97a2babca26646f3bc1e4ae81a1`.
+
+The native graph is `GRAPH_COMPLETE_QUARANTINED`: the root retains `NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT` and `PARTIAL_MEMBER_SCAN` on the large `FORMULAS.json`; the workbook child is `CLEAR_FOR_RECEIPT_REVIEW`. Both remain nonpromoting.
+
+## Scientific and operational boundary
+
+The package contains ten computational floral screens and 860 formula rows. Its arithmetic, workbook verification, and computational gates are source-design evidence only. The source explicitly lacked its required Inventory V5 authority; the live native Inventory V5, exact-stock, preparation, active-dose, Laboratory Beta, C0, headspace/OAV, safety, and release gates remain controlling.
+
+No package formula was selected or imported. No stock, bottle, formula, observation, experiment, measured headspace, strict OAV, safety, procurement, installation, publication, or release authority was created.
+
+## Collection state
+
+- V14 exact outer lower bound: 48
+- New V15 exact outer: 1
+- V15 exact outer lower bound: 49
+- Denominator complete: false
+- Collection complete: false
+
+The separate Complexity Expansion and Calibration Engine v2.0 card remains pending exact local bytes:
+
+- Size: 172,172 bytes
+- SHA-256: `f4be1041bb8e2e8b5665962e580aa740996bd2f77b61299cca1d3cdf55014a5d`
+- State: original card identified; no local exact bytes; reconstruction and substitution forbidden.
+
+## Retained exact-byte holds
+
+1. Universal Accord package — `8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998`
+2. Declared cutover parent — `e9e325bea9117dbe2a97ff67e77d57705a54244591278fac7a34915a7f0ae523`
+3. P6 ZIP — `8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db`
+4. P6 wheel — `582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5`
+
+No new schema, migration, truth store, or pipeline script is justified by this capture. All scientific, operational, installation, and release authorities remain false.

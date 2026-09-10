@@ -1,0 +1,564 @@
+# L'Homme Luxe - Ginger Prism - DHP 2025 Theory V2 - 30 mL EdP
+
+**Date:** 2026-08-28
+**Concentration:** 20% EdP; 6,000 uL concentrate + 24,000 uL ethanol 96%
+**Batch size:** 30 mL finished perfume
+**Family:** fresh woody aromatic with violet-leaf and tonka facets
+**Pipeline brief:** `generic` (identity is judged by the target lock below, not by a generic score)
+**Version:** Ginger Prism / Structural Depth V2, governed formula-and-blind packet
+**Status:** `COMPUTATIONAL EXPERIMENT DESIGN ONLY - NOT TESTED - NO PHYSICAL COMPOUNDING AUTHORIZED`
+
+---
+
+## Evidence and Authority Lock
+
+- The current physical authority supplied by the user overrides stale inventory text: Ethylene Brassylate is present; all tinctures are lost; Cedarwood Virginia and Lemon FCF are depleted; the corrected lactone set is Delta Decalactone and Gamma Nonalactone only.
+- The existing `inventory.txt` still lists some superseded materials. None of Cedarwood Virginia, Lemon FCF, or Gamma Decalactone appears in the executable build below.
+- Lemonile is used only from the existing **1% in DPG** stock. There is no neat Lemonile dose in this formula.
+- Any raw-stock aliquot below 10 uL is prohibited. Every directly measured aliquot below is at least 10 uL. Citral, Cardamom EO, Basil EO, Javanol, and Norlimbanol Dextro require the explicit 10% stocks in the preparation section before any future authorized compounding.
+- `PEDMC` is the ODT/profile key and bottle abbreviation for the live inventory row `Phenyl Ethyl Dimethyl Carbinol (PEDMC)`. The inventory parser strips that parenthetical and does not alias the remaining long name back to `PEDMC`; this is a normalization mismatch, not a missing physical material.
+- Modeled ppm, ODT, OAV, vapor pressure, temporal persistence, and gate results are diagnostic. They do not establish odor, similarity, liking, realism, stability, safety, or release success.
+
+## TARGET / IDEAL IDENTITY
+
+The target is a more luxurious and structurally deeper **L'Homme**, not a darker La Nuit derivative and not a Dior Homme Parfum ingredient imitation. Recognition must come from the named L'Homme arc:
+
+1. a bergamot-citron aperture cut by fresh ginger and a pale pepper edge;
+2. a transparent violet-leaf and basil-flower heart, not cosmetic iris powder;
+3. a tailored cedar-vetiver base warmed by restrained tonka and sandalwood;
+4. an airy ozone-like separation between surface and interior, without an aquatic or blue-fragrance identity.
+
+Public-reference basis: the official YSL international description names bergamot, white pepper, ginger essence, violet leaves, basil flower, vetiver, tonka, and cedar; the official UK description also identifies lemon, sandalwood, Virginia cedar, Haitian vetiver, and an ozone accord. These references define the identity direction, not a claim of formula reconstruction: https://www.yslbeauty.com/int/fragrance/fragrance-for-him/l-homme/l-homme-eau-de-toilette/3365440643659.html and https://www.yslbeauty.co.uk/fragrances/fragrances-for-him/l-homme/l-homme-eau-de-toilette-spray/284YSL.html
+
+The DHP 2025 idea is used as **structural grammar**: protected identity nucleus, nested volumes, directional pressure, multiple textures, slow interior shadows, and transitions that reveal one subject from different angles. The main character is depth with style; ingredient count is admitted only when it creates a distinct relationship, plane, texture, temporal handoff, or identity echo.
+
+### Hard drift boundaries
+
+- No cardamom-dominant amber sweetness: that would become La Nuit de L'Homme.
+- No lipstick iris, leather, oud, smoke, or balsamic darkness: that would import Dior Homme Parfum's genre rather than its structural logic.
+- No calone-led marine identity, loud dihydromyrcenol sport accord, or detergent musk field.
+- No pastry, cinnamon, vanillin, lactone, or gourmand apple-pie signal.
+- Tonka is a warm shadow under wood, not a sweet theme.
+
+## Functional Architecture Before Dosing
+
+| Module | Raw budget | Spatial / temporal job | Protected identity contribution | Failure if overdosed |
+|---|---:|---|---|---|
+| 1. Sparkling aperture | 580 uL | Thin, bright exterior shell at 0-5 min | Bergamot-citron and pale pepper announce L'Homme | Cologne sharpness or rough black-pepper bite |
+| 2. Dual-state ginger prism | 640 uL | Cold wet-cut ginger at the surface; warm fibrous rhizome immediately behind it | Main recognizer and the bridge into the heart | Culinary ginger oil, lemon cleaner, or cardamom-led LNDL drift |
+| 3. Violet-basil silk | 700 uL | Green leaf face over violet-woody fabric, with a small basil-flower seam | The characteristic L'Homme heart | Powdery iris, rose, or generic muguet |
+| 4. Air and ozone field | 550 uL | Negative space around the heart; separates planes and projects the ginger-violet exchange | Modern daylight transparency | Blue aquatic, melon, metallic chemical glare |
+| 5. Cedar-vetiver fiber | 1,530 uL | Natural grain, abstract halo, dry architecture, clean-earth/root shadow, and warm cedar depth | Tailored masculine base | Pencil-shaving monolith, harsh superamber, muddy naturals |
+| 6. Tonka-sandal interior | 950 uL | A soft inner chamber behind the dry wood; fresh, creamy, and mineral sandalwood at different depths | Luxury warmth without changing family | Dessert sweetness or generic creamy sandalwood block |
+| 7. Pressure/mineral contour | 330 uL | Gives edges, compression, and a cool-to-warm perimeter around the wood | Makes the base feel carved rather than flat | Scratchy amberwood or metallic overprojection |
+| 8. Quiet adhesion matrix | 370 uL | Transparent film and slow mass that connect volatile and persistent layers | Smooth transitions and tactile polish | Oily heaviness or cosmetic salicylate character |
+| 9. One exact musk | 350 uL | Outward clean-woody veil, not a separate musk accord | Extends the tailored L'Homme trail | Laundry cleanliness or loss of natural wood texture |
+| **Total** | **6,000 uL** | **One subject, multiple connected depths** | **L'Homme remains the recognizable object** | |
+
+### Three-dimensional transition map
+
+| Window | Front plane | Middle plane | Rear plane | Required handoff |
+|---|---|---|---|---|
+| 0-5 min | Bergamot, cedrat, aldehydic peel, wet ginger | Linalyl/linalool body and pale pepper | First violet-leaf and cedar glints | Citrus must expose ginger rather than cover it |
+| 15-45 min | Ginger/terpinyl freshness recedes | Parmavert-ionone-basil silk expands | Hedione HC, cyclamen, jasmine-body materials create air behind the leaf | Ginger must become fibrous and floral-green, not disappear abruptly |
+| 1-3 h | Violet-green residue and dry spice | Diffusive cedar, vetiver, fresh sandalwood | Tonka, creamy sandalwood, mineral amber pressure | Heart must enter the wood through shared green, floral, and fibrous edges |
+| 4-8 h+ | Dry cedar-vetiver grain | Tonka-sandal yielding interior | Warm cedar-amber shadow and clean woody musk veil | Base must retain differentiated grain, interior warmth, and outward air |
+
+## TARGET / IDEAL FORMULA - INVENTORY-INDEPENDENT
+
+This is the precise ideal design, not the executable build. One target part is the conceptual equivalent of 1 uL in a 6,000-part prototype. The 57 target rows sum to 6,000 parts; diluted stocks account for 675.6 carrier parts, leaving 5,324.4 active odorant parts. The six missing or depleted exact materials are admitted because they sharpen the named L'Homme identity rather than add unrelated luxury signals.
+
+| # | Material | Target stock form | Target parts (of 6,000) | Active ppm |
+|---:|---|---:|---:|---:|
+| 1 | Bergamot FCF oil Sicilian | neat | 300 | 50000.000 |
+| 2 | Lemon FCF oil Sicilian | neat | 20 | 3333.333 |
+| 3 | Lemonile | 1% | 50 | 83.333 |
+| 4 | Aldehyde C10 | 1% | 30 | 50.000 |
+| 5 | Aldehyde C11 | 1% | 30 | 50.000 |
+| 6 | Linalyl Acetate | neat | 100 | 16666.667 |
+| 7 | Linalool | neat | 30 | 5000.000 |
+| 8 | White Pepper EO | neat | 20 | 3333.333 |
+| 9 | Ginger EO | neat | 230 | 38333.333 |
+| 10 | Dihydrojasmone | neat | 20 | 3333.333 |
+| 11 | Jessemal | neat | 70 | 11666.667 |
+| 12 | Ginger CO2 Extract | 10% | 50 | 833.333 |
+| 13 | Citral | 10% | 20 | 333.333 |
+| 14 | Ethyl Linalool | neat | 120 | 20000.000 |
+| 15 | Terpinyl Acetate | neat | 110 | 18333.333 |
+| 16 | Cardamom EO | 10% | 20 | 333.333 |
+| 17 | Alpha Isomethyl Ionone | neat | 170 | 28333.333 |
+| 18 | Parmavert | neat | 160 | 26666.667 |
+| 19 | Violet Leaf Absolute | 10% | 40 | 666.667 |
+| 20 | Alpha Ionone | neat | 10 | 1666.667 |
+| 21 | Irotyl | neat | 70 | 11666.667 |
+| 22 | Allyl Ionone | neat | 40 | 6666.667 |
+| 23 | Basil EO (India, Ocimum Basilicum) | 10% | 30 | 500.000 |
+| 24 | Geraniol | 10% | 10 | 166.667 |
+| 25 | PEDMC | neat | 100 | 16666.667 |
+| 26 | Mayol | neat | 70 | 11666.667 |
+| 27 | Hedione HC | neat | 420 | 70000.000 |
+| 28 | Dihydromyrcenol | neat | 20 | 3333.333 |
+| 29 | Cyclamen Aldehyde | neat | 30 | 5000.000 |
+| 30 | Calone | 1% | 20 | 33.333 |
+| 31 | Helional | neat | 60 | 10000.000 |
+| 32 | Iso E Super | neat | 250 | 41666.667 |
+| 33 | Cedarwood EO | neat | 130 | 21666.667 |
+| 34 | Cedarwood oil Virginia | neat | 300 | 50000.000 |
+| 35 | Himalayan Cedarwood EO | neat | 290 | 48333.333 |
+| 36 | Vetiver EO (India) | neat | 90 | 15000.000 |
+| 37 | Haitian Vetiver EO | neat | 120 | 20000.000 |
+| 38 | Vetikon | neat | 80 | 13333.333 |
+| 39 | Vetival | neat | 30 | 5000.000 |
+| 40 | Timberol | neat | 90 | 15000.000 |
+| 41 | Azarbre | neat | 50 | 8333.333 |
+| 42 | Koavone | neat | 100 | 16666.667 |
+| 43 | Tonkarome | 20% | 180 | 6000.000 |
+| 44 | Coumarin | 20% | 40 | 1333.333 |
+| 45 | Sandalore | neat | 330 | 55000.000 |
+| 46 | Polysantol | neat | 350 | 58333.333 |
+| 47 | Ebanol | neat | 30 | 5000.000 |
+| 48 | Javanol | 10% | 20 | 333.333 |
+| 49 | Ambrofix | 30% | 180 | 9000.000 |
+| 50 | Kephalis | neat | 50 | 8333.333 |
+| 51 | Norlimbanol Dextro | 10% | 60 | 1000.000 |
+| 52 | Cashmeran | neat | 30 | 5000.000 |
+| 53 | Scentenal | 1% | 10 | 16.667 |
+| 54 | Hexyl Salicylate | neat | 200 | 33333.333 |
+| 55 | Benzyl Benzoate | neat | 150 | 25000.000 |
+| 56 | Benzyl Alcohol | 50% | 20 | 1666.667 |
+| 57 | Romandolide | neat | 350 | 58333.333 |
+| | **Target total** | | **6000** | |
+
+### Ideal-only exactness changes
+
+- Lemon FCF replaces Cedrat one-for-one for a more literal lemon-peel edge.
+- White Pepper EO replaces Black Pepper EO one-for-one for a paler, less earthy pepper register.
+- Ginger CO2 at 10% replaces 50 parts of Jessemal to supply true warm rhizome interior while Ginger EO retains the wet-cut surface.
+- Violet Leaf Absolute at 10% replaces 40 parts of Parmavert to add natural leafy-metallic complexity without turning the heart into iris.
+- Cedarwood Virginia takes 300 of the 430 current Cedarwood EO parts; 130 parts of the current cedar and 290 Himalayan parts remain to preserve breadth and depth.
+- Haitian Vetiver takes 120 of the 210 current Indian vetiver parts; 90 Indian parts remain as a darker root shadow.
+
+## CURRENT-INVENTORY BUILD - OAV/TEMPORAL-REBASED CANDIDATE
+
+This is the sole executable table parsed by the pipeline. It is constant-total at 6,000 uL. Dilution is the fraction of odorant in the measured stock; active uL and ppm are calculated on the 6,000 uL concentrate basis with density approximated as 1.0.
+
+| # | Ingredient | Dilution | Amount (uL) | Active (uL) | Active ppm | Function owner |
+|---:|---|---:|---:|---:|---:|---|
+| 1 | Bergamot FCF oil Sicilian | 100% | 300 | 300.0 | 50000.000 | Complex bergamot peel and identity aperture |
+| 2 | Cedrat FCF oil Sicilian | 100% | 20 | 20.0 | 3333.333 | Bitter citron edge replacing depleted Lemon FCF without dominating current build |
+| 3 | Lemonile | 1% | 50 | 0.5 | 83.333 | Low-dose lemon persistence seam from the existing 1% DPG stock; never neat |
+| 4 | Aldehyde C10 | 1% | 30 | 0.3 | 50.000 | Orange-lemon sparkle and peel expansion |
+| 5 | Aldehyde C11 | 1% | 30 | 0.3 | 50.000 | Colder waxy-metallic lift behind C10 |
+| 6 | Linalyl Acetate | 100% | 100 | 100.0 | 16666.667 | Ester bridge from bergamot into violet/aromatic heart |
+| 7 | Linalool | 100% | 30 | 30.0 | 5000.000 | Floral-citrus body beneath volatile peel |
+| 8 | Black Pepper EO | 100% | 20 | 20.0 | 3333.333 | Dry pale pepper proxy; intentionally subordinate to ginger |
+| 9 | Ginger EO | 100% | 230 | 230.0 | 38333.333 | Wet-cut and warm ginger identity nucleus |
+| 10 | Dihydrojasmone | 100% | 20 | 20.0 | 3333.333 | Green floral hinge that turns ginger into living plant tissue |
+| 11 | Jessemal | 100% | 120 | 120.0 | 20000.000 | Warm fatty-fibrous body behind the bright ginger surface |
+| 12 | Citral | 10% | 20 | 2.0 | 333.333 | Lemon-ginger flash inside the rhizome accord; measured from the prepared stock |
+| 13 | Ethyl Linalool | 100% | 120 | 120.0 | 20000.000 | More tenacious floral-woody extension of linalool |
+| 14 | Terpinyl Acetate | 100% | 110 | 110.0 | 18333.333 | Pine-citrus herbal fiber linking ginger, basil, and cedar |
+| 15 | Cardamom EO | 10% | 20 | 2.0 | 333.333 | Cool cineolic facet inside ginger; measured from prepared stock and below LNDL-style prominence |
+| 16 | Alpha Isomethyl Ionone | 100% | 170 | 170.0 | 28333.333 | Violet-woody silk and designer heart body |
+| 17 | Parmavert | 100% | 200 | 200.0 | 33333.333 | Green violet-leaf face of the heart |
+| 18 | Alpha Ionone | 100% | 10 | 10.0 | 1666.667 | Brighter violet inflection at the front of the ionone field |
+| 19 | Irotyl | 100% | 70 | 70.0 | 11666.667 | Cool rooty depth under violet leaf, restrained below iris theme |
+| 20 | Allyl Ionone | 100% | 40 | 40.0 | 6666.667 | Fruity-green woody seam from the Ketone V stock, from leaf to cedar |
+| 21 | Basil EO (India, Ocimum Basilicum) | 10% | 30 | 3.0 | 500.000 | Aromatic basil marker from prepared stock without anisic domination |
+| 22 | Geraniol | 10% | 10 | 1.0 | 166.667 | Tiny floral-basil bloom from the existing 10% DPG stock and green-heart continuity |
+| 23 | PEDMC | 100% | 100 | 100.0 | 16666.667 | Phenyl Ethyl Dimethyl Carbinol: clean magnolia-like veil that rounds ionone edges |
+| 24 | Mayol | 100% | 70 | 70.0 | 11666.667 | Transparent green muguet lift standing in for basil flower volume |
+| 25 | Hedione HC | 100% | 420 | 420.0 | 70000.000 | High-cis radiance and negative space behind the heart |
+| 26 | Dihydromyrcenol | 100% | 20 | 20.0 | 3333.333 | Controlled metallic-citrus propulsion, below sport-blue dosage |
+| 27 | Cyclamen Aldehyde | 100% | 30 | 30.0 | 5000.000 | Watery-green floral edge around violet leaf, reduced below modeled Cat-4 screen |
+| 28 | Calone | 1% | 20 | 0.2 | 33.333 | Trace humid air; not a marine note |
+| 29 | Helional | 100% | 60 | 60.0 | 10000.000 | Mineral sea-mist shadow that spaces cedar from heart |
+| 30 | Iso E Super | 100% | 250 | 250.0 | 41666.667 | Abstract cedar skin halo, not the literal wood identity |
+| 31 | Cedarwood EO | 100% | 430 | 430.0 | 71666.667 | Recognizable dry cedar grain in place of depleted Virginia cedar |
+| 32 | Himalayan Cedarwood EO | 100% | 290 | 290.0 | 48333.333 | Slower balsamic-dark cedar depth behind the dry grain |
+| 33 | Vetiver EO | 100% | 210 | 210.0 | 35000.000 | Natural root, earth, and smoke shadow from the Indian stock under cedar |
+| 34 | Vetikon | 100% | 80 | 80.0 | 13333.333 | Diffusive green-vetiver volume between natural root and halo |
+| 35 | Vetival | 100% | 30 | 30.0 | 5000.000 | Suede-dry vetiver fiber; textural trace, not leather theme |
+| 36 | Timberol | 100% | 90 | 90.0 | 15000.000 | Angular architectural cedar edge |
+| 37 | Azarbre | 100% | 50 | 50.0 | 8333.333 | Smooth warm cedar-amber depth with no crystalline glare |
+| 38 | Koavone | 100% | 100 | 100.0 | 16666.667 | Warm woody-balsamic connector within the cedar chord |
+| 39 | Tonkarome | 20% | 180 | 36.0 | 6000.000 | Dry refined tonka shadow from the existing 20% w/w TEC stock, not gourmand sweetness |
+| 40 | Coumarin | 20% | 40 | 8.0 | 1333.333 | Hay-like tonka edge and temporal echo into vetiver |
+| 41 | Sandalore | 100% | 330 | 330.0 | 55000.000 | Fresh-light sandalwood face closest to the heart |
+| 42 | Polysantol | 100% | 350 | 350.0 | 58333.333 | Slow creamy sandalwood interior and yielding depth |
+| 43 | Ebanol | 100% | 30 | 30.0 | 5000.000 | More volatile creamy-sandal bridge between face and interior |
+| 44 | Javanol | 10% | 20 | 2.0 | 333.333 | Dry-mineral sandalwood line from prepared stock at skin depth |
+| 45 | Ambrofix | 30% | 180 | 54.0 | 9000.000 | Smooth crystalline-mineral pressure behind woods |
+| 46 | Kephalis | 100% | 50 | 50.0 | 8333.333 | Compact woody-amber compression with ionone affinity |
+| 47 | Norlimbanol Dextro | 10% | 60 | 6.0 | 1000.000 | Long dry structural spine from prepared stock without neat microdosing |
+| 48 | Cashmeran | 100% | 30 | 30.0 | 5000.000 | Soft textile warmth at the violet/wood boundary |
+| 49 | Scentenal | 1% | 10 | 0.1 | 16.667 | Metallic-green perimeter line at trace stock strength |
+| 50 | Hexyl Salicylate | 100% | 200 | 200.0 | 33333.333 | Light green-floral adhesion film without cosmetic heaviness |
+| 51 | Benzyl Benzoate | 100% | 150 | 150.0 | 25000.000 | Near-quiet slow mass and fixation |
+| 52 | Benzyl Alcohol | 50% | 20 | 10.0 | 1666.667 | Mild balsamic-floral solvent bridge from the existing 50% DPG stock |
+| 53 | Romandolide | 100% | 350 | 350.0 | 58333.333 | Sole musk: outward clean-woody veil and projection axis |
+| | **Concentrate total** | | **6000** | | | |
+
+## Final Selection, Rejection, and Survival Logic
+
+The current build deliberately uses one exact musk. Romandolide was selected over Ethylene Brassylate because L'Homme needs outward clean-woody diffusion rather than a lactonic-creamy thickening; over Habanolide because warmth already exists in the sandalwood, tonka, Cashmeran, and Azarbre planes; and over Zenolide because a colder citrus musk could flatten the wet-to-warm ginger transition. Galaxolide, Tonalide, Macrolide, and Musk Ketone remain excluded as detergent, redundant, too quiet, or powder-genre shifting.
+
+The four sandalwood materials survive provisionally because they occupy different modeled planes: Sandalore is the perceptible fresh face (OAV 7.0), Ebanol the more volatile creamy bridge (321), Polysantol the slow yielding interior (247), and Javanol the low-mass dry-mineral line (313). This is a design hypothesis, not proof that a nose will resolve four sandalwood layers; the blind read must prune any collapsed redundancy.
+
+Cedarwood EO, Himalayan Cedarwood EO, Iso E Super, Timberol, Azarbre, Koavone, Vetikon, Vetival, and Indian vetiver form a wood topology rather than a list: literal grain, slow cedar shadow, molecular halo, dry edge, warm depth, internal bridge, green diffusion, suede fiber, and root respectively. Clearwood was tested computationally, modeled at OAV 0.06 for a role that required perceptibility, and was removed; its 100 uL was rebased into Cedarwood EO (+40), Himalayan Cedarwood (+30), and Vetiver (+30).
+
+Verdox was considered but rejected: its fruity-green apple/woody character would pull the heart toward an apple facet when Parmavert, ionones, Cyclamen, and Scentenal already provide the target-linked violet-leaf architecture. Verdyl acetate is not live-inventory authority and is not needed in the ideal. Bontoux Cinnamon Oil is physically reported present, but the earlier favorable 10%/3 mL observation is formulation-specific; cinnamon would turn this daylight ginger-violet L'Homme toward La Nuit, amber-spice, or gourmand territory, so availability is not a reason to use it. Lemonile remains strictly the existing 1% DPG stock, never neat.
+
+## OAV / Temporal Rebase Record
+
+| Diagnostic | Initial 54-row screen | Final 53-row current build | Interpretation ceiling |
+|---|---:|---:|---|
+| Concentrate total | 6,000 uL | 6,000 uL | Constant total preserved |
+| Total opening vapor | 41.33 ppm | 31.35 ppm | Modeled overload pressure reduced; not measured headspace |
+| Highest modeled OAV | Cedrat 5,682 | Ginger 3,137 | Identity leader moved to ginger as intended |
+| Massive-OAV rows | 8 | 5 | Spectral crowding reduced, not sensory clarity proved |
+| Modeled perceptible rows | 48/54 | 50/53 | Functional coverage improved while one dormant row was pruned |
+| Modeled sub-threshold rows | 6 | 3 | Remaining Irotyl, Hexyl Salicylate, and Benzyl Benzoate have structural roles |
+| Opening T/H/B active distribution | 17.3/35.9/46.7 | 13.8/33.0/53.2 | More base mass; does not prove a darker smell |
+| Drydown base share | 49.2% | 55.4% | Model predicts deeper persistence |
+| Cyclamen Aldehyde | 60 uL; modeled near/above Cat-4 screen | 30 uL; that specific warning cleared | Still not a complete supplier-specific safety assessment |
+
+The model continues to retain ginger, citrus, Hedione HC, and Iso E Super strongly at four hours. Treat that as a stock-rebase/OAV-per-time guard against abrupt collapse, not as measured evaporation or proof of the desired transition. Physical smelling must decide whether the ginger feels dimensional or merely loud, whether the heart reads violet leaf rather than floral abstraction, and whether the 53 rows form one perfume rather than spectral crowding.
+
+## Missing-Chemical Impact Gate
+
+| Ideal material | Current authority | Exact ideal job | Current-build substitute | Impact if absent | Gate |
+|---|---|---|---|---|---|
+| Ginger CO2 Extract, used at 10% | Not listed / not owned | True warm rhizome, fibrous interior behind wet Ginger EO | Jessemal + Dihydrojasmone + Ethyl Linalool | **High** for the dual-state ginger realism and transition; current design remains testable but less literal | Purchase candidate P1; ideal only until acquired and identity verified |
+| Violet Leaf Absolute, used at 10% | Not listed / not owned | Natural leafy-metallic complexity in the named heart | Parmavert + Alpha/Allyl Ionone + Scentenal | **High-medium** for naturalistic leaf depth; recognizability can survive synthetically | Purchase candidate P1; ideal only |
+| Cedarwood oil Virginia | Physically depleted | Pencil-dry, tailored cedar identity matching the classic base direction | Cedarwood EO + Himalayan Cedarwood + Timberol | **Medium**; broad cedar structure survives but exact grain changes | Restock P2; ideal only now |
+| Haitian Vetiver EO | Not listed / not owned | Cleaner dry-smoky vetiver under cedar | Indian Vetiver + Vetikon + Vetival | **Medium**; current build is deeper/earthier | Purchase candidate P2; ideal only |
+| White Pepper EO/extract | Not listed / not owned | Pale dry pepper bite with less earthy darkness | Black Pepper EO at 20 uL | **Medium-low**; pepper register changes more than architecture | Purchase candidate P3; ideal only |
+| Lemon FCF oil Sicilian | Physically depleted | Literal lemon-peel edge in the bergamot opening | Cedrat FCF 20 uL + Lemonile 1% | **Medium-low**; current opening remains citrus-legible but more bitter-citron | Restock P3; ideal only now |
+
+**Purchase recommendation:** do not procure merely to increase ingredient count. If the current control first proves recognizable and pleasant, prioritize Ginger CO2 and Violet Leaf Absolute; then Virginia cedar and Haitian vetiver; finally White Pepper and Lemon FCF. Procurement is not authorized by this document.
+
+## Required Stock Preparation - Before Any Future Authorized Compounding
+
+No direct raw-stock aliquot in the current formula is below 10 uL. Prepare these stocks so the small active doses are measured from at least 10 uL of a labeled stock:
+
+| Stock to prepare | Preparation | Formula aliquot | Neat equivalent | Reason |
+|---|---|---:|---:|---|
+| Citral 10% in DPG | Combine 100 uL Citral + 900 uL DPG; mix and label exact basis/date | 20 uL | 2 uL | Direct 2 uL neat would violate the raw-stock floor |
+| Cardamom EO 10% in DPG | Combine 100 uL Cardamom EO + 900 uL DPG; mix and label exact basis/date | 20 uL | 2 uL | Keeps cardamom subordinate and measurable |
+| Basil EO 10% in DPG | Combine 100 uL Basil EO + 900 uL DPG; mix and label exact basis/date | 30 uL | 3 uL | Replaces the old unmeasurable 8 uL-neat style dose |
+| Javanol 10% in DPG | Combine 100 uL Javanol + 900 uL DPG; mix and label exact basis/date | 20 uL | 2 uL | Prevents an unmeasurable and likely overpowering neat dose |
+| Norlimbanol Dextro 10% in DPG | Combine 100 uL material + 900 uL DPG; mix and label exact basis/date | 60 uL | 6 uL | Enables a restrained long-wood spine above the aliquot floor |
+
+Existing labeled stocks used directly are Lemonile 1%, Aldehydes C10/C11 1%, Calone 1%, Scentenal 1%, Geraniol 10%, Tonkarome 20% in TEC, Ambrofix 30%, and Benzyl Alcohol 50% in DPG. Confirm each container and stock basis before use. The preparation examples are volumetric under the workspace density approximation; for gravimetric accuracy, prepare 10.0% w/w stocks and record the basis. Never silently substitute w/w for v/v.
+
+## Controlled Blinded 2x2 Test Plan
+
+### Hypotheses
+
+- **G factor - ginger interior/transition:** does a coordinated +10 uL Dihydrojasmone and +20 uL Jessemal intervention make the wet ginger become warmer and more fibrous without becoming jasmine-like or culinary?
+- **V factor - violet-leaf definition:** does +10 uL Alpha Ionone, +20 uL Parmavert, and +10 uL Scentenal 1% make the heart more leaf-realistic and dimensional without becoming powdery, fruity, or metallic?
+- The protected nucleus, total concentrate, alcohol concentration, and all other materials remain unchanged. Benzyl Benzoate is the quiet one-for-one compensator.
+
+### Four constant-total arms
+
+| Arm | Dihydrojasmone | Jessemal | Alpha Ionone | Parmavert | Scentenal 1% | Benzyl Benzoate | Total formula | Purpose |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| A / control | 20 | 120 | 10 | 200 | 10 | 150 | 6,000 uL | Current formula |
+| B / G+ | 30 | 140 | 10 | 200 | 10 | 120 | 6,000 uL | Ginger interior main effect |
+| C / V+ | 20 | 120 | 20 | 220 | 20 | 110 | 6,000 uL | Violet-leaf main effect |
+| D / G+V+ | 30 | 140 | 20 | 220 | 20 | 80 | 6,000 uL | Interaction / connected-depth test |
+
+All values are raw uL at the same stock strengths as the current formula. Every direct raw-stock measurement is at least 10 uL. The modeled changes are predicted perceptible: G+ adds roughly 228 opening OAV from Dihydrojasmone plus a smaller Jessemal body change; V+ adds roughly 72 OAV from Alpha Ionone, 94 from the extra Scentenal stock dose, and a smaller Parmavert change. These are diagnostic predictions, not sensory facts.
+
+### Practical common-core method for 3 mL blind bottles
+
+1. Build one **5,490 uL common-core concentrate** containing every current-formula row except Dihydrojasmone, Jessemal, Alpha Ionone, Parmavert, Scentenal, and Benzyl Benzoate. The smallest direct common-core raw dose is 10 uL, so the floor is respected.
+2. Build four separate **510 uL variable modules** using the six rows in the table above. Each module is itself constant-total and every component is at least 10 uL.
+3. For each 3 mL EdP bottle, combine **549 uL common core + 51 uL coded variable module + 2,400 uL ethanol 96%**. This gives exactly 600 uL concentrate and 20% EdP without attempting to measure tenths of a microlitre.
+4. Make two coded bottles per arm from the same master set for the screening read. If an arm advances, confirm control versus winner using a freshly prepared independent core and fresh modules; same-master duplicates do not prove independent compounding reproducibility.
+5. Rest concentrates 48 hours before dilution, then mature finished bottles for at least 14 days. Repeat the winning comparison at day 28 before any formula lock. These times are protocol controls, not stability claims.
+
+### Blinding, order, and scoring
+
+- Assign random three-digit codes after filling; keep the key outside the evaluation sheet. Do not label factors on bottles or strips.
+- Use fresh identical blotters and equal applications. Evaluate at 0, 5, 30, 120, and 240 minutes, plus a next-day strip check. Run no more than four strips in one sitting.
+- Rotate first presentation with balanced sequences such as A-B-D-C, B-C-A-D, C-D-B-A, and D-A-C-B. Duplicate bottles must receive unrelated codes.
+- Score separately from 0-10: overall intensity; L'Homme recognition; fresh wet ginger; warm fibrous ginger; violet-leaf realism; basil integration; ginger-to-leaf continuity; leaf-to-wood continuity; cedar/vetiver grain; tonka-sandal interior; spatial depth; textural richness; style/luxury; hedonic liking. Do not merge liking, identity, and depth into one score.
+- Record free descriptors before seeing any checklist. Explicitly flag lemon-cleaner, culinary ginger, jasmine, rose, iris powder, apple, marine/blue, metallic, muddy wood, dessert tonka, and detergent musk drift.
+
+### Decision rules
+
+- **G main effect:** compare B with A and D with C. Advance only if both comparisons improve warm-fibrous ginger and transition continuity without a material loss in L'Homme identity or liking.
+- **V main effect:** compare C with A and D with B. Advance only if both comparisons improve violet-leaf realism/space without powder, apple, or metallic drift.
+- **Interaction:** D advances only if the combined state feels more connected and three-dimensional than both B and C, not simply stronger or busier.
+- A perceived-intensity difference greater than one scale point makes liking/depth interpretation provisional; intensity-match and repeat.
+- If duplicate codes disagree directionally, or if the intervention is not noticed in both reads, mark the result `HOLD / NON-INFORMATIVE`; a null under those conditions does not falsify the accord hypothesis.
+- If A is not recognizable as L'Homme or is not at least acceptable hedonicly, stop. Do not optimize depth on top of a failed identity nucleus.
+
+## Claim Ceiling
+
+The current 53-row build and 57-row ideal are formula designs only. The pipeline reports `100 PASS / 29 WARN / 0 FAIL`, 50/53 modeled-perceptible materials, 31.35 ppm modeled opening vapor, and a modeled drydown base share of 55.4%. Those numbers support dose triage and test design only. Similarity, luxury, three-dimensionality, pleasure, stability, safety, longevity, diffusion, and successful transitions remain `NOT TESTED` until blinded physical evaluation and supplier-specific safety review.
+
+## Pipeline Analysis
+# L'Homme Luxe - Ginger Prism - DHP 2025 Theory V2 - 30 mL EdP
+
+## Gate Summary
+
+**100 PASS** / **29 WARN** / **0 FAIL**
+
+  WARN pipeline_preflight: 9 checks; 6 warnings
+  WARN odt_coverage: 31 material(s) rely on derived/unverified ODTs (57% OAV share)
+  WARN chemistry_stability: immature: predicted maturation 7 days (industry standard 14-42 days); predicted maturation shelf life 7 days
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 14.2% active mass across 5 materials
+  WARN small_diluted_traces: Geraniol=10.0uL at 10.0%; Scentenal=10.0uL at 1.0%
+  WARN safety_ifra_allergen: 31 materials lack explicit IFRA Cat4 limits; 9 EU allergen declarations
+  WARN eu_allergen_declaration: EU allergens requiring label: linalool, alpha-isomethyl ionone, geraniol, coumarin, benzyl alcohol
+  WARN perfumer_logic: generic; perfumer_logic_brief: No brief-specific logic selected.
+  WARN perfume_knowledge: heart OAV off-target for family chypre; base OAV off-target for family chypre [advisory guideline; not release-blocking]
+  WARN carles_material_count: 53 materials — Carles upper limit is 40
+  WARN carles_accord_ratio: Extreme ratios (>8:1, Carles limit): bergamot fcf sicilian:lemonile = 300:1; bergamot fcf sicilian:aldehyde c10 = 51:1; bergamot fcf sicilia
+  WARN literature_compliance: Literature compliance: 2/5 principles passed (40%) [advisory guideline; not release-blocking]
+  WARN captive_availability: 1 captive, 3 now-available
+  WARN edge_cases: Musk coverage: 1%, gaps: 2, Bangkok VP ×157728.0
+  WARN dosing_tables: Potent: 1, solids: 1, viscous: 5 defined
+  WARN balance_axes: Balance axes evaluation skipped: type object 'MarketSegment' has no attribute 'MASS_MARKET'
+  WARN character_shifts: Gate skipped (API mismatch): check_zone_boundaries() missing 1 required positional argument: 'concentration_pct'
+  WARN musk_intelligence: Gate skipped (API mismatch): 'WoodyInfrastructureTrio' object has no attribute 'primary'
+  WARN jnd_redundancy: Potentially redundant pairs: bergamot fcf sicilian vs cedrat fcf sicilian in citrus (OAV 818/953); linalyl acetate vs linalool in aromatic (
+  WARN guerlain_rose_jasmine_balance: Rose:jasmine OAV ratio = 3.9:1 — Guerlain recommends <3:1
+  WARN jellinek_psychology: Jellinek categories weak: erogenic
+  WARN adaptation_timing: fast tier < 5% (no immediate impact)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 84%) — collapse risk
+  WARN mixture_suppression: 5 families each >10% OAV — mixture suppression likely (humans perceive ≤4)
+  WARN olfactory_fatigue: Olfactory fatigue risk: hedione=7.0% of concentrate (<10% minimum for radiance)
+  WARN tenacity_projection: VP<0.001Pa = 0% (<3%, may lack depth)
+  WARN master_perfumer_gate: too many materials for a readable formula
+  WARN mass_market_tier_check: 25% of active mass from premium materials (>25% threshold). At 1500-3500 THB retail, this margin may be tight. Premium materials: Irotyl, Ti
+  WARN confidence_minimum: combined confidence 25.2; preflight science penalty 28.9
+
+
+## Headspace OAV — Opening (0s)
+
+| # | Material | OAV | Note | Percept | VP Pa | Vapor ppm | ODT ppm | Act g | MF% | Role |
+|---|--------|---|----|-------|-----|---------|-------|-----|---|----|
+|   1 | Ginger EO                    |     3137.3 | top   |  very strong |  10.000 |   15.6866 |  0.005000 |  0.2300 |  6.36 | Ginger EO
+|   2 | Iso E Super                  |     1289.9 | heart |  very strong |   0.150 |    0.0645 |  0.000050 |  0.2500 |  4.01 | Iso E Super
+|   3 | Hedione HC                   |     1231.7 | heart |  very strong |   0.089 |    0.0616 |  0.000050 |  0.4200 |  6.98 | Hedione
+|   4 | Linalyl Acetate              |     1225.1 | top   |  very strong |  17.500 |    3.3076 |  0.002700 |  0.1000 |  1.92 | Linalyl Acetate
+|   5 | Linalool                     |     1157.2 | top   |  very strong |  21.300 |    1.7357 |  0.001500 |  0.0300 |  0.73 | Linalool
+|   6 | Cedrat FCF oil Sicilian      |      952.9 | top   |       strong |   2.000 |    0.2929 |  0.008000 |  0.0200 |  0.49 | Cedrat FCF Sicilian
+|   7 | Bergamot FCF oil Sicilian    |      818.4 | heart |       strong |   2.500 |    4.9106 |  0.006000 |  0.3000 |  6.63 | Bergamot FCF oil Sicilian
+|   8 | Dihydromyrcenol              |      807.1 | top   |       strong |  17.000 |    0.8071 |  0.001000 |  0.0200 |  0.48 | Dihydromyrcenol
+|   9 | Dihydrojasmone               |      455.7 | heart |       strong |   7.660 |    0.3418 |  0.000750 |  0.0200 |  0.45 | Dihydrojasmone
+|  10 | Geraniol                     |      432.8 | heart |       strong |   4.000 |    0.0173 |  0.000040 |  0.0010 |  0.02 | Geraniol
+|  11 | Ebanol                       |      321.0 | heart |       strong |   0.890 |    0.0674 |  0.000210 |  0.0300 |  0.51 | Ebanol
+|  12 | Javanol                      |      312.8 | base  |       strong |   0.100 |    0.0005 |  0.000002 |  0.0020 |  0.03 | Javanol
+|  13 | Azarbre                      |      271.9 | base  |       strong |   4.300 |    0.5439 |  0.002000 |  0.0500 |  0.85 | Azarbre
+|  14 | Polysantol                   |      247.0 | base  |       strong |   0.003 |    0.0025 |  0.000010 |  0.3290 |  5.56 | Polysantol
+|  15 | Alpha Isomethyl Ionone       |      198.7 | heart |       strong |   0.400 |    0.1590 |  0.000800 |  0.1700 |  3.10 | Alpha-Isomethyl Ionone
+|  16 | Vetikon                      |      119.1 | base  |       strong |   4.160 |    0.5955 |  0.005000 |  0.0800 |  1.71 | Vetikon
+|  17 | Cedarwood EO                 |      117.3 | base  |       strong |   0.250 |    0.3903 |  0.015000 |  0.4300 |  7.91 | Cedarwood EO
+|  18 | Mayol                        |      101.5 | heart |       strong |   1.500 |    0.3045 |  0.003000 |  0.0700 |  1.58 | Mayol
+|  19 | Scentenal                    |       93.8 | heart | moderate-strong |   6.000 |    0.0019 |  0.000020 |  0.0001 |  0.00 | Scentenal
+|  20 | Alpha Ionone                 |       72.4 | heart | moderate-strong |   1.500 |    0.0289 |  0.000400 |  0.0100 |  0.20 | Alpha Ionone
+|  21 | Vetival                      |       71.3 | heart | moderate-strong |   6.530 |    0.4994 |  0.007000 |  0.0300 |  0.52 | Vetival
+|  22 | Cyclamen Aldehyde            |       52.0 | heart | moderate-strong |   0.520 |    0.0395 |  0.000760 |  0.0300 |  0.59 | Cyclamen Aldehyde
+|  23 | Timberol                     |       47.6 | base  |     moderate |   0.120 |    0.0286 |  0.000600 |  0.0900 |  1.61 | Timberol
+|  24 | Aldehyde C11                 |       42.4 | top   |     moderate |  50.000 |    0.0327 |  0.000770 |  0.0003 |  0.01 | Aldehyde C11
+|  25 | Cardamom EO                  |       41.5 | top   |     moderate |  15.000 |    0.1216 |  0.003000 |  0.0019 |  0.04 | Cardamom EO
+|  26 | Vetiver EO                   |       37.9 | base  |     moderate |   0.003 |    0.0021 |  0.005000 |  0.2100 |  3.55 | Vetiver EO
+|  27 | PEDMC                        |       33.9 | heart |     moderate |   0.300 |    0.1017 |  0.003000 |  0.1000 |  2.29 | PEDMC
+|  28 | Cashmeran                    |       32.4 | base  |     moderate |   1.200 |    0.0647 |  0.002000 |  0.0300 |  0.55 | Cashmeran
+|  29 | Jessemal                     |       20.8 | heart |     moderate |   0.500 |    0.1039 |  0.005000 |  0.1200 |  2.11 | Jessemal
+|  30 | Ambrofix                     |       19.2 | base  |     moderate |   0.066 |    0.0058 |  0.000300 |  0.0540 |  0.86 | Ambrox Super
+|  31 | Basil EO (India, Ocimum Basilicum) |       17.6 | top   |     moderate |   8.000 |    0.0879 |  0.005000 |  0.0030 |  0.07 | Basil EO (India, Ocimum Basili
+|  32 | Aldehyde C10                 |       16.2 | top   |     moderate |  10.000 |    0.0071 |  0.000440 |  0.0003 |  0.01 | Aldehyde C10
+|  33 | Koavone                      |       16.2 | base  |     moderate |   0.300 |    0.0809 |  0.005000 |  0.1000 |  1.82 | Koavone
+|  34 | Romandolide                  |       14.7 | base  |     moderate |   0.100 |    0.0720 |  0.004900 |  0.3500 |  4.87 | Romandolide
+|  35 | Helional                     |       13.9 | heart |     moderate |   0.010 |    0.0014 |  0.000100 |  0.0600 |  1.17 | Helional
+|  36 | Black Pepper EO              |       10.9 | top   |     moderate |   0.300 |    0.0218 |  0.002000 |  0.0200 |  0.37 | Black Pepper EO
+|  37 | Coumarin                     |        8.5 | base  |  perceptible |   0.190 |    0.0060 |  0.000700 |  0.0080 |  0.21 | Coumarin
+|  38 | Benzyl Alcohol               |        8.2 | heart |  perceptible |   8.000 |    0.4117 |  0.050000 |  0.0100 |  0.35 | Benzyl Alcohol
+|  39 | Sandalore                    |        7.0 | base  |  perceptible |   0.080 |    0.0698 |  0.010000 |  0.3300 |  5.90 | Sandalore
+|  40 | Allyl Ionone                 |        5.1 | heart |  perceptible |   0.066 |    0.0051 |  0.001000 |  0.0372 |  0.60 | Allyl Ionone
+|  41 | Tonkarome                    |        5.0 | base  |  perceptible |   0.050 |    0.0025 |  0.000500 |  0.0360 |  0.85 | Tonkarome
+|  42 | Calone                       |        3.7 | heart | at threshold |   0.293 |    0.0002 |  0.000050 |  0.0002 |  0.00 | Calone
+|  43 | Lemonile                     |        2.7 | top   | at threshold |   1.200 |    0.0014 |  0.000500 |  0.0005 |  0.01 | Lemonile
+|  44 | Parmavert                    |        2.6 | top   | at threshold |   0.100 |    0.0386 |  0.015000 |  0.2000 |  3.91 | Parmavert
+|  45 | Terpinyl Acetate             |        2.4 | base  | at threshold |   0.400 |    0.0832 |  0.035000 |  0.1100 |  2.11 | Terpinyl Acetate
+|  46 | Himalayan Cedarwood EO       |        1.4 | base  | at threshold |   0.020 |    0.0211 |  0.015000 |  0.2900 |  5.33 | Himalayan Cedarwood EO
+|  47 | Ethyl Linalool               |        1.3 | top   | at threshold |   0.080 |    0.0195 |  0.015000 |  0.1200 |  2.47 | Ethyl Linalool
+|  48 | Citral                       |        1.3 | top   | at threshold |   3.500 |    0.0256 |  0.020000 |  0.0020 |  0.05 | Citral
+|  49 | Norlimbanol Dextro           |        1.2 | base  | at threshold |   0.067 |    0.0010 |  0.000800 |  0.0060 |  0.10 | Norlimbanol Dextro
+|  50 | Kephalis                     |        1.1 | heart | at threshold |   0.460 |    0.0571 |  0.050000 |  0.0500 |  0.84 | Kephalis
+|  51 | Irotyl                       |        0.8 | heart | sub-threshold |   0.005 |    0.0008 |  0.001000 |  0.0700 |  1.28 | Irotyl
+|  52 | Hexyl Salicylate             |        0.4 | base  | sub-threshold |   0.050 |    0.0125 |  0.035000 |  0.2000 |  3.38 | Hexyl Salicylate
+|  53 | Benzyl Benzoate              |        0.0 | base  | sub-threshold |   0.001 |    0.0003 |  0.810000 |  0.1500 |  2.66 | Benzyl Benzoate
+
+**Materials:** 53 total (14 top, 20 heart, 19 base)
+**Total vapor:** 31.35 ppm
+
+### Note Distribution
+
+**TOP:** 14 mats, 13.8% active, 53.3% OAV
+  - Ginger EO                    OAV=  3137.3 (very strong) VP=10.000Pa
+  - Linalyl Acetate              OAV=  1225.1 (very strong) VP=17.500Pa
+  - Linalool                     OAV=  1157.2 (very strong) VP=21.300Pa
+  - Cedrat FCF oil Sicilian      OAV=   952.9 (strong) VP=2.000Pa
+  - Dihydromyrcenol              OAV=   807.1 (strong) VP=17.000Pa
+  - Aldehyde C11                 OAV=    42.4 (moderate) VP=50.000Pa
+  ... and 8 more
+**HEART:** 20 mats, 33.0% active, 37.6% OAV
+  - Iso E Super                  OAV=  1289.9 (very strong) VP=0.150Pa
+  - Hedione HC                   OAV=  1231.7 (very strong) VP=0.089Pa
+  - Bergamot FCF oil Sicilian    OAV=   818.4 (strong) VP=2.500Pa
+  - Dihydrojasmone               OAV=   455.7 (strong) VP=7.660Pa
+  - Geraniol                     OAV=   432.8 (strong) VP=4.000Pa
+  - Ebanol                       OAV=   321.0 (strong) VP=0.890Pa
+  ... and 14 more
+**BASE:** 19 mats, 53.2% active, 9.1% OAV
+  - Javanol                      OAV=   312.8 (strong) VP=0.100Pa
+  - Azarbre                      OAV=   271.9 (strong) VP=4.300Pa
+  - Polysantol                   OAV=   247.0 (strong) VP=0.003Pa
+  - Vetikon                      OAV=   119.1 (strong) VP=4.160Pa
+  - Cedarwood EO                 OAV=   117.3 (strong) VP=0.250Pa
+  - Timberol                     OAV=    47.6 (moderate) VP=0.120Pa
+  ... and 13 more
+
+### Sub-threshold Materials (OAV < 1)
+3/53 materials below perceptible threshold
+  - Irotyl: OAV=0.82 VP=0.005Pa act=70uL role=Irotyl [Structural (acceptable)]
+  - Hexyl Salicylate: OAV=0.36 VP=0.050Pa act=200uL role=Hexyl Salicylate [Structural (acceptable)]
+  - Benzyl Benzoate: OAV=0.00 VP=0.001Pa act=150uL role=Benzyl Benzoate [Structural (acceptable)]
+
+### OAV by Odor Family
+
+            spice  22.9% ===========  (3 mats)
+            woody  22.9% ===========  (15 mats)
+         aromatic  17.3% ========  (4 mats)
+           floral  14.5% =======  (7 mats)
+           citrus  12.8% ======  (4 mats)
+             rose   3.1% =  (1 mats)
+            amber   2.1% =  (2 mats)
+       sandalwood   1.8% =  (1 mats)
+           muguet   1.1% =  (2 mats)
+            green   0.7% =  (2 mats)
+        aldehydic   0.4% =  (2 mats)
+          aquatic   0.1% =  (2 mats)
+             musk   0.1% =  (1 mats)
+         gourmand   0.1% =  (2 mats)
+                ?   0.0% =  (1 mats)
+           fruity   0.0% =  (1 mats)
+             iris   0.0% =  (1 mats)
+       salicylate   0.0% =  (1 mats)
+         fixative   0.0% =  (1 mats)
+
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Raw uL | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s | 13.8/33.0/53.2 |  31.35ppm |   6000 | Ginger EO(3137), Iso E Super(1290), Hedione HC(1232)
+| top          |    300s | 13.8/33.0/53.3 |  31.11ppm |   5992 | Ginger EO(3102), Iso E Super(1292), Hedione HC(1234)
+| heart        |   1800s | 13.5/33.0/53.5 |  29.97ppm |   5955 | Ginger EO(2931), Iso E Super(1301), Hedione HC(1243)
+| late_heart   |   7200s | 12.5/33.1/54.4 |  26.26ppm |   5833 | Ginger EO(2383), Iso E Super(1332), Hedione HC(1273)
+| drydown      |  14400s | 11.4/33.2/55.4 |  22.15ppm |   5698 | Ginger EO(1800), Iso E Super(1368), Hedione HC(1308)
+
+### Per-Window Detail
+
+**OPENING** (0.0s) — Evap:0%
+  T:13.8% H:33.0% B:53.2%  Vapor:31.35ppm
+  Leaders: Ginger EO OAV 3137 | Iso E Super OAV 1290 | Hedione HC OAV 1232 | Linalyl Acetate OAV 1225 | Linalool OAV 1157
+
+**TOP** (300.0s) — Evap:0%
+  T:13.8% H:33.0% B:53.3%  Vapor:31.11ppm
+  Leaders: Ginger EO OAV 3102 | Iso E Super OAV 1292 | Hedione HC OAV 1234 | Linalyl Acetate OAV 1218 | Linalool OAV 1146
+
+**HEART** (1800.0s) — Evap:1%
+  T:13.5% H:33.0% B:53.5%  Vapor:29.97ppm
+  Leaders: Ginger EO OAV 2931 | Iso E Super OAV 1301 | Hedione HC OAV 1243 | Linalyl Acetate OAV 1182 | Linalool OAV 1089
+
+**LATE_HEART** (7200.0s) — Evap:3%
+  T:12.5% H:33.1% B:54.4%  Vapor:26.26ppm
+  Leaders: Ginger EO OAV 2383 | Iso E Super OAV 1332 | Hedione HC OAV 1273 | Linalyl Acetate OAV 1058 | Cedrat FCF oil Sicilian OAV 919
+
+**DRYDOWN** (14400.0s) — Evap:5%
+  T:11.4% H:33.2% B:55.4%  Vapor:22.15ppm
+  Leaders: Ginger EO OAV 1800 | Iso E Super OAV 1368 | Hedione HC OAV 1308 | Linalyl Acetate OAV 909 | Cedrat FCF oil Sicilian OAV 881
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Ginger EO(very strong) + Linalyl Acetate(very strong) + Linalool(very strong)
+  Heart: Iso E Super(very strong) + Hedione HC(very strong)
+  Base: Javanol(strong) + Azarbre(strong) + Polysantol(strong) + Vetikon(strong) + Cedarwood EO(strong)
+
+### 2. Opening (0-5min)
+  Ginger EO dominates at OAV 3137 (very strong).
+  - Ginger EO OAV=3137 VP=10.0Pa (spice)
+  - Linalyl Acetate OAV=1225 VP=17.5Pa (aromatic)
+  - Linalool OAV=1157 VP=21.3Pa (aromatic)
+  - Cedrat FCF oil Sicilian OAV=953 VP=2.0Pa (citrus)
+  Total vapor: 31.3 ppm
+
+### 3. Heart (30min-2hr)
+  Ginger EO OAV=2931 (very strong)
+  Iso E Super OAV=1301 (very strong)
+  Hedione HC OAV=1243 (very strong)
+  Linalyl Acetate OAV=1182 (very strong)
+  T:13.5% H:33.0% B:53.5%
+  Vapor: 30.0 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base dominates at 55% of headspace
+  - Ginger EO OAV=1800
+  - Iso E Super OAV=1368
+  - Hedione HC OAV=1308
+  - Linalyl Acetate OAV=909
+  - Cedrat FCF oil Sicilian OAV=881
+  - Bergamot FCF oil Sicilian OAV=738
+  Vapor: 22.2 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Ginger EO(3137) + Iso E Super(1290) + Hedione HC(1232) + Linalyl Acetate(1225)
+  OAV by family: spice23% woody23% aromatic17% floral15%
+
+### 6. Longevity
+  Evaporation: 5% over 4h
+  Vapor: 31.3 > 22.2 ppm
+  Base @ drydown: 55%
+  Est. skin life: 8h moderate + 4h skin scent
+
+### 7. Balance
+  Pyramid: T:13.8% H:33.0% B:53.2%
+  OAV range: 0.00 to 3137 (sigma-log=1.21)
+  Wide contrast: citrus (OAV 3137) dominates opening before burning off to reveal base.
+    sub-threshold: 3
+
+### 8. Flags
+  SUB: Irotyl OAV=0.82 role=Irotyl
+  SUB: Hexyl Salicylate OAV=0.36 role=Hexyl Salicylate
+  SUB: Benzyl Benzoate OAV=0.00 role=Benzyl Benzoate
+
+
+## Structural OAV Analysis
+
+**Vapor:** 31 ppm  |  **Active:** 18.0%  |  **Perceptible:** 50/53
+
+### OAV Tiers
+  **massive** (5): Linalyl Acetate(1225), Linalool(1157), Ginger EO(3137), Hedione HC(1232), Iso E Super(1290)
+  **v.strong** (13): Bergamot FCF oil Sicilian(818), Cedrat FCF oil Sicilian(953), Dihydrojasmone(456), Alpha Isomethyl Ionone(199), Geraniol(433), Mayol(102), Dihydromyrcenol(807), Cedarwood EO(117), Vetikon(119), Azarbre(272), Polysantol(247), Ebanol(321), Javanol(313)
+  **strong** (4): Alpha Ionone(72), Cyclamen Aldehyde(52), Vetival(71), Scentenal(94)
+  **moderate** (14): Aldehyde C10(16), Aldehyde C11(42), Black Pepper EO(11), Jessemal(21), Cardamom EO(41), Basil EO (India, Ocimum Basilicum)(18), PEDMC(34), Helional(14), Vetiver EO(38), Timberol(48), Koavone(16), Ambrofix(19), Cashmeran(32), Romandolide(15)
+  **perceptible** (5): Allyl Ionone(5), Tonkarome(5), Coumarin(9), Sandalore(7), Benzyl Alcohol(8)
+  **threshold** (9): Lemonile(3), Citral(1), Ethyl Linalool(1), Terpinyl Acetate(2), Parmavert(3), Calone(4), Himalayan Cedarwood EO(1), Kephalis(1), Norlimbanol Dextro(1)
+  **sub** (3): Irotyl(1), Hexyl Salicylate(0), Benzyl Benzoate(0)
+
+### Block Balance
+  **Citrus**      957 (13%)
+  **Floral**     5227 (70%)
+  **Base**       1262 (17%)
+  **Ratio:** 5:1 between strongest/weakest block
+
+### Issues
+  ! 3 sub-threshold material(s): Irotyl, Hexyl Salicylate, Benzyl Benzoate

@@ -1,0 +1,93 @@
+{
+  "schema_version": "complexity_replacement_benchmark_cases_v5",
+  "predecessor_corpus": "complexity_replacement_benchmark_cases_v4.json",
+  "predecessor_corpus_sha256": "7bc2f5168d4a1493297242d7542fa719e26898e6cf971f4a74566feb66b841fc",
+  "state_taxonomy": {
+    "architectural_delta": ["PROPOSED", "NO_CHANGE", "HOLD"],
+    "temporal_sensory_ledger": ["COMPLETE", "INCOMPLETE", "HOLD"],
+    "hedonic_preference_learner": ["VALIDATED", "WITHHELD", "DIAGNOSTIC"]
+  },
+  "module_packet_overrides": {
+    "architectural_delta": {
+      "operating_contract_append": [
+        "Apply this precedence: HOLD for target inversion, unresolved lineage, or unsupported n-ary claims; otherwise NO_CHANGE when no target function is missing; otherwise PROPOSED only for one nonredundant isolated delta.",
+        "Report the native state exactly as PROPOSED, NO_CHANGE, or HOLD and keep one constant-total next comparison at most."
+      ],
+      "evidence_refs_append": ["architectural-delta-native-state-procedure-v1"]
+    },
+    "temporal_sensory_ledger": {
+      "operating_contract_append": [
+        "Use COMPLETE only for unique, scope-matched observed cells that resolve the declared temporal endpoint; use INCOMPLETE for a nonconflicting missing-cell pattern; use HOLD for conflicting duplicates, order or scope confounding, safety incidents, or unqualified within-sniff timing.",
+        "Report the native state exactly as COMPLETE, INCOMPLETE, or HOLD; a resolved observed transition is COMPLETE even when no further comparison is warranted."
+      ],
+      "evidence_refs_append": ["temporal-ledger-native-state-procedure-v1"]
+    },
+    "hedonic_preference_learner": {
+      "operating_contract_append": [
+        "Use VALIDATED only when criterion scope, graph connectivity, order control, assessor-level uncertainty, and held-out baseline all pass; use WITHHELD when evidence cannot identify directional utilities; use DIAGNOSTIC when a measurable confound or scope crossover must be reported without promotion.",
+        "Report the native state exactly as VALIDATED, WITHHELD, or DIAGNOSTIC and never use a recommendation for more data as evidence that the current fit is valid."
+      ],
+      "evidence_refs_append": ["hedonic-preference-native-state-procedure-v1"]
+    }
+  },
+  "case_overrides": [
+    {
+      "case_id": "AUG-ARC-S01",
+      "expected_decision": "PROPOSED: select the sole nonredundant root-to-wood bridge as one constant-total isolated arm.",
+      "objective_expected_state": "PROPOSED",
+      "facts": [
+        "The target requires iris recognition, root texture, dry wood body, mineral residue, and continuous root-to-wood linkage.",
+        "Current coverage scores on a 0-to-3 scale are iris 3, root 3, dry wood 3, mineral residue 3, and root-to-wood linkage 1.",
+        "Candidate A supplies root-to-wood linkage with redundancy overlap 0.1; candidate B supplies sweet amber residue with overlap 0.9; candidate C supplies sweet amber residue with overlap 0.8.",
+        "Only one intervention may be selected and total quantity must remain constant."
+      ],
+      "evidence_payload": {
+        "missing_function_threshold": 2,
+        "redundancy_rejection_threshold": 0.75,
+        "candidate_count_before_filter": 3,
+        "candidates": [
+          {"candidate": "A", "target_function": "ROOT_TO_WOOD_LINKAGE", "redundancy_overlap": 0.1},
+          {"candidate": "B", "target_function": "SWEET_AMBER_RESIDUE", "redundancy_overlap": 0.9},
+          {"candidate": "C", "target_function": "SWEET_AMBER_RESIDUE", "redundancy_overlap": 0.8}
+        ]
+      }
+    },
+    {"case_id": "AUG-ARC-S02", "expected_decision": "NO_CHANGE: all target functions are covered and count adds no evidence.", "objective_expected_state": "NO_CHANGE"},
+    {"case_id": "AUG-ARC-S03", "expected_decision": "HOLD: reject the target-inverting Neroli-primary arm.", "objective_expected_state": "HOLD"},
+    {"case_id": "AUG-ARC-C01", "expected_decision": "PROPOSED computationally while physical addition remains unauthorized.", "objective_expected_state": "PROPOSED"},
+    {"case_id": "AUG-ARC-C02", "expected_decision": "NO_CHANGE: keep the single precise musk.", "objective_expected_state": "NO_CHANGE"},
+    {"case_id": "AUG-ARC-C03", "expected_decision": "HOLD: the explicit Tonalide exception still requires four isolated n-ary arms.", "objective_expected_state": "HOLD"},
+    {
+      "case_id": "AUG-TEM-S01",
+      "expected_decision": "COMPLETE: report the directly observed median transition with no further comparison.",
+      "objective_expected_state": "COMPLETE",
+      "facts": [
+        "The design requires four unique assessor cells at 60 seconds and four at 1800 seconds for endpoint DEPTH under one protocol and schedule hash.",
+        "Observed values at 60 seconds are 2, 3, 3, and 4; observed values at 1800 seconds are 5, 5, 6, and 6.",
+        "All eight canonical cells are present once, both scopes match, presentation order is balanced, and the declared disagreement threshold is not exceeded.",
+        "The declared question is only whether observed median dry-wood depth changes between the two timepoints."
+      ]
+    },
+    {"case_id": "AUG-TEM-S02", "expected_decision": "INCOMPLETE: preserve the one absent canonical cell without interpolation.", "objective_expected_state": "INCOMPLETE"},
+    {"case_id": "AUG-TEM-S03", "expected_decision": "HOLD: preserve the conflicting duplicate records and provenance.", "objective_expected_state": "HOLD"},
+    {"case_id": "AUG-TEM-C01", "expected_decision": "HOLD: order and carryover are unresolved.", "objective_expected_state": "HOLD"},
+    {"case_id": "AUG-TEM-C02", "expected_decision": "HOLD: protocol, endpoint, and schedule scopes cannot be pooled.", "objective_expected_state": "HOLD"},
+    {"case_id": "AUG-TEM-C03", "expected_decision": "HOLD: within-sniff timing is unqualified and prediction is not perception.", "objective_expected_state": "HOLD"},
+    {"case_id": "AUG-HED-S01", "expected_decision": "VALIDATED for DEPTH only with tie-aware clustered uncertainty and one next pair.", "objective_expected_state": "VALIDATED"},
+    {"case_id": "AUG-HED-S02", "expected_decision": "WITHHELD: no global utilities until one bridge pair connects the graph.", "objective_expected_state": "WITHHELD"},
+    {"case_id": "AUG-HED-S03", "expected_decision": "DIAGNOSTIC: report perfect first-position confounding and withhold directional liking.", "objective_expected_state": "DIAGNOSTIC"},
+    {"case_id": "AUG-HED-C01", "expected_decision": "WITHHELD: complete ties establish indifference but no directional utility.", "objective_expected_state": "WITHHELD"},
+    {"case_id": "AUG-HED-C02", "expected_decision": "DIAGNOSTIC: preserve the time-specific preference crossover.", "objective_expected_state": "DIAGNOSTIC"},
+    {"case_id": "AUG-HED-C03", "expected_decision": "WITHHELD: split leakage and baseline failure block validation.", "objective_expected_state": "WITHHELD"}
+  ],
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

@@ -1,0 +1,443 @@
+{
+  "record_schema": "creative_formula_candidate_v1",
+  "record_id": "GIN-VETIVER-CYPRESS-AIR-30ML-V3-20260908",
+  "name": "Gin Vetiver - Cypress Air",
+  "version": 3,
+  "created_date_local": "2026-09-08",
+  "operating_mode": "CREATIVE_FORMULATION",
+  "status": "FULL_SIZE_NUMERICALLY_VERIFIED_DEVELOPMENT_COMPOSITION_NOT_SKIN_RELEASED",
+  "physical_batch_status": "NOT_COMPOUNDED_BY_ASSISTANT_NO_USER_MIX_CONFIRMATION",
+  "sensory_status": "NOT_TESTED",
+  "safety_status": "HOLD_PRODUCT_SPECIFIC_FINISHED_PRODUCT_ASSESSMENT",
+  "user_direction": "Develop the fuller perfume now at the existing 30 mL scale, without a seven-material cap or mandatory 10 mL trial. Gin and vetiver central, cypress light. Latest correction explicitly permits Hedione, excludes jasmine accords, and selects citrus character for the middle.",
+  "batch_size_authority": "EXISTING_30ML_SCALE_RETAINED_IN_RESPONSE_TO_USER_REJECTION_OF_MANDATORY_10ML_TRIAL",
+  "target_ideal": "Dry gin and bitter peel, developing into a citrus-leaf middle with transparent support, then recognizable Indian vetiver framed by smooth wood and restrained cedar. Cypress and one musk remain accents.",
+  "current_inventory_build": "Ten exact current neat/as-supplied fragrance stocks. Add Iso E Super, Cedarwood Virginia and Petitgrain EO Paraguay; retain Hedione under the user's explicit correction. No jasmine accord. Remaining physical quantities and lot condition are not measured.",
+  "design_review": {
+    "change_classification": "BOUNDED_FULLER_CITRUS_MIDDLE_SUCCESSOR",
+    "user_authorization": "User requested immediate further development, rejected the mandatory small trial and seven-material constraint, explicitly permitted Hedione and excluded jasmine accords, then proposed citrus character in the middle.",
+    "independent_review": "Native Sol botanical-heart review and Astra Max woody-body review both supported Hedione plus a Petitgrain-led citrus-leaf middle with Iso E Super, Indian vetiver and restrained Virginia cedar; Clary Sage omitted under the latest preference.",
+    "parent_selection": "One ten-material formulation. Hedione supplies transparent support, Iso E Super woody fullness, Petitgrain the citrus-leaf middle, and a small Virginia cedar allocation gives wood texture. No fixed ingredient count or score-driven additions.",
+    "dose_rationale": "New parent-selected formulation hypothesis, not derived from supplier use-level maxima or optimized/physically measured potency. Raw fragrance subtotal and carrier remain constant. Some Hedione, vetiver, grapefruit and coriander allocation is redistributed to the three additions; juniper, cypress and Zenolide remain unchanged.",
+    "physical_or_safety_authority_delegated": false
+  },
+  "inventory_evidence": {
+    "inventory_path": "inventory.txt",
+    "inventory_raw_sha256_at_stock_check": "d6f7ff5389fbd5e807b98fee3ce6a87ce2c70dd6253b26a82f49a0872da42369",
+    "verification_method": "Full live inventory read and materialize_current_inventory with current supported successor overlays, followed by explicit stock-ID, fraction, basis and carrier verification.",
+    "current_successor": "data/governance/inventory_user_authority_overlay_20260908_romandolide.json",
+    "basis": "V5 identifiers below remain stable identities carried through current successor corrections; they do not revert availability.",
+    "sync_action": "NO_INVENTORY_OR_AUTHORITY_PIN_CHANGE"
+  },
+  "nominal_batch_ul": 30000,
+  "nominal_fragrance_stock_subtotal_ul": 3600,
+  "nominal_fragrance_stock_volume_fraction": 0.12,
+  "exact_finished_volume_ml": null,
+  "exact_finished_mass_g": null,
+  "exact_active_ppm_ww": null,
+  "volume_model": "Sum of nominal dispensed raw volumes. Non-additivity and transfer losses are not measured; not exact final volumetric-flask volume.",
+  "ingredients": [
+    {
+      "step": 1,
+      "basket": 1,
+      "basket_category": "Always used",
+      "material": "Hedione",
+      "raw_ul": 600,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:0f9d7e0971aad1594be4",
+      "inventory_identity": "Hedione",
+      "source_ref": "Current Inventory Master!A129:N129",
+      "intended_role": "Transparent support around the citrus-leaf middle. Explicitly permitted by user; not an assembled jasmine accord or an odorless ingredient."
+    },
+    {
+      "step": 2,
+      "basket": 1,
+      "basket_category": "Always used",
+      "material": "Iso E Super",
+      "raw_ul": 600,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:66c8443970c7354dd89a",
+      "inventory_identity": "Iso E Super",
+      "source_ref": "Current Inventory Master!A140:N140",
+      "intended_role": "Rounded woody body joining the botanical middle to vetiver; not an odorless filler or a guaranteed performance improvement."
+    },
+    {
+      "step": 3,
+      "basket": 2,
+      "basket_category": "Vetivers",
+      "material": "Vetiver EO (India)",
+      "raw_ul": 550,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:user-20260904:20f36a0658891ff50ea4",
+      "inventory_identity": "Vetiver EO (India)",
+      "source_ref": "data/governance/inventory_user_authority_overlay_20260904.json#INV-USER-20260904-004",
+      "intended_role": "Defining dry root-wood subject. Inventory text Indian Vetiver EO (volume grade); grade is not dilution.",
+      "inventory_text_label": "Indian Vetiver EO (volume grade)"
+    },
+    {
+      "step": 4,
+      "basket": 3,
+      "basket_category": "Woods",
+      "material": "Cedarwood Virginia",
+      "raw_ul": 100,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:61deb2ebba56d82eb870",
+      "inventory_identity": "Cedarwood Virginia",
+      "source_ref": "Current Inventory Master!A64:N64",
+      "intended_role": "Restrained cedar grain beside the smoother wood support and vetiver; secondary, not a creamy multiwood base."
+    },
+    {
+      "step": 5,
+      "basket": 3,
+      "basket_category": "Woods",
+      "material": "Cypress EO",
+      "raw_ul": 30,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:user-20260830:6db445a212d6344de07c",
+      "inventory_identity": "Cypress EO",
+      "source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260830-002",
+      "intended_role": "Unchanged light dry-green accent; juniper and vetiver remain the subjects."
+    },
+    {
+      "step": 6,
+      "basket": 6,
+      "basket_category": "Musks",
+      "material": "Zenolide",
+      "raw_ul": 250,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:3fec3fbd1ff43a62aac7",
+      "inventory_identity": "Zenolide",
+      "source_ref": "Current Inventory Master!A252:N252",
+      "intended_role": "Unchanged single restrained musk; fruit coloration and softening remain sensory uncertainties."
+    },
+    {
+      "step": 7,
+      "basket": 13,
+      "basket_category": "Edible spices",
+      "material": "Juniper Berry EO",
+      "raw_ul": 800,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:44479b1b43ba8def3143",
+      "inventory_identity": "Juniper Berry EO",
+      "source_ref": "Current Inventory Master!A152:N152",
+      "intended_role": "Unchanged principal gin-botanical identity; not juniper needle, wood or cade.",
+      "basket_assignment_authority": "Gin-botanical category placement retained from v2; physical shelf location not separately recorded"
+    },
+    {
+      "step": 8,
+      "basket": 13,
+      "basket_category": "Edible spices",
+      "material": "Coriander Seed EO",
+      "raw_ul": 50,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:8f24d01cce6349e9cf63",
+      "inventory_identity": "Coriander Seed EO",
+      "source_ref": "Current Inventory Master!A83:N83",
+      "intended_role": "Restrained aromatic seed detail, not coriander leaf oil.",
+      "inventory_text_label": "Coriander Essential Oil"
+    },
+    {
+      "step": 9,
+      "basket": 15,
+      "basket_category": "Fruits",
+      "material": "Grapefruit FCF oil Sicilian",
+      "raw_ul": 420,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:52a88f156b00633a842d",
+      "inventory_identity": "Grapefruit FCF Oil Sicilian",
+      "source_ref": "Current Inventory Master!A123:N123",
+      "intended_role": "Exact Sicilian FCF stock supplies bitter peel in the opening and intended continuity into the citrus middle."
+    },
+    {
+      "step": 10,
+      "basket": 15,
+      "basket_category": "Fruits",
+      "material": "Petitgrain EO Paraguay",
+      "raw_ul": 200,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:user-20260830:58a38808d9e8d907730c",
+      "inventory_identity": "Petitgrain EO Paraguay",
+      "source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260830-006",
+      "intended_role": "Primary citrus-leaf middle character, connecting peel and gin botanicals to the woody drydown; not a promise of persistent grapefruit.",
+      "basket_assignment_authority": "Saved category names and existing citrus/petitgrain card practice; physical shelf location not separately verified"
+    }
+  ],
+  "diluent": {
+    "material": "Ethanol 96%",
+    "raw_ul": 26400,
+    "stock_authority": "Owned perfume-suitable stock as supplied, retained unchanged from v2",
+    "stock_fraction_basis": "SUPPLIED_96_PERCENT_LABEL_BASIS_NOT_SEPARATELY_ESTABLISHED",
+    "exact_pure_ethanol_volume_ul": null,
+    "exact_water_volume_ul": null
+  },
+  "excluded_this_version": [
+    "Jasmine accords, absolutes and bases",
+    "Benzyl acetate addition",
+    "Clary Sage EO",
+    "Hexyl Salicylate",
+    "Clearwood",
+    "Vertofix",
+    "Additional musks",
+    "Romandolide (depleted)",
+    "Coffee",
+    "Ginger",
+    "Magnolia",
+    "Orris",
+    "Resin tinctures",
+    "Vetiveryl Acetate",
+    "Bergamot FCF",
+    "Linalyl Acetate",
+    "Terpinyl Acetate",
+    "Sweet creamy multiwood base"
+  ],
+  "hedione_boundary": "Hedione is explicitly allowed; do not label the composition jasmine-free or Hedione odorless. No jasmine accord is assembled.",
+  "comparison_policy": "One full 30 mL nominal composition. No no-cypress variant, mandatory paired comparison, or mandatory 10 mL prerequisite.",
+  "prior_formula_policy": "New-bottle formulation, not positive-only additions or a correction to an already mixed v2 bottle. Preserve earlier versions unchanged as history.",
+  "quantitative_claim_ceiling": "Nominal raw-volume formulation. Exact mass and ppm w/w unavailable; model OAV is an estimated active-concentrate diagnostic, not a measured odor contribution or safety clearance.",
+  "physical_action_limits": "No skin-use, distribution or commercial-release authority implied. Product-specific finished-product review and actual sensory/stability results remain separate.",
+  "lineage": {
+    "immediate_parent": "formulas/Gin_Vetiver_Cypress_Air_30mL_v2.md",
+    "parent_record": "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v2.json",
+    "parent_markdown_raw_sha256": "d62184dfede5f633c94978712c094ecbb3189a5113ce1fca4c25965f0bbf1f0e",
+    "parent_record_raw_sha256": "e461b850dec9718b7e31c86c63ac5be72a7705271bca008cb91ea2c7c262645d",
+    "raw_volume_changes": [
+      {
+        "material": "Hedione",
+        "parent_raw_ul": 1250,
+        "new_raw_ul": 600,
+        "delta_ul": -650,
+        "classification": "INTENTIONAL_RAW_DOSE_REBALANCE"
+      },
+      {
+        "material": "Iso E Super",
+        "parent_raw_ul": 0,
+        "new_raw_ul": 600,
+        "delta_ul": 600,
+        "classification": "ADDED_DISTINCT_MATERIAL"
+      },
+      {
+        "material": "Vetiver EO (India)",
+        "parent_raw_ul": 650,
+        "new_raw_ul": 550,
+        "delta_ul": -100,
+        "classification": "INTENTIONAL_RAW_DOSE_REBALANCE"
+      },
+      {
+        "material": "Cedarwood Virginia",
+        "parent_raw_ul": 0,
+        "new_raw_ul": 100,
+        "delta_ul": 100,
+        "classification": "ADDED_DISTINCT_MATERIAL"
+      },
+      {
+        "material": "Cypress EO",
+        "parent_raw_ul": 30,
+        "new_raw_ul": 30,
+        "delta_ul": 0,
+        "classification": "UNCHANGED"
+      },
+      {
+        "material": "Zenolide",
+        "parent_raw_ul": 250,
+        "new_raw_ul": 250,
+        "delta_ul": 0,
+        "classification": "UNCHANGED"
+      },
+      {
+        "material": "Juniper Berry EO",
+        "parent_raw_ul": 800,
+        "new_raw_ul": 800,
+        "delta_ul": 0,
+        "classification": "UNCHANGED"
+      },
+      {
+        "material": "Coriander Seed EO",
+        "parent_raw_ul": 70,
+        "new_raw_ul": 50,
+        "delta_ul": -20,
+        "classification": "INTENTIONAL_RAW_DOSE_REBALANCE"
+      },
+      {
+        "material": "Grapefruit FCF oil Sicilian",
+        "parent_raw_ul": 550,
+        "new_raw_ul": 420,
+        "delta_ul": -130,
+        "classification": "INTENTIONAL_RAW_DOSE_REBALANCE"
+      },
+      {
+        "material": "Petitgrain EO Paraguay",
+        "parent_raw_ul": 0,
+        "new_raw_ul": 200,
+        "delta_ul": 200,
+        "classification": "ADDED_DISTINCT_MATERIAL"
+      }
+    ],
+    "retained_stock_ids_fractions_bases_carriers_unchanged": true,
+    "ethanol_raw_ul_unchanged": true,
+    "fragrance_stock_subtotal_unchanged": true,
+    "active_equivalence_between_distinct_molecules": "NOT_CLAIMED"
+  },
+  "verification_result": {
+    "date_local": "2026-09-08",
+    "status": "NUMERICAL_DESIGN_AND_STOCKS_VERIFIED_NOT_SENSORY_OR_SKIN_RELEASED",
+    "exact_current_stock_id_fraction_basis_carrier_binding": "PASS_10_OF_10",
+    "parser_roundtrip": "PASS",
+    "basket_order_and_minimum_raw_transfer": "PASS_BASKET_FIRST_30_UL_MINIMUM",
+    "nominal_volume_arithmetic": "PASS_3600_PLUS_26400_EQUALS_30000_UL",
+    "brief_constraints": {
+      "hedione_retained": true,
+      "jasmine_accord_added": false,
+      "clary_sage_added": false,
+      "ten_fragrance_materials": true,
+      "full_size_30ml_nominal": true,
+      "mandatory_10ml_prerequisite": false,
+      "cypress_unchanged_30ul": true,
+      "juniper_unchanged_800ul": true,
+      "zenolide_unchanged_250ul": true
+    },
+    "immediate_parent_guard": {
+      "status": "PASS",
+      "detail": "Dose lineage is continuous and no modeled OAV anomaly crossed the G15 review thresholds.",
+      "data_keys": [
+        "gate_id",
+        "evidence_class",
+        "hard_gate_authority",
+        "oav_release_authority",
+        "child_formula_hash",
+        "oav_interpretation",
+        "declared_parent_formula_uid",
+        "authorized_active_dose_changes",
+        "supplied_parent_formula_uid",
+        "parent_formula_hash",
+        "parent_g15_dilutions",
+        "child_g15_dilutions",
+        "pre_mix_guard"
+      ],
+      "guard_keys": [
+        "status",
+        "parent_comparison_available",
+        "temporal_comparison_available",
+        "findings",
+        "limitations"
+      ],
+      "parent_comparison_available": true,
+      "temporal_comparison_available": true,
+      "findings": []
+    },
+    "focused_regressions": {
+      "passed": 26,
+      "failed": 0,
+      "warning_count": 840,
+      "warning_class": "Existing pytest_asyncio Python deprecation warnings",
+      "command": ".venv/Scripts/python.exe -X utf8 -B -m pytest tests/test_inventory_romandolide_depleted_2026_09_08.py tests/test_gin_vetiver_natural_profile_resolution.py tests/test_pre_mix_guard.py -q",
+      "full_repository_suite_run": false
+    },
+    "pipeline_overall": "FAIL",
+    "pipeline_counts": {
+      "FAIL": 2,
+      "PASS": 109,
+      "WARN": 36,
+      "SKIP": 1
+    },
+    "pipeline_failures": [
+      "Whole-oil ODT inputs still missing for Coriander Seed EO and Grapefruit FCF Oil Sicilian despite partial natural constituent models.",
+      "Combined model confidence 16.9 remains below the configured minimum of 25."
+    ],
+    "artifact_binding": "CURRENT_NO_INTEGRITY_OR_STALE_ISSUES_AT_PARENT_CHECK",
+    "pipeline_evidence": "output/gin_vetiver_cypress_air_v3_20260908_citrus_middle_pipeline.json",
+    "formatted_diagnostic": "output/gin_vetiver_cypress_air_v3_20260908_citrus_middle_analysis.md",
+    "verification_receipt": "output/gin_vetiver_cypress_air_v3_20260908_verification.json",
+    "protected_files_unchanged": {
+      "inventory.txt": true,
+      "engine/inventory_parser.py": true,
+      "engine/name_utils.py": true,
+      "engine/pipeline/natural_absolute_decomposition.py": true,
+      "data/knowledge_graph/material_properties.json": true,
+      "formulas/Gin_Vetiver_Cypress_Air_30mL_v2.md": true,
+      "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v2.json": true
+    },
+    "remaining_limitations": [
+      "No measured sensory or stability result.",
+      "No skin-use, distribution or commercial release; finished-product safety review incomplete.",
+      "Exact active mass and ppm w/w unavailable; finished ethanol/water matrix omitted from the diagnostic.",
+      "Grapefruit generic warning retains unsupported furocoumarin assumption and wrong concentrate-versus-finished basis.",
+      "Cedar receptor warning is a hard-coded concentration screening heuristic, not independently verified regulatory authority; its loop uses concentrate volume share.",
+      "Zenolide modeled properties conflict with manufacturer reference; low model OAV is not established imperceptibility.",
+      "Legacy stock side-consumer warns about Indian vetiver and Virginia cedar despite exact current stock bindings passing; no substitution was adopted.",
+      "Structural floral block, fixed note labels, ingredient-count advice and price-based complexity claims are not adopted sensory evidence."
+    ],
+    "parent_decision": "ACCEPT_ONE_FULL_SIZE_CITRUS_MIDDLE_DEVELOPMENT_COMPOSITION; KEEP_HEDIONE; NO_JASMINE_ACCORD; PRESERVE_PRIOR_VERSIONS; NO_SKIN_RELEASE",
+    "release_authority": false,
+    "sensory_authority": "NOT_AUTHORIZED_NOT_MEASURED"
+  },
+  "primary_material_sources": [
+    {
+      "material": "Hedione",
+      "url": "https://studio.dsm-firmenich.com/product/hedioner-pe-964898",
+      "source_role": "Manufacturer odor/role reference, not owned-lot analysis",
+      "retrieved_date": "2026-09-08"
+    },
+    {
+      "material": "Iso E Super",
+      "url": "https://www.iff.com/scent/ingredients-compendium/iso-e-super/",
+      "source_role": "Manufacturer odor/role reference, not a regulatory maximum or formula ratio",
+      "retrieved_date": "2026-09-08"
+    },
+    {
+      "material": "Petitgrain EO Paraguay",
+      "url": "https://www.edenbotanicals.com/petitgrain-bigarade-paraguay-organic.html",
+      "source_role": "Material-type odor reference only; owned stock is Aroma&More, not the Eden lot",
+      "retrieved_date": "2026-09-08"
+    },
+    {
+      "material": "Cedarwood Virginia",
+      "url": "https://berjeinc.com/products/cedarwood-oils/",
+      "source_role": "Supplier material-type reference; search-indexed primary content verified, direct retrieval returned 404; not owned-lot assessment",
+      "retrieved_date": "2026-09-08"
+    },
+    {
+      "material": "Clary Sage EO (not selected)",
+      "url": "https://www.edenbotanicals.com/clary-sage-organic.html",
+      "source_role": "Explains aromatic tea/tobacco direction excluded from this citrus-middle design",
+      "retrieved_date": "2026-09-08"
+    },
+    {
+      "material": "Zenolide",
+      "url": "https://www.iff.com/scent/ingredients-compendium/zenolide/",
+      "source_role": "Manufacturer identity/odor reference; unresolved model-property discrepancy retained",
+      "retrieved_date": "2026-09-08"
+    },
+    {
+      "material": "Grapefruit FCF oil Sicilian",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=7CA24030",
+      "source_role": "User-specified exact supplier Sicilian furocoumarin-free product",
+      "retrieved_date": "2026-09-08"
+    },
+    {
+      "material": "Coriander Seed EO",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=7SL00125",
+      "source_role": "User-specified supplier essential oil, explicitly seed",
+      "retrieved_date": "2026-09-08"
+    }
+  ]
+}

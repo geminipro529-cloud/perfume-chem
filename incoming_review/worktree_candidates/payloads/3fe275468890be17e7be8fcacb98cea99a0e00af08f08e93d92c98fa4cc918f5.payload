@@ -1,0 +1,134 @@
+{
+  "schema_version": "unified_import_br540_successor_v1",
+  "manifest_id": "UNIFIED-IMPORT-BR540-EDP-SUCCESSOR-20260904",
+  "created_date": "2026-09-04",
+  "instruction_authority": {
+    "source_agents_md": {
+      "path": "D:\\chatbots\\perfume-chem\\AGENTS.md",
+      "size_bytes": 48342,
+      "sha256": "b51003ce8872af0f4f554b80455e02ef911fe65521a0afaf465e219d5b756f07"
+    },
+    "destination_agents_md": {
+      "path": "D:\\chatbots\\perfume-chem-unified-package\\AGENTS.md",
+      "size_bytes": 49338,
+      "sha256": "fbc6b27cec71c977bfcac0a26adb79493147f7312337f48638d9dd7bf0634ac9"
+    },
+    "provider_policy": "OPENAI_CHATGPT_CODEX_NATIVE_ONLY"
+  },
+  "source": {
+    "worktree": "D:\\chatbots\\perfume-chem",
+    "branch": "codex/add-inventory-materials",
+    "observed_head": "e7002d4dacde0ae4c6b92db454fa4034c830e8f4",
+    "worktree_dirty": true,
+    "porcelain_entry_count": 91,
+    "scoped_git_status": {
+      "formulas/Rouge_Cristal_BR540_EDP_Hedonic_Test_First_30mL_v1.md": "??"
+    },
+    "scope_note": "The source formula was untracked in a broadly dirty user-owned worktree. This manifest binds the exact observed working-tree bytes, not a committed source snapshot. The source worktree was not modified."
+  },
+  "destination": {
+    "worktree": "D:\\chatbots\\perfume-chem-unified-package",
+    "branch": "codex/unified-perfume-intelligence-package",
+    "base_commit": "4a0e5b8b302595a7bf21f50e4bfa7fa11592571e",
+    "pre_import_worktree_dirty": true,
+    "pre_import_porcelain_entry_count": null,
+    "porcelain_count_note": "Not captured atomically because other leased agents were writing unrelated destination paths concurrently.",
+    "scope_note": "The formula path was absent before import. The destination contained extensive unrelated concurrent work; this lane wrote only the formula, this manifest, and its focused provenance test."
+  },
+  "transfer_policy": {
+    "add_only": true,
+    "formula_copied_byte_exact": true,
+    "formula_rewritten": false,
+    "formula_semantics_reinterpreted": false,
+    "source_untouched": true,
+    "unrelated_source_changes_imported": false,
+    "shared_engine_inventory_or_gate_files_changed": false,
+    "pipeline_run_performed": false,
+    "staged": false,
+    "committed": false,
+    "pushed": false
+  },
+  "files": [
+    {
+      "source_path": "formulas/Rouge_Cristal_BR540_EDP_Hedonic_Test_First_30mL_v1.md",
+      "destination_path": "formulas/Rouge_Cristal_BR540_EDP_Hedonic_Test_First_30mL_v1.md",
+      "source_size_bytes": 12465,
+      "destination_size_bytes": 12465,
+      "source_sha256": "f3d87d0200a81ce60e06155fa45fc77b413100caedc7ae7aa73c54ddaa46d140",
+      "destination_sha256": "f3d87d0200a81ce60e06155fa45fc77b413100caedc7ae7aa73c54ddaa46d140",
+      "source_destination_match": true,
+      "adapted_in_destination": false
+    }
+  ],
+  "lineage": {
+    "superseded_predecessor": "formulas/Rouge_Cristal_Extrait_Hedonic_Test_First_30mL_v1.md",
+    "predecessor_already_present_in_destination": true,
+    "predecessor_source_destination_match": true,
+    "predecessor_size_bytes": 18974,
+    "predecessor_sha256": "fce9c95911c8229c660e5e3ef36ca28108db2c6837b7c3e5ce9328ff2b274162",
+    "source_unique_companion_tests_found": 0,
+    "source_unique_companion_manifests_found": 0,
+    "successor_status": "COMPUTATIONAL_CANDIDATE_BLOCKED_INVENTORY_AUTHORITY_HOLD_NOT_SENSORY_TESTED_NOT_RELEASED"
+  },
+  "current_inventory_authority": {
+    "inventory_path": "inventory.txt",
+    "inventory_size_bytes": 21533,
+    "inventory_sha256": "68acd5b325b2fa4fe56d6cac7e3e22598ecd82d88efcd5ae435d1bb91527b7e1",
+    "formula_stock_mismatch": {
+      "material": "Evernyl",
+      "formula_declared_stock": "20% w/w in DPG",
+      "current_owned_working_stock": "10% w/w in DEP",
+      "historical_formula_stock_disposition": "SUPERSEDED_PROVENANCE_ONLY",
+      "execution_disposition": "HOLD_NO_SILENT_REBASE"
+    },
+    "other_unresolved_stock_authority": [
+      "Ethyl Maltol 10% carrier and concentration basis",
+      "Ethyl Safranate 10% carrier and concentration basis",
+      "Ambrox Super mixed-carrier mass fraction to volumetric dose translation",
+      "exact stock densities and batch masses needed for authoritative w/w ppm"
+    ]
+  },
+  "scientific_status": {
+    "formula_class": "CONTROLLED_SENSORY_SCREEN_DESIGN",
+    "current_inventory_build_executable": false,
+    "release_status": "HOLD",
+    "fresh_pipeline": "NOT_RUN_BY_IMPORT_POLICY",
+    "pipeline_analysis": "NOT_AVAILABLE",
+    "headspace_oav": "NOT_TESTED",
+    "temporal_oav": "NOT_TESTED",
+    "ifra_allergen_review": "NOT_TESTED",
+    "physical_compounding": "NOT_AUTHORIZED",
+    "sensory_evaluation": "NOT_TESTED",
+    "hedonic_result": "NOT_TESTED",
+    "reference_similarity": "NOT_TESTED",
+    "stability": "NOT_TESTED",
+    "performance": "NOT_TESTED"
+  },
+  "verification": {
+    "command": "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe -m pytest tests\\test_unified_import_br540_successor_20260904.py -q",
+    "status": "PASS",
+    "result": "4 passed",
+    "passed": true,
+    "claim_ceiling": "A focused provenance PASS validates file identity and HOLD metadata only; it cannot establish formula correctness, current stock executability, sensory liking, BR540 similarity, safety, stability, performance, or release."
+  },
+  "authority": {
+    "formula_mutation_authorized": false,
+    "physical_execution_authorized": false,
+    "compounding_authorized": false,
+    "procurement_authorized": false,
+    "sensory_authority": false,
+    "hedonic_authority": false,
+    "similarity_authority": false,
+    "performance_authority": false,
+    "safety_authority": false,
+    "stability_authority": false,
+    "release_authority": false
+  },
+  "exclusions": [
+    "the sibling Rouge Cristal Extrait file because the exact predecessor was already present byte-identically",
+    "all unrelated tracked and untracked source-worktree changes",
+    "all shared engine, inventory, family, gate, optimizer, and backend changes",
+    "all source credentials, caches, generated outputs, local configuration, staging, commits, and pushes",
+    "formula revision, stock rebase, pipeline execution, physical compounding, procurement, and release"
+  ]
+}

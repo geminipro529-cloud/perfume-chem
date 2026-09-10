@@ -1,0 +1,1009 @@
+"""Target-neutral formula compatibility for the unified thirteen-plane runtime.
+
+This module preserves the useful formula-facing shape of the historical 6155
+``DeepPlaneCheckConfig``, ``run_deep_plane_check``, and
+``evaluate_deep_plane_gate`` entry points.  It does not import or execute the
+historical runtime.  Instead it:
+
+* binds an existing formula record and its modeled time series to one exact,
+  target-neutral scope;
+* constructs all thirteen unified :class:`PlaneAssessment` values;
+* executes :func:`execute_deep_plane_runtime_candidate`; and
+* projects the current pre-mix guard's exact ``FAIL``/``WARN``/``PASS`` status.
+
+The projection is deliberately non-promoting.  A ``PASS`` means only that the
+current dose-lineage and modeled-OAV screening guard found no configured
+anomaly.  It is not evidence of smell, identity, liking, similarity, safety,
+stability, physical performance, compounding success, or release readiness.
+"""
+
+from __future__ import annotations
+
+import json
+import math
+import re
+from collections.abc import Mapping, Sequence
+from dataclasses import dataclass
+from hashlib import sha256
+from pathlib import Path
+from typing import Any
+
+from engine.fuckups.pre_mix_guard import PreMixGuardReport, evaluate_pre_mix_guard
+
+from .contracts import (
+    AssessmentScope,
+    AuthorityCeiling,
+    ClaimKind,
+    EvidenceClass,
+    PlaneAssessment,
+    PlaneId,
+    ProvenanceRef,
+    ScopedClaim,
+    UnknownFact,
+)
+from .deep_plane_runtime import (
+    DeepPlaneRuntimeReceipt,
+    execute_deep_plane_runtime_candidate,
+)
+
+SCHEMA_VERSION = "deep_plane_pipeline_adapter_check_v1"
+PIPELINE_GATE_SCHEMA_VERSION = "deep_plane_pipeline_adapter_gate_v1"
+ERROR_SCHEMA_VERSION = "deep_plane_pipeline_adapter_error_v1"
+
+DEEP_PLANE_IDS: tuple[str, ...] = tuple(plane_id.value for plane_id in PlaneId)
+DEFAULT_WINDOWS: tuple[tuple[str, float], ...] = (
+    ("opening", 0.0),
+    ("top", 300.0),
+    ("heart", 1800.0),
+    ("late_heart", 7200.0),
+    ("drydown", 14400.0),
+    ("late_drydown", 21600.0),
+    ("fabric_echo", 86400.0),
+)
+
+AUTHORITY_FLAGS: tuple[str, ...] = (
+    "empirical_authority",
+    "formula_generation_authorized",
+    "formula_mutation_authorized",
+    "inventory_mutation_authorized",
+    "runtime_integration_authorized",
+    "production_runtime_admission_authorized",
+    "physical_execution_authorized",
+    "compounding_authorized",
+    "purchase_authority",
+    "pass_fail_authority",
+    "observed_smell",
+    "sensory_authority",
+    "liking",
+    "liking_authority",
+    "beauty_authority",
+    "hedonic_outcome_authority",
+    "hedonic_score_authorized",
+    "target_similarity",
+    "similarity_authority",
+    "physical_performance",
+    "performance_authority",
+    "safety",
+    "safety_authority",
+    "stability",
+    "stability_authority",
+    "formula_execution",
+    "release",
+    "release_authority",
+)
+
+GLOBAL_LIMITATIONS: tuple[str, ...] = (
+    "The adapter is a target-neutral compatibility projection, not runtime admission.",
+    "A pre-mix PASS establishes only the configured dose-lineage and modeled-OAV screen.",
+    "Modeled OAV is a screening signal, not percent perceived contribution or measured headspace.",
+    "Formula text and modeled values do not establish smell, identity, liking, similarity, safety, stability, or physical performance.",
+    "No formula mutation, physical execution, compounding, purchase, formula-execution, or release authority is granted.",
+    "Inventory handling is limited to file-existence and SHA-256 freshness binding; this adapter does not assert physical stock truth.",
+)
+
+_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+_PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+_NEEDED_EVIDENCE: dict[PlaneId, str] = {
+    PlaneId.IDENTITY: "An explicit accepted target contract and blinded identity-retention observations.",
+    PlaneId.MORPHOLOGY: "Declared target anatomy plus controlled omission observations.",
+    PlaneId.FUNCTION: "Target-linked role declarations and controlled role-loss comparisons.",
+    PlaneId.RELATION: "Constant-total comparisons isolating each claimed relation.",
+    PlaneId.MIXTURE: "Verified stock lineage, quantitative basis, and mixture-specific evidence.",
+    PlaneId.TEMPORAL: "Blinded time-resolved physical observations; modeled volatility is insufficient.",
+    PlaneId.SPATIAL_COMPOSITION: "Blinded skin, blotter, or fabric observations of spatial placement.",
+    PlaneId.PHYSICOCHEMICAL: "Validated physical inputs and measured headspace under the exact matrix.",
+    PlaneId.BIOLOGICAL_SENSITIVITY: "Material-specific assay and authorized safety evidence.",
+    PlaneId.HEDONIC: "Blinded randomized preference observations with assessor and order receipts.",
+    PlaneId.INVENTORY_BUILD: "Fresh physical inventory and stock-label reconciliation.",
+    PlaneId.EVIDENCE_AUTHORITY: "A complete admitted runtime, data, and evidence closure receipt.",
+    PlaneId.EXPERIMENT: "A declared controlled protocol with completed observations.",
+}
+
+
+class DeepPlaneRuntimeError(ValueError):
+    """Base class for structured, fail-closed compatibility errors."""
+
+    code = "DEEP_PLANE_PIPELINE_ADAPTER_ERROR"
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "schema_version": ERROR_SCHEMA_VERSION,
+            "code": self.code,
+            "message": str(self),
+        }
+
+
+class StaleInventoryAuthorityError(DeepPlaneRuntimeError):
+    """Raised before formula modeling when the bound inventory hash is stale."""
+
+    code = "STALE_INVENTORY_AUTHORITY"
+
+    def __init__(
+        self,
+        *,
+        path: Path,
+        expected_sha256: str,
+        observed_sha256: str,
+    ) -> None:
+        self.path = Path(path)
+        self.expected_sha256 = expected_sha256
+        self.observed_sha256 = observed_sha256
+        super().__init__(
+            "Inventory authority changed: expected "
+            f"{expected_sha256}, observed {observed_sha256} at {self.path}"
+        )
+
+    def as_dict(self) -> dict[str, Any]:
+        payload = super().as_dict()
+        payload.update(
+            {
+                "inventory_path": str(self.path),
+                "expected_sha256": self.expected_sha256,
+                "observed_sha256": self.observed_sha256,
+            }
+        )
+        return payload
+
+
+@dataclass(frozen=True, slots=True)
+class DeepPlaneCheckConfig:
+    """Historical formula-check knobs validated for the unified simulator."""
+
+    batch_volume_ml: float = 30.0
+    temperature_k: float = 305.0
+    context: str = "skin"
+    windows: tuple[tuple[str, float], ...] = DEFAULT_WINDOWS
+
+    def __post_init__(self) -> None:
+        batch_volume = _positive_float(self.batch_volume_ml, "batch_volume_ml")
+        temperature = _positive_float(self.temperature_k, "temperature_k")
+        context = str(self.context).strip()
+        if not context:
+            raise DeepPlaneRuntimeError("context must not be blank")
+
+        normalized_windows: list[tuple[str, float]] = []
+        labels: set[str] = set()
+        previous = -math.inf
+        for item in self.windows:
+            if (
+                not isinstance(item, Sequence)
+                or isinstance(item, (str, bytes))
+                or len(item) != 2
+            ):
+                raise DeepPlaneRuntimeError(
+                    "windows must contain (label, seconds) pairs"
+                )
+            label = str(item[0]).strip()
+            if not label or label in labels:
+                raise DeepPlaneRuntimeError(
+                    "window labels must be unique and non-blank"
+                )
+            seconds = _nonnegative_float(item[1], f"window {label!r} seconds")
+            if seconds < previous:
+                raise DeepPlaneRuntimeError(
+                    "window seconds must be nondecreasing for the unified simulator"
+                )
+            labels.add(label)
+            previous = seconds
+            normalized_windows.append((label, seconds))
+        if not normalized_windows:
+            raise DeepPlaneRuntimeError("at least one temporal window is required")
+
+        object.__setattr__(self, "batch_volume_ml", batch_volume)
+        object.__setattr__(self, "temperature_k", temperature)
+        object.__setattr__(self, "context", context)
+        object.__setattr__(self, "windows", tuple(normalized_windows))
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "batch_volume_ml": self.batch_volume_ml,
+            "temperature_k": self.temperature_k,
+            "context": self.context,
+            "windows": [
+                {"label": label, "t_seconds": seconds}
+                for label, seconds in self.windows
+            ],
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class DeepPlaneRun:
+    """Immutable compatibility wrapper around a canonical check payload."""
+
+    payload: Mapping[str, Any]
+
+    def as_dict(self) -> dict[str, Any]:
+        payload = _json_clone(dict(self.payload))
+        payload.pop("content_sha256", None)
+        payload["content_sha256"] = _canonical_sha256(payload)
+        return payload
+
+    def to_json(self, *, pretty: bool = True) -> str:
+        payload = self.as_dict()
+        if pretty:
+            return json.dumps(
+                payload,
+                ensure_ascii=False,
+                allow_nan=False,
+                sort_keys=True,
+                indent=2,
+            ) + "\n"
+        return _canonical_json(payload)
+
+    def to_markdown(self) -> str:
+        payload = self.as_dict()
+        lines = [
+            "# Deep Plane Pipeline Adapter Check",
+            "",
+            f"- Check state: `{payload['check_state']}`",
+            f"- Pre-mix gate status: `{payload['gate_status']}`",
+            f"- Authority status: `{payload['status']}`",
+            f"- Authority ceiling: `{payload['authority_ceiling']}`",
+            f"- Content SHA-256: `{payload['content_sha256']}`",
+            "",
+            "> Compatibility and screening evidence only; no sensory, safety, physical, compounding, or release authority.",
+            "",
+        ]
+        for formula in payload["formulas"]:
+            lines.extend(
+                [
+                    f"## {formula['name']}",
+                    "",
+                    f"- Pre-mix gate status: `{formula['gate_status']}`",
+                    f"- Unified receipt: `{formula['unified_runtime']['receipt_id']}`",
+                    "",
+                ]
+            )
+        return "\n".join(lines)
+
+
+def _positive_float(value: object, field_name: str) -> float:
+    if isinstance(value, bool):
+        raise DeepPlaneRuntimeError(f"{field_name} must be numeric")
+    try:
+        result = float(value)
+    except (TypeError, ValueError) as exc:
+        raise DeepPlaneRuntimeError(f"{field_name} must be numeric") from exc
+    if not math.isfinite(result) or result <= 0.0:
+        raise DeepPlaneRuntimeError(f"{field_name} must be finite and positive")
+    return result
+
+
+def _nonnegative_float(value: object, field_name: str) -> float:
+    if isinstance(value, bool):
+        raise DeepPlaneRuntimeError(f"{field_name} must be numeric")
+    try:
+        result = float(value)
+    except (TypeError, ValueError) as exc:
+        raise DeepPlaneRuntimeError(f"{field_name} must be numeric") from exc
+    if not math.isfinite(result) or result < 0.0:
+        raise DeepPlaneRuntimeError(
+            f"{field_name} must be finite and non-negative"
+        )
+    return result
+
+
+def _json_clone(value: Any) -> Any:
+    return json.loads(
+        json.dumps(value, ensure_ascii=False, allow_nan=False, sort_keys=True)
+    )
+
+
+def _canonical_json(value: Any) -> str:
+    return json.dumps(
+        value,
+        ensure_ascii=False,
+        allow_nan=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+
+
+def _canonical_sha256(value: Any) -> str:
+    return sha256(_canonical_json(value).encode("utf-8")).hexdigest()
+
+
+def _sha256_file(path: Path) -> str:
+    digest = sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def _expected_digest(value: str | None, field_name: str) -> str | None:
+    if value is None:
+        return None
+    normalized = str(value).strip().casefold()
+    if not _SHA256_RE.fullmatch(normalized):
+        raise DeepPlaneRuntimeError(
+            f"{field_name} must be a 64-character SHA-256 digest"
+        )
+    return normalized
+
+
+def _check_expected_file_hash(
+    path: Path,
+    *,
+    expected: str | None,
+    field_name: str,
+) -> str:
+    observed = _sha256_file(path)
+    normalized = _expected_digest(expected, field_name)
+    if normalized is not None and normalized != observed:
+        raise DeepPlaneRuntimeError(
+            f"{field_name} mismatch for {path}: expected {normalized}, observed {observed}"
+        )
+    return observed
+
+
+def _formula_dilutions(formula: Mapping[str, Any]) -> dict[str, float]:
+    ingredients = dict(formula.get("ingredients_ul", {}) or {})
+    dilutions = dict(formula.get("dilutions", {}) or {})
+    stock_specs = dict(formula.get("stock_specs", {}) or {})
+    resolved: dict[str, float] = {}
+    for raw_name in ingredients:
+        name = str(raw_name).strip()
+        spec = dict(stock_specs.get(raw_name, stock_specs.get(name, {})) or {})
+        value = spec.get(
+            "fraction",
+            dilutions.get(raw_name, dilutions.get(name, 1.0)),
+        )
+        fraction = _positive_float(value, f"{name} dilution")
+        if fraction > 1.0:
+            raise DeepPlaneRuntimeError(f"{name} dilution must be in (0, 1]")
+        resolved[name] = fraction
+    return resolved
+
+
+def _normalize_formula_record(formula: Mapping[str, Any]) -> dict[str, Any]:
+    if not isinstance(formula, Mapping):
+        raise DeepPlaneRuntimeError("formula must be a mapping")
+    raw_ingredients = formula.get("ingredients_ul", {}) or {}
+    if not isinstance(raw_ingredients, Mapping) or not raw_ingredients:
+        raise DeepPlaneRuntimeError("formula requires a non-empty ingredients_ul mapping")
+    ingredients: dict[str, float] = {}
+    for raw_name, raw_amount in raw_ingredients.items():
+        name = str(raw_name).strip()
+        if not name or name in ingredients:
+            raise DeepPlaneRuntimeError(
+                "formula material names must be non-blank and unique"
+            )
+        ingredients[name] = _nonnegative_float(raw_amount, f"{name} raw dose")
+
+    normalized = dict(formula)
+    normalized["number"] = int(formula.get("number", 1) or 1)
+    normalized["name"] = str(formula.get("name", "Formula")).strip() or "Formula"
+    normalized["body"] = str(formula.get("body", ""))
+    normalized["ingredients_ul"] = ingredients
+    normalized["dilutions"] = _formula_dilutions(
+        {**dict(formula), "ingredients_ul": ingredients}
+    )
+    normalized["stock_specs"] = {
+        str(name): dict(spec or {})
+        for name, spec in dict(formula.get("stock_specs", {}) or {}).items()
+    }
+    normalized["matrix_moles"] = {
+        str(name): _nonnegative_float(value, f"matrix {name} moles")
+        for name, value in dict(formula.get("matrix_moles", {}) or {}).items()
+    }
+    normalized["matrix_mass_g"] = _nonnegative_float(
+        formula.get("matrix_mass_g", 0.0) or 0.0,
+        "matrix_mass_g",
+    )
+    normalized["matrix_source"] = (
+        str(formula.get("matrix_source", "omitted")).strip() or "omitted"
+    )
+    return normalized
+
+
+def _formula_semantic_payload(formula: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        "schema_version": "deep_plane_formula_semantic_binding_v1",
+        "number": int(formula.get("number", 1)),
+        "name": str(formula.get("name", "Formula")),
+        "body": str(formula.get("body", "")),
+        "ingredients_ul": dict(formula["ingredients_ul"]),
+        "dilutions": dict(formula["dilutions"]),
+        "matrix_moles": dict(formula.get("matrix_moles", {}) or {}),
+        "matrix_mass_g": float(formula.get("matrix_mass_g", 0.0) or 0.0),
+        "matrix_source": str(formula.get("matrix_source", "omitted")),
+        "formula_uid": str(formula.get("formula_uid", "") or ""),
+        "parent_formula_uid": str(formula.get("parent_formula_uid", "") or ""),
+    }
+
+
+def _frame_payload(frame: Any) -> dict[str, Any]:
+    if isinstance(frame, Mapping):
+        return _json_clone(dict(frame))
+    as_dict = getattr(frame, "as_dict", None)
+    if not callable(as_dict):
+        raise DeepPlaneRuntimeError(
+            "simulation must contain mappings or objects exposing as_dict()"
+        )
+    value = as_dict()
+    if not isinstance(value, Mapping):
+        raise DeepPlaneRuntimeError("simulation frame as_dict() must return a mapping")
+    return _json_clone(dict(value))
+
+
+def _state_summary(state: Any) -> dict[str, Any]:
+    if isinstance(state, Mapping):
+        raw = dict(state)
+    else:
+        as_dict = getattr(state, "as_dict", None)
+        if callable(as_dict):
+            value = as_dict()
+            raw = dict(value) if isinstance(value, Mapping) else {}
+        else:
+            raw = {}
+    materials = raw.get("materials", ())
+    material_count = (
+        len(materials)
+        if isinstance(materials, Sequence) and not isinstance(materials, (str, bytes))
+        else getattr(state, "material_count", None)
+    )
+    return {
+        "material_count": material_count,
+        "total_raw_ul": raw.get("total_raw_ul", getattr(state, "total_raw_ul", None)),
+        "total_active_ul": raw.get(
+            "total_active_ul", getattr(state, "total_active_ul", None)
+        ),
+        "total_vapor_ppm": raw.get(
+            "total_vapor_ppm", getattr(state, "total_vapor_ppm", None)
+        ),
+        "headspace_basis": raw.get(
+            "headspace_basis", getattr(state, "headspace_basis", None)
+        ),
+        "matrix_source": raw.get(
+            "matrix_source", getattr(state, "matrix_source", None)
+        ),
+    }
+
+
+def _source_bindings() -> dict[str, str]:
+    from engine.fuckups import pre_mix_guard
+
+    from . import deep_plane_runtime
+
+    return {
+        "adapter_module_sha256": _sha256_file(Path(__file__).resolve()),
+        "unified_deep_plane_runtime_sha256": _sha256_file(
+            Path(deep_plane_runtime.__file__).resolve()
+        ),
+        "pre_mix_guard_sha256": _sha256_file(Path(pre_mix_guard.__file__).resolve()),
+    }
+
+
+def _finding_plane_ids(finding: Mapping[str, Any]) -> frozenset[PlaneId]:
+    code = str(finding.get("code", ""))
+    if "OAV" in code or "DOMINANCE" in code:
+        return frozenset({PlaneId.TEMPORAL, PlaneId.PHYSICOCHEMICAL})
+    return frozenset(
+        {
+            PlaneId.MIXTURE,
+            PlaneId.INVENTORY_BUILD,
+            PlaneId.EVIDENCE_AUTHORITY,
+        }
+    )
+
+
+def _assessment_scope(
+    formula_sha256: str,
+    frame_payloads: Sequence[Mapping[str, Any]],
+    formula: Mapping[str, Any],
+) -> AssessmentScope:
+    temporal_binding = _canonical_sha256(
+        [
+            {
+                "label": frame.get("label"),
+                "t_seconds": frame.get("t_seconds"),
+            }
+            for frame in frame_payloads
+        ]
+    )
+    matrix_binding = _canonical_sha256(
+        {
+            "matrix_moles": dict(formula.get("matrix_moles", {}) or {}),
+            "matrix_mass_g": float(formula.get("matrix_mass_g", 0.0) or 0.0),
+            "matrix_source": str(formula.get("matrix_source", "omitted")),
+        }
+    )
+    return AssessmentScope(
+        target_scope=f"target-neutral-formula:{formula_sha256}",
+        temporal_scope=f"modeled-windows:{temporal_binding}",
+        matrix_scope=f"formula-matrix:{matrix_binding}",
+    )
+
+
+def _build_assessments(
+    *,
+    formula: Mapping[str, Any],
+    state: Any,
+    frame_payloads: Sequence[Mapping[str, Any]],
+    guard: PreMixGuardReport,
+) -> tuple[PlaneAssessment, ...]:
+    formula_payload = _formula_semantic_payload(formula)
+    formula_sha256 = _canonical_sha256(formula_payload)
+    guard_payload = guard.as_dict()
+    evidence_sha256 = _canonical_sha256(
+        {
+            "schema_version": "deep_plane_pipeline_adapter_evidence_v1",
+            "formula": formula_payload,
+            "state_summary": _state_summary(state),
+            "simulation_sha256": _canonical_sha256(list(frame_payloads)),
+            "pre_mix_guard": guard_payload,
+        }
+    )
+    scope = _assessment_scope(formula_sha256, frame_payloads, formula)
+    provenance = ProvenanceRef(
+        provenance_id=f"deep-plane-formula-binding:{formula_sha256[:24]}",
+        source_ref=f"formula-record://sha256/{formula_sha256}",
+        evidence_class=EvidenceClass.COMPUTATIONAL_MODEL,
+        independence_key="deep-plane-pipeline-adapter:formula-runtime",
+        source_sha256=formula_sha256,
+    )
+    finding_payloads = [finding.as_dict() for finding in guard.findings]
+    assessments: list[PlaneAssessment] = []
+    for plane_id in PlaneId:
+        applicable = [
+            item for item in finding_payloads if plane_id in _finding_plane_ids(item)
+        ]
+        failure_modes = tuple(
+            f"pre-mix {item['severity']}: {item['code']}: {item['detail']}"
+            for item in applicable
+        )
+        claim = ScopedClaim(
+            claim_id=f"deep-plane-compat:{formula_sha256}:{plane_id.value}",
+            claim_key=f"compatibility.{plane_id.value}.input_binding",
+            claim_value=(
+                "Target-neutral formula/runtime binding completed; "
+                f"pre-mix screening status={guard.status}."
+            ),
+            claim_kind=ClaimKind.DIAGNOSTIC,
+            authority_ceiling=AuthorityCeiling.WITHHELD,
+            provenance_refs=(provenance,),
+        )
+        unknown = UnknownFact(
+            unknown_id=f"deep-plane-compat:{formula_sha256}:{plane_id.value}:truth",
+            field_key=f"{plane_id.value}.empirical_truth",
+            reason=(
+                "The target-neutral compatibility adapter does not infer "
+                "plane truth from formula text or modeled calculations."
+            ),
+            needed_evidence=_NEEDED_EVIDENCE[plane_id],
+            provenance_refs=(provenance,),
+        )
+        assessments.append(
+            PlaneAssessment(
+                assessment_id=(
+                    f"deep-plane-compat-assessment:{evidence_sha256}:{plane_id.value}"
+                ),
+                module_id="deep-plane-pipeline-adapter",
+                plane_id=plane_id,
+                scope=scope,
+                claims=(claim,),
+                support_intervals=(),
+                conflicts=(),
+                unknowns=(unknown,),
+                failure_modes=failure_modes,
+                proposed_experiments=(),
+                provenance_refs=(provenance,),
+                authority_ceiling=AuthorityCeiling.WITHHELD,
+                freshness_hashes=(formula_sha256, evidence_sha256),
+                native_criteria=(),
+            )
+        )
+    return tuple(assessments)
+
+
+def _guard_report(
+    formula: Mapping[str, Any],
+    frame_payloads: Sequence[Mapping[str, Any]],
+    *,
+    parent_formula: Mapping[str, Any] | None,
+    parent_frame_payloads: Sequence[Mapping[str, Any]] | None,
+    authorized_active_dose_changes: Mapping[str, str] | None,
+) -> PreMixGuardReport:
+    return evaluate_pre_mix_guard(
+        child_ingredients_ul=dict(formula["ingredients_ul"]),
+        child_dilutions=dict(formula["dilutions"]),
+        child_time_series=frame_payloads,
+        parent_ingredients_ul=(
+            None if parent_formula is None else dict(parent_formula["ingredients_ul"])
+        ),
+        parent_dilutions=(
+            None if parent_formula is None else dict(parent_formula["dilutions"])
+        ),
+        parent_time_series=parent_frame_payloads,
+        authorized_active_dose_changes=authorized_active_dose_changes,
+    )
+
+
+def _runtime_projection(
+    receipt: DeepPlaneRuntimeReceipt,
+    guard: PreMixGuardReport,
+) -> dict[str, Any]:
+    receipt_payload = receipt.as_dict()
+    receipt_plane_ids = {item.plane_id.value for item in receipt.request.assessments}
+    if receipt_plane_ids != set(DEEP_PLANE_IDS):
+        raise DeepPlaneRuntimeError(
+            "unified runtime receipt does not contain the exact thirteen-plane set"
+        )
+    return {
+        "schema_version": receipt.SCHEMA_VERSION,
+        "receipt_id": receipt.receipt_id,
+        "receipt_sha256": receipt.content_sha256,
+        "request_sha256": receipt.request.content_sha256,
+        "candidate_state": receipt.candidate_state,
+        "plane_count": len(receipt.request.assessments),
+        "plane_ids": list(DEEP_PLANE_IDS),
+        "pre_mix_gate_status": guard.status,
+        "authority_ceiling": receipt.authority_ceiling.value,
+        "pass_fail_authority": receipt.pass_fail_authority,
+        "release_authority": receipt.release_authority,
+        "receipt": receipt_payload,
+    }
+
+
+def _evaluate_deep_plane_gate(
+    formula: Mapping[str, Any],
+    state: Any,
+    simulation: Sequence[Any],
+    *,
+    inventory_path: str | Path | None = None,
+    parent_formula: Mapping[str, Any] | None = None,
+    parent_state: Any | None = None,
+    parent_simulation: Sequence[Any] | None = None,
+    authorized_active_dose_changes: Mapping[str, str] | None = None,
+) -> tuple[dict[str, Any], DeepPlaneRuntimeReceipt]:
+    inventory_file = (
+        Path(inventory_path).resolve()
+        if inventory_path is not None
+        else _PROJECT_ROOT / "inventory.txt"
+    )
+    if not inventory_file.is_file():
+        raise DeepPlaneRuntimeError(
+            f"Inventory authority file does not exist: {inventory_file}"
+        )
+    if parent_formula is None and (
+        parent_state is not None or parent_simulation is not None
+    ):
+        raise DeepPlaneRuntimeError(
+            "parent_state and parent_simulation require parent_formula"
+        )
+    if parent_formula is not None and (
+        parent_state is None or parent_simulation is None
+    ):
+        raise DeepPlaneRuntimeError(
+            "parent_formula requires parent_state and parent_simulation"
+        )
+
+    normalized_formula = _normalize_formula_record(formula)
+    normalized_parent = (
+        None
+        if parent_formula is None
+        else _normalize_formula_record(parent_formula)
+    )
+    frame_payloads = tuple(_frame_payload(frame) for frame in simulation)
+    parent_frame_payloads = (
+        None
+        if parent_simulation is None
+        else tuple(_frame_payload(frame) for frame in parent_simulation)
+    )
+    inventory_sha256 = _sha256_file(inventory_file)
+    guard = _guard_report(
+        normalized_formula,
+        frame_payloads,
+        parent_formula=normalized_parent,
+        parent_frame_payloads=parent_frame_payloads,
+        authorized_active_dose_changes=authorized_active_dose_changes,
+    )
+    assessments = _build_assessments(
+        formula=normalized_formula,
+        state=state,
+        frame_payloads=frame_payloads,
+        guard=guard,
+    )
+    receipt = execute_deep_plane_runtime_candidate(assessments)
+
+    final_inventory_sha256 = _sha256_file(inventory_file)
+    if final_inventory_sha256 != inventory_sha256:
+        raise StaleInventoryAuthorityError(
+            path=inventory_file,
+            expected_sha256=inventory_sha256,
+            observed_sha256=final_inventory_sha256,
+        )
+
+    findings = [finding.as_dict() for finding in guard.findings]
+    blockers = [item for item in findings if item["severity"] == "FAIL"]
+    warnings = [item for item in findings if item["severity"] == "WARN"]
+    assessments_by_id = {
+        assessment.plane_id.value: assessment
+        for assessment in receipt.request.assessments
+    }
+    plane_summaries = [
+        {
+            "plane_id": plane_id,
+            "status": "WITHHELD",
+            "pre_mix_gate_status": guard.status,
+            "authority_ceiling": assessment.authority_ceiling.value,
+            "assessment_sha256": assessment.content_sha256,
+        }
+        for plane_id in DEEP_PLANE_IDS
+        for assessment in (assessments_by_id[plane_id],)
+    ]
+    formula_sha256 = _canonical_sha256(_formula_semantic_payload(normalized_formula))
+    gate = {
+        "schema_version": PIPELINE_GATE_SCHEMA_VERSION,
+        "gate_status": guard.status,
+        "authority_status": "HOLD",
+        "authority_ceiling": "withheld",
+        "formula_semantic_sha256": formula_sha256,
+        "inventory_path": str(inventory_file),
+        "inventory_source_sha256": inventory_sha256,
+        "inventory_validation_scope": "HASH_FRESHNESS_ONLY",
+        "plane_statuses": {plane_id: "WITHHELD" for plane_id in DEEP_PLANE_IDS},
+        "planes": plane_summaries,
+        "pre_mix_guard": guard.as_dict(),
+        "parent_comparison_available": guard.parent_comparison_available,
+        "blockers": blockers,
+        "warnings": warnings,
+        "calculation_reuse": {
+            "formula_state_reused": True,
+            "simulation_reused": True,
+            "simulation_frame_count": len(frame_payloads),
+            "parent_formula_state_reused": parent_state is not None,
+            "parent_simulation_reused": parent_simulation is not None,
+        },
+        "unified_runtime": _runtime_projection(receipt, guard),
+        "source_bindings": _source_bindings(),
+        "authority_flags": {name: False for name in AUTHORITY_FLAGS},
+        "limitations": list(GLOBAL_LIMITATIONS),
+    }
+    return gate, receipt
+
+
+def evaluate_deep_plane_gate(
+    formula: Mapping[str, Any],
+    state: Any,
+    simulation: Sequence[Any],
+    *,
+    inventory_path: str | Path | None = None,
+    parent_formula: Mapping[str, Any] | None = None,
+    parent_state: Any | None = None,
+    parent_simulation: Sequence[Any] | None = None,
+    authorized_active_dose_changes: Mapping[str, str] | None = None,
+) -> dict[str, Any]:
+    """Project unified Deep Plane evidence through the current pre-mix gate.
+
+    The returned ``gate_status`` is exactly the current pre-mix guard status.
+    The unified runtime's ``pass_fail_authority`` and every downstream authority
+    flag remain false even when that status is ``PASS``.
+    """
+
+    gate, _receipt = _evaluate_deep_plane_gate(
+        formula,
+        state,
+        simulation,
+        inventory_path=inventory_path,
+        parent_formula=parent_formula,
+        parent_state=parent_state,
+        parent_simulation=parent_simulation,
+        authorized_active_dose_changes=authorized_active_dose_changes,
+    )
+    return gate
+
+
+def _parse_formula_file(path: Path) -> list[dict[str, Any]]:
+    from scripts.verify_formula_workflow import parse_formula_markdown
+
+    formulas = parse_formula_markdown(path)
+    if not formulas:
+        raise DeepPlaneRuntimeError(f"No parseable formulas found in {path}")
+    return [_normalize_formula_record(formula) for formula in formulas]
+
+
+def _state_and_series(
+    formula: Mapping[str, Any],
+    config: DeepPlaneCheckConfig,
+) -> tuple[Any, list[Any]]:
+    from engine.pipeline.formula_state import build_formula_state
+    from engine.pipeline.simulator import simulate_formula
+
+    ingredients = dict(formula["ingredients_ul"])
+    dilutions = dict(formula["dilutions"])
+    state = build_formula_state(
+        ingredients,
+        dilutions,
+        stock_specs=dict(formula.get("stock_specs", {}) or {}),
+        batch_volume_ml=config.batch_volume_ml,
+        temperature_K=config.temperature_k,
+        context=config.context,
+        matrix_moles=dict(formula.get("matrix_moles", {}) or {}),
+        matrix_mass_g=float(formula.get("matrix_mass_g", 0.0) or 0.0),
+        matrix_source=str(formula.get("matrix_source", "omitted")),
+    )
+    frames = simulate_formula(
+        ingredients,
+        dilutions,
+        batch_volume_ml=config.batch_volume_ml,
+        temperature_K=config.temperature_k,
+        context=config.context,
+        windows=config.windows,
+        initial_state=state,
+    )
+    return state, frames
+
+
+def _aggregate_gate_status(statuses: Sequence[str]) -> str:
+    if "FAIL" in statuses:
+        return "FAIL"
+    return "WARN" if "WARN" in statuses else "PASS"
+
+
+def run_deep_plane_check(
+    formula_path: str | Path,
+    *,
+    parent_formula_path: str | Path | None = None,
+    inventory_path: str | Path | None = None,
+    expected_inventory_sha256: str | None = None,
+    expected_formula_sha256: str | None = None,
+    config: DeepPlaneCheckConfig | None = None,
+    runtime_entrypoint: str = (
+        "engine.formulation_intelligence.deep_plane_pipeline_adapter"
+    ),
+    authorized_active_dose_changes: Mapping[str, str] | None = None,
+) -> DeepPlaneRun:
+    """Run the target-neutral formula compatibility check.
+
+    Inventory freshness is checked before formula parsing or physical modeling.
+    The optional parent must be the immediate predecessor used by the current
+    pre-mix guard.  All formula and inventory inputs are checked again after the
+    run so concurrent byte drift fails closed.
+    """
+
+    formula_file = Path(formula_path).resolve()
+    parent_file = (
+        None if parent_formula_path is None else Path(parent_formula_path).resolve()
+    )
+    inventory_file = (
+        Path(inventory_path).resolve()
+        if inventory_path is not None
+        else _PROJECT_ROOT / "inventory.txt"
+    )
+    cfg = config or DeepPlaneCheckConfig()
+
+    if not inventory_file.is_file():
+        raise DeepPlaneRuntimeError(
+            f"Inventory authority file does not exist: {inventory_file}"
+        )
+    inventory_sha256 = _sha256_file(inventory_file)
+    expected_inventory = _expected_digest(
+        expected_inventory_sha256,
+        "expected_inventory_sha256",
+    )
+    if expected_inventory is not None and expected_inventory != inventory_sha256:
+        raise StaleInventoryAuthorityError(
+            path=inventory_file,
+            expected_sha256=expected_inventory,
+            observed_sha256=inventory_sha256,
+        )
+    if not formula_file.is_file():
+        raise DeepPlaneRuntimeError(f"Formula file does not exist: {formula_file}")
+    formula_sha256 = _check_expected_file_hash(
+        formula_file,
+        expected=expected_formula_sha256,
+        field_name="expected_formula_sha256",
+    )
+    if parent_file is not None and not parent_file.is_file():
+        raise DeepPlaneRuntimeError(
+            f"Parent formula file does not exist: {parent_file}"
+        )
+    parent_sha256 = None if parent_file is None else _sha256_file(parent_file)
+
+    formulas = _parse_formula_file(formula_file)
+    parents = [] if parent_file is None else _parse_formula_file(parent_file)
+    if parents and len(parents) not in {1, len(formulas)}:
+        raise DeepPlaneRuntimeError(
+            "Parent formula file must contain one formula or the same number of formulas as the child file"
+        )
+
+    formula_reports: list[dict[str, Any]] = []
+    for index, formula in enumerate(formulas):
+        parent = parents[0] if len(parents) == 1 else (parents[index] if parents else None)
+        state, frames = _state_and_series(formula, cfg)
+        parent_state: Any | None = None
+        parent_frames: list[Any] | None = None
+        if parent is not None:
+            parent_state, parent_frames = _state_and_series(parent, cfg)
+        gate, _receipt = _evaluate_deep_plane_gate(
+            formula,
+            state,
+            frames,
+            inventory_path=inventory_file,
+            parent_formula=parent,
+            parent_state=parent_state,
+            parent_simulation=parent_frames,
+            authorized_active_dose_changes=authorized_active_dose_changes,
+        )
+        formula_reports.append(
+            {
+                "number": int(formula.get("number", index + 1)),
+                "name": str(formula.get("name", f"Formula {index + 1}")),
+                **gate,
+            }
+        )
+
+    final_inventory_sha256 = _sha256_file(inventory_file)
+    if final_inventory_sha256 != inventory_sha256:
+        raise StaleInventoryAuthorityError(
+            path=inventory_file,
+            expected_sha256=inventory_sha256,
+            observed_sha256=final_inventory_sha256,
+        )
+    if _sha256_file(formula_file) != formula_sha256:
+        raise DeepPlaneRuntimeError("Formula source changed during the check")
+    if parent_file is not None and _sha256_file(parent_file) != parent_sha256:
+        raise DeepPlaneRuntimeError("Parent formula source changed during the check")
+
+    statuses = [str(report["gate_status"]) for report in formula_reports]
+    payload = {
+        "schema_version": SCHEMA_VERSION,
+        "runtime_entrypoint": str(runtime_entrypoint),
+        "check_state": "COMPLETE",
+        "gate_status": _aggregate_gate_status(statuses),
+        "status": "HOLD",
+        "authority_ceiling": "withheld",
+        "formula_path": str(formula_file),
+        "formula_source_sha256": formula_sha256,
+        "parent_formula_path": str(parent_file) if parent_file is not None else None,
+        "parent_source_sha256": parent_sha256,
+        "inventory_path": str(inventory_file),
+        "inventory_source_sha256": inventory_sha256,
+        "inventory_validation_scope": "HASH_FRESHNESS_ONLY",
+        "config": cfg.as_dict(),
+        "config_sha256": _canonical_sha256(cfg.as_dict()),
+        "source_bindings": _source_bindings(),
+        "authority_flags": {name: False for name in AUTHORITY_FLAGS},
+        "limitations": list(GLOBAL_LIMITATIONS),
+        "formulas": formula_reports,
+    }
+    return DeepPlaneRun(payload)
+
+
+__all__ = [
+    "AUTHORITY_FLAGS",
+    "DEEP_PLANE_IDS",
+    "DEFAULT_WINDOWS",
+    "ERROR_SCHEMA_VERSION",
+    "PIPELINE_GATE_SCHEMA_VERSION",
+    "SCHEMA_VERSION",
+    "DeepPlaneCheckConfig",
+    "DeepPlaneRun",
+    "DeepPlaneRuntimeError",
+    "StaleInventoryAuthorityError",
+    "evaluate_deep_plane_gate",
+    "run_deep_plane_check",
+]

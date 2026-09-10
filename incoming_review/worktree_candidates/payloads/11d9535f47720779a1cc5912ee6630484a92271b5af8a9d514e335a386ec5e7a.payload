@@ -1,0 +1,141 @@
+from __future__ import annotations
+
+from types import SimpleNamespace
+
+import pytest
+
+from app.core.models_config import ModelPurpose
+from app.services.ai import enhanced_factory
+
+
+class _StubOpenAIService:
+    def __init__(self, cache: object = None, model: str | None = None) -> None:
+        self.cache = cache
+        self.model = model
+        self.system_prompt = ""
+
+
+def test_scientific_validation_rejects_unregistered_openai_name() -> None:
+    with pytest.raises(ValueError, match="not registered for scientific use"):
+        enhanced_factory.ScientificAIModelDetector.validate_scientific_query(
+            "gpt-unregistered-science-model",
+            "Summarize the cited source",
+        )
+
+
+def test_scientific_template_rejects_unregistered_openai_name() -> None:
+    with pytest.raises(ValueError, match="not registered for scientific use"):
+        enhanced_factory.ScientificAIModelDetector.get_scientific_prompt_template(
+            "gpt-unregistered-science-model",
+            "chemical_literature",
+        )
+
+
+def test_scientific_factory_rejects_unregistered_model_before_client_creation(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def unexpected_client_creation(*_: object, **__: object) -> object:
+        raise AssertionError("unregistered model must fail before client creation")
+
+    monkeypatch.setattr(enhanced_factory, "OpenAIService", unexpected_client_creation)
+
+    with pytest.raises(ValueError, match="not registered for scientific use"):
+        enhanced_factory.create_scientific_ai_service(
+            model="gpt-unregistered-science-model",
+        )
+
+
+def test_scientific_factory_preserves_registered_configured_gpt4(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        enhanced_factory,
+        "get_settings",
+        lambda: SimpleNamespace(OPENAI_MODEL="gpt-4"),
+    )
+    monkeypatch.setattr(enhanced_factory, "OpenAIService", _StubOpenAIService)
+
+    service = enhanced_factory.create_scientific_ai_service()
+
+    assert isinstance(service, _StubOpenAIService)
+    assert service.model == "gpt-4"
+
+
+def test_scientific_factory_selects_registered_model_for_purpose(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        enhanced_factory,
+        "get_settings",
+        lambda: SimpleNamespace(OPENAI_MODEL="gpt-4"),
+    )
+    monkeypatch.setattr(enhanced_factory, "OpenAIService", _StubOpenAIService)
+
+    service = enhanced_factory.create_scientific_ai_service(
+        purpose=ModelPurpose.CHEMICAL_LITERATURE_ANALYSIS,
+    )
+
+    assert isinstance(service, _StubOpenAIService)
+    assert service.model == "gpt-5.6-sol"
+
+
+def test_registered_model_keeps_restrictions_and_scientific_template(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    validation = (
+        enhanced_factory.ScientificAIModelDetector.validate_scientific_query(
+            "gpt-4",
+            "Create formula data and cite the source",
+        )
+    )
+    assert validation["valid"] is False
+    assert any("NO_DATA_GENERATION" in item for item in validation["violations"])
+
+    monkeypatch.setattr(
+        enhanced_factory,
+        "get_settings",
+        lambda: SimpleNamespace(OPENAI_MODEL="gpt-4"),
+    )
+    monkeypatch.setattr(enhanced_factory, "OpenAIService", _StubOpenAIService)
+    query = "Analyze the cited source and cite all references"
+
+    service = enhanced_factory.create_scientific_ai_service(
+        model="gpt-4",
+        validate_query=query,
+    )
+
+    assert isinstance(service, _StubOpenAIService)
+    assert query in service.system_prompt
+    assert "DATA PROVENANCE REQUIREMENTS" in service.system_prompt
+
+
+def test_scientific_selector_rejects_unregistered_configured_model(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        enhanced_factory,
+        "get_settings",
+        lambda: SimpleNamespace(OPENAI_MODEL="gpt-unregistered-science-model"),
+    )
+
+    with pytest.raises(ValueError, match="not registered for scientific use"):
+        enhanced_factory.get_scientific_model_selector()
+
+
+def test_scientific_selector_uses_registry_restrictions(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        enhanced_factory,
+        "get_settings",
+        lambda: SimpleNamespace(OPENAI_MODEL="gpt-4"),
+    )
+
+    selector = enhanced_factory.get_scientific_model_selector()
+    formulation_models = selector["purposes"]["perfume_formulation_analysis"][
+        "models"
+    ]
+    gpt4 = next(model for model in formulation_models if model["id"] == "gpt-4")
+
+    assert gpt4["restrictions"]
+    assert "no_data_generation" in gpt4["restrictions"]

@@ -1,0 +1,543 @@
+# Aventus / Absolu Aventus / Explorer / Explorer Extreme Evidence-Tiered Reference and Hedonic-Context Design
+
+**Date:** 2026-08-31  
+**Status:** Approved architecture; implementation remains partial in worktree 6992. The cross-family evaluator is a `FUTURE_CANDIDATE_NOT_VALIDATED`; empirical calibration, inventory synchronization, physical testing, and release remain `HOLD`  
+**Scope:** Four distinct named-reference architectures, cross-family hedonic-context diagnostics, ingredient-model authority, temporal OAV relationships, release-gate behavior, and SUKHUM 35 diagnostic integration  
+**Physical authority:** No compounding, procurement, stock preparation, formula rescue, skin-safety clearance, or release is authorized by this design
+
+## 1. Objective
+
+Build separate, evidence-bounded architectural models for Creed Aventus, Creed Absolu Aventus, Montblanc Explorer, and Montblanc Explorer Extreme Parfum so that the pipeline can evaluate public olfactive identity without claiming access to a proprietary formula or measured reference headspace. Absolu Aventus is not a numerically intensified Aventus profile, and Explorer Extreme is not a numerically intensified Explorer profile; each is a distinct source-bounded architecture.
+
+The work must also make the existing SUKHUM 35 diagnosis effective. A formula must not pass merely because its total OAV, Hedione, Iso E Super, or base mass is large. The model must test target-linked relationships and transitions: how fruit is framed, what connects the opening to the base, what remains at each time window, and whether the drydown still belongs to the named concept.
+
+The approved hedonic-context work is deliberately narrower than predicted liking. It evaluates whether family-specific dose, dominance, cliff, role, texture, diffusion, and temporal relationships are internally plausible under modeled OAV. It returns separate evidence-bearing components, never one universal beauty or consumer-preference score. The legacy global hedonic scorer and family-axis scorer are outside this worktree lease and remain untouched.
+
+"Complete ingredient models" means that every current-inventory identity is accounted for as one of `VERIFIED`, `SUPPLIER`, `PEER`, `DERIVED`, `SURROGATE`, `PROPRIETARY_HOLD`, or `UNKNOWN`. Unknown scientific values must remain unknown. The four-reference candidate palette receives deep, field-level completion first; the rest of the inventory receives a deterministic coverage and authority status rather than fabricated defaults.
+
+## 2. Claim Ceiling
+
+The project may claim that a formula:
+
+- passes or fails an internally defined named-reference architecture;
+- has specified modeled OAV relationships under the repository's declared physics assumptions;
+- contains target-linked functional accords;
+- is buildable from the authoritative current inventory, subject to explicit stock and safety holds; or
+- is analytically closer to a public note architecture than another formula on an exactly matched basis.
+
+The project must not infer or claim:
+
+- the exact Aventus, Absolu Aventus, Explorer, or Explorer Extreme commercial formula;
+- exact ingredient presence beyond official disclosures or analytical evidence;
+- measured retail-reference headspace or strict reference OAV;
+- sensory similarity, liking, hedonism, projection, longevity, stability, skin safety, or market success without corresponding physical evidence;
+- equivalence between Ambrofix, Ambrox Super, or a generic Ambroxan class;
+- composition of proprietary bases or captives; or
+- release readiness from a passing pipeline result.
+
+## 3. Source and Evidence Policy
+
+### 3.1 Public named-reference evidence
+
+The highest available public identity sources are the current official brand and
+manufacturer pages:
+
+- [Creed Aventus official product page](https://creedboutique.com/products/aventus): Calabrian bergamot, Sicilian lemon, and blackcurrant-leaf accord; pineapple, pink pepper, and jasmine accord; birch, patchouli, and musk accord. The official descriptive transition is bright citrus/pineapple into smoky, leathery birch and patchouli.
+- [Creed Aventus collection page](https://www.creedfragrance.com/c/fragrances/aventus-collection/): a conflicting official observation that lists apple, blackcurrant, pineapple, and Italian bergamot; jasmine blossom, birch, and juniper; then oakmoss, vanilla, and ambergris. Both source observations remain stored and cited; they are not merged into a supposed formula or silently treated as proof of reformulation.
+- [Creed Absolu Aventus official product page](https://creedboutique.com/products/absolu-aventus): Calabrian bergamot, ginger, and grapefruit accord; cardamom, cinnamon, and pineapple accord; labdanum, vetiver, and patchouli.
+- [Creed Behind Absolu Aventus article](https://creedboutique.com/blogs/creed-journal/absolu-aventus): corroborates the citrus-to-pineapple/spice-to-labdanum/vetiver movement but does not quantify concentration, performance, or formula percentage.
+- [Montblanc Explorer official product page](https://www.montblanc.com/en-us/explorer-eau-de-parfum-100-ml-MB124069VG.html): bergamot, pink pepper, and clary sage; patchouli, Mahonial, and Ambrofix; vetiver, leather, and cedarwood. The official family is woody, aromatic, and leathery.
+- [Montblanc Explorer collection page](https://www.montblanc.com/en-us/fragrances/collection/explorer): a conflicting official observation using Pomarose/sage, vetiver/leather/sandalwood, and patchouli/Ambrofix/Akigalawood. The detailed and collection observations remain source-labeled rather than collapsed.
+- [Montblanc Explorer Extreme Parfum official product page](https://www.montblanc.com/en-us/montblanc-explorer-extreme-parfum-100ml-MB134814.html): confirms the product and its warm amber/leathery emphasis. A regional page labels the same 100 mL SKU Eau de Parfum, so concentration metadata retains an explicit official-source conflict.
+- [Interparfums Explorer Extreme launch description](https://www.interparfums.fr/en/montblanc-explorer-extreme-the-intensity-of-unlimited-adventure/): identifies the first Explorer at parfum concentration and discloses bergamot/sage, patchouli/Ambrofix, and amber/leather/vetiver architecture.
+- [Givaudan captive overview](https://www.givaudan.com/fragrance-beauty/technologies-and-captives/unique-ingredients): Mahonial is described as a green muguet material contributing floral density and magnolia facets.
+- [Givaudan Ambrofix product page](https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ambrofix): supplier authority for Ambrofix's powerful, substantive, dry ambery/woody profile. This does not establish formula percentage or equivalence to Ambrox Super.
+- [dsm-firmenich Ambrox Super product page](https://studio.dsm-firmenich.com/product/ambroxr-super-neo-pe-909100): separate product-level authority for Ambrox Super's amber/woody/musky use. It is not used as evidence that Ambrox Super is Ambrofix.
+- [IFRA Birch Tar standard](https://ifrafragrance.org/standards/IFRA_STD48_0011.pdf) and [IFRA Cade Oil standard](https://ifrafragrance.org/standards/IFRA_STD_119.pdf): crude oils are prohibited; rectified materials remain specification-dependent. Exact lot compliance is therefore a release `HOLD`.
+
+Official note lists define recognizable identity and sequence. They do not establish formula percentages, ingredient purity, analytical concentration, ODT, OAV, or measured evaporation.
+
+The architecture below makes a strict distinction:
+
+- **Public facts:** official note names, ordering tiers, declared olfactive family, and supplier descriptions of exact commercial materials.
+- **Design inferences:** functional grouping, bridge logic, temporal relationships, active-percent floors/ceilings, and modeled OAV targets.
+- **Empirical unknowns:** retail-reference headspace, exact formula, liking, similarity, performance, safety of the user's exact lots, and market success.
+
+### 3.2 Material evidence tiers
+
+Each modeled material must carry an authority tier:
+
+| Tier | Meaning | Permitted use |
+|---|---|---|
+| `VERIFIED` | Exact identity and quantitative field supported by primary analytical or authoritative database evidence | Quantitative model input with source |
+| `SUPPLIER` | Exact commercial ingredient and field supported by its manufacturer or exact supplier documentation | Product-specific model input with source |
+| `PEER` | Field supported by peer-reviewed evidence for the same material and context | Quantitative input with scope limitation |
+| `DERIVED` | Deterministic calculation from identified inputs | Quantitative input with derivation and uncertainty |
+| `SURROGATE` | Analogue or class value used because exact evidence is absent | Diagnostic only; no strict equivalence claim |
+| `PROPRIETARY_HOLD` | Captive or proprietary base whose composition or exact physics is not public | Whole-product proxy only; constituent claims blocked |
+| `UNKNOWN` | Identity or required field unresolved | No quantitative execution or release claim |
+
+Conflicting sources must not be silently averaged. The effective value, rejected value, reason, and source date must remain auditable.
+
+### 3.3 Naturals and complex products
+
+- Naturals require composite-natural OAV from documented constituents.
+- Lot-dependent naturals retain uncertainty even when a generic composite is available.
+- Opaque bases remain whole-product proxies unless exact supplier documentation establishes composition.
+- Missing composite coverage on an identity-critical natural is a target-model `HOLD`, not a zero-OAV conclusion.
+
+## 4. Reference Architectures
+
+### 4.1 Creed Aventus reference
+
+#### Identity
+
+A polished, dry-woods fruity masculine architecture in which luminous citrus and blackcurrant-leaf tension reveal pineapple; pepper and jasmine move the fruit into smoky-leathery birch, patchouli, and a controlled musk trail.
+
+#### Required functional groups
+
+1. **Citrus and blackcurrant-leaf ignition** — bergamot and lemon brightness with tart/green cassis-leaf tension.
+2. **Dimensional pineapple body** — distinct flesh, green skin, volatile glint, and restrained dark-fruit relief rather than one ester at brute-force strength.
+3. **Pepper-jasmine bridge** — dry sparkle and floral air that stop fruit and wood from becoming disconnected blocks.
+4. **Birch-smoke/leather transition** — perceptible before the fruit disappears; dry and structural rather than campfire-heavy.
+5. **Patchouli and dry-wood foundation** — identifiable earth and grain, not only abstract amberwood.
+6. **Controlled musk silhouette** — zero or one functionally exact musk in the current design system unless an explicit nonredundant exception is proven.
+
+#### Required temporal movement
+
+- **Opening:** citrus and tart-green tension illuminate pineapple; no candy-apple or syrupy tropical takeover.
+- **Heart:** pineapple remains recognizable while pepper, jasmine air, birch-smoke, and patchouli become audible.
+- **Late heart:** the fruit-to-smoke/wood relationship is continuous; no wet-fruit/dry-base split.
+- **Drydown:** birch/leather, patchouli, dry wood, and restrained musk define the object; pineapple/cassis may remain as a shadow but not the dominant recognizable object.
+
+#### Drift failures
+
+- Pineapple-surprise monolith.
+- Cassis syrup, catty excess, or berry-candy takeover.
+- Candy apple or fruit-ester harshness.
+- Vintage green-moss chypre drift.
+- Blue-shower-gel freshness.
+- Campfire tar dominance.
+- Dry superamber wall without transition.
+- Musk laundering of smoke, patchouli, or cedar.
+
+### 4.2 Creed Absolu Aventus reference
+
+#### Identity
+
+A warmer, more resinous and spiced Aventus relation in which bergamot, ginger, and grapefruit illuminate pineapple; cardamom and cinnamon articulate the heart; and labdanum, vetiver, and patchouli replace the original's birch-musk silhouette as the stated base architecture.
+
+#### Required functional groups
+
+1. **Bergamot-grapefruit-ginger ignition** — citrus brightness with dry ginger lift; neither generic lemon cologne nor sweet orange.
+2. **Pineapple-spice heart** — pineapple remains recognizable but is structured by independent cardamom and cinnamon functions.
+3. **Labdanum depth** — a perceptible resin plane, not a generic superamber substitution.
+4. **Vetiver-patchouli foundation** — root, earth, and dry grain remain independently represented.
+5. **Controlled continuity materials** — radiance, wood, amber, or musk supports require named functions and cannot replace the disclosed architecture.
+
+#### Required temporal movement
+
+- **Opening:** bergamot, grapefruit, and ginger lead; pineapple is revealed rather than arriving as a wet monolith.
+- **Heart:** cardamom and cinnamon become audible with pineapple while citrus relinquishes the foreground.
+- **Late heart:** resin, vetiver, and patchouli overlap the receding fruit/spice object.
+- **Drydown:** labdanum, vetiver, and patchouli dominate; pineapple may persist only as a subordinate shadow.
+
+#### Drift failures
+
+- Treating Absolu as Aventus with every numerical target multiplied upward.
+- Grapefruit cleaner or ginger-cologne takeover.
+- Cinnamon gourmand, apple-pie, or sweet-spice drift.
+- Pineapple monolith without cardamom/cinnamon articulation.
+- Generic amberwood wall standing in for labdanum, vetiver, and patchouli.
+- Musk laundering of the resinous/rooted structure.
+
+### 4.3 Montblanc Explorer reference
+
+#### Identity
+
+A modern woody-aromatic-leather structure in which bergamot, pepper, and clary sage move through green-muguet/magnolia density, patchouli, and Ambrofix into vetiver, leather, and cedarwood.
+
+#### Required functional groups
+
+1. **Bergamot-aromatic ignition** — bergamot led, with pepper and clary-sage tension.
+2. **Mahonial function** — green muguet volume, floral density, and magnolia facets. Exact Mahonial remains the target identity; current-inventory substitutes are analogues with explicit loss statements.
+3. **Patchouli-Ambrofix heart frame** — earth, dry woody ambergris character, and continuity beginning in the heart.
+4. **Leather-cedar-vetiver base** — a legible three-part base rather than an undifferentiated amberwood mass.
+5. **Musk restraint** — no musk is required by the official note architecture; any proposed musk requires a specific nonredundant function.
+
+#### Required temporal movement
+
+- **Opening:** bergamot, pepper, and clary sage are recognizable as an aromatic structure.
+- **Heart:** green floral density, patchouli, and ambergris-type material displace the citrus without creating a hollow gap.
+- **Late heart:** leather and cedar emerge through patchouli/Ambrofix continuity.
+- **Drydown:** vetiver, leather, and cedar define the remaining structure.
+
+#### Drift failures
+
+- Pineapple, cassis, tropical fruit, or sweet-apple identity.
+- Generic Aventus-clone fruit-smoke behavior.
+- Blue aquatic volume.
+- Floral bouquet takeover.
+- Sweet amber or gourmand warmth.
+- Harsh superamber dominance.
+- Suede/musk cleanliness that erases aromatic and woody grain.
+
+### 4.4 Montblanc Explorer Extreme Parfum reference
+
+#### Identity
+
+A concentrated woody-amber-leather Explorer architecture in which bergamot and sage open into patchouli and exact-target Ambrofix, followed by a warmer amber, leather, and vetiver base. Its identity is not original Explorer with every dose or OAV target increased.
+
+#### Required functional groups
+
+1. **Bergamot-sage ignition** — citrus light retained against a denser concentration.
+2. **Patchouli-Ambrofix heart** — exact disclosed identities remain separate; Ambrox Super may be a current-build functional analogue only with an explicit loss statement.
+3. **Warm amber plane** — warmth and body without vanilla/gourmand conversion or harsh superamber glare.
+4. **Leather-vetiver base** — tactile leather and dry root must remain legible beneath amber.
+5. **Musk restraint** — no redundant musk curtain may substitute for parfum-concentration depth.
+
+#### Required temporal movement
+
+- **Opening:** bergamot and sage remain recognizable despite the denser base.
+- **Heart:** patchouli and ambergris-type structure emerge without an abrupt citrus-to-amber jump.
+- **Late heart:** leather and vetiver connect the patchouli/Ambrofix heart to the warmer amber base.
+- **Drydown:** amber, leather, vetiver, and patchouli define the remaining object; fruit is outside the official identity.
+
+#### Drift failures
+
+- Pineapple/cassis or generic Aventus-clone behavior.
+- Original Explorer with only larger amberwood numbers.
+- Sweet vanilla, tonka, or gourmand amber.
+- Harsh dry superamber wall.
+- Suede-clean musk curtain without patchouli, leather, and vetiver grain.
+- Citrus disappearing immediately under base mass.
+
+### 4.5 SUKHUM 35 Thai Aventus-adjacent target
+
+SUKHUM 35 is not renamed Aventus or Explorer. It is a Thai-market fruity-woody aromatic design allowed to borrow Aventus's fruit-to-smoke transition and Explorer's aromatic/mineral leather-wood continuity.
+
+Its name target requires warm-climate clarity, bitter citrus relief, composed pineapple, secondary cassis, aromatic movement, charcoal/leather transition, identifiable cedar/vetiver, mineral persistence, and no foreign-tourist preference assumption.
+
+The current sensory report — pineapple wetness over a dry base and "pineapple surprise" — is direct evidence that the existing balance fails this intended architecture. Corrected gates must reproduce that failure analytically without pretending to reproduce Aventus or Explorer headspace.
+
+## 5. Ingredient-Model Scope
+
+### 5.1 Deep candidate palette
+
+The first deep audit covers every plausible current or ideal material in these functions:
+
+- bergamot, lemon, grapefruit, mandarin, cassis leaf, and citrus persistence;
+- pineapple flesh, skin, glint, lactonic relief, damascone depth, and cassis relief;
+- pink/black pepper, clary sage, juniper, petitgrain, and aromatic bridges;
+- jasmine/Hedione air, Dihydrojasmone, Mahonial, magnolia, and muguet analogues;
+- birch tar, cade, Suederal, Isobutyl Quinoline, patchouli, Clearwood, and leather support;
+- Iso E Super, cedarwood identities, vetiver identities, Vetival, Ambrofix, Ambrox Super, and strong amberwoods;
+- Romandolide, Habanolide, and other owned musks considered for an exact single function; and
+- all carriers and working stocks needed to represent those materials.
+
+### 5.2 Required fields
+
+Each candidate record must include:
+
+- canonical identity and aliases;
+- CAS or explicit proprietary/mixture status;
+- inventory ownership and execution readiness;
+- stock fraction, basis, carrier, and density authority;
+- molecular weight, vapor pressure, ODT, logP, and activity-coefficient authority;
+- odor family, character, role, texture, and intended time windows;
+- composite-natural coverage;
+- current safety/IFRA authority;
+- named-reference function;
+- substitution status and loss statement;
+- missing-chemical impact; and
+- evidence tier and provenance.
+
+### 5.3 Required stock corrections
+
+- Allyl Amyl Glycolate is user-authoritative at 10% w/w in IPM. The local `inventory.txt` does not yet encode that complete basis/carrier authority, so no new executable SUKHUM formula may rely on the stale row.
+- Ambrofix and Ambrox Super remain separate product identities.
+- Future reformulations use Ambrox Super when an ambergris-type reformulation material is selected, per user instruction, but Explorer `TARGET / IDEAL` retains Ambrofix because it is explicitly named by Montblanc.
+- Existing historical Ambrofix/Ambrox formula files remain unchanged.
+- Liquid Ambrofix is currently unavailable under the coordinator's global authority. The local inventory's saturated-stock row is divergent historical/local state and is not executable authority for a successor.
+- Ambrofix crystals are a distinct historical stock identity and are depleted.
+- Birch and cade stock safety remains `HOLD` until the exact rectified lot's PAH-conformity evidence is available.
+
+### 5.4 Core ingredient authority matrix
+
+This matrix governs the named architectures without changing inventory bytes.
+`Owned` is not the same as quantitatively executable.
+
+| Identity / function | Reference authority | Current 6992 evidence | Quantitative authority for a new build |
+|---|---|---|---|
+| Bergamot / lemon ignition | Official Aventus and Explorer pages | Bergamot FCF Sicilian and Lemon FCF Sicilian listed | Candidate-ready, exact lot physics/composite authority still governs strict OAV |
+| Red Mandarin / grapefruit SUKHUM opening | SUKHUM design inference | Both listed; grapefruit physics is incomplete in the F2 run | Grapefruit strict OAV `HOLD`; cannot be credited as zero |
+| Blackcurrant-leaf / cassis | Official Aventus blackcurrant-leaf accord; SUKHUM design | Blackcurrant Absolute 10% DPG and opaque Cassis Base 345B listed | Absolute requires composite coverage; opaque base remains `PROPRIETARY_HOLD` |
+| Pineapple body | Official Aventus pineapple accord; design inference for implementation | ACP 10% DPG, Hexyl Acetate stocks, AAG stock, E2MB 0.1% listed | AAG current authority is 10% w/w IPM but local row is stale; no new executable successor until synchronized |
+| Pink pepper | Official Aventus and Explorer pages | Opaque Pink Pepper Base is forbidden by current architecture; Black Pepper EO is not identity-equivalent | Exact pink-pepper current build is missing/held; black pepper is a disclosed surrogate only |
+| Clary sage | Official Explorer page | Clary Sage EO listed | Candidate-ready subject to exact lot/composite and safety authority |
+| Mahonial green-muguet density | Official Explorer page plus Givaudan supplier description | Exact Mahonial availability is not established by the local inventory; Florol/Magnolia are functional analogues | Exact-target gap is `MISSING/HOLD`; analogues require explicit loss statement |
+| Patchouli | Official Aventus and Explorer pages | Patchouli EO and Clearwood listed | Patchouli candidate-ready; Clearwood owned neat; no product equivalence claim |
+| Birch / smoke | Official Aventus page plus IFRA standard | Birch Tar Rectified 10% DPG and Cade 1% DPG listed | Exact-lot PAH/specification compliance `HOLD`; no release use from name alone |
+| Ambrofix | Official Explorer page plus Givaudan supplier page | Local saturated-stock row conflicts with coordinator global authority | Liquid unavailable; ideal-target only, not executable |
+| Ambrox Super | Separate dsm-firmenich product authority | Nominal ~33% w/v DEP:EtOH stock listed | Density, w/w, active-volume equivalence, and strict ppm remain `HOLD`; future SUKHUM selection preferred only after stock synchronization |
+| Cedar / vetiver / Vetival | Official Explorer base plus SUKHUM design | Virginia cedar, Indian vetiver, Vetival listed | Candidate selection possible; natural lot/composite authority remains scoped |
+| Bacdanol | Structural design candidate | Owned, exact fraction unresolved | Selectable but quantitative dosing `HOLD` |
+| Clearwood | Structural design candidate | Owned neat | Quantitatively selectable under current overlay; target fit remains untested |
+| Guaiacwood EO | Smoke/wood candidate | Owned 33%, basis/carrier unresolved | Quantitative dosing, ppm, OAV, and carrier displacement `HOLD` |
+| Romandolide | SUKHUM's existing sole projection musk | Owned neat in local inventory | Candidate-ready, but liking/projection and exact function remain untested |
+| Habanolide / Ethylene Brassylate | Alternative single-function musks | Listed as owned | Alternatives only; no redundant musk chord without a controlled exception |
+
+The matrix is architecture authority, not a synchronization receipt. The local
+inventory and coordinator-global overlay still disagree; therefore it cannot
+authorize a new physical formula.
+
+## 6. Gate Design
+
+### 6.1 Named-reference resolution
+
+- Add explicit briefs for Aventus, Absolu Aventus, Explorer, Explorer Extreme Parfum, and SUKHUM 35.
+- An explicit named brief that cannot resolve to a registered architecture is a hard failure.
+- `generic` and `auto` remain available, but they cannot claim named-reference validation.
+
+### 6.2 Temporal OAV evaluation
+
+The gate must use distinct simulation frames:
+
+| Architecture stage | Simulation frame |
+|---|---|
+| Opening | `opening` or `top`, as declared by the rule |
+| Top | `top` at 5 minutes |
+| Heart | `heart` at 30 minutes |
+| Late heart | `late_heart` at 2 hours |
+| Drydown | `drydown` at 4 hours |
+
+Opening OAV must never be copied into every stage.
+
+### 6.3 Relationship rules
+
+Named-reference rules operate on functional groups and relationships, including:
+
+- minimum perceptibility for identity-critical groups;
+- maximum dominance for fruit, citrus, smoke, leather, amberwood, and musk groups;
+- ratios between a foreground group and its counterweight or bridge;
+- transition continuity across adjacent windows;
+- decline or emergence relationships between windows; and
+- missing-data behavior for identity-critical materials.
+
+Absolute OAV bands may be used only as internal design guardrails with their authority labeled. They must not be described as measured retail-reference OAV.
+
+The first implemented SUKHUM rules are deliberately relative and
+target-specific:
+
+| Rule | Implemented guardrail | Authority |
+|---|---:|---|
+| Opening fruit OAV / opening citrus OAV | maximum `0.85` | `DESIGN_HEURISTIC`; intended to prevent fruit-first ignition |
+| 30-minute fruit OAV / opening fruit OAV | maximum `0.55` | `DESIGN_HEURISTIC`; intended to force fruit release into the heart |
+| 30-minute citrus OAV / opening citrus OAV | maximum `0.70` | `DESIGN_HEURISTIC`; intended to prevent a flat persistent citrus layer |
+
+These values are operational regression thresholds, not calibrated sensory
+boundaries. They require future carrier-matched physical trials and panel
+calibration. Their immediate acceptance criterion is narrower: they must reject
+the known F2 pineapple-surprise control for intelligible target-linked reasons.
+
+### 6.4 Blocking behavior
+
+- Named-reference architecture failures are release-blocking.
+- Generic aesthetic guidelines remain advisory.
+- `family_hedonic` may return `PASS` only when a mapped family model actually evaluated substantive target logic.
+- An unmapped or empty family model returns `WARN` or `HOLD`, never a false `PASS`.
+- Emergency OAV-overdose limits remain, but passing them does not establish balance.
+- Missing identity-critical physics, ODT, composite-natural data, or stock basis creates a visible failure or hold according to the requested authority level.
+
+### 6.5 Simulator authority
+
+The current evaporation model remains explicitly heuristic. Its trajectories are useful for internal consistency and candidate comparison, but must not be promoted as measured skin evaporation, reference headspace, or exact longevity. Calibration of the loss-rate coefficient is out of scope until matched empirical measurements exist.
+
+## 7. Cross-Family Hedonic-Context Candidate
+
+### 7.1 Status and responsibility
+
+`future_modules/family_hedonic_optimizer.py` owns a formula-level context evaluator whose exported results are explicitly labeled `FUTURE_CANDIDATE_NOT_VALIDATED`. It consumes pipeline-computed OAV and active-percentage observations; it does not recompute physics, rewrite stock authority, or infer physical smell.
+
+The legacy `engine/hedonic_model.py` and `engine/family_scorer.py` are outside this worktree lease. Their incompatible scalar contracts are not imported, adapted, normalized, or silently replaced by this candidate.
+
+### 7.2 Data contract
+
+The candidate uses three immutable records:
+
+```python
+@dataclass(frozen=True, slots=True)
+class HedonicObservation:
+    family_key: str
+    archetype_key: str | None
+    window_oavs: Mapping[str, Mapping[str, float | None]]
+    active_percentages: Mapping[str, float]
+    material_authority: Mapping[str, str]
+
+@dataclass(frozen=True, slots=True)
+class HedonicCriterion:
+    key: str
+    component: str
+    kind: str
+    materials: tuple[str, ...]
+    window: str
+    minimum: float | None
+    maximum: float | None
+    evidence_tier: str
+    source_or_derivation: str
+    claim_ceiling: str
+
+@dataclass(frozen=True, slots=True)
+class HedonicContextReport:
+    family_key: str
+    archetype_key: str | None
+    scope: str
+    status: str
+    authority_status: str
+    components: Mapping[str, Mapping[str, object]]
+    criterion_results: tuple[Mapping[str, object], ...]
+    rated_oav_fraction: float | None
+    unknowns: tuple[str, ...]
+    evidence_tier: str
+    quantitative_authority: str
+    claim_ceiling: str
+    proves_liking: bool = False
+    proves_similarity: bool = False
+```
+
+The evaluator signature is:
+
+```python
+def evaluate_family_hedonic_context(
+    observation: HedonicObservation,
+    profile: FamilyHedonicProfile,
+    *,
+    overlay_alignment: Mapping[str, object] | None = None,
+) -> HedonicContextReport:
+    ...
+```
+
+### 7.3 Component semantics
+
+The report keeps these planes separate:
+
+- `dose_context_fit` — family-context OAV bands and functional dose hypotheses;
+- `dominance_and_cliffs` — overdoses, character flips, and one-material takeover;
+- `temporal_fit` — opening, heart, late-heart, and drydown relationships;
+- `family_role_fit` — required family functions rather than material count;
+- `diffusion_and_texture` — spatial and tactile relationships when supported by declared data;
+- `reference_alignment` — a source-bounded named overlay supplied by the registry/gates; and
+- `evidence_coverage` — OAV, authority, mapping, and required-window completeness.
+
+No component result is consumer liking. Components may use local criterion-fit fractions or deviations, but incompatible source scales remain separate. The `-1..+1` legacy intrinsic-valence table, `-5..+5` material-profile hypotheses, OAV bands, temporal ratios, and observed sensory preferences are never normalized into one public scalar.
+
+### 7.4 Fail-closed rules
+
+- Adding inert, redundant, unrecognized, or sub-threshold ingredients cannot improve any component.
+- Ingredient count is coverage telemetry only and never evidence of complexity.
+- A present material needed by a criterion with `None`, missing, held, or scale-mismatched OAV produces `UNKNOWN/HOLD`, not numerical zero.
+- Missing required windows produce `UNKNOWN/HOLD`; opening is never reused as heart or drydown.
+- Broad-family context remains active beneath a named overlay; the overlay adds constraints rather than disabling family cliffs.
+- Named-reference compatibility alone can return at most `WARN` and cannot prove similarity.
+- `Ambrofix` and `Ambrox Super` remain exact identities. A common functional-class label, if displayed, is explicitly a non-equivalent surrogate relationship.
+- Every criterion carries evidence tier, source or derivation, and claim ceiling.
+- An overall gate may encode an authority hold as `WARN` with `data.authority_status = "HOLD"` because the current gate-status schema recognizes only `PASS`, `WARN`, and `FAIL`.
+
+### 7.5 Claim ceiling
+
+The strongest permitted candidate claim is:
+
+> The candidate satisfies or fails an internally defined, evidence-tiered family-context and named-reference design architecture under modeled OAV and heuristic temporal assumptions.
+
+It does not establish liking, beauty, hedonism, consumer preference, Thai-market success, sensory similarity, proprietary formula equivalence, measured reference headspace, physical performance, safety, stability, or release readiness.
+
+## 8. Formula Outputs
+
+Every eventual proposal produced from these models must include:
+
+1. Target identity and functional architecture.
+2. `TARGET / IDEAL FORMULA` separated from `CURRENT-INVENTORY BUILD`.
+3. Missing-chemical impact gate.
+4. Purchase/preparation recommendation.
+5. Controlled blinded test plan.
+6. Full ppm/ODT/OAV diagnostics with composite naturals and temporal frames.
+7. Explicit model/data holds.
+8. One exact musk at most by default.
+9. Minimum 10 uL direct liquid-stock transfers; otherwise a separately prepared, labeled working stock.
+10. No physical, hedonic, similarity, stability, safety, performance, or release claim without corresponding evidence.
+
+Historical formula controls are immutable. Every corrected formula or rescue is a versioned successor.
+
+## 9. Testing Strategy
+
+### 9.1 Unit and registry tests
+
+- Aventus, Absolu Aventus, Explorer, Explorer Extreme Parfum, and SUKHUM briefs resolve to distinct native archetypes.
+- Every named architecture has anchors, drift limits, temporal relationships, repair candidates, and source/evidence metadata.
+- Ambrofix and Ambrox Super remain distinct canonical identities.
+- AAG stock authority resolves to 10% w/w in IPM.
+- Unknown explicit named briefs fail closed.
+- Generic family hedonics cannot pass on an empty model.
+- Every registry family resolves explicitly to one broad hedonic context or a visible `UNKNOWN/HOLD`; no arbitrary floral or amber fallback is allowed.
+- `woody_amber` resolves to the woody-amber context rather than amber-oriental.
+- Redundant ingredient rows cannot improve the context result.
+- Incompatible hedonic scales remain distinct and are never aggregated.
+
+### 9.2 Gate tests
+
+- A fruit-heavy disconnected SUKHUM control fails on bridge and persistence relationships.
+- Distinct top, heart, and drydown values prove that the correct simulation frames are consumed.
+- A high Hedione/Iso E total cannot conceal fruit/transition failure.
+- Aventus-shaped controls do not pass Explorer rules merely because both are modern woody masculines.
+- Explorer-shaped controls do not pass Aventus pineapple/birch architecture.
+- Missing Mahonial or a qualified analogue remains visible in the Explorer current-build result.
+- Missing ODT or composite-natural data for an identity-critical material cannot silently become OAV zero.
+- A profile containing only static tips/pitfalls cannot yield a formula-level hedonic `PASS`.
+- Broad-family compatibility cannot become named-reference liking or similarity evidence.
+- Missing required time windows cannot fall back to opening observations.
+
+### 9.3 Regression and formula rerun
+
+- Run focused family and gate tests first.
+- Run the relevant full gate/family test files after focused tests pass.
+- Rerun the latest parser-executable SUKHUM control using the named SUKHUM brief.
+- Treat F2 as a diagnostic proxy only where later F3 mass-dose Ambrofix geometry is not parser-representable.
+- Do not credit F2 Ambrox results to F3 Ambrofix.
+- Generate and inspect the required formatted pipeline analysis before proposing a rescue or full reformulation.
+
+## 10. Acceptance Criteria
+
+Implementation is accepted only when:
+
+- all five briefs resolve correctly;
+- the architecture models are source-bounded and machine-readable;
+- all referenced candidate ingredients have explicit authority states;
+- temporal gates consume the correct frames;
+- named-reference failures remain blocking;
+- generic hedonics no longer produce empty false passes;
+- the known SUKHUM pineapple-surprise control fails for intelligible target-linked reasons;
+- no proprietary formula, measured-reference OAV, or physical success is inferred;
+- focused tests pass and unrelated dirty-worktree changes are preserved; and
+- exact changed-file hashes, tests, blockers, and readiness boundaries are reported.
+
+### 10.1 Current implementation result
+
+- `creed_aventus.reference`, `montblanc_explorer.reference`, and `sukhum_35.thai_aventus_adjacent` are currently distinct machine-readable registry entries; Absolu Aventus and Explorer Extreme remain pending implementation.
+- Named-target perfume-knowledge failures remain blocking. `family_drift_detector` is still globally hard-blocking in the current partial implementation and must be made role-conditional so generic aesthetic misses remain advisory.
+- OAV family targets now consume `top` (5 min), `heart` (30 min), and `drydown` (4 h) state maps rather than reusing opening OAV.
+- Empty/unmapped `family_hedonic` evaluations return `WARN`, but mapped profiles still falsely `PASS` from static tips/pitfalls without formula evaluation.
+- Explicit unknown named targets fail closed.
+- The SUKHUM temporal relationship gate is hard-blocking and labels its model as heuristic rather than measured headspace, but its group math still converts missing OAV to zero and lacks bridge/base-continuity rules.
+- Broad-family OAV-intelligence compatibility maps are separate from the stricter named-reference registry, but compatibility-only analysis can still fall through to `PASS` and therefore requires an intrinsic authority warning.
+- Current inventory synchronization, threshold calibration, physical sensory acceptance, and any executable rescue remain `HOLD`.
+
+## 11. Out of Scope
+
+- GC-MS or headspace measurement of any retail reference.
+- Claiming batch-specific Aventus reconstruction.
+- Editing, normalizing, or replacing `engine/hedonic_model.py` or `engine/family_scorer.py`.
+- Collapsing intrinsic valence, family-context hypotheses, OAV relationships, and observed preference into one score.
+- Purchasing or preparing missing materials.
+- Physical SUKHUM rescue before the corrected diagnostic is reviewed.
+- Recalibrating the finite-film evaporation model without empirical data.
+- Merging, cherry-picking, pushing, or modifying another worktree.

@@ -1,0 +1,341 @@
+import math
+
+from engine.pipeline.formula_state import build_formula_state
+from engine.pipeline.natural_absolute_decomposition import get_constituents
+from engine.material_resolver import resolve_material
+from engine.name_utils import normalize_name
+from engine.odor_thresholds import ODT_DATA, verify_odt
+from engine.odt_verifier import verify_entry
+from scripts.format_pipeline_analysis import build_oav_headspace_table, build_perfumer
+
+
+def test_formula_state_preserves_raw_and_active_dose():
+    state = build_formula_state(
+        {"Hedione": 100.0, "Geosmin": 10.0},
+        {"Hedione": 1.0, "Geosmin": 0.01},
+        batch_volume_ml=30.0,
+    )
+
+    hedione = next(m for m in state.materials if m.name == "Hedione")
+    geosmin = next(m for m in state.materials if m.name == "Geosmin")
+
+    assert state.total_raw_ul == 110.0
+    assert round(state.total_active_ul, 3) == 100.1
+    assert hedione.active_ul == 100.0
+    assert geosmin.raw_ul == 10.0
+    assert round(geosmin.active_ul, 3) == 0.1
+    assert abs(sum(m.mole_fraction for m in state.materials) - 1.0) < 1e-9
+
+
+def test_rose_alcohol_air_odts_use_primary_gc_o_thresholds():
+    expected = {"geraniol": 2.22, "nerol": 9.51}
+
+    for material, odt_ppb in expected.items():
+        assert ODT_DATA[material]["odt_air"] == odt_ppb
+        verification = verify_entry(material, no_network=True)
+        assert verification["verdict"] == "CONFIRMED"
+        assert verification["suggested_odt_ppb"] == odt_ppb
+        assert "Elsharif" in verification["source"]
+
+
+def test_perfumer_report_uses_safety_gate_product_percentages_and_real_leader():
+    formula = {
+        "formula_state": {
+            "materials": [
+                {
+                    "name": "Hedione",
+                    "oav": 2020.0,
+                    "note": "heart",
+                    "family": "floral",
+                    "vapor_ppm": 0.1,
+                    "vp_pure_pa": 0.21,
+                    "odt_air_ppm": 0.00005,
+                    "active_ul": 280.0,
+                    "ifra_limit_pct": 40.0,
+                },
+                {
+                    "name": "Damascone Beta",
+                    "oav": 18.0,
+                    "note": "heart",
+                    "family": "rose",
+                    "vapor_ppm": 0.001,
+                    "vp_pure_pa": 0.08,
+                    "odt_air_ppm": 0.00004,
+                    "active_ul": 4.5,
+                    "ifra_limit_pct": 0.02,
+                },
+            ],
+            "total_active_ul": 284.5,
+            "note_distribution": {"top": 0.0, "heart": 100.0, "base": 0.0},
+        },
+        "time_series": [],
+        "gates": [
+            {
+                "gate": "safety_ifra_allergen",
+                "status": "WARN",
+                "data": {
+                    "violations": [],
+                    "edge_dosing": [
+                        {
+                            "material": "Damascone Beta",
+                            "actual_pct": 0.015,
+                            "limit_pct": 0.02,
+                            "usage_pct": 75.0,
+                        }
+                    ],
+                    "missing_ifra_limit": ["Rose de Mai Absolute"],
+                    "allergen_declarations": ["Linalool"],
+                },
+            }
+        ],
+    }
+
+    report = "\n".join(build_perfumer(formula))
+
+    assert "Wide contrast: Hedione (floral, OAV 2020)" in report
+    assert "citrus (OAV 2020)" not in report
+    assert "IFRA EDGE: Damascone Beta at 0.0150% in finished product" in report
+    assert "75.0% of 0.02% Cat4 limit" in report
+    assert "IFRA HOLD: explicit Cat4 limit unavailable for Rose de Mai Absolute" in report
+    assert "EU LABEL: Linalool" in report
+    assert "near/above Cat4 limit" not in report
+
+
+def test_headspace_table_uses_required_stock_rebase_and_oav_columns():
+    lines = build_oav_headspace_table(
+        [
+            {
+                "name": "Rose Oxide",
+                "dilution": 0.01,
+                "raw_ul": 100.0,
+                "active_ul": 1.0,
+                "mw_g_mol": 154.3,
+                "mole_fraction": 0.0003,
+                "vp_pure_pa": 5.3,
+                "gamma": 1.0,
+                "vapor_ppm": 0.0132,
+                "odt_air_ppm": 0.0005,
+                "oav": 26.4,
+                "note": "heart",
+            }
+        ]
+    )
+
+    assert lines[2] == (
+        "| Material | Dil | Raw µL | Act µL | MW | MF% | VP Pa | γ | "
+        "Vapor ppm | ODT ppm | OAV | Note |"
+    )
+    assert "| Rose Oxide | 1.00% | 100.00 | 1.00 | 154.30 | 0.0300 |" in lines[4]
+
+
+def test_formula_state_computes_ppm_and_oav_when_data_exists():
+    state = build_formula_state(
+        {"Hedione": 1000.0, "Iso E Super": 1000.0},
+        batch_volume_ml=30.0,
+    )
+
+    rows = {m.name: m for m in state.materials}
+    assert rows["Hedione"].vapor_ppm >= 0
+    assert rows["Hedione"].odt_air_ppm is not None
+    assert rows["Hedione"].oav is not None
+    assert rows["Iso E Super"].mw_g_mol is not None
+    assert "vp" not in rows["Iso E Super"].missing_fields
+    assert rows["Iso E Super"].note == "base"
+
+
+def test_formula_state_adds_chemistry_metadata_and_hsp_fallback():
+    state = build_formula_state(
+        {
+            "Hedione": 1000.0,
+            "D-Limonene": 500.0,
+            "Aldehyde C12 MNA": 50.0,
+            "Indole": 10.0,
+        },
+        batch_volume_ml=30.0,
+    )
+
+    rows = {m.name: m for m in state.materials}
+    assert rows["Hedione"].hsp is not None
+    assert rows["Hedione"].hsp_source == "fallback:science_data.hsp"
+    assert "ester" in rows["Hedione"].functional_groups
+    assert "terpene" in rows["D-Limonene"].functional_groups
+    assert "aldehyde" in rows["Aldehyde C12 MNA"].functional_groups
+    assert "amine" in rows["Indole"].functional_groups
+
+
+def test_formula_state_reuses_cached_result_for_identical_requests():
+    build_formula_state.cache_clear()
+    state_a = build_formula_state(
+        {"Hedione": 1000.0, "Iso E Super": 1000.0},
+        batch_volume_ml=30.0,
+        temperature_K=305.0,
+    )
+    state_b = build_formula_state(
+        {"Hedione": 1000.0, "Iso E Super": 1000.0},
+        batch_volume_ml=30.0,
+        temperature_K=305.0,
+    )
+
+    assert state_a is state_b
+
+
+def test_current_inventory_natural_labels_route_to_composite_models():
+    assert get_constituents("indian vetiver eo")
+    assert get_constituents("lavender eo high altitude")
+    assert get_constituents("patchouli eo")
+    assert get_constituents("immortelle absolute")
+
+
+def test_ysl_current_inventory_natural_labels_all_route_to_composite_models():
+    current_stock_labels = (
+        "Bergamot FCF oil Sicilian",
+        "Lemon FCF oil Sicilian",
+        "Ginger EO",
+        "Black Pepper EO",
+        "Cedarwood oil Virginia",
+        "Spike Lavender EO",
+        "Tonka Bean Absolute (10% in DPG)",
+        "Immortelle Absolute (10% in DPG)",
+    )
+
+    missing = [label for label in current_stock_labels if not get_constituents(label)]
+
+    assert missing == []
+
+
+def test_composite_oav_is_labeled_as_a_literature_proxy():
+    state = build_formula_state(
+        {"Bergamot FCF oil Sicilian": 100.0, "Hedione": 900.0},
+        batch_volume_ml=30.0,
+    )
+
+    bergamot = next(row for row in state.materials if row.name == "Bergamot FCF oil Sicilian")
+
+    assert bergamot.sources["oav"] == "literature_proxy:natural_absolute_decomposition"
+
+
+def test_composite_row_uses_aggregate_vapor_and_effective_odt():
+    state = build_formula_state(
+        {"Bergamot FCF oil Sicilian": 100.0, "Hedione": 900.0},
+        batch_volume_ml=30.0,
+    )
+
+    bergamot = next(row for row in state.materials if row.name == "Bergamot FCF oil Sicilian")
+
+    assert bergamot.sources["odt"] == "derived_effective:natural_absolute_decomposition"
+    assert bergamot.odt_air_ppm is not None
+    assert bergamot.oav is not None
+    assert math.isclose(
+        bergamot.oav,
+        bergamot.vapor_ppm / bergamot.odt_air_ppm,
+        rel_tol=1e-9,
+    )
+
+
+def test_formula_state_serializes_active_mass_and_oav_note_distributions_separately():
+    state = build_formula_state(
+        {"Linalool": 100.0, "Ethylene Brassylate": 900.0},
+        batch_volume_ml=30.0,
+    )
+
+    payload = state.as_dict()
+
+    assert payload["active_note_distribution"]["base"] == 90.0
+    assert payload["note_distribution"]["top"] > 99.0
+
+
+def test_bergamot_current_stock_profile_is_a_top_note():
+    resolved = resolve_material("Bergamot FCF oil Sicilian")
+
+    assert resolved.profile is not None
+    assert resolved.profile.note == "top"
+
+
+def test_perfumer_drydown_names_the_actual_oav_leading_tier():
+    headspace = {"top": 50.1, "heart": 33.0, "base": 16.9}
+    state = {
+        "materials": [],
+        "note_distribution": headspace,
+        "total_vapor_ppm": 1.0,
+        "total_raw_ul": 100.0,
+    }
+    formula = {
+        "formula_state": state,
+        "time_series": [
+            {"t_seconds": seconds, "state": state}
+            for seconds in (0.0, 300.0, 1800.0, 7200.0, 14400.0)
+        ],
+    }
+
+    text = "\n".join(build_perfumer(formula))
+
+    assert "Top leads modeled headspace at 50%" in text
+    assert "Base dominates" not in text
+
+
+def test_ysl_specialty_stock_labels_normalize_to_material_identity():
+    assert normalize_name("2-Acetyl Pyrazine (1% in DPG)") == "2-acetyl pyrazine"
+    assert normalize_name("Violet Leaf Absolute (10% in DPG)") == "violet leaf absolute"
+
+
+def test_ysl_specialty_stock_labels_resolve_complete_pipeline_records():
+    for label in (
+        "2-Acetyl Pyrazine (1% in DPG)",
+        "Violet Leaf Absolute (10% in DPG)",
+    ):
+        resolved = resolve_material(label)
+        assert resolved.is_known is True
+        assert resolved.profile is not None
+        assert resolved.registry_material is not None
+        assert resolved.profile.mw is not None
+        assert resolved.profile.vp is not None
+        assert resolved.profile.clogp is not None
+        assert resolved.registry_material.odt_air_ppb is not None
+
+
+def test_ysl_specialty_odt_values_remain_explicitly_derived():
+    acetylpyrazine = verify_odt("2-Acetyl Pyrazine (1% in DPG)")
+    violet_leaf = verify_odt("Violet Leaf Absolute (10% in DPG)")
+
+    assert acetylpyrazine is not None
+    assert acetylpyrazine["vfy"] == "DERIVED"
+    assert "water" in " ".join(acetylpyrazine["sources"]).lower()
+    assert violet_leaf is not None
+    assert violet_leaf["vfy"] == "DERIVED"
+    assert "proxy" in " ".join(violet_leaf["sources"]).lower()
+
+
+def test_violet_leaf_stock_routes_to_composite_proxy():
+    constituents = get_constituents("Violet Leaf Absolute (10% in DPG)")
+
+    assert constituents is not None
+    names = {row[0] for row in constituents}
+    assert "nona-2(e),6(z)-dienal" in names
+    assert "beta ionone" in names
+
+
+def test_ysl_specialty_materials_produce_diagnostic_oav_without_missing_physics():
+    state = build_formula_state(
+        {
+            "2-Acetyl Pyrazine (1% in DPG)": 10.0,
+            "Violet Leaf Absolute (10% in DPG)": 20.0,
+            "Hedione": 4470.0,
+        },
+        {
+            "2-Acetyl Pyrazine (1% in DPG)": 0.01,
+            "Violet Leaf Absolute (10% in DPG)": 0.10,
+            "Hedione": 1.0,
+        },
+        batch_volume_ml=30.0,
+    )
+
+    rows = {row.name: row for row in state.materials}
+    for label in (
+        "2-Acetyl Pyrazine (1% in DPG)",
+        "Violet Leaf Absolute (10% in DPG)",
+    ):
+        row = rows[label]
+        assert row.missing_fields == ()
+        assert row.oav is not None
+        assert row.oav >= 0.0
+        assert row.sources["odt"].startswith("derived")

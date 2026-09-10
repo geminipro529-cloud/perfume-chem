@@ -1,0 +1,51 @@
+{
+  "schema_version": "chatgpt_browser_capture_manifest_v1",
+  "capture_id": "chat-a-atlas-v2-6a753afc-20260819t123618z",
+  "recorded_at": "2026-08-19T12:36:18Z",
+  "source": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "project_name": "Complex Perfumery",
+    "conversation_id": "6a753afc-c714-83ec-a854-e6fbb3022048",
+    "conversation_url": "https://chatgpt.com/g/g-p-6a74ab83668081919f5cbd0dfe80eb09-complex-perfumery/c/6a753afc-c714-83ec-a854-e6fbb3022048",
+    "conversation_title": "Human Mixture Datasets",
+    "attachment_name": "PERFUMERY_INTERACTION_ATLAS_V2_V5_REBASE_20260809.zip",
+    "attachment_role": "LATER_ATLAS_V2_CONTINUATION_NOT_THE_ORIGINAL_CHAT_A_HUMAN_MIXTURE_DELIVERABLE",
+    "capture_surface": "AUTHENTICATED_CHATGPT_BROWSER_ATTACHMENT_DOWNLOAD",
+    "claimed_sha256": "e9c4477ea736a5f9f380658ed4dd9e2ab294e01a0e69e565a2a19bb994f50e3e"
+  },
+  "package": {
+    "path": "incoming_review/chatgpt/20260819T123618Z-chat-a-atlas-v2-6a753afc/PERFUMERY_INTERACTION_ATLAS_V2_V5_REBASE_20260809.zip",
+    "byte_size": 419611,
+    "sha256": "e9c4477ea736a5f9f380658ed4dd9e2ab294e01a0e69e565a2a19bb994f50e3e",
+    "media_type": "application/zip",
+    "archive_entry_count": 14,
+    "archive_file_count": 14,
+    "package_root": "PERFUMERY_INTERACTION_ATLAS_V2_V5_REBASE_20260809",
+    "internal_checksum_entries_verified": 13,
+    "archive_scan_status": "GRAPH_COMPLETE_QUARANTINED",
+    "archive_scan_promotion_allowed": false,
+    "archive_scan_holds": [
+      "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT",
+      "PARTIAL_MEMBER_SCAN"
+    ]
+  },
+  "rights": {
+    "reuse_status": "UNKNOWN",
+    "redistribution_allowed": false,
+    "reason": "The package is an AI-generated secondary synthesis and does not include a reusable rights grant for its own contents or exact source-rights artifacts for the underlying literature."
+  },
+  "disposition": {
+    "state": "EXACT_BROWSER_ATTACHMENT_CAPTURED_QUARANTINED",
+    "original_chat_a_human_mixture_deliverable_recovered": false,
+    "atlas_v2_successor_recovered": true,
+    "package_content_import_allowed": false,
+    "generated_row_projection_allowed": false,
+    "source_table_admission_allowed": false,
+    "formula_mutation_allowed": false,
+    "inventory_mutation_allowed": false,
+    "physical_truth_upgrade_allowed": false,
+    "release_allowed": false,
+    "notes": "Preserve this later continuation separately from the unrecovered original Chat-A deliverable. The Atlas successor is useful as exact provenance and inventory-rebase evidence only; all interaction, formula, sensory, analytical, safety, procurement, compounding, and release authority remains withheld."
+  },
+  "receipt_sha256": "85cbb2c7478a099e91cfe91b6774e00555c278d7127d0d5d82d6912874e91ab2"
+}

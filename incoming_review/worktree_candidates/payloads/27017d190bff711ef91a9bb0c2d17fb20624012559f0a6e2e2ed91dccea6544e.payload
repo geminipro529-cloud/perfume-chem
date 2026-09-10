@@ -1,0 +1,827 @@
+# DHI-11 — Velours d'Iris V4 Orris-Led — 05443/A Inspired — 30 mL / 20%
+
+**Case:** DHI-11-VELOURS-D-IRIS-V4-ORRIS-LED-20260905  
+**Mode:** COMPUTATIONAL_EXPERIMENT_DESIGN  
+**Claim mode:** named_reference  
+**Reference contract:** dior_homme_intense_2011_05443a_architecture_v1  
+**Reference scope:** architecture  
+**Family archetype:** iris_coumarin_amber.dhi2011  
+**Claim ceiling:** COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY  
+**Physical state:** NOT COMPOUNDED  
+**Bench status:** COMPLETE RAW-STOCK DEVELOPMENT RECIPE; EXACT-MASS / STOCK-BINDING / SKIN-USE HOLD pending verification below  
+**Sensory / liking / similarity / smoothness / performance / stability:** NOT TESTED  
+**Safety / commercial release:** HOLD  
+**Immediate parent formula:** D:/chatbots/perfume-chem/formulas/DHI-11_Velours_d_Iris_05443A_30mL_20pct_V3_Smooth.md  
+**Immediate parent SHA-256:** a9374adc9141cb1e831d0e4155d777c41ee43738c95134ad91e585aff916827b  
+**Selected-direction source:** D:/chatbots/perfume-chem/docs/research/DHI2011_ORRIS_LED_REVISION_BRIEF_2026-09-05.md  
+**Parent semantics:** Fresh-batch constant-raw-volume successor. This is not a positive-only correction of an already mixed bottle.
+
+## Selected direction and exact scope
+
+The user selected Orris Liquid as the richest remembered orris-root material and rejected Irotyl for smell and texture. Their later direct stock correction was **9% w/w in DEP**. Both facts were recovered from the source task and verified against the saved selected-direction brief and dated stock overlay. The source task also records that the fragrance is still being planned.
+
+V4 preserves every non-iris V3 dose. It replaces the entire 1,050 µL iris basket with Orris Liquid, reduced Alpha Isomethyl Ionone, reduced Alpha Ionone, and reduced Alpha Irone. Irotyl, Dihydro Beta Ionone, Ultralia, Orivone, and Carrot Seed EO are omitted. The latter four are not certified absent from Dior; they are removed to give the preferred Orris product a clearer, independently testable role. Irotyl is explicitly excluded by the user's target and sensory preference.
+
+**Bottle target:** 30 mL nominal. **Raw-stock concentrate:** 6,000 µL. **Diluent:** 24,000 µL Ethanol 96%. **Nominal sum:** 30,000 µL, at 20% v/v raw-stock concentrate under additive-volume convention. This is not 20% neat odorants or 20% w/w. Mixing contraction and delivery loss are not measured. Use a vessel with sufficient headroom; do not force the blend into an exactly brim-full container.
+
+## Research: ingredient identity and evidence
+
+1. Dior's house description supports Tuscan iris, ambrette-related fruity talc, Virginia cedar, amber and woods. Its current international disclosure shows code 10950/A, not 05443/A. Current-page alpha-isomethyl ionone and coumarin disclosure is not a verified 2011 ingredient list. [Dior product](https://www.dior.com/en_int/beauty/products/dior-homme-intense-Y0479201.html)
+2. Dior's own Ukrainian page identifies the 2011 creation with François Demachy. That corroborates lineage; it does not disclose the archived concentrate. [Dior historical copy](https://www.dior.com/uk_ua/beauty/products/dior-homme-intense-Y0479201.html)
+3. The named 2011 lavender/iris/ambrette/pear/cedar/vetiver sequence in the parent derives partly from contemporaneous secondary reporting. Treat it as reference architecture, not an analytical peak list. No authenticated 05443/A chromatogram with standards and quantified uncertainty was available for this revision.
+4. PerfumersWorld Orris Liquid, SKU 8IQ24653, is the user's selected supplied product. The supplier describes powdery floral wood, cosmetic violet, root-associated facets, and a creamy drydown. This supports a candidate role; it does not prove the exact product is in Dior. The supplier's irone-range description is not this stock's lot assay. Its product density must not be applied to the prepared 9% DEP stock. [Orris Liquid](https://www.perfumersworld.com/view.php?pro_id=8IQ24653)
+5. Alpha Ionone, Alpha Isomethyl Ionone and Alpha Irone are separate identities. The selected methyl-ionone bottle is the inventory row “Alpha Isomethyl Ionone (Methyl Ionone Pure)”; a different Givaudan AIMI grade or Methyl Ionone Gamma Coeur is not silently interchangeable. [Supplier methyl ionone](https://www.perfumersworld.com/view.php?pro_id=3IW00300)
+6. Primary work on separated irone isomers demonstrates why a whole orris product cannot be reduced to a generic alpha-irone label or assumed sensory equivalent from total irone content. [Brenna, Fuganti and Serra, 2003](https://comptes-rendus.academie-sciences.fr/chimie/articles/en/10.1016/S1631-0748(03)00087-0/)
+7. The supplier's linked Alpha Irone COA has a generic compound description and no lot-matched purity/isomer assay. It cannot certify the user's stock as stereochemically pure alpha-irone. Preserve stock identity while withholding that stronger claim. [Supplier COA](https://www.perfumersworld.com/ifra/COA/8II00243.pdf)
+
+The generic local iris guide's Irotyl recommendation and older reverse-engineering assertions of exact Dior proportions are not admissible ingredient evidence. The four iris ingredients here are design choices mapped to identified stocks. Their inclusion is not a claim that all four occur in DHI2011.
+
+## TARGET / IDEAL architecture
+
+| Target function | Ideal evidence-led material specification | Current build mapping | Unresolved gap |
+|---|---|---|---|
+| Rich orris root as the named heart | Reference-fit, lot-qualified orris product with documented composition and sensory comparison | User's preferred Orris Liquid, 9% w/w DEP | No authenticated Dior material/lot match; no measured headspace or purity |
+| Supporting cosmetic powder | Identified methyl-ionone grade chosen against reference | Alpha Isomethyl Ionone inventory bottle | Grade and stereochemistry are not disclosed Dior facts |
+| Violet movement | Only as much woody-violet contour as root needs | Reduced Alpha Ionone | Omission/alternative comparison outstanding |
+| Root accent | Independently adjustable iris accent if it improves the supplied orris product | Reduced Alpha Irone 10% w/w DEP | Pure-irone assay and extra-accent need unverified |
+| Lavender-to-fruity ambrette/talc | Fine lavender, a small fruit glint, reference-fit ambrette material | Inherited V3 lavender, fruit, Ambrettolide and powder supports | Ambrettolide is a proxy, not ambrette seed; literal pear chemicals unknown |
+| Warm cedar/vetiver landing | Dry Virginia cedar, restrained vetiver and coumarinic/vanillic warmth | Fixed V3 frame | Full recipe similarity and smoothness NOT TESTED |
+
+These are target functions, not a purported ideal Dior ingredient list or invented proprietary percentages. Irotyl has no slot. Complexity is the richness and temporal relationship of these functions, not the number of rows.
+
+## CURRENT-INVENTORY BUILD
+
+**Exact-mass rule:** for a stock with known mass fraction f and measured delivered stock mass m_i, product mass is f × m_i and concentrate ppm w/w is 1,000,000 × f × m_i / total delivered concentrate mass. Pure-material assay, where unknown, is separate from supplied-product mass. For neat/as-supplied stocks, delivered volume is known by the card but certified pure chemical mass is not assumed. For Mimosa, Osmanthus and E2MB the recorded percent basis remains unspecified; exact active mass is HOLD even if delivered stock mass is measured.
+
+The “model proxy” below is raw volume × nominal fraction, supplied solely to reconcile the existing simulator. It is not literal active volume for w/w stocks. Exact ppm w/w is HOLD for the complete formula because the measured mass chain is absent. No density is invented. The pipeline's own density assumptions and composite OAV are disclosed in its output and remain screening estimates.
+
+| # | Basket | Material | Dilution | Amount (µL) | Active µL | ppm w/w | Temporal role |
+|---:|---:|---|---|---:|---|---|---|
+| 1 | 1 | Hedione | neat | 140 | 140 | HOLD; see mass rule | heart |
+| 2 | 1 | Iso E Super | neat | 140 | 140 | HOLD; see mass rule | heart/base |
+| 3 | 1 | Vetival | neat | 80 | 80 | HOLD; see mass rule | heart/base |
+| 4 | 1 | Benzyl Salicylate | neat | 60 | 60 | HOLD; see mass rule | heart/base |
+| 5 | 1 | Benzyl Benzoate | neat | 40 | 40 | HOLD; see mass rule | structural |
+| 6 | 2 | Vetiver EO (India) | neat | 140 | 140 | HOLD; see mass rule | base |
+| 7 | 3 | Cedarwood oil Virginia | neat | 250 | 250 | HOLD; see mass rule | base |
+| 8 | 3 | Cashmeran | neat | 60 | 60 | HOLD; see mass rule | late heart/base |
+| 9 | 3 | Sandalore | neat | 60 | 60 | HOLD; see mass rule | base support |
+| 10 | 6 | Ambrettolide | 10% w/w in DPG | 1600 | HOLD (160.000 model proxy) | HOLD; see mass rule | heart/base |
+| 11 | 6 | Ethylene Brassylate | neat | 870 | 870 | HOLD; see mass rule | base |
+| 12 | 6 | Romandolide | neat | 210 | 210 | HOLD; see mass rule | late heart/base |
+| 13 | 7 | Lavender EO High Altitude | neat | 110 | 110 | HOLD; see mass rule | opening |
+| 14 | 7 | Linalyl Acetate | neat | 70 | 70 | HOLD; see mass rule | opening/heart |
+| 15 | 7 | Linalool | neat | 20 | 20 | HOLD; see mass rule | opening/heart |
+| 16 | 9 | Mimosa Absolute | 10% in DPG | 80 | HOLD (8.000 model proxy) | HOLD; see mass rule | heart |
+| 17 | 9 | Osmanthus Absolute | 10% in DPG | 20 | HOLD (2.000 model proxy) | HOLD; see mass rule | heart |
+| 18 | 11 | Orris Liquid | 9% w/w in DEP | 510 | HOLD (45.900 model proxy) | HOLD; see mass rule | heart/late heart |
+| 19 | 11 | Alpha Isomethyl Ionone (Methyl Ionone Pure) | neat | 300 | 300 | HOLD; see mass rule | heart |
+| 20 | 11 | Alpha Ionone | neat | 120 | 120 | HOLD; see mass rule | heart |
+| 21 | 11 | Alpha Irone | 10% w/w in DEP | 120 | HOLD (12.000 model proxy) | HOLD; see mass rule | heart |
+| 22 | 12 | Tonkarome | 20% w/w in TEC | 310 | HOLD (62.000 model proxy) | HOLD; see mass rule | base |
+| 23 | 12 | Isobutavan | neat | 140 | 140 | HOLD; see mass rule | late heart/base |
+| 24 | 15 | Verdox | neat | 280 | 280 | HOLD; see mass rule | opening/heart |
+| 25 | 15 | Benzyl Acetate | neat | 220 | 220 | HOLD; see mass rule | opening/heart |
+| 26 | 15 | Ethyl 2-Methylbutyrate | 0.1% in DPG | 50 | HOLD (0.050 model proxy) | HOLD; see mass rule | opening |
+
+All 26 retained raw transfers are at least 20 µL. The E2MB transfer uses its existing 0.1% working stock. No raw transfer below 10 µL is prescribed. Neat Cashmeran, premium Osmanthus 10%, and the exact methyl-ionone bottle must match the card.
+
+## Retained-material decisions
+
+Each role below is a testable hypothesis, not observed success. Retaining the non-iris frame makes this an interpretable module revision, but does not prove every inherited helper earns its place.
+
+| Material | Distinct target-linked function and omission test |
+|---|---|
+| Hedione | Floral air at the iris edge; omission tests opacity. Held at V3 dose, not enlarged for score. |
+| Iso E Super | Transparent cedar transition; distinct from literal Virginia cedar. Omission tests abrupt wood entry; generic wood takeover is failure. |
+| Benzyl Salicylate | Cosmetic film hypothesis; distinct from neutral benzoate mass. Below-threshold status cannot prove this effect. |
+| Benzyl Benzoate | Low-odor replacement space and solvent-like mass; no recognizable note claimed. |
+| Vetiver EO (India) | Owned Indian Vetiver EO volume grade; earthy counterline to powder, distinct from cedar and smoother Vetival. |
+| Cedarwood oil Virginia | Named cedar facet of house architecture; distinct from abstract Iso E. Omission tests late wood recognition. |
+| Cashmeran | Warm textile link between powder and wood; neither a musk replacement nor evidence of literal cashmere. |
+| Sandalore | Inherited cedar-to-musk rounding hypothesis. No sandalwood lead; first non-iris omission candidate if no repeatable loss. |
+| Vetival | Polished dry woody-vetiver transition; less earthy than natural vetiver. Compare its omission against retained natural vetiver. |
+| Ambrettolide | Fruity skin-musk proxy for ambrette relation. Not ambrette seed oil or proof of the Dior musk. |
+| Ethylene Brassylate | Creamy textile body behind iris; distinct from Ambrettolide fruit and Romandolide outward wood. Musk blanket is failure. |
+| Romandolide | Outward woody-musk extension; distinct hypothesis from inward fruity Ambrettolide and EB body. |
+| Lavender EO High Altitude | Fine aromatic entry from owned French stock; selected over spike/camphor lavender. Must yield to iris. |
+| Linalyl Acetate | Soft ester transition from lavender into fruit; distinct from linalool floral freshness. |
+| Linalool | Small floral continuation of lavender, held fixed; omission tests the aromatic-to-floral edge. |
+| Mimosa Absolute | Inherited powder irregularity; not a claimed Dior ingredient. Yellow-flower naming or no omission loss disqualifies it. |
+| Osmanthus Absolute | Inherited fruit-to-violet transition hypothesis; premium 10% stock, not volume grade. Apricot takeover disqualifies it. |
+| Orris Liquid | User-selected rich root lead, PW 8IQ24653 product. Distinct whole-product character; no pure-irone assay assumed. |
+| Alpha Isomethyl Ionone (Methyl Ionone Pure) | Reduced cosmetic powder support around Orris Liquid; do not substitute unresolved Givaudan AIMI grade. |
+| Alpha Ionone | Reduced woody-violet motion connecting fruit and root; separate molecule and role from methyl ionone. |
+| Alpha Irone | Reduced independently adjustable iris accent. Tests whether the added Orris product can carry the root identity. |
+| Tonkarome | Inherited coumarinic warmth; not pure coumarin and not a certified Dior ingredient. |
+| Isobutavan | Separate soft vanillic transition into musk. Cream or dessert recognition before iris is failure. |
+| Verdox | Inherited green fruit body leading into woods; pear is an accord hypothesis, not a chemical identity. |
+| Benzyl Acetate | Inherited floral-fruit bridge, distinct from Verdox wood/green. Banana or jasmine takeover is failure. |
+| Ethyl 2-Methylbutyrate | Prepared dilute fruit flash; separate volatile role from Verdox. Carrier recorded in canonical parent binding, basis unspecified. |
+
+## Full inventory review and nonredundancy
+
+| Live inventory category reviewed | Decision for this revision |
+|---|---|
+| Solvents/carriers | Keep V3 ethanol addition; inherited DPG/TEC and confirmed Orris/Irone DEP stay in raw doses. Do not add IPM, extra DPG or an unmeasured water adjustment. |
+| Citrus/top | Keep linalool, linalyl acetate and diluted E2MB already in the parent. Citrus oils, aldehydes and additional fruit esters would change the opening comparison. |
+| Green/fresh/marine | Keep only inherited Verdox. Exclude aquatic, ozone, mint, eucalyptus, galbanic and aggressive leaf materials; no target-linked gap supports them. |
+| Floral materials | Keep inherited Hedione, salicylate/benzoate, benzyl acetate, mimosa, osmanthus and Isobutavan. No rose, muguet or narcotic-floral additions; the root must remain identifiable. |
+| Iris/violet | Selected four rows replace the old eight. Beta Ionone, Allyl Ionone, violet leaf, Irotyl and extra grades are not default iris fillers. No new carrot/Orivone increase. |
+| Woods/amber/structure | Keep V3 cedar, vetiver, Vetival, Iso E, Cashmeran and Sandalore. Owned Bacdanol and Benzyl Salicylate status is recognized; Bacdanol's new sandalwood mass is unnecessary here. |
+| Musks | Keep the three V3 doses for the module comparison; do not stack Habanolide, Zenolide, Galaxolide or Exaltolide. Depleted exception-only musks remain excluded. |
+| Sweet/gourmand/balsamic | Keep Tonkarome and Isobutavan. Coumarin 20% DEP is owned in the c4d5 authority; its unspecified fraction basis is HOLD, not unavailability. Literal cocoa/coffee, maltol, extra tonka/resins would obscure the selected root question. |
+| Leather/smoke/phenolics | None added. No evidence requires a leather, smoke, oud or moss recognizer for this selected direction. |
+| Spice/aromatic | Keep selected lavender. No pepper, saffron, clove, incense, cypress or patchouli addition is justified by this revision. |
+| Accord bases/other | No opaque bases or corrective accords added. |
+
+**Musk pairwise distinctions:** Ambrettolide versus EB tests fruity skin mediation versus creamy powder body; Ambrettolide versus Romandolide tests inward fruit continuity versus outward woody extension; EB versus Romandolide tests body versus projection. These are hypotheses, not completed nonredundancy demonstrations. Controlled omission of each must preserve the other two and match the omitted stock carrier. If no repeatable distinct loss appears, the redundant musk should be removed in a later version. No present evidence establishes a universal winning chord.
+
+The same caution applies to Benzyl Salicylate versus Benzyl Benzoate (cosmetic-film hypothesis versus structural reservoir), and Sandalore versus Cashmeran (rounding hypothesis versus textile warmth). Below-threshold helpers earn no note credit.
+
+## Parent delta and carrier accounting
+
+The non-iris subtotal is 4,950 µL and remains identical to V3. The iris subtotal remains 1,050 µL:
+
+| Iris material | V3 raw | V4 raw | Intended change |
+|---|---:|---:|---|
+| Orris Liquid 9% w/w DEP | 0 | 510 | New root-richness source selected by the user |
+| Alpha Isomethyl Ionone | 420 | 300 | Reduce powder competition |
+| Alpha Ionone | 180 | 120 | Reduce independent violet competition |
+| Alpha Irone 10% w/w DEP | 180 | 120 | Reduce isolated accent when whole Orris product enters |
+| Dihydro Beta Ionone | 100 | 0 | Remove unproved late-iris helper |
+| Irotyl | 80 | 0 | Explicit user exclusion |
+| Ultralia | 60 | 0 | Remove unproved recurrence helper |
+| Orivone | 20 | 0 | Do not add a second root contour before testing preferred product |
+| Carrot Seed EO | 10 | 0 | Omit botanical accent for the first comparison |
+
+No stock-strength rebase is performed. These are deliberate dose/composition changes. A constant raw total does not mean constant active amount or constant carrier composition. Mixed-basis simulator proxy changes from V3 4,010.05 to V4 3,599.95 µL-equivalent. It is NOT a physical active-volume measurement.
+
+For measured delivered masses:
+- Orris stock: product = 0.09 m_O; DEP = 0.91 m_O.
+- Alpha Irone stock: supplied-product equivalent = 0.10 m_I; DEP = 0.90 m_I.
+- Ambrettolide stock: supplied product = 0.10 m_A; DPG = 0.90 m_A.
+- Tonkarome stock: supplied base = 0.20 m_T; TEC = 0.80 m_T.
+- Mimosa, Osmanthus and E2MB: carrier is named DPG; its exact mass/volume split remains HOLD until fraction basis is established.
+
+For illustration ONLY under a hypothetical stock density of 1.000 g/mL, the 510 µL Orris transfer would contain 45.9 mg supplied product and 464.1 mg DEP, while the 120 µL Alpha Irone transfer would contain 12 mg supplied product and 108 mg DEP. That density is not measured or adopted as physical truth; do not print these proxy masses on a production label. The Orris product is not 9% pure irones.
+
+The raw×fraction carrier proxy is DEP 572.1, DPG 1,579.95, TEC 248.0 µL-equivalent, total 2,400.05. The DEP proxy rises by 410.1 against V3. Exact carrier displacement and exact active ppm are HOLD. The V3-versus-V4 sensory contrast therefore includes vehicle change and cannot isolate molecular causes.
+
+## Compounding card — proposed fresh development batch
+
+<!-- FORMULA_MIXING_PROTOCOL_START -->
+Use this as a complete reviewable recipe. The verified stock/mass-authority/safety status below governs whether to execute it. A gate PASS does not grant skin-use or commercial authority.
+
+Finish each basket in order and descend in raw transfer within it. Vetival is placed in Basket 1 per the current exact always-used list; this is an ordering correction only. Carriers already in stocks are not poured a second time.
+
+| Step | Basket | Material / exact stock | Raw µL | Cumulative µL |
+|---:|---:|---|---:|---:|
+| 1 | 1 | Hedione — neat | 140 | 140 |
+| 2 | 1 | Iso E Super — neat | 140 | 280 |
+| 3 | 1 | Vetival — neat | 80 | 360 |
+| 4 | 1 | Benzyl Salicylate — neat | 60 | 420 |
+| 5 | 1 | Benzyl Benzoate — neat | 40 | 460 |
+| 6 | 2 | Vetiver EO (India) — neat | 140 | 600 |
+| 7 | 3 | Cedarwood oil Virginia — neat | 250 | 850 |
+| 8 | 3 | Cashmeran — neat | 60 | 910 |
+| 9 | 3 | Sandalore — neat | 60 | 970 |
+| 10 | 6 | Ambrettolide — 10% w/w in DPG | 1600 | 2570 |
+| 11 | 6 | Ethylene Brassylate — neat | 870 | 3440 |
+| 12 | 6 | Romandolide — neat | 210 | 3650 |
+| 13 | 7 | Lavender EO High Altitude — neat | 110 | 3760 |
+| 14 | 7 | Linalyl Acetate — neat | 70 | 3830 |
+| 15 | 7 | Linalool — neat | 20 | 3850 |
+| 16 | 9 | Mimosa Absolute — 10% in DPG | 80 | 3930 |
+| 17 | 9 | Osmanthus Absolute — 10% in DPG | 20 | 3950 |
+| 18 | 11 | Orris Liquid — 9% w/w in DEP | 510 | 4460 |
+| 19 | 11 | Alpha Isomethyl Ionone (Methyl Ionone Pure) — neat | 300 | 4760 |
+| 20 | 11 | Alpha Ionone — neat | 120 | 4880 |
+| 21 | 11 | Alpha Irone — 10% w/w in DEP | 120 | 5000 |
+| 22 | 12 | Tonkarome — 20% w/w in TEC | 310 | 5310 |
+| 23 | 12 | Isobutavan — neat | 140 | 5450 |
+| 24 | 15 | Verdox — neat | 280 | 5730 |
+| 25 | 15 | Benzyl Acetate — neat | 220 | 5950 |
+| 26 | 15 | Ethyl 2-Methylbutyrate — 0.1% in DPG | 50 | 6000 |
+
+Basket numbers 4, 5, 8, 10, 13, 14, 16 and 17 are empty. After the concentrate totals 6,000 µL, add 24,000 µL Ethanol 96%. This is additive-volume bookkeeping, not q.s. and not an addition to a previously compounded V3 bottle.
+
+Check physical labels, homogeneity and pipetteability, and sufficient remaining stock. Record actual delivered masses alongside volumes if exact w/w arithmetic is desired. Use fresh tips and mix gently. Crystals, phase separation or inaccurate delivery are a bench stop, not a reason to improvise heat or strength. A smaller trial requires its own card: directly dividing all rows by three would create sub-10-µL transfers.
+<!-- FORMULA_MIXING_PROTOCOL_END -->
+
+## Diagnostic comparison
+
+Compare a fresh V4, a hidden repeated V4, and the preserved V3 at matched delivered application mass, substrate, rest time and temperature. This tests the complete revision, with the carrier confound explicitly retained.
+
+For the more specific Orris omission, use a shared identical non-Orris mixture. Weigh the selected Orris stock dose s. The omission arm receives 0.91s DEP and 0.09s common dilution solvent, preserving stock-derived DEP and total replaced mass. The selected arm receives s of the 9% stock. This is a carrier-matched active-omission design; the solvent occupying omitted product mass is declared. All arms require a separate explicit weigh-out record and equal final mass; do not infer the control from 91% of the stock's µL.
+
+Evaluate root richness, root recognition, smoothness, powder flatness, fruit takeover, and reference similarity separately at opening, 5 min, 30 min, 2 h, 4 h, and optionally next-day blotter. V4 succeeds only if preferred root character survives within the full frame. Skin life, sillage radius and liking remain NOT TESTED.
+
+## Finished Matrix Inputs
+
+**Matrix authority:** declared_volume_proxy
+
+| Component | Volume µL | Density g/mL | MW g/mol | Source |
+|---|---:|---:|---:|---|
+| Ethanol | 23040 | 0.785 | 46.0684 | Parent-matched model assumption: nominal 96% v/v solvent |
+| Water | 960 | 0.9970 | 18.01528 | Parent-matched model assumption; no contraction correction |
+
+Model at 305 K to match V3. This is a Bangkok warm-condition screening convention, not a measured room/skin temperature. No calibrated longevity claim is made.
+
+## Verification provenance and claim limits
+
+This artifact is written in isolated c4d5 at baseline 0af42cc68730499f54b7c29c67c2320a3f92a9a2. The immediate V3 parent and the newer Orris DEP correction were read from D:/chatbots/perfume-chem; the parent hash above freezes exactly what was compared. The checkouts differ in inventory authority. Canonical records do not erase c4d5's newer Coumarin DEP ownership or reinstate unavailable Ambrofix. No engine, tests, governance or inventory files were edited.
+
+The current c4d5 Orris label is stale about carrier; its YAML additionally has a stale 30% stock and an alpha-irone-equivalent composite. Existing model values must be labeled as such. All natural mixtures (lavender, cedar, vetiver, mimosa, osmanthus and Orris Liquid) must use the existing composite path, with coverage checked. Orris's 82.5% modeled irone pool is a literature/supplier-derived approximation, not a lot assay. Exact ODT and OAV for the actual bottle are unknown.
+
+Functionally required rows below OAV 1 must be flagged; no formula dose will be raised simply to cross a modeled threshold. IFRA/allergen results, including missing limits and natural constituent uncertainty, remain limitations. This developmental composition is not certified safe, stable, similar to Dior, liked, or commercially released.
+
+<!-- PIPELINE_ANALYSIS_START -->
+## Pipeline Analysis
+
+### Read the model scope first
+
+Diagnostic execution only, at 305 K, with the exact V3 parent supplied. Raw doses and strengths are unchanged between the first and final diagnostic. The standalone formatter output is reproduced verbatim below; its wording is preserved as generated evidence, not adopted as independent scientific or safety authority.
+
+Act µL for w/w or unspecified-basis stocks is a simulator equivalent, not measured active volume. All six natural mixtures passed the composite-coverage check. For composite materials, the single displayed surrogate MW, VP and ODT do not reproduce every constituent contribution: do not recompute their OAV by treating the natural as one molecule.
+
+| Material | Dil | Raw µL | Act µL | MW | MF% | VP Pa | γ | Vapor ppm | ODT ppm | OAV | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Iso E Super | 100.0% | 140.00 | 140.00 | 234.400 | 0.129 | 0.458763 | 9.809 | 0.057375 | 0.000050000 | 1147.5 | heart |
+| Lavender EO High Altitude | 100.0% | 110.00 | 110.00 | 154.300 | 0.136 | 37.272512 | 4.438 | 0.533256 | 0.002000000 | 280.7 | heart |
+| Hedione | 100.0% | 140.00 | 140.00 | 226.300 | 0.134 | 0.193654 | 4.447 | 0.011372 | 0.000050000 | 227.4 | heart |
+| Linalool | 100.0% | 20.00 | 20.00 | 154.300 | 0.028 | 36.126975 | 2.420 | 0.241928 | 0.001500000 | 161.3 | top |
+| Alpha Ionone | 100.0% | 120.00 | 120.00 | 192.300 | 0.135 | 2.788833 | 1.000 | 0.037151 | 0.000400000 | 92.9 | heart |
+| Linalyl Acetate | 100.0% | 70.00 | 70.00 | 196.300 | 0.077 | 29.884335 | 1.000 | 0.227493 | 0.002700000 | 84.3 | top |
+| Alpha Isomethyl Ionone (Methyl Ionone Pure) | 100.0% | 300.00 | 300.00 | 206.330 | 0.315 | 0.778498 | 1.300 | 0.031413 | 0.000800000 | 39.3 | heart |
+| Vetival | 100.0% | 80.00 | 80.00 | 218.330 | 0.079 | 11.538134 | 1.500 | 0.135379 | 0.007000000 | 19.3 | heart |
+| Cedarwood oil Virginia | 100.0% | 250.00 | 250.00 | 222.370 | 0.238 | 0.011325 | 2.500 | 0.081994 | 0.015000000 | 10.5 | base |
+| Cashmeran | 100.0% | 60.00 | 60.00 | 206.300 | 0.063 | 2.324286 | 1.000 | 0.014431 | 0.002000000 | 7.2 | base |
+| Orris Liquid | 9.0% | 510.00 | 45.90 | 206.320 | 0.045 | 1.075422 | 1.300 | 0.005094 | 0.000900000 | 5.7 | heart |
+| Vetiver EO (India) | 100.0% | 140.00 | 140.00 | 222.400 | 0.135 | 0.084308 | 2.000 | 0.007631 | 0.005000000 | 3.4 | base |
+| Alpha Irone | 10.0% | 120.00 | 12.00 | 206.320 | 0.012 | 1.075422 | 1.000 | 0.001244 | 0.000900000 | 1.4 | heart |
+| Mimosa Absolute | 10.0% | 80.00 | 8.00 | 240.000 | 0.007 | 0.104574 | 1.500 | 0.002967 | 0.002000000 | 1.4 | heart |
+| Ethyl 2-Methylbutyrate | 0.1% | 50.00 | 0.05 | 130.180 | 0.000 | 8.916718 | 1.000 | 0.000073 | 0.000060000 | 1.2 | top |
+| Osmanthus Absolute | 10.0% | 20.00 | 2.00 | 200.000 | 0.002 | 0.022113 | 0.600 | 0.000725 | 0.000500000 | 1.1 | heart |
+| Tonkarome | 20.0% | 310.00 | 62.00 | 160.000 | 0.084 | 0.104574 | 0.600 | 0.000519 | 0.000500000 | 1.0 | base |
+| Romandolide | 100.0% | 210.00 | 210.00 | 270.360 | 0.168 | 0.204190 | 1.500 | 0.005079 | 0.004900000 | 1.0 | base |
+| Verdox | 100.0% | 280.00 | 280.00 | 170.250 | 0.356 | 0.589716 | 1.000 | 0.020704 | 0.020000000 | 1.0 | top |
+| Ambrettolide | 10.0% | 1600.00 | 160.00 | 252.400 | 0.137 | 0.006916 | 1.500 | 0.000140 | 0.000136000 | 1.0 | base |
+| Isobutavan | 100.0% | 140.00 | 140.00 | 222.240 | 0.136 | 0.063863 | 0.600 | 0.000515 | 0.000500000 | 1.0 | heart |
+| Benzyl Acetate | 100.0% | 220.00 | 220.00 | 150.200 | 0.317 | 0.437125 | 1.500 | 0.020502 | 0.020000000 | 1.0 | heart |
+| Ethylene Brassylate | 100.0% | 870.00 | 870.00 | 270.400 | 0.696 | 0.017827 | 0.800 | 0.000980 | 0.000970000 | 1.0 | base |
+| Sandalore | 100.0% | 60.00 | 60.00 | 210.400 | 0.062 | 0.164618 | 1.500 | 0.001503 | 0.010000000 | 0.2 | base |
+| Benzyl Salicylate | 100.0% | 60.00 | 60.00 | 228.300 | 0.057 | 0.022113 | 3.467 | 0.000430 | 0.010000000 | 0.0 | base |
+| Benzyl Benzoate | 100.0% | 40.00 | 40.00 | 212.200 | 0.041 | 0.063576 | 4.438 | 0.001135 | 0.810000000 | 0.0 | heart |
+
+Opening note distribution: modeled active allocation T/H/B = 10.3/37.7/52.0%; summed modeled OAV allocation = 11.8/86.9/1.2%. Neither is percent perceived contribution. Lavender is assigned to heart by the current runtime profile; this is a model-label limitation, not a finding that the intended opening has no lavender.
+
+| Window | Time | T/H/B | Vapor | Remain idx | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s | 10.3/37.7/52.0 |   1.44ppm |  100.0% | Iso E Super(1148), Lavender EO (281), Hedione(227)
+| top          |    300s | 10.2/37.7/52.1 |   1.42ppm |   99.9% | Iso E Super(1146), Lavender EO (275), Hedione(227)
+| heart        |   1800s | 10.1/37.5/52.4 |   1.31ppm |   99.4% | Iso E Super(1137), Lavender EO (250), Hedione(227)
+| late_heart   |   7200s |  9.7/37.0/53.4 |   1.00ppm |   97.8% | Iso E Super(1106), Hedione(227), Lavender EO (177)
+| drydown      |  14400s |  9.3/36.3/54.4 |   0.75ppm |   96.2% | Iso E Super(1065), Hedione(226), Lavender EO (112)
+
+Temporal authority: HEURISTIC_UNCALIBRATED; model=dynamic_headspace_exponential_loss_v2; remaining index is not measured evaporation.
+
+### Final standalone formatter output — verbatim
+
+```text
+## Gate Summary
+
+**109 PASS** / **34 WARN** / **2 FAIL**
+
+  FAIL pipeline_preflight: 13 checks; 8 warnings
+  FAIL inventory_stock_contract: 4 material stock contract failure(s): Alpha Isomethyl Ionone (Methyl Ionone Pure), Ambrettolide, Tonkarome, Vetiver EO (India)
+  WARN quantitative_authority: Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only.
+  WARN headspace_scope: Headspace/OAV uses a partial or proxy finished matrix; unresolved stock carriers prevent complete finished-product scope.
+  WARN odt_coverage: 10 material(s) rely on derived/unverified ODTs (16% OAV share)
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 10.1% active mass across 4 materials
+  WARN odt_sanity: 2 unresolved cross-source ODT conflicts
+  WARN vp_cross_source: 26 materials use inferred enthalpy for VP at 305.00 K; 5 unresolved cross-source VP conflicts
+  WARN dilution_accuracy: Check pipetting: orris liquid: 510.0uL at 9%
+  WARN safety_ifra_allergen: 14 materials lack explicit IFRA Cat4 limits; 4 EU allergen declarations
+  WARN eu_allergen_declaration: EU allergens requiring label: alpha-isomethyl ionone, linalool, linalyl acetate
+  WARN safety_receptor_saturation: Ionone total 12.0% > 5% cap (OR5A1 saturation, F6); Cedarwood Virginia 6.9% > 2% cap (OR10J5 + cedrol sedative)
+  WARN oav_physics_gamma: 26/26 materials use predictive, heuristic, fallback, or unknown gamma authority; largest gamma=1 comparison leverage Iso E Super=9.8x
+  WARN skin_degradation: Tonkarome: coumarin glycosides -> coumarin release (IFRA restricted). Check IFRA coumarin limits
+  WARN solvent_matrix: stock-carrier authority NAMED_CARRIER_VOLUME_PROXY; known named carriers {'DEP': 572.1, 'DPG': 1579.95, 'TEC': 248.0}; unresolved carrier proxy 0.0 uL; 7 named carrier row(s) lack a v/v basis
+  WARN perfumer_logic: iris_coumarin_amber.dhi2011; rerun optimizer: dominant_iris_orris_object: 7.965% active below 18.000; Powder body, violet mobility, and root character are one object, not count-based complexity.; negative_space_and_woody_frame: 6.333% active below 15.000; Diffusion must preserve iris foreground and a late wood return.; not_gourmand_caricature: 3.367% active above 3.000 [advisory guideline; not release-blocking]
+  WARN family_drift_detector: iris_coumarin_amber.dhi2011; dominant_iris_orris_object: 7.965% active below 18.000; Powder body, violet mobility, and root character are one object, not count-based complexity.; negative_space_and_woody_frame: 6.333% active below 15.000; Diffusion must preserve iris foreground and a late wood return.; not_gourmand_caricature: 3.367% active above 3.000 [advisory guideline; not release-blocking]
+  WARN novelty_vs_reference: reference/control archetype; familiar by design, not the new exploration target
+  WARN perfume_knowledge: top OAV needs improvement for target iris_coumarin_amber.dhi2011; heart OAV off-target for target iris_coumarin_amber.dhi2011; base OAV off-target for target iris_coumarin_amber.dhi2011
+  WARN carles_accord_ratio: Exact active-mass ppm is unavailable; pairwise dose ratios were not evaluated.
+  WARN literature_compliance: Literature compliance: 1/5 principles passed (20%) [advisory guideline; not release-blocking]
+  WARN edge_cases: Musk coverage: 100%, gaps: 1, formula VP factor x1.70-2.31 (median x1.94, T=305.00K vs 298.15K, n=26)
+  WARN somatosensory: 0 candidate chemesthetic materials detected; formula-level effects require exposure and human validation
+  WARN stevens_n_efficiency: Exact active-mass ppm is unavailable; dose-efficiency comparison not evaluated.
+  WARN jnd_redundancy: Potentially redundant pairs: benzyl acetate vs osmanthus absolute in floral (OAV 1/1); ambrettolide vs ethylene brassylate in musk (OAV 1/1); ambrettolide vs romandolide in musk (OAV 1/1)
+  WARN jellinek_psychology: Jellinek categories weak: erogenic
+  WARN coty_single_material_limit: Exact active-mass ppm is unavailable; single-material limit not evaluated.
+  WARN roudnitska_hedione_pct: Exact active-mass ppm is unavailable; Hedione percentage heuristic not evaluated.
+  WARN adaptation_timing: fast tier < 5% (no immediate impact)
+  WARN oav_intelligence: iso e super OAV 1147.5 is above woody_amber target 40.0-150.0; hedione OAV 227.4 is above woody_amber target 10.0-25.0; cashmeran OAV 7.2 is below woody_amber target 10.0-25.0
+  WARN tenacity_projection: VP<0.01Pa = 4% (<10%, weak longevity); VP<0.001Pa = 0% (<3%, may lack depth)
+  WARN mass_market_tier_check: Expensive captives found: Alpha Irone. At 1500 THB, these eat margin. Consider if their perceptible impact justifies the cost.
+  WARN authority_vector: Safety authority insufficient (0.00) -- unknown IFRA limits for too many materials; Identity (0.00) AND Quantity (0.00) authority both insufficient -- insufficient evidence; Identity authority insufficient (0.00). DIMENSIONS NEVER AVERAGED. [advisory guideline; not release-blocking]
+  WARN concentration_basis: 27 material(s) with unspecified concentration basis: Alpha Ionone: concentration basis not specified (use w/w, v/v, or w/v); Alpha Irone: concentration basis not specified (use w/w, v/v, or w/v); Alpha Isomethyl Ionone (Methyl Ionone Pure): concentration basis not specified (use w/w, v/v, or w/v); Ambrettolide: concentration basis not specified (use w/w, v/v, or w/v); Benzyl Acetate: concentration basis not specified (use w/w, v/v, or w/v)... [advisory guideline; not release-blocking]
+  WARN robustness_perturbation: 52 fragile perturbation(s) across 52 checks; Hedione up: brief grammar failure under perturbation; Hedione down: brief grammar failure under perturbation; Iso E Super up: brief grammar failure under perturbation
+  WARN confidence_minimum: combined confidence 7.7 below 25.0 after preflight evidence penalty 16.0; reference-control study remains diagnostic only
+
+## Reference Deviation Report
+
+### Dior Homme Intense 2011 (05443/A)
+
+| \u2705 | **lavender_opening** | lavender eo high altitude, linalool, linalyl acetate |
+| \u2705 | **iris_or_orris_heart** | alpha ionone, alpha irone, alpha-isomethyl ionone, orris liquid |
+| \u2705 | **ambrette_pear_talc_relation** | ambrettolide |
+| \u2705 | **amber_vanillic_warmth** | isobutavan, tonkarome |
+| \u2705 | **virginia_cedar** | cedarwood virginia |
+| \u2705 | **vetiver** | vetival, vetiver eo |
+
+**Result:** All 6 marker groups matched
+
+## Authority Dimensions
+
+| Dimension | Status | Authority |
+|---|---|---|
+| Inventory stock | FAIL | 4 material stock contract failure(s): Alpha Isomethyl Ionone (Methyl Ionone Pure), Ambrettolide, Tonkarome, Vetiver EO (India) |
+| Quantitative ppm w/w | UNAVAILABLE | Exact only when the full declared mass and density chain is available. |
+| Headspace/OAV | MODELED_FINISHED_PRODUCT_MATRIX_PROXY | HEURISTIC_NOT_MEASURED; diagnostic model, not measured odor intensity. |
+| Named reference | PASS (architecture) | All declared architecture-only reference contracts are satisfied. |
+| Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | Requires blinded bench comparison; no model score supplies this authority. |
+| Combined confidence | 7.7/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
+
+## Headspace OAV -- Opening (0s)
+
+| Material | Dil | Raw uL | Act uL | MW | MF% | VP Pa | gamma | Vapor ppm | ODT ppm | OAV | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Iso E Super | 100.0% | 140.00 | 140.00 | 234.400 | 0.129 | 0.458763 | 9.809 | 0.057375 | 0.000050000 | 1147.5 | heart |
+| Lavender EO High Altitude | 100.0% | 110.00 | 110.00 | 154.300 | 0.136 | 37.272512 | 4.438 | 0.533256 | 0.002000000 | 280.7 | heart |
+| Hedione | 100.0% | 140.00 | 140.00 | 226.300 | 0.134 | 0.193654 | 4.447 | 0.011372 | 0.000050000 | 227.4 | heart |
+| Linalool | 100.0% | 20.00 | 20.00 | 154.300 | 0.028 | 36.126975 | 2.420 | 0.241928 | 0.001500000 | 161.3 | top |
+| Alpha Ionone | 100.0% | 120.00 | 120.00 | 192.300 | 0.135 | 2.788833 | 1.000 | 0.037151 | 0.000400000 | 92.9 | heart |
+| Linalyl Acetate | 100.0% | 70.00 | 70.00 | 196.300 | 0.077 | 29.884335 | 1.000 | 0.227493 | 0.002700000 | 84.3 | top |
+| Alpha Isomethyl Ionone (Methyl Ionone Pure) | 100.0% | 300.00 | 300.00 | 206.330 | 0.315 | 0.778498 | 1.300 | 0.031413 | 0.000800000 | 39.3 | heart |
+| Vetival | 100.0% | 80.00 | 80.00 | 218.330 | 0.079 | 11.538134 | 1.500 | 0.135379 | 0.007000000 | 19.3 | heart |
+| Cedarwood oil Virginia | 100.0% | 250.00 | 250.00 | 222.370 | 0.238 | 0.011325 | 2.500 | 0.081994 | 0.015000000 | 10.5 | base |
+| Cashmeran | 100.0% | 60.00 | 60.00 | 206.300 | 0.063 | 2.324286 | 1.000 | 0.014431 | 0.002000000 | 7.2 | base |
+| Orris Liquid | 9.0% | 510.00 | 45.90 | 206.320 | 0.045 | 1.075422 | 1.300 | 0.005094 | 0.000900000 | 5.7 | heart |
+| Vetiver EO (India) | 100.0% | 140.00 | 140.00 | 222.400 | 0.135 | 0.084308 | 2.000 | 0.007631 | 0.005000000 | 3.4 | base |
+| Alpha Irone | 10.0% | 120.00 | 12.00 | 206.320 | 0.012 | 1.075422 | 1.000 | 0.001244 | 0.000900000 | 1.4 | heart |
+| Mimosa Absolute | 10.0% | 80.00 | 8.00 | 240.000 | 0.007 | 0.104574 | 1.500 | 0.002967 | 0.002000000 | 1.4 | heart |
+| Ethyl 2-Methylbutyrate | 0.1% | 50.00 | 0.05 | 130.180 | 0.000 | 8.916718 | 1.000 | 0.000073 | 0.000060000 | 1.2 | top |
+| Osmanthus Absolute | 10.0% | 20.00 | 2.00 | 200.000 | 0.002 | 0.022113 | 0.600 | 0.000725 | 0.000500000 | 1.1 | heart |
+| Tonkarome | 20.0% | 310.00 | 62.00 | 160.000 | 0.084 | 0.104574 | 0.600 | 0.000519 | 0.000500000 | 1.0 | base |
+| Romandolide | 100.0% | 210.00 | 210.00 | 270.360 | 0.168 | 0.204190 | 1.500 | 0.005079 | 0.004900000 | 1.0 | base |
+| Verdox | 100.0% | 280.00 | 280.00 | 170.250 | 0.356 | 0.589716 | 1.000 | 0.020704 | 0.020000000 | 1.0 | top |
+| Ambrettolide | 10.0% | 1600.00 | 160.00 | 252.400 | 0.137 | 0.006916 | 1.500 | 0.000140 | 0.000136000 | 1.0 | base |
+| Isobutavan | 100.0% | 140.00 | 140.00 | 222.240 | 0.136 | 0.063863 | 0.600 | 0.000515 | 0.000500000 | 1.0 | heart |
+| Benzyl Acetate | 100.0% | 220.00 | 220.00 | 150.200 | 0.317 | 0.437125 | 1.500 | 0.020502 | 0.020000000 | 1.0 | heart |
+| Ethylene Brassylate | 100.0% | 870.00 | 870.00 | 270.400 | 0.696 | 0.017827 | 0.800 | 0.000980 | 0.000970000 | 1.0 | base |
+| Sandalore | 100.0% | 60.00 | 60.00 | 210.400 | 0.062 | 0.164618 | 1.500 | 0.001503 | 0.010000000 | 0.2 | base |
+| Benzyl Salicylate | 100.0% | 60.00 | 60.00 | 228.300 | 0.057 | 0.022113 | 3.467 | 0.000430 | 0.010000000 | 0.0 | base |
+| Benzyl Benzoate | 100.0% | 40.00 | 40.00 | 212.200 | 0.041 | 0.063576 | 4.438 | 0.001135 | 0.810000000 | 0.0 | heart |
+
+**Materials:** 26 total (4 top, 13 heart, 9 base)
+**Total vapor:** 1.44 ppm
+### Note Distribution
+
+**TOP:** 4 mats, 10.3% active, 11.8% OAV
+  - Linalool                     OAV=   161.3 (strong) VP=36.127Pa
+  - Linalyl Acetate              OAV=    84.3 (moderate-strong) VP=29.884Pa
+  - Ethyl 2-Methylbutyrate       OAV=     1.2 (at threshold) VP=8.917Pa
+  - Verdox                       OAV=     1.0 (at threshold) VP=0.590Pa
+**HEART:** 13 mats, 37.7% active, 86.9% OAV
+  - Iso E Super                  OAV=  1147.5 (very strong) VP=0.459Pa
+  - Lavender EO High Altitude    OAV=   280.7 (strong) VP=37.273Pa
+  - Hedione                      OAV=   227.4 (strong) VP=0.194Pa
+  - Alpha Ionone                 OAV=    92.9 (moderate-strong) VP=2.789Pa
+  - Alpha Isomethyl Ionone (Methyl Ionone Pure) OAV=    39.3 (moderate) VP=0.778Pa
+  - Vetival                      OAV=    19.3 (moderate) VP=11.538Pa
+  ... and 7 more
+**BASE:** 9 mats, 52.0% active, 1.2% OAV
+  - Cedarwood oil Virginia       OAV=    10.5 (moderate) VP=0.011Pa
+  - Cashmeran                    OAV=     7.2 (perceptible) VP=2.324Pa
+  - Vetiver EO (India)           OAV=     3.4 (at threshold) VP=0.084Pa
+  - Tonkarome                    OAV=     1.0 (at threshold) VP=0.105Pa
+  - Romandolide                  OAV=     1.0 (at threshold) VP=0.204Pa
+  - Ambrettolide                 OAV=     1.0 (at threshold) VP=0.007Pa
+  ... and 3 more
+### OAV by Odor Family
+
+            woody  56.8% ============================  (6 mats)
+           floral  17.4% ========  (6 mats)
+                ?  13.4% ======  (2 mats)
+         aromatic  11.7% =====  (2 mats)
+             iris   0.3% =  (2 mats)
+             musk   0.1% =  (3 mats)
+         gourmand   0.1% =  (2 mats)
+           fruity   0.1% =  (1 mats)
+            green   0.0% =  (1 mats)
+       salicylate   0.0% =  (1 mats)
+### Sub-threshold Materials (OAV < 1)
+3/26 materials below perceptible threshold
+  - Benzyl Benzoate: OAV=0.00 VP=0.064Pa act=40uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Benzyl Salicylate: OAV=0.04 VP=0.022Pa act=60uL role=fixative [STRUCTURAL_OR_FIXATIVE]
+  - Sandalore: OAV=0.15 VP=0.165Pa act=60uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Remain idx | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s | 10.3/37.7/52.0 |   1.44ppm |  100.0% | Iso E Super(1148), Lavender EO (281), Hedione(227)
+| top          |    300s | 10.2/37.7/52.1 |   1.42ppm |   99.9% | Iso E Super(1146), Lavender EO (275), Hedione(227)
+| heart        |   1800s | 10.1/37.5/52.4 |   1.31ppm |   99.4% | Iso E Super(1137), Lavender EO (250), Hedione(227)
+| late_heart   |   7200s |  9.7/37.0/53.4 |   1.00ppm |   97.8% | Iso E Super(1106), Hedione(227), Lavender EO (177)
+| drydown      |  14400s |  9.3/36.3/54.4 |   0.75ppm |   96.2% | Iso E Super(1065), Hedione(226), Lavender EO (112)
+
+Temporal authority: HEURISTIC_UNCALIBRATED; model=dynamic_headspace_exponential_loss_v2; remaining index is not measured evaporation.
+
+### Per-Window Detail
+
+**OPENING** (0.0s) -- Uncalibrated loss index:0%
+  T:10.3% H:37.7% B:52.0%  Vapor:1.44ppm
+  Leaders: Iso E Super OAV 1148 | Lavender EO High Altitude OAV 281 | Hedione OAV 227 | Linalool OAV 161 | Alpha Ionone OAV 93
+
+**TOP** (300.0s) -- Uncalibrated loss index:0%
+  T:10.2% H:37.7% B:52.1%  Vapor:1.42ppm
+  Leaders: Iso E Super OAV 1146 | Lavender EO High Altitude OAV 275 | Hedione OAV 227 | Linalool OAV 155 | Alpha Ionone OAV 93
+
+**HEART** (1800.0s) -- Uncalibrated loss index:1%
+  T:10.1% H:37.5% B:52.4%  Vapor:1.31ppm
+  Leaders: Iso E Super OAV 1137 | Lavender EO High Altitude OAV 250 | Hedione OAV 227 | Linalool OAV 125 | Alpha Ionone OAV 92
+
+**LATE_HEART** (7200.0s) -- Uncalibrated loss index:2%
+  T:9.7% H:37.0% B:53.4%  Vapor:1.00ppm
+  Leaders: Iso E Super OAV 1106 | Hedione OAV 227 | Lavender EO High Altitude OAV 177 | Alpha Ionone OAV 90 | Linalyl Acetate OAV 62
+
+**DRYDOWN** (14400.0s) -- Uncalibrated loss index:4%
+  T:9.3% H:36.3% B:54.4%  Vapor:0.75ppm
+  Leaders: Iso E Super OAV 1065 | Hedione OAV 226 | Lavender EO High Altitude OAV 112 | Alpha Ionone OAV 88 | Linalyl Acetate OAV 46
+## Structural OAV Analysis
+
+**Vapor:** 1 ppm  |  **Active:** 12.0%  |  **Perceptible:** 23/26  |  **Unknown:** 0
+
+### OAV Tiers
+  **massive** (1): Iso E Super(1148)
+  **v.strong** (3): Hedione(227), Lavender EO High Altitude(281), Linalool(161)
+  **strong** (2): Alpha Ionone(93), Linalyl Acetate(84)
+  **moderate** (3): Alpha Isomethyl Ionone (Methyl Ionone Pure)(39), Cedarwood oil Virginia(10), Vetival(19)
+  **perceptible** (2): Cashmeran(7), Orris Liquid(6)
+  **threshold** (12): Alpha Irone(1), Ambrettolide(1), Benzyl Acetate(1), Ethyl 2-Methylbutyrate(1), Ethylene Brassylate(1), Isobutavan(1), Mimosa Absolute(1), Osmanthus Absolute(1), Romandolide(1), Tonkarome(1), Verdox(1), Vetiver EO (India)(3)
+  **sub** (3): Benzyl Benzoate(0), Benzyl Salicylate(0), Sandalore(0)
+
+### Block Balance
+  **Citrus**        0 (0%)
+  **Floral**     1819 (99%)
+  **Base**         25 (1%)
+  **Ratio:** 72:1 between strongest/weakest block
+
+### Issues
+  ! 3 sub-threshold material(s): Benzyl Benzoate, Benzyl Salicylate, Sandalore
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Linalool(strong) + Linalyl Acetate(moderate-strong) + Ethyl 2-Methylbutyrate(at threshold)
+  Heart: Iso E Super(very strong) + Lavender EO High Altitude(strong)
+  Base: Cedarwood oil Virginia(moderate) + Cashmeran(perceptible) + Vetiver EO (India)(at threshold) + Tonkarome(at threshold) + Romandolide(at threshold)
+
+### 2. Opening (0-5min)
+  Linalool leads the reported top at OAV 161 (strong).
+  - Linalool OAV=161 VP=36.1Pa (aromatic)
+  - Linalyl Acetate OAV=84 VP=29.9Pa (aromatic)
+  - Ethyl 2-Methylbutyrate OAV=1 VP=8.9Pa (fruity)
+  - Verdox OAV=1 VP=0.6Pa (green)
+  Total vapor: 1.4 ppm
+
+### 3. Heart (30min-2hr)
+  Iso E Super OAV=1137 (very strong)
+  Lavender EO High Altitude OAV=250 (strong)
+  Hedione OAV=227 (strong)
+  Linalool OAV=125 (strong)
+  T:10.1% H:37.5% B:52.4%
+  Vapor: 1.3 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base share of active note distribution: 54%
+  - Iso E Super OAV=1065
+  - Hedione OAV=226
+  - Lavender EO High Altitude OAV=112
+  - Alpha Ionone OAV=88
+  - Linalyl Acetate OAV=46
+  - Alpha Isomethyl Ionone (Methyl Ionone Pure) OAV=39
+  Vapor: 0.8 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Iso E Super(1148)
+  OAV by family: woody57% floral17% None13% aromatic12%
+
+### 6. Longevity
+  Uncalibrated loss index: 4% over modeled window
+  Vapor: 1.4 > 0.8 ppm
+  Base @ drydown: 54%
+  Absolute skin life: unavailable; calibrated finite-film, vehicle, skin-absorption, and sensory data are required
+
+### 7. Balance
+  Pyramid: T:10.3% H:37.7% B:52.0%
+  OAV range: 0.00 to 1148 (sigma-log=1.29)
+  Wide OAV contrast: Iso E Super leads at OAV 1148; lower-OAV materials may be masked.
+    sub-threshold: 3
+
+### 8. Flags
+  SUB: Sandalore OAV=0.15 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Benzyl Salicylate OAV=0.04 role=fixative class=STRUCTURAL_OR_FIXATIVE
+  SUB: Benzyl Benzoate OAV=0.00 role=modifier class=STRUCTURAL_OR_FIXATIVE
+```
+
+### Parent acceptance and unresolved boundaries
+
+**Outcome: DEVELOPMENT RECIPE COMPLETE; STOCK-BINDING, EXACT-MASS, SAFETY AND SENSORY HOLD.**
+
+The final diagnostic returned 109 PASS / 34 WARN / 2 FAIL (plus one SKIP). Both failures trace to stock/preflight authority. G15 dose-lineage plus OAV-per-time screening passed with the immediate V3 parent supplied. The architecture-only reference contract passed; neither pass proves that the formula contains Dior's actual ingredient set or smells like DHI2011.
+
+| Unresolved stock binding | Verified interpretation | Required next action |
+|---|---|---|
+| Alpha Isomethyl Ionone (Methyl Ionone Pure) | c4d5 reports two live stock variants; its runtime normalization may select a different Givaudan AIMI identity | Reconcile the selected physical bottle and unique stock ID through the governed stock authority. No silent grade substitution. |
+| Ambrettolide | c4d5 requirements still report preparation_required despite the newer canonical 10% w/w DPG preparation correction | Integrate that existing preparation evidence through the normal authority workflow; do not ask the user to repeat the correction. |
+| Tonkarome | Owned, but c4d5 stock metadata is incomplete; canonical records specify the homogeneous 20% w/w TEC preparation | Integrate the existing preparation evidence, preserving basis and carrier. |
+| Vetiver EO (India) | V3 parser name is not bound by c4d5 to the physically listed Indian Vetiver EO volume-grade stock | Reconcile the exact existing stock/alias; this is not evidence that the user has no vetiver. |
+
+The newer Orris correction is already known: 9% w/w supplied product in DEP, record INV-USER-20260905-001. It was honored in this formula. c4d5's older carrier entry must not reverse the user's correction. Canonical and c4d5 authority bundles both materialize successfully; this run is NOT an overlay-hash-drift failure. Do not wholesale copy canonical inventory: its other entries conflict with newer c4d5 ownership/stock corrections. No governance pins were changed.
+
+The first run's reference failure was a negation-insensitive text scan in engine/reference_contracts.py: the tokens "quantitative" and "ratios" triggered stronger claim detection even in disclaimers. Formula-only wording was clarified, preserving the architecture-only scope and all mass/assay limits; the second run passed that reference check. No detector code or gate thresholds were changed. Exact ppm w/w remains unavailable and is a WARN for this held diagnostic, not suddenly available after the wording edit.
+
+The scanner's "27 material(s) with unspecified concentration basis" message does not match the primary parsed recipe: there are 26 rows, with explicit neat/mass-fraction declarations except Mimosa Absolute, Osmanthus Absolute and Ethyl 2-Methylbutyrate. Those three genuine basis gaps remain HOLD. The scanner message is preserved, not accepted as 27 independent missing preparations. Measured delivered masses and appropriate mixture-basis documentation are still needed for an exact complete ppm w/w chain. A density fallback is not a measurement.
+
+**Perfumer judgment:** "Orris-led" is the selected design direction, not an achieved perceptual result. The Orris product is the largest raw transfer within the iris basket because it is only 9% stock. Its modeled opening OAV is 5.660, versus Alpha Ionone 92.878, the methyl-ionone proxy 39.266, and Alpha Irone 1.383. At 4 h those values are 5.543, 87.848, 38.564 and 1.356 respectively. This does not certify root dominance or authorize increasing Orris to chase a numerical score. The required result is recognition and preference in the complete, controlled blend.
+
+Iso E Super, lavender and Hedione lead the modeled opening signal. The model assigns some familiar opening materials to heart, and all 26 gamma values have predictive/heuristic/fallback/unknown authority; the summed OAV family chart cannot establish perceived composition. The 18% iris-family floor is an advisory stored rule, not evidence for Dior's proprietary loading. No material was added to satisfy an arbitrary score or ingredient-count target.
+
+Sandalore (opening OAV 0.1503) and Benzyl Salicylate (0.0430) earn no demonstrated perceptible rounding/cosmetic credit. They remain inherited, explicitly unproved omission candidates. Benzyl Benzoate (0.00140) has only a structural role. Ethyl 2-Methylbutyrate falls to OAV 0.975 at 4 h; its intended opening role does not require drydown perceptibility. No missing late fruit is inferred. All other non-structural rows remain above modeled OAV 1 in the five sampled windows, which is not proof that they are recognizable in mixture.
+
+The generic receptor-saturation caps, cedrol sedation association, Tonkarome glycoside mechanism, Alpha Irone captive/pricing statement, fixed aesthetic heuristics, and zero-valued authority scores in the formatter are not independently validated conclusions for these physical stocks. The "12.0% active" line is a mixed-basis volume proxy, not exact finished-product mass concentration. The uncalibrated 3.8% loss index is not measured evaporation, skin life or stability. Missing IFRA limits and constituent uncertainty mean no skin-use or sale clearance was obtained.
+
+**Next authorized formulation step:** preserve this complete candidate and resolve the stock bindings and three fraction-basis gaps before issuing a ready-to-mix card. Subsequent blind V3/V4 and carrier-matched Orris-omission comparisons are specified above. Inventory/engine synchronization is a separate scope; it was not performed here.
+
+### Run receipt
+
+- Workspace: C:/Users/ASUS/.codex/worktrees/c4d5/perfume-chem at detached baseline 0af42cc68730499f54b7c29c67c2320a3f92a9a2.
+- Runtime: D:/chatbots/perfume-chem/.venv/Scripts/python.exe, Python 3.14.6, running c4d5 code; no canonical code execution or package installation.
+- Existing release gate: --formula-file this V4 --parent-formula-file the absolute V3 path above --expected-concentrate-ul 6000 --batch-volume-ml 30 --temperature-k 305 --brief dhi_2011 --no-audit --no-append-analysis --json.
+- Final report: C:/Users/ASUS/.codex/worktrees/c4d5/perfume-chem/output/dhi2011_v4_orris_20260905/final/release.json.
+- Final report SHA-256: 50fce94b1b3b5225678b9015a87fc658dabb93172a9871261dcf6008a0dd1343.
+- Standalone formatter: scripts/format_pipeline_analysis.py --input output/dhi2011_v4_orris_20260905/final/release.json; exit 0.
+- Pre-append formula-file SHA-256: 40fe4adfe1c2a83ed30535d89d81ad5f15efff1d4f7eff093a18095dff4e74a6. Appending generated analysis changes file bytes; this is not the final whole-file hash.
+- Parsed name/dose/dilution/stock signature before analysis append: f239fc04ddfb4ac058770284b4292f5ccdebbf94717a31fdb7d73f8243a42b7d.
+- G15 child formula hash: 4dc2078f345064a93266465c43c5ffa1df05fcb47c42f8baa492cdd5880b5619.
+- G15 parent formula hash: e9021bddb1b6e900319f9ecd4b0babef902d4bc89cd80ee0833e9333f6bc26c9. These are semantic pipeline hashes, distinct from the V3 file SHA-256 above.
+- Report embedding: manual faithful append using the existing output, not a newly issued release or artifact-binding receipt. Inventory dose receipt remains ABSTAINED.
+- Scope: one new formula artifact and ignored diagnostic outputs only; no parent formula, engine, tests, inventory, governance, Git commit or remote changes.
+
+<details>
+<summary>Initial diagnostic before disclaimer wording clarification — preserved verbatim</summary>
+
+Source: output/dhi2011_v4_orris_20260905/analysis.txt. This first attempt is superseded only as to claim-detection status; doses and physics were unchanged.
+
+```text
+## Gate Summary
+
+**108 PASS** / **33 WARN** / **4 FAIL**
+
+  FAIL pipeline_preflight: 13 checks; 7 warnings
+  FAIL inventory_stock_contract: 4 material stock contract failure(s): Alpha Isomethyl Ionone (Methyl Ionone Pure), Ambrettolide, Tonkarome, Vetiver EO (India)
+  FAIL quantitative_authority: Exact active concentrate ppm w/w is unavailable; quantitative/release claims are blocked.
+  FAIL reference_claim_contract: Formula prose makes a quantitative/ratio claim but the declared scope is not quantitative_similarity.
+  WARN headspace_scope: Headspace/OAV uses a partial or proxy finished matrix; unresolved stock carriers prevent complete finished-product scope.
+  WARN odt_coverage: 10 material(s) rely on derived/unverified ODTs (16% OAV share)
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 10.1% active mass across 4 materials
+  WARN odt_sanity: 2 unresolved cross-source ODT conflicts
+  WARN vp_cross_source: 26 materials use inferred enthalpy for VP at 305.00 K; 5 unresolved cross-source VP conflicts
+  WARN dilution_accuracy: Check pipetting: orris liquid: 510.0uL at 9%
+  WARN safety_ifra_allergen: 14 materials lack explicit IFRA Cat4 limits; 4 EU allergen declarations
+  WARN eu_allergen_declaration: EU allergens requiring label: alpha-isomethyl ionone, linalool, linalyl acetate
+  WARN safety_receptor_saturation: Ionone total 12.0% > 5% cap (OR5A1 saturation, F6); Cedarwood Virginia 6.9% > 2% cap (OR10J5 + cedrol sedative)
+  WARN oav_physics_gamma: 26/26 materials use predictive, heuristic, fallback, or unknown gamma authority; largest gamma=1 comparison leverage Iso E Super=9.8x
+  WARN skin_degradation: Tonkarome: coumarin glycosides -> coumarin release (IFRA restricted). Check IFRA coumarin limits
+  WARN solvent_matrix: stock-carrier authority NAMED_CARRIER_VOLUME_PROXY; known named carriers {'DEP': 572.1, 'DPG': 1579.95, 'TEC': 248.0}; unresolved carrier proxy 0.0 uL; 7 named carrier row(s) lack a v/v basis
+  WARN perfumer_logic: iris_coumarin_amber.dhi2011; rerun optimizer: dominant_iris_orris_object: 7.965% active below 18.000; Powder body, violet mobility, and root character are one object, not count-based complexity.; negative_space_and_woody_frame: 6.333% active below 15.000; Diffusion must preserve iris foreground and a late wood return.; not_gourmand_caricature: 3.367% active above 3.000 [advisory guideline; not release-blocking]
+  WARN family_drift_detector: iris_coumarin_amber.dhi2011; dominant_iris_orris_object: 7.965% active below 18.000; Powder body, violet mobility, and root character are one object, not count-based complexity.; negative_space_and_woody_frame: 6.333% active below 15.000; Diffusion must preserve iris foreground and a late wood return.; not_gourmand_caricature: 3.367% active above 3.000 [advisory guideline; not release-blocking]
+  WARN novelty_vs_reference: reference/control archetype; familiar by design, not the new exploration target
+  WARN perfume_knowledge: top OAV needs improvement for target iris_coumarin_amber.dhi2011; heart OAV off-target for target iris_coumarin_amber.dhi2011; base OAV off-target for target iris_coumarin_amber.dhi2011
+  WARN carles_accord_ratio: Exact active-mass ppm is unavailable; pairwise dose ratios were not evaluated.
+  WARN literature_compliance: Literature compliance: 1/5 principles passed (20%) [advisory guideline; not release-blocking]
+  WARN edge_cases: Musk coverage: 100%, gaps: 1, formula VP factor x1.70-2.31 (median x1.94, T=305.00K vs 298.15K, n=26)
+  WARN somatosensory: 0 candidate chemesthetic materials detected; formula-level effects require exposure and human validation
+  WARN stevens_n_efficiency: Exact active-mass ppm is unavailable; dose-efficiency comparison not evaluated.
+  WARN jnd_redundancy: Potentially redundant pairs: benzyl acetate vs osmanthus absolute in floral (OAV 1/1); ambrettolide vs ethylene brassylate in musk (OAV 1/1); ambrettolide vs romandolide in musk (OAV 1/1)
+  WARN jellinek_psychology: Jellinek categories weak: erogenic
+  WARN coty_single_material_limit: Exact active-mass ppm is unavailable; single-material limit not evaluated.
+  WARN roudnitska_hedione_pct: Exact active-mass ppm is unavailable; Hedione percentage heuristic not evaluated.
+  WARN adaptation_timing: fast tier < 5% (no immediate impact)
+  WARN oav_intelligence: iso e super OAV 1147.5 is above woody_amber target 40.0-150.0; hedione OAV 227.4 is above woody_amber target 10.0-25.0; cashmeran OAV 7.2 is below woody_amber target 10.0-25.0
+  WARN tenacity_projection: VP<0.01Pa = 4% (<10%, weak longevity); VP<0.001Pa = 0% (<3%, may lack depth)
+  WARN mass_market_tier_check: Expensive captives found: Alpha Irone. At 1500 THB, these eat margin. Consider if their perceptible impact justifies the cost.
+  WARN authority_vector: Safety authority insufficient (0.00) -- unknown IFRA limits for too many materials; Identity (0.00) AND Quantity (0.00) authority both insufficient -- insufficient evidence; Identity authority insufficient (0.00). DIMENSIONS NEVER AVERAGED. [advisory guideline; not release-blocking]
+  WARN concentration_basis: 27 material(s) with unspecified concentration basis: Alpha Ionone: concentration basis not specified (use w/w, v/v, or w/v); Alpha Irone: concentration basis not specified (use w/w, v/v, or w/v); Alpha Isomethyl Ionone (Methyl Ionone Pure): concentration basis not specified (use w/w, v/v, or w/v); Ambrettolide: concentration basis not specified (use w/w, v/v, or w/v); Benzyl Acetate: concentration basis not specified (use w/w, v/v, or w/v)... [advisory guideline; not release-blocking]
+  WARN robustness_perturbation: 52 fragile perturbation(s) across 52 checks; Hedione up: brief grammar failure under perturbation; Hedione down: brief grammar failure under perturbation; Iso E Super up: brief grammar failure under perturbation
+  WARN confidence_minimum: combined confidence 7.7 below 25.0 after preflight evidence penalty 16.0; reference-control study remains diagnostic only
+
+## Authority Dimensions
+
+| Dimension | Status | Authority |
+|---|---|---|
+| Inventory stock | FAIL | 4 material stock contract failure(s): Alpha Isomethyl Ionone (Methyl Ionone Pure), Ambrettolide, Tonkarome, Vetiver EO (India) |
+| Quantitative ppm w/w | UNAVAILABLE | Exact only when the full declared mass and density chain is available. |
+| Headspace/OAV | MODELED_FINISHED_PRODUCT_MATRIX_PROXY | HEURISTIC_NOT_MEASURED; diagnostic model, not measured odor intensity. |
+| Named reference | FAIL (architecture) | Formula prose makes a quantitative/ratio claim but the declared scope is not quantitative_similarity. |
+| Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | Requires blinded bench comparison; no model score supplies this authority. |
+| Combined confidence | 7.7/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
+
+## Headspace OAV -- Opening (0s)
+
+| Material | Dil | Raw uL | Act uL | MW | MF% | VP Pa | gamma | Vapor ppm | ODT ppm | OAV | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Iso E Super | 100.0% | 140.00 | 140.00 | 234.400 | 0.129 | 0.458763 | 9.809 | 0.057375 | 0.000050000 | 1147.5 | heart |
+| Lavender EO High Altitude | 100.0% | 110.00 | 110.00 | 154.300 | 0.136 | 37.272512 | 4.438 | 0.533256 | 0.002000000 | 280.7 | heart |
+| Hedione | 100.0% | 140.00 | 140.00 | 226.300 | 0.134 | 0.193654 | 4.447 | 0.011372 | 0.000050000 | 227.4 | heart |
+| Linalool | 100.0% | 20.00 | 20.00 | 154.300 | 0.028 | 36.126975 | 2.420 | 0.241928 | 0.001500000 | 161.3 | top |
+| Alpha Ionone | 100.0% | 120.00 | 120.00 | 192.300 | 0.135 | 2.788833 | 1.000 | 0.037151 | 0.000400000 | 92.9 | heart |
+| Linalyl Acetate | 100.0% | 70.00 | 70.00 | 196.300 | 0.077 | 29.884335 | 1.000 | 0.227493 | 0.002700000 | 84.3 | top |
+| Alpha Isomethyl Ionone (Methyl Ionone Pure) | 100.0% | 300.00 | 300.00 | 206.330 | 0.315 | 0.778498 | 1.300 | 0.031413 | 0.000800000 | 39.3 | heart |
+| Vetival | 100.0% | 80.00 | 80.00 | 218.330 | 0.079 | 11.538134 | 1.500 | 0.135379 | 0.007000000 | 19.3 | heart |
+| Cedarwood oil Virginia | 100.0% | 250.00 | 250.00 | 222.370 | 0.238 | 0.011325 | 2.500 | 0.081994 | 0.015000000 | 10.5 | base |
+| Cashmeran | 100.0% | 60.00 | 60.00 | 206.300 | 0.063 | 2.324286 | 1.000 | 0.014431 | 0.002000000 | 7.2 | base |
+| Orris Liquid | 9.0% | 510.00 | 45.90 | 206.320 | 0.045 | 1.075422 | 1.300 | 0.005094 | 0.000900000 | 5.7 | heart |
+| Vetiver EO (India) | 100.0% | 140.00 | 140.00 | 222.400 | 0.135 | 0.084308 | 2.000 | 0.007631 | 0.005000000 | 3.4 | base |
+| Alpha Irone | 10.0% | 120.00 | 12.00 | 206.320 | 0.012 | 1.075422 | 1.000 | 0.001244 | 0.000900000 | 1.4 | heart |
+| Mimosa Absolute | 10.0% | 80.00 | 8.00 | 240.000 | 0.007 | 0.104574 | 1.500 | 0.002967 | 0.002000000 | 1.4 | heart |
+| Ethyl 2-Methylbutyrate | 0.1% | 50.00 | 0.05 | 130.180 | 0.000 | 8.916718 | 1.000 | 0.000073 | 0.000060000 | 1.2 | top |
+| Osmanthus Absolute | 10.0% | 20.00 | 2.00 | 200.000 | 0.002 | 0.022113 | 0.600 | 0.000725 | 0.000500000 | 1.1 | heart |
+| Tonkarome | 20.0% | 310.00 | 62.00 | 160.000 | 0.084 | 0.104574 | 0.600 | 0.000519 | 0.000500000 | 1.0 | base |
+| Romandolide | 100.0% | 210.00 | 210.00 | 270.360 | 0.168 | 0.204190 | 1.500 | 0.005079 | 0.004900000 | 1.0 | base |
+| Verdox | 100.0% | 280.00 | 280.00 | 170.250 | 0.356 | 0.589716 | 1.000 | 0.020704 | 0.020000000 | 1.0 | top |
+| Ambrettolide | 10.0% | 1600.00 | 160.00 | 252.400 | 0.137 | 0.006916 | 1.500 | 0.000140 | 0.000136000 | 1.0 | base |
+| Isobutavan | 100.0% | 140.00 | 140.00 | 222.240 | 0.136 | 0.063863 | 0.600 | 0.000515 | 0.000500000 | 1.0 | heart |
+| Benzyl Acetate | 100.0% | 220.00 | 220.00 | 150.200 | 0.317 | 0.437125 | 1.500 | 0.020502 | 0.020000000 | 1.0 | heart |
+| Ethylene Brassylate | 100.0% | 870.00 | 870.00 | 270.400 | 0.696 | 0.017827 | 0.800 | 0.000980 | 0.000970000 | 1.0 | base |
+| Sandalore | 100.0% | 60.00 | 60.00 | 210.400 | 0.062 | 0.164618 | 1.500 | 0.001503 | 0.010000000 | 0.2 | base |
+| Benzyl Salicylate | 100.0% | 60.00 | 60.00 | 228.300 | 0.057 | 0.022113 | 3.467 | 0.000430 | 0.010000000 | 0.0 | base |
+| Benzyl Benzoate | 100.0% | 40.00 | 40.00 | 212.200 | 0.041 | 0.063576 | 4.438 | 0.001135 | 0.810000000 | 0.0 | heart |
+
+**Materials:** 26 total (4 top, 13 heart, 9 base)
+**Total vapor:** 1.44 ppm
+### Note Distribution
+
+**TOP:** 4 mats, 10.3% active, 11.8% OAV
+  - Linalool                     OAV=   161.3 (strong) VP=36.127Pa
+  - Linalyl Acetate              OAV=    84.3 (moderate-strong) VP=29.884Pa
+  - Ethyl 2-Methylbutyrate       OAV=     1.2 (at threshold) VP=8.917Pa
+  - Verdox                       OAV=     1.0 (at threshold) VP=0.590Pa
+**HEART:** 13 mats, 37.7% active, 86.9% OAV
+  - Iso E Super                  OAV=  1147.5 (very strong) VP=0.459Pa
+  - Lavender EO High Altitude    OAV=   280.7 (strong) VP=37.273Pa
+  - Hedione                      OAV=   227.4 (strong) VP=0.194Pa
+  - Alpha Ionone                 OAV=    92.9 (moderate-strong) VP=2.789Pa
+  - Alpha Isomethyl Ionone (Methyl Ionone Pure) OAV=    39.3 (moderate) VP=0.778Pa
+  - Vetival                      OAV=    19.3 (moderate) VP=11.538Pa
+  ... and 7 more
+**BASE:** 9 mats, 52.0% active, 1.2% OAV
+  - Cedarwood oil Virginia       OAV=    10.5 (moderate) VP=0.011Pa
+  - Cashmeran                    OAV=     7.2 (perceptible) VP=2.324Pa
+  - Vetiver EO (India)           OAV=     3.4 (at threshold) VP=0.084Pa
+  - Tonkarome                    OAV=     1.0 (at threshold) VP=0.105Pa
+  - Romandolide                  OAV=     1.0 (at threshold) VP=0.204Pa
+  - Ambrettolide                 OAV=     1.0 (at threshold) VP=0.007Pa
+  ... and 3 more
+### OAV by Odor Family
+
+            woody  56.8% ============================  (6 mats)
+           floral  17.4% ========  (6 mats)
+                ?  13.4% ======  (2 mats)
+         aromatic  11.7% =====  (2 mats)
+             iris   0.3% =  (2 mats)
+             musk   0.1% =  (3 mats)
+         gourmand   0.1% =  (2 mats)
+           fruity   0.1% =  (1 mats)
+            green   0.0% =  (1 mats)
+       salicylate   0.0% =  (1 mats)
+### Sub-threshold Materials (OAV < 1)
+3/26 materials below perceptible threshold
+  - Benzyl Benzoate: OAV=0.00 VP=0.064Pa act=40uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Benzyl Salicylate: OAV=0.04 VP=0.022Pa act=60uL role=fixative [STRUCTURAL_OR_FIXATIVE]
+  - Sandalore: OAV=0.15 VP=0.165Pa act=60uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Remain idx | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s | 10.3/37.7/52.0 |   1.44ppm |  100.0% | Iso E Super(1148), Lavender EO (281), Hedione(227)
+| top          |    300s | 10.2/37.7/52.1 |   1.42ppm |   99.9% | Iso E Super(1146), Lavender EO (275), Hedione(227)
+| heart        |   1800s | 10.1/37.5/52.4 |   1.31ppm |   99.4% | Iso E Super(1137), Lavender EO (250), Hedione(227)
+| late_heart   |   7200s |  9.7/37.0/53.4 |   1.00ppm |   97.8% | Iso E Super(1106), Hedione(227), Lavender EO (177)
+| drydown      |  14400s |  9.3/36.3/54.4 |   0.75ppm |   96.2% | Iso E Super(1065), Hedione(226), Lavender EO (112)
+
+Temporal authority: HEURISTIC_UNCALIBRATED; model=dynamic_headspace_exponential_loss_v2; remaining index is not measured evaporation.
+
+### Per-Window Detail
+
+**OPENING** (0.0s) -- Uncalibrated loss index:0%
+  T:10.3% H:37.7% B:52.0%  Vapor:1.44ppm
+  Leaders: Iso E Super OAV 1148 | Lavender EO High Altitude OAV 281 | Hedione OAV 227 | Linalool OAV 161 | Alpha Ionone OAV 93
+
+**TOP** (300.0s) -- Uncalibrated loss index:0%
+  T:10.2% H:37.7% B:52.1%  Vapor:1.42ppm
+  Leaders: Iso E Super OAV 1146 | Lavender EO High Altitude OAV 275 | Hedione OAV 227 | Linalool OAV 155 | Alpha Ionone OAV 93
+
+**HEART** (1800.0s) -- Uncalibrated loss index:1%
+  T:10.1% H:37.5% B:52.4%  Vapor:1.31ppm
+  Leaders: Iso E Super OAV 1137 | Lavender EO High Altitude OAV 250 | Hedione OAV 227 | Linalool OAV 125 | Alpha Ionone OAV 92
+
+**LATE_HEART** (7200.0s) -- Uncalibrated loss index:2%
+  T:9.7% H:37.0% B:53.4%  Vapor:1.00ppm
+  Leaders: Iso E Super OAV 1106 | Hedione OAV 227 | Lavender EO High Altitude OAV 177 | Alpha Ionone OAV 90 | Linalyl Acetate OAV 62
+
+**DRYDOWN** (14400.0s) -- Uncalibrated loss index:4%
+  T:9.3% H:36.3% B:54.4%  Vapor:0.75ppm
+  Leaders: Iso E Super OAV 1065 | Hedione OAV 226 | Lavender EO High Altitude OAV 112 | Alpha Ionone OAV 88 | Linalyl Acetate OAV 46
+## Structural OAV Analysis
+
+**Vapor:** 1 ppm  |  **Active:** 12.0%  |  **Perceptible:** 23/26  |  **Unknown:** 0
+
+### OAV Tiers
+  **massive** (1): Iso E Super(1148)
+  **v.strong** (3): Hedione(227), Lavender EO High Altitude(281), Linalool(161)
+  **strong** (2): Alpha Ionone(93), Linalyl Acetate(84)
+  **moderate** (3): Alpha Isomethyl Ionone (Methyl Ionone Pure)(39), Cedarwood oil Virginia(10), Vetival(19)
+  **perceptible** (2): Cashmeran(7), Orris Liquid(6)
+  **threshold** (12): Alpha Irone(1), Ambrettolide(1), Benzyl Acetate(1), Ethyl 2-Methylbutyrate(1), Ethylene Brassylate(1), Isobutavan(1), Mimosa Absolute(1), Osmanthus Absolute(1), Romandolide(1), Tonkarome(1), Verdox(1), Vetiver EO (India)(3)
+  **sub** (3): Benzyl Benzoate(0), Benzyl Salicylate(0), Sandalore(0)
+
+### Block Balance
+  **Citrus**        0 (0%)
+  **Floral**     1819 (99%)
+  **Base**         25 (1%)
+  **Ratio:** 72:1 between strongest/weakest block
+
+### Issues
+  ! 3 sub-threshold material(s): Benzyl Benzoate, Benzyl Salicylate, Sandalore
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Linalool(strong) + Linalyl Acetate(moderate-strong) + Ethyl 2-Methylbutyrate(at threshold)
+  Heart: Iso E Super(very strong) + Lavender EO High Altitude(strong)
+  Base: Cedarwood oil Virginia(moderate) + Cashmeran(perceptible) + Vetiver EO (India)(at threshold) + Tonkarome(at threshold) + Romandolide(at threshold)
+
+### 2. Opening (0-5min)
+  Linalool leads the reported top at OAV 161 (strong).
+  - Linalool OAV=161 VP=36.1Pa (aromatic)
+  - Linalyl Acetate OAV=84 VP=29.9Pa (aromatic)
+  - Ethyl 2-Methylbutyrate OAV=1 VP=8.9Pa (fruity)
+  - Verdox OAV=1 VP=0.6Pa (green)
+  Total vapor: 1.4 ppm
+
+### 3. Heart (30min-2hr)
+  Iso E Super OAV=1137 (very strong)
+  Lavender EO High Altitude OAV=250 (strong)
+  Hedione OAV=227 (strong)
+  Linalool OAV=125 (strong)
+  T:10.1% H:37.5% B:52.4%
+  Vapor: 1.3 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base share of active note distribution: 54%
+  - Iso E Super OAV=1065
+  - Hedione OAV=226
+  - Lavender EO High Altitude OAV=112
+  - Alpha Ionone OAV=88
+  - Linalyl Acetate OAV=46
+  - Alpha Isomethyl Ionone (Methyl Ionone Pure) OAV=39
+  Vapor: 0.8 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Iso E Super(1148)
+  OAV by family: woody57% floral17% None13% aromatic12%
+
+### 6. Longevity
+  Uncalibrated loss index: 4% over modeled window
+  Vapor: 1.4 > 0.8 ppm
+  Base @ drydown: 54%
+  Absolute skin life: unavailable; calibrated finite-film, vehicle, skin-absorption, and sensory data are required
+
+### 7. Balance
+  Pyramid: T:10.3% H:37.7% B:52.0%
+  OAV range: 0.00 to 1148 (sigma-log=1.29)
+  Wide OAV contrast: Iso E Super leads at OAV 1148; lower-OAV materials may be masked.
+    sub-threshold: 3
+
+### 8. Flags
+  SUB: Sandalore OAV=0.15 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Benzyl Salicylate OAV=0.04 role=fixative class=STRUCTURAL_OR_FIXATIVE
+  SUB: Benzyl Benzoate OAV=0.00 role=modifier class=STRUCTURAL_OR_FIXATIVE
+```
+
+</details>
+<!-- PIPELINE_ANALYSIS_END -->

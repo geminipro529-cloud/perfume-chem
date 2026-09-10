@@ -1,0 +1,140 @@
+"""Synthetic cross-specialist execution; no real sensory evidence is asserted."""
+
+import json
+from dataclasses import replace
+
+import pytest
+
+from engine.formulation_intelligence.contracts import PlaneId
+from engine.formulation_intelligence.mixture_hypotheses import MixtureHypothesisKind
+from engine.formulation_intelligence.perceptual_source_execution import (
+    PerceptualArchitectureSources,
+    PerceptualWholePerfume,
+    assemble_perceptual_whole_perfume,
+)
+from tests.test_formulation_intelligence_mixture_temporal import (
+    _architecture,
+    _mixture_hypothesis,
+    _mixture_scope,
+)
+from tests.test_formulation_intelligence_source_bound_floral import _joint_inputs
+from tests.test_formulation_intelligence_spatial_biological import (
+    _spatial_architecture,
+    _spatial_scope,
+)
+
+
+def _sources(target):
+    # Re-scope synthetic fixtures only; no imported observation is retargeted.
+    temporal = _architecture()
+    windows = []
+    for window in temporal.windows:
+        scope = replace(window.scope, target_scope=target)
+        windows.append(
+            replace(
+                window,
+                scope=scope,
+                observed_perceptions=(),
+                predicted_physical=replace(window.predicted_physical, scope=scope),
+            )
+        )
+    temporal = replace(temporal, windows=tuple(windows))
+    scope = replace(_mixture_scope(), target_scope=target)
+    mixtures = tuple(_mixture_hypothesis(kind, scope=scope) for kind in MixtureHypothesisKind)
+    spatial = _spatial_architecture(scope=_spatial_scope(target=target))
+    return PerceptualArchitectureSources(target, mixtures, (temporal,), (spatial,))
+
+
+def test_native_sources_execute_three_planes_and_roundtrip():
+    source = _sources("target:test")
+    result = source.to_synthesis()
+    assert {a.plane_id for a in result.assessments} == {
+        PlaneId.MIXTURE,
+        PlaneId.TEMPORAL,
+        PlaneId.SPATIAL_COMPOSITION,
+    }
+    restored = PerceptualArchitectureSources.from_dict(json.loads(json.dumps(source.as_dict())))
+    assert restored == source
+    assert restored.to_synthesis() == result
+    mixture = next(a for a in result.assessments if a.plane_id is PlaneId.MIXTURE)
+    assert mixture.conflicts
+
+
+def test_permutation_and_exact_duplicates_do_not_amplify_sources():
+    source = _sources("target:test")
+    changed = replace(source, mixtures=tuple(reversed(source.mixtures)) + source.mixtures[:1])
+    assert changed == source
+    assert changed.to_synthesis() == source.to_synthesis()
+
+
+def test_different_mixture_conditions_stay_separate():
+    source = _sources("target:test")
+    extra = tuple(
+        replace(
+            item,
+            hypothesis_id=f"other:{item.hypothesis_id}",
+            scope=replace(item.scope, condition_scope="other"),
+        )
+        for item in source.mixtures
+    )
+    result = replace(source, mixtures=(*source.mixtures, *extra)).to_synthesis()
+    mixtures = [a for a in result.assessments if a.plane_id is PlaneId.MIXTURE]
+    assert len(mixtures) == 2
+    assert mixtures[0].scope != mixtures[1].scope
+
+
+def test_conflicting_id_cross_target_and_empty_plane_rejected():
+    source = _sources("target:test")
+    with pytest.raises(ValueError, match="conflicting"):
+        replace(
+            source, mixtures=(*source.mixtures, replace(source.mixtures[0], statement="different"))
+        )
+    with pytest.raises(ValueError, match="target"):
+        replace(source, target_id="other")
+    with pytest.raises(ValueError, match="nonempty"):
+        replace(source, spatial=())
+
+
+def test_real_perceptual_sources_reach_joint_whole_and_cannot_be_swapped():
+    ideal, projection, selections, floral = _joint_inputs()
+    sources = _sources(ideal.ideal_target_id)
+    result = assemble_perceptual_whole_perfume(
+        ideal,
+        projection,
+        selections,
+        floral,
+        sources,
+        selected_alternative_id="alternative:a",
+        version=1,
+    )
+    planes = {p.plane_id: p for p in result.joint.floral.blueprint.planes}
+    expected = sources.to_synthesis()
+    for assessment in expected.assessments:
+        assert assessment in planes[assessment.plane_id].assessments
+        assert expected in planes[assessment.plane_id].syntheses
+    assert result.joint.bound.source == selections
+    assert result.joint.floral.floral_source == floral
+    assert not result.joint.floral.blueprint.physical_execution_authorized
+    restored = PerceptualWholePerfume.from_dict(json.loads(json.dumps(result.as_dict())))
+    assert restored == result
+    changed = replace(sources, temporal=(sources.temporal[0].reversed(),))
+    assert changed.to_synthesis() != expected
+    with pytest.raises(ValueError, match="exact perceptual synthesis"):
+        replace(result, sources=changed)
+
+
+def test_source_payload_cannot_promote_temporal_authority():
+    payload = _sources("target:test").as_dict()
+    payload["temporal"][0]["sensory_authority"] = True
+    with pytest.raises(ValueError):
+        PerceptualArchitectureSources.from_dict(payload)
+
+
+def test_closed_payload_and_native_types():
+    source = _sources("target:test")
+    payload = source.as_dict()
+    payload["extra"] = True
+    with pytest.raises(ValueError):
+        PerceptualArchitectureSources.from_dict(payload)
+    with pytest.raises(TypeError):
+        replace(source, temporal=({"not": "native"},))

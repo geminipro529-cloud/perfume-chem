@@ -1,0 +1,121 @@
+{
+  "schema_version": "complexity_module_registry_v5",
+  "base_registry": {
+    "path": "complexity_module_registry_v4.json",
+    "sha256": "6c320da59e7a22308a6dd0c8f896d00b7d34e58a755bbdcc77b1578e1dc5838e"
+  },
+  "runtime_bindings": [
+    {
+      "path": "engine/perception/complexity_registry.py",
+      "sha256": "1f7f47d45a0117223e36a8aa6cf9504a0fa3acda077eb897a069c109a9ca1976"
+    },
+    {
+      "path": "engine/solforge/runtime.py",
+      "sha256": "ce74bef4cf766f739df9717d972942ad1435acb503469915f0f233d5ec820105"
+    },
+    {
+      "path": "scripts/intervention_recommend.py",
+      "sha256": "abcf6f2f21ea965aedde8f0de531db08058005bcef2b4b57ed1872fb9b59c727"
+    }
+  ],
+  "module_overrides": [
+    {
+      "module_id": "architectural-delta-engine",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "import_path": null,
+      "sha256": "9392528676e1856cab096287ab8e1e68ee9d1352b0ed9f2fe4e20b6d36a060bb",
+      "evidence_refs": [
+        "configs/solforge/complexity_construct_registry_v1.json",
+        "configs/solforge/complexity_evidence_sources_v2.json",
+        "tests/test_architectural_delta.py",
+        "tests/test_architecture_strategy_compiler.py",
+        "tests/test_solforge_architectural_adapter.py",
+        "docs/depth_architecture/16_strategy_compiler_and_rule_routing.md",
+        "data/benchmarks/solforge/replacement_screen_v6_r1/status.normalized_v2.json",
+        "data/benchmarks/solforge/replacement_confirmation_v6_r1/confirmation_result.serialized_v2.json",
+        "data/benchmarks/solforge/replacement_confirmation_v6_r1/status.serialized_v2.json"
+      ],
+      "notes": [
+        "The predecessor at SHA-256 5c5d43ee138078bffb4d447ff78307572cec9ccc63b55fb9dac3dc4562e4bf60 earned 5/6 wins against both controls with median paired gain 20 and zero critical errors; that exact historical admission remains provenance only.",
+        "The current joined-inventory and strategy-compiler bytes differ materially, so runtime admission is withdrawn until a completely fresh blinded screen and confirmation pass at the current exact hash.",
+        "All formula, inventory, physical, sensory, hedonic, safety, purchase, scientific, and release authority remains false."
+      ]
+    },
+    {
+      "module_id": "temporal-sensory-ledger",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "import_path": null,
+      "sha256": "03b5742e8e66dcf1cc27a94b3e5c4484899ee08893b1b34e006d8890805d0f9f",
+      "evidence_refs": [
+        "configs/solforge/complexity_construct_registry_v1.json",
+        "configs/solforge/complexity_evidence_sources_v2.json",
+        "configs/solforge/research_source_seeds_v1.json",
+        "tests/test_temporal_sensory_evidence.py",
+        "tests/test_solforge_evidence_adapters.py",
+        "docs/depth_architecture/18_evidence_value_and_model_tier_router.md",
+        "data/benchmarks/solforge/replacement_screen_v6_r1/status.normalized_v2.json"
+      ],
+      "notes": [
+        "The V2 predecessor at SHA-256 7bd58615658045311aea6228623f66e32a03bbbaac6f4be65fad3c686e2a8c71 stopped after screening because it tied plain Sol 5.6 xhigh on all three screen cases and won only one case against placebo; that failure remains a provenance tombstone.",
+        "V3 adds predeclared paired difference-in-change, crossover diagnostics, realized-order auditing, and method-specific discrete-rating, TDS, and TCATA handling, but it is a fresh unvalidated candidate rather than a retroactive repair of the failed benchmark.",
+        "No complexity runtime import or formula, sensory, hedonic, safety, purchase, compounding, scientific, physical-execution, or release authority is exposed."
+      ]
+    },
+    {
+      "module_id": "hedonic-preference-learner",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "import_path": null,
+      "sha256": "dcfb241209665267d3628a88f3029defaec402bc9da80dc823581b2c077b8f60",
+      "evidence_refs": [
+        "configs/solforge/complexity_construct_registry_v1.json",
+        "configs/solforge/complexity_evidence_sources_v2.json",
+        "tests/test_preference_davidson.py",
+        "tests/test_preference_validation.py",
+        "tests/test_hedonic_evidence_gate_v2.py",
+        "tests/test_hedonic_evidence_gate_v3.py",
+        "docs/depth_architecture/17_hedonic_evidence_and_release_rebuild.md",
+        "data/benchmarks/solforge/replacement_screen_v6_r1/status.normalized_v2.json"
+      ],
+      "notes": [
+        "The predecessor at SHA-256 55a8f1bdc346e70c0a5c83b85fa62b7aa05b752d50081b97f0c801603e3ce878 stopped after screening because it tied plain Sol 5.6 xhigh on two cases and won only the order-confound trap; that failure remains a provenance tombstone.",
+        "The V3 rebuild adds exact item/build/sample/context bindings, adequacy thresholds, and realized order/carryover diagnostics, but it is a fresh unvalidated candidate rather than a retroactive repair of the failed benchmark.",
+        "No complexity runtime import or formula, sensory, hedonic, safety, purchase, compounding, scientific, or release authority is exposed."
+      ]
+    },
+    {
+      "module_id": "advanced-musk-intelligence",
+      "state": "FUTURE_CANDIDATE_NOT_VALIDATED",
+      "import_path": null,
+      "sha256": "cc0c789b6930aee2f1043c0c9e8e4a7e5ee319bbea71e419aa377f9c0d623b89",
+      "evidence_refs": [],
+      "notes": [
+        "Exact current source bytes are rebound only in this additive overlay; the frozen V1-V3 registry predecessors remain unchanged.",
+        "This future evidence module remains nonruntime and grants no musk-selection, formula, sensory, hedonic, safety, or release authority."
+      ]
+    }
+  ],
+  "admission_evidence": [
+    {
+      "path": "data/benchmarks/solforge/replacement_screen_v6_r1/status.normalized_v2.json",
+      "sha256": "415585965ddedcf2d9d427cbcb0f54c5eedafa56986acb526114004de76b246e"
+    },
+    {
+      "path": "data/benchmarks/solforge/replacement_confirmation_v6_r1/confirmation_result.serialized_v2.json",
+      "sha256": "98e1a6ca9ba738fbf4dc1981ad50e4106c1d165b8be0a11ea5849acf36d12af8"
+    },
+    {
+      "path": "data/benchmarks/solforge/replacement_confirmation_v6_r1/status.serialized_v2.json",
+      "sha256": "ad55eb66886d98f8dba1b0ceb77aefd16943360fbc073b4ef149446a730f4345"
+    }
+  ],
+  "authority_flags": {
+    "compounding": false,
+    "formula": false,
+    "hedonic": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "scientific": false,
+    "sensory": false
+  }
+}

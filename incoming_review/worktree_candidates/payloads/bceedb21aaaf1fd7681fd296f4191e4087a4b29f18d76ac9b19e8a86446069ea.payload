@@ -1,0 +1,32 @@
+{
+  "arm": "CONTROL",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-ARC-S03",
+  "completed_utc": "2026-08-26T07:33:03.796297+00:00",
+  "dispatch_sha256": "f2c69448d64e374c4841139d0fc4e57b789370fa066715122d50ee939ac68600",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "architectural_delta",
+  "output_sha256": "945b30db7c14a1f829e9c4faecf2a0c91d96345982d6966709e21381a8067ffa",
+  "output_text": "{\"decision\":\"NO_AUGMENTATION\",\"target_linked_reasoning\":\"Replacing 2.0 parts of citrus support with 2.0 parts Neroli 10% preserves total quantity but is intended to make Neroli dominant. That would invert the stated identity, where bitter lemon peel and green tea lead and orange blossom is not central. Ingredient substitution alone does not establish target-linked complexity, and no blinded evidence supports the inversion.\",\"controlled_comparison\":{\"baseline\":\"100.0 parts, including 8.0 parts citrus support block\",\"candidate\":\"Remove 2.0 parts citrus support and add 2.0 parts Neroli 10%; total remains 100.0 parts\",\"evidence_status\":\"No blinded comparison supports improved target fidelity or complexity.\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidate_total_parts\":100.0},\"decision_state\":\"NO_AUGMENTATION\",\"next_actions\":[\"If reconsidered, run a blinded, equal-total baseline-versus-substitution comparison scored specifically for bitter lemon-peel/green-tea fidelity and unintended Neroli dominance, after execution-time inventory verification.\"],\"reason_codes\":[\"TARGET_IDENTITY_INVERSION\",\"NO_BLINDED_SUPPORT\",\"TOTAL_PARTS_UNCHANGED\",\"COMPLEXITY_NOT_INGREDIENT_COUNT\",\"INVENTORY_REQUIRES_EXECUTION_VERIFICATION\"]}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "4e3eb768408fba3241b8028a8e811dff89e1174fcc1c90e5e9d18b99b8d35a1f",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-acb23127a6561c1bab02",
+  "role": "CRITICAL_TRAP",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:32:34.414843+00:00",
+  "stderr_sha256": "40aff01d5ac58e5a2ced2e2ec3881533f84153732229a25e456272868ddcb8de",
+  "stderr_tail": "cies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -Raw 'C:\\\\Users\\\\ASUS\\\\.codex\\\\skills\\\\deepluna-chat\\\\SKILL.md'\"`: CreateProcess { message: \"Rejected(\\\"`\\\\\\\"C:\\\\\\\\\\\\\\\\Users\\\\\\\\\\\\\\\\ASUS\\\\\\\\\\\\\\\\.cache\\\\\\\\\\\\\\\\codex-runtimes\\\\\\\\\\\\\\\\codex-primary-runtime\\\\\\\\\\\\\\\\dependencies\\\\\\\\\\\\\\\\native\\\\\\\\\\\\\\\\powershell\\\\\\\\\\\\\\\\pwsh.exe\\\\\\\" -Command \\\\\\\"Get-Content -Raw 'C:\\\\\\\\\\\\\\\\Users\\\\\\\\\\\\\\\\ASUS\\\\\\\\\\\\\\\\.codex\\\\\\\\\\\\\\\\skills\\\\\\\\\\\\\\\\deepluna-chat\\\\\\\\\\\\\\\\SKILL.md'\\\\\\\"` rejected: blocked by policy\\\")\" }\ncodex\n{\"decision\":\"NO_AUGMENTATION\",\"target_linked_reasoning\":\"Replacing 2.0 parts of citrus support with 2.0 parts Neroli 10% preserves total quantity but is intended to make Neroli dominant. That would invert the stated identity, where bitter lemon peel and green tea lead and orange blossom is not central. Ingredient substitution alone does not establish target-linked complexity, and no blinded evidence supports the inversion.\",\"controlled_comparison\":{\"baseline\":\"100.0 parts, including 8.0 parts citrus support block\",\"candidate\":\"Remove 2.0 parts citrus support and add 2.0 parts Neroli 10%; total remains 100.0 parts\",\"evidence_status\":\"No blinded comparison supports improved target fidelity or complexity.\"},\"claim_ceiling\":\"COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"objective_receipt\":{\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"candidate_total_parts\":100.0},\"decision_state\":\"NO_AUGMENTATION\",\"next_actions\":[\"If reconsidered, run a blinded, equal-total baseline-versus-substitution comparison scored specifically for bitter lemon-peel/green-tea fidelity and unintended Neroli dominance, after execution-time inventory verification.\"],\"reason_codes\":[\"TARGET_IDENTITY_INVERSION\",\"NO_BLINDED_SUPPORT\",\"TOTAL_PARTS_UNCHANGED\",\"COMPLEXITY_NOT_INGREDIENT_COUNT\",\"INVENTORY_REQUIRES_EXECUTION_VERIFICATION\"]}}\ntokens used\n6,738\n",
+  "stdout_sha256": "435033a1d2b794105ca6267adb7771e739fb0c2ec29334919daf6bf6450e9463"
+}

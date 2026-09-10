@@ -1,0 +1,44 @@
+# Complex Perfumery V11 embedded-package census
+
+Decision: `DATA_AMBER_HIGH_BUDGET_EMBEDDED_GRAPH_CENSUS_COMPLETE_DEFAULT_NATIVE_HOLDS_RETAINED`.
+
+This is an append-only, nonpromoting diagnostic over the exact V10 latest-state compilation and bridge bytes. It does not change `engine.ingestion.archive_quarantine`, its default resource limits, either V10 receipt, or the authoritative native scanner outcomes.
+
+## Result
+
+| Root | Exact SHA-256 | Default native state | Diagnostic graph |
+|---|---|---|---|
+| Latest-state compilation | `417f58e1e471b62dc7d04b7dc817a64b8b4b1d1fb343bb243f02e95fb7ae3418` | `INTEGRITY_HOLD` | 20 unique containers, 93 edges, depth 3, all terminal, no graph findings |
+| Latest-state bridge | `27584a816df351d01bc040e616fef77c1aa3a7e9ac91910a6c04e0220c514aeb` | `INTEGRITY_HOLD` | 21 unique containers, 94 edges, depth 4, all terminal, no graph findings |
+
+The bridge graph contains the exact compilation SHA. The bridge-wide 21-container set is bound by SHA-256 `35b8db24059ff6102f7f4b1777ec9cc908371851171cc5435b5bc0cf54d183b0`; its 94-edge set is bound by `08d49405eaef0d9aa2577ea44bf9d887ca7e006536612962715df6c3709117d0`.
+
+The diagnostic used higher limits only inside one read-only Python process: 512 MiB candidate members, depth 16, 2,048 containers, 50,000 edges, 4 GiB compressed, and 8 GiB declared/child-byte budgets. The production defaults were restored automatically and remain test-locked.
+
+## DeepLuna direct audit
+
+A fresh exact-project health check was `READY` with 50 read lanes, 10 write lanes, and zero active, queued, reserved, or unknown work. Twelve distinct V10 read-only nodes were submitted concurrently under `cheapluna-chat` / `DIRECT_PRO`, two-call contracts, one attempt, and `NO_LUNA`.
+
+- Nine jobs were created; four returned accepted, cited evidence: V10 native-fit plan, compilation receipt, architecture receipt, and completion-suite receipt.
+- Five created jobs remained `UNRESOLVED`, `BLOCKED`, or `INCOMPLETE`; their findings were not accepted as evidence.
+- Three submissions timed out before creating a job. They were not retried.
+- No Fast, Luna, Codex, GLM, or alternate-provider fallback was used. The exact-project health-spend delta was USD 0.012735056.
+
+The accepted workers independently support the same narrow disposition: computational/source ancestry only, default quarantine and rights holds retained, and no migration, new truth store, new pipeline, formula selection, experiment execution, or installation justified. Sol's local byte/hash/graph/test replay remains controlling.
+
+## Interpretation
+
+- Full traversal under the diagnostic limits found no nested graph corruption.
+- The authoritative default holds remain valid resource-policy holds: compilation `GRAPH_COMPRESSED_BYTE_LIMIT_EXCEEDED`; bridge `GRAPH_CHILD_MEMBER_LIMIT_EXCEEDED`.
+- Eleven unique containers are individually `CLEAR_FOR_RECEIPT_REVIEW`; ten remain `QUARANTINE_HOLD`. Neither state is source admission or installation authority.
+- Embedded copies were not extracted or promoted as standalone canonical packages. Their hashes and ancestry are now machine-readable in the V11 JSON census.
+- Historical inventory, formula, validation, interaction-atlas, and implementation-handoff files inside the compilation remain historical source artifacts. They cannot override current native records.
+
+## Residual holds
+
+- Universal Accord exact original `8dd04ea6…5a998` remains unavailable; no reconstruction or substitution.
+- P6 ZIP `8224f8a1…f97db` and wheel `582ae990…d28c5` remain unavailable and installation-critical.
+- Source rights remain unknown.
+- All nested containers remain quarantined/not admitted.
+
+Collection, implementation, installation, source-admission, formula, inventory, stock, bottle, physical, sensory, analytical, headspace, strict-OAV, safety, procurement, publication, and release authority remain false.

@@ -1,0 +1,46 @@
+# Complex Perfumery V13 chat-estate delta
+
+State: **point-in-time exact-byte collection advanced; collection, admission, implementation, installation, and release remain incomplete.**
+
+## What V13 adds
+
+Five unique post-V12 outer packages were recovered unchanged, copied into one nonce-scoped intake directory, replayed for ZIP integrity and embedded checksums, and bound to native authority-false package receipts:
+
+| Package | Bytes | SHA-256 | Native graph | Admissible meaning |
+|---|---:|---|---|---|
+| `Nine_Perfume_All_MD_Formula_Files_2026-08-16_v1.zip` | 364,392 | `8040367862a0a15cf5852dac395a2f630c80898f3ab734755c00299611f9dd17` | `CLEAR_FOR_RECEIPT_REVIEW` | Markdown formula and screen-design ancestry only; 9 perfumes, 110 arms, no canonical formula or execution authority. |
+| `XHIGH_AUDIT_VERIFY_FIX_2026-08-16.zip` | 35,080 | `1706d4c8ff1eeac22e689627630903ea7fcda5517b24ac79d44da246ed6f0657` | `CLEAR_FOR_RECEIPT_REVIEW` | Historical audit/remediation candidate. Its own terminal state remains `SOURCE_BYTES_MISSING`; freeze is false and PRO review is not started. |
+| `COMPLEX_PERFUMERY_OPUS_V_HR_A_V1R2_READMISSION_V1_20260815.zip` | 21,809 | `09f723b79912e88b63308574d83f4ad540e2c0cda7970147b85ed9380768bd53` | `CLEAR_FOR_RECEIPT_REVIEW` | HR-A baseline remains FAIL/HOLD. R1A is a non-applied desk candidate with newer formula bytes unavailable and all empirical gates held. |
+| `VMC_REC_01_Empirical_Loop_Aug2026_v1_Package.zip` | 45,186 | `3bcaec98bb637cb8070a11582044e3ce1b9cb2b317cd40761ae7ba529feeb745` | `GRAPH_COMPLETE_QUARANTINED` | Protocol and blank-template ancestry only. Eleven preflight rows are not started, four arms are not mixed, twelve physical checks are not run, sensory rows are blank, and the decision is HOLD. |
+| `ACCORD_INTEL_CHAT0_EXACT_BYTE_RECOVERY_RECHECK_20260816T060719Z.zip` | 2,629 | `59d253cee98f04e7b2f4269c739d471edb1d98fe564cfa11990169e1941d2b07` | `CLEAR_FOR_RECEIPT_REVIEW` | Historical bounded negative-search receipt only. Its PCV3 miss is superseded by the later exact local PCV3 recovery; its Universal miss is not proof of global absence. |
+
+All five strict package receipts return `VERIFIED_QUARANTINED`; every promotion and authority flag is false.
+
+## Estate denominator
+
+The governed registry remains a 38-chat point-in-time census. A fresh bounded app census exposes 15 project chats, 10 of which are not in that registry. The defensible current denominator is therefore **at least 48 chats**, not exactly 48. Recency pagination and active or newly changing source chats prevent a complete estate proof.
+
+V13 raises the exact unique outer-package count from 42 to **47**. That is a current lower-bound collection state, not “all packages collected.”
+
+## Native fit
+
+- Do not install or import any package code, schema, formulas, template rows, or package priority.
+- The Markdown export remains immutable target/design ancestry. Existing target/build separation, C10/P3, Laboratory Beta, C0, B1/B5/B7, and exact V5 stock/preparation gates control.
+- The new native G1/G2 stock-preparation seam keeps mass and mass-fraction as quantity authority. Source v/v values may be retained only as uncertainty- and condition-bound intent metadata; they do not make these package designs executable.
+- XHIGH and Chat 0 receipts are governance/source-history evidence, not runtime or scientific truth.
+- VMC may become a native protocol proposal only after exact source rights, stock/preparation closure, safety review, and separate human/physical authorization. Blank rows cannot become observations.
+
+No migration, schema, truth store, or pipeline script is indicated.
+
+## Exact-byte holds
+
+The following remain unavailable and must not be reconstructed or substituted:
+
+1. Universal Accord current package — 539,050 B — `8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998`.
+2. Declared canonical-cutover parent — 1,228,587 B — `e9e325bea9117dbe2a97ff67e77d57705a54244591278fac7a34915a7f0ae523`.
+3. P6 Physics/OAV ZIP — 540,402 B — `8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db`.
+4. P6 wheel — 65,724 B — `582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5`.
+
+## Authority boundary
+
+No source admission, canonical formula selection, inventory or stock mutation, bottle event, preparation, compounding, physical execution, sensory result, analytical result, headspace result, strict empirical OAV, safety clearance, procurement, publication, installation, or release authority is created by V13.

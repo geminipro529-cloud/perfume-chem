@@ -1,0 +1,314 @@
+{
+  "schema_version": "perfume_chem_unified_artifact_import_v1",
+  "import_id": "UNIFIED-IMPORT-SUKHUM-ROSE-20260904-001",
+  "effective_date": "2026-09-04",
+  "source": {
+    "root": "C:/Users/ASUS/.codex/worktrees/6992/perfume-chem",
+    "git_head": "398800c5da43038f3159956362681a2ed92091f0",
+    "source_mutation_authorized": false,
+    "source_mutation_performed": false,
+    "note": "The imported paths were untracked in the source worktree; per-file SHA-256 values below, not Git HEAD alone, bind the copied bytes."
+  },
+  "destination": {
+    "root": "D:/chatbots/perfume-chem-unified-package",
+    "artifact_count": 19,
+    "test_count": 15,
+    "governance_record_count": 1
+  },
+  "policy": {
+    "provider": "OPENAI_CHATGPT_CODEX_NATIVE_ONLY",
+    "historical_formula_bytes_immutable": true,
+    "historical_diagnostic_bytes_immutable": true,
+    "historical_formula_rebase_authorized": false,
+    "physical_compounding_authorized": false,
+    "sensory_promotion_authorized": false,
+    "release_authorized": false,
+    "test_adaptation_boundary": "CURRENT_UNIFIED_AUTHORITY_AND_FORMAT_COMPATIBILITY_ONLY",
+    "shared_engine_data_inventory_gate_edits_in_this_import": false,
+    "git_stage_commit_push_performed": false
+  },
+  "authority_at_manifest_write": {
+    "current_inventory_path": "inventory.txt",
+    "current_inventory_sha256": "68ACD5B325B2FA4FE56D6CAC7E3E22598ECD82D88EFCD5AE435D1BB91527B7E1",
+    "current_inventory_overlay_path": "data/governance/inventory_user_authority_overlay_20260904.json",
+    "current_inventory_overlay_sha256": "63C4ABB4D809DDF7E5620288CF88E9F533455DEECADA4DD9DF063770C7CF417F",
+    "frozen_sukhum_t4_inventory_sha256": "EB33C04236A4640413BA5289125F04CFA278BD0614EB9BD12EA1CC4D88379967",
+    "frozen_sukhum_f3_inventory_sha256": "6745156000796FA3ABE7072ACB0629C0C63F56B5AD7AB94714B086A941234079",
+    "frozen_rose_rescue_inventory_sha256": "6278A846882412F2F026171D0B4910C4613C35D6C7B6680BF4B98C923E4BB5D7"
+  },
+  "claim_ceiling": {
+    "execution": "HOLD",
+    "physical_test": "NOT_AUTHORIZED",
+    "physical_liking": "NOT_TESTED",
+    "similarity": "NOT_TESTED",
+    "market_success": "NOT_TESTED",
+    "safety": "HOLD",
+    "stability": "HOLD",
+    "release": "HOLD",
+    "rose_rescue": "HISTORICAL_NON_EXECUTABLE_HOLD",
+    "sukhum_f3_quantitative_model": "HOLD"
+  },
+  "known_parser_limitations": [
+    {
+      "id": "SUKHUM_F3_WEIGHED_SOLID_STOCK_ROW",
+      "status": "PRESERVED",
+      "detail": "The shared Markdown formula parser may return no formula or may retain only liquid rows for S35-F3. It must not invent a microlitre dose for the separately weighed 2.640 g saturated Ambrofix stock."
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "formulas/sukhum_35_t4/S35-F2_Realistic_Fruit_Minimum_Arm_30mL_EdP.md",
+      "bytes": 22904,
+      "sha256": "A859FF050ACAB5FD0CA1E3E098F32F31C7DBF470C739FA50BAF70F725C32956B",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "formulas/sukhum_35_t4/S35-F2_Numbered_Basket_Mixing_Protocol_v2.md",
+      "bytes": 12132,
+      "sha256": "D95A747E6BE1ACE81E7FBF2E8A194F150D1FAA941AAD9071F5B7BBA55D39ED25",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "formulas/sukhum_35_t4/S35-D2_Qualified_Dry_Transition_Arm_30mL_EdP.md",
+      "bytes": 17680,
+      "sha256": "E9F0BCD1BD453FDDC3478F9334B7A1966EE76A6D22AF6873A13DEF171156C9E7",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "formulas/sukhum_35_t4/S35-F2_Functional_Basket_Mixing_Protocol_v1.md",
+      "bytes": 11559,
+      "sha256": "C0ED555C6C7295B5CAB6FCCD299409CC79F90D925D22A7BB990462148D269D00",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "formulas/sukhum_35_t4/S35-R1_Current_Stock_Corrected_Control_30mL_EdP.md",
+      "bytes": 17152,
+      "sha256": "1ADE8CE8EE999C480DC21A603F7376A2EB1EEA2AE1E2F4D5EB1D95AE8AA638E8",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "formulas/sukhum_35_t4/S35-F3_Numbered_Basket_Mixing_Protocol_v1.md",
+      "bytes": 11991,
+      "sha256": "7D6B3420C0B1BAB5AB020847DE4E7047340C19C741FB0CFECF86AF833BFAB9FA",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "formulas/sukhum_35_t4/S35-F3_Ambrofix_Saturated_Mass_Rebase_30mL_EdP.md",
+      "bytes": 12418,
+      "sha256": "68141637BEAE5F986D207B005A7D416D633A8D84CBBC8946A6D349F5707A23E9",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "formulas/sukhum_35_t4/S35-T4_Full_Reconstruction_30mL_EdP.md",
+      "bytes": 27002,
+      "sha256": "5BA598B39D37AA310F68A0655491E85B7EF516B775DD78A211D3CA6A8155456D",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "formulas/sukhum_35_t4/study_manifest.json",
+      "bytes": 2461,
+      "sha256": "4089567245B81F5D9275C7647CBBD794ADCA7308B51FEE10342F37D08C9B7671",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "formulas/sukhum_35_t4/reports/computational_decision.json",
+      "bytes": 3097,
+      "sha256": "645948FBF7A2027A785D7F8BB069CCFECC9B98AD415903A0E357D3A35B048551",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "formulas/sukhum_35_t4/reports/computational_comparison.md",
+      "bytes": 6962,
+      "sha256": "BDA7BF284E29B120877A58F0F96134FBE5ED5355F59B23ADD03F40FC9CE590A2",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "formulas/sukhum_35_t4/testing/blind_protocol.json",
+      "bytes": 3788,
+      "sha256": "67981B10FD5F93885F401A3503C26FCEEA7D9D10E67111238D4C54068CAEFD20",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "docs/research/2026-08-29-thai-male-fruity-woody-market.md",
+      "bytes": 8027,
+      "sha256": "2616160F1647E5784BED4C219F707088C4B34BAF2A80197B9144C9E9E2AB0977",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "docs/research/2026-08-30-sukhum-35-new-inventory-reconstruction.md",
+      "bytes": 9644,
+      "sha256": "3B64C6F6749E2C585E6BEB9475B5BA5E087F2339A6C3F4DB45AD329767AB566F",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "docs/superpowers/plans/2026-08-29-sukhum-35-implementation.md",
+      "bytes": 11551,
+      "sha256": "BFC16E86E1D4DF793EE1D7DA20BC69959EA20EAF415E346DB580BB168FA14087",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "docs/superpowers/plans/2026-08-31-aventus-absolu-explorer-extreme-hedonic-context.md",
+      "bytes": 29609,
+      "sha256": "80DD4F53CC14E48C577766119B589FE9F1F0BD98CE1DF91A6D0BB1C3DC6FB1DB",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "docs/superpowers/specs/2026-08-29-sukhum-35-thai-male-fruity-woody-design.md",
+      "bytes": 7820,
+      "sha256": "B070171A57E01CCCB59C4EC2C3513A49C091737C5F0EF2B2999D3E51314D4DDE",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "docs/superpowers/specs/2026-08-31-aventus-explorer-reference-model-design.md",
+      "bytes": 37367,
+      "sha256": "64BBBFB91541FB88EFA257929D141FAED07F70FE8D8FD7D36AB421F95ADA4241",
+      "byte_identical_to_source": true
+    },
+    {
+      "path": "formulas/La_Rose_Monolithe_Direct_Dilution_50mL_Rescue.md",
+      "bytes": 16934,
+      "sha256": "FFC5AD337BC750288568C52C789201639F1216FB5266B252CEF5FBB2B8BC87C9",
+      "byte_identical_to_source": true
+    }
+  ],
+  "tests": [
+    {
+      "path": "tests/test_amber_xtreme_inventory.py",
+      "source_sha256": "530F4F3486F21A7E1EAA6318F1FC50F2D23EA1EB646116EB350BFB0E39B1CEBF",
+      "destination_bytes": 3266,
+      "destination_sha256": "8C3B5E2B60A34F01D5697E25ADC69CBFE8C56E794D5C18C0E2ADC49840B8966A",
+      "adaptation": "CURRENT_V5_STOCK_AUTHORITY_AND_UNIFIED_CATALOG_COMPATIBILITY"
+    },
+    {
+      "path": "tests/test_ambrofix_identity_separation.py",
+      "source_sha256": "8C28788F30E59644B7558ADB5D6BCB7D49CA75F1D2842E75BA8693315C6B563E",
+      "destination_bytes": 1932,
+      "destination_sha256": "B6AF2110FE8AAAFC40E0048A900A8961D132C57E6DA3B014EFA68AA808A6F3CA",
+      "adaptation": "UNIFIED_IDENTITY_SEPARATION_COMPATIBILITY"
+    },
+    {
+      "path": "tests/test_family_hedonic_optimizer.py",
+      "source_sha256": "CA8AEA99D76EC98E4B67E8CAC1132AA84485C85E5C3F02222096E00CB2EFBC1D",
+      "destination_bytes": 7304,
+      "destination_sha256": "53B107C292284C9AB42C95E2E3463558C1C1F9B36F9775C0A968EA1DB67054C4",
+      "adaptation": "CURRENT_UNIFIED_FAMILY_REGISTRY_COMPATIBILITY"
+    },
+    {
+      "path": "tests/test_inventory_chat_stock_reconciliation_2026_08_29.py",
+      "source_sha256": "9AD2BD87F58489BE3D854D4953688AB15327F38E9F6790A66047A2FAE4A9A9F6",
+      "destination_bytes": 3819,
+      "destination_sha256": "323D9CDB40858D21F7A8D381047D85A59B037E0C8EFB3430E7815B8441CE3284",
+      "adaptation": "CURRENT_V5_INVENTORY_AND_NON_PROMOTION_OF_ABSENT_LEGACY_PRODUCTS"
+    },
+    {
+      "path": "tests/test_inventory_parser_public_compatibility.py",
+      "source_sha256": "0029F3B23C3BF6CB16789051CDEACC4AFD38DD7A109B07ECCDB1D1AEE9CE0832",
+      "destination_bytes": 3292,
+      "destination_sha256": "7CA999E7C29F7CBD540079EAA89308170FD432C9D5153F012FDBB8C66F62FF4F",
+      "adaptation": "CURRENT_SUCCESSOR_OVERLAY_FAIL_CLOSED_RESOLUTION"
+    },
+    {
+      "path": "tests/test_inventory_stock_additions_2026_08_28.py",
+      "source_sha256": "661E9E66E2B49C9A8852D7BCAB0CB54950774245705F5428926788182ECF6D14",
+      "destination_bytes": 14327,
+      "destination_sha256": "66F33A018BC048E6AEC5C15842FB4BE740AC2FCFC926781C7A960891E96D1558",
+      "adaptation": "CURRENT_V5_AND_20260904_OVERLAY_AUTHORITY_WITH_OBSOLETE_STOCKS_FAIL_CLOSED"
+    },
+    {
+      "path": "tests/test_inventory_stock_broadcast_2026_08_29.py",
+      "source_sha256": "56510E4301D7986B18D57280CEFD37EE2DE74D6BB632B097C3B043B5E77561B5",
+      "destination_bytes": 6705,
+      "destination_sha256": "5F96E1BD87E839BC08BC043A277DC768A3FA61DC54D33EF3E1637292308F42EB",
+      "adaptation": "CURRENT_OVERLAY_BACDANOL_CLEARWOOD_AND_EXACT_ONE_THIRD_GUAIACWOOD_AUTHORITY"
+    },
+    {
+      "path": "tests/test_la_rose_monolithe_direct_dilution_rescue.py",
+      "source_sha256": "E63E2599C92EECDCFA3412027354A8AF7E78668EEEE0501208474A0C8126FC95",
+      "destination_bytes": 5659,
+      "destination_sha256": "7D674BE404A7E0D9B9A4CCD69A4142B79DAA779639945071ABAE8F30F6A06F00",
+      "adaptation": "IMMUTABLE_SOURCE_HASH_AND_FROZEN_DIAGNOSTIC_TABLE_WITH_CURRENT_ROSE_STOCK_NON_REBASE"
+    },
+    {
+      "path": "tests/test_material_properties_generator.py",
+      "source_sha256": "76FCFA3A22FA440E55DE4F5E3D92067EFB673545DEDEE742FFD381456D4224AA",
+      "destination_bytes": 7927,
+      "destination_sha256": "CAB803C4F3F2CF08FD05A3E535418AFFCFF80552B44D795AA5397F86844CE927",
+      "adaptation": "OFFLINE_IMPORT_SAFE_GENERATOR_AND_CURRENT_OVERLAY_COMPATIBILITY"
+    },
+    {
+      "path": "tests/test_optimizer_material_lookup.py",
+      "source_sha256": "416D22C7B09BC99AC2303D2924E19D65F1E466F19836E541690E7502ECB15708",
+      "destination_bytes": 1958,
+      "destination_sha256": "1A95B8FBE0D1674815A0B5BD481A0719A7532AF4809E1BDD5B41D6E5EA742366",
+      "adaptation": "UNIFIED_EXACT_NORMALIZED_LOOKUP_COMPATIBILITY"
+    },
+    {
+      "path": "tests/test_prebonding_stock_form_types.py",
+      "source_sha256": "30E5B4DB515870276D136BA8735B0BBA7AE9D0F2817D9C0567E9AD767EA04DFC",
+      "destination_bytes": 2205,
+      "destination_sha256": "B976B4664DBB47747FE696C9C845A3BB18E1E089D0D851123939D99D0CBAE3D8",
+      "adaptation": "UNIFIED_NUMERIC_LEGACY_STOCK_FORM_COMPATIBILITY"
+    },
+    {
+      "path": "tests/test_sukhum_35_f2_basket_protocol.py",
+      "source_sha256": "6D7093ED95E6D0AD830F245F8CBE517DB038CD18491FFE1EEF72D8EFC49DEDDF",
+      "destination_bytes": 7755,
+      "destination_sha256": "1A0D03610A0DBC7C6CD756772DE83E2D63AE69C1697403A02579C5837658456F",
+      "adaptation": "TEST_LOCAL_FROZEN_TABLE_PARSER_AVOIDS_SHARED_MARKDOWN_FORMAT_ASSUMPTION"
+    },
+    {
+      "path": "tests/test_sukhum_35_f3_ambrofix_saturated_successor.py",
+      "source_sha256": "12215952FD4CA0E88969ED73CCEEE20DAE6F7064400C4BBFB478D0CFF99D4F50",
+      "destination_bytes": 8622,
+      "destination_sha256": "17BCF6907D2D18647028AAB70C757CE5D59EC0712D9037544B7851B47AC84456",
+      "adaptation": "CURRENT_AMBROFIX_IDENTITY_SEPARATION_AND_EXPLICIT_WEIGHED_ROW_PARSER_LIMITATION"
+    },
+    {
+      "path": "tests/test_sukhum_35_t4_reconstruction.py",
+      "source_sha256": "09B028E1700883396DB1D4704477ADBD829BF7965DCE5477BB761C0F5F6784C7",
+      "destination_bytes": 11148,
+      "destination_sha256": "439BD324221A7906AF8D89A75B3F0BAF394F12CD7DFBED9AFF71C7E3C9EBF1B2",
+      "adaptation": "TEST_LOCAL_FROZEN_TABLE_PARSER_AND_CURRENT_GRAPEFRUIT_AMBROX_AAG_PAMPLEMOUSSE_AUTHORITY"
+    },
+    {
+      "path": "tests/test_user_authorized_cinnamon_substitution.py",
+      "source_sha256": "0BC62593D0B5EF9C808987AC33FD0F622C836BB058608EDCA0B6B30EB59F3146",
+      "destination_bytes": 1822,
+      "destination_sha256": "1009E3E7CCD4C12B546133A6B3BFBCCA1F12D933752C00ACBDED7A059AB9B5F7",
+      "adaptation": "CURRENT_TELVADA_IDENTITY_SEPARATION_FAIL_CLOSED_NO_CROSS_STOCK_SUBSTITUTION"
+    }
+  ],
+  "excluded": [
+    {
+      "path": "tests/studies/test_ysl_twenty_variant_study.py",
+      "reason": "OWNED_BY_SEPARATE_YSL_IMPORT_LANE"
+    },
+    {
+      "path": "formulas/SUKHUM_35_Thai_Male_Fruity_Woody_30mL_EdP.md",
+      "reason": "SUPERSEDED_PREDECESSOR_EXCLUDED"
+    },
+    {
+      "path": "formulas/sukhum_35_t3/",
+      "reason": "PRESERVED_DIAGNOSTIC_PREDECESSOR_NOT_IMPORTED"
+    },
+    {
+      "path": "formulas/La_Rose_Monolithe_DHP2025_30mL_Parfum.md",
+      "reason": "SUPERSEDED_PHYSICAL_BATCH_RECORD_EXCLUDED"
+    },
+    {
+      "path": "tests/test_la_rose_monolithe.py",
+      "reason": "SUPERSEDED_PREDECESSOR_TEST_EXCLUDED"
+    },
+    {
+      "path": "verification_runs/",
+      "reason": "GENERATED_OUTPUT_EXCLUDED"
+    }
+  ],
+  "verification": {
+    "artifact_hashes": "19_OF_19_SOURCE_DESTINATION_MATCH",
+    "owned_authority_slice": "44_PASSED",
+    "exact_15_file_suite": "106_PASSED_0_FAILED_0_SKIPPED",
+    "python": "D:/chatbots/perfume-chem/output/verification-envs/a2-slice2-py311/Scripts/python.exe",
+    "pytest_options": "-p no:cacheprovider -q"
+  }
+}

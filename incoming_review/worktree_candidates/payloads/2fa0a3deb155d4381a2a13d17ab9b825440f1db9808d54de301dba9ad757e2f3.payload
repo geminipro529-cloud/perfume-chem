@@ -1,0 +1,31 @@
+{
+  "model_id": "aventus.woody_geometry.astra_v3.design_v1",
+  "candidate_id": "AVENTUS-ASTRA-V3-WOODY-MASS-20260905",
+  "inventory_sha256": "5da7ecdab4ce9c297f95a61051b38d9183f796c1971dd276546ef15c7856c497",
+  "source_scope": "New independent design under the user's requested V3 title; exact earlier V3 recipe not supplied or located. Not a Creed formula or an executable mixing card.",
+  "materials": [
+    {"material":"Bergamot FCF oil Sicilian","module":"citrus","aromatic_ppm":90000,"mixture_kind":"natural","basket":"CITRUS / TOP","current_stock":{"fraction":1,"basis":"neat","inventory_synchronized":true,"carrier_mass_fractions":{}}},
+    {"material":"Blackcurrant Absolute","module":"cassis","aromatic_ppm":1500,"mixture_kind":"natural","basket":"GREEN / FRESH / MARINE","current_stock":{"fraction":0.1,"basis":"unspecified","inventory_synchronized":true,"carrier_mass_fractions":null}},
+    {"material":"Hedione","module":"floral_bridge","aromatic_ppm":120000,"mixture_kind":"single_material","basket":"FLORAL MATERIALS","current_stock":{"fraction":1,"basis":"neat","inventory_synchronized":true,"carrier_mass_fractions":{}}},
+    {"material":"Lemon FCF oil Sicilian","module":"citrus","aromatic_ppm":20000,"mixture_kind":"natural","basket":"FLORAL MATERIALS","current_stock":{"fraction":1,"basis":"neat","inventory_synchronized":true,"carrier_mass_fractions":{}}},
+    {"material":"Ambrox Super","module":"ambrox","aromatic_ppm":160000,"mixture_kind":"single_material","basket":"WOODS / AMBER / STRUCTURE","current_stock":{"fraction":0.25,"basis":"w/w","inventory_synchronized":true,"carrier_mass_fractions":{"DPG":0.5833333333333334,"IPM":0.041666666666666664,"ethanol":0.125}}},
+    {"material":"Iso E Super","module":"dry_wood","aromatic_ppm":340000,"mixture_kind":"single_material","basket":"WOODS / AMBER / STRUCTURE","current_stock":{"fraction":1,"basis":"neat","inventory_synchronized":true,"carrier_mass_fractions":{}}},
+    {"material":"Cedarwood oil Virginia","module":"dry_wood","aromatic_ppm":60000,"mixture_kind":"natural","basket":"WOODS / AMBER / STRUCTURE","current_stock":{"fraction":1,"basis":"neat","inventory_synchronized":true,"carrier_mass_fractions":{}}},
+    {"material":"Suederal","module":"smoke_leather","aromatic_ppm":1900,"mixture_kind":"proprietary","basket":"WOODS / AMBER / STRUCTURE","current_stock":{"fraction":1,"basis":"neat","inventory_synchronized":true,"carrier_mass_fractions":{}}},
+    {"material":"Habanolide","module":"musk","aromatic_ppm":120000,"mixture_kind":"single_material","basket":"MUSKS","current_stock":{"fraction":1,"basis":"neat","inventory_synchronized":true,"carrier_mass_fractions":{}}},
+    {"material":"Allyl Amyl Glycolate","module":"pineapple","aromatic_ppm":2500,"mixture_kind":"single_material","basket":"SWEET / GOURMAND / BALSAMIC","current_stock":{"fraction":0.1,"basis":"unspecified","inventory_synchronized":true,"carrier_mass_fractions":null}},
+    {"material":"Evernyl","module":"patchouli_moss","aromatic_ppm":8000,"mixture_kind":"single_material","basket":"LEATHER / SMOKY / PHENOLIC","current_stock":{"fraction":0.1,"basis":"w/w","inventory_synchronized":true,"carrier_mass_fractions":{"DEP":0.9}}},
+    {"material":"Cade Oil Rectified","module":"smoke_leather","aromatic_ppm":100,"mixture_kind":"natural","basket":"LEATHER / SMOKY / PHENOLIC","current_stock":{"fraction":0.01,"basis":"unspecified","inventory_synchronized":true,"carrier_mass_fractions":null}},
+    {"material":"Patchouli EO","module":"patchouli_moss","aromatic_ppm":72000,"mixture_kind":"natural","basket":"SPICE / AROMATIC","current_stock":{"fraction":1,"basis":"neat","inventory_synchronized":true,"carrier_mass_fractions":{}}},
+    {"material":"Schinus molle EO","module":"pepper","aromatic_ppm":4000,"mixture_kind":"natural","basket":"SPICE / AROMATIC","current_stock":{"fraction":1,"basis":"neat","inventory_synchronized":false,"carrier_mass_fractions":{}}}
+  ],
+  "physical_holds": [
+    "This is a planned mass design, not measured compounding or release evidence.",
+    "Pink pepper is user-confirmed in the prior architecture record but is not synchronized in live inventory; do not substitute black pepper.",
+    "Cade requires exact rectified-grade lot identity and PAH/compliance documentation; no skin application authority.",
+    "Suederal plus Cade is a smoky-leather functional hypothesis, not birch or Creed equivalence.",
+    "Stock homogeneity, scale resolution, solubility, stability, full matrix composition and lot safety require verification.",
+    "Composite natural OAV, exact-grade Ambrox physics and matrix-matched thresholds remain unresolved.",
+    "Reference-matched blind sensory trials have not been performed."
+  ]
+}

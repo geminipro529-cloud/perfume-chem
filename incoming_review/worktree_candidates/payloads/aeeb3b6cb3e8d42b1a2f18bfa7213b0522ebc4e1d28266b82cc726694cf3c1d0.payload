@@ -1,0 +1,61 @@
+{
+  "task_id": "perfume-chem-temporal-oav-hedonic-task2-simple-review-20260826-v1",
+  "objective": "Perform a bounded simple code review of the supplied Task 2 patch only. Check for closed-schema mistakes, hash-binding gaps, accidental V2 mutation, authority escalation, inconsistent source-to-assessment hashes, and missing negative tests. Report concrete findings with patch line citations. Do not redesign the architecture or make scientific promotion decisions.",
+  "tier": "PRO",
+  "workspace": "D:/chatbots/perfume-chem",
+  "allowed_paths": [
+    "incoming_review/temporal-oav-hedonic-recovery-20260826/task2-interface-review.patch"
+  ],
+  "required_reads": [
+    {
+      "path": "incoming_review/temporal-oav-hedonic-recovery-20260826/task2-interface-review.patch",
+      "unit": "line",
+      "start": 1,
+      "end": 1489
+    }
+  ],
+  "coverage_spec": {
+    "mode": "ALL_REQUIRED_READS",
+    "citations_required_for": [
+      "positive_findings",
+      "negative_findings"
+    ]
+  },
+  "forbidden_actions": [
+    "modify local or remote state",
+    "browse or use external sources",
+    "inspect files outside required_reads",
+    "redesign architecture",
+    "promote scientific claims",
+    "grant formula, sensory, hedonic, safety, runtime, purchase, or release authority",
+    "use Fast, Luna, Codex, or alternate-provider fallback"
+  ],
+  "commands_tests": [],
+  "definition_of_done": [
+    "Return only findings supported by exact patch lines.",
+    "Classify each finding as CRITICAL, IMPORTANT, or MINOR.",
+    "State NO_FINDINGS if no concrete defect is visible."
+  ],
+  "required_output": [
+    "Findings with severity and exact line citations",
+    "One-paragraph compliance summary"
+  ],
+  "timeout_minutes": 8,
+  "max_output_tokens": 3000,
+  "reuse_cache": false,
+  "require_cache": false,
+  "route_constraints": {
+    "allowed_routes": [
+      "DIRECT_PRO"
+    ],
+    "fallback_policy": "NO_LUNA",
+    "maximum_attempts": 1,
+    "maximum_provider_calls": 2,
+    "maximum_estimated_cost_usd": 0.033,
+    "privacy_class": "PROVIDER_ALLOWED",
+    "maximum_input_tokens": 24000,
+    "maximum_cached_input_tokens": 24000,
+    "maximum_output_tokens_total": 6000,
+    "maximum_total_tokens": 27000
+  }
+}

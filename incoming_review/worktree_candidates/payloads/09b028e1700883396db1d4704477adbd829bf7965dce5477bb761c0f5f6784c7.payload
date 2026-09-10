@@ -1,0 +1,239 @@
+import hashlib
+import json
+from pathlib import Path
+
+import pytest
+
+from engine.inventory_parser import parse_inventory
+from scripts.verify_formula_workflow import parse_formula_markdown
+
+
+ROOT = Path(__file__).resolve().parents[1]
+STUDY_ROOT = ROOT / "formulas" / "sukhum_35_t4"
+MANIFEST_PATH = STUDY_ROOT / "study_manifest.json"
+BLIND_PROTOCOL_PATH = STUDY_ROOT / "testing" / "blind_protocol.json"
+DECISION_PATH = STUDY_ROOT / "reports" / "computational_decision.json"
+INVENTORY_PATH = ROOT / "inventory.txt"
+INVENTORY_SHA256 = "EB33C04236A4640413BA5289125F04CFA278BD0614EB9BD12EA1CC4D88379967"
+
+ARM_FILES = {
+    "S35-R1": "S35-R1_Current_Stock_Corrected_Control_30mL_EdP.md",
+    "S35-F2": "S35-F2_Realistic_Fruit_Minimum_Arm_30mL_EdP.md",
+    "S35-D2": "S35-D2_Qualified_Dry_Transition_Arm_30mL_EdP.md",
+    "S35-T4": "S35-T4_Full_Reconstruction_30mL_EdP.md",
+}
+
+MUSKS = {
+    "ambrettolide",
+    "ethylene brassylate",
+    "exaltolide",
+    "galaxolide",
+    "habanolide",
+    "macrolide",
+    "musk ketone",
+    "romandolide",
+    "tonalide",
+    "zenolide",
+}
+
+EXCLUDED = {
+    "amber xtreme",
+    "ambrofix",
+    "cypress eo",
+    "elemi eo",
+    "evernyl",
+    "labdanum resinoid",
+    "macrolide",
+    "musk ketone",
+    "oakmoss absolute",
+    "polysantol",
+    "tonalide",
+    "vanillin",
+}
+
+
+def _base_name(value: str) -> str:
+    return value.casefold().split("(", 1)[0].strip()
+
+
+def _formula(arm: str) -> dict:
+    formulas = parse_formula_markdown(STUDY_ROOT / ARM_FILES[arm])
+    assert len(formulas) == 1
+    return formulas[0]
+
+
+def _inventory_rows() -> dict[str, list]:
+    by_name: dict[str, list] = {}
+    for row in parse_inventory(
+        INVENTORY_PATH,
+        unique=False,
+        include_solvents=True,
+        include_unavailable=True,
+    ):
+        by_name.setdefault(_base_name(row.name), []).append(row)
+    return by_name
+
+
+def test_t4_manifest_defines_the_diagnostic_repair_factorial():
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+
+    assert manifest["schema"] == "perfume-chem-sukhum-35-t4-study-v1"
+    assert manifest["inventory_sha256"] == INVENTORY_SHA256
+    assert manifest["concentrate_ul"] == 5400
+    assert manifest["factors"] == {
+        "realistic_fruit": {
+            "off": {"Allyl Cyclohexyl Propionate": 800},
+            "on": {
+                "Allyl Cyclohexyl Propionate": 790,
+                "Hexyl Acetate": 10,
+            },
+        },
+        "dry_transition": {
+            "off": {"Hedione": 950, "Iso E Super": 1050},
+            "on": {
+                "Hedione": 930,
+                "Iso E Super": 1040,
+                "Juniper Berry EO": 20,
+                "Petitgrain EO Paraguay": 10,
+            },
+        },
+    }
+    assert manifest["predecessor"] == {
+        "study": "../sukhum_35_t3/study_manifest.json",
+        "disposition": "PRESERVED_DIAGNOSTIC_PREDECESSOR",
+    }
+    assert manifest["physical_test_authorized"] is False
+    assert manifest["claim_ceiling"]["physical_liking"] == "NOT TESTED"
+    assert manifest["claim_ceiling"]["market_success"] == "NOT TESTED"
+
+
+@pytest.mark.parametrize("arm", tuple(ARM_FILES))
+def test_each_t4_arm_is_exact_constant_total_and_directly_measurable(arm: str):
+    formula = _formula(arm)
+    amounts = formula["ingredients_ul"]
+
+    assert sum(amounts.values()) == pytest.approx(5400.0)
+    assert min(amounts.values()) >= 10.0
+    assert formula["inventory_path"] == "../../inventory.txt"
+
+
+def test_t4_factor_modules_change_only_predeclared_rows():
+    r1 = _formula("S35-R1")["ingredients_ul"]
+    fruit = _formula("S35-F2")["ingredients_ul"]
+    dry = _formula("S35-D2")["ingredients_ul"]
+    full = _formula("S35-T4")["ingredients_ul"]
+
+    common_names = set(r1) & set(fruit) & set(dry) & set(full)
+    allowed_common_changes = {
+        "Allyl Cyclohexyl Propionate",
+        "Hedione",
+        "Iso E Super",
+    }
+    for name in common_names - allowed_common_changes:
+        assert r1[name] == fruit[name] == dry[name] == full[name]
+
+    assert [r1["Allyl Cyclohexyl Propionate"], fruit["Allyl Cyclohexyl Propionate"], dry["Allyl Cyclohexyl Propionate"], full["Allyl Cyclohexyl Propionate"]] == [800, 790, 800, 790]
+    assert "Hexyl Acetate" not in r1 and "Hexyl Acetate" not in dry
+    assert fruit["Hexyl Acetate"] == full["Hexyl Acetate"] == 10
+    assert (r1["Hedione"], r1["Iso E Super"]) == (950, 1050)
+    assert (fruit["Hedione"], fruit["Iso E Super"]) == (950, 1050)
+    assert (dry["Hedione"], dry["Iso E Super"]) == (930, 1040)
+    assert (full["Hedione"], full["Iso E Super"]) == (930, 1040)
+    for formula in (r1, fruit):
+        assert "Juniper Berry EO" not in formula
+        assert "Petitgrain EO Paraguay" not in formula
+    for formula in (dry, full):
+        assert formula["Juniper Berry EO"] == 20
+        assert formula["Petitgrain EO Paraguay"] == 10
+
+
+@pytest.mark.parametrize("arm", tuple(ARM_FILES))
+def test_t4_uses_current_owned_ready_dilution_matched_stocks(arm: str):
+    rows = _inventory_rows()
+    formula = _formula(arm)
+
+    for material, formula_dilution in formula["dilutions"].items():
+        candidates = rows.get(_base_name(material), [])
+        assert any(
+            row.status == "owned"
+            and row.execution_ready
+            and row.dilution == pytest.approx(formula_dilution)
+            for row in candidates
+        ), (material, formula_dilution, candidates)
+
+
+@pytest.mark.parametrize("arm", tuple(ARM_FILES))
+def test_t4_uses_one_exact_musk_and_excludes_unqualified_or_drifting_materials(arm: str):
+    names = {_base_name(name) for name in _formula(arm)["ingredients_ul"]}
+
+    assert names & MUSKS == {"romandolide"}
+    assert not names & EXCLUDED
+
+
+def test_t4_preserves_its_frozen_inventory_binding_after_the_f3_stock_update():
+    actual = hashlib.sha256(INVENTORY_PATH.read_bytes()).hexdigest().upper()
+    assert actual != INVENTORY_SHA256
+    assert _formula("S35-T4")["inventory_sha256"] == INVENTORY_SHA256
+
+
+def test_blind_protocol_stages_the_selected_candidate_without_claim_inflation():
+    protocol = json.loads(BLIND_PROTOCOL_PATH.read_text(encoding="utf-8"))
+
+    assert protocol["schema"] == "perfume-chem-sukhum-35-staged-blind-v1"
+    assert protocol["computational_selection"] == {
+        "candidate": "S35-F2",
+        "authority": "TARGET_LINKED_DIAGNOSTIC_SELECTION_ONLY",
+        "physical_liking": "NOT TESTED",
+        "market_success": "NOT TESTED",
+    }
+    assert protocol["stage_a"]["arms"] == ["S35-R1", "S35-F2"]
+    assert protocol["stage_a"]["primary_endpoint"] == "overall_liking_at_30_minutes"
+    assert protocol["stage_a"]["independent_preparations_per_arm"] == 2
+    assert protocol["stage_a"]["presentation_orders"] == ["AB", "BA"]
+    assert protocol["stage_a"]["times_minutes"] == [0, 5, 30, 120, 240, 480]
+    assert protocol["stage_b"]["status"] == "HOLD"
+    assert protocol["stage_b"]["working_stock_required"] == {
+        "material": "Juniper Berry EO",
+        "target_fraction": 0.10,
+        "basis": "w/w",
+        "carrier": "DPG",
+        "minimum_dose_ul": 10,
+        "nominal_active_ul": 1.0,
+    }
+    assert protocol["thai_target_panel"] == {
+        "minimum_valid_n": 30,
+        "population": "Thai male fragrance buyers",
+        "age_range": [22, 40],
+        "foreign_tourist_preferences_in_primary_endpoint": False,
+    }
+    assert protocol["physical_test_authorized"] is False
+    assert "HEXYL_ACETATE_CARRIER_IDENTITY" in protocol["preconditions"]
+
+
+def test_computational_decision_is_hash_bound_and_selects_by_target_not_score():
+    decision = json.loads(DECISION_PATH.read_text(encoding="utf-8"))
+
+    assert decision["schema"] == "perfume-chem-sukhum-35-computational-decision-v1"
+    assert decision["inventory_sha256"] == INVENTORY_SHA256
+    assert decision["selected_candidate"] == "S35-F2"
+    assert decision["selection_authority"] == "DIAGNOSTIC_EXPERIMENT_SELECTION_ONLY"
+    assert decision["generic_hedonic_scores"] == {
+        "S35-R1": 83.3,
+        "S35-F2": 83.3,
+        "S35-D2": 83.3,
+        "S35-T4": 83.3,
+    }
+    assert decision["target_linked_metrics"]["S35-F2"] == {
+        "opening_top_oav_percent": 11.2,
+        "opening_total_vapor_ppm": 50.6787,
+        "drydown_total_vapor_ppm": 12.487,
+        "hexyl_acetate_oav": 578.1736,
+    }
+    assert decision["target_linked_metrics"]["S35-D2"]["juniper_berry_eo_oav"] == 3520.3900
+    assert decision["xhigh_comparison"] == {
+        "status": "NOT RUN",
+        "reason": "No same-formula, same-inventory, same-pipeline, same-blind-panel xhigh control exists.",
+    }
+    assert decision["claim_ceiling"]["physical_liking"] == "NOT TESTED"
+    assert decision["claim_ceiling"]["market_success"] == "NOT TESTED"
+    assert all(len(value) == 64 for value in decision["pipeline_sha256"].values())

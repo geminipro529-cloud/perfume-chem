@@ -1,0 +1,71 @@
+# Final Formula Index
+
+**Study state:** 20 complete TARGET / IDEAL hypotheses plus 20 separate CURRENT-INVENTORY BUILDS.
+**Computational pipeline:** 20 WARN / 0 FAIL.
+**Physical state:** all arms remain HOLD pending stock-label verification and blinded testing.
+
+Every proposal below links the required five deliverables: target formula, current build, missing-chemical impact, purchase/preparation recommendation, and controlled blind plan. OAV/headspace and temporal values are modeled at 305 K; they are not measured sensory evidence.
+
+Study-wide evidence: [screening summary](screening_summary.json), [missing-chemical impact index](missing_chemical_impact_index.json), [current Sol comparison](sol_comparison.md), and [master blind protocol](../testing/blind_protocol.json).
+
+## Shared execution rules
+
+- Current execution inventory SHA-256: `F8244E7B069B5D24C194FBA5F27B5A9504E94624839453464E37398680FFAC3E`; use it with the [2026-08-28 cumulative overlay](../evidence/inventory_overlay_2026-08-28.json) before any next formula. Polysantol is out of stock and excluded from current builds. Red Saffron Infusion is executable as the as-supplied DPG product, while its undisclosed saffron-active fraction keeps strict active ppm/OAV on HOLD. Ambrofix remains non-executable while crystals are visible.
+- Frozen diagnostic inventory SHA-256: `DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC`; it remains provenance for the existing twenty screens and is not current stock authority.
+- All lost tinctures are excluded.
+- Every current build uses exactly one musk: Ethylene Brassylate.
+- Tonalide, Macrolide, and Musk Ketone are absent.
+- Every raw stock dose is at least 10 µL. If a future target needs less, an owned verified dilution must be selected or an exact preparation must be disclosed first.
+- Physical liking, sensory similarity, stability, and measured headspace are `NOT TESTED`; safety and release are `NOT CLEARED`.
+
+## L’Homme — 10 variants
+
+| ID | Name and target axis | Required proposal packet | Pipeline | Min raw stock |
+|---|---|---|---:|---:|
+| LH-01 | **Original Fidelity** — closest documentary 2006 architecture | [TARGET / IDEAL + recommendation + blind plan](../candidates/LH-01.json); [CURRENT build + full analysis](../rendered/LH-01_Original_Fidelity_30mL_EDT.md); [missing-impact assessment](../impact/LH-01_assessment.json) | 112/17/0 | 10.0 µL |
+| LH-02 | **Vintage Magnetique** — vintage magnetic warmth through sandalwood/cedar-amber/tonka relationships | [TARGET / IDEAL + recommendation + blind plan](../candidates/LH-02.json); [CURRENT build + full analysis](../rendered/LH-02_Vintage_Magnetique_30mL_EDT.md); [missing-impact assessment](../impact/LH-02_assessment.json) | 113/16/0 | 10.0 µL |
+| LH-03 | **Tailored Luxe** — violet-green-to-radiant-cedar tactile polish | [TARGET / IDEAL + recommendation + blind plan](../candidates/LH-03.json); [CURRENT build + full analysis](../rendered/LH-03_Tailored_Luxe_30mL_EDT.md); [missing-impact assessment](../impact/LH-03_assessment.json) | 112/17/0 | 10.0 µL |
+| LH-04 | **Apple Pie** — crisp ester-green apple over a restrained dry pastry shadow | [TARGET / IDEAL + recommendation + blind plan](../candidates/LH-04.json); [CURRENT build + full analysis](../rendered/LH-04_Apple_Pie_30mL_EDT.md); [missing-impact assessment](../impact/LH-04_assessment.json) | 108/21/0 | 10.0 µL |
+| LH-05 | **Ginger-Cedrat Spark** — ginger-cedrat kinetic sparkle with a dry bitter-peel target | [TARGET / IDEAL + recommendation + blind plan](../candidates/LH-05.json); [CURRENT build + full analysis](../rendered/LH-05_Ginger_Cedrat_Spark_30mL_EDT.md); [missing-impact assessment](../impact/LH-05_assessment.json) | 111/18/0 | 10.0 µL |
+| LH-06 | **Violet Leaf Silk** — continuous violet-leaf and ionone silk without powder or cucumber dominance | [TARGET / IDEAL + recommendation + blind plan](../candidates/LH-06.json); [CURRENT build + full analysis](../rendered/LH-06_Violet_Leaf_Silk_30mL_EDT.md); [missing-impact assessment](../impact/LH-06_assessment.json) | 112/17/0 | 10.0 µL |
+| LH-07 | **White Pepper-Basil** — dry white-pepper and basil-flower articulation around ginger | [TARGET / IDEAL + recommendation + blind plan](../candidates/LH-07.json); [CURRENT build + full analysis](../rendered/LH-07_White_Pepper_Basil_30mL_EDT.md); [missing-impact assessment](../impact/LH-07_assessment.json) | 111/18/0 | 20.0 µL |
+| LH-08 | **Cedar-Vetiver Tailoring** — audible literal cedar-vetiver vertical with smooth tailored grain | [TARGET / IDEAL + recommendation + blind plan](../candidates/LH-08.json); [CURRENT build + full analysis](../rendered/LH-08_Cedar_Vetiver_Tailoring_30mL_EDT.md); [missing-impact assessment](../impact/LH-08_assessment.json) | 111/18/0 | 10.0 µL |
+| LH-09 | **Tonka-Sandalwood** — dry tonka richness braided with polished sandalwood | [TARGET / IDEAL + recommendation + blind plan](../candidates/LH-09.json); [CURRENT build + full analysis](../rendered/LH-09_Tonka_Sandalwood_30mL_EDT.md); [missing-impact assessment](../impact/LH-09_assessment.json) | 111/18/0 | 10.0 µL |
+| LH-10 | **Bangkok Air** — warm-climate citrus-ginger continuity over dry tailored woods | [TARGET / IDEAL + recommendation + blind plan](../candidates/LH-10.json); [CURRENT build + full analysis](../rendered/LH-10_Bangkok_Air_30mL_EDT.md); [missing-impact assessment](../impact/LH-10_assessment.json) | 111/18/0 | 10.0 µL |
+
+## La Nuit de L’Homme — 10 variants
+
+| ID | Name and target axis | Required proposal packet | Pipeline | Min raw stock |
+|---|---|---|---:|---:|
+| LN-01 | **Original 2009 Fidelity** — closest documentary 2009 architecture | [TARGET / IDEAL + recommendation + blind plan](../candidates/LN-01.json); [CURRENT build + full analysis](../rendered/LN-01_Original_2009_Fidelity_30mL_EDT.md); [missing-impact assessment](../impact/LN-01_assessment.json) | 111/18/0 | 50.0 µL |
+| LN-02 | **Current Transparent Style** — modern transparency around the original cardamom-lavender-cedar vertical | [TARGET / IDEAL + recommendation + blind plan](../candidates/LN-02.json); [CURRENT build + full analysis](../rendered/LN-02_Current_Transparent_Style_30mL_EDT.md); [missing-impact assessment](../impact/LN-02_assessment.json) | 111/18/0 | 40.0 µL |
+| LN-03 | **Cardamom Velvet** — cardamom continuity folded into a yielding cedar-sandalwood velvet seam | [TARGET / IDEAL + recommendation + blind plan](../candidates/LN-03.json); [CURRENT build + full analysis](../rendered/LN-03_Cardamom_Velvet_30mL_EDT.md); [missing-impact assessment](../impact/LN-03_assessment.json) | 112/17/0 | 40.0 µL |
+| LN-04 | **Lavender Heart** — dimensional lavender-heart expansion under an unchanged cardamom-to-cedar vertical | [TARGET / IDEAL + recommendation + blind plan](../candidates/LN-04.json); [CURRENT build + full analysis](../rendered/LN-04_Lavender_Heart_30mL_EDT.md); [missing-impact assessment](../impact/LN-04_assessment.json) | 111/18/0 | 10.0 µL |
+| LN-05 | **Immortelle Nuit** — honeyed-dry immortelle afterglow nested inside the protected cardamom-lavender-cedar vertical | [TARGET / IDEAL + recommendation + blind plan](../candidates/LN-05.json); [CURRENT build + full analysis](../rendered/LN-05_Immortelle_Nuit_30mL_EDT.md); [missing-impact assessment](../impact/LN-05_assessment.json) | 110/19/0 | 20.0 µL |
+| LN-06 | **Cedar-Vetiver Vertical** — literal cedar-vetiver vertical strengthened by smooth cedar-amber continuity | [TARGET / IDEAL + recommendation + blind plan](../candidates/LN-06.json); [CURRENT build + full analysis](../rendered/LN-06_Cedar_Vetiver_Vertical_30mL_EDT.md); [missing-impact assessment](../impact/LN-06_assessment.json) | 111/18/0 | 40.0 µL |
+| LN-07 | **Dry Coumarin Skin** — dry coumarin-tonka skin warmth ventilated by transparent cedar-vetiver structure | [TARGET / IDEAL + recommendation + blind plan](../candidates/LN-07.json); [CURRENT build + full analysis](../rendered/LN-07_Dry_Coumarin_Skin_30mL_EDT.md); [missing-impact assessment](../impact/LN-07_assessment.json) | 111/18/0 | 40.0 µL |
+| LN-08 | **Caraway Shadow** — controlled caraway shadow under cardamom with aromatic continuity into cedar | [TARGET / IDEAL + recommendation + blind plan](../candidates/LN-08.json); [CURRENT build + full analysis](../rendered/LN-08_Caraway_Shadow_30mL_EDT.md); [missing-impact assessment](../impact/LN-08_assessment.json) | 111/18/0 | 40.0 µL |
+| LN-09 | **Dark Textile Woods** — supple dark textile texture stitched into literal cedar-vetiver woods | [TARGET / IDEAL + recommendation + blind plan](../candidates/LN-09.json); [CURRENT build + full analysis](../rendered/LN-09_Dark_Textile_Woods_30mL_EDT.md); [missing-impact assessment](../impact/LN-09_assessment.json) | 111/18/0 | 10.0 µL |
+| LN-10 | **Intimate Diffusion** — single-musk skin intimacy decoupled from transparent aromatic and molecular diffusion | [TARGET / IDEAL + recommendation + blind plan](../candidates/LN-10.json); [CURRENT build + full analysis](../rendered/LN-10_Intimate_Diffusion_30mL_EDT.md); [missing-impact assessment](../impact/LN-10_assessment.json) | 111/18/0 | 40.0 µL |
+
+## Required named-arm notes
+
+### LH-04 Apple Pie
+
+The L’Homme tailoring chassis is protected; green-apple lift and a restrained dry pastry shadow are the only variant axis. The model does not justify increasing 2-acetylpyrazine from its non-air threshold proxy. Test LH‑04 against LH‑01 and a carrier-matched pastry-module omission before any purchase or dose escalation. The successor physical article is the [locked AP-T1 v3 recipe](../RECIPES/LH-04-APPLE-PIE-AP-T1-v3.md): 4,500 µL, 28 rows, minimum direct dose 10 µL, with the formula-specific NYSUPPLY cinnamon working-stock option. Its 2026-08-28 inventory wording was corrected without changing a dose.
+
+### LN-01 Original 2009 Fidelity
+
+This is the La Nuit family control: cardamom ignition, lavender/cedar braid, dry vetiver–coumarin–tonka intimacy. It is a documentary character target, not an authenticated commercial recipe or similarity claim.
+
+### LN-05 Immortelle Nuit
+
+Immortelle is constrained to a honeyed-dry afterglow inside the La Nuit vertical; curry, maple, hay, tobacco, balsamic amber, and gourmand drift are failures. Verify the Immortelle 10% stock basis before physical dosing and use a constant-total immortelle omission arm.
+
+### Raw-stock floor and optional Coumarin control
+
+Every CURRENT-INVENTORY row is at least 10 µL. LN-07 itself needs no new dilution, but its optional pure-Coumarin role control does: prepare 10% w/w from owned neat powder as 1.000 g Coumarin plus 9.000 g TEC, label the mass receipt, and dispense that stock only at 10 µL or more. Do not silently round or invent any other sub-10 µL dose.
+
+## Acceptance boundary
+
+Zero hard pipeline failures means the formulas are computationally executable under the current stock map. It does not establish hedonism, similarity, stability, safety, or release. No official winner is named until the predeclared blinded panel is complete.

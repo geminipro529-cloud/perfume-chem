@@ -1,0 +1,914 @@
+# L'Homme / LNDL Hedonic Flanker Suite Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Build two stock-corrected family controls and ten independently structured, inventory-grounded L'Homme/LNDL Luxe-DHP theory formulas whose primary optimization target is hedonic potential rather than strict reference likeness.
+
+**Architecture:** The work is divided into an authority/test harness, two predecessor-derived controls, five independently reviewed L'Homme candidates, five independently reviewed LNDL candidates, two blinded family protocols, and a suite-level sibling-convergence and provenance gate. Every formula carries its own source conservation ledger and donor-independence manifest; a final suite audit prevents the ten candidates from collapsing onto a shared hidden chassis.
+
+**Tech Stack:** Markdown formula artifacts; Python 3; `pytest`; existing `scripts.verify_formula_workflow` parser and donor audit; existing `scripts/formula_release_gate.py`; existing `scripts/format_pipeline_analysis.py`; existing inventory, ODT, composite-natural OAV, temporal, preflight, and release-gate modules. Do not create a new pipeline script.
+
+**Spec:** `docs/superpowers/specs/2026-09-02-lhomme-lndl-hedonic-flanker-suite-design.md`
+
+## Global Constraints
+
+- Work only in `C:\Users\ASUS\.codex\worktrees\edd7\perfume-chem` on the existing isolated branch; do not modify, merge, cherry-pick, push, or hand off another worktree.
+- Use OpenAI ChatGPT/Codex-native reasoning and native subagents only. Do not use DeepLuna, DeepSeek, OpenRouter, `$delegate`, a non-OpenAI provider, a plugin worker, or a `codex exec` subprocess as a worker.
+- Before each family formulation wave, and before any later formula batch after an authority change, completely re-read `AGENTS.md`, `inventory.txt`, `.github/copilot-instructions.md`, the relevant family-reference sections, the DHP protocol, the donor-independent rebuild spec, the exact predecessor, applicable controls, direct physical overrides, and `git status --porcelain=v2 --branch`.
+- Preserve the historical predecessor formulas and their embedded diagnostics byte-for-byte.
+- Keep each inventory-independent `TARGET / IDEAL FORMULA` separate from one flat parser-visible `CURRENT-INVENTORY BUILD`.
+- Every current build totals exactly `6,000 uL` concentrate for `30 mL at 20% EdP`; ethanol outside the concentrate is `24.00 mL`.
+- Every directly measured raw-stock row is at least `10 uL`. A smaller intended neat equivalent requires an explicit labeled working stock, preparation arithmetic, carrier, and carrier-matched control.
+- Use active ppm, ODT, modeled OAV, composite-natural OAV, temporal evolution, and the stock-rebase/OAV-per-time guard diagnostically. Do not convert a missing physics record into modeled zero or a sensory conclusion.
+- Default to zero or one functionally exact musk. Tonalide, Macrolide, and Musk Ketone remain excluded.
+- Polysantol is depleted. Liquid Ambrofix is owned but non-executable. Bacdanol and Guaiacwood EO 33% remain quantitative HOLD. Benzyl Salicylate is not owned. All tinctures are lost.
+- Source-lineage conservation and donor independence are separate hard gates. Every ideal formula contains at least 58 rows and preserves or explicitly dispositions every predecessor row, module, spatial plane, temporal window, transition/recurrence link, and textural role.
+- Higher row count is conservation capacity, not proof of quality. No ingredient survives without one target-linked primary function, a relation to neighboring materials, a temporal job, and an omission rationale.
+- Do not claim good smell, hedonism, liking, superiority, luxury, depth, three-dimensionality, successful transition, target similarity, sillage, longevity, stability, safety, or release before controlled physical evidence.
+- Do not authorize procurement, stock preparation, compounding, skin application, or release.
+- Preserve the pre-existing modified `AGENTS.md` and untracked `.codex/` bytes outside every commit unless a later explicit user instruction changes their scope.
+- Serialize release-gate runs or give every run a unique `PERFUME_PIPELINE_AUDIT_PATH`; do not allow concurrent writers to share an audit path.
+
+---
+
+## File Map
+
+### Create
+
+- `docs/research/donor_signatures/dhp_2025_niche_house_v1.json` — immutable structural-material and basket signature for the DHP 2025 theory donor.
+- `docs/research/donor_signatures/opus_v_woods_symphony_v1.json` — immutable structural-material and basket signature for the Opus V theory donor.
+- `tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py` — focused contract, conservation, inventory, donor, and sibling-convergence tests.
+- `formulas/L_Homme_LNDL_Hedonic_Flanker_Suite_DHP2025_V1_Index.md` — suite authority, nonredundancy matrix, artifact manifest, and claim ceiling.
+- `formulas/L_Homme_Luxe_Ginger_Silhouette_DHP2025_StockCorrected_Control_V6_30mL_20pct_Development.md` — executable L'Homme control successor.
+- `formulas/LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_StockCorrected_Control_V8_30mL_20pct_Development.md` — executable LNDL control successor; V7 remains rejected provenance.
+- `formulas/L_Homme_Luxe_Neroli_Gingembre_Luminous_Silk_DHP2025_V1_30mL_20pct_Development.md`
+- `formulas/L_Homme_Luxe_Osmanthus_Suede_Apricot_Shadow_DHP2025_V1_30mL_20pct_Development.md`
+- `formulas/L_Homme_Luxe_Mandarine_Tonka_Golden_Chamber_DHP2025_V1_30mL_20pct_Development.md`
+- `formulas/L_Homme_Luxe_Genievre_Cedre_Cool_Dry_Tailoring_DHP2025_V1_30mL_20pct_Development.md`
+- `formulas/L_Homme_Luxe_Pluie_Violette_Wet_Mineral_Cloth_DHP2025_V1_30mL_20pct_Development.md`
+- `formulas/LNDL_Luxe_Coriander_Silk_Polished_Seed_Wood_DHP2025_V1_30mL_20pct_Development.md`
+- `formulas/LNDL_Luxe_Cinnamon_Cashmere_Warm_Almond_Spice_DHP2025_V1_30mL_20pct_Development.md`
+- `formulas/LNDL_Luxe_Orris_Santal_Violet_Root_Skin_DHP2025_V1_30mL_20pct_Development.md`
+- `formulas/LNDL_Luxe_Olibanum_Cedar_Halo_Luminous_Incense_DHP2025_V1_30mL_20pct_Development.md`
+- `formulas/LNDL_Luxe_Tobacco_Plum_Cashmere_Cured_Fruit_Shadow_DHP2025_V1_30mL_20pct_Development.md`
+- `formulas/mixing_guides/L_Homme_Luxe_Hedonic_Flanker_Suite_DHP2025_V1_Blind_Trial.md`
+- `formulas/mixing_guides/LNDL_Luxe_Hedonic_Flanker_Suite_DHP2025_V1_Blind_Trial.md`
+- `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/AUTHORITY_RECEIPT.json`
+- `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/SUITE_MANIFEST.json`
+- `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/TEST_RECEIPT.md`
+- Ten subdirectories below `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/`, one per experimental formula, each containing `pipeline.json`, `pipeline_analysis.md`, and `verification_receipt.json`.
+
+### Modify
+
+- No production Python module is expected to change. If a focused test exposes a verified parser, inventory, natural-OAV, or donor-gate defect, stop the formula task, use the systematic-debugging and test-driven-development skills, and obtain a separate reviewed code change before resuming dosing.
+
+### Preserve unchanged
+
+- `formulas/L_Homme_Luxe_Ginger_Silhouette_DHP2025_TargetNative_V5_30mL_20pct_Development.md`
+- `formulas/LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_Interiorized_V6_30mL_20pct_Development.md`
+- `formulas/LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_CarawayRestored_V7_30mL_20pct_Development.md`
+- `formulas/LNDL_Luxe_Azulene_Juniper_Chiaroscuro_DHP2025_V2_30mL_20pct_Development.md`
+- `docs/research/donor_signatures/white_fire_reliquary_v2.json`
+- `AGENTS.md`, `.codex/`, `inventory.txt`, and `.github/copilot-instructions.md`
+
+---
+
+### Task 1: Freeze Authorities, Add Donor Signatures, and Establish the Focused Harness
+
+**Files:**
+- Create: `docs/research/donor_signatures/dhp_2025_niche_house_v1.json`
+- Create: `docs/research/donor_signatures/opus_v_woods_symphony_v1.json`
+- Create: `tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/AUTHORITY_RECEIPT.json`
+
+**Interfaces:**
+- Consumes: current repository bytes, `parse_inventory`, `parse_formula_markdown`, and `audit_donor_independence`.
+- Produces: immutable source hashes, donor signature hashes, reusable test helpers `_section`, `_rows`, `_current_formula`, `_sha256`, `_assert_formula_contract`, and `CANDIDATES` metadata used by Tasks 2-17.
+
+- [ ] **Step 1: Re-run the complete authority preflight and record exact hashes**
+
+Run `Get-FileHash -Algorithm SHA256` for every authority and predecessor named in the design spec, `DHP_2025_Niche_House_30mL_EdP.md`, `Opus_V_Woods_Symphony_30mL_EdP.md`, and the existing White Fire signature. Record absolute path, Git object or working-tree state, byte size, SHA-256, read timestamp, branch, HEAD, and dirty exclusions in `AUTHORITY_RECEIPT.json` using `apply_patch`.
+
+- [ ] **Step 2: Write donor-signature validation tests and shared formula helpers**
+
+Add this concrete starting contract to `tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py`:
+
+```python
+import hashlib
+import json
+from pathlib import Path
+
+import pytest
+
+from engine.pipeline.formula_state import build_formula_state
+from engine.pipeline.preflight import run_release_preflight
+from scripts.verify_formula_workflow import audit_donor_independence, parse_formula_markdown
+
+ROOT = Path(__file__).resolve().parents[1]
+FORMULAS = ROOT / "formulas"
+RUN_ROOT = ROOT / "verification_runs" / "20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1"
+SIGNATURES = ROOT / "docs" / "research" / "donor_signatures"
+MUSKS = {
+    "Ethylene Brassylate", "Habanolide", "Romandolide", "Exaltolide",
+    "Ambrettolide", "Tonalide", "Macrolide", "Musk Ketone",
+}
+FORBIDDEN_CURRENT = {
+    "Polysantol", "Ambrofix", "Bacdanol", "Guaiacwood EO 33%",
+    "Benzyl Salicylate", "Tonalide", "Macrolide", "Musk Ketone",
+}
+CANDIDATES: list[dict[str, object]] = []
+REQUIRED_SECTIONS = (
+    "## Authority and status",
+    "## Target identity",
+    "## Functional architecture before dosing",
+    "## Spatial, temporal, textural, transition, pressure/release, and recurrence maps",
+    "## Source-lineage conservation ledger",
+    "donor-independence-manifest",
+    "## TARGET / IDEAL FORMULA",
+    "## CURRENT-INVENTORY BUILD",
+    "## Candidate-survival and omission audit",
+    "## Inventory and stock audit",
+    "## Working-stock preparation ledger",
+    "## Missing-chemical impact gate",
+    "## Future mixing order",
+    "## Controlled blinded test plan",
+    "## Pipeline Analysis",
+    "## Claim ceiling",
+)
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest().upper()
+
+def _section(text: str, heading: str) -> str:
+    start = text.index(heading)
+    end = text.find("\n## ", start + len(heading))
+    return text[start:] if end == -1 else text[start:end]
+
+def _rows(section: str) -> list[tuple[str, float]]:
+    found = []
+    for line in section.splitlines():
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if len(cells) < 3 or not cells[0].isdigit():
+            continue
+        for cell in reversed(cells[2:]):
+            try:
+                amount = float(cell.replace(",", ""))
+            except ValueError:
+                continue
+            found.append((cells[1], amount))
+            break
+    return found
+
+def _current_formula(path: Path) -> dict:
+    parsed = parse_formula_markdown(path)
+    assert len(parsed) == 1
+    return parsed[0]
+
+def _assert_formula_contract(
+    path: Path,
+    *,
+    required: set[str],
+    forbidden: set[str],
+    expected_musks: set[str],
+    ideal_floor: int = 58,
+    module_floor: int = 10,
+) -> None:
+    text = path.read_text(encoding="utf-8")
+    assert all(section in text for section in REQUIRED_SECTIONS)
+    ideal_rows = _rows(_section(text, "## TARGET / IDEAL FORMULA"))
+    assert len(ideal_rows) >= ideal_floor
+    assert sum(amount for _, amount in ideal_rows) == pytest.approx(6000.0)
+    formula = _current_formula(path)
+    amounts = formula["ingredients_ul"]
+    assert sum(amounts.values()) == pytest.approx(6000.0)
+    assert min(amounts.values()) >= 10.0
+    assert required <= set(amounts)
+    assert (FORBIDDEN_CURRENT | forbidden).isdisjoint(amounts)
+    assert MUSKS & set(amounts) == expected_musks
+    aromatic = {name: amount for name, amount in amounts.items() if name != "DPG carrier reserve"}
+    dilutions = {name: formula.get("dilutions", {}).get(name, 1.0) for name in aromatic}
+    state = build_formula_state(aromatic, dilutions=dilutions, batch_volume_ml=30.0)
+    preflight = run_release_preflight(formula, state)
+    availability = next(check for check in preflight.checks if check.name == "inventory_availability")
+    assert availability.status == "PASS", availability.detail
+    audit = audit_donor_independence(path, formula, project_root=ROOT)
+    assert audit["status"] == "PASS", audit
+    assert len(audit["data"]["target_modules"]) >= module_floor
+    folded = text.casefold()
+    assert "not tested" in folded
+    assert "hold" in folded
+    assert "no compounding" in folded
+    assert "no release" in folded
+
+@pytest.mark.parametrize("name,source", [
+    ("dhp_2025_niche_house_v1.json", FORMULAS / "DHP_2025_Niche_House_30mL_EdP.md"),
+    ("opus_v_woods_symphony_v1.json", FORMULAS / "Opus_V_Woods_Symphony_30mL_EdP.md"),
+])
+def test_theory_donor_signatures_bind_current_source_bytes(name: str, source: Path) -> None:
+    signature = json.loads((SIGNATURES / name).read_text(encoding="utf-8"))
+    assert signature["schema_version"] == "donor-signature-v1"
+    assert signature["source_artifact"] == source.relative_to(ROOT).as_posix()
+    assert signature["source_sha256"] == _sha256(source)
+    assert signature["ordered_basket_headings"]
+    assert signature["structural_materials"]
+```
+
+- [ ] **Step 3: Run the focused test and verify the signatures are missing**
+
+Run: `python -m pytest tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py -q`
+
+Expected: FAIL because both new signature JSON files do not exist.
+
+- [ ] **Step 4: Create the two immutable signatures**
+
+Use `donor-signature-v1`. Bind `formulas/DHP_2025_Niche_House_30mL_EdP.md` to SHA-256 `6DC50A2ACA5705EFAEEC3326F07B74DB8645CA91314227E167A85209AFC7475C` and `formulas/Opus_V_Woods_Symphony_30mL_EdP.md` to SHA-256 `73DE02D9E28D65866EFD68B9B6D1FD2F29B797AAEE959D5C8C6D2DC86EAB9C9B`. Extract basket headings and structural materials from each bound source rather than copying the White Fire list. Add an interpretation stating that the signature detects structural/ontology reuse and does not predict smelled similarity or prohibit ordinary workhorses. If either source hash differs during execution, stop and refresh the authority receipt and plan before creating the signature.
+
+- [ ] **Step 5: Run the focused test and donor regression tests**
+
+Run: `python -m pytest tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py tests/test_donor_independence_gate.py -q`
+
+Expected: PASS.
+
+- [ ] **Step 6: Commit only the authority receipt, signatures, and focused harness**
+
+```powershell
+git add -- docs/research/donor_signatures/dhp_2025_niche_house_v1.json docs/research/donor_signatures/opus_v_woods_symphony_v1.json tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/AUTHORITY_RECEIPT.json
+git diff --cached --check
+git commit -m "test: freeze hedonic flanker suite authorities"
+```
+
+---
+
+### Task 2: Build the Stock-Corrected L'Homme Control
+
+**Files:**
+- Create: `formulas/L_Homme_Luxe_Ginger_Silhouette_DHP2025_StockCorrected_Control_V6_30mL_20pct_Development.md`
+- Modify: `tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py`
+
+**Interfaces:**
+- Consumes: immutable Target-Native V5 predecessor, current inventory authority, and Task 1 donor signatures.
+- Produces: the only L'Homme family control permitted in later blinded comparisons.
+
+- [ ] **Step 1: Add the failing control contract**
+
+```python
+LH_CONTROL = FORMULAS / "L_Homme_Luxe_Ginger_Silhouette_DHP2025_StockCorrected_Control_V6_30mL_20pct_Development.md"
+
+def test_lhomme_control_is_stock_corrected_constant_total_and_manifest_complete() -> None:
+    formula = _current_formula(LH_CONTROL)
+    amounts = formula["ingredients_ul"]
+    assert sum(amounts.values()) == pytest.approx(6000.0)
+    assert min(amounts.values()) >= 10.0
+    assert FORBIDDEN_CURRENT.isdisjoint(amounts)
+    assert MUSKS & set(amounts) == {"Romandolide"}
+    audit = audit_donor_independence(LH_CONTROL, formula, project_root=ROOT)
+    assert audit["status"] == "PASS", audit
+    assert len(audit["data"]["target_modules"]) >= 10
+```
+
+- [ ] **Step 2: Run the test and verify the control is absent**
+
+Run: `python -m pytest tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py -k lhomme_control -q`
+
+Expected: FAIL because the V6 control file does not exist.
+
+- [ ] **Step 3: Construct the control before changing any experimental candidate**
+
+Copy no bytes blindly. Rebuild Target-Native V5 row-by-row: preserve all ideal rows and functions, mark each `KEEP`, `REBASE`, `EXACT REPLACEMENT`, `IDEAL-ONLY`, or `REJECT WITH ISOLATED TEST/RATIONALE`, remove depleted Polysantol from the current build, omit liquid Ambrofix, and document any functional approximation without claiming equivalence. Preserve at least 58 ideal rows, ten modules, five temporal windows, ten transition/recurrence links, nineteen textures, and one exact musk. The current table must total exactly 6,000 uL.
+
+- [ ] **Step 4: Run contract, donor, parser, and inventory-preflight tests**
+
+Run: `python -m pytest tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py -k lhomme_control -q`
+
+Expected: PASS with the control still labeled `NOT TESTED / HOLD`.
+
+- [ ] **Step 5: Commit the isolated control**
+
+```powershell
+git add -- formulas/L_Homme_Luxe_Ginger_Silhouette_DHP2025_StockCorrected_Control_V6_30mL_20pct_Development.md tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py
+git diff --cached --check
+git commit -m "formulas: add stock-corrected L'Homme control"
+```
+
+---
+
+### Task 3: Build the Stock-Corrected LNDL Control
+
+**Files:**
+- Create: `formulas/LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_StockCorrected_Control_V8_30mL_20pct_Development.md`
+- Modify: `tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py`
+
+**Interfaces:**
+- Consumes: immutable Interiorized V6 predecessor, rejected V7 provenance, current inventory authority, and Task 1 donor signatures.
+- Produces: the only LNDL family control permitted in later blinded comparisons.
+
+- [ ] **Step 1: Add the failing control contract**
+
+```python
+LNDL_CONTROL = FORMULAS / "LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_StockCorrected_Control_V8_30mL_20pct_Development.md"
+
+def test_lndl_control_is_stock_corrected_constant_total_and_manifest_complete() -> None:
+    formula = _current_formula(LNDL_CONTROL)
+    amounts = formula["ingredients_ul"]
+    assert sum(amounts.values()) == pytest.approx(6000.0)
+    assert min(amounts.values()) >= 10.0
+    assert FORBIDDEN_CURRENT.isdisjoint(amounts)
+    assert MUSKS & set(amounts) == {"Ethylene Brassylate"}
+    audit = audit_donor_independence(LNDL_CONTROL, formula, project_root=ROOT)
+    assert audit["status"] == "PASS", audit
+    assert len(audit["data"]["target_modules"]) >= 11
+```
+
+- [ ] **Step 2: Run the test and verify the control is absent**
+
+Run: `python -m pytest tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py -k lndl_control -q`
+
+Expected: FAIL because the V8 control file does not exist.
+
+- [ ] **Step 3: Construct the control from V6, not rejected V7**
+
+Preserve the V6 ideal structure and the explicit V7 rejection record. Remove Polysantol from the executable current build without presenting another sandalwood as chemically or sensorially equivalent. Preserve at least 58 ideal rows, eleven modules, five temporal windows, distinct capsule/shell/hinge/interior/complexion/silhouette/skin planes, all source transitions and recurrence links, and one exact musk. The current table must total exactly 6,000 uL.
+
+- [ ] **Step 4: Run contract and provenance tests**
+
+Run: `python -m pytest tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py -k "lndl_control or rejected_v7" -q`
+
+Expected: PASS and retain explicit text that V7 is rejected provenance, not a control.
+
+- [ ] **Step 5: Commit the isolated control**
+
+```powershell
+git add -- formulas/LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_StockCorrected_Control_V8_30mL_20pct_Development.md tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py
+git diff --cached --check
+git commit -m "formulas: add stock-corrected LNDL control"
+```
+
+---
+
+## Formula Task Protocol Used by Tasks 4-8 and 10-14
+
+Every experimental formula task follows this exact sequence:
+
+1. re-read the complete current authority preflight;
+2. add one failing, formula-specific contract test;
+3. define identity, pleasure mechanism, exclusions, architecture, planes, textures, transitions, pressure/release, and recurrence before any dose;
+4. complete source row/module dispositions and all donor manifests;
+5. write at least 58 ideal rows totaling 6,000 target parts or uL-equivalent parts;
+6. run the missing-chemical impact gate before writing the current build;
+7. write one flat current table totaling exactly 6,000 uL, with no direct raw-stock row below 10 uL and no quantitatively held material;
+8. audit active ppm, ODT, composite-natural OAV, five temporal windows, takeover, adaptation, redundancy, suppression, under-threshold role claims, and stock rebase;
+9. run the focused test and deterministic donor audit;
+10. run the release gate once with a unique audit path, capture `pipeline.json`, render `pipeline_analysis.md`, and append the same full analysis under `## Pipeline Analysis` in the formula artifact;
+11. retain all FAIL/WARN/HOLD findings and revise only through target-linked constant-total changes;
+12. commit the formula, its focused-test addition, and its three-file verification bundle together.
+
+For each task, assign `$formulaPath`, `$pipelinePath`, `$analysisPath`, and `$auditPath` from the exact row in the diagnostic-run matrix below, then run:
+
+```powershell
+$env:PERFUME_PIPELINE_AUDIT_PATH = $auditPath
+python scripts\formula_release_gate.py --formula-file $formulaPath --expected-concentrate-ul 6000 --batch-volume-ml 30 --brief auto --json --append-analysis | Set-Content -LiteralPath $pipelinePath -Encoding utf8
+python scripts\format_pipeline_analysis.py --input $pipelinePath | Set-Content -LiteralPath $analysisPath -Encoding utf8
+```
+
+| Task | `$formulaPath` | `$pipelinePath` | `$analysisPath` | `$auditPath` |
+|---|---|---|---|---|
+| LH-01 | `formulas/L_Homme_Luxe_Neroli_Gingembre_Luminous_Silk_DHP2025_V1_30mL_20pct_Development.md` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh01-neroli-gingembre/pipeline.json` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh01-neroli-gingembre/pipeline_analysis.md` | `output/hedonic-flanker-suite/lh01-neroli-gingembre/audit.jsonl` |
+| LH-02 | `formulas/L_Homme_Luxe_Osmanthus_Suede_Apricot_Shadow_DHP2025_V1_30mL_20pct_Development.md` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh02-osmanthus-suede/pipeline.json` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh02-osmanthus-suede/pipeline_analysis.md` | `output/hedonic-flanker-suite/lh02-osmanthus-suede/audit.jsonl` |
+| LH-03 | `formulas/L_Homme_Luxe_Mandarine_Tonka_Golden_Chamber_DHP2025_V1_30mL_20pct_Development.md` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh03-mandarine-tonka/pipeline.json` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh03-mandarine-tonka/pipeline_analysis.md` | `output/hedonic-flanker-suite/lh03-mandarine-tonka/audit.jsonl` |
+| LH-04 | `formulas/L_Homme_Luxe_Genievre_Cedre_Cool_Dry_Tailoring_DHP2025_V1_30mL_20pct_Development.md` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh04-genievre-cedre/pipeline.json` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh04-genievre-cedre/pipeline_analysis.md` | `output/hedonic-flanker-suite/lh04-genievre-cedre/audit.jsonl` |
+| LH-05 | `formulas/L_Homme_Luxe_Pluie_Violette_Wet_Mineral_Cloth_DHP2025_V1_30mL_20pct_Development.md` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh05-pluie-violette/pipeline.json` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh05-pluie-violette/pipeline_analysis.md` | `output/hedonic-flanker-suite/lh05-pluie-violette/audit.jsonl` |
+| LN-01 | `formulas/LNDL_Luxe_Coriander_Silk_Polished_Seed_Wood_DHP2025_V1_30mL_20pct_Development.md` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln01-coriander-silk/pipeline.json` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln01-coriander-silk/pipeline_analysis.md` | `output/hedonic-flanker-suite/ln01-coriander-silk/audit.jsonl` |
+| LN-02 | `formulas/LNDL_Luxe_Cinnamon_Cashmere_Warm_Almond_Spice_DHP2025_V1_30mL_20pct_Development.md` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln02-cinnamon-cashmere/pipeline.json` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln02-cinnamon-cashmere/pipeline_analysis.md` | `output/hedonic-flanker-suite/ln02-cinnamon-cashmere/audit.jsonl` |
+| LN-03 | `formulas/LNDL_Luxe_Orris_Santal_Violet_Root_Skin_DHP2025_V1_30mL_20pct_Development.md` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln03-orris-santal/pipeline.json` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln03-orris-santal/pipeline_analysis.md` | `output/hedonic-flanker-suite/ln03-orris-santal/audit.jsonl` |
+| LN-04 | `formulas/LNDL_Luxe_Olibanum_Cedar_Halo_Luminous_Incense_DHP2025_V1_30mL_20pct_Development.md` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln04-olibanum-cedar/pipeline.json` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln04-olibanum-cedar/pipeline_analysis.md` | `output/hedonic-flanker-suite/ln04-olibanum-cedar/audit.jsonl` |
+| LN-05 | `formulas/LNDL_Luxe_Tobacco_Plum_Cashmere_Cured_Fruit_Shadow_DHP2025_V1_30mL_20pct_Development.md` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln05-tobacco-plum/pipeline.json` | `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln05-tobacco-plum/pipeline_analysis.md` | `output/hedonic-flanker-suite/ln05-tobacco-plum/audit.jsonl` |
+
+Each formula task also creates `verification_receipt.json` in the same persisted bundle directory. Capture stdout into the task's `pipeline.json` without changing the release command or running the formula twice.
+
+---
+
+### Task 4: L'Homme Néroli Gingembre — Luminous Silk
+
+**Files:**
+- Create: `formulas/L_Homme_Luxe_Neroli_Gingembre_Luminous_Silk_DHP2025_V1_30mL_20pct_Development.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh01-neroli-gingembre/pipeline.json`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh01-neroli-gingembre/pipeline_analysis.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh01-neroli-gingembre/verification_receipt.json`
+- Modify: `tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py`
+
+**Interfaces:** Uses the L'Homme control and outputs candidate `LH-01` for the L'Homme blind guide.
+
+- [ ] Add this failing formula contract:
+
+```python
+LH01 = FORMULAS / "L_Homme_Luxe_Neroli_Gingembre_Luminous_Silk_DHP2025_V1_30mL_20pct_Development.md"
+CANDIDATES.append({"id": "LH-01", "family": "L'Homme", "path": LH01})
+
+def test_lh01_neroli_gingembre_formula_contract() -> None:
+    _assert_formula_contract(
+        LH01,
+        required={"Bergamot FCF oil Sicilian", "Petitgrain EO Paraguay", "Ginger EO", "Neroli EO"},
+        forbidden=set(),
+        expected_musks={"Romandolide"},
+    )
+```
+- [ ] Run the test and confirm file absence is the only expected failure.
+- [ ] Build the architecture `petal light -> wet ginger cortex -> violet cloth -> dry golden cedar/vetiver`, with neroli central rather than support-only.
+- [ ] Reject the candidate in its artifact if the design audit predicts soap, conventional cologne, orange candy, generic white floral, or neroli erasure of ginger.
+- [ ] Run the Formula Task Protocol using slug `lh01-neroli-gingembre`; commit with `formulas: add L'Homme Neroli Gingembre candidate`.
+
+---
+
+### Task 5: L'Homme Osmanthus Suede — Apricot Shadow
+
+**Files:**
+- Create: `formulas/L_Homme_Luxe_Osmanthus_Suede_Apricot_Shadow_DHP2025_V1_30mL_20pct_Development.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh02-osmanthus-suede/pipeline.json`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh02-osmanthus-suede/pipeline_analysis.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh02-osmanthus-suede/verification_receipt.json`
+- Modify: `tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py`
+
+**Interfaces:** Uses the L'Homme control and outputs candidate `LH-02` for the L'Homme blind guide.
+
+- [ ] Add this failing formula contract:
+
+```python
+LH02 = FORMULAS / "L_Homme_Luxe_Osmanthus_Suede_Apricot_Shadow_DHP2025_V1_30mL_20pct_Development.md"
+CANDIDATES.append({"id": "LH-02", "family": "L'Homme", "path": LH02})
+
+def test_lh02_osmanthus_suede_formula_contract() -> None:
+    _assert_formula_contract(
+        LH02,
+        required={"Osmanthus Absolute", "Ginger EO", "Petitgrain EO Paraguay", "Suederal", "Ambrettolide"},
+        forbidden={"Tobacco Absolute"},
+        expected_musks={"Ambrettolide"},
+    )
+```
+- [ ] Run the test and confirm file absence is the only expected failure.
+- [ ] Build separate apricot-floral, violet-cloth, fine-suede, mineral-cedar, and skin-residue states; do not count ingredient representation as a connected osmanthus accord.
+- [ ] Reject the candidate in its artifact if the design audit predicts jam, peach candy, cosmetic iris, aggressive leather, rose clutter, tobacco takeover, or unrelated-natural muddiness.
+- [ ] Run the Formula Task Protocol using slug `lh02-osmanthus-suede`; commit with `formulas: add L'Homme Osmanthus Suede candidate`.
+
+---
+
+### Task 6: L'Homme Mandarine Tonka — Golden Chamber
+
+**Files:**
+- Create: `formulas/L_Homme_Luxe_Mandarine_Tonka_Golden_Chamber_DHP2025_V1_30mL_20pct_Development.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh03-mandarine-tonka/pipeline.json`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh03-mandarine-tonka/pipeline_analysis.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh03-mandarine-tonka/verification_receipt.json`
+- Modify: `tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py`
+
+**Interfaces:** Uses the L'Homme control and outputs candidate `LH-03` for the L'Homme blind guide.
+
+- [ ] Add this failing formula contract:
+
+```python
+LH03 = FORMULAS / "L_Homme_Luxe_Mandarine_Tonka_Golden_Chamber_DHP2025_V1_30mL_20pct_Development.md"
+CANDIDATES.append({"id": "LH-03", "family": "L'Homme", "path": LH03})
+
+def test_lh03_mandarine_tonka_formula_contract() -> None:
+    _assert_formula_contract(
+        LH03,
+        required={"Red Mandarin EO", "Ginger EO", "Tonka Bean Absolute"},
+        forbidden={"Cardamom EO", "Cinnamaldehyde"},
+        expected_musks=set(),
+    )
+```
+- [ ] Run the test and confirm file absence is the only expected failure.
+- [ ] Build `juicy peel pressure -> warm ginger -> green-violet tailoring -> hayed yielding chamber -> dry sandal/cedar echo` without a second citrus chorus.
+- [ ] Keep Ethylene Brassylate outside the primary formula. If the theoretical review supports testing creamy continuity, specify it only as a future constant-total diagnostic arm against a carrier displacement.
+- [ ] Reject the candidate in its artifact if the design audit predicts vanilla dessert, cinnamon pastry, syrupy amber, or cardamom-led LNDL drift.
+- [ ] Run the Formula Task Protocol using slug `lh03-mandarine-tonka`; commit with `formulas: add L'Homme Mandarine Tonka candidate`.
+
+---
+
+### Task 7: L'Homme Genièvre Cèdre — Cool Dry Tailoring
+
+**Files:**
+- Create: `formulas/L_Homme_Luxe_Genievre_Cedre_Cool_Dry_Tailoring_DHP2025_V1_30mL_20pct_Development.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh04-genievre-cedre/pipeline.json`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh04-genievre-cedre/pipeline_analysis.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh04-genievre-cedre/verification_receipt.json`
+- Modify: `tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py`
+
+**Interfaces:** Uses the L'Homme control and outputs candidate `LH-04` for the L'Homme blind guide.
+
+- [ ] Add this failing formula contract:
+
+```python
+LH04 = FORMULAS / "L_Homme_Luxe_Genievre_Cedre_Cool_Dry_Tailoring_DHP2025_V1_30mL_20pct_Development.md"
+CANDIDATES.append({"id": "LH-04", "family": "L'Homme", "path": LH04})
+
+def test_lh04_genievre_cedre_formula_contract() -> None:
+    _assert_formula_contract(
+        LH04,
+        required={"Juniper Berry EO", "Ginger EO", "Cedarwood oil Virginia", "Bergamot FCF oil Sicilian"},
+        forbidden={"Pine EO", "Rosemary EO", "Spike Lavender EO", "Eucalyptus EO", "Peppermint EO"},
+        expected_musks=set(),
+    )
+```
+- [ ] Run the test and confirm file absence is the only expected failure.
+- [ ] Build `cool berry capsule -> wet ginger incision -> basil-violet tailoring -> differentiated cedar grain -> root-dry residue`; juniper must recur into cedar rather than disappear after the top.
+- [ ] Exclude Pine EO, rosemary, spike lavender, eucalyptus, peppermint, and large cypress reinforcement from the primary formula.
+- [ ] Reject the candidate in its artifact if the design audit predicts gin, pine cleaner, aromatic-fougère takeover, shower gel, or terpenic harshness.
+- [ ] Run the Formula Task Protocol using slug `lh04-genievre-cedre`; commit with `formulas: add L'Homme Genievre Cedre candidate`.
+
+---
+
+### Task 8: L'Homme Pluie Violette — Wet Mineral Cloth
+
+**Files:**
+- Create: `formulas/L_Homme_Luxe_Pluie_Violette_Wet_Mineral_Cloth_DHP2025_V1_30mL_20pct_Development.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh05-pluie-violette/pipeline.json`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh05-pluie-violette/pipeline_analysis.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/lh05-pluie-violette/verification_receipt.json`
+- Modify: `tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py`
+
+**Interfaces:** Uses the L'Homme control and outputs candidate `LH-05` for the L'Homme blind guide.
+
+- [ ] Add this failing formula contract:
+
+```python
+LH05 = FORMULAS / "L_Homme_Luxe_Pluie_Violette_Wet_Mineral_Cloth_DHP2025_V1_30mL_20pct_Development.md"
+CANDIDATES.append({"id": "LH-05", "family": "L'Homme", "path": LH05})
+
+def test_lh05_pluie_violette_formula_contract() -> None:
+    _assert_formula_contract(
+        LH05,
+        required={"Ginger EO", "Givaudan AIMI", "Cedarwood oil Virginia", "Indian Vetiver EO", "Romandolide"},
+        forbidden={"Calone", "Floralozone", "Dihydromyrcenol"},
+        expected_musks={"Romandolide"},
+    )
+```
+- [ ] Run the test and confirm file absence is the only expected failure.
+- [ ] Build `humid reflective surface -> wet ginger cortex -> violet textile suspension -> mineral-air release -> cedar/vetiver residue` with molecular wetness rather than a pile of aquatic materials.
+- [ ] Exclude a Calone-led marine identity, Floralozone laundry identity, and Dihydromyrcenol sport-blue identity.
+- [ ] Reject the candidate in its artifact if the design audit predicts melon, detergent, metallic glare, or empty transparency.
+- [ ] Run the Formula Task Protocol using slug `lh05-pluie-violette`; commit with `formulas: add L'Homme Pluie Violette candidate`.
+
+---
+
+### Task 9: Build and Validate the L'Homme Family Blind Guide
+
+**Files:**
+- Create: `formulas/mixing_guides/L_Homme_Luxe_Hedonic_Flanker_Suite_DHP2025_V1_Blind_Trial.md`
+- Modify: `tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py`
+
+**Interfaces:** Consumes the L'Homme control plus LH-01 through LH-05; produces the physical protocol but no authority to execute it.
+
+- [ ] Add this failing guide contract:
+
+```python
+LH_GUIDE = FORMULAS / "mixing_guides" / "L_Homme_Luxe_Hedonic_Flanker_Suite_DHP2025_V1_Blind_Trial.md"
+
+def test_lhomme_blind_guide_has_independent_counterbalanced_family_screens() -> None:
+    text = LH_GUIDE.read_text(encoding="utf-8")
+    for path in (LH_CONTROL, LH01, LH02, LH03, LH04, LH05):
+        assert path.relative_to(ROOT).as_posix() in text
+    for phrase in (
+        "two independently prepared complete sets", "AB/BA", "anonymous codes",
+        "free description before scoring", "0 minutes", "5 minutes", "30 minutes",
+        "120 minutes", "6 hours", "24 hours", "overall liking", "transition pleasure",
+        "drydown pleasure", "re-smell desire", "muddiness", "NOT AUTHORIZED",
+    ):
+        assert phrase in text
+```
+- [ ] Run the test and verify the guide is absent.
+- [ ] Write five control-versus-candidate screens, each constant-total and carrier-matched. Limit a session to a small number of perfumes and specify separated sessions to manage adaptation.
+- [ ] Define family-floor recognizability separately from overall liking, opening pleasure, transition pleasure, drydown pleasure, re-smell desire, spatial dimensionality, textural differentiation, fatigue, muddiness, harshness, and candidate-specific takeover defects.
+- [ ] State that no physical preparation or skin test is authorized by the guide.
+- [ ] Run focused tests and commit with `docs: add L'Homme hedonic flanker blind guide`.
+
+---
+
+### Task 10: LNDL Coriander Silk — Polished Seed Wood
+
+**Files:**
+- Create: `formulas/LNDL_Luxe_Coriander_Silk_Polished_Seed_Wood_DHP2025_V1_30mL_20pct_Development.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln01-coriander-silk/pipeline.json`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln01-coriander-silk/pipeline_analysis.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln01-coriander-silk/verification_receipt.json`
+- Modify: `tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py`
+
+**Interfaces:** Uses the LNDL control and outputs candidate `LN-01` for the LNDL blind guide.
+
+- [ ] Add this failing formula contract:
+
+```python
+LN01 = FORMULAS / "LNDL_Luxe_Coriander_Silk_Polished_Seed_Wood_DHP2025_V1_30mL_20pct_Development.md"
+CANDIDATES.append({"id": "LN-01", "family": "LNDL", "path": LN01})
+
+def test_ln01_coriander_silk_formula_contract() -> None:
+    _assert_formula_contract(
+        LN01,
+        required={"Cardamom EO", "Coriander Essential Oil", "Lavender EO (BONTAUX SAS)", "Cedarwood oil Virginia", "Romandolide"},
+        forbidden={"Juniper Berry EO", "Pine EO", "Rosemary EO", "Spike Lavender EO", "Calone"},
+        expected_musks={"Romandolide"},
+        module_floor=11,
+    )
+```
+- [ ] Run the test and confirm file absence is the only expected failure.
+- [ ] Build `green seed sparkle -> coriander/cardamom shell -> restrained lavender silk -> violet cloth -> polished cedar/vetiver`.
+- [ ] Exclude juniper, pine, rosemary, spike-lavender stacking, Calone, and an overbuilt aromatic-fougère scaffold.
+- [ ] Reject the candidate in its artifact if the design audit predicts gin, medicine, cleaner, generic fougère, or blue-aquatic drift.
+- [ ] Run the Formula Task Protocol using slug `ln01-coriander-silk`; commit with `formulas: add LNDL Coriander Silk candidate`.
+
+---
+
+### Task 11: LNDL Cinnamon Cashmere — Warm Almond Spice
+
+**Files:**
+- Create: `formulas/LNDL_Luxe_Cinnamon_Cashmere_Warm_Almond_Spice_DHP2025_V1_30mL_20pct_Development.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln02-cinnamon-cashmere/pipeline.json`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln02-cinnamon-cashmere/pipeline_analysis.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln02-cinnamon-cashmere/verification_receipt.json`
+- Modify: `tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py`
+
+**Interfaces:** Uses the LNDL control and outputs candidate `LN-02` for the LNDL blind guide.
+
+- [ ] Add this failing formula contract:
+
+```python
+LN02 = FORMULAS / "LNDL_Luxe_Cinnamon_Cashmere_Warm_Almond_Spice_DHP2025_V1_30mL_20pct_Development.md"
+CANDIDATES.append({"id": "LN-02", "family": "LNDL", "path": LN02})
+
+def test_ln02_cinnamon_cashmere_formula_contract() -> None:
+    _assert_formula_contract(
+        LN02,
+        required={"Cardamom EO", "Cinnamaldehyde", "Lavender EO (BONTAUX SAS)", "Cashmeran", "Ethylene Brassylate"},
+        forbidden={"Cinnamon Bark EO", "Cassia EO", "Clove EO", "Eugenol"},
+        expected_musks={"Ethylene Brassylate"},
+        module_floor=11,
+    )
+```
+- [ ] Run the test and confirm file absence is the only expected failure.
+- [ ] Build `cold cardamom shell -> single cinnamon seam -> dry almond-coumarin interior -> cashmere textile -> creamy skin echo`.
+- [ ] Keep NYSUPPLY Cinnamon Bark EO, Telvada Cinnamon Bark EO, Cassia EO, clove/eugenol reinforcement, and the AP-T1-only cinnamon mapping outside the primary formula.
+- [ ] Reject the candidate in its artifact if the design audit predicts cinnamon candy, pastry, potpourri, holiday spice, syrup, or generic sweet amber.
+- [ ] Run the Formula Task Protocol using slug `ln02-cinnamon-cashmere`; commit with `formulas: add LNDL Cinnamon Cashmere candidate`.
+
+---
+
+### Task 12: LNDL Orris Santal — Violet Root Skin
+
+**Files:**
+- Create: `formulas/LNDL_Luxe_Orris_Santal_Violet_Root_Skin_DHP2025_V1_30mL_20pct_Development.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln03-orris-santal/pipeline.json`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln03-orris-santal/pipeline_analysis.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln03-orris-santal/verification_receipt.json`
+- Modify: `tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py`
+
+**Interfaces:** Uses the LNDL control and outputs candidate `LN-03` for the LNDL blind guide.
+
+- [ ] Add this failing formula contract:
+
+```python
+LN03 = FORMULAS / "LNDL_Luxe_Orris_Santal_Violet_Root_Skin_DHP2025_V1_30mL_20pct_Development.md"
+CANDIDATES.append({"id": "LN-03", "family": "LNDL", "path": LN03})
+
+def test_ln03_orris_santal_formula_contract() -> None:
+    _assert_formula_contract(
+        LN03,
+        required={"Cardamom EO", "Lavender EO (BONTAUX SAS)", "Givaudan AIMI", "Alpha Irone", "Exaltolide"},
+        forbidden=set(),
+        expected_musks={"Exaltolide"},
+        module_floor=11,
+    )
+```
+- [ ] Run the test and confirm file absence is the only expected failure.
+- [ ] Build `cardamom glint -> lavender hinge -> violet cloth -> cool buttery root -> intimate sandalwood skin`; use Orris Liquid only by replacing part of the molecular iris stack.
+- [ ] Record Givaudan AIMI stock-specific OAV as HOLD where exact product physics remains unresolved.
+- [ ] Reject the candidate in its artifact if the design audit predicts lipstick, makeup powder, cosmetic floral, Dior/Prada imitation, or rooty heaviness.
+- [ ] Run the Formula Task Protocol using slug `ln03-orris-santal`; commit with `formulas: add LNDL Orris Santal candidate`.
+
+---
+
+### Task 13: LNDL Olibanum Cedar Halo — Luminous Incense
+
+**Files:**
+- Create: `formulas/LNDL_Luxe_Olibanum_Cedar_Halo_Luminous_Incense_DHP2025_V1_30mL_20pct_Development.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln04-olibanum-cedar/pipeline.json`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln04-olibanum-cedar/pipeline_analysis.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln04-olibanum-cedar/verification_receipt.json`
+- Modify: `tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py`
+
+**Interfaces:** Uses the LNDL control and outputs candidate `LN-04` for the LNDL blind guide.
+
+- [ ] Add this failing formula contract:
+
+```python
+LN04 = FORMULAS / "LNDL_Luxe_Olibanum_Cedar_Halo_Luminous_Incense_DHP2025_V1_30mL_20pct_Development.md"
+CANDIDATES.append({"id": "LN-04", "family": "LNDL", "path": LN04})
+
+def test_ln04_olibanum_cedar_formula_contract() -> None:
+    _assert_formula_contract(
+        LN04,
+        required={"Cardamom EO", "Elemi EO", "Olibanum Resinoid", "Cedarwood oil Virginia", "Romandolide"},
+        forbidden={"Myrrh EO", "Opoponax Resinoid", "Cade Oil Rectified", "Guaiacol"},
+        expected_musks={"Romandolide"},
+        module_floor=11,
+    )
+```
+- [ ] Run the test and confirm file absence is the only expected failure.
+- [ ] Build `cardamom flash -> elemi bridge -> luminous olibanum chamber -> carved Virginia cedar -> dry resinous halo`.
+- [ ] Use one literal cedar route and one restrained modern dry-wood contour; do not construct a prestige-material amberwood wall.
+- [ ] Reject the candidate in its artifact if the design audit predicts char, medicinal smoke, church-supply literalism, generic amberwood wall, or multi-wood stacking.
+- [ ] Run the Formula Task Protocol using slug `ln04-olibanum-cedar`; commit with `formulas: add LNDL Olibanum Cedar Halo candidate`.
+
+---
+
+### Task 14: LNDL Tobacco Plum Cashmere — Cured Fruit Shadow
+
+**Files:**
+- Create: `formulas/LNDL_Luxe_Tobacco_Plum_Cashmere_Cured_Fruit_Shadow_DHP2025_V1_30mL_20pct_Development.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln05-tobacco-plum/pipeline.json`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln05-tobacco-plum/pipeline_analysis.md`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/ln05-tobacco-plum/verification_receipt.json`
+- Modify: `tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py`
+
+**Interfaces:** Uses the LNDL control and outputs candidate `LN-05` for the LNDL blind guide.
+
+- [ ] Add this failing formula contract:
+
+```python
+LN05 = FORMULAS / "LNDL_Luxe_Tobacco_Plum_Cashmere_Cured_Fruit_Shadow_DHP2025_V1_30mL_20pct_Development.md"
+CANDIDATES.append({"id": "LN-05", "family": "LNDL", "path": LN05})
+
+def test_ln05_tobacco_plum_formula_contract() -> None:
+    _assert_formula_contract(
+        LN05,
+        required={"Cardamom EO", "Damascenone", "Tobacco Absolute", "Tonka Bean Absolute", "Ambrettolide"},
+        forbidden={"Blue Chamomile EO", "Coffee EO", "Cocoa Absolute", "Castoreum Synthetic"},
+        expected_musks={"Ambrettolide"},
+        module_floor=11,
+    )
+```
+- [ ] Run the test and confirm file absence is the only expected failure.
+- [ ] Build `cardamom skin -> dried-plum turn -> cured tobacco leaf -> cashmere wood interior -> wine-warm skin residue`; dried plum must function as a transition, not a pasted fruit accord.
+- [ ] Admit Immortelle only by replacing part of the hay/tobacco modifier system and documenting the omitted alternative.
+- [ ] Reject the candidate in its artifact if the design audit predicts coffee shop, chocolate dessert, maple syrup, ashtray, animalic leather, smoke, or Azulene-Juniper redundancy.
+- [ ] Run the Formula Task Protocol using slug `ln05-tobacco-plum`; commit with `formulas: add LNDL Tobacco Plum Cashmere candidate`.
+
+---
+
+### Task 15: Build and Validate the LNDL Family Blind Guide
+
+**Files:**
+- Create: `formulas/mixing_guides/LNDL_Luxe_Hedonic_Flanker_Suite_DHP2025_V1_Blind_Trial.md`
+- Modify: `tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py`
+
+**Interfaces:** Consumes the LNDL control plus LN-01 through LN-05; produces the physical protocol but no authority to execute it.
+
+- [ ] Add this failing guide contract:
+
+```python
+LNDL_GUIDE = FORMULAS / "mixing_guides" / "LNDL_Luxe_Hedonic_Flanker_Suite_DHP2025_V1_Blind_Trial.md"
+
+def test_lndl_blind_guide_has_independent_counterbalanced_family_screens() -> None:
+    text = LNDL_GUIDE.read_text(encoding="utf-8")
+    for path in (LNDL_CONTROL, LN01, LN02, LN03, LN04, LN05):
+        assert path.relative_to(ROOT).as_posix() in text
+    for phrase in (
+        "two independently prepared complete sets", "AB/BA", "anonymous codes",
+        "free description before scoring", "0 minutes", "5 minutes", "30 minutes",
+        "120 minutes", "6 hours", "24 hours", "overall liking", "transition pleasure",
+        "drydown pleasure", "re-smell desire", "D - B - C + A", "NOT AUTHORIZED",
+    ):
+        assert phrase in text
+```
+- [ ] Run the test and verify the guide is absent.
+- [ ] Write five control-versus-candidate screens, each constant-total and carrier-matched. Keep the comparison sessions separated and small enough to manage spice/aromatic adaptation.
+- [ ] Define LNDL family-floor recognizability separately from overall liking, opening pleasure, transition pleasure, drydown pleasure, re-smell desire, spatial dimensionality, textural differentiation, fatigue, muddiness, harshness, and candidate-specific takeover defects.
+- [ ] State that a pairwise result cannot prove interaction or synergy; any two-module causal question requires a complete independently prepared four-arm 2 x 2 with interaction `D - B - C + A`.
+- [ ] State that no physical preparation or skin test is authorized by the guide.
+- [ ] Run focused tests and commit with `docs: add LNDL hedonic flanker blind guide`.
+
+---
+
+### Task 16: Build the Suite Index and Enforce Sibling Nonredundancy
+
+**Files:**
+- Create: `formulas/L_Homme_LNDL_Hedonic_Flanker_Suite_DHP2025_V1_Index.md`
+- Modify: `tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py`
+
+**Interfaces:** Consumes both controls, all ten formula artifacts, both blind guides, all donor manifests, and all verification receipts; produces the suite-level provenance and anti-chassis decision.
+
+- [ ] **Step 1: Add failing suite completeness and convergence tests**
+
+```python
+SUITE_INDEX = FORMULAS / "L_Homme_LNDL_Hedonic_Flanker_Suite_DHP2025_V1_Index.md"
+
+def test_suite_has_five_lhomme_and_five_lndl_candidates() -> None:
+    text = SUITE_INDEX.read_text(encoding="utf-8")
+    assert len([item for item in CANDIDATES if item["family"] == "L'Homme"]) == 5
+    assert len([item for item in CANDIDATES if item["family"] == "LNDL"]) == 5
+    assert all(item["path"].is_file() for item in CANDIDATES)
+    assert all(str(item["id"]) in text for item in CANDIDATES)
+
+def test_no_two_candidates_share_an_identical_current_chassis() -> None:
+    sets = {item["id"]: set(_current_formula(item["path"])["ingredients_ul"]) for item in CANDIDATES}
+    for left, left_set in sets.items():
+        for right, right_set in sets.items():
+            if left >= right:
+                continue
+            assert left_set != right_set, (left, right)
+            jaccard = len(left_set & right_set) / len(left_set | right_set)
+            assert jaccard < 0.85, (left, right, jaccard)
+```
+
+- [ ] **Step 2: Run tests and inspect every convergent pair**
+
+Run: `python -m pytest tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py -k "suite or chassis" -q`
+
+Expected: FAIL before the index exists or for any sibling pair at or above the governed `0.85` material-set Jaccard risk threshold.
+
+- [ ] **Step 3: Write the index and full nonredundancy ledger**
+
+For every candidate, list subject, protected nucleus, excluded takeovers, modules, planes, textures, transition owners, recurrence mechanism, primary material relationships, principal wood/base state, musk decision, row count, current material fingerprint, donor-gate result, pipeline status, and sensory claim ceiling. Include every pairwise Jaccard value and separately compare ordered module ontology, dominant raw-volume clusters, transition ownership, and base identity.
+
+- [ ] **Step 4: Resolve convergence structurally, not by renaming**
+
+If any pair fails the threshold or shares its dominant transition/base mechanism, return the weaker candidate to its formula task and perform a constant-total target-linked redesign. Do not lower the threshold, rename modules, or add decorative ingredients to manufacture difference.
+
+- [ ] **Step 5: Run the complete focused suite**
+
+Run: `python -m pytest tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py tests/test_donor_independence_gate.py tests/test_luxe_inventory_successors.py tests/test_lndl_azulene_juniper_factorial_v2.py -q`
+
+Expected: PASS.
+
+- [ ] **Step 6: Commit the suite index and final focused tests**
+
+```powershell
+git add -- formulas/L_Homme_LNDL_Hedonic_Flanker_Suite_DHP2025_V1_Index.md tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py
+git diff --cached --check
+git commit -m "docs: index hedonic L'Homme and LNDL flanker suite"
+```
+
+---
+
+### Task 17: Final Verification, Byte Manifest, and Claim-Bounded Handoff
+
+**Files:**
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/SUITE_MANIFEST.json`
+- Create: `verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/TEST_RECEIPT.md`
+- Modify only if diagnostics are stale: the affected formula's `## Pipeline Analysis` section and its own verification receipt.
+
+**Interfaces:** Consumes every prior task; produces the final exact manifest and integration/HOLD decision.
+
+- [ ] **Step 1: Verify every persisted pipeline bundle against the final formula bytes**
+
+For each of the ten candidates, confirm the formula SHA-256 in `verification_receipt.json` equals the current file, the parsed current total is 6,000 uL, the current row floor is measurable, the pipeline JSON names the same formula, `analysis_markdown` matches `pipeline_analysis.md`, and the identical analysis appears in the formula artifact. Re-run only a stale formula, with its unique audit path.
+
+- [ ] **Step 2: Re-run focused and relevant regression tests fresh**
+
+Run:
+
+```powershell
+python -m pytest tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py tests/test_donor_independence_gate.py tests/test_luxe_inventory_successors.py tests/test_lndl_azulene_juniper_factorial_v2.py -q
+python -m pytest tests/ -q
+```
+
+Record exact command, start/end time, Python version, exit code, pass/fail/skip totals, and every failing test in `TEST_RECEIPT.md`. Do not convert focused success into a repository-green claim if the full suite remains non-green.
+
+- [ ] **Step 3: Build the complete source manifest**
+
+In `SUITE_MANIFEST.json`, record relative path, byte size, SHA-256, Git status, role, predecessor path/hash, donor signature paths/hashes, focused tests, pipeline status, inventory timestamp/hash, and claim ceiling for the design spec, plan, suite index, two controls, ten formulas, two blind guides, three donor signatures, authority receipt, ten three-file diagnostic bundles, focused test file, test receipt, and the manifest itself using a detached self-hash field or explicit `self_sha256_excluded` rule.
+
+- [ ] **Step 4: Verify commit scope before the final commit**
+
+Run:
+
+```powershell
+git status --porcelain=v2 --branch
+git diff --check
+git diff --name-status
+git diff --cached --name-status
+```
+
+Confirm `AGENTS.md` and `.codex/` remain excluded. Confirm no historical predecessor changed. Confirm no scratch output, cache, root JSON, or unrelated formula entered the staged set.
+
+- [ ] **Step 5: Commit only final receipts and any formula analyses regenerated in Step 1**
+
+```powershell
+git add -- verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/SUITE_MANIFEST.json verification_runs/20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1/TEST_RECEIPT.md
+git diff --cached --check
+git commit -m "verify: record hedonic flanker suite evidence"
+```
+
+If Step 1 regenerated a formula and its bundle, stage only those named files together with the receipts and state why their prior diagnostics were stale.
+
+- [ ] **Step 6: Apply the final evidence ceiling**
+
+Declare `READY FOR REPOSITORY INTEGRATION` only if every scoped artifact and persisted diagnostic is manifested, all focused/relevant tests pass, the final diff contains no out-of-scope bytes, source and donor gates pass, there is no unresolved executable-stock blocker, and the applicable repository acceptance rule permits the broader-test result. Otherwise declare `HOLD` and name the exact blocker. In either state, keep all smell, liking, hedonism, luxury, depth, similarity, performance, safety, stability, and release conclusions at `NOT TESTED` until physical evidence exists.
+
+---
+
+## Self-Review Checklist
+
+- Spec coverage: Tasks 1-17 cover authorities, two controls, ten formula artifacts, separate ideal/current builds, source conservation, donor independence, inventory/HOLD rules, ppm/ODT/OAV/composite-natural/temporal diagnostics, working stocks, missing-chemical impact, two blind guides, sibling convergence, verification bundles, tests, hashes, exclusions, and claim ceilings.
+- Red-flag scan: run `rg -n -i "T[B]D|T[O]DO|PLACEH[O]LDER|FIXM[E]|implement lat[e]r|fill in detai[l]s|add appropriate error handlin[g]|write tests for the abov[e]|similar to tas[k]" docs/superpowers/plans/2026-09-02-lhomme-lndl-hedonic-flanker-suite.md`; expected exit code `1` with no matches.
+- Interface consistency: every formula path, control path, guide path, bundle slug, test-helper name, donor-signature name, and final manifest path is defined once in the File Map and reused verbatim.
+- Historical-byte check: SHA-256 for Target-Native V5, Interiorized V6, rejected V7, Azulene-Juniper V2, and the White Fire signature must equal the Task 1 authority receipt at final verification.
+- Worktree check: pre-existing `AGENTS.md` and `.codex/` changes remain outside every commit.

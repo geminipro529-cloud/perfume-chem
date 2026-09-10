@@ -1,0 +1,70 @@
+{
+  "schema": "perfume-chem-sukhum-35-t3-study-v1",
+  "study_id": "SUKHUM-35-T3-20260830",
+  "inventory_path": "../../inventory.txt",
+  "inventory_sha256": "EB33C04236A4640413BA5289125F04CFA278BD0614EB9BD12EA1CC4D88379967",
+  "concentrate_ul": 5400,
+  "finished_product_ul": 30000,
+  "nominal_product_stock_concentration_percent_v_v": 18.0,
+  "factors": {
+    "realistic_fruit": {
+      "off": {
+        "Allyl Cyclohexyl Propionate": 800
+      },
+      "on": {
+        "Allyl Cyclohexyl Propionate": 700,
+        "Hexyl Acetate": 100
+      }
+    },
+    "dry_transition": {
+      "off": {
+        "Hedione": 950,
+        "Iso E Super": 1050
+      },
+      "on": {
+        "Hedione": 910,
+        "Iso E Super": 1020,
+        "Elemi EO": 40,
+        "Cypress EO": 30
+      }
+    }
+  },
+  "arms": {
+    "S35-R0": {
+      "realistic_fruit": false,
+      "dry_transition": false
+    },
+    "S35-F": {
+      "realistic_fruit": true,
+      "dry_transition": false
+    },
+    "S35-D": {
+      "realistic_fruit": false,
+      "dry_transition": true
+    },
+    "S35-T3": {
+      "realistic_fruit": true,
+      "dry_transition": true
+    }
+  },
+  "factor_balance": {
+    "realistic_fruit_nominal_active_ul": 80.0,
+    "dry_transition_raw_and_nominal_active_ul": 2000.0,
+    "total_nominal_active_ul_each_arm": 3745.32,
+    "note": "Hexyl Acetate 10% carrier is unspecified, so the fruit factor is product-stock-volume and nominal-active matched but not carrier-identity qualified for a strict physical blind comparison."
+  },
+  "physical_test_authorized": false,
+  "physical_test_hold_reasons": [
+    "HEXYL_ACETATE_10_PERCENT_CARRIER_UNSPECIFIED",
+    "NO_BLINDED_SAMPLES_PREPARED",
+    "NO_TARGET_CONSUMER_PANEL_RUN"
+  ],
+  "claim_ceiling": {
+    "physical_liking": "NOT TESTED",
+    "market_success": "NOT TESTED",
+    "sensory_similarity": "NOT TESTED",
+    "safety": "HOLD",
+    "stability": "HOLD",
+    "release": "HOLD"
+  }
+}

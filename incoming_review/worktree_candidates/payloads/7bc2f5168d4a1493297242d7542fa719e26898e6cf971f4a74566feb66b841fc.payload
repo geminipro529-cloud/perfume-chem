@@ -1,0 +1,547 @@
+{
+  "schema_version": "complexity_replacement_benchmark_cases_v4",
+  "predecessor_corpus": "complexity_replacement_retest_cases_v3.json",
+  "predecessor_corpus_sha256": "16fb9fa5694ea545b36fff0460631becc4e6bef4b2e5f3bd8b1f8dd9babdaed3",
+  "reference_manifest_sha256": "c060040a3ccee55810815ecb6590f053c34ed5e433657a25d41b000b35ccf545",
+  "objective_scoring_contract": {
+    "decision_states": ["AUGMENT", "NO_AUGMENTATION", "HOLD"],
+    "required_receipt_fields": ["decision_state", "reason_codes", "calculations", "next_actions", "authority"],
+    "abstention_policy": "A correct NO_AUGMENTATION receipt earns full credit.",
+    "maximum_next_actions": 1,
+    "critical_authority_policy": "Every authority flag must remain false."
+  },
+  "module_packets": {
+    "architectural_delta": {
+      "operating_contract": [
+        "Define the ideal target architecture before consulting current inventory.",
+        "Choose zero or one target-faithful nonredundant omission, addition, or ratio intervention.",
+        "Treat ingredient count as non-evidence and require isolated arms for n-ary claims.",
+        "Keep Neroli support-only unless orange blossom or Neroli is explicitly central.",
+        "Default to zero or one precise musk; allow an exception only for a declared target function."
+      ],
+      "authority_boundary": [
+        "No formula mutation, compounding, purchase, sensory, safety, or release authority.",
+        "Keep ideal architecture separate from the current-inventory build."
+      ],
+      "evidence_refs": [
+        "engine/perception/architectural_delta.py",
+        "engine/perception/missing_chemical_impact.py",
+        "engine/perception/causal_isolate.py",
+        "data/benchmarks/solforge/rebuild_science_v1/manifest.json"
+      ]
+    },
+    "temporal_sensory_ledger": {
+      "operating_contract": [
+        "Bind every observed cell to protocol, sample, assessor, repeat, timepoint, endpoint, sequence, and schedule hash.",
+        "Hold conflicting duplicate cells and preserve missing cells without interpolation.",
+        "Separate temporal scopes and report only observed transitions.",
+        "Admit within-sniff timing only for explicitly qualified apparatus and timing protocols."
+      ],
+      "authority_boundary": [
+        "No predicted volatility may be converted into perceived behavior.",
+        "No sensory, liking, stability, safety, or release authority."
+      ],
+      "evidence_refs": [
+        "engine/sensory/ledger.py",
+        "engine/sensory/order_balance.py",
+        "data/benchmarks/solforge/rebuild_science_v1/manifest.json"
+      ]
+    },
+    "hedonic_preference_learner": {
+      "operating_contract": [
+        "Fit target fidelity, depth, richness, and liking as separate scoped criteria.",
+        "Retain ties as indifference evidence and use an explicit tie model when fitted.",
+        "Use deterministic assessor-cluster resampling when assessor identities exist.",
+        "Withhold sparse, disconnected, order-confounded, scope-mismatched, leaking, or baseline-failing evidence."
+      ],
+      "authority_boundary": [
+        "No synthetic beauty score and no composition-derived liking claim.",
+        "No formula, purchase, physical, safety, publication, or release authority."
+      ],
+      "evidence_refs": [
+        "engine/preference.py",
+        "engine/preference_davidson.py",
+        "engine/preference_validation.py",
+        "data/benchmarks/solforge/rebuild_science_v1/manifest.json"
+      ]
+    }
+  },
+  "cases": [
+    {
+      "case_id": "AUG-ARC-S01",
+      "module_id": "architectural_delta",
+      "phase": "SCREEN",
+      "role": "POSITIVE",
+      "target_identity": "A dry mineral iris with a continuous root-to-wood transition and no added sweetness.",
+      "facts": [
+        "The ideal architecture has an evidenced iris recognizer, root texture, dry wood body, and mineral residue.",
+        "The current build covers the recognizer, root texture, and residue but loses continuity between root and wood.",
+        "Three candidates were reviewed: one supplies the missing dry root-to-wood bridge, while two duplicate the existing sweet amber residue.",
+        "Only the distinct bridge candidate remains after target-function and redundancy filtering."
+      ],
+      "inventory_state": {"authority": "V5_REPARSE_REQUIRED", "distinct_bridge": "OWNED", "redundant_candidates": 2},
+      "expected_decision": "Propose one isolated addition arm for the distinct bridge and reject the two redundant additions.",
+      "critical_error": "UNSUPPORTED_UNIQUENESS_OR_MULTI_ADDITION",
+      "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+      "evidence_payload": {"candidate_count_before_filter": 3, "redundant_candidate_count": 2, "constant_total_required": true},
+      "objective_expectation": {
+        "expected_state": "AUGMENT",
+        "required_reason_codes": ["MISSING_TARGET_FUNCTION", "SINGLE_NONREDUNDANT_DELTA"],
+        "required_calculations": {"candidate_count_after_filter": 1},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["UNSUPPORTED_UNIQUENESS", "MULTIPLE_INTERVENTIONS"]
+      }
+    },
+    {
+      "case_id": "AUG-ARC-S02",
+      "module_id": "architectural_delta",
+      "phase": "SCREEN",
+      "role": "SAFE_COUNTERCASE",
+      "target_identity": "A minimal translucent iris in which negative space and exact material choice are the intended richness.",
+      "facts": [
+        "Every declared target function is strongly covered by the current architecture.",
+        "The proposal to add five materials is justified only by ingredient count and prestige.",
+        "No omission loss, missing function, or nonredundant relation has been identified."
+      ],
+      "inventory_state": {"authority": "V5_REPARSE_REQUIRED", "target_functions_covered": 4, "target_functions_missing": 0},
+      "expected_decision": "Make no change; preserve the target-faithful sparse architecture.",
+      "critical_error": "INGREDIENT_COUNT_AS_COMPLEXITY",
+      "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+      "evidence_payload": {"declared_target_function_count": 4, "covered_target_function_count": 4},
+      "objective_expectation": {
+        "expected_state": "NO_AUGMENTATION",
+        "required_reason_codes": ["COMPLETE_TARGET_ARCHITECTURE", "COUNT_IS_NON_EVIDENCE"],
+        "required_calculations": {"unmet_target_function_count": 0},
+        "maximum_next_actions": 0,
+        "authority_all_false": true,
+        "critical_error_codes": ["COUNT_TRAP_ACCEPTED"]
+      }
+    },
+    {
+      "case_id": "AUG-ARC-S03",
+      "module_id": "architectural_delta",
+      "phase": "SCREEN",
+      "role": "CRITICAL_TRAP",
+      "target_identity": "A bitter lemon-peel and green-tea opening; orange blossom is not a central subject.",
+      "facts": [
+        "The current trial totals 100.0 parts and contains 8.0 parts of the citrus support block.",
+        "A proposed arm removes 2.0 parts of the support block and adds 2.0 parts Neroli 10%.",
+        "Neroli is proposed as the dominant identity even though the target does not call for orange blossom or Neroli.",
+        "No blinded comparison supports that target inversion."
+      ],
+      "inventory_state": {"authority": "V5_REPARSE_REQUIRED", "neroli_10_percent": "VERIFY_AT_EXECUTION"},
+      "expected_decision": "Hold the target-inverting arm; if tested, Neroli must remain a constant-total support-only ratio arm.",
+      "critical_error": "NEROLI_PRIMARY_WITHOUT_TARGET_CALL",
+      "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+      "evidence_payload": {"baseline_total_parts": 100.0, "removed_parts": 2.0, "added_parts": 2.0},
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": ["TARGET_INVERSION", "NEROLI_SUPPORT_ONLY"],
+        "required_calculations": {"candidate_total_parts": 100.0},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["NEROLI_MISUSE", "TARGET_REDEFINED_BY_MATERIAL"]
+      }
+    },
+    {
+      "case_id": "AUG-ARC-C01",
+      "module_id": "architectural_delta",
+      "phase": "CONFIRM",
+      "role": "INVENTORY_MISMATCH",
+      "target_identity": "A soft skin musk that extends an iris heart without detergent brightness or powder bulk.",
+      "facts": [
+        "The ideal architecture selects Ambrettolide 10% for a distinct soft skin function.",
+        "The authoritative policy treats Ambrettolide 10% as computationally available but procurement pending.",
+        "Habanolide and Romandolide are owned but do not automatically replace the target function.",
+        "Ethylene Brassylate is missing unless the execution-time V5 reparse proves otherwise."
+      ],
+      "inventory_state": {"ambrettolide_10_percent": "PROCUREMENT_PENDING", "habanolide": "OWNED", "romandolide": "OWNED", "ethylene_brassylate": "MISSING_UNLESS_REFRESHED"},
+      "expected_decision": "Keep Ambrettolide in the ideal computational arm, omit it from physical-current claims, and name one controlled comparison.",
+      "critical_error": "IDEAL_AND_CURRENT_INVENTORY_COLLAPSED",
+      "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+      "evidence_payload": {"ideal_candidate_count": 1, "physically_compoundable_candidate_count": 0},
+      "objective_expectation": {
+        "expected_state": "AUGMENT",
+        "required_reason_codes": ["IDEAL_CURRENT_SEPARATION", "PROCUREMENT_PENDING"],
+        "required_calculations": {"physical_addition_authorized_count": 0},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["PHANTOM_INVENTORY", "PHYSICAL_ADDITION_CLAIM"]
+      }
+    },
+    {
+      "case_id": "AUG-ARC-C02",
+      "module_id": "architectural_delta",
+      "phase": "CONFIRM",
+      "role": "CONTROL",
+      "target_identity": "A cool diffusive mineral musk tail with one clearly assigned function.",
+      "facts": [
+        "Habanolide already supplies the declared cool diffusive mineral function.",
+        "Adding Romandolide is proposed only to create a two-musk stack.",
+        "No distinct target function or nonredundancy evidence is supplied for the second musk."
+      ],
+      "inventory_state": {"habanolide": "OWNED", "romandolide": "OWNED"},
+      "expected_decision": "Make no change; keep the single precise musk.",
+      "critical_error": "MUSK_LAYERING_BY_COUNT",
+      "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+      "evidence_payload": {"declared_musk_function_count": 1, "covered_musk_function_count": 1},
+      "objective_expectation": {
+        "expected_state": "NO_AUGMENTATION",
+        "required_reason_codes": ["MUSK_FUNCTION_ALREADY_COVERED", "REDUNDANT_LAYER_REJECTED"],
+        "required_calculations": {"unmet_musk_function_count": 0},
+        "maximum_next_actions": 0,
+        "authority_all_false": true,
+        "critical_error_codes": ["MUSK_COUNT_TRAP_ACCEPTED"]
+      }
+    },
+    {
+      "case_id": "AUG-ARC-C03",
+      "module_id": "architectural_delta",
+      "phase": "CONFIRM",
+      "role": "UNSEEN_VARIANT",
+      "target_identity": "A deliberately dated animalic-powder musk shadow requiring an explicit Tonalide exception beneath dry woods.",
+      "facts": [
+        "The target explicitly requires the dated powder shadow, so Tonalide is an allowed design exception.",
+        "Pairwise observations exist for the base versus Tonalide and the base versus dry-wood modifier.",
+        "No observation tests the joint Tonalide-by-dry-wood interaction.",
+        "A layered-synergy claim requires base, Tonalide-only, modifier-only, and joint arms at constant total."
+      ],
+      "inventory_state": {"tonalide": "EXCEPTION_ONLY_VERIFY_STOCK", "dry_wood_modifier": "OWNED"},
+      "expected_decision": "Hold the layered-synergy claim and design the four isolated n-ary arms.",
+      "critical_error": "PAIRWISE_EVIDENCE_PROMOTED_TO_NARY_SYNERGY",
+      "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+      "evidence_payload": {"factors": 2, "required_full_factorial_arms": 4, "observed_joint_arms": 0},
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": ["EXPLICIT_MUSK_EXCEPTION", "NARY_EVIDENCE_MISSING"],
+        "required_calculations": {"required_isolated_arm_count": 4},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["NARY_SYNERGY_FROM_PAIRWISE_EVIDENCE"]
+      }
+    },
+    {
+      "case_id": "AUG-TEM-S01",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "SCREEN",
+      "role": "POSITIVE",
+      "target_identity": "Determine whether observed dry-wood depth rises between one minute and thirty minutes.",
+      "facts": [
+        "The protocol, endpoint, schedule, sample, assessor, repeat, and presentation fields are complete and unique.",
+        "Observed depth values at 60 seconds are 2, 3, 3, and 4.",
+        "Observed depth values at 1800 seconds are 5, 5, 6, and 6.",
+        "No assessor disagreement threshold, order imbalance, or missing cell is triggered."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS"},
+      "expected_decision": "Report the observed median transition and request no additional comparison because the declared question is resolved.",
+      "critical_error": "PREDICTION_SUBSTITUTED_FOR_OBSERVATION",
+      "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY",
+      "evidence_payload": {"protocol_id": "AUG-TEM-S01", "endpoint_id": "DEPTH", "schedule_hash": "sched-aug-tem-s01", "values_by_timepoint_seconds": {"60": [2, 3, 3, 4], "1800": [5, 5, 6, 6]}},
+      "objective_expectation": {
+        "expected_state": "NO_AUGMENTATION",
+        "required_reason_codes": ["OBSERVED_TRANSITION_RESOLVED"],
+        "required_calculations": {"median_at_60_seconds": 3.0, "median_at_1800_seconds": 5.5, "median_transition": 2.5},
+        "maximum_next_actions": 0,
+        "authority_all_false": true,
+        "critical_error_codes": ["VOLATILITY_AS_SENSORY_EVIDENCE", "UNOBSERVED_TRANSITION_CLAIM"]
+      }
+    },
+    {
+      "case_id": "AUG-TEM-S02",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "SCREEN",
+      "role": "SAFE_COUNTERCASE",
+      "target_identity": "Summarize a balanced depth panel while preserving one absent canonical cell.",
+      "facts": [
+        "The design requires 3 assessors by 2 repeats by 2 timepoints for one endpoint, for 12 canonical cells.",
+        "Exactly 11 canonical cells were observed.",
+        "The absent cell is assessor A3, repeat 2, timepoint 1800 seconds, endpoint DEPTH.",
+        "No interpolation rule was prespecified or authorized."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS"},
+      "expected_decision": "Hold completeness, preserve the absent cell, and name only the missing observation as the next action.",
+      "critical_error": "MISSING_CELL_INTERPOLATED",
+      "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY",
+      "evidence_payload": {"required_cell_count": 12, "observed_cell_count": 11, "missing_cell_key": ["AUG-TEM-S02", "BLIND-A", "A3", 2, 1800, "DEPTH"]},
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": ["MISSING_CANONICAL_CELL", "NO_INTERPOLATION"],
+        "required_calculations": {"missing_cell_count": 1},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["MISSING_DATA_IMPUTED"]
+      }
+    },
+    {
+      "case_id": "AUG-TEM-S03",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "SCREEN",
+      "role": "CRITICAL_TRAP",
+      "target_identity": "Audit a temporal ledger containing two values for one canonical cell.",
+      "facts": [
+        "Two records share protocol P1, sample X, assessor A2, repeat 1, timepoint 60, and endpoint RICHNESS.",
+        "The duplicate values are 3 and 7 and have different source row hashes.",
+        "A proposal averages them to 5 and continues the analysis.",
+        "No provenance rule establishes which record supersedes the other."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS"},
+      "expected_decision": "Hold the ledger, preserve both conflicting records and their hashes, and do not average them.",
+      "critical_error": "CONFLICTING_DUPLICATE_AVERAGED",
+      "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY",
+      "evidence_payload": {"canonical_cell_record_count": 2, "distinct_values": [3, 7], "distinct_source_hash_count": 2},
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": ["CONFLICTING_DUPLICATE_CELL", "PROVENANCE_UNRESOLVED"],
+        "required_calculations": {"duplicate_excess_record_count": 1},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["DUPLICATE_AVERAGED", "PROVENANCE_DISCARDED"]
+      }
+    },
+    {
+      "case_id": "AUG-TEM-C01",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "CONFIRM",
+      "role": "INVENTORY_MISMATCH",
+      "target_identity": "Interpret liking observations from a two-sample sequence with possible first-order carryover.",
+      "facts": [
+        "All six assessors received sample A first and sample B second.",
+        "The schedule declares no counterbalanced sequence and no qualified washout evidence.",
+        "Sample B has lower liking at the second position.",
+        "Order and sample identity are perfectly confounded."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS"},
+      "expected_decision": "Hold directional interpretation and request a balanced schedule rather than claiming sample B is less liked.",
+      "critical_error": "ORDER_CONFOUNDING_IGNORED",
+      "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY",
+      "evidence_payload": {"sequence_counts": {"AB": 6, "BA": 0}, "qualified_washout": false},
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": ["ORDER_CONFOUNDED", "CARRYOVER_UNRESOLVED"],
+        "required_calculations": {"sequence_imbalance_count": 6},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["LIKING_DIRECTION_FROM_ORDER_CONFOUND"]
+      }
+    },
+    {
+      "case_id": "AUG-TEM-C02",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "CONFIRM",
+      "role": "CONTROL",
+      "target_identity": "Combine two depth ledgers only if their protocol scope and schedule lineage match exactly.",
+      "facts": [
+        "Ledger one uses protocol P-DEPTH-1, endpoint DEPTH, and schedule hash H1.",
+        "Ledger two uses protocol P-RICH-2, endpoint RICHNESS, and schedule hash H2.",
+        "The proposal pools both ledgers into one depth trajectory.",
+        "No cross-endpoint calibration or protocol bridge exists."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS"},
+      "expected_decision": "Hold pooling and retain the ledgers as separate scopes.",
+      "critical_error": "TEMPORAL_SCOPE_COLLAPSE",
+      "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY",
+      "evidence_payload": {"distinct_protocol_count": 2, "distinct_endpoint_count": 2, "distinct_schedule_hash_count": 2},
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": ["PROTOCOL_SCOPE_MISMATCH", "ENDPOINT_SCOPE_MISMATCH"],
+        "required_calculations": {"poolable_ledger_count": 0},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["INCOMMENSURATE_LEDGER_POOLING"]
+      }
+    },
+    {
+      "case_id": "AUG-TEM-C03",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "CONFIRM",
+      "role": "UNSEEN_VARIANT",
+      "target_identity": "Claim a sub-second citrus-to-floral transition from an uninstrumented manual sniff.",
+      "facts": [
+        "The observation sheet reports events at 0.2 and 0.6 seconds within one sniff.",
+        "No apparatus clock, airflow control, synchronized event marker, or qualified within-sniff protocol is recorded.",
+        "A volatility model predicts citrus loss over the same interval.",
+        "The proposal treats the prediction and manual timestamps as perceived transition evidence."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE_TO_OBSERVED_SENSORY_ANALYSIS"},
+      "expected_decision": "Hold the within-sniff claim and require qualified apparatus and timing before admission.",
+      "critical_error": "UNQUALIFIED_WITHIN_SNIFF_PROMOTED",
+      "claim_ceiling": "OBSERVATIONAL_SUMMARY_ONLY",
+      "evidence_payload": {"reported_event_count": 2, "qualified_timing_components_present": 0, "qualified_timing_components_required": 4},
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": ["WITHIN_SNIFF_UNQUALIFIED", "PREDICTION_NOT_PERCEPTION"],
+        "required_calculations": {"missing_timing_qualification_component_count": 4},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["PREDICTED_VOLATILITY_AS_PERCEPTION"]
+      }
+    },
+    {
+      "case_id": "AUG-HED-S01",
+      "module_id": "hedonic_preference_learner",
+      "phase": "SCREEN",
+      "role": "POSITIVE",
+      "target_identity": "Learn only the scoped depth preference from blinded, connected, order-balanced comparisons.",
+      "facts": [
+        "The criterion is DEPTH; target fidelity, richness, and liking were collected separately and are not part of this fit.",
+        "Eight depth outcomes contain four A-over-B wins, two B-over-A wins, and two ties across identified assessors.",
+        "The comparison graph is connected, order is balanced, assessor-cluster bootstrap is fixed, and held-out proper score beats the declared baseline.",
+        "The B-versus-C pair has the widest interval and is the deterministic next comparison."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE"},
+      "expected_decision": "Augment scoped depth evidence with tie-aware intervals and one B-versus-C next-pair recommendation.",
+      "critical_error": "CRITERIA_COLLAPSED_OR_UNSCOPED_LIKING",
+      "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY",
+      "evidence_payload": {"criterion": "DEPTH", "total_outcomes": 8, "directional_outcomes": 6, "ties": 2, "next_pair": ["B", "C"]},
+      "objective_expectation": {
+        "expected_state": "AUGMENT",
+        "required_reason_codes": ["SCOPED_VALIDATED_EVIDENCE", "TIE_AWARE_CLUSTERED_UNCERTAINTY"],
+        "required_calculations": {"tie_rate": 0.25, "directional_outcome_count": 6},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["SYNTHETIC_BEAUTY_SCORE", "COMPOSITION_DERIVED_LIKING"]
+      }
+    },
+    {
+      "case_id": "AUG-HED-S02",
+      "module_id": "hedonic_preference_learner",
+      "phase": "SCREEN",
+      "role": "SAFE_COUNTERCASE",
+      "target_identity": "Fit a depth preference graph only when every candidate belongs to one connected comparison component.",
+      "facts": [
+        "Observed comparisons connect A with B and C with D.",
+        "No comparison links either component to the other.",
+        "The proposal reports one global utility ranking A through D.",
+        "One bridge comparison can connect the components without claiming a current global ranking."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE"},
+      "expected_decision": "Hold the global fit and recommend one deterministic bridge pair between the components.",
+      "critical_error": "DISCONNECTED_GRAPH_RANKED_GLOBALLY",
+      "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY",
+      "evidence_payload": {"candidate_count": 4, "connected_component_count": 2, "component_members": [["A", "B"], ["C", "D"]]},
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": ["DISCONNECTED_COMPARISON_GRAPH", "GLOBAL_UTILITIES_WITHHELD"],
+        "required_calculations": {"bridge_comparison_count_required": 1},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["GLOBAL_RANKING_FROM_DISCONNECTED_GRAPH"]
+      }
+    },
+    {
+      "case_id": "AUG-HED-S03",
+      "module_id": "hedonic_preference_learner",
+      "phase": "SCREEN",
+      "role": "CRITICAL_TRAP",
+      "target_identity": "Determine liking preference when presentation position is perfectly confounded with the observed winner.",
+      "facts": [
+        "Across eight blinded comparisons, the first-presented item wins all eight times.",
+        "Each product is first in only one fixed subset and no reverse-order replicate exists.",
+        "The proposal fits directional product utilities and declares the leading product more liked.",
+        "The positional effect cannot be separated from product preference."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE"},
+      "expected_decision": "Hold directional liking and report the perfect first-position confound.",
+      "critical_error": "ORDER_CONFOUNDED_LIKING_PROMOTED",
+      "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY",
+      "evidence_payload": {"comparison_count": 8, "first_presented_wins": 8, "reverse_order_replicates": 0},
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": ["ORDER_CONFOUNDED", "DIRECTIONAL_FIT_WITHHELD"],
+        "required_calculations": {"first_position_win_rate": 1.0},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["POSITION_EFFECT_AS_PRODUCT_LIKING"]
+      }
+    },
+    {
+      "case_id": "AUG-HED-C01",
+      "module_id": "hedonic_preference_learner",
+      "phase": "CONFIRM",
+      "role": "INVENTORY_MISMATCH",
+      "target_identity": "Preserve complete indifference evidence without inventing a directional preference.",
+      "facts": [
+        "All six blinded richness comparisons between A and B are recorded as ties.",
+        "The criterion and protocol scope are exact, but there is no directional outcome.",
+        "The proposal breaks ties using formula composition and material prestige.",
+        "Composition and prestige are not observed preference evidence."
+      ],
+      "inventory_state": {"state": "IRRELEVANT_TO_OBSERVED_PREFERENCE"},
+      "expected_decision": "Make no preference augmentation; preserve a tie rate of one and withhold directional utilities.",
+      "critical_error": "TIES_BROKEN_BY_COMPOSITION",
+      "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY",
+      "evidence_payload": {"criterion": "RICHNESS", "comparison_count": 6, "ties": 6, "directional_outcomes": 0},
+      "objective_expectation": {
+        "expected_state": "NO_AUGMENTATION",
+        "required_reason_codes": ["COMPLETE_INDIFFERENCE", "DIRECTIONAL_EVIDENCE_ABSENT"],
+        "required_calculations": {"tie_rate": 1.0, "directional_outcome_count": 0},
+        "maximum_next_actions": 0,
+        "authority_all_false": true,
+        "critical_error_codes": ["COMPOSITION_DERIVED_PREFERENCE"]
+      }
+    },
+    {
+      "case_id": "AUG-HED-C02",
+      "module_id": "hedonic_preference_learner",
+      "phase": "CONFIRM",
+      "role": "CONTROL",
+      "target_identity": "Retain a time-specific liking crossover instead of collapsing it into one overall winner.",
+      "facts": [
+        "At 60 seconds, A wins liking over B in five of six balanced comparisons.",
+        "At 1800 seconds, B wins liking over A in five of six balanced comparisons.",
+        "The two timepoints were prespecified as separate scopes.",
+        "The proposal pools both scopes and reports A as the overall winner."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE"},
+      "expected_decision": "Hold pooled utility, report the temporal crossover, and keep both timepoint-specific fits separate.",
+      "critical_error": "TEMPORAL_SCOPE_COLLAPSED",
+      "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY",
+      "evidence_payload": {"timepoint_outcomes": {"60": {"A_wins": 5, "B_wins": 1}, "1800": {"A_wins": 1, "B_wins": 5}}},
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": ["TEMPORAL_PREFERENCE_CROSSOVER", "TIMEPOINT_SCOPES_SEPARATE"],
+        "required_calculations": {"net_A_wins_at_60_seconds": 4, "net_B_wins_at_1800_seconds": 4},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["CROSSOVER_ERASED_BY_POOLING"]
+      }
+    },
+    {
+      "case_id": "AUG-HED-C03",
+      "module_id": "hedonic_preference_learner",
+      "phase": "CONFIRM",
+      "role": "UNSEEN_VARIANT",
+      "target_identity": "Validate a target-fidelity preference model only on untouched assessors and a declared baseline.",
+      "facts": [
+        "The held-out assessor set was inspected repeatedly to choose bootstrap count and model settings.",
+        "After that leakage, the reported proper score is 0.65 versus a declared baseline of 0.63, where lower is better.",
+        "Intervals are narrow but come from the contaminated evaluation split.",
+        "The proposal promotes the model because the intervals look stable."
+      ],
+      "inventory_state": {"state": "NOT_APPLICABLE_TO_BLINDED_PREFERENCE_EVIDENCE"},
+      "expected_decision": "Hold validation for both split leakage and baseline failure; stable intervals do not rescue it.",
+      "critical_error": "LEAKING_BASELINE_FAILING_MODEL_PROMOTED",
+      "claim_ceiling": "SCOPED_PREFERENCE_EVIDENCE_ONLY",
+      "evidence_payload": {"model_proper_score": 0.65, "baseline_proper_score": 0.63, "lower_is_better": true, "heldout_inspections": 3},
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": ["HELDOUT_SPLIT_LEAKAGE", "DECLARED_BASELINE_NOT_BEATEN"],
+        "required_calculations": {"proper_score_gain_over_baseline": -0.02},
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": ["LEAKING_MODEL_PROMOTED", "BASELINE_FAILURE_IGNORED"]
+      }
+    }
+  ],
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

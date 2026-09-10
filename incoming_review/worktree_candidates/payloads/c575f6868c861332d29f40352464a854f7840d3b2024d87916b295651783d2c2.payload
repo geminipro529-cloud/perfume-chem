@@ -1,0 +1,27 @@
+﻿Code,ACC-WD-AMB-01
+Accord,Mineral Amberwood / Ambergris Wood v1.0
+Category,Woods
+Brief,"A multi-ambergris structure separating dry ambrox, mineral Ambrofix, radiant amberwoods and musks instead of using one huge amber molecule."
+Recommended use,3–20% of perfume concentrate
+Maturation,14–21 days
+Monte Carlo pass,1.0
+Final design score,100.0
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Ambrofix 40%,Ambrofix 40% working stock,0.4,168.0,67.2,168.0,840.0,PREPARED STOCK,ambergris,Mineral ambergris core,Higher-strength mineral ambergris.,HAVE — 40% STOCK,Formula must specify 30% or 40% stock explicitly.,,IDENTITY CRITICAL,0.0458347695283858
+2,base,Ambrox Super 33%,33% working stock,0.33,140.0,46.2,140.0,700.0,PREPARED STOCK,ambergris,Dry ambrox structure,Dry ambroxan structure.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.03336206595806676
+3,base,Amberwood F,neat/as supplied,1.0,74.66666666666667,74.66666666666667,74.66666666666667,373.33333333333337,DIRECT,amberwood,Dry amberwood,Dry woody-amber pressure.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.014259697155003949
+4,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,74.66666666666667,74.66666666666667,74.66666666666667,373.33333333333337,DIRECT,musk,Metallic-clean musk,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,IDENTITY CRITICAL,0.013461875326731938
+5,base,Norlimbanol Dextro 10%,10% in DEP,0.1,56.0,5.6000000000000005,56.0,280.0,PREPARED STOCK,amberwood,Long dry wood,Long dry amberwood.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.009582661588949184
+6,base,Romandolide,Romandolide neat/as supplied,1.0,56.0,56.0,56.0,280.0,DIRECT,musk,Fruity-clean musk,Fruity-clean musk body.,HAVE — NEAT,Use as neat Romandolide; no dilution or solvent assumption.,,IDENTITY CRITICAL,0.009097616383484832
+7,base,Zenolide,neat / as supplied,1.0,46.666666666666664,46.666666666666664,46.666666666666664,233.33333333333331,DIRECT,musk,Smooth musk,Smooth musk body.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.007187551127069777
+8,base,Ambermax 50%,50% working stock,0.5,42.0,21.0,42.0,210.0,PREPARED STOCK,amberwood,High-impact projection,High-impact amberwood.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.006582581764527303
+9,base,Galaxolide 50%,50% in DEP,0.5,37.333333333333336,18.666666666666668,37.333333333333336,186.66666666666669,PREPARED STOCK,musk,Diffusive soft musk,Soft diffusive musk.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.00544686533747964
+10,base,Cashmeran 20%,Cashmeran 20% in DPG,0.2,28.0,5.6000000000000005,28.0,140.0,PREPARED STOCK,warm_wood,Textile wood,Warm textile wood.,HAVE — MULTIPLE STOCKS,Formula must specify neat or 20% stock.,,TEXTURAL SUPPORT,0.003601965058046706
+11,base,Olibanum 50%,50% in DPG,0.5,28.0,14.0,28.0,140.0,PREPARED STOCK,incense,Mineral resin,Frankincense mineral resin.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0036019650580468056
+12,base,Ambrettolide 10%,10% in DPG,0.1,23.333333333333332,2.3333333333333335,23.333333333333332,116.66666666666666,PREPARED STOCK,musk,Warm skin musk,Warm skin musk.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0031338123979658085
+13,base,Cedarwood Virginia,neat / as supplied,1.0,23.333333333333332,23.333333333333332,23.333333333333332,116.66666666666666,DIRECT,cedar,Dry frame,Dry cedar frame.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.00289009918233057
+14,base,Exaltolide 10%,10% working stock,0.1,23.333333333333332,2.3333333333333335,23.333333333333332,116.66666666666666,PREPARED STOCK,musk,Macrocyclic softness,Soft macrocyclic roundness.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0031338123979658085
+15,heart_base,Iso E Super,neat / as supplied,1.0,158.66666666666666,158.66666666666666,158.66666666666666,793.3333333333333,DIRECT,transparent_wood,Transparent volume,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.045905148483869215
+16,carrier,DPG,neat,0.0,20.0,0.0,20.0,100.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

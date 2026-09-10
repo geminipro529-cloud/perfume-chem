@@ -1,0 +1,63 @@
+﻿Code,Y11
+Target,La Nuit de L’Homme L’Intense
+Version,HISTORICAL FLANKER
+Concentration,0.2
+30 mL concentrate µL,6000.0
+30 mL carrier µL,24000.0
+5 mL concentrate µL,1000.0
+5 mL carrier µL,4000.0
+Maturation,28 days
+Engine V2 score,95.3832739508341
+Monte Carlo pass probability,0.9538888888888889
+Outcome,SOL_5_6_PRO_ENGINE_V2_PASS
+Formula hash,343d0b32261d0e369b8ba1b578700d7fee219dfd9d02cce3f327937f7fb65e83
+
+Order,Stage,Material,Stock,Active fraction,Parts / 1000,30 mL µL,5 mL µL,Execution,Signature phase,Role,Module ancestry
+1,1 · Resins and sweet fixatives,Labdanum 10%,10% working stock,0.1,98.48459826991385,590.9075896194831,98.48459826991385,PREPARED STOCK,base,Cistus amber and leather.,La Nuit Dark Resin | Target-Specific Reinforcement
+2,1 · Resins and sweet fixatives,Vanillin 10%,10% working stock,0.1,91.75882082709047,550.5529249625429,91.75882082709047,PREPARED STOCK,base,Vanilla warmth.,La Nuit Dark Resin | Purple Iris Vanilla | Target-Specific Reinforcement
+3,1 · Resins and sweet fixatives,Siam Benzoin 50%,50% working stock,0.5,59.21086213057016,355.26517278342095,59.21086213057016,PREPARED STOCK,,Dense vanillic benzoin.,Purple Iris Vanilla | Target-Specific Reinforcement
+4,1 · Resins and sweet fixatives,Coumarin 20%,20% in DPG,0.2,30.769794084977402,184.6187645098644,30.769794084977402,PREPARED STOCK,,Hay-almond tonka warmth.,La Nuit Cardamom | La Nuit Dark Resin | Purple Iris Vanilla
+5,1 · Resins and sweet fixatives,Turkish Storax Tincture,10 g resin + 40 g ethanol; product basis,,15.012896077730773,90.07737646638464,15.012896077730773,PRODUCT BASIS,,Smoky cinnamic storax.,La Nuit Dark Resin
+6,1 · Resins and sweet fixatives,Olibanum 50%,50% in DPG,0.5,12.010316862184617,72.0619011731077,12.010316862184617,PREPARED STOCK,,Frankincense resin.,La Nuit Dark Resin
+7,1 · Resins and sweet fixatives,Tonka Bean Absolute 10%,10% working stock,0.1,3.9750960234133155,23.850576140479895,3.9750960234133155,PREPARED STOCK,,Natural tonka warmth.,La Nuit Cardamom
+8,"2 · Woods, leather and amber",Ambrofix 30%,30% working stock,0.3,26.290583611322123,157.74350166793275,26.290583611322123,PREPARED STOCK,,Mineral ambergris persistence.,La Nuit Dark Resin | Target-Specific Reinforcement | White Musk Frame
+9,"2 · Woods, leather and amber",Iso E Super,neat / as supplied,1.0,25.04095265620779,150.24571593724673,25.04095265620779,DIRECT,,Transparent woody scaffold.,La Nuit Cardamom | La Nuit Dark Resin | White Musk Frame
+10,"2 · Woods, leather and amber",Cedarwood Virginia,neat / as supplied,1.0,23.935604932424567,143.6136295945474,23.935604932424567,DIRECT,,Dry cedar frame.,La Nuit Cardamom | La Nuit Dark Resin
+11,"2 · Woods, leather and amber",Vetiver EO,neat / as supplied,1.0,22.9630881245574,137.7785287473444,22.9630881245574,DIRECT,,Rooty natural vetiver.,La Nuit Cardamom | La Nuit Dark Resin
+12,"2 · Woods, leather and amber",Patchouli EO,neat / as supplied,1.0,15.012896077730773,90.07737646638464,15.012896077730773,DIRECT,,Earthy patchouli.,La Nuit Dark Resin
+13,"2 · Woods, leather and amber",Suederal 10%,10% working stock,0.1,6.005158431092308,36.03095058655385,6.005158431092308,PREPARED STOCK,,Soft suede leather.,La Nuit Dark Resin
+14,3 · Musks and diffusion,Habanolide,neat / verify label,1.0,41.107913467580154,246.6474808054809,41.107913467580154,DIRECT · VERIFY LABEL,,Radiant metallic-clean musk.,La Nuit Cardamom | Target-Specific Reinforcement | White Musk Frame
+15,3 · Musks and diffusion,Romandolide,neat / verify label,1.0,17.35490786585677,104.12944719514063,17.35490786585677,DIRECT · VERIFY LABEL,,Fruity-clean musk body.,White Musk Frame
+16,3 · Musks and diffusion,Galaxolide 50%,50% in DEP,0.5,12.148435506099739,72.89061303659844,12.148435506099739,PREPARED STOCK,,Soft musk volume.,White Musk Frame
+17,3 · Musks and diffusion,Zenolide,neat / as supplied,1.0,8.677453932928385,52.064723597570314,8.677453932928385,DIRECT,,Smooth musk.,White Musk Frame
+18,3 · Musks and diffusion,Ambrettolide 10%,10% in DPG,0.1,6.94196314634271,41.651778878056255,6.94196314634271,PREPARED STOCK,,Warm ambrette musk.,White Musk Frame
+19,3 · Musks and diffusion,Exaltolide 10%,10% working stock,0.1,6.94196314634271,41.651778878056255,6.94196314634271,PREPARED STOCK,,Soft macrocyclic musk.,White Musk Frame
+20,3 · Musks and diffusion,Macrolide,as supplied,1.0,4.3387269664641925,26.032361798785157,4.3387269664641925,DIRECT,,Soft macrocyclic musk.,White Musk Frame
+21,"4 · Iris, floral and green heart",Heliotropal 10%,10% working stock,0.1,85.75366239599818,514.5219743759891,85.75366239599818,PREPARED STOCK,heart,Powdered almond-heliotrope.,Purple Iris Vanilla | Target-Specific Reinforcement
+22,"4 · Iris, floral and green heart",Alpha Isomethyl Ionone,neat / as supplied,1.0,75.54489306314125,453.26935837884747,75.54489306314125,DIRECT,heart,Powdery violet-orris body.,Purple Iris Vanilla | Target-Specific Reinforcement
+23,"4 · Iris, floral and green heart",Orris Liquid 30%,30% product stock,,74.52401612985554,447.14409677913324,74.52401612985554,PRODUCT BASIS,heart,Orris product body.,Purple Iris Vanilla | Target-Specific Reinforcement
+24,"4 · Iris, floral and green heart",Orivone,neat / as supplied,1.0,56.14823133071308,336.88938798427847,56.14823133071308,DIRECT,,Dry rooty iris-wood.,Purple Iris Vanilla | Target-Specific Reinforcement
+25,"4 · Iris, floral and green heart",Hedione,neat / as supplied,1.0,30.626307998570773,183.75784799142463,30.626307998570773,DIRECT,,Airy jasmine diffusion.,Purple Iris Vanilla
+26,"4 · Iris, floral and green heart",Dihydro Beta Ionone,neat / as supplied,1.0,24.501046398856616,147.0062783931397,24.501046398856616,DIRECT,,Dry woody violet.,Purple Iris Vanilla
+27,"4 · Iris, floral and green heart",Alpha Irone 30%,30% w/w in IPM,0.3,18.375784799142462,110.25470879485478,18.375784799142462,PREPARED STOCK,,Naturalistic irone signature.,Purple Iris Vanilla
+28,"4 · Iris, floral and green heart",Violet Leaf Absolute 10%,10% working stock,0.1,15.313153999285387,91.87892399571231,15.313153999285387,PREPARED STOCK,,Cool metallic violet leaf.,Purple Iris Vanilla
+29,"4 · Iris, floral and green heart",Jasmine Absolute 10%,10% working stock,0.1,0.45939461997856157,2.756367719871369,0.45939461997856157,TRACE PREMIX,,Warm natural jasmine.,Precision Trace Architecture
+30,"4 · Iris, floral and green heart",Molecule Iris,as supplied,1.0,0.45939461997856157,2.756367719871369,0.45939461997856157,TRACE PREMIX,,Transparent iris texture.,Precision Trace Architecture
+31,"4 · Iris, floral and green heart",Rose Oxide 1%,1% working stock,0.01,0.45939461997856157,2.756367719871369,0.45939461997856157,TRACE PREMIX,,Metallic rose and pepper lift.,Precision Trace Architecture
+32,"4 · Iris, floral and green heart",Beta Ionone,neat / as supplied,1.0,0.3955898116482059,2.3735388698892352,0.3955898116482059,TRACE PREMIX,,Deep violet body.,Precision Trace Architecture
+33,"4 · Iris, floral and green heart",Magnolia EO,neat / as supplied,1.0,0.3955898116482059,2.3735388698892352,0.3955898116482059,TRACE PREMIX,,Creamy citrus-white-floral detail.,Precision Trace Architecture
+34,"4 · Iris, floral and green heart",Indole 10%,10% working stock,0.1,0.33178500331785005,1.9907100199071002,0.33178500331785005,TRACE PREMIX,,Indolic floral shadow.,Precision Trace Architecture
+35,"4 · Iris, floral and green heart",Carrot Seed EO 10%,10% working stock,0.1,0.26798019498749426,1.6078811699249655,0.26798019498749426,TRACE PREMIX,,Rooty carrot-rhizome nuance.,Precision Trace Architecture
+36,"4 · Iris, floral and green heart",Farnesol,neat / as supplied,1.0,0.26798019498749426,1.6078811699249655,0.26798019498749426,TRACE PREMIX,,Warm floral persistence.,Precision Trace Architecture
+37,"4 · Iris, floral and green heart",Damascenone 1%,1% working stock,0.01,0.20417538665713847,1.225052319942831,0.20417538665713847,TRACE PREMIX,,High-impact fruit-rose radiance.,Precision Trace Architecture
+38,"4 · Iris, floral and green heart",Jasmine Sambac Absolute 10%,10% working stock,0.1,0.20417538665713847,1.225052319942831,0.20417538665713847,TRACE PREMIX,,Green-fruity jasmine.,Precision Trace Architecture
+39,"4 · Iris, floral and green heart",Undecavertol 1%,1% working stock,0.01,0.20417538665713847,1.225052319942831,0.20417538665713847,TRACE PREMIX,,Wet green-leaf detail.,Precision Trace Architecture
+40,5 · Aromatics and spices,Black Pepper EO,neat / as supplied,1.0,22.98434532254357,137.90607193526142,22.98434532254357,DIRECT,,Dry pepper sparkle.,La Nuit Cardamom | La Nuit Dark Resin
+41,5 · Aromatics and spices,Cardamom EO,neat / as supplied,1.0,21.863028128773237,131.17816877263942,21.863028128773237,DIRECT,top,Cool green cardamom.,La Nuit Cardamom
+42,5 · Aromatics and spices,Lavender EO High Altitude,neat / as supplied,1.0,13.912836081946603,83.47701649167962,13.912836081946603,DIRECT,,Lavender body.,La Nuit Cardamom
+43,5 · Aromatics and spices,Linalyl Acetate,neat / as supplied,1.0,9.937740058533288,59.626440351199726,9.937740058533288,DIRECT,,Lavender-citrus diffusion.,La Nuit Cardamom
+44,5 · Aromatics and spices,Linalool,neat / as supplied,1.0,5.962644035119974,35.77586421071984,5.962644035119974,DIRECT,,Fresh floral-aromatic lift.,La Nuit Cardamom
+45,6 · Citrus and volatile top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,11.925288070239947,71.55172842143968,11.925288070239947,DIRECT,,Floral bitter citrus lift.,La Nuit Cardamom
+46,6 · Citrus and volatile top,Aldehyde C12 MNA 1%,1% working stock,0.01,0.3955898116482059,2.3735388698892352,0.3955898116482059,TRACE PREMIX,,Waxy aldehydic diffusion.,Precision Trace Architecture
+47,6 · Citrus and volatile top,Aldehyde C11 1%,1% working stock,0.01,0.33178500331785005,1.9907100199071002,0.33178500331785005,TRACE PREMIX,,Fresh aldehydic extension.,Precision Trace Architecture
+48,6 · Citrus and volatile top,Aldehyde C10 1%,1% working stock,0.01,0.26798019498749426,1.6078811699249655,0.26798019498749426,TRACE PREMIX,,Citrus aldehydic lift.,Precision Trace Architecture

@@ -1,0 +1,213 @@
+from __future__ import annotations
+
+import hashlib
+import re
+from pathlib import Path
+
+import pytest
+
+from engine.pipeline.preflight import resolve_inventory_stock_contract
+from scripts.verify_formula_workflow import (
+    _formula_bound_mixing_protocol,
+    parse_formula_markdown,
+)
+
+ROOT = Path(__file__).resolve().parents[1]
+FORMULA = ROOT / "formulas" / "CYP-02_Cypress_Magnolia_Orris_30mL_Parfum.md"
+
+
+def test_cyp02_is_a_frozen_historical_formula_on_current_inventory_hold() -> None:
+    formulas = parse_formula_markdown(FORMULA)
+
+    assert len(formulas) == 1
+    formula = formulas[0]
+    assert formula["name"] == (
+        "HISTORICAL-INVENTORY BUILD — parser-visible formula (NON-EXECUTABLE)"
+    )
+    ingredients = formula["ingredients_ul"]
+    dilutions = formula["dilutions"]
+
+    assert len(ingredients) == 32
+    assert sum(ingredients.values()) == pytest.approx(6000.0)
+    assert all(raw_ul >= 10.0 for raw_ul in ingredients.values())
+
+    assert ingredients["Cypress EO"] == 650.0
+    assert ingredients["Magnolia EO"] == 150.0
+    assert dilutions["Magnolia EO"] == pytest.approx(1.0)
+    assert formula["stock_specs"]["Magnolia EO"] == {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "approximate": False,
+        "declared": True,
+        "raw": "neat/as supplied",
+    }
+    assert ingredients["Orris Liquid"] == 120.0
+    assert dilutions["Orris Liquid"] == pytest.approx(0.30)
+    assert ingredients["Alpha Irone"] == 50.0
+    assert dilutions["Alpha Irone"] == pytest.approx(0.10)
+    assert ingredients["Ambrettolide"] == 320.0
+    assert dilutions["Ambrettolide"] == pytest.approx(0.10)
+
+    stock_contract = resolve_inventory_stock_contract(formula)
+    assert stock_contract.status == "FAIL"
+    issues = {issue["material"]: issue for issue in stock_contract.data["issues"]}
+
+    assert issues["Orris Liquid"]["reason"] == "stock_fraction_mismatch"
+    assert issues["Orris Liquid"]["formula_dilution"] == pytest.approx(0.30)
+    assert issues["Orris Liquid"]["inventory_dilutions"] == pytest.approx([0.09])
+    assert issues["Orris Liquid"]["active_multiplier_if_live_stock_used"] == (
+        pytest.approx([0.30])
+    )
+
+    assert issues["Evernyl"]["reason"] == "stock_fraction_mismatch"
+    assert issues["Evernyl"]["formula_dilution"] == pytest.approx(0.20)
+    assert issues["Evernyl"]["inventory_dilutions"] == pytest.approx([0.10])
+    assert issues["Evernyl"]["active_multiplier_if_live_stock_used"] == (
+        pytest.approx([0.50])
+    )
+
+
+def test_cyp02_keeps_cypress_as_subject_and_uses_one_precise_musk() -> None:
+    text = FORMULA.read_text(encoding="utf-8")
+    formula = parse_formula_markdown(FORMULA)[0]
+    ingredients = formula["ingredients_ul"]
+
+    assert "Cypress is the sole named and continuous subject" in text
+    assert "ingredient count earns no complexity credit" in text
+    assert "Magnolia petal-light" in text
+    assert "Orris rhizome-shadow" in text
+
+    musk_names = {
+        "Ambrettolide",
+        "Romandolide",
+        "Habanolide",
+        "Ethylene Brassylate",
+        "Exaltolide",
+        "Zenolide",
+        "Tonalide",
+        "Macrolide",
+        "Musk Ketone",
+    }
+    assert musk_names.intersection(ingredients) == {"Ambrettolide"}
+
+
+def test_cyp02_excludes_held_and_target_redefining_materials() -> None:
+    ingredients = parse_formula_markdown(FORMULA)[0]["ingredients_ul"]
+    excluded = {
+        "Benzyl Salicylate",
+        "Bacdanol",
+        "Guaiacwood EO",
+        "Ambrofix",
+        "Liffarome",
+        "Cis-3-Hexenyl Salicylate",
+        "Caryophyllene Acetate",
+        "Cedarwood oil Virginia",
+    }
+    assert excluded.isdisjoint(ingredients)
+
+
+def test_cyp02_preserves_target_historical_separation_and_current_hold() -> None:
+    text = FORMULA.read_text(encoding="utf-8")
+
+    assert "## 3. TARGET / IDEAL FORMULA" in text
+    assert (
+        "## 4. HISTORICAL-INVENTORY BUILD — parser-visible formula "
+        "(NON-EXECUTABLE)"
+    ) in text
+    assert "Artifact lineage:** `HISTORICAL_RECORDED`" in text
+    assert "Current-inventory execution:** `HOLD`" in text
+    assert "Current successor:** `NOT CREATED`" in text
+    assert "Current buildability:** `HOLD / NON-EXECUTABLE`" in text
+    assert "| Current-inventory execution | `HOLD` |" in text
+    assert "Physical state:** `NOT COMPOUNDED`" in text
+    assert "Sensory / liking / depth / performance / stability:** `NOT TESTED`" in text
+    assert "Safety / IFRA / skin-use / release:** `HOLD`" in text
+    assert "observed hedonism: false" in text
+    assert "compounding authority: false" in text
+    assert "raw µL are executable under the current stock" not in text
+    assert "raw-volume design is current-stock executable" not in text
+    assert "| Current-stock raw-dose design | `DESIGN_READY` |" not in text
+
+
+def test_cyp02_preserves_historical_dose_bytes_and_embedded_diagnostics() -> None:
+    raw = FORMULA.read_bytes()
+    analysis_start = b"<!-- PIPELINE_ANALYSIS_START -->"
+    analysis_end = b"<!-- PIPELINE_ANALYSIS_END -->"
+    protocol_start = b"<!-- FORMULA_MIXING_PROTOCOL_START -->"
+    protocol_end = b"<!-- FORMULA_MIXING_PROTOCOL_END -->"
+
+    pre_analysis = raw[: raw.index(analysis_start)]
+    numbered_dose_rows = b"".join(
+        line
+        for line in pre_analysis.splitlines(keepends=True)
+        if re.match(rb"\|\s*\d+\s*\|", line)
+    )
+    assert numbered_dose_rows.count(b"\n") == 64
+    assert hashlib.sha256(numbered_dose_rows).hexdigest() == (
+        "cb8e0c897adf98a73f80304cc6479b794acb68745cb48b12da7770e1e82c3122"
+    )
+
+    historical_protocol = raw[
+        raw.index(protocol_start) : raw.index(protocol_end) + len(protocol_end)
+    ]
+    assert hashlib.sha256(historical_protocol).hexdigest() == (
+        "fe2468537135a9b381030774a6e93f923d00171b418d02f31c6ae800c7fbfd4c"
+    )
+
+    embedded_diagnostics = raw[
+        raw.index(analysis_start) : raw.index(analysis_end) + len(analysis_end)
+    ]
+    assert hashlib.sha256(embedded_diagnostics).hexdigest() == (
+        "22cb29dd6491d24abebe79ef4d249d22327bf34d34c4bcc838d4612182cda38e"
+    )
+
+
+def test_cyp02_uses_the_user_basket_sequence_and_descending_raw_doses() -> None:
+    text = FORMULA.read_text(encoding="utf-8")
+    current = text.split(
+        "## 4. HISTORICAL-INVENTORY BUILD — parser-visible formula "
+        "(NON-EXECUTABLE)",
+        1,
+    )[1].split("## 5. Missing-chemical impact gate", 1)[0]
+
+    headings = re.findall(r"^\*\*BASKET (\d+) —", current, flags=re.MULTILINE)
+    assert headings == [str(number) for number in range(1, 18)]
+
+    for basket in range(1, 18):
+        start = current.index(f"**BASKET {basket} —")
+        if basket < 17:
+            end = current.index(f"**BASKET {basket + 1} —", start)
+        else:
+            end = current.index("**CARRIER / TECHNICAL", start)
+        section = current[start:end]
+        raw_values = [
+            float(value.replace(",", ""))
+            for value in re.findall(
+                r"^\|\s*\d+\s*\|[^\n]*?\|\s*([\d,]+(?:\.\d+)?)\s*\|",
+                section,
+                flags=re.MULTILINE,
+            )
+        ]
+        assert raw_values == sorted(raw_values, reverse=True)
+
+
+def test_cyp02_preserves_the_historical_basket_protocol_without_authority() -> None:
+    formula = parse_formula_markdown(FORMULA)[0]
+    protocol = _formula_bound_mixing_protocol(
+        formula["body"],
+        formula_name=formula["name"],
+        total_materials=len(formula["ingredients_ul"]),
+        total_pct=sum(formula["ingredients_pct"].values()),
+    )
+
+    assert protocol is not None
+    rendered = protocol["full_text"]
+    assert "Use a fresh tip whenever moving to a new material" in rendered
+    assert "1. **Always used:** Iso E Super 900; Hedione 880." in rendered
+    assert "17. **Green smelling things:** Parmavert 80" in rendered
+    assert "PHASE 1: PRE-BONDING" not in rendered
+    assert "Add Orris Liquid (2.0%)" not in rendered
+
+    text = FORMULA.read_text(encoding="utf-8")
+    assert "PRESERVED_FOR_PROVENANCE / DO NOT COMPOUND" in text

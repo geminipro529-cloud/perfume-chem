@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "capture_id": "20260818T015707+0700-validation-report-base64-6a79b172",
+  "captured_at": "2026-08-18T01:57:07+07:00",
+  "scope": "LOCAL_EXACT_BYTE_QUARANTINE_INTAKE_ONLY",
+  "source": {
+    "chat_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+    "chat_title": "Perfume Making Consultant",
+    "source_turn_id": "7be4588c-1e7c-45f7-9721-13a19c0a42ba",
+    "source_message_id": "2467d5f7-8168-439b-a330-3ebb12c536b2",
+    "original_content_reference_index": 7,
+    "reexposed_content_reference_index": 2,
+    "base64_canary_turn_id": "caa5d5de-ccd1-4058-8b36-97b7be475106",
+    "base64_canary_message_id": "7d4db3d4-99a1-4d74-8701-3b05f73cbe4f",
+    "reported_original_attachment_bytes_read": true
+  },
+  "object": {
+    "filename": "VALIDATION_REPORT.json",
+    "bytes": 7672,
+    "sha256": "2f01d1e3a16927a4d49e98f258293d62104de5ca1f1db9d909ebf33583770494",
+    "mime_type": "application/json",
+    "relationship": "standalone_validation_companion",
+    "quarantine_path": "D:\\chatbots\\perfume-chem\\incoming_review\\chatgpt\\20260818T015707+0700-validation-report-base64-6a79b172\\VALIDATION_REPORT.json"
+  },
+  "exact_byte_validation": {
+    "base64_rfc4648_characters": 10232,
+    "decoded_bytes_match": true,
+    "sha256_match": true,
+    "strict_utf8_parse": true,
+    "json_parse": true
+  },
+  "local_content_validation": {
+    "portfolio_id": "Complex_Perfumery_11_Commercial_Formula_Portfolio_Aug2026_v1",
+    "formula_count": 11,
+    "check_count": 69,
+    "pass_checks": 69,
+    "overall": "PASS",
+    "aggregate_authority": "WITHHELD"
+  },
+  "admission": {
+    "quarantine_intake_complete": true,
+    "native_installation_eligible": false,
+    "canonical_repository_files_modified": false,
+    "source_admission": false,
+    "package_installation": false,
+    "formula_authority": false,
+    "inventory_mutation": false,
+    "stock_authority": false,
+    "bottle_authority": false,
+    "physical_execution": false,
+    "sensory_authority": false,
+    "analytical_authority": false,
+    "measured_headspace_authority": false,
+    "strict_empirical_oav_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "repository_installation": false,
+    "publication_authority": false,
+    "release_authority": false
+  }
+}

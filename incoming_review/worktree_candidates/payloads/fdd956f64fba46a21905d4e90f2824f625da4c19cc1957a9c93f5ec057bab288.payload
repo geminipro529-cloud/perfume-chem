@@ -1,0 +1,63 @@
+﻿Code,O06
+Target,Honeyed Green Woods
+Version,ORIGINAL DESIGN
+Concentration,0.22
+30 mL concentrate µL,6600.0
+30 mL carrier µL,23400.0
+5 mL concentrate µL,1100.0
+5 mL carrier µL,3900.0
+Maturation,28 days
+Engine V2 score,95.37023230059235
+Monte Carlo pass probability,0.98
+Outcome,SOL_5_6_PRO_ENGINE_V2_PASS
+Formula hash,b1f5b961824b4d4604c6485ee782f1ebb29dba58353e8691899f213ebd1ef42e
+
+Order,Stage,Material,Stock,Active fraction,Parts / 1000,30 mL µL,5 mL µL,Execution,Signature phase,Role,Module ancestry
+1,1 · Resins and sweet fixatives,Immortelle Absolute 10%,10% working stock,0.1,70.58513094531301,465.86186423906594,77.64364403984432,PREPARED STOCK,heart,"Hay, maple and warm spice.",Honeyed Green Woods | Target-Specific Reinforcement
+2,1 · Resins and sweet fixatives,Vietnamese Benzoin Tincture,10 g resin + 40 g ethanol; product basis,,60.9538887789432,402.2956659410251,67.04927765683752,PRODUCT BASIS,,Natural benzoin tincture.,Honeyed Green Woods
+3,1 · Resins and sweet fixatives,Oakmoss Absolute 10%,10% working stock,0.1,60.426149482155814,398.8125865822284,66.4687644303714,PREPARED STOCK,base,Natural moss depth.,Honeyed Green Woods | Target-Specific Reinforcement
+4,1 · Resins and sweet fixatives,Vanillin 10%,10% working stock,0.1,25.397453657893,167.6231941420938,27.9371990236823,PREPARED STOCK,,Vanilla warmth.,Honeyed Green Woods
+5,"2 · Woods, leather and amber",Vetiver EO,neat / as supplied,1.0,67.35272775249028,444.52800316643584,74.08800052773931,DIRECT,base,Rooty natural vetiver.,Dry Woods | Honeyed Green Woods | Target-Specific Reinforcement
+6,"2 · Woods, leather and amber",Iso E Super,neat / as supplied,1.0,59.96437759746686,395.76489214328126,65.96081535721355,DIRECT,,Transparent woody scaffold.,Dry Woods | Honeyed Green Woods | White Musk Frame
+7,"2 · Woods, leather and amber",Ambrofix 30%,30% working stock,0.3,30.37799327132397,200.4947555907382,33.41579259845636,PREPARED STOCK,,Mineral ambergris persistence.,Dry Woods | Honeyed Green Woods | White Musk Frame
+8,"2 · Woods, leather and amber",Cedarwood Virginia,neat / as supplied,1.0,0.4947555907381753,3.265386898871957,0.5442311498119928,TRACE PREMIX,,Dry cedar frame.,Dry Woods
+9,"2 · Woods, leather and amber",Sandalore,neat / as supplied,1.0,0.32983706049211686,2.1769245992479713,0.36282076654132855,TRACE PREMIX,,Creamy sandalwood.,Dry Woods
+10,"2 · Woods, leather and amber",Vertofix,neat / as supplied,1.0,0.26386964839369353,1.7415396793983773,0.29025661323306284,TRACE PREMIX,,Vetiver-cedar volume.,Dry Woods
+11,"2 · Woods, leather and amber",Vetival,neat / as supplied,1.0,0.26386964839369353,1.7415396793983773,0.29025661323306284,TRACE PREMIX,,Polished vetiver.,Dry Woods
+12,"2 · Woods, leather and amber",Polysantol,neat / as supplied,1.0,0.19790223629527012,1.3061547595487828,0.21769245992479713,TRACE PREMIX,,Persistent sandalwood.,Dry Woods
+13,"2 · Woods, leather and amber",Ambrox Super 33%,33% working stock,0.33,0.16491853024605843,1.0884622996239857,0.18141038327066428,TRACE PREMIX,,Dry mineral amber.,Dry Woods
+14,"2 · Woods, leather and amber",Amberwood F,neat / as supplied,1.0,0.09895111814763506,0.6530773797743914,0.10884622996239857,TRACE PREMIX,,Dry woody-amber pressure.,Dry Woods
+15,"2 · Woods, leather and amber",Clearwood,neat / as supplied,1.0,0.06596741209842338,0.4353849198495943,0.07256415330826571,TRACE PREMIX,,Clean patchouli wood.,Dry Woods
+16,3 · Musks and diffusion,Habanolide,neat / verify label,1.0,28.4979220265189,188.08628537502474,31.34771422917079,DIRECT · VERIFY LABEL,,Radiant metallic-clean musk.,White Musk Frame
+17,3 · Musks and diffusion,Romandolide,neat / verify label,1.0,23.748268355432415,156.73857114585394,26.123095190975658,DIRECT · VERIFY LABEL,,Fruity-clean musk body.,White Musk Frame
+18,3 · Musks and diffusion,Galaxolide 50%,50% in DEP,0.5,16.623787848802692,109.71699980209777,18.28616663368296,PREPARED STOCK,,Soft musk volume.,White Musk Frame
+19,3 · Musks and diffusion,Zenolide,neat / as supplied,1.0,11.874134177716208,78.36928557292697,13.061547595487829,DIRECT,,Smooth musk.,White Musk Frame
+20,3 · Musks and diffusion,Ambrettolide 10%,10% in DPG,0.1,9.499307342172965,62.695428458341574,10.449238076390262,PREPARED STOCK,,Warm ambrette musk.,White Musk Frame
+21,3 · Musks and diffusion,Exaltolide 10%,10% working stock,0.1,9.499307342172965,62.695428458341574,10.449238076390262,PREPARED STOCK,,Soft macrocyclic musk.,White Musk Frame
+22,3 · Musks and diffusion,Macrolide,as supplied,1.0,5.937067088858104,39.184642786463485,6.530773797743914,DIRECT,,Soft macrocyclic musk.,White Musk Frame
+23,"4 · Iris, floral and green heart",Benzyl Salicylate,neat / as supplied,1.0,87.19092768172521,575.4601226993865,95.91002044989774,DIRECT,,Floral body and fixation.,Honeyed Green Woods | Iris Petal Air
+24,"4 · Iris, floral and green heart",Leafovert,as supplied,1.0,67.02289069199816,442.3510785671878,73.72517976119796,DIRECT,heart,Leafy salicylate bridge.,Honeyed Green Woods | Target-Specific Reinforcement
+25,"4 · Iris, floral and green heart",Magnolia EO,neat / as supplied,1.0,65.87745653647097,434.79121314070846,72.46520219011808,DIRECT,heart,Creamy citrus-white-floral detail.,Honeyed Green Woods | Iris Petal Air | Target-Specific Reinforcement
+26,"4 · Iris, floral and green heart",Hedione,neat / as supplied,1.0,41.229632561514606,272.1155749059964,45.35259581766607,DIRECT,,Airy jasmine diffusion.,Iris Petal Air
+27,"4 · Iris, floral and green heart",Verdox,neat / as supplied,1.0,30.4769443894716,201.14783297051255,33.52463882841876,DIRECT,,Green woody-fruit body.,Honeyed Green Woods
+28,"4 · Iris, floral and green heart",Jasmine Sambac Absolute 10%,10% working stock,0.1,25.940185548339123,171.2052246190382,28.534204103173035,PREPARED STOCK,,Green-fruity jasmine.,Honeyed Green Woods | Iris Petal Air
+29,"4 · Iris, floral and green heart",Violet Leaf Absolute 10%,10% working stock,0.1,20.3179629263144,134.09855531367506,22.34975921894584,PREPARED STOCK,,Cool metallic violet leaf.,Honeyed Green Woods
+30,"4 · Iris, floral and green heart",Phenethyl Alcohol,neat / as supplied,1.0,18.74074207341573,123.68889768454382,20.614816280757303,DIRECT,,Rose-floral body.,Iris Petal Air
+31,"4 · Iris, floral and green heart",Rose EO,neat / as supplied,1.0,15.2384721947358,100.57391648525628,16.76231941420938,DIRECT,,Natural rose complexity.,Honeyed Green Woods
+32,"4 · Iris, floral and green heart",Florol,neat / as supplied,1.0,14.992593658732588,98.95111814763509,16.491853024605845,DIRECT,,Clean floral volume.,Iris Petal Air
+33,"4 · Iris, floral and green heart",Nympheal,as supplied; product basis,,14.992593658732588,98.95111814763509,16.491853024605845,PRODUCT BASIS,,Modern watery muguet.,Iris Petal Air
+34,"4 · Iris, floral and green heart",Hydroxycitronellal,neat / as supplied,1.0,13.118519451391013,86.58222837918069,14.430371396530115,DIRECT,,Muguet softness.,Iris Petal Air
+35,"4 · Iris, floral and green heart",Jasmine Absolute 10%,10% working stock,0.1,7.496296829366294,49.47555907381754,8.245926512302923,PREPARED STOCK,,Warm natural jasmine.,Iris Petal Air
+36,"4 · Iris, floral and green heart",Farnesol,neat / as supplied,1.0,3.748148414683147,24.73777953690877,4.122963256151461,DIRECT,,Warm floral persistence.,Iris Petal Air
+37,"4 · Iris, floral and green heart",Methyl Anthranilate,neat / as supplied,1.0,1.8740742073415735,12.368889768454386,2.0614816280757307,DIRECT,,Orange-flower and jasmine depth.,Iris Petal Air
+38,"4 · Iris, floral and green heart",Rose Oxide 1%,1% working stock,0.01,0.5937067088858103,3.9184642786463484,0.6530773797743914,TRACE PREMIX,,Metallic rose and pepper lift.,Precision Trace Architecture
+39,5 · Aromatics and spices,Linalool,neat / as supplied,1.0,16.73417517792722,110.44555617431965,18.40759269571994,DIRECT,,Fresh floral-aromatic lift.,Citrus Polish | Iris Petal Air
+40,5 · Aromatics and spices,Linalyl Acetate,neat / as supplied,1.0,7.363804141219354,48.60110733204773,8.10018455534129,DIRECT,,Lavender-citrus diffusion.,Citrus Polish
+41,6 · Citrus and volatile top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,20.250461388353223,133.65304516313125,22.275507527188545,DIRECT,top,Floral bitter citrus lift.,Citrus Polish
+42,6 · Citrus and volatile top,Lemon FCF Oil Sicilian,neat / as supplied,1.0,14.727608282438707,97.20221466409546,16.20036911068258,DIRECT,,Bright lemon peel.,Citrus Polish
+43,6 · Citrus and volatile top,Grapefruit FCF Oil,neat / verify label,1.0,9.204755176524193,60.751384165059676,10.125230694176611,DIRECT · VERIFY LABEL,,Bitter grapefruit peel.,Citrus Polish
+44,6 · Citrus and volatile top,Petitgrain EO Paraguay,neat / as supplied,1.0,9.204755176524193,60.751384165059676,10.125230694176611,DIRECT,,Green bitter-orange twig.,Citrus Polish
+45,6 · Citrus and volatile top,Blood Orange Oil Sicilian,neat / as supplied,1.0,7.363804141219354,48.60110733204773,8.10018455534129,DIRECT,,Rounded orange peel.,Citrus Polish
+46,6 · Citrus and volatile top,Aldehyde C10 1%,1% working stock,0.01,1.8409510353048384,12.150276833011933,2.0250461388353225,PREPARED STOCK,,Citrus aldehydic lift.,Citrus Polish
+47,6 · Citrus and volatile top,Aldehyde C11 1%,1% working stock,0.01,0.9204755176524192,6.0751384165059665,1.0125230694176612,PREPARED STOCK,,Fresh aldehydic extension.,Citrus Polish
+48,6 · Citrus and volatile top,Aldehyde C12 MNA 1%,1% working stock,0.01,0.9204755176524192,6.0751384165059665,1.0125230694176612,PREPARED STOCK,,Waxy aldehydic diffusion.,Citrus Polish

@@ -1,0 +1,76 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v8",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-10",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260908_romandolide.json",
+    "normalized_text_sha256": "7265242bd4136333d592004b4ddb9382cd0cd8a1ad364b75085e98290f1a98d8"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 23891,
+    "inventory_text_sha256": "ac1ffa43fb4cd1c11812b19213ba00078dfed6f84ee71b4504e5929850c393d0",
+    "confirmed_receipt": "data/governance/inventory_user_confirmation_20260910_florhydral.json",
+    "confirmed_receipt_sha256": "ff481e5e993f749ce6a5ee0dd8a9606b698c03a17caeac86d1c3adf85065389d"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "bind_only_source_declared_stock_facts": true,
+    "stock_solution_density_assumed": false,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [],
+  "records": [
+    {
+      "record_id": "INV-USER-20260910-FLORHYDRAL-001",
+      "canonical_name": "Florhydral",
+      "aliases": [
+        "Florhydral(TM)"
+      ],
+      "state": "OWNED",
+      "category": "floral materials",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "DIRECT_USER_CONFIRMATION",
+        "execution_ready": true
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_ADDITION_WITH_SUPPLIER_IDENTITY",
+      "source_quotes": [
+        "Also, add Florhydral to inventory",
+        "it is from simplescentsdiy",
+        "neat"
+      ],
+      "supplier": {
+        "name": "Simple Scents DIY",
+        "sku": "8F3094005319",
+        "package": "5 mL",
+        "product_url": "https://www.simplescentsdiy.com/product/35447-34947/florhydral"
+      },
+      "evidence_refs": [
+        "FLORHYDRAL_CURRENT_STOCK_20260910"
+      ],
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_confirmed": true,
+        "stock_form_confirmed": true,
+        "formulation_selection_ready": true,
+        "analytical_purity_asserted": false,
+        "lot_assay_asserted": false,
+        "density_asserted": false,
+        "specific_formula_addition_directed": false,
+        "historical_formula_rebase_authorized": false,
+        "physical_compounding_performed": false,
+        "safety_or_release_asserted": false
+      }
+    }
+  ]
+}

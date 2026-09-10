@@ -1,0 +1,414 @@
+"""Deterministic offline retrieval over the local perfume knowledge corpus.
+
+The original implementation downloaded a third-party sentence-transformer and
+stored an opaque FAISS index. This module intentionally uses only the Python
+standard library: chunks are persisted as readable JSON and ranked with a
+sparse lexical feature space (words, adjacent word pairs, and character
+trigrams) using smoothed IDF and cosine similarity.
+
+The public ``KnowledgeIndex`` API is retained. ``build()``, ``search()``, and
+``search_with_context()`` never contact a model provider or the network.
+Scores express lexical relevance only; they are not semantic, scientific, or
+sensory evidence.
+"""
+
+from __future__ import annotations
+
+import json
+import math
+import re
+import unicodedata
+from collections import Counter
+from pathlib import Path
+from typing import Any
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+DATA_DIR = PROJECT_ROOT / "data" / "embeddings"
+KNOWLEDGE_DIR = PROJECT_ROOT / "knowledge"
+CHUNK_SIZE = 500
+CHUNK_OVERLAP = 80
+CHUNK_MAP_NAME = "chunk_map.json"
+RETRIEVAL_BACKEND = "deterministic_lexical_tfidf_v1"
+MIN_FUZZY_ONLY_SCORE = 0.08
+CHUNK_AUTHORITY_SCOPE = "KNOWLEDGE_REFERENCE_ONLY"
+INVENTORY_AUTHORITY_NOTE = (
+    "Knowledge-corpus prose cannot establish current stock; resolve inventory "
+    "through the pinned inventory runtime and validated overlay/receipt."
+)
+
+_WORD_RE = re.compile(r"[a-z0-9]+(?:['-][a-z0-9]+)*")
+_STOP_WORDS = frozenset(
+    {
+        "a",
+        "an",
+        "and",
+        "are",
+        "as",
+        "at",
+        "be",
+        "by",
+        "for",
+        "from",
+        "in",
+        "is",
+        "it",
+        "of",
+        "on",
+        "or",
+        "that",
+        "the",
+        "this",
+        "to",
+        "with",
+    }
+)
+
+
+def _reference_chunk(text: str, source: str, chunk_index: int) -> dict[str, Any]:
+    """Create a retrieval chunk with an explicit inventory-authority ceiling."""
+
+    return {
+        "text": text,
+        "source": source,
+        "chunk_idx": chunk_index,
+        "authority_scope": CHUNK_AUTHORITY_SCOPE,
+        "inventory_authority": False,
+        "inventory_authority_note": INVENTORY_AUTHORITY_NOTE,
+    }
+
+
+def _collect_source_files() -> list[Path]:
+    """Collect the tracked local knowledge sources in deterministic order."""
+
+    files: list[Path] = []
+
+    if KNOWLEDGE_DIR.exists():
+        files.extend(sorted(KNOWLEDGE_DIR.rglob("*.md")))
+
+    files.extend(sorted(PROJECT_ROOT.glob("scientific_reference_*_*.txt")))
+
+    for name in (
+        "perfume_accord_library.txt",
+        "perfume_formula_architecture_template.txt",
+    ):
+        path = PROJECT_ROOT / name
+        if path.exists():
+            files.append(path)
+
+    return files
+
+
+def _chunk_text(text: str, source: str) -> list[dict[str, Any]]:
+    """Split text into overlapping chunks near ``CHUNK_SIZE`` characters."""
+
+    text = text.replace("\r\n", "\n").replace("\r", "\n").strip()
+    if not text:
+        return []
+
+    chunks: list[dict[str, Any]] = []
+    start = 0
+    chunk_index = 0
+
+    while start < len(text):
+        end = start + CHUNK_SIZE
+
+        if end >= len(text):
+            chunk_text = text[start:].strip()
+            if chunk_text:
+                chunks.append(_reference_chunk(chunk_text, source, chunk_index))
+            break
+
+        segment = text[start : end + 100]
+        paragraph_break = segment.rfind("\n\n", CHUNK_SIZE // 2)
+        if paragraph_break > 0:
+            end = start + paragraph_break + 2
+        else:
+            sentence_end = max(
+                segment.rfind(pattern, CHUNK_SIZE // 2)
+                for pattern in (". ", ".\n", "! ", "!\n", "? ", "?\n")
+            )
+            if sentence_end > 0:
+                end = start + sentence_end + 2
+            else:
+                word_break = segment.rfind(" ", CHUNK_SIZE // 2)
+                if word_break > 0:
+                    end = start + word_break + 1
+
+        chunk_text = text[start:end].strip()
+        if chunk_text:
+            chunks.append(_reference_chunk(chunk_text, source, chunk_index))
+            chunk_index += 1
+
+        next_start = end - CHUNK_OVERLAP
+        if next_start <= start:
+            next_start = end
+        start = next_start
+
+    return chunks
+
+
+def _normalise_text(text: str) -> str:
+    normalised = unicodedata.normalize("NFKD", text).casefold()
+    return "".join(char for char in normalised if not unicodedata.combining(char))
+
+
+def _feature_counts(text: str) -> Counter[str]:
+    """Return deterministic sparse lexical features for ``text``."""
+
+    words = [
+        word
+        for word in _WORD_RE.findall(_normalise_text(text))
+        if word not in _STOP_WORDS
+    ]
+    features: Counter[str] = Counter(f"w:{word}" for word in words)
+    features.update(f"b:{left}_{right}" for left, right in zip(words, words[1:]))
+
+    for word in words:
+        if len(word) < 4:
+            continue
+        padded = f"^{word}$"
+        features.update(
+            f"c:{padded[index:index + 3]}" for index in range(len(padded) - 2)
+        )
+
+    return features
+
+
+def _feature_multiplier(feature: str) -> float:
+    if feature.startswith("b:"):
+        return 1.35
+    if feature.startswith("c:"):
+        return 0.30
+    return 1.0
+
+
+class KnowledgeIndex:
+    """Dependency-free lexical search over the local perfume knowledge corpus."""
+
+    def __init__(self) -> None:
+        self._chunks: list[dict[str, Any]] | None = None
+        self._idf: dict[str, float] = {}
+        self._vectors: list[dict[str, float]] = []
+        self._norms: list[float] = []
+
+    @property
+    def backend(self) -> str:
+        """Name the deterministic retrieval implementation in use."""
+
+        return RETRIEVAL_BACKEND
+
+    def build(self, force: bool = False) -> dict[str, Any]:
+        """Build or load the readable local chunk index.
+
+        The legacy ``index_path`` result key is preserved, but now points to the
+        JSON chunk map because no opaque vector artifact is required.
+        """
+
+        DATA_DIR.mkdir(parents=True, exist_ok=True)
+        chunk_path = DATA_DIR / CHUNK_MAP_NAME
+
+        if not force and chunk_path.exists():
+            self._load_index()
+            assert self._chunks is not None
+            return {
+                "n_files": len({str(chunk["source"]) for chunk in self._chunks}),
+                "n_chunks": len(self._chunks),
+                "index_path": str(chunk_path),
+                "status": "loaded_existing",
+                "backend": RETRIEVAL_BACKEND,
+            }
+
+        source_files = _collect_source_files()
+        all_chunks: list[dict[str, Any]] = []
+        indexed_files = 0
+        for source_file in source_files:
+            try:
+                text = source_file.read_text(encoding="utf-8", errors="replace")
+            except OSError:
+                continue
+            source_chunks = _chunk_text(
+                text,
+                source_file.relative_to(PROJECT_ROOT).as_posix(),
+            )
+            if source_chunks:
+                indexed_files += 1
+                all_chunks.extend(source_chunks)
+
+        if not all_chunks:
+            raise ValueError("No knowledge files found to index.")
+
+        chunk_path.write_text(
+            json.dumps(all_chunks, ensure_ascii=False, indent=1) + "\n",
+            encoding="utf-8",
+        )
+        self._chunks = all_chunks
+        self._prepare_vectors()
+
+        return {
+            "n_files": indexed_files,
+            "n_chunks": len(all_chunks),
+            "index_path": str(chunk_path),
+            "status": "built",
+            "backend": RETRIEVAL_BACKEND,
+        }
+
+    def _load_index(self) -> None:
+        """Load and validate the readable JSON chunk index."""
+
+        chunk_path = DATA_DIR / CHUNK_MAP_NAME
+        if not chunk_path.exists():
+            raise FileNotFoundError("No lexical chunk index found. Run build() first.")
+
+        try:
+            payload = json.loads(chunk_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError) as exc:
+            raise ValueError(f"Invalid lexical chunk index: {chunk_path}") from exc
+
+        if not isinstance(payload, list):
+            raise ValueError("Lexical chunk index must be a JSON list.")
+
+        chunks: list[dict[str, Any]] = []
+        for row_number, row in enumerate(payload):
+            if not isinstance(row, dict):
+                raise ValueError(f"Chunk row {row_number} must be an object.")
+            if not isinstance(row.get("text"), str) or not row["text"].strip():
+                raise ValueError(f"Chunk row {row_number} has no text.")
+            if not isinstance(row.get("source"), str) or not row["source"].strip():
+                raise ValueError(f"Chunk row {row_number} has no source.")
+            chunk_index = row.get("chunk_idx")
+            if isinstance(chunk_index, bool) or not isinstance(chunk_index, int):
+                raise ValueError(f"Chunk row {row_number} has an invalid chunk_idx.")
+            # Authority is a runtime invariant, not trusted persisted input.
+            # This deliberately overwrites omitted or forged legacy metadata.
+            chunks.append(_reference_chunk(row["text"], row["source"], chunk_index))
+
+        if not chunks:
+            raise ValueError("Lexical chunk index is empty.")
+
+        self._chunks = chunks
+        self._prepare_vectors()
+
+    def _prepare_vectors(self) -> None:
+        assert self._chunks is not None
+        counts_by_chunk = [
+            _feature_counts(str(chunk["text"])) for chunk in self._chunks
+        ]
+        document_frequency: Counter[str] = Counter()
+        for counts in counts_by_chunk:
+            document_frequency.update(counts.keys())
+
+        document_count = len(counts_by_chunk)
+        self._idf = {
+            feature: math.log((1 + document_count) / (1 + frequency)) + 1.0
+            for feature, frequency in document_frequency.items()
+        }
+        self._vectors = [self._weight_counts(counts) for counts in counts_by_chunk]
+        self._norms = [
+            math.sqrt(sum(weight * weight for weight in vector.values()))
+            for vector in self._vectors
+        ]
+
+    def _weight_counts(self, counts: Counter[str]) -> dict[str, float]:
+        return {
+            feature: (1.0 + math.log(count))
+            * self._idf.get(feature, 1.0)
+            * _feature_multiplier(feature)
+            for feature, count in counts.items()
+        }
+
+    def search(self, query: str, k: int = 5) -> list[dict[str, Any]]:
+        """Return the most lexically relevant chunks for ``query``.
+
+        Results retain the historical ``text``, ``source``, ``chunk_idx``, and
+        ``score`` fields. A query with no shared features returns an empty list
+        instead of fabricating low-confidence matches.
+        """
+
+        if k <= 0 or not query.strip():
+            return []
+        if self._chunks is None:
+            self._load_index()
+
+        assert self._chunks is not None
+        query_vector = self._weight_counts(_feature_counts(query))
+        query_norm = math.sqrt(sum(weight * weight for weight in query_vector.values()))
+        if query_norm == 0.0:
+            return []
+
+        scored: list[tuple[float, str, int, dict[str, Any]]] = []
+        for chunk, vector, vector_norm in zip(
+            self._chunks, self._vectors, self._norms
+        ):
+            if vector_norm == 0.0:
+                continue
+            shared = query_vector.keys() & vector.keys()
+            if not shared:
+                continue
+            dot_product = sum(query_vector[key] * vector[key] for key in shared)
+            score = dot_product / (query_norm * vector_norm)
+            if score <= 0.0:
+                continue
+            has_lexical_overlap = any(
+                key.startswith(("w:", "b:")) for key in shared
+            )
+            if not has_lexical_overlap and score < MIN_FUZZY_ONLY_SCORE:
+                continue
+            scored.append(
+                (
+                    score,
+                    str(chunk["source"]),
+                    int(chunk["chunk_idx"]),
+                    chunk,
+                )
+            )
+
+        scored.sort(key=lambda item: (-item[0], item[1], item[2]))
+        results: list[dict[str, Any]] = []
+        for score, _source, _chunk_index, chunk in scored[:k]:
+            result = chunk.copy()
+            result["score"] = float(score)
+            results.append(result)
+        return results
+
+    def search_with_context(
+        self,
+        query: str,
+        k: int = 5,
+        context_chunks: int = 1,
+    ) -> list[dict[str, Any]]:
+        """Search and attach adjacent chunks from each matching source."""
+
+        if context_chunks < 0:
+            raise ValueError("context_chunks must be non-negative.")
+
+        results = self.search(query, k)
+        if not results:
+            return []
+        assert self._chunks is not None
+
+        by_source: dict[str, list[dict[str, Any]]] = {}
+        for chunk in self._chunks:
+            by_source.setdefault(str(chunk["source"]), []).append(chunk)
+        for chunks in by_source.values():
+            chunks.sort(key=lambda chunk: int(chunk["chunk_idx"]))
+
+        for result in results:
+            source = str(result["source"])
+            chunk_index = int(result["chunk_idx"])
+            same_source = by_source[source]
+            result["context_before"] = "\n".join(
+                str(chunk["text"])
+                for chunk in same_source
+                if chunk_index - context_chunks
+                <= int(chunk["chunk_idx"])
+                < chunk_index
+            )
+            result["context_after"] = "\n".join(
+                str(chunk["text"])
+                for chunk in same_source
+                if chunk_index
+                < int(chunk["chunk_idx"])
+                <= chunk_index + context_chunks
+            )
+
+        return results

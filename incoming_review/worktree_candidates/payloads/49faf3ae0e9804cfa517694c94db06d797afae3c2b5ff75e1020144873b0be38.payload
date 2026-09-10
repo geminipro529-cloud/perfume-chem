@@ -1,0 +1,100 @@
+from copy import deepcopy
+
+import engine.pipeline.preflight as preflight_module
+from engine.inventory_parser import InventoryMaterial
+from engine.pipeline.gates import ReleaseGateConfig, gate_formula
+from engine.pipeline.robustness import audit_formula_robustness
+
+
+def _install_synthetic_test_coumarin(monkeypatch) -> None:
+    """Isolate robustness mechanics from current physical-stock authority."""
+
+    original = preflight_module.parse_current_inventory
+
+    def parse_with_test_stock(*args, **kwargs):
+        rows = list(original(*args, **kwargs))
+        rows.append(
+            InventoryMaterial(
+                name="Coumarin",
+                identity_name="Coumarin",
+                dilution=0.2,
+                category="synthetic_test_only",
+                raw_name="SYNTHETIC_TEST_AUTHORITY_NOT_LIVE_INVENTORY",
+                status="owned",
+                fraction_basis="mass_fraction",
+                carrier="dpg",
+                stock_id="inventory:test:synthetic-coumarin-20",
+                authority="SYNTHETIC_TEST_AUTHORITY_NOT_LIVE_INVENTORY",
+                source_rows=(-1,),
+                execution_ready=True,
+            )
+        )
+        return rows
+
+    monkeypatch.setattr(preflight_module, "parse_current_inventory", parse_with_test_stock)
+
+
+def _fougere_formula(evernyl_ul=200.0):
+    ingredients = {
+        "Bergamot FCF oil Sicilian": 1200.0,
+        "Lavender EO High Altitude": 700.0,
+        "Linalyl Acetate": 600.0,
+        "Hedione": 900.0,
+        "Coumarin": 450.0,
+        "Evernyl": evernyl_ul,
+        "Iso E Super": 1500.0,
+        "Cedarwood oil Virginia": 300.0,
+        "Zenolide": 350.0 - evernyl_ul,
+    }
+    total = sum(ingredients.values())
+    return {
+        "number": 1,
+        "name": "Robust Fougere",
+        "body": "aromatic fougere",
+        "ingredients_ul": ingredients,
+        "dilutions": {
+            name: (
+                0.2
+                if name == "Coumarin"
+                else 0.1
+                if name == "Evernyl"
+                else 1.0
+            )
+            for name in ingredients
+        },
+        "ingredients_pct": {name: amount / total * 100 for name, amount in ingredients.items()},
+    }
+
+
+def test_robustness_warns_when_evernyl_plus_perturbation_breaks_ifra():
+    formula = _fougere_formula(evernyl_ul=300.0)
+    report = audit_formula_robustness(
+        formula,
+        ReleaseGateConfig(brief="aromatic_fougere"),
+    )
+
+    assert report.status == "WARN"
+    assert any(
+        issue.material == "Evernyl"
+        and issue.direction == "up"
+        and issue.safety_failed
+        for issue in report.issues
+    )
+
+
+def test_robustness_audit_preserves_original_formula_and_gate_is_nonblocking(
+    monkeypatch,
+):
+    _install_synthetic_test_coumarin(monkeypatch)
+    formula = _fougere_formula(evernyl_ul=200.0)
+    before = deepcopy(formula)
+    gate_report = gate_formula(
+        formula,
+        ReleaseGateConfig(brief="aromatic_fougere"),
+    )
+    gates = {gate.gate: gate for gate in gate_report.gates}
+
+    assert formula == before
+    assert "robustness_perturbation" in gates
+    assert gates["robustness_perturbation"].status in {"PASS", "WARN"}
+    assert gate_report.status in {"PASS", "WARN"}

@@ -1,0 +1,507 @@
+{
+  "package_id": "Nine_Finished_Hedonic_High_Complexity_Perfumes_2026-08-16_v1",
+  "created_at_utc": "2026-08-16T12:00:00+07:00",
+  "state": "ART-DIRECTED, HEDONICALLY TUNED, HIGH-COMPLEXITY COMPUTATIONAL PERFUME CANDIDATES / PHYSICAL HOLD",
+  "member_count_excluding_manifest_and_ledger": 82,
+  "members": [
+    {
+      "path": "ANTI_COLLAPSE_MATRIX.csv",
+      "bytes": 3888,
+      "sha256": "33f5e2772e58c0dda40e6bdbd652a1ee22f42430b4812dff2c7910d00270d5a8"
+    },
+    {
+      "path": "COMPLEXITY_AUDIT.csv",
+      "bytes": 5217,
+      "sha256": "ceec11ed10a8c4fc631c6c79a64e0c02d657d325c65d5a30f78d1ea134033a56"
+    },
+    {
+      "path": "CONTROLLED_TEST_PLAN.md",
+      "bytes": 7246,
+      "sha256": "c459d36f9c56827b54ad260d0dbb9ae316d9b8fa38ea429973629bd89b30c1ac"
+    },
+    {
+      "path": "CURRENT_BUILD_ALL_ROWS.csv",
+      "bytes": 351886,
+      "sha256": "923e1368d1eef096cacbf0eb3ddfcf25bc6f68ca3364dcfb2e7482c9c8a4fcd9"
+    },
+    {
+      "path": "EXECUTIVE_ART_DIRECTION.md",
+      "bytes": 3747,
+      "sha256": "408b17fe6a68ac648215a44bea1c9299774aba11de95cf9035f890e5320f9458"
+    },
+    {
+      "path": "FORMULA_REGISTER.csv",
+      "bytes": 3629,
+      "sha256": "7b9ed32236132036e7d5b81a67696816201ebfd63ccd2cb1a8895cb82fecbaf2"
+    },
+    {
+      "path": "GATE_REGISTER.csv",
+      "bytes": 16709,
+      "sha256": "b937bc301f4255767bb98c3636c67981db2d05cc3ee8d4f1f93985191673b30a"
+    },
+    {
+      "path": "INTERACTION_MAP_ALL.csv",
+      "bytes": 20363,
+      "sha256": "5239fdf188f9a5569b4b79ac07d4e34d7db5f7bac58abb6254d6c0bef2887775"
+    },
+    {
+      "path": "MISSING_CHEMICAL_IMPACT.csv",
+      "bytes": 15738,
+      "sha256": "4360d815d0b6364af192a290d9eb8e09af98842dd116afb3ce07442144c3ece6"
+    },
+    {
+      "path": "NINE_FINISHED_PERFUME_FORMULA_PACK.json",
+      "bytes": 1852698,
+      "sha256": "06f77940349a2d850806624f22e4e08320e96fa6738c5002196ed309ec4be454"
+    },
+    {
+      "path": "Nine_Finished_Hedonic_High_Complexity_Perfumes_v1.xlsx",
+      "bytes": 311757,
+      "sha256": "afed9ecf7849ec7e017280fdf4b676ce2b212b86e4dfd7f5433cc802521b2b68"
+    },
+    {
+      "path": "PURCHASE_PREPARATION_RECOMMENDATION.md",
+      "bytes": 9799,
+      "sha256": "8c822730c053af6cc37c04266c533068262c33a11fa5fdda6329a4524345fd94"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2189,
+      "sha256": "8daddc5a86df1b36f157e2707e7ed5077ce4916ae2f3541ab86e29e68c5327ff"
+    },
+    {
+      "path": "RECEIPT.json",
+      "bytes": 974,
+      "sha256": "436d8ee92c245c669c86eea4de1432d63f5ff3902633059ae81d727664154da1"
+    },
+    {
+      "path": "SOURCE_MANIFEST.csv",
+      "bytes": 1857,
+      "sha256": "4ff095abdc6eddacfcb6366a8bab982b6f86609cb9d89b8b4f677baee5f9ed73"
+    },
+    {
+      "path": "TARGET_IDEAL_ALL_ROWS.csv",
+      "bytes": 395710,
+      "sha256": "8e7320ae0d0f5c0465c1baa1b81b8f84a51ce78ecd3dcfebe050e58a5949ea03"
+    },
+    {
+      "path": "VALIDATION_REPORT.md",
+      "bytes": 1858,
+      "sha256": "1a030330c7ac8e9a93a514ada267bec4b8153fda4a33bcabf64798afd1502e5e"
+    },
+    {
+      "path": "nine_finished_perfume_formula_pack.schema.json",
+      "bytes": 1217,
+      "sha256": "48e50ff21e439df964b04e0db715264ac4baca4b5d48ae9cd6303872392668e4"
+    },
+    {
+      "path": "perfumes/AHS/AHS_30ML_CURRENT_BUILD_FORMULA.md",
+      "bytes": 15697,
+      "sha256": "31f16850c9043e5e9778e9a9539b1331fdfb75e5be80f390deb7a627dbf8a750"
+    },
+    {
+      "path": "perfumes/AHS/AHS_ART_DIRECTION.md",
+      "bytes": 2544,
+      "sha256": "bdbafb35145e864104fa2b1af054d88e448ab65b81ed7749e475306bef5649a8"
+    },
+    {
+      "path": "perfumes/AHS/AHS_CURRENT_INVENTORY_BUILD.csv",
+      "bytes": 37414,
+      "sha256": "dbda72664babf1263474846e382822771599045575ed1eee76e3449c2bed43d6"
+    },
+    {
+      "path": "perfumes/AHS/AHS_FULL_FORMULA_BOOK.md",
+      "bytes": 37128,
+      "sha256": "05645ef1d2c3e6b27111950487d062cb7c75263b4d9350de411ce2616f588c51"
+    },
+    {
+      "path": "perfumes/AHS/AHS_INTERACTION_MAP.csv",
+      "bytes": 2316,
+      "sha256": "250e8152cd283c1729d83fd0b725a1ac6be99bdf9bcaf68a103c000937a012c7"
+    },
+    {
+      "path": "perfumes/AHS/AHS_MISSING_CHEMICAL_IMPACT.csv",
+      "bytes": 1508,
+      "sha256": "923d669f4abb708d93a79b6a0582fcf6f9ff1476bb7c0025edaa83a63a4d937a"
+    },
+    {
+      "path": "perfumes/AHS/AHS_TARGET_IDEAL.csv",
+      "bytes": 34564,
+      "sha256": "449ce72e639254d45218f91f2f2fd514796bb215e4fa1b7d32e94af65cd1b356"
+    },
+    {
+      "path": "perfumes/BDCP/BDCP_30ML_CURRENT_BUILD_FORMULA.md",
+      "bytes": 16571,
+      "sha256": "46ae0ec0f15ae043b10c91d3b3d10fc192a6abc056b3e538d9416fc9caae1699"
+    },
+    {
+      "path": "perfumes/BDCP/BDCP_ART_DIRECTION.md",
+      "bytes": 2893,
+      "sha256": "ac11163638c7b19ecd0f1ccf69264cba211e8a25baceec0cac9e244a3b0de9cd"
+    },
+    {
+      "path": "perfumes/BDCP/BDCP_CURRENT_INVENTORY_BUILD.csv",
+      "bytes": 39465,
+      "sha256": "a516d5b6fe2dc2ef86d1cf2f3b39849d358660ac34f8fe045997c45fed685a8b"
+    },
+    {
+      "path": "perfumes/BDCP/BDCP_FULL_FORMULA_BOOK.md",
+      "bytes": 39672,
+      "sha256": "aafcd65324b6fb0e263e1bd13448fa9054cd155398172e330bbc6914b7f53862"
+    },
+    {
+      "path": "perfumes/BDCP/BDCP_INTERACTION_MAP.csv",
+      "bytes": 2198,
+      "sha256": "fc798558bc00cb345593ac346dfcd146df83724fe418327ee57d2312f944e4b6"
+    },
+    {
+      "path": "perfumes/BDCP/BDCP_MISSING_CHEMICAL_IMPACT.csv",
+      "bytes": 1572,
+      "sha256": "c89f35be72acf111497f813d1e74e40102a178dd7da786b79942160258842414"
+    },
+    {
+      "path": "perfumes/BDCP/BDCP_TARGET_IDEAL.csv",
+      "bytes": 38140,
+      "sha256": "c5e243593bf03e8aecb1828151fee3e4df96eca6cf1617d7b7b6713014ede097"
+    },
+    {
+      "path": "perfumes/DHI12/DHI12_30ML_CURRENT_BUILD_FORMULA.md",
+      "bytes": 16330,
+      "sha256": "76e5f907b3a5555b9553c13b560b9e514008d6edea52407636f93cc30a1c151c"
+    },
+    {
+      "path": "perfumes/DHI12/DHI12_ART_DIRECTION.md",
+      "bytes": 2790,
+      "sha256": "86578b4c4f6e9a8b3b95bcd20c3721caf65c2ef846bc9bd10aaac761868e2ae5"
+    },
+    {
+      "path": "perfumes/DHI12/DHI12_CURRENT_INVENTORY_BUILD.csv",
+      "bytes": 39613,
+      "sha256": "2985383a2c75aafde06bc2bf24a66dfe916d18e1e6ac819c4da67efa721f6258"
+    },
+    {
+      "path": "perfumes/DHI12/DHI12_FULL_FORMULA_BOOK.md",
+      "bytes": 39994,
+      "sha256": "3d2387f1039b3738a0b0f9c7e44b6e2df8171033218f019d7b7d62675d1b02b7"
+    },
+    {
+      "path": "perfumes/DHI12/DHI12_INTERACTION_MAP.csv",
+      "bytes": 2497,
+      "sha256": "89188f7e65a651a3cfc8b1c0ec2ba4635a02180178bad202c91cf60a0db6e8a0"
+    },
+    {
+      "path": "perfumes/DHI12/DHI12_MISSING_CHEMICAL_IMPACT.csv",
+      "bytes": 2372,
+      "sha256": "9a3ad86cba77a6eeb1871f06981ad74a4979e2fbef5069f04f7f5d522b9a621b"
+    },
+    {
+      "path": "perfumes/DHI12/DHI12_TARGET_IDEAL.csv",
+      "bytes": 36879,
+      "sha256": "32b7f0ab4117faf9ce03dee2c98605c39fa9d33bd7742f291969144fc2e9c92f"
+    },
+    {
+      "path": "perfumes/DHP25/DHP25_30ML_CURRENT_BUILD_FORMULA.md",
+      "bytes": 16515,
+      "sha256": "d870f44eda73dbd772f30e71cd630ba439b9bf3adafe47e4a747134b7e7e4e1a"
+    },
+    {
+      "path": "perfumes/DHP25/DHP25_ART_DIRECTION.md",
+      "bytes": 2631,
+      "sha256": "3d1fb3c49839ba88cdac04c94c9b7ca23f33876e4a74bc74f692010df42e2ff7"
+    },
+    {
+      "path": "perfumes/DHP25/DHP25_CURRENT_INVENTORY_BUILD.csv",
+      "bytes": 38358,
+      "sha256": "b229ee48bb86b3906d1822e3e6781b0c7cc20f39210ea64fd2adfa584b963be0"
+    },
+    {
+      "path": "perfumes/DHP25/DHP25_FULL_FORMULA_BOOK.md",
+      "bytes": 39321,
+      "sha256": "6abdfa04abb8042310adbb0ba5f28a86f04663a50d8cd188cc53abbef18d1e8e"
+    },
+    {
+      "path": "perfumes/DHP25/DHP25_INTERACTION_MAP.csv",
+      "bytes": 2475,
+      "sha256": "59afc098a3325fbb5a35fd13bf5e843a1184792af573fca56557ca36b30f788c"
+    },
+    {
+      "path": "perfumes/DHP25/DHP25_MISSING_CHEMICAL_IMPACT.csv",
+      "bytes": 1703,
+      "sha256": "94f4a59c070043f6d7895952df2d456b82d0985283c4b3ca23c1895f794de377"
+    },
+    {
+      "path": "perfumes/DHP25/DHP25_TARGET_IDEAL.csv",
+      "bytes": 37282,
+      "sha256": "0299c03039093403f4b2e9d28c8067e7b75d6ea3f605c61bb9f5b91f104e5f33"
+    },
+    {
+      "path": "perfumes/EB/EB_30ML_CURRENT_BUILD_FORMULA.md",
+      "bytes": 16465,
+      "sha256": "6032987eb17128af53d4084a962d3bf2a21322c805f5553d39533bb94e7f590e"
+    },
+    {
+      "path": "perfumes/EB/EB_ART_DIRECTION.md",
+      "bytes": 2567,
+      "sha256": "ee2a6a410389b15e165bd8e39fc093da65969e444a552325f3af74557f4d7ad6"
+    },
+    {
+      "path": "perfumes/EB/EB_CURRENT_INVENTORY_BUILD.csv",
+      "bytes": 37869,
+      "sha256": "5d3dec15c8383c31d70cd423ec56e1ce5fa6738fda79fb2877412e4dbadcca5a"
+    },
+    {
+      "path": "perfumes/EB/EB_FULL_FORMULA_BOOK.md",
+      "bytes": 39667,
+      "sha256": "79a3cc49a37d5bbb7f99534786d4723d008422172966db6c201b29320b2752ec"
+    },
+    {
+      "path": "perfumes/EB/EB_INTERACTION_MAP.csv",
+      "bytes": 2140,
+      "sha256": "1ab49734f821806a48b1ff8dfbcd8e1de4bc8ebafaf7bdf3c4180a1d677138bb"
+    },
+    {
+      "path": "perfumes/EB/EB_MISSING_CHEMICAL_IMPACT.csv",
+      "bytes": 2055,
+      "sha256": "409ec66cf8dcd4a8aa0f33b396daf95eaeb8df884d3c625db19b3e04352c555c"
+    },
+    {
+      "path": "perfumes/EB/EB_TARGET_IDEAL.csv",
+      "bytes": 35059,
+      "sha256": "9e56306c0e8577513ebc7947ea2aac278bfa8772424b6a5d18876597713979c6"
+    },
+    {
+      "path": "perfumes/EE/EE_30ML_CURRENT_BUILD_FORMULA.md",
+      "bytes": 16105,
+      "sha256": "ff83b861c42b6247e92d2b252b2557c85b87c1605124814545cdf380694b4e26"
+    },
+    {
+      "path": "perfumes/EE/EE_ART_DIRECTION.md",
+      "bytes": 2425,
+      "sha256": "bf543c65c1fe31ad3f52693716e389a891f24f8178693a8f807367ff506632f3"
+    },
+    {
+      "path": "perfumes/EE/EE_CURRENT_INVENTORY_BUILD.csv",
+      "bytes": 36606,
+      "sha256": "cf1813c458b81722ad7b045ca7d0afb93b753c90a90c08c3ed6b2a7ecc2bd410"
+    },
+    {
+      "path": "perfumes/EE/EE_FULL_FORMULA_BOOK.md",
+      "bytes": 37606,
+      "sha256": "232099bbbae93719e3bf1f55ec24321fc973e6b913bc06d4032798f851c5d691"
+    },
+    {
+      "path": "perfumes/EE/EE_INTERACTION_MAP.csv",
+      "bytes": 2121,
+      "sha256": "d2e900f4e2629b4c83f1333d429a9df770c75af48e78405e566e4b83e8ba11ee"
+    },
+    {
+      "path": "perfumes/EE/EE_MISSING_CHEMICAL_IMPACT.csv",
+      "bytes": 1364,
+      "sha256": "632dddf69f1f6d529dcf18655c2e949e9431f9407f1fa042ff0f5ef99192b735"
+    },
+    {
+      "path": "perfumes/EE/EE_TARGET_IDEAL.csv",
+      "bytes": 33910,
+      "sha256": "14251659d930a3d2c664778c11f0608c671bd13ffc4d684247d39aa75c9e0746"
+    },
+    {
+      "path": "perfumes/ELIXIR/ELIXIR_30ML_CURRENT_BUILD_FORMULA.md",
+      "bytes": 15947,
+      "sha256": "8ef9fedb05c61759f72efbc9b3a9d1b1cb40b29e35bf23b71e2ad738fe793f1c"
+    },
+    {
+      "path": "perfumes/ELIXIR/ELIXIR_ART_DIRECTION.md",
+      "bytes": 2736,
+      "sha256": "14776efc49b1353056419079d19a39aa43687bf7ed6472c34dc96c1ab30bb25e"
+    },
+    {
+      "path": "perfumes/ELIXIR/ELIXIR_CURRENT_INVENTORY_BUILD.csv",
+      "bytes": 37458,
+      "sha256": "1258f495d354e0310f4be0dcc7261a192a512a0b6d228568bd7b8e8591d443f3"
+    },
+    {
+      "path": "perfumes/ELIXIR/ELIXIR_FULL_FORMULA_BOOK.md",
+      "bytes": 39584,
+      "sha256": "e353a8d29869254edeceb1547d114da9eb97f52f61366360df33bc820cac583d"
+    },
+    {
+      "path": "perfumes/ELIXIR/ELIXIR_INTERACTION_MAP.csv",
+      "bytes": 2231,
+      "sha256": "5eacc133f6eab32180d11f3fe25762ae47f1915c9e2d5a6ab27536f7ca75de43"
+    },
+    {
+      "path": "perfumes/ELIXIR/ELIXIR_MISSING_CHEMICAL_IMPACT.csv",
+      "bytes": 2765,
+      "sha256": "c31ceec24c21fadc95cfc8c75891031514eebe15aff4086e0ed662098ed9e3f5"
+    },
+    {
+      "path": "perfumes/ELIXIR/ELIXIR_TARGET_IDEAL.csv",
+      "bytes": 37113,
+      "sha256": "6567fa056db2aed8b02a02a3635842cf4fe0a9ac56443da58ee8ee6da5036c6d"
+    },
+    {
+      "path": "perfumes/LANUIT/LANUIT_30ML_CURRENT_BUILD_FORMULA.md",
+      "bytes": 15403,
+      "sha256": "1c90ce4ed650774b685aa46a9c44f049f3c4a11836e9c2ef09b121060340b82c"
+    },
+    {
+      "path": "perfumes/LANUIT/LANUIT_ART_DIRECTION.md",
+      "bytes": 2665,
+      "sha256": "746cfd8af40b1aa7b7df167656faa449efda2b37b2f8f9d15b813c085d1316ea"
+    },
+    {
+      "path": "perfumes/LANUIT/LANUIT_CURRENT_INVENTORY_BUILD.csv",
+      "bytes": 38679,
+      "sha256": "1cab604eb29a1b6c2830cf4ce954cdb012dcc0bb0ceebfd7531319c186aace4c"
+    },
+    {
+      "path": "perfumes/LANUIT/LANUIT_FULL_FORMULA_BOOK.md",
+      "bytes": 51828,
+      "sha256": "b17063294953ab531dc3195d10796ca0a378936783bbc117fdb5d769fb0da4e3"
+    },
+    {
+      "path": "perfumes/LANUIT/LANUIT_INTERACTION_MAP.csv",
+      "bytes": 2275,
+      "sha256": "727dd74e166f0e26c37db572ce1d21b22c7e5ccb874a2f8add18a5ef4ebf9075"
+    },
+    {
+      "path": "perfumes/LANUIT/LANUIT_INT_TARGET_IDEAL.csv",
+      "bytes": 36646,
+      "sha256": "6ab4ed77105a654fbaf5e3331e9c07d5d74c4684432b2542e4084d46aa55a573"
+    },
+    {
+      "path": "perfumes/LANUIT/LANUIT_MISSING_CHEMICAL_IMPACT.csv",
+      "bytes": 2588,
+      "sha256": "6ba52a003f0f5013a2a7d2d1302026007f0efc74f03f853df8b36682b4de0c4d"
+    },
+    {
+      "path": "perfumes/LANUIT/LANUIT_US_TARGET_IDEAL.csv",
+      "bytes": 36497,
+      "sha256": "4045afa9488201c083ae965e22d6158bdb7f4eaa0bdbb9ef95bfb91a1883b8df"
+    },
+    {
+      "path": "perfumes/LHOMME/LHOMME_30ML_CURRENT_BUILD_FORMULA.md",
+      "bytes": 15795,
+      "sha256": "a47bcf72ac8100c8ae7e870e1490c9c5d925945102e029aa34891ad237ab65ad"
+    },
+    {
+      "path": "perfumes/LHOMME/LHOMME_ART_DIRECTION.md",
+      "bytes": 2562,
+      "sha256": "2541de941f0e1444e95c9b566305b1c85022bc7ca406a36840a44a9c983a7be1"
+    },
+    {
+      "path": "perfumes/LHOMME/LHOMME_CURRENT_INVENTORY_BUILD.csv",
+      "bytes": 35721,
+      "sha256": "5e81cdd56158a790e0da9af380c5e2a1c2a59fc47ac1ac710b481af919271ada"
+    },
+    {
+      "path": "perfumes/LHOMME/LHOMME_FULL_FORMULA_BOOK.md",
+      "bytes": 37314,
+      "sha256": "0ca963194297ded043b47840cdbca47ff52f48115c3944c4d688e6bcc52fedb9"
+    },
+    {
+      "path": "perfumes/LHOMME/LHOMME_INTERACTION_MAP.csv",
+      "bytes": 2136,
+      "sha256": "189054262dcd66b8c837bd2ef3621a4da38fc85b272c625f33d1a14e85dcf7aa"
+    },
+    {
+      "path": "perfumes/LHOMME/LHOMME_MISSING_CHEMICAL_IMPACT.csv",
+      "bytes": 1459,
+      "sha256": "6624e4f594b58038d2ca49449e21a5282c44d79953bd8d9f51eca6ca02d9ad33"
+    },
+    {
+      "path": "perfumes/LHOMME/LHOMME_TARGET_IDEAL.csv",
+      "bytes": 34209,
+      "sha256": "97aaff8b0d171c1c589f84b4336af2dcac9ce7d5caf993d73366f386b9acdf39"
+    }
+  ],
+  "source_manifest": [
+    {
+      "role": "inventory_authority",
+      "filename": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5(1).xlsx",
+      "path": "/mnt/data/Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5(1).xlsx",
+      "bytes": 199635,
+      "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331"
+    },
+    {
+      "role": "reconstruction_protocol",
+      "filename": "PROTOCOL.md",
+      "path": "/mnt/data/PROTOCOL.md",
+      "bytes": 59246,
+      "sha256": "f192fdea259052d445f39f2264b1907e92e1139ee8ddf112f57d2a7a99558961"
+    },
+    {
+      "role": "complexity_governance",
+      "filename": "Meaningful_Complexity_Audit_v2.md",
+      "path": "/mnt/data/Meaningful_Complexity_Audit_v2.md",
+      "bytes": 15302,
+      "sha256": "07d84574365abb6a8e505fdcaf4e496ee1ac1d90f1397053d41f20b0a9394ff3"
+    },
+    {
+      "role": "interaction_atlas_workbook",
+      "filename": "Perfumery_Interaction_Layering_Atlas_v1.xlsx",
+      "path": "/mnt/data/Perfumery_Interaction_Layering_Atlas_v1.xlsx",
+      "bytes": 120053,
+      "sha256": "f5e381ee4a338784ed9c25a5058b9a5ef6567423e72cec8c799952d4ed38f468"
+    },
+    {
+      "role": "interaction_atlas_summary",
+      "filename": "Perfumery_Interaction_Layering_Atlas_v1.md",
+      "path": "/mnt/data/Perfumery_Interaction_Layering_Atlas_v1.md",
+      "bytes": 2603,
+      "sha256": "d059bc75bf4d8bcb4bc6329c4a7302960262a522f0a6964919acd736f898c54d"
+    },
+    {
+      "role": "literature_claim_ledger",
+      "filename": "PERFUME_CHEM_LITERATURE_VERIFICATION_LEDGER.md",
+      "path": "/mnt/data/PERFUME_CHEM_LITERATURE_VERIFICATION_LEDGER.md",
+      "bytes": 27155,
+      "sha256": "4f2206893d6f8d682aa6df798a3a5c8c9b2a815b8ed2c4025c20cd108544b9e7"
+    },
+    {
+      "role": "high_hedonic_advisory_method",
+      "filename": "HIGH_HEDONIC_PRIORITY_METHOD_v1(1).md",
+      "path": "/mnt/data/HIGH_HEDONIC_PRIORITY_METHOD_v1(1).md",
+      "bytes": 1231,
+      "sha256": "ad65041fcf8e01dcdf9578113bc12dba8fa8bba516f4de11c6e154683b685df9"
+    },
+    {
+      "role": "nine_perfume_architecture_source",
+      "filename": "NINE_PERFUME_COMPLEXITY_ARCHITECTURE.json",
+      "path": "/mnt/data/Nine_Perfume_Complexity_Module_Architecture_2026-08-15_v1/NINE_PERFUME_COMPLEXITY_ARCHITECTURE.json",
+      "bytes": 174892,
+      "sha256": "8d1faf48f7f9c3bf2d15ef4df02b4e53052827ffb7ef6d3d16c021f219ec922c"
+    },
+    {
+      "role": "preserved_missing_chemical_impact",
+      "filename": "MISSING_CHEMICAL_IMPACT_PRESERVED.csv",
+      "path": "/mnt/data/Nine_Perfume_Blockage_Clearance_and_Bench_Activation_2026-08-16_v1/MISSING_CHEMICAL_IMPACT_PRESERVED.csv",
+      "bytes": 13356,
+      "sha256": "2558733682b1ff2dee80134c1f42204d7067cbd7546e83ead6e18f001d18d01f"
+    }
+  ],
+  "authority_false": [
+    "factory_formula",
+    "canonical_formula",
+    "physical_batch",
+    "bottle_addition",
+    "physical_liking",
+    "hedonic_proof",
+    "commercial_similarity",
+    "measured_headspace",
+    "strict_empirical_OAV",
+    "stability",
+    "safety",
+    "skin_use",
+    "inventory_mutation",
+    "procurement_authority",
+    "compounding_authority",
+    "installation",
+    "publication",
+    "release"
+  ],
+  "tool_boundary": {
+    "repository_state": "BRIDGE_BLOCKED",
+    "statement": "No Perfume-Chem repository write, remote canary, installation, canonical admission or release occurred."
+  }
+}

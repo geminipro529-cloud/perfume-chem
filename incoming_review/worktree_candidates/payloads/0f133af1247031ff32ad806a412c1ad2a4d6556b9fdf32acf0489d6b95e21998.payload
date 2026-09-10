@@ -1,0 +1,1350 @@
+{
+  "created": "2026-08-03",
+  "vault_name": "Kenny_Complete_77_Formula_Vault",
+  "formula_count": 77,
+  "program_counts": {
+    "Dior RC1": 23,
+    "Prada EQ2": 28,
+    "CHANEL": 6,
+    "YSL": 14,
+    "Kenny Originals": 6
+  },
+  "prada_eq2": {
+    "formula_quality_passes": 28,
+    "clean_rebuilds": 7,
+    "functional_rows": 955,
+    "family_pair_passes": "18/18",
+    "direct_5mL_microdose_defects": 0,
+    "unique_formula_uids": 28,
+    "empirical_final_releases": 0,
+    "formula_book_file_library_id": "file_000000005168820bb867c7b992850eb0",
+    "formula_book_title": "Prada_All_Targets_Equalized_Quality_Formula_Book_EQ2.xlsx",
+    "audit_file_library_id": "file_00000000bc1c81fab0ccca8ca85765d7",
+    "audit_title": "Prada_All_Targets_Equalized_Quality_Audit_EQ2.xlsx"
+  },
+  "evidence_boundary": {
+    "computational_formula_quality": "COMPLETE",
+    "measured_reference_gcms": "NOT RUN",
+    "measured_temporal_headspace": "NOT RUN",
+    "strict_oav": "NOT CALCULABLE",
+    "blind_sensory": "NOT RUN",
+    "safety_and_skin_use": "NOT CLEARED"
+  },
+  "physical_files": [
+    {
+      "path": "00_START_HERE/Kenny_Complete_77_Formula_Index.csv",
+      "bytes": 23485,
+      "sha256": "c1c0ecd0376170f9f7afd4fa89e42940ad7a92ab52b138e0adde9ec6d3879946"
+    },
+    {
+      "path": "00_START_HERE/Kenny_Complete_77_Formula_Master_Index.xlsx",
+      "bytes": 30358,
+      "sha256": "79cb8d6d400bb91fb3e731e924178d6c0bb51708dbc2f42ab6affd698e24a10d"
+    },
+    {
+      "path": "00_START_HERE/Kenny_Complete_77_Formula_Vault_README.md",
+      "bytes": 2051,
+      "sha256": "790a57a8b29a590cc3b37702182003a7fa913ea969f4d7626d1be004ccd15b2b"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H01_Dior_Homme_2005/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 16577,
+      "sha256": "ce9d605a56ddf9461f6e70e1d4d83c60c3fdcbff4abf04349c5d80324631d7db"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H01_Dior_Homme_2005/02_FINAL_RECIPE_RC1.md",
+      "bytes": 10548,
+      "sha256": "acf5869ebd23b4f9df4097bb31147d00b61271dedc208034102272d6050ec5b8"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H01_Dior_Homme_2005/03_BENCH_CARD_RC1.html",
+      "bytes": 17400,
+      "sha256": "762eb67fe7b649f284d9f9092cf12736873f6e3646dc0c346522cffe895acd43"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H01_Dior_Homme_2005/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1759,
+      "sha256": "ec7318f9393f4775006b2ef2660a3a2e06bfef6dc4150daf37b9aca4650bbbf7"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H01_Dior_Homme_2005/05_SENSITIVITY_MAP.csv",
+      "bytes": 15086,
+      "sha256": "acfd3e1d32ac117d75e52916bf58af855659ea4801c7bb833ffc3798bfad31a7"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H01_Dior_Homme_2005/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 12440,
+      "sha256": "5e46928c28077bb3d80505d536b703e7cbf76b3370531fccc025f23c5f2a5f68"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H01_Dior_Homme_2005/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 78,
+      "sha256": "d6ee70afb54e61defd18cd264f1281a9d2cdd99f12a61fb1f77c5b8f6cb291ce"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H01_Dior_Homme_2005/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "d26bfbf0736115c8d0549ef7e408cc0e9cccb6da9b9bb4bec7888bc10059296a"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H02_Dior_Homme_Original_2011_lineagecurrent/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 14232,
+      "sha256": "c4dabac217cf66e4c931f972c6990de8ebb3bd80f55ef9bb70165790a90c833b"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H02_Dior_Homme_Original_2011_lineagecurrent/02_FINAL_RECIPE_RC1.md",
+      "bytes": 9142,
+      "sha256": "cb245e03a5d3c104159923ad903da56c3894594e1b3f04a56fed4929c9762ea8"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H02_Dior_Homme_Original_2011_lineagecurrent/03_BENCH_CARD_RC1.html",
+      "bytes": 15307,
+      "sha256": "9474b666c3f1bcdf085d43e65d9dcbd85ceae9e661d2e8c8a952ee33045151f0"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H02_Dior_Homme_Original_2011_lineagecurrent/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1504,
+      "sha256": "29e9142e1a9b63c06a433ab2b075755c50e06546be9c50e6c9628f8a1ccae961"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H02_Dior_Homme_Original_2011_lineagecurrent/05_SENSITIVITY_MAP.csv",
+      "bytes": 12924,
+      "sha256": "63d2826163123bba86055a694750a8b6376bc810fc65d3d54bef3555b9721d12"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H02_Dior_Homme_Original_2011_lineagecurrent/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 10635,
+      "sha256": "74190ecf0c463fb28d65c61ed73c7b44a6bb7aa2d22a481968603df1c29658c6"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H02_Dior_Homme_Original_2011_lineagecurrent/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 78,
+      "sha256": "d6ee70afb54e61defd18cd264f1281a9d2cdd99f12a61fb1f77c5b8f6cb291ce"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H02_Dior_Homme_Original_2011_lineagecurrent/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "86cf97fc8cfefe122638468a02dbee71a1ed932e868a7e35b4ee952f72ed1172"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H03_Dior_Homme_Eau_de_Toilette_current_2020/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 11341,
+      "sha256": "0dc726d0743ad69afca56e2de7e193080f13494c4904fb1c861ab6188580b3f5"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H03_Dior_Homme_Eau_de_Toilette_current_2020/02_FINAL_RECIPE_RC1.md",
+      "bytes": 7474,
+      "sha256": "8bcbb8e59f897905effd441ecd40a68104ba5c6f2b005e77ebec7d0229b41043"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H03_Dior_Homme_Eau_de_Toilette_current_2020/03_BENCH_CARD_RC1.html",
+      "bytes": 12799,
+      "sha256": "8f5044ad8c8688ddad4a96aa0cd623bb15d31cb54e3b8da1cd0602246f81c7e9"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H03_Dior_Homme_Eau_de_Toilette_current_2020/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1590,
+      "sha256": "f993999cd0ba8442f002c52accd88098fd354a17ee3c96a3bf7e1d175fcf62dd"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H03_Dior_Homme_Eau_de_Toilette_current_2020/05_SENSITIVITY_MAP.csv",
+      "bytes": 10740,
+      "sha256": "d329e06efeb132cbdd7fc05086c63ba09f8f18ec172a4d3b1b18ff87c677fc24"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H03_Dior_Homme_Eau_de_Toilette_current_2020/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 8427,
+      "sha256": "508578637e06dcf626fba5e7a1a4588eb9787808d02540d89f329e8626d0afbd"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H03_Dior_Homme_Eau_de_Toilette_current_2020/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 6851,
+      "sha256": "6c61542c37f4504eb8edb68e86efc8fa7643747944a4b0bfd6b14a8854cb628d"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H03_Dior_Homme_Eau_de_Toilette_current_2020/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "e756c7243c809e281fe09b8b2d26d75abde2d9662490435a057ad000e55d1003"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H04_Dior_Homme_Intense_2007/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 14794,
+      "sha256": "42b7d9961a6771befc93bae5cc9dbb63a8842483e2eb7d9d8d2abcc1b5f4575b"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H04_Dior_Homme_Intense_2007/02_FINAL_RECIPE_RC1.md",
+      "bytes": 9571,
+      "sha256": "5db94dc04e4375410eec7210a459f2f73896325a8e841566aea2c26d2ea5c395"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H04_Dior_Homme_Intense_2007/03_BENCH_CARD_RC1.html",
+      "bytes": 15657,
+      "sha256": "87b67398e7189acdbf4ea003469878fadfcb42275ee00b3fb33733766c4084ac"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H04_Dior_Homme_Intense_2007/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1670,
+      "sha256": "423498af3aac7f2766f955f16a6ac4754996a01a7d6cd1e6460c749298bf322e"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H04_Dior_Homme_Intense_2007/05_SENSITIVITY_MAP.csv",
+      "bytes": 13546,
+      "sha256": "46aaad04ac2254ff59099fe379530fa4fd3e39e3da174611f2a8e1d91cd8f54f"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H04_Dior_Homme_Intense_2007/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 11006,
+      "sha256": "a6052344d8979ff28039d6603de9705a32376c982ba21a53e74ef28f11005361"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H04_Dior_Homme_Intense_2007/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 8637,
+      "sha256": "b315b3f96e7b92504da3d63c036c89bb2cbe6573e3786cfacd292d2ad36abed0"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H04_Dior_Homme_Intense_2007/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "a629d411301de23be4fdd7441c16eee44af5c2df5b1aa3f57563ddcf49e33ac8"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H05_Dior_Homme_Intense_2011_lineagecurrent/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 14621,
+      "sha256": "7c118ed32c20d3aa7c8fbb2cb52f2c454c0a50e0c60e34c203cdaf30bc0a15a2"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H05_Dior_Homme_Intense_2011_lineagecurrent/02_FINAL_RECIPE_RC1.md",
+      "bytes": 9454,
+      "sha256": "5f84098d951ad71513b63411d162768f8f3c2072f34c255402b199c3c6e99d14"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H05_Dior_Homme_Intense_2011_lineagecurrent/03_BENCH_CARD_RC1.html",
+      "bytes": 15606,
+      "sha256": "9e9ce91cadad15fc11fe48354019353d561c9404410720d9c3d09e7bef37f863"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H05_Dior_Homme_Intense_2011_lineagecurrent/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1611,
+      "sha256": "11ce5293d16740c7a92ee2a80f2ce9928c2462800d101e3e8bc4a34e724915df"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H05_Dior_Homme_Intense_2011_lineagecurrent/05_SENSITIVITY_MAP.csv",
+      "bytes": 13298,
+      "sha256": "d1b280583f92b88ed51dc1e34da2993cd8a031d025e95a17feb484bf05e27f0d"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H05_Dior_Homme_Intense_2011_lineagecurrent/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 10866,
+      "sha256": "7de39ee003710778ad64507d4bfe614bea8d8b8de8bc6eacafc7aff7d27618b0"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H05_Dior_Homme_Intense_2011_lineagecurrent/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 78,
+      "sha256": "d6ee70afb54e61defd18cd264f1281a9d2cdd99f12a61fb1f77c5b8f6cb291ce"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H05_Dior_Homme_Intense_2011_lineagecurrent/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "2fe60dea34cde8413984e91d0b3ee6821e1dc5bfa4821f43bb4104e3e88bb0ea"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H06_Dior_Homme_Parfum_2014_legacy/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 15301,
+      "sha256": "7f138f0db8be195eea16ea8851b88b78e980ed4a5ef0869ebc8a04b18f969bba"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H06_Dior_Homme_Parfum_2014_legacy/02_FINAL_RECIPE_RC1.md",
+      "bytes": 9873,
+      "sha256": "52763016c892bb3824110932506216b5aa10fecfe62610544b6bd7db39d8f986"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H06_Dior_Homme_Parfum_2014_legacy/03_BENCH_CARD_RC1.html",
+      "bytes": 16193,
+      "sha256": "85c7cae46253cded4a5991be867d4fb9fe961b138d28d6e93ca2e083c39a190d"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H06_Dior_Homme_Parfum_2014_legacy/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1663,
+      "sha256": "e46793142de9dc0007eb5936a6e1dbfd7a6279d1cee49151eed75d293fd68989"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H06_Dior_Homme_Parfum_2014_legacy/05_SENSITIVITY_MAP.csv",
+      "bytes": 13918,
+      "sha256": "ead3504b60d9a87e79004be0866b5bf2160016b16be1f4abb66f991203a50ee6"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H06_Dior_Homme_Parfum_2014_legacy/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 11385,
+      "sha256": "ce34700ed362f1b93fab08a0ae006329a92e2e8b4f50d463e238561dd48249d6"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H06_Dior_Homme_Parfum_2014_legacy/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 78,
+      "sha256": "d6ee70afb54e61defd18cd264f1281a9d2cdd99f12a61fb1f77c5b8f6cb291ce"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H06_Dior_Homme_Parfum_2014_legacy/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "58d6aa457926747484167988e0e61331229463d24684d256828dfaa307d93b7c"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H07_Dior_Homme_Parfum_current_Francis_Kurkdjian_edition/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 14358,
+      "sha256": "b17604003124375502663332526e94553b663a6d3bae683fd24405e2c0b53cb5"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H07_Dior_Homme_Parfum_current_Francis_Kurkdjian_edition/02_FINAL_RECIPE_RC1.md",
+      "bytes": 9340,
+      "sha256": "7064a0657459c59c2a0184093044c51ba329c28756ade5f1db258a267a6b3c25"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H07_Dior_Homme_Parfum_current_Francis_Kurkdjian_edition/03_BENCH_CARD_RC1.html",
+      "bytes": 15357,
+      "sha256": "5f533860fd5b3c1471b8ed25b9e7d632da9db2b67acefe57304c5a6aed3784ff"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H07_Dior_Homme_Parfum_current_Francis_Kurkdjian_edition/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1674,
+      "sha256": "524185bd51e8da51e715237136f3e544646dec7475f6f2065de0f37e4076c8b7"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H07_Dior_Homme_Parfum_current_Francis_Kurkdjian_edition/05_SENSITIVITY_MAP.csv",
+      "bytes": 13115,
+      "sha256": "ee308bd3cce268a1af0fb3ca3eaa1b7a11b1e3bc6897f1833e5c79950f1a4b1d"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H07_Dior_Homme_Parfum_current_Francis_Kurkdjian_edition/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 10630,
+      "sha256": "910ebfccda9593e233ea3f25dcd83def2d74f886d8570623d7d9a3a09ab566d5"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H07_Dior_Homme_Parfum_current_Francis_Kurkdjian_edition/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 78,
+      "sha256": "d6ee70afb54e61defd18cd264f1281a9d2cdd99f12a61fb1f77c5b8f6cb291ce"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H07_Dior_Homme_Parfum_current_Francis_Kurkdjian_edition/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "d8bc9a6e5ce735221ebdba481ab894d1923e9b5d2ddfeb7131b091db0fb7dd89"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H08_Dior_Homme_Cologne_2007/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 14725,
+      "sha256": "7879bdfeb9b7c2c45de1ce6f9c1bf2477df85281d06591ec6af76c1b0d085a3e"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H08_Dior_Homme_Cologne_2007/02_FINAL_RECIPE_RC1.md",
+      "bytes": 9456,
+      "sha256": "90d2910ce2190a2758850091e59a92a67c948e8111135c13bff83df7d7c2e602"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H08_Dior_Homme_Cologne_2007/03_BENCH_CARD_RC1.html",
+      "bytes": 15751,
+      "sha256": "c941f8ffed7e765c699959d090c9be096e90e69b8e1412d05d4c85b707951927"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H08_Dior_Homme_Cologne_2007/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1664,
+      "sha256": "b032162a103dcc95e92db3618c96eccfdfef8f762c921185e51ec8fbd51d2aac"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H08_Dior_Homme_Cologne_2007/05_SENSITIVITY_MAP.csv",
+      "bytes": 13062,
+      "sha256": "310b8948b720295666f16353a6cbb1a48ab2e43bf1e4674298d53affcc4f24dc"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H08_Dior_Homme_Cologne_2007/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 11033,
+      "sha256": "166bb6826eef2fbeb7cbea0a5287836573d7d27fbc83c28f8ec26eb315bdceb1"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H08_Dior_Homme_Cologne_2007/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 8744,
+      "sha256": "73c4a3f86dca5b044019237de0783deb27a775d3b33409744d3d7633b217dc20"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H08_Dior_Homme_Cologne_2007/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "205a770b889944f6d5f6e10416e234bc2592a7404ddf10764b15b3a801101570"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H09_Dior_Homme_Cologne_current_2013_lineage/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 11295,
+      "sha256": "dd95aeff12698cc361c497be402170eedf86602159e1744ffc4f336e974f0c6e"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H09_Dior_Homme_Cologne_current_2013_lineage/02_FINAL_RECIPE_RC1.md",
+      "bytes": 7440,
+      "sha256": "7591d5ed773780da4d7f8ede48a186c94c63311b7866975e8470b9696586478f"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H09_Dior_Homme_Cologne_current_2013_lineage/03_BENCH_CARD_RC1.html",
+      "bytes": 12696,
+      "sha256": "f6e79037dec5a51913705a4ceaed9941fc7c21a01508057fd9e8e0c8571b1ec6"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H09_Dior_Homme_Cologne_current_2013_lineage/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1464,
+      "sha256": "738c8b5a8ce5d73e0ea72e5f096a60425d556706f856557830c9670f921a48e3"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H09_Dior_Homme_Cologne_current_2013_lineage/05_SENSITIVITY_MAP.csv",
+      "bytes": 9955,
+      "sha256": "a73850354d51e6fac49dd825e6527436416bbe31d729ac1d10a6f1767538697b"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H09_Dior_Homme_Cologne_current_2013_lineage/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 8351,
+      "sha256": "39f76fcd5fefa198cc2c7b1c9f9517bb83adca31ba1654ab607415a27df713e6"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H09_Dior_Homme_Cologne_current_2013_lineage/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 6830,
+      "sha256": "dc857a15a1692668032e0af8422d1693a35d348d0ad79491b943c9f6202dbe39"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H09_Dior_Homme_Cologne_current_2013_lineage/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "a76e415aa1bde437056131d4af148120e39a7c7f261c2c73944df7547a7f8adc"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H10_Dior_Homme_Eau_for_Men_2014/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 11167,
+      "sha256": "63a79b4838500a7f9b3e2ab8bab043cbb24f55a9a8934921788f835331cf10b6"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H10_Dior_Homme_Eau_for_Men_2014/02_FINAL_RECIPE_RC1.md",
+      "bytes": 7409,
+      "sha256": "082dc374070349279fc485c24e6f0bee3f0204699b5e81282d264d3491051bb6"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H10_Dior_Homme_Eau_for_Men_2014/03_BENCH_CARD_RC1.html",
+      "bytes": 12617,
+      "sha256": "0a0d9579f885db2f01408dc0eae405d45f9c64b672d507c907da8c0044d89b35"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H10_Dior_Homme_Eau_for_Men_2014/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1667,
+      "sha256": "d3f98637ec804d4993e3e7722846f977e6de896f793fe2038ec8b45430d455d9"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H10_Dior_Homme_Eau_for_Men_2014/05_SENSITIVITY_MAP.csv",
+      "bytes": 10028,
+      "sha256": "97c864f7ff4f89676ed5616ca0078be567d6fddba1816d79b0099aa63eb6dd18"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H10_Dior_Homme_Eau_for_Men_2014/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 8277,
+      "sha256": "f247e50915f1fb1abfb519ced5d2904ff32520c138074574c7ac4127ebca4691"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H10_Dior_Homme_Eau_for_Men_2014/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 6767,
+      "sha256": "e1b80cb65e26a8793a72be7e5b7982563efac99dbb61e3a69a5431c4b0f76e0b"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H10_Dior_Homme_Eau_for_Men_2014/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "9fc32676d4fbee6f0755026b39a4131482690ac2e6053da96a875887c9ea4ce0"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H11_Dior_Homme_Sport_2008/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 12273,
+      "sha256": "f06dfa3aac7423ea69bf88f103249375fecc100c092f9bee1b058230c3ced737"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H11_Dior_Homme_Sport_2008/02_FINAL_RECIPE_RC1.md",
+      "bytes": 8032,
+      "sha256": "01674d94b1312a77921d8ff18462df2c495d7eed51739561bcf8c76baf7d9759"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H11_Dior_Homme_Sport_2008/03_BENCH_CARD_RC1.html",
+      "bytes": 13653,
+      "sha256": "bd2444c8eb0723721bd7cde13628196df44fec27a7991ef4fffb8cfcbed46570"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H11_Dior_Homme_Sport_2008/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1742,
+      "sha256": "8c0980b191ac872e6ab4ebac417794f6a84af9e0108b676bf1cc3ce952b0b410"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H11_Dior_Homme_Sport_2008/05_SENSITIVITY_MAP.csv",
+      "bytes": 11082,
+      "sha256": "3cae3f8b0d5b20a122e1eaa337095d2b305c52e7903471fa4698b62510f06941"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H11_Dior_Homme_Sport_2008/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 9183,
+      "sha256": "0b7506184fed6a4621fd731aa251a091e983045e3c61c1ed73d42f5abd4820c7"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H11_Dior_Homme_Sport_2008/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 7277,
+      "sha256": "a48857ffd6829563251a8362a6a1548ef16bfa89273f8ef56c27035361433996"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H11_Dior_Homme_Sport_2008/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "f56d8d8203f8f94dec8727ddefe6e7d1537c05c2b1ca0e175e9b2a2f2e3e1350"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H12_Dior_Homme_Sport_2012/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 12228,
+      "sha256": "6408d9ac453db15258764c34e899f4b14c92a3cb1778005cca30e559cd59c42c"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H12_Dior_Homme_Sport_2012/02_FINAL_RECIPE_RC1.md",
+      "bytes": 8017,
+      "sha256": "86469e6a764654042fd86cf69fbe164f91153003ca562189251ee727b8ab0993"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H12_Dior_Homme_Sport_2012/03_BENCH_CARD_RC1.html",
+      "bytes": 13657,
+      "sha256": "baf4bb86517efdb9e0c8d2897db8b27d727f86b46135223e8753d8cf3ea50db9"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H12_Dior_Homme_Sport_2012/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1628,
+      "sha256": "9d153cc34a2bdf5dbf38cb7f89ef44604f796c197e9ae357161045e3cd9201b5"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H12_Dior_Homme_Sport_2012/05_SENSITIVITY_MAP.csv",
+      "bytes": 11033,
+      "sha256": "ee085840ba2b7b486d0136eed35c83a82d167fe929f7b8c0862ac8cb84b9c050"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H12_Dior_Homme_Sport_2012/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 9122,
+      "sha256": "b03ed06f859892fb8b886fbdd95db42edfd6d15da29c4301892c5f08684c6d21"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H12_Dior_Homme_Sport_2012/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 7225,
+      "sha256": "983a2157a1cc674db8b8ff55cfb26eb782f49f5d964835aec0f3c998b8d1ac6c"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H12_Dior_Homme_Sport_2012/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "95124deea179514be418eb38f8b24f2da5cc0895cf5ef3046d4e7d91a158df5a"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H13_Dior_Homme_Sport_2017/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 10839,
+      "sha256": "a2ec3241314b5bbf418da74a4d5499b9b16d99a16c7376283401de0a2bf8235f"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H13_Dior_Homme_Sport_2017/02_FINAL_RECIPE_RC1.md",
+      "bytes": 7286,
+      "sha256": "a77f34492aa4d0961cd63921dce4e76795c1b70983400fc2a85287bd54fb6c68"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H13_Dior_Homme_Sport_2017/03_BENCH_CARD_RC1.html",
+      "bytes": 12400,
+      "sha256": "47af4bfdcec24c48d8667caf4298f82bc8ce9bc256721767351207b4b94ec411"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H13_Dior_Homme_Sport_2017/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1614,
+      "sha256": "e1f6bce64e559836340d80b5cd4a42fe23d257da8d84f1f6088710ca68704af9"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H13_Dior_Homme_Sport_2017/05_SENSITIVITY_MAP.csv",
+      "bytes": 10011,
+      "sha256": "fee4ed5286095152e0cfaf3b1dc133b5d1c3fa3001cca9bb7b589c3c62be2342"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H13_Dior_Homme_Sport_2017/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 8023,
+      "sha256": "feebe3dfaa4403a46b39a248dc68dad06f53479119cb6ec2cacec882eb3040cf"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H13_Dior_Homme_Sport_2017/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 6721,
+      "sha256": "cfff5008fc71d4a0a6b31c3cb75c4acb2be9b1c67a88538c2f018eb113831f5f"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H13_Dior_Homme_Sport_2017/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "ca16cad48f39e9c5328c154d13de555994e27c4573ee0ceb0c7b431192e4911e"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H14_Dior_Homme_Sport_current_20212022/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 11069,
+      "sha256": "78af90f52f5b26b52c736b6a86a6d75a844ff91d9e7127d41d2dcb61c0ac1f4e"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H14_Dior_Homme_Sport_current_20212022/02_FINAL_RECIPE_RC1.md",
+      "bytes": 7353,
+      "sha256": "0ab07aaa70598e8f309a2d62701240bec375c4021458d7c105fbce4cb92c63d5"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H14_Dior_Homme_Sport_current_20212022/03_BENCH_CARD_RC1.html",
+      "bytes": 12579,
+      "sha256": "7e232fd89604c64c0fd0c5d16d73e0a7081ef808682a10456fac1320f2f7f96a"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H14_Dior_Homme_Sport_current_20212022/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1624,
+      "sha256": "7ed890c4fca140a7423344b3934e8074d41187f77ae507b9c1a2038fb49fb645"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H14_Dior_Homme_Sport_current_20212022/05_SENSITIVITY_MAP.csv",
+      "bytes": 10203,
+      "sha256": "a15e492a991ec6eacf2ec1f4ce06a8542226881a928c8fbac02d5de251ccf6db"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H14_Dior_Homme_Sport_current_20212022/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 8247,
+      "sha256": "1b4435fa41782b03c1d8fa9d3bb854e3b733b768de82d395ccb49c23a89c16a7"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H14_Dior_Homme_Sport_current_20212022/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 6765,
+      "sha256": "701e989f3c0cd0c645806a2bc2d46a223805dd3b99c4c5f9c7597e477aa6df4a"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H14_Dior_Homme_Sport_current_20212022/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "74e958a2fc5690305640c3fbb93f472e8963ebc751e5087c0af0f03b0e4370e3"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H15_Dior_Homme_Sport_Very_Cool_Spray/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 10882,
+      "sha256": "04699463d808829ee8583dd97f9f5961de21a060f8120c2c88413afb8f9dcbf1"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H15_Dior_Homme_Sport_Very_Cool_Spray/02_FINAL_RECIPE_RC1.md",
+      "bytes": 7262,
+      "sha256": "ff21ec631836b22629acc10a5fe62de36863e4be91c67574b1a8ee3aa0dd8680"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H15_Dior_Homme_Sport_Very_Cool_Spray/03_BENCH_CARD_RC1.html",
+      "bytes": 12502,
+      "sha256": "cb12e69137a3bcf3812cec1a134ea2a9d0c6fdc62874b0f8a5176619424f319c"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H15_Dior_Homme_Sport_Very_Cool_Spray/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1624,
+      "sha256": "c39471e8b288d893dcb823351fc35596554821c7e1d1dd0fef4f40e18874e6d0"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H15_Dior_Homme_Sport_Very_Cool_Spray/05_SENSITIVITY_MAP.csv",
+      "bytes": 10146,
+      "sha256": "bbc6483d86809705b705b2f5c4711daceac9da66fe10514723f952a48274efc9"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H15_Dior_Homme_Sport_Very_Cool_Spray/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 8090,
+      "sha256": "c64c3a31650a7b18278ffb74e57b77e4642ae9fe50e14b43a1b9efc0bc5a8fc3"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H15_Dior_Homme_Sport_Very_Cool_Spray/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 6759,
+      "sha256": "83f890486c22221c176e0f09d892007167ef0c7d7def241e493c1153b82d72a5"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_Homme/H15_Dior_Homme_Sport_Very_Cool_Spray/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "fffd5045a84727b54624fb6323214fdc785db152651bfa37c2bc06e9ea74d58a"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_RC1_Cross_Flanker_Differentiation.csv",
+      "bytes": 28474,
+      "sha256": "8f02e05f16d7e6048bc81323041be307f3bc8fb6e8a3fa9ef52e28cd081377cd"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_RC1_Dashboard_Preview.png",
+      "bytes": 462457,
+      "sha256": "4d593dfa76f606aec7c30ad2082bd0f7d40b48e412ab44f7aa52091e92fa9860"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_RC1_Final_Gate.csv",
+      "bytes": 3765,
+      "sha256": "decfd3616588edc004891b291a453073b263712700dfba2e121896ef0af15a6e"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_RC1_Hardened_Recipe_Master.xlsx",
+      "bytes": 894741,
+      "sha256": "5c9b9c9f1e09253c06a0e38a3e43b670689c3f241d9681468ee35d31184259cc"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_RC1_Hardening_Model.json",
+      "bytes": 3754827,
+      "sha256": "2070ab675c562318522dc042c1a7104b2483cdf91cf4da758171c695d3db5653"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_RC1_Hardening_Report.md",
+      "bytes": 5616,
+      "sha256": "6a4c6c21b7bea03842390e8269b617d804700f3a434fb3e359f14568e085a4c6"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_RC1_Master_Recipes.csv",
+      "bytes": 320492,
+      "sha256": "1ca890fed14cf066717476404456f0d0d772c47c34bddce9885dc772a997eec5"
+    },
+    {
+      "path": "01_DIOR_RC1/Dior_RC1_Monte_Carlo_Summary.csv",
+      "bytes": 3511,
+      "sha256": "746bd1772284c641965fbc48de077211fbab7154bd595dd922215301ffd6fbba"
+    },
+    {
+      "path": "01_DIOR_RC1/README.md",
+      "bytes": 932,
+      "sha256": "d0967b6fc8a55a99cdafe44e09fc40e52dc60d3e169913044dc3f005341127a2"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S01_Sauvage_Eau_de_Toilette_2015_launch_profile/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 10813,
+      "sha256": "409e6616f84068217cf459322482722ffcfe2df51e31fe1637debd778fd9333b"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S01_Sauvage_Eau_de_Toilette_2015_launch_profile/02_FINAL_RECIPE_RC1.md",
+      "bytes": 7193,
+      "sha256": "73deb596429ca8b9b26c2d62db5753b62e57659638fff5f9a94a47a380f625ca"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S01_Sauvage_Eau_de_Toilette_2015_launch_profile/03_BENCH_CARD_RC1.html",
+      "bytes": 12384,
+      "sha256": "29fabc79c8c8aa0698507f921a237509d06cf24f8ff7764d8955c33b6ef97f94"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S01_Sauvage_Eau_de_Toilette_2015_launch_profile/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1633,
+      "sha256": "5b731d32f3e9b57ac5ea9cd5d2fecbad1c4fae8262e735d401e405be13ca7812"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S01_Sauvage_Eau_de_Toilette_2015_launch_profile/05_SENSITIVITY_MAP.csv",
+      "bytes": 9959,
+      "sha256": "07702897186b58ce59caee8a0e953ba3388321a522933c3b852066f07ad7187c"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S01_Sauvage_Eau_de_Toilette_2015_launch_profile/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 8034,
+      "sha256": "e7f6cba464187b2c1b734612e39479d3e0a29f532355528767d05900781ec1c1"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S01_Sauvage_Eau_de_Toilette_2015_launch_profile/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 6741,
+      "sha256": "054c21f0e666b36cde8e24d138b595c9511153f3a28beabd2d592f50463fe781"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S01_Sauvage_Eau_de_Toilette_2015_launch_profile/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "a12b384bd63859067e56d310351e7c662f9e63e42989db861ff4bd3f578b4c18"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S02_Sauvage_Eau_de_Toilette_current_refillable_audit/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 10826,
+      "sha256": "3b6ec222a85e99d8e1695fb679b6a5578e0d2847ba4b8b3486fdae92baf87615"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S02_Sauvage_Eau_de_Toilette_current_refillable_audit/02_FINAL_RECIPE_RC1.md",
+      "bytes": 7208,
+      "sha256": "a1bf96f887c62409492c54cb0d2eec41fafa5170a473ef7a42d9fc52091c8ca5"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S02_Sauvage_Eau_de_Toilette_current_refillable_audit/03_BENCH_CARD_RC1.html",
+      "bytes": 12406,
+      "sha256": "4b87af0c1f74a10c3f2498a9fdd51208c1bbeb923f1bf6f32f65db90b1118ee5"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S02_Sauvage_Eau_de_Toilette_current_refillable_audit/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1608,
+      "sha256": "b4d60bdcb856fb9d20dcf2def27548cac5068cf44b301399bae2a402c0f575a4"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S02_Sauvage_Eau_de_Toilette_current_refillable_audit/05_SENSITIVITY_MAP.csv",
+      "bytes": 9969,
+      "sha256": "82dbb9ca320e0f073e39a1314d0c26ac013d42cbd1fd78497fab606d97c3dfc5"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S02_Sauvage_Eau_de_Toilette_current_refillable_audit/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 8031,
+      "sha256": "20069e0be4a2d205988fbbccaae8a8b74433fd8c974537ecc4e43a7a347229af"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S02_Sauvage_Eau_de_Toilette_current_refillable_audit/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 6722,
+      "sha256": "925d77db12473836126a5f7685323736543d07a77cb5bac090f2864526b48755"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S02_Sauvage_Eau_de_Toilette_current_refillable_audit/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "6fe899cfc45a063eef960b20b8a07780bae4a1377547b72125c9d60962ecc62a"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S03_Sauvage_Very_Cool_Spray/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 11230,
+      "sha256": "211c1b1b14d2b0bf7f79573896cd4e9dafbc02abd71503be7fcf80921bbf1944"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S03_Sauvage_Very_Cool_Spray/02_FINAL_RECIPE_RC1.md",
+      "bytes": 7458,
+      "sha256": "2ae3ddddd08d9d51537bcf325aff4c49c4f52e6ee900331cfcba4543edf9fe83"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S03_Sauvage_Very_Cool_Spray/03_BENCH_CARD_RC1.html",
+      "bytes": 12764,
+      "sha256": "890a41b2488c6d1339ec12247eadc98b16133f71abc548a23ad2229b6a3f78e6"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S03_Sauvage_Very_Cool_Spray/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1668,
+      "sha256": "8bbc34104f209747f004cc4b0a6310bba1c30c28dbce44a5fc09a9c79be39cba"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S03_Sauvage_Very_Cool_Spray/05_SENSITIVITY_MAP.csv",
+      "bytes": 10542,
+      "sha256": "8a33611eb7a29c82dbacf0d1b5db51b511137f096537b2cf3614f157ccee9ae7"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S03_Sauvage_Very_Cool_Spray/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 8397,
+      "sha256": "c649d9ccb700aa6de405eeff6c8635e548ae579dec4f38102de8ffbcb935d049"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S03_Sauvage_Very_Cool_Spray/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 6776,
+      "sha256": "b789f1f91754aa41f64adafc943395c07d5e7d933acc17345fd4d10927c69ed2"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S03_Sauvage_Very_Cool_Spray/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "cb442f48d64c4f941b1383c46a0388f033c39bbcc34ce2b05a6bca81f496250d"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S04_Sauvage_Eau_de_Parfum/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 10775,
+      "sha256": "e01edd4b7d3d7dbf0c0a1d30d7c6560a45e64dfd067195f272a2446b55227e3a"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S04_Sauvage_Eau_de_Parfum/02_FINAL_RECIPE_RC1.md",
+      "bytes": 7175,
+      "sha256": "9c1e7b50e944b650a78bbf1fd62b83b1db7fb678515253640d83b3afa8989bc9"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S04_Sauvage_Eau_de_Parfum/03_BENCH_CARD_RC1.html",
+      "bytes": 12311,
+      "sha256": "4aaaeb078ca248b420fda55448c5002c9e5190e71509860f33c74469fc875369"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S04_Sauvage_Eau_de_Parfum/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1631,
+      "sha256": "1ba5830853323a1c76d2d68c68bace1f848fc67aa531ada64f085b20d1c1a53d"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S04_Sauvage_Eau_de_Parfum/05_SENSITIVITY_MAP.csv",
+      "bytes": 10039,
+      "sha256": "b1dcdf1c1139d09d42152a2792b380c5013f96644dbfd751b20cfa2edf337afa"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S04_Sauvage_Eau_de_Parfum/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 8023,
+      "sha256": "bdfd2ce35aaa87870f8e61736076133ed338807076134f54a7086032d56786bc"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S04_Sauvage_Eau_de_Parfum/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 6697,
+      "sha256": "f9d969dda5fcfb0b3803c2ad0d4c168e5834d70274b476c5260a4676418179a8"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S04_Sauvage_Eau_de_Parfum/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "a7e0d8d7210826fa9880fbdc43bdbf2ba0f94bde3d80ca789217bc699dd88b4e"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S05_Sauvage_Parfum/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 10376,
+      "sha256": "b09eae26eb0ecdde19b3ebfd5a4600925d29998b857872f07c1ffe0401161254"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S05_Sauvage_Parfum/02_FINAL_RECIPE_RC1.md",
+      "bytes": 6978,
+      "sha256": "354077958f0ce40bfe5e8dfe75534c3c68b8348982a663bd20e6d0dcbe7deaa9"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S05_Sauvage_Parfum/03_BENCH_CARD_RC1.html",
+      "bytes": 11927,
+      "sha256": "818722bc7abcb7e71f36955430e34906ad0bf3e3d1ea0e14de9eaa870c019a93"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S05_Sauvage_Parfum/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1686,
+      "sha256": "9d42c998e8735396adf37089bf4a4c5a8e912f8cb8706e9825e20090b4239025"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S05_Sauvage_Parfum/05_SENSITIVITY_MAP.csv",
+      "bytes": 9646,
+      "sha256": "c9411faf37c54939a554ba06319c4f020511d96da828af34e72b66ede26c1e7c"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S05_Sauvage_Parfum/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 7681,
+      "sha256": "090aea74f8fa103f65f6c7912b7bfdb3dac7b86967d614a8a54268884ca5f034"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S05_Sauvage_Parfum/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 6686,
+      "sha256": "dd21225d252da880ad71e4325587a30a9146389d16a16ddc438137c010881d48"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S05_Sauvage_Parfum/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "09c540b05f6945f0e72db830dcc01ad5d4d1ca19e03b75a90294d99a4433e082"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S06_Sauvage_Elixir/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 10601,
+      "sha256": "2fe24cd7b8db41a44612ef26a1b8e8d8cee451f456eaadb7bbda636379424297"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S06_Sauvage_Elixir/02_FINAL_RECIPE_RC1.md",
+      "bytes": 7158,
+      "sha256": "1c799d374c3c15177b449ae8c1eda124e7154cbd3598c906832442686157e45a"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S06_Sauvage_Elixir/03_BENCH_CARD_RC1.html",
+      "bytes": 12118,
+      "sha256": "121e4e7263c75496fb41a52e0246bb7d50e6471efcd4ba76969a97b219bebd0e"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S06_Sauvage_Elixir/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1700,
+      "sha256": "7592ea59a75814690c46fa88f0c0c15d6ee0dfb8afa76052bcb017fc83414e75"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S06_Sauvage_Elixir/05_SENSITIVITY_MAP.csv",
+      "bytes": 9983,
+      "sha256": "cd568cb8c6206403f034e185f12154b363cff314f5b18063a457e198f738be94"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S06_Sauvage_Elixir/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 7855,
+      "sha256": "2cd2ca1ba4917d1c2d533a88c78e908d9406de0a6873a3db63801e31c5c27d26"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S06_Sauvage_Elixir/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 6715,
+      "sha256": "11fbb692e8dd83d4497b1d6af5e00fd1b672b13cedd7c43066476deebb517134"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S06_Sauvage_Elixir/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "dfe9563873f18bebd894ec19996e08375209a6bff3780a7dd367a721cf8ab4fe"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S07_Sauvage_Eau_Forte/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 12511,
+      "sha256": "3cc4eb2064967ae8195f2db4aff688672fe405f2fc73ae8ef98af4f043965f81"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S07_Sauvage_Eau_Forte/02_FINAL_RECIPE_RC1.md",
+      "bytes": 8170,
+      "sha256": "f1138f9bc30a64c7a57b90d5f5eee54f240912e0c804240ba2009245860124ff"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S07_Sauvage_Eau_Forte/03_BENCH_CARD_RC1.html",
+      "bytes": 13911,
+      "sha256": "8f1660873fb27606e60c6d149c167383767db887216d5d566051f68417d0bd13"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S07_Sauvage_Eau_Forte/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1592,
+      "sha256": "8e48798c888604e4329044b2e9dc65550022a88c1757befb81913c8d87f969ae"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S07_Sauvage_Eau_Forte/05_SENSITIVITY_MAP.csv",
+      "bytes": 11721,
+      "sha256": "10fcae11b928738023bf0e10b1e85ef40020ad84c8aa437fce127f26b92fe5dd"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S07_Sauvage_Eau_Forte/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 9353,
+      "sha256": "da58e7d79b977e0241484b04904b1cacbf808da17bf44e1b99340cba897b24d4"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S07_Sauvage_Eau_Forte/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 78,
+      "sha256": "d6ee70afb54e61defd18cd264f1281a9d2cdd99f12a61fb1f77c5b8f6cb291ce"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S07_Sauvage_Eau_Forte/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "9473cea5944b884fbf2041ee9ff3c7333892d2238114d6147d50a5c5e6eea42b"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S08_Sauvage_Extrait_2026_launch/01_FINAL_RECIPE_RC1.csv",
+      "bytes": 10830,
+      "sha256": "ce76c4b696c728925a86f87dc5e35c527bb2a07f7998e9185d855a855e19cdec"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S08_Sauvage_Extrait_2026_launch/02_FINAL_RECIPE_RC1.md",
+      "bytes": 7314,
+      "sha256": "518740e13a31af2f54fc7a56cec3d8253274b2a1e8be1021953e5bf396bc3e3b"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S08_Sauvage_Extrait_2026_launch/03_BENCH_CARD_RC1.html",
+      "bytes": 12517,
+      "sha256": "7f992347d1f64818908cf68b2e8557e872a6309aaa555d4d4a8f7c1b66bcb8a4"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S08_Sauvage_Extrait_2026_launch/04_MONTE_CARLO_ROBUSTNESS.csv",
+      "bytes": 1549,
+      "sha256": "6e916bd413971929d9c5a24482507322112e19ae6681971c484d7118a1542dcf"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S08_Sauvage_Extrait_2026_launch/05_SENSITIVITY_MAP.csv",
+      "bytes": 10335,
+      "sha256": "33e6237b8511c59253f6afde057d6740aaba6140e9a65d8f4bab6e68bc5d5cb9"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S08_Sauvage_Extrait_2026_launch/06_TRACE_AND_HIGH_DOSE_AUDIT.csv",
+      "bytes": 8060,
+      "sha256": "e991485356bdd84ef36cacbd99c4538e7645ef9e812f246692ac9a2c29bf21bb"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S08_Sauvage_Extrait_2026_launch/07_CHANGELOG_FROM_V1.csv",
+      "bytes": 6745,
+      "sha256": "6904a90c0c04ede89ae391bcd3191dacd20d1e35ff329f4bb945db9d8118f410"
+    },
+    {
+      "path": "01_DIOR_RC1/Sauvage/S08_Sauvage_Extrait_2026_launch/08_FORMULA_HASH.txt",
+      "bytes": 65,
+      "sha256": "9ee37f99e58dc44ac4e63fcf888ed2defb74fdc558ebbd818aade10ac226f852"
+    },
+    {
+      "path": "01_DIOR_RC1/index.html",
+      "bytes": 22906,
+      "sha256": "87f9a37c3b599b85957211d8411b67ad10e464081abfdb0fc180ba2a00ad16c0"
+    },
+    {
+      "path": "01_DIOR_RC1/manifest.json",
+      "bytes": 16745,
+      "sha256": "eee79b430b26655411220fa6700374470e00e8457ce8e2e0c63844ca79a2adb7"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/CHANEL/C01_Allure_Homme_Eau_de_Toilette.csv",
+      "bytes": 9675,
+      "sha256": "71460edefba28b221c41298cea284675ba3d9413962dff3e07e6fc4f505fadbb"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/CHANEL/C01_Allure_Homme_Eau_de_Toilette.md",
+      "bytes": 6408,
+      "sha256": "1b9697d3898e5435b13a5892e87143e06c2dd757415d08e9b2bf41692ee5770d"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/CHANEL/C02_Allure_Homme_Édition_Blanche_Eau_de_Parfum.csv",
+      "bytes": 9738,
+      "sha256": "afbbee3d755a2383f131aa2dc16dbf2e27917f65908eb326f4293080cfb16b0f"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/CHANEL/C02_Allure_Homme_Édition_Blanche_Eau_de_Parfum.md",
+      "bytes": 6441,
+      "sha256": "9f67b584fcfce25bfa221b5540fc1cbc2df6b830644e3c8d977d092d96c1db1e"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/CHANEL/C03_Allure_Homme_Sport_Eau_de_Toilette.csv",
+      "bytes": 9636,
+      "sha256": "35d69a74883a52176b0477d77727341215ffd0e94a4cf778cea3cd9e5218440a"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/CHANEL/C03_Allure_Homme_Sport_Eau_de_Toilette.md",
+      "bytes": 6464,
+      "sha256": "2830062c92c0b70c45bb343aff7216cb4b1559b5ec7d63e3ea7fc46b13eb3d5e"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/CHANEL/C04_Allure_Homme_Sport_Cologne.csv",
+      "bytes": 9814,
+      "sha256": "dce1b2e93e964610e825aced6621fe3256ba71f3fd2f2ada853d4dba5c0cc033"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/CHANEL/C04_Allure_Homme_Sport_Cologne.md",
+      "bytes": 6429,
+      "sha256": "9edc62ac316f85f160669a69185e282beceb306542ea3d0f7c7bff8c25cd4a03"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/CHANEL/C05_Allure_Homme_Sport_Eau_Extrême.csv",
+      "bytes": 9781,
+      "sha256": "f238796f918342dd59ef605cf3c456ee736ccb565b12496b5456f1fe52295b86"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/CHANEL/C05_Allure_Homme_Sport_Eau_Extrême.md",
+      "bytes": 6423,
+      "sha256": "06862bffe413ce1c4d9c5fbd999bc4fa9044164ebc0b1ef7a61f1d5abbd37d51"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/CHANEL/C06_Allure_Homme_Sport_Superleggera_Eau_de_Parfum.csv",
+      "bytes": 9874,
+      "sha256": "6970bf2977eb69b3bcf1903ace84e5381bccb9949ed1bc10a7b550bec1b6bcb1"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/CHANEL/C06_Allure_Homme_Sport_Superleggera_Eau_de_Parfum.md",
+      "bytes": 6434,
+      "sha256": "b82ee5164fc45a0e85d8b88c6de911887109005c3e6a085874458b032aa0cfb5"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/Formula_Index.csv",
+      "bytes": 7343,
+      "sha256": "ef0579564247f1903455d81779a1763a1dc2472730c7987c8315d64033562dfe"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/Kenny_Originals/O01_Coriander_Orris_No_1.csv",
+      "bytes": 9468,
+      "sha256": "208f1b4df6bac658bf4d3a4faa63aeb8cc92d8d5093b070158b22f9d46184ffc"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/Kenny_Originals/O01_Coriander_Orris_No_1.md",
+      "bytes": 6382,
+      "sha256": "a91ec189de106100f119aea7eb6006d12b37a25dcfe6594d6832d8cce7ac3f93"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/Kenny_Originals/O02_Magnolia_Violet_Suede.csv",
+      "bytes": 9548,
+      "sha256": "9401dd95846bfe630e8ba578f0d31f35de89fe23be83dc09559da4079f34ff5c"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/Kenny_Originals/O02_Magnolia_Violet_Suede.md",
+      "bytes": 6432,
+      "sha256": "e77afe2f567989dbf397064c711a5b8de48f3e8da61c4ee92d0f2aa92624207b"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/Kenny_Originals/O03_Blue_Chamomile_Cardamom.csv",
+      "bytes": 9822,
+      "sha256": "e8be3a576ed76a7c71597658ca9ca7688248622393b6367acc8b557da3e77004"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/Kenny_Originals/O03_Blue_Chamomile_Cardamom.md",
+      "bytes": 6376,
+      "sha256": "1f7262f31afc6ce9b45041d130720a686f1526038ff818dfebb2709d4a2166d6"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/Kenny_Originals/O04_Storax_Black_Iris.csv",
+      "bytes": 9857,
+      "sha256": "75e9e67634d54d9707c753ec9ae3417953f5372f8a6badaf03a9b1840a307589"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/Kenny_Originals/O04_Storax_Black_Iris.md",
+      "bytes": 6512,
+      "sha256": "7d60e12bbaadc50980b746b4fe8b2f1aa15c7f3b02ff217058fbde157278e96a"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/Kenny_Originals/O05_Vietnamese_Benzoin_Vetiver.csv",
+      "bytes": 9573,
+      "sha256": "ce44c7a9873d9ac92a311b93bf23d1036e97a08ab07e8309ef266749a8099f85"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/Kenny_Originals/O05_Vietnamese_Benzoin_Vetiver.md",
+      "bytes": 6482,
+      "sha256": "4e1cf9203d040939a8bd047607c661f82b848b708ae0009f03c2a68897fe6f08"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/Kenny_Originals/O06_Honeyed_Green_Woods.csv",
+      "bytes": 9556,
+      "sha256": "fdd956f64fba46a21905d4e90f2824f625da4c19cc1957a9c93f5ec057bab288"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/Kenny_Originals/O06_Honeyed_Green_Woods.md",
+      "bytes": 6476,
+      "sha256": "f4a444978c4fb30cf198d1de23ba3dab7d35d8cdd88ce436c8b2f5fa481a4e74"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/Perfume_Phase2_All_Programs_Master_GPT56_EngineV2.xlsx",
+      "bytes": 322379,
+      "sha256": "002f696076f9524b9d49d1d315458a87ac8a263e97d0f3657b1cf7413fe390ae"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/Perfume_Phase2_All_Programs_ReadMe.md",
+      "bytes": 2933,
+      "sha256": "7c8cfd870273b7ca995ea114008e26bc0ec656de878fc7cab08232453e50d4c5"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/Perfume_Phase2_Master_Dashboard_Preview.png",
+      "bytes": 181787,
+      "sha256": "4dd585106cb58c7842f838f66220ac51030d5753462f7a11a9ffae3432a6fc3f"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y01_L_Homme_Eau_de_Toilette.csv",
+      "bytes": 9736,
+      "sha256": "4e93581124d87b6ac9af17f332e265534cb5ce0b3cbb27a4f14c7c7dcecd5fe3"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y01_L_Homme_Eau_de_Toilette.md",
+      "bytes": 6402,
+      "sha256": "ea9108ffefa8e0ca169e513c5fca7b82c2f2e765f3e9cf900294dccd89f3de6a"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y02_L_Homme_Le_Parfum.csv",
+      "bytes": 9937,
+      "sha256": "9723432fd1a74a4f4823b2569b1dd488ec1226ab36893664c77f8ceac6d095b3"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y02_L_Homme_Le_Parfum.md",
+      "bytes": 6369,
+      "sha256": "7b1f704f9aad075d46dca164d282a16217deb9e1b0b826bbe857852182e888e7"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y03_L_Homme_Eau_de_Parfum.csv",
+      "bytes": 9774,
+      "sha256": "d68df77ef54a01e6456bab4fef68042643ac2742e5f096fd6b374973781cb587"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y03_L_Homme_Eau_de_Parfum.md",
+      "bytes": 6392,
+      "sha256": "ac8d6b5f923ffc0a31624532ed60c2bd5f3cdfbe4fd0e14b9c06d051456a7fb6"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y04_L_Homme_Parfum_Intense.csv",
+      "bytes": 9722,
+      "sha256": "a59b74c09f71b7a2fa6c1e31c189fcaaea9b5606ec394890f54b7de14a6ecfe7"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y04_L_Homme_Parfum_Intense.md",
+      "bytes": 6404,
+      "sha256": "3c962e4a7ed86b27c8d280fca8b6a775065a2e575891f275448dc4eb7a48563c"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y05_L_Homme_Cologne_Bleue.csv",
+      "bytes": 9811,
+      "sha256": "e1321f388e58cab3b5c3765275215f642a1d3a5836f72d31789d78dd694d47a8"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y05_L_Homme_Cologne_Bleue.md",
+      "bytes": 6391,
+      "sha256": "e84763a500372bab2350dd930aad0f52f2c4c6cb6539a2ffa342e746c5501d65"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y06_L_Homme_Ultime.csv",
+      "bytes": 9804,
+      "sha256": "d2d8328c38a9909564a2283016702e9e4e31be54c1e436c02d4ea12a97a759dd"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y06_L_Homme_Ultime.md",
+      "bytes": 6372,
+      "sha256": "b9f59fb597a941d6ee2707ec7e98c37235013532812fc728f2f1102492c60425"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y07_L_Homme_Libre.csv",
+      "bytes": 9999,
+      "sha256": "2773b474e2d0dcfc99c72e1e1656ca2f869b7810b794d3df81af8f1a8a5dc53d"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y07_L_Homme_Libre.md",
+      "bytes": 6384,
+      "sha256": "498701e8e173300327eb69907e5319d0395a49e40014d762dcd1285c6f2a7765"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y08_La_Nuit_de_L_Homme_Eau_de_Toilette.csv",
+      "bytes": 9807,
+      "sha256": "2a64d46e56821b535125a543349a47c6996af21f260e2b231fba5d6e650769df"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y08_La_Nuit_de_L_Homme_Eau_de_Toilette.md",
+      "bytes": 6383,
+      "sha256": "564b06162c2b6d073218be4ad83bac37f2b7d3fd77e200bf2bc97d71d5ed7bed"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y09_La_Nuit_de_L_Homme_Le_Parfum.csv",
+      "bytes": 9881,
+      "sha256": "b511a610089a4ec6c5be8bc586e9bfab97dd10ed9d69eeb201831132a0546b52"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y09_La_Nuit_de_L_Homme_Le_Parfum.md",
+      "bytes": 6464,
+      "sha256": "fb1edd2c590dfac2c22df2da4074618a1c7b60a187de3ca1c8d28d58ae112e4b"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y10_La_Nuit_de_L_Homme_Eau_de_Parfum.csv",
+      "bytes": 9894,
+      "sha256": "edf8186453f60a6b8f3067d9f1eb2ef3f311aaa842338dd68acfd108a861d02a"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y10_La_Nuit_de_L_Homme_Eau_de_Parfum.md",
+      "bytes": 6433,
+      "sha256": "0bbf6a2cc312d5cccc39a9a110a635389dd62542d8418150b1bd2206434efe3c"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y11_La_Nuit_de_L_Homme_L_Intense.csv",
+      "bytes": 10063,
+      "sha256": "01d089db94b9e8b8f9fe316fe462573a413ca86196074992fca9b5c8ba1101f4"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y11_La_Nuit_de_L_Homme_L_Intense.md",
+      "bytes": 6481,
+      "sha256": "62d8376def49b92aae55438d32b9dc308c2f7bf8c22772de8e7a17764a2c92fd"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y12_La_Nuit_de_L_Homme_Bleu_Électrique.csv",
+      "bytes": 10073,
+      "sha256": "f87eb5b0bf99737ff7f33d5404eb7caa15c4e893db10b8db2f1eae766b61a215"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y12_La_Nuit_de_L_Homme_Bleu_Électrique.md",
+      "bytes": 6393,
+      "sha256": "a32d094db16285e861e562f7140312178b39f813d322b36aca108dd52893a2a1"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y13_La_Nuit_de_L_Homme_Eau_Électrique.csv",
+      "bytes": 10146,
+      "sha256": "aa73ec538c866163f917879af7eebb7ea77f3504912a4ec3ab5322d0bb65185e"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y13_La_Nuit_de_L_Homme_Eau_Électrique.md",
+      "bytes": 6384,
+      "sha256": "1d3d8ce8f01d22d4ffdb5b0abb9c0ba2d1088527c6c84ebdd61381c3b11b8fd6"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y14_La_Nuit_de_L_Homme_Frozen_Cologne.csv",
+      "bytes": 9982,
+      "sha256": "5603d0e0e13028b4cc648c81c23584c27b002b2b93a9c9d615863ef5d12b8b6b"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/YSL/Y14_La_Nuit_de_L_Homme_Frozen_Cologne.md",
+      "bytes": 6441,
+      "sha256": "8d02010f114f2d264f879868ddfdc4e2cc15372bb15bc75db3cfb3b8a0e1da2c"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/index.html",
+      "bytes": 18936,
+      "sha256": "2c1e844bbf3e10094da95574b6ede20ab8db54f83fba66d857021282decf0db5"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/manifest.json",
+      "bytes": 12685,
+      "sha256": "460f497119a83d97702260e472accbd751b37e6305f3fb559e488e2f6aa56803"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/phase2_perfume_program_state.json",
+      "bytes": 622798,
+      "sha256": "a834e726313e2dc4bb478fa2c8f4a0ca5b3fdd76d3de27e27481a99d88ac86c7"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/verification_engine_v2.py",
+      "bytes": 4641,
+      "sha256": "9755a5c1b04a24eba850626af9dd7285362266fc021c184a41fff9eb2bc3632a"
+    },
+    {
+      "path": "02_CHANEL_YSL_ORIGINALS/verification_engine_v2_results.json",
+      "bytes": 598921,
+      "sha256": "dd59aeb92a0cfea245ae01b93af9e67faaccab5b7a2bc46423c5f69e186690b0"
+    },
+    {
+      "path": "03_PRADA_EQ2_ACCESS/Prada_EQ2_18_Family_Pair_Checks.csv",
+      "bytes": 4006,
+      "sha256": "3b07a11ea4414a1d21b70c3af6e08f5b45c43e242de6f8ea1c3929d2b53f652e"
+    },
+    {
+      "path": "03_PRADA_EQ2_ACCESS/Prada_EQ2_28_Target_Completion_Receipt.csv",
+      "bytes": 12887,
+      "sha256": "fbbc608fd6fc685ebb72fac3a413ddea7b65b015dadb8dc2102f6b46098c82c1"
+    },
+    {
+      "path": "03_PRADA_EQ2_ACCESS/Prada_EQ2_File_Library_Access.md",
+      "bytes": 690,
+      "sha256": "e3af1ca2507e59cb7c672a08f11bb2a1c38b57689e633466fa7cbdfeb560b33a"
+    },
+    {
+      "path": "04_ENGINE/verification_engine_v2.py",
+      "bytes": 13239,
+      "sha256": "18ddfb8b63b1f33a6e844937c4d8cf8f3626628f12921553ca07f1f301f540bf"
+    }
+  ]
+}

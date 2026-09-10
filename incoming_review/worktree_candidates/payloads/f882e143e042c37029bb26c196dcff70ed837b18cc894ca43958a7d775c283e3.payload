@@ -1,0 +1,205 @@
+{
+  "product_id": "ysl-lhomme-2006-family-control-4500ul-adapter",
+  "reference_brand": "Yves Saint Laurent",
+  "reference_name": "L'Homme",
+  "reference_concentration": "EDT diagnostic adapter",
+  "reference_batch_year": "2006 target identity",
+  "reference_url": "https://www.yslbeauty.co.uk/fragrances/fragrances-for-him/l-homme/l-homme-eau-de-toilette-spray/284YSL.html",
+  "total_raw_ul": 4500.0,
+  "total_active_ul": 4500.0,
+  "authority_label": "HEURISTIC_VOLUME_ADAPTER_NOT_PPM_W_W",
+  "formula_hash": "E0F33CD87C3783A1E42D4036A69E54B974CED0AD031F7FF29612D65E81D2C40B",
+  "accepted": false,
+  "accepted_timestamp": null,
+  "evidence_ledger_ref": "../evidence/evidence_ledger.json",
+  "adapter_authority": "HEURISTIC_VOLUME_ADAPTER_NOT_PPM_W_W",
+  "canonical_target_path": "../families/lhomme_target.json",
+  "canonical_target_sha256": "637EF8CE63575A406C5EC27EC2A1CBFCA910E3303CA3B3B100572F64A4E539BA",
+  "conversion": "active_ppm_w_w multiplied by 4500 / 1000000; this volume view does not replace or prove the canonical mass basis",
+  "target_materials": [
+    {
+      "identity": "Iso E Super",
+      "raw_amount": 720.0,
+      "active_amount_median": 720.0,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["character", "transparent_cedar_halo"]
+    },
+    {
+      "identity": "Cedarwood Virginia",
+      "raw_amount": 495.0,
+      "active_amount_median": 495.0,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["signature", "literal_cedar_backbone"]
+    },
+    {
+      "identity": "Ethylene Brassylate",
+      "raw_amount": 360.0,
+      "active_amount_median": 360.0,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["character", "single_structural_musk"]
+    },
+    {
+      "identity": "Hedione",
+      "raw_amount": 454.166667,
+      "active_amount_median": 454.166667,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["character", "radiant_transition"]
+    },
+    {
+      "identity": "Vertofix Coeur",
+      "raw_amount": 292.5,
+      "active_amount_median": 292.5,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["character", "cedar_vetiver_bridge"]
+    },
+    {
+      "identity": "Ethyl Linalool",
+      "raw_amount": 225.0,
+      "active_amount_median": 225.0,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["character", "fresh_floral_woody_tenacity"]
+    },
+    {
+      "identity": "Dihydromyrcenol",
+      "raw_amount": 157.5,
+      "active_amount_median": 157.5,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["character", "ozonic_kinetic_freshness"]
+    },
+    {
+      "identity": "Sandalwood",
+      "raw_amount": 247.5,
+      "active_amount_median": 247.5,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["character", "dry_creamy_wood"]
+    },
+    {
+      "identity": "Vetiver Haiti",
+      "raw_amount": 202.5,
+      "active_amount_median": 202.5,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["signature", "haitian_vetiver_identity"]
+    },
+    {
+      "identity": "Alpha Isomethyl Ionone",
+      "raw_amount": 225.0,
+      "active_amount_median": 225.0,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["character", "violet_woody_body"]
+    },
+    {
+      "identity": "Violet Leaf",
+      "raw_amount": 112.5,
+      "active_amount_median": 112.5,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["signature", "crushed_green_heart"]
+    },
+    {
+      "identity": "Bergamot Oil",
+      "raw_amount": 202.5,
+      "active_amount_median": 202.5,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["character", "luminous_citrus_opening"]
+    },
+    {
+      "identity": "Cedrat Oil",
+      "raw_amount": 67.5,
+      "active_amount_median": 67.5,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["character", "bitter_citron_edge"]
+    },
+    {
+      "identity": "Ginger Oil",
+      "raw_amount": 99.0,
+      "active_amount_median": 99.0,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["signature", "ginger_recognizer"]
+    },
+    {
+      "identity": "Basil",
+      "raw_amount": 13.5,
+      "active_amount_median": 13.5,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["character", "basil_flower_contour"]
+    },
+    {
+      "identity": "White Pepper",
+      "raw_amount": 18.0,
+      "active_amount_median": 18.0,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["character", "dry_spice_bite"]
+    },
+    {
+      "identity": "Tonka",
+      "raw_amount": 157.5,
+      "active_amount_median": 157.5,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["character", "dry_tonka_warmth"]
+    },
+    {
+      "identity": "Coumarin",
+      "raw_amount": 45.0,
+      "active_amount_median": 45.0,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["character", "hay_tonka_articulation"]
+    },
+    {
+      "identity": "Linalyl Acetate",
+      "raw_amount": 40.833333,
+      "active_amount_median": 40.833333,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["bridge", "mobile_citrus_floral_seam"]
+    },
+    {
+      "identity": "Florol",
+      "raw_amount": 112.5,
+      "active_amount_median": 112.5,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["bridge", "mobile_clean_floral_volume"]
+    },
+    {
+      "identity": "Parmavert",
+      "raw_amount": 72.0,
+      "active_amount_median": 72.0,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["character", "green_violet_snap"]
+    },
+    {
+      "identity": "Ambroxide",
+      "raw_amount": 90.0,
+      "active_amount_median": 90.0,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["bridge", "mobile_mineral_persistence"]
+    },
+    {
+      "identity": "Hedione HC",
+      "raw_amount": 90.0,
+      "active_amount_median": 90.0,
+      "concentration": 1.0,
+      "concentration_basis": "heuristic_active_equivalent_volume",
+      "functional_roles": ["bridge", "mobile_high_cis_radiance"]
+    }
+  ]
+}

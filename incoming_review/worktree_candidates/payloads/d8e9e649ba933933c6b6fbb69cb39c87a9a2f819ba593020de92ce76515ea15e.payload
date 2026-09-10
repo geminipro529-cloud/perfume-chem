@@ -1,0 +1,48 @@
+"""Regression tests for Pydantic 2 schema compatibility."""
+
+import pytest
+from pydantic import ValidationError
+
+from app.core.models_config import ModelConfig
+from app.schemas.perfume import FormulaCreate
+
+
+def _model_config_payload(**overrides):
+    payload = {
+        "model_id": "gpt-schema-test",
+        "display_name": "OpenAI Schema Test",
+        "provider": "openai",
+        "source_url": "https://developers.openai.com/api/docs/models",
+        "version": "1",
+        "training_data": "test fixture",
+        "license": "Commercial",
+        "data_provenance": "test fixture",
+        "last_validated": "2026-07-15",
+        "purpose": "general_knowledge",
+        "context_window": 4096,
+    }
+    payload.update(overrides)
+    return payload
+
+
+def test_formula_schema_imports_and_validates_balanced_formula():
+    formula = FormulaCreate(
+        name="Schema smoke",
+        ingredients=[
+            {"name": "Hedione", "percentage": 60.0},
+            {"name": "Iso E Super", "percentage": 40.0},
+        ],
+    )
+
+    assert formula.name == "Schema smoke"
+
+
+def test_model_config_accepts_iso_date():
+    config = ModelConfig(**_model_config_payload())
+
+    assert config.last_validated == "2026-07-15"
+
+
+def test_model_config_rejects_non_iso_date():
+    with pytest.raises(ValidationError, match="YYYY-MM-DD"):
+        ModelConfig(**_model_config_payload(last_validated="15/07/2026"))

@@ -1,0 +1,166 @@
+from pathlib import Path
+
+import pytest
+
+from engine.inventory_parser import parse_inventory
+from engine.name_utils import normalize_name
+from engine.pipeline.formula_state import build_formula_state
+from engine.pipeline.preflight import run_release_preflight
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+AUTHORITY_RECEIPT = (
+    PROJECT_ROOT
+    / "docs"
+    / "research"
+    / "INVENTORY_STOCK_AUTHORITY_2026-08-30.md"
+)
+
+
+def _records(*, include_unavailable: bool = True):
+    return parse_inventory(
+        unique=False,
+        include_unavailable=include_unavailable,
+    )
+
+
+@pytest.mark.parametrize(
+    ("canonical_name", "expected_dilution"),
+    (
+        ("Parmavert", 1.0),
+        ("Cedrat FCF oil Sicilian", 1.0),
+        ("Ambrettolide", 0.10),
+    ),
+)
+def test_refound_and_reconfirmed_materials_are_executable(
+    canonical_name,
+    expected_dilution,
+):
+    matches = [record for record in _records() if record.name == canonical_name]
+
+    assert matches
+    assert any(record.status == "owned" for record in matches)
+    assert any(record.dilution == pytest.approx(expected_dilution) for record in matches)
+
+    available_names = {
+        record.name for record in _records(include_unavailable=False)
+    }
+    assert canonical_name in available_names
+
+
+def test_evernyl_preserves_two_owned_stocks_and_withholds_unmade_dep_stock():
+    evernyl = [record for record in _records() if record.name == "Evernyl"]
+    crystals = next(
+        record for record in evernyl if record.raw_name.startswith("Evernyl (crystals)")
+    )
+    working_20 = next(
+        record
+        for record in evernyl
+        if record.raw_name.startswith("Evernyl (20% w/w in DPG)")
+    )
+    planned_10 = next(
+        record
+        for record in evernyl
+        if record.raw_name.startswith("Evernyl (10% w/w in DEP)")
+    )
+
+    assert crystals.status == "owned"
+    assert crystals.dilution == pytest.approx(1.0)
+    assert working_20.status == "owned"
+    assert working_20.dilution == pytest.approx(0.20)
+    assert planned_10.status == "planned_preparation"
+    assert planned_10.dilution == pytest.approx(0.10)
+
+    executable_raw_names = {
+        record.raw_name for record in _records(include_unavailable=False)
+    }
+    assert crystals.raw_name in executable_raw_names
+    assert working_20.raw_name in executable_raw_names
+    assert planned_10.raw_name not in executable_raw_names
+
+
+def test_planned_preparation_status_fails_closed(tmp_path):
+    inventory = tmp_path / "inventory.txt"
+    inventory.write_text(
+        "--- LEATHER / SMOKY / PHENOLIC ---\n"
+        "- Evernyl (10% w/w in DEP)  # PLANNED PREPARATION; NOT YET PREPARED\n",
+        encoding="utf-8",
+    )
+
+    all_records = parse_inventory(inventory, include_unavailable=True)
+    available_records = parse_inventory(inventory, include_unavailable=False)
+
+    assert all_records[0].status == "planned_preparation"
+    assert available_records == []
+
+
+def test_release_preflight_blocks_exact_unmade_evernyl_stock():
+    material_name = "Evernyl (10% w/w in DEP)"
+    formula = {
+        "name": "Unmade Evernyl Stock Regression",
+        "ingredients_ul": {material_name: 100.0, "Iso E Super": 900.0},
+        "dilutions": {material_name: 0.10, "Iso E Super": 1.0},
+    }
+    state = build_formula_state(
+        formula["ingredients_ul"],
+        dilutions=formula["dilutions"],
+        batch_volume_ml=30.0,
+    )
+
+    report = run_release_preflight(formula, state)
+    availability = next(
+        check for check in report.checks if check.name == "inventory_availability"
+    )
+
+    assert availability.status == "FAIL"
+    assert availability.data["blocked_materials"] == [
+        {"material": material_name, "status": "planned_preparation"}
+    ]
+
+
+def test_telvada_cinnamon_is_a_distinct_neat_stock_without_nysupply_authority():
+    records = _records()
+    telvada = next(
+        record
+        for record in records
+        if record.name == "Cinnamon Bark EO - Telvada USDA Organic"
+    )
+    nysupply = next(
+        record
+        for record in records
+        if record.name == "Cinnamon Bark EO"
+        and "NYSUPPLY" in record.raw_name
+    )
+
+    assert telvada.status == "owned"
+    assert telvada.dilution == pytest.approx(1.0)
+    assert nysupply.status == "owned"
+    assert nysupply.dilution == pytest.approx(0.10)
+    assert telvada.name != nysupply.name
+
+
+def test_corrected_working_stocks_normalize_without_collapsing_supplier_identity():
+    assert normalize_name("Evernyl (20% w/w in DPG)") == "evernyl"
+    assert normalize_name("Evernyl (10% w/w in DEP)") == "evernyl"
+    assert normalize_name(
+        "Cinnamon Bark EO - Telvada USDA Organic (neat)"
+    ) == "cinnamon bark eo - telvada usda organic"
+
+
+def test_authority_receipt_preserves_formula_and_claim_boundaries():
+    text = AUTHORITY_RECEIPT.read_text(encoding="utf-8")
+
+    required = (
+        "Parmavert",
+        "Cedrat FCF oil Sicilian",
+        "Ambrettolide (10% in DPG)",
+        "Evernyl (20% w/w in DPG)",
+        "Evernyl (crystals)",
+        "PLANNED PREPARATION",
+        "Cinnamon Bark EO - Telvada USDA Organic",
+        "does not inherit",
+        "do not silently rebase",
+        "NOT TESTED / HOLD",
+    )
+    for phrase in required:
+        assert phrase.casefold() in text.casefold()

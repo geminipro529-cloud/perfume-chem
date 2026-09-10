@@ -1,0 +1,129 @@
+{
+  "schema_version": "evidence_foundation_admission_v1",
+  "program_id": "SOLFORGE-EVIDENCE-FOUNDATION-20260826",
+  "recorded_at": "2026-08-26",
+  "decision": "ALL_STOP_RUNTIME_UNREACHABLE",
+  "screen_run_id": "evidence-foundation-screen-20260826-xhigh-v2-effective-c1",
+  "confirmation_started": false,
+  "model_identity": {
+    "context": "FRESH_PROJECTLESS_CONVERSATION",
+    "fast_mode": "NOT_EXPOSED",
+    "model": "gpt-5.6-sol",
+    "product": "Codex",
+    "provider": "OpenAI",
+    "reasoning_effort": "xhigh",
+    "surface": "Codex App",
+    "tools_state": "NO_TOOLS_OR_NETWORK"
+  },
+  "evidence": {
+    "corpus": {
+      "path": "tests/fixtures/complexity_replacement_benchmark_cases_v8.json",
+      "file_sha256": "75b7a0cc95e84f9cd0214847ac35418714c5b1afdeb18324a2c08a84ef0ffd22"
+    },
+    "effective_manifest": {
+      "path": "data/benchmarks/solforge/evidence_foundation_screen_v2/effective_manifest.json",
+      "file_sha256": "20d245e47bbc9c83f6509f50a6f83bba48d15418f29ee966c37614969079fcf9",
+      "manifest_sha256": "7672a963b5baa25211018556de9313e22d95e52670a3fc7871425895b5e0ea5f"
+    },
+    "execution_receipt": {
+      "path": "data/benchmarks/solforge/evidence_foundation_screen_v2/execution_receipt.json",
+      "file_sha256": "912597d0af358cfb30671b1cbb8a13d8be811878ceb44dc45ca1b275b593b6e5"
+    },
+    "receipt": {
+      "path": "data/benchmarks/solforge/evidence_foundation_screen_v2/receipt.json",
+      "file_sha256": "f4b2fec84168948b478cf1491f049ed9040b80ead276b1a1ea5f5546c36bb470",
+      "receipt_sha256": "579d10bb1ce26434cba8d02ac95e482fbc82090ee63036237bef00072f7a6396"
+    },
+    "screen_decisions": {
+      "path": "data/benchmarks/solforge/evidence_foundation_screen_v2/screen_decisions.json",
+      "file_sha256": "a2ec98b3d65c37802ad162fd72612b0df646f61b95d28880dea4efa32da86e06"
+    }
+  },
+  "modules": [
+    {
+      "module_id": "temporal_sensory_ledger",
+      "state": "RETAINED_AS_PROVENANCE_TOMBSTONE",
+      "runtime_reachable": false,
+      "confirmation_started": false,
+      "plain_control_wins": 1,
+      "placebo_wins": 1,
+      "reason_codes": [
+        "PLAIN_CONTROL_TWO_WINS_REQUIRED",
+        "PLACEBO_TWO_WINS_REQUIRED"
+      ],
+      "critical_error_codes": []
+    },
+    {
+      "module_id": "hedonic_preference_learner",
+      "state": "RETAINED_AS_PROVENANCE_TOMBSTONE",
+      "runtime_reachable": false,
+      "confirmation_started": false,
+      "plain_control_wins": 2,
+      "placebo_wins": 1,
+      "reason_codes": [
+        "PLACEBO_TWO_WINS_REQUIRED",
+        "CRITICAL_REGRESSION"
+      ],
+      "critical_error_codes": [
+        "OBJECTIVE_RECEIPT_MISSING"
+      ]
+    },
+    {
+      "module_id": "temporal_oav_error_sentinel",
+      "state": "RETAINED_AS_PROVENANCE_TOMBSTONE",
+      "runtime_reachable": false,
+      "confirmation_started": false,
+      "plain_control_wins": 1,
+      "placebo_wins": 1,
+      "reason_codes": [
+        "PLAIN_CONTROL_TWO_WINS_REQUIRED",
+        "PLACEBO_TWO_WINS_REQUIRED"
+      ],
+      "critical_error_codes": []
+    }
+  ],
+  "registry_disposition": {
+    "current_registry": "configs/complexity/complexity_module_registry_v6.json",
+    "registry_v6_created": true,
+    "runtime_admission_changed": false
+  },
+  "runtime_isolation_repair": {
+    "change_class": "RUNTIME_ISOLATION_REPAIR_NO_NEW_ADMISSION",
+    "reason_codes": [
+      "FROZEN_V5_DETECTED_POST_ADMISSION_SOURCE_DRIFT",
+      "FULL_SHADOW_ORCHESTRATOR_IMPORTED_FAILED_EVIDENCE_PATHS",
+      "PUBLIC_RUNTIME_NARROWED_TO_ARCHITECTURAL_DELTA"
+    ],
+    "predecessor_registry": {
+      "path": "configs/complexity/complexity_module_registry_v5.json",
+      "sha256": "905fd3e67697e1bac7b2ffd8dc53a14b558fc9bd0595103ea29fba49af8ce2b0"
+    },
+    "current_registry": {
+      "path": "configs/complexity/complexity_module_registry_v6.json",
+      "sha256": "a8ec07599cecb16c821d46a88b2c5c38b99e0cacf42ec4e762091ee0238a1c6f"
+    },
+    "admitted_module_ids": [
+      "architectural-delta-engine"
+    ],
+    "failed_evidence_analysis_receipts_are_runtime_held": true
+  },
+  "claim_limits": [
+    "No candidate advanced to confirmation.",
+    "No benchmark result establishes physical liking, sensory performance, safety, stability, purchase, publication, or release.",
+    "Source and tests are retained only as compatibility code and provenance tombstones."
+  ],
+  "authority": {
+    "compounding": false,
+    "formula": false,
+    "hedonic": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "runtime_admission": false,
+    "safety": false,
+    "scientific": false,
+    "sensory": false
+  }
+}

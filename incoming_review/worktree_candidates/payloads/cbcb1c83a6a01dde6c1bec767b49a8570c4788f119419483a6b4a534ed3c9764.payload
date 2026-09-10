@@ -1,0 +1,339 @@
+# LH-05 Ginger-Cedrat Spark — 30 mL EDT Study
+
+**Formula UID:** `ysl20:LH-05:v1`
+**Parent Formula UID:** `ysl20:LH-01:v1`
+**Mode:** `STYLISTIC`
+**Family archetype:** `ysl_lhomme`
+**Concentrate Volume:** 4,500 µL
+**Nominal bottle:** 30 mL at 15% concentrate
+**Authority:** Controlled formula hypothesis only; not an authenticated YSL recipe or sensory-equivalence claim.
+
+## Target Identity and Functional Architecture
+
+The ideal target magnifies L'Homme's own bergamot, true cedrat, and ginger ignition, then hands it to the unchanged violet-green cedar-vetiver tailoring. The current build declares Lemon FCF and Lemonile as incomplete functional mappings of unavailable cedrat. No Neroli is used because orange blossom is not the target. The inventory-independent target is in `../candidates/LH-05.json`.
+
+## Current-Inventory Build — Heuristic Volume Adapter
+
+The shared child core is 4,200 µL and the controlled module is exactly 300 µL. This view is `HEURISTIC_VOLUME_ADAPTER_NOT_PPM_W_W`.
+
+| # | Ingredient | Dilution | Amount (µL) | Active (µL) | Specific function |
+|---:|---|---|---:|---:|---|
+| 1 | Iso E Super | neat | 600 | 600 | Transparent cedar halo |
+| 2 | Cedarwood oil Virginia | neat | 500 | 500 | Literal cedar backbone |
+| 3 | Ethylene Brassylate | neat | 350 | 350 | Sole structural musk; verify label |
+| 4 | Hedione | neat | 430 | 430 | Transition air and HC mapping |
+| 5 | Vertofix | neat | 300 | 300 | Cedar-vetiver bridge |
+| 6 | Ethyl Linalool | neat | 220 | 220 | Fresh floral-woody tenacity |
+| 7 | Dihydromyrcenol | neat | 104 | 104 | Controlled kinetic freshness |
+| 8 | Sandalore | neat | 240 | 240 | Creamy sandalwood support |
+| 9 | Indian Vetiver EO (volume grade) | neat | 180 | 180 | Rooty vetiver tension |
+| 10 | Alpha Isomethyl Ionone (Methyl Ionone Pure) | neat | 220 | 220 | Violet-woody body |
+| 11 | Parmavert | neat | 160 | 160 | Green violet-leaf effect |
+| 12 | Bergamot FCF oil Sicilian | neat | 410 | 410 | Expanded sparkling bergamot |
+| 13 | Lemon FCF oil Sicilian | neat | 180 | 180 | Bright cedrat mapping with loss |
+| 14 | Lemonile | neat | 60 | 60 | Tenacious dry citrus extension, not cedrat |
+| 15 | Pamzest | neat | 20 | 20 | Dry zest support |
+| 16 | Ginger EO | neat | 170 | 170 | Expanded ginger recognizer |
+| 17 | Basil EO (India, Ocimum Basilicum) | neat | 8 | 8 | Restrained basil contour |
+| 18 | Black Pepper EO | neat | 8 | 8 | White-pepper mapping |
+| 19 | Tonkarome (20% w/w in TEC) | 20% w/w in TEC | 220 | 44 | Dry tonka-coumarin warmth |
+| 20 | Linalyl Acetate | neat | 50 | 50 | Retained ester seam |
+| 21 | Florol | neat | 50 | 50 | Retained clean heart volume |
+| 22 | Amberwood F | neat | 20 | 20 | Retained dry persistence |
+|  | **Concentrate total** |  | **4500** | **4324** |  |
+
+## Missing-Chemical Impact and Preparation
+
+True cedrat bitterness remains missing; Lemon FCF and Lemonile do not erase that loss. The native impact projection is pending, so no purchase is authorized yet. Do not substitute Neroli. Verify EB before physical dosing; all tinctures and procurement-pending Ambrettolide are excluded.
+
+## Controlled Blinded Test Plan
+
+Compare coded equal-mass, equal-concentration LH-05 and LH-01 samples in balanced order at 0, 5, and 30 minutes and 2 and 4 hours. Judge L'Homme identity before opening sparkle, bitterness, transition continuity, and liking. No physical result exists yet.
+
+## Claim Ceiling
+
+Physical liking, sensory similarity, stability, and measured headspace are `NOT TESTED`; safety and release are `NOT CLEARED`.
+
+<!-- PIPELINE_ANALYSIS_START -->
+## Pipeline Analysis
+
+<!-- pipeline-analysis-manifest: {"analysis_input_sha256":"ecdbcb6e8fa46d6860ca63fe878d7a88919c4da16b013ffbbdb00f63f15096ea","analysis_sha256":"b9efda3b49b81a5ad23d8470ab4491f3945a61c3e0f37681f4a0e2f493a67b0b","artifact_sha256":"49e184f980a36db94caa2412f91a1e6cc5e2f03f40b31534a39b3d2b607c8b91","authorities":{"claim":["PASS"],"headspace_oav":["MODELED_ACTIVE_CONCENTRATE_SCREEN"],"quantitative":["WARN"],"stock":["FAIL"]},"binding_schema":"formula-artifact-binding-v2","canonical_records":[{"canonical_content_sha256":"4ec1c3879a502233c954bed81f7cd47a4da789cec017fe7a6fa4c63effcdf689","record_id":"formula:1:lh-05-ginger-cedrat-spark-30-ml-edt-study","record_version":1}],"config_sha256":"a04baad07807d5722225f7f8948b7fc162b20ba296dc1813fde2c1bc0c376b37","formula_definitions":[{"name":"LH-05 Ginger-Cedrat Spark — 30 mL EDT Study","number":1,"sha256":"4ec1c3879a502233c954bed81f7cd47a4da789cec017fe7a6fa4c63effcdf689"}],"g15_parent_formula_definitions":[{"name":"LH-01 Original Fidelity — 30 mL EDT Study","number":1,"sha256":"520924f1d02e25a68fc3740179f8d5950b07f710a7e88959f7b9000bc6c3d77b"}],"generated_at_utc":"2026-08-26T20:20:41.702589+00:00","inventory_sha256":"dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec","inventory_v5_alias_crosswalk_sha256":"4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6","inventory_v5_snapshot_sha256":"f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99","inventory_v5_source_workbook_sha256":"e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331","legacy_formula_hashes_v1":[{"name":"LH-05 Ginger-Cedrat Spark — 30 mL EDT Study","number":1,"sha256":"c46ed6bfb9ddb9ca4157665686e9fc83bebc02d7cfc7ab58604808077ed1b224"}],"overall":"FAIL","pipeline_source_sha256":"0e65c7d9c3608c8b780bf98883c8220f67c2a7e50107ecbfba37fc20a6bb2e21","provenance":{"activity":"formula_release_gate","agent":"perfume-chem pipeline","derivation":"analysis_artifact wasDerivedFrom all input entities","entities":["formula_definition","release_config","legacy_inventory_compatibility_text","inventory_v5_snapshot","inventory_v5_source_workbook","inventory_v5_alias_crosswalk","scientific_inputs","pipeline_source","analysis_artifact"]},"renderer_version":"formula-release-gate-v2","repository_commit":"281d389ca76424ace2438e1f6cabdad75163a4d6","schema":"perfume_pipeline_run_evidence_v2","scientific_inputs_sha256":"5091618a6dea9a7a7ddbe0289022e3dabe7fbb65b33be892de247e42871e3400","semantic_config":{"formula_family_archetypes":["ysl_lhomme"],"g15_authorized_active_dose_changes":{"Amberwood F":"reduced from 74 to 20 uL as the shared socket donor while retaining dry persistence","Lemonile":"neat-stock dry citrus extension mapping missing cedrat inside the fixed 300 uL socket"},"requested":{"allow_preblends":false,"batch_scaling_targets_ml":[],"batch_volume_ml":30,"brief":"auto","commercial_confidence_policy":"block","commercial_mode":false,"concentration_bracket":"EdP","effective_ifra_headroom":1,"expected_concentrate_ul":4500,"expected_retail_price_thb":1500,"family_archetype":"ysl_lhomme","ifra_headroom":1,"matrix_components_moles":[],"matrix_mass_g":0,"matrix_source":"omitted","max_perceptible_channels":30,"min_confidence_score":25,"min_neat_trace_ul":5,"min_perceptible_materials":3,"price_tier":"auto","quantitative_claim":false,"temperature_K":298.15}}} -->
+
+```text
+# Run Evidence Contract
+
+Formula definition SHA-256: #1 4ec1c3879a502233c954bed81f7cd47a4da789cec017fe7a6fa4c63effcdf689
+Config SHA-256: a04baad07807d5722225f7f8948b7fc162b20ba296dc1813fde2c1bc0c376b37
+Legacy inventory.txt compatibility SHA-256: dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec
+Inventory V5 snapshot SHA-256: f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99
+Inventory V5 source workbook SHA-256: e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331
+Inventory V5 alias crosswalk SHA-256: 4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6
+Scientific inputs SHA-256: 5091618a6dea9a7a7ddbe0289022e3dabe7fbb65b33be892de247e42871e3400
+Pipeline source SHA-256: 0e65c7d9c3608c8b780bf98883c8220f67c2a7e50107ecbfba37fc20a6bb2e21
+Exact concentrate ppm w/w: UNAVAILABLE
+Headspace/OAV basis: MODELED_ACTIVE_CONCENTRATE_SCREEN
+Headspace/OAV class: HEURISTIC_NOT_MEASURED (never a sensory-similarity percentage)
+Inventory stock authority: FAIL
+Quantitative gate authority: WARN
+Named-reference authority: PASS
+Sensory-equivalence authority: NOT_AUTHORIZED_NOT_MEASURED
+# LH-05 Ginger-Cedrat Spark — 30 mL EDT Study
+
+## Gate Summary
+
+**105 PASS** / **34 WARN** / **8 FAIL**
+
+  FAIL pipeline_preflight: 13 checks; 8 warnings
+  FAIL g15_oav_firewall: G15 requires every child row to have a uniquely resolved live inventory stock.
+  FAIL inventory_stock_contract: 7 material stock contract failure(s): Basil EO (India, Ocimum Basilicum), Ethyl Linalool, Ethylene Brassylate, Indian Vetiver EO (volume grade), Pamzest, Parmavert, Tonkarome (20% w/w in TEC)
+  FAIL natural_composite_coverage: Natural mixtures lack required composite GC-O decomposition: Basil EO (India, Ocimum Basilicum), Indian Vetiver EO (volume grade)
+  FAIL material_spine_coverage: Indian Vetiver EO (volume grade)
+  FAIL physics_data_coverage: {"Indian Vetiver EO (volume grade)": ["mw", "logp", "vp", "odt_air_ppm"]}
+  FAIL odt_coverage: Indian Vetiver EO (volume grade)
+  FAIL confidence_minimum: combined confidence 5.7 below 25.0 after preflight evidence penalty 20.0
+  WARN quantitative_authority: Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only.
+  WARN headspace_scope: Headspace/OAV is an active-concentrate screening model; the finished ethanol-water-solvent matrix is omitted.
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 24.0% active mass across 2 materials
+  WARN osmotheque_archivability: Archivability: 1 unknown material(s)
+  WARN oav_overdose_blocker: High modeled OAV screening signal: Bergamot FCF oil Sicilian=27015, Lemon FCF oil Sicilian=10527; validate by controlled dilution/omission trials
+  WARN odt_sanity: 1 materials with suspect ODT values: Indian Vetiver EO (volume grade)=None
+  WARN vp_cross_source: 1 materials with VP=None or 0: Indian Vetiver EO (volume grade); 5 materials use inferred enthalpy for VP at 298.15 K; 6 unresolved cross-source VP conflicts
+  WARN odt_completeness: 1 material(s) lack ODT data; 0% OAV share affected
+  WARN safety_ifra_allergen: 16 materials lack explicit IFRA Cat4 limits; 1 EU allergen declarations
+  WARN eu_allergen_declaration: EU allergens requiring label: alpha-isomethyl ionone, ethyl linalool (contains linalool), linalyl acetate
+  WARN safety_phototoxic: Bergamot FCF oil Sicilian: 9.48% > IFRA max 2.0% (bergaptene 0.5 ppm)
+  WARN safety_receptor_saturation: Ionone total 5.1% > 5% cap (OR5A1 saturation, F6); Cedarwood Virginia 11.6% > 2% cap (OR10J5 + cedrol sedative)
+  WARN oav_physics_gamma: 22/22 materials use predictive, heuristic, fallback, or unknown gamma authority; largest gamma=1 comparison leverage Tonkarome (20% w/w in TEC)=1.7x
+  WARN skin_degradation: Tonkarome (20% w/w in TEC): coumarin glycosides -> coumarin release (IFRA restricted). Check IFRA coumarin limits
+  WARN verify_protocol_aggregate: Verification protocol active — 1/22 materials missing ODT data
+  WARN solvent_matrix: stock-carrier authority NAMED_CARRIER_VOLUME_PROXY; known named carriers {'TEC': 176.0}; unresolved carrier proxy 0.0 uL; 1 named carrier row(s) lack a v/v basis
+  WARN perfumer_logic: generic; perfumer_logic_brief: No brief-specific logic selected.
+  WARN family_drift_detector: unknown family archetype: ysl_lhomme
+  WARN carles_pyramid: Carles pyramid: empty windows = 3h_top_heart (need >2% active in each of 5 windows)
+  WARN carles_accord_ratio: Exact active-mass ppm is unavailable; pairwise dose ratios were not evaluated.
+  WARN literature_compliance: Literature compliance: 3/5 principles passed (60%)
+  WARN edge_cases: Musk coverage: 90%, gaps: 2, formula VP factor x1.00-1.00 (median x1.00, T=298.15K vs 298.15K, n=21)
+  WARN family_hedonic: Family 'ysl_lhomme' has 0 legacy pitfalls and 0 tips quarantined pending validation
+  WARN somatosensory: 2 candidate chemesthetic materials detected; formula-level effects require exposure and human validation
+  WARN stevens_n_efficiency: Exact active-mass ppm is unavailable; dose-efficiency comparison not evaluated.
+  WARN jnd_redundancy: Potentially redundant pairs: dihydromyrcenol vs iso e super in woody (OAV 5227/5872)
+  WARN jellinek_psychology: Jellinek categories weak: erogenic, narcotic
+  WARN coty_single_material_limit: Exact active-mass ppm is unavailable; single-material limit not evaluated.
+  WARN roudnitska_hedione_pct: Exact active-mass ppm is unavailable; Hedione percentage heuristic not evaluated.
+  WARN oav_intelligence: Unmapped family archetype for future-module intelligence: ysl_lhomme; diffusion_layers: Missing intimate layer — fragrance will feel hollow up close; volatility_balance: T:16% H:84% B:0% (target 30:35:35 for EdP)
+  WARN olfactory_fatigue: Olfactory fatigue risk: dihydromyrcenol=5227 (limit 3000); iso e super=5872 (limit 5000)
+  WARN tenacity_projection: VP<0.001Pa = 0% (<3%, may lack depth)
+  WARN authority_vector: Safety authority insufficient (0.00) — unknown IFRA limits for too many materials; Identity (0.00) AND Quantity (0.00) authority both insufficient — insufficient evidence; Identity authority insufficient (0.00). DIMENSIONS NEVER AVERAGED. [advisory guideline; not release-blocking]
+  WARN concentration_basis: 22 material(s) with unspecified concentration basis: Alpha Isomethyl Ionone (Methyl Ionone Pure): concentration basis not specified (use w/w, v/v, or w/v); Amberwood F: concentration basis not specified (use w/w, v/v, or w/v); Basil EO (India, Ocimum Basilicum): concentration basis not specified (use w/w, v/v, or w/v); Bergamot FCF oil Sicilian: concentration basis not specified (use w/w, v/v, or w/v); Black Pepper EO: concentration basis not specified (use w/w, v/v, or w/v)... [advisory guideline; not release-blocking]
+
+
+## Authority Dimensions
+
+| Dimension | Status | Authority |
+|---|---|---|
+| Inventory stock | FAIL | 7 material stock contract failure(s): Basil EO (India, Ocimum Basilicum), Ethyl Linalool, Ethylene Brassylate, Indian Vetiver EO (volume grade), Pamzest, Parmavert, Tonkarome (20% w/w in TEC) |
+| Quantitative ppm w/w | UNAVAILABLE | Exact only when the full declared mass and density chain is available. |
+| Headspace/OAV | MODELED_ACTIVE_CONCENTRATE_SCREEN | HEURISTIC_NOT_MEASURED; diagnostic model, not measured odor intensity. |
+| Named reference | PASS () | No named-reference claim detected. |
+| Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | Requires blinded bench comparison; no model score supplies this authority. |
+| Combined confidence | 5.7/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
+
+
+## Headspace OAV — Opening (0s)
+
+| Material | Dil | Raw µL | Act µL | MW | MF% | VP Pa | γ | Vapor ppm | ODT ppm | OAV | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Bergamot FCF oil Sicilian | 100.0% | 410.00 | 410.00 | 170.000 | 11.292 | 2.500000 | 3.000 | 422.082850 | 0.006000000 | 27015.9 | heart |
+| Lemon FCF oil Sicilian | 100.0% | 180.00 | 180.00 | 136.700 | 5.271 | 210.000000 | 1.001 | 243.784464 | 0.008000000 | 10527.7 | heart |
+| Iso E Super | 100.0% | 600.00 | 600.00 | 234.400 | 11.985 | 0.231290 | 1.073 | 0.293618 | 0.000050000 | 5872.4 | heart |
+| Dihydromyrcenol | 100.0% | 104.00 | 104.00 | 156.300 | 3.115 | 17.000000 | 1.000 | 5.227038 | 0.001000000 | 5227.0 | top |
+| Ginger EO | 100.0% | 170.00 | 170.00 | 136.000 | 5.853 | 10.000000 | 2.500 | 24.075374 | 0.005000000 | 2177.7 | top |
+| Hedione | 100.0% | 430.00 | 430.00 | 226.300 | 8.897 | 0.094660 | 1.005 | 0.083563 | 0.000050000 | 1671.3 | heart |
+| Linalyl Acetate | 100.0% | 50.00 | 50.00 | 196.300 | 1.193 | 17.500000 | 1.000 | 2.059777 | 0.002700000 | 762.9 | top |
+| Lemonile | 100.0% | 60.00 | 60.00 | 163.260 | 1.721 | 1.200000 | 1.000 | 0.203791 | 0.000500000 | 407.6 | top |
+| Pamzest | 100.0% | 20.00 | 20.00 | 150.000 | 0.574 | 30.000000 | 1.001 | 1.702991 | 0.005000000 | 340.6 | heart |
+| Alpha Isomethyl Ionone (Methyl Ionone Pure) | 100.0% | 220.00 | 220.00 | 206.330 | 4.992 | 0.400000 | 1.300 | 0.256210 | 0.000800000 | 320.3 | heart |
+| Cedarwood oil Virginia | 100.0% | 500.00 | 500.00 | 222.370 | 10.317 | 0.005000 | 2.500 | 1.923211 | 0.015000000 | 245.1 | base |
+| Black Pepper EO | 100.0% | 8.00 | 8.00 | 204.350 | 0.183 | 0.300000 | 1.001 | 2.156378 | 0.002000000 | 108.2 | heart |
+| Tonkarome (20% w/w in TEC) | 20.0% | 220.00 | 44.00 | 160.000 | 1.288 | 0.050000 | 0.600 | 0.003812 | 0.000500000 | 7.6 | base |
+| Sandalore | 100.0% | 240.00 | 240.00 | 210.400 | 5.341 | 0.080000 | 1.500 | 0.063253 | 0.010000000 | 6.3 | base |
+| Ethylene Brassylate | 100.0% | 350.00 | 350.00 | 270.400 | 6.061 | 0.008000 | 0.800 | 0.003828 | 0.000970000 | 3.9 | base |
+| Ethyl Linalool | 100.0% | 220.00 | 220.00 | 182.300 | 5.650 | 0.080000 | 1.000 | 0.044613 | 0.015000000 | 3.0 | top |
+| Parmavert | 100.0% | 160.00 | 160.00 | 192.300 | 3.896 | 0.100000 | 1.000 | 0.038448 | 0.015000000 | 2.6 | top |
+| Vertofix | 100.0% | 300.00 | 300.00 | 234.400 | 5.993 | 0.011200 | 1.000 | 0.006624 | 0.006300000 | 1.1 | base |
+| Florol | 100.0% | 50.00 | 50.00 | 154.250 | 1.518 | 0.007000 | 1.000 | 0.001049 | 0.010000000 | 0.1 | heart |
+| Amberwood F | 100.0% | 20.00 | 20.00 | 234.400 | 0.400 | 0.001000 | 1.500 | 0.000059 | 0.001000000 | 0.1 | base |
+| Basil EO (India, Ocimum Basilicum) | 100.0% | 8.00 | 8.00 | 152.000 | 0.246 | 8.000000 | 1.500 | UNKNOWN | 0.005000000 | UNKNOWN | top |
+| Indian Vetiver EO (volume grade) | 100.0% | 180.00 | 180.00 | UNKNOWN | 4.214 | UNKNOWN | 1.001 | UNKNOWN | UNKNOWN | UNKNOWN | heart |
+
+**Materials:** 22 total (7 top, 9 heart, 6 base)
+**Total vapor:** 704.01 ppm
+
+### Note Distribution
+
+**TOP:** 7 mats, 17.9% active, 15.7% OAV
+  - Dihydromyrcenol              OAV=  5227.0 (very strong) VP=17.000Pa
+  - Ginger EO                    OAV=  2177.7 (very strong) VP=10.000Pa
+  - Linalyl Acetate              OAV=   762.9 (strong) VP=17.500Pa
+  - Lemonile                     OAV=   407.6 (strong) VP=1.200Pa
+  - Ethyl Linalool               OAV=     3.0 (at threshold) VP=0.080Pa
+  - Parmavert                    OAV=     2.6 (at threshold) VP=0.100Pa
+  ... and 1 more
+**HEART:** 9 mats, 48.5% active, 83.8% OAV
+  - Bergamot FCF oil Sicilian    OAV= 27015.9 (massive) VP=2.500Pa
+  - Lemon FCF oil Sicilian       OAV= 10527.7 (massive) VP=210.000Pa
+  - Iso E Super                  OAV=  5872.4 (very strong) VP=0.231Pa
+  - Hedione                      OAV=  1671.3 (very strong) VP=0.095Pa
+  - Pamzest                      OAV=   340.6 (strong) VP=30.000Pa
+  - Alpha Isomethyl Ionone (Methyl Ionone Pure) OAV=   320.3 (strong) VP=0.400Pa
+  ... and 3 more
+**BASE:** 6 mats, 33.6% active, 0.5% OAV
+  - Cedarwood oil Virginia       OAV=   245.1 (strong) VP=0.005Pa
+  - Tonkarome (20% w/w in TEC)   OAV=     7.6 (perceptible) VP=0.050Pa
+  - Sandalore                    OAV=     6.3 (perceptible) VP=0.080Pa
+  - Ethylene Brassylate          OAV=     3.9 (at threshold) VP=0.008Pa
+  - Vertofix                     OAV=     1.1 (at threshold) VP=0.011Pa
+  - Amberwood F                  OAV=     0.1 (sub-threshold) VP=0.001Pa
+
+### Sub-threshold Materials (OAV < 1)
+2/22 materials below perceptible threshold
+  - Amberwood F: OAV=0.06 VP=0.001Pa act=20uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Florol: OAV=0.10 VP=0.007Pa act=50uL role=modifier [**FUNCTIONAL_UNDERPERFORMANCE: review dose or assigned role**]
+### Unknown OAV (not sub-threshold)
+  - Basil EO (India, Ocimum Basilicum): OAV=UNKNOWN model=unknown:composite_decomposition_missing
+  - Indian Vetiver EO (volume grade): OAV=UNKNOWN model=unknown:composite_decomposition_missing
+### High-OAV Flags (>5000)
+  - Bergamot FCF oil Sicilian OAV=27016 dominates headspace — may mask subtler notes
+  - Dihydromyrcenol OAV=5227 dominates headspace — may mask subtler notes
+  - Iso E Super OAV=5872 dominates headspace — may mask subtler notes
+  - Lemon FCF oil Sicilian OAV=10528 dominates headspace — may mask subtler notes
+
+### OAV by Odor Family
+
+           citrus  50.1% =========================  (2 mats)
+            woody  20.8% ==========  (5 mats)
+                ?  20.1% ==========  (4 mats)
+            spice   4.0% =  (1 mats)
+           floral   3.6% =  (3 mats)
+         aromatic   1.4% =  (2 mats)
+         gourmand   0.0% =  (1 mats)
+             musk   0.0% =  (1 mats)
+           fruity   0.0% =  (1 mats)
+            green   0.0% =  (1 mats)
+            amber   0.0% =  (1 mats)
+
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Remain idx | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s | 17.9/48.5/33.6 |    UNKNOWN |  100.0% | Bergamot FCF(27016), Lemon FCF oi(10528), Iso E Super(5872)
+| top          |    300s | 18.2/47.3/34.5 |    UNKNOWN |   97.6% | Bergamot FCF(23463), Lemon FCF oi(8558), Iso E Super(6057)
+| heart        |   1800s | 19.1/43.5/37.4 |    UNKNOWN |   90.2% | Bergamot FCF(10882), Iso E Super(6685), Dihydromyrce(5686)
+| late_heart   |   7200s | 18.6/41.5/39.9 |    UNKNOWN |   84.3% | Iso E Super(7299), Dihydromyrce(5380), Hedione(2091)
+| drydown      |  14400s | 17.3/42.1/40.7 |    UNKNOWN |   82.3% | Iso E Super(7529), Dihydromyrce(4577), Hedione(2162)
+
+Temporal authority: HEURISTIC_UNCALIBRATED; model=dynamic_headspace_exponential_loss_v2; remaining index is not measured evaporation.
+
+### Per-Window Detail
+
+**OPENING** (0.0s) — Uncalibrated loss index:0%
+  T:17.9% H:48.5% B:33.6%  Vapor:UNKNOWN
+  Leaders: Bergamot FCF oil Sicilian OAV 27016 | Lemon FCF oil Sicilian OAV 10528 | Iso E Super OAV 5872 | Dihydromyrcenol OAV 5227 | Ginger EO OAV 2178
+
+**TOP** (300.0s) — Uncalibrated loss index:2%
+  T:18.2% H:47.3% B:34.5%  Vapor:UNKNOWN
+  Leaders: Bergamot FCF oil Sicilian OAV 23463 | Lemon FCF oil Sicilian OAV 8558 | Iso E Super OAV 6057 | Dihydromyrcenol OAV 5352 | Ginger EO OAV 2204
+
+**HEART** (1800.0s) — Uncalibrated loss index:10%
+  T:19.1% H:43.5% B:37.4%  Vapor:UNKNOWN
+  Leaders: Bergamot FCF oil Sicilian OAV 10882 | Iso E Super OAV 6685 | Dihydromyrcenol OAV 5686 | Lemon FCF oil Sicilian OAV 2847 | Ginger EO OAV 2201
+
+**LATE_HEART** (7200.0s) — Uncalibrated loss index:16%
+  T:18.6% H:41.5% B:39.9%  Vapor:UNKNOWN
+  Leaders: Iso E Super OAV 7299 | Dihydromyrcenol OAV 5380 | Hedione OAV 2091 | Ginger EO OAV 1638 | Linalyl Acetate OAV 798
+
+**DRYDOWN** (14400.0s) — Uncalibrated loss index:18%
+  T:17.3% H:42.1% B:40.7%  Vapor:UNKNOWN
+  Leaders: Iso E Super OAV 7529 | Dihydromyrcenol OAV 4577 | Hedione OAV 2162 | Ginger EO OAV 1007 | Linalyl Acetate OAV 690
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Dihydromyrcenol(very strong) + Ginger EO(very strong) + Linalyl Acetate(strong)
+  Heart: Bergamot FCF oil Sicilian(massive) + Lemon FCF oil Sicilian(massive)
+  Base: Cedarwood oil Virginia(strong) + Tonkarome (20% w/w in TEC)(perceptible) + Sandalore(perceptible) + Ethylene Brassylate(at threshold) + Vertofix(at threshold)
+
+### 2. Opening (0-5min)
+  Dihydromyrcenol leads the reported top at OAV 5227 (very strong).
+  - Dihydromyrcenol OAV=5227 VP=17.0Pa (woody)
+  - Ginger EO OAV=2178 VP=10.0Pa (spice)
+  - Linalyl Acetate OAV=763 VP=17.5Pa (aromatic)
+  - Lemonile OAV=408 VP=1.2Pa (citrus)
+  Total vapor: UNKNOWN
+
+### 3. Heart (30min-2hr)
+  Bergamot FCF oil Sicilian OAV=10882 (massive)
+  Iso E Super OAV=6685 (very strong)
+  Dihydromyrcenol OAV=5686 (very strong)
+  Lemon FCF oil Sicilian OAV=2847 (very strong)
+  T:19.1% H:43.5% B:37.4%
+  Vapor: UNKNOWN
+
+### 4. Drydown (2hr-4hr+)
+  Base share of active note distribution: 41%
+  - Iso E Super OAV=7529
+  - Dihydromyrcenol OAV=4577
+  - Hedione OAV=2162
+  - Ginger EO OAV=1007
+  - Linalyl Acetate OAV=690
+  - Lemonile OAV=514
+  Vapor: UNKNOWN
+
+### 5. Sillage & Diffusion
+  Primary carriers: Bergamot FCF oil Sicilian(27016) + Lemon FCF oil Sicilian(10528) + Iso E Super(5872) + Dihydromyrcenol(5227)
+  OAV by family: citrus50% woody21% None20% spice4%
+
+### 6. Longevity
+  Uncalibrated loss index: 18% over modeled window
+  Vapor: UNKNOWN > UNKNOWN
+  Base @ drydown: 41%
+  Absolute skin life: unavailable; calibrated finite-film, vehicle, skin-absorption, and sensory data are required
+
+### 7. Balance
+  Pyramid: T:17.9% H:48.5% B:33.6%
+  OAV range: 0.06 to 27016 (sigma-log=1.68)
+  Wide OAV contrast: Bergamot FCF oil Sicilian leads at OAV 27016; lower-OAV materials may be masked.
+    massive: 2
+    sub-threshold: 2
+
+### 8. Flags
+  SUB: Florol OAV=0.10 role=modifier class=FUNCTIONAL_UNDERPERFORMANCE
+  SUB: Amberwood F OAV=0.06 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  UNKNOWN: Basil EO (India, Ocimum Basilicum) OAV unavailable (unknown:composite_decomposition_missing)
+  UNKNOWN: Indian Vetiver EO (volume grade) OAV unavailable (unknown:composite_decomposition_missing)
+
+
+## Structural OAV Analysis
+
+**Vapor:** 704 ppm  |  **Active:** 14.4%  |  **Perceptible:** 18/22  |  **Unknown:** 2
+
+### OAV Tiers
+  **massive** (6): Bergamot FCF oil Sicilian(27016), Dihydromyrcenol(5227), Ginger EO(2178), Hedione(1671), Iso E Super(5872), Lemon FCF oil Sicilian(10528)  ! fatigue risk, overload risk
+  **v.strong** (6): Alpha Isomethyl Ionone (Methyl Ionone Pure)(320), Black Pepper EO(108), Cedarwood oil Virginia(245), Lemonile(408), Linalyl Acetate(763), Pamzest(341)
+  **perceptible** (2): Sandalore(6), Tonkarome (20% w/w in TEC)(8)
+  **threshold** (4): Ethyl Linalool(3), Ethylene Brassylate(4), Parmavert(3), Vertofix(1)
+  **sub** (2): Amberwood F(0), Florol(0)
+  **unknown** (2): Basil EO (India, Ocimum Basilicum), Indian Vetiver EO (volume grade)
+
+### Block Balance
+  **Citrus**      408 (1%)
+  **Floral**    45856 (99%)
+  **Base**        264 (1%)
+  **Ratio:** 174:1 between strongest/weakest block
+
+### Issues
+  ! 2 sub-threshold material(s): Amberwood F, Florol
+  ! 2 material(s) have unknown OAV: Basil EO (India, Ocimum Basilicum), Indian Vetiver EO (volume grade)
+  ! Missing 'strong' tier (OAV 50-100)
+```
+<!-- PIPELINE_ANALYSIS_END -->

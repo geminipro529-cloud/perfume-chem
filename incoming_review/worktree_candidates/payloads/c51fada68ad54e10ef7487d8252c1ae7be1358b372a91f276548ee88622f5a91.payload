@@ -1,0 +1,28 @@
+﻿Code,ACC-FR-MAR-01
+Accord,Marine Mineral Air v1.0
+Category,Fresh & Musk
+Brief,"A mineral marine atmosphere using Adoxal, Helional, cyclamen, Floralozone and trace Calone over ambrox, clean musk and dry cedar."
+Recommended use,1–10% of perfume concentrate
+Maturation,5–14 days
+Monte Carlo pass,1.0
+Final design score,100.0
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Ambrofix 30%,30% working stock,0.3,77.62376237623762,23.287128712871286,77.62376237623762,388.1188118811881,PREPARED STOCK,ambergris,Mineral ambergris,Mineral ambergris persistence.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.022214537748366105
+2,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,43.663366336633665,43.663366336633665,43.663366336633665,218.31683168316832,DIRECT,musk,Metallic musk,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.006818196144072405
+3,base,Ambrox Super 33%,33% working stock,0.33,38.81188118811881,12.807920792079209,38.81188118811881,194.05940594059405,PREPARED STOCK,ambergris,Dry persistence,Dry ambroxan structure.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.008951255392305492
+4,base,Romandolide,Romandolide neat/as supplied,1.0,29.10891089108911,29.10891089108911,29.10891089108911,145.54455445544556,DIRECT,musk,Soft musk,Fruity-clean musk body.,HAVE — NEAT,Use as neat Romandolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.003990930409364649
+5,base,Cedarwood Virginia,neat / as supplied,1.0,14.554455445544555,14.554455445544555,14.554455445544555,72.77227722772278,DIRECT,cedar,Dry frame,Dry cedar frame.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0017270478988959715
+6,heart_base,Iso E Super,neat / as supplied,1.0,67.92079207920791,67.92079207920791,67.92079207920791,339.60396039603955,DIRECT,transparent_wood,Transparent wood,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.012408532148526124
+7,heart,Hedione,neat / as supplied,1.0,116.43564356435644,116.43564356435644,116.43564356435644,582.1782178217823,DIRECT,floral_air,Air,Transparent floral diffusion.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.02820036109969827
+8,heart,Helional 10%,Helional 10% working dilution,0.1,116.43564356435644,11.643564356435645,116.43564356435644,582.1782178217823,PREPARED STOCK,marine,Watery-green floral,Watery-green floral air.,HAVE — NEAT + 10%,Formula must specify exact strength.,,IDENTITY CRITICAL,0.0300762383937268
+9,heart,Cyclamen Aldehyde 10%,Cyclamen Aldehyde 10% working dilution,0.1,97.02970297029702,9.702970297029703,97.02970297029702,485.1485148514851,PREPARED STOCK,marine,Clean watery flower,Clean watery floral.,HAVE — NEAT + 10%,Formula must name the exact stock strength.,,IDENTITY CRITICAL,0.023322357309763057
+10,heart,Calone 1% in DPG,1% in DPG,0.01,19.405940594059405,0.19405940594059407,19.405940594059405,97.02970297029702,PREPARED STOCK,marine,Marine water trace,Marine melon-water trace.,HAVE,Use only with exact label/stock-strength accounting.,,TEXTURAL SUPPORT,0.003651413020036863
+11,top_heart,Adoxal 10% in DPG,10% in DPG,0.1,67.92079207920791,6.792079207920792,67.92079207920791,339.60396039603955,PREPARED STOCK,marine,Marine aldehydic air,Marine-aldehydic air.,HAVE,Use only with exact label/stock-strength accounting.,,IDENTITY CRITICAL,0.014747400212249934
+12,top_heart,Floralozone 10%,10% working stock,0.1,67.92079207920791,6.792079207920792,67.92079207920791,339.60396039603955,PREPARED STOCK,marine,Ozonic sparkle,Ozonic mineral sparkle.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.014747400212249934
+13,top_heart,Linalool,neat/as supplied,1.0,33.96039603960396,33.96039603960396,33.96039603960396,169.80198019801978,DIRECT,aromatic,Fresh floral lift,Floral-citrus bridge.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.004768538049421841
+14,top,Dihydromyrcenol,neat / as supplied,1.0,116.43564356435644,116.43564356435644,116.43564356435644,582.1782178217823,DIRECT,fresh_aromatic,Fresh diffusion,High-diffusion freshness.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.0403883637779742
+15,top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,43.663366336633665,43.663366336633665,43.663366336633665,218.31683168316832,DIRECT,citrus,Citrus opening,Floral bergamot peel.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0068595809913649525
+16,top,Grapefruit FCF Oil Sicilian,neat / as supplied,1.0,29.10891089108911,29.10891089108911,29.10891089108911,145.54455445544556,DIRECT,citrus,Bitter sparkle,Bitter grapefruit peel.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0040088683897486965
+17,carrier,DPG,neat,0.0,20.0,0.0,20.0,100.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

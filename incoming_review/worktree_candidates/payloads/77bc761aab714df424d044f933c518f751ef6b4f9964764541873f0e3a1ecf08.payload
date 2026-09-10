@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "capture_id": "20260811T083224Z-aroma-6a79b2cd-816c4316",
+  "capture_nonce": "816c4316-c894-4cd1-b621-526c3b37cd4f",
+  "captured_at": "2026-08-11T08:32:24.2905095Z",
+  "source": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "conversation_id": "6a79b2cd-028c-83ec-9ed9-70956c462acf",
+    "chat_title": "Aroma Chemical Analysis",
+    "source_revision": "chat-visible-through:2026-08-11T04:50:00+07:00",
+    "source_reference": "chatgpt-conversation://6a79b2cd-028c-83ec-9ed9-70956c462acf"
+  },
+  "transport": {
+    "method": "authenticated Chrome ChatGPT attachment download",
+    "transformation_history": []
+  },
+  "files": [
+    {
+      "original_name": "Inventory_V5_Reconciliation_and_Priority_Patch_v1.xlsx",
+      "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "size_bytes": 52420,
+      "sha256": "189708f1f69f326898f4d8a87f742949b70d9f1252990fc1bc019c27ce9f5513",
+      "acquired_at": "2026-08-11T08:28:07.8850394Z",
+      "source_reference": "visible attachment in the latest project-chat response",
+      "validation": {
+        "archive_graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+        "all_nodes_terminal": true,
+        "node_count": 1,
+        "edge_count": 0,
+        "max_depth": 0,
+        "finding_codes": [],
+        "promotion_allowed": false
+      }
+    },
+    {
+      "original_name": "Inventory_V5_Reconciliation_and_Priority_Patch_v1.md",
+      "mime_type": "text/markdown",
+      "size_bytes": 8630,
+      "sha256": "6533514f4cbfc635ac5120eb196c166aa3a32aa772a54d6dbd35cf9c6c0f7337",
+      "acquired_at": "2026-08-11T08:28:29.5027049Z",
+      "source_reference": "visible attachment in the latest project-chat response",
+      "validation": {
+        "sha256_verified_after_copy": true,
+        "promotion_allowed": false
+      }
+    }
+  ],
+  "authority": {
+    "level": "UNTRUSTED_BROWSER_CAPTURE",
+    "inventory_authority": false,
+    "scientific_authority": false,
+    "formula_authority": false,
+    "physical_authority": false,
+    "release_authority": false
+  }
+}

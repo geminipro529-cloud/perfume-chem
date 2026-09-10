@@ -1,0 +1,3 @@
+evidence_id,source_type,authority,source_date,target_version,claim_type,identity,rank,amount,unit,confidence,notes
+E001,official_brand,semantic,2026-01-01,current,note_architecture,,,,,0.4,Marketing notes constrain perceptual architecture but not formula percentages
+E002,quantitative_gc,quantitative,2026-01-02,batch_ABC,identity_and_amount,Material A,,12.3,wt_percent,0.95,Calibrated with authentic standard

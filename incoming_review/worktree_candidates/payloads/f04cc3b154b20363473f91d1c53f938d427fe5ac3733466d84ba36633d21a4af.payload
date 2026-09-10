@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.0",
+  "capture_id": "20260811T110304Z-planning-complexity-6a7992db-2172451c",
+  "capture_nonce": "2172451c-9b0b-4c2f-b85e-9b3d7d7595b4",
+  "captured_at": "2026-08-11T11:03:04Z",
+  "source": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "conversation_id": "6a7992db-96b8-83ec-aab0-6a7447b97da1",
+    "chat_title": "Perfume Project Planning",
+    "source_message_ids": [
+      "70687031-ae5e-4642-9157-3181f7854b61",
+      "63b46fc7-98b8-4c67-9696-defa2cc379c8"
+    ],
+    "source_revision": "downloads:bab9ab3ee943:9a1724e38c6f",
+    "source_reference": "chatgpt-conversation://6a7992db-96b8-83ec-aab0-6a7447b97da1"
+  },
+  "transport": {
+    "method": "authenticated ChatGPT browser download exact-byte copy",
+    "transformation_history": [
+      "Copied both downloaded ZIPs byte-for-byte into append-only incoming_review quarantine.",
+      "No canonical extraction, normalization, installation, formula mutation, inventory mutation, or database write was performed."
+    ]
+  },
+  "files": [
+    {
+      "original_name": "COMPLEX_PERFUMERY_OPUS_V_COMPLEXITY_SYSTEM_V1_20260811.zip",
+      "mime_type": "application/zip",
+      "size_bytes": 53948,
+      "sha256": "bab9ab3ee9431f395fc14d15e04a219b3a2b8214f56911789488671a290af7bf",
+      "source_reference": "Perfume Project Planning Opus V complexity attachment",
+      "validation": {
+        "zip_entry_count": 25,
+        "zip_file_count": 25,
+        "crc_error_member": null,
+        "safe_relative_paths": true,
+        "declared_internal_hash_count": 24,
+        "declared_internal_hash_mismatches": 0,
+        "isolated_unit_tests_passed": 24,
+        "isolated_unit_tests_failed": 0,
+        "archive_graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+        "all_nodes_terminal": true,
+        "node_count": 1,
+        "edge_count": 0,
+        "max_depth": 0,
+        "finding_codes": [],
+        "promotion_allowed": false
+      },
+      "source_claims": {
+        "package_role": "OPUS_V_SPECIFIC_DESK_ARCHITECTURE_VALIDATOR",
+        "required_modules": 19,
+        "formula_file_present": false,
+        "formula_mutations": 0,
+        "physical_results": 0,
+        "release_authority": false,
+        "phase_g": "LOCKED"
+      }
+    },
+    {
+      "original_name": "Complexity_Model_Gap_Atlas_and_New_Model_Roadmap_Aug2026_v1_Package.zip",
+      "mime_type": "application/zip",
+      "size_bytes": 104844,
+      "sha256": "9a1724e38c6ff1bf0c8274c6f239d3b55309fdbabefedb55b23562480cbb33c0",
+      "source_reference": "Perfume Project Planning complexity model gap atlas attachment",
+      "validation": {
+        "zip_entry_count": 8,
+        "zip_file_count": 8,
+        "crc_error_member": null,
+        "safe_relative_paths": true,
+        "sidecar_count": 4,
+        "sidecar_hash_mismatches": 0,
+        "archive_graph_status": "GRAPH_COMPLETE_QUARANTINED",
+        "all_nodes_terminal": true,
+        "node_count": 2,
+        "edge_count": 1,
+        "max_depth": 1,
+        "finding_codes": [
+          "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT"
+        ],
+        "promotion_allowed": false
+      },
+      "source_claims": {
+        "package_role": "DESK_COMPUTATIONAL_MODEL_GAP_ROADMAP",
+        "overlay_model_count": 16,
+        "new_model_count": 26,
+        "formula_mutations": 0,
+        "physical_results": 0,
+        "repository_state": "BRIDGE_BLOCKED"
+      },
+      "member_identities": {
+        "workbook": {
+          "size_bytes": 73123,
+          "sha256": "4a698d753f05c8567d15cd42bd4091f79a8037e7479fb7faab888682e405e0df"
+        },
+        "markdown": {
+          "size_bytes": 11856,
+          "sha256": "08d667f7a307b11472a318fc372ea6e1fd42d379ec647708cadcc8e638dedddc"
+        },
+        "json": {
+          "size_bytes": 106598,
+          "sha256": "21903cee5c734f2301c17fd17c43d67221a8f5e09f410d0b3d017da57835133a"
+        },
+        "release_json": {
+          "size_bytes": 9165,
+          "sha256": "7471f12e9e258ac9cee070b3c25c96d761c0cb3184b3eb6c5b69756acb508034"
+        }
+      }
+    }
+  ],
+  "authority": {
+    "level": "UNTRUSTED_BROWSER_CAPTURE",
+    "code_authority": false,
+    "inventory_authority": false,
+    "scientific_authority": false,
+    "formula_authority": false,
+    "physical_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "release_authority": false
+  }
+}

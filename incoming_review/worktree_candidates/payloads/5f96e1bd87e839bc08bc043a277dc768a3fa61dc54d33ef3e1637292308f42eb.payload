@@ -1,0 +1,196 @@
+import json
+from pathlib import Path
+
+import pytest
+
+from engine.data_spine.loader import load_registry
+from engine.ingredient_catalog import build_ingredient_catalog
+from engine.ingredient_intelligence import get_profile
+from engine.inventory_parser import parse_current_inventory
+from engine.material_resolver import resolve_material
+from engine.odor_thresholds import lookup_odt_entry, verify_odt
+from engine.pipeline.formula_state import build_formula_state
+
+INVENTORY = Path(__file__).resolve().parents[1] / "inventory.txt"
+MATERIAL_PROPERTIES = (
+    Path(__file__).resolve().parents[1]
+    / "data"
+    / "knowledge_graph"
+    / "material_properties.json"
+)
+INGREDIENT_CATALOG = (
+    Path(__file__).resolve().parents[1]
+    / "data"
+    / "knowledge_graph"
+    / "ingredient_catalog.json"
+)
+
+
+def test_bacnadol_user_spelling_resolves_to_one_owned_bacdanol_stock():
+    records = parse_current_inventory()
+    bacdanol = [record for record in records if record.name == "Bacdanol"]
+
+    assert len(bacdanol) == 1
+    assert not any(record.name == "Bacnadol" for record in records)
+    assert bacdanol[0].dilution == 1.0
+    assert bacdanol[0].status == "owned"
+    assert bacdanol[0].execution_ready is True
+
+    misspelled = resolve_material("Bacnadol")
+    assert misspelled.canonical_name == "bacdanol"
+    assert misspelled.registry_name == "Bacdanol"
+
+
+def test_clearwood_is_owned_neat_and_execution_ready():
+    clearwood = next(
+        record for record in parse_current_inventory() if record.name == "Clearwood"
+    )
+
+    assert clearwood.dilution == 1.0
+    assert clearwood.fraction_basis == "neat"
+    assert clearwood.carrier == ""
+    assert clearwood.status == "owned"
+    assert clearwood.execution_ready is True
+
+
+def test_guaiacwood_is_exactly_one_third_w_w_but_quantitative_use_is_held():
+    guaiacwood = next(
+        record
+        for record in parse_current_inventory()
+        if record.name == "Guaiacwood EO"
+    )
+
+    assert guaiacwood.dilution == pytest.approx(1.0 / 3.0)
+    assert guaiacwood.fraction_basis == "mass_fraction"
+    assert guaiacwood.carrier == ""
+    assert guaiacwood.status == "owned"
+    assert guaiacwood.execution_ready is False
+    assert guaiacwood.execution_hold_reason == (
+        "REMAINING_TWO_THIRDS_COMPOSITION_AND_CARRIER_UNRESOLVED"
+    )
+
+    resolved = resolve_material("Guaiacwood EO")
+    guaiacol = resolve_material("Guaiacol")
+    profile = get_profile("Guaiacwood EO")
+    registry_material = load_registry().get("Guaiacwood EO")
+
+    assert resolved.canonical_name == "guaiacwood eo"
+    assert resolved.registry_name == "Guaiacwood EO"
+    assert resolved.canonical_name != guaiacol.canonical_name
+    assert profile is None
+    assert registry_material is not None
+    assert registry_material.user_in_inventory is True
+    assert registry_material.density_25c_g_ml is None
+    assert registry_material.supplier.perfumersworld_sku is None
+
+    odt = lookup_odt_entry("Guaiacwood EO")
+    verification = verify_odt("Guaiacwood EO")
+    assert odt is None
+    assert verification is None
+
+    state = build_formula_state(
+        {"Guaiacwood EO": 100.0},
+        {"Guaiacwood EO": 1.0 / 3.0},
+        stock_specs={
+            "Guaiacwood EO": {
+                "fraction_basis": "mass_fraction",
+                "carrier": "",
+                "declared": True,
+            }
+        },
+    )
+    material = state.materials[0]
+    assert material.raw_ul == 100.0
+    assert material.dilution == pytest.approx(1.0 / 3.0)
+    assert material.stock_fraction_basis == "mass_fraction"
+    assert material.stock_carrier == ""
+    assert material.stock_declared is True
+    assert material.authoritative_active_g is None
+    assert material.active_mass_authority == (
+        "unavailable:stock_solution_density_for_w_w"
+    )
+    assert material.active_concentrate_ppm_w_w is None
+    assert material.oav is None
+    assert "mw" in material.missing_fields
+    assert "vp" in material.missing_fields
+    assert "odt_air_ppm" in material.missing_fields
+
+
+def test_guaiacwood_catalog_does_not_invent_uses_pairs_or_substitutes():
+    catalog = next(
+        item
+        for item in build_ingredient_catalog()
+        if item["identity_key"] == "guaiacwood eo"
+    )
+
+    assert catalog["authority_holds"] == [
+        "material_specific_evidence_unsupplied",
+        "REMAINING_TWO_THIRDS_COMPOSITION_AND_CARRIER_UNRESOLVED",
+    ]
+    assert catalog["current_status"] == "hold"
+    assert catalog["owned_now"] is True
+    assert catalog["executable_now"] is False
+    assert catalog["properties"]["stock_form"] == (
+        "exact 1/3 w/w; carrier and remaining 2/3 unresolved; "
+        "quantitative execution HOLD"
+    )
+    assert len(catalog["current_stock_records"]) == 1
+    stock = catalog["current_stock_records"][0]
+    assert stock["active_fraction"] == pytest.approx(1.0 / 3.0)
+    assert stock["fraction_basis"] == "mass_fraction"
+    assert stock["carrier"] is None
+    assert stock["execution_ready"] is False
+    assert stock["hold_reason"] == (
+        "REMAINING_TWO_THIRDS_COMPOSITION_AND_CARRIER_UNRESOLVED"
+    )
+    assert stock["source_ref"].endswith(
+        "inventory_user_authority_overlay_20260904.json#INV-USER-20260904-002"
+    )
+    assert catalog["common_uses"] == []
+    assert catalog["niche_uses"] == []
+    assert catalog["implementation_examples"] == []
+    assert catalog["best_in"] == []
+    assert catalog["avoid_in"] == []
+    assert catalog["replacement_options"] == []
+    assert catalog["best_with"] == []
+    assert catalog["avoid"] == []
+
+    persisted = json.loads(INGREDIENT_CATALOG.read_text(encoding="utf-8"))
+    persisted_guaiacwood = next(
+        item
+        for item in persisted["ingredients"]
+        if item["identity_key"] == "guaiacwood eo"
+    )
+    for field in (
+        "authority_holds",
+        "common_uses",
+        "niche_uses",
+        "implementation_examples",
+        "best_in",
+        "avoid_in",
+        "replacement_options",
+    ):
+        assert persisted_guaiacwood[field] == catalog[field]
+
+
+def test_guaiacwood_generated_properties_preserve_evidence_holds():
+    properties = json.loads(MATERIAL_PROPERTIES.read_text(encoding="utf-8"))
+    guaiacwood = next(row for row in properties if row["name"] == "Guaiacwood EO")
+
+    assert guaiacwood.get("stock_execution_ready") is not True
+    for field in (
+        "mw",
+        "vp",
+        "clp",
+        "odt",
+        "odt_ethanol_ppm",
+        "activity_coef",
+        "oav_typical",
+        "oav_dose_pct",
+        "typical_pct_range",
+        "ifra_cat4_limit_pct",
+        "ifra_banned",
+        "ifra_restricted",
+        "ifra_standard_type",
+    ):
+        assert guaiacwood.get(field) is None

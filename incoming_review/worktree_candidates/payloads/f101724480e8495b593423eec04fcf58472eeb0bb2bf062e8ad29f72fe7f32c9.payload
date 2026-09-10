@@ -1,0 +1,27 @@
+﻿Code,ACC-WD-VET-01
+Accord,Polished Vetiver Cedar v1.0
+Category,Woods
+Brief,"A modern vetiver accord preserving natural vetiver complexity while polishing it with Vetival, cedar, Vertofix, mineral amber and citrus air."
+Recommended use,3–15% of perfume concentrate
+Maturation,10–21 days
+Monte Carlo pass,1.0
+Final design score,100.0
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Vetival,neat,1.0,200.0,200.0,200.0,1000.0,DIRECT,vetiver,Polished vetiver core,Polished vetiver.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.10005943721375395
+2,base,Cedarwood Virginia,neat / as supplied,1.0,120.0,120.0,120.0,600.0,DIRECT,cedar,Dry cedar,Dry cedar frame.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.04544290378601065
+3,base,Vertofix,neat/as supplied,1.0,120.0,120.0,120.0,600.0,DIRECT,vetiver_cedar,Vetiver-cedar body,Vetiver-cedar body.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.045720295085697124
+4,base,Vetiver EO,neat / as supplied,1.0,80.0,80.0,80.0,400.0,DIRECT,vetiver,Natural vetiver complexity,Natural rooty vetiver.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.021789804216998207
+5,base,Ambrofix 30%,30% working stock,0.3,50.0,15.0,50.0,250.0,PREPARED STOCK,ambergris,Mineral persistence,Mineral ambergris persistence.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.008703383501464643
+6,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,45.0,45.0,45.0,225.0,DIRECT,musk,Clean projection,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,STRUCTURALLY IMPORTANT,0.007479071216292894
+7,base,Cedarwood Himalayan EO,neat/as supplied,1.0,40.0,40.0,40.0,200.0,DIRECT,cedar,Smokier cedar layer,Smokier Himalayan cedar texture.,HAVE,Use only with exact label/stock-strength accounting.,,TEXTURAL SUPPORT,0.009767080045823625
+8,base,Sandalore,neat / as supplied,1.0,40.0,40.0,40.0,200.0,DIRECT,sandalwood,Creamy rounding,Creamy sandalwood.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.006360254910598991
+9,base,Olibanum 50%,50% in DPG,0.5,30.0,15.0,30.0,150.0,PREPARED STOCK,incense,Cool resin lift,Frankincense mineral resin.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.004329659022308233
+10,base,Romandolide,Romandolide neat/as supplied,1.0,30.0,30.0,30.0,150.0,DIRECT,musk,Soft musk,Fruity-clean musk body.,HAVE — NEAT,Use as neat Romandolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.00431157725975144
+11,base,Amberwood F,neat/as supplied,1.0,20.0,20.0,20.0,100.0,DIRECT,amberwood,Dry pressure,Dry woody-amber pressure.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0025904655463259802
+12,base,Polysantol,neat / as supplied,1.0,20.0,20.0,20.0,100.0,DIRECT,sandalwood,Persistent smoothness,Persistent sandalwood texture.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.002584193538785299
+13,heart_base,Iso E Super,neat / as supplied,1.0,140.0,140.0,140.0,700.0,DIRECT,transparent_wood,Transparent grain,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.044210435219799456
+14,top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,25.0,25.0,25.0,125.0,DIRECT,citrus,Citrus lift,Floral bergamot peel.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0035188534188718796
+15,top,Grapefruit FCF Oil Sicilian,neat / as supplied,1.0,15.0,15.0,15.0,75.0,DIRECT,citrus,Bitter sparkle,Bitter grapefruit peel.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0018655493727994508
+16,carrier,DPG,neat,0.0,25.0,0.0,25.0,125.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

@@ -1,0 +1,49 @@
+from scripts.evaluate_formula import parse_formula_file
+from scripts.verify_formula_workflow import parse_formula_markdown
+
+
+def test_formula_parsers_share_definition_boundary_dilution_and_authority(tmp_path):
+    path = tmp_path / "historical_formula.md"
+    path.write_text(
+        """# Historical Formula
+
+**Concentrate Volume:** 1,000 uL
+**Claim mode:** `FORMULA_HYPOTHESIS_NOT_AUTHENTICATED_RECIPE`
+**Reference contract:** `DOCUMENTARY_CHARACTER_TARGET`
+**Reference scope:** `CHARACTER_ARCHITECTURE_ONLY_NOT_SIMILARITY`
+**Inventory overlay:** `../evidence/inventory_overlay.json`
+
+## Current-Inventory Build
+
+| # | Ingredient | Dilution | Amount (uL) |
+|---:|---|---|---:|
+| 1 | Beta Ionone (0.1% in TEC) | 0.1% w/w in TEC | 20 |
+| 2 | Iso E Super | neat | 980 |
+| | **Concentrate total** | | **1000** |
+
+## Pipeline Analysis
+
+| # | Material | OAV | Note |
+|---:|---|---:|---|
+| 1 | Fabricated diagnostic row | 99999 | top |
+""",
+        encoding="utf-8",
+    )
+
+    native = parse_formula_markdown(path)[0]
+    legacy = parse_formula_file(str(path))
+
+    assert native["ingredients_ul"] == {
+        "Beta Ionone (0.1% in TEC)": 20.0,
+        "Iso E Super": 980.0,
+    }
+    assert native["dilutions"]["Beta Ionone (0.1% in TEC)"] == 0.001
+    assert native["claim_mode"] == "FORMULA_HYPOTHESIS_NOT_AUTHENTICATED_RECIPE"
+    assert native["reference_contract"] == "DOCUMENTARY_CHARACTER_TARGET"
+    assert native["reference_scope"] == "CHARACTER_ARCHITECTURE_ONLY_NOT_SIMILARITY"
+    assert native["inventory_overlay"] == "../evidence/inventory_overlay.json"
+    assert [(row.name, row.raw_ul, row.dilution) for row in legacy.materials] == [
+        ("Beta Ionone (0.1% in TEC)", 20.0, 0.001),
+        ("Iso E Super", 980.0, 1.0),
+    ]
+    assert legacy.concentrate_ul == 1000.0

@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,0.9977
+identity_system_probability,1.0
+oav_probability,0.9977
+temporal_probability,1.0
+dominance_failure_probability,0.024399999999999977
+overall_probability,0.9733
+dose_closure_probability,0.9435
+temporal_q05,0.9216472426183094
+temporal_median,0.9660800487069701
+max_share_q95,0.6660487624640371
+marker_coverage_q05,0.6666666666666666
+phase_sum_q05,"{""top"": 11.200827814170058, ""base"": 8.081256606026308}"
+release_shape_median,"[0.4633890473180877, 0.2967744885984257, 0.15865364757556277, 0.07067993931974569]"
+phase_shape_median,"[0.3259301719459575, 0.3585003702050195, 0.31547417743150297]"
+marker_probabilities,"{""Bergamot FCF Oil Sicilian | top"": 1.0, ""Grapefruit FCF Oil | top"": 0.9998, ""Neroli EO 10% | top"": 0.106, ""Hedione | top"": 0.0716, ""Habanolide | base"": 1.0, ""Romandolide | base"": 0.9978}"
+marker_quantiles,"{""Bergamot FCF Oil Sicilian | top"": [4.668057213296601, 12.985976157593468, 35.842022385864254], ""Grapefruit FCF Oil | top"": [3.168049317547258, 8.574332967246171, 24.305918247094436], ""Neroli EO 10% | top"": [0.20574808632783287, 0.505658222496738, 1.240590344265497], ""Hedione | top"": [0.16081420725654844, 0.4263186353155749, 1.1266505324904657], ""Habanolide | base"": [4.430571134143699, 11.522497185132856, 30.801864766054017], ""Romandolide | base"": [1.9993467316068603, 5.196786225844958, 13.592786993286502]}"
+classification,ROBUST

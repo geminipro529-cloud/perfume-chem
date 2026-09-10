@@ -1,0 +1,346 @@
+# LN-04 Lavender Heart — 30 mL EDT Study
+
+**Formula UID:** `ysl20:LN-04:v1`
+**Parent Formula UID:** `ysl20:LN-01:v1`
+**Mode:** `STYLISTIC`
+**Family archetype:** `ysl_la_nuit_de_lhomme`
+**Concentrate Volume:** 4,500 µL
+**Nominal bottle:** 30 mL at 15% concentrate
+**Authority:** Controlled formula hypothesis only; not an authenticated YSL recipe or sensory-equivalence claim.
+
+## Target Identity and Functional Architecture
+
+Lavender Heart retains cardamom as La Nuit's opening recognizer, then resolves it into three lavender registers: Bontaux floral-honeyed body, High Altitude fine aromatic lift, and a small Spike camphor edge. Linalool and linalyl acetate continue the aromatic chemistry into literal cedar without a barbershop, laundry, or sweet-fougère turn. TARGET / IDEAL remains separate in `../candidates/LN-04.json`.
+
+## Current-Inventory Build — Heuristic Volume Adapter
+
+The shared La Nuit child core is 4,200 µL and this controlled module is exactly 300 µL.
+
+| # | Ingredient | Dilution | Amount (uL) | Active uL | Specific function |
+|---:|---|---|---:|---:|---|
+| 1 | Iso E Super | neat | 670 | 670 | Molecular-skin dark-cedar halo |
+| 2 | Amberwood F | neat | 180 | 180 | Reduced transparent amber pressure |
+| 3 | Vertofix | neat | 300 | 300 | Vetiver-wood spine |
+| 4 | Hedione | neat | 420 | 420 | Expanded lavender-to-cedar transition air |
+| 5 | Cashmeran (neat) | neat | 200 | 200 | Warm textile shadow |
+| 6 | Ethyl Linalool | neat | 170 | 170 | Aromatic-floral tenacity |
+| 7 | Dihydromyrcenol | neat | 50 | 50 | Controlled cool tension |
+| 8 | Ethylene Brassylate | neat | 250 | 250 | Sole structural musk; verify label |
+| 9 | Bergamot FCF oil Sicilian | neat | 250 | 250 | Documentary citrus counterforce |
+| 10 | Cardamom EO | neat | 195 | 195 | Cool recognizer feeding lavender |
+| 11 | Lavender EO (BONTAUX SAS) | neat | 320 | 320 | Expanded floral-honeyed lavender body |
+| 12 | Lavender EO High Altitude (angustifolia, France) | neat | 45 | 45 | Fine aromatic lavender lift |
+| 13 | Spike Lavender EO | neat | 10 | 10 | Restrained masculine camphor edge |
+| 14 | Linalool | neat | 125 | 125 | Molecular lavender continuity |
+| 15 | Linalyl Acetate | neat | 85 | 85 | Mobile ester seam |
+| 16 | Cedarwood oil Virginia | neat | 350 | 350 | Literal cedar vertical |
+| 17 | Indian Vetiver EO (volume grade) | neat | 180 | 180 | Dry evening tension |
+| 18 | Tonkarome (20% w/w in TEC) | 20% w/w in TEC | 300 | 60 | Dry coumarin-tonka intimacy |
+| 19 | Sandalore | neat | 200 | 200 | Fresh-light sandalwood core |
+| 20 | Alpha Isomethyl Ionone (Methyl Ionone Pure) | neat | 100 | 100 | Violet-woody smoothing |
+| 21 | Caraway Seed Oil (10% w/w in DPG) | 10% w/w in DPG | 10 | 1 | Restrained historical shadow |
+| 22 | Florol | neat | 40 | 40 | Retained clean seam |
+| 23 | Patchouli EO (volume grade) | neat | 50 | 50 | Quiet dark-earth depth |
+|  | **Concentrate total** |  | **4500** | **4251** |  |
+
+## Missing-Chemical Impact and Preparation
+
+Ideal Hedione HC texture, exact target lavender lot, Exaltolide skin quality, Haitian vetiver, and physical evidence against barbershop or camphor drift remain gaps. Existing stocks cover this controlled direction; do not buy another lavender base, laundry floral, or musk. Verify EB before mixing and keep every tincture excluded.
+
+## Controlled Blinded Test Plan
+
+Compare coded equal-mass, equal-concentration LN-04 and LN-01 in balanced order at 0, 5, and 30 minutes and 2 and 4 hours. Judge cardamom authority, lavender dimensionality, lavender-to-cedar continuity, camphor/barbershop/laundry drift, and liking. No physical result exists.
+
+## Claim Ceiling
+
+Physical liking, sensory similarity, stability, and measured headspace are `NOT TESTED`; safety and release are `NOT CLEARED`.
+
+<!-- PIPELINE_ANALYSIS_START -->
+## Pipeline Analysis
+
+<!-- pipeline-analysis-manifest: {"analysis_input_sha256":"2e25ba343c45dba6609866b8ec59184185ed2a9ead1dbc4a2c1eefac56bcc088","analysis_sha256":"4fecf51fa1fb9548476c879ae92200dc6223555360afe8b03c043c1b83d8e045","artifact_sha256":"90d79c0728e8214c305df64caf60330a4a83740ac1d11d581e37cc43cfa0d107","authorities":{"claim":["FAIL"],"headspace_oav":["MODELED_ACTIVE_CONCENTRATE_SCREEN"],"quantitative":["WARN"],"stock":["FAIL"]},"binding_schema":"formula-artifact-binding-v2","canonical_records":[{"canonical_content_sha256":"44decb9046c23be4f4c4944a25d9798805c8b1ae139085e1a70bd5982392ee76","record_id":"formula:1:ln-04-lavender-heart-30-ml-edt-study","record_version":1}],"config_sha256":"e9d07b971e30e996ee8255511ee1f1646c5bdf0c860867f8862329607fcc20ee","formula_definitions":[{"name":"LN-04 Lavender Heart — 30 mL EDT Study","number":1,"sha256":"44decb9046c23be4f4c4944a25d9798805c8b1ae139085e1a70bd5982392ee76"}],"g15_parent_formula_definitions":[{"name":"LN-01 Original 2009 Fidelity — 30 mL EDT Study","number":1,"sha256":"45b548de985454942fa5bc11efc25cb41516febf67f1fcae9f9de87522f1a9db"}],"generated_at_utc":"2026-08-26T20:23:42.351611+00:00","inventory_sha256":"dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec","inventory_v5_alias_crosswalk_sha256":"4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6","inventory_v5_snapshot_sha256":"f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99","inventory_v5_source_workbook_sha256":"e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331","legacy_formula_hashes_v1":[{"name":"LN-04 Lavender Heart — 30 mL EDT Study","number":1,"sha256":"6e96354effff76dd274a9523c012170d9ca2d62a70d279dc96e271f33b44d3aa"}],"overall":"FAIL","pipeline_source_sha256":"0e65c7d9c3608c8b780bf98883c8220f67c2a7e50107ecbfba37fc20a6bb2e21","provenance":{"activity":"formula_release_gate","agent":"perfume-chem pipeline","derivation":"analysis_artifact wasDerivedFrom all input entities","entities":["formula_definition","release_config","legacy_inventory_compatibility_text","inventory_v5_snapshot","inventory_v5_source_workbook","inventory_v5_alias_crosswalk","scientific_inputs","pipeline_source","analysis_artifact"]},"renderer_version":"formula-release-gate-v2","repository_commit":"281d389ca76424ace2438e1f6cabdad75163a4d6","schema":"perfume_pipeline_run_evidence_v2","scientific_inputs_sha256":"5091618a6dea9a7a7ddbe0289022e3dabe7fbb65b33be892de247e42871e3400","semantic_config":{"formula_family_archetypes":["ysl_la_nuit_de_lhomme"],"g15_authorized_active_dose_changes":{"Caraway Seed Oil (10% w/w in DPG)":"reduced from 30 to 10 uL as a shared socket donor while retaining only a historical shadow","Lavender EO High Altitude (angustifolia, France)":"fine aromatic lift inside the fixed 300 uL socket","Spike Lavender EO":"restrained camphoraceous masculine edge inside the fixed 300 uL socket"},"requested":{"allow_preblends":false,"batch_scaling_targets_ml":[],"batch_volume_ml":30,"brief":"auto","commercial_confidence_policy":"block","commercial_mode":false,"concentration_bracket":"EdP","effective_ifra_headroom":1,"expected_concentrate_ul":4500,"expected_retail_price_thb":1500,"family_archetype":"ysl_la_nuit","ifra_headroom":1,"matrix_components_moles":[],"matrix_mass_g":0,"matrix_source":"omitted","max_perceptible_channels":30,"min_confidence_score":25,"min_neat_trace_ul":5,"min_perceptible_materials":3,"price_tier":"auto","quantitative_claim":false,"temperature_K":298.15}}} -->
+
+```text
+# Run Evidence Contract
+
+Formula definition SHA-256: #1 44decb9046c23be4f4c4944a25d9798805c8b1ae139085e1a70bd5982392ee76
+Config SHA-256: e9d07b971e30e996ee8255511ee1f1646c5bdf0c860867f8862329607fcc20ee
+Legacy inventory.txt compatibility SHA-256: dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec
+Inventory V5 snapshot SHA-256: f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99
+Inventory V5 source workbook SHA-256: e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331
+Inventory V5 alias crosswalk SHA-256: 4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6
+Scientific inputs SHA-256: 5091618a6dea9a7a7ddbe0289022e3dabe7fbb65b33be892de247e42871e3400
+Pipeline source SHA-256: 0e65c7d9c3608c8b780bf98883c8220f67c2a7e50107ecbfba37fc20a6bb2e21
+Exact concentrate ppm w/w: UNAVAILABLE
+Headspace/OAV basis: MODELED_ACTIVE_CONCENTRATE_SCREEN
+Headspace/OAV class: HEURISTIC_NOT_MEASURED (never a sensory-similarity percentage)
+Inventory stock authority: FAIL
+Quantitative gate authority: WARN
+Named-reference authority: FAIL
+Sensory-equivalence authority: NOT_AUTHORIZED_NOT_MEASURED
+# LN-04 Lavender Heart — 30 mL EDT Study
+
+## Gate Summary
+
+**105 PASS** / **33 WARN** / **9 FAIL**
+
+  FAIL pipeline_preflight: 13 checks; 8 warnings
+  FAIL g15_oav_firewall: G15 requires every child row to have a uniquely resolved live inventory stock.
+  FAIL inventory_stock_contract: 10 material stock contract failure(s): Caraway Seed Oil (10% w/w in DPG), Cashmeran (neat), Ethyl Linalool, Ethylene Brassylate, Indian Vetiver EO (volume grade), Lavender EO (BONTAUX SAS), Lavender EO High Altitude (angustifolia, France), Patchouli EO (volume grade), Spike Lavender EO, Tonkarome (20% w/w in TEC)
+  FAIL natural_composite_coverage: Natural mixtures lack required composite GC-O decomposition: Caraway Seed Oil (10% w/w in DPG), Indian Vetiver EO (volume grade), Lavender EO High Altitude (angustifolia, France), Spike Lavender EO
+  FAIL reference_claim_contract: Named-reference language was detected without explicit Claim mode, Reference contract, and Reference scope metadata.
+  FAIL material_spine_coverage: Caraway Seed Oil (10% w/w in DPG), Indian Vetiver EO (volume grade), Lavender EO High Altitude (angustifolia, France)
+  FAIL physics_data_coverage: {"Caraway Seed Oil (10% w/w in DPG)": ["mw", "logp", "vp", "odt_air_ppm"], "Indian Vetiver EO (volume grade)": ["mw", "logp", "vp", "odt_air_ppm"], "Lavender EO High Altitude (angustifolia, France)": ["mw", "logp", "vp", "odt_air_ppm"]}
+  FAIL odt_coverage: Caraway Seed Oil (10% w/w in DPG), Indian Vetiver EO (volume grade), Lavender EO High Altitude (angustifolia, France)
+  FAIL confidence_minimum: combined confidence 11.1 below 25.0 after preflight evidence penalty 19.0
+  WARN quantitative_authority: Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only.
+  WARN headspace_scope: Headspace/OAV is an active-concentrate screening model; the finished ethanol-water-solvent matrix is omitted.
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 30.2% active mass across 4 materials
+  WARN osmotheque_archivability: Archivability: 3 unknown material(s)
+  WARN oav_overdose_blocker: High modeled OAV screening signal: Bergamot FCF oil Sicilian=17242, Lavender EO (BONTAUX SAS)=10759; validate by controlled dilution/omission trials
+  WARN odt_sanity: 3 materials with suspect ODT values: Caraway Seed Oil (10% w/w in DPG)=None, Indian Vetiver EO (volume grade)=None, Lavender EO High Altitude (angustifolia, France)=None
+  WARN vp_cross_source: 3 materials with VP=None or 0: Caraway Seed Oil (10% w/w in DPG), Indian Vetiver EO (volume grade), Lavender EO High Altitude (angustifolia, France); 5 materials use inferred enthalpy for VP at 298.15 K; 6 unresolved cross-source VP conflicts
+  WARN odt_completeness: 3 material(s) lack ODT data; 0% OAV share affected
+  WARN small_diluted_traces: Caraway Seed Oil (10% w/w in DPG)=10.0uL at 10.0%
+  WARN safety_ifra_allergen: 12 materials lack explicit IFRA Cat4 limits; 2 EU allergen declarations
+  WARN eu_allergen_declaration: EU allergens requiring label: alpha-isomethyl ionone, ethyl linalool (contains linalool), linalool, linalyl acetate
+  WARN safety_phototoxic: Bergamot FCF oil Sicilian: 5.88% > IFRA max 2.0% (bergaptene 0.5 ppm)
+  WARN safety_receptor_saturation: Cedarwood Virginia 8.2% > 2% cap (OR10J5 + cedrol sedative)
+  WARN oav_physics_gamma: 23/23 materials use predictive, heuristic, fallback, or unknown gamma authority; largest gamma=1 comparison leverage Tonkarome (20% w/w in TEC)=1.7x
+  WARN skin_degradation: Patchouli EO (volume grade): patchoulol -> norpatchoulenol on skin (texture shift over hours). Monitor patchouli character shift; Tonkarome (20% w/w in TEC): coumarin glycosides -> coumarin release (IFRA restricted). Check IFRA coumarin limits
+  WARN verify_protocol_aggregate: Verification protocol active — 3/23 materials missing ODT data
+  WARN solvent_matrix: stock-carrier authority NAMED_CARRIER_VOLUME_PROXY; known named carriers {'DPG': 9.0, 'TEC': 240.0}; unresolved carrier proxy 0.0 uL; 2 named carrier row(s) lack a v/v basis
+  WARN perfumer_logic: aromatic_fougere; family_archetype_known: No family archetype spec for 'ysl_la_nuit_de_lhomme'.
+  WARN family_drift_detector: unknown family archetype: ysl_la_nuit_de_lhomme
+  WARN carles_accord_ratio: Exact active-mass ppm is unavailable; pairwise dose ratios were not evaluated.
+  WARN literature_compliance: Literature compliance: 2/5 principles passed (40%) [advisory guideline; not release-blocking]
+  WARN edge_cases: Musk coverage: 90%, gaps: 2, formula VP factor x1.00-1.00 (median x1.00, T=298.15K vs 298.15K, n=20)
+  WARN family_hedonic: Family 'ysl_la_nuit_de_lhomme' has 0 legacy pitfalls and 0 tips quarantined pending validation
+  WARN somatosensory: 0 candidate chemesthetic materials detected; formula-level effects require exposure and human validation
+  WARN stevens_n_efficiency: Exact active-mass ppm is unavailable; dose-efficiency comparison not evaluated.
+  WARN jellinek_psychology: Jellinek categories weak: erogenic, narcotic
+  WARN coty_single_material_limit: Exact active-mass ppm is unavailable; single-material limit not evaluated.
+  WARN roudnitska_hedione_pct: Exact active-mass ppm is unavailable; Hedione percentage heuristic not evaluated.
+  WARN oav_intelligence: Unmapped family archetype for future-module intelligence: ysl_la_nuit_de_lhomme; volatility_balance: T:29% H:70% B:1% (target 30:35:35 for EdP); iso e super note-tier mismatch: engine=heart, future=base
+  WARN olfactory_fatigue: Olfactory fatigue risk: iso e super=6832 (limit 5000)
+  WARN tenacity_projection: VP<0.001Pa = 0% (<3%, may lack depth)
+  WARN authority_vector: Safety authority insufficient (0.00) — unknown IFRA limits for too many materials; Identity (0.00) AND Quantity (0.00) authority both insufficient — insufficient evidence; Identity authority insufficient (0.00). DIMENSIONS NEVER AVERAGED. [advisory guideline; not release-blocking]
+  WARN concentration_basis: 23 material(s) with unspecified concentration basis: Alpha Isomethyl Ionone (Methyl Ionone Pure): concentration basis not specified (use w/w, v/v, or w/v); Amberwood F: concentration basis not specified (use w/w, v/v, or w/v); Bergamot FCF oil Sicilian: concentration basis not specified (use w/w, v/v, or w/v); Caraway Seed Oil (10% w/w in DPG): concentration basis not specified (use w/w, v/v, or w/v); Cardamom EO: concentration basis not specified (use w/w, v/v, or w/v)... [advisory guideline; not release-blocking]
+
+
+## Authority Dimensions
+
+| Dimension | Status | Authority |
+|---|---|---|
+| Inventory stock | FAIL | 10 material stock contract failure(s): Caraway Seed Oil (10% w/w in DPG), Cashmeran (neat), Ethyl Linalool, Ethylene Brassylate, Indian Vetiver EO (volume grade), Lavender EO (BONTAUX SAS), Lavender EO High Altitude (angustifolia, France), Patchouli EO (volume grade), Spike Lavender EO, Tonkarome (20% w/w in TEC) |
+| Quantitative ppm w/w | UNAVAILABLE | Exact only when the full declared mass and density chain is available. |
+| Headspace/OAV | MODELED_ACTIVE_CONCENTRATE_SCREEN | HEURISTIC_NOT_MEASURED; diagnostic model, not measured odor intensity. |
+| Named reference | FAIL (architecture) | Named-reference language was detected without explicit Claim mode, Reference contract, and Reference scope metadata. |
+| Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | Requires blinded bench comparison; no model score supplies this authority. |
+| Combined confidence | 11.1/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
+
+
+## Headspace OAV — Opening (0s)
+
+| Material | Dil | Raw µL | Act µL | MW | MF% | VP Pa | γ | Vapor ppm | ODT ppm | OAV | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Bergamot FCF oil Sicilian | 100.0% | 250.00 | 250.00 | 170.000 | 7.158 | 2.500000 | 3.000 | 269.392061 | 0.006000000 | 17242.8 | heart |
+| Lavender EO (BONTAUX SAS) | 100.0% | 320.00 | 320.00 | 154.300 | 8.883 | 22.000000 | 1.000 | 20.415269 | 0.002000000 | 10759.5 | heart |
+| Iso E Super | 100.0% | 670.00 | 670.00 | 234.400 | 13.913 | 0.231290 | 1.076 | 0.341591 | 0.000050000 | 6831.8 | heart |
+| Linalool | 100.0% | 125.00 | 125.00 | 154.300 | 3.943 | 21.300000 | 1.141 | 9.454990 | 0.001500000 | 6303.3 | top |
+| Cardamom EO | 100.0% | 195.00 | 195.00 | 170.250 | 5.185 | 15.000000 | 2.000 | 120.660971 | 0.003000000 | 5211.2 | top |
+| Dihydromyrcenol | 100.0% | 50.00 | 50.00 | 156.300 | 1.557 | 17.000000 | 1.000 | 2.612490 | 0.001000000 | 2612.5 | top |
+| Hedione | 100.0% | 420.00 | 420.00 | 226.300 | 9.034 | 0.094660 | 1.005 | 0.084800 | 0.000050000 | 1696.0 | heart |
+| Linalyl Acetate | 100.0% | 85.00 | 85.00 | 196.300 | 2.108 | 17.500000 | 1.000 | 3.640252 | 0.002700000 | 1348.2 | top |
+| Cashmeran (neat) | 100.0% | 200.00 | 200.00 | 206.320 | 4.718 | 1.242000 | 1.000 | 0.578369 | 0.002000000 | 289.2 | base |
+| Cedarwood oil Virginia | 100.0% | 350.00 | 350.00 | 222.370 | 7.508 | 0.005000 | 2.500 | 1.409145 | 0.015000000 | 179.6 | base |
+| Alpha Isomethyl Ionone (Methyl Ionone Pure) | 100.0% | 100.00 | 100.00 | 206.330 | 2.359 | 0.400000 | 1.300 | 0.121070 | 0.000800000 | 151.3 | heart |
+| Tonkarome (20% w/w in TEC) | 20.0% | 300.00 | 60.00 | 160.000 | 1.825 | 0.050000 | 0.600 | 0.005404 | 0.000500000 | 10.8 | base |
+| Patchouli EO (volume grade) | 100.0% | 50.00 | 50.00 | 222.370 | 1.094 | 0.001000 | 1.015 | 0.052730 | 0.003000000 | 10.1 | base |
+| Sandalore | 100.0% | 200.00 | 200.00 | 210.400 | 4.627 | 0.080000 | 1.500 | 0.054797 | 0.010000000 | 5.5 | base |
+| Ethylene Brassylate | 100.0% | 250.00 | 250.00 | 270.400 | 4.500 | 0.008000 | 0.800 | 0.002843 | 0.000970000 | 2.9 | base |
+| Ethyl Linalool | 100.0% | 170.00 | 170.00 | 182.300 | 4.539 | 0.080000 | 1.000 | 0.035838 | 0.015000000 | 2.4 | top |
+| Vertofix | 100.0% | 300.00 | 300.00 | 234.400 | 6.230 | 0.011200 | 1.000 | 0.006886 | 0.006300000 | 1.1 | base |
+| Amberwood F | 100.0% | 180.00 | 180.00 | 234.400 | 3.738 | 0.001000 | 1.500 | 0.000553 | 0.001000000 | 0.6 | base |
+| Florol | 100.0% | 40.00 | 40.00 | 154.250 | 1.262 | 0.007000 | 1.000 | 0.000872 | 0.010000000 | 0.1 | heart |
+| Caraway Seed Oil (10% w/w in DPG) | 10.0% | 10.00 | 1.00 | UNKNOWN | 0.024 | UNKNOWN | 1.001 | UNKNOWN | UNKNOWN | UNKNOWN | heart |
+| Indian Vetiver EO (volume grade) | 100.0% | 180.00 | 180.00 | UNKNOWN | 4.381 | UNKNOWN | 1.001 | UNKNOWN | UNKNOWN | UNKNOWN | heart |
+| Lavender EO High Altitude (angustifolia, France) | 100.0% | 45.00 | 45.00 | UNKNOWN | 1.095 | UNKNOWN | 1.001 | UNKNOWN | UNKNOWN | UNKNOWN | heart |
+| Spike Lavender EO | 100.0% | 10.00 | 10.00 | 154.000 | 0.316 | 70.000000 | 1.001 | UNKNOWN | 0.015000000 | UNKNOWN | heart |
+
+**Materials:** 23 total (5 top, 10 heart, 8 base)
+**Total vapor:** 428.87 ppm
+
+### Note Distribution
+
+**TOP:** 5 mats, 14.7% active, 29.4% OAV
+  - Linalool                     OAV=  6303.3 (very strong) VP=21.300Pa
+  - Cardamom EO                  OAV=  5211.2 (very strong) VP=15.000Pa
+  - Dihydromyrcenol              OAV=  2612.5 (very strong) VP=17.000Pa
+  - Linalyl Acetate              OAV=  1348.2 (very strong) VP=17.500Pa
+  - Ethyl Linalool               OAV=     2.4 (at threshold) VP=0.080Pa
+**HEART:** 10 mats, 47.9% active, 69.7% OAV
+  - Bergamot FCF oil Sicilian    OAV= 17242.8 (massive) VP=2.500Pa
+  - Lavender EO (BONTAUX SAS)    OAV= 10759.5 (massive) VP=22.000Pa
+  - Iso E Super                  OAV=  6831.8 (very strong) VP=0.231Pa
+  - Hedione                      OAV=  1696.0 (very strong) VP=0.095Pa
+  - Alpha Isomethyl Ionone (Methyl Ionone Pure) OAV=   151.3 (strong) VP=0.400Pa
+  - Florol                       OAV=     0.1 (sub-threshold) VP=0.007Pa
+  ... and 4 more
+**BASE:** 8 mats, 37.4% active, 0.9% OAV
+  - Cashmeran (neat)             OAV=   289.2 (strong) VP=1.242Pa
+  - Cedarwood oil Virginia       OAV=   179.6 (strong) VP=0.005Pa
+  - Tonkarome (20% w/w in TEC)   OAV=    10.8 (moderate) VP=0.050Pa
+  - Patchouli EO (volume grade)  OAV=    10.1 (moderate) VP=0.001Pa
+  - Sandalore                    OAV=     5.5 (perceptible) VP=0.080Pa
+  - Ethylene Brassylate          OAV=     2.9 (at threshold) VP=0.008Pa
+  ... and 2 more
+
+### Sub-threshold Materials (OAV < 1)
+2/23 materials below perceptible threshold
+  - Amberwood F: OAV=0.55 VP=0.001Pa act=180uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Florol: OAV=0.09 VP=0.007Pa act=40uL role=modifier [**FUNCTIONAL_UNDERPERFORMANCE: review dose or assigned role**]
+### Unknown OAV (not sub-threshold)
+  - Caraway Seed Oil (10% w/w in DPG): OAV=UNKNOWN model=unknown:composite_decomposition_missing
+  - Indian Vetiver EO (volume grade): OAV=UNKNOWN model=unknown:composite_decomposition_missing
+  - Lavender EO High Altitude (angustifolia, France): OAV=UNKNOWN model=unknown:composite_decomposition_missing
+  - Spike Lavender EO: OAV=UNKNOWN model=unknown:composite_decomposition_missing
+### High-OAV Flags (>5000)
+  - Bergamot FCF oil Sicilian OAV=17243 dominates headspace — may mask subtler notes
+  - Cardamom EO OAV=5211 dominates headspace — may mask subtler notes
+  - Iso E Super OAV=6832 dominates headspace — may mask subtler notes
+  - Lavender EO (BONTAUX SAS) OAV=10760 dominates headspace — may mask subtler notes
+  - Linalool OAV=6303 dominates headspace — may mask subtler notes
+
+### OAV by Odor Family
+
+           citrus  32.7% ================  (1 mats)
+                ?  20.4% ==========  (5 mats)
+            woody  18.9% =========  (7 mats)
+         aromatic  14.5% =======  (2 mats)
+            spice   9.9% ====  (1 mats)
+           floral   3.5% =  (3 mats)
+         gourmand   0.0% =  (1 mats)
+             musk   0.0% =  (1 mats)
+           fruity   0.0% =  (1 mats)
+            amber   0.0% =  (1 mats)
+
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Remain idx | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s | 14.7/47.9/37.4 |    UNKNOWN |  100.0% | Bergamot FCF(17243), Lavender EO (10760), Iso E Super(6832)
+| top          |    300s | 14.4/47.6/38.0 |    UNKNOWN |   98.5% | Bergamot FCF(14763), Lavender EO (10856), Iso E Super(6959)
+| heart        |   1800s | 13.1/46.8/40.2 |    UNKNOWN |   93.4% | Lavender EO (11021), Iso E Super(7430), Bergamot FCF(6577)
+| late_heart   |   7200s | 10.6/46.4/43.0 |    UNKNOWN |   87.2% | Lavender EO (9833), Iso E Super(8076), Linalool(5688)
+| drydown      |  14400s |  9.4/46.2/44.3 |    UNKNOWN |   84.3% | Iso E Super(8406), Lavender EO (7822), Linalool(4492)
+
+Temporal authority: HEURISTIC_UNCALIBRATED; model=dynamic_headspace_exponential_loss_v2; remaining index is not measured evaporation.
+
+### Per-Window Detail
+
+**OPENING** (0.0s) — Uncalibrated loss index:0%
+  T:14.7% H:47.9% B:37.4%  Vapor:UNKNOWN
+  Leaders: Bergamot FCF oil Sicilian OAV 17243 | Lavender EO (BONTAUX SAS) OAV 10760 | Iso E Super OAV 6832 | Linalool OAV 6303 | Cardamom EO OAV 5211
+
+**TOP** (300.0s) — Uncalibrated loss index:1%
+  T:14.4% H:47.6% B:38.0%  Vapor:UNKNOWN
+  Leaders: Bergamot FCF oil Sicilian OAV 14763 | Lavender EO (BONTAUX SAS) OAV 10856 | Iso E Super OAV 6959 | Linalool OAV 6351 | Cardamom EO OAV 4771
+
+**HEART** (1800.0s) — Uncalibrated loss index:7%
+  T:13.1% H:46.8% B:40.2%  Vapor:UNKNOWN
+  Leaders: Lavender EO (BONTAUX SAS) OAV 11021 | Iso E Super OAV 7430 | Bergamot FCF oil Sicilian OAV 6577 | Linalool OAV 6418 | Cardamom EO OAV 2975
+
+**LATE_HEART** (7200.0s) — Uncalibrated loss index:13%
+  T:10.6% H:46.4% B:43.0%  Vapor:UNKNOWN
+  Leaders: Lavender EO (BONTAUX SAS) OAV 9833 | Iso E Super OAV 8076 | Linalool OAV 5688 | Dihydromyrcenol OAV 2557 | Hedione OAV 2018
+
+**DRYDOWN** (14400.0s) — Uncalibrated loss index:16%
+  T:9.4% H:46.2% B:44.3%  Vapor:UNKNOWN
+  Leaders: Iso E Super OAV 8406 | Lavender EO (BONTAUX SAS) OAV 7822 | Linalool OAV 4492 | Dihydromyrcenol OAV 2198 | Hedione OAV 2109
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Linalool(very strong) + Cardamom EO(very strong) + Dihydromyrcenol(very strong)
+  Heart: Bergamot FCF oil Sicilian(massive) + Lavender EO (BONTAUX SAS)(massive)
+  Base: Cashmeran (neat)(strong) + Cedarwood oil Virginia(strong) + Tonkarome (20% w/w in TEC)(moderate) + Patchouli EO (volume grade)(moderate) + Sandalore(perceptible)
+
+### 2. Opening (0-5min)
+  Linalool leads the reported top at OAV 6303 (very strong).
+  - Linalool OAV=6303 VP=21.3Pa (aromatic)
+  - Cardamom EO OAV=5211 VP=15.0Pa (spice)
+  - Dihydromyrcenol OAV=2612 VP=17.0Pa (woody)
+  - Linalyl Acetate OAV=1348 VP=17.5Pa (aromatic)
+  Total vapor: UNKNOWN
+
+### 3. Heart (30min-2hr)
+  Lavender EO (BONTAUX SAS) OAV=11021 (massive)
+  Iso E Super OAV=7430 (very strong)
+  Bergamot FCF oil Sicilian OAV=6577 (very strong)
+  Linalool OAV=6418 (very strong)
+  T:13.1% H:46.8% B:40.2%
+  Vapor: UNKNOWN
+
+### 4. Drydown (2hr-4hr+)
+  Base share of active note distribution: 44%
+  - Iso E Super OAV=8406
+  - Lavender EO (BONTAUX SAS) OAV=7822
+  - Linalool OAV=4492
+  - Dihydromyrcenol OAV=2198
+  - Hedione OAV=2109
+  - Linalyl Acetate OAV=1171
+  Vapor: UNKNOWN
+
+### 5. Sillage & Diffusion
+  Primary carriers: Bergamot FCF oil Sicilian(17243) + Lavender EO (BONTAUX SAS)(10760) + Iso E Super(6832) + Linalool(6303)
+  OAV by family: citrus33% None20% woody19% aromatic15%
+
+### 6. Longevity
+  Uncalibrated loss index: 16% over modeled window
+  Vapor: UNKNOWN > UNKNOWN
+  Base @ drydown: 44%
+  Absolute skin life: unavailable; calibrated finite-film, vehicle, skin-absorption, and sensory data are required
+
+### 7. Balance
+  Pyramid: T:14.7% H:47.9% B:37.4%
+  OAV range: 0.09 to 17243 (sigma-log=1.68)
+  Wide OAV contrast: Bergamot FCF oil Sicilian leads at OAV 17243; lower-OAV materials may be masked.
+    massive: 2
+    sub-threshold: 2
+
+### 8. Flags
+  SUB: Amberwood F OAV=0.55 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Florol OAV=0.09 role=modifier class=FUNCTIONAL_UNDERPERFORMANCE
+  UNKNOWN: Caraway Seed Oil (10% w/w in DPG) OAV unavailable (unknown:composite_decomposition_missing)
+  UNKNOWN: Indian Vetiver EO (volume grade) OAV unavailable (unknown:composite_decomposition_missing)
+  UNKNOWN: Lavender EO High Altitude (angustifolia, France) OAV unavailable (unknown:composite_decomposition_missing)
+  UNKNOWN: Spike Lavender EO OAV unavailable (unknown:composite_decomposition_missing)
+
+
+## Structural OAV Analysis
+
+**Vapor:** 429 ppm  |  **Active:** 14.2%  |  **Perceptible:** 17/23  |  **Unknown:** 4
+
+### OAV Tiers
+  **massive** (8): Bergamot FCF oil Sicilian(17243), Cardamom EO(5211), Dihydromyrcenol(2612), Hedione(1696), Iso E Super(6832), Lavender EO (BONTAUX SAS)(10760), Linalool(6303), Linalyl Acetate(1348)  ! fatigue risk, overload risk
+  **v.strong** (3): Alpha Isomethyl Ionone (Methyl Ionone Pure)(151), Cashmeran (neat)(289), Cedarwood oil Virginia(180)
+  **moderate** (2): Patchouli EO (volume grade)(10), Tonkarome (20% w/w in TEC)(11)
+  **perceptible** (1): Sandalore(5)
+  **threshold** (3): Ethyl Linalool(2), Ethylene Brassylate(3), Vertofix(1)
+  **sub** (2): Amberwood F(1), Florol(0)
+  **unknown** (4): Caraway Seed Oil (10% w/w in DPG), Indian Vetiver EO (volume grade), Lavender EO High Altitude (angustifolia, France), Spike Lavender EO
+
+### Block Balance
+  **Citrus**        0 (0%)
+  **Floral**    36682 (99%)
+  **Base**        500 (1%)
+  **Ratio:** 73:1 between strongest/weakest block
+
+### Issues
+  ! 2 sub-threshold material(s): Amberwood F, Florol
+  ! 4 material(s) have unknown OAV: Caraway Seed Oil (10% w/w in DPG), Indian Vetiver EO (volume grade), Lavender EO High Altitude (angustifolia, France), Spike Lavender EO
+  ! Missing 'strong' tier (OAV 50-100)
+  ! 8 massive-OAV materials — sensory overload likely
+```
+<!-- PIPELINE_ANALYSIS_END -->

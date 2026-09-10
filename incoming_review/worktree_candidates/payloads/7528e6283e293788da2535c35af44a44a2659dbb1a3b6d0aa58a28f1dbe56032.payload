@@ -1,0 +1,28 @@
+﻿Code,ACC-LR-CAS-01
+Accord,Dark Castoreum Leather v1.0
+Category,Leather & Resin
+Brief,"A dense animalic leather with castoreum, birch tar, labdanum, costus, cypriol, agarwood and dry tobacco-like woods."
+Recommended use,0.5–5% of perfume concentrate
+Maturation,21 days
+Monte Carlo pass,0.9896
+Final design score,100.0
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Castoreum Synthetic,Castoreum Synthetic 10% in DPG,0.1,120.0,12.0,120.0,600.0,PREPARED STOCK,leather_animalic,Animalic leather,Animalic leather warmth.,HAVE — NEAT + 10%,Use exact stock named in formula.,,IDENTITY CRITICAL,0.072655234967484
+2,base,Kephalis,neat/as supplied,1.0,100.0,100.0,100.0,500.0,DIRECT,warm_wood,Warm tobacco wood,Warm tobacco-like wood.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.053185295217126026
+3,base,Labdanum 10%,10% working stock,0.1,100.0,10.0,100.0,500.0,PREPARED STOCK,amber_resin,Cistus amber,Cistus amber-leather.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.053185295217126026
+4,base,Suederal 10%,10% working stock,0.1,100.0,10.0,100.0,500.0,PREPARED STOCK,leather,Leather body,Soft suede leather.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.053185295217126026
+5,base,Patchouli EO,neat / as supplied,1.0,70.0,70.0,70.0,350.0,DIRECT,patchouli,Earthy body,Earthy patchouli structure.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.02240931290706559
+6,base,Papyrus / Cypriol EO,Nagarmotha Oil neat,1.0,60.0,60.0,60.0,300.0,DIRECT,cypriol,Cypriol earth,Cypriol/nagarmotha smoke and earth.,HAVE — CYPRIOL VIA NAGARMOTHA; PAPYRUS UNCONFIRMED,Use Nagarmotha where the source calls for cypriol/nagarmotha. Hold targets that specifically require papyrus rather than cypriol.,,IDENTITY CRITICAL,0.023638435731527588
+7,base,Ambrofix 30%,30% working stock,0.3,40.0,12.0,40.0,200.0,PREPARED STOCK,ambergris,Mineral persistence,Mineral ambergris persistence.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.00897292273939139
+8,base,Black Agarwood Artificial 10%,10% prepared from neat,0.1,40.0,4.0,40.0,200.0,PREPARED STOCK,agarwood,Dark agarwood,Dark agarwood shadow.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.00897292273939139
+9,base,Cedarwood Himalayan EO,neat/as supplied,1.0,40.0,40.0,40.0,200.0,DIRECT,cedar,Smoky cedar,Smokier Himalayan cedar texture.,HAVE,Use only with exact label/stock-strength accounting.,,TEXTURAL SUPPORT,0.00897292273939139
+10,base,Guaiacol 10%,Guaiacol 10% working dilution,0.1,30.0,3.0,30.0,150.0,PREPARED STOCK,smoke,Phenolic smoke,Phenolic smoke/cocoa shadow.,HAVE — NEAT + 10%,Formula must specify exact strength.,,TEXTURAL SUPPORT,0.005790460718313548
+11,base,Olibanum 50%,50% in DPG,0.5,30.0,15.0,30.0,150.0,PREPARED STOCK,incense,Dry incense,Frankincense mineral resin.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.005790460718313598
+12,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,25.0,25.0,25.0,125.0,DIRECT,musk,Metallic lift,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.004418879467627111
+13,base,Zenolide,neat / as supplied,1.0,25.0,25.0,25.0,125.0,DIRECT,musk,Soft musk,Smooth musk body.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.004418879467627111
+14,base,Birch Tar 1%,Birch Tar 1%,0.01,20.0,0.2,20.0,100.0,PREPARED STOCK,leather_smoke,Smoky tar,Controlled smoky leather.,HAVE — MULTIPLE STOCKS,Formula must name the exact stock strength.,,TEXTURAL SUPPORT,0.005267046271245394
+15,base,Costus Olifac 10%,10% working dilution,0.1,20.0,2.0,20.0,100.0,PREPARED STOCK,animalic,Rooty animalic skin,Rooty animalic skin trace.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0032380607639989996
+16,heart_base,Iso E Super,neat / as supplied,1.0,100.0,100.0,100.0,500.0,DIRECT,transparent_wood,Transparent frame,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.04223058251807694
+17,carrier,DPG,neat,0.0,80.0,0.0,80.0,400.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

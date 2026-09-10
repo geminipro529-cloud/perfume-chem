@@ -1,0 +1,511 @@
+{
+  "record_schema": "creative_formula_candidate_v1",
+  "record_id": "GIN-VETIVER-CYPRESS-AIR-30ML-V5-FINAL-DESIGN",
+  "name": "Gin Vetiver — Cypress Air EDP — Final Design",
+  "version": 5,
+  "created_date_local": "2026-09-09",
+  "operating_mode": "CREATIVE_FORMULATION",
+  "status": "FINAL_COMPUTATIONAL_DESIGN_NOT_SENSORY_OR_SKIN_RELEASED",
+  "physical_batch_status": "NOT_COMPOUNDED_BY_ASSISTANT_NO_USER_MIX_CONFIRMATION",
+  "sensory_status": "NOT_TESTED",
+  "safety_status": "HOLD_PRODUCT_SPECIFIC_FINISHED_PRODUCT_ASSESSMENT",
+  "user_direction": "Develop Gin Vetiver - Cypress Air as a full 30 mL eau de parfum rather than a fresh cologne, with additional body and functional layering. Keep cypress light, permit Hedione without constructing a jasmine accord, and ensure DEP is not deliberately present at a level capable of adding its own odor.",
+  "batch_size_authority": "USER_REQUESTED_FULL_30ML_COMPOSITION_AND_REJECTED_MANDATORY_SMALL_TRIAL",
+  "target_ideal": "Dry juniper and coriander through bitter grapefruit, petitgrain and a restrained cypress accent into recognizable Indian vetiver, multiple dry wood planes, mineral amber and a two-depth musk finish. The post-opening body must read as EDP structure rather than citrus cologne.",
+  "current_inventory_build": "Eighteen current stock identities retained; 16 neat/as-supplied stocks plus Ambrox Super25%w/w and Ambrettolide10%w/w; no declared DEP carrier.",
+  "design_review": {
+    "change_classification": "FINALIZE_USER_APPROVED_C1_AFTER_BOUNDED_REFINEMENT",
+    "parent_selection": "Keep C1: best identity-retaining final refinement improved partial pleasantness only0.028 while reducing juniper and increasing abstractwood. Gain is not meaningful validated sensory evidence. Original v4 and C1 preserved.",
+    "dose_rationale": "C1 is the accepted engineering design; all final quantities identical to C1. No concentration, stock-strength or carrier change in finalization.",
+    "user_authorization": "User: good. optimize it and give me the final",
+    "physical_or_safety_authority_delegated": false
+  },
+  "inventory_evidence": {
+    "inventory_path": "inventory.txt",
+    "inventory_raw_sha256_at_stock_check": "d6f7ff5389fbd5e807b98fee3ce6a87ce2c70dd6253b26a82f49a0872da42369",
+    "inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+    "inventory_source_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "inventory_alias_crosswalk_sha256": "4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6",
+    "verification_method": "Full live inventory parse with current supported successor overlays, then exact material-name, stock-ID, fraction, basis and carrier binding for every selected stock.",
+    "current_successor": "data/governance/inventory_user_authority_overlay_20260908_romandolide.json",
+    "basis": "Stable V5 identities are carried through current user-authority corrections; current availability and stock preparations come from the materialized current snapshot.",
+    "sync_action": "NO_INVENTORY_OR_AUTHORITY_PIN_CHANGE"
+  },
+  "nominal_batch_ul": 30000,
+  "nominal_fragrance_stock_subtotal_ul": 5400,
+  "nominal_fragrance_stock_volume_fraction": 0.18,
+  "exact_finished_volume_ml": null,
+  "exact_finished_mass_g": null,
+  "exact_active_ppm_ww": null,
+  "volume_model": "Sum of nominal dispensed raw volumes. Non-additivity and transfer losses are not measured; this is not exact final volumetric-flask volume.",
+  "ingredients": [
+    {
+      "step": 1,
+      "basket": 1,
+      "basket_category": "Always used",
+      "material": "Iso E Super",
+      "raw_ul": 1330,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:66c8443970c7354dd89a",
+      "inventory_identity": "Iso E Super",
+      "source_ref": "Current Inventory Master!A140:N140",
+      "intended_role": "Primary abstract woody volume and spatial body around the vetiver subject."
+    },
+    {
+      "step": 2,
+      "basket": 1,
+      "basket_category": "Always used",
+      "material": "Hedione",
+      "raw_ul": 310,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:0f9d7e0971aad1594be4",
+      "inventory_identity": "Hedione",
+      "source_ref": "Current Inventory Master!A129:N129",
+      "intended_role": "Transparent diffusion and internal space. Explicitly permitted; not an assembled jasmine accord."
+    },
+    {
+      "step": 3,
+      "basket": 1,
+      "basket_category": "Always used",
+      "material": "Ambrox Super",
+      "raw_ul": 400,
+      "stock_fraction": 0.25,
+      "stock_fraction_basis": "mass_fraction",
+      "carrier": "dpg + ipm + ethanol",
+      "stock_id": "inventory:user-20260902:9e69f9db20c45cfe37e6",
+      "inventory_identity": "Ambrox Super",
+      "source_ref": "data/governance/inventory_user_authority_overlay_20260904.json#INV-USER-20260902-002",
+      "intended_role": "Restrained mineral-amber persistence beneath the vetiver and dry wood structure."
+    },
+    {
+      "step": 4,
+      "basket": 1,
+      "basket_category": "Always used",
+      "material": "Benzyl Benzoate",
+      "raw_ul": 20,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:48d08954bb41de2543fb",
+      "inventory_identity": "Benzyl Benzoate",
+      "source_ref": "Current Inventory Master!A285:N285",
+      "intended_role": "Restrained balsamic mass and fixation without constructing a floral cushion."
+    },
+    {
+      "step": 5,
+      "basket": 1,
+      "basket_category": "Always used",
+      "material": "Vetival",
+      "raw_ul": 80,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:44f86b339280f63eef21",
+      "inventory_identity": "Vetival",
+      "source_ref": "Current Inventory Master!A244:N244",
+      "intended_role": "Suede-dry, rougher vetiver texture in the lower body."
+    },
+    {
+      "step": 6,
+      "basket": 2,
+      "basket_category": "Vetivers",
+      "material": "Vetiver EO (India)",
+      "raw_ul": 940,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:user-20260904:20f36a0658891ff50ea4",
+      "inventory_identity": "Vetiver EO (India)",
+      "source_ref": "data/governance/inventory_user_authority_overlay_20260904.json#INV-USER-20260904-004",
+      "intended_role": "Defining natural root, earth and wood subject.",
+      "inventory_text_label": "Indian Vetiver EO (volume grade)"
+    },
+    {
+      "step": 7,
+      "basket": 3,
+      "basket_category": "Woods",
+      "material": "Cedarwood Virginia",
+      "raw_ul": 70,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:61deb2ebba56d82eb870",
+      "inventory_identity": "Cedarwood Virginia",
+      "source_ref": "Current Inventory Master!A64:N64",
+      "intended_role": "Small natural cedar grain; subordinate to vetiver and not a main wood subject."
+    },
+    {
+      "step": 8,
+      "basket": 3,
+      "basket_category": "Woods",
+      "material": "Cypress EO",
+      "raw_ul": 50,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:user-20260830:6db445a212d6344de07c",
+      "inventory_identity": "Cypress EO",
+      "source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260830-002",
+      "intended_role": "Identifiable dry-green conifer accent kept proportionally light."
+    },
+    {
+      "step": 9,
+      "basket": 4,
+      "basket_category": "Wood modifiers and ambers",
+      "material": "Clearwood",
+      "raw_ul": 200,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:user-20260828:87cddb712623b1182eaa",
+      "inventory_identity": "Clearwood",
+      "source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260828-009",
+      "intended_role": "Clean earthy depth supporting the root aspect of natural vetiver."
+    },
+    {
+      "step": 10,
+      "basket": 4,
+      "basket_category": "Wood modifiers and ambers",
+      "material": "Timberol",
+      "raw_ul": 70,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:0101abb91194a4712527",
+      "inventory_identity": "Timberol",
+      "source_ref": "Current Inventory Master!A228:N228",
+      "intended_role": "Persistent architectural dryness at a restrained dose."
+    },
+    {
+      "step": 11,
+      "basket": 5,
+      "basket_category": "Wood-vetivers",
+      "material": "Vetikon",
+      "raw_ul": 100,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:135f51f25d430bfd4f99",
+      "inventory_identity": "Vetikon",
+      "source_ref": "Current Inventory Master!A243:N243",
+      "intended_role": "Diffusive polished woody-vetiver volume between natural vetiver and the abstract woods."
+    },
+    {
+      "step": 12,
+      "basket": 6,
+      "basket_category": "Musks",
+      "material": "Ambrettolide",
+      "raw_ul": 250,
+      "stock_fraction": 0.1,
+      "stock_fraction_basis": "mass_fraction",
+      "carrier": "dpg",
+      "stock_id": "inventory:user-20260904:5c67f5a97c7fc590d2e6",
+      "inventory_identity": "Ambrettolide",
+      "source_ref": "data/governance/inventory_user_authority_overlay_20260904.json#INV-USER-20260904-001",
+      "intended_role": "Low-active close-skin warmth underneath the more outward Habanolide plane."
+    },
+    {
+      "step": 13,
+      "basket": 6,
+      "basket_category": "Musks",
+      "material": "Habanolide",
+      "raw_ul": 180,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:1bd4a222c53bc7aadc0e",
+      "inventory_identity": "Habanolide",
+      "source_ref": "Current Inventory Master!A126:N126",
+      "intended_role": "Outward clean-mineral musk polish around the dry woods."
+    },
+    {
+      "step": 14,
+      "basket": 13,
+      "basket_category": "Edible spices",
+      "material": "Juniper Berry EO",
+      "raw_ul": 930,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:44479b1b43ba8def3143",
+      "inventory_identity": "Juniper Berry EO",
+      "source_ref": "Current Inventory Master!A152:N152",
+      "intended_role": "Principal gin-botanical identity.",
+      "basket_assignment_authority": "Gin-botanical category placement retained from earlier cards; physical shelf location not separately recorded"
+    },
+    {
+      "step": 15,
+      "basket": 13,
+      "basket_category": "Edible spices",
+      "material": "Coriander Seed EO",
+      "raw_ul": 120,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:8f24d01cce6349e9cf63",
+      "inventory_identity": "Coriander Seed EO",
+      "source_ref": "Current Inventory Master!A83:N83",
+      "intended_role": "Dry aromatic seed spice extending the gin image; explicitly not coriander leaf oil.",
+      "inventory_text_label": "Coriander Essential Oil"
+    },
+    {
+      "step": 16,
+      "basket": 15,
+      "basket_category": "Fruits",
+      "material": "Grapefruit FCF oil Sicilian",
+      "formula_display_label": "Grapefruit FCF oil",
+      "raw_ul": 200,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:52a88f156b00633a842d",
+      "inventory_identity": "Grapefruit FCF Oil Sicilian",
+      "source_ref": "Current Inventory Master!A123:N123",
+      "intended_role": "Furocoumarin-free bitter-peel opening character. The regional qualifier belongs to the bound inventory record, not the formula's design label."
+    },
+    {
+      "step": 17,
+      "basket": 15,
+      "basket_category": "Fruits",
+      "material": "Petitgrain EO Paraguay",
+      "raw_ul": 90,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:user-20260830:58a38808d9e8d907730c",
+      "inventory_identity": "Petitgrain EO Paraguay",
+      "source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260830-006",
+      "intended_role": "Citrus-leaf bridge from peel and gin botanicals into the woody body.",
+      "basket_assignment_authority": "Saved category names and existing citrus/petitgrain card practice; physical shelf location not separately verified"
+    },
+    {
+      "step": 18,
+      "basket": 15,
+      "basket_category": "Fruits",
+      "material": "Terpinyl Acetate",
+      "raw_ul": 60,
+      "stock_fraction": 1,
+      "stock_fraction_basis": "neat",
+      "carrier": "",
+      "stock_id": "inventory:v5:55c623b91171ed1c5fd3",
+      "inventory_identity": "Terpinyl Acetate",
+      "source_ref": "Current Inventory Master!A227:N227",
+      "intended_role": "Pine-citrus-herbal connector from juniper and petitgrain to cypress."
+    }
+  ],
+  "diluent": {
+    "material": "Ethanol 96%",
+    "raw_ul": 24600,
+    "stock_authority": "Owned perfume-suitable stock as supplied",
+    "stock_fraction_basis": "SUPPLIED_96_PERCENT_LABEL_BASIS_NOT_SEPARATELY_ESTABLISHED",
+    "exact_pure_ethanol_volume_ul": null,
+    "exact_water_volume_ul": null
+  },
+  "dep_exclusion_contract": {
+    "formula_rows_declaring_dep_carrier": 0,
+    "known_deliberately_introduced_dep_ul": 0,
+    "known_deliberately_introduced_dep_finished_fraction": 0,
+    "interpretation": "No selected current-stock preparation declares DEP. This avoids guessing a sensory threshold; it is not analytical proof against undisclosed trace contamination in supplier materials.",
+    "dep_carried_target_fit_stock_omitted": "Vetiveryl Acetate 10% w/w in DEP"
+  },
+  "excluded_this_version": [
+    "Vetiveryl Acetate 10% w/w in DEP",
+    "Galaxolide 50% in DEP",
+    "Amber Xtreme 10% in DEP",
+    "Alpha Irone 10% in DEP",
+    "Myrrh EO 50% in DEP",
+    "Opoponax Resinoid 50% in DEP",
+    "Ambrofix liquid in DEP (depleted)",
+    "Zenolide",
+    "Ethylene Brassylate with undeclared supplied fraction",
+    "Jasmine accords, absolutes and bases",
+    "Bergamot FCF",
+    "Clary Sage EO",
+    "Benzoin, labdanum, vanilla and coumarin",
+    "Coffee, ginger, magnolia and orris"
+  ],
+  "hedione_boundary": "Hedione is explicitly allowed and is 11.1% of nominal raw fragrance-stock volume. Do not label Hedione odorless. No jasmine accord is assembled.",
+  "comparison_policy": "One full 30 mL nominal composition. No no-cypress variant, mandatory paired comparison or mandatory 10 mL prerequisite.",
+  "prior_formula_policy": "New-bottle formulation, not positive-only additions or a correction to an already mixed v3 bottle. Preserve all earlier versions unchanged as history.",
+  "quantitative_claim_ceiling": "Nominal raw-volume formulation. Exact mass and ppm w/w are unavailable; pipeline OAV is an estimated active-input diagnostic, not measured odor contribution, beauty, preference, similarity or safety clearance.",
+  "physical_action_limits": "No skin-use, distribution or commercial-release authority implied. Product-specific finished-product safety review and actual sensory and stability results remain separate.",
+  "lineage": {
+    "immediate_parent": "data/design_briefs/gin_vetiver_edp_selected_candidate_20260909.json",
+    "parent_comparison_markdown": "output/Gin_Vetiver_C1_parent_guard.md",
+    "last_compounding_parent": "formulas/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.md",
+    "raw_volume_changes": [
+      {
+        "material": "Iso E Super",
+        "parent_raw_ul": 1330,
+        "new_raw_ul": 1330,
+        "delta_ul": 0,
+        "classification": "UNCHANGED_FROM_C1"
+      },
+      {
+        "material": "Hedione",
+        "parent_raw_ul": 310,
+        "new_raw_ul": 310,
+        "delta_ul": 0,
+        "classification": "UNCHANGED_FROM_C1"
+      },
+      {
+        "material": "Ambrox Super",
+        "parent_raw_ul": 400,
+        "new_raw_ul": 400,
+        "delta_ul": 0,
+        "classification": "UNCHANGED_FROM_C1"
+      },
+      {
+        "material": "Benzyl Benzoate",
+        "parent_raw_ul": 20,
+        "new_raw_ul": 20,
+        "delta_ul": 0,
+        "classification": "UNCHANGED_FROM_C1"
+      },
+      {
+        "material": "Vetival",
+        "parent_raw_ul": 80,
+        "new_raw_ul": 80,
+        "delta_ul": 0,
+        "classification": "UNCHANGED_FROM_C1"
+      },
+      {
+        "material": "Vetiver EO (India)",
+        "parent_raw_ul": 940,
+        "new_raw_ul": 940,
+        "delta_ul": 0,
+        "classification": "UNCHANGED_FROM_C1"
+      },
+      {
+        "material": "Cedarwood Virginia",
+        "parent_raw_ul": 70,
+        "new_raw_ul": 70,
+        "delta_ul": 0,
+        "classification": "UNCHANGED_FROM_C1"
+      },
+      {
+        "material": "Cypress EO",
+        "parent_raw_ul": 50,
+        "new_raw_ul": 50,
+        "delta_ul": 0,
+        "classification": "UNCHANGED_FROM_C1"
+      },
+      {
+        "material": "Clearwood",
+        "parent_raw_ul": 200,
+        "new_raw_ul": 200,
+        "delta_ul": 0,
+        "classification": "UNCHANGED_FROM_C1"
+      },
+      {
+        "material": "Timberol",
+        "parent_raw_ul": 70,
+        "new_raw_ul": 70,
+        "delta_ul": 0,
+        "classification": "UNCHANGED_FROM_C1"
+      },
+      {
+        "material": "Vetikon",
+        "parent_raw_ul": 100,
+        "new_raw_ul": 100,
+        "delta_ul": 0,
+        "classification": "UNCHANGED_FROM_C1"
+      },
+      {
+        "material": "Ambrettolide",
+        "parent_raw_ul": 250,
+        "new_raw_ul": 250,
+        "delta_ul": 0,
+        "classification": "UNCHANGED_FROM_C1"
+      },
+      {
+        "material": "Habanolide",
+        "parent_raw_ul": 180,
+        "new_raw_ul": 180,
+        "delta_ul": 0,
+        "classification": "UNCHANGED_FROM_C1"
+      },
+      {
+        "material": "Juniper Berry EO",
+        "parent_raw_ul": 930,
+        "new_raw_ul": 930,
+        "delta_ul": 0,
+        "classification": "UNCHANGED_FROM_C1"
+      },
+      {
+        "material": "Coriander Seed EO",
+        "parent_raw_ul": 120,
+        "new_raw_ul": 120,
+        "delta_ul": 0,
+        "classification": "UNCHANGED_FROM_C1"
+      },
+      {
+        "material": "Grapefruit FCF oil Sicilian",
+        "parent_raw_ul": 200,
+        "new_raw_ul": 200,
+        "delta_ul": 0,
+        "classification": "UNCHANGED_FROM_C1"
+      },
+      {
+        "material": "Petitgrain EO Paraguay",
+        "parent_raw_ul": 90,
+        "new_raw_ul": 90,
+        "delta_ul": 0,
+        "classification": "UNCHANGED_FROM_C1"
+      },
+      {
+        "material": "Terpinyl Acetate",
+        "parent_raw_ul": 60,
+        "new_raw_ul": 60,
+        "delta_ul": 0,
+        "classification": "UNCHANGED_FROM_C1"
+      }
+    ]
+  },
+  "verification_result": {
+    "date_local": "2026-09-09",
+    "status": "FINAL_DESIGN_VERIFIED_PIPELINE_DATA_HOLD",
+    "exact_current_stock_id_fraction_basis_carrier_binding": "PASS_18_OF_18",
+    "formula_rows_declaring_dep_carrier": 0,
+    "basket_order_and_minimum_raw_transfer": "PASS_BASKET_FIRST_20_UL_MINIMUM",
+    "nominal_volume_arithmetic": "PASS_5400_PLUS_24600_EQUALS_30000_UL",
+    "immediate_parent_guard": {
+      "status": "PASS",
+      "parent_comparison_available": true,
+      "temporal_comparison_available": true,
+      "findings": []
+    },
+    "focused_regressions": {
+      "passed": 75,
+      "failed": 0,
+      "warning_count": 2000,
+      "warning_class": "pytest_asyncio Python deprecation warnings",
+      "full_repository_suite_run": false
+    },
+    "pipeline_overall": "FAIL",
+    "pipeline_counts": {
+      "PASS": 104,
+      "WARN": 41,
+      "FAIL": 1
+    },
+    "pipeline_failure": "material_identity_and_physics: missing_odt=1. Whole-oil Grapefruit FCF ODT remains unresolved; composite constituent screening does not fill this field.",
+    "pipeline_evidence": "output/optimizer_research_20260909/gin_vetiver_v5_final_pipeline.json",
+    "artifact_authority": "PERSISTED_VERIFIED",
+    "release_authority": false,
+    "sensory_authority": "NOT_AUTHORIZED_NOT_MEASURED"
+  },
+  "computational_parent": {
+    "path": "data/design_briefs/gin_vetiver_edp_selected_candidate_20260909.json"
+  },
+  "last_compounding_parent": {
+    "path": "formulas/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.md"
+  },
+  "final_refinement_receipt": "output/design_portfolios/20260909_202057_619667.json",
+  "finality": "Final for this computational design brief; not global optimum, sensory validation, or release.",
+  "requires_premix_trial": false,
+  "mix_ready": false
+}

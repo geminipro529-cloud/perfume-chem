@@ -1,0 +1,57 @@
+# Computer-only hedonic development
+
+User-approved contract, 2026-09-09: no physical trial or sensory feedback is
+required before producing the selected composition. No automatic bottle edits.
+
+## Implemented search controller
+
+`engine.optimizer.gate_aware.optimize_hedonic_design` is a separate callable
+from `optimize_until_release_ready`. It never calls the release-gate repair
+loop. It accepts a baseline, a computational evaluator, fixed named criteria
+and scenarios, explicit stock bounds, directed dose transfers and step sizes.
+
+The evaluator returns nonnegative target losses, with zero meaning a specified
+computational target is met. Every criterion in every scenario is protected:
+an improvement in body cannot purchase a regression in gin identity. Among
+eligible candidates the lowest total loss wins. Scales must be specified by
+the adapter, not learned or relaxed by this search. Rejected candidates and
+accepted changes are recorded. Candidate evaluations are cached.
+
+Transfers preserve the numerical total in the caller's declared units.
+This does not establish constant active dose or carrier mass when stock
+strengths differ. A composition constraint callback must enforce those
+conditions using resolved stock forms. It receives a copy of each candidate.
+
+Search tries smaller steps when a neighborhood gives no improvement, resets
+to the first step after an accepted improvement, and stops at:
+
+- COMPUTATIONAL_TARGET_MET: all specified losses are zero.
+- PLATEAU: no admissible improvement in the declared neighborhoods/steps.
+- EVALUATION_UNAVAILABLE: missing, invalid, or failed evaluation prevents a
+  supported decision. Missing evidence is never a perfect score.
+- BUDGET_EXHAUSTED: round limit reached; incumbent retained.
+
+No state requires a preliminary physical mix. Every result explicitly says
+COMPUTATIONAL_DESIGN_ONLY and sensory_validated=false. A plateau is local,
+not proof of a globally optimal formula. Safety evaluations remain separate;
+this controller does not confer release authority.
+
+## Gin Vetiver Cypress EDP adapter still required
+
+The controller is tested on synthetic, hand-checkable objectives. It is not
+yet wired to the gin-vetiver formula or the CLI; no new formula has been
+selected by it. Do not describe controller tests as perfume validation.
+
+The adapter must bind the existing formula and inventory identities; preserve
+grapefruit FCF, light cypress, Hedione permission, no jasmine accord, and DEP
+accounting. Freeze target-linked definitions for gin identity, vetiver body,
+cypress prominence, citrus-middle continuity, woody density and drydown
+definition. Do not substitute raw OAV shares, ingredient counts, release gate
+totals, or generic pleasantness priors for those perceptual targets.
+
+Before an end-to-end optimization, verify that the chosen evaluators actually
+distinguish deliberate anchor removal, excess cypress, and excessive support
+in the expected direction. Record their limitations and scenario provenance.
+Any unsupported dimension remains unavailable rather than receiving invented
+validation. The next engineering step is this adapter and its discrimination
+checks, entirely computational. It does not require the user to mix anything.

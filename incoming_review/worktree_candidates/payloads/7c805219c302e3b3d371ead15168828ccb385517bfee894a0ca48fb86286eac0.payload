@@ -1,0 +1,77 @@
+# DHI-11 V5 Orris-Led, From-Zero — Pour Card
+
+**DESIGN-ONLY / HOLD — not released for compounding or skin use.**  
+**Case:** DHI-11-V5-ORRIS-LED-FROM-ZERO-20260905  
+**Master:** DHI-11_V5_Orris_Led_From_Zero_30mL_20pct.md  
+**Physical state:** NOT COMPOUNDED. Smell, liking, similarity and stability: NOT TESTED.  
+**Irotyl:** absent. **Ingredient-count cap:** none; this design selects 23 stocks.  
+**Fresh batch only:** do not add these amounts to an existing V4 bottle.
+
+This is the complete raw-stock transfer schedule. Use the 30 mL column OR the half-size 15 mL column, not both. Basket first, descending raw µL within each basket; reset the dispenser only at the next basket. Basket 4 placement for Kephalis is category-assigned, not an observation of its physical shelf position.
+
+| Check | Basket | Exact stock label | 30 mL raw µL | 15 mL raw µL |
+|---|---:|---|---:|---:|
+| [ ] | 1 | Hedione — neat | 240 | 120 |
+| [ ] | 1 | Iso E Super — neat | 160 | 80 |
+| [ ] | 1 | Vetival — neat | 100 | 50 |
+| [ ] | 1 | Benzyl Benzoate — neat | 100 | 50 |
+| [ ] | 1 | Benzyl Salicylate — neat | 60 | 30 |
+| [ ] | 2 | Vetiver EO (India) — neat | 120 | 60 |
+| [ ] | 3 | Cedarwood oil Virginia — neat | 260 | 130 |
+| [ ] | 3 | Cashmeran — neat | 70 | 35 |
+| [ ] | 3 | Ebanol — neat | 30 | 15 |
+| [ ] | 4 | Kephalis — neat | 50 | 25 |
+| [ ] | 6 | Ambrettolide — 10% w/w in DPG | 1000 | 500 |
+| [ ] | 6 | Ethylene Brassylate — neat | 600 | 300 |
+| [ ] | 7 | Lavender EO High Altitude — neat | 140 | 70 |
+| [ ] | 7 | Linalyl Acetate — neat | 80 | 40 |
+| [ ] | 11 | Orris Liquid — 9% w/w in DEP | 1500 | 750 |
+| [ ] | 11 | Alpha Isomethyl Ionone (Methyl Ionone Pure) — neat | 600 | 300 |
+| [ ] | 11 | Alpha Irone — 10% w/w in DEP | 160 | 80 |
+| [ ] | 11 | Alpha Ionone — neat | 60 | 30 |
+| [ ] | 12 | Tonkarome — 20% w/w in TEC | 400 | 200 |
+| [ ] | 12 | Isobutavan — neat | 80 | 40 |
+| [ ] | 13 | Coriander Essential Oil — neat | 20 | 10 |
+| [ ] | 15 | Verdox — neat | 100 | 50 |
+| [ ] | 15 | Benzyl Acetate — neat | 70 | 35 |
+
+| Batch choice | Raw-stock concentrate | Ethanol 96% addition | Nominal additive sum |
+|---|---:|---:|---:|
+| 30 mL | 6,000 µL | 24,000 µL | 30,000 µL |
+| 15 mL | 3,000 µL | 12,000 µL | 15,000 µL |
+
+The 20% figure means raw-stock concentrate v/v, not neat odorants or w/w. Prepared stocks already contain DEP, DPG or TEC; do not remove or “correct” those carriers by subtracting guessed volumes from ethanol. Mixing contraction is unmeasured. Select a suitable vessel with headroom; do not assume an exactly brim-full 30 mL bottle is adequate.
+
+## Before any physical transfer
+
+- [ ] Match the physically labeled bottles to the now-resolved stock bindings and resolve the remaining exact-mass and safety holds; a printed schedule is not release authority.
+- [ ] Match Orris **9% w/w DEP**, Alpha Irone **10% w/w DEP**, Ambrettolide **10% w/w DPG**, Tonkarome **20% w/w TEC**. Never use an old 30% Orris label as equivalent.
+- [ ] Match the one user-confirmed AIMI / Methyl Ionone Pure bottle, the owned Indian vetiver and High Altitude lavender. No grade swaps.
+- [ ] Cashmeran and Ethylene Brassylate are **neat/as supplied**. Do not use a desired-but-unprepared dilution.
+- [ ] Confirm enough stock remains, each preparation is homogeneous, and the measuring equipment is appropriate. The smallest transfer is 20 µL (30 mL batch) or 10 µL (15 mL batch).
+- [ ] Record delivered stock masses as well as raw volumes if exact supplied-product ppm w/w is required. No stock density is assumed from water or from the neat material.
+- [ ] Use current supplier documentation and a competent formulation/safety review for intended handling/use. No flame or heat around ethanol; no skin test while safety is HOLD.
+
+## Mass and carrier record
+
+For measured stock mass m_i and product mass fraction f_i: product mass = f_i m_i; product ppm in concentrate = 1,000,000 f_i m_i / Σm_i. Known carrier mass for these single-carrier preparations is (1 − f_i)m_i. It is not automatically a carrier volume. For proprietary products/naturals, constituent ppm additionally requires a qualified composition.
+
+Record for each row: bottle/lot identifier, preparation identifier, actual raw transfer, delivered mass, uncertainty, appearance and any loss. Keep DEP, DPG and TEC amounts separately. Compare sensory variants using a matched carrier matrix; V4-versus-V5 is a whole-formula comparison and cannot identify which change caused a preference.
+
+Do not heat an unresolved solid to make a volume measurement or make an unstated dilution. If any bottle differs from this card, stop and rebase the formula before transfer.
+
+## Verification status
+
+**Current scientific-data audit: 106 PASS / 36 WARN / 3 FAIL / 1 SKIP; diagnostic overall FAIL, release HOLD.** Orris composition is unqualified, Tonkarome is an opaque mixture, and their preflight aggregate fails. Both OAVs are UNKNOWN. These are evidence failures, not demonstrated smell defects. All 23 stock bindings and G15 remain PASS; all doses and both batch columns remain unchanged. All 23 delivered masses remain unmeasured and 13 local Category 4 records remain unresolved.
+
+Final scientific-data verification: **264 tests passed, 0 failures across 12 files**. The 7,360 warnings repeat one Python test-plugin deprecation, separate from the 36 formula warnings. The blank `DHI-11_V5_MASS_AND_SAFETY_WORKSHEET.md` records needed evidence; it does not grant compounding permission or automatically feed the release CLI.
+
+Current report: `output/dhi2011_v5_scientific_data_audit_20260905/release_gate.json`, raw SHA-256 `8237d116bf67d4d9dafb404eebe208b7430706aef58b36ecfeb225f9dfaf1272`. See `docs/research/DHI2011_V5_ORRIS_TONKAROME_SCIENTIFIC_AUDIT_20260905.md` for supplier-document conflicts and the remaining measurement-ingestion gap.
+
+### Historical stock-reconciliation status (superseded scientifically)
+
+**Current diagnostic: 109 PASS / 36 WARN / 0 FAIL / 1 SKIP; overall WARN, release decision HOLD.** All 23 stock bindings and the planned-volume dose receipt now resolve. G15 active-dose/temporal screening and the architecture-only reference contract PASS. Five verified stock receipts were selectively reconciled through the September 5 successor, with distinct local record IDs and unchanged predecessor history. Coriander seed-EO naming is connected; leaf oils and other vetiver origins/grades are not admitted. Exact mass, safety and full carrier-volume authority remain incomplete.
+
+The final focused stock, alias, predecessor, public-lookup, receipt-replay, preflight and pre-mix regression run passes **216 tests, 0 failures**. Its 5,680 warnings repeat one Python test-plugin deprecation; they are distinct from the 36 formula diagnostic warnings. All 23 raw doses and both batch columns are unchanged. Eight proposed facets remain untested; several intended sensory helpers screen below OAV 1. Do not treat a complete transfer table or zero FAIL gates as compounding authorization.
+
+The master preserves the two earlier reports and appends the current full analysis. Current report: output/dhi2011_v5_stock_reconciliation_20260905/release_gate.json. Its SHA-256 is 0591a40e78b0cf0568e43ff19021e807050db4e758e76689a71ca16242b85aba. The stock-contract gate moved FAIL→PASS and its preflight aggregate FAIL→WARN; the warning count rose because that aggregate is no longer a FAIL. The actual perfume has not been compounded or sensory-tested.

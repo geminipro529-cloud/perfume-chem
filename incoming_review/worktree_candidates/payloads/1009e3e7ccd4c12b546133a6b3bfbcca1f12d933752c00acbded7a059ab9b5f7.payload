@@ -1,0 +1,60 @@
+import engine.formula_recommendations as recommendations
+from engine.inventory_parser import parse_inventory
+from engine.name_utils import normalize_name
+
+
+def test_only_the_distinct_telvada_cinnamon_bark_stock_is_currently_owned():
+    records = [
+        record
+        for record in parse_inventory(unique=False, include_unavailable=True)
+        if "cinnamon bark" in record.name.casefold()
+    ]
+
+    assert [
+        (
+            record.name,
+            record.dilution,
+            record.fraction_basis,
+            record.carrier,
+            record.execution_ready,
+        )
+        for record in records
+    ] == [
+        (
+            "Cinnamon Bark EO - Telvada USDA Organic",
+            1.0,
+            "neat",
+            "",
+            True,
+        )
+    ]
+    assert "no cross-stock substitution authority" in records[0].raw_name
+
+
+def test_nysupply_and_telvada_stock_identities_do_not_collapse():
+    assert normalize_name("NYSUPPLY Cinnamon Bark EO") == "nysupply cinnamon bark eo"
+    assert normalize_name("Cinnamon Bark EO (Telvada)") == (
+        "cinnamon bark eo - telvada usda organic"
+    )
+    assert normalize_name("NYSUPPLY Cinnamon Bark EO") != normalize_name(
+        "Cinnamon Bark EO (Telvada)"
+    )
+
+
+def test_historical_nysupply_substitution_fails_closed_under_current_authority():
+    planner = getattr(
+        recommendations, "plan_user_authorized_stock_substitution", None
+    )
+    if planner is not None:
+        assert callable(planner)
+        assert planner(
+            "Cinnamaldehyde (1%)",
+            source_stock_fraction=0.01,
+            source_raw_ul=10.0,
+            minimum_raw_stock_ul=10.0,
+        ) is None
+        assert planner(
+            "Cinnamaldehyde",
+            source_stock_fraction=0.01,
+            source_raw_ul=20.0,
+        ) is None

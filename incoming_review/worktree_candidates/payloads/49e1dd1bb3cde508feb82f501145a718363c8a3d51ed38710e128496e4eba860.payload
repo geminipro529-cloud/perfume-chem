@@ -1,0 +1,86 @@
+# Complex Perfumery Native-Fit and Install Plan v4
+
+Generated: 2026-08-11T15:28:01.5933820Z
+
+Current decision: **the non-P6 implementation plan remains approval-ready, three more original packages are now exact quarantine bytes, installation is not authorized, and P6 remains blocked on unavailable parents.**
+
+## Recovery delta
+
+The estate now contains 31 unique exact outer candidates. This append-only successor adds:
+
+| Package | Bytes | SHA-256 | Integrity | Native state |
+|---|---:|---|---|---|
+| V5 Full-Chain Regeneration | 1,410,479 | `16eb6805...3f530` | 20 members; 19/19 ledger exact | Graph complete, quarantined, 2 nodes/1 edge/depth 1 |
+| DHP25 Exact-V5 Formula Audit | 2,345,643 | `7e38c19a...98efc` | 28 members; 27/27 ledger exact | Graph complete, quarantined, 5 nodes/5 edges/depth 2 |
+| Initial DHP25 Reconstruction | 89,913 | `ec27bcd4...05dcd` | 6 members; 3/3 sidecars exact | Graph complete, quarantined, 2 nodes/1 edge/depth 1 |
+
+All ZIP streams are CRC-clean, paths are safe, casefold duplicates are zero, graph findings are zero, every graph node is terminal, and promotion remains false.
+
+Capture manifest:
+
+- [capture_manifest.json](../../incoming_review/chatgpt/20260811T153000Z-continuation-exact-byte-recovery-6a762995/capture_manifest.json)
+- 7,689 bytes
+- SHA-256 `27f3a34f5f4699090f9e8eb7d1478b2e99ce30535cc4eabe676329b7eb383bbc`
+- Source conversation `6a762995-0d8c-83ec-aee3-66c90e56811e`, turn `c3f478ba-8b2b-40e0-b19b-8bcaeea487cd`
+
+The exact-V5 DHP package embeds the initial DHP package byte-for-byte. The standalone source card is still retained to preserve its independent ChatGPT lineage; this does not duplicate scientific authority.
+
+## Remaining collection queue
+
+The prior optional queue contained eight identities. Three are now exact, leaving five:
+
+1. Perfume Box Workflow package `db0579760159e7438b83e92de399aa0a9f5862f0f547fa030a682c339bd54e84` - explicitly unavailable.
+2. Universal Accord package `8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998`, expected 539,050 bytes - explicitly unavailable.
+3. PCV3 experimental-data package `db638ab82c7e1a798297a9f4376014b9f51965511ae1d65132e57b4d12c9c9eb`, expected 32,196 bytes - package unavailable; partial ledger cards did not materialize locally.
+4. `AM-E01_Amouage_Opus_V_Woods_Symphony_30mL_Formula.md`, expected 40,713 bytes, SHA-256 `965b02beba5faec32dcbe8d5d97aa3df8cb47fe43fc3c1cf040e4fd3b03ff5e2` - live File Library card exists, but no exact local bytes landed.
+5. `PACK_METADATA.json`, expected 14,116 bytes, SHA-256 `d051505ea9144716fb860c5ff74e92b2bed2b33e419c830460cc60278b94f869` - live File Library card exists, but no exact local bytes landed.
+
+The two Opus objects are not embedded in any of the four recovered Opus ZIPs. Their hashes have zero member matches. Do not close them by inference or reconstruct them from displayed text.
+
+## P6 installation-critical hold
+
+P6 remains separate from the optional queue:
+
+- ZIP, 540,402 bytes, SHA-256 `8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db`.
+- Wheel, 65,724 bytes, SHA-256 `582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5`.
+
+Both parent streams are explicitly unavailable. No manifest reconstruction, v1.3 substitution, or prose-based recreation is permitted.
+
+## New package truth boundaries
+
+### V5 Full-Chain Regeneration
+
+The package contains 9,732 mapping rows, 156 queued targets, and 282 materials, but it explicitly reports no canonical mutation, no Phase-G authorization, zero physical-dose rows, zero presentation rows, and no release authority. Its route counts and 45 unresolved materials are candidate reconciliation evidence, not current V5 truth.
+
+Native decision: preserve exact source/design ancestry and map its selective-invalidation relationships into the existing P2.2 dependency semantics. Current V5 and the sealed P0a authority delta remain operationally authoritative. Do not install `candidate/v5_full_chain.py`, create a second invalidation store, or promote fixed row counts.
+
+### DHP25 Exact-V5 Formula Audit
+
+The package preserves separate 70-row target and current-build projections and pins the exact V5 workbook hash. It reports one active-fraction conflict, multiple carrier/receipt/product-basis holds, and `HOLD_BEFORE_MODELED_STATE_CONSTRUCTION`. It emits no modeled ingredients and mutates neither target nor build.
+
+Native decision: preserve target/build/discrepancy ancestry and map fields through native TargetFormula, accepted-target/mapping/build lineage, formula-version edges, C10 stock/dose contracts, and the P3/C0 experiment path. Do not install package Python/JavaScript scripts or treat float CSV rows as exact dose authority.
+
+### Initial DHP25 Reconstruction
+
+The package says `COMPUTATIONAL CANDIDATE / HOLD FOR PHYSICAL VALIDATION`; physical similarity, strict OAV, measured headspace, stability, and safety release are all `NOT TESTED`.
+
+Native decision: retain it as earlier design ancestry and as the exact child of the Exact-V5 audit package. It cannot select a canonical DHP formula or create physical evidence.
+
+## Installation sequence after explicit approval
+
+1. **I0 - rollback fence:** recheck branch/HEAD/index/status, create a fresh path-preserving PAX archive, materialize it under a short long-path-safe restore root, and replay every file hash.
+2. **I1 - receipts:** create or reuse one authority-false package receipt per unique outer SHA; bind source card, local path, ledger, graph, embedded-child edges, and blockers.
+3. **I2 - field matrix:** add the three parents and their fields to P2.2, including exact `DEPENDS_ON`, `INVARIANT_UNDER`, and invalidation scopes.
+4. **I3 - native projection:** preserve only immutable design/source ancestry and typed authority-false candidate projections. Expected result remains no migration and no new truth store.
+5. **I4 - verification:** run focused scanner/receipt, V5 identity, target/build lineage, C10/P3/C0, and quick project-verifier checks. Full verification is reserved for a later release claim.
+6. **I5 - acceptance:** seal exact changes, tests, rollback archive, final hashes, and remaining holds. No physical, formula, stock, OAV, safety, or release authority follows from software completion.
+
+## DeepLuna Chat state
+
+The required route remains exact project `perfume-chem-cheapluna-isolated`, profile `cheapluna-chat`, route `DIRECT_PRO`. The fresh check returned `Transport closed`, so no worker dispatch, Fast route, alternate provider, retry, or fallback was used. Sol performed local verification and acceptance.
+
+## Terminal state
+
+`IMPLEMENTATION_PLAN_READY; COLLECTION_PARTIAL_31_EXACT_OUTER; 5_OPTIONAL_TARGETS_REMAIN; P6_EXPLICIT_UNAVAILABLE_PARENT_BYTES; INSTALLATION_NOT_AUTHORIZED`
+
+No code, formula, inventory authority source, database, canonical receipt, staged index, commit, physical state, or release state was changed by this successor.

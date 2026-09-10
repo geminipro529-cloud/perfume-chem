@@ -1,0 +1,285 @@
+"""Synthetic structural integration; unexecuted specialist planes stay unknown."""
+
+from dataclasses import replace
+
+import pytest
+
+from engine.formulation_intelligence.accord_graph import accord_graph_to_plane_assessment
+from engine.formulation_intelligence.candidate_assembler import (
+    ArchitectureAlternative,
+    CandidateDisposition,
+    ParetoFront,
+    PlaneRequirement,
+    RelationDisposition,
+    SourceRecordKind,
+    assemble_candidate_blueprint,
+)
+from engine.formulation_intelligence.candidate_selector import (
+    selection_to_function_plane_assessment,
+)
+from engine.formulation_intelligence.contracts import PlaneId
+from engine.formulation_intelligence.relation_binding import GraphRelationBinding
+from engine.formulation_intelligence.selection_binding import SelectionDecisionBinding
+from engine.formulation_intelligence.source_bound_assembly import SourceBoundCandidateAssembly
+from tests.test_formulation_intelligence_candidate_assembler import (
+    _assessment,
+    _receipt,
+    _withheld_assessment,
+)
+from tests.test_formulation_intelligence_relation_binding import _binding
+from tests.test_formulation_intelligence_selection_binding import _inputs
+
+
+def _bundle(*, omit_real_selection=False, target_id=None, build_id="build:iris"):
+    requirement, declarations, report, decision = _inputs()
+    if target_id is not None:
+        from engine.formulation_intelligence.candidate_selector import select_candidates
+
+        requirement = replace(requirement, target_id=target_id)
+        report = select_candidates(requirement, declarations)
+        decision = replace(
+            decision,
+            target_ideal_id=target_id,
+            scope=replace(decision.scope, target_scope=target_id),
+            freshness_hashes=(requirement.content_sha256, report.content_sha256),
+        )
+    function = selection_to_function_plane_assessment(requirement, report, declarations)
+    decision = replace(decision, scope=function.scope, alternative_id="alternative:a")
+    hold = replace(
+        decision,
+        decision_id="decision:hold",
+        alternative_id="alternative:b",
+        disposition=CandidateDisposition.HOLD,
+    )
+    selections = tuple(
+        SelectionDecisionBinding(requirement, declarations, report, d) for d in (decision, hold)
+    )
+    original = _binding()
+    scope = replace(original.graph.scope, target_scope=requirement.target_id)
+    graph = replace(
+        original.graph,
+        scope=scope,
+        nodes=tuple(replace(n, scope=scope) for n in original.graph.nodes),
+        edges=tuple(replace(e, scope=scope) for e in original.graph.edges),
+    )
+    edge = next(e for e in graph.edges if e.edge_id == original.edge_id)
+    relation = accord_graph_to_plane_assessment(graph)
+    packet = replace(
+        original.packet,
+        target_ideal_id=requirement.target_id,
+        scope=relation.scope,
+        alternative_id="alternative:a",
+        freshness_hashes=(graph.content_sha256, edge.content_sha256),
+    )
+    held_packet = replace(
+        packet,
+        packet_id="relation:held",
+        alternative_id="alternative:b",
+        disposition=RelationDisposition.HOLD,
+    )
+    relations = tuple(GraphRelationBinding(graph, edge.edge_id, p) for p in (packet, held_packet))
+    identity = replace(
+        _assessment(plane_id=PlaneId.IDENTITY, window="whole-wear", suffix="a"),
+        scope=replace(function.scope, temporal_scope="whole-wear"),
+    )
+    missing = tuple(
+        replace(_withheld_assessment(plane, i), scope=identity.scope)
+        for i, plane in enumerate(PlaneId)
+        if plane not in (PlaneId.FUNCTION, PlaneId.RELATION, PlaneId.IDENTITY)
+    )
+    if omit_real_selection:
+        function = replace(_withheld_assessment(PlaneId.FUNCTION, 0), scope=function.scope)
+    assessments = (identity, function, relation, *missing)
+    decisions = tuple(s.decision for s in selections)
+    packets = tuple(r.packet for r in relations)
+    receipts = (
+        tuple(
+            _receipt(a, SourceRecordKind.PLANE_ASSESSMENT, f"assessment-{i}")
+            for i, a in enumerate(assessments)
+        )
+        + tuple(
+            _receipt(d, SourceRecordKind.CANDIDATE_DECISION, f"decision-{i}")
+            for i, d in enumerate(decisions)
+        )
+        + tuple(
+            _receipt(p, SourceRecordKind.RELATION_PACKET, f"e-relation-{i}")
+            for i, p in enumerate(packets)
+        )
+    )
+    assembly = assemble_candidate_blueprint(
+        target_ideal_id=requirement.target_id,
+        current_inventory_build_id=build_id,
+        required_plane_scopes=tuple(PlaneRequirement(a.plane_id, a.scope) for a in assessments),
+        plane_assessments=assessments,
+        candidate_decisions=decisions,
+        relation_packets=packets,
+        alternatives=tuple(
+            ArchitectureAlternative(
+                d.alternative_id, "synthetic alternative", (d.decision_id,), (p.packet_id,)
+            )
+            for d, p in zip(decisions, packets)
+        ),
+        pareto_fronts=(
+            ParetoFront(
+                "front:unranked",
+                tuple(d.alternative_id for d in decisions),
+                tuple(c.criterion_id for c in identity.native_criteria),
+            ),
+        ),
+        source_receipts=receipts,
+        version=1,
+    )
+    return assembly, selections, relations
+
+
+def test_real_selection_and_graph_reach_exact_source_bound_assembly():
+    bound = SourceBoundCandidateAssembly(*_bundle())
+    assert SourceBoundCandidateAssembly.from_dict(bound.as_dict()) == bound
+    assert not bound.assembly.runtime_integration_authorized
+    assert bound.assembly.unresolved_unknown_ids
+    assert (
+        SourceBoundCandidateAssembly(
+            bound.assembly, tuple(reversed(bound.selections)), tuple(reversed(bound.relations))
+        )
+        == bound
+    )
+
+
+@pytest.mark.parametrize("kind", ["selection", "relation", "duplicate", "altered"])
+def test_incomplete_duplicate_or_altered_bindings_are_rejected(kind):
+    assembly, selections, relations = _bundle()
+    if kind == "selection":
+        selections = selections[:-1]
+    elif kind == "relation":
+        relations = relations[:-1]
+    elif kind == "duplicate":
+        selections = (*selections, selections[0])
+    else:
+        selections = (
+            replace(
+                selections[0],
+                decision=replace(selections[0].decision, disposition=CandidateDisposition.HOLD),
+            ),
+            selections[1],
+        )
+    with pytest.raises(ValueError):
+        SourceBoundCandidateAssembly(assembly, selections, relations)
+
+
+def test_generic_envelope_cannot_replace_real_selector_output():
+    with pytest.raises(ValueError, match="real selection adapter"):
+        SourceBoundCandidateAssembly(*_bundle(omit_real_selection=True))
+
+
+def _whole_inputs():
+    from engine.formulation_intelligence.inventory_projection import (
+        IdealMaterialSelection,
+        IdealProposal,
+    )
+    from engine.formulation_intelligence.target_compiler import (
+        TargetSourceSpan,
+        compile_target_intent,
+    )
+    from tests.test_formulation_intelligence_inventory_whole_perfume import _project, _target_brief
+
+    brief = _target_brief()
+    raw = "Design Iris Cathedral with rooty iris and cold incense."
+    branch = replace(brief.branches[0], branch_id="iris-incense", interpretation=raw)
+    brief = replace(
+        brief,
+        request_id="iris-source-bound-test",
+        subject="Iris Cathedral",
+        family_neighborhoods=("iris incense",),
+        expression_terms=("rooty iris", "cold incense"),
+        exclusions=("tropical fruit", "laundry musk"),
+        protected_recognizers=("rooty iris",),
+        forbidden_drift=("laundry musk",),
+        transformations=(),
+        request_source=replace(
+            brief.request_source, raw_request=raw, span=TargetSourceSpan(0, len(raw))
+        ),
+        branches=(branch,),
+        acceptance=replace(brief.acceptance, accepted_branch_ids=(branch.branch_id,)),
+    )
+    ideal = IdealProposal(
+        "ideal:iris-source-bound",
+        compile_target_intent(brief),
+        (IdealMaterialSelection("selection:iris", "iris", "iris recognizer"),),
+        ("Synthetic structural test; no formula or empirical result.",),
+    )
+    projection = _project(ideal, ())
+    source = SourceBoundCandidateAssembly(
+        *_bundle(
+            target_id=ideal.ideal_target_id, build_id=projection.build_projection_id.projection_id
+        )
+    )
+    return ideal, projection, source
+
+
+def test_whole_entrypoint_preserves_complete_source_bindings():
+    from engine.formulation_intelligence.source_bound_assembly import (
+        SourceBoundWholePerfume,
+        assemble_source_bound_whole_perfume,
+    )
+
+    ideal, projection, source = _whole_inputs()
+    result = assemble_source_bound_whole_perfume(
+        ideal, projection, source, selected_alternative_id="alternative:a", version=1
+    )
+    assert result.source == source
+    assert result.integrated.candidate_assembly == source.assembly
+    restored = SourceBoundWholePerfume.from_dict(result.as_dict())
+    assert restored == result
+    assert restored.content_sha256 == result.content_sha256
+    assert not result.integrated.physical_execution_authorized
+    assert not result.integrated.sensory_authority
+
+
+def test_whole_entrypoint_rejects_legacy_unbound_assembly_and_other_build():
+    from engine.formulation_intelligence.source_bound_assembly import (
+        assemble_source_bound_whole_perfume,
+    )
+    from tests.test_formulation_intelligence_inventory_whole_perfume import _project
+
+    ideal, projection, source = _whole_inputs()
+    with pytest.raises(TypeError, match="SourceBoundCandidateAssembly"):
+        assemble_source_bound_whole_perfume(
+            ideal, projection, source.assembly, selected_alternative_id="alternative:a", version=1
+        )
+    changed = _project(ideal, (), inventory_hash="c" * 64)
+    with pytest.raises(ValueError, match="inventory build"):
+        assemble_source_bound_whole_perfume(
+            ideal, changed, source, selected_alternative_id="alternative:a", version=1
+        )
+
+
+def test_whole_result_rejects_unselected_alternative():
+    from engine.formulation_intelligence.source_bound_assembly import (
+        assemble_source_bound_whole_perfume,
+    )
+
+    ideal, projection, source = _whole_inputs()
+    with pytest.raises(ValueError, match="material/function list"):
+        assemble_source_bound_whole_perfume(
+            ideal, projection, source, selected_alternative_id="alternative:b", version=1
+        )
+
+
+def test_whole_result_rejects_unrelated_materials_under_same_target():
+    from engine.formulation_intelligence.source_bound_assembly import (
+        assemble_source_bound_whole_perfume,
+    )
+    from tests.test_formulation_intelligence_inventory_whole_perfume import _project
+
+    ideal, _, source = _whole_inputs()
+    changed = replace(ideal, selections=(replace(ideal.selections[0], material_name="unrelated"),))
+    projection = _project(changed, ())
+    rebound = SourceBoundCandidateAssembly(
+        *_bundle(
+            target_id=changed.ideal_target_id, build_id=projection.build_projection_id.projection_id
+        )
+    )
+    with pytest.raises(ValueError, match="material/function list"):
+        assemble_source_bound_whole_perfume(
+            changed, projection, rebound, selected_alternative_id="alternative:a", version=1
+        )

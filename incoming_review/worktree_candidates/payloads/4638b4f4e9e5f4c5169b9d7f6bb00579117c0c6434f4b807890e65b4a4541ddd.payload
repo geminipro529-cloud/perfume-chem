@@ -1,0 +1,147 @@
+# DHI-11 V6 — Verification, warning diagnosis and project learnings
+
+Completed development formula and pour card; physical/safety/release state **HOLD**. This record interprets the unchanged current diagnostic, not a new pipeline run.
+
+## Actual current result
+
+**108 PASS / 34 WARN / 3 FAIL / 1 SKIP** across 146 reported gates. The separate formal DHP donor gate is **NOT RUN / HOLD** and is not included in those 146. The exact stock binding, six-group architecture-only contract and G15 immediate-parent guard pass. All 33 rows bind; minimum raw transfer10 µL; concentrate6,000 µL and final diluent24,000 µL.
+
+Report: [current diagnostic](C:/Users/ASUS/.codex/worktrees/c4d5/perfume-chem/output/dhi2011_v6_complexity_first_20260906/release_gate.json). SHA-256: a08fb0e7154bcdbe843a9c64fcf0128880015693259009a34bb30756ec78ed72. Formula semantic SHA-256: 2d987040e98e6a2295a93df8e8cd139455465a066acc5f3c9a95938fca0fbe6c. Immediate V5 semantic SHA-256: 279ba9f447847b63313b151bb0d5b059b10c160305947d514739ba3617c27232.
+
+The full standalone formatter is in the master and was shown in chat. The bound release-renderer transcript is also retained, because the two renderers currently order sections differently. Original report bytes and the exact original binding manifest are preserved.
+
+## Three failures — causes and disposition
+
+| Gate | Reported failure | Decision |
+|---|---|---|
+| pipeline_preflight | 13 checks; 8 warnings | Aggregate includes missing Orris composite plus eight evidence warnings; arithmetic and stock checks passed. |
+| natural_composite_coverage | Natural mixtures lack required composite GC-O decomposition: Orris Liquid | Need lot-qualified Orris composition/GC-O support or accept continued unknown; do not fabricate constituents. |
+| opaque_preblends | not allowed: Tonkarome | Need product composition/safety evidence; no preblend waiver was used. |
+
+These are evidence failures, not three observed bad smells. They are not waived. No skin use or release is authorized.
+
+## Every warning, interpreted without score-chasing
+
+| Gate | Adjudication | Meaning and action |
+|---|---|---|
+| quantitative_authority | MEASUREMENT_HOLD | All 33 delivered masses are unknown; no exact w/w result. |
+| headspace_scope | MATRIX_HOLD | Four w/w stocks lack a measured carrier/mole chain. Parent-matched nominal solvent is not complete matrix authority. |
+| phase_compatibility | PHYSICAL_TEST_HOLD | HSP covers only 13.1% of modeled active mass; no solubility or stability conclusion. |
+| osmotheque_archivability | COMPOSITION_HOLD | Tonkarome composition remains undisclosed. |
+| dior_homme_intense_skeleton | MODEL_SENSORY_ROLE_REVIEW | This older five-marker detector requires OAV >= 1; Ambrettolide is 0.55. The separate six-marker architecture contract checks representation, so its PASS is not a sensory pass. |
+| odt_sanity | DATA_HOLD | Two bulk-vetiver threshold discrepancies; natural constituent screening does not make bulk values equal. |
+| vp_cross_source | DATA_REVIEW | All 33 temperature corrections use inferred enthalpy. Of five reported natural proxy conflicts, four have equal/one-source bulk values; do not call all five numeric contradictions. |
+| dilution_accuracy | METROLOGY_REVIEW | 9% is the verified Orris w/w stock, not a typographical dilution to replace. Check delivered amount and label, not an invented 10% repair. |
+| safety_ifra_allergen | SAFETY_HOLD | 17 missing Cat4 records and unmeasured mass prevent clearance. No screened violation is not proof of safety. |
+| eu_allergen_declaration | LABEL_HOLD | Allergen consumers show different candidate lists. Final label requires current supplier/lot data and finished-product mass calculation. |
+| safety_receptor_saturation | UNVALIDATED_HEURISTIC | Hard-coded ionone/cedar percentages do not establish receptor occupancy, human sedation or a validated mixture safety cap. |
+| oav_physics_gamma | DATA_HOLD | All gamma inputs are predictive/heuristic/fallback/unknown. Iso E's modeled lead is highly sensitive to gamma. |
+| skin_degradation | COMPOSITION_HOLD | No Tonkarome precursor or skin-transformation assay. |
+| solvent_matrix | MATRIX_HOLD | Displayed carrier microlitres are raw-volume-times-w/w-fraction proxies, not measured displacement. |
+| perfumer_logic | TARGET_HEURISTIC_REVIEW | Local active-volume floors are not measured Dior proportions; preserve the named target and test roles, not score-seeking repairs. |
+| family_drift_detector | TARGET_HEURISTIC_REVIEW | Same local grammar pressure as perfumer_logic; not independent evidence of sensory failure. |
+| novelty_vs_reference | EXPECTED_SCOPE | Reference-inspired familiarity is intentional; novelty is not the requested acceptance objective. |
+| perfume_knowledge | TARGET_HEURISTIC_REVIEW | Heuristic pyramid and known-OAV subset cannot certify a target-specific ideal while Orris/Tonkarome remain unknown. |
+| carles_accord_ratio | MEASUREMENT_HOLD | Exact mass-based pairing comparison was not evaluated. |
+| literature_compliance | METHOD_REVIEW | Rule implementation reports two of five heuristic principles; this is not five direct empirical tests of V6. |
+| edge_cases | DATA_AND_TEST_REVIEW | Temperature factors and musk coverage are model screens; observer differences need actual comparisons. |
+| somatosensory | NOT_TESTED | No modeled candidate is not evidence of comfort or absence of irritation. |
+| stevens_n_efficiency | MEASUREMENT_HOLD | Exact mass-dependent dose-efficiency comparison was not evaluated. |
+| jellinek_psychology | UNVALIDATED_HEURISTIC | Category weakness does not establish low pleasure, erotic effect or consumer rejection. |
+| coty_single_material_limit | MEASUREMENT_HOLD | Exact mass-dependent rule not evaluated; not permission to dose freely. |
+| roudnitska_hedione_pct | MEASUREMENT_HOLD | Exact mass-dependent heuristic not evaluated. |
+| adaptation_timing | UNVALIDATED_HEURISTIC | The statement no immediate impact is a tier-rule label, not an observation; modeled linalool/linalyl-acetate signals are substantial. |
+| oav_intelligence | TARGET_HEURISTIC_REVIEW | Report applies woody_amber envelopes despite DHI iris archetype; these numeric targets are not established DHI ingredient proportions. |
+| tenacity_projection | UNVALIDATED_HEURISTIC | Low-VP fractions do not prove weak longevity or spatial shallowness; finite-film/receiver data are absent. |
+| master_perfumer_gate | COUNT_HEURISTIC_REJECTED_COMPOSITION_HOLD_RETAINED | The code warns solely above 32 rows. That count-based claim is not accepted for this no-cap brief; Tonkarome opacity remains a genuine evidence hold. |
+| mass_market_tier_check | OUT_OF_BRIEF_DEFAULT | Default 1500 THB cost positioning was not supplied by the user; no cost-driven ingredient removal is made. |
+| authority_vector | EVIDENCE_HOLD | Low authority means weak evidence, not poor beauty or proved incorrect stock identity; retain distinct authority axes. |
+| robustness_perturbation | MODEL_REVIEW | 66 grammar-sensitive perturbations are not 66 physical failures; unvalidated grammar bounds need separate interpretation. |
+| confidence_minimum | EVIDENCE_HOLD | 8/100 is an internal evidence diagnostic, not an 8% quality or success estimate. |
+
+Skipped: **chassis_integrity** — No chassis annotations detected — not applicable to flat formulas.. A skip is not a pass.
+
+## Specific reporting problems found
+
+- The master-perfumer gate warns at **more than32 rows**, independent of demonstrated mixture readability. It is not a scientific32-material ceiling and does not override this user's no-count-cap brief. The code is unchanged; the raw warning is preserved.
+- The five-marker skeleton demands modeled OAV≥1 and misses Ambrettolide at0.55. The separate six-marker contract checks architectural representation. A stock can be represented while its modeled role is weak; neither result establishes what a person smells.
+- Five natural VP entries are labelled conflicts. Vetiver has unequal bulk values; Carrot Seed, cedar and coriander have equal compared values, and lavender has only one listed bulk source. Those four remain natural-proxy uncertainty, but are not demonstrated cross-source numerical disagreements.
+- The formatter labels some rows STRUCTURAL_OR_FIXATIVE from generic profiles. V6 assigns sensory roles to14 of its15 sub-threshold rows, including the musks, salicylates and creamy modifiers. Generic fixative classification does not absolve those roles. Only Benzyl Benzoate has no audible-role burden in this design.
+- Internal confidence8/100 is evidence quality, not beauty8%, failure probability or predicted liking. Receptor percentage caps, erogenic categories, low-VP depth labels and cost defaults do not become validated sensory or medical conclusions because the code prints them.
+- The first artifact check caught loss of the original manifest's number serialization through PowerShell/JavaScript; restoring the original JSON string fixed the binding without a formula change. The next check identified the different renderer ordering; both exact outputs are now preserved. These were artifact-assembly findings, not changes to perfumery or threshold data.
+
+## Every row's post-screen survival decision
+
+All33 remain in this **development hypothesis**, not in a sensory-approved winner. None has accepted audible-layer credit yet. For OAV below one, use the row's explicit omission/alternative test; do not increase doses just to pass a threshold. For unknown products, qualify composition instead of substituting a fabricated single-molecule OAV. Whole-mixture quality remains unknown.
+
+| Material | Opening OAV screen | Decision |
+|---|---:|---|
+| Hedione | 391.48586 | MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED |
+| Iso E Super | 1070.62753 | MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED |
+| Vetival | 29.03835 | MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED |
+| Benzyl Benzoate | 0.00281 | STRUCTURAL_NO_AUDIBLE_CREDIT |
+| Hexyl Salicylate | 0.02614 | SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS |
+| Benzyl Salicylate | 0.03597 | SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS |
+| Vetiver EO (India) | 2.45179 | MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED |
+| Cedarwood oil Virginia | 13.42435 | MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED |
+| Cashmeran | 7.22249 | MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED |
+| Sandalore | 0.12539 | SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS |
+| Ebanol | 35.00450 | MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED |
+| Cedramber | 0.03120 | SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS |
+| Kephalis | 0.10184 | SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS |
+| Ambrettolide | 0.54893 | SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS |
+| Ethylene Brassylate | 0.40667 | SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS |
+| Romandolide | 0.88927 | SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS |
+| Lavender EO High Altitude | 306.49073 | MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED |
+| Linalyl Acetate | 120.48551 | MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED |
+| Linalool | 242.72357 | MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED |
+| Orris Liquid | UNKNOWN | COMPOSITION_DATA_HOLD_NO_AUDIBLE_CREDIT |
+| Alpha Isomethyl Ionone (Methyl Ionone Pure) | 78.60952 | MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED |
+| Alpha Irone | 1.84547 | MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED |
+| Alpha Ionone | 46.48466 | MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED |
+| Dihydro Beta Ionone | 0.05698 | SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS |
+| Beta Ionone | 713.82919 | MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED |
+| Carrot Seed EO | 0.12670 | SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS |
+| Orivone | 82.82225 | MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED |
+| Tonkarome | UNKNOWN | COMPOSITION_DATA_HOLD_NO_AUDIBLE_CREDIT |
+| Isobutavan | 0.36843 | SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS |
+| Delta Decalactone | 0.00087 | SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS |
+| Coriander Essential Oil | 33.07637 | MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED |
+| Benzyl Acetate | 0.41977 | SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS |
+| Verdox | 0.33308 | SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS |
+
+Beta Ionone's modeled value is large even at20 µL; the root-versus-violet test is therefore consequential. Orivone's camphoraceous/earthy edge is also a deliberate risk to isolate. The warm, fruit-skin and musk relationships cannot be called successful on these numbers.
+
+## Safety, composition and mass
+
+No violation, headroom violation, edge dose or banned ingredient was returned by the available provisional safety screen. **This is not a safety pass:**17 selected materials lack explicit Cat4 records and all33 delivered masses are unmeasured.
+
+Missing limit records: Alpha Irone; Alpha Isomethyl Ionone (Methyl Ionone Pure); Ambrettolide; Cedarwood oil Virginia; Cedramber; Coriander Essential Oil; Dihydro Beta Ionone; Ebanol; Isobutavan; Kephalis; Lavender EO High Altitude; Orivone; Orris Liquid; Sandalore; Tonkarome; Verdox; Vetival.
+
+The safety screen proposes five allergen declarations (Benzyl Benzoate; Benzyl Salicylate; Hexyl Salicylate; Linalool; Linalyl Acetate), while another declaration consumer proposes a different list. Neither is a final legally compliant label. Supplier/lot composition, current applicable standards, complete finished-product mass and qualified review remain required.
+
+All33 dermal-exposure records were inspected. Values such as a modeled fraction-into-skin near1 are heuristic outputs from property rules, not measured absorption or biological effects. They are not physical safety authority. HSP coverage13.1% is insufficient for a trusted phase/stability prediction.
+
+Exact product ppm remains unavailable. Use the master mass equation and actual delivered masses; four w/w preparations do not allow exact carrier-volume displacement by simple volume multiplication. Orris supplied-product mass is not pure irone mass; Tonkarome is not pure coumarin.
+
+## Knowledge gained, and what is still unknown
+
+- **LOCALLY_VERIFIED:** All 33 selected stock IDs and declared fraction/carrier specifications bind. The four-part iris nucleus and all retained stock strengths are unchanged. Scope: identity_and_planned_arithmetic_not_physical_metrology.
+- **LOCALLY_VERIFIED:** The richer candidate exposes a >32-row master-perfumer heuristic. Its count-only legibility claim is not accepted as scientific or target-specific evidence. Scope: code_rule_diagnosis_not_sensory_gain.
+- **MODEL_SCREEN_ONLY:** Beta Ionone at 20 uL models OAV about714 versus Alpha Ionone about46; Orivone at10 uL models about83. Violet/camphor/root balance is a priority cold-module comparison, not a proven defect or optimal proportion. Scope: uncalibrated_threshold_screen.
+- **LOCALLY_VERIFIED:** 15 modeled opening values are below one. Only Benzyl Benzoate has no sensory-role burden here; all other14 stay provisional and get no accepted audible-layer credit. Scope: role_vs_model_discrepancy_not_proved_filler_or_synergy.
+- **MODEL_AND_DATA_HOLD:** Orris Liquid and Tonkarome stay UNKNOWN. Complete-perfume balance, spatial projection, exact ppm and liking remain unestablished. Scope: absence_of_required_evidence.
+- **LOCALLY_VERIFIED:** The older five-marker skeleton misses Ambrettolide because its OAV is below one; six-marker architecture representation can pass simultaneously without contradictory sensory evidence. Scope: different_detector_contracts.
+- **LOCALLY_VERIFIED:** Four of five entries labelled VP cross-source conflicts do not contain unequal bulk values. Natural bulk-proxy uncertainty and numeric disagreement are different problems. Scope: reporting_label_diagnosis.
+- **NOT_TESTED:** Cold/warm factorial arms, musk pairwise omissions and time-distance receiver observations are designed, not performed; no absolute hedonism, sensory similarity or model-weight learning claimed. Scope: experiment_design_only.
+- **HOLD_NOT_RUN:** Formal DHP donor-independence gate is not available in this checkout; documentary source conservation cannot be reported as its PASS. Scope: method_acceptance_hold.
+
+This is a persisted project evidence record, not a claim that Astra's model weights learned a new perfume. There are no sensory observations. The actual smell, richness, open-space recognizability, preference and stability remain NOT TESTED. The completed cold/warm factorial, pairwise musk and time-distance protocols specify what evidence could resolve those questions.
+
+## Verification scope
+
+**Final focused result: 86 passed, 0 failed in 4.17 seconds.** The 1,935 warnings repeat one pytest_asyncio deprecation under Python 3.14; they are not 1,935 formula warnings. The initial cache-write warnings were avoided by disabling only pytest's cache provider. No assertion was disabled. The artifact-binding and standalone-transcript checks both pass.
+
+Focused verification covers the33-row artifacts, current stock IDs/fractions/carriers, parent and input hashes, exact formula/card parity, physical basket order, target mass normalization, source-function conservation, no microdoses, donor/sensory holds, bound report and full standalone formatter, plus existing Orris/Tonkarome scientific negative controls and stock-rebase regressions.
+
+The final test result is recorded in the canonical design JSON. No engine, inventory, archetype or scientific-data file was edited; no pipeline scripts were created; no whole-repository release or publication is claimed.

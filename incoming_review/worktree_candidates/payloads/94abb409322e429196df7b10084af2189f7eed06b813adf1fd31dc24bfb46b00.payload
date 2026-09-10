@@ -1,0 +1,128 @@
+"""Focused OpenAI-only model registry tests."""
+
+from __future__ import annotations
+
+from pathlib import Path
+from typing import Any
+
+import pytest
+from pydantic import ValidationError
+
+from app.core.models_config import ModelConfig, ModelRegistry
+
+
+def _model_payload(**overrides: Any) -> dict[str, Any]:
+    payload: dict[str, Any] = {
+        "model_id": "gpt-registry-test",
+        "display_name": "OpenAI Registry Test",
+        "provider": "openai",
+        "source_url": "https://developers.openai.com/api/docs/models",
+        "version": "test",
+        "training_data": "not specified in this test fixture",
+        "license": "Commercial",
+        "data_provenance": "unit-test fixture",
+        "last_validated": "2026-09-04",
+        "purpose": "general_knowledge",
+        "context_window": 4096,
+    }
+    payload.update(overrides)
+    return payload
+
+
+def test_default_registry_contains_only_openai_models() -> None:
+    registry = ModelRegistry()
+
+    assert registry.models
+    assert {model.provider for model in registry.models.values()} == {"openai"}
+    assert all(model.api_key_env_var == "OPENAI_API_KEY" for model in registry.models.values())
+    assert all(
+        set(model_summary)
+        == {
+            "model_id",
+            "display_name",
+            "provider",
+            "purpose",
+            "context_window",
+            "scientific_accuracy_score",
+            "restrictions",
+        }
+        for model_summary in registry.list_models()
+    )
+
+
+def test_model_config_rejects_non_openai_provider() -> None:
+    with pytest.raises(ValidationError, match="provider must be 'openai'"):
+        ModelConfig(**_model_payload(provider="other"))
+
+
+def test_model_config_rejects_spoofed_openai_provider() -> None:
+    with pytest.raises(ValidationError, match="model_id must identify an OpenAI model"):
+        ModelConfig(**_model_payload(model_id="other/model"))
+
+
+def test_yaml_load_rejects_non_openai_record_without_partial_update(
+    tmp_path: Path,
+) -> None:
+    registry = ModelRegistry()
+    original_ids = set(registry.models)
+    config_path = tmp_path / "models.yaml"
+    config_path.write_text(
+        """
+models:
+  gpt-added-test:
+    model_id: gpt-added-test
+    display_name: Added Test
+    provider: openai
+    source_url: https://developers.openai.com/api/docs/models
+    version: test
+    training_data: not specified in this test fixture
+    license: Commercial
+    data_provenance: unit-test fixture
+    last_validated: '2026-09-04'
+    purpose: general_knowledge
+    context_window: 4096
+  other/model:
+    model_id: other/model
+    display_name: Rejected Test
+    provider: other
+    source_url: https://example.invalid/model
+    version: test
+    training_data: not specified in this test fixture
+    license: Commercial
+    data_provenance: unit-test fixture
+    last_validated: '2026-09-04'
+    purpose: general_knowledge
+    context_window: 4096
+""".lstrip(),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="Rejected model config 'other/model'"):
+        registry._load_from_yaml(str(config_path))
+
+    assert set(registry.models) == original_ids
+
+
+def test_yaml_load_requires_registry_key_to_match_model_id(tmp_path: Path) -> None:
+    config_path = tmp_path / "models.yaml"
+    config_path.write_text(
+        """
+models:
+  gpt-registry-key:
+    model_id: gpt-different-id
+    display_name: Mismatched Test
+    provider: openai
+    source_url: https://developers.openai.com/api/docs/models
+    version: test
+    training_data: not specified in this test fixture
+    license: Commercial
+    data_provenance: unit-test fixture
+    last_validated: '2026-09-04'
+    purpose: general_knowledge
+    context_window: 4096
+""".lstrip(),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="does not match model_id"):
+        ModelRegistry(str(config_path))

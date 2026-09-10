@@ -1,0 +1,59 @@
+{
+  "task_id": "perfume-chem-downloads-rescan-archive-triage-20260826-v1",
+  "objective": "Independently triage every candidate in the supplied Downloads rescan digest. For each package, choose exactly one disposition: QUARANTINE_INTAKE, SEMANTIC_DIFF_FIRST, PROVENANCE_ONLY, FORMULA_OR_DESK_HOLD, SUPERSEDED_OR_LOW_VALUE, or UNRESOLVED. Use only the supplied evidence. Do not infer sensory success, liking, safety, current inventory fit, or runtime superiority from names, row counts, validation labels, or archive completeness. Identify the five highest-value controlled intake candidates and the smallest non-mutating next check for each.",
+  "tier": "PRO",
+  "workspace": "D:/chatbots/perfume-chem",
+  "allowed_paths": [
+    "incoming_review/downloads-rescan-20260826/DOWNLOADS_CANDIDATE_DIGEST.md"
+  ],
+  "required_reads": [
+    {
+      "path": "incoming_review/downloads-rescan-20260826/DOWNLOADS_CANDIDATE_DIGEST.md",
+      "unit": "line",
+      "start": 1,
+      "end": 54
+    }
+  ],
+  "coverage_spec": {
+    "mode": "ALL_REQUIRED_READS",
+    "citations_required_for": ["positive_findings", "negative_findings"]
+  },
+  "forbidden_actions": [
+    "modify local or remote state",
+    "run commands or tests",
+    "browse or use external sources",
+    "inspect files outside required_reads",
+    "claim physical or sensory validation",
+    "grant formula, inventory, safety, release, or runtime authority",
+    "use Fast, Luna, Codex, or alternate-provider fallback"
+  ],
+  "commands_tests": [],
+  "definition_of_done": [
+    "Classify all twenty candidate packages exactly once.",
+    "Cite digest lines for every classification.",
+    "Select no more than five quarantine-intake priorities.",
+    "State unresolved evidence without filling gaps by inference."
+  ],
+  "required_output": [
+    "Twenty-row disposition table.",
+    "Top-five controlled intake shortlist with smallest next checks.",
+    "Explicit exclusions and unresolved evidence.",
+    "Authority-all-false statement."
+  ],
+  "timeout_minutes": 8,
+  "max_output_tokens": 3500,
+  "reuse_cache": true,
+  "require_cache": false,
+  "route_constraints": {
+    "allowed_routes": ["DIRECT_PRO"],
+    "fallback_policy": "NO_LUNA",
+    "maximum_attempts": 1,
+    "maximum_provider_calls": 2,
+    "maximum_estimated_cost_usd": 0.01,
+    "privacy_class": "PROVIDER_ALLOWED",
+    "maximum_input_tokens": 22000,
+    "maximum_cached_input_tokens": 22000,
+    "maximum_output_tokens_total": 7000,
+    "maximum_total_tokens": 29000
+  }
+}

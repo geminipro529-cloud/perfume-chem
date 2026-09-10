@@ -1,0 +1,28 @@
+﻿Code,ACC-CA-LAV-01
+Accord,Lavender Cardamom Aromatic v1.0
+Category,Citrus & Aromatic
+Brief,"A layered masculine aromatic accord with high-altitude lavender, linalyl acetate, cardamom, coriander, pepper, sage, bergamot, tonka and cedar."
+Recommended use,2–12% of perfume concentrate
+Maturation,7–14 days
+Monte Carlo pass,1.0
+Final design score,100.0
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Cedarwood Virginia,neat / as supplied,1.0,47.34299516908212,47.34299516908212,47.34299516908212,236.7149758454106,DIRECT,cedar,Dry wood,Dry cedar frame.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.007390916991501266
+2,base,Ambrofix 30%,30% working stock,0.3,33.14009661835749,9.942028985507246,33.14009661835749,165.70048309178745,PREPARED STOCK,ambergris,Mineral persistence,Mineral ambergris persistence.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0046105105119005185
+3,base,Coumarin 20%,20% in DPG,0.2,33.14009661835749,6.628019323671499,33.14009661835749,165.70048309178745,PREPARED STOCK,tonka,Hay warmth,Hay-almond warmth.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.004608594118617955
+4,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,28.405797101449274,28.405797101449274,28.405797101449274,142.02898550724638,DIRECT,musk,Clean diffusion,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.0037919283099736717
+5,base,Tonka Bean Absolute 10%,10% working stock,0.1,18.93719806763285,1.893719806763285,18.93719806763285,94.68599033816425,PREPARED STOCK,tonka,Natural tonka,Natural tonka warmth.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.002313650627935911
+6,heart_base,Iso E Super,neat / as supplied,1.0,85.21739130434783,85.21739130434783,85.21739130434783,426.0869565217391,DIRECT,transparent_wood,Transparent support,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.016602223602781505
+7,heart,Hedione,neat / as supplied,1.0,75.7487922705314,75.7487922705314,75.7487922705314,378.743961352657,DIRECT,floral_air,Air,Transparent floral diffusion.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.013799442407993297
+8,heart,Clary Sage EO,neat / as supplied,1.0,28.405797101449274,28.405797101449274,28.405797101449274,142.02898550724638,DIRECT,aromatic,Dry aromatic body,Dry aromatic sage.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.005193021873624695
+9,top_heart,Lavender EO High Altitude,neat / as supplied,1.0,170.43478260869566,170.43478260869566,170.43478260869566,852.1739130434783,DIRECT,aromatic,Lavender body,Lavender body.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.04702281083636612
+10,top_heart,Linalyl Acetate,neat/as supplied,1.0,151.4975845410628,151.4975845410628,151.4975845410628,757.487922705314,DIRECT,aromatic,Lavender ester,Lavender-citrus ester.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.03900825170356137
+11,top_heart,Cardamom EO,neat / as supplied,1.0,75.7487922705314,75.7487922705314,75.7487922705314,378.743961352657,DIRECT,spice_aromatic,Cool spice,Cool green cardamom.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.01935132913605645
+12,top_heart,Coriander Seed EO,Coriander Seed EO neat,1.0,56.81159420289855,56.81159420289855,56.81159420289855,284.05797101449275,DIRECT,spice_aromatic,Citrus spice,Citrus-spicy coriander seed.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.01325313255613445
+13,top_heart,Linalool,neat/as supplied,1.0,56.81159420289855,56.81159420289855,56.81159420289855,284.05797101449275,DIRECT,aromatic,Fresh floral bridge,Floral-citrus bridge.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.011050072776770947
+14,top_heart,Black Pepper EO,neat / as supplied,1.0,28.405797101449274,28.405797101449274,28.405797101449274,142.02898550724638,DIRECT,spice_aromatic,Dry sparkle,Dry pepper sparkle.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.00572538380577596
+15,top_heart,Petitgrain EO Paraguay,neat / as supplied,1.0,23.67149758454106,23.67149758454106,23.67149758454106,118.3574879227053,DIRECT,citrus_green,Green twig,Green bitter-orange twig.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0029573977936265365
+16,top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,66.28019323671498,66.28019323671498,66.28019323671498,331.4009661835749,DIRECT,citrus,Citrus top,Floral bergamot peel.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.01689151900457866
+17,carrier,DPG,neat,0.0,20.0,0.0,20.0,100.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

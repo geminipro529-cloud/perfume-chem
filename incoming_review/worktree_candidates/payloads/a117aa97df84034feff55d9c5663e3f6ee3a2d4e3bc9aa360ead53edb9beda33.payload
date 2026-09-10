@@ -1,0 +1,27 @@
+﻿Code,ACC-FL-ROS-01
+Accord,Modern Rose de Mai v1.0
+Category,Floral
+Brief,"A contemporary Rose de Mai skeleton that combines natural rose texture with phenethyl softness, citronellol-geraniol freshness, damascone bloom and clean diffusion."
+Recommended use,2–10% of perfume concentrate
+Maturation,10–21 days
+Monte Carlo pass,1.0
+Final design score,100.0
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,35.0,35.0,35.0,175.0,DIRECT,musk,Clean projection,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.0049696335083425055
+2,base,Romandolide,Romandolide neat/as supplied,1.0,30.0,30.0,30.0,150.0,DIRECT,musk,Soft musk body,Fruity-clean musk body.,HAVE — NEAT,Use as neat Romandolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.004076839477218767
+3,base,Nerolidol,neat/as supplied,1.0,20.0,20.0,20.0,100.0,DIRECT,floral_air,Warm floral persistence,Warm floral-woody persistence.,HAVE,Use only with exact label/stock-strength accounting.,,TEXTURAL SUPPORT,0.0024010402408145707
+4,base,Farnesol,neat / as supplied,1.0,10.0,10.0,10.0,50.0,DIRECT,floral_air,Rose tenacity,Warm floral persistence.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0010983164425843286
+5,heart_base,Benzyl Salicylate,neat / as supplied,1.0,70.0,70.0,70.0,350.0,DIRECT,floral_air,Floral binder,Floral binder and substantivity.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.011921116577110947
+6,heart_base,Iso E Super,neat / as supplied,1.0,40.0,40.0,40.0,200.0,DIRECT,transparent_wood,Transparent wood,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.005786194255756502
+7,heart,Phenethyl Alcohol,neat / as supplied,1.0,220.0,220.0,220.0,1100.0,DIRECT,rose_floral,Rose petal body,Soft floral petal body.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.10269187480004267
+8,heart,Citronellol 10%,Prepare 10% from neat Citronellol,0.1,120.0,12.0,120.0,600.0,PREPARED STOCK,rose,Soft rosy alcohol,Soft rosy body.,HAVE — NEAT ONLY,Use only at the listed supplied-stock strength.,Prepare fresh 10% working stock.,IDENTITY CRITICAL,0.03462079643040206
+9,heart,Rose de Mai 10% in DPG,10% in DPG,0.1,120.0,12.0,120.0,600.0,PREPARED STOCK,rose,Natural rose center,Natural Rose de Mai petal texture.,HAVE,Use only with exact label/stock-strength accounting.,,IDENTITY CRITICAL,0.03462079643040206
+10,heart,Hedione,neat / as supplied,1.0,110.0,110.0,110.0,550.0,DIRECT,floral_air,Air and radiance,Transparent floral diffusion.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.02365044004188236
+11,heart,Geraniol 10%,10% working stock,0.1,80.0,8.0,80.0,400.0,PREPARED STOCK,rose,Fresh rosy lift,Fresh rosy brightness.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.019641206707757985
+12,heart,Beta Damascone 10%,10% working stock,0.1,12.0,1.2000000000000002,12.0,60.0,PREPARED STOCK,rose_fruit,Rose-fruit depth,Rosy-fruity bloom.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0023670421834076465
+13,heart,Damascenone 1%,1% working stock,0.01,5.0,0.05,5.0,25.0,PREPARED STOCK,rose_fruit,Trace radiance,Trace high-impact radiance.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.0009447297580262134
+14,top_heart,Rose Oxide 1%,1% working stock,0.01,8.0,0.08,8.0,40.0,PREPARED STOCK,rose,Metallic lift,Metallic rose lift.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.0015073796658772948
+15,top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,25.0,25.0,25.0,125.0,DIRECT,citrus,Opening brightness,Floral bergamot peel.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.003300591433637699
+16,carrier,DPG,neat,0.0,95.0,0.0,95.0,475.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

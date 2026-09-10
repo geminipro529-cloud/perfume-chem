@@ -1,0 +1,95 @@
+from pathlib import Path
+
+from engine.ingredient_intelligence import get_profile
+from engine.inventory_parser import parse_inventory
+from engine.name_utils import normalize_name
+from engine.odor_thresholds import lookup_odt_entry, verify_odt
+from engine.pipeline.formula_state import build_formula_state
+from engine.pipeline.natural_absolute_decomposition import (
+    composite_oav,
+    get_constituents,
+)
+from scripts.verify_formula_workflow import parse_formula_markdown
+
+
+LNDL_V7 = (
+    Path(__file__).resolve().parents[1]
+    / "formulas"
+    / "LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_CarawayRestored_V7_30mL_20pct_Development.md"
+)
+
+
+def test_caraway_is_owned_pw_stock_at_ten_percent_in_dep_and_distinct_from_carrot_seed():
+    records = {
+        record.name: record
+        for record in parse_inventory(include_unavailable=False)
+    }
+
+    caraway = records["Caraway Seed Essential Oil"]
+    assert caraway.dilution == 0.1
+    assert caraway.category == "spice / aromatic"
+    assert "PerfumersWorld" in caraway.raw_name
+    assert "10% in DEP" in caraway.raw_name
+    assert records["Carrot Seed EO"].name != caraway.name
+
+
+def test_caraway_aliases_resolve_without_collapsing_other_seed_oils():
+    expected = "caraway seed essential oil"
+    assert normalize_name("Caraway EO") == expected
+    assert normalize_name("Caraway Seed EO") == expected
+    assert normalize_name("Carum carvi Seed Oil") == expected
+
+    assert normalize_name("Carrot Seed EO") != expected
+    assert normalize_name("Anise EO") != expected
+    assert normalize_name("Cumin Seed EO") != expected
+
+
+def test_caraway_profile_preserves_role_but_not_invented_physics():
+    profile = get_profile("Caraway EO")
+
+    assert profile is not None
+    assert profile.name == "Caraway Seed Essential Oil"
+    assert profile.note == "heart"
+    assert profile.role == "modifier"
+    assert profile.or_family == "spice"
+    assert profile.vp is None
+    assert profile.odt is None
+    assert profile.odt_ppm is None
+
+
+def test_caraway_whole_oil_threshold_and_composite_remain_explicit_holds():
+    assert lookup_odt_entry("Caraway Seed Essential Oil") is None
+    verification = verify_odt("Caraway Seed Essential Oil")
+    assert verification is not None
+    assert verification["vfy"] == "MISSING"
+    assert get_constituents("Caraway Seed Essential Oil") is None
+    assert composite_oav("Caraway Seed Essential Oil", 0.01, 0.1) is None
+
+
+def test_caraway_formula_state_reports_missing_oav_instead_of_numeric_zero():
+    state = build_formula_state(
+        {"Caraway Seed Essential Oil": 100.0, "Dipropylene Glycol": 10.0},
+        dilutions={"Caraway Seed Essential Oil": 0.1},
+        batch_volume_ml=30.0,
+    )
+    row = next(material for material in state.materials if material.name == "Caraway Seed Essential Oil")
+
+    assert row.is_known
+    assert row.raw_ul == 100.0
+    assert row.active_ul == 10.0
+    assert row.ifra_limit_pct == 1.16
+    assert row.oav is None
+    assert row.vapor_ppm == 0.0
+    assert "vp" in row.missing_fields
+    assert "odt_air_ppm" in row.missing_fields
+
+
+def test_lndl_v7_rebases_ten_percent_dep_stock_without_losing_active_caraway():
+    formula = parse_formula_markdown(LNDL_V7)[0]
+
+    assert len(formula["ingredients_ul"]) == 51
+    assert sum(formula["ingredients_ul"].values()) == 6000.0
+    assert formula["ingredients_ul"]["Caraway Seed Essential Oil"] == 100.0
+    assert formula["dilutions"]["Caraway Seed Essential Oil"] == 0.1
+    assert formula["ingredients_ul"]["Benzyl Benzoate"] == 210.0
+    assert formula["ingredients_ul"]["Dipropylene Glycol"] == 10.0

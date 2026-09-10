@@ -1,0 +1,205 @@
+from __future__ import annotations
+
+import hashlib
+import json
+from pathlib import Path
+
+import pytest
+
+from engine.inventory_parser import (
+    PREDECESSOR_USER_INVENTORY_OVERLAY_PATH,
+    load_current_user_inventory_overlay,
+    parse_current_inventory,
+    parse_inventory,
+)
+
+
+ROOT = Path(__file__).resolve().parents[1]
+INVENTORY = ROOT / "inventory.txt"
+OVERLAY_20260901 = PREDECESSOR_USER_INVENTORY_OVERLAY_PATH
+OVERLAY_20260831 = (
+    ROOT / "data" / "governance" / "inventory_user_authority_overlay_20260831.json"
+)
+
+
+def _normalized_sha256(path: Path) -> str:
+    payload = path.read_bytes().replace(b"\r\n", b"\n")
+    return hashlib.sha256(payload).hexdigest()
+
+
+def test_20260901_overlay_is_a_pinned_non_mutating_successor() -> None:
+    assert OVERLAY_20260901.name == (
+        "inventory_user_authority_overlay_20260901.json"
+    )
+
+    payload = json.loads(
+        OVERLAY_20260901.read_text(encoding="utf-8")
+    )
+    assert payload["schema_version"] == (
+        "perfume_chem_user_inventory_authority_successor_v3"
+    )
+    assert payload["successor_id"] == "INVENTORY-USER-AUTHORITY-20260901-001"
+    assert payload["effective_date"] == "2026-09-01"
+    assert payload["predecessor"] == {
+        "path": "data/governance/inventory_user_authority_overlay_20260831.json",
+        "normalized_text_sha256": _normalized_sha256(
+            OVERLAY_20260831
+        ),
+        "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+        "effective_date": "2026-08-31",
+    }
+    assert payload["policy"]["predecessor_immutable"] is True
+    assert payload["policy"]["historical_formula_bytes_immutable"] is True
+    assert payload["policy"]["aesthetic_dose_change_authorized"] is False
+    assert payload["policy"]["general_substitution_authorized"] is False
+    assert payload["source"]["inventory_text_sha256"] == (
+        "1974b3495027178a16fb6d9d59c6bc6eaac07e0dce97855e77ffcada8da02ee3"
+    )
+
+
+def test_20260901_overlay_preserves_exact_evernyl_and_orris_contracts() -> None:
+    payload = load_current_user_inventory_overlay(OVERLAY_20260901)
+    records = {record["canonical_name"]: record for record in payload["records"]}
+
+    evernyl = records["Evernyl"]
+    assert evernyl["stock"] == {
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_REBASES_PLANNED_STOCK",
+        "execution_ready": True,
+    }
+    assert evernyl["supersedes_parent_stocks"] == [
+        {"source_row": 105, "fraction": 0.2}
+    ]
+    assert evernyl["authority_limits"]["neat_liquid_stock_owned"] is False
+    assert evernyl["authority_limits"]["solid_crystals_owned"] is True
+    assert evernyl["authority_limits"]["historical_20pct_dpg_preserved"] is True
+
+    crystals = records["Evernyl Crystals"]
+    assert crystals["stock"] == {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_DISTINCT_SOLID_STOCK_CARRY_FORWARD",
+        "execution_ready": False,
+        "execution_hold_reason": "SOLID_STOCK_VOLUME_DOSING_UNBOUND",
+    }
+    assert crystals["authority_limits"]["distinct_from_10pct_solution"] is True
+    assert crystals["authority_limits"]["mass_dosing_receipt_required"] is True
+
+    orris = records["Orris Liquid"]
+    assert orris["stock"] == {
+        "fraction": 0.09,
+        "fraction_basis": "mass_fraction",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_ASSERTION_REBASES_EXISTING_W_W_BASIS",
+        "execution_ready": True,
+    }
+    limits = orris["authority_limits"]
+    assert limits["user_sensory_role_asserted"] is True
+    assert limits["user_sensory_role"] == "DRY_ROOT_ONLY_ORRIS_TINCTURE_LIKE"
+    assert limits["carrier_asserted"] is False
+    assert limits["density_asserted"] is False
+    assert limits["extraction_method_asserted"] is False
+    assert limits["measured_odt_asserted"] is False
+    assert limits["measured_gc_o_asserted"] is False
+    assert limits["quantitative_irone_equivalence_asserted"] is False
+    assert limits["nominal_product_equivalent_only"] is True
+
+    historical = {
+        record["historical_record_id"]: record
+        for record in payload["historical_stock_records"]
+    }
+    assert historical["INV-HIST-20260901-EVERNYL-20-DPG"]["stock"] == {
+        "fraction": 0.2,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+    }
+    assert historical["INV-HIST-20260901-ORRIS-LIQUID-30"]["stock"] == {
+        "fraction": 0.3,
+        "fraction_basis": "mass_fraction",
+        "carrier": "",
+    }
+    assert all(record["current_execution_authority"] is False for record in historical.values())
+
+
+def test_legacy_inventory_exposes_current_and_historical_stocks_without_collapse() -> None:
+    rows = parse_inventory(
+        INVENTORY,
+        unique=False,
+        include_solvents=True,
+        include_unavailable=True,
+    )
+
+    evernyl = [record for record in rows if record.name == "Evernyl"]
+    old_evernyl = next(
+        row for row in evernyl if row.raw_name.startswith("Evernyl (20% w/w in DPG)")
+    )
+    current_evernyl = next(
+        row for row in evernyl if row.raw_name.startswith("Evernyl (10% w/w in DEP)")
+    )
+    assert old_evernyl.status == "superseded_current_stock"
+    assert old_evernyl.execution_ready is False
+    assert old_evernyl.execution_hold_reason == (
+        "SUPERSEDED_CURRENT_STOCK_PROVENANCE_ONLY"
+    )
+    assert (
+        current_evernyl.status,
+        current_evernyl.dilution,
+        current_evernyl.fraction_basis,
+        current_evernyl.carrier,
+    ) == ("owned", pytest.approx(0.1), "mass_fraction", "dep")
+
+    orris = [record for record in rows if record.name == "Orris Liquid"]
+    old_orris = next(
+        row for row in orris if row.raw_name.startswith("Orris Liquid (30% w/w)")
+    )
+    current_orris = next(
+        row for row in orris if row.raw_name.startswith("Orris Liquid (9% w/w)")
+    )
+    assert old_orris.status == "superseded_current_stock"
+    assert old_orris.execution_ready is False
+    assert (current_orris.status, current_orris.dilution) == (
+        "owned",
+        pytest.approx(0.09),
+    )
+    assert current_orris.fraction_basis == "mass_fraction"
+    assert current_orris.carrier == ""
+
+    available_rows = parse_inventory(
+        INVENTORY,
+        unique=False,
+        include_solvents=True,
+        include_unavailable=False,
+    )
+    assert old_evernyl.raw_name not in {row.raw_name for row in available_rows}
+    assert old_orris.raw_name not in {row.raw_name for row in available_rows}
+
+
+def test_current_materialization_selects_only_the_20260901_solution_stocks() -> None:
+    rows = parse_current_inventory(unique=False, include_unavailable=True)
+
+    evernyl = [row for row in rows if row.name == "Evernyl"]
+    assert len(evernyl) == 1
+    assert (
+        evernyl[0].dilution,
+        evernyl[0].fraction_basis,
+        evernyl[0].carrier,
+        evernyl[0].execution_ready,
+    ) == (pytest.approx(0.1), "mass_fraction", "dep", True)
+
+    crystals = [row for row in rows if row.name == "Evernyl Crystals"]
+    assert len(crystals) == 1
+    assert crystals[0].dilution == pytest.approx(1.0)
+    assert crystals[0].execution_ready is False
+    assert crystals[0].execution_hold_reason == "SOLID_STOCK_VOLUME_DOSING_UNBOUND"
+
+    orris = [row for row in rows if row.name == "Orris Liquid"]
+    assert len(orris) == 1
+    assert (
+        orris[0].dilution,
+        orris[0].fraction_basis,
+        orris[0].carrier,
+        orris[0].execution_ready,
+    ) == (pytest.approx(0.09), "mass_fraction", "", True)

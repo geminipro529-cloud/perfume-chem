@@ -1,0 +1,330 @@
+{
+  "schema_version": "perfume-chem.unified-import-lineage.v1",
+  "import_id": "edd7-lineage-20260904",
+  "recorded_on": "2026-09-04",
+  "status": "COMPLETE_FOR_ASSIGNED_SCOPE",
+  "source": {
+    "worktree": "C:\\Users\\ASUS\\.codex\\worktrees\\edd7\\perfume-chem",
+    "branch": "codex/luxe-target-native-finish",
+    "head_commit": "4b550054b6c491c8ad424936f632ce25bc02800d",
+    "agents_sha256": "710873f53a128cd9851093f879369bea3ccf7bc1ad425855173b628bf4bff492",
+    "inventory_sha256": "eb33c04236a4640413ba5289125f04cfa278bd0614eb9bd12ea1cc4d88379967",
+    "selected_paths_git_status": "CLEAN",
+    "copy_basis": "LIVE_SOURCE_WORKTREE_BYTES"
+  },
+  "scope": {
+    "copy_semantics": "EXACT_BYTES",
+    "artifact_authority": "LINEAGE_AND_GOVERNANCE_ONLY",
+    "artifact_count": 33,
+    "core_formula_count": 23,
+    "core_guide_count": 4,
+    "governance_document_count": 3,
+    "donor_signature_count": 3,
+    "physical_compounding_authorized": false,
+    "procurement_authorized": false,
+    "sensory_claims_authorized": false,
+    "safety_or_stability_clearance": false,
+    "release_authority": false
+  },
+  "links": {
+    "historical_scoped_manifest": "docs/research/APPLE_PIE_LUXE_SCOPED_FILE_MANIFEST_2026-08-29.tsv",
+    "integration_ledger": "docs/research/APPLE_PIE_LUXE_ISOLATED_WORKTREE_INTEGRATION_LEDGER_2026-08-29.md",
+    "governing_protocol": "docs/research/DHP2025_STRUCTURAL_FORMULATION_LEARNING_PROTOCOL.md",
+    "donor_signatures": [
+      "docs/research/donor_signatures/dhp_2025_niche_house_v1.json",
+      "docs/research/donor_signatures/opus_v_woods_symphony_v1.json",
+      "docs/research/donor_signatures/white_fire_reliquary_v2.json"
+    ]
+  },
+  "historical_scoped_manifest": {
+    "path": "docs/research/APPLE_PIE_LUXE_SCOPED_FILE_MANIFEST_2026-08-29.tsv",
+    "bytes": 19710,
+    "sha256": "e5fe4504d61cc1cb08f24025cca109edffb2a99fba84dac86a2bd0ba5aedf057",
+    "declared_row_count": 104,
+    "imported_path_overlap_count": 10,
+    "exact_live_worktree_match_count": 5,
+    "status": "PRESERVED_EXACTLY_AS_HISTORICAL_EVIDENCE",
+    "interpretation": "The manifest pins original Git-index blob bytes. The import pins live source-worktree bytes. Five overlapping formula files differ only by checkout line-ending representation; both hash sets are retained. Generated audit and verification-run paths in the historical manifest are intentionally not imported by this narrower unified-package lineage scope.",
+    "live_worktree_line_ending_variants": [
+      {
+        "path": "formulas/LH_04X_Pomme_Couture_100_V1_30mL_15pct_Development.md",
+        "manifest_bytes": 71445,
+        "manifest_sha256": "c2722e85dbde3f421f5626d8730315e1de62e626541f88f2b3a549a562400a41",
+        "live_worktree_bytes": 72186,
+        "live_worktree_sha256": "f69cc1caec80bd9b3acb1d137ffec1de0f28d7f998002675b8aa37981b6d82b0"
+      },
+      {
+        "path": "formulas/LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_CarawayRestored_V7_30mL_20pct_Development.md",
+        "manifest_bytes": 90483,
+        "manifest_sha256": "d0f72d9ed6c1f835ddc5f44d69bc6e9cc380bcc5b92a07f4fedb24cf3926431f",
+        "live_worktree_bytes": 91286,
+        "live_worktree_sha256": "72f83fb74f35b0b4f72b2fee9c116a50e55cefcf3e078b62d1656685c5405b6e"
+      },
+      {
+        "path": "formulas/LNDL_Luxe_Cardamom_Nocturne_DHP2025_Theory_V2_30mL_20pct_Development.md",
+        "manifest_bytes": 43656,
+        "manifest_sha256": "9c2ce5e889ee95f9edcd106200e82574a87851685451de0a8dc2ec5a46d58ee1",
+        "live_worktree_bytes": 44179,
+        "live_worktree_sha256": "6b45a07ff47b3468f4c7a7109ce2ce6d6788661cd65e67ee4ae3f960a54da797"
+      },
+      {
+        "path": "formulas/L_Homme_Luxe_Ginger_Silhouette_DHP2025_TargetNative_V5_30mL_20pct_Development.md",
+        "manifest_bytes": 60510,
+        "manifest_sha256": "3709f1db9e187b3c67215c3aa39b5d96dac76b7b857631d7a020047d6c56f33e",
+        "live_worktree_bytes": 61019,
+        "live_worktree_sha256": "c3d6edd26a06c9b13947ab2916b324524d9cd0ee7cf94b814fdf2c4b4dfa7d8b"
+      },
+      {
+        "path": "formulas/L_Homme_Luxe_Ginger_Silhouette_DHP2025_Theory_V3_30mL_20pct_Development.md",
+        "manifest_bytes": 41221,
+        "manifest_sha256": "c60513a543bca6ac50a536e257647466143506848a434d61807462063532e1b6",
+        "live_worktree_bytes": 41750,
+        "live_worktree_sha256": "f1327ae02bf309e9ee76055f219fbc934a82099859903c5dba6bb2d42ce52baf"
+      }
+    ]
+  },
+  "preserved_authority_boundaries": {
+    "apple_v1_current_inventory_status": "CURRENT-INVENTORY REBASE HOLD",
+    "lndl_v7_design_status": "USER-REJECTED DESIGN / CLARITY - PRESERVED FAILED CANDIDATE",
+    "lndl_v7_rejection_is_physical_smell_result": false,
+    "lndl_v7_caraway_oav_status": "MISSING-DATA HOLD",
+    "lndl_v7_release_ready": false,
+    "lndl_v8_status": "DESIGN HYPOTHESIS / COMPUTATIONAL / NOT TESTED / HOLD",
+    "lhomme_target_native_v5_status": "NOT TESTED",
+    "pipeline_or_formula_success_proves_sensory_or_release_success": false
+  },
+  "excluded_source_scope": [
+    {
+      "path": "formulas/LNDL_Luxe_Coriander_Silk_Polished_Seed_Wood_DHP2025_V1_30mL_20pct_Development.md",
+      "reason": "Separately owned LNDL successor lane; not imported here."
+    },
+    {
+      "path": "formulas/L_Homme_Luxe_30mL_EdP.md",
+      "reason": "Legacy non-DHP formula outside the audited 28-row core set."
+    },
+    {
+      "path": "tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py",
+      "reason": "Incomplete and modified flanker-suite test; explicitly excluded."
+    },
+    {
+      "path_prefix": "verification_runs/",
+      "reason": "Generated verification payloads are explicitly excluded from this import."
+    },
+    {
+      "path": "data/pipeline_audit/events.jsonl",
+      "reason": "Shared generated audit history in the historical scoped manifest is outside this artifact import."
+    },
+    {
+      "path_prefix": "docs/superpowers/",
+      "reason": "Flanker suite planning/specification material is outside the assigned core formula-and-guide scope."
+    }
+  ],
+  "destination_verification": {
+    "verified_date": "2026-09-04",
+    "method": "LIVE_DESTINATION_BYTE_SIZE_AND_SHA256_RECHECK",
+    "imported_artifact_records": 33,
+    "unique_destination_paths": 33,
+    "result": "PASS_33_OF_33",
+    "authority_effect": "NONE_LINEAGE_AND_GOVERNANCE_ONLY_CEILING_UNCHANGED"
+  },
+  "artifacts": [
+    {
+      "path": "formulas/LH_04X_Pomme_Couture_100_V1_30mL_15pct_Development.md",
+      "kind": "formula",
+      "bytes": 72186,
+      "sha256": "f69cc1caec80bd9b3acb1d137ffec1de0f28d7f998002675b8aa37981b6d82b0"
+    },
+    {
+      "path": "formulas/LNDL_Luxe_Azulene_Juniper_Chiaroscuro_DHP2025_V1_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 60506,
+      "sha256": "634cad4555c35191d438292a7111768b2558fe9a7afe14d27ff34a65be6133ea"
+    },
+    {
+      "path": "formulas/LNDL_Luxe_Azulene_Juniper_Chiaroscuro_DHP2025_V2_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 63721,
+      "sha256": "cabe6204002ef2fae2174f6bf4282a6f01fea4b12e871b9a5e3edc37a8fa25b2"
+    },
+    {
+      "path": "formulas/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 55392,
+      "sha256": "db63eabcad31fb3efa4b448ba0593c44c329cea223df25a6293b3219b40b8156"
+    },
+    {
+      "path": "formulas/LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_CarawayRestored_V7_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 91286,
+      "sha256": "72f83fb74f35b0b4f72b2fee9c116a50e55cefcf3e078b62d1656685c5405b6e"
+    },
+    {
+      "path": "formulas/LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_DonorIndependent_V5_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 69747,
+      "sha256": "76678b7ed89780eb29881073494d8c6046c63a9bb3101dd6dc740d2b649e3009"
+    },
+    {
+      "path": "formulas/LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_Interiorized_V6_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 63494,
+      "sha256": "db60da30d6f5ebe6935cb2c24fd9d750b83d727759552d246724216cb141015a"
+    },
+    {
+      "path": "formulas/LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_LineageLocked_V4_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 38280,
+      "sha256": "60ebf6c706a3cec9a4d955d08c6f48fcd8cca363ab0f4911b4fc72151c85f00a"
+    },
+    {
+      "path": "formulas/LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_StockCorrected_Control_V8_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 72321,
+      "sha256": "9bbc643293674d00bf8b9212816f11a1c9e456d5f981097627a41114f44860df"
+    },
+    {
+      "path": "formulas/LNDL_Luxe_Cardamom_Nocturne_DHP2025_Theory_V2_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 44179,
+      "sha256": "6b45a07ff47b3468f4c7a7109ce2ce6d6788661cd65e67ee4ae3f960a54da797"
+    },
+    {
+      "path": "formulas/LNDL_Luxe_Cardamom_Nocturne_DHP2025_Theory_V3_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 29019,
+      "sha256": "d12864cec78f61cfc26926f80d3e5eabf82a3f910e94d7029594b11068a3418a"
+    },
+    {
+      "path": "formulas/LNDL_Luxe_Cardamom_Nocturne_DHP2025_Theory_V4_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 40639,
+      "sha256": "55d80bd8f04b7405715ecaf4b990a46fc698ed8cf44e04f0ea1bb6950b55f456"
+    },
+    {
+      "path": "formulas/L_Homme_Luxe_Genievre_Cedre_Cool_Dry_Tailoring_DHP2025_V1_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 71587,
+      "sha256": "5d60bc250172e5fa4553d0f10663bb02b5f0eaf92a12eca23f1499a1559cdd5c"
+    },
+    {
+      "path": "formulas/L_Homme_Luxe_Ginger_Prism_DHP2025_Theory_V2_30mL_EdP.md",
+      "kind": "formula",
+      "bytes": 48471,
+      "sha256": "be69787f5a8c912d593b595d867e9a026c3f1e29e7560ef1ed884b2eef6a97d2"
+    },
+    {
+      "path": "formulas/L_Homme_Luxe_Ginger_Silhouette_DHP2025_StockCorrected_Control_V6_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 71383,
+      "sha256": "3e241d82ca2b51d30afaea42ad0ede32dfc9b6d74248e76731a70d2b9e33ecd5"
+    },
+    {
+      "path": "formulas/L_Homme_Luxe_Ginger_Silhouette_DHP2025_TargetNative_V5_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 61019,
+      "sha256": "c3d6edd26a06c9b13947ab2916b324524d9cd0ee7cf94b814fdf2c4b4dfa7d8b"
+    },
+    {
+      "path": "formulas/L_Homme_Luxe_Ginger_Silhouette_DHP2025_Theory_V3_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 41750,
+      "sha256": "f1327ae02bf309e9ee76055f219fbc934a82099859903c5dba6bb2d42ce52baf"
+    },
+    {
+      "path": "formulas/L_Homme_Luxe_Ginger_Silhouette_DHP2025_Theory_V4_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 29868,
+      "sha256": "ec733a7e92e1b41d624d4368e12e5847a7c437f45ea325b92e2d8e307838a2f5"
+    },
+    {
+      "path": "formulas/L_Homme_Luxe_Ginger_Silhouette_DHP2025_Theory_V5_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 42604,
+      "sha256": "2c78f5f2788bcc4ae9ea53337f80e0bd2883b3fc583868d2571930fbd718a30a"
+    },
+    {
+      "path": "formulas/L_Homme_Luxe_Mandarine_Tonka_Golden_Chamber_DHP2025_V1_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 67744,
+      "sha256": "228cb9414407e31e81f869d312764841bfb3a850a66d13be57054612ba8f3311"
+    },
+    {
+      "path": "formulas/L_Homme_Luxe_Neroli_Gingembre_Luminous_Silk_DHP2025_V1_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 53679,
+      "sha256": "5a809b3a800e4d928b622b58c2b6a83a0596dc655b735e94a5dd54076fc6b20a"
+    },
+    {
+      "path": "formulas/L_Homme_Luxe_Osmanthus_Suede_Apricot_Shadow_DHP2025_V1_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 47010,
+      "sha256": "5678054fc1985d8ad25f17b35e720fe32f8bd1b8c54c27f37005ca9524d59409"
+    },
+    {
+      "path": "formulas/L_Homme_Luxe_Pluie_Violette_Wet_Mineral_Cloth_DHP2025_V1_30mL_20pct_Development.md",
+      "kind": "formula",
+      "bytes": 69065,
+      "sha256": "1b333819642a329a5ab02823305f64f1f8460bedeabc6dfa0699611e55393b6a"
+    },
+    {
+      "path": "formulas/mixing_guides/LNDL_Luxe_Azulene_Juniper_Chiaroscuro_DHP2025_V1_Factorial_Blind_Trial.md",
+      "kind": "guide",
+      "bytes": 9836,
+      "sha256": "e1a3403cdfb8832fb6c67cdd3af2bd8c2dc10f63c132eef0ce81ea8b10add10a"
+    },
+    {
+      "path": "formulas/mixing_guides/LNDL_Luxe_Azulene_Juniper_Chiaroscuro_DHP2025_V2_Factorial_Blind_Trial.md",
+      "kind": "guide",
+      "bytes": 9655,
+      "sha256": "0fe87ae987325c15fd7736bbfafc1607907d2e2b21bd856acfdb30406ba6e546"
+    },
+    {
+      "path": "formulas/mixing_guides/LNDL_Luxe_Cardamom_Chiaroscuro_DHP2025_V1_Blind_Trial.md",
+      "kind": "guide",
+      "bytes": 11117,
+      "sha256": "7348a5aaec561e827634600db892ad5102107cc051a982fddedb6c1780346db9"
+    },
+    {
+      "path": "formulas/mixing_guides/L_Homme_Luxe_Hedonic_Flanker_Suite_DHP2025_V1_Blind_Trial.md",
+      "kind": "guide",
+      "bytes": 16593,
+      "sha256": "a432a96d81b31d4e5dc237b2a06edc3b5b6bfde85b7718864b84e39758ee7e86"
+    },
+    {
+      "path": "docs/research/APPLE_PIE_LUXE_SCOPED_FILE_MANIFEST_2026-08-29.tsv",
+      "kind": "governance",
+      "bytes": 19710,
+      "sha256": "e5fe4504d61cc1cb08f24025cca109edffb2a99fba84dac86a2bd0ba5aedf057"
+    },
+    {
+      "path": "docs/research/APPLE_PIE_LUXE_ISOLATED_WORKTREE_INTEGRATION_LEDGER_2026-08-29.md",
+      "kind": "governance",
+      "bytes": 9700,
+      "sha256": "4252c10d074efc5ea4dbd70dae36166bc5d7e31e77f87e384d2807244b42614a"
+    },
+    {
+      "path": "docs/research/DHP2025_STRUCTURAL_FORMULATION_LEARNING_PROTOCOL.md",
+      "kind": "governance",
+      "bytes": 38802,
+      "sha256": "50d108570dea367a0d377de1dc41bbf17e8911b522d67d8d2a7aa237085edeb1"
+    },
+    {
+      "path": "docs/research/donor_signatures/dhp_2025_niche_house_v1.json",
+      "kind": "donor_signature",
+      "bytes": 1235,
+      "sha256": "7fac8b1159e161e3ad6cf9e02fd1695b0798c46676748550f2e532ccf150c5f1"
+    },
+    {
+      "path": "docs/research/donor_signatures/opus_v_woods_symphony_v1.json",
+      "kind": "donor_signature",
+      "bytes": 1834,
+      "sha256": "db8d21caebd01e348406ec967c600dbe89b05dfe4c9705812730295beaacd139"
+    },
+    {
+      "path": "docs/research/donor_signatures/white_fire_reliquary_v2.json",
+      "kind": "donor_signature",
+      "bytes": 1668,
+      "sha256": "4457d54dd69a30aa9eaed42958b938ad1fe729c6090c6fc74c2a3b004eb3760a"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,1.0
+identity_system_probability,1.0
+oav_probability,1.0
+temporal_probability,1.0
+dominance_failure_probability,0.0
+overall_probability,1.0
+dose_closure_probability,0.9995
+temporal_q05,0.9582129760241899
+temporal_median,0.9873335991018705
+max_share_q95,0.37518609377383927
+marker_coverage_q05,1.0
+phase_sum_q05,"{""top"": 21.862279372523652, ""heart"": 11.248450843292792, ""base"": 15.8112186056349}"
+release_shape_median,"[0.27594458517518605, 0.31282396122021094, 0.2922753494479612, 0.10553601953744274]"
+phase_shape_median,"[0.2514394027714523, 0.33359247084254606, 0.41500879558788806]"
+marker_probabilities,"{""Grapefruit FCF Oil | top"": 1.0, ""Cardamom EO | top"": 1.0, ""Black Pepper EO | top"": 1.0, ""Lavender EO High Altitude | heart"": 1.0, ""Anisaldehyde 10% | heart"": 0.994, ""Patchouli EO | base"": 1.0, ""Vetiver EO | base"": 1.0, ""Sandalore | base"": 0.9907}"
+marker_quantiles,"{""Grapefruit FCF Oil | top"": [6.654603586530492, 18.874377289894813, 53.05987582285989], ""Cardamom EO | top"": [4.6854200448860635, 11.667261139627225, 28.932556598773502], ""Black Pepper EO | top"": [3.2357332297764416, 8.079628309361201, 20.86385767735278], ""Lavender EO High Altitude | heart"": [7.133683425823217, 18.457158742627925, 48.92416186357027], ""Anisaldehyde 10% | heart"": [1.745499155378743, 4.588789160691739, 12.540779913700366], ""Patchouli EO | base"": [6.5010289492345255, 16.359506677788296, 41.99707684447127], ""Vetiver EO | base"": [3.9083292665733227, 10.33086215710556, 26.745860686071524], ""Sandalore | base"": [1.6170145229089274, 4.291093627398298, 11.517093274093279]}"
+classification,ROBUST

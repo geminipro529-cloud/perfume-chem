@@ -1,0 +1,98 @@
+"""API v1 router aggregation"""
+
+from fastapi import APIRouter
+
+from app.api.v1.endpoints import (
+    ai,
+    enhancements,
+    formulas,
+    knowledge,
+    lab,
+    lab_lifecycle,
+    lab_planning,
+    lab_reporting,
+    mixer,
+    optimizer,
+    outcomes,
+    reference,
+    solforge_workbench,
+)
+
+api_router = APIRouter()
+
+api_router.include_router(
+    solforge_workbench.router,
+    prefix="/solforge/workbench",
+    tags=["solforge-workbench"],
+)
+
+api_router.include_router(
+    lab_reporting.router,
+    prefix="/lab/science",
+    tags=["laboratory-science"],
+)
+
+api_router.include_router(
+    lab_planning.router,
+    prefix="/lab/v2",
+    tags=["laboratory-planning"],
+)
+
+api_router.include_router(
+    lab_lifecycle.router,
+    prefix="/lab/v2",
+    tags=["laboratory-lifecycle"],
+)
+
+api_router.include_router(
+    lab.router,
+    prefix="/lab",
+    tags=["laboratory"],
+)
+
+api_router.include_router(
+    formulas.router,
+    prefix="/formulas",
+    tags=["formulas"]
+)
+
+api_router.include_router(
+    ai.router,
+    prefix="/ai",
+    tags=["ai"]
+)
+
+api_router.include_router(
+    reference.router,
+    tags=["reference_data"]
+)
+
+api_router.include_router(
+    optimizer.router,
+    prefix="/optimizer",
+    tags=["optimizer"]
+)
+
+api_router.include_router(
+    mixer.router,
+    prefix="/mixer",
+    tags=["mixer"]
+)
+
+api_router.include_router(
+    knowledge.router,
+    prefix="/knowledge",
+    tags=["knowledge"]
+)
+
+api_router.include_router(
+    outcomes.router,
+    prefix="/feedback",
+    tags=["feedback"]
+)
+
+api_router.include_router(
+    enhancements.router,
+    prefix="/enhance",
+    tags=["enhancements"]
+)

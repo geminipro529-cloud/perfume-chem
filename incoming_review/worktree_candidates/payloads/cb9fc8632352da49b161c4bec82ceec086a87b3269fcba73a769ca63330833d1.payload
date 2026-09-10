@@ -1,0 +1,35 @@
+{
+  "schema": "b4-rule-corpus-baseline-v1",
+  "compiler_version": "b4-rule-compiler-v1",
+  "sources": {
+    "data/knowledge_graph/pairing_rules.json": {
+      "records": 2408,
+      "sha256": "fc4370b8017334e070b873463bcec1db8cd781b156db214a8b1c0382483cf8d1"
+    },
+    "data/knowledge_graph/pairing_rules_discovered.json": {
+      "records": 915,
+      "sha256": "2dd23d496cda1b6dbd61ff147f977d4bbb7d919048b591e018785ba0bde9e044"
+    },
+    "data/knowledge_graph/synergy_matrix.json": {
+      "records": 53,
+      "sha256": "9b6f96941b2c7ad92467577a08cc44c42f17f23071b5d3a9565507d7b149fda6"
+    },
+    "data/knowledge_graph/theory_rules.json": {
+      "records": 5,
+      "sha256": "870ec53e470e361dddff334235ff388b776d97b81e5daa14d9a356e4117b0383"
+    }
+  },
+  "identity_resolution_snapshot": {
+    "path": "backend/tests/fixtures/b4_identity_resolution_baseline.json",
+    "sha256": "4cdaecdcafdb978eeed7695395941d196b13d1c1c785c124b120d4d3ae895076",
+    "labels": 454,
+    "authority": "REGRESSION_FIXTURE_ONLY_NOT_CANONICAL_IDENTITY_AUTHORITY"
+  },
+  "total_records": 3381,
+  "invalid_exact_count_ceiling": 137,
+  "blocking_count": 0,
+  "numerical_model_count": 0,
+  "duplicate_count": 68,
+  "cycle_count": 1,
+  "report_sha256": "c49a49dd2bac5fb0b819e2162fbb60e851a098925f7680ea7c920650b7e75fb7"
+}

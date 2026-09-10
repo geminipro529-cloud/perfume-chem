@@ -1,0 +1,129 @@
+from __future__ import annotations
+
+import re
+from collections import Counter
+from pathlib import Path
+
+from engine.inventory_parser import parse_inventory
+from engine.supplier_document_census import build_supplier_document_census
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+_INVENTORY_BULLET_RE = re.compile(r"^\s*[-•]\s+(.+?)\s*$")
+
+
+def _inventory_source_rows(path: Path) -> list[tuple[int, str]]:
+    source_rows: list[tuple[int, str]] = []
+    for line_number, line in enumerate(
+        path.read_text(encoding="utf-8").splitlines(), start=1
+    ):
+        match = _INVENTORY_BULLET_RE.match(line)
+        if match:
+            source_rows.append((line_number, match.group(1)))
+    return source_rows
+
+
+def test_census_preserves_all_live_inventory_rows_and_fails_closed_on_matches() -> None:
+    inventory_path = PROJECT_ROOT / "inventory.txt"
+    rows = build_supplier_document_census(
+        inventory_path=inventory_path,
+        supplier_snapshot_path=(
+            PROJECT_ROOT
+            / "data"
+            / "materials"
+            / "_sources"
+            / "perfumersworld_stock.parsed.json"
+        ),
+    )
+
+    parsed_inventory = parse_inventory(
+        inventory_path,
+        unique=False,
+        include_solvents=True,
+        include_unavailable=True,
+    )
+    source_rows = _inventory_source_rows(inventory_path)
+
+    assert len(rows) == len(parsed_inventory) == len(source_rows)
+    assert [row.inventory_ordinal for row in rows] == list(range(1, len(rows) + 1))
+    assert [row.inventory_source_line for row in rows] == [
+        line_number for line_number, _ in source_rows
+    ]
+    assert [row.inventory_raw_name for row in rows] == [
+        raw_name for _, raw_name in source_rows
+    ]
+    assert [row.inventory_raw_name for row in rows] == [
+        material.raw_name for material in parsed_inventory
+    ]
+    assert [row.canonical_name for row in rows] == [
+        material.name for material in parsed_inventory
+    ]
+
+    match_counts = Counter(row.perfumersworld_match_state for row in rows)
+    assert set(match_counts) == {
+        "REGISTRY_SKU",
+        "EXACT_NAME_SKU",
+        "AMBIGUOUS_EXACT_NAME",
+        "NO_EXACT_PW_MATCH",
+    }
+    assert sum(match_counts.values()) == len(rows)
+
+    for row in rows:
+        if row.perfumersworld_match_state == "EXACT_NAME_SKU":
+            assert row.perfumersworld_candidate_skus == (row.perfumersworld_sku,)
+        elif row.perfumersworld_match_state == "AMBIGUOUS_EXACT_NAME":
+            assert len(row.perfumersworld_candidate_skus) > 1
+            assert row.perfumersworld_sku == ""
+        elif row.perfumersworld_match_state == "NO_EXACT_PW_MATCH":
+            assert row.perfumersworld_candidate_skus == ()
+            assert row.perfumersworld_sku == ""
+
+        if row.perfumersworld_sku:
+            assert row.perfumersworld_product_url.endswith(row.perfumersworld_sku)
+            assert row.perfumersworld_document_url.endswith(row.perfumersworld_sku)
+        else:
+            assert row.perfumersworld_product_name == ""
+            assert row.perfumersworld_product_url == ""
+            assert row.perfumersworld_document_url == ""
+
+    castoreum = next(row for row in rows if row.canonical_name == "Castoreum Synthetic")
+    assert castoreum.stock_fraction == 0.10
+    assert castoreum.stock_fraction_basis == "unspecified"
+    assert castoreum.stock_carrier == "dep"
+    assert castoreum.quantitative_execution_ready is False
+    assert castoreum.execution_hold_reason == "FRACTION_BASIS_UNSPECIFIED"
+    assert castoreum.perfumersworld_match_state == "REGISTRY_SKU"
+    assert castoreum.perfumersworld_sku == "6UP07515"
+    assert castoreum.perfumersworld_product_url == (
+        "https://www.perfumersworld.com/view.php?pro_id=6UP07515"
+    )
+    assert castoreum.perfumersworld_document_url == (
+        "https://www.perfumersworld.com/document-list.php?ifra=defaultOpen&pro_id=6UP07515"
+    )
+
+
+def test_census_does_not_collapse_distinct_working_stock_rows() -> None:
+    rows = build_supplier_document_census(
+        inventory_path=PROJECT_ROOT / "inventory.txt",
+        supplier_snapshot_path=(
+            PROJECT_ROOT
+            / "data"
+            / "materials"
+            / "_sources"
+            / "perfumersworld_stock.parsed.json"
+        ),
+    )
+
+    geosmin = [row for row in rows if row.canonical_name == "Geosmin"]
+    assert len(geosmin) == 2
+    assert [row.stock_fraction for row in geosmin] == [0.001, 0.01]
+    assert {row.perfumersworld_sku for row in geosmin} == {"5YW13682"}
+
+    ambiguous_osmanthus = [
+        row
+        for row in rows
+        if row.canonical_name == "Osmanthus Absolute"
+        and row.perfumersworld_match_state == "AMBIGUOUS_EXACT_NAME"
+    ]
+    assert len(ambiguous_osmanthus) == 2
+    assert all(row.perfumersworld_sku == "" for row in ambiguous_osmanthus)
+    assert all(len(row.perfumersworld_candidate_skus) > 1 for row in ambiguous_osmanthus)

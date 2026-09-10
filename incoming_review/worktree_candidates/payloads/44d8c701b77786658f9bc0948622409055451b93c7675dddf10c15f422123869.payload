@@ -1,0 +1,29 @@
+﻿Code,ACC-FL-TUB-01
+Accord,Tuberose Cream v1.0
+Category,Floral
+Brief,"A full tuberose with natural absolute, two specialty bodies, methyl anthranilate, jasmine, ylang, indole and a creamy sandalwood base."
+Recommended use,1–8% of perfume concentrate
+Maturation,14–21 days
+Monte Carlo pass,0.9962
+Final design score,99.5
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Sandalore,neat / as supplied,1.0,55.0,55.0,55.0,275.0,DIRECT,sandalwood,Creamy wood,Creamy sandalwood.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.009017127333484937
+2,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,35.0,35.0,35.0,175.0,DIRECT,musk,Clean diffusion,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.004915612944235773
+3,base,Romandolide,Romandolide neat/as supplied,1.0,30.0,30.0,30.0,150.0,DIRECT,musk,Soft musk,Fruity-clean musk body.,HAVE — NEAT,Use as neat Romandolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.00403739879458003
+4,base,Javanol 20% in DPG,Javanol 20% in DPG,0.2,25.0,5.0,25.0,125.0,PREPARED STOCK,sandalwood,Radiant sandalwood,Radiant sandalwood lift.,HAVE — 20% IN DPG,Use the exact 20% in DPG stock.,,TEXTURAL SUPPORT,0.0032137192308193544
+5,base,Vanillin 10%,10% working stock,0.1,10.0,1.0,10.0,50.0,PREPARED STOCK,vanilla,Tiny creamy cushion,Vanilla warmth.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0011155031268776086
+6,heart_base,Benzyl Salicylate,neat / as supplied,1.0,90.0,90.0,90.0,450.0,DIRECT,floral_air,Binding,Floral binder and substantivity.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.016606869327338018
+7,heart_base,Tuberose Absolute 10%,10% working stock,0.1,80.0,8.0,80.0,400.0,PREPARED STOCK,tuberose,Natural tuberose center,Natural tuberose depth.,HAVE,Use only with exact label/stock-strength accounting.,,IDENTITY CRITICAL,0.02116679902119867
+8,heart_base,Methyl Anthranilate,neat / as supplied,1.0,40.0,40.0,40.0,200.0,DIRECT,jasmine,Narcotic depth,Orange-flower and jasmine depth.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.009252147980172784
+9,heart_base,Jasmine Sambac Absolute 10%,10% working stock,0.1,35.0,3.5,35.0,175.0,PREPARED STOCK,jasmine,Green jasmine support,Green-fruity jasmine sambac texture.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.007907934124973422
+10,heart_base,Ylang-Ylang EO,Ylang-Ylang Comoros Complete EO,1.0,25.0,25.0,25.0,125.0,DIRECT,white_floral,Creamy flower,Creamy natural ylang body.,HAVE — COMOROS COMPLETE + III,Use Comoros Complete when a formula calls generically for Ylang-Ylang EO. Use III only when its drier/technical profile is specifically appropriate.,,TEXTURAL SUPPORT,0.005522420556284895
+11,heart_base,Jasmine Absolute 10%,10% working stock,0.1,20.0,2.0,20.0,100.0,PREPARED STOCK,jasmine,Floral life,Natural jasmine warmth.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.004208582813137799
+12,heart_base,Indole 10%,10% working stock,0.1,8.0,0.8,8.0,40.0,PREPARED STOCK,jasmine,Living indolic shadow,Living-flower indolic shadow.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.0015891314872888578
+13,heart,Hedione,neat / as supplied,1.0,160.0,160.0,160.0,800.0,DIRECT,floral_air,Air,Transparent floral diffusion.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.043755883725787065
+14,heart,Tuberalia Base,Tuberalia Base as supplied; PerfumersWorld specialty base,,130.0,,130.0,650.0,PRODUCT BASIS,tuberose,Tuberose body,Tuberose product-basis body.,HAVE — PRODUCT BASIS,Use as a named product-basis base only.,,IDENTITY CRITICAL,0.04257756197442207
+15,heart,Tuberose EO Volume Grade,Tuberose EO Volume Grade as supplied,,80.0,,80.0,400.0,PRODUCT BASIS,tuberose,Volume-grade floral body,Volume-grade tuberose product basis.,HAVE — PRODUCT BASIS,Use as its own product-basis stock; no active-equivalent precision.,,IDENTITY CRITICAL,0.021239684582883698
+16,heart,Dihydrojasmone,as supplied,1.0,30.0,30.0,30.0,150.0,DIRECT,jasmine,Smooth petals,Smooth jasmine petal body.,HAVE,Use only with exact label/stock-strength accounting.,,TEXTURAL SUPPORT,0.006629356609434498
+17,top_heart,Benzyl Acetate,neat/as supplied,1.0,90.0,90.0,90.0,450.0,DIRECT,jasmine,White-flower ester,Characteristic jasmine fruit-floral ester.,HAVE,Use only with exact label/stock-strength accounting.,,IDENTITY CRITICAL,0.026559007796895573
+18,carrier,DPG,neat,0.0,57.0,0.0,57.0,285.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

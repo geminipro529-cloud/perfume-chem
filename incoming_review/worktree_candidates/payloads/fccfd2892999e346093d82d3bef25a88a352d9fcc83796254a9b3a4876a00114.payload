@@ -1,0 +1,38 @@
+{
+  "dependencies": [
+    {
+      "bytes": 1228587,
+      "current_state": "PRIOR_VERIFIED_BYTES_NOT_MATERIALIZED_ACTIVE_RUNTIME",
+      "filename": "PERFUME_CHEM_CANONICAL_CUTOVER_READY_20260808_v2.zip",
+      "members": 198,
+      "sha256": "e9e325bea9117dbe2a97ff67e77d57705a54244591278fac7a34915a7f0ae523"
+    },
+    {
+      "bytes": 539050,
+      "current_state": "PRIOR_VERIFIED_BYTES_NOT_MATERIALIZED_ACTIVE_RUNTIME",
+      "filename": "UNIVERSAL_ACCORD_INTELLIGENCE_MODULE_v1.zip",
+      "members": 27,
+      "sha256": "8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998",
+      "stale_rejected_sha256": "8a9cbdfb9f28c489b56a8c6391757854def53feb77e70c2dc3e81cc6696cd05a"
+    },
+    {
+      "bytes": 540402,
+      "current_state": "METADATA_ONLY__CONTENT_REFERENCE_NULL",
+      "filename": "Perfume_Chem_Physics_OAV_Decision_Model_v3_4_0_CALIBRATION_READY.zip",
+      "sha256": "8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db"
+    },
+    {
+      "bytes": 65724,
+      "current_state": "METADATA_ONLY__CONTENT_REFERENCE_NULL",
+      "filename": "perfume_chem_physics_oav_v3-3.4.0-py3-none-any.whl",
+      "sha256": "582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5"
+    }
+  ],
+  "guard_validation": "PASS_STANDALONE_NEGATIVE_AND_ARCHIVE_SAFETY_TESTS",
+  "installation_authority": false,
+  "schema_version": "PERFUME_CHEM_V20_EXACT_DEPENDENCY_REGISTRY_v1",
+  "scientific_authority": false,
+  "state": "EXACT_BYTES_STILL_MISSING",
+  "substitution_allowed": false,
+  "verifier_module": "src/perfume_chem_v20_guardrails/exact_bytes.py"
+}

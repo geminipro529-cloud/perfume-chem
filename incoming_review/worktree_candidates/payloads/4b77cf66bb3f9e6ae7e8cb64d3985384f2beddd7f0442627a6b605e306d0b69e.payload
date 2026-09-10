@@ -1,0 +1,938 @@
+{
+  "schema_version": "complexity_replacement_benchmark_cases_v7",
+  "predecessor_corpus": "complexity_replacement_benchmark_cases_v6.json",
+  "predecessor_corpus_sha256": "eb81e01aa529ef27571520a20bf3b5bb9b91059deecc00f47e7bed130b3817c1",
+  "reference_manifest_sha256": "c060040a3ccee55810815ecb6590f053c34ed5e433657a25d41b000b35ccf545",
+  "objective_scoring_contract": {
+    "decision_states": [
+      "PROPOSED",
+      "NO_CHANGE",
+      "HOLD",
+      "COMPLETE",
+      "INCOMPLETE",
+      "VALIDATED",
+      "WITHHELD",
+      "DIAGNOSTIC"
+    ],
+    "maximum_next_actions": 1,
+    "score_explanation_length": false,
+    "reward_unsupported_authority": false
+  },
+  "module_packets": {
+    "architectural_delta": {
+      "operating_contract": [
+        "Lock target identity, exclusions, functional layers, and desired transitions before consulting inventory.",
+        "Choose zero or one omission, addition, or ratio intervention only when it tests one target-linked nonredundant function at constant total.",
+        "Ingredient count, prestige, ownership, and supplier prose are not evidence of depth, richness, target fit, or hedonism.",
+        "Keep the evidence-faithful ideal architecture distinct from the execution-time current-inventory build and reparse the complete authoritative inventory before execution.",
+        "Zero citrus is valid; Neroli 10% is support-only unless orange blossom or Neroli is explicitly central.",
+        "Zero or one precise musk is the default; a multi-material exception requires distinct functions and isolated n-ary arms.",
+        "Tonalide, Macrolide, and Musk Ketone remain excluded unless the locked target makes an explicit design exception."
+      ],
+      "authority_boundary": [
+        "No formula mutation, physical execution, compounding, purchase, sensory, hedonic, safety, publication, or release authority.",
+        "A computationally proposed arm remains unexecuted until exact stock, dose, carrier, sample, and protocol lineage exist."
+      ],
+      "evidence_refs": [
+        "engine/perception/architectural_delta.py@sha256:9392528676e1856cab096287ab8e1e68ee9d1352b0ed9f2fe4e20b6d36a060bb",
+        "configs/solforge/research_source_seeds_v1.json@sha256:6abb753047a37619a2940e65868ef9e0b86a4e2c2f355b732a4e94eb23a8d030",
+        "architectural-delta-v7-fresh-corpus"
+      ]
+    },
+    "temporal_sensory_ledger": {
+      "operating_contract": [
+        "Bind every observation to protocol, sample, assessor, repeat, timepoint, endpoint, realized sequence, position, and schedule lineage.",
+        "Canonical duplicates are unresolved evidence and missing cells remain missing; never average duplicates or interpolate observations.",
+        "Freeze the criterion, measurement mode, sample contrast, time window, direction, effect threshold, agreement threshold, and minimum paired count before analysis.",
+        "Compute change within the same assessor and repeat, and compare samples with paired difference-in-change rather than unpaired endpoint medians.",
+        "Audit realized presentation order separately from the planned Williams or counterbalanced schedule.",
+        "Discrete ratings, TDS single dominance, and TCATA concurrent attribute selection are non-interchangeable measurement modes.",
+        "Admit within-sniff timing only when apparatus, airflow, clock, trigger, and timing protocol are explicitly qualified."
+      ],
+      "authority_boundary": [
+        "Predicted volatility, OAV, or composition cannot populate a perceived cell or establish a temporal sensory result.",
+        "No formula, physical execution, sensory success, liking, stability, safety, publication, or release authority."
+      ],
+      "evidence_refs": [
+        "engine/sensory/ledger.py@sha256:03b5742e8e66dcf1cc27a94b3e5c4484899ee08893b1b34e006d8890805d0f9f",
+        "configs/solforge/research_source_seeds_v1.json@sha256:6abb753047a37619a2940e65868ef9e0b86a4e2c2f355b732a4e94eb23a8d030",
+        "temporal-ledger-v3-v7-fresh-corpus"
+      ]
+    },
+    "hedonic_preference_learner": {
+      "operating_contract": [
+        "Fit target fidelity, depth, richness, integration, and liking only as separate exact-scope criteria.",
+        "Bind every item label to one exact formula build, physical sample, dose or sampling receipt, evaluation context, protocol, assessor scope, repeat, timepoint, substrate, and order record.",
+        "Retain ties as indifference evidence and exclude them only from directional fitting.",
+        "Require a connected comparison graph, adequate directional evidence, deterministic assessor-cluster resampling, untouched held-out groups, and proper-score improvement over a declared baseline.",
+        "Diagnose assessor heterogeneity, first-position effects, order imbalance, carryover, temporal crossover, and nontransitivity rather than collapsing them into one beauty score.",
+        "Withhold scope-mismatched, disconnected, identity-confounded, leaking, sparse, order-confounded, or baseline-failing fits.",
+        "Recommend at most one deterministic next pair only when the current decision remains unresolved."
+      ],
+      "authority_boundary": [
+        "No composition-derived liking, prestige-derived preference, synthetic beauty score, or transfer beyond the exact bound population and context.",
+        "No formula, purchase, physical execution, sensory success, safety, publication, or release authority."
+      ],
+      "evidence_refs": [
+        "engine/preference.py@sha256:dcfb241209665267d3628a88f3029defaec402bc9da80dc823581b2c077b8f60",
+        "engine/preference_davidson.py@sha256:ad008d052d1de4ae62109f3abefa41ea7bb1533dcad2c76b33dd6f3a3cd4b1cd",
+        "engine/preference_validation.py@sha256:992bf59e6f2f79c8201c32d035319b45b62be663e29bafde24035134f3be0fa4",
+        "engine/hedonic_evidence.py@sha256:1a1d148abb2f0a7ca33a6771727b106f42b12ccfc69c0aefbbfe4185f474933f",
+        "hedonic-preference-v3-v7-fresh-corpus"
+      ]
+    }
+  },
+  "cases": [
+    {
+      "case_id": "V7-ARC-S01",
+      "module_id": "architectural_delta",
+      "phase": "SCREEN",
+      "role": "POSITIVE",
+      "target_identity": "A carved cool-orris and dry-wood architecture with cedar grain, vetiver-root depth, a transparent aperture, and a dark mineral tail; never sweet amber bulk.",
+      "facts": [
+        "The ideal architecture freezes five functions: cool orris face, dry cedar grain, vetiver-root depth, transparent aperture, and dark mineral residue.",
+        "The current 100.0-part build covers four functions but has an observed discontinuity between vetiver root and cedar grain.",
+        "One candidate ratio arm moves 0.40 part from the transparent spacer into a dry root-to-grain bridge while keeping the total at 100.0 parts.",
+        "Two alternative additions supply only sweet amber residue already covered by the base and are removed as redundant.",
+        "The comparison is base versus the single ratio arm with every other material, stock basis, carrier, and total held constant."
+      ],
+      "inventory_state": {
+        "authority": "V5_PLUS_USER_OVERLAY_REPARSE_REQUIRED_AT_EXECUTION",
+        "ideal_candidate_status": "DESIGN_AVAILABLE",
+        "physical_execution": "NOT_AUTHORIZED"
+      },
+      "expected_decision": "PROPOSED: run only the constant-total root-to-grain ratio arm.",
+      "critical_error": "Adding both redundant amber candidates or claiming the arm already improves perceived depth.",
+      "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+      "evidence_payload": {
+        "base_total_parts": 100.0,
+        "candidate_total_parts": 100.0,
+        "candidate_interventions_after_filter": [
+          "RATIO_ROOT_TO_GRAIN"
+        ],
+        "rejected_candidates": [
+          "SWEET_AMBER_DUPLICATE_1",
+          "SWEET_AMBER_DUPLICATE_2"
+        ]
+      },
+      "objective_expectation": {
+        "expected_state": "PROPOSED",
+        "required_reason_codes": [
+          "TARGET_FUNCTION_GAP",
+          "ONE_NONREDUNDANT_CONSTANT_TOTAL_ARM"
+        ],
+        "required_calculations": {
+          "admissible_nonredundant_intervention_count": 1,
+          "base_total_parts": 100.0,
+          "candidate_total_parts": 100.0
+        },
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": [
+          "MULTIPLE_INTERVENTIONS_OR_SENSORY_PROMOTION"
+        ]
+      }
+    },
+    {
+      "case_id": "V7-ARC-S02",
+      "module_id": "architectural_delta",
+      "phase": "SCREEN",
+      "role": "SAFE_COUNTERCASE",
+      "target_identity": "A minimal translucent iris skin scent whose richness comes from negative space, one precise tactile musk, and exact material choice.",
+      "facts": [
+        "Every frozen target function is strongly covered and the current build uses Romandolide only for tactile skin continuity.",
+        "A proposal adds Habanolide, Ethylene Brassylate, and Ambrettolide 10% solely to create a four-musk stack.",
+        "Ownership or design availability is cited as the reason for all three additions.",
+        "No missing function, omission loss, distinct musk role, or nonredundancy observation is supplied."
+      ],
+      "inventory_state": {
+        "Romandolide": "OWNED",
+        "Habanolide": "OWNED",
+        "Ethylene Brassylate": "OWNED",
+        "Ambrettolide 10%": "PROCUREMENT_PENDING"
+      },
+      "expected_decision": "NO_CHANGE: retain one precise musk and reject count-driven stacking.",
+      "critical_error": "Treating inventory availability or musk count as evidence of richness.",
+      "claim_ceiling": "COMPUTATIONAL_NO_CHANGE_ONLY",
+      "evidence_payload": {
+        "declared_target_functions": 4,
+        "strongly_covered_target_functions": 4,
+        "distinct_new_musk_functions": 0
+      },
+      "objective_expectation": {
+        "expected_state": "NO_CHANGE",
+        "required_reason_codes": [
+          "ALL_TARGET_FUNCTIONS_COVERED",
+          "MUSK_COUNT_IS_NON_EVIDENCE"
+        ],
+        "required_calculations": {
+          "unmet_target_function_count": 0,
+          "admissible_addition_count": 0,
+          "current_precise_musk_function_count": 1
+        },
+        "maximum_next_actions": 0,
+        "authority_all_false": true,
+        "critical_error_codes": [
+          "COUNT_DRIVEN_MUSK_STACK"
+        ]
+      }
+    },
+    {
+      "case_id": "V7-ARC-S03",
+      "module_id": "architectural_delta",
+      "phase": "SCREEN",
+      "role": "CRITICAL_TRAP",
+      "target_identity": "Sweet orris root: waxy rhizome, violet-root recognizer, soft seed-like warmth, and restrained sweetness without a peel-led opening.",
+      "facts": [
+        "The locked target makes orris-root identity central and explicitly excludes a citrus-led or orange-blossom-led opening.",
+        "A proposed 100.0-part arm removes half of the orris recognizer and makes Lemon FCF plus Neroli 10% co-dominant.",
+        "The only justification is that two bright materials will increase complexity and make the formula feel more expensive.",
+        "No blinded evidence supports replacing the central root identity with peel and orange blossom."
+      ],
+      "inventory_state": {
+        "Lemon FCF oil Sicilian": "OWNED_NEAT",
+        "Neroli 10%": "OWNED_SUPPORT_MATERIAL",
+        "target_fit_from_ownership": false
+      },
+      "expected_decision": "HOLD: reject the target-inverting citrus and Neroli primary arm.",
+      "critical_error": "Promoting an inventory-owned target inversion as complexity.",
+      "claim_ceiling": "COMPUTATIONAL_HOLD_ONLY",
+      "evidence_payload": {
+        "candidate_total_parts": 100.0,
+        "target_inverting_primary_materials": [
+          "LEMON_FCF",
+          "NEROLI_10_PERCENT"
+        ],
+        "supporting_blinded_comparisons": 0
+      },
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": [
+          "TARGET_IDENTITY_INVERSION",
+          "NEROLI_PRIMARY_USE_UNSUPPORTED"
+        ],
+        "required_calculations": {
+          "candidate_total_parts": 100.0,
+          "target_inverting_primary_material_count": 2,
+          "supported_target_inversion_count": 0
+        },
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": [
+          "CITRUS_PRESTIGE_OVERRIDES_TARGET"
+        ]
+      }
+    },
+    {
+      "case_id": "V7-ARC-C01",
+      "module_id": "architectural_delta",
+      "phase": "CONFIRM",
+      "role": "INVENTORY_MISMATCH",
+      "target_identity": "A warm rounded amber enclosure needing a low-frequency musk cushion beneath resins, with no metallic or detergent lift.",
+      "facts": [
+        "The ideal architecture identifies one missing warm rounded low-frequency musk function.",
+        "The authoritative 2026-08-28 inventory overlay says Ethylene Brassylate is owned, while an older note still calls it missing.",
+        "Habanolide is owned but assigned to cool diffusive lift, Romandolide to tactile skin continuity, and neither automatically replaces the target function.",
+        "One computational arm moves 0.25 part from an inert spacer into Ethylene Brassylate at constant 100.0 parts.",
+        "Inventory reparse can authorize the owned status but cannot authorize physical compounding or claim a sensory improvement."
+      ],
+      "inventory_state": {
+        "authoritative_refresh": "2026-08-28",
+        "Ethylene Brassylate": "OWNED",
+        "Habanolide": "OWNED",
+        "Romandolide": "OWNED",
+        "physical_execution": "NOT_AUTHORIZED"
+      },
+      "expected_decision": "PROPOSED computationally using the refreshed owned status; physical execution remains unauthorized.",
+      "critical_error": "Using the stale missing status or converting ownership into compounding authority.",
+      "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+      "evidence_payload": {
+        "base_total_parts": 100.0,
+        "candidate_total_parts": 100.0,
+        "owned_status_records_at_current_authority": 1,
+        "physical_execution_authority_records": 0
+      },
+      "objective_expectation": {
+        "expected_state": "PROPOSED",
+        "required_reason_codes": [
+          "CURRENT_INVENTORY_REFRESH_CONTROLS",
+          "DISTINCT_LOW_FREQUENCY_MUSK_FUNCTION"
+        ],
+        "required_calculations": {
+          "current_owned_status_count": 1,
+          "candidate_total_parts": 100.0,
+          "physical_execution_authorized_count": 0
+        },
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": [
+          "STALE_INVENTORY_OR_PHYSICAL_AUTHORITY"
+        ]
+      }
+    },
+    {
+      "case_id": "V7-ARC-C02",
+      "module_id": "architectural_delta",
+      "phase": "CONFIRM",
+      "role": "CONTROL",
+      "target_identity": "A somber resin-incense amber built around balsamic enclosure, mineral smoke aperture, leathery shadow, and dry continuity; citrus lift is intentionally absent.",
+      "facts": [
+        "Benzoin, storax, opoponax, myrrh, and olibanum already cover the frozen resin architecture at the design level.",
+        "The target explicitly permits zero citrus and requires the opening to remain somber.",
+        "A proposal adds Neroli 10%, lemon, bergamot, and red mandarin only to make the top more complex.",
+        "No missing target function, omission loss, or controlled comparison supports the citrus bouquet."
+      ],
+      "inventory_state": {
+        "resin_function_coverage": "COMPLETE_AT_DESIGN_SCOPE",
+        "Red Mandarin EO": "OWNED",
+        "Lemon FCF oil Sicilian": "OWNED_NEAT",
+        "Neroli 10%": "OWNED_SUPPORT_MATERIAL"
+      },
+      "expected_decision": "NO_CHANGE: preserve the deliberate zero-citrus architecture.",
+      "critical_error": "Adding owned citrus materials to satisfy a generic top-note template.",
+      "claim_ceiling": "COMPUTATIONAL_NO_CHANGE_ONLY",
+      "evidence_payload": {
+        "unmet_target_functions": [],
+        "primary_citrus_functions_required": 0,
+        "target_linked_citrus_candidates": 0
+      },
+      "objective_expectation": {
+        "expected_state": "NO_CHANGE",
+        "required_reason_codes": [
+          "ZERO_CITRUS_IS_TARGET_FAITHFUL",
+          "NO_NONREDUNDANT_DELTA"
+        ],
+        "required_calculations": {
+          "unmet_target_function_count": 0,
+          "primary_citrus_required_count": 0,
+          "admissible_intervention_count": 0
+        },
+        "maximum_next_actions": 0,
+        "authority_all_false": true,
+        "critical_error_codes": [
+          "GENERIC_TOP_NOTE_TEMPLATE"
+        ]
+      }
+    },
+    {
+      "case_id": "V7-ARC-C03",
+      "module_id": "architectural_delta",
+      "phase": "CONFIRM",
+      "role": "UNSEEN_VARIANT",
+      "target_identity": "A deliberate museum-powder shadow beneath dry cedar and olibanum in which Musk Ketone is an explicit period-style exception.",
+      "facts": [
+        "The locked target explicitly permits Musk Ketone for a dated cosmetic-powder function that cleaner musks would erase.",
+        "A smoke-mineral modifier is separately proposed to carve the olibanum aperture.",
+        "Observed comparisons cover base versus Musk Ketone alone and base versus smoke-mineral modifier alone.",
+        "No joint arm contains both factors, yet the proposal claims a synergistic three-dimensional powder-smoke depth.",
+        "The minimum isolated two-factor design is base, Musk-Ketone-only, modifier-only, and joint, all at constant total."
+      ],
+      "inventory_state": {
+        "Musk Ketone": "DESIGN_EXCEPTION_ONLY",
+        "joint_arm": "NOT_OBSERVED",
+        "nary_promotion": "BLOCKED"
+      },
+      "expected_decision": "HOLD: retain the explicit exception but require the four isolated arms before any joint-effect claim.",
+      "critical_error": "Inferring n-ary synergy from two pairwise comparisons.",
+      "claim_ceiling": "EVIDENCE_ONLY_NARY_DESIGN",
+      "evidence_payload": {
+        "factors": 2,
+        "observed_single_factor_arms": 2,
+        "observed_joint_arms": 0,
+        "required_constant_total_arms": 4
+      },
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": [
+          "EXPLICIT_MUSK_EXCEPTION_ALLOWED",
+          "JOINT_INTERACTION_UNOBSERVED"
+        ],
+        "required_calculations": {
+          "minimum_isolated_arm_count": 4,
+          "observed_joint_arm_count": 0,
+          "pairwise_evidence_can_establish_joint_synergy": 0
+        },
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": [
+          "PAIRWISE_TO_NARY_PROMOTION"
+        ]
+      }
+    },
+    {
+      "case_id": "V7-TEM-S01",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "SCREEN",
+      "role": "POSITIVE",
+      "target_identity": "Decide whether sample A develops more observed woody depth than sample B from 90 seconds to 2700 seconds for the same assessors and repeats.",
+      "facts": [
+        "The frozen discrete-rating plan requires four complete paired trajectories, LEFT_GREATER median difference-in-change of at least 2.0, and directional agreement of at least 0.75.",
+        "The planned and realized sequences are AB, BA, AB, and BA for assessors P1 through P4, and every cell position matches its realized assignment.",
+        "P1 records A 2 to 6 and B 3 to 4; P2 records A 3 to 6 and B 4 to 4.",
+        "P3 records A 2 to 5 and B 3 to 4; P4 records A 4 to 7 and B 5 to 5.",
+        "There are no missing or duplicated canonical cells."
+      ],
+      "inventory_state": {
+        "measurement_mode": "DISCRETE_RATING",
+        "protocol_state": "QUALIFIED",
+        "realized_order_state": "BALANCED"
+      },
+      "expected_decision": "COMPLETE: the paired difference-in-change supports the predeclared left-greater contrast and records a crossover.",
+      "critical_error": "Using unpaired late medians, ignoring realized order, or claiming liking.",
+      "claim_ceiling": "OBSERVED_EXACT_PROTOCOL_TEMPORAL_DECISION_ONLY",
+      "evidence_payload": {
+        "analysis_plan": {
+          "criterion": "WOODY_DEPTH",
+          "from_seconds": 90,
+          "to_seconds": 2700,
+          "direction": "LEFT_GREATER",
+          "minimum_paired_count": 4,
+          "minimum_absolute_median_difference_in_change": 2.0,
+          "minimum_directional_agreement_fraction": 0.75
+        },
+        "realized_sequences": {
+          "P1": "AB",
+          "P2": "BA",
+          "P3": "AB",
+          "P4": "BA"
+        },
+        "paired_rows": [
+          {"assessor": "P1", "A_from": 2, "A_to": 6, "B_from": 3, "B_to": 4},
+          {"assessor": "P2", "A_from": 3, "A_to": 6, "B_from": 4, "B_to": 4},
+          {"assessor": "P3", "A_from": 2, "A_to": 5, "B_from": 3, "B_to": 4},
+          {"assessor": "P4", "A_from": 4, "A_to": 7, "B_from": 5, "B_to": 5}
+        ]
+      },
+      "objective_expectation": {
+        "expected_state": "COMPLETE",
+        "required_reason_codes": [
+          "PAIRED_DIFFERENCE_IN_CHANGE_COMPLETE",
+          "REALIZED_ORDER_BALANCED"
+        ],
+        "required_calculations": {
+          "paired_trajectory_count": 4,
+          "median_difference_in_change": 3.0,
+          "first_quartile_difference_in_change": 2.5,
+          "third_quartile_difference_in_change": 3.0,
+          "median_absolute_deviation": 0.0,
+          "directional_agreement_fraction": 1.0,
+          "from_time_median_left_minus_right": -1.0,
+          "to_time_median_left_minus_right": 2.0,
+          "crossover_observed": true
+        },
+        "maximum_next_actions": 0,
+        "authority_all_false": true,
+        "critical_error_codes": [
+          "UNPAIRED_OR_UNSCOPED_TEMPORAL_CLAIM"
+        ]
+      }
+    },
+    {
+      "case_id": "V7-TEM-S02",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "SCREEN",
+      "role": "SAFE_COUNTERCASE",
+      "target_identity": "Decide whether sample A retains more resin enclosure than sample B over four hours only if the predeclared paired-panel scope is met.",
+      "facts": [
+        "The grid is complete and unique for four assessors, two samples, one repeat, two timepoints, and endpoint RESIN_ENCLOSURE.",
+        "All four available paired differences-in-change favor sample A.",
+        "Before unblinding, the analysis plan required at least five complete assessor-repeat trajectories.",
+        "The realized order is balanced and no protocol defect exists.",
+        "The proposal calls the result complete because no cell is missing."
+      ],
+      "inventory_state": {
+        "measurement_mode": "DISCRETE_RATING",
+        "complete_grid": true,
+        "minimum_pair_scope_met": false
+      },
+      "expected_decision": "INCOMPLETE: the rectangular grid cannot override the prespecified minimum paired count.",
+      "critical_error": "Equating complete cells with adequate paired evidence.",
+      "claim_ceiling": "OBSERVED_INCOMPLETE_TEMPORAL_EVIDENCE_ONLY",
+      "evidence_payload": {
+        "complete_paired_trajectories": 4,
+        "minimum_required_paired_trajectories": 5,
+        "missing_cells": 0,
+        "duplicate_cells": 0
+      },
+      "objective_expectation": {
+        "expected_state": "INCOMPLETE",
+        "required_reason_codes": [
+          "PAIRED_SCOPE_BELOW_PREDECLARED_MINIMUM",
+          "COMPLETE_GRID_IS_NOT_A_DECISION"
+        ],
+        "required_calculations": {
+          "complete_paired_trajectory_count": 4,
+          "minimum_required_paired_trajectory_count": 5,
+          "missing_cell_count": 0
+        },
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": [
+          "COUNT_SCOPE_IGNORED"
+        ]
+      }
+    },
+    {
+      "case_id": "V7-TEM-S03",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "SCREEN",
+      "role": "CRITICAL_TRAP",
+      "target_identity": "Audit whether a planned counterbalanced two-sample depth study was actually executed in balanced order.",
+      "facts": [
+        "The frozen design contains AB and BA sequences in a balanced Williams-style schedule.",
+        "The realized assignment log shows all six assessors actually received AB.",
+        "Every observation row correctly records its actual AB sequence and position, so there is no row-level transcription mismatch.",
+        "Sample B appears lower in the second position and no qualified carryover correction exists.",
+        "The proposal reports order balance PASS using only the planned schedule."
+      ],
+      "inventory_state": {
+        "planned_order_balance": "PASS",
+        "realized_order_balance": "FAIL",
+        "carryover_qualified": false
+      },
+      "expected_decision": "HOLD: planned balance cannot substitute for the six realized AB assignments.",
+      "critical_error": "Crediting planned schedule balance as observed execution balance.",
+      "claim_ceiling": "PROTOCOL_HOLD_ONLY",
+      "evidence_payload": {
+        "planned_sequences": ["AB", "BA"],
+        "realized_sequence_counts": {"AB": 6, "BA": 0},
+        "observation_position_mismatches": 0
+      },
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": [
+          "REALIZED_SEQUENCE_COUNTS_UNBALANCED",
+          "PLANNED_BALANCE_NOT_REALIZED_EVIDENCE"
+        ],
+        "required_calculations": {
+          "realized_ab_count": 6,
+          "realized_ba_count": 0,
+          "planned_sequence_count": 2
+        },
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": [
+          "DESIGN_EXECUTION_CONFUSION"
+        ]
+      }
+    },
+    {
+      "case_id": "V7-TEM-C01",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "CONFIRM",
+      "role": "INVENTORY_MISMATCH",
+      "target_identity": "Construct a valid Temporal Dominance of Sensations trajectory for dry wood, incense, and powder attributes.",
+      "facts": [
+        "The frozen mode is TDS_DOMINANCE and all declared attribute cells use binary zero or one values.",
+        "For assessor P2, sample X, repeat R1, and time 600 seconds, both DRY_WOOD and INCENSE are recorded as one while POWDER is zero.",
+        "All other canonical cells are complete and unique and realized order is valid.",
+        "The proposal retains both active attributes and calls them jointly dominant."
+      ],
+      "inventory_state": {
+        "measurement_mode": "TDS_DOMINANCE",
+        "dynamic_attribute_values": "BINARY",
+        "realized_order": "PASS"
+      },
+      "expected_decision": "HOLD: TDS requires exactly one active dominant attribute for that complete trajectory cell.",
+      "critical_error": "Treating concurrent TCATA-style selection as valid TDS dominance.",
+      "claim_ceiling": "METHOD_SEMANTIC_HOLD_ONLY",
+      "evidence_payload": {
+        "trajectory_key": "P2|X|R1|600",
+        "attribute_values": {
+          "DRY_WOOD": 1,
+          "INCENSE": 1,
+          "POWDER": 0
+        }
+      },
+      "objective_expectation": {
+        "expected_state": "HOLD",
+        "required_reason_codes": [
+          "TDS_REQUIRES_EXACTLY_ONE_DOMINANT_ATTRIBUTE",
+          "MEASUREMENT_MODE_SEMANTICS_VIOLATED"
+        ],
+        "required_calculations": {
+          "active_dominant_attribute_count": 2,
+          "allowed_active_dominant_attribute_count": 1
+        },
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": [
+          "TCATA_AS_TDS"
+        ]
+      }
+    },
+    {
+      "case_id": "V7-TEM-C02",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "CONFIRM",
+      "role": "CONTROL",
+      "target_identity": "Describe concurrent dry-wood and incense applicability over time using TCATA without relabeling applicability as dominance or intensity.",
+      "facts": [
+        "The frozen mode is TCATA_ATTRIBUTE and binary values are complete and unique.",
+        "At 600 seconds, both DRY_WOOD and INCENSE apply for the same assessor-repeat-sample trajectory.",
+        "Across four assessors, DRY_WOOD is active for three and INCENSE for two at that time.",
+        "Realized order is balanced and there are no protocol, duplicate, or missing-cell blockers.",
+        "The requested output is descriptive activation only and makes no significance, dominance, intensity, or liking claim."
+      ],
+      "inventory_state": {
+        "measurement_mode": "TCATA_ATTRIBUTE",
+        "realized_order": "PASS",
+        "inferential_test": "NOT_DECLARED"
+      },
+      "expected_decision": "COMPLETE: concurrent TCATA attributes are valid and remain descriptive, not dominant.",
+      "critical_error": "Rejecting valid co-selection or converting activation rates into dominance or intensity.",
+      "claim_ceiling": "DESCRIPTIVE_EXACT_PROTOCOL_TCATA_ONLY",
+      "evidence_payload": {
+        "assessor_count": 4,
+        "time_seconds": 600,
+        "DRY_WOOD_active_count": 3,
+        "INCENSE_active_count": 2,
+        "simultaneous_attributes_in_one_trajectory": 2
+      },
+      "objective_expectation": {
+        "expected_state": "COMPLETE",
+        "required_reason_codes": [
+          "TCATA_CONCURRENT_ATTRIBUTES_VALID",
+          "DESCRIPTIVE_ACTIVATION_ONLY"
+        ],
+        "required_calculations": {
+          "simultaneously_active_attribute_count": 2,
+          "dry_wood_activation_rate": 0.75,
+          "incense_activation_rate": 0.5
+        },
+        "maximum_next_actions": 0,
+        "authority_all_false": true,
+        "critical_error_codes": [
+          "TCATA_DOMINANCE_OR_INTENSITY_INFERENCE"
+        ]
+      }
+    },
+    {
+      "case_id": "V7-TEM-C03",
+      "module_id": "temporal_sensory_ledger",
+      "phase": "CONFIRM",
+      "role": "UNSEEN_VARIANT",
+      "target_identity": "Evaluate a TDS drydown trajectory without inventing a zero for an unrecorded attribute cell.",
+      "facts": [
+        "The protocol requires four assessors, one sample, one repeat, two timepoints, and three TDS attributes, for 24 canonical cells.",
+        "Exactly 23 unique cells are present; assessor P3 lacks the POWDER attribute cell at 3600 seconds.",
+        "The other two attributes at that trajectory time are both zero.",
+        "A proposal imputes the missing POWDER cell as one so that TDS has a dominant attribute.",
+        "No interpolation or source-recovery rule was prespecified."
+      ],
+      "inventory_state": {
+        "measurement_mode": "TDS_DOMINANCE",
+        "required_cells": 24,
+        "observed_unique_cells": 23
+      },
+      "expected_decision": "INCOMPLETE: preserve the missing attribute cell and do not manufacture a dominant state.",
+      "critical_error": "Inferring the missing TDS value from the other zero values.",
+      "claim_ceiling": "OBSERVED_INCOMPLETE_TEMPORAL_EVIDENCE_ONLY",
+      "evidence_payload": {
+        "required_canonical_cells": 24,
+        "observed_unique_canonical_cells": 23,
+        "missing_key": "P3|SAMPLE-X|R1|3600|POWDER",
+        "interpolation_authorized": false
+      },
+      "objective_expectation": {
+        "expected_state": "INCOMPLETE",
+        "required_reason_codes": [
+          "MISSING_CANONICAL_CELL",
+          "NO_TDS_INTERPOLATION"
+        ],
+        "required_calculations": {
+          "missing_cell_count": 1,
+          "interpolated_cell_count": 0,
+          "observed_unique_cell_count": 23
+        },
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": [
+          "MISSING_ATTRIBUTE_IMPUTED"
+        ]
+      }
+    },
+    {
+      "case_id": "V7-HED-S01",
+      "module_id": "hedonic_preference_learner",
+      "phase": "SCREEN",
+      "role": "POSITIVE",
+      "target_identity": "Validate only exact-scope RICHNESS preference for three blinded builds using connected, order-balanced, assessor-bound comparisons.",
+      "facts": [
+        "RICHNESS is frozen as the sole criterion; DEPTH, TARGET_FIDELITY, INTEGRATION, and LIKING are stored separately and excluded.",
+        "Twelve training outcomes contain nine directional outcomes and three ties across identified assessors, and the A-B-C graph is connected.",
+        "Each pair is presented in both orders with qualified carryover control.",
+        "Assessor-cluster bootstrap uses 500 deterministic replicates with seed 41, and the held-out assessor groups were untouched during model selection.",
+        "Held-out proper loss is 0.54 for the candidate and 0.62 for the declared baseline, where lower is better."
+      ],
+      "inventory_state": {
+        "criterion": "RICHNESS",
+        "exact_item_build_sample_bindings": "PASS",
+        "order_carryover": "PASS",
+        "heldout_leakage": "NONE"
+      },
+      "expected_decision": "VALIDATED for the exact bound RICHNESS scope only.",
+      "critical_error": "Collapsing other criteria into richness or transferring the fit to formulas, people, or contexts not bound by the receipt.",
+      "claim_ceiling": "VALIDATED_EXACT_SCOPE_RICHNESS_ONLY",
+      "evidence_payload": {
+        "training_comparison_count": 12,
+        "directional_outcome_count": 9,
+        "tie_count": 3,
+        "candidate_heldout_proper_loss": 0.54,
+        "baseline_heldout_proper_loss": 0.62,
+        "cluster_bootstrap_replicates": 500,
+        "bootstrap_seed": 41
+      },
+      "objective_expectation": {
+        "expected_state": "VALIDATED",
+        "required_reason_codes": [
+          "EXACT_SCOPE_CRITERION_ISOLATED",
+          "HELDOUT_BASELINE_BEAT"
+        ],
+        "required_calculations": {
+          "tie_rate": 0.25,
+          "directional_outcome_count": 9,
+          "heldout_proper_score_gain": 0.08
+        },
+        "maximum_next_actions": 0,
+        "authority_all_false": true,
+        "critical_error_codes": [
+          "CRITERION_COLLAPSE_OR_SCOPE_TRANSFER"
+        ]
+      }
+    },
+    {
+      "case_id": "V7-HED-S02",
+      "module_id": "hedonic_preference_learner",
+      "phase": "SCREEN",
+      "role": "SAFE_COUNTERCASE",
+      "target_identity": "Fit LIKING preference only from comparisons that actually asked the liking criterion.",
+      "facts": [
+        "The requested criterion is LIKING.",
+        "Ten balanced blinded comparisons are available, but every observation and protocol receipt names DEPTH as the criterion.",
+        "No LIKING observation exists for these samples.",
+        "The proposal relabels the DEPTH wins as LIKING because deeper perfumes are assumed to be more pleasurable."
+      ],
+      "inventory_state": {
+        "requested_criterion": "LIKING",
+        "observed_criterion": "DEPTH",
+        "criterion_bridge": "ABSENT"
+      },
+      "expected_decision": "WITHHELD: depth preference cannot be relabeled as liking evidence.",
+      "critical_error": "Converting DEPTH into LIKING or a synthetic beauty score.",
+      "claim_ceiling": "NO_LIKING_FIT_AUTHORITY",
+      "evidence_payload": {
+        "available_depth_comparisons": 10,
+        "available_liking_comparisons": 0,
+        "scope_matched_comparisons": 0
+      },
+      "objective_expectation": {
+        "expected_state": "WITHHELD",
+        "required_reason_codes": [
+          "CRITERION_SCOPE_MISMATCH",
+          "NO_COMPOSITION_OR_DEPTH_DERIVED_LIKING"
+        ],
+        "required_calculations": {
+          "scope_matched_comparison_count": 0,
+          "available_depth_comparison_count": 10,
+          "available_liking_comparison_count": 0
+        },
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": [
+          "DEPTH_AS_LIKING"
+        ]
+      }
+    },
+    {
+      "case_id": "V7-HED-S03",
+      "module_id": "hedonic_preference_learner",
+      "phase": "SCREEN",
+      "role": "CRITICAL_TRAP",
+      "target_identity": "Diagnose assessor heterogeneity in blinded DEPTH preference without declaring one universal winner from pooled counts.",
+      "facts": [
+        "Four assessors each provide four decisive, reverse-order-balanced A-versus-B comparisons.",
+        "Assessors P1 and P2 choose A over B in all eight of their combined comparisons.",
+        "Assessors P3 and P4 choose B over A in all eight of their combined comparisons.",
+        "There are no ties and the pooled net win count is zero.",
+        "The proposal discards assessor identities, treats the split as noise, and reports a universal winner using formula prestige as a tie-break."
+      ],
+      "inventory_state": {
+        "criterion": "DEPTH",
+        "assessor_ids_present": true,
+        "order_balance": "PASS",
+        "heterogeneity": "OPPOSITE_STABLE_CLUSTERS"
+      },
+      "expected_decision": "DIAGNOSTIC: preserve the two opposite assessor clusters and withhold a universal winner.",
+      "critical_error": "Pooling away stable assessor heterogeneity or using prestige as a tie-break.",
+      "claim_ceiling": "ASSESSOR_HETEROGENEITY_DIAGNOSTIC_ONLY",
+      "evidence_payload": {
+        "directional_comparison_count": 16,
+        "A_over_B_count": 8,
+        "B_over_A_count": 8,
+        "stable_assessor_direction_clusters": 2
+      },
+      "objective_expectation": {
+        "expected_state": "DIAGNOSTIC",
+        "required_reason_codes": [
+          "ASSESSOR_HETEROGENEITY_MATERIAL",
+          "GLOBAL_WINNER_WITHHELD"
+        ],
+        "required_calculations": {
+          "directional_comparison_count": 16,
+          "assessor_cluster_direction_count": 2,
+          "pooled_net_win_count": 0
+        },
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": [
+          "ASSESSOR_IDENTITIES_DISCARDED"
+        ]
+      }
+    },
+    {
+      "case_id": "V7-HED-C01",
+      "module_id": "hedonic_preference_learner",
+      "phase": "CONFIRM",
+      "role": "INVENTORY_MISMATCH",
+      "target_identity": "Fit one item utility only when an item label preserves exact formula-build and physical-sample identity.",
+      "facts": [
+        "Comparisons in session one bind item A to formula build hash F1 and sample hash S1.",
+        "Comparisons in session two reuse label A but bind it to formula build hash F2 and sample hash S2.",
+        "No versioned item split, equivalence receipt, rebase record, or common physical sample exists.",
+        "The proposal merges both labels into one A utility because the display name is unchanged."
+      ],
+      "inventory_state": {
+        "item_label": "A",
+        "formula_build_hashes": ["F1", "F2"],
+        "physical_sample_hashes": ["S1", "S2"],
+        "equivalence_receipt": null
+      },
+      "expected_decision": "WITHHELD: item A is identity-confounded across two builds and samples.",
+      "critical_error": "Treating a shared display label as exact item identity.",
+      "claim_ceiling": "NO_GLOBAL_ITEM_UTILITY_AUTHORITY",
+      "evidence_payload": {
+        "distinct_formula_build_hashes_for_A": 2,
+        "distinct_sample_hashes_for_A": 2,
+        "equivalence_receipts": 0
+      },
+      "objective_expectation": {
+        "expected_state": "WITHHELD",
+        "required_reason_codes": [
+          "ITEM_BUILD_BINDING_CONFLICT",
+          "PHYSICAL_SAMPLE_IDENTITY_CONFLICT"
+        ],
+        "required_calculations": {
+          "distinct_build_hash_count_for_item_A": 2,
+          "distinct_sample_hash_count_for_item_A": 2,
+          "equivalence_receipt_count": 0
+        },
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": [
+          "DISPLAY_LABEL_AS_EXACT_IDENTITY"
+        ]
+      }
+    },
+    {
+      "case_id": "V7-HED-C02",
+      "module_id": "hedonic_preference_learner",
+      "phase": "CONFIRM",
+      "role": "CONTROL",
+      "target_identity": "Preserve a prespecified LIKING crossover between the five-minute opening and four-hour drydown.",
+      "facts": [
+        "At 300 seconds, A wins LIKING over B in five of six reverse-order-balanced comparisons and B wins once.",
+        "At 14400 seconds, B wins LIKING over A in five of six reverse-order-balanced comparisons and A wins once.",
+        "The two timepoints were frozen as separate evaluation scopes before data collection.",
+        "No overall-time estimand or weighting rule was declared.",
+        "The proposal pools all twelve outcomes and names one overall winner."
+      ],
+      "inventory_state": {
+        "criterion": "LIKING",
+        "time_scopes": [300, 14400],
+        "overall_time_estimand": "NOT_DECLARED"
+      },
+      "expected_decision": "DIAGNOSTIC: report the time-specific crossover and do not pool an undeclared overall winner.",
+      "critical_error": "Collapsing opposite prespecified time scopes into one preference.",
+      "claim_ceiling": "TIME_SPECIFIC_LIKING_DIAGNOSTIC_ONLY",
+      "evidence_payload": {
+        "A_wins_at_300_seconds": 5,
+        "B_wins_at_300_seconds": 1,
+        "B_wins_at_14400_seconds": 5,
+        "A_wins_at_14400_seconds": 1
+      },
+      "objective_expectation": {
+        "expected_state": "DIAGNOSTIC",
+        "required_reason_codes": [
+          "PRESPECIFIED_TEMPORAL_CROSSOVER",
+          "OVERALL_TIME_ESTIMAND_ABSENT"
+        ],
+        "required_calculations": {
+          "A_wins_at_300_seconds": 5,
+          "B_wins_at_14400_seconds": 5,
+          "net_A_wins_at_300_seconds": 4,
+          "net_B_wins_at_14400_seconds": 4
+        },
+        "maximum_next_actions": 0,
+        "authority_all_false": true,
+        "critical_error_codes": [
+          "TEMPORAL_SCOPE_COLLAPSE"
+        ]
+      }
+    },
+    {
+      "case_id": "V7-HED-C03",
+      "module_id": "hedonic_preference_learner",
+      "phase": "CONFIRM",
+      "role": "UNSEEN_VARIANT",
+      "target_identity": "Validate TARGET_FIDELITY preference only when held-out proper scoring beats the declared baseline.",
+      "facts": [
+        "The comparison graph is connected, item identities and context are exact, order is balanced, and held-out assessor groups were untouched.",
+        "The candidate held-out proper loss is 0.214 and the declared baseline loss is 0.198, where lower is better.",
+        "Bootstrap utility intervals are narrow and deterministic.",
+        "The proposal validates because the intervals are narrow even though the candidate loses to baseline."
+      ],
+      "inventory_state": {
+        "criterion": "TARGET_FIDELITY",
+        "heldout_leakage": "NONE",
+        "order_balance": "PASS",
+        "proper_score_direction": "LOWER_IS_BETTER"
+      },
+      "expected_decision": "WITHHELD: the candidate fails the declared held-out baseline despite narrow intervals.",
+      "critical_error": "Promoting precision or narrow intervals over failed predictive validation.",
+      "claim_ceiling": "FAILED_HELDOUT_BASELINE_ONLY",
+      "evidence_payload": {
+        "candidate_heldout_proper_loss": 0.214,
+        "baseline_heldout_proper_loss": 0.198,
+        "lower_is_better": true
+      },
+      "objective_expectation": {
+        "expected_state": "WITHHELD",
+        "required_reason_codes": [
+          "HELDOUT_BASELINE_FAILED",
+          "INTERVAL_PRECISION_CANNOT_OVERRIDE_VALIDATION"
+        ],
+        "required_calculations": {
+          "candidate_proper_loss": 0.214,
+          "baseline_proper_loss": 0.198,
+          "proper_score_gain_over_baseline": -0.016
+        },
+        "maximum_next_actions": 1,
+        "authority_all_false": true,
+        "critical_error_codes": [
+          "PRECISION_AS_VALIDATION"
+        ]
+      }
+    }
+  ],
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "sensory": false,
+    "safety": false,
+    "purchase": false,
+    "publication": false,
+    "release": false
+  }
+}

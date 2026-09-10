@@ -1,0 +1,138 @@
+from __future__ import annotations
+
+import hashlib
+import json
+from pathlib import Path
+
+from engine.inventory_parser import load_current_user_inventory_overlay
+from engine.pipeline.preflight import resolve_inventory_stock_contract
+from scripts.verify_formula_workflow import parse_formula_markdown
+
+ROOT = Path(__file__).resolve().parents[1]
+RECEIPT = (
+    ROOT
+    / "data"
+    / "governance"
+    / "dpp03_guaiacwood_historical_formula_quarantine_20260905.json"
+)
+
+
+def _pipeline_analysis_section(raw: bytes) -> bytes:
+    start = b"<!-- PIPELINE_ANALYSIS_START -->"
+    end = b"<!-- PIPELINE_ANALYSIS_END -->"
+    return raw[raw.index(start) : raw.index(end) + len(end)]
+
+
+def test_dpp03_guaiacwood_receipt_preserves_exact_historical_formula_bytes() -> None:
+    receipt = json.loads(RECEIPT.read_text(encoding="utf-8"))
+
+    assert receipt["schema_version"] == (
+        "perfume_chem_historical_formula_authority_quarantine_v1"
+    )
+    assert receipt["source_commit"]["commit"] == (
+        "e58f8431e2d973b1af48879fea57e69fbb2a8154"
+    )
+    assert receipt["preservation"] == {
+        "formula_files_modified": False,
+        "formula_rows_rebased": False,
+        "embedded_diagnostics_modified": False,
+        "historical_compounding_text_modified": False,
+        "append_only_receipt": True,
+        "current_successor_formula_created": False,
+    }
+
+    for artifact in receipt["historical_artifacts"]:
+        path = ROOT / artifact["path"]
+        raw = path.read_bytes()
+        analysis = _pipeline_analysis_section(raw)
+
+        assert len(raw) == artifact["size_bytes"]
+        assert hashlib.sha256(raw).hexdigest() == artifact["sha256"]
+        assert len(analysis) == artifact["pipeline_analysis_section_size_bytes"]
+        assert hashlib.sha256(analysis).hexdigest() == (
+            artifact["pipeline_analysis_section_sha256"]
+        )
+        assert artifact["classification"] == (
+            "HISTORICAL_PROVENANCE_IMMUTABLE_CURRENT_EXECUTION_HOLD"
+        )
+
+
+def test_dpp03_guaiacwood_false_assumptions_are_explicitly_quarantined() -> None:
+    receipt = json.loads(RECEIPT.read_text(encoding="utf-8"))
+    artifacts = [ROOT / row["path"] for row in receipt["historical_artifacts"]]
+    texts = [path.read_text(encoding="utf-8") for path in artifacts]
+    assertions = {row["code"]: row for row in receipt["quarantined_assertions"]}
+
+    assert set(assertions) == {
+        "GUAIACWOOD_REMAINDER_COMPOSITION_FABRICATED",
+        "GUAIACWOOD_EQUAL_THIRDS_AUTHORITY_FABRICATED",
+        "GUAIACWOOD_ACTIVE_VOLUME_PROXY_UNAUTHORIZED",
+        "GUAIACWOOD_ACTIVE_PPM_PROXY_UNAUTHORIZED",
+    }
+    for assertion in assertions.values():
+        assert assertion["historical_literal"] in texts[0]
+        assert assertion["historical_literal"] in texts[1]
+        assert "HISTORICAL" in assertion["disposition"]
+
+    assert receipt["current_disposition"] == {
+        "formula_design_provenance": "PRESERVED",
+        "current_inventory_formula_execution": "HOLD",
+        "quantitative_active_ul_ppm_oav": "HOLD",
+        "physical_compounding": "HOLD",
+        "required_resolution": (
+            "Declare the remaining two-thirds composition and carrier, provide "
+            "the required density/mass accounting, and create a separately "
+            "versioned current-stock successor before quantitative execution."
+        ),
+    }
+
+
+def test_dpp03_guaiacwood_current_authority_and_execution_fail_closed() -> None:
+    receipt = json.loads(RECEIPT.read_text(encoding="utf-8"))
+    overlay = load_current_user_inventory_overlay()
+    guaiacwood = next(
+        row for row in overlay["records"] if row["canonical_name"] == "Guaiacwood EO"
+    )
+
+    assert overlay["successor_id"] == receipt["authority_source"]["successor_id"]
+    assert guaiacwood["record_id"] == receipt["authority_source"]["record_id"]
+    assert guaiacwood["stock"] == {
+        "fraction": 1.0 / 3.0,
+        "fraction_exact": "1/3",
+        "fraction_basis": "mass_fraction",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_CURRENT_STOCK_CORRECTION",
+        "execution_ready": False,
+        "execution_hold_reason": (
+            "REMAINING_TWO_THIRDS_COMPOSITION_AND_CARRIER_UNRESOLVED"
+        ),
+    }
+    limits = guaiacwood["authority_limits"]
+    assert limits["carrier_known"] is False
+    assert limits["remaining_two_thirds_composition_known"] is False
+    assert limits["quantitative_dosing_ready"] is False
+    assert limits["active_ul_ppm_oav_math_authorized"] is False
+    assert limits["carrier_displacement_math_authorized"] is False
+    assert limits["historical_formula_rewrite_authorized"] is False
+
+    for artifact in receipt["historical_artifacts"]:
+        formula = parse_formula_markdown(ROOT / artifact["path"])[0]
+        contract = resolve_inventory_stock_contract(formula)
+        guaiac_issues = [
+            issue
+            for issue in contract.data["issues"]
+            if issue["material"] == "Guaiacwood EO"
+        ]
+
+        assert contract.status == artifact["current_inventory_stock_contract_status"]
+        assert guaiac_issues == [artifact["current_inventory_stock_contract_issue"]]
+
+
+def test_dpp03_quarantine_grants_no_execution_or_release_authority() -> None:
+    receipt = json.loads(RECEIPT.read_text(encoding="utf-8"))
+
+    assert set(receipt["authority_limits"].values()) == {False}
+    assert receipt["claim_ceiling"] == (
+        "HISTORICAL_FORMULA_PROVENANCE_ONLY_CURRENT_QUANTITATIVE_AND_PHYSICAL_"
+        "EXECUTION_HOLD"
+    )

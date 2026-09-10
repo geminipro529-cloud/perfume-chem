@@ -1,0 +1,96 @@
+# SUKHUM 35 Thai Male Fruity-Woody Design
+
+**Date:** 2026-08-29  
+**Market:** Thai men buying Thai perfume for themselves  
+**Prototype:** 30 mL EdP, 5,400 uL nominal product-stock concentrate  
+**Claim mode:** `MARKET_AND_FORMULA_HYPOTHESIS_NOT_SENSORY_VALIDATED`  
+**Reference scope:** `AVENTUS_FAMILY_RECOGNITION_WITH_DISTINCT_THAI_MARKET_IDENTITY`
+
+## Goal
+
+Create one commercially legible Thai men's fragrance that is recognizably in the modern Aventus-adjacent fruity-smoky-woody family during the opening and early heart, but is neither an authenticated Creed formula nor a clone. It must feel drier, cleaner, more adult, and less vanilla/amber-sweet than the closest local-market comparison, while retaining enough fruit, controlled charcoal, cedar, vetiver, and diffusive wood to be immediately attractive and usable in Bangkok heat, rain, transit, office air conditioning, and evening social settings.
+
+The working name is **สุขุม 35 / SUKHUM 35**. The name is the optimization target: composed, dry, urban, quietly assured, and mature without smelling old-fashioned.
+
+## Target identity
+
+- Family: modern fruity-smoky transparent woods.
+- Recognition cue: citrus-polished pineapple with a secondary blackcurrant shadow.
+- Differentiator: red mandarin warmth over grapefruit pith, a cleaner Clearwood/cedar/vetiver chassis, and a restrained Siam-benzoin warmth that does not become amber-sweet.
+- Emotional register: calm adult confidence rather than loud nightlife sweetness.
+- Use context: everyday office and transit, with enough structure for evening wear.
+- Non-goal: exact Creed Aventus similarity, batch replication, or a historical green/mossy chypre.
+
+## Functional architecture
+
+### 1. Warm-pith citrus lens
+
+Red Mandarin EO supplies Thai-climate-friendly rounded citrus warmth. Bergamot FCF oil Sicilian supplies the familiar polished cologne entry, while Grapefruit FCF and a small Methyl Pamplemousse support pithy dryness. The citrus set must act as one lens, not four separately countable notes.
+
+### 2. Pineapple-cassis identity nucleus
+
+Allyl Cyclohexyl Propionate supplies the pineapple body. Allyl Amyl Glycolate 10% supplies green pineapple skin and transition. Ethyl 2-Methylbutyrate 0.1% supplies a very small volatile fruit flash. Cassis Base 345B must remain noticeable but secondary. Paradisamide 10%, Damascenone 1%, and Damascone Beta 10% extend fruit through the heart without turning the perfume into candy.
+
+### 3. Radiant spatial heart
+
+Hedione and Hedione HC create internal air, bridge the fruit to wood, and prevent the composition from becoming a top-heavy clone structure. Dihydrojasmone provides a restrained jasmine-texture bridge rather than a floral note.
+
+### 4. Charcoal-patchouli pivot
+
+Clearwood and a controlled amount of Patchouli EO produce clean earthy depth. Cade Oil Rectified 1% is the only explicit smoke material and must remain a charcoal seam, not tar, leather, phenolic ash, or church smoke.
+
+### 5. Dry urban wood body
+
+Iso E Super supplies molecular skin resonance and spatial continuity. Cedarwood oil Virginia supplies identifiable dry cedar. Vetiver EO supplies rooty mineral tension; Vetival supplies a more polished suede-vetiver texture. These materials must form a dimensional wood object, not a list of wood notes.
+
+### 6. Mineral persistence and Thai warmth
+
+The current homogeneous Ambrox Super stock supplies mineral persistence. A trace of Siam Benzoin 50% in DPG rounds the angular wood transition and gives a quiet regional warmth, but must not create a vanilla, balsamic, or oriental identity.
+
+### 7. One exact musk
+
+Romandolide is the sole musk. Its one function is outward projection of the transparent woody body. Habanolide, Ethylene Brassylate, Exaltolide, Zenolide, Galaxolide, Tonalide, Macrolide, Musk Ketone, and procurement-pending Ambrettolide are excluded from the first prototype.
+
+## Explicit exclusions
+
+- Birch Tar Rectified, oakmoss, Evernyl, labdanum, juniper, galbanum, and heavy Nagarmortha: avoid green/vintage chypre or tarry clone drift.
+- Vanilla, ethyl maltol, coumarin, tonka, Ambermax, Amber Xtreme, Opoponax, and Myrrh: avoid sweet amber or resinous genre drift in V1.
+- Ambrofix: heterogeneous crystalline stock with pipettable active concentration on HOLD.
+- Polysantol, Rose de Mai, Rose Essential Oil, and Ambrettolide: unavailable or explicitly rejected.
+- Neroli: support-only by project authority and unnecessary to this identity.
+- Tonalide, Macrolide, and Musk Ketone: no nonredundant exception exists.
+
+## Target / ideal versus current build
+
+The target formula is an active-equivalent architecture and may specify Haitian vetiver and Patchouli Light Oil as the ideal clean-natural textures. It is not a bench instruction.
+
+The current-inventory build must use only live execution-ready stocks with explicit stock forms. It may substitute modeled Vetiver EO India and standard Patchouli EO where the ideal stock identity or physics authority is incomplete. The current build must show raw uL, active uL, active ppm in the 5,400 uL concentrate, stock carrier contribution, and exact subtotal.
+
+## Diagnostic constraints
+
+- Every raw stock dose is at least 10 uL. A smaller target requires a labeled working dilution and an explicit preparation instruction before dosing.
+- All concentrations must be convertible to active ppm in concentrate.
+- ODT and OAV are diagnostics, not sensory proof.
+- Naturals use the pipeline's composite-natural OAV path where available.
+- OAV-per-time and the stock-rebase guard must be inspected after every pipeline run.
+- Opaque bases and approximate w/v stocks retain an authority HOLD for strict active-mass interpretation.
+- Numerical gates may expose imbalance, but edits optimize the SUKHUM 35 identity rather than scores.
+
+## Missing-chemical impact gate
+
+The first build is allowed only if no missing material is identity-critical. Haitian vetiver and Patchouli Light Oil are texture refinements, not identity pillars; their absence from strict runtime physics may be bridged by Vetiver EO India, Vetival, Clearwood, and Patchouli EO. A true high-quality pineapple ester such as allyl hexanoate could improve realism, but the owned ACP/AAG/cassis/damascone system must be tested before procurement. Helvetolide is not required because SUKHUM 35 is intentionally not an Aventus reconstruction and uses one exact projection musk.
+
+## Controlled test contract
+
+The physical acceptance study must use independently prepared, coded, constant-total 30 mL samples:
+
+1. `S35-T`: full current-inventory trial.
+2. `S35-C1`: same total with the Cade 1% stock replaced by matching DPG to test whether the charcoal seam is useful.
+3. `S35-C2`: same total with Cassis Base replaced by matching neutral carrier or concentrate-space compensation to test cassis necessity.
+4. `S35-C3`: same total with Siam Benzoin 50% replaced by matching DPG to test whether Thai warmth improves the transition without adding sweetness.
+
+Evaluate blind on blotter and skin at 0, 5, and 30 minutes; 2, 4, and 8 hours; and next morning if detectable. Randomize presentation order. Record Aventus-family recognition, pineapple realism, cassis level, smoke cleanliness, sweetness, composed/mature identity, liking, projection distance, and persistence separately. No stability, safety, similarity, liking, market-success, or performance claim is promoted from the model alone.
+
+## Readiness boundary
+
+The repository artifacts may become `BENCH_READY_FOR_CONTROLLED_TEST` only after stock-contract, subtotal, dilution, and pipeline diagnostics are verified. Commercial release remains `NOT_RELEASE_READY` pending measured stock identity, IFRA/allergen review against supplier documents, stability, packaging compatibility, and replicated blinded wear results with target Thai consumers.

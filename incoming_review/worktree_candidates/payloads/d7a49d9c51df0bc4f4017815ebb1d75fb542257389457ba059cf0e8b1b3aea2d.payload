@@ -1,0 +1,941 @@
+from pathlib import Path
+
+from engine.families.registry import (
+    all_archetypes,
+    evaluate_family_archetype,
+    get_archetype,
+    infer_archetype,
+)
+from engine.family_scorer import get_family_weights
+from engine.optimizer.perfumer_logic import evaluate_perfumer_logic
+from engine.pipeline.gates import ReleaseGateConfig, gate_formula
+from scripts.verify_formula_workflow import parse_formula_markdown
+
+
+EXPECTED_ARCHETYPES = {
+    "aromatic_fougere.classic_reference",
+    "aromatic_fougere.modern_mineral",
+    "aromatic_fougere.modern_tonka_mass",
+    "citrus_classical.4711_reference",
+    "citrus_aromatic.eau_sauvage_reference",
+    "floral_soliflore.rose_reference",
+    "floral_bouquet.quelques_fleurs_reference",
+    "floral_white.fracas_reference",
+    "floral_muguet.diorissimo_reference",
+    "floral_carnation.bellodgia_reference",
+    "floral_powdery.apres_londee_reference",
+    "floral_green.no19_reference",
+    "floral_aldehydic.no5_reference",
+    "fougere_classical.fougere_royale_reference",
+    "aromatic_fougere.azzaro_reference",
+    "chypre_classical.coty_reference",
+    "chypre_floral.miss_dior_reference",
+    "chypre_fruity.mitsouko_reference",
+    "chypre_green.vent_vert_reference",
+    "chypre_leathery.bandit_reference",
+    "oriental_classical.shalimar_reference",
+    "oriental_soft.jicky_reference",
+    "oriental_floral.lheure_bleue_reference",
+    "ysl_lhomme",
+    "ysl_la_nuit_de_lhomme",
+    "creed_aventus.reference",
+    "creed_absolu_aventus.reference",
+    "montblanc_explorer.reference",
+    "montblanc_explorer_extreme.reference",
+    "sukhum_35.thai_aventus_adjacent",
+    "layton_dna.fresh_thai",
+    "layton_dna.indoor_amber",
+    "layton_dna.night_intense",
+}
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+STUDY_DIR = PROJECT_ROOT / "formulas" / "classical_study"
+
+
+def _formula(ingredients, archetype, brief):
+    total = sum(ingredients.values()) or 1.0
+    return {
+        "number": 1,
+        "name": "Archetype Test",
+        "body": "Archetype Test",
+        "family_archetype": archetype,
+        "ingredients_ul": dict(ingredients),
+        "ingredients_pct": {k: v / total * 100.0 for k, v in ingredients.items()},
+        "dilutions": {},
+    }
+
+
+def _gate_map(report):
+    return {gate.gate: gate for gate in report.gates}
+
+
+def _formula_from_file(name: str):
+    formulas = parse_formula_markdown(STUDY_DIR / name)
+    assert formulas, name
+    return formulas[0]
+
+
+def test_family_registry_has_required_archetype_specs():
+    specs = {spec.key: spec for spec in all_archetypes()}
+
+    assert EXPECTED_ARCHETYPES <= set(specs)
+    for key in EXPECTED_ARCHETYPES:
+        spec = specs[key]
+        assert spec.anchors
+        assert spec.drift_limits
+        assert spec.repair_pool
+        assert spec.oav_targets
+
+
+def test_family_registry_uses_canonical_ambrofix_identity_not_obsolete_stock_labels():
+    references = []
+    for spec in all_archetypes():
+        for rule in (*spec.anchors, *spec.drift_limits):
+            references.extend(rule.materials)
+        references.extend(spec.forbidden_materials)
+        references.extend(spec.repair_pool)
+
+    ambrofix_references = [
+        material
+        for material in references
+        if material.casefold().startswith("ambrofix")
+    ]
+    assert ambrofix_references
+    assert set(ambrofix_references) == {"Ambrofix"}
+
+    alpha_irone_references = [
+        material
+        for material in references
+        if material.casefold().startswith("alpha irone")
+    ]
+    assert alpha_irone_references
+    assert set(alpha_irone_references) == {"Alpha Irone"}
+
+
+def test_rose_reference_counts_owned_rose_naturals_in_rose_core():
+    formula = _formula(
+        {
+            "Rose de Mai Absolute": 500.0,
+            "Rose Essential Oil (Rosa Damascena, India)": 500.0,
+        },
+        "floral_soliflore.rose_reference",
+        "floral_soliflore",
+    )
+    formula["dilutions"] = {
+        "Rose de Mai Absolute": 0.10,
+        "Rose Essential Oil (Rosa Damascena, India)": 0.10,
+    }
+
+    evaluation = evaluate_family_archetype(
+        formula, "floral_soliflore.rose_reference"
+    )
+    rose_core = next(
+        check for check in evaluation.checks if check.name == "rose_core"
+    )
+
+    assert rose_core.value == 10.0
+
+
+def test_rose_reference_counts_romandolide_as_diffusion_support():
+    formula = _formula(
+        {
+            "Phenethyl Alcohol (PEA)": 970.0,
+            "Romandolide": 30.0,
+        },
+        "floral_soliflore.rose_reference",
+        "floral_soliflore",
+    )
+
+    evaluation = evaluate_family_archetype(
+        formula, "floral_soliflore.rose_reference"
+    )
+    diffusion_support = next(
+        check
+        for check in evaluation.checks
+        if check.name == "rose_diffusion_support"
+    )
+
+    assert diffusion_support.value == 3.0
+    assert diffusion_support.status == "PASS"
+
+
+def test_rose_reference_does_not_treat_rose_diffusion_support_as_white_floral_takeover():
+    formula = _formula(
+        {
+            "Phenethyl Alcohol (PEA)": 600.0,
+            "Hedione": 100.0,
+            "Benzyl Salicylate": 150.0,
+            "Hexyl Salicylate": 100.0,
+            "Romandolide": 50.0,
+        },
+        "floral_soliflore.rose_reference",
+        "floral_soliflore",
+    )
+
+    evaluation = evaluate_family_archetype(
+        formula, "floral_soliflore.rose_reference"
+    )
+    takeover = next(
+        check
+        for check in evaluation.checks
+        if check.name == "not_white_floral_takeover"
+    )
+
+    assert takeover.value == 0.0
+    assert takeover.status == "PASS"
+
+
+def test_rose_reference_still_rejects_actual_white_floral_character_takeover():
+    formula = _formula(
+        {
+            "Phenethyl Alcohol (PEA)": 700.0,
+            "Hedione": 100.0,
+            "Benzyl Salicylate": 50.0,
+            "Jasmine FO": 50.0,
+            "Ylang Ylang EO (Extra grade)": 50.0,
+            "Aurantiol": 50.0,
+        },
+        "floral_soliflore.rose_reference",
+        "floral_soliflore",
+    )
+
+    evaluation = evaluate_family_archetype(
+        formula, "floral_soliflore.rose_reference"
+    )
+    takeover = next(
+        check
+        for check in evaluation.checks
+        if check.name == "not_white_floral_takeover"
+    )
+
+    assert takeover.value == 15.0
+    assert takeover.status == "FAIL"
+
+
+def test_family_weight_aliases_resolve_dotted_historical_keys():
+    assert get_family_weights("citrus_classical.4711_reference") == get_family_weights("citrus_classical")
+    assert get_family_weights("fougere_classical.fougere_royale_reference") == get_family_weights("fougere_classical")
+    assert get_family_weights("chypre_classical.coty_reference") == get_family_weights("chypre_classical")
+    assert get_family_weights("oriental_floral.lheure_bleue_reference") == get_family_weights("oriental_floral")
+
+
+def test_ysl_briefs_resolve_to_native_archetypes():
+    assert infer_archetype("ysl_lhomme") == "ysl_lhomme"
+    assert infer_archetype("ysl_la_nuit_de_lhomme") == "ysl_la_nuit_de_lhomme"
+
+
+def test_aventus_explorer_and_sukhum_briefs_resolve_to_distinct_archetypes():
+    assert infer_archetype("creed_aventus") == "creed_aventus.reference"
+    assert infer_archetype("montblanc_explorer") == "montblanc_explorer.reference"
+    assert (
+        infer_archetype("sukhum_35")
+        == "sukhum_35.thai_aventus_adjacent"
+    )
+
+    aventus = get_archetype("creed_aventus.reference")
+    explorer = get_archetype("montblanc_explorer.reference")
+    sukhum = get_archetype("sukhum_35.thai_aventus_adjacent")
+
+    assert aventus is not None and aventus.role == "named_reference"
+    assert explorer is not None and explorer.role == "named_reference"
+    assert sukhum is not None and sukhum.role == "market_target"
+    assert aventus.anchors != explorer.anchors
+    assert sukhum.temporal_oav_rules
+    assert aventus.evidence_tier == "OFFICIAL_NOTES_PLUS_DESIGN_HEURISTICS"
+    assert explorer.evidence_tier == "OFFICIAL_NOTES_PLUS_DESIGN_HEURISTICS"
+    assert sukhum.evidence_tier == "USER_TARGET_PLUS_DESIGN_HEURISTICS"
+    assert aventus.source_urls
+    assert explorer.source_urls
+    assert sukhum.quantitative_authority == "INTERNAL_UNCALIBRATED_GUARDRAILS"
+
+
+def test_four_reference_briefs_resolve_to_distinct_archetypes():
+    expected = {
+        "creed_aventus": "creed_aventus.reference",
+        "creed_absolu_aventus": "creed_absolu_aventus.reference",
+        "montblanc_explorer": "montblanc_explorer.reference",
+        "montblanc_explorer_extreme": "montblanc_explorer_extreme.reference",
+    }
+
+    assert {brief: infer_archetype(brief) for brief in expected} == expected
+    resolved = [get_archetype(key) for key in expected.values()]
+    assert all(spec is not None for spec in resolved)
+    assert len({id(spec) for spec in resolved}) == 4
+
+
+def test_every_named_reference_has_source_observations_and_temporal_rules():
+    for key in (
+        "creed_aventus.reference",
+        "creed_absolu_aventus.reference",
+        "montblanc_explorer.reference",
+        "montblanc_explorer_extreme.reference",
+    ):
+        spec = get_archetype(key)
+        assert spec is not None
+        assert spec.role == "named_reference"
+        assert spec.evidence_tier == "OFFICIAL_NOTES_PLUS_DESIGN_HEURISTICS"
+        assert spec.quantitative_authority == "INTERNAL_UNCALIBRATED_GUARDRAILS"
+        assert spec.reference_observations
+        assert spec.temporal_oav_rules
+        assert all(
+            rule.evidence_tier == "DESIGN_HEURISTIC"
+            for rule in spec.temporal_oav_rules
+        )
+        assert all(
+            rule.measured_reference_headspace is False
+            for rule in spec.temporal_oav_rules
+        )
+        assert all(
+            observation.access_date == "2026-08-31"
+            and observation.source_url
+            and observation.concentration_label
+            and (
+                observation.head_observations
+                or observation.heart_observations
+                or observation.base_observations
+            )
+            and observation.conflict_note
+            for observation in spec.reference_observations
+        )
+
+
+def test_named_reference_axes_are_independent_and_exact_targeted():
+    required_axes = {
+        "creed_aventus.reference": {
+            "aventus_citrus_axis",
+            "aventus_blackcurrant_tension",
+            "aventus_pineapple_axis",
+            "aventus_pepper_jasmine_bridge",
+            "aventus_birch_leather_transition",
+            "aventus_patchouli_axis",
+            "aventus_dry_wood_axis",
+        },
+        "creed_absolu_aventus.reference": {
+            "absolu_bergamot_axis",
+            "absolu_grapefruit_axis",
+            "absolu_ginger_axis",
+            "absolu_pineapple_axis",
+            "absolu_cardamom_axis",
+            "absolu_cinnamon_axis",
+            "absolu_labdanum_axis",
+            "absolu_vetiver_axis",
+            "absolu_patchouli_axis",
+        },
+        "montblanc_explorer.reference": {
+            "explorer_bergamot_axis",
+            "explorer_pepper_axis",
+            "explorer_sage_axis",
+            "explorer_mahonial_axis",
+            "explorer_patchouli_axis",
+            "explorer_ambrofix_axis",
+            "explorer_leather_axis",
+            "explorer_vetiver_axis",
+            "explorer_cedar_axis",
+        },
+        "montblanc_explorer_extreme.reference": {
+            "explorer_extreme_bergamot_axis",
+            "explorer_extreme_sage_axis",
+            "explorer_extreme_patchouli_axis",
+            "explorer_extreme_ambrofix_axis",
+            "explorer_extreme_warm_amber_axis",
+            "explorer_extreme_leather_axis",
+            "explorer_extreme_vetiver_axis",
+        },
+    }
+
+    for key, expected in required_axes.items():
+        spec = get_archetype(key)
+        assert spec is not None
+        anchor_names = {rule.name for rule in spec.anchors}
+        assert anchor_names == expected
+        assert all(rule.materials for rule in spec.anchors)
+
+
+def test_aventus_patchouli_cannot_impersonate_blackcurrant_and_birch_axes():
+    evaluation = evaluate_family_archetype(
+        _formula(
+            {
+                "Bergamot FCF oil Sicilian": 400.0,
+                "Allyl Cyclohexyl Propionate": 30.0,
+                "Patchouli EO": 40.0,
+                "Iso E Super": 5530.0,
+            },
+            archetype="creed_aventus.reference",
+            brief="creed_aventus",
+        ),
+        "creed_aventus.reference",
+    )
+    failed = {row.name for row in evaluation.checks if row.status == "FAIL"}
+    assert {"aventus_blackcurrant_tension", "aventus_birch_leather_transition"} <= failed
+
+
+def test_explorer_bergamot_ambrox_iso_e_cannot_impersonate_complete_architecture():
+    evaluation = evaluate_family_archetype(
+        _formula(
+            {
+                "Bergamot FCF oil Sicilian": 300.0,
+                "Ambrox Super": 300.0,
+                "Iso E Super": 5400.0,
+            },
+            archetype="montblanc_explorer.reference",
+            brief="montblanc_explorer",
+        ),
+        "montblanc_explorer.reference",
+    )
+    failed = {row.name for row in evaluation.checks if row.status == "FAIL"}
+    assert {
+        "explorer_pepper_axis",
+        "explorer_sage_axis",
+        "explorer_mahonial_axis",
+        "explorer_patchouli_axis",
+        "explorer_ambrofix_axis",
+        "explorer_leather_axis",
+        "explorer_vetiver_axis",
+        "explorer_cedar_axis",
+    } <= failed
+
+
+def test_exact_ambrofix_axis_does_not_accept_ambrox_super():
+    evaluation = evaluate_family_archetype(
+        _formula(
+            {"Ambrox Super": 1000.0},
+            archetype="montblanc_explorer_extreme.reference",
+            brief="montblanc_explorer_extreme",
+        ),
+        "montblanc_explorer_extreme.reference",
+    )
+    failed = {row.name for row in evaluation.checks if row.status == "FAIL"}
+    assert "explorer_extreme_ambrofix_axis" in failed
+
+
+def test_named_reference_temporal_rules_use_declared_uncalibrated_guardrails():
+    expected = {
+        "creed_aventus.reference": {
+            "aventus_opening_fruit_under_citrus": ("opening", "opening", None, 0.85),
+            "aventus_heart_bridge_over_fruit": ("heart", "heart", 0.20, None),
+            "aventus_late_heart_wood_overlap": ("late_heart", "late_heart", 0.50, None),
+            "aventus_drydown_fruit_under_wood": ("drydown", "drydown", None, 0.25),
+        },
+        "creed_absolu_aventus.reference": {
+            "absolu_opening_fruit_under_citrus": ("opening", "opening", None, 0.75),
+            "absolu_heart_spice_over_fruit": ("heart", "heart", 0.10, 2.00),
+            "absolu_late_heart_resin_root_overlap": ("late_heart", "late_heart", 0.50, None),
+            "absolu_drydown_fruit_under_resin_root": ("drydown", "drydown", None, 0.25),
+        },
+        "montblanc_explorer.reference": {
+            "explorer_opening_fruit_under_aromatic_citrus": ("opening", "opening", None, 0.20),
+            "explorer_heart_core_over_opening_residue": ("heart", "heart", 0.30, None),
+            "explorer_late_heart_base_overlap": ("late_heart", "late_heart", 0.20, None),
+            "explorer_drydown_fruit_under_base": ("drydown", "drydown", None, 0.05),
+        },
+        "montblanc_explorer_extreme.reference": {
+            "explorer_extreme_opening_fruit_under_citrus": ("opening", "opening", None, 0.10),
+            "explorer_extreme_heart_core_over_citrus": ("heart", "heart", 0.50, None),
+            "explorer_extreme_late_heart_warm_base_overlap": ("late_heart", "late_heart", 0.30, None),
+            "explorer_extreme_drydown_fruit_under_base": ("drydown", "drydown", None, 0.02),
+        },
+    }
+
+    for key, expected_rules in expected.items():
+        spec = get_archetype(key)
+        assert spec is not None
+        rules = {rule.name: rule for rule in spec.temporal_oav_rules}
+        assert set(rules) == set(expected_rules)
+        for name, (numerator_window, denominator_window, minimum, maximum) in expected_rules.items():
+            rule = rules[name]
+            assert (rule.numerator_window, rule.denominator_window) == (
+                numerator_window,
+                denominator_window,
+            )
+            assert (rule.minimum_ratio, rule.maximum_ratio) == (minimum, maximum)
+            assert rule.evidence_tier == "DESIGN_HEURISTIC"
+            assert rule.source_or_derivation == "internal target-linked regression guardrail"
+            assert rule.quantitative_authority == "INTERNAL_UNCALIBRATED_GUARDRAILS"
+            assert rule.measured_reference_headspace is False
+
+
+def test_sukhum_temporal_rules_preserve_existing_rules_and_add_continuity_rules():
+    spec = get_archetype("sukhum_35.thai_aventus_adjacent")
+    assert spec is not None
+    rules = {rule.name: rule for rule in spec.temporal_oav_rules}
+    assert set(rules) == {
+        "s35_opening_fruit_not_over_citrus",
+        "s35_fruit_release_by_heart",
+        "s35_citrus_release_by_heart",
+        "s35_heart_bridge_over_fruit",
+        "s35_late_heart_wood_overlap",
+        "s35_drydown_fruit_under_wood",
+    }
+    assert (rules["s35_opening_fruit_not_over_citrus"].minimum_ratio,
+            rules["s35_opening_fruit_not_over_citrus"].maximum_ratio) == (None, 0.85)
+    assert (rules["s35_fruit_release_by_heart"].minimum_ratio,
+            rules["s35_fruit_release_by_heart"].maximum_ratio) == (None, 0.55)
+    assert (rules["s35_citrus_release_by_heart"].minimum_ratio,
+            rules["s35_citrus_release_by_heart"].maximum_ratio) == (None, 0.70)
+    assert rules["s35_heart_bridge_over_fruit"].minimum_ratio == 0.25
+    assert rules["s35_late_heart_wood_overlap"].minimum_ratio == 0.60
+    assert rules["s35_drydown_fruit_under_wood"].maximum_ratio == 0.15
+
+
+def test_lhomme_native_grammar_rewards_identity_architecture_not_material_count():
+    formula = _formula(
+        {
+            "Bergamot FCF oil Sicilian": 700.0,
+            "Ginger EO": 180.0,
+            "Alpha Isomethyl Ionone (Methyl Ionone Pure)": 260.0,
+            "Black Pepper EO": 20.0,
+            "Hedione": 500.0,
+            "Cedarwood oil Virginia": 700.0,
+            "Vetiver EO": 260.0,
+            "Sandalore": 260.0,
+            "Tonkarome": 180.0,
+            "Iso E Super": 900.0,
+            "Ethylene Brassylate": 300.0,
+        },
+        "ysl_lhomme",
+        "ysl_lhomme",
+    )
+
+    evaluation = evaluate_family_archetype(formula, "ysl_lhomme")
+
+    assert evaluation.status == "PASS"
+    assert {check.name for check in evaluation.checks} >= {
+        "lhomme_citrus_ginger_ignition",
+        "lhomme_tailored_green_spice_heart",
+        "lhomme_transparent_wood_frame",
+        "lhomme_dry_tonka_lower_register",
+    }
+
+
+def test_lhomme_current_tonkarome_label_counts_toward_dry_tonka_anchor():
+    formula = _formula(
+        {
+            "Bergamot FCF oil Sicilian": 700.0,
+            "Ginger EO": 180.0,
+            "Alpha Isomethyl Ionone (Methyl Ionone Pure)": 260.0,
+            "Black Pepper EO": 20.0,
+            "Cedarwood oil Virginia": 700.0,
+            "Vetiver EO": 260.0,
+            "Iso E Super": 900.0,
+            "Tonkarome (20% w/w in TEC)": 180.0,
+        },
+        "ysl_lhomme",
+        "ysl_lhomme",
+    )
+    formula["dilutions"]["Tonkarome (20% w/w in TEC)"] = 0.2
+
+    evaluation = evaluate_family_archetype(formula, "ysl_lhomme")
+    check = next(
+        row for row in evaluation.checks if row.name == "lhomme_dry_tonka_lower_register"
+    )
+
+    assert check.status == "PASS"
+    assert check.value > 0.5
+
+
+def test_perfumer_logic_uses_native_ysl_archetype_instead_of_generic_fallback():
+    formula = _formula(
+        {
+            "Bergamot FCF oil Sicilian": 700.0,
+            "Ginger EO": 180.0,
+            "Alpha Isomethyl Ionone (Methyl Ionone Pure)": 260.0,
+            "Black Pepper EO": 20.0,
+            "Cedarwood oil Virginia": 700.0,
+            "Vetiver EO": 260.0,
+            "Iso E Super": 900.0,
+            "Tonkarome": 180.0,
+        },
+        "ysl_lhomme",
+        "ysl_lhomme",
+    )
+
+    report = evaluate_perfumer_logic(
+        formula,
+        brief="auto",
+        family_archetype="ysl_lhomme",
+    )
+
+    assert report.brief == "ysl_lhomme"
+    assert report.status == "PASS"
+    assert all(check.name != "perfumer_logic_brief" for check in report.checks)
+
+
+def test_la_nuit_native_grammar_rejects_blue_fresh_flood():
+    formula = _formula(
+        {
+            "Cardamom EO": 180.0,
+            "Bergamot FCF oil Sicilian": 250.0,
+            "Lavender EO High Altitude": 260.0,
+            "Cedarwood oil Virginia": 350.0,
+            "Vetiver EO": 180.0,
+            "Tonkarome": 300.0,
+            "Iso E Super": 500.0,
+            "Dihydromyrcenol": 2500.0,
+            "Calone": 900.0,
+        },
+        "ysl_la_nuit_de_lhomme",
+        "ysl_la_nuit_de_lhomme",
+    )
+
+    evaluation = evaluate_family_archetype(formula, "ysl_la_nuit_de_lhomme")
+
+    assert evaluation.status == "FAIL"
+    assert next(
+        check for check in evaluation.checks if check.name == "la_nuit_not_blue_fresh"
+    ).status == "FAIL"
+
+
+def test_classical_study_markdown_smoke_files_parse_and_gate_without_unknown_family():
+    for name in (
+        "01_Eau_de_Cologne_4711_30mL_EdC.md",
+        "04_Floral_Bouquet_Quelques_Fleurs_30mL_EdP.md",
+        "11_Classic_Fougere_Fougere_Royale_30mL_EdT.md",
+        "13_Classic_Chypre_Coty_30mL_EdP.md",
+        "18_Classic_Oriental_Shalimar_30mL_EdP.md",
+    ):
+        formula = _formula_from_file(name)
+        total = sum(formula["ingredients_ul"].values())
+        report = gate_formula(
+            formula,
+            ReleaseGateConfig(
+                brief="generic",
+                family_archetype=formula["family_archetype"],
+                expected_concentrate_ul=total,
+                audit_enabled=False,
+            ),
+        )
+        gates = _gate_map(report)
+
+        assert "unknown family archetype" not in gates["family_drift_detector"].detail.lower()
+        assert gates["family_drift_detector"].status == "PASS"
+
+
+def test_classic_fougere_passes_drift_but_warns_low_novelty():
+    formula = _formula(
+        {
+            "Bergamot FCF": 1200.0,
+            "Lavender EO": 700.0,
+            "Linalyl Acetate": 600.0,
+            "Hedione": 900.0,
+            "Coumarin": 300.0,
+            "Evernyl": 10.0,
+            "Iso E Super": 1500.0,
+            "Vetiver EO": 300.0,
+            "Habanolide": 490.0,
+        },
+        "aromatic_fougere.classic_reference",
+        "aromatic_fougere",
+    )
+    gates = _gate_map(gate_formula(formula, ReleaseGateConfig(brief="aromatic_fougere", audit_enabled=False)))
+
+    assert gates["family_drift_detector"].status == "PASS"
+    assert gates["novelty_vs_reference"].status == "WARN"
+
+
+def test_cologne_reference_passes_drift_but_warns_low_novelty():
+    formula = _formula_from_file("01_Eau_de_Cologne_4711_30mL_EdC.md")
+    total = sum(formula["ingredients_ul"].values())
+    gates = _gate_map(
+        gate_formula(
+            formula,
+            ReleaseGateConfig(
+                brief="generic",
+                family_archetype=formula["family_archetype"],
+                expected_concentrate_ul=total,
+                audit_enabled=False,
+            ),
+        )
+    )
+
+    assert gates["family_drift_detector"].status == "PASS"
+    assert gates["novelty_vs_reference"].status == "WARN"
+
+
+def test_cologne_reference_fails_when_resinous_base_overwhelms_citrus():
+    formula = _formula(
+        {
+            "Bergamot FCF oil Sicilian": 200.0,
+            "Lemon FCF oil Sicilian": 100.0,
+            "Aurantiol": 120.0,
+            "Siam Benzoin": 900.0,
+            "Patchouli EO": 900.0,
+            "Vanillin": 600.0,
+            "Iso E Super": 500.0,
+            "Ethylene Brassylate": 280.0,
+        },
+        "citrus_classical.4711_reference",
+        "generic",
+    )
+    gates = _gate_map(
+        gate_formula(
+            formula,
+            ReleaseGateConfig(
+                brief="generic",
+                family_archetype="citrus_classical.4711_reference",
+                expected_concentrate_ul=sum(formula["ingredients_ul"].values()),
+                audit_enabled=False,
+            ),
+        )
+    )
+
+    assert gates["family_drift_detector"].status == "FAIL"
+
+
+def test_fougere_royale_reference_passes_drift_but_warns_low_novelty():
+    formula = _formula_from_file("11_Classic_Fougere_Fougere_Royale_30mL_EdT.md")
+    total = sum(formula["ingredients_ul"].values())
+    gates = _gate_map(
+        gate_formula(
+            formula,
+            ReleaseGateConfig(
+                brief="generic",
+                family_archetype=formula["family_archetype"],
+                expected_concentrate_ul=total,
+                audit_enabled=False,
+            ),
+        )
+    )
+
+    assert gates["family_drift_detector"].status == "PASS"
+    assert gates["novelty_vs_reference"].status == "WARN"
+
+
+def test_mineral_fougere_fails_when_marine_fresh_floods_backbone():
+    formula = _formula(
+        {
+            "Bergamot FCF": 600.0,
+            "Lavender EO": 200.0,
+            "Coumarin": 50.0,
+            "Evernyl": 10.0,
+            "Iso E Super": 500.0,
+            "Dihydromyrcenol": 3000.0,
+            "Calone": 1000.0,
+            "Floralozone": 640.0,
+        },
+        "aromatic_fougere.modern_mineral",
+        "aromatic_fougere",
+    )
+    gates = _gate_map(gate_formula(formula, ReleaseGateConfig(brief="aromatic_fougere", audit_enabled=False)))
+
+    assert gates["family_drift_detector"].status == "FAIL"
+    assert "marine_not_shower_gel" in gates["family_drift_detector"].detail
+
+
+def test_tonka_fougere_fails_when_it_becomes_fruity_gourmand_amber():
+    formula = _formula(
+        {
+            "Bergamot FCF": 600.0,
+            "Lavender EO": 400.0,
+            "Coumarin": 500.0,
+            "Evernyl": 10.0,
+            "Iso E Super": 700.0,
+            "Apritone": 1500.0,
+            "Hexyl Acetate": 800.0,
+            "Vanillin": 800.0,
+            "Ethyl Vanillin": 690.0,
+        },
+        "aromatic_fougere.modern_tonka_mass",
+        "aromatic_fougere",
+    )
+    gates = _gate_map(gate_formula(formula, ReleaseGateConfig(brief="aromatic_fougere", audit_enabled=False)))
+
+    assert gates["family_drift_detector"].status == "FAIL"
+    assert "fruit_not_amber_fruity" in gates["family_drift_detector"].detail
+
+
+def test_layton_fails_when_moss_coumarin_turns_it_into_fougere():
+    formula = _formula(
+        {
+            "Bergamot FCF": 600.0,
+            "Apritone": 80.0,
+            "Hexyl Acetate": 50.0,
+            "Ethyl 2-Methylbutyrate": 20.0,
+            "Terpinyl Acetate": 100.0,
+            "Eugenol": 20.0,
+            "Hedione": 500.0,
+            "Iso E Super": 1000.0,
+            "Ambrox Super": 1000.0,
+            "Sandalore": 500.0,
+            "Habanolide": 500.0,
+            "Vanillin": 300.0,
+            "Coumarin": 700.0,
+            "Evernyl": 200.0,
+            "Vetiver EO": 430.0,
+        },
+        "layton_dna.fresh_thai",
+        "layton_dna",
+    )
+    gates = _gate_map(gate_formula(formula, ReleaseGateConfig(brief="layton_dna", audit_enabled=False)))
+
+    assert gates["family_drift_detector"].status == "FAIL"
+    assert "fougere_shadow_not_mossy" in gates["family_drift_detector"].detail
+
+
+def test_layton_fails_when_signature_top_and_base_disappear():
+    formula = _formula(
+        {
+            "Bergamot FCF": 2000.0,
+            "Lavender EO": 1000.0,
+            "Hedione": 1000.0,
+            "Vanillin": 100.0,
+            "Ethyl Vanillin": 100.0,
+            "Linalyl Acetate": 900.0,
+            "Dihydromyrcenol": 900.0,
+        },
+        "layton_dna.fresh_thai",
+        "layton_dna",
+    )
+    gates = _gate_map(gate_formula(formula, ReleaseGateConfig(brief="layton_dna", audit_enabled=False)))
+
+    assert gates["family_drift_detector"].status == "FAIL"
+    assert "layton_apple_hook" in gates["family_drift_detector"].detail
+    assert "layton_cardamom_like_spice" in gates["family_drift_detector"].detail
+
+
+def test_floral_bouquet_reference_passes_drift_but_warns_low_novelty():
+    formula = _formula_from_file("04_Floral_Bouquet_Quelques_Fleurs_30mL_EdP.md")
+    total = sum(formula["ingredients_ul"].values())
+    gates = _gate_map(
+        gate_formula(
+            formula,
+            ReleaseGateConfig(
+                brief="generic",
+                family_archetype=formula["family_archetype"],
+                expected_concentrate_ul=total,
+                audit_enabled=False,
+            ),
+        )
+    )
+
+    assert gates["family_drift_detector"].status == "PASS"
+    assert gates["novelty_vs_reference"].status == "WARN"
+
+
+def test_green_floral_fails_when_it_turns_into_fruity_amber():
+    formula = _formula(
+        {
+            "Galbanum Resinoid": 30.0,
+            "Phenethyl Alcohol": 150.0,
+            "Hydroxycitronellal": 100.0,
+            "Apritone": 1200.0,
+            "Vanillin": 700.0,
+            "Ethyl Vanillin": 600.0,
+            "Iso E Super": 1200.0,
+            "Galaxolide": 1200.0,
+            "Siam Benzoin": 820.0,
+        },
+        "floral_green.no19_reference",
+        "generic",
+    )
+    gates = _gate_map(
+        gate_formula(
+            formula,
+            ReleaseGateConfig(
+                brief="generic",
+                family_archetype="floral_green.no19_reference",
+                expected_concentrate_ul=sum(formula["ingredients_ul"].values()),
+                audit_enabled=False,
+            ),
+        )
+    )
+
+    assert gates["family_drift_detector"].status == "FAIL"
+
+
+def test_chypre_classical_reference_passes_drift_but_warns_low_novelty():
+    formula = _formula_from_file("13_Classic_Chypre_Coty_30mL_EdP.md")
+    total = sum(formula["ingredients_ul"].values())
+    gates = _gate_map(
+        gate_formula(
+            formula,
+            ReleaseGateConfig(
+                brief="generic",
+                family_archetype=formula["family_archetype"],
+                expected_concentrate_ul=total,
+                audit_enabled=False,
+            ),
+        )
+    )
+
+    assert gates["family_drift_detector"].status == "PASS"
+    assert gates["novelty_vs_reference"].status == "WARN"
+
+
+def test_leather_chypre_fails_when_juicy_fruit_and_vanilla_replace_leather_spine():
+    formula = _formula(
+        {
+            "Bergamot FCF oil Sicilian": 220.0,
+            "Patchouli EO": 220.0,
+            "Evernyl": 60.0,
+            "Apritone": 1100.0,
+            "Hexyl Acetate": 1000.0,
+            "Vanillin": 850.0,
+            "Ethyl Vanillin": 760.0,
+            "Galaxolide": 800.0,
+            "Iso E Super": 990.0,
+        },
+        "chypre_leathery.bandit_reference",
+        "generic",
+    )
+    gates = _gate_map(
+        gate_formula(
+            formula,
+            ReleaseGateConfig(
+                brief="generic",
+                family_archetype="chypre_leathery.bandit_reference",
+                expected_concentrate_ul=sum(formula["ingredients_ul"].values()),
+                audit_enabled=False,
+            ),
+        )
+    )
+
+    assert gates["family_drift_detector"].status == "FAIL"
+
+
+def test_oriental_classical_reference_passes_drift_but_warns_low_novelty():
+    formula = _formula_from_file("18_Classic_Oriental_Shalimar_30mL_EdP.md")
+    total = sum(formula["ingredients_ul"].values())
+    gates = _gate_map(
+        gate_formula(
+            formula,
+            ReleaseGateConfig(
+                brief="generic",
+                family_archetype=formula["family_archetype"],
+                expected_concentrate_ul=total,
+                audit_enabled=False,
+            ),
+        )
+    )
+
+    assert gates["family_drift_detector"].status == "PASS"
+    assert gates["novelty_vs_reference"].status == "WARN"
+
+
+def test_soft_oriental_fails_when_blue_fresh_materials_displace_amber_core():
+    formula = _formula(
+        {
+            "Bergamot FCF oil Sicilian": 260.0,
+            "Lavender EO": 150.0,
+            "Dihydromyrcenol": 2200.0,
+            "Calone": 900.0,
+            "Floralozone": 900.0,
+            "Iso E Super": 700.0,
+            "Galaxolide": 600.0,
+            "Ethylene Brassylate": 290.0,
+        },
+        "oriental_soft.jicky_reference",
+        "generic",
+    )
+    gates = _gate_map(
+        gate_formula(
+            formula,
+            ReleaseGateConfig(
+                brief="generic",
+                family_archetype="oriental_soft.jicky_reference",
+                expected_concentrate_ul=sum(formula["ingredients_ul"].values()),
+                audit_enabled=False,
+            ),
+        )
+    )
+
+    assert gates["family_drift_detector"].status == "FAIL"

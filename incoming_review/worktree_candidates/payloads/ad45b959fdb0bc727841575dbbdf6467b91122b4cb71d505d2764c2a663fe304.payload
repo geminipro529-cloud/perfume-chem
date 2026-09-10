@@ -1,0 +1,8 @@
+{
+  "case_id": "SCR-CITRUS-01",
+  "phase": "SCREEN",
+  "model_identity": "GPT-5.6 Sol",
+  "reasoning_setting": "xhigh",
+  "conversation_id": "01a03a4d-63b4-7e31-b460-1f6a52493172",
+  "output_text": "{\"decision\":\"NO_CHANGE\",\"interventions\":[],\"materials\":[\"Orris Givco\",\"Iralia\",\"Vanillin\"],\"blockers\":[\"The target identity and ideal architecture require citrus to be absent.\",\"No citrus material is included in the permitted materials.\"],\"inventory_statuses\":{\"Orris Givco\":\"CURRENT_AND_PERMITTED\",\"Iralia\":\"CURRENT_AND_PERMITTED\",\"Vanillin\":\"CURRENT_AND_PERMITTED\",\"citrus\":\"ABSENT_AND_NOT_PERMITTED\"},\"arms\":[{\"arm_id\":\"CURRENT_BUILD_NO_CHANGE\",\"materials\":[\"Orris Givco\",\"Iralia\",\"Vanillin\"],\"change\":\"NONE\"}],\"nary_factors\":[],\"next_comparison\":\"Use the unchanged current inventory build as the comparator; do not create a citrus-addition arm.\",\"authority_flags\":{\"compounding\":false,\"formula\":false,\"hedonic\":false,\"physical\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}"
+}

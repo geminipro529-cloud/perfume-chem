@@ -1,0 +1,161 @@
+# L'Homme Luxe Hedonic Flanker Suite — DHP 2025 V1 — Blind Trial Guide
+
+## Status and authority
+
+This guide defines a future controlled sensory experiment. Physical preparation, skin testing, procurement, wearer use, safety clearance, stability clearance, and release are **NOT AUTHORIZED**. Formula artifacts remain design hypotheses under their own `NOT TESTED / HOLD` ceilings. A passing computational gate, donor audit, or blind score does not authorize release.
+
+The guide consumes these versioned artifacts and no silent successor:
+
+- `formulas/L_Homme_Luxe_Ginger_Silhouette_DHP2025_StockCorrected_Control_V6_30mL_20pct_Development.md`
+- `formulas/L_Homme_Luxe_Neroli_Gingembre_Luminous_Silk_DHP2025_V1_30mL_20pct_Development.md`
+- `formulas/L_Homme_Luxe_Osmanthus_Suede_Apricot_Shadow_DHP2025_V1_30mL_20pct_Development.md`
+- `formulas/L_Homme_Luxe_Mandarine_Tonka_Golden_Chamber_DHP2025_V1_30mL_20pct_Development.md`
+- `formulas/L_Homme_Luxe_Genievre_Cedre_Cool_Dry_Tailoring_DHP2025_V1_30mL_20pct_Development.md`
+- `formulas/L_Homme_Luxe_Pluie_Violette_Wet_Mineral_Cloth_DHP2025_V1_30mL_20pct_Development.md`
+
+## Experimental question
+
+Which candidate, if any, produces greater perceptual pleasure, transition quality, spatial depth, tactile differentiation, and re-smell desire than the stock-corrected L'Homme control while retaining a minimum L'Homme-family floor? Likeness is not the primary objective. Family-floor recognizability and overall liking are recorded separately so a beautiful independent perfume is not mislabeled as a family flanker.
+
+No ingredient count, modeled OAV, generic score, pipeline status, donor status, or formula name is disclosed to assessors.
+
+## Non-negotiable preparation controls
+
+For every screen, prepare **two independently prepared complete sets** on separate preparation occasions from the exact formula and stock labels. Do not split one bulk blend into nominal replicates. Each arm uses exactly 6,000 uL of its parser-visible formula concentrate and is brought to the same final volume and nominal test concentration under a documented carrier-completion schedule.
+
+### Constant-total, carrier-matched matrix
+
+1. Audit the exact carrier contribution of every diluted stock in both arms: ethanol, DEP, DPG, TEC, or another verified carrier. Do not infer an unspecified carrier.
+2. Define the pair's common carrier vector as the componentwise maximum of the verified carrier totals in the two 6,000 uL formula concentrates.
+3. Add only each arm's missing carrier quantities as matrix completion outside the formula concentrate. Do not change any active material dose.
+4. Adjust ethanol so both arms reach the same final total volume. Record formula-concentrate input, every carrier addition, and final ethanol separately.
+5. If any stock carrier, concentration basis, homogeneity, density-dependent conversion, or working-stock identity needed for matching is unresolved, mark that screen `HOLD`; do not substitute a proxy.
+6. Use the same substrate lot, application mass/volume, application geometry, container, headspace, equilibration time, room, temperature band, and assessment schedule.
+
+The 6,000 uL formula totals remain constant. Matrix completion prevents DEP/DPG/TEC differences from masquerading as a perfume preference and is never a formula rebase.
+
+## Blinding, allocation, and adaptation control
+
+- A coordinator who does not score assigns fresh **anonymous codes** to all samples and retains the key until data lock.
+- Use **AB/BA** counterbalancing: within a dyad, Set 1 is evaluated in one order and Set 2 in the reverse order; across assessors, balance which identity is A.
+- Require **free description before scoring** at every time point. The assessor must describe what is present, transitions, texture, space, and defects before seeing any scale labels.
+- One session contains one dyad only: two perfumes, each represented by the scheduled independently prepared set. Never compare all six perfumes together.
+- Separate sessions by at least 24 hours; use a longer washout after fatigue, anosmia, illness, or strong environmental odor exposure. Randomize the five session dates rather than always moving LH-01 to LH-05.
+- No coffee-bean reset. Use clean air, time, and unscented conditions. Record deviations.
+
+## Five independent control-versus-candidate screens
+
+|Screen|Control|Candidate|Candidate-specific hypothesis|Candidate-specific rejection defects|
+|---:|---|---|---|---|
+|1|Stock-corrected L'Homme V6|LH-01 Néroli Gingembre|Luminous bitter-green neroli and ginger silk improve opening/transition pleasure without cologne thinness|soap, detergent, white-floral takeover, bitter pith, citrus glare, hollow clean musk|
+|2|Stock-corrected L'Homme V6|LH-02 Osmanthus Suede|Apricot-floral osmanthus skin and fine suede produce a richer, softer transition|peach candy, jam, lipstick powder, leathery harshness, muddy fruit-suede, tobacco drift|
+|3|Stock-corrected L'Homme V6|LH-03 Mandarine Tonka|Juicy mandarin pressure yields through violet tailoring into a dry hayed golden chamber|vanilla dessert, cinnamon pastry, syrupy amber, powder blanket, LNDL cardamom drift|
+|4|Stock-corrected L'Homme V6|LH-04 Genièvre Cèdre|Juniper recurs through differentiated cedar and root dryness rather than vanishing after the top|gin, pine cleaner, aromatic-fougère takeover, shower gel, terpene harshness, flat pencil cedar|
+|5|Stock-corrected L'Homme V6|LH-05 Pluie Violette|Wet ginger and suspended violet cloth release through molecular mineral air onto cedar/vetiver|melon, detergent, metallic glare, empty transparency, damp cardboard, powder-only violet|
+
+Each screen is analyzed independently first. Cross-candidate ranking is exploratory and must not erase the matched control comparison.
+
+## Exact causal dose arms and carrier-vector gates
+
+These are second-stage mechanism tests, not substitutes for the five control-versus-candidate screens. Every arm remains 6,000 uL formula concentrate, uses an independently prepared complete batch, and receives matrix completion outside the concentrate before final ethanol adjustment.
+
+|Candidate|Main dose|Low or omission dose|Exact constant-total replacement|Carrier-vector decision|
+|---|---|---|---|---|
+|LH-01 petal-body|Aurantiol 150 uL + Oranger Crystals 10% DPG 110 uL + Farnesol 20 uL|Omit all three|Add 280 uL DPG to the omission concentrate; add 181 uL DPG outside the main concentrate because its Oranger stock already contributes nominal 99 uL DPG|Executable only after Oranger's labeled 10% w/v stock homogeneity is verified; the test isolates the whole 280 uL block, not a single molecule|
+|LH-02 fruit-skin|Damascol 10% 100 uL + Damascenone 1% 20 uL|Omit both|Replace each omitted stock with the same volume of its own verified carrier|**HOLD:** actual Damascol and Damascenone carriers are unresolved. Do not use the previous 120 uL DPG proxy|
+|LH-03 natural-tonka pressure|Tonka Bean Absolute 10% DPG 1,880 uL|Tonka stock 940 uL|Add 940 uL DPG inside the low arm; add 94 uL DPG outside the main arm to match the low arm's nominal DPG total before ethanol completion|Tests the large natural-tonka pressure at one bounded lower dose; Tonkarome/Coumarin stay absent and mass-dose HOLD|
+|LH-04 Juniper dose-isolation triangle|Juniper Berry EO 10% v/v DPG 100 uL|`juniper low`: 50 uL stock + 50 uL DPG; `juniper omission`: 0 uL stock + 100 uL DPG|The 100 uL slot is constant in all arms. Outside the concentrate add 10 uL DPG to main; add 10 uL of a labeled 50% v/v DPG-in-ethanol completion stock to low; add none to omission. Prepare completion stock from 100 uL DPG + 100 uL ethanol and equalize final ethanol|Main, low, and omission each contain 100 uL DPG and 10/5/0 uL nominal-active Juniper; every measured aliquot is at least 10 uL|
+|LH-05 wet berry-violet trace|Beta Ionone 0.1% TEC 20 uL|Omit the 20 uL stock|20 uL verified TEC replaces the stock|The nominal 0.02 uL active displacement cannot be directly carrier-corrected under the 10 uL floor; use independently mass-prepared replicated matrices or mark the causal claim **HOLD**. Do not treat a null result as testing Beta Ionone if the vector is unresolved|
+
+### Individually executable modeled-OAV-below-1 survival arms
+
+The candidate files contain the governing row-level rationale and disposition. For every neat row below, the omission concentrate replaces the full row volume with verified DPG; the main arm receives that same DPG volume outside its 6,000 uL concentrate, and final ethanol is reduced by the outside-completion amount. For a labeled DPG or TEC stock, the omission replaces the full stock volume one-for-one with its verified carrier. Thus every candidate concentrate stays 6,000 uL and the completed dyad is carrier- and total-matched. Each line is prepared and judged separately; combining omissions does not test an individual survival hypothesis.
+
+|Candidate|Individually isolated row(s), exact current dose|Exact omission replacement|Authority / decision|
+|---|---|---|---|
+|LH-01|Parmavert 60 uL; Dihydro Beta Ionone 100 uL; Cedarwood oil Virginia 100 uL; Hexyl Salicylate 350 uL; Benzyl Benzoate 350 uL; Farnesol 20 uL; Amberwood F 140 uL|For each separate arm, equal raw volume verified DPG inside omission plus equal raw volume DPG outside main before ethanol completion|Executable as seven independent `KEEP_STRUCTURAL` tests; no row is called perceptible|
+|LH-01|Tonka Bean Absolute 10% DPG 100 uL; Oranger Crystals 10% DPG 110 uL|Replace the selected full labeled stock volume one-for-one with DPG|Executable as two independent `KEEP_STRUCTURAL` tests using the exact labeled DPG stocks|
+|LH-02|Cedarwood oil Virginia 250 uL; Hexyl Salicylate 300 uL; Benzyl Benzoate 400 uL; Parmavert 60 uL; Farnesol 20 uL|For each separate arm, equal raw volume verified DPG inside omission plus equal raw volume DPG outside main before ethanol completion|Executable as five independent `KEEP_STRUCTURAL` tests|
+|LH-02|Tonka Bean Absolute 10% DPG 100 uL|Replace the full labeled stock volume with 100 uL verified DPG|Executable as one `KEEP_STRUCTURAL` stock-versus-carrier test|
+|LH-03|Dihydro Beta Ionone 100 uL; Parmavert 40 uL; Cedarwood oil Virginia 200 uL; Farnesol 20 uL|For each separate arm, equal raw volume verified DPG inside omission plus equal raw volume DPG outside main before ethanol completion|Executable as four independent `KEEP_STRUCTURAL` tests|
+|LH-04|Parmavert 60 uL; Dihydro Beta Ionone 100 uL; Freesia HDI 40 uL; Clearwood 650 uL; Hexyl Salicylate 200 uL; Benzyl Benzoate 450 uL; Farnesol 20 uL|For each separate arm, equal raw volume verified DPG inside omission plus equal raw volume DPG outside main before ethanol completion|Executable as seven independent `KEEP_STRUCTURAL` tests; Clearwood is isolated alone despite its larger matrix volume|
+|LH-05|Cedarwood oil Virginia 250 uL; Hexyl Salicylate 250 uL|For each separate arm, equal raw volume verified DPG inside omission plus equal raw volume DPG outside main before ethanol completion|Executable as two independent `KEEP_STRUCTURAL` tests|
+|LH-05|Geosmin 0.1% TEC 10 uL|Replace the complete 10 uL labeled stock with 10 uL verified TEC|Executable as one `KEEP_STRUCTURAL` stock-versus-carrier test at the 10 uL floor|
+|LH-05|Suederal 10% 150 uL|After carrier verification, replace the complete 150 uL labeled stock with 150 uL of that verified carrier|`DATA_HOLD`: not executable while carrier identity is unresolved; it cannot consume a blind trial|
+
+No causal arm is physically authorized here. A row marked HOLD cannot consume a primary blinded trial.
+
+## Time course
+
+Use separate marked substrates for destructive handling where necessary. Record at:
+
+|Window|Clock time|Primary observation|
+|---|---:|---|
+|Immediate|0 minutes|First descriptive image, pressure, clarity, pleasure, harshness|
+|Opening|5 minutes|Top integration, ginger movement, fatigue onset|
+|Early transition|30 minutes|Connection from aperture to cloth/interior; takeover defects|
+|Heart|120 minutes|Spatial dimensionality, texture, richness, transition completion|
+|Late heart|6 hours|Drydown pleasure, recurrence, muddiness, persistence of target motif|
+|Drydown|24 hours|Residue identity, pleasure, re-smell desire, fatigue or flatness|
+
+Do not interpolate an unobserved transition. A missing time point remains missing.
+
+## Response sheet
+
+### A. Free description
+
+Before any number, write:
+
+1. immediate image or association;
+2. named facets actually perceived;
+3. front/middle/back or near/far spatial organization;
+4. texture and changes since the previous time;
+5. what connects the stages and what breaks;
+6. any takeover, fatigue, muddiness, harshness, or emptiness.
+
+### B. Separate 0–10 ratings
+
+Do not combine overall liking, transition pleasure, drydown pleasure, or re-smell desire into one precomputed score:
+
+|Criterion|Question|
+|---|---|
+|Family-floor recognizability|Does this retain a tailored L'Homme-family gesture: bright/wet cut, violet-green cloth, warm woody yielding, coherent dry residue?|
+|Opening pleasure|How pleasurable is the first five minutes?|
+|Overall liking|How much do you like the perfume at this time, independent of fidelity?|
+|Transition pleasure|How pleasurable and inevitable is the movement from the preceding stage?|
+|Drydown pleasure|How pleasurable is the late residue?|
+|Re-smell desire|How strongly do you want to smell it again?|
+|Spatial dimensionality|Are there perceivable planes, depth, negative space, and movement rather than one flat chord?|
+|Textural differentiation|Are surfaces distinct but connected rather than merely numerous?|
+|Richness/depth|Is there target-linked inner detail and recurrence without mud?|
+|Fatigue|Does perception become tiring, blunted, or oppressive?|
+|Muddiness|Do named facets lose edges or transitions collapse?|
+|Harshness|Are any edges scratchy, metallic, terpenic, bitter, or abrasive?|
+|Candidate-specific takeover|Rate each defect named for the current screen separately|
+
+Record confidence in each rating and whether the assessor could still perceive the control/candidate difference. A tie is valid.
+
+## Inference rules
+
+1. Decode only after both independent sets and all available time points are locked.
+2. Report each set, assessor, order, time, free description, and criterion separately before any summary.
+3. A candidate can win overall liking while failing the family floor; classify it as an independent perfume lead, not a successful L'Homme flanker.
+4. A candidate can pass the family floor while losing opening, transition, drydown, or re-smell desire; do not promote it on recognizability alone.
+5. Require directionally consistent evidence across independent sets before treating a result as repeatable. AB/BA disagreement, large replicate disagreement, or an order effect is `INCONCLUSIVE / REPEAT`, not a forced winner.
+6. High modeled OAV or a named ingredient does not prove that a facet was perceived. A null result on an underpowered or carrier-unmatched arm does not test the intended hypothesis.
+7. The Givaudan AIMI stock-specific physics/odor identity remains a separate authority HOLD in LH-05; blind liking cannot resolve chemical identity.
+8. A sensory preference is evidence only for those prepared lots, assessors, substrates, conditions, and times. It does not prove general liking, safety, stability, performance, commercial readiness, or release.
+
+## Data table template
+
+|Session|Set|Anonymous code|Order|Time|Free description complete?|Family floor|Opening pleasure|Overall liking|Transition pleasure|Drydown pleasure|Re-smell desire|Spatial dimensionality|Textural differentiation|Richness/depth|Fatigue|Muddiness|Harshness|Specific defects|Confidence|Deviation|
+|---|---|---|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|---:|---|
+| | | | | | | | | | | | | | | | | | | | | |
+
+## Stop conditions
+
+Stop and mark the affected observation `HOLD` for mislabeled stock, formula-total error, dose below the 10 uL stock floor, unmatched or unknown carrier, visible instability, contamination, assessor illness, uncontrolled environment, or lost blinding. Stop skin work entirely because it is not authorized by this guide. Report adverse experience without continuing exposure.
+
+## Claim ceiling
+
+This protocol is ready only as a documented experimental design. It is **NOT AUTHORIZED** for physical preparation or skin test and makes no claim of sensory success. No winner, formula change, compounding, procurement, safety conclusion, stability conclusion, release, or repository-integration conclusion follows until separately authorized and evidenced.

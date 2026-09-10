@@ -1,0 +1,158 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path, PurePosixPath
+
+ROOT = Path(__file__).resolve().parents[1]
+MANIFEST_PATH = (
+    ROOT
+    / "data"
+    / "governance"
+    / "solforge_public_redaction_manifest_20260904.json"
+)
+
+SOURCE_COMMIT = "aeefeaa1e8b5d65210309060952025019bb4428e"
+CLAIM_STATE = "AGGREGATE_EVIDENCE_ONLY_SOURCE_BYTES_WITHHELD_FOR_PRIVACY"
+
+EXPECTED_WITHHELD_RECORDS = {
+    "data/benchmarks/solforge/replacement_screen_v4/raw/"
+    "rplreq-0e6d8ac3ade266ad93e6.json": (
+        "109ddcedf5b205d08f486f56fd3a7ec51f47486fffc2bd0d3a46e16f1c8e6d9d",
+        "data/benchmarks/solforge/replacement_screen_v4/raw/"
+        "rplreq-0e6d8ac3ade266ad93e6.sha256",
+        "86dbab7326f67468aba6c6e1046f383e0c853af30acaf5e133d6658add3e0361",
+    ),
+    "data/benchmarks/solforge/replacement_screen_v4_r2/raw/"
+    "rplreq-ad8cbe3911b2cd51fe17.json": (
+        "4404d8ae2704b2c5393e0d8496ec44bb85681ca27dd667ef83a28aa46ca693a9",
+        "data/benchmarks/solforge/replacement_screen_v4_r2/raw/"
+        "rplreq-ad8cbe3911b2cd51fe17.sha256",
+        "5fbf65d1179ba87c0902f70560b0270e3e6b5481130dfc66aa8b53f054b7903e",
+    ),
+    "data/benchmarks/solforge/replacement_screen_v6_r1/raw/"
+    "rplreq-23541460a0f556283854.json": (
+        "baef79705343ed385a48b5afc4d57903edc2762e9174a73fe5eaeb0a8c19cc3d",
+        "data/benchmarks/solforge/replacement_screen_v6_r1/raw/"
+        "rplreq-23541460a0f556283854.sha256",
+        "38a6e268e057c5f87692f56bbdf348827d2db5a71ea83656faaddd111c16b5f2",
+    ),
+    "data/benchmarks/solforge/replacement_screen_v6_r1/raw/"
+    "rplreq-3f24396567cc4e9d75c1.json": (
+        "bfcdaf98ca4155bcf0f1476e7f6c19445e3be6792df03dfdabe4c9b6794f2a2f",
+        "data/benchmarks/solforge/replacement_screen_v6_r1/raw/"
+        "rplreq-3f24396567cc4e9d75c1.sha256",
+        "7f1ecc6a8e78e227bbadc30283f11a6b61608d83bf948cae2c5978d88262a825",
+    ),
+    "data/benchmarks/solforge/replacement_screen_v6_r1/raw/"
+    "rplreq-acb23127a6561c1bab02.json": (
+        "bceedb21aaaf1fd7681fd296f4191e4087a4b29f18d76ac9b19e8a86446069ea",
+        "data/benchmarks/solforge/replacement_screen_v6_r1/raw/"
+        "rplreq-acb23127a6561c1bab02.sha256",
+        "e94d5c2276f3c560492b88bf7b53bdb90a9579777a5d1729da132b8ccf094181",
+    ),
+    "data/benchmarks/solforge/replacement_screen_v6_r1/raw/"
+    "rplreq-dc9c5856d4f6f46dbc07.json": (
+        "a2e43455be8d39572e85dfb9fc9e1184bf95261b5616973fad685836455291f7",
+        "data/benchmarks/solforge/replacement_screen_v6_r1/raw/"
+        "rplreq-dc9c5856d4f6f46dbc07.sha256",
+        "1c6fd3b3b188a068fd4f8a20265b87ea15ee08650ebc3be2a11b45ad693f9acc",
+    ),
+    "data/benchmarks/solforge/replacement_screen_v6_r1/raw/"
+    "rplreq-e243cfbea0fb47cb9193.json": (
+        "61abf98d8a8dd0b59b68ae6301a3acbf172914882643f8a1b677f1492245f4e4",
+        "data/benchmarks/solforge/replacement_screen_v6_r1/raw/"
+        "rplreq-e243cfbea0fb47cb9193.sha256",
+        "bafe355772973b4d9e1430d2ffdf6ade963f0661e37d63db0ada1406f6d2843b",
+    ),
+    "data/benchmarks/solforge/replacement_screen_v6_r1/raw/"
+    "rplreq-cc8e17d53d73acd1d1c0.json": (
+        "9322bb71faf5e4ca7f21877f1b7de9dc3dd617a9027ce1f0310134253ae0e276",
+        "data/benchmarks/solforge/replacement_screen_v6_r1/raw/"
+        "rplreq-cc8e17d53d73acd1d1c0.sha256",
+        "93236bf4294b5d4e6613da7bfe1800b91fe4a78f5b0636ab5c485cd6e8f59510",
+    ),
+}
+
+EXPECTED_RETAINED_AGGREGATES = {
+    "data/benchmarks/solforge/replacement_screen_v4/status.json",
+    "data/benchmarks/solforge/replacement_screen_v4_r2/receipt.json",
+    "data/benchmarks/solforge/replacement_screen_v4_r2/status.json",
+    "data/benchmarks/solforge/replacement_screen_v6_r1/receipt.normalized_v2.json",
+    "data/benchmarks/solforge/replacement_screen_v6_r1/status.normalized_v2.json",
+}
+
+
+def _manifest() -> dict[str, object]:
+    return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+
+
+def test_manifest_freezes_append_only_aggregate_evidence_claim() -> None:
+    manifest = _manifest()
+
+    assert manifest["schema_version"] == "solforge_public_redaction_manifest_v1"
+    assert manifest["mutation_policy"] == "APPEND_ONLY_NEW_MANIFEST_VERSION_REQUIRED"
+    assert manifest["source_commit"] == SOURCE_COMMIT
+    assert manifest["claim_state"] == CLAIM_STATE
+    assert manifest["disposition"] == (
+        "RAW_RECORDS_AND_SIDECARS_WITHHELD_FOR_PRIVACY"
+    )
+
+    contract = manifest["redaction_contract"]
+    assert contract == {
+        "sensitive_json_pointer": "$.stderr_tail",
+        "reason_code": "LOCAL_USER_PROFILE_PATH",
+        "restricted_source_state": "REMAINS_IN_SOURCE_WORKTREE_OR_BRANCH",
+        "public_aggregate_evidence_state": "RETAINED",
+        "public_raw_source_state": "WITHHELD",
+        "sanitized_successor_exists": False,
+        "sanitized_successor_path": None,
+        "sanitized_successor_sha256": None,
+        "exact_execution_provenance_available_from_public_package": False,
+        "independently_replayable_from_public_package": False,
+    }
+
+    records = manifest["withheld_records"]
+    assert len(records) == 8
+    observed = {}
+    for record in records:
+        raw_path = record["logical_source_path"]
+        sidecar_path = record["logical_sidecar_path"]
+        for relative_path in (raw_path, sidecar_path):
+            logical_path = PurePosixPath(relative_path)
+            assert not logical_path.is_absolute()
+            assert ".." not in logical_path.parts
+            assert "\\" not in relative_path
+
+        assert record["source_commit"] == SOURCE_COMMIT
+        assert record["sensitive_json_pointer"] == "$.stderr_tail"
+        assert record["reason_code"] == "LOCAL_USER_PROFILE_PATH"
+        assert record["restricted_source_state"] == (
+            "REMAINS_IN_SOURCE_WORKTREE_OR_BRANCH"
+        )
+        assert record["public_aggregate_evidence_state"] == "RETAINED"
+        assert record["public_raw_source_state"] == "WITHHELD"
+        assert record["sanitized_successor_exists"] is False
+        assert record["sanitized_successor_path"] is None
+        assert record["sanitized_successor_sha256"] is None
+        assert record["claim_state"] == CLAIM_STATE
+
+        observed[raw_path] = (
+            record["original_raw_sha256"],
+            sidecar_path,
+            record["original_sidecar_file_sha256"],
+        )
+
+    assert observed == EXPECTED_WITHHELD_RECORDS
+
+
+def test_withheld_sources_are_absent_and_aggregate_evidence_remains() -> None:
+    manifest = _manifest()
+
+    for record in manifest["withheld_records"]:
+        assert not (ROOT / record["logical_source_path"]).exists()
+        assert not (ROOT / record["logical_sidecar_path"]).exists()
+
+    retained = set(manifest["retained_aggregate_evidence_paths"])
+    assert retained == EXPECTED_RETAINED_AGGREGATES
+    for relative_path in retained:
+        assert (ROOT / relative_path).is_file()

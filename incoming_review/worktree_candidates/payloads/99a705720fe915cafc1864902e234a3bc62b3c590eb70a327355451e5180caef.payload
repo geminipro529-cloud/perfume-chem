@@ -1,0 +1,168 @@
+{
+  "schema_version": "perfume-chem.complex-perfumery-collection-successor.v5",
+  "generated_at_utc": "2026-08-12T10:05:58Z",
+  "artifact_class": "NON_AUTHORITATIVE_RECOVERY_AND_NATIVE_FIT_INDEX",
+  "state": "PARTIAL_COLLECTION_33_OUTER_EXACT_QUARANTINED_P6_EXPLICIT_UNAVAILABLE_5_OPTIONAL_REMAIN",
+  "parent": {
+    "path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V4_20260811.json",
+    "bytes": 8550,
+    "sha256": "ff781236849094addc2d72ea930f5d02d145e28cd89759e6a8797d098cc9057f",
+    "relationship": "SUPERSEDES_WITHOUT_MUTATING_PARENT"
+  },
+  "parent_plan": {
+    "path": "output/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V4_20260811.md",
+    "bytes": 6910,
+    "sha256": "49e1dd1bb3cde508feb82f501145a718363c8a3d51ed38710e128496e4eba860"
+  },
+  "parent_ledger": {
+    "path": "output/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V4_20260811.txt",
+    "bytes": 1600,
+    "sha256": "e8c66cda7eadb01f3f99edca131a458430bd240c617c45fbe930d079962ed876"
+  },
+  "collection_complete": false,
+  "implementation_complete": false,
+  "installation_authorized": false,
+  "cumulative_exact_outer_candidates": 33,
+  "new_exact_outer_candidates": 2,
+  "prior_optional_identities": 5,
+  "optional_identities_closed_by_new_capture": 0,
+  "optional_identities_remaining": 5,
+  "new_exact_outer_candidates_detail": [
+    {
+      "name": "ACCORD_INTEL_DARK_DARK-SCR-02_CASTOREUM_SUEDERAL_INTERPRETATION_v2_20260812.zip",
+      "bytes": 12330,
+      "sha256": "741a357d8099b30081e1f44d4aace97d18b8bdc7f0d6a4e30a6c6aad81cb67ad",
+      "zip_members": 7,
+      "controlling_ledger": "6_OF_6_EXACT",
+      "native_graph": "CLEAR_FOR_RECEIPT_REVIEW",
+      "nodes": 1,
+      "edges": 0,
+      "all_nodes_terminal": true,
+      "promotion_allowed": false,
+      "authority_effect": "APPEND_ONLY_INTERPRETATION_POINTER_ONLY",
+      "receipt": {
+        "path": "data/governance/chat2_dark_scr02_interpretation_v2_package_receipt_20260812.json",
+        "bytes": 5720,
+        "sha256": "5a77c46c0b4a7dec747320c05852abe4333c72c4cc084eebf20b1dfdb0209f43"
+      }
+    },
+    {
+      "name": "ACCORD_INTEL_DARK_DARK-SCR-20B_GUAIACWOOD_GUAIACOL_NAMESPACE_REPAIR_v1_1_20260812.zip",
+      "bytes": 7836,
+      "sha256": "1ccd3cedd289bd13ab639e586de8ae32fbff8319c1d8f42ff08203c3c52901e9",
+      "zip_members": 6,
+      "controlling_ledger": "5_OF_5_EXACT",
+      "native_graph": "CLEAR_FOR_RECEIPT_REVIEW",
+      "nodes": 1,
+      "edges": 0,
+      "all_nodes_terminal": true,
+      "promotion_allowed": false,
+      "authority_effect": "APPEND_ONLY_NAMESPACE_REPAIR_POINTER_ONLY",
+      "receipt": {
+        "path": "data/governance/chat2_dark_scr20b_namespace_repair_package_receipt_20260812.json",
+        "bytes": 6260,
+        "sha256": "a002ce41d0ee79cec3ebf6d293de2b67363d8e0068daed73d90acdea65ce30c4"
+      }
+    }
+  ],
+  "dark_namespace_resolution": {
+    "state": "IDENTIFIER_COLLISION_REPAIRED_APPEND_ONLY_EXECUTION_WITHHELD",
+    "DARK-SCR-03": "IBQ_10_PERCENT_VERSUS_SUEDERAL_10_PERCENT_RETAINED",
+    "DARK-SCR-20A": "GUAIACOL_VERSUS_BIRCH_TAR_UNCHANGED",
+    "DARK-SCR-20B": "GUAIACWOOD_EO_VERSUS_GUAIACOL_DESIGN_POINTER_ONLY",
+    "legacy_guaiacwood_archive": "HISTORICAL_ALIAS_ONLY_DO_NOT_EXECUTE",
+    "renumbered_execution_package_required": true,
+    "resolved_hold": "HOLD_PARENT_BYTES_UNAVAILABLE",
+    "retained_holds": [
+      "HOLD_PARENT_SCHEMA_CONFORMANCE_UNVERIFIED",
+      "HOLD_GUAIACWOOD_PROCUREMENT",
+      "HOLD_EXACT_STOCK_REFS",
+      "HOLD_RENUMBERED_EXECUTION_PACKAGE",
+      "HOLD_PHYSICAL_EXECUTION"
+    ]
+  },
+  "optional_collection_targets_unrecovered_from_current_source_surfaces": [
+    {
+      "name": "Perfume Box Workflow wrapper",
+      "sha256": "db0579760159e7438b83e92de399aa0a9f5862f0f547fa030a682c339bd54e84",
+      "source_request_state": "EXPLICIT_UNAVAILABLE"
+    },
+    {
+      "name": "UNIVERSAL_ACCORD_INTELLIGENCE_MODULE_v1.zip",
+      "expected_bytes": 539050,
+      "sha256": "8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998",
+      "source_request_state": "EXPLICIT_UNAVAILABLE"
+    },
+    {
+      "name": "PCV3_CHAT2_EXPERIMENTAL_DATA_MODEL_v1.zip",
+      "expected_bytes": 32196,
+      "sha256": "db638ab82c7e1a798297a9f4376014b9f51965511ae1d65132e57b4d12c9c9eb",
+      "source_request_state": "PACKAGE_UNAVAILABLE_PARTIAL_LEDGER_CARDS_NOT_MATERIALIZED_LOCALLY"
+    },
+    {
+      "name": "AM-E01_Amouage_Opus_V_Woods_Symphony_30mL_Formula.md",
+      "expected_bytes": 40713,
+      "sha256": "965b02beba5faec32dcbe8d5d97aa3df8cb47fe43fc3c1cf040e4fd3b03ff5e2",
+      "source_request_state": "LIVE_FILE_LIBRARY_CARD_DOWNLOAD_FAILED_NO_LOCAL_BYTES"
+    },
+    {
+      "name": "PACK_METADATA.json",
+      "expected_bytes": 14116,
+      "sha256": "d051505ea9144716fb860c5ff74e92b2bed2b33e419c830460cc60278b94f869",
+      "source_request_state": "LIVE_FILE_LIBRARY_CARD_DOWNLOAD_FAILED_NO_LOCAL_BYTES"
+    }
+  ],
+  "installation_critical_exact_byte_blocker": {
+    "lane": "P6_PHYSICS_OAV_3_4",
+    "state": "EXPLICIT_UNAVAILABLE_PARENT_BYTES",
+    "required": [
+      {
+        "name": "Perfume_Chem_Physics_OAV_Decision_Model_v3_4_0_CALIBRATION_READY.zip",
+        "expected_bytes": 540402,
+        "sha256": "8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db"
+      },
+      {
+        "name": "perfume_chem_physics_oav_v3-3.4.0-py3-none-any.whl",
+        "expected_bytes": 65724,
+        "sha256": "582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5"
+      }
+    ],
+    "reconstruction_allowed": false,
+    "substitution_allowed": false
+  },
+  "native_fit": {
+    "migration_required": false,
+    "migration_head_remains": "20260810_0016",
+    "new_truth_store_allowed": false,
+    "new_pipeline_script_allowed": false,
+    "scr02_v2": "SOURCE_AND_INTERPRETATION_ANCESTRY_ONLY_NO_RESULT_AUTHORITY",
+    "scr20b_namespace_repair": "IDENTIFIER_AND_PARENT_LINEAGE_ONLY_NO_EXECUTION_PACKAGE",
+    "package_code_installed": false,
+    "formula_or_build_mutated": false
+  },
+  "deepluna_chat": {
+    "project": "perfume-chem-cheapluna-isolated",
+    "profile": "cheapluna-chat",
+    "route": "DIRECT_PRO",
+    "fresh_check": "READY",
+    "independent_queue_audit_job": "DS-2f0a46dcf759136a42e6bb835f479044",
+    "worker_evidence_acceptance": "LOCAL_SOL_VERIFICATION_CONTROLS",
+    "fast_used": false,
+    "fallback_used": false
+  },
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "bottle": false,
+    "physical_execution": false,
+    "sensory": false,
+    "strict_oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "release": false,
+    "installation_authorized": false
+  }
+}

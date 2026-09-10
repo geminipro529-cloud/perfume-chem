@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,1.0
+identity_system_probability,1.0
+oav_probability,1.0
+temporal_probability,1.0
+dominance_failure_probability,0.008099999999999996
+overall_probability,0.9919
+dose_closure_probability,0.9831
+temporal_q05,0.9626538586423019
+temporal_median,0.9881878071743274
+max_share_q95,0.6116784583504171
+marker_coverage_q05,0.8571428571428571
+phase_sum_q05,"{""top"": 16.283375370737943, ""heart"": 20.09149849217118, ""base"": 9.875988532273105}"
+release_shape_median,"[0.42231305110207995, 0.32016999522193257, 0.1838182802452938, 0.06388954194637729]"
+phase_shape_median,"[0.30380057485049894, 0.3571839585871677, 0.3390526971907402]"
+marker_probabilities,"{""Bergamot FCF Oil Sicilian | top"": 1.0, ""Black Pepper EO | top"": 0.9999, ""Dihydromyrcenol | top"": 0.9936, ""Linalool | heart"": 1.0, ""Iso E Super | heart"": 0.6319, ""Ambrofix 30% | base"": 0.9992, ""Habanolide | base"": 1.0}"
+marker_quantiles,"{""Bergamot FCF Oil Sicilian | top"": [5.3350037407323105, 14.551604094438497, 40.00872331549488], ""Black Pepper EO | top"": [4.042554484504858, 10.057411723958719, 24.49864549242848], ""Dihydromyrcenol | top"": [1.6093598436045138, 4.304443957171789, 11.647103025533843], ""Linalool | heart"": [18.806989111746475, 36.43405723835542, 69.72489257386884], ""Iso E Super | heart"": [0.4702771990014969, 1.2055951633507576, 3.1255234150079345], ""Ambrofix 30% | base"": [2.239616191733195, 5.776166488873088, 15.05700128289528], ""Habanolide | base"": [5.655011125308116, 14.546701454779715, 38.322137965568174]}"
+classification,ROBUST

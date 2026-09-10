@@ -1,0 +1,225 @@
+import json
+from pathlib import Path
+
+from engine.formula_recommendations import load_inventory
+from engine.ingredient_intelligence import get_profile
+from engine.inventory_parser import parse_inventory
+from engine.pipeline.formula_state import build_formula_state
+from engine.pipeline.preflight import run_release_preflight
+
+
+def _current_inventory_by_name():
+    return {
+        record.name: record
+        for record in parse_inventory(
+            unique=True,
+            include_solvents=True,
+            include_unavailable=False,
+        )
+    }
+
+
+def test_superseding_wood_authority_is_selectable_without_invented_stock_metadata():
+    records = _current_inventory_by_name()
+
+    bacdanol = records["Bacdanol"]
+    assert bacdanol.status == "owned"
+    assert bacdanol.execution_ready is True
+    assert bacdanol.dilution_authoritative is False
+    assert bacdanol.concentration_basis_authoritative is False
+    assert bacdanol.concentration_basis == "unspecified"
+    assert bacdanol.carrier == ""
+
+    clearwood = records["Clearwood"]
+    assert clearwood.status == "owned"
+    assert clearwood.execution_ready is True
+    assert clearwood.dilution == 1.0
+    assert clearwood.dilution_authoritative is True
+    assert clearwood.concentration_basis_authoritative is True
+    assert clearwood.carrier == ""
+
+    guaiacwood = records["Guaiacwood EO"]
+    assert guaiacwood.status == "owned"
+    assert guaiacwood.execution_ready is True
+    assert guaiacwood.dilution == 0.33
+    assert guaiacwood.dilution_authoritative is True
+    assert guaiacwood.concentration_basis_authoritative is False
+    assert guaiacwood.concentration_basis == "unspecified"
+    assert guaiacwood.carrier == ""
+
+
+def test_generated_metadata_keeps_bacdanol_dilution_unknown_and_guaiacwood_at_33_percent():
+    properties = json.loads(
+        Path("data/knowledge_graph/material_properties.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    by_name = {
+        str(material.get("name", "")).casefold(): material
+        for material in properties
+    }
+
+    bacdanol = by_name["bacdanol"]
+    assert bacdanol["in_inventory"] is True
+    assert bacdanol["execution_ready"] is True
+    assert bacdanol["dilution_pct"] is None
+    assert bacdanol["concentration_basis"] == "unspecified"
+    assert bacdanol["carrier"] == ""
+    assert bacdanol.get("concentration_basis_authoritative") is False
+
+    clearwood = by_name["clearwood"]
+    assert clearwood["in_inventory"] is True
+    assert clearwood["execution_ready"] is True
+    assert clearwood["dilution_pct"] == 1.0
+    assert clearwood.get("concentration_basis_authoritative", True) is True
+
+    guaiacwood = by_name["guaiacwood eo"]
+    assert guaiacwood["in_inventory"] is True
+    assert guaiacwood["execution_ready"] is True
+    assert guaiacwood["dilution_pct"] == 0.33
+    assert guaiacwood["concentration_basis"] == "unspecified"
+    assert guaiacwood["carrier"] == ""
+    assert guaiacwood.get("concentration_basis_authoritative") is False
+    assert guaiacwood.get("mw") is None
+    assert guaiacwood.get("vp") is None
+    assert guaiacwood.get("odt") is None
+    assert guaiacwood.get("odt_ethanol_ppm") is None
+    assert guaiacwood.get("oav_typical") is None
+    assert guaiacwood.get("activity_coef") is None
+    assert guaiacwood.get("oav_dose_pct") is None
+    assert guaiacwood.get("typical_pct_range") is None
+    assert guaiacwood.get("model_authority_hold") is True
+    assert guaiacwood.get("ifra_banned") is None
+    assert guaiacwood.get("ifra_restricted") is None
+    assert guaiacwood.get("ifra_standard_type") == "HOLD"
+
+
+def test_generated_catalog_preserves_exact_current_stock_authority():
+    payload = json.loads(
+        Path("data/knowledge_graph/ingredient_catalog.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    by_key = {
+        ingredient["identity_key"]: ingredient
+        for ingredient in payload["ingredients"]
+    }
+
+    bacdanol = by_key["bacdanol"]
+    assert bacdanol["owned_now"] is True
+    bacdanol_stock = next(
+        stock
+        for stock in bacdanol["inventory_stocks"]
+        if stock["status"] == "owned"
+    )
+    assert bacdanol_stock["dilution"] is None
+    assert bacdanol_stock["dilution_authoritative"] is False
+    assert bacdanol_stock["concentration_basis"] == "unspecified"
+    assert bacdanol_stock["carrier"] == ""
+    assert bacdanol_stock["concentration_basis_authoritative"] is False
+
+    clearwood = by_key["clearwood"]
+    clearwood_stock = next(
+        stock
+        for stock in clearwood["inventory_stocks"]
+        if stock["status"] == "owned"
+    )
+    assert clearwood_stock["dilution"] == 1.0
+    assert clearwood_stock["dilution_authoritative"] is True
+    assert clearwood_stock.get("concentration_basis_authoritative", True) is True
+    assert any(
+        "physically owned neat and CURRENT-INVENTORY formulation-ready" in note
+        for note in clearwood["notes"]
+    )
+
+    guaiacwood = by_key["guaiacwood eo"]
+    guaiacwood_stock = next(
+        stock
+        for stock in guaiacwood["inventory_stocks"]
+        if stock["status"] == "owned"
+    )
+    assert guaiacwood_stock["dilution"] == 0.33
+    assert guaiacwood_stock["dilution_authoritative"] is True
+    assert guaiacwood_stock["concentration_basis"] == "unspecified"
+    assert guaiacwood_stock["carrier"] == ""
+    assert guaiacwood_stock["concentration_basis_authoritative"] is False
+    assert guaiacwood["properties"]["model_authority_hold"] is True
+    assert guaiacwood["properties"]["typical_pct_range"] is None
+    assert guaiacwood["best_with"] == []
+    assert guaiacwood["avoid"] == []
+    assert guaiacwood["pairing_rules"] == {"synergy": [], "conflict": []}
+    assert guaiacwood["common_uses"] == []
+    assert guaiacwood["niche_uses"] == []
+    assert guaiacwood["implementation_examples"] == []
+    assert guaiacwood["best_in"] == []
+    assert guaiacwood["avoid_in"] == []
+    assert guaiacwood["replacement_options"] == []
+    assert guaiacwood["pairing_note"] == ""
+
+
+def test_preflight_blocks_bacdanol_active_math_until_stock_dilution_is_authoritative():
+    formula = {
+        "name": "Bacdanol authority probe",
+        "ingredients_ul": {"Bacdanol": 100.0},
+        "dilutions": {"Bacdanol": 1.0},
+    }
+    state = build_formula_state(
+        formula["ingredients_ul"], formula["dilutions"], batch_volume_ml=30.0
+    )
+    report = run_release_preflight(formula, state).as_dict()
+    checks = {check["check_name"]: check for check in report["checks"]}
+
+    assert checks["inventory_stock_contract"]["status"] == "FAIL"
+    assert checks["inventory_stock_contract"]["data"]["issues"] == [
+        {"material": "Bacdanol", "reason": "stock_dilution_unspecified"}
+    ]
+
+
+def test_guaiacwood_profile_and_pipeline_do_not_invent_gamma_or_oav_authority():
+    profile = get_profile("Guaiacwood EO")
+    assert profile is not None
+    assert profile.model_authority_hold is True
+    assert profile.activity_coef is None
+
+    formula = {
+        "name": "Guaiacwood authority probe",
+        "ingredients_ul": {"Guaiacwood EO": 100.0},
+        "dilutions": {"Guaiacwood EO": 0.33},
+    }
+    state = build_formula_state(
+        formula["ingredients_ul"], formula["dilutions"], batch_volume_ml=30.0
+    )
+    material = state.materials[0]
+    assert material.gamma_source != "profile:ingredient_intelligence.activity_coef"
+    assert material.vp_pure_pa is None
+    assert material.odt_air_ppm is None
+    assert material.oav is None
+    assert "density" in material.missing_fields
+    assert material.sources["density"].startswith("hold:")
+    assert material.sources["active_g"].startswith("hold:")
+    assert material.sources["moles"].startswith("hold:")
+
+    report = run_release_preflight(formula, state).as_dict()
+    checks = {check["check_name"]: check for check in report["checks"]}
+    assert checks["material_identity_and_physics"]["status"] == "FAIL"
+    assert checks["inventory_stock_contract"]["status"] == "FAIL"
+    assert checks["inventory_stock_contract"]["data"]["issues"] == [
+        {
+            "material": "Guaiacwood EO",
+            "reason": "stock_concentration_basis_unspecified",
+        }
+    ]
+
+
+def test_recommender_keeps_bacdanol_visible_but_non_doseable():
+    inventory = {item["name"]: item for item in load_inventory()}
+
+    assert "Bacdanol" in inventory
+    assert inventory["Bacdanol"]["dilution"] is None
+    assert inventory["Bacdanol"]["dilution_authoritative"] is False
+    assert inventory["Bacdanol"]["concentration_basis_authoritative"] is False
+    assert inventory["Guaiacwood EO"]["dilution"] == 0.33
+    assert (
+        inventory["Guaiacwood EO"]["concentration_basis_authoritative"]
+        is False
+    )

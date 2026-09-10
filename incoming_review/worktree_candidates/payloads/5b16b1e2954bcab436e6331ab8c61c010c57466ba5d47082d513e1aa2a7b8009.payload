@@ -1,0 +1,192 @@
+{
+  "schema_version": "unified_import_lndl_successor_v1",
+  "manifest_id": "UNIFIED-IMPORT-LNDL-CORIANDER-SILK-20260904",
+  "created_date": "2026-09-04",
+  "instruction_authority": {
+    "source_agents_md": {
+      "path": "C:\\Users\\ASUS\\.codex\\worktrees\\edd7\\perfume-chem\\AGENTS.md",
+      "size_bytes": 48292,
+      "sha256": "710873f53a128cd9851093f879369bea3ccf7bc1ad425855173b628bf4bff492"
+    },
+    "destination_agents_md": {
+      "path": "D:\\chatbots\\perfume-chem-unified-package\\AGENTS.md",
+      "size_bytes": 49198,
+      "sha256": "10a76b04b26c0ca83f182bbfd9028f6d0496da4500eac50f95ba344791613ed9"
+    },
+    "provider_policy": "OPENAI_CHATGPT_CODEX_NATIVE_ONLY"
+  },
+  "source": {
+    "worktree": "C:\\Users\\ASUS\\.codex\\worktrees\\edd7\\perfume-chem",
+    "observed_head": "4b550054b6c491c8ad424936f632ce25bc02800d",
+    "branch": "codex/luxe-target-native-finish",
+    "worktree_dirty": true,
+    "porcelain_entry_count": 8,
+    "scoped_git_status": {
+      "formulas/LNDL_Luxe_Coriander_Silk_Polished_Seed_Wood_DHP2025_V1_30mL_20pct_Development.md": "??",
+      "tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py": " M"
+    },
+    "scope_note": "The source formula is untracked and the source test is modified relative to source HEAD. The manifest binds the exact observed working-tree bytes, not a committed source snapshot. The source worktree also contains unrelated changes that were not imported.",
+    "source_untouched": true
+  },
+  "destination": {
+    "worktree": "D:\\chatbots\\perfume-chem-unified-package",
+    "branch": "codex/unified-perfume-intelligence-package",
+    "observed_head": "4a0e5b8b302595a7bf21f50e4bfa7fa11592571e",
+    "pre_import_worktree_dirty": true,
+    "pre_import_porcelain_entry_count": 1033,
+    "scope_note": "The destination contained extensive unrelated concurrent work. This import changed only the two admitted artifact paths and this governance manifest."
+  },
+  "transfer_policy": {
+    "formula_copied_byte_exact": true,
+    "source_test_copied_byte_exact_before_compatibility_adaptation": true,
+    "source_files_modified": false,
+    "formula_rewritten": false,
+    "formula_semantics_reinterpreted": false,
+    "unrelated_source_changes_imported": false,
+    "shared_engine_inventory_or_gate_files_changed": false,
+    "git_stage_commit_or_push_performed": false
+  },
+  "files": [
+    {
+      "source_path": "formulas/LNDL_Luxe_Coriander_Silk_Polished_Seed_Wood_DHP2025_V1_30mL_20pct_Development.md",
+      "destination_path": "formulas/LNDL_Luxe_Coriander_Silk_Polished_Seed_Wood_DHP2025_V1_30mL_20pct_Development.md",
+      "source_size_bytes": 43640,
+      "destination_size_bytes": 43640,
+      "source_sha256": "5b3a235ad548f2db93fa0439d7d669a4434e49d1cbb5428b975ae4bc5e562343",
+      "destination_sha256": "5b3a235ad548f2db93fa0439d7d669a4434e49d1cbb5428b975ae4bc5e562343",
+      "source_destination_match": true,
+      "adapted_in_destination": false
+    },
+    {
+      "source_path": "tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py",
+      "destination_path": "tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py",
+      "source_size_bytes": 39061,
+      "destination_size_bytes": 11884,
+      "source_sha256": "fe78587b3667d4e2b998e2361a58bad0ef326874bcae8d03eaa5435afbab35ca",
+      "destination_sha256": "b5a751eb9d28e3933666bacb7c0a50631fb27d15e7cc6c21d09fda226a53665d",
+      "source_destination_match": false,
+      "adapted_in_destination": true,
+      "destination_identity_history": [
+        {
+          "size_bytes": 11885,
+          "sha256": "d9f054ed4708af487fe15ba7457aa3a330cd330c82f5fad5e8e31c651cbd90a0",
+          "disposition": "SUPERSEDED_BY_DESTINATION_ONLY_RUFF_IMPORT_ORDER_REPAIR"
+        }
+      ],
+      "destination_change_provenance": {
+        "reported_trigger": "Focused Ruff import-order repair",
+        "observed_byte_delta": -1,
+        "semantic_scope": "Python import organization only; no formula, runtime, inventory, threshold, or authority-claim change",
+        "source_identity_reinterpreted": false
+      },
+      "adaptation_scope": [
+        "Bounded validation to the imported LN-01 formula, this adapted test, and their manifest instead of requiring non-imported sibling study artifacts.",
+        "Validate the destination inventory_stock_contract, material_identity_and_physics, quantitative_authority, and headspace_scope checks against their current fail-closed schemas.",
+        "Validate the embedded donor manifest and basket ontology structurally while donor-gate execution remains NOT_RUN_HOLD.",
+        "Assert that the four non-imported LN arms, LNDL blind guide, and generated LN-01 verification bundle remain absent rather than fabricating them."
+      ]
+    }
+  ],
+  "source_file_count": 2,
+  "source_byte_count": 82701,
+  "destination_file_count": 2,
+  "destination_byte_count": 55524,
+  "lineage_boundary": {
+    "designated_predecessor": "formulas/LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_Interiorized_V6_30mL_20pct_Development.md",
+    "designated_predecessor_sha256": "db60da30d6f5ebe6935cb2c24fd9d750b83d727759552d246724216cb141015a",
+    "rejected_v7_disposition": "PROVENANCE_ONLY_NOT_CONTROL_NOT_DESIGN_DONOR",
+    "rejected_v7_boundary_preserved": true,
+    "successor_status": "DESIGN_HYPOTHESIS_COMPUTATIONAL_NOT_TESTED_HOLD"
+  },
+  "current_destination_authority": {
+    "inventory_stock_contract": "HOLD",
+    "givaudan_aimi_identity_and_physics": "DATA_HOLD",
+    "donor_independence_gate": "NOT_RUN_HOLD_API_AND_BOUND_SOURCE_ARTIFACTS_NOT_IMPORTED",
+    "fresh_pipeline": "NOT_RUN",
+    "pipeline_analysis": "PENDING",
+    "physical_compounding": "NOT_TESTED",
+    "sensory_evaluation": "NOT_TESTED"
+  },
+  "verification": {
+    "prior_focused_verification": {
+      "command": "D:\\chatbots\\perfume-chem\\.venv\\Scripts\\python.exe -m pytest tests\\test_lhomme_lndl_hedonic_flanker_suite_v1.py -k test_ln01_coriander_silk_formula_contract -q",
+      "status": "PASS",
+      "passed": 1,
+      "failed": 0,
+      "deselected": 28,
+      "warnings": 1148,
+      "elapsed_seconds_reported": 5.15,
+      "scope": "Imported LN-01 intrinsic formula contract only"
+    },
+    "prior_collection_attempt": {
+      "verified_date": "2026-09-04",
+      "python": "3.11.15",
+      "command": "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe -m pytest tests\\test_lhomme_lndl_hedonic_flanker_suite_v1.py -q -p no:cacheprovider",
+      "status": "BLOCKED_COLLECTION_ERROR",
+      "passed": 0,
+      "failed": 0,
+      "errors": 1,
+      "deselected": 0,
+      "elapsed_seconds_reported": 2.02,
+      "error_type": "ModuleNotFoundError",
+      "error_message": "No module named 'engine.knowledge.embeddings'",
+      "collection_chain": "tests/test_lhomme_lndl_hedonic_flanker_suite_v1.py -> engine.pipeline.formula_state -> engine.pipeline.gates -> engine.knowledge.__init__ -> engine.knowledge.embeddings",
+      "repository_observation": "engine/knowledge/embeddings.py is deleted in the concurrent integration worktree state",
+      "scope": "All 29 tests requested; collection stopped before LNDL assertions executed"
+    },
+    "current_suite_verification": {
+      "verified_date": "2026-09-04",
+      "python": "3.11.15",
+      "command": "D:\\chatbots\\perfume-chem\\.venv_py311_a0\\Scripts\\python.exe -m pytest tests\\test_lhomme_lndl_hedonic_flanker_suite_v1.py -q",
+      "status": "PASS",
+      "collected": 9,
+      "passed": 9,
+      "failed": 0,
+      "errors": 0,
+      "deselected": 0,
+      "elapsed_seconds_reported": 2.05,
+      "collection_status": "PASS_AFTER_OPENAI_ONLY_EMBEDDINGS_REPLACEMENT",
+      "imported_successor_intrinsic_contract": "PASS",
+      "bounded_import_scope_only": true,
+      "invented_or_generated_artifacts_added": false,
+      "explicit_exclusions_checked": [
+        "LN-02 Cinnamon Cashmere formula",
+        "LN-03 Orris Santal formula",
+        "LN-04 Olibanum Cedar formula",
+        "LN-05 Tobacco Plum formula",
+        "LNDL blind guide",
+        "LN-01 generated verification bundle"
+      ],
+      "scope": "Only the imported LN-01 formula, adapted compatibility test, embedded lineage ledgers, destination fail-closed preflight schema, and declared exclusions"
+    },
+    "artifact_integrity_at_current_verification": {
+      "formula_size_bytes": 43640,
+      "formula_sha256": "5b3a235ad548f2db93fa0439d7d669a4434e49d1cbb5428b975ae4bc5e562343",
+      "adapted_test_size_bytes": 11884,
+      "adapted_test_sha256": "b5a751eb9d28e3933666bacb7c0a50631fb27d15e7cc6c21d09fda226a53665d",
+      "receipt_bound_artifacts_unchanged": true
+    },
+    "claim_ceiling": "Fresh bounded-suite verification passed. The adapted suite validates only the imported LN-01 artifact and explicit exclusion boundary; it does not promote the absent complete study. Donor independence, current physical stock identity, fresh pipeline analysis, sensory response, hedonism, similarity, safety, stability, performance, and release remain NOT RUN, NOT TESTED, or HOLD as previously declared."
+  },
+  "authority": {
+    "formula_mutation_authorized": false,
+    "physical_execution_authorized": false,
+    "compounding_authorized": false,
+    "procurement_authorized": false,
+    "sensory_authority": false,
+    "hedonic_authority": false,
+    "similarity_authority": false,
+    "luxury_authority": false,
+    "depth_authority": false,
+    "performance_authority": false,
+    "safety_authority": false,
+    "stability_authority": false,
+    "release_authority": false
+  },
+  "exclusions": [
+    "all unrelated tracked and untracked source-worktree changes",
+    "all sibling L'Homme and LNDL candidate formulas, controls, blind guides, verification runs, and receipts",
+    "all shared engine, inventory, release-gate, and donor-signature changes",
+    "all credentials, caches, local configuration, generated outputs, staging, commits, and pushes"
+  ]
+}

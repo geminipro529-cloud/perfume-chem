@@ -1,0 +1,173 @@
+"""Synthetic native evidence sources; not empirical or release evidence."""
+
+import json
+from dataclasses import replace
+
+import pytest
+
+from engine.formulation_intelligence.contracts import AssessmentScope, PlaneId
+from engine.formulation_intelligence.evidence_source_execution import (
+    EvidenceSpecialistExecution,
+    EvidenceSpecialistSources,
+    execute_evidence_specialists,
+)
+from engine.formulation_intelligence.experiment_selector import DecisionNeed, ProtocolBindings
+from engine.formulation_intelligence.hedonic_platform import HedonicEvidencePlatform
+from tests.test_formulation_intelligence_experiment_selector import _question, _scope
+from tests.test_formulation_intelligence_physicochemical_plane import _molecule_packet
+from tests.test_formulation_intelligence_spatial_biological import (
+    _biological_architecture,
+    _biological_scope,
+)
+
+
+def _sources(target="target:exact"):
+    packet = _molecule_packet()
+    packet = replace(packet, scope=replace(packet.scope, target_scope=target))
+    return EvidenceSpecialistSources(
+        target,
+        (packet,),
+        (_biological_architecture(scope=_biological_scope(target=target)),),
+        HedonicEvidencePlatform(),
+        AssessmentScope(target, "whole-wear", "unmeasured test matrix"),
+        _question(
+            "question:test",
+            DecisionNeed.CANDIDATE_DIFFERENCE,
+            candidate_ids=("candidate:a", "candidate:b"),
+            target_id=target,
+        ),
+        ProtocolBindings(),
+        _scope(target),
+    )
+
+
+def test_four_real_calls_and_complete_native_roundtrip():
+    sources = _sources()
+    result = execute_evidence_specialists(sources)
+    assert len(result.synthesis.assessments) == 4
+    assert {a.plane_id for a in result.synthesis.assessments} == {
+        PlaneId.PHYSICOCHEMICAL,
+        PlaneId.BIOLOGICAL_SENSITIVITY,
+        PlaneId.HEDONIC,
+        PlaneId.EXPERIMENT,
+    }
+    assert result.protocol.hold_reasons
+    payload = json.loads(json.dumps(result.as_dict()))
+    assert payload["sources"]["physicochemical"][0]["schema_version"]
+    restored = EvidenceSpecialistExecution.from_dict(payload)
+    assert restored == result
+    assert restored.content_sha256 == result.content_sha256
+    assert restored.sources.hedonic_scope == sources.hedonic_scope
+
+
+def test_scope_binding_and_source_replacement_cannot_be_hidden():
+    sources = _sources()
+    with pytest.raises(ValueError, match="target"):
+        replace(sources, hedonic_scope=replace(sources.hedonic_scope, target_scope="other"))
+    result = execute_evidence_specialists(sources)
+    changed = replace(sources, hedonic_scope=replace(sources.hedonic_scope, temporal_scope="other"))
+    with pytest.raises(ValueError, match="exact native"):
+        replace(result, sources=changed)
+
+
+def test_nonempty_hedonic_native_observation_is_retained_not_promoted():
+    from engine.formulation_intelligence.hedonic_platform import PreferenceOutcome
+    from tests.test_formulation_intelligence_hedonic_platform import _observation
+
+    observation = _observation(
+        "observation:synthetic-composition",
+        participant_id="synthetic-participant",
+        outcome=PreferenceOutcome.PREFER_A,
+    )
+    sources = replace(
+        _sources(), hedonic=HedonicEvidencePlatform(temporal_observations=(observation,))
+    )
+    result = execute_evidence_specialists(sources)
+    restored = EvidenceSpecialistExecution.from_dict(json.loads(json.dumps(result.as_dict())))
+    assert restored.sources.hedonic.temporal_observations == (observation,)
+    assert restored.sources.hedonic_scope == sources.hedonic_scope
+
+
+def test_experiment_scope_must_be_present_in_native_lineage():
+    sources = _sources()
+    changed = replace(
+        sources, experiment_scope=replace(sources.experiment_scope, matrix_scope="other")
+    )
+    with pytest.raises(ValueError, match="lineage"):
+        execute_evidence_specialists(changed)
+
+
+def test_exact_duplicate_canonicalization_and_conflicting_ids():
+    sources = _sources()
+    assert replace(sources, physicochemical=sources.physicochemical * 2) == sources
+    changed = replace(
+        sources.physicochemical[0],
+        scope=replace(sources.physicochemical[0].scope, condition_id="other-condition"),
+    )
+    with pytest.raises(ValueError, match="conflicting"):
+        replace(sources, physicochemical=(*sources.physicochemical, changed))
+
+
+def test_changed_protocol_and_missing_native_source_fail_closed():
+    result = execute_evidence_specialists(_sources())
+    other = execute_evidence_specialists(
+        replace(
+            result.sources, question=replace(result.sources.question, question_id="other-question")
+        )
+    )
+    with pytest.raises(ValueError, match="exact native"):
+        replace(result, protocol=other.protocol)
+    with pytest.raises(ValueError, match="nonempty"):
+        replace(result.sources, biological=())
+    payload = result.as_dict()
+    payload["sources"]["physicochemical"][0]["extra"] = True
+    with pytest.raises(ValueError):
+        EvidenceSpecialistExecution.from_dict(payload)
+
+
+def test_four_specialists_join_real_perceptual_whole_without_losing_sources():
+    from engine.formulation_intelligence.evidence_source_execution import (
+        EvidenceWholePerfume,
+        assemble_evidence_whole_perfume,
+    )
+    from engine.formulation_intelligence.perceptual_source_execution import (
+        assemble_perceptual_whole_perfume,
+    )
+    from tests.test_formulation_intelligence_perceptual_source_execution import (
+        _sources as _perceptual,
+    )
+    from tests.test_formulation_intelligence_source_bound_floral import _joint_inputs
+
+    ideal, projection, candidate, floral = _joint_inputs()
+    base = assemble_perceptual_whole_perfume(
+        ideal,
+        projection,
+        candidate,
+        floral,
+        _perceptual(ideal.ideal_target_id),
+        selected_alternative_id="alternative:a",
+        version=1,
+    )
+    sources = _sources(ideal.ideal_target_id)
+    result = assemble_evidence_whole_perfume(base, sources, version=2)
+    whole = result.perceptual.joint.floral.blueprint
+    assert whole.ideal_proposal == ideal
+    assert whole.inventory_projection == projection
+    assert result.perceptual.joint.bound.source == candidate
+    assert result.perceptual.sources == base.sources
+    assert not whole.physical_execution_authorized
+    assert not whole.observed_smell
+    assert (
+        result.perceptual.joint.bound.integrated.predecessor_sha256
+        == base.joint.bound.integrated.content_sha256
+    )
+    for old_plane, new_plane in zip(base.joint.floral.blueprint.planes, whole.planes):
+        assert old_plane.plane_id == new_plane.plane_id
+        assert all(a in new_plane.assessments for a in old_plane.assessments)
+        assert all(s in new_plane.syntheses for s in old_plane.syntheses)
+    restored = EvidenceWholePerfume.from_dict(json.loads(json.dumps(result.as_dict())))
+    assert restored == result
+    with pytest.raises(ValueError, match="exact evidence synthesis"):
+        replace(result, perceptual=base)
+    with pytest.raises(ValueError, match="advance"):
+        assemble_evidence_whole_perfume(base, sources, version=1)

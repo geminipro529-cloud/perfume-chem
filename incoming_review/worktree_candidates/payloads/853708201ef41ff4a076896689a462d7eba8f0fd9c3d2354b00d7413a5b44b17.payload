@@ -1,0 +1,77 @@
+{
+  "schema": "perfume-chem-missing-chemical-assessment-v1",
+  "assessment_id": "MCI-LH-08-v1",
+  "source_package_sha256": "80d988ac493dcf0597a3b73885a340edd40bfbd88d4985bc75e353a36d2bdee4",
+  "source_payload_sha256": "73574641af494b6e81109da37188fafc4f5964bb2d266b5c531acf33d1aedd2c",
+  "target_formula_id": "LH-08",
+  "lineage": {
+    "target_hypothesis_sha256": "df0c05cbd1c2944f2e237aedad2fcf4990984c435dae055f10dbd35f1eba160f",
+    "accepted_target_sha256": "637ef8ce63575a406c5ec27ec2a1cbfca910e3303ca3b3b100572f64a4e539ba",
+    "inventory_mapping_sha256": "711764dac8268b781b47ccd776021f69b16045ab0d07b567518d959685c11cb9",
+    "build_plan_sha256": "f16097f36b25c84c948afa7803824dd2e4d87af762ff8c35be9b14961b798c0e",
+    "parent_formula_sha256": "520924f1d02e25a68fc3740179f8d5950b07f710a7e88959f7b9000bc6c3d77b",
+    "inventory_snapshot_sha256": "dc3c7ffc6e27711aa38d26bd3aef09b7046f1834353e7171eb78729fbd2cc4ec",
+    "formula_edge_set_sha256": "470f7c9c292785372d34dc4f44af23c1a9ae38f1b88d1f27d986b3a5a3898274",
+    "stock_receipts": []
+  },
+  "architecture_locked": true,
+  "strongly_covered_functions": [
+    "Design-mapped current function: protected citrus-ginger ignition",
+    "Design-mapped current function: unchanged violet-green heart"
+  ],
+  "weakly_covered_functions": [
+    "Approximate or evidence-limited mapping: Vetiver Haiti origin and grade",
+    "Approximate or evidence-limited mapping: Vertofix Coeur grade"
+  ],
+  "genuinely_missing_functions": [
+    "Vetiver Haiti origin and grade",
+    "Vertofix Coeur grade",
+    "measured balance between literal cedar and vetiver"
+  ],
+  "candidates": [
+    {
+      "function_id": "lh-08.gap.01",
+      "candidate": "Vetiver Haiti origin and grade",
+      "inventory_status": "VERIFY_FIRST",
+      "classification": "EVIDENCE GAP, NOT INVENTORY GAP",
+      "nonredundancy": "This exact function or evidence state is not established by the current mapping: Vetiver Haiti origin and grade.",
+      "loss_if_omitted": "The controlled arm remains testable, but exact-fidelity authority for Vetiver Haiti origin and grade remains withheld.",
+      "overdose_or_failure_mode": "Treating public notes or this formula hypothesis as authenticated commercial percentages.",
+      "source_controlled_comparison_text": "Free text only: after exact stock and preparation receipts, compare the current mapped build with a role-matched addition or omission at constant total; no physical protocol is locked here.",
+      "source_integration_state": "NOT_AUTOMATICALLY_ADDED"
+    },
+    {
+      "function_id": "lh-08.gap.02",
+      "candidate": "Vertofix Coeur grade",
+      "inventory_status": "VERIFY_FIRST",
+      "classification": "EVIDENCE GAP, NOT INVENTORY GAP",
+      "nonredundancy": "This exact function or evidence state is not established by the current mapping: Vertofix Coeur grade.",
+      "loss_if_omitted": "The controlled arm remains testable, but exact-fidelity authority for Vertofix Coeur grade remains withheld.",
+      "overdose_or_failure_mode": "Treating public notes or this formula hypothesis as authenticated commercial percentages.",
+      "source_controlled_comparison_text": "Free text only: after exact stock and preparation receipts, compare the current mapped build with a role-matched addition or omission at constant total; no physical protocol is locked here.",
+      "source_integration_state": "NOT_AUTOMATICALLY_ADDED"
+    },
+    {
+      "function_id": "lh-08.gap.03",
+      "candidate": "measured balance between literal cedar and vetiver",
+      "inventory_status": "VERIFY_FIRST",
+      "classification": "EVIDENCE GAP, NOT INVENTORY GAP",
+      "nonredundancy": "This exact function or evidence state is not established by the current mapping: measured balance between literal cedar and vetiver.",
+      "loss_if_omitted": "The controlled arm remains testable, but exact-fidelity authority for measured balance between literal cedar and vetiver remains withheld.",
+      "overdose_or_failure_mode": "Treating public notes or this formula hypothesis as authenticated commercial percentages.",
+      "source_controlled_comparison_text": "Free text only: after exact stock and preparation receipts, compare the current mapped build with a role-matched addition or omission at constant total; no physical protocol is locked here.",
+      "source_integration_state": "NOT_AUTOMATICALLY_ADDED"
+    }
+  ],
+  "package_auto_integrated_materials": [],
+  "state": "CANDIDATE_ONLY",
+  "formula_authority": false,
+  "inventory_authority": false,
+  "purchase_authority": false,
+  "execution_authorized": false,
+  "scientific_authority": false,
+  "oav_authority": false,
+  "sensory_authority": false,
+  "safety_authority": false,
+  "release_authority": false
+}

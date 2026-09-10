@@ -1,0 +1,264 @@
+from __future__ import annotations
+
+from types import SimpleNamespace
+from typing import Any
+
+import pytest
+from fastapi import HTTPException
+from pydantic import ValidationError
+
+import switch_provider
+from app.api import deps
+from app.core.config import Settings
+from app.services.ai import enhanced_factory, factory, openai_service
+
+
+@pytest.mark.parametrize(
+    "model",
+    [
+        "gpt-4",
+        "gpt-4o-mini",
+        "gpt-5",
+        "chatgpt-4o-latest",
+        "o1-preview",
+        "o3-mini",
+        "ft:gpt-4o-mini:organization:project:model",
+    ],
+)
+@pytest.mark.parametrize(
+    "detector",
+    [factory.AIModelDetector, enhanced_factory.ScientificAIModelDetector],
+)
+def test_openai_models_are_accepted(detector: Any, model: str) -> None:
+    assert detector.detect_provider(model) == "openai"
+
+
+@pytest.mark.parametrize(
+    "model",
+    [
+        "deepseek-v4-pro",
+        "deepseek/deepseek-v4-flash",
+        "llama3.1-8b",
+        "cerebras-llama3.1-8b",
+        "kimi-k2-thinking",
+        "ehartford/dolphin-2.5-mixtral-8x7b",
+        "hf.co/example/model:latest",
+        "local-model.gguf",
+        "unregistered-provider/model",
+    ],
+)
+@pytest.mark.parametrize(
+    "detector",
+    [factory.AIModelDetector, enhanced_factory.ScientificAIModelDetector],
+)
+def test_non_openai_models_fail_closed(detector: Any, model: str) -> None:
+    with pytest.raises(ValueError, match="only OpenAI models are enabled"):
+        detector.detect_provider(model)
+
+
+@pytest.mark.parametrize(
+    "provider",
+    ["deepseek", "cerebras", "baseten", "huggingface", "ollama", "llamacpp"],
+)
+def test_non_openai_forced_providers_fail_closed(
+    provider: str,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def unexpected_settings_load() -> object:
+        raise AssertionError("disabled providers must fail before settings load")
+
+    monkeypatch.setattr(factory, "get_settings", unexpected_settings_load)
+    monkeypatch.setattr(enhanced_factory, "get_settings", unexpected_settings_load)
+
+    with pytest.raises(ValueError, match="only OpenAI is enabled"):
+        factory.create_ai_service(force_provider=provider)
+
+    with pytest.raises(ValueError, match="only OpenAI is enabled"):
+        enhanced_factory.create_scientific_ai_service(force_provider=provider)
+
+
+def test_switch_provider_rejects_external_provider_without_writing(
+    tmp_path: Any,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    script_path = tmp_path / "switch_provider.py"
+    env_path = tmp_path / ".env"
+    env_path.write_text("AI_PROVIDER=openai\n", encoding="utf-8")
+    monkeypatch.setattr(switch_provider, "__file__", str(script_path))
+
+    assert switch_provider.update_env_file("deepseek") is False
+    assert env_path.read_text(encoding="utf-8") == "AI_PROVIDER=openai\n"
+
+
+def test_switch_provider_can_create_openai_only_env(
+    tmp_path: Any,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    script_path = tmp_path / "switch_provider.py"
+    monkeypatch.setattr(switch_provider, "__file__", str(script_path))
+
+    assert switch_provider.update_env_file("openai") is True
+    assert (tmp_path / ".env").read_text(encoding="utf-8") == "AI_PROVIDER=openai\n"
+
+
+def test_settings_default_to_openai_and_reject_other_providers(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("AI_PROVIDER", raising=False)
+    monkeypatch.delenv("OPENAI_MODEL", raising=False)
+    assert Settings(_env_file=None).AI_PROVIDER == "openai"
+    assert Settings(AI_PROVIDER=" OpenAI ", _env_file=None).AI_PROVIDER == "openai"
+
+    with pytest.raises(ValidationError, match="AI_PROVIDER must be 'openai'"):
+        Settings(AI_PROVIDER="deepseek", _env_file=None)
+
+    with pytest.raises(ValidationError, match="OPENAI_MODEL must identify an OpenAI model"):
+        Settings(OPENAI_MODEL="deepseek-v4-pro", _env_file=None)
+
+
+def test_factory_preserves_openai_model_override(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    class StubOpenAIService:
+        def __init__(self, cache: object = None, model: str | None = None) -> None:
+            self.cache = cache
+            self.model = model
+
+    settings = SimpleNamespace(AI_PROVIDER="openai", OPENAI_MODEL="gpt-4")
+    monkeypatch.setattr(factory, "get_settings", lambda: settings)
+    monkeypatch.setattr(factory, "OpenAIService", StubOpenAIService)
+
+    cache = object()
+    service = factory.create_ai_service(
+        model="gpt-4o-mini",
+        cache=cache,
+        force_provider="OPENAI",
+    )
+
+    assert isinstance(service, StubOpenAIService)
+    assert service.cache is cache
+    assert service.model == "gpt-4o-mini"
+
+
+def test_openai_service_preserves_model_override(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    settings = SimpleNamespace(OPENAI_API_KEY="test-key", OPENAI_MODEL="gpt-4")
+    monkeypatch.setattr(openai_service, "get_settings", lambda: settings)
+    monkeypatch.setattr(openai_service, "AsyncOpenAI", lambda **_: object())
+    monkeypatch.setattr(openai_service, "ContextBuilder", object)
+    monkeypatch.setattr(openai_service, "ChemistryValidator", object)
+
+    service = openai_service.OpenAIService(model="gpt-4o-mini")
+
+    assert service.model == "gpt-4o-mini"
+
+
+def test_scientific_factory_defaults_to_configured_openai(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    class StubOpenAIService:
+        def __init__(self, cache: object = None, model: str | None = None) -> None:
+            self.cache = cache
+            self.model = model
+
+    settings = SimpleNamespace(AI_PROVIDER="openai", OPENAI_MODEL="gpt-4")
+    monkeypatch.setattr(enhanced_factory, "get_settings", lambda: settings)
+    monkeypatch.setattr(enhanced_factory, "OpenAIService", StubOpenAIService)
+
+    cache = object()
+    service = enhanced_factory.create_scientific_ai_service(cache=cache)
+
+    assert isinstance(service, StubOpenAIService)
+    assert service.cache is cache
+    assert service.model == "gpt-4"
+
+
+def test_model_selectors_advertise_only_openai(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    settings = SimpleNamespace(OPENAI_MODEL="gpt-4")
+    monkeypatch.setattr(factory, "get_settings", lambda: settings)
+    monkeypatch.setattr(enhanced_factory, "get_settings", lambda: settings)
+
+    selector = factory.get_model_selector()
+    scientific_selector = enhanced_factory.get_scientific_model_selector()
+
+    assert set(selector["providers"]) == {"openai"}
+    assert selector["default_provider"] == "openai"
+    assert selector["auto_detection"] is False
+    assert scientific_selector["default_provider"] == "openai"
+    for purpose in scientific_selector["purposes"].values():
+        assert {model["provider"] for model in purpose["models"]} == {"openai"}
+
+
+def test_model_selectors_reject_stale_non_openai_default(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    settings = SimpleNamespace(OPENAI_MODEL="deepseek-v4-pro")
+    monkeypatch.setattr(factory, "get_settings", lambda: settings)
+    monkeypatch.setattr(enhanced_factory, "get_settings", lambda: settings)
+
+    with pytest.raises(ValueError, match="only OpenAI models are enabled"):
+        factory.get_model_selector()
+    with pytest.raises(ValueError, match="only OpenAI models are enabled"):
+        enhanced_factory.get_scientific_model_selector()
+
+
+@pytest.mark.asyncio
+async def test_dependency_returns_controlled_bad_request_for_disabled_provider(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    def reject_provider(**_: object) -> object:
+        raise ValueError("only OpenAI is enabled")
+
+    monkeypatch.setattr(deps, "create_ai_service", reject_provider)
+    monkeypatch.setattr(
+        deps,
+        "get_settings",
+        lambda: SimpleNamespace(
+            ENABLE_AI_SUGGESTIONS=True,
+            OPENAI_API_KEY="test-key",
+        ),
+    )
+
+    with pytest.raises(HTTPException) as exc_info:
+        await deps.get_ai_service(force_provider="deepseek")
+
+    assert exc_info.value.status_code == 400
+    assert "only OpenAI is enabled" in exc_info.value.detail
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    ("enabled", "api_key", "detail"),
+    [
+        (False, "test-key", "AI suggestions are disabled"),
+        (True, "", "OpenAI service is not configured"),
+    ],
+)
+async def test_dependency_fails_offline_without_constructing_client(
+    monkeypatch: pytest.MonkeyPatch,
+    enabled: bool,
+    api_key: str,
+    detail: str,
+) -> None:
+    monkeypatch.setattr(
+        deps,
+        "get_settings",
+        lambda: SimpleNamespace(
+            ENABLE_AI_SUGGESTIONS=enabled,
+            OPENAI_API_KEY=api_key,
+        ),
+    )
+
+    def unexpected_factory_call(**_: object) -> object:
+        raise AssertionError("AI client must not be constructed while offline")
+
+    monkeypatch.setattr(deps, "create_ai_service", unexpected_factory_call)
+
+    with pytest.raises(HTTPException) as exc_info:
+        await deps.get_ai_service()
+
+    assert exc_info.value.status_code == 503
+    assert exc_info.value.detail == detail

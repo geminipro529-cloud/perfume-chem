@@ -1,0 +1,4600 @@
+{
+  "schema": "perfume_chem.design_intent.v1",
+  "case_id": "DHI-11-V6-COMPLEXITY-FIRST-20260906",
+  "created_local_date": "2026-09-06",
+  "authority": "DESIGN_INTENT_ONLY_NOT_STOCK_OR_RELEASE_AUTHORITY",
+  "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+  "document_state": "FORMULA_AND_POUR_CARD_COMPLETE_DIAGNOSTIC_COMPLETE_RELEASE_HOLD",
+  "physical_state": "NOT_COMPOUNDED",
+  "sensory_state": "NOT_TESTED",
+  "release_state": "HOLD",
+  "reference_scope": "DHI2011-inspired architecture; not authenticated Dior formula",
+  "reference_model_preference": {
+    "requested_local_date": "2026-09-06",
+    "user_preference": "DHP",
+    "interpreted_as": "Dior Homme Parfum",
+    "intended_role": "Adjacent structural comparison, not replacement of the DHI 2011 target",
+    "selection_state": "DHP_2025_SELECTED_SECONDARY_REFERENCE_ONLY",
+    "selected_model": "iris_sandalwood.dhp2025",
+    "user_confirmed_version": "DHP 2025 — newer reference",
+    "available_local_models": [
+      "leather_iris_amber.dhp2014",
+      "iris_sandalwood.dhp2025"
+    ],
+    "model_authority": "UNVALIDATED_REFERENCE_HEURISTICS_NOT_AUTHENTICATED_DIOR_FORMULAS",
+    "numerical_model_use": "NOT_ACCEPTED_PENDING_REVALIDATION; existing Sandalore/Polysantol requirements and OAV ratios are not Dior evidence",
+    "accepted_comparison_scope": "QUALITATIVE_STRUCTURE_ONLY_NOT_SENSORY_SIMILARITY_OR_INGREDIENT_IDENTITY",
+    "primary_reference": {
+      "url": "https://www.dior.com/en_int/beauty/products/dior-homme-parfum-E000000226.html",
+      "accessed_local_date": "2026-09-06",
+      "version": "Francis Kurkdjian reinterpretation selected by the user as DHP 2025",
+      "descriptive_features": [
+        "Iris root-to-flower contrast",
+        "Ambery structure described with patchouli, vetiver and coumarin notes"
+      ],
+      "ingredient_and_ratio_authority": false
+    },
+    "current_diagnostic_remains": "iris_coumarin_amber.dhi2011",
+    "constraints": [
+      "Irotyl remains excluded",
+      "No automatic dose repair or model-required material additions",
+      "DHP data do not establish DHI 2011 ingredient presence or optimal ratios",
+      "Safety, mixture-composition and mass evidence holds remain unchanged"
+    ]
+  },
+  "user_constraints": [
+    "Orris-led",
+    "Irotyl excluded",
+    "whole-formula reconsideration from zero",
+    "no ingredient-count limit",
+    "maximize meaningful target-linked layers, not row count"
+  ],
+  "nominal_batch_ml": 30,
+  "raw_stock_concentrate_ul": 6000,
+  "ethanol_96_ul": 24000,
+  "nominal_raw_stock_concentrate_vv_pct": 20,
+  "volume_convention": "additive nominal volumes; contraction and delivery loss unmeasured",
+  "parent": {
+    "path": "formulas/DHI-11_V5_Orris_Led_From_Zero_30mL_20pct.md",
+    "sha256": "602619761c1011c82f82d0d9721d555431f382fe2e7602c738b8576eb9bcd434",
+    "role": "Immediate G15 comparison parent; retained stock fractions unchanged; non-nucleus raw-dose changes intentional. New batch, not bottle additions."
+  },
+  "protected_nucleus": [
+    {
+      "material": "Orris Liquid",
+      "raw_ul": 1500,
+      "stock_id": "inventory:user-20260905:35dcce111e91d8f411cb"
+    },
+    {
+      "material": "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+      "raw_ul": 600,
+      "stock_id": "inventory:user-20260905:19dbde34171aec1e9868"
+    },
+    {
+      "material": "Alpha Irone",
+      "raw_ul": 160,
+      "stock_id": "inventory:user-20260828:7fe094eca01cedacae09"
+    },
+    {
+      "material": "Alpha Ionone",
+      "raw_ul": 60,
+      "stock_id": "inventory:v5:948e98d704540c4db323"
+    }
+  ],
+  "stock_provenance": {
+    "live_inventory_sha256": "331f233274960c9e53586c61cafae7bd85ec4f480c835430c72904a9406dc06f",
+    "cross_worktree_overrides": [
+      "D:/chatbots/perfume-chem/data/governance/inventory_user_authority_overlay_20260904.json",
+      "D:/chatbots/perfume-chem/data/governance/inventory_user_authority_overlay_20260905.json"
+    ],
+    "integration_state": "SELECTED_FIVE_RECEIPTS_RECONCILED_IN_C4D5_RUNTIME; unrelated stocks and holds unchanged; no physical metrology or release authority",
+    "five_overrides": [
+      "AIMI one physical bottle alias confirmation",
+      "Indian Vetiver exact owned grade",
+      "Ambrettolide 10% w/w DPG",
+      "Tonkarome 20% w/w TEC",
+      "Orris Liquid 9% w/w DEP"
+    ],
+    "override_sha256": {
+      "inventory_user_authority_overlay_20260904.json": "e2fe66cb8077da38142913a73b0d77acd14b6e4953f6155bb2011e1e2bb851a4",
+      "inventory_user_authority_overlay_20260905.json": "08d0f0e41f90741200b3e915789ddd044cbbf7b0ce1b1aa266053452781bb17f"
+    },
+    "c4d5_local_overlay_note": "Benzyl Salicylate uses c4d5/data/governance/inventory_user_authority_overlay_20260904.json INV-USER-20260904-004, not the canonical same-date overlay; distinct chains must not be merged by filename.",
+    "design_time_live_inventory_sha256": "5da7ecdab4ce9c297f95a61051b38d9183f796c1971dd276546ef15c7856c497",
+    "current_inventory_normalized_sha256": "baf6eefd079eda63fdcaa6972afe21e9297d4598ab92b3733fc44b0f8f4b0fa4",
+    "current_overlay_path": "data/governance/inventory_user_authority_overlay_20260905_reconciled.json",
+    "current_overlay_normalized_sha256": "6b484bb4bfe2be531026d9fda3422d587bdff76f3a4758348b1453d63b1ea170"
+  },
+  "source_bindings": [
+    {
+      "path": "inventory.txt",
+      "sha256": "331f233274960c9e53586c61cafae7bd85ec4f480c835430c72904a9406dc06f"
+    },
+    {
+      "path": "docs/research/DHP2025_STRUCTURAL_FORMULATION_LEARNING_PROTOCOL.md",
+      "sha256": "50d108570dea367a0d377de1dc41bbf17e8911b522d67d8d2a7aa237085edeb1"
+    },
+    {
+      "path": "docs/depth_architecture/09_spatial_architecture_performance.md",
+      "sha256": "6b381b8931421e89aeca556f72479bf65f8438797cdfe3d769f4e4e938ddcae5"
+    },
+    {
+      "path": "formulas/DHI-11_Velours_d_Iris_05443A_30mL_20pct_V4_Orris_Led.md",
+      "sha256": "27017d190bff711ef91a9bb0c2d17fb20624012559f0a6e2e2ed91dccea6544e"
+    },
+    {
+      "path": "formulas/DHI-11_V5_Orris_Led_From_Zero_30mL_20pct.md",
+      "sha256": "602619761c1011c82f82d0d9721d555431f382fe2e7602c738b8576eb9bcd434"
+    },
+    {
+      "path": "formulas/DHI-11_V5_Orris_Led_From_Zero_30mL_20pct.design.json",
+      "sha256": "deb1c23aca5b71ea0874caa3e5384ec19ebfd418a3b6faebedd79b3f9eadc2d6"
+    },
+    {
+      "path": "formulas/DHI-11_V5_From_Zero_30mL_POUR_CARD.md",
+      "sha256": "7c805219c302e3b3d371ead15168828ccb385517bfee894a0ca48fb86286eac0"
+    },
+    {
+      "path": "output/dhi2011_v5_scientific_data_audit_20260905/release_gate.json",
+      "sha256": "8237d116bf67d4d9dafb404eebe208b7430706aef58b36ecfeb225f9dfaf1272"
+    },
+    {
+      "path": "engine/pipeline/simulator.py",
+      "sha256": "a234fce4b0ca8865e12ac3191351d50cf6509b2697e9daf463d216c32c647ed5"
+    },
+    {
+      "path": "engine/pipeline/formula_state.py",
+      "sha256": "447a1aa282b6968bfe0af409915d1bd2fccf4823d049cf7ca47cc369e096a60b"
+    },
+    {
+      "path": "engine/formulation_intelligence/spatial_architecture.py",
+      "sha256": "59bdafb976eedff73221368cfa0e9362f00ebffbef7720aee683752fa2a60522"
+    },
+    {
+      "path": "docs/research/DHI2011_COMPLEXITY_FIRST_OPEN_SPACE_RESEARCH_20260906.md",
+      "sha256": "549a96782adddac234daf221f1cff783d9a302f8b323fbce35ca4d5240cfd371"
+    },
+    {
+      "path": "docs/research/DHI2011_COMPLEXITY_FIRST_OPEN_SPACE_RESEARCH_20260906.json",
+      "sha256": "707da6d81689b0be58accb5ce0d50277eeca6e5e406e91ef9bc158ff8fcce1ff"
+    }
+  ],
+  "design_states": {
+    "simultaneous_subject": "Orris-led iris: dry/cool root and violet surface under warm cosmetic/creamy pressure; air around a dense centre.",
+    "desired_conflicts": [
+      "earthy root versus cosmetic powder",
+      "dry grain versus soft cream",
+      "fruit glint versus balsamic skin",
+      "diffuse contour versus recognisable iris"
+    ],
+    "outcomes_observed": false
+  },
+  "layers": [
+    {
+      "id": "L01",
+      "name": "Front glint",
+      "question": "Aromatic entry hands restrained green-fruit light to iris.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false,
+      "materials": [
+        "Lavender EO High Altitude",
+        "Linalyl Acetate",
+        "Linalool",
+        "Coriander Essential Oil"
+      ],
+      "raw_stock_budget_ul": 260,
+      "observable_success": "Aromatic entry hands restrained green-fruit light to iris.",
+      "accepted_sensory_layer": false
+    },
+    {
+      "id": "L02",
+      "name": "Iris surface",
+      "question": "Violet movement and earthy root remain one subject.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false,
+      "materials": [
+        "Alpha Ionone",
+        "Beta Ionone",
+        "Dihydro Beta Ionone"
+      ],
+      "raw_stock_budget_ul": 140,
+      "observable_success": "Violet movement and earthy root remain one subject.",
+      "accepted_sensory_layer": false
+    },
+    {
+      "id": "L03",
+      "name": "Living root interior",
+      "question": "Rich irregular root remains legible beneath the surface.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false,
+      "materials": [
+        "Orris Liquid",
+        "Alpha Irone",
+        "Orivone",
+        "Carrot Seed EO"
+      ],
+      "raw_stock_budget_ul": 1680,
+      "observable_success": "Rich irregular root remains legible beneath the surface.",
+      "accepted_sensory_layer": false
+    },
+    {
+      "id": "L04",
+      "name": "Cosmetic body",
+      "question": "Powder has a living flower-bearing middle.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false,
+      "materials": [
+        "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+        "Ethylene Brassylate",
+        "Benzyl Salicylate"
+      ],
+      "raw_stock_budget_ul": 1000,
+      "observable_success": "Powder has a living flower-bearing middle.",
+      "accepted_sensory_layer": false
+    },
+    {
+      "id": "L05",
+      "name": "Soft interior edge",
+      "question": "Cream and dry grain coexist without indiscriminate smoothing.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false,
+      "materials": [
+        "Ebanol",
+        "Sandalore",
+        "Delta Decalactone",
+        "Hexyl Salicylate"
+      ],
+      "raw_stock_budget_ul": 170,
+      "observable_success": "Cream and dry grain coexist without indiscriminate smoothing.",
+      "accepted_sensory_layer": false
+    },
+    {
+      "id": "L06",
+      "name": "Fruit-skin connection",
+      "question": "Fruit becomes ambrette-like skin warmth without candy.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false,
+      "materials": [
+        "Verdox",
+        "Benzyl Acetate",
+        "Ambrettolide"
+      ],
+      "raw_stock_budget_ul": 1030,
+      "observable_success": "Fruit becomes ambrette-like skin warmth without candy.",
+      "accepted_sensory_layer": false
+    },
+    {
+      "id": "L07",
+      "name": "Textile and grain",
+      "question": "Powder transitions through texture into dry wood.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false,
+      "materials": [
+        "Cashmeran",
+        "Kephalis",
+        "Cedarwood oil Virginia",
+        "Vetival"
+      ],
+      "raw_stock_budget_ul": 540,
+      "observable_success": "Powder transitions through texture into dry wood.",
+      "accepted_sensory_layer": false
+    },
+    {
+      "id": "L08",
+      "name": "Open outer contour",
+      "question": "The receiver recognizes iris-linked character rather than generic strength.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false,
+      "materials": [
+        "Hedione",
+        "Iso E Super",
+        "Cedramber"
+      ],
+      "raw_stock_budget_ul": 450,
+      "observable_success": "The receiver recognizes iris-linked character rather than generic strength.",
+      "accepted_sensory_layer": false
+    },
+    {
+      "id": "L09",
+      "name": "Warm rear contour",
+      "question": "Fabric warmth supports root identity without gourmand takeover.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false,
+      "materials": [
+        "Tonkarome",
+        "Isobutavan"
+      ],
+      "raw_stock_budget_ul": 370,
+      "observable_success": "Fabric warmth supports root identity without gourmand takeover.",
+      "accepted_sensory_layer": false
+    },
+    {
+      "id": "L10",
+      "name": "Skin-fabric return",
+      "question": "Iris-root identity recurs in a changed late context.",
+      "status": "DESIGN_HYPOTHESIS_NOT_OBSERVED",
+      "physical_coordinate_claim": false,
+      "materials": [
+        "Vetiver EO (India)",
+        "Romandolide"
+      ],
+      "raw_stock_budget_ul": 280,
+      "observable_success": "Iris-root identity recurs in a changed late context.",
+      "accepted_sensory_layer": false
+    }
+  ],
+  "transitions": [
+    {
+      "id": "T01",
+      "from": "L01",
+      "to": "L02",
+      "owner": "Linalyl Acetate",
+      "comparison": "Ester handoff omission or alternative at fixed iris nucleus.",
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    {
+      "id": "T02",
+      "from": "L01",
+      "to": "L06",
+      "owner": "Ambrettolide",
+      "comparison": "Present fruit bridge versus alternative versus omission.",
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    {
+      "id": "T03",
+      "from": "L02",
+      "to": "L03",
+      "owner": "Alpha Irone with Orris Liquid",
+      "comparison": "Cold-contour and warm-interior 2x2; isolate any root contrast.",
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    {
+      "id": "T04",
+      "from": "L04",
+      "to": "L07",
+      "owner": "Cashmeran",
+      "comparison": "Texture route versus Kephalis or Osmanthus alternatives; separate intensity.",
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    {
+      "id": "T05",
+      "from": "L05",
+      "to": "L07",
+      "owner": "Ebanol",
+      "comparison": "Sandalore alternative versus omission at fixed cedar.",
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    {
+      "id": "T06",
+      "from": "L04",
+      "to": "L08",
+      "owner": "Hedione and Iso E Super, provisional",
+      "comparison": "Receiver identity with outer-contour bridge present versus absent.",
+      "status": "PROPOSED_NOT_OBSERVED"
+    },
+    {
+      "id": "T07",
+      "from": "L07",
+      "to": "L10",
+      "owner": "Cedarwood oil Virginia and Vetiver EO (India), with iris family",
+      "comparison": "Late root recognition versus generic wood persistence.",
+      "status": "PROPOSED_NOT_OBSERVED"
+    }
+  ],
+  "vehicle_budget_ul": 80,
+  "rows": [
+    {
+      "row": 1,
+      "material": "Hedione",
+      "basket": 1,
+      "raw_ul": 240,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:0f9d7e0971aad1594be4",
+      "runtime_identity_name": "Hedione",
+      "runtime_display_name": "Hedione",
+      "runtime_stock_source_ref": "Current Inventory Master!A129:N129",
+      "stock_execution_ready": true,
+      "primary_module": "L08",
+      "role_hypothesis": "Floral air around the dense iris centre.",
+      "nonredundancy_test": "Iso E is a woody contour, not floral air; compare omission at fixed iris.",
+      "failure_condition": "No repeatable clarity loss, or separate jasmine recognition.",
+      "parent_raw_ul": 240,
+      "intentional_raw_change_ul": 0,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED",
+      "opening_oav_screen": 391.485861198679,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 2,
+      "material": "Iso E Super",
+      "basket": 1,
+      "raw_ul": 130,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:66c8443970c7354dd89a",
+      "runtime_identity_name": "Iso E Super",
+      "runtime_display_name": "Iso E Super",
+      "runtime_stock_source_ref": "Current Inventory Master!A140:N140",
+      "stock_execution_ready": true,
+      "primary_module": "L08",
+      "role_hypothesis": "Transparent iris-to-cedar contour.",
+      "nonredundancy_test": "Compare omission at fixed literal cedar and Hedione.",
+      "failure_condition": "Anonymous wood dominates, or no transition loss.",
+      "parent_raw_ul": 160,
+      "intentional_raw_change_ul": -30,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED",
+      "opening_oav_screen": 1070.6275335033026,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 3,
+      "material": "Vetival",
+      "basket": 1,
+      "raw_ul": 120,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:44f86b339280f63eef21",
+      "runtime_identity_name": "Vetival",
+      "runtime_display_name": "Vetival",
+      "runtime_stock_source_ref": "Current Inventory Master!A244:N244",
+      "stock_execution_ready": true,
+      "primary_module": "L07",
+      "role_hypothesis": "Polished dry wood entering ahead of natural vetiver.",
+      "nonredundancy_test": "Natural Indian vetiver supplies root, not an assumed equivalent smoother.",
+      "failure_condition": "No repeatable seam loss, or redundant wood thickening.",
+      "parent_raw_ul": 100,
+      "intentional_raw_change_ul": 20,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED",
+      "opening_oav_screen": 29.038347741174114,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 4,
+      "material": "Benzyl Benzoate",
+      "basket": 1,
+      "raw_ul": 80,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:48d08954bb41de2543fb",
+      "runtime_identity_name": "Benzyl Benzoate",
+      "runtime_display_name": "Benzyl Benzoate",
+      "runtime_stock_source_ref": "Current Inventory Master!A285:N285",
+      "stock_execution_ready": true,
+      "primary_module": "VEHICLE",
+      "role_hypothesis": "Structural vehicle only; no audible layer credit.",
+      "nonredundancy_test": "Compare physical compatibility before replacing its solvent-like function.",
+      "failure_condition": "No claimed odor or projection benefit; solubility remains untested.",
+      "parent_raw_ul": 100,
+      "intentional_raw_change_ul": -20,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "STRUCTURAL_NO_AUDIBLE_CREDIT",
+      "opening_oav_screen": 0.002814949776596213,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 5,
+      "material": "Hexyl Salicylate",
+      "basket": 1,
+      "raw_ul": 80,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:d5eea53855ea318ab957",
+      "runtime_identity_name": "Hexyl Salicylate",
+      "runtime_display_name": "Hexyl Salicylate",
+      "runtime_stock_source_ref": "Current Inventory Master!A133:N133",
+      "stock_execution_ready": true,
+      "primary_module": "L05",
+      "role_hypothesis": "Provisional green/floral cream edge between powder and wood.",
+      "nonredundancy_test": "Benzyl Salicylate body is separate only if pairwise omission shows a loss.",
+      "failure_condition": "No repeatable edge change; sub-threshold OAV gives no layer credit.",
+      "parent_raw_ul": 0,
+      "intentional_raw_change_ul": 80,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS",
+      "opening_oav_screen": 0.026144016184312394,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 6,
+      "material": "Benzyl Salicylate",
+      "basket": 1,
+      "raw_ul": 50,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:user-20260904:8263471c0cfb6737d169",
+      "runtime_identity_name": "Benzyl Salicylate",
+      "runtime_display_name": "Benzyl Salicylate",
+      "runtime_stock_source_ref": "data/governance/inventory_user_authority_overlay_20260904.json#INV-USER-20260904-004",
+      "stock_execution_ready": true,
+      "primary_module": "L04",
+      "role_hypothesis": "Provisional cosmetic-film body.",
+      "nonredundancy_test": "Hexyl Salicylate is the cream/green edge; compare each and both.",
+      "failure_condition": "No repeatable body change; do not reinterpret sub-threshold OAV as proven synergy.",
+      "parent_raw_ul": 60,
+      "intentional_raw_change_ul": -10,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS",
+      "opening_oav_screen": 0.03597362370925767,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 7,
+      "material": "Vetiver EO (India)",
+      "basket": 2,
+      "raw_ul": 100,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:user-20260905:46eaa4afb0cbf45f8cfe",
+      "runtime_identity_name": "Vetiver EO (India)",
+      "runtime_display_name": "Vetiver EO (India)",
+      "runtime_stock_source_ref": "data/governance/inventory_user_authority_overlay_20260905_reconciled.json#INV-USER-20260905-REC02",
+      "stock_execution_ready": true,
+      "primary_module": "L10",
+      "role_hypothesis": "Late earthy root counterline under cedar.",
+      "nonredundancy_test": "Compare with fixed Vetival to separate root from polish.",
+      "failure_condition": "Dry wood erases iris or earthy character becomes the subject.",
+      "parent_raw_ul": 120,
+      "intentional_raw_change_ul": -20,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED",
+      "opening_oav_screen": 2.4517926147978892,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 8,
+      "material": "Cedarwood oil Virginia",
+      "basket": 3,
+      "raw_ul": 320,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:61deb2ebba56d82eb870",
+      "runtime_identity_name": "Cedarwood Virginia",
+      "runtime_display_name": "Cedarwood Virginia",
+      "runtime_stock_source_ref": "Current Inventory Master!A64:N64",
+      "stock_execution_ready": true,
+      "primary_module": "L07",
+      "role_hypothesis": "Literal cedar grain linking powder to root return.",
+      "nonredundancy_test": "Iso E supplies transparency; Cedramber supplies a proposed brighter edge.",
+      "failure_condition": "Pencil-shaving dominance or no late iris-linked recognition.",
+      "parent_raw_ul": 260,
+      "intentional_raw_change_ul": 60,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED",
+      "opening_oav_screen": 13.424354195635441,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 9,
+      "material": "Cashmeran",
+      "basket": 3,
+      "raw_ul": 60,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:0b5d75dffb251876ec11",
+      "runtime_identity_name": "Cashmeran",
+      "runtime_display_name": "Cashmeran 20%",
+      "runtime_stock_source_ref": "Current Inventory Master!A59:N59",
+      "stock_execution_ready": true,
+      "primary_module": "L07",
+      "role_hypothesis": "Powder-to-wood textile seam.",
+      "nonredundancy_test": "Kephalis is a darker amber/tobacco pressure; compare omissions and pair.",
+      "failure_condition": "Textile relation absent or musky wood blankets root.",
+      "parent_raw_ul": 70,
+      "intentional_raw_change_ul": -10,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED",
+      "opening_oav_screen": 7.222489872599416,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 10,
+      "material": "Sandalore",
+      "basket": 3,
+      "raw_ul": 50,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:6cb04089c27e0a91ee15",
+      "runtime_identity_name": "Sandalore",
+      "runtime_display_name": "Sandalore",
+      "runtime_stock_source_ref": "Current Inventory Master!A219:N219",
+      "stock_execution_ready": true,
+      "primary_module": "L05",
+      "role_hypothesis": "Soft cream-to-grain rounding under iris.",
+      "nonredundancy_test": "Compare with narrow Ebanol seam, omission and pair; no mandatory DHP material status.",
+      "failure_condition": "Sandalwood lead or indiscriminate smoothing.",
+      "parent_raw_ul": 0,
+      "intentional_raw_change_ul": 50,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS",
+      "opening_oav_screen": 0.12539172341548577,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 11,
+      "material": "Ebanol",
+      "basket": 3,
+      "raw_ul": 30,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:9a6c54f0b9b8183e51d9",
+      "runtime_identity_name": "Ebanol",
+      "runtime_display_name": "Ebanol",
+      "runtime_stock_source_ref": "Current Inventory Master!A99:N99",
+      "stock_execution_ready": true,
+      "primary_module": "L05",
+      "role_hypothesis": "Narrow persistent creamy seam against dry wood.",
+      "nonredundancy_test": "Sandalore is a softer cream hypothesis, not dose-equivalent; compare each and both.",
+      "failure_condition": "Sandalwood lead or blanket smoothing.",
+      "parent_raw_ul": 30,
+      "intentional_raw_change_ul": 0,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED",
+      "opening_oav_screen": 35.00450369184538,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 12,
+      "material": "Cedramber",
+      "basket": 4,
+      "raw_ul": 80,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:6e227ac1d6e71afcbfdf",
+      "runtime_identity_name": "Cedramber",
+      "runtime_display_name": "Cedramber 10%",
+      "runtime_stock_source_ref": "Current Inventory Master!A65:N65",
+      "stock_execution_ready": true,
+      "primary_module": "L08",
+      "role_hypothesis": "Proposed dry diffusive wood edge of the iris contour.",
+      "nonredundancy_test": "Compare with fixed Iso E and cedar, then alternative edge materials.",
+      "failure_condition": "Generic amberwood strength without iris recognition; model/ODT uncertain.",
+      "parent_raw_ul": 0,
+      "intentional_raw_change_ul": 80,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS",
+      "opening_oav_screen": 0.03119589484442679,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 13,
+      "material": "Kephalis",
+      "basket": 4,
+      "raw_ul": 40,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:7c0e8f327e111a82e0c5",
+      "runtime_identity_name": "Kephalis",
+      "runtime_display_name": "Kephalis",
+      "runtime_stock_source_ref": "Current Inventory Master!A153:N153",
+      "stock_execution_ready": true,
+      "primary_module": "L07",
+      "role_hypothesis": "Dark woody-amber pressure beneath violet and lavender.",
+      "nonredundancy_test": "Cashmeran gives textile texture; compare separate loss and collision.",
+      "failure_condition": "Named tobacco/amberwood overrides iris.",
+      "parent_raw_ul": 50,
+      "intentional_raw_change_ul": -10,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS",
+      "opening_oav_screen": 0.10183676942892209,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 14,
+      "material": "Ambrettolide",
+      "basket": 6,
+      "raw_ul": 850,
+      "stock_label": "10% w/w in DPG",
+      "nominal_fraction": 0.1,
+      "fraction_basis": "mass_fraction",
+      "carrier": "dpg",
+      "stock_id": "inventory:user-20260905:44394ef87ec2fc6f4c98",
+      "runtime_identity_name": "Ambrettolide",
+      "runtime_display_name": "Ambrettolide",
+      "runtime_stock_source_ref": "data/governance/inventory_user_authority_overlay_20260905_reconciled.json#INV-USER-20260905-REC03",
+      "stock_execution_ready": true,
+      "primary_module": "L06",
+      "role_hypothesis": "Fruit-to-skin relation at the iris edge.",
+      "nonredundancy_test": "EB body and Romandolide soft balsamic contour are separately testable roles.",
+      "failure_condition": "No fruit-to-skin loss or musk blanket.",
+      "parent_raw_ul": 1000,
+      "intentional_raw_change_ul": -150,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS",
+      "opening_oav_screen": 0.5489305981083638,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 15,
+      "material": "Ethylene Brassylate",
+      "basket": 6,
+      "raw_ul": 350,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:user-20260828:a630859c1c0f0553ddde",
+      "runtime_identity_name": "Ethylene Brassylate",
+      "runtime_display_name": "Ethylene Brassylate",
+      "runtime_stock_source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260828-001",
+      "stock_execution_ready": true,
+      "primary_module": "L04",
+      "role_hypothesis": "Powdered creamy body behind iris.",
+      "nonredundancy_test": "Ambrettolide fruit and Romandolide late contour are not assumed equivalent.",
+      "failure_condition": "Body gain without iris clarity, or no omission loss.",
+      "parent_raw_ul": 600,
+      "intentional_raw_change_ul": -250,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS",
+      "opening_oav_screen": 0.406669534146206,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 16,
+      "material": "Romandolide",
+      "basket": 6,
+      "raw_ul": 180,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:caba57d5d5c78d414d5c",
+      "runtime_identity_name": "Romandolide",
+      "runtime_display_name": "Romandolide",
+      "runtime_stock_source_ref": "Current Inventory Master!A211:N211",
+      "stock_execution_ready": true,
+      "primary_module": "L10",
+      "role_hypothesis": "Soft balsamic musk contour in the late iris/wood context.",
+      "nonredundancy_test": "Pairwise with EB and Ambrettolide; Habanolide is the strongest separate alternative.",
+      "failure_condition": "Redundant musk body or loss of root; no unique outward-projection claim.",
+      "parent_raw_ul": 0,
+      "intentional_raw_change_ul": 180,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS",
+      "opening_oav_screen": 0.8892721160641931,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 17,
+      "material": "Lavender EO High Altitude",
+      "basket": 7,
+      "raw_ul": 120,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:user-20260830:79bb335fa9937cec99c9",
+      "runtime_identity_name": "Lavender EO High Altitude",
+      "runtime_display_name": "Lavender EO High Altitude",
+      "runtime_stock_source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260830-005",
+      "stock_execution_ready": true,
+      "primary_module": "L01",
+      "role_hypothesis": "Fine aromatic entry yielding to iris.",
+      "nonredundancy_test": "Linalyl Acetate adjusts the ester seam; Linalool tests floral continuation.",
+      "failure_condition": "Lavender remains a separate leading subject.",
+      "parent_raw_ul": 140,
+      "intentional_raw_change_ul": -20,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED",
+      "opening_oav_screen": 306.4907308204192,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 18,
+      "material": "Linalyl Acetate",
+      "basket": 7,
+      "raw_ul": 100,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:f63a1c7f33cb38c4cb9a",
+      "runtime_identity_name": "Linalyl Acetate",
+      "runtime_display_name": "Linalyl Acetate",
+      "runtime_stock_source_ref": "Current Inventory Master!A163:N163",
+      "stock_execution_ready": true,
+      "primary_module": "L01",
+      "role_hypothesis": "Soft ester handoff between aromatic entry and fruit/petal.",
+      "nonredundancy_test": "Compare at fixed lavender and Benzyl Acetate.",
+      "failure_condition": "No improved handoff, or fruity ester overtakes root.",
+      "parent_raw_ul": 80,
+      "intentional_raw_change_ul": 20,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED",
+      "opening_oav_screen": 120.4855089258762,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 19,
+      "material": "Linalool",
+      "basket": 7,
+      "raw_ul": 30,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:56bb8be9477cf345183e",
+      "runtime_identity_name": "Linalool",
+      "runtime_display_name": "Linalool",
+      "runtime_stock_source_ref": "Current Inventory Master!A162:N162",
+      "stock_execution_ready": true,
+      "primary_module": "L01",
+      "role_hypothesis": "Adjustable aromatic-to-floral continuation.",
+      "nonredundancy_test": "Lavender already contains related chemistry; fixed-lavender omission must establish distinct value.",
+      "failure_condition": "Redundant opening material or enlarged floral subject.",
+      "parent_raw_ul": 0,
+      "intentional_raw_change_ul": 30,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED",
+      "opening_oav_screen": 242.7235694421094,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 20,
+      "material": "Orris Liquid",
+      "basket": 11,
+      "raw_ul": 1500,
+      "stock_label": "9% w/w in DEP",
+      "nominal_fraction": 0.09,
+      "fraction_basis": "mass_fraction",
+      "carrier": "dep",
+      "stock_id": "inventory:user-20260905:35dcce111e91d8f411cb",
+      "runtime_identity_name": "Orris Liquid",
+      "runtime_display_name": "Orris Liquid",
+      "runtime_stock_source_ref": "data/governance/inventory_user_authority_overlay_20260905_reconciled.json#INV-USER-20260905-REC05",
+      "stock_execution_ready": true,
+      "primary_module": "L03",
+      "role_hypothesis": "Protected whole supplied-product root lead.",
+      "nonredundancy_test": "Alpha Irone is not an equivalent replacement; no irone assay is inferred.",
+      "failure_condition": "Root identity obscured; product-composition evidence remains missing.",
+      "parent_raw_ul": 1500,
+      "intentional_raw_change_ul": 0,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "COMPOSITION_DATA_HOLD_NO_AUDIBLE_CREDIT",
+      "opening_oav_screen": null,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 21,
+      "material": "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+      "basket": 11,
+      "raw_ul": 600,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:user-20260905:19dbde34171aec1e9868",
+      "runtime_identity_name": "Givaudan AIMI",
+      "runtime_display_name": "Givaudan AIMI",
+      "runtime_stock_source_ref": "data/governance/inventory_user_authority_overlay_20260905_reconciled.json#INV-USER-20260905-REC01",
+      "stock_execution_ready": true,
+      "primary_module": "L04",
+      "role_hypothesis": "Protected cosmetic powder body around the root.",
+      "nonredundancy_test": "Alpha/Beta Ionone and Dihydro Beta Ionone address different violet textures.",
+      "failure_condition": "Detached violet/powder dominates the root.",
+      "parent_raw_ul": 600,
+      "intentional_raw_change_ul": 0,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED",
+      "opening_oav_screen": 78.60952151816744,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 22,
+      "material": "Alpha Irone",
+      "basket": 11,
+      "raw_ul": 160,
+      "stock_label": "10% w/w in DEP",
+      "nominal_fraction": 0.1,
+      "fraction_basis": "mass_fraction",
+      "carrier": "dep",
+      "stock_id": "inventory:user-20260828:7fe094eca01cedacae09",
+      "runtime_identity_name": "Alpha Irone",
+      "runtime_display_name": "Alpha Irone",
+      "runtime_stock_source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260828-003",
+      "stock_execution_ready": true,
+      "primary_module": "L03",
+      "role_hypothesis": "Protected independent root accent.",
+      "nonredundancy_test": "Neither Beta Ionone nor commercial Orris product is an exact substitute.",
+      "failure_condition": "Sharp isolated iris accent or no root benefit; lot isomer assay absent.",
+      "parent_raw_ul": 160,
+      "intentional_raw_change_ul": 0,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED",
+      "opening_oav_screen": 1.8454672948171105,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 23,
+      "material": "Alpha Ionone",
+      "basket": 11,
+      "raw_ul": 60,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:948e98d704540c4db323",
+      "runtime_identity_name": "Alpha Ionone",
+      "runtime_display_name": "Alpha Ionone",
+      "runtime_stock_source_ref": "Current Inventory Master!A18:N18",
+      "stock_execution_ready": true,
+      "primary_module": "L02",
+      "role_hypothesis": "Protected restrained woody-violet movement.",
+      "nonredundancy_test": "Beta Ionone tests a contrasting violet/fruit edge; no isomer equivalence.",
+      "failure_condition": "Separate violet flower dominates or no useful movement.",
+      "parent_raw_ul": 60,
+      "intentional_raw_change_ul": 0,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED",
+      "opening_oav_screen": 46.484663405702605,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 24,
+      "material": "Dihydro Beta Ionone",
+      "basket": 11,
+      "raw_ul": 60,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:8166668b8f4744aa3e81",
+      "runtime_identity_name": "Dihydro Beta Ionone",
+      "runtime_display_name": "Dihydro Beta Ionone",
+      "runtime_stock_source_ref": "Current Inventory Master!A92:N92",
+      "stock_execution_ready": true,
+      "primary_module": "L02",
+      "role_hypothesis": "Soft woody-violet pressure behind the violet surface.",
+      "nonredundancy_test": "Compare against omission and the existing ionone set, not concentration equivalence.",
+      "failure_condition": "No repeatable inner texture loss; numeric ODT is an analog estimate.",
+      "parent_raw_ul": 0,
+      "intentional_raw_change_ul": 60,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS",
+      "opening_oav_screen": 0.05698208053480587,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 25,
+      "material": "Beta Ionone",
+      "basket": 11,
+      "raw_ul": 20,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:f3291fcd7c33ce1abab8",
+      "runtime_identity_name": "Beta Ionone",
+      "runtime_display_name": "Beta Ionone",
+      "runtime_stock_source_ref": "Current Inventory Master!A44:N44",
+      "stock_execution_ready": true,
+      "primary_module": "L02",
+      "role_hypothesis": "Contrasting violet-fruit motion against the protected Alpha Ionone.",
+      "nonredundancy_test": "Compare omission with alpha and methyl-ionone doses fixed; beta-irone is a different molecule.",
+      "failure_condition": "Violet/berry lead, or no repeatable contrast.",
+      "parent_raw_ul": 0,
+      "intentional_raw_change_ul": 20,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED",
+      "opening_oav_screen": 713.8291884637583,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 26,
+      "material": "Carrot Seed EO",
+      "basket": 11,
+      "raw_ul": 10,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:7c0f5cd64386a62380d1",
+      "runtime_identity_name": "Carrot Seed EO",
+      "runtime_display_name": "Carrot Seed EO 1%",
+      "runtime_stock_source_ref": "Current Inventory Master!A57:N57",
+      "stock_execution_ready": true,
+      "primary_module": "L03",
+      "role_hypothesis": "Trace natural earthy-root irregularity.",
+      "nonredundancy_test": "Orivone is a cleaner camphoraceous contrast; partial composite model is not a lot assay.",
+      "failure_condition": "Carrot/spice recognizer or no useful irregularity.",
+      "parent_raw_ul": 0,
+      "intentional_raw_change_ul": 10,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS",
+      "opening_oav_screen": 0.12669787053896292,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 27,
+      "material": "Orivone",
+      "basket": 11,
+      "raw_ul": 10,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:fcd20111111c9f97c404",
+      "runtime_identity_name": "Orivone",
+      "runtime_display_name": "Orivone",
+      "runtime_stock_source_ref": "Current Inventory Master!A194:N194",
+      "stock_execution_ready": true,
+      "primary_module": "L03",
+      "role_hypothesis": "Trace earthy/camphoraceous root contrast.",
+      "nonredundancy_test": "Carrot Seed tests natural earthy irregularity; compare each and both.",
+      "failure_condition": "Camphor dominance or root distortion; not described as merely buttery.",
+      "parent_raw_ul": 0,
+      "intentional_raw_change_ul": 10,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED",
+      "opening_oav_screen": 82.82225039195686,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 28,
+      "material": "Tonkarome",
+      "basket": 12,
+      "raw_ul": 320,
+      "stock_label": "20% w/w in TEC",
+      "nominal_fraction": 0.2,
+      "fraction_basis": "mass_fraction",
+      "carrier": "tec",
+      "stock_id": "inventory:user-20260905:bc7dfa244a5e2344c0b4",
+      "runtime_identity_name": "Tonkarome",
+      "runtime_display_name": "Tonkarome",
+      "runtime_stock_source_ref": "data/governance/inventory_user_authority_overlay_20260905_reconciled.json#INV-USER-20260905-REC04",
+      "stock_execution_ready": true,
+      "primary_module": "L09",
+      "role_hypothesis": "Coumarinic fabric warmth under iris.",
+      "nonredundancy_test": "Isobutavan supplies a separate vanillic seam; product is not pure coumarin.",
+      "failure_condition": "Pastry/tonka dominates; composition and OAV remain UNKNOWN.",
+      "parent_raw_ul": 400,
+      "intentional_raw_change_ul": -80,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "COMPOSITION_DATA_HOLD_NO_AUDIBLE_CREDIT",
+      "opening_oav_screen": null,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 29,
+      "material": "Isobutavan",
+      "basket": 12,
+      "raw_ul": 50,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:ffc1ace806e25a690d10",
+      "runtime_identity_name": "Isobutavan",
+      "runtime_display_name": "Isobutavan",
+      "runtime_stock_source_ref": "Current Inventory Master!A141:N141",
+      "stock_execution_ready": true,
+      "primary_module": "L09",
+      "role_hypothesis": "Soft vanillic seam inside the dry-root structure.",
+      "nonredundancy_test": "Delta Decalactone tests a fatty cream edge, not extra vanilla.",
+      "failure_condition": "Dessert recognition, or no warm-interior loss on omission.",
+      "parent_raw_ul": 80,
+      "intentional_raw_change_ul": -30,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS",
+      "opening_oav_screen": 0.3684307336574511,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 30,
+      "material": "Delta Decalactone",
+      "basket": 12,
+      "raw_ul": 10,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:49416d4f3ca1f033f25b",
+      "runtime_identity_name": "Delta Decalactone",
+      "runtime_display_name": "Delta Decalactone",
+      "runtime_stock_source_ref": "Current Inventory Master!A270:N270",
+      "stock_execution_ready": true,
+      "primary_module": "L05",
+      "role_hypothesis": "Trace fatty/cream pressure against dry root.",
+      "nonredundancy_test": "Compare with warm module and omission; not a named peach/coconut accord.",
+      "failure_condition": "Fruit/milk recognizer or no repeatable creamy-edge loss.",
+      "parent_raw_ul": 0,
+      "intentional_raw_change_ul": 10,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS",
+      "opening_oav_screen": 0.0008678024378159387,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 31,
+      "material": "Coriander Essential Oil",
+      "basket": 13,
+      "raw_ul": 10,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:8f24d01cce6349e9cf63",
+      "runtime_identity_name": "Coriander Seed EO",
+      "runtime_display_name": "Coriander Seed EO",
+      "runtime_stock_source_ref": "Current Inventory Master!A83:N83",
+      "stock_execution_ready": true,
+      "primary_module": "L01",
+      "role_hypothesis": "Fine spicy/aromatic entry contour from owned seed EO.",
+      "nonredundancy_test": "Lavender supplies aromatic body; no coriander leaf substitution.",
+      "failure_condition": "Culinary spice recognition or redundant sharpness.",
+      "parent_raw_ul": 20,
+      "intentional_raw_change_ul": -10,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "MODELED_THRESHOLD_EXCEEDED_NOT_SENSORY_ACCEPTED",
+      "opening_oav_screen": 33.07637317744379,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 32,
+      "material": "Benzyl Acetate",
+      "basket": 15,
+      "raw_ul": 90,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:1a249065fb9030019b59",
+      "runtime_identity_name": "Benzyl Acetate",
+      "runtime_display_name": "Benzyl Acetate",
+      "runtime_stock_source_ref": "Current Inventory Master!A40:N40",
+      "stock_execution_ready": true,
+      "primary_module": "L06",
+      "role_hypothesis": "Floral-fruit bridge into ambrettolide and iris.",
+      "nonredundancy_test": "Linalyl Acetate links lavender; neither is exact Phenethyl Acetate replacement.",
+      "failure_condition": "Banana/jasmine dominates or no bridge loss.",
+      "parent_raw_ul": 70,
+      "intentional_raw_change_ul": 20,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS",
+      "opening_oav_screen": 0.41977362796733275,
+      "accepted_audible_layer": false
+    },
+    {
+      "row": 33,
+      "material": "Verdox",
+      "basket": 15,
+      "raw_ul": 90,
+      "stock_label": "neat",
+      "nominal_fraction": 1,
+      "fraction_basis": "neat",
+      "carrier": null,
+      "stock_id": "inventory:v5:27ee5eb3d7eecaf277c2",
+      "runtime_identity_name": "Verdox",
+      "runtime_display_name": "Verdox",
+      "runtime_stock_source_ref": "Current Inventory Master!A240:N240",
+      "stock_execution_ready": true,
+      "primary_module": "L06",
+      "role_hypothesis": "Restrained green-fruit glint continuing into wood.",
+      "nonredundancy_test": "Benzyl Acetate gives floral-fruit softness, not the green wood facet.",
+      "failure_condition": "Apple/candy becomes the subject or bridge vanishes.",
+      "parent_raw_ul": 100,
+      "intentional_raw_change_ul": -10,
+      "delivered_mass_g": null,
+      "authoritative_product_mass_g": null,
+      "concentrate_ppm_ww": null,
+      "sensory_status": "NOT_TESTED",
+      "screen_survival_status": "SENSORY_ROLE_HOLD_RETAINED_ONLY_AS_OMISSION_HYPOTHESIS",
+      "opening_oav_screen": 0.333076150916818,
+      "accepted_audible_layer": false
+    }
+  ],
+  "ideal": {
+    "authority": "INDEPENDENT_HYPOTHETICAL_SUPPLIED_PRODUCT_MASS_DESIGN_NOT_DIOR_FORMULA",
+    "normalization": "Largest-remainder integer ppm from explicitly local relative design parts; not an empirical optimum.",
+    "denominator": "One million mass parts of hypothetical undiluted supplied products, including natural/proprietary mixtures as whole products; no stock carriers.",
+    "total_ppm": 1000000,
+    "rows": [
+      {
+        "material": "Orris Liquid",
+        "relative_design_parts": 1200,
+        "target_ppm": 101129,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Protected whole supplied-product root lead.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+        "relative_design_parts": 2000,
+        "target_ppm": 168549,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Protected cosmetic powder body around the root.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Alpha Irone",
+        "relative_design_parts": 100,
+        "target_ppm": 8428,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Protected independent root accent.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Alpha Ionone",
+        "relative_design_parts": 200,
+        "target_ppm": 16855,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Protected restrained woody-violet movement.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Beta Ionone",
+        "relative_design_parts": 100,
+        "target_ppm": 8428,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Contrasting violet-fruit motion against the protected Alpha Ionone.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Dihydro Beta Ionone",
+        "relative_design_parts": 250,
+        "target_ppm": 21069,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Soft woody-violet pressure behind the violet surface.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Orivone",
+        "relative_design_parts": 20,
+        "target_ppm": 1686,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Trace earthy/camphoraceous root contrast.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Carrot Seed EO",
+        "relative_design_parts": 20,
+        "target_ppm": 1686,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Trace natural earthy-root irregularity.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Hedione",
+        "relative_design_parts": 700,
+        "target_ppm": 58992,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Floral air around the dense iris centre.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Iso E Super",
+        "relative_design_parts": 600,
+        "target_ppm": 50565,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Transparent iris-to-cedar contour.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Vetival",
+        "relative_design_parts": 350,
+        "target_ppm": 29496,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Polished dry wood entering ahead of natural vetiver.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Cedarwood oil Virginia",
+        "relative_design_parts": 700,
+        "target_ppm": 58992,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Literal cedar grain linking powder to root return.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Vetiver EO (India)",
+        "relative_design_parts": 350,
+        "target_ppm": 29496,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Late earthy root counterline under cedar.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Cashmeran",
+        "relative_design_parts": 300,
+        "target_ppm": 25282,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Powder-to-wood textile seam.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Ebanol",
+        "relative_design_parts": 180,
+        "target_ppm": 15169,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Narrow persistent creamy seam against dry wood.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Sandalore",
+        "relative_design_parts": 120,
+        "target_ppm": 10113,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Soft cream-to-grain rounding under iris.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Kephalis",
+        "relative_design_parts": 160,
+        "target_ppm": 13484,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Dark woody-amber pressure beneath violet and lavender.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Vertofix",
+        "relative_design_parts": 300,
+        "target_ppm": 25282,
+        "current_build_state": "IDEAL_ONLY",
+        "function": "IDEAL-ONLY: trade-grade and chemical-identity metadata conflict. Cedar and Vetival preserve grain/polish functions without asserting equivalence.",
+        "qualification": "IDEAL-ONLY: trade-grade and chemical-identity metadata conflict. Cedar and Vetival preserve grain/polish functions without asserting equivalence."
+      },
+      {
+        "material": "Cedramber",
+        "relative_design_parts": 220,
+        "target_ppm": 18540,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Proposed dry diffusive wood edge of the iris contour.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Ambrettolide",
+        "relative_design_parts": 450,
+        "target_ppm": 37924,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Fruit-to-skin relation at the iris edge.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Ethylene Brassylate",
+        "relative_design_parts": 700,
+        "target_ppm": 58992,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Powdered creamy body behind iris.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Romandolide",
+        "relative_design_parts": 300,
+        "target_ppm": 25282,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Soft balsamic musk contour in the late iris/wood context.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Lavender EO High Altitude",
+        "relative_design_parts": 250,
+        "target_ppm": 21069,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Fine aromatic entry yielding to iris.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Linalyl Acetate",
+        "relative_design_parts": 220,
+        "target_ppm": 18540,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Soft ester handoff between aromatic entry and fruit/petal.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Linalool",
+        "relative_design_parts": 120,
+        "target_ppm": 10113,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Adjustable aromatic-to-floral continuation.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Tonkarome",
+        "relative_design_parts": 300,
+        "target_ppm": 25282,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Coumarinic fabric warmth under iris.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Isobutavan",
+        "relative_design_parts": 160,
+        "target_ppm": 13484,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Soft vanillic seam inside the dry-root structure.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Coriander Essential Oil",
+        "relative_design_parts": 20,
+        "target_ppm": 1686,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Fine spicy/aromatic entry contour from owned seed EO.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Verdox",
+        "relative_design_parts": 200,
+        "target_ppm": 16855,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Restrained green-fruit glint continuing into wood.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Benzyl Acetate",
+        "relative_design_parts": 150,
+        "target_ppm": 12641,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Floral-fruit bridge into ambrettolide and iris.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Phenyl Ethyl Acetate",
+        "relative_design_parts": 150,
+        "target_ppm": 12641,
+        "current_build_state": "IDEAL_ONLY",
+        "function": "IDEAL-ONLY: owned label Phenethyl Acetate lacks a complete current identity/profile join. Benzyl Acetate and Linalyl Acetate preserve parts of the bridge question, not exact equivalence.",
+        "qualification": "IDEAL-ONLY: owned label Phenethyl Acetate lacks a complete current identity/profile join. Benzyl Acetate and Linalyl Acetate preserve parts of the bridge question, not exact equivalence."
+      },
+      {
+        "material": "Hexyl Salicylate",
+        "relative_design_parts": 180,
+        "target_ppm": 15169,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Provisional green/floral cream edge between powder and wood.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Benzyl Salicylate",
+        "relative_design_parts": 180,
+        "target_ppm": 15169,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Provisional cosmetic-film body.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Benzyl Benzoate",
+        "relative_design_parts": 180,
+        "target_ppm": 15169,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Structural vehicle only; no audible layer credit.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Delta Decalactone",
+        "relative_design_parts": 20,
+        "target_ppm": 1686,
+        "current_build_state": "SELECTED_PRODUCT_NOT_QUANTITATIVELY_EQUIVALENT",
+        "function": "Trace fatty/cream pressure against dry root.",
+        "qualification": "Independent target mass design; current raw-stock build is not an exact realization."
+      },
+      {
+        "material": "Mimosa Absolute",
+        "relative_design_parts": 30,
+        "target_ppm": 2528,
+        "current_build_state": "IDEAL_ONLY",
+        "function": "IDEAL-ONLY: 10% DPG preparation fraction basis unspecified; yellow-flower/powder alternative must compete with the current body.",
+        "qualification": "IDEAL-ONLY: 10% DPG preparation fraction basis unspecified; yellow-flower/powder alternative must compete with the current body."
+      },
+      {
+        "material": "Osmanthus Absolute",
+        "relative_design_parts": 40,
+        "target_ppm": 3371,
+        "current_build_state": "IDEAL_ONLY",
+        "function": "IDEAL-ONLY: premium 10% DPG preparation basis unspecified; fruit-violet-suede alternative has apricot drift and incomplete composite evidence.",
+        "qualification": "IDEAL-ONLY: premium 10% DPG preparation basis unspecified; fruit-violet-suede alternative has apricot drift and incomplete composite evidence."
+      },
+      {
+        "material": "Ethyl 2-Methylbutyrate",
+        "relative_design_parts": 1,
+        "target_ppm": 84,
+        "current_build_state": "IDEAL_ONLY",
+        "function": "IDEAL-ONLY: prepared 0.1% stock basis unresolved; retain flash-versus-no-flash question without a fabricated dose.",
+        "qualification": "IDEAL-ONLY: prepared 0.1% stock basis unresolved; retain flash-versus-no-flash question without a fabricated dose."
+      },
+      {
+        "material": "Habanolide",
+        "relative_design_parts": 200,
+        "target_ppm": 16855,
+        "current_build_state": "IDEAL_ONLY",
+        "function": "IDEAL-ONLY: competing late musk route; not automatically a fourth current musk or a proved better projector.",
+        "qualification": "IDEAL-ONLY: competing late musk route; not automatically a fourth current musk or a proved better projector."
+      },
+      {
+        "material": "Clearwood",
+        "relative_design_parts": 100,
+        "target_ppm": 8427,
+        "current_build_state": "IDEAL_ONLY",
+        "function": "IDEAL-ONLY: alternative late earth/wood pressure; test against existing root/cedar route rather than stack by default.",
+        "qualification": "IDEAL-ONLY: alternative late earth/wood pressure; test against existing root/cedar route rather than stack by default."
+      },
+      {
+        "material": "Heliotropal (Piperonal)",
+        "relative_design_parts": 40,
+        "target_ppm": 3371,
+        "current_build_state": "IDEAL_ONLY",
+        "function": "IDEAL-ONLY: neat solid and conflicting data; no qualified prepared liquid or direct solid microlitre dose.",
+        "qualification": "IDEAL-ONLY: neat solid and conflicting data; no qualified prepared liquid or direct solid microlitre dose."
+      },
+      {
+        "material": "Damascol",
+        "relative_design_parts": 5,
+        "target_ppm": 421,
+        "current_build_state": "IDEAL_ONLY",
+        "function": "IDEAL-ONLY: text/YAML 10% conflicts with authoritative neat record; no convenient fraction chosen.",
+        "qualification": "IDEAL-ONLY: text/YAML 10% conflicts with authoritative neat record; no convenient fraction chosen."
+      }
+    ],
+    "quantitative_equivalence_to_current_build": false,
+    "ideal_only_current_doses_forbidden": true
+  },
+  "source_conservation": {
+    "source_dispositions": [
+      {
+        "source_row": 1,
+        "material": "Hedione",
+        "source_function_verbatim": "Floral air around iris; not a new jasmine subject.",
+        "disposition": "KEEP",
+        "source_raw_ul": 240,
+        "current_raw_ul": 240,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": true,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L08"
+        ],
+        "rationale": "Floral air around the dense iris centre. Iso E is a woody contour, not floral air; compare omission at fixed iris."
+      },
+      {
+        "source_row": 2,
+        "material": "Iso E Super",
+        "source_function_verbatim": "Diffuse transition from iris into literal cedar grain.",
+        "disposition": "REBASE",
+        "source_raw_ul": 160,
+        "current_raw_ul": 130,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": false,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L08"
+        ],
+        "rationale": "Transparent iris-to-cedar contour. Compare omission at fixed literal cedar and Hedione."
+      },
+      {
+        "source_row": 3,
+        "material": "Vetival",
+        "source_function_verbatim": "Smoother dry woody transition ahead of natural vetiver.",
+        "disposition": "REBASE",
+        "source_raw_ul": 100,
+        "current_raw_ul": 120,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": false,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L07"
+        ],
+        "rationale": "Polished dry wood entering ahead of natural vetiver. Natural Indian vetiver supplies root, not an assumed equivalent smoother."
+      },
+      {
+        "source_row": 4,
+        "material": "Benzyl Benzoate",
+        "source_function_verbatim": "Structural/vehicle provision, not an olfactory layer.",
+        "disposition": "REBASE",
+        "source_raw_ul": 100,
+        "current_raw_ul": 80,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": false,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "VEHICLE"
+        ],
+        "rationale": "Structural vehicle only; no audible layer credit. Compare physical compatibility before replacing its solvent-like function."
+      },
+      {
+        "source_row": 5,
+        "material": "Benzyl Salicylate",
+        "source_function_verbatim": "Provisional cosmetic-film support beside powder.",
+        "disposition": "REBASE",
+        "source_raw_ul": 60,
+        "current_raw_ul": 50,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": false,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L04"
+        ],
+        "rationale": "Provisional cosmetic-film body. Hexyl Salicylate is the cream/green edge; compare each and both."
+      },
+      {
+        "source_row": 6,
+        "material": "Vetiver EO (India)",
+        "source_function_verbatim": "Owned Indian vetiver: dry root counterline under cedar.",
+        "disposition": "REBASE",
+        "source_raw_ul": 120,
+        "current_raw_ul": 100,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": false,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L10"
+        ],
+        "rationale": "Late earthy root counterline under cedar. Compare with fixed Vetival to separate root from polish."
+      },
+      {
+        "source_row": 7,
+        "material": "Cedarwood oil Virginia",
+        "source_function_verbatim": "Recognizable dry cedar grain and late iris-to-wood return.",
+        "disposition": "REBASE",
+        "source_raw_ul": 260,
+        "current_raw_ul": 320,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": false,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L07"
+        ],
+        "rationale": "Literal cedar grain linking powder to root return. Iso E supplies transparency; Cedramber supplies a proposed brighter edge."
+      },
+      {
+        "source_row": 8,
+        "material": "Cashmeran",
+        "source_function_verbatim": "Powder-to-warm-wood textile seam.",
+        "disposition": "REBASE",
+        "source_raw_ul": 70,
+        "current_raw_ul": 60,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": false,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L07"
+        ],
+        "rationale": "Powder-to-wood textile seam. Kephalis is a darker amber/tobacco pressure; compare omissions and pair."
+      },
+      {
+        "source_row": 9,
+        "material": "Ebanol",
+        "source_function_verbatim": "Small creamy edge at the cedar-to-skin boundary.",
+        "disposition": "KEEP",
+        "source_raw_ul": 30,
+        "current_raw_ul": 30,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": true,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L05"
+        ],
+        "rationale": "Narrow persistent creamy seam against dry wood. Sandalore is a softer cream hypothesis, not dose-equivalent; compare each and both."
+      },
+      {
+        "source_row": 10,
+        "material": "Kephalis",
+        "source_function_verbatim": "Darker woody-amber interior joining violet, lavender and late woods.",
+        "disposition": "REBASE",
+        "source_raw_ul": 50,
+        "current_raw_ul": 40,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": false,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L07"
+        ],
+        "rationale": "Dark woody-amber pressure beneath violet and lavender. Cashmeran gives textile texture; compare separate loss and collision."
+      },
+      {
+        "source_row": 11,
+        "material": "Ambrettolide",
+        "source_function_verbatim": "Fruity skin-musk relation connecting fruit, iris and talc.",
+        "disposition": "REBASE",
+        "source_raw_ul": 1000,
+        "current_raw_ul": 850,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": false,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L06"
+        ],
+        "rationale": "Fruit-to-skin relation at the iris edge. EB body and Romandolide soft balsamic contour are separately testable roles."
+      },
+      {
+        "source_row": 12,
+        "material": "Ethylene Brassylate",
+        "source_function_verbatim": "Powdered body behind iris, distinct hypothesis from fruity Ambrettolide.",
+        "disposition": "REBASE",
+        "source_raw_ul": 600,
+        "current_raw_ul": 350,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": false,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L04"
+        ],
+        "rationale": "Powdered creamy body behind iris. Ambrettolide fruit and Romandolide late contour are not assumed equivalent."
+      },
+      {
+        "source_row": 13,
+        "material": "Lavender EO High Altitude",
+        "source_function_verbatim": "Aromatic entry that hands over to iris.",
+        "disposition": "REBASE",
+        "source_raw_ul": 140,
+        "current_raw_ul": 120,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": false,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L01"
+        ],
+        "rationale": "Fine aromatic entry yielding to iris. Linalyl Acetate adjusts the ester seam; Linalool tests floral continuation."
+      },
+      {
+        "source_row": 14,
+        "material": "Linalyl Acetate",
+        "source_function_verbatim": "Adjustable lavender-to-fruit/floral ester transition.",
+        "disposition": "REBASE",
+        "source_raw_ul": 80,
+        "current_raw_ul": 100,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": false,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L01"
+        ],
+        "rationale": "Soft ester handoff between aromatic entry and fruit/petal. Compare at fixed lavender and Benzyl Acetate."
+      },
+      {
+        "source_row": 15,
+        "material": "Orris Liquid",
+        "source_function_verbatim": "User-selected supplied-product root lead; powder, root and creamy irregularity remain a whole-product hypothesis.",
+        "disposition": "KEEP",
+        "source_raw_ul": 1500,
+        "current_raw_ul": 1500,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": true,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L03"
+        ],
+        "rationale": "Protected whole supplied-product root lead. Alpha Irone is not an equivalent replacement; no irone assay is inferred."
+      },
+      {
+        "source_row": 16,
+        "material": "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+        "source_function_verbatim": "Cosmetic powder body surrounding the preferred Orris product.",
+        "disposition": "KEEP",
+        "source_raw_ul": 600,
+        "current_raw_ul": 600,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": true,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L04"
+        ],
+        "rationale": "Protected cosmetic powder body around the root. Alpha/Beta Ionone and Dihydro Beta Ionone address different violet textures."
+      },
+      {
+        "source_row": 17,
+        "material": "Alpha Irone",
+        "source_function_verbatim": "Independent iris/root accent, not a substitute for the whole Orris product.",
+        "disposition": "KEEP",
+        "source_raw_ul": 160,
+        "current_raw_ul": 160,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": true,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L03"
+        ],
+        "rationale": "Protected independent root accent. Neither Beta Ionone nor commercial Orris product is an exact substitute."
+      },
+      {
+        "source_row": 18,
+        "material": "Alpha Ionone",
+        "source_function_verbatim": "Restrained violet movement between fruit and powder.",
+        "disposition": "KEEP",
+        "source_raw_ul": 60,
+        "current_raw_ul": 60,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": true,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L02"
+        ],
+        "rationale": "Protected restrained woody-violet movement. Beta Ionone tests a contrasting violet/fruit edge; no isomer equivalence."
+      },
+      {
+        "source_row": 19,
+        "material": "Tonkarome",
+        "source_function_verbatim": "Coumarinic fabric warmth under the iris, not a tonka lead.",
+        "disposition": "REBASE",
+        "source_raw_ul": 400,
+        "current_raw_ul": 320,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": false,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L09"
+        ],
+        "rationale": "Coumarinic fabric warmth under iris. Isobutavan supplies a separate vanillic seam; product is not pure coumarin."
+      },
+      {
+        "source_row": 20,
+        "material": "Isobutavan",
+        "source_function_verbatim": "Vanillic seam distinct from the coumarinic fabric.",
+        "disposition": "REBASE",
+        "source_raw_ul": 80,
+        "current_raw_ul": 50,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": false,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L09"
+        ],
+        "rationale": "Soft vanillic seam inside the dry-root structure. Delta Decalactone tests a fatty cream edge, not extra vanilla."
+      },
+      {
+        "source_row": 21,
+        "material": "Coriander Essential Oil",
+        "source_function_verbatim": "Fine spicy/aromatic contour at the lavender-to-iris entry.",
+        "disposition": "REBASE",
+        "source_raw_ul": 20,
+        "current_raw_ul": 10,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": false,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L01"
+        ],
+        "rationale": "Fine spicy/aromatic entry contour from owned seed EO. Lavender supplies aromatic body; no coriander leaf substitution."
+      },
+      {
+        "source_row": 22,
+        "material": "Verdox",
+        "source_function_verbatim": "Green fruit-to-wood glint carried toward Ambrettolide.",
+        "disposition": "REBASE",
+        "source_raw_ul": 100,
+        "current_raw_ul": 90,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": false,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L06"
+        ],
+        "rationale": "Restrained green-fruit glint continuing into wood. Benzyl Acetate gives floral-fruit softness, not the green wood facet."
+      },
+      {
+        "source_row": 23,
+        "material": "Benzyl Acetate",
+        "source_function_verbatim": "Small floral-fruit bridge distinct from Verdox green wood.",
+        "disposition": "REBASE",
+        "source_raw_ul": 70,
+        "current_raw_ul": 90,
+        "stock_strength_changed": false,
+        "active_dose_equivalence_claimed": false,
+        "exact_mass_equivalence_measured": false,
+        "target_modules": [
+          "L06"
+        ],
+        "rationale": "Floral-fruit bridge into ambrettolide and iris. Linalyl Acetate links lavender; neither is exact Phenethyl Acetate replacement."
+      }
+    ],
+    "source_module_dispositions": [
+      {
+        "source_module": "1. Aromatic contour",
+        "source_relationship_verbatim": "A fine aromatic/spicy entry hands into floral iris rather than a separate lavender perfume.",
+        "disposition": "REBASE",
+        "target_modules": [
+          "L01"
+        ],
+        "rationale": "Preserve the predecessor function while separating its competing relationships; no demonstrated sensory equivalence or layer gain.",
+        "observed": false
+      },
+      {
+        "source_module": "2. Fruit-to-ambrette relation",
+        "source_relationship_verbatim": "A restrained green-fruit glint becomes musky/talc-like beside iris.",
+        "disposition": "REBASE",
+        "target_modules": [
+          "L06"
+        ],
+        "rationale": "Preserve the predecessor function while separating its competing relationships; no demonstrated sensory equivalence or layer gain.",
+        "observed": false
+      },
+      {
+        "source_module": "3. Root-rich centre",
+        "source_relationship_verbatim": "The preferred supplied Orris product leads; the irone stock is an independently testable accent.",
+        "disposition": "REBASE",
+        "target_modules": [
+          "L03"
+        ],
+        "rationale": "Preserve the predecessor function while separating its competing relationships; no demonstrated sensory equivalence or layer gain.",
+        "observed": false
+      },
+      {
+        "source_module": "4. Cosmetic powder with violet movement",
+        "source_relationship_verbatim": "Powder has body without becoming a detached violet flower; it frames the root.",
+        "disposition": "REBASE",
+        "target_modules": [
+          "L02",
+          "L04"
+        ],
+        "rationale": "Preserve the predecessor function while separating its competing relationships; no demonstrated sensory equivalence or layer gain.",
+        "observed": false
+      },
+      {
+        "source_module": "5. Air around the dense centre",
+        "source_relationship_verbatim": "Separation and a soft cosmetic surface, not another floral accord.",
+        "disposition": "REBASE",
+        "target_modules": [
+          "L04",
+          "L08"
+        ],
+        "rationale": "Preserve the predecessor function while separating its competing relationships; no demonstrated sensory equivalence or layer gain.",
+        "observed": false
+      },
+      {
+        "source_module": "6. Warm interior and darker grain",
+        "source_relationship_verbatim": "Coumarinic/vanillic warmth and a darker woody-textile seam sit beneath iris.",
+        "disposition": "REBASE",
+        "target_modules": [
+          "L07",
+          "L09"
+        ],
+        "rationale": "Preserve the predecessor function while separating its competing relationships; no demonstrated sensory equivalence or layer gain.",
+        "observed": false
+      },
+      {
+        "source_module": "7. Dry wood and root return",
+        "source_relationship_verbatim": "Literal cedar grain and dry root emerge through a smoother wood/skin transition.",
+        "disposition": "REBASE",
+        "target_modules": [
+          "L05",
+          "L07",
+          "L08",
+          "L10"
+        ],
+        "rationale": "Preserve the predecessor function while separating its competing relationships; no demonstrated sensory equivalence or layer gain.",
+        "observed": false
+      },
+      {
+        "source_module": "8. Powder-to-skin persistence",
+        "source_relationship_verbatim": "Fruity skin relation and powdered body are separate hypotheses, not a three-musk default.",
+        "disposition": "REBASE",
+        "target_modules": [
+          "L04",
+          "L06",
+          "L10"
+        ],
+        "rationale": "Preserve the predecessor function while separating its competing relationships; no demonstrated sensory equivalence or layer gain.",
+        "observed": false
+      }
+    ],
+    "v4_removed_function_history": [
+      {
+        "material": "Sandalore",
+        "v4_row": 9,
+        "v5_row": null,
+        "historical_disposition": "REMOVED_WITH_INDIVIDUAL_PROSE_REASON",
+        "function_for_research": "Cream-to-grain alternative; Ebanol is not assumed equivalent.",
+        "proposed_layer_ids": [
+          "L05"
+        ],
+        "next_disposition": "REOPEN_ALTERNATIVE_AND_PRESERVE_FUNCTION_QUESTION",
+        "historical_removal_reason": "V5 independently chose a smaller Ebanol seam.",
+        "next_comparison": "Compare qualified Sandalore and Ebanol alternatives at a protected nucleus; reject root-obscuring smoothness.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Inherited cedar-to-musk rounding hypothesis. No sandalwood lead; first non-iris omission candidate if no repeatable loss.",
+        "current_disposition": "REINTRODUCED_FOR_ISOLATED_TEST",
+        "current_module": "L05",
+        "current_dose_invented": false,
+        "source_claims_endorsed": false
+      },
+      {
+        "material": "Romandolide",
+        "v4_row": 12,
+        "v5_row": null,
+        "historical_disposition": "REMOVED_WITH_INDIVIDUAL_PROSE_REASON",
+        "function_for_research": "Soft musk/balsamic volume and contour alternative.",
+        "proposed_layer_ids": [
+          "L08"
+        ],
+        "next_disposition": "REOPEN_ALTERNATIVE_AND_PRESERVE_FUNCTION_QUESTION",
+        "historical_removal_reason": "Unique outward-projection claim was unsupported; EB alternative retained in prose.",
+        "next_comparison": "Compare EB, Romandolide and Habanolide role alternatives; distinguish texture and receiver identity from strength.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Outward woody-musk extension; distinct hypothesis from inward fruity Ambrettolide and EB body.",
+        "current_disposition": "REINTRODUCED_FOR_ISOLATED_TEST",
+        "current_module": "L10",
+        "current_dose_invented": false,
+        "source_claims_endorsed": false
+      },
+      {
+        "material": "Linalool",
+        "v4_row": 15,
+        "v5_row": null,
+        "historical_disposition": "REMOVED_WITH_INDIVIDUAL_PROSE_REASON",
+        "function_for_research": "Separate aromatic-floral opening bridge.",
+        "proposed_layer_ids": [
+          "L01"
+        ],
+        "next_disposition": "REOPEN_ALTERNATIVE_AND_PRESERVE_FUNCTION_QUESTION",
+        "historical_removal_reason": "Potential overlap with lavender and selected supports.",
+        "next_comparison": "Omission and isolated reintroduction at fixed lavender; measure handoff quality, not just opening duration.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Small floral continuation of lavender, held fixed; omission tests the aromatic-to-floral edge.",
+        "current_disposition": "REINTRODUCED_FOR_ISOLATED_TEST",
+        "current_module": "L01",
+        "current_dose_invented": false,
+        "source_claims_endorsed": false
+      },
+      {
+        "material": "Mimosa Absolute",
+        "v4_row": 16,
+        "v5_row": null,
+        "historical_disposition": "REMOVED_WITH_INDIVIDUAL_PROSE_REASON",
+        "function_for_research": "Living flower/powder interior alternative.",
+        "proposed_layer_ids": [
+          "L04"
+        ],
+        "next_disposition": "REOPEN_ALTERNATIVE_AND_PRESERVE_FUNCTION_QUESTION",
+        "historical_removal_reason": "Target necessity and preparation basis unresolved; yellow-flower drift risk.",
+        "next_comparison": "Stock-qualified comparison against existing powder body and a heliotropal route; record honey/yellow-flower takeover.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Inherited powder irregularity; not a claimed Dior ingredient. Yellow-flower naming or no omission loss disqualifies it.",
+        "current_disposition": "IDEAL-ONLY",
+        "current_module": null,
+        "current_dose_invented": false,
+        "source_claims_endorsed": false
+      },
+      {
+        "material": "Osmanthus Absolute",
+        "v4_row": 17,
+        "v5_row": null,
+        "historical_disposition": "REMOVED_WITH_INDIVIDUAL_PROSE_REASON",
+        "function_for_research": "Fruit-violet-suede interface alternative.",
+        "proposed_layer_ids": [
+          "L06",
+          "L07"
+        ],
+        "next_disposition": "REOPEN_ALTERNATIVE_AND_PRESERVE_FUNCTION_QUESTION",
+        "historical_removal_reason": "Separate bridge experiment preferred; apricot intrusion risk.",
+        "next_comparison": "Compare current fruit bridge with qualified premium Osmanthus route and omission; retain only useful target-linked texture.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Inherited fruit-to-violet transition hypothesis; premium 10% stock, not volume grade. Apricot takeover disqualifies it.",
+        "current_disposition": "IDEAL-ONLY",
+        "current_module": null,
+        "current_dose_invented": false,
+        "source_claims_endorsed": false
+      },
+      {
+        "material": "Ethyl 2-Methylbutyrate",
+        "v4_row": 26,
+        "v5_row": null,
+        "historical_disposition": "REMOVED_WITH_INDIVIDUAL_PROSE_REASON",
+        "function_for_research": "Separate fruit flash in the entry.",
+        "proposed_layer_ids": [
+          "L01"
+        ],
+        "next_disposition": "REOPEN_ALTERNATIVE_AND_PRESERVE_FUNCTION_QUESTION",
+        "historical_removal_reason": "Flash was not mandatory and prepared-stock mass basis was unresolved.",
+        "next_comparison": "After stock qualification, compare flash present versus absent while protecting later fruit-skin interface; reject candy takeover.",
+        "sensory_effect": "NOT_TESTED",
+        "predecessor_function_verbatim": "Prepared dilute fruit flash; separate volatile role from Verdox. Carrier recorded in canonical parent binding, basis unspecified.",
+        "current_disposition": "IDEAL-ONLY",
+        "current_module": null,
+        "current_dose_invented": false,
+        "source_claims_endorsed": false
+      }
+    ],
+    "source_rows_preserved": 23,
+    "source_modules_mapped": 8,
+    "closure_scope": "DOCUMENTARY_ONLY_NOT_RUNTIME_DONOR_GATE_PASS"
+  },
+  "donor_independence": {
+    "status": "HOLD_NOT_RUN",
+    "reason": "Current checkout does not contain required donor_independence gate API/integration; legacy V5 prose also lacks that historical extractor's ideal and module row schema.",
+    "theory_donor_path": "docs/research/DHP2025_STRUCTURAL_FORMULATION_LEARNING_PROTOCOL.md",
+    "theory_donor_is_formula": false,
+    "signature_comparison_executed": false,
+    "authority": "NO_DHP_COMPLETE_EQUAL_BETTER_OR_DEEPER_PROMOTION"
+  },
+  "musk_contract": {
+    "selected": [
+      "Ambrettolide",
+      "Ethylene Brassylate",
+      "Romandolide"
+    ],
+    "strongest_alternative": "Habanolide",
+    "pairwise_tests": [
+      [
+        "Ambrettolide",
+        "Ethylene Brassylate"
+      ],
+      [
+        "Ambrettolide",
+        "Romandolide"
+      ],
+      [
+        "Ethylene Brassylate",
+        "Romandolide"
+      ]
+    ],
+    "each_pair_protocol": "Both, first only, second only, neither; constant protected nucleus and documented balancing carrier; measure texture and iris identity separately from intensity.",
+    "all_pairwise_observations": [],
+    "unique_projector_claim": false
+  },
+  "experiment": {
+    "state": "DESIGN_ONLY_NOT_EXECUTED",
+    "cold_module": [
+      {
+        "material": "Dihydro Beta Ionone",
+        "raw_ul": 60
+      },
+      {
+        "material": "Beta Ionone",
+        "raw_ul": 20
+      },
+      {
+        "material": "Carrot Seed EO",
+        "raw_ul": 10
+      },
+      {
+        "material": "Orivone",
+        "raw_ul": 10
+      }
+    ],
+    "warm_module": [
+      {
+        "material": "Sandalore",
+        "raw_ul": 50
+      },
+      {
+        "material": "Ebanol",
+        "raw_ul": 30
+      },
+      {
+        "material": "Isobutavan",
+        "raw_ul": 50
+      },
+      {
+        "material": "Delta Decalactone",
+        "raw_ul": 10
+      }
+    ],
+    "common_core_ul": 5760,
+    "arms": [
+      {
+        "id": "A00",
+        "core_ul": 5760,
+        "cold_ul": 0,
+        "warm_ul": 0,
+        "balance_ethanol_96_ul": 240,
+        "total_raw_stock_and_balance_ul": 6000,
+        "final_ethanol_96_addition_ul": 24000
+      },
+      {
+        "id": "B10",
+        "core_ul": 5760,
+        "cold_ul": 100,
+        "warm_ul": 0,
+        "balance_ethanol_96_ul": 140,
+        "total_raw_stock_and_balance_ul": 6000,
+        "final_ethanol_96_addition_ul": 24000
+      },
+      {
+        "id": "C01",
+        "core_ul": 5760,
+        "cold_ul": 0,
+        "warm_ul": 140,
+        "balance_ethanol_96_ul": 100,
+        "total_raw_stock_and_balance_ul": 6000,
+        "final_ethanol_96_addition_ul": 24000
+      },
+      {
+        "id": "D11",
+        "core_ul": 5760,
+        "cold_ul": 100,
+        "warm_ul": 140,
+        "balance_ethanol_96_ul": 0,
+        "total_raw_stock_and_balance_ul": 6000,
+        "final_ethanol_96_addition_ul": 24000
+      }
+    ],
+    "small_sample_route": "Prepare the full 5760 uL common core; prepare each 240 uL variable module at the full specified transfers; take 576 uL common core plus 24 uL variable module plus 2400 uL Ethanol 96% for each nominal 3 mL sample.",
+    "minimum_preparation_transfer_ul": 10,
+    "carrier_caveat": "Test rows are neat, so no hidden prepared-stock carriers change between arms. Explicit ethanol replacement changes odorant fraction and solvent matrix: not perfect active-mass or matrix matching.",
+    "distance_m": [
+      0.1,
+      0.5,
+      1,
+      2
+    ],
+    "time_minutes": [
+      5,
+      30,
+      120,
+      240
+    ],
+    "physical_authority": false
+  },
+  "solvent_model": {
+    "authority": "declared_volume_proxy",
+    "temperature_k": 305,
+    "scope": "same nominal ethanol/water convention as V4; stock-carrier matrix remains unresolved",
+    "components": [
+      {
+        "name": "Ethanol",
+        "volume_ul": 23040,
+        "assumed_density_g_ml": 0.785,
+        "mw_g_mol": 46.0684
+      },
+      {
+        "name": "Water",
+        "volume_ul": 960,
+        "assumed_density_g_ml": 0.997,
+        "mw_g_mol": 18.01528
+      }
+    ],
+    "extra_physical_transfers": false
+  },
+  "research_record": "docs/research/DHI2011_COMPLEXITY_FIRST_OPEN_SPACE_RESEARCH_20260906.md",
+  "sources": [
+    {
+      "id": "H1",
+      "type": "current_house_description_not_2011_formula",
+      "url": "https://www.dior.com/en_ch/beauty/products/dior-homme-intense-Y0479201.html",
+      "finding": "Iris, ambrette-related fruity talc and cedar/amber-wood architecture; current disclosure #21961 is not an authenticated 05443/A formula."
+    },
+    {
+      "id": "H2",
+      "type": "contemporaneous_secondary_launch_report",
+      "url": "https://www.fragrantica.com/news/Dior-Homme-2011-by-Francois-Demachy-Dior-Homme-Intense-2011-Francois-Demachy-Dior-J-adore-Eau-de-Toilette-2011-2383.html",
+      "finding": "DHI section lists lavender, iris/ambrette/pear/powder, cedar and vetiver. Cocoa/leather occur in the separate EDT discussion; omission from this note report does not prove chemical absence."
+    },
+    {
+      "id": "R1",
+      "type": "peer_reviewed_primary_small_sensory_study",
+      "url": "https://www.nature.com/articles/s41598-025-08925-z",
+      "finding": "2025 comparisons of orris absolute, a commercial IRONE ALPHA product, synthesized beta-irone and beta-ionone show distinct odor profiles and impurity effects. Three-perfumer descriptive panel is not a finished-perfume liking study or assay of owned products."
+    },
+    {
+      "id": "R2",
+      "type": "primary_irone_stereochemistry_research",
+      "url": "https://comptes-rendus.academie-sciences.fr/chimie/articles/10.1016/S1631-0748(03)00087-0/",
+      "finding": "Irone-isomer distinctions preclude generic equivalence; method-dependent observations do not supply a universal swap ratio."
+    },
+    {
+      "id": "M1",
+      "type": "stock_supplier_product",
+      "url": "https://www.perfumersworld.com/view.php?pro_id=8IQ24653",
+      "finding": "Orris supplied-product character; catalog irone range is not a lot assay or preparation density."
+    },
+    {
+      "id": "M2",
+      "type": "supplier_coa",
+      "url": "https://www.perfumersworld.com/ifra/COA/8II00243.pdf",
+      "finding": "Generic Alpha Irone supplied-product COA does not establish this user's purity or isomer composition."
+    },
+    {
+      "id": "M3",
+      "type": "maker_profile",
+      "url": "https://www.iff.com/scent/ingredients-compendium/cashmeran/",
+      "finding": "Powdery/woody warm textile-role hypothesis; manufacturer use guidance is not formula safety approval."
+    },
+    {
+      "id": "M4",
+      "type": "maker_profile",
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/kephalis",
+      "finding": "Woody/amber/tobacco, heart/base and violet/lavender compatibility; tobacco drift remains a risk."
+    },
+    {
+      "id": "M5",
+      "type": "maker_profile",
+      "url": "https://www.iff.com/scent/ingredients-compendium/ambrettolide/",
+      "finding": "Substantive floral/fruity musk supports a bridge hypothesis, not whole-ambrette or pear equivalence."
+    },
+    {
+      "id": "M6",
+      "type": "maker_profile_with_technical_conflicts",
+      "url": "https://studio.dsm-firmenich.com/product/romandolider-pe-979031",
+      "finding": "Powdery/mossy/balsamic musk description does not validate V4's unique outward-projection claim; technical identity fields need reconciliation."
+    },
+    {
+      "id": "M7",
+      "type": "maker_profile",
+      "url": "https://www.iff.com/scent/ingredients-compendium/orivone/",
+      "finding": "Earthy/camphoraceous orris edge: optional root-contrast alternative, not mandatory buttery cushion."
+    },
+    {
+      "id": "P1",
+      "type": "peer_reviewed_primary_binary_ratio_study",
+      "url": "https://academic.oup.com/chemse/article/33/7/599/330603",
+      "finding": "Use measured intensity and pleasantness, not concentration or OAV alone, to study mixture balance; binary results do not certify V5."
+    },
+    {
+      "id": "P2",
+      "type": "peer_reviewed_primary_label_effect_study",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/15944134/",
+      "finding": "Blind identities and collect unprompted descriptors before suggested layers because verbal context can influence odor evaluation."
+    },
+    {
+      "id": "P3",
+      "type": "peer_reviewed_primary_exposure_study",
+      "url": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2015.00920/full",
+      "finding": "Include repeated sessions; exposure effects on liking are not uniformly positive."
+    },
+    {
+      "id": "P4",
+      "type": "standard_scope_not_full_protocol_access",
+      "url": "https://www.iso.org/standard/50125.html",
+      "finding": "Controlled consumer hedonic comparisons are the appropriate kind of evidence; this local protocol does not claim ISO compliance."
+    },
+    {
+      "id": "P5",
+      "type": "peer_reviewed_primary_olfactory_white",
+      "url": "https://doi.org/10.1073/pnas.1208110109",
+      "finding": "Mixture convergence under selected component/intensity conditions is not a 30-ingredient ceiling for perfumes."
+    },
+    {
+      "id": "P6",
+      "type": "2026_preprint_not_peer_reviewed",
+      "url": "https://www.biorxiv.org/content/10.64898/2026.07.03.736426v1.full",
+      "finding": "Mixture pleasantness modeling is a candidate external-validation direction, not an absolute-hedonism score or evidence of V5 liking."
+    },
+    {
+      "id": "P01",
+      "label": "Laing and Francis (1989)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/2628992/",
+      "doi": "10.1016/0031-9384(89)90041-3",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Constituent identification; not useful formula count.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P02",
+      "label": "Le Berre et al. (2008)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18304991/",
+      "doi": "10.1093/chemse/bjn006",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Ratio-sensitive typicality in a defined mixture; not iris dosing.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P03",
+      "label": "Miyazawa et al. (2008)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18283044/",
+      "doi": "10.1093/chemse/bjn004",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Specific subthreshold detection synergy; not general perfume benefit.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P04",
+      "label": "Weiss et al. (2012)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3523876/",
+      "doi": "10.1073/pnas.1208110109",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Specific intensity-equalized broad-space mixtures; not a row cap.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P05",
+      "label": "Lapid, Harel and Sobel (2008)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/18534998/",
+      "doi": "10.1093/chemse/bjn026",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Binary-mixture hedonics; not whole-formula pleasure prediction.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P06",
+      "label": "Frank, Fletcher and Hettinger (2017)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28641388/",
+      "doi": "10.1093/chemse/bjx031",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Selective adaptation and recognition; not family adaptation clocks.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P07",
+      "label": "Sinding et al. (2017)",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28120877/",
+      "doi": "10.1038/srep41047",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Continuous-exposure habituation; not an evaporating perfume.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P08",
+      "label": "Sato-Akuhara et al. (2023)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9874024/",
+      "doi": "10.1093/chemse/bjac037",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Individual ionone/musk perception; no stock-volume ceiling.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P15",
+      "label": "Brenna, Fuganti and Serra (2003), ten irone isomers",
+      "url": "https://comptes-rendus.academie-sciences.fr/chimie/articles/en/10.1016/S1631-0748(03)00087-0/",
+      "doi": "10.1016/S1631-0748(03)00087-0",
+      "evidence_class": "PEER_REVIEWED_AUTHORS_RESEARCH_ACCOUNT",
+      "claim_limit": "Irone identity and stereochemistry; not the user's lot assay or Dior formula.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P09",
+      "label": "Almeida et al. (2019)",
+      "url": "https://pubs.acs.org/doi/10.1021/acs.iecr.9b01004",
+      "doi": "10.1021/acs.iecr.9b01004",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Source evaporation/permeation; not calibration of this formula.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P10",
+      "label": "Teixeira et al. (2013)",
+      "url": "https://aiche.onlinelibrary.wiley.com/doi/10.1002/aic.14106",
+      "doi": "10.1002/aic.14106",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Diffusion-tube transport; not room or moving-wearer validation.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P11",
+      "label": "Celani, Villermaux and Vergassola (2014)",
+      "url": "https://journals.aps.org/prx/abstract/10.1103/PhysRevX.4.041015",
+      "doi": "10.1103/PhysRevX.4.041015",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Turbulent physical odor signal; not DHI sensory identity.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P12",
+      "label": "Cai et al. (2022)",
+      "url": "https://www.nature.com/articles/s41598-022-09450-z",
+      "doi": "10.1038/s41598-022-09450-z",
+      "evidence_class": "PEER_REVIEWED_PRIMARY_STUDY",
+      "claim_limit": "Downwind plant-volatile profiles; not this perfume's fractionation.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P13",
+      "label": "Pellegrino et al. (2025), intensity framework",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12363845/",
+      "doi": "10.1101/2025.08.08.668954",
+      "evidence_class": "PREPRINT_NOT_PEER_REVIEWED_AT_CHECKED_RECORD",
+      "claim_limit": "Do not repeat the local Nature Communications attribution.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "P14",
+      "label": "Pellegrino et al. (2026), component-profile framework",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42465471/",
+      "doi": "10.64898/2026.07.03.736426",
+      "evidence_class": "PREPRINT_NOT_PEER_REVIEWED_AT_CHECKED_RECORD",
+      "claim_limit": "Measured descriptive profiles, not linear volume dosing or DHI performance.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "M01",
+      "label": "IFF Orivone",
+      "url": "https://www.iff.com/scent/ingredients-compendium/orivone/",
+      "doi": null,
+      "evidence_class": "MANUFACTURER_PRODUCT_DESCRIPTION",
+      "claim_limit": "Character only; not historical Dior identity.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "M02",
+      "label": "IFF Cedramber",
+      "url": "https://www.iff.com/scent/ingredients-compendium/cedramber/",
+      "doi": null,
+      "evidence_class": "MANUFACTURER_PRODUCT_DESCRIPTION",
+      "claim_limit": "Character only; not measured receiver-space performance.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "M03",
+      "label": "DSM-Firmenich Habanolide",
+      "url": "https://studio.dsm-firmenich.com/product/habanolider-pe-947303",
+      "doi": null,
+      "evidence_class": "MANUFACTURER_PRODUCT_DESCRIPTION",
+      "claim_limit": "Character only; not unique projection or safety qualification.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "M04",
+      "label": "Firmenich Romandolide marketing sheet",
+      "url": "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/ROMANDOLIDE_979031.pdf",
+      "doi": null,
+      "evidence_class": "MANUFACTURER_PRODUCT_DESCRIPTION",
+      "claim_limit": "Character only; not a unique projector.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "M05",
+      "label": "PerfumersWorld Ultralia CoA, 2019",
+      "url": "https://www.perfumersworld.com/ifra/COA/6II13551.pdf",
+      "doi": null,
+      "evidence_class": "SUPPLIER_PRODUCT_CERTIFICATE_NOT_OWNED_LOT_ASSAY",
+      "claim_limit": "Proprietary blend; no pure-molecule or historical-Dior identity.",
+      "checked_local_date": "2026-09-06"
+    },
+    {
+      "id": "R01",
+      "label": "Dior Homme Parfum current official description",
+      "url": "https://www.dior.com/en_int/beauty/products/dior-homme-parfum-E000000226.html",
+      "doi": null,
+      "evidence_class": "HOUSE_DESCRIPTIVE_REFERENCE_NOT_FORMULA",
+      "claim_limit": "User-selected DHP2025 comparison only; DHI2011 remains target.",
+      "checked_local_date": "2026-09-06"
+    }
+  ],
+  "excluded_current_materials": {
+    "Phenyl Ethyl Acetate": "IDEAL-ONLY: owned label Phenethyl Acetate lacks a complete current identity/profile join. Benzyl Acetate and Linalyl Acetate preserve parts of the bridge question, not exact equivalence.",
+    "Vertofix": "IDEAL-ONLY: trade-grade and chemical-identity metadata conflict. Cedar and Vetival preserve grain/polish functions without asserting equivalence.",
+    "Mimosa Absolute": "IDEAL-ONLY: 10% DPG preparation fraction basis unspecified; yellow-flower/powder alternative must compete with the current body.",
+    "Osmanthus Absolute": "IDEAL-ONLY: premium 10% DPG preparation basis unspecified; fruit-violet-suede alternative has apricot drift and incomplete composite evidence.",
+    "Ethyl 2-Methylbutyrate": "IDEAL-ONLY: prepared 0.1% stock basis unresolved; retain flash-versus-no-flash question without a fabricated dose.",
+    "Habanolide": "IDEAL-ONLY: competing late musk route; not automatically a fourth current musk or a proved better projector.",
+    "Clearwood": "IDEAL-ONLY: alternative late earth/wood pressure; test against existing root/cedar route rather than stack by default.",
+    "Heliotropal (Piperonal)": "IDEAL-ONLY: neat solid and conflicting data; no qualified prepared liquid or direct solid microlitre dose.",
+    "Damascol": "IDEAL-ONLY: text/YAML 10% conflicts with authoritative neat record; no convenient fraction chosen."
+  },
+  "irotyl": {
+    "selected": false,
+    "reason": "User target and sensory preference; public notes are not a proprietary absence assay."
+  },
+  "physics_audit": {
+    "duplicate_literal_odt_keys": {},
+    "literal_odt_keys_checked": 301,
+    "selected_material_records": {
+      "Benzyl Salicylate": {
+        "profile": {
+          "name": "Benzyl Salicylate",
+          "character": {
+            "floral": 3,
+            "sweetness": 2,
+            "powdery": 4,
+            "warmth": 3,
+            "creamy": 3,
+            "radiance": 4,
+            "transparency": 6
+          },
+          "mw": 228.24,
+          "vp": 0.01,
+          "clogp": 4.31,
+          "odt": 10,
+          "odt_ppm": 0.24,
+          "note": "base",
+          "role": "fixative",
+          "texture": "cushion",
+          "synergies": [
+            "Hedione",
+            "DBCA",
+            "Iso E Super",
+            "Aldehydes"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1.3,
+          "hedonic": 2.5,
+          "or_family": "salicylate",
+          "character_description": ""
+        },
+        "odt": {
+          "odt_air": 10,
+          "odt_eth": 0.24,
+          "char": "balsamic-floral, warm"
+        },
+        "verification": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "Nagata (2003) — benzyl salicylate measured: 31 ng/L (10.0 ppb air)"
+          ],
+          "odt_air": 10,
+          "odt_eth": 0.24
+        }
+      },
+      "Ethylene Brassylate": {
+        "profile": {
+          "name": "Ethylene Brassylate",
+          "character": {
+            "powdery": 4,
+            "creamy": 4,
+            "warmth": 2,
+            "floral": 2
+          },
+          "mw": 270.37,
+          "vp": 0.008,
+          "clogp": 3.89,
+          "odt": 0.97,
+          "odt_ppm": 1,
+          "note": "base",
+          "role": "fixative",
+          "texture": "veil",
+          "synergies": [
+            "Galaxolide",
+            "Habanolide",
+            "Cashmeran"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 0.8,
+          "hedonic": 3,
+          "or_family": "musk",
+          "character_description": ""
+        },
+        "odt": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "van Gemert (2011); RIFM"
+          ],
+          "odt_air": 0.97,
+          "odt_eth": 1,
+          "char": "creamy lactonic musk",
+          "odt_verified": "corrections_patch_2026-05-12"
+        },
+        "verification": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "van Gemert (2011); RIFM"
+          ]
+        }
+      },
+      "Orivone": {
+        "profile": {
+          "name": "Orivone",
+          "character": {
+            "woody": 6,
+            "powdery": 5,
+            "floral": 3,
+            "warmth": 2,
+            "green": 1,
+            "transparency": 5
+          },
+          "mw": 168.28,
+          "vp": 8.6,
+          "clogp": 3.4,
+          "odt": 0.3,
+          "odt_ppm": 0.5,
+          "note": "heart",
+          "role": "modifier",
+          "texture": "cushion",
+          "synergies": [
+            "Alpha Ionone",
+            "Cashmeran",
+            "Hedione"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1.3,
+          "hedonic": 0.64,
+          "or_family": "iris",
+          "character_description": ""
+        },
+        "odt": {
+          "odt_air": 0.3,
+          "odt_eth": 0.5,
+          "char": "orris, butter, fatty"
+        },
+        "verification": {
+          "vfy": "UNVERIFIED",
+          "sources": [
+            "No peer-reviewed air-phase ODT found in indexed literature"
+          ],
+          "note": "Auto-tagged by audit 2026-05-11"
+        }
+      },
+      "Linalool": {
+        "profile": {
+          "name": "Linalool",
+          "character": {
+            "freshness": 7,
+            "floral": 6,
+            "sweetness": 2,
+            "woody": 1,
+            "transparency": 8
+          },
+          "mw": 154.25,
+          "vp": 15.8,
+          "clogp": 2.97,
+          "odt": 1.5,
+          "odt_ppm": 0.1,
+          "note": "top",
+          "role": "bridge",
+          "texture": "lift",
+          "synergies": [
+            "Linalyl Acetate",
+            "Hedione",
+            "Geraniol",
+            "Bergamot FCF"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1.8,
+          "hedonic": 0.48,
+          "or_family": "aromatic",
+          "character_description": ""
+        },
+        "odt": {
+          "vfy": "PEER_CROSS",
+          "sources": [
+            "Elsharif et al. (2015); Reglitz et al. (2023); Ziegleder (1990)"
+          ],
+          "odt_air": 1.5,
+          "odt_eth": 0.1,
+          "char": "floral, fresh, lavender",
+          "odt_verified": "corrections_patch_2026-05-12"
+        },
+        "verification": {
+          "vfy": "PEER_CROSS",
+          "sources": [
+            "Elsharif et al. (2015) Front. Chem. 3:57 — racemic = 3.2 ng/L (0.51 ppb)",
+            "Reglitz et al. (2023) BrewingScience 76(5) — S-enantiomer = 2.9 ng/L (0.46 ppb)",
+            "Ziegleder (1990) Z. Lebensm.-Unters. Forsch. 190:439 — 0.4-0.8 ng/L"
+          ]
+        }
+      },
+      "Romandolide": {
+        "profile": {
+          "name": "Romandolide",
+          "character": {
+            "sweetness": 3,
+            "freshness": 4,
+            "warmth": 2,
+            "powdery": 2,
+            "radiance": 4
+          },
+          "mw": 270.36,
+          "vp": 0.1,
+          "clogp": 4.56,
+          "odt": 4.9,
+          "odt_ppm": 0.5,
+          "note": "base",
+          "role": "fixative",
+          "texture": "veil",
+          "synergies": [
+            "Galaxolide",
+            "Ambrettolide",
+            "Habanolide"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1.5,
+          "hedonic": 0.16,
+          "or_family": "musk",
+          "character_description": ""
+        },
+        "odt": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "Kraft & Eichenberger (2004) Eur. J. Org. Chem. 2004:3427"
+          ],
+          "odt_air": 4.9,
+          "odt_eth": 0.5,
+          "char": "clean woody-musk, projective",
+          "odt_verified": "corrections_patch_2026-05-12"
+        },
+        "verification": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "Kraft & Eichenberger (2004) Eur. J. Org. Chem. 2004:3427 — 54 ng/L (4.9 ppb)"
+          ]
+        }
+      },
+      "Vetiver EO (India)": {
+        "profile": {
+          "name": "Vetiver EO",
+          "character": {
+            "woody": 7,
+            "green": 5,
+            "smoky": 3,
+            "animalic": 2,
+            "transparent": 3,
+            "transparency": 3
+          },
+          "mw": 222.37,
+          "vp": 0.003,
+          "clogp": 4.5,
+          "odt": 5,
+          "odt_ppm": 1,
+          "note": "base",
+          "role": "character",
+          "texture": "skin-effect",
+          "synergies": [
+            "Iso E Super",
+            "Vetival",
+            "Vetiveryl Acetate",
+            "Patchouli EO"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 2,
+          "hedonic": 1.5,
+          "or_family": "woody",
+          "character_description": ""
+        },
+        "odt": {
+          "odt_air": 5,
+          "odt_eth": 2,
+          "char": "deep earthy-smoky ruh khus — khusimol/vetivone dominant ~5 ppb",
+          "odt_verified": "corrections_patch_2026-05-12"
+        },
+        "verification": {
+          "vfy": "DERIVED",
+          "sources": [
+            "Whole oil/natural — no single air-phase ODT exists in peer-reviewed literature"
+          ],
+          "note": "Auto-tagged by audit 2026-05-11"
+        }
+      },
+      "Alpha Irone": {
+        "profile": {
+          "name": "Alpha Irone",
+          "character": {
+            "powdery": 8,
+            "floral": 6,
+            "woody": 4,
+            "creamy": 5,
+            "transparency": 5
+          },
+          "mw": 206.33,
+          "vp": 0.559,
+          "clogp": 3.8,
+          "odt": 0.9,
+          "odt_ppm": 0.16,
+          "note": "heart",
+          "role": "character",
+          "texture": "halo",
+          "synergies": [
+            "Orivone",
+            "Ultralia",
+            "Cashmeran",
+            "Suederal"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1,
+          "hedonic": 1.12,
+          "or_family": "iris",
+          "character_description": ""
+        },
+        "odt": {
+          "odt_air": 0.9,
+          "odt_eth": 0.16,
+          "char": "iris, orris, butter — corrected from 0.1/0.01 per van Gemert 2011 (RIFM)"
+        },
+        "verification": {
+          "vfy": "DERIVED",
+          "sources": [
+            "Audit-corrected value — source in inline comment"
+          ],
+          "note": "Auto-tagged by audit 2026-05-11"
+        }
+      },
+      "Isobutavan": {
+        "profile": {
+          "name": "Isobutavan",
+          "character": {
+            "sweetness": 8,
+            "creamy": 7,
+            "powdery": 4,
+            "warmth": 3,
+            "transparency": 0.5
+          },
+          "mw": 222.24,
+          "vp": 0.03,
+          "clogp": 2.1,
+          "odt": 0.5,
+          "odt_ppm": 0.05,
+          "note": "heart",
+          "role": "modifier",
+          "texture": "creamy",
+          "synergies": [
+            "Vanillin",
+            "Coumarin",
+            "Ethylene Brassylate",
+            "Heliotropal"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 0.6,
+          "hedonic": 0.32,
+          "or_family": "gourmand",
+          "character_description": ""
+        },
+        "odt": {
+          "odt_air": 0.5,
+          "odt_eth": 0.05,
+          "char": "creamy-buttery-vanillic, pastry/cream"
+        },
+        "verification": null
+      },
+      "Kephalis": {
+        "profile": {
+          "name": "Kephalis",
+          "character": {
+            "woody": 9,
+            "warmth": 5,
+            "radiance": 3,
+            "transparency": 4
+          },
+          "mw": 224.34,
+          "vp": 0.46,
+          "clogp": 3.1,
+          "odt": 50,
+          "odt_ppm": 0.1,
+          "note": "heart",
+          "role": "character",
+          "texture": "cocoon",
+          "synergies": [
+            "Iso E Super",
+            "Vertofix Coeur",
+            "Timberol"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1.5,
+          "hedonic": 0,
+          "or_family": "woody",
+          "character_description": ""
+        },
+        "odt": {
+          "odt_air": 50,
+          "odt_eth": 0.1,
+          "char": "powerful woody-amber",
+          "odt_verified": "corrections_patch_2026-05-12"
+        },
+        "verification": {
+          "vfy": "UNVERIFIED",
+          "sources": [
+            "No peer-reviewed air-phase ODT found in indexed literature"
+          ],
+          "note": "Auto-tagged by audit 2026-05-11"
+        }
+      },
+      "Cedarwood oil Virginia": {
+        "profile": {
+          "name": "Cedarwood oil Virginia",
+          "character": {
+            "woody": 8,
+            "warmth": 3,
+            "sweetness": 1,
+            "smoky": 1,
+            "transparency": 5
+          },
+          "mw": 222.37,
+          "vp": 0.005,
+          "clogp": 5,
+          "odt": 15,
+          "odt_ppm": 3,
+          "note": "base",
+          "role": "character",
+          "texture": "cocoon",
+          "synergies": [
+            "Cedarwood EO",
+            "Iso E Super"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 2.5,
+          "hedonic": 2.5,
+          "or_family": "woody",
+          "character_description": ""
+        },
+        "odt": {
+          "odt_air": 15,
+          "odt_eth": 3,
+          "char": "pencil-shaving cedar"
+        },
+        "verification": {
+          "vfy": "DERIVED",
+          "sources": [
+            "Same as cedarwood oil virginia"
+          ]
+        }
+      },
+      "Alpha Ionone": {
+        "profile": {
+          "name": "Alpha Ionone",
+          "character": {
+            "floral": 5,
+            "powdery": 4,
+            "woody": 3,
+            "sweetness": 2
+          },
+          "mw": 192.3,
+          "vp": 1.5,
+          "clogp": 2.9,
+          "odt": 0.4,
+          "odt_ppm": 0.1,
+          "note": "heart",
+          "role": "modifier",
+          "texture": "diffusion",
+          "synergies": [
+            "Beta Ionone",
+            "Parmavert",
+            "Alpha Irone"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1,
+          "hedonic": 0.72,
+          "or_family": "floral",
+          "character_description": ""
+        },
+        "odt": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "Rychlik et al. (1998); van Gemert (2011)"
+          ],
+          "odt_air": 0.4,
+          "odt_eth": 0.1
+        },
+        "verification": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "Rychlik et al. (1998); van Gemert (2011)"
+          ]
+        }
+      },
+      "Sandalore": {
+        "profile": {
+          "name": "Sandalore",
+          "character": {
+            "woody": 5,
+            "creamy": 6,
+            "warmth": 3,
+            "sweetness": 2
+          },
+          "mw": 210.36,
+          "vp": 0.08,
+          "clogp": 4.2,
+          "odt": 10,
+          "odt_ppm": 2,
+          "note": "base",
+          "role": "modifier",
+          "texture": "skin-effect",
+          "synergies": [
+            "Javanol",
+            "Bacdanol",
+            "Ebanol"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1.5,
+          "hedonic": 0,
+          "or_family": "woody",
+          "character_description": ""
+        },
+        "odt": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "van Gemert (2011)"
+          ],
+          "odt_eth": 2,
+          "odt_air": 10,
+          "odt_verified": "corrections_patch_2026-05-12"
+        },
+        "verification": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "van Gemert (2011)"
+          ]
+        }
+      },
+      "Cashmeran": {
+        "profile": {
+          "name": "Cashmeran",
+          "character": {
+            "warmth": 7,
+            "woody": 5,
+            "sweetness": 4,
+            "creamy": 5,
+            "powdery": 3,
+            "transparency": 7
+          },
+          "mw": 206.32,
+          "vp": 1.242,
+          "clogp": 3.3,
+          "odt": 2,
+          "odt_ppm": 0.5,
+          "note": "base",
+          "role": "volume",
+          "texture": "cocoon",
+          "synergies": [
+            "Iso E Super",
+            "Alpha Irone",
+            "Orivone"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1,
+          "hedonic": 0.24,
+          "or_family": "woody",
+          "character_description": ""
+        },
+        "odt": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "van Gemert (2011); IFF sensory data"
+          ],
+          "odt_air": 2,
+          "odt_eth": 0.5
+        },
+        "verification": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "van Gemert (2011); IFF sensory data"
+          ]
+        }
+      },
+      "Tonkarome": {
+        "profile": {
+          "name": "Tonkarome",
+          "character": {
+            "sweet": 6,
+            "gourmand": 5,
+            "balsamic": 3,
+            "powdery": 2
+          },
+          "mw": 160,
+          "vp": 0.05,
+          "clogp": 2.5,
+          "odt": 0.5,
+          "odt_ppm": 0.01,
+          "note": "base",
+          "role": "character",
+          "texture": "creamy-smooth",
+          "synergies": [
+            "Coumarin",
+            "Vanillin",
+            "Heliotropal",
+            "Benzoin"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 0.6,
+          "hedonic": 0.56,
+          "or_family": "gourmand",
+          "character_description": ""
+        },
+        "odt": {
+          "vfy": "UNVERIFIED",
+          "sources": [
+            "https://www.perfumersworld.com/view.php?pro_id=2QV23715"
+          ],
+          "odt_air": 0.5,
+          "odt_eth": 0.01,
+          "char": "coumarinic-tonka base, sweet balsamic",
+          "note": "Legacy numeric estimates, not supplier-measured product ODT. Proprietary mixture: formula-state OAV withheld pending composition evidence."
+        },
+        "verification": null
+      },
+      "Cedramber": {
+        "profile": {
+          "name": "Cedramber",
+          "character": {
+            "woody": 7,
+            "freshness": 3,
+            "warmth": 2
+          },
+          "mw": 234.38,
+          "vp": 0.35,
+          "clogp": 5,
+          "odt": 240,
+          "odt_ppm": 0.2,
+          "note": "base",
+          "role": "modifier",
+          "texture": "veil",
+          "synergies": [
+            "Iso E Super",
+            "Clearwood"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1.5,
+          "hedonic": 0,
+          "or_family": "amber",
+          "character_description": ""
+        },
+        "odt": {
+          "odt_air": 240,
+          "odt_eth": 0.2,
+          "char": "cedar-amber hybrid"
+        },
+        "verification": {
+          "vfy": "UNVERIFIED",
+          "sources": [
+            "No peer-reviewed air-phase ODT found in indexed literature"
+          ],
+          "note": "Auto-tagged by audit 2026-05-11"
+        }
+      },
+      "Lavender EO High Altitude": {
+        "profile": null,
+        "odt": {
+          "odt_air": 2,
+          "odt_eth": 5,
+          "char": "lavender high altitude, herbal-floral"
+        },
+        "verification": {
+          "vfy": "DERIVED",
+          "sources": [
+            "Estimated from constituent thresholds (linalool 0.51 ppb + linalyl acetate 13.8 ppb)"
+          ],
+          "note": "High linalyl acetate content (>50%) may lower effective ODT vs standard lavender EO"
+        }
+      },
+      "Iso E Super": {
+        "profile": {
+          "name": "Iso E Super",
+          "character": {
+            "woody": 8,
+            "warmth": 4,
+            "radiance": 6,
+            "creamy": 3,
+            "transparency": 9
+          },
+          "mw": 234.38,
+          "vp": 0.23129,
+          "clogp": 3.6,
+          "odt": 0.05,
+          "odt_ppm": 0.01,
+          "note": "heart",
+          "role": "volume",
+          "texture": "cocoon",
+          "synergies": [
+            "Hedione",
+            "Ambrox Super",
+            "Cashmeran",
+            "Vertofix Coeur"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 0.8,
+          "hedonic": 2,
+          "or_family": "woody",
+          "character_description": ""
+        },
+        "odt": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "Kraft (2008) Chem. Biodiv. 5:670"
+          ],
+          "odt_air": 0.05,
+          "odt_eth": 0.01,
+          "char": "cedar, abstract wood",
+          "odt_verified": "corrections_patch_2026-05-12"
+        },
+        "verification": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "Kraft (2008) Chem. Biodiv. 5:670 — pure Arborone impurity 0.005 ng/L (0.0005 ppb); commercial mixture ~0.05 ppb"
+          ],
+          "odt_air": 0.05,
+          "odt_eth": 0.05
+        }
+      },
+      "Orris Liquid": {
+        "profile": {
+          "name": "Orris Liquid",
+          "character": {
+            "powdery": 9,
+            "floral": 7,
+            "woody": 4,
+            "creamy": 6,
+            "earthy": 5,
+            "fruity": 2,
+            "transparency": 3
+          },
+          "mw": 206.32,
+          "vp": 0.559,
+          "clogp": 3.2,
+          "odt": 0.9,
+          "odt_ppm": 0.16,
+          "note": "heart",
+          "role": "character",
+          "texture": "cushion",
+          "synergies": [
+            "Alpha Irone",
+            "Orivone",
+            "Carrot Seed EO",
+            "Sandalwood EO"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1.3,
+          "hedonic": 1.28,
+          "or_family": "iris",
+          "character_description": ""
+        },
+        "odt": {
+          "vfy": "DERIVED",
+          "sources": [
+            "PerfumersWorld SKU 8IQ24653 (80-85% irone supplier declaration)",
+            "Alpha-irone-equivalent fallback"
+          ],
+          "odt_air": 0.9,
+          "odt_eth": 0.16,
+          "char": "powdery violet-orris, lipstick, creamy suede",
+          "note": "Legacy numeric proxy, not a whole-product threshold measurement. The unsupported alpha-equivalent composite was withdrawn 2026-09-05; formula-state OAV is UNKNOWN pending suitable composition evidence."
+        },
+        "verification": {
+          "vfy": "DERIVED",
+          "sources": [
+            "PerfumersWorld SKU 8IQ24653; alpha-irone-equivalent fallback"
+          ],
+          "odt_air": 0.9,
+          "odt_eth": 0.16,
+          "note": "Legacy alpha-irone proxy only. Catalog content has no assay basis; unsupported composite withdrawn 2026-09-05. Product OAV is UNKNOWN."
+        }
+      },
+      "Carrot Seed EO": {
+        "profile": {
+          "name": "Carrot Seed EO",
+          "character": {
+            "woody": 5,
+            "green": 4,
+            "powdery": 3,
+            "warmth": 2,
+            "transparency": 3
+          },
+          "mw": 220,
+          "vp": 0.01,
+          "clogp": 3.5,
+          "odt": 5,
+          "odt_ppm": 1,
+          "note": "heart",
+          "role": "modifier",
+          "texture": "diffusion",
+          "synergies": [
+            "Alpha Irone",
+            "Vetiver EO"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 2,
+          "hedonic": 2,
+          "or_family": "iris",
+          "character_description": ""
+        },
+        "odt": {
+          "odt_air": 5,
+          "odt_eth": 1,
+          "char": "earthy, rooty, iris-like",
+          "odt_verified": "corrections_patch_2026-05-12"
+        },
+        "verification": {
+          "vfy": "DERIVED",
+          "sources": [
+            "Whole oil/natural — no single air-phase ODT exists in peer-reviewed literature"
+          ],
+          "note": "Auto-tagged by audit 2026-05-11"
+        }
+      },
+      "Ambrettolide": {
+        "profile": {
+          "name": "Ambrettolide",
+          "character": {
+            "animalic": 3,
+            "warmth": 4,
+            "creamy": 5,
+            "sweetness": 2,
+            "radiance": 3
+          },
+          "mw": 252.39,
+          "vp": 0.003,
+          "clogp": 5.5,
+          "odt": 0.136,
+          "odt_ppm": 0.014,
+          "note": "base",
+          "role": "character",
+          "texture": "skin-effect",
+          "synergies": [
+            "Galaxolide",
+            "Habanolide",
+            "Javanol"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1.5,
+          "hedonic": -0.3,
+          "or_family": "musk",
+          "character_description": ""
+        },
+        "odt": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "Kraft (2005) Wiley book chapter"
+          ],
+          "odt_air": 0.136,
+          "odt_eth": 0.014,
+          "char": "musky-fruity, wine"
+        },
+        "verification": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "Kraft (2005) Chemistry and Technology of Flavors and Fragrances (Wiley) — 1.4 ng/L (0.136 ppb)"
+          ],
+          "odt_air": 0.136,
+          "odt_eth": 0.014
+        }
+      },
+      "Benzyl Acetate": {
+        "profile": {
+          "name": "Benzyl Acetate",
+          "character": {
+            "floral": 6,
+            "sweetness": 4,
+            "freshness": 3,
+            "green": 2,
+            "transparency": 6
+          },
+          "mw": 150.17,
+          "vp": 0.22,
+          "clogp": 1.96,
+          "odt": 20,
+          "odt_ppm": 5,
+          "note": "heart",
+          "role": "character",
+          "texture": "diffusion",
+          "synergies": [
+            "Hedione",
+            "Indole",
+            "Linalool"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1.5,
+          "hedonic": 3.5,
+          "or_family": "floral",
+          "character_description": ""
+        },
+        "odt": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "Nagata (2003)"
+          ],
+          "odt_air": 20,
+          "odt_eth": 5
+        },
+        "verification": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "Nagata (2003)"
+          ]
+        }
+      },
+      "Verdox": {
+        "profile": {
+          "name": "Verdox",
+          "character": {
+            "green": 7,
+            "freshness": 5,
+            "floral": 2
+          },
+          "mw": 170.25,
+          "vp": 0.3,
+          "clogp": 3.2,
+          "odt": 20,
+          "odt_ppm": 5,
+          "note": "top",
+          "role": "modifier",
+          "texture": "lift",
+          "synergies": [
+            "cis-3-Hexenol",
+            "Hedione"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1,
+          "hedonic": 0.16,
+          "or_family": "green",
+          "character_description": ""
+        },
+        "odt": {
+          "odt_air": 20,
+          "odt_eth": 5,
+          "char": "woody-fruity verdox"
+        },
+        "verification": {
+          "vfy": "UNVERIFIED",
+          "sources": [
+            "No peer-reviewed air-phase ODT found in indexed literature"
+          ],
+          "note": "Auto-tagged by audit 2026-05-11"
+        }
+      },
+      "Hedione": {
+        "profile": {
+          "name": "Hedione",
+          "character": {
+            "radiance": 10,
+            "floral": 6,
+            "freshness": 5,
+            "sweetness": 1,
+            "transparency": 10
+          },
+          "mw": 226.31,
+          "vp": 0.09466,
+          "clogp": 3,
+          "odt": 0.05,
+          "odt_ppm": 0.01,
+          "note": "heart",
+          "role": "radiance",
+          "texture": "halo",
+          "synergies": [
+            "Benzyl Salicylate",
+            "Iso E Super",
+            "Linalool",
+            "Bergamot FCF",
+            "Neroli EO"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 0.6,
+          "hedonic": 3,
+          "or_family": "floral",
+          "character_description": ""
+        },
+        "odt": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "Porta et al. (2005) J. Org. Chem. 70:4876"
+          ],
+          "odt_air": 0.05,
+          "odt_eth": 0.01,
+          "char": "jasmine, radiance",
+          "odt_verified": "corrections_patch_2026-05-12"
+        },
+        "verification": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "Porta et al. (2005) J. Org. Chem. 70:4876 — (+)-1R,2S isomer 0.028 ng/L (0.003 ppb); commercial racemic ~0.05 ppb"
+          ],
+          "odt_air": 0.05,
+          "odt_eth": 0.01
+        }
+      },
+      "Linalyl Acetate": {
+        "profile": {
+          "name": "Linalyl Acetate",
+          "character": {
+            "freshness": 8,
+            "floral": 4,
+            "sweetness": 3,
+            "green": 2,
+            "transparency": 8
+          },
+          "mw": 196.29,
+          "vp": 17.5,
+          "clogp": 3.56,
+          "odt": 2.7,
+          "odt_ppm": 0.5,
+          "note": "top",
+          "role": "modifier",
+          "texture": "lift",
+          "synergies": [
+            "Linalool",
+            "Lavender EO",
+            "Bergamot FCF"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1,
+          "hedonic": 0.32,
+          "or_family": "aromatic",
+          "character_description": ""
+        },
+        "odt": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "van Gemert (2011); Elsharif et al. (2015) Front. Chem. 3:57"
+          ],
+          "odt_air": 2.7,
+          "odt_eth": 0.5
+        },
+        "verification": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "van Gemert (2011); Elsharif et al. (2015) Front. Chem. 3:57"
+          ],
+          "odt_air": 2.7,
+          "odt_eth": 0.5
+        }
+      },
+      "Beta Ionone": {
+        "profile": {
+          "name": "Beta Ionone",
+          "character": {
+            "floral": 4,
+            "woody": 5,
+            "powdery": 3,
+            "sweetness": 2
+          },
+          "mw": 192.3,
+          "vp": 1.2,
+          "clogp": 2.9,
+          "odt": 0.007,
+          "odt_ppm": 0.05,
+          "note": "heart",
+          "role": "modifier",
+          "texture": "diffusion",
+          "synergies": [
+            "Alpha Ionone",
+            "Parmavert",
+            "Cedarwood EO"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1,
+          "hedonic": 0.56,
+          "or_family": "iris",
+          "character_description": ""
+        },
+        "odt": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "Gasser & Grosch (1990)"
+          ],
+          "odt_air": 0.007,
+          "odt_eth": 0.05
+        },
+        "verification": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "Gasser & Grosch (1990)"
+          ]
+        }
+      },
+      "Delta Decalactone": {
+        "profile": {
+          "name": "Delta Decalactone",
+          "character": {
+            "sweetness": 4,
+            "creamy": 8,
+            "warmth": 3
+          },
+          "mw": 170.25,
+          "vp": 0.003,
+          "clogp": 2.5,
+          "odt": 10,
+          "odt_ppm": 2,
+          "note": "heart",
+          "role": "modifier",
+          "texture": "cushion",
+          "synergies": [
+            "Gamma Decalactone",
+            "Vanillin"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1,
+          "hedonic": 0,
+          "or_family": "gourmand",
+          "character_description": ""
+        },
+        "odt": {
+          "odt_air": 10,
+          "odt_eth": 2,
+          "char": "creamy, coconut-peach"
+        },
+        "verification": {
+          "vfy": "UNVERIFIED",
+          "sources": [
+            "No peer-reviewed air-phase ODT found in indexed literature"
+          ],
+          "note": "Auto-tagged by audit 2026-05-11"
+        }
+      },
+      "Benzyl Benzoate": {
+        "profile": null,
+        "odt": {
+          "odt_air": 810,
+          "odt_eth": 2,
+          "char": "near-odorless fixative, faint balsamic",
+          "odt_verified": "corrections_patch_2026-05-12"
+        },
+        "verification": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "Arctander (1960); RIFM review; Nagata (2003); van Gemert (2003) — 810 ppb published"
+          ],
+          "note": "Tier A published value"
+        }
+      },
+      "Vetival": {
+        "profile": {
+          "name": "Vetival",
+          "character": {
+            "woody": 6,
+            "green": 3,
+            "animalic": 3,
+            "smoky": 2
+          },
+          "mw": 218.33,
+          "vp": 6.53,
+          "clogp": 4,
+          "odt": 7,
+          "odt_ppm": 0.5,
+          "note": "heart",
+          "role": "character",
+          "texture": "skin-effect",
+          "synergies": [
+            "Vetiver EO",
+            "Iso E Super"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1.5,
+          "hedonic": -0.5,
+          "or_family": "woody",
+          "character_description": ""
+        },
+        "odt": {
+          "odt_air": 7,
+          "odt_eth": 0.5,
+          "char": "suede-vetiver dryness",
+          "odt_verified": "corrections_patch_2026-05-12"
+        },
+        "verification": {
+          "vfy": "PEER_EST",
+          "sources": [
+            "Vetiver sesquiterpene class (khusimol ~5 ppb, alpha/β-vetivone 3-8 ppb); PerfumersWorld monograph"
+          ],
+          "note": "Tier C — vetiver key odorant family surrogate"
+        }
+      },
+      "Hexyl Salicylate": {
+        "profile": {
+          "name": "Hexyl Salicylate",
+          "character": {
+            "floral": 4,
+            "green": 4,
+            "freshness": 3,
+            "powdery": 2,
+            "radiance": 3,
+            "transparency": 9
+          },
+          "mw": 222.28,
+          "vp": 0.077,
+          "clogp": 4.87,
+          "odt": 35,
+          "odt_ppm": 30,
+          "note": "base",
+          "role": "fixative",
+          "texture": "cushion",
+          "synergies": [
+            "Hedione",
+            "Benzyl Salicylate",
+            "Paradisamide",
+            "Iso E Super"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 0.75,
+          "hedonic": 2.5,
+          "or_family": "salicylate",
+          "character_description": ""
+        },
+        "odt": {
+          "odt_air": 35,
+          "odt_eth": 30,
+          "char": "light transparent salicylate"
+        },
+        "verification": {
+          "vfy": "PEER_EST",
+          "sources": [
+            "SCCS Final Opinion; RIFM monograph — VP model from salicylate ester series"
+          ],
+          "note": "Tier B — SCCS/RIFM regulatory data + VP-gradient model"
+        }
+      },
+      "Ebanol": {
+        "profile": {
+          "name": "Ebanol",
+          "character": {
+            "woody": 5,
+            "creamy": 8,
+            "warmth": 3,
+            "sweetness": 2,
+            "transparency": 7
+          },
+          "mw": 220.35,
+          "vp": 0.89,
+          "clogp": 4.5,
+          "odt": 0.21,
+          "odt_ppm": 1.5,
+          "note": "heart",
+          "role": "character",
+          "texture": "skin-effect",
+          "synergies": [
+            "Javanol",
+            "Bacdanol"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1.5,
+          "hedonic": 3,
+          "or_family": "woody",
+          "character_description": ""
+        },
+        "odt": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "van Gemert (2011)"
+          ],
+          "odt_air": 0.21,
+          "odt_eth": 1.5
+        },
+        "verification": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "van Gemert (2011)"
+          ]
+        }
+      },
+      "Dihydro Beta Ionone": {
+        "profile": {
+          "name": "Dihydro Beta Ionone",
+          "character": {
+            "woody": 5,
+            "powdery": 3,
+            "sweetness": 2
+          },
+          "mw": 194.31,
+          "vp": 0.02,
+          "clogp": 4.5,
+          "odt": 5,
+          "odt_ppm": 0.3,
+          "note": "heart",
+          "role": "modifier",
+          "texture": "diffusion",
+          "synergies": [
+            "Beta Ionone",
+            "Cedarwood EO"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1,
+          "hedonic": 0.24,
+          "or_family": "woody",
+          "character_description": ""
+        },
+        "odt": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "Estimated from ionone analogs; single source"
+          ],
+          "odt_eth": 0.3,
+          "odt_air": 5,
+          "odt_verified": "corrections_patch_2026-05-12"
+        },
+        "verification": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "Estimated from ionone analogs; single source"
+          ]
+        }
+      },
+      "Alpha Isomethyl Ionone (Methyl Ionone Pure)": {
+        "profile": {
+          "name": "Alpha-Isomethyl Ionone",
+          "character": {
+            "floral": 6,
+            "powdery": 5,
+            "woody": 3,
+            "sweetness": 2
+          },
+          "mw": 206.33,
+          "vp": 0.4,
+          "clogp": 4.1,
+          "odt": 0.8,
+          "odt_ppm": 0.5,
+          "note": "heart",
+          "role": "modifier",
+          "texture": "diffusion",
+          "synergies": [
+            "Alpha Irone",
+            "Orivone",
+            "Hedione"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 1.3,
+          "hedonic": 0.88,
+          "or_family": "floral",
+          "character_description": ""
+        },
+        "odt": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "van Gemert (2011)"
+          ],
+          "odt_air": 0.8,
+          "odt_eth": 0.5
+        },
+        "verification": {
+          "vfy": "PEER_SINGLE",
+          "sources": [
+            "van Gemert (2011)"
+          ]
+        }
+      },
+      "Coriander Essential Oil": {
+        "profile": {
+          "name": "Coriander Essential Oil",
+          "character": {
+            "spicy": 5,
+            "freshness": 5,
+            "green": 3,
+            "floral": 2
+          },
+          "mw": 154.25,
+          "vp": 15,
+          "clogp": 3.2,
+          "odt": 1.5,
+          "odt_ppm": 0.5,
+          "note": "top",
+          "role": "character",
+          "texture": "lift",
+          "synergies": [
+            "Linalool",
+            "Cardamom EO",
+            "Rose Absolute",
+            "Black Pepper EO"
+          ],
+          "avoid": [],
+          "dilution": 1,
+          "activity_coef": 2,
+          "hedonic": 0.16,
+          "or_family": "aromatic",
+          "character_description": ""
+        },
+        "odt": {
+          "odt_air": 1.5,
+          "odt_eth": 0.5,
+          "char": "linalool-rich coriander seed, spicy aromatic natural mixture"
+        },
+        "verification": {
+          "vfy": "DERIVED",
+          "sources": [
+            "Coriandrum sativum seed-oil GC-MS literature; linalool-dominant range"
+          ],
+          "note": "Composite profile is origin-dependent and not supplier-batch GC-MS."
+        }
+      }
+    },
+    "direct_profile_lookup_gaps": [
+      "Lavender EO High Altitude",
+      "Benzyl Benzoate"
+    ],
+    "lookup_gap_scope": "Existing parent names; full formula-state routing must be checked separately from direct get_profile.",
+    "stock_mass_measurements": 0,
+    "exact_ppm_state": "UNAVAILABLE_PENDING_DELIVERED_MASSES",
+    "opaque_product_oav": [
+      "Orris Liquid",
+      "Tonkarome"
+    ],
+    "full_formula_state_routing": "PASS_ALL_33_ROWS_PRESENT; direct get_profile gaps for Lavender/Benzyl Benzoate are not missing formula-state records",
+    "direct_profile_lookup_gaps_resolved_by_full_formula_state": true
+  },
+  "verification": {
+    "state": "CURRENT_DIAGNOSTIC_COMPLETE_RELEASE_HOLD",
+    "gate_counts": {
+      "FAIL": 3,
+      "PASS": 108,
+      "WARN": 34,
+      "SKIP": 1
+    },
+    "overall": "FAIL",
+    "release_evidence_decision": "HOLD",
+    "g15": "PASS",
+    "architecture_contract": "PASS",
+    "inventory_stock_contract": "PASS",
+    "matched_stock_count": 33,
+    "dose_receipt_status": "BOUND",
+    "dose_receipt_quantity_authority": "PLANNED_VOLUME_SCREEN_ONLY",
+    "physical_metrology_authority": false,
+    "final_report": "output/dhi2011_v6_complexity_first_20260906/release_gate.json",
+    "final_report_file_sha256": "a08fb0e7154bcdbe843a9c64fcf0128880015693259009a34bb30756ec78ed72",
+    "semantic_formula_sha256": "2d987040e98e6a2295a93df8e8cd139455465a066acc5f3c9a95938fca0fbe6c",
+    "parent_semantic_formula_sha256": "279ba9f447847b63313b151bb0d5b059b10c160305947d514739ba3617c27232",
+    "analysis_binding": "PARENT_VERIFIED_BOUND_REPORT_PLUS_SEPARATE_VERBATIM_STANDALONE_FORMATTER",
+    "full_analysis_path": "output/dhi2011_v6_complexity_first_20260906/full_analysis.txt",
+    "config": {
+      "expected_concentrate_ul": 6000,
+      "batch_volume_ml": 30,
+      "temperature_K": 305,
+      "brief": "dhi_2011",
+      "family_archetype": "iris_coumarin_amber.dhi2011",
+      "concentration_bracket": "EdP",
+      "allow_preblends": false,
+      "min_confidence_score": 25,
+      "ifra_headroom": 1,
+      "effective_ifra_headroom": 1,
+      "commercial_mode": false,
+      "quantitative_claim": false,
+      "matrix_components_moles": [
+        [
+          "Ethanol",
+          0.39259883130301904
+        ],
+        [
+          "Water",
+          0.05312823336634235
+        ]
+      ],
+      "matrix_mass_g": 19.04352,
+      "matrix_source": "declared_volume_proxy",
+      "requires_exact_quantitation": false,
+      "commercial_confidence_policy": "block",
+      "commercial_trial": false,
+      "batch_scaling_targets_ml": [],
+      "audit_source": "formulas/DHI-11_V6_Complexity_First_Orris_Led_30mL_20pct.md"
+    },
+    "release_blockers": [
+      "safety_ifra: HOLD",
+      "laboratory_execution: NOT_TESTED",
+      "sensory_evidence: NOT_TESTED",
+      "oav_evidence: HOLD",
+      "hedonic_evidence: NOT_TESTED"
+    ],
+    "donor_independence": "HOLD_NOT_RUN",
+    "modeled_oav_at_least_one": 16,
+    "modeled_oav_below_one": 15,
+    "unknown_oav_count": 2,
+    "all_sensory_role_subthreshold_reviewed": true,
+    "physical_and_sensory_tests": "NOT_RUN",
+    "sensory_layer_acceptances": 0,
+"focused_tests": {
+      "state": "PASS",
+      "paths": [
+        "tests/test_dhi2011_v6_complexity_first_artifacts.py",
+        "tests/test_dhi2011_scientific_data_audit.py",
+        "tests/test_pre_mix_guard.py"
+      ],
+      "initial_findings": [
+        "Report-manifest numeric serialization changed hash representation; restored exact original JSON serialization without changing doses.",
+        "Bound release renderer and standalone formatter have different section order; preserved both and test exact standalone output in master."
+      ],
+      "test_environment_warning": "pytest_asyncio uses deprecated asyncio.iscoroutinefunction under Python 3.14; cache writes unavailable on first run, disabled only cache provider on final run.",
+      "passed": 86,
+      "failed": 0,
+      "warning_count": 1935,
+      "warning_classes": [
+        "pytest_asyncio DeprecationWarning: asyncio.iscoroutinefunction deprecated under Python 3.14"
+      ],
+      "elapsed_seconds": 4.17,
+      "command": "python -X utf8 -B -m pytest tests/test_dhi2011_v6_complexity_first_artifacts.py tests/test_dhi2011_scientific_data_audit.py tests/test_pre_mix_guard.py -q --tb=short -p no:cacheprovider",
+      "full_suite": false
+    },
+    "full_repository_suite": "NOT_RUN_FORMULA_DOCUMENTATION_AND_TEST_ADDITIONS_ONLY_NO_ENGINE_EDIT_NO_RELEASE"
+  },
+  "sensory_observations": [],
+  "promotions": [],
+  "paths": {
+    "master": "formulas/DHI-11_V6_Complexity_First_Orris_Led_30mL_20pct.md",
+    "design": "formulas/DHI-11_V6_Complexity_First_Orris_Led_30mL_20pct.design.json",
+    "card": "formulas/DHI-11_V6_Complexity_First_30mL_POUR_CARD.md",
+    "trial": "formulas/DHI-11_V6_Complexity_First_CONTROLLED_TRIAL.md",
+    "diagnosis": "formulas/DHI-11_V6_Complexity_First_VERIFICATION_AND_LEARNINGS.md"
+  },
+  "gate_diagnosis": [
+    {
+      "gate": "pipeline_preflight",
+      "status": "FAIL",
+      "detail": "13 checks; 8 warnings",
+      "adjudication": {
+        "category": "COMPOSITION_EVIDENCE_HOLD",
+        "decision": "Aggregate includes missing Orris composite plus eight evidence warnings; arithmetic and stock checks passed."
+      }
+    },
+    {
+      "gate": "quantitative_authority",
+      "status": "WARN",
+      "detail": "Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only.",
+      "adjudication": {
+        "category": "MEASUREMENT_HOLD",
+        "decision": "All 33 delivered masses are unknown; no exact w/w result."
+      }
+    },
+    {
+      "gate": "headspace_scope",
+      "status": "WARN",
+      "detail": "Headspace/OAV uses a partial or proxy finished matrix; unresolved stock carriers prevent complete finished-product scope.",
+      "adjudication": {
+        "category": "MATRIX_HOLD",
+        "decision": "Four w/w stocks lack a measured carrier/mole chain. Parent-matched nominal solvent is not complete matrix authority."
+      }
+    },
+    {
+      "gate": "natural_composite_coverage",
+      "status": "FAIL",
+      "detail": "Natural mixtures lack required composite GC-O decomposition: Orris Liquid",
+      "adjudication": {
+        "category": "COMPOSITION_EVIDENCE_HOLD",
+        "decision": "Need lot-qualified Orris composition/GC-O support or accept continued unknown; do not fabricate constituents."
+      }
+    },
+    {
+      "gate": "phase_compatibility",
+      "status": "WARN",
+      "detail": "HSP coverage too thin for trusted phase audit: 13.1% active mass across 4 materials",
+      "adjudication": {
+        "category": "PHYSICAL_TEST_HOLD",
+        "decision": "HSP covers only 13.1% of modeled active mass; no solubility or stability conclusion."
+      }
+    },
+    {
+      "gate": "opaque_preblends",
+      "status": "FAIL",
+      "detail": "not allowed: Tonkarome",
+      "adjudication": {
+        "category": "COMPOSITION_EVIDENCE_HOLD",
+        "decision": "Need product composition/safety evidence; no preblend waiver was used."
+      }
+    },
+    {
+      "gate": "osmotheque_archivability",
+      "status": "WARN",
+      "detail": "Archivability: 1 opaque preblend(s)",
+      "adjudication": {
+        "category": "COMPOSITION_HOLD",
+        "decision": "Tonkarome composition remains undisclosed."
+      }
+    },
+    {
+      "gate": "dior_homme_intense_skeleton",
+      "status": "WARN",
+      "detail": "Skeleton weak: 4/5 markers (Dior Homme Intense 2011 architecture, formula-code scope 05443/A)",
+      "adjudication": {
+        "category": "MODEL_SENSORY_ROLE_REVIEW",
+        "decision": "This older five-marker detector requires OAV >= 1; Ambrettolide is 0.55. The separate six-marker architecture contract checks representation, so its PASS is not a sensory pass."
+      }
+    },
+    {
+      "gate": "odt_sanity",
+      "status": "WARN",
+      "detail": "2 unresolved cross-source ODT conflicts",
+      "adjudication": {
+        "category": "DATA_HOLD",
+        "decision": "Two bulk-vetiver threshold discrepancies; natural constituent screening does not make bulk values equal."
+      }
+    },
+    {
+      "gate": "vp_cross_source",
+      "status": "WARN",
+      "detail": "33 materials use inferred enthalpy for VP at 305.00 K; 5 unresolved cross-source VP conflicts",
+      "adjudication": {
+        "category": "DATA_REVIEW",
+        "decision": "All 33 temperature corrections use inferred enthalpy. Of five reported natural proxy conflicts, four have equal/one-source bulk values; do not call all five numeric contradictions."
+      }
+    },
+    {
+      "gate": "dilution_accuracy",
+      "status": "WARN",
+      "detail": "Check pipetting: orris liquid: 1500.0uL at 9%",
+      "adjudication": {
+        "category": "METROLOGY_REVIEW",
+        "decision": "9% is the verified Orris w/w stock, not a typographical dilution to replace. Check delivered amount and label, not an invented 10% repair."
+      }
+    },
+    {
+      "gate": "safety_ifra_allergen",
+      "status": "WARN",
+      "detail": "17 materials lack explicit IFRA Cat4 limits; 5 EU allergen declarations",
+      "adjudication": {
+        "category": "SAFETY_HOLD",
+        "decision": "17 missing Cat4 records and unmeasured mass prevent clearance. No screened violation is not proof of safety."
+      }
+    },
+    {
+      "gate": "eu_allergen_declaration",
+      "status": "WARN",
+      "detail": "EU allergens requiring label: alpha-isomethyl ionone, linalool, linalyl acetate",
+      "adjudication": {
+        "category": "LABEL_HOLD",
+        "decision": "Allergen consumers show different candidate lists. Final label requires current supplier/lot data and finished-product mass calculation."
+      }
+    },
+    {
+      "gate": "safety_receptor_saturation",
+      "status": "WARN",
+      "detail": "Ionone total 21.8% > 5% cap (OR5A1 saturation, F6); Cedarwood Virginia 9.2% > 2% cap (OR10J5 + cedrol sedative)",
+      "adjudication": {
+        "category": "UNVALIDATED_HEURISTIC",
+        "decision": "Hard-coded ionone/cedar percentages do not establish receptor occupancy, human sedation or a validated mixture safety cap."
+      }
+    },
+    {
+      "gate": "oav_physics_gamma",
+      "status": "WARN",
+      "detail": "33/33 materials use predictive, heuristic, fallback, or unknown gamma authority; largest gamma=1 comparison leverage Iso E Super=9.8x",
+      "adjudication": {
+        "category": "DATA_HOLD",
+        "decision": "All gamma inputs are predictive/heuristic/fallback/unknown. Iso E's modeled lead is highly sensitive to gamma."
+      }
+    },
+    {
+      "gate": "skin_degradation",
+      "status": "WARN",
+      "detail": "Tonkarome: proprietary mixture; skin transformation not established. Natural-tonka precursor chemistry cannot be inferred from the trade name.",
+      "adjudication": {
+        "category": "COMPOSITION_HOLD",
+        "decision": "No Tonkarome precursor or skin-transformation assay."
+      }
+    },
+    {
+      "gate": "solvent_matrix",
+      "status": "WARN",
+      "detail": "stock-carrier authority NAMED_CARRIER_VOLUME_PROXY; known named carriers {'DEP': 1509.0, 'DPG': 765.0, 'TEC': 256.0}; unresolved carrier proxy 0.0 uL; 4 named carrier row(s) lack a v/v basis",
+      "adjudication": {
+        "category": "MATRIX_HOLD",
+        "decision": "Displayed carrier microlitres are raw-volume-times-w/w-fraction proxies, not measured displacement."
+      }
+    },
+    {
+      "gate": "perfumer_logic",
+      "status": "WARN",
+      "detail": "iris_coumarin_amber.dhi2011; rerun optimizer: dominant_iris_orris_object: 15.017% active below 18.000; Powder body, violet mobility, and root character are one object, not count-based complexity.; negative_space_and_woody_frame: 8.500% active below 15.000; Diffusion must preserve iris foreground and a late wood return. [advisory guideline; not release-blocking]",
+      "adjudication": {
+        "category": "TARGET_HEURISTIC_REVIEW",
+        "decision": "Local active-volume floors are not measured Dior proportions; preserve the named target and test roles, not score-seeking repairs."
+      }
+    },
+    {
+      "gate": "family_drift_detector",
+      "status": "WARN",
+      "detail": "iris_coumarin_amber.dhi2011; dominant_iris_orris_object: 15.017% active below 18.000; Powder body, violet mobility, and root character are one object, not count-based complexity.; negative_space_and_woody_frame: 8.500% active below 15.000; Diffusion must preserve iris foreground and a late wood return. [advisory guideline; not release-blocking]",
+      "adjudication": {
+        "category": "TARGET_HEURISTIC_REVIEW",
+        "decision": "Same local grammar pressure as perfumer_logic; not independent evidence of sensory failure."
+      }
+    },
+    {
+      "gate": "novelty_vs_reference",
+      "status": "WARN",
+      "detail": "reference/control archetype; familiar by design, not the new exploration target",
+      "adjudication": {
+        "category": "EXPECTED_SCOPE",
+        "decision": "Reference-inspired familiarity is intentional; novelty is not the requested acceptance objective."
+      }
+    },
+    {
+      "gate": "perfume_knowledge",
+      "status": "WARN",
+      "detail": "Pyramid needs improvement: Expected T:12% H:35% B:53%, Actual T:6.6% H:52.5% B:40.9%; top OAV off-target for target iris_coumarin_amber.dhi2011; heart OAV off-target for target iris_coumarin_amber.dhi2011",
+      "adjudication": {
+        "category": "TARGET_HEURISTIC_REVIEW",
+        "decision": "Heuristic pyramid and known-OAV subset cannot certify a target-specific ideal while Orris/Tonkarome remain unknown."
+      }
+    },
+    {
+      "gate": "carles_accord_ratio",
+      "status": "WARN",
+      "detail": "Exact active-mass ppm is unavailable; pairwise dose ratios were not evaluated.",
+      "adjudication": {
+        "category": "MEASUREMENT_HOLD",
+        "decision": "Exact mass-based pairing comparison was not evaluated."
+      }
+    },
+    {
+      "gate": "literature_compliance",
+      "status": "WARN",
+      "detail": "Literature compliance: 2/5 principles passed (40%) [advisory guideline; not release-blocking]",
+      "adjudication": {
+        "category": "METHOD_REVIEW",
+        "decision": "Rule implementation reports two of five heuristic principles; this is not five direct empirical tests of V6."
+      }
+    },
+    {
+      "gate": "edge_cases",
+      "status": "WARN",
+      "detail": "Musk coverage: 100%, gaps: 1, formula VP factor x1.70-2.31 (median x1.95, T=305.00K vs 298.15K, n=33)",
+      "adjudication": {
+        "category": "DATA_AND_TEST_REVIEW",
+        "decision": "Temperature factors and musk coverage are model screens; observer differences need actual comparisons."
+      }
+    },
+    {
+      "gate": "somatosensory",
+      "status": "WARN",
+      "detail": "0 candidate chemesthetic materials detected; formula-level effects require exposure and human validation",
+      "adjudication": {
+        "category": "NOT_TESTED",
+        "decision": "No modeled candidate is not evidence of comfort or absence of irritation."
+      }
+    },
+    {
+      "gate": "stevens_n_efficiency",
+      "status": "WARN",
+      "detail": "Exact active-mass ppm is unavailable; dose-efficiency comparison not evaluated.",
+      "adjudication": {
+        "category": "MEASUREMENT_HOLD",
+        "decision": "Exact mass-dependent dose-efficiency comparison was not evaluated."
+      }
+    },
+    {
+      "gate": "jellinek_psychology",
+      "status": "WARN",
+      "detail": "Jellinek categories weak: erogenic",
+      "adjudication": {
+        "category": "UNVALIDATED_HEURISTIC",
+        "decision": "Category weakness does not establish low pleasure, erotic effect or consumer rejection."
+      }
+    },
+    {
+      "gate": "coty_single_material_limit",
+      "status": "WARN",
+      "detail": "Exact active-mass ppm is unavailable; single-material limit not evaluated.",
+      "adjudication": {
+        "category": "MEASUREMENT_HOLD",
+        "decision": "Exact mass-dependent rule not evaluated; not permission to dose freely."
+      }
+    },
+    {
+      "gate": "roudnitska_hedione_pct",
+      "status": "WARN",
+      "detail": "Exact active-mass ppm is unavailable; Hedione percentage heuristic not evaluated.",
+      "adjudication": {
+        "category": "MEASUREMENT_HOLD",
+        "decision": "Exact mass-dependent heuristic not evaluated."
+      }
+    },
+    {
+      "gate": "adaptation_timing",
+      "status": "WARN",
+      "detail": "fast tier < 5% (no immediate impact)",
+      "adjudication": {
+        "category": "UNVALIDATED_HEURISTIC",
+        "decision": "The statement no immediate impact is a tier-rule label, not an observation; modeled linalool/linalyl-acetate signals are substantial."
+      }
+    },
+    {
+      "gate": "oav_intelligence",
+      "status": "WARN",
+      "detail": "iso e super OAV 1070.6 is above woody_amber target 40.0-150.0; hedione OAV 391.5 is above woody_amber target 10.0-25.0; cashmeran OAV 7.2 is below woody_amber target 10.0-25.0",
+      "adjudication": {
+        "category": "TARGET_HEURISTIC_REVIEW",
+        "decision": "Report applies woody_amber envelopes despite DHI iris archetype; these numeric targets are not established DHI ingredient proportions."
+      }
+    },
+    {
+      "gate": "tenacity_projection",
+      "status": "WARN",
+      "detail": "VP<0.01Pa = 3% (<10%, weak longevity); VP<0.001Pa = 0% (<3%, may lack depth)",
+      "adjudication": {
+        "category": "UNVALIDATED_HEURISTIC",
+        "decision": "Low-VP fractions do not prove weak longevity or spatial shallowness; finite-film/receiver data are absent."
+      }
+    },
+    {
+      "gate": "master_perfumer_gate",
+      "status": "WARN",
+      "detail": "too many materials for a readable formula; 1 opaque preblend(s) hide perfumer intent",
+      "adjudication": {
+        "category": "COUNT_HEURISTIC_REJECTED_COMPOSITION_HOLD_RETAINED",
+        "decision": "The code warns solely above 32 rows. That count-based claim is not accepted for this no-cap brief; Tonkarome opacity remains a genuine evidence hold."
+      }
+    },
+    {
+      "gate": "mass_market_tier_check",
+      "status": "WARN",
+      "detail": "Expensive captives found: Alpha Irone. At 1500 THB, these eat margin. Consider if their perceptible impact justifies the cost.",
+      "adjudication": {
+        "category": "OUT_OF_BRIEF_DEFAULT",
+        "decision": "Default 1500 THB cost positioning was not supplied by the user; no cost-driven ingredient removal is made."
+      }
+    },
+    {
+      "gate": "chassis_integrity",
+      "status": "SKIP",
+      "detail": "No chassis annotations detected — not applicable to flat formulas.",
+      "adjudication": {
+        "category": "NOT_RUN",
+        "decision": "Skip is not a pass."
+      }
+    },
+    {
+      "gate": "authority_vector",
+      "status": "WARN",
+      "detail": "Safety authority insufficient (0.00) — unknown IFRA limits for too many materials; Identity (0.00) AND Quantity (0.00) authority both insufficient — insufficient evidence; Identity authority insufficient (0.00). DIMENSIONS NEVER AVERAGED. [advisory guideline; not release-blocking]",
+      "adjudication": {
+        "category": "EVIDENCE_HOLD",
+        "decision": "Low authority means weak evidence, not poor beauty or proved incorrect stock identity; retain distinct authority axes."
+      }
+    },
+    {
+      "gate": "robustness_perturbation",
+      "status": "WARN",
+      "detail": "66 fragile perturbation(s) across 66 checks; Hedione up: brief grammar failure under perturbation; Hedione down: brief grammar failure under perturbation; Iso E Super up: brief grammar failure under perturbation",
+      "adjudication": {
+        "category": "MODEL_REVIEW",
+        "decision": "66 grammar-sensitive perturbations are not 66 physical failures; unvalidated grammar bounds need separate interpretation."
+      }
+    },
+    {
+      "gate": "confidence_minimum",
+      "status": "WARN",
+      "detail": "combined confidence 8.0 below 25.0 after preflight evidence penalty 16.0; reference-control study remains diagnostic only",
+      "adjudication": {
+        "category": "EVIDENCE_HOLD",
+        "decision": "8/100 is an internal evidence diagnostic, not an 8% quality or success estimate."
+      }
+    }
+  ],
+  "knowledge_findings": [
+    {
+      "state": "LOCALLY_VERIFIED",
+      "finding": "All 33 selected stock IDs and declared fraction/carrier specifications bind. The four-part iris nucleus and all retained stock strengths are unchanged.",
+      "claim_ceiling": "identity_and_planned_arithmetic_not_physical_metrology"
+    },
+    {
+      "state": "LOCALLY_VERIFIED",
+      "finding": "The richer candidate exposes a >32-row master-perfumer heuristic. Its count-only legibility claim is not accepted as scientific or target-specific evidence.",
+      "claim_ceiling": "code_rule_diagnosis_not_sensory_gain"
+    },
+    {
+      "state": "MODEL_SCREEN_ONLY",
+      "finding": "Beta Ionone at 20 uL models OAV about714 versus Alpha Ionone about46; Orivone at10 uL models about83. Violet/camphor/root balance is a priority cold-module comparison, not a proven defect or optimal proportion.",
+      "claim_ceiling": "uncalibrated_threshold_screen"
+    },
+    {
+      "state": "LOCALLY_VERIFIED",
+      "finding": "15 modeled opening values are below one. Only Benzyl Benzoate has no sensory-role burden here; all other14 stay provisional and get no accepted audible-layer credit.",
+      "claim_ceiling": "role_vs_model_discrepancy_not_proved_filler_or_synergy"
+    },
+    {
+      "state": "MODEL_AND_DATA_HOLD",
+      "finding": "Orris Liquid and Tonkarome stay UNKNOWN. Complete-perfume balance, spatial projection, exact ppm and liking remain unestablished.",
+      "claim_ceiling": "absence_of_required_evidence"
+    },
+    {
+      "state": "LOCALLY_VERIFIED",
+      "finding": "The older five-marker skeleton misses Ambrettolide because its OAV is below one; six-marker architecture representation can pass simultaneously without contradictory sensory evidence.",
+      "claim_ceiling": "different_detector_contracts"
+    },
+    {
+      "state": "LOCALLY_VERIFIED",
+      "finding": "Four of five entries labelled VP cross-source conflicts do not contain unequal bulk values. Natural bulk-proxy uncertainty and numeric disagreement are different problems.",
+      "claim_ceiling": "reporting_label_diagnosis"
+    },
+    {
+      "state": "NOT_TESTED",
+      "finding": "Cold/warm factorial arms, musk pairwise omissions and time-distance receiver observations are designed, not performed; no absolute hedonism, sensory similarity or model-weight learning claimed.",
+      "claim_ceiling": "experiment_design_only"
+    },
+    {
+      "state": "HOLD_NOT_RUN",
+      "finding": "Formal DHP donor-independence gate is not available in this checkout; documentary source conservation cannot be reported as its PASS.",
+      "claim_ceiling": "method_acceptance_hold"
+    }
+  ]
+}

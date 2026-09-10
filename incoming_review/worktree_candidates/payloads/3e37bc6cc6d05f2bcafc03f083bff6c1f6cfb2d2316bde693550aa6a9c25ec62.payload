@@ -1,0 +1,289 @@
+import json
+from hashlib import sha256
+from pathlib import Path
+
+from engine.material_resolver import resolve_material
+
+from app.adapters.legacy_rules import (
+    LegacyRuleSource,
+    inventory_legacy_rule_corpus,
+)
+from app.services.lab_rules import canonical_json_sha256
+
+ROOT = Path(__file__).resolve().parents[3]
+CORPUS_PATHS = (
+    "data/knowledge_graph/theory_rules.json",
+    "data/knowledge_graph/pairing_rules.json",
+    "data/knowledge_graph/pairing_rules_discovered.json",
+    "data/knowledge_graph/synergy_matrix.json",
+)
+IDENTITY_SNAPSHOT_PATH = (
+    ROOT
+    / "backend"
+    / "tests"
+    / "fixtures"
+    / "b4_identity_resolution_baseline.json"
+)
+IDENTITY_SNAPSHOT_RAW = IDENTITY_SNAPSHOT_PATH.read_bytes()
+IDENTITY_SNAPSHOT = json.loads(IDENTITY_SNAPSHOT_RAW.decode("utf-8"))
+FROZEN_IDENTITIES = IDENTITY_SNAPSHOT["identity_resolution_by_raw_label"]
+PORTABLE_BINDING_V2_PATH = (
+    ROOT
+    / "backend"
+    / "tests"
+    / "fixtures"
+    / "b4_rule_corpus_portability_binding_v2.json"
+)
+CURRENT_BINDING_V3_PATH = (
+    ROOT
+    / "backend"
+    / "tests"
+    / "fixtures"
+    / "b4_rule_corpus_current_binding_v3.json"
+)
+
+
+def _source(path: str) -> LegacyRuleSource:
+    full_path = ROOT / path
+    raw = full_path.read_bytes()
+    return LegacyRuleSource(
+        path=path,
+        payload=json.loads(raw.decode("utf-8")),
+        source_sha256=sha256(raw).hexdigest(),
+    )
+
+
+def _identity(label: str) -> str | None:
+    resolved = resolve_material(label)
+    if not resolved.is_known:
+        return None
+    return sha256(resolved.canonical_name.encode("utf-8")).hexdigest()
+
+
+def _frozen_identity(label: str) -> str | None:
+    if label not in FROZEN_IDENTITIES:
+        raise AssertionError(f"missing B4 frozen identity resolution for {label!r}")
+    return FROZEN_IDENTITIES[label]
+
+
+def test_legacy_adapter_never_promotes_hard_or_numeric_claims():
+    source = LegacyRuleSource(
+        path="legacy.json",
+        source_sha256="a" * 64,
+        payload=[
+            {
+                "material_a": "Hedione",
+                "material_b": "Musks (Galaxolide, Habanolide)",
+                "type": "synergy",
+                "effect": "3-5x intensity",
+                "ratio": "1:1",
+                "source": "narrative.md",
+                "determinism": "hard",
+            }
+        ],
+    )
+
+    report = inventory_legacy_rule_corpus(
+        (source,),
+        identity_resolver=_identity,
+    )
+    candidate = report.candidates[0]
+
+    assert report.total_records == 1
+    assert candidate.status == "ADVISORY"
+    assert candidate.runtime_role == "EXPLANATORY"
+    assert candidate.numerical_model_ref is None
+    assert candidate.object.kind == "GENERIC_PROSE"
+    assert candidate.raw_json_pointer == "/0"
+    assert "LEGACY_HARD_PROMOTION_REJECTED" in report.diagnostic_codes
+    assert "NUMERICAL_CLAIM_WITHOUT_CONTROLLED_EVIDENCE" in report.diagnostic_codes
+
+
+def test_generic_label_requires_explicit_group_resolution():
+    source = LegacyRuleSource(
+        path="legacy.json",
+        source_sha256="b" * 64,
+        payload=[
+            {
+                "material_a": "rose",
+                "material_b": "florals",
+                "type": "pairing",
+                "effect": "supports",
+                "source": "notes.md",
+            }
+        ],
+    )
+
+    without_groups = inventory_legacy_rule_corpus(
+        (source,),
+        identity_resolver=_identity,
+    )
+    with_groups = inventory_legacy_rule_corpus(
+        (source,),
+        identity_resolver=_identity,
+        group_resolver={"rose": "group-rose", "florals": "group-florals"},
+    )
+
+    assert without_groups.candidates[0].subject.kind == "GENERIC_PROSE"
+    assert without_groups.candidates[0].object.kind == "GENERIC_PROSE"
+    assert with_groups.candidates[0].subject.kind == "GROUP"
+    assert with_groups.candidates[0].subject.group_id == "group-rose"
+    assert with_groups.candidates[0].object.kind == "GROUP"
+    assert with_groups.candidates[0].object.group_id == "group-florals"
+
+
+def test_full_legacy_corpus_inventory_is_complete_and_deterministic():
+    sources = tuple(_source(path) for path in CORPUS_PATHS)
+
+    first = inventory_legacy_rule_corpus(
+        sources,
+        identity_resolver=_frozen_identity,
+    )
+    second = inventory_legacy_rule_corpus(
+        tuple(reversed(sources)),
+        identity_resolver=_frozen_identity,
+    )
+
+    assert first.total_records == 3381
+    assert first.source_record_counts == {
+        "data/knowledge_graph/pairing_rules.json": 2408,
+        "data/knowledge_graph/pairing_rules_discovered.json": 915,
+        "data/knowledge_graph/synergy_matrix.json": 53,
+        "data/knowledge_graph/theory_rules.json": 5,
+    }
+    assert first.report_sha256 == second.report_sha256
+    assert first.invalid_exact_count == second.invalid_exact_count
+    assert first.blocking_count == 0
+    assert first.numerical_model_count == 0
+    assert all(candidate.raw_json_pointer for candidate in first.candidates)
+
+
+def test_frozen_corpus_baseline_prevents_invalid_exact_rule_increase():
+    baseline = json.loads(
+        (
+            ROOT
+            / "backend"
+            / "tests"
+            / "fixtures"
+            / "b4_rule_corpus_baseline.json"
+        ).read_text(encoding="utf-8")
+    )
+    portability_binding_v2 = json.loads(
+        PORTABLE_BINDING_V2_PATH.read_text(encoding="utf-8")
+    )
+    current_binding_v3 = json.loads(
+        CURRENT_BINDING_V3_PATH.read_text(encoding="utf-8")
+    )
+    sources = tuple(_source(path) for path in CORPUS_PATHS)
+    report = inventory_legacy_rule_corpus(
+        sources,
+        identity_resolver=_frozen_identity,
+    )
+
+    historical = portability_binding_v2["historical_v1"]
+    assert historical["path"] == (
+        "backend/tests/fixtures/b4_rule_corpus_baseline.json"
+    )
+    assert baseline["schema"] == historical["schema"] == "b4-rule-corpus-baseline-v1"
+    assert canonical_json_sha256(baseline) == historical["canonical_json_sha256"]
+    assert {
+        path: expected["sha256"] for path, expected in baseline["sources"].items()
+    } == historical["source_raw_sha256"]
+
+    snapshot_expected = current_binding_v3["identity_resolution_snapshot"]
+    assert snapshot_expected["path"] == (
+        "backend/tests/fixtures/b4_identity_resolution_baseline.json"
+    )
+    assert canonical_json_sha256(IDENTITY_SNAPSHOT) == snapshot_expected[
+        "canonical_json_sha256"
+    ]
+    assert len(FROZEN_IDENTITIES) == snapshot_expected["labels"]
+    assert IDENTITY_SNAPSHOT["authority"] == snapshot_expected["authority"]
+    assert IDENTITY_SNAPSHOT["source_corpus_sha256"] == {
+        path: expected["sha256"] for path, expected in baseline["sources"].items()
+    }
+    assert portability_binding_v2["compatibility"]["corpus_semantics"] == (
+        "UNCHANGED_FROM_V1"
+    )
+    assert portability_binding_v2["authority"] == (
+        "REGRESSION_FIXTURE_ONLY_NOT_CANONICAL_RULE_AUTHORITY"
+    )
+    assert current_binding_v3["schema"] == "b4-rule-corpus-current-binding-v3"
+    assert current_binding_v3["authority"] == (
+        "REGRESSION_FIXTURE_ONLY_NOT_CANONICAL_RULE_AUTHORITY"
+    )
+    predecessors = current_binding_v3["predecessors"]
+    assert canonical_json_sha256(baseline) == predecessors["historical_v1"][
+        "canonical_json_sha256"
+    ]
+    assert canonical_json_sha256(portability_binding_v2) == predecessors[
+        "portability_v2"
+    ]["canonical_json_sha256"]
+
+    migration = current_binding_v3["migration"]
+    assert migration["classification"] == (
+        "ACTIVE_ENDPOINT_IDENTITY_CANONICALIZATION_WITH_LOSSLESS_HISTORICAL_LABELS"
+    )
+    assert migration["changed_source"] == (
+        "data/knowledge_graph/pairing_rules_discovered.json"
+    )
+    assert migration["migrated_records"] == 18
+    assert migration["historical_labels_preserved"] is True
+    assert migration["runtime_authority_promoted"] is False
+    assert migration["scientific_authority_promoted"] is False
+
+    discovered_source = next(
+        source
+        for source in sources
+        if source.path == migration["changed_source"]
+    )
+    migrated_records = [
+        row for row in discovered_source.payload if row.get("identity_authority")
+    ]
+    assert len(migrated_records) == migration["migrated_records"]
+    assert {
+        row.get("historical_material_a") or row.get("historical_material_b")
+        for row in migrated_records
+    } == set(migration["historical_labels"])
+    assert all(
+        row["identity_authority"] == "CHEMICAL_IDENTITY_ONLY"
+        and row["inventory_authority"] == "SEPARATE_PINNED_INVENTORY_JOIN_REQUIRED"
+        and row["execution_authority"] == "NOT_GRANTED"
+        and row["sensory_authority"] == "UNOBSERVED_ADVISORY"
+        for row in migrated_records
+    )
+
+    assert report.total_records == baseline["total_records"] == current_binding_v3[
+        "total_records"
+    ]
+    assert report.invalid_exact_count <= baseline["invalid_exact_count_ceiling"]
+    assert report.invalid_exact_count <= current_binding_v3[
+        "invalid_exact_count_ceiling"
+    ]
+    assert report.blocking_count == baseline["blocking_count"] == current_binding_v3[
+        "blocking_count"
+    ] == 0
+    assert report.numerical_model_count == baseline[
+        "numerical_model_count"
+    ] == current_binding_v3["numerical_model_count"] == 0
+    assert report.duplicate_count == baseline["duplicate_count"] == current_binding_v3[
+        "duplicate_count"
+    ]
+    assert report.cycle_count == baseline["cycle_count"] == current_binding_v3[
+        "cycle_count"
+    ]
+    assert report.report_sha256 != baseline["report_sha256"]
+    assert report.report_sha256 == current_binding_v3["report_sha256"]
+    assert len(report.diagnostic_codes) == len(set(report.diagnostic_codes))
+
+    for source in sources:
+        historical_expected = baseline["sources"][source.path]
+        current_expected = current_binding_v3["current_semantic_sources"][
+            source.path
+        ]
+        assert canonical_json_sha256(source.payload) == current_expected[
+            "canonical_json_sha256"
+        ]
+        assert report.source_record_counts[source.path] == historical_expected[
+            "records"
+        ] == current_expected["records"]

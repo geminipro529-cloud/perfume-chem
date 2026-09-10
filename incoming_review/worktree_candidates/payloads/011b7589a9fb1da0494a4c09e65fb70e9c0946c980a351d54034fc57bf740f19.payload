@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-HED-S02",
+  "completed_utc": "2026-08-26T07:33:38.556038+00:00",
+  "dispatch_sha256": "421e755ae5ffbc7d9a8a628baa584f34042ca8bd285c6cd001e137e1caf8017f",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "hedonic_preference_learner",
+  "output_sha256": "55f1bb56b0cb63cb2a9e98b8c8e7258c841e3e6203b7f9d966b6e12e9387943c",
+  "output_text": "{\"decision_state\":\"WITHHELD\",\"target_linked_reasoning\":\"The comparison graph has two disconnected components, {A,B} and {C,D}; therefore not every candidate belongs to one connected comparison component, and the reported global utility ranking is unsupported. Only within-component preferences are currently identifiable.\",\"controlled_comparison\":\"Compare one candidate from {A,B} directly with one candidate from {C,D}, such as B versus C, under the same controlled conditions.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"DISCONNECTED_COMPARISON_GRAPH\",\"GLOBAL_RANKING_UNIDENTIFIABLE\",\"WITHIN_COMPONENT_EVIDENCE_ONLY\"],\"calculations\":{\"candidate_count\":4,\"connected_component_count\":2,\"bridge_comparison_count_required\":1},\"next_actions\":[\"Run one controlled bridge comparison between candidates in different components, then reassess graph connectivity before fitting a global depth preference graph.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "d5d1731eb4f02b3b6ad76cf1f88e539566da0b9b10e784aa83ade083dfa81fda",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-1a31892d1daf786f6dfc",
+  "role": "SAFE_COUNTERCASE",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:33:22.871242+00:00",
+  "stderr_sha256": "678b398c02c6a5e25ecba946e39c7d4282ffc3db4c6130fcdda0b4b4f7de3c35",
+  "stderr_tail": "tory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"bridge_comparison_count_required\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"WITHHELD\",\"target_linked_reasoning\":\"The comparison graph has two disconnected components, {A,B} and {C,D}; therefore not every candidate belongs to one connected comparison component, and the reported global utility ranking is unsupported. Only within-component preferences are currently identifiable.\",\"controlled_comparison\":\"Compare one candidate from {A,B} directly with one candidate from {C,D}, such as B versus C, under the same controlled conditions.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"DISCONNECTED_COMPARISON_GRAPH\",\"GLOBAL_RANKING_UNIDENTIFIABLE\",\"WITHIN_COMPONENT_EVIDENCE_ONLY\"],\"calculations\":{\"candidate_count\":4,\"connected_component_count\":2,\"bridge_comparison_count_required\":1},\"next_actions\":[\"Run one controlled bridge comparison between candidates in different components, then reassess graph connectivity before fitting a global depth preference graph.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n5,313\n",
+  "stdout_sha256": "8d684c3331f051654fa29d09c7828440366a617638ff038d5cac8c2b5d540e52"
+}

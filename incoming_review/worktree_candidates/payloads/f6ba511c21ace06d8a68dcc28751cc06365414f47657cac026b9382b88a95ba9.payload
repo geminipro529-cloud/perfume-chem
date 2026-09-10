@@ -1,0 +1,214 @@
+"""Fail-closed pytest support for optional local evidence artifacts.
+
+External packages remain exact-byte, authority-false evidence whenever they
+are mounted.  A clean checkout cannot reconstruct ignored or rights-unknown
+bytes, so tests may use this module to report their absence as an explicit
+HOLD without weakening receipt or package-integrity verification.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import shutil
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any
+
+from engine.calibration.hashing import stable_json_hash
+from engine.ingestion.package_receipts import (
+    load_external_package_receipt,
+    validate_external_package_receipt,
+)
+
+PROJECT_ROOT = Path(__file__).resolve().parent
+_OPTIONAL_EVIDENCE_ROOTS = (
+    (PROJECT_ROOT / "incoming_review").resolve(),
+    (PROJECT_ROOT / "data" / "external").resolve(),
+)
+_HISTORICAL_MANIFEST_PATH = (
+    PROJECT_ROOT / "data" / "governance" / "historical_quarantine_v1" / "manifest.json"
+)
+_HISTORICAL_MANIFEST_SHA256 = (
+    "aa249a318fd76ef0bfe7591dec00ee3adb315bf3450b1ba036662cdad4e08947"
+)
+_V5_COMPATIBILITY_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "governance"
+    / "complex_perfumery_v5_historical_compatibility_20260904.json"
+)
+_V5_COMPATIBILITY_SHA256 = (
+    "06dc616a0094234175d52e5a953a5c1420c576d829c54df8cf8ecc6ffedf48ca"
+)
+
+
+@dataclass(frozen=True, slots=True)
+class ReceiptEvidencePin:
+    """Independent identity pins for one tracked external-package receipt."""
+
+    path: Path
+    receipt_sha256: str
+    package_sha256: str
+
+
+def _is_optional_evidence_path(path: Path) -> bool:
+    return any(path.is_relative_to(root) for root in _OPTIONAL_EVIDENCE_ROOTS)
+
+
+def validate_receipt_pins(*pins: ReceiptEvidencePin) -> tuple[Path, ...]:
+    """Validate every tracked receipt before returning its local package path."""
+
+    package_paths: list[Path] = []
+    for pin in pins:
+        receipt: Any = validate_external_package_receipt(
+            load_external_package_receipt(pin.path)
+        )
+        if receipt["receipt_sha256"] != pin.receipt_sha256:
+            raise AssertionError(
+                "tracked receipt does not match its independent SHA-256 pin"
+            )
+        if receipt["package"]["sha256"] != pin.package_sha256:
+            raise AssertionError(
+                "receipt package does not match its independent SHA-256 pin"
+            )
+        rights = receipt["provenance"]["rights"]
+        if rights["reuse_status"] != "UNKNOWN":
+            raise AssertionError(
+                "local-evidence HOLD requires rights reuse_status=UNKNOWN"
+            )
+        if rights["redistribution_allowed"] is not False:
+            raise AssertionError(
+                "local-evidence HOLD requires redistribution_allowed=false"
+            )
+        if receipt["package"]["locator_scope"] != "WORKSPACE_RELATIVE":
+            raise AssertionError(
+                "local-evidence HOLD requires a workspace-relative locator"
+            )
+        if any(receipt["authority"].values()):
+            raise AssertionError(
+                "local-evidence HOLD cannot conceal promoted authority"
+            )
+        package_path = (PROJECT_ROOT / receipt["package"]["locator"]).resolve()
+        if not _is_optional_evidence_path(package_path):
+            raise AssertionError("local-evidence path escapes approved local roots")
+        package_paths.append(package_path)
+    return tuple(package_paths)
+
+
+def local_evidence_hold_reason(*paths: Path) -> str | None:
+    """Return an explicit HOLD reason only for absent approved local evidence."""
+
+    resolved = tuple(path.resolve() for path in paths)
+    if any(not _is_optional_evidence_path(path) for path in resolved):
+        raise AssertionError("local-evidence path escapes approved local roots")
+    missing = tuple(path for path in resolved if not path.exists())
+    if not missing:
+        return None
+
+    labels = tuple(path.relative_to(PROJECT_ROOT).as_posix() for path in missing)
+    return (
+        "LOCAL_EVIDENCE_HOLD: optional quarantined evidence is absent from this "
+        f"checkout ({', '.join(labels)}); exact-byte replay was not performed"
+    )
+
+
+def materialize_historical_governance_evidence() -> tuple[Path, ...]:
+    """Restore ignored legacy test locations from tracked exact-byte evidence.
+
+    Existing legacy files are never overwritten.  Any drift in the manifest,
+    stable source, or already-present legacy target fails closed.
+    """
+
+    manifest = json.loads(_HISTORICAL_MANIFEST_PATH.read_text(encoding="utf-8"))
+    declared_receipt_sha256 = manifest.pop("receipt_sha256")
+    if declared_receipt_sha256 != _HISTORICAL_MANIFEST_SHA256:
+        raise AssertionError("historical compatibility manifest pin drifted")
+    if stable_json_hash(manifest) != declared_receipt_sha256:
+        raise AssertionError("historical compatibility manifest self-hash failed")
+    if manifest["state"] != "REPOSITORY_AUTHORED_HISTORICAL_EVIDENCE_STABILIZED":
+        raise AssertionError("historical compatibility manifest state is not admissible")
+    if manifest["provenance"]["external_or_private_package_bytes_included"]:
+        raise AssertionError("historical compatibility set contains private package bytes")
+    if manifest["provenance"]["provider_output_artifacts_included"]:
+        raise AssertionError("historical compatibility set contains provider artifacts")
+    if any(
+        value
+        for key, value in manifest["admission"].items()
+        if key.endswith("_promoted")
+    ):
+        raise AssertionError("historical compatibility set promotes scientific authority")
+
+    artifacts = manifest["artifacts"]
+    if manifest["artifact_count"] != len(artifacts):
+        raise AssertionError("historical compatibility artifact count drifted")
+    stable_root = _HISTORICAL_MANIFEST_PATH.parent.resolve()
+    allowed_legacy_roots = (
+        (PROJECT_ROOT / "output").resolve(),
+        (PROJECT_ROOT / "output" / "quarantine").resolve(),
+    )
+    materialized: list[Path] = []
+    for artifact in artifacts:
+        stable_path = (PROJECT_ROOT / artifact["stable_path"]).resolve()
+        legacy_path = (PROJECT_ROOT / artifact["legacy_path"]).resolve()
+        if not stable_path.is_relative_to(stable_root):
+            raise AssertionError("stable historical evidence path escaped its root")
+        if not any(legacy_path.is_relative_to(root) for root in allowed_legacy_roots):
+            raise AssertionError("legacy historical evidence path escaped output roots")
+        stable_bytes = stable_path.read_bytes()
+        if len(stable_bytes) != artifact["byte_size"]:
+            raise AssertionError("stable historical evidence byte size drifted")
+        if hashlib.sha256(stable_bytes).hexdigest() != artifact["sha256"]:
+            raise AssertionError("stable historical evidence SHA-256 drifted")
+        if legacy_path.exists():
+            legacy_bytes = legacy_path.read_bytes()
+            if len(legacy_bytes) != artifact["byte_size"]:
+                raise AssertionError("existing historical evidence byte size drifted")
+            if hashlib.sha256(legacy_bytes).hexdigest() != artifact["sha256"]:
+                raise AssertionError("existing historical evidence SHA-256 drifted")
+        else:
+            legacy_path.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(stable_path, legacy_path)
+            if legacy_path.read_bytes() != stable_bytes:
+                raise AssertionError("historical evidence materialization was not exact")
+        materialized.append(legacy_path)
+    return tuple(materialized)
+
+
+def validate_v5_historical_compatibility() -> None:
+    """Validate the successor that separates V5 historical and current identity."""
+
+    compatibility = json.loads(_V5_COMPATIBILITY_PATH.read_text(encoding="utf-8"))
+    declared_hash = compatibility.pop("semantic_self_sha256")
+    if declared_hash != _V5_COMPATIBILITY_SHA256:
+        raise AssertionError("V5 historical compatibility pin drifted")
+    if stable_json_hash(compatibility) != declared_hash:
+        raise AssertionError("V5 historical compatibility self-hash failed")
+    if any(compatibility["authority"].values()):
+        raise AssertionError("V5 historical compatibility promotes authority")
+    historical = compatibility["historical_acceptance"]
+    acceptance_path = (PROJECT_ROOT / historical["path"]).resolve()
+    acceptance = json.loads(acceptance_path.read_text(encoding="utf-8"))
+    acceptance_unhashed = dict(acceptance)
+    acceptance_hash = acceptance_unhashed.pop("receipt_sha256")
+    if stable_json_hash(acceptance_unhashed) != acceptance_hash:
+        raise AssertionError("V5 historical acceptance self-hash failed")
+    if acceptance_hash != historical["receipt_sha256"]:
+        raise AssertionError("V5 historical acceptance semantic identity drifted")
+    historical_artifacts = [
+        {key: value for key, value in artifact.items() if key != "disposition"}
+        for artifact in historical["applied_artifacts"]
+    ]
+    if historical_artifacts != acceptance["applied_artifacts"]:
+        raise AssertionError("V5 historical artifact pins were not preserved literally")
+    for current in compatibility["current_receipts"]:
+        receipt = validate_external_package_receipt(
+            load_external_package_receipt(PROJECT_ROOT / current["path"])
+        )
+        if receipt["receipt_sha256"] != current["semantic_receipt_sha256"]:
+            raise AssertionError("current V5 receipt semantic identity drifted")
+        if receipt["package"]["sha256"] != current["package_sha256"]:
+            raise AssertionError("current V5 package identity drifted")
+    stable = compatibility["stable_historical_evidence"]
+    if stable["manifest_receipt_sha256"] != _HISTORICAL_MANIFEST_SHA256:
+        raise AssertionError("V5 compatibility references a different stable manifest")

@@ -1,0 +1,87 @@
+{
+  "schema": "perfume-chem-missing-chemical-assessment-v2",
+  "assessment_id": "MCI-LH-07-v2",
+  "target_formula_id": "LH-07",
+  "name": "White Pepper-Basil",
+  "family": "ysl_lhomme",
+  "source_bindings": {
+    "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LH-07.json",
+    "candidate_sha256": "cc5b40a7a57adf03232dde437c2cc76debc888dcb9b404dbf09cadd2ad69be15",
+    "inventory_sha256": "DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC",
+    "inventory_overlay_sha256": "1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072",
+    "formula_definition_sha256": "c67228e7c3710fca079c85f79d280e5ffe3d0c6e60cae0a50478e671be054315",
+    "screening_summary_sha256": "a4779473e6c7ae0794e350d0873fe4a007583163ff221838a6261397aeeba34b"
+  },
+  "target_identity": {
+    "north_star": "L'Homme's advertised white-pepper and basil-flower tailoring made more audible as a dry bright aromatic seam around ginger, never a culinary herb or harsh pepper perfume.",
+    "primary_axis": "dry white-pepper and basil-flower articulation around ginger",
+    "functional_architecture": [
+      "protected citrus-ginger ignition",
+      "expanded white-pepper brightness",
+      "basil-flower and terpinyl-acetate aromatic seam",
+      "unchanged violet-green cedar-vetiver tailoring"
+    ],
+    "protected_identity": [
+      "Ginger Oil",
+      "Violet Leaf",
+      "Cedarwood Virginia",
+      "Vetiver Haiti"
+    ],
+    "drift_risk": "Culinary basil, black-pepper harshness, or fougere pine would erase the white-pepper/basil-flower target."
+  },
+  "impact_gate": {
+    "status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+    "architecture_locked": true,
+    "auto_integrated_materials": [],
+    "gaps": [
+      "basil identity pending lot-relevant composite authority",
+      "exact white pepper",
+      "physical family-retention evidence"
+    ],
+    "authority": "NO_SENSORY_SUCCESS_NO_AUTOMATIC_PURCHASE_NO_RELEASE_CONCLUSION"
+  },
+  "current_inventory_execution": {
+    "raw_stock_total_ppm_w_w": 1000000.0,
+    "odorant_active_total_ppm_w_w": 960888.888889,
+    "minimum_raw_stock_dose_ul": 19.999999998,
+    "pipette_floor_status": "PASS_ALL_RAW_STOCK_DOSES_AT_OR_ABOVE_10_UL",
+    "lost_tinctures": "NO_USE_ALL_TINCTURES_LOST",
+    "musk_rule": "Ethylene Brassylate is the sole musk; verify label or receipt before compounding."
+  },
+  "purchase_preparation": {
+    "state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+    "recommendation": "TARGET / IDEAL retains basil and white pepper. CURRENT omits Basil because the lot lacks defensible composite-natural authority; linalool and terpinyl acetate cover only aromatic lift. Unavailable Ethyl Linalool and unresolved Pamzest/Parmavert were also removed with explicit losses. Verify EB; procure nothing before a constant-total addition/omission test.",
+    "lost_tinctures": "NO_USE_ALL_TINCTURES_LOST",
+    "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+    "musk_rule": "Ethylene Brassylate is the sole musk; verify label or receipt before compounding."
+  },
+  "controlled_blind_test": {
+    "status": "PROTOCOL_ONLY_NOT_EXECUTED",
+    "role": "L'Homme white-pepper/basil child",
+    "comparison": "Balanced-order comparison against LH-01 after composite-data resolution, with culinary and harshness failures explicit.",
+    "time_cells": [
+      "0_min",
+      "5_min",
+      "30_min",
+      "2_hr",
+      "4_hr"
+    ],
+    "liking_result": "NOT TESTED"
+  },
+  "decision": {
+    "design_formula_complete": true,
+    "automatic_purchase_authority": false,
+    "physical_compounding_authority": false,
+    "sensory_finalist_authority": false,
+    "reason": "Architecture is complete for controlled study, but physical stock receipts and blinded sensory evidence remain pending."
+  },
+  "claim_ceiling": {
+    "exact_commercial_formula": "NOT CLAIMED",
+    "physical_liking": "NOT TESTED",
+    "sensory_similarity": "NOT TESTED",
+    "stability": "NOT TESTED",
+    "safety": "NOT CLEARED",
+    "measured_headspace": "NOT TESTED",
+    "release": "NOT CLEARED"
+  }
+}

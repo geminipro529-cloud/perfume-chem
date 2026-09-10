@@ -1,0 +1,27 @@
+﻿Code,ACC-WD-SAN-01
+Accord,Creamy Sandalwood Textile v1.0
+Category,Woods
+Brief,"A layered sandalwood from product-basis body, creamy synthetics, a trace of natural oil, textile wood and skin musk."
+Recommended use,3–15% of perfume concentrate
+Maturation,14–21 days
+Monte Carlo pass,1.0
+Final design score,99.45
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Sandalore,neat / as supplied,1.0,180.0,180.0,180.0,900.0,DIRECT,sandalwood,Creamy core,Creamy sandalwood.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.026388245384920003
+2,base,Sandalwood Base X3,Sandalwood Base X3 as supplied; PerfumersWorld specialty mixture,,160.0,,160.0,800.0,PRODUCT BASIS,sandalwood,Product-basis sandalwood body,Sandalwood product-basis body.,HAVE — PRODUCT BASIS,Use as a named product-basis base. Do not call it natural sandalwood or assign a single active fraction.,,IDENTITY CRITICAL,0.022944836503637704
+3,base,Javanol 20% in DPG,Javanol 20% in DPG,0.2,100.0,20.0,100.0,500.0,PREPARED STOCK,sandalwood,Radiant sandalwood,Radiant sandalwood lift.,HAVE — 20% IN DPG,Use the exact 20% in DPG stock.,,IDENTITY CRITICAL,0.01357160686346132
+4,base,Polysantol,neat / as supplied,1.0,80.0,80.0,80.0,400.0,DIRECT,sandalwood,Persistence,Persistent sandalwood texture.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.010692034997228716
+5,base,Sandalwood EO,Sandalwood EO 10% in DPG,0.1,70.0,7.0,70.0,350.0,PREPARED STOCK,sandalwood,Natural nuance,Natural sandalwood nuance at exact 10% stock.,HAVE — 10% ONLY,Do not dose as neat Sandalwood EO.,,IDENTITY CRITICAL,0.009288502882165938
+6,base,Cashmeran 20%,Cashmeran 20% in DPG,0.2,50.0,10.0,50.0,250.0,PREPARED STOCK,warm_wood,Textile warmth,Warm textile wood.,HAVE — MULTIPLE STOCKS,Formula must specify neat or 20% stock.,,STRUCTURALLY IMPORTANT,0.006385006682442514
+7,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,45.0,45.0,45.0,225.0,DIRECT,musk,Clean projection,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,STRUCTURALLY IMPORTANT,0.006890376047180192
+8,base,Ambrofix 30%,30% working stock,0.3,40.0,12.0,40.0,200.0,PREPARED STOCK,ambergris,Mineral support,Mineral ambergris persistence.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.004885903591973464
+9,base,Romandolide,Romandolide neat/as supplied,1.0,40.0,40.0,40.0,200.0,DIRECT,musk,Soft musk,Fruity-clean musk body.,HAVE — NEAT,Use as neat Romandolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.006007285231227457
+10,base,Ambrettolide 10%,10% in DPG,0.1,25.0,2.5,25.0,125.0,PREPARED STOCK,musk,Warm skin,Warm skin musk.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0035359305072766283
+11,base,Ebanol,neat/as supplied,1.0,25.0,25.0,25.0,125.0,DIRECT,sandalwood,Dark dimension,Dark sandalwood depth.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.003222795823286166
+12,base,Cedarwood Virginia,neat / as supplied,1.0,15.0,15.0,15.0,75.0,DIRECT,cedar,Dry frame,Dry cedar frame.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.001624471854350805
+13,base,Coumarin 20%,20% in DPG,0.2,10.0,2.0,10.0,50.0,PREPARED STOCK,tonka,Soft hay-almond,Hay-almond warmth.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0010553163211473363
+14,base,Vanillin 10%,10% working stock,0.1,10.0,1.0,10.0,50.0,PREPARED STOCK,vanilla,Creamy warmth,Vanilla warmth.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0010553163211473363
+15,heart_base,Iso E Super,neat / as supplied,1.0,110.0,110.0,110.0,550.0,DIRECT,transparent_wood,Air and grain,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.021314201045479233
+16,carrier,DPG,neat,0.0,40.0,0.0,40.0,200.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

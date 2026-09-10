@@ -1,0 +1,208 @@
+import hashlib
+import json
+from pathlib import Path
+
+import pytest
+
+from engine.inventory_parser import parse_inventory
+from scripts.verify_formula_workflow import parse_formula_markdown
+
+
+ROOT = Path(__file__).resolve().parents[1]
+STUDY_ROOT = ROOT / "formulas" / "sukhum_35_t3"
+MANIFEST_PATH = STUDY_ROOT / "study_manifest.json"
+INVENTORY_PATH = ROOT / "inventory.txt"
+INVENTORY_SHA256 = "EB33C04236A4640413BA5289125F04CFA278BD0614EB9BD12EA1CC4D88379967"
+
+ARM_FILES = {
+    "S35-R0": "S35-R0_Current_Stock_Corrected_Control_30mL_EdP.md",
+    "S35-F": "S35-F_Realistic_Fruit_Arm_30mL_EdP.md",
+    "S35-D": "S35-D_Dry_Transition_Arm_30mL_EdP.md",
+    "S35-T3": "S35-T3_Full_Reconstruction_30mL_EdP.md",
+}
+
+MUSKS = {
+    "ambrettolide",
+    "ethylene brassylate",
+    "exaltolide",
+    "galaxolide",
+    "habanolide",
+    "macrolide",
+    "musk ketone",
+    "romandolide",
+    "tonalide",
+    "zenolide",
+}
+
+FORBIDDEN = {
+    "amber xtreme",
+    "ambrofix",
+    "benzyl salicylate",
+    "birch tar rectified",
+    "coumarin",
+    "evernyl",
+    "labdanum resinoid",
+    "macrolide",
+    "musk ketone",
+    "myrrh eo",
+    "nagarmortha oil",
+    "oakmoss absolute",
+    "opoponax resinoid",
+    "polysantol",
+    "tonalide",
+    "tonka bean absolute",
+    "vanillin",
+}
+
+
+def _base_name(value: str) -> str:
+    return value.casefold().split("(", 1)[0].strip()
+
+
+def _formula(arm: str) -> dict:
+    formulas = parse_formula_markdown(STUDY_ROOT / ARM_FILES[arm])
+    assert len(formulas) == 1
+    return formulas[0]
+
+
+def _inventory_rows() -> dict[str, list]:
+    by_name: dict[str, list] = {}
+    for row in parse_inventory(
+        INVENTORY_PATH,
+        unique=False,
+        include_solvents=True,
+        include_unavailable=True,
+    ):
+        by_name.setdefault(_base_name(row.name), []).append(row)
+    return by_name
+
+
+def test_study_manifest_defines_the_approved_constant_total_factorial():
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+
+    assert manifest["schema"] == "perfume-chem-sukhum-35-t3-study-v1"
+    assert manifest["inventory_sha256"] == INVENTORY_SHA256
+    assert manifest["concentrate_ul"] == 5400
+    assert manifest["finished_product_ul"] == 30000
+    assert manifest["claim_ceiling"] == {
+        "physical_liking": "NOT TESTED",
+        "market_success": "NOT TESTED",
+        "sensory_similarity": "NOT TESTED",
+        "safety": "HOLD",
+        "stability": "HOLD",
+        "release": "HOLD",
+    }
+    assert manifest["factors"] == {
+        "realistic_fruit": {
+            "off": {"Allyl Cyclohexyl Propionate": 800},
+            "on": {
+                "Allyl Cyclohexyl Propionate": 700,
+                "Hexyl Acetate": 100,
+            },
+        },
+        "dry_transition": {
+            "off": {"Hedione": 950, "Iso E Super": 1050},
+            "on": {
+                "Hedione": 910,
+                "Iso E Super": 1020,
+                "Elemi EO": 40,
+                "Cypress EO": 30,
+            },
+        },
+    }
+    assert manifest["arms"] == {
+        "S35-R0": {"realistic_fruit": False, "dry_transition": False},
+        "S35-F": {"realistic_fruit": True, "dry_transition": False},
+        "S35-D": {"realistic_fruit": False, "dry_transition": True},
+        "S35-T3": {"realistic_fruit": True, "dry_transition": True},
+    }
+    assert manifest["physical_test_authorized"] is False
+    assert manifest["physical_test_hold_reasons"] == [
+        "HEXYL_ACETATE_10_PERCENT_CARRIER_UNSPECIFIED",
+        "NO_BLINDED_SAMPLES_PREPARED",
+        "NO_TARGET_CONSUMER_PANEL_RUN",
+    ]
+
+
+@pytest.mark.parametrize("arm", tuple(ARM_FILES))
+def test_each_arm_is_one_exact_measurable_5400_ul_formula(arm: str):
+    formula = _formula(arm)
+    amounts = formula["ingredients_ul"]
+
+    assert sum(amounts.values()) == pytest.approx(5400.0)
+    assert min(amounts.values()) >= 10.0
+    assert all(amount >= 10.0 for amount in amounts.values())
+    assert formula["inventory_path"] == "../../inventory.txt"
+
+
+def test_factor_modules_change_only_the_predeclared_rows():
+    r0 = _formula("S35-R0")["ingredients_ul"]
+    fruit = _formula("S35-F")["ingredients_ul"]
+    dry = _formula("S35-D")["ingredients_ul"]
+    full = _formula("S35-T3")["ingredients_ul"]
+
+    common_names = set(r0) & set(fruit) & set(dry) & set(full)
+    allowed_changes = {
+        "Allyl Cyclohexyl Propionate",
+        "Hedione",
+        "Iso E Super",
+    }
+    for name in common_names - allowed_changes:
+        assert r0[name] == fruit[name] == dry[name] == full[name]
+
+    assert r0["Allyl Cyclohexyl Propionate"] == 800
+    assert fruit["Allyl Cyclohexyl Propionate"] == 700
+    assert dry["Allyl Cyclohexyl Propionate"] == 800
+    assert full["Allyl Cyclohexyl Propionate"] == 700
+    assert "Hexyl Acetate" not in r0
+    assert "Hexyl Acetate" not in dry
+    assert fruit["Hexyl Acetate"] == 100
+    assert full["Hexyl Acetate"] == 100
+
+    assert (r0["Hedione"], r0["Iso E Super"]) == (950, 1050)
+    assert (fruit["Hedione"], fruit["Iso E Super"]) == (950, 1050)
+    assert (dry["Hedione"], dry["Iso E Super"]) == (910, 1020)
+    assert (full["Hedione"], full["Iso E Super"]) == (910, 1020)
+    for formula in (r0, fruit):
+        assert "Elemi EO" not in formula
+        assert "Cypress EO" not in formula
+    for formula in (dry, full):
+        assert formula["Elemi EO"] == 40
+        assert formula["Cypress EO"] == 30
+
+
+@pytest.mark.parametrize("arm", tuple(ARM_FILES))
+def test_every_formula_stock_is_current_owned_ready_and_dilution_matched(arm: str):
+    rows = _inventory_rows()
+    formula = _formula(arm)
+
+    for material, formula_dilution in formula["dilutions"].items():
+        candidates = rows.get(_base_name(material), [])
+        matching = [
+            row
+            for row in candidates
+            if row.status == "owned"
+            and row.execution_ready
+            and row.dilution == pytest.approx(formula_dilution)
+        ]
+        assert matching, (
+            material,
+            formula_dilution,
+            [(row.dilution, row.status, row.execution_ready) for row in candidates],
+        )
+
+
+@pytest.mark.parametrize("arm", tuple(ARM_FILES))
+def test_each_arm_uses_only_romandolide_as_musk_and_avoids_target_drift(arm: str):
+    names = {_base_name(name) for name in _formula(arm)["ingredients_ul"]}
+
+    assert names & MUSKS == {"romandolide"}
+    assert not names & FORBIDDEN
+
+
+def test_full_reconstruction_binds_the_current_inventory_bytes():
+    actual_sha = hashlib.sha256(INVENTORY_PATH.read_bytes()).hexdigest().upper()
+    formula = _formula("S35-T3")
+
+    assert actual_sha == INVENTORY_SHA256
+    assert formula["inventory_sha256"] == INVENTORY_SHA256

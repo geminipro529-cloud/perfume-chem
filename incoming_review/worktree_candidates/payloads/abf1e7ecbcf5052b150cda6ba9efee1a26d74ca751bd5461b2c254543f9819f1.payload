@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "capture_id": "REPAIRED-FLORAL-ALL-MEMBERS-20260818T044149+0700",
+  "source": {
+    "chat_id": "6a762995-0d8c-83ec-aee3-66c90e56811e",
+    "content_reference_index": 0,
+    "retrieval_mode": "BOUNDED_ORIGINAL_ATTACHMENT_BASE64",
+    "outer_candidate_admitted": false
+  },
+  "identity_census": {
+    "downloadable_identities": 23,
+    "local_exact_identities": 22,
+    "cloud_only_identities": 1,
+    "cloud_only": [
+      "COMPLEX_PERFUMERY_TEN_FLORALS_STOCK_BASIS_REPAIR_AND_CF01_ADMISSION_V2_20260817.zip"
+    ]
+  },
+  "validation": {
+    "ledger_member_exact": 21,
+    "ledger_member_failed": 0,
+    "integrity_receipt_exact": true,
+    "safe_paths": true,
+    "disk_reverified": 22
+  },
+  "authority": {
+    "canonical_installation": false,
+    "scientific": false,
+    "formula": false,
+    "inventory": false,
+    "physical": false,
+    "sensory": false,
+    "release": false,
+    "promotion": false
+  }
+}

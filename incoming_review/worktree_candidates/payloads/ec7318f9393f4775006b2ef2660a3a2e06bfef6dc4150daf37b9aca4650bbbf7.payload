@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,0.9993
+identity_system_probability,1.0
+oav_probability,0.9993
+temporal_probability,1.0
+dominance_failure_probability,0.00029999999999996696
+overall_probability,0.999
+dose_closure_probability,0.9977
+temporal_q05,0.9610438208346637
+temporal_median,0.9855806376973966
+max_share_q95,0.4861223547951786
+marker_coverage_q05,0.875
+phase_sum_q05,"{""top"": 4.69809957957168, ""heart"": 11.757990988887478, ""base"": 5.935254209585319}"
+release_shape_median,"[0.28310340995453176, 0.3354294237278401, 0.2869984512371817, 0.08376628525503359]"
+phase_shape_median,"[0.2016310391000528, 0.42647331077138456, 0.37174142415835565]"
+marker_probabilities,"{""Lavender EO High Altitude | top"": 0.9955, ""Bergamot FCF Oil Sicilian | top"": 0.9938, ""Cardamom EO | heart"": 0.9994, ""Orris Liquid 30% | heart"": 0.9988, ""Guaiacol 10% | heart"": 0.9991, ""Suederal 10% | base"": 0.8314, ""Vetiver EO | base"": 0.9848, ""Patchouli EO | base"": 0.9982}"
+marker_quantiles,"{""Lavender EO High Altitude | top"": [1.7419405447759424, 4.290762928784609, 10.719929375279923], ""Bergamot FCF Oil Sicilian | top"": [1.684876092367422, 4.629234159802005, 12.716931238430032], ""Cardamom EO | heart"": [2.3507013075291625, 6.088496318521537, 15.471807751642816], ""Orris Liquid 30% | heart"": [2.631022342473008, 8.049286792261245, 24.47472836774161], ""Guaiacol 10% | heart"": [2.523966967012957, 6.686618852762139, 17.651034038899635], ""Suederal 10% | base"": [0.678720746392905, 1.7253379987225126, 4.564198408100639], ""Vetiver EO | base"": [1.336144491390056, 3.3431523830118275, 8.516198491343433], ""Patchouli EO | base"": [2.263448407344079, 5.726970654098331, 14.853096849814177]}"
+classification,ROBUST

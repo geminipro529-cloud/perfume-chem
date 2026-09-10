@@ -1,0 +1,283 @@
+import hashlib
+import re
+from pathlib import Path
+
+import pytest
+
+from engine.inventory_parser import parse_inventory
+from engine.pipeline.formula_state import build_formula_state
+from engine.pipeline.preflight import run_release_preflight
+
+
+ROOT = Path(__file__).resolve().parents[1]
+FORMULAS = ROOT / "formulas"
+
+LNDL_PARENT = (
+    FORMULAS
+    / "LNDL_Luxe_Cardamom_Nocturne_DHP2025_Theory_V3_30mL_20pct_Development.md"
+)
+LHOMME_PARENT = (
+    FORMULAS
+    / "L_Homme_Luxe_Ginger_Silhouette_DHP2025_Theory_V4_30mL_20pct_Development.md"
+)
+LNDL_SUCCESSOR = (
+    FORMULAS
+    / "LNDL_Luxe_Cardamom_Nocturne_DHP2025_Theory_V4_30mL_20pct_Development.md"
+)
+LHOMME_SUCCESSOR = (
+    FORMULAS
+    / "L_Homme_Luxe_Ginger_Silhouette_DHP2025_Theory_V5_30mL_20pct_Development.md"
+)
+
+PARENT_HASHES = {
+    LNDL_PARENT: "d12864cec78f61cfc26926f80d3e5eabf82a3f910e94d7029594b11068a3418a",
+    LHOMME_PARENT: "ec733a7e92e1b41d624d4368e12e5847a7c437f45ea325b92e2d8e307838a2f5",
+}
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _section(text: str, heading: str) -> str:
+    start = text.index(heading)
+    following = text.find("\n## ", start + len(heading))
+    return text[start:] if following == -1 else text[start:following]
+
+
+def _formula_rows(section: str) -> list[dict[str, str | float]]:
+    rows: list[dict[str, str | float]] = []
+    for line in section.splitlines():
+        match = re.match(
+            r"^\|\s*(\d+)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*"
+            r"([0-9]+(?:\.[0-9]+)?)\s*\|",
+            line,
+        )
+        if match:
+            rows.append(
+                {
+                    "index": match.group(1),
+                    "material": match.group(2).strip(),
+                    "stock": match.group(3).strip(),
+                    "raw_ul": float(match.group(4)),
+                }
+            )
+    return rows
+
+
+def _rows_by_material(rows: list[dict[str, str | float]]) -> dict[str, dict]:
+    return {str(row["material"]): row for row in rows}
+
+
+def _dilution_fraction(stock: str) -> float:
+    match = re.search(r"([0-9]+(?:\.[0-9]+)?)\s*%", stock)
+    return float(match.group(1)) / 100.0 if match else 1.0
+
+
+def _assert_claim_ceiling(text: str) -> None:
+    folded = text.casefold()
+    assert "not tested" in folded
+    assert "hold" in folded
+    assert "no compounding" in folded
+    assert "no release" in folded
+
+
+def test_historical_parent_formula_bytes_remain_immutable():
+    for path, expected_hash in PARENT_HASHES.items():
+        assert _sha256(path) == expected_hash
+
+
+def test_polysantol_is_owned_history_but_unavailable_for_new_formulation():
+    all_records = {
+        record.name: record
+        for record in parse_inventory(include_unavailable=True)
+    }
+    available = {
+        record.name
+        for record in parse_inventory(include_unavailable=False)
+    }
+
+    assert all_records["Polysantol"].status == "out_of_stock"
+    assert "Polysantol" not in available
+
+
+@pytest.mark.parametrize(
+    ("path", "forbidden_current", "expected_dpg_reserve", "expected_row_count"),
+    (
+        (
+            LNDL_SUCCESSOR,
+            {"Polysantol", "Ambrofix", "Cinnamon Bark EO"},
+            130.0,
+            50,
+        ),
+        (
+            LHOMME_SUCCESSOR,
+            {"Polysantol", "Ambrofix"},
+            110.0,
+            53,
+        ),
+    ),
+)
+def test_successor_current_builds_are_constant_total_and_stock_executable(
+    path,
+    forbidden_current,
+    expected_dpg_reserve,
+    expected_row_count,
+):
+    text = path.read_text(encoding="utf-8")
+    current = _section(text, "## CURRENT-INVENTORY BUILD")
+    rows = _formula_rows(current)
+    by_material = _rows_by_material(rows)
+
+    assert sum(float(row["raw_ul"]) for row in rows) == pytest.approx(6000.0)
+    assert len(rows) == expected_row_count
+    assert [int(row["index"]) for row in rows] == list(
+        range(1, expected_row_count + 1)
+    )
+    assert forbidden_current.isdisjoint(by_material)
+    assert by_material["DPG carrier reserve"]["raw_ul"] == expected_dpg_reserve
+    assert all(float(row["raw_ul"]) >= 10.0 for row in rows)
+    _assert_claim_ceiling(text)
+
+
+@pytest.mark.parametrize(
+    ("path", "expected_row_count"),
+    ((LNDL_SUCCESSOR, 52), (LHOMME_SUCCESSOR, 57)),
+)
+def test_successor_ideal_formulas_no_longer_depend_on_invalid_sandalwood_rows(
+    path,
+    expected_row_count,
+):
+    text = path.read_text(encoding="utf-8")
+    ideal = _section(text, "## TARGET / IDEAL FORMULA")
+    rows = _formula_rows(ideal)
+    by_material = _rows_by_material(rows)
+
+    assert sum(float(row["raw_ul"]) for row in rows) == pytest.approx(6000.0)
+    assert len(rows) == expected_row_count
+    assert [int(row["index"]) for row in rows] == list(
+        range(1, expected_row_count + 1)
+    )
+    assert "Polysantol" not in by_material
+    assert "Ambrofix" not in by_material
+
+
+def test_lndl_bark_is_evidence_only_and_not_part_of_either_baseline():
+    text = LNDL_SUCCESSOR.read_text(encoding="utf-8")
+    ideal = _rows_by_material(
+        _formula_rows(_section(text, "## TARGET / IDEAL FORMULA"))
+    )
+    current = _rows_by_material(
+        _formula_rows(_section(text, "## CURRENT-INVENTORY BUILD"))
+    )
+
+    assert "Cinnamon Bark EO" not in ideal
+    assert "Cinnamon Bark EO" not in current
+    assert "EVIDENCE-ONLY BARK ARM" in text
+    assert "AP-T1-only" in text
+
+
+def test_successors_use_the_approved_nonredundant_wood_reallocation():
+    lndl = _rows_by_material(
+        _formula_rows(
+            _section(
+                LNDL_SUCCESSOR.read_text(encoding="utf-8"),
+                "## CURRENT-INVENTORY BUILD",
+            )
+        )
+    )
+    lhomme = _rows_by_material(
+        _formula_rows(
+            _section(
+                LHOMME_SUCCESSOR.read_text(encoding="utf-8"),
+                "## CURRENT-INVENTORY BUILD",
+            )
+        )
+    )
+
+    assert lndl["Sandalore"]["raw_ul"] == 380.0
+    assert lndl["Ebanol"]["raw_ul"] == 120.0
+    assert lndl["Azarbre"]["raw_ul"] == 190.0
+    assert lndl["Kephalis"]["raw_ul"] == 120.0
+    assert lndl["Javanol"]["stock"] == "10%"
+    assert lndl["Javanol"]["raw_ul"] == 20.0
+
+    assert lhomme["Sandalore"]["raw_ul"] == 420.0
+    assert lhomme["Ebanol"]["stock"] == "100%"
+    assert lhomme["Ebanol"]["raw_ul"] == 100.0
+    assert lhomme["Azarbre"]["raw_ul"] == 120.0
+    assert lhomme["Koavone"]["raw_ul"] == 160.0
+
+
+def test_bacdanol_remains_ideal_architecture_only_until_stock_basis_is_known():
+    for path in (LNDL_SUCCESSOR, LHOMME_SUCCESSOR):
+        text = path.read_text(encoding="utf-8")
+        current = _rows_by_material(
+            _formula_rows(_section(text, "## CURRENT-INVENTORY BUILD"))
+        )
+        assert "Bacdanol" not in current
+        assert "Bacdanol" in text
+        assert "quantitative HOLD" in text
+
+
+@pytest.mark.parametrize("path", (LNDL_SUCCESSOR, LHOMME_SUCCESSOR))
+def test_successor_current_builds_pass_held_stock_inventory_preflight(path):
+    text = path.read_text(encoding="utf-8")
+    rows = _formula_rows(_section(text, "## CURRENT-INVENTORY BUILD"))
+    aromatic_rows = [
+        row for row in rows if row["material"] != "DPG carrier reserve"
+    ]
+    ingredients = {
+        str(row["material"]): float(row["raw_ul"])
+        for row in aromatic_rows
+    }
+    dilutions = {
+        str(row["material"]): _dilution_fraction(str(row["stock"]))
+        for row in aromatic_rows
+    }
+    formula = {
+        "name": path.stem,
+        "ingredients_ul": ingredients,
+        "dilutions": dilutions,
+    }
+    state = build_formula_state(
+        ingredients,
+        dilutions=dilutions,
+        batch_volume_ml=30.0,
+    )
+    report = run_release_preflight(formula, state)
+    availability = next(
+        check for check in report.checks if check.name == "inventory_availability"
+    )
+
+    assert availability.status == "PASS"
+    assert "No formula rows use inventory-held non-executable stock" in availability.detail
+    assert report.status == "WARN"
+
+
+@pytest.mark.parametrize(
+    ("path", "fresh_heading", "tombstone_heading"),
+    (
+        (
+            LNDL_SUCCESSOR,
+            "Fresh governed diagnostics — V4 exact current build",
+            "Historical V3 diagnostic tombstone — not V4 evidence",
+        ),
+        (
+            LHOMME_SUCCESSOR,
+            "Fresh governed diagnostics — V5 exact current build",
+            "Historical V4 diagnostic tombstone — not V5 evidence",
+        ),
+    ),
+)
+def test_fresh_diagnostics_supersede_but_do_not_destroy_parent_provenance(
+    path,
+    fresh_heading,
+    tombstone_heading,
+):
+    text = path.read_text(encoding="utf-8")
+
+    assert fresh_heading in text
+    assert tombstone_heading in text
+    assert text.index(fresh_heading) < text.index(tombstone_heading)
+    assert "deliberately unreachable" in text

@@ -1,0 +1,95 @@
+{
+  "task_id": "chatgpt-portfolio-exact-intake-audit-20260819-v1",
+  "objective": "Mechanically audit the exact recovered Complex_Perfumery_11_Formula_Portfolio.json against its previously captured validation companion and the pre-existing attachment census. Determine what structurally new source information is present, whether the source remains quarantine-only, and whether any formula, inventory, physical, sensory, analytical, safety, installation, publication, or release authority can be inferred. Do not redesign formulas or infer unseen content.",
+  "tier": "PRO",
+  "workspace": "D:\\chatbots\\perfume-chem",
+  "allowed_paths": [
+    "incoming_review/chatgpt/20260819T134159Z-formula-portfolio-6a79b172/Complex_Perfumery_11_Formula_Portfolio.json",
+    "incoming_review/chatgpt/20260818T015707+0700-validation-report-base64-6a79b172/VALIDATION_REPORT.json",
+    "incoming_review/chatgpt/20260818T013500+0700-multi-chat-exact-byte-reexposure/capture_manifest.json"
+  ],
+  "required_reads": [
+    {
+      "path": "incoming_review/chatgpt/20260819T134159Z-formula-portfolio-6a79b172/Complex_Perfumery_11_Formula_Portfolio.json",
+      "unit": "line",
+      "start": 1,
+      "end": 28
+    },
+    {
+      "path": "incoming_review/chatgpt/20260819T134159Z-formula-portfolio-6a79b172/Complex_Perfumery_11_Formula_Portfolio.json",
+      "unit": "line",
+      "start": 4725,
+      "end": 4760
+    },
+    {
+      "path": "incoming_review/chatgpt/20260819T134159Z-formula-portfolio-6a79b172/Complex_Perfumery_11_Formula_Portfolio.json",
+      "unit": "line",
+      "start": 5445,
+      "end": 5575
+    },
+    {
+      "path": "incoming_review/chatgpt/20260818T015707+0700-validation-report-base64-6a79b172/VALIDATION_REPORT.json",
+      "unit": "line",
+      "start": 1,
+      "end": 24
+    },
+    {
+      "path": "incoming_review/chatgpt/20260818T015707+0700-validation-report-base64-6a79b172/VALIDATION_REPORT.json",
+      "unit": "line",
+      "start": 330,
+      "end": 352
+    },
+    {
+      "path": "incoming_review/chatgpt/20260818T013500+0700-multi-chat-exact-byte-reexposure/capture_manifest.json",
+      "unit": "line",
+      "start": 208,
+      "end": 277
+    }
+  ],
+  "coverage_spec": {
+    "mode": "ALL_REQUIRED_READS",
+    "citations_required_for": [
+      "positive_findings",
+      "negative_findings"
+    ]
+  },
+  "forbidden_actions": [
+    "write files",
+    "modify repository state",
+    "regenerate or normalize the recovered source",
+    "redesign or tune formulas",
+    "run external network calls",
+    "infer manufacturer-formula, empirical-similarity, inventory, physical, sensory, analytical, safety, installation, publication, or release authority",
+    "use Fast, Luna, Codex, or alternate-provider fallback"
+  ],
+  "commands_tests": [],
+  "definition_of_done": [
+    "Return EXACT_SOURCE_ADDS_STRUCTURAL_DETAIL_QUARANTINE_ONLY, DUPLICATE_NO_NEW_INFORMATION, or BLOCKED, with citations.",
+    "Identify source-level information present beyond the validation companion without claiming full unseen-file coverage.",
+    "State whether native installation or formula migration is justified.",
+    "Preserve all authority-false and physical-hold boundaries."
+  ],
+  "required_output": [
+    "verdict",
+    "cited structural findings",
+    "information delta versus validation companion",
+    "native installation or migration decision",
+    "authority-boundary findings",
+    "limitations"
+  ],
+  "timeout_minutes": 12,
+  "max_output_tokens": 4000,
+  "reuse_cache": false,
+  "require_cache": false,
+  "route_constraints": {
+    "allowed_routes": [
+      "DIRECT_PRO"
+    ],
+    "fallback_policy": "NO_LUNA",
+    "maximum_attempts": 1,
+    "maximum_provider_calls": 2,
+    "maximum_estimated_cost_usd": 0.05,
+    "privacy_class": "PROVIDER_ALLOWED",
+    "maximum_output_tokens_total": 8000
+  }
+}

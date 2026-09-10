@@ -1,0 +1,32 @@
+{
+  "arm": "PLACEBO",
+  "authority": {
+    "formula": false,
+    "inventory": false,
+    "physical_execution": false,
+    "publication": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "sensory": false
+  },
+  "case_id": "AUG-HED-S03",
+  "completed_utc": "2026-08-26T07:33:46.731871+00:00",
+  "dispatch_sha256": "69d1fa5b2fa3f08aad464e2294896d6d623edc879800fd8fcdb8352a9fdd21fc",
+  "execution_mode": "FRESH_EPHEMERAL_IGNORE_USER_CONFIG_AND_RULES",
+  "exit_code": 0,
+  "model": "gpt-5.6-sol",
+  "module_id": "hedonic_preference_learner",
+  "output_sha256": "d8ae285c887f8ce50956df4c6fb2eb942a7c0653b1e153b7cb4d66560c201165",
+  "output_text": "{\"decision_state\":\"WITHHELD\",\"target_linked_reasoning\":\"The observed winner is always first-presented, so product utility and positional effect are perfectly confounded. The evidence cannot establish which product is more liked.\",\"controlled_comparison\":\"Repeat blinded comparisons with randomized, counterbalanced presentation order and reverse-order replicates for every product pairing.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"PERFECT_POSITION_CONFOUNDING\",\"NO_REVERSE_ORDER_REPLICATES\",\"PRODUCT_PREFERENCE_NOT_IDENTIFIABLE\"],\"calculations\":{\"first_position_win_rate\":\"8/8 = 100%\"},\"next_actions\":[\"Run a blinded, randomized, counterbalanced comparison with reverse-order replication.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}",
+  "phase": "SCREEN",
+  "prompt_sha256": "3c73ce0ff45caa3ae80b4aa99ce72aa859f09d0a29bae6844eda49368b749378",
+  "reasoning_effort": "xhigh",
+  "request_id": "rplreq-bb03537c837f0fef3177",
+  "role": "CRITICAL_TRAP",
+  "schema_version": "complexity_replacement_ephemeral_result_v1",
+  "started_utc": "2026-08-26T07:33:33.727692+00:00",
+  "stderr_sha256": "72da3ce1929f759db46d2e19081d22cf843d867e0302689fbd87f6fbf649d26c",
+  "stderr_tail": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"schema_version\":\"complexity_reasoning_context_v1\"},\"output_contract\":{\"allowed_decision_states\":[\"VALIDATED\",\"WITHHELD\",\"DIAGNOSTIC\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false},\"calculations\":{\"first_position_win_rate\":\"compute from the supplied evidence\"},\"format\":\"ONE_JSON_OBJECT\",\"maximum_characters\":1800,\"next_actions\":\"array containing no more than one discriminating action\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":\"unique UPPER_SNAKE_CASE evidence-bound codes; exact wording is not scored\",\"required_fields\":[\"decision_state\",\"target_linked_reasoning\",\"controlled_comparison\",\"claim_ceiling\",\"reason_codes\",\"calculations\",\"next_actions\",\"authority\"]},\"schema_version\":\"complexity_replacement_benchmark_prompt_v2_blinded\",\"task\":\"Resolve the supplied case using only its evidence. Complexity means target-linked depth, richness, and relationships, never ingredient count.\"}\ncodex\n{\"decision_state\":\"WITHHELD\",\"target_linked_reasoning\":\"The observed winner is always first-presented, so product utility and positional effect are perfectly confounded. The evidence cannot establish which product is more liked.\",\"controlled_comparison\":\"Repeat blinded comparisons with randomized, counterbalanced presentation order and reverse-order replicates for every product pairing.\",\"claim_ceiling\":\"SCOPED_PREFERENCE_EVIDENCE_ONLY\",\"physical_liking_state\":\"NOT TESTED\",\"reason_codes\":[\"PERFECT_POSITION_CONFOUNDING\",\"NO_REVERSE_ORDER_REPLICATES\",\"PRODUCT_PREFERENCE_NOT_IDENTIFIABLE\"],\"calculations\":{\"first_position_win_rate\":\"8/8 = 100%\"},\"next_actions\":[\"Run a blinded, randomized, counterbalanced comparison with reverse-order replication.\"],\"authority\":{\"formula\":false,\"inventory\":false,\"physical_execution\":false,\"publication\":false,\"purchase\":false,\"release\":false,\"safety\":false,\"sensory\":false}}\ntokens used\n1,154\n",
+  "stdout_sha256": "3fe413fd34445759ff1ff841c105272985132b61311fcbd1f1b07f47ce48e5f4"
+}

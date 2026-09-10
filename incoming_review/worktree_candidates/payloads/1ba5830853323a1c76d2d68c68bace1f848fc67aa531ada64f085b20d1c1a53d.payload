@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,0.9984
+identity_system_probability,1.0
+oav_probability,0.9984
+temporal_probability,1.0
+dominance_failure_probability,0.0007000000000000339
+overall_probability,0.9977
+dose_closure_probability,0.9913
+temporal_q05,0.9694478189450828
+temporal_median,0.9889093063213475
+max_share_q95,0.515157934043206
+marker_coverage_q05,0.7142857142857143
+phase_sum_q05,"{""top"": 16.806507098802406, ""heart"": 5.462085990447413, ""base"": 3.8417709934311253}"
+release_shape_median,"[0.39074460847207465, 0.3070454199046464, 0.21461447391619284, 0.07757708290032811]"
+phase_shape_median,"[0.2549208747310858, 0.3409420721599958, 0.4040769305778839]"
+marker_probabilities,"{""Bergamot FCF Oil Sicilian | top"": 1.0, ""Black Pepper EO | top"": 1.0, ""Dihydromyrcenol | top"": 0.9953, ""Patchouli EO | heart"": 1.0, ""Vanillin 10% | base"": 0.57, ""Ambrofix 30% | base"": 0.996, ""Siam Benzoin 50% | base"": 0.7899}"
+marker_quantiles,"{""Bergamot FCF Oil Sicilian | top"": [5.679918358459925, 15.117096965515849, 41.730621238975615], ""Black Pepper EO | top"": [4.003017965218837, 9.855913675847944, 24.852613769476648], ""Dihydromyrcenol | top"": [1.8062573823173622, 4.808100628611047, 12.79786694256455], ""Patchouli EO | heart"": [5.462085990447413, 13.297832519684341, 32.89233665309183], ""Vanillin 10% | base"": [0.4226425350133936, 1.1084531151919008, 2.9183912683987616], ""Ambrofix 30% | base"": [1.833347035677534, 4.660128614008727, 12.497484466362337], ""Siam Benzoin 50% | base"": [0.6060163270626093, 1.6224073558412768, 4.388487922902104]}"
+classification,ROBUST

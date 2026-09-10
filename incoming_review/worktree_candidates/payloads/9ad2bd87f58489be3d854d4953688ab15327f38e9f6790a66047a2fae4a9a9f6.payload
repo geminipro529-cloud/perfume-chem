@@ -1,0 +1,129 @@
+from engine.data_spine import load_registry
+from engine.ingredient_catalog import build_ingredient_catalog
+from engine.inventory_parser import inventory_counts, parse_inventory, resolve_inventory_material
+
+
+def _dynamic_catalog_index() -> dict[str, dict]:
+    return {item["identity_key"]: item for item in build_ingredient_catalog()}
+
+
+def test_opoponax_tracks_the_latest_whole_bottle_rebase_and_stays_on_hold():
+    stock = resolve_inventory_material("Opoponax Resinoid")
+
+    assert stock is not None
+    assert stock.status == "owned"
+    assert stock.dilution == 0.40
+    assert stock.concentration_basis == "w/w"
+    assert stock.carrier == "DEP/ETHANOL"
+    assert stock.execution_ready is False
+    assert "2 g opoponax + 2 g dep + 1 g ethanol" in stock.raw_name.casefold()
+    assert "heterogeneous" in stock.raw_name.casefold()
+
+    material = load_registry().get("Opoponax Resinoid")
+    assert material is not None
+    assert material.user_in_inventory is True
+    stock_form = str(material.user_stock_dilution).casefold()
+    assert "40% w/w whole-bottle nominal" in stock_form
+    assert "dep/ethanol" in stock_form
+    assert "heterogeneous" in stock_form
+
+
+def test_aimi_preserves_bottle_provenance_without_promoting_exact_givaudan_grade():
+    stock = resolve_inventory_material("Alpha-Isomethyl Ionone")
+
+    assert stock is not None
+    assert stock.status == "owned"
+    assert stock.dilution == 1.0
+    assert stock.execution_ready is True
+    raw = stock.raw_name.casefold()
+    assert "perfumersworld aimi" in raw
+    assert "supplier/user-reported givaudan" in raw
+    assert "exact givaudan grade unconfirmed" in raw
+
+    material = load_registry().get("Alpha Isomethyl Ionone")
+    assert material is not None
+    assert material.user_in_inventory is True
+    registry_form = str(material.user_stock_dilution).casefold()
+    assert "perfumersworld aimi" in registry_form
+    assert "exact givaudan grade unconfirmed" in registry_form
+
+    hyphenated = load_registry().get("Alpha-Isomethyl Ionone")
+    assert hyphenated is not None
+    assert hyphenated.canonical_name == "Alpha Isomethyl Ionone"
+    methyl_ionone_product = load_registry().get("Methyl Ionone Pure")
+    assert methyl_ionone_product is not None
+    assert methyl_ionone_product.user_in_inventory is False
+
+
+def test_newly_reported_woody_and_hay_stocks_are_recorded_without_invented_metadata():
+    vetiveryl = resolve_inventory_material("Vetiveryl Acetate")
+    haiti = resolve_inventory_material("Vetiver EO Haiti")
+    patchouli_light = resolve_inventory_material("Patchouli Light Oil")
+    hay = resolve_inventory_material("Hay Absolute")
+
+    assert vetiveryl is not None
+    assert vetiveryl.status == "owned"
+    assert vetiveryl.dilution == 0.10
+    assert vetiveryl.concentration_basis == "w/w"
+    assert vetiveryl.carrier == ""
+    assert vetiveryl.execution_ready is True
+
+    for stock in (haiti, patchouli_light):
+        assert stock is not None
+        assert stock.status == "owned"
+        assert stock.dilution == 1.0
+        assert stock.concentration_basis == "w/w"
+        assert stock.execution_ready is True
+        assert "unrecorded" in stock.raw_name.casefold()
+
+    assert hay is not None
+    assert hay.status == "owned"
+    assert hay.dilution == 1.0
+    assert hay.concentration_basis == "unspecified"
+    assert hay.execution_ready is False
+    assert "concentration unspecified" in hay.raw_name.casefold()
+
+    registry = load_registry()
+    assert registry.get("Vetiveryl Acetate").user_in_inventory is True
+    assert registry.get("Vetiver EO Haiti").user_in_inventory is True
+    assert registry.get("Patchouli Light Oil").user_in_inventory is True
+    assert registry.get("Hay Absolute").user_in_inventory is True
+    assert registry.get("Vetiver EO Haiti").vp_25c_pa is None
+    assert registry.get("Patchouli Light Oil").odt_air_ppb is None
+    assert registry.get("Hay Absolute").user_stock_dilution == (
+        "owned; concentration unspecified; carrier/basis unrecorded; not execution-ready"
+    )
+
+
+def test_dynamic_catalog_and_inventory_counts_keep_stock_identities_separate():
+    catalog = _dynamic_catalog_index()
+
+    for key in (
+        "vetiveryl acetate",
+        "vetiver eo haiti",
+        "patchouli light oil",
+        "hay absolute",
+    ):
+        assert catalog[key]["owned_now"] is True
+
+    assert catalog["hay absolute"]["execution_ready"] is False
+    assert catalog["vetiver eo haiti"]["properties"]["vp"] is None
+    assert catalog["patchouli light oil"]["properties"]["odt"] is None
+
+    counts = inventory_counts()
+    assert counts == {
+        "raw_entries": 251,
+        "unique_normalized": 239,
+        "unique_fragrance": 233,
+        "solvent_or_carrier": 6,
+        "duplicate_canonical_entries": 12,
+    }
+
+    records = parse_inventory(unique=False, include_unavailable=True)
+    names = [record.name for record in records]
+    for canonical in (
+        "Cedarwood oil Virginia",
+        "Red Mandarin EO",
+        "Rose Essential Oil (Rosa Damascena, India)",
+    ):
+        assert names.count(canonical) == 1

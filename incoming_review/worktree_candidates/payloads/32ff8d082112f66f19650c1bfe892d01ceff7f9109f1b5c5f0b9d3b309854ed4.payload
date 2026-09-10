@@ -1,0 +1,20 @@
+"""Regression coverage for the backend's OpenAI-only settings surface."""
+
+from pathlib import Path
+
+from app.core.config import Settings
+
+BACKEND_ROOT = Path(__file__).resolve().parents[2]
+
+
+def test_settings_and_example_do_not_advertise_azure_openai() -> None:
+    """Keep dormant Azure deployment credentials out of runtime configuration."""
+
+    assert not any("AZURE" in name.upper() for name in Settings.model_fields)
+
+    config_source = (BACKEND_ROOT / "app" / "core" / "config.py").read_text(
+        encoding="utf-8"
+    )
+    env_example = (BACKEND_ROOT / ".env.example").read_text(encoding="utf-8")
+    assert "AZURE_OPENAI" not in config_source.upper()
+    assert "AZURE_OPENAI" not in env_example.upper()

@@ -1,0 +1,3009 @@
+# Gin Vetiver - Cypress Air - 30 mL v4 EDP
+
+Date: 2026-09-09. Mode: CREATIVE_FORMULATION. Family: dry woody-aromatic / gin-vetiver EDP.
+
+**Family archetype:** `woody.vetiver_classical`
+
+**Status:** FULL-SIZE DEVELOPMENT COMPOSITION — one complete numerical 30 mL design. This is not a smelled result, a skin-use clearance, or a commercial release. No physical bottle is recorded.
+
+Canonical quantities and exact stock references are recorded in the companion [structured formula record](records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json). Immediate parent: [v3](Gin_Vetiver_Cypress_Air_30mL_v3.md). Earlier versions remain unchanged; v4 is a new-bottle formulation, not an instruction to modify a v3 bottle.
+
+## Approved target and hard boundaries
+
+Build a genuine eau de parfum rather than a fresh cologne: dry juniper and coriander move through bitter peel and a restrained citrus-leaf/conifer bridge into a substantial multi-plane vetiver body, dry woods, mineral amber and a two-depth musk finish. Cypress must be identifiable but lighter than the user's earlier cypress perfume. Hedione is permitted; no jasmine accord, jasmine absolute or jasmine base is assembled.
+
+The user approved additional EDP body and layering on 2026-09-09, then required that DEP not be present at an amount capable of contributing its own smell. The strongest executable interpretation is **no deliberately introduced DEP at all**. The owned Vetiveryl Acetate stock is 10% w/w in DEP and is therefore omitted rather than assigned an invented sensory threshold.
+
+## Current-inventory build
+
+### Complete formula — basket-first transfer order
+
+| # | Basket | Ingredient | Dilution / exact stock form | Amount (µL) | Amount (mL) |
+|---:|---|---|---|---:|---:|
+| 1 | 1 - Always used | Iso E Super | neat | 850 | 0.850 |
+| 2 | 1 - Always used | Hedione | neat | 600 | 0.600 |
+| 3 | 1 - Always used | Ambrox Super | 25% w/w in DPG + IPM + ethanol | 400 | 0.400 |
+| 4 | 1 - Always used | Benzyl Benzoate | neat | 200 | 0.200 |
+| 5 | 1 - Always used | Vetival | neat | 80 | 0.080 |
+| 6 | 2 - Vetivers | Vetiver EO (India) | neat | 700 | 0.700 |
+| 7 | 3 - Woods | Cedarwood Virginia | neat | 100 | 0.100 |
+| 8 | 3 - Woods | Cypress EO | neat | 50 | 0.050 |
+| 9 | 4 - Wood modifiers and ambers | Clearwood | neat | 200 | 0.200 |
+| 10 | 4 - Wood modifiers and ambers | Timberol | neat | 70 | 0.070 |
+| 11 | 5 - Wood-vetivers | Vetikon | neat | 350 | 0.350 |
+| 12 | 6 - Musks | Ambrettolide | 10% w/w in DPG | 250 | 0.250 |
+| 13 | 6 - Musks | Habanolide | neat | 180 | 0.180 |
+| 14 | 13 - Edible spices | Juniper Berry EO | neat | 750 | 0.750 |
+| 15 | 13 - Edible spices | Coriander Seed EO | neat | 60 | 0.060 |
+| 16 | 15 - Fruits | Grapefruit FCF oil Sicilian | neat | 320 | 0.320 |
+| 17 | 15 - Fruits | Petitgrain EO Paraguay | neat | 160 | 0.160 |
+| 18 | 15 - Fruits | Terpinyl Acetate | neat | 80 | 0.080 |
+| | | **Fragrance-stock subtotal** | | **5400** | **5.400** |
+| 19 | Carrier - after fragrance stocks | Ethanol 96% | as supplied | 24600 | 24.600 |
+| | | **Nominal dispensed total** | | **30000** | **30.000** |
+
+**Concentrate target: 5400 µL.** The nominal supplied-fragrance-stock loading is 18.0% by summed dispensed raw volumes. This is not exact active concentration w/w: the Ambrox Super and Ambrettolide preparations are declared by mass fraction, their stock-solution densities are unavailable, and nominal dispensed volumes are not a mass assay. The nominal 30.000 mL total also does not establish exact final volume after mixing, transfer loss, or non-additivity. Do not add unrecorded solvent to reach a bottle fill line.
+
+The smallest raw transfer is 50 µL. Use calibrated equipment, not drop counts. Finish each physical basket in descending raw transfer volume before moving to the next basket. The basket placement for juniper and the citrus materials retains the existing Gin Vetiver card convention; their exact shelf positions were not independently recorded.
+
+## DEP exclusion contract
+
+- **Formula rows declaring DEP as carrier: zero.**
+- **Known deliberately introduced DEP: 0 µL; nominal finished contribution: 0%.**
+- Vetiveryl Acetate 10% w/w in DEP is excluded despite its target-fit because the DEP mass would dominate that weak stock and neither its stock density nor a user-specific DEP odor threshold is available.
+- Galaxolide 50% in DEP, Amber Xtreme 10% in DEP, Alpha Irone 10% in DEP, Myrrh EO 50% in DEP, Opoponax Resinoid 50% in DEP and depleted Ambrofix liquid are also absent.
+- Ambrox Super uses the user's current 25% w/w stock whose declared carriers are DPG, IPM and ethanol. Ambrettolide uses the current 10% w/w stock in DPG. Neither is silently treated as DEP.
+
+This contract proves only that no formula row deliberately introduces DEP from the declared current stocks. It does not constitute analytical proof of zero trace contamination in supplier materials or sensory proof before the finished perfume is smelled.
+
+## Accord architecture and material decisions
+
+### Gin signature and bridge
+
+- **Juniper Berry EO — 750 µL:** primary gin-botanical identity. It is proportionally smaller than in v3 so the higher-load EDP does not become a louder cologne opening. Juniper needle, pine and cade are rejected because they do not supply berry-gin identity.
+- **Coriander Seed EO — 60 µL:** dry linalool-rich seed spice extending the gin image. Cardamom is rejected because its cineolic spice would become a second subject; black pepper is rejected because it roughens the dry contour.
+- **Grapefruit FCF oil — 320 µL:** furocoumarin-free bitter-peel stock. The live inventory resolver binds this shorter formula label to the owned stock record `Grapefruit FCF Oil Sicilian`; the regional qualifier is stock provenance, not part of the design brief. Bergamot is rejected because it pushes the opening toward classical cologne; sweet mandarin and blood orange are rejected because they round and sweeten the opening.
+- **Petitgrain EO Paraguay — 160 µL:** citrus-leaf continuity into the heart. It is reduced relative to the larger EDP body so it remains a bridge rather than the perfume's middle subject.
+- **Terpinyl Acetate — 80 µL:** pine-citrus-herbal connector from juniper and petitgrain to cypress. Linalyl acetate is rejected because it would soften the profile toward bergamot/lavender familiarity.
+
+### Vetiver body
+
+- **Vetiver EO (India) — 700 µL:** recognizable natural root, earth and wood; the central drydown subject.
+- **Vetikon — 350 µL:** diffusive woody-vetiver volume between the natural oil and abstract wood structure. It is selected instead of increasing natural vetiver until the base becomes muddy or smoky.
+- **Vetival — 80 µL:** suede-dry vetiver texture and a lower, rougher shadow. It is restrained so the formula does not become leathery.
+- **Vetiveryl Acetate 10% w/w in DEP — omitted:** its polished-vetiver function is split between Vetikon's volume and Vetival's texture. No neat or non-DEP stock exists in the current inventory.
+
+### Woody and amber structure
+
+- **Iso E Super — 850 µL:** main molecular woody volume and spatial body. It is supported rather than used alone because it is abstract and individually anosmia-prone.
+- **Clearwood — 200 µL:** clean earthy depth reinforcing the root aspect of vetiver without making patchouli a new subject. Natural patchouli is rejected because it would add more camphoraceous, earthy and potentially chocolate-like detail.
+- **Cedarwood Virginia — 100 µL:** small natural cedar grain so the synthetic woods do not become anonymous. It remains subordinate to vetiver and is not the main structural material.
+- **Timberol — 70 µL:** persistent architectural dryness. A larger Timberol block is rejected because it could make the base rigid and scratchy.
+- **Ambrox Super — 400 µL of the 25% w/w stock:** mineral-amber persistence under the vetiver/wood body. Ambermax and Azarbre are rejected because their warmer rounded amber would move the scent toward woody amber rather than dry gin-vetiver.
+- **Benzyl Benzoate — 200 µL:** restrained near-neutral balsamic mass and fixation. Benzyl Salicylate is rejected because its waxy cosmetic-floral cushion conflicts with the dry botanical target; Hexyl Salicylate is rejected because a green-floral film is not needed to carry this heart.
+- **Cypress EO — 50 µL:** identifiable dry-green conifer accent. Richness comes from the layered body, not a heavy cypress dose.
+
+### Diffusion and musk depth
+
+- **Hedione — 600 µL:** transparent diffusion and internal space around the botanical middle. At 11.1% of the nominal raw concentrate it remains below the repository's 12% non-floral/chypre screening ceiling. It is explicitly permitted but is not used with jasmine materials to construct a jasmine accord.
+- **Habanolide — 180 µL:** outward clean-mineral musk polish around the dry woods. It is chosen over Zenolide because Zenolide would reinforce citrus-clean freshness.
+- **Ambrettolide — 250 µL of the 10% w/w DPG stock:** a much smaller active close-skin warmth plane beneath Habanolide. It is not dose-equated to neat Habanolide. Ethylene Brassylate is rejected because its current supplied-stock fraction is not separately declared and its creamy/powdery mass is less aligned with this dry target.
+
+The two musks are not a count-driven chord: Habanolide supplies the outward tailored surface; the weak Ambrettolide stock supplies a close-wearing naturalistic underside. Removing either changes a different depth plane. Their actual balance remains a sensory hypothesis.
+
+## Intended temporal structure
+
+1. **Opening:** dry juniper berry, coriander seed and bitter grapefruit peel.
+2. **Transition:** juniper persists through petitgrain and Terpinyl Acetate into restrained cypress.
+3. **Body:** natural Indian vetiver becomes recognizable inside Iso E Super and Vetikon volume, with Clearwood earth and cedar grain.
+4. **Drydown:** Vetival and Timberol retain dry texture; Ambrox Super extends mineral wood; Habanolide projects above a small Ambrettolide skin layer.
+
+The target is not merely greater longevity. Success requires the fragrance to stop reading as a citrus cologne once the opening passes, while remaining gin-vetiver rather than generic woody amber.
+
+## Full-size compounding and observation card
+
+This is one complete nominal 30 mL composition; no mandatory 10 mL prerequisite is imposed. Compound in the basket-first order shown above, closing each material promptly. Add the 24.600 mL nominal Ethanol 96% only after all fragrance stocks. Mix and label the bottle with formula name, version, nominal concentration, date and the exact stock preparations used. Keep ethanol away from ignition sources and follow the handling documents for every material.
+
+Record whether the finished liquid is homogeneous, cloudy or separated. Evaluate first on a blotter. The observations that matter are: gin recognition at opening; cypress still lighter than the earlier cypress perfume; vetiver taking over rather than citrus dominating the middle; and whether Timberol, Ambrox, Habanolide or Ambrettolide produces scratchiness, mineral hardness or unwanted musk character. Resting cannot establish safety or prove balance.
+
+## Quantitative and release boundary
+
+Every raw dose is executable against a declared current stock and is convertible to a nominal active screening input. Exact active ppm w/w remains unavailable without measured stock and finished-product masses or valid densities. ODT/OAV output is a model screen, not percent perceived contribution, beauty, similarity, preference, finished headspace measurement or safety clearance.
+
+The formula must be parsed and run through the existing release pipeline with v3 as the immediate parent. Any missing whole-oil ODT, unresolved material physics, low confidence, generic warning or current inventory mismatch will be retained rather than repaired by inventing data. No skin use, distribution or commercial release is authorized by this development card.
+
+<!-- PIPELINE_ANALYSIS_START -->
+## Pipeline Analysis
+
+<!-- pipeline-analysis-manifest: {"analysis_input_sha256":"55bc166a5e3203e95c022d459df17911778fded52f2382cdc9f144ccbd8a609c","analysis_sha256":"c8b5dcb7bb0ad34aedda084428d541b7a54e97ded59627bafcce8fe5b2495b8a","artifact_sha256":"1856ef36f60a5536d4cca6385d2e33a605f90670589a379ed33bef4d96c97d78","authorities":{"claim":["PASS"],"headspace_oav":["MODELED_ACTIVE_CONCENTRATE_SCREEN"],"quantitative":["WARN"],"stock":["PASS"]},"binding_schema":"formula-artifact-binding-v1","canonical_records":[{"canonical_content_sha256":"fd0e77c121e3c42d01963c9e7950da7239aaa334645380fda074979e44f11264","record_id":"formula:1:gin-vetiver-cypress-air-30-ml-v4-edp","record_version":1}],"config_sha256":"9da508ce34d47293010a59078d64011ecb357672ad25c4e9340c780d67493c9d","formula_definitions":[{"name":"Gin Vetiver - Cypress Air - 30 mL v4 EDP","number":1,"sha256":"fd0e77c121e3c42d01963c9e7950da7239aaa334645380fda074979e44f11264"}],"g15_parent_formula_definitions":[{"name":"Gin Vetiver - Cypress Air - 30 mL v3","number":1,"sha256":"81ee58511c0e2f5b7172c9e5db9f06dff1aba90151e4bd95607680080f7ce9a1"}],"generated_at_utc":"2026-09-09T07:11:15.311873+00:00","inventory_sha256":"d6f7ff5389fbd5e807b98fee3ce6a87ce2c70dd6253b26a82f49a0872da42369","legacy_formula_hashes_v1":[{"name":"Gin Vetiver - Cypress Air - 30 mL v4 EDP","number":1,"sha256":"064d0768bd3c6a003f5d3283c9aac9d814a46226b212920e301da5a67e6dfb7a"}],"overall":"FAIL","pipeline_source_sha256":"143bca8ef3ff13595d088016ce1e022d4790dee7d8aab9c8c33fb73d10a460ec","provenance":{"activity":"formula_release_gate","agent":"perfume-chem pipeline","derivation":"analysis_artifact wasDerivedFrom all input entities","entities":["formula_definition","release_config","inventory_snapshot","scientific_inputs","pipeline_source","analysis_artifact"]},"renderer_version":"formula-release-gate-v1","repository_commit":"e7002d4dacde0ae4c6b92db454fa4034c830e8f4","schema":"perfume_pipeline_run_evidence_v1","scientific_inputs_sha256":"39daf68ddfd3ac2f7da943140cf4ce715e2e5f903d460c60efc6c794009b4234","semantic_config":{"formula_family_archetypes":["woody.vetiver_classical"],"g15_authorized_active_dose_changes":{},"requested":{"allow_preblends":false,"batch_scaling_targets_ml":[],"batch_volume_ml":30,"brief":"vetiver_woody","commercial_confidence_policy":"block","commercial_mode":false,"concentration_bracket":"EdP","effective_ifra_headroom":1,"expected_concentrate_ul":5400,"expected_retail_price_thb":1500,"family_archetype":"woody.vetiver_classical","ifra_headroom":1,"matrix_components_moles":[],"matrix_mass_g":0,"matrix_source":"omitted","max_perceptible_channels":30,"min_confidence_score":25,"min_neat_trace_ul":5,"min_perceptible_materials":3,"price_tier":"auto","quantitative_claim":false,"temperature_K":305}}} -->
+
+```text
+# Run Evidence Contract
+
+Formula definition SHA-256: #1 fd0e77c121e3c42d01963c9e7950da7239aaa334645380fda074979e44f11264
+Config SHA-256: 9da508ce34d47293010a59078d64011ecb357672ad25c4e9340c780d67493c9d
+Inventory SHA-256: d6f7ff5389fbd5e807b98fee3ce6a87ce2c70dd6253b26a82f49a0872da42369
+Scientific inputs SHA-256: 39daf68ddfd3ac2f7da943140cf4ce715e2e5f903d460c60efc6c794009b4234
+Pipeline source SHA-256: 143bca8ef3ff13595d088016ce1e022d4790dee7d8aab9c8c33fb73d10a460ec
+Exact concentrate ppm w/w: UNAVAILABLE
+Headspace/OAV basis: MODELED_ACTIVE_CONCENTRATE_SCREEN
+Headspace/OAV class: HEURISTIC_NOT_MEASURED (never a sensory-similarity percentage)
+Inventory stock authority: PASS
+Quantitative gate authority: WARN
+Named-reference authority: PASS
+Sensory-equivalence authority: NOT_AUTHORIZED_NOT_MEASURED
+# Gin Vetiver - Cypress Air - 30 mL v4 EDP
+
+## Gate Summary
+
+**104 PASS** / **42 WARN** / **1 FAIL**
+
+  FAIL pipeline_preflight: 13 checks; 9 warnings
+  WARN quantitative_authority: Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only.
+  WARN headspace_scope: Headspace/OAV is an active-concentrate screening model; the finished ethanol-water-solvent matrix is omitted.
+  WARN natural_composite_coverage: Partial literature constituent models have unresolved odor contributions; full quantitative evaluability is not established. Cypress EO: 69.2% nominal input coverage
+  WARN odt_coverage: 15 material(s) rely on derived/unverified ODTs (100% OAV share)
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 31.9% active mass across 3 materials
+  WARN oav_overdose_blocker: High modeled OAV screening signal: Grapefruit FCF oil Sicilian=43492, Iso E Super=14011, Juniper Berry EO=137252; validate by controlled dilution/omission trials
+  WARN odt_sanity: 2 materials with suspect ODT values: Coriander Seed EO=None, Grapefruit FCF oil Sicilian=None; 2 unresolved cross-source ODT conflicts
+  WARN vp_cross_source: 2 materials with VP=None or 0: Coriander Seed EO, Grapefruit FCF oil Sicilian; 18 materials use inferred enthalpy for VP at 305.00 K; 4 unresolved cross-source VP conflicts
+  WARN odt_completeness: 2 material(s) lack ODT data; 22% OAV share affected
+  WARN safety_ifra_allergen: 12 materials lack explicit IFRA Cat4 limits; 1 EU allergen declarations
+  WARN safety_phototoxic: Grapefruit FCF oil Sicilian: 6.56% > IFRA max 2.0% (bergaptene 0.5 ppm)
+  WARN safety_receptor_saturation: Cedarwood Virginia 2.1% > 2% cap (OR10J5 + cedrol sedative)
+  WARN oav_physics_gamma: 18/18 materials use predictive, heuristic, fallback, or unknown gamma authority; largest gamma=1 comparison leverage Clearwood=1.8x
+  WARN verify_protocol_aggregate: Verification protocol active — 2/18 materials missing ODT data
+  WARN solvent_matrix: stock-carrier authority PARTIAL_UNRESOLVED; known named carriers {'DPG': 225.0}; unresolved carrier proxy 300.0 uL; 1 named carrier row(s) lack a v/v basis
+  WARN perfumer_logic: woody.vetiver_classical; rerun optimizer: citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100; not_aromatic_fougere: 15.370% active above 4.000 [advisory guideline; not release-blocking]
+  WARN family_drift_detector: woody.vetiver_classical; citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100 [advisory guideline; not release-blocking]
+  WARN novelty_vs_reference: reference/control archetype; familiar by design, not the new exploration target
+  WARN perfume_knowledge: Pyramid off-target: Expected T:15% H:30% B:55%, Actual T:3.3% H:61.7% B:35.0%; top OAV off-target for family woody; heart OAV off-target for family woody
+  WARN carles_pyramid: Carles pyramid: empty windows = 3h_top_heart (need >2% active in each of 5 windows)
+  WARN carles_accord_ratio: Exact active-mass ppm is unavailable; pairwise dose ratios were not evaluated.
+  WARN literature_compliance: Literature compliance: 3/5 principles passed (60%)
+  WARN edge_cases: Musk coverage: 100%, gaps: 1, formula VP factor x1.54-2.65 (median x1.89, T=305.00K vs 298.15K, n=18)
+  WARN family_hedonic: Family 'woody.vetiver_classical' has 0 legacy pitfalls and 0 tips quarantined pending validation
+  WARN somatosensory: 0 candidate chemesthetic materials detected; formula-level effects require exposure and human validation
+  WARN stevens_n_efficiency: Exact active-mass ppm is unavailable; dose-efficiency comparison not evaluated.
+  WARN jnd_redundancy: Potentially redundant pairs: vetival vs vetiver eo in woody (OAV 358/310)
+  WARN guerlain_nature_synthetic: Natural OAV = 91% — batch inconsistency risk
+  WARN jellinek_psychology: Jellinek categories weak: erogenic, narcotic, stimulating
+  WARN coty_single_material_limit: Exact active-mass ppm is unavailable; single-material limit not evaluated.
+  WARN roudnitska_hedione_pct: Exact active-mass ppm is unavailable; Hedione percentage heuristic not evaluated.
+  WARN adaptation_timing: fast tier < 5% (no immediate impact); slow tier < 10% (poor longevity)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 89%) — collapse risk
+  WARN oav_intelligence: iso e super OAV 14011.2 is above woody_amber target 40.0-150.0; hedione OAV 4081.7 is above woody_amber target 10.0-25.0; material_class_distribution: Class distribution: fixatives:4%, florals:12%, musks:4%, woods:38%
+  WARN olfactory_fatigue: Adaptation/fatigue screening flag: iso e super=14011 (high model signal)
+  WARN evaporation_rate_balance: Pyramid imbalance: top = 3%, heart = 62%
+  WARN tenacity_projection: VP<0.01Pa = 8% (<10%, weak longevity)
+  WARN master_perfumer_gate: opening likely underbuilt
+  WARN mass_market_tier_check: Expensive captives found: Ambrox Super. At 1500 THB, these eat margin. Consider if their perceptible impact justifies the cost.
+  WARN authority_vector: Safety authority insufficient (0.00) — unknown IFRA limits for too many materials; Identity (0.00) AND Quantity (0.00) authority both insufficient — insufficient evidence; Identity authority insufficient (0.00). DIMENSIONS NEVER AVERAGED. [advisory guideline; not release-blocking]
+  WARN robustness_perturbation: 36 fragile perturbation(s) across 36 checks; Iso E Super up: brief grammar failure under perturbation; Iso E Super down: brief grammar failure under perturbation; Hedione up: brief grammar failure under perturbation
+  WARN confidence_minimum: combined confidence 18.1 below 25.0 after preflight evidence penalty 14.0; reference-control study remains diagnostic only
+
+
+## Authority Dimensions
+
+| Dimension | Status | Authority |
+|---|---|---|
+| Inventory stock | PASS | Every formula row resolves uniquely to a declared live inventory stock. |
+| Quantitative ppm w/w | UNAVAILABLE | Exact only when the full declared mass and density chain is available. |
+| Headspace/OAV | MODELED_ACTIVE_CONCENTRATE_SCREEN | HEURISTIC_NOT_MEASURED; diagnostic model, not measured odor intensity. |
+| Named reference | PASS () | No named-reference claim detected. |
+| Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | Requires blinded bench comparison; no model score supplies this authority. |
+| Combined confidence | 18.1/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
+
+
+## Headspace OAV — Opening (0s)
+
+| Material | Dil | Raw µL | Act µL | MW | MF% | VP Pa | γ | Vapor ppm | ODT ppm | OAV | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Juniper Berry EO | 100.0% | 750.00 | 750.00 | 136.200 | 22.050 | 106.070904 | 1.002 | 2417.520207 | 0.015000000 | 137252.5 | heart |
+| Grapefruit FCF oil Sicilian | 100.0% | 320.00 | 320.00 | UNKNOWN | 6.407 | UNKNOWN | 1.002 | 610.886996 | UNKNOWN | 43492.5 | heart |
+| Iso E Super | 100.0% | 850.00 | 850.00 | 234.400 | 14.521 | 0.458763 | 1.066 | 0.700562 | 0.000050000 | 14011.2 | heart |
+| Petitgrain EO Paraguay | 100.0% | 160.00 | 160.00 | 136.000 | 4.711 | 10.632758 | 1.000 | 32.723476 | 0.004000000 | 8898.2 | top |
+| Cypress EO | 100.0% | 50.00 | 50.00 | 136.000 | 1.472 | 389.382043 | 3.000 | 143.724851 | 0.200000000 | 6210.1 | heart |
+| Coriander Seed EO | 100.0% | 60.00 | 60.00 | UNKNOWN | 1.201 | UNKNOWN | 1.002 | 6.976638 | UNKNOWN | 4215.8 | heart |
+| Hedione | 100.0% | 600.00 | 600.00 | 226.300 | 10.617 | 0.193654 | 1.006 | 0.204084 | 0.000050000 | 4081.7 | heart |
+| Vetikon | 100.0% | 350.00 | 350.00 | 176.250 | 7.952 | 7.466083 | 0.850 | 4.980407 | 0.005000000 | 996.1 | base |
+| Vetival | 100.0% | 80.00 | 80.00 | 218.330 | 1.467 | 11.538134 | 1.500 | 2.506211 | 0.007000000 | 358.0 | heart |
+| Vetiver EO (India) | 100.0% | 700.00 | 700.00 | 222.400 | 12.478 | 0.084308 | 2.000 | 0.689597 | 0.005000000 | 309.9 | base |
+| Cedarwood Virginia | 100.0% | 100.00 | 100.00 | 222.370 | 1.765 | 0.011325 | 1.002 | 0.592772 | 0.015000000 | 75.7 | heart |
+| Ambrox Super | 25.0% | 400.00 | 100.00 | 236.400 | 1.694 | 0.104574 | 1.019 | 0.017818 | 0.000300000 | 59.4 | base |
+| Timberol | 100.0% | 70.00 | 70.00 | 226.400 | 1.238 | 0.138039 | 1.500 | 0.025300 | 0.000600000 | 42.2 | base |
+| Terpinyl Acetate | 100.0% | 80.00 | 80.00 | 196.300 | 1.632 | 0.778498 | 1.000 | 0.125384 | 0.035000000 | 3.6 | base |
+| Ambrettolide | 10.0% | 250.00 | 25.00 | 252.400 | 0.397 | 0.006916 | 1.500 | 0.000406 | 0.000136000 | 3.0 | base |
+| Clearwood | 100.0% | 200.00 | 200.00 | 222.400 | 3.601 | 0.004676 | 1.800 | 0.002991 | 0.010000000 | 0.3 | base |
+| Benzyl Benzoate | 100.0% | 200.00 | 200.00 | 212.200 | 3.774 | 0.063576 | 1.002 | 0.023736 | 0.810000000 | 0.0 | heart |
+| Habanolide | 100.0% | 180.00 | 180.00 | 238.400 | 3.023 | 0.000141 | 0.850 | 0.000036 | 0.002800000 | 0.0 | base |
+
+**Materials:** 18 total (1 top, 9 heart, 8 base)
+**Total vapor:** 3221.70 ppm
+
+### Note Distribution
+
+**TOP:** 1 mats, 3.3% active, 4.0% OAV
+  - Petitgrain EO Paraguay       OAV=  8898.2 (very strong) VP=10.633Pa
+**HEART:** 9 mats, 61.7% active, 95.3% OAV
+  - Juniper Berry EO             OAV=137252.5 (massive) VP=106.071Pa
+  - Grapefruit FCF oil Sicilian  OAV= 43492.5 (massive) VP=0.000Pa
+  - Iso E Super                  OAV= 14011.2 (massive) VP=0.459Pa
+  - Cypress EO                   OAV=  6210.1 (very strong) VP=389.382Pa
+  - Coriander Seed EO            OAV=  4215.8 (very strong) VP=0.000Pa
+  - Hedione                      OAV=  4081.7 (very strong) VP=0.194Pa
+  ... and 3 more
+**BASE:** 8 mats, 35.0% active, 0.6% OAV
+  - Vetikon                      OAV=   996.1 (strong) VP=7.466Pa
+  - Vetiver EO (India)           OAV=   309.9 (strong) VP=0.084Pa
+  - Ambrox Super                 OAV=    59.4 (moderate-strong) VP=0.105Pa
+  - Timberol                     OAV=    42.2 (moderate) VP=0.138Pa
+  - Terpinyl Acetate             OAV=     3.6 (at threshold) VP=0.778Pa
+  - Ambrettolide                 OAV=     3.0 (at threshold) VP=0.007Pa
+  ... and 2 more
+
+### Sub-threshold Materials (OAV < 1)
+3/18 materials below perceptible threshold
+  - Benzyl Benzoate: OAV=0.03 VP=0.064Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Clearwood: OAV=0.30 VP=0.005Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Habanolide: OAV=0.01 VP=0.000Pa act=180uL role=fixative [STRUCTURAL_OR_FIXATIVE]
+### High-OAV Flags (>5000)
+  - Cypress EO OAV=6210 dominates headspace — may mask subtler notes
+  - Grapefruit FCF oil Sicilian OAV=43493 dominates headspace — may mask subtler notes
+  - Iso E Super OAV=14011 dominates headspace — may mask subtler notes
+  - Juniper Berry EO OAV=137253 dominates headspace — may mask subtler notes
+  - Petitgrain EO Paraguay OAV=8898 dominates headspace — may mask subtler notes
+
+### OAV by Odor Family
+
+                ?  84.1% ==========================================  (5 mats)
+            woody   7.1% ===  (6 mats)
+           citrus   4.0% ==  (1 mats)
+          conifer   2.8% =  (1 mats)
+           floral   1.9% =  (1 mats)
+            amber   0.0% =  (1 mats)
+         aromatic   0.0% =  (1 mats)
+             musk   0.0% =  (2 mats)
+
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Remain idx | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s |  3.3/61.7/35.0 | 3221.70ppm |  100.0% | Juniper Berr(137253), Grapefruit F(43493), Iso E Super(14011)
+| top          |    300s |  3.5/57.9/38.6 | 2194.45ppm |   91.4% | Juniper Berr(89283), Grapefruit F(33242), Iso E Super(15969)
+| heart        |   1800s |  3.4/51.4/45.2 | 254.34ppm |   79.2% | Iso E Super(19798), Petitgrain E(10447), Juniper Berr(6234)
+| late_heart   |   7200s |  1.8/51.4/46.8 |  40.78ppm |   76.1% | Iso E Super(20962), Hedione(6207), Petitgrain E(5696)
+| drydown      |  14400s |  0.8/51.9/47.4 |  25.58ppm |   74.3% | Iso E Super(21619), Hedione(6427), Petitgrain E(2425)
+
+Temporal authority: HEURISTIC_UNCALIBRATED; model=dynamic_headspace_exponential_loss_v2; remaining index is not measured evaporation.
+
+### Per-Window Detail
+
+**OPENING** (0.0s) — Uncalibrated loss index:0%
+  T:3.3% H:61.7% B:35.0%  Vapor:3221.70ppm
+  Leaders: Juniper Berry EO OAV 137253 | Grapefruit FCF oil Sicilian OAV 43493 | Iso E Super OAV 14011 | Petitgrain EO Paraguay OAV 8898 | Cypress EO OAV 6210
+
+**TOP** (300.0s) — Uncalibrated loss index:9%
+  T:3.5% H:57.9% B:38.6%  Vapor:2194.45ppm
+  Leaders: Juniper Berry EO OAV 89283 | Grapefruit FCF oil Sicilian OAV 33242 | Iso E Super OAV 15969 | Petitgrain EO Paraguay OAV 9882 | Coriander Seed EO OAV 4735
+
+**HEART** (1800.0s) — Uncalibrated loss index:21%
+  T:3.4% H:51.4% B:45.2%  Vapor:254.34ppm
+  Leaders: Iso E Super OAV 19798 | Petitgrain EO Paraguay OAV 10447 | Juniper Berry EO OAV 6234 | Hedione OAV 5837 | Coriander Seed EO OAV 5300
+
+**LATE_HEART** (7200.0s) — Uncalibrated loss index:24%
+  T:1.8% H:51.4% B:46.8%  Vapor:40.78ppm
+  Leaders: Iso E Super OAV 20962 | Hedione OAV 6207 | Petitgrain EO Paraguay OAV 5696 | Coriander Seed EO OAV 3556 | Vetikon OAV 1414
+
+**DRYDOWN** (14400.0s) — Uncalibrated loss index:26%
+  T:0.8% H:51.9% B:47.4%  Vapor:25.58ppm
+  Leaders: Iso E Super OAV 21619 | Hedione OAV 6427 | Petitgrain EO Paraguay OAV 2425 | Coriander Seed EO OAV 1994 | Vetikon OAV 1369
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Petitgrain EO Paraguay(very strong)
+  Heart: Juniper Berry EO(massive) + Grapefruit FCF oil Sicilian(massive)
+  Base: Vetikon(strong) + Vetiver EO (India)(strong) + Ambrox Super(moderate-strong) + Timberol(moderate) + Terpinyl Acetate(at threshold)
+
+### 2. Opening (0-5min)
+  Petitgrain EO Paraguay leads the reported top at OAV 8898 (very strong).
+  - Petitgrain EO Paraguay OAV=8898 VP=10.6Pa (citrus)
+  Total vapor: 3221.7 ppm
+
+### 3. Heart (30min-2hr)
+  Iso E Super OAV=19798 (massive)
+  Petitgrain EO Paraguay OAV=10447 (massive)
+  Juniper Berry EO OAV=6234 (very strong)
+  Hedione OAV=5837 (very strong)
+  T:3.4% H:51.4% B:45.2%
+  Vapor: 254.3 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base share of active note distribution: 47%
+  - Iso E Super OAV=21619
+  - Hedione OAV=6427
+  - Petitgrain EO Paraguay OAV=2425
+  - Coriander Seed EO OAV=1994
+  - Vetikon OAV=1369
+  - Vetiver EO (India) OAV=493
+  Vapor: 25.6 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Juniper Berry EO(137253) + Grapefruit FCF oil Sicilian(43493) + Iso E Super(14011) + Petitgrain EO Paraguay(8898)
+  OAV by family: None84% woody7% citrus4% conifer3%
+
+### 6. Longevity
+  Uncalibrated loss index: 26% over modeled window
+  Vapor: 3221.7 > 25.6 ppm
+  Base @ drydown: 47%
+  Absolute skin life: unavailable; calibrated finite-film, vehicle, skin-absorption, and sensory data are required
+
+### 7. Balance
+  Pyramid: T:3.3% H:61.7% B:35.0%
+  OAV range: 0.01 to 137253 (sigma-log=2.08)
+  Wide OAV contrast: Juniper Berry EO leads at OAV 137253; lower-OAV materials may be masked.
+    massive: 3
+    sub-threshold: 3
+
+### 8. Flags
+  SUB: Clearwood OAV=0.30 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Benzyl Benzoate OAV=0.03 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Habanolide OAV=0.01 role=fixative class=STRUCTURAL_OR_FIXATIVE
+
+
+## Structural OAV Analysis
+
+**Vapor:** 3222 ppm  |  **Active:** 16.2%  |  **Perceptible:** 15/18  |  **Unknown:** 0
+
+### OAV Tiers
+  **massive** (7): Coriander Seed EO(4216), Cypress EO(6210), Grapefruit FCF oil Sicilian(43493), Hedione(4082), Iso E Super(14011), Juniper Berry EO(137253), Petitgrain EO Paraguay(8898)  ! fatigue risk, overload risk
+  **v.strong** (3): Vetikon(996), Vetival(358), Vetiver EO (India)(310)
+  **strong** (2): Ambrox Super(59), Cedarwood Virginia(76)
+  **moderate** (1): Timberol(42)
+  **threshold** (2): Ambrettolide(3), Terpinyl Acetate(4)
+  **sub** (3): Benzyl Benzoate(0), Clearwood(0), Habanolide(0)
+
+### Block Balance
+  **Citrus**     8898 (4%)
+  **Floral**   209698 (95%)
+  **Base**       1414 (1%)
+  **Ratio:** 148:1 between strongest/weakest block
+
+### Issues
+  ! 3 sub-threshold material(s): Benzyl Benzoate, Clearwood, Habanolide
+```
+<!-- PIPELINE_ANALYSIS_END -->
+
+## Parent interpretation of this run
+
+**Accepted result:** this is one complete nominal 30 mL EDP development composition: 5400 µL of fragrance stocks plus 24600 µL of Ethanol 96%. All 18 formula rows bind uniquely to current inventory, the formula-dose receipt is bound, the immediate-parent and temporal G15 guard passes without findings, and the 26 focused stock/profile/dose-guard regressions pass. No selected stock row declares DEP, so known deliberately introduced DEP is 0 µL.
+
+**Grapefruit label:** the perfume uses Grapefruit FCF oil. The technical table retains `Grapefruit FCF oil Sicilian` only because that is the canonical inventory identity required to bind the exact owned bottle; the regional suffix is not part of the design brief.
+
+**Pipeline result:** 104 PASS, 42 WARN, 1 FAIL and 1 SKIP. The single hard failure is aggregate pipeline preflight because the knowledge base lacks whole-oil ODT inputs for Coriander Seed EO and the inventory-bound Grapefruit FCF oil. Combined model confidence is 18.1, below the configured 25 threshold, but is retained as a warning under diagnostic reference-control authorization. No dose, identity or model property was changed to force those checks to pass.
+
+The following outputs are retained as raw diagnostic evidence but are not adopted as design, sensory or safety authority:
+
+- The generic grapefruit warning assumes furocoumarin/bergaptene content and uses fragrance-concentrate share; it is not product-specific evidence about the exact FCF stock or the finished perfume.
+- The cedar concentration warning is a generic heuristic using concentrate share, not independently verified regulatory authority.
+- The legacy side-consumer reports Indian vetiver and Virginia cedar as missing even though the authoritative exact-current-stock contract passes 18 of 18. Its substitution suggestions are not adopted.
+- Cypress has a high modeled OAV at 50 µL. That makes its prominence an explicit blotter question; OAV does not prove that it dominates or that the formula is balanced.
+- The modeled floral block is driven by fixed note categorization and Hedione; it does not mean a jasmine accord was added.
+- Habanolide, Clearwood and Benzyl Benzoate are modeled sub-threshold. Their selected structural roles do not justify automatic dose increases, especially with incomplete material-property authority.
+- Remaining-volume indices, projected skin life, ingredient-count advice, price-based complexity and headspace leader ranks are not smelled results.
+
+The optional all-in-one verification harness could not render its graph bundle because this shared virtual environment is Python 3.14 while the installed Matplotlib compiled helper is a `cp312` binary. The failure is isolated to Matplotlib import/report rendering; formula parsing, stock binding, the release pipeline and focused regressions ran independently. The environment was not modified as part of this perfume task.
+
+The bound report above is preserved. The required standalone formatter export below is retained verbatim. The detailed verification receipt records the exact artifacts, hashes and limitations.
+
+## Verbatim formatter export
+
+```text
+## Gate Summary
+
+**104 PASS** / **42 WARN** / **1 FAIL**
+
+  FAIL pipeline_preflight: 13 checks; 9 warnings
+  WARN quantitative_authority: Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only.
+  WARN headspace_scope: Headspace/OAV is an active-concentrate screening model; the finished ethanol-water-solvent matrix is omitted.
+  WARN natural_composite_coverage: Partial literature constituent models have unresolved odor contributions; full quantitative evaluability is not established. Cypress EO: 69.2% nominal input coverage
+  WARN odt_coverage: 15 material(s) rely on derived/unverified ODTs (100% OAV share)
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 31.9% active mass across 3 materials
+  WARN oav_overdose_blocker: High modeled OAV screening signal: Grapefruit FCF oil Sicilian=43492, Iso E Super=14011, Juniper Berry EO=137252; validate by controlled dilution/omission trials
+  WARN odt_sanity: 2 materials with suspect ODT values: Coriander Seed EO=None, Grapefruit FCF oil Sicilian=None; 2 unresolved cross-source ODT conflicts
+  WARN vp_cross_source: 2 materials with VP=None or 0: Coriander Seed EO, Grapefruit FCF oil Sicilian; 18 materials use inferred enthalpy for VP at 305.00 K; 4 unresolved cross-source VP conflicts
+  WARN odt_completeness: 2 material(s) lack ODT data; 22% OAV share affected
+  WARN safety_ifra_allergen: 12 materials lack explicit IFRA Cat4 limits; 1 EU allergen declarations
+  WARN safety_phototoxic: Grapefruit FCF oil Sicilian: 6.56% > IFRA max 2.0% (bergaptene 0.5 ppm)
+  WARN safety_receptor_saturation: Cedarwood Virginia 2.1% > 2% cap (OR10J5 + cedrol sedative)
+  WARN oav_physics_gamma: 18/18 materials use predictive, heuristic, fallback, or unknown gamma authority; largest gamma=1 comparison leverage Clearwood=1.8x
+  WARN verify_protocol_aggregate: Verification protocol active -- 2/18 materials missing ODT data
+  WARN solvent_matrix: stock-carrier authority PARTIAL_UNRESOLVED; known named carriers {'DPG': 225.0}; unresolved carrier proxy 300.0 uL; 1 named carrier row(s) lack a v/v basis
+  WARN perfumer_logic: woody.vetiver_classical; rerun optimizer: citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100; not_aromatic_fougere: 15.370% active above 4.000 [advisory guideline; not release-blocking]
+  WARN family_drift_detector: woody.vetiver_classical; citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100 [advisory guideline; not release-blocking]
+  WARN novelty_vs_reference: reference/control archetype; familiar by design, not the new exploration target
+  WARN perfume_knowledge: Pyramid off-target: Expected T:15% H:30% B:55%, Actual T:3.3% H:61.7% B:35.0%; top OAV off-target for family woody; heart OAV off-target for family woody
+  WARN carles_pyramid: Carles pyramid: empty windows = 3h_top_heart (need >2% active in each of 5 windows)
+  WARN carles_accord_ratio: Exact active-mass ppm is unavailable; pairwise dose ratios were not evaluated.
+  WARN literature_compliance: Literature compliance: 3/5 principles passed (60%)
+  WARN edge_cases: Musk coverage: 100%, gaps: 1, formula VP factor x1.54-2.65 (median x1.89, T=305.00K vs 298.15K, n=18)
+  WARN family_hedonic: Family 'woody.vetiver_classical' has 0 legacy pitfalls and 0 tips quarantined pending validation
+  WARN somatosensory: 0 candidate chemesthetic materials detected; formula-level effects require exposure and human validation
+  WARN stevens_n_efficiency: Exact active-mass ppm is unavailable; dose-efficiency comparison not evaluated.
+  WARN jnd_redundancy: Potentially redundant pairs: vetival vs vetiver eo in woody (OAV 358/310)
+  WARN guerlain_nature_synthetic: Natural OAV = 91% -- batch inconsistency risk
+  WARN jellinek_psychology: Jellinek categories weak: erogenic, narcotic, stimulating
+  WARN coty_single_material_limit: Exact active-mass ppm is unavailable; single-material limit not evaluated.
+  WARN roudnitska_hedione_pct: Exact active-mass ppm is unavailable; Hedione percentage heuristic not evaluated.
+  WARN adaptation_timing: fast tier < 5% (no immediate impact); slow tier < 10% (poor longevity)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 89%) -- collapse risk
+  WARN oav_intelligence: iso e super OAV 14011.2 is above woody_amber target 40.0-150.0; hedione OAV 4081.7 is above woody_amber target 10.0-25.0; material_class_distribution: Class distribution: fixatives:4%, florals:12%, musks:4%, woods:38%
+  WARN olfactory_fatigue: Adaptation/fatigue screening flag: iso e super=14011 (high model signal)
+  WARN evaporation_rate_balance: Pyramid imbalance: top = 3%, heart = 62%
+  WARN tenacity_projection: VP<0.01Pa = 8% (<10%, weak longevity)
+  WARN master_perfumer_gate: opening likely underbuilt
+  WARN mass_market_tier_check: Expensive captives found: Ambrox Super. At 1500 THB, these eat margin. Consider if their perceptible impact justifies the cost.
+  WARN authority_vector: Safety authority insufficient (0.00) -- unknown IFRA limits for too many materials; Identity (0.00) AND Quantity (0.00) authority both insufficient -- insufficient evidence; Identity authority insufficient (0.00). DIMENSIONS NEVER AVERAGED. [advisory guideline; not release-blocking]
+  WARN robustness_perturbation: 36 fragile perturbation(s) across 36 checks; Iso E Super up: brief grammar failure under perturbation; Iso E Super down: brief grammar failure under perturbation; Hedione up: brief grammar failure under perturbation
+  WARN confidence_minimum: combined confidence 18.1 below 25.0 after preflight evidence penalty 14.0; reference-control study remains diagnostic only
+
+## Authority Dimensions
+
+| Dimension | Status | Authority |
+|---|---|---|
+| Inventory stock | PASS | Every formula row resolves uniquely to a declared live inventory stock. |
+| Quantitative ppm w/w | UNAVAILABLE | Exact only when the full declared mass and density chain is available. |
+| Headspace/OAV | MODELED_ACTIVE_CONCENTRATE_SCREEN | HEURISTIC_NOT_MEASURED; diagnostic model, not measured odor intensity. |
+| Named reference | PASS () | No named-reference claim detected. |
+| Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | Requires blinded bench comparison; no model score supplies this authority. |
+| Combined confidence | 18.1/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
+
+## Headspace OAV -- Opening (0s)
+
+| Material | Dil | Raw uL | Act uL | MW | MF% | VP Pa | gamma | Vapor ppm | ODT ppm | OAV | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Juniper Berry EO | 100.0% | 750.00 | 750.00 | 136.200 | 22.050 | 106.070904 | 1.002 | 2417.520207 | 0.015000000 | 137252.5 | heart |
+| Grapefruit FCF oil Sicilian | 100.0% | 320.00 | 320.00 | UNKNOWN | 6.407 | UNKNOWN | 1.002 | 610.886996 | UNKNOWN | 43492.5 | heart |
+| Iso E Super | 100.0% | 850.00 | 850.00 | 234.400 | 14.521 | 0.458763 | 1.066 | 0.700562 | 0.000050000 | 14011.2 | heart |
+| Petitgrain EO Paraguay | 100.0% | 160.00 | 160.00 | 136.000 | 4.711 | 10.632758 | 1.000 | 32.723476 | 0.004000000 | 8898.2 | top |
+| Cypress EO | 100.0% | 50.00 | 50.00 | 136.000 | 1.472 | 389.382043 | 3.000 | 143.724851 | 0.200000000 | 6210.1 | heart |
+| Coriander Seed EO | 100.0% | 60.00 | 60.00 | UNKNOWN | 1.201 | UNKNOWN | 1.002 | 6.976638 | UNKNOWN | 4215.8 | heart |
+| Hedione | 100.0% | 600.00 | 600.00 | 226.300 | 10.617 | 0.193654 | 1.006 | 0.204084 | 0.000050000 | 4081.7 | heart |
+| Vetikon | 100.0% | 350.00 | 350.00 | 176.250 | 7.952 | 7.466083 | 0.850 | 4.980407 | 0.005000000 | 996.1 | base |
+| Vetival | 100.0% | 80.00 | 80.00 | 218.330 | 1.467 | 11.538134 | 1.500 | 2.506211 | 0.007000000 | 358.0 | heart |
+| Vetiver EO (India) | 100.0% | 700.00 | 700.00 | 222.400 | 12.478 | 0.084308 | 2.000 | 0.689597 | 0.005000000 | 309.9 | base |
+| Cedarwood Virginia | 100.0% | 100.00 | 100.00 | 222.370 | 1.765 | 0.011325 | 1.002 | 0.592772 | 0.015000000 | 75.7 | heart |
+| Ambrox Super | 25.0% | 400.00 | 100.00 | 236.400 | 1.694 | 0.104574 | 1.019 | 0.017818 | 0.000300000 | 59.4 | base |
+| Timberol | 100.0% | 70.00 | 70.00 | 226.400 | 1.238 | 0.138039 | 1.500 | 0.025300 | 0.000600000 | 42.2 | base |
+| Terpinyl Acetate | 100.0% | 80.00 | 80.00 | 196.300 | 1.632 | 0.778498 | 1.000 | 0.125384 | 0.035000000 | 3.6 | base |
+| Ambrettolide | 10.0% | 250.00 | 25.00 | 252.400 | 0.397 | 0.006916 | 1.500 | 0.000406 | 0.000136000 | 3.0 | base |
+| Clearwood | 100.0% | 200.00 | 200.00 | 222.400 | 3.601 | 0.004676 | 1.800 | 0.002991 | 0.010000000 | 0.3 | base |
+| Benzyl Benzoate | 100.0% | 200.00 | 200.00 | 212.200 | 3.774 | 0.063576 | 1.002 | 0.023736 | 0.810000000 | 0.0 | heart |
+| Habanolide | 100.0% | 180.00 | 180.00 | 238.400 | 3.023 | 0.000141 | 0.850 | 0.000036 | 0.002800000 | 0.0 | base |
+
+**Materials:** 18 total (1 top, 9 heart, 8 base)
+**Total vapor:** 3221.70 ppm
+### Note Distribution
+
+**TOP:** 1 mats, 3.3% active, 4.0% OAV
+  - Petitgrain EO Paraguay       OAV=  8898.2 (very strong) VP=10.633Pa
+**HEART:** 9 mats, 61.7% active, 95.3% OAV
+  - Juniper Berry EO             OAV=137252.5 (massive) VP=106.071Pa
+  - Grapefruit FCF oil Sicilian  OAV= 43492.5 (massive) VP=0.000Pa
+  - Iso E Super                  OAV= 14011.2 (massive) VP=0.459Pa
+  - Cypress EO                   OAV=  6210.1 (very strong) VP=389.382Pa
+  - Coriander Seed EO            OAV=  4215.8 (very strong) VP=0.000Pa
+  - Hedione                      OAV=  4081.7 (very strong) VP=0.194Pa
+  ... and 3 more
+**BASE:** 8 mats, 35.0% active, 0.6% OAV
+  - Vetikon                      OAV=   996.1 (strong) VP=7.466Pa
+  - Vetiver EO (India)           OAV=   309.9 (strong) VP=0.084Pa
+  - Ambrox Super                 OAV=    59.4 (moderate-strong) VP=0.105Pa
+  - Timberol                     OAV=    42.2 (moderate) VP=0.138Pa
+  - Terpinyl Acetate             OAV=     3.6 (at threshold) VP=0.778Pa
+  - Ambrettolide                 OAV=     3.0 (at threshold) VP=0.007Pa
+  ... and 2 more
+### OAV by Odor Family
+
+                ?  84.1% ==========================================  (5 mats)
+            woody   7.1% ===  (6 mats)
+           citrus   4.0% ==  (1 mats)
+          conifer   2.8% =  (1 mats)
+           floral   1.9% =  (1 mats)
+            amber   0.0% =  (1 mats)
+         aromatic   0.0% =  (1 mats)
+             musk   0.0% =  (2 mats)
+### Sub-threshold Materials (OAV < 1)
+3/18 materials below perceptible threshold
+  - Benzyl Benzoate: OAV=0.03 VP=0.064Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Clearwood: OAV=0.30 VP=0.005Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Habanolide: OAV=0.01 VP=0.000Pa act=180uL role=fixative [STRUCTURAL_OR_FIXATIVE]
+### High-OAV Flags (>5000)
+  - Cypress EO OAV=6210 dominates headspace -- may mask subtler notes
+  - Grapefruit FCF oil Sicilian OAV=43493 dominates headspace -- may mask subtler notes
+  - Iso E Super OAV=14011 dominates headspace -- may mask subtler notes
+  - Juniper Berry EO OAV=137253 dominates headspace -- may mask subtler notes
+  - Petitgrain EO Paraguay OAV=8898 dominates headspace -- may mask subtler notes
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Remain idx | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s |  3.3/61.7/35.0 | 3221.70ppm |  100.0% | Juniper Berr(137253), Grapefruit F(43493), Iso E Super(14011)
+| top          |    300s |  3.5/57.9/38.6 | 2194.45ppm |   91.4% | Juniper Berr(89283), Grapefruit F(33242), Iso E Super(15969)
+| heart        |   1800s |  3.4/51.4/45.2 | 254.34ppm |   79.2% | Iso E Super(19798), Petitgrain E(10447), Juniper Berr(6234)
+| late_heart   |   7200s |  1.8/51.4/46.8 |  40.78ppm |   76.1% | Iso E Super(20962), Hedione(6207), Petitgrain E(5696)
+| drydown      |  14400s |  0.8/51.9/47.4 |  25.58ppm |   74.3% | Iso E Super(21619), Hedione(6427), Petitgrain E(2425)
+
+Temporal authority: HEURISTIC_UNCALIBRATED; model=dynamic_headspace_exponential_loss_v2; remaining index is not measured evaporation.
+
+### Per-Window Detail
+
+**OPENING** (0.0s) -- Uncalibrated loss index:0%
+  T:3.3% H:61.7% B:35.0%  Vapor:3221.70ppm
+  Leaders: Juniper Berry EO OAV 137253 | Grapefruit FCF oil Sicilian OAV 43493 | Iso E Super OAV 14011 | Petitgrain EO Paraguay OAV 8898 | Cypress EO OAV 6210
+
+**TOP** (300.0s) -- Uncalibrated loss index:9%
+  T:3.5% H:57.9% B:38.6%  Vapor:2194.45ppm
+  Leaders: Juniper Berry EO OAV 89283 | Grapefruit FCF oil Sicilian OAV 33242 | Iso E Super OAV 15969 | Petitgrain EO Paraguay OAV 9882 | Coriander Seed EO OAV 4735
+
+**HEART** (1800.0s) -- Uncalibrated loss index:21%
+  T:3.4% H:51.4% B:45.2%  Vapor:254.34ppm
+  Leaders: Iso E Super OAV 19798 | Petitgrain EO Paraguay OAV 10447 | Juniper Berry EO OAV 6234 | Hedione OAV 5837 | Coriander Seed EO OAV 5300
+
+**LATE_HEART** (7200.0s) -- Uncalibrated loss index:24%
+  T:1.8% H:51.4% B:46.8%  Vapor:40.78ppm
+  Leaders: Iso E Super OAV 20962 | Hedione OAV 6207 | Petitgrain EO Paraguay OAV 5696 | Coriander Seed EO OAV 3556 | Vetikon OAV 1414
+
+**DRYDOWN** (14400.0s) -- Uncalibrated loss index:26%
+  T:0.8% H:51.9% B:47.4%  Vapor:25.58ppm
+  Leaders: Iso E Super OAV 21619 | Hedione OAV 6427 | Petitgrain EO Paraguay OAV 2425 | Coriander Seed EO OAV 1994 | Vetikon OAV 1369
+## Structural OAV Analysis
+
+**Vapor:** 3222 ppm  |  **Active:** 16.2%  |  **Perceptible:** 15/18  |  **Unknown:** 0
+
+### OAV Tiers
+  **massive** (7): Coriander Seed EO(4216), Cypress EO(6210), Grapefruit FCF oil Sicilian(43493), Hedione(4082), Iso E Super(14011), Juniper Berry EO(137253), Petitgrain EO Paraguay(8898)  ! fatigue risk, overload risk
+  **v.strong** (3): Vetikon(996), Vetival(358), Vetiver EO (India)(310)
+  **strong** (2): Ambrox Super(59), Cedarwood Virginia(76)
+  **moderate** (1): Timberol(42)
+  **threshold** (2): Ambrettolide(3), Terpinyl Acetate(4)
+  **sub** (3): Benzyl Benzoate(0), Clearwood(0), Habanolide(0)
+
+### Block Balance
+  **Citrus**     8898 (4%)
+  **Floral**   209698 (95%)
+  **Base**       1414 (1%)
+  **Ratio:** 148:1 between strongest/weakest block
+
+### Issues
+  ! 3 sub-threshold material(s): Benzyl Benzoate, Clearwood, Habanolide
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Petitgrain EO Paraguay(very strong)
+  Heart: Juniper Berry EO(massive) + Grapefruit FCF oil Sicilian(massive)
+  Base: Vetikon(strong) + Vetiver EO (India)(strong) + Ambrox Super(moderate-strong) + Timberol(moderate) + Terpinyl Acetate(at threshold)
+
+### 2. Opening (0-5min)
+  Petitgrain EO Paraguay leads the reported top at OAV 8898 (very strong).
+  - Petitgrain EO Paraguay OAV=8898 VP=10.6Pa (citrus)
+  Total vapor: 3221.7 ppm
+
+### 3. Heart (30min-2hr)
+  Iso E Super OAV=19798 (massive)
+  Petitgrain EO Paraguay OAV=10447 (massive)
+  Juniper Berry EO OAV=6234 (very strong)
+  Hedione OAV=5837 (very strong)
+  T:3.4% H:51.4% B:45.2%
+  Vapor: 254.3 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base share of active note distribution: 47%
+  - Iso E Super OAV=21619
+  - Hedione OAV=6427
+  - Petitgrain EO Paraguay OAV=2425
+  - Coriander Seed EO OAV=1994
+  - Vetikon OAV=1369
+  - Vetiver EO (India) OAV=493
+  Vapor: 25.6 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Juniper Berry EO(137253) + Grapefruit FCF oil Sicilian(43493) + Iso E Super(14011) + Petitgrain EO Paraguay(8898)
+  OAV by family: None84% woody7% citrus4% conifer3%
+
+### 6. Longevity
+  Uncalibrated loss index: 26% over modeled window
+  Vapor: 3221.7 > 25.6 ppm
+  Base @ drydown: 47%
+  Absolute skin life: unavailable; calibrated finite-film, vehicle, skin-absorption, and sensory data are required
+
+### 7. Balance
+  Pyramid: T:3.3% H:61.7% B:35.0%
+  OAV range: 0.01 to 137253 (sigma-log=2.08)
+  Wide OAV contrast: Juniper Berry EO leads at OAV 137253; lower-OAV materials may be masked.
+    massive: 3
+    sub-threshold: 3
+
+### 8. Flags
+  SUB: Clearwood OAV=0.30 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Benzyl Benzoate OAV=0.03 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Habanolide OAV=0.01 role=fixative class=STRUCTURAL_OR_FIXATIVE
+
+```
+
+
+<!-- WARNING_RETEST_MATRIX_START -->
+## Warning Retest Pipeline Analyses — 2026-09-09
+
+The v4 formula definition and all doses are unchanged. These eight scenario analyses retest temperature, nominal finished-volume context, policy severity, and brief control. The adjudication report is output/gin_vetiver_cypress_air_v4_warning_retest_20260909/warning_retest_report.md.
+
+### Cool 298.15 K / 18% / development
+
+<!-- scenario-id: cool_298_15k_18pct_development; formatter-sha256: 2ed6be258a287feafd7f062c43b1e7f541438132b1fd61d33fa9ca7bd5c47c54 -->
+```text
+## Gate Summary
+
+**106 PASS** / **40 WARN** / **1 FAIL**
+
+  FAIL pipeline_preflight: 13 checks; 9 warnings
+  WARN quantitative_authority: Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only.
+  WARN headspace_scope: Headspace/OAV is an active-concentrate screening model; the finished ethanol-water-solvent matrix is omitted.
+  WARN natural_composite_coverage: Partial literature constituent models have unresolved odor contributions; full quantitative evaluability is not established. Cypress EO: 69.2% nominal input coverage
+  WARN odt_coverage: 15 material(s) rely on derived/unverified ODTs (100% OAV share)
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 31.9% active mass across 3 materials
+  WARN oav_overdose_blocker: High modeled OAV screening signal: Grapefruit FCF oil Sicilian=27851, Juniper Berry EO=89333; validate by controlled dilution/omission trials
+  WARN odt_sanity: 2 materials with suspect ODT values: Coriander Seed EO=None, Grapefruit FCF oil Sicilian=None; 2 unresolved cross-source ODT conflicts
+  WARN vp_cross_source: 2 materials with VP=None or 0: Coriander Seed EO, Grapefruit FCF oil Sicilian; 7 materials use inferred enthalpy for VP at 298.15 K; 4 unresolved cross-source VP conflicts
+  WARN odt_completeness: 2 material(s) lack ODT data; 22% OAV share affected
+  WARN safety_ifra_allergen: 12 materials lack explicit IFRA Cat4 limits; 1 EU allergen declarations
+  WARN safety_phototoxic: Grapefruit FCF oil Sicilian: 6.56% > IFRA max 2.0% (bergaptene 0.5 ppm)
+  WARN safety_receptor_saturation: Cedarwood Virginia 2.1% > 2% cap (OR10J5 + cedrol sedative)
+  WARN oav_physics_gamma: 18/18 materials use predictive, heuristic, fallback, or unknown gamma authority; largest gamma=1 comparison leverage Clearwood=1.8x
+  WARN verify_protocol_aggregate: Verification protocol active -- 2/18 materials missing ODT data
+  WARN solvent_matrix: stock-carrier authority PARTIAL_UNRESOLVED; known named carriers {'DPG': 225.0}; unresolved carrier proxy 300.0 uL; 1 named carrier row(s) lack a v/v basis
+  WARN perfumer_logic: woody.vetiver_classical; rerun optimizer: citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100; not_aromatic_fougere: 15.370% active above 4.000 [advisory guideline; not release-blocking]
+  WARN family_drift_detector: woody.vetiver_classical; citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100 [advisory guideline; not release-blocking]
+  WARN novelty_vs_reference: reference/control archetype; familiar by design, not the new exploration target
+  WARN perfume_knowledge: Pyramid off-target: Expected T:15% H:30% B:55%, Actual T:3.3% H:61.7% B:35.0%; top OAV off-target for family woody; heart OAV off-target for family woody
+  WARN carles_pyramid: Carles pyramid: empty windows = 3h_top_heart (need >2% active in each of 5 windows)
+  WARN carles_accord_ratio: Exact active-mass ppm is unavailable; pairwise dose ratios were not evaluated.
+  WARN literature_compliance: Literature compliance: 3/5 principles passed (60%)
+  WARN edge_cases: Musk coverage: 100%, gaps: 1, formula VP factor x1.00-1.00 (median x1.00, T=298.15K vs 298.15K, n=18)
+  WARN family_hedonic: Family 'woody.vetiver_classical' has 0 legacy pitfalls and 0 tips quarantined pending validation
+  WARN somatosensory: 0 candidate chemesthetic materials detected; formula-level effects require exposure and human validation
+  WARN stevens_n_efficiency: Exact active-mass ppm is unavailable; dose-efficiency comparison not evaluated.
+  WARN guerlain_nature_synthetic: Natural OAV = 93% -- batch inconsistency risk
+  WARN jellinek_psychology: Jellinek categories weak: erogenic, narcotic, stimulating
+  WARN coty_single_material_limit: Exact active-mass ppm is unavailable; single-material limit not evaluated.
+  WARN roudnitska_hedione_pct: Exact active-mass ppm is unavailable; Hedione percentage heuristic not evaluated.
+  WARN adaptation_timing: fast tier < 5% (no immediate impact); slow tier < 10% (poor longevity)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 91%) -- collapse risk
+  WARN oav_intelligence: iso e super OAV 7074.2 is above woody_amber target 40.0-150.0; hedione OAV 1995.4 is above woody_amber target 10.0-25.0; material_class_distribution: Class distribution: fixatives:4%, florals:12%, musks:4%, woods:38%
+  WARN olfactory_fatigue: Olfactory fatigue risk: iso e super=7074 (limit 5000)
+  WARN evaporation_rate_balance: Pyramid imbalance: top = 3%, heart = 62%
+  WARN master_perfumer_gate: opening likely underbuilt
+  WARN mass_market_tier_check: Expensive captives found: Ambrox Super. At 1500 THB, these eat margin. Consider if their perceptible impact justifies the cost.
+  WARN authority_vector: Safety authority insufficient (0.00) -- unknown IFRA limits for too many materials; Identity (0.00) AND Quantity (0.00) authority both insufficient -- insufficient evidence; Identity authority insufficient (0.00). DIMENSIONS NEVER AVERAGED. [advisory guideline; not release-blocking]
+  WARN robustness_perturbation: 36 fragile perturbation(s) across 36 checks; Iso E Super up: brief grammar failure under perturbation; Iso E Super down: brief grammar failure under perturbation; Hedione up: brief grammar failure under perturbation
+  WARN confidence_minimum: combined confidence 18.1 below 25.0 after preflight evidence penalty 14.0; reference-control study remains diagnostic only
+
+## Authority Dimensions
+
+| Dimension | Status | Authority |
+|---|---|---|
+| Inventory stock | PASS | Every formula row resolves uniquely to a declared live inventory stock. |
+| Quantitative ppm w/w | UNAVAILABLE | Exact only when the full declared mass and density chain is available. |
+| Headspace/OAV | MODELED_ACTIVE_CONCENTRATE_SCREEN | HEURISTIC_NOT_MEASURED; diagnostic model, not measured odor intensity. |
+| Named reference | PASS () | No named-reference claim detected. |
+| Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | Requires blinded bench comparison; no model score supplies this authority. |
+| Combined confidence | 18.1/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
+
+## Headspace OAV -- Opening (0s)
+
+| Material | Dil | Raw uL | Act uL | MW | MF% | VP Pa | gamma | Vapor ppm | ODT ppm | OAV | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Juniper Berry EO | 100.0% | 750.00 | 750.00 | 136.200 | 22.050 | 65.000000 | 1.002 | 1571.758640 | 0.015000000 | 89333.0 | heart |
+| Grapefruit FCF oil Sicilian | 100.0% | 320.00 | 320.00 | UNKNOWN | 6.407 | UNKNOWN | 1.002 | 389.994478 | UNKNOWN | 27851.8 | heart |
+| Iso E Super | 100.0% | 850.00 | 850.00 | 234.400 | 14.521 | 0.231290 | 1.067 | 0.353712 | 0.000050000 | 7074.2 | heart |
+| Petitgrain EO Paraguay | 100.0% | 160.00 | 160.00 | 136.000 | 4.711 | 6.000000 | 1.000 | 20.294158 | 0.004000000 | 5282.1 | top |
+| Cypress EO | 100.0% | 50.00 | 50.00 | 136.000 | 1.472 | 250.000000 | 3.000 | 93.198790 | 0.200000000 | 4038.0 | heart |
+| Coriander Seed EO | 100.0% | 60.00 | 60.00 | UNKNOWN | 1.201 | UNKNOWN | 1.002 | 4.104321 | UNKNOWN | 2484.6 | heart |
+| Hedione | 100.0% | 600.00 | 600.00 | 226.300 | 10.617 | 0.094660 | 1.006 | 0.099772 | 0.000050000 | 1995.4 | heart |
+| Vetikon | 100.0% | 350.00 | 350.00 | 176.250 | 7.952 | 4.160000 | 0.850 | 2.775016 | 0.005000000 | 555.0 | base |
+| Vetival | 100.0% | 80.00 | 80.00 | 218.330 | 1.467 | 6.530000 | 1.500 | 1.418389 | 0.007000000 | 202.6 | heart |
+| Vetiver EO (India) | 100.0% | 700.00 | 700.00 | 222.400 | 12.478 | 0.040000 | 2.000 | 0.379396 | 0.005000000 | 151.3 | base |
+| Cedarwood Virginia | 100.0% | 100.00 | 100.00 | 222.370 | 1.765 | 0.005000 | 1.002 | 0.324900 | 0.015000000 | 41.4 | heart |
+| Ambrox Super | 25.0% | 400.00 | 100.00 | 236.400 | 1.694 | 0.050000 | 1.020 | 0.008523 | 0.000300000 | 28.4 | base |
+| Timberol | 100.0% | 70.00 | 70.00 | 226.400 | 1.238 | 0.066661 | 1.500 | 0.012218 | 0.000600000 | 20.4 | base |
+| Terpinyl Acetate | 100.0% | 80.00 | 80.00 | 196.300 | 1.632 | 0.400000 | 1.000 | 0.064423 | 0.035000000 | 1.8 | base |
+| Ambrettolide | 10.0% | 250.00 | 25.00 | 252.400 | 0.397 | 0.003000 | 1.500 | 0.000176 | 0.000136000 | 1.3 | base |
+| Clearwood | 100.0% | 200.00 | 200.00 | 222.400 | 3.601 | 0.002000 | 1.800 | 0.001279 | 0.010000000 | 0.1 | base |
+| Benzyl Benzoate | 100.0% | 200.00 | 200.00 | 212.200 | 3.774 | 0.029860 | 1.002 | 0.011149 | 0.810000000 | 0.0 | heart |
+| Habanolide | 100.0% | 180.00 | 180.00 | 238.400 | 3.023 | 0.000053 | 0.850 | 0.000013 | 0.002800000 | 0.0 | base |
+
+**Materials:** 18 total (1 top, 9 heart, 8 base)
+**Total vapor:** 2084.80 ppm
+### Note Distribution
+
+**TOP:** 1 mats, 3.3% active, 3.8% OAV
+  - Petitgrain EO Paraguay       OAV=  5282.1 (very strong) VP=6.000Pa
+**HEART:** 9 mats, 61.7% active, 95.7% OAV
+  - Juniper Berry EO             OAV= 89333.0 (massive) VP=65.000Pa
+  - Grapefruit FCF oil Sicilian  OAV= 27851.8 (massive) VP=0.000Pa
+  - Iso E Super                  OAV=  7074.2 (very strong) VP=0.231Pa
+  - Cypress EO                   OAV=  4038.0 (very strong) VP=250.000Pa
+  - Coriander Seed EO            OAV=  2484.6 (very strong) VP=0.000Pa
+  - Hedione                      OAV=  1995.4 (very strong) VP=0.095Pa
+  ... and 3 more
+**BASE:** 8 mats, 35.0% active, 0.5% OAV
+  - Vetikon                      OAV=   555.0 (strong) VP=4.160Pa
+  - Vetiver EO (India)           OAV=   151.3 (strong) VP=0.040Pa
+  - Ambrox Super                 OAV=    28.4 (moderate) VP=0.050Pa
+  - Timberol                     OAV=    20.4 (moderate) VP=0.067Pa
+  - Terpinyl Acetate             OAV=     1.8 (at threshold) VP=0.400Pa
+  - Ambrettolide                 OAV=     1.3 (at threshold) VP=0.003Pa
+  ... and 2 more
+### OAV by Odor Family
+
+                ?  86.1% ===========================================  (5 mats)
+            woody   5.8% ==  (6 mats)
+           citrus   3.8% =  (1 mats)
+          conifer   2.9% =  (1 mats)
+           floral   1.4% =  (1 mats)
+            amber   0.0% =  (1 mats)
+         aromatic   0.0% =  (1 mats)
+             musk   0.0% =  (2 mats)
+### Sub-threshold Materials (OAV < 1)
+3/18 materials below perceptible threshold
+  - Benzyl Benzoate: OAV=0.01 VP=0.030Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Clearwood: OAV=0.13 VP=0.002Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Habanolide: OAV=0.00 VP=0.000Pa act=180uL role=fixative [STRUCTURAL_OR_FIXATIVE]
+### High-OAV Flags (>5000)
+  - Grapefruit FCF oil Sicilian OAV=27852 dominates headspace -- may mask subtler notes
+  - Iso E Super OAV=7074 dominates headspace -- may mask subtler notes
+  - Juniper Berry EO OAV=89333 dominates headspace -- may mask subtler notes
+  - Petitgrain EO Paraguay OAV=5282 dominates headspace -- may mask subtler notes
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Remain idx | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s |  3.3/61.7/35.0 | 2084.80ppm |  100.0% | Juniper Berr(89333), Grapefruit F(27852), Iso E Super(7074)
+| top          |    300s |  3.4/59.1/37.5 | 1632.01ppm |   94.0% | Juniper Berr(67919), Grapefruit F(23629), Iso E Super(7744)
+| heart        |   1800s |  3.6/52.5/43.9 | 397.91ppm |   81.5% | Juniper Berr(13151), Iso E Super(9592), Grapefruit F(7967)
+| late_heart   |   7200s |  2.5/51.1/46.4 |  31.29ppm |   77.2% | Iso E Super(10388), Petitgrain E(4649), Hedione(2973)
+| drydown      |  14400s |  1.5/51.5/47.0 |  21.35ppm |   75.7% | Iso E Super(10665), Hedione(3060), Petitgrain E(2750)
+
+Temporal authority: HEURISTIC_UNCALIBRATED; model=dynamic_headspace_exponential_loss_v2; remaining index is not measured evaporation.
+
+### Per-Window Detail
+
+**OPENING** (0.0s) -- Uncalibrated loss index:0%
+  T:3.3% H:61.7% B:35.0%  Vapor:2084.80ppm
+  Leaders: Juniper Berry EO OAV 89333 | Grapefruit FCF oil Sicilian OAV 27852 | Iso E Super OAV 7074 | Petitgrain EO Paraguay OAV 5282 | Cypress EO OAV 4038
+
+**TOP** (300.0s) -- Uncalibrated loss index:6%
+  T:3.4% H:59.1% B:37.5%  Vapor:1632.01ppm
+  Leaders: Juniper Berry EO OAV 67919 | Grapefruit FCF oil Sicilian OAV 23629 | Iso E Super OAV 7744 | Petitgrain EO Paraguay OAV 5692 | Cypress EO OAV 3200
+
+**HEART** (1800.0s) -- Uncalibrated loss index:19%
+  T:3.6% H:52.5% B:43.9%  Vapor:397.91ppm
+  Leaders: Juniper Berry EO OAV 13151 | Iso E Super OAV 9592 | Grapefruit FCF oil Sicilian OAV 7967 | Petitgrain EO Paraguay OAV 6436 | Coriander Seed EO OAV 3173
+
+**LATE_HEART** (7200.0s) -- Uncalibrated loss index:23%
+  T:2.5% H:51.1% B:46.4%  Vapor:31.29ppm
+  Leaders: Iso E Super OAV 10388 | Petitgrain EO Paraguay OAV 4649 | Hedione OAV 2973 | Coriander Seed EO OAV 2645 | Vetikon OAV 795
+
+**DRYDOWN** (14400.0s) -- Uncalibrated loss index:24%
+  T:1.5% H:51.5% B:47.0%  Vapor:21.35ppm
+  Leaders: Iso E Super OAV 10665 | Hedione OAV 3060 | Petitgrain EO Paraguay OAV 2750 | Coriander Seed EO OAV 1894 | Vetikon OAV 788
+## Structural OAV Analysis
+
+**Vapor:** 2085 ppm  |  **Active:** 16.2%  |  **Perceptible:** 15/18  |  **Unknown:** 0
+
+### OAV Tiers
+  **massive** (7): Coriander Seed EO(2485), Cypress EO(4038), Grapefruit FCF oil Sicilian(27852), Hedione(1995), Iso E Super(7074), Juniper Berry EO(89333), Petitgrain EO Paraguay(5282)  ! fatigue risk, overload risk
+  **v.strong** (3): Vetikon(555), Vetival(203), Vetiver EO (India)(151)
+  **moderate** (3): Ambrox Super(28), Cedarwood Virginia(41), Timberol(20)
+  **threshold** (2): Ambrettolide(1), Terpinyl Acetate(2)
+  **sub** (3): Benzyl Benzoate(0), Clearwood(0), Habanolide(0)
+
+### Block Balance
+  **Citrus**     5282 (4%)
+  **Floral**   133021 (96%)
+  **Base**        758 (1%)
+  **Ratio:** 175:1 between strongest/weakest block
+
+### Issues
+  ! 3 sub-threshold material(s): Benzyl Benzoate, Clearwood, Habanolide
+  ! Missing 'strong' tier (OAV 50-100)
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Petitgrain EO Paraguay(very strong)
+  Heart: Juniper Berry EO(massive) + Grapefruit FCF oil Sicilian(massive)
+  Base: Vetikon(strong) + Vetiver EO (India)(strong) + Ambrox Super(moderate) + Timberol(moderate) + Terpinyl Acetate(at threshold)
+
+### 2. Opening (0-5min)
+  Petitgrain EO Paraguay leads the reported top at OAV 5282 (very strong).
+  - Petitgrain EO Paraguay OAV=5282 VP=6.0Pa (citrus)
+  Total vapor: 2084.8 ppm
+
+### 3. Heart (30min-2hr)
+  Juniper Berry EO OAV=13151 (massive)
+  Iso E Super OAV=9592 (very strong)
+  Grapefruit FCF oil Sicilian OAV=7967 (very strong)
+  Petitgrain EO Paraguay OAV=6436 (very strong)
+  T:3.6% H:52.5% B:43.9%
+  Vapor: 397.9 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base share of active note distribution: 47%
+  - Iso E Super OAV=10665
+  - Hedione OAV=3060
+  - Petitgrain EO Paraguay OAV=2750
+  - Coriander Seed EO OAV=1894
+  - Vetikon OAV=788
+  - Vetival OAV=257
+  Vapor: 21.4 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Juniper Berry EO(89333) + Grapefruit FCF oil Sicilian(27852) + Iso E Super(7074) + Petitgrain EO Paraguay(5282)
+  OAV by family: None86% woody6% citrus4% conifer3%
+
+### 6. Longevity
+  Uncalibrated loss index: 24% over modeled window
+  Vapor: 2084.8 > 21.4 ppm
+  Base @ drydown: 47%
+  Absolute skin life: unavailable; calibrated finite-film, vehicle, skin-absorption, and sensory data are required
+
+### 7. Balance
+  Pyramid: T:3.3% H:61.7% B:35.0%
+  OAV range: 0.00 to 89333 (sigma-log=2.13)
+  Wide OAV contrast: Juniper Berry EO leads at OAV 89333; lower-OAV materials may be masked.
+    massive: 2
+    sub-threshold: 3
+
+### 8. Flags
+  SUB: Clearwood OAV=0.13 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Benzyl Benzoate OAV=0.01 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Habanolide OAV=0.00 role=fixative class=STRUCTURAL_OR_FIXATIVE
+```
+
+### Baseline 305 K / 18% / development
+
+<!-- scenario-id: baseline_305k_18pct_development; formatter-sha256: e8fcaabfc8dcf98b4ac4a520bf6ebe9a61aea0658e33b09a9f46b2c4d12a6b73 -->
+```text
+## Gate Summary
+
+**104 PASS** / **42 WARN** / **1 FAIL**
+
+  FAIL pipeline_preflight: 13 checks; 9 warnings
+  WARN quantitative_authority: Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only.
+  WARN headspace_scope: Headspace/OAV is an active-concentrate screening model; the finished ethanol-water-solvent matrix is omitted.
+  WARN natural_composite_coverage: Partial literature constituent models have unresolved odor contributions; full quantitative evaluability is not established. Cypress EO: 69.2% nominal input coverage
+  WARN odt_coverage: 15 material(s) rely on derived/unverified ODTs (100% OAV share)
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 31.9% active mass across 3 materials
+  WARN oav_overdose_blocker: High modeled OAV screening signal: Grapefruit FCF oil Sicilian=43492, Iso E Super=14011, Juniper Berry EO=137252; validate by controlled dilution/omission trials
+  WARN odt_sanity: 2 materials with suspect ODT values: Coriander Seed EO=None, Grapefruit FCF oil Sicilian=None; 2 unresolved cross-source ODT conflicts
+  WARN vp_cross_source: 2 materials with VP=None or 0: Coriander Seed EO, Grapefruit FCF oil Sicilian; 18 materials use inferred enthalpy for VP at 305.00 K; 4 unresolved cross-source VP conflicts
+  WARN odt_completeness: 2 material(s) lack ODT data; 22% OAV share affected
+  WARN safety_ifra_allergen: 12 materials lack explicit IFRA Cat4 limits; 1 EU allergen declarations
+  WARN safety_phototoxic: Grapefruit FCF oil Sicilian: 6.56% > IFRA max 2.0% (bergaptene 0.5 ppm)
+  WARN safety_receptor_saturation: Cedarwood Virginia 2.1% > 2% cap (OR10J5 + cedrol sedative)
+  WARN oav_physics_gamma: 18/18 materials use predictive, heuristic, fallback, or unknown gamma authority; largest gamma=1 comparison leverage Clearwood=1.8x
+  WARN verify_protocol_aggregate: Verification protocol active -- 2/18 materials missing ODT data
+  WARN solvent_matrix: stock-carrier authority PARTIAL_UNRESOLVED; known named carriers {'DPG': 225.0}; unresolved carrier proxy 300.0 uL; 1 named carrier row(s) lack a v/v basis
+  WARN perfumer_logic: woody.vetiver_classical; rerun optimizer: citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100; not_aromatic_fougere: 15.370% active above 4.000 [advisory guideline; not release-blocking]
+  WARN family_drift_detector: woody.vetiver_classical; citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100 [advisory guideline; not release-blocking]
+  WARN novelty_vs_reference: reference/control archetype; familiar by design, not the new exploration target
+  WARN perfume_knowledge: Pyramid off-target: Expected T:15% H:30% B:55%, Actual T:3.3% H:61.7% B:35.0%; top OAV off-target for family woody; heart OAV off-target for family woody
+  WARN carles_pyramid: Carles pyramid: empty windows = 3h_top_heart (need >2% active in each of 5 windows)
+  WARN carles_accord_ratio: Exact active-mass ppm is unavailable; pairwise dose ratios were not evaluated.
+  WARN literature_compliance: Literature compliance: 3/5 principles passed (60%)
+  WARN edge_cases: Musk coverage: 100%, gaps: 1, formula VP factor x1.54-2.65 (median x1.89, T=305.00K vs 298.15K, n=18)
+  WARN family_hedonic: Family 'woody.vetiver_classical' has 0 legacy pitfalls and 0 tips quarantined pending validation
+  WARN somatosensory: 0 candidate chemesthetic materials detected; formula-level effects require exposure and human validation
+  WARN stevens_n_efficiency: Exact active-mass ppm is unavailable; dose-efficiency comparison not evaluated.
+  WARN jnd_redundancy: Potentially redundant pairs: vetival vs vetiver eo in woody (OAV 358/310)
+  WARN guerlain_nature_synthetic: Natural OAV = 91% -- batch inconsistency risk
+  WARN jellinek_psychology: Jellinek categories weak: erogenic, narcotic, stimulating
+  WARN coty_single_material_limit: Exact active-mass ppm is unavailable; single-material limit not evaluated.
+  WARN roudnitska_hedione_pct: Exact active-mass ppm is unavailable; Hedione percentage heuristic not evaluated.
+  WARN adaptation_timing: fast tier < 5% (no immediate impact); slow tier < 10% (poor longevity)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 89%) -- collapse risk
+  WARN oav_intelligence: iso e super OAV 14011.2 is above woody_amber target 40.0-150.0; hedione OAV 4081.7 is above woody_amber target 10.0-25.0; material_class_distribution: Class distribution: fixatives:4%, florals:12%, musks:4%, woods:38%
+  WARN olfactory_fatigue: Adaptation/fatigue screening flag: iso e super=14011 (high model signal)
+  WARN evaporation_rate_balance: Pyramid imbalance: top = 3%, heart = 62%
+  WARN tenacity_projection: VP<0.01Pa = 8% (<10%, weak longevity)
+  WARN master_perfumer_gate: opening likely underbuilt
+  WARN mass_market_tier_check: Expensive captives found: Ambrox Super. At 1500 THB, these eat margin. Consider if their perceptible impact justifies the cost.
+  WARN authority_vector: Safety authority insufficient (0.00) -- unknown IFRA limits for too many materials; Identity (0.00) AND Quantity (0.00) authority both insufficient -- insufficient evidence; Identity authority insufficient (0.00). DIMENSIONS NEVER AVERAGED. [advisory guideline; not release-blocking]
+  WARN robustness_perturbation: 36 fragile perturbation(s) across 36 checks; Iso E Super up: brief grammar failure under perturbation; Iso E Super down: brief grammar failure under perturbation; Hedione up: brief grammar failure under perturbation
+  WARN confidence_minimum: combined confidence 18.1 below 25.0 after preflight evidence penalty 14.0; reference-control study remains diagnostic only
+
+## Authority Dimensions
+
+| Dimension | Status | Authority |
+|---|---|---|
+| Inventory stock | PASS | Every formula row resolves uniquely to a declared live inventory stock. |
+| Quantitative ppm w/w | UNAVAILABLE | Exact only when the full declared mass and density chain is available. |
+| Headspace/OAV | MODELED_ACTIVE_CONCENTRATE_SCREEN | HEURISTIC_NOT_MEASURED; diagnostic model, not measured odor intensity. |
+| Named reference | PASS () | No named-reference claim detected. |
+| Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | Requires blinded bench comparison; no model score supplies this authority. |
+| Combined confidence | 18.1/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
+
+## Headspace OAV -- Opening (0s)
+
+| Material | Dil | Raw uL | Act uL | MW | MF% | VP Pa | gamma | Vapor ppm | ODT ppm | OAV | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Juniper Berry EO | 100.0% | 750.00 | 750.00 | 136.200 | 22.050 | 106.070904 | 1.002 | 2417.520207 | 0.015000000 | 137252.5 | heart |
+| Grapefruit FCF oil Sicilian | 100.0% | 320.00 | 320.00 | UNKNOWN | 6.407 | UNKNOWN | 1.002 | 610.886996 | UNKNOWN | 43492.5 | heart |
+| Iso E Super | 100.0% | 850.00 | 850.00 | 234.400 | 14.521 | 0.458763 | 1.066 | 0.700562 | 0.000050000 | 14011.2 | heart |
+| Petitgrain EO Paraguay | 100.0% | 160.00 | 160.00 | 136.000 | 4.711 | 10.632758 | 1.000 | 32.723476 | 0.004000000 | 8898.2 | top |
+| Cypress EO | 100.0% | 50.00 | 50.00 | 136.000 | 1.472 | 389.382043 | 3.000 | 143.724851 | 0.200000000 | 6210.1 | heart |
+| Coriander Seed EO | 100.0% | 60.00 | 60.00 | UNKNOWN | 1.201 | UNKNOWN | 1.002 | 6.976638 | UNKNOWN | 4215.8 | heart |
+| Hedione | 100.0% | 600.00 | 600.00 | 226.300 | 10.617 | 0.193654 | 1.006 | 0.204084 | 0.000050000 | 4081.7 | heart |
+| Vetikon | 100.0% | 350.00 | 350.00 | 176.250 | 7.952 | 7.466083 | 0.850 | 4.980407 | 0.005000000 | 996.1 | base |
+| Vetival | 100.0% | 80.00 | 80.00 | 218.330 | 1.467 | 11.538134 | 1.500 | 2.506211 | 0.007000000 | 358.0 | heart |
+| Vetiver EO (India) | 100.0% | 700.00 | 700.00 | 222.400 | 12.478 | 0.084308 | 2.000 | 0.689597 | 0.005000000 | 309.9 | base |
+| Cedarwood Virginia | 100.0% | 100.00 | 100.00 | 222.370 | 1.765 | 0.011325 | 1.002 | 0.592772 | 0.015000000 | 75.7 | heart |
+| Ambrox Super | 25.0% | 400.00 | 100.00 | 236.400 | 1.694 | 0.104574 | 1.019 | 0.017818 | 0.000300000 | 59.4 | base |
+| Timberol | 100.0% | 70.00 | 70.00 | 226.400 | 1.238 | 0.138039 | 1.500 | 0.025300 | 0.000600000 | 42.2 | base |
+| Terpinyl Acetate | 100.0% | 80.00 | 80.00 | 196.300 | 1.632 | 0.778498 | 1.000 | 0.125384 | 0.035000000 | 3.6 | base |
+| Ambrettolide | 10.0% | 250.00 | 25.00 | 252.400 | 0.397 | 0.006916 | 1.500 | 0.000406 | 0.000136000 | 3.0 | base |
+| Clearwood | 100.0% | 200.00 | 200.00 | 222.400 | 3.601 | 0.004676 | 1.800 | 0.002991 | 0.010000000 | 0.3 | base |
+| Benzyl Benzoate | 100.0% | 200.00 | 200.00 | 212.200 | 3.774 | 0.063576 | 1.002 | 0.023736 | 0.810000000 | 0.0 | heart |
+| Habanolide | 100.0% | 180.00 | 180.00 | 238.400 | 3.023 | 0.000141 | 0.850 | 0.000036 | 0.002800000 | 0.0 | base |
+
+**Materials:** 18 total (1 top, 9 heart, 8 base)
+**Total vapor:** 3221.70 ppm
+### Note Distribution
+
+**TOP:** 1 mats, 3.3% active, 4.0% OAV
+  - Petitgrain EO Paraguay       OAV=  8898.2 (very strong) VP=10.633Pa
+**HEART:** 9 mats, 61.7% active, 95.3% OAV
+  - Juniper Berry EO             OAV=137252.5 (massive) VP=106.071Pa
+  - Grapefruit FCF oil Sicilian  OAV= 43492.5 (massive) VP=0.000Pa
+  - Iso E Super                  OAV= 14011.2 (massive) VP=0.459Pa
+  - Cypress EO                   OAV=  6210.1 (very strong) VP=389.382Pa
+  - Coriander Seed EO            OAV=  4215.8 (very strong) VP=0.000Pa
+  - Hedione                      OAV=  4081.7 (very strong) VP=0.194Pa
+  ... and 3 more
+**BASE:** 8 mats, 35.0% active, 0.6% OAV
+  - Vetikon                      OAV=   996.1 (strong) VP=7.466Pa
+  - Vetiver EO (India)           OAV=   309.9 (strong) VP=0.084Pa
+  - Ambrox Super                 OAV=    59.4 (moderate-strong) VP=0.105Pa
+  - Timberol                     OAV=    42.2 (moderate) VP=0.138Pa
+  - Terpinyl Acetate             OAV=     3.6 (at threshold) VP=0.778Pa
+  - Ambrettolide                 OAV=     3.0 (at threshold) VP=0.007Pa
+  ... and 2 more
+### OAV by Odor Family
+
+                ?  84.1% ==========================================  (5 mats)
+            woody   7.1% ===  (6 mats)
+           citrus   4.0% ==  (1 mats)
+          conifer   2.8% =  (1 mats)
+           floral   1.9% =  (1 mats)
+            amber   0.0% =  (1 mats)
+         aromatic   0.0% =  (1 mats)
+             musk   0.0% =  (2 mats)
+### Sub-threshold Materials (OAV < 1)
+3/18 materials below perceptible threshold
+  - Benzyl Benzoate: OAV=0.03 VP=0.064Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Clearwood: OAV=0.30 VP=0.005Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Habanolide: OAV=0.01 VP=0.000Pa act=180uL role=fixative [STRUCTURAL_OR_FIXATIVE]
+### High-OAV Flags (>5000)
+  - Cypress EO OAV=6210 dominates headspace -- may mask subtler notes
+  - Grapefruit FCF oil Sicilian OAV=43493 dominates headspace -- may mask subtler notes
+  - Iso E Super OAV=14011 dominates headspace -- may mask subtler notes
+  - Juniper Berry EO OAV=137253 dominates headspace -- may mask subtler notes
+  - Petitgrain EO Paraguay OAV=8898 dominates headspace -- may mask subtler notes
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Remain idx | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s |  3.3/61.7/35.0 | 3221.70ppm |  100.0% | Juniper Berr(137253), Grapefruit F(43493), Iso E Super(14011)
+| top          |    300s |  3.5/57.9/38.6 | 2194.45ppm |   91.4% | Juniper Berr(89283), Grapefruit F(33242), Iso E Super(15969)
+| heart        |   1800s |  3.4/51.4/45.2 | 254.34ppm |   79.2% | Iso E Super(19798), Petitgrain E(10447), Juniper Berr(6234)
+| late_heart   |   7200s |  1.8/51.4/46.8 |  40.78ppm |   76.1% | Iso E Super(20962), Hedione(6207), Petitgrain E(5696)
+| drydown      |  14400s |  0.8/51.9/47.4 |  25.58ppm |   74.3% | Iso E Super(21619), Hedione(6427), Petitgrain E(2425)
+
+Temporal authority: HEURISTIC_UNCALIBRATED; model=dynamic_headspace_exponential_loss_v2; remaining index is not measured evaporation.
+
+### Per-Window Detail
+
+**OPENING** (0.0s) -- Uncalibrated loss index:0%
+  T:3.3% H:61.7% B:35.0%  Vapor:3221.70ppm
+  Leaders: Juniper Berry EO OAV 137253 | Grapefruit FCF oil Sicilian OAV 43493 | Iso E Super OAV 14011 | Petitgrain EO Paraguay OAV 8898 | Cypress EO OAV 6210
+
+**TOP** (300.0s) -- Uncalibrated loss index:9%
+  T:3.5% H:57.9% B:38.6%  Vapor:2194.45ppm
+  Leaders: Juniper Berry EO OAV 89283 | Grapefruit FCF oil Sicilian OAV 33242 | Iso E Super OAV 15969 | Petitgrain EO Paraguay OAV 9882 | Coriander Seed EO OAV 4735
+
+**HEART** (1800.0s) -- Uncalibrated loss index:21%
+  T:3.4% H:51.4% B:45.2%  Vapor:254.34ppm
+  Leaders: Iso E Super OAV 19798 | Petitgrain EO Paraguay OAV 10447 | Juniper Berry EO OAV 6234 | Hedione OAV 5837 | Coriander Seed EO OAV 5300
+
+**LATE_HEART** (7200.0s) -- Uncalibrated loss index:24%
+  T:1.8% H:51.4% B:46.8%  Vapor:40.78ppm
+  Leaders: Iso E Super OAV 20962 | Hedione OAV 6207 | Petitgrain EO Paraguay OAV 5696 | Coriander Seed EO OAV 3556 | Vetikon OAV 1414
+
+**DRYDOWN** (14400.0s) -- Uncalibrated loss index:26%
+  T:0.8% H:51.9% B:47.4%  Vapor:25.58ppm
+  Leaders: Iso E Super OAV 21619 | Hedione OAV 6427 | Petitgrain EO Paraguay OAV 2425 | Coriander Seed EO OAV 1994 | Vetikon OAV 1369
+## Structural OAV Analysis
+
+**Vapor:** 3222 ppm  |  **Active:** 16.2%  |  **Perceptible:** 15/18  |  **Unknown:** 0
+
+### OAV Tiers
+  **massive** (7): Coriander Seed EO(4216), Cypress EO(6210), Grapefruit FCF oil Sicilian(43493), Hedione(4082), Iso E Super(14011), Juniper Berry EO(137253), Petitgrain EO Paraguay(8898)  ! fatigue risk, overload risk
+  **v.strong** (3): Vetikon(996), Vetival(358), Vetiver EO (India)(310)
+  **strong** (2): Ambrox Super(59), Cedarwood Virginia(76)
+  **moderate** (1): Timberol(42)
+  **threshold** (2): Ambrettolide(3), Terpinyl Acetate(4)
+  **sub** (3): Benzyl Benzoate(0), Clearwood(0), Habanolide(0)
+
+### Block Balance
+  **Citrus**     8898 (4%)
+  **Floral**   209698 (95%)
+  **Base**       1414 (1%)
+  **Ratio:** 148:1 between strongest/weakest block
+
+### Issues
+  ! 3 sub-threshold material(s): Benzyl Benzoate, Clearwood, Habanolide
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Petitgrain EO Paraguay(very strong)
+  Heart: Juniper Berry EO(massive) + Grapefruit FCF oil Sicilian(massive)
+  Base: Vetikon(strong) + Vetiver EO (India)(strong) + Ambrox Super(moderate-strong) + Timberol(moderate) + Terpinyl Acetate(at threshold)
+
+### 2. Opening (0-5min)
+  Petitgrain EO Paraguay leads the reported top at OAV 8898 (very strong).
+  - Petitgrain EO Paraguay OAV=8898 VP=10.6Pa (citrus)
+  Total vapor: 3221.7 ppm
+
+### 3. Heart (30min-2hr)
+  Iso E Super OAV=19798 (massive)
+  Petitgrain EO Paraguay OAV=10447 (massive)
+  Juniper Berry EO OAV=6234 (very strong)
+  Hedione OAV=5837 (very strong)
+  T:3.4% H:51.4% B:45.2%
+  Vapor: 254.3 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base share of active note distribution: 47%
+  - Iso E Super OAV=21619
+  - Hedione OAV=6427
+  - Petitgrain EO Paraguay OAV=2425
+  - Coriander Seed EO OAV=1994
+  - Vetikon OAV=1369
+  - Vetiver EO (India) OAV=493
+  Vapor: 25.6 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Juniper Berry EO(137253) + Grapefruit FCF oil Sicilian(43493) + Iso E Super(14011) + Petitgrain EO Paraguay(8898)
+  OAV by family: None84% woody7% citrus4% conifer3%
+
+### 6. Longevity
+  Uncalibrated loss index: 26% over modeled window
+  Vapor: 3221.7 > 25.6 ppm
+  Base @ drydown: 47%
+  Absolute skin life: unavailable; calibrated finite-film, vehicle, skin-absorption, and sensory data are required
+
+### 7. Balance
+  Pyramid: T:3.3% H:61.7% B:35.0%
+  OAV range: 0.01 to 137253 (sigma-log=2.08)
+  Wide OAV contrast: Juniper Berry EO leads at OAV 137253; lower-OAV materials may be masked.
+    massive: 3
+    sub-threshold: 3
+
+### 8. Flags
+  SUB: Clearwood OAV=0.30 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Benzyl Benzoate OAV=0.03 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Habanolide OAV=0.01 role=fixative class=STRUCTURAL_OR_FIXATIVE
+```
+
+### Hot 310 K / 18% / development
+
+<!-- scenario-id: hot_310k_18pct_development; formatter-sha256: 8342a43e12d1cc429d7cb30553919655e7b7af2ec009f2b810eb973433a8f9dc -->
+```text
+## Gate Summary
+
+**105 PASS** / **41 WARN** / **1 FAIL**
+
+  FAIL pipeline_preflight: 13 checks; 9 warnings
+  WARN quantitative_authority: Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only.
+  WARN headspace_scope: Headspace/OAV is an active-concentrate screening model; the finished ethanol-water-solvent matrix is omitted.
+  WARN natural_composite_coverage: Partial literature constituent models have unresolved odor contributions; full quantitative evaluability is not established. Cypress EO: 69.2% nominal input coverage
+  WARN odt_coverage: 15 material(s) rely on derived/unverified ODTs (100% OAV share)
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 31.9% active mass across 3 materials
+  WARN oav_overdose_blocker: High modeled OAV screening signal: Grapefruit FCF oil Sicilian=59476, Iso E Super=22637, Juniper Berry EO=185552, Petitgrain EO Paraguay=12840; validate by controlled dilution/omission trials
+  WARN odt_sanity: 2 materials with suspect ODT values: Coriander Seed EO=None, Grapefruit FCF oil Sicilian=None; 2 unresolved cross-source ODT conflicts
+  WARN vp_cross_source: 2 materials with VP=None or 0: Coriander Seed EO, Grapefruit FCF oil Sicilian; 18 materials use inferred enthalpy for VP at 310.00 K; 4 unresolved cross-source VP conflicts
+  WARN odt_completeness: 2 material(s) lack ODT data; 22% OAV share affected
+  WARN safety_ifra_allergen: 12 materials lack explicit IFRA Cat4 limits; 1 EU allergen declarations
+  WARN safety_phototoxic: Grapefruit FCF oil Sicilian: 6.56% > IFRA max 2.0% (bergaptene 0.5 ppm)
+  WARN safety_receptor_saturation: Cedarwood Virginia 2.1% > 2% cap (OR10J5 + cedrol sedative)
+  WARN oav_physics_gamma: 18/18 materials use predictive, heuristic, fallback, or unknown gamma authority; largest gamma=1 comparison leverage Clearwood=1.8x
+  WARN verify_protocol_aggregate: Verification protocol active -- 2/18 materials missing ODT data
+  WARN solvent_matrix: stock-carrier authority PARTIAL_UNRESOLVED; known named carriers {'DPG': 225.0}; unresolved carrier proxy 300.0 uL; 1 named carrier row(s) lack a v/v basis
+  WARN perfumer_logic: woody.vetiver_classical; rerun optimizer: citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100; not_aromatic_fougere: 15.370% active above 4.000 [advisory guideline; not release-blocking]
+  WARN family_drift_detector: woody.vetiver_classical; citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100 [advisory guideline; not release-blocking]
+  WARN novelty_vs_reference: reference/control archetype; familiar by design, not the new exploration target
+  WARN perfume_knowledge: Pyramid off-target: Expected T:15% H:30% B:55%, Actual T:3.3% H:61.7% B:35.0%; top OAV off-target for family woody; heart OAV off-target for family woody
+  WARN carles_accord_ratio: Exact active-mass ppm is unavailable; pairwise dose ratios were not evaluated.
+  WARN literature_compliance: Literature compliance: 3/5 principles passed (60%)
+  WARN edge_cases: Musk coverage: 100%, gaps: 1, formula VP factor x2.08-5.26 (median x2.94, T=310.00K vs 298.15K, n=18)
+  WARN family_hedonic: Family 'woody.vetiver_classical' has 0 legacy pitfalls and 0 tips quarantined pending validation
+  WARN somatosensory: 0 candidate chemesthetic materials detected; formula-level effects require exposure and human validation
+  WARN stevens_n_efficiency: Exact active-mass ppm is unavailable; dose-efficiency comparison not evaluated.
+  WARN jnd_redundancy: Potentially redundant pairs: vetival vs vetiver eo in woody (OAV 534/514)
+  WARN guerlain_nature_synthetic: Natural OAV = 90% -- batch inconsistency risk
+  WARN jellinek_psychology: Jellinek categories weak: erogenic, narcotic, stimulating
+  WARN coty_single_material_limit: Exact active-mass ppm is unavailable; single-material limit not evaluated.
+  WARN roudnitska_hedione_pct: Exact active-mass ppm is unavailable; Hedione percentage heuristic not evaluated.
+  WARN adaptation_timing: fast tier < 5% (no immediate impact); slow tier < 10% (poor longevity)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 88%) -- collapse risk
+  WARN oav_intelligence: iso e super OAV 22637.9 is above woody_amber target 40.0-150.0; hedione OAV 6745.7 is above woody_amber target 10.0-25.0; ambrox super OAV 99.7 is above woody_amber target 20.0-80.0
+  WARN olfactory_fatigue: Adaptation/fatigue screening flag: iso e super=22638 (high model signal)
+  WARN evaporation_rate_balance: Pyramid imbalance: top = 3%, heart = 62%
+  WARN tenacity_projection: VP<0.01Pa = 8% (<10%, weak longevity)
+  WARN master_perfumer_gate: opening likely underbuilt
+  WARN mass_market_tier_check: Expensive captives found: Ambrox Super. At 1500 THB, these eat margin. Consider if their perceptible impact justifies the cost.
+  WARN authority_vector: Safety authority insufficient (0.00) -- unknown IFRA limits for too many materials; Identity (0.00) AND Quantity (0.00) authority both insufficient -- insufficient evidence; Identity authority insufficient (0.00). DIMENSIONS NEVER AVERAGED. [advisory guideline; not release-blocking]
+  WARN robustness_perturbation: 36 fragile perturbation(s) across 36 checks; Iso E Super up: brief grammar failure under perturbation; Iso E Super down: brief grammar failure under perturbation; Hedione up: brief grammar failure under perturbation
+  WARN confidence_minimum: combined confidence 18.1 below 25.0 after preflight evidence penalty 14.0; reference-control study remains diagnostic only
+
+## Authority Dimensions
+
+| Dimension | Status | Authority |
+|---|---|---|
+| Inventory stock | PASS | Every formula row resolves uniquely to a declared live inventory stock. |
+| Quantitative ppm w/w | UNAVAILABLE | Exact only when the full declared mass and density chain is available. |
+| Headspace/OAV | MODELED_ACTIVE_CONCENTRATE_SCREEN | HEURISTIC_NOT_MEASURED; diagnostic model, not measured odor intensity. |
+| Named reference | PASS () | No named-reference claim detected. |
+| Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | Requires blinded bench comparison; no model score supplies this authority. |
+| Combined confidence | 18.1/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
+
+## Headspace OAV -- Opening (0s)
+
+| Material | Dil | Raw uL | Act uL | MW | MF% | VP Pa | gamma | Vapor ppm | ODT ppm | OAV | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Juniper Berry EO | 100.0% | 750.00 | 750.00 | 136.200 | 22.050 | 149.590834 | 1.002 | 3270.800220 | 0.015000000 | 185552.0 | heart |
+| Grapefruit FCF oil Sicilian | 100.0% | 320.00 | 320.00 | UNKNOWN | 6.407 | UNKNOWN | 1.002 | 837.144390 | UNKNOWN | 59476.7 | heart |
+| Iso E Super | 100.0% | 850.00 | 850.00 | 234.400 | 14.521 | 0.741980 | 1.064 | 1.131895 | 0.000050000 | 22637.9 | heart |
+| Petitgrain EO Paraguay | 100.0% | 160.00 | 160.00 | 136.000 | 4.711 | 15.888957 | 1.000 | 45.843104 | 0.004000000 | 12840.0 | top |
+| Cypress EO | 100.0% | 50.00 | 50.00 | 136.000 | 1.472 | 531.460182 | 3.000 | 194.817094 | 0.200000000 | 8401.2 | heart |
+| Hedione | 100.0% | 600.00 | 600.00 | 226.300 | 10.617 | 0.320078 | 1.006 | 0.337287 | 0.000050000 | 6745.7 | heart |
+| Coriander Seed EO | 100.0% | 60.00 | 60.00 | UNKNOWN | 1.201 | UNKNOWN | 1.002 | 10.125822 | UNKNOWN | 6110.6 | heart |
+| Vetikon | 100.0% | 350.00 | 350.00 | 176.250 | 7.952 | 11.256587 | 0.850 | 7.508943 | 0.005000000 | 1501.8 | base |
+| Vetival | 100.0% | 80.00 | 80.00 | 218.330 | 1.467 | 17.206473 | 1.500 | 3.737437 | 0.007000000 | 533.9 | heart |
+| Vetiver EO (India) | 100.0% | 700.00 | 700.00 | 222.400 | 12.478 | 0.142294 | 2.000 | 1.049165 | 0.005000000 | 514.2 | base |
+| Cedarwood Virginia | 100.0% | 100.00 | 100.00 | 222.370 | 1.765 | 0.020104 | 1.002 | 0.904128 | 0.015000000 | 115.7 | heart |
+| Ambrox Super | 25.0% | 400.00 | 100.00 | 236.400 | 1.694 | 0.175545 | 1.019 | 0.029901 | 0.000300000 | 99.7 | base |
+| Timberol | 100.0% | 70.00 | 70.00 | 226.400 | 1.238 | 0.230108 | 1.500 | 0.042175 | 0.000600000 | 70.3 | base |
+| Terpinyl Acetate | 100.0% | 80.00 | 80.00 | 196.300 | 1.632 | 1.242458 | 1.000 | 0.200108 | 0.035000000 | 5.7 | base |
+| Ambrettolide | 10.0% | 250.00 | 25.00 | 252.400 | 0.397 | 0.012431 | 1.500 | 0.000730 | 0.000136000 | 5.4 | base |
+| Clearwood | 100.0% | 200.00 | 200.00 | 222.400 | 3.601 | 0.008488 | 1.800 | 0.005430 | 0.010000000 | 0.5 | base |
+| Benzyl Benzoate | 100.0% | 200.00 | 200.00 | 212.200 | 3.774 | 0.108068 | 1.002 | 0.040346 | 0.810000000 | 0.0 | heart |
+| Habanolide | 100.0% | 180.00 | 180.00 | 238.400 | 3.023 | 0.000279 | 0.850 | 0.000071 | 0.002800000 | 0.0 | base |
+
+**Materials:** 18 total (1 top, 9 heart, 8 base)
+**Total vapor:** 4373.72 ppm
+### Note Distribution
+
+**TOP:** 1 mats, 3.3% active, 4.2% OAV
+  - Petitgrain EO Paraguay       OAV= 12840.0 (massive) VP=15.889Pa
+**HEART:** 9 mats, 61.7% active, 95.1% OAV
+  - Juniper Berry EO             OAV=185552.0 (massive) VP=149.591Pa
+  - Grapefruit FCF oil Sicilian  OAV= 59476.7 (massive) VP=0.000Pa
+  - Iso E Super                  OAV= 22637.9 (massive) VP=0.742Pa
+  - Cypress EO                   OAV=  8401.2 (very strong) VP=531.460Pa
+  - Hedione                      OAV=  6745.7 (very strong) VP=0.320Pa
+  - Coriander Seed EO            OAV=  6110.6 (very strong) VP=0.000Pa
+  ... and 3 more
+**BASE:** 8 mats, 35.0% active, 0.7% OAV
+  - Vetikon                      OAV=  1501.8 (very strong) VP=11.257Pa
+  - Vetiver EO (India)           OAV=   514.2 (strong) VP=0.142Pa
+  - Ambrox Super                 OAV=    99.7 (moderate-strong) VP=0.176Pa
+  - Timberol                     OAV=    70.3 (moderate-strong) VP=0.230Pa
+  - Terpinyl Acetate             OAV=     5.7 (perceptible) VP=1.242Pa
+  - Ambrettolide                 OAV=     5.4 (perceptible) VP=0.012Pa
+  ... and 2 more
+### OAV by Odor Family
+
+                ?  82.5% =========================================  (5 mats)
+            woody   8.3% ====  (6 mats)
+           citrus   4.2% ==  (1 mats)
+          conifer   2.8% =  (1 mats)
+           floral   2.2% =  (1 mats)
+            amber   0.0% =  (1 mats)
+         aromatic   0.0% =  (1 mats)
+             musk   0.0% =  (2 mats)
+### Sub-threshold Materials (OAV < 1)
+3/18 materials below perceptible threshold
+  - Benzyl Benzoate: OAV=0.05 VP=0.108Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Clearwood: OAV=0.54 VP=0.008Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Habanolide: OAV=0.03 VP=0.000Pa act=180uL role=fixative [STRUCTURAL_OR_FIXATIVE]
+### High-OAV Flags (>5000)
+  - Coriander Seed EO OAV=6111 dominates headspace -- may mask subtler notes
+  - Cypress EO OAV=8401 dominates headspace -- may mask subtler notes
+  - Grapefruit FCF oil Sicilian OAV=59477 dominates headspace -- may mask subtler notes
+  - Hedione OAV=6746 dominates headspace -- may mask subtler notes
+  - Iso E Super OAV=22638 dominates headspace -- may mask subtler notes
+  - Juniper Berry EO OAV=185552 dominates headspace -- may mask subtler notes
+  - Petitgrain EO Paraguay OAV=12840 dominates headspace -- may mask subtler notes
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Remain idx | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s |  3.3/61.7/35.0 | 4373.72ppm |  100.0% | Juniper Berr(185552), Grapefruit F(59477), Iso E Super(22638)
+| top          |    300s |  3.5/56.9/39.6 | 2612.10ppm |   89.4% | Juniper Berr(104626), Grapefruit F(40485), Iso E Super(26657)
+| heart        |   1800s |  3.2/51.1/45.8 | 183.00ppm |   78.3% | Iso E Super(32569), Petitgrain E(14076), Hedione(9831)
+| late_heart   |   7200s |  1.3/51.6/47.1 |  48.24ppm |   75.1% | Iso E Super(34403), Hedione(10440), Petitgrain E(5858)
+| drydown      |  14400s |  0.4/52.1/47.5 |  28.45ppm |   73.0% | Iso E Super(35530), Hedione(10843), Vetikon(1969)
+
+Temporal authority: HEURISTIC_UNCALIBRATED; model=dynamic_headspace_exponential_loss_v2; remaining index is not measured evaporation.
+
+### Per-Window Detail
+
+**OPENING** (0.0s) -- Uncalibrated loss index:0%
+  T:3.3% H:61.7% B:35.0%  Vapor:4373.72ppm
+  Leaders: Juniper Berry EO OAV 185552 | Grapefruit FCF oil Sicilian OAV 59477 | Iso E Super OAV 22638 | Petitgrain EO Paraguay OAV 12840 | Cypress EO OAV 8401
+
+**TOP** (300.0s) -- Uncalibrated loss index:11%
+  T:3.5% H:56.9% B:39.6%  Vapor:2612.10ppm
+  Leaders: Juniper Berry EO OAV 104626 | Grapefruit FCF oil Sicilian OAV 40485 | Iso E Super OAV 26657 | Petitgrain EO Paraguay OAV 14569 | Hedione OAV 7982
+
+**HEART** (1800.0s) -- Uncalibrated loss index:22%
+  T:3.2% H:51.1% B:45.8%  Vapor:183.00ppm
+  Leaders: Iso E Super OAV 32569 | Petitgrain EO Paraguay OAV 14076 | Hedione OAV 9831 | Coriander Seed EO OAV 7317 | Juniper Berry EO OAV 3078
+
+**LATE_HEART** (7200.0s) -- Uncalibrated loss index:25%
+  T:1.3% H:51.6% B:47.1%  Vapor:48.24ppm
+  Leaders: Iso E Super OAV 34403 | Hedione OAV 10440 | Petitgrain EO Paraguay OAV 5858 | Coriander Seed EO OAV 3978 | Vetikon OAV 2098
+
+**DRYDOWN** (14400.0s) -- Uncalibrated loss index:27%
+  T:0.4% H:52.1% B:47.5%  Vapor:28.45ppm
+  Leaders: Iso E Super OAV 35530 | Hedione OAV 10843 | Vetikon OAV 1969 | Petitgrain EO Paraguay OAV 1758 | Coriander Seed EO OAV 1702
+## Structural OAV Analysis
+
+**Vapor:** 4374 ppm  |  **Active:** 16.2%  |  **Perceptible:** 15/18  |  **Unknown:** 0
+
+### OAV Tiers
+  **massive** (8): Coriander Seed EO(6111), Cypress EO(8401), Grapefruit FCF oil Sicilian(59477), Hedione(6746), Iso E Super(22638), Juniper Berry EO(185552), Petitgrain EO Paraguay(12840), Vetikon(1502)  ! fatigue risk, overload risk
+  **v.strong** (3): Cedarwood Virginia(116), Vetival(534), Vetiver EO (India)(514)
+  **strong** (2): Ambrox Super(100), Timberol(70)
+  **perceptible** (2): Ambrettolide(5), Terpinyl Acetate(6)
+  **sub** (3): Benzyl Benzoate(0), Clearwood(1), Habanolide(0)
+
+### Block Balance
+  **Citrus**    12840 (4%)
+  **Floral**   289574 (95%)
+  **Base**       2198 (1%)
+  **Ratio:** 132:1 between strongest/weakest block
+
+### Issues
+  ! 3 sub-threshold material(s): Benzyl Benzoate, Clearwood, Habanolide
+  ! 8 massive-OAV materials -- sensory overload likely
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Petitgrain EO Paraguay(massive)
+  Heart: Juniper Berry EO(massive) + Grapefruit FCF oil Sicilian(massive)
+  Base: Vetikon(very strong) + Vetiver EO (India)(strong) + Ambrox Super(moderate-strong) + Timberol(moderate-strong) + Terpinyl Acetate(perceptible)
+
+### 2. Opening (0-5min)
+  Petitgrain EO Paraguay leads the reported top at OAV 12840 (massive).
+  - Petitgrain EO Paraguay OAV=12840 VP=15.9Pa (citrus)
+  Total vapor: 4373.7 ppm
+
+### 3. Heart (30min-2hr)
+  Iso E Super OAV=32569 (massive)
+  Petitgrain EO Paraguay OAV=14076 (massive)
+  Hedione OAV=9831 (very strong)
+  Coriander Seed EO OAV=7317 (very strong)
+  T:3.2% H:51.1% B:45.8%
+  Vapor: 183.0 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base share of active note distribution: 48%
+  - Iso E Super OAV=35530
+  - Hedione OAV=10843
+  - Vetikon OAV=1969
+  - Petitgrain EO Paraguay OAV=1758
+  - Coriander Seed EO OAV=1702
+  - Vetiver EO (India) OAV=832
+  Vapor: 28.5 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Juniper Berry EO(185552) + Grapefruit FCF oil Sicilian(59477) + Iso E Super(22638) + Petitgrain EO Paraguay(12840)
+  OAV by family: None82% woody8% citrus4% conifer3%
+
+### 6. Longevity
+  Uncalibrated loss index: 27% over modeled window
+  Vapor: 4373.7 > 28.5 ppm
+  Base @ drydown: 48%
+  Absolute skin life: unavailable; calibrated finite-film, vehicle, skin-absorption, and sensory data are required
+
+### 7. Balance
+  Pyramid: T:3.3% H:61.7% B:35.0%
+  OAV range: 0.03 to 185552 (sigma-log=2.04)
+  Wide OAV contrast: Juniper Berry EO leads at OAV 185552; lower-OAV materials may be masked.
+    massive: 4
+    sub-threshold: 3
+
+### 8. Flags
+  SUB: Clearwood OAV=0.54 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Benzyl Benzoate OAV=0.05 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Habanolide OAV=0.03 role=fixative class=STRUCTURAL_OR_FIXATIVE
+```
+
+### Nominal 15% finished-volume context / development
+
+<!-- scenario-id: dilute_305k_15pct_development; formatter-sha256: dd5d18ccb36d537864dbc0fc928500be65d1c790f8f695f44c1713c366d68342 -->
+```text
+## Gate Summary
+
+**104 PASS** / **42 WARN** / **1 FAIL**
+
+  FAIL pipeline_preflight: 13 checks; 9 warnings
+  WARN quantitative_authority: Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only.
+  WARN headspace_scope: Headspace/OAV is an active-concentrate screening model; the finished ethanol-water-solvent matrix is omitted.
+  WARN natural_composite_coverage: Partial literature constituent models have unresolved odor contributions; full quantitative evaluability is not established. Cypress EO: 69.2% nominal input coverage
+  WARN odt_coverage: 15 material(s) rely on derived/unverified ODTs (100% OAV share)
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 31.9% active mass across 3 materials
+  WARN oav_overdose_blocker: High modeled OAV screening signal: Grapefruit FCF oil Sicilian=43492, Iso E Super=14011, Juniper Berry EO=137252; validate by controlled dilution/omission trials
+  WARN odt_sanity: 2 materials with suspect ODT values: Coriander Seed EO=None, Grapefruit FCF oil Sicilian=None; 2 unresolved cross-source ODT conflicts
+  WARN vp_cross_source: 2 materials with VP=None or 0: Coriander Seed EO, Grapefruit FCF oil Sicilian; 18 materials use inferred enthalpy for VP at 305.00 K; 4 unresolved cross-source VP conflicts
+  WARN odt_completeness: 2 material(s) lack ODT data; 22% OAV share affected
+  WARN safety_ifra_allergen: 12 materials lack explicit IFRA Cat4 limits; 1 EU allergen declarations
+  WARN safety_phototoxic: Grapefruit FCF oil Sicilian: 6.56% > IFRA max 2.0% (bergaptene 0.5 ppm)
+  WARN safety_receptor_saturation: Cedarwood Virginia 2.1% > 2% cap (OR10J5 + cedrol sedative)
+  WARN oav_physics_gamma: 18/18 materials use predictive, heuristic, fallback, or unknown gamma authority; largest gamma=1 comparison leverage Clearwood=1.8x
+  WARN verify_protocol_aggregate: Verification protocol active -- 2/18 materials missing ODT data
+  WARN solvent_matrix: stock-carrier authority PARTIAL_UNRESOLVED; known named carriers {'DPG': 225.0}; unresolved carrier proxy 300.0 uL; 1 named carrier row(s) lack a v/v basis
+  WARN perfumer_logic: woody.vetiver_classical; rerun optimizer: citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100; not_aromatic_fougere: 15.370% active above 4.000 [advisory guideline; not release-blocking]
+  WARN family_drift_detector: woody.vetiver_classical; citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100 [advisory guideline; not release-blocking]
+  WARN novelty_vs_reference: reference/control archetype; familiar by design, not the new exploration target
+  WARN perfume_knowledge: Pyramid off-target: Expected T:15% H:30% B:55%, Actual T:3.3% H:61.7% B:35.0%; top OAV off-target for family woody; heart OAV off-target for family woody
+  WARN carles_pyramid: Carles pyramid: empty windows = 3h_top_heart (need >2% active in each of 5 windows)
+  WARN carles_accord_ratio: Exact active-mass ppm is unavailable; pairwise dose ratios were not evaluated.
+  WARN literature_compliance: Literature compliance: 3/5 principles passed (60%)
+  WARN edge_cases: Musk coverage: 100%, gaps: 1, formula VP factor x1.54-2.65 (median x1.89, T=305.00K vs 298.15K, n=18)
+  WARN family_hedonic: Family 'woody.vetiver_classical' has 0 legacy pitfalls and 0 tips quarantined pending validation
+  WARN somatosensory: 0 candidate chemesthetic materials detected; formula-level effects require exposure and human validation
+  WARN stevens_n_efficiency: Exact active-mass ppm is unavailable; dose-efficiency comparison not evaluated.
+  WARN jnd_redundancy: Potentially redundant pairs: vetival vs vetiver eo in woody (OAV 358/310)
+  WARN guerlain_nature_synthetic: Natural OAV = 91% -- batch inconsistency risk
+  WARN jellinek_psychology: Jellinek categories weak: erogenic, narcotic, stimulating
+  WARN coty_single_material_limit: Exact active-mass ppm is unavailable; single-material limit not evaluated.
+  WARN roudnitska_hedione_pct: Exact active-mass ppm is unavailable; Hedione percentage heuristic not evaluated.
+  WARN adaptation_timing: fast tier < 5% (no immediate impact); slow tier < 10% (poor longevity)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 89%) -- collapse risk
+  WARN oav_intelligence: iso e super OAV 14011.2 is above woody_amber target 40.0-150.0; hedione OAV 4081.7 is above woody_amber target 10.0-25.0; material_class_distribution: Class distribution: fixatives:4%, florals:12%, musks:4%, woods:38%
+  WARN olfactory_fatigue: Adaptation/fatigue screening flag: iso e super=14011 (high model signal)
+  WARN evaporation_rate_balance: Pyramid imbalance: top = 3%, heart = 62%
+  WARN tenacity_projection: VP<0.01Pa = 8% (<10%, weak longevity)
+  WARN master_perfumer_gate: opening likely underbuilt
+  WARN mass_market_tier_check: Expensive captives found: Ambrox Super. At 1500 THB, these eat margin. Consider if their perceptible impact justifies the cost.
+  WARN authority_vector: Safety authority insufficient (0.00) -- unknown IFRA limits for too many materials; Identity (0.00) AND Quantity (0.00) authority both insufficient -- insufficient evidence; Identity authority insufficient (0.00). DIMENSIONS NEVER AVERAGED. [advisory guideline; not release-blocking]
+  WARN robustness_perturbation: 36 fragile perturbation(s) across 36 checks; Iso E Super up: brief grammar failure under perturbation; Iso E Super down: brief grammar failure under perturbation; Hedione up: brief grammar failure under perturbation
+  WARN confidence_minimum: combined confidence 18.1 below 25.0 after preflight evidence penalty 14.0; reference-control study remains diagnostic only
+
+## Authority Dimensions
+
+| Dimension | Status | Authority |
+|---|---|---|
+| Inventory stock | PASS | Every formula row resolves uniquely to a declared live inventory stock. |
+| Quantitative ppm w/w | UNAVAILABLE | Exact only when the full declared mass and density chain is available. |
+| Headspace/OAV | MODELED_ACTIVE_CONCENTRATE_SCREEN | HEURISTIC_NOT_MEASURED; diagnostic model, not measured odor intensity. |
+| Named reference | PASS () | No named-reference claim detected. |
+| Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | Requires blinded bench comparison; no model score supplies this authority. |
+| Combined confidence | 18.1/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
+
+## Headspace OAV -- Opening (0s)
+
+| Material | Dil | Raw uL | Act uL | MW | MF% | VP Pa | gamma | Vapor ppm | ODT ppm | OAV | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Juniper Berry EO | 100.0% | 750.00 | 750.00 | 136.200 | 22.050 | 106.070904 | 1.002 | 2417.520207 | 0.015000000 | 137252.5 | heart |
+| Grapefruit FCF oil Sicilian | 100.0% | 320.00 | 320.00 | UNKNOWN | 6.407 | UNKNOWN | 1.002 | 610.886996 | UNKNOWN | 43492.5 | heart |
+| Iso E Super | 100.0% | 850.00 | 850.00 | 234.400 | 14.521 | 0.458763 | 1.066 | 0.700562 | 0.000050000 | 14011.2 | heart |
+| Petitgrain EO Paraguay | 100.0% | 160.00 | 160.00 | 136.000 | 4.711 | 10.632758 | 1.000 | 32.723476 | 0.004000000 | 8898.2 | top |
+| Cypress EO | 100.0% | 50.00 | 50.00 | 136.000 | 1.472 | 389.382043 | 3.000 | 143.724851 | 0.200000000 | 6210.1 | heart |
+| Coriander Seed EO | 100.0% | 60.00 | 60.00 | UNKNOWN | 1.201 | UNKNOWN | 1.002 | 6.976638 | UNKNOWN | 4215.8 | heart |
+| Hedione | 100.0% | 600.00 | 600.00 | 226.300 | 10.617 | 0.193654 | 1.006 | 0.204084 | 0.000050000 | 4081.7 | heart |
+| Vetikon | 100.0% | 350.00 | 350.00 | 176.250 | 7.952 | 7.466083 | 0.850 | 4.980407 | 0.005000000 | 996.1 | base |
+| Vetival | 100.0% | 80.00 | 80.00 | 218.330 | 1.467 | 11.538134 | 1.500 | 2.506211 | 0.007000000 | 358.0 | heart |
+| Vetiver EO (India) | 100.0% | 700.00 | 700.00 | 222.400 | 12.478 | 0.084308 | 2.000 | 0.689597 | 0.005000000 | 309.9 | base |
+| Cedarwood Virginia | 100.0% | 100.00 | 100.00 | 222.370 | 1.765 | 0.011325 | 1.002 | 0.592772 | 0.015000000 | 75.7 | heart |
+| Ambrox Super | 25.0% | 400.00 | 100.00 | 236.400 | 1.694 | 0.104574 | 1.019 | 0.017818 | 0.000300000 | 59.4 | base |
+| Timberol | 100.0% | 70.00 | 70.00 | 226.400 | 1.238 | 0.138039 | 1.500 | 0.025300 | 0.000600000 | 42.2 | base |
+| Terpinyl Acetate | 100.0% | 80.00 | 80.00 | 196.300 | 1.632 | 0.778498 | 1.000 | 0.125384 | 0.035000000 | 3.6 | base |
+| Ambrettolide | 10.0% | 250.00 | 25.00 | 252.400 | 0.397 | 0.006916 | 1.500 | 0.000406 | 0.000136000 | 3.0 | base |
+| Clearwood | 100.0% | 200.00 | 200.00 | 222.400 | 3.601 | 0.004676 | 1.800 | 0.002991 | 0.010000000 | 0.3 | base |
+| Benzyl Benzoate | 100.0% | 200.00 | 200.00 | 212.200 | 3.774 | 0.063576 | 1.002 | 0.023736 | 0.810000000 | 0.0 | heart |
+| Habanolide | 100.0% | 180.00 | 180.00 | 238.400 | 3.023 | 0.000141 | 0.850 | 0.000036 | 0.002800000 | 0.0 | base |
+
+**Materials:** 18 total (1 top, 9 heart, 8 base)
+**Total vapor:** 3221.70 ppm
+### Note Distribution
+
+**TOP:** 1 mats, 3.3% active, 4.0% OAV
+  - Petitgrain EO Paraguay       OAV=  8898.2 (very strong) VP=10.633Pa
+**HEART:** 9 mats, 61.7% active, 95.3% OAV
+  - Juniper Berry EO             OAV=137252.5 (massive) VP=106.071Pa
+  - Grapefruit FCF oil Sicilian  OAV= 43492.5 (massive) VP=0.000Pa
+  - Iso E Super                  OAV= 14011.2 (massive) VP=0.459Pa
+  - Cypress EO                   OAV=  6210.1 (very strong) VP=389.382Pa
+  - Coriander Seed EO            OAV=  4215.8 (very strong) VP=0.000Pa
+  - Hedione                      OAV=  4081.7 (very strong) VP=0.194Pa
+  ... and 3 more
+**BASE:** 8 mats, 35.0% active, 0.6% OAV
+  - Vetikon                      OAV=   996.1 (strong) VP=7.466Pa
+  - Vetiver EO (India)           OAV=   309.9 (strong) VP=0.084Pa
+  - Ambrox Super                 OAV=    59.4 (moderate-strong) VP=0.105Pa
+  - Timberol                     OAV=    42.2 (moderate) VP=0.138Pa
+  - Terpinyl Acetate             OAV=     3.6 (at threshold) VP=0.778Pa
+  - Ambrettolide                 OAV=     3.0 (at threshold) VP=0.007Pa
+  ... and 2 more
+### OAV by Odor Family
+
+                ?  84.1% ==========================================  (5 mats)
+            woody   7.1% ===  (6 mats)
+           citrus   4.0% ==  (1 mats)
+          conifer   2.8% =  (1 mats)
+           floral   1.9% =  (1 mats)
+            amber   0.0% =  (1 mats)
+         aromatic   0.0% =  (1 mats)
+             musk   0.0% =  (2 mats)
+### Sub-threshold Materials (OAV < 1)
+3/18 materials below perceptible threshold
+  - Benzyl Benzoate: OAV=0.03 VP=0.064Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Clearwood: OAV=0.30 VP=0.005Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Habanolide: OAV=0.01 VP=0.000Pa act=180uL role=fixative [STRUCTURAL_OR_FIXATIVE]
+### High-OAV Flags (>5000)
+  - Cypress EO OAV=6210 dominates headspace -- may mask subtler notes
+  - Grapefruit FCF oil Sicilian OAV=43493 dominates headspace -- may mask subtler notes
+  - Iso E Super OAV=14011 dominates headspace -- may mask subtler notes
+  - Juniper Berry EO OAV=137253 dominates headspace -- may mask subtler notes
+  - Petitgrain EO Paraguay OAV=8898 dominates headspace -- may mask subtler notes
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Remain idx | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s |  3.3/61.7/35.0 | 3221.70ppm |  100.0% | Juniper Berr(137253), Grapefruit F(43493), Iso E Super(14011)
+| top          |    300s |  3.5/57.9/38.6 | 2194.45ppm |   91.4% | Juniper Berr(89283), Grapefruit F(33242), Iso E Super(15969)
+| heart        |   1800s |  3.4/51.4/45.2 | 254.34ppm |   79.2% | Iso E Super(19798), Petitgrain E(10447), Juniper Berr(6234)
+| late_heart   |   7200s |  1.8/51.4/46.8 |  40.78ppm |   76.1% | Iso E Super(20962), Hedione(6207), Petitgrain E(5696)
+| drydown      |  14400s |  0.8/51.9/47.4 |  25.58ppm |   74.3% | Iso E Super(21619), Hedione(6427), Petitgrain E(2425)
+
+Temporal authority: HEURISTIC_UNCALIBRATED; model=dynamic_headspace_exponential_loss_v2; remaining index is not measured evaporation.
+
+### Per-Window Detail
+
+**OPENING** (0.0s) -- Uncalibrated loss index:0%
+  T:3.3% H:61.7% B:35.0%  Vapor:3221.70ppm
+  Leaders: Juniper Berry EO OAV 137253 | Grapefruit FCF oil Sicilian OAV 43493 | Iso E Super OAV 14011 | Petitgrain EO Paraguay OAV 8898 | Cypress EO OAV 6210
+
+**TOP** (300.0s) -- Uncalibrated loss index:9%
+  T:3.5% H:57.9% B:38.6%  Vapor:2194.45ppm
+  Leaders: Juniper Berry EO OAV 89283 | Grapefruit FCF oil Sicilian OAV 33242 | Iso E Super OAV 15969 | Petitgrain EO Paraguay OAV 9882 | Coriander Seed EO OAV 4735
+
+**HEART** (1800.0s) -- Uncalibrated loss index:21%
+  T:3.4% H:51.4% B:45.2%  Vapor:254.34ppm
+  Leaders: Iso E Super OAV 19798 | Petitgrain EO Paraguay OAV 10447 | Juniper Berry EO OAV 6234 | Hedione OAV 5837 | Coriander Seed EO OAV 5300
+
+**LATE_HEART** (7200.0s) -- Uncalibrated loss index:24%
+  T:1.8% H:51.4% B:46.8%  Vapor:40.78ppm
+  Leaders: Iso E Super OAV 20962 | Hedione OAV 6207 | Petitgrain EO Paraguay OAV 5696 | Coriander Seed EO OAV 3556 | Vetikon OAV 1414
+
+**DRYDOWN** (14400.0s) -- Uncalibrated loss index:26%
+  T:0.8% H:51.9% B:47.4%  Vapor:25.58ppm
+  Leaders: Iso E Super OAV 21619 | Hedione OAV 6427 | Petitgrain EO Paraguay OAV 2425 | Coriander Seed EO OAV 1994 | Vetikon OAV 1369
+## Structural OAV Analysis
+
+**Vapor:** 3222 ppm  |  **Active:** 13.5%  |  **Perceptible:** 15/18  |  **Unknown:** 0
+
+### OAV Tiers
+  **massive** (7): Coriander Seed EO(4216), Cypress EO(6210), Grapefruit FCF oil Sicilian(43493), Hedione(4082), Iso E Super(14011), Juniper Berry EO(137253), Petitgrain EO Paraguay(8898)  ! fatigue risk, overload risk
+  **v.strong** (3): Vetikon(996), Vetival(358), Vetiver EO (India)(310)
+  **strong** (2): Ambrox Super(59), Cedarwood Virginia(76)
+  **moderate** (1): Timberol(42)
+  **threshold** (2): Ambrettolide(3), Terpinyl Acetate(4)
+  **sub** (3): Benzyl Benzoate(0), Clearwood(0), Habanolide(0)
+
+### Block Balance
+  **Citrus**     8898 (4%)
+  **Floral**   209698 (95%)
+  **Base**       1414 (1%)
+  **Ratio:** 148:1 between strongest/weakest block
+
+### Issues
+  ! 3 sub-threshold material(s): Benzyl Benzoate, Clearwood, Habanolide
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Petitgrain EO Paraguay(very strong)
+  Heart: Juniper Berry EO(massive) + Grapefruit FCF oil Sicilian(massive)
+  Base: Vetikon(strong) + Vetiver EO (India)(strong) + Ambrox Super(moderate-strong) + Timberol(moderate) + Terpinyl Acetate(at threshold)
+
+### 2. Opening (0-5min)
+  Petitgrain EO Paraguay leads the reported top at OAV 8898 (very strong).
+  - Petitgrain EO Paraguay OAV=8898 VP=10.6Pa (citrus)
+  Total vapor: 3221.7 ppm
+
+### 3. Heart (30min-2hr)
+  Iso E Super OAV=19798 (massive)
+  Petitgrain EO Paraguay OAV=10447 (massive)
+  Juniper Berry EO OAV=6234 (very strong)
+  Hedione OAV=5837 (very strong)
+  T:3.4% H:51.4% B:45.2%
+  Vapor: 254.3 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base share of active note distribution: 47%
+  - Iso E Super OAV=21619
+  - Hedione OAV=6427
+  - Petitgrain EO Paraguay OAV=2425
+  - Coriander Seed EO OAV=1994
+  - Vetikon OAV=1369
+  - Vetiver EO (India) OAV=493
+  Vapor: 25.6 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Juniper Berry EO(137253) + Grapefruit FCF oil Sicilian(43493) + Iso E Super(14011) + Petitgrain EO Paraguay(8898)
+  OAV by family: None84% woody7% citrus4% conifer3%
+
+### 6. Longevity
+  Uncalibrated loss index: 26% over modeled window
+  Vapor: 3221.7 > 25.6 ppm
+  Base @ drydown: 47%
+  Absolute skin life: unavailable; calibrated finite-film, vehicle, skin-absorption, and sensory data are required
+
+### 7. Balance
+  Pyramid: T:3.3% H:61.7% B:35.0%
+  OAV range: 0.01 to 137253 (sigma-log=2.08)
+  Wide OAV contrast: Juniper Berry EO leads at OAV 137253; lower-OAV materials may be masked.
+    massive: 3
+    sub-threshold: 3
+
+### 8. Flags
+  SUB: Clearwood OAV=0.30 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Benzyl Benzoate OAV=0.03 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Habanolide OAV=0.01 role=fixative class=STRUCTURAL_OR_FIXATIVE
+```
+
+### Nominal 20% finished-volume context / development
+
+<!-- scenario-id: strong_305k_20pct_development; formatter-sha256: 0639135b1748b74d716852409eaabd76729344e5dd723dd2c15fc490c1744ba6 -->
+```text
+## Gate Summary
+
+**104 PASS** / **42 WARN** / **1 FAIL**
+
+  FAIL pipeline_preflight: 13 checks; 9 warnings
+  WARN quantitative_authority: Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only.
+  WARN headspace_scope: Headspace/OAV is an active-concentrate screening model; the finished ethanol-water-solvent matrix is omitted.
+  WARN natural_composite_coverage: Partial literature constituent models have unresolved odor contributions; full quantitative evaluability is not established. Cypress EO: 69.2% nominal input coverage
+  WARN odt_coverage: 15 material(s) rely on derived/unverified ODTs (100% OAV share)
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 31.9% active mass across 3 materials
+  WARN oav_overdose_blocker: High modeled OAV screening signal: Grapefruit FCF oil Sicilian=43492, Iso E Super=14011, Juniper Berry EO=137252; validate by controlled dilution/omission trials
+  WARN odt_sanity: 2 materials with suspect ODT values: Coriander Seed EO=None, Grapefruit FCF oil Sicilian=None; 2 unresolved cross-source ODT conflicts
+  WARN vp_cross_source: 2 materials with VP=None or 0: Coriander Seed EO, Grapefruit FCF oil Sicilian; 18 materials use inferred enthalpy for VP at 305.00 K; 4 unresolved cross-source VP conflicts
+  WARN odt_completeness: 2 material(s) lack ODT data; 22% OAV share affected
+  WARN safety_ifra_allergen: 12 materials lack explicit IFRA Cat4 limits; 1 EU allergen declarations
+  WARN safety_phototoxic: Grapefruit FCF oil Sicilian: 6.56% > IFRA max 2.0% (bergaptene 0.5 ppm)
+  WARN safety_receptor_saturation: Cedarwood Virginia 2.1% > 2% cap (OR10J5 + cedrol sedative)
+  WARN oav_physics_gamma: 18/18 materials use predictive, heuristic, fallback, or unknown gamma authority; largest gamma=1 comparison leverage Clearwood=1.8x
+  WARN verify_protocol_aggregate: Verification protocol active -- 2/18 materials missing ODT data
+  WARN solvent_matrix: stock-carrier authority PARTIAL_UNRESOLVED; known named carriers {'DPG': 225.0}; unresolved carrier proxy 300.0 uL; 1 named carrier row(s) lack a v/v basis
+  WARN perfumer_logic: woody.vetiver_classical; rerun optimizer: citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100; not_aromatic_fougere: 15.370% active above 4.000 [advisory guideline; not release-blocking]
+  WARN family_drift_detector: woody.vetiver_classical; citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100 [advisory guideline; not release-blocking]
+  WARN novelty_vs_reference: reference/control archetype; familiar by design, not the new exploration target
+  WARN perfume_knowledge: Pyramid off-target: Expected T:15% H:30% B:55%, Actual T:3.3% H:61.7% B:35.0%; top OAV off-target for family woody; heart OAV off-target for family woody
+  WARN carles_pyramid: Carles pyramid: empty windows = 3h_top_heart (need >2% active in each of 5 windows)
+  WARN carles_accord_ratio: Exact active-mass ppm is unavailable; pairwise dose ratios were not evaluated.
+  WARN literature_compliance: Literature compliance: 3/5 principles passed (60%)
+  WARN edge_cases: Musk coverage: 100%, gaps: 1, formula VP factor x1.54-2.65 (median x1.89, T=305.00K vs 298.15K, n=18)
+  WARN family_hedonic: Family 'woody.vetiver_classical' has 0 legacy pitfalls and 0 tips quarantined pending validation
+  WARN somatosensory: 0 candidate chemesthetic materials detected; formula-level effects require exposure and human validation
+  WARN stevens_n_efficiency: Exact active-mass ppm is unavailable; dose-efficiency comparison not evaluated.
+  WARN jnd_redundancy: Potentially redundant pairs: vetival vs vetiver eo in woody (OAV 358/310)
+  WARN guerlain_nature_synthetic: Natural OAV = 91% -- batch inconsistency risk
+  WARN jellinek_psychology: Jellinek categories weak: erogenic, narcotic, stimulating
+  WARN coty_single_material_limit: Exact active-mass ppm is unavailable; single-material limit not evaluated.
+  WARN roudnitska_hedione_pct: Exact active-mass ppm is unavailable; Hedione percentage heuristic not evaluated.
+  WARN adaptation_timing: fast tier < 5% (no immediate impact); slow tier < 10% (poor longevity)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 89%) -- collapse risk
+  WARN oav_intelligence: iso e super OAV 14011.2 is above woody_amber target 40.0-150.0; hedione OAV 4081.7 is above woody_amber target 10.0-25.0; material_class_distribution: Class distribution: fixatives:4%, florals:12%, musks:4%, woods:38%
+  WARN olfactory_fatigue: Adaptation/fatigue screening flag: iso e super=14011 (high model signal)
+  WARN evaporation_rate_balance: Pyramid imbalance: top = 3%, heart = 62%
+  WARN tenacity_projection: VP<0.01Pa = 8% (<10%, weak longevity)
+  WARN master_perfumer_gate: opening likely underbuilt
+  WARN mass_market_tier_check: Expensive captives found: Ambrox Super. At 1500 THB, these eat margin. Consider if their perceptible impact justifies the cost.
+  WARN authority_vector: Safety authority insufficient (0.00) -- unknown IFRA limits for too many materials; Identity (0.00) AND Quantity (0.00) authority both insufficient -- insufficient evidence; Identity authority insufficient (0.00). DIMENSIONS NEVER AVERAGED. [advisory guideline; not release-blocking]
+  WARN robustness_perturbation: 36 fragile perturbation(s) across 36 checks; Iso E Super up: brief grammar failure under perturbation; Iso E Super down: brief grammar failure under perturbation; Hedione up: brief grammar failure under perturbation
+  WARN confidence_minimum: combined confidence 18.1 below 25.0 after preflight evidence penalty 14.0; reference-control study remains diagnostic only
+
+## Authority Dimensions
+
+| Dimension | Status | Authority |
+|---|---|---|
+| Inventory stock | PASS | Every formula row resolves uniquely to a declared live inventory stock. |
+| Quantitative ppm w/w | UNAVAILABLE | Exact only when the full declared mass and density chain is available. |
+| Headspace/OAV | MODELED_ACTIVE_CONCENTRATE_SCREEN | HEURISTIC_NOT_MEASURED; diagnostic model, not measured odor intensity. |
+| Named reference | PASS () | No named-reference claim detected. |
+| Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | Requires blinded bench comparison; no model score supplies this authority. |
+| Combined confidence | 18.1/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
+
+## Headspace OAV -- Opening (0s)
+
+| Material | Dil | Raw uL | Act uL | MW | MF% | VP Pa | gamma | Vapor ppm | ODT ppm | OAV | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Juniper Berry EO | 100.0% | 750.00 | 750.00 | 136.200 | 22.050 | 106.070904 | 1.002 | 2417.520207 | 0.015000000 | 137252.5 | heart |
+| Grapefruit FCF oil Sicilian | 100.0% | 320.00 | 320.00 | UNKNOWN | 6.407 | UNKNOWN | 1.002 | 610.886996 | UNKNOWN | 43492.5 | heart |
+| Iso E Super | 100.0% | 850.00 | 850.00 | 234.400 | 14.521 | 0.458763 | 1.066 | 0.700562 | 0.000050000 | 14011.2 | heart |
+| Petitgrain EO Paraguay | 100.0% | 160.00 | 160.00 | 136.000 | 4.711 | 10.632758 | 1.000 | 32.723476 | 0.004000000 | 8898.2 | top |
+| Cypress EO | 100.0% | 50.00 | 50.00 | 136.000 | 1.472 | 389.382043 | 3.000 | 143.724851 | 0.200000000 | 6210.1 | heart |
+| Coriander Seed EO | 100.0% | 60.00 | 60.00 | UNKNOWN | 1.201 | UNKNOWN | 1.002 | 6.976638 | UNKNOWN | 4215.8 | heart |
+| Hedione | 100.0% | 600.00 | 600.00 | 226.300 | 10.617 | 0.193654 | 1.006 | 0.204084 | 0.000050000 | 4081.7 | heart |
+| Vetikon | 100.0% | 350.00 | 350.00 | 176.250 | 7.952 | 7.466083 | 0.850 | 4.980407 | 0.005000000 | 996.1 | base |
+| Vetival | 100.0% | 80.00 | 80.00 | 218.330 | 1.467 | 11.538134 | 1.500 | 2.506211 | 0.007000000 | 358.0 | heart |
+| Vetiver EO (India) | 100.0% | 700.00 | 700.00 | 222.400 | 12.478 | 0.084308 | 2.000 | 0.689597 | 0.005000000 | 309.9 | base |
+| Cedarwood Virginia | 100.0% | 100.00 | 100.00 | 222.370 | 1.765 | 0.011325 | 1.002 | 0.592772 | 0.015000000 | 75.7 | heart |
+| Ambrox Super | 25.0% | 400.00 | 100.00 | 236.400 | 1.694 | 0.104574 | 1.019 | 0.017818 | 0.000300000 | 59.4 | base |
+| Timberol | 100.0% | 70.00 | 70.00 | 226.400 | 1.238 | 0.138039 | 1.500 | 0.025300 | 0.000600000 | 42.2 | base |
+| Terpinyl Acetate | 100.0% | 80.00 | 80.00 | 196.300 | 1.632 | 0.778498 | 1.000 | 0.125384 | 0.035000000 | 3.6 | base |
+| Ambrettolide | 10.0% | 250.00 | 25.00 | 252.400 | 0.397 | 0.006916 | 1.500 | 0.000406 | 0.000136000 | 3.0 | base |
+| Clearwood | 100.0% | 200.00 | 200.00 | 222.400 | 3.601 | 0.004676 | 1.800 | 0.002991 | 0.010000000 | 0.3 | base |
+| Benzyl Benzoate | 100.0% | 200.00 | 200.00 | 212.200 | 3.774 | 0.063576 | 1.002 | 0.023736 | 0.810000000 | 0.0 | heart |
+| Habanolide | 100.0% | 180.00 | 180.00 | 238.400 | 3.023 | 0.000141 | 0.850 | 0.000036 | 0.002800000 | 0.0 | base |
+
+**Materials:** 18 total (1 top, 9 heart, 8 base)
+**Total vapor:** 3221.70 ppm
+### Note Distribution
+
+**TOP:** 1 mats, 3.3% active, 4.0% OAV
+  - Petitgrain EO Paraguay       OAV=  8898.2 (very strong) VP=10.633Pa
+**HEART:** 9 mats, 61.7% active, 95.3% OAV
+  - Juniper Berry EO             OAV=137252.5 (massive) VP=106.071Pa
+  - Grapefruit FCF oil Sicilian  OAV= 43492.5 (massive) VP=0.000Pa
+  - Iso E Super                  OAV= 14011.2 (massive) VP=0.459Pa
+  - Cypress EO                   OAV=  6210.1 (very strong) VP=389.382Pa
+  - Coriander Seed EO            OAV=  4215.8 (very strong) VP=0.000Pa
+  - Hedione                      OAV=  4081.7 (very strong) VP=0.194Pa
+  ... and 3 more
+**BASE:** 8 mats, 35.0% active, 0.6% OAV
+  - Vetikon                      OAV=   996.1 (strong) VP=7.466Pa
+  - Vetiver EO (India)           OAV=   309.9 (strong) VP=0.084Pa
+  - Ambrox Super                 OAV=    59.4 (moderate-strong) VP=0.105Pa
+  - Timberol                     OAV=    42.2 (moderate) VP=0.138Pa
+  - Terpinyl Acetate             OAV=     3.6 (at threshold) VP=0.778Pa
+  - Ambrettolide                 OAV=     3.0 (at threshold) VP=0.007Pa
+  ... and 2 more
+### OAV by Odor Family
+
+                ?  84.1% ==========================================  (5 mats)
+            woody   7.1% ===  (6 mats)
+           citrus   4.0% ==  (1 mats)
+          conifer   2.8% =  (1 mats)
+           floral   1.9% =  (1 mats)
+            amber   0.0% =  (1 mats)
+         aromatic   0.0% =  (1 mats)
+             musk   0.0% =  (2 mats)
+### Sub-threshold Materials (OAV < 1)
+3/18 materials below perceptible threshold
+  - Benzyl Benzoate: OAV=0.03 VP=0.064Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Clearwood: OAV=0.30 VP=0.005Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Habanolide: OAV=0.01 VP=0.000Pa act=180uL role=fixative [STRUCTURAL_OR_FIXATIVE]
+### High-OAV Flags (>5000)
+  - Cypress EO OAV=6210 dominates headspace -- may mask subtler notes
+  - Grapefruit FCF oil Sicilian OAV=43493 dominates headspace -- may mask subtler notes
+  - Iso E Super OAV=14011 dominates headspace -- may mask subtler notes
+  - Juniper Berry EO OAV=137253 dominates headspace -- may mask subtler notes
+  - Petitgrain EO Paraguay OAV=8898 dominates headspace -- may mask subtler notes
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Remain idx | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s |  3.3/61.7/35.0 | 3221.70ppm |  100.0% | Juniper Berr(137253), Grapefruit F(43493), Iso E Super(14011)
+| top          |    300s |  3.5/57.9/38.6 | 2194.45ppm |   91.4% | Juniper Berr(89283), Grapefruit F(33242), Iso E Super(15969)
+| heart        |   1800s |  3.4/51.4/45.2 | 254.34ppm |   79.2% | Iso E Super(19798), Petitgrain E(10447), Juniper Berr(6234)
+| late_heart   |   7200s |  1.8/51.4/46.8 |  40.78ppm |   76.1% | Iso E Super(20962), Hedione(6207), Petitgrain E(5696)
+| drydown      |  14400s |  0.8/51.9/47.4 |  25.58ppm |   74.3% | Iso E Super(21619), Hedione(6427), Petitgrain E(2425)
+
+Temporal authority: HEURISTIC_UNCALIBRATED; model=dynamic_headspace_exponential_loss_v2; remaining index is not measured evaporation.
+
+### Per-Window Detail
+
+**OPENING** (0.0s) -- Uncalibrated loss index:0%
+  T:3.3% H:61.7% B:35.0%  Vapor:3221.70ppm
+  Leaders: Juniper Berry EO OAV 137253 | Grapefruit FCF oil Sicilian OAV 43493 | Iso E Super OAV 14011 | Petitgrain EO Paraguay OAV 8898 | Cypress EO OAV 6210
+
+**TOP** (300.0s) -- Uncalibrated loss index:9%
+  T:3.5% H:57.9% B:38.6%  Vapor:2194.45ppm
+  Leaders: Juniper Berry EO OAV 89283 | Grapefruit FCF oil Sicilian OAV 33242 | Iso E Super OAV 15969 | Petitgrain EO Paraguay OAV 9882 | Coriander Seed EO OAV 4735
+
+**HEART** (1800.0s) -- Uncalibrated loss index:21%
+  T:3.4% H:51.4% B:45.2%  Vapor:254.34ppm
+  Leaders: Iso E Super OAV 19798 | Petitgrain EO Paraguay OAV 10447 | Juniper Berry EO OAV 6234 | Hedione OAV 5837 | Coriander Seed EO OAV 5300
+
+**LATE_HEART** (7200.0s) -- Uncalibrated loss index:24%
+  T:1.8% H:51.4% B:46.8%  Vapor:40.78ppm
+  Leaders: Iso E Super OAV 20962 | Hedione OAV 6207 | Petitgrain EO Paraguay OAV 5696 | Coriander Seed EO OAV 3556 | Vetikon OAV 1414
+
+**DRYDOWN** (14400.0s) -- Uncalibrated loss index:26%
+  T:0.8% H:51.9% B:47.4%  Vapor:25.58ppm
+  Leaders: Iso E Super OAV 21619 | Hedione OAV 6427 | Petitgrain EO Paraguay OAV 2425 | Coriander Seed EO OAV 1994 | Vetikon OAV 1369
+## Structural OAV Analysis
+
+**Vapor:** 3222 ppm  |  **Active:** 18.1%  |  **Perceptible:** 15/18  |  **Unknown:** 0
+
+### OAV Tiers
+  **massive** (7): Coriander Seed EO(4216), Cypress EO(6210), Grapefruit FCF oil Sicilian(43493), Hedione(4082), Iso E Super(14011), Juniper Berry EO(137253), Petitgrain EO Paraguay(8898)  ! fatigue risk, overload risk
+  **v.strong** (3): Vetikon(996), Vetival(358), Vetiver EO (India)(310)
+  **strong** (2): Ambrox Super(59), Cedarwood Virginia(76)
+  **moderate** (1): Timberol(42)
+  **threshold** (2): Ambrettolide(3), Terpinyl Acetate(4)
+  **sub** (3): Benzyl Benzoate(0), Clearwood(0), Habanolide(0)
+
+### Block Balance
+  **Citrus**     8898 (4%)
+  **Floral**   209698 (95%)
+  **Base**       1414 (1%)
+  **Ratio:** 148:1 between strongest/weakest block
+
+### Issues
+  ! 3 sub-threshold material(s): Benzyl Benzoate, Clearwood, Habanolide
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Petitgrain EO Paraguay(very strong)
+  Heart: Juniper Berry EO(massive) + Grapefruit FCF oil Sicilian(massive)
+  Base: Vetikon(strong) + Vetiver EO (India)(strong) + Ambrox Super(moderate-strong) + Timberol(moderate) + Terpinyl Acetate(at threshold)
+
+### 2. Opening (0-5min)
+  Petitgrain EO Paraguay leads the reported top at OAV 8898 (very strong).
+  - Petitgrain EO Paraguay OAV=8898 VP=10.6Pa (citrus)
+  Total vapor: 3221.7 ppm
+
+### 3. Heart (30min-2hr)
+  Iso E Super OAV=19798 (massive)
+  Petitgrain EO Paraguay OAV=10447 (massive)
+  Juniper Berry EO OAV=6234 (very strong)
+  Hedione OAV=5837 (very strong)
+  T:3.4% H:51.4% B:45.2%
+  Vapor: 254.3 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base share of active note distribution: 47%
+  - Iso E Super OAV=21619
+  - Hedione OAV=6427
+  - Petitgrain EO Paraguay OAV=2425
+  - Coriander Seed EO OAV=1994
+  - Vetikon OAV=1369
+  - Vetiver EO (India) OAV=493
+  Vapor: 25.6 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Juniper Berry EO(137253) + Grapefruit FCF oil Sicilian(43493) + Iso E Super(14011) + Petitgrain EO Paraguay(8898)
+  OAV by family: None84% woody7% citrus4% conifer3%
+
+### 6. Longevity
+  Uncalibrated loss index: 26% over modeled window
+  Vapor: 3221.7 > 25.6 ppm
+  Base @ drydown: 47%
+  Absolute skin life: unavailable; calibrated finite-film, vehicle, skin-absorption, and sensory data are required
+
+### 7. Balance
+  Pyramid: T:3.3% H:61.7% B:35.0%
+  OAV range: 0.01 to 137253 (sigma-log=2.08)
+  Wide OAV contrast: Juniper Berry EO leads at OAV 137253; lower-OAV materials may be masked.
+    massive: 3
+    sub-threshold: 3
+
+### 8. Flags
+  SUB: Clearwood OAV=0.30 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Benzyl Benzoate OAV=0.03 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Habanolide OAV=0.01 role=fixative class=STRUCTURAL_OR_FIXATIVE
+```
+
+### Baseline / commercial-trial policy
+
+<!-- scenario-id: baseline_305k_18pct_commercial_trial; formatter-sha256: b9e782f830148b24ca126d251e31d3f3f8ee2de5e57e46f60d1ac30f52079864 -->
+```text
+## Gate Summary
+
+**104 PASS** / **41 WARN** / **2 FAIL**
+
+  FAIL pipeline_preflight: 13 checks; 9 warnings
+  FAIL robustness_perturbation: commercial blocker: 36 fragile perturbation(s) across 36 checks; Iso E Super up: brief grammar failure under perturbation; Iso E Super down: brief grammar failure under perturbation; Hedione up: brief grammar failure under perturbation
+  WARN quantitative_authority: Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only.
+  WARN headspace_scope: Headspace/OAV is an active-concentrate screening model; the finished ethanol-water-solvent matrix is omitted.
+  WARN natural_composite_coverage: Partial literature constituent models have unresolved odor contributions; full quantitative evaluability is not established. Cypress EO: 69.2% nominal input coverage
+  WARN odt_coverage: 15 material(s) rely on derived/unverified ODTs (100% OAV share)
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 31.9% active mass across 3 materials
+  WARN oav_overdose_blocker: High modeled OAV screening signal: Grapefruit FCF oil Sicilian=43492, Iso E Super=14011, Juniper Berry EO=137252; validate by controlled dilution/omission trials
+  WARN odt_sanity: 2 materials with suspect ODT values: Coriander Seed EO=None, Grapefruit FCF oil Sicilian=None; 2 unresolved cross-source ODT conflicts
+  WARN vp_cross_source: 2 materials with VP=None or 0: Coriander Seed EO, Grapefruit FCF oil Sicilian; 18 materials use inferred enthalpy for VP at 305.00 K; 4 unresolved cross-source VP conflicts
+  WARN odt_completeness: 2 material(s) lack ODT data; 22% OAV share affected
+  WARN safety_ifra_allergen: 12 materials lack explicit IFRA Cat4 limits; 1 EU allergen declarations
+  WARN safety_phototoxic: Grapefruit FCF oil Sicilian: 6.56% > IFRA max 2.0% (bergaptene 0.5 ppm)
+  WARN safety_receptor_saturation: Cedarwood Virginia 2.1% > 2% cap (OR10J5 + cedrol sedative)
+  WARN oav_physics_gamma: 18/18 materials use predictive, heuristic, fallback, or unknown gamma authority; largest gamma=1 comparison leverage Clearwood=1.8x
+  WARN verify_protocol_aggregate: Verification protocol active -- 2/18 materials missing ODT data
+  WARN solvent_matrix: stock-carrier authority PARTIAL_UNRESOLVED; known named carriers {'DPG': 225.0}; unresolved carrier proxy 300.0 uL; 1 named carrier row(s) lack a v/v basis
+  WARN perfumer_logic: woody.vetiver_classical; rerun optimizer: citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100; not_aromatic_fougere: 15.370% active above 4.000 [advisory guideline; not release-blocking]
+  WARN family_drift_detector: woody.vetiver_classical; citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100 [advisory guideline; not release-blocking]
+  WARN novelty_vs_reference: reference/control archetype; familiar by design, not the new exploration target
+  WARN perfume_knowledge: Pyramid off-target: Expected T:15% H:30% B:55%, Actual T:3.3% H:61.7% B:35.0%; top OAV off-target for family woody; heart OAV off-target for family woody
+  WARN carles_pyramid: Carles pyramid: empty windows = 3h_top_heart (need >2% active in each of 5 windows)
+  WARN carles_accord_ratio: Exact active-mass ppm is unavailable; pairwise dose ratios were not evaluated.
+  WARN literature_compliance: Literature compliance: 3/5 principles passed (60%)
+  WARN edge_cases: Musk coverage: 100%, gaps: 1, formula VP factor x1.54-2.65 (median x1.89, T=305.00K vs 298.15K, n=18)
+  WARN family_hedonic: Family 'woody.vetiver_classical' has 0 legacy pitfalls and 0 tips quarantined pending validation
+  WARN somatosensory: 0 candidate chemesthetic materials detected; formula-level effects require exposure and human validation
+  WARN stevens_n_efficiency: Exact active-mass ppm is unavailable; dose-efficiency comparison not evaluated.
+  WARN jnd_redundancy: Potentially redundant pairs: vetival vs vetiver eo in woody (OAV 358/310)
+  WARN guerlain_nature_synthetic: Natural OAV = 91% -- batch inconsistency risk
+  WARN jellinek_psychology: Jellinek categories weak: erogenic, narcotic, stimulating
+  WARN coty_single_material_limit: Exact active-mass ppm is unavailable; single-material limit not evaluated.
+  WARN roudnitska_hedione_pct: Exact active-mass ppm is unavailable; Hedione percentage heuristic not evaluated.
+  WARN adaptation_timing: fast tier < 5% (no immediate impact); slow tier < 10% (poor longevity)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 89%) -- collapse risk
+  WARN oav_intelligence: iso e super OAV 14011.2 is above woody_amber target 40.0-150.0; hedione OAV 4081.7 is above woody_amber target 10.0-25.0; material_class_distribution: Class distribution: fixatives:4%, florals:12%, musks:4%, woods:38%
+  WARN olfactory_fatigue: Adaptation/fatigue screening flag: iso e super=14011 (high model signal)
+  WARN evaporation_rate_balance: Pyramid imbalance: top = 3%, heart = 62%
+  WARN tenacity_projection: VP<0.01Pa = 8% (<10%, weak longevity)
+  WARN master_perfumer_gate: opening likely underbuilt
+  WARN mass_market_tier_check: Expensive captives found: Ambrox Super. At 1500 THB, these eat margin. Consider if their perceptible impact justifies the cost.
+  WARN authority_vector: Safety authority insufficient (0.00) -- unknown IFRA limits for too many materials; Identity (0.00) AND Quantity (0.00) authority both insufficient -- insufficient evidence; Identity authority insufficient (0.00). DIMENSIONS NEVER AVERAGED. [advisory guideline; not release-blocking]
+  WARN confidence_minimum: combined confidence 18.1 below 25.0 after preflight evidence penalty 14.0
+
+## Authority Dimensions
+
+| Dimension | Status | Authority |
+|---|---|---|
+| Inventory stock | PASS | Every formula row resolves uniquely to a declared live inventory stock. |
+| Quantitative ppm w/w | UNAVAILABLE | Exact only when the full declared mass and density chain is available. |
+| Headspace/OAV | MODELED_ACTIVE_CONCENTRATE_SCREEN | HEURISTIC_NOT_MEASURED; diagnostic model, not measured odor intensity. |
+| Named reference | PASS () | No named-reference claim detected. |
+| Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | Requires blinded bench comparison; no model score supplies this authority. |
+| Combined confidence | 18.1/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
+
+## Headspace OAV -- Opening (0s)
+
+| Material | Dil | Raw uL | Act uL | MW | MF% | VP Pa | gamma | Vapor ppm | ODT ppm | OAV | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Juniper Berry EO | 100.0% | 750.00 | 750.00 | 136.200 | 22.050 | 106.070904 | 1.002 | 2417.520207 | 0.015000000 | 137252.5 | heart |
+| Grapefruit FCF oil Sicilian | 100.0% | 320.00 | 320.00 | UNKNOWN | 6.407 | UNKNOWN | 1.002 | 610.886996 | UNKNOWN | 43492.5 | heart |
+| Iso E Super | 100.0% | 850.00 | 850.00 | 234.400 | 14.521 | 0.458763 | 1.066 | 0.700562 | 0.000050000 | 14011.2 | heart |
+| Petitgrain EO Paraguay | 100.0% | 160.00 | 160.00 | 136.000 | 4.711 | 10.632758 | 1.000 | 32.723476 | 0.004000000 | 8898.2 | top |
+| Cypress EO | 100.0% | 50.00 | 50.00 | 136.000 | 1.472 | 389.382043 | 3.000 | 143.724851 | 0.200000000 | 6210.1 | heart |
+| Coriander Seed EO | 100.0% | 60.00 | 60.00 | UNKNOWN | 1.201 | UNKNOWN | 1.002 | 6.976638 | UNKNOWN | 4215.8 | heart |
+| Hedione | 100.0% | 600.00 | 600.00 | 226.300 | 10.617 | 0.193654 | 1.006 | 0.204084 | 0.000050000 | 4081.7 | heart |
+| Vetikon | 100.0% | 350.00 | 350.00 | 176.250 | 7.952 | 7.466083 | 0.850 | 4.980407 | 0.005000000 | 996.1 | base |
+| Vetival | 100.0% | 80.00 | 80.00 | 218.330 | 1.467 | 11.538134 | 1.500 | 2.506211 | 0.007000000 | 358.0 | heart |
+| Vetiver EO (India) | 100.0% | 700.00 | 700.00 | 222.400 | 12.478 | 0.084308 | 2.000 | 0.689597 | 0.005000000 | 309.9 | base |
+| Cedarwood Virginia | 100.0% | 100.00 | 100.00 | 222.370 | 1.765 | 0.011325 | 1.002 | 0.592772 | 0.015000000 | 75.7 | heart |
+| Ambrox Super | 25.0% | 400.00 | 100.00 | 236.400 | 1.694 | 0.104574 | 1.019 | 0.017818 | 0.000300000 | 59.4 | base |
+| Timberol | 100.0% | 70.00 | 70.00 | 226.400 | 1.238 | 0.138039 | 1.500 | 0.025300 | 0.000600000 | 42.2 | base |
+| Terpinyl Acetate | 100.0% | 80.00 | 80.00 | 196.300 | 1.632 | 0.778498 | 1.000 | 0.125384 | 0.035000000 | 3.6 | base |
+| Ambrettolide | 10.0% | 250.00 | 25.00 | 252.400 | 0.397 | 0.006916 | 1.500 | 0.000406 | 0.000136000 | 3.0 | base |
+| Clearwood | 100.0% | 200.00 | 200.00 | 222.400 | 3.601 | 0.004676 | 1.800 | 0.002991 | 0.010000000 | 0.3 | base |
+| Benzyl Benzoate | 100.0% | 200.00 | 200.00 | 212.200 | 3.774 | 0.063576 | 1.002 | 0.023736 | 0.810000000 | 0.0 | heart |
+| Habanolide | 100.0% | 180.00 | 180.00 | 238.400 | 3.023 | 0.000141 | 0.850 | 0.000036 | 0.002800000 | 0.0 | base |
+
+**Materials:** 18 total (1 top, 9 heart, 8 base)
+**Total vapor:** 3221.70 ppm
+### Note Distribution
+
+**TOP:** 1 mats, 3.3% active, 4.0% OAV
+  - Petitgrain EO Paraguay       OAV=  8898.2 (very strong) VP=10.633Pa
+**HEART:** 9 mats, 61.7% active, 95.3% OAV
+  - Juniper Berry EO             OAV=137252.5 (massive) VP=106.071Pa
+  - Grapefruit FCF oil Sicilian  OAV= 43492.5 (massive) VP=0.000Pa
+  - Iso E Super                  OAV= 14011.2 (massive) VP=0.459Pa
+  - Cypress EO                   OAV=  6210.1 (very strong) VP=389.382Pa
+  - Coriander Seed EO            OAV=  4215.8 (very strong) VP=0.000Pa
+  - Hedione                      OAV=  4081.7 (very strong) VP=0.194Pa
+  ... and 3 more
+**BASE:** 8 mats, 35.0% active, 0.6% OAV
+  - Vetikon                      OAV=   996.1 (strong) VP=7.466Pa
+  - Vetiver EO (India)           OAV=   309.9 (strong) VP=0.084Pa
+  - Ambrox Super                 OAV=    59.4 (moderate-strong) VP=0.105Pa
+  - Timberol                     OAV=    42.2 (moderate) VP=0.138Pa
+  - Terpinyl Acetate             OAV=     3.6 (at threshold) VP=0.778Pa
+  - Ambrettolide                 OAV=     3.0 (at threshold) VP=0.007Pa
+  ... and 2 more
+### OAV by Odor Family
+
+                ?  84.1% ==========================================  (5 mats)
+            woody   7.1% ===  (6 mats)
+           citrus   4.0% ==  (1 mats)
+          conifer   2.8% =  (1 mats)
+           floral   1.9% =  (1 mats)
+            amber   0.0% =  (1 mats)
+         aromatic   0.0% =  (1 mats)
+             musk   0.0% =  (2 mats)
+### Sub-threshold Materials (OAV < 1)
+3/18 materials below perceptible threshold
+  - Benzyl Benzoate: OAV=0.03 VP=0.064Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Clearwood: OAV=0.30 VP=0.005Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Habanolide: OAV=0.01 VP=0.000Pa act=180uL role=fixative [STRUCTURAL_OR_FIXATIVE]
+### High-OAV Flags (>5000)
+  - Cypress EO OAV=6210 dominates headspace -- may mask subtler notes
+  - Grapefruit FCF oil Sicilian OAV=43493 dominates headspace -- may mask subtler notes
+  - Iso E Super OAV=14011 dominates headspace -- may mask subtler notes
+  - Juniper Berry EO OAV=137253 dominates headspace -- may mask subtler notes
+  - Petitgrain EO Paraguay OAV=8898 dominates headspace -- may mask subtler notes
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Remain idx | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s |  3.3/61.7/35.0 | 3221.70ppm |  100.0% | Juniper Berr(137253), Grapefruit F(43493), Iso E Super(14011)
+| top          |    300s |  3.5/57.9/38.6 | 2194.45ppm |   91.4% | Juniper Berr(89283), Grapefruit F(33242), Iso E Super(15969)
+| heart        |   1800s |  3.4/51.4/45.2 | 254.34ppm |   79.2% | Iso E Super(19798), Petitgrain E(10447), Juniper Berr(6234)
+| late_heart   |   7200s |  1.8/51.4/46.8 |  40.78ppm |   76.1% | Iso E Super(20962), Hedione(6207), Petitgrain E(5696)
+| drydown      |  14400s |  0.8/51.9/47.4 |  25.58ppm |   74.3% | Iso E Super(21619), Hedione(6427), Petitgrain E(2425)
+
+Temporal authority: HEURISTIC_UNCALIBRATED; model=dynamic_headspace_exponential_loss_v2; remaining index is not measured evaporation.
+
+### Per-Window Detail
+
+**OPENING** (0.0s) -- Uncalibrated loss index:0%
+  T:3.3% H:61.7% B:35.0%  Vapor:3221.70ppm
+  Leaders: Juniper Berry EO OAV 137253 | Grapefruit FCF oil Sicilian OAV 43493 | Iso E Super OAV 14011 | Petitgrain EO Paraguay OAV 8898 | Cypress EO OAV 6210
+
+**TOP** (300.0s) -- Uncalibrated loss index:9%
+  T:3.5% H:57.9% B:38.6%  Vapor:2194.45ppm
+  Leaders: Juniper Berry EO OAV 89283 | Grapefruit FCF oil Sicilian OAV 33242 | Iso E Super OAV 15969 | Petitgrain EO Paraguay OAV 9882 | Coriander Seed EO OAV 4735
+
+**HEART** (1800.0s) -- Uncalibrated loss index:21%
+  T:3.4% H:51.4% B:45.2%  Vapor:254.34ppm
+  Leaders: Iso E Super OAV 19798 | Petitgrain EO Paraguay OAV 10447 | Juniper Berry EO OAV 6234 | Hedione OAV 5837 | Coriander Seed EO OAV 5300
+
+**LATE_HEART** (7200.0s) -- Uncalibrated loss index:24%
+  T:1.8% H:51.4% B:46.8%  Vapor:40.78ppm
+  Leaders: Iso E Super OAV 20962 | Hedione OAV 6207 | Petitgrain EO Paraguay OAV 5696 | Coriander Seed EO OAV 3556 | Vetikon OAV 1414
+
+**DRYDOWN** (14400.0s) -- Uncalibrated loss index:26%
+  T:0.8% H:51.9% B:47.4%  Vapor:25.58ppm
+  Leaders: Iso E Super OAV 21619 | Hedione OAV 6427 | Petitgrain EO Paraguay OAV 2425 | Coriander Seed EO OAV 1994 | Vetikon OAV 1369
+## Structural OAV Analysis
+
+**Vapor:** 3222 ppm  |  **Active:** 16.2%  |  **Perceptible:** 15/18  |  **Unknown:** 0
+
+### OAV Tiers
+  **massive** (7): Coriander Seed EO(4216), Cypress EO(6210), Grapefruit FCF oil Sicilian(43493), Hedione(4082), Iso E Super(14011), Juniper Berry EO(137253), Petitgrain EO Paraguay(8898)  ! fatigue risk, overload risk
+  **v.strong** (3): Vetikon(996), Vetival(358), Vetiver EO (India)(310)
+  **strong** (2): Ambrox Super(59), Cedarwood Virginia(76)
+  **moderate** (1): Timberol(42)
+  **threshold** (2): Ambrettolide(3), Terpinyl Acetate(4)
+  **sub** (3): Benzyl Benzoate(0), Clearwood(0), Habanolide(0)
+
+### Block Balance
+  **Citrus**     8898 (4%)
+  **Floral**   209698 (95%)
+  **Base**       1414 (1%)
+  **Ratio:** 148:1 between strongest/weakest block
+
+### Issues
+  ! 3 sub-threshold material(s): Benzyl Benzoate, Clearwood, Habanolide
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Petitgrain EO Paraguay(very strong)
+  Heart: Juniper Berry EO(massive) + Grapefruit FCF oil Sicilian(massive)
+  Base: Vetikon(strong) + Vetiver EO (India)(strong) + Ambrox Super(moderate-strong) + Timberol(moderate) + Terpinyl Acetate(at threshold)
+
+### 2. Opening (0-5min)
+  Petitgrain EO Paraguay leads the reported top at OAV 8898 (very strong).
+  - Petitgrain EO Paraguay OAV=8898 VP=10.6Pa (citrus)
+  Total vapor: 3221.7 ppm
+
+### 3. Heart (30min-2hr)
+  Iso E Super OAV=19798 (massive)
+  Petitgrain EO Paraguay OAV=10447 (massive)
+  Juniper Berry EO OAV=6234 (very strong)
+  Hedione OAV=5837 (very strong)
+  T:3.4% H:51.4% B:45.2%
+  Vapor: 254.3 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base share of active note distribution: 47%
+  - Iso E Super OAV=21619
+  - Hedione OAV=6427
+  - Petitgrain EO Paraguay OAV=2425
+  - Coriander Seed EO OAV=1994
+  - Vetikon OAV=1369
+  - Vetiver EO (India) OAV=493
+  Vapor: 25.6 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Juniper Berry EO(137253) + Grapefruit FCF oil Sicilian(43493) + Iso E Super(14011) + Petitgrain EO Paraguay(8898)
+  OAV by family: None84% woody7% citrus4% conifer3%
+
+### 6. Longevity
+  Uncalibrated loss index: 26% over modeled window
+  Vapor: 3221.7 > 25.6 ppm
+  Base @ drydown: 47%
+  Absolute skin life: unavailable; calibrated finite-film, vehicle, skin-absorption, and sensory data are required
+
+### 7. Balance
+  Pyramid: T:3.3% H:61.7% B:35.0%
+  OAV range: 0.01 to 137253 (sigma-log=2.08)
+  Wide OAV contrast: Juniper Berry EO leads at OAV 137253; lower-OAV materials may be masked.
+    massive: 3
+    sub-threshold: 3
+
+### 8. Flags
+  SUB: Clearwood OAV=0.30 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Benzyl Benzoate OAV=0.03 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Habanolide OAV=0.01 role=fixative class=STRUCTURAL_OR_FIXATIVE
+```
+
+### Baseline / commercial-ready policy
+
+<!-- scenario-id: baseline_305k_18pct_commercial_ready; formatter-sha256: a3296333a10760a71025efe9d9ec2e4e1d424360e8e59409e11899759199be83 -->
+```text
+## Gate Summary
+
+**104 PASS** / **39 WARN** / **4 FAIL**
+
+  FAIL pipeline_preflight: 13 checks; 7 warnings
+  FAIL quantitative_authority: Exact finished-product ppm w/w is unavailable; commercial safety/release claims are blocked.
+  FAIL robustness_perturbation: commercial blocker: 36 fragile perturbation(s) across 36 checks; Iso E Super up: brief grammar failure under perturbation; Iso E Super down: brief grammar failure under perturbation; Hedione up: brief grammar failure under perturbation
+  FAIL confidence_minimum: combined confidence 18.1 below 50.0 after preflight evidence penalty 14.0
+  WARN headspace_scope: Finished-product headspace was requested, but the complete solvent and diluted-stock carrier matrix is not explicit. [advisory guideline; not release-blocking]
+  WARN natural_composite_coverage: Partial literature constituent models have unresolved odor contributions; full quantitative evaluability is not established. Cypress EO: 69.2% nominal input coverage
+  WARN odt_coverage: 15 material(s) rely on derived/unverified ODTs (100% OAV share)
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 31.9% active mass across 3 materials
+  WARN oav_overdose_blocker: High modeled OAV screening signal: Grapefruit FCF oil Sicilian=43492, Iso E Super=14011, Juniper Berry EO=137252; validate by controlled dilution/omission trials
+  WARN odt_sanity: 2 materials with suspect ODT values: Coriander Seed EO=None, Grapefruit FCF oil Sicilian=None; 2 unresolved cross-source ODT conflicts
+  WARN vp_cross_source: 2 materials with VP=None or 0: Coriander Seed EO, Grapefruit FCF oil Sicilian; 18 materials use inferred enthalpy for VP at 305.00 K; 4 unresolved cross-source VP conflicts
+  WARN odt_completeness: 2 material(s) lack ODT data; 22% OAV share affected
+  WARN safety_ifra_allergen: 12 materials lack explicit IFRA Cat4 limits; 1 EU allergen declarations
+  WARN safety_phototoxic: Grapefruit FCF oil Sicilian: 6.56% > IFRA max 2.0% (bergaptene 0.5 ppm)
+  WARN safety_receptor_saturation: Cedarwood Virginia 2.1% > 2% cap (OR10J5 + cedrol sedative)
+  WARN oav_physics_gamma: 18/18 materials use predictive, heuristic, fallback, or unknown gamma authority; largest gamma=1 comparison leverage Clearwood=1.8x
+  WARN verify_protocol_aggregate: Verification protocol active -- 2/18 materials missing ODT data
+  WARN solvent_matrix: stock-carrier authority PARTIAL_UNRESOLVED; known named carriers {'DPG': 225.0}; unresolved carrier proxy 300.0 uL; 1 named carrier row(s) lack a v/v basis
+  WARN perfumer_logic: woody.vetiver_classical; rerun optimizer: citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100; not_aromatic_fougere: 15.370% active above 4.000 [advisory guideline; not release-blocking]
+  WARN family_drift_detector: woody.vetiver_classical; citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100 [advisory guideline; not release-blocking]
+  WARN novelty_vs_reference: reference/control archetype; familiar by design, not the new exploration target
+  WARN perfume_knowledge: Pyramid off-target: Expected T:15% H:30% B:55%, Actual T:3.3% H:61.7% B:35.0%; top OAV off-target for family woody; heart OAV off-target for family woody [advisory guideline; not release-blocking]
+  WARN carles_pyramid: Carles pyramid: empty windows = 3h_top_heart (need >2% active in each of 5 windows)
+  WARN carles_accord_ratio: Exact active-mass ppm is unavailable; pairwise dose ratios were not evaluated.
+  WARN literature_compliance: Literature compliance: 3/5 principles passed (60%)
+  WARN edge_cases: Musk coverage: 100%, gaps: 1, formula VP factor x1.54-2.65 (median x1.89, T=305.00K vs 298.15K, n=18)
+  WARN family_hedonic: Family 'woody.vetiver_classical' has 0 legacy pitfalls and 0 tips quarantined pending validation
+  WARN somatosensory: 0 candidate chemesthetic materials detected; formula-level effects require exposure and human validation
+  WARN stevens_n_efficiency: Exact active-mass ppm is unavailable; dose-efficiency comparison not evaluated.
+  WARN jnd_redundancy: Potentially redundant pairs: vetival vs vetiver eo in woody (OAV 358/310)
+  WARN guerlain_nature_synthetic: Natural OAV = 91% -- batch inconsistency risk
+  WARN jellinek_psychology: Jellinek categories weak: erogenic, narcotic, stimulating
+  WARN coty_single_material_limit: Exact active-mass ppm is unavailable; single-material limit not evaluated.
+  WARN roudnitska_hedione_pct: Exact active-mass ppm is unavailable; Hedione percentage heuristic not evaluated.
+  WARN adaptation_timing: fast tier < 5% (no immediate impact); slow tier < 10% (poor longevity)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 89%) -- collapse risk
+  WARN oav_intelligence: iso e super OAV 14011.2 is above woody_amber target 40.0-150.0; hedione OAV 4081.7 is above woody_amber target 10.0-25.0; material_class_distribution: Class distribution: fixatives:4%, florals:12%, musks:4%, woods:38%
+  WARN olfactory_fatigue: Adaptation/fatigue screening flag: iso e super=14011 (high model signal)
+  WARN evaporation_rate_balance: Pyramid imbalance: top = 3%, heart = 62%
+  WARN tenacity_projection: VP<0.01Pa = 8% (<10%, weak longevity)
+  WARN master_perfumer_gate: opening likely underbuilt
+  WARN mass_market_tier_check: Expensive captives found: Ambrox Super. At 1500 THB, these eat margin. Consider if their perceptible impact justifies the cost.
+  WARN authority_vector: Safety authority insufficient (0.00) -- unknown IFRA limits for too many materials; Identity (0.00) AND Quantity (0.00) authority both insufficient -- insufficient evidence; Identity authority insufficient (0.00). DIMENSIONS NEVER AVERAGED. [advisory guideline; not release-blocking]
+
+## Authority Dimensions
+
+| Dimension | Status | Authority |
+|---|---|---|
+| Inventory stock | PASS | Every formula row resolves uniquely to a declared live inventory stock. |
+| Quantitative ppm w/w | UNAVAILABLE | Exact only when the full declared mass and density chain is available. |
+| Headspace/OAV | MODELED_ACTIVE_CONCENTRATE_SCREEN | HEURISTIC_NOT_MEASURED; diagnostic model, not measured odor intensity. |
+| Named reference | PASS () | No named-reference claim detected. |
+| Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | Requires blinded bench comparison; no model score supplies this authority. |
+| Combined confidence | 18.1/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
+
+## Headspace OAV -- Opening (0s)
+
+| Material | Dil | Raw uL | Act uL | MW | MF% | VP Pa | gamma | Vapor ppm | ODT ppm | OAV | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Juniper Berry EO | 100.0% | 750.00 | 750.00 | 136.200 | 22.050 | 106.070904 | 1.002 | 2417.520207 | 0.015000000 | 137252.5 | heart |
+| Grapefruit FCF oil Sicilian | 100.0% | 320.00 | 320.00 | UNKNOWN | 6.407 | UNKNOWN | 1.002 | 610.886996 | UNKNOWN | 43492.5 | heart |
+| Iso E Super | 100.0% | 850.00 | 850.00 | 234.400 | 14.521 | 0.458763 | 1.066 | 0.700562 | 0.000050000 | 14011.2 | heart |
+| Petitgrain EO Paraguay | 100.0% | 160.00 | 160.00 | 136.000 | 4.711 | 10.632758 | 1.000 | 32.723476 | 0.004000000 | 8898.2 | top |
+| Cypress EO | 100.0% | 50.00 | 50.00 | 136.000 | 1.472 | 389.382043 | 3.000 | 143.724851 | 0.200000000 | 6210.1 | heart |
+| Coriander Seed EO | 100.0% | 60.00 | 60.00 | UNKNOWN | 1.201 | UNKNOWN | 1.002 | 6.976638 | UNKNOWN | 4215.8 | heart |
+| Hedione | 100.0% | 600.00 | 600.00 | 226.300 | 10.617 | 0.193654 | 1.006 | 0.204084 | 0.000050000 | 4081.7 | heart |
+| Vetikon | 100.0% | 350.00 | 350.00 | 176.250 | 7.952 | 7.466083 | 0.850 | 4.980407 | 0.005000000 | 996.1 | base |
+| Vetival | 100.0% | 80.00 | 80.00 | 218.330 | 1.467 | 11.538134 | 1.500 | 2.506211 | 0.007000000 | 358.0 | heart |
+| Vetiver EO (India) | 100.0% | 700.00 | 700.00 | 222.400 | 12.478 | 0.084308 | 2.000 | 0.689597 | 0.005000000 | 309.9 | base |
+| Cedarwood Virginia | 100.0% | 100.00 | 100.00 | 222.370 | 1.765 | 0.011325 | 1.002 | 0.592772 | 0.015000000 | 75.7 | heart |
+| Ambrox Super | 25.0% | 400.00 | 100.00 | 236.400 | 1.694 | 0.104574 | 1.019 | 0.017818 | 0.000300000 | 59.4 | base |
+| Timberol | 100.0% | 70.00 | 70.00 | 226.400 | 1.238 | 0.138039 | 1.500 | 0.025300 | 0.000600000 | 42.2 | base |
+| Terpinyl Acetate | 100.0% | 80.00 | 80.00 | 196.300 | 1.632 | 0.778498 | 1.000 | 0.125384 | 0.035000000 | 3.6 | base |
+| Ambrettolide | 10.0% | 250.00 | 25.00 | 252.400 | 0.397 | 0.006916 | 1.500 | 0.000406 | 0.000136000 | 3.0 | base |
+| Clearwood | 100.0% | 200.00 | 200.00 | 222.400 | 3.601 | 0.004676 | 1.800 | 0.002991 | 0.010000000 | 0.3 | base |
+| Benzyl Benzoate | 100.0% | 200.00 | 200.00 | 212.200 | 3.774 | 0.063576 | 1.002 | 0.023736 | 0.810000000 | 0.0 | heart |
+| Habanolide | 100.0% | 180.00 | 180.00 | 238.400 | 3.023 | 0.000141 | 0.850 | 0.000036 | 0.002800000 | 0.0 | base |
+
+**Materials:** 18 total (1 top, 9 heart, 8 base)
+**Total vapor:** 3221.70 ppm
+### Note Distribution
+
+**TOP:** 1 mats, 3.3% active, 4.0% OAV
+  - Petitgrain EO Paraguay       OAV=  8898.2 (very strong) VP=10.633Pa
+**HEART:** 9 mats, 61.7% active, 95.3% OAV
+  - Juniper Berry EO             OAV=137252.5 (massive) VP=106.071Pa
+  - Grapefruit FCF oil Sicilian  OAV= 43492.5 (massive) VP=0.000Pa
+  - Iso E Super                  OAV= 14011.2 (massive) VP=0.459Pa
+  - Cypress EO                   OAV=  6210.1 (very strong) VP=389.382Pa
+  - Coriander Seed EO            OAV=  4215.8 (very strong) VP=0.000Pa
+  - Hedione                      OAV=  4081.7 (very strong) VP=0.194Pa
+  ... and 3 more
+**BASE:** 8 mats, 35.0% active, 0.6% OAV
+  - Vetikon                      OAV=   996.1 (strong) VP=7.466Pa
+  - Vetiver EO (India)           OAV=   309.9 (strong) VP=0.084Pa
+  - Ambrox Super                 OAV=    59.4 (moderate-strong) VP=0.105Pa
+  - Timberol                     OAV=    42.2 (moderate) VP=0.138Pa
+  - Terpinyl Acetate             OAV=     3.6 (at threshold) VP=0.778Pa
+  - Ambrettolide                 OAV=     3.0 (at threshold) VP=0.007Pa
+  ... and 2 more
+### OAV by Odor Family
+
+                ?  84.1% ==========================================  (5 mats)
+            woody   7.1% ===  (6 mats)
+           citrus   4.0% ==  (1 mats)
+          conifer   2.8% =  (1 mats)
+           floral   1.9% =  (1 mats)
+            amber   0.0% =  (1 mats)
+         aromatic   0.0% =  (1 mats)
+             musk   0.0% =  (2 mats)
+### Sub-threshold Materials (OAV < 1)
+3/18 materials below perceptible threshold
+  - Benzyl Benzoate: OAV=0.03 VP=0.064Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Clearwood: OAV=0.30 VP=0.005Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Habanolide: OAV=0.01 VP=0.000Pa act=180uL role=fixative [STRUCTURAL_OR_FIXATIVE]
+### High-OAV Flags (>5000)
+  - Cypress EO OAV=6210 dominates headspace -- may mask subtler notes
+  - Grapefruit FCF oil Sicilian OAV=43493 dominates headspace -- may mask subtler notes
+  - Iso E Super OAV=14011 dominates headspace -- may mask subtler notes
+  - Juniper Berry EO OAV=137253 dominates headspace -- may mask subtler notes
+  - Petitgrain EO Paraguay OAV=8898 dominates headspace -- may mask subtler notes
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Remain idx | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s |  3.3/61.7/35.0 | 3221.70ppm |  100.0% | Juniper Berr(137253), Grapefruit F(43493), Iso E Super(14011)
+| top          |    300s |  3.5/57.9/38.6 | 2194.45ppm |   91.4% | Juniper Berr(89283), Grapefruit F(33242), Iso E Super(15969)
+| heart        |   1800s |  3.4/51.4/45.2 | 254.34ppm |   79.2% | Iso E Super(19798), Petitgrain E(10447), Juniper Berr(6234)
+| late_heart   |   7200s |  1.8/51.4/46.8 |  40.78ppm |   76.1% | Iso E Super(20962), Hedione(6207), Petitgrain E(5696)
+| drydown      |  14400s |  0.8/51.9/47.4 |  25.58ppm |   74.3% | Iso E Super(21619), Hedione(6427), Petitgrain E(2425)
+
+Temporal authority: HEURISTIC_UNCALIBRATED; model=dynamic_headspace_exponential_loss_v2; remaining index is not measured evaporation.
+
+### Per-Window Detail
+
+**OPENING** (0.0s) -- Uncalibrated loss index:0%
+  T:3.3% H:61.7% B:35.0%  Vapor:3221.70ppm
+  Leaders: Juniper Berry EO OAV 137253 | Grapefruit FCF oil Sicilian OAV 43493 | Iso E Super OAV 14011 | Petitgrain EO Paraguay OAV 8898 | Cypress EO OAV 6210
+
+**TOP** (300.0s) -- Uncalibrated loss index:9%
+  T:3.5% H:57.9% B:38.6%  Vapor:2194.45ppm
+  Leaders: Juniper Berry EO OAV 89283 | Grapefruit FCF oil Sicilian OAV 33242 | Iso E Super OAV 15969 | Petitgrain EO Paraguay OAV 9882 | Coriander Seed EO OAV 4735
+
+**HEART** (1800.0s) -- Uncalibrated loss index:21%
+  T:3.4% H:51.4% B:45.2%  Vapor:254.34ppm
+  Leaders: Iso E Super OAV 19798 | Petitgrain EO Paraguay OAV 10447 | Juniper Berry EO OAV 6234 | Hedione OAV 5837 | Coriander Seed EO OAV 5300
+
+**LATE_HEART** (7200.0s) -- Uncalibrated loss index:24%
+  T:1.8% H:51.4% B:46.8%  Vapor:40.78ppm
+  Leaders: Iso E Super OAV 20962 | Hedione OAV 6207 | Petitgrain EO Paraguay OAV 5696 | Coriander Seed EO OAV 3556 | Vetikon OAV 1414
+
+**DRYDOWN** (14400.0s) -- Uncalibrated loss index:26%
+  T:0.8% H:51.9% B:47.4%  Vapor:25.58ppm
+  Leaders: Iso E Super OAV 21619 | Hedione OAV 6427 | Petitgrain EO Paraguay OAV 2425 | Coriander Seed EO OAV 1994 | Vetikon OAV 1369
+## Structural OAV Analysis
+
+**Vapor:** 3222 ppm  |  **Active:** 16.2%  |  **Perceptible:** 15/18  |  **Unknown:** 0
+
+### OAV Tiers
+  **massive** (7): Coriander Seed EO(4216), Cypress EO(6210), Grapefruit FCF oil Sicilian(43493), Hedione(4082), Iso E Super(14011), Juniper Berry EO(137253), Petitgrain EO Paraguay(8898)  ! fatigue risk, overload risk
+  **v.strong** (3): Vetikon(996), Vetival(358), Vetiver EO (India)(310)
+  **strong** (2): Ambrox Super(59), Cedarwood Virginia(76)
+  **moderate** (1): Timberol(42)
+  **threshold** (2): Ambrettolide(3), Terpinyl Acetate(4)
+  **sub** (3): Benzyl Benzoate(0), Clearwood(0), Habanolide(0)
+
+### Block Balance
+  **Citrus**     8898 (4%)
+  **Floral**   209698 (95%)
+  **Base**       1414 (1%)
+  **Ratio:** 148:1 between strongest/weakest block
+
+### Issues
+  ! 3 sub-threshold material(s): Benzyl Benzoate, Clearwood, Habanolide
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Petitgrain EO Paraguay(very strong)
+  Heart: Juniper Berry EO(massive) + Grapefruit FCF oil Sicilian(massive)
+  Base: Vetikon(strong) + Vetiver EO (India)(strong) + Ambrox Super(moderate-strong) + Timberol(moderate) + Terpinyl Acetate(at threshold)
+
+### 2. Opening (0-5min)
+  Petitgrain EO Paraguay leads the reported top at OAV 8898 (very strong).
+  - Petitgrain EO Paraguay OAV=8898 VP=10.6Pa (citrus)
+  Total vapor: 3221.7 ppm
+
+### 3. Heart (30min-2hr)
+  Iso E Super OAV=19798 (massive)
+  Petitgrain EO Paraguay OAV=10447 (massive)
+  Juniper Berry EO OAV=6234 (very strong)
+  Hedione OAV=5837 (very strong)
+  T:3.4% H:51.4% B:45.2%
+  Vapor: 254.3 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base share of active note distribution: 47%
+  - Iso E Super OAV=21619
+  - Hedione OAV=6427
+  - Petitgrain EO Paraguay OAV=2425
+  - Coriander Seed EO OAV=1994
+  - Vetikon OAV=1369
+  - Vetiver EO (India) OAV=493
+  Vapor: 25.6 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Juniper Berry EO(137253) + Grapefruit FCF oil Sicilian(43493) + Iso E Super(14011) + Petitgrain EO Paraguay(8898)
+  OAV by family: None84% woody7% citrus4% conifer3%
+
+### 6. Longevity
+  Uncalibrated loss index: 26% over modeled window
+  Vapor: 3221.7 > 25.6 ppm
+  Base @ drydown: 47%
+  Absolute skin life: unavailable; calibrated finite-film, vehicle, skin-absorption, and sensory data are required
+
+### 7. Balance
+  Pyramid: T:3.3% H:61.7% B:35.0%
+  OAV range: 0.01 to 137253 (sigma-log=2.08)
+  Wide OAV contrast: Juniper Berry EO leads at OAV 137253; lower-OAV materials may be masked.
+    massive: 3
+    sub-threshold: 3
+
+### 8. Flags
+  SUB: Clearwood OAV=0.30 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Benzyl Benzoate OAV=0.03 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Habanolide OAV=0.01 role=fixative class=STRUCTURAL_OR_FIXATIVE
+```
+
+### Baseline / generic brief control
+
+<!-- scenario-id: baseline_305k_18pct_generic_brief; formatter-sha256: e8fcaabfc8dcf98b4ac4a520bf6ebe9a61aea0658e33b09a9f46b2c4d12a6b73 -->
+```text
+## Gate Summary
+
+**104 PASS** / **42 WARN** / **1 FAIL**
+
+  FAIL pipeline_preflight: 13 checks; 9 warnings
+  WARN quantitative_authority: Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only.
+  WARN headspace_scope: Headspace/OAV is an active-concentrate screening model; the finished ethanol-water-solvent matrix is omitted.
+  WARN natural_composite_coverage: Partial literature constituent models have unresolved odor contributions; full quantitative evaluability is not established. Cypress EO: 69.2% nominal input coverage
+  WARN odt_coverage: 15 material(s) rely on derived/unverified ODTs (100% OAV share)
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 31.9% active mass across 3 materials
+  WARN oav_overdose_blocker: High modeled OAV screening signal: Grapefruit FCF oil Sicilian=43492, Iso E Super=14011, Juniper Berry EO=137252; validate by controlled dilution/omission trials
+  WARN odt_sanity: 2 materials with suspect ODT values: Coriander Seed EO=None, Grapefruit FCF oil Sicilian=None; 2 unresolved cross-source ODT conflicts
+  WARN vp_cross_source: 2 materials with VP=None or 0: Coriander Seed EO, Grapefruit FCF oil Sicilian; 18 materials use inferred enthalpy for VP at 305.00 K; 4 unresolved cross-source VP conflicts
+  WARN odt_completeness: 2 material(s) lack ODT data; 22% OAV share affected
+  WARN safety_ifra_allergen: 12 materials lack explicit IFRA Cat4 limits; 1 EU allergen declarations
+  WARN safety_phototoxic: Grapefruit FCF oil Sicilian: 6.56% > IFRA max 2.0% (bergaptene 0.5 ppm)
+  WARN safety_receptor_saturation: Cedarwood Virginia 2.1% > 2% cap (OR10J5 + cedrol sedative)
+  WARN oav_physics_gamma: 18/18 materials use predictive, heuristic, fallback, or unknown gamma authority; largest gamma=1 comparison leverage Clearwood=1.8x
+  WARN verify_protocol_aggregate: Verification protocol active -- 2/18 materials missing ODT data
+  WARN solvent_matrix: stock-carrier authority PARTIAL_UNRESOLVED; known named carriers {'DPG': 225.0}; unresolved carrier proxy 300.0 uL; 1 named carrier row(s) lack a v/v basis
+  WARN perfumer_logic: woody.vetiver_classical; rerun optimizer: citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100; not_aromatic_fougere: 15.370% active above 4.000 [advisory guideline; not release-blocking]
+  WARN family_drift_detector: woody.vetiver_classical; citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100 [advisory guideline; not release-blocking]
+  WARN novelty_vs_reference: reference/control archetype; familiar by design, not the new exploration target
+  WARN perfume_knowledge: Pyramid off-target: Expected T:15% H:30% B:55%, Actual T:3.3% H:61.7% B:35.0%; top OAV off-target for family woody; heart OAV off-target for family woody
+  WARN carles_pyramid: Carles pyramid: empty windows = 3h_top_heart (need >2% active in each of 5 windows)
+  WARN carles_accord_ratio: Exact active-mass ppm is unavailable; pairwise dose ratios were not evaluated.
+  WARN literature_compliance: Literature compliance: 3/5 principles passed (60%)
+  WARN edge_cases: Musk coverage: 100%, gaps: 1, formula VP factor x1.54-2.65 (median x1.89, T=305.00K vs 298.15K, n=18)
+  WARN family_hedonic: Family 'woody.vetiver_classical' has 0 legacy pitfalls and 0 tips quarantined pending validation
+  WARN somatosensory: 0 candidate chemesthetic materials detected; formula-level effects require exposure and human validation
+  WARN stevens_n_efficiency: Exact active-mass ppm is unavailable; dose-efficiency comparison not evaluated.
+  WARN jnd_redundancy: Potentially redundant pairs: vetival vs vetiver eo in woody (OAV 358/310)
+  WARN guerlain_nature_synthetic: Natural OAV = 91% -- batch inconsistency risk
+  WARN jellinek_psychology: Jellinek categories weak: erogenic, narcotic, stimulating
+  WARN coty_single_material_limit: Exact active-mass ppm is unavailable; single-material limit not evaluated.
+  WARN roudnitska_hedione_pct: Exact active-mass ppm is unavailable; Hedione percentage heuristic not evaluated.
+  WARN adaptation_timing: fast tier < 5% (no immediate impact); slow tier < 10% (poor longevity)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 89%) -- collapse risk
+  WARN oav_intelligence: iso e super OAV 14011.2 is above woody_amber target 40.0-150.0; hedione OAV 4081.7 is above woody_amber target 10.0-25.0; material_class_distribution: Class distribution: fixatives:4%, florals:12%, musks:4%, woods:38%
+  WARN olfactory_fatigue: Adaptation/fatigue screening flag: iso e super=14011 (high model signal)
+  WARN evaporation_rate_balance: Pyramid imbalance: top = 3%, heart = 62%
+  WARN tenacity_projection: VP<0.01Pa = 8% (<10%, weak longevity)
+  WARN master_perfumer_gate: opening likely underbuilt
+  WARN mass_market_tier_check: Expensive captives found: Ambrox Super. At 1500 THB, these eat margin. Consider if their perceptible impact justifies the cost.
+  WARN authority_vector: Safety authority insufficient (0.00) -- unknown IFRA limits for too many materials; Identity (0.00) AND Quantity (0.00) authority both insufficient -- insufficient evidence; Identity authority insufficient (0.00). DIMENSIONS NEVER AVERAGED. [advisory guideline; not release-blocking]
+  WARN robustness_perturbation: 36 fragile perturbation(s) across 36 checks; Iso E Super up: brief grammar failure under perturbation; Iso E Super down: brief grammar failure under perturbation; Hedione up: brief grammar failure under perturbation
+  WARN confidence_minimum: combined confidence 18.1 below 25.0 after preflight evidence penalty 14.0; reference-control study remains diagnostic only
+
+## Authority Dimensions
+
+| Dimension | Status | Authority |
+|---|---|---|
+| Inventory stock | PASS | Every formula row resolves uniquely to a declared live inventory stock. |
+| Quantitative ppm w/w | UNAVAILABLE | Exact only when the full declared mass and density chain is available. |
+| Headspace/OAV | MODELED_ACTIVE_CONCENTRATE_SCREEN | HEURISTIC_NOT_MEASURED; diagnostic model, not measured odor intensity. |
+| Named reference | PASS () | No named-reference claim detected. |
+| Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | Requires blinded bench comparison; no model score supplies this authority. |
+| Combined confidence | 18.1/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
+
+## Headspace OAV -- Opening (0s)
+
+| Material | Dil | Raw uL | Act uL | MW | MF% | VP Pa | gamma | Vapor ppm | ODT ppm | OAV | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Juniper Berry EO | 100.0% | 750.00 | 750.00 | 136.200 | 22.050 | 106.070904 | 1.002 | 2417.520207 | 0.015000000 | 137252.5 | heart |
+| Grapefruit FCF oil Sicilian | 100.0% | 320.00 | 320.00 | UNKNOWN | 6.407 | UNKNOWN | 1.002 | 610.886996 | UNKNOWN | 43492.5 | heart |
+| Iso E Super | 100.0% | 850.00 | 850.00 | 234.400 | 14.521 | 0.458763 | 1.066 | 0.700562 | 0.000050000 | 14011.2 | heart |
+| Petitgrain EO Paraguay | 100.0% | 160.00 | 160.00 | 136.000 | 4.711 | 10.632758 | 1.000 | 32.723476 | 0.004000000 | 8898.2 | top |
+| Cypress EO | 100.0% | 50.00 | 50.00 | 136.000 | 1.472 | 389.382043 | 3.000 | 143.724851 | 0.200000000 | 6210.1 | heart |
+| Coriander Seed EO | 100.0% | 60.00 | 60.00 | UNKNOWN | 1.201 | UNKNOWN | 1.002 | 6.976638 | UNKNOWN | 4215.8 | heart |
+| Hedione | 100.0% | 600.00 | 600.00 | 226.300 | 10.617 | 0.193654 | 1.006 | 0.204084 | 0.000050000 | 4081.7 | heart |
+| Vetikon | 100.0% | 350.00 | 350.00 | 176.250 | 7.952 | 7.466083 | 0.850 | 4.980407 | 0.005000000 | 996.1 | base |
+| Vetival | 100.0% | 80.00 | 80.00 | 218.330 | 1.467 | 11.538134 | 1.500 | 2.506211 | 0.007000000 | 358.0 | heart |
+| Vetiver EO (India) | 100.0% | 700.00 | 700.00 | 222.400 | 12.478 | 0.084308 | 2.000 | 0.689597 | 0.005000000 | 309.9 | base |
+| Cedarwood Virginia | 100.0% | 100.00 | 100.00 | 222.370 | 1.765 | 0.011325 | 1.002 | 0.592772 | 0.015000000 | 75.7 | heart |
+| Ambrox Super | 25.0% | 400.00 | 100.00 | 236.400 | 1.694 | 0.104574 | 1.019 | 0.017818 | 0.000300000 | 59.4 | base |
+| Timberol | 100.0% | 70.00 | 70.00 | 226.400 | 1.238 | 0.138039 | 1.500 | 0.025300 | 0.000600000 | 42.2 | base |
+| Terpinyl Acetate | 100.0% | 80.00 | 80.00 | 196.300 | 1.632 | 0.778498 | 1.000 | 0.125384 | 0.035000000 | 3.6 | base |
+| Ambrettolide | 10.0% | 250.00 | 25.00 | 252.400 | 0.397 | 0.006916 | 1.500 | 0.000406 | 0.000136000 | 3.0 | base |
+| Clearwood | 100.0% | 200.00 | 200.00 | 222.400 | 3.601 | 0.004676 | 1.800 | 0.002991 | 0.010000000 | 0.3 | base |
+| Benzyl Benzoate | 100.0% | 200.00 | 200.00 | 212.200 | 3.774 | 0.063576 | 1.002 | 0.023736 | 0.810000000 | 0.0 | heart |
+| Habanolide | 100.0% | 180.00 | 180.00 | 238.400 | 3.023 | 0.000141 | 0.850 | 0.000036 | 0.002800000 | 0.0 | base |
+
+**Materials:** 18 total (1 top, 9 heart, 8 base)
+**Total vapor:** 3221.70 ppm
+### Note Distribution
+
+**TOP:** 1 mats, 3.3% active, 4.0% OAV
+  - Petitgrain EO Paraguay       OAV=  8898.2 (very strong) VP=10.633Pa
+**HEART:** 9 mats, 61.7% active, 95.3% OAV
+  - Juniper Berry EO             OAV=137252.5 (massive) VP=106.071Pa
+  - Grapefruit FCF oil Sicilian  OAV= 43492.5 (massive) VP=0.000Pa
+  - Iso E Super                  OAV= 14011.2 (massive) VP=0.459Pa
+  - Cypress EO                   OAV=  6210.1 (very strong) VP=389.382Pa
+  - Coriander Seed EO            OAV=  4215.8 (very strong) VP=0.000Pa
+  - Hedione                      OAV=  4081.7 (very strong) VP=0.194Pa
+  ... and 3 more
+**BASE:** 8 mats, 35.0% active, 0.6% OAV
+  - Vetikon                      OAV=   996.1 (strong) VP=7.466Pa
+  - Vetiver EO (India)           OAV=   309.9 (strong) VP=0.084Pa
+  - Ambrox Super                 OAV=    59.4 (moderate-strong) VP=0.105Pa
+  - Timberol                     OAV=    42.2 (moderate) VP=0.138Pa
+  - Terpinyl Acetate             OAV=     3.6 (at threshold) VP=0.778Pa
+  - Ambrettolide                 OAV=     3.0 (at threshold) VP=0.007Pa
+  ... and 2 more
+### OAV by Odor Family
+
+                ?  84.1% ==========================================  (5 mats)
+            woody   7.1% ===  (6 mats)
+           citrus   4.0% ==  (1 mats)
+          conifer   2.8% =  (1 mats)
+           floral   1.9% =  (1 mats)
+            amber   0.0% =  (1 mats)
+         aromatic   0.0% =  (1 mats)
+             musk   0.0% =  (2 mats)
+### Sub-threshold Materials (OAV < 1)
+3/18 materials below perceptible threshold
+  - Benzyl Benzoate: OAV=0.03 VP=0.064Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Clearwood: OAV=0.30 VP=0.005Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Habanolide: OAV=0.01 VP=0.000Pa act=180uL role=fixative [STRUCTURAL_OR_FIXATIVE]
+### High-OAV Flags (>5000)
+  - Cypress EO OAV=6210 dominates headspace -- may mask subtler notes
+  - Grapefruit FCF oil Sicilian OAV=43493 dominates headspace -- may mask subtler notes
+  - Iso E Super OAV=14011 dominates headspace -- may mask subtler notes
+  - Juniper Berry EO OAV=137253 dominates headspace -- may mask subtler notes
+  - Petitgrain EO Paraguay OAV=8898 dominates headspace -- may mask subtler notes
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Remain idx | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s |  3.3/61.7/35.0 | 3221.70ppm |  100.0% | Juniper Berr(137253), Grapefruit F(43493), Iso E Super(14011)
+| top          |    300s |  3.5/57.9/38.6 | 2194.45ppm |   91.4% | Juniper Berr(89283), Grapefruit F(33242), Iso E Super(15969)
+| heart        |   1800s |  3.4/51.4/45.2 | 254.34ppm |   79.2% | Iso E Super(19798), Petitgrain E(10447), Juniper Berr(6234)
+| late_heart   |   7200s |  1.8/51.4/46.8 |  40.78ppm |   76.1% | Iso E Super(20962), Hedione(6207), Petitgrain E(5696)
+| drydown      |  14400s |  0.8/51.9/47.4 |  25.58ppm |   74.3% | Iso E Super(21619), Hedione(6427), Petitgrain E(2425)
+
+Temporal authority: HEURISTIC_UNCALIBRATED; model=dynamic_headspace_exponential_loss_v2; remaining index is not measured evaporation.
+
+### Per-Window Detail
+
+**OPENING** (0.0s) -- Uncalibrated loss index:0%
+  T:3.3% H:61.7% B:35.0%  Vapor:3221.70ppm
+  Leaders: Juniper Berry EO OAV 137253 | Grapefruit FCF oil Sicilian OAV 43493 | Iso E Super OAV 14011 | Petitgrain EO Paraguay OAV 8898 | Cypress EO OAV 6210
+
+**TOP** (300.0s) -- Uncalibrated loss index:9%
+  T:3.5% H:57.9% B:38.6%  Vapor:2194.45ppm
+  Leaders: Juniper Berry EO OAV 89283 | Grapefruit FCF oil Sicilian OAV 33242 | Iso E Super OAV 15969 | Petitgrain EO Paraguay OAV 9882 | Coriander Seed EO OAV 4735
+
+**HEART** (1800.0s) -- Uncalibrated loss index:21%
+  T:3.4% H:51.4% B:45.2%  Vapor:254.34ppm
+  Leaders: Iso E Super OAV 19798 | Petitgrain EO Paraguay OAV 10447 | Juniper Berry EO OAV 6234 | Hedione OAV 5837 | Coriander Seed EO OAV 5300
+
+**LATE_HEART** (7200.0s) -- Uncalibrated loss index:24%
+  T:1.8% H:51.4% B:46.8%  Vapor:40.78ppm
+  Leaders: Iso E Super OAV 20962 | Hedione OAV 6207 | Petitgrain EO Paraguay OAV 5696 | Coriander Seed EO OAV 3556 | Vetikon OAV 1414
+
+**DRYDOWN** (14400.0s) -- Uncalibrated loss index:26%
+  T:0.8% H:51.9% B:47.4%  Vapor:25.58ppm
+  Leaders: Iso E Super OAV 21619 | Hedione OAV 6427 | Petitgrain EO Paraguay OAV 2425 | Coriander Seed EO OAV 1994 | Vetikon OAV 1369
+## Structural OAV Analysis
+
+**Vapor:** 3222 ppm  |  **Active:** 16.2%  |  **Perceptible:** 15/18  |  **Unknown:** 0
+
+### OAV Tiers
+  **massive** (7): Coriander Seed EO(4216), Cypress EO(6210), Grapefruit FCF oil Sicilian(43493), Hedione(4082), Iso E Super(14011), Juniper Berry EO(137253), Petitgrain EO Paraguay(8898)  ! fatigue risk, overload risk
+  **v.strong** (3): Vetikon(996), Vetival(358), Vetiver EO (India)(310)
+  **strong** (2): Ambrox Super(59), Cedarwood Virginia(76)
+  **moderate** (1): Timberol(42)
+  **threshold** (2): Ambrettolide(3), Terpinyl Acetate(4)
+  **sub** (3): Benzyl Benzoate(0), Clearwood(0), Habanolide(0)
+
+### Block Balance
+  **Citrus**     8898 (4%)
+  **Floral**   209698 (95%)
+  **Base**       1414 (1%)
+  **Ratio:** 148:1 between strongest/weakest block
+
+### Issues
+  ! 3 sub-threshold material(s): Benzyl Benzoate, Clearwood, Habanolide
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Petitgrain EO Paraguay(very strong)
+  Heart: Juniper Berry EO(massive) + Grapefruit FCF oil Sicilian(massive)
+  Base: Vetikon(strong) + Vetiver EO (India)(strong) + Ambrox Super(moderate-strong) + Timberol(moderate) + Terpinyl Acetate(at threshold)
+
+### 2. Opening (0-5min)
+  Petitgrain EO Paraguay leads the reported top at OAV 8898 (very strong).
+  - Petitgrain EO Paraguay OAV=8898 VP=10.6Pa (citrus)
+  Total vapor: 3221.7 ppm
+
+### 3. Heart (30min-2hr)
+  Iso E Super OAV=19798 (massive)
+  Petitgrain EO Paraguay OAV=10447 (massive)
+  Juniper Berry EO OAV=6234 (very strong)
+  Hedione OAV=5837 (very strong)
+  T:3.4% H:51.4% B:45.2%
+  Vapor: 254.3 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base share of active note distribution: 47%
+  - Iso E Super OAV=21619
+  - Hedione OAV=6427
+  - Petitgrain EO Paraguay OAV=2425
+  - Coriander Seed EO OAV=1994
+  - Vetikon OAV=1369
+  - Vetiver EO (India) OAV=493
+  Vapor: 25.6 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Juniper Berry EO(137253) + Grapefruit FCF oil Sicilian(43493) + Iso E Super(14011) + Petitgrain EO Paraguay(8898)
+  OAV by family: None84% woody7% citrus4% conifer3%
+
+### 6. Longevity
+  Uncalibrated loss index: 26% over modeled window
+  Vapor: 3221.7 > 25.6 ppm
+  Base @ drydown: 47%
+  Absolute skin life: unavailable; calibrated finite-film, vehicle, skin-absorption, and sensory data are required
+
+### 7. Balance
+  Pyramid: T:3.3% H:61.7% B:35.0%
+  OAV range: 0.01 to 137253 (sigma-log=2.08)
+  Wide OAV contrast: Juniper Berry EO leads at OAV 137253; lower-OAV materials may be masked.
+    massive: 3
+    sub-threshold: 3
+
+### 8. Flags
+  SUB: Clearwood OAV=0.30 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Benzyl Benzoate OAV=0.03 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Habanolide OAV=0.01 role=fixative class=STRUCTURAL_OR_FIXATIVE
+```
+
+<!-- WARNING_RETEST_MATRIX_END -->
+
+<!-- CORIANDER_GENERIC_PROXY_RETEST_START -->
+## Coriander Generic-Proxy Retest — 2026-09-09
+
+The exact stock label `Coriander Seed EO` resolves to the existing generic
+`Coriander Essential Oil` literature proxy. This is not a supplier-lot assay;
+unresolved constituent odor contribution remains unknown rather than zero.
+
+```text
+## Gate Summary
+
+**104 PASS** / **42 WARN** / **1 FAIL**
+
+  FAIL pipeline_preflight: 13 checks; 9 warnings
+  WARN quantitative_authority: Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only.
+  WARN headspace_scope: Headspace/OAV is an active-concentrate screening model; the finished ethanol-water-solvent matrix is omitted.
+  WARN natural_composite_coverage: Partial literature constituent models have unresolved odor contributions; full quantitative evaluability is not established. Cypress EO: 69.2% nominal input coverage
+  WARN odt_coverage: 15 material(s) rely on derived/unverified ODTs (100% OAV share)
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 31.9% active mass across 3 materials
+  WARN oav_overdose_blocker: High modeled OAV screening signal: Grapefruit FCF oil Sicilian=43586, Iso E Super=13994, Juniper Berry EO=137549; validate by controlled dilution/omission trials
+  WARN odt_sanity: 1 materials with suspect ODT values: Grapefruit FCF oil Sicilian=None; 2 unresolved cross-source ODT conflicts
+  WARN vp_cross_source: 1 materials with VP=None or 0: Grapefruit FCF oil Sicilian; 18 materials use inferred enthalpy for VP at 305.00 K; 5 unresolved cross-source VP conflicts
+  WARN odt_completeness: 1 material(s) lack ODT data; 20% OAV share affected
+  WARN safety_ifra_allergen: 12 materials lack explicit IFRA Cat4 limits; 1 EU allergen declarations
+  WARN safety_phototoxic: Grapefruit FCF oil Sicilian: 6.56% > IFRA max 2.0% (bergaptene 0.5 ppm)
+  WARN safety_receptor_saturation: Cedarwood Virginia 2.1% > 2% cap (OR10J5 + cedrol sedative)
+  WARN oav_physics_gamma: 18/18 materials use predictive, heuristic, fallback, or unknown gamma authority; largest gamma=1 comparison leverage Clearwood=1.8x
+  WARN verify_protocol_aggregate: Verification protocol active -- 1/18 materials missing ODT data
+  WARN solvent_matrix: stock-carrier authority PARTIAL_UNRESOLVED; known named carriers {'DPG': 225.0}; unresolved carrier proxy 300.0 uL; 1 named carrier row(s) lack a v/v basis
+  WARN perfumer_logic: woody.vetiver_classical; rerun optimizer: citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100; not_aromatic_fougere: 15.370% active above 4.000 [advisory guideline; not release-blocking]
+  WARN family_drift_detector: woody.vetiver_classical; citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100 [advisory guideline; not release-blocking]
+  WARN novelty_vs_reference: reference/control archetype; familiar by design, not the new exploration target
+  WARN perfume_knowledge: Pyramid off-target: Expected T:15% H:30% B:55%, Actual T:4.5% H:60.5% B:35.0%; top OAV off-target for family woody; heart OAV off-target for family woody
+  WARN carles_pyramid: Carles pyramid: empty windows = 3h_top_heart (need >2% active in each of 5 windows)
+  WARN carles_accord_ratio: Exact active-mass ppm is unavailable; pairwise dose ratios were not evaluated.
+  WARN literature_compliance: Literature compliance: 3/5 principles passed (60%)
+  WARN edge_cases: Musk coverage: 100%, gaps: 1, formula VP factor x1.54-2.65 (median x1.89, T=305.00K vs 298.15K, n=18)
+  WARN family_hedonic: Family 'woody.vetiver_classical' has 0 legacy pitfalls and 0 tips quarantined pending validation
+  WARN somatosensory: 0 candidate chemesthetic materials detected; formula-level effects require exposure and human validation
+  WARN stevens_n_efficiency: Exact active-mass ppm is unavailable; dose-efficiency comparison not evaluated.
+  WARN jnd_redundancy: Potentially redundant pairs: vetival vs vetiver eo in woody (OAV 358/311)
+  WARN guerlain_nature_synthetic: Natural OAV = 91% -- batch inconsistency risk
+  WARN jellinek_psychology: Jellinek categories weak: erogenic, narcotic, stimulating
+  WARN coty_single_material_limit: Exact active-mass ppm is unavailable; single-material limit not evaluated.
+  WARN roudnitska_hedione_pct: Exact active-mass ppm is unavailable; Hedione percentage heuristic not evaluated.
+  WARN adaptation_timing: fast tier < 5% (no immediate impact); slow tier < 10% (poor longevity)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 89%) -- collapse risk
+  WARN oav_intelligence: iso e super OAV 13994.5 is above woody_amber target 40.0-150.0; hedione OAV 4076.7 is above woody_amber target 10.0-25.0; material_class_distribution: Class distribution: fixatives:4%, florals:12%, musks:4%, woods:38%
+  WARN olfactory_fatigue: Adaptation/fatigue screening flag: iso e super=13994 (high model signal)
+  WARN evaporation_rate_balance: Pyramid imbalance: top = 4%, heart = 60%
+  WARN tenacity_projection: VP<0.01Pa = 8% (<10%, weak longevity)
+  WARN master_perfumer_gate: opening likely underbuilt
+  WARN mass_market_tier_check: Expensive captives found: Ambrox Super. At 1500 THB, these eat margin. Consider if their perceptible impact justifies the cost.
+  WARN authority_vector: Safety authority insufficient (0.00) -- unknown IFRA limits for too many materials; Identity (0.00) AND Quantity (0.00) authority both insufficient -- insufficient evidence; Identity authority insufficient (0.00). DIMENSIONS NEVER AVERAGED. [advisory guideline; not release-blocking]
+  WARN robustness_perturbation: 36 fragile perturbation(s) across 36 checks; Iso E Super up: brief grammar failure under perturbation; Iso E Super down: brief grammar failure under perturbation; Hedione up: brief grammar failure under perturbation
+  WARN confidence_minimum: combined confidence 19.2 below 25.0 after preflight evidence penalty 14.0; reference-control study remains diagnostic only
+
+## Authority Dimensions
+
+| Dimension | Status | Authority |
+|---|---|---|
+| Inventory stock | PASS | Every formula row resolves uniquely to a declared live inventory stock. |
+| Quantitative ppm w/w | UNAVAILABLE | Exact only when the full declared mass and density chain is available. |
+| Headspace/OAV | MODELED_ACTIVE_CONCENTRATE_SCREEN | HEURISTIC_NOT_MEASURED; diagnostic model, not measured odor intensity. |
+| Named reference | PASS () | No named-reference claim detected. |
+| Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | Requires blinded bench comparison; no model score supplies this authority. |
+| Combined confidence | 19.2/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
+
+## Headspace OAV -- Opening (0s)
+
+| Material | Dil | Raw uL | Act uL | MW | MF% | VP Pa | gamma | Vapor ppm | ODT ppm | OAV | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Juniper Berry EO | 100.0% | 750.00 | 750.00 | 136.200 | 22.023 | 106.070904 | 1.002 | 2422.757798 | 0.015000000 | 137549.9 | heart |
+| Grapefruit FCF oil Sicilian | 100.0% | 320.00 | 320.00 | UNKNOWN | 6.399 | UNKNOWN | 1.002 | 612.210491 | UNKNOWN | 43586.8 | heart |
+| Iso E Super | 100.0% | 850.00 | 850.00 | 234.400 | 14.503 | 0.458763 | 1.066 | 0.699725 | 0.000050000 | 13994.5 | heart |
+| Petitgrain EO Paraguay | 100.0% | 160.00 | 160.00 | 136.000 | 4.705 | 10.632758 | 1.000 | 32.794372 | 0.004000000 | 8917.5 | top |
+| Cypress EO | 100.0% | 50.00 | 50.00 | 136.000 | 1.470 | 389.382043 | 3.000 | 144.036233 | 0.200000000 | 6223.5 | heart |
+| Hedione | 100.0% | 600.00 | 600.00 | 226.300 | 10.604 | 0.193654 | 1.006 | 0.203833 | 0.000050000 | 4076.7 | heart |
+| Coriander Seed EO | 100.0% | 60.00 | 60.00 | 154.250 | 1.322 | 25.752165 | 2.000 | 5.942990 | 0.001500000 | 3591.2 | top |
+| Vetikon | 100.0% | 350.00 | 350.00 | 176.250 | 7.942 | 7.466083 | 0.850 | 4.974306 | 0.005000000 | 994.9 | base |
+| Vetival | 100.0% | 80.00 | 80.00 | 218.330 | 1.465 | 11.538134 | 1.500 | 2.503141 | 0.007000000 | 357.6 | heart |
+| Vetiver EO (India) | 100.0% | 700.00 | 700.00 | 222.400 | 12.462 | 0.084308 | 2.000 | 0.691091 | 0.005000000 | 310.6 | base |
+| Cedarwood Virginia | 100.0% | 100.00 | 100.00 | 222.370 | 1.763 | 0.011325 | 1.002 | 0.594056 | 0.015000000 | 75.9 | heart |
+| Ambrox Super | 25.0% | 400.00 | 100.00 | 236.400 | 1.692 | 0.104574 | 1.019 | 0.017796 | 0.000300000 | 59.3 | base |
+| Timberol | 100.0% | 70.00 | 70.00 | 226.400 | 1.237 | 0.138039 | 1.500 | 0.025269 | 0.000600000 | 42.1 | base |
+| Terpinyl Acetate | 100.0% | 80.00 | 80.00 | 196.300 | 1.630 | 0.778498 | 1.000 | 0.125230 | 0.035000000 | 3.6 | base |
+| Ambrettolide | 10.0% | 250.00 | 25.00 | 252.400 | 0.396 | 0.006916 | 1.500 | 0.000406 | 0.000136000 | 3.0 | base |
+| Clearwood | 100.0% | 200.00 | 200.00 | 222.400 | 3.597 | 0.004676 | 1.800 | 0.002988 | 0.010000000 | 0.3 | base |
+| Benzyl Benzoate | 100.0% | 200.00 | 200.00 | 212.200 | 3.769 | 0.063576 | 1.002 | 0.023707 | 0.810000000 | 0.0 | heart |
+| Habanolide | 100.0% | 180.00 | 180.00 | 238.400 | 3.020 | 0.000141 | 0.850 | 0.000036 | 0.002800000 | 0.0 | base |
+
+**Materials:** 18 total (2 top, 8 heart, 8 base)
+**Total vapor:** 3227.60 ppm
+### Note Distribution
+
+**TOP:** 2 mats, 4.5% active, 5.7% OAV
+  - Petitgrain EO Paraguay       OAV=  8917.5 (very strong) VP=10.633Pa
+  - Coriander Seed EO            OAV=  3591.2 (very strong) VP=25.752Pa
+**HEART:** 8 mats, 60.5% active, 93.7% OAV
+  - Juniper Berry EO             OAV=137549.9 (massive) VP=106.071Pa
+  - Grapefruit FCF oil Sicilian  OAV= 43586.8 (massive) VP=0.000Pa
+  - Iso E Super                  OAV= 13994.5 (massive) VP=0.459Pa
+  - Cypress EO                   OAV=  6223.5 (very strong) VP=389.382Pa
+  - Hedione                      OAV=  4076.7 (very strong) VP=0.194Pa
+  - Vetival                      OAV=   357.6 (strong) VP=11.538Pa
+  ... and 2 more
+**BASE:** 8 mats, 35.0% active, 0.6% OAV
+  - Vetikon                      OAV=   994.9 (strong) VP=7.466Pa
+  - Vetiver EO (India)           OAV=   310.6 (strong) VP=0.084Pa
+  - Ambrox Super                 OAV=    59.3 (moderate-strong) VP=0.105Pa
+  - Timberol                     OAV=    42.1 (moderate) VP=0.138Pa
+  - Terpinyl Acetate             OAV=     3.6 (at threshold) VP=0.778Pa
+  - Ambrettolide                 OAV=     3.0 (at threshold) VP=0.007Pa
+  ... and 2 more
+### OAV by Odor Family
+
+                ?  82.4% =========================================  (4 mats)
+            woody   7.1% ===  (6 mats)
+           citrus   4.1% ==  (1 mats)
+          conifer   2.8% =  (1 mats)
+           floral   1.9% =  (1 mats)
+         aromatic   1.6% =  (2 mats)
+            amber   0.0% =  (1 mats)
+             musk   0.0% =  (2 mats)
+### Sub-threshold Materials (OAV < 1)
+3/18 materials below perceptible threshold
+  - Benzyl Benzoate: OAV=0.03 VP=0.064Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Clearwood: OAV=0.30 VP=0.005Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Habanolide: OAV=0.01 VP=0.000Pa act=180uL role=fixative [STRUCTURAL_OR_FIXATIVE]
+### High-OAV Flags (>5000)
+  - Cypress EO OAV=6224 dominates headspace -- may mask subtler notes
+  - Grapefruit FCF oil Sicilian OAV=43587 dominates headspace -- may mask subtler notes
+  - Iso E Super OAV=13994 dominates headspace -- may mask subtler notes
+  - Juniper Berry EO OAV=137550 dominates headspace -- may mask subtler notes
+  - Petitgrain EO Paraguay OAV=8917 dominates headspace -- may mask subtler notes
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Remain idx | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s |  4.5/60.5/35.0 | 3227.60ppm |  100.0% | Juniper Berr(137550), Grapefruit F(43587), Iso E Super(13994)
+| top          |    300s |  4.8/56.5/38.6 | 2195.48ppm |   91.4% | Juniper Berr(89359), Grapefruit F(33289), Iso E Super(15953)
+| heart        |   1800s |  4.8/50.0/45.2 | 251.37ppm |   79.3% | Iso E Super(19769), Petitgrain E(10466), Juniper Berr(6164)
+| late_heart   |   7200s |  2.8/50.4/46.8 |  40.22ppm |   76.1% | Iso E Super(20927), Hedione(6196), Petitgrain E(5684)
+| drydown      |  14400s |  1.4/51.3/47.3 |  25.46ppm |   74.3% | Iso E Super(21589), Hedione(6417), Petitgrain E(2412)
+
+Temporal authority: HEURISTIC_UNCALIBRATED; model=dynamic_headspace_exponential_loss_v2; remaining index is not measured evaporation.
+
+### Per-Window Detail
+
+**OPENING** (0.0s) -- Uncalibrated loss index:0%
+  T:4.5% H:60.5% B:35.0%  Vapor:3227.60ppm
+  Leaders: Juniper Berry EO OAV 137550 | Grapefruit FCF oil Sicilian OAV 43587 | Iso E Super OAV 13994 | Petitgrain EO Paraguay OAV 8917 | Cypress EO OAV 6224
+
+**TOP** (300.0s) -- Uncalibrated loss index:9%
+  T:4.8% H:56.5% B:38.6%  Vapor:2195.48ppm
+  Leaders: Juniper Berry EO OAV 89359 | Grapefruit FCF oil Sicilian OAV 33289 | Iso E Super OAV 15953 | Petitgrain EO Paraguay OAV 9909 | Hedione OAV 4665
+
+**HEART** (1800.0s) -- Uncalibrated loss index:21%
+  T:4.8% H:50.0% B:45.2%  Vapor:251.37ppm
+  Leaders: Iso E Super OAV 19769 | Petitgrain EO Paraguay OAV 10466 | Juniper Berry EO OAV 6164 | Hedione OAV 5828 | Grapefruit FCF oil Sicilian OAV 5227
+
+**LATE_HEART** (7200.0s) -- Uncalibrated loss index:24%
+  T:2.8% H:50.4% B:46.8%  Vapor:40.22ppm
+  Leaders: Iso E Super OAV 20927 | Hedione OAV 6196 | Petitgrain EO Paraguay OAV 5684 | Coriander Seed EO OAV 3254 | Vetikon OAV 1412
+
+**DRYDOWN** (14400.0s) -- Uncalibrated loss index:26%
+  T:1.4% H:51.3% B:47.3%  Vapor:25.46ppm
+  Leaders: Iso E Super OAV 21589 | Hedione OAV 6417 | Petitgrain EO Paraguay OAV 2412 | Coriander Seed EO OAV 1962 | Vetikon OAV 1367
+## Structural OAV Analysis
+
+**Vapor:** 3228 ppm  |  **Active:** 16.2%  |  **Perceptible:** 15/18  |  **Unknown:** 0
+
+### OAV Tiers
+  **massive** (7): Coriander Seed EO(3591), Cypress EO(6224), Grapefruit FCF oil Sicilian(43587), Hedione(4077), Iso E Super(13994), Juniper Berry EO(137550), Petitgrain EO Paraguay(8917)  ! fatigue risk, overload risk
+  **v.strong** (3): Vetikon(995), Vetival(358), Vetiver EO (India)(311)
+  **strong** (2): Ambrox Super(59), Cedarwood Virginia(76)
+  **moderate** (1): Timberol(42)
+  **threshold** (2): Ambrettolide(3), Terpinyl Acetate(4)
+  **sub** (3): Benzyl Benzoate(0), Clearwood(0), Habanolide(0)
+
+### Block Balance
+  **Citrus**     8917 (4%)
+  **Floral**   205865 (95%)
+  **Base**       1414 (1%)
+  **Ratio:** 146:1 between strongest/weakest block
+
+### Issues
+  ! 3 sub-threshold material(s): Benzyl Benzoate, Clearwood, Habanolide
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Petitgrain EO Paraguay(very strong) + Coriander Seed EO(very strong)
+  Heart: Juniper Berry EO(massive) + Grapefruit FCF oil Sicilian(massive)
+  Base: Vetikon(strong) + Vetiver EO (India)(strong) + Ambrox Super(moderate-strong) + Timberol(moderate) + Terpinyl Acetate(at threshold)
+
+### 2. Opening (0-5min)
+  Petitgrain EO Paraguay leads the reported top at OAV 8917 (very strong).
+  - Petitgrain EO Paraguay OAV=8917 VP=10.6Pa (citrus)
+  - Coriander Seed EO OAV=3591 VP=25.8Pa (aromatic)
+  Total vapor: 3227.6 ppm
+
+### 3. Heart (30min-2hr)
+  Iso E Super OAV=19769 (massive)
+  Petitgrain EO Paraguay OAV=10466 (massive)
+  Juniper Berry EO OAV=6164 (very strong)
+  Hedione OAV=5828 (very strong)
+  T:4.8% H:50.0% B:45.2%
+  Vapor: 251.4 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base share of active note distribution: 47%
+  - Iso E Super OAV=21589
+  - Hedione OAV=6417
+  - Petitgrain EO Paraguay OAV=2412
+  - Coriander Seed EO OAV=1962
+  - Vetikon OAV=1367
+  - Vetiver EO (India) OAV=493
+  Vapor: 25.5 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Juniper Berry EO(137550) + Grapefruit FCF oil Sicilian(43587) + Iso E Super(13994) + Petitgrain EO Paraguay(8917)
+  OAV by family: None82% woody7% citrus4% conifer3%
+
+### 6. Longevity
+  Uncalibrated loss index: 26% over modeled window
+  Vapor: 3227.6 > 25.5 ppm
+  Base @ drydown: 47%
+  Absolute skin life: unavailable; calibrated finite-film, vehicle, skin-absorption, and sensory data are required
+
+### 7. Balance
+  Pyramid: T:4.5% H:60.5% B:35.0%
+  OAV range: 0.01 to 137550 (sigma-log=2.07)
+  Wide OAV contrast: Juniper Berry EO leads at OAV 137550; lower-OAV materials may be masked.
+    massive: 3
+    sub-threshold: 3
+
+### 8. Flags
+  SUB: Clearwood OAV=0.30 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Benzyl Benzoate OAV=0.03 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Habanolide OAV=0.01 role=fixative class=STRUCTURAL_OR_FIXATIVE
+```
+<!-- CORIANDER_GENERIC_PROXY_RETEST_END -->
+
+## Gate Architecture Retest — 2026-09-09
+
+Diagnostic configuration, 305 K, nominal 30 mL. Raw result: output/gin_vetiver_gate_architecture_current.json.
+
+```text
+## Gate Summary
+
+**104 PASS** / **41 WARN** / **1 FAIL**
+
+  FAIL pipeline_preflight: 13 checks; 9 warnings
+  WARN quantitative_authority: Exact active concentrate ppm w/w is unavailable; OAV is an estimated diagnostic only.
+  WARN headspace_scope: Headspace/OAV is an active-concentrate screening model; the finished ethanol-water-solvent matrix is omitted.
+  WARN natural_composite_coverage: Partial literature constituent models have unresolved odor contributions; full quantitative evaluability is not established. Cypress EO: 69.2% nominal input coverage
+  WARN odt_coverage: 15 material(s) rely on derived/unverified ODTs (100% OAV share)
+  WARN phase_compatibility: HSP coverage too thin for trusted phase audit: 31.9% active mass across 3 materials
+  WARN oav_overdose_blocker: High modeled OAV screening signal: Grapefruit FCF oil Sicilian=43586, Iso E Super=13994, Juniper Berry EO=137549; validate by controlled dilution/omission trials
+  WARN odt_sanity: 1 materials with suspect ODT values: Grapefruit FCF oil Sicilian=None; 2 unresolved cross-source ODT conflicts
+  WARN vp_cross_source: 1 materials with VP=None or 0: Grapefruit FCF oil Sicilian; 18 materials use inferred enthalpy for VP at 305.00 K; 5 unresolved cross-source VP conflicts
+  WARN odt_completeness: 1 material(s) lack ODT data; 20% OAV share affected
+  WARN safety_ifra_allergen: 12 materials lack explicit IFRA Cat4 limits; 1 EU allergen declarations
+  WARN safety_phototoxic: Phototoxicity assessment unavailable: product/grade-bound restrictions and finished-product mass exposure are required.
+  WARN oav_physics_gamma: 18/18 materials use predictive, heuristic, fallback, or unknown gamma authority; largest gamma=1 comparison leverage Clearwood=1.8x
+  WARN verify_protocol_aggregate: Verification protocol active -- 1/18 materials missing ODT data
+  WARN solvent_matrix: stock-carrier authority PARTIAL_UNRESOLVED; known named carriers {'DPG': 225.0}; unresolved carrier proxy 300.0 uL; 1 named carrier row(s) lack a v/v basis
+  WARN perfumer_logic: woody.vetiver_classical; rerun optimizer: citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100; not_aromatic_fougere: 15.370% active above 4.000 [advisory guideline; not release-blocking]
+  WARN family_drift_detector: woody.vetiver_classical; citrus_fresh_top: 0.000% active below 6.000; moss_structure: 0.000% active below 0.300; coumarin_warmth: 0.000% active below 0.300; warm_resin_depth: 0.000% active below 0.100 [advisory guideline; not release-blocking]
+  WARN novelty_vs_reference: reference/control archetype; familiar by design, not the new exploration target
+  WARN perfume_knowledge: Pyramid off-target: Expected T:15% H:30% B:55%, Actual T:4.5% H:60.5% B:35.0%; top OAV off-target for family woody; heart OAV off-target for family woody
+  WARN carles_pyramid: Carles pyramid: empty windows = 3h_top_heart (need >2% active in each of 5 windows)
+  WARN carles_accord_ratio: Exact active-mass ppm is unavailable; pairwise dose ratios were not evaluated.
+  WARN literature_compliance: Literature compliance: 3/5 principles passed (60%)
+  WARN edge_cases: Musk coverage: 100%, gaps: 1, formula VP factor x1.54-2.65 (median x1.89, T=305.00K vs 298.15K, n=18)
+  WARN family_hedonic: Family 'woody.vetiver_classical' has 0 legacy pitfalls and 0 tips quarantined pending validation
+  WARN somatosensory: 0 candidate chemesthetic materials detected; formula-level effects require exposure and human validation
+  WARN stevens_n_efficiency: Exact active-mass ppm is unavailable; dose-efficiency comparison not evaluated.
+  WARN jnd_redundancy: Potentially redundant pairs: vetival vs vetiver eo in woody (OAV 358/311)
+  WARN guerlain_nature_synthetic: Natural OAV = 91% -- batch inconsistency risk
+  WARN jellinek_psychology: Jellinek categories weak: erogenic, narcotic, stimulating
+  WARN coty_single_material_limit: Exact active-mass ppm is unavailable; single-material limit not evaluated.
+  WARN roudnitska_hedione_pct: Exact active-mass ppm is unavailable; Hedione percentage heuristic not evaluated.
+  WARN adaptation_timing: fast tier < 5% (no immediate impact); slow tier < 10% (poor longevity)
+  WARN adaptation_overlap: Top 5 materials all in same adaptation tier (medium: 89%) -- collapse risk
+  WARN oav_intelligence: iso e super OAV 13994.5 is above woody_amber target 40.0-150.0; hedione OAV 4076.7 is above woody_amber target 10.0-25.0; material_class_distribution: Class distribution: fixatives:4%, florals:12%, musks:4%, woods:38%
+  WARN olfactory_fatigue: Adaptation/fatigue screening flag: iso e super=13994 (high model signal)
+  WARN evaporation_rate_balance: Pyramid imbalance: top = 4%, heart = 60%
+  WARN tenacity_projection: VP<0.01Pa = 8% (<10%, weak longevity)
+  WARN master_perfumer_gate: opening likely underbuilt
+  WARN mass_market_tier_check: Expensive captives found: Ambrox Super. At 1500 THB, these eat margin. Consider if their perceptible impact justifies the cost.
+  WARN authority_vector: Target/evidence ledger is absent; authority dimensions are unknown. Diagnostic report only.
+  WARN robustness_perturbation: 36 fragile perturbation(s) across 36 checks; Iso E Super up: brief grammar failure under perturbation; Iso E Super down: brief grammar failure under perturbation; Hedione up: brief grammar failure under perturbation
+  WARN confidence_minimum: combined confidence 19.2 below 25.0 after preflight evidence penalty 14.0; reference-control study remains diagnostic only
+
+## Authority Dimensions
+
+| Dimension | Status | Authority |
+|---|---|---|
+| Inventory stock | PASS | Every formula row resolves uniquely to a declared live inventory stock. |
+| Quantitative ppm w/w | UNAVAILABLE | Exact only when the full declared mass and density chain is available. |
+| Headspace/OAV | MODELED_ACTIVE_CONCENTRATE_SCREEN | HEURISTIC_NOT_MEASURED; diagnostic model, not measured odor intensity. |
+| Named reference | PASS () | No named-reference claim detected. |
+| Sensory similarity | NOT_AUTHORIZED_NOT_MEASURED | Requires blinded bench comparison; no model score supplies this authority. |
+| Combined confidence | 19.2/100 | Aggregate diagnostic only; it cannot override any authority dimension above. |
+
+## Headspace OAV -- Opening (0s)
+
+| Material | Dil | Raw uL | Act uL | MW | MF% | VP Pa | gamma | Vapor ppm | ODT ppm | OAV | Note |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| Juniper Berry EO | 100.0% | 750.00 | 750.00 | 136.200 | 22.023 | 106.070904 | 1.002 | 2422.757798 | 0.015000000 | 137549.9 | heart |
+| Grapefruit FCF oil Sicilian | 100.0% | 320.00 | 320.00 | UNKNOWN | 6.399 | UNKNOWN | 1.002 | 612.210491 | UNKNOWN | 43586.8 | heart |
+| Iso E Super | 100.0% | 850.00 | 850.00 | 234.400 | 14.503 | 0.458763 | 1.066 | 0.699725 | 0.000050000 | 13994.5 | heart |
+| Petitgrain EO Paraguay | 100.0% | 160.00 | 160.00 | 136.000 | 4.705 | 10.632758 | 1.000 | 32.794372 | 0.004000000 | 8917.5 | top |
+| Cypress EO | 100.0% | 50.00 | 50.00 | 136.000 | 1.470 | 389.382043 | 3.000 | 144.036233 | 0.200000000 | 6223.5 | heart |
+| Hedione | 100.0% | 600.00 | 600.00 | 226.300 | 10.604 | 0.193654 | 1.006 | 0.203833 | 0.000050000 | 4076.7 | heart |
+| Coriander Seed EO | 100.0% | 60.00 | 60.00 | 154.250 | 1.322 | 25.752165 | 2.000 | 5.942990 | 0.001500000 | 3591.2 | top |
+| Vetikon | 100.0% | 350.00 | 350.00 | 176.250 | 7.942 | 7.466083 | 0.850 | 4.974306 | 0.005000000 | 994.9 | base |
+| Vetival | 100.0% | 80.00 | 80.00 | 218.330 | 1.465 | 11.538134 | 1.500 | 2.503141 | 0.007000000 | 357.6 | heart |
+| Vetiver EO (India) | 100.0% | 700.00 | 700.00 | 222.400 | 12.462 | 0.084308 | 2.000 | 0.691091 | 0.005000000 | 310.6 | base |
+| Cedarwood Virginia | 100.0% | 100.00 | 100.00 | 222.370 | 1.763 | 0.011325 | 1.002 | 0.594056 | 0.015000000 | 75.9 | heart |
+| Ambrox Super | 25.0% | 400.00 | 100.00 | 236.400 | 1.692 | 0.104574 | 1.019 | 0.017796 | 0.000300000 | 59.3 | base |
+| Timberol | 100.0% | 70.00 | 70.00 | 226.400 | 1.237 | 0.138039 | 1.500 | 0.025269 | 0.000600000 | 42.1 | base |
+| Terpinyl Acetate | 100.0% | 80.00 | 80.00 | 196.300 | 1.630 | 0.778498 | 1.000 | 0.125230 | 0.035000000 | 3.6 | base |
+| Ambrettolide | 10.0% | 250.00 | 25.00 | 252.400 | 0.396 | 0.006916 | 1.500 | 0.000406 | 0.000136000 | 3.0 | base |
+| Clearwood | 100.0% | 200.00 | 200.00 | 222.400 | 3.597 | 0.004676 | 1.800 | 0.002988 | 0.010000000 | 0.3 | base |
+| Benzyl Benzoate | 100.0% | 200.00 | 200.00 | 212.200 | 3.769 | 0.063576 | 1.002 | 0.023707 | 0.810000000 | 0.0 | heart |
+| Habanolide | 100.0% | 180.00 | 180.00 | 238.400 | 3.020 | 0.000141 | 0.850 | 0.000036 | 0.002800000 | 0.0 | base |
+
+**Materials:** 18 total (2 top, 8 heart, 8 base)
+**Total vapor:** 3227.60 ppm
+### Note Distribution
+
+**TOP:** 2 mats, 4.5% active, 5.7% OAV
+  - Petitgrain EO Paraguay       OAV=  8917.5 (very strong) VP=10.633Pa
+  - Coriander Seed EO            OAV=  3591.2 (very strong) VP=25.752Pa
+**HEART:** 8 mats, 60.5% active, 93.7% OAV
+  - Juniper Berry EO             OAV=137549.9 (massive) VP=106.071Pa
+  - Grapefruit FCF oil Sicilian  OAV= 43586.8 (massive) VP=0.000Pa
+  - Iso E Super                  OAV= 13994.5 (massive) VP=0.459Pa
+  - Cypress EO                   OAV=  6223.5 (very strong) VP=389.382Pa
+  - Hedione                      OAV=  4076.7 (very strong) VP=0.194Pa
+  - Vetival                      OAV=   357.6 (strong) VP=11.538Pa
+  ... and 2 more
+**BASE:** 8 mats, 35.0% active, 0.6% OAV
+  - Vetikon                      OAV=   994.9 (strong) VP=7.466Pa
+  - Vetiver EO (India)           OAV=   310.6 (strong) VP=0.084Pa
+  - Ambrox Super                 OAV=    59.3 (moderate-strong) VP=0.105Pa
+  - Timberol                     OAV=    42.1 (moderate) VP=0.138Pa
+  - Terpinyl Acetate             OAV=     3.6 (at threshold) VP=0.778Pa
+  - Ambrettolide                 OAV=     3.0 (at threshold) VP=0.007Pa
+  ... and 2 more
+### OAV by Odor Family
+
+                ?  82.4% =========================================  (4 mats)
+            woody   7.1% ===  (6 mats)
+           citrus   4.1% ==  (1 mats)
+          conifer   2.8% =  (1 mats)
+           floral   1.9% =  (1 mats)
+         aromatic   1.6% =  (2 mats)
+            amber   0.0% =  (1 mats)
+             musk   0.0% =  (2 mats)
+### Sub-threshold Materials (OAV < 1)
+3/18 materials below perceptible threshold
+  - Benzyl Benzoate: OAV=0.03 VP=0.064Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Clearwood: OAV=0.30 VP=0.005Pa act=200uL role=modifier [STRUCTURAL_OR_FIXATIVE]
+  - Habanolide: OAV=0.01 VP=0.000Pa act=180uL role=fixative [STRUCTURAL_OR_FIXATIVE]
+### High-OAV Flags (>5000)
+  - Cypress EO OAV=6224 dominates headspace -- may mask subtler notes
+  - Grapefruit FCF oil Sicilian OAV=43587 dominates headspace -- may mask subtler notes
+  - Iso E Super OAV=13994 dominates headspace -- may mask subtler notes
+  - Juniper Berry EO OAV=137550 dominates headspace -- may mask subtler notes
+  - Petitgrain EO Paraguay OAV=8917 dominates headspace -- may mask subtler notes
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Remain idx | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s |  4.5/60.5/35.0 | 3227.60ppm |  100.0% | Juniper Berr(137550), Grapefruit F(43587), Iso E Super(13994)
+| top          |    300s |  4.8/56.5/38.6 | 2195.48ppm |   91.4% | Juniper Berr(89359), Grapefruit F(33289), Iso E Super(15953)
+| heart        |   1800s |  4.8/50.0/45.2 | 251.37ppm |   79.3% | Iso E Super(19769), Petitgrain E(10466), Juniper Berr(6164)
+| late_heart   |   7200s |  2.8/50.4/46.8 |  40.22ppm |   76.1% | Iso E Super(20927), Hedione(6196), Petitgrain E(5684)
+| drydown      |  14400s |  1.4/51.3/47.3 |  25.46ppm |   74.3% | Iso E Super(21589), Hedione(6417), Petitgrain E(2412)
+
+Temporal authority: HEURISTIC_UNCALIBRATED; model=dynamic_headspace_exponential_loss_v2; remaining index is not measured evaporation.
+
+### Per-Window Detail
+
+**OPENING** (0.0s) -- Uncalibrated loss index:0%
+  T:4.5% H:60.5% B:35.0%  Vapor:3227.60ppm
+  Leaders: Juniper Berry EO OAV 137550 | Grapefruit FCF oil Sicilian OAV 43587 | Iso E Super OAV 13994 | Petitgrain EO Paraguay OAV 8917 | Cypress EO OAV 6224
+
+**TOP** (300.0s) -- Uncalibrated loss index:9%
+  T:4.8% H:56.5% B:38.6%  Vapor:2195.48ppm
+  Leaders: Juniper Berry EO OAV 89359 | Grapefruit FCF oil Sicilian OAV 33289 | Iso E Super OAV 15953 | Petitgrain EO Paraguay OAV 9909 | Hedione OAV 4665
+
+**HEART** (1800.0s) -- Uncalibrated loss index:21%
+  T:4.8% H:50.0% B:45.2%  Vapor:251.37ppm
+  Leaders: Iso E Super OAV 19769 | Petitgrain EO Paraguay OAV 10466 | Juniper Berry EO OAV 6164 | Hedione OAV 5828 | Grapefruit FCF oil Sicilian OAV 5227
+
+**LATE_HEART** (7200.0s) -- Uncalibrated loss index:24%
+  T:2.8% H:50.4% B:46.8%  Vapor:40.22ppm
+  Leaders: Iso E Super OAV 20927 | Hedione OAV 6196 | Petitgrain EO Paraguay OAV 5684 | Coriander Seed EO OAV 3254 | Vetikon OAV 1412
+
+**DRYDOWN** (14400.0s) -- Uncalibrated loss index:26%
+  T:1.4% H:51.3% B:47.3%  Vapor:25.46ppm
+  Leaders: Iso E Super OAV 21589 | Hedione OAV 6417 | Petitgrain EO Paraguay OAV 2412 | Coriander Seed EO OAV 1962 | Vetikon OAV 1367
+## Structural OAV Analysis
+
+**Vapor:** 3228 ppm  |  **Active:** 16.2%  |  **Perceptible:** 15/18  |  **Unknown:** 0
+
+### OAV Tiers
+  **massive** (7): Coriander Seed EO(3591), Cypress EO(6224), Grapefruit FCF oil Sicilian(43587), Hedione(4077), Iso E Super(13994), Juniper Berry EO(137550), Petitgrain EO Paraguay(8917)  ! fatigue risk, overload risk
+  **v.strong** (3): Vetikon(995), Vetival(358), Vetiver EO (India)(311)
+  **strong** (2): Ambrox Super(59), Cedarwood Virginia(76)
+  **moderate** (1): Timberol(42)
+  **threshold** (2): Ambrettolide(3), Terpinyl Acetate(4)
+  **sub** (3): Benzyl Benzoate(0), Clearwood(0), Habanolide(0)
+
+### Block Balance
+  **Citrus**     8917 (4%)
+  **Floral**   205865 (95%)
+  **Base**       1414 (1%)
+  **Ratio:** 146:1 between strongest/weakest block
+
+### Issues
+  ! 3 sub-threshold material(s): Benzyl Benzoate, Clearwood, Habanolide
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Petitgrain EO Paraguay(very strong) + Coriander Seed EO(very strong)
+  Heart: Juniper Berry EO(massive) + Grapefruit FCF oil Sicilian(massive)
+  Base: Vetikon(strong) + Vetiver EO (India)(strong) + Ambrox Super(moderate-strong) + Timberol(moderate) + Terpinyl Acetate(at threshold)
+
+### 2. Opening (0-5min)
+  Petitgrain EO Paraguay leads the reported top at OAV 8917 (very strong).
+  - Petitgrain EO Paraguay OAV=8917 VP=10.6Pa (citrus)
+  - Coriander Seed EO OAV=3591 VP=25.8Pa (aromatic)
+  Total vapor: 3227.6 ppm
+
+### 3. Heart (30min-2hr)
+  Iso E Super OAV=19769 (massive)
+  Petitgrain EO Paraguay OAV=10466 (massive)
+  Juniper Berry EO OAV=6164 (very strong)
+  Hedione OAV=5828 (very strong)
+  T:4.8% H:50.0% B:45.2%
+  Vapor: 251.4 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Base share of active note distribution: 47%
+  - Iso E Super OAV=21589
+  - Hedione OAV=6417
+  - Petitgrain EO Paraguay OAV=2412
+  - Coriander Seed EO OAV=1962
+  - Vetikon OAV=1367
+  - Vetiver EO (India) OAV=493
+  Vapor: 25.5 ppm
+
+### 5. Sillage & Diffusion
+  Primary carriers: Juniper Berry EO(137550) + Grapefruit FCF oil Sicilian(43587) + Iso E Super(13994) + Petitgrain EO Paraguay(8917)
+  OAV by family: None82% woody7% citrus4% conifer3%
+
+### 6. Longevity
+  Uncalibrated loss index: 26% over modeled window
+  Vapor: 3227.6 > 25.5 ppm
+  Base @ drydown: 47%
+  Absolute skin life: unavailable; calibrated finite-film, vehicle, skin-absorption, and sensory data are required
+
+### 7. Balance
+  Pyramid: T:4.5% H:60.5% B:35.0%
+  OAV range: 0.01 to 137550 (sigma-log=2.07)
+  Wide OAV contrast: Juniper Berry EO leads at OAV 137550; lower-OAV materials may be masked.
+    massive: 3
+    sub-threshold: 3
+
+### 8. Flags
+  SUB: Clearwood OAV=0.30 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Benzyl Benzoate OAV=0.03 role=modifier class=STRUCTURAL_OR_FIXATIVE
+  SUB: Habanolide OAV=0.01 role=fixative class=STRUCTURAL_OR_FIXATIVE
+```

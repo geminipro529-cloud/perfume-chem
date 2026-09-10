@@ -1,0 +1,3 @@
+target_identity,build_identity,equivalence_type,allow_multi_target,loss_statement
+Material A,Material A,exact_name,true,
+Material B,Available Substitute,functional,false,Loses the target material's metallic lift and changes drydown texture

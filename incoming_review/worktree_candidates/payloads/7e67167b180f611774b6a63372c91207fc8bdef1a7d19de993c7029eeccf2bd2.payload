@@ -1,0 +1,215 @@
+{
+  "schema_version": "perfume-chem.complex-perfumery-collection-successor.v12",
+  "generated_at": "2026-08-16T12:25:00+07:00",
+  "artifact_class": "NON_AUTHORITATIVE_RECOVERY_AND_NATIVE_FIT_INDEX",
+  "state": "PARTIAL_COLLECTION_42_OUTER_PLUS_2_EXACT_FILES_QUARANTINED_UNIVERSAL_ACCORD_AND_P6_EXPLICIT_UNAVAILABLE",
+  "parents": [
+    {
+      "path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V10_20260815.json",
+      "bytes": 10054,
+      "sha256": "1ea13d5709dfb6d199929b88ded680abf776f7ad1b127f4230125ae31a9c61e5",
+      "relationship": "SUPERSEDES_COLLECTION_WITHOUT_MUTATING_PARENT"
+    },
+    {
+      "path": "data/governance/complex_perfumery_v11_embedded_package_census_20260816.json",
+      "bytes": 11150,
+      "sha256": "df26b6032e9f78996078e52f6399cb8bc1d71939ea450ac0dfc5c962b289ecef",
+      "semantic_sha256": "4f32cc6e769d5db6ca6d62d51f1f9e5c5dff5da2020b94ad1f634619c16c6950",
+      "relationship": "PRESERVES_DIAGNOSTIC_CENSUS_WITHOUT_MUTATION"
+    }
+  ],
+  "collection_complete": false,
+  "implementation_complete": false,
+  "installation_authorized": false,
+  "cumulative_exact_outer_candidates": 42,
+  "cumulative_exact_nonarchive_candidates": 2,
+  "new_exact_outer_candidates": 1,
+  "new_exact_nonarchive_candidates": 0,
+  "prior_optional_identities": 1,
+  "optional_identities_closed_by_new_capture": 0,
+  "optional_identities_remaining": 1,
+  "post_v11_source_card_identities_captured": 1,
+  "capture_manifest": {
+    "path": "incoming_review/chatgpt/20260816T122500+0700-nine-perfume-blockage-clearance-6a7992db-n1282620c/capture_manifest.json",
+    "bytes": 8226,
+    "sha256": "c8f35854d91fee6bfe130779ec67267c720f272cef363f5375e319a2f4b62357"
+  },
+  "new_exact_outer_candidate_record": {
+    "name": "Nine_Perfume_Blockage_Clearance_and_Bench_Activation_2026-08-16_v1.zip",
+    "bytes": 619801,
+    "sha256": "1282620cfdb6b48a4f091c12da73414790f1b00461dba5fd4ed63cbacde0cb8f",
+    "archive_members": 23,
+    "native_single_status": "QUARANTINE_HOLD",
+    "native_single_finding_codes": [
+      "NESTED_ARCHIVE_REQUIRES_CHILD_RECEIPT",
+      "PARTIAL_MEMBER_SCAN",
+      "PARTIAL_MEMBER_SCAN"
+    ],
+    "native_graph_status": "GRAPH_COMPLETE_QUARANTINED",
+    "native_graph_nodes": 2,
+    "native_graph_edges": 1,
+    "native_graph_max_depth": 1,
+    "native_graph_all_nodes_terminal": true,
+    "native_graph_findings": 0,
+    "promotion_allowed": false,
+    "receipt": {
+      "path": "data/governance/complex_perfumery_nine_perfume_blockage_clearance_package_receipt_20260816.json",
+      "bytes": 7313,
+      "sha256": "f576554c5f3f3f8c85176755d78306a4a392ee7404a2aa3f3c3a8bc63466e474",
+      "semantic_sha256": "a2839c068f20f0cfb0cb8d80b2bab587e5d6decb24e7b62c25a4c77f858cdb92"
+    },
+    "role": "PROTOCOL_GEOMETRY_AND_DESIGN_ANCESTRY_ONLY",
+    "physical_execution": "NOT_PERFORMED",
+    "formula_release": false
+  },
+  "declared_parent_lineage": [
+    {
+      "name": "Nine_Perfume_Complexity_Module_Architecture_2026-08-15_v1.zip",
+      "bytes": 443317,
+      "sha256": "09318ed20c9c29c6d0f171a4333f74fde4d9c3f213ac64eca53997d4e5c20f3b",
+      "receipt_path": "data/governance/complex_perfumery_nine_perfume_architecture_package_receipt_20260815.json",
+      "relation": "DISTINCT_ARCHITECTURE_PARENT_POINTER"
+    },
+    {
+      "name": "Nine_Perfume_Module_Isolate_Completion_Suite_2026-08-15_v1.zip",
+      "bytes": 1892230,
+      "sha256": "d3ce4e261539ff5a598eca1d40836a093f0e7b356db6971cd7025b8437173c3c",
+      "receipt_path": "data/governance/complex_perfumery_nine_perfume_completion_suite_package_receipt_20260815.json",
+      "relation": "DISTINCT_COMPLETION_SUITE_PARENT_POINTER"
+    },
+    {
+      "name": "Nine_Perfume_Complexity_Phase2_Execution_2026-08-15_v1.zip",
+      "bytes": 520843,
+      "sha256": "ec5789c0e996f99ddc8538fbfc2fa28224e5ca6041de6ee615ebd58a22a0aceb",
+      "receipt_path": "data/governance/complex_perfumery_nine_perfume_phase2_execution_package_receipt_20260815.json",
+      "relation": "DISTINCT_PHASE2_PARENT_POINTER"
+    }
+  ],
+  "source_hash_closure": {
+    "package_declared_sources": 8,
+    "exact_v10_member_matches": 8,
+    "missing": 0,
+    "rights_or_admission_inferred": false,
+    "scope": "COMPUTATIONAL_ANCESTRY_BINDING_ONLY"
+  },
+  "protocol_geometry": {
+    "perfumes": 9,
+    "parent_masters": 14,
+    "factor_modules": 33,
+    "factor_module_rows": 77,
+    "new_factorial_arms": 96,
+    "scaled_existing_arms": 14,
+    "total_exact_5ml_arm_identities": 110,
+    "arm_component_rows": 775,
+    "reference_intake_rows": 9,
+    "references_registered": 0,
+    "all_raw_component_sums_ul": 5000,
+    "active_dose_authority": false,
+    "execution_ready": false,
+    "explanation": "The 5,000-uL sums close raw-volume protocol geometry only. Product-basis, blank-active-fraction, mass-fraction, carrier, density, lot, preparation, and safety bindings remain open."
+  },
+  "optional_collection_targets_unrecovered_from_current_source_surfaces": [
+    {
+      "name": "UNIVERSAL_ACCORD_INTELLIGENCE_MODULE_v1.zip",
+      "expected_bytes": 539050,
+      "sha256": "8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998",
+      "source_request_state": "EXACT_ORIGINAL_BYTES_UNAVAILABLE_NO_RECONSTRUCTION_OR_SUBSTITUTION"
+    }
+  ],
+  "installation_critical_exact_byte_blocker": {
+    "lane": "P6_PHYSICS_OAV_3_4",
+    "state": "EXPLICIT_UNAVAILABLE_PARENT_BYTES",
+    "required": [
+      {
+        "name": "Perfume_Chem_Physics_OAV_Decision_Model_v3_4_0_CALIBRATION_READY.zip",
+        "expected_bytes": 540402,
+        "sha256": "8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db"
+      },
+      {
+        "name": "perfume_chem_physics_oav_v3-3.4.0-py3-none-any.whl",
+        "expected_bytes": 65724,
+        "sha256": "582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5"
+      }
+    ],
+    "reconstruction_allowed": false,
+    "substitution_allowed": false
+  },
+  "native_fit": {
+    "migration_required": false,
+    "migration_head_remains": "20260810_0016",
+    "new_schema_allowed": false,
+    "new_truth_store_allowed": false,
+    "new_pipeline_script_allowed": false,
+    "package_code_install_allowed": false,
+    "design_projection": "C10_EXPERIMENT_PROPOSAL_AND_P3_MISSING_CHEMICAL_COMPARISON_PROTOCOL_ANCESTRY_ONLY",
+    "execution_projection": "LABORATORY_BETA_EXPERIMENT_SAMPLE_APPLICATION_OBSERVATION_CHAIN_AFTER_SEPARATE_AUTHORIZATION_ONLY",
+    "sensory_projection": "C0_HOLD_UNTIL_ARTIFACT_BINDING_QUALIFICATION_AND_HUMAN_EXECUTION_AUTHORIZATION",
+    "stock_projection": "EXACT_V5_STOCK_LOT_CARRIER_BASIS_DENSITY_PREPARATION_AND_SAFETY_BINDINGS_REQUIRED",
+    "native_experiment_priority": {
+      "controlling_queue_path": "data/governance/inventory_v5_experiment_readiness_closure_queue_20260812.json",
+      "controlling_queue_bytes": 24578,
+      "controlling_queue_sha256": "ff228b72a155e14902416b1de8d92e75f7302123c80f292abfc85adbd997ee2a",
+      "source_bench_order": "ADVISORY_ONLY_DOES_NOT_SUPERSEDE_NATIVE_QUEUE",
+      "first_direct_gates": [
+        "CLR-001",
+        "CLR-002"
+      ],
+      "next_hypothesis": "H_BIN_MIXTURE_BASELINE_AFTER_IDENTITY_CLOSURE",
+      "physical_execution_authorized": false
+    },
+    "formula_or_build_mutated": false,
+    "inventory_mutated": false
+  },
+  "deepluna_chat": {
+    "project": "perfume-chem-cheapluna-isolated",
+    "profile": "cheapluna-chat",
+    "route": "DIRECT_PRO",
+    "batch_id": "DLB-20260816T051619863Z-7b7962",
+    "accepted_read_only_lanes": 3,
+    "fallback_used": false,
+    "fast_used": false,
+    "sol_local_acceptance_only": true
+  },
+  "source_followup": {
+    "conversation_id": "6a7992db-96b8-83ec-aab0-6a7447b97da1",
+    "turn_id": "6104c82d-9e15-4d86-892f-41b03f4338cc",
+    "message_id": "68a7da34-d0a5-417f-a6d4-0b138b42e946",
+    "new_attachment_count": 0,
+    "accepted_scope": "CONFIRMS_UNMADE_PREPARATIONS_OPEN_VERIFICATIONS_UNREGISTERED_REFERENCES_AND_ZERO_PHYSICAL_RESULTS",
+    "rejected_scope": "BLANKET_REPOSITORY_IMPLEMENTATION_OR_MIGRATION_GAP_AND_DHP_FIRST_NATIVE_PRIORITY",
+    "authority": false
+  },
+  "residual_holds": [
+    "UNIVERSAL_ACCORD_EXACT_ORIGINAL_BYTES_UNAVAILABLE_NO_RECONSTRUCTION_OR_SUBSTITUTION",
+    "P6_EXACT_ZIP_AND_WHEEL_UNAVAILABLE_NO_SUBSTITUTION",
+    "SOURCE_RIGHTS_UNKNOWN",
+    "PACKAGE_NATIVE_SINGLE_SCAN_RETAINS_NESTED_AND_PARTIAL_MEMBER_HOLDS",
+    "EXACTSTOCKREFS_MISSING",
+    "FOUR_PREPARATION_TEMPLATES_NOT_PREPARED",
+    "NINE_VERIFICATION_TEMPLATES_OPEN",
+    "MASS_FRACTION_PRODUCT_BASIS_CARRIER_DENSITY_AND_CONDITION_BINDINGS_INCOMPLETE",
+    "SAFETY_AND_PHYSICAL_CHEMISTRY_PREFLIGHT_INCOMPLETE",
+    "NO_PHYSICAL_SENSORY_ANALYTICAL_HEADSPACE_OAV_STABILITY_SIMILARITY_OR_RELEASE_VALIDATION",
+    "SOURCE_BENCH_ORDER_DOES_NOT_SUPERSEDE_NATIVE_EXPERIMENT_READINESS_QUEUE"
+  ],
+  "authority": {
+    "source_admission": false,
+    "schema": false,
+    "metadata": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "bottle": false,
+    "physical_execution": false,
+    "sensory": false,
+    "analytical": false,
+    "headspace": false,
+    "strict_oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "installation": false,
+    "release": false,
+    "installation_authorized": false
+  }
+}

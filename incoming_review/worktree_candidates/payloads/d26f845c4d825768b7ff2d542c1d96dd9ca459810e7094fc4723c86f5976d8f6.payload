@@ -1,0 +1,212 @@
+"""Perfumer-logic gates for optimizer outputs.
+
+Numerical optimizers can improve a scalar score while damaging the actual
+perfume brief. These gates express non-negotiable perfumer grammar as explicit
+pass/warn/fail checks. A FAIL should trigger another optimization pass with
+adjusted constraints or weights.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Mapping
+
+from engine.families.registry import evaluate_family_archetype, get_archetype, infer_archetype
+from engine.name_utils import normalize_name
+
+
+@dataclass(frozen=True)
+class LogicCheck:
+    name: str
+    status: str
+    detail: str
+
+
+@dataclass(frozen=True)
+class PerfumerLogicReport:
+    brief: str
+    status: str
+    rerun_recommended: bool
+    checks: list[LogicCheck]
+
+
+def _active_pct(formula: Mapping, material_names: set[str]) -> float:
+    ingredients = formula.get("ingredients_pct", {})
+    dilutions = formula.get("dilutions", {})
+    total = 0.0
+    for material, raw_pct in ingredients.items():
+        if normalize_name(material) in material_names:
+            total += float(raw_pct) * float(dilutions.get(material, 1.0))
+    return total
+
+
+def _raw_pct(formula: Mapping, material_names: set[str]) -> float:
+    ingredients = formula.get("ingredients_pct", {})
+    return sum(
+        float(raw_pct)
+        for material, raw_pct in ingredients.items()
+        if normalize_name(material) in material_names
+    )
+
+
+def _check_floor(name: str, value: float, floor: float, unit: str = "% active") -> LogicCheck:
+    if value >= floor:
+        return LogicCheck(name, "PASS", f"{value:.3f}{unit} >= {floor:.3f}")
+    return LogicCheck(name, "FAIL", f"{value:.3f}{unit} below {floor:.3f}")
+
+
+def _check_ceiling(name: str, value: float, ceiling: float, unit: str = "% raw") -> LogicCheck:
+    if value <= ceiling:
+        return LogicCheck(name, "PASS", f"{value:.3f}{unit} <= {ceiling:.3f}")
+    return LogicCheck(name, "FAIL", f"{value:.3f}{unit} above {ceiling:.3f}")
+
+
+APPLE = {
+    "apritone",
+    "hexyl acetate",
+    "ethyl 2-methylbutyrate",
+}
+CITRUS = {
+    "bergamot fcf",
+    "bergamot",
+    "bergamot fcf sicilian",
+    "cedrat fcf sicilian",
+    "grapefruit fcf",
+    "red mandarin eo",
+    "limonene",
+    "d-limonene",
+}
+LAYTON_SPICE = {
+    "cardamom ftec",
+    "cardamom",
+    "terpinyl acetate",
+    "eugenol",
+    "black pepper ftec",
+    "pink pepper base",
+}
+LAVENDER = {
+    "lavender eo",
+    "linalool",
+    "linalyl acetate",
+    "ethyl linalool",
+}
+RADIANCE = {
+    "hedione",
+    "hedione hc",
+    "dihydrojasmone",
+}
+AMBER_WOOD_MUSK = {
+    "ambrox super",
+    "ambrofix",
+    "azarbre",
+    "ambermax",
+    "iso e super",
+    "sandalore",
+    "timberol",
+    "norlimbanol dextro",
+    "cashmeran",
+    "habanolide",
+    "romandolide",
+    "galaxolide",
+    "ethylene brassylate",
+    "ambrettolide",
+}
+GOURMAND = {
+    "vanillin",
+    "ethyl vanillin",
+    "coumarin",
+    "benzoin resinoid",
+    "siam benzoin",
+    "benzoin sumatra resinoid",
+}
+
+FOUGERE_AROMATIC = {
+    "lavender eo",
+    "clary sage eo",
+    "linalool",
+    "linalyl acetate",
+    "ethyl linalool",
+    "dihydromyrcenol",
+}
+FOUGERE_BASE = {
+    "coumarin",
+    "evernyl",
+    "vetiver eo",
+    "patchouli eo",
+    "cedarwood eo",
+    "cedarwood oil virginia",
+    "iso e super",
+}
+MARINE = {
+    "calone",
+    "floralozone",
+    "scentenal",
+}
+LOUD_FRUIT = {
+    "ethyl 2-methylbutyrate",
+    "apritone",
+    "hexyl acetate",
+}
+
+
+def infer_brief(formula: Mapping) -> str:
+    name = str(formula.get("name", "")).lower()
+    body = str(formula.get("body", "")).lower()
+    text = f"{name}\n{body}"
+    if "layton" in text:
+        return "layton_dna"
+    if "fougere" in text or "fougère" in text:
+        return "aromatic_fougere"
+    return "generic"
+
+
+def _report_from_archetype(formula: Mapping, archetype: str, fallback_brief: str) -> PerfumerLogicReport:
+    spec = get_archetype(archetype)
+    if spec is None:
+        return _report(
+            fallback_brief,
+            [LogicCheck("family_archetype_known", "WARN", f"No family archetype spec for {archetype!r}.")],
+        )
+    evaluation = evaluate_family_archetype(formula, archetype)
+    checks = [
+        LogicCheck(check.name, check.status, check.detail)
+        for check in evaluation.checks
+    ]
+    return _report(evaluation.archetype, checks)
+
+
+def evaluate_layton_dna(formula: Mapping, family_archetype: str = "") -> PerfumerLogicReport:
+    archetype = infer_archetype("layton_dna", family_archetype)
+    return _report_from_archetype(formula, archetype, "layton_dna")
+
+
+def evaluate_aromatic_fougere(formula: Mapping, family_archetype: str = "") -> PerfumerLogicReport:
+    archetype = infer_archetype("aromatic_fougere", family_archetype)
+    return _report_from_archetype(formula, archetype, "aromatic_fougere")
+
+
+def evaluate_perfumer_logic(
+    formula: Mapping,
+    brief: str = "auto",
+    family_archetype: str = "",
+) -> PerfumerLogicReport:
+    resolved = infer_brief(formula) if brief == "auto" else brief
+    if family_archetype and get_archetype(family_archetype) is not None:
+        return _report_from_archetype(formula, family_archetype, resolved)
+    if resolved == "layton_dna":
+        return evaluate_layton_dna(formula, family_archetype)
+    if resolved == "aromatic_fougere":
+        return evaluate_aromatic_fougere(formula, family_archetype)
+    return _report("generic", [LogicCheck("perfumer_logic_brief", "WARN", "No brief-specific logic selected.")])
+
+
+def _report(brief: str, checks: list[LogicCheck]) -> PerfumerLogicReport:
+    has_fail = any(check.status == "FAIL" for check in checks)
+    has_warn = any(check.status == "WARN" for check in checks)
+    status = "FAIL" if has_fail else "WARN" if has_warn else "PASS"
+    return PerfumerLogicReport(
+        brief=brief,
+        status=status,
+        rerun_recommended=has_fail,
+        checks=checks,
+    )

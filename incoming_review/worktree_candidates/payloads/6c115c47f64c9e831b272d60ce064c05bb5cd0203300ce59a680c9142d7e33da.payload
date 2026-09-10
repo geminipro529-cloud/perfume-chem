@@ -1,0 +1,104 @@
+{
+  "schema_version": "external_package_receipt_v1",
+  "receipt_id": "chat-f-external-evidence-f-lane-v1-20260819",
+  "recorded_at": "2026-08-19T12:11:34Z",
+  "package": {
+    "file_name": "Perfume_Chem_External_Evidence_F_Lane_v1.zip",
+    "locator": "incoming_review/chatgpt/20260819T121134Z-chat-f-rights-6a753b43/Perfume_Chem_External_Evidence_F_Lane_v1.zip",
+    "locator_scope": "WORKSPACE_RELATIVE",
+    "byte_size": 68531,
+    "sha256": "ca290ec0819bc2381beec4a3a53d504517996ac092d050d0bd5d11bf5556b6b0",
+    "media_type": "application/zip",
+    "archive_entry_count": 20,
+    "archive_file_count": 20,
+    "declared_payload_count": 19,
+    "package_root": null,
+    "embedded_integrity_records": [
+      {
+        "path": "SHA256SUMS.json",
+        "byte_size": 2139,
+        "sha256": "c9095a3860362ec187b8e3d249df8c70b642df9b6e6129a1ba1d8a4261af92a6",
+        "role": "CHECKSUM_LEDGER"
+      },
+      {
+        "path": "WORKER_MANIFEST.json",
+        "byte_size": 9382,
+        "sha256": "d03ebf271d0e8fef2a87db304e09e5216e4cedd6560d2733f0f5d2e20f96a3b7",
+        "role": "MANIFEST"
+      }
+    ]
+  },
+  "provenance": {
+    "source_type": "AI_GENERATED_HYPOTHESIS",
+    "independence_group": "chatgpt:6a753b43-9644-83ec-92ad-7d66d62e7ebe:external-evidence-f-lane-v1",
+    "conversation_id": "6a753b43-9644-83ec-92ad-7d66d62e7ebe",
+    "turn_id": null,
+    "message_id": null,
+    "lineage_resolution": "EXACT_ORIGINAL_CHAT_ATTACHMENT_RECOVERED_HASH_VERIFIED_AND_QUARANTINED_WITH_RIGHTS_ARTIFACTS_AND_BASELINE_PARENTS_ABSENT",
+    "rights": {
+      "reuse_status": "UNKNOWN",
+      "license_or_reuse_restriction": "The attachment is an AI-generated secondary governance inventory. Every source row says its exact rights artifact is absent, so its permission labels do not establish reuse, redistribution, publication, commercial, or ML authority.",
+      "license_url": null,
+      "redistribution_allowed": false,
+      "spdx_identifier": null,
+      "notes": "Source and terms rights remain operation-, channel-, artifact-, version-, and purpose-specific. This receipt is not a legal conclusion."
+    }
+  },
+  "admission": {
+    "state": "EXTERNAL_BYTES_VERIFIED_NOT_ADMITTED",
+    "b1_promotion_allowed": false,
+    "canonical_import_allowed": false,
+    "repository_content_import_allowed": false,
+    "row_projection_allowed": false,
+    "blockers": [
+      "RIGHTS_UNKNOWN",
+      "RIGHTS_ARTIFACTS_NOT_INCLUDED",
+      "BASELINE_PARENT_BYTES_NOT_INCLUDED",
+      "SOURCE_REGISTRY_PARENT_BYTES_NOT_INCLUDED",
+      "BROAD_CANONICAL_INGESTION_PERMISSION_NOT_OPERATION_SCOPED",
+      "CURRENT_TERMS_MAY_DRIFT",
+      "PACKAGE_CODE_NOT_INSTALLED",
+      "PACKAGE_CONTAINS_COMPILED_PYTHON_CACHE",
+      "NO_LEGAL_CONCLUSION"
+    ]
+  },
+  "authority": {
+    "source_authority": false,
+    "formula_authority": false,
+    "inventory_authority": false,
+    "oav_authority": false,
+    "headspace_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "compounding_authority": false,
+    "release_authority": false
+  },
+  "parents": [
+    {
+      "artifact_name": "incoming_review/chatgpt/20260819T121134Z-chat-f-rights-6a753b43/source_manifest.json",
+      "byte_size": 2417,
+      "sha256": "a38ef630d8bb46025d7c393a189d9ce2b25feb0288dba71e7047122110e1ece0",
+      "relation": "BINDS_BROWSER_CAPTURE_MANIFEST",
+      "support_scope": "AUTHENTICATED_CONVERSATION_AND_EXACT_ATTACHMENT_CAPTURE_ONLY",
+      "authority_state": "POINTER_ONLY"
+    }
+  ],
+  "evidence_summary": {
+    "classification": "EXACT_CHAT_F_PACKAGE_QUARANTINED_SECONDARY_RIGHTS_INVENTORY_WITH_ZERO_SOURCE_RIGHTS_ARTIFACTS",
+    "archive_scan_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "archive_members": 20,
+    "internal_checksum_entries_verified": 19,
+    "source_rows": 80,
+    "unique_source_ids": 80,
+    "rights_artifacts_included": 0,
+    "rows_not_live_verified_in_f_lane": 65,
+    "baseline_parent_bytes_included": false,
+    "source_registry_parent_bytes_included": false,
+    "native_operation_scoped_rights_model_present": true,
+    "source_rows_admitted": 0,
+    "package_code_installed": false,
+    "promotion_allowed": false
+  },
+  "receipt_sha256": "6be724c7acdf40035cbdc77888dceb6568e0612e3a4bd59cfa2e81cb4ba025c9"
+}

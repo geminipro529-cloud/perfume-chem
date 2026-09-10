@@ -1,0 +1,110 @@
+from dataclasses import replace
+
+import pytest
+
+from engine.formulation_intelligence.accord_graph import EpistemicState
+from engine.formulation_intelligence.candidate_assembler import (
+    AssemblyLayer,
+    RelationDisposition,
+    RelationPacket,
+)
+from engine.formulation_intelligence.contracts import AssessmentScope, AuthorityCeiling, PlaneId
+from engine.formulation_intelligence.relation_binding import GraphRelationBinding
+from tests.test_formulation_intelligence_accord_graph import _graph
+
+
+def _binding(edge_id="edge:incense-bridges-iris"):
+    graph = _graph()
+    edge = next(e for e in graph.edges if e.edge_id == edge_id)
+    scope = edge.scope
+    packet = RelationPacket(
+        packet_id="relation:proposal",
+        alternative_id="alternative:iris",
+        target_ideal_id=scope.target_scope,
+        current_inventory_build_id=None,
+        layer=AssemblyLayer.TARGET_IDEAL,
+        plane_id=PlaneId.RELATION,
+        scope=AssessmentScope(scope.target_scope, scope.temporal_scope, scope.matrix_scope),
+        relation_kind=edge.relation_kind.value,
+        subject_candidate_ids=(edge.source_node_id,),
+        object_candidate_ids=(edge.target_node_id,),
+        disposition=RelationDisposition.PROPOSED,
+        rationale=edge.rationale,
+        provenance_refs=edge.provenance_refs,
+        freshness_hashes=(graph.content_sha256, edge.content_sha256),
+        authority_ceiling=AuthorityCeiling.STRUCTURAL_ONLY,
+    )
+    return GraphRelationBinding(graph, edge.edge_id, packet)
+
+
+def test_lossless_roundtrip_retains_condition_and_native_endpoints():
+    binding = _binding()
+    restored = GraphRelationBinding.from_dict(binding.as_dict())
+    assert restored == binding
+    assert restored.content_sha256 == binding.content_sha256
+    assert restored.graph.scope.condition_scope == binding.graph.scope.condition_scope
+
+
+def test_directed_reversal_fails_but_undirected_reversal_is_valid():
+    directed = _binding()
+    with pytest.raises(ValueError, match="direction"):
+        replace(
+            directed,
+            packet=replace(
+                directed.packet,
+                subject_candidate_ids=directed.packet.object_candidate_ids,
+                object_candidate_ids=directed.packet.subject_candidate_ids,
+            ),
+        )
+    undirected = _binding("edge:smoke-contrasts-iris")
+    replace(
+        undirected,
+        packet=replace(
+            undirected.packet,
+            subject_candidate_ids=undirected.packet.object_candidate_ids,
+            object_candidate_ids=undirected.packet.subject_candidate_ids,
+        ),
+    )
+
+
+@pytest.mark.parametrize("change", ["time", "kind", "endpoints", "freshness", "authority"])
+def test_forged_relation_is_rejected(change):
+    binding = _binding()
+    packet = binding.packet
+    if change == "time":
+        packet = replace(packet, scope=replace(packet.scope, temporal_scope="drydown"))
+    elif change == "kind":
+        packet = replace(packet, relation_kind="masks")
+    elif change == "endpoints":
+        packet = replace(packet, subject_candidate_ids=(*packet.subject_candidate_ids, "extra"))
+    elif change == "freshness":
+        packet = replace(packet, freshness_hashes=("b" * 64,))
+    else:
+        packet = replace(packet, authority_ceiling=AuthorityCeiling.DESIGN_ONLY)
+    with pytest.raises(ValueError):
+        replace(binding, packet=packet)
+
+
+def test_unknown_edge_remains_held_with_full_reason():
+    binding = _binding()
+    edge = next(e for e in binding.graph.edges if e.edge_id == binding.edge_id)
+    unknown = replace(
+        edge,
+        epistemic_state=EpistemicState.UNKNOWN,
+        authority_ceiling=AuthorityCeiling.WITHHELD,
+        unknown_reason="Missing omission comparison",
+    )
+    graph = replace(
+        binding.graph, edges=tuple(unknown if e == edge else e for e in binding.graph.edges)
+    )
+    packet = replace(
+        binding.packet,
+        authority_ceiling=AuthorityCeiling.WITHHELD,
+        freshness_hashes=(graph.content_sha256, unknown.content_sha256),
+    )
+    with pytest.raises(ValueError, match="unknown edge"):
+        GraphRelationBinding(graph, unknown.edge_id, packet)
+    held = GraphRelationBinding(
+        graph, unknown.edge_id, replace(packet, disposition=RelationDisposition.HOLD)
+    )
+    assert any(e.unknown_reason == "Missing omission comparison" for e in held.graph.edges)

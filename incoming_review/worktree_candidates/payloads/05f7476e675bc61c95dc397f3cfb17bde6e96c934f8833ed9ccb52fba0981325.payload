@@ -1,0 +1,489 @@
+"""Repository-wide pytest policy for optional local evidence replay."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+import pytest
+
+from external_evidence_pytest import (
+    PROJECT_ROOT,
+    ReceiptEvidencePin,
+    local_evidence_hold_reason,
+    materialize_historical_governance_evidence,
+    validate_receipt_pins,
+    validate_v5_historical_compatibility,
+)
+
+
+@dataclass(frozen=True, slots=True)
+class _EvidenceSpec:
+    receipts: tuple[ReceiptEvidencePin, ...] = ()
+    local_paths: tuple[str, ...] = ()
+
+
+def _receipt(file_name: str, receipt_sha256: str, package_sha256: str) -> ReceiptEvidencePin:
+    return ReceiptEvidencePin(
+        path=PROJECT_ROOT / "data" / "governance" / file_name,
+        receipt_sha256=receipt_sha256,
+        package_sha256=package_sha256,
+    )
+
+
+_DARK_SCR03 = _receipt(
+    "chat2_dark_scr03_ibq_suederal_canonical_package_receipt_20260817.json",
+    "2f7815b97108f6a1a7553c4d7c769677add03f43d1acfbd439b461e137bec1ae",
+    "eb291f96fdf6e0ec8805d1f7d82f74e92ee5fa3ca6439a00c19f7e4cc15ef769",
+)
+_CHAT_A = _receipt(
+    "chat_a_interaction_atlas_v2_v5_rebase_package_receipt_20260819.json",
+    "e2919b1d2a8c8f88950c7fe6002b6a9ebd89f576f81e99bc9c98326ee9b7dc7d",
+    "e9c4477ea736a5f9f380658ed4dd9e2ab294e01a0e69e565a2a19bb994f50e3e",
+)
+_CHAT_B = _receipt(
+    "chat_b_exact_ratio_causal_xhigh_v1_package_receipt_20260819.json",
+    "4462ea102e8d90e923e062624c5701e1ba825a3d9d107bb3d2c7b6b8120f6f3a",
+    "15ef920283d457ec06e39af6009ae6153e5d835f39d26539d3463806d7c53cd6",
+)
+_CHAT_C = _receipt(
+    "chat_c_formula_corpora_patent_mining_xhigh_v1_package_receipt_20260819.json",
+    "ae7b3da26ef9accb1c18d377755cb47d020293c003c1c2f675efd38a9331e225",
+    "ce6e95f40cd53bdc3c94f169ccb9761638500ae085be23df7b7abc2db94bb42d",
+)
+_CHAT_D = _receipt(
+    "chat_d_molecular_receptor_xhigh_v1_1_package_receipt_20260819.json",
+    "626ebb59e68c4ef39ba17287ad650808eefc12d6310d7c8333c4ca68d8e7f3f4",
+    "8f283781742e6ed51950b4397b486a2b4ec9745835cc20bd278a013f2a3a5743",
+)
+_CHAT_E_DOMAIN = _receipt(
+    "chat_e_domain_adjudication_v1_2_package_receipt_20260819.json",
+    "165d8bd009cb505e972276a0f081b69819c3f160941b9dbe79eb7359d185deb1",
+    "8170ac4e7f558698b97a746ac30cd39110b371325b92c542a1ca3b90d2397898",
+)
+_CHAT_E_PHYSICAL = _receipt(
+    "chat_e_physical_analytical_lane_v1_package_receipt_20260819.json",
+    "ae2b660342310400919005bce6a4e3ae9c412863e14860ad8f8fb673ca1812d6",
+    "685098081c631a0c39e3113d1d3ef3ba08662537bcee3dbcee722b321aa338cf",
+)
+_CHAT_E_HARDENING = _receipt(
+    "chat_e_postfreeze_hardening_v1_package_receipt_20260819.json",
+    "0fb7d4a722120eaa52bad5658020ab990fa498b3bb3f19da0c35427490348f46",
+    "0d989b72a2678359b797c5e936c4aebc818e8fca700dcc2f557ae86321a71212",
+)
+_CHAT_F = _receipt(
+    "chat_f_external_evidence_f_lane_v1_package_receipt_20260819.json",
+    "6be724c7acdf40035cbdc77888dceb6568e0612e3a4bd59cfa2e81cb4ba025c9",
+    "ca290ec0819bc2381beec4a3a53d504517996ac092d050d0bd5d11bf5556b6b0",
+)
+_CHAT_G = _receipt(
+    "chat_g_external_evidence_xhigh_v1_package_receipt_20260819.json",
+    "fada0db8011a01327b2a6c990ccdca26fb83b0644196dfeb01b5756046508bba",
+    "feb747fa9589dfeb621e9c6312bfce291f1aa9fe306ad988aa841cf90eb6c278",
+)
+_V4_RECEIPTS = (
+    _receipt(
+        "complex_perfumery_v5_full_chain_package_receipt_20260812.json",
+        "d59ca5cc34876c628f0e2c95ded4f6dd17704a71ae3278b3be4c000749bb3962",
+        "16eb6805414c1a96f30609e7dc9eed5377f522f9872e2017222b23635a73f530",
+    ),
+    _receipt(
+        "complex_perfumery_dhp25_exact_v5_package_receipt_20260812.json",
+        "fbf56a4d00e59cc76113c12047d1afd8e68ae1f5f06d6b9d0f30a28aaef09043",
+        "7e38c19a83b25de1edbc190f568b5725655d5e60dca63dec951e8f7c01a98efc",
+    ),
+    _receipt(
+        "complex_perfumery_dhp25_initial_package_receipt_20260812.json",
+        "b5be7a38bdeeb19af04b375350d2114c1a2b01fa65b97ed3128372c531985297",
+        "ec27bcd4dd1b9a3e54d4de49ace3293d91af868ba6c6005a581b1646d3905dcd",
+    ),
+)
+_SCR02 = _receipt(
+    "chat2_dark_scr02_package_receipt_20260812.json",
+    "0f9d0a39c42314f19e55ac7c08d747f0b9cba260aa3f4e238eeafddc62d01312",
+    "dd9fb19c03da6c401aa1bdb718446b830148cc2856be6c525abf836788ce90fb",
+)
+_SCR02_V2 = _receipt(
+    "chat2_dark_scr02_interpretation_v2_package_receipt_20260812.json",
+    "f8667af195b78983c36b076f555e79a8a36d550c3af23c25dee2c822ee2fed82",
+    "741a357d8099b30081e1f44d4aace97d18b8bdc7f0d6a4e30a6c6aad81cb67ad",
+)
+_SCR20B = _receipt(
+    "chat2_dark_scr20b_namespace_repair_package_receipt_20260812.json",
+    "e1304f511fda2c678af8773c52b5396fcffb33502bb074d99d5660da6367a2ea",
+    "1ccd3cedd289bd13ab639e586de8ae32fbff8319c1d8f42ff08203c3c52901e9",
+)
+_PCV3 = _receipt(
+    "complex_perfumery_pcv3_chat2_experimental_data_model_package_receipt_20260815.json",
+    "13f7edf5f1ae240d0a8eba2ee8f652f71436e7e5346d97a6334216535b051c72",
+    "db638ab82c7e1a798297a9f4376014b9f51965511ae1d65132e57b4d12c9c9eb",
+)
+_PERFUME_BOX = _receipt(
+    "complex_perfumery_perfume_box_workflow_formula_book_v2_package_receipt_20260815.json",
+    "2b8d82b02412af1ada25e3934c0f0fda4add4df80feac23e45594db3b55e5c72",
+    "db0579760159e7438b83e92de399aa0a9f5862f0f547fa030a682c339bd54e84",
+)
+_V10_RECEIPTS = (
+    _receipt(
+        "complex_perfumery_latest_state_compilation_package_receipt_20260815.json",
+        "911fe82822628e631c0680f37b95637697b0ec70e8cae5752797d472b12606fe",
+        "417f58e1e471b62dc7d04b7dc817a64b8b4b1d1fb343bb243f02e95fb7ae3418",
+    ),
+    _receipt(
+        "complex_perfumery_latest_state_bridge_package_receipt_20260815.json",
+        "7f3fd9fbccb8501e4fda38eacd8c01adb5d7653be98ce5c92e908693aebabaa8",
+        "27584a816df351d01bc040e616fef77c1aa3a7e9ac91910a6c04e0220c514aeb",
+    ),
+    _receipt(
+        "complex_perfumery_opus_v_hedonic_regeneration_package_receipt_20260815.json",
+        "ac21c236aa5e2b1fc5170e546853c02cb084035ff799ea6a4128dd3941883b29",
+        "123575c756a878950d49f71f9bd9dcd420a837b886833b1de57139c8cdc6d81b",
+    ),
+    _receipt(
+        "complex_perfumery_nine_perfume_architecture_package_receipt_20260815.json",
+        "21b3836348f85bd6bd60a3e59888736daa2115784fd309085c53da3dadb62d0f",
+        "09318ed20c9c29c6d0f171a4333f74fde4d9c3f213ac64eca53997d4e5c20f3b",
+    ),
+    _receipt(
+        "complex_perfumery_nine_perfume_completion_suite_package_receipt_20260815.json",
+        "c1de019eea72d0607c47b4d1fb8da29ba704596a92e0767bb9742f25c29e21a7",
+        "d3ce4e261539ff5a598eca1d40836a093f0e7b356db6971cd7025b8437173c3c",
+    ),
+    _receipt(
+        "complex_perfumery_nine_perfume_phase2_execution_package_receipt_20260815.json",
+        "f1f4d88edd80d9701ac90e33fadefbbc758389d7c024765a418529d34d1163f1",
+        "ec5789c0e996f99ddc8538fbfc2fa28224e5ca6041de6ee615ebd58a22a0aceb",
+    ),
+)
+_V12_RECEIPT = _receipt(
+    "complex_perfumery_nine_perfume_blockage_clearance_package_receipt_20260816.json",
+    "a2839c068f20f0cfb0cb8d80b2bab587e5d6decb24e7b62c25a4c77f858cdb92",
+    "1282620cfdb6b48a4f091c12da73414790f1b00461dba5fd4ed63cbacde0cb8f",
+)
+_V13_RECEIPTS = (
+    _receipt(
+        "complex_perfumery_nine_perfume_markdown_formula_export_package_receipt_20260816.json",
+        "3eef4a8737a2035a1cba2aab5938a9d664f55d251d6e737d466659d408180779",
+        "8040367862a0a15cf5852dac395a2f630c80898f3ab734755c00299611f9dd17",
+    ),
+    _receipt(
+        "complex_perfumery_xhigh_audit_verify_fix_package_receipt_20260816.json",
+        "c1a21efe0fe5098944fb21de84119b5ecb3435be072b114187caaf0f502ac51d",
+        "1706d4c8ff1eeac22e689627630903ea7fcda5517b24ac79d44da246ed6f0657",
+    ),
+    _receipt(
+        "complex_perfumery_opus_v_hr_a_readmission_package_receipt_20260816.json",
+        "34c26a9ce7ecb737e5b09f4207dc830a65b6142191efc6c0428993f6fd2862de",
+        "09f723b79912e88b63308574d83f4ad540e2c0cda7970147b85ed9380768bd53",
+    ),
+    _receipt(
+        "complex_perfumery_vmc_rec01_empirical_loop_package_receipt_20260816.json",
+        "ae4f2e1a8274f5623279e3e4663b065313263f13bffa2dc97a27af5561db36ff",
+        "3bcaec98bb637cb8070a11582044e3ce1b9cb2b317cd40761ae7ba529feeb745",
+    ),
+    _receipt(
+        "complex_perfumery_chat0_exact_byte_recovery_recheck_package_receipt_20260816.json",
+        "a970c26ce21549340ff91611d2509e18d82f40f5f408d850988f00720f4ddcf4",
+        "59d253cee98f04e7b2f4269c739d471edb1d98fe564cfa11990169e1941d2b07",
+    ),
+)
+_V14_RECEIPT = _receipt(
+    "complex_perfumery_nine_perfume_30ml_concentrate_formula_package_receipt_20260816.json",
+    "77129021cc681a4ccfbba373995890bbd4c83360ea25fe405d282267511537e1",
+    "c01c9bfd6e18b17968fd2530c7a548f2c3a41c6d4f74e9e64973aef4c950618e",
+)
+_V15_RECEIPT = _receipt(
+    "complex_perfumery_floral_complexity_expansion_package_receipt_20260816.json",
+    "9a3a36846d670444a6a5379d87a0dc78e55075e39ba3d12c3cf582d163b116b9",
+    "0eb388b6ceb420997210e7c6096d4f0e6951e06fc8bd06ab1c45ad0df369780b",
+)
+_V16_RECEIPT = _receipt(
+    "complex_perfumery_complexity_expansion_calibration_engine_v2_package_receipt_20260816.json",
+    "d05ef2d40fba573512108c8f82e1eda4973dfe49494add7a6f02885cac69fcde",
+    "f4be1041bb8e2e8b5665962e580aa740996bd2f77b61299cca1d3cdf55014a5d",
+)
+_V17_RECEIPT = _receipt(
+    "complex_perfumery_nine_finished_hedonic_high_complexity_package_receipt_20260816.json",
+    "dc5d5cba59a006e1306bb083475d75248d875f8c9b7214afb3b82940b19755a4",
+    "f1e0f2aae2143fe2638c151032f686ee7b36579280445e86e1878c79b54f240b",
+)
+_V18_RECEIPT = _receipt(
+    "complex_perfumery_floral_hedonic_formula_portfolio_package_receipt_20260817.json",
+    "2e615a6886e52143b28bc1be01e31b9d78fec1a96f1d28d950d3823fcf36dd5e",
+    "1654f03ad0b55fa310a46e6e0ed11a0f9070ab9c94037e726380389f177a35e6",
+)
+
+_V13_SPEC = _EvidenceSpec(
+    receipts=_V13_RECEIPTS,
+    local_paths=(
+        "incoming_review/chatgpt/20260816T141500+0700-v13-post-v12-five-package-recovery-multi-chat/capture_manifest.json",
+    ),
+)
+_V14_SPEC = _EvidenceSpec(
+    receipts=(_V14_RECEIPT,),
+    local_paths=(
+        "incoming_review/chatgpt/20260816T144500+0700-v14-post-v13-30ml-formula-scaling-6a79b172-nc01c9bfd/capture_manifest.json",
+    ),
+)
+_V15_SPEC = _EvidenceSpec(
+    receipts=(_V15_RECEIPT,),
+    local_paths=(
+        "incoming_review/chatgpt/20260816T152630+0700-v15-floral-complexity-expansion-6a8054e9-n0eb388b6/capture_manifest.json",
+    ),
+)
+_V16_SPEC = _EvidenceSpec(
+    receipts=(_V16_RECEIPT,),
+    local_paths=(
+        "incoming_review/chatgpt/20260816T154423+0700-v16-complexity-expansion-engine-6a79b172-nf4be1041/capture_manifest.json",
+    ),
+)
+_V17_SPEC = _EvidenceSpec(
+    receipts=(_V17_RECEIPT,),
+    local_paths=(
+        "incoming_review/chatgpt/20260816T160448+0700-v17-nine-finished-hedonic-6a7992db-nf1e0f2aa/capture_manifest.json",
+    ),
+)
+
+
+_MODULE_SPECS = {
+    "tests/test_chat2_dark_scr03_ibq_suederal_canonical_package_receipt.py": _EvidenceSpec(
+        receipts=(_DARK_SCR03,),
+        local_paths=(
+            "incoming_review/chatgpt/20260817T032822+0700-dark-scr03-ibq-suederal-canonical-6a74ba3d-neb291f96/capture_manifest.json",
+        ),
+    ),
+    "tests/test_chat_a_interaction_atlas_v2_v5_rebase_package_receipt.py": _EvidenceSpec(
+        receipts=(_CHAT_A,),
+        local_paths=(
+            "incoming_review/chatgpt/20260819T123618Z-chat-a-atlas-v2-6a753afc/source_manifest.json",
+            "incoming_review/Perfumery_Interaction_Layering_Atlas_v1_Package.zip",
+        ),
+    ),
+    "tests/test_chat_b_exact_ratio_causal_xhigh_v1_package_receipt.py": _EvidenceSpec(
+        receipts=(_CHAT_B,),
+        local_paths=(
+            "incoming_review/chatgpt/20260819T115321Z-chat-b-exact-ratio-6a753b14/source_manifest.json",
+        ),
+    ),
+    "tests/test_chat_c_formula_corpora_patent_mining_xhigh_v1_package_receipt.py": _EvidenceSpec(
+        receipts=(_CHAT_C,),
+        local_paths=(
+            "incoming_review/chatgpt/20260819T124503Z-chat-c-formula-corpora-6a753b26/source_manifest.json",
+        ),
+    ),
+    "tests/test_chat_d_molecular_receptor_xhigh_v1_1_package_receipt.py": _EvidenceSpec(
+        receipts=(_CHAT_D,),
+        local_paths=(
+            "incoming_review/chatgpt/20260819T125952Z-chat-d-molecular-receptor-6a753b22/source_manifest.json",
+            "data/external/keller_vosshall_2016/12868_2016_287_MOESM1_ESM.xlsx",
+        ),
+    ),
+    "tests/test_chat_e_domain_adjudication_v1_2_package_receipt.py": _EvidenceSpec(
+        receipts=(_CHAT_E_DOMAIN,),
+        local_paths=(
+            "incoming_review/chatgpt/20260819T170000Z-xhigh-chat-e-v1-2-6a754c18/source_manifest.json",
+            "incoming_review/chatgpt/20260819T131508Z-chat-e-physical-analytical-6a753b36/CHAT_E_XHIGH_POSTFREEZE_HARDENING_v1.zip",
+        ),
+    ),
+    "tests/test_chat_f_external_evidence_f_lane_v1_package_receipt.py": _EvidenceSpec(
+        receipts=(_CHAT_F,),
+        local_paths=(
+            "incoming_review/chatgpt/20260819T121134Z-chat-f-rights-6a753b43/source_manifest.json",
+        ),
+    ),
+    "tests/test_chat_g_external_evidence_xhigh_v1_package_receipt.py": _EvidenceSpec(
+        receipts=(_CHAT_G,),
+        local_paths=(
+            "incoming_review/chatgpt/20260819T122123Z-chat-g-external-schema-6a753b49/source_manifest.json",
+        ),
+    ),
+    "tests/test_c5_inventory_rebase_assessment.py": _EvidenceSpec(
+        local_paths=("incoming_review/Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",),
+    ),
+    "tests/test_complex_perfumery_11_formula_portfolio_receipt.py": _EvidenceSpec(
+        local_paths=(
+            "incoming_review/chatgpt/20260819T134159Z-formula-portfolio-6a79b172/Complex_Perfumery_11_Formula_Portfolio.json",
+            "incoming_review/chatgpt/20260819T134159Z-formula-portfolio-6a79b172/capture_manifest.json",
+            "incoming_review/chatgpt/20260818T013100+0700-exact-decimal-successor-6a7992db/expanded/Perfume_Chem_V19_V20_Exact_Decimal_Formula_Artifact_Successor_2026-08-17_v2/V19_V20_EXACT_DECIMAL_FORMULA_ARTIFACT_SUCCESSOR_PACK.json",
+        ),
+    ),
+    "tests/test_complex_perfumery_v11_embedded_package_census.py": _EvidenceSpec(
+        local_paths=(
+            "incoming_review/chatgpt/20260815T233019+0700-post-v9-six-package-recovery-6a7992db-n417f58e1/Perfume_Chem_Latest_State_Compilation_2026-08-12_v1.zip",
+            "incoming_review/chatgpt/20260815T233019+0700-post-v9-six-package-recovery-6a7992db-n417f58e1/Perfume_Chem_Cloud_Work_Chat_Latest_State_PC-LATEST-STATE-SYNC-20260812T103344Z-6153a337.zip",
+        ),
+    ),
+    "tests/test_complex_perfumery_v19_parent_recovery.py": _EvidenceSpec(
+        local_paths=(
+            "incoming_review/chatgpt/20260817T061500+0700-v19-floral-atlas-discovery-engine-parent-recovery/Floral_Heart_Complexity_Discovery_Atlas_Aug2026_v1.xlsx",
+            "incoming_review/chatgpt/20260817T061500+0700-v19-floral-atlas-discovery-engine-parent-recovery/Perfume_Complexity_Model_Discovery_Admission_Engine_Aug2026_v1_2.zip",
+        ),
+    ),
+    "tests/test_data_integration_chat_historical_control_receipt.py": _EvidenceSpec(
+        local_paths=(
+            "incoming_review/chatgpt/20260819T160000Z-data-integration-6a77b1b5/source_manifest.json",
+            "incoming_review/chatgpt/20260819T160000Z-data-integration-6a77b1b5/PERFUME_CHEM_LOSSLESS_INTEGRATION_CONTROL_REPORT_2026-08-09.md",
+            "incoming_review/chatgpt/20260819T160000Z-data-integration-6a77b1b5/PERFUME_CHEM_ALL_CHAT_REPORT_REQUEST_2026-08-09.md",
+            "incoming_review/chatgpt/20260819T160000Z-data-integration-6a77b1b5/perfume_chem_chat_report.schema.json",
+            "incoming_review/chatgpt/20260819T160000Z-data-integration-6a77b1b5/PERFUME_CHEM_CHAT_COLLECTION_LEDGER_2026-08-09.csv",
+        ),
+    ),
+    "tests/test_immortelle_absolute_helichrysum_substitution_claim_receipt.py": _EvidenceSpec(
+        local_paths=(
+            "incoming_review/chatgpt/20260819T160000Z-data-integration-6a77b1b5/source_manifest.json",
+        ),
+    ),
+    "tests/test_orris_butter_reference_purchase_claim_receipt.py": _EvidenceSpec(
+        local_paths=(
+            "incoming_review/chatgpt/20260819T140438Z-orris-butter-6a8050ce/source_manifest.json",
+        ),
+    ),
+    "tests/test_perfume_chem_task_update_g15_provenance_receipt.py": _EvidenceSpec(
+        local_paths=(
+            "incoming_review/chatgpt/20260819T173000Z-perfume-chem-task-update-6a7765a9/source_manifest.json",
+        ),
+    ),
+    "tests/test_th65_hedonic_comparison_portfolio_receipt.py": _EvidenceSpec(
+        local_paths=(
+            "incoming_review/chatgpt/20260819T143426Z-hedonic-comparison-6a7c5b07/source_manifest.json",
+            "incoming_review/chatgpt/20260819T143426Z-hedonic-comparison-6a7c5b07/Thailand_Mass_Market_Floral_1965_Target_Inventory_Formulas_Aug2026_v1_Package.zip",
+            "incoming_review/chatgpt/20260819T143426Z-hedonic-comparison-6a7c5b07/TH65-F01_Crystal_Peony_Rose_18pct_Current_Inventory_Mixing_Order_Recipe.md",
+        ),
+    ),
+    "tests/test_working_stock_dep_claim_receipt.py": _EvidenceSpec(
+        local_paths=(
+            "incoming_review/chatgpt/20260819T150500Z-working-stock-dep-6a830dfe/source_manifest.json",
+        ),
+    ),
+    "tests/test_complex_perfumery_v7_pack_metadata_capture.py": _EvidenceSpec(
+        local_paths=(
+            "incoming_review/chatgpt/20260812T183600+0700-pack-metadata-file-library-recovery-6a7992db/PACK_METADATA.json",
+        ),
+    ),
+    "tests/test_complex_perfumery_v8_pcv3_capture.py": _EvidenceSpec(
+        receipts=(_PCV3,),
+    ),
+    "tests/test_complex_perfumery_v9_perfume_box_capture.py": _EvidenceSpec(
+        receipts=(_PERFUME_BOX,),
+    ),
+    "tests/test_complex_perfumery_v10_post_v9_six_package_capture.py": _EvidenceSpec(
+        receipts=_V10_RECEIPTS,
+        local_paths=(
+            "incoming_review/chatgpt/20260815T233019+0700-post-v9-six-package-recovery-6a7992db-n417f58e1/capture_manifest.json",
+        ),
+    ),
+    "tests/test_complex_perfumery_v12_nine_perfume_blockage_clearance_capture.py": _EvidenceSpec(
+        receipts=(_V12_RECEIPT, _V10_RECEIPTS[4], _V10_RECEIPTS[5]),
+        local_paths=(
+            "incoming_review/chatgpt/20260816T122500+0700-nine-perfume-blockage-clearance-6a7992db-n1282620c/capture_manifest.json",
+        ),
+    ),
+    "tests/test_complex_perfumery_v13_chat_estate_delta.py": _V13_SPEC,
+    "tests/test_complex_perfumery_full_objective_completion_v13.py": _V13_SPEC,
+    "tests/test_complex_perfumery_v14_post_v13_capture.py": _V14_SPEC,
+    "tests/test_complex_perfumery_full_objective_completion_v14.py": _V14_SPEC,
+    "tests/test_complex_perfumery_v15_post_v14_floral_capture.py": _V15_SPEC,
+    "tests/test_complex_perfumery_full_objective_completion_v15.py": _V15_SPEC,
+    "tests/test_complex_perfumery_v16_post_v15_complexity_engine_capture.py": _V16_SPEC,
+    "tests/test_complex_perfumery_full_objective_completion_v16.py": _V16_SPEC,
+    "tests/test_complex_perfumery_v17_post_v16_nine_finished_hedonic_capture.py": _V17_SPEC,
+    "tests/test_complex_perfumery_full_objective_completion_v17.py": _V17_SPEC,
+    "tests/test_complex_perfumery_v18_post_v17_floral_hedonic_capture.py": _EvidenceSpec(
+        receipts=(_V18_RECEIPT, _DARK_SCR03),
+        local_paths=(
+            "incoming_review/chatgpt/20260817T045903+0700-v18-floral-hedonic-portfolio-6a79b172-n1654f03a/capture_manifest.json",
+            "incoming_review/chatgpt/20260817T032822+0700-dark-scr03-ibq-suederal-canonical-6a74ba3d-neb291f96/capture_manifest.json",
+        ),
+    ),
+}
+
+_ITEM_SPECS = {
+    "tests/test_chat_e_physical_analytical_and_postfreeze_hardening_package_receipts.py::test_chat_e_v1_is_exact_source_registry_evidence_with_executable_contract_held": _EvidenceSpec(
+        receipts=(_CHAT_E_PHYSICAL,),
+        local_paths=(
+            "incoming_review/chatgpt/20260819T131508Z-chat-e-physical-analytical-6a753b36/source_manifest.json",
+        ),
+    ),
+    "tests/test_chat_e_physical_analytical_and_postfreeze_hardening_package_receipts.py::test_chat_e_hardening_preserves_defects_but_native_c3_c8_b5_remain_controlling": _EvidenceSpec(
+        receipts=(_CHAT_E_PHYSICAL, _CHAT_E_HARDENING),
+        local_paths=(
+            "incoming_review/chatgpt/20260819T131508Z-chat-e-physical-analytical-6a753b36/source_manifest.json",
+        ),
+    ),
+    "tests/test_external_package_receipts.py::test_v4_governance_receipts_verify_exact_quarantined_packages": _EvidenceSpec(
+        receipts=_V4_RECEIPTS,
+    ),
+    "tests/test_external_package_receipts.py::test_complex_perfumery_v4_receipts_bind_exact_quarantined_bytes": _EvidenceSpec(
+        receipts=_V4_RECEIPTS,
+    ),
+    "tests/test_external_package_receipts.py::test_chat2_scr02_exact_bytes_ledger_and_native_quarantine_boundary": _EvidenceSpec(
+        receipts=(_SCR02,),
+        local_paths=(
+            "incoming_review/chatgpt/20260811T115527Z-dark-chat2-base64-recovery-6a74ba3d-n7f3c2d1/capture_manifest.json",
+        ),
+    ),
+    "tests/test_external_package_receipts.py::test_chat2_scr02_interpretation_v2_is_exact_append_only_candidate": _EvidenceSpec(
+        receipts=(_SCR02_V2,),
+    ),
+    "tests/test_external_package_receipts.py::test_chat2_scr20b_namespace_repair_is_exact_append_only_candidate": _EvidenceSpec(
+        receipts=(_SCR20B,),
+        local_paths=(
+            "incoming_review/chatgpt/20260812T100558Z-dark-scr20b-namespace-repair-v1-1-6a74ba3d/capture_manifest.json",
+            "incoming_review/chatgpt/20260811T115527Z-dark-chat2-base64-recovery-6a74ba3d-n7f3c2d1/ACCORD_INTEL_CHAT2_DARK_MATERIALS_v2.zip",
+            "incoming_review/chatgpt/20260811T090138Z-dark-chat2-6a74ba3d-99e3d1c0/ACCORD_INTEL_DARK_DARK-SCR-03_GUAIACWOOD_GUAIACOL_v1_20260810.zip",
+        ),
+    ),
+    "tests/test_external_package_receipts.py::test_complex_perfumery_v5_successor_and_ledger_are_append_only": _EvidenceSpec(
+        receipts=(_SCR02_V2, _SCR20B),
+        local_paths=(
+            "incoming_review/chatgpt/20260812T164000Z-dark-scr02-interpretation-v2-6a74ba3d/capture_manifest.json",
+            "incoming_review/chatgpt/20260812T100558Z-dark-scr20b-namespace-repair-v1-1-6a74ba3d/capture_manifest.json",
+        ),
+    ),
+    "tests/test_external_package_receipts.py::test_complex_perfumery_v5_append_acceptance_hash_and_pins_replay": _EvidenceSpec(
+        receipts=(_SCR02_V2, _SCR20B),
+        local_paths=(
+            "incoming_review/chatgpt/20260812T164000Z-dark-scr02-interpretation-v2-6a74ba3d/capture_manifest.json",
+            "incoming_review/chatgpt/20260812T100558Z-dark-scr20b-namespace-repair-v1-1-6a74ba3d/capture_manifest.json",
+        ),
+    ),
+}
+
+
+def _evidence_hold_reason(spec: _EvidenceSpec) -> str | None:
+    receipt_paths = validate_receipt_pins(*spec.receipts)
+    local_paths = tuple(PROJECT_ROOT / path for path in spec.local_paths)
+    return local_evidence_hold_reason(*receipt_paths, *local_paths)
+
+
+def pytest_sessionstart() -> None:
+    """Materialize only exact tracked historical governance evidence."""
+
+    try:
+        validate_v5_historical_compatibility()
+        materialize_historical_governance_evidence()
+    except Exception as exc:
+        raise pytest.UsageError(
+            f"HISTORICAL_GOVERNANCE_COMPATIBILITY_ERROR: {exc}"
+        ) from exc
+
+
+def pytest_collection_modifyitems(items: list[pytest.Item]) -> None:
+    """Mark only proven absent local evidence as HOLD after metadata validation."""
+
+    evaluated: dict[_EvidenceSpec, str | None] = {}
+    for item in items:
+        item_key = item.nodeid.split("[", 1)[0].replace("\\", "/")
+        module_key = item_key.split("::", 1)[0]
+        spec = _ITEM_SPECS.get(item_key, _MODULE_SPECS.get(module_key))
+        if spec is None:
+            continue
+        try:
+            if spec not in evaluated:
+                evaluated[spec] = _evidence_hold_reason(spec)
+            reason = evaluated[spec]
+        except Exception as exc:
+            raise pytest.UsageError(
+                f"EXTERNAL_EVIDENCE_POLICY_ERROR for {item_key}: {exc}"
+            ) from exc
+        if reason is not None:
+            item.add_marker(pytest.mark.skip(reason=reason))

@@ -1,0 +1,264 @@
+import hashlib
+import json
+from pathlib import Path
+
+from engine.perception.complexity_registry import load_complexity_registry
+from scripts import pipeline_audit
+
+
+def test_matching_formula_paths_excludes_scratch_by_default(tmp_path, monkeypatch):
+    formulas_dir = tmp_path / "formulas"
+    formulas_dir.mkdir()
+    shipped = formulas_dir / "White_Suede.md"
+    scratch = formulas_dir / "_temp_check.md"
+    shipped.write_text("# shipped\n", encoding="utf-8")
+    scratch.write_text("# scratch\n", encoding="utf-8")
+
+    monkeypatch.setattr(pipeline_audit, "PROJECT_ROOT", tmp_path)
+
+    selected = pipeline_audit._matching_formula_paths("formulas/*.md")
+
+    assert [path.name for path in selected] == ["White_Suede.md"]
+
+
+def test_pipeline_audit_verify_json_runs_for_small_sample(capsys):
+    rc = pipeline_audit.main(["verify", "--glob", "formulas/complete/*.md", "--sample-limit", "1", "--json", "--no-audit"])
+    captured = capsys.readouterr().out
+    assert rc == 0
+    assert "evidence_posture" in captured
+    assert "schema_validation" in captured
+    assert "literature_rule_contract" in captured
+    assert "knowledge_rule_quality" in captured
+    assert "data_authority_coverage" in captured
+    assert "disconnected_module_status" in captured
+
+
+def test_complexity_benchmark_census_json(capsys) -> None:
+    rc = pipeline_audit.main(
+        ["complexity-benchmark", "--operation", "census", "--json"]
+    )
+    payload = json.loads(capsys.readouterr().out)
+    assert rc == 0
+    assert payload["state"] == "PASS"
+    assert payload["unclassified"] == []
+    assert payload["provider_calls"] == 0
+    root = Path(pipeline_audit.PROJECT_ROOT)
+    historical = root / "configs/complexity/complexity_module_registry_v1.json"
+    census_registry = (
+        root
+        / "configs/complexity/complexity_xhigh_census_registry_v2_20260904.json"
+    )
+    current_authority = (
+        root / "configs/complexity/complexity_module_registry_v9.json"
+    )
+    assert payload["artifacts"] == [
+        census_registry.relative_to(root).as_posix(),
+        historical.relative_to(root).as_posix(),
+        current_authority.relative_to(root).as_posix(),
+    ]
+    assert payload["historical_registry_sha256"] == (
+        "7567f3ca00ccbf3e1b2b41f50645ed21f4d163612872b8449db6cc022818c639"
+    )
+    assert hashlib.sha256(historical.read_bytes()).hexdigest() == payload[
+        "historical_registry_sha256"
+    ]
+    assert hashlib.sha256(census_registry.read_bytes()).hexdigest() == payload[
+        "registry_sha256"
+    ]
+    assert payload["current_authority_schema_version"] == (
+        "complexity_module_registry_v9"
+    )
+    assert hashlib.sha256(current_authority.read_bytes()).hexdigest() == payload[
+        "current_authority_registry_sha256"
+    ]
+    registry = load_complexity_registry(root, census_registry)
+    classified = {item.path: item for item in registry.modules}
+    newly_classified = {
+        "engine/hedonic_evidence.py": "EVIDENCE_ONLY_NOT_ADMITTED",
+        "engine/formulation_intelligence/admission.py": (
+            "FUTURE_CANDIDATE_NOT_VALIDATED"
+        ),
+        "engine/formulation_intelligence/hedonic_platform.py": (
+            "FUTURE_CANDIDATE_NOT_VALIDATED"
+        ),
+        "engine/formulation_intelligence/temporal_architecture.py": (
+            "FUTURE_CANDIDATE_NOT_VALIDATED"
+        ),
+    }
+    assert {
+        path: classified[path].state.value for path in newly_classified
+    } == newly_classified
+    assert all(
+        not classified[path].runtime_eligible for path in newly_classified
+    )
+    assert classified["engine/perception/citrus_selection.py"].state.value == (
+        "PROVENANCE_TOMBSTONE"
+    )
+    assert classified["engine/perception/musk_design.py"].state.value == (
+        "PROVENANCE_TOMBSTONE"
+    )
+
+
+def test_complexity_benchmark_prepare_is_provider_free(
+    monkeypatch, capsys
+) -> None:
+    expected = {
+        "state": "PASS",
+        "operation": "prepare",
+        "provider_calls": 0,
+        "run_dir": "output/complexity_xhigh_benchmark/test-run",
+        "artifacts": [],
+        "blockers": [],
+        "prepared_request_count": 32,
+    }
+    monkeypatch.setattr(
+        pipeline_audit,
+        "prepare_complexity_benchmark",
+        lambda **_: expected,
+    )
+    rc = pipeline_audit.main(
+        [
+            "complexity-benchmark",
+            "--operation",
+            "prepare",
+            "--run-dir",
+            "output/complexity_xhigh_benchmark/test-run",
+            "--json",
+        ]
+    )
+    payload = json.loads(capsys.readouterr().out)
+    assert rc == 0
+    assert payload["provider_calls"] == 0
+    assert payload["prepared_request_count"] == 32
+
+
+def test_complexity_benchmark_rejects_run_dir_traversal(capsys) -> None:
+    rc = pipeline_audit.main(
+        [
+            "complexity-benchmark",
+            "--operation",
+            "prepare",
+            "--run-dir",
+            "../outside",
+            "--json",
+        ]
+    )
+    payload = json.loads(capsys.readouterr().out)
+    assert rc == 2
+    assert payload["state"] == "BENCHMARK_BLOCKED"
+
+
+def test_complexity_benchmark_blocked_terminal_receipt_returns_nonzero(
+    monkeypatch, capsys
+) -> None:
+    monkeypatch.setattr(
+        pipeline_audit,
+        "write_complexity_benchmark_receipt",
+        lambda **_: {
+            "state": "BENCHMARK_BLOCKED_UNVERIFIED_XHIGH",
+            "operation": "receipt",
+            "provider_calls": 0,
+            "run_dir": "output/complexity_xhigh_benchmark/blocked",
+            "artifacts": [],
+            "blockers": ["xhigh cannot be attested"],
+        },
+    )
+    rc = pipeline_audit.main(
+        ["complexity-benchmark", "--operation", "receipt", "--json"]
+    )
+    payload = json.loads(capsys.readouterr().out)
+    assert rc == 1
+    assert payload["state"] == "BENCHMARK_BLOCKED_UNVERIFIED_XHIGH"
+
+
+def test_artifact_verify_blocks_stale_or_tampered_bindings(
+    tmp_path, monkeypatch, capsys
+):
+    formulas_dir = tmp_path / "formulas"
+    formulas_dir.mkdir()
+    formula = formulas_dir / "Bound.md"
+    formula.write_text("# Bound\n", encoding="utf-8")
+    monkeypatch.setattr(pipeline_audit, "PROJECT_ROOT", tmp_path)
+    monkeypatch.setattr(
+        pipeline_audit,
+        "validate_pipeline_analysis_artifact",
+        lambda _path, **_kwargs: {
+            "status": "STALE",
+            "issues": ["formula_definition"],
+        },
+    )
+
+    rc = pipeline_audit.main(
+        ["artifact-verify", "--glob", "formulas/*.md", "--json"]
+    )
+
+    captured = capsys.readouterr().out
+    assert rc == 1
+    assert '"status": "FAIL"' in captured
+    assert '"STALE": 1' in captured
+
+
+def test_artifact_verify_accepts_explicit_quarantine_as_nonpromoting(
+    tmp_path, monkeypatch, capsys
+):
+    formulas_dir = tmp_path / "formulas"
+    formulas_dir.mkdir()
+    formula = formulas_dir / "Quarantined.md"
+    formula.write_text(
+        "# Quarantined\n\n"
+        "**Status:** QUARANTINED — do not mix or release pending repair.\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(pipeline_audit, "PROJECT_ROOT", tmp_path)
+    monkeypatch.setattr(
+        pipeline_audit,
+        "validate_pipeline_analysis_artifact",
+        lambda _path, **_kwargs: {
+            "status": "QUARANTINED",
+            "artifact_binding_status": "STALE",
+            "issues": ["formula_definition"],
+            "release_authority": False,
+        },
+    )
+
+    rc = pipeline_audit.main(
+        ["artifact-verify", "--glob", "formulas/*.md", "--json"]
+    )
+
+    captured = capsys.readouterr().out
+    assert rc == 0
+    assert '"status": "PASS"' in captured
+    assert '"QUARANTINED": 1' in captured
+    assert '"quarantined_release_authority": false' in captured
+
+
+def test_artifact_verify_accepts_registered_history_as_noncurrent_and_nonpromoting(
+    tmp_path, monkeypatch, capsys
+):
+    formulas_dir = tmp_path / "formulas"
+    formulas_dir.mkdir()
+    formula = formulas_dir / "Historical.md"
+    formula.write_text("# Historical\n", encoding="utf-8")
+    monkeypatch.setattr(pipeline_audit, "PROJECT_ROOT", tmp_path)
+    monkeypatch.setattr(
+        pipeline_audit,
+        "validate_pipeline_analysis_artifact",
+        lambda _path, **_kwargs: {
+            "status": "HISTORICAL_VERIFIED",
+            "artifact_binding_status": "HISTORICAL_RECORDED",
+            "issues": ["inventory"],
+            "release_authority": False,
+            "current_repository_bindings": False,
+        },
+    )
+
+    rc = pipeline_audit.main(
+        ["artifact-verify", "--glob", "formulas/*.md", "--json"]
+    )
+
+    captured = capsys.readouterr().out
+    assert rc == 0
+    assert '"status": "PASS"' in captured
+    assert '"HISTORICAL_VERIFIED": 1' in captured
+    assert '"historical_is_current": false' in captured
+    assert '"historical_release_authority": false' in captured

@@ -1,0 +1,50 @@
+# Prada L'Homme Intense — zero-origin Z1 ideal
+
+Date: 2026-09-05. Status: DESIGN HYPOTHESIS. Recipe parent: NONE. Frozen before conversion to raw-stock quantities and before the integrated model run.
+
+**Current workflow:** COMPUTATIONAL_PERFUMERY_ONLY. Per the user's 2026-09-05 instruction, all proposed omission, redundancy and alternative comparisons in this document are internal computational questions. No physical comparison samples or preliminary smell tests are requested. Computational development must converge on one final complete formula for the user's later whole-blend test. The ideal allocations below are unchanged by this workflow amendment; comparative sensory effects remain unmeasured.
+
+## Target / ideal, independent of working-stock dilution
+
+Functional budget: iris 340 parts; explicit/abstract wood 270; tonka 90; amber/patchouli 100; floral air 150; musk 50. These are chosen supplied-product mass parts, not perceived percentages, a GC-MS reconstruction, a proven optimum, or a budget inherited from V1/V2. Proprietary products are counted as supplied products, not chemically pure odorants. Stock solvents are outside this 1,000-part ideal; mapping below is performed separately.
+
+The intended relationship is floral iris over a continuous sandalwood body, with a dry root-to-cedar seam, earthy patchouli, dry amber and restrained tonka warmth. Airiness means leaving room between these characters, not maximizing a projection score. Roasted tonka is an acceptance target: this formula has not yet demonstrated roast distinct from generic coumarinic sweetness.
+
+| Material | Ideal supplied-product parts | Function | Strongest considered alternative / tradeoff |
+|---|---:|---|---|
+| Alpha-Isomethyl Ionone | 285 | Powdered floral iris body; the dominant thematic scaffold. | Alpha Ionone alone would emphasize violet petal; AIMI provides the broader woody-floral body. |
+| Dihydro Beta Ionone | 40 | Woody iris passage between floral body and cedar grain. | Beta Ionone is the sharper violet-fruity challenger; this allocation tests a quieter woody transition. |
+| Alpha Irone | 10 | Specific irone accent and creamy orris identity. | Orris Liquid is an opaque product with unresolved correspondence to the modeled natural; no automatic equivalence. |
+| Orivone | 5 | Small earthy-root edge against creamy iris and sandalwood. | Carrot Seed EO could supply root but add botanical/celery facets; no automatic replacement. |
+| Sandalore | 110 | Continuous warm sandalwood body. | Bacdanol is the rounder body challenger, not an automatic coingredient. |
+| Ebanol | 15 | Focused sandalwood accent above the body. | Javanol is the creamy-rosy contender; compare by intentional dose series, not equal-OAV sensory equivalence. |
+| Cedarwood oil Virginia | 35 | Dry recognizable wood grain connecting iris root to the base. | Vertofix offers a more abstract dry bridge; its alias/ODT conflict and overlap with space argue for natural grain here. |
+| Iso E Super | 110 | Abstract woody space around the explicit sandalwood and cedar. | Cashmeran offers warmer textile mass, not the same spacing; keep out unless comparison needs that warmth. |
+| Tonkarome | 45 | Rounded tonka interior; roasted character is a sensory target, not certified product chemistry. | Tonka absolute's unspecified working basis prevents exact current mapping; vanillin alone would skew toward vanilla. |
+| Coumarin | 40 | Dry hay-tonka definition against the round Tonkarome body. | Tonkarome alone may already supply enough coumarinic effect; test this redundancy, as its internal coumarin is unknown. |
+| Heliotropal | 5 | Small almond-powder junction linking iris to the tonka section. | Anisic Aldehyde can supply sweet floral almond but risks anisic drift; Heliotropin Fleuressence is not the same material. |
+| Patchouli EO | 65 | The named patchouli anchor, contrasting dry wood with earthy depth. | Clearwood can smooth the woody portion but is not chemically or sensorially identical to the natural. |
+| Ambrox Super | 35 | Dry amber thread beside patchouli and tonka; not a claim to reproduce all commercial amber chemistry. | Kephalis or a resin-vanilla amber would warm and darken the architecture; both compete with the chosen wood/tonka separation. |
+| Hedione | 105 | Floral spacing around iris, evaluated against an omission rather than assumed radiance. | DBCA adds a more explicit sweet floral facet; Lilyflore would introduce a separate muguet theme. |
+| Hexyl Salicylate | 35 | Quiet floral/dry-bark blending support between Hedione, iris and cedar; no guaranteed projection claim. | Benzyl Salicylate is the weightier floral-balsamic challenger; retaining both has not been justified. |
+| Linalyl Acetate | 10 | A small aromatic-floral approach to the iris, not a citrus/fougere lead. | Bergamot would add a citrus identity and Lavender EO a broader herbal signature; neither is required by the target. |
+| Romandolide | 50 | One soft balsamic musk layer connecting the iris and warm base. | Habanolide is a metallic-clean challenger; Ambrettolide is a fruitier ambrette challenger. Multiple musks remain unjustified. |
+| **Total** | **1000** | | |
+
+## Why four wood roles, and where the overlap may fail
+
+Sandalore carries body; Ebanol supplies the stronger sandalwood accent; Virginia cedar supplies grain; Iso E Super supplies abstract woody space. The first two are intentionally a body/accent pair, not four unrelated notes. Their nonredundancy remains unproven and is the first computational omission question. A simulated difference can support a modeling decision but cannot establish perceptual nonredundancy. Givaudan itself describes the Sandalore/Ebanol combination, which supports a plausible starting choice but not this allocation or this target's sensory success.
+
+The strongest rejected architecture is Bacdanol body + Vertofix dry bridge + Kephalis warm shade + Clearwood polished patchouli support. It places more warmth inside the wood chord and risks merging with the separate amber/tonka section. Javanol challenges Ebanol rather than being automatically added. Cashmeran challenges the desired texture rather than filling a generic base quota. Azarbre and Amberwood F do not earn a separate task after the explicit grain and space choices. Depleted Polysantol and unresolved Guaiacwood are not executable alternatives. Opaque Sandalwood Base 3X is not assumed equivalent to sandalwood oil.
+
+No leather, smoke, cocoa, vanilla, extra rose/jasmine signature, extra musk, or minimum ingredient count is imposed. Orris Liquid is not used as an assumed assayed natural or as a second alpha-irone dose. One AIMI bottle is counted once. Seventeen rows are an outcome of the current roles, not a quality metric or a required floor.
+
+## Primary-source anchors and limits
+
+- [Prada official product](https://www.prada.com/ww/en/p/lhomme-prada-intense-edp-100-ml/2A1252_2HC1_F0Z99_P_ML100): iris/amber/patchouli/tonka in the description; sandalwood and roasted tonka in the note list. It supplies no formula or ingredient quantities.
+- [Givaudan Sandalore](https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/sandaloretm): warm sandalwood body, with the Ebanol combination specifically mentioned. [Givaudan Ebanol](https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ebanoltm): powerful sandalwood character. Manufacturer performance language is not a test of this formula.
+- [PerfumersWorld Dihydro Beta Ionone](https://www.perfumersworld.com/view.php?pro_id=3IL00153): woody/orris character supports the proposed transition. The supplier documents contain inconsistent chemical metadata; they are not adopted as a lot-specific physics certificate.
+- [Firmenich Romandolide sheet](https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/ROMANDOLIDE_979031.pdf): delicate musk with balsamic facets supports choosing it as the sole musk. No universal projection superiority is inferred.
+- [RIFM Hexyl Salicylate assessment](https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6259-76-3.pdf): source summary describes mild floral/herbaceous/dry-bark facets; the PDF was not retrieved successfully in this run. This is a provisional supporting role, not a safety determination. [SCCS opinion](https://health.ec.europa.eu/publications/hexyl-salicylate-casec-no-6259-76-3228-408-6_en) is a conditional assessment, not a current all-jurisdiction release certificate.
+
+Retrieved/checked 2026-09-05. Exact owned lots, mixture assays, human thresholds and observed blending behavior remain separate evidence requirements. Local OAV inputs are retained for transparent diagnosis only; known manufacturer discrepancies are disclosed in the final formula.

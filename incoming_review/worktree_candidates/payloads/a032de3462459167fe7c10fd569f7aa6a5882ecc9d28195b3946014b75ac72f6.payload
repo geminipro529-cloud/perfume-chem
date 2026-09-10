@@ -1,0 +1,91 @@
+{
+  "schema": "perfume-chem-missing-chemical-assessment-v2",
+  "assessment_id": "MCI-LN-07-v2",
+  "target_formula_id": "LN-07",
+  "name": "Dry Coumarin Skin",
+  "family": "ysl_la_nuit_de_lhomme",
+  "source_bindings": {
+    "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LN-07.json",
+    "candidate_sha256": "1b104ef7f64789de9fd9eff529f1859447d103bd245047ec0bc87fdcf7584f99",
+    "inventory_sha256": "DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC",
+    "inventory_overlay_sha256": "1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072",
+    "formula_definition_sha256": "0f88f1add788ee7b8cfc5c17c02d9a59cafdbae5cfc6a8a1402a7919b31f41b6",
+    "screening_summary_sha256": "a4779473e6c7ae0794e350d0873fe4a007583163ff221838a6261397aeeba34b"
+  },
+  "target_identity": {
+    "north_star": "La Nuit's cool cardamom-lavender-cedar architecture settling into a dry coumarinic skin warmth: hay-like, tactile, and intimate, with transparent woods and no vanilla dessert, almond powder, balsamic sweetness, or musk curtain.",
+    "primary_axis": "dry coumarin-tonka skin warmth ventilated by transparent cedar-vetiver structure",
+    "functional_architecture": [
+      "cardamom and lavender remain the fresh aromatic recognizers",
+      "dry coumarin and tonka form a tactile hay-skin register rather than a gourmand base",
+      "Iso E, Vertofix, and literal cedar keep the sweetness ventilated and vertical",
+      "one EB musk supplies restrained skin continuity without powdery padding"
+    ],
+    "protected_identity": [
+      "Cardamom Oil",
+      "Lavender",
+      "Cedarwood Virginia",
+      "Vetiver Haiti",
+      "Coumarin"
+    ],
+    "drift_risk": "Vanillin, ethyl maltol, almond-heliotrope, balsams, excess hay, or powdery musk would turn dry skin warmth into dessert or powder."
+  },
+  "impact_gate": {
+    "status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+    "architecture_locked": true,
+    "auto_integrated_materials": [],
+    "gaps": [
+      "prepared 10% w/w Coumarin receipt for the optional role control",
+      "Hay Absolute stock-basis and composite-natural authority",
+      "Exaltolide texture",
+      "Haitian vetiver and target lavender",
+      "Ambroxide and Vertofix Coeur textures",
+      "physical family-retention evidence"
+    ],
+    "authority": "NO_SENSORY_SUCCESS_NO_AUTOMATIC_PURCHASE_NO_RELEASE_CONCLUSION"
+  },
+  "current_inventory_execution": {
+    "raw_stock_total_ppm_w_w": 1000000.0,
+    "odorant_active_total_ppm_w_w": 923555.555555,
+    "minimum_raw_stock_dose_ul": 40.0000000005,
+    "pipette_floor_status": "PASS_ALL_RAW_STOCK_DOSES_AT_OR_ABOVE_10_UL",
+    "lost_tinctures": "NO_USE_ALL_TINCTURES_LOST",
+    "musk_rule": "Ethylene Brassylate is the sole musk; verify label or receipt before compounding."
+  },
+  "purchase_preparation": {
+    "state": "PREPARE_10_PERCENT_W_W_COUMARIN_FROM_OWNED_NEAT_FOR_OPTIONAL_CONTROL",
+    "recommendation": "CURRENT uses owned Tonkarome as the executable dry coumarinic body and requires no raw-stock dose below 10 uL. The optional pure-Coumarin role control requires a verified 10% w/w stock prepared from owned neat powder: dissolve 1.000 g Coumarin into 9.000 g TEC, label by mass, and dose that stock only at 10 uL or more in a carrier-matched constant-total arm. Hay Absolute remains omitted pending stock-basis and composite-natural authority. Verify EB before any physical trial; this preparation does not authorize compounding or release.",
+    "lost_tinctures": "NO_USE_ALL_TINCTURES_LOST",
+    "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+    "musk_rule": "Ethylene Brassylate is the sole musk; verify label or receipt before compounding."
+  },
+  "controlled_blind_test": {
+    "status": "PROTOCOL_ONLY_NOT_EXECUTED",
+    "role": "La Nuit dry-coumarin-skin child",
+    "comparison": "Balanced-order equal-mass and equal-concentration comparison against LN-01, followed only after preparation verification by a carrier-matched pure-Coumarin role control; judge dry hay-skin character versus dessert/powder drift, La Nuit retention, and liking.",
+    "time_cells": [
+      "0_min",
+      "5_min",
+      "30_min",
+      "2_hr",
+      "4_hr"
+    ],
+    "liking_result": "NOT TESTED"
+  },
+  "decision": {
+    "design_formula_complete": true,
+    "automatic_purchase_authority": false,
+    "physical_compounding_authority": false,
+    "sensory_finalist_authority": false,
+    "reason": "Architecture is complete for controlled study, but physical stock receipts and blinded sensory evidence remain pending."
+  },
+  "claim_ceiling": {
+    "exact_commercial_formula": "NOT CLAIMED",
+    "physical_liking": "NOT TESTED",
+    "sensory_similarity": "NOT TESTED",
+    "stability": "NOT TESTED",
+    "safety": "NOT CLEARED",
+    "measured_headspace": "NOT TESTED",
+    "release": "NOT CLEARED"
+  }
+}

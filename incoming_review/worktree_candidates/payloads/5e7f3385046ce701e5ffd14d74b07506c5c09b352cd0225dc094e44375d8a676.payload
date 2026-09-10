@@ -1,0 +1,72 @@
+{
+  "schema_version": "chatgpt_browser_capture_manifest_v1",
+  "capture_id": "chat-e-physical-analytical-6a753b36-20260819t131508z",
+  "recorded_at": "2026-08-19T13:15:08Z",
+  "source": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "project_name": "Complex Perfumery",
+    "conversation_id": "6a753b36-a0b8-83ec-a7cc-bc79f1d37b47",
+    "conversation_url": "https://chatgpt.com/g/g-p-6a74ab83668081919f5cbd0dfe80eb09-complex-perfumery/c/6a753b36-a0b8-83ec-a7cc-bc79f1d37b47",
+    "conversation_title": "Complex Perfumery - Physical and Analytical Evidence",
+    "capture_surface": "AUTHENTICATED_CHATGPT_BROWSER_ATTACHMENT_DOWNLOAD"
+  },
+  "packages": [
+    {
+      "path": "incoming_review/chatgpt/20260819T131508Z-chat-e-physical-analytical-6a753b36/CHAT_E_XHIGH_PHYSICAL_ANALYTICAL_LANE_v1.zip",
+      "attachment_name": "CHAT_E_XHIGH_PHYSICAL_ANALYTICAL_LANE_v1.zip",
+      "attachment_role": "CHAT_E_PHYSICAL_CHEMISTRY_RELEASE_HEADSPACE_AND_ANALYTICAL_PRIORS_V1",
+      "byte_size": 33356,
+      "sha256": "685098081c631a0c39e3113d1d3ef3ba08662537bcee3dbcee722b321aa338cf",
+      "claimed_sha256": "685098081c631a0c39e3113d1d3ef3ba08662537bcee3dbcee722b321aa338cf",
+      "media_type": "application/zip",
+      "archive_entry_count": 25,
+      "archive_file_count": 25,
+      "package_root": null,
+      "internal_checksum_entries_verified": 24,
+      "archive_scan_status": "CLEAR_FOR_RECEIPT_REVIEW",
+      "archive_scan_node_count": 1,
+      "archive_scan_promotion_allowed": false,
+      "package_claimed_tests_passed": 23,
+      "package_claimed_tests_failed": 0,
+      "local_package_code_executed": false
+    },
+    {
+      "path": "incoming_review/chatgpt/20260819T131508Z-chat-e-physical-analytical-6a753b36/CHAT_E_XHIGH_POSTFREEZE_HARDENING_v1.zip",
+      "attachment_name": "CHAT_E_XHIGH_POSTFREEZE_HARDENING_v1.zip",
+      "attachment_role": "CHAT_E_POSTFREEZE_RUNTIME_CONTRACT_DEFECT_LEDGER_AND_HARDENING_ADDENDUM",
+      "byte_size": 86646,
+      "sha256": "0d989b72a2678359b797c5e936c4aebc818e8fca700dcc2f557ae86321a71212",
+      "claimed_sha256": "0d989b72a2678359b797c5e936c4aebc818e8fca700dcc2f557ae86321a71212",
+      "media_type": "application/zip",
+      "archive_entry_count": 52,
+      "archive_file_count": 52,
+      "package_root": "CHAT_E_XHIGH_POSTFREEZE_HARDENING_v1",
+      "internal_checksum_entries_verified": 51,
+      "archive_scan_status": "GRAPH_COMPLETE_QUARANTINED",
+      "archive_scan_node_count": 2,
+      "archive_scan_promotion_allowed": false,
+      "embedded_v1_byte_exact": true,
+      "package_claimed_tests_passed": 88,
+      "package_claimed_tests_failed": 0,
+      "local_package_code_executed": false
+    }
+  ],
+  "rights": {
+    "reuse_status": "UNKNOWN",
+    "redistribution_allowed": false,
+    "reason": "Neither AI-generated attachment declares a package-level license. The twelve registry sources span official open databases, licensed reference libraries, public websites and papers with source-specific terms; possession of the secondary packages does not establish rights to redistribute package code, source payloads or reconstructed numeric tables."
+  },
+  "disposition": {
+    "state": "EXACT_BROWSER_ATTACHMENTS_CAPTURED_QUARANTINED",
+    "package_content_import_allowed": false,
+    "package_code_execution_allowed": false,
+    "generated_row_projection_allowed": false,
+    "source_table_admission_allowed": false,
+    "formula_mutation_allowed": false,
+    "inventory_mutation_allowed": false,
+    "physical_truth_upgrade_allowed": false,
+    "release_allowed": false,
+    "notes": "The original v1 package is exact but its executable query contract is internally incoherent and caller-attested. The separate hardening addendum preserves six useful defects, but current native C3/C8 and B5 contracts already enforce exact model-result, matrix, condition, identity and calibrated-quantitation bindings. Preserve both packages as read-only provenance and regression history; do not execute or install their code, import registry rows, infer source rights, or replace native runtime components."
+  },
+  "receipt_sha256": "ba33bd4af51c746e8e93cfd29624f12b4443458cf155046d3174008327aa8f32"
+}

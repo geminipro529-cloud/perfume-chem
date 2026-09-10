@@ -1,0 +1,29 @@
+﻿Code,ACC-FG-PEC-01
+Accord,Peach Apricot v1.0
+Category,Fruit & Gourmand
+Brief,"A sensomics-inspired stone-fruit accord built on lactone flesh, apricot body, ionone skin, damascone bloom and a dry floral-wood base."
+Recommended use,1–8% of perfume concentrate
+Maturation,7–14 days
+Monte Carlo pass,1.0
+Final design score,100.0
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Sandalore,neat / as supplied,1.0,45.0,45.0,45.0,225.0,DIRECT,sandalwood,Creamy kernel wood,Creamy sandalwood.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.008164462045410471
+2,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,30.0,30.0,30.0,150.0,DIRECT,musk,Clean projection,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.004621509004616567
+3,base,Vanillin 10%,10% working stock,0.1,5.0,0.5,5.0,25.0,PREPARED STOCK,vanilla,Tiny ripe warmth,Vanilla warmth.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.0005448026565940729
+4,heart_base,Gamma Undecalactone,neat / as supplied,1.0,160.0,160.0,160.0,800.0,DIRECT,fruit_stone,Peach lactone body,Peach/apricot lactone.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.07014622606248858
+5,heart_base,Benzyl Salicylate,neat / as supplied,1.0,70.0,70.0,70.0,350.0,DIRECT,floral_air,Binder,Floral binder and substantivity.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.014956235835709281
+6,heart_base,Iso E Super,neat / as supplied,1.0,60.0,60.0,60.0,300.0,DIRECT,transparent_wood,Dry skin,Transparent woody volume.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.012165360155508793
+7,heart_base,Jasmine Absolute 10%,10% working stock,0.1,10.0,1.0,10.0,50.0,PREPARED STOCK,jasmine,Natural floral nuance,Natural jasmine warmth.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.001169941204792079
+8,heart,Apritone 10%,10% working stock,0.1,150.0,15.0,150.0,750.0,PREPARED STOCK,fruit_stone,Apricot-plum body,Apricot/plum body.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.06267414854624229
+9,heart,Hedione,neat / as supplied,1.0,80.0,80.0,80.0,400.0,DIRECT,floral_air,Air,Transparent floral diffusion.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.018626382433435423
+10,heart,Phenethyl Alcohol,neat / as supplied,1.0,35.0,35.0,35.0,175.0,DIRECT,rose_floral,Soft floral flesh,Soft floral petal body.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0055987829467225615
+11,heart,Dihydro Beta Ionone,neat / as supplied,1.0,25.0,25.0,25.0,125.0,DIRECT,violet,Dry fruit-wood,Dry mobile violet texture.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.00687060661070447
+12,heart,Allyl Cyclohexyl Propionate 10%,10% working stock,0.1,20.0,2.0,20.0,100.0,PREPARED STOCK,fruit_green,Green fruit lift,Green pineapple-fruit body.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0026776052588375824
+13,heart,Beta Ionone,neat / as supplied,1.0,20.0,20.0,20.0,100.0,DIRECT,violet,Violet fruit skin,Deep violet and berry shadow.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.005307249297550613
+14,heart,Alpha Ionone,neat / as supplied,1.0,15.0,15.0,15.0,75.0,DIRECT,violet,Warm fruit-floral lift,Warm luminous violet-wood.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.003839450397993992
+15,heart,Beta Damascone 10%,10% working stock,0.1,15.0,1.5,15.0,75.0,PREPARED STOCK,rose_fruit,Rosy fruit bloom,Rosy-fruity bloom.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.00384520478457409
+16,heart,Damascenone 1%,1% working stock,0.01,5.0,0.05,5.0,25.0,PREPARED STOCK,rose_fruit,Trace radiance,Trace high-impact radiance.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.001187780761281004
+17,top_heart,Hexyl Acetate 10%,Hexyl Acetate 10% working dilution,0.1,35.0,3.5,35.0,175.0,PREPARED STOCK,fruit_green,Juicy ester,Green apple/pear ester.,HAVE — NEAT + 10%,Formula must specify exact strength.,,TEXTURAL SUPPORT,0.005670809855785738
+18,carrier,DPG,neat,0.0,220.0,0.0,220.0,1100.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

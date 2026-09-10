@@ -1,0 +1,93 @@
+# Complex Perfumery full-objective completion audit - V12
+
+Status: `PLAN_READY_INPUTS_AND_PHYSICAL_EVIDENCE_NOT_READY`
+
+## Outcome
+
+The newest exact package and the recovered non-P6 native software scopes are integrated as far as the evidence permits. The project is not globally install-ready, physically validated, or release-ready.
+
+- V12 is the newest exact source package. The later planning response added no attachment.
+- The collection contains 42 exact outer candidates plus two exact nonarchive files.
+- P0-P5 and the authorized recovered non-P6 native scopes are implemented in the current worktree.
+- V12 adds 110 exact 5 mL design identities and 775 component rows, but no active-dose, stock, bottle, execution, observation, safety, OAV, similarity, stability, or release authority.
+- Universal Accord and both P6 parents remain exact-byte unavailable.
+- Source rights remain unresolved.
+- Physical state remains 0 prepared arms and 0 observations.
+
+## Requirement-by-requirement decision
+
+| Objective requirement | Current decision | Controlling evidence |
+|---|---|---|
+| Gather the newest completed files | Partial | V12 is exact and current; Universal Accord and P6 bytes remain unavailable. |
+| Diff packages against Perfume-Chem and its ledger | Passed for recovered scopes | P2.2, V4 native apply, V10-V12 receipts, C10/P3, Laboratory Beta, C0, Ma, V5 and B9 already cover the native contracts. |
+| Preserve all information and complexity | Passed for quarantined ancestry | Exact bytes, parent edges, embedded ledgers and field mappings remain immutable and authority-false. |
+| Literature-first planning | Passed for current decisions | Current primary literature supports baseline-plus-residual experiments, not a universal mixture law. |
+| Best nonduplicative implementation | Passed for recovered non-P6 scope | No new migration, schema, truth store, or pipeline is justified. |
+| Whole plan ready to execute | Passed | Gates G0-G5 below are exact and ordered. |
+| Package installation and release | Not achieved | Exact P6 bytes, rights, stock/preparation, physical evidence and release verification are missing. |
+
+## Scientific planning refresh
+
+The current evidence supports three model layers, in this order:
+
+1. a linear component-quality baseline;
+2. a strongest-component or concentration-intensity baseline;
+3. an empirical residual-interaction estimate in the exact matrix.
+
+The 2026 Pellegrino et al. preprint reports near-linear component-quality profiles across many mixtures, but it remains a preprint and does not establish intensity, pleasantness, perfume similarity, or universal additivity. A separate primary study reports that concentration-intensity functions and nonlinear mixture models outperform OAV-only heuristics for intensity. Ma et al. provide a governed 222-binary-mixture geometry with trained assessors and duplicate trials. Perry and Hayes show that threshold estimates shift materially with matrix. Lapid et al. show that binary pleasantness can often be modeled from intensity-weighted component pleasantness, but only with matched psychophysical component data.
+
+Primary sources:
+
+- PMID 42465471 / DOI 10.64898/2026.07.03.736426
+- PMID 40832259
+- PMID 34041322 / DOI 10.1016/j.dib.2021.107143
+- PMID 28231131 / DOI 10.3390/foods5020035
+- PMID 18534998 / DOI 10.1093/chemse/bjn026
+
+Therefore OAV remains a screening input. It is not percent perceived contribution, mixture interaction, pleasantness, similarity, or release authority.
+
+## Ordered execution gates
+
+### G0 - exact bytes and rights
+
+Recover only unchanged originals for Universal Accord and P6. Verify byte size and SHA-256, quarantine them, bind reuse rights, and field-diff before any adapter or import. Reconstruction and substitution remain forbidden.
+
+### G1 - native stock and preparation closure
+
+The current native queue controls. Close CLR-001 2-Acetyl Pyrazine and CLR-002 Lemonile exact stock, carrier, lot and preparation receipts before the prospective binary-mixture experiment. The package's DHP-first order remains advisory.
+
+### G2 - package-specific bench prerequisites
+
+Bind exact stock and preparation receipts for the four package preparations, close nine verification templates, and register nine authenticated reference objects. This creates prerequisites, not execution authority.
+
+### G3 - protocol lock and separate physical authorization
+
+Bind one selected source candidate to C10 and the P3 comparison wrapper with exact formula, fork, stock and matrix hashes. Then use the native chain:
+
+`LabExperiment -> bottle-bound LabSample -> LabApplication -> LabObservation`
+
+No bottle means no sample or execution.
+
+### G4 - first native experiment
+
+After CLR-001 and CLR-002 close, run `H_BIN_MIXTURE_BASELINE_AFTER_IDENTITY_CLOSURE` with exact matrix, blinded repeats and governed missingness. Compare the linear quality and strongest-component intensity baselines before fitting any nonlinear residual model.
+
+### G5 - sensory and release
+
+Bind all 17 C0 artifacts, assessor qualification, expected observation cells and human-execution authorization. Revalidate semantic readback after persistence. Only then run quick and full project verification for a release decision.
+
+## Current hard holds
+
+- Universal Accord: 539,050 B, SHA-256 `8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998`.
+- P6 ZIP: 540,402 B, SHA-256 `8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db`.
+- P6 wheel: 65,724 B, SHA-256 `582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5`.
+- Source rights are unknown.
+- Four preparations, nine package verifications and nine reference objects remain open.
+- No physical, sensory, analytical, measured-headspace, strict empirical-OAV, stability, similarity, safety or release result exists.
+- The full release verifier was not rerun because the objective is not release-ready; prior timeout/failure evidence is not promoted to PASS.
+
+## Sol decision
+
+The implementation plan is complete enough to execute gate-by-gate, but the requested global outcome is not achieved. Do not install package code or parallel schemas. Preserve existing native software and quarantine ancestry. Resume only when exact bytes/rights or user-supplied stock, bottle, preparation and physical evidence change the gate state.
+
+All formula, inventory, stock, bottle, physical, sensory, analytical, headspace, strict-OAV, safety, procurement, installation, publication and release authority remains false.

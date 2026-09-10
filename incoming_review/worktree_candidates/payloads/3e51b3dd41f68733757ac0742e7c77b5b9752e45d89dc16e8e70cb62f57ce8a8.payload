@@ -1,0 +1,516 @@
+from __future__ import annotations
+
+import hashlib
+import json
+import subprocess
+from pathlib import Path, PurePosixPath
+from typing import Any
+
+import pytest
+
+ROOT = Path(__file__).resolve().parents[1]
+MANIFEST_PATH = (
+    ROOT
+    / "data"
+    / "governance"
+    / "unified_perfume_intelligence_package_manifest_20260904.json"
+)
+MANIFEST_RELATIVE_PATH = MANIFEST_PATH.relative_to(ROOT).as_posix()
+
+EXPECTED_LOWER_SCHEMAS = {
+    "data/governance/unified_import_br540_successor_20260904.json": (
+        "schema_version",
+        "unified_import_br540_successor_v1",
+    ),
+    "data/governance/unified_import_cyp01_20260904.json": (
+        "schema_version",
+        "unified_import_cyp01_v1",
+    ),
+    "data/governance/unified_import_deep_plane_compat_20260904.json": (
+        "schema_version",
+        "unified_import_deep_plane_compat_v1",
+    ),
+    "data/governance/unified_import_dhi_2011_20260904.json": (
+        "schema_version",
+        "1.0",
+    ),
+    "data/governance/unified_import_edd7_lineage_20260904.json": (
+        "schema_version",
+        "perfume-chem.unified-import-lineage.v1",
+    ),
+    "data/governance/unified_import_lndl_successor_20260904.json": (
+        "schema_version",
+        "unified_import_lndl_successor_v1",
+    ),
+    "data/governance/unified_import_structural_studio_20260904.json": (
+        "schema_version",
+        "unified_import_structural_studio_v1",
+    ),
+    "data/governance/unified_import_sukhum_rose_20260904.json": (
+        "schema_version",
+        "perfume_chem_unified_artifact_import_v1",
+    ),
+    "data/governance/unified_import_ysl_twenty_variant_20260904.json": (
+        "schema",
+        "perfume-chem.unified-import-manifest.v1",
+    ),
+}
+
+REQUIRED_LANDMARKS = {
+    ".gitattributes",
+    ".gitignore",
+    "AGENTS.md",
+    "backend/tests/fixtures/b4_rule_corpus_current_binding_v3.json",
+    "configs/complexity/complexity_module_registry_v9.json",
+    "conftest.py",
+    "data/benchmarks/solforge/replacement_screen_v5_r1/manifest.json",
+    "data/benchmarks/solforge/replacement_screen_v5_r1/manifest.sha256",
+    "data/governance/c0_physical_model_compatibility_successor_20260905.json",
+    "data/governance/historical_quarantine_v1/manifest.json",
+    "data/governance/solforge_gate_foundation_acceptance_v5.json",
+    "external_evidence_pytest.py",
+    "tests/test_c0_physical_model_compatibility_successor_20260905.py",
+    "tests/test_formula_parser_historical_compat.py",
+    "tests/test_project_verification.py",
+    "tests/test_unified_perfume_intelligence_package_manifest.py",
+}
+
+ALLOWED_EXCLUDED_PREFIXES = (
+    ".codex/environments/",
+    ".playwright-mcp/",
+    "chat_bridge/complex_perfumery/",
+    "data/external/",
+)
+ALLOWED_EXCLUDED_EXACT = {
+    "data/pipeline_audit/events.jsonl",
+}
+AUTHORITY_FIELDS = {
+    "observed_smell_accepted",
+    "hedonic_liking_accepted",
+    "strict_similarity_accepted",
+    "safety_accepted",
+    "stability_accepted",
+    "physical_compounding_accepted",
+    "purchase_authorized",
+    "release_authorized",
+}
+
+
+def _manifest() -> dict[str, Any]:
+    return json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+
+
+def _sha256_bytes(payload: bytes) -> str:
+    return hashlib.sha256(payload).hexdigest()
+
+
+def _repo_path(relative_path: str) -> Path:
+    logical = PurePosixPath(relative_path)
+    assert relative_path and not logical.is_absolute()
+    assert ".." not in logical.parts
+    assert "\\" not in relative_path
+    return ROOT.joinpath(*logical.parts)
+
+
+def _required_str(record: dict[str, Any], field: str) -> str:
+    value = record.get(field)
+    assert isinstance(value, str) and value
+    return value
+
+
+def _required_size(record: dict[str, Any], field: str) -> int:
+    value = record.get(field)
+    assert isinstance(value, int) and not isinstance(value, bool) and value >= 0
+    return value
+
+
+def _required_sha256(record: dict[str, Any], field: str) -> str:
+    value = _required_str(record, field).lower()
+    assert len(value) == 64
+    assert all(character in "0123456789abcdef" for character in value)
+    return value
+
+
+def _git_nul(*args: str) -> set[str]:
+    completed = subprocess.run(
+        ["git", *args],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+    )
+    return {
+        item.decode("utf-8", errors="surrogateescape")
+        for item in completed.stdout.split(b"\0")
+        if item
+    }
+
+
+def _current_delta(base_commit: str) -> tuple[set[str], set[str], set[str]]:
+    tracked = _git_nul("diff", "--name-only", "-z", "--no-renames", base_commit, "--")
+    untracked = _git_nul("ls-files", "--others", "--exclude-standard", "-z")
+    return tracked, untracked, tracked | untracked
+
+
+def _base_blob(base_commit: str, relative_path: str) -> bytes:
+    completed = subprocess.run(
+        ["git", "show", f"{base_commit}:{relative_path}"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+    )
+    return completed.stdout
+
+
+def _artifact(
+    record: dict[str, Any],
+    *,
+    path_field: str,
+    size_field: str,
+    sha_field: str,
+) -> tuple[str, int, str]:
+    return (
+        _required_str(record, path_field),
+        _required_size(record, size_field),
+        _required_sha256(record, sha_field),
+    )
+
+
+def _lower_artifact_records(payload: dict[str, Any]) -> list[tuple[str, int, str]]:
+    schema = payload.get("schema_version", payload.get("schema"))
+    assert isinstance(schema, str) and schema
+
+    if schema == "unified_import_br540_successor_v1":
+        return [
+            _artifact(
+                record,
+                path_field="destination_path",
+                size_field="destination_size_bytes",
+                sha_field="destination_sha256",
+            )
+            for record in payload["files"]
+        ]
+    if schema == "unified_import_cyp01_v1":
+        records = []
+        for record in payload["files"]:
+            size_field = (
+                "destination_size_bytes"
+                if "destination_size_bytes" in record
+                else "byte_size"
+            )
+            sha_field = (
+                "destination_sha256" if "destination_sha256" in record else "sha256"
+            )
+            records.append(
+                _artifact(
+                    record,
+                    path_field="destination_path",
+                    size_field=size_field,
+                    sha_field=sha_field,
+                )
+            )
+        return records
+    if schema == "unified_import_deep_plane_compat_v1":
+        implementation = payload["implementation"]
+        adapter = (
+            _required_str(implementation, "adapter_path"),
+            _required_size(implementation, "adapter_size_bytes"),
+            _required_sha256(implementation, "adapter_sha256"),
+        )
+        tests = [
+            _artifact(
+                record,
+                path_field="path",
+                size_field="size_bytes",
+                sha_field="sha256",
+            )
+            for record in payload["adapted_tests"]
+        ]
+        return [adapter, *tests]
+    if schema == "1.0":
+        return [
+            _artifact(
+                record,
+                path_field="path",
+                size_field="destination_size_bytes",
+                sha_field="destination_sha256",
+            )
+            for record in payload["files"]
+        ]
+    if schema == "perfume-chem.unified-import-lineage.v1":
+        return [
+            _artifact(
+                record,
+                path_field="path",
+                size_field="bytes",
+                sha_field="sha256",
+            )
+            for record in payload["artifacts"]
+        ]
+    if schema == "unified_import_lndl_successor_v1":
+        return [
+            _artifact(
+                record,
+                path_field="destination_path",
+                size_field="destination_size_bytes",
+                sha_field="destination_sha256",
+            )
+            for record in payload["files"]
+        ]
+    if schema == "unified_import_structural_studio_v1":
+        return [
+            _artifact(
+                record,
+                path_field="destination_path",
+                size_field="byte_size",
+                sha_field="sha256",
+            )
+            for record in payload["files"]
+        ]
+    if schema == "perfume_chem_unified_artifact_import_v1":
+        artifacts = [
+            _artifact(
+                record,
+                path_field="path",
+                size_field="bytes",
+                sha_field="sha256",
+            )
+            for record in payload["artifacts"]
+        ]
+        tests = [
+            _artifact(
+                record,
+                path_field="path",
+                size_field="destination_bytes",
+                sha_field="destination_sha256",
+            )
+            for record in payload["tests"]
+        ]
+        return [*artifacts, *tests]
+    if schema == "perfume-chem.unified-import-manifest.v1":
+        artifacts = [
+            (
+                _required_str(record, "repository_relative_path"),
+                _required_size(record["destination"], "size_bytes"),
+                _required_sha256(record["destination"], "sha256"),
+            )
+            for record in payload["artifacts"]
+        ]
+        focused_test = payload["focused_test"]
+        return [
+            *artifacts,
+            (
+                _required_str(focused_test, "repository_relative_path"),
+                _required_size(focused_test["destination"], "size_bytes"),
+                _required_sha256(focused_test["destination"], "sha256"),
+            ),
+        ]
+    raise AssertionError(f"unknown lower import schema: {schema}")
+
+
+def test_manifest_exactly_classifies_the_live_git_delta() -> None:
+    manifest = _manifest()
+    base_commit = _required_str(manifest, "delta_base_commit")
+    _, _, current_delta = _current_delta(base_commit)
+
+    semantic = manifest["semantic_deliverables"]
+    retired = manifest["retired_paths"]
+    excluded = manifest["excluded_paths"]
+    self_excluded = manifest["self_reference_exclusions"]
+    categories = {
+        "semantic_deliverables": semantic,
+        "retired_paths": retired,
+        "excluded_paths": excluded,
+        "self_reference_exclusions": self_excluded,
+    }
+
+    classified: dict[str, str] = {}
+    for category, records in categories.items():
+        for record in records:
+            relative_path = _required_str(record, "path")
+            assert relative_path not in classified, (
+                f"{relative_path} appears in {classified.get(relative_path)} and {category}"
+            )
+            classified[relative_path] = category
+
+    assert set(classified) == current_delta
+    assert self_excluded == [
+        {"path": MANIFEST_RELATIVE_PATH, "reason": "NO_SELF_HASH"}
+    ]
+    assert "sha256" not in self_excluded[0]
+
+    summary = manifest["delta_summary"]
+    assert summary == {
+        "unique_delta_path_count": len(current_delta),
+        "semantic_deliverable_count": len(semantic),
+        "retired_absent_path_count": len(retired),
+        "excluded_scratch_or_private_path_count": len(excluded),
+        "self_reference_exclusion_count": 1,
+    }
+
+
+def test_semantic_retired_and_excluded_records_are_byte_exact() -> None:
+    manifest = _manifest()
+    base_commit = manifest["delta_base_commit"]
+
+    for record in manifest["semantic_deliverables"]:
+        path = _repo_path(_required_str(record, "path"))
+        assert path.is_file()
+        payload = path.read_bytes()
+        assert len(payload) == _required_size(record, "byte_size")
+        assert _sha256_bytes(payload) == _required_sha256(record, "sha256")
+        assert record["git_state"] in {"A", "M", "??"}
+
+    for record in manifest["retired_paths"]:
+        relative_path = _required_str(record, "path")
+        assert record["git_state"] == "D"
+        assert record["present"] is False
+        assert not _repo_path(relative_path).exists()
+        payload = _base_blob(base_commit, relative_path)
+        assert len(payload) == _required_size(record, "base_byte_size")
+        assert _sha256_bytes(payload) == _required_sha256(record, "base_sha256")
+
+    for record in manifest["excluded_paths"]:
+        relative_path = _required_str(record, "path")
+        allowed = relative_path in ALLOWED_EXCLUDED_EXACT or relative_path.startswith(
+            ALLOWED_EXCLUDED_PREFIXES
+        )
+        allowed = allowed or relative_path.startswith("backend/.coverage.")
+        assert allowed, f"unapproved exclusion: {relative_path}"
+        path = _repo_path(relative_path)
+        if relative_path == "data/pipeline_audit/events.jsonl":
+            assert record == {
+                "path": relative_path,
+                "git_state": "M",
+                "present": True,
+                "reason": "MUTABLE_PIPELINE_AUDIT_EVENT_SCRATCH_NOT_RELEASE_DELIVERABLE",
+            }
+            assert path.is_file()
+            continue
+        if record["present"]:
+            payload = path.read_bytes()
+            assert len(payload) == _required_size(record, "byte_size")
+            assert _sha256_bytes(payload) == _required_sha256(record, "sha256")
+        else:
+            assert not path.exists()
+            payload = _base_blob(base_commit, relative_path)
+            assert len(payload) == _required_size(record, "base_byte_size")
+            assert _sha256_bytes(payload) == _required_sha256(record, "base_sha256")
+
+
+def test_required_landmarks_and_semantic_group_counts_are_exact() -> None:
+    manifest = _manifest()
+    semantic_paths = {record["path"] for record in manifest["semantic_deliverables"]}
+    assert REQUIRED_LANDMARKS <= semantic_paths
+
+    actual_counts = {
+        "solforge_benchmark_tree": sum(
+            path.startswith("data/benchmarks/solforge/") for path in semantic_paths
+        ),
+        "historical_quarantine_v1_tree": sum(
+            path.startswith("data/governance/historical_quarantine_v1/")
+            for path in semantic_paths
+        ),
+        "engine": sum(path.startswith("engine/") for path in semantic_paths),
+        "backend": sum(path.startswith("backend/") for path in semantic_paths),
+        "tests": sum(path.startswith("tests/") for path in semantic_paths),
+        "docs": sum(path.startswith("docs/") for path in semantic_paths),
+        "governance": sum(
+            path.startswith("data/governance/") for path in semantic_paths
+        ),
+        "scripts": sum(path.startswith("scripts/") for path in semantic_paths),
+        "configs": sum(path.startswith("configs/") for path in semantic_paths),
+    }
+    assert manifest["semantic_group_counts"] == actual_counts
+    assert actual_counts["solforge_benchmark_tree"] >= 285
+    assert actual_counts["historical_quarantine_v1_tree"] == 65
+
+    coverage_exclusions = {
+        record["path"]
+        for record in manifest["excluded_paths"]
+        if record["path"].startswith("backend/.coverage.")
+    }
+    assert len(coverage_exclusions) == 5
+
+
+def test_all_lower_receipts_and_recursive_artifacts_are_exact() -> None:
+    manifest = _manifest()
+    lower_records = manifest["lower_level_import_manifests"]
+    assert {record["path"] for record in lower_records} == set(EXPECTED_LOWER_SCHEMAS)
+
+    imported: list[tuple[str, int, str]] = []
+    for record in lower_records:
+        relative_path = _required_str(record, "path")
+        path = _repo_path(relative_path)
+        payload_bytes = path.read_bytes()
+        assert len(payload_bytes) == _required_size(record, "byte_size")
+        assert _sha256_bytes(payload_bytes) == _required_sha256(record, "sha256")
+        payload = json.loads(payload_bytes)
+        schema_field, expected_schema = EXPECTED_LOWER_SCHEMAS[relative_path]
+        assert payload.get(schema_field) == expected_schema
+        assert record["schema"] == expected_schema
+        artifacts = _lower_artifact_records(payload)
+        assert record["imported_record_count"] == len(artifacts)
+        imported.extend(artifacts)
+
+    paths = [record[0] for record in imported]
+    assert len(paths) == len(set(paths))
+    coverage = manifest["lower_level_artifact_coverage"]
+    assert coverage == {
+        "lower_manifest_count": 9,
+        "imported_record_count": len(imported),
+        "unique_destination_path_count": len(set(paths)),
+        "duplicate_destination_paths": [],
+        "live_size_and_sha256_verified": True,
+    }
+    for relative_path, expected_size, expected_hash in imported:
+        payload = _repo_path(relative_path).read_bytes()
+        assert len(payload) == expected_size
+        assert _sha256_bytes(payload) == expected_hash
+
+
+def test_software_acceptance_never_promotes_sensory_or_release_authority() -> None:
+    manifest = _manifest()
+    assert manifest["package_status"] == (
+        "SOFTWARE_PACKAGE_STRUCTURAL_ACCEPTANCE_CANDIDATE_SECURITY_AND_RELEASE_HOLD"
+    )
+    assert manifest["provider_policy"] == {
+        "required": "OPENAI_CHATGPT_CODEX_NATIVE_ONLY",
+        "external_provider_invocation_or_network_use_by_manifest_lane": False,
+    }
+    assert set(manifest["authority_ceilings"]) == AUTHORITY_FIELDS
+    assert all(value is False for value in manifest["authority_ceilings"].values())
+    assert manifest["security_hold"]["state"] == "HOLD"
+    assert manifest["security_hold"]["push_clearance"] is False
+    assert manifest["verification"]["push_authorized"] is False
+    assert manifest["historical_quarantine_authority"] == "NONE_HOLD"
+    assert manifest["solforge_authority"] == "COMPUTATIONAL_BENCHMARK_EVIDENCE_ONLY"
+
+
+@pytest.mark.parametrize(
+    ("relative_path", "expected_size", "expected_hash"),
+    [
+        (
+            "data/governance/unified_import_cyp01_20260904.json",
+            5103,
+            "bb25a8a7e955a5b11c36579197da0f276eebbf8a9a053ec00449f802d3b7c5ff",
+        ),
+        (
+            "data/governance/unified_import_sukhum_rose_20260904.json",
+            14113,
+            "cae38cc0b250660a4ba7cd2bf3911f1507f474a52481bc888c74f3acf19a8714",
+        ),
+        (
+            "data/governance/unified_import_ysl_twenty_variant_20260904.json",
+            92921,
+            "b5947d0b54111c1d49a56fdae8e0425ff70cfa7ea709c80e1e6ba228e36f0bd2",
+        ),
+    ],
+)
+def test_final_lower_receipt_landmark_hashes(
+    relative_path: str,
+    expected_size: int,
+    expected_hash: str,
+) -> None:
+    payload = _repo_path(relative_path).read_bytes()
+    assert len(payload) == expected_size
+    assert _sha256_bytes(payload) == expected_hash

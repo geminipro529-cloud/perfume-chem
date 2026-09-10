@@ -1,0 +1,46 @@
+# Complex Perfumery Native Fit and Install Plan V7 — 2026-08-12
+
+Status: `PARTIAL_COLLECTION_33_OUTER_PLUS_2_EXACT_FILES_QUARANTINED_P6_EXPLICIT_UNAVAILABLE_3_OPTIONAL_REMAIN`
+
+V7 preserves V6 byte-for-byte and closes exactly one optional identity: `PACK_METADATA.json`. It grants no source admission, metadata, formula, inventory, stock, physical, sensory, headspace, strict-OAV, safety, procurement, publication, installation, or release authority.
+
+## Newly recovered exact artifact
+
+- `PACK_METADATA.json`
+- 14,116 bytes
+- SHA-256 `d051505ea9144716fb860c5ff74e92b2bed2b33e419c830460cc60278b94f869`
+- Source conversation `6a7992db-96b8-83ec-aab0-6a7447b97da1`
+- Source turn `e0c8046a-b8b8-4180-8b2f-a84c1363d0f4`
+- File Library reference `filenavlist 123:0`
+- JSON parses exactly and identifies `Six_Perfume_Latest_Integrated_Recipe_Pack_Aug2026` with target IDs AM-E01, C03, H07, PR-E01, PR-E07, and S06.
+
+The metadata explicitly keeps formula mutation by OAV false and measured headspace, strict empirical OAV, physical liking, reference similarity, stability, and safety release not tested. It is package ancestry metadata only. It does not prove that every referenced file is recovered, complete, admissible, current-V5 executable, or scientifically validated.
+
+## Native fit
+
+- Preserve the JSON in external intake with exact source/capture receipt lineage.
+- Do not install a metadata schema or create a parallel truth store.
+- Resolve each referenced artifact independently by exact bytes, rights, identity, and native admission.
+- No migration is needed; migration head remains `20260810_0016`.
+- No new pipeline script or package code is allowed.
+
+## Remaining optional recovery queue
+
+Three optional identities remain unrecovered:
+
+1. Perfume Box Workflow wrapper — `db0579760159e7438b83e92de399aa0a9f5862f0f547fa030a682c339bd54e84`
+2. Universal Accord current package — 539,050 B — `8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998`
+3. PCV3 experimental-data package — 32,196 B — `db638ab82c7e1a798297a9f4376014b9f51965511ae1d65132e57b4d12c9c9eb`
+
+Universal Accord and PCV3 have browser locators, not recovered bytes. Perfume Box has no verified wrapper byte stream.
+
+## Separate P6 blocker
+
+- ZIP — 540,402 B — `8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db`
+- wheel — 65,724 B — `582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5`
+
+Both remain explicitly unavailable. Reconstruction and substitution are forbidden. Installation remains unauthorized.
+
+## Close condition
+
+V7 closes only exact recovery of `PACK_METADATA.json` after capture, receipt, successor, ledger, semantic-hash, and focused-test replay. Overall collection and installation remain incomplete.

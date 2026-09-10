@@ -1,0 +1,402 @@
+# Jasmine Sambac project — live inventory parse
+
+> Mixing-order clarification, 2026-09-08: the category groups in this initial parse are inventory text sections, not the user's 17 physical baskets. The current [V2 basket card](../../formulas/Jasmine_Sambac_Clair_30mL_V2_Baskets_1-17.md) follows the saved Basket 1–17 convention, including Benzyl Benzoate and Hexyl Salicylate in Basket 1. Do not use this historical category grouping as the pouring order.
+
+> Latest correction, 2026-09-08: **Romandolide is now DEPLETED**, confirmed by the user. Live counts are 240 raw rows, five depleted, 235 not marked depleted. The original four-depleted snapshot below is retained as history, not current dosing authority. The formula has a stock-corrected V2 successor.
+
+> Post-parse correction, 2026-09-08: the user confirmed the Sambac absolute stock is **10% w/w in DPG**. PerfumersWorld identifies **Jasmine Sambac Blossoms, 6JN07707, as a liquid proprietary jasmine base**, not dried flowers. The dried-flower interpretation below was inherited from an incorrect inventory comment and is superseded. The source hash and full row list in this report describe the initial snapshot, before these two inventory corrections. See [stock clarifications](Jasmine_Sambac_Stock_Clarifications_2026-09-08.md). The companion JSON preserves the original parse for provenance, not current dosing authority.
+
+Date: 2026-09-08. Scope: parse and reconcile the current worktree inventory before selecting or dosing the 30 mL perfume.
+
+## Source and authority
+
+- Source: `C:\Users\ASUS\.codex\worktrees\52e4\perfume-chem\inventory.txt`
+- SHA-256: `DF5421C5B013330375A1856CCCD6AFCEB2382A1519135BC0C63579CB6441AA0B`
+- Existing parser: `engine/inventory_parser.py`; all source records retained with `unique=False`.
+- The source file and parser code were not edited. This report is a derived audit, not a replacement inventory or a compounding release.
+- A stock being listed is not evidence of its remaining quantity, bottle condition, exact dilution preparation, or safety. Source labels marked DEPLETED override the parser's erroneous owned status.
+
+## Counts
+
+| Measure | Current result |
+|---|---:|
+| Raw stock records | 240 |
+| Parser-normalized names, including depleted records | 226 |
+| Parser-normalized non-solvent names, including depleted records | 220 |
+| Solvent/carrier records | 6 |
+| Additional rows removed by parser deduplication | 14 |
+| Groups sharing a parser-normalized name | 13 |
+| Explicitly depleted records | 4 |
+| Records not marked depleted | 236 |
+| Parser-normalized names after removing depleted rows | 223 |
+
+These are parsing counts, not a count of unique chemicals or ready-to-dose bottles. Several source records are alternative grades, different dilutions, fragrance bases, solids, or dried blossoms. The manually written footer is stale: it reports 217 raw entries and zero duplicates.
+
+| Physical basket/category | All source rows | Not marked depleted |
+|---|---:|---:|
+| solvents / carriers | 6 | 6 |
+| citrus / top | 30 | 30 |
+| green / fresh / marine | 17 | 17 |
+| floral materials | 71 | 69 |
+| iris / violet | 11 | 11 |
+| woods / amber / structure | 31 | 30 |
+| musks | 11 | 11 |
+| sweet / gourmand / balsamic | 21 | 21 |
+| leather / smoky / phenolic | 10 | 10 |
+| spice / aromatic | 22 | 21 |
+| accord bases / other | 10 | 10 |
+
+## Dosing-relevant parser defects and limits
+
+1. **Depleted stocks are not excluded.** `include_unavailable=False` still returns all 240 raw records. Hydroxycitronellal, standard Petitgrain EO, the old Ambrox Super 30% w/v stock, and Olibanum Resinoid Absolute 10% are explicitly depleted in their source labels.
+2. **Two fragrance dilutions are misread as 100%.** Cinnamyl alcohol 50% in DPG has an unparenthesized percentage; Ambrox Super ~33% w/v has a leading tilde. The current percentage regex misses both. Their source labels, not the parser's 1.0 values, govern interpretation.
+3. **Ethanol strength is not modeled by the parser fraction.** The label says Ethanol 96%; the generic parser returns 1.0. That does not make it 100% ethanol.
+4. **Deduplication loses physical-stock distinctions.** It chooses a highest parsed dilution. It must not replace the source-row selection for grades and prepared solutions. Tuberose and Osmanthus grades, Lavender EO variants, and diluted versus undiluted materials must remain separate.
+5. **An unlabeled strength defaults to 100%.** This is a software default, not a newly verified statement that a bottle is neat. Carriers, fraction basis and remaining amounts are not separately modeled by this parser.
+6. **The Sambac fraction basis is unspecified.** The source says 10% in DPG, without w/w, w/v or v/v. Its registry density is null. Exact active mass, w/w ppm and dose-derived OAV must not be asserted from raw microlitres alone.
+
+No defect was repaired as part of this parsing-only step. No mass conversion, OAV calculation, formula dose or safety release has been made here.
+
+## Jasmine identity and stock truth
+
+| Exact source stock | Source line | Interpretation |
+|---|---:|---|
+| Jasmine Sambac Blossoms | 129 | Whole dried blossoms for a separately prepared tincture or infusion; not an absolute or ready-to-dose liquid. |
+| Jasmine FO | 256 | Separate fragrance oil; not a substitute for the required Sambac absolute. |
+| Jasmine Sambac (10% in DPG) | 257 | The required working stock. The material registry maps Jasmine Sambac to Jasmine Sambac Absolute; the physical record is 10% in DPG. Not marked depleted; fraction basis and remaining quantity not recorded. |
+
+Registry cross-check: `data/materials/J.yaml` identifies **Jasmine Sambac Absolute**, CAS 91770-14-8, with alias **Jasmine Sambac** and user stock fraction 0.1. It also contains a supplier neat-form catalog entry; that catalog form must not override the physical inventory's 10% DPG label. Neither source is a lot-specific composition or a new physical bottle verification.
+
+## Depleted records — excluded from formula selection
+
+| Source line | Exact stock label |
+|---|---|
+| 70 | Hydroxycitronellal  # DEPLETED 2026-06-15 |
+| 97 | Petitgrain EO  # DEPLETED 2026-05-25 |
+| 166 | Ambrox Super (30% w/v, 3 g in 10 mL)  # DEPLETED 2026-05-03 |
+| 252 | Olibanum Resinoid Absolute (10%)  # DEPLETED |
+
+Petitgrain EO Paraguay is a separate, non-depleted listing. Frankincense EO is separate from the depleted Olibanum resinoid. The ~33% Ambrox Super preparation is separate from its depleted 30% predecessor; Ambrofix and Ambrofix Crystals are separate entries too.
+
+## Stock groups that must not be silently collapsed
+
+| Parser name | Retained source stock labels |
+|---|---|
+| Lemonile | Lemonile (line 37)<br>Lemonile (1% in DPG) (line 38) |
+| Geraniol | Geraniol (line 76)<br>Geraniol (10% in DPG) (line 77) |
+| Rose Oxide | Rose Oxide (1%) (line 81)<br>Rose Oxide (10%) (line 82) |
+| Osmanthus Absolute | Osmanthus Absolute (10% in DPG) (line 122)<br>Osmanthus Absolute (volume grade) (line 132) |
+| Tuberose Absolute | Tuberose Absolute (10% in DPG) (line 124)<br>Tuberose Absolute (India) (line 125)<br>Tuberose Absolute (volume grade) (line 133) |
+| Beta Ionone | Beta Ionone (line 139)<br>Beta Ionone (1% in TEC) (line 140) |
+| Cashmeran | Cashmeran (neat) (line 152)<br>Cashmeran (20%) (line 153) |
+| Vetikon | Vetikon (line 161)<br>Vetikon (7403-42-1) (line 177) |
+| Ambrox Super | Ambrox Super (30% w/v, 3 g in 10 mL) (line 166; DEPLETED)<br>Ambrox Super (~33% w/v in DEP:EtOH 53:47 — 5g/15mL: 8mL DEP + ~7mL EtOH) (line 167) |
+| Musk Ketone | Musk Ketone (pure powder) (line 192)<br>Musk Ketone (10% in DPG) (line 193) |
+| Coumarin | Coumarin (20%) (line 198)<br>Coumarin (neat powder) (line 199) |
+| Evernyl | Evernyl (line 226)<br>Evernyl (50% w/w in DPG) (line 229) |
+| Lavender EO | Lavender EO (line 240)<br>Lavender EO (BONTAUX SAS) (line 242) |
+
+## Full parsed stock list in source basket order
+
+**Reading the strength column:** a percentage is reproduced from the stock label; a dash means no numerical percentage is stated before the comment. It must not be read as a verified 100% concentration. Original comments and untouched raw parser results are preserved in the accompanying JSON. “Listed” means only not marked DEPLETED, not physically counted or dosing-cleared.
+
+### solvents / carriers
+
+| Source line | Stock label | Parser-normalized name | Label strength | Availability label |
+|---|---|---|---|---|
+| 6 | Ethanol 96% | Ethanol 96% | 96% | Listed |
+| 7 | Dipropylene Glycol (DPG) | Dipropylene Glycol | — | Listed |
+| 8 | Isopropyl Myristate (IPM) | Isopropyl Myristate | — | Listed |
+| 9 | Triethyl Citrate (TEC) | Triethyl Citrate | — | Listed |
+| 10 | Diethyl Phthalate (DEP) | Diethyl Phthalate | — | Listed |
+| 11 | Myristic Acid Powder | Myristic Acid Powder | — | Listed |
+
+### citrus / top
+
+| Source line | Stock label | Parser-normalized name | Label strength | Availability label |
+|---|---|---|---|---|
+| 14 | Citral | Citral | — | Listed |
+| 15 | Citronellal | Citronellal | — | Listed |
+| 16 | D-Limonene | D-Limonene | — | Listed |
+| 17 | Linalool | Linalool | — | Listed |
+| 18 | Linalyl Acetate | Linalyl Acetate | — | Listed |
+| 19 | Ethyl Linalool | Ethyl Linalool | — | Listed |
+| 20 | Terpinyl Acetate | Terpinyl Acetate | — | Listed |
+| 21 | Apritone (10%) | Apritone | 10% | Listed |
+| 22 | Hexyl Acetate (10%) | Hexyl Acetate | 10% | Listed |
+| 23 | Aldehyde C10 (1%) | Aldehyde C10 | 1% | Listed |
+| 24 | Aldehyde C11 (1%) | Aldehyde C11 | 1% | Listed |
+| 25 | Aldehyde C11 undecylenic | Aldehyde C11 undecylenic | — | Listed |
+| 26 | Aldehyde C12 MNA (1%) | Aldehyde C12 MNA | 1% | Listed |
+| 27 | Methyl Pamplemousse (10% in TEC) | Methyl Pamplemousse | 10% | Listed |
+| 28 | Bergamot EO | Bergamot EO | — | Listed |
+| 29 | Bergamot FCF | Bergamot FCF | — | Listed |
+| 30 | Bergamot FCF oil Sicilian | Bergamot FCF oil Sicilian | — | Listed |
+| 31 | Grapefruit FCF | Grapefruit FCF | — | Listed |
+| 32 | Cedrat FCF oil Sicilian | Cedrat FCF oil Sicilian | — | Listed |
+| 33 | Blood Orange oil Sicilian | Blood Orange oil Sicilian | — | Listed |
+| 34 | Red Mandarin EO | Red Mandarin EO | — | Listed |
+| 35 | Lime Distilled EO | Lime Distilled EO | — | Listed |
+| 36 | Ethyl 2-Methylbutyrate (0.1%) | Ethyl 2-Methylbutyrate | 0.1% | Listed |
+| 37 | Lemonile | Lemonile | — | Listed |
+| 38 | Lemonile (1% in DPG) | Lemonile | 1% | Listed |
+| 39 | Orange Peel EO | Orange Peel EO | — | Listed |
+| 40 | Pamzest | Pamzest | — | Listed |
+| 41 | Petitgrain EO Paraguay | Petitgrain EO Paraguay | — | Listed |
+| 42 | Ginger EO | Ginger EO | — | Listed |
+| 43 | Neroli EO (10% in DPG) | Neroli EO | 10% | Listed |
+
+### green / fresh / marine
+
+| Source line | Stock label | Parser-normalized name | Label strength | Availability label |
+|---|---|---|---|---|
+| 46 | Dihydromyrcenol | Dihydromyrcenol | — | Listed |
+| 47 | Verdox | Verdox | — | Listed |
+| 48 | Galbanum Resinoid (10%) | Galbanum Resinoid | 10% | Listed |
+| 49 | Galbanum EO | Galbanum EO | — | Listed |
+| 50 | Cyclamen Aldehyde | Cyclamen Aldehyde | — | Listed |
+| 51 | Scentenal (1%) | Scentenal | 1% | Listed |
+| 52 | Calone (1%) | Calone | 1% | Listed |
+| 53 | Floralozone (10%) | Floralozone | 10% | Listed |
+| 54 | Undecavertol (1%) | Undecavertol | 1% | Listed |
+| 55 | Dynascone (10%) | Dynascone | 10% | Listed |
+| 56 | Parmavert | Parmavert | — | Listed |
+| 57 | Leafovert | Leafovert | — | Listed |
+| 58 | Triplal | Triplal | — | Listed |
+| 59 | Geosmin (0.1% in TEC) | Geosmin | 0.1% | Listed |
+| 60 | Peppermint Essential Oil (Mentha piperita, India) | Peppermint Essential Oil | — | Listed |
+| 61 | Eucalyptus Essential Oil (Eucalyptus globulus, India) | Eucalyptus Essential Oil | — | Listed |
+| 62 | Tagetes EO (10% in DPG) | Tagetes EO | 10% | Listed |
+
+### floral materials
+
+| Source line | Stock label | Parser-normalized name | Label strength | Availability label |
+|---|---|---|---|---|
+| 65 | Geranium EO (Pelargonium graveolens flower oil) | Geranium EO | — | Listed |
+| 66 | Hedione | Hedione | — | Listed |
+| 67 | Hedione HC (high cis) | Hedione HC | — | Listed |
+| 68 | Dihydrojasmone | Dihydrojasmone | — | Listed |
+| 69 | Jessemal (Jasmonyl) | Jessemal | — | Listed |
+| 70 | Hydroxycitronellal | Hydroxycitronellal | — | **DEPLETED** |
+| 71 | Phenethyl Alcohol (PEA) | Phenethyl Alcohol | — | Listed |
+| 72 | Cinnamyl alcohol 50% in DPG | Cinnamyl alcohol 50% in DPG | 50% | Listed |
+| 73 | Florol | Florol | — | Listed |
+| 74 | Peonile | Peonile | — | Listed |
+| 75 | Aurantiol (neat) | Aurantiol | — | Listed |
+| 76 | Geraniol | Geraniol | — | Listed |
+| 77 | Geraniol (10% in DPG) | Geraniol | 10% | Listed |
+| 78 | Citronellol | Citronellol | — | Listed |
+| 79 | Rhodinol ex Citronella | Rhodinol ex Citronella | — | Listed |
+| 80 | Geranium Flower EO | Geranium Flower EO | — | Listed |
+| 81 | Rose Oxide (1%) | Rose Oxide | 1% | Listed |
+| 82 | Rose Oxide (10%) | Rose Oxide | 10% | Listed |
+| 83 | Benzyl Salicylate | Benzyl Salicylate | — | Listed |
+| 84 | Hexyl Salicylate | Hexyl Salicylate | — | Listed |
+| 85 | Benzyl Benzoate | Benzyl Benzoate | — | Listed |
+| 86 | Benzyl Alcohol (50% in DPG) | Benzyl Alcohol | 50% | Listed |
+| 87 | Benzaldehyde (1% in DPG) | Benzaldehyde | 1% | Listed |
+| 88 | Benzyl Acetate | Benzyl Acetate | — | Listed |
+| 89 | Indole (10%) | Indole | 10% | Listed |
+| 90 | Bourgeonal | Bourgeonal | — | Listed |
+| 91 | Freesia HDI | Freesia HDI | — | Listed |
+| 92 | Lilyreal ND | Lilyreal ND | — | Listed |
+| 93 | Lilial | Lilial | — | Listed |
+| 94 | Cyclimal Aldehyde | Cyclimal Aldehyde | — | Listed |
+| 95 | Nympheal | Nympheal | — | Listed |
+| 96 | Helional | Helional | — | Listed |
+| 97 | Petitgrain EO | Petitgrain EO | — | **DEPLETED** |
+| 98 | Lemon FCF oil Sicilian | Lemon FCF oil Sicilian | — | Listed |
+| 99 | Ylang Comoros Complete EO F3255 | Ylang Comoros Complete EO F3255 | — | Listed |
+| 100 | Ylang Comoros III EO F3295 | Ylang Comoros III EO F3295 | — | Listed |
+| 101 | Ylang Ylang EO (Extra grade) | Ylang Ylang EO | — | Listed |
+| 102 | Champaca Flower EO | Champaca Flower EO | — | Listed |
+| 103 | Methyl Benzoate | Methyl Benzoate | — | Listed |
+| 104 | p-Cresyl Methyl Ether (PCME) (10%) | p-Cresyl Methyl Ether (PCME) | 10% | Listed |
+| 105 | Paradisamide (10%) | Paradisamide | 10% | Listed |
+| 106 | Cis Jasmone | Cis Jasmone | — | Listed |
+| 107 | Methyl Salicylate | Methyl Salicylate | — | Listed |
+| 108 | Methyl Anthranilate | Methyl Anthranilate | — | Listed |
+| 109 | Alpha Damascone (10%) | Alpha Damascone | 10% | Listed |
+| 110 | Damascone Beta (10%) | Damascone Beta | 10% | Listed |
+| 111 | Damascenone (1%) | Damascenone | 1% | Listed |
+| 112 | Damascol (10%) | Damascol | 10% | Listed |
+| 113 | Heliotropal (Piperonal) | Heliotropal | — | Listed |
+| 114 | Amyl Cinnamic Aldehyde (ACA) | Amyl Cinnamic Aldehyde | — | Listed |
+| 115 | Phenyl Ethyl Dimethyl Carbinol (PEDMC) | Phenyl Ethyl Dimethyl Carbinol | — | Listed |
+| 116 | Farnesol | Farnesol | — | Listed |
+| 117 | Mayol | Mayol | — | Listed |
+| 118 | Oranger Crystals (10% in DPG) | Oranger Crystals | 10% | Listed |
+| 119 | Nerol | Nerol | — | Listed |
+| 120 | Nerolin Bromelia (10% in DPG) | Nerolin Bromelia | 10% | Listed |
+| 121 | Rose de Mai Absolute (10% in DPG) | Rose de Mai Absolute | 10% | Listed |
+| 122 | Osmanthus Absolute (10% in DPG) | Osmanthus Absolute | 10% | Listed |
+| 123 | Tuberalia base | Tuberalia base | — | Listed |
+| 124 | Tuberose Absolute (10% in DPG) | Tuberose Absolute | 10% | Listed |
+| 125 | Tuberose Absolute (India) | Tuberose Absolute | — | Listed |
+| 126 | Phenyl Ethyl Acetate | Phenyl Ethyl Acetate | — | Listed |
+| 127 | Immortelle Absolute (10% in DPG) | Immortelle Absolute | 10% | Listed |
+| 128 | Rose Essential Oil (Rosa Damascena, India) | Rose Essential Oil | — | Listed |
+| 129 | Jasmine Sambac Blossoms | Jasmine Sambac Blossoms | — | Listed |
+| 130 | Blue Chamomile EO | Blue Chamomile EO | — | Listed |
+| 131 | Mimosa Absolute (10% in DPG) | Mimosa Absolute | 10% | Listed |
+| 132 | Osmanthus Absolute (volume grade) | Osmanthus Absolute | — | Listed |
+| 133 | Tuberose Absolute (volume grade) | Tuberose Absolute | — | Listed |
+| 134 | Isobutavan | Isobutavan | — | Listed |
+| 135 | Allyl Cyclohexyl Propionate | Allyl Cyclohexyl Propionate | — | Listed |
+
+### iris / violet
+
+| Source line | Stock label | Parser-normalized name | Label strength | Availability label |
+|---|---|---|---|---|
+| 138 | Alpha Ionone | Alpha Ionone | — | Listed |
+| 139 | Beta Ionone | Beta Ionone | — | Listed |
+| 140 | Beta Ionone (1% in TEC) | Beta Ionone | 1% | Listed |
+| 141 | Allyl Ionone (Ketone V) | Allyl Ionone | — | Listed |
+| 142 | Alpha Isomethyl Ionone (Methyl Ionone Pure) | Alpha Isomethyl Ionone | — | Listed |
+| 143 | Alpha Irone (30% w/w in IPM) | Alpha Irone | 30% | Listed |
+| 144 | Irotyl | Irotyl | — | Listed |
+| 145 | Dihydro Beta Ionone | Dihydro Beta Ionone | — | Listed |
+| 146 | Orivone | Orivone | — | Listed |
+| 147 | Ultralia | Ultralia | — | Listed |
+| 148 | Carrot Seed EO | Carrot Seed EO | — | Listed |
+
+### woods / amber / structure
+
+| Source line | Stock label | Parser-normalized name | Label strength | Availability label |
+|---|---|---|---|---|
+| 151 | Iso E Super | Iso E Super | — | Listed |
+| 152 | Cashmeran (neat) | Cashmeran | — | Listed |
+| 153 | Cashmeran (20%) | Cashmeran | 20% | Listed |
+| 154 | Polysantol | Polysantol | — | Listed |
+| 155 | Cedramber | Cedramber | — | Listed |
+| 156 | Ambermax (50%) | Ambermax | 50% | Listed |
+| 157 | Amber Core (10%) | Amber Core | 10% | Listed |
+| 158 | Ebanol | Ebanol | — | Listed |
+| 159 | Sandalore | Sandalore | — | Listed |
+| 160 | Vetival | Vetival | — | Listed |
+| 161 | Vetikon | Vetikon | — | Listed |
+| 162 | Vertofix | Vertofix | — | Listed |
+| 163 | Suederal (10%) | Suederal | 10% | Listed |
+| 164 | Javanol | Javanol | — | Listed |
+| 165 | Amberwood F | Amberwood F | — | Listed |
+| 166 | Ambrox Super (30% w/v, 3 g in 10 mL) | Ambrox Super | 30% | **DEPLETED** |
+| 167 | Ambrox Super (~33% w/v in DEP:EtOH 53:47 — 5g/15mL: 8mL DEP + ~7mL EtOH) | Ambrox Super | ~33% | Listed |
+| 168 | Ambrofix (30% w/v, 3 g in 10 mL) | Ambrofix | 30% | Listed |
+| 169 | Ambrofix Crystals (solid) | Ambrofix Crystals | — | Listed |
+| 170 | Timberol | Timberol | — | Listed |
+| 171 | Koavone | Koavone | — | Listed |
+| 172 | Cedarwood EO | Cedarwood EO | — | Listed |
+| 173 | Cedarwood oil Virginia | Cedarwood oil Virginia | — | Listed |
+| 174 | Himalayan Cedarwood EO | Himalayan Cedarwood EO | — | Listed |
+| 175 | Vetiver EO (India) | Vetiver EO | — | Listed |
+| 176 | Nagarmortha Oil | Nagarmortha Oil | — | Listed |
+| 177 | Vetikon (7403-42-1) | Vetikon | — | Listed |
+| 178 | Clearwood | Clearwood | — | Listed |
+| 179 | Norlimbanol Dextro | Norlimbanol Dextro | — | Listed |
+| 180 | Azarbre | Azarbre | — | Listed |
+| 181 | Kephalis | Kephalis | — | Listed |
+
+### musks
+
+| Source line | Stock label | Parser-normalized name | Label strength | Availability label |
+|---|---|---|---|---|
+| 184 | Galaxolide (50% in DEP) | Galaxolide | 50% | Listed |
+| 185 | Tonalide (10%) | Tonalide | 10% | Listed |
+| 186 | Habanolide | Habanolide | — | Listed |
+| 187 | Zenolide | Zenolide | — | Listed |
+| 188 | Romandolide | Romandolide | — | Listed |
+| 189 | Exaltolide (10%) | Exaltolide | 10% | Listed |
+| 190 | Macrolide (10%) | Macrolide | 10% | Listed |
+| 191 | Ambrettolide (10% in DPG) | Ambrettolide | 10% | Listed |
+| 192 | Musk Ketone (pure powder) | Musk Ketone | — | Listed |
+| 193 | Musk Ketone (10% in DPG) | Musk Ketone | 10% | Listed |
+| 194 | Ethylene Brassylate | Ethylene Brassylate | — | Listed |
+
+### sweet / gourmand / balsamic
+
+| Source line | Stock label | Parser-normalized name | Label strength | Availability label |
+|---|---|---|---|---|
+| 197 | Ethyl Maltol (10%) | Ethyl Maltol | 10% | Listed |
+| 198 | Coumarin (20%) | Coumarin | 20% | Listed |
+| 199 | Coumarin (neat powder) | Coumarin | — | Listed |
+| 200 | Vanillin (10%) | Vanillin | 10% | Listed |
+| 201 | Ethyl Vanillin (10%) | Ethyl Vanillin | 10% | Listed |
+| 202 | Maple Lactone (20%) | Maple Lactone | 20% | Listed |
+| 203 | Raspberry Ketone | Raspberry Ketone | — | Listed |
+| 204 | Siam Benzoin (50% in DPG) | Siam Benzoin | 50% | Listed |
+| 205 | Benzoin Sumatra Resinoid (10%) | Benzoin Sumatra Resinoid | 10% | Listed |
+| 206 | Anisaldehyde | Anisaldehyde | — | Listed |
+| 207 | Gamma Decalactone | Gamma Decalactone | — | Listed |
+| 208 | Gamma Undecalactone | Gamma Undecalactone | — | Listed |
+| 209 | Delta Decalactone | Delta Decalactone | — | Listed |
+| 210 | Allyl Amyl Glycolate (10%) | Allyl Amyl Glycolate | 10% | Listed |
+| 211 | Labdanum Resinoid (10% in DPG) | Labdanum Resinoid | 10% | Listed |
+| 212 | Tonkarome (20% w/w in TEC) | Tonkarome | 20% | Listed |
+| 213 | Cocoa Absolute (10% in TEC) | Cocoa Absolute | 10% | Listed |
+| 214 | Tonka Bean Absolute (10% in DPG) | Tonka Bean Absolute | 10% | Listed |
+| 215 | Cocoa CO2 Absolute | Cocoa CO2 Absolute | — | Listed |
+| 216 | Peru Balsam Resinoid | Peru Balsam Resinoid | — | Listed |
+| 217 | Opoponax Resinoid (50% in DPG) | Opoponax Resinoid | 50% | Listed |
+
+### leather / smoky / phenolic
+
+| Source line | Stock label | Parser-normalized name | Label strength | Availability label |
+|---|---|---|---|---|
+| 220 | Tobacco Absolute (10% in DPG) | Tobacco Absolute | 10% | Listed |
+| 221 | Isobutyl Quinoline (10%) | Isobutyl Quinoline | 10% | Listed |
+| 222 | Birch Tar Rectified (10% in DPG) | Birch Tar Rectified | 10% | Listed |
+| 223 | Costus Olifac (10% in DPG) | Costus Olifac | 10% | Listed |
+| 224 | Cade Oil Rectified (1% in DPG) | Cade Oil Rectified | 1% | Listed |
+| 225 | Guaiacol (10%) | Guaiacol | 10% | Listed |
+| 226 | Evernyl | Evernyl | — | Listed |
+| 227 | Skatole (1%) | Skatole | 1% | Listed |
+| 228 | Oakmoss Absolute (10% in DPG) | Oakmoss Absolute | 10% | Listed |
+| 229 | Evernyl (50% w/w in DPG) | Evernyl | 50% | Listed |
+
+### spice / aromatic
+
+| Source line | Stock label | Parser-normalized name | Label strength | Availability label |
+|---|---|---|---|---|
+| 232 | Black Pepper EO | Black Pepper EO | — | Listed |
+| 233 | Cardamom EO | Cardamom EO | — | Listed |
+| 234 | Ethyl Safranate | Ethyl Safranate | — | Listed |
+| 235 | Eugenol | Eugenol | — | Listed |
+| 236 | Isoeugenol | Isoeugenol | — | Listed |
+| 237 | Clove EO (India) | Clove EO | — | Listed |
+| 238 | Anise EO (China) | Anise EO | — | Listed |
+| 239 | Cinnamaldehyde | Cinnamaldehyde | — | Listed |
+| 240 | Lavender EO | Lavender EO | — | Listed |
+| 241 | Lavender EO High Altitude (angustifolia, France) | Lavender EO High Altitude | — | Listed |
+| 242 | Lavender EO (BONTAUX SAS) | Lavender EO | — | Listed |
+| 243 | Spike Lavender EO | Spike Lavender EO | — | Listed |
+| 244 | Beta-Pinene | Beta-Pinene | — | Listed |
+| 245 | Pine EO | Pine EO | — | Listed |
+| 246 | Juniper Berry EO | Juniper Berry EO | — | Listed |
+| 247 | Rosemary EO (French Rosmarinus Officinalis leaf oil) | Rosemary EO | — | Listed |
+| 248 | Clary Sage EO | Clary Sage EO | — | Listed |
+| 249 | Basil EO (India, Ocimum Basilicum) | Basil EO | — | Listed |
+| 250 | Patchouli EO | Patchouli EO | — | Listed |
+| 251 | Cassia Essential Oil (Cinnamomum cassia, India) | Cassia Essential Oil | — | Listed |
+| 252 | Olibanum Resinoid Absolute (10%) | Olibanum Resinoid Absolute | 10% | **DEPLETED** |
+| 253 | Frankincense EO | Frankincense EO | — | Listed |
+
+### accord bases / other
+
+| Source line | Stock label | Parser-normalized name | Label strength | Availability label |
+|---|---|---|---|---|
+| 256 | Jasmine FO | Jasmine FO | — | Listed |
+| 257 | Jasmine Sambac (10% in DPG) | Jasmine Sambac | 10% | Listed |
+| 258 | Leather FO | Leather FO | — | Listed |
+| 259 | Tonka Bean FO | Tonka Bean FO | — | Listed |
+| 260 | Sandalwood FO | Sandalwood FO | — | Listed |
+| 261 | BHT (Butylated Hydroxytoluene) — antioxidant stabilizer | BHT (Butylated Hydroxytoluene) — antioxidant stabilizer | — | Listed |
+| 262 | Melonal | Melonal | — | Listed |
+| 263 | Dimethyl Benzyl Carbinyl Acetate (DBCA) | Dimethyl Benzyl Carbinyl Acetate | — | Listed |
+| 264 | Methyl Nonyl Ketone | Methyl Nonyl Ketone | — | Listed |
+| 265 | Cassis Base 345B | Cassis Base 345B | — | Listed |
+
+## Verification and next boundary
+
+All 240 parser rows were matched one-to-one against the 240 source bullet lines, in order, with exact original-label agreement. Counts were recomputed with and without source-label depletion filtering. The source hash is recorded above for a post-write unchanged-source check.
+
+Inventory parsing is complete; the 30 mL formula is not constructed by this report. Before exact mass-based dosing or release, confirm the relevant stock fraction basis/density and supplier safety documentation. In particular, 10% Sambac in DPG must not be silently treated as 10% v/v. This report does not establish that any combination will remove or perceptually suppress Sambac's indolic drydown.

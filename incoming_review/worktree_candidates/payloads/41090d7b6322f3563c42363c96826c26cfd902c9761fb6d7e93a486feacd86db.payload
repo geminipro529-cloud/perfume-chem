@@ -1,0 +1,286 @@
+{
+  "schema_version": "complexity_module_registry_v8",
+  "predecessor_registry": {
+    "path": "configs/complexity/complexity_module_registry_v7.json",
+    "sha256": "d8bb80b7408944607e6d2b6f1d073d084157f4baeb13b1c223a95b883397072c"
+  },
+  "hash_policy": {
+    "registry_bytes": "RAW_SHA256",
+    "utf8_text_bindings": "CRLF_TO_LF_THEN_SHA256",
+    "bare_cr": "REJECT"
+  },
+  "compatibility_policy": {
+    "compatibility_successor_only": true,
+    "new_module_admission": false,
+    "runtime_module_set_changed": false,
+    "target_scope_changed": false,
+    "evidence_only_request_routing_admitted": false,
+    "historical_registry_rewritten": false,
+    "historical_receipt_rewritten": false
+  },
+  "compatibility_rebindings": [
+    {
+      "binding_id": "inventory-overlay",
+      "historical": {
+        "path": "data/governance/inventory_user_authority_overlay_20260831.json",
+        "sha256": "06a999b636c950b5d47f2fce0f6b79d74d83b686a06aa98e0bd141192b394297"
+      },
+      "current": {
+        "path": "data/governance/inventory_user_authority_overlay_20260904.json",
+        "sha256": "63c4abb4d809ddf7e5620288cf88e9f533455deecada4dd9df063770c7cf417f"
+      },
+      "change_class": "USER_AUTHORITY_SUCCESSOR",
+      "authority_effect": "NONE"
+    },
+    {
+      "binding_id": "ingredient-catalog",
+      "historical": {
+        "path": "data/knowledge_graph/ingredient_catalog.json",
+        "sha256": "23124317e449a3a8bf5190b05c39e1ae65c1694f8d0a7e44754cd9c8b9353fe6"
+      },
+      "current": {
+        "path": "data/knowledge_graph/ingredient_catalog.json",
+        "sha256": "2c8542c44b639ab3919254fea075e6a9f54b986f1f2d408a78f8564b2478c86e"
+      },
+      "change_class": "MATERIAL_CATALOG_SUCCESSOR",
+      "authority_effect": "NONE"
+    },
+    {
+      "binding_id": "inventory-parser",
+      "historical": {
+        "path": "engine/inventory_parser.py",
+        "sha256": "bad2bbc7fd0e9497500f53dcc0c3f28712a1a66ad040cd9dfb32dda2f78c9adf"
+      },
+      "current": {
+        "path": "engine/inventory_parser.py",
+        "sha256": "80112066592ae0146ebf55d276667287335b36d80ad719abd4531a0d88d6a561"
+      },
+      "change_class": "CURRENT_AUTHORITY_BINDING_SUCCESSOR",
+      "authority_effect": "NONE"
+    },
+    {
+      "binding_id": "name-aliases",
+      "historical": {
+        "path": "engine/name_utils.py",
+        "sha256": "adcdb2b1db033bb440f47888949aafde07ee47d2092baf9b647e2685565de07d"
+      },
+      "current": {
+        "path": "engine/name_utils.py",
+        "sha256": "a60d8bb4cd9915b177b80dca0ae7225ac4f1c65e0c3947e256e2e8d87a4e82b6"
+      },
+      "change_class": "EXPLICIT_NAME_ALIAS_SUCCESSOR",
+      "authority_effect": "NONE"
+    },
+    {
+      "binding_id": "legacy-inventory-text",
+      "historical": {
+        "path": "inventory.txt",
+        "sha256": "72d5d562be098642bffe11f32033735dc267e0b4c8857d29690cad218d1a4625"
+      },
+      "current": {
+        "path": "inventory.txt",
+        "sha256": "3e26b4dd3b6bfc1eeedc6bf613834de372389509e2875ef6684550fe41bd9caa"
+      },
+      "change_class": "LEGACY_TEXT_SUCCESSOR",
+      "authority_effect": "NONE"
+    },
+    {
+      "binding_id": "harmonic-registry-loader",
+      "historical": {
+        "path": "engine/perception/harmonic_runtime_registry.py",
+        "sha256": "90cd70919cacc07055008e85f35f5a5e6ce00ce8e6b54baee98a6228535f3480"
+      },
+      "current": {
+        "path": "engine/perception/harmonic_runtime_registry.py",
+        "sha256": "35e8a936e29e89ca3c9c1ebf64d6af59e6f60222703fb40d326997854916046b"
+      },
+      "change_class": "REGISTRY_VERSION_ROUTING_ONLY",
+      "authority_effect": "NONE"
+    },
+    {
+      "binding_id": "advisory-unknown-strength-firewall",
+      "historical": {
+        "path": "scripts/intervention_recommend.py",
+        "sha256": "abcf6f2f21ea965aedde8f0de531db08058005bcef2b4b57ed1872fb9b59c727"
+      },
+      "current": {
+        "path": "scripts/intervention_recommend.py",
+        "sha256": "f61483a031d17f7fac16b93fafd7327e9a0c9e536410c8bed3763db412910366"
+      },
+      "change_class": "FAIL_CLOSED_UNKNOWN_STOCK_STRENGTH_FIREWALL",
+      "authority_effect": "NONE"
+    }
+  ],
+  "material_data_rebinding": {
+    "historical_sha256": "3b10bc98da6ef37a593516895426258887947c804c217cac10c36fc9ff37d368",
+    "current_sha256": "4813a25cfa9fc3c299c55dec0b5d9971ffc3d3210eb2c8d6ce5de9eb22aa9c0c",
+    "change_class": "MATERIAL_IDENTITY_ALIAS_AND_STOCK_METADATA_SUCCESSOR",
+    "change_reason": "EXPLICIT_ALIAS_IDENTITY_AND_AMBER_MATERIAL_RECORD_REFRESH_WITHOUT_RUNTIME_OR_AUTHORITY_PROMOTION",
+    "authority_effect": "NONE"
+  },
+  "admission_evidence": [
+    {
+      "path": "data/governance/cypress_xhigh_screening_receipt_20260831.json",
+      "sha256": "926cb104633ae05850a8e8b7d04d6c05515c3212da1cafea14c03b3a706e167a"
+    },
+    {
+      "path": "data/governance/cypress_xhigh_admission_receipt_20260831.json",
+      "sha256": "a7d7a4a15f0e8173cdd3d8bb6a5460f7660474aeffc0e73f865e6f20027dfc22"
+    }
+  ],
+  "current_source_bindings": [
+    {
+      "path": "data/governance/depth_module_import_manifest_20260831.json",
+      "sha256": "bdd9e09b662b26dffe8ca1a782a774b4c8152d9545866a6af2294c5d42bf6946"
+    },
+    {
+      "path": "data/governance/depth_module_supporting_artifacts_manifest_20260831.json",
+      "sha256": "b10b1f5c8af4fcf20641e53733e1fad39c81262e0f740d88b95caac90847896d"
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260904.json",
+      "sha256": "63c4abb4d809ddf7e5620288cf88e9f533455deecada4dd9df063770c7cf417f"
+    },
+    {
+      "path": "data/governance/inventory_v5_current_stock_snapshot.json",
+      "sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99"
+    },
+    {
+      "path": "data/governance/inventory_worktree_sync_20260831_003.json",
+      "sha256": "c64537f8240ed870456127cb67ec86dae58b11bfe4e5bfe822c9400c89ca93e6"
+    },
+    {
+      "path": "data/knowledge_graph/ingredient_catalog.json",
+      "sha256": "2c8542c44b639ab3919254fea075e6a9f54b986f1f2d408a78f8564b2478c86e"
+    },
+    {
+      "path": "data/knowledge_graph/material_properties.json",
+      "sha256": "b9af6efd75677e024d1bba5a2b8c78c60cbf1dbb935d9f96f5ef713616c36bd6"
+    },
+    {
+      "path": "engine/evidence_contracts.py",
+      "sha256": "65e164b501a730a22ad2cf8bdee82b3f46c376dcc2764ab9efe99d09c50709c1"
+    },
+    {
+      "path": "engine/formula_analyzer.py",
+      "sha256": "f3982ab77dc52ecbd5ccdfe00c5b6647e6c8ea37cfce776529ef7ddd8bdd9525"
+    },
+    {
+      "path": "engine/inventory/authority.py",
+      "sha256": "d98952144f52e5489b4a0ea0a3a3ec26bb836b4b2194bea5e473154219faf4d4"
+    },
+    {
+      "path": "engine/inventory_parser.py",
+      "sha256": "80112066592ae0146ebf55d276667287335b36d80ad719abd4531a0d88d6a561"
+    },
+    {
+      "path": "engine/material_capability_atlas.py",
+      "sha256": "269c2d4d82fe14da614f3b7758f00489feace6dea4762828642380f37147a938"
+    },
+    {
+      "path": "engine/name_utils.py",
+      "sha256": "a60d8bb4cd9915b177b80dca0ae7225ac4f1c65e0c3947e256e2e8d87a4e82b6"
+    },
+    {
+      "path": "engine/perception/architectural_delta.py",
+      "sha256": "9392528676e1856cab096287ab8e1e68ee9d1352b0ed9f2fe4e20b6d36a060bb"
+    },
+    {
+      "path": "engine/perception/architecture_compiler.py",
+      "sha256": "310179d97f9f3fc66d69d7527bd2bd45aeba3a5c57bf14a2fb73513427ab90a7"
+    },
+    {
+      "path": "engine/perception/architecture_contracts.py",
+      "sha256": "5eac2e496d741dac50327d3622ea4893fdb9b8fc46bab151f4dc009d71289594"
+    },
+    {
+      "path": "engine/perception/cypress_benchmark.py",
+      "sha256": "41fe4c5a43d1afd061d5de62f41731e450edb6680fde5877f596f9bbcfb478f6"
+    },
+    {
+      "path": "engine/perception/cypress_harmonic_program.py",
+      "sha256": "65fdbe16d485ba8536d38b009376ccbc7045ec1bf681a4ed0345fb721f94c7a0"
+    },
+    {
+      "path": "engine/perception/cypress_heart_frontier.py",
+      "sha256": "59742beeb485f77ca85046b704188d74a2ef53c0d61b2d8ab19f2294a15cbbe5"
+    },
+    {
+      "path": "engine/perception/depth_contracts.py",
+      "sha256": "1800d31c0a395a857983f496a5e29bd7b27483a7ce4c616eba41d77372557347"
+    },
+    {
+      "path": "engine/perception/depth_evaluation.py",
+      "sha256": "049af2fb2c0df44d1f3e51806a13f753bf7794402047825aead45871ad36a9f2"
+    },
+    {
+      "path": "engine/perception/depth_family_adapters.py",
+      "sha256": "bd1c17fa501aca73c10831034c2065f8abf595a321d2296e78f3bb62745f150f"
+    },
+    {
+      "path": "engine/perception/harmonic_request_router.py",
+      "sha256": "b42b00f851df067b43b8363b7f2dbc991c248b6f832e214d5b76f68c0b21f491"
+    },
+    {
+      "path": "engine/perception/harmonic_runtime_registry.py",
+      "sha256": "35e8a936e29e89ca3c9c1ebf64d6af59e6f60222703fb40d326997854916046b"
+    },
+    {
+      "path": "engine/perception/harmonic_synthesis.py",
+      "sha256": "25d6f95d063a774648fd26bfc1711877a3d723201c95df4f7d16c0ac31a83c41"
+    },
+    {
+      "path": "engine/sensory/ledger.py",
+      "sha256": "fc6f3eb4da82d4e3cc59ea37b277a82dc6b08c7c9401b099ae70e71049ab7736"
+    },
+    {
+      "path": "engine/solforge/harmonic_runtime.py",
+      "sha256": "0f33af961da0d7769a185e5bba053a6ec014b79cf2c05774b974677a511e46cb"
+    },
+    {
+      "path": "scripts/intervention_recommend.py",
+      "sha256": "f61483a031d17f7fac16b93fafd7327e9a0c9e536410c8bed3763db412910366"
+    },
+    {
+      "path": "scripts/score_collection_formulas.py",
+      "sha256": "0382b589dc65ac0361744885c16ad2df5ddccfdfede4c6557d80a8c8fe69274c"
+    },
+    {
+      "path": "scripts/score_designer_prestige_18.py",
+      "sha256": "a427bdba6a243ba2460303d05160f7dea81d989d9ec7c50454d3c0a586249631"
+    },
+    {
+      "path": "scripts/verify_formula_workflow.py",
+      "sha256": "ab009800d7595f3ee1f0955291c06ca9b77498fd23269ef21afd878740bae4ad"
+    },
+    {
+      "path": "tests/test_advisory_unknown_strength_firewall.py",
+      "sha256": "047e88f505ee7c9e356f99dbb4fc3e724e05a31d6756f1aea7c3e82774ffb545"
+    },
+    {
+      "path": "inventory.txt",
+      "sha256": "3e26b4dd3b6bfc1eeedc6bf613834de372389509e2875ef6684550fe41bd9caa"
+    }
+  ],
+  "material_data_fingerprint": "4813a25cfa9fc3c299c55dec0b5d9971ffc3d3210eb2c8d6ce5de9eb22aa9c0c",
+  "admitted_scope": {
+    "cypress_target_architecture": true,
+    "target_variant_rebuild": true,
+    "inventory_and_authority_guarding": true,
+    "experiment_design": true,
+    "evidence_only_request_routing": false
+  },
+  "authority_flags": {
+    "compounding": false,
+    "formula": false,
+    "hedonic": false,
+    "physical_execution": false,
+    "purchase": false,
+    "release": false,
+    "safety": false,
+    "scientific": false,
+    "sensory": false,
+    "similarity": false,
+    "stability": false
+  }
+}

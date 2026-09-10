@@ -1,0 +1,221 @@
+{
+  "schema": "perfume-chem.evidence-ledger.v1",
+  "study_id": "ysl-lhomme-la-nuit-twenty-variant-study",
+  "claim_ceiling": "DOCUMENTARY_AND_COMPUTATIONAL_FORMULATION_HYPOTHESES_ONLY",
+  "target_evidence": [
+    {
+      "evidence_id": "YSL-LH-OFFICIAL-UK",
+      "target": "ysl_lhomme",
+      "source_class": "OFFICIAL_BRAND_PRODUCT_DESCRIPTION",
+      "url": "https://www.yslbeauty.co.uk/fragrances/fragrances-for-him/l-homme/l-homme-eau-de-toilette-spray/284YSL.html",
+      "supports": "Public L'Homme identity vocabulary and architecture, including the fresh citrus-ginger, aromatic-green, and woody-tonka relationship.",
+      "does_not_support": "Exact proprietary materials, exact percentages, or physical similarity."
+    },
+    {
+      "evidence_id": "YSL-LH-LAUNCH-2006",
+      "target": "ysl_lhomme",
+      "source_class": "CONTEMPORANEOUS_LAUNCH_REPORT",
+      "url": "https://be.fashionnetwork.com/news/Yves-saint-laurent-cree-une-nouvelle-fragrance-masculine%2C16123.html",
+      "supports": "Launch-era corroboration for the 2006 reference identity.",
+      "does_not_support": "Dose or complete formula reconstruction."
+    },
+    {
+      "evidence_id": "YSL-LH-IFF-LAUNCH",
+      "target": "ysl_lhomme",
+      "source_class": "INDUSTRY_LAUNCH_REPORT",
+      "url": "https://www.perfumerflavorist.com/home/news/21869747/iff-concocts-lhomme-yves-saint-laurent",
+      "supports": "Industry corroboration for L'Homme launch context and perfumery authorship context.",
+      "does_not_support": "A GC-MS formula or exact commercial composition."
+    },
+    {
+      "evidence_id": "YSL-LN-OFFICIAL-INT",
+      "target": "ysl_la_nuit",
+      "source_class": "OFFICIAL_BRAND_PRODUCT_DESCRIPTION",
+      "url": "https://www.yslbeauty.com/int/fragrance/fragrance-for-him/la-nuit-de-l-homme/la-nuit-de-l-homme-eau-de-toilette/426YSL.html",
+      "supports": "Public La Nuit de L'Homme cardamom-centered aromatic-woody identity vocabulary.",
+      "does_not_support": "Exact proprietary materials, exact percentages, or physical similarity."
+    },
+    {
+      "evidence_id": "YSL-LN-VETIVER-HAITI",
+      "target": "ysl_la_nuit",
+      "source_class": "OFFICIAL_BRAND_INGREDIENT_FEATURE",
+      "url": "https://www.yslbeauty.com/int/vetiver-heart-haiti/ingredients-vetiver.html",
+      "supports": "Vetiver as a documented target-level material/function context.",
+      "does_not_support": "The grade, lot, dose, or full drydown formula."
+    },
+    {
+      "evidence_id": "YSL-LN-LAUNCH-2009",
+      "target": "ysl_la_nuit",
+      "source_class": "CONTEMPORANEOUS_LAUNCH_REPORT",
+      "url": "https://www.vogue.fr/beaute/news-beaute/articles/la-nuit-de-lhomme-dyves-saint-laurent/18496",
+      "supports": "Launch-era corroboration for the 2009 reference identity.",
+      "does_not_support": "Dose or complete formula reconstruction."
+    },
+    {
+      "evidence_id": "IMMORTELLE-GCO-2019",
+      "target": "immortelle_function",
+      "source_class": "PEER_REVIEWED_GC_O_STUDY",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0926669019301001",
+      "supports": "Immortelle as a multidimensional curry, hay, herbal, floral, and fruity odor system rather than generic maple sweetness.",
+      "does_not_support": "Lot-specific headspace, exact dose in LN-05, or liking."
+    },
+    {
+      "evidence_id": "IMMORTELLE-CONCRETE-ABSOLUTE-2023",
+      "target": "immortelle_function",
+      "source_class": "PEER_REVIEWED_CONCRETE_ABSOLUTE_STUDY",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0254629923002843",
+      "supports": "Published constituent/function context for concrete and absolute profiles.",
+      "does_not_support": "The chemotype or measured headspace of the user's material."
+    },
+    {
+      "evidence_id": "APPLE-IMPACT-ODORANTS-2002",
+      "target": "apple_function",
+      "source_class": "PEER_REVIEWED_AROMA_STUDY",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/12108219/",
+      "supports": "Apple identity as an ester and green-fruit relationship with character-impact odorants.",
+      "does_not_support": "An apple note in commercial L'Homme or a preferred formula dose."
+    },
+    {
+      "evidence_id": "APPLE-HEADSPACE-GCO-2005",
+      "target": "apple_function",
+      "source_class": "PEER_REVIEWED_HEADSPACE_GC_O_STUDY",
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/S0023643805000629",
+      "supports": "Function evidence for potent apple odorants used to design a controlled apple module.",
+      "does_not_support": "Measured headspace of LH-04 or a YSL formula claim."
+    }
+  ],
+  "local_evidence": [
+    {
+      "evidence_id": "LOCAL-AUTHORITATIVE-INSTRUCTIONS",
+      "path": "D:\\chatbots\\perfume-chem\\AGENTS.md",
+      "sha256": "A3FF5D3B0165947AD8C96AFF6B16925442E3D7383214D7ADB90D7C1216EDAFB0",
+      "supports": "Current project-level formulation and diagnostic obligations."
+    },
+    {
+      "evidence_id": "LOCAL-COPILOT-INSTRUCTIONS",
+      "path": "D:\\chatbots\\perfume-chem\\.github\\copilot-instructions.md",
+      "sha256": "97640F0EA0FE8B79A073BE13AD84649C12EA548955CAB3D06CF3C5368D841AE9",
+      "supports": "Current formulation process, target-first, inventory, and musk governance."
+    },
+    {
+      "evidence_id": "LOCAL-INVENTORY-SNAPSHOT",
+      "path": "D:\\chatbots\\perfume-chem\\inventory.txt",
+      "sha256": "DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC",
+      "supports": "Frozen physical-stock roster before application of later direct-user events."
+    },
+    {
+      "evidence_id": "CURRENT-AUTHORITATIVE-INVENTORY-2026-08-28",
+      "path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\inventory.txt",
+      "sha256": "F8244E7B069B5D24C194FBA5F27B5A9504E94624839453464E37398680FFAC3E",
+      "supports": "Current physical-stock roster after the complete direct-user 2026-08-28 corrections, including Geranyl Acetate, Ambrettolide procurement state, and Polysantol out-of-stock state; authoritative for the next formula and physical preparation together with the cumulative successor overlay.",
+      "does_not_support": "Retrospective rebinding of frozen diagnostics, material condition, liking, similarity, stability, safety, measured headspace, or release."
+    },
+    {
+      "evidence_id": "CURRENT-COPILOT-INSTRUCTIONS-2026-08-28",
+      "path": "C:\\Users\\ASUS\\.codex\\worktrees\\6992\\perfume-chem\\.github\\copilot-instructions.md",
+      "sha256": "E76F4B6306F2A4DFF8628B8A150EF616AE3EA0854705383F2C4499BA5A5E94C0",
+      "supports": "Current target-first formulation, inventory, musk, pipetting-floor, and claim-ceiling instructions for successor work."
+    },
+    {
+      "evidence_id": "LOCAL-FAMILY-REFERENCE",
+      "path": "D:\\chatbots\\perfume-chem\\docs\\fragrance_families_reference.md",
+      "sha256": "467C759EA52412BE0EA8AF7C77F0F14D9FB59DE7B99722FCE57EE2415FBB7401",
+      "supports": "Static family vocabulary and buildability context; live deterministic diagnostics remain authoritative."
+    },
+    {
+      "evidence_id": "SOL-LH-FROZEN",
+      "path": "D:\\chatbots\\perfume-chem\\formulas\\L_Homme_Luxe_30mL_EdP.md",
+      "sha256": "44ABA8B5153D26A8AFA5CD07B20974EAAF66A5D659FEECC13D59EEF6F917E0FD",
+      "supports": "Immutable Sol xhigh comparison baseline on its declared 6000 uL concentrate basis.",
+      "does_not_support": "Matched physical performance or liking."
+    },
+    {
+      "evidence_id": "SOL-LN-FROZEN",
+      "path": "D:\\chatbots\\perfume-chem\\formulas\\La_Nuit_de_LHomme_Luxe_30mL_EDT.md",
+      "sha256": "254A73B6B45420CF89034FC5C2CAABCAACE9A197BE315C31E9958E4A5CFDAEBB",
+      "supports": "Immutable Sol xhigh comparison baseline on its declared 4500 uL concentrate basis.",
+      "does_not_support": "Matched physical performance or liking."
+    }
+  ],
+  "direct_user_stock_evidence": [
+    {
+      "evidence_id": "USR-STOCK-MUSKS-2026-08-26",
+      "event": "Habanolide and Romandolide are owned; Ambrettolide 10% is design-available and procurement-pending.",
+      "authority_limit": "Ambrettolide is not executable current stock; the later 2026-08-28 readiness event establishes Habanolide and Romandolide as neat w/w."
+    },
+    {
+      "evidence_id": "USR-STOCK-EB-2026-08-26",
+      "event": "EB is here.",
+      "authority_limit": "Possession only; physical dosing still requires label or receipt verification."
+    },
+    {
+      "evidence_id": "USR-STOCK-TINCTURES-2026-08-27",
+      "event": "All tinctures are lost.",
+      "authority_limit": "Every tincture is excluded from current-inventory builds."
+    },
+    {
+      "evidence_id": "USR-STOCK-CORRECTION-2026-08-28",
+      "effective_date": "2026-08-28",
+      "event": "Ethylene Brassylate is owned; Amber Xtreme is 10% w/w in DEP; Alpha Irone is 10% w/w in DEP; Opoponax Resinoid and Myrrh EO are each nominal 50% in DEP with basis unspecified; premium Osmanthus Absolute and Rose de Mai Absolute are each nominal 10% in DPG with basis unspecified; volume-grade Osmanthus, Lemon FCF oil Sicilian, Clearwood, Givaudan AIMI, Cedarwood oil Virginia, Red Mandarin EO, and Rose Essential Oil are owned neat; Red Saffron Infusion is owned in DPG with concentration unspecified; the three user names canonicalize to existing rows without duplicates.",
+      "all_tinctures": "OUT_OF_STOCK",
+      "ambrettolide": "DESIGN_AVAILABLE_PROCUREMENT_PENDING",
+      "basis_unspecified": [
+        "Opoponax Resinoid (50% in DEP)",
+        "Myrrh EO (50% in DEP)",
+        "Osmanthus Absolute (10% in DPG)",
+        "Rose de Mai Absolute (10% in DPG)"
+      ],
+      "concentration_unspecified": [
+        "Red Saffron Infusion"
+      ],
+      "authority_limit": "Stock authority only. Nominal stocks with unrecorded percentage basis remain VERIFY_FIRST for active ppm, OAV, stock rebase, safety, and release calculations. Red Saffron Infusion remains HOLD for physical formula dosing and modeling until its concentration is supplied."
+    },
+    {
+      "evidence_id": "USR-STOCK-READY-CORRECTION-2026-08-28-LATE",
+      "effective_date": "2026-08-28",
+      "event": "The user states that every listed percentage basis is w/w and the listed stocks are ready as described; Neroli is owned neat; Red Saffron Infusion is the maximum-concentration as-supplied DPG product; Geranyl Acetate is owned neat; Ambrofix still has visible crystals.",
+      "all_percentage_bases": "w/w",
+      "neroli": "OWNED_NEAT_EXECUTION_READY",
+      "geranyl_acetate": "OWNED_NEAT_EXECUTION_READY",
+      "red_saffron_infusion": "100_PERCENT_AS_SUPPLIED_PRODUCT_W_W_IN_DPG_EXECUTION_READY",
+      "ambrofix": "OWNED_HETEROGENEOUS_VERIFY_FIRST",
+      "supersedes": "USR-STOCK-CORRECTION-2026-08-28 for percentage basis and as-supplied execution readiness",
+      "authority_limit": "As-supplied Red Saffron product readiness does not reveal its proprietary saffron-active fraction. Visible Ambrofix crystals keep pipetted active concentration, strict OAV, stability, safety, and release on HOLD."
+    },
+    {
+      "evidence_id": "USR-AP-T1-CINNAMON-SUBSTITUTION-2026-08-28",
+      "effective_date": "2026-08-28",
+      "event": "For AP-T1 v3 only, the user authorizes 3 uL NYSUPPLY Cinnamon Bark EO 10% as the sensory-use replacement for 10 uL Cinnamaldehyde 1%; the executable arm uses 10 uL of the disclosed nominal 3% working stock after carrier and basis verification.",
+      "scope_formula_uid": "ysl20:LH-04:AP-T1:v3",
+      "authority_limit": "Sensory-use substitution for this dose only; not chemical, active-mass, OAV, safety, stability, or generally scalable equivalence."
+    },
+    {
+      "evidence_id": "USR-STOCK-POLYSANTOL-OUT-2026-08-28-LATE",
+      "effective_date": "2026-08-28",
+      "event": "The user states that Polysantol is out of stock.",
+      "polysantol": "OUT_OF_STOCK",
+      "formula_effect": "EXCLUDE_FROM_CURRENT_BUILD",
+      "authority_limit": "Stock authority only; does not prove sensory equivalence of any replacement, require procurement, or rewrite historical diagnostics."
+    }
+  ],
+  "provider_audits": [
+    {
+      "audit_id": "DEEPLUNA-TASK1-MANIFEST-INSTRUCTION-AUDIT",
+      "job_id": "DS-6e51b644d4e8ea8c225c252029005e7a",
+      "route": "DIRECT_PRO_NO_LUNA",
+      "status": "FAIL",
+      "execution_status": "INCOMPLETE",
+      "evidence_verdict": "UNRESOLVED",
+      "accepted_findings": [],
+      "handling": "Failed closed. No provider statement is authoritative or used to construct the overlay."
+    }
+  ],
+  "unmeasured_claims": {
+    "physical_liking": "NOT TESTED",
+    "sensory_similarity": "NOT TESTED",
+    "stability": "NOT TESTED",
+    "safety": "NOT CLEARED",
+    "measured_headspace": "NOT TESTED",
+    "release": "NOT CLEARED"
+  }
+}

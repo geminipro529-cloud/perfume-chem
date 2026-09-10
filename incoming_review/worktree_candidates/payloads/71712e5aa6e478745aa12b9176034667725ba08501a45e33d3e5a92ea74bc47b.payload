@@ -1,0 +1,100 @@
+# DHI-11 V5 — Orris/Tonkarome scientific-data audit — 2026-09-05
+
+**Implemented at fixed doses. Current diagnostic: 106 PASS / 36 WARN / 3 FAIL / 1 SKIP; diagnostic overall FAIL; controlling release decision HOLD.** All 23 stock bindings remain PASS. G15 is PASS and the planned-volume receipt is BOUND, with physical-metrology and release authority false. The six architecture declarations still match; that is not a match to Dior's confidential ingredient formula.
+
+The 30 mL and half-size pour schedules are unchanged. Irotyl remains excluded by the design constraint; this audit does not purport to prove the undisclosed commercial formula's complete composition.
+
+## Primary evidence and claim boundaries
+
+### Orris Liquid
+
+[PerfumersWorld SKU 8IQ24653](https://www.perfumersworld.com/view.php?pro_id=8IQ24653) gives an 80–85% irone description but no fraction basis, isomer distribution or owned-lot assay. Its specific gravity is not a verified 25 °C working-stock density. The [linked documents](https://www.perfumersworld.com/document-list.php?pro_id=8IQ24653) lack an IFRA certificate and usable composition/physical-property data; the displayed generic CoA is not an irone assay or a match to the owned lot.
+
+**Adjudication:** the former 0.825 alpha-irone-equivalent constituent tuple is withdrawn. Coverage zero means no accepted assay, not zero irones. The confirmed preparation is 9% w/w supplied product in DEP, not 9% pure irone. Product OAV remains UNKNOWN; the system must not fall through to a numerical monomolecular OAV.
+
+[Yamazaki and Miyazaki's 2025 study](https://www.nature.com/articles/s41598-025-08925-z) compares specific orris/irone samples and reports character differences and impurity effects. It supports caution about alpha-irone equivalence; it is not an assay of SKU 8IQ24653, a product ODT measurement, proof of DHI2011 ingredients, or a finished-perfume optimum. No numerical liking ratio was extracted.
+
+### Tonkarome
+
+[PW SKU 2QV23715](https://www.perfumersworld.com/view.php?pro_id=2QV23715) identifies a mixture and tonka substitute associated with Synarome. The [Ventós specification](https://ventos.com/index.php/?codi=001_RAYOWSKUET_3969&idi=EN&option=com_evsa&task=documentacion.mostrar) identifies coumarin, reports vapor pressure undetermined and supplies no density. The inventory's Firmenich attribution is unresolved, not silently rewritten as a different physical bottle.
+
+The [PW public documents](https://www.perfumersworld.com/document-list.php?pro_id=2QV23715) are internally inconsistent: SDS benzyl benzoate 40–50% and coumarin 20–30% do not reconcile with the allergen table's benzyl benzoate 7.2366% and missing coumarin row. Category 4 maxima differ by listed application; a conformity statement coexists with a prohibited-material notice. The generic CoA appearance also differs from the product description. These are disputed supplier assertions, not accepted composition or safety clearance.
+
+**Adjudication:** classify Tonkarome as an opaque mixture. MW 160, VP 0.05 Pa and the two ODT estimates have no verified product measurement here. Keep legacy numbers visibly labeled as placeholders for diagnostic continuity, but withhold its OAV. Coumarin presence does not establish glycoside precursors or their transformation on skin. Preserve the 20% w/w supplied-product preparation in TEC.
+
+[IFRA's official guidance](https://ifrafragrance.org/initiatives-positions/safe-use-fragrance-science/ifra-standards) states that conformity documentation does not replace a safety assessment. Missing or conflicting documentation cannot be repaired by choosing a generous application limit.
+
+## Implemented corrections
+
+| Failure mechanism | Corrected behavior |
+|---|---|
+| Catalog midpoint promoted to Orris constituent composition | Remove the invented tuple; retain explicit hold metadata, sources and limitations |
+| Tonkarome treated as a single molecule | Opaque-mixture classification; OAV and intensity UNKNOWN during initial and time/amount-evolved states |
+| Unknown mixture data contributing ordinary estimated confidence | Quarantined-source labels receive the maximum unavailable-evidence flag, not an ordinary estimate; not a statistical uncertainty interval |
+| Tonkarome substring matched natural tonka glycosides | Explicit evidence-needed warning replaces the asserted transformation |
+| Wrong concentration-basis attribute; duplicate carrier warning | Read declared stock_fraction_basis; reject unsupported/undeclared bases once per material |
+| Four catalog-density projections called authoritative grams | Keep projected active_g as diagnostic only; withhold authoritative mass without lot/temperature evidence |
+| Missing IFRA limit called compliant | Explicit incomplete coverage; absent limits do not mean unrestricted |
+| Exact/profile limit lookup discarded zero | Preserve zero, reject any positive amount under a zero limit, avoid division by zero and JSON infinity |
+| Scorer/gate alias coverage disagreement | Gate includes every unchecked scorer identity; do not silently resolve conflicting AIMI limits |
+| Volume-based safety screen claiming mass-based authorization | Always provisional; even an independent mass chain does not mean this volume scorer evaluated it |
+| UNKNOWN OAV rendered as absent family contribution | Report known-subset percentages with incomplete full-mixture scope; all-unknown families display UNKNOWN |
+| Scientific analysis displayed after gate labels | Full formatter now leads with headspace and temporal evidence; explicit UTF-8/Unicode output supported |
+
+Orris stock metadata now mirrors 9% w/w DEP. Tonkarome's case-colliding catalog/runtime rows were consolidated into one record with the original supplier SKU, the confirmed 20% w/w TEC preparation and qualified provenance. Legacy numerical fields are not newly validated. The ignored material-properties cache has corrected Orris stock wording/fraction and explicit proxy warnings; no global generator rewrite was run. That cache remains a legacy consumer and must not supply release or hedonic authority.
+
+No inventory.txt bytes, authority overlay pins, historical stock receipts, unrelated stock records, formula doses or parent V4 bytes were changed in this audit. No new pipeline script, physical bottle event, external-provider call, commit or push was made.
+
+## Diagnostic changes and what they mean
+
+| Gate | Previous stock-reconciled run | Current scientific audit |
+|---|---|---|
+| pipeline_preflight | WARN | FAIL |
+| natural_composite_coverage | PASS | FAIL — Orris evidence missing |
+| opaque_preblends | PASS | FAIL — Tonkarome unresolved |
+| osmotheque_archivability | PASS | WARN |
+| master_perfumer_gate | PASS | WARN |
+| concentration_basis | WARN | PASS |
+
+The three failures are two material-evidence gaps plus their aggregate, not three demonstrated smell defects. Recognizing a proprietary blend does not itself mean that the blend smells bad. No opacity allowance was enabled to clear this run.
+
+The remaining 36 warnings include genuine safety/mass/carrier and data-quality gaps, plus legacy receptor caps, generic family/OAV targets, price assumptions and aesthetic heuristics. Those heuristic warnings were not promoted to scientific laws or used to alter the perfume. The original six intended helper roles that screened low remain hypotheses for controlled omission tests, not proof of dispensability. Numerical balances now exclude two unknown OAVs and cannot decide whether the perfume is iris-led.
+
+## Mass and safety evidence still required
+
+All 23 delivered masses remain unmeasured and all 23 authoritative-active-mass fields are unavailable. Seventeen rows use density fallbacks. The four working-stock fractions are known, but fraction alone does not establish delivered product mass or carrier volume. The four formerly exact natural masses were catalog-density projections, not weighed exceptions.
+
+Thirteen current-formula names lack explicit local Category 4 records. This count is not a regulatory blacklist. AIMI additionally has conflicting alternate-name entries; neither 7.26 nor 20.0 is automatically accepted. The worksheet enumerates every row and the needed document/measurement.
+
+The [mass and safety worksheet](../../formulas/DHI-11_V5_MASS_AND_SAFETY_WORKSHEET.md) supplies blank lot-bound records, carrier equations, raw-stock-concentrate and finished-batch denominator definitions, and the existing measurement-workflow boundary. Delivered-mass fields in the design JSON are placeholders, not release-CLI inputs. A reviewed ingestion bridge and real evidence remain necessary; the audit did not fabricate either.
+
+## What the system has and has not learned
+
+Persisted knowledge consists of corrected source interpretation, withdrawal rules, alias/zero-limit/unknown-value negative controls and a traceable evidence checklist. This is testable project behavior, not new sensory data or a model-weight update.
+
+The formula is still NOT COMPOUNDED. Liking, DHI2011 similarity, smoothness, layer distinctness, diffusion, longevity and stability remain NOT TESTED. Research and unit tests cannot establish absolute hedonism. After safety and execution requirements are satisfied, the next sensory evidence is the existing blinded, carrier-matched comparison/omission protocol with repeated observations—not a higher ingredient count or an optimized OAV score.
+
+## Verification
+
+The initial 20-case negative-control suite reproduced 16 failures and had 4 existing passes. One early post-fix test selected a sorted row by position instead of name; that test bug was corrected. Independent native read-only reviews found the alias-coverage, tiny zero-limit, unknown-family and source-confidence issues; the parent verified and fixed them.
+
+The final affected-consumer run passed **264 tests, 0 failures across 12 files**. Its **7,360 warnings** are repeated instances of the same pytest_asyncio deprecation under Python 3.14, not 7,360 perfume warnings. Stale stock/coverage expectations were replaced with current explicit identities and arithmetic coverage checks; no evidence-coverage score floor was lowered to retain a false pass. A full repository/release suite was not run.
+
+Fresh report: `output/dhi2011_v5_scientific_data_audit_20260905/release_gate.json`.
+Raw report SHA-256: `8237d116bf67d4d9dafb404eebe208b7430706aef58b36ecfeb225f9dfaf1272`.
+Full formatter output: `output/dhi2011_v5_scientific_data_audit_20260905/analysis.txt`; shown verbatim in chat and appended to the master.
+The prior stock-reconciliation report is retained as historical evidence, not current scientific acceptance.
+
+Literature-first and verification skills kept edits source-led and scoped; native reviewers were read-only and the parent retained scientific decisions, edits and verification. Plugin Management exposed management operations rather than a literature-search facility, so no plugin permission or installation was changed. Research used built-in primary-source browsing.
+
+## DHP reference preference — 2026-09-06
+
+The user explicitly selected **DHP 2025 — newer reference** for related Dior comparison. The selected local key is `iris_sandalwood.dhp2025`, with qualitative secondary-reference use only: its numerical ingredient requirements and OAV ratios are not accepted without revalidation. DHI 2011 remains the formula target and current diagnostic archetype. No dose, physical stock, Irotyl exclusion, safety boundary or acceptance threshold was changed for this preference.
+
+The repository contains two different design heuristics in `engine/families/registry.py`: `leather_iris_amber.dhp2014`, with leather/oud anchors, and `iris_sandalwood.dhp2025`, with Sandalore/Polysantol anchors and Irotyl among allowed iris-group members. These are local assumptions, not authenticated Dior formulas, measured reference profiles or verified ingredient lists. They must not automatically supply replacement materials or numerical acceptance criteria for DHI 2011.
+
+The current [official Dior Homme Parfum description](https://www.dior.com/en_int/beauty/products/dior-homme-parfum-E000000226.html), checked on September 6, attributes the reinterpretation to Francis Kurkdjian and describes root-to-flower iris alongside an amber accord featuring patchouli, vetiver and coumarin notes. This supports a broad reference discussion; it does not establish the registry's named sandalwood molecules, their minimum ratios, an Irotyl ingredient claim, or a DHI 2011 composition. The older DHP version was not authenticated from this current page. No DHP-specific diagnostic has been run or accepted.
+
+The selected comparison is now explicit: (1) use the iris root/powder relationship to question V5's proposed Orris/irone/ionone structure, without claiming it matches DHP; (2) compare the intended warm interior with the described amber/coumarin direction, while Tonkarome composition remains unresolved; (3) recognize the deliberate wood difference—V5 has a cedar/vetiver return and no selected patchouli stock. That difference is not automatically a defect because DHI 2011 remains the target. No Sandalore, Polysantol, patchouli or Irotyl is added to satisfy the adjacent reference model. This is a source-led structural comparison, not a newly passed computational or sensory test.
+
+Final artifact checks found that a new current-status paragraph placed in the formula definition changed its semantic hash despite unchanged dose rows. The paragraph was moved into the existing Pipeline Analysis section rather than changing the report binding or formula definition. The fixed-dose master retains semantic SHA-256 `279ba9f447847b63313b151bb0d5b059b10c160305947d514739ba3617c27232`; the raw report remains immutable. The independent pour card and this audit retain current status prominently.

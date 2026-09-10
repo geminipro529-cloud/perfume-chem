@@ -1,0 +1,75 @@
+{
+  "schema_version": "perfume_chem_external_capture_manifest_v1",
+  "recorded_at": "2026-08-12T17:05:58+07:00",
+  "state": "SOURCE_CAPTURE_QUARANTINED_NOT_ADMITTED",
+  "source": {
+    "conversation_id": "6a74ba3d-4110-83ec-a421-ddc02fcd224f",
+    "source_path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/outputs/ACCORD_INTEL_DARK_DARK-SCR-20B_GUAIACWOOD_GUAIACOL_NAMESPACE_REPAIR_v1_1_20260812.zip",
+    "retrieval_method": "EXACT_LOCAL_SOURCE_COPY",
+    "source_sidecar": {
+      "path": "C:/Users/ASUS/.codex/.chatgpt-projects/g-p-6a74ab83668081919f5cbd0dfe80eb09/outputs/ACCORD_INTEL_DARK_DARK-SCR-20B_GUAIACWOOD_GUAIACOL_NAMESPACE_REPAIR_v1_1_20260812.zip.sha256.txt",
+      "byte_size": 152,
+      "sha256": "c71e35f0573e1587a81cee44b4893bf2f51893e56bbe91645071ca665ad8879b",
+      "declared_outer_sha256_matches": true
+    }
+  },
+  "captured_artifact": {
+    "file_name": "ACCORD_INTEL_DARK_DARK-SCR-20B_GUAIACWOOD_GUAIACOL_NAMESPACE_REPAIR_v1_1_20260812.zip",
+    "byte_size": 7836,
+    "sha256": "1ccd3cedd289bd13ab639e586de8ae32fbff8319c1d8f42ff08203c3c52901e9",
+    "media_type": "application/zip",
+    "copy_matches_source": true
+  },
+  "integrity": {
+    "zip_crc_clean": true,
+    "safe_member_paths": true,
+    "duplicate_member_names": false,
+    "archive_members": 6,
+    "embedded_ledger_entries": 5,
+    "embedded_ledger_mismatches": 0,
+    "manifest_members_exact": true,
+    "validation_checks_passed": 32,
+    "validation_checks_failed": 0
+  },
+  "native_quarantine": {
+    "single_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "nodes": 1,
+    "edges": 0,
+    "all_nodes_terminal": true,
+    "finding_codes": [],
+    "promotion_allowed": false
+  },
+  "parents": [
+    {
+      "file_name": "ACCORD_INTEL_CHAT2_DARK_MATERIALS_v2.zip",
+      "byte_size": 68633,
+      "sha256": "20ac62a0a5e639f8a5225937690b582c6c6837b74c6c1311786071bc50ba40ba",
+      "local_exact_bytes_verified": true,
+      "native_graph_status": "CLEAR_FOR_RECEIPT_REVIEW",
+      "included_or_mutated": false
+    },
+    {
+      "file_name": "ACCORD_INTEL_DARK_DARK-SCR-03_GUAIACWOOD_GUAIACOL_v1_20260810.zip",
+      "byte_size": 166497,
+      "sha256": "90f610273aa3c8fab21895a5ca11dd67051e4631509376f03bf5a38337181d2e",
+      "local_exact_bytes_verified": true,
+      "native_graph_status": "GRAPH_COMPLETE_QUARANTINED",
+      "included_or_mutated": false
+    }
+  ],
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "physical_execution": false,
+    "sensory": false,
+    "mechanism": false,
+    "model_training": false,
+    "safety": false,
+    "publication": false,
+    "release": false,
+    "cross_chat_integration": false
+  }
+}

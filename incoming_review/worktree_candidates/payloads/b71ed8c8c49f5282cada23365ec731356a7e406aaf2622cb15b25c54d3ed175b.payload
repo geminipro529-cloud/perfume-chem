@@ -1,0 +1,20 @@
+[
+  {"name": "Bergamot EO (expressed)", "bergaptene_ppm": 3300, "ifra_max_leaveon_pct": 0.4, "class": "phototoxic"},
+  {"name": "Bergamot FCF", "bergaptene_ppm": 0.5, "ifra_max_leaveon_pct": 2.0, "class": "fcf_safe"},
+  {"name": "Bergamot FCF Sicilian", "bergaptene_ppm": 0.5, "ifra_max_leaveon_pct": 2.0, "class": "fcf_safe"},
+  {"name": "Lime EO (expressed)", "bergaptene_ppm": 3300, "ifra_max_leaveon_pct": 0.4, "class": "phototoxic"},
+  {"name": "Lemon EO (cold pressed)", "bergaptene_ppm": 1800, "ifra_max_leaveon_pct": 0.6, "class": "phototoxic"},
+  {"name": "Bitter Orange EO (expressed)", "bergaptene_ppm": 2000, "ifra_max_leaveon_pct": 0.5, "class": "phototoxic"},
+  {"name": "Grapefruit EO (expressed)", "bergaptene_ppm": 1000, "ifra_max_leaveon_pct": 1.0, "class": "phototoxic"},
+  {"name": "Grapefruit FCF", "bergaptene_ppm": 0.5, "ifra_max_leaveon_pct": 2.0, "class": "fcf_safe"},
+  {"name": "Cumin EO", "bergaptene_ppm": 1500, "ifra_max_leaveon_pct": 0.4, "class": "phototoxic"},
+  {"name": "Angelica Root EO", "bergaptene_ppm": 5000, "ifra_max_leaveon_pct": 0.08, "class": "highly_phototoxic"},
+  {"name": "Rue EO", "bergaptene_ppm": 8000, "ifra_max_leaveon_pct": 0.15, "class": "highly_phototoxic"},
+  {"name": "Petitgrain Mandarin", "bergaptene_ppm": 50, "ifra_max_leaveon_pct": null, "class": "borderline"},
+  {"name": "Tangerine EO (cold pressed)", "bergaptene_ppm": 50, "ifra_max_leaveon_pct": null, "class": "borderline"},
+  {"name": "Parsley Leaf EO", "bergaptene_ppm": 20, "ifra_max_leaveon_pct": null, "class": "borderline"},
+  {"name": "Tagetes EO", "bergaptene_ppm": 200, "ifra_max_leaveon_pct": 0.01, "class": "phototoxic", "note": "Tagetes minuta / Tagetes patula"},
+  {"name": "Fig Leaf Absolute", "bergaptene_ppm": 100, "ifra_max_leaveon_pct": 0.5, "class": "phototoxic", "note": "Ficus carica leaf — moderate phototoxicity"},
+  {"name": "Clementine EO (cold pressed)", "bergaptene_ppm": 30, "ifra_max_leaveon_pct": null, "class": "borderline"},
+  {"name": "Mandarin Leaf EO (Petitgrain Mandarin)", "bergaptene_ppm": 50, "ifra_max_leaveon_pct": null, "class": "borderline", "note": "Citrus reticulata leaf — same as Petitgrain Mandarin"}
+]

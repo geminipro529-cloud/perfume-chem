@@ -1,0 +1,187 @@
+"""Unadmitted floral-to-whole composition using the real specialist adapters.
+
+This is a persistable structural composition result, not an admission receipt.
+It retains the complete native floral source alongside the versioned whole
+blueprint. Other specialist assessments remain explicit inputs, not invented
+coverage. No material selection, dosing, observation, or release is performed.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, fields
+from typing import Any, Iterable, Mapping
+
+from .contracts import AssessmentScope, PlaneAssessment, ProvenanceRef, _CanonicalRecord, _payload
+from .family_architecture import FamilyResolution
+from .floral_integration import FloralFamilyIntegrationAdapter
+from .floral_lattice import (
+    BouquetMember,
+    BouquetRelation,
+    CustomFloralExpression,
+    CustomFloralFacet,
+    FacetOmission,
+    FacetSelection,
+    FloralCandidateSignals,
+    FloralMorphologyIntent,
+    MorphologyEvidence,
+    NaturalMixtureRepresentation,
+    TemporalTransformation,
+)
+from .inventory_projection import IdealProposal, InventoryProjection
+from .plane_synthesis import PlaneSynthesisResult
+from .whole_perfume_assembler import (
+    WholePerfumeBlueprint,
+    assemble_whole_perfume_blueprint,
+)
+
+
+@dataclass(frozen=True, slots=True)
+class FloralWholePerfumeAssembly(_CanonicalRecord):
+    """Complete native input and its derived whole blueprint; no admission."""
+
+    SCHEMA_VERSION = "floral_whole_perfume_assembly_v1"
+
+    floral_source: FloralFamilyIntegrationAdapter
+    blueprint: WholePerfumeBlueprint
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.floral_source, FloralFamilyIntegrationAdapter):
+            raise TypeError("floral_source must be FloralFamilyIntegrationAdapter")
+        if not isinstance(self.blueprint, WholePerfumeBlueprint):
+            raise TypeError("blueprint must be WholePerfumeBlueprint")
+        if self.floral_source.scope.target_scope != self.blueprint.ideal_proposal.ideal_target_id:
+            raise ValueError("floral source must bind the exact ideal target")
+        expected = self.floral_source.to_synthesis()
+        for assessment in expected.assessments:
+            plane = next(p for p in self.blueprint.planes if p.plane_id == assessment.plane_id)
+            if assessment not in plane.assessments or expected not in plane.syntheses:
+                raise ValueError("whole blueprint must retain the exact floral synthesis")
+
+    def as_dict(self) -> dict[str, Any]:
+        source = self.floral_source
+        return {
+            "schema_version": self.SCHEMA_VERSION,
+            "floral_source": {
+                "resolution": source.resolution.as_dict(),
+                "intent": source.intent.as_dict(),
+                "scope": source.scope.as_dict(),
+                "evidence": [item.as_dict() for item in source.evidence],
+                "candidate_signals": source.candidate_signals.as_dict(),
+            },
+            "blueprint": self.blueprint.as_dict(),
+        }
+
+    @classmethod
+    def from_dict(cls, payload: Mapping[str, Any]) -> FloralWholePerfumeAssembly:
+        data = _payload(payload, cls.SCHEMA_VERSION)
+        source = data["floral_source"]
+        if not isinstance(source, Mapping) or set(source) != {
+            "resolution",
+            "intent",
+            "scope",
+            "evidence",
+            "candidate_signals",
+        }:
+            raise ValueError("floral_source requires its exact closed fields")
+        if not isinstance(source["evidence"], list):
+            raise TypeError("evidence must be a JSON array")
+        intent = _read_native_floral(source["intent"])
+        signals = _read_native_floral(source["candidate_signals"])
+        if not isinstance(intent, FloralMorphologyIntent) or not isinstance(
+            signals, FloralCandidateSignals
+        ):
+            raise TypeError("intent and signals must use their exact native record types")
+        return cls(
+            FloralFamilyIntegrationAdapter(
+                resolution=FamilyResolution.from_dict(source["resolution"]),
+                intent=intent,
+                scope=AssessmentScope.from_dict(source["scope"]),
+                evidence=tuple(_read_native_floral(item) for item in source["evidence"]),
+                candidate_signals=signals,
+            ),
+            WholePerfumeBlueprint.from_dict(data["blueprint"]),
+        )
+
+
+# No import-by-name, pickle, eval, or dynamically selected code. Every accepted
+# record has a fixed constructor whose existing validation is mandatory.
+_NATIVE_FLORAL_RECORDS = {
+    record.SCHEMA_VERSION: record
+    for record in (
+        BouquetMember,
+        BouquetRelation,
+        CustomFloralExpression,
+        CustomFloralFacet,
+        FacetOmission,
+        FacetSelection,
+        FloralCandidateSignals,
+        FloralMorphologyIntent,
+        MorphologyEvidence,
+        NaturalMixtureRepresentation,
+        TemporalTransformation,
+        AssessmentScope,
+        ProvenanceRef,
+    )
+}
+
+
+def _read_native_floral(value: Any, depth: int = 0) -> Any:
+    if depth > 24:
+        raise ValueError("native floral record nesting limit exceeded")
+    if isinstance(value, list):
+        return tuple(_read_native_floral(item, depth + 1) for item in value)
+    if isinstance(value, Mapping):
+        schema = value.get("schema_version")
+        if not isinstance(schema, str) or schema not in _NATIVE_FLORAL_RECORDS:
+            raise ValueError("unknown native floral record schema")
+        record = _NATIVE_FLORAL_RECORDS[schema]
+        names = {item.name for item in fields(record)}
+        if set(value) != {"schema_version", *names}:
+            raise ValueError("native floral record fields must match the closed schema")
+        return record(**{name: _read_native_floral(value[name], depth + 1) for name in names})
+    if value is None or isinstance(value, (str, int, float, bool)):
+        return value
+    raise TypeError("native floral data must contain JSON values only")
+
+
+def assemble_floral_whole_perfume(
+    ideal: IdealProposal,
+    projection: InventoryProjection,
+    floral_source: FloralFamilyIntegrationAdapter,
+    *,
+    assessments: Iterable[PlaneAssessment] = (),
+    syntheses: Iterable[PlaneSynthesisResult] = (),
+    version: int,
+    predecessor_sha256: str | None = None,
+) -> FloralWholePerfumeAssembly:
+    """Execute family/morphology adapters and preserve their exact sources.
+
+    Missing or unresolved evidence remains in the derived planes. The caller
+    cannot retarget an unrelated floral source by passing a different inventory
+    projection. Additional planes are preserved without being labeled as
+    specialist execution by this function.
+    """
+
+    if not isinstance(ideal, IdealProposal):
+        raise TypeError("ideal must be IdealProposal")
+    if not isinstance(projection, InventoryProjection):
+        raise TypeError("projection must be InventoryProjection")
+    if not isinstance(floral_source, FloralFamilyIntegrationAdapter):
+        raise TypeError("floral_source must be FloralFamilyIntegrationAdapter")
+    if projection.ideal_proposal != ideal:
+        raise ValueError("projection must bind the exact ideal proposal")
+    if floral_source.scope.target_scope != ideal.ideal_target_id:
+        raise ValueError("floral source must bind the exact ideal target")
+    floral_synthesis = floral_source.to_synthesis()
+    blueprint = assemble_whole_perfume_blueprint(
+        ideal,
+        projection,
+        assessments,
+        syntheses=(*tuple(syntheses), floral_synthesis),
+        version=version,
+        predecessor_sha256=predecessor_sha256,
+    )
+    return FloralWholePerfumeAssembly(floral_source, blueprint)
+
+
+__all__ = ["FloralWholePerfumeAssembly", "assemble_floral_whole_perfume"]

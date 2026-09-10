@@ -1,0 +1,135 @@
+from pathlib import Path
+
+from engine.reference_contracts import (
+    ARCHITECTURE,
+    CREED_AVENTUS_OFFICIAL_NOTES_V1,
+    CREED_AVENTUS_OFFICIAL_NOTES_V2,
+    REFERENCE_CONTRACTS,
+    _evaluate_contract_groups,
+)
+from future_modules.advanced_musk_intelligence import HELVETOLIDE
+from future_modules.iconic_formulas import (
+    AVENTUS_ARCHITECTURE,
+    AVENTUS_SKELETON,
+    get_aventus_architecture_module,
+)
+from future_modules.niche_construction import DIFFUSION_PLATFORMS
+
+
+def test_aventus_target_is_architecture_first_and_fruit_secondary() -> None:
+    module = get_aventus_architecture_module()
+    layers = {layer.layer: layer for layer in module.target_ideal}
+
+    assert module is AVENTUS_ARCHITECTURE
+    assert module.head_priority == (
+        "Bergamot FCF oil Sicilian",
+        "Blackcurrant Absolute (10% in DPG)",
+    )
+    assert module.secondary_fruit == ("Allyl Amyl Glycolate (10%)",)
+    assert layers["head"].prominence == "primary"
+    assert layers["heart"].prominence == "secondary"
+    assert layers["base"].prominence == "primary"
+    assert "Pineapple Accord" in layers["heart"].markers
+    assert "pineapple" in module.primary_rule.lower()
+    assert "secondary" in module.primary_rule.lower()
+
+
+def test_aventus_current_build_uses_live_stock_and_keeps_gaps_explicit() -> None:
+    inventory = Path("inventory.txt").read_text(encoding="utf-8")
+    mappings = {item.target_function: item for item in AVENTUS_ARCHITECTURE.current_inventory_build}
+
+    for mapping in mappings.values():
+        if mapping.status == "USER_CONFIRMED_OWNED_INVENTORY_AUTHORITY_SYNC_HOLD":
+            continue
+        for material in mapping.stock_materials:
+            assert material in inventory
+
+    pepper = mappings["pink_pepper_bridge"]
+    assert pepper.stock_materials == ("Schinus molle EO (neat / as supplied)",)
+    assert pepper.status == "USER_CONFIRMED_OWNED_INVENTORY_AUTHORITY_SYNC_HOLD"
+    assert "Pink Pepper EO / CO2 requirement as a separate GAP" in pepper.note
+    assert "Black Pepper EO is not equivalent" in pepper.note
+    assert pepper.stock_materials[0] not in inventory
+    assert "COMPOSITE_OAV_REQUIRED" in mappings["blackcurrant_head"].status
+    assert "Birch Tar" in mappings["smoky_birch_effect"].note
+    assert "prohibited" in mappings["smoky_birch_effect"].note
+    assert all(not mapping.equivalence for mapping in mappings.values())
+
+
+def test_aventus_relations_are_falsifiable_and_authority_stays_withheld() -> None:
+    module = AVENTUS_ARCHITECTURE
+
+    assert len(module.relations) == 3
+    assert all(relation.omission_loss for relation in module.relations)
+    assert all(relation.failure_mode for relation in module.relations)
+    assert all(relation.temporal_windows for relation in module.relations)
+    assert all("constant" in relation.controlled_comparison.lower() for relation in module.relations)
+    assert "architecture-first versus pineapple-forward" in module.next_comparison.lower()
+    assert module.component_count_used_as_complexity is False
+    assert module.predicted_oav_used_as_perception is False
+    assert module.composition_score_used_as_hedonic is False
+    assert module.quantitative_authority == "UNKNOWN"
+    assert module.sensory_authority == "NOT_TESTED"
+    assert module.formula_authority is False
+    assert module.physical_authority is False
+    assert module.safety_authority is False
+    assert module.release_authority is False
+
+
+def test_aventus_skeleton_does_not_invent_commercial_percentages() -> None:
+    roles = {name: role for name, _percentage, role in AVENTUS_SKELETON.materials}
+
+    assert all(percentage is None for _name, percentage, _role in AVENTUS_SKELETON.materials)
+    assert AVENTUS_SKELETON.three_pillar_platform is None
+    assert "architecture-first" in AVENTUS_SKELETON.construction_method
+    assert "Secondary" in roles["Pineapple accord"]
+    assert "QUANTITATIVE_FORMULA_UNKNOWN" in AVENTUS_SKELETON.data_confidence
+
+
+def test_current_aventus_reference_contract_has_layered_role_hierarchy() -> None:
+    contract = CREED_AVENTUS_OFFICIAL_NOTES_V2
+    groups = {group.name: group for group in contract.marker_groups}
+
+    assert REFERENCE_CONTRACTS[contract.contract_id] is contract
+    assert contract.target_aliases == ("creed aventus", "aventus")
+    assert CREED_AVENTUS_OFFICIAL_NOTES_V1.target_aliases == ()
+    assert groups["bergamot"].layer == "head"
+    assert groups["bergamot"].prominence == "primary"
+    assert groups["blackcurrant"].layer == "head"
+    assert groups["blackcurrant"].prominence == "primary"
+    assert groups["pineapple"].layer == "heart"
+    assert groups["pineapple"].prominence == "secondary"
+    assert not {"blackcurrant", "cassis"}.intersection(groups["pineapple"].alternatives)
+    assert "schinus molle" in groups["pink_pepper"].alternatives
+    assert groups["smoky_birch"].layer == "base"
+    assert groups["smoky_birch"].prominence == "primary"
+
+
+def test_blackcurrant_no_longer_satisfies_the_pineapple_marker() -> None:
+    result = _evaluate_contract_groups(
+        CREED_AVENTUS_OFFICIAL_NOTES_V2,
+        {"bergamot fcf oil sicilian", "blackcurrant absolute"},
+        ARCHITECTURE,
+    )
+
+    assert "bergamot" in result["matched_groups"]
+    assert "blackcurrant" in result["matched_groups"]
+    assert "pineapple" in result["missing_groups"]
+    assert result["group_metadata"]["pineapple"] == {
+        "layer": "heart",
+        "prominence": "secondary",
+    }
+
+
+def test_adjacent_aventus_platform_record_no_longer_claims_exact_percentages() -> None:
+    platform = next(item for item in DIFFUSION_PLATFORMS if item.name == "Aventus Platform")
+
+    assert platform.total_formula_pct is None
+    assert "hypothesis" in platform.character.lower()
+    assert "exact commercial ratios" in platform.construction_note.lower()
+
+
+def test_helvetolide_profile_keeps_aventus_dose_unknown() -> None:
+    assert HELVETOLIDE.aventus_scale_dose_pct is None
+    assert "exact commercial dose" in HELVETOLIDE.key_insight.lower()
+    assert "cannot be inferred" in HELVETOLIDE.tropical_notes.lower()

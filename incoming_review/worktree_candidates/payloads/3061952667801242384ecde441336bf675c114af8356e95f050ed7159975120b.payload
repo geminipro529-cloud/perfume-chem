@@ -1,0 +1,121 @@
+{
+  "schema_version": "perfume_chem_p2_2_validation_v1",
+  "captured_at": "2026-08-11T06:00:43.8894030+07:00",
+  "artifact_class": "NONAUTHORITATIVE_INSTALLATION_COMPATIBILITY_VALIDATION",
+  "state": "P2_2_FIELD_MAPPING_COMPLETE_NO_CANONICAL_IMPORT_AUTHORIZED",
+  "p2_1_parent": {
+    "path": "output/P2_1_VALIDATION_2026-08-11.json",
+    "byte_size": 7614,
+    "sha256": "1f7dc8de81c7e989722fdd100da5ab8006345e06c9e803faf8bb4d8aa9b4ed57",
+    "receipt_sha256": "98ab1df213de0cc72808c5e5f928be12ee19440c0a697394fe05b782e5d3442b",
+    "state": "P2_1_RESEALED_GRAPH_COMPLETE_QUARANTINED"
+  },
+  "artifacts": [
+    {
+      "path": "output/P2_2_SOURCE_FIELD_CATALOG_2026-08-11.json",
+      "byte_size": 33004,
+      "sha256": "4cad42a50fdab9abbb0fba51c308a5a19da00fa675b12bcfddae6c8b60d7d32e",
+      "receipt_sha256": "50525d39fbc62430a940f22d9978c7efe49fd651ea54df1b608f20f024166bcd",
+      "self_hash_verified": true
+    },
+    {
+      "path": "output/P2_2_MAPPING_POLICY_REGISTRY_2026-08-11.json",
+      "byte_size": 12538,
+      "sha256": "bf3bab244c1ebcf7de686b1b874b4bcd27793b90fbe68cb1f160b1ef5286e5b9",
+      "receipt_sha256": "e17d596e868a5ca27de86cc8e8668776f6d5034e6d9f52c0477b5c250ce40827",
+      "self_hash_verified": true
+    },
+    {
+      "path": "output/P2_2_FIELD_COMPATIBILITY_MATRIX_2026-08-11.json",
+      "byte_size": 29131,
+      "sha256": "a09cd9868100aa9ed71c20513350dfe4384ff17684b60b69733cab87994117f9",
+      "receipt_sha256": "7bf30cc1225f2946d82123220fd155054e39751d324f20e4df8dbab2748eea95",
+      "self_hash_verified": true
+    },
+    {
+      "path": "output/P2_2_COMPATIBILITY_DECISION_2026-08-11.md",
+      "byte_size": 4745,
+      "sha256": "1bcd4ab7d6b538e79e0e166dbc1f58365229260c662db4bf312848d7bd27f105"
+    }
+  ],
+  "coverage": {
+    "source_count": 6,
+    "field_groups_expected": 72,
+    "field_groups_mapped": 72,
+    "source_fields_mapped": 798,
+    "missing_field_groups": 0,
+    "unexpected_field_groups": 0,
+    "duplicate_field_groups": 0,
+    "mapping_errors": 0,
+    "mapping_id_set_sha256": "14d327f3732645ee6ef188555cfab5fb94ca277d4e35ce487038df8ef4532a0e",
+    "all_six_source_hashes_present_in_p2_1_graph": true
+  },
+  "native_compatibility": {
+    "dependency_profiles": 7,
+    "mapping_policies": 18,
+    "native_contract_files_hash_bound": 12,
+    "native_overlap": "SUBSTANTIAL_REUSE_REQUIRED",
+    "new_schema_or_migration_proven": false,
+    "migration_head_remains": "20260810_0016",
+    "parallel_store_allowed": false,
+    "selective_invalidation_store_required": false,
+    "sensory_assurance_gap": "REAL_BUT_SEPARATE_NOT_PROVEN_REQUIRED_BY_THESE_SIX_SOURCES"
+  },
+  "deepluna_chat": {
+    "exact_project": "perfume-chem-cheapluna-isolated",
+    "profile": "cheapluna-chat",
+    "route": "DIRECT_PRO",
+    "fallback": "NONE",
+    "job_id": "DS-0ea7e4d0be3b90d9ef04abee7d973199",
+    "result": "FAIL_CLOSED_BEFORE_PROVIDER_ACCEPTANCE",
+    "accepted_evidence": false,
+    "forecast": {
+      "input_tokens": 26785,
+      "input_limit": 22000,
+      "output_tokens": 3330,
+      "output_limit": 6000,
+      "total_tokens": 30115,
+      "total_limit": 28000
+    },
+    "retry_or_fallback_used": false,
+    "sol_acceptance": "DETERMINISTIC_LOCAL_COVERAGE_AND_HASH_VALIDATION_CONTROLS"
+  },
+  "failed_artifact_attempts": [
+    {
+      "state": "INVALID_TRUNCATED_PATCH_DELETED_BEFORE_USE",
+      "artifact": "P2_2_SOURCE_FIELD_CATALOG_2026-08-11.json",
+      "cause": "Generated pretty-JSON patch exceeded the tool output ceiling and contained a truncation marker."
+    },
+    {
+      "state": "REJECTED_BEFORE_WRITE",
+      "artifact": "MONOLITHIC_P2_2_FIELD_COMPATIBILITY_MATRIX",
+      "cause": "Patch completeness check detected output truncation; policy registry and matrix were split and independently sealed."
+    }
+  ],
+  "repository_state": {
+    "cached_paths": 0,
+    "canonical_source_files_changed_by_p2_2": false,
+    "migration_created": false,
+    "database_changed": false,
+    "formula_or_inventory_changed": false,
+    "package_content_extracted_to_workspace": false,
+    "package_content_imported": false,
+    "release_state_changed": false,
+    "outputs_gitignored": true
+  },
+  "authority": {
+    "source_authority_change": false,
+    "formula_authority": false,
+    "inventory_authority_change": false,
+    "oav_authority": false,
+    "sensory_authority": false,
+    "safety_authority": false,
+    "procurement_authority": false,
+    "release_authority": false
+  },
+  "canonical_import_authorized": false,
+  "installation_authorized": false,
+  "next_gate": "H0_LEGACY_ADVISORY_ANALYSIS_UNKNOWN_STRENGTH_LEAK",
+  "receipt_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_RECEIPT_SHA256_OMITTED",
+  "receipt_sha256": "1d84af278f4cf2be9d989bf8c416e352fc1894cb7c377ad993d52a932e6ba38b"
+}

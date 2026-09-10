@@ -1,0 +1,5001 @@
+"""Ingredient Intelligence Database — Per-material character dimensions and properties.
+
+**RULE 1: All perfume calculations must use ppm, ODT, and OAV.**
+- Concentrations in ppm (parts per million w/w in concentrate).
+- ODT in ppm for ethanol solution, ppb for air.
+- OAV = concentration_ppm / ODT_ppm (dimensionless).
+- Every formula dose must be convertible to ppm.
+- Every threshold check must reference ODT.
+- Every perceptibility claim must be backed by OAV.
+- No exceptions — this applies to formulation, dosing, gating, scoring, and all pipeline modules.
+
+Every material scored on 13 perceptual character dimensions (0–10 scale)
+plus physical-chemical properties for formula-level computation.
+
+Character dimensions (Perplexity-recommended odor radar):
+  warmth     — warm/amber/balsamic vs cool/fresh
+  sweetness  — sugar/honey/vanilla character
+  freshness  — clean/citrus/aquatic/ozonic lift
+  powdery    — iris/musk/coumarin powder
+  green      — leafy/herbaceous/galbanum
+  animalic   — musk/leather/indolic depth
+  radiance   — hedione-like projection halo, luminosity
+  woody      — cedar/sandalwood/vetiver
+  spicy      — pepper/cardamom/cinnamon
+  floral     — rose/jasmine/muguet
+  smoky      — incense/birch/guaiacol
+  creamy     — lactonic/sandalwood/vanilla smoothness
+  transparency — sheer/clean/skin-adjacent clarity
+
+Physical properties (from DB or estimated):
+  mw         — molecular weight (g/mol)
+  vp         — vapor pressure at 25°C (Pa)
+  clogp      — calculated octanol-water partition coefficient
+  odt        — odor detection threshold (ppb in air)
+
+Functional tags:
+  note       — top / heart / base
+  role       — character, modifier, fixative, volume, radiance, bridge, trace
+  synergies  — list of best-with materials
+  avoid      — list of materials that clash
+  texture    — skin-effect, diffusion, cushion, lift, cocoon, veil, halo
+
+Sources: Arctander, PerfumersWorld ABC, Carles method, Roudnitska aesthetics,
+         Jellinek quadrants, OPK SAR classes, Perplexity multi-dimensional model.
+"""
+
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass, field
+
+from engine.material_identity import resolve_material_identity
+
+# Character dimension names (order matters for radar plot)
+DIMENSIONS = [
+    "warmth",
+    "sweetness",
+    "freshness",
+    "powdery",
+    "green",
+    "animalic",
+    "radiance",
+    "woody",
+    "spicy",
+    "floral",
+    "smoky",
+    "creamy",
+    "transparency",
+]
+
+
+@dataclass
+class MaterialProfile:
+    """Complete intelligence profile for one material."""
+
+    name: str
+    # 13 character dimensions, each 0-10
+    character: dict[str, float] = field(default_factory=dict)
+    # Physical properties
+    mw: float | None = None
+    vp: float | None = None
+    clogp: float | None = None
+    odt: float | None = None  # ppb in air — for temporal diffusion / headspace math
+    odt_ppm: float | None = None  # ppm in ethanol solution — for OAV math in concentrate
+    # Classification
+    note: str = "heart"  # top / heart / base
+    role: str = "modifier"  # character, modifier, fixative, volume, radiance, bridge, trace
+    texture: str = ""  # skin-effect, diffusion, cushion, lift, cocoon, veil, halo
+    # Relationships
+    synergies: list[str] = field(default_factory=list)
+    avoid: list[str] = field(default_factory=list)
+    # Dilution in inventory
+    dilution: float = 1.0  # 1.0 = neat, 0.1 = 10%, etc.
+    # Scientific extensions (added per Perplexity consultation 2026-04-23)
+    activity_coef: float = 1.0  # γᵢ, Raoult non-ideality. 1.0 = ideal; <1.0 = matrix-suppressed headspace; >1.0 = matrix-boosted.
+    hedonic: float = 0.0  # panel-style pleasantness rating, −5..+5. 0 = neutral / unmeasured.
+    or_family: str | None = (
+        None  # olfactory-receptor bin: citrus, rose, muguet, musk, amber, iris, green, aldehydic, gourmand, smoky, animalic, woody, aquatic, aromatic, indolic, ozone
+    )
+    # Prose retained from intake records that do not yet have evidence-backed
+    # numeric character dimensions.  It must never be coerced into the radar.
+    character_description: str = ""
+
+    def dimension_vector(self) -> list[float]:
+        """Return ordered vector of character dimensions."""
+        return [self.character.get(d, 0.0) for d in DIMENSIONS]
+
+    def dominant_character(self) -> str:
+        """Return the highest-scoring dimension name."""
+        if not self.character:
+            return "neutral"
+        return max(self.character, key=self.character.get)
+
+    def character_tags(self, threshold: float = 4.0) -> list[str]:
+        """Return dimensions above threshold, sorted by strength."""
+        return sorted(
+            [d for d, v in self.character.items() if v >= threshold],
+            key=lambda d: self.character[d],
+            reverse=True,
+        )
+
+
+# ── Complete inventory intelligence database ──
+# Every material from inventory.txt with expert-assigned character dimensions.
+# Values: 0=absent, 1-2=trace, 3-4=noticeable, 5-6=moderate, 7-8=strong, 9-10=defining
+
+_PROFILES: dict[str, dict] = {
+    # ══════════════════ STABILIZERS / SOLVENTS ═══════════════════
+    "BHT": {
+        "character": {"freshness": 0},
+        "note": "base",
+        "role": "stabilizer",
+        "texture": "neutral",
+        "mw": 220.35,
+        "vp": 0.001,
+        "clogp": 5.3,
+        "synergies": [],
+    },
+    "butylated hydroxytoluene": {
+        "character": {"freshness": 0},
+        "note": "base",
+        "role": "stabilizer",
+        "texture": "neutral",
+        "mw": 220.35,
+        "vp": 0.001,
+        "clogp": 5.3,
+        "synergies": [],
+    },
+    # ═══════════════════════ CITRUS / TOP ═══════════════════════
+    "Citral": {
+        "character": {"freshness": 9, "green": 5, "floral": 2, "sweetness": 1},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 152.23,
+        "vp": 3.5,
+        "clogp": 2.76,
+        "synergies": ["Linalool", "Geraniol", "Citronellal"],
+    },
+    "Citronellal": {
+        "character": {"freshness": 8, "green": 4, "floral": 3, "sweetness": 1},
+        "note": "top",
+        "role": "modifier",
+        "texture": "lift",
+        "mw": 154.25,
+        "vp": 40.0,
+        "clogp": 3.09,
+        "synergies": ["Citral", "Hydroxycitronellal", "Geraniol"],
+    },
+    "Linalool": {
+        "character": {"freshness": 7, "floral": 6, "sweetness": 2, "woody": 1},
+        "note": "top",
+        "role": "bridge",
+        "texture": "lift",
+        "mw": 154.25,
+        "vp": 15.8,
+        "clogp": 2.97,
+        "synergies": ["Linalyl Acetate", "Hedione", "Geraniol", "Bergamot FCF"],
+    },
+    # Ethyl Linalool (linalool ethyl ether): sharper, cleaner, more transparent
+    # than linalool. Less sweet, more citrus-ether character. Terpene alcohol family.
+    "Ethyl Linalool": {
+        "character": {"freshness": 8, "floral": 4, "woody": 2, "green": 2},
+        "note": "top",
+        "role": "modifier",
+        "texture": "lift",
+        "mw": 182.30,
+        "vp": 0.08,
+        "clogp": 3.5,
+        "synergies": ["Linalool", "Hedione", "Dihydromyrcenol", "Bergamot FCF"],
+    },
+    "Linalyl Acetate": {
+        "character": {"freshness": 8, "floral": 4, "sweetness": 3, "green": 2},
+        "note": "top",
+        "role": "modifier",
+        "texture": "lift",
+        "mw": 196.29,
+        "vp": 17.5,
+        "clogp": 3.56,
+        "synergies": ["Linalool", "Lavender EO", "Bergamot FCF"],
+    },
+    "Terpinyl Acetate": {
+        "character": {"freshness": 6, "woody": 4, "green": 5, "spicy": 2},
+        "note": "base",
+        "role": "modifier",
+        "texture": "lift",
+        "mw": 196.29,
+        "vp": 0.4,
+        "clogp": 3.48,
+        "synergies": ["Lavender EO", "Cedarwood EO", "Linalyl Acetate"],
+    },
+    "Hexyl Acetate": {
+        "character": {"freshness": 7, "green": 5, "sweetness": 3},
+        "note": "top",
+        "role": "modifier",
+        "texture": "lift",
+        "mw": 144.21,
+        "vp": 194.0,
+        "clogp": 2.83,
+        "synergies": ["cis-3-Hexenol", "Bergamot FCF"],
+    },
+    "Aldehyde C10": {
+        "character": {"freshness": 5, "sweetness": 3, "floral": 4, "radiance": 6},
+        "note": "top",
+        "role": "trace",
+        "texture": "lift",
+        "mw": 156.27,
+        "vp": 8.2,
+        "clogp": 3.76,
+        "synergies": ["Aldehyde C11", "Aldehyde C12 MNA", "Benzyl Salicylate"],
+    },
+    "Aldehyde C11": {
+        "character": {
+            "freshness": 4,
+            "sweetness": 2,
+            "floral": 3,
+            "radiance": 7,
+            "powdery": 2,
+        },
+        "note": "top",
+        "role": "trace",
+        "texture": "lift",
+        "mw": 170.29,
+        "vp": 50.0,
+        "clogp": 4.3,
+        "synergies": ["Aldehyde C10", "Aldehyde C12 MNA", "Benzyl Salicylate"],
+    },
+    "Aldehyde C11 undecylenic": {
+        "character": {"freshness": 5, "green": 4, "floral": 3, "radiance": 5},
+        "note": "top",
+        "role": "trace",
+        "texture": "lift",
+        "mw": 168.28,
+        "vp": 0.1,
+        "clogp": 3.8,
+        "synergies": ["Aldehyde C11", "Rose Oxide"],
+    },
+    "Aldehyde C12 MNA": {
+        "character": {
+            "freshness": 3,
+            "floral": 5,
+            "sweetness": 2,
+            "radiance": 8,
+            "powdery": 3,
+        },
+        "note": "top",
+        "role": "trace",
+        "texture": "halo",
+        "mw": 184.32,
+        "vp": 0.01,
+        "clogp": 4.83,
+        "synergies": ["Aldehyde C10", "Aldehyde C11", "Benzyl Salicylate", "Hedione"],
+    },
+    "Methyl Pamplemousse": {
+        "character": {"freshness": 8, "green": 3, "sweetness": 1},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 168.23,
+        "vp": 0.5,
+        "clogp": 2.1,
+        "synergies": ["Grapefruit FCF", "Hedione", "Allyl Amyl Glycolate"],
+    },
+    "Bergamot EO": {
+        "character": {"freshness": 8, "floral": 3, "sweetness": 2, "green": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 170.0,
+        "vp": 1.5,
+        "clogp": 3.5,
+        "synergies": ["Linalool", "Hedione", "Neroli EO"],
+    },
+    "Bergamot FCF": {
+        "character": {"freshness": 8, "floral": 3, "sweetness": 2, "green": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 170.0,
+        "vp": 1.5,
+        "clogp": 2.5,
+        "synergies": ["Linalool", "Hedione", "Neroli EO"],
+    },
+    "Bergamot FCF oil Sicilian": {
+        "character": {"freshness": 8, "floral": 4, "sweetness": 2, "green": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "lift",
+        "mw": 170.0,
+        "vp": 2.5,
+        "clogp": 3.2,
+        "synergies": ["Linalool", "Hedione", "Neroli EO"],
+    },
+    "Cedrat FCF oil Sicilian": {
+        "character": {"freshness": 7, "green": 4, "sweetness": 1, "woody": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 168.0,
+        "vp": 2.0,
+        "clogp": 3.0,
+        "synergies": ["Bergamot FCF", "Iso E Super", "Ambrox Super"],
+    },
+    "Blood Orange oil Sicilian": {
+        "character": {"freshness": 7, "sweetness": 4, "warmth": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 136.23,
+        "vp": 1.9,
+        "clogp": 4.57,
+        "synergies": ["Bergamot FCF", "Neroli EO", "Cedrat FCF oil Sicilian"],
+    },
+    "Red Mandarin EO": {
+        "character": {"freshness": 6, "sweetness": 5, "warmth": 3},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 136.23,
+        "vp": 1.8,
+        "clogp": 4.4,
+        "synergies": ["Neroli EO", "Vanillin", "Coumarin"],
+    },
+    "Ethyl 2-Methylbutyrate": {
+        "character": {"freshness": 6, "sweetness": 5, "green": 3},
+        "note": "top",
+        "role": "modifier",
+        "texture": "lift",
+        "mw": 130.18,
+        "vp": 5.0,
+        "clogp": 1.9,
+        "synergies": ["Gamma Decalactone", "Allyl Amyl Glycolate"],
+    },
+    # ═══════════════════════ GREEN / FRESH / MARINE ═══════════════════════
+    "Dihydromyrcenol": {
+        "character": {"freshness": 9, "green": 3, "woody": 2, "radiance": 4},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 156.27,
+        "vp": 14.8,
+        "clogp": 3.47,
+        "synergies": ["Iso E Super", "Hedione", "Ambrox Super"],
+    },
+    "cis-3-Hexenol": {
+        "character": {"green": 10, "freshness": 5},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 100.16,
+        "vp": 1.4,
+        "clogp": 1.61,
+        "synergies": ["Galbanum Resinoid", "Hexyl Acetate", "Parmavert"],
+    },
+    "Verdox": {
+        "character": {"green": 7, "freshness": 5, "floral": 2},
+        "note": "top",
+        "role": "modifier",
+        "texture": "lift",
+        "mw": 170.25,
+        "vp": 0.3,
+        "clogp": 3.2,
+        "synergies": ["cis-3-Hexenol", "Hedione"],
+    },
+    "Galbanum Resinoid": {
+        "character": {"green": 9, "woody": 3, "spicy": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 200.0,
+        "vp": 0.1,
+        "clogp": 2.5,
+        "synergies": ["cis-3-Hexenol", "Dynascone", "Parmavert"],
+    },
+    "Cyclamen Aldehyde": {
+        "character": {"green": 6, "floral": 5, "freshness": 4},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "lift",
+        "mw": 190.28,
+        "vp": 0.52,
+        "clogp": 3.1,
+        "synergies": ["Hedione", "Floralozone", "Parmavert"],
+    },
+    "Scentenal": {
+        "character": {"green": 4, "freshness": 6, "woody": 3},
+        "note": "heart",
+        "role": "trace",
+        "texture": "veil",
+        "mw": 166.22,
+        "vp": 6.5,
+        "clogp": 2.8,
+        "synergies": ["Iso E Super", "Ambrox Super"],
+    },
+    "Calone": {
+        "character": {"freshness": 7, "green": 5, "sweetness": 2},
+        "note": "heart",
+        "role": "trace",
+        "texture": "veil",
+        "mw": 178.18,
+        "vp": 0.0965,
+        "clogp": 1.4,
+        "synergies": ["Floralozone", "Hedione", "Dihydromyrcenol"],
+    },
+    "Floralozone": {
+        "character": {"freshness": 7, "floral": 4, "green": 3},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "veil",
+        "mw": 192.26,
+        "vp": 0.431,
+        "clogp": 2.6,
+        "synergies": ["Hedione", "Calone", "Cyclamen Aldehyde"],
+    },
+    "Undecavertol": {
+        "character": {"green": 6, "freshness": 5, "floral": 3},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "lift",
+        "mw": 170.29,
+        "vp": 0.06,
+        "clogp": 3.8,
+        "synergies": ["Hedione", "cis-3-Hexenol"],
+    },
+    "Dynascone": {
+        "character": {"green": 10, "freshness": 3, "spicy": 2},
+        "note": "top",
+        "role": "trace",
+        "texture": "lift",
+        "mw": 192.30,
+        "vp": 0.15,
+        "clogp": 3.4,
+        "synergies": ["Galbanum Resinoid", "cis-3-Hexenol"],
+    },
+    "Parmavert": {
+        "character": {"green": 8, "floral": 3, "powdery": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 192.30,
+        "vp": 0.1,
+        "clogp": 3.5,
+        "synergies": ["Alpha Ionone", "Beta Ionone", "cis-3-Hexenol"],
+    },
+    "Leafovert": {
+        "character": {"green": 9, "freshness": 4},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 154.25,
+        "vp": 0.5,
+        "clogp": 3.0,
+        "synergies": ["cis-3-Hexenol", "Parmavert"],
+    },
+    # ═══════════════════════ FLORAL MATERIALS ═══════════════════════
+    "Hedione": {
+        "character": {"radiance": 10, "floral": 6, "freshness": 5, "sweetness": 1},
+        "note": "heart",
+        "role": "radiance",
+        "texture": "halo",
+        "mw": 226.31,
+        "vp": 0.09466,
+        "clogp": 3.0,
+        "synergies": [
+            "Benzyl Salicylate",
+            "Iso E Super",
+            "Linalool",
+            "Bergamot FCF",
+            "Neroli EO",
+        ],
+    },
+    "Hydroxycitronellal": {
+        "character": {
+            "floral": 7,
+            "sweetness": 4,
+            "freshness": 3,
+            "powdery": 2,
+            "creamy": 3,
+        },
+        "note": "heart",
+        "role": "modifier",
+        "texture": "cushion",
+        "mw": 172.27,
+        "vp": 0.005,
+        "clogp": 1.6,
+        "synergies": ["Hedione", "Linalool", "Lilyreal ND"],
+    },
+    "Hydroxycitronellol": {
+        "character": {
+            "floral": 6,
+            "sweetness": 3,
+            "freshness": 2,
+            "powdery": 2,
+            "creamy": 4,
+        },
+        "note": "heart",
+        "role": "modifier",
+        "texture": "cushion",
+        "mw": 174.28,
+        "vp": 0.0736,
+        "clogp": 1.5,
+        "cas": "107-74-4",
+        "synergies": [
+            "Phenethyl Alcohol",
+            "Citronellol",
+            "Hedione",
+            "Florol",
+        ],
+    },
+    "Phenethyl Alcohol": {
+        "character": {"floral": 8, "sweetness": 3, "freshness": 2, "green": 1},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 122.17,
+        "vp": 0.116,
+        "clogp": 1.36,
+        "synergies": ["Citronellol", "Geraniol", "Rose Oxide"],
+    },
+    "Florol": {
+        "character": {"floral": 6, "green": 4, "sweetness": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "lift",
+        "mw": 154.25,
+        "vp": 0.007,
+        "clogp": 2.3,
+        "synergies": ["Hedione", "Hydroxycitronellal", "Lilyreal ND", "Bourgeonal"],
+    },
+    "Nympheal": {
+        # Local formulas consistently use Nympheal as a radiant, diffusive muguet/waterlily material.
+        "character": {
+            "floral": 6,
+            "freshness": 5,
+            "green": 3,
+            "radiance": 7,
+            "creamy": 2,
+        },
+        "note": "heart",
+        "role": "radiance",
+        "texture": "halo",
+        "mw": 204.31,
+        "vp": 0.01,
+        "clogp": 3.8,
+        "synergies": ["Hedione", "Hydroxycitronellal", "Lilyreal ND", "Freesia HDI"],
+    },
+    "Peonile": {
+        "character": {"floral": 7, "green": 3, "sweetness": 3, "freshness": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 197.27,
+        "vp": 0.0056,
+        "clogp": 3.6,
+        # TGSC + PubChem CID 66327: 2-cyclohexylidene-2-phenylacetonitrile C14H15N
+        # MW=197.27 logP=3.6 CAS 10461-98-0 VP=0.000042mmHg=0.0056Pa
+        "synergies": ["Hedione", "Phenethyl Alcohol"],
+    },
+    "Aurantiol": {
+        "character": {"floral": 6, "sweetness": 4, "warmth": 3},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "cushion",
+        "mw": 305.4,
+        "vp": 0.533,
+        "clogp": 4.8,  # VP verified: TGSC 0.004 mmHg @ 20 C = 0.533 Pa
+        "synergies": ["Hedione", "Neroli EO", "Hedione HC", "Nerolin Bromelia"],
+    },
+    "Geraniol": {
+        "character": {"floral": 7, "sweetness": 3, "freshness": 4, "green": 1},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 154.25,
+        "vp": 2.12,
+        "clogp": 3.56,
+        "synergies": ["Citronellol", "Phenethyl Alcohol", "Rose Oxide"],
+    },
+    "Nerol": {
+        "character": {
+            "floral": 7,
+            "freshness": 5,
+            "sweetness": 3,
+            "green": 2,
+            "radiance": 3,
+        },
+        "note": "top",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 154.25,
+        "vp": 2.0,
+        "clogp": 2.9,
+        "synergies": [
+            "Geraniol",
+            "Citronellol",
+            "Phenethyl Alcohol",
+            "Bergamot FCF",
+            "Nerolin Bromelia",
+            "Oranger Crystals",
+            "Aurantiol",
+        ],
+    },
+    "Citronellol": {
+        "character": {"floral": 6, "freshness": 4, "sweetness": 2, "green": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 156.27,
+        "vp": 2.26,
+        "clogp": 3.91,
+        "synergies": ["Geraniol", "Phenethyl Alcohol", "Rose Oxide"],
+    },
+    "Rhodinol ex Citronella": {
+        "character": {
+            "floral": 7,
+            "freshness": 5,
+            "sweetness": 4,
+            "radiance": 3,
+            "green": 2,
+        },
+        "note": "heart",
+        "role": "modifier",
+        "texture": "lift",
+        "mw": 156.26,
+        "vp": 7.0,
+        "clogp": 3.5,
+        "synergies": [
+            "Citronellol",
+            "Geraniol",
+            "Phenethyl Alcohol",
+            "Rose Oxide",
+            "Bergamot FCF",
+        ],
+    },
+    "Rose Oxide": {
+        "character": {"floral": 7, "green": 4, "spicy": 2, "freshness": 3},
+        "note": "heart",
+        "role": "character",
+        "texture": "lift",
+        "mw": 154.25,
+        "vp": 5.3,
+        "clogp": 3.2,
+        "synergies": ["Citronellol", "Geraniol", "Phenethyl Alcohol"],
+    },
+    "Benzyl Salicylate": {
+        "character": {
+            "floral": 3,
+            "sweetness": 2,
+            "powdery": 4,
+            "warmth": 3,
+            "creamy": 3,
+            "radiance": 4,
+        },
+        "note": "base",
+        "role": "fixative",
+        "texture": "cushion",
+        "mw": 228.24,
+        "vp": 0.01,
+        "clogp": 4.31,
+        "synergies": ["Hedione", "DBCA", "Iso E Super", "Aldehydes"],
+    },
+    "Hexyl Salicylate": {
+        "character": {
+            "floral": 4,
+            "green": 4,
+            "freshness": 3,
+            "powdery": 2,
+            "radiance": 3,
+        },
+        "note": "base",
+        "role": "fixative",
+        "texture": "cushion",
+        "mw": 222.28,
+        "vp": 0.077,
+        "vp_source": "ECHA registration dossier: 7.7e-5 kPa at 23 C",
+        "vp_flag": "MEASURED_REFERENCE_23C",
+        "clogp": 4.87,
+        "synergies": ["Hedione", "Benzyl Salicylate", "Paradisamide", "Iso E Super"],
+    },
+    "Benzyl Alcohol": {
+        "character": {"floral": 4, "balsamic": 3, "sweet": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 108.14,
+        "vp": 8.0,
+        "clogp": 1.1,
+        "synergies": [
+            "Jasmine Sambac",
+            "Tuberose Absolute",
+            "Benzyl Salicylate",
+            "Ylang Ylang EO",
+        ],
+    },
+    "Benzaldehyde": {
+        "character": {"almond": 8, "cherry": 5, "sweet": 3},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 106.12,
+        "vp": 120.0,
+        "clogp": 1.5,
+        "synergies": [
+            "Coumarin",
+            "Vanillin",
+            "Heliotropal (Piperonal)",
+            "Cocoa Absolute",
+        ],
+    },
+    "Benzyl Acetate": {
+        "character": {"floral": 6, "sweetness": 4, "freshness": 3, "green": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 150.17,
+        "vp": 0.22,
+        "clogp": 1.96,
+        "synergies": ["Hedione", "Indole", "Linalool"],
+    },
+    "Indole": {
+        "character": {"floral": 5, "animalic": 8, "sweetness": 1},
+        "note": "heart",
+        "role": "trace",
+        "texture": "diffusion",
+        "mw": 117.15,
+        "vp": 0.01,
+        "clogp": 2.14,
+        "synergies": ["Benzyl Acetate", "Hedione", "Jasmine FO"],
+    },
+    "Bourgeonal": {
+        "character": {"floral": 6, "freshness": 4, "green": 3, "sweetness": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 176.25,
+        "vp": 0.01,
+        "clogp": 2.9,
+        "synergies": ["Lilyreal ND", "Hydroxycitronellal", "DBCA"],
+    },
+    "Lilyreal ND": {
+        "character": {"floral": 7, "freshness": 3, "sweetness": 1, "powdery": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 192.30,
+        "vp": 0.01,
+        "clogp": 3.5,
+        "synergies": ["Bourgeonal", "Freesia HDI", "DBCA", "Hydroxycitronellal"],
+    },
+    # Mayol — transparent muguet-lily, post-Lyral replacement
+    "Mayol": {
+        "character": {"floral": 6, "freshness": 5, "green": 3},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 166.3,
+        "vp": 1.5,
+        "clogp": 2.9,
+        "synergies": ["Hydroxycitronellal", "Bourgeonal", "Lilyreal ND"],
+    },
+    # Farnesol — lily-muguet fixative, low VP floral
+    "Farnesol": {
+        "character": {"floral": 5, "creamy": 3, "waxy": 2, "sweetness": 2},
+        "note": "heart",
+        "role": "fixative",
+        "texture": "cushion",
+        "mw": 222.4,
+        "vp": 0.08,
+        "clogp": 5.3,
+        "synergies": ["Hedione", "Lilyreal ND", "Hydroxycitronellal"],
+    },
+    # ACA (Amyl Cinnamic Aldehyde) — jasmine-muguet diffusant, waxy-floral
+    "ACA": {
+        "character": {"floral": 6, "sweetness": 3, "waxy": 3, "radiance": 3},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 202.30,
+        "vp": 0.02,
+        "clogp": 3.9,
+        "synergies": ["Hedione", "Benzyl Salicylate", "Lilyreal ND"],
+    },
+    # Alpha Damascone — rose-plum-metallic, ultra-potent (ODT ~0.009 ppb)
+    "Alpha Damascone": {
+        "character": {"rose": 8, "fruity": 6, "metallic": 4, "floral": 3},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 192.3,
+        "vp": 1.10657,
+        "vp_source": "EP 3141239 B1: 0.00830 Torr at 25 C",
+        "vp_flag": "PATENT_REPORTED_25C",
+        "clogp": 3.6,
+        "synergies": ["Damascol", "Rose Oxide", "Geraniol", "Hedione"],
+    },
+    # Damascone Beta — rose-tea-tobacco, slightly softer than alpha (ODT ~0.004 ppb)
+    "Damascone Beta": {
+        "character": {"rose": 7, "floral": 5, "woody": 3, "warmth": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 190.3,
+        "vp": 0.08,
+        "clogp": 3.7,
+        "synergies": ["Alpha Damascone", "Geraniol", "Rose Oxide"],
+    },
+    # Damascenone — cooked apple, tobacco, extreme trace (ODT ~0.002 ppb, among most potent odorants)
+    "Damascenone": {
+        "character": {"fruity": 7, "rose": 6, "tobacco": 5, "sweetness": 3},
+        "note": "heart",
+        "role": "trace",
+        "texture": "accent",
+        "mw": 190.3,
+        "vp": 0.693,
+        "clogp": 3.9,
+        "synergies": ["Alpha Damascone", "Damascol", "Geraniol"],
+    },
+    # Damascol — damascone alcohol, rose-plum rounded
+    "Damascol": {
+        "character": {"floral": 5, "fruity": 4, "rose": 4, "sweetness": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 194.3,
+        "vp": 0.6,
+        "clogp": 3.5,
+        "synergies": ["Alpha Damascone", "Rose Absolute", "Hedione"],
+    },
+    # PEDMC — iris-rose harmonic, magnolia-soft
+    "PEDMC": {
+        "character": {"floral": 5, "powdery": 3, "rose": 2, "sweetness": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "veil",
+        "mw": 164.24,
+        "vp": 0.3,
+        "clogp": 2.1,
+        "synergies": ["Alpha Irone", "Ethyl Linalool", "Rose Absolute"],
+    },
+    # Azarbre — cedar-amber, smooth warm-rounded
+    "Azarbre": {
+        "character": {"woody": 6, "warmth": 5, "amber": 4, "creamy": 2},
+        "note": "base",
+        "role": "modifier",
+        "texture": "cocoon",
+        "mw": 220.0,
+        "vp": 4.3,
+        "clogp": 4.8,
+        "synergies": ["Cedarwood EO", "Iso E Super", "Ambermax"],
+    },
+    # Geosmin — petrichor / rain-on-earth, extreme trace (ODT ~6 ppt)
+    "Geosmin": {
+        "character": {"earthy": 9, "mineral": 6, "green": 2},
+        "note": "heart",
+        "role": "trace",
+        "texture": "accent",
+        "mw": 182.30,
+        "vp": 0.1,
+        "clogp": 3.6,
+        "synergies": ["Vetiver EO", "Alpha Irone", "Carrot Seed EO"],
+    },
+    "Helional": {
+        "character": {"freshness": 5, "green": 4, "floral": 4, "sweetness": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "lift",
+        "mw": 192.21,
+        "vp": 0.01,
+        "clogp": 1.7,
+        "synergies": ["Hedione", "Cyclamen Aldehyde"],
+    },
+    "Heliotropin Fleuressence": {
+        "character": {
+            "sweetness": 6,
+            "floral": 5,
+            "powdery": 4,
+            "warmth": 3,
+            "creamy": 3,
+        },
+        "note": "heart",
+        "role": "modifier",
+        "texture": "cushion",
+        "mw": 150.13,
+        "vp": 0.08,
+        "clogp": 0.87,
+        "synergies": ["Vanillin", "Coumarin", "Benzyl Benzoate"],
+    },
+    # Heliotropal (piperonal): benzodioxole aldehyde, MW 150.13.
+    # Lower VP than Heliotropin → deeper fixative, less volatile.
+    # OR5A1/OR5A2 receptor target → sweet-powdery-almond subliminal warmth.
+    "Heliotropal": {
+        "character": {
+            "sweetness": 5,
+            "powdery": 6,
+            "floral": 4,
+            "warmth": 4,
+            "creamy": 3,
+        },
+        "note": "base",
+        "role": "modifier",
+        "texture": "cushion",
+        "mw": 150.13,
+        "vp": 1.41322,
+        "vp_source": (
+            "RIFM safety assessment (Api et al. 2025): 0.0106 mmHg at 25 C = 1.41322 Pa (EPI Suite)"
+        ),
+        "vp_flag": "RIFM_MODELED_25C",
+        "clogp": 0.87,
+        "synergies": [
+            "Heliotropin Fleuressence",
+            "Vanillin",
+            "Coumarin",
+            "Alpha Irone",
+        ],
+    },
+    "Petitgrain EO": {
+        "character": {"freshness": 6, "green": 5, "floral": 3, "woody": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 170.0,
+        "vp": 6,
+        "clogp": 2.8,
+        "synergies": ["Neroli EO", "Bergamot FCF", "Linalool"],
+    },
+    "Nerolin Bromelia": {
+        "character": {
+            "floral": 6,
+            "sweetness": 4,
+            "warmth": 2,
+            "powdery": 3,
+            "freshness": 2,
+        },
+        "note": "heart",
+        "role": "modifier",
+        "texture": "halo",
+        "mw": 172.22,
+        "vp": 0.5,
+        "clogp": 3.8,
+        "synergies": ["Neroli EO", "Aurantiol", "Hedione", "Oranger Crystals"],
+    },
+    # ═══════════════════════ IRIS / VIOLET ═══════════════════════
+    "Alpha Irone": {
+        "character": {"powdery": 8, "floral": 6, "woody": 4, "creamy": 5},
+        "note": "heart",
+        "role": "character",
+        "texture": "halo",
+        "mw": 206.33,
+        "vp": 0.559,
+        "clogp": 3.8,
+        "synergies": ["Orivone", "Ultralia", "Cashmeran", "Suederal"],
+    },
+    "Orris Liquid": {
+        "character": {
+            "powdery": 9,
+            "floral": 7,
+            "woody": 4,
+            "creamy": 6,
+            "earthy": 5,
+            "fruity": 2,
+        },
+        "note": "heart",
+        "role": "character",
+        "texture": "cushion",  # natural orris resinoid: fuller/earthier/rootier than absolute; PerfumersWorld SKU 8IQ24653
+        "mw": 206.32,
+        "vp": 0.559,
+        "clogp": 3.2,
+        "cas": "8002-73-1",
+        "synergies": [
+            "Alpha Irone",
+            "Orivone",
+            "Carrot Seed EO",
+            "Sandalwood EO",
+        ],
+    },
+    "Alpha Ionone": {
+        "character": {"floral": 5, "powdery": 4, "woody": 3, "sweetness": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 192.3,
+        "vp": 1.5,
+        "clogp": 2.9,  # VP corrected from 0.02 (blend avg) to 1.5 (pure alpha-ionone) — PubChem CID 5282108, 2026-05-30
+        "synergies": ["Beta Ionone", "Parmavert", "Alpha Irone"],
+        "odt": 0.4,
+        "odt_ppm": 0.1,
+        "or_family": "floral",
+        "activity_coef": 1.0,
+        "hedonic": 0.72,
+    },
+    "Beta Ionone": {
+        "character": {"floral": 4, "woody": 5, "powdery": 3, "sweetness": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 192.30,
+        "vp": 1.2,
+        "clogp": 2.9,  # VP corrected from 7.2 to 1.2 (pure beta-ionone), clogp from 4.42 to 2.9 — PubChem CID 638014, 2026-05-30
+        "synergies": ["Alpha Ionone", "Parmavert", "Cedarwood EO"],
+    },
+    "Allyl Ionone": {
+        "character": {"fruity": 5, "floral": 4, "woody": 4, "powdery": 3, "green": 3},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 232.37,
+        "vp": 0.0664,
+        "clogp": 5.3,
+        "synergies": [
+            "Alpha Ionone",
+            "Beta Ionone",
+            "Alpha Irone",
+            "Phenethyl Alcohol",
+        ],
+    },
+    "Irotyl": {
+        "character": {"powdery": 6, "woody": 4, "floral": 3},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "halo",
+        "mw": 206.33,
+        "vp": 0.005,
+        "clogp": 3.5,
+        "synergies": ["Alpha Irone", "Orivone"],
+    },
+    "Dihydro Beta Ionone": {
+        "character": {"woody": 5, "powdery": 3, "sweetness": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 194.31,
+        "vp": 0.02,
+        "clogp": 4.5,
+        "synergies": ["Beta Ionone", "Cedarwood EO"],
+    },
+    "Alpha-Isomethyl Ionone": {
+        "character": {"floral": 6, "powdery": 5, "woody": 3, "sweetness": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 206.33,
+        "vp": 0.400,
+        "clogp": 4.1,
+        "synergies": ["Alpha Irone", "Orivone", "Hedione"],
+    },
+    "Orivone": {
+        "character": {"woody": 6, "powdery": 5, "floral": 3, "warmth": 2, "green": 1},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "cushion",
+        "mw": 168.28,
+        "vp": 8.6,
+        "clogp": 3.4,
+        "synergies": ["Alpha Ionone", "Cashmeran", "Hedione"],
+    },
+    "Ultralia": {
+        "character": {"powdery": 6, "floral": 3, "freshness": 2, "creamy": 2},
+        "note": "heart",
+        "role": "trace",
+        "texture": "halo",
+        "mw": 222.37,
+        "vp": 0.002,
+        "clogp": 4.0,
+        "synergies": ["Alpha Irone", "Orivone", "Iso E Super"],
+    },
+    "Myristic Acid": {
+        # Tetradecanoic acid C14H28O2, waxy/fatty low-odor orris support.
+        "character": {"waxy": 5, "creamy": 4, "fatty": 4, "powdery": 2},
+        "note": "base",
+        "role": "fixative",
+        "texture": "cushion",
+        "mw": 228.38,
+        "vp": 0.013,
+        "clogp": 6.1,
+        "synergies": [
+            "Alpha Irone",
+            "Orivone",
+            "Ethylene Brassylate",
+            "Exaltolide",
+            "Delta Decalactone",
+        ],
+    },
+    "Myristic Acid Powder": {
+        "character": {"waxy": 5, "creamy": 4, "fatty": 4, "powdery": 2},
+        "note": "base",
+        "role": "fixative",
+        "texture": "cushion",
+        "mw": 228.38,
+        "vp": 0.013,
+        "clogp": 6.1,
+        "synergies": [
+            "Alpha Irone",
+            "Orivone",
+            "Ethylene Brassylate",
+            "Exaltolide",
+            "Delta Decalactone",
+        ],
+    },
+    "I-IRIS F-TEC": {
+        "character": {"powdery": 7, "floral": 5, "woody": 3, "creamy": 4},
+        "note": "heart",
+        "role": "character",
+        "texture": "halo",
+        "mw": 210.0,
+        "vp": 0.005,
+        "clogp": 3.5,
+        "synergies": ["Alpha Irone", "Orivone"],
+    },
+    "Orris F-TEC": {
+        "character": {"powdery": 8, "creamy": 5, "woody": 4, "floral": 4},
+        "note": "heart",
+        "role": "character",
+        "texture": "halo",
+        "mw": 200.0,
+        "vp": 0.005,
+        "clogp": 3.5,
+        "synergies": ["Alpha Irone", "Orivone", "Suederal"],
+    },
+    "Violet Fleuressence": {
+        "character": {"powdery": 6, "floral": 5, "sweetness": 3, "green": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 190.0,
+        "vp": 0.01,
+        "clogp": 3.0,
+        "synergies": ["Alpha Ionone", "Beta Ionone"],
+    },
+    "Carrot Seed EO": {
+        "character": {"woody": 5, "green": 4, "powdery": 3, "warmth": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 220.0,
+        "vp": 0.01,
+        "clogp": 3.5,
+        "synergies": ["Alpha Irone", "Vetiver EO"],
+    },
+    # ═══════════════════════ WOODS / AMBER / STRUCTURE ═══════════════════════
+    "Iso E Super": {
+        "character": {"woody": 8, "warmth": 4, "radiance": 6, "creamy": 3},
+        "note": "heart",
+        "role": "volume",
+        "texture": "cocoon",
+        "mw": 234.38,
+        "vp": 0.23129,
+        "vp_source": "IFF official compendium: 0.001735 mmHg at 23 C",
+        "vp_flag": "SUPPLIER_REFERENCE_23C",
+        "clogp": 3.6,  # VERIFIED: PubChem CID=91671, 2026-05-30
+        "synergies": ["Hedione", "Ambrox Super", "Cashmeran", "Vertofix Coeur"],
+    },
+    "Cashmeran": {
+        "character": {
+            "warmth": 7,
+            "woody": 5,
+            "sweetness": 4,
+            "creamy": 5,
+            "powdery": 3,
+        },
+        "note": "base",
+        "role": "volume",
+        "texture": "cocoon",
+        "mw": 206.32,
+        "vp": 1.242,
+        "clogp": 3.3,  # VERIFIED: PubChem CID=92292, 2026-05-30
+        "synergies": ["Iso E Super", "Alpha Irone", "Orivone"],
+    },
+    "Cedramber": {
+        "character": {"woody": 7, "freshness": 3, "warmth": 2},
+        "note": "base",
+        "role": "modifier",
+        "texture": "veil",
+        "mw": 234.38,
+        "vp": 0.35,
+        "clogp": 5.0,
+        "synergies": ["Iso E Super", "Clearwood"],
+    },
+    "Cedamber": {
+        "character": {"woody": 6, "warmth": 3, "sweetness": 2},
+        "note": "base",
+        "role": "modifier",
+        "texture": "veil",
+        "mw": 234.38,
+        "vp": 0.002,
+        "clogp": 5.0,
+        "synergies": ["Cedramber", "Iso E Super"],
+    },
+    "Amber Xtreme": {
+        "character": {"warmth": 8, "woody": 4, "sweetness": 3, "radiance": 3},
+        "note": "base",
+        "role": "character",
+        "texture": "cocoon",
+        "mw": 236.0,
+        "vp": 0.001,
+        "clogp": 4.5,
+        "synergies": ["Ambrox Super", "Iso E Super"],
+    },
+    "Amber Core": {
+        "character": {"warmth": 7, "sweetness": 3, "woody": 3},
+        "note": "base",
+        "role": "modifier",
+        "texture": "cushion",
+        "mw": 230.0,
+        "vp": 0.001,
+        "clogp": 4.0,
+        "synergies": ["Ambrox Super", "Labdanum Absolute"],
+    },
+    "Amber Core Accord": {
+        "character": {"warmth": 7, "sweetness": 4, "woody": 3, "powdery": 2},
+        "note": "base",
+        "role": "volume",
+        "texture": "cushion",
+        "mw": 230.0,
+        "vp": 0.001,
+        "clogp": 4.0,
+        "synergies": ["Ambrox Super", "Vanillin"],
+    },
+    "Ambrox Super": {
+        "character": {
+            "warmth": 6,
+            "woody": 5,
+            "radiance": 5,
+            "animalic": 3,
+            "powdery": 2,
+        },
+        "note": "base",
+        "role": "fixative",
+        "texture": "cocoon",
+        "mw": 236.40,
+        "vp": 0.05,
+        "clogp": 4.92,
+        "synergies": ["Iso E Super", "Cashmeran", "Hedione"],
+    },
+    "Ambrofix": {
+        "character": {"warmth": 5, "woody": 4, "radiance": 4, "animalic": 2},
+        "note": "base",
+        "role": "fixative",
+        "texture": "cocoon",
+        "mw": 236.40,
+        "vp": 0.06,
+        "clogp": 4.9,
+        "synergies": ["Ambrettolide", "Iso E Super"],
+    },
+    # ── Pre-diluted stock: 5 g Ambrox Super in 15 mL DEP:EtOH (33% w/v) ──
+    # ~7 mL EtOH (attempted 30% target, failed) + 8 mL DEP co-solvent → 15 mL total
+    # 1 µL stock = 0.33 µL active Ambrox + 0.36 µL DEP + 0.31 µL EtOH
+    # Use 0.91× the dose of the old 30% stock for equivalent active Ambrox.
+    "Ambrox Super 33% DEP/EtOH": {
+        "character": {
+            "warmth": 5,
+            "woody": 4,
+            "radiance": 4,
+            "animalic": 2,
+            "powdery": 1,
+        },
+        "note": "base",
+        "role": "fixative",
+        "texture": "cocoon",
+        "mw": 236.40,
+        "vp": 0.05,
+        "clogp": 4.92,
+        "synergies": ["Iso E Super", "Cashmeran", "Hedione"],
+        "dilution": 0.33,
+        "parent": "Ambrox Super",
+    },
+    "Kephalis": {
+        "character": {"woody": 9, "warmth": 5, "radiance": 3},
+        "note": "heart",
+        "role": "character",
+        "texture": "cocoon",
+        "mw": 224.34,
+        "vp": 0.46,
+        "clogp": 3.1,  # VERIFIED: PubChem CID=224.34, 2026-05-30
+        "synergies": ["Iso E Super", "Vertofix Coeur", "Timberol"],
+    },
+    "Bacdanol": {
+        "character": {"woody": 5, "creamy": 7, "warmth": 4, "sweetness": 2},
+        "note": "base",
+        "role": "character",
+        "texture": "skin-effect",
+        "mw": 210.36,
+        "vp": 0.001,
+        "clogp": 3.8,
+        "synergies": ["Javanol", "Ebanol", "Sandalore"],
+    },
+    "Ebanol": {
+        "character": {"woody": 5, "creamy": 8, "warmth": 3, "sweetness": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "skin-effect",
+        "mw": 220.35,
+        "vp": 0.89,
+        "clogp": 4.5,
+        "synergies": ["Javanol", "Bacdanol"],
+    },
+    "Sandalore": {
+        "character": {"woody": 5, "creamy": 6, "warmth": 3, "sweetness": 2},
+        "note": "base",
+        "role": "modifier",
+        "texture": "skin-effect",
+        "mw": 210.36,
+        "vp": 0.08,
+        "clogp": 4.2,
+        "synergies": ["Javanol", "Bacdanol", "Ebanol"],
+    },
+    "Polysantol": {
+        "character": {
+            "woody": 5,
+            "creamy": 7,
+            "floral": 3,
+            "warmth": 3,
+            "sweetness": 2,
+        },
+        "note": "base",
+        "role": "character",
+        "texture": "skin-effect",
+        "mw": 222.37,
+        "vp": 0.003,
+        "clogp": 4.2,
+        "or_family": "sandalwood",
+        "cas": "107898-54-4",
+        "synergies": ["Sandalore", "Ebanol", "Javanol", "Ambrox Super"],
+    },
+    "Vetival": {
+        "character": {"woody": 6, "green": 3, "animalic": 3, "smoky": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "skin-effect",
+        "mw": 218.33,
+        "vp": 6.53,
+        "clogp": 4.0,  # VP verified: TGSC 0.049 mmHg @ 25°C = 6.53 Pa
+        "synergies": ["Vetiver EO", "Iso E Super"],
+    },
+    "Vetiveryl Acetate": {
+        "character": {"woody": 8, "sweetness": 5, "green": 3, "smoky": 2},
+        "note": "base",
+        "role": "character",
+        "texture": "cushion",  # semi-synthetic: acetylated vetiverol. Cleaner, sweeter, polished vetiver without the dirt. Khusimyl acetate is primary constituent (~15%). Pairs with vetiver EO for depth+polish.
+        "mw": 262.4,
+        "vp": 0.1,  # sesquiterpene ester mixture; base note ~0.1 Pa
+        "clogp": 4.8,
+        "synergies": ["Vetiver EO", "Iso E Super", "Cedarwood EO", "Sandalore"],
+    },
+    "Vertofix Coeur": {
+        "character": {"woody": 8, "warmth": 4, "creamy": 2},
+        "note": "base",
+        "role": "fixative",
+        "texture": "cocoon",
+        "mw": 234.38,
+        "vp": 0.0112,
+        "clogp": 5.2,  # VP verified: TGSC 0.000084 mmHg @ 25°C = 0.0112 Pa
+        "synergies": ["Iso E Super", "Patchouli EO", "Evernyl"],
+    },
+    "Vertofix": {
+        "character": {"woody": 7, "warmth": 3, "creamy": 2},
+        "note": "base",
+        "role": "fixative",
+        "texture": "cocoon",
+        "mw": 234.38,
+        "vp": 0.0112,
+        "clogp": 5.0,  # VP verified: TGSC 0.000084 mmHg = 0.0112 Pa (same as Coeur)
+        "synergies": ["Vertofix Coeur", "Iso E Super"],
+    },
+    "Suederal": {
+        "character": {"animalic": 5, "woody": 4, "warmth": 3, "creamy": 3},
+        "note": "base",
+        "role": "character",
+        "texture": "skin-effect",
+        "mw": 168.28,
+        "vp": 0.01,
+        "clogp": 3.0,
+        "synergies": ["Alpha Irone", "Cashmeran", "Iso E Super"],
+    },
+    "Javanol": {
+        "character": {
+            "woody": 5,
+            "creamy": 8,
+            "warmth": 4,
+            "sweetness": 2,
+            "radiance": 3,
+        },
+        "note": "base",
+        "role": "character",
+        "texture": "skin-effect",
+        "mw": 222.37,
+        "vp": 0.1,
+        "clogp": 4.1,
+        # TGSC + PubChem CID 10561017: C15H26O MW=222.37 logP=4.1 CAS 198404-98-7
+        "synergies": ["Ambrox Super", "Cashmeran", "Bacdanol", "Ebanol"],
+    },
+    "Amberwood F": {
+        "character": {"woody": 6, "warmth": 5, "sweetness": 2},
+        "note": "base",
+        "role": "modifier",
+        "texture": "cocoon",
+        "mw": 234.0,
+        "vp": 0.001,
+        "clogp": 4.5,
+        "synergies": ["Iso E Super", "Ambrox Super"],
+    },
+    "Timberol": {
+        "character": {"woody": 8, "freshness": 2, "warmth": 2},
+        "note": "base",
+        "role": "character",
+        "texture": "cocoon",
+        "mw": 226.40,
+        "vp": 0.066661,
+        "mw_source": "Vigon Timberol SDS rev. 2018-04-12",
+        "vp_source": ("Vigon Timberol SDS rev. 2018-04-12: 0.0005 mmHg at 25 C"),
+        "vp_flag": "SUPPLIER_SDS_25C",
+        "clogp": 4.1,
+        "synergies": ["Kephalis", "Cedarwood EO", "Iso E Super"],
+    },
+    "Koavone": {
+        "character": {"woody": 7, "warmth": 4, "sweetness": 2},
+        "note": "base",
+        "role": "modifier",
+        "texture": "cocoon",
+        "mw": 206.33,
+        "vp": 0.45,
+        "clogp": 4.0,
+        "synergies": ["Cedarwood EO", "Timberol"],
+    },
+    "Cedarwood EO": {
+        "character": {"woody": 8, "warmth": 2, "sweetness": 1},
+        "note": "base",
+        "role": "character",
+        "texture": "cocoon",
+        "mw": 204.40,
+        "vp": 0.25,
+        "clogp": 3.9,
+        "synergies": ["Iso E Super", "Vertofix", "Vetiver EO"],
+    },
+    "Cedarwood oil Virginia": {
+        "character": {"woody": 8, "warmth": 3, "sweetness": 1, "smoky": 1},
+        "note": "base",
+        "role": "character",
+        "texture": "cocoon",
+        "mw": 222.37,
+        "vp": 0.005,
+        "clogp": 5.0,
+        "synergies": ["Cedarwood EO", "Iso E Super"],
+    },
+    "Himalayan Cedarwood EO": {
+        "character": {"woody": 8, "warmth": 3, "smoky": 1, "balsamic": 2},
+        "note": "base",
+        "role": "character",
+        "texture": "cocoon",
+        "mw": 204.40,
+        "vp": 0.02,
+        "clogp": 4.5,
+        "synergies": ["Cedarwood EO", "Iso E Super", "Sandalore", "Vertofix"],
+    },
+    "Beta-Pinene": {
+        "character": {"freshness": 6, "green": 7, "woody": 5, "sweetness": 1},
+        "note": "top",
+        "role": "modifier",
+        "texture": "lift",
+        "mw": 136.24,
+        "vp": 320.0,
+        "clogp": 3.1,
+        "synergies": [
+            "Lavender EO",
+            "Dihydromyrcenol",
+            "Cedrat FCF Sicilian",
+            "Pine EO",
+        ],
+    },
+    "Vetiver EO": {
+        "character": {"woody": 7, "green": 5, "smoky": 3, "animalic": 2, "transparent": 3},
+        "note": "base",
+        "role": "character",
+        "texture": "skin-effect",  # 2021 discovery (Groom et al., Angew. Chem.): true smelling principle = (+)-2-epi-ziza-6(13)-en-3-one at 29 pg/L air threshold — 150× more potent than khusimone. Molecule maps structurally onto arborone (Iso E Super key odorant), explaining the shared "aura" pheromone-like effect.
+        "mw": 222.37,
+        "vp": 0.003,
+        "clogp": 4.5,
+        "synergies": ["Iso E Super", "Vetival", "Vetiveryl Acetate", "Patchouli EO"],
+    },
+    "Nagarmortha Oil": {
+        "character": {"woody": 6, "smoky": 5, "earthy": 4, "spicy": 3},
+        "note": "base",
+        "role": "modifier",
+        "texture": "dry-earthy",
+        "mw": 204.0,
+        "vp": 0.01,
+        "clogp": 4.5,
+        "synergies": ["Vetiver EO", "Patchouli EO", "Cedarwood EO", "Oud Oliffac"],
+    },
+    "Clearwood": {
+        "character": {"woody": 6, "freshness": 3, "warmth": 2},
+        "note": "base",
+        "role": "modifier",
+        "texture": "veil",
+        "mw": 222.37,
+        "vp": 0.002,
+        "clogp": 4.3,
+        "synergies": ["Cedramber", "Iso E Super", "Patchouli EO"],
+    },
+    # ═══════════════════════ MUSKS ═══════════════════════
+    "Galaxolide": {
+        "character": {
+            "sweetness": 4,
+            "warmth": 3,
+            "powdery": 3,
+            "radiance": 3,
+            "floral": 1,
+        },
+        "note": "base",
+        "role": "fixative",
+        "texture": "cocoon",
+        "mw": 258.40,
+        "vp": 0.0001,
+        "clogp": 4.8,  # VERIFIED: PubChem CID=70490, 2026-05-30
+        "synergies": ["Habanolide", "Ambrettolide", "Iso E Super"],
+    },
+    "Tonalide": {
+        "character": {"sweetness": 5, "warmth": 3, "powdery": 2},
+        "note": "base",
+        "role": "fixative",
+        "texture": "cocoon",
+        "mw": 258.40,
+        "vp": 0.0001,
+        "clogp": 5.7,
+        "synergies": ["Galaxolide"],
+    },
+    "Ambrettolide": {
+        "character": {
+            "animalic": 3,
+            "warmth": 4,
+            "creamy": 5,
+            "sweetness": 2,
+            "radiance": 3,
+        },
+        "note": "base",
+        "role": "character",
+        "texture": "skin-effect",
+        "mw": 252.39,
+        "vp": 0.0001,
+        "clogp": 5.5,  # VERIFIED: PubChem CID=5365703, 2026-05-30
+        "synergies": ["Galaxolide", "Habanolide", "Javanol"],
+    },
+    "Habanolide": {
+        "character": {"freshness": 4, "warmth": 2, "powdery": 3, "radiance": 3},
+        "note": "base",
+        "role": "fixative",
+        "texture": "veil",
+        "mw": 238.37,
+        "vp": 0.0002,
+        "clogp": 5.5,
+        "synergies": ["Galaxolide", "Ambrettolide", "Iso E Super"],
+    },
+    "Zenolide": {
+        "character": {"freshness": 3, "sweetness": 3, "warmth": 2, "powdery": 3},
+        "note": "base",
+        "role": "modifier",
+        "texture": "veil",
+        "mw": 254.41,
+        "vp": 0.0001,
+        "clogp": 6.0,
+        "synergies": ["Galaxolide", "Habanolide"],
+    },
+    "Exaltolide": {
+        "character": {"sweetness": 4, "warmth": 3, "powdery": 4, "animalic": 2},
+        "note": "base",
+        "role": "fixative",
+        "texture": "cocoon",
+        "mw": 240.38,
+        "vp": 0.0001,
+        "clogp": 5.3,
+        "synergies": ["Galaxolide", "Ambrettolide"],
+    },
+    "Macrolide": {
+        "character": {"freshness": 2, "sweetness": 2, "warmth": 3, "animalic": 3},
+        "note": "base",
+        "role": "modifier",
+        "texture": "skin-effect",
+        "mw": 254.41,
+        "vp": 0.0001,
+        "clogp": 6.5,
+        "synergies": ["Ambrettolide", "Galaxolide"],
+    },
+    "Musk Ketone": {
+        "character": {"sweetness": 4, "warmth": 3, "powdery": 5, "animalic": 2},
+        "note": "base",
+        "role": "fixative",
+        "texture": "halo",
+        "mw": 294.30,
+        "vp": 0.000039997,
+        "vp_source": ("PubChem CID 6669 / Peck & Hornbuckle 2004: 3.00e-7 mmHg at 25 C"),
+        "vp_flag": "PEER_REPORTED_25C",
+        "clogp": 3.7,
+        "synergies": ["Galaxolide", "Vanillin"],
+    },
+    # ═══════════════════════ SWEET / GOURMAND / BALSAMIC ═══════════════════════
+    "Ethyl Maltol": {
+        "character": {"sweetness": 10, "warmth": 4, "creamy": 3},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "cushion",
+        "mw": 140.14,
+        "vp": 0.001,
+        "clogp": 0.03,
+        "synergies": ["Vanillin", "Coumarin", "Benzoin Resinoid"],
+    },
+    "Coumarin": {
+        "character": {"sweetness": 6, "warmth": 6, "powdery": 5, "creamy": 2},
+        "note": "base",
+        "role": "character",
+        "texture": "cushion",
+        "mw": 146.14,
+        "vp": 0.19,
+        "clogp": 1.39,
+        "synergies": ["Vanillin", "Lavender EO", "Tonka Bean FO"],
+    },
+    "Vanillin": {
+        "character": {"sweetness": 9, "warmth": 6, "creamy": 5, "powdery": 2},
+        "note": "base",
+        "role": "character",
+        "texture": "cushion",
+        "mw": 152.15,
+        "vp": 0.0003,
+        "clogp": 1.21,
+        "synergies": ["Ethyl Vanillin", "Coumarin", "Benzoin Resinoid", "Ethyl Maltol"],
+    },
+    "Ethyl Vanillin": {
+        "character": {"sweetness": 10, "warmth": 5, "creamy": 5, "powdery": 2},
+        "note": "base",
+        "role": "character",
+        "texture": "cushion",
+        "mw": 166.17,
+        "vp": 0.0002,
+        "clogp": 1.58,
+        "synergies": ["Vanillin", "Benzoin Resinoid"],
+    },
+    "Maple Lactone": {
+        "character": {"sweetness": 8, "warmth": 5, "creamy": 6},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "cushion",
+        "mw": 128.13,
+        "vp": 0.01,
+        "clogp": 0.1,
+        "synergies": ["Vanillin", "Coumarin", "Ethyl Maltol"],
+    },
+    "Raspberry Ketone": {
+        "character": {"sweetness": 7, "floral": 3, "freshness": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 164.20,
+        "vp": 0.001,
+        "clogp": 1.5,
+        "synergies": ["Gamma Decalactone", "Ethyl Maltol"],
+    },
+    "Benzoin Resinoid": {
+        "character": {"sweetness": 7, "warmth": 7, "creamy": 4, "smoky": 2},
+        "note": "base",
+        "role": "fixative",
+        "texture": "cushion",
+        "mw": 212.24,
+        "vp": 0.02,
+        "clogp": 2.5,
+        "synergies": ["Vanillin", "Labdanum Absolute", "Styrax FTEC"],
+    },
+    "Benzoin Sumatra Resinoid": {
+        "character": {"sweetness": 7, "warmth": 6, "creamy": 4, "smoky": 3},
+        "note": "base",
+        "role": "fixative",
+        "texture": "cushion",
+        "mw": 212.24,
+        "vp": 0.0001,
+        "clogp": 2.5,
+        "synergies": ["Vanillin", "Labdanum Absolute"],
+    },
+    "Labdanum Absolute": {
+        "character": {
+            "warmth": 8,
+            "animalic": 4,
+            "sweetness": 4,
+            "woody": 3,
+            "smoky": 2,
+        },
+        "note": "base",
+        "role": "character",
+        "texture": "cocoon",
+        "mw": 304.47,
+        "vp": 0.00001,
+        "clogp": 5.0,
+        "synergies": ["Benzoin Resinoid", "Ambrox Super", "Vanillin"],
+    },
+    "Labdanum": {
+        "character": {"warmth": 7, "animalic": 3, "sweetness": 3, "woody": 3},
+        "note": "base",
+        "role": "fixative",
+        "texture": "cocoon",
+        "mw": 300.0,
+        "vp": 0.00001,
+        "clogp": 5.0,
+        "or_family": "amber",
+        "synergies": ["Labdanum Absolute", "Benzoin Resinoid"],
+    },
+    "Labdanum Resinoid": {
+        "character": {
+            "warmth": 7,
+            "animalic": 3,
+            "sweetness": 3,
+            "woody": 3,
+            "smoky": 2,
+        },
+        "note": "base",
+        "role": "character",
+        "texture": "cocoon",
+        "mw": 300.0,
+        "vp": 0.00001,
+        "clogp": 5.0,
+        "or_family": "amber",
+        "synergies": [
+            "Benzoin Resinoid",
+            "Ambrox Super",
+            "Vanillin",
+            "Labdanum Absolute",
+        ],
+    },
+    "Anisaldehyde": {
+        "character": {"sweetness": 6, "floral": 3, "warmth": 2, "spicy": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 136.15,
+        "vp": 0.04,
+        "clogp": 1.76,
+        "synergies": ["Vanillin", "Heliotropin Fleuressence"],
+    },
+    "Gamma Decalactone": {
+        "character": {"sweetness": 5, "creamy": 7, "warmth": 2, "floral": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "cushion",
+        "mw": 170.25,
+        "vp": 0.005,
+        "clogp": 2.9,
+        "synergies": ["Gamma Undecalactone", "Raspberry Ketone", "Vanillin"],
+    },
+    "Gamma Undecalactone": {
+        "character": {"sweetness": 5, "creamy": 8, "warmth": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "cushion",
+        "mw": 184.28,
+        "vp": 0.002,
+        "clogp": 3.4,
+        "synergies": ["Gamma Decalactone", "Vanillin"],
+    },
+    "Delta Decalactone": {
+        "character": {"sweetness": 4, "creamy": 8, "warmth": 3},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "cushion",
+        "mw": 170.25,
+        "vp": 0.003,
+        "clogp": 2.5,
+        "synergies": ["Gamma Decalactone", "Vanillin"],
+    },
+    "Allyl Amyl Glycolate": {
+        "character": {"green": 5, "freshness": 7, "sweetness": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 158.19,
+        "vp": 0.2,
+        "clogp": 1.5,
+        "synergies": ["Hedione", "Floralozone", "Methyl Pamplemousse"],
+    },
+    # ═══════════════════════ LEATHER / SMOKY / PHENOLIC ═══════════════════════
+    "Isobutyl Quinoline": {
+        "character": {"animalic": 7, "smoky": 4, "woody": 2, "warmth": 2},
+        "note": "base",
+        "role": "trace",
+        "texture": "skin-effect",
+        "mw": 185.27,
+        "vp": 0.005,
+        "clogp": 3.5,
+        "synergies": ["Styrax FTEC", "Birch Tar Rectified", "Suederal"],
+    },
+    "Birch Tar Rectified": {
+        "character": {"smoky": 9, "animalic": 5, "woody": 3, "warmth": 2},
+        "note": "top",
+        "role": "trace",
+        "texture": "skin-effect",
+        "mw": 124.14,
+        "vp": 13.3,
+        "clogp": 1.5,
+        "synergies": ["Guaiacol", "Styrax FTEC", "Isobutyl Quinoline"],
+        "avoid": ["Floralozone", "Calone"],
+    },
+    "Cade Oil Rectified": {
+        "character": {"smoky": 8, "woody": 4, "animalic": 3, "warmth": 2},
+        "note": "base",
+        "role": "character",
+        "texture": "skin-effect",
+        "mw": 200.0,
+        "vp": 0.01,
+        "clogp": 3.5,
+        "synergies": [
+            "Guaiacol",
+            "Birch Tar Rectified",
+            "Nagarmotha Oil",
+            "Juniper Berry EO",
+            "Labdanum Resinoid",
+        ],
+        "avoid": ["Calone", "Floralozone", "Dihydromyrcenol"],
+    },
+    "Styrax FTEC": {
+        "character": {"smoky": 6, "sweetness": 4, "warmth": 5, "animalic": 3},
+        "note": "base",
+        "role": "character",
+        "texture": "cushion",
+        "mw": 200.0,
+        "vp": 0.005,
+        "clogp": 2.5,
+        "synergies": ["Benzoin Resinoid", "Birch Tar Rectified", "Labdanum Absolute"],
+    },
+    "Guaiacol": {
+        "character": {"smoky": 8, "animalic": 4, "warmth": 3, "spicy": 2},
+        "note": "base",
+        "role": "trace",
+        "texture": "skin-effect",
+        "mw": 124.14,
+        "vp": 0.053,
+        "clogp": 1.32,
+        "synergies": ["Birch Tar Rectified", "Eugenol", "Isobutyl Quinoline"],
+    },
+    "Evernyl": {
+        "character": {"woody": 5, "green": 4, "animalic": 3, "smoky": 2},
+        "note": "base",
+        "role": "character",
+        "texture": "skin-effect",
+        "mw": 196.20,
+        "vp": 0.129,
+        "clogp": 2.1,
+        "synergies": ["Patchouli EO", "Vertofix Coeur", "Coumarin"],
+    },
+    # ═══════════════════════ SPICE / AROMATIC ═══════════════════════
+    "Anise EO (China)": {
+        "character": {"spicy": 5, "sweetness": 6, "herbal": 4, "freshness": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "lift",
+        "mw": 148.20,
+        "vp": 5.0,
+        "clogp": 3.3,
+        "synergies": [
+            "Basil EO (India, Ocimum Basilicum)",
+            "Vanillin",
+            "Coumarin",
+            "Lavender EO",
+        ],
+    },
+    "Basil EO (India, Ocimum Basilicum)": {
+        "character": {
+            "herbal": 7,
+            "green": 5,
+            "freshness": 4,
+            "spicy": 3,
+            "sweetness": 2,
+        },
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 152.0,
+        "vp": 8.0,
+        "clogp": 3.0,
+        "synergies": ["Lavender EO", "Bergamot FCF", "Galbanum EO", "Anise EO (China)"],
+    },
+    "Black Pepper FTEC": {
+        "character": {"spicy": 8, "warmth": 4, "woody": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 204.35,
+        "vp": 0.1,
+        "clogp": 3.5,
+        "synergies": ["Pink Pepper Base", "Cardamom FTEC"],
+    },
+    "Black Pepper materials": {
+        "character": {"spicy": 7, "warmth": 3, "woody": 2},
+        "note": "top",
+        "role": "modifier",
+        "texture": "lift",
+        "mw": 204.35,
+        "vp": 0.1,
+        "clogp": 3.5,
+        "synergies": ["Black Pepper FTEC"],
+    },
+    "Cardamom FTEC": {
+        "character": {"spicy": 7, "freshness": 4, "warmth": 3, "woody": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 170.25,
+        "vp": 0.5,
+        "clogp": 2.5,
+        "synergies": ["Black Pepper FTEC", "Alpha Irone", "Bergamot FCF"],
+    },
+    "Cardamom EO": {
+        "character": {"spicy": 8, "freshness": 5, "warmth": 3, "green": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 170.25,
+        "vp": 15.0,
+        "clogp": 2.5,
+        "synergies": ["Bergamot FCF", "Rose Absolute", "Black Pepper EO"],
+    },
+    "Pink Pepper Base": {
+        "character": {"spicy": 6, "freshness": 4, "sweetness": 2, "floral": 2},
+        "note": "top",
+        "role": "modifier",
+        "texture": "lift",
+        "mw": 136.23,
+        "vp": 0.3,
+        "clogp": 3.0,
+        "synergies": ["Black Pepper FTEC", "Bergamot FCF"],
+    },
+    "Ethyl Safranate": {
+        "character": {"spicy": 7, "warmth": 5, "woody": 2, "sweetness": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 168.23,
+        "vp": 0.05,
+        "clogp": 2.5,
+        "synergies": ["Labdanum Absolute", "Benzoin Resinoid", "Alpha Irone"],
+    },
+    "Eugenol": {
+        "character": {"spicy": 8, "warmth": 5, "sweetness": 2, "smoky": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 164.20,
+        "vp": 0.01,
+        "clogp": 2.49,
+        "synergies": ["Isoeugenol", "Cinnamaldehyde", "Vanillin"],
+    },
+    "Isoeugenol": {
+        "character": {"spicy": 6, "warmth": 5, "sweetness": 3, "floral": 3},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "cushion",
+        "mw": 164.20,
+        "vp": 0.005,
+        "clogp": 2.58,
+        "synergies": ["Eugenol", "Vanillin"],
+    },
+    "Cinnamaldehyde": {
+        "character": {"spicy": 9, "warmth": 6, "sweetness": 3},
+        "note": "heart",
+        "role": "character",
+        "texture": "lift",
+        "mw": 132.16,
+        "vp": 0.05,
+        "clogp": 1.9,
+        "synergies": ["Eugenol", "Vanillin", "Coumarin"],
+    },
+    "Clove EO (India)": {
+        "character": {"spicy": 8, "warmth": 5, "sweetness": 2, "smoky": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 164.20,
+        "vp": 2.5,
+        "clogp": 2.5,
+        "synergies": ["Eugenol", "Cinnamaldehyde", "Vanillin", "Rose Oxide"],
+    },
+    "Lavender EO": {
+        "character": {"freshness": 6, "floral": 5, "green": 4, "woody": 2, "spicy": 1},
+        "note": "heart",
+        "role": "character",
+        "texture": "lift",
+        "mw": 170.0,
+        "vp": 3.5,
+        "clogp": 2.5,
+        "synergies": ["Linalyl Acetate", "Coumarin", "Geraniol", "Terpinyl Acetate"],
+    },
+    "Lavender EO (BONTAUX SAS)": {
+        "character": {"freshness": 7, "floral": 5, "green": 3, "woody": 1, "spicy": 1},
+        "note": "heart",
+        "role": "character",
+        "texture": "lift",
+        "mw": 154.3,
+        "vp": 22.0,
+        "clogp": 2.3,  # VERIFIED: YAML L.yaml canonical values, BONTAUX = high-altitude French lavender, 2026-05-30
+        "synergies": ["Linalyl Acetate", "Coumarin", "Linalool", "Cardamom EO"],
+    },
+    "Patchouli EO": {
+        "character": {
+            "woody": 7,
+            "warmth": 4,
+            "animalic": 3,
+            "sweetness": 2,
+            "green": 2,
+        },
+        "note": "base",
+        "role": "character",
+        "texture": "cocoon",
+        "mw": 222.37,
+        "vp": 0.001,
+        "clogp": 4.5,
+        "synergies": ["Evernyl", "Vertofix Coeur", "Vetiver EO"],
+    },
+    "Myrrh EO": {
+        "character": {
+            "warmth": 6,
+            "smoky": 4,
+            "sweetness": 3,
+            "woody": 3,
+            "animalic": 2,
+        },
+        "note": "base",
+        "role": "character",
+        "texture": "cushion",
+        "mw": 222.37,
+        "vp": 0.001,
+        "clogp": 3.5,
+        "synergies": ["Olibanum Resinoid", "Labdanum Absolute"],
+    },
+    "Frankincense EO": {
+        "character": {
+            "resinous": 6,
+            "woody": 5,
+            "spicy": 4,
+            "balsamic": 4,
+            "freshness": 3,
+            "citrus": 2,
+        },
+        "note": "heart",
+        "role": "modifier",
+        "texture": "cocoon",
+        "mw": 210.0,
+        "vp": 0.5,
+        "clogp": 3.8,
+        "cas": "8016-36-2",
+        "synergies": [
+            "Olibanum Resinoid",
+            "Myrrh EO",
+            "Labdanum Absolute",
+            "Benzoin Resinoid",
+            "Patchouli EO",
+        ],
+    },
+    "Olibanum Resinoid": {
+        "character": {"smoky": 5, "warmth": 5, "spicy": 3, "woody": 3, "freshness": 2},
+        "note": "base",
+        "role": "character",
+        "texture": "cocoon",
+        "mw": 220.0,
+        "vp": 0.08,
+        "clogp": 3.0,
+        "synergies": ["Myrrh EO", "Labdanum Absolute", "Benzoin Resinoid"],
+    },
+    # ═══════════════════════ ACCORD BASES / FTECs / OTHER ═══════════════════════
+    "Blackcurrant FTEC": {
+        "character": {"green": 5, "sweetness": 4, "animalic": 3, "freshness": 3},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 180.0,
+        "vp": 0.1,
+        "clogp": 2.5,
+        "synergies": ["Hedione", "Beta Ionone"],
+    },
+    "Cassis Base 345B": {
+        "character": {"fruity": 7, "green": 5, "freshness": 3, "sulfury": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 160.0,
+        "vp": 0.5,
+        "clogp": 2.5,
+        "synergies": ["Paradisamide", "Damascone Beta", "Beta Ionone", "Hedione"],
+    },
+    "Dewberry FTEC": {
+        "character": {"sweetness": 5, "freshness": 4, "floral": 3},
+        "note": "top",
+        "role": "modifier",
+        "texture": "lift",
+        "mw": 180.0,
+        "vp": 0.1,
+        "clogp": 2.0,
+        "synergies": ["Hedione", "Gamma Decalactone"],
+    },
+    "Jasmine FO": {
+        "character": {"floral": 7, "sweetness": 4, "animalic": 2, "warmth": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 200.0,
+        "vp": 0.01,
+        "clogp": 3.0,
+        "synergies": ["Hedione", "Benzyl Acetate", "Indole"],
+    },
+    "Leather FO": {
+        "character": {"animalic": 6, "smoky": 5, "woody": 3, "warmth": 3},
+        "note": "base",
+        "role": "character",
+        "texture": "skin-effect",
+        "mw": 200.0,
+        "vp": 0.005,
+        "clogp": 3.0,
+        "synergies": ["Isobutyl Quinoline", "Birch Tar Rectified"],
+    },
+    "Tonka Bean FO": {
+        "character": {"sweetness": 7, "warmth": 5, "powdery": 4, "creamy": 3},
+        "note": "base",
+        "role": "character",
+        "texture": "cushion",
+        "mw": 180.0,
+        "vp": 0.001,
+        "clogp": 2.0,
+        "synergies": ["Coumarin", "Vanillin", "Benzoin Resinoid"],
+    },
+    "Sandalwood FO": {
+        "character": {"woody": 6, "creamy": 6, "warmth": 4, "sweetness": 2},
+        "note": "base",
+        "role": "modifier",
+        "texture": "skin-effect",
+        "mw": 210.0,
+        "vp": 0.001,
+        "clogp": 4.0,
+        "synergies": ["Javanol", "Bacdanol"],
+    },
+    "Melonal": {
+        "character": {"green": 6, "freshness": 6, "sweetness": 2},
+        "note": "top",
+        "role": "modifier",
+        "texture": "lift",
+        "mw": 140.22,
+        "mw_source": "ECHA identity record for CAS 106-72-9",
+        "vp": 239.0,
+        "vp_source": "OECD 104 value reported in EU SDS: 239 Pa at 25 C",
+        "vp_flag": "OECD_104_25C",
+        "clogp": 2.5,
+        "synergies": ["Floralozone", "Hedione"],
+    },
+    "Paradisamide": {
+        "character": {
+            "tropical": 8,
+            "citrus": 6,
+            "green": 5,
+            "fruity": 7,
+            "freshness": 5,
+        },
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 219.32,
+        "vp": 0.002,
+        "clogp": 3.4,
+        # TGSC + PubChem CID 57495095: C14H21NO MW=219.32 logP=3.4 CAS 406488-30-0
+        # Givaudan GF: guava/passion-fruit/grapefruit/rhubarb/cassis; 150hr strip life; impact 150
+        # Typical use 0.1-1%, max 10%; long-lasting tropical-fruity modifier NOT a muguet material
+        "synergies": [
+            "Methyl Pamplemousse",
+            "Blood Orange Sicilian",
+            "Grapefruit FCF",
+            "Hedione",
+        ],
+    },
+    "DBCA": {
+        "character": {
+            "floral": 7,
+            "sweetness": 3,
+            "freshness": 2,
+            "powdery": 2,
+            "creamy": 2,
+        },
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 192.25,
+        "vp": 6.67,
+        "clogp": 2.7,
+        "synergies": [
+            "Paradisamide",
+            "Benzyl Salicylate",
+            "Freesia HDI",
+            "Lilyreal ND",
+        ],
+    },
+    "Methyl Nonyl Ketone": {
+        "character": {"freshness": 3, "green": 4, "woody": 2, "sweetness": 1},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "veil",
+        "mw": 170.29,
+        "vp": 0.05,
+        "clogp": 3.5,
+        "synergies": ["Floralozone"],
+    },
+    # ═══════════════════════ ADDITIONAL MATERIALS ═══════════════════════
+    "Bergamot FCF Sicilian": {
+        "character": {
+            "freshness": 8,
+            "sweetness": 2,
+            "green": 3,
+            "floral": 2,
+            "warmth": 1,
+        },
+        "note": "heart",
+        "role": "character",
+        "texture": "lift",
+        "mw": 170.0,
+        "vp": 2.5,
+        "clogp": 2.8,
+        "synergies": ["Hedione", "Neroli EO", "Linalool"],
+    },
+    "Blood Orange Sicilian": {
+        "character": {"freshness": 7, "sweetness": 4, "warmth": 2, "green": 1},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 136.23,
+        "vp": 3.0,
+        "clogp": 3.5,
+        "synergies": ["Red Mandarin EO", "Bergamot FCF"],
+    },
+    "Cedrat FCF Sicilian": {
+        "character": {"freshness": 8, "green": 4, "woody": 1},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 152.23,
+        "vp": 2.0,
+        "clogp": 2.7,
+        "synergies": ["Grapefruit FCF", "Scentenal", "Hedione"],
+    },
+    "Methyl Ionone": {
+        "character": {"floral": 5, "powdery": 6, "woody": 3, "sweetness": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "cushion",
+        "mw": 206.33,
+        "vp": 0.01,
+        "clogp": 3.8,
+        "synergies": ["Alpha Irone", "Orivone", "Cashmeran"],
+    },
+    "Norlimbanol Dextro": {
+        "character": {"woody": 9, "warmth": 3, "animalic": 1},
+        "note": "base",
+        "role": "character",
+        "texture": "cocoon",
+        "mw": 224.38,
+        "vp": 0.001,
+        "clogp": 5.2,
+        "synergies": ["Iso E Super", "Cedarwood EO", "Vertofix Coeur"],
+    },
+    "Romandolide": {
+        "character": {
+            "sweetness": 3,
+            "freshness": 4,
+            "warmth": 2,
+            "powdery": 2,
+            "radiance": 4,
+        },
+        "note": "base",
+        "role": "fixative",
+        "texture": "veil",
+        "mw": 270.36,
+        "vp": 0.1,
+        "clogp": 4.56,
+        # Firmenich data sheet: VP=0.10Pa@20C logP(measured)=4.56 CAS 236391-76-7
+        # TGSC + PubChem CID 21933618: C15H26O4 MW=270.36
+        # "Alicyclic topnote musk, easily perceived by all users, diffusive"
+        "synergies": ["Galaxolide", "Ambrettolide", "Habanolide"],
+    },
+    "Apritone": {
+        "character": {
+            "sweetness": 6,
+            "freshness": 4,
+            "green": 2,
+            "warmth": 3,
+            "floral": 1,
+        },
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 178.27,
+        "vp": 0.133,
+        "clogp": 3.2,  # VP verified: TGSC 0.001 mmHg @ 25°C = 0.133 Pa
+        "synergies": ["Hedione", "Methyl Pamplemousse", "Cedrat FCF Sicilian"],
+    },
+    "Lemonile": {
+        "character": {"freshness": 9, "green": 3, "sweetness": 1},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 163.26,
+        "vp": 1.2,
+        "clogp": 3.7,
+        # TGSC + PubChem CID 112446: homogeranyl nitrile C11H17N MW=163.26 logP=3.7 CAS 61792-11-8 VP=0.009mmHg=1.2Pa
+        "synergies": ["Bergamot FCF", "Petitgrain EO", "Clary Sage EO"],
+    },
+    "Orange Peel EO": {
+        "character": {"freshness": 8, "sweetness": 3, "green": 1},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 136.23,
+        "vp": 1.9,
+        "clogp": 4.57,
+        "synergies": ["D-Limonene", "Bergamot FCF", "Petitgrain EO"],
+    },
+    "Ylang Comoros Complete EO F3255": {
+        "character": {"floral": 8, "sweetness": 5, "warmth": 4, "creamy": 3},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 200.0,
+        "vp": 0.05,
+        "clogp": 3.0,
+        "synergies": ["Methyl Benzoate", "Benzyl Salicylate", "Hedione"],
+    },
+    "Ylang Comoros III EO F3295": {
+        "character": {"floral": 7, "sweetness": 4, "warmth": 3, "creamy": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 200.0,
+        "vp": 0.03,
+        "clogp": 3.2,
+        "synergies": ["Ylang Comoros Complete EO F3255", "Hedione"],
+    },
+    "Champaca Flower EO": {
+        "character": {
+            "floral": 7,
+            "sweetness": 4,
+            "warmth": 4,
+            "spicy": 2,
+            "creamy": 2,
+        },
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 200.0,
+        "vp": 0.03,
+        "clogp": 3.0,
+        "synergies": ["Methyl Benzoate", "Jasmine FO", "Benzyl Salicylate"],
+    },
+    "Methyl Benzoate": {
+        "character": {"floral": 6, "sweetness": 2, "freshness": 1},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 136.15,
+        "vp": 40.0,
+        "clogp": 2.12,
+        "synergies": ["Ylang Comoros Complete EO F3255", "Cis Jasmone", "Jasmine FO"],
+    },
+    "Cis Jasmone": {
+        "character": {"floral": 6, "green": 4, "spicy": 3, "herbal": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 164.24,
+        "vp": 1.333,
+        "clogp": 2.2,
+        "synergies": ["Hedione", "Methyl Benzoate", "Jasmine FO"],
+    },
+    "JASMIN ABS F-TEC": {
+        "character": {"floral": 7, "sweetness": 4, "animalic": 2, "green": 1},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 180.0,
+        "vp": 0.005,
+        "clogp": 3.0,
+        "synergies": ["Hedione", "Benzyl Acetate", "Indole", "Methyl Benzoate"],
+    },
+    "Jasmine Sambac Absolute": {
+        "character": {"floral": 7, "indolic": 5, "sweetness": 3},
+        "note": "heart",
+        "role": "core",
+        "texture": "depth",
+        "mw": 170.0,
+        "vp": 0.005,
+        "clogp": 3.0,
+        "synergies": ["Hedione", "Cis Jasmone", "Benzyl Acetate", "Indole"],
+        "cas": "91770-14-8",
+    },
+    "Methyl Salicylate": {
+        "character": {"freshness": 5, "green": 4, "floral": 3, "sweetness": 1},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "veil",
+        "mw": 152.15,
+        "vp": 5.3,
+        "clogp": 2.55,
+        "synergies": ["Benzyl Salicylate", "Clary Sage EO", "Lavender EO"],
+    },
+    "Methyl Anthranilate": {
+        "character": {"floral": 6, "sweetness": 4, "warmth": 2, "animalic": 1},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "cushion",
+        "mw": 151.16,
+        "vp": 0.03,
+        "clogp": 1.88,
+        "synergies": ["Neroli EO", "Orange Blossom", "Petitgrain EO"],
+    },
+    "Ethylene Brassylate": {
+        "character": {"powdery": 4, "creamy": 4, "warmth": 2, "floral": 2},
+        "note": "base",
+        "role": "fixative",
+        "texture": "veil",
+        "mw": 270.37,
+        "vp": 0.008,
+        "clogp": 3.89,
+        "synergies": ["Galaxolide", "Habanolide", "Cashmeran"],
+    },
+    "Siam Benzoin": {
+        "character": {"sweetness": 7, "warmth": 7, "creamy": 4, "smoky": 1},
+        "note": "base",
+        "role": "fixative",
+        "texture": "cushion",
+        "mw": 212.24,
+        "vp": 0.0001,
+        "clogp": 2.5,
+        "or_family": "gourmand",
+        "synergies": ["Vanillin", "Labdanum Absolute", "Coumarin"],
+    },
+    "Clary Sage EO": {
+        "character": {"green": 5, "freshness": 4, "spicy": 3, "woody": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 196.29,
+        "vp": 5,
+        "clogp": 3.5,
+        "synergies": ["Lemonile", "Lavender EO", "Petitgrain EO"],
+    },
+    "Rose Absolute": {
+        "character": {"floral": 8, "sweetness": 4, "green": 2, "warmth": 1},
+        "note": "heart",
+        "role": "character",
+        "texture": "veil",
+        "mw": 220.0,
+        "vp": 0.02,
+        "clogp": 3.5,
+        "synergies": ["Geraniol", "Citronellol", "Phenethyl Alcohol", "Hedione"],
+    },
+    "Jasmine Absolute": {
+        "character": {"floral": 8, "sweetness": 4, "animalic": 3, "green": 1},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 170.0,
+        "vp": 0.005,
+        "clogp": 3.0,
+        "synergies": ["Hedione", "Benzyl Acetate", "Indole", "Methyl Benzoate"],
+    },
+    "Cypriol EO": {
+        "character": {"woody": 7, "smoky": 5, "spicy": 3, "green": 2},
+        "note": "base",
+        "role": "character",
+        "texture": "skin-effect",
+        "mw": 220.0,
+        "vp": 0.13,
+        "clogp": 4.0,
+        "or_family": "woody",
+        "synergies": ["Oud Oil", "Georgywood", "Vetiver EO", "Patchouli EO"],
+    },
+    "Georgywood": {
+        "character": {"woody": 8, "warmth": 3, "radiance": 3, "smoky": 1},
+        "note": "base",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 218.34,
+        "vp": 0.001,
+        "clogp": 5.0,
+        "synergies": ["Oud Oil", "Cypriol EO", "Iso E Super", "Ambrox Super"],
+    },
+    "Orris Butter Absolute": {
+        "character": {"powdery": 9, "creamy": 5, "floral": 4, "woody": 2},
+        "note": "base",
+        "role": "character",
+        "texture": "cushion",
+        "mw": 206.33,
+        "vp": 0.005,
+        "clogp": 3.8,
+        "synergies": ["Alpha Irone", "Methyl Ionone", "Hedione", "Sandalwood EO"],
+    },
+    "Oud Oil": {
+        "character": {"woody": 8, "smoky": 5, "animalic": 3, "warmth": 4, "spicy": 2},
+        "note": "base",
+        "role": "character",
+        "texture": "skin-effect",
+        "mw": 222.37,
+        "vp": 0.001,
+        "clogp": 4.5,
+        "synergies": ["Cypriol EO", "Georgywood", "Rose Absolute", "Sandalwood EO"],
+    },
+    "Rum Absolute": {
+        "character": {"warmth": 6, "sweetness": 5, "spicy": 2, "smoky": 1},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "veil",
+        "mw": 150.0,
+        "vp": 0.01,
+        "clogp": 1.5,
+        "synergies": ["Vanillin", "Coumarin", "Patchouli EO", "Labdanum Absolute"],
+    },
+    "Sandalwood EO": {
+        "character": {"woody": 7, "creamy": 7, "warmth": 4},
+        "note": "base",
+        "role": "character",
+        "texture": "cushion",
+        "mw": 220.0,
+        "vp": 0.001,
+        "clogp": 4.0,
+        "synergies": [
+            "Rose Absolute",
+            "Orris Butter Absolute",
+            "Javanol",
+            "Benzyl Salicylate",
+        ],
+    },
+    "Castoreum Base": {
+        "character": {"animalic": 7, "smoky": 4, "warmth": 4, "woody": 2},
+        "note": "base",
+        "role": "trace",
+        "texture": "skin-effect",
+        "mw": 200.0,
+        "vp": 0.001,
+        "clogp": 3.0,
+        "synergies": ["Civet Reconstitution Base", "Isobutyl Quinoline", "Oud Oil"],
+    },
+    "Civet Reconstitution Base": {
+        "character": {"animalic": 8, "warmth": 4, "sweetness": 1},
+        "note": "base",
+        "role": "trace",
+        "texture": "skin-effect",
+        "mw": 200.0,
+        "vp": 0.001,
+        "clogp": 3.0,
+        "synergies": ["Castoreum Base", "Indole", "Skatole", "Jasmine Absolute"],
+    },
+    "Skatole": {
+        "character": {"animalic": 10, "floral": 2, "sweetness": 1},
+        "note": "base",
+        "role": "trace",
+        "texture": "skin-effect",
+        "mw": 131.17,
+        "vp": 0.01,
+        "clogp": 2.6,
+        "synergies": ["Indole", "Jasmine Absolute", "Civet Reconstitution Base"],
+    },
+    # ═══════════════════════ NEW PROFILES — ADDED 2026-05-08 ═══════════════════════
+    "Cinnamyl alcohol": {
+        "character": {"sweetness": 5, "warmth": 5, "floral": 4, "spicy": 3},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "veil",
+        "mw": 134.18,
+        "vp": 0.03,
+        "clogp": 1.9,
+        "synergies": ["Benzoin Resinoid", "Eugenol", "Vanillin", "Phenethyl Alcohol"],
+    },
+    "Dihydrojasmone": {
+        "character": {"floral": 6, "green": 4, "freshness": 3, "creamy": 3},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 166.26,
+        "vp": 7.67,
+        "clogp": 2.9,
+        "synergies": ["Hedione", "Cis Jasmone", "Benzyl Acetate"],
+    },
+    "Jessemal": {
+        "character": {
+            "floral": 6,
+            "creamy": 4,
+            "sweetness": 3,
+            "warmth": 3,
+            "green": 2,
+        },
+        "note": "heart",
+        "role": "modifier",
+        "texture": "cushion",
+        "mw": 214.30,
+        "vp": 0.5,
+        "clogp": 2.8,
+        "odt": 5.0,
+        "odt_ppm": 1.0,
+        "or_family": "floral",
+        "activity_coef": 1.0,
+        "hedonic": 0.45,
+        "synergies": ["Hedione", "Cis Jasmone", "Dihydrojasmone", "Benzyl Acetate"],
+    },
+    "Lilial": {
+        "character": {"floral": 7, "freshness": 5, "green": 4, "powdery": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 204.31,
+        "vp": 0.33,
+        "clogp": 3.9,
+        "synergies": ["Hedione", "Florol", "Hydroxycitronellal", "Nympheal"],
+    },
+    "Oranger Crystals": {
+        "character": {"floral": 7, "sweetness": 4, "freshness": 3, "warmth": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 170.21,
+        "vp": 0.133,
+        "clogp": 3.2,
+        "synergies": ["Neroli EO", "Hedione", "Benzyl Salicylate", "Aurantiol"],
+    },
+    "Oud Fleuressence": {
+        "character": {"woody": 7, "smoky": 6, "animalic": 4, "warmth": 3, "spicy": 2},
+        "note": "base",
+        "role": "character",
+        "texture": "skin-effect",
+        "mw": 220.0,
+        "vp": 0.001,
+        "clogp": 4.0,
+        "synergies": [
+            "Oud Oil",
+            "Cypriol EO",
+            "Cedarwood EO",
+            "Patchouli EO",
+            "Labdanum Absolute",
+        ],
+    },
+    "Rosemary EO (French Rosmarinus Officinalis leaf oil)": {
+        "character": {"freshness": 6, "green": 5, "spicy": 4, "woody": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 170.0,
+        "vp": 0.3,
+        "clogp": 3.2,
+        "synergies": [
+            "Lavender EO",
+            "Spike Lavender EO",
+            "Juniper Berry EO",
+            "Coumarin",
+        ],
+    },
+    "Tobacco FTEC": {
+        "character": {"warmth": 6, "sweetness": 5, "woody": 4, "smoky": 3},
+        "note": "heart",
+        "role": "character",
+        "texture": "cushion",
+        "mw": 200.0,
+        "vp": 0.01,
+        "clogp": 3.0,
+        "synergies": [
+            "Coumarin",
+            "Vanillin",
+            "Benzoin Resinoid",
+            "Tobacco Fleuressence",
+        ],
+    },
+    "Tobacco Fleuressence": {
+        "character": {"warmth": 7, "sweetness": 6, "woody": 4, "smoky": 3},
+        "note": "heart",
+        "role": "character",
+        "texture": "cushion",
+        "mw": 200.0,
+        "vp": 0.01,
+        "clogp": 3.0,
+        "synergies": [
+            "Coumarin",
+            "Tobacco FTEC",
+            "Benzoin Resinoid",
+            "Cashmeran",
+            "Labdanum Absolute",
+        ],
+    },
+    "Tobacco Absolute": {
+        "character": {
+            "warmth": 6,
+            "sweetness": 5,
+            "resinous": 6,
+            "smoky": 4,
+            "woody": 3,
+            "balsamic": 5,
+        },
+        "note": "base",
+        "role": "character",
+        "texture": "cushion",
+        "mw": 195.0,
+        "vp": 0.03,
+        "clogp": 3.5,
+        "synergies": [
+            "Coumarin",
+            "Vetiver EO",
+            "Iso E Super",
+            "Evernyl",
+            "Benzoin Resinoid",
+            "Patchouli EO",
+        ],
+    },
+    "Vetikon": {
+        "character": {"woody": 7, "freshness": 3, "green": 2, "powdery": 2},
+        "note": "base",
+        "role": "volume",
+        "texture": "diffusion",
+        "mw": 176.25,
+        "vp": 4.16,
+        "clogp": 2.7,
+        "cas": "7403-42-1",
+        "synergies": ["Iso E Super", "Vertofix", "Vetiver EO", "Clearwood"],
+    },
+    "Ylang Ylang EO": {
+        "character": {
+            "floral": 8,
+            "sweetness": 5,
+            "warmth": 4,
+            "creamy": 3,
+            "spicy": 1,
+        },
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": 200.0,
+        "vp": 0.05,
+        "clogp": 3.0,
+        "synergies": [
+            "Methyl Benzoate",
+            "Benzyl Salicylate",
+            "Hedione",
+            "p-Cresyl Methyl Ether",
+        ],
+    },
+    "p-Cresyl Methyl Ether": {
+        "character": {"floral": 5, "animalic": 4, "sweetness": 3, "smoky": 2},
+        "note": "heart",
+        "role": "trace",
+        "texture": "diffusion",
+        "mw": 122.16,
+        "vp": 270.0,
+        "clogp": 2.7,
+        "synergies": ["Ylang Ylang EO", "Indole", "Neroli EO", "Methyl Benzoate"],
+    },
+    "Adoxal": {
+        "character": {"freshness": 7, "aquatic": 5, "floral": 4, "green": 3},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 210.36,
+        "vp": 0.4,
+        "clogp": 6.2,
+        "synergies": ["Calone", "Helional", "Hedione", "Linalool"],
+    },
+    "Champignol": {
+        "character": {"earthy": 8, "green": 3, "fruity": 3, "smoky": 1},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 128.21,
+        "vp": 70.8,
+        "clogp": 2.7,
+        "synergies": ["Geosmin", "Violet Leaf Absolute", "Patchouli EO", "Blackcurrant Absolute"],
+    },
+    "Coriander Essential Oil": {
+        "character": {"spicy": 5, "freshness": 5, "green": 3, "floral": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 154.25,
+        "vp": 15.0,
+        "clogp": 3.2,
+        "synergies": ["Linalool", "Cardamom EO", "Rose Absolute", "Black Pepper EO"],
+    },
+    "2-Acetyl Pyrazine": {
+        "character": {"gourmand": 8, "warmth": 4, "sweetness": 3, "nutty": 5},
+        "note": "base",
+        "role": "character",
+        "texture": "depth",
+        "mw": 122.12,
+        "vp": 0.02,
+        "clogp": 0.7,
+        "synergies": [
+            "Coffee Absolute Grasse",
+            "Cocoa Absolute",
+            "Vanillin",
+            "Castoreum Synthetic",
+        ],
+    },
+    "Safraleine": {
+        "character": {"spicy": 6, "leathery": 6, "smoky": 3, "warmth": 5},
+        "note": "base",
+        "role": "modifier",
+        "texture": "skin-effect",
+        "mw": 174.24,
+        "vp": 0.02,
+        "clogp": 2.3,
+        "synergies": [
+            "Ethyl Safranate",
+            "Isobutyl Quinoline",
+            "Castoreum Synthetic",
+            "Labdanum Absolute",
+        ],
+    },
+    "Blackcurrant Absolute": {
+        "character": {"fruity": 7, "green": 5, "sourness": 3, "animalic": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 180.0,
+        "vp": 0.05,
+        "clogp": 3.5,
+        "synergies": [
+            "Cassis Base 345B",
+            "Raspberry Ketone",
+            "Rose Absolute",
+            "Violet Leaf Absolute",
+        ],
+    },
+    "Violet Leaf Absolute": {
+        "character": {"green": 8, "freshness": 5, "aquatic": 3, "earthy": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "lift",
+        "mw": 220.0,
+        "vp": 0.005,
+        "clogp": 4.0,
+        "synergies": ["Blackcurrant Absolute", "Alpha Ionone", "Galbanum EO", "Orris Liquid"],
+    },
+    "Black Agarwood Artificial": {
+        "character": {"woody": 8, "smoky": 6, "animalic": 3, "warmth": 4},
+        "note": "base",
+        "role": "character",
+        "texture": "skin-effect",
+        "mw": 220.0,
+        "vp": 0.001,
+        "clogp": 4.5,
+        "synergies": ["Castoreum Synthetic", "Cypriol EO", "Iso E Super", "Labdanum Absolute"],
+    },
+    "Castoreum Synthetic": {
+        "character": {"animalic": 7, "leathery": 6, "smoky": 4, "warmth": 4},
+        "note": "base",
+        "role": "trace",
+        "texture": "skin-effect",
+        "mw": 200.0,
+        "vp": 0.001,
+        "clogp": 3.0,
+        "synergies": [
+            "Isobutyl Quinoline",
+            "Birch Tar Rectified",
+            "Black Agarwood Artificial",
+            "Indole",
+        ],
+    },
+    "Coffee Absolute Grasse": {
+        "character": {"gourmand": 8, "warmth": 6, "smoky": 3, "sweetness": 4},
+        "note": "base",
+        "role": "character",
+        "texture": "depth",
+        "mw": 190.0,
+        "vp": 0.01,
+        "clogp": 3.5,
+        "synergies": ["2-Acetyl Pyrazine", "Cocoa Absolute", "Vanillin", "Safraleine"],
+    },
+    # ═══════════════════════ SOLVENTS / CARRIERS ═══════════════════════
+    "Diethyl Phthalate": {
+        "character": {},
+        "note": "carrier",
+        "role": "solvent",
+        "texture": "",
+        "mw": 222.24,
+        "vp": 0.002,
+        "clogp": 2.5,
+        "synergies": [],
+    },
+    "Dipropylene Glycol": {
+        "character": {},
+        "note": "carrier",
+        "role": "solvent",
+        "texture": "",
+        "mw": 134.17,
+        "vp": 0.01,
+        "clogp": -0.5,
+        "synergies": [],
+    },
+    "Ethanol": {
+        "character": {},
+        "note": "carrier",
+        "role": "solvent",
+        "texture": "",
+        "mw": 46.07,
+        "vp": 5900.0,
+        "clogp": -0.31,
+        "synergies": [],
+    },
+    "Isopropyl Myristate": {
+        "character": {},
+        "note": "carrier",
+        "role": "solvent",
+        "texture": "",
+        "mw": 270.46,
+        "vp": 0.001,
+        "clogp": 7.0,
+        "synergies": [],
+    },
+    "Triethyl Citrate": {
+        "character": {},
+        "note": "carrier",
+        "role": "solvent",
+        "texture": "",
+        "mw": 276.29,
+        "vp": 0.001,
+        "clogp": 1.2,
+        "synergies": [],
+    },
+    # ═══════════════════════ CITRUS / TOP ═══════════════════════
+    # ═══════════════════════ LEGACY / VARIANTS ═══════════════════════
+    "Heliotropin": {
+        "character": {
+            "sweetness": 5,
+            "powdery": 6,
+            "floral": 4,
+            "warmth": 4,
+            "creamy": 3,
+        },
+        "note": "heart",
+        "role": "modifier",
+        "texture": "cushion",
+        "mw": 150.13,
+        "vp": 0.6,
+        "clogp": 1.05,
+        "synergies": ["Vanillin", "Coumarin", "Benzyl Benzoate"],
+    },
+    "Molecule Iris": {
+        "character": {"powdery": 6, "floral": 4, "woody": 3, "creamy": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "halo",
+        "mw": 206.0,
+        "vp": 0.2,
+        "clogp": 4.2,
+        "synergies": ["Alpha Irone", "Orivone", "Hedione"],
+    },
+    "Rose de Mai Absolute": {
+        "character": {"floral": 8, "sweet": 3, "green": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "velvety-warm",
+        "mw": 220.0,
+        "vp": 0.001,
+        "clogp": 3.0,
+        "synergies": ["Hedione", "Phenethyl Alcohol", "Geraniol", "Citronellol"],
+    },
+    "Galbanum EO": {
+        "character": {"green": 9, "woody": 2, "freshness": 4},
+        "note": "top",
+        "role": "character",
+        "texture": "sharp-lift",
+        "mw": 136.0,
+        "vp": 15.0,
+        "clogp": 3.5,
+        "synergies": ["Bergamot FCF", "Hedione", "Dynascone"],
+    },
+    "Osmanthus Absolute": {
+        "character": {"floral": 6, "fruity": 4, "leather": 3, "sweet": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "suede-velvet",
+        "mw": 200.0,
+        "vp": 0.01,
+        "clogp": 3.2,
+        "synergies": ["Hedione", "Beta Ionone", "Javanol", "Labdanum Resinoid"],
+    },
+    "Tonkarome": {
+        "character": {"sweet": 6, "gourmand": 5, "balsamic": 3, "powdery": 2},
+        "note": "base",
+        "role": "character",
+        "texture": "creamy-smooth",
+        "mw": 160.0,
+        "vp": 0.05,
+        "clogp": 2.5,
+        "synergies": ["Coumarin", "Vanillin", "Heliotropal", "Benzoin"],
+    },
+    "Tuberalia base": {
+        "character": {"floral": 8, "sweet": 4, "green": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "creamy-narcotic",
+        "mw": 220.0,
+        "vp": 0.1,
+        "clogp": 3.0,
+        "synergies": ["Hedione", "Benzyl Salicylate", "Methyl Benzoate", "Indole"],
+    },
+    "Oakmoss Absolute": {
+        "character": {"green": 5, "woody": 4, "earthy": 3, "smoky": 2},
+        "note": "base",
+        "role": "character",
+        "texture": "fixative",
+        "mw": 400.0,
+        "vp": 0.001,
+        "clogp": 4.5,
+        "synergies": ["Patchouli EO", "Bergamot FCF", "Labdanum Resinoid", "Evernyl"],
+    },
+    "Tuberose Absolute": {
+        "character": {"floral": 9, "sweet": 4, "green": 2, "animalic": 3},
+        "note": "heart",
+        "role": "character",
+        "texture": "narcotic-creamy",
+        "mw": 220.0,
+        "vp": 0.005,
+        "clogp": 3.0,
+        "synergies": [
+            "Methyl Benzoate",
+            "Benzyl Salicylate",
+            "Indole",
+            "Ylang Ylang EO",
+        ],
+    },
+    "Tuberose Absolute (India)": {
+        "character": {"floral": 7, "sweet": 3, "green": 2, "animalic": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "creamy-floral",
+        "mw": 220.0,
+        "vp": 0.005,
+        "clogp": 3.0,
+        "synergies": [
+            "Methyl Benzoate",
+            "Benzyl Salicylate",
+            "Ylang Ylang EO",
+            "Jasmine Sambac",
+        ],
+    },
+    "Phenyl Ethyl Acetate": {
+        "character": {"floral": 7, "sweet": 5, "fruity": 3},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "honeyed-lift",
+        "mw": 164.2,
+        "vp": 3.0,
+        "clogp": 2.3,
+        "synergies": ["Phenethyl Alcohol", "Geraniol", "Citronellol", "Benzyl Acetate"],
+    },
+    "Cocoa Absolute": {
+        "character": {"gourmand": 8, "sweet": 5, "woody": 2, "earthy": 3},
+        "note": "base",
+        "role": "character",
+        "texture": "rich-dense",
+        "mw": 250.0,
+        "vp": 0.01,
+        "clogp": 4.0,
+        "synergies": ["Vanillin", "Patchouli EO", "Coumarin", "Labdanum Resinoid"],
+    },
+    "Evernyl (50% in DPG)": {
+        "character": {"woody": 5, "green": 4, "animalic": 3, "smoky": 2},
+        "note": "base",
+        "role": "character",
+        "texture": "skin-effect",
+        "mw": 196.2,
+        "vp": 0.1,
+        "clogp": 2.8,
+        "synergies": ["Patchouli EO", "Vertofix Coeur", "Coumarin"],
+    },
+    "Petitgrain EO Paraguay": {
+        "character": {"citrus": 5, "green": 4, "floral": 3, "freshness": 3},
+        "note": "top",
+        "role": "character",
+        "texture": "lift-bright",
+        "mw": 136.0,
+        "vp": 6.0,
+        "clogp": 3.0,
+        "synergies": ["Bergamot FCF", "Lavender EO", "Linalool"],
+    },
+    "Immortelle Absolute": {
+        "character": {"floral": 4, "spicy": 5, "sweet": 5, "herbal": 3},
+        "note": "heart",
+        "role": "character",
+        "texture": "honeyed-herbal",
+        "mw": 200.0,
+        "vp": 0.02,
+        "clogp": 3.5,
+        "synergies": ["Coumarin", "Labdanum Resinoid", "Hedione", "Patchouli EO"],
+    },
+    "Rose Essential Oil": {
+        "character": {"floral": 8, "sweet": 4, "green": 2, "spicy": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "velvety",
+        "mw": 175.0,
+        "vp": 1.0,
+        "clogp": 3.0,
+        "synergies": [
+            "Citronellol",
+            "Geraniol",
+            "Phenethyl Alcohol",
+            "Hedione",
+            "Alpha Ionone",
+        ],
+    },
+    "Cassia Essential Oil": {
+        "character": {"spicy": 8, "sweet": 4, "balsamic": 3, "woody": 2},
+        "note": "heart",
+        "role": "character",
+        "texture": "warm",
+        "mw": 135.0,
+        "vp": 2.5,
+        "clogp": 2.0,
+        "synergies": [
+            "Cinnamaldehyde",
+            "Eugenol",
+            "Coumarin",
+            "Benzoin Sumatra Resinoid",
+            "Vanillin",
+        ],
+    },
+    "Peppermint Essential Oil": {
+        "character": {"herbal": 8, "fresh": 5, "sweet": 3, "green": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "crisp",
+        "mw": 159.0,
+        "vp": 12.0,
+        "clogp": 3.1,
+        "synergies": [
+            "Eucalyptus Essential Oil",
+            "Rosemary EO",
+            "Lavender EO",
+            "Pine EO",
+        ],
+    },
+    "Eucalyptus Essential Oil": {
+        "character": {"herbal": 7, "fresh": 7, "camphoraceous": 5, "green": 3},
+        "note": "top",
+        "role": "character",
+        "texture": "sharp",
+        "mw": 155.0,
+        "vp": 210.0,
+        "clogp": 2.7,
+        "synergies": [
+            "Peppermint Essential Oil",
+            "Pine EO",
+            "Lavender EO",
+            "Rosemary EO",
+            "Tea Tree EO",
+        ],
+    },
+    "Ginger EO": {
+        "character": {"spicy": 6, "freshness": 5, "citrus": 4, "green": 2},
+        "note": "top",
+        "role": "modifier",
+        "texture": "sparkle",
+        "mw": 136.0,
+        "vp": 10.0,
+        "clogp": 3.5,
+        "synergies": ["Citral", "Bergamot FCF", "Cardamom EO", "Linalool"],
+    },
+    "Tagetes EO": {
+        "character": {"green": 7, "herbal": 6, "fruity": 4, "spicy": 2},
+        "note": "top",
+        "role": "character",
+        "texture": "sharp",
+        "mw": 155.0,
+        "vp": 3.0,
+        "clogp": 3.2,
+        "synergies": ["Galbanum EO", "Triplal", "Parmavert", "Hedione"],
+    },
+    "Jasmine Sambac Blossoms": {
+        "character": {"floral": 7, "green": 4, "sweetness": 3, "freshness": 3},
+        "note": "heart",
+        "role": "character",
+        "texture": "volume",
+        "mw": 220.0,
+        "vp": 0.3,
+        "clogp": 3.0,
+        "synergies": ["Jasmine Sambac", "Hedione", "Indole", "Cis Jasmone"],
+    },
+    "Blue Chamomile EO": {
+        "character": {"herbal": 7, "sweetness": 5, "warmth": 4, "smoky": 3},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "halo",
+        "mw": 200.0,
+        "vp": 1.0,
+        "clogp": 3.5,
+        "synergies": [
+            "Tobacco Absolute",
+            "Evernyl",
+            "Coumarin",
+            "Lavender EO",
+            "Patchouli EO",
+            "Vetiver EO",
+            "Cedarwood EO",
+            "Cardamom EO",
+            "Sandalwood EO",
+            "Labdanum Absolute",
+            "Kephalis",
+            "Nagarmortha Oil",
+            "Frankincense EO",
+            "Bergamot FCF",
+            "Hedione",
+            "Ethylene Brassylate",
+        ],
+    },
+    "Mimosa Absolute": {
+        "character": {"floral": 7, "powdery": 6, "green": 4, "sweetness": 3},
+        "note": "heart",
+        "role": "character",
+        "texture": "volume",
+        "mw": 240.0,
+        "vp": 0.05,
+        "clogp": 3.8,
+        "synergies": ["Heliotropal", "Alpha Ionone", "Orivone", "Benzyl Salicylate"],
+    },
+    "Osmanthus Absolute (volume grade)": {
+        "character": {"floral": 6, "fruity": 5, "leather": 3, "green": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "volume",
+        "mw": 210.0,
+        "vp": 0.08,
+        "clogp": 3.0,
+        "synergies": ["Osmanthus Absolute", "Hedione", "Alpha Ionone", "Javanol"],
+    },
+    "Tuberose Absolute (volume grade)": {
+        "character": {"floral": 7, "creamy": 5, "green": 3, "animalic": 2},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "volume",
+        "mw": 230.0,
+        "vp": 0.04,
+        "clogp": 3.5,
+        "synergies": [
+            "Tuberose Absolute",
+            "Benzyl Salicylate",
+            "Hedione",
+            "Methyl Benzoate",
+        ],
+    },
+    "Isobutavan": {
+        "character": {"sweetness": 8, "creamy": 7, "powdery": 4, "warmth": 3},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "creamy",
+        "mw": 222.24,
+        "vp": 0.03,
+        "clogp": 2.1,
+        "synergies": ["Vanillin", "Coumarin", "Ethylene Brassylate", "Heliotropal"],
+    },
+    "Allyl Cyclohexyl Propionate": {
+        "character": {"fruity": 8, "freshness": 5, "green": 4, "sweetness": 3},
+        "note": "top",
+        "role": "character",
+        "texture": "sparkle",
+        "mw": 196.29,
+        "vp": 5.0,
+        "clogp": 3.3,
+        "synergies": [
+            "Allyl Amyl Glycolate",
+            "Hedione",
+            "Damascone Beta",
+            "Paradisamide",
+        ],
+    },
+    "Tonka Bean Absolute": {
+        "character": {"sweetness": 7, "powdery": 6, "warmth": 5, "spicy": 3},
+        "note": "base",
+        "role": "character",
+        "texture": "warm",
+        "mw": 195.0,
+        "vp": 0.02,
+        "clogp": 2.5,
+        "synergies": ["Coumarin", "Vanillin", "Benzoin Resinoid", "Tobacco Absolute"],
+    },
+    "Cocoa CO2 Extract": {
+        "character": {"sweetness": 7, "warmth": 6, "smoky": 4, "creamy": 4},
+        "note": "base",
+        "role": "character",
+        "texture": "warm",
+        "mw": 260.0,
+        "vp": 0.01,
+        "clogp": 3.5,
+        "synergies": ["Cocoa Absolute", "Vanillin", "Patchouli EO", "Coffee"],
+    },
+    "Peru Balsam Resinoid": {
+        "character": {"warmth": 7, "sweetness": 7, "balsamic": 7, "spicy": 5},
+        "note": "base",
+        "role": "fixative",
+        "texture": "warm",
+        "mw": 275.0,
+        "vp": 0.03,
+        "clogp": 3.5,
+        "synergies": ["Benzoin Resinoid", "Vanillin", "Coumarin", "Labdanum Resinoid"],
+    },
+    "Opoponax Resinoid": {
+        "character": {"warmth": 7, "sweetness": 6, "balsamic": 6, "animalic": 3},
+        "note": "base",
+        "role": "fixative",
+        "texture": "warm",
+        "mw": 220.0,
+        "vp": 0.02,
+        "clogp": 3.2,
+        "synergies": [
+            "Frankincense EO",
+            "Benzoin Resinoid",
+            "Labdanum Resinoid",
+            "Evernyl",
+        ],
+    },
+}
+
+# Aliases for common naming variants
+_ALIASES = {
+    "Dimethyl Benzyl Carbinyl Acetate": "DBCA",
+    "Dimethyl Benzyl Carbinyl Acetate (DBCA)": "DBCA",
+    "PEA": "Phenethyl Alcohol",
+    "Phenyl Ethyl Alcohol": "Phenethyl Alcohol",
+    "Phenyl Ethyl Alcohol (PEA)": "Phenethyl Alcohol",
+    "2-phenylethanol": "Phenethyl Alcohol",
+    "2-phenylethyl alcohol": "Phenethyl Alcohol",
+    "tetradecanoic acid": "Myristic Acid",
+    "Myristic Acid Powder": "Myristic Acid",
+    "cis-Jasmone": "Cis Jasmone",
+    "cis jasmone": "Cis Jasmone",
+    "(Z)-jasmone": "Cis Jasmone",
+    "Ketone V": "Allyl Ionone",
+    "Cetone V": "Allyl Ionone",
+    "Allyl Ionone (Ketone V)": "Allyl Ionone",
+    "Allyl Ionone (Cetone V)": "Allyl Ionone",
+    "tropical ionone": "Allyl Ionone",
+    "allyl-alpha-ionone": "Allyl Ionone",
+    "Hexalon": "Allyl Ionone",
+    "AIMI": "Alpha-Isomethyl Ionone",
+    "Alpha-Isomethyl Ionone (AIMI)": "Alpha-Isomethyl Ionone",
+    "IBQ": "Isobutyl Quinoline",
+    "Isobutyl Quinoline (10%)": "Isobutyl Quinoline",
+    "Ambermax (10%)": "Ambermax",
+    "Ambermax (50%)": "Ambermax",
+    "Methyl Ionone Pure": "Alpha-Isomethyl Ionone",
+    "Alpha Isomethyl Ionone": "Alpha-Isomethyl Ionone",
+    "Orris Hexanone": "Orivone",
+    "Orris Capronate": "Irotyl",
+    "Alpha Irone (30% w/w in IPM)": "Alpha Irone",
+    "Orris Liquid (30%)": "Orris Liquid",
+    "Ambrox": "Ambrox Super",
+    "Ambroxide": "Ambrox Super",
+    "Ambroxide (Ambrox Super / Ambrofix)": "Ambrox Super",
+    "Ambrofix": "Ambrox Super",
+    "Cedrat FCF oil Sicilian": "Cedrat FCF Sicilian",
+    "Blood Orange oil Sicilian": "Blood Orange Sicilian",
+    "Ylang Comoros Complete F3255": "Ylang Comoros Complete EO F3255",
+    "Ylang Comoros III F3295": "Ylang Comoros III EO F3295",
+    "I-Iris FTEC": "I-IRIS F-TEC",
+    "ORRIS FTEC": "Orris F-TEC",
+    "Jasmin ABS F-TEC": "JASMIN ABS F-TEC",
+    "JASMIN ABS F-TEC": "JASMIN ABS F-TEC",
+    "Castoreum Base (synthetic reconstitution)": "Castoreum Base",
+    "Civet Reconstitution Base (synthetic)": "Civet Reconstitution Base",
+    "Cypriol EO (Nagarmotha)": "Cypriol EO",
+    "Hedione (Methyl Dihydrojasmonate)": "Hedione",
+    "Hedione HC": "Hedione",
+    "Jasmine Absolute (J. grandiflorum)": "Jasmine Absolute",
+    "Methyl Dihydrojasmonate": "Hedione",
+    "Methyl Ionone (α-Isomethyl Ionone)": "Alpha-Isomethyl Ionone",
+    "Methyl Ionone (a-Isomethyl Ionone)": "Alpha-Isomethyl Ionone",
+    "Orris Butter Absolute (15% α-irone)": "Orris Butter Absolute",
+    "Orris Butter Absolute (15% a-irone)": "Orris Butter Absolute",
+    "Iris Butter Absolute": "Orris Butter Absolute",
+    "Oud Oil (Aquilaria crassna, Laotian plantation)": "Oud Oil",
+    "Oud Oil (Assam)": "Oud Oil",
+    "Rose Absolute (R. damascena)": "Rose Absolute",
+    "Sandalwood": "Sandalwood EO",
+    "Sandalwood (East Indian Santalum album)": "Sandalwood EO",
+    "Tonka": "Tonka Bean FO",
+    "Tonka FO": "Tonka Bean FO",
+    "DHM": "Dihydromyrcenol",
+    "DEP": "Diethyl Phthalate",
+    "DPG": "Dipropylene Glycol",
+    "IPM": "Isopropyl Myristate",
+    "TEC": "Triethyl Citrate",
+    "Ethanol 96%": "Ethanol",
+    "Adoxal 10% in DPG": "Adoxal",
+    "Champignol 10% in DPG": "Champignol",
+    "Coriander EO": "Coriander Essential Oil",
+    "Coriander Seed Oil": "Coriander Essential Oil",
+    "2-Acetyl Pyrazine 1% in DPG": "2-Acetyl Pyrazine",
+    "Safraleine neat": "Safraleine",
+    "Blackcurrent Absolute": "Blackcurrant Absolute",
+    "Blackcurrant Absolute 10% in DPG": "Blackcurrant Absolute",
+    "Violet Leaf Absolute 10% in DPG": "Violet Leaf Absolute",
+    "Jasmine Absolute 10% in DPG": "Jasmine Absolute",
+    "Coffee Absolute Grasse 10% in DPG": "Coffee Absolute Grasse",
+    "Limonene": "D-Limonene",
+    "EB": "Ethylene Brassylate",
+    "Vetiver EO (Haitian or Bourbon)": "Vetiver EO",
+    "Vetiver EO (Haiti)": "Vetiver EO",
+    # ── Aliases for materials with profiles under different names ──
+    "Amyl Cinnamic Aldehyde": "ACA",
+    "Amyl Cinnamic Aldehyde (ACA)": "ACA",
+    "ACA (Amyl Cinnamic Aldehyde)": "ACA",
+    "Phenyl Ethyl Dimethyl Carbinol": "PEDMC",
+    "Phenyl Ethyl Dimethyl Carbinol (PEDMC)": "PEDMC",
+    "Nagarmotha Oil": "Cypriol EO",
+    "Nagarmortha Oil": "Cypriol EO",
+    "Cypriol": "Cypriol EO",
+    "Cyclimal Aldehyde": "Cyclamen Aldehyde",
+    "Nerolia Bromelia": "Nerolin Bromelia",
+    "Nerolin": "Nerolin Bromelia",
+    "Olibanum Resinoid Absolute": "Olibanum Resinoid",
+    "Olibanum Resinoid Absolute (10%)": "Olibanum Resinoid",
+    "Olibanum Resinoid Absolute - Solid": "Olibanum Resinoid",
+    "Olibanum Resinoid (Viscous)": "Olibanum Resinoid",
+    "Olibanum Resinoid (viscous, 3 g)": "Olibanum Resinoid",
+    "Lavender EO High Altitude (angustifolia France)": "Lavender EO High Altitude",
+    "Lime Distilled": "Lime Distilled EO",
+    "Juniper EO": "Juniper Berry EO",
+    "Spike Lavender": "Spike Lavender EO",
+    "PCME": "p-Cresyl Methyl Ether",
+    "p-Cresyl Methyl Ether (PCME)": "p-Cresyl Methyl Ether",
+    "Cinnamyl alcohol 50% in DPG": "Cinnamyl alcohol",
+    # Chemical/label identity corrections. Heliotropin is the common synonym
+    # for piperonal; Heliotropin Fleuressence remains a distinct commercial
+    # blend. "Cedamber" is a legacy misspelling of IFF Cedramber.
+    "Heliotropin": "Heliotropal",
+    "Piperonal": "Heliotropal",
+    "Cedamber": "Cedramber",
+    "Jasmine Sambac": "Jasmine Sambac Absolute",
+}
+
+
+# ── Transparency dimension injection (Ellena axis) ──
+# Inject "transparency" into character dicts based on material classification.
+# 8-10 = highly transparent (sheer, diaphanous), 4-7 = neutral, 0-3 = opaque/dense
+_TRANSPARENCY_SCORES: dict[str, int] = {
+    # Highly transparent materials (8-10)
+    "Hedione": 10,
+    "Iso E Super": 9,
+    "Hexyl Salicylate": 9,
+    "Dihydromyrcenol": 9,
+    "Linalool": 8,
+    "Linalyl Acetate": 8,
+    "Allyl Amyl Glycolate": 9,
+    "Calone": 8,
+    "Floralozone": 8,
+    "Scentenal": 8,
+    "Amberwood F": 8,
+    "Habanolide": 8,
+    "Galaxolide": 7,
+    "Cashmeran": 7,
+    "DBCA": 8,
+    "Lilyreal ND": 8,
+    "Ultralia": 9,
+    # Medium-high (6-7)
+    "Cedrat FCF Sicilian": 7,
+    "Benzyl Salicylate": 6,
+    "Geraniol": 7,
+    "Nerol": 7,
+    "Phenethyl Alcohol": 6,
+    "Hydroxycitronellal": 7,
+    "Hydroxycitronellol": 6,
+    "Bourgeonal": 7,
+    "Ambrox Super": 6,
+    "Javanol": 7,
+    "Ebanol": 7,
+    "Musk T": 7,
+    # Medium (4-5)
+    "Coumarin": 5,
+    "Alpha Irone": 5,
+    "Orris Liquid": 3,
+    "Orivone": 5,
+    "Cedarwood Atlas EO": 5,
+    "Cedarwood Virginia EO": 5,
+    "Vertofix Coeur": 4,
+    "Kephalis": 4,
+    "Timberol": 5,
+    "Ethyl Vanillin": 4,
+    "Eugenol": 4,
+    "Lavender EO": 6,
+    "Nerolin Bromelia": 5,
+    "Oranger Crystals": 5,
+    "Petitgrain EO": 6,
+    # Low transparency / opaque (0-3)
+    "Patchouli EO": 2,
+    "Rose Absolute": 3,
+    "Labdanum Absolute": 1,
+    "Benzoin Resinoid": 2,
+    "Myrrh EO": 2,
+    "Sandalwood EO": 3,
+    "Vetiver EO": 3,
+    "Vetiveryl Acetate": 2,
+    "Vanillin": 3,
+    "Styrax FTEC": 2,
+    "Ylang Comoros Complete EO": 3,
+    "Birch Tar Rectified": 1,
+    "Guaiacol": 1,
+    "Indole": 2,
+    "Isobutyl Quinoline": 2,
+    # ── New profiles — 2026-05-08 ──
+    "Cinnamyl alcohol": 5,
+    "Dihydrojasmone": 6,
+    "Lilial": 7,
+    "Oud Fleuressence": 1,
+    "Rosemary EO (French Rosmarinus Officinalis leaf oil)": 5,
+    "Tobacco FTEC": 3,
+    "Tobacco Fleuressence": 3,
+    "Tobacco Absolute": 2,
+    "Vetikon": 5,
+    "Ylang Ylang EO": 4,
+    "p-Cresyl Methyl Ether": 3,
+    # ── Solvents ──
+    "Dipropylene Glycol": 5,
+    "Ethanol": 5,
+    "Isopropyl Myristate": 5,
+    "Triethyl Citrate": 5,
+    # ── New citrus / legacy ──
+    "Heliotropin": 4,
+    "Molecule Iris": 5,
+    # ── Inventory gap fill 2026-05-23 ──
+    "Aurantiol": 4,
+    "Benzyl Acetate": 6,
+    "Carrot Seed EO": 3,
+    "Cedarwood oil Virginia": 5,
+    "Cis Jasmone": 6,
+    "Clary Sage EO": 5,
+    "Ethyl Safranate": 5,
+    "Evernyl": 3,
+    "Gamma Decalactone": 5,
+    "Gamma Undecalactone": 5,
+    "Methyl Anthranilate": 6,
+    "Methyl Benzoate": 4,
+    "Methyl Nonyl Ketone": 7,
+    "Rhodinol ex Citronella": 6,
+    "Vertofix": 4,
+    "Ginger EO": 0.5,
+    "Tagetes EO": 0.2,
+    "Jasmine Sambac Blossoms": 3.0,
+    "Blue Chamomile EO": 0.1,
+    "Mimosa Absolute": 1.5,
+    "Osmanthus Absolute (volume grade)": 2.0,
+    "Tuberose Absolute (volume grade)": 2.0,
+    "Isobutavan": 0.5,
+    "Allyl Cyclohexyl Propionate": 1.0,
+    "Tonka Bean Absolute": 1.0,
+    "Cocoa CO2 Extract": 1.0,
+    "Peru Balsam Resinoid": 2.0,
+    "Opoponax Resinoid": 1.5,
+}
+
+# ── Chemical Family Map for Natural Compatibility (F11) ──────────────────
+# Maps complex naturals to their dominant chemical families.
+# Two naturals that share ZERO families are flagged as potentially incompatible.
+# Families follow structural chemistry taxonomy: same backbone/shared biosynthetic origin.
+_CHEMICAL_FAMILY_MAP: dict[str, list[str]] = {
+    "Anise EO (China)": ["phenylpropanoid", "monoterpenoid"],
+    "Basil EO (India, Ocimum Basilicum)": ["monoterpenoid", "phenylpropanoid"],
+    "Benzoin Resinoid": ["benzenoid", "balsamic"],
+    "Benzoin Sumatra Resinoid": ["benzenoid", "balsamic"],
+    "Bergamot EO": ["monoterpenoid", "coumarin_furanocoumarin"],
+    "Bergamot FCF Sicilian": ["monoterpenoid"],
+    "Bitter Orange EO (expressed)": ["monoterpenoid", "coumarin_furanocoumarin"],
+    "Blood Orange oil Sicilian": ["monoterpenoid"],
+    "Blue Chamomile EO": ["azulene", "sesquiterpenoid"],
+    "Cade Oil Rectified": ["phenolic_smoky", "sesquiterpenoid"],
+    "Cardamom EO": ["monoterpenoid", "ether"],
+    "Carrot Seed EO": ["sesquiterpenoid", "monoterpenoid"],
+    "Cassia Essential Oil": ["phenylpropanoid", "aldehyde_cinnamic"],
+    "Cedarwood EO": ["sesquiterpenoid"],
+    "Cedarwood oil Virginia": ["sesquiterpenoid"],
+    "Cedrat FCF Sicilian": ["monoterpenoid"],
+    "Champaca Flower EO": ["sesquiterpenoid", "monoterpenoid", "benzenoid"],
+    "Clary Sage EO": ["monoterpenoid", "sesquiterpenoid_ester"],
+    "Clove EO (India)": ["phenylpropanoid", "sesquiterpenoid"],
+    "Cocoa Absolute": ["pyrazine", "fatty_acid", "polyalcohol"],
+    "Cocoa CO2 Extract": ["pyrazine", "fatty_acid", "polyalcohol"],
+    "Cypriol EO": ["sesquiterpenoid"],
+    "Eucalyptus Essential Oil": ["monoterpenoid", "ether_cineole"],
+    "Frankincense EO": ["monoterpenoid", "sesquiterpenoid"],
+    "Galbanum EO": ["monoterpenoid", "aldehydic_green"],
+    "Galbanum Resinoid": ["monoterpenoid", "aldehydic_green"],
+    "Ginger EO": ["monoterpenoid", "sesquiterpenoid"],
+    "Grapefruit EO (expressed)": ["monoterpenoid", "coumarin_furanocoumarin"],
+    "Himalayan Cedarwood EO": ["sesquiterpenoid"],
+    "Immortelle Absolute": ["sesquiterpenoid", "diketone"],
+    "Jasmine Absolute": ["benzenoid", "monoterpenoid", "lactone_indolic"],
+    "Jasmine Sambac Absolute": ["benzenoid", "monoterpenoid", "lactone_indolic"],
+    "Jasmine FO": ["benzenoid", "monoterpenoid", "lactone"],
+    "Adoxal": ["aldehyde_aliphatic", "alkene"],
+    "Champignol": ["alcohol_aliphatic", "fungal"],
+    "Coriander Essential Oil": ["monoterpenoid", "alcohol_terpenoid", "ester_terpenoid"],
+    "2-Acetyl Pyrazine": ["pyrazine", "ketone_aromatic"],
+    "Safraleine": ["ketone_indenone", "aromatic"],
+    "Blackcurrant Absolute": ["sulfurous", "monoterpenoid", "ester_terpenoid"],
+    "Violet Leaf Absolute": ["aldehyde_green", "natural_mixture"],
+    "Black Agarwood Artificial": ["sesquiterpenoid", "phenolic_smoky"],
+    "Castoreum Synthetic": ["phenolic_smoky", "animalic"],
+    "Coffee Absolute Grasse": ["pyrazine", "furanoid", "phenolic_smoky"],
+    "Labdanum Absolute": ["sesquiterpenoid", "balsamic", "amber"],
+    "Labdanum Resinoid": ["sesquiterpenoid", "balsamic", "amber"],
+    "Lavender EO": ["monoterpenoid", "alcohol_terpenoid", "ester_terpenoid"],
+    "Lavender EO (BONTAUX SAS)": ["monoterpenoid", "alcohol_terpenoid", "ester_terpenoid"],
+    "Lemon EO (cold pressed)": ["monoterpenoid", "coumarin_furanocoumarin"],
+    "Mimosa Absolute": ["benzenoid", "aldehyde_green"],
+    "Myrrh EO": ["sesquiterpenoid", "ether_furanoid"],
+    "Nagarmortha Oil": ["sesquiterpenoid"],
+    "Oakmoss Absolute": ["depsidic", "phenolic_orcinol", "sesquiterpenoid"],
+    "Olibanum Resinoid": ["monoterpenoid", "sesquiterpenoid"],
+    "Opoponax Resinoid": ["sesquiterpenoid", "balsamic", "amber"],
+    "Orange Peel EO": ["monoterpenoid"],
+    "Orris Butter Absolute": ["ionone", "benzenoid", "ketone"],
+    "Osmanthus Absolute": ["ionone", "lactone", "monoterpenoid", "benzenoid"],
+    "Osmanthus Absolute (volume grade)": ["ionone", "lactone", "monoterpenoid", "benzenoid"],
+    "Oud Oil": ["sesquiterpenoid", "phenolic_smoky"],
+    "Patchouli EO": ["sesquiterpenoid", "alcohol_patchoulol"],
+    "Peppermint Essential Oil": ["monoterpenoid", "alcohol_menthol"],
+    "Peru Balsam Resinoid": ["benzenoid", "balsamic", "ester_cinnamate"],
+    "Petitgrain EO": ["monoterpenoid", "alcohol_terpenoid", "ester_terpenoid"],
+    "Petitgrain EO Paraguay": ["monoterpenoid", "alcohol_terpenoid", "ester_terpenoid"],
+    "Red Mandarin EO": ["monoterpenoid"],
+    "Rose Absolute": ["benzenoid", "monoterpenoid", "alcohol_citronellol"],
+    "Rose Essential Oil": ["benzenoid", "monoterpenoid", "alcohol_citronellol"],
+    "Rose de Mai Absolute": ["benzenoid", "monoterpenoid", "alcohol_citronellol"],
+    "Rosemary EO (French Rosmarinus Officinalis leaf oil)": [
+        "monoterpenoid",
+        "ketone_camphor",
+        "ether_cineole",
+    ],
+    "Rum Absolute": ["polyalcohol", "fatty_acid", "aldehyde_vanillin"],
+    "Sandalwood EO": ["sesquiterpenoid", "alcohol_santalol"],
+    "Styrax FTEC": ["benzenoid", "balsamic", "aldehyde_cinnamic"],
+    "Tagetes EO": ["monoterpenoid", "ketone_tagetone"],
+    "Tobacco Absolute": ["sesquiterpenoid", "ketone_ionone", "lactone"],
+    "Tonka Bean Absolute": ["coumarin", "benzenoid", "lactone"],
+    "Tuberose Absolute": ["benzenoid", "monoterpenoid", "lactone"],
+    "Tuberose Absolute (India)": ["benzenoid", "monoterpenoid", "lactone"],
+    "Tuberose Absolute (volume grade)": ["benzenoid", "monoterpenoid", "lactone"],
+    "Vetiver EO": ["sesquiterpenoid", "alcohol_khusimol", "ketone_vetivone"],
+    "Ylang Comoros Complete EO F3255": ["benzenoid", "monoterpenoid", "ester_benzoate"],
+    "Ylang Comoros III EO F3295": ["benzenoid", "monoterpenoid", "ester_benzoate"],
+    "Ylang Ylang EO": ["benzenoid", "monoterpenoid", "ester_benzoate"],
+}
+
+# Define incompatible family pairs — when naturals carry these families they clash.
+# Per F11: azulene + benzenoid clashed (Blue Chamomile vs Rose)
+# Per F11: ionone + phenylpropanoid clashed (Osmanthus vs Clove)
+# Per F11: alcohol_terpenoid + aldehyde_green clashed (Geranium vs Violet Leaf)
+_INCOMPATIBLE_FAMILIES: list[tuple[str, str]] = [
+    ("azulene", "benzenoid"),
+    ("ionone", "phenylpropanoid"),
+    ("alcohol_terpenoid", "aldehydic_green"),
+    ("phenylpropanoid", "coumarin"),
+    ("indolic", "pyrazine"),
+    ("phenolic_orcinol", "lactone_indolic"),
+]
+
+
+def check_natural_compatibility(material_names: list[str]) -> list[str] | None:
+    """Return list of incompatible natural pairs, or None if all compatible."""
+    warnings: list[str] = []
+    profiles = [(n, _CHEMICAL_FAMILY_MAP.get(n)) for n in material_names]
+    naturals = [(n, f) for n, f in profiles if f is not None]
+
+    for i in range(len(naturals)):
+        for j in range(i + 1, len(naturals)):
+            ni, fi = naturals[i]
+            nj, fj = naturals[j]
+            for fa, fb in _INCOMPATIBLE_FAMILIES:
+                if fa in fi and fb in fj and not (set(fi) & set(fj)):
+                    warnings.append(
+                        f"{ni} + {nj}: potentially incompatible ({fa} vs {fb}, no shared family)"
+                    )
+                    break
+    return warnings or None
+
+
+for _name, _score in _TRANSPARENCY_SCORES.items():
+    if _name in _PROFILES:
+        _PROFILES[_name]["character"].setdefault("transparency", _score)
+del _name, _score  # clean up module namespace
+
+# ── Auto-populate ODT from ODT_DATA ──────────────────────────────
+# Enrich _PROFILES with odt values from the canonical ODT database.
+# Two fields are populated:
+#   odt      : ppb in air   — used by temporal_graph / headspace diffusion.
+#   odt_ppm  : ppm in ethanol solution — used by scorers comparing to
+#              concentrate-level dose (ppm_in_conc = pct * 10000).
+# Keeping both units avoids the semantic mismatch of comparing a
+# concentrate-level ppm dose to a headspace-ppb threshold.
+try:
+    from engine.name_utils import normalize_name as _nn
+    from engine.odor_thresholds import ODT_DATA as _ODT_SRC
+
+    _odt_air_index = {_nn(k): v.get("odt_air") for k, v in _ODT_SRC.items()}
+    _odt_eth_index = {_nn(k): v.get("odt_eth") for k, v in _ODT_SRC.items()}
+    for _pname in _PROFILES:
+        _key = _nn(_pname)
+        if "odt" not in _PROFILES[_pname] or _PROFILES[_pname].get("odt") is None:
+            _odt_air_val = _odt_air_index.get(_key)
+            if _odt_air_val is not None:
+                _PROFILES[_pname]["odt"] = _odt_air_val
+        if "odt_ppm" not in _PROFILES[_pname] or _PROFILES[_pname].get("odt_ppm") is None:
+            _odt_eth_val = _odt_eth_index.get(_key)
+            if _odt_eth_val is not None:
+                _PROFILES[_pname]["odt_ppm"] = _odt_eth_val
+    # Clean up module namespace (some names may be unset if dicts were empty)
+    for _n in (
+        "_odt_air_index",
+        "_odt_eth_index",
+        "_odt_air_val",
+        "_odt_eth_val",
+        "_pname",
+        "_key",
+        "_ODT_SRC",
+        "_nn",
+    ):
+        if _n in dir():
+            try:
+                del globals()[_n]
+            except KeyError:
+                pass
+except Exception:
+    pass  # Graceful fallback: odt/odt_ppm stay None if import fails
+
+
+# ── Auto-populate or_family / activity_coef / hedonic ─────────────
+# Added per Perplexity consultation 2026-04-23. Provides the physical
+# and perceptual data the scorer needs to move beyond pure OAV-ratio
+# classification toward Raoult-corrected airborne dose and panel-style
+# pleasantness. Defaults are cheap heuristics from name/role/character;
+# overrides capture the well-known non-ideal / hedonic outliers.
+
+# Explicit OR-family overrides — the safest bins first, so character-
+# dimension fallback handles the long tail.
+_OR_FAMILY_OVERRIDES: dict[str, str] = {
+    # Citrus
+    "Bergamot FCF": "citrus",
+    "Adoxal": "aldehydic",
+    "Champignol": "earth",
+    "Coriander Essential Oil": "aromatic",
+    "2-Acetyl Pyrazine": "gourmand",
+    "Safraleine": "smoky",
+    "Blackcurrant Absolute": "fruity",
+    "Violet Leaf Absolute": "green",
+    "Black Agarwood Artificial": "woody",
+    "Castoreum Synthetic": "animalic",
+    "Coffee Absolute Grasse": "gourmand",
+    "Bergamot FCF Sicilian": "citrus",
+    "Cedrat FCF Sicilian": "citrus",
+    "Blood Orange Sicilian": "citrus",
+    "Red Mandarin EO": "citrus",
+    "Methyl Pamplemousse": "citrus",
+    "Lemon EO": "citrus",
+    "Lime EO": "citrus",
+    "Yuzu FO": "citrus",
+    # Muguet / lily-of-the-valley
+    "Lilyreal ND": "muguet",
+    "Mayol": "muguet",
+    "Hydroxycitronellal": "muguet",
+    "Hydroxycitronellol": "rose",
+    "Bourgeonal": "muguet",
+    "Lilial": "muguet",
+    "Florosa": "muguet",
+    "Cyclamen Aldehyde": "muguet",
+    # Rose
+    "Rose Absolute": "rose",
+    "Phenethyl Alcohol": "rose",
+    "Geraniol": "rose",
+    "Citronellol": "rose",
+    "Nerol": "floral",
+    "Nerolin Bromelia": "floral",
+    "Rose Oxide": "rose",
+    "Alpha Damascone": "rose",
+    "Damascone Beta": "rose",
+    "Damascone Delta": "rose",
+    "Damascenone": "rose",
+    "DBCA": "rose",
+    "Damascol": "rose",
+    # Musk
+    "Habanolide": "musk",
+    "Galaxolide": "musk",
+    "Tonalide": "musk",
+    "Ethylene Brassylate": "musk",
+    "Romandolide": "musk",
+    "Exaltolide": "musk",
+    "Musk Ketone": "musk",
+    "Zenolide": "musk",
+    "Macrolide": "musk",
+    "Ambrettolide": "musk",
+    "Musk T": "musk",
+    # Amber
+    "Ambrox Super": "amber",
+    "Ambrofix": "amber",
+    "Amber Core": "amber",
+    "Cedramber": "amber",
+    "Amberwood F": "amber",
+    "Azarbre": "amber",
+    # Iris
+    "Alpha Irone": "iris",
+    "Orris Liquid": "iris",
+    "Alpha Ionone": "iris",
+    "Beta Ionone": "iris",
+    "Irotyl": "iris",
+    "Orivone": "iris",
+    "Ultralia": "iris",
+    "I-IRIS FTEC": "iris",
+    "Orris FTEC": "iris",
+    "Iris FTEC": "iris",
+    # Woody
+    "Iso E Super": "woody",
+    "Cashmeran": "woody",
+    "Clearwood": "woody",
+    "Timberol": "woody",
+    "Koavone": "woody",
+    "Kephalis": "woody",
+    "Vertofix Coeur": "woody",
+    "Cedarwood EO": "woody",
+    "Cedarwood Atlas EO": "woody",
+    "Cedarwood Virginia EO": "woody",
+    "Himalayan Cedarwood EO": "woody",
+    "Norlimbanol Dextro": "woody",
+    "Javanol": "woody",
+    "Ebanol": "woody",
+    "Bacdanol": "woody",
+    "Sandalore": "woody",
+    "Sandalwood EO": "woody",
+    "Sandalwood FO": "woody",
+    "Patchouli EO": "woody",
+    "Vetiver EO": "woody",
+    "Vetival": "woody",
+    "Vetiveryl Acetate": "woody",
+    # Green
+    "Scentenal": "green",
+    "Leafovert": "green",
+    "Parmavert": "green",
+    "Dynascone": "green",
+    "Freesia HDI": "green",
+    "Allyl Amyl Glycolate": "green",
+    "Galbanum EO": "green",
+    "Cis-3-Hexenol": "green",
+    # Aldehydic
+    "C-10 Aldehyde": "aldehydic",
+    "C-11 Aldehyde": "aldehydic",
+    "C-12 Aldehyde": "aldehydic",
+    "C-12 MNA": "aldehydic",
+    "Aldehyde C-14": "aldehydic",
+    # Gourmand / lactonic / vanillic
+    "Coumarin": "gourmand",
+    "Vanillin": "gourmand",
+    "Ethyl Vanillin": "gourmand",
+    "Maple Lactone": "gourmand",
+    "Ethyl Maltol": "gourmand",
+    "Heliotropin": "gourmand",
+    "Benzoin Resinoid": "gourmand",
+    # Smoky / leather
+    "Birch Tar Rectified": "smoky",
+    "Guaiacol": "smoky",
+    "Styrax FTEC": "smoky",
+    "Suederal": "smoky",
+    "Isobutyl Quinoline": "smoky",
+    # Animalic / indolic
+    "Indole": "indolic",
+    "Civetone": "animalic",
+    # Salicylates — own bin? map to muguet cushion
+    "Benzyl Salicylate": "salicylate",
+    "Hexyl Salicylate": "salicylate",
+    "Amyl Salicylate": "salicylate",
+    # Fixative / diffusion carriers
+    # Aquatic / ozone
+    "Calone": "aquatic",
+    "Floralozone": "ozone",
+    "Helional": "aquatic",
+    # Spice / aromatic
+    "Anise EO (China)": "spice",
+    "Eugenol": "spice",
+    "Clove Bud EO": "spice",
+    "Clove EO (India)": "spice",
+    "Cinnamon Bark EO": "spice",
+    "Cardamom FTEC": "spice",
+    "Basil EO (India, Ocimum Basilicum)": "aromatic",
+    "Lavender EO": "aromatic",
+    "Lavandin EO": "aromatic",
+    "Rosemary EO (French Rosmarinus Officinalis leaf oil)": "aromatic",
+    "Terpinyl Acetate": "aromatic",
+    # Earth / trace
+    "Geosmin": "earth",
+    # Tropical fruity
+    "Paradisamide": "fruity",
+    "Ethyl Linalool": "fruity",
+    # White floral
+    "Hedione": "floral",
+    "ACA": "floral",
+    "Farnesol": "muguet",
+    "Jasmine Absolute": "floral",
+    "Ylang Comoros Complete EO": "floral",
+    "Orange Flower Absolute": "floral",
+    "Champaca Flower EO": "floral",
+    "PEDMC": "floral",
+    # ── Additions to cover previously unassigned profiles ──
+    # Citrus
+    "Bergamot EO": "citrus",
+    "Bergamot FCF oil Sicilian": "citrus",
+    "Blood Orange oil Sicilian": "citrus",
+    "Cedrat FCF oil Sicilian": "citrus",
+    "Citral": "citrus",
+    "Citronellal": "citrus",
+    "Lemonile": "citrus",
+    "Orange Peel EO": "citrus",
+    # Aromatic (lavender-family terpenes)
+    "Linalool": "aromatic",
+    "Linalyl Acetate": "aromatic",
+    # Fruity (esters / ketones)
+    "Apritone": "fruity",
+    "Cassis Base 345B": "fruity",
+    "Ethyl 2-Methylbutyrate": "fruity",
+    "Hexyl Acetate": "fruity",
+    "Dewberry FTEC": "fruity",
+    "Raspberry Ketone": "fruity",
+    # Gourmand / lactonic / balsamic
+    "Gamma Decalactone": "gourmand",
+    "Gamma Undecalactone": "gourmand",
+    "Delta Decalactone": "gourmand",
+    "Heliotropin Fleuressence": "gourmand",
+    "Tonka Bean FO": "gourmand",
+    "Rum Absolute": "gourmand",
+    "Siam Benzoin": "gourmand",
+    "Benzoin Sumatra Resinoid": "gourmand",
+    "Anisaldehyde": "gourmand",
+    # Amber
+    "Labdanum": "amber",
+    "Labdanum Absolute": "amber",
+    "Amber Core Accord": "amber",
+    "Amber Xtreme": "amber",
+    # Aldehydic
+    "Aldehyde C10": "aldehydic",
+    "Aldehyde C11": "aldehydic",
+    "Aldehyde C11 undecylenic": "aldehydic",
+    "Aldehyde C12 MNA": "aldehydic",
+    # Muguet
+    "Nympheal": "muguet",
+    # Woody
+    "Dihydromyrcenol": "woody",
+    # Smoky / resinous
+    "Myrrh EO": "smoky",
+    # Salicylate
+    "Methyl Salicylate": "salicylate",
+    # Citrus / aromatic
+    "Petitgrain EO": "aromatic",
+    # ── New profiles — 2026-05-08 ──
+    "Cinnamyl alcohol": "gourmand",
+    "Dihydrojasmone": "floral",
+    "Oranger Crystals": "floral",
+    "Oud Fleuressence": "smoky",
+    "Tobacco FTEC": "gourmand",
+    "Tobacco Fleuressence": "gourmand",
+    "Tobacco Absolute": "gourmand",
+    "Vetikon": "woody",
+    "Ylang Ylang EO": "floral",
+    "p-Cresyl Methyl Ether": "indolic",
+    # ── Solvents ──
+    "Dipropylene Glycol": "fixative",
+    "Ethanol": "fixative",
+    "Isopropyl Myristate": "fixative",
+    "Triethyl Citrate": "fixative",
+    # ── New citrus / legacy ──
+    "Molecule Iris": "iris",
+    # ── Inventory gap fill 2026-05-23 ──
+    "Aurantiol": "floral",
+    "Benzaldehyde": "almond",
+    "Benzyl Alcohol": "floral",
+    "Benzyl Acetate": "floral",
+    "Beta-Pinene": "aromatic",
+    "Carrot Seed EO": "iris",
+    "Cedarwood oil Virginia": "woody",
+    "Cis Jasmone": "floral",
+    "Clary Sage EO": "aromatic",
+    "Evernyl": "moss",
+    "Methyl Anthranilate": "floral",
+    "Methyl Benzoate": "floral",
+    "Rhodinol ex Citronella": "rose",
+    "Vertofix": "woody",
+    "Rose de Mai Absolute": "rose",
+    "Osmanthus Absolute": "floral",
+    "Tonkarome": "gourmand",
+    "Tuberalia base": "floral",
+    "Oakmoss Absolute": "moss",
+    "Tuberose Absolute": "floral",
+    "Tuberose Absolute (India)": "floral",
+    "Phenyl Ethyl Acetate": "floral",
+    "Cocoa Absolute": "gourmand",
+    "Evernyl (50% in DPG)": "moss",
+    "Petitgrain EO Paraguay": "citrus",
+    "Immortelle Absolute": "floral",
+    "Rose Essential Oil": "floral",
+    "Cassia Essential Oil": "spice",
+    "Peppermint Essential Oil": "herbal",
+    "Eucalyptus Essential Oil": "herbal",
+    # ── Batch-added 2026-06-22 ──
+    "Ginger EO": "spice",
+    "Tagetes EO": "green",
+    "Jasmine Sambac Blossoms": "floral",
+    "Blue Chamomile EO": "herbal",
+    "Mimosa Absolute": "floral",
+    "Osmanthus Absolute (volume grade)": "floral",
+    "Tuberose Absolute (volume grade)": "floral",
+    "Isobutavan": "gourmand",
+    "Allyl Cyclohexyl Propionate": "fruity",
+    "Tonka Bean Absolute": "gourmand",
+    "Cocoa CO2 Extract": "gourmand",
+    "Peru Balsam Resinoid": "balsamic",
+    "Opoponax Resinoid": "balsamic",
+}
+
+# Activity coefficient γᵢ — how much the ethanol matrix suppresses
+# (<1) or boosts (>1) the material's partial pressure relative to
+# Raoult-ideal. Values from Perplexity consultation.
+_ACTIVITY_COEF_OVERRIDES: dict[str, float] = {
+    "Hedione": 0.6,
+    "Iso E Super": 0.8,
+    "Benzyl Salicylate": 1.3,
+    "Hexyl Salicylate": 0.75,
+    "Benzaldehyde": 2.0,
+    "Benzyl Alcohol": 1.5,
+    "Ambrox Super": 0.85,
+    "Ambrofix": 0.85,
+    "Galaxolide": 0.7,
+    "Habanolide": 0.85,
+    "Ethylene Brassylate": 0.8,
+    "Romandolide": 1.5,
+    "Exaltolide": 1.5,
+    "Ambrettolide": 1.5,
+    "Coumarin": 1.2,
+    "Vanillin": 0.55,
+    "Ethyl Vanillin": 0.6,
+    "Heliotropin": 0.7,
+    "Indole": 1.3,
+    "Guaiacol": 1.2,
+    "Eugenol": 1.1,
+    "Geosmin": 1.2,
+    # Citrus oils — ethanol nearly ideal
+    "Bergamot FCF": 3.0,
+    "Bergamot FCF Sicilian": 1.0,
+    # Aldehydes — slightly boosted
+    "C-10 Aldehyde": 1.1,
+    "C-11 Aldehyde": 1.1,
+    "C-12 Aldehyde": 1.1,
+    # ── New profiles — 2026-05-08 ──
+    "Cinnamyl alcohol": 0.8,
+    "Dihydrojasmone": 1.0,
+    "Lilial": 0.8,
+    "Oranger Crystals": 0.8,
+    "Oud Fleuressence": 0.8,
+    "Rosemary EO (French Rosmarinus Officinalis leaf oil)": 1.0,
+    "Tobacco FTEC": 0.7,
+    "Tobacco Fleuressence": 0.7,
+    "Tobacco Absolute": 0.7,
+    "Vetikon": 0.85,
+    "Ylang Ylang EO": 0.9,
+    "p-Cresyl Methyl Ether": 1.1,
+    # ── Solvents ──
+    "Dipropylene Glycol": 1.0,
+    "Ethanol": 1.0,
+    "Isopropyl Myristate": 1.0,
+    "Triethyl Citrate": 1.0,
+    # ── New citrus / legacy ──
+    "Molecule Iris": 0.8,
+    # ODT Master Table gamma cross-check 2026-05-19
+    "Aldehyde C9": 1.4,
+    "Allyl Ionone": 1.3,
+    "Alpha-Isomethyl Ionone": 1.3,
+    "Amber Core": 1.5,
+    "Amber Core Accord": 1.5,
+    "Amber Xtreme": 1.5,
+    "Ambermax": 1.5,
+    "Amberwood F": 1.5,
+    "Anise EO (China)": 1.5,
+    "Apritone": 1.5,
+    "Azarbre": 1.5,
+    "Basil EO (India, Ocimum Basilicum)": 1.5,
+    "Benzoin Resinoid": 1.5,
+    "Benzoin Sumatra Resinoid": 1.5,
+    "Benzyl Benzoate": 1.3,
+    "Bergamot EO": 3.0,
+    "Birch Tar Rectified": 1.8,
+    "Blackcurrant FTEC": 1.5,
+    "Blackcurrant Absolute": 1.2,
+    "Black Agarwood Artificial": 0.8,
+    "Blood Orange Sicilian": 3.0,
+    "Calone": 1.5,
+    "Cardamom EO": 2.0,
+    "Carrot Seed EO": 2.0,
+    "Castoreum Base": 1.5,
+    "Castoreum Synthetic": 0.8,
+    "Champignol": 1.2,
+    "Coriander Essential Oil": 2.0,
+    "Cassis Base 345B": 1.5,
+    "Cedamber": 1.5,
+    "Cedarwood EO": 2.0,
+    "Cedramber": 1.5,
+    "Cedrat FCF Sicilian": 3.0,
+    "Cedrat FCF oil Sicilian": 3.0,
+    "Champaca Flower EO": 2.0,
+    "Citral": 1.5,
+    "Citronellol": 1.8,
+    "Hydroxycitronellol": 0.6,
+    "Coffee Absolute Grasse": 0.8,
+    "Safraleine": 1.2,
+    "Violet Leaf Absolute": 1.0,
+    "Civet Reconstitution Base": 1.5,
+    "Clary Sage EO": 2.0,
+    "Clearwood": 1.8,
+    "Clove EO (India)": 1.5,
+    "Cyclamen Aldehyde": 1.3,
+    "Adoxal": 1.4,
+    "2-Acetyl Pyrazine": 0.9,
+    "D-Limonene": 3.0,
+    "DBCA": 1.5,
+    "Damascol": 1.3,
+    "Dynascone": 1.5,
+    "Ebanol": 1.5,
+    "Ethyl Safranate": 1.3,
+    "Frankincense EO": 2.5,
+    "Galbanum Resinoid": 1.8,
+    "Georgywood": 1.5,
+    "Geraniol": 1.8,
+    "Geranium EO": 1.8,
+    "Grapefruit FCF": 3.0,
+    "Helional": 1.2,
+    "Heliotropal": 1.3,
+    "Hexyl Acetate": 1.5,
+    "Himalayan Cedarwood EO": 2.0,
+    "I-IRIS F-TEC": 1.5,
+    "Irotyl": 1.3,
+    "JASMIN ABS F-TEC": 1.8,
+    "Jasmine Absolute": 1.8,
+    "Jasmine FO": 1.8,
+    "Jasmine Sambac Absolute": 1.8,
+    "Javanol": 1.5,
+    "Kephalis": 1.5,
+    "Koavone": 1.5,
+    "Labdanum": 0.6,
+    "Labdanum Absolute": 1.5,
+    "Lavender EO": 2.0,
+    "Lavender EO Bontaux": 2.0,
+    "Leather FO": 1.5,
+    "Linalool": 1.8,
+    "Macrolide": 1.5,
+    "Manzanate": 1.5,
+    "Mayol": 1.3,
+    "Melonal": 1.5,
+    "Methyl Pamplemousse": 1.5,
+    "Musk Ketone": 0.5,
+    "Myrrh EO": 2.0,
+    "Nerol": 1.8,
+    "Nerolin Bromelia": 1.5,
+    "Norlimbanol Dextro": 1.5,
+    "Olibanum Resinoid": 2.0,
+    "Orris Liquid": 1.3,
+    "Orivone": 1.3,
+    "Orris Butter Absolute": 1.5,
+    "Orris F-TEC": 1.5,
+    "PEDMC": 1.5,
+    "Patchouli EO": 2.0,
+    "Petitgrain EO": 2.0,
+    "Pink Pepper Base": 2.0,
+    "Piperonal": 1.3,
+    "Polysantol": 1.5,
+    "Red Mandarin EO": 3.0,
+    "Rose Absolute": 1.8,
+    "Rosemary EO": 2.0,
+    "Rum Absolute": 1.5,
+    "Sandalore": 1.5,
+    "Sandalwood FO": 1.5,
+    "Scentenal": 1.4,
+    "Siam Benzoin": 0.6,
+    "Styrax FTEC": 1.5,
+    "Suederal LT": 1.5,
+    "Timberol": 1.5,
+    "Tonalide": 1.5,
+    "Tonka Bean FO": 1.3,
+    "Vetival": 1.5,
+    "Ylang Ylang EO Complete": 2.0,
+    "Ylang Ylang EO Extra": 2.0,
+    "Ylang Ylang EO Grade I": 2.0,
+    "Zenolide": 1.5,
+    # Final gamma gap fill 2026-05-19
+    "Bergamot FCF oil Sicilian": 3.0,
+    "Beta-Pinene": 3.0,
+    "Bourgeonal": 1.3,
+    "Cedarwood oil Virginia": 2.5,
+    "Orange Peel EO": 3.0,
+    "Sandalwood EO": 2.5,
+    "Vetiver EO": 2.0,
+    "Vetiveryl Acetate": 1.5,
+    "Ylang Comoros Complete EO F3255": 2.0,
+    "Ylang Comoros III EO F3295": 2.0,
+    # ── Inventory gap fill 2026-05-23 ──
+    "Aurantiol": 1.5,
+    "Benzyl Acetate": 1.5,
+    "Evernyl": 1.2,
+    "Methyl Anthranilate": 1.5,
+    "Rhodinol ex Citronella": 2.0,
+    "Rose de Mai Absolute": 0.55,
+    "Galbanum EO": 1.05,
+    "Osmanthus Absolute": 0.6,
+    "Tonkarome": 0.6,
+    "Tuberalia base": 0.65,
+    "Oakmoss Absolute": 0.5,
+    "Tuberose Absolute": 0.55,
+    "Tuberose Absolute (India)": 0.65,
+    "Phenyl Ethyl Acetate": 1.1,
+    "Cocoa Absolute": 0.5,
+    "Evernyl (50% in DPG)": 0.85,
+    "Petitgrain EO Paraguay": 1.0,
+    "Immortelle Absolute": 0.6,
+    "Rose Essential Oil": 0.45,
+    "Cassia Essential Oil": 0.65,
+    "Peppermint Essential Oil": 2.0,
+    "Eucalyptus Essential Oil": 3.0,
+    # ── Batch-added 2026-06-22 ──
+    "Ginger EO": 2.5,
+    "Tagetes EO": 2.5,
+    "Jasmine Sambac Blossoms": 1.5,
+    "Blue Chamomile EO": 1.8,
+    "Mimosa Absolute": 1.5,
+    "Osmanthus Absolute (volume grade)": 1.5,
+    "Tuberose Absolute (volume grade)": 1.5,
+    "Isobutavan": 0.6,
+    "Allyl Cyclohexyl Propionate": 2.0,
+    "Tonka Bean Absolute": 0.6,
+    "Cocoa CO2 Extract": 0.5,
+    "Peru Balsam Resinoid": 0.5,
+    "Opoponax Resinoid": 0.6,
+}
+
+# Hedonic scalars −5..+5 — panel-style pleasantness. Coarse seed; use
+# dominant character as a fallback heuristic.
+_HEDONIC_OVERRIDES: dict[str, float] = {
+    # Universally pleasant
+    "Bergamot FCF": 3.5,
+    "Bergamot FCF Sicilian": 4.0,
+    "Rose Absolute": 4.5,
+    "Jasmine Absolute": 4.0,
+    "Neroli EO": 4.0,
+    "Ylang Comoros Complete EO": 3.0,
+    "Nerol": 3.5,
+    "Nerolin Bromelia": 3.0,
+    "Hedione": 3.0,
+    "Vanillin": 3.0,
+    "Coumarin": 2.5,
+    "Heliotropin": 3.0,
+    "Ethyl Maltol": 2.0,
+    "DBCA": 3.5,
+    "Paradisamide": 3.0,
+    "Mayol": 3.0,
+    "Lilyreal ND": 3.0,
+    "Bourgeonal": 2.5,
+    "Hydroxycitronellal": 2.5,
+    "Ambrox Super": 2.0,
+    "Habanolide": 2.5,
+    "Ethylene Brassylate": 3.0,
+    "Iso E Super": 2.0,
+    "Javanol": 3.5,
+    "Ebanol": 3.0,
+    "Pamzest": 3.5,
+    "Sandalwood EO": 3.5,
+    "Cedarwood Atlas EO": 2.0,
+    "Benzyl Salicylate": 2.5,
+    "Hexyl Salicylate": 2.5,
+    "Patchouli EO": 1.0,
+    "Vetiver EO": 1.5,
+    "Vetiveryl Acetate": 1.5,
+    # Polarizing / required-in-context only
+    "Indole": -1.5,
+    "Isobutyl Quinoline": -1.0,
+    "Birch Tar Rectified": -2.0,
+    "Guaiacol": -1.5,
+    "Farnesol": 1.5,
+    "Damascenone": 2.5,
+    "Alpha Damascone": 2.5,
+    "Damascone Beta": 2.0,
+    # Earth / aquatic
+    "Geosmin": -0.5,
+    "Calone": 2.0,
+    "Scentenal": 1.5,
+    # Green
+    "Dynascone": 0.5,
+    "Leafovert": 1.0,
+    # Spices
+    "Eugenol": 1.5,
+    "Cinnamon Bark EO": 2.0,
+    "Cardamom FTEC": 2.5,
+    # Gourmand
+    "Maple Lactone": 2.5,
+    "Benzoin Resinoid": 2.5,
+    # Aldehydic
+    "C-10 Aldehyde": 1.5,
+    "C-11 Aldehyde": 1.5,
+    "C-12 Aldehyde": 1.5,
+    # ── New profiles — 2026-05-08 ──
+    "Black Pepper EO": 2.0,
+    "Cinnamyl alcohol": 2.5,
+    "Costus Olifac": -1.0,
+    "Dihydrojasmone": 2.0,
+    "Juniper Berry EO": 2.5,
+    "Lavender EO High Altitude": 3.0,
+    "Lilial": 2.5,
+    "Lime Distilled EO": 3.0,
+    "Oranger Crystals": 2.5,
+    "Oud Fleuressence": 0.5,
+    "Pine EO": 1.5,
+    "Rosemary EO (French Rosmarinus Officinalis leaf oil)": 2.0,
+    "Spike Lavender EO": 1.5,
+    "Tobacco FTEC": 2.5,
+    "Tobacco Fleuressence": 3.0,
+    "Tobacco Absolute": 2.5,
+    "Vetikon": 2.0,
+    "Ylang Ylang EO": 3.0,
+    "p-Cresyl Methyl Ether": -1.0,
+    # ── Solvents ──
+    "Diethyl Phthalate": 0.0,
+    "Dipropylene Glycol": 0.0,
+    "Ethanol": 0.0,
+    "Isopropyl Myristate": 0.0,
+    "Triethyl Citrate": 0.0,
+    # ── New citrus / legacy ──
+    "Lemon FCF oil Sicilian": 3.0,
+    "Molecule Iris": 2.5,
+    # ── Inventory gap fill 2026-05-23 ──
+    "Aurantiol": 3.0,
+    "Benzyl Acetate": 3.5,
+    "Beta-Pinene": 1.0,
+    "Carrot Seed EO": 2.0,
+    "Cedarwood oil Virginia": 2.5,
+    "Cis Jasmone": 3.0,
+    "Clary Sage EO": 2.5,
+    "Ethyl Safranate": 2.0,
+    "Evernyl": 1.5,
+    "Gamma Decalactone": 3.5,
+    "Gamma Undecalactone": 3.0,
+    "Methyl Anthranilate": 3.5,
+    "Methyl Benzoate": 2.0,
+    "Methyl Nonyl Ketone": 0.5,
+    "Petitgrain EO": 3.0,
+    "Rhodinol ex Citronella": 4.0,
+    "Terpinyl Acetate": 2.5,
+    "Vertofix": 2.0,
+}
+
+# Character-dimension → OR-family fallback (only used when no override).
+_CHAR_TO_FAMILY = {
+    "floral": "floral",
+    "rosy": "rose",
+    "citrus": "citrus",
+    "green": "green",
+    "woody": "woody",
+    "amber": "amber",
+    "musky": "musk",
+    "powdery": "iris",
+    "aldehydic": "aldehydic",
+    "gourmand": "gourmand",
+    "smoky": "smoky",
+    "animalic": "animalic",
+    "aquatic": "aquatic",
+    "spicy": "spice",
+    "aromatic": "aromatic",
+    "leathery": "smoky",
+    "balsamic": "amber",
+}
+
+for _pname, _pdata in _PROFILES.items():
+    # or_family
+    if _pdata.get("or_family") is None:
+        fam = _OR_FAMILY_OVERRIDES.get(_pname)
+        if fam is None:
+            # derive from dominant character
+            ch = _pdata.get("character", {})
+            if ch:
+                dom = max(ch, key=ch.get)
+                fam = _CHAR_TO_FAMILY.get(dom)
+        if fam is not None:
+            _pdata["or_family"] = fam
+    # activity_coef
+    if "activity_coef" not in _pdata:
+        gamma = _ACTIVITY_COEF_OVERRIDES.get(_pname, 1.0)
+        _pdata["activity_coef"] = gamma
+    # hedonic
+    if "hedonic" not in _pdata:
+        hed = _HEDONIC_OVERRIDES.get(_pname)
+        if hed is None:
+            # cheap fallback: 0.5 × (sum of pleasant dims) − (sum of harsh dims), clamped
+            ch = _pdata.get("character", {})
+            pleasant = (
+                ch.get("floral", 0)
+                + ch.get("rosy", 0)
+                + ch.get("gourmand", 0)
+                + ch.get("powdery", 0)
+                + ch.get("citrus", 0)
+            ) / 5.0
+            harsh = (ch.get("smoky", 0) + ch.get("animalic", 0) + ch.get("metallic", 0)) / 3.0
+            hed = max(-3.0, min(3.0, 0.4 * pleasant - 0.3 * harsh))
+        _pdata["hedonic"] = round(hed, 2)
+
+for _n in ("_pname", "_pdata", "fam", "ch", "dom", "gamma", "hed", "pleasant", "harsh"):
+    if _n in dir():
+        try:
+            del globals()[_n]
+        except KeyError:
+            pass
+
+
+def _name_variants(name: str) -> list[str]:
+    greek_map = str.maketrans(
+        {
+            "α": "a",
+            "β": "b",
+            "γ": "g",
+            "δ": "d",
+            "’": "'",
+        }
+    )
+    clean = name.strip().replace("**", "").translate(greek_map)
+    variants: list[str] = []
+    seen: set[str] = set()
+
+    def add(value: str):
+        value = re.sub(r"\s+", " ", value.strip())
+        if value and value not in seen:
+            variants.append(value)
+            seen.add(value)
+
+    add(clean)
+    add(re.sub(r"\s*\([^)]*\)\s*$", "", clean))
+    if "(" in clean and ")" not in clean:
+        add(clean.split("(", 1)[0])
+    if "=" in clean:
+        add(clean.split("=", 1)[0])
+    return variants
+
+
+_profile_cache: dict[str, MaterialProfile | None] = {}
+
+
+def get_profile(name: str) -> MaterialProfile | None:
+    """Look up a material profile by name, with alias resolution."""
+    if name in _profile_cache:
+        return _profile_cache[name]
+    result = _get_profile_uncached(name)
+    _profile_cache[name] = result
+    return result
+
+
+def _get_profile_uncached(name: str) -> MaterialProfile | None:
+    """Internal uncached profile lookup."""
+    for candidate in _name_variants(name):
+        identity = resolve_material_identity(candidate)
+        key = identity.profile_name if identity is not None else None
+        if key is None:
+            key = _ALIASES.get(candidate)
+        if key is None:
+            low = candidate.lower()
+            for alias, canonical in _ALIASES.items():
+                if alias.lower() == low:
+                    key = canonical
+                    break
+        if key is None:
+            key = candidate
+
+        data = _PROFILES.get(key)
+        if data is None and key is not None:
+            for profile_key, profile_value in _PROFILES.items():
+                if profile_key.lower() == str(key).lower():
+                    data = profile_value
+                    key = profile_key
+                    break
+        if data is None:
+            for k, v in _PROFILES.items():
+                if k.lower() == candidate.lower():
+                    data = v
+                    key = k
+                    break
+        if data is None:
+            continue
+
+        raw_character = data.get("character", {})
+        character = dict(raw_character) if isinstance(raw_character, dict) else {}
+        character_description = data.get("character_description", "")
+        if not character_description and isinstance(raw_character, str):
+            character_description = raw_character
+
+        return MaterialProfile(
+            name=key,
+            character=character,
+            mw=data.get("mw"),
+            vp=data.get("vp"),
+            clogp=data.get("clogp"),
+            odt=data.get("odt"),
+            odt_ppm=data.get("odt_ppm"),
+            note=data.get("note", "heart"),
+            role=data.get("role", "modifier"),
+            texture=data.get("texture", ""),
+            synergies=data.get("synergies", []),
+            avoid=data.get("avoid", []),
+            dilution=data.get("dilution", 1.0),
+            activity_coef=data.get("activity_coef", 1.0),
+            hedonic=data.get("hedonic", 0.0),
+            or_family=data.get("or_family"),
+            character_description=character_description,
+        )
+    return None
+
+
+def get_all_profiles() -> dict[str, MaterialProfile]:
+    """Return all profiles indexed by canonical name."""
+    return {name: get_profile(name) for name in _PROFILES}
+
+
+def character_distance(a: MaterialProfile, b: MaterialProfile) -> float:
+    """Euclidean distance between two materials in character space (0-10 scale).
+    Lower = more similar."""
+    va = a.dimension_vector()
+    vb = b.dimension_vector()
+    return sum((x - y) ** 2 for x, y in zip(va, vb)) ** 0.5
+
+
+def find_similar(name: str, n: int = 5) -> list[tuple[str, float]]:
+    """Find the n most similar materials to the given one by character profile.
+    Returns (name, distance) pairs sorted by distance."""
+    source = get_profile(name)
+    if source is None:
+        return []
+    results = []
+    for other_name in _PROFILES:
+        if other_name == source.name:
+            continue
+        other = get_profile(other_name)
+        if other:
+            dist = character_distance(source, other)
+            results.append((other_name, round(dist, 2)))
+    results.sort(key=lambda x: x[1])
+    return results[:n]
+
+
+# ═══════════════════════════════════════════════
+# VERIFIED VP CORRECTIONS — overrides auto-generated values
+# Source: external cross-check 2026-05-12 via Indenta SDS, BASF SDS,
+# Vigon SDS, Firmenich official, ChemBook, NIST WebBook
+# ═══════════════════════════════════════════════
+
+_VERIFIED_VP = {
+    "Galaxolide": 0.0727,
+    "Vanillin": 0.20,
+    "Melonal": 239.0,
+    "Triplal": 66.1,
+    "Alpha Irone": 0.559,
+    "Norlimbanol Dextro": 0.067,
+    "Ethyl Vanillin": 0.019,
+    "Ethyl Maltol": 0.029,
+    "Dynascone": 1.33322,
+    "Ambrettolide": 0.003,
+    "Isobutyl Quinoline": 0.129,
+    "Calone": 0.0965,
+    "Cashmeran": 1.242,
+    "Citronellol": 2.26,
+    "Geraniol": 2.67,
+    "Nerol": 2.0,
+    "Coumarin": 0.133,
+    "Habanolide": 0.000053,
+    "Ambrofix": 0.066,
+    "Hedione": 0.09466,
+    "Hedione HC": 0.09466,
+}
+
+_VERIFIED_VP_SOURCE = {
+    "Calone": (
+        "RIFM safety assessment (Api et al. 2024): EPI Suite 0.000724 mmHg at 25 C = 0.0965 Pa"
+    ),
+    "Cashmeran": (
+        "IFF official ingredient compendium: "
+        "0.009316 mmHg at 23 C = 1.242 Pa (reference-temperature value)"
+    ),
+    "Citronellol": "ECHA registration dossier: 2.26 Pa at 25 C",
+    "Dynascone": ("Vigon Dynascone SDS rev. 2020-06-08: 0.01 mmHg at 25 C = 1.33322 Pa"),
+    "Habanolide": (
+        "dsm-firmenich official product data: 0.00003 Pa at 20 C; "
+        "0.000053 Pa is a temperature-adjusted 25 C estimate"
+    ),
+    "Hedione": "EP 3141239 B1: 0.000710 Torr at 25 C = 0.09466 Pa",
+    "Hedione HC": ("Hedione pure-component proxy; cis-isomer-specific VP unresolved"),
+    "Melonal": "OECD 104 value reported in EU SDS: 239 Pa at 25 C",
+}
+
+for _key, _val in _VERIFIED_VP.items():
+    if _key in _PROFILES:
+        _PROFILES[_key]["vp"] = _val
+        _PROFILES[_key]["vp_source"] = _VERIFIED_VP_SOURCE.get(
+            _key, "VERIFIED external cross-check 2026-05-12"
+        )
+        _PROFILES[_key]["vp_flag"] = (
+            "ESTIMATED_FROM_OFFICIAL_20C" if _key == "Habanolide" else "VERIFIED_EXTERNAL"
+        )
+    else:
+        # Attempt to find by normalized name
+        from engine.name_utils import normalize_name
+
+        for _pn in list(_PROFILES.keys()):
+            if normalize_name(_pn) == normalize_name(_key):
+                _PROFILES[_pn]["vp"] = _val
+                _PROFILES[_pn]["vp_source"] = "VERIFIED external cross-check 2026-05-12"
+                _PROFILES[_pn]["vp_flag"] = "VERIFIED_EXTERNAL"
+                break
+
+
+def suggest_replacement(missing_name: str, inventory_names: set[str]) -> str:
+    """Suggest an in-inventory replacement for a missing material.
+
+    Matches by odor character or note tier from _PROFILES.
+    Returns "no close match" if nothing found.
+    """
+    from engine.name_utils import normalize_name
+
+    missing_norm = normalize_name(missing_name)
+    missing_profile = get_profile(missing_norm)
+
+    if missing_profile is None:
+        return "no profile data — check inventory manually"
+
+    target_char = missing_profile.character
+    target_note = missing_profile.note
+
+    best_match = ""
+    best_score = 0
+    for name, profile in _PROFILES.items():
+        inv_name = normalize_name(name)
+        if not any(inv_name in inv or inv in inv_name for inv in inventory_names):
+            continue
+        score = 0
+        if isinstance(profile, dict):
+            pchar = profile.get("character", {})
+            pnote = profile.get("note", "")
+        else:
+            pchar = profile.character if hasattr(profile, "character") else {}
+            pnote = profile.note if hasattr(profile, "note") else ""
+        if isinstance(pchar, dict) and isinstance(target_char, dict):
+            # Check character overlap
+            common = set(target_char.keys()) & set(pchar.keys())
+            if common:
+                score += 3
+        if pnote == target_note and target_note:
+            score += 1
+        if score > best_score:
+            best_score = score
+            best_match = name
+
+    return best_match if best_score >= 3 else "no close match — browse inventory by note/character"
+
+
+# ─────────────────────────────────────────────────────────────────────
+
+# MATERIAL_INTAKE_BATCH_2026_08_07 — post-definition patch (user material intake)
+
+MATERIAL_INTAKE_BATCH_2026_08_07 = True
+
+_PROFILES.setdefault("nerolidol", {}).update(
+    {
+        "character_description": "woody-floral balsamic sesquiterpene alcohol",
+        "note": "floral",
+        "role": "heart",
+        "texture": "soft, balmy",
+        "mw": 222.37,
+        "vp": 0.006,
+        "clogp": 4.6,
+        "odt_air_ppb": 150.0,
+        "odt_eth_ppm": 0.9,
+        "odor_family": "floral_woody",
+        "activity_coef": 1.2,
+        "hedonic": 0.6,
+        "impact": 2,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("stralyl acetate", {}).update(
+    {
+        "character_description": "green-sweet gardenia-floral ester",
+        "note": "floral",
+        "role": "heart",
+        "texture": "sweet, green",
+        "mw": 164.2,
+        "vp": 7.0,
+        "clogp": 2.0,
+        "odt_air_ppb": 40.0,
+        "odt_eth_ppm": 1.0,
+        "odor_family": "floral",
+        "activity_coef": 1.8,
+        "hedonic": 0.6,
+        "impact": 2,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("cypress eo", {}).update(
+    {
+        "character_description": "dry conifer-woody-aromatic natural",
+        "note": "woody",
+        "role": "heart",
+        "texture": "dry, resinous",
+        "mw": 136.0,
+        "vp": 250.0,
+        "clogp": 3.8,
+        "odt_air_ppb": 200.0,
+        "odt_eth_ppm": 0.5,
+        "odor_family": "conifer",
+        "activity_coef": 3.0,
+        "hedonic": 0.4,
+        "impact": 2,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("padma", {}).update(
+    {
+        "character_description": "green-hyacinth floral acetal",
+        "note": "floral",
+        "role": "heart",
+        "texture": "green, stemmy",
+        "mw": 166.22,
+        "vp": 20.0,
+        "clogp": 2.1,
+        "odt_air_ppb": 200.0,
+        "odt_eth_ppm": 0.5,
+        "odor_family": "green_floral",
+        "activity_coef": 1.5,
+        "hedonic": 0.5,
+        "impact": 2,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("hay absolute", {}).update(
+    {
+        "character_description": "coumarinic hay, dry, natural",
+        "note": "hay",
+        "role": "base",
+        "texture": "dry, powdery",
+        "mw": 146.0,
+        "vp": 0.3,
+        "clogp": 1.4,
+        "odt_air_ppb": 4.0,
+        "odt_eth_ppm": 0.01,
+        "odor_family": "hay",
+        "activity_coef": 0.7,
+        "hedonic": 0.7,
+        "impact": 3,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("cabreuva eo", {}).update(
+    {
+        "character_description": "woody-balsamic nerolidol-rich oil",
+        "note": "woody",
+        "role": "base",
+        "texture": "soft, balsamic",
+        "mw": 222.0,
+        "vp": 0.006,
+        "clogp": 4.6,
+        "odt_air_ppb": 150.0,
+        "odt_eth_ppm": 0.9,
+        "odor_family": "woody",
+        "activity_coef": 1.2,
+        "hedonic": 0.6,
+        "impact": 2,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("tuberlia base", {}).update(
+    {
+        "character_description": "tuberose-creamy captive base",
+        "note": "floral",
+        "role": "heart",
+        "texture": "creamy, waxy",
+        "mw": 190.0,
+        "vp": 0.1,
+        "clogp": 2.5,
+        "odt_air_ppb": 10.0,
+        "odt_eth_ppm": 0.02,
+        "odor_family": "tuberose",
+        "activity_coef": 0.6,
+        "hedonic": 0.7,
+        "impact": 3,
+        "product_basis": True,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("caraway seed eo", {}).update(
+    {
+        "character_description": "caraway-seed spicy natural",
+        "note": "spice",
+        "role": "heart",
+        "texture": "sharp, seed",
+        "mw": 150.0,
+        "vp": 6.0,
+        "clogp": 2.6,
+        "odt_air_ppb": 2.0,
+        "odt_eth_ppm": 0.01,
+        "odor_family": "spice",
+        "activity_coef": 2.5,
+        "hedonic": 0.4,
+        "impact": 3,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("turkish storax", {}).update(
+    {
+        "character_description": "balsamic-cinnamic resin tincture",
+        "note": "balsamic",
+        "role": "base",
+        "texture": "warm, resinous",
+        "mw": 148.0,
+        "vp": 1.0,
+        "clogp": 2.0,
+        "odt_air_ppb": 20.0,
+        "odt_eth_ppm": 0.05,
+        "odor_family": "balsamic",
+        "activity_coef": 1.2,
+        "hedonic": 0.6,
+        "impact": 3,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("benzoin styrax tonkinensis tincture", {}).update(
+    {
+        "character_description": "benzoin-balsamic sweet resin tincture",
+        "note": "balsamic",
+        "role": "base",
+        "texture": "sweet, resinous",
+        "mw": 212.0,
+        "vp": 0.02,
+        "clogp": 2.5,
+        "odt_air_ppb": 3.0,
+        "odt_eth_ppm": 0.01,
+        "odor_family": "balsamic",
+        "activity_coef": 0.6,
+        "hedonic": 0.7,
+        "impact": 3,
+        "product_basis": True,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("helichrysum eo", {}).update(
+    {
+        "character_description": "immortelle hay-curry-floral natural",
+        "note": "floral",
+        "role": "heart",
+        "texture": "hay, curry",
+        "mw": 180.0,
+        "vp": 0.5,
+        "clogp": 3.0,
+        "odt_air_ppb": 5.0,
+        "odt_eth_ppm": 0.01,
+        "odor_family": "immortelle",
+        "activity_coef": 1.0,
+        "hedonic": 0.5,
+        "impact": 3,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("verdyl acetate", {}).update(
+    {
+        "character_description": "green-floral-woody acetate",
+        "note": "floral",
+        "role": "heart",
+        "texture": "green, woody",
+        "mw": 192.25,
+        "vp": 2.0,
+        "clogp": 2.2,
+        "odt_air_ppb": 10.0,
+        "odt_eth_ppm": 0.02,
+        "odor_family": "green_floral",
+        "activity_coef": 2.0,
+        "hedonic": 0.5,
+        "impact": 2,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("sandalwood base x3", {}).update(
+    {
+        "character_description": "creamy-warm sandalwood pre-blend",
+        "note": "woody",
+        "role": "base",
+        "texture": "creamy, smooth",
+        "mw": 220.0,
+        "vp": 0.1,
+        "clogp": 3.5,
+        "odt_air_ppb": 100.0,
+        "odt_eth_ppm": 0.5,
+        "odor_family": "sandalwood",
+        "activity_coef": 0.6,
+        "hedonic": 0.8,
+        "impact": 3,
+        "product_basis": True,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("tuberose eo (volume level grade)", {}).update(
+    {
+        "character_description": "tuberose green-creamy natural",
+        "note": "floral",
+        "role": "heart",
+        "texture": "creamy, green",
+        "mw": 190.0,
+        "vp": 0.1,
+        "clogp": 2.5,
+        "odt_air_ppb": 20.0,
+        "odt_eth_ppm": 0.05,
+        "odor_family": "tuberose",
+        "activity_coef": 0.6,
+        "hedonic": 0.7,
+        "impact": 3,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+_PROFILES.setdefault("elemi eo", {}).update(
+    {
+        "character_description": "elemi pine-citrus-balsamic resin oil",
+        "note": "citrus",
+        "role": "top",
+        "texture": "fresh, balsamic",
+        "mw": 204.0,
+        "vp": 5.0,
+        "clogp": 4.0,
+        "odt_air_ppb": 10.0,  # aligned to pre-existing ODT_DATA elemi eo (remediation 2026-08-07)
+        "odt_eth_ppm": 2.0,
+        "odor_family": "citrus_balsamic",
+        "activity_coef": 2.5,
+        "hedonic": 0.5,
+        "impact": 2,
+        "product_basis": False,
+        "source": "material intake batch 2026-08-07",
+    }
+)
+
+# ─────────────────────────────────────────────────────────────────────
+# MATERIAL_INTAKE_REMEDIATION_2026_08_07 — MaterialProfile reads "odt"/"odt_ppm" (auditor CRITICAL C2)
+MATERIAL_INTAKE_REMEDIATION_2026_08_07 = True
+# backfill Phenethyl Alcohol (legacy profile) odt keys (auditor C2b)
+from engine.odor_thresholds import ODT_DATA as _INTAKE_ODT_DATA
+
+_PEA = _PROFILES.setdefault("Phenethyl Alcohol", {})
+_PEA.setdefault("odt", _INTAKE_ODT_DATA.get("phenethyl alcohol", {}).get("odt_air"))
+_PEA.setdefault("odt_ppm", _INTAKE_ODT_DATA.get("phenethyl alcohol", {}).get("odt_eth"))
+
+for _mi_name in [
+    "nerolidol",
+    "stralyl acetate",
+    "cypress eo",
+    "padma",
+    "hay absolute",
+    "cabreuva eo",
+    "tuberlia base",
+    "caraway seed eo",
+    "turkish storax",
+    "benzoin styrax tonkinensis tincture",
+    "helichrysum eo",
+    "verdyl acetate",
+    "sandalwood base x3",
+    "tuberose eo (volume level grade)",
+]:
+    _mi_prof = _PROFILES.setdefault(_mi_name, {})
+    _mi_prof.setdefault("odt", _mi_prof.get("odt_air_ppb"))
+    _mi_prof.setdefault("odt_ppm", _mi_prof.get("odt_eth_ppm"))
+# elemi eo: align profile with pre-existing ODT_DATA (10.0/2.0) and drop the unsourced 5.0/0.05
+_PROFILES.setdefault("elemi eo", {}).update(
+    {"odt_air_ppb": 10.0, "odt_eth_ppm": 2.0, "odt": 10.0, "odt_ppm": 2.0}
+)

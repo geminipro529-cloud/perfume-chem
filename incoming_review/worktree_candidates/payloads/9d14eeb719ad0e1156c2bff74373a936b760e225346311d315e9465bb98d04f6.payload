@@ -1,0 +1,135 @@
+{
+  "schema_version": "perfumery_rule_registry_v1",
+  "claim_ceiling": "COMPUTATIONAL_EXPERIMENT_DESIGN_ONLY",
+  "purpose": "Compile a target-faithful, relational perfume architecture and the smallest discriminating experiment without claiming that composition predicts perception or beauty.",
+  "target_first_sequence": [
+    "Lock the target identity, reference scope, recognizers, invariants, and forbidden drift before consulting inventory.",
+    "Declare the perceptual functions whose omission would damage that target.",
+    "Select exactly one primary architectural strategy because it explains the target relations, not because it is fashionable, ingredient-rich, or globally preferred.",
+    "Add zero to two secondary strategies only when each owns a distinct target function that the primary does not own.",
+    "Place every target function exactly once in a temporal, spatial, and textural layer and define every intended inter-layer transition.",
+    "Separate the target or ideal formula reference from the current-inventory build reference before any material projection.",
+    "Project material hypotheses through the current V5 workbook, user overlay, and ExactStockRef layers without turning ownership into execution authority.",
+    "Choose zero or one nonredundant omission, addition, ratio, or evidence-only n-ary experiment through Architectural Delta.",
+    "Collect blinded exact-scope sensory and preference evidence before any sensory or hedonic conclusion.",
+    "Keep safety, stability, similarity, compounding, purchase, release, and physical-success claims outside this compiler."
+  ],
+  "separated_constructs": [
+    "TARGET_FIDELITY: whether the sample preserves the locked recognizers, invariants, exclusions, and identity boundaries of the target.",
+    "PERCEPTUAL_DEPTH: experienced foreground-background, near-far, surface-interior, shadow-radiance, or other relational dimensionality under a declared protocol.",
+    "RICHNESS: differentiated, coherent perceptual information that remains available without collapsing into muddiness or undifferentiated intensity.",
+    "CONFIGURATIONAL_INTEGRATION: whether components or facets form an emergent perceptual object rather than a list of separately identifiable notes.",
+    "HIERARCHY_AND_CONTRAST: the salience ordering and mutually revealing relations among perceptual functions.",
+    "TEMPORAL_DIFFERENTIATION: observed changes, persistence, returns, reversals, and transitions across declared timepoints.",
+    "INTENSITY: perceived magnitude at a declared timepoint and endpoint; intensity is not depth, richness, or liking.",
+    "FAMILIARITY: assessor recognition or prior-exposure response; familiarity is not target fidelity or liking.",
+    "DETECTABILITY: evidence that a difference or feature is perceived under the declared comparison; detectability is not preference.",
+    "LIKING: criterion-specific evaluative response under a blinded protocol; liking is not inferred from target fidelity, depth, or chemical composition.",
+    "PREFERENCE: directional choice or tie between scoped alternatives for one declared criterion.",
+    "WANTING_TO_RESMELL: desire for renewed exposure, measured separately from liking and fascination.",
+    "WEAR_ACCEPTANCE: willingness to wear in a declared context, measured separately from immediate strip liking.",
+    "COMFORT: reported ease, softness, or affective safety, kept separate from liking and familiarity.",
+    "FASCINATION: sustained attentional pull or curiosity, kept separate from comfort and liking.",
+    "TENSION: experienced unresolved contrast or pressure, which may be intentional or aversive and is not automatically a defect.",
+    "RELIEF: experienced release or resolution after tension, measured as a temporal response rather than inferred from formula structure.",
+    "FATIGUE: reported perceptual or evaluative weariness under a qualified exposure schedule.",
+    "AVERSION: negative evaluative response or avoidance, retained as its own endpoint rather than folded into low liking.",
+    "PERSISTENCE: continued perception of a declared endpoint across time; volatility or modeled substantivity is not observed persistence."
+  ],
+  "complexity_firewall": {
+    "ingredient_count_is_complexity": false,
+    "rule": "Complexity means target-linked perceptual depth, differentiated richness, relations, transitions, and potential hedonic consequences. A sparse formula may be deeply complex when each material creates an exact relation; a large formula may be perceptually flat, redundant, muddy, or incoherent.",
+    "forbidden_proxies": [
+      "number of materials",
+      "number of note labels",
+      "number of accord families",
+      "formula mass or concentration alone",
+      "supplier prestige, novelty, rarity, price, or naturalness",
+      "number of predicted interactions without isolated evidence",
+      "length or eloquence of a model explanation"
+    ],
+    "required_evidence": "A complexity claim requires observations bound to protocol, sample, assessor, repeat, timepoint, endpoint, presentation sequence, and schedule hash. Design descriptions remain hypotheses until those observations exist."
+  },
+  "inference_firewall": {
+    "composition_score_has_hedonic_authority": false,
+    "predicted_oav_has_perceptual_authority": false,
+    "prohibited_inferences": [
+      "Do not convert formula composition, molecular descriptors, supplier copy, price, novelty, or prestige into liking or beauty.",
+      "Do not convert predicted OAV, vapor pressure, boiling point, logP, substantivity, or modeled volatility into perceived behavior.",
+      "Do not treat a predicted interaction, co-occurrence, or pairwise relation as evidence of perceptual synergy.",
+      "Do not infer n-ary layered synergy from pairwise evidence; require isolated arms and the n-ary interaction contract.",
+      "Do not map a note, adjective, target recognizer, or desired emotion directly to one molecule without target-linked evidence.",
+      "Do not infer similarity, identity match, safety, stability, physical compatibility, or release readiness from computational design.",
+      "Do not collapse target fidelity, depth, richness, liking, wear acceptance, comfort, fascination, and wanting-to-resmell into one synthetic beauty score.",
+      "Do not average duplicated canonical sensory cells or interpolate missing cells.",
+      "Do not treat protocol-level order balancing as proof that the realized observations are balanced.",
+      "Do not silently rebase a formula when stock strength, carrier, identity, product basis, or ExactStockRef changes."
+    ]
+  },
+  "gates": {
+    "architecture_compilation": [
+      "Exactly one primary strategy is required.",
+      "Zero to two secondary strategies are allowed and each must own a target function not owned by another strategy.",
+      "Every declared target function must be owned exactly once across strategy assignments.",
+      "Every declared target function must be placed exactly once across architecture layers.",
+      "Every transition must connect two existing, distinct layers and declare intended effect and failure mode.",
+      "The family adapter is applied only after the target and strategy lock and may not alter target identity, recognizers, invariants, forbidden drift, or ideal lineage.",
+      "Dior Homme Parfum-style dark-radiant carved depth is one valid chiaroscuro instance, not a universal architecture and not an automatic family default.",
+      "A strategy cannot receive a score, rank, or ingredient-count reward.",
+      "Any count-as-complexity, predicted-OAV-as-perception, or composition-score-as-hedonic shortcut causes HOLD.",
+      "A proposed change must be zero or one target-linked nonredundant intervention with controlled arms; otherwise HOLD or NO_CHANGE."
+    ],
+    "inventory_and_execution": [
+      "Reparse every row of the authoritative V5 Current Inventory Master and Aliases and Non-Equivalents sheets at execution time.",
+      "Join workbook authority, user-authoritative overlay, and ExactStockRef as separate layers; no layer silently replaces the others.",
+      "Owned status without an ExactStockRef is not physical-execution readiness.",
+      "Unknown or unspecified concentration basis remains visible and cannot establish active equivalence, OAV equivalence, or molecular-mechanism authority.",
+      "The target or ideal architecture may include a computationally available or procurement-pending material while the current build remains blocked.",
+      "Zero citrus and zero musk are valid. Citrus and musk are selected only for a target-linked function.",
+      "Neroli is support-only unless orange blossom or neroli is explicitly central to the target.",
+      "Zero or one precise musk is the default; musk layering requires distinct functions and nonredundancy evidence.",
+      "Tonalide, Macrolide, and Musk Ketone remain excluded unless an explicit design exception states why their specific function is necessary.",
+      "Inventory projection grants no purchase, formula-rebase, general-substitution, sensory, safety, stability, compounding, or release authority."
+    ],
+    "hedonic_evidence": [
+      "Fit target fidelity, depth, richness, configurational integration, liking, wanting-to-resmell, wear acceptance, comfort, fascination, tension, relief, fatigue, aversion, and persistence as separate criteria.",
+      "Use real blinded comparisons; exclude ties from directional counts and fake wins while retaining NO_PREFERENCE in the Davidson indifference likelihood.",
+      "Bind every item label exactly once to its build, physical sample, provenance manifest, sampling or dose receipt, and batch; reject missing, extra, or swapped item/sample bindings.",
+      "Bind substrate, application, environment, maturation, apparatus, carryover controls, and—on skin—wearer and body-odor context.",
+      "Require scoped comparison, assessor, protocol, criterion, timepoint, session, matrix, partition, realized presentation order, and sequence metadata.",
+      "Diagnose disconnected graphs, sparse evidence, assessor heterogeneity, realized pair-order imbalance, first-position effects, sequence defects, carryover, temporal crossover, and criterion leakage.",
+      "Use deterministic group-isolated held-out validation against a declared probabilistic baseline and require a positive grouped-bootstrap lower bound above the practical margin.",
+      "Zero held-out bootstrap replicates, one unordered set of sample hashes, and accuracy-only validation cannot promote liking.",
+      "V1 and V2 receipts remain readable provenance but require complete V3 item and context binding before exact-scope promotion.",
+      "Blotter liking cannot establish skin wear acceptance, and another wearer or body-odor context cannot establish the owner's result.",
+      "Composition, molecular descriptors, predicted OAV, supplier descriptions, price, rarity, naturalness, and prestige cannot enter a liking fit or hedonic release axis.",
+      "A hedonic model may prioritize the next blinded comparison but cannot approve formula mutation, purchase, compounding, safety, stability, or release.",
+      "Any result that is unscoped, order-confounded, disconnected, sparse, baseline-failing, or missing required cells remains WITHHELD or DIAGNOSTIC."
+    ]
+  },
+  "architecture_outputs": [
+    "locked target identity and lineage hash",
+    "one primary and zero to two nonoverlapping secondary strategies",
+    "function ownership ledger",
+    "temporal-spatial-textural layer map",
+    "transition contracts",
+    "ideal material hypotheses",
+    "current-inventory material projections and physical-build blockers",
+    "zero or one Architectural Delta experiment",
+    "explicit authority flags and claim ceiling",
+    "next action or NO_CHANGE"
+  ],
+  "authority_flags": {
+    "formula_mutation_authorized": false,
+    "physical_execution_authorized": false,
+    "compounding_authorized": false,
+    "purchase_authority": false,
+    "sensory_authority": false,
+    "hedonic_authority": false,
+    "similarity_authority": false,
+    "safety_authority": false,
+    "stability_authority": false,
+    "release_authority": false,
+    "model_retirement_authority": false
+  }
+}

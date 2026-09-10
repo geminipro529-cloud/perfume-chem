@@ -1,0 +1,90 @@
+from engine.data_spine import load_registry
+import engine.formula_recommendations as recommendations
+from engine.ingredient_catalog import find_ingredient
+from engine.inventory_parser import parse_inventory
+from engine.name_utils import normalize_name
+
+
+def test_nysupply_cinnamon_bark_stock_is_owned_without_invented_basis_or_carrier():
+    records = [
+        record
+        for record in parse_inventory(unique=False, include_unavailable=True)
+        if record.name == "Cinnamon Bark EO"
+    ]
+
+    assert [
+        (
+            record.dilution,
+            record.concentration_basis,
+            record.carrier,
+            record.execution_ready,
+        )
+        for record in records
+    ] == [(0.10, "unspecified", "", True)]
+
+    material = load_registry().get("Cinnamon Bark EO")
+    assert material is not None
+    assert material.user_in_inventory is True
+    assert "10%" in str(material.user_stock_dilution)
+    assert "NYSUPPLY" in str(material.supplier.other)
+    assert material.mw_g_mol is None
+    assert material.vp_25c_pa is None
+    assert material.ifra_max_pct_edp is None
+
+
+def test_cinnamon_stock_aliases_resolve_to_the_natural_oil_identity():
+    assert normalize_name("Cinnamon Bark EO (10%)") == "cinnamon bark eo"
+    assert normalize_name("NYSUPPLY Cinnamon Bark EO") == "cinnamon bark eo"
+
+
+def test_runtime_catalog_exposes_the_user_confirmed_nysupply_stock():
+    entry = find_ingredient("Cinnamon Bark EO")
+
+    assert entry is not None
+    assert entry["owned_now"] is True
+    observed = " | ".join(entry["observed_forms"])
+    assert "10%" in observed
+    assert "NYSUPPLY" in observed
+
+
+def test_exact_user_authorized_cinnamon_replacement_requires_working_stock():
+    planner = getattr(
+        recommendations, "plan_user_authorized_stock_substitution", None
+    )
+    assert callable(planner), "user-authorized stock substitution planner is missing"
+
+    plan = planner(
+        "Cinnamaldehyde (1%)",
+        source_stock_fraction=0.01,
+        source_raw_ul=10.0,
+        minimum_raw_stock_ul=10.0,
+    )
+
+    assert plan is not None
+    assert plan.replacement_material == "Cinnamon Bark EO (NYSUPPLY)"
+    assert plan.replacement_stock_fraction == 0.10
+    assert plan.user_authorized_direct_raw_ul == 3.0
+    assert plan.preparation_required is True
+    assert plan.executable_raw_ul == 10.0
+    assert plan.executable_stock_fraction == 0.03
+    assert plan.bottle_stock_parts == 3.0
+    assert plan.carrier_parts == 7.0
+    assert plan.volume_delta_ul == 0.0
+    assert plan.authority == "DIRECT_USER_SENSORY_SUBSTITUTION"
+    assert "not chemical equivalence" in plan.claim_ceiling.casefold()
+
+
+def test_exact_cinnamon_replacement_is_not_generalized_to_other_source_doses():
+    planner = getattr(
+        recommendations, "plan_user_authorized_stock_substitution", None
+    )
+    assert callable(planner), "user-authorized stock substitution planner is missing"
+
+    assert (
+        planner(
+            "Cinnamaldehyde",
+            source_stock_fraction=0.01,
+            source_raw_ul=20.0,
+        )
+        is None
+    )

@@ -1,0 +1,104 @@
+# SUKHUM 35 New-Inventory Parse and Reconstruction Record
+
+**Date:** 2026-08-30, Asia/Bangkok  
+**Scope:** versioned SUKHUM 35 reconstruction for Thai men buying Thai perfume for themselves  
+**Inventory authority:** `inventory.txt` SHA-256 `EB33C04236A4640413BA5289125F04CFA278BD0614EB9BD12EA1CC4D88379967`  
+**Claim mode:** `INVENTORY_AND_COMPUTATIONAL_DESIGN_EVIDENCE_ONLY`  
+
+## Inventory synchronization result
+
+The current authority has 279 listed stock rows, 258 normalized identities, 252 non-solvent fragrance identities, and 21 repeated canonical identities representing alternate concentrations, unavailable historical identities, or planned preparations. The 2026-08-30 synchronization replaced 82 prior inventory rows with 111 added/reintroduced rows. An added row is not necessarily a newly purchased chemical: the delta also contains corrected names, new concentrations, restored stocks, explicit depletion tombstones, and authority annotations.
+
+No row count is used as evidence of complexity, beauty, richness, or hedonic success.
+
+## Consequential changes to the frozen S35-T2 control
+
+| Frozen assumption | Current authority | Reconstruction consequence |
+|---|---|---|
+| Allyl Cyclohexyl Propionate neat, 220 µL | 10% in DPG | Same raw volume would lose 90% of nominal active. Matching the old active volume would require 2,200 µL stock and 1,980 µL DPG. The fruit nucleus must be redesigned. |
+| Hedione HC neat, 280 µL | Absent | Focused radiance cannot be silently replaced. S35-T3 uses Hedione, negative space, and a tested Elemi/Cypress hinge. |
+| Grapefruit FCF | Grapefruit FCF oil Sicilian | Rebind canonical stock identity and natural OAV path. |
+| Vetiver EO India | Indian Vetiver EO, volume grade | Rebind current stock identity and preserve lot/quality limits. |
+| Inventory hash `4F45...` | Current hash `EB33...` | Frozen S35-T2 is retained as history, not treated as a current bench formula. |
+
+## Materials admitted to the controlled reconstruction
+
+| Material | Stock authority | Target-linked disposition |
+|---|---|---|
+| Red Mandarin EO | Neat, ready | Retain as the one warm-peel signature. |
+| Grapefruit FCF oil Sicilian | Neat, ready | Retain as the bitter-pith counterweight. |
+| Allyl Cyclohexyl Propionate | 10% DPG, ready | Rebuild as pineapple body at the actual concentration. |
+| Hexyl Acetate | 10% plus 1% stocks, ready; carrier unspecified | Use 100 µL of 10% only in the fruit factor. Product-stock volume and nominal active are matched, but strict carrier matching is HOLD. |
+| Elemi EO | Neat, ready | Use 40 µL only in the dry-transition factor as citrus-pepper resin motion. |
+| Cypress EO | Neat/as supplied, ready | Use 30 µL only in the dry-transition factor as a conifer-to-cedar hinge. |
+| Clearwood | Neat, ready | Retain provisionally as clean earthy rear structure; remove or relabel structural-only if modeled and physical evidence does not support an audible role. |
+| Indian Vetiver EO | Neat, volume grade, ready | Retain as executable root-mineral depth. |
+| Romandolide | Neat, ready | Retain as the sole exact outward-projection musk. |
+
+## New materials reserved for later isolated arms
+
+| Material | Why it could help | Why it is not in S35-T3 |
+|---|---|---|
+| Blackcurrant Absolute 10% DPG | Natural cassis skin and sulfurous-green realism | Could become catty or dominate; testing it now would confound pineapple realism with cassis quality. |
+| Petitgrain EO Paraguay | Green citrus-wood tailoring | Could turn SUKHUM toward cologne or aromatic fougère. |
+| Parmavert | Violet-leaf pineapple-skin texture | Could make the fruit leafy/cosmetic. |
+| Coriander Essential Oil | Citrus-spice diffusion | Less target-exact than Elemi and may broaden the aromatic register. |
+| Helional 10% v/v | Cooled-air spatial effect | Risks blue/aquatic genre drift. |
+| Cis-3-Hexenol 1% | Literal green fruit skin | High risk of cut-grass takeover; not needed before the subtler fruit factor is tested. |
+| Verdyl Acetate | Green-floral wood bridge | Less specific than the Elemi/Cypress connection. |
+
+## Owned/selectable stocks held from quantitative use
+
+| Material | Current authority hold | SUKHUM decision |
+|---|---|---|
+| Liffarome 10% w/w | Carrier unspecified | No active µL, ppm, OAV, or physical dose. |
+| Cis-3-Hexenyl Salicylate 20% w/w | Carrier unspecified | No active µL, ppm, OAV, or physical dose. |
+| Caryophyllene Acetate 20% w/w | Carrier unspecified | No active µL, ppm, OAV, or physical dose. |
+| Bacdanol | Fraction, basis, and carrier unspecified | Reject from current build; creamy sandalwood would also soften the dry identity. |
+| Guaiacwood EO 33% | Fraction basis and carrier unspecified | Reject from current build; no invented active amount or carrier match. |
+| Ambrofix heterogeneous bottle | Whole bottle nominal 7.27% w/w with visible solid; pipetted phase unresolved | Non-executable; no dose or OAV. |
+| Ambrofix Crystals | Solid stock | No direct volume dosing; a separately documented homogeneous stock would be required. |
+| Castoreum Synthetic 10% DEP | Concentration basis unspecified | Reject and HOLD; leather is off-target. |
+| Givaudan AIMI | Exact product identity/physics unresolved | Reject; iris drift is off-target. |
+| Opoponax Resinoid 50% DEP | Percentage basis unspecified | Reject; resinous amber/incense drift. |
+| Myrrh EO 50% DEP | Percentage basis unspecified | Reject; dark medicinal-resin drift. |
+
+## Executable additions rejected for the SUKHUM identity
+
+The following stocks may be useful in other perfumes but have no nonredundant function in this target:
+
+- **Additional citrus/top:** Aldehyde C11 undecylenic 1%, Aldehyde C12 MNA neat, Cedrat FCF oil Sicilian, Bergamot FCF oil Sicilian, Petitgrain EO Paraguay, Neroli EO 10% DPG. These would add aldehydic/cologne/orange-flower axes rather than improve the red-mandarin/grapefruit signature.
+- **Green/fresh/marine:** Adoxal, Leafovert, Geosmin, Helional, Liffarome, and the stronger leaf materials. They risk blue, watery, soil, or cut-grass takeover.
+- **Floral and white-floral:** Nerolidol, Stralyl Acetate, Heliotropin, PADMA, Tuberlia, Tuberose EO, Helichrysum EO, Jasmine Absolute, Hydroxycitronellol, Benzaldehyde, Bourgeonal, Magnolia EO, Osmanthus, Rose de Mai, Rose Essential Oil, Violet Leaf Absolute, ionones, Alpha Irone, and Orris Liquid. They create floral, powder, iris, rose, or white-floral subjects absent from the brief.
+- **Creamy/sandalwood and leather woods:** Sandalwood Base 3X, Sandalwood EO, Cabreuva, Suederal, Black Agarwood Artificial, and Bacdanol. They soften or darken the dry transparent wood object.
+- **Additional amber/wood force:** Amber Xtreme and unresolved AIMI. Amber Xtreme would add harsh superamber power rather than composed depth.
+- **Additional musks:** Ethylene Brassylate, Galaxolide, Habanolide, Zenolide, Exaltolide, and Ambrettolide. None owns a function that Romandolide does not cover more exactly here.
+- **Gourmand/sweet:** Hay Absolute, Anisaldehyde, Ethyl Maltol, Raspberry Ketone, Coffee Absolute, 2-Acetyl Pyrazine, coumarin stocks, Gamma Nonalactone, Cocoa, Cocoa CO2, Peru Balsam, Opoponax, and Myrrh. They would introduce hay, candy, food, vanilla-balsamic, or resinous warmth.
+- **Leather/moss/smoke:** Castoreum, Evernyl stocks, Suederal, oud base, and heavier phenolics. S35-T3 retains only 10 µL Cade 1% as a charcoal seam.
+- **Saffron/spice:** Safraleine stocks, Caraway Seed Oil, Coriander, Ethyl Safranate, Eugenol, Isoeugenol, cinnamon materials, Nutmeg, and aromatic lavender materials. Elemi plus 10 µL Black Pepper supplies the required dry motion without a new spice subject.
+- **Other specialty additions:** Champignol and BHT have no odor-design function in this first reconstruction; BHT would require a separate stability/safety rationale rather than decorative inclusion.
+
+## Explicitly unavailable or non-executable rows
+
+- Benzyl Salicylate: not owned.
+- Neat Black Agarwood Artificial: not owned.
+- Polysantol and Nagarmortha: depleted.
+- Tonalide, Macrolide, and Musk Ketone stocks: depleted.
+- Gamma Decalactone: not owned/out of stock.
+- Vietnamese Benzoin and Turkish Storax prepared tinctures: lost/out of stock; all prepared tinctures remain unavailable.
+- Evernyl 10% w/w DEP: planned but not prepared.
+
+## Inventory discrepancies outside the SUKHUM dose set
+
+The current canonical inventory omits `Red Saffron Infusion` and `Geranyl Acetate`, despite earlier direct user statements that they are owned. It also records Neroli only as 10% DPG, while earlier user authority described a neat stock. These discrepancies are not silently repaired here because none is needed for SUKHUM 35. They require a separate current-authority adjudication before another formula relies on them.
+
+## Reconstruction decision
+
+The approved study uses a four-arm constant-total 2x2 design. Every arm contains exactly 5,400 µL raw product stock and 3,745.32 µL nominal active-equivalent material under the documented volume-proxy method:
+
+- `S35-R0`: both factors off.
+- `S35-F`: ACP 800 µL becomes ACP 700 µL + Hexyl Acetate 100 µL; both are nominal 10% stocks, preserving 80 µL nominal active fruit ester.
+- `S35-D`: Hedione 950 / Iso E 1050 becomes Hedione 910 / Iso E 1020 + Elemi 40 + Cypress 30, preserving 2,000 µL raw and nominal active transition-space material.
+- `S35-T3`: both factors on.
+
+The design can be compared computationally. Strict physical carrier-matched execution remains HOLD until the carrier of Hexyl Acetate 10% is identified. No physical smelling, liking, similarity, stability, safety, longevity, or market-success evidence exists yet.

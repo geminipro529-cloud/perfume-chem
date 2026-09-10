@@ -1,0 +1,228 @@
+# Final Formula Index
+
+**Study status:** 20 complete target/current formulation hypotheses; 0 eligible finalists; physical evaluation not executed.
+
+This index keeps every proposal in roster order. Within each arm, the links are presented in the required order: target identity, TARGET / IDEAL formula, CURRENT-INVENTORY BUILD, missing-chemical impact, purchase/preparation recommendation, diagnostics, and blind plan. The canonical candidate JSON contains all seven sections and the claim ceiling. Rendered Markdown contains the current-build table and full bound native analysis.
+
+Shared results:
+
+- all 20 target formulas total 1,000,000 active ppm w/w;
+- all 20 current builds total 1,000,000 raw-stock ppm w/w;
+- every current build uses one EB musk and excludes every lost tincture;
+- all 20 native screens are `FAIL/HOLD`, so no arm is physically authorized;
+- OAV and temporal outputs are modeled diagnostics, not measured sensory outcomes;
+- liking, similarity, stability, and measured headspace are `NOT TESTED`; safety and release are `NOT CLEARED`.
+
+Study-wide evidence: [screening summary](screening_summary.json), [missing-chemical index](missing_chemical_impact_index.json), [Sol comparison](sol_comparison.md), and [master blind protocol](../testing/blind_protocol.json).
+
+## L'Homme
+
+### LH-01 Original Fidelity — family control, HOLD
+
+1. Target identity: [canonical candidate](../candidates/LH-01.json) — closest documentary 2006 architecture.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LH-01.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LH-01.json) and [rendered formula](../rendered/LH-01_Original_Fidelity_30mL_EDT.md).
+4. Missing-chemical impact: [LH-01 authority-false assessment](../impact/LH-01_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LH-01.json); verify EB and exact missing-function evidence before purchase.
+6. Diagnostics: [bound full analysis](../rendered/LH-01_Original_Fidelity_30mL_EDT.md) and [screening receipt](screening_summary.json).
+7. Blind plan: [candidate family-control plan](../candidates/LH-01.json) and [master protocol](../testing/blind_protocol.json).
+
+### LH-02 Vintage Magnetique — HOLD
+
+1. Target identity: [canonical candidate](../candidates/LH-02.json) — vintage magnetic warmth through sandalwood, cedar-amber, and tonka relationships.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LH-02.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LH-02.json) and [rendered formula](../rendered/LH-02_Vintage_Magnetique_30mL_EDT.md).
+4. Missing-chemical impact: [LH-02 authority-false assessment](../impact/LH-02_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LH-02.json); no purchase without a constant-total nonredundancy result.
+6. Diagnostics: [bound full analysis](../rendered/LH-02_Vintage_Magnetique_30mL_EDT.md) and [screening receipt](screening_summary.json).
+7. Blind plan: [candidate controlled comparison](../candidates/LH-02.json) and [master protocol](../testing/blind_protocol.json).
+
+### LH-03 Tailored Luxe — HOLD
+
+1. Target identity: [canonical candidate](../candidates/LH-03.json) — violet-green-to-radiant-cedar tactile polish.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LH-03.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LH-03.json) and [rendered formula](../rendered/LH-03_Tailored_Luxe_30mL_EDT.md).
+4. Missing-chemical impact: [LH-03 authority-false assessment](../impact/LH-03_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LH-03.json); preserve tailoring and verify exact specialist losses first.
+6. Diagnostics: [bound full analysis](../rendered/LH-03_Tailored_Luxe_30mL_EDT.md) and [screening receipt](screening_summary.json).
+7. Blind plan: [candidate controlled comparison](../candidates/LH-03.json) and [master protocol](../testing/blind_protocol.json).
+
+### LH-04 Apple Pie — required named arm, HOLD
+
+1. Target identity: [canonical candidate](../candidates/LH-04.json) — crisp ester-green apple over a restrained dry pastry shadow inside protected L'Homme tailoring.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LH-04.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LH-04.json) and [rendered formula](../rendered/LH-04_Apple_Pie_30mL_EDT.md).
+4. Missing-chemical impact: [LH-04 authority-false assessment](../impact/LH-04_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LH-04.json); buy no more apple/pastry materials, recover or remake exact w/w stocks, and verify EB.
+6. Diagnostics: [bound full analysis](../rendered/LH-04_Apple_Pie_30mL_EDT.md) and [deep review](sol_comparison.md).
+7. Blind plan: [candidate Apple Pie plan](../candidates/LH-04.json) and [master protocol](../testing/blind_protocol.json), with family identity scored before apple or pastry quality.
+
+### LH-05 Ginger-Cedrat Spark — conditional re-screen priority, HOLD
+
+1. Target identity: [canonical candidate](../candidates/LH-05.json) — ginger-cedrat kinetic sparkle with a dry bitter-peel target.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LH-05.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LH-05.json) and [rendered formula](../rendered/LH-05_Ginger_Cedrat_Spark_30mL_EDT.md).
+4. Missing-chemical impact: [LH-05 authority-false assessment](../impact/LH-05_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LH-05.json); do not buy generic citrus or Neroli, and review exact cedrat only after the impact gate.
+6. Diagnostics: [bound full analysis](../rendered/LH-05_Ginger_Cedrat_Spark_30mL_EDT.md) and [deep review](sol_comparison.md).
+7. Blind plan: [candidate single-axis comparison](../candidates/LH-05.json) and [master protocol](../testing/blind_protocol.json).
+
+### LH-06 Violet Leaf Silk — HOLD
+
+1. Target identity: [canonical candidate](../candidates/LH-06.json) — continuous violet-leaf and ionone silk without powder or cucumber dominance.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LH-06.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LH-06.json) and [rendered formula](../rendered/LH-06_Violet_Leaf_Silk_30mL_EDT.md).
+4. Missing-chemical impact: [LH-06 authority-false assessment](../impact/LH-06_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LH-06.json); verify violet-leaf stock evidence before any exact-material claim.
+6. Diagnostics: [bound full analysis](../rendered/LH-06_Violet_Leaf_Silk_30mL_EDT.md) and [screening receipt](screening_summary.json).
+7. Blind plan: [candidate controlled comparison](../candidates/LH-06.json) and [master protocol](../testing/blind_protocol.json).
+
+### LH-07 White Pepper-Basil — HOLD
+
+1. Target identity: [canonical candidate](../candidates/LH-07.json) — dry white-pepper and basil-flower articulation around ginger.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LH-07.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LH-07.json) and [rendered formula](../rendered/LH-07_White_Pepper_Basil_30mL_EDT.md).
+4. Missing-chemical impact: [LH-07 authority-false assessment](../impact/LH-07_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LH-07.json); isolate exact white-pepper value before procurement.
+6. Diagnostics: [bound full analysis](../rendered/LH-07_White_Pepper_Basil_30mL_EDT.md) and [screening receipt](screening_summary.json).
+7. Blind plan: [candidate controlled comparison](../candidates/LH-07.json) and [master protocol](../testing/blind_protocol.json).
+
+### LH-08 Cedar-Vetiver Tailoring — HOLD
+
+1. Target identity: [canonical candidate](../candidates/LH-08.json) — audible literal cedar-vetiver vertical with smooth tailored grain.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LH-08.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LH-08.json) and [rendered formula](../rendered/LH-08_Cedar_Vetiver_Tailoring_30mL_EDT.md).
+4. Missing-chemical impact: [LH-08 authority-false assessment](../impact/LH-08_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LH-08.json); verify cedar/vetiver grade and nonredundant bridge function first.
+6. Diagnostics: [bound full analysis](../rendered/LH-08_Cedar_Vetiver_Tailoring_30mL_EDT.md) and [screening receipt](screening_summary.json).
+7. Blind plan: [candidate controlled comparison](../candidates/LH-08.json) and [master protocol](../testing/blind_protocol.json).
+
+### LH-09 Tonka-Sandalwood — HOLD
+
+1. Target identity: [canonical candidate](../candidates/LH-09.json) — dry tonka richness braided with polished sandalwood.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LH-09.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LH-09.json) and [rendered formula](../rendered/LH-09_Tonka_Sandalwood_30mL_EDT.md).
+4. Missing-chemical impact: [LH-09 authority-false assessment](../impact/LH-09_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LH-09.json); resolve tonka stock and reference-contract holds before advancement.
+6. Diagnostics: [bound full analysis](../rendered/LH-09_Tonka_Sandalwood_30mL_EDT.md) and [screening receipt](screening_summary.json).
+7. Blind plan: [candidate controlled comparison](../candidates/LH-09.json) and [master protocol](../testing/blind_protocol.json).
+
+### LH-10 Bangkok Air — HOLD
+
+1. Target identity: [canonical candidate](../candidates/LH-10.json) — warm-climate citrus-ginger continuity over dry tailored woods.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LH-10.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LH-10.json) and [rendered formula](../rendered/LH-10_Bangkok_Air_30mL_EDT.md).
+4. Missing-chemical impact: [LH-10 authority-false assessment](../impact/LH-10_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LH-10.json); no Bangkok-performance claim follows from the modeled 308.15 K sensitivity.
+6. Diagnostics: [bound 298.15 K analysis](../rendered/LH-10_Bangkok_Air_30mL_EDT.md) and [screening plus hot-model receipt](screening_summary.json).
+7. Blind plan: [candidate controlled comparison](../candidates/LH-10.json) and [master protocol](../testing/blind_protocol.json).
+
+## La Nuit de L'Homme
+
+### LN-01 Original 2009 Fidelity — family control and required arm, HOLD
+
+1. Target identity: [canonical candidate](../candidates/LN-01.json) — closest documentary 2009 cardamom-lavender-cedar architecture.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LN-01.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LN-01.json) and [rendered formula](../rendered/LN-01_Original_2009_Fidelity_30mL_EDT.md).
+4. Missing-chemical impact: [LN-01 authority-false assessment](../impact/LN-01_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LN-01.json); verify EB and isolate exact Exaltolide, Haitian-vetiver, Vertofix Coeur, sandalwood, or Ambroxide losses before purchase.
+6. Diagnostics: [bound full analysis](../rendered/LN-01_Original_2009_Fidelity_30mL_EDT.md) and [deep review](sol_comparison.md).
+7. Blind plan: [candidate family-control plan](../candidates/LN-01.json) and [master protocol](../testing/blind_protocol.json).
+
+### LN-02 Current Transparent Style — conditional re-screen priority, HOLD
+
+1. Target identity: [canonical candidate](../candidates/LN-02.json) — modern transparency around the original cardamom-lavender-cedar vertical.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LN-02.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LN-02.json) and [rendered formula](../rendered/LN-02_Current_Transparent_Style_30mL_EDT.md).
+4. Missing-chemical impact: [LN-02 authority-false assessment](../impact/LN-02_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LN-02.json); buy no clean musk, ozone, or citrus material before exact loss isolation.
+6. Diagnostics: [bound full analysis](../rendered/LN-02_Current_Transparent_Style_30mL_EDT.md) and [deep review](sol_comparison.md).
+7. Blind plan: [candidate transparency comparison](../candidates/LN-02.json) and [master protocol](../testing/blind_protocol.json).
+
+### LN-03 Cardamom Velvet — HOLD
+
+1. Target identity: [canonical candidate](../candidates/LN-03.json) — cardamom continuity folded into a yielding cedar-sandalwood velvet seam.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LN-03.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LN-03.json) and [rendered formula](../rendered/LN-03_Cardamom_Velvet_30mL_EDT.md).
+4. Missing-chemical impact: [LN-03 authority-false assessment](../impact/LN-03_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LN-03.json); preserve cardamom recognition and test texture at constant total.
+6. Diagnostics: [bound full analysis](../rendered/LN-03_Cardamom_Velvet_30mL_EDT.md) and [screening receipt](screening_summary.json).
+7. Blind plan: [candidate controlled comparison](../candidates/LN-03.json) and [master protocol](../testing/blind_protocol.json).
+
+### LN-04 Lavender Heart — HOLD
+
+1. Target identity: [canonical candidate](../candidates/LN-04.json) — dimensional lavender-heart expansion under an unchanged cardamom-to-cedar vertical.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LN-04.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LN-04.json) and [rendered formula](../rendered/LN-04_Lavender_Heart_30mL_EDT.md).
+4. Missing-chemical impact: [LN-04 authority-false assessment](../impact/LN-04_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LN-04.json); repair lavender composite and stock-basis evidence before advancement.
+6. Diagnostics: [bound full analysis](../rendered/LN-04_Lavender_Heart_30mL_EDT.md) and [screening receipt](screening_summary.json).
+7. Blind plan: [candidate controlled comparison](../candidates/LN-04.json) and [master protocol](../testing/blind_protocol.json).
+
+### LN-05 Immortelle Nuit — required named arm, HOLD
+
+1. Target identity: [canonical candidate](../candidates/LN-05.json) — honeyed-dry immortelle afterglow nested inside protected cardamom-lavender-cedar.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LN-05.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LN-05.json) and [rendered formula](../rendered/LN-05_Immortelle_Nuit_30mL_EDT.md).
+4. Missing-chemical impact: [LN-05 authority-false assessment](../impact/LN-05_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LN-05.json); buy no more immortelle, hay, maple, tobacco, balsam, or musk; verify existing percentage stocks and EB.
+6. Diagnostics: [bound full analysis](../rendered/LN-05_Immortelle_Nuit_30mL_EDT.md) and [deep review](sol_comparison.md).
+7. Blind plan: [candidate immortelle/omission comparison](../candidates/LN-05.json) and [master protocol](../testing/blind_protocol.json).
+
+### LN-06 Cedar-Vetiver Vertical — HOLD
+
+1. Target identity: [canonical candidate](../candidates/LN-06.json) — literal cedar-vetiver vertical strengthened by smooth cedar-amber continuity.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LN-06.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LN-06.json) and [rendered formula](../rendered/LN-06_Cedar_Vetiver_Vertical_30mL_EDT.md).
+4. Missing-chemical impact: [LN-06 authority-false assessment](../impact/LN-06_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LN-06.json); verify exact cedar/vetiver grades and bridge nonredundancy first.
+6. Diagnostics: [bound full analysis](../rendered/LN-06_Cedar_Vetiver_Vertical_30mL_EDT.md) and [screening receipt](screening_summary.json).
+7. Blind plan: [candidate controlled comparison](../candidates/LN-06.json) and [master protocol](../testing/blind_protocol.json).
+
+### LN-07 Dry Coumarin Skin — HOLD
+
+1. Target identity: [canonical candidate](../candidates/LN-07.json) — dry coumarin-tonka skin warmth ventilated by transparent cedar-vetiver structure.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LN-07.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LN-07.json) and [rendered formula](../rendered/LN-07_Dry_Coumarin_Skin_30mL_EDT.md).
+4. Missing-chemical impact: [LN-07 authority-false assessment](../impact/LN-07_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LN-07.json); use the declared mass-based owned-neat preparation only after safety and authority checks.
+6. Diagnostics: [bound full analysis](../rendered/LN-07_Dry_Coumarin_Skin_30mL_EDT.md) and [screening receipt](screening_summary.json).
+7. Blind plan: [candidate controlled comparison](../candidates/LN-07.json) and [master protocol](../testing/blind_protocol.json).
+
+### LN-08 Caraway Shadow — HOLD
+
+1. Target identity: [canonical candidate](../candidates/LN-08.json) — controlled caraway shadow under cardamom with aromatic continuity into cedar.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LN-08.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LN-08.json) and [rendered formula](../rendered/LN-08_Caraway_Shadow_30mL_EDT.md).
+4. Missing-chemical impact: [LN-08 authority-false assessment](../impact/LN-08_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LN-08.json); retain the small known-basis stock and require a zero-caraway control.
+6. Diagnostics: [bound full analysis](../rendered/LN-08_Caraway_Shadow_30mL_EDT.md) and [screening receipt](screening_summary.json).
+7. Blind plan: [candidate zero-caraway comparison](../candidates/LN-08.json) and [master protocol](../testing/blind_protocol.json).
+
+### LN-09 Dark Textile Woods — HOLD
+
+1. Target identity: [canonical candidate](../candidates/LN-09.json) — supple dark textile texture stitched into literal cedar-vetiver woods.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LN-09.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LN-09.json) and [rendered formula](../rendered/LN-09_Dark_Textile_Woods_30mL_EDT.md).
+4. Missing-chemical impact: [LN-09 authority-false assessment](../impact/LN-09_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LN-09.json); retain exclusion of leather, oud, tobacco, birch tar, and cade shortcuts.
+6. Diagnostics: [bound full analysis](../rendered/LN-09_Dark_Textile_Woods_30mL_EDT.md) and [screening receipt](screening_summary.json).
+7. Blind plan: [candidate controlled comparison](../candidates/LN-09.json) and [master protocol](../testing/blind_protocol.json).
+
+### LN-10 Intimate Diffusion — HOLD
+
+1. Target identity: [canonical candidate](../candidates/LN-10.json) — single-musk skin intimacy decoupled from transparent aromatic and molecular diffusion.
+2. TARGET / IDEAL formula: [active-ppm target](../candidates/LN-10.json).
+3. CURRENT-INVENTORY BUILD: [canonical build](../candidates/LN-10.json) and [rendered formula](../rendered/LN-10_Intimate_Diffusion_30mL_EDT.md).
+4. Missing-chemical impact: [LN-10 authority-false assessment](../impact/LN-10_assessment.json).
+5. Purchase/preparation recommendation: [candidate recommendation](../candidates/LN-10.json); keep Habanolide, Romandolide, and Ambrettolide out unless a later constant-total test proves a nonredundant exception.
+6. Diagnostics: [bound full analysis](../rendered/LN-10_Intimate_Diffusion_30mL_EDT.md) and [screening receipt](screening_summary.json).
+7. Blind plan: [candidate musk-omission comparison](../candidates/LN-10.json) and [master protocol](../testing/blind_protocol.json).
+
+## Frozen Baselines and Claim Ceiling
+
+- [Frozen Sol L'Homme source](../baselines/source/L_Homme_Luxe_30mL_EdP.md)
+- [Frozen Sol La Nuit source](../baselines/source/La_Nuit_de_LHomme_Luxe_30mL_EDT.md)
+- [Evidence-limited Sol comparison](sol_comparison.md)
+
+No formula is an authenticated YSL commercial recipe. No result in this index authorizes purchase, physical compounding, safety clearance, release, or a claim that one perfume is more hedonic than another. Those decisions require the prerequisite repairs and the controlled blinded protocol.

@@ -1,0 +1,110 @@
+# Prada L'Homme Intense — Astra Z2 computational selection report
+
+Date: 2026-09-05. Selected candidate: **R_S30_H2**, identical in composition to grid case **G201**.
+Immediate recipe parent: Z1. Mode: computational perfumery only; one final complete-blend test later.
+
+## Decision
+
+Select Z2 as a moderate iris-led revision, retaining the complete four-wood, patchouli/amber, tonka and single-musk architecture. Product parts change only for AIMI (285 to 318), Hedione (105 to 90), Iso E Super (110 to 95) and Heliotropal (5 to 2). The other 13 fragrance materials retain their Z1 allocations. Add 108 mg neat DEP to the 6392 mg of fragrant stocks, restoring the parent's 6500 mg total and exact known carrier composition.
+
+This is the parent's explicit formulation judgment, supported by bounded numerical checks. It is **not** the winner of a calibrated sensory optimizer. Model ratios alone favor still greater iris allocation or still lower Heliotropal; neither establishes improved perfume quality. Z2 chooses a middle refinement that retains substantial floral/woody space and a nonzero almond-powder junction.
+
+Computational selection is complete as a design decision. Sensory success, similarity, liking, depth, phase timing, skin life, safety, solubility and physical release remain unestablished.
+
+## Search performed
+
+The five joint axes were subject versus floral/woody space; sandalwood body versus cedar grain; sandalwood body versus accent; tonka versus patchouli/amber; and almond powder versus iris. All full candidates retain 1000 supplied-product mass parts. Omissions intentionally remove active product and replace its mass with ethanol.
+
+| Work | Recorded count | Distinct count / interpretation |
+|---|---:|---|
+| Five-axis joint grid | 243 compositions | All 243 grid compositions distinct |
+| Grid, baseline, omissions, replacements and tonka splits | 265 case labels | 263 compositions; G121, Z1 and TONKA_SPLIT_45 are identical |
+| Local subject/almond refinements | 30 labels | Combined search contains 289 distinct compositions, not 295 |
+| Shortlist temporal evaluation | 77 runs, 385 frames | 73 distinct composition/property/temperature cases, 365 distinct frames |
+| Shared ODT/static-gamma perturbations | 1620 factor tuples, 8100 window comparisons | Algebraic sensitivity, not independent robustness evidence |
+| Additional candidate-specific gamma residual challenge | 864 tuples, 4320 window comparisons | Static model-misspecification challenge; no empirical probabilities |
+
+Opening evaluations were calculated under legacy and source-informed property scenarios; local refinements used source-informed properties. The temporal shortlist includes the existing five windows (0, 300, 1800, 7200 and 14400 seconds), source-informed scenarios at 20, 25 and 35 C for the key parent/refinement comparisons, and the legacy scenario at 25 C.
+
+### Controlled matrix
+
+The initial virtual search held 4000 mg of supplied products in a hypothetical 30000 mg mixture. The common 26000 mg carrier matrix covered the maximum known stock-carrier contribution of every comparison: DEP 1680 mg, TEC 1360 mg, DPG 375.6666667 mg, IPM 26.8333333 mg, ethanol 21597.5 mg and water 960 mg. Every per-carrier virtual top-up was nonnegative. An omission adds the removed product mass to ethanol; it changes active loading and matrix composition and is not a perfectly neutral intervention.
+
+This artificial matched matrix is not the eventual physical bottle. Z1 and Z2 were subsequently compared in their separate, parent-matched declared-stock scenario: 6000 mg scaled raw stocks plus carriers and 24000 mg hypothetical 96% w/w ethanol diluent, total 30000 mg. Product mass is 3692.3076923 mg and matrix mass 26307.6923077 mg. The owned ethanol's concentration basis and real physical volumes remain unknown.
+
+## Source-informed scenarios
+
+The parent checked the manufacturer pages below on 2026-09-05. These are extracted source facts and explicit calculations, not byte-archived web-page hashes or owned-lot assays. No repository MW, VP, ODT, inventory or governance record was edited. Overrides were applied only to immutable in-memory copies, with the exact computation retained in numerical execution receipts.
+
+| Material | Source fact | Scenario treatment / unresolved detail |
+|---|---|---|
+| Ebanol | MW 208.3; VP 0.0013 hPa = 0.13 Pa. [Givaudan](https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ebanoltm) | Local MW 220.4 / VP 0.89 Pa challenged. Manufacturer does not state reference temperature; treating 0.13 Pa as a 25 C reference is explicitly assumed. |
+| Romandolide | MW 284; VP 0.10 Pa at 20 C. [Firmenich sheet](https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/ROMANDOLIDE_979031.pdf) | Local MW 270.36 and its reference temperature challenged. 25 C VP of about 0.1511075 Pa is calculated, not measured. |
+| Orivone | MW 168.2; VP 0.031743 mmHg at 23 C. [IFF](https://www.iff.com/scent/ingredients-compendium/orivone/) | Converted to 4.2321 Pa at 23 C; about 4.9836 Pa at 25 C is an extrapolation. Local 8.6 Pa challenged. |
+| Sandalore | MW 210.4; VP below 0.0010 hPa, hence below 0.10 Pa, with unspecified reference temperature. [Givaudan](https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/sandaloretm) | The inequality does not establish a point measurement at 25 C. Retain local 0.08 Pa as an unresolved seed, not manufacturer-validated physics. |
+| Bacdanol challenger | Formula C14H24O; VP 0.001065 mmHg at 23 C. [IFF](https://www.iff.com/scent/ingredients-compendium/bacdanol/) | Formula-derived MW about 208.34 and converted VP about 0.141988 Pa at 23 C. The local 0.001 Pa is approximately 142 times lower before temperature normalization. The source-informed 25 C scenario uses about 0.1672017 Pa. |
+| Javanol challenger | MW 222.3; VP 0.0003 hPa = 0.03 Pa; temperature unspecified. [Givaudan](https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/javanol) | Local 0.10 Pa challenged. Treating the source value as a 25 C reference is an assumption. Manufacturer character is creamy sandalwood with rosy facets, not categorically cold/dry. |
+
+Every explicit source-temperature extrapolation uses assumed latent heat 60 kJ/mol and Clausius-Clapeyron; this is not an empirical uncertainty interval. The legacy run remains available for comparison. The initial opening output preceded the Bacdanol/Javanol source corrections; the accepted opening comparison is **opening_comparisons_source_v2.json**, not the earlier opening_comparisons.json.
+
+Primary human air ODT measurements were not verified for the Sandalore 10 ppb, Dihydro Beta Ionone 5 ppb or Heliotropal 0.006 ppb seeds. DHBI is explicitly an analogue estimate locally; the other two have compilation attribution without a recovered primary experiment. Chosen ODT factors (0.1, 1, 10; Heliotropal additionally 100 and 1000) are deliberately selected stresses, not measured ranges.
+
+Tonkarome has unknown internal composition. Its finite raw-model OAV is an unvalidated supplied-product proxy and is excluded as evidence of a particular internal chemistry or roasted character. Cedar and patchouli retain the existing partial natural-composite profiles; parent pseudo-moles and constituent-adjusted mole pools are not a fully constituent-resolved common thermodynamic model.
+
+## What the comparisons establish
+
+In the final parent-matched stock-mass scenario at 25 C with source-informed properties:
+
+| Diagnostic quantity | Z1 | Selected Z2 |
+|---|---:|---:|
+| AIMI OAV | 56.1394 | 62.6359 |
+| Iso E Super OAV | 1189.8722 | 1027.6996 |
+| Hedione OAV | 221.2894 | 189.6867 |
+| Heliotropal OAV | 637.6406 | 255.0406 |
+| Opening total vapor ppm | 0.23918417 | 0.23239019 |
+| 4-hour modeled total vapor ppm | 0.21702501 | 0.21056546 |
+
+AIMI/Iso E and AIMI/Hedione OAV ratios rise by about 29.18% and 30.16%; Heliotropal/AIMI falls by 64.15%. This is numerical confirmation of a less almond-committed, more iris-weighted allocation relative to two support materials, **not a measurement of iris perceptual dominance**. Iso E and Hedione remain substantial in the raw model. No probability of similarity, liking or success is derived.
+
+The temporal model holds the carrier matrix fixed and uses uncalibrated exponential loss. It predicts limited change over four hours and cannot establish distinct perceived top/heart/base stages, real evaporation, solvent-film behavior or skin life. Layering is retained as an explicit compositional hypothesis.
+
+### Sensitivity limits exposed rather than hidden
+
+Shared threshold/gamma factors cancel when comparing the parent-to-child change in those OAV ratios. The 1620 shared-factor records therefore do not independently validate the preferred direction. Sandalore/DHBI ODT stresses show conditional threshold classifications, not improved evidence of their perception.
+
+The additional candidate-only gamma residual challenge intentionally avoids that cancellation. Factors 0.5, 0.75, 1, 1.25, 1.5 and 2 are applied independently to the candidate's iris, space and Heliotropal groups at saved mole fractions. These are static model-error hypotheses, not recalculated kinetic trajectories or measured uncertainty.
+
+Across 864 enumerated tuples, the iris/support ratio direction remains throughout all five windows in 552 tuples, while the Heliotropal/iris reduction remains in 816. These counts are **not success probabilities**. At the nominal opening, a candidate-specific iris-to-Iso-E gamma-ratio factor below about 0.774 or iris-to-Hedione factor below about 0.768 can erase the numerical iris preference. Heliotropal-to-iris relative gamma above about 2.789 can erase that reduction. Thus no blanket robustness or perceptual optimum is claimed.
+
+The modest composition change is selected because its target-linked allocation and retained secondary functions remain a reasonable explicit design choice even when the model cannot determine their sensory balance. Computation does not remove the need for the user's later whole-blend evaluation.
+
+## Why the retained and rejected arrangements differ
+
+- **Sandalore/Ebanol:** retain the body/accent hypothesis, which has manufacturer pairing support. The virtual omissions do not prove perceptual nonredundancy.
+- **Bacdanol:** a credible alternative after correcting its serious input discrepancy. It was not rejected for being weak. The calculation did not establish a target-specific advantage over the existing pair; changing the body would introduce another unresolved choice.
+- **Javanol:** a credible creamy-rosy accent, compared at deliberate smaller allocations with source-informed VP. Its lower seed threshold does not establish superior target fit or justify stacking it on top of Ebanol.
+- **DHBI versus Beta Ionone:** retain the woody-orris connection as an explicit hypothesis. The Beta Ionone scenarios increased a highly active seed-model violet/ionone component, without establishing a better bridge for this target.
+- **Virginia cedar:** retain the grain function distinct from sandalwood body and abstract woody space.
+- **Tonkarome/Coumarin:** retain the body/definition relationship; the opaque Tonkarome chemistry prevents quantitative proof of nonredundancy. Whole-formula tonka split and omission cases did not establish a sensory winner.
+- **Hexyl Salicylate/Romandolide:** retain their planned blending/soft-connection functions without claiming those functions were demonstrated by headspace.
+- **More iris / less Heliotropal extremes:** numerically improve chosen screening ratios but consume more spacing or reduce the intended powder junction further. The middle allocation is a formulation tradeoff, not the global numerical maximum.
+
+Across the selected solvent-filled omissions, remaining-material opening vapor changes ranged from about -0.65% to +0.005%. This model mostly removes the omitted row and slightly shifts the mixture denominator/activity estimates. It cannot use those small changes to prove or disprove a perceptual bridge. No invented synergy multiplier, receptor-orthogonality claim or ingredient-count complexity score was introduced.
+
+## Exact accounting and handoff
+
+Z2 has 6392 mg fragrant stocks, including 4000 mg supplied products and 2392 mg known carriers. Add 108 mg neat DEP: total 6500 mg, known carriers 2500 mg. Carrier vector equals Z1 exactly: DEP 1360; TEC 720; DPG 326.6666667; IPM 23.3333333; ethanol 70 mg. This preserves parent matrix composition while making four intentional product-dose changes.
+
+The diagnostic coordinates exclude free DEP as a fragrance row and include it once in the matrix. Their total is 5929.884638966184 coordinate units, not a measured microlitre total or the full 6000 mg raw-stock-plus-top-up mass. All real individual volumes and actual finished ppm remain unasserted.
+
+The existing Z1 planned Orivone, Coumarin and Heliotropal working-stock specifications remain not prepared. No preliminary sensory comparisons are requested. Practical stock readiness, dissolution/homogeneity, current complete safety review and any actual volume measurements remain separate from this computational selection.
+
+## Verification record
+
+The focused existing engine suites completed freshly: **62 passed** (formula state, pre-mix guard, thermodynamic unification and scenario matrix). This verifies relevant software behavior, not perfume quality or release.
+
+The final integrated diagnostic was run once with Z1 as the immediate parent; its complete formatter output was presented verbatim in chat and appended verbatim to the selected formula. The parent active-dose and OAV-per-time guard passed with parent and temporal comparisons available and no findings. The full gate record remains 109 PASS, 31 WARN, 5 FAIL and 1 SKIP; overall release status is FAIL. Failures include the missing Intense-specific reference contract and stale stock-binding issues. Neither the target nor the authority pins were changed to obtain a pass.
+
+Artifact arithmetic and consistency verification passed. The [final verification receipt](C:/Users/ASUS/.codex/worktrees/a48f/perfume-chem/output/prada_lhomme_intense_zero_astra_z2/verification_receipt.json) binds numerical inputs, output hashes, exact parent changes, report text and 44 preserved previous artifacts. The independent existing-API calculation agrees with all five integrated legacy-scenario frames: total vapor is checked at the pipeline's declared six-decimal serialization precision, while unrounded material OAV differences are below 1e-12. An initial overly strict total-vapor comparison was corrected to follow that existing serialization contract; no model values or engine code were changed.
+
+No engine, inventory, governance, tracked repository file or new pipeline script was changed. No full project verifier, merge, commit, push, safety approval or release is claimed.

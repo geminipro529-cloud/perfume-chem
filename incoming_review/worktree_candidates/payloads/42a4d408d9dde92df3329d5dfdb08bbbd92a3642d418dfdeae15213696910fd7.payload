@@ -1,0 +1,29 @@
+﻿Code,ACC-FL-OBF-01
+Accord,Orange Blossom Absolute Illusion v1.0
+Category,Floral
+Brief,"A narcotic but transparent orange blossom from neroli, aurantiol, methyl anthranilate, jasmine life, petitgrain and soft muguet volume."
+Recommended use,2–10% of perfume concentrate
+Maturation,10–21 days
+Monte Carlo pass,1.0
+Final design score,99.75
+Outcome,COMPUTATIONAL ACCORD DESIGN PASS
+
+Order,Phase,Material,Supplied stock,Active fraction,Parts / 1000,Known active parts,1 mL accord µL,5 mL accord µL,Execution,Sensory group,Formula function,Material role,Inventory status,Inventory policy,Preparation note,Ablation class,Ablation impact
+1,base,Habanolide,Habanolide neat/as supplied; CAS 111879-80-2,1.0,30.0,30.0,30.0,150.0,DIRECT,musk,Clean musk,Radiant metallic-clean musk.,HAVE — NEAT,Use as neat Habanolide; no dilution or solvent assumption.,,TEXTURAL SUPPORT,0.004555416541916777
+2,base,Sandalore,neat / as supplied,1.0,20.0,20.0,20.0,100.0,DIRECT,sandalwood,Creamy base,Creamy sandalwood.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.0026897171210817734
+3,heart_base,Aurantiol 10% in DPG,Aurantiol 10% in DPG,0.1,100.0,10.0,100.0,500.0,PREPARED STOCK,orange_blossom,Orange-blossom body,Orange-blossom floral base.,HAVE — 10% IN DPG,Use exact 10% in DPG stock.,,IDENTITY CRITICAL,0.03302915586702157
+4,heart_base,Benzyl Salicylate,neat / as supplied,1.0,60.0,60.0,60.0,300.0,DIRECT,floral_air,Floral binder,Floral binder and substantivity.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.015200838720936466
+5,heart_base,Methyl Anthranilate,neat / as supplied,1.0,50.0,50.0,50.0,250.0,DIRECT,jasmine,Narcotic floral depth,Orange-flower and jasmine depth.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.012907533530091705
+6,heart_base,Jasmine Absolute 10%,10% working stock,0.1,30.0,3.0,30.0,150.0,PREPARED STOCK,jasmine,Natural white-flower support,Natural jasmine warmth.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.006716120051470113
+7,heart_base,Indole 10%,10% working stock,0.1,6.0,0.6000000000000001,6.0,30.0,PREPARED STOCK,jasmine,Living flower,Living-flower indolic shadow.,HAVE,Use only at the listed supplied-stock strength.,,MICRO POLISH,0.0011124125276595004
+8,heart,Hedione,neat / as supplied,1.0,180.0,180.0,180.0,900.0,DIRECT,floral_air,Floral air,Transparent floral diffusion.,HAVE,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.08837467525410038
+9,heart,Hydroxycitronellal,neat / as supplied,1.0,40.0,40.0,40.0,200.0,DIRECT,muguet,Muguet softness,Soft muguet body.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.006563653615901152
+10,heart,Phenethyl Alcohol,neat / as supplied,1.0,40.0,40.0,40.0,200.0,DIRECT,rose_floral,Petal body,Soft floral petal body.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.006580450242011784
+11,heart,Nympheal,as supplied; product basis,,30.0,,30.0,150.0,PRODUCT BASIS,muguet,Watery petal volume,Modern watery muguet product basis.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.004432689705918733
+12,top_heart,Neroli EO 10% in DPG,Neroli EO 10% in DPG,0.1,120.0,12.0,120.0,600.0,PREPARED STOCK,orange_blossom,Neroli identity,Neroli glint.,HAVE — 10% ONLY,Use only at the listed supplied-stock strength.,,IDENTITY CRITICAL,0.04428659903911046
+13,top_heart,Benzyl Acetate,neat/as supplied,1.0,50.0,50.0,50.0,250.0,DIRECT,jasmine,Jasmine ester support,Characteristic jasmine fruit-floral ester.,HAVE,Use only with exact label/stock-strength accounting.,,IDENTITY CRITICAL,0.012886442128158968
+14,top_heart,Petitgrain EO Paraguay,neat / as supplied,1.0,40.0,40.0,40.0,200.0,DIRECT,citrus_green,Green twig,Green bitter-orange twig.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.006606304765185252
+15,top_heart,Linalool,neat/as supplied,1.0,35.0,35.0,35.0,175.0,DIRECT,aromatic,Fresh floral lift,Floral-citrus bridge.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.005476282322503859
+16,top_heart,Linalyl Acetate,neat/as supplied,1.0,35.0,35.0,35.0,175.0,DIRECT,aromatic,Citrus-floral ester,Lavender-citrus ester.,HAVE,Use only at the listed supplied-stock strength.,,TEXTURAL SUPPORT,0.005476282322503859
+17,top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,50.0,50.0,50.0,250.0,DIRECT,citrus,Citrus bloom,Floral bergamot peel.,HAVE,Use only at the listed supplied-stock strength.,,STRUCTURALLY IMPORTANT,0.009457484578983263
+18,carrier,DPG,neat,0.0,84.0,0.0,84.0,420.0,CARRIER,technical,Exact stock-volume balance and handling.,Exact accord-volume balance.,HAVE,Use only at the listed supplied-stock strength.,,TECHNICAL,0.0

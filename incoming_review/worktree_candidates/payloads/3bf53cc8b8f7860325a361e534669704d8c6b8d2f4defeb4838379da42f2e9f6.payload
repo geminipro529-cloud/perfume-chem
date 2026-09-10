@@ -1,0 +1,525 @@
+{
+  "formula_sha256": "426857f85ad9cd666e6cc55cdb9391de8cd6b5858bbc6f06e8d0d1a239aa3fc3",
+  "inventory_sha256": "d6f7ff5389fbd5e807b98fee3ce6a87ce2c70dd6253b26a82f49a0872da42369",
+  "inventory_authority": {
+    "source_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+    "overlay_sha256": "7265242bd4136333d592004b4ddb9382cd0cd8a1ad364b75085e98290f1a98d8"
+  },
+  "target": {
+    "required": [
+      "Juniper Berry EO",
+      "Vetiver EO (India)",
+      "Cypress EO",
+      "Grapefruit FCF oil Sicilian"
+    ],
+    "minimum_ul": {
+      "Juniper Berry EO": 750,
+      "Vetiver EO (India)": 700,
+      "Grapefruit FCF oil Sicilian": 320
+    },
+    "maximum_ratios": [
+      {
+        "numerator": "Cypress EO",
+        "denominator": "Juniper Berry EO",
+        "maximum": 0.06666666666666667
+      }
+    ]
+  },
+  "bounds": {
+    "Iso E Super": [
+      680,
+      1020
+    ],
+    "Hedione": [
+      480,
+      720
+    ],
+    "Ambrox Super": [
+      400,
+      400
+    ],
+    "Benzyl Benzoate": [
+      200,
+      200
+    ],
+    "Vetival": [
+      80,
+      80
+    ],
+    "Vetiver EO (India)": [
+      560,
+      840
+    ],
+    "Cedarwood Virginia": [
+      80,
+      120
+    ],
+    "Cypress EO": [
+      40,
+      50
+    ],
+    "Clearwood": [
+      160,
+      240
+    ],
+    "Timberol": [
+      56,
+      84
+    ],
+    "Vetikon": [
+      280,
+      420
+    ],
+    "Ambrettolide": [
+      250,
+      250
+    ],
+    "Habanolide": [
+      180,
+      180
+    ],
+    "Juniper Berry EO": [
+      600,
+      900
+    ],
+    "Coriander Seed EO": [
+      48,
+      72
+    ],
+    "Grapefruit FCF oil Sicilian": [
+      320,
+      320
+    ],
+    "Petitgrain EO Paraguay": [
+      128,
+      192
+    ],
+    "Terpinyl Acetate": [
+      64,
+      96
+    ]
+  },
+  "lanes": {
+    "gin_citrus": [
+      [
+        "Juniper Berry EO",
+        "Petitgrain EO Paraguay"
+      ],
+      [
+        "Juniper Berry EO",
+        "Terpinyl Acetate"
+      ],
+      [
+        "Juniper Berry EO",
+        "Coriander Seed EO"
+      ],
+      [
+        "Juniper Berry EO",
+        "Hedione"
+      ],
+      [
+        "Petitgrain EO Paraguay",
+        "Juniper Berry EO"
+      ],
+      [
+        "Petitgrain EO Paraguay",
+        "Terpinyl Acetate"
+      ],
+      [
+        "Petitgrain EO Paraguay",
+        "Coriander Seed EO"
+      ],
+      [
+        "Petitgrain EO Paraguay",
+        "Hedione"
+      ],
+      [
+        "Terpinyl Acetate",
+        "Juniper Berry EO"
+      ],
+      [
+        "Terpinyl Acetate",
+        "Petitgrain EO Paraguay"
+      ],
+      [
+        "Terpinyl Acetate",
+        "Coriander Seed EO"
+      ],
+      [
+        "Terpinyl Acetate",
+        "Hedione"
+      ],
+      [
+        "Coriander Seed EO",
+        "Juniper Berry EO"
+      ],
+      [
+        "Coriander Seed EO",
+        "Petitgrain EO Paraguay"
+      ],
+      [
+        "Coriander Seed EO",
+        "Terpinyl Acetate"
+      ],
+      [
+        "Coriander Seed EO",
+        "Hedione"
+      ],
+      [
+        "Hedione",
+        "Juniper Berry EO"
+      ],
+      [
+        "Hedione",
+        "Petitgrain EO Paraguay"
+      ],
+      [
+        "Hedione",
+        "Terpinyl Acetate"
+      ],
+      [
+        "Hedione",
+        "Coriander Seed EO"
+      ]
+    ],
+    "vetiver_body": [
+      [
+        "Vetiver EO (India)",
+        "Iso E Super"
+      ],
+      [
+        "Vetiver EO (India)",
+        "Clearwood"
+      ],
+      [
+        "Vetiver EO (India)",
+        "Vetikon"
+      ],
+      [
+        "Vetiver EO (India)",
+        "Hedione"
+      ],
+      [
+        "Iso E Super",
+        "Vetiver EO (India)"
+      ],
+      [
+        "Iso E Super",
+        "Clearwood"
+      ],
+      [
+        "Iso E Super",
+        "Vetikon"
+      ],
+      [
+        "Iso E Super",
+        "Hedione"
+      ],
+      [
+        "Clearwood",
+        "Vetiver EO (India)"
+      ],
+      [
+        "Clearwood",
+        "Iso E Super"
+      ],
+      [
+        "Clearwood",
+        "Vetikon"
+      ],
+      [
+        "Clearwood",
+        "Hedione"
+      ],
+      [
+        "Vetikon",
+        "Vetiver EO (India)"
+      ],
+      [
+        "Vetikon",
+        "Iso E Super"
+      ],
+      [
+        "Vetikon",
+        "Clearwood"
+      ],
+      [
+        "Vetikon",
+        "Hedione"
+      ],
+      [
+        "Hedione",
+        "Vetiver EO (India)"
+      ],
+      [
+        "Hedione",
+        "Iso E Super"
+      ],
+      [
+        "Hedione",
+        "Clearwood"
+      ],
+      [
+        "Hedione",
+        "Vetikon"
+      ]
+    ],
+    "cypress_finish": [
+      [
+        "Cypress EO",
+        "Cedarwood Virginia"
+      ],
+      [
+        "Cypress EO",
+        "Timberol"
+      ],
+      [
+        "Cypress EO",
+        "Iso E Super"
+      ],
+      [
+        "Cedarwood Virginia",
+        "Cypress EO"
+      ],
+      [
+        "Cedarwood Virginia",
+        "Timberol"
+      ],
+      [
+        "Cedarwood Virginia",
+        "Iso E Super"
+      ],
+      [
+        "Timberol",
+        "Cypress EO"
+      ],
+      [
+        "Timberol",
+        "Cedarwood Virginia"
+      ],
+      [
+        "Timberol",
+        "Iso E Super"
+      ],
+      [
+        "Iso E Super",
+        "Cypress EO"
+      ],
+      [
+        "Iso E Super",
+        "Cedarwood Virginia"
+      ],
+      [
+        "Iso E Super",
+        "Timberol"
+      ]
+    ]
+  },
+  "schema": "evidence_design_portfolio_v1",
+  "evaluator_version": "gin-vetiver-material-role-hypotheses-v1",
+  "criteria": [
+    "body",
+    "richness",
+    "layering"
+  ],
+  "scenarios": [
+    "nominal_stock_design"
+  ],
+  "step_sizes": [
+    50,
+    25,
+    10
+  ],
+  "max_rounds": 12,
+  "max_candidates": 512,
+  "max_workers": 3,
+  "scope": "Qualitative material-role hypotheses, not dose-response or liking predictions. Previous raw-group retention objectives removed; hard brief and stock bounds retained.",
+  "profiles": {
+    "Iso E Super": {
+      "roles": [
+        "smooth woody fullness"
+      ],
+      "sources": [
+        "https://www.iff.com/scent/ingredients-compendium/iso-e-super/"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Hedione": {
+      "roles": [
+        "transparent presence and diffusion"
+      ],
+      "sources": [
+        "https://studio.dsm-firmenich.com/product/hedioner-pe-964898"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Ambrox Super": {
+      "roles": [
+        "Restrained mineral-amber persistence beneath the vetiver and dry wood structure."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Benzyl Benzoate": {
+      "roles": [
+        "Restrained balsamic mass and fixation without constructing a floral cushion."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Vetival": {
+      "roles": [
+        "Suede-dry, rougher vetiver texture in the lower body."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Vetiver EO (India)": {
+      "roles": [
+        "Defining natural root, earth and wood subject."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Cedarwood Virginia": {
+      "roles": [
+        "Small natural cedar grain; subordinate to vetiver and not a main wood subject."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Cypress EO": {
+      "roles": [
+        "Identifiable dry-green conifer accent kept proportionally light."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Clearwood": {
+      "roles": [
+        "soft patchouli and woody amber warmth"
+      ],
+      "sources": [
+        "https://studio.dsm-firmenich.com/product/clearwoodr-pe-970953"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Timberol": {
+      "roles": [
+        "powerful substantive woody amber modification"
+      ],
+      "sources": [
+        "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Timberol.pdf"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Vetikon": {
+      "roles": [
+        "vetiver and grapefruit opening bridge"
+      ],
+      "sources": [
+        "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Vetikon.pdf"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Ambrettolide": {
+      "roles": [
+        "Low-active close-skin warmth underneath the more outward Habanolide plane."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Habanolide": {
+      "roles": [
+        "Outward clean-mineral musk polish around the dry woods."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Juniper Berry EO": {
+      "roles": [
+        "Principal gin-botanical identity."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Coriander Seed EO": {
+      "roles": [
+        "aromatic peppery seed spice with lemon and wood aspects"
+      ],
+      "sources": [
+        "https://studio.dsm-firmenich.com/product/coriander-seed-eo-pe-928143"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Grapefruit FCF oil Sicilian": {
+      "roles": [
+        "Furocoumarin-free bitter-peel opening character. The regional qualifier belongs to the bound inventory record, not the formula's design label."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Petitgrain EO Paraguay": {
+      "roles": [
+        "green floral citrus-leaf character"
+      ],
+      "sources": [
+        "https://matieres-premieres.robertet.com/petitgrain-oil"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Terpinyl Acetate": {
+      "roles": [
+        "herbal citrus lavender woody support"
+      ],
+      "sources": [
+        "https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/marketing/global/documents/295/364/application-guide-9-scents-of-fall-and-winter-ms.pdf"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    }
+  },
+  "priority_hypotheses": [
+    {
+      "donor": "Hedione",
+      "receiver": "Iso E Super",
+      "question": "Woody fullness versus transparent support",
+      "priority": "body_first",
+      "basis": "engineer_design_priority_not_measured_ranking"
+    },
+    {
+      "donor": "Iso E Super",
+      "receiver": "Vetikon",
+      "question": "Vetiver-grapefruit continuity versus abstract woody fullness",
+      "priority": "continuity_alternative",
+      "basis": "engineer_design_priority_not_measured_ranking"
+    },
+    {
+      "donor": "Hedione",
+      "receiver": "Clearwood",
+      "question": "Warm patchouli depth versus transparency",
+      "priority": "conditional_depth",
+      "basis": "engineer_design_priority_not_measured_ranking"
+    }
+  ]
+}

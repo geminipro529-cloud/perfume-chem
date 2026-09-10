@@ -1,0 +1,50 @@
+# Ambrofix stock authority — 2026-08-29
+
+Status: **CURRENT PHYSICAL AUTHORITY / LIQUID STOCK NON-EXECUTABLE / HOLD**
+
+This receipt supersedes the former 30% Ambrofix current-stock assumption. It does not rewrite historical formula files or their embedded diagnostics.
+
+## Observed inputs and recovered mass balance
+
+The user supplied these physical measurements and confirmed that no stock had previously been withdrawn:
+
+| Quantity | Mass |
+|---|---:|
+| Empty bottle | 11.450 g |
+| Final bottle | 14.090 g |
+| Bottle contents (`14.090 - 11.450`) | 2.640 g |
+| Ethanol added | 2.000 g |
+| Untouched original 30.00% w/w Ambrofix/DEP stock (`2.640 - 2.000`) | 0.640 g |
+| Ambrofix in original stock (`0.640 × 0.3000`) | 0.192 g |
+| DEP in original stock (`0.640 × 0.7000`) | 0.448 g |
+
+The complete bottle contents are therefore 0.192 g Ambrofix + 0.448 g DEP + 2.000 g ethanol. The nominal whole-bottle Ambrofix mass fraction is `0.192 / 2.640 = 0.072727...`, reported as **7.27% w/w**.
+
+## Scope of that number
+
+The 7.27% w/w value applies only to the **whole bottle including solid**. Visible crystals remained, and there is no later verified complete-clarity and stable observation. The composition of the pipetted liquid phase is therefore unknown and may differ from the whole-bottle mass balance.
+
+Consequently:
+
+- Liquid Ambrofix is physically owned but **non-executable / HOLD**.
+- Do not assign the pipetted liquid phase an active fraction, active µL, ppm, OAV, or volume dose.
+- Treat historical 30% Ambrofix rows and their pipeline outputs as stale for current-stock execution.
+- **Do not rebase** an old volume by `30 / 7.27`; the whole-bottle mass fraction is not a validated liquid-phase dilution.
+- A versioned current-inventory successor must omit liquid Ambrofix or explicitly HOLD-gate its row.
+- Preserve the direct 10 µL minimum for any future executable liquid stock; it does not make this held bottle measurable now.
+
+## Identity separation
+
+| Record | Current authority |
+|---|---|
+| Ambrofix liquid bottle | Owned; heterogeneous; pipetted liquid phase non-executable / HOLD |
+| Ambrox Super | Separate material and separate stock record; no substitution or equivalence inferred |
+| Ambrofix Crystals | Separate solid record; no substitution, preparation, or dilution is authorized by this receipt |
+
+## Evidence needed to revisit the HOLD
+
+A later observation of complete clarity followed by at least **48-hour** clear-and-stable behavior could remove the homogeneity HOLD. It would not establish an exact µL conversion. Exact volume dosing would still require the homogeneous stock's measured **density**; mass dosing and carrier-matched controls are preferred if a later task separately authorizes physical work.
+
+## Claim and action ceiling
+
+Sensory character, target similarity, liking, performance, safety, stability, and release are **NOT TESTED / HOLD**. No procurement, stock preparation, or physical compounding is authorized by this authority sync.

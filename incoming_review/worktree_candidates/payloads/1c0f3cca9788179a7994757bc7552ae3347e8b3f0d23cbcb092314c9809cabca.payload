@@ -1,0 +1,112 @@
+{
+  "schema_version": "perfume_chem_historical_formula_authority_quarantine_v1",
+  "receipt_id": "DPP03-GUAIACWOOD-HISTORICAL-FORMULA-QUARANTINE-20260905",
+  "effective_date": "2026-09-05",
+  "purpose": "Preserve the exact DPP-03 R1 and R2 formula artifacts while withholding current quantitative and physical execution authority from their superseded Guaiacwood carrier and dose-math assertions.",
+  "authority_source": {
+    "path": "data/governance/inventory_user_authority_overlay_20260904_002.json",
+    "successor_id": "INVENTORY-USER-AUTHORITY-20260904-002",
+    "record_id": "INV-USER-20260904-002",
+    "canonical_name": "Guaiacwood EO",
+    "authoritative_facts": {
+      "owned": true,
+      "guaiacwood_fraction_exact": "1/3",
+      "fraction_basis": "mass_fraction",
+      "remaining_two_thirds_composition_known": false,
+      "carrier_known": false,
+      "quantitative_dosing_ready": false,
+      "active_ul_ppm_oav_math_authorized": false,
+      "carrier_displacement_math_authorized": false,
+      "historical_formula_rewrite_authorized": false
+    }
+  },
+  "source_commit": {
+    "commit": "e58f8431e2d973b1af48879fea57e69fbb2a8154",
+    "subject": "feat(formula): add deep-plane DPP collection"
+  },
+  "historical_artifacts": [
+    {
+      "path": "formulas/DPP_03_Tobacco_Resin_Amber_Reserve_30mL_EDP.md",
+      "size_bytes": 34961,
+      "sha256": "44210aafc287772bc015fa1c31876fe7e653f4b03e7d9beb952e11cd7a92e5f8",
+      "git_blob_sha1": "c07afe246d57c1651b1c0ef5c214c46050b86f15",
+      "pipeline_analysis_section_size_bytes": 25993,
+      "pipeline_analysis_section_sha256": "d35253fb1396e6a96dd066e4db7f408bf76dd5bf6c4ddfa78e3e5a9dbf9b38b8",
+      "classification": "HISTORICAL_PROVENANCE_IMMUTABLE_CURRENT_EXECUTION_HOLD",
+      "current_inventory_stock_contract_status": "FAIL",
+      "current_inventory_stock_contract_issue": {
+        "material": "Guaiacwood EO",
+        "reason": "stock_fraction_not_declared"
+      }
+    },
+    {
+      "path": "formulas/DPP_03_Tobacco_Resin_Amber_Reserve_30mL_EDP_R2.md",
+      "size_bytes": 38707,
+      "sha256": "16da484babd6f6ba3411c72c71a2d7c497414536df86c9dce46b8d232cf9bf3a",
+      "git_blob_sha1": "308a5de0df959aa7b747cbda58baf54f1520b120",
+      "pipeline_analysis_section_size_bytes": 25684,
+      "pipeline_analysis_section_sha256": "f0d108b6615fe704916d5649a1563b4071c412838174472f74995798ac62aa05",
+      "classification": "HISTORICAL_PROVENANCE_IMMUTABLE_CURRENT_EXECUTION_HOLD",
+      "current_inventory_stock_contract_status": "FAIL",
+      "current_inventory_stock_contract_issue": {
+        "material": "Guaiacwood EO",
+        "reason": "stock_fraction_not_declared"
+      }
+    }
+  ],
+  "quarantined_assertions": [
+    {
+      "code": "GUAIACWOOD_REMAINDER_COMPOSITION_FABRICATED",
+      "historical_literal": "exactly 1/3 Guaiacwood EO + 1/3 ethanol + 1/3 DEP, all w/w",
+      "disposition": "PRESERVED_AS_HISTORICAL_TEXT_NOT_CURRENT_AUTHORITY",
+      "reason": "The user established only the exact 1/3 w/w Guaiacwood fraction; neither ethanol nor DEP was established as either part of the unresolved remainder."
+    },
+    {
+      "code": "GUAIACWOOD_EQUAL_THIRDS_AUTHORITY_FABRICATED",
+      "historical_literal": "Guaiacwood authority is the live exact equal-thirds w/w stock.",
+      "disposition": "PRESERVED_AS_HISTORICAL_TEXT_NOT_CURRENT_AUTHORITY",
+      "reason": "The current authority is exact one-third Guaiacwood by mass with the remaining two-thirds composition and carrier unresolved, not an equal-thirds three-component stock."
+    },
+    {
+      "code": "GUAIACWOOD_ACTIVE_VOLUME_PROXY_UNAUTHORIZED",
+      "historical_literal": "83.3",
+      "disposition": "HISTORICAL_DIAGNOSTIC_ONLY_CURRENT_QUANTITATIVE_EXECUTION_HOLD",
+      "reason": "A mass fraction cannot authorize active microlitre volume math without the missing stock composition and density chain."
+    },
+    {
+      "code": "GUAIACWOOD_ACTIVE_PPM_PROXY_UNAUTHORIZED",
+      "historical_literal": "13,889",
+      "disposition": "HISTORICAL_DIAGNOSTIC_ONLY_CURRENT_QUANTITATIVE_EXECUTION_HOLD",
+      "reason": "The unresolved remainder, carrier, and density chain prohibit current active-ppm and OAV execution math."
+    }
+  ],
+  "preservation": {
+    "formula_files_modified": false,
+    "formula_rows_rebased": false,
+    "embedded_diagnostics_modified": false,
+    "historical_compounding_text_modified": false,
+    "append_only_receipt": true,
+    "current_successor_formula_created": false
+  },
+  "current_disposition": {
+    "formula_design_provenance": "PRESERVED",
+    "current_inventory_formula_execution": "HOLD",
+    "quantitative_active_ul_ppm_oav": "HOLD",
+    "physical_compounding": "HOLD",
+    "required_resolution": "Declare the remaining two-thirds composition and carrier, provide the required density/mass accounting, and create a separately versioned current-stock successor before quantitative execution."
+  },
+  "authority_limits": {
+    "formula_mutation_authority": false,
+    "formula_execution_authority": false,
+    "physical_compounding_authority": false,
+    "observed_formula_sensory_authority": false,
+    "liking_authority": false,
+    "similarity_authority": false,
+    "measured_oav_authority": false,
+    "safety_authority": false,
+    "stability_authority": false,
+    "procurement_authority": false,
+    "release_authority": false
+  },
+  "claim_ceiling": "HISTORICAL_FORMULA_PROVENANCE_ONLY_CURRENT_QUANTITATIVE_AND_PHYSICAL_EXECUTION_HOLD"
+}

@@ -1,0 +1,63 @@
+﻿Code,C01
+Target,Allure Homme Eau de Toilette
+Version,CURRENT LINEAGE
+Concentration,0.15
+30 mL concentrate µL,4500.0
+30 mL carrier µL,25500.0
+5 mL concentrate µL,750.0
+5 mL carrier µL,4250.0
+Maturation,21 days
+Engine V2 score,96.79161833881442
+Monte Carlo pass probability,0.9861111111111112
+Outcome,SOL_5_6_PRO_ENGINE_V2_PASS
+Formula hash,04d6e7409b648a2181cfaf32c4342b53ee7932135cdd116f05ae31fd2d51980f
+
+Order,Stage,Material,Stock,Active fraction,Parts / 1000,30 mL µL,5 mL µL,Execution,Signature phase,Role,Module ancestry
+1,1 · Resins and sweet fixatives,Coumarin 20%,20% in DPG,0.2,42.0256944660466,189.1156250972097,31.519270849534948,PREPARED STOCK,base,Hay-almond tonka warmth.,Allure Oriental Heart | Sport Cedar Tonka
+2,1 · Resins and sweet fixatives,Labdanum 10%,10% working stock,0.1,33.53734407565248,150.91804834043614,25.153008056739356,PREPARED STOCK,,Cistus amber and leather.,Allure Oriental Heart | Target-Specific Reinforcement
+3,1 · Resins and sweet fixatives,Vanillin 10%,10% working stock,0.1,20.4140355243102,91.86315985939589,15.31052664323265,PREPARED STOCK,,Vanilla warmth.,Allure Oriental Heart
+4,1 · Resins and sweet fixatives,Tonka Bean Absolute 10%,10% working stock,0.1,11.105235325224747,49.973558963511366,8.32892649391856,PREPARED STOCK,,Natural tonka warmth.,Sport Cedar Tonka
+5,"2 · Woods, leather and amber",Iso E Super,neat / as supplied,1.0,93.57793884343796,421.1007247954708,70.18345413257846,DIRECT,,Transparent woody scaffold.,Allure Oriental Heart | Sport Cedar Tonka | White Musk Frame
+6,"2 · Woods, leather and amber",Sandalore,neat / as supplied,1.0,69.8432202071733,314.29449093227987,52.38241515537998,DIRECT,base,Creamy sandalwood.,Allure Oriental Heart | Sport Cedar Tonka
+7,"2 · Woods, leather and amber",Patchouli EO,neat / as supplied,1.0,40.05039350483715,180.2267707717672,30.037795128627867,DIRECT,,Earthy patchouli.,Allure Oriental Heart | Target-Specific Reinforcement
+8,"2 · Woods, leather and amber",Cedarwood Virginia,neat / as supplied,1.0,25.912215758857748,116.60497091485986,19.43416181914331,DIRECT,,Dry cedar frame.,Sport Cedar Tonka
+9,"2 · Woods, leather and amber",Ambrofix 30%,30% working stock,0.3,17.715494447382333,79.71972501322051,13.28662083553675,PREPARED STOCK,,Mineral ambergris persistence.,Sport Cedar Tonka | White Musk Frame
+10,"2 · Woods, leather and amber",Polysantol,neat / as supplied,1.0,14.806980433633,66.6314119513485,11.10523532522475,DIRECT,,Persistent sandalwood.,Sport Cedar Tonka
+11,"2 · Woods, leather and amber",Vetiver EO,neat / as supplied,1.0,14.806980433633,66.6314119513485,11.10523532522475,DIRECT,,Rooty natural vetiver.,Sport Cedar Tonka
+12,"2 · Woods, leather and amber",Vertofix,neat / as supplied,1.0,12.956107879428874,58.30248545742993,9.717080909571655,DIRECT,,Vetiver-cedar volume.,Sport Cedar Tonka
+13,3 · Musks and diffusion,Habanolide,neat / verify label,1.0,56.67325100320404,255.02962951441816,42.50493825240303,DIRECT · VERIFY LABEL,base,Radiant metallic-clean musk.,Allure Oriental Heart | Sport Cedar Tonka | White Musk Frame
+14,3 · Musks and diffusion,Romandolide,neat / verify label,1.0,23.79693283976732,107.08619777895294,17.847699629825488,DIRECT · VERIFY LABEL,,Fruity-clean musk body.,White Musk Frame
+15,3 · Musks and diffusion,Galaxolide 50%,50% in DEP,0.5,16.65785298783712,74.96033844526706,12.493389740877841,PREPARED STOCK,,Soft musk volume.,White Musk Frame
+16,3 · Musks and diffusion,Zenolide,neat / as supplied,1.0,11.89846641988366,53.54309888947647,8.923849814912744,DIRECT,,Smooth musk.,White Musk Frame
+17,3 · Musks and diffusion,Ambrettolide 10%,10% in DPG,0.1,9.518773135906928,42.834479111581174,7.1390798519301955,PREPARED STOCK,,Warm ambrette musk.,White Musk Frame
+18,3 · Musks and diffusion,Exaltolide 10%,10% working stock,0.1,9.518773135906928,42.834479111581174,7.1390798519301955,PREPARED STOCK,,Soft macrocyclic musk.,White Musk Frame
+19,3 · Musks and diffusion,Macrolide,as supplied,1.0,5.94923320994183,26.771549444738234,4.461924907456372,DIRECT,,Soft macrocyclic musk.,White Musk Frame
+20,"4 · Iris, floral and green heart",Hedione,neat / as supplied,1.0,54.437428064827195,244.96842629172238,40.828071048620394,DIRECT,heart,Airy jasmine diffusion.,Allure Oriental Heart
+21,"4 · Iris, floral and green heart",Benzyl Salicylate,neat / as supplied,1.0,40.8280710486204,183.72631971879179,30.6210532864653,DIRECT,,Floral body and fixation.,Allure Oriental Heart
+22,"4 · Iris, floral and green heart",Phenethyl Alcohol,neat / as supplied,1.0,27.218714032413597,122.48421314586119,20.414035524310197,DIRECT,,Rose-floral body.,Allure Oriental Heart
+23,"4 · Iris, floral and green heart",Citronellol 10%,10% working stock,0.1,20.4140355243102,91.86315985939589,15.31052664323265,PREPARED STOCK,,Soft rosy body.,Allure Oriental Heart
+24,"4 · Iris, floral and green heart",Geraniol 10%,10% working stock,0.1,20.4140355243102,91.86315985939589,15.31052664323265,PREPARED STOCK,,Rose-geranium brightness.,Allure Oriental Heart
+25,"4 · Iris, floral and green heart",Jasmine Absolute 10%,10% working stock,0.1,0.594923320994183,2.6771549444738234,0.4461924907456372,TRACE PREMIX,,Warm natural jasmine.,Precision Trace Architecture
+26,"4 · Iris, floral and green heart",Molecule Iris,as supplied,1.0,0.594923320994183,2.6771549444738234,0.4461924907456372,TRACE PREMIX,,Transparent iris texture.,Precision Trace Architecture
+27,"4 · Iris, floral and green heart",Rose Oxide 1%,1% working stock,0.01,0.594923320994183,2.6771549444738234,0.4461924907456372,TRACE PREMIX,,Metallic rose and pepper lift.,Precision Trace Architecture
+28,"4 · Iris, floral and green heart",Beta Ionone,neat / as supplied,1.0,0.5122950819672133,2.3053278688524594,0.38422131147540994,TRACE PREMIX,,Deep violet body.,Precision Trace Architecture
+29,"4 · Iris, floral and green heart",Magnolia EO,neat / as supplied,1.0,0.5122950819672133,2.3053278688524594,0.38422131147540994,TRACE PREMIX,,Creamy citrus-white-floral detail.,Precision Trace Architecture
+30,"4 · Iris, floral and green heart",Alpha Irone 30%,30% w/w in IPM,0.3,0.42966684294024327,1.9335007932310946,0.32225013220518245,TRACE PREMIX,,Naturalistic irone signature.,Precision Trace Architecture
+31,"4 · Iris, floral and green heart",Indole 10%,10% working stock,0.1,0.42966684294024327,1.9335007932310946,0.32225013220518245,TRACE PREMIX,,Indolic floral shadow.,Precision Trace Architecture
+32,"4 · Iris, floral and green heart",Carrot Seed EO 10%,10% working stock,0.1,0.3470386039132734,1.5616737176097304,0.26027895293495507,TRACE PREMIX,,Rooty carrot-rhizome nuance.,Precision Trace Architecture
+33,"4 · Iris, floral and green heart",Farnesol,neat / as supplied,1.0,0.3470386039132734,1.5616737176097304,0.26027895293495507,TRACE PREMIX,,Warm floral persistence.,Precision Trace Architecture
+34,"4 · Iris, floral and green heart",Damascenone 1%,1% working stock,0.01,0.26441036488630354,1.189846641988366,0.19830777366472765,TRACE PREMIX,,High-impact fruit-rose radiance.,Precision Trace Architecture
+35,"4 · Iris, floral and green heart",Jasmine Sambac Absolute 10%,10% working stock,0.1,0.26441036488630354,1.189846641988366,0.19830777366472765,TRACE PREMIX,,Green-fruity jasmine.,Precision Trace Architecture
+36,"4 · Iris, floral and green heart",Undecavertol 1%,1% working stock,0.01,0.26441036488630354,1.189846641988366,0.19830777366472765,TRACE PREMIX,,Wet green-leaf detail.,Precision Trace Architecture
+37,5 · Aromatics and spices,Coriander EO,neat / as supplied,1.0,26.441036488630353,118.98466419883658,19.830777366472763,DIRECT,top,Citrus-spicy seed.,Target-Specific Reinforcement
+38,5 · Aromatics and spices,Linalool,neat / as supplied,1.0,23.981405187362412,107.91632334313086,17.98605389052181,DIRECT,,Fresh floral-aromatic lift.,Citrus Polish
+39,5 · Aromatics and spices,Linalyl Acetate,neat / as supplied,1.0,23.981405187362412,107.91632334313086,17.98605389052181,DIRECT,,Lavender-citrus diffusion.,Citrus Polish
+40,5 · Aromatics and spices,Black Pepper EO,neat / as supplied,1.0,16.52564780539397,74.36541512427287,12.394235854045478,DIRECT,,Dry pepper sparkle.,Target-Specific Reinforcement
+41,6 · Citrus and volatile top,Bergamot FCF Oil Sicilian,neat / as supplied,1.0,65.94886426524664,296.76988919360986,49.46164819893498,DIRECT,top,Floral bitter citrus lift.,Citrus Polish
+42,6 · Citrus and volatile top,Lemon FCF Oil Sicilian,neat / as supplied,1.0,47.962810374724825,215.8326466862617,35.97210778104362,DIRECT,,Bright lemon peel.,Citrus Polish
+43,6 · Citrus and volatile top,Grapefruit FCF Oil,neat / verify label,1.0,29.97675648420302,134.8954041789136,22.482567363152263,DIRECT · VERIFY LABEL,,Bitter grapefruit peel.,Citrus Polish
+44,6 · Citrus and volatile top,Petitgrain EO Paraguay,neat / as supplied,1.0,29.97675648420302,134.8954041789136,22.482567363152263,DIRECT,,Green bitter-orange twig.,Citrus Polish
+45,6 · Citrus and volatile top,Blood Orange Oil Sicilian,neat / as supplied,1.0,23.981405187362412,107.91632334313086,17.98605389052181,DIRECT,,Rounded orange peel.,Citrus Polish
+46,6 · Citrus and volatile top,Aldehyde C10 1%,1% working stock,0.01,5.995351296840603,26.979080835782714,4.496513472630452,PREPARED STOCK,,Citrus aldehydic lift.,Citrus Polish
+47,6 · Citrus and volatile top,Aldehyde C11 1%,1% working stock,0.01,2.9976756484203015,13.489540417891357,2.248256736315226,PREPARED STOCK,,Fresh aldehydic extension.,Citrus Polish
+48,6 · Citrus and volatile top,Aldehyde C12 MNA 1%,1% working stock,0.01,2.9976756484203015,13.489540417891357,2.248256736315226,PREPARED STOCK,,Waxy aldehydic diffusion.,Citrus Polish

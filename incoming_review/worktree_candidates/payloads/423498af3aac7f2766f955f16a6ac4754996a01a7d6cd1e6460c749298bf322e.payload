@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,0.9617
+identity_system_probability,0.9927
+oav_probability,0.9584
+temporal_probability,1.0
+dominance_failure_probability,0.0008000000000000229
+overall_probability,0.9576
+dose_closure_probability,0.9981
+temporal_q05,0.9600983447076842
+temporal_median,0.9841072482810875
+max_share_q95,0.5179916040062665
+marker_coverage_q05,0.7142857142857143
+phase_sum_q05,"{""top"": 1.4773382404901392, ""heart"": 9.175747536519074, ""base"": 4.935470408060875}"
+release_shape_median,"[0.18836792971885213, 0.3224247219707207, 0.3632476458122399, 0.11433910727640911]"
+phase_shape_median,"[0.10894734686166631, 0.4475613710954366, 0.44334812429646114]"
+marker_probabilities,"{""Lavender EO High Altitude | top"": 0.9927, ""Orris Liquid 30% | heart"": 0.9999, ""Alpha Isomethyl Ionone | heart"": 0.999, ""Vanillin 10% | heart"": 0.4261, ""Cedarwood Virginia | base"": 0.944, ""Vetiver EO | base"": 0.9991, ""Labdanum 10% | base"": 0.2178}"
+marker_quantiles,"{""Lavender EO High Altitude | top"": [1.4773382404901392, 3.6853865820566467, 9.053790511185966], ""Orris Liquid 30% | heart"": [4.012700823580028, 12.092213154202012, 36.2902152733435], ""Alpha Isomethyl Ionone | heart"": [2.2825900002289288, 5.875703803487377, 15.423925210044887], ""Vanillin 10% | heart"": [0.3319083950458816, 0.8956739393862299, 2.39970492912473], ""Cedarwood Virginia | base"": [0.9655828467406498, 2.6029021049865557, 7.024327638585713], ""Vetiver EO | base"": [2.566109145388788, 6.792204704987849, 17.384109755061658], ""Labdanum 10% | base"": [0.22690283848081963, 0.6237214006149698, 1.6881503181893316]}"
+classification,ROBUST

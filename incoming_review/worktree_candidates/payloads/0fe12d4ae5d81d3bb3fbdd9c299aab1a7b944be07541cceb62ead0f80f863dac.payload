@@ -1,0 +1,242 @@
+{
+  "schema":"perfume-chem-ysl-candidate-v1","candidate_id":"LH-07","name":"White Pepper-Basil","family":"ysl_lhomme","mode":"STYLISTIC",
+  "source_bindings":{"formula_uid":"ysl20:LH-07:v1","read_at_utc":"2026-08-26T18:46:11.2014793Z","runtime_git_commit":"281d389ca76424ace2438e1f6cabdad75163a4d6","agents_sha256":"A3FF5D3B0165947AD8C96AFF6B16925442E3D7383214D7ADB90D7C1216EDAFB0","copilot_instructions_sha256":"97640F0EA0FE8B79A073BE13AD84649C12EA548955CAB3D06CF3C5368D841AE9","inventory_sha256":"DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC","family_reference_sha256":"467C759EA52412BE0EA8AF7C77F0F14D9FB59DE7B99722FCE57EE2415FBB7401","inventory_overlay_sha256":"1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072","family_target_file_sha256":"BBDCE33122C1F0E2FCDC2A37A645429F5174B58A2112AFD1D406EDEE7A35B5E8","family_target_sha256":"637EF8CE63575A406C5EC27EC2A1CBFCA910E3303CA3B3B100572F64A4E539BA","chassis_file_sha256":"F793BCFA8C87C7256DB364656ACCA014342760C640FC6D64AC71B4A1D9EF1E94","natural_decomposition_sha256":"6698477AFDF4572C5A5B9A6C24AE5114C2D4AB392D9272A384CE75D5ABB66B85","parent_formula_uid":"ysl20:LH-01:v1","parent_formula_definition_sha256":"520924f1d02e25a68fc3740179f8d5950b07f710a7e88959f7b9000bc6c3d77b","parent_candidate_sha256":"935E53ADFE9DAA5FA7CEE0FDFDDDA5127BD977FB7E4CE4595695C8174FA1DB24","lineage_type":"CONTROLLED_CHILD","active_dose_change_authorizations":["Amberwood F=reduced from 74 to 20 uL as the shared socket donor while retaining dry persistence","Terpinyl Acetate=herbal acetate contour inside the fixed 300 uL socket","Basil EO (India, Ocimum Basilicum)=expanded documentary basil recognizer inside the fixed 300 uL socket","Black Pepper EO=expanded white-pepper functional mapping inside the fixed 300 uL socket"]},
+  "target_identity":{"north_star":"L'Homme's advertised white-pepper and basil-flower tailoring made more audible as a dry bright aromatic seam around ginger, never a culinary herb or harsh pepper perfume.","functional_architecture":["protected citrus-ginger ignition","expanded white-pepper brightness","basil-flower and terpinyl-acetate aromatic seam","unchanged violet-green cedar-vetiver tailoring"],"protected_identity":["Ginger Oil","Violet Leaf","Cedarwood Virginia","Vetiver Haiti"],"primary_axis":"dry white-pepper and basil-flower articulation around ginger","variant_socket":{"active_ppm_w_w":66666.667,"current_raw_ul":300.0,"target_allocation":{"White Pepper increment":22000.0,"Basil increment":12000.0,"Terpinyl Acetate":14000.0,"Ginger Oil increment":12000.0,"Hedione HC module":6666.6666},"current_allocation_ul":{"Black Pepper EO":70.0,"Basil EO (India, Ocimum Basilicum)":50.0,"Terpinyl Acetate":80.0,"Ginger EO":70.0,"Hedione":30.0}},"drift_risk":"Culinary basil, black-pepper harshness, or fougere pine would erase the white-pepper/basil-flower target."},
+  "target_ideal":{"basis":"active_ppm_w_w_of_concentrate","total_active_ppm_w_w":1000000.0,"target_sha256":"D24D514D68598AD94AC228A354AE5079CFE083902A9B1253FD02ECAF5A348CF0","inventory_independent":true,"materials":[
+    {"identity":"Iso E Super","active_ppm_w_w":160000.0,"function":"transparent cedar halo and lateral diffusion","time_windows":["opening","heart","late_heart","drydown"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"DESIGN_HYPOTHESIS_NOT_COMMERCIAL_PERCENTAGE"},
+    {"identity":"Cedarwood Virginia","active_ppm_w_w":110000.0,"function":"literal tailored cedar backbone","time_windows":["heart","late_heart","drydown"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"},
+    {"identity":"Ethylene Brassylate","active_ppm_w_w":80000.0,"function":"single clean structural musk for continuity","time_windows":["heart","late_heart","drydown"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS"},
+    {"identity":"Hedione","active_ppm_w_w":100925.926,"function":"radiant air joining aromatic heart to woods","time_windows":["opening","heart","late_heart"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"TRANSITION_DESIGN_HYPOTHESIS"},
+    {"identity":"Vertofix Coeur","active_ppm_w_w":65000.0,"function":"cedar-vetiver bridge","time_windows":["heart","late_heart","drydown"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS"},
+    {"identity":"Ethyl Linalool","active_ppm_w_w":50000.0,"function":"fresh floral-woody tenacity","time_windows":["opening","heart","late_heart"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"TRANSITION_DESIGN_HYPOTHESIS"},
+    {"identity":"Dihydromyrcenol","active_ppm_w_w":35000.0,"function":"kinetic freshness below sport-blue dominance","time_windows":["opening","top"],"evidence_ids":["YSL-LH-OFFICIAL-UK","SOL-LH-FROZEN"],"quantity_authority":"OZONE_FUNCTION_DESIGN_HYPOTHESIS"},
+    {"identity":"Sandalwood","active_ppm_w_w":55000.0,"function":"smooth dry-creamy counterweight","time_windows":["late_heart","drydown"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"},
+    {"identity":"Vetiver Haiti","active_ppm_w_w":45000.0,"function":"dry rooty Haitian-vetiver tension","time_windows":["heart","late_heart","drydown"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"},
+    {"identity":"Alpha Isomethyl Ionone","active_ppm_w_w":50000.0,"function":"violet-woody body","time_windows":["heart","late_heart"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"ALLERGEN_AND_NOTE_FUNCTION_DESIGN_HYPOTHESIS"},
+    {"identity":"Violet Leaf","active_ppm_w_w":25000.0,"function":"crushed cool green signature","time_windows":["opening","heart"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"},
+    {"identity":"Bergamot Oil","active_ppm_w_w":45000.0,"function":"luminous citrus opening","time_windows":["opening","top"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"},
+    {"identity":"Cedrat Oil","active_ppm_w_w":15000.0,"function":"bitter citron-zest edge","time_windows":["opening","top"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"},
+    {"identity":"Ginger Oil","active_ppm_w_w":34000.0,"function":"expanded warm-cool bridge through pepper and basil","time_windows":["opening","top","heart"],"evidence_ids":["YSL-LH-OFFICIAL-UK","STUDY-DESIGN-LH-07"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_DESIGN"},
+    {"identity":"Basil","active_ppm_w_w":15000.0,"function":"expanded basil-flower aromatic contour, never culinary","time_windows":["opening","heart"],"evidence_ids":["YSL-LH-OFFICIAL-UK","STUDY-DESIGN-LH-07"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_DESIGN"},
+    {"identity":"White Pepper","active_ppm_w_w":26000.0,"function":"expanded dry bright bite without harshness","time_windows":["opening","top","heart"],"evidence_ids":["YSL-LH-OFFICIAL-UK","STUDY-DESIGN-LH-07"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_DESIGN"},
+    {"identity":"Tonka","active_ppm_w_w":35000.0,"function":"dry warmth","time_windows":["late_heart","drydown"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"},
+    {"identity":"Coumarin","active_ppm_w_w":10000.0,"function":"dry hay-tonka continuity","time_windows":["heart","late_heart","drydown"],"evidence_ids":["YSL-LH-OFFICIAL-UK"],"quantity_authority":"DECLARED_ALLERGEN_FUNCTION_DESIGN_HYPOTHESIS"},
+    {"identity":"Linalyl Acetate","active_ppm_w_w":907.4074,"function":"retained core ester seam","time_windows":["opening","top","heart"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_CORE"},
+    {"identity":"Florol","active_ppm_w_w":2500.0,"function":"retained core floral volume","time_windows":["heart","late_heart"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_CORE"},
+    {"identity":"Parmavert","active_ppm_w_w":16000.0,"function":"green violet-leaf snap","time_windows":["opening","heart"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"VIOLET_GREEN_SUPPORT_DESIGN_HYPOTHESIS"},
+    {"identity":"Ambroxide","active_ppm_w_w":2000.0,"function":"retained core mineral persistence","time_windows":["late_heart","drydown"],"evidence_ids":["SOL-LH-FROZEN"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_CORE"},
+    {"identity":"Hedione HC","active_ppm_w_w":8666.6666,"function":"controlled high-cis aromatic handoff","time_windows":["opening","heart","late_heart"],"evidence_ids":["SOL-LH-FROZEN","STUDY-DESIGN-LH-07"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_DESIGN"},
+    {"identity":"Terpinyl Acetate","active_ppm_w_w":14000.0,"function":"pine-citrus herbal acetate contour linking basil to cedar","time_windows":["opening","heart"],"evidence_ids":["STUDY-DESIGN-LH-07"],"quantity_authority":"CONTROLLED_VARIANT_SOCKET_DESIGN"}
+  ]},
+  "current_inventory_build":{"basis":"raw_stock_ppm_w_w_of_concentrate","total_raw_stock_ppm_w_w":1000000.0,"total_odorant_active_ppm_w_w":960888.888888,"finished_product_concentrate_fraction_w_w":0.15,"inventory_sha256":"DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC","inventory_overlay_sha256":"1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072","materials":[
+    {"inventory_name":"Iso E Super","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":133333.333333,"odorant_active_ppm_w_w":133333.333333,"finished_product_active_ppm_w_w":20000.0,"mapping_status":"DIRECT_CORE_MAPPING","target_functions":["cedar halo"],"is_musk":false,"musk_function":null,"loss_statement":"Unchanged core.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Cedarwood oil Virginia","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":111111.111111,"odorant_active_ppm_w_w":111111.111111,"finished_product_active_ppm_w_w":16666.666667,"mapping_status":"DIRECT_CORE_MAPPING","target_functions":["literal cedar"],"is_musk":false,"musk_function":null,"loss_statement":"Lot unmeasured.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Ethylene Brassylate","stock_status":"OWNED_OVERLAY_ROSTER_MISSING","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":77777.777778,"odorant_active_ppm_w_w":77777.777778,"finished_product_active_ppm_w_w":11666.666667,"mapping_status":"OVERLAY_DIRECT_WITH_INVENTORY_DRIFT_CAVEAT","target_functions":["single structural musk"],"is_musk":true,"musk_function":"transparent continuity","loss_statement":"Verify label; native roster stale.","dose_authority":"DIRECT_USER_OWNERSHIP_VERIFY_FIRST"},
+    {"inventory_name":"Hedione","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":100000.0,"odorant_active_ppm_w_w":100000.0,"finished_product_active_ppm_w_w":15000.0,"mapping_status":"CORE_PLUS_HC_MAPPING","target_functions":["radiant aromatic handoff"],"is_musk":false,"musk_function":null,"loss_statement":"Capped at 10%; not HC equivalent.","dose_authority":"CONTROLLED_SOCKET_MAPPING"},
+    {"inventory_name":"Vertofix","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":66666.666667,"odorant_active_ppm_w_w":66666.666667,"finished_product_active_ppm_w_w":10000.0,"mapping_status":"GRADE_UNVERIFIED_CORE","target_functions":["wood bridge"],"is_musk":false,"musk_function":null,"loss_statement":"Coeur grade unverified.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Ethyl Linalool","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":48888.888889,"odorant_active_ppm_w_w":48888.888889,"finished_product_active_ppm_w_w":7333.333333,"mapping_status":"DIRECT_CORE_MAPPING","target_functions":["fresh tenacity"],"is_musk":false,"musk_function":null,"loss_statement":"Unchanged core.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Dihydromyrcenol","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":23111.111111,"odorant_active_ppm_w_w":23111.111111,"finished_product_active_ppm_w_w":3466.666667,"mapping_status":"REDUCED_DONOR_CORE","target_functions":["kinetic freshness"],"is_musk":false,"musk_function":null,"loss_statement":"Reduced for socket.","dose_authority":"CONTROLLED_SOCKET_DONOR"},
+    {"inventory_name":"Sandalore","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":53333.333333,"odorant_active_ppm_w_w":53333.333333,"finished_product_active_ppm_w_w":8000.0,"mapping_status":"FUNCTIONAL_CORE_SUBSTITUTION","target_functions":["sandalwood support"],"is_musk":false,"musk_function":null,"loss_statement":"Not natural sandalwood.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Indian Vetiver EO (volume grade)","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":40000.0,"odorant_active_ppm_w_w":40000.0,"finished_product_active_ppm_w_w":6000.0,"mapping_status":"ORIGIN_GRADE_SUBSTITUTION","target_functions":["vetiver tension"],"is_musk":false,"musk_function":null,"loss_statement":"Not Haitian; composite OAV required.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Alpha Isomethyl Ionone (Methyl Ionone Pure)","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":48888.888889,"odorant_active_ppm_w_w":48888.888889,"finished_product_active_ppm_w_w":7333.333333,"mapping_status":"NAME_NORMALIZATION","target_functions":["violet body"],"is_musk":false,"musk_function":null,"loss_statement":"Grade unverified.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Parmavert","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":35555.555556,"odorant_active_ppm_w_w":35555.555556,"finished_product_active_ppm_w_w":5333.333333,"mapping_status":"VIOLET_LEAF_SUPPORT","target_functions":["green snap"],"is_musk":false,"musk_function":null,"loss_statement":"Not literal violet leaf.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Bergamot FCF oil Sicilian","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":73333.333333,"odorant_active_ppm_w_w":73333.333333,"finished_product_active_ppm_w_w":11000.0,"mapping_status":"PROCESSED_ORIGIN_CORE","target_functions":["citrus opening"],"is_musk":false,"musk_function":null,"loss_statement":"Composite OAV required.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Lemon FCF oil Sicilian","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":22222.222222,"odorant_active_ppm_w_w":22222.222222,"finished_product_active_ppm_w_w":3333.333333,"mapping_status":"CEDRAT_SUBSTITUTION","target_functions":["citron edge"],"is_musk":false,"musk_function":null,"loss_statement":"Not cedrat; composite OAV required.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Pamzest","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":4444.444444,"odorant_active_ppm_w_w":4444.444444,"finished_product_active_ppm_w_w":666.666667,"mapping_status":"CEDRAT_SUPPORT","target_functions":["dry zest"],"is_musk":false,"musk_function":null,"loss_statement":"Support only.","dose_authority":"CONTROLLED_CHILD_CORE"},
+    {"inventory_name":"Ginger EO","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":37777.777778,"odorant_active_ppm_w_w":37777.777778,"finished_product_active_ppm_w_w":5666.666667,"mapping_status":"EXPANDED_DIRECT_NATURAL","target_functions":["ginger bridge"],"is_musk":false,"musk_function":null,"loss_statement":"Composite OAV required.","dose_authority":"CONTROLLED_SOCKET_MAPPING"},
+    {"inventory_name":"Basil EO (India, Ocimum Basilicum)","stock_status":"IN_STOCK_BUT_COMPOSITE_MODEL_UNCOVERED","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":12888.888889,"odorant_active_ppm_w_w":12888.888889,"finished_product_active_ppm_w_w":1933.333333,"mapping_status":"EXPANDED_BASIL_TARGET_WITH_DATA_HOLD","target_functions":["basil-flower contour"],"is_musk":false,"musk_function":null,"loss_statement":"Current runtime lacks Basil EO composite-natural decomposition; strict OAV and release remain HOLD, and chemotype may be culinary.","dose_authority":"CONTROLLED_SOCKET_MAPPING_DATA_HOLD"},
+    {"inventory_name":"Black Pepper EO","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":17333.333333,"odorant_active_ppm_w_w":17333.333333,"finished_product_active_ppm_w_w":2600.0,"mapping_status":"EXPANDED_WHITE_PEPPER_SUBSTITUTION","target_functions":["dry pepper articulation"],"is_musk":false,"musk_function":null,"loss_statement":"Rougher and more pungent than white pepper; composite OAV required.","dose_authority":"CONTROLLED_SOCKET_MAPPING"},
+    {"inventory_name":"Tonkarome (20% w/w in TEC)","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":0.2,"concentration_basis":"w/w","carrier":"TEC","raw_stock_ppm_w_w":48888.888889,"odorant_active_ppm_w_w":9777.777778,"finished_product_active_ppm_w_w":1466.666667,"mapping_status":"TONKA_CORE","target_functions":["dry warmth"],"is_musk":false,"musk_function":null,"loss_statement":"Low target-active coverage.","dose_authority":"KNOWN_20_PERCENT_W_W_CORE"},
+    {"inventory_name":"Linalyl Acetate","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":11111.111111,"odorant_active_ppm_w_w":11111.111111,"finished_product_active_ppm_w_w":1666.666667,"mapping_status":"REDUCED_DONOR_CORE","target_functions":["ester seam"],"is_musk":false,"musk_function":null,"loss_statement":"Reduced for socket.","dose_authority":"CONTROLLED_SOCKET_DONOR"},
+    {"inventory_name":"Florol","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":11111.111111,"odorant_active_ppm_w_w":11111.111111,"finished_product_active_ppm_w_w":1666.666667,"mapping_status":"REDUCED_DONOR_CORE","target_functions":["floral volume"],"is_musk":false,"musk_function":null,"loss_statement":"Reduced for socket.","dose_authority":"CONTROLLED_SOCKET_DONOR"},
+    {"inventory_name":"Amberwood F","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":4444.444444,"odorant_active_ppm_w_w":4444.444444,"finished_product_active_ppm_w_w":666.666667,"mapping_status":"REDUCED_DONOR_CORE","target_functions":["dry persistence"],"is_musk":false,"musk_function":null,"loss_statement":"Reduced; not Ambroxide equivalence.","dose_authority":"CONTROLLED_SOCKET_DONOR"},
+    {"inventory_name":"Terpinyl Acetate","stock_status":"IN_STOCK_FROZEN_INVENTORY","stock_fraction":1.0,"concentration_basis":"w/w","carrier":null,"raw_stock_ppm_w_w":17777.777778,"odorant_active_ppm_w_w":17777.777778,"finished_product_active_ppm_w_w":2666.666667,"mapping_status":"AXIS_HERBAL_ACETATE","target_functions":["basil-to-cedar aromatic seam"],"is_musk":false,"musk_function":null,"loss_statement":"Must not become pine-fougere dominance.","dose_authority":"AUTHORIZED_CONTROLLED_SOCKET_ADDITION"}
+  ]},
+  "volume_adapter":{"authority":"HEURISTIC_VOLUME_ADAPTER_NOT_PPM_W_W","concentrate_total_ul":4500.0,"finished_product_nominal_ml":30.0,"nominal_concentrate_fraction":0.15,"matrix_omissions":["stock densities","finished ethanol-water mass fractions","volume contraction"],"formula_definition_status":"SOURCE_ONLY_NO_PIPELINE_ANALYSIS_YET"},
+  "missing_chemical_impact":{"status":"PENDING_NATIVE_ASSESSMENT_TASK_8","architecture_locked":true,"auto_integrated_materials":[],"gaps":["White Pepper exact identity","Basil EO composite-natural decomposition","Basil target flower-versus-leaf chemotype","Vetiver Haiti origin"],"authority":"NO_PURCHASE_NO_FORMULA_MUTATION_NO_SENSORY_CONCLUSION"},
+  "purchase_preparation":{"state":"NO_PURCHASE","recommendation":"Black Pepper, Basil EO, Terpinyl Acetate, and Ginger are stocked. Do not buy more aromatic material; first add or validate Basil EO composite-natural data in the integration program and test harshness under controlled conditions. Verify EB before physical dosing.","lost_tinctures":"NO_USE","ambrettolide":"NO_USE_PROCUREMENT_PENDING"},
+  "diagnostics":{
+    "parser_preflight": {
+      "status": "PASS_WITH_WARNINGS",
+      "authoritative_runtime": "D:/chatbots/perfume-chem",
+      "formula_uid": "ysl20:LH-07:v1",
+      "formula_definition_sha256": "6ad38f5522652ce36cadcdb47baf395b79cbdd436875d6c8a64635f32aee02b1",
+      "rendered_file_sha256": "E22575B8D1F03D0B49BDB30C004B0FA5D38B0BA6B39FF06A520C9C8CEE1D1A54",
+      "parsed_material_count": 22,
+      "parsed_raw_ul": 4500.0,
+      "hedione_percent_of_concentrate": 10.0,
+      "warnings": [
+        "VP_WALL: Cedarwood oil Virginia (VP=0.005 Pa, role=character) is predicted as skin-only and nonprojecting by the legacy evaluator."
+      ],
+      "score_authority": "LEGACY_NUMERICAL_SCORE_IGNORED_NOT_SENSORY_EVIDENCE"
+    },
+    "ppm_arithmetic": "PASS_LOCAL_STATIC",
+    "odt_oav": "HOLD_MODELED_ACTIVE_CONCENTRATE_SCREEN_NOT_MEASURED",
+    "composite_natural_oav": "HOLD_BASIL_EO_UNCOVERED_CURRENT_RUNTIME",
+    "temporal_headspace": "COMPUTED_HEURISTIC_UNCALIBRATED_NOT_MEASURED",
+    "stock_rebase_oav_per_time": "FAIL_G15_CHILD_STOCK_AUTHORITY_INVALID",
+    "pipeline_release_gate": "FAIL_HOLD",
+    "sensory_authority": false,
+    "pipeline_artifact_binding": "PERSISTED_VERIFIED",
+    "pipeline_298k": {
+      "screening_summary_sha256": "23356e17dee310dfb15dadd4f621ee501b7bd83bf96d4f28cb673b45a57af395",
+      "formula_definition_sha256": "6ad38f5522652ce36cadcdb47baf395b79cbdd436875d6c8a64635f32aee02b1",
+      "rendered_file_sha256": "E22575B8D1F03D0B49BDB30C004B0FA5D38B0BA6B39FF06A520C9C8CEE1D1A54",
+      "pipeline_json_sha256": "4d31c21c89cf1066fe78b1282dc2badd1fca9a9de3d75af9dc45410b7c37feb5",
+      "formatter_output_sha256": "ed230d17df61be358778889246ae482250fd890d4ae9b702e71cbb7c88069096",
+      "analysis_artifact_sha256": "d3852630509628e75fe0ad82ce4a61758a849c2366013cf5df04cfa3d9ff649d",
+      "temperature_K": 298.15,
+      "parsed_subtotal_ul": 4500.0,
+      "oav_authority": {
+        "status": "WITHHELD",
+        "strict_oav_status": "ABSTAINED",
+        "headspace_basis": "MODELED_ACTIVE_CONCENTRATE_SCREEN",
+        "model_class": "HEURISTIC_NOT_MEASURED",
+        "quantitative_authority": {
+          "active_concentrate_ppm_w_w": "UNAVAILABLE",
+          "active_finished_product_ppm_w_w": "UNAVAILABLE",
+          "headspace_oav": "MODELED_ACTIVE_CONCENTRATE_SCREEN",
+          "headspace_model_class": "HEURISTIC_NOT_MEASURED",
+          "matrix_source": "omitted",
+          "stock_carrier_inclusion": "UNRESOLVED",
+          "unavailable_active_mass_materials": [
+            "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+            "Amberwood F",
+            "Basil EO (India, Ocimum Basilicum)",
+            "Bergamot FCF oil Sicilian",
+            "Black Pepper EO",
+            "Dihydromyrcenol",
+            "Ethyl Linalool",
+            "Ethylene Brassylate",
+            "Florol",
+            "Ginger EO",
+            "Hedione",
+            "Indian Vetiver EO (volume grade)",
+            "Iso E Super",
+            "Linalyl Acetate",
+            "Parmavert",
+            "Sandalore",
+            "Terpinyl Acetate",
+            "Tonkarome (20% w/w in TEC)",
+            "Vertofix"
+          ],
+          "density_fallback_materials": [
+            "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+            "Amberwood F",
+            "Basil EO (India, Ocimum Basilicum)",
+            "Bergamot FCF oil Sicilian",
+            "Black Pepper EO",
+            "Dihydromyrcenol",
+            "Ethyl Linalool",
+            "Ethylene Brassylate",
+            "Florol",
+            "Ginger EO",
+            "Hedione",
+            "Indian Vetiver EO (volume grade)",
+            "Iso E Super",
+            "Linalyl Acetate",
+            "Parmavert",
+            "Sandalore",
+            "Terpinyl Acetate",
+            "Tonkarome (20% w/w in TEC)",
+            "Vertofix"
+          ]
+        },
+        "oav_release_authority": false,
+        "sensory_authority": false,
+        "opening_known_vapor_ppm": 536.528463,
+        "opening_unknown_material_count": 2,
+        "opening_vapor_total_scope": "SUM_OF_RESOLVED_ROWS_ONLY_UNKNOWN_NATURALS_EXCLUDED"
+      },
+      "composite_natural_status": {
+        "gate": "natural_composite_coverage",
+        "status": "FAIL",
+        "detail": "Natural mixtures lack required composite GC-O decomposition: Basil EO (India, Ocimum Basilicum), Indian Vetiver EO (volume grade)"
+      },
+      "g15": {
+        "status": "FAIL",
+        "detail": "G15 requires every child row to have a uniquely resolved live inventory stock.",
+        "failure_code": "G15_CHILD_STOCK_AUTHORITY_INVALID",
+        "authorized_active_dose_changes": {
+          "Amberwood F": "reduced from 74 to 20 uL as the shared socket donor while retaining dry persistence",
+          "Terpinyl Acetate": "herbal acetate contour inside the fixed 300 uL socket",
+          "Basil EO (India, Ocimum Basilicum)": "expanded documentary basil recognizer inside the fixed 300 uL socket",
+          "Black Pepper EO": "expanded white-pepper functional mapping inside the fixed 300 uL socket"
+        },
+        "oav_release_authority": false
+      },
+      "stock_contract": {
+        "status": "FAIL",
+        "detail": "7 material stock contract failure(s): Basil EO (India, Ocimum Basilicum), Ethyl Linalool, Ethylene Brassylate, Indian Vetiver EO (volume grade), Pamzest, Parmavert, Tonkarome (20% w/w in TEC)",
+        "holds": [
+          {
+            "material": "Ethylene Brassylate",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "OWNED_OVERLAY_ROSTER_MISSING",
+            "classification": "HOLD_STALE_INVENTORY_ROSTER"
+          },
+          {
+            "material": "Ethyl Linalool",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Indian Vetiver EO (volume grade)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Parmavert",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Pamzest",
+            "native_reason": "inventory_stock_unavailable",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Basil EO (India, Ocimum Basilicum)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_BUT_COMPOSITE_MODEL_UNCOVERED",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Tonkarome (20% w/w in TEC)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          }
+        ]
+      },
+      "artifact_binding": {
+        "status": "PERSISTED_VERIFIED",
+        "analysis_sha256": "0b5621a10ef1c2ebf38af333b5fade0eb54de3932cbb241cca14543ac9c35745",
+        "artifact_sha256": "d3852630509628e75fe0ad82ce4a61758a849c2366013cf5df04cfa3d9ff649d",
+        "rendered_file_sha256": "E22575B8D1F03D0B49BDB30C004B0FA5D38B0BA6B39FF06A520C9C8CEE1D1A54"
+      },
+      "overall_gate_status": "FAIL",
+      "finalist_eligibility": {
+        "status": "HOLD_STALE_INVENTORY_ROSTER_AND_DATA_COVERAGE",
+        "eligible": false,
+        "reasons": [
+          "STOCK_CONTRACT_FAIL",
+          "QUANTITATIVE_AUTHORITY_UNAVAILABLE",
+          "NATURAL_COMPOSITE_GAP",
+          "CORE_PHYSICS_OR_ODT_GAP",
+          "FAMILY_ARCHETYPE_UNMAPPED"
+        ],
+        "sensory_authority": false
+      },
+      "subthreshold_character_rows": [],
+      "temporal_authority": "HEURISTIC_UNCALIBRATED_NOT_MEASURED",
+      "sensory_authority": false
+    }
+  },
+  "blind_test":{"status":"PROTOCOL_ONLY_NOT_EXECUTED","role":"L'Homme white-pepper/basil child","comparison":"Balanced-order comparison against LH-01 after composite-data resolution, with culinary and harshness failures explicit.","time_cells":["0_min","5_min","30_min","2_hr","4_hr"],"liking_result":"NOT TESTED"},
+  "claim_ceiling":{"exact_commercial_formula":"NOT CLAIMED","physical_liking":"NOT TESTED","sensory_similarity":"NOT TESTED","stability":"NOT TESTED","safety":"NOT CLEARED","measured_headspace":"NOT TESTED","release":"NOT CLEARED"}
+}

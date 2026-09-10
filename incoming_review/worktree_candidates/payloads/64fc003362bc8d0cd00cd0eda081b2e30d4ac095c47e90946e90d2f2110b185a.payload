@@ -1,0 +1,137 @@
+# Aventus Architecture First — Astra V3, Layered Whole-Batch Candidate
+
+**Status: TARGET / IDEAL mass design; CURRENT-INVENTORY EXECUTION HOLD.**
+
+Created 2026-09-05. Candidate `AVENTUS-ASTRA-V3-WOODY-MASS-20260905`.
+Model `aventus.woody_geometry.astra_v3.design_v1`.
+This is a new independent model under the requested title. The earlier exact V3 recipe was not supplied or located; no direct-parent equivalence is asserted. Historical Aventus/SUKHUM formulas are not changed.
+
+## What this model is intended to fix
+
+Aventus is the target: dry woody architecture, crystalline ambergris-like continuity, patchouli/chypre grounding and musk, with a citrus/cassis opening and a small pineapple marker. The pineapple is a relational accent against the wood; it is not a large standalone realistic-fruit accord. Blackcurrant is retained as green/sulfurous tension, not turned into another fruit body.
+
+This version removes ACP from the selected design and does not stack E2MB, Hexyl Acetate, Paradisamide or an opaque cassis base onto AAG. It uses one musk, Habanolide. Romandolide is not retained automatically: manufacturer information describes a fruit facet, which is a relevant risk for this brief. Habanolide's own metallic/laundry risk remains a trial question.
+
+The proportions below are explicit perfumer-design hypotheses, not measured Creed proportions, calibrated sensory fractions or a safety certificate. No public source reviewed establishes Creed's Ambrox dose. The 16% Ambrox allocation follows the user's requested woody/ambrox emphasis and must be tested for harshness as well as insufficient presence.
+
+## Modular geometric weights
+
+The denominator is **aromatic-material mass only**, excluding stock carriers and final solvent. For naturals, this is the mass of the whole natural product, not a fictitious single molecule. The ten centre weights total exactly 100%; their proposed search bands must be satisfied jointly.
+
+| Module | Centre weight | Design band | Centre ppm on aromatic basis | Function |
+|---|---:|---:|---:|---|
+| Dry woods | 40.00% | 34–46% | 400,000 | Abstract woody volume plus natural cedar grain |
+| Ambrox | 16.00% | 12–20% | 160,000 | Independently protected crystalline/mineral ambergris-like axis |
+| Musk | 12.00% | 8–15% | 120,000 | Woody-musky continuity and body |
+| Patchouli / moss | 8.00% | 5–10% | 80,000 | Dry chypre return; patchouli and moss remain separately accountable |
+| Transparent floral bridge | 12.00% | 8–16% | 120,000 | Jasmine-linked space between citrus, fruit and wood |
+| Citrus | 11.00% | 8–14% | 110,000 | Bergamot-led brightness, supported by lemon |
+| Pepper | 0.40% | 0.10–0.80% | 4,000 | Aromatic lift; not a black-pepper substitution |
+| Cassis | 0.15% | 0.05–0.30% | 1,500 | Blackcurrant tension, not berry sweetness |
+| Pineapple | 0.25% | 0.05–0.40% | 2,500 | Restrained green-pineapple marker |
+| Smoke / leather | 0.20% | 0.03–0.35% | 2,000 | Trace transition into the dry woody structure |
+| **Total** | **100.00%** | Joint constrained region | **1,000,000** | Aromatic design only |
+
+At the centre, the mass relations are:
+
+- Dry woods + Ambrox : pineapple = **224 : 1**.
+- Ambrox : pineapple = **64 : 1**.
+- Citrus : pineapple = **44 : 1**.
+- Dry woods : Ambrox = **2.5 : 1**.
+- Combined dry woods + Ambrox = **56%**; pineapple + cassis = **0.40%**.
+
+The engine requires dry woods + Ambrox at least 50%; pineapple + cassis no more than 0.60%; and the first three ratios at least 125:1, 30:1 and 20:1. No ratio is a claim of perceived dominance. Missing pineapple is not “perfect restraint”: it fails the intended identity floor. A missing module cannot be rescued by more Iso E Super.
+
+Within shared modules, explicit design floors protect Virginia cedar (2%), patchouli (3%), Evernyl (0.1%), bergamot (5%), Suederal (0.01%) and conditional Cade (0.001%). These are not safety limits or perceptibility thresholds. If a material cannot be used, the model reports an identity gap; it does not authorize adding it. In particular, no smoke requirement overrides the Cade hold.
+
+### What “geometric” means here
+
+For a complete mass ledger, `w_j = module_mass_j / total_aromatic_mass` is a barycentric weight. Every material is counted once. Secondary olfactory facets are noted, not double-counted as extra mass.
+
+For positive weights only, the model calculates the centred log-ratio displacement:
+
+`d_j = ln(w_j / target_j) - mean_k[ln(w_k / target_k)]`.
+
+This reports which relationships have moved, independently of batch scale. It is not collapsed into a beauty, complexity or similarity score. Zero weights yield undefined log geometry, not an invented epsilon. Unknown mass in any row holds the entire quantitative geometry instead of silently renormalizing known ingredients. No geometric mean of summed OAVs is treated as “equivalent proportions.”
+
+## Whole-batch ideal material design
+
+Normalization: **6.000 g aromatic materials in a target 30.000 g finished batch**, nominally 200,000 ppm / **20% w/w aromatic materials**. This is not 30 mL, 20% v/v or a recommendation to compound before the holds are cleared. Actual purity/as-supplied product and stock homogeneity must be verified.
+
+| Material | Aromatic mass share | Target active/product g | Target ppm in 30 g finished batch | Intended effect |
+|---|---:|---:|---:|---|
+| Iso E Super | 34.00% | 2.040000 | 68,000 | Transparent dry woody volume |
+| Cedarwood oil Virginia | 6.00% | 0.360000 | 12,000 | Cedar grain distinct from the abstract wood |
+| Ambrox Super | 16.00% | 0.960000 | 32,000 | Crystalline/mineral ambergris-like continuity |
+| Habanolide | 12.00% | 0.720000 | 24,000 | Single woody-musky support hypothesis |
+| Patchouli EO | 7.20% | 0.432000 | 14,400 | Earthy/dry chypre foundation |
+| Evernyl | 0.80% | 0.048000 | 1,600 | Moss-like chypre definition |
+| Hedione | 12.00% | 0.720000 | 24,000 | Transparent jasmine-linked bridge |
+| Bergamot FCF oil Sicilian | 9.00% | 0.540000 | 18,000 | Primary citrus head |
+| Lemon FCF oil Sicilian | 2.00% | 0.120000 | 4,000 | Secondary citrus edge |
+| Schinus molle EO | 0.40% | 0.024000 | 800 | Ideal pink-pepper bridge; inventory sync HOLD |
+| Blackcurrant Absolute | 0.15% | 0.009000 | 300 | Cassis/leaf tension |
+| Allyl Amyl Glycolate | 0.25% | 0.015000 | 500 | Small green-pineapple marker |
+| Suederal | 0.19% | 0.011400 | 380 | Suede transition, proprietary product proxy |
+| Cade Oil Rectified | 0.01% | 0.000600 | 20 | Conditional smoke trace; stock/lot/safety HOLD |
+| **Total** | **100.00%** | **6.000000** | **200,000** | Planned aromatic mass only |
+
+Digits specify arithmetic, not measurement accuracy. The sub-milligram Cade quantity is an ideal active target, never a neat-dose instruction. Future executable cards must use verified labeled stocks and instrument-appropriate amounts; raw doses below 10 microlitres require a prepared labeled dilution. Suederal's 11.4 mg quantity also needs a suitable balance or validated working stock, not a guessed drop.
+
+## Current-inventory projection — not a pouring card
+
+Live inventory was read and pinned at design time: SHA-256 `5da7ecdab4ce9c297f95a61051b38d9183f796c1971dd276546ef15c7856c497`. No current inventory, stock-authority overlay or historical formula was edited. Recheck this fingerprint and stock status before any further execution work.
+
+The table is in physical inventory-basket order, with resolved stock masses descending within each basket; unresolved rows remain explicitly marked. There are no raw microlitre amounts to sort or execute yet. The final volumetric card must use basket order and descending raw microlitres within basket.
+
+| Basket | Material | Current stock record | Required stock mass g | Status |
+|---|---|---|---:|---|
+| CITRUS / TOP | Bergamot FCF oil Sicilian | Neat/as supplied | 0.540000 | Mass arithmetic only |
+| GREEN / FRESH / MARINE | Blackcurrant Absolute | 10% in DPG; basis unspecified | UNKNOWN | Stock mass HOLD |
+| FLORAL MATERIALS | Hedione | Neat/as supplied | 0.720000 | Mass arithmetic only |
+| FLORAL MATERIALS | Lemon FCF oil Sicilian | Neat/as supplied | 0.120000 | Mass arithmetic only |
+| WOODS / AMBER / STRUCTURE | Ambrox Super | 25% w/w, DPG + IPM + ethanol | 3.840000 | Current mass rebase, not old 33% volume assumption |
+| WOODS / AMBER / STRUCTURE | Iso E Super | Neat/as supplied | 2.040000 | Mass arithmetic only |
+| WOODS / AMBER / STRUCTURE | Cedarwood oil Virginia | Neat/as supplied | 0.360000 | Natural composite required |
+| WOODS / AMBER / STRUCTURE | Suederal | Owned neat stock selected | 0.011400 | Product/scale resolution HOLD |
+| MUSKS | Habanolide | User-confirmed neat | 0.720000 | Mass arithmetic only |
+| SWEET / GOURMAND / BALSAMIC | Allyl Amyl Glycolate | 10%; basis/carrier unspecified here | UNKNOWN | Stock mass HOLD |
+| LEATHER / SMOKY / PHENOLIC | Evernyl | 10% w/w in DEP | 0.480000 | Current mass rebase |
+| LEATHER / SMOKY / PHENOLIC | Cade Oil Rectified | 1% in DPG; basis unspecified | UNKNOWN | Stock basis and exact lot/PAH HOLD |
+| SPICE / AROMATIC | Patchouli EO | Current Aroma&More neat/as supplied | 0.432000 | Natural composite required |
+| SPICE / AROMATIC | Schinus molle EO | User-confirmed in prior architecture; not in synchronized inventory | 0.024000 mathematically | Not executable until inventory sync |
+
+Resolved arithmetic subtotal, including the mathematically resolved but unsynchronized Schinus row: **9.287400 g**. This is **not** a total concentrate mass. The complete stock-blend mass, its ppm denominator and final solvent addition are **UNKNOWN** until the three unspecified stock bases are resolved. Finished volume is also unknown. Do not pour 30 mL or fill solvent around this partial table.
+
+Known carried solvents from Ambrox and Evernyl alone are DPG **2.240 g**, IPM **0.160 g**, ethanol **0.480 g**, DEP **0.432 g**. Other stock carriers remain unresolved. The engine keeps these carriers outside the aromatic geometry while including them in stock-blend mass accounting when the ledger is complete.
+
+## Layered architecture and falsification plan
+
+These are sensory hypotheses to test, not predicted observations or evaporation results.
+
+| Window | Intended relationship | Failure that rejects the candidate |
+|---|---|---|
+| Opening, 0–5 min | Bergamot/citrus and restrained cassis against already present dry woody/mineral context; pineapple recognizable only as an accent | Tropical juice/candy takes over; cassis reads as berry syrup; wood/ambergris absent; harsh green ester |
+| Heart, 30 min | Transparent floral/pepper bridge retains space between citrus memory, pineapple trace and cedar/patchouli | Fruit becomes the main object, or a hollow gap appears between top and base |
+| Late heart, 2 h | Dry woods, Ambrox, patchouli and musk sustain continuity; trace leather/smoke acts as a transition | Generic amberwood, metallic laundry, scratchy mineral overload or smoky tar dominates |
+| Drydown, 4 h and next day if present | Dry woody/ambergris-like chypre return with musk; fruit subordinate | Residual fruit overwhelms the structure, Ambrox is harsh, or drydown is unlike the selected Aventus reference |
+
+Do not “repair” any low modeled fruit OAV by automatically adding pineapple. The user's prior fruit-overload report is a reason to test a smaller fruit allowance even if a numeric model predicts it will be weak. Conversely, a trace mass does not prove that a potent odorant is quiet.
+
+After stock and safety prerequisites are met, compare blinded complete-batch AAG arms at 0.5x, 1.0x and 1.5x of the **0.015 g active reference target**, keeping every other aromatic dose fixed. Match non-ethanol carriers across arms using verified blank carriers, then adjust final ethanol by mass to a constant finished mass. Explicitly record the ethanol replacement and the small change in total aromatic mass; these are not all exactly 20% w/w. Do not compensate with extra Iso E Super, Hedione or musk. Assess alongside one identified authentic reference bottle and a repeated coded control, randomized over separate sessions.
+
+Only after the fruit question is resolved, test the Ambrox level in a separate controlled series, matching its DPG/IPM carriers and recording ethanol compensation. Then test the musk alternative or omission in its own series. No multi-musk stack is justified by this model. Any omission is a falsification probe, not an automatically promoted improved formula. Record reference identity, stock/lot IDs, mass, matrix, temperature, rest time, order, evaluator and scores for fruit intrusion, woody/mineral identity, bridge continuity, harshness and overall reference likeness. Similarity and liking remain separate questions.
+
+## Pipeline Analysis
+
+**NOT RUN — this is an incomplete gravimetric design, not an executable volumetric formula.** The existing release CLI consumes microlitre formula tables. No fictitious density, unknown stock basis or single-molecule natural ODT was supplied to generate a headspace report.
+
+ODT, OAV, vapor ppm, temporal headspace, note-distribution percentages, evaporation, sillage, skin longevity, IFRA clearance and release status are **UNKNOWN / NOT TESTED**, not zero. Concentrate ppm must use the full stock-blend mass once known; the aromatic-basis and finished-batch target ppm above are explicitly different denominators.
+
+For a later executable child: reread inventory, resolve basis/carrier/grade and matrix inputs, preserve active mass under stock changes, identify the actual immediate parent, run the existing release gate with active-dose and OAV-per-time checks, and present its full formatted headspace/temporal/perfumer analysis both in chat and in that child file. Pipeline bounds or OAV cannot certify the sensory architecture.
+
+## Research and implementation
+
+See [research and primary-source ledger](../docs/research/AVENTUS_ASTRA_V3_WOODY_GEOMETRY_RESEARCH_20260905.md), [machine-readable candidate](../data/reference/aventus_astra_v3_woody_candidate.json), and [geometry engine](../engine/formulation_intelligence/aventus_woody_geometry.py).
+
+The opt-in entry point is `future_modules.iconic_formulas.get_aventus_woody_mass_design()`. It returns the proposed geometry, resolved stock/carrier arithmetic and explicit holds. The existing qualitative Aventus architecture and commercial-formula uncertainty are unchanged. All commercial formula, sensory, liking, compounding, safety, stability and release authorities remain false.

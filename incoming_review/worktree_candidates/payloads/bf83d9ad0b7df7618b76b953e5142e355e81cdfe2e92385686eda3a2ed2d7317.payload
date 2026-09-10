@@ -1,0 +1,189 @@
+{
+  "schema_version": "complex_perfumery_exact_source_capture_v1",
+  "recorded_at": "2026-08-16T15:44:23+07:00",
+  "project": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "parent_v15_delta_path": "data/governance/complex_perfumery_v15_post_v14_floral_expansion_delta_20260816.json",
+    "parent_v15_delta_byte_size": 8904,
+    "parent_v15_delta_sha256": "33fe02721f8c4ca1a7e709203c2cce8b1b1eb5c446692d49c2b8ccd7288c69c3",
+    "parent_v15_delta_semantic_sha256": "0d9c6cafbfd7acd6f81e388fcbb4e70873112005ea0ea33054c67b2ef92f5539"
+  },
+  "source": {
+    "conversation_id": "6a79b172-0264-83ec-b77a-306a37ecb832",
+    "title": "Perfume Making Consultant",
+    "source_response_message_id": "6185c476-5101-4cdd-8c38-a5b330df872a",
+    "file_object_id": "file_000000002ff081faa6a1a57e3fc62d3e",
+    "content_reference_index": 0,
+    "source_rights_state": "UNKNOWN"
+  },
+  "retrieval": {
+    "method": "AUTHENTICATED_ORIGINAL_FILE_CARD_DOWNLOAD",
+    "source_path": "C:/Users/ASUS/Downloads/Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0.zip",
+    "capture_path": "incoming_review/chatgpt/20260816T154423+0700-v16-complexity-expansion-engine-6a79b172-nf4be1041/Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0.zip",
+    "source_and_capture_byte_size_match": true,
+    "source_and_capture_sha256_match": true,
+    "regeneration": false,
+    "substitution": false,
+    "reconstruction": false
+  },
+  "package": {
+    "file_name": "Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0.zip",
+    "byte_size": 172172,
+    "sha256": "f4be1041bb8e2e8b5665962e580aa740996bd2f77b61299cca1d3cdf55014a5d",
+    "package_root": "Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0",
+    "archive_entry_count": 75,
+    "archive_file_count": 75,
+    "archive_directory_count": 0,
+    "safe_paths": true,
+    "casefold_duplicate_paths": 0,
+    "zip_crc_clean": true,
+    "embedded_checksum_ledger": {
+      "path": "Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0/SHA256SUMS.json",
+      "byte_size": 12581,
+      "sha256": "c202b05d42194af612ed2f2647537b01b6cb56ed8a136ce27b947653d6bc050a",
+      "self_excluding": true,
+      "declared_records": 74,
+      "verified_records": 74,
+      "missing_records": 0,
+      "extra_records": 0,
+      "mismatched_records": 0
+    },
+    "embedded_manifest": {
+      "path": "Perfume_Complexity_Expansion_and_Calibration_Engine_Aug2026_v2_0/MANIFEST.json",
+      "byte_size": 12675,
+      "sha256": "93bb96b64c3259058a73f73adb2d8815b49c05133da812364429e76ea557b575",
+      "excludes_manifest_and_checksum": true,
+      "declared_records": 73,
+      "verified_records": 73,
+      "missing_records": 0,
+      "extra_records": 0,
+      "mismatched_records": 0
+    }
+  },
+  "native_archive_graph": {
+    "status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "root_status": "CLEAR_FOR_RECEIPT_REVIEW",
+    "root_finding_codes": [],
+    "node_count": 1,
+    "edge_count": 0,
+    "max_depth": 0,
+    "all_nodes_terminal": true,
+    "graph_findings": [],
+    "promotion_allowed": false
+  },
+  "declared_parent_lineage": [
+    {
+      "file_name": "Perfume_Complexity_Model_Discovery_Admission_Engine_Aug2026_v1_2.zip",
+      "byte_size": 826528,
+      "sha256": "108624938e183af41da63f5ef77e31c875b196389f3467d7acd896ccf7b274df",
+      "local_state": "POINTER_ONLY_EXACT_PARENT_BYTES_NOT_RECOVERED_IN_CURRENT_WORKSPACE"
+    },
+    {
+      "file_name": "VMC_REC_01_Empirical_Loop_Aug2026_v1_Package.zip",
+      "byte_size": 45186,
+      "sha256": "3bcaec98bb637cb8070a11582044e3ce1b9cb2b317cd40761ae7ba529feeb745",
+      "local_state": "SEPARATELY_QUARANTINED_NOT_ADMITTED"
+    },
+    {
+      "file_name": "Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx",
+      "byte_size": 199635,
+      "sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+      "local_state": "CURRENT_NATIVE_INVENTORY_AUTHORITY_REFERENCE_ONLY_PACKAGE_CANNOT_OVERRIDE"
+    }
+  ],
+  "content_boundary": {
+    "package_id": "PERFUME-COMPLEXITY-EXPANSION-CALIBRATION-2.0.0",
+    "source_package_state": "PASS_PORTABLE_REFERENCE_IMPLEMENTATION",
+    "source_repository_state": "BRIDGE_BLOCKED",
+    "role": "PORTABLE_REFERENCE_IMPLEMENTATION_AND_SOURCE_DESIGN_ANCESTRY_ONLY",
+    "directions_total": 214,
+    "domains": 16,
+    "models_total": 48,
+    "overlays_total": 32,
+    "gaps_total": 64,
+    "admission_gates": 17,
+    "first_wave_arms": 12,
+    "package_code_installed": false,
+    "package_schemas_installed": false,
+    "canonical_records_imported": false,
+    "formula_mutations": 0,
+    "inventory_mutations": 0,
+    "bottle_events": 0,
+    "physical_results": 0,
+    "sensory_results": 0,
+    "analytical_results": 0,
+    "measured_headspace": "NOT_TESTED",
+    "strict_oav": "NOT_TESTED",
+    "liking": "NOT_TESTED",
+    "similarity": "NOT_TESTED",
+    "stability": "NOT_TESTED",
+    "safety": "NOT_CLEARED",
+    "release": "WITHHELD"
+  },
+  "native_fit": {
+    "classification": "EXACT_BYTES_REFERENCE_ENGINE_ANCESTRY_NATIVE_CAPABILITY_DIFF_REQUIRED_BEFORE_ANY_REUSE",
+    "current_native_surfaces_control": [
+      "engine/perception/construction_complexity.py",
+      "engine/optimization/contracts.py",
+      "engine/experiments/missing_chemical_impact.py",
+      "Laboratory Beta",
+      "C0 sensory contract",
+      "B1 source provenance",
+      "Inventory V5 authority"
+    ],
+    "migration_required": false,
+    "new_schema_required": false,
+    "new_truth_store_required": false,
+    "new_pipeline_script_required": false,
+    "package_code_install_allowed": false,
+    "package_schema_install_allowed": false
+  },
+  "collection_delta": {
+    "prior_exact_outer_candidates": 49,
+    "new_unique_exact_outer_candidates": 1,
+    "cumulative_exact_outer_candidates": 50,
+    "pending_source_cards": 0,
+    "all_project_packages_collected": false,
+    "denominator_complete": false
+  },
+  "residual_exact_byte_holds": [
+    {
+      "name": "UNIVERSAL_ACCORD_INTELLIGENCE_MODULE_v1.zip",
+      "byte_size": 539050,
+      "sha256": "8dd04ea6c69e5e3bd72b03e0ae15cb66ad66e9ac5581cf97666249e869c5a998"
+    },
+    {
+      "name": "PERFUME_CHEM_CANONICAL_CUTOVER_READY_20260808_v2.zip",
+      "byte_size": 1228587,
+      "sha256": "e9e325bea9117dbe2a97ff67e77d57705a54244591278fac7a34915a7f0ae523"
+    },
+    {
+      "name": "Perfume_Chem_Physics_OAV_Decision_Model_v3_4_0_CALIBRATION_READY.zip",
+      "byte_size": 540402,
+      "sha256": "8224f8a1609deb22b43651da825b9bf653a92143f00ee1d5d592130d162f97db"
+    },
+    {
+      "name": "perfume_chem_physics_oav_v3-3.4.0-py3-none-any.whl",
+      "byte_size": 65724,
+      "sha256": "582ae9902e47807f085a61b7add113c9239a2860445e8171fcf569b3ad6d28c5"
+    }
+  ],
+  "authority": {
+    "source_admission": false,
+    "schema": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "bottle": false,
+    "physical_execution": false,
+    "sensory": false,
+    "analytical": false,
+    "measured_headspace": false,
+    "strict_empirical_oav": false,
+    "safety": false,
+    "procurement": false,
+    "installation": false,
+    "publication": false,
+    "release": false
+  }
+}

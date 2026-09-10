@@ -1,0 +1,393 @@
+from __future__ import annotations
+
+import hashlib
+import json
+import shutil
+from pathlib import Path
+
+import pytest
+
+from engine.perception.complexity_registry import ModuleState, load_complexity_registry
+from engine.perception.harmonic_runtime_registry import (
+    CURRENT_HARMONIC_RUNTIME_REGISTRY_PATH,
+    V7_ADMITTED_ARCHITECTURE_MODULE_IDS,
+    V7_EVIDENCE_ONLY_MODULE_IDS,
+    V7_GUARDRAIL_MODULE_IDS,
+    V8_REGISTRY_PATH,
+    V9_REGISTRY_PATH,
+    HarmonicRuntimeRegistryV9,
+    _load_harmonic_runtime_registry_v7,
+    _material_data_fingerprint,
+    _normalized_utf8_sha256,
+    load_harmonic_runtime_registry,
+)
+from tests.test_complexity_registry_v6 import _copy_v6_project
+
+ROOT = Path(__file__).resolve().parents[1]
+V3 = ROOT / "configs/complexity/complexity_module_registry_v3.json"
+V4 = ROOT / "configs/complexity/complexity_module_registry_v4.json"
+V5 = ROOT / "configs/complexity/complexity_module_registry_v5.json"
+V6 = ROOT / "configs/complexity/complexity_module_registry_v6.json"
+V7 = ROOT / "configs/complexity/complexity_module_registry_v7.json"
+V8 = ROOT / "configs/complexity/complexity_module_registry_v8.json"
+V9 = ROOT / "configs/complexity/complexity_module_registry_v9.json"
+FROZEN_REGISTRY_SHA256 = {
+    V4.name: "6c320da59e7a22308a6dd0c8f896d00b7d34e58a755bbdcc77b1578e1dc5838e",
+    V5.name: "dcaf2db0de7d8d6ea2ac540ca2ab35d9f71d868e1e2a82b7a4c4155c5637789c",
+    V6.name: "fe2b4a975cec2d89869bdd1f1b9a3d00569902769d199f38503b8448376b506c",
+    V7.name: "d8bb80b7408944607e6d2b6f1d073d084157f4baeb13b1c223a95b883397072c",
+}
+ALL_FALSE_AUTHORITY = {
+    "compounding": False,
+    "formula": False,
+    "hedonic": False,
+    "physical_execution": False,
+    "purchase": False,
+    "release": False,
+    "safety": False,
+    "scientific": False,
+    "sensory": False,
+    "similarity": False,
+    "stability": False,
+}
+
+
+def _copy_v7_project(tmp_path: Path) -> tuple[Path, Path]:
+    project, _ = _copy_v6_project(tmp_path)
+    payload = json.loads(V7.read_text(encoding="utf-8"))
+    v6_payload = json.loads(V6.read_text(encoding="utf-8"))
+    paths = {
+        *(record["path"] for record in payload["admission_evidence"]),
+        *(record["path"] for record in payload["current_source_bindings"]),
+    }
+    for row in v6_payload["module_additions"]:
+        paths.update(
+            reference
+            for reference in row["evidence_refs"]
+            if reference.startswith(("data/", "tests/", "docs/", "configs/"))
+        )
+    paths.update(
+        path.relative_to(ROOT).as_posix()
+        for path in (ROOT / "data/materials").glob("*.yaml")
+    )
+    for relative in sorted(paths):
+        source = ROOT / relative
+        target = project / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source, target)
+    target_registry = project / V7.relative_to(ROOT)
+    target_registry.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(V7, target_registry)
+    return project, target_registry
+
+
+def _write_registry_payload(path: Path, payload: dict[str, object]) -> None:
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+
+
+def _load_v7_as_current_predecessor(project: Path, registry_path: Path) -> object:
+    v8_payload = json.loads(V8.read_text(encoding="utf-8"))
+    v9_payload = json.loads(V9.read_text(encoding="utf-8"))
+    successor_source_digests = {
+        row["historical"]["path"]: row["current"]["sha256"]
+        for row in v8_payload["compatibility_rebindings"]
+        if row["historical"]["path"] == row["current"]["path"]
+    }
+    successor_source_digests.update(
+        {
+            row["historical"]["path"]: row["current"]["sha256"]
+            for row in v9_payload["compatibility_rebindings"]
+            if row["historical"]["path"] == row["current"]["path"]
+        }
+    )
+    return _load_harmonic_runtime_registry_v7(
+        project.resolve(),
+        registry_path.resolve(),
+        successor_source_digests=successor_source_digests,
+        successor_material_data_digest=v9_payload["material_data_fingerprint"],
+    )
+
+
+def test_v7_is_frozen_predecessor_of_the_default_v9_successor() -> None:
+    for path in (V4, V5, V6, V7):
+        assert hashlib.sha256(path.read_bytes()).hexdigest() == (
+            FROZEN_REGISTRY_SHA256[path.name]
+        )
+    payload = json.loads(V7.read_text(encoding="utf-8"))
+    assert CURRENT_HARMONIC_RUNTIME_REGISTRY_PATH == V9_REGISTRY_PATH
+    assert payload["predecessor_registry"] == {
+        "path": "configs/complexity/complexity_module_registry_v6.json",
+        "sha256": FROZEN_REGISTRY_SHA256[V6.name],
+    }
+
+    current = load_harmonic_runtime_registry(ROOT)
+    assert isinstance(current, HarmonicRuntimeRegistryV9)
+    assert current.schema_version == "complexity_module_registry_v9"
+    assert V8_REGISTRY_PATH == V8.relative_to(ROOT)
+    assert current.hash_policy == {
+        "registry_bytes": "RAW_SHA256",
+        "utf8_text_bindings": "CRLF_TO_LF_THEN_SHA256",
+        "bare_cr": "REJECT",
+    }
+
+
+def test_v7_replays_every_v3_module_and_v6_addition_without_loss() -> None:
+    base = load_complexity_registry(ROOT, V3)
+    v6_payload = json.loads(V6.read_text(encoding="utf-8"))
+    registry = _load_v7_as_current_predecessor(ROOT, V7)
+    expected_ids = (
+        *(item.module_id for item in base.modules),
+        *(row["module_id"] for row in v6_payload["module_additions"]),
+    )
+    assert tuple(item.module_id for item in registry.modules) == expected_ids
+    assert len(registry.modules) == len(set(expected_ids)) == 34
+    assert registry.base_module_ids == tuple(item.module_id for item in base.modules)
+    assert registry.admitted_architecture_module_ids == (
+        V7_ADMITTED_ARCHITECTURE_MODULE_IDS
+    )
+    assert registry.guardrail_module_ids == V7_GUARDRAIL_MODULE_IDS
+    assert registry.evidence_only_module_ids == V7_EVIDENCE_ONLY_MODULE_IDS
+
+    modules = {item.module_id: item for item in registry.modules}
+    for row in v6_payload["module_additions"]:
+        module = modules[row["module_id"]]
+        assert module.family_id == row["family_id"]
+        assert module.role.value == row["role"]
+        assert module.state.value == row["state"]
+        assert module.path == row["path"]
+        assert module.import_path == row["import_path"]
+        assert module.sha256 == row["sha256"]
+        assert module.evidence_refs == tuple(row["evidence_refs"])
+        assert module.notes == tuple(row["notes"])
+
+    retired = {
+        "construction-profile",
+        "complexity-expansion-frontier",
+        "musk-design-restraint",
+        "citrus-architecture-selector",
+        "within-sniff-observation-contract",
+        "temporal-observation-contract",
+        "order-balance-contract",
+        "sensory-panel-contract",
+    }
+    assert retired <= set(registry.nonruntime_base_module_ids)
+    assert not retired.intersection(registry.admitted_architecture_module_ids)
+    assert "advanced-musk-intelligence" in registry.nonruntime_base_module_ids
+
+
+def test_v7_rebinds_ledger_as_evidence_only_and_never_importable() -> None:
+    registry = _load_v7_as_current_predecessor(ROOT, V7)
+    source_bindings = {
+        item["path"]: item["sha256"] for item in registry.source_bindings
+    }
+    temporal = next(
+        item
+        for item in registry.modules
+        if item.module_id == "temporal-sensory-ledger"
+    )
+    hedonic = next(
+        item
+        for item in registry.modules
+        if item.module_id == "hedonic-preference-learner"
+    )
+    assert temporal.state is ModuleState.EVIDENCE_ONLY_NOT_ADMITTED
+    assert temporal.import_path is None
+    assert temporal.runtime_eligible is False
+    assert temporal.sha256 == source_bindings["engine/sensory/ledger.py"]
+    assert temporal.sha256 == _normalized_utf8_sha256(
+        ROOT / "engine/sensory/ledger.py"
+    )
+    assert hedonic.state is ModuleState.EVIDENCE_ONLY_NOT_ADMITTED
+    assert hedonic.import_path is None
+
+    v7_payload = json.loads(V7.read_text(encoding="utf-8"))
+    rebinding = next(
+        item
+        for item in v7_payload["compatibility_rebindings"]
+        if item["binding_id"] == "temporal-ledger"
+    )
+    assert rebinding["historical"]["sha256"] == (
+        "03b5742e8e66dcf1cc27a94b3e5c4484899ee08893b1b34e006d8890805d0f9f"
+    )
+    assert rebinding["current"]["sha256"] == temporal.sha256
+    assert rebinding["change_class"] == (
+        "NONRUNTIME_TYPECHECK_AND_INPUT_VALIDATION_HARDENING"
+    )
+    assert rebinding["authority_effect"] == "NONE"
+    assert registry.admitted_scope["evidence_only_request_routing"] is False
+
+
+def test_v7_current_bindings_scope_and_authority_are_exact() -> None:
+    payload = json.loads(V7.read_text(encoding="utf-8"))
+    v6_payload = json.loads(V6.read_text(encoding="utf-8"))
+    registry = _load_v7_as_current_predecessor(ROOT, V7)
+    v6_paths = {row["path"] for row in v6_payload["source_bindings"]}
+    expected = (
+        v6_paths
+        - {
+            "data/governance/inventory_user_authority_overlay_20260828.json",
+            "data/governance/inventory_worktree_sync_20260831.json",
+        }
+        | {
+            "data/governance/inventory_user_authority_overlay_20260831.json",
+            "data/governance/inventory_worktree_sync_20260831_003.json",
+            "data/knowledge_graph/ingredient_catalog.json",
+            "data/knowledge_graph/material_properties.json",
+            "engine/name_utils.py",
+            "engine/sensory/ledger.py",
+        }
+    )
+    assert {row["path"] for row in payload["current_source_bindings"]} == expected
+    successor_paths = {
+        row["historical"]["path"]
+        for successor in (V8, V9)
+        for row in json.loads(successor.read_text(encoding="utf-8"))[
+            "compatibility_rebindings"
+        ]
+        if row["historical"]["path"] == row["current"]["path"]
+    }
+    for row in payload["current_source_bindings"]:
+        if row["path"] in successor_paths:
+            continue
+        assert _normalized_utf8_sha256(ROOT / row["path"]) == row["sha256"]
+    assert registry.material_data_fingerprint == payload["material_data_fingerprint"]
+    assert _material_data_fingerprint(ROOT) == json.loads(
+        V9.read_text(encoding="utf-8")
+    )["material_data_fingerprint"]
+    assert registry.full_gate == {
+        "case_count": 6,
+        "wins_vs_plain": 6,
+        "wins_vs_placebo": 5,
+        "median_gain_vs_plain": 10,
+        "median_gain_vs_placebo": 13.5,
+        "integrated_critical_errors": [],
+    }
+    assert registry.authority_flags == ALL_FALSE_AUTHORITY
+    assert payload["compatibility_policy"] == {
+        "compatibility_successor_only": True,
+        "new_module_admission": False,
+        "runtime_module_set_changed": False,
+        "target_scope_changed": False,
+        "evidence_only_request_routing_admitted": False,
+        "historical_registry_rewritten": False,
+        "historical_receipt_rewritten": False,
+    }
+    assert {
+        row["binding_id"] for row in payload["compatibility_rebindings"]
+    } == {
+        "temporal-ledger",
+        "inventory-overlay",
+        "inventory-sync",
+        "inventory-parser",
+        "legacy-inventory-text",
+        "harmonic-registry-loader",
+    }
+    assert all(
+        row["authority_effect"] == "NONE"
+        for row in payload["compatibility_rebindings"]
+    )
+    assert payload["material_data_rebinding"]["authority_effect"] == "NONE"
+
+
+def test_v7_text_and_material_hash_policy_is_portable_and_fail_closed(
+    tmp_path: Path,
+) -> None:
+    lf = tmp_path / "lf.txt"
+    crlf = tmp_path / "crlf.txt"
+    bare_cr = tmp_path / "bare-cr.txt"
+    invalid = tmp_path / "invalid.txt"
+    lf.write_bytes(b"alpha\nbeta\n")
+    crlf.write_bytes(b"alpha\r\nbeta\r\n")
+    bare_cr.write_bytes(b"alpha\rbeta\n")
+    invalid.write_bytes(b"\xff\n")
+    assert _normalized_utf8_sha256(lf) == _normalized_utf8_sha256(crlf)
+    with pytest.raises(ValueError, match="bare CR is forbidden"):
+        _normalized_utf8_sha256(bare_cr)
+    with pytest.raises(UnicodeDecodeError):
+        _normalized_utf8_sha256(invalid)
+
+    materials = tmp_path / "material-root/data/materials"
+    materials.mkdir(parents=True)
+    (materials / "A.yaml").write_bytes(b"name: alpha\rvalue: 1\n")
+    with pytest.raises(ValueError, match="bare CR is forbidden"):
+        _material_data_fingerprint(tmp_path / "material-root")
+
+
+def test_v7_current_source_semantic_tampering_fails_closed(tmp_path: Path) -> None:
+    project, registry_path = _copy_v7_project(tmp_path / "current")
+    source = (
+        project / "data/governance/inventory_user_authority_overlay_20260831.json"
+    )
+    source.write_bytes(source.read_bytes() + b"\n ")
+    with pytest.raises(ValueError, match="V7 current source binding hash mismatch"):
+        _load_v7_as_current_predecessor(project, registry_path)
+
+
+def test_v7_rejects_rehashed_admission_and_undeclared_shared_drift(
+    tmp_path: Path,
+) -> None:
+    project, registry_path = _copy_v7_project(tmp_path / "admission")
+    payload = json.loads(registry_path.read_text(encoding="utf-8"))
+    receipt = project / payload["admission_evidence"][1]["path"]
+    receipt.write_bytes(receipt.read_bytes() + b" ")
+    next(
+        row
+        for row in payload["admission_evidence"]
+        if row["path"] == receipt.relative_to(project).as_posix()
+    )["sha256"] = _normalized_utf8_sha256(receipt)
+    _write_registry_payload(registry_path, payload)
+    with pytest.raises(ValueError, match="admission evidence drifted from V6"):
+        _load_v7_as_current_predecessor(project, registry_path)
+
+    project, registry_path = _copy_v7_project(tmp_path / "shared-source")
+    payload = json.loads(registry_path.read_text(encoding="utf-8"))
+    source = project / "engine/perception/architecture_contracts.py"
+    source.write_bytes(source.read_bytes() + b"\n# semantic drift\n")
+    next(
+        row
+        for row in payload["current_source_bindings"]
+        if row["path"] == "engine/perception/architecture_contracts.py"
+    )["sha256"] = _normalized_utf8_sha256(source)
+    _write_registry_payload(registry_path, payload)
+    with pytest.raises(ValueError, match="undeclared historical source drift"):
+        _load_v7_as_current_predecessor(project, registry_path)
+
+
+def test_v7_rejects_preserved_history_and_policy_tampering(tmp_path: Path) -> None:
+    project, registry_path = _copy_v7_project(tmp_path / "old-overlay")
+    old_overlay = (
+        project / "data/governance/inventory_user_authority_overlay_20260828.json"
+    )
+    old_overlay.write_bytes(old_overlay.read_bytes() + b" ")
+    with pytest.raises(ValueError, match="preserved historical source hash mismatch"):
+        _load_v7_as_current_predecessor(project, registry_path)
+
+    project, registry_path = _copy_v7_project(tmp_path / "v5-evidence")
+    v5_payload = json.loads(
+        (project / V5.relative_to(ROOT)).read_text(encoding="utf-8")
+    )
+    v5_receipt = project / v5_payload["admission_evidence"][0]["path"]
+    v5_receipt.write_bytes(v5_receipt.read_bytes() + b" ")
+    with pytest.raises(ValueError, match="frozen V5 admission evidence hash mismatch"):
+        _load_v7_as_current_predecessor(project, registry_path)
+
+    payload = json.loads(V7.read_text(encoding="utf-8"))
+    payload["authority_flags"]["hedonic"] = True
+    authority_registry = tmp_path / "authority-v7.json"
+    _write_registry_payload(authority_registry, payload)
+    with pytest.raises(ValueError, match="V7 authority flags"):
+        _load_v7_as_current_predecessor(ROOT, authority_registry)
+
+    payload = json.loads(V7.read_text(encoding="utf-8"))
+    payload["compatibility_rebindings"][0]["authority_effect"] = "PROMOTE"
+    policy_registry = tmp_path / "policy-v7.json"
+    _write_registry_payload(policy_registry, payload)
+    with pytest.raises(ValueError, match="compatibility rebinding contract drifted"):
+        _load_v7_as_current_predecessor(ROOT, policy_registry)
+
+    payload = json.loads(V7.read_text(encoding="utf-8"))
+    payload["predecessor_registry"]["sha256"] = "0" * 64
+    predecessor_registry = tmp_path / "predecessor-v7.json"
+    _write_registry_payload(predecessor_registry, payload)
+    with pytest.raises(ValueError, match="V7 predecessor registry hash mismatch"):
+        _load_v7_as_current_predecessor(ROOT, predecessor_registry)

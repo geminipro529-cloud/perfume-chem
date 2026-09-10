@@ -1,0 +1,39 @@
+{
+  "schema_version": "donor-signature-v1",
+  "signature_name": "DHP 2025 Niche House v1 donor architecture",
+  "source_artifact": "formulas/DHP_2025_Niche_House_30mL_EdP.md",
+  "source_sha256": "6DC50A2ACA5705EFAEEC3326F07B74DB8645CA91314227E167A85209AFC7475C",
+  "source_current_rows": 25,
+  "source_current_raw_total_ul": 6000,
+  "ordered_basket_headings": [
+    "FORMULA"
+  ],
+  "structural_materials": [
+    "Bergamot FCF oil Sicilian",
+    "Lavender EO (BONTAUX SAS)",
+    "Linalool",
+    "Alpha Irone",
+    "Alpha Ionone",
+    "Beta Ionone",
+    "Jasmine Sambac",
+    "Hedione",
+    "Phenethyl Alcohol",
+    "Ambrofix",
+    "Sandalore",
+    "Cashmeran",
+    "Kephalis",
+    "Coumarin",
+    "Vanillin",
+    "Ethyl Vanillin",
+    "Vetiver EO (India)",
+    "Cedarwood oil Virginia",
+    "Patchouli EO",
+    "Labdanum",
+    "Musk Ketone",
+    "Ambrettolide",
+    "Costus Olifac",
+    "Ethylene Brassylate",
+    "BHT (antioxidant)"
+  ],
+  "interpretation": "This signature detects structural-material and ordered-basket ontology reuse. It does not predict smelled similarity and does not prohibit ordinary workhorse materials; overlap is governed only as a structural-cluster risk under the deterministic donor-independence gate."
+}

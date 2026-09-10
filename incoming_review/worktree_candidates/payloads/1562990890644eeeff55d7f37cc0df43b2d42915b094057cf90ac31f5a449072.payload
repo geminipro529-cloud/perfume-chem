@@ -1,0 +1,151 @@
+{
+  "schema": "perfume-chem.inventory-overlay.v1",
+  "study_id": "ysl-lhomme-la-nuit-twenty-variant-study",
+  "frozen_inventory": {
+    "path": "D:\\chatbots\\perfume-chem\\inventory.txt",
+    "sha256": "DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC",
+    "read_at_utc": "2026-08-26T17:37:21.5521859Z"
+  },
+  "scope": {
+    "overrides": "physical availability and executable stock basis only",
+    "never_overrides": [
+      "target identity",
+      "target architecture",
+      "target ideal material choice",
+      "sensory evidence",
+      "safety or release authority"
+    ],
+    "precedence": "A direct, later user stock event overrides the frozen inventory roster for physical availability. Unknown stock concentration remains VERIFY_FIRST and cannot be guessed."
+  },
+  "events": [
+    {
+      "event_id": "USR-STOCK-MUSKS-2026-08-26",
+      "authority": "DIRECT_USER_THREAD_INSTRUCTION",
+      "effective_date": "2026-08-26",
+      "statement": "Treat Habanolide and Romandolide as owned, and Ambrettolide 10% as design-available but procurement-pending.",
+      "limits": "Possession does not establish Habanolide or Romandolide concentration basis. Ambrettolide remains unavailable to current builds."
+    },
+    {
+      "event_id": "USR-STOCK-EB-2026-08-26",
+      "authority": "DIRECT_USER_CONFIRMATION",
+      "effective_date": "2026-08-26",
+      "statement": "EB is here.",
+      "limits": "Repository references support a working neat w/w basis, but the container label or preparation receipt must be checked before physical compounding."
+    },
+    {
+      "event_id": "INV-STOCK-CEDRAT-2026-08-07",
+      "authority": "FROZEN_INVENTORY_USER_CONFIRMED_MARKER",
+      "effective_date": "2026-08-07",
+      "statement": "Cedrat FCF oil Sicilian is out of stock.",
+      "limits": "Cedrat identity may remain in TARGET / IDEAL; a current build must map or omit it with an explicit loss statement."
+    },
+    {
+      "event_id": "USR-STOCK-TINCTURES-2026-08-27",
+      "authority": "DIRECT_USER_CONFIRMATION",
+      "effective_date": "2026-08-27",
+      "statement": "All tinctures are lost.",
+      "limits": "Every tincture is out of stock, including any tincture discovered after this overlay was created. No current-inventory build may dose one."
+    }
+  ],
+  "global_rules": [
+    {
+      "selector": {
+        "preparation_form_casefold_contains": "tincture"
+      },
+      "status": "OUT_OF_STOCK",
+      "execution_state": "EXCLUDE_FROM_CURRENT_BUILD",
+      "authority_event_id": "USR-STOCK-TINCTURES-2026-08-27"
+    }
+  ],
+  "overrides": [
+    {
+      "inventory_name": "Ethylene Brassylate",
+      "roster_state": "MISSING_OWN_ROW",
+      "status": "OWNED",
+      "stock_form": "neat",
+      "concentration_basis": "w/w",
+      "stock_fraction": 1.0,
+      "carrier": null,
+      "current_build_design_state": "AVAILABLE_WITH_INVENTORY_DRIFT_CAVEAT",
+      "physical_compounding_state": "VERIFY_CONTAINER_LABEL_OR_RECEIPT_FIRST",
+      "authority_event_id": "USR-STOCK-EB-2026-08-26"
+    },
+    {
+      "inventory_name": "Habanolide",
+      "roster_state": "MISSING_OWN_ROW",
+      "status": "OWNED",
+      "stock_form": "UNRECORDED",
+      "concentration_basis": "UNRECORDED",
+      "stock_fraction": null,
+      "carrier": null,
+      "current_build_design_state": "VERIFY_FIRST",
+      "physical_compounding_state": "HOLD_UNTIL_STOCK_BASIS_RECEIPT",
+      "authority_event_id": "USR-STOCK-MUSKS-2026-08-26"
+    },
+    {
+      "inventory_name": "Romandolide",
+      "roster_state": "MISSING_OWN_ROW",
+      "status": "OWNED",
+      "stock_form": "UNRECORDED",
+      "concentration_basis": "UNRECORDED",
+      "stock_fraction": null,
+      "carrier": null,
+      "current_build_design_state": "VERIFY_FIRST",
+      "physical_compounding_state": "HOLD_UNTIL_STOCK_BASIS_RECEIPT",
+      "authority_event_id": "USR-STOCK-MUSKS-2026-08-26"
+    },
+    {
+      "inventory_name": "Ambrettolide (10% in DPG)",
+      "roster_state": "PRESENT_OUT_OF_STOCK",
+      "status": "OUT_OF_STOCK",
+      "stock_form": "solution",
+      "concentration_basis": "w/w",
+      "stock_fraction": 0.1,
+      "carrier": "DPG",
+      "target_design_state": "DESIGN_AVAILABLE_PROCUREMENT_PENDING",
+      "current_build_design_state": "EXCLUDE_FROM_CURRENT_BUILD",
+      "physical_compounding_state": "PROCUREMENT_REQUIRED",
+      "authority_event_id": "USR-STOCK-MUSKS-2026-08-26"
+    },
+    {
+      "inventory_name": "Cedrat FCF oil Sicilian",
+      "roster_state": "PRESENT_OUT_OF_STOCK",
+      "status": "OUT_OF_STOCK",
+      "stock_form": "neat_natural_mixture",
+      "concentration_basis": "w/w",
+      "stock_fraction": 1.0,
+      "carrier": null,
+      "target_design_state": "TARGET_FUNCTION_RETAINED_WHERE_REQUIRED",
+      "current_build_design_state": "MAP_OR_OMIT_WITH_LOSS_STATEMENT",
+      "physical_compounding_state": "PROCUREMENT_REQUIRED",
+      "authority_event_id": "INV-STOCK-CEDRAT-2026-08-07"
+    },
+    {
+      "inventory_name": "Vietnamese Benzoin Styrax Tonkinensis resin ethanol tincture (20%)",
+      "roster_state": "PRESENT_BUT_OVERRIDDEN_BY_LATER_USER_EVENT",
+      "status": "OUT_OF_STOCK",
+      "stock_form": "tincture",
+      "concentration_basis": "w/w",
+      "stock_fraction": 0.2,
+      "carrier": "ethanol",
+      "target_design_state": "TARGET_FUNCTION_ONLY_IF_UNIQUELY_REQUIRED",
+      "current_build_design_state": "EXCLUDE_FROM_CURRENT_BUILD",
+      "physical_compounding_state": "LOST",
+      "authority_event_id": "USR-STOCK-TINCTURES-2026-08-27"
+    },
+    {
+      "inventory_name": "Turkish Storax Liquidambar Orientalis resin ethanol tincture (20%)",
+      "roster_state": "PRESENT_BUT_OVERRIDDEN_BY_LATER_USER_EVENT",
+      "status": "OUT_OF_STOCK",
+      "stock_form": "tincture",
+      "concentration_basis": "w/w",
+      "stock_fraction": 0.2,
+      "carrier": "ethanol",
+      "target_design_state": "TARGET_FUNCTION_ONLY_IF_UNIQUELY_REQUIRED",
+      "current_build_design_state": "EXCLUDE_FROM_CURRENT_BUILD",
+      "physical_compounding_state": "LOST",
+      "authority_event_id": "USR-STOCK-TINCTURES-2026-08-27"
+    }
+  ],
+  "claim_ceiling": "This overlay records stock authority only. It does not prove material identity, condition, concentration, liking, similarity, stability, safety, or release readiness."
+}

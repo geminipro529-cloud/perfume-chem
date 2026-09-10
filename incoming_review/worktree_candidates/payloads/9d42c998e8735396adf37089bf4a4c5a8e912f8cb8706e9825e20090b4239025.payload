@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,0.9905
+identity_system_probability,1.0
+oav_probability,0.9905
+temporal_probability,1.0
+dominance_failure_probability,0.007399999999999962
+overall_probability,0.9831
+dose_closure_probability,0.9972
+temporal_q05,0.9567367334091569
+temporal_median,0.9839457260720565
+max_share_q95,0.5903606891534069
+marker_coverage_q05,0.7142857142857143
+phase_sum_q05,"{""top"": 8.436664894555037, ""heart"": 25.909542409975813, ""base"": 2.8545147932007446}"
+release_shape_median,"[0.2805323762703707, 0.26619178813888267, 0.30787449399777755, 0.1306712142327039]"
+phase_shape_median,"[0.17915867809311342, 0.3301257230548129, 0.4907324310401884]"
+marker_probabilities,"{""Blood Orange Oil Sicilian | top"": 0.9996, ""Bergamot FCF Oil Sicilian | top"": 1.0, ""Beta Damascone 10% | heart"": 1.0, ""Sandalore | heart"": 1.0, ""Cedarwood Virginia | base"": 0.973, ""Tonka Bean Absolute 10% | base"": 0.4761, ""Vanillin 10% | base"": 0.5604}"
+marker_quantiles,"{""Blood Orange Oil Sicilian | top"": [3.030207484184385, 8.363961892766323, 23.840879425858965], ""Bergamot FCF Oil Sicilian | top"": [3.4266818478515297, 9.718168187398515, 26.831217998498012], ""Beta Damascone 10% | heart"": [16.877424146145227, 46.82426166361816, 126.25280343023167], ""Sandalore | heart"": [3.7755920727484114, 9.85078845970023, 26.72141972481258], ""Cedarwood Virginia | base"": [1.1683061075648964, 3.1686079377418297, 8.576783490988847], ""Tonka Bean Absolute 10% | base"": [0.38724329013800396, 0.9681812202245392, 2.4423191154584214], ""Vanillin 10% | base"": [0.4166210102405328, 1.0898111776702728, 2.8998810967312805]}"
+classification,ROBUST

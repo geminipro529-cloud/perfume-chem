@@ -1,0 +1,114 @@
+# Perfume-Chem Quick Start
+
+Perfume-Chem uses an OpenAI-only backend and OpenAI ChatGPT/Codex-native
+development workflow. Local model code is limited to non-generative semantic
+embeddings and scientific computation; it is not a chat-provider fallback.
+
+## Prerequisites
+
+- Python supported by the project environment
+- Git
+- Poetry for the independent FastAPI backend
+- An OpenAI API key only when running API-backed features
+
+Codex development sessions and the application API are separate. Codex uses
+the signed-in Codex environment; the FastAPI application reads
+`OPENAI_API_KEY` from its process environment or untracked `.env` file.
+
+## 1. Prepare the engine environment
+
+From the repository root in PowerShell:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --upgrade pip
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+The root dependency set includes numerical/data libraries and the local
+non-generative knowledge-retrieval stack (`sentence-transformers` and FAISS).
+No local generative model weights or provider daemon are required.
+
+## 2. Configure the OpenAI backend
+
+For the root runner:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Edit the untracked `.env` and replace the placeholder values. The active
+provider contract is:
+
+```dotenv
+AI_PROVIDER=openai
+OPENAI_API_KEY=replace-with-your-openai-api-key
+OPENAI_MODEL=gpt-5.6-terra
+```
+
+Never commit `.env` or print a real key. The OpenAI SDK reads
+`OPENAI_API_KEY` from the environment, consistent with the
+[official OpenAI API quickstart](https://developers.openai.com/api/docs/quickstart).
+Check the [official model catalog](https://developers.openai.com/api/docs/models)
+before intentionally changing the configured model.
+
+## 3. Run the API
+
+From the repository root:
+
+```powershell
+.\.venv\Scripts\python.exe run_api_server.py
+```
+
+Or use the independent Poetry environment:
+
+```powershell
+Set-Location backend
+poetry install
+Copy-Item ..\.env.example .env
+poetry run uvicorn app.main:app --reload
+```
+
+The root engine environment and `backend/` Poetry environment are separate;
+install and test them independently.
+
+## 4. Work with Codex
+
+Open the repository as a Codex project and read `AGENTS.md` before making
+changes. Codex-native subagents may perform bounded independent reads or test
+review when useful, but the parent task retains final edits, verification, and
+scientific/release judgment.
+
+Do not activate instructions, launchers, caches, or setup guides that route
+repository work through another model provider. Historical artifacts are
+evidence only.
+
+## 5. Verify changes
+
+Engine and root tests, from the repository root:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest tests
+```
+
+Backend checks, in their required order:
+
+```powershell
+Set-Location backend
+poetry run ruff check app
+poetry run mypy app --ignore-missing-imports
+$env:OPENAI_API_KEY = "test-key"
+$env:SECRET_KEY = "test-secret-key-for-ci"
+poetry run pytest --cov=app --cov-report=term
+```
+
+Run the focused checks relevant to the change before broader verification. Use
+`scripts/pipeline_audit.py project-verify --quick --json` for a push-level
+decision and the full verifier only for merge, publication, or release work.
+
+## Scientific-use boundary
+
+Generated model text is not measured chemistry. Claims about composition,
+GC-MS, ODT, OAV, safety, physical performance, or sensory outcomes require the
+repository's applicable source provenance and validation gates. Never treat an
+AI-generated analytical result as experimental evidence.

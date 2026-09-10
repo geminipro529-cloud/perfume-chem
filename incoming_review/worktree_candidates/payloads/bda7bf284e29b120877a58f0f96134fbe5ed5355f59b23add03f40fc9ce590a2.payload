@@ -1,0 +1,63 @@
+# SUKHUM 35 — T3/T4 Computational Reconstruction Decision
+
+**Decision:** advance `S35-F2` only as the candidate for the first controlled physical test. Do not treat it as the most hedonic formula, a market winner, or a successful smell reconstruction. Physical liking and Thai-market response are `NOT TESTED`; safety, stability, and release remain `HOLD`.
+
+## Authority and Scope
+
+- Inventory authority: `inventory.txt` SHA-256 `EB33C04236A4640413BA5289125F04CFA278BD0614EB9BD12EA1CC4D88379967`.
+- Formula totals: 5,400 µL product-stock concentrate in a nominal 30 mL EdP for every arm.
+- Diagnostic basis: ppm-convertible label fractions, ODT/OAV, composite-natural handling where supported, five-window temporal evolution, and constant-total/nominal-active factorial guards.
+- Non-authority: generic hedonic scores, material counts, supplier prestige, and model gate totals do not prove physical liking, realism, safety, longevity, or market success.
+
+The complete current-inventory parse and new-material dispositions are recorded in [`../../../docs/research/2026-08-30-sukhum-35-new-inventory-reconstruction.md`](../../../docs/research/2026-08-30-sukhum-35-new-inventory-reconstruction.md). The preserved T3 predecessor remains in [`../../sukhum_35_t3/`](../../sukhum_35_t3/).
+
+## What the First Screen Found
+
+| Arm | Changed factor | Opening top OAV share | Opening vapor ppm | Drydown vapor ppm | Target-linked diagnosis |
+|---|---|---:|---:|---:|---|
+| S35-R1 | Neither | 9.1% | 49.5569 | 12.5072 | Qualified factor-off control |
+| S35-F2 | 10 µL Hexyl Acetate 10% replaces 10 µL ACP 10% | 11.2% | 50.6787 | 12.4870 | Bounded added fruit relief; selected for physical testing |
+| S35-D2 | 20 µL Juniper + 10 µL Petitgrain | 21.9% | 113.1002 | 12.9741 | Dry module is opening-heavy at this dose; reject dose, not materials |
+| S35-T4 | Both factors | 23.4% | 114.2095 | 12.9539 | Inherits the oversized dry module; not selected |
+
+The T3 predecessor had shown the same issue more severely for fruit: 100 µL of Hexyl Acetate 10% produced modeled Hexyl OAV around 5,761 and moved top share to 26.5%. T4 reduced Hexyl to the 10 µL direct-stock floor; modeled Hexyl OAV became about 578, below the main Hedione/Iso E field and below Cassis, Dihydrojasmone, and Red Mandarin, while the total opening changed only modestly.
+
+The Juniper/Petitgrain module did not pass the same proportionality check. Twenty µL neat Juniper modeled around OAV 3,520 and the module more than doubled opening vapor. That is useful early rejection: no physical material, panel time, or eight-hour trajectory should be spent on this dose.
+
+## Why S35-F2 Is the Diagnostic Selection
+
+S35-F2 changes one exact missing texture in the name-linked identity: pineapple relief. It does not add sweetness, a second musk, moss, vanilla, leather, incense, or a new superamber. It retains the established depth object—Dihydrojasmone transition, Iso E field, identifiable Virginia cedar, Indian vetiver/Vetival edges, Clearwood/patchouli rear plane, mineral Ambrox proxy, charcoal trace, and one Romandolide diffuser.
+
+This is precise simplicity. Adding another background material would not, by itself, create more complexity. The formula already contains foreground, relief, hinge, planes, rear texture, and temporal contrast; the next evidence gap is whether humans prefer the fruit relief.
+
+## Pipeline Holds
+
+All T4 arms remain pipeline `FAIL` for shared evidence reasons:
+
+1. `Grapefruit FCF oil Sicilian` is owned and selected, but its exact local record lacks MW/logP/VP/ODT support. Its zero/unknown OAV must not be interpreted as odorlessness.
+2. `Cassis Base 345B` is an opaque preblend and is blocked in commercial-trial mode. Its whole-base proxy cannot establish constituent OAV or safety.
+3. Preflight confidence remains uncalibrated and multiple materials lack explicit finished-product IFRA Cat 4 limits.
+
+These are release and interpretation failures, not sensory failures. The pipeline analyses are appended verbatim to each formula file.
+
+## Program Learnings: Speed, Discovery, and Effectiveness
+
+1. **Use a constant-total, active-matched screen before physical work.** It exposed the Hexyl and Juniper cliffs in minutes while preserving causal interpretability.
+2. **Use OAV to identify potency cliffs, then return to the name.** Hexyl at 100 µL stock and Juniper at 20 µL neat were numerically disproportionate to their target functions. The correction was dose reduction or rejection, not score chasing.
+3. **Separate data failure from perfume failure.** The first dry factor used Elemi/Cypress, but their missing physics made the result uninterpretable. The materials remain owned; only the tested computational conclusion was held.
+4. **Stage the physical experiment.** R1 versus F2 answers the immediate realism question with two arms instead of spending four preparations on a dry factor already rejected computationally.
+5. **Make the pipeline fail closed but runnable.** This task restored the public inventory canonicalizer, the `overlay_path=None` compatibility contract, legacy read-only stock metadata aliases, and separation of conflicting Heliotropin/Piperonal and Cedamber/Cedramber ODT identities.
+6. **Do not use the hedonic subscore as a selector.** R1, F2, D2, and T4 all scored 83.3 despite materially different opening architecture. That score had zero discriminatory authority here.
+7. **Preserve every predecessor.** T3 and T4 remain hashable diagnostic generations; the selected candidate is F2 rather than a silent rewrite of an earlier formula.
+
+## Physical Hedonic Test Boundary
+
+No physical hedonic test was performed. The next authorized experiment is defined in [`../testing/blind_protocol.json`](../testing/blind_protocol.json), but physical compounding remains blocked until the Hexyl Acetate 10% carrier identity is read from the bottle/preparation record and explicit physical authorization is given.
+
+The first test is `S35-R1` versus `S35-F2`, with two independent preparations per arm, AB/BA order, separate warm/humid and air-conditioned sessions, and complete trajectories at 0, 5, 30, 120, 240, and 480 minutes. Overall liking at 30 minutes is primary; pineapple realism and `SUKHUM` name fit are technical endpoints; apple/candy drift is a guardrail.
+
+If a later juniper experiment is desired, the target-equivalent neat dose is below the 10 µL direct-liquid floor. Prepare and label Juniper Berry EO 10% w/w in DPG first, then dose 10 µL of that stock for 1 nominal active µL. Do not direct-dose 1 µL neat.
+
+## XHigh Comparison
+
+`NOT RUN`. There is no same-formula, same-inventory, same-pipeline, same-protocol XHigh control and no blinded physical panel comparing outputs. Any claim that this is better than XHigh would be unsupported. A valid comparison requires frozen input authority, independent formula generation, identical stock rebasing, identical pipeline bytes, and the same blinded assessor protocol.

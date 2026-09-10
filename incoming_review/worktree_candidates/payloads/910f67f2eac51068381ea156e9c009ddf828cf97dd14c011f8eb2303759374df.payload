@@ -1,0 +1,249 @@
+{
+  "schema_version": "perfume_chem_external_capture_manifest_v1",
+  "recorded_at": "2026-08-24T03:27:36.355Z",
+  "state": "SOURCE_CAPTURE_PARTIAL_FOUR_EXACT_OF_FIVE_NOT_ADMITTED",
+  "source": {
+    "project_id": "g-p-6a74ab83668081919f5cbd0dfe80eb09",
+    "conversation_id": "6a888528-f430-83ec-b404-10371116c08c",
+    "conversation_title": "Hedonic Combination Ranking",
+    "request_turn_id": "96dcc9cb-7f9e-49a7-ba5a-6cc17cdd1f40",
+    "response_message_id": "d85d513e-9796-4a6d-8192-3a06b19a0804",
+    "retrieval_method": "EXACT_BASE64_TRANSPORT_WITH_ONE_TARGET_HASH_CONSTRAINED_SINGLE_BYTE_REPAIR"
+  },
+  "captured_artifacts": [
+    {
+      "content_reference_index": 13,
+      "file_name": "CITRUS_MODULE_OLD_VS_NEW_AUDIT_v1.csv",
+      "media_type": "text/csv",
+      "byte_size": 671,
+      "sha256": "5250fe20718e5e79d9b8992324981108aa6b868819d842f1a6b5081cbd8a4938",
+      "capture_path": "incoming_review/chatgpt/20260824T014622Z-citrus-complexity-lattice-v1-6a888528/CITRUS_MODULE_OLD_VS_NEW_AUDIT_v1.csv",
+      "current_target_hash_verified": true,
+      "line_endings": "LF",
+      "trailing_newline": true
+    },
+    {
+      "content_reference_index": 12,
+      "file_name": "00_INDEX.md",
+      "media_type": "text/markdown",
+      "byte_size": 2522,
+      "sha256": "e726b8e0b30cd8a169439b2754fd43c2722714988937e41f8855655a03dda878",
+      "capture_path": "incoming_review/chatgpt/20260824T014622Z-citrus-complexity-lattice-v1-6a888528/00_INDEX.md",
+      "current_target_hash_verified": true,
+      "line_endings": "LF",
+      "trailing_newline": true
+    },
+    {
+      "content_reference_index": 10,
+      "file_name": "CITRUS_COMPLEXITY_LATTICE_v1.md",
+      "media_type": "text/markdown",
+      "byte_size": 18272,
+      "sha256": "2c9e5e7d98f5df2b096922a994f44c2da1fa88cb84a93d32756331372d5e8b5c",
+      "capture_path": "incoming_review/chatgpt/20260824T014622Z-citrus-complexity-lattice-v1-6a888528/CITRUS_COMPLEXITY_LATTICE_v1.md",
+      "current_target_hash_verified": true,
+      "line_endings": "LF",
+      "trailing_newline": true,
+      "reconstruction_history": {
+        "returned_stream_path": "incoming_review/chatgpt/20260824T014622Z-citrus-complexity-lattice-v1-6a888528/CITRUS_COMPLEXITY_LATTICE_v1.RETURNED_STREAM_NONEXACT.md",
+        "returned_stream_byte_size": 18271,
+        "returned_stream_sha256": "cb4fdfc7b97674ecfe5284aafc99e209e7f70121ef489eba33a3bc3bb6ec5ebb",
+        "operation": "INSERT_SINGLE_BYTE",
+        "zero_based_byte_offset": 15789,
+        "inserted_byte_decimal": 101,
+        "inserted_byte_ascii": "e",
+        "acceptance_basis": "DECLARED_TARGET_LENGTH_AND_SHA256_EXACT_MATCH"
+      }
+    },
+    {
+      "content_reference_index": 11,
+      "file_name": "CITRUS_COMPLEXITY_LATTICE_v1.xlsx",
+      "media_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "byte_size": 27095,
+      "sha256": "3810a332251949aa409b6fea9de192ca63515b74a3712339c28fb21845b028a2",
+      "capture_path": "incoming_review/chatgpt/20260824T014622Z-citrus-complexity-lattice-v1-6a888528/CITRUS_COMPLEXITY_LATTICE_v1.xlsx",
+      "current_target_hash_verified": true,
+      "zip_crc_verified": true,
+      "zip_member_count": 18,
+      "workbook_sheet_count": 10,
+      "workbook_nonempty_cell_count": 1725,
+      "workbook_formula_cell_count": 116,
+      "reconstruction_history": {
+        "operation": "CONCATENATE_EXACT_BASE64_SLICES_AND_DECODE",
+        "base64_character_count": 36128,
+        "chunk_character_counts": [
+          8192,
+          8192,
+          8192,
+          8192,
+          3360
+        ],
+        "source_turn_ids": [
+          "d3f0b149-e526-4cc7-817e-7533616b52db",
+          "7f956d80-f17f-43f4-8fba-0e6b0027883a",
+          "5895525e-a4f3-47de-a8ce-71682ee40816",
+          "be55b92b-a06a-4c1b-ac77-a154bfd36e82",
+          "ee942465-09f9-4eb5-8e01-dd5a64bf5037"
+        ],
+        "acceptance_basis": "DECLARED_TARGET_LENGTH_AND_SHA256_EXACT_MATCH"
+      }
+    }
+  ],
+  "rejected_transport_artifacts": [
+    {
+      "content_reference_index": 10,
+      "file_name": "CITRUS_COMPLEXITY_LATTICE_v1.md",
+      "source_declared_byte_size": 18272,
+      "source_declared_sha256": "2c9e5e7d98f5df2b096922a994f44c2da1fa88cb84a93d32756331372d5e8b5c",
+      "returned_stream_byte_size": 18271,
+      "returned_stream_sha256": "cb4fdfc7b97674ecfe5284aafc99e209e7f70121ef489eba33a3bc3bb6ec5ebb",
+      "derived_review_path": "incoming_review/chatgpt/20260824T014622Z-citrus-complexity-lattice-v1-6a888528/CITRUS_COMPLEXITY_LATTICE_v1.RETURNED_STREAM_NONEXACT.md",
+      "state": "QUARANTINED_TARGET_LENGTH_AND_SHA256_MISMATCH",
+      "source_reconciliation": {
+        "original_bytes_accessible": true,
+        "returned_stream_is_exact_original": false,
+        "disposition": "RETURNED_STREAM_WRONG"
+      }
+    }
+  ],
+  "transport": {
+    "encoding": "RFC4648_BASE64",
+    "records": [
+      {
+        "content_reference_index": 13,
+        "base64_characters": 896,
+        "base64_ascii_sha256": "659e11c065fee3c7fb98205d24d9a2adead9a82a1d0c2b9b06dfa0b32ddc2be8"
+      },
+      {
+        "content_reference_index": 12,
+        "base64_characters": 3364
+      },
+      {
+        "content_reference_index": 10,
+        "base64_characters": 24364,
+        "base64_ascii_sha256": "2b835cfabd696a3dabb961a3c2e6b5b584307c6498d606f4cd163d27a4a1c64e",
+        "chunk_characters": [
+          8192,
+          8192,
+          7980
+        ],
+        "decoded_byte_size": 18271,
+        "decoded_sha256": "cb4fdfc7b97674ecfe5284aafc99e209e7f70121ef489eba33a3bc3bb6ec5ebb",
+        "source_target_verified": false
+      },
+      {
+        "content_reference_index": 11,
+        "base64_characters": 36128,
+        "base64_ascii_sha256": "05c43e9bf03f3eeb339dc3fffc1632f1f4eba6ca5e83f93a7852b7006991b4c8",
+        "chunk_characters": [
+          8192,
+          8192,
+          8192,
+          8192,
+          3360
+        ],
+        "chunk_ascii_sha256": [
+          "9ea7cfb927cc3cb749a2116c78c7fde2abf2a5bbde6bdbe9da5d88ce0a1c1c58",
+          "3aa3540240d1955117bc88a9c462efe8de524c78e14f3b265ea7d9919adcd1f8",
+          "6d2be7944cd478e12cb9e32b7cc377d1b6a734d8a6be1094d2ea18face8250a8",
+          "8f417cc98a355e38880706a4e0c268b0a450ba1a0102d8d9db3e10252f0d1fd6",
+          "2de95e0f8b507758ac0635b210428be158465bf699db9d3e7ce963ebfc9ad6ab"
+        ],
+        "decoded_byte_size": 27095,
+        "decoded_sha256": "3810a332251949aa409b6fea9de192ca63515b74a3712339c28fb21845b028a2",
+        "source_target_verified": true
+      }
+    ],
+    "decoded_bytes_match_source_declared_length": false,
+    "decoded_bytes_match_source_declared_sha256": false,
+    "exact_artifact_count": 4,
+    "all_accepted_artifacts_match_declared_identity": true,
+    "repaired_target_verified_count": 1,
+    "rejected_nonexact_stream_count": 1,
+    "byte_repair_applied": true,
+    "semantic_or_byte_normalization_applied": false
+  },
+  "remaining_content_references": [
+    {
+      "index": 9,
+      "file_name": "CITRUS_COMPLEXITY_LATTICE_v1_PACKAGE.zip",
+      "state": "MISSING"
+    }
+  ],
+  "local_workbook_review": {
+    "reviewed_source": "CITRUS_COMPLEXITY_LATTICE_v1.xlsx",
+    "claim_ceiling": "EXACT_SOURCE_REVIEW_NO_ADMISSION",
+    "zip_crc_state": "PASS",
+    "sheet_count": 10,
+    "nonempty_cell_count": 1725,
+    "formula_cell_count": 116,
+    "module_count": 8,
+    "module_arithmetic_state": "PASS_ALL_EIGHT",
+    "application_map_recipe_count": 10,
+    "application_dose_preservation_state": "PASS_ALL_TEN",
+    "controlled_test_count": 7,
+    "controlled_test_state": "NOT_RUN_ALL_SEVEN",
+    "physical_module_state": "NOT_YET_PREPARED",
+    "strict_empirical_oav_state": "NOT_TESTED",
+    "measured_headspace_state": "NOT_TESTED",
+    "hedonic_superiority_state": "NOT_TESTED"
+  },
+  "local_inventory_review": {
+    "inventory_path": "inventory.txt",
+    "inventory_updated": "2026-08-07",
+    "reviewed_source": "CITRUS_COMPLEXITY_LATTICE_v1.md",
+    "claim_ceiling": "EXACT_SOURCE_REVIEW_NO_ADMISSION",
+    "fully_buildable_modules": [
+      "CIT-C1"
+    ],
+    "blocked_modules": {
+      "CIT-C2": [
+        "Cedrat FCF oil Sicilian is OUT OF STOCK",
+        "Citral Natural identity is not established by the generic Citral inventory row",
+        "DEP is not listed as an available carrier for preparing the requested child stocks"
+      ],
+      "CIT-C3": [
+        "Ethyl Butyrate is absent; Ethyl 2-Methylbutyrate is non-equivalent",
+        "Cedrat FCF oil Sicilian is OUT OF STOCK",
+        "Paradisamide is listed only at 10%, not neat",
+        "Pink Pepper EO is absent",
+        "Methyl Pamplemousse carrier is unresolved in the source and is TEC in inventory"
+      ],
+      "CIT-C4": [
+        "Ethyl Butyrate is absent; Ethyl 2-Methylbutyrate is non-equivalent"
+      ],
+      "CIT-C5": [
+        "Cedrat FCF oil Sicilian is OUT OF STOCK",
+        "Citral Natural identity is not established by the generic Citral inventory row",
+        "DEP is not listed as an available carrier for preparing the requested child stocks"
+      ],
+      "CIT-A1": [
+        "DEP is not listed as an available carrier for preparing Methyl Anthranilate 10% in DEP"
+      ],
+      "CIT-A2": [
+        "Citral Natural identity is not established by the generic Citral inventory row",
+        "DEP is not listed as an available carrier for preparing the requested child stock"
+      ],
+      "CIT-A3": [
+        "Ethyl Linalool is absent",
+        "Fir Essential Oil is absent",
+        "Pink Pepper EO is absent",
+        "DEP is not listed as an available carrier for the requested child stocks",
+        "Coriander Seed EO to Coriander Essential Oil identity equivalence is not proven"
+      ]
+    }
+  },
+  "authority": {
+    "source_admission": false,
+    "module_installation": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "physical_execution": false,
+    "sensory": false,
+    "measured_headspace": false,
+    "oav": false,
+    "safety": false,
+    "publication": false,
+    "release": false
+  }
+}

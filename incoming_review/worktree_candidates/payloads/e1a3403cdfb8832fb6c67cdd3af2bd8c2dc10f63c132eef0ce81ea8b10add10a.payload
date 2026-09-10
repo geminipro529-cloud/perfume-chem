@@ -1,0 +1,136 @@
+# LNDL Luxe — Azulene Juniper Chiaroscuro V1 — 2 × 2 Factorial Blind Trial
+
+> **SUPERSEDED COMPUTATIONAL CANDIDATE / DO NOT COMPOUND AS THE PRIMARY TRIAL.** The governed V1 model assigned the shared 310 uL Ebanol replacement an opening OAV of 3,642.8, inconsistent with its intended quiet yielding-wood role. This protocol is preserved as failed-candidate provenance. Use the versioned V2 protocol after its independent verification; no physical test has been run.
+
+**Status:** `FUTURE CONTROLLED PHYSICAL PROTOCOL — NOT COMPOUNDED — NOT TESTED`  
+**Formula source:** `formulas/LNDL_Luxe_Azulene_Juniper_Chiaroscuro_DHP2025_V1_30mL_20pct_Development.md`  
+**Protected design source:** immutable Interiorized V6 at commit `123072da48688b075d185d90fe369b42e7ce5a3d`  
+**Purpose:** estimate Juniper main effect, Blue Chamomile main effect, and their interaction in one current-stock, target-faithful LNDL matrix.
+
+## Authority boundary
+
+The immutable V6 cannot be compounded exactly from current stock because Polysantol is depleted. Arm A is therefore a **predecessor-derived, stock-corrected baseline**, not a byte-exact or sensory-equivalent V6 recreation. All four arms use the same 310 uL Ebanol replacement, so the factorial estimates motif effects only inside that current Ebanol matrix.
+
+No formula has been physically compounded or smelled. The protocol does not establish safety, stability, similarity, liking, hedonism, or release. Skin testing is prohibited until a separate safety review clears the exact materials and dose.
+
+## Stock lineage and preparations
+
+Live inventory parsing resolves both source oils as owned, neat, carrier-free, and execution-ready. Their exact lot chemistry, density, oxidation state, safety data, and sensory quality remain unverified.
+
+1. **AJ-P1 — Juniper Berry EO 10% v/v in DPG**
+   - Measure 100 uL owned neat `Juniper Berry EO`.
+   - Add 900 uL DPG.
+   - Mix to 1,000 uL nominal 10% v/v stock.
+   - Label exact identity, bottle/lot, carrier, basis, concentration, date, and preparer.
+2. **AJ-P2 — Blue Chamomile EO 10% v/v in DPG**
+   - Measure 100 uL owned neat `Blue Chamomile EO`.
+   - Add 900 uL DPG.
+   - Mix to 1,000 uL nominal 10% v/v stock.
+   - Label exact identity, bottle/lot, carrier, basis, concentration, date, and preparer.
+
+Every source-oil measurement is 100 uL and every formula-slot aliquot is 20 uL, both above the 10 uL floor. Preparation is not authorized by this document.
+
+## Protected common matrix
+
+The common matrix contains every row and dose in the formula's current build except the two 20 uL motif slots. It totals exactly **5,960 uL** and is identical in every arm. Within that matrix:
+
+- Cardamom EO remains 230 uL.
+- Bontoux lavender remains 160 uL.
+- Coumarin 20% remains 300 uL; Tonkarome 20% w/w TEC remains 370 uL.
+- Cedarwood oil Virginia/Cedarwood EO/Indian Vetiver/Vetikon remain 500/345/290/170 uL.
+- Ebanol remains 310 uL as the common current replacement for depleted Polysantol.
+- Ethylene Brassylate remains the sole musk at 500 uL.
+- Benzyl Benzoate is 270 uL in every arm.
+
+No common-matrix row is adjusted between arms. Ingredient count is hidden from assessors.
+
+## Exact four-arm factorial
+
+| Arm | Juniper slot | Blue Chamomile slot | Raw total | Nominal active Juniper | Nominal active Blue Chamomile | Question |
+|---|---|---|---:|---:|---:|---|
+| A / 00 | 20 uL DPG | 20 uL DPG | 6,000 uL | 0.000 uL | 0.000 uL | predecessor-derived stock-corrected baseline |
+| B / 10 | 20 uL AJ-P1 | 20 uL DPG | 6,000 uL | 2.000 uL | 0.000 uL | Juniper main effect |
+| C / 01 | 20 uL DPG | 20 uL AJ-P2 | 6,000 uL | 0.000 uL | 2.000 uL | Blue Chamomile main effect |
+| D / 11 | 20 uL AJ-P1 | 20 uL AJ-P2 | 6,000 uL | 2.000 uL | 2.000 uL | full interaction candidate |
+
+Each factor-present slot contains 2 uL nominal active oil + 18 uL DPG. Each factor-absent slot contains 20 uL DPG. Thus the present/absent comparison changes exactly 2 uL of DPG to 2 uL nominal oil while preserving 20 uL raw slot volume.
+
+## Independent preparation requirement
+
+Prepare **at least two complete, independent 6,000 uL concentrate batches of each arm**. Do not make one common master and split it into pseudo-replicates. Each independent arm preparation must receive every ingredient separately from its labeled stock at the full formula scale; this is required because many protected trace rows are at the 10 uL measurement floor.
+
+For each completed 6,000 uL arm concentrate, withdraw 600 uL and combine with 2,400 uL ethanol 96% to create one 3 mL, 20% EdP evaluation bottle. Retain the remaining concentrate with its preparation ID for audit or later maturation comparison. Repeated blotters from one bottle are read replicates, not independent compounding replicates.
+
+If material use is too high for two independent full-scale sets, the experiment is `HOLD — UNDERPOWERED PREPARATION DESIGN`; do not silently scale below measurable aliquots or call same-master pours independent.
+
+## Coding, counterbalancing, and serving
+
+- Assign each physical bottle a randomized three-character code generated after compounding.
+- Keep factor mapping in a sealed key inaccessible during evaluation.
+- Use a balanced Latin-square serving order across four assessors or four separated sessions: `A-B-D-C`, `B-C-A-D`, `C-D-B-A`, `D-A-C-B`, translated to anonymous codes.
+- Equalize application mass, blotter type, room, temperature, and evaluation timing.
+- If the formulator can infer a code, classify the evidence `PARTIALLY BLINDED`.
+- Record free description before any numerical score or discussion.
+
+## Evaluation schedule
+
+Evaluate at 0, 5, 30, and 120 minutes, then 6 and 24 hours. Do not compare skin until the separate safety gate is passed.
+
+## Ballot
+
+Score each axis independently from 0 to 10. Do not calculate a hidden synthetic quality score before reviewing free descriptions.
+
+| Criterion | Question |
+|---|---|
+| LNDL target fidelity | Is the sample recognizably a cardamom-led La Nuit nocturne rather than generic aromatic fougere? |
+| Opening pleasure | Is the first impression pleasurable and inviting rather than sharp, medicinal, or cleaner-like? |
+| Cardamom clarity | Does cardamom remain the capsule leader? |
+| Lavender hinge control | Does lavender connect shell and interior without detergent or barbershop takeover? |
+| Juniper definition | Is there cool dry berry/conifer definition without gin, pine, or cleaner recognition? |
+| Blue-chamomile shadow | Is there a subtle sweet-herbaceous/azulenic depth without medicinal tea, bitterness, mud, rose, or tobacco recognition? |
+| Nocturnal depth | Does the heart feel darker and more intimate without simply becoming heavier? |
+| Richness | Are there more pleasurable relations and textures rather than more named notes? |
+| Transition quality | Does the capsule move continuously into the coumarinic/violet/wood interior? |
+| Drydown pleasure | Is the cedar/vetiver/Ebanol/EB residue pleasurable and identity-bearing? |
+| Overall liking | Which sample is most liked, independent of fidelity or intensity? |
+| Re-smell desire | Which sample invites another smell? |
+
+Score defects separately: gin; pine cleaner; aromatic-fougere takeover; medicinal; bitter herbal; mud; rosy-species floral; tobacco takeover; lavender detergent; cardamom loss; pastry/candy; lipstick iris; leather; woody-amber wall; harshness; fatigue; intensity imbalance.
+
+## Factorial inference
+
+For every scored axis and each independent preparation set:
+
+```text
+Juniper main effect = ((B + D) - (A + C)) / 2
+Blue-Chamomile main effect = ((C + D) - (A + B)) / 2
+Additive expectation for D = B + C - A
+Interaction = D - B - C + A
+```
+
+- A B-versus-A difference tests Juniper only under this dose and matrix.
+- A C-versus-A difference tests Blue Chamomile only under this dose and matrix.
+- D-versus-A does **not** prove synergy.
+- The pair may be described as a positive interaction only when the full four-arm interaction term is directionally favorable on target-linked pleasure/depth/transition axes in both independent preparation sets, and D does not worsen takeover defects beyond the declared tolerance.
+- Discordant preparation sets are `HOLD`; do not average them into a winner before auditing compounding, order, and intensity.
+- A null result means `NO DETECTED EFFECT AT THIS DOSE / PROTOCOL`, not universal dormancy.
+
+## Hedonic advancement rule
+
+The combination advances only if:
+
+1. LNDL target fidelity remains at least 6/10 and no more than one point below A.
+2. D is not lower than A on overall liking or drydown pleasure in either independent preparation set.
+3. D improves at least two of opening pleasure, nocturnal depth, richness, transition quality, drydown pleasure, or re-smell desire by at least one point beyond the additive expectation.
+4. No medicinal, gin, pine-cleaner, muddy, tobacco, or aromatic-fougere-takeover defect rises by more than one point versus the worst single-factor arm.
+5. Perceived intensity differs by no more than one point; otherwise intensity-match and repeat.
+
+If D fails, preserve the result as a failed candidate. If B or C alone is more liked while preserving identity, retain that single-material direction. If neither single factor improves the perfume, reject the motif rather than forcing it.
+
+## Record sheet
+
+For every bottle record: preparation set, preparer, date/time, source stock IDs, working-stock IDs, measured aliquots, concentrate subtotal, ethanol addition, final code, serving order, blotter lot, application mass, room temperature, evaluator, time window, free description, scores, and any protocol deviation.
+
+## Claim ceiling
+
+This protocol can generate scoped blinded evidence only after physical execution. Until then, all sensory, similarity, hedonic, stability, safety, performance, and release claims remain `NOT TESTED / HOLD`.

@@ -1,0 +1,325 @@
+import hashlib
+import json
+from pathlib import Path
+
+import pytest
+
+from engine.inventory_parser import (
+    CURRENT_INVENTORY_SNAPSHOT_PATH,
+    inventory_counts,
+    load_current_inventory_snapshot,
+    load_current_user_inventory_overlay,
+    parse_inventory,
+)
+from engine.name_utils import normalize_name
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+INVENTORY = PROJECT_ROOT / "inventory.txt"
+AUTHORITY_RECEIPT = PROJECT_ROOT / "docs" / "research" / "INVENTORY_STOCK_AUTHORITY_2026-08-30.md"
+SYNC_MANIFEST = PROJECT_ROOT / "data" / "governance" / "inventory_worktree_sync_20260830.json"
+SYNC_SUCCESSOR = PROJECT_ROOT / "data" / "governance" / "inventory_worktree_sync_20260831.json"
+SYNC_LATEST_HISTORICAL_SUCCESSOR = (
+    PROJECT_ROOT / "data" / "governance" / "inventory_worktree_sync_20260831_003.json"
+)
+SYNC_PREVIOUS_SUCCESSOR = (
+    PROJECT_ROOT / "data" / "governance" / "inventory_worktree_sync_20260904_004.json"
+)
+SYNC_CURRENT_SUCCESSOR = (
+    PROJECT_ROOT / "data" / "governance" / "inventory_worktree_sync_20260904_005.json"
+)
+UNOBSERVED_20260901_004 = (
+    PROJECT_ROOT / "data" / "governance" / "inventory_worktree_sync_20260901_004.json"
+)
+
+
+def _normalized_text_bytes(path: Path) -> bytes:
+    return path.read_bytes().replace(b"\r\n", b"\n")
+
+
+def _normalized_file_record(path: Path) -> tuple[int, str]:
+    content = _normalized_text_bytes(path)
+    return len(content), hashlib.sha256(content).hexdigest()
+
+
+def _raw_file_record(path: Path) -> tuple[int, str]:
+    content = path.read_bytes()
+    return len(content), hashlib.sha256(content).hexdigest()
+
+
+def _records(*, include_unavailable: bool = True):
+    return parse_inventory(
+        INVENTORY,
+        unique=False,
+        include_solvents=True,
+        include_unavailable=include_unavailable,
+    )
+
+
+def test_consolidated_inventory_has_declared_stock_row_count():
+    assert inventory_counts(INVENTORY)["raw_entries"] == 281
+
+
+@pytest.mark.parametrize(
+    ("name", "dilution"),
+    (
+        ("Parmavert", 1.0),
+        ("Cedrat FCF oil Sicilian", 1.0),
+        ("Ambrettolide", 0.10),
+        ("Habanolide", 1.0),
+        ("Romandolide", 1.0),
+        ("Diethyl Phthalate", 1.0),
+        ("Cinnamon Bark EO - Telvada USDA Organic", 1.0),
+    ),
+)
+def test_reconfirmed_stocks_are_present_and_owned(name, dilution):
+    matches = [record for record in _records() if record.name == name]
+    assert matches
+    assert any(record.status == "owned" for record in matches)
+    assert any(record.dilution == pytest.approx(dilution) for record in matches)
+
+
+def test_ambrofix_crystals_are_owned_but_volume_execution_is_held():
+    crystals = next(record for record in _records() if record.name == "Ambrofix Crystals")
+    assert crystals.status == "owned_non_executable"
+    assert crystals.dilution == pytest.approx(1.0)
+    assert crystals.fraction_basis == "neat"
+    assert crystals.execution_ready is False
+    assert crystals.execution_hold_reason == "LEGACY_TEXT_CURRENT_STOCK_HOLD"
+
+
+def test_evernyl_keeps_current_historical_and_solid_stocks_distinct():
+    evernyl = [record for record in _records() if record.name == "Evernyl"]
+    crystals = next(row for row in evernyl if row.raw_name.startswith("Evernyl (crystals)"))
+    historical = next(row for row in evernyl if row.raw_name.startswith("Evernyl (20% w/w in DPG)"))
+    current = next(row for row in evernyl if row.raw_name.startswith("Evernyl (10% w/w in DEP)"))
+
+    assert (crystals.status, crystals.dilution) == ("owned", pytest.approx(1.0))
+    assert (
+        historical.status,
+        historical.dilution,
+        historical.fraction_basis,
+        historical.carrier,
+    ) == (
+        "superseded_current_stock",
+        pytest.approx(0.20),
+        "mass_fraction",
+        "dpg",
+    )
+    assert historical.execution_ready is False
+    assert historical.execution_hold_reason == "SUPERSEDED_CURRENT_STOCK_PROVENANCE_ONLY"
+    assert (current.status, current.dilution, current.fraction_basis, current.carrier) == (
+        "owned",
+        pytest.approx(0.10),
+        "mass_fraction",
+        "dep",
+    )
+    assert current.execution_ready is True
+    assert historical.raw_name not in {row.raw_name for row in _records(include_unavailable=False)}
+
+
+@pytest.mark.parametrize(
+    ("name", "status"),
+    (
+        ("Galbanum EO", "out_of_stock"),
+        ("Polysantol", "depleted"),
+        ("Nagarmortha Oil", "depleted"),
+        ("Gamma Decalactone", "out_of_stock"),
+    ),
+)
+def test_latest_unavailable_and_depleted_authority_is_preserved(name, status):
+    row = next(record for record in _records() if record.name == name)
+    assert row.status == status
+    assert row.execution_ready is False
+
+
+def test_benzyl_salicylate_is_back_in_stock_neat() -> None:
+    row = next(record for record in _records() if record.name == "Benzyl Salicylate")
+    assert (row.status, row.dilution, row.fraction_basis, row.carrier) == (
+        "owned",
+        pytest.approx(1.0),
+        "neat",
+        "",
+    )
+    assert row.execution_ready is True
+
+
+def test_v7_recovered_working_stocks_remain_w_w_and_carrier_held():
+    expected = {
+        "Liffarome": 0.10,
+        "Cis-3-Hexenyl Salicylate": 0.20,
+        "Caryophyllene Acetate": 0.20,
+    }
+    for name, fraction in expected.items():
+        row = next(record for record in _records() if record.name == name)
+        assert row.status == "owned"
+        assert row.dilution == pytest.approx(fraction)
+        assert row.fraction_basis == "mass_fraction"
+        assert row.execution_ready is False
+        assert row.execution_hold_reason == "CARRIER_UNSPECIFIED"
+
+
+def test_aliases_do_not_collapse_telvada_into_other_cinnamon_stocks():
+    assert normalize_name("Evernyl (20% w/w in DPG)") == "evernyl"
+    assert normalize_name("Evernyl (10% w/w in DEP)") == "evernyl"
+    assert normalize_name("Cinnamon Bark EO (Telvada)") == (
+        "cinnamon bark eo - telvada usda organic"
+    )
+    assert normalize_name("Cinnamon Bark EO - Telvada USDA Organic (neat)") == (
+        "cinnamon bark eo - telvada usda organic"
+    )
+    assert normalize_name("Cinnamon Bark EO (10%; NYSUPPLY)") != (
+        "cinnamon bark eo - telvada usda organic"
+    )
+
+
+def test_existing_hash_pinned_overlay_remains_bound_to_live_inventory():
+    overlay = load_current_user_inventory_overlay()
+    assert overlay["authority"] == "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY"
+
+
+def test_pinned_v5_snapshot_accepts_git_checkout_line_endings(tmp_path):
+    """The committed LF payload remains identical after a Windows CRLF checkout."""
+
+    committed_bytes = CURRENT_INVENTORY_SNAPSHOT_PATH.read_bytes().replace(b"\r\n", b"\n")
+    windows_checkout = tmp_path / CURRENT_INVENTORY_SNAPSHOT_PATH.name
+    windows_checkout.write_bytes(committed_bytes.replace(b"\n", b"\r\n"))
+
+    payload = load_current_inventory_snapshot(windows_checkout)
+
+    assert payload["authority"] == "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT"
+
+
+def test_sync_manifests_preserve_the_historical_hash_chain():
+    payload = json.loads(SYNC_MANIFEST.read_text(encoding="utf-8"))
+    successor = json.loads(SYNC_SUCCESSOR.read_text(encoding="utf-8"))
+    latest_historical = json.loads(SYNC_LATEST_HISTORICAL_SUCCESSOR.read_text(encoding="utf-8"))
+    assert payload["sync_id"] == "INVENTORY-WORKTREE-SYNC-20260830-001"
+    assert successor["sync_id"] == "INVENTORY-WORKTREE-SYNC-20260831-002"
+    assert latest_historical["sync_id"] == "INVENTORY-WORKTREE-SYNC-20260831-003"
+    assert latest_historical["hash_policy"] == {
+        "text_normalization": "CRLF_TO_LF",
+        "size_bytes": "NORMALIZED_TEXT_BYTES",
+        "sha256": "NORMALIZED_TEXT_BYTES",
+        "bare_cr": "HASH_SIGNIFICANT_NOT_NORMALIZED",
+    }
+    parent_bytes = SYNC_MANIFEST.read_bytes().replace(b"\r\n", b"\n")
+    assert successor["parent"]["sha256"] == hashlib.sha256(parent_bytes).hexdigest()
+    successor_bytes = SYNC_SUCCESSOR.read_bytes().replace(b"\r\n", b"\n")
+    assert latest_historical["parent"] == {
+        "path": "data/governance/inventory_worktree_sync_20260831.json",
+        "sha256": hashlib.sha256(successor_bytes).hexdigest(),
+    }
+    successor_superseded = {
+        record["path"]: record for record in successor["superseded_compatibility_files"]
+    }
+    latest_superseded = {record["path"]: record for record in latest_historical["superseded_files"]}
+    for group in (
+        "current_authority_files",
+        "frozen_evidence_files",
+        "compatibility_files",
+    ):
+        for record in payload[group]:
+            replacement = successor_superseded.get(record["path"])
+            if replacement is None:
+                replacement = latest_superseded.get(record["path"])
+            if replacement is not None:
+                assert replacement["prior_sha256"] == record["sha256"]
+                continue
+            path = PROJECT_ROOT / record["path"]
+            content = path.read_bytes()
+            if path.suffix.lower() == ".xlsx":
+                assert path.stat().st_size == record["size_bytes"]
+            else:
+                # Git may materialize text as CRLF or LF according to the
+                # target worktree's attributes. The committed blob content is
+                # authoritative; normalize checkout line endings only for the
+                # transport-integrity comparison.
+                content = content.replace(b"\r\n", b"\n")
+            assert hashlib.sha256(content).hexdigest() == record["sha256"]
+
+    for record in successor["successor_compatibility_files"]:
+        replacement = latest_superseded.get(record["path"])
+        if replacement is not None:
+            assert replacement["prior_sha256"] == record["sha256"]
+            continue
+        path = PROJECT_ROOT / record["path"]
+        content = path.read_bytes().replace(b"\r\n", b"\n")
+        assert len(content) == record["size_bytes"]
+        assert hashlib.sha256(content).hexdigest() == record["sha256"]
+
+    current_files = latest_historical["current_files"]
+    assert len({record["path"] for record in current_files}) == len(current_files)
+    for record in current_files:
+        assert (PROJECT_ROOT / record["path"]).exists()
+        assert record["size_bytes"] > 0
+        assert len(record["sha256"]) == 64
+    assert latest_historical["mutation_policy"]["parent_receipt_rewritten"] is False
+    assert latest_historical["mutation_policy"]["predecessor_overlay_rewritten"] is False
+    assert latest_historical["mutation_policy"]["historical_formula_bytes_rewritten"] is False
+
+
+def test_20260904_current_receipt_extends_the_previous_20260904_receipt():
+    parent = json.loads(SYNC_PREVIOUS_SUCCESSOR.read_text(encoding="utf-8"))
+    current = json.loads(SYNC_CURRENT_SUCCESSOR.read_text(encoding="utf-8"))
+
+    parent_size, parent_sha256 = _normalized_file_record(SYNC_PREVIOUS_SUCCESSOR)
+    assert parent["sync_id"] == "INVENTORY-WORKTREE-SYNC-20260904-004"
+    assert current["sync_id"] == "INVENTORY-WORKTREE-SYNC-20260904-005"
+    assert current["parent"] == {
+        "path": "data/governance/inventory_worktree_sync_20260904_004.json",
+        "size_bytes": parent_size,
+        "sha256": parent_sha256,
+    }
+
+    assert not UNOBSERVED_20260901_004.exists()
+    assert parent["lineage_observation"]["seal_fabricated"] is False
+
+
+def test_20260904_receipt_replays_current_normalized_hash_pins_and_ceilings():
+    current = json.loads(SYNC_CURRENT_SUCCESSOR.read_text(encoding="utf-8"))
+    assert current["hash_policy"] == {
+        "text_normalization": "CRLF_TO_LF",
+        "size_bytes": "NORMALIZED_TEXT_BYTES",
+        "sha256": "NORMALIZED_TEXT_BYTES",
+        "bare_cr": "HASH_SIGNIFICANT_NOT_NORMALIZED",
+    }
+
+    records = {record["path"]: record for record in current["current_files"]}
+    assert set(records) == {
+        "inventory.txt",
+        "data/governance/inventory_user_authority_overlay_20260904_002.json",
+        "engine/inventory_parser.py",
+        "engine/pipeline/preflight.py",
+    }
+    for relative_path, record in records.items():
+        path = PROJECT_ROOT / relative_path
+        size_bytes, sha256 = _normalized_file_record(path)
+        assert record["size_bytes"] == size_bytes
+        assert record["sha256"] == sha256
+        assert record["normalization"] == "CRLF_TO_LF"
+
+    assert current["mutation_policy"] == {
+        "receipt_only": True,
+        "parent_receipt_rewritten": False,
+        "predecessor_overlays_rewritten": False,
+        "historical_formula_bytes_rewritten": False,
+        "historical_provenance_preserved": True,
+        "formula_rebase_authorized": False,
+        "general_substitution_authorized": False,
+    }
+    assert current["authority_limits"]
+    assert set(current["authority_limits"].values()) == {False}
+
+
+def test_authority_receipt_preserves_formula_and_claim_boundaries():
+    text = AUTHORITY_RECEIPT.read_text(encoding="utf-8").casefold()
+    for phrase in (
+        "279 stock rows",
+        "do not silently rebase",
+        "target / ideal",
+        "current-inventory build",
+        "not tested / hold",
+        "does not inherit",
+        "not yet prepared",
+    ):
+        assert phrase in text

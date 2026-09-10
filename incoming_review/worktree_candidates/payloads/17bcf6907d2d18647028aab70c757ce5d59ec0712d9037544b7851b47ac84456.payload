@@ -1,0 +1,230 @@
+import hashlib
+import re
+from decimal import Decimal
+from pathlib import Path
+
+import pytest
+
+from engine.inventory_parser import (
+    load_current_user_inventory_overlay,
+    parse_current_inventory,
+)
+from scripts.verify_formula_workflow import parse_formula_markdown
+
+ROOT = Path(__file__).resolve().parents[1]
+F2_PATH = (
+    ROOT
+    / "formulas"
+    / "sukhum_35_t4"
+    / "S35-F2_Realistic_Fruit_Minimum_Arm_30mL_EdP.md"
+)
+F3_PATH = (
+    ROOT
+    / "formulas"
+    / "sukhum_35_t4"
+    / "S35-F3_Ambrofix_Saturated_Mass_Rebase_30mL_EdP.md"
+)
+PROTOCOL_PATH = (
+    ROOT
+    / "formulas"
+    / "sukhum_35_t4"
+    / "S35-F3_Numbered_Basket_Mixing_Protocol_v1.md"
+)
+INVENTORY_PATH = ROOT / "inventory.txt"
+FROZEN_INVENTORY_SHA256 = (
+    "6745156000796FA3ABE7072ACB0629C0C63F56B5AD7AB94714B086A941234079"
+)
+
+
+def _number(value: str) -> Decimal:
+    return Decimal(value.replace(",", "").replace("*", "").strip())
+
+
+def _formula_rows(path: Path) -> dict[str, tuple[str, Decimal, Decimal, Decimal]]:
+    text = path.read_text(encoding="utf-8")
+    current = text.split("### Liquid product-stock rows", 1)[1].split(
+        "### Weighed saturated-Ambrofix row", 1
+    )[0]
+    rows: dict[str, tuple[str, Decimal, Decimal, Decimal]] = {}
+    for line in current.splitlines():
+        if not line.startswith("|"):
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if len(cells) != 7 or not re.fullmatch(r"[\d,]+(?:\.\d+)?", cells[2]):
+            continue
+        rows[cells[0]] = (
+            cells[1],
+            _number(cells[2]),
+            _number(cells[3]),
+            _number(cells[5]),
+        )
+
+    return rows
+
+
+def _f2_formula_rows() -> dict[str, tuple[str, Decimal, Decimal, Decimal]]:
+    text = F2_PATH.read_text(encoding="utf-8")
+    current = text.split("## CURRENT-INVENTORY BUILD", 1)[1].split(
+        "## Factor Role", 1
+    )[0]
+    rows: dict[str, tuple[str, Decimal, Decimal, Decimal]] = {}
+    for line in current.splitlines():
+        if not line.startswith("|"):
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if len(cells) != 7 or not re.fullmatch(r"[\d,]+(?:\.\d+)?", cells[2]):
+            continue
+        rows[cells[0]] = (
+            cells[1],
+            _number(cells[2]),
+            _number(cells[3]),
+            _number(cells[5]),
+        )
+    return rows
+
+
+def _protocol_rows() -> list[dict[str, str | Decimal]]:
+    rows: list[dict[str, str | Decimal]] = []
+    for line in PROTOCOL_PATH.read_text(encoding="utf-8").splitlines():
+        if not line.startswith("|"):
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if len(cells) != 9 or not re.fullmatch(r"B\d{2}-\d{2}", cells[0]):
+            continue
+        rows.append(
+            {
+                "step": cells[0],
+                "basket": int(cells[0][1:3]),
+                "material": cells[2],
+                "stock": cells[3],
+                "raw_ul": None if cells[4] == "—" else _number(cells[4]),
+                "stock_mass_g": None if cells[5] == "—" else _number(cells[5]),
+                "active_ul": None if cells[6] == "HOLD" else _number(cells[6]),
+                "active_mass_g": None if cells[7] == "HOLD" else _number(cells[7]),
+                "running_liquid_ul": _number(cells[8]),
+            }
+        )
+    return rows
+
+
+def test_current_inventory_supersedes_the_frozen_f3_ambrofix_stock_authority():
+    overlay = load_current_user_inventory_overlay()
+    authority = {record["canonical_name"]: record for record in overlay["records"]}
+    records = parse_current_inventory(unique=False, include_unavailable=True)
+    ambrofix = [record for record in records if record.identity_name == "Ambrofix"]
+    crystals = [record for record in records if record.name == "Ambrofix Crystals"]
+
+    assert authority["Ambrofix"]["state"] == "UNAVAILABLE"
+    assert authority["Ambrofix"]["stock"] is None
+    assert authority["Ambrofix"]["authority_limits"]["currently_available"] is False
+    assert [(record.name, record.status, record.execution_ready) for record in ambrofix] == [
+        ("Ambrofix 30%", "gap", False),
+        ("Ambrofix 40%", "gap", False),
+    ]
+
+    assert authority["Ambrofix Crystals"]["state"] == "OWNED"
+    assert authority["Ambrofix Crystals"]["stock"] == {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_DISTINCT_SOLID_STOCK_CARRY_FORWARD",
+        "execution_ready": False,
+        "execution_hold_reason": "SOLID_STOCK_VOLUME_DOSING_UNBOUND",
+    }
+    assert len(crystals) == 1
+    assert crystals[0].status == "owned"
+    assert crystals[0].dilution == pytest.approx(1.0)
+    assert crystals[0].fraction_basis == "neat"
+    assert crystals[0].execution_ready is False
+    assert crystals[0].execution_hold_reason == "SOLID_STOCK_VOLUME_DOSING_UNBOUND"
+
+
+def test_f3_replaces_ambrox_with_the_whole_saturated_stock_without_redosing_other_odorants():
+    f2 = {name: float(values[1]) for name, values in _f2_formula_rows().items()}
+    f3 = _formula_rows(F3_PATH)
+    f3_liquids = {name: float(values[1]) for name, values in f3.items()}
+
+    assert "Ambrox Super" not in f3_liquids
+    assert "Ambrofix" not in f3_liquids
+    # The parser can represent only the liquid-product rows. It must not
+    # invent a uL or active-uL value for the separately weighed Ambrofix row.
+    assert f3_liquids == pytest.approx(
+        {name: amount for name, amount in f2.items() if name != "Ambrox Super"}
+    )
+    assert sum(f3_liquids.values()) == pytest.approx(4800.0)
+    assert min(f3_liquids.values()) >= 10.0
+
+    text = F3_PATH.read_text(encoding="utf-8")
+    assert "| Ambrofix | saturated solution" in text
+    assert "| **2.640 g** | **0.192 g** |" in text
+    assert "0.198 g" in text
+    assert "3.0%" in text
+    assert "ethanol 96% q.s. to 30.00 mL" in text
+    assert "Ambrofix and Ambrox Super are distinct products" in text
+    assert "Direct Benzyl Salicylate" in text and "0 µL" in text
+
+
+def test_shared_parser_does_not_invent_a_volume_for_the_weighed_f3_row():
+    parsed = parse_formula_markdown(F3_PATH)
+    assert not parsed or "Ambrofix" not in parsed[0]["ingredients_ul"]
+
+
+def test_f3_protocol_contains_every_source_material_once_in_numbered_basket_order():
+    liquid_rows = _formula_rows(F3_PATH)
+    protocol = _protocol_rows()
+    names = [str(row["material"]) for row in protocol]
+
+    assert len(names) == 24
+    assert len(names) == len(set(names))
+    assert set(names) == {*liquid_rows, "Ambrofix"}
+    assert [int(row["basket"]) for row in protocol] == sorted(
+        int(row["basket"]) for row in protocol
+    )
+
+    ambrofix = next(row for row in protocol if row["material"] == "Ambrofix")
+    assert ambrofix["basket"] == 1
+    assert ambrofix["stock"] == "saturated solution"
+    assert ambrofix["raw_ul"] is None
+    assert ambrofix["stock_mass_g"] == Decimal("2.640")
+    assert ambrofix["active_ul"] is None
+    assert ambrofix["active_mass_g"] == Decimal("0.192")
+
+    liquid_protocol = {
+        str(row["material"]): (
+            str(row["stock"]),
+            Decimal(row["raw_ul"]),
+            Decimal(row["active_ul"]),
+        )
+        for row in protocol
+        if row["raw_ul"] is not None
+    }
+    assert set(liquid_protocol) == set(liquid_rows)
+    for name, (stock, raw_ul, active_ul) in liquid_protocol.items():
+        expected_stock, expected_raw_ul, expected_active_ul, _ = liquid_rows[name]
+        assert stock == expected_stock
+        assert raw_ul == expected_raw_ul
+        assert active_ul == expected_active_ul
+
+    assert sum(
+        Decimal(row["raw_ul"])
+        for row in protocol
+        if row["raw_ul"] is not None
+    ) == Decimal("4800")
+    assert protocol[-1]["running_liquid_ul"] == Decimal("4800")
+
+
+def test_f3_protocol_is_hash_bound_and_preserves_the_quantitation_holds():
+    text = PROTOCOL_PATH.read_text(encoding="utf-8")
+    formula_sha = hashlib.sha256(F3_PATH.read_bytes()).hexdigest().upper()
+    current_inventory_sha = hashlib.sha256(
+        INVENTORY_PATH.read_bytes()
+    ).hexdigest().upper()
+
+    assert formula_sha in text
+    assert current_inventory_sha != FROZEN_INVENTORY_SHA256
+    assert FROZEN_INVENTORY_SHA256 in text
+    assert "Basket 1" in text and "Basket 17" in text
+    assert "MASS DOSE ONLY" in text
+    assert "Do not convert 2.640 g to µL" in text
+    assert "strict Ambrofix ppm and OAV remain HOLD" in text
+    assert "No physical liking, similarity, performance, safety, stability" in text

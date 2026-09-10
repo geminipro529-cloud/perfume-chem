@@ -1,0 +1,316 @@
+"""Bounded compatibility contract for the imported LNDL LN-01 successor.
+
+The source test covered a complete ten-arm L'Homme/LNDL study. This unified
+package intentionally imports only the LN-01 Coriander Silk successor and its
+adapted test. These checks validate that exact admitted artifact, its embedded
+lineage records, the destination's current fail-closed preflight schema, and the
+declared exclusions. They do not manufacture sibling arms, generated pipeline
+bundles, a blind guide, or a donor-independence PASS.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import json
+import re
+from pathlib import Path
+
+import pytest
+
+from engine.pipeline.formula_state import build_formula_state
+from engine.pipeline.preflight import run_release_preflight
+from scripts.verify_formula_workflow import parse_formula_markdown
+
+ROOT = Path(__file__).resolve().parents[1]
+FORMULA = (
+    ROOT
+    / "formulas"
+    / "LNDL_Luxe_Coriander_Silk_Polished_Seed_Wood_DHP2025_V1_30mL_20pct_Development.md"
+)
+IMPORT_MANIFEST = ROOT / "data" / "governance" / "unified_import_lndl_successor_20260904.json"
+TEST_PATH = Path(__file__).resolve()
+EXCLUDED_PATHS = (
+    ROOT
+    / "formulas"
+    / "LNDL_Luxe_Cinnamon_Cashmere_Warm_Almond_Spice_DHP2025_V1_30mL_20pct_Development.md",
+    ROOT
+    / "formulas"
+    / "LNDL_Luxe_Orris_Santal_Violet_Root_Skin_DHP2025_V1_30mL_20pct_Development.md",
+    ROOT
+    / "formulas"
+    / "LNDL_Luxe_Olibanum_Cedar_Halo_Luminous_Incense_DHP2025_V1_30mL_20pct_Development.md",
+    ROOT
+    / "formulas"
+    / "LNDL_Luxe_Tobacco_Plum_Cashmere_Cured_Fruit_Shadow_DHP2025_V1_30mL_20pct_Development.md",
+    ROOT / "formulas" / "mixing_guides" / "LNDL_Luxe_Hedonic_Flanker_Suite_DHP2025_V1_Blind_Trial.md",
+    ROOT
+    / "verification_runs"
+    / "20260902-lhomme-lndl-hedonic-flanker-suite-dhp2025-v1"
+    / "ln01-coriander-silk",
+)
+REQUIRED_SECTIONS = (
+    "## Authority and status",
+    "## Target identity",
+    "## Functional architecture before dosing",
+    "## Spatial, temporal, textural, transition, pressure/release, and recurrence maps",
+    "## Source-lineage conservation ledger",
+    "<!-- donor-independence-manifest:",
+    "## TARGET / IDEAL FORMULA",
+    "## CURRENT-INVENTORY BUILD",
+    "## Candidate-survival and omission audit",
+    "## Inventory and stock audit",
+    "## Working-stock preparation ledger",
+    "## Missing-chemical impact gate",
+    "## Future mixing order",
+    "## Controlled blinded test plan",
+    "## Pipeline Analysis",
+    "## Claim ceiling",
+)
+CURRENT_ROW_HEADERS = (
+    "#",
+    "Ingredient",
+    "Canonical stock identity",
+    "Stock strength",
+    "Concentration basis",
+    "Carrier",
+    "Raw Amount uL",
+    "Justified active uL",
+    "Active ppm",
+    "ODT authority / quality",
+    "OAV / status",
+    "Primary owner",
+)
+MUSKS = {
+    "Ambrettolide",
+    "Ethylene Brassylate",
+    "Exaltolide",
+    "Habanolide",
+    "Macrolide",
+    "Musk Ketone",
+    "Romandolide",
+    "Tonalide",
+}
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _import_manifest() -> dict:
+    return json.loads(IMPORT_MANIFEST.read_text(encoding="utf-8"))
+
+
+def _embedded_record(label: str) -> dict:
+    text = FORMULA.read_text(encoding="utf-8")
+    match = re.search(rf"<!-- {re.escape(label)}:\s*(\{{.*?\}})\s*-->", text, re.DOTALL)
+    assert match is not None, label
+    return json.loads(match.group(1))
+
+
+def _section(text: str, heading: str) -> str:
+    start = text.index(heading)
+    end = text.find("\n## ", start + len(heading))
+    return text[start:] if end == -1 else text[start:end]
+
+
+def _markdown_table(section: str, expected_headers: tuple[str, ...]) -> list[list[str]]:
+    lines = section.splitlines()
+    header_index = next(
+        index
+        for index, line in enumerate(lines)
+        if [cell.strip() for cell in line.strip().strip("|").split("|")]
+        == list(expected_headers)
+    )
+    rows: list[list[str]] = []
+    for line in lines[header_index + 2 :]:
+        if not line.lstrip().startswith("|"):
+            if rows:
+                break
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if not cells or not cells[0].isdigit():
+            if rows:
+                break
+            continue
+        rows.append(cells)
+    return rows
+
+
+def _parsed_formula() -> dict:
+    parsed = parse_formula_markdown(FORMULA)
+    assert len(parsed) == 1
+    return parsed[0]
+
+
+def test_import_manifest_declares_a_bounded_openai_native_package() -> None:
+    manifest = _import_manifest()
+    assert manifest["schema_version"] == "unified_import_lndl_successor_v1"
+    assert manifest["manifest_id"] == "UNIFIED-IMPORT-LNDL-CORIANDER-SILK-20260904"
+    assert manifest["instruction_authority"]["provider_policy"] == (
+        "OPENAI_CHATGPT_CODEX_NATIVE_ONLY"
+    )
+    assert manifest["source_file_count"] == 2
+    assert manifest["destination_file_count"] == 2
+    assert manifest["transfer_policy"]["formula_copied_byte_exact"] is True
+    assert manifest["transfer_policy"]["formula_rewritten"] is False
+    assert manifest["transfer_policy"]["shared_engine_inventory_or_gate_files_changed"] is False
+    assert manifest["lineage_boundary"]["successor_status"] == (
+        "DESIGN_HYPOTHESIS_COMPUTATIONAL_NOT_TESTED_HOLD"
+    )
+    assert all(value is False for value in manifest["authority"].values())
+    assert any("sibling L'Homme and LNDL" in item for item in manifest["exclusions"])
+
+
+def test_formula_remains_byte_exact_to_the_admitted_source() -> None:
+    entry = _import_manifest()["files"][0]
+    assert entry["destination_path"] == FORMULA.relative_to(ROOT).as_posix()
+    assert entry["adapted_in_destination"] is False
+    assert entry["source_destination_match"] is True
+    assert FORMULA.stat().st_size == entry["source_size_bytes"] == entry["destination_size_bytes"]
+    assert _sha256(FORMULA) == entry["source_sha256"] == entry["destination_sha256"]
+
+
+def test_adapted_test_bytes_are_bound_without_claiming_source_identity() -> None:
+    entry = _import_manifest()["files"][1]
+    assert entry["destination_path"] == TEST_PATH.relative_to(ROOT).as_posix()
+    assert entry["adapted_in_destination"] is True
+    assert entry["source_destination_match"] is False
+    assert TEST_PATH.stat().st_size == entry["destination_size_bytes"]
+    assert _sha256(TEST_PATH) == entry["destination_sha256"]
+    assert entry["source_sha256"] != entry["destination_sha256"]
+    assert any("bounded" in item.casefold() for item in entry["adaptation_scope"])
+
+
+def test_ln01_intrinsic_formula_contract_is_parser_executable() -> None:
+    formula = _parsed_formula()
+    amounts = formula["ingredients_ul"]
+    assert len(amounts) == 33
+    assert sum(amounts.values()) == pytest.approx(6000.0)
+    assert min(amounts.values()) >= 10.0
+    assert {
+        "Cardamom EO",
+        "Coriander Essential Oil",
+        "Lavender EO (BONTAUX SAS)",
+        "Cedarwood oil Virginia",
+        "Romandolide",
+    } <= set(amounts)
+    assert {
+        "Calone",
+        "Juniper Berry EO",
+        "Pine EO",
+        "Rosemary EO",
+        "Spike Lavender EO",
+    }.isdisjoint(amounts)
+    assert MUSKS & set(amounts) == {"Romandolide"}
+    assert "DPG carrier reserve" not in amounts
+
+
+def test_ln01_preserves_ordered_architecture_and_claim_ceiling() -> None:
+    text = FORMULA.read_text(encoding="utf-8")
+    positions = [text.index(heading) for heading in REQUIRED_SECTIONS]
+    assert positions == sorted(positions)
+    assert "DESIGN HYPOTHESIS / COMPUTATIONAL / NOT TESTED / HOLD" in text
+    for boundary in (
+        "NO COMPOUNDING",
+        "NO PROCUREMENT",
+        "NO SAFETY OR STABILITY CLEARANCE",
+        "NO PERFORMANCE CLAIM",
+        "NO RELEASE",
+    ):
+        assert boundary in text
+
+
+def test_embedded_donor_record_is_structurally_complete_but_not_promoted() -> None:
+    text = FORMULA.read_text(encoding="utf-8")
+    donor = _embedded_record("donor-independence-manifest")
+    assert donor["schema_version"] == "donor-independence-v1"
+    assert donor["predecessor"] == {
+        "path": (
+            "formulas/"
+            "LNDL_Luxe_Cardamom_Chiaroscuro_Nocturne_DHP2025_Interiorized_V6_"
+            "30mL_20pct_Development.md"
+        ),
+        "sha256": "DB60DA30D6F5EBE6935CB2C24FD9D750B83D727759552D246724216CB141015A",
+    }
+    assert donor["declared_current_rows"] == 33
+    assert donor["declared_current_total_ul"] == 6000
+    assert len(donor["donor_signatures"]) == 3
+    assert len(donor["source_dispositions"]) == 58
+    assert len(donor["source_module_dispositions"]) == 11
+    assert len(donor["target_modules"]) == 11
+    assert all(row["rationale"] for row in donor["source_dispositions"])
+    headings = re.findall(r"^\*\*BASKET \d+ — (.+?)\*\*$", text, re.MULTILINE)
+    assert [heading.casefold() for heading in headings] == [
+        module.casefold() for module in donor["target_modules"]
+    ]
+    assert _import_manifest()["current_destination_authority"]["donor_independence_gate"].startswith(
+        "NOT_RUN_HOLD"
+    )
+
+
+def test_current_table_and_embedded_stock_ledger_are_internally_bound() -> None:
+    text = FORMULA.read_text(encoding="utf-8")
+    rows = _markdown_table(_section(text, "## CURRENT-INVENTORY BUILD"), CURRENT_ROW_HEADERS)
+    assert len(rows) == 33
+    assert [int(row[0]) for row in rows] == list(range(1, 34))
+    assert all(len(row) == len(CURRENT_ROW_HEADERS) for row in rows)
+    assert all(all(cell for cell in row) for row in rows)
+    assert sum(float(row[6].replace(",", "")) for row in rows) == pytest.approx(6000.0)
+
+    stock_sync = _embedded_record("current-table-stock-sync")
+    table_stock = {
+        row[1]: (row[2], row[3], row[4], row[5], row[6])
+        for row in rows
+    }
+    assert set(stock_sync) == set(table_stock)
+    for material, current in table_stock.items():
+        stock = stock_sync[material]
+        assert (
+            stock["canonical_identity"],
+            stock["stock_strength"],
+            stock["basis"],
+            stock["carrier"],
+            str(stock["formula_dose_ul"]),
+        ) == current
+
+
+def test_current_preflight_fails_closed_under_destination_schema() -> None:
+    formula = _parsed_formula()
+    amounts = formula["ingredients_ul"]
+    state = build_formula_state(
+        amounts,
+        dilutions={name: formula.get("dilutions", {}).get(name, 1.0) for name in amounts},
+        batch_volume_ml=30.0,
+    )
+    checks = {check.name: check for check in run_release_preflight(formula, state).checks}
+
+    stock = checks["inventory_stock_contract"]
+    assert stock.status == "FAIL"
+    assert stock.data["issues"]
+
+    identity = checks["material_identity_and_physics"]
+    assert identity.status == "FAIL"
+    assert identity.data["unknown_materials"] == ["Givaudan AIMI"]
+    assert identity.data["missing_fields"]
+
+    quantitative = checks["quantitative_authority"]
+    assert quantitative.status == "WARN"
+    assert quantitative.data["active_concentrate_ppm_w_w"] == "UNAVAILABLE"
+    assert quantitative.data["headspace_model_class"] == "HEURISTIC_NOT_MEASURED"
+
+    headspace = checks["headspace_scope"]
+    assert headspace.status == "WARN"
+    assert headspace.data["matrix_source"] == "omitted"
+    assert headspace.data["stock_carrier_inclusion"] == "UNRESOLVED"
+
+
+def test_nonimported_arms_guide_and_generated_bundle_remain_explicitly_excluded() -> None:
+    manifest = _import_manifest()
+    assert all(not path.exists() for path in EXCLUDED_PATHS)
+    assert (
+        "all sibling L'Homme and LNDL candidate formulas, controls, blind guides, "
+        "verification runs, and receipts"
+    ) in manifest["exclusions"]
+    verification = manifest["verification"]["current_suite_verification"]
+    assert verification["bounded_import_scope_only"] is True
+    assert verification["invented_or_generated_artifacts_added"] is False

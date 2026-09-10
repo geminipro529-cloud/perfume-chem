@@ -1,0 +1,211 @@
+"""Negative controls for the 2026-09-05 fixed-dose Orris/Tonkarome audit."""
+
+from types import SimpleNamespace
+
+import pytest
+
+from engine.data_spine.loader import load_materials, load_registry
+from engine.ifra_safety import IFRA_CAT4_LIMITS, score_ifra_compliance
+from engine.pipeline.formula_state import FormulaState, build_formula_state
+from engine.pipeline.gates import (
+    ReleaseGateConfig,
+    _gate_concentration_basis,
+    _gate_safety,
+    _gate_skin_degradation,
+    _material_ifra_limit,
+)
+from engine.pipeline.natural_absolute_decomposition import (
+    composite_headspace,
+    composite_replacement_moles,
+    get_composite_metadata,
+    get_constituents,
+)
+from engine.pipeline.preflight import _natural_composite_coverage_check
+from engine.uncertainty import uncertainty_for_source
+from scripts.format_pipeline_analysis import (
+    build_analysis,
+    build_class_distribution,
+    build_oav_headspace_table,
+    build_subthreshold,
+)
+
+
+@pytest.mark.parametrize("name", [
+    "Orris Liquid", "Orris Liquid (30%)", "Orris Liquid (9% w/w in DEP)",
+])
+def test_catalog_irone_midpoint_is_not_a_constituent_assay(name):
+    assert get_constituents(name) is None
+    assert composite_headspace(name, 0.1, 0.1) is None
+    assert composite_replacement_moles(name, 0.1, 0.001) is None
+    metadata = get_composite_metadata(name)
+    assert metadata.composition_authority == "UNVALIDATED_SUPPLIER_DESCRIPTION"
+    assert metadata.characterized_fraction == 0.0
+    assert not metadata.batch_specific
+    assert any("8IQ24653" in source for source in metadata.sources)
+
+
+@pytest.mark.parametrize("name", ["Orris Liquid", "Tonkarome"])
+def test_unresolved_product_oav_stays_unknown_during_amount_evolution(name):
+    state = build_formula_state({name: 100.0, "Hedione": 100.0})
+    evolved = FormulaState.from_base(state, new_raw_ul={name: 50.0, "Hedione": 80.0})
+    for current in (state, evolved):
+        material = next(row for row in current.materials if row.name == name)
+        assert material.oav is None
+        assert material.intensity is None
+        assert material.sources["oav_model"] == "unknown:composite_decomposition_missing"
+        assert material.sources["mw"].startswith("unverified:")
+        assert current.quantitative_authority["unresolved_mixture_materials"] == [name]
+        assert current.quantitative_authority["headspace_coverage"] == "INCOMPLETE"
+    if name == "Tonkarome":
+        assert next(row for row in state.materials if row.name == name).is_opaque_preblend
+    else:
+        assert _natural_composite_coverage_check(state).status == "FAIL"
+
+
+def test_unknown_mixture_is_not_formatted_as_subthreshold_or_measured_physics():
+    rows = [row.as_dict() for row in build_formula_state({"Tonkarome": 100.0}).materials]
+    headspace = "\n".join(build_oav_headspace_table(rows))
+    assert "legacy pseudo-properties" in headspace
+    assert "UNKNOWN" in headspace
+    assert "Sub-threshold Materials" not in "\n".join(build_subthreshold(rows))
+
+
+def test_tonkarome_name_does_not_assert_natural_tonka_glycosides():
+    state = build_formula_state({"Tonkarome": 400.0}, {"Tonkarome": 0.2})
+    gate = _gate_skin_degradation(state, ReleaseGateConfig())
+    assert "coumarin glycosides -> coumarin release" not in gate.detail
+    assert gate.status == "WARN"
+    assert "not established" in gate.detail
+
+
+def test_declared_stock_basis_is_read_from_the_actual_state_field():
+    state = build_formula_state(
+        {"Benzyl Benzoate": 100.0, "Tonkarome": 400.0},
+        {"Benzyl Benzoate": 1.0, "Tonkarome": 0.2},
+        stock_specs={
+            "Benzyl Benzoate": {"fraction_basis": "neat", "declared": True},
+            "Tonkarome": {"fraction_basis": "mass_fraction", "declared": True},
+        },
+    )
+    assert _gate_concentration_basis(state, ReleaseGateConfig()).status == "PASS"
+    assert not state.exact_mass_ppm_available
+
+
+def test_unspecified_carrier_basis_is_reported_once():
+    state = build_formula_state({"Benzyl Benzoate": 100.0})
+    gate = _gate_concentration_basis(state, ReleaseGateConfig())
+    assert gate.status == "FAIL"
+    assert len(gate.data["violations"]) == 1
+
+
+@pytest.mark.parametrize("basis", ["invented", "", "unspecified"])
+def test_invalid_or_undeclared_basis_cannot_pass(basis):
+    state = SimpleNamespace(materials=[SimpleNamespace(
+        name="Test stock", stock_fraction_basis=basis, stock_declared=True,
+    )])
+    assert _gate_concentration_basis(state, ReleaseGateConfig()).status == "FAIL"
+
+
+@pytest.mark.parametrize("name", [
+    "Cedarwood oil Virginia", "Coriander Essential Oil",
+    "Lavender EO High Altitude", "Vetiver EO (India)",
+])
+def test_catalog_density_is_not_lot_verified_delivered_mass(name):
+    state = build_formula_state(
+        {name: 100.0}, stock_specs={name: {"fraction_basis": "neat", "declared": True}},
+    )
+    material = state.materials[0]
+    assert material.active_g > 0  # diagnostic estimate remains visible
+    assert material.authoritative_active_g is None
+    assert "density_evidence" in material.active_mass_authority
+    assert not state.exact_mass_ppm_available
+
+
+def test_absent_ifra_record_is_not_reported_as_compliant():
+    report = score_ifra_compliance({"Orris Liquid": 100.0})
+    text = " ".join(report.diagnostics)
+    assert "All materials within IFRA" not in text
+    assert "missing" in text.casefold()
+    assert "Orris Liquid" in text
+    assert report.missing_ifra_limits == ["Orris Liquid"]
+
+
+@pytest.mark.parametrize("amount", [0.0, 100.0])
+def test_zero_ifra_limit_is_preserved_without_division_by_zero(monkeypatch, amount):
+    monkeypatch.setitem(IFRA_CAT4_LIMITS, "Hedione", 0.0)
+    material = SimpleNamespace(name="Hedione", profile_name="Iso E Super")
+    assert _material_ifra_limit(material) == 0.0
+    report = score_ifra_compliance({"Hedione": amount})
+    assert bool(report.ifra_violations) is (amount > 0)
+    if amount > 0:
+        assert report.ifra_violations[0]["limit_pct"] == 0.0
+        assert report.ifra_violations[0]["ratio"] is None
+    build_formula_state.cache_clear()
+    try:
+        state = build_formula_state({"Hedione": amount})
+        assert state.materials[0].ifra_limit_pct == 0.0
+    finally:
+        build_formula_state.cache_clear()
+
+
+def test_volume_safety_screen_never_claims_mass_based_release_authority():
+    state = build_formula_state(
+        {"Hedione": 100.0},
+        stock_specs={"Hedione": {"fraction_basis": "mass_per_volume", "declared": True}},
+        matrix_moles={"Ethanol": 0.4}, matrix_mass_g=18.4, matrix_source="explicit",
+    )
+    assert state.exact_finished_product_ppm_available
+    gate = _gate_safety(state, ReleaseGateConfig())
+    assert gate.data["concentration_basis"] == "modeled_active_volume_fraction"
+    assert gate.data["authorization"] == "PROVISIONAL_NOT_RELEASE_AUTHORITY"
+
+
+def test_conflicting_aimi_limit_aliases_are_not_silently_selected():
+    assert IFRA_CAT4_LIMITS["Alpha Isomethyl Ionone"] != IFRA_CAT4_LIMITS["Methyl Ionone Pure"]
+    material = SimpleNamespace(
+        name="Alpha Isomethyl Ionone (Methyl Ionone Pure)", profile_name=None,
+    )
+    assert _material_ifra_limit(material) is None
+
+
+def test_product_registry_mirrors_current_preparations_without_duplicate_tonkarome():
+    rows = [row for row in load_materials() if row.canonical_name.casefold() == "tonkarome"]
+    assert len(rows) == 1
+    assert rows[0].user_stock_dilution == "20% w/w in TEC"
+    assert load_registry().get("Orris Liquid").user_stock_dilution == "9% w/w in DEP"
+
+
+def test_profile_fallback_does_not_hide_unchecked_scorer_identity():
+    state = build_formula_state({"hedione": 10.0})
+    gate = _gate_safety(state, ReleaseGateConfig())
+    assert gate.status == "WARN"
+    assert "hedione" in gate.data["missing_ifra_limit"]
+
+
+def test_profile_zero_limit_rejects_even_tiny_positive_dose(monkeypatch):
+    monkeypatch.setitem(IFRA_CAT4_LIMITS, "Hedione", 0.0)
+    state = build_formula_state({"hedione": 1e-10})
+    gate = _gate_safety(state, ReleaseGateConfig())
+    assert gate.status == "FAIL"
+    assert gate.data["headroom_violations"][0]["limit_pct"] == 0.0
+
+
+def test_quarantined_sources_do_not_receive_estimated_confidence():
+    assert uncertainty_for_source("unverified:unresolved_mixture_legacy_proxy") == 1.0
+    assert uncertainty_for_source("unknown:profile_missing") == 1.0
+
+
+def test_unknown_family_is_not_a_zero_percent_odor_contribution():
+    rows = [row.as_dict() for row in build_formula_state({"Tonkarome": 100.0}).materials]
+    text = "\n".join(build_class_distribution(rows))
+    assert "UNKNOWN" in text
+    assert "0.0%" not in text
+
+
+def test_full_formatter_presents_physics_and_temporal_evidence_before_gates():
+    formula = {"formula_state": build_formula_state({"Tonkarome": 100.0}).as_dict()}
+    text = build_analysis({"formulas": [formula]})
+    assert text.index("## Headspace OAV") < text.index("## Temporal Evolution")
+    assert text.index("## Temporal Evolution") < text.index("## Gate Summary")
+    assert "| Material | Dil | Raw µL | Act µL | MW | MF% | VP Pa | γ |" in text
+    assert "Active-volume proxy" in text

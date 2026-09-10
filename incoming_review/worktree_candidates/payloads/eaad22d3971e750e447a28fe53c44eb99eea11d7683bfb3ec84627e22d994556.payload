@@ -1,0 +1,149 @@
+{
+  "schema_version": "chatgpt_source_artifact_manifest_v1",
+  "manifest_id": "complex-perfumery-th65-hedonic-comparison-portfolio-20260819",
+  "recorded_at": "2026-08-19T14:34:26Z",
+  "conversation": {
+    "conversation_id": "6a7c5b07-7000-83ec-8489-53f859a90abe",
+    "project_id": "6a74ab83668081919f5cbd0dfe80eb09",
+    "title": "Hedonic Comparison",
+    "url": "https://chatgpt.com/c/6a7c5b07-7000-83ec-8489-53f859a90abe"
+  },
+  "retrieval": {
+    "method": "AUTHENTICATED_CHATGPT_BROWSER_DOM_READ_PLUS_LOCAL_EXACT_ATTACHMENT_RECOVERY",
+    "message_text_stored_verbatim": false,
+    "message_text_binding": "UTF8_SHA256_OF_RENDERED_INNER_TEXT",
+    "attachment_bytes_copied_without_modification": true,
+    "archive_members_extracted_into_repository": false
+  },
+  "source_messages": [
+    {
+      "message_id": "58ac1866-d47e-404b-bfba-af4e7f985faf",
+      "role": "user",
+      "utf8_byte_count": 118,
+      "sha256": "67bf707ec6ad0d55cbb75f4f1a02d76fe02601e803966d6b381fc2b46a0b925e",
+      "scope": "EXACT_ZIP_ATTACHMENT_AND_MOST_HEDONIC_QUESTION"
+    },
+    {
+      "message_id": "1ca832cb-5ffe-49e7-905d-fdeb820928d2",
+      "role": "assistant",
+      "utf8_byte_count": 2222,
+      "sha256": "8f4b701702fd33a0d837705877fbe7cd3b80a4a8a8e4467e9a34b562947c1b47",
+      "scope": "SOURCE_RANKING_CRYSTAL_PEONY_ROSE_FIRST_AND_UNTESTED_18_PERCENT_SCREEN_SUGGESTION"
+    },
+    {
+      "message_id": "2b90c5c3-d528-49bb-9483-13df72d1e6a1",
+      "role": "user",
+      "utf8_byte_count": 102,
+      "sha256": "0556c3880fdcc5bb4b1a5b165f77a01f7b181bfd5b18c72e48a5896a0c33aec6",
+      "scope": "MIXING_ORDER_MARKDOWN_RECIPE_REQUEST"
+    },
+    {
+      "message_id": "d947cf1d-dca9-49bb-b0bb-8d264780e21e",
+      "role": "assistant",
+      "utf8_byte_count": 828,
+      "sha256": "1a79ecfbed2d6456bc119008b0074919c1dba7e7e77d64ee00cfbb60f96b7d55",
+      "scope": "EXACT_RECIPE_ATTACHMENT_AND_PHYSICAL_HOLD_BOUNDARY"
+    }
+  ],
+  "attachments": [
+    {
+      "path": "Thailand_Mass_Market_Floral_1965_Target_Inventory_Formulas_Aug2026_v1_Package.zip",
+      "media_type": "application/zip",
+      "byte_size": 156622,
+      "sha256": "4ec759409e005394ed303f6d6c103c8c98e66da6782a4e060ef924b5e46a9182",
+      "archive_entry_count": 8,
+      "role": "EXACT_THREE_FORMULA_SOURCE_PACKAGE"
+    },
+    {
+      "path": "TH65-F01_Crystal_Peony_Rose_18pct_Current_Inventory_Mixing_Order_Recipe.md",
+      "media_type": "text/markdown",
+      "byte_size": 11640,
+      "sha256": "dc8ff680b0ffed6dfaf67f52f39a8aac65eec9e2da73152af0e0137806a6f052",
+      "role": "EXACT_SOURCE_GENERATED_NONEXECUTING_RECIPE"
+    }
+  ],
+  "archive_members": [
+    {
+      "path": "Thailand_Mass_Market_Floral_1965_Target_Inventory_Formulas_Aug2026_v1.xlsx",
+      "byte_size": 118707,
+      "sha256": "5aaa1f1e2cca24a6f9ffc67e6076541e5b06c71d30a50131e9bbebf383b18916"
+    },
+    {
+      "path": "Thailand_Mass_Market_Floral_1965_Target_Inventory_Formulas_Aug2026_v1.md",
+      "byte_size": 26717,
+      "sha256": "9b0706e5afc340954e801ebc40f2fe7617458c28affaceca53998e69f676dc17"
+    },
+    {
+      "path": "Thailand_Mass_Market_Floral_1965_Target_Inventory_Formulas_Aug2026_v1.json",
+      "byte_size": 453231,
+      "sha256": "ac796a9b93c46bbf887bc7a656a03ccdce417f1471d89bfe2a3743ee9378234c"
+    },
+    {
+      "path": "Thailand_Mass_Market_Floral_1965_Target_Inventory_Formulas_Aug2026_v1_release.json",
+      "byte_size": 3258,
+      "sha256": "b82645445a1f522e328122880593090a4bb48b6616033555433bf627e21cfe60"
+    },
+    {
+      "path": "Thailand_Mass_Market_Floral_1965_Target_Inventory_Formulas_Aug2026_v1.xlsx.sha256",
+      "byte_size": 141,
+      "sha256": "4f2bdbdc5bb8335d144483cd9bf99791617ee8e903939bc2adb525daf5c96010"
+    },
+    {
+      "path": "Thailand_Mass_Market_Floral_1965_Target_Inventory_Formulas_Aug2026_v1.md.sha256",
+      "byte_size": 139,
+      "sha256": "3bd9f77b92472634a4f91da20ec83acd54e0923f900871b0e612b7694dc0c8cf"
+    },
+    {
+      "path": "Thailand_Mass_Market_Floral_1965_Target_Inventory_Formulas_Aug2026_v1.json.sha256",
+      "byte_size": 141,
+      "sha256": "1d8b2b23f1eaae48fe00f24ab1958b7f7fb71fb82ef0e89149951f788976eb76"
+    },
+    {
+      "path": "Thailand_Mass_Market_Floral_1965_Target_Inventory_Formulas_Aug2026_v1_release.json.sha256",
+      "byte_size": 149,
+      "sha256": "6bd74c7d7db2da5bedeaacc24b1716fb92b4497ce644371dd3cf251ecb57c29e"
+    }
+  ],
+  "source_claims": {
+    "ranked_winner": "TH65-F01 Crystal Peony Rose",
+    "ranking_basis": "ON_PAPER_PORTFOLIO_ARCHITECTURE",
+    "suggested_first_screen_concentration_pct": 18,
+    "formula_candidates": 3,
+    "physical_batches": 0,
+    "liking_results": 0,
+    "broad_appeal_results": 0,
+    "safety": "NOT CLEARED",
+    "release": "WITHHELD"
+  },
+  "local_audit_corrections": {
+    "ranked_winner_is_empirical_result": false,
+    "eighteen_percent_is_validated_optimum": false,
+    "recipe_is_execution_authority": false,
+    "all_three_formulas_and_both_design_branches_preserved": true,
+    "exact_archive_members_preserved_without_projection": true,
+    "formula_or_inventory_change_authorized": false
+  },
+  "authority": {
+    "source_admission": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "hedonic": false,
+    "commercial_preference": false,
+    "compounding": false,
+    "trial_execution": false,
+    "physical_result": false,
+    "sensory_result": false,
+    "analytical_result": false,
+    "strict_oav": false,
+    "safety": false,
+    "skin_use": false,
+    "purchase": false,
+    "cart": false,
+    "installation": false,
+    "publication": false,
+    "release": false
+  },
+  "receipt_hash_contract": "SHA256_OF_SORTED_COMPACT_UTF8_JSON_WITH_RECEIPT_SHA256_OMITTED",
+  "receipt_sha256": "accf7b7cbb90665ddbb131ecc4ba9f8965df79c241ca5cf798869d462b4bafff"
+}

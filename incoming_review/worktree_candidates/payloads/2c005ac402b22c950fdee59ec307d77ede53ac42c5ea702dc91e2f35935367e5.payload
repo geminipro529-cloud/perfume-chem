@@ -1,0 +1,88 @@
+{
+  "schema": "perfume-chem-missing-chemical-assessment-v2",
+  "assessment_id": "MCI-LH-01-v2",
+  "target_formula_id": "LH-01",
+  "name": "Original Fidelity",
+  "family": "ysl_lhomme",
+  "source_bindings": {
+    "candidate_file": "formulas/ysl_twenty_variant_study/candidates/LH-01.json",
+    "candidate_sha256": "19790c2d91be44fc49348f65deb631f2126f112bac0baebf76127b518e309d34",
+    "inventory_sha256": "DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC",
+    "inventory_overlay_sha256": "1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072",
+    "formula_definition_sha256": "504c9bb498c1679dfedc2da171ed7649967a51b36ac520453358cb485684453c",
+    "screening_summary_sha256": "a4779473e6c7ae0794e350d0873fe4a007583163ff221838a6261397aeeba34b"
+  },
+  "target_identity": {
+    "north_star": "The 2006 L'Homme identity: sparkling bergamot-cedrat and Chinese ginger; violet leaf, basil flower, and white pepper; transparent Virginia cedar, Haitian vetiver, sandalwood, and dry tonka with an airy finish.",
+    "primary_axis": "closest documentary 2006 architecture",
+    "functional_architecture": [
+      "citrus-ginger ignition",
+      "violet-leaf/basil/white-pepper tailoring",
+      "transparent cedar body and air",
+      "Haitian-vetiver/sandalwood/tonka lower register"
+    ],
+    "protected_identity": [
+      "Ginger Oil",
+      "Violet Leaf",
+      "Cedarwood Virginia",
+      "Vetiver Haiti"
+    ],
+    "drift_risk": "Treating public notes or this formula hypothesis as authenticated commercial percentages."
+  },
+  "impact_gate": {
+    "status": "FORMULA_COMPLETE__PHYSICAL_AND_SENSORY_VALIDATION_PENDING",
+    "architecture_locked": true,
+    "auto_integrated_materials": [],
+    "gaps": [
+      "exact cedrat and white pepper",
+      "Haitian vetiver and sandalwood provenance",
+      "Vertofix Coeur and Hedione HC textures",
+      "physical family-retention evidence"
+    ],
+    "authority": "NO_SENSORY_SUCCESS_NO_AUTOMATIC_PURCHASE_NO_RELEASE_CONCLUSION"
+  },
+  "current_inventory_execution": {
+    "raw_stock_total_ppm_w_w": 1000000.0,
+    "odorant_active_total_ppm_w_w": 961244.444444,
+    "minimum_raw_stock_dose_ul": 9.999999999,
+    "pipette_floor_status": "PASS_ALL_RAW_STOCK_DOSES_AT_OR_ABOVE_10_UL",
+    "lost_tinctures": "NO_USE_ALL_TINCTURES_LOST",
+    "musk_rule": "Ethylene Brassylate is the sole musk; verify label or receipt before compounding."
+  },
+  "purchase_preparation": {
+    "state": "VERIFY_LABELS_AND_PREPARE_BY_MASS_BEFORE_PHYSICAL_TRIAL",
+    "recommendation": "TARGET / IDEAL remains inventory-independent. CURRENT omits unavailable Ethyl Linalool and uncovered Basil, and removes unresolved Pamzest/Parmavert; owned linalool, linalyl acetate, ionone, bergamot, and lemon cover only partial functions; a subthreshold Terpinyl Acetate neat trace is intentionally omitted. Exact cedrat, white pepper, Haitian vetiver, sandalwood, Vertofix Coeur, and Hedione HC remain gaps. Verify EB; purchase only after a constant-total missing-material arm.",
+    "lost_tinctures": "NO_USE_ALL_TINCTURES_LOST",
+    "ambrettolide": "NO_USE_PROCUREMENT_PENDING",
+    "musk_rule": "Ethylene Brassylate is the sole musk; verify label or receipt before compounding."
+  },
+  "controlled_blind_test": {
+    "status": "PROTOCOL_ONLY_NOT_EXECUTED",
+    "role": "L'Homme family parent control",
+    "comparison": "Use equal-mass, equal-concentration, balanced-order comparisons against each L'Homme child and the frozen Sol baseline after stability and stock-basis checks.",
+    "time_cells": [
+      "0_min",
+      "5_min",
+      "30_min",
+      "2_hr",
+      "4_hr"
+    ],
+    "liking_result": "NOT TESTED"
+  },
+  "decision": {
+    "design_formula_complete": true,
+    "automatic_purchase_authority": false,
+    "physical_compounding_authority": false,
+    "sensory_finalist_authority": false,
+    "reason": "Architecture is complete for controlled study, but physical stock receipts and blinded sensory evidence remain pending."
+  },
+  "claim_ceiling": {
+    "exact_commercial_formula": "NOT CLAIMED",
+    "physical_liking": "NOT TESTED",
+    "sensory_similarity": "NOT TESTED",
+    "stability": "NOT TESTED",
+    "safety": "NOT CLEARED",
+    "measured_headspace": "NOT TESTED",
+    "release": "NOT CLEARED"
+  }
+}

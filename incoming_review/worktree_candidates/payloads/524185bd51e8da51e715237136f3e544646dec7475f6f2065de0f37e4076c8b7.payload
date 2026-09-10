@@ -1,0 +1,19 @@
+﻿Metric,Value
+simulations,10000
+identity_probability,0.9999
+identity_system_probability,1.0
+oav_probability,0.9999
+temporal_probability,1.0
+dominance_failure_probability,9.999999999998899e-05
+overall_probability,0.9998
+dose_closure_probability,0.9973
+temporal_q05,0.9455587139094335
+temporal_median,0.9736276677785367
+max_share_q95,0.46521744808745974
+marker_coverage_q05,0.75
+phase_sum_q05,"{""heart"": 61.42663199122514, ""base"": 23.04584207992327}"
+release_shape_median,"[0.16759167380173967, 0.30957079161513057, 0.384950831394097, 0.12303487827622989]"
+phase_shape_median,"[0.10388671594121465, 0.4697027121794361, 0.42640511364264616]"
+marker_probabilities,"{""Orris Liquid 30% | heart"": 1.0, ""Alpha Irone 30% | heart"": 1.0, ""Hedione | heart"": 0.3919, ""Guaiacol 10% | heart"": 0.9998, ""Patchouli EO | base"": 0.9999, ""Vetiver EO | base"": 1.0, ""Coumarin 20% | base"": 0.7135, ""Amberwood F | base"": 1.0}"
+marker_quantiles,"{""Orris Liquid 30% | heart"": [7.549856522366831, 23.758066352963308, 72.84955901080106], ""Alpha Irone 30% | heart"": [36.170525772573505, 94.04887251499336, 255.72024680690186], ""Hedione | heart"": [0.31347956674497685, 0.8478379768108196, 2.3083166896102303], ""Guaiacol 10% | heart"": [2.9929662297818163, 7.814700153613092, 20.850768268550222], ""Patchouli EO | base"": [4.856467667084626, 12.813423071603472, 32.83431777866055], ""Vetiver EO | base"": [5.365324862798686, 14.15760871391314, 36.55186904122342], ""Coumarin 20% | base"": [0.5090714564994611, 1.4225832353696677, 3.8264821464270358], ""Amberwood F | base"": [4.519554872919467, 11.90835763631145, 31.404359457407782]}"
+classification,ROBUST

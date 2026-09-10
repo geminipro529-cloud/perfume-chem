@@ -1,0 +1,106 @@
+{
+  "schema_version": "complex_perfumery_v5_historical_compatibility_v1",
+  "recorded_at": "2026-09-04",
+  "state": "V5_HISTORICAL_PINS_PRESERVED_CURRENT_SEMANTIC_IDENTITIES_VERSIONED",
+  "historical_acceptance": {
+    "path": "data/governance/complex_perfumery_v5_collection_append_acceptance_20260812.json",
+    "schema_version": "perfume_chem_complex_perfumery_v5_collection_append_acceptance_v1",
+    "receipt_sha256": "729dc95929e74f4c0eea5f210f626bfcff17b71209652459f45b0a1e5c6cbb45",
+    "applied_artifacts": [
+      {
+        "path": "data/governance/chat2_dark_scr02_package_receipt_20260812.json",
+        "byte_size": 5470,
+        "sha256": "4686d66655632b1cd6739e1f63d8432059b1105aa3199501692e88b68493e517",
+        "disposition": "HISTORICAL_HASH_ONLY_CURRENT_CANONICAL_RECEIPT_EVOLVED"
+      },
+      {
+        "path": "data/governance/chat2_dark_scr02_interpretation_v2_package_receipt_20260812.json",
+        "byte_size": 5720,
+        "sha256": "5a77c46c0b4a7dec747320c05852abe4333c72c4cc084eebf20b1dfdb0209f43",
+        "disposition": "HISTORICAL_HASH_ONLY_CURRENT_CANONICAL_RECEIPT_EVOLVED"
+      },
+      {
+        "path": "data/governance/chat2_dark_scr20b_namespace_repair_package_receipt_20260812.json",
+        "byte_size": 6260,
+        "sha256": "a002ce41d0ee79cec3ebf6d293de2b67363d8e0068daed73d90acdea65ce30c4",
+        "disposition": "HISTORICAL_HASH_ONLY_CURRENT_CANONICAL_RECEIPT_EVOLVED"
+      },
+      {
+        "path": "output/quarantine/COMPLEX_PERFUMERY_COLLECTION_SUCCESSOR_V5_20260812.json",
+        "byte_size": 6694,
+        "sha256": "99a705720fe915cafc1864902e234a3bc62b3c590eb70a327355451e5180caef",
+        "disposition": "STABILIZED_REPOSITORY_HISTORICAL_EVIDENCE"
+      },
+      {
+        "path": "output/quarantine/COMPLEX_PERFUMERY_NATIVE_FIT_AND_INSTALL_PLAN_V5_20260812.md",
+        "byte_size": 3817,
+        "sha256": "d85c598af4591db83759cce7d3920f8d9768d972b1e24934e5f3b9134d8bcd47",
+        "disposition": "STABILIZED_REPOSITORY_HISTORICAL_EVIDENCE"
+      },
+      {
+        "path": "output/quarantine/COMPLEX_PERFUMERY_HANDOFF_SHA256SUMS_V5_20260812.txt",
+        "byte_size": 1868,
+        "sha256": "f45558798f5f141535d95d81d7689a7eefb2a8e43a5bce5923e9505d5cb964d1",
+        "disposition": "STABILIZED_REPOSITORY_HISTORICAL_EVIDENCE"
+      },
+      {
+        "path": "tests/test_external_package_receipts.py",
+        "byte_size": 34823,
+        "sha256": "b48c0f562896d0ee346f862b80433f46ce943d44fa34eb8f1ddd8099731bee9a",
+        "disposition": "VERSIONED_MUTABLE_PATH_HISTORICAL_HASH_ONLY"
+      }
+    ]
+  },
+  "current_receipts": [
+    {
+      "path": "data/governance/chat2_dark_scr02_package_receipt_20260812.json",
+      "semantic_receipt_sha256": "0f9d0a39c42314f19e55ac7c08d747f0b9cba260aa3f4e238eeafddc62d01312",
+      "package_sha256": "dd9fb19c03da6c401aa1bdb718446b830148cc2856be6c525abf836788ce90fb",
+      "disposition": "CURRENT_CANONICAL_SEMANTIC_IDENTITY"
+    },
+    {
+      "path": "data/governance/chat2_dark_scr02_interpretation_v2_package_receipt_20260812.json",
+      "semantic_receipt_sha256": "f8667af195b78983c36b076f555e79a8a36d550c3af23c25dee2c822ee2fed82",
+      "package_sha256": "741a357d8099b30081e1f44d4aace97d18b8bdc7f0d6a4e30a6c6aad81cb67ad",
+      "disposition": "CURRENT_CANONICAL_SEMANTIC_IDENTITY"
+    },
+    {
+      "path": "data/governance/chat2_dark_scr20b_namespace_repair_package_receipt_20260812.json",
+      "semantic_receipt_sha256": "e1304f511fda2c678af8773c52b5396fcffb33502bb074d99d5660da6367a2ea",
+      "package_sha256": "1ccd3cedd289bd13ab639e586de8ae32fbff8319c1d8f42ff08203c3c52901e9",
+      "disposition": "CURRENT_CANONICAL_SEMANTIC_IDENTITY"
+    }
+  ],
+  "stable_historical_evidence": {
+    "manifest_path": "data/governance/historical_quarantine_v1/manifest.json",
+    "manifest_receipt_sha256": "aa249a318fd76ef0bfe7591dec00ee3adb315bf3450b1ba036662cdad4e08947",
+    "materialized_legacy_paths_are_test_compatibility_only": true
+  },
+  "portability": {
+    "optional_external_packages_and_capture_manifests_required_in_clean_checkout": false,
+    "absent_optional_evidence_state": "LOCAL_EVIDENCE_HOLD",
+    "present_but_drifted_evidence_state": "HARD_FAILURE",
+    "historical_acceptance_rewritten": false,
+    "historical_test_bytes_reconstructed": false
+  },
+  "authority": {
+    "source": false,
+    "formula": false,
+    "inventory": false,
+    "stock": false,
+    "physical_execution": false,
+    "sensory": false,
+    "strict_oav": false,
+    "safety": false,
+    "procurement": false,
+    "publication": false,
+    "release": false,
+    "installation": false
+  },
+  "blockers": [
+    "HISTORICAL_RAW_PINS_ARE_NOT_CURRENT_LIVE_PATH_IDENTITIES",
+    "OPTIONAL_EXTERNAL_BYTES_RIGHTS_UNKNOWN",
+    "NO_PHYSICAL_SENSORY_HEADSPACE_SAFETY_OR_RELEASE_PROMOTION"
+  ],
+  "semantic_self_sha256": "06dc616a0094234175d52e5a953a5c1420c576d829c54df8cf8ecc6ffedf48ca"
+}

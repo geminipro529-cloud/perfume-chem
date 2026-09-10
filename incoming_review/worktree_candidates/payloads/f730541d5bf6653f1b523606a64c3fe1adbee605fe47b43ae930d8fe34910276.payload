@@ -1,0 +1,1133 @@
+{
+  "schema": "perfume-chem-ysl-candidate-v1",
+  "candidate_id": "LN-09",
+  "name": "Dark Textile Woods",
+  "family": "ysl_la_nuit_de_lhomme",
+  "mode": "STYLISTIC",
+  "source_bindings": {
+    "formula_uid": "ysl20:LN-09:v1",
+    "read_at_utc": "2026-08-26T19:45:43.4809547Z",
+    "runtime_git_commit": "281d389ca76424ace2438e1f6cabdad75163a4d6",
+    "agents_sha256": "A3FF5D3B0165947AD8C96AFF6B16925442E3D7383214D7ADB90D7C1216EDAFB0",
+    "copilot_instructions_sha256": "97640F0EA0FE8B79A073BE13AD84649C12EA548955CAB3D06CF3C5368D841AE9",
+    "inventory_sha256": "DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC",
+    "family_reference_sha256": "467C759EA52412BE0EA8AF7C77F0F14D9FB59DE7B99722FCE57EE2415FBB7401",
+    "inventory_overlay_sha256": "1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072",
+    "family_target_file_sha256": "AA6CE7FE51FE16B114705A26CD12D32DD5504362CB013CF5A890B23F7083C216",
+    "family_target_sha256": "A952263E405CDBBEC6A36A52105AC719F9D2EB89BF886EC1174EC4A753CA1CC2",
+    "chassis_file_sha256": "1870509670ED0B515D4A27243889B7D246A26C627B1C893F2A3169C07F84CFD9",
+    "natural_decomposition_sha256": "6698477AFDF4572C5A5B9A6C24AE5114C2D4AB392D9272A384CE75D5ABB66B85",
+    "parent_formula_uid": "ysl20:LN-01:v1",
+    "parent_formula_definition_sha256": "45b548de985454942fa5bc11efc25cb41516febf67f1fcae9f9de87522f1a9db",
+    "parent_candidate_sha256": "812FBCDCD3F1BA2B53E0764760BEB96588012E61F8DB35EBE59DDAB05F6FACA7",
+    "lineage_type": "CONTROLLED_CHILD",
+    "active_dose_change_authorizations": [
+      "Caraway Seed Oil (10% w/w in DPG)=reduced from 30 to 10 uL as a shared socket donor while retaining only a historical shadow",
+      "Kephalis=trace angular dark-wood stitch inside the fixed 300 uL socket",
+      "Azarbre=smooth cedar-amber textile seam inside the fixed 300 uL socket"
+    ]
+  },
+  "target_identity": {
+    "north_star": "La Nuit's cardamom-lavender heart wrapped in dark textile woods: Cashmeran warmth, a trace angular Kephalis stitch, smooth Azarbre, and literal cedar-vetiver grain—supple and nocturnal, never leather, oud, smoke, tobacco accord, or opaque amberwood mass.",
+    "functional_architecture": [
+      "cardamom-lavender recognizers remain visible above the textile layer",
+      "Cashmeran supplies warm fibrous texture rather than sweetness",
+      "trace Kephalis gives an angular dark stitch while Azarbre supplies the smooth seam",
+      "literal cedar and vetiver keep the textile grounded in La Nuit's vertical"
+    ],
+    "protected_identity": [
+      "Cardamom Oil",
+      "Lavender",
+      "Cedarwood Virginia",
+      "Vetiver Haiti",
+      "Coumarin"
+    ],
+    "primary_axis": "supple dark textile texture stitched into literal cedar-vetiver woods",
+    "variant_socket": {
+      "active_ppm_w_w": 66666.667,
+      "current_raw_ul": 300,
+      "target_allocation": {
+        "Cashmeran increment": 8000,
+        "Kephalis": 4000,
+        "Azarbre": 16000,
+        "Cedarwood Virginia increment": 14000,
+        "Vetiver Haiti increment": 10000,
+        "Hedione increment": 7666.6666,
+        "Vertofix Coeur increment": 7000
+      },
+      "current_allocation_ul": {
+        "Cashmeran (neat)": 30,
+        "Kephalis": 10,
+        "Azarbre": 70,
+        "Cedarwood oil Virginia": 70,
+        "Indian Vetiver EO (volume grade)": 50,
+        "Hedione": 40,
+        "Vertofix": 30
+      }
+    },
+    "selection_rationale": [
+      "Cashmeran is limited to a small increment because the chassis already has substantial textile warmth; it is not used as a generic mass builder.",
+      "Kephalis is admitted at only 10 uL for an angular dark stitch, below a tobacco-accord role; Azarbre carries the larger smooth cedar-amber seam.",
+      "Azarbre was selected over more Amberwood F, Timberol, or Norlimbanol because the target requires suppleness rather than a hard wall.",
+      "Leather, oud, smoke, tobacco absolute, balsams, tinctures, and extra musk are excluded; EB remains the sole structural musk."
+    ],
+    "drift_risk": "More Kephalis, Cashmeran, leather, oud, smoke, or generic amberwood could flatten the aromatic recognizers into opaque tobacco-dark mass."
+  },
+  "target_ideal": {
+    "basis": "active_ppm_w_w_of_concentrate",
+    "total_active_ppm_w_w": 1000000,
+    "target_sha256": "18D65F000162E2FC79FEF639AEE3F27476A0B351DAA2F27459451F63412E0740",
+    "inventory_independent": true,
+    "materials": [
+      {
+        "identity": "Iso E Super",
+        "active_ppm_w_w": 170000,
+        "function": "transparent dark-cedar halo and lateral diffusion",
+        "time_windows": [
+          "opening",
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "DESIGN_HYPOTHESIS_NOT_COMMERCIAL_PERCENTAGE"
+      },
+      {
+        "identity": "Amberwood F",
+        "active_ppm_w_w": 65000,
+        "function": "dry ambery pressure behind the aromatic heart",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Vertofix Coeur",
+        "active_ppm_w_w": 77000,
+        "function": "expanded persistent textile-to-wood bridge",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN",
+          "STUDY-DESIGN-LN-09"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Hedione",
+        "active_ppm_w_w": 88592.5926,
+        "function": "expanded aromatic air around textile woods",
+        "time_windows": [
+          "opening",
+          "heart",
+          "late_heart"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN",
+          "STUDY-DESIGN-LN-09"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Cashmeran",
+        "active_ppm_w_w": 58000,
+        "function": "expanded warm textile shadow",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN",
+          "STUDY-DESIGN-LN-09"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Kephalis",
+        "active_ppm_w_w": 4000,
+        "function": "trace angular dark-wood stitch below tobacco-accord intensity",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "STUDY-DESIGN-LN-09"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Azarbre",
+        "active_ppm_w_w": 16000,
+        "function": "smooth rounded cedar-amber seam through the textile layer",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "STUDY-DESIGN-LN-09"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Ethyl Linalool",
+        "active_ppm_w_w": 40000,
+        "function": "fresh aromatic-floral tenacity linking bergamot, lavender, and cedar",
+        "time_windows": [
+          "opening",
+          "heart",
+          "late_heart"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "TRANSITION_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Dihydromyrcenol",
+        "active_ppm_w_w": 2500,
+        "function": "retained cool kinetic trace",
+        "time_windows": [
+          "opening",
+          "top"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_CORE"
+      },
+      {
+        "identity": "Exaltolide",
+        "active_ppm_w_w": 45000,
+        "function": "single exact soft skin musk for close sensual continuity",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Bergamot Oil",
+        "active_ppm_w_w": 45000,
+        "function": "sparkling citrus counterforce to cool cardamom",
+        "time_windows": [
+          "opening",
+          "top"
+        ],
+        "evidence_ids": [
+          "YSL-LN-OFFICIAL-INT",
+          "YSL-LN-LAUNCH-2009"
+        ],
+        "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"
+      },
+      {
+        "identity": "Cardamom Oil",
+        "active_ppm_w_w": 35000,
+        "function": "powerful cool cineolic-spicy opening recognizer",
+        "time_windows": [
+          "opening",
+          "top",
+          "heart"
+        ],
+        "evidence_ids": [
+          "YSL-LN-LAUNCH-2009"
+        ],
+        "quantity_authority": "CONTEMPORANEOUS_DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"
+      },
+      {
+        "identity": "Lavender",
+        "active_ppm_w_w": 60000,
+        "function": "aromatic-floral heart braided with cedar",
+        "time_windows": [
+          "opening",
+          "heart",
+          "late_heart"
+        ],
+        "evidence_ids": [
+          "YSL-LN-OFFICIAL-INT",
+          "YSL-LN-LAUNCH-2009"
+        ],
+        "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"
+      },
+      {
+        "identity": "Linalool",
+        "active_ppm_w_w": 20000,
+        "function": "fresh floral support inside the lavender bridge",
+        "time_windows": [
+          "opening",
+          "heart"
+        ],
+        "evidence_ids": [
+          "YSL-LN-OFFICIAL-INT"
+        ],
+        "quantity_authority": "DECLARED_ALLERGEN_FUNCTION_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Linalyl Acetate",
+        "active_ppm_w_w": 407.4074,
+        "function": "retained mobile ester trace",
+        "time_windows": [
+          "opening",
+          "top",
+          "heart"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_CORE"
+      },
+      {
+        "identity": "Cedarwood Virginia",
+        "active_ppm_w_w": 84000,
+        "function": "expanded literal wood grain",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "YSL-LN-OFFICIAL-INT",
+          "YSL-LN-LAUNCH-2009",
+          "STUDY-DESIGN-LN-09"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Vetiver Haiti",
+        "active_ppm_w_w": 55000,
+        "function": "expanded dry rooty grain",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "YSL-LN-OFFICIAL-INT",
+          "YSL-LN-VETIVER-HAITI",
+          "YSL-LN-LAUNCH-2009",
+          "STUDY-DESIGN-LN-09"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_DESIGN"
+      },
+      {
+        "identity": "Coumarin",
+        "active_ppm_w_w": 35000,
+        "function": "dry hay warmth and sensual fougere memory",
+        "time_windows": [
+          "heart",
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "YSL-LN-LAUNCH-2009"
+        ],
+        "quantity_authority": "CONTEMPORANEOUS_DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"
+      },
+      {
+        "identity": "Tonka",
+        "active_ppm_w_w": 30000,
+        "function": "rounded dry intimacy beneath coumarin without gourmand excess",
+        "time_windows": [
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "YSL-LN-OFFICIAL-INT"
+        ],
+        "quantity_authority": "DOCUMENTARY_IDENTITY_DESIGN_QUANTITY"
+      },
+      {
+        "identity": "Sandalwood",
+        "active_ppm_w_w": 35000,
+        "function": "creamy dry-wood rounding under cedar and vetiver",
+        "time_windows": [
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Alpha Isomethyl Ionone",
+        "active_ppm_w_w": 20000,
+        "function": "soft violet-woody body smoothing lavender into woods",
+        "time_windows": [
+          "heart",
+          "late_heart"
+        ],
+        "evidence_ids": [
+          "YSL-LN-OFFICIAL-INT"
+        ],
+        "quantity_authority": "DECLARED_ALLERGEN_FUNCTION_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Ambroxide",
+        "active_ppm_w_w": 2000,
+        "function": "retained mineral-dry trace",
+        "time_windows": [
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_CORE"
+      },
+      {
+        "identity": "Caraway",
+        "active_ppm_w_w": 200,
+        "function": "retained historical shadow",
+        "time_windows": [
+          "opening",
+          "heart"
+        ],
+        "evidence_ids": [
+          "YSL-LN-LAUNCH-2009"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_CORE"
+      },
+      {
+        "identity": "Florol",
+        "active_ppm_w_w": 1800,
+        "function": "retained clean floral seam",
+        "time_windows": [
+          "heart",
+          "late_heart"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_CORE"
+      },
+      {
+        "identity": "Patchouli",
+        "active_ppm_w_w": 10000,
+        "function": "quiet earthy dark-wood depth behind vetiver",
+        "time_windows": [
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "SECONDARY_SCAFFOLD_DESIGN_HYPOTHESIS"
+      },
+      {
+        "identity": "Vanillin",
+        "active_ppm_w_w": 500,
+        "function": "retained trace warmth",
+        "time_windows": [
+          "late_heart",
+          "drydown"
+        ],
+        "evidence_ids": [
+          "SOL-LN-FROZEN"
+        ],
+        "quantity_authority": "CONTROLLED_VARIANT_SOCKET_CORE"
+      }
+    ]
+  },
+  "current_inventory_build": {
+    "basis": "raw_stock_ppm_w_w_of_concentrate",
+    "total_raw_stock_ppm_w_w": 1000000,
+    "total_odorant_active_ppm_w_w": 944666.666667,
+    "finished_product_concentrate_fraction_w_w": 0.15,
+    "inventory_sha256": "DC3C7FFC6E27711AA38D26BD3AEF09B7046F1834353E7171EB78729FBD2CC4EC",
+    "inventory_overlay_sha256": "1562990890644EEEFF55D7F37CC0DF43B2D42915B094057CF90AC31F5A449072",
+    "materials": [
+      {
+        "inventory_name": "Iso E Super",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 148888.888889,
+        "odorant_active_ppm_w_w": 148888.888889,
+        "finished_product_active_ppm_w_w": 22333.333333,
+        "mapping_status": "EXPANDED_MOLECULAR_TRANSPARENCY",
+        "target_functions": [
+          "lateral dark-cedar air"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Abstract molecular-skin wood; literal cedar is separately retained.",
+        "dose_authority": "CONTROLLED_SOCKET_MAPPING"
+      },
+      {
+        "inventory_name": "Amberwood F",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 40000,
+        "odorant_active_ppm_w_w": 40000,
+        "finished_product_active_ppm_w_w": 6000,
+        "mapping_status": "REDUCED_SHARED_DONOR",
+        "target_functions": [
+          "transparent amber pressure",
+          "Ambroxide functional loss mapping"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Reduced to open the style; not Ambroxide equivalence.",
+        "dose_authority": "CONTROLLED_SOCKET_DONOR"
+      },
+      {
+        "inventory_name": "Vertofix",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 73333.333333,
+        "odorant_active_ppm_w_w": 73333.333333,
+        "finished_product_active_ppm_w_w": 11000,
+        "mapping_status": "EXPANDED_GRADE_UNVERIFIED_BRIDGE",
+        "target_functions": [
+          "persistent textile-to-wood bridge"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Coeur grade unverified.",
+        "dose_authority": "CONTROLLED_SOCKET_MAPPING"
+      },
+      {
+        "inventory_name": "Hedione",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 91111.111111,
+        "odorant_active_ppm_w_w": 91111.111111,
+        "finished_product_active_ppm_w_w": 13666.666667,
+        "mapping_status": "EXPANDED_AROMATIC_AIR",
+        "target_functions": [
+          "air around textile woods"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Held below crowding.",
+        "dose_authority": "CONTROLLED_SOCKET_MAPPING"
+      },
+      {
+        "inventory_name": "Cashmeran (neat)",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 51111.111111,
+        "odorant_active_ppm_w_w": 51111.111111,
+        "finished_product_active_ppm_w_w": 7666.666667,
+        "mapping_status": "RESTRAINED_EXPANDED_TEXTILE_WARMTH",
+        "target_functions": [
+          "warm fibrous textile texture"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Only a 30 uL increment over chassis; not generic mass.",
+        "dose_authority": "CONTROLLED_SOCKET_MAPPING"
+      },
+      {
+        "inventory_name": "Ethyl Linalool",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 37777.777778,
+        "odorant_active_ppm_w_w": 37777.777778,
+        "finished_product_active_ppm_w_w": 5666.666667,
+        "mapping_status": "DIRECT_CORE",
+        "target_functions": [
+          "aromatic-floral tenacity"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Unchanged.",
+        "dose_authority": "CONTROLLED_CHILD_CORE"
+      },
+      {
+        "inventory_name": "Dihydromyrcenol",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 11111.111111,
+        "odorant_active_ppm_w_w": 11111.111111,
+        "finished_product_active_ppm_w_w": 1666.666667,
+        "mapping_status": "REDUCED_MOBILE_CORE",
+        "target_functions": [
+          "controlled cool tension"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Reduced versus parent to reject generic blue freshness.",
+        "dose_authority": "CONTROLLED_SOCKET_DONOR"
+      },
+      {
+        "inventory_name": "Ethylene Brassylate",
+        "stock_status": "OWNED_OVERLAY_ROSTER_MISSING",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 55555.555556,
+        "odorant_active_ppm_w_w": 55555.555556,
+        "finished_product_active_ppm_w_w": 8333.333333,
+        "mapping_status": "SINGLE_MUSK_FUNCTIONAL_SUBSTITUTION_WITH_INVENTORY_DRIFT_CAVEAT",
+        "target_functions": [
+          "soft skin continuity"
+        ],
+        "is_musk": true,
+        "musk_function": "single structural continuity",
+        "loss_statement": "Cleaner and more structural than target Exaltolide; verify label before physical dosing.",
+        "dose_authority": "DIRECT_USER_OWNERSHIP_VERIFY_FIRST"
+      },
+      {
+        "inventory_name": "Bergamot FCF oil Sicilian",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 55555.555556,
+        "odorant_active_ppm_w_w": 55555.555556,
+        "finished_product_active_ppm_w_w": 8333.333333,
+        "mapping_status": "EXPANDED_DOCUMENTARY_CITRUS",
+        "target_functions": [
+          "sparkling counterforce to cardamom"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Chosen for documented identity; FCF lot is not exact target oil and requires composite OAV.",
+        "dose_authority": "CONTROLLED_SOCKET_MAPPING"
+      },
+      {
+        "inventory_name": "Cardamom EO",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 35555.555556,
+        "odorant_active_ppm_w_w": 35555.555556,
+        "finished_product_active_ppm_w_w": 5333.333333,
+        "mapping_status": "EXPANDED_DIRECT_NATURAL_CLASS",
+        "target_functions": [
+          "primary cool-spice recognizer"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Lot GC and measured headspace unknown; composite OAV required.",
+        "dose_authority": "CONTROLLED_SOCKET_MAPPING"
+      },
+      {
+        "inventory_name": "Lavender EO (BONTAUX SAS)",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 55555.555556,
+        "odorant_active_ppm_w_w": 55555.555556,
+        "finished_product_active_ppm_w_w": 8333.333333,
+        "mapping_status": "DIRECT_NATURAL_CLASS_CORE",
+        "target_functions": [
+          "lavender heart"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Lot and chemotype unverified; composite OAV required.",
+        "dose_authority": "CONTROLLED_CHILD_CORE"
+      },
+      {
+        "inventory_name": "Linalool",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 17777.777778,
+        "odorant_active_ppm_w_w": 17777.777778,
+        "finished_product_active_ppm_w_w": 2666.666667,
+        "mapping_status": "DIRECT_CORE",
+        "target_functions": [
+          "lavender bridge support"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Unchanged.",
+        "dose_authority": "CONTROLLED_CHILD_CORE"
+      },
+      {
+        "inventory_name": "Linalyl Acetate",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 8888.888889,
+        "odorant_active_ppm_w_w": 8888.888889,
+        "finished_product_active_ppm_w_w": 1333.333333,
+        "mapping_status": "EXPANDED_ESTER_SEAM",
+        "target_functions": [
+          "bergamot-lavender continuity"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Expanded mobile seam; not a commercial percentage claim.",
+        "dose_authority": "CONTROLLED_SOCKET_MAPPING"
+      },
+      {
+        "inventory_name": "Cedarwood oil Virginia",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 93333.333333,
+        "odorant_active_ppm_w_w": 93333.333333,
+        "finished_product_active_ppm_w_w": 14000,
+        "mapping_status": "EXPANDED_LITERAL_WOOD_GRAIN",
+        "target_functions": [
+          "literal cedar grain"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Low VP is skin-level; composite OAV required.",
+        "dose_authority": "CONTROLLED_SOCKET_MAPPING"
+      },
+      {
+        "inventory_name": "Indian Vetiver EO (volume grade)",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 51111.111111,
+        "odorant_active_ppm_w_w": 51111.111111,
+        "finished_product_active_ppm_w_w": 7666.666667,
+        "mapping_status": "EXPANDED_ORIGIN_AND_GRADE_SUBSTITUTION",
+        "target_functions": [
+          "dry rooty grain"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Not Haitian; composite OAV required.",
+        "dose_authority": "CONTROLLED_SOCKET_MAPPING"
+      },
+      {
+        "inventory_name": "Tonkarome (20% w/w in TEC)",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 0.2,
+        "concentration_basis": "w/w",
+        "carrier": "TEC",
+        "raw_stock_ppm_w_w": 66666.666667,
+        "odorant_active_ppm_w_w": 13333.333333,
+        "finished_product_active_ppm_w_w": 2000,
+        "mapping_status": "COUMARIN_TONKA_CORE",
+        "target_functions": [
+          "dry hay warmth",
+          "tonka intimacy",
+          "trace warmth"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Known 20% w/w basis; far below target-active sum and not commercial accord evidence.",
+        "dose_authority": "KNOWN_20_PERCENT_W_W_CORE"
+      },
+      {
+        "inventory_name": "Sandalore",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 44444.444444,
+        "odorant_active_ppm_w_w": 44444.444444,
+        "finished_product_active_ppm_w_w": 6666.666667,
+        "mapping_status": "FRESH_LIGHT_SANDALWOOD_CORE",
+        "target_functions": [
+          "dry-wood rounding"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Chosen over creamier Ebanol/Bacdanol to keep transparency; not natural sandalwood.",
+        "dose_authority": "CONTROLLED_CHILD_CORE"
+      },
+      {
+        "inventory_name": "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 22222.222222,
+        "odorant_active_ppm_w_w": 22222.222222,
+        "finished_product_active_ppm_w_w": 3333.333333,
+        "mapping_status": "NAME_NORMALIZATION",
+        "target_functions": [
+          "violet-woody smoothing"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Grade unverified.",
+        "dose_authority": "CONTROLLED_CHILD_CORE"
+      },
+      {
+        "inventory_name": "Caraway Seed Oil (10% w/w in DPG)",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 0.1,
+        "concentration_basis": "w/w",
+        "carrier": "DPG",
+        "raw_stock_ppm_w_w": 2222.222222,
+        "odorant_active_ppm_w_w": 222.222222,
+        "finished_product_active_ppm_w_w": 33.333333,
+        "mapping_status": "REDUCED_HISTORICAL_SHADOW",
+        "target_functions": [
+          "restrained caraway trace"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Reduced threefold; exact 10% w/w stock but historical role remains secondary; composite OAV required.",
+        "dose_authority": "AUTHORIZED_SHARED_SOCKET_DONOR"
+      },
+      {
+        "inventory_name": "Florol",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 8888.888889,
+        "odorant_active_ppm_w_w": 8888.888889,
+        "finished_product_active_ppm_w_w": 1333.333333,
+        "mapping_status": "REDUCED_MOBILE_CORE",
+        "target_functions": [
+          "clean floral seam"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Reduced to prevent generic clean volume.",
+        "dose_authority": "CONTROLLED_SOCKET_DONOR"
+      },
+      {
+        "inventory_name": "Patchouli EO (volume grade)",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 11111.111111,
+        "odorant_active_ppm_w_w": 11111.111111,
+        "finished_product_active_ppm_w_w": 1666.666667,
+        "mapping_status": "NATURAL_CLASS_GRADE_UNVERIFIED",
+        "target_functions": [
+          "quiet dark-earth depth"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Volume grade and composite-natural profile require verification.",
+        "dose_authority": "CONTROLLED_CHILD_CORE"
+      },
+      {
+        "inventory_name": "Kephalis",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 2222.222222,
+        "odorant_active_ppm_w_w": 2222.222222,
+        "finished_product_active_ppm_w_w": 333.333333,
+        "mapping_status": "TRACE_DARK_WOOD_STITCH",
+        "target_functions": [
+          "angular dark-wood stitch"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Held at trace to prevent tobacco, leather, or opaque amber drift.",
+        "dose_authority": "AUTHORIZED_CONTROLLED_SOCKET_ADDITION"
+      },
+      {
+        "inventory_name": "Azarbre",
+        "stock_status": "IN_STOCK_FROZEN_INVENTORY",
+        "stock_fraction": 1,
+        "concentration_basis": "w/w",
+        "carrier": null,
+        "raw_stock_ppm_w_w": 15555.555556,
+        "odorant_active_ppm_w_w": 15555.555556,
+        "finished_product_active_ppm_w_w": 2333.333333,
+        "mapping_status": "SMOOTH_CEDAR_AMBER_TEXTILE_SEAM",
+        "target_functions": [
+          "rounded cedar-amber seam"
+        ],
+        "is_musk": false,
+        "musk_function": null,
+        "loss_statement": "Chosen over harder structural woods for suppleness.",
+        "dose_authority": "AUTHORIZED_CONTROLLED_SOCKET_ADDITION"
+      }
+    ]
+  },
+  "volume_adapter": {
+    "authority": "HEURISTIC_VOLUME_ADAPTER_NOT_PPM_W_W",
+    "concentrate_total_ul": 4500,
+    "finished_product_nominal_ml": 30,
+    "nominal_concentrate_fraction": 0.15,
+    "matrix_omissions": [
+      "stock densities",
+      "finished ethanol-water mass fractions",
+      "volume contraction"
+    ],
+    "formula_definition_status": "SOURCE_ONLY_NO_PIPELINE_ANALYSIS_YET"
+  },
+  "missing_chemical_impact": {
+    "status": "PENDING_NATIVE_ASSESSMENT_TASK_8",
+    "architecture_locked": true,
+    "auto_integrated_materials": [],
+    "gaps": [
+      "Vetiver Haiti origin",
+      "Vertofix Coeur grade",
+      "target sandalwood identity",
+      "Exaltolide exact skin texture",
+      "physical evidence against tobacco, leather, or opaque wood drift"
+    ],
+    "authority": "NO_PURCHASE_NO_FORMULA_MUTATION_NO_SENSORY_CONCLUSION"
+  },
+  "purchase_preparation": {
+    "state": "NO_PURCHASE",
+    "recommendation": "Cashmeran, Kephalis, Azarbre, cedar, and vetiver are stocked. Do not buy leather, oud, smoke, tobacco, balsams, another amberwood, or another musk; verify EB and test the dark-textile failure modes directly.",
+    "lost_tinctures": "NO_USE",
+    "ambrettolide": "NO_USE_PROCUREMENT_PENDING"
+  },
+  "diagnostics": {
+    "parser_preflight": {
+      "status": "PASS_WITH_NATIVE_WARNINGS",
+      "formula_uid": "ysl20:LN-09:v1",
+      "rendered_file": "formulas/ysl_twenty_variant_study/rendered/LN-09_Dark_Textile_Woods_30mL_EDT.md",
+      "material_count": 23,
+      "raw_concentrate_ul": 4500,
+      "hedione_percent_of_raw": 9.111111,
+      "dilution_check": "PASS",
+      "ifra_preflight": "PASS",
+      "native_warnings": [
+        "Cedarwood oil Virginia VP=0.005 Pa is skin-level in the legacy evaluator; retain because literal cedar is a protected identity anchor."
+      ],
+      "score_authority": "LEGACY_HEDONIC_AND_OVERALL_SCORES_IGNORED",
+      "formula_definition_sha256": "d384894855b0cce77b69132880f8ec552c1896ddf253bc62b2282354f5d7f032",
+      "rendered_file_sha256": "D87858D6934486982536618B1CA7F481B62B9DECB8976121428CB1EAE42A5B96"
+    },
+    "ppm_arithmetic": "PASS_LOCAL_STATIC",
+    "odt_oav": "HOLD_MODELED_ACTIVE_CONCENTRATE_SCREEN_NOT_MEASURED",
+    "composite_natural_oav": "NOT RUN",
+    "temporal_headspace": "COMPUTED_HEURISTIC_UNCALIBRATED_NOT_MEASURED",
+    "stock_rebase_oav_per_time": "FAIL_G15_CHILD_STOCK_AUTHORITY_INVALID",
+    "pipeline_release_gate": "FAIL_HOLD",
+    "sensory_authority": false,
+    "pipeline_artifact_binding": "PERSISTED_VERIFIED",
+    "pipeline_298k": {
+      "screening_summary_sha256": "23356e17dee310dfb15dadd4f621ee501b7bd83bf96d4f28cb673b45a57af395",
+      "formula_definition_sha256": "d384894855b0cce77b69132880f8ec552c1896ddf253bc62b2282354f5d7f032",
+      "rendered_file_sha256": "D87858D6934486982536618B1CA7F481B62B9DECB8976121428CB1EAE42A5B96",
+      "pipeline_json_sha256": "70490e49bb62d8d375ef5036d79459668636bfcd4829dd6a15106d9d9ca75258",
+      "formatter_output_sha256": "dfc51ceb15dc06d4adec2cf50e3970303ce9372b08524a04c1a7fc7c7c3fd55f",
+      "analysis_artifact_sha256": "56fcde354b74ceffd6e898c7d3fd5a04394cecb698f7e6c94738ca639ac1d845",
+      "temperature_K": 298.15,
+      "parsed_subtotal_ul": 4500.0,
+      "oav_authority": {
+        "status": "WITHHELD",
+        "strict_oav_status": "ABSTAINED",
+        "headspace_basis": "MODELED_ACTIVE_CONCENTRATE_SCREEN",
+        "model_class": "HEURISTIC_NOT_MEASURED",
+        "quantitative_authority": {
+          "active_concentrate_ppm_w_w": "UNAVAILABLE",
+          "active_finished_product_ppm_w_w": "UNAVAILABLE",
+          "headspace_oav": "MODELED_ACTIVE_CONCENTRATE_SCREEN",
+          "headspace_model_class": "HEURISTIC_NOT_MEASURED",
+          "matrix_source": "omitted",
+          "stock_carrier_inclusion": "UNRESOLVED",
+          "unavailable_active_mass_materials": [
+            "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+            "Amberwood F",
+            "Azarbre",
+            "Bergamot FCF oil Sicilian",
+            "Caraway Seed Oil (10% w/w in DPG)",
+            "Cashmeran (neat)",
+            "Dihydromyrcenol",
+            "Ethyl Linalool",
+            "Ethylene Brassylate",
+            "Florol",
+            "Hedione",
+            "Indian Vetiver EO (volume grade)",
+            "Iso E Super",
+            "Kephalis",
+            "Linalool",
+            "Linalyl Acetate",
+            "Patchouli EO (volume grade)",
+            "Sandalore",
+            "Tonkarome (20% w/w in TEC)",
+            "Vertofix"
+          ],
+          "density_fallback_materials": [
+            "Alpha Isomethyl Ionone (Methyl Ionone Pure)",
+            "Amberwood F",
+            "Azarbre",
+            "Bergamot FCF oil Sicilian",
+            "Caraway Seed Oil (10% w/w in DPG)",
+            "Cashmeran (neat)",
+            "Dihydromyrcenol",
+            "Ethyl Linalool",
+            "Ethylene Brassylate",
+            "Florol",
+            "Hedione",
+            "Indian Vetiver EO (volume grade)",
+            "Iso E Super",
+            "Kephalis",
+            "Linalool",
+            "Linalyl Acetate",
+            "Patchouli EO (volume grade)",
+            "Sandalore",
+            "Tonkarome (20% w/w in TEC)",
+            "Vertofix"
+          ]
+        },
+        "oav_release_authority": false,
+        "sensory_authority": false,
+        "opening_known_vapor_ppm": 402.607634,
+        "opening_unknown_material_count": 2,
+        "opening_vapor_total_scope": "SUM_OF_RESOLVED_ROWS_ONLY_UNKNOWN_NATURALS_EXCLUDED"
+      },
+      "composite_natural_status": {
+        "gate": "natural_composite_coverage",
+        "status": "FAIL",
+        "detail": "Natural mixtures lack required composite GC-O decomposition: Caraway Seed Oil (10% w/w in DPG), Indian Vetiver EO (volume grade)"
+      },
+      "g15": {
+        "status": "FAIL",
+        "detail": "G15 requires every child row to have a uniquely resolved live inventory stock.",
+        "failure_code": "G15_CHILD_STOCK_AUTHORITY_INVALID",
+        "authorized_active_dose_changes": {
+          "Caraway Seed Oil (10% w/w in DPG)": "reduced from 30 to 10 uL as a shared socket donor while retaining only a historical shadow",
+          "Kephalis": "trace angular dark-wood stitch inside the fixed 300 uL socket",
+          "Azarbre": "smooth cedar-amber textile seam inside the fixed 300 uL socket"
+        },
+        "oav_release_authority": false
+      },
+      "stock_contract": {
+        "status": "FAIL",
+        "detail": "9 material stock contract failure(s): Azarbre, Caraway Seed Oil (10% w/w in DPG), Cashmeran (neat), Ethyl Linalool, Ethylene Brassylate, Indian Vetiver EO (volume grade), Lavender EO (BONTAUX SAS), Patchouli EO (volume grade), Tonkarome (20% w/w in TEC)",
+        "holds": [
+          {
+            "material": "Cashmeran (neat)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Ethyl Linalool",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Ethylene Brassylate",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "OWNED_OVERLAY_ROSTER_MISSING",
+            "classification": "HOLD_STALE_INVENTORY_ROSTER"
+          },
+          {
+            "material": "Lavender EO (BONTAUX SAS)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Indian Vetiver EO (volume grade)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Tonkarome (20% w/w in TEC)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Caraway Seed Oil (10% w/w in DPG)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Patchouli EO (volume grade)",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          },
+          {
+            "material": "Azarbre",
+            "native_reason": "not_in_inventory",
+            "candidate_stock_status": "IN_STOCK_FROZEN_INVENTORY",
+            "classification": "HOLD_NATIVE_V5_STOCK_RESOLUTION"
+          }
+        ]
+      },
+      "artifact_binding": {
+        "status": "PERSISTED_VERIFIED",
+        "analysis_sha256": "e365daf74050aa984eae35796567ab1696b2272c6c9cf9e857ac8ed9af6422e7",
+        "artifact_sha256": "56fcde354b74ceffd6e898c7d3fd5a04394cecb698f7e6c94738ca639ac1d845",
+        "rendered_file_sha256": "D87858D6934486982536618B1CA7F481B62B9DECB8976121428CB1EAE42A5B96"
+      },
+      "overall_gate_status": "FAIL",
+      "finalist_eligibility": {
+        "status": "HOLD_STALE_INVENTORY_ROSTER_AND_DATA_COVERAGE",
+        "eligible": false,
+        "reasons": [
+          "STOCK_CONTRACT_FAIL",
+          "QUANTITATIVE_AUTHORITY_UNAVAILABLE",
+          "NATURAL_COMPOSITE_GAP",
+          "CORE_PHYSICS_OR_ODT_GAP",
+          "REFERENCE_CLAIM_CONTRACT_FAIL",
+          "FAMILY_ARCHETYPE_UNMAPPED"
+        ],
+        "sensory_authority": false
+      },
+      "subthreshold_character_rows": [
+        {
+          "material": "Kephalis",
+          "oav": 0.299158,
+          "role": "character",
+          "model_source": "heuristic:monomolecular_headspace"
+        }
+      ],
+      "temporal_authority": "HEURISTIC_UNCALIBRATED_NOT_MEASURED",
+      "sensory_authority": false
+    }
+  },
+  "blind_test": {
+    "status": "PROTOCOL_ONLY_NOT_EXECUTED",
+    "role": "La Nuit dark-textile-woods child",
+    "comparison": "Balanced-order equal-mass and equal-concentration comparison against LN-01, judging cardamom-lavender visibility, textile suppleness, cedar/vetiver grain, tobacco/leather/opaque-wood drift, and liking.",
+    "time_cells": [
+      "0_min",
+      "5_min",
+      "30_min",
+      "2_hr",
+      "4_hr"
+    ],
+    "liking_result": "NOT TESTED"
+  },
+  "claim_ceiling": {
+    "exact_commercial_formula": "NOT CLAIMED",
+    "physical_liking": "NOT TESTED",
+    "sensory_similarity": "NOT TESTED",
+    "stability": "NOT TESTED",
+    "safety": "NOT CLEARED",
+    "measured_headspace": "NOT TESTED",
+    "release": "NOT CLEARED"
+  }
+}

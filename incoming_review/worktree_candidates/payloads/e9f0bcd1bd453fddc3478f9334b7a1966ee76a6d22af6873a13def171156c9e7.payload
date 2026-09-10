@@ -1,0 +1,278 @@
+# SUKHUM 35 S35-D2 — Qualified Dry-Transition Arm — 30 mL EdP
+
+**Version:** S35-D2 v1, 2026-08-30  
+**Status:** `COMPUTATIONAL_ARM / NOT_COMPOUNDED / NOT_RELEASE_READY`  
+**Claim mode:** `HYPOTHESIS_ARM / NOT_RELEASE_READY`  
+**Reference contract:** `AVENTUS_ADJACENT_NOT_CLONE`  
+**Family archetype:** `generic`  
+**Inventory path:** `../../inventory.txt`  
+**Inventory authority:** `inventory.txt` SHA-256 `EB33C04236A4640413BA5289125F04CFA278BD0614EB9BD12EA1CC4D88379967`  
+**Format:** 5,400 µL product-stock concentrate + 24,600 µL ethanol 96% = 30.00 mL nominal EdP  
+**Musk policy:** Romandolide is the sole functionally exact musk
+
+## Target Identity and Functional Architecture
+
+The R1 fruit nucleus with a narrow bitter-green, coniferous hinge into cedar and vetiver. Twenty µL Juniper Berry EO and 10 µL Petitgrain EO Paraguay replace exactly 20 µL Hedione and 10 µL Iso E. The module must add transition—not gin, cologne, fougère, pine cleaner, or volume for its own sake.
+
+## CURRENT-INVENTORY BUILD
+
+| Material | Dilution / stock | Raw µL | Active µL | Nominal active ppm in concentrate | Carrier µL | Function |
+|---|---|---:|---:|---:|---:|---|
+| Red Mandarin EO | neat | 240 | 240.000 | 44,444.4 | 0.000 | Warm peel |
+| Grapefruit FCF oil Sicilian | neat | 120 | 120.000 | 22,222.2 | 0.000 | Bitter pith; exact physics HOLD |
+| Methyl Pamplemousse | 10% in TEC | 80 | 8.000 | 1,481.5 | 72.000 | Grapefruit persistence |
+| Allyl Cyclohexyl Propionate | 10% in DPG | 800 | 80.000 | 14,814.8 | 720.000 | Factor-off pineapple body |
+| Allyl Amyl Glycolate | 10% | 250 | 25.000 | 4,629.6 | 225.000 | Pineapple skin |
+| Ethyl 2-Methylbutyrate | 0.1% | 20 | 0.020 | 3.7 | 19.980 | Fruit flash |
+| Cassis Base 345B | product stock | 10 | 10.000 | 1,851.9 | 0.000 | Opaque cassis shadow |
+| Paradisamide | 10% | 160 | 16.000 | 2,963.0 | 144.000 | Fruit persistence |
+| Damascenone | 1% | 20 | 0.200 | 37.0 | 19.800 | Fermented depth |
+| Damascone Beta | 10% | 30 | 3.000 | 555.6 | 27.000 | Fruit-to-wood bridge |
+| Black Pepper EO | neat | 10 | 10.000 | 1,851.9 | 0.000 | Dry sparkle |
+| Hedione | neat | 930 | 930.000 | 172,222.2 | 0.000 | Spatial air |
+| Dihydrojasmone | neat | 60 | 60.000 | 11,111.1 | 0.000 | Moving transition |
+| Iso E Super | neat | 1040 | 1,040.000 | 192,592.6 | 0.000 | Molecular wood field |
+| Juniper Berry EO | neat | 20 | 20.000 | 3,703.7 | 0.000 | Dry coniferous hinge |
+| Petitgrain EO Paraguay | neat | 10 | 10.000 | 1,851.9 | 0.000 | Bitter-green hinge |
+| Clearwood | neat | 170 | 170.000 | 31,481.5 | 0.000 | Structural rear earth |
+| Cedarwood oil Virginia | neat | 260 | 260.000 | 48,148.1 | 0.000 | Dry cedar plane |
+| Indian Vetiver EO | neat | 120 | 120.000 | 22,222.2 | 0.000 | Root-mineral tension |
+| Vetival | neat | 100 | 100.000 | 18,518.5 | 0.000 | Polished root bridge |
+| Patchouli EO | neat | 60 | 60.000 | 11,111.1 | 0.000 | Earthy shadow |
+| Ambrox Super | ~33% w/v in DEP:EtOH 53:47 | 600 | 198.000* | 36,666.7* | 402.000* | Mineral persistence; volume proxy |
+| Romandolide | neat | 250 | 250.000 | 46,296.3 | 0.000 | Sole outward musk |
+| Siam Benzoin | 50% in DPG | 30 | 15.000 | 2,777.8 | 15.000 | Quiet warm buffer |
+| Cade Oil Rectified | 1% in DPG | 10 | 0.100 | 18.5 | 9.900 | Charcoal seam |
+|  |  | **5,400** | **3,745.320*** | **693,577.8*** | **1,654.680*** | Exact raw total |
+
+## Factor Role
+
+`realistic_fruit=OFF`; `dry_transition=ON`. No physical transition, depth, or liking result exists.
+
+## Pipeline Analysis
+
+```text
+## Gate Summary
+
+**102 PASS** / **23 WARN** / **4 FAIL**
+
+  FAIL pipeline_preflight: 10 checks; 5 warnings
+  FAIL physics_data_coverage: {"Grapefruit FCF oil Sicilian": ["mw", "logp", "vp", "odt_air_ppm"]}
+  FAIL odt_coverage: Grapefruit FCF oil Sicilian
+  FAIL opaque_preblends: blocked in commercial mode: Cassis Base 345B
+  WARN osmotheque_archivability: Archivability: 1 opaque preblend(s)
+  WARN odt_sanity: 1 materials with suspect ODT values: Grapefruit FCF oil Sicilian=None
+  WARN vp_cross_source: 1 materials with VP=None or 0: Grapefruit FCF oil Sicilian
+  WARN odt_completeness: 1 material(s) lack ODT data; 0% OAV share affected
+  WARN small_diluted_traces: Cade Oil Rectified=10.0uL at 1.0%
+  WARN safety_ifra_allergen: 17 materials lack explicit IFRA Cat4 limits
+  WARN perfumer_logic: generic; perfumer_logic_brief: No brief-specific logic selected.
+  WARN family_drift_detector: unknown family archetype: generic
+  WARN perfume_knowledge: heart OAV off-target for target chypre; base OAV off-target for target chypre [advisory guideline; not release-blocking]
+  WARN carles_accord_ratio: Extreme ratios (>8:1, Carles limit): red mandarin eo:methyl pamplemousse = 160:1; red mandarin eo:allyl amyl glycolate = 120:1; red mandarin
+  WARN beaux_registres: Beaux registers missing: soprano
+  WARN literature_compliance: Literature compliance: 1/5 principles passed (20%) [advisory guideline; not release-blocking]
+  WARN edge_cases: Musk coverage: 1%, gaps: 2, Bangkok VP ×2.2
+  WARN balance_axes: Balance axes evaluation skipped: unsupported operand type(s) for +: 'int' and 'NoneType'
+  WARN guerlain_rose_jasmine_balance: Rose:jasmine OAV ratio = 803.3:1 — Guerlain recommends <3:1
+  WARN jellinek_psychology: Jellinek categories weak: erogenic, stimulating
+  WARN adaptation_timing: fast tier < 5% (no immediate impact)
+  WARN oav_intelligence: Unmapped family archetype for future-module intelligence: generic; diffusion_layers: Missing intimate layer — fragrance will feel hollow up 
+  WARN olfactory_fatigue: Olfactory fatigue risk: iso e super=7937 (limit 5000)
+  WARN tenacity_projection: VP<0.001Pa = 0% (<3%, may lack depth)
+  WARN master_perfumer_gate: 1 opaque preblend(s) hide perfumer intent
+  WARN mass_market_tier_check: Expensive captives found: Ambrox Super. At 1500 THB, these eat margin. Consider if their perceptible impact justifies the cost.
+  WARN confidence_minimum: combined confidence 0.0 below 25.0; commercial-trial warning, not sellable until calibrated; preflight science penalty 29.9 (pre-penalty 21.
+
+## Headspace OAV — Opening (0s)
+
+| Material | Dil | Raw µL | Act µL | MW | MF% | VP Pa | γ | Vapor ppm | ODT ppm | OAV | Note |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Hedione | 100.00% | 930.00 | 930.00 | 226.30 | 23.7413 | 0.210000 | 1.0093 | 0.496631 | 0.000050000 | 9932.620 | heart |
+| Iso E Super | 100.00% | 1040.00 | 1040.00 | 234.40 | 25.6320 | 0.150000 | 1.0459 | 0.396864 | 0.000050000 | 7937.272 | base |
+| Juniper Berry EO | 100.00% | 20.00 | 20.00 | 136.20 | 0.8483 | 65.000000 | 2.5000 | 61.939062 | 0.017594375 | 3520.390 | top |
+| Dihydrojasmone | 100.00% | 60.00 | 60.00 | 166.30 | 2.0843 | 7.660000 | 1.0000 | 1.575715 | 0.000750000 | 2100.954 | heart |
+| Cassis Base 345B | 100.00% | 10.00 | 10.00 | 160.00 | 0.3611 | 0.500000 | 1.5000 | 12.970731 | 0.006757974 | 1919.322 | heart |
+| Red Mandarin EO | 100.00% | 240.00 | 240.00 | 136.20 | 10.1798 | 1.800000 | 3.0000 | 5.425226 | 0.005000000 | 1085.045 | top |
+| Black Pepper EO | 100.00% | 10.00 | 10.00 | 204.35 | 0.2827 | 0.300000 | 2.0000 | 22.442192 | 0.025051460 | 895.844 | top |
+| Petitgrain EO Paraguay | 100.00% | 10.00 | 10.00 | 136.00 | 0.4248 | 6.000000 | 1.0000 | 1.874395 | 0.003842039 | 487.865 | top |
+| Vetival | 100.00% | 100.00 | 100.00 | 218.33 | 2.6460 | 6.530000 | 1.5000 | 2.557885 | 0.007000000 | 365.412 | heart |
+| Allyl Cyclohexyl Propionate | 10.00% | 800.00 | 80.00 | 196.29 | 2.3545 | 5.000000 | 2.0000 | 2.323709 | 0.008000000 | 290.464 | top |
+| Cedarwood oil Virginia | 100.00% | 260.00 | 260.00 | 222.37 | 6.6196 | 0.005000 | 2.5000 | 0.810617 | 0.007592382 | 106.767 | base |
+| Ambrox Super | 33.00% | 600.00 | 198.00 | 236.40 | 4.8387 | 0.050000 | 1.0105 | 0.024127 | 0.000300000 | 80.422 | base |
+| Indian Vetiver EO | 100.00% | 120.00 | 120.00 | 222.40 | 3.0859 | 0.040000 | 1.0081 | 0.095865 | 0.002907981 | 32.966 | heart |
+| Damascone Beta | 10.00% | 30.00 | 3.00 | 190.30 | 0.0911 | 0.080000 | 1.0000 | 0.000719 | 0.000040000 | 17.976 | heart |
+| Romandolide | 100.00% | 250.00 | 250.00 | 270.36 | 5.3420 | 0.100000 | 1.5000 | 0.079082 | 0.004900000 | 16.139 | base |
+| Damascenone | 1.00% | 20.00 | 0.20 | 190.30 | 0.0061 | 1.000000 | 1.0000 | 0.000599 | 0.000040000 | 14.980 | heart |
+| Patchouli EO | 100.00% | 60.00 | 60.00 | 222.40 | 1.5586 | 0.001000 | 1.0240 | 0.046352 | 0.004031240 | 11.498 | base |
+| Allyl Amyl Glycolate | 10.00% | 250.00 | 25.00 | 158.20 | 0.9129 | 0.200000 | 1.0000 | 0.018020 | 0.002000000 | 9.010 | top |
+| Ethyl 2-Methylbutyrate | 0.10% | 20.00 | 0.02 | 130.18 | 0.0009 | 5.000000 | 1.0000 | 0.000438 | 0.000060000 | 7.300 | top |
+| Methyl Pamplemousse | 10.00% | 80.00 | 8.00 | 168.20 | 0.2748 | 0.500000 | 1.5000 | 0.020338 | 0.003000000 | 6.779 | top |
+| Clearwood | 100.00% | 170.00 | 170.00 | 222.40 | 4.4159 | 0.002000 | 1.8000 | 0.001569 | 0.010000000 | 0.157 | base |
+| Paradisamide | 10.00% | 160.00 | 16.00 | 219.32 | 0.4215 | 0.002000 | 1.0000 | 0.000083 | 0.008000000 | 0.010 | heart |
+| Cade Oil Rectified | 1.00% | 10.00 | 0.10 | 200.00 | 0.0028 | 0.018020 | 1.0000 | 0.000005 | 0.003000000 | 0.002 | base |
+| Siam Benzoin | 50.00% | 30.00 | 15.00 | 212.24 | 0.4083 | 0.000100 | 0.6000 | 0.000002 | 0.040000000 | 0.000 | base |
+| Grapefruit FCF oil Sicilian | 100.00% | 120.00 | 120.00 | HOLD | 3.4662 | HOLD | 1.0081 | 0.000000 | HOLD | HOLD | heart |
+
+**Materials:** 25 total (8 top, 9 heart, 8 base)
+**Total vapor:** 113.10 ppm
+### Note Distribution
+
+**TOP:** 8 mats, 10.5% active, 21.9% OAV
+  - Juniper Berry EO             OAV=  3520.4 (very strong) VP=65.000Pa
+  - Red Mandarin EO              OAV=  1085.0 (very strong) VP=1.800Pa
+  - Black Pepper EO              OAV=   895.8 (strong) VP=0.300Pa
+  - Petitgrain EO Paraguay       OAV=   487.9 (strong) VP=6.000Pa
+  - Allyl Cyclohexyl Propionate  OAV=   290.5 (strong) VP=5.000Pa
+  - Allyl Amyl Glycolate         OAV=     9.0 (perceptible) VP=0.200Pa
+  ... and 2 more
+**HEART:** 9 mats, 36.3% active, 49.9% OAV
+  - Hedione                      OAV=  9932.6 (very strong) VP=0.210Pa
+  - Dihydrojasmone               OAV=  2101.0 (very strong) VP=7.660Pa
+  - Cassis Base 345B             OAV=  1919.3 (very strong) VP=0.500Pa
+  - Vetival                      OAV=   365.4 (strong) VP=6.530Pa
+  - Indian Vetiver EO            OAV=    33.0 (moderate) VP=0.040Pa
+  - Damascone Beta               OAV=    18.0 (moderate) VP=0.080Pa
+  ... and 3 more
+**BASE:** 8 mats, 53.2% active, 28.3% OAV
+  - Iso E Super                  OAV=  7937.3 (very strong) VP=0.150Pa
+  - Cedarwood oil Virginia       OAV=   106.8 (strong) VP=0.005Pa
+  - Ambrox Super                 OAV=    80.4 (moderate-strong) VP=0.050Pa
+  - Romandolide                  OAV=    16.1 (moderate) VP=0.100Pa
+  - Patchouli EO                 OAV=    11.5 (moderate) VP=0.001Pa
+  - Clearwood                    OAV=     0.2 (sub-threshold) VP=0.002Pa
+  ... and 2 more
+### OAV by Odor Family
+
+           floral  41.7% ====================  (2 mats)
+            woody  29.2% ==============  (5 mats)
+         aromatic  12.2% ======  (1 mats)
+           fruity   7.7% ===  (4 mats)
+           citrus   5.5% ==  (3 mats)
+            spice   3.1% =  (1 mats)
+            amber   0.3% =  (1 mats)
+                ?   0.1% =  (2 mats)
+             rose   0.1% =  (2 mats)
+             musk   0.1% =  (1 mats)
+            green   0.0% =  (1 mats)
+            smoky   0.0% =  (1 mats)
+         gourmand   0.0% =  (1 mats)
+### Sub-threshold Materials (OAV < 1)
+5/25 materials below perceptible threshold
+  - Grapefruit FCF oil Sicilian: OAV=0.00 VP=0.000Pa act=120uL role= [Structural (acceptable)]
+  - Paradisamide: OAV=0.01 VP=0.002Pa act=16uL role=Paradisamide [Structural (acceptable)]
+  - Clearwood: OAV=0.16 VP=0.002Pa act=170uL role=Clearwood [Structural (acceptable)]
+  - Siam Benzoin: OAV=0.00 VP=0.000Pa act=15uL role=Siam Benzoin [Structural (acceptable)]
+  - Cade Oil Rectified: OAV=0.00 VP=0.018Pa act=0uL role=Cade Oil Rectified [Structural (acceptable)]
+### High-OAV Flags (>5000)
+  - Hedione OAV=9933 dominates headspace — may mask subtler notes
+  - Iso E Super OAV=7937 dominates headspace — may mask subtler notes
+## Temporal Evolution (5 Windows)
+
+| Window | Time | T/H/B | Vapor | Raw uL | Leaders |
+|------------|------------|------------|------------|------------|------------|
+| opening      |      0s | 21.9/49.9/28.3 | 113.10ppm |   5400 | Hedione(9933), Iso E Super(7937), Juniper Berr(3520)
+| top          |    300s | 16.5/52.9/30.6 |  73.33ppm |   5393 | Hedione(9945), Iso E Super(7947), Dihydrojasmo(2096)
+| heart        |   1800s |  8.3/57.5/34.2 |  20.29ppm |   5362 | Hedione(9998), Iso E Super(7991), Dihydrojasmo(2071)
+| late_heart   |   7200s |  6.8/58.0/35.1 |  13.95ppm |   5267 | Hedione(10132), Iso E Super(8101), Dihydrojasmo(1971)
+| drydown      |  14400s |  6.1/58.1/35.7 |  12.97ppm |   5160 | Hedione(10262), Iso E Super(8209), Dihydrojasmo(1837)
+
+### Per-Window Detail
+
+**OPENING** (0.0s) — Evap:0%
+  T:21.9% H:49.9% B:28.3%  Vapor:113.10ppm
+  Leaders: Hedione OAV 9933 | Iso E Super OAV 7937 | Juniper Berry EO OAV 3520 | Dihydrojasmone OAV 2101 | Cassis Base 345B OAV 1919
+
+**TOP** (300.0s) — Evap:0%
+  T:16.5% H:52.9% B:30.6%  Vapor:73.33ppm
+  Leaders: Hedione OAV 9945 | Iso E Super OAV 7947 | Dihydrojasmone OAV 2096 | Juniper Berry EO OAV 1979 | Cassis Base 345B OAV 1650
+
+**HEART** (1800.0s) — Evap:1%
+  T:8.3% H:57.5% B:34.2%  Vapor:20.29ppm
+  Leaders: Hedione OAV 9998 | Iso E Super OAV 7991 | Dihydrojasmone OAV 2071 | Cassis Base 345B OAV 1293 | Red Mandarin EO OAV 1075
+
+**LATE_HEART** (7200.0s) — Evap:2%
+  T:6.8% H:58.0% B:35.1%  Vapor:13.95ppm
+  Leaders: Hedione OAV 10132 | Iso E Super OAV 8101 | Dihydrojasmone OAV 1971 | Cassis Base 345B OAV 1240 | Red Mandarin EO OAV 1038
+
+**DRYDOWN** (14400.0s) — Evap:4%
+  T:6.1% H:58.1% B:35.7%  Vapor:12.97ppm
+  Leaders: Hedione OAV 10262 | Iso E Super OAV 8209 | Dihydrojasmone OAV 1837 | Cassis Base 345B OAV 1223 | Red Mandarin EO OAV 985
+## Structural OAV Analysis
+
+**Vapor:** 113 ppm  |  **Active:** 12.5%  |  **Perceptible:** 20/25
+
+### OAV Tiers
+  **massive** (6): Red Mandarin EO(1085), Cassis Base 345B(1919), Hedione(9933), Dihydrojasmone(2101), Iso E Super(7937), Juniper Berry EO(3520)  ! overload risk
+  **v.strong** (5): Allyl Cyclohexyl Propionate(290), Black Pepper EO(896), Petitgrain EO Paraguay(488), Cedarwood oil Virginia(107), Vetival(365)
+  **strong** (1): Ambrox Super(80)
+  **moderate** (5): Damascenone(15), Damascone Beta(18), Indian Vetiver EO(33), Patchouli EO(11), Romandolide(16)
+  **perceptible** (3): Methyl Pamplemousse(7), Allyl Amyl Glycolate(9), Ethyl 2-Methylbutyrate(7)
+  **sub** (5): Grapefruit FCF oil Sicilian(0), Paradisamide(0), Clearwood(0), Siam Benzoin(0), Cade Oil Rectified(0)
+
+### Block Balance
+  **Citrus**     1580 (7%)
+  **Floral**    14384 (60%)
+  **Base**       8152 (34%)
+  **Ratio:** 9:1 between strongest/weakest block
+
+### Issues
+  ! 5 sub-threshold material(s): Grapefruit FCF oil Sicilian, Paradisamide, Clearwood, Siam Benzoin, Cade Oil Rectified
+
+## Perfumer's Assessment
+
+### 1. Character
+  Top: Juniper Berry EO(very strong) + Red Mandarin EO(very strong) + Black Pepper EO(strong)
+  Heart: Hedione(very strong) + Dihydrojasmone(very strong)
+  Base: Iso E Super(very strong) + Cedarwood oil Virginia(strong) + Ambrox Super(moderate-strong) + Romandolide(moderate) + Patchouli EO(moderate)
+
+### 2. Opening (0-5min)
+  Juniper Berry EO leads modeled top-tier OAV at 3520 (very strong).
+  - Juniper Berry EO OAV=3520 VP=65.0Pa (aromatic)
+  - Red Mandarin EO OAV=1085 VP=1.8Pa (citrus)
+  - Black Pepper EO OAV=896 VP=0.3Pa (spice)
+  - Petitgrain EO Paraguay OAV=488 VP=6.0Pa (citrus)
+  Total vapor: 113.1 ppm
+
+### 3. Heart (30min-2hr)
+  Hedione OAV=9998 (very strong)
+  Iso E Super OAV=7991 (very strong)
+  Dihydrojasmone OAV=2071 (very strong)
+  Cassis Base 345B OAV=1293 (very strong)
+  T:8.3% H:57.5% B:34.2%
+  Vapor: 20.3 ppm
+
+### 4. Drydown (2hr-4hr+)
+  Heart leads modeled headspace at 58%
+  - Hedione OAV=10262
+  - Iso E Super OAV=8209
+  - Dihydrojasmone OAV=1837
+  - Cassis Base 345B OAV=1223
+  - Red Mandarin EO OAV=985
+  - Vetival OAV=313
+  Vapor: 13.0 ppm
+
+### 5. Sillage & Diffusion
+  Modeled primary carriers: Hedione(9933) + Iso E Super(7937) + Juniper Berry EO(3520) + Dihydrojasmone(2101)
+  OAV by family: floral42% woody29% aromatic12% fruity8%
+
+### 6. Longevity
+  Evaporation: 4% over 4h
+  Vapor: 113.1 > 13.0 ppm
+  Base @ drydown: 36%
+  Modeled persistence heuristic: 8h moderate + 4h skin scent; physical skin life NOT TESTED
+
+### 7. Balance
+  Pyramid: T:21.9% H:49.9% B:28.3%
+  OAV range: 0.00 to 9933 (sigma-log=2.10)
+  Wide contrast: Hedione (floral, OAV 9933) sets the strongest modeled headspace pole.
+    sub-threshold: 4
+
+### 8. Flags
+  SUB: Clearwood OAV=0.16 role=Clearwood
+  SUB: Paradisamide OAV=0.01 role=Paradisamide
+  SUB: Cade Oil Rectified OAV=0.00 role=Cade Oil Rectified
+  SUB: Siam Benzoin OAV=0.00 role=Siam Benzoin
+  SUB: Grapefruit FCF oil Sicilian OAV=0.00 role=
+  IFRA HOLD: explicit Cat4 limit unavailable for Allyl Cyclohexyl Propionate, Black Pepper EO, Cade Oil Rectified, Cassis Base 345B, Cedarwood oil Virginia, Clearwood, Damascenone, Dihydrojasmone, Ethyl 2-Methylbutyrate, Grapefruit FCF oil Sicilian, Indian Vetiver EO, Juniper Berry EO, Methyl Pamplemousse, Paradisamide, Petitgrain EO Paraguay, Siam Benzoin, Vetival
+```

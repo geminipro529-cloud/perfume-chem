@@ -1,0 +1,52 @@
+{
+  "schema": "b4-rule-corpus-portability-binding-v2",
+  "authority": "REGRESSION_FIXTURE_ONLY_NOT_CANONICAL_RULE_AUTHORITY",
+  "historical_v1": {
+    "path": "backend/tests/fixtures/b4_rule_corpus_baseline.json",
+    "schema": "b4-rule-corpus-baseline-v1",
+    "canonical_json_sha256": "619a7cfced4cedadced3cbbe0350a82b2420974ada67ee967cc21ab66ce104b2",
+    "source_raw_sha256": {
+      "data/knowledge_graph/pairing_rules.json": "fc4370b8017334e070b873463bcec1db8cd781b156db214a8b1c0382483cf8d1",
+      "data/knowledge_graph/pairing_rules_discovered.json": "2dd23d496cda1b6dbd61ff147f977d4bbb7d919048b591e018785ba0bde9e044",
+      "data/knowledge_graph/synergy_matrix.json": "7b194c2f7ea19efcfbcc1bafef5e4c0dfdcac69739dff5720b1c91fe0b7d7b9d",
+      "data/knowledge_graph/theory_rules.json": "4237619f7fdddbfc15b373c42f40e2d30fc587537ac8f782b2111d6f61f53b90"
+    }
+  },
+  "identity_resolution_snapshot": {
+    "path": "backend/tests/fixtures/b4_identity_resolution_baseline.json",
+    "canonical_json_sha256": "123e0637588dbc55dfd0c49ca17711229963ae2e26174fbf07007c35cca6ef51",
+    "labels": 454,
+    "authority": "REGRESSION_FIXTURE_ONLY_NOT_CANONICAL_IDENTITY_AUTHORITY"
+  },
+  "current_semantic_sources": {
+    "data/knowledge_graph/pairing_rules.json": {
+      "records": 2408,
+      "canonical_json_sha256": "fb90acb23588187db06078ea30fb0893e06baffc4c981fb81e10a75b3235538e"
+    },
+    "data/knowledge_graph/pairing_rules_discovered.json": {
+      "records": 915,
+      "canonical_json_sha256": "ee6a72cf66f67e134db2972f93798dce8edce22b32790aee7ab983069ee4abb8"
+    },
+    "data/knowledge_graph/synergy_matrix.json": {
+      "records": 53,
+      "canonical_json_sha256": "9658c33cfd811906812e0f9a74b17df5ce8b79ef0d76e50bc630f7d5407e1f1b"
+    },
+    "data/knowledge_graph/theory_rules.json": {
+      "records": 5,
+      "canonical_json_sha256": "0dadddee6afc7b422c2303bfe62de5cbdbdf854ac710c86abb16649c75adbcc9"
+    }
+  },
+  "compatibility": {
+    "corpus_semantics": "UNCHANGED_FROM_V1",
+    "raw_byte_variance": "JSON_WHITESPACE_OR_LINE_ENDINGS_ONLY",
+    "runtime_authority_promoted": false,
+    "scientific_authority_promoted": false
+  },
+  "total_records": 3381,
+  "invalid_exact_count_ceiling": 137,
+  "blocking_count": 0,
+  "numerical_model_count": 0,
+  "duplicate_count": 68,
+  "cycle_count": 1,
+  "report_sha256": "c49a49dd2bac5fb0b819e2162fbb60e851a098925f7680ea7c920650b7e75fb7"
+}

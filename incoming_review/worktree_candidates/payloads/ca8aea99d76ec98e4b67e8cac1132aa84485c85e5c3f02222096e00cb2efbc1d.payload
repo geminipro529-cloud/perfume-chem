@@ -1,0 +1,187 @@
+from dataclasses import FrozenInstanceError, replace
+
+import pytest
+
+from engine.families.registry import all_archetypes
+from future_modules._shared_types import FragranceFamily
+from future_modules.family_hedonic_optimizer import (
+    FUTURE_CANDIDATE_STATUS,
+    HedonicObservation,
+    _FAMILY_CONTEXT_MAP,
+    get_family_profile,
+    resolve_family_context,
+)
+
+
+EXPECTED_CONTEXTS = {
+    "aromatic_fougere": FragranceFamily.AROMATIC_FOUGERE,
+    "fougere_classical": FragranceFamily.AROMATIC_FOUGERE,
+    "chypre": FragranceFamily.CHYPRE,
+    "chypre_classical": FragranceFamily.CHYPRE,
+    "chypre_floral": FragranceFamily.CHYPRE,
+    "chypre_fruity": FragranceFamily.CHYPRE,
+    "chypre_green": FragranceFamily.CHYPRE,
+    "chypre_leathery": FragranceFamily.CHYPRE,
+    "citrus_aromatic": FragranceFamily.CITRUS,
+    "citrus_classical": FragranceFamily.CITRUS,
+    "floral_aldehydic": FragranceFamily.FLORAL_JASMINE,
+    "floral_aldehydic_amber": FragranceFamily.FLORAL_JASMINE,
+    "floral_bouquet": FragranceFamily.FLORAL_JASMINE,
+    "floral_carnation": FragranceFamily.FLORAL_JASMINE,
+    "floral_green": FragranceFamily.FLORAL_JASMINE,
+    "floral_muguet": FragranceFamily.FLORAL_JASMINE,
+    "floral_powdery": FragranceFamily.FLORAL_JASMINE,
+    "floral_soliflore": FragranceFamily.FLORAL_ROSE,
+    "floral_white": FragranceFamily.FLORAL_JASMINE,
+    "gourmand_floral": FragranceFamily.GOURMAND,
+    "iris_amber_woody": FragranceFamily.WOODY_AMBER,
+    "iris_ambrox_amber": FragranceFamily.WOODY_AMBER,
+    "iris_coumarin_amber": FragranceFamily.AMBER_ORIENTAL,
+    "iris_sandalwood": FragranceFamily.WOODY_AMBER,
+    "layton_dna": FragranceFamily.AMBER_ORIENTAL,
+    "leather_iris_amber": FragranceFamily.LEATHER,
+    "oriental_classical": FragranceFamily.AMBER_ORIENTAL,
+    "oriental_floral": FragranceFamily.AMBER_ORIENTAL,
+    "oriental_soft": FragranceFamily.AMBER_ORIENTAL,
+    "woody": FragranceFamily.WOODY_AMBER,
+    "woody_amber": FragranceFamily.WOODY_AMBER,
+    "woody_floral_musk": FragranceFamily.WOODY_AMBER,
+    "ysl_lhomme": FragranceFamily.WOODY_AMBER,
+    "ysl_la_nuit_de_lhomme": FragranceFamily.AMBER_ORIENTAL,
+}
+
+
+def test_every_registry_family_resolves_to_one_explicit_context():
+    actual_families = {spec.family for spec in all_archetypes()}
+    assert actual_families == set(EXPECTED_CONTEXTS)
+    assert {
+        key: resolve_family_context(key) for key in sorted(actual_families)
+    } == EXPECTED_CONTEXTS
+
+
+def test_woody_amber_never_falls_through_to_amber_oriental():
+    assert resolve_family_context("woody_amber") is FragranceFamily.WOODY_AMBER
+
+
+def test_unknown_family_returns_none_instead_of_arbitrary_fallback():
+    assert resolve_family_context("missing_reference_family") is None
+
+
+def test_explicit_family_map_has_no_uncovered_or_extra_registry_contexts():
+    assert set(_FAMILY_CONTEXT_MAP) == set(EXPECTED_CONTEXTS)
+
+
+def test_candidate_records_are_frozen_and_slotted():
+    observation = HedonicObservation("woody_amber", None, {}, {}, {})
+    assert getattr(HedonicObservation, "__slots__")
+    with pytest.raises(FrozenInstanceError):
+        observation.family_key = "chypre"
+
+
+def _observation(oavs, *, authority=None, extra_active=None):
+    return HedonicObservation(
+        family_key="woody_amber",
+        archetype_key=None,
+        window_oavs={
+            "opening": dict(oavs),
+            "top": dict(oavs),
+            "heart": dict(oavs),
+            "late_heart": dict(oavs),
+            "drydown": dict(oavs),
+        },
+        active_percentages={
+            **{name: 1.0 for name in oavs},
+            **(extra_active or {}),
+        },
+        material_authority=authority or {name: "MODELED" for name in oavs},
+    )
+
+
+def _evaluate(observation):
+    from future_modules.family_hedonic_optimizer import evaluate_family_hedonic_context
+
+    return evaluate_family_hedonic_context(
+        observation,
+        get_family_profile(FragranceFamily.WOODY_AMBER),
+    )
+
+
+def test_report_is_candidate_only_and_cannot_prove_liking_or_similarity():
+    report = _evaluate(_observation({"Iso E Super": 50.0, "Sandalore": 20.0}))
+    assert report.claim_ceiling == FUTURE_CANDIDATE_STATUS
+    assert report.proves_liking is False
+    assert report.proves_similarity is False
+    assert "overall_score" not in report.as_dict()
+
+
+def test_missing_present_oav_holds_instead_of_becoming_zero():
+    report = _evaluate(
+        _observation(
+            {"Iso E Super": None, "Sandalore": 20.0},
+            authority={"Iso E Super": "HOLD", "Sandalore": "MODELED"},
+        )
+    )
+    assert report.authority_status == "HOLD"
+    assert "Iso E Super" in report.unknowns
+    assert report.status != "PASS"
+
+
+def test_redundant_unrecognized_rows_cannot_improve_component_results():
+    base = _evaluate(_observation({"Iso E Super": 50.0, "Sandalore": 20.0}))
+    crowded = _evaluate(
+        _observation(
+            {"Iso E Super": 50.0, "Sandalore": 20.0},
+            extra_active={f"Unrecognized {index}": 1.0 for index in range(25)},
+        )
+    )
+    assert crowded.components == base.components
+
+
+def test_material_hedonic_prior_is_reported_as_separate_not_aggregated():
+    report = _evaluate(_observation({"Iso E Super": 50.0}))
+    assert report.components["intrinsic_valence_prior"]["status"] == (
+        "SEPARATE_NOT_AGGREGATED"
+    )
+
+
+def test_any_missing_required_window_holds_temporal_and_coverage_planes():
+    complete = _observation({"Iso E Super": 50.0})
+    incomplete = replace(
+        complete,
+        window_oavs={
+            window: values
+            for window, values in complete.window_oavs.items()
+            if window != "heart"
+        },
+    )
+    report = _evaluate(incomplete)
+    assert report.status == "WARN"
+    assert report.authority_status == "HOLD"
+    assert report.components["temporal_fit"]["status"] == "HOLD"
+    assert report.components["evidence_coverage"]["status"] == "HOLD"
+    assert report.components["evidence_coverage"]["missing_required_windows"] == [
+        "heart"
+    ]
+
+
+@pytest.mark.parametrize(
+    "authority",
+    ["NOT_TESTED", "NOT TESTED", "PENDING", "SCALE_MISMATCH", "MODELED_TYP0", "ARBITRARY"],
+)
+def test_only_explicit_modeled_authority_can_rate_oav(authority):
+    report = _evaluate(
+        _observation(
+            {"Iso E Super": 50.0},
+            authority={"Iso E Super": authority},
+        )
+    )
+    assert report.authority_status == "HOLD"
+    assert "Iso E Super" in report.unknowns
+    assert report.components["dose_context_fit"]["status"] == "HOLD"
+
+
+def test_subthreshold_recognized_oav_cannot_pass_temporal_or_role_fit():
+    report = _evaluate(_observation({"Iso E Super": 0.0}))
+    assert report.components["dose_context_fit"]["status"] == "WARN"
+    assert report.components["temporal_fit"]["status"] != "PASS"
+    assert report.components["family_role_fit"]["status"] != "PASS"

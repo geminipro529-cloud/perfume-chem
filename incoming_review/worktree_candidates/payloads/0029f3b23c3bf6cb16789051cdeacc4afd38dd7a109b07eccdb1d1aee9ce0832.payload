@@ -1,0 +1,56 @@
+from engine import inventory_parser
+from engine.name_utils import normalize_name
+
+
+def test_canonical_inventory_name_remains_available_to_pipeline_consumers():
+    assert inventory_parser.canonical_inventory_name(
+        "Hexyl Acetate (10%)"
+    ) == "Hexyl Acetate"
+    assert inventory_parser.canonical_inventory_name(
+        "Cypress EO  # supplier note"
+    ) == "Cypress EO"
+
+
+def test_unadjudicated_heliotropin_products_do_not_collapse_conflicting_odt_rows():
+    assert normalize_name("Heliotropin") == "heliotropin"
+    assert normalize_name("Heliotropal") == "heliotropal"
+    assert normalize_name("Piperonal") == "piperonal"
+
+
+def test_unadjudicated_cedamber_products_do_not_collapse_conflicting_odt_rows():
+    assert normalize_name("Cedamber") == "cedamber"
+    assert normalize_name("Cedramber") == "cedramber"
+
+
+def test_parse_inventory_accepts_pipeline_overlay_keyword_when_unset():
+    direct = inventory_parser.parse_inventory(unique=False)
+    pipeline = inventory_parser.parse_inventory(unique=False, overlay_path=None)
+    assert pipeline == direct
+
+
+def test_inventory_material_exposes_read_only_legacy_metadata_aliases():
+    record = inventory_parser.InventoryMaterial(
+        name="Example",
+        dilution=0.1,
+        category="test",
+        raw_name="Example (10% w/w in DEP)",
+        status="owned",
+        fraction_basis="mass_fraction",
+        carrier="dep",
+        authority="USER_AUTHORITY_EVENT",
+        source_ref="inventory.txt:1",
+    )
+
+    assert record.concentration_basis == "w/w"
+    assert record.authority_event_id == "USER_AUTHORITY_EVENT"
+    assert record.source == "inventory.txt:1"
+
+
+def test_resolve_inventory_material_remains_available_for_current_inventory():
+    record = inventory_parser.resolve_inventory_material("Red Mandarin EO")
+
+    assert record is not None
+    assert record.name == "Red Mandarin EO"
+    assert record.status == "owned"
+    assert record.execution_ready is True
+    assert record.dilution == 1.0
