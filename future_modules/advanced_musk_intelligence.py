@@ -6,7 +6,7 @@ Extends the musk intelligence from the base Formulation Intelligence Database wi
 the Advanced Perfumery Supplement (Gap 2). Covers:
 
   - Six structural musk classes with quantified anosmia, VP, IFRA status
-  - Helvetolide — pear/apple alicyclic musk (Creed Aventus insight at 14%)
+  - Helvetolide — pear/apple alicyclic musk (Aventus platform hypothesis; dose unknown)
   - Romandolide — Galaxolide's alicyclic analog, universal perception
   - Cashmeran — NOT primarily a musk; amber-spicy-woody context-dependent
   - Norlimbanol — "the Hedione of wood materials"; ultra-base, climate-invariant
@@ -91,17 +91,19 @@ class HelvetolideProfile:
         "Less powdery than Galaxolide. Ambrette-like nuance without animalic edge."
     )
     standard_dose_pct: tuple[float, float] = (0.5, 5.0)    # % in concentrate
-    aventus_scale_dose_pct: float = 14.0                    # Creed Aventus maximum
+    aventus_scale_dose_pct: float | None = None             # exact commercial dose unknown
     ifra_cat4_max: str = "Not limited"
     anosmia: str = "Universally perceived (< 5%) — major advantage over polycyclic musks"
     key_insight: str = (
-        "At 14% of formula weight (Creed Aventus), reads as 'transparent fruity-musk cloud' "
-        "— NOT as 'musk'. This is the highest musk loading of any famous fragrance. "
-        "At this concentration, Helvetolide becomes the transparent medium in which "
-        "other notes float — it creates atmosphere rather than character."
+        "Helvetolide has been proposed as part of an Aventus-style transparent fruity-musk "
+        "platform, but the exact commercial dose and perceived contribution are not established. "
+        "Treat atmosphere and diffusion as hypotheses requiring stock-specific OAV and smelling."
     )
     synergies: tuple[str, ...] = ("Rose", "Iris", "Tea", "Pear accord", "Ambrettolide")
-    tropical_notes: str = "Moderate VP (0.003 Pa) — at 14% loading, massive OAV buffer against 35°C heat"
+    tropical_notes: str = (
+        "Moderate stated VP (0.003 Pa); Bangkok performance cannot be inferred without an "
+        "authorized dose, ppm/ODT/OAV calculation, and sensory validation."
+    )
 
 
 HELVETOLIDE = HelvetolideProfile()

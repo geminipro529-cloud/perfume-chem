@@ -1,0 +1,124 @@
+{
+  "schema_version": "perfume_chem_stock_correction_verification_receipt_v1",
+  "effective_date": "2026-09-06",
+  "scope": "Neroli EO neat-only current stock; AHS Neroli-only candidate revision",
+  "authority_source": {
+    "kind": "DIRECT_USER_CORRECTION",
+    "quote": "I only have neroli EO neat",
+    "retired_stock_quote": "I do not have the neroli EO in 10% anymore."
+  },
+  "successor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260906.json",
+    "normalized_text_sha256": "b06024fdef65355c354a4c5a2618d482f215df42a21c2d56aed896bbfb8c305f",
+    "inventory_text": {
+      "size": 20904,
+      "sha256": "214b2ef6bc84a04ae2e3318088a8d5d0f559bdee3dcd7afcc95ff272ff480243"
+    }
+  },
+  "parent_formula": {
+    "path": "formulas/AHS_2004_Reference_First_From_Zero_30mL_EDT_v1.md",
+    "sha256": "9f96499bc64f4e574e1b91e4e8d194e80d81390fd150fda70019645588f7edde",
+    "unchanged": true
+  },
+  "child_formula": {
+    "path": "formulas/AHS_2004_Reference_First_From_Zero_30mL_EDT_v2_Neat_Neroli.md",
+    "definition_sha256": "24a55d353461f0d85958d2b0de4f802a8fb7d795f15645c4eb9931f09ef442ff",
+    "raw_stock_total_ul": 5000,
+    "rows": 27,
+    "neroli_neat_ul": 10,
+    "dpg_ul": 90,
+    "other_odorant_rows_unchanged": 25,
+    "basket_order": "1 through 17; explicit empty baskets; descending raw uL within each populated basket",
+    "batch_use": "NEW_BATCH_CANDIDATE_ONLY_NOT_LIVE_BOTTLE_ADDITION"
+  },
+  "verification": {
+    "focused_command": ".venv/Scripts/python.exe -B -m pytest tests/test_inventory_neroli_stock_2026_09_06.py tests/test_inventory_orris_stock_2026_09_05.py tests/test_inventory_stock_model.py tests/test_pre_mix_guard.py -q --disable-warnings --tb=short",
+    "focused_tests": {
+      "passed": 53,
+      "failed": 0
+    },
+    "lint": "PASS",
+    "diff_whitespace": "PASS",
+    "report_artifact_binding": "CURRENT; content and input hashes verified after persistence",
+    "broad_related_tests": {
+      "passed": 113,
+      "failed": 2,
+      "failures": [
+        "test_resolved_inventory_labels_are_exact_data_spine_aliases: missing Hexyl Acetate 1% registry result",
+        "test_chemical_life_graph_does_not_claim_uncalibrated_longevity: str character field used with .get"
+      ],
+      "note": "Not repaired in this stock-only change; no whole-repository green claim."
+    },
+    "pre_mix_g15": "PASS_WITH_PARENT_AND_MODELED_TEMPORAL_COMPARISON",
+    "full_formula_release_gate": "FAIL_NOT_RELEASE_READY",
+    "full_formula_stock_issues": [
+      {
+        "material": "Lavender EO High Altitude (angustifolia, France)",
+        "reason": "not_in_inventory"
+      },
+      {
+        "material": "Coumarin",
+        "reason": "stock_carrier_mismatch",
+        "formula_basis": "unspecified",
+        "inventory_bases": [],
+        "formula_carrier": "dep",
+        "inventory_carriers": [
+          "dpg"
+        ]
+      },
+      {
+        "material": "Vanillin",
+        "reason": "inventory_stock_metadata_incomplete",
+        "statuses": [
+          "owned"
+        ],
+        "source_rows": [
+          239
+        ],
+        "execution_holds": []
+      },
+      {
+        "material": "Aldehyde C10",
+        "reason": "inventory_stock_metadata_incomplete",
+        "statuses": [
+          "owned"
+        ],
+        "source_rows": [
+          9,
+          10
+        ],
+        "execution_holds": []
+      },
+      {
+        "material": "Aldehyde C12 MNA",
+        "reason": "inventory_stock_metadata_incomplete",
+        "statuses": [
+          "owned"
+        ],
+        "source_rows": [
+          13,
+          14
+        ],
+        "execution_holds": []
+      }
+    ]
+  },
+  "authority_ceiling": {
+    "old_ten_percent_basis": "UNSPECIFIED",
+    "exact_active_mass_equivalence": "NOT_ESTABLISHED",
+    "historical_sensory_equivalence": "NOT_TESTED",
+    "similarity_to_chanel_ahs": "NOT_TESTED",
+    "reference_detector": "Did not detect AHS; unclaimed PASS is not identity validation",
+    "safety": "HOLD",
+    "stability": "NOT_TESTED",
+    "physical_compounding": "NOT_AUTHORIZED_BY_THIS_RECEIPT",
+    "release": false
+  },
+  "preservation": {
+    "non_neroli_stock_ids_and_fields": "unchanged under before-after successor comparison",
+    "other_requirements": "unchanged except source row 180",
+    "historical_overlay_json": "unchanged",
+    "historical_formula_amounts_and_diagnostics": "not rewritten",
+    "git_commit_merge_push": "not performed"
+  }
+}

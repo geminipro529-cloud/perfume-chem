@@ -1,0 +1,2558 @@
+{
+  "schema": "ahs_full_muguet_completion_local_verification_v1",
+  "date": "2026-09-07",
+  "status": "BENCH_DESIGN_COMPLETE_RELEASE_HOLD",
+  "scope": "Full add-only muguet completion for existing AHS; no physical execution",
+  "run": {
+    "overall": "FAIL",
+    "formula_hash": "f3929b29edb99f51d2668f6a5147ba0a70be5a22fb4cee009e17bc7857692caa",
+    "pre_mix_guard": {
+      "status": "WARN",
+      "parent_comparison_available": true,
+      "temporal_comparison_available": true,
+      "findings": [
+        {
+          "code": "AUTHORIZED_ACTIVE_DOSE_CHANGE",
+          "severity": "WARN",
+          "material": "Phenethyl Alcohol",
+          "detail": "Authorized same-stock revision raised active dose 3.00x: User requested full muguet addition; parent intentionally proposes PEA 60 to 180 uL at unchanged neat stock, not executed. Preserve this authority with the formula revision.",
+          "parent_active_ul": 60,
+          "child_active_ul": 180,
+          "active_fold_change": 3,
+          "max_temporal_oav_fold_change": 2.637835322802932,
+          "affected_windows": []
+        }
+      ],
+      "limitations": [
+        "Active-dose continuity is the hard invariant for stock rebases.",
+        "Temporal OAV is screening only and is not percent perceived contribution.",
+        "Static OAV dominance alone never hard-fails a formula.",
+        "No target-similarity, pleasantness, or consumer-preference claim is made."
+      ]
+    },
+    "gates": [
+      {
+        "gate": "g15_oav_firewall",
+        "status": "WARN",
+        "detail": "G15 requires review before compounding: AUTHORIZED_ACTIVE_DOSE_CHANGE",
+        "data": {
+          "gate_id": "G15",
+          "evidence_class": "DETERMINISTIC_DOSE_INTEGRITY_PLUS_MODELED_OAV_SCREENING",
+          "hard_gate_authority": "DOSE_LINEAGE_AND_REVISION_DISCONTINUITY_ONLY",
+          "oav_release_authority": false,
+          "child_formula_hash": "f3929b29edb99f51d2668f6a5147ba0a70be5a22fb4cee009e17bc7857692caa",
+          "oav_interpretation": "Modeled OAV is a time-resolved screening signal, not percent perceived contribution, beauty, similarity, preference, or measured headspace.",
+          "declared_parent_formula_uid": null,
+          "authorized_active_dose_changes": {
+            "Phenethyl Alcohol": "User requested full muguet addition; parent intentionally proposes PEA 60 to 180 uL at unchanged neat stock, not executed"
+          },
+          "supplied_parent_formula_uid": null,
+          "parent_formula_hash": "09e8732f03cb2bf67a8d5d90d180180429767ffb8752d7bdd158cc015af5aa4f",
+          "parent_g15_dilutions": {
+            "Iso E Super": 1,
+            "Hedione": 1,
+            "Benzyl Salicylate": 1,
+            "Patchouli EO": 1,
+            "Sandalore": 1,
+            "Cedarwood oil Virginia": 1,
+            "Vertofix": 1,
+            "Galaxolide": 0.5,
+            "Romandolide": 1,
+            "Lilyreal ND": 1,
+            "Florol": 1,
+            "Linalyl Acetate": 1,
+            "Dihydromyrcenol": 1,
+            "Hydroxycitronellal": 1,
+            "Helional": 1,
+            "Linalool": 1,
+            "Nympheal": 1,
+            "Lavender EO High Altitude (angustifolia, France)": 1,
+            "DPG": 1,
+            "Neroli EO": 1,
+            "Phenethyl Alcohol": 1,
+            "Geranium EO": 1,
+            "Alpha Isomethyl Ionone": 1,
+            "Coumarin": 0.2,
+            "Vanillin": 0.1,
+            "Black Pepper EO": 1,
+            "Red Mandarin EO": 1,
+            "Bergamot FCF oil Sicilian": 1,
+            "Petitgrain EO Paraguay": 1,
+            "Aldehyde C10": 0.01,
+            "Aldehyde C12 MNA": 0.01,
+            "Calone": 0.01
+          },
+          "child_g15_dilutions": {
+            "Iso E Super": 1,
+            "Hedione": 1,
+            "Benzyl Salicylate": 1,
+            "Patchouli EO": 1,
+            "Sandalore": 1,
+            "Cedarwood oil Virginia": 1,
+            "Vertofix": 1,
+            "Galaxolide": 0.5,
+            "Romandolide": 1,
+            "Florol": 1,
+            "Lilyreal ND": 1,
+            "Linalyl Acetate": 1,
+            "Dihydromyrcenol": 1,
+            "Hydroxycitronellal": 1,
+            "Phenyl Ethyl Dimethyl Carbinol": 1,
+            "Helional": 1,
+            "Linalool": 1,
+            "Nympheal": 1,
+            "Farnesol": 1,
+            "Lavender EO High Altitude (angustifolia, France)": 1,
+            "DPG": 1,
+            "Neroli EO": 1,
+            "Phenethyl Alcohol": 1,
+            "Geranium EO": 1,
+            "Alpha Isomethyl Ionone": 1,
+            "Coumarin": 0.2,
+            "Vanillin": 0.1,
+            "Black Pepper EO": 1,
+            "Red Mandarin EO": 1,
+            "Bergamot FCF oil Sicilian": 1,
+            "Petitgrain EO Paraguay": 1,
+            "Aldehyde C10": 0.01,
+            "Aldehyde C12 MNA": 0.01,
+            "Calone": 0.01
+          },
+          "pre_mix_guard": {
+            "status": "WARN",
+            "parent_comparison_available": true,
+            "temporal_comparison_available": true,
+            "findings": [
+              {
+                "code": "AUTHORIZED_ACTIVE_DOSE_CHANGE",
+                "severity": "WARN",
+                "material": "Phenethyl Alcohol",
+                "detail": "Authorized same-stock revision raised active dose 3.00x: User requested full muguet addition; parent intentionally proposes PEA 60 to 180 uL at unchanged neat stock, not executed. Preserve this authority with the formula revision.",
+                "parent_active_ul": 60,
+                "child_active_ul": 180,
+                "active_fold_change": 3,
+                "max_temporal_oav_fold_change": 2.637835322802932,
+                "affected_windows": []
+              }
+            ],
+            "limitations": [
+              "Active-dose continuity is the hard invariant for stock rebases.",
+              "Temporal OAV is screening only and is not percent perceived contribution.",
+              "Static OAV dominance alone never hard-fails a formula.",
+              "No target-similarity, pleasantness, or consumer-preference claim is made."
+            ]
+          }
+        }
+      },
+      {
+        "gate": "inventory_stock_contract",
+        "status": "FAIL",
+        "detail": "8 material stock contract failure(s): Aldehyde C10, Aldehyde C12 MNA, Coumarin, Lavender EO High Altitude (angustifolia, France), Lilyreal ND, Nympheal, Phenyl Ethyl Dimethyl Carbinol, Vanillin",
+        "data": {
+          "inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+          "inventory_source_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+          "inventory_alias_crosswalk_sha256": "4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6",
+          "inventory_authority_sheet": "Current Inventory Master",
+          "matched_stocks": [
+            {
+              "material": "Iso E Super",
+              "inventory_lookup_label": "Iso E Super",
+              "inventory_identity": "Iso E Super",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:v5:66c8443970c7354dd89a",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                140
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Hedione",
+              "inventory_lookup_label": "Hedione",
+              "inventory_identity": "Hedione",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:v5:0f9d7e0971aad1594be4",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                129
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Benzyl Salicylate",
+              "inventory_lookup_label": "Benzyl Salicylate",
+              "inventory_identity": "Benzyl Salicylate",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:user-20260901:7543f1c84f4d44beef70",
+              "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907",
+              "source_rows": [
+                41
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Patchouli EO",
+              "inventory_lookup_label": "Patchouli EO",
+              "inventory_identity": "Patchouli EO",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:user-20260830:c84084216d3a15ca7271",
+              "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907",
+              "source_rows": [
+                198
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Sandalore",
+              "inventory_lookup_label": "Sandalore",
+              "inventory_identity": "Sandalore",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:v5:6cb04089c27e0a91ee15",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                219
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Cedarwood oil Virginia",
+              "inventory_lookup_label": "Cedarwood oil Virginia",
+              "inventory_identity": "Cedarwood Virginia",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:v5:61deb2ebba56d82eb870",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                64
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Vertofix",
+              "inventory_lookup_label": "Vertofix",
+              "inventory_identity": "Vertofix",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:v5:956f2505d56f3a21b129",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                242
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Galaxolide",
+              "inventory_lookup_label": "Galaxolide",
+              "inventory_identity": "Galaxolide",
+              "fraction": 0.5,
+              "fraction_basis": "unspecified",
+              "carrier": "dep",
+              "stock_id": "inventory:v5:f0cded7ffb81c911a097",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                113
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Romandolide",
+              "inventory_lookup_label": "Romandolide",
+              "inventory_identity": "Romandolide",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:v5:caba57d5d5c78d414d5c",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                211
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Florol",
+              "inventory_lookup_label": "Florol",
+              "inventory_identity": "Florol",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:v5:9f1fee283f31fe598eca",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                112
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Linalyl Acetate",
+              "inventory_lookup_label": "Linalyl Acetate",
+              "inventory_identity": "Linalyl Acetate",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:v5:f63a1c7f33cb38c4cb9a",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                163
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Dihydromyrcenol",
+              "inventory_lookup_label": "Dihydromyrcenol",
+              "inventory_identity": "Dihydromyrcenol",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:v5:8012a10ed95b616ac15a",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                95
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Hydroxycitronellal",
+              "inventory_lookup_label": "Hydroxycitronellal",
+              "inventory_identity": "Hydroxycitronellal",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:v5:ba63a0db28471774d240",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                135
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Helional",
+              "inventory_lookup_label": "Helional",
+              "inventory_identity": "Helional",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:v5:b0ac377434d2316950a6",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                130
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Linalool",
+              "inventory_lookup_label": "Linalool",
+              "inventory_identity": "Linalool",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:v5:56bb8be9477cf345183e",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                162
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Farnesol",
+              "inventory_lookup_label": "Farnesol",
+              "inventory_identity": "Farnesol",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:v5:19c53df0ce2acbfe19d1",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                108
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "DPG",
+              "inventory_lookup_label": "DPG",
+              "inventory_identity": "DPG",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:v5:5aa82d48e424050daeeb",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                98
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Neroli EO",
+              "inventory_lookup_label": "Neroli EO",
+              "inventory_identity": "Neroli EO",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:user-20260906:209cd29942aa0e7abf37",
+              "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907",
+              "source_rows": [
+                180
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Phenethyl Alcohol",
+              "inventory_lookup_label": "Phenethyl Alcohol",
+              "inventory_identity": "Phenethyl Alcohol",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:v5:5704ef66666ee777850f",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                204
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Geranium EO",
+              "inventory_lookup_label": "Geranium EO",
+              "inventory_identity": "Geranium EO",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:v5:053a0bf049adb598825d",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                120
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Alpha Isomethyl Ionone",
+              "inventory_lookup_label": "Alpha Isomethyl Ionone",
+              "inventory_identity": "Givaudan AIMI",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:user-20260904:a45ff6250b56cec5bbad",
+              "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907",
+              "source_rows": [
+                21
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Black Pepper EO",
+              "inventory_lookup_label": "Black Pepper EO",
+              "inventory_identity": "Black Pepper EO",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:v5:4bb69da9b62fe8fbd8bb",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                48
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Red Mandarin EO",
+              "inventory_lookup_label": "Red Mandarin EO",
+              "inventory_identity": "Red Mandarin EO",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:user-20260828:88799b6523b1179f3a54",
+              "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907",
+              "source_rows": [
+                210
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Bergamot FCF oil Sicilian",
+              "inventory_lookup_label": "Bergamot FCF oil Sicilian",
+              "inventory_identity": "Bergamot FCF Oil Sicilian",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:v5:e21b17adeb4b1fe1f12d",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                42
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Petitgrain EO Paraguay",
+              "inventory_lookup_label": "Petitgrain EO Paraguay",
+              "inventory_identity": "Petitgrain EO Paraguay",
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "stock_id": "inventory:user-20260830:58a38808d9e8d907730c",
+              "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907",
+              "source_rows": [
+                203
+              ],
+              "identity_crosswalk_contract_id": null
+            },
+            {
+              "material": "Calone",
+              "inventory_lookup_label": "Calone",
+              "inventory_identity": "Calone",
+              "fraction": 0.01,
+              "fraction_basis": "unspecified",
+              "carrier": "dpg",
+              "stock_id": "inventory:v5:5a1aeda16bf44a15d38e",
+              "authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                53
+              ],
+              "identity_crosswalk_contract_id": null
+            }
+          ],
+          "resolved_stock_specs": {
+            "Iso E Super": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:66c8443970c7354dd89a",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                140
+              ],
+              "source_ref": "Current Inventory Master!A140:N140",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Hedione": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:0f9d7e0971aad1594be4",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                129
+              ],
+              "source_ref": "Current Inventory Master!A129:N129",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Benzyl Salicylate": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:user-20260901:7543f1c84f4d44beef70",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907",
+              "source_rows": [
+                41
+              ],
+              "source_ref": "data/governance/inventory_user_authority_overlay_20260904.json#INV-USER-20260901-003",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Patchouli EO": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:user-20260830:c84084216d3a15ca7271",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907",
+              "source_rows": [
+                198
+              ],
+              "source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260830-003",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Sandalore": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:6cb04089c27e0a91ee15",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                219
+              ],
+              "source_ref": "Current Inventory Master!A219:N219",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Cedarwood oil Virginia": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:61deb2ebba56d82eb870",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                64
+              ],
+              "source_ref": "Current Inventory Master!A64:N64",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Vertofix": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:956f2505d56f3a21b129",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                242
+              ],
+              "source_ref": "Current Inventory Master!A242:N242",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Galaxolide": {
+              "fraction": 0.5,
+              "fraction_basis": "unspecified",
+              "carrier": "dep",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:f0cded7ffb81c911a097",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                113
+              ],
+              "source_ref": "Current Inventory Master!A113:N113",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Romandolide": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:caba57d5d5c78d414d5c",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                211
+              ],
+              "source_ref": "Current Inventory Master!A211:N211",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Florol": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:9f1fee283f31fe598eca",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                112
+              ],
+              "source_ref": "Current Inventory Master!A112:N112",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Linalyl Acetate": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:f63a1c7f33cb38c4cb9a",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                163
+              ],
+              "source_ref": "Current Inventory Master!A163:N163",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Dihydromyrcenol": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:8012a10ed95b616ac15a",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                95
+              ],
+              "source_ref": "Current Inventory Master!A95:N95",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Hydroxycitronellal": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:ba63a0db28471774d240",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                135
+              ],
+              "source_ref": "Current Inventory Master!A135:N135",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Helional": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:b0ac377434d2316950a6",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                130
+              ],
+              "source_ref": "Current Inventory Master!A130:N130",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Linalool": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:56bb8be9477cf345183e",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                162
+              ],
+              "source_ref": "Current Inventory Master!A162:N162",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Farnesol": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:19c53df0ce2acbfe19d1",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                108
+              ],
+              "source_ref": "Current Inventory Master!A108:N108",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "DPG": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:5aa82d48e424050daeeb",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                98
+              ],
+              "source_ref": "Current Inventory Master!A98:N98",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Neroli EO": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:user-20260906:209cd29942aa0e7abf37",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907",
+              "source_rows": [
+                180
+              ],
+              "source_ref": "data/governance/inventory_user_authority_overlay_20260906.json#INV-USER-20260906-001",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Phenethyl Alcohol": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:5704ef66666ee777850f",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                204
+              ],
+              "source_ref": "Current Inventory Master!A204:N204",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Geranium EO": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:053a0bf049adb598825d",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                120
+              ],
+              "source_ref": "Current Inventory Master!A120:N120",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Alpha Isomethyl Ionone": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:user-20260904:a45ff6250b56cec5bbad",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907",
+              "source_rows": [
+                21
+              ],
+              "source_ref": "data/governance/inventory_user_authority_overlay_20260904.json#INV-USER-20260904-003",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Black Pepper EO": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:4bb69da9b62fe8fbd8bb",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                48
+              ],
+              "source_ref": "Current Inventory Master!A48:N48",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Red Mandarin EO": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:user-20260828:88799b6523b1179f3a54",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907",
+              "source_rows": [
+                210
+              ],
+              "source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260828-012",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Bergamot FCF oil Sicilian": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:e21b17adeb4b1fe1f12d",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                42
+              ],
+              "source_ref": "Current Inventory Master!A42:N42",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Petitgrain EO Paraguay": {
+              "fraction": 1,
+              "fraction_basis": "neat",
+              "carrier": "",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:user-20260830:58a38808d9e8d907730c",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907",
+              "source_rows": [
+                203
+              ],
+              "source_ref": "data/governance/inventory_user_authority_overlay_20260828.json#INV-USER-20260830-006",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            },
+            "Calone": {
+              "fraction": 0.01,
+              "fraction_basis": "unspecified",
+              "carrier": "dpg",
+              "approximate": false,
+              "declared": true,
+              "stock_id": "inventory:v5:5a1aeda16bf44a15d38e",
+              "authority": "formula_row+inventory_snapshot",
+              "inventory_authority": "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT",
+              "source_rows": [
+                53
+              ],
+              "source_ref": "Current Inventory Master!A53:N53",
+              "identity_crosswalk_contract_id": null,
+              "identity_crosswalk_sha256": null
+            }
+          },
+          "issues": [
+            {
+              "material": "Lilyreal ND",
+              "reason": "stock_fraction_not_declared"
+            },
+            {
+              "material": "Phenyl Ethyl Dimethyl Carbinol",
+              "reason": "not_in_inventory"
+            },
+            {
+              "material": "Nympheal",
+              "reason": "inventory_stock_unavailable",
+              "statuses": [
+                "unresolved"
+              ],
+              "source_rows": [
+                185
+              ],
+              "execution_holds": []
+            },
+            {
+              "material": "Lavender EO High Altitude (angustifolia, France)",
+              "reason": "not_in_inventory"
+            },
+            {
+              "material": "Coumarin",
+              "reason": "stock_fraction_mismatch",
+              "formula_dilution": 0.2,
+              "inventory_dilutions": [
+                0.1
+              ],
+              "active_multiplier_if_live_stock_used": [
+                0.5
+              ],
+              "requirement_source_rows": []
+            },
+            {
+              "material": "Vanillin",
+              "reason": "inventory_stock_metadata_incomplete",
+              "statuses": [
+                "owned"
+              ],
+              "source_rows": [
+                239
+              ],
+              "execution_holds": []
+            },
+            {
+              "material": "Aldehyde C10",
+              "reason": "inventory_stock_metadata_incomplete",
+              "statuses": [
+                "owned"
+              ],
+              "source_rows": [
+                9,
+                10
+              ],
+              "execution_holds": []
+            },
+            {
+              "material": "Aldehyde C12 MNA",
+              "reason": "inventory_stock_metadata_incomplete",
+              "statuses": [
+                "owned"
+              ],
+              "source_rows": [
+                13,
+                14
+              ],
+              "execution_holds": []
+            }
+          ],
+          "active_impact": {
+            "declared_active_ul": 5339.6,
+            "live_projection_complete": false
+          },
+          "active_impact_by_inventory_material": {
+            "Aldehyde C10": {
+              "declared_active_ul": 0.5,
+              "live_projection_complete": false
+            },
+            "Aldehyde C12 MNA": {
+              "declared_active_ul": 0.3,
+              "live_projection_complete": false
+            },
+            "Benzyl Salicylate": {
+              "declared_active_ul": 250,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 250,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Bergamot FCF Oil Sicilian": {
+              "declared_active_ul": 150,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 150,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Black Pepper EO": {
+              "declared_active_ul": 20,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 20,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Calone": {
+              "declared_active_ul": 0.8,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 0.8,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Cedarwood Virginia": {
+              "declared_active_ul": 80,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 80,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Coumarin": {
+              "declared_active_ul": 40,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 20,
+              "active_multiplier_if_live_stocks_used": 0.5
+            },
+            "DPG": {
+              "declared_active_ul": 90,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 90,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Dihydromyrcenol": {
+              "declared_active_ul": 200,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 200,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Farnesol": {
+              "declared_active_ul": 60,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 60,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Florol": {
+              "declared_active_ul": 420,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 420,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Galaxolide": {
+              "declared_active_ul": 250,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 250,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Geranium EO": {
+              "declared_active_ul": 20,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 20,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Givaudan AIMI": {
+              "declared_active_ul": 60,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 60,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Hedione": {
+              "declared_active_ul": 790,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 790,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Helional": {
+              "declared_active_ul": 100,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 100,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Hydroxycitronellal": {
+              "declared_active_ul": 120,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 120,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Iso E Super": {
+              "declared_active_ul": 1000,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 1000,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Linalool": {
+              "declared_active_ul": 100,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 100,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Linalyl Acetate": {
+              "declared_active_ul": 220,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 220,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Neroli EO": {
+              "declared_active_ul": 10,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 10,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Nympheal": {
+              "declared_active_ul": 60,
+              "live_projection_complete": false
+            },
+            "Patchouli EO": {
+              "declared_active_ul": 20,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 20,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Petitgrain EO Paraguay": {
+              "declared_active_ul": 50,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 50,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Phenethyl Alcohol": {
+              "declared_active_ul": 180,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 180,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Red Mandarin EO": {
+              "declared_active_ul": 400,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 400,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Romandolide": {
+              "declared_active_ul": 100,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 100,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Sandalore": {
+              "declared_active_ul": 100,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 100,
+              "active_multiplier_if_live_stocks_used": 1
+            },
+            "Vanillin": {
+              "declared_active_ul": 8,
+              "live_projection_complete": false
+            },
+            "Vertofix": {
+              "declared_active_ul": 300,
+              "live_projection_complete": true,
+              "projected_live_active_ul": 300,
+              "active_multiplier_if_live_stocks_used": 1
+            }
+          }
+        }
+      },
+      {
+        "gate": "quantitative_authority",
+        "status": "FAIL",
+        "detail": "Exact active concentrate ppm w/w is unavailable; quantitative/release claims are blocked.",
+        "data": {
+          "active_concentrate_ppm_w_w": "UNAVAILABLE",
+          "active_finished_product_ppm_w_w": "UNAVAILABLE",
+          "headspace_oav": "MODELED_ACTIVE_CONCENTRATE_SCREEN",
+          "headspace_model_class": "HEURISTIC_NOT_MEASURED",
+          "matrix_source": "omitted",
+          "stock_carrier_inclusion": "UNRESOLVED",
+          "unavailable_active_mass_materials": [
+            "Aldehyde C10",
+            "Aldehyde C12 MNA",
+            "Alpha Isomethyl Ionone",
+            "Benzyl Salicylate",
+            "Bergamot FCF oil Sicilian",
+            "Black Pepper EO",
+            "Calone",
+            "Coumarin",
+            "Dihydromyrcenol",
+            "DPG",
+            "Farnesol",
+            "Florol",
+            "Galaxolide",
+            "Geranium EO",
+            "Hedione",
+            "Helional",
+            "Hydroxycitronellal",
+            "Iso E Super",
+            "Lavender EO High Altitude (angustifolia, France)",
+            "Lilyreal ND",
+            "Linalool",
+            "Linalyl Acetate",
+            "Neroli EO",
+            "Nympheal",
+            "Patchouli EO",
+            "Petitgrain EO Paraguay",
+            "Phenyl Ethyl Dimethyl Carbinol",
+            "Red Mandarin EO",
+            "Romandolide",
+            "Sandalore",
+            "Vanillin",
+            "Vertofix"
+          ],
+          "density_fallback_materials": [
+            "Aldehyde C10",
+            "Aldehyde C12 MNA",
+            "Alpha Isomethyl Ionone",
+            "Benzyl Salicylate",
+            "Bergamot FCF oil Sicilian",
+            "Black Pepper EO",
+            "Calone",
+            "Coumarin",
+            "Dihydromyrcenol",
+            "DPG",
+            "Farnesol",
+            "Florol",
+            "Galaxolide",
+            "Geranium EO",
+            "Hedione",
+            "Helional",
+            "Hydroxycitronellal",
+            "Iso E Super",
+            "Lavender EO High Altitude (angustifolia, France)",
+            "Lilyreal ND",
+            "Linalool",
+            "Linalyl Acetate",
+            "Neroli EO",
+            "Nympheal",
+            "Patchouli EO",
+            "Petitgrain EO Paraguay",
+            "Phenyl Ethyl Dimethyl Carbinol",
+            "Red Mandarin EO",
+            "Romandolide",
+            "Sandalore",
+            "Vanillin",
+            "Vertofix"
+          ]
+        }
+      },
+      {
+        "gate": "opaque_preblends",
+        "status": "FAIL",
+        "detail": "not allowed: Lilyreal ND",
+        "data": {
+          "materials": [
+            "Lilyreal ND"
+          ]
+        }
+      },
+      {
+        "gate": "vp_cross_source",
+        "status": "WARN",
+        "detail": "1 materials with VP=None or 0: Lavender EO High Altitude (angustifolia, France); 33 materials use inferred enthalpy for VP at 305.00 K; 8 unresolved cross-source VP conflicts",
+        "data": {
+          "no_vp": [
+            [
+              "Lavender EO High Altitude (angustifolia, France)",
+              null
+            ]
+          ],
+          "fallback_vp_sources": [],
+          "temperature_models": {
+            "heuristic:clausius_clapeyron_vp25_dhvap_correlation": 33,
+            "unavailable:no_vp": 1
+          },
+          "inferred_dhvap_materials": [
+            "Aldehyde C10",
+            "Aldehyde C12 MNA",
+            "Alpha Isomethyl Ionone",
+            "Benzyl Salicylate",
+            "Bergamot FCF oil Sicilian",
+            "Black Pepper EO",
+            "Calone",
+            "Cedarwood oil Virginia",
+            "Coumarin",
+            "Dihydromyrcenol",
+            "DPG",
+            "Farnesol",
+            "Florol",
+            "Galaxolide",
+            "Geranium EO",
+            "Hedione",
+            "Helional",
+            "Hydroxycitronellal",
+            "Iso E Super",
+            "Lilyreal ND",
+            "Linalool",
+            "Linalyl Acetate",
+            "Neroli EO",
+            "Nympheal",
+            "Patchouli EO",
+            "Petitgrain EO Paraguay",
+            "Phenethyl Alcohol",
+            "Phenyl Ethyl Dimethyl Carbinol",
+            "Red Mandarin EO",
+            "Romandolide",
+            "Sandalore",
+            "Vanillin",
+            "Vertofix"
+          ],
+          "cross_source_conflicts": [
+            {
+              "material": "Bergamot FCF oil Sicilian",
+              "canonical_name": "bergamot fcf sicilian",
+              "field": "vp_25c_pa",
+              "ratio": 1,
+              "values": {
+                "profile": 2.5,
+                "data_spine": 2.5
+              },
+              "runtime_precedence": "natural_composite_constituents",
+              "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+              "composite_oav_coverage": true,
+              "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+            },
+            {
+              "material": "Black Pepper EO",
+              "canonical_name": "black pepper eo",
+              "field": "vp_25c_pa",
+              "ratio": 1,
+              "values": {
+                "data_spine": 0.3
+              },
+              "runtime_precedence": "natural_composite_constituents",
+              "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+              "composite_oav_coverage": true,
+              "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+            },
+            {
+              "material": "Cedarwood oil Virginia",
+              "canonical_name": "cedarwood virginia",
+              "field": "vp_25c_pa",
+              "ratio": 1,
+              "values": {
+                "profile": 0.005,
+                "data_spine": 0.005
+              },
+              "runtime_precedence": "natural_composite_constituents",
+              "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+              "composite_oav_coverage": true,
+              "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+            },
+            {
+              "material": "Geranium EO",
+              "canonical_name": "geranium eo",
+              "field": "vp_25c_pa",
+              "ratio": 1,
+              "values": {
+                "data_spine": 1.5
+              },
+              "runtime_precedence": "natural_composite_constituents",
+              "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+              "composite_oav_coverage": true,
+              "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+            },
+            {
+              "material": "Neroli EO",
+              "canonical_name": "neroli eo",
+              "field": "vp_25c_pa",
+              "ratio": 1,
+              "values": {
+                "data_spine": 1.2
+              },
+              "runtime_precedence": "natural_composite_constituents",
+              "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+              "composite_oav_coverage": true,
+              "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+            },
+            {
+              "material": "Patchouli EO",
+              "canonical_name": "patchouli eo",
+              "field": "vp_25c_pa",
+              "ratio": 1,
+              "values": {
+                "profile": 0.001,
+                "data_spine": 0.001
+              },
+              "runtime_precedence": "natural_composite_constituents",
+              "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+              "composite_oav_coverage": true,
+              "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+            },
+            {
+              "material": "Petitgrain EO Paraguay",
+              "canonical_name": "petitgrain eo paraguay",
+              "field": "vp_25c_pa",
+              "ratio": 1,
+              "values": {
+                "profile": 6,
+                "data_spine": 6
+              },
+              "runtime_precedence": "natural_composite_constituents",
+              "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+              "composite_oav_coverage": true,
+              "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+            },
+            {
+              "material": "Red Mandarin EO",
+              "canonical_name": "red mandarin eo",
+              "field": "vp_25c_pa",
+              "ratio": 1,
+              "values": {
+                "profile": 1.8,
+                "data_spine": 1.8
+              },
+              "runtime_precedence": "natural_composite_constituents",
+              "evidence_class": "NATURAL_MIXTURE_BULK_PROXY",
+              "composite_oav_coverage": true,
+              "status": "UNRESOLVED_NATURAL_MIXTURE_PROXY_CONFLICT"
+            }
+          ],
+          "release_authority": false
+        }
+      },
+      {
+        "gate": "safety_ifra_allergen",
+        "status": "WARN",
+        "detail": "11 materials lack explicit IFRA Cat4 limits; 8 EU allergen declarations",
+        "data": {
+          "score": 92,
+          "violations": [],
+          "headroom_violations": [],
+          "warnings": [],
+          "diagnostics": [
+            "✓ All materials within IFRA Category 4 limits",
+            "ℹ 8 EU fragrance allergen(s) require label declaration: Alpha Isomethyl Ionone, Benzyl Salicylate, Coumarin, Farnesol, Hydroxycitronellal, Linalool, Linalyl Acetate, Vanillin",
+            "⚠ Sensitization-active materials: Hydroxycitronellal",
+            "ℹ Dermal uptake overlay (effective exposure index): Hydroxycitronellal (0.1740)"
+          ],
+          "edge_dosing": [],
+          "banned": [],
+          "allergen_declarations": [
+            "Alpha Isomethyl Ionone",
+            "Benzyl Salicylate",
+            "Coumarin",
+            "Farnesol",
+            "Hydroxycitronellal",
+            "Linalool",
+            "Linalyl Acetate",
+            "Vanillin"
+          ],
+          "dermal_exposure": [
+            {
+              "material": "Iso E Super",
+              "pct_in_product": 3.180662,
+              "logp": 3.6,
+              "mw_g_mol": 234.4,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.991973,
+              "effective_exposure_index": 3.15513,
+              "depot_tau_min": 42,
+              "sebum_factor": 1.4
+            },
+            {
+              "material": "Hedione",
+              "pct_in_product": 2.512723,
+              "logp": 2.7,
+              "mw_g_mol": 226.3,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.711013,
+              "effective_exposure_index": 1.786578,
+              "depot_tau_min": 30,
+              "sebum_factor": 1
+            },
+            {
+              "material": "Red Mandarin EO",
+              "pct_in_product": 1.272265,
+              "logp": 4.4,
+              "mw_g_mol": 136.2,
+              "logp_source": "profile:ingredient_intelligence.clogp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 1,
+              "effective_exposure_index": 1.272265,
+              "depot_tau_min": 60,
+              "sebum_factor": 2
+            },
+            {
+              "material": "Lilyreal ND",
+              "pct_in_product": 1.145038,
+              "logp": 3.5,
+              "mw_g_mol": 192.3,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.999389,
+              "effective_exposure_index": 1.144339,
+              "depot_tau_min": 42,
+              "sebum_factor": 1.4
+            },
+            {
+              "material": "Florol",
+              "pct_in_product": 1.335878,
+              "logp": 2.5,
+              "mw_g_mol": 172.26,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.852254,
+              "effective_exposure_index": 1.138507,
+              "depot_tau_min": 30,
+              "sebum_factor": 1
+            },
+            {
+              "material": "Vertofix",
+              "pct_in_product": 0.954198,
+              "logp": 4,
+              "mw_g_mol": 234.4,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.999907,
+              "effective_exposure_index": 0.954109,
+              "depot_tau_min": 60,
+              "sebum_factor": 2
+            },
+            {
+              "material": "Galaxolide",
+              "pct_in_product": 0.795165,
+              "logp": 4.8,
+              "mw_g_mol": 258.4,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 1,
+              "effective_exposure_index": 0.795165,
+              "depot_tau_min": 60,
+              "sebum_factor": 2
+            },
+            {
+              "material": "Benzyl Salicylate",
+              "pct_in_product": 0.795165,
+              "logp": 3.2,
+              "mw_g_mol": 228.3,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.935002,
+              "effective_exposure_index": 0.743481,
+              "depot_tau_min": 42,
+              "sebum_factor": 1.4
+            },
+            {
+              "material": "Linalyl Acetate",
+              "pct_in_product": 0.699746,
+              "logp": 3.2,
+              "mw_g_mol": 196.3,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.98622,
+              "effective_exposure_index": 0.690103,
+              "depot_tau_min": 42,
+              "sebum_factor": 1.4
+            },
+            {
+              "material": "Dihydromyrcenol",
+              "pct_in_product": 0.636132,
+              "logp": 3.47,
+              "mw_g_mol": 156.3,
+              "logp_source": "profile:ingredient_intelligence.clogp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.999992,
+              "effective_exposure_index": 0.636127,
+              "depot_tau_min": 42,
+              "sebum_factor": 1.4
+            },
+            {
+              "material": "Bergamot FCF oil Sicilian",
+              "pct_in_product": 0.477099,
+              "logp": 3.2,
+              "mw_g_mol": 170,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.997969,
+              "effective_exposure_index": 0.47613,
+              "depot_tau_min": 42,
+              "sebum_factor": 1.4
+            },
+            {
+              "material": "Romandolide",
+              "pct_in_product": 0.318066,
+              "logp": 4.56,
+              "mw_g_mol": 270.36,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.999999,
+              "effective_exposure_index": 0.318066,
+              "depot_tau_min": 60,
+              "sebum_factor": 2
+            },
+            {
+              "material": "Sandalore",
+              "pct_in_product": 0.318066,
+              "logp": 3.9,
+              "mw_g_mol": 210.4,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.999984,
+              "effective_exposure_index": 0.318061,
+              "depot_tau_min": 42,
+              "sebum_factor": 1.4
+            },
+            {
+              "material": "Linalool",
+              "pct_in_product": 0.318066,
+              "logp": 2.7,
+              "mw_g_mol": 154.3,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.967049,
+              "effective_exposure_index": 0.307586,
+              "depot_tau_min": 30,
+              "sebum_factor": 1
+            },
+            {
+              "material": "Phenethyl Alcohol",
+              "pct_in_product": 0.572519,
+              "logp": 1.36,
+              "mw_g_mol": 122.17,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.450843,
+              "effective_exposure_index": 0.258116,
+              "depot_tau_min": 30,
+              "sebum_factor": 1
+            },
+            {
+              "material": "Phenyl Ethyl Dimethyl Carbinol",
+              "pct_in_product": 0.381679,
+              "logp": 2.1,
+              "mw_g_mol": 164.24,
+              "logp_source": "profile:ingredient_intelligence.clogp",
+              "mw_source": "profile:ingredient_intelligence.mw",
+              "fraction_into_skin": 0.671406,
+              "effective_exposure_index": 0.256262,
+              "depot_tau_min": 30,
+              "sebum_factor": 1
+            },
+            {
+              "material": "Cedarwood oil Virginia",
+              "pct_in_product": 0.254453,
+              "logp": 5,
+              "mw_g_mol": 222.37,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 1,
+              "effective_exposure_index": 0.254453,
+              "depot_tau_min": 90,
+              "sebum_factor": 3
+            },
+            {
+              "material": "Farnesol",
+              "pct_in_product": 0.19084,
+              "logp": 5.3,
+              "mw_g_mol": 222.4,
+              "logp_source": "profile:ingredient_intelligence.clogp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 1,
+              "effective_exposure_index": 0.19084,
+              "depot_tau_min": 90,
+              "sebum_factor": 3
+            },
+            {
+              "material": "Alpha Isomethyl Ionone",
+              "pct_in_product": 0.19084,
+              "logp": 3.3,
+              "mw_g_mol": 206.32,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.987513,
+              "effective_exposure_index": 0.188457,
+              "depot_tau_min": 42,
+              "sebum_factor": 1.4
+            },
+            {
+              "material": "Helional",
+              "pct_in_product": 0.318066,
+              "logp": 2.2,
+              "mw_g_mol": 192.2,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.58726,
+              "effective_exposure_index": 0.186788,
+              "depot_tau_min": 30,
+              "sebum_factor": 1
+            },
+            {
+              "material": "Nympheal",
+              "pct_in_product": 0.19084,
+              "logp": 3,
+              "mw_g_mol": 204.3,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.936786,
+              "effective_exposure_index": 0.178776,
+              "depot_tau_min": 42,
+              "sebum_factor": 1.4
+            },
+            {
+              "material": "Hydroxycitronellal",
+              "pct_in_product": 0.381679,
+              "logp": 1.8,
+              "mw_g_mol": 172.27,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.456005,
+              "effective_exposure_index": 0.174048,
+              "depot_tau_min": 30,
+              "sebum_factor": 1
+            },
+            {
+              "material": "Petitgrain EO Paraguay",
+              "pct_in_product": 0.159033,
+              "logp": 3,
+              "mw_g_mol": 136,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.999258,
+              "effective_exposure_index": 0.158915,
+              "depot_tau_min": 42,
+              "sebum_factor": 1.4
+            },
+            {
+              "material": "Black Pepper EO",
+              "pct_in_product": 0.063613,
+              "logp": 4.5,
+              "mw_g_mol": 204.35,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 1,
+              "effective_exposure_index": 0.063613,
+              "depot_tau_min": 60,
+              "sebum_factor": 2
+            },
+            {
+              "material": "Patchouli EO",
+              "pct_in_product": 0.063613,
+              "logp": 4.1,
+              "mw_g_mol": 222.4,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.999998,
+              "effective_exposure_index": 0.063613,
+              "depot_tau_min": 60,
+              "sebum_factor": 2
+            },
+            {
+              "material": "Lavender EO High Altitude (angustifolia, France)",
+              "pct_in_product": 0.063613,
+              "logp": null,
+              "mw_g_mol": null,
+              "logp_source": "default:skin_partition",
+              "mw_source": "default:skin_partition",
+              "fraction_into_skin": 0.998696,
+              "effective_exposure_index": 0.06353,
+              "depot_tau_min": 42,
+              "sebum_factor": 1.4
+            },
+            {
+              "material": "Geranium EO",
+              "pct_in_product": 0.063613,
+              "logp": 3,
+              "mw_g_mol": 157,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.995326,
+              "effective_exposure_index": 0.063316,
+              "depot_tau_min": 42,
+              "sebum_factor": 1.4
+            },
+            {
+              "material": "Coumarin",
+              "pct_in_product": 0.127226,
+              "logp": 1.4,
+              "mw_g_mol": 146.2,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.366551,
+              "effective_exposure_index": 0.046635,
+              "depot_tau_min": 30,
+              "sebum_factor": 1
+            },
+            {
+              "material": "Neroli EO",
+              "pct_in_product": 0.031807,
+              "logp": 2.5,
+              "mw_g_mol": 170,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.861091,
+              "effective_exposure_index": 0.027388,
+              "depot_tau_min": 30,
+              "sebum_factor": 1
+            },
+            {
+              "material": "DPG",
+              "pct_in_product": 0.28626,
+              "logp": -0.5,
+              "mw_g_mol": 134.17,
+              "logp_source": "profile:ingredient_intelligence.clogp",
+              "mw_source": "profile:ingredient_intelligence.mw",
+              "fraction_into_skin": 0.023914,
+              "effective_exposure_index": 0.006846,
+              "depot_tau_min": 30,
+              "sebum_factor": 1
+            },
+            {
+              "material": "Vanillin",
+              "pct_in_product": 0.025445,
+              "logp": 1.2,
+              "mw_g_mol": 152.2,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.261128,
+              "effective_exposure_index": 0.006644,
+              "depot_tau_min": 30,
+              "sebum_factor": 1
+            },
+            {
+              "material": "Aldehyde C10",
+              "pct_in_product": 0.00159,
+              "logp": 3,
+              "mw_g_mol": 156.3,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.995568,
+              "effective_exposure_index": 0.001583,
+              "depot_tau_min": 42,
+              "sebum_factor": 1.4
+            },
+            {
+              "material": "Aldehyde C12 MNA",
+              "pct_in_product": 0.000954,
+              "logp": 3,
+              "mw_g_mol": 184.3,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.974185,
+              "effective_exposure_index": 0.00093,
+              "depot_tau_min": 42,
+              "sebum_factor": 1.4
+            },
+            {
+              "material": "Calone",
+              "pct_in_product": 0.002545,
+              "logp": 1.5,
+              "mw_g_mol": 178.18,
+              "logp_source": "registry:data_spine.logp",
+              "mw_source": "registry:data_spine.mw",
+              "fraction_into_skin": 0.29044,
+              "effective_exposure_index": 0.000739,
+              "depot_tau_min": 30,
+              "sebum_factor": 1
+            }
+          ],
+          "uptake_weighted_sensitizers": [
+            {
+              "material": "Hydroxycitronellal",
+              "potency": "moderate",
+              "ec3": 9.7,
+              "pct_in_product": 0.3817,
+              "fraction_into_skin": 0.456005,
+              "effective_exposure_index": 0.174048
+            }
+          ],
+          "missing_ifra_limit": [
+            "Bergamot FCF oil Sicilian",
+            "Black Pepper EO",
+            "Calone",
+            "Cedarwood oil Virginia",
+            "DPG",
+            "Geranium EO",
+            "Lavender EO High Altitude (angustifolia, France)",
+            "Petitgrain EO Paraguay",
+            "Phenyl Ethyl Dimethyl Carbinol",
+            "Sandalore",
+            "Vertofix"
+          ],
+          "headroom": 1,
+          "effective_headroom": 1,
+          "commercial_mode": false,
+          "concentration_basis": "modeled_active_volume_fraction",
+          "quantitative_authority": {
+            "active_concentrate_ppm_w_w": "UNAVAILABLE",
+            "active_finished_product_ppm_w_w": "UNAVAILABLE",
+            "headspace_oav": "MODELED_ACTIVE_CONCENTRATE_SCREEN",
+            "headspace_model_class": "HEURISTIC_NOT_MEASURED",
+            "matrix_source": "omitted",
+            "stock_carrier_inclusion": "UNRESOLVED",
+            "unavailable_active_mass_materials": [
+              "Aldehyde C10",
+              "Aldehyde C12 MNA",
+              "Alpha Isomethyl Ionone",
+              "Benzyl Salicylate",
+              "Bergamot FCF oil Sicilian",
+              "Black Pepper EO",
+              "Calone",
+              "Coumarin",
+              "Dihydromyrcenol",
+              "DPG",
+              "Farnesol",
+              "Florol",
+              "Galaxolide",
+              "Geranium EO",
+              "Hedione",
+              "Helional",
+              "Hydroxycitronellal",
+              "Iso E Super",
+              "Lavender EO High Altitude (angustifolia, France)",
+              "Lilyreal ND",
+              "Linalool",
+              "Linalyl Acetate",
+              "Neroli EO",
+              "Nympheal",
+              "Patchouli EO",
+              "Petitgrain EO Paraguay",
+              "Phenyl Ethyl Dimethyl Carbinol",
+              "Red Mandarin EO",
+              "Romandolide",
+              "Sandalore",
+              "Vanillin",
+              "Vertofix"
+            ],
+            "density_fallback_materials": [
+              "Aldehyde C10",
+              "Aldehyde C12 MNA",
+              "Alpha Isomethyl Ionone",
+              "Benzyl Salicylate",
+              "Bergamot FCF oil Sicilian",
+              "Black Pepper EO",
+              "Calone",
+              "Coumarin",
+              "Dihydromyrcenol",
+              "DPG",
+              "Farnesol",
+              "Florol",
+              "Galaxolide",
+              "Geranium EO",
+              "Hedione",
+              "Helional",
+              "Hydroxycitronellal",
+              "Iso E Super",
+              "Lavender EO High Altitude (angustifolia, France)",
+              "Lilyreal ND",
+              "Linalool",
+              "Linalyl Acetate",
+              "Neroli EO",
+              "Nympheal",
+              "Patchouli EO",
+              "Petitgrain EO Paraguay",
+              "Phenyl Ethyl Dimethyl Carbinol",
+              "Red Mandarin EO",
+              "Romandolide",
+              "Sandalore",
+              "Vanillin",
+              "Vertofix"
+            ]
+          },
+          "authorization": "PROVISIONAL_NOT_RELEASE_AUTHORITY"
+        }
+      }
+    ],
+    "raw_pipeline_path": "output\\AHS_FullMuguet_Completion_20260907_pipeline.json",
+    "raw_pipeline_sha256": "4a7d1af1e5428ee1b55c532d8c869edca0036a1160386100899eaaba684d5e7c",
+    "materials": [
+      {
+        "name": "Farnesol",
+        "canonical_name": "farnesol",
+        "raw_ul": 60,
+        "dilution": 1,
+        "active_ul": 60,
+        "density_g_ml": 1,
+        "density_source": "fallback:default_1_g_ml",
+        "active_g": 0.06,
+        "authoritative_active_g": null,
+        "active_mass_authority": "unavailable:material_density",
+        "stock_fraction_basis": "neat",
+        "stock_carrier": "",
+        "stock_declared": true,
+        "active_concentrate_ppm_w_w": null,
+        "active_finished_product_ppm_w_w": null,
+        "mw_g_mol": 222.4,
+        "moles": 0.0002697841726618705,
+        "mole_fraction": 0.009106261659488796,
+        "logp": 5.3,
+        "vp_pure_pa": 0.16461828040994653,
+        "vp_temperature_factor": 2.0577285051243317,
+        "gamma": 1,
+        "gamma_source": "profile:ingredient_intelligence.activity_coef",
+        "partial_pressure_pa": 0.0014990571353480715,
+        "vapor_ppm": 0.01479454365011667,
+        "odt_air_ppm": 0.02,
+        "oav": 0.7397271825058336,
+        "intensity": 0.88639772175039,
+        "family": "muguet",
+        "note": "heart",
+        "role": "fixative",
+        "texture": "cushion",
+        "profile_name": "Farnesol",
+        "registry_name": "Farnesol",
+        "ifra_limit_pct": 2.2,
+        "is_known": true,
+        "is_opaque_preblend": false,
+        "functional_groups": [],
+        "hsp": null,
+        "hsp_source": "missing",
+        "sources": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "registry:data_spine.mw",
+          "logp": "profile:ingredient_intelligence.clogp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "heuristic:clausius_clapeyron_vp25_dhvap_correlation",
+          "dhvap": "literature_correlation:doi:10.1021/es980812j",
+          "gamma": "profile:ingredient_intelligence.activity_coef",
+          "odt": "literature:peer_reviewed.odt_air",
+          "ifra": "literature:ifra_safety",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "missing_fields": [
+          "density"
+        ]
+      },
+      {
+        "name": "Florol",
+        "canonical_name": "florol",
+        "raw_ul": 420,
+        "dilution": 1,
+        "active_ul": 420,
+        "density_g_ml": 1,
+        "density_source": "fallback:default_1_g_ml",
+        "active_g": 0.42,
+        "authoritative_active_g": null,
+        "active_mass_authority": "unavailable:material_density",
+        "stock_fraction_basis": "neat",
+        "stock_carrier": "",
+        "stock_declared": true,
+        "active_concentrate_ppm_w_w": null,
+        "active_finished_product_ppm_w_w": null,
+        "mw_g_mol": 172.26,
+        "moles": 0.0024381748519679554,
+        "mole_fraction": 0.08229785296349795,
+        "logp": 2.5,
+        "vp_pure_pa": 0.015671184499746922,
+        "vp_temperature_factor": 2.238740642820989,
+        "gamma": 1,
+        "gamma_source": "profile:ingredient_intelligence.activity_coef",
+        "partial_pressure_pa": 0.0012897048377240204,
+        "vapor_ppm": 0.012728397115460354,
+        "odt_air_ppm": 0.01,
+        "oav": 1.2728397115460353,
+        "intensity": 1.1013097563405274,
+        "family": "muguet",
+        "note": "heart",
+        "role": "modifier",
+        "texture": "lift",
+        "profile_name": "Florol",
+        "registry_name": "Florol",
+        "ifra_limit_pct": 5,
+        "is_known": true,
+        "is_opaque_preblend": false,
+        "functional_groups": [],
+        "hsp": null,
+        "hsp_source": "missing",
+        "sources": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "heuristic:clausius_clapeyron_vp25_dhvap_correlation",
+          "dhvap": "literature_correlation:doi:10.1021/es980812j",
+          "gamma": "profile:ingredient_intelligence.activity_coef",
+          "odt": "unverified:odor_thresholds.odt_air",
+          "ifra": "literature:ifra_safety",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "missing_fields": [
+          "density"
+        ]
+      },
+      {
+        "name": "Hedione",
+        "canonical_name": "hedione",
+        "raw_ul": 790,
+        "dilution": 1,
+        "active_ul": 790,
+        "density_g_ml": 1,
+        "density_source": "fallback:default_1_g_ml",
+        "active_g": 0.79,
+        "authoritative_active_g": null,
+        "active_mass_authority": "unavailable:material_density",
+        "stock_fraction_basis": "neat",
+        "stock_carrier": "",
+        "stock_declared": true,
+        "active_concentrate_ppm_w_w": null,
+        "active_finished_product_ppm_w_w": null,
+        "mw_g_mol": 226.3,
+        "moles": 0.0034909412284577996,
+        "mole_fraction": 0.11783279927276062,
+        "logp": 2.7,
+        "vp_pure_pa": 0.19365356299406522,
+        "vp_temperature_factor": 2.045780297845608,
+        "gamma": 1.0055426421808087,
+        "gamma_source": "heuristic:hansen_distance",
+        "partial_pressure_pa": 0.022945217535423952,
+        "vapor_ppm": 0.22645169045570146,
+        "odt_air_ppm": 0.00005,
+        "oav": 4529.033809114029,
+        "intensity": 34.31802895515357,
+        "family": "floral",
+        "note": "heart",
+        "role": "radiance",
+        "texture": "halo",
+        "profile_name": "Hedione",
+        "registry_name": "Hedione",
+        "ifra_limit_pct": 40,
+        "is_known": true,
+        "is_opaque_preblend": false,
+        "functional_groups": [
+          "ester"
+        ],
+        "hsp": [
+          16.5,
+          4.2,
+          5.8
+        ],
+        "hsp_source": "fallback:science_data.hsp",
+        "sources": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "heuristic:clausius_clapeyron_vp25_dhvap_correlation",
+          "dhvap": "literature_correlation:doi:10.1021/es980812j",
+          "gamma": "heuristic:hansen_distance",
+          "odt": "estimated:odor_thresholds.odt_air",
+          "ifra": "literature:ifra_safety",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "missing_fields": [
+          "density"
+        ]
+      },
+      {
+        "name": "Hydroxycitronellal",
+        "canonical_name": "hydroxycitronellal",
+        "raw_ul": 120,
+        "dilution": 1,
+        "active_ul": 120,
+        "density_g_ml": 1,
+        "density_source": "fallback:default_1_g_ml",
+        "active_g": 0.12,
+        "authoritative_active_g": null,
+        "active_mass_authority": "unavailable:material_density",
+        "stock_fraction_basis": "neat",
+        "stock_carrier": "",
+        "stock_declared": true,
+        "active_concentrate_ppm_w_w": null,
+        "active_finished_product_ppm_w_w": null,
+        "mw_g_mol": 172.27,
+        "moles": 0.0006965809485110581,
+        "mole_fraction": 0.02351230734394042,
+        "logp": 1.8,
+        "vp_pure_pa": 0.011324814242154542,
+        "vp_temperature_factor": 2.2649628484309083,
+        "gamma": 1,
+        "gamma_source": "profile:ingredient_intelligence.activity_coef",
+        "partial_pressure_pa": 0.0002662725130745713,
+        "vapor_ppm": 0.0026279053844023813,
+        "odt_air_ppm": 0.015,
+        "oav": 0.1751936922934921,
+        "intensity": 0.4982042021087678,
+        "family": "muguet",
+        "note": "heart",
+        "role": "character",
+        "texture": "cushion",
+        "profile_name": "Hydroxycitronellal",
+        "registry_name": "Hydroxycitronellal",
+        "ifra_limit_pct": 1,
+        "is_known": true,
+        "is_opaque_preblend": false,
+        "functional_groups": [
+          "aldehyde",
+          "hydroxyl"
+        ],
+        "hsp": null,
+        "hsp_source": "missing",
+        "sources": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "heuristic:clausius_clapeyron_vp25_dhvap_correlation",
+          "dhvap": "literature_correlation:doi:10.1021/es980812j",
+          "gamma": "profile:ingredient_intelligence.activity_coef",
+          "odt": "literature:peer_reviewed.odt_air",
+          "ifra": "literature:ifra_safety",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "missing_fields": [
+          "density"
+        ]
+      },
+      {
+        "name": "Lilyreal ND",
+        "canonical_name": "lilyreal nd",
+        "raw_ul": 360,
+        "dilution": 1,
+        "active_ul": 360,
+        "density_g_ml": 1,
+        "density_source": "fallback:default_1_g_ml",
+        "active_g": 0.36,
+        "authoritative_active_g": null,
+        "active_mass_authority": "unavailable:stock_fraction_not_declared",
+        "stock_fraction_basis": "unspecified",
+        "stock_carrier": "",
+        "stock_declared": false,
+        "active_concentrate_ppm_w_w": null,
+        "active_finished_product_ppm_w_w": null,
+        "mw_g_mol": 192.3,
+        "moles": 0.0018720748829953197,
+        "mole_fraction": 0.06318978449517343,
+        "logp": 3.5,
+        "vp_pure_pa": 0.02211275379800053,
+        "vp_temperature_factor": 2.211275379800053,
+        "gamma": 1,
+        "gamma_source": "profile:ingredient_intelligence.activity_coef",
+        "partial_pressure_pa": 0.0013973001470904813,
+        "vapor_ppm": 0.013790280257493029,
+        "odt_air_ppm": 0.002,
+        "oav": null,
+        "intensity": null,
+        "family": "muguet",
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "profile_name": "Lilyreal ND",
+        "registry_name": "Lilyreal ND",
+        "ifra_limit_pct": 5,
+        "is_known": true,
+        "is_opaque_preblend": true,
+        "functional_groups": [],
+        "hsp": null,
+        "hsp_source": "missing",
+        "sources": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "heuristic:clausius_clapeyron_vp25_dhvap_correlation",
+          "dhvap": "literature_correlation:doi:10.1021/es980812j",
+          "gamma": "profile:ingredient_intelligence.activity_coef",
+          "odt": "unverified:odor_thresholds.odt_air",
+          "ifra": "literature:ifra_safety",
+          "oav_model": "unknown:composite_decomposition_missing"
+        },
+        "missing_fields": [
+          "density"
+        ]
+      },
+      {
+        "name": "Phenethyl Alcohol",
+        "canonical_name": "phenethyl alcohol",
+        "raw_ul": 180,
+        "dilution": 1,
+        "active_ul": 180,
+        "density_g_ml": 1.019,
+        "density_source": "registry:data_spine.density_25c",
+        "active_g": 0.18342,
+        "authoritative_active_g": 0.18342,
+        "active_mass_authority": "exact:declared_volume_and_density",
+        "stock_fraction_basis": "neat",
+        "stock_carrier": "",
+        "stock_declared": true,
+        "active_concentrate_ppm_w_w": null,
+        "active_finished_product_ppm_w_w": null,
+        "mw_g_mol": 122.17,
+        "moles": 0.0015013505770647459,
+        "mole_fraction": 0.050676402038273984,
+        "logp": 1.36,
+        "vp_pure_pa": 0.2356466817666417,
+        "vp_temperature_factor": 2.0314369117813937,
+        "gamma": 1,
+        "gamma_source": "profile:ingredient_intelligence.activity_coef",
+        "partial_pressure_pa": 0.011941725984191541,
+        "vapor_ppm": 0.11785567218545809,
+        "odt_air_ppm": 0.026,
+        "oav": 4.532910468671465,
+        "intensity": 1.830420438540078,
+        "family": "rose",
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "profile_name": "Phenethyl Alcohol",
+        "registry_name": "Phenethyl Alcohol",
+        "ifra_limit_pct": 5,
+        "is_known": true,
+        "is_opaque_preblend": false,
+        "functional_groups": [
+          "aromatic alcohol"
+        ],
+        "hsp": null,
+        "hsp_source": "missing",
+        "sources": {
+          "density": "registry:data_spine.density_25c",
+          "mw": "registry:data_spine.mw",
+          "logp": "registry:data_spine.logp",
+          "vp": "registry:data_spine.vp_25c",
+          "vp_temperature": "heuristic:clausius_clapeyron_vp25_dhvap_correlation",
+          "dhvap": "literature_correlation:doi:10.1021/es980812j",
+          "gamma": "profile:ingredient_intelligence.activity_coef",
+          "odt": "literature:peer_reviewed.odt_air",
+          "ifra": "literature:ifra_safety",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "missing_fields": []
+      },
+      {
+        "name": "Phenyl Ethyl Dimethyl Carbinol",
+        "canonical_name": "pedmc",
+        "raw_ul": 120,
+        "dilution": 1,
+        "active_ul": 120,
+        "density_g_ml": 1,
+        "density_source": "fallback:default_1_g_ml",
+        "active_g": 0.12,
+        "authoritative_active_g": null,
+        "active_mass_authority": "unavailable:material_density",
+        "stock_fraction_basis": "neat",
+        "stock_carrier": "",
+        "stock_declared": true,
+        "active_concentrate_ppm_w_w": null,
+        "active_finished_product_ppm_w_w": null,
+        "mw_g_mol": 164.24,
+        "moles": 0.0007306380905991232,
+        "mole_fraction": 0.024661867913666684,
+        "logp": 2.1,
+        "vp_pure_pa": 0.5897159323288897,
+        "vp_temperature_factor": 1.9657197744296326,
+        "gamma": 1.5,
+        "gamma_source": "profile:ingredient_intelligence.activity_coef",
+        "partial_pressure_pa": 0.02181524464451982,
+        "vapor_ppm": 0.21529972508778505,
+        "odt_air_ppm": 0.003,
+        "oav": 71.76657502926169,
+        "intensity": 6.018487081107581,
+        "family": "floral",
+        "note": "heart",
+        "role": "modifier",
+        "texture": "veil",
+        "profile_name": "PEDMC",
+        "registry_name": "Phenyl Ethyl Dimethyl Carbinol",
+        "ifra_limit_pct": null,
+        "is_known": true,
+        "is_opaque_preblend": false,
+        "functional_groups": [],
+        "hsp": null,
+        "hsp_source": "missing",
+        "sources": {
+          "density": "fallback:default_1_g_ml",
+          "mw": "profile:ingredient_intelligence.mw",
+          "logp": "profile:ingredient_intelligence.clogp",
+          "vp": "profile:ingredient_intelligence.vp",
+          "vp_temperature": "heuristic:clausius_clapeyron_vp25_dhvap_correlation",
+          "dhvap": "literature_correlation:doi:10.1021/es980812j",
+          "gamma": "profile:ingredient_intelligence.activity_coef",
+          "odt": "profile:ingredient_intelligence.odt",
+          "ifra": "missing_or_unrestricted",
+          "oav_model": "heuristic:monomolecular_headspace"
+        },
+        "missing_fields": [
+          "density"
+        ]
+      }
+    ],
+    "parsed_materials_after_append": 34
+  },
+  "test_command": ".venv/Scripts/python.exe -m pytest tests/test_ahs_full_muguet_successor.py tests/test_pipeline_formula_state.py tests/test_pipeline_gates.py -k 'ahs_full_muguet or formula_state or opaque or preblend' -q",
+  "test_result": {
+    "passed": 14,
+    "deselected": 19,
+    "warnings": 1280,
+    "warning_type": "pytest-asyncio deprecation"
+  },
+  "lint": {
+    "command": ".venv/Scripts/python.exe -m ruff check tests/test_ahs_full_muguet_successor.py",
+    "result": "PASS"
+  },
+  "new_code_change": "_is_opaque_preblend honors profile.material_kind OPAQUE_PREBLEND; Lilyreal ND OAV withheld. Other legacy proxy physics remain unresolved.",
+  "historical_preservation": [
+    {
+      "path": "formulas/AHS_UserBottle_F240_N60_CONFIRMED_20260907.md",
+      "before_sha256": "2F4EF8DFC18BE55593053D2467DCB399DB855820FC1DB0E3590EA6EE2A1EE50B",
+      "after_sha256": "2F4EF8DFC18BE55593053D2467DCB399DB855820FC1DB0E3590EA6EE2A1EE50B",
+      "unchanged": true
+    },
+    {
+      "path": "formulas/records/AHS_UserBottle_F240_N60_CONFIRMED_20260907.json",
+      "before_sha256": "FDF6D62BB8634EDE9F5D2A32CDC0AD2E7B4EE90DD7C67B2A4DE142D617B55187",
+      "after_sha256": "FDF6D62BB8634EDE9F5D2A32CDC0AD2E7B4EE90DD7C67B2A4DE142D617B55187",
+      "unchanged": true
+    },
+    {
+      "path": "formulas/AHS_MuguetFullHeart_AddOnly_CARD_20260907.md",
+      "before_sha256": "1C0C19A2E2BC04E353BB2A77AB780550D0994E38D691FE8F748F77851EBE1987",
+      "after_sha256": "1C0C19A2E2BC04E353BB2A77AB780550D0994E38D691FE8F748F77851EBE1987",
+      "unchanged": true
+    },
+    {
+      "path": "formulas/AHS_UserBottle_MuguetFullHeart_20260907.md",
+      "before_sha256": "EDE300D3FC991B3417D72622B28798D9CF3E9A43431CA49FC50EFFAFB5594A57",
+      "after_sha256": "EDE300D3FC991B3417D72622B28798D9CF3E9A43431CA49FC50EFFAFB5594A57",
+      "unchanged": true
+    },
+    {
+      "path": "formulas/records/AHS_UserBottle_MuguetFullHeart_20260907.json",
+      "before_sha256": "AB631A1307305CEDFF298884278CF0BD12FA3F998E707C2745CBAE03D89BF047",
+      "after_sha256": "AB631A1307305CEDFF298884278CF0BD12FA3F998E707C2745CBAE03D89BF047",
+      "unchanged": true
+    },
+    {
+      "path": "inventory.txt",
+      "before_sha256": "2846CBB59E2A1D55EC9CAB011C9B84E631F964A77AAF53E4795910E26DE87D10",
+      "after_sha256": "2846CBB59E2A1D55EC9CAB011C9B84E631F964A77AAF53E4795910E26DE87D10",
+      "unchanged": true
+    }
+  ],
+  "manifest": [
+    {
+      "path": "formulas/AHS_UserBottle_F240_N60_CONFIRMED_20260907.md",
+      "sha256": "2F4EF8DFC18BE55593053D2467DCB399DB855820FC1DB0E3590EA6EE2A1EE50B",
+      "size": 5665
+    },
+    {
+      "path": "formulas/records/AHS_UserBottle_F240_N60_CONFIRMED_20260907.json",
+      "sha256": "FDF6D62BB8634EDE9F5D2A32CDC0AD2E7B4EE90DD7C67B2A4DE142D617B55187",
+      "size": 17421
+    },
+    {
+      "path": "formulas/AHS_MuguetFullHeart_AddOnly_CARD_20260907.md",
+      "sha256": "1C0C19A2E2BC04E353BB2A77AB780550D0994E38D691FE8F748F77851EBE1987",
+      "size": 3864
+    },
+    {
+      "path": "formulas/AHS_UserBottle_MuguetFullHeart_20260907.md",
+      "sha256": "EDE300D3FC991B3417D72622B28798D9CF3E9A43431CA49FC50EFFAFB5594A57",
+      "size": 33867
+    },
+    {
+      "path": "formulas/records/AHS_UserBottle_MuguetFullHeart_20260907.json",
+      "sha256": "AB631A1307305CEDFF298884278CF0BD12FA3F998E707C2745CBAE03D89BF047",
+      "size": 40983
+    },
+    {
+      "path": "engine/pipeline/formula_state.py",
+      "sha256": "75113A679876B97F0614500447FC9AA7A8583BA9D6F4646E630109DAAF379F6A",
+      "size": 49538
+    },
+    {
+      "path": "inventory.txt",
+      "sha256": "2846CBB59E2A1D55EC9CAB011C9B84E631F964A77AAF53E4795910E26DE87D10",
+      "size": 21636
+    },
+    {
+      "path": "formulas/AHS_FullMuguet_Completion_20260907.md",
+      "sha256": "AB3BCBABEE00060DCCE1A930AD1F4D810472AB4551E90F07558CAC51CD4AA1DB",
+      "size": 29658
+    },
+    {
+      "path": "formulas/AHS_FullMuguet_Completion_CARD_20260907.md",
+      "sha256": "A9FAD8670FE013D54A7E9106D78212DBA9EF8A06019C12AD068F0B818D7C9E91",
+      "size": 6970
+    },
+    {
+      "path": "formulas/records/AHS_FullMuguet_Completion_20260907.json",
+      "sha256": "39655244B55BB45480A9C9F426D9548E9094B2702230B85C546FF000D2A1947E",
+      "size": 25822
+    },
+    {
+      "path": "formulas/AHS_UserBottle_L360_HCA120_P60_CONFIRMED_20260907.md",
+      "sha256": "0F2776CD5817E58F888C2A763C4985924776339E6400DA7AEED7890768C9D3E0",
+      "size": 6708
+    },
+    {
+      "path": "formulas/records/AHS_UserBottle_L360_HCA120_P60_CONFIRMED_20260907.json",
+      "sha256": "9CC06A3AA8C2FBCB3EC875B3C650DFB202D36B69739D95EFCAF90A1081B1DE5B",
+      "size": 19711
+    },
+    {
+      "path": "tests/test_ahs_full_muguet_successor.py",
+      "sha256": "6E91A5760E2D66A857A4F44A490D465DDEE39D26449CE5A813729D59DF808FAD",
+      "size": 4128
+    },
+    {
+      "path": "data/governance/inventory_user_confirmation_20260907_pedmc.json",
+      "sha256": "65C2568D1C3102B1423C54DE25897E838A2A98B9E90A4AFE00558A841FBF9868",
+      "size": 994
+    },
+    {
+      "path": "docs/verification/AHS_FullMuguet_Completion_20260907_formatter.txt",
+      "sha256": "CD95BE39614B825822FB962071BA73B3253CE31FD9D4C9C45A43C10344EDA411",
+      "size": 20852
+    },
+    {
+      "path": "docs/research/AHS_FullMuguet_Completion_20260907.md",
+      "sha256": "1F59514DF9E95F6AC2F85445C1F77C94BB26E31471F4E3C42B316B03F526EF84",
+      "size": 6474
+    }
+  ],
+  "stock_confirmation": "Direct PEDMC neat confirmation arrived after model run; dosage/dilution unchanged. Runtime pin remains unsynchronized; no rerun or fresh stock-gate pass asserted.",
+  "independent_audits": {
+    "native_agent": "ahs_add_only_check",
+    "result": "No arithmetic or retained-row discrepancy; parent-verified with focused tests and hashes"
+  },
+  "not_done": [
+    "whole-bottle execution",
+    "skin-use release",
+    "measured exact ppm w/w",
+    "observed sourness relief or full muguet realism",
+    "full project verification",
+    "Git commit/push",
+    "global inventory update completion"
+  ]
+}

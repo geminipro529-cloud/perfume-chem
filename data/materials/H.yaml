@@ -372,6 +372,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Helional
   aliases:
+  - "Helional 10% v/v"
   - helional
   cas: null
   smiles: null
@@ -804,6 +805,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Hexyl Acetate
   aliases:
+  - "Hexyl Acetate 1%"
   - hexyl acetate
   cas: null
   smiles: null
@@ -1304,10 +1306,10 @@
 - canonical_name: Hydroxycitronellal
   aliases:
   - hydroxycitronellal
-  cas: null
+  cas: "107-75-5"
   smiles: null
   inchikey: null
-  mw_g_mol: 172.3
+  mw_g_mol: 172.27
   density_25c_g_ml: null
   logp: 1.8
   functional_groups: []
@@ -1326,7 +1328,7 @@
   hedonic_valence: 0.72
   ifra_max_pct_edp: null
   user_stock_dilution: 1.0
-  user_in_inventory: false
+  user_in_inventory: true
   supplier:
     perfumersworld_sku: 3MC00233
     perfumersworld_price_usd_per_g: 0.23
@@ -1336,8 +1338,7 @@
   families:
   - floral materials
   character: null
-  notes: Depleted 2026-06-15. This aldehyde is distinct from Hydroxycitronellol
-    (CAS 107-74-4).
+  notes: "User-corrected bottle identity 2026-09-07. Neat inherited from V5, not new assay. VP remains unverified and temperature-conflicted."
   provenance:
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
@@ -1380,7 +1381,7 @@
   hedonic_valence: null
   ifra_max_pct_edp: null
   user_stock_dilution: neat
-  user_in_inventory: true
+  user_in_inventory: false
   supplier: null
   families:
   - floral materials
@@ -1388,9 +1389,7 @@
   - muguet modifier
   character: Very mild, tenacious clean-sweet rose-peony floral; less green and
     less muguet-like than hydroxycitronellal.
-  notes: Identity and measured physical values follow the 2024 RIFM assessment.
-    No direct peer-reviewed ODT for CAS 107-74-4 was located; the positive ODT
-    values are conservative class proxies and are tagged DERIVED in ODT_DATA.
+  notes: "Distinct diol retained as chemistry knowledge. User corrected the owned bottle label to Hydroxycitronellal on 2026-09-07; no synonym or chemical substitution."
   provenance:
     vp_25c_pa: RIFM safety assessment Api et al. 2025, 0.0106 mmHg at 25 C
     cas: https://doi.org/10.1016/j.fct.2023.114281

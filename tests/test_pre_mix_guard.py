@@ -5,7 +5,10 @@ import inspect
 import pytest
 
 from engine.fuckups.pre_mix_guard import PreMixGuardError, evaluate_pre_mix_guard
+from engine.name_utils import normalize_name
+from engine.odor_thresholds import lookup_odt_entry
 from engine.pipeline.gates import HARD_BLOCKING_GATES, gate_formula
+from engine.pipeline.natural_absolute_decomposition import get_constituents
 
 
 def frame(label: str, rows: list[tuple[str, float]]) -> dict:
@@ -148,3 +151,23 @@ def test_g15_is_hard_blocking_and_wired_into_gate_formula() -> None:
     assert "_gate_g15_oav_firewall" in source
     assert "parent_formula=parent_formula" in source
     assert "authorized_active_dose_changes=authorized_active_dose_changes" in source
+
+
+def test_sambac_and_grandiflorum_remain_distinct_across_premix_and_natural_profiles() -> None:
+    assert normalize_name("Jasmine Sambac Absolute") == "jasmine sambac absolute"
+    assert normalize_name("Jasmine Absolute") == "jasmine absolute"
+    assert normalize_name("Jasmine Sambac Absolute") != normalize_name("Jasmine Absolute")
+    assert get_constituents("Jasmine Sambac Absolute") != get_constituents("Jasmine Absolute")
+    assert lookup_odt_entry("Jasmine Sambac Absolute") == lookup_odt_entry("Jasmine Absolute")
+
+    report = evaluate_pre_mix_guard(
+        child_ingredients_ul={
+            "Jasmine Sambac Absolute": 100.0,
+            "Jasmine Absolute": 100.0,
+        },
+        child_dilutions={
+            "Jasmine Sambac Absolute": 0.10,
+            "Jasmine Absolute": 0.10,
+        },
+    )
+    assert report.status == "PASS"

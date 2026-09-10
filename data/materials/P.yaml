@@ -310,6 +310,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Para-Cresyl Methyl Ether
   aliases:
+  - "p-Cresyl Methyl Ether (PCME)"
   - para-Cresyl Methyl Ether
   cas: null
   smiles: null
@@ -1419,6 +1420,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Phenyl Acetaldehyde Dimethyl Acetal (padma)
   aliases:
+  - "PADMA"
   - Phenyl Acetaldehyde Dimethyl Acetal (PADMA)
   cas: null
   smiles: null
@@ -2220,34 +2222,48 @@
 - canonical_name: Pink Pepper EO
   aliases:
   - pink pepper eo
-  cas: null
+  - pink pepper eo schinus molle
+  - schinus molle eo
+  - Schinus molle EO (neat / as supplied)
+  cas: 68917-52-2
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 136.23
   density_25c_g_ml: null
-  logp: null
-  functional_groups: []
+  logp: 3.5
+  functional_groups:
+  - natural_mixture
+  - monoterpene
+  - terpene_hydrocarbon
+  - ester
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.4
+  vp_source: natural_mixture_proxy
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
-  odt_eth_ppm: null
+  odt_air_ppb: 2.0
+  odt_eth_ppm: 0.3
   stevens_n: null
   or_targets: []
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  user_stock_dilution: 1.0
+  user_in_inventory: true
   supplier: null
-  families: []
-  character: null
-  notes: null
+  families:
+  - spice / aromatic
+  character: fresh rosy pepper, citrus-terpenic lift, dry woody-resinous undertone
+  notes: User-confirmed neat physical stock. Bulk MW, logP, VP and whole-oil ODT are mixture proxies; density and supplier-lot assay are unknown. Natural composite uses a non-renormalized Peruvian fruit-EO literature midpoint profile, not GC-O or a batch certificate. Current leave-on IFRA conformity remains unverified.
   provenance:
+    user_in_inventory: inventory.txt
+    user_stock_dilution: direct user assertion 2026-09-03
+    cas: IFRA fragrance ingredient glossary April 2020
+    mw_g_mol: modeled monoterpene mixture proxy
+    logp: modeled monoterpene mixture proxy
+    vp_25c_pa: modeled mixture proxy
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -2385,7 +2401,7 @@
   hedonic_valence: null
   ifra_max_pct_edp: null
   user_stock_dilution: 1.0
-  user_in_inventory: true
+  user_in_inventory: false
   supplier:
     perfumersworld_sku: 3WM16912
     perfumersworld_price_usd_per_g: 1.4

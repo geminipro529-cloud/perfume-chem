@@ -15,9 +15,9 @@ from __future__ import annotations
 import json
 import re
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable
 
 from engine.material_resolver import resolve_material
 
@@ -346,7 +346,50 @@ def _note_from_resolved(resolved) -> str:
     return str(getattr(profile, "note", "heart") or "heart").lower()
 
 
-def build_knowledge_rule_quality_contract() -> KnowledgeRuleQualityContract:
+def build_knowledge_rule_quality_contract(
+    *, formula_material_names: Iterable[str] | None = None,
+) -> KnowledgeRuleQualityContract:
+    """Audit catalog health, or the actual confidence scorer's consumed rules.
+
+    The runtime footprint follows the scorer's existing source, normalization,
+    matching and deduplication. Consumption does not establish chemical identity:
+    unresolved/generic endpoints still receive the existing quality penalties.
+    Without a complete footprint the previous catalog penalty is retained.
+    """
+    footprint = None
+    catalogue = None
+    if formula_material_names is not None:
+        catalogue_contract = build_knowledge_rule_quality_contract()
+        catalogue = {
+            **catalogue_contract.as_dict(),
+            "scope": "repository_catalogue",
+            "formula_penalty_authority": False,
+        }
+        try:
+            from engine.optimizer.models import analyze_formula_rule_coverage
+
+            footprint = analyze_formula_rule_coverage(list(formula_material_names))
+            if footprint.get("consumed_rules_complete") is not True:
+                raise ValueError("runtime rule footprint is incomplete")
+        except Exception as exc:
+            return replace(
+                catalogue_contract,
+                status="FAIL" if catalogue_contract.status == "FAIL" else "WARN",
+                warnings=(*catalogue_contract.warnings,
+                    "Runtime rule consumption could not be verified; existing catalog penalty retained."),
+                details={
+                    **catalogue_contract.details,
+                    "scope": "unresolved_runtime_consumption",
+                    "footprint_complete": False,
+                    "footprint_error_type": type(exc).__name__,
+                    "confidence_penalty_scope": "repository_catalogue_fallback",
+                    "catalogue_context": {
+                        **catalogue,
+                        "formula_penalty_authority": True,
+                        "authority_basis": "legacy_penalty_retained_until_runtime_scope_verified",
+                    },
+                },
+            )
     warnings: list[str] = []
     invalid_entries = 0
     advisory_entries = 0
@@ -363,8 +406,12 @@ def build_knowledge_rule_quality_contract() -> KnowledgeRuleQualityContract:
     }
 
     for label, path in list_files.items():
-        payload = _safe_load_json(path)
-        rows = payload if isinstance(payload, list) else []
+        if footprint is None:
+            payload = _safe_load_json(path)
+            rows = payload if isinstance(payload, list) else []
+        else:
+            rows = [record["rule"] for record in footprint["consumed_rules"]
+                    if record["source_group"] == label]
         file_stats = {
             "entries": len(rows),
             "valid": 0,
@@ -467,7 +514,9 @@ def build_knowledge_rule_quality_contract() -> KnowledgeRuleQualityContract:
         "theory_rules": STRUCTURED_RULE_FILES["theory_rules"],
         "accords": STRUCTURED_RULE_FILES["accords"],
     }
-    for label, path in dict_files.items():
+    # No pair-rule consumption is established for dictionary doctrine objects.
+    # Their repository health remains visible in the separate catalog audit.
+    for label, path in (dict_files.items() if footprint is None else ()):
         payload = _safe_load_json(path)
         count = len(payload) if isinstance(payload, dict) else 0
         total_entries += count
@@ -498,8 +547,22 @@ def build_knowledge_rule_quality_contract() -> KnowledgeRuleQualityContract:
             "A large share of rule entries are advisory/degraded rather than exact-runtime rules."
         )
     if total_entries == 0:
-        status = "FAIL"
-        warnings.append("No structured knowledge rules were loaded.")
+        status = "FAIL" if footprint is None else "WARN"
+        warnings.append(
+            "No structured knowledge rules were loaded." if footprint is None
+            else "The formula confidence scorer consumed no structured pair rules."
+        )
+
+    details: dict[str, Any] = {"by_file": by_file, "examples": examples}
+    if footprint is not None:
+        details.update({
+            "scope": "formula_runtime",
+            "confidence_penalty_scope": "consumed_runtime_rules",
+            "footprint_complete": True,
+            "consumed_rules": footprint["consumed_rules"],
+            "catalogue_context": catalogue,
+            "identity_authority": "consumption_is_not_chemical_identity_resolution",
+        })
 
     return KnowledgeRuleQualityContract(
         status=status,
@@ -510,7 +573,7 @@ def build_knowledge_rule_quality_contract() -> KnowledgeRuleQualityContract:
         orphan_material_refs=orphan_material_refs,
         generic_material_refs=generic_material_refs,
         warnings=tuple(warnings),
-        details={"by_file": by_file, "examples": examples},
+        details=details,
     )
 
 

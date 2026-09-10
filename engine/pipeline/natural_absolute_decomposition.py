@@ -1,7 +1,9 @@
 """Natural Mixture Decomposition Model — ALL EOs, Absolutes, Naturals.
 
 Replaces the monomolecular OAV for natural mixtures by decomposing
-them into known GC-O constituents and summing individual OAVs.
+them into literature constituent profiles and summing modeled OAV contributions.
+Analytical methods and input authority are profile-specific; a constituent
+profile is not evidence of GC-O measurement or complete quantitative coverage.
 
 Covers: flower absolutes, citrus EOs, resinoids, complex naturals.
 
@@ -24,10 +26,13 @@ Reference data:
   - Orris Liquid: PerfumersWorld SKU 8IQ24653; Shanaida et al. (2020)
   - Olibanum: PerfumersWorld SKU 2QK21856; Woolley et al. (2012)
 
-Format: (constituent name, weight fraction, MW, VP at 25C Pa, ODT air ppb, gamma)
+Format: (constituent name, nominal model fraction, MW, VP at 25C Pa, ODT air ppb, gamma)
+The fraction basis is profile-specific. GC-FID areas used as nominal mass-model
+inputs are proxies, not measured mass fractions; subsets are never rescaled.
 """
 
-from dataclasses import asdict, dataclass
+from copy import deepcopy
+from dataclasses import asdict, dataclass, field
 
 from engine.name_utils import normalize_name
 from engine.thermo.antoine import (
@@ -273,6 +278,23 @@ _CLOVE_EO_CONSTITUENTS = [
 _BLACK_PEPPER_EO_CONSTITUENTS = [
     ("beta caryophyllene", 0.3742, 204.35, 1.00, 10.0, 1.2),
     ("limonene", 0.1335, 136.24, 200.0, 20.0, 3.0),
+]
+
+# Schinus molle fruit EO — midpoint of the constituent ranges reported for
+# Peruvian fruit-oil samples by Huaman et al. (2004). The represented 89.7%
+# is intentionally not renormalized, and this is not an Aroma&More batch assay.
+# No Schinus-specific GC-O/AEDA study was located in the bounded literature
+# review. Phellandrene, p-cymene, and methyl-octanoate VP/ODT/gamma values are
+# explicitly modeled class inputs rather than measured lot data.
+_SCHINUS_MOLLE_EO_CONSTITUENTS = [
+    ("alpha pinene", 0.044, 136.24, 400.0, 20.0, 3.0),
+    ("myrcene", 0.342, 136.24, 400.0, 10.0, 3.0),
+    ("alpha phellandrene", 0.145, 136.24, 330.0, 20.0, 3.0),
+    ("limonene", 0.144, 136.24, 200.0, 20.0, 3.0),
+    ("beta phellandrene", 0.087, 136.24, 300.0, 20.0, 3.0),
+    ("p cymene", 0.115, 134.22, 240.0, 30.0, 3.0),
+    ("methyl octanoate", 0.013, 158.24, 2.0, 10.0, 1.5),
+    ("beta caryophyllene", 0.007, 204.35, 1.0, 10.0, 1.2),
 ]
 
 # Additional high-coverage literature fingerprints.  These profiles retain
@@ -761,6 +783,27 @@ _CARROT_SEED_EO_CONSTITUENTS = [
     ("geranyl acetate", 0.04, 196.29, 5.0, 10.0, 2.0),
 ]
 
+# Partial external-oil profiles. Fractions retain reported peak areas, with no
+# normalization. The existing mass-based calculation uses these only as nominal
+# composition proxies, not analytically established mass fractions of owned oil.
+# Galovicova et al. (2023), Table 1: Hanus Cupressus sempervirens leaf oil.
+_CYPRESS_LEAF_LITERATURE_CONSTITUENTS = [
+    ("alpha pinene", 0.405, 136.24, 400.0, 20.0, 3.0),
+    ("delta-3-carene", 0.244, 136.23, 200.0, 50.0, 3.0),
+    ("limonene", 0.043, 136.24, 200.0, 20.0, 3.0),
+]
+# Dwivedi et al. (2004), Table 2, LK control (var. Kukrail, CIMAP Lucknow).
+# p-Menthone is 33.0% of reported area but excluded: compatible air ODT unverified.
+# Menthol: C1 log10(1/ODT ppm)=1.660, Abraham et al. (2012), Table 3;
+# hence ppb=1000*10**(-1.660). VP is a DL metastable-liquid correlation proxy.
+_PEPPERMINT_LK_LITERATURE_CONSTITUENTS = [
+    ("menthol", 0.298, 156.2652, 4.5, 1000.0 * 10.0 ** (-1.660), 2.0),
+    ("1,8-cineole", 0.065, 154.25, 200.0, 50.0, 2.0),
+    ("isomenthone", 0.050, 154.25, 10.0, 5.0, 2.0),
+    ("limonene", 0.007, 136.24, 200.0, 20.0, 3.0),
+]
+
+
 # ── Master Registry ───────────────────────────────────────────────────
 
 _ABSOLUTE_CONSTITUENTS = {
@@ -837,12 +880,15 @@ _ABSOLUTE_CONSTITUENTS = {
     "geranium eo": _GERANIUM_EO_CONSTITUENTS,
     "clove eo": _CLOVE_EO_CONSTITUENTS,
     "black pepper eo": _BLACK_PEPPER_EO_CONSTITUENTS,
+    "pink pepper eo": _SCHINUS_MOLLE_EO_CONSTITUENTS,
     "clary sage eo": _CLARY_SAGE_EO_CONSTITUENTS,
     "blue chamomile eo": _BLUE_CHAMOMILE_EO_CONSTITUENTS,
     "tobacco absolute": _TOBACCO_ABSOLUTE_CONSTITUENTS,
     "carrot seed eo": _CARROT_SEED_EO_CONSTITUENTS,
     "coriander essential oil": _CORIANDER_EO_CONSTITUENTS,
     # Literature-only proxy identities (not supplier-batch identities).
+    "cupressus sempervirens leaf oil literature profile": _CYPRESS_LEAF_LITERATURE_CONSTITUENTS,
+    "mentha piperita lk literature profile": _PEPPERMINT_LK_LITERATURE_CONSTITUENTS,
     "tonka bean solvent extract literature profile": _TONKA_SOLVENT_EXTRACT_PROXY_CONSTITUENTS,
     # Specialty bases
     "cassis base 345b": _CASSIS_BASE_345B_CONSTITUENTS,
@@ -856,20 +902,36 @@ _PROFILE_ALIASES = {
     # Volatile headspace proxies with the same botanical material or a stated
     # close extraction/grade variant. Metadata marks every proxy explicitly.
     "bergamot fcf sicilian": "bergamot fcf",
+    "grapefruit fcf oil sicilian": "grapefruit fcf",
+    # The canonical registry identity still uses a non-lot literature profile.
+    # Preserve that authority label after name normalization resolves seed EO.
+    "coriander essential oil": "coriander essential oil",
+    "coriander seed eo": "coriander essential oil",
     "bergamot eo": "bergamot fcf",
     "blood orange sicilian": "orange peel eo",
     "ylang": "ylang ylang eo (extra grade)",
     "cedarwood virginia": "cedarwood eo",
     "benzoin sumatra resinoid": "benzoin resinoid",
     "lavender eo high altitude": "lavender eo",
-    "jasmine absolute": "jasmine sambac",
     "geranium eo (pelargonium graveolens flower oil)": "geranium eo",
     "galbanum resinoid": "galbanum eo",
     "tonka bean absolute": "tonka bean solvent extract literature profile",
     "coffee absolute grasse": "roasted coffee oil literature profile",
+    "cypress eo": "cupressus sempervirens leaf oil literature profile",
+    "cypress essential oil": "cupressus sempervirens leaf oil literature profile",
+    "peppermint essential oil": "mentha piperita lk literature profile",
 }
 
 _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
+    "grapefruit fcf oil sicilian": (
+        "PerfumersWorld identifies SKU 7CA24030 as Sicilian furocoumarin-free grapefruit oil; "
+        "the reused legacy grapefruit FCF composition is not an analysis of that supplier product or lot.",
+        "This headspace proxy supplies no furocoumarin assay or skin-safety clearance.",
+    ),
+    "coriander seed eo": (
+        "PerfumersWorld SKU 7SL00125 identifies coriander seed oil; the reused published "
+        "seed-oil fingerprint is not a supplier-product or lot assay and does not cover leaf oil.",
+    ),
     "galbanum resinoid": (
         "Composition source is galbanum essential oil, not the in-stock resinoid extraction.",
     ),
@@ -880,9 +942,25 @@ _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
         "Composition source is a quantified supercritical-CO2 coffee-oil volatile subset, not the supplier-batch Grasse absolute.",
         "Only constituents with compatible air-ODT model inputs are included.",
     ),
+    "pink pepper eo": (
+        "Composition is the midpoint of published Peruvian Schinus molle fruit-EO ranges, not an Aroma&More lot GC-MS or GC-O assay.",
+        "No Schinus-specific GC-O/AEDA profile was located; phellandrene, p-cymene, and methyl-octanoate VP/ODT inputs are modeled by class.",
+        "Plant part, origin, extraction, oxidation state, density, and current leave-on IFRA conformity for the user's bottle remain unverified.",
+    ),
 }
 
 _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
+    "cupressus sempervirens leaf oil literature profile": (
+        "https://doi.org/10.3390/plants12051097",
+        "https://aromaandmore.com/en/essential-oil-100-pure-/42-cypress-essential-oil-france.html",
+    ),
+    "mentha piperita lk literature profile": (
+        "https://doi.org/10.1002/ffj.1333",
+        "https://doi.org/10.1093/chemse/bjr094",
+        "https://doi.org/10.1016/0031-9384(90)90217-R",
+        "https://trc.nist.gov/ThermoML/10.1016/j.jct.2016.11.027.html",
+        "https://webbook.nist.gov/cgi/cbook.cgi?ID=2216-51-5",
+    ),
     "orange peel eo": ("https://pubmed.ncbi.nlm.nih.gov/12862384/",),
     "lemon fcf oil sicilian": ("https://pubmed.ncbi.nlm.nih.gov/28231199/",),
     "neroli eo": ("https://pubmed.ncbi.nlm.nih.gov/24163946/",),
@@ -903,6 +981,100 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     "coriander essential oil": (
         "https://pmc.ncbi.nlm.nih.gov/articles/PMC3512302/",
     ),
+    "pink pepper eo": (
+        "https://doi.org/10.1080/0972060X.2004.10643396",
+    ),
+}
+
+
+# Per-input authority for the new partial profiles. Reused tuples retain their
+# existing model values and are not promoted to independently verified data.
+_LEGACY_CONSTITUENT_INPUT_AUTHORITY = {
+    "mw_status": "EXISTING_RUNTIME_MOLECULAR_MASS",
+    "odt_status": "LEGACY_RUNTIME_ESTIMATE_NOT_INDEPENDENTLY_VERIFIED",
+    "vp_status": "LEGACY_RUNTIME_ESTIMATE_NOT_INDEPENDENTLY_VERIFIED",
+    "gamma_status": "HEURISTIC_CLASS_INPUT",
+    "owned_oil_activity_measured": False,
+}
+_PARTIAL_PROFILE_EVIDENCE = {
+    "cupressus sempervirens leaf oil literature profile": {
+        "input_authority": {
+            "composition": {
+                "source": "https://doi.org/10.3390/plants12051097",
+                "table": "Table 1",
+                "published_sample_supplier": "Hanus s.r.o.",
+                "published_botanical_name": "Cupressus sempervirens",
+                "published_plant_part": "leaf",
+                "quantitation": "GC_FID_SEMI_QUANTITATIVE",
+                "identification": "GC_MS_RETENTION_INDICES_AND_SPECTRA",
+                "response_factor_correction": "UNSPECIFIED_IN_SOURCE",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_supplier_candidate": "Aroma&More French Cupressus sempervirens steam-distilled needles/leaves",
+                "owned_bottle_sku_verified": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("alpha pinene", "delta-3-carene", "limonene")},
+        },
+        "limitations": (
+            "External Hanus leaf-oil sample; the Aroma&More French Cupressus sempervirens supplier page is only a conditional identity match, not an owned-bottle or lot assay.",
+            "The source reports semi-quantitative GC-FID and GC-MS; FID response-factor correction is unspecified.",
+            "Only 69.2% of reported composition is modeled; omitted constituents have unresolved odor contributions.",
+            "This proxy does not cover blue cypress, Hinoki, or other botanical species.",
+        ),
+    },
+    "mentha piperita lk literature profile": {
+        "input_authority": {
+            "composition": {
+                "source": "https://doi.org/10.1002/ffj.1333",
+                "table": "Table 2, LK control",
+                "published_botanical_name": "Mentha x piperita",
+                "published_accession": "LK (var. Kukrail), CIMAP Lucknow",
+                "published_plant_part": "fresh herbage",
+                "published_extraction": "hydrodistillation",
+                "quantitation": "RELATIVE_GC_FID_PEAK_AREA",
+                "identification": "GC_MS_AND_RETENTION_INDICES",
+                "response_factor_correction": "NONE_REPORTED_UNCORRECTED_AREAS",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("1,8-cineole", "isomenthone", "limonene")},
+            "menthol": {
+                "mw_status": "NIST_WEBBOOK_MOLECULAR_MASS",
+                "mw_source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=2216-51-5",
+                "odt_status": "AUTHOR_REREPORTED_EXPERIMENTAL_C1_ENDPOINT",
+                "odt_source": "https://doi.org/10.1093/chemse/bjr094",
+                "odt_primary_source": "https://doi.org/10.1016/0031-9384(90)90217-R",
+                "odt_table": "Table 3, C1 experimental series",
+                "odt_log10_inverse_ppm": 1.660,
+                "odt_conversion": "air ppb = 1000 * 10 ** (-1.660)",
+                "odt_stereochemistry": "NOT_RESOLVED_BY_THIS_MODEL",
+                "vp_status": "LITERATURE_CORRELATION_DL_METASTABLE_LIQUID_PROXY",
+                "vp_source": "https://trc.nist.gov/ThermoML/10.1016/j.jct.2016.11.027.html",
+                "vp_temperature_K": 298.15,
+                "vp_reported_uncertainty_pa": 0.44,
+                "vp_method": "CORRELATION_GAS_CHROMATOGRAPHY",
+                "gamma_status": "HEURISTIC_MONOTERPENE_ALCOHOL_CLASS",
+                "owned_oil_activity_measured": False,
+            },
+        },
+        "unresolved_constituents": (
+            {
+                "name": "p-menthone",
+                "reported_fraction": 0.330,
+                "missing_input": "AIR_ODT_NOT_VERIFIED",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "External Mentha x piperita LK control; this is not an owned-oil or supplier-lot composition assay.",
+            "Uncorrected GC-FID areas are nominal composition-model inputs, not measured mass fractions.",
+            "Only 42.0% of reported area is modeled. Major p-menthone (33.0%) lacks a verified compatible air ODT; its odor contribution and the other omitted constituents remain uncomputed, not zero.",
+            "Menthol vapor pressure uses a DL metastable-liquid correlation as a physical proxy; gamma=2 is a heuristic monoterpene-alcohol class input, not activity measured in this oil.",
+            "This peppermint proxy does not cover spearmint or Mentha spicata.",
+        ),
+    },
 }
 
 
@@ -915,6 +1087,13 @@ class NaturalCompositeMetadata:
     batch_specific: bool
     sources: tuple[str, ...]
     limitations: tuple[str, ...]
+    analytical_method: str = "UNSPECIFIED_LEGACY_METHOD"
+    composition_basis: str = "UNSPECIFIED_LEGACY_BASIS"
+    unresolved_fraction: float = 0.0
+    quantitative_evaluability: str = "UNASSESSED_LEGACY_PROFILE"
+    unresolved_odor_contribution: str = "UNKNOWN_NOT_ZERO"
+    unresolved_constituents: tuple[dict[str, object], ...] = ()
+    input_authority: dict[str, object] = field(default_factory=dict)
 
     def as_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -1032,13 +1211,23 @@ def get_composite_metadata(material_name: str) -> NaturalCompositeMetadata | Non
         return None
     constituents = _ABSOLUTE_CONSTITUENTS[key]
     proxy_limitations = _PROFILE_PROXY_LIMITATIONS.get(normalize_name(material_name), ())
+    evidence = _PARTIAL_PROFILE_EVIDENCE.get(key, {})
+    characterized_fraction = round(sum(float(row[1]) for row in constituents), 9)
     return NaturalCompositeMetadata(
         profile_key=key,
         resolution=resolution,
-        characterized_fraction=round(
-            sum(float(row[1]) for row in constituents),
-            9,
+        characterized_fraction=characterized_fraction,
+        unresolved_fraction=max(0.0, round(1.0 - characterized_fraction, 9)),
+        analytical_method=("GC_FID_AND_GC_MS" if evidence else "UNSPECIFIED_LEGACY_METHOD"),
+        composition_basis=(
+            "GC_FID_AREA_NOMINAL_MODEL_PROXY_NOT_MASS_FRACTION"
+            if evidence else "UNSPECIFIED_LEGACY_BASIS"
         ),
+        quantitative_evaluability=(
+            "PARTIAL_INPUT_COVERAGE" if evidence else "UNASSESSED_LEGACY_PROFILE"
+        ),
+        unresolved_constituents=deepcopy(evidence.get("unresolved_constituents", ())),
+        input_authority=deepcopy(evidence.get("input_authority", {})),
         composition_authority=(
             "LITERATURE_PARTIAL_PROXY"
             if resolution == "literature_proxy"
@@ -1048,14 +1237,16 @@ def get_composite_metadata(material_name: str) -> NaturalCompositeMetadata | Non
         sources=_PROFILE_SOURCES.get(key, ("repository:legacy_literature_profile",)),
         limitations=(
             "Not a supplier-batch GC-MS or GC-O certificate.",
-            "Uncharacterized mass uses the characterized profile's harmonic-mean "
-            "molecular weight as an inert residual proxy.",
+            "The unresolved model fraction uses the characterized profile's harmonic-mean "
+            "molecular weight for mole-pool bookkeeping; its odor contribution is "
+            "uncomputed and must not be interpreted as zero.",
             "Constituent ODT and activity coefficients remain modeled inputs.",
             "Constituent VP is temperature-corrected from 25 C with a "
             "VP-derived ambient-temperature enthalpy correlation when measured "
             "data are unavailable; this is not batch-specific thermodynamic data.",
         )
-        + proxy_limitations,
+        + proxy_limitations
+        + evidence.get("limitations", ()),
     )
 
 
@@ -1066,9 +1257,10 @@ def composite_replacement_moles(
 ) -> float | None:
     """Return residual-parent plus resolved-constituent moles for a natural.
 
-    The characterized mass is represented by explicit constituent moles. The
-    uncharacterized mass uses the characterized profile's harmonic-mean MW as
-    an inert residual proxy, avoiding an arbitrary bulk-natural molecular MW.
+    The characterized model fraction is represented by constituent moles. The
+    unresolved fraction uses the profile's harmonic-mean MW for mole-pool
+    bookkeeping. Its uncomputed odor contribution is unknown, not odorless.
+    GC-FID area fractions are nominal model proxies, not measured mass fractions.
     """
     constituents = get_constituents(material_name)
     if constituents is None:
@@ -1112,9 +1304,10 @@ def composite_headspace(
 ) -> NaturalCompositeHeadspace | None:
     """Compute constituent-resolved vapor and OAV for a natural mixture.
 
-    Decomposes the mixture into its known GC-O constituents and sums
-    partial pressure, vapor concentration, and individual OAV contributions
-    computed via modified Raoult's law.
+    Uses available constituent inputs to sum modeled partial pressure, vapor
+    concentration, and OAV contributions via modified Raoult's law. This is a
+    partial subtotal when coverage is incomplete; omitted odor is unknown.
+    Per-profile metadata declares analytical method and nominal fraction basis.
 
     Args:
         material_name: canonical name (e.g. "osmanthus absolute")

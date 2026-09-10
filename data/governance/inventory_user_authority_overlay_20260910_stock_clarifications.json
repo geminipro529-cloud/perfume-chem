@@ -1,0 +1,169 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v10",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-10",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260910_romandolide_restocked.json",
+    "normalized_text_sha256": "8e6e58203c50db9cb2c73c03cb0a9477127a3143807caf8e3bf849fc8fd7f9fc"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 25316,
+    "inventory_text_sha256": "575f0b2832683341bb5759720f2a1a566eb20bd23cd62cf9e1cc08b4edf0f327",
+    "confirmed_receipt": "data/governance/inventory_user_confirmation_20260910_stock_clarifications.json",
+    "confirmed_receipt_sha256": "b753608a05c015a1646b3b5f5c9d16f9e4566ec8ee434675b0966b027f11adc4",
+    "supplier_resolution_receipt": "data/governance/inventory_supplier_product_resolution_20260910_liffarome_methyl_laitone.json",
+    "supplier_resolution_receipt_sha256": "4d47136d7a5acd06fec963f5e1ced6601b227efde5de86b5f83d36af52d8d5d7"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "bind_only_source_declared_stock_facts": true,
+    "stock_solution_density_assumed": false,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [
+    "INV-USER-20260904-004",
+    "INV-USER-20260908-001",
+    "INV-USER-20260908-002",
+    "INV-USER-20260908-003",
+    "INV-USER-20260908-004"
+  ],
+  "records": [
+    {
+      "record_id": "INV-USER-20260910-CLARIFY-001",
+      "canonical_name": "Anisaldehyde 10%",
+      "aliases": ["Anisaldehyde 10% v/v in ethanol"],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {"fraction": 0.1, "fraction_basis": "volume_fraction", "carrier": "ethanol", "fraction_authority": "DIRECT_USER_CONFIRMATION", "execution_ready": true, "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"},
+      "supersedes_parent_stocks": [{"source_row": 32, "fraction": 0.1}],
+      "requirement_overrides": [{"source_row": 32, "disposition": "OWNED", "status": "HAVE - 10% V/V IN ETHANOL", "actual_stock_text": "Anisaldehyde 10% v/v in ethanol", "can_prepare": ""}],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_STOCK_BASIS_AND_CARRIER_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260910-CLARIFY-002",
+      "canonical_name": "Ethyl Maltol 1%",
+      "aliases": ["Ethyl Maltol 1% v/v in ethanol"],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {"fraction": 0.01, "fraction_basis": "volume_fraction", "carrier": "ethanol", "fraction_authority": "DIRECT_USER_CONFIRMATION", "execution_ready": true, "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"},
+      "supersedes_parent_stocks": [{"source_row": 266, "fraction": 0.01}],
+      "requirement_overrides": [{"source_row": 266, "disposition": "OWNED", "status": "HAVE - 1% V/V IN ETHANOL; 10% STOCK UNCHANGED", "actual_stock_text": "Ethyl Maltol 1% v/v in ethanol; 10% stock carrier and basis remain unresolved", "can_prepare": ""}],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_STOCK_BASIS_AND_CARRIER_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260910-CLARIFY-003",
+      "canonical_name": "Hexyl Acetate 1%",
+      "aliases": ["Hexyl Acetate 1% v/v in DPG"],
+      "state": "OWNED",
+      "category": "green_fruit",
+      "stock": {"fraction": 0.01, "fraction_basis": "volume_fraction", "carrier": "dpg", "fraction_authority": "DIRECT_USER_CONFIRMATION", "execution_ready": true, "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"},
+      "supersedes_parent_stocks": [{"source_row": 274, "fraction": 0.01}],
+      "requirement_overrides": [{"source_row": 274, "disposition": "OWNED", "status": "HAVE - 1% V/V IN DPG", "actual_stock_text": "Hexyl Acetate 1% v/v in DPG", "can_prepare": ""}],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_STOCK_BASIS_AND_CARRIER_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260910-CLARIFY-004",
+      "canonical_name": "Helional 10%",
+      "aliases": ["Helional 10% v/v in ethanol"],
+      "state": "OWNED",
+      "category": "marine_green",
+      "stock": {"fraction": 0.1, "fraction_basis": "volume_fraction", "carrier": "ethanol", "fraction_authority": "DIRECT_USER_CONFIRMATION", "execution_ready": true, "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"},
+      "supersedes_parent_stocks": [{"source_row": 130, "fraction": 0.1}],
+      "requirement_overrides": [{"source_row": 130, "disposition": "OWNED", "status": "HAVE - 10% V/V IN ETHANOL PLUS NEAT STOCK", "actual_stock_text": "Helional neat/as supplied and Helional 10% v/v in ethanol", "can_prepare": ""}],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_STOCK_CARRIER_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260910-CLARIFY-005",
+      "canonical_name": "Turkish Storax Tincture",
+      "aliases": ["Turkish Storax Liquidambar orientalis resin ethanol tincture"],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {"fraction": 0.2, "fraction_basis": "mass_fraction_starting_charge", "carrier": "ethanol", "fraction_authority": "DIRECT_USER_STARTING_CHARGE_CONFIRMATION", "execution_ready": false, "execution_scope": "AVAILABILITY_AND_STARTING_CHARGE_ONLY", "execution_hold_reason": "FILTERED_TINCTURE_FINAL_DISSOLVED_FRACTION_UNKNOWN"},
+      "supersedes_parent_stocks": [{"source_row": 236}],
+      "requirement_overrides": [{"source_row": 236, "disposition": "OWNED", "status": "HAVE - 20% STARTING CHARGE W/W; FINAL FILTRATE STRENGTH UNKNOWN", "actual_stock_text": "Liquidambar orientalis resin from Turkey; ground, soaked about one week in ethanol with daily agitation, then filtered", "can_prepare": ""}],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_TINCTURE_PREPARATION_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260910-CLARIFY-006",
+      "canonical_name": "Vietnamese Benzoin Tincture",
+      "aliases": ["Vietnamese Benzoin Styrax tonkinensis resin ethanol tincture"],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {"fraction": 0.4, "fraction_basis": "mass_fraction_starting_charge", "carrier": "ethanol", "fraction_authority": "DIRECT_USER_STARTING_CHARGE_CONFIRMATION", "execution_ready": false, "execution_scope": "AVAILABILITY_AND_STARTING_CHARGE_ONLY", "execution_hold_reason": "FILTERED_TINCTURE_FINAL_DISSOLVED_FRACTION_UNKNOWN"},
+      "supersedes_parent_stocks": [{"source_row": 222, "fraction": 0.2}, {"source_row": 246}],
+      "requirement_overrides": [{"source_row": 246, "disposition": "OWNED", "status": "HAVE - 40% STARTING CHARGE W/W; FINAL FILTRATE STRENGTH UNKNOWN", "actual_stock_text": "Styrax tonkinensis resin from Vietnam; ground, soaked about one week in ethanol with daily agitation, then filtered", "can_prepare": ""}],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_TINCTURE_PREPARATION_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260910-CLARIFY-007",
+      "canonical_name": "Kenyan Myrrh Ethanol Tincture",
+      "aliases": ["Kenyan Myrrh resin ethanol tincture"],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {"fraction": 0.2, "fraction_basis": "mass_fraction_starting_charge", "carrier": "ethanol", "fraction_authority": "DIRECT_USER_STARTING_CHARGE_CONFIRMATION", "execution_ready": false, "execution_scope": "AVAILABILITY_AND_STARTING_CHARGE_ONLY", "execution_hold_reason": "FILTERED_TINCTURE_FINAL_DISSOLVED_FRACTION_UNKNOWN"},
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_TINCTURE_PREPARATION_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260910-CLARIFY-008",
+      "canonical_name": "Oman Frankincense Ethanol Tincture",
+      "aliases": ["Oman Frankincense resin ethanol tincture"],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {"fraction": 0.33, "fraction_basis": "mass_fraction_starting_charge", "carrier": "ethanol", "fraction_authority": "DIRECT_USER_STARTING_CHARGE_CONFIRMATION", "execution_ready": false, "execution_scope": "AVAILABILITY_AND_STARTING_CHARGE_ONLY", "execution_hold_reason": "FILTERED_TINCTURE_FINAL_DISSOLVED_FRACTION_UNKNOWN"},
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_TINCTURE_PREPARATION_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260910-CLARIFY-009",
+      "canonical_name": "Vetiver EO (Haiti)",
+      "aliases": ["Haitian Vetiver EO", "Vetiver EO Haiti"],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {"fraction": 1.0, "fraction_basis": "neat", "carrier": "", "fraction_authority": "DIRECT_USER_ORIGIN_CORRECTION", "execution_ready": true, "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"},
+      "supersedes_parent_stocks": [{"source_row": 245, "fraction": 1.0}],
+      "requirement_overrides": [{"source_row": 245, "disposition": "OWNED", "status": "HAVE - HAITIAN VETIVER EO, NEAT/AS SUPPLIED", "actual_stock_text": "Haitian Vetiver EO neat/as supplied; supplier and lot composition unstated", "can_prepare": ""}],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_ORIGIN_CORRECTION"
+    },
+    {
+      "record_id": "INV-USER-20260910-CLARIFY-010",
+      "canonical_name": "Coriander Essential Oil",
+      "aliases": ["Coriander EO", "Coriander Seed EO", "Coriander Seed Oil"],
+      "state": "OWNED",
+      "category": "spice",
+      "stock": {"fraction": 1.0, "fraction_basis": "neat", "carrier": "", "fraction_authority": "DIRECT_USER_SUPPLIER_PRODUCT_CORRECTION", "execution_ready": true, "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"},
+      "supersedes_parent_stocks": [{"source_row": 83, "fraction": 1.0}],
+      "requirement_overrides": [{"source_row": 83, "disposition": "OWNED", "status": "HAVE - PERFUMERSWORLD CORIANDER ESSENTIAL OIL, NEAT/AS SUPPLIED", "actual_stock_text": "PerfumersWorld Coriander Essential Oil SKU 7SL00125, neat/as supplied", "can_prepare": ""}],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_SUPPLIER_PRODUCT_CORRECTION"
+    },
+    {
+      "record_id": "INV-USER-20260910-CLARIFY-011",
+      "canonical_name": "Cinnamyl Alcohol",
+      "aliases": ["Cinnamyl alcohol 50% in DPG", "Cinnamyl Alcohol 50% w/w in DPG"],
+      "state": "OWNED",
+      "category": "floral materials",
+      "stock": {"fraction": 0.5, "fraction_basis": "mass_fraction", "carrier": "dpg", "fraction_authority": "DIRECT_USER_CONFIRMATION", "execution_ready": true, "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY", "execution_limit": "EXACT_ACTIVE_MASS_FROM_VOLUME_REQUIRES_STOCK_DENSITY"},
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_ADDITION"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "schema": "direct_user_inventory_confirmation_v1",
+  "record_id": "INV-USER-20260907-PEDMC-NEAT",
+  "effective_date": "2026-09-07",
+  "material": "Phenyl Ethyl Dimethyl Carbinol",
+  "display_aliases": ["PEDMC", "Carbinol Muguet"],
+  "state": "OWNED",
+  "stock": {
+    "fraction": 1.0,
+    "fraction_basis": "neat",
+    "carrier": null,
+    "no_added_dilution_reported": true
+  },
+  "authority": "DIRECT_USER_CURRENT_STOCK_DECLARATION",
+  "source_quote": "my PEDMC is neat",
+  "prior_inventory_text": "Phenyl Ethyl Dimethyl Carbinol (PEDMC)",
+  "pinned_runtime_stock_binding": "PENDING_SYNCHRONIZATION_NOT_MISSING_USER_STRENGTH",
+  "phase": "NOT_REPORTED",
+  "lot_identity_and_assay": "NOT_REPORTED",
+  "density_g_ml": null,
+  "authority_limits": {
+    "stock_strength_confirmed": true,
+    "current_ownership_confirmed": true,
+    "physical_dose_performed": false,
+    "exact_active_mass_from_raw_volume": false,
+    "historical_formula_rebase": false,
+    "safety_or_release": false
+  }
+}

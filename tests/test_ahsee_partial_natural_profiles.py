@@ -1,0 +1,196 @@
+"""Partial literature inputs must remain visibly partial throughout runtime."""
+
+import pytest
+
+from engine.pipeline.formula_state import FormulaState, build_formula_state
+from engine.pipeline.natural_absolute_decomposition import (
+    composite_headspace,
+    get_composite_metadata,
+    get_constituents,
+)
+from engine.pipeline.preflight import (
+    _natural_composite_coverage_check,
+    _odt_authority_check,
+)
+
+
+@pytest.mark.parametrize(
+    "name,expected,total",
+    [
+        (
+            "Cypress EO",
+            {"alpha pinene": 0.405, "delta-3-carene": 0.244, "limonene": 0.043},
+            0.692,
+        ),
+        (
+            "Peppermint Essential Oil",
+            {"menthol": 0.298, "1,8-cineole": 0.065, "isomenthone": 0.050, "limonene": 0.007},
+            0.420,
+        ),
+    ],
+)
+def test_published_subsets_are_not_normalized_to_full_composition(name, expected, total):
+    constituents = get_constituents(name)
+    assert constituents is not None
+    assert {row[0]: row[1] for row in constituents} == pytest.approx(expected)
+    assert sum(row[1] for row in constituents) == pytest.approx(total)
+    metadata = get_composite_metadata(name)
+    assert metadata.characterized_fraction == pytest.approx(total)
+    assert metadata.unresolved_fraction == pytest.approx(1.0 - total)
+    assert metadata.composition_basis == "GC_FID_AREA_NOMINAL_MODEL_PROXY_NOT_MASS_FRACTION"
+    assert metadata.unresolved_odor_contribution == "UNKNOWN_NOT_ZERO"
+    assert metadata.quantitative_evaluability == "PARTIAL_INPUT_COVERAGE"
+    assert metadata.batch_specific is False
+    assert metadata.resolution == "literature_proxy"
+
+
+@pytest.mark.parametrize(
+    "name", ["Blue Cypress EO", "Hinoki EO", "Spearmint EO", "Mentha spicata"]
+)
+def test_different_botanical_materials_do_not_resolve_to_these_proxies(name):
+    assert get_constituents(name) is None
+    assert get_composite_metadata(name) is None
+    state = build_formula_state({name: 100.0, "Hedione": 900.0})
+    material = next(row for row in state.materials if row.name == name)
+    assert getattr(material, "natural_composite_metadata", {}) == {}
+    assert material.sources["oav_model"] != "modeled:natural_constituent_composite"
+
+
+@pytest.mark.parametrize("name", ["Cypress EO", "Peppermint Essential Oil"])
+def test_headspace_uses_partial_input_fractions_without_rescaling(name):
+    constituents = get_constituents(name)
+    assert constituents is not None
+    # Fixed common mole pool isolates the fraction basis from denominator models.
+    active_g, total_moles, pressure_pa = 0.1, 0.5, 101325.0
+    expected_subtotal = sum(
+        1e9 * gamma * (active_g * fraction / mw) / total_moles * vp / pressure_pa / odt
+        for _name, fraction, mw, vp, odt, gamma in constituents
+    )
+    result = composite_headspace(name, active_g, total_moles, temperature_K=298.15)
+    assert result.oav == pytest.approx(expected_subtotal)
+
+
+def test_peppermint_alias_keeps_the_same_partial_profile():
+    assert get_constituents("Peppermint EO") == get_constituents("Peppermint Essential Oil")
+    metadata = get_composite_metadata("Peppermint EO")
+    assert metadata is not None
+    assert metadata.analytical_method == "GC_FID_AND_GC_MS"
+    assert metadata.input_authority["composition"]["response_factor_correction"] == "NONE_REPORTED_UNCORRECTED_AREAS"
+
+
+def test_cypress_supplier_match_is_conditional_and_not_a_lot_assay():
+    metadata = get_composite_metadata("Cypress EO")
+    assert metadata is not None
+    assert metadata.analytical_method == "GC_FID_AND_GC_MS"
+    composition = metadata.input_authority["composition"]
+    assert composition["published_sample_supplier"] == "Hanus s.r.o."
+    assert composition["published_botanical_name"] == "Cupressus sempervirens"
+    assert composition["response_factor_correction"] == "UNSPECIFIED_IN_SOURCE"
+    assert composition["owned_lot_match"] == "UNVERIFIED_CONDITIONAL_PROXY"
+    assert metadata.composition_authority == "LITERATURE_PARTIAL_PROXY"
+
+
+def test_menthol_inputs_keep_endpoint_conversion_and_physical_proxy_authority():
+    constituents = get_constituents("Peppermint Essential Oil")
+    assert constituents is not None
+    menthol = next(row for row in constituents if row[0] == "menthol")
+    assert menthol[2] == pytest.approx(156.2652)
+    assert menthol[3] == pytest.approx(4.5)
+    assert menthol[4] == pytest.approx(21.8776162395)
+    assert menthol[5] == pytest.approx(2.0)
+    authority = get_composite_metadata("Peppermint Essential Oil").input_authority["menthol"]
+    assert authority["odt_status"] == "AUTHOR_REREPORTED_EXPERIMENTAL_C1_ENDPOINT"
+    assert authority["odt_log10_inverse_ppm"] == 1.660
+    assert authority["vp_status"] == "LITERATURE_CORRELATION_DL_METASTABLE_LIQUID_PROXY"
+    assert authority["vp_temperature_K"] == 298.15
+    assert authority["gamma_status"] == "HEURISTIC_MONOTERPENE_ALCOHOL_CLASS"
+    assert authority["owned_oil_activity_measured"] is False
+
+
+def test_reused_constituent_estimates_are_not_promoted_to_measurements():
+    expected = {
+        "alpha pinene": (136.24, 400.0, 20.0, 3.0),
+        "delta-3-carene": (136.23, 200.0, 50.0, 3.0),
+        "limonene": (136.24, 200.0, 20.0, 3.0),
+        "1,8-cineole": (154.25, 200.0, 50.0, 2.0),
+        "isomenthone": (154.25, 10.0, 5.0, 2.0),
+    }
+    for material in ("Cypress EO", "Peppermint Essential Oil"):
+        constituents = get_constituents(material)
+        assert constituents is not None
+        metadata = get_composite_metadata(material)
+        for name, _fraction, *inputs in constituents:
+            if name == "menthol":
+                continue
+            assert inputs == pytest.approx(expected[name])
+            authority = metadata.input_authority[name]
+            assert authority["odt_status"] == "LEGACY_RUNTIME_ESTIMATE_NOT_INDEPENDENTLY_VERIFIED"
+            assert authority["vp_status"] == "LEGACY_RUNTIME_ESTIMATE_NOT_INDEPENDENTLY_VERIFIED"
+            assert authority["gamma_status"] == "HEURISTIC_CLASS_INPUT"
+
+
+def test_major_unresolved_menthone_remains_an_explicit_warning():
+    metadata = get_composite_metadata("Peppermint Essential Oil")
+    assert metadata is not None
+    unresolved = metadata.unresolved_constituents
+    assert unresolved == (
+        {
+            "name": "p-menthone",
+            "reported_fraction": 0.330,
+            "missing_input": "AIR_ODT_NOT_VERIFIED",
+            "odor_contribution": "UNCOMPUTED",
+        },
+    )
+    assert all(row[0] != "p-menthone" for row in get_constituents("Peppermint Essential Oil"))
+    state = build_formula_state({"Peppermint Essential Oil": 100.0, "Hedione": 900.0})
+    check = _natural_composite_coverage_check(state)
+    assert check.status == "WARN"
+    assert check.data["full_quantitative_evaluability"] is False
+    assert check.data["partial_profiles"][0]["unresolved_constituents"] == unresolved
+
+
+def test_runtime_and_rescaling_carry_partial_provenance_without_false_gc_o():
+    base = build_formula_state(
+        {"Cypress EO": 100.0, "Peppermint Essential Oil": 60.0, "Hedione": 840.0}
+    )
+    scaled = FormulaState.from_base(
+        base, new_raw_ul={"Cypress EO": 110.0, "Peppermint Essential Oil": 60.0, "Hedione": 830.0}
+    )
+    for state in (base, scaled):
+        for material in state.materials:
+            if material.name == "Hedione":
+                continue
+            assert material.oav is not None
+            assert material.sources["oav_model"] == "modeled:natural_constituent_composite"
+            assert material.sources["odt"] == "modeled:natural_composite_constituent_odt"
+            metadata = material.as_dict()["natural_composite_metadata"]
+            assert metadata["quantitative_evaluability"] == "PARTIAL_INPUT_COVERAGE"
+            assert metadata["unresolved_odor_contribution"] == "UNKNOWN_NOT_ZERO"
+        assert _natural_composite_coverage_check(state).status == "WARN"
+
+
+def test_unverified_legacy_method_is_unspecified_and_never_blanket_gc_o():
+    metadata = get_composite_metadata("Pink Pepper EO")
+    assert metadata is not None
+    assert metadata.analytical_method == "UNSPECIFIED_LEGACY_METHOD"
+    state = build_formula_state({"Pink Pepper EO": 100.0, "Hedione": 900.0})
+    pepper = next(row for row in state.materials if row.name == "Pink Pepper EO")
+    assert pepper.sources["oav_model"] == "modeled:natural_constituent_composite"
+
+
+def test_truly_missing_natural_still_fails_closed():
+    state = build_formula_state({"Spike Lavender EO": 100.0, "Hedione": 900.0})
+    check = _natural_composite_coverage_check(state)
+    assert check.status == "FAIL"
+    assert "Spike Lavender EO" in check.data["materials"]
+    lavender = next(row for row in state.materials if row.name == "Spike Lavender EO")
+    assert lavender.oav is None
+
+
+def test_partial_composites_do_not_bypass_the_odt_authority_verifier():
+    state = build_formula_state({"Cypress EO": 100.0, "Peppermint Essential Oil": 100.0})
+    check, penalty = _odt_authority_check(state)
+    assert check.status == "WARN"
+    flagged = {row["material"]: row["verdict"] for row in check.data["flagged_materials"]}
+    assert flagged == {"Peppermint Essential Oil": "NO_DATA"}
+    assert penalty == 0.75

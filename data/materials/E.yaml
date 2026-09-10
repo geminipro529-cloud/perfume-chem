@@ -78,7 +78,7 @@
   cas:
   smiles:
   inchikey:
-  mw_g_mol: 220.4
+  mw_g_mol: 208.34
   density_25c_g_ml:
   logp: 3.3
   functional_groups: []
@@ -110,7 +110,7 @@
   character:
   notes:
   provenance:
-    mw_g_mol: engine.diffusion_model
+    mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
@@ -758,6 +758,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Ethyl Maltol
   aliases:
+  - "Ethyl Maltol 1%"
   - ethyl maltol
   cas:
   smiles:
@@ -859,7 +860,7 @@
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 166.2, corrected to 168.23)
-  mw_g_mol: 168.23
+  mw_g_mol: 194.27
   density_25c_g_ml:
   logp: 2.5
   functional_groups: []
@@ -900,7 +901,7 @@
   character:
   notes:
   provenance:
-    mw_g_mol: engine.diffusion_model
+    mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds

@@ -7,11 +7,15 @@ import pytest
 
 from engine.data_spine.loader import load_registry
 from engine.inventory_parser import (
+    BASE_USER_INVENTORY_OVERLAY_PATH,
+    BASE_USER_INVENTORY_TEXT_SHA256,
+    BASE_USER_INVENTORY_TEXT_SIZE_BYTES,
     CURRENT_INVENTORY_AUTHORITY,
     CURRENT_INVENTORY_SNAPSHOT_SHA256,
     CURRENT_INVENTORY_WORKBOOK_SHA256,
     CURRENT_USER_INVENTORY_AUTHORITY,
     CURRENT_USER_INVENTORY_OVERLAY_SHA256,
+    NEROLI_USER_INVENTORY_OVERLAY_SHA256,
     load_current_user_inventory_overlay,
     materialize_current_inventory,
     parse_current_inventory,
@@ -177,6 +181,89 @@ def test_user_inventory_overlay_is_parent_pinned_and_non_rebasing() -> None:
     assert payload["policy"]["general_substitution_authorized"] is False
     assert payload["policy"]["preserve_exact_ap_t1_cinnamon_substitution"] is True
     assert payload["policy"]["require_sub_10_ul_working_stock"] is True
+    assert payload["predecessor"] == {
+        "path": "data/governance/inventory_user_authority_overlay_20260906.json",
+        "normalized_text_sha256": NEROLI_USER_INVENTORY_OVERLAY_SHA256,
+    }
+
+
+def test_historical_base_overlay_keeps_its_original_source_binding() -> None:
+    payload = load_current_user_inventory_overlay(BASE_USER_INVENTORY_OVERLAY_PATH)
+
+    assert payload["effective_date"] == "2026-08-28"
+    assert payload["source"]["inventory_text_size_bytes"] == (
+        BASE_USER_INVENTORY_TEXT_SIZE_BYTES
+    )
+    assert payload["source"]["inventory_text_sha256"] == (
+        BASE_USER_INVENTORY_TEXT_SHA256
+    )
+
+
+def test_dhi_w_w_stocks_are_unique_current_raw_volume_stocks() -> None:
+    materialized = materialize_current_inventory()
+    by_identity = {}
+    for stock in materialized.stocks:
+        by_identity.setdefault(stock.identity_name.casefold(), []).append(stock)
+
+    expected = {
+        "ambrettolide": (0.10, "mass_fraction", "dpg", (27, 28)),
+        "tonkarome": (0.20, "mass_fraction", "tec", (264,)),
+    }
+    for identity, signature in expected.items():
+        stocks = by_identity[identity]
+        assert len(stocks) == 1
+        stock = stocks[0]
+        assert (
+            stock.dilution,
+            stock.fraction_basis,
+            stock.carrier,
+            stock.source_rows,
+        ) == signature
+        assert stock.execution_ready is True
+        assert stock.authority == CURRENT_USER_INVENTORY_AUTHORITY
+        assert stock.stock_id.startswith("inventory:user-20260904:")
+
+    dispositions = {
+        row.source_row: row.disposition
+        for row in materialized.requirements
+        if row.source_row in {27, 28, 264}
+    }
+    assert dispositions == {27: "OWNED", 28: "OWNED", 264: "OWNED"}
+
+
+@pytest.mark.parametrize(
+    ("material", "fraction", "basis", "carrier"),
+    [
+        ("Ambrettolide", 0.10, "mass_fraction", "dpg"),
+        ("Tonkarome", 0.20, "mass_fraction", "tec"),
+    ],
+)
+def test_dhi_w_w_stocks_pass_exact_inventory_resolution(
+    material: str,
+    fraction: float,
+    basis: str,
+    carrier: str,
+) -> None:
+    formula = {
+        "ingredients_ul": {material: 100.0},
+        "dilutions": {material: fraction},
+        "stock_specs": {
+            material: {
+                "fraction": fraction,
+                "fraction_basis": basis,
+                "carrier": carrier,
+                "declared": True,
+            }
+        },
+    }
+
+    check = _dilution_consistency_check(formula)
+
+    assert check.status == "PASS"
+    spec = check.data["resolved_stock_specs"][material]
+    assert spec["fraction_basis"] == basis
+    assert spec["carrier"] == carrier
+    assert spec["stock_id"].startswith("inventory:user-20260904:")
 
 
 def test_user_inventory_overlay_reconciles_exact_stocks_and_lost_tinctures() -> None:
@@ -214,10 +301,10 @@ def test_user_inventory_overlay_reconciles_exact_stocks_and_lost_tinctures() -> 
     )
 
 
-def test_ambrofix_recovered_bottle_is_owned_but_not_executable() -> None:
+def test_ambrofix_recovered_bottle_is_historical_not_current_stock() -> None:
     payload = load_current_user_inventory_overlay()
     record = next(
-        row for row in payload["records"] if row["record_id"] == "INV-USER-20260829-001"
+        row for row in payload["retired_records"] if row["record_id"] == "INV-USER-20260829-001"
     )
     mass = record["mass_balance"]
 
@@ -240,14 +327,7 @@ def test_ambrofix_recovered_bottle_is_owned_but_not_executable() -> None:
     assert record["authority_limits"]["formula_rebase_authorized"] is False
 
     ambrofix = _stocks_for("Ambrofix")
-    corrected = [row for row in ambrofix if row.authority == CURRENT_USER_INVENTORY_AUTHORITY]
-    assert len(corrected) == 1
-    assert corrected[0].dilution == pytest.approx(0.192 / 2.64)
-    assert corrected[0].fraction_basis == "mass_fraction"
-    assert corrected[0].carrier == "dep + ethanol"
-    assert corrected[0].execution_ready is False
-    assert corrected[0].execution_hold_reason == "VISIBLE_CRYSTALS_LIQUID_PHASE_STRENGTH_UNKNOWN"
-    assert corrected[0].stock_id.startswith("inventory:user-20260829:")
+    assert ambrofix == []
     assert not any(row.dilution == pytest.approx(0.30) for row in ambrofix)
 
     legacy_all = [row for row in parse_inventory(unique=False) if row.name == "Ambrofix"]
@@ -255,12 +335,20 @@ def test_ambrofix_recovered_bottle_is_owned_but_not_executable() -> None:
         row.name for row in parse_inventory(unique=False, include_unavailable=False)
     }
     assert len(legacy_all) == 1
-    assert legacy_all[0].status == "owned_non_executable"
+    assert legacy_all[0].status == "depleted"
     assert legacy_all[0].execution_ready is False
     assert "Ambrofix" not in legacy_available
 
     ambrox_super = _stocks_for("Ambrox Super")
-    assert any(row.dilution == pytest.approx(0.33) for row in ambrox_super)
+    assert len(ambrox_super) == 1
+    assert ambrox_super[0].dilution == pytest.approx(0.25)
+    assert ambrox_super[0].fraction_basis == "mass_fraction"
+    assert ambrox_super[0].carrier == "dpg + ipm + ethanol"
+    assert ambrox_super[0].execution_ready is True
+    assert ambrox_super[0].authority == CURRENT_USER_INVENTORY_AUTHORITY
+    assert ambrox_super[0].source_rows == (30,)
+    assert ambrox_super[0].source_ref.endswith("#INV-USER-20260902-002")
+    assert not any(row.dilution == pytest.approx(0.33) for row in ambrox_super)
     assert not names_match("Ambrofix", "Ambrox Super")
     assert not names_match("Ambrofix", "Ambrofix Crystals")
 
@@ -285,18 +373,17 @@ def test_ambrofix_release_preflight_holds_old_and_nominal_bottle_strengths(
     check = _dilution_consistency_check(formula)
 
     assert check.status == "FAIL"
-    assert check.data["issues"][0]["reason"] == "inventory_stock_non_executable"
-    assert check.data["issues"][0]["execution_holds"] == [
-        "VISIBLE_CRYSTALS_LIQUID_PHASE_STRENGTH_UNKNOWN"
-    ]
+    assert check.data["issues"][0]["reason"] == (
+        "inventory_gap" if formula_fraction == 0.30 else "inventory_stock_unavailable"
+    )
     assert "Ambrofix" not in check.data["resolved_stock_specs"]
 
 
 def test_bacdanol_clearwood_and_guaiacwood_current_authority_is_exact() -> None:
     payload = load_current_user_inventory_overlay()
     by_id = {record["record_id"]: record for record in payload["records"]}
-    bacdanol_authority = by_id["INV-USER-20260829-002"]
-    guaiacwood_authority = by_id["INV-USER-20260829-003"]
+    bacdanol_authority = by_id["INV-USER-20260901-001"]
+    guaiacwood_authority = by_id["INV-USER-20260901-002"]
 
     assert bacdanol_authority["aliases"] == ["Bacnadol"]
     assert bacdanol_authority["stock"]["fraction"] == pytest.approx(1.0)
@@ -418,7 +505,7 @@ def test_bacdanol_clearwood_and_guaiacwood_current_authority_is_exact() -> None:
     assert any(
         row.source_row == 125
         and row.requested_fraction == pytest.approx(1.0)
-        and row.disposition == "GAP"
+        and row.disposition == "OWNED"
         for row in guaiacwood_requirements
     )
 
@@ -548,7 +635,11 @@ def test_v5_neat_only_materials_require_preparation_receipts(
 
 
 def test_v5_neroli_is_owned_only_as_ten_percent_dpg() -> None:
-    neroli = _stocks_for("Neroli EO")
+    # This immutable parent was correct for V5, not the current user successor.
+    neroli = [
+        stock for stock in materialize_current_inventory(apply_user_overlay=False).stocks
+        if stock.identity_name == "Neroli EO"
+    ]
 
     assert len(neroli) == 1
     assert neroli[0].dilution == pytest.approx(0.10)
@@ -637,15 +728,15 @@ def test_preflight_accepts_exact_user_overlay_alpha_irone_stock() -> None:
     assert spec["stock_id"].startswith("inventory:user-20260828:")
 
 
-def test_preflight_accepts_exact_v5_neroli_and_javanol_stocks() -> None:
+def test_preflight_accepts_current_neat_neroli_and_v5_javanol_stocks() -> None:
     formula = {
         "ingredients_ul": {"Neroli EO": 10.0, "Javanol": 5.0},
-        "dilutions": {"Neroli EO": 0.10, "Javanol": 0.20},
+        "dilutions": {"Neroli EO": 1.0, "Javanol": 0.20},
         "stock_specs": {
             "Neroli EO": {
-                "fraction": 0.10,
-                "fraction_basis": "unspecified",
-                "carrier": "dpg",
+                "fraction": 1.0,
+                "fraction_basis": "neat",
+                "carrier": "",
                 "declared": True,
             },
             "Javanol": {
@@ -667,7 +758,12 @@ def test_preflight_accepts_exact_v5_neroli_and_javanol_stocks() -> None:
         "Neroli EO",
         "Javanol",
     }
-    for spec in check.data["resolved_stock_specs"].values():
+    for material, spec in check.data["resolved_stock_specs"].items():
         assert spec["authority"] == "formula_row+inventory_snapshot"
-        assert spec["inventory_authority"] == CURRENT_INVENTORY_AUTHORITY
-        assert spec["stock_id"].startswith("inventory:v5:")
+        assert spec["inventory_authority"] == (
+            CURRENT_USER_INVENTORY_AUTHORITY if material == "Neroli EO"
+            else CURRENT_INVENTORY_AUTHORITY
+        )
+        assert spec["stock_id"].startswith(
+            "inventory:user-20260906:" if material == "Neroli EO" else "inventory:v5:"
+        )

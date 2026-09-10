@@ -47,6 +47,7 @@ Sources: Arctander, PerfumersWorld ABC, Carles method, Roudnitska aesthetics,
 from __future__ import annotations
 
 import re
+from copy import deepcopy
 from dataclasses import dataclass, field
 
 from engine.material_identity import resolve_material_identity
@@ -89,14 +90,22 @@ class MaterialProfile:
     # Relationships
     synergies: list[str] = field(default_factory=list)
     avoid: list[str] = field(default_factory=list)
-    # Dilution in inventory
-    dilution: float = 1.0  # 1.0 = neat, 0.1 = 10%, etc.
+    # Legacy model field, NOT current physical-stock authority. Read the
+    # versioned inventory for stock identity, fraction, basis, and carrier.
+    dilution: float = 1.0
     # Scientific extensions (added per Perplexity consultation 2026-04-23)
     activity_coef: float = 1.0  # γᵢ, Raoult non-ideality. 1.0 = ideal; <1.0 = matrix-suppressed headspace; >1.0 = matrix-boosted.
-    hedonic: float = 0.0  # panel-style pleasantness rating, −5..+5. 0 = neutral / unmeasured.
+    hedonic: float = 0.0  # Legacy heuristic seed, NOT measured liking; see evidence.
     or_family: str | None = (
         None  # olfactory-receptor bin: citrus, rose, muguet, musk, amber, iris, green, aldehydic, gourmand, smoky, animalic, woody, aquatic, aromatic, indolic, ozone
     )
+
+    # Chemical/role metadata, never owned-stock or release authority.
+    cas: str | None = None
+    material_kind: str = "UNRESOLVED"
+    formulation_roles: tuple[str, ...] = ()
+    evidence: dict[str, dict] = field(default_factory=dict)
+    odor_description: str = ""
 
     def dimension_vector(self) -> list[float]:
         """Return ordered vector of character dimensions."""
@@ -106,7 +115,7 @@ class MaterialProfile:
         """Return the highest-scoring dimension name."""
         if not self.character:
             return "neutral"
-        return max(self.character, key=self.character.get)
+        return max(self.character, key=lambda dimension: self.character[dimension])
 
     def character_tags(self, threshold: float = 4.0) -> list[str]:
         """Return dimensions above threshold, sorted by strength."""
@@ -424,7 +433,7 @@ _PROFILES: dict[str, dict] = {
         "note": "heart",
         "role": "modifier",
         "texture": "veil",
-        "mw": 192.26,
+        "mw": 190.28,
         "vp": 0.431,
         "clogp": 2.6,
         "synergies": ["Hedione", "Calone", "Cyclamen Aldehyde"],
@@ -495,11 +504,33 @@ _PROFILES: dict[str, dict] = {
             "creamy": 3,
         },
         "note": "heart",
-        "role": "modifier",
+        "role": "character",
         "texture": "cushion",
         "mw": 172.27,
         "vp": 0.005,
         "clogp": 1.6,
+        "cas": "107-75-5",
+        "material_kind": "CHEMICAL_ENTITY",
+        "formulation_roles": ("muguet_character", "floral_heart_body"),
+        "evidence": {
+            "role": {
+                "status": "SOURCE_BACKED_ROLE_INTERPRETATION",
+                "sources": [
+                    "https://aroma-ingredients.basf.com/global/en/our-portfolio/muguet/hydroxycitronellal"
+                ],
+                "scope": "Core muguet character candidate, not a compulsory ingredient or proven global usage rank.",
+            },
+            "vp": {
+                "status": "HOLD_REFERENCE_TEMPERATURE_MISMATCH",
+                "reference_value_hpa": 0.005472,
+                "reference_value_pa": 0.5472,
+                "reference_temperature_c": 20,
+                "sources": [
+                    "https://download.basf.com/p1/EN_StaticDocuments_5941/en/Technical_Information_Hydroxycitronellal"
+                ],
+                "scope": "Legacy 0.005 Pa retained, NOT validated at 25 C. No silent temperature conversion.",
+            },
+        },
         "synergies": ["Hedione", "Linalool", "Lilyreal ND"],
     },
     "Hydroxycitronellol": {
@@ -517,6 +548,7 @@ _PROFILES: dict[str, dict] = {
         "vp": 0.0736,
         "clogp": 1.5,
         "cas": "107-74-4",
+        "material_kind": "CHEMICAL_ENTITY",
         "synergies": [
             "Phenethyl Alcohol",
             "Citronellol",
@@ -534,15 +566,70 @@ _PROFILES: dict[str, dict] = {
         "clogp": 1.36,
         "synergies": ["Citronellol", "Geraniol", "Rose Oxide"],
     },
+    "Florhydral": {
+        "character": {"floral": 8, "green": 6, "freshness": 7},
+        "note": "heart",
+        "role": "modifier",
+        "texture": "diffusion",
+        "mw": 190.3,
+        "vp": 2.0,
+        "clogp": 3.8,
+        "cas": "125109-85-5",
+        "material_kind": "CHEMICAL_ENTITY",
+        "formulation_roles": ("muguet_green_heart", "citrus_floral_bridge"),
+        "evidence": {
+            "identity": {
+                "status": "SUPPLIER_PRODUCT_IDENTITY",
+                "sources": ["https://www.simplescentsdiy.com/product/35447-34947/florhydral"],
+            },
+            "mw": {
+                "status": "OFFICIAL_MANUFACTURER_PRODUCT_DATA",
+                "sources": ["https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm"],
+            },
+            "vp": {
+                "status": "OFFICIAL_MANUFACTURER_PRODUCT_DATA_0.0200_HPA_CONVERTED_TO_2.0_PA",
+                "sources": ["https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm"],
+            },
+            "clogp": {
+                "status": "OFFICIAL_MANUFACTURER_PRODUCT_DATA",
+                "sources": ["https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm"],
+            },
+            "character": {
+                "status": "OFFICIAL_MANUFACTURER_QUALITATIVE_DESCRIPTION",
+                "sources": ["https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm"],
+            },
+        },
+        "synergies": [],
+    },
     "Florol": {
         "character": {"floral": 6, "green": 4, "sweetness": 2},
         "note": "heart",
         "role": "modifier",
         "texture": "lift",
-        "mw": 154.25,
+        "mw": 172.26,
         "vp": 0.007,
         "clogp": 2.3,
         "synergies": ["Hedione", "Hydroxycitronellal", "Lilyreal ND", "Bourgeonal"],
+    },
+    "Geranium EO": {
+        # Design proxy from G.yaml and the existing literature-composite module.
+        # Bontoux supplier identity does not authenticate a lot composition.
+        "character": {"floral": 7, "green": 5, "freshness": 4},
+        "note": "heart",
+        "role": "character",
+        "texture": "diffusion",
+        "mw": None,
+        "vp": None,
+        "clogp": None,
+        "material_kind": "NATURAL_MIXTURE",
+        "formulation_roles": ("rosy_green_heart",),
+        "evidence": {
+            "mw": {"status": "COMPOSITE_REQUIRED_NO_ENTITY_MASS", "sources": ["engine/pipeline/natural_absolute_decomposition.py"]},
+            "vp": {"status": "COMPOSITE_REQUIRED_NO_LOT_MEASUREMENT", "sources": ["engine/pipeline/natural_absolute_decomposition.py"]},
+            "clogp": {"status": "COMPOSITE_REQUIRED_NO_LOT_MEASUREMENT", "sources": ["engine/pipeline/natural_absolute_decomposition.py"]},
+            "character": {"status": "LITERATURE_COMPOSITE_ROLE_HEURISTIC", "sources": ["engine/pipeline/natural_absolute_decomposition.py"]},
+        },
+        "synergies": [],  # Supplier identity alone is not pairing evidence.
     },
     "Nympheal": {
         # Local formulas consistently use Nympheal as a radiant, diffusive muguet/waterlily material.
@@ -749,7 +836,7 @@ _PROFILES: dict[str, dict] = {
         "note": "heart",
         "role": "modifier",
         "texture": "diffusion",
-        "mw": 176.25,
+        "mw": 190.28,
         "vp": 0.01,
         "clogp": 2.9,
         "synergies": ["Lilyreal ND", "Hydroxycitronellal", "DBCA"],
@@ -762,15 +849,21 @@ _PROFILES: dict[str, dict] = {
         "mw": 192.30,
         "vp": 0.01,
         "clogp": 3.5,
+        "material_kind": "OPAQUE_PREBLEND",
+        "evidence": {
+            "mw": {"status": "OPAQUE_BLEND_PROXY", "sources": ["https://www.perfumersworld.com/view.php?pro_id=6MG22777"]},
+            "vp": {"status": "OPAQUE_BLEND_PROXY", "sources": ["https://www.perfumersworld.com/view.php?pro_id=6MG22777"]},
+            "clogp": {"status": "OPAQUE_BLEND_PROXY", "sources": ["https://www.perfumersworld.com/view.php?pro_id=6MG22777"]},
+        },
         "synergies": ["Bourgeonal", "Freesia HDI", "DBCA", "Hydroxycitronellal"],
     },
-    # Mayol — transparent muguet-lily, post-Lyral replacement
+    # Mayol — transparent muguet-lily, not asserted equivalent to Lyral.
     "Mayol": {
         "character": {"floral": 6, "freshness": 5, "green": 3},
         "note": "heart",
         "role": "character",
         "texture": "diffusion",
-        "mw": 166.3,
+        "mw": 156.26,
         "vp": 1.5,
         "clogp": 2.9,
         "synergies": ["Hydroxycitronellal", "Bourgeonal", "Lilyreal ND"],
@@ -1305,7 +1398,7 @@ _PROFILES: dict[str, dict] = {
         "note": "heart",
         "role": "character",
         "texture": "skin-effect",
-        "mw": 220.35,
+        "mw": 208.34,
         "vp": 0.89,
         "clogp": 4.5,
         "synergies": ["Javanol", "Bacdanol"],
@@ -1783,7 +1876,7 @@ _PROFILES: dict[str, dict] = {
         "note": "top",
         "role": "character",
         "texture": "lift",
-        "mw": 158.19,
+        "mw": 186.25,
         "vp": 0.2,
         "clogp": 1.5,
         "synergies": ["Hedione", "Floralozone", "Methyl Pamplemousse"],
@@ -1939,12 +2032,28 @@ _PROFILES: dict[str, dict] = {
         "clogp": 3.0,
         "synergies": ["Black Pepper FTEC", "Bergamot FCF"],
     },
+    "Pink Pepper EO": {
+        "character": {
+            "spicy": 7,
+            "freshness": 6,
+            "citrus": 4,
+            "woody": 3,
+            "floral": 2,
+        },
+        "note": "top",
+        "role": "modifier",
+        "texture": "lift",
+        "mw": 136.23,
+        "vp": 0.4,
+        "clogp": 3.5,
+        "synergies": ["Bergamot FCF oil Sicilian", "Blackcurrant Absolute", "Hedione"],
+    },
     "Ethyl Safranate": {
         "character": {"spicy": 7, "warmth": 5, "woody": 2, "sweetness": 2},
         "note": "heart",
         "role": "character",
         "texture": "diffusion",
-        "mw": 168.23,
+        "mw": 194.27,
         "vp": 0.05,
         "clogp": 2.5,
         "synergies": ["Labdanum Absolute", "Benzoin Resinoid", "Alpha Irone"],
@@ -2301,7 +2410,7 @@ _PROFILES: dict[str, dict] = {
         "note": "top",
         "role": "character",
         "texture": "lift",
-        "mw": 178.27,
+        "mw": 220.35,
         "vp": 0.133,
         "clogp": 3.2,  # VP verified: TGSC 0.001 mmHg @ 25°C = 0.133 Pa
         "synergies": ["Hedione", "Methyl Pamplemousse", "Cedrat FCF Sicilian"],
@@ -2789,6 +2898,38 @@ _PROFILES: dict[str, dict] = {
         "mw": 154.25,
         "vp": 15.0,
         "clogp": 3.2,
+        "material_kind": "NATURAL_MIXTURE",
+        "formulation_roles": ("GIN_SPICE_LIFT", "CITRUS_AROMATIC_BRIDGE"),
+        "evidence": {
+            "mw": {
+                "status": "GENERIC_NATURAL_MIXTURE_PROXY_NOT_LOT_MEASURED",
+                "sources": ["data/materials/C.yaml"],
+            },
+            "vp": {
+                "status": "GENERIC_NATURAL_MIXTURE_PROXY_NOT_LOT_MEASURED",
+                "sources": ["data/materials/C.yaml"],
+            },
+            "clogp": {
+                "status": "GENERIC_NATURAL_MIXTURE_PROXY_NOT_LOT_MEASURED",
+                "sources": ["data/materials/C.yaml"],
+            },
+            "odt": {
+                "status": "GENERIC_NATURAL_MIXTURE_PROXY_NOT_LOT_MEASURED",
+                "sources": ["engine/odor_thresholds.py"],
+            },
+            "odt_ppm": {
+                "status": "GENERIC_NATURAL_MIXTURE_PROXY_NOT_LOT_MEASURED",
+                "sources": ["engine/odor_thresholds.py"],
+            },
+            "character": {
+                "status": "LITERATURE_COMPOSITE_ROLE_HEURISTIC",
+                "sources": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC3512302/"],
+            },
+            "composite_oav": {
+                "status": "LITERATURE_PARTIAL_PROXY_NOT_SUPPLIER_LOT_ASSAY",
+                "sources": ["engine/pipeline/natural_absolute_decomposition.py"],
+            },
+        },
         "synergies": ["Linalool", "Cardamom EO", "Rose Absolute", "Black Pepper EO"],
     },
     "2-Acetyl Pyrazine": {
@@ -3329,6 +3470,9 @@ _PROFILES: dict[str, dict] = {
 
 # Aliases for common naming variants
 _ALIASES = {
+    "7-Hydroxycitronellal": "Hydroxycitronellal",
+    "107-75-5": "Hydroxycitronellal",
+    "107-74-4": "Hydroxycitronellol",
     "Dimethyl Benzyl Carbinyl Acetate": "DBCA",
     "Dimethyl Benzyl Carbinyl Acetate (DBCA)": "DBCA",
     "PEA": "Phenethyl Alcohol",
@@ -3400,11 +3544,16 @@ _ALIASES = {
     "Adoxal 10% in DPG": "Adoxal",
     "Champignol 10% in DPG": "Champignol",
     "Coriander EO": "Coriander Essential Oil",
+    "Coriander Seed EO": "Coriander Essential Oil",
     "Coriander Seed Oil": "Coriander Essential Oil",
     "2-Acetyl Pyrazine 1% in DPG": "2-Acetyl Pyrazine",
     "Safraleine neat": "Safraleine",
     "Blackcurrent Absolute": "Blackcurrant Absolute",
     "Blackcurrant Absolute 10% in DPG": "Blackcurrant Absolute",
+    "Pink Pepper EO (Schinus molle)": "Pink Pepper EO",
+    "Pink Pepper EO Schinus molle": "Pink Pepper EO",
+    "Schinus molle EO": "Pink Pepper EO",
+    "Schinus molle EO (neat / as supplied)": "Pink Pepper EO",
     "Violet Leaf Absolute 10% in DPG": "Violet Leaf Absolute",
     "Jasmine Absolute 10% in DPG": "Jasmine Absolute",
     "Coffee Absolute Grasse 10% in DPG": "Coffee Absolute Grasse",
@@ -3449,7 +3598,7 @@ _ALIASES = {
 # ── Transparency dimension injection (Ellena axis) ──
 # Inject "transparency" into character dicts based on material classification.
 # 8-10 = highly transparent (sheer, diaphanous), 4-7 = neutral, 0-3 = opaque/dense
-_TRANSPARENCY_SCORES: dict[str, int] = {
+_TRANSPARENCY_SCORES: dict[str, float] = {
     # Highly transparent materials (8-10)
     "Hedione": 10,
     "Iso E Super": 9,
@@ -3754,6 +3903,7 @@ _OR_FAMILY_OVERRIDES: dict[str, str] = {
     "Adoxal": "aldehydic",
     "Champignol": "earth",
     "Coriander Essential Oil": "aromatic",
+    "Pink Pepper EO": "spice",
     "2-Acetyl Pyrazine": "gourmand",
     "Safraleine": "smoky",
     "Blackcurrant Absolute": "fruity",
@@ -3773,6 +3923,9 @@ _OR_FAMILY_OVERRIDES: dict[str, str] = {
     "Lilyreal ND": "muguet",
     "Mayol": "muguet",
     "Hydroxycitronellal": "muguet",
+    "Florol": "muguet",
+    "Florhydral": "muguet",
+    "Geranium EO": "rose",
     "Hydroxycitronellol": "rose",
     "Bourgeonal": "muguet",
     "Lilial": "muguet",
@@ -4036,6 +4189,7 @@ _ACTIVITY_COEF_OVERRIDES: dict[str, float] = {
     "Benzyl Salicylate": 1.3,
     "Hexyl Salicylate": 0.75,
     "Benzaldehyde": 2.0,
+    "Florhydral": 1.5,
     "Benzyl Alcohol": 1.5,
     "Ambrox Super": 0.85,
     "Ambrofix": 0.85,
@@ -4179,6 +4333,7 @@ _ACTIVITY_COEF_OVERRIDES: dict[str, float] = {
     "Patchouli EO": 2.0,
     "Petitgrain EO": 2.0,
     "Pink Pepper Base": 2.0,
+    "Pink Pepper EO": 3.0,
     "Piperonal": 1.3,
     "Polysantol": 1.5,
     "Red Mandarin EO": 3.0,
@@ -4384,7 +4539,41 @@ _CHAR_TO_FAMILY = {
     "balsamic": "amber",
 }
 
+# Evidence adjudicated in docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md.
+# Formula/entity masses do not assert grade purity, stock fraction, or lot identity.
+_ENTITY_MASS_SOURCES = {
+    "Florol": ["https://studio.dsm-firmenich.com/product/florolr-pe-966458", "https://pubchem.ncbi.nlm.nih.gov/compound/3017432"],
+    "Bourgeonal": ["https://pubchem.ncbi.nlm.nih.gov/compound/64832"],
+    "Mayol": ["https://studio.dsm-firmenich.com/product/mayolr-pe-957230", "https://pubchem.ncbi.nlm.nih.gov/compound/83763"],
+    "Floralozone": ["https://www.iff.com/scent/ingredients-compendium/floralozone/"],
+    "Apritone": ["https://bedoukian.com/wp-content/uploads/FR-410-spec-sheet.pdf"],
+    "Allyl Amyl Glycolate": ["https://www.johndwalsh.com/wp-content/uploads/2017/12/ALLYL-AMYL-GLYCOLATE-GHS-SDS.pdf", "https://pubchem.ncbi.nlm.nih.gov/compound/106729"],
+    "Ebanol": ["https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ebanoltm"],
+    "Ethyl Safranate": ["https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ethyl-safranate"],
+}
+
 for _pname, _pdata in _PROFILES.items():
+    _evidence = _pdata.setdefault("evidence", {})
+    if _pname in _ENTITY_MASS_SOURCES:
+        _evidence["mw"] = {
+            "status": "SOURCE_BACKED_ENTITY_MASS",
+            "sources": _ENTITY_MASS_SOURCES[_pname],
+            "scope": "Formula/entity mass only; commercial isomers, additives and grade purity remain separate.",
+        }
+    for _field in ("mw", "vp", "clogp", "odt", "odt_ppm"):
+        _evidence.setdefault(_field, {"status": "UNVERIFIED_LEGACY_VALUE" if _pdata.get(_field) is not None else "UNKNOWN"})
+    for _field in ("character", "role", "synergies", "or_family"):
+        _evidence.setdefault(_field, {"status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"})
+    _evidence.setdefault("activity_coef", {"status": (
+        "DECLARED_UNVERIFIED" if "activity_coef" in _pdata else
+        "HEURISTIC_OVERRIDE" if _pname in _ACTIVITY_COEF_OVERRIDES else
+        "IDEAL_DEFAULT_UNMEASURED"
+    )})
+    _evidence.setdefault("hedonic", {"status": (
+        "DECLARED_UNVERIFIED" if "hedonic" in _pdata else
+        "HEURISTIC_OVERRIDE" if _pname in _HEDONIC_OVERRIDES else
+        "CHARACTER_DERIVED_HEURISTIC"
+    )})
     # or_family
     if _pdata.get("or_family") is None:
         fam = _OR_FAMILY_OVERRIDES.get(_pname)
@@ -4417,7 +4606,7 @@ for _pname, _pdata in _PROFILES.items():
             hed = max(-3.0, min(3.0, 0.4 * pleasant - 0.3 * harsh))
         _pdata["hedonic"] = round(hed, 2)
 
-for _n in ("_pname", "_pdata", "fam", "ch", "dom", "gamma", "hed", "pleasant", "harsh"):
+for _n in ("_pname", "_pdata", "_evidence", "_field", "fam", "ch", "dom", "gamma", "hed", "pleasant", "harsh"):
     if _n in dir():
         try:
             del globals()[_n]
@@ -4466,6 +4655,19 @@ def get_profile(name: str) -> MaterialProfile | None:
     return result
 
 
+def _profile_evidence(data: dict) -> dict[str, dict]:
+    """Keep late legacy intake records from bypassing authority annotation."""
+    evidence = deepcopy(data.get("evidence", {}))
+    for key in ("mw", "vp", "clogp", "odt", "odt_ppm"):
+        evidence.setdefault(key, {"status": "UNVERIFIED_LEGACY_VALUE" if data.get(key) is not None else "UNKNOWN"})
+    for key in ("character", "role", "synergies", "or_family"):
+        evidence.setdefault(key, {"status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"})
+    evidence.setdefault("activity_coef", {"status": "DECLARED_UNVERIFIED" if "activity_coef" in data else "IDEAL_DEFAULT_UNMEASURED"})
+    evidence.setdefault("hedonic", {"status": "DECLARED_UNVERIFIED" if "hedonic" in data else "UNKNOWN_NEUTRAL_DEFAULT"})
+    evidence.setdefault("dilution", {"status": "NOT_CURRENT_STOCK_AUTHORITY"})
+    return evidence
+
+
 def _get_profile_uncached(name: str) -> MaterialProfile | None:
     """Internal uncached profile lookup."""
     for candidate in _name_variants(name):
@@ -4498,30 +4700,49 @@ def _get_profile_uncached(name: str) -> MaterialProfile | None:
         if data is None:
             continue
 
+        # Historical intake stored odor prose in the numeric character field and
+        # note tiers in role. Preserve that prose; do not fabricate radar scores.
+        character = data.get("character", {})
+        odor_description = character if isinstance(character, str) else ""
+        note, role = data.get("note", "heart"), data.get("role", "modifier")
+        if note not in {"top", "heart", "base"} and role in {"top", "heart", "base"}:
+            note, role = role, "modifier"
+
         return MaterialProfile(
             name=key,
-            character=data.get("character", {}),
+            character=character if isinstance(character, dict) else {},
             mw=data.get("mw"),
             vp=data.get("vp"),
             clogp=data.get("clogp"),
             odt=data.get("odt"),
             odt_ppm=data.get("odt_ppm"),
-            note=data.get("note", "heart"),
-            role=data.get("role", "modifier"),
+            note=note,
+            role=role,
             texture=data.get("texture", ""),
             synergies=data.get("synergies", []),
             avoid=data.get("avoid", []),
             dilution=data.get("dilution", 1.0),
             activity_coef=data.get("activity_coef", 1.0),
             hedonic=data.get("hedonic", 0.0),
-            or_family=data.get("or_family"),
+            or_family=data.get("or_family", data.get("odor_family")),
+            cas=data.get("cas"),
+            material_kind=data.get("material_kind", "UNRESOLVED"),
+            formulation_roles=tuple(data.get("formulation_roles", ())),
+            evidence=_profile_evidence(data),
+            odor_description=odor_description,
         )
     return None
 
 
 def get_all_profiles() -> dict[str, MaterialProfile]:
     """Return all profiles indexed by canonical name."""
-    return {name: get_profile(name) for name in _PROFILES}
+    profiles = {}
+    for name in _PROFILES:
+        profile = get_profile(name)
+        if profile is None:
+            raise LookupError(f"Declared profile failed to resolve: {name}")
+        profiles[name] = profile
+    return profiles
 
 
 def character_distance(a: MaterialProfile, b: MaterialProfile) -> float:
@@ -4959,12 +5180,17 @@ _PROFILES.setdefault("elemi eo", {}).update(
 # ─────────────────────────────────────────────────────────────────────
 # MATERIAL_INTAKE_REMEDIATION_2026_08_07 — MaterialProfile reads "odt"/"odt_ppm" (auditor CRITICAL C2)
 MATERIAL_INTAKE_REMEDIATION_2026_08_07 = True
-# backfill Phenethyl Alcohol (legacy profile) odt keys (auditor C2b)
-from engine.odor_thresholds import ODT_DATA as _INTAKE_ODT_DATA
+# Keep this late import local: moving it to module startup risks changing the
+# established ODT enrichment/import order.
+def _backfill_phenethyl_alcohol_odt() -> None:
+    from engine.odor_thresholds import ODT_DATA
 
-_PEA = _PROFILES.setdefault("Phenethyl Alcohol", {})
-_PEA.setdefault("odt", _INTAKE_ODT_DATA.get("phenethyl alcohol", {}).get("odt_air"))
-_PEA.setdefault("odt_ppm", _INTAKE_ODT_DATA.get("phenethyl alcohol", {}).get("odt_eth"))
+    profile = _PROFILES.setdefault("Phenethyl Alcohol", {})
+    profile.setdefault("odt", ODT_DATA.get("phenethyl alcohol", {}).get("odt_air"))
+    profile.setdefault("odt_ppm", ODT_DATA.get("phenethyl alcohol", {}).get("odt_eth"))
+
+
+_backfill_phenethyl_alcohol_odt()
 
 for _mi_name in [
     "nerolidol",
@@ -4989,3 +5215,43 @@ for _mi_name in [
 _PROFILES.setdefault("elemi eo", {}).update(
     {"odt_air_ppb": 10.0, "odt_eth_ppm": 2.0, "odt": 10.0, "odt_ppm": 2.0}
 )
+
+# 2026-09-07: entity facts do not establish stock composition or measured liking.
+for _name, _mw, _cas, _source in (
+    ("Damascone Beta", 192.30, "23726-91-2", "https://www.iff.com/scent/ingredients-compendium/damascone-beta/"),
+    ("Amber Xtreme", 264.4, "476332-65-7", "https://www.iff.com/scent/ingredients-compendium/amber-xtreme-2/"),
+):
+    _PROFILES[_name].update(mw=_mw, cas=_cas)
+    _PROFILES[_name].setdefault("evidence", {})["mw"] = {
+        "status": "MANUFACTURER_BOUND_ENTITY_MASS", "source": _source,
+        "scope": "Molecular identity, not measured bulk-stock physics",
+    }
+
+_PROFILES["Methyl Laitone"] = {
+    "character": "Creamy lactonic fruity body; white-flower body and sandalwood milkiness.",
+    "mw": 168.23, "vp": None, "clogp": None, "odt": None, "odt_ppm": None,
+    "note": "heart", "role": "modifier", "texture": "creamy", "or_family": "lactonic",
+    "material_kind": "COMMERCIAL_MATERIAL_ENTITY_BOUND_STOCK_UNRESOLVED",
+    "formulation_roles": ("WHITE_FLORAL_BODY", "LACTONIC_BODY", "SANDALWOOD_MILKINESS"),
+    "evidence": {"mw": {"status": "MANUFACTURER_BOUND_ENTITY_MASS",
+        "source": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-laitone-10dpg",
+        "formula": "C10H16O2", "manufacturer_rounded_mw": 168.2,
+        "active_cas_candidates": ["94201-19-1", "91069-37-3"],
+        "scope": "Active entity only; user 20% is not the supplier 10% DPG product"}},
+}
+_PROFILES["Guaiacwood EO"] = {
+    "character": "Woody smoky balsamic floral bridge; existing wood-registry design interpretation.",
+    "mw": None, "vp": None, "clogp": None, "odt": None, "odt_ppm": None,
+    "note": "base", "role": "bridge", "texture": "soft woody", "or_family": "woody",
+    "material_kind": "NATURAL_MIXTURE",
+    "formulation_roles": ("FLORAL_WOOD_BRIDGE", "RESIN_SMOKE_SHADOW", "ROOT_GRAIN_BRIDGE"),
+    "evidence": {"composite_oav": {"status": "NATURAL_COMPOSITE_REQUIRED_UNBOUND",
+        "source": "engine/formulation_intelligence/wood_registry.py"}},
+}
+_PROFILES["Vetiveryl Acetate"]["material_kind"] = "COMPLEX_ACETYLATED_NATURAL_MIXTURE"
+_PROFILES["Vetiveryl Acetate"].setdefault("evidence", {}).update({
+    key: {"status": "UNVERIFIED_LEGACY_MIXTURE_PROXY",
+          "source": "https://health.ec.europa.eu/publications/vetiveryl-acetate-fragrance-ingredient_en",
+          "scope": "Product composition unbound; not pure-component measurement"}
+    for key in ("mw", "vp", "clogp", "odt", "odt_ppm")
+})

@@ -1,0 +1,251 @@
+"""Regression tests for catalog quality leaking into formula confidence."""
+
+import json
+import sqlite3
+from dataclasses import replace
+
+import pytest
+
+from engine.confidence import ConfidenceScorer
+from engine.knowledge import literature_rules
+from engine.optimizer import models
+from engine.pipeline.formula_state import build_formula_state
+from engine.pipeline.gates import (
+    GateResult,
+    ReleaseGateConfig,
+    _apply_preflight_confidence_penalty,
+)
+from engine.pipeline.preflight import PreflightCheck, run_release_preflight
+
+UNKNOWN = "unresolved material scope fixture 7349"
+
+
+def _rule(a, b):
+    return {
+        "material_a": a,
+        "material_b": b,
+        "type": "synergy",
+        "source": "Explicit test evidence; no sensory claim",
+        "confidence": "high",
+    }
+
+
+@pytest.fixture
+def catalog(tmp_path, monkeypatch):
+    material_index = models.get_materials_db()
+    monkeypatch.setattr(models, "_MATERIALS_BY_NAME", material_index)
+    monkeypatch.setattr(models, "KG_DIR", tmp_path)
+    monkeypatch.setattr(models, "DB_PATH", tmp_path / "not_created.db")
+    paths = {name: tmp_path / f"{name}.json" for name in literature_rules.STRUCTURED_RULE_FILES}
+    monkeypatch.setattr(literature_rules, "STRUCTURED_RULE_FILES", paths)
+
+    def write(rows):
+        for cache in ("_PAIRING_RULES", "_SYNERGY_RULES", "_PAIRING_INDEX", "_SYNERGY_INDEX"):
+            monkeypatch.setattr(models, cache, None)
+        for name, path in paths.items():
+            content = rows if name == "pairing_rules" else ([] if name == "synergy_matrix" else {})
+            path.write_text(json.dumps(content), encoding="utf-8")
+
+    write([])
+    return write
+
+
+def _state(*names):
+    formula = {
+        "name": "Formula-scoped rule evidence regression",
+        "ingredients_ul": {name: 100.0 for name in names},
+        "dilutions": {name: 1.0 for name in names},
+    }
+    state = build_formula_state(formula["ingredients_ul"], formula["dilutions"])
+    return formula, state
+
+
+def _evaluate(formula, state):
+    report = run_release_preflight(
+        formula,
+        state,
+        stock_contract=PreflightCheck("inventory_stock_contract", "PASS", "Test boundary"),
+    )
+    check = next(check for check in report.checks if check.name == "knowledge_rule_quality")
+    base = {"combined_confidence": 70.0, "required_minimum": 25.0}
+    _, confidence = _apply_preflight_confidence_penalty(
+        GateResult("confidence_minimum", "PASS", data=base),
+        base,
+        report.as_dict(),
+        ReleaseGateConfig(audit_enabled=False),
+    )
+    return check, report.confidence_penalty, confidence["combined_confidence"]
+
+
+def test_unrelated_orphan_and_generic_rules_cannot_change_identical_formula_confidence(catalog):
+    formula, state = _state("Hedione", "Iso E Super")
+    good = _rule("Hedione", "Iso E Super")
+    catalog([good])
+    before = _evaluate(formula, state)
+    before_pairing = ConfidenceScorer().pairing_confidence(formula["ingredients_ul"])
+    catalog([good, _rule("Vanillin", UNKNOWN), _rule("florals", "musks")])
+    after = _evaluate(formula, state)
+
+    assert after[1:] == before[1:]
+    assert ConfidenceScorer().pairing_confidence(formula["ingredients_ul"]) == before_pairing
+    assert after[0].data["invalid_entries"] == 0
+    assert after[0].data["generic_material_refs"] == 0
+    context = after[0].data["catalogue_context"]
+    assert context["status"] == "WARN"
+    assert context["invalid_entries"] == 1
+    assert context["generic_material_refs"] == 2
+    assert context["formula_penalty_authority"] is False
+
+
+def test_exact_formula_label_binding_retains_orphan_evidence_penalty(catalog):
+    formula, state = _state("Hedione", UNKNOWN)
+    catalog([_rule("Vanillin", "Coumarin")])
+    before = _evaluate(formula, state)
+    catalog([_rule("Vanillin", "Coumarin"), _rule("Hedione", UNKNOWN)])
+    after = _evaluate(formula, state)
+
+    assert after[1] - before[1] == pytest.approx(0.25)
+    assert after[2] < before[2]
+    assert after[0].status == "WARN"
+    assert after[0].data["invalid_entries"] == 1
+    assert after[0].data["orphan_material_refs"] == 1
+    assert after[0].data["scope"] == "formula_runtime"
+
+
+def test_generic_formula_label_binding_retains_generic_penalty(catalog):
+    formula, state = _state("Hedione", "rose")
+    catalog([_rule("Vanillin", "Coumarin")])
+    before = _evaluate(formula, state)
+    catalog([_rule("Vanillin", "Coumarin"), _rule("Hedione", "rose")])
+    after = _evaluate(formula, state)
+
+    assert after[1] - before[1] == pytest.approx(0.01)
+    assert after[0].status == "WARN"
+    assert after[0].data["generic_material_refs"] == 1
+
+
+def test_one_endpoint_is_not_pair_applicability_and_generic_families_are_not_expanded(catalog):
+    formula, state = _state("Hedione", "Iso E Super")
+    good = _rule("Hedione", "Iso E Super")
+    catalog([good])
+    before = _evaluate(formula, state)
+    catalog([good, _rule("Hedione", UNKNOWN), _rule("Hedione", "woods")])
+    after = _evaluate(formula, state)
+
+    assert after[1:] == before[1:]
+    assert after[0].data["details"]["footprint_complete"] is True
+    assert after[0].data["total_entries"] == 1
+
+
+def test_fuzzy_consumed_orphan_is_penalized_without_inventing_identity(catalog):
+    formula, state = _state("Hedione", "Iso E Super")
+    catalog([_rule("Hedione", "Iso-E-Super")])
+    check, _, _ = _evaluate(formula, state)
+
+    assert check.data["invalid_entries"] == 1
+    assert check.data["confidence_penalty"] == 0.25
+    records = check.data["details"]["consumed_rules"]
+    assert len(records) == 1
+    assert records[0]["rule"]["material_b"] == "Iso-E-Super"
+    assert any(binding["formula_material_b"] == "Iso E Super"
+               for binding in records[0]["consumed_bindings"])
+    assert records[0]["rule_id"].startswith("pairing_rules:")
+    assert check.data["details"]["identity_authority"] == "consumption_is_not_chemical_identity_resolution"
+
+
+def test_preflight_uses_same_zero_row_keys_as_existing_confidence_scorer(catalog):
+    formula, state = _state("Hedione", UNKNOWN)
+    state = replace(state, materials=tuple(
+        replace(row, raw_ul=0.0, active_ul=0.0) if row.name == UNKNOWN else row
+        for row in state.materials
+    ))
+    catalog([_rule("Hedione", UNKNOWN)])
+    check, _, _ = _evaluate(formula, state)
+
+    assert check.data["invalid_entries"] == 1
+    assert check.data["confidence_penalty"] == 0.25
+
+
+def test_incomplete_consumption_footprint_retains_old_penalty(catalog, monkeypatch):
+    formula, state = _state("Hedione", "Iso E Super")
+    catalog([_rule("Hedione", "Iso E Super"), _rule("Vanillin", UNKNOWN)])
+    # An old/custom index can yield scorer matches but cannot identify origins.
+    rule = _rule("Hedione", "Iso E Super")
+    monkeypatch.setattr(models, "_PAIRING_INDEX", {"hedione": [rule]})
+    check, _, _ = _evaluate(formula, state)
+
+    assert check.status == "WARN"
+    assert check.data["scope"] == "unresolved_runtime_consumption"
+    assert check.data["details"]["footprint_complete"] is False
+    assert check.data["confidence_penalty"] == 0.25
+
+
+def test_footprint_deduplicates_rule_penalty_without_changing_score_contributions(catalog):
+    catalog([_rule("Hedione", "Iso E Super")] * 4)
+    coverage = models.analyze_formula_rule_coverage(["Hedione", "Iso E Super"])
+
+    assert coverage["total_pairs"] == 1
+    assert len(coverage["covered_pairs"]) == 1
+    assert coverage["total_axis_magnitude"] == 2.0
+    assert coverage["consumed_rules_complete"] is True
+    assert len(coverage["consumed_rules"]) == 1
+    assert len(coverage["consumed_rules"][0]["consumed_bindings"]) == 2
+
+
+def test_global_quality_contract_remains_available_without_formula_scope(catalog):
+    catalog([_rule("Hedione", UNKNOWN), _rule("florals", "musks")])
+    contract = literature_rules.build_knowledge_rule_quality_contract().as_dict()
+
+    assert contract["status"] == "WARN"
+    assert contract["invalid_entries"] == 1
+    assert contract["generic_material_refs"] == 2
+
+
+def test_applicable_penalty_caps_remain_unchanged(catalog):
+    formula, state = _state("Hedione", UNKNOWN, "rose")
+    catalog([{**_rule("Hedione", UNKNOWN), "effect": f"Orphan fixture {i}"} for i in range(20)]
+            + [{**_rule("Hedione", "rose"), "effect": f"Generic fixture {i}"} for i in range(250)])
+    check, _, _ = _evaluate(formula, state)
+
+    assert check.data["confidence_penalty"] == 6.0
+    assert check.data["invalid_entries"] == 20
+    assert check.data["generic_material_refs"] == 250
+
+
+def test_runtime_sqlite_consumption_is_audited_independently_of_raw_json(catalog, tmp_path, monkeypatch):
+    formula, state = _state("Hedione", "Iso E Super")
+    catalog([_rule("Vanillin", UNKNOWN)] * 40)
+    database = tmp_path / "runtime_rules.db"
+    with sqlite3.connect(database) as connection:
+        connection.executescript("""
+            CREATE TABLE materials (name TEXT);
+            INSERT INTO materials VALUES ('source-selection fixture');
+            CREATE TABLE pairing_rules (
+                material_a_name TEXT, material_b_name TEXT,
+                effect TEXT, rule_type TEXT, source TEXT);
+            CREATE TABLE synergy_rules (
+                material_a_name TEXT, material_b_name TEXT,
+                effect TEXT, ratio TEXT, rule_type TEXT, source TEXT, is_corrupted INTEGER);
+            INSERT INTO pairing_rules VALUES (
+                'Hedione', 'Iso-E-Super', 'Runtime SQLite fixture',
+                'synergy', 'SQLite evidence fixture');
+        """)
+    monkeypatch.setattr(models, "DB_PATH", database)
+    check, _, _ = _evaluate(formula, state)
+
+    assert check.data["invalid_entries"] == 1
+    assert check.data["confidence_penalty"] == 0.25
+    assert check.data["catalogue_context"]["invalid_entries"] == 40
+    assert check.data["details"]["consumed_rules"][0]["rule"]["source"] == "SQLite evidence fixture"
+
+
+def test_no_consumed_rules_does_not_claim_usable_formula_evidence(catalog):
+    formula, state = _state("Hedione", "Iso E Super")
+    catalog([_rule("Vanillin", "Coumarin")])
+    check, _, _ = _evaluate(formula, state)
+
+    assert check.status == "WARN"
+    assert check.data["confidence_penalty"] == 0.0
+    assert check.data["total_entries"] == 0
+    assert check.data["details"]["consumed_rules"] == []
+    assert check.data["details"]["footprint_complete"] is True

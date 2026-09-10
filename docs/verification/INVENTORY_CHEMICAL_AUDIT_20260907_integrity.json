@@ -1,0 +1,606 @@
+{
+  "schema": "INVENTORY_AUDIT_INTEGRITY_V1",
+  "status": "AUDIT_ARTIFACTS_VALID; CHEMICAL_RELEASE_HOLD",
+  "raw_inventory_rows_preserved": 280,
+  "all_external_fields_verified": false,
+  "snapshot_decoded_sha256": "9d78902fca686901ef5c793ac4731e2452a1a56b37b3f694a63b3f8afd782224",
+  "source_files_checked": 46,
+  "source_files_unchanged": 46,
+  "source_integrity": [
+    {
+      "path": "inventory.txt",
+      "before": {
+        "bytes": 21215,
+        "sha256": "d103b79508592f74bb368f27507874b9fd3493acc9e872150e768449b2a02ef7"
+      },
+      "after": {
+        "bytes": 21215,
+        "sha256": "d103b79508592f74bb368f27507874b9fd3493acc9e872150e768449b2a02ef7"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "AGENTS.md",
+      "before": {
+        "bytes": 48342,
+        "sha256": "b51003ce8872af0f4f554b80455e02ef911fe65521a0afaf465e219d5b756f07"
+      },
+      "after": {
+        "bytes": 48342,
+        "sha256": "b51003ce8872af0f4f554b80455e02ef911fe65521a0afaf465e219d5b756f07"
+      },
+      "unchanged": true
+    },
+    {
+      "path": ".github/copilot-instructions.md",
+      "before": {
+        "bytes": 25898,
+        "sha256": "ac8de3a4db8096f82cf5c26843b00912528281873f94c2f87052b46d9dd19814"
+      },
+      "after": {
+        "bytes": 25898,
+        "sha256": "ac8de3a4db8096f82cf5c26843b00912528281873f94c2f87052b46d9dd19814"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "engine/inventory_parser.py",
+      "before": {
+        "bytes": 89490,
+        "sha256": "a77ef46b190c3237fa7346e05f791cd2c8f080288fb5d11a253360eb0ee86010"
+      },
+      "after": {
+        "bytes": 89490,
+        "sha256": "a77ef46b190c3237fa7346e05f791cd2c8f080288fb5d11a253360eb0ee86010"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "engine/ingredient_intelligence.py",
+      "before": {
+        "bytes": 167639,
+        "sha256": "866fc83b4b77542ed9be26e0038f66e08390ddec218513fc3641debd76bf4930"
+      },
+      "after": {
+        "bytes": 167639,
+        "sha256": "866fc83b4b77542ed9be26e0038f66e08390ddec218513fc3641debd76bf4930"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "engine/odor_thresholds.py",
+      "before": {
+        "bytes": 143953,
+        "sha256": "619c33c74350ced7c88bc615513a2a8390791ebabe31705932d0d435436a2e79"
+      },
+      "after": {
+        "bytes": 143953,
+        "sha256": "619c33c74350ced7c88bc615513a2a8390791ebabe31705932d0d435436a2e79"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "engine/name_utils.py",
+      "before": {
+        "bytes": 9936,
+        "sha256": "697df8d91ed380e5f916557a1f648e08049c1519c46119d016588367b437011b"
+      },
+      "after": {
+        "bytes": 9936,
+        "sha256": "697df8d91ed380e5f916557a1f648e08049c1519c46119d016588367b437011b"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "engine/material_identity.py",
+      "before": {
+        "bytes": 8076,
+        "sha256": "4f2078b0c4903bce12c92e581a886e7a371a96c2c1c36fde8901c6b6b9453e00"
+      },
+      "after": {
+        "bytes": 8076,
+        "sha256": "4f2078b0c4903bce12c92e581a886e7a371a96c2c1c36fde8901c6b6b9453e00"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "engine/data_spine/material.py",
+      "before": {
+        "bytes": 9218,
+        "sha256": "1d6cb1827ef9742ae186ed4e9c7dacd349146f62ab997afb289d4501a0e1e268"
+      },
+      "after": {
+        "bytes": 9218,
+        "sha256": "1d6cb1827ef9742ae186ed4e9c7dacd349146f62ab997afb289d4501a0e1e268"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "engine/data_spine/loader.py",
+      "before": {
+        "bytes": 5002,
+        "sha256": "cd09b0877de31b1fb334811f875dd7305923e9d454efac6ba7cd065f1e6c016f"
+      },
+      "after": {
+        "bytes": 5002,
+        "sha256": "cd09b0877de31b1fb334811f875dd7305923e9d454efac6ba7cd065f1e6c016f"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "engine/material_resolver.py",
+      "before": {
+        "bytes": 2253,
+        "sha256": "925aafa2faa628e505568cc2ad65b2c9ace3c8ca27c2565a1ea12fb0c0a1b382"
+      },
+      "after": {
+        "bytes": 2253,
+        "sha256": "925aafa2faa628e505568cc2ad65b2c9ace3c8ca27c2565a1ea12fb0c0a1b382"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "engine/pipeline/formula_state.py",
+      "before": {
+        "bytes": 49180,
+        "sha256": "dbdbf19e53a4eff3b69a4e1f8ef64b7ec974d3fca8aa2721b3a50c96ab3f836d"
+      },
+      "after": {
+        "bytes": 49180,
+        "sha256": "dbdbf19e53a4eff3b69a4e1f8ef64b7ec974d3fca8aa2721b3a50c96ab3f836d"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "engine/pipeline/natural_absolute_decomposition.py",
+      "before": {
+        "bytes": 59820,
+        "sha256": "eb12128d2e09a75938f1bd1028d171dcae9ac00dd8cb90833db390e2812c9c30"
+      },
+      "after": {
+        "bytes": 59820,
+        "sha256": "eb12128d2e09a75938f1bd1028d171dcae9ac00dd8cb90833db390e2812c9c30"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/knowledge_graph/material_properties.json",
+      "before": {
+        "bytes": 569314,
+        "sha256": "2497e6e7d16e3d862866e3729c3e590137aaa39b08a7b95589cf8ab971accc45"
+      },
+      "after": {
+        "bytes": 569314,
+        "sha256": "2497e6e7d16e3d862866e3729c3e590137aaa39b08a7b95589cf8ab971accc45"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/A.yaml",
+      "before": {
+        "bytes": 112110,
+        "sha256": "0ddba27e285bfaa4b1fa6115c32485c9b5713090b6f99c647aa408e9fdc0daeb"
+      },
+      "after": {
+        "bytes": 112110,
+        "sha256": "0ddba27e285bfaa4b1fa6115c32485c9b5713090b6f99c647aa408e9fdc0daeb"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/B.yaml",
+      "before": {
+        "bytes": 75494,
+        "sha256": "033bf196e12ec311cde29aa0072e60fa7cdc52bdd8a7c9cc357e8bd442f140e0"
+      },
+      "after": {
+        "bytes": 75494,
+        "sha256": "033bf196e12ec311cde29aa0072e60fa7cdc52bdd8a7c9cc357e8bd442f140e0"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/C.yaml",
+      "before": {
+        "bytes": 159624,
+        "sha256": "f8bac9ded1c4209fccb8dd9689db78012e8b180704bbcc22e257e4567084808c"
+      },
+      "after": {
+        "bytes": 159624,
+        "sha256": "f8bac9ded1c4209fccb8dd9689db78012e8b180704bbcc22e257e4567084808c"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/D.yaml",
+      "before": {
+        "bytes": 39739,
+        "sha256": "6dc58b0172a218972dd9b3e8863f15815dad7e5978de42009280202b96a6695a"
+      },
+      "after": {
+        "bytes": 39739,
+        "sha256": "6dc58b0172a218972dd9b3e8863f15815dad7e5978de42009280202b96a6695a"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/E.yaml",
+      "before": {
+        "bytes": 37172,
+        "sha256": "809e4142dab9c6568a806bb622c971e65db16573fecd540976a0f40bbb9cb139"
+      },
+      "after": {
+        "bytes": 37172,
+        "sha256": "809e4142dab9c6568a806bb622c971e65db16573fecd540976a0f40bbb9cb139"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/F.yaml",
+      "before": {
+        "bytes": 37856,
+        "sha256": "e5e343ecfe8c71c1f0c31f21b7a966595757bac28cc9b84d9e2d47f2474b44e8"
+      },
+      "after": {
+        "bytes": 37856,
+        "sha256": "e5e343ecfe8c71c1f0c31f21b7a966595757bac28cc9b84d9e2d47f2474b44e8"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/G.yaml",
+      "before": {
+        "bytes": 62966,
+        "sha256": "489ac5eed06693f9688c7732b5c4c3dedc895bad944a16a1e123e9f462707fef"
+      },
+      "after": {
+        "bytes": 62966,
+        "sha256": "489ac5eed06693f9688c7732b5c4c3dedc895bad944a16a1e123e9f462707fef"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/H.yaml",
+      "before": {
+        "bytes": 38827,
+        "sha256": "f78d2e4e068975330ea50e9275ed6750bee9b29a3bdecd9ed7d53d95e3c67399"
+      },
+      "after": {
+        "bytes": 38827,
+        "sha256": "f78d2e4e068975330ea50e9275ed6750bee9b29a3bdecd9ed7d53d95e3c67399"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/I.yaml",
+      "before": {
+        "bytes": 28485,
+        "sha256": "430fb98aeed9a361ea858acfda2641d97cc46b2c2d21f7bdd61f3b11caa6c8f1"
+      },
+      "after": {
+        "bytes": 28485,
+        "sha256": "430fb98aeed9a361ea858acfda2641d97cc46b2c2d21f7bdd61f3b11caa6c8f1"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/J.yaml",
+      "before": {
+        "bytes": 20370,
+        "sha256": "61a21c82200d9d048cb4e1124ac4b9d35c89a7978c6ff9b6142abd339851aae1"
+      },
+      "after": {
+        "bytes": 20370,
+        "sha256": "61a21c82200d9d048cb4e1124ac4b9d35c89a7978c6ff9b6142abd339851aae1"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/K.yaml",
+      "before": {
+        "bytes": 6129,
+        "sha256": "64cc1d9abc70cbef0b40c7e6527209071fdb1aed3e6fc65b7d4a72bf5b48eed1"
+      },
+      "after": {
+        "bytes": 6129,
+        "sha256": "64cc1d9abc70cbef0b40c7e6527209071fdb1aed3e6fc65b7d4a72bf5b48eed1"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/L.yaml",
+      "before": {
+        "bytes": 68071,
+        "sha256": "00764b626ac6a4c885fa7269f0cbf0003686c10db4aad80eacb0ff90d627e9bc"
+      },
+      "after": {
+        "bytes": 68071,
+        "sha256": "00764b626ac6a4c885fa7269f0cbf0003686c10db4aad80eacb0ff90d627e9bc"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/M.yaml",
+      "before": {
+        "bytes": 67624,
+        "sha256": "76207bfacaf3b4fb65e8be2e78358e873f4da461b699da148607fcea3f8b13be"
+      },
+      "after": {
+        "bytes": 67624,
+        "sha256": "76207bfacaf3b4fb65e8be2e78358e873f4da461b699da148607fcea3f8b13be"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/N.yaml",
+      "before": {
+        "bytes": 39167,
+        "sha256": "ef7745d27c74aaf797c782478135f0151450ab9414bd51615c846de379caa852"
+      },
+      "after": {
+        "bytes": 39167,
+        "sha256": "ef7745d27c74aaf797c782478135f0151450ab9414bd51615c846de379caa852"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/O.yaml",
+      "before": {
+        "bytes": 44948,
+        "sha256": "5d7d0de6c92e7f0055cf38ccc49d948e3dbe7accb24005e6acd17b608a281c2b"
+      },
+      "after": {
+        "bytes": 44948,
+        "sha256": "5d7d0de6c92e7f0055cf38ccc49d948e3dbe7accb24005e6acd17b608a281c2b"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/P.yaml",
+      "before": {
+        "bytes": 89698,
+        "sha256": "bc9e7bcdef8ce071418e19747dbd0fbd6f81585213be511bfd224312ad9352e3"
+      },
+      "after": {
+        "bytes": 89698,
+        "sha256": "bc9e7bcdef8ce071418e19747dbd0fbd6f81585213be511bfd224312ad9352e3"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/Q.yaml",
+      "before": {
+        "bytes": 1882,
+        "sha256": "7c0616b386c26aa6964f9d138167f1d92c41332f4a808bad4231d027635bf16a"
+      },
+      "after": {
+        "bytes": 1882,
+        "sha256": "7c0616b386c26aa6964f9d138167f1d92c41332f4a808bad4231d027635bf16a"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/R.yaml",
+      "before": {
+        "bytes": 40427,
+        "sha256": "09e81c977f59dae112b1873a3d4a71dea6916087ffb92e62be6722c69411814b"
+      },
+      "after": {
+        "bytes": 40427,
+        "sha256": "09e81c977f59dae112b1873a3d4a71dea6916087ffb92e62be6722c69411814b"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/S.yaml",
+      "before": {
+        "bytes": 85332,
+        "sha256": "be022163d308d94cfc1dd2e01b61919d978747b09a019d917df8e9a1712e2411"
+      },
+      "after": {
+        "bytes": 85332,
+        "sha256": "be022163d308d94cfc1dd2e01b61919d978747b09a019d917df8e9a1712e2411"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/T.yaml",
+      "before": {
+        "bytes": 97839,
+        "sha256": "e6e2b54eebb48542948b775231b34d6eb1c492d461e16787a94c16b9dc233e01"
+      },
+      "after": {
+        "bytes": 97839,
+        "sha256": "e6e2b54eebb48542948b775231b34d6eb1c492d461e16787a94c16b9dc233e01"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/U.yaml",
+      "before": {
+        "bytes": 7563,
+        "sha256": "0f94cc1756d28261bfbf8ace2a7177768cd0154d3d04237f8cd594e5674caa00"
+      },
+      "after": {
+        "bytes": 7563,
+        "sha256": "0f94cc1756d28261bfbf8ace2a7177768cd0154d3d04237f8cd594e5674caa00"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/V.yaml",
+      "before": {
+        "bytes": 27501,
+        "sha256": "664f7aa8ab2ed965fd9055df9964fc938726883ea2f36dfb19fde5bf6c37f279"
+      },
+      "after": {
+        "bytes": 27501,
+        "sha256": "664f7aa8ab2ed965fd9055df9964fc938726883ea2f36dfb19fde5bf6c37f279"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/W.yaml",
+      "before": {
+        "bytes": 11069,
+        "sha256": "d08727bb351c20f16512031197de308441fe3eabf56c084e040bb330fe462bac"
+      },
+      "after": {
+        "bytes": 11069,
+        "sha256": "d08727bb351c20f16512031197de308441fe3eabf56c084e040bb330fe462bac"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/X.yaml",
+      "before": {
+        "bytes": 1829,
+        "sha256": "dc1975700fb4fcec87e10754aaee6739ba7b5d54c545d4f64d1df9412ab89686"
+      },
+      "after": {
+        "bytes": 1829,
+        "sha256": "dc1975700fb4fcec87e10754aaee6739ba7b5d54c545d4f64d1df9412ab89686"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/Y.yaml",
+      "before": {
+        "bytes": 16412,
+        "sha256": "4aaa899b9ba6d97c229292af2c35f9e52b0f263d6fdb6c60ec5e49af691058db"
+      },
+      "after": {
+        "bytes": 16412,
+        "sha256": "4aaa899b9ba6d97c229292af2c35f9e52b0f263d6fdb6c60ec5e49af691058db"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/materials/Z.yaml",
+      "before": {
+        "bytes": 3747,
+        "sha256": "a9baddb1cbab9c325b66732a139a8039263a776a40b7ea3ce6607bbc47ad1b09"
+      },
+      "after": {
+        "bytes": 3747,
+        "sha256": "a9baddb1cbab9c325b66732a139a8039263a776a40b7ea3ce6607bbc47ad1b09"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260828.json",
+      "before": {
+        "bytes": 43712,
+        "sha256": "6b749c873bfc07cec43f5150248cca42046462f941af045888624f54e1cc9c4e"
+      },
+      "after": {
+        "bytes": 43712,
+        "sha256": "6b749c873bfc07cec43f5150248cca42046462f941af045888624f54e1cc9c4e"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260904.json",
+      "before": {
+        "bytes": 18487,
+        "sha256": "e2fe66cb8077da38142913a73b0d77acd14b6e4953f6155bb2011e1e2bb851a4"
+      },
+      "after": {
+        "bytes": 18487,
+        "sha256": "e2fe66cb8077da38142913a73b0d77acd14b6e4953f6155bb2011e1e2bb851a4"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260905.json",
+      "before": {
+        "bytes": 3623,
+        "sha256": "08d0f0e41f90741200b3e915789ddd044cbbf7b0ce1b1aa266053452781bb17f"
+      },
+      "after": {
+        "bytes": 3623,
+        "sha256": "08d0f0e41f90741200b3e915789ddd044cbbf7b0ce1b1aa266053452781bb17f"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260906.json",
+      "before": {
+        "bytes": 3668,
+        "sha256": "b06024fdef65355c354a4c5a2618d482f215df42a21c2d56aed896bbfb8c305f"
+      },
+      "after": {
+        "bytes": 3668,
+        "sha256": "b06024fdef65355c354a4c5a2618d482f215df42a21c2d56aed896bbfb8c305f"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/governance/inventory_v5_current_stock_snapshot.json",
+      "before": {
+        "bytes": 226125,
+        "sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99"
+      },
+      "after": {
+        "bytes": 226125,
+        "sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99"
+      },
+      "unchanged": true
+    },
+    {
+      "path": "data/governance/inventory_v5_alias_crosswalk_20260811.json",
+      "before": {
+        "bytes": 7700,
+        "sha256": "4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6"
+      },
+      "after": {
+        "bytes": 7700,
+        "sha256": "4320f19e1d3dff1cca885ad3d8004c2354cef4c3964e31668a6615028bb914d6"
+      },
+      "unchanged": true
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "docs/research/INVENTORY_CHEMICAL_AUDIT_20260907.md",
+      "bytes": 21176,
+      "sha256": "3639afa437ee07a40a83194c45d55144ceef337c6a5461e57d0ba3fc25640f44"
+    },
+    {
+      "path": "docs/verification/INVENTORY_CHEMICAL_AUDIT_20260907_checks.json",
+      "bytes": 150340,
+      "sha256": "6d1ad6df65dbd9e0e1efb47e5c28ed021b3bcf1fa2db455f0cbfa099d7a87433"
+    },
+    {
+      "path": "docs/verification/INVENTORY_CHEMICAL_AUDIT_20260907_pubchem_cas.json",
+      "bytes": 101192,
+      "sha256": "03775da22c70d26296b1b3b03b34b554102786edf05073498ca814545f05eb42"
+    },
+    {
+      "path": "docs/verification/INVENTORY_CHEMICAL_AUDIT_20260907_pubchem_cids.json",
+      "bytes": 27436,
+      "sha256": "0bb8d9d55f2e0755333192e72793b5226aa0ad72319fe086a855e063af7bdca0"
+    },
+    {
+      "path": "docs/verification/INVENTORY_CHEMICAL_AUDIT_20260907_rows.json",
+      "bytes": 782078,
+      "sha256": "3782c8bae0f058968d1ad0e484d617847c6791cb9188a257d941ada1c2f90655"
+    },
+    {
+      "path": "docs/verification/INVENTORY_CHEMICAL_AUDIT_20260907_rows.md",
+      "bytes": 37496,
+      "sha256": "2079314f83a1d65be486d09533880899e1f5a90320facbf813acdb3025a66c73"
+    },
+    {
+      "path": "docs/verification/INVENTORY_CHEMICAL_AUDIT_20260907_snapshot.json.gz.b64",
+      "bytes": 256545,
+      "sha256": "72a8585973688cf9f3a377da838d07c8a2f8cb50909d12d0652bee4ca90dbf98"
+    }
+  ],
+  "test_outcome": {
+    "passed": 118,
+    "failed": 5,
+    "warnings": 2847,
+    "full_release_verifier_run": false
+  }
+}

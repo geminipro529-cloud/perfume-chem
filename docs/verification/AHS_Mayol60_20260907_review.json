@@ -1,0 +1,798 @@
+{
+  "schema": "perfume_candidate_diagnostic_review_v1",
+  "date": "2026-09-07",
+  "owner": "/root",
+  "scope": "Actual user-reported DHM200 Helional100 bottle versus unexecuted Mayol60 positive-only candidate; this receipt does not approve compounding.",
+  "command": ".venv/Scripts/python.exe scripts/formula_release_gate.py --formula-file formulas/AHS_UserBottle_Mayol60_AddOnly_20260907.md --parent-formula-file formulas/AHS_UserBottle_DHM200_30mL_20260907.md --expected-concentrate-ul 4960 --batch-volume-ml 30.06 --temperature-k 305 --brief auto --no-audit --no-append-analysis --json",
+  "overall": "FAIL",
+  "gate_counts": {
+    "FAIL": 9,
+    "PASS": 103,
+    "WARN": 35,
+    "SKIP": 1
+  },
+  "g15": {
+    "gate": "g15_oav_firewall",
+    "status": "PASS",
+    "detail": "Dose lineage is continuous and no modeled OAV anomaly crossed the G15 review thresholds.",
+    "data": {
+      "gate_id": "G15",
+      "evidence_class": "DETERMINISTIC_DOSE_INTEGRITY_PLUS_MODELED_OAV_SCREENING",
+      "hard_gate_authority": "DOSE_LINEAGE_AND_REVISION_DISCONTINUITY_ONLY",
+      "oav_release_authority": false,
+      "child_formula_hash": "be8a478a0790bbf63bb18d7092c2caa6fe0546c7b0bc6b77164060786b02c3e3",
+      "oav_interpretation": "Modeled OAV is a time-resolved screening signal, not percent perceived contribution, beauty, similarity, preference, or measured headspace.",
+      "declared_parent_formula_uid": null,
+      "authorized_active_dose_changes": {},
+      "supplied_parent_formula_uid": null,
+      "parent_formula_hash": "42064857f489b9e23142c04ea629b121d1d68ad39e55421e1f11e63d6a9fa6b9",
+      "parent_g15_dilutions": {
+        "Iso E Super": 1,
+        "Hedione": 1,
+        "Benzyl Salicylate": 1,
+        "Patchouli EO": 1,
+        "Sandalore": 1,
+        "Cedarwood oil Virginia": 1,
+        "Vertofix": 1,
+        "Galaxolide": 0.5,
+        "Romandolide": 1,
+        "Linalyl Acetate": 1,
+        "Dihydromyrcenol": 1,
+        "Helional": 1,
+        "Linalool": 1,
+        "Lavender EO High Altitude (angustifolia, France)": 1,
+        "DPG": 1,
+        "Neroli EO": 1,
+        "Geranium EO": 1,
+        "Alpha Isomethyl Ionone": 1,
+        "Coumarin": 0.2,
+        "Vanillin": 0.1,
+        "Black Pepper EO": 1,
+        "Red Mandarin EO": 1,
+        "Bergamot FCF oil Sicilian": 1,
+        "Petitgrain EO Paraguay": 1,
+        "Aldehyde C10": 0.01,
+        "Aldehyde C12 MNA": 0.01,
+        "Calone": 0.01
+      },
+      "child_g15_dilutions": {
+        "Iso E Super": 1,
+        "Hedione": 1,
+        "Benzyl Salicylate": 1,
+        "Patchouli EO": 1,
+        "Sandalore": 1,
+        "Cedarwood oil Virginia": 1,
+        "Vertofix": 1,
+        "Galaxolide": 0.5,
+        "Romandolide": 1,
+        "Linalyl Acetate": 1,
+        "Dihydromyrcenol": 1,
+        "Helional": 1,
+        "Linalool": 1,
+        "Mayol": 1,
+        "Lavender EO High Altitude (angustifolia, France)": 1,
+        "DPG": 1,
+        "Neroli EO": 1,
+        "Geranium EO": 1,
+        "Alpha Isomethyl Ionone": 1,
+        "Coumarin": 0.2,
+        "Vanillin": 0.1,
+        "Black Pepper EO": 1,
+        "Red Mandarin EO": 1,
+        "Bergamot FCF oil Sicilian": 1,
+        "Petitgrain EO Paraguay": 1,
+        "Aldehyde C10": 0.01,
+        "Aldehyde C12 MNA": 0.01,
+        "Calone": 0.01
+      },
+      "pre_mix_guard": {
+        "status": "PASS",
+        "parent_comparison_available": true,
+        "temporal_comparison_available": true,
+        "findings": [],
+        "limitations": [
+          "Active-dose continuity is the hard invariant for stock rebases.",
+          "Temporal OAV is screening only and is not percent perceived contribution.",
+          "Static OAV dominance alone never hard-fails a formula.",
+          "No target-similarity, pleasantness, or consumer-preference claim is made."
+        ]
+      }
+    }
+  },
+  "failed_gates": [
+    {
+      "gate": "pipeline_preflight",
+      "status": "FAIL",
+      "detail": "13 checks; 7 warnings"
+    },
+    {
+      "gate": "inventory_stock_contract",
+      "status": "FAIL",
+      "detail": "5 material stock contract failure(s): Aldehyde C10, Aldehyde C12 MNA, Coumarin, Lavender EO High Altitude (angustifolia, France), Vanillin"
+    },
+    {
+      "gate": "quantitative_authority",
+      "status": "FAIL",
+      "detail": "Exact active concentrate ppm w/w is unavailable; quantitative/release claims are blocked."
+    },
+    {
+      "gate": "natural_composite_coverage",
+      "status": "FAIL",
+      "detail": "Natural mixtures lack required composite GC-O decomposition: Lavender EO High Altitude (angustifolia, France)"
+    },
+    {
+      "gate": "reference_claim_contract",
+      "status": "FAIL",
+      "detail": "Unknown reference contract(s): chanel_allure_homme_sport_edt_reference_pending"
+    },
+    {
+      "gate": "material_spine_coverage",
+      "status": "FAIL",
+      "detail": "Lavender EO High Altitude (angustifolia, France)"
+    },
+    {
+      "gate": "physics_data_coverage",
+      "status": "FAIL",
+      "detail": "{\"Lavender EO High Altitude (angustifolia, France)\": [\"mw\", \"logp\", \"vp\", \"odt_air_ppm\"]}"
+    },
+    {
+      "gate": "odt_coverage",
+      "status": "FAIL",
+      "detail": "Lavender EO High Altitude (angustifolia, France)"
+    },
+    {
+      "gate": "confidence_minimum",
+      "status": "FAIL",
+      "detail": "combined confidence 9.3 below 25.0 after preflight evidence penalty 16.0"
+    }
+  ],
+  "run_evidence_contract": {
+    "schema": "perfume_pipeline_run_evidence_v1",
+    "binding_schema": "formula-artifact-binding-v1",
+    "renderer_version": "formula-release-gate-v1",
+    "analysis_input_sha256": "516477d30d640e955d3719142ab853e5dea1bc0390cd3898355ac8db1bd513ea",
+    "repository_commit": "e7002d4dacde0ae4c6b92db454fa4034c830e8f4",
+    "canonical_records": [
+      {
+        "record_id": "formula:1:ahs-user-bottle-mayol-only-addition-study",
+        "record_version": 1,
+        "canonical_content_sha256": "b498ae5650f6e3ff6cda0975082f5cf730815568293ae247558a0b5418a2b0d2"
+      }
+    ],
+    "formula_definitions": [
+      {
+        "number": 1,
+        "name": "AHS user bottle — Mayol-only addition study",
+        "sha256": "b498ae5650f6e3ff6cda0975082f5cf730815568293ae247558a0b5418a2b0d2"
+      }
+    ],
+    "g15_parent_formula_definitions": [
+      {
+        "number": 1,
+        "name": "AHS user-reported bottle — DHM 200 — 30 mL",
+        "sha256": "bd467b4a86e8c18d959c232a204a324cec043b5eb2cb4e8a538bbbdcfb5b4fee"
+      }
+    ],
+    "semantic_config": {
+      "requested": {
+        "expected_concentrate_ul": 4960,
+        "min_neat_trace_ul": 5,
+        "batch_volume_ml": 30.06,
+        "temperature_K": 305,
+        "brief": "auto",
+        "family_archetype": "",
+        "concentration_bracket": "EdP",
+        "allow_preblends": false,
+        "min_confidence_score": 25,
+        "min_perceptible_materials": 3,
+        "max_perceptible_channels": 30,
+        "ifra_headroom": 1,
+        "commercial_mode": false,
+        "commercial_confidence_policy": "block",
+        "quantitative_claim": true,
+        "matrix_components_moles": [],
+        "matrix_mass_g": 0,
+        "matrix_source": "omitted",
+        "batch_scaling_targets_ml": [],
+        "expected_retail_price_thb": 1500,
+        "price_tier": "auto",
+        "effective_ifra_headroom": 1
+      },
+      "formula_family_archetypes": [
+        ""
+      ],
+      "g15_authorized_active_dose_changes": {}
+    },
+    "config_sha256": "54ce731cf4c72e726f7675f2a364dfacdebb7805369c1d9681af5f9a452ceec8",
+    "inventory_sha256": "d103b79508592f74bb368f27507874b9fd3493acc9e872150e768449b2a02ef7",
+    "scientific_inputs_sha256": "09596a0dda1034ad31061a9e3118af30260c4bfa9cfec2f520e999f1d0746b02",
+    "pipeline_source_sha256": "c0dd00b636cfe122919f778baf427bedc2ec9c2e537a5f5a556cc0e8ebf099cc",
+    "legacy_formula_hashes_v1": [
+      {
+        "number": 1,
+        "name": "AHS user bottle — Mayol-only addition study",
+        "sha256": "be8a478a0790bbf63bb18d7092c2caa6fe0546c7b0bc6b77164060786b02c3e3"
+      }
+    ],
+    "overall": "FAIL",
+    "generated_at_utc": "2026-09-07T04:31:12.602078+00:00",
+    "authorities": {
+      "stock": [
+        "FAIL"
+      ],
+      "quantitative": [
+        "FAIL"
+      ],
+      "claim": [
+        "FAIL"
+      ],
+      "headspace_oav": [
+        "MODELED_ACTIVE_CONCENTRATE_SCREEN"
+      ]
+    },
+    "provenance": {
+      "entities": [
+        "formula_definition",
+        "release_config",
+        "inventory_snapshot",
+        "scientific_inputs",
+        "pipeline_source",
+        "analysis_artifact"
+      ],
+      "activity": "formula_release_gate",
+      "agent": "perfume-chem pipeline",
+      "derivation": "analysis_artifact wasDerivedFrom all input entities"
+    },
+    "analysis_sha256": "1bf9599f2619f80aeda0a9e788eed6b5b45e14b3185e198ad34846df6b737757",
+    "artifact_sha256": "e3182219bb4af69e0108c0ae359300c1f1c6189fb356c215ddf41b51f6f4e0cc"
+  },
+  "parent_verification": {
+    "files": [
+      {
+        "path": "formulas/AHS_EDT_Relational_Study_30mL_v3.md",
+        "bytes": 37631,
+        "sha256": "d4e09922a6f7cee2ed95e028e813361a41014f41dd863650727e052fb93b309b"
+      },
+      {
+        "path": "formulas/AHS_EDT_Relational_Study_30mL_v3_Basket_1-17.md",
+        "bytes": 3996,
+        "sha256": "e65c990765cd80565ec94c4962e89bdf939e3c8b0ac68b85149dca25a13f1aca"
+      },
+      {
+        "path": "formulas/records/AHS_EDT_Relational_Study_30mL_v3.json",
+        "bytes": 15247,
+        "sha256": "624d3d0f9599362a2904c1803869227a632132967e694a61a0c626991bf9f7ec"
+      },
+      {
+        "path": "inventory.txt",
+        "bytes": 21215,
+        "sha256": "d103b79508592f74bb368f27507874b9fd3493acc9e872150e768449b2a02ef7"
+      },
+      {
+        "path": "data/governance/inventory_user_authority_overlay_20260906.json",
+        "bytes": 3668,
+        "sha256": "b06024fdef65355c354a4c5a2618d482f215df42a21c2d56aed896bbfb8c305f"
+      },
+      {
+        "path": "formulas/AHS_UserBottle_DHM200_30mL_20260907.md",
+        "bytes": 6026,
+        "sha256": "0282fcbd980458a0bd297b88df6f0c6a048898f08e7038cad91252c4dcf5d50b"
+      },
+      {
+        "path": "formulas/AHS_UserBottle_Mayol60_AddOnly_20260907.md",
+        "bytes": 31796,
+        "sha256": "19b9424f3ec4ada39164b0f3bcdef6203ba43030d5a58ced6b60f64c5ee9ea51"
+      },
+      {
+        "path": "formulas/records/AHS_UserBottle_AddOnly_20260907.json",
+        "bytes": 35048,
+        "sha256": "471ddab99f5f1cad44b5d9bce7b38e247e905cdb25ccfc85143134522d0c1c7d"
+      },
+      {
+        "path": "docs/verification/AHS_Mayol60_20260907_pipeline.json.gz.b64",
+        "bytes": 122545,
+        "sha256": "d633e974f6d432176f3a66acf219ee0f211f300324921df93c96d3bfb2389387"
+      }
+    ],
+    "protected_sources_unchanged": true,
+    "rows_and_stocks_match": true,
+    "totals_ul": [
+      4900,
+      4960
+    ],
+    "definition_hashes": [
+      "bd467b4a86e8c18d959c232a204a324cec043b5eb2cb4e8a538bbbdcfb5b4fee",
+      "b498ae5650f6e3ff6cda0975082f5cf730815568293ae247558a0b5418a2b0d2"
+    ],
+    "bound_artifact": {
+      "status": "CURRENT",
+      "artifact_binding_status": "CURRENT",
+      "issues": [],
+      "integrity_issues": [],
+      "stale_issues": [],
+      "artifact_sha256": "e3182219bb4af69e0108c0ae359300c1f1c6189fb356c215ddf41b51f6f4e0cc",
+      "release_authority": null,
+      "quarantine_explicit": false
+    },
+    "decoded_pipeline_bytes": 916539,
+    "decoded_pipeline_sha256": "7d78a0d1dc272a2503d035baeb330f104f794724aacf734aa03bedce2486317f",
+    "gate_counts": {
+      "FAIL": 9,
+      "PASS": 103,
+      "WARN": 35,
+      "SKIP": 1
+    }
+  },
+  "focused_tests": {
+    "command": ".venv/Scripts/python.exe -m pytest tests/test_pre_mix_guard.py -q",
+    "exit_code": 0,
+    "passed": 10,
+    "elapsed_test_seconds": 0.71,
+    "warnings": 400,
+    "warning_kind": "pytest_asyncio iscoroutinefunction deprecation",
+    "full_release_verifier_run": false
+  },
+  "mayol_opening_runtime": {
+    "name": "Mayol",
+    "canonical_name": "mayol",
+    "raw_ul": 60,
+    "dilution": 1,
+    "active_ul": 60,
+    "density_g_ml": 1,
+    "density_source": "fallback:default_1_g_ml",
+    "active_g": 0.06,
+    "authoritative_active_g": null,
+    "active_mass_authority": "unavailable:material_density",
+    "stock_fraction_basis": "neat",
+    "stock_carrier": "",
+    "stock_declared": true,
+    "active_concentrate_ppm_w_w": null,
+    "active_finished_product_ppm_w_w": null,
+    "mw_g_mol": 166.3,
+    "moles": 0.00036079374624173175,
+    "mole_fraction": 0.016661404566897197,
+    "logp": 2.9,
+    "vp_pure_pa": 2.7888325133533707,
+    "vp_temperature_factor": 1.8592216755689137,
+    "gamma": 1.3,
+    "gamma_source": "profile:ingredient_intelligence.activity_coef",
+    "partial_pressure_pa": 0.060405626806586406,
+    "vapor_ppm": 0.5961571853598461,
+    "odt_air_ppm": 0.003,
+    "oav": 198.71906178661536,
+    "intensity": 8.304161967419219,
+    "family": "muguet",
+    "note": "heart",
+    "role": "character",
+    "texture": "diffusion",
+    "profile_name": "Mayol",
+    "registry_name": "Mayol",
+    "ifra_limit_pct": null,
+    "is_known": true,
+    "is_opaque_preblend": false,
+    "functional_groups": [],
+    "hsp": null,
+    "hsp_source": "missing",
+    "sources": {
+      "density": "fallback:default_1_g_ml",
+      "mw": "registry:data_spine.mw",
+      "logp": "profile:ingredient_intelligence.clogp",
+      "vp": "registry:data_spine.vp_25c",
+      "vp_temperature": "heuristic:clausius_clapeyron_vp25_dhvap_correlation",
+      "dhvap": "literature_correlation:doi:10.1021/es980812j",
+      "gamma": "profile:ingredient_intelligence.activity_coef",
+      "odt": "unverified:odor_thresholds.odt_air",
+      "ifra": "missing_or_unrestricted",
+      "oav_model": "heuristic:monomolecular_headspace"
+    },
+    "missing_fields": [
+      "density"
+    ]
+  },
+  "selected_time_series": [
+    {
+      "label": "opening",
+      "t_seconds": 0,
+      "materials": [
+        {
+          "name": "Benzyl Salicylate",
+          "raw_ul": 250,
+          "active_ul": 250,
+          "vapor_ppm": 0.01312902259644231,
+          "oav": 1.312902259644231,
+          "note": "base"
+        },
+        {
+          "name": "Calone",
+          "raw_ul": 80,
+          "active_ul": 0.8,
+          "vapor_ppm": 0.0006055572891485603,
+          "oav": 12.111145782971205,
+          "note": "heart"
+        },
+        {
+          "name": "Dihydromyrcenol",
+          "raw_ul": 200,
+          "active_ul": 200,
+          "vapor_ppm": 16.947169658634614,
+          "oav": 16947.169658634615,
+          "note": "top"
+        },
+        {
+          "name": "Hedione",
+          "raw_ul": 670,
+          "active_ul": 670,
+          "vapor_ppm": 0.26280602180331714,
+          "oav": 5256.120436066342,
+          "note": "heart"
+        },
+        {
+          "name": "Helional",
+          "raw_ul": 100,
+          "active_ul": 100,
+          "vapor_ppm": 0.006292260434005288,
+          "oav": 62.92260434005288,
+          "note": "heart"
+        },
+        {
+          "name": "Iso E Super",
+          "raw_ul": 1000,
+          "active_ul": 1000,
+          "vapor_ppm": 0.9726602975974794,
+          "oav": 19453.20595194959,
+          "note": "heart"
+        },
+        {
+          "name": "Mayol",
+          "raw_ul": 60,
+          "active_ul": 60,
+          "vapor_ppm": 0.5961571853598461,
+          "oav": 198.71906178661536,
+          "note": "heart"
+        },
+        {
+          "name": "Red Mandarin EO",
+          "raw_ul": 400,
+          "active_ul": 400,
+          "vapor_ppm": 1119.150216138437,
+          "oav": 57121.76686394607,
+          "note": "top"
+        }
+      ]
+    },
+    {
+      "label": "top",
+      "t_seconds": 300,
+      "materials": [
+        {
+          "name": "Benzyl Salicylate",
+          "raw_ul": 249.9974,
+          "active_ul": 249.9974,
+          "vapor_ppm": 0.013980068162885169,
+          "oav": 1.3980068162885169,
+          "note": "base"
+        },
+        {
+          "name": "Calone",
+          "raw_ul": 79.9894,
+          "active_ul": 0.7999,
+          "vapor_ppm": 0.0006446751257659344,
+          "oav": 12.893502515318687,
+          "note": "heart"
+        },
+        {
+          "name": "Dihydromyrcenol",
+          "raw_ul": 197.2301,
+          "active_ul": 197.2301,
+          "vapor_ppm": 17.794417738832106,
+          "oav": 17794.417738832104,
+          "note": "top"
+        },
+        {
+          "name": "Hedione",
+          "raw_ul": 669.948,
+          "active_ul": 669.948,
+          "vapor_ppm": 0.27980062075874257,
+          "oav": 5596.012415174851,
+          "note": "heart"
+        },
+        {
+          "name": "Helional",
+          "raw_ul": 99.9989,
+          "active_ul": 99.9989,
+          "vapor_ppm": 0.006699542531235338,
+          "oav": 66.99542531235338,
+          "note": "heart"
+        },
+        {
+          "name": "Iso E Super",
+          "raw_ul": 999.804,
+          "active_ul": 999.804,
+          "vapor_ppm": 1.0351199257071784,
+          "oav": 20702.398514143566,
+          "note": "heart"
+        },
+        {
+          "name": "Mayol",
+          "raw_ul": 59.8989,
+          "active_ul": 59.8989,
+          "vapor_ppm": 0.6336824055779465,
+          "oav": 211.22746852598218,
+          "note": "heart"
+        },
+        {
+          "name": "Red Mandarin EO",
+          "raw_ul": 260.2387,
+          "active_ul": 260.2387,
+          "vapor_ppm": 775.9765923316567,
+          "oav": 39606.08089947888,
+          "note": "top"
+        }
+      ]
+    },
+    {
+      "label": "heart",
+      "t_seconds": 1800,
+      "materials": [
+        {
+          "name": "Benzyl Salicylate",
+          "raw_ul": 249.9843,
+          "active_ul": 249.9843,
+          "vapor_ppm": 0.015975014778364275,
+          "oav": 1.5975014778364274,
+          "note": "base"
+        },
+        {
+          "name": "Calone",
+          "raw_ul": 79.9362,
+          "active_ul": 0.7994,
+          "vapor_ppm": 0.0007360798281877023,
+          "oav": 14.721596563754044,
+          "note": "heart"
+        },
+        {
+          "name": "Dihydromyrcenol",
+          "raw_ul": 183.9454,
+          "active_ul": 183.9454,
+          "vapor_ppm": 18.96148818130962,
+          "oav": 18961.488181309618,
+          "note": "top"
+        },
+        {
+          "name": "Hedione",
+          "raw_ul": 669.6878,
+          "active_ul": 669.6878,
+          "vapor_ppm": 0.31957909066728707,
+          "oav": 6391.5818133457415,
+          "note": "heart"
+        },
+        {
+          "name": "Helional",
+          "raw_ul": 99.9931,
+          "active_ul": 99.9931,
+          "vapor_ppm": 0.007654081078440184,
+          "oav": 76.54081078440184,
+          "note": "heart"
+        },
+        {
+          "name": "Iso E Super",
+          "raw_ul": 998.8251,
+          "active_ul": 998.8251,
+          "vapor_ppm": 1.1803930417056612,
+          "oav": 23607.860834113224,
+          "note": "heart"
+        },
+        {
+          "name": "Mayol",
+          "raw_ul": 59.3958,
+          "active_ul": 59.3958,
+          "vapor_ppm": 0.7179291624881157,
+          "oav": 239.30972082937188,
+          "note": "heart"
+        },
+        {
+          "name": "Red Mandarin EO",
+          "raw_ul": 30.1904,
+          "active_ul": 30.1904,
+          "vapor_ppm": 103.11530594050905,
+          "oav": 5263.036526376037,
+          "note": "top"
+        }
+      ]
+    },
+    {
+      "label": "late_heart",
+      "t_seconds": 7200,
+      "materials": [
+        {
+          "name": "Benzyl Salicylate",
+          "raw_ul": 249.9373,
+          "active_ul": 249.9373,
+          "vapor_ppm": 0.017237185480873256,
+          "oav": 1.7237185480873256,
+          "note": "base"
+        },
+        {
+          "name": "Calone",
+          "raw_ul": 79.745,
+          "active_ul": 0.7975,
+          "vapor_ppm": 0.0007924537716062182,
+          "oav": 15.849075432124364,
+          "note": "heart"
+        },
+        {
+          "name": "Dihydromyrcenol",
+          "raw_ul": 143.1086,
+          "active_ul": 143.1086,
+          "vapor_ppm": 15.919819045488836,
+          "oav": 15919.819045488835,
+          "note": "top"
+        },
+        {
+          "name": "Hedione",
+          "raw_ul": 668.7519,
+          "active_ul": 668.7519,
+          "vapor_ppm": 0.34447091097051885,
+          "oav": 6889.418219410377,
+          "note": "heart"
+        },
+        {
+          "name": "Helional",
+          "raw_ul": 99.9724,
+          "active_ul": 99.9724,
+          "vapor_ppm": 0.00825832831226572,
+          "oav": 82.5832831226572,
+          "note": "heart"
+        },
+        {
+          "name": "Iso E Super",
+          "raw_ul": 995.3141,
+          "active_ul": 995.3141,
+          "vapor_ppm": 1.2672492773069541,
+          "oav": 25344.98554613908,
+          "note": "heart"
+        },
+        {
+          "name": "Mayol",
+          "raw_ul": 57.6195,
+          "active_ul": 57.6195,
+          "vapor_ppm": 0.7515952226417788,
+          "oav": 250.53174088059293,
+          "note": "heart"
+        },
+        {
+          "name": "Red Mandarin EO",
+          "raw_ul": 0.0128,
+          "active_ul": 0.0128,
+          "vapor_ppm": 0.047145354548504284,
+          "oav": 2.406313211938493,
+          "note": "top"
+        }
+      ]
+    },
+    {
+      "label": "drydown",
+      "t_seconds": 14400,
+      "materials": [
+        {
+          "name": "Benzyl Salicylate",
+          "raw_ul": 249.8746,
+          "active_ul": 249.8746,
+          "vapor_ppm": 0.018124217200868833,
+          "oav": 1.8124217200868833,
+          "note": "base"
+        },
+        {
+          "name": "Calone",
+          "raw_ul": 79.4908,
+          "active_ul": 0.7949,
+          "vapor_ppm": 0.0008307908826808912,
+          "oav": 16.615817653617825,
+          "note": "heart"
+        },
+        {
+          "name": "Dihydromyrcenol",
+          "raw_ul": 102.4004,
+          "active_ul": 102.4004,
+          "vapor_ppm": 11.980588765455186,
+          "oav": 11980.588765455186,
+          "note": "top"
+        },
+        {
+          "name": "Hedione",
+          "raw_ul": 667.5057,
+          "active_ul": 667.5057,
+          "vapor_ppm": 0.3617011574634453,
+          "oav": 7234.023149268905,
+          "note": "heart"
+        },
+        {
+          "name": "Helional",
+          "raw_ul": 99.9449,
+          "active_ul": 99.9449,
+          "vapor_ppm": 0.008683137608671695,
+          "oav": 86.83137608671694,
+          "note": "heart"
+        },
+        {
+          "name": "Iso E Super",
+          "raw_ul": 990.6591,
+          "active_ul": 990.6591,
+          "vapor_ppm": 1.3246340432652854,
+          "oav": 26492.68086530571,
+          "note": "heart"
+        },
+        {
+          "name": "Mayol",
+          "raw_ul": 55.3334,
+          "active_ul": 55.3334,
+          "vapor_ppm": 0.7591128159473677,
+          "oav": 253.03760531578922,
+          "note": "heart"
+        },
+        {
+          "name": "Red Mandarin EO",
+          "raw_ul": 0,
+          "active_ul": 0,
+          "vapor_ppm": 0.0000015919912571128908,
+          "oav": 0.00008125571717442635,
+          "note": "top"
+        }
+      ]
+    }
+  ],
+  "one_input_sensitivity": {
+    "basis": "Unvalidated one-input stress test, NOT a rerun/corrected model; reuses same inferred constant deltaHvap, holds all other inputs including unverified ODT fixed",
+    "inferred_dhvap_j_mol": 68451.12328702683,
+    "source_vp_pa_at20c": 0.00672,
+    "hypothetical_vp_pa_at305k": 0.020009645081182973,
+    "baseline_runtime_vp_pa": 2.7888325133533707,
+    "baseline_oav": 198.71906178661536,
+    "hypothetical_opening_oav": 1.4257930077108254,
+    "not_sensory_evidence": true
+  },
+  "known_limits": [
+    "OAV values are uncalibrated active-concentrate screening outputs; finished ethanol-water-stock-carrier matrix is omitted.",
+    "The inherited CLI concentration bracket is EdP; this is not an accepted named AHS EDT target run. Named reference contract is unresolved and generic-family output cannot verify target muguet balance.",
+    "Mayol local MW166.3/VP1.5Pa25C conflict with manufacturer MW156/VP0.00672Pa20C; ODT3ppb is unverified and density defaults to1g/mL. No exact ppm w/w supplied.",
+    "The one-input sensitivity is not a corrected formula run. It changes VP only with the same inferred enthalpy; other uncertain inputs remain fixed. Result about1.43 cannot be promoted to real OAV or perceived power.",
+    "G15 parent and temporal flags are true; shared-row continuity is intact, but new Mayol lacks a finite parent fold. PASS is not adequacy, pleasantness, safety or release authority.",
+    "All27 prior amounts/stocks remain unchanged. The only candidate addition is Mayol neat60uL. 10uL/5mL and60uL/30mL are equivalent nominal addition ratios, not equivalence of measured headspace.",
+    "Parent stock rows sum4900uL; source ethanol transfer25mL gives29.9mL component sum versus user-reported30mL bottle. No unreported ethanol top-up or exact mass is invented.",
+    "Coumarin20%DEP ownership is accepted. Machine stock failures do not mean user materials are physically absent.",
+    "Automated masking, perceptibility, overdose, family-share and phototoxicity phrases are inherited model/rule outputs, not independently accepted sensory or current finished-product regulatory findings."
+  ],
+  "sources": [
+    {
+      "url": "https://studio.dsm-firmenich.com/product/mayolr-pe-957230",
+      "verified": "2026-09-07",
+      "supports": "Material role and manufacturer MW/VP at specified temperature; not exact dose or Chanel formula"
+    },
+    {
+      "url": "https://www.chanel.com/us/fragrance/p/123630/allure-homme-sport-eau-de-toilette-spray/",
+      "verified": "2026-09-07",
+      "supports": "Declared EDT architecture; no muguet dominance or exact formulation disclosure"
+    }
+  ],
+  "output_transport": {
+    "complete_pipeline_archive": "docs/verification/AHS_Mayol60_20260907_pipeline.json.gz.b64",
+    "encoding": "base64(gzip(original CLI JSON stdout))",
+    "decoded_bytes": 916539,
+    "decoded_sha256": "7d78a0d1dc272a2503d035baeb330f104f794724aacf734aa03bedce2486317f",
+    "retries": "First wrapper hit cp874 UnicodeEncodeError; second output exceeded tool budget. Third identical-config run retained complete compressed stdout and is the accepted receipt. No additional scientific variant inferred from transport retries."
+  },
+  "native_read_only_review": {
+    "agent": "ahs_mayol_manifest_audit",
+    "finding": "27 unchanged existing rows; Mayol60 sole positive delta; MD and canonical JSON match; parent locally reverified after bound artifact append."
+  },
+  "decision": {
+    "dose_adequacy_for_immediate_punch": "NOT_ESTABLISHED",
+    "whole_bottle_addition": "NOT_ACCEPTED",
+    "sensory_effect": "NOT_TESTED",
+    "safety": "HOLD",
+    "release": "HOLD",
+    "next_design": "docs/research/AHS_MUGUET_LAYERING_REVIEW_20260907.md"
+  },
+  "mutations": "Only new formula/record/evidence files. No historical formula, shared code, inventory or authority overlay changed. No physical additions, commit, push or release.",
+  "chat_report_note": "Full generated analysis was presented. Two copying errors were explicitly corrected: Linalool vapor12.061993ppm; gourmand bar one equals. Bound file remains byte-verified original analysis."
+}

@@ -5,12 +5,13 @@ from pathlib import Path
 import pytest
 
 from engine.inventory_parser import (
+    BASE_USER_INVENTORY_TEXT_SHA256,
+    BASE_USER_INVENTORY_TEXT_SIZE_BYTES,
     inventory_counts,
     load_current_user_inventory_overlay,
     parse_inventory,
 )
 from engine.name_utils import normalize_name
-
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 INVENTORY = PROJECT_ROOT / "inventory.txt"
@@ -38,7 +39,7 @@ def _records(*, include_unavailable: bool = True):
 
 
 def test_consolidated_inventory_has_declared_stock_row_count():
-    assert inventory_counts(INVENTORY)["raw_entries"] == 279
+    assert inventory_counts(INVENTORY)["raw_entries"] == 280
 
 
 @pytest.mark.parametrize(
@@ -85,7 +86,6 @@ def test_evernyl_keeps_owned_and_unprepared_stocks_distinct():
 @pytest.mark.parametrize(
     ("name", "status"),
     (
-        ("Benzyl Salicylate", "not_owned"),
         ("Polysantol", "depleted"),
         ("Nagarmortha Oil", "depleted"),
         ("Gamma Decalactone", "out_of_stock"),
@@ -95,6 +95,14 @@ def test_latest_unavailable_and_depleted_authority_is_preserved(name, status):
     row = next(record for record in _records() if record.name == name)
     assert row.status == status
     assert row.execution_ready is False
+
+
+def test_benzyl_salicylate_current_text_records_return_to_stock():
+    row = next(record for record in _records() if record.name == "Benzyl Salicylate")
+
+    assert row.status == "owned"
+    assert row.dilution == pytest.approx(1.0)
+    assert row.execution_ready is True
 
 
 def test_v7_recovered_working_stocks_remain_w_w_and_carrier_held():
@@ -131,15 +139,15 @@ def test_existing_hash_pinned_overlay_remains_bound_to_live_inventory():
     assert overlay["authority"] == "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY"
 
 
-def test_sync_manifest_hashes_every_distributed_inventory_file():
+def test_sync_manifest_preserves_historical_authority_and_frozen_hashes():
     payload = json.loads(SYNC_MANIFEST.read_text(encoding="utf-8"))
     assert payload["sync_id"] == "INVENTORY-WORKTREE-SYNC-20260830-001"
-    for group in (
-        "current_authority_files",
-        "frozen_evidence_files",
-        "compatibility_files",
-    ):
+    for group in ("current_authority_files", "frozen_evidence_files"):
         for record in payload[group]:
+            if record["path"] == "inventory.txt":
+                assert record["size_bytes"] == BASE_USER_INVENTORY_TEXT_SIZE_BYTES
+                assert record["sha256"] == BASE_USER_INVENTORY_TEXT_SHA256
+                continue
             path = PROJECT_ROOT / record["path"]
             content = path.read_bytes()
             if path.suffix.lower() == ".xlsx":
@@ -151,6 +159,24 @@ def test_sync_manifest_hashes_every_distributed_inventory_file():
                 # transport-integrity comparison.
                 content = content.replace(b"\r\n", b"\n")
             assert hashlib.sha256(content).hexdigest() == record["sha256"]
+
+    # Parser, normalization, and regression-test files are implementation
+    # receipts for the dated 2026-08-30 distribution, not immutable evidence.
+    # They may legitimately evolve while the historical manifest remains
+    # unchanged; only require that each recorded compatibility path survives.
+    compatibility = payload["compatibility_files"]
+    assert {record["path"] for record in compatibility} == {
+        "engine/inventory_parser.py",
+        "engine/name_utils.py",
+        "tests/test_inventory_worktree_sync_2026_08_30.py",
+        "tests/test_inventory_v7_recovered_manifest.py",
+    }
+    for record in compatibility:
+        path = PROJECT_ROOT / record["path"]
+        assert path.is_file()
+        assert record["size_bytes"] > 0
+        assert len(record["sha256"]) == 64
+        assert set(record["sha256"]) <= set("0123456789abcdef")
 
 
 def test_authority_receipt_preserves_formula_and_claim_boundaries():

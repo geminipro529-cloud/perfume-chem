@@ -1,0 +1,80 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v9",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-10",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260910_florhydral.json",
+    "normalized_text_sha256": "73d004a40c217c3c071b047f2fbaac6285df174d131bcfa7a394d3d18fb93205"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 23971,
+    "inventory_text_sha256": "5a267a87c6ed68cb205e8c42f86c8ea67477508e5ef1fdd48dd12aa1c57cc402",
+    "confirmed_receipt": "data/governance/inventory_user_confirmation_20260910_romandolide_restocked.json",
+    "confirmed_receipt_sha256": "42409d0d5420dd66eee3ae845fa2fc6ba701a2f72b9d53f44cda1a1beaabe53b"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "bind_only_source_declared_stock_facts": true,
+    "stock_solution_density_assumed": false,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [
+    "INV-USER-20260908-ROMANDOLIDE-001"
+  ],
+  "records": [
+    {
+      "record_id": "INV-USER-20260910-ROMANDOLIDE-RESTOCK-001",
+      "canonical_name": "Romandolide",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "musk",
+      "stock": {
+        "fraction": null,
+        "fraction_basis": "unspecified",
+        "carrier": "",
+        "fraction_authority": "NOT_STATED_FOR_RESTOCKED_BOTTLE",
+        "execution_ready": false,
+        "execution_scope": "AVAILABILITY_ONLY",
+        "execution_hold_reason": "RESTOCKED_BOTTLE_STRENGTH_AND_CARRIER_NOT_STATED"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 211,
+          "fraction": 1.0
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 211,
+          "disposition": "OWNED",
+          "status": "HAVE - RESTOCKED; STOCK FORM UNCONFIRMED",
+          "actual_stock_text": "Romandolide is stocked again; new bottle strength and carrier were not stated",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_RESTOCK_CONFIRMATION",
+      "source_quote": "romandolide is stocked again",
+      "evidence_refs": [
+        "ROMANDOLIDE_RESTOCKED_20260910"
+      ],
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_confirmed": false,
+        "fraction_basis_confirmed": false,
+        "carrier_confirmed": false,
+        "quantitative_dosing_ready": false,
+        "prior_neat_stock_form_inherited": false,
+        "historical_depletion_preserved": true,
+        "formula_rebase_authorized": false,
+        "physical_compounding_performed": false,
+        "safety_or_release_asserted": false
+      }
+    }
+  ]
+}

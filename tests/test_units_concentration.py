@@ -1,21 +1,15 @@
 """Tests for engine.units.concentration."""
 
 from __future__ import annotations
-import sys
-from pathlib import Path
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_ROOT))
+import pytest
 
 from engine.units.concentration import (
-    parse_concentration,
     ConcentrationBasis,
     classify_material_category,
     compute_active_accounting,
-    Concentration,
+    parse_concentration,
 )
-import pytest
 
 
 def test_parse_w_w():
@@ -28,6 +22,22 @@ def test_parse_in_dpg():
     c = parse_concentration("50% in DPG")
     assert c.value == 0.5
     assert c.carrier == "dipropylene glycol"
+
+
+@pytest.mark.parametrize(
+    ("raw", "basis", "carrier"),
+    [
+        ("10% w/w in DPG", ConcentrationBasis.WEIGHT_WEIGHT, "dipropylene glycol"),
+        ("20% (w/w) in TEC", ConcentrationBasis.WEIGHT_WEIGHT, "triethyl citrate"),
+        ("30% v/v in DEP", ConcentrationBasis.VOLUME_VOLUME, "diethyl phthalate"),
+        ("5% w/v in IPM", ConcentrationBasis.WEIGHT_VOLUME, "isopropyl myristate"),
+    ],
+)
+def test_parse_explicit_basis_with_carrier(raw, basis, carrier):
+    c = parse_concentration(raw)
+    assert c.value > 0.0
+    assert c.basis == basis
+    assert c.carrier == carrier
 
 
 def test_parse_neat():

@@ -73,7 +73,8 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Cabreuva Essential Oil
-  aliases: []
+  aliases:
+  - "Cabreuva EO"
   cas: null
   smiles: null
   inchikey: null
@@ -580,7 +581,8 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Caraway Seed Essential Oil
-  aliases: []
+  aliases:
+  - "Caraway Seed Oil"
   cas: null
   smiles: null
   inchikey: null
@@ -610,6 +612,10 @@
     perfumersworld_form: neat
     perfumersworld_snapshot_date: '2026-04-11'
     other:
+      product_name: Coriander Essential Oil
+      product_url: https://www.perfumersworld.com/view.php?pro_id=7SL00125
+      botanical_source: Coriandrum sativum seeds
+      supplier_product_form: neat / as supplied
       pw_alternate_forms:
       - form: 10.0% in DPG
         sku: 5SE07843
@@ -2840,7 +2846,9 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Cinnamyl Alcohol
-  aliases: []
+  aliases:
+  - "Cinnamyl alcohol 50% in DPG"
+  - "Cinnamyl Alcohol 50% w/w in DPG"
   cas: null
   smiles: null
   inchikey: null
@@ -2862,8 +2870,8 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  user_stock_dilution: "50% w/w in DPG"
+  user_in_inventory: true
   supplier:
     perfumersworld_sku: 2SV00105
     perfumersworld_price_usd_per_g: 0.2
@@ -2876,9 +2884,11 @@
         price_usd_per_g: 0.12
   families: []
   character: null
-  notes: null
+  notes: User-confirmed 50% w/w working stock in DPG; raw-volume transfer is allowed, while exact active mass from volume still requires stock density.
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    user_stock_dilution: data/governance/inventory_user_confirmation_20260910_stock_clarifications.json
+    user_in_inventory: inventory.txt
 - canonical_name: Cinnamyl Aldehyde
   aliases:
   - Cinnamyl aldehyde
@@ -5444,6 +5454,7 @@
 - canonical_name: Coriander Essential Oil
   aliases:
   - coriander eo
+  - coriander seed eo
   - coriander seed oil
   cas: 8008-52-4
   smiles: null
@@ -5487,11 +5498,11 @@
   - aromatic
   - spicy
   - linalool_rich
-  character: Linalool-rich coriander seed oil with citrus-spicy, peppery, warm herbal facets.
-  notes: Neat user stock. Seed-oil composition varies by origin; composite OAV uses published major-constituent ranges rather than one supplier batch.
+  character: Linalool-rich coriander essential oil with sweet-spicy, fresh-herbal, floral, woody, and slightly musky facets.
+  notes: Exact user product is PerfumersWorld Coriander Essential Oil SKU 7SL00125, neat/as supplied. PW lists Coriander Seed Oil and Coriandrum sativum seed oil as synonyms; use the supplier product name in formulas. Batch composition remains unassayed, so composite OAV uses published constituent ranges rather than a lot analysis.
   provenance:
-    supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    cas: supplier:7SL00125
+    supplier.perfumersworld: https://www.perfumersworld.com/view.php?pro_id=7SL00125
+    cas: https://www.perfumersworld.com/view.php?pro_id=7SL00125
     composition: coriander_seed_gc_ms_literature_range
     composite_oav: engine.pipeline.natural_absolute_decomposition
     user_in_inventory: inventory.txt
@@ -5672,7 +5683,7 @@
     nasal_pungency: null
   hedonic_valence: 0.8
   ifra_max_pct_edp: null
-  user_stock_dilution: 20%
+  user_stock_dilution: "10% w/w in DPG (working solution); separate neat powder"
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 1VD00129
@@ -6135,7 +6146,8 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Cypress Essential Oil
-  aliases: []
+  aliases:
+  - "Cypress EO"
   cas: null
   smiles: null
   inchikey: null

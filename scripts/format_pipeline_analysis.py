@@ -803,25 +803,19 @@ def build_oav_structural(materials: list[dict], formula: dict) -> list[str]:
         lines.append(f"  **{tier_name}** ({len(items)}): {names}{flag_str}")
 
     lines.append("")
-    lines.append("### Block Balance")
-    citrus_oav = sum(
-        float(m.get("oav", 0) or 0)
-        for m in materials
-        if m.get("note") == "top" and "citrus" in (m.get("family", "") or "").lower()
-    )
+    lines.append("### Note-Tier OAV Balance")
+    top_oav = sum(float(m.get("oav", 0) or 0) for m in materials if m.get("note") == "top")
     base_oav = sum(float(m.get("oav", 0) or 0) for m in materials if m.get("note") == "base")
-    floral_oav = sum(float(m.get("oav", 0) or 0) for m in materials if m.get("note") == "heart")
-    total_block = citrus_oav + base_oav + floral_oav or 1
-    lines.append(f"  **Citrus** {citrus_oav:>8.0f} ({citrus_oav / total_block * 100:.0f}%)")
-    lines.append(f"  **Floral** {floral_oav:>8.0f} ({floral_oav / total_block * 100:.0f}%)")
+    heart_oav = sum(float(m.get("oav", 0) or 0) for m in materials if m.get("note") == "heart")
+    total_block = top_oav + base_oav + heart_oav or 1
+    lines.append(f"  **Top**    {top_oav:>8.0f} ({top_oav / total_block * 100:.0f}%)")
+    lines.append(f"  **Heart**  {heart_oav:>8.0f} ({heart_oav / total_block * 100:.0f}%)")
     lines.append(f"  **Base**   {base_oav:>8.0f} ({base_oav / total_block * 100:.0f}%)")
-    maxb = max(citrus_oav, base_oav, floral_oav)
-    positive_blocks = [v for v in [citrus_oav, base_oav, floral_oav] if v > 0]
+    maxb = max(top_oav, base_oav, heart_oav)
+    positive_blocks = [v for v in [top_oav, base_oav, heart_oav] if v > 0]
     minb = min(positive_blocks) if positive_blocks else 1
     ratio = maxb / minb if maxb > 0 else 0
-    lines.append(
-        f"  **Ratio:** {ratio:.0f}:1 between strongest/weakest block{' — CITRUS DOMINANT' if citrus_oav > floral_oav + base_oav else ''}"
-    )
+    lines.append(f"  **Ratio:** {ratio:.0f}:1 between strongest/weakest note tier")
 
     lines.append("")
     lines.append("### Issues")
@@ -838,8 +832,8 @@ def build_oav_structural(materials: list[dict], formula: dict) -> list[str]:
         issues.append("Missing 'very strong' tier (OAV 100-1000)")
     if not tiers["strong"]:
         issues.append("Missing 'strong' tier (OAV 50-100)")
-    if citrus_oav > (floral_oav + base_oav) * 2:
-        issues.append(f"Citrus dominates at {citrus_oav / total_block * 100:.0f}% of total OAV")
+    if top_oav > (heart_oav + base_oav) * 2:
+        issues.append(f"Top tier dominates at {top_oav / total_block * 100:.0f}% of total OAV")
     if len(tiers["massive"]) >= 8:
         issues.append(f"{len(tiers['massive'])} massive-OAV materials — sensory overload likely")
     if issues:

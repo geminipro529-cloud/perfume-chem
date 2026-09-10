@@ -8,6 +8,7 @@ from engine.pipeline.formula_state import build_formula_state
 from engine.pipeline.gates import (
     ReleaseGateConfig,
     _apply_guideline_policy,
+    _gate_concentration_basis,
     _result,
     _status_from_gates,
     gate_formula,
@@ -62,6 +63,65 @@ def test_guideline_policy_keeps_hard_blockers_failing():
 
     assert normalized.status == "FAIL"
     assert _status_from_gates([normalized]) == "FAIL"
+
+
+def test_concentration_basis_gate_reads_bound_stock_fraction_basis():
+    state = build_formula_state(
+        {"Hedione": 100.0},
+        {"Hedione": 1.0},
+        stock_specs={
+            "Hedione": {
+                "fraction": 1.0,
+                "fraction_basis": "neat",
+                "carrier": "",
+                "declared": True,
+            }
+        },
+    )
+
+    check = _gate_concentration_basis(state, ReleaseGateConfig())
+
+    assert check.status == "PASS"
+
+
+def test_concentration_basis_gate_fails_closed_on_unspecified_basis():
+    state = build_formula_state(
+        {"Hedione": 100.0},
+        {"Hedione": 1.0},
+        stock_specs={
+            "Hedione": {
+                "fraction": 1.0,
+                "fraction_basis": "unspecified",
+                "carrier": "",
+                "declared": True,
+            }
+        },
+    )
+
+    check = _gate_concentration_basis(state, ReleaseGateConfig())
+
+    assert check.status == "FAIL"
+    assert "Hedione" in check.detail
+
+
+def test_concentration_basis_gate_fails_closed_on_unsupported_basis():
+    state = build_formula_state(
+        {"Hedione": 100.0},
+        {"Hedione": 1.0},
+        stock_specs={
+            "Hedione": {
+                "fraction": 1.0,
+                "fraction_basis": "banana",
+                "carrier": "mystery",
+                "declared": True,
+            }
+        },
+    )
+
+    check = _gate_concentration_basis(state, ReleaseGateConfig())
+
+    assert check.status == "FAIL"
+    assert "banana" in check.detail
 
 
 def test_gate_blocks_opaque_preblend_by_default():

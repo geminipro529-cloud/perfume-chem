@@ -1,5 +1,6 @@
 """Data models for the formula optimizer."""
 
+import hashlib
 import json
 import re
 import unicodedata
@@ -117,6 +118,46 @@ def _profile_material_dict(profile) -> dict:
     }
 
 
+def _retain_exact_synthetic_metadata(material: dict, primary: dict[str, dict]) -> dict:
+    """Retain absent KG fields without overriding catalogue values or nulls.
+
+    Exact names and molecular-formula-shaped legacy records are required. This
+    preserves existing metadata, not identity, numeric, or sensory authority.
+    """
+    key = str(material.get("name") or "").lower().strip()
+    donor = primary.get(key)
+    if donor is None:
+        return material
+    kind = str(donor.get("material_kind") or "").upper()
+    formula = unicodedata.normalize("NFKC", str(donor.get("formula_str") or ""))
+    if (
+        any(token in kind for token in ("MIXTURE", "OPAQUE", "BLEND"))
+        or re.search(
+            r"\b(?:eo|oil|absolute|resinoid|extract|tincture|base|accord|fo|ftec|f-tec|fleuressence)\b",
+            key,
+        )
+        or formula.casefold() == "unknown"
+        or re.fullmatch(r"(?:[A-Z][a-z]?\d*)+", formula) is None
+    ):
+        return material
+    retained = {
+        field: donor[field]
+        for field in (
+            "bp", "sar_class", "odor_family", "roudnitska_function", "jellinek_quadrant"
+        )
+        if field not in material and donor.get(field) is not None
+    }
+    if not retained:
+        return material
+    return {
+        **retained,
+        **material,
+        "supplemental_field_sources": {
+            field: "optimizer_primary_material_index:exact_name" for field in retained
+        },
+    }
+
+
 def _supplement_material_index(db: dict) -> dict:
     """Add alias keys and profile-backed fallback records to the material index."""
     from ..ingredient_intelligence import _ALIASES as PROFILE_ALIASES
@@ -168,6 +209,7 @@ def _supplement_material_index(db: dict) -> dict:
             catalog = payload.get("catalog")
             if not isinstance(material, dict) or not isinstance(catalog, dict):
                 continue
+            material = _retain_exact_synthetic_metadata(material, seen_materials)
             canonical_key = catalog.get("identity_key")
             if isinstance(canonical_key, str) and canonical_key:
                 db[canonical_key] = material
@@ -1059,9 +1101,15 @@ def _rule_signature(rule: dict) -> tuple[str, str, str, str]:
 def _build_rule_index(rules: list[dict]) -> dict[str, list[dict]]:
     index: dict[str, list[dict]] = {}
     for rule in rules:
+        # Trace the normalized source row through reverse index entries without
+        # changing matching keys, deduplication, or score contributions.
+        rule_id = hashlib.sha256(
+            json.dumps(rule, sort_keys=True, ensure_ascii=True).encode("utf-8")
+        ).hexdigest()
+        traced_rule = {**rule, "_runtime_rule_id": rule_id, "_runtime_rule": dict(rule)}
         for entry in (
-            rule,
-            {**rule, "material_a": rule["material_b"], "material_b": rule["material_a"]},
+            traced_rule,
+            {**traced_rule, "material_a": rule["material_b"], "material_b": rule["material_a"]},
         ):
             for key in material_match_keys(entry["material_a"]):
                 index.setdefault(key, []).append(entry)
@@ -1105,6 +1153,8 @@ def analyze_formula_rule_coverage(ingredient_names: list[str]) -> dict[str, obje
     positive_pairs: set[tuple[str, str]] = set()
     conflict_pairs: set[tuple[str, str]] = set()
     covered_pairs: set[tuple[str, str]] = set()
+    consumed_rules: dict[str, dict] = {}
+    footprint_complete = True
 
     # Per-axis magnitude tracking
     axis_magnitudes: dict[str, float] = {
@@ -1114,7 +1164,7 @@ def analyze_formula_rule_coverage(ingredient_names: list[str]) -> dict[str, obje
 
     indexes = (get_pairing_index(), get_synergy_index())
     for name in unique_names:
-        for index in indexes:
+        for source_group, index in zip(("pairing_rules", "synergy_matrix"), indexes):
             for rule in _matching_rules_for_material(name, index):
                 partner = rule["material_b"]
                 rule_axis = rule.get("axis", "complexity")
@@ -1126,6 +1176,29 @@ def analyze_formula_rule_coverage(ingredient_names: list[str]) -> dict[str, obje
                     pair = tuple(sorted((identities[name], identities[other])))
                     if pair[0] == pair[1]:
                         continue
+                    # This is the scorer's actual consumption branch. Record
+                    # its decision, including fuzzy matches, without promoting
+                    # the matched labels to resolved chemical identities.
+                    origin = rule.get("_runtime_rule")
+                    origin_id = rule.get("_runtime_rule_id")
+                    if not isinstance(origin, dict) or not origin_id:
+                        footprint_complete = False
+                    else:
+                        rule_id = f"{source_group}:{origin_id}"
+                        record = consumed_rules.setdefault(rule_id, {
+                            "rule_id": rule_id,
+                            "source_group": source_group,
+                            "rule": dict(origin),
+                            "consumed_bindings": [],
+                        })
+                        binding = {
+                            "formula_material_a": name,
+                            "formula_material_b": other,
+                            "rule_material_a": rule["material_a"],
+                            "rule_material_b": partner,
+                        }
+                        if binding not in record["consumed_bindings"]:
+                            record["consumed_bindings"].append(binding)
                     covered_pairs.add(pair)
                     if rule_type == "synergy":
                         positive_pairs.add(pair)
@@ -1150,6 +1223,8 @@ def analyze_formula_rule_coverage(ingredient_names: list[str]) -> dict[str, obje
         "axis_scores": axis_scores,
         "raw_axis_magnitudes": {k: round(v, 4) for k, v in axis_magnitudes.items()},
         "total_axis_magnitude": sum(axis_magnitudes.values()),
+        "consumed_rules_complete": footprint_complete,
+        "consumed_rules": list(consumed_rules.values()),
     }
 
 

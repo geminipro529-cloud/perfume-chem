@@ -494,7 +494,7 @@
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 190.3, corrected to 192.26)
-  mw_g_mol: 192.26
+  mw_g_mol: 190.28
   density_25c_g_ml:
   logp: 3.3
   functional_groups: []
@@ -534,7 +534,7 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    mw_g_mol: engine.skin_interaction
+    mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md
     logp: engine.skin_interaction
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
@@ -546,37 +546,59 @@
 - canonical_name: Florhydral
   aliases:
   - florhydral
-  cas:
+  - Florhydral(TM)
+  cas: 125109-85-5
   smiles:
   inchikey:
-  mw_g_mol:
+  mw_g_mol: 190.3
   density_25c_g_ml:
-  logp:
-  functional_groups: []
+  logp: 3.8
+  functional_groups:
+  - aldehyde
+  - aromatic
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 2.0
+  vp_source: Givaudan_product_page_0.0200_hPa
   antoine:
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
-  odt_eth_ppm:
+  odt_air_ppb: 0.3
+  odt_eth_ppm: 0.2
   stevens_n:
   or_targets: []
   trp_targets:
   hedonic_valence:
   ifra_max_pct_edp:
-  user_stock_dilution:
-  user_in_inventory: false
+  user_stock_dilution: 1.0
+  user_in_inventory: true
   supplier:
-  families: []
+    other:
+      name: Simple Scents DIY
+      sku: 8F3094005319
+      package: 5 mL
+      product_url: https://www.simplescentsdiy.com/product/35447-34947/florhydral
+      user_stock_form: neat
+      user_stock_authority: direct user confirmation 2026-09-10
+  families:
+  - floral materials
+  - muguet
   character:
-  notes:
+    floral: 8
+    green: 6
+    freshness: 7
+  notes: Floral, green, muguet, fresh, powerful; lily-of-the-valley and hyacinth direction.
   provenance:
+    identity: https://www.simplescentsdiy.com/product/35447-34947/florhydral
+    cas: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm
+    mw_g_mol: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm
+    logp: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm
+    vp_25c_pa: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
+    user_in_inventory: inventory.txt; direct user confirmation 2026-09-10
+    user_stock_dilution: direct user confirmation 2026-09-10
 - canonical_name: Florol
   aliases:
   - florol
@@ -584,7 +606,7 @@
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 170.3, corrected to 154.25)
-  mw_g_mol: 154.25
+  mw_g_mol: 172.26
   density_25c_g_ml:
   logp: 2.5
   functional_groups: []
@@ -596,8 +618,8 @@
   dhvap_kj_mol:
   kaw_eff: 0.005
   hsp:
-  odt_air_ppb:
-  odt_eth_ppm:
+  odt_air_ppb: 0.3
+  odt_eth_ppm: 0.2
   stevens_n:
   or_targets: []
   trp_targets:
@@ -616,7 +638,7 @@
   character:
   notes:
   provenance:
-    mw_g_mol: engine.diffusion_model
+    mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds

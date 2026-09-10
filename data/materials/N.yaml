@@ -472,6 +472,7 @@
 - canonical_name: Neroli EO
   aliases:
   - neroli eo
+  - neroli eo (neat)
   cas: null
   smiles: null
   inchikey: null
@@ -493,7 +494,7 @@
   trp_targets: null
   hedonic_valence: 0.8
   ifra_max_pct_edp: null
-  user_stock_dilution: 1.0
+  user_stock_dilution: neat  # user-confirmed 2026-09-06; explicit as-supplied stock
   user_in_inventory: true
   supplier: null
   families:
@@ -1495,7 +1496,7 @@
   user_in_inventory: true
 
 - canonical_name: "Neroli EO"
-  aliases: ["neroli eo", "neroli eo (10% in dpg)", "neroli essential oil"]
+  aliases: ["neroli eo", "neroli eo (10% in dpg)", "neroli essential oil", "neroli eo (neat)"]
   cas: "8016-38-4"
   mw_g_mol: 170.0
   density_25c_g_ml: 0.87
@@ -1513,7 +1514,7 @@
   stevens_n: null
   or_targets: []
   trp_targets: null
-  user_stock_dilution: 10.0
+  user_stock_dilution: neat  # user-confirmed 2026-09-06; 10% alias is historical identity only
   user_in_inventory: true
 
 - canonical_name: Neroli EO
@@ -1521,6 +1522,7 @@
   - neroli eo
   - neroli eo (10% in dpg)
   - neroli essential oil
+  - neroli eo (neat)
   cas: 8016-38-4
   mw_g_mol: 170.0
   density_25c_g_ml: null
@@ -1538,5 +1540,5 @@
   stevens_n: null
   or_targets: []
   trp_targets: null
-  user_stock_dilution: 10.0
+  user_stock_dilution: neat  # user-confirmed 2026-09-06; 10% alias is historical identity only
   user_in_inventory: true

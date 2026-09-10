@@ -463,6 +463,7 @@ def validate_pipeline_analysis_artifact(
             key: manifest.get(key)
             for key in (
                 "formula_definitions",
+                "g15_parent_formula_definitions",
                 "semantic_config",
                 "config_sha256",
                 "inventory_sha256",

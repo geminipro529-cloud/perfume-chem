@@ -184,6 +184,338 @@ HEDONIC_VALENCE: dict[str, float] = {
 # Scoring
 # ═══════════════════════════════════════════════════════════════════════════════
 
+def evaluate_targeted_hedonics(
+    ingredients_ul: dict[str, float], *, target: dict,
+    evidence: dict[str, dict] | None = None,
+    concentrations_ppm: dict[str, float] | None = None,
+    context: str | None = None,
+) -> dict:
+    """Separate composition constraints, experimental liking and coverage.
+
+    Exact names denote resolved stimulus identities. Context must bind matrix,
+    temperature, time, concentration basis and cohort. No aliasing, invented
+    ppm, or imputation from HEDONIC_VALENCE occurs here. Raw uL serve only the
+    caller's design constraints, never perceived contribution.
+    The optional binary estimate uses intensity-weighted intermediacy:
+    Lapid et al. 2008, doi:10.1093/chemse/bjn026. Coverage is not validation.
+    """
+    amounts = {k: float(v) for k, v in ingredients_ul.items()}
+    if (not amounts or any(not math.isfinite(v) or v < 0 for v in amounts.values())
+            or sum(amounts.values()) <= 0):
+        raise ValueError("Formula needs finite nonnegative amounts and positive total")
+    allowed = {"required", "minimum_ul", "maximum_ratios"}
+    if not target or set(target) - allowed:
+        raise ValueError("Explicit target required; unsupported target fields")
+    violations = []
+    checks = 0
+    for name in target.get("required", []):
+        checks += 1
+        if amounts.get(name, 0.) <= 0:
+            violations.append({"kind": "required_anchor_missing", "material": name})
+    for name, minimum in target.get("minimum_ul", {}).items():
+        minimum = float(minimum)
+        if not math.isfinite(minimum) or minimum <= 0:
+            raise ValueError("Minimum amount must be finite and positive")
+        checks += 1
+        if amounts.get(name, 0.) < minimum:
+            violations.append({"kind": "anchor_below_design_floor", "material": name,
+                               "minimum_ul": minimum, "actual_ul": amounts.get(name, 0.)})
+    for constraint in target.get("maximum_ratios", []):
+        numerator, denominator = constraint["numerator"], constraint["denominator"]
+        maximum = float(constraint["maximum"])
+        if numerator == denominator or not math.isfinite(maximum) or maximum < 0:
+            raise ValueError("Invalid ratio constraint")
+        checks += 1
+        den = amounts.get(denominator, 0.)
+        ratio = amounts.get(numerator, 0.) / den if den > 0 else None
+        if ratio is None or ratio > maximum:
+            violations.append({"kind": "accent_ratio_exceeded", "numerator": numerator,
+                               "denominator": denominator, "maximum": maximum,
+                               "actual": ratio})
+    if not checks:
+        raise ValueError("At least one explicit target constraint is required")
+
+    active_names = [name for name, value in amounts.items() if value > 0]
+    evidence = evidence or {}
+    concentrations_ppm = concentrations_ppm or {}
+    matched, unmatched = {}, {}
+    for name in active_names:
+        row = evidence.get(name)
+        reason = None
+        if not row:
+            reason = "missing_evidence"
+        elif not isinstance(row.get("source"), str) or not row["source"].strip():
+            reason = "missing_provenance"
+        elif not context or row.get("context") != context:
+            reason = "context_mismatch"
+        elif name not in concentrations_ppm:
+            reason = "missing_concentration"
+        else:
+            try:
+                observed_ppm = float(row["concentration_ppm"])
+                requested_ppm = float(concentrations_ppm[name])
+                intensity = float(row["intensity"])
+                pleasantness = float(row["pleasantness"])
+                if (not all(math.isfinite(x) for x in
+                            (observed_ppm, requested_ppm, intensity, pleasantness))
+                        or observed_ppm <= 0 or requested_ppm <= 0
+                        or intensity < 0 or not 0 <= pleasantness <= 100):
+                    reason = "invalid_observation"
+                elif not math.isclose(observed_ppm, requested_ppm, rel_tol=1e-9, abs_tol=0.):
+                    reason = "concentration_mismatch"
+                else:
+                    matched[name] = {"intensity": intensity, "pleasantness": pleasantness,
+                                     "source": row["source"]}
+            except (KeyError, TypeError, ValueError):
+                reason = "invalid_observation"
+        if reason:
+            unmatched[name] = reason
+
+    liking = {"status": "EVIDENCE_UNAVAILABLE", "score": None,
+              "model": "intensity_weighted_binary_intermediacy",
+              "source": "https://doi.org/10.1093/chemse/bjn026",
+              "context": context, "sensory_validated": False}
+    if not unmatched:
+        if len(active_names) != 2:
+            liking["status"] = "OUT_OF_MODEL_SCOPE"
+        else:
+            intensity_sum = sum(row["intensity"] for row in matched.values())
+            if intensity_sum > 0:
+                liking.update(status="EXPERIMENTAL_ESTIMATE", score=sum(
+                    row["intensity"] * row["pleasantness"] for row in matched.values()
+                ) / intensity_sum)
+            else:
+                liking["status"] = "NO_POSITIVE_INTENSITY"
+    return {
+        "target_identity": {
+            "status": "FAIL_DESIGN_CONSTRAINTS" if violations else "PASS_DESIGN_CONSTRAINTS",
+            "basis": "CALLER_DECLARED_COMPOSITION_CONSTRAINTS_NOT_PERCEPTUAL_THRESHOLDS",
+            "perceptual_fit": "NOT_ESTABLISHED", "violations": violations,
+        },
+        "predicted_liking": liking,
+        "confidence": {
+            "matched_material_fraction": len(matched) / len(active_names),
+            "matched_material_count": len(matched), "material_count": len(active_names),
+            "unmatched": unmatched, "sources": sorted({row["source"] for row in matched.values()}),
+            "model_validation": "NOT_VALIDATED_FOR_THIS_FORMULA",
+            "population_to_individual_transfer": "NOT_ESTABLISHED",
+        },
+        "optimization_eligible": False,
+        "requires_premix_trial": False,
+        "claim_scope": "COMPUTATIONAL_DESIGN_ONLY",
+    }
+
+
+def expand_natural_scenario(
+    candidate: dict[str, float], structures: dict[str, str],
+    natural_profiles: dict[str, list[dict]], nominal_volume_ul: float,
+    multipliers: dict[str, float] | None = None,
+) -> dict:
+    """Expand a nominal constituent scenario without inventing missing coverage.
+
+    Input fractions are composition proxies, not lot assays, density-corrected
+    mass fractions, or vapor concentrations. Molecular entries are canonicalized
+    and combined across stocks before model feature extraction. Unknown stocks,
+    missing structures, and unreported profile residual remain unresolved.
+    """
+    from collections.abc import Mapping
+
+    from rdkit import Chem
+
+    def number(value, *, positive=False):
+        if (isinstance(value, bool) or not isinstance(value, (int, float))
+                or not math.isfinite(value) or value < 0 or (positive and value == 0)):
+            raise ValueError("Finite nonnegative values, or positive scales/volume, required")
+        return float(value)
+
+    if (not isinstance(candidate, Mapping) or not isinstance(structures, Mapping)
+            or not isinstance(natural_profiles, Mapping)
+            or set(structures) & set(natural_profiles)):
+        raise ValueError("Distinct direct and natural stock mappings required")
+    if any(not isinstance(n, str) or not n.strip() for n in candidate):
+        raise ValueError("Nonempty stock names required")
+    scales = {} if multipliers is None else multipliers
+    if not isinstance(scales, Mapping):
+        raise ValueError("Constituent multiplier mapping required")
+    for name, value in scales.items():
+        if not isinstance(name, str) or not name.strip():
+            raise ValueError("Nonempty constituent names required")
+        number(value, positive=True)
+    constituent_names = {
+        row.get("name") for profile in natural_profiles.values()
+        if isinstance(profile, (list, tuple)) for row in profile
+        if isinstance(row, Mapping) and isinstance(row.get("name"), str)
+    }
+    if set(scales) - constituent_names:
+        raise ValueError("Unknown constituent multiplier: "
+                         + ", ".join(sorted(set(scales) - constituent_names)))
+    volume = number(nominal_volume_ul, positive=True)
+    amounts = {n: number(v) for n, v in candidate.items()}
+    total = math.fsum(amounts.values())
+    if not math.isfinite(total) or total > volume:
+        raise ValueError("Stock total exceeds nominal finished volume")
+    molecular_amounts, coverage = {}, {}
+
+    def add(smiles, amount):
+        if not isinstance(smiles, str) or not smiles.strip():
+            raise ValueError("Nonempty molecular SMILES required")
+        molecule = Chem.MolFromSmiles(smiles.strip())
+        if molecule is None or molecule.GetNumHeavyAtoms() == 0:
+            raise ValueError("Invalid constituent molecular structure")
+        canonical = Chem.MolToSmiles(molecule, isomericSmiles=True)
+        molecular_amounts.setdefault(canonical, []).append(amount)
+
+    for stock in sorted(amounts):
+        amount = amounts[stock]
+        if amount == 0:
+            continue
+        modeled_fraction, reported_fraction = 0., 0.
+        if stock in structures:
+            add(structures[stock], amount)
+            modeled_fraction = reported_fraction = 1.
+        elif stock in natural_profiles:
+            profile = natural_profiles[stock]
+            if not isinstance(profile, (list, tuple)):
+                raise ValueError("Natural profile must be a constituent list")
+            entries = []
+            for entry in profile:
+                if (not isinstance(entry, Mapping) or not isinstance(entry.get("name"), str)
+                        or not entry["name"].strip()):
+                    raise ValueError("Named natural constituents required")
+                fraction = number(entry.get("fraction")) * scales.get(entry["name"], 1.)
+                if not math.isfinite(fraction):
+                    raise ValueError("Nonfinite perturbed fraction")
+                entries.append((entry.get("smiles"), fraction))
+            reported_fraction = math.fsum(fraction for _, fraction in entries)
+            if reported_fraction > 1.:
+                raise ValueError("Perturbed natural composition exceeds unity")
+            known = []
+            for smiles, fraction in entries:
+                if fraction > 0 and smiles is not None:
+                    add(smiles, amount * fraction)
+                    known.append(fraction)
+            modeled_fraction = math.fsum(known)
+        coverage[stock] = {
+            "raw_ul": amount, "modeled_fraction": modeled_fraction,
+            "reported_fraction": reported_fraction,
+            "unresolved_fraction": 1. - modeled_fraction,
+            "modeled_raw_equivalent_ul": amount * modeled_fraction,
+            "unresolved_raw_equivalent_ul": amount * (1. - modeled_fraction),
+        }
+    modeled = math.fsum(row["modeled_raw_equivalent_ul"] for row in coverage.values())
+    unresolved = math.fsum(row["unresolved_raw_equivalent_ul"] for row in coverage.values())
+    return {
+        "components": [{"smiles": smiles,
+                        "nominal_fraction": math.fsum(parts) / volume}
+                       for smiles, parts in sorted(molecular_amounts.items())],
+        "modeled_raw_equivalent_ul": modeled,
+        "unresolved_raw_equivalent_ul": unresolved,
+        "per_stock_coverage": coverage, "nominal_volume_ul": volume,
+        "basis": "NOMINAL_COMPOSITION_PROXY_NOT_EXACT_MASS",
+        "unresolved_residual_renormalized": False,
+    }
+
+
+def pareto_minimize(records: list[dict], vector_key: str = "loss_vector") -> list[dict]:
+    """Keep original nondominated records; every finite vector axis is minimized.
+
+    Ties survive in input order. This arithmetic ordering neither estimates
+    uncertainty nor supplies sensory, formulation, or release authority.
+    """
+    from collections.abc import Mapping
+
+    vectors = []
+    for record in records:
+        if not isinstance(record, Mapping):
+            raise ValueError("Records with a consistent loss vector required")
+        vector = record.get(vector_key)
+        if (not isinstance(vector, (list, tuple)) or not vector
+                or (vectors and len(vector) != len(vectors[0]))
+                or any(isinstance(v, bool) or not isinstance(v, (int, float))
+                       or not math.isfinite(v) for v in vector)):
+            raise ValueError("Finite nonempty loss vectors of equal dimension required")
+        vectors.append(tuple(float(v) for v in vector))
+    return [record for i, record in enumerate(records) if not any(
+        all(a <= b for a, b in zip(other, vectors[i]))
+        and any(a < b for a, b in zip(other, vectors[i]))
+        for other in vectors)]
+
+
+def evaluate_design_roles(
+    ingredients_ul: dict[str, float], *, baseline: dict[str, float],
+    profiles: dict[str, dict], context: str,
+) -> dict:
+    """Trace changed stock amounts to sourced roles, without a liking model.
+
+    Role labels describe materials, not predicted mixture contributions. Their
+    presence is not an intensity weight, pairwise synergy or dose response.
+    Raw amounts describe changes only; no mass, ppm or OAV is imputed here.
+    """
+    amounts = {k: float(v) for k, v in ingredients_ul.items()}
+    parent = {k: float(v) for k, v in baseline.items()}
+    if (not context or not amounts or set(amounts) != set(parent)
+            or any(not math.isfinite(v) or v < 0 for v in (*amounts.values(), *parent.values()))
+            or not math.isclose(sum(amounts.values()), sum(parent.values()), abs_tol=1e-9)
+            or sum(parent.values()) <= 0):
+        raise ValueError("Same finite stock set and constant positive raw total required")
+    increased, decreased, missing, sources = {}, {}, [], set()
+    for name in sorted(amounts):
+        profile = profiles.get(name, {})
+        roles, refs = profile.get("roles"), profile.get("sources")
+        valid = (isinstance(roles, list) and bool(roles)
+                 and isinstance(refs, list) and bool(refs)
+                 and all(isinstance(x, str) and x.strip() for x in (*roles, *refs)))
+        if not valid:
+            missing.append(name)
+            continue
+        sources.update(refs)
+        if amounts[name] > parent[name]:
+            increased[name] = list(roles)
+        elif amounts[name] < parent[name]:
+            decreased[name] = list(roles)
+    return {
+        "basis": "qualitative_hypothesis", "context": context,
+        "sources": sorted(sources), "loss_intervals": None,
+        "increased_material_roles": increased, "decreased_material_roles": decreased,
+        "missing_profiles": missing, "dose_ranking_authorized": False,
+        "predicted_liking": None, "perceived_richness": None, "perceived_layering": None,
+        "claim_scope": "MATERIAL_ROLE_HYPOTHESIS_NOT_MIXTURE_PREDICTION",
+    }
+
+
+def structural_design_losses(report: dict, objectives: dict[str, float]) -> dict[str, float]:
+    """Opt into caller-defined structural proxies without inventing liking.
+
+    Constraints remain hard; missing liking is independent of design search.
+    Objective definitions, scales and provenance belong to the frozen evaluator.
+    These losses do not establish perceived body, temporal behavior or preference.
+    """
+    identity = report["target_identity"]
+    if identity["status"] != "PASS_DESIGN_CONSTRAINTS" or identity["violations"]:
+        raise ValueError("Hard target constraints violated")
+    values = {name: float(value) for name, value in objectives.items()}
+    if not values or any(not math.isfinite(v) or v < 0 for v in values.values()):
+        raise ValueError("Explicit finite nonnegative structural objectives required")
+    return values
+
+
+def targeted_hedonic_losses(report: dict, *, allow_experimental: bool = False) -> dict[str, float]:
+    """Expose experimental losses only by explicit opt-in, never impute gaps.
+
+    The search result remains a computational hypothesis. Opt-in does not
+    establish model validation, sensory preference, or full-perfume coverage.
+    """
+    liking = report["predicted_liking"]
+    score = liking.get("score")
+    if (allow_experimental and liking["status"] == "EXPERIMENTAL_ESTIMATE"
+            and isinstance(score, (int, float)) and math.isfinite(score)
+            and 0 <= score <= 100):
+        return {"identity": float(len(report["target_identity"]["violations"])),
+                "liking": 100. - score}
+    raise ValueError("Targeted liking evaluator not admitted for optimization: "
+                     + str(liking["status"]))
+
+
 @dataclass
 class HedonicReport:
     """Hedonic valence analysis of a formula."""

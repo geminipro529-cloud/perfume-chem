@@ -1,0 +1,653 @@
+{
+  "schema": "perfume_add_only_parent_review_v1",
+  "review_date_local": "2026-09-07",
+  "record_id": "AHS-MUGUET-LAYERED-F240-N60-20260907",
+  "cwd": "D:/chatbots/perfume-chem",
+  "scope": "Exploratory positive-only Florol/Nympheal muguet layering candidate; no physical execution or release authorization.",
+  "command": ".venv/Scripts/python.exe scripts/formula_release_gate.py --formula-file formulas/AHS_UserBottle_MuguetLayered_F240_N60_20260907.md --parent-formula-file formulas/AHS_UserBottle_DHM200_30mL_20260907.md --expected-concentrate-ul 5200 --batch-volume-ml 30.30 --temperature-k 305 --brief auto --no-audit --no-append-analysis --json",
+  "pipeline_exit_code": 1,
+  "overall": "FAIL",
+  "gate_counts": {
+    "FAIL": 9,
+    "PASS": 103,
+    "WARN": 35,
+    "SKIP": 1
+  },
+  "failed_gates": [
+    {
+      "gate": "pipeline_preflight",
+      "detail": "13 checks; 7 warnings"
+    },
+    {
+      "gate": "inventory_stock_contract",
+      "detail": "6 material stock contract failure(s): Aldehyde C10, Aldehyde C12 MNA, Coumarin, Lavender EO High Altitude (angustifolia, France), Nympheal, Vanillin"
+    },
+    {
+      "gate": "quantitative_authority",
+      "detail": "Exact active concentrate ppm w/w is unavailable; quantitative/release claims are blocked."
+    },
+    {
+      "gate": "natural_composite_coverage",
+      "detail": "Natural mixtures lack required composite GC-O decomposition: Lavender EO High Altitude (angustifolia, France)"
+    },
+    {
+      "gate": "reference_claim_contract",
+      "detail": "Unknown reference contract(s): chanel_allure_homme_sport_edt_reference_pending"
+    },
+    {
+      "gate": "material_spine_coverage",
+      "detail": "Lavender EO High Altitude (angustifolia, France)"
+    },
+    {
+      "gate": "physics_data_coverage",
+      "detail": "{\"Lavender EO High Altitude (angustifolia, France)\": [\"mw\", \"logp\", \"vp\", \"odt_air_ppm\"]}"
+    },
+    {
+      "gate": "odt_coverage",
+      "detail": "Lavender EO High Altitude (angustifolia, France)"
+    },
+    {
+      "gate": "confidence_minimum",
+      "detail": "combined confidence 9.3 below 25.0 after preflight evidence penalty 16.0"
+    }
+  ],
+  "g15": [
+    {
+      "gate": "g15_oav_firewall",
+      "status": "PASS",
+      "detail": "Dose lineage is continuous and no modeled OAV anomaly crossed the G15 review thresholds.",
+      "data": {
+        "gate_id": "G15",
+        "evidence_class": "DETERMINISTIC_DOSE_INTEGRITY_PLUS_MODELED_OAV_SCREENING",
+        "hard_gate_authority": "DOSE_LINEAGE_AND_REVISION_DISCONTINUITY_ONLY",
+        "oav_release_authority": false,
+        "child_formula_hash": "931416b88c65408ea14525ebe29b630d0ff57a7c628278348acd4e809e172d31",
+        "oav_interpretation": "Modeled OAV is a time-resolved screening signal, not percent perceived contribution, beauty, similarity, preference, or measured headspace.",
+        "declared_parent_formula_uid": null,
+        "authorized_active_dose_changes": {},
+        "supplied_parent_formula_uid": null,
+        "parent_formula_hash": "42064857f489b9e23142c04ea629b121d1d68ad39e55421e1f11e63d6a9fa6b9",
+        "parent_g15_dilutions": {
+          "Iso E Super": 1,
+          "Hedione": 1,
+          "Benzyl Salicylate": 1,
+          "Patchouli EO": 1,
+          "Sandalore": 1,
+          "Cedarwood oil Virginia": 1,
+          "Vertofix": 1,
+          "Galaxolide": 0.5,
+          "Romandolide": 1,
+          "Linalyl Acetate": 1,
+          "Dihydromyrcenol": 1,
+          "Helional": 1,
+          "Linalool": 1,
+          "Lavender EO High Altitude (angustifolia, France)": 1,
+          "DPG": 1,
+          "Neroli EO": 1,
+          "Geranium EO": 1,
+          "Alpha Isomethyl Ionone": 1,
+          "Coumarin": 0.2,
+          "Vanillin": 0.1,
+          "Black Pepper EO": 1,
+          "Red Mandarin EO": 1,
+          "Bergamot FCF oil Sicilian": 1,
+          "Petitgrain EO Paraguay": 1,
+          "Aldehyde C10": 0.01,
+          "Aldehyde C12 MNA": 0.01,
+          "Calone": 0.01
+        },
+        "child_g15_dilutions": {
+          "Iso E Super": 1,
+          "Hedione": 1,
+          "Benzyl Salicylate": 1,
+          "Patchouli EO": 1,
+          "Sandalore": 1,
+          "Cedarwood oil Virginia": 1,
+          "Vertofix": 1,
+          "Galaxolide": 0.5,
+          "Romandolide": 1,
+          "Florol": 1,
+          "Linalyl Acetate": 1,
+          "Dihydromyrcenol": 1,
+          "Helional": 1,
+          "Linalool": 1,
+          "Nympheal": 1,
+          "Lavender EO High Altitude (angustifolia, France)": 1,
+          "DPG": 1,
+          "Neroli EO": 1,
+          "Geranium EO": 1,
+          "Alpha Isomethyl Ionone": 1,
+          "Coumarin": 0.2,
+          "Vanillin": 0.1,
+          "Black Pepper EO": 1,
+          "Red Mandarin EO": 1,
+          "Bergamot FCF oil Sicilian": 1,
+          "Petitgrain EO Paraguay": 1,
+          "Aldehyde C10": 0.01,
+          "Aldehyde C12 MNA": 0.01,
+          "Calone": 0.01
+        },
+        "pre_mix_guard": {
+          "status": "PASS",
+          "parent_comparison_available": true,
+          "temporal_comparison_available": true,
+          "findings": [],
+          "limitations": [
+            "Active-dose continuity is the hard invariant for stock rebases.",
+            "Temporal OAV is screening only and is not percent perceived contribution.",
+            "Static OAV dominance alone never hard-fails a formula.",
+            "No target-similarity, pleasantness, or consumer-preference claim is made."
+          ]
+        }
+      }
+    }
+  ],
+  "run_contract": {
+    "schema": "perfume_pipeline_run_evidence_v1",
+    "binding_schema": "formula-artifact-binding-v1",
+    "renderer_version": "formula-release-gate-v1",
+    "analysis_input_sha256": "24b8de01215ec54385dfc34fa865e97e5f3a18b9f412c3ba49998058caf07201",
+    "repository_commit": "e7002d4dacde0ae4c6b92db454fa4034c830e8f4",
+    "canonical_records": [
+      {
+        "record_id": "formula:1:ahs-user-bottle-layered-muguet-f240-n60-addition-study",
+        "record_version": 1,
+        "canonical_content_sha256": "1323f2c2648f0870e0ce37a4fa709827c75c57506fb2a1ab890343e52d0dd723"
+      }
+    ],
+    "formula_definitions": [
+      {
+        "number": 1,
+        "name": "AHS user bottle — layered muguet F240 N60 addition study",
+        "sha256": "1323f2c2648f0870e0ce37a4fa709827c75c57506fb2a1ab890343e52d0dd723"
+      }
+    ],
+    "g15_parent_formula_definitions": [
+      {
+        "number": 1,
+        "name": "AHS user-reported bottle — DHM 200 — 30 mL",
+        "sha256": "bd467b4a86e8c18d959c232a204a324cec043b5eb2cb4e8a538bbbdcfb5b4fee"
+      }
+    ],
+    "semantic_config": {
+      "requested": {
+        "expected_concentrate_ul": 5200,
+        "min_neat_trace_ul": 5,
+        "batch_volume_ml": 30.3,
+        "temperature_K": 305,
+        "brief": "auto",
+        "family_archetype": "",
+        "concentration_bracket": "EdP",
+        "allow_preblends": false,
+        "min_confidence_score": 25,
+        "min_perceptible_materials": 3,
+        "max_perceptible_channels": 30,
+        "ifra_headroom": 1,
+        "commercial_mode": false,
+        "commercial_confidence_policy": "block",
+        "quantitative_claim": true,
+        "matrix_components_moles": [],
+        "matrix_mass_g": 0,
+        "matrix_source": "omitted",
+        "batch_scaling_targets_ml": [],
+        "expected_retail_price_thb": 1500,
+        "price_tier": "auto",
+        "effective_ifra_headroom": 1
+      },
+      "formula_family_archetypes": [
+        ""
+      ],
+      "g15_authorized_active_dose_changes": {}
+    },
+    "config_sha256": "87f40f3b00d1143ad19fffee0f362c5a341face84865c22e5845c9461bac6abf",
+    "inventory_sha256": "d103b79508592f74bb368f27507874b9fd3493acc9e872150e768449b2a02ef7",
+    "scientific_inputs_sha256": "09596a0dda1034ad31061a9e3118af30260c4bfa9cfec2f520e999f1d0746b02",
+    "pipeline_source_sha256": "c0dd00b636cfe122919f778baf427bedc2ec9c2e537a5f5a556cc0e8ebf099cc",
+    "legacy_formula_hashes_v1": [
+      {
+        "number": 1,
+        "name": "AHS user bottle — layered muguet F240 N60 addition study",
+        "sha256": "931416b88c65408ea14525ebe29b630d0ff57a7c628278348acd4e809e172d31"
+      }
+    ],
+    "overall": "FAIL",
+    "generated_at_utc": "2026-09-07T05:04:29.264537+00:00",
+    "authorities": {
+      "stock": [
+        "FAIL"
+      ],
+      "quantitative": [
+        "FAIL"
+      ],
+      "claim": [
+        "FAIL"
+      ],
+      "headspace_oav": [
+        "MODELED_ACTIVE_CONCENTRATE_SCREEN"
+      ]
+    },
+    "provenance": {
+      "entities": [
+        "formula_definition",
+        "release_config",
+        "inventory_snapshot",
+        "scientific_inputs",
+        "pipeline_source",
+        "analysis_artifact"
+      ],
+      "activity": "formula_release_gate",
+      "agent": "perfume-chem pipeline",
+      "derivation": "analysis_artifact wasDerivedFrom all input entities"
+    },
+    "analysis_sha256": "af8374a32d5473641467e8a270645060807deb32d08eebff9f95e8d3cbf4991a",
+    "artifact_sha256": "ea2db5e34737bd8672f8c1cf27d7ad6e96184ec03aca41a5df9ee067e583edb5"
+  },
+  "verification": {
+    "files": [
+      {
+        "path": "formulas/AHS_EDT_Relational_Study_30mL_v3.md",
+        "bytes": 37631,
+        "sha256": "d4e09922a6f7cee2ed95e028e813361a41014f41dd863650727e052fb93b309b"
+      },
+      {
+        "path": "formulas/AHS_EDT_Relational_Study_30mL_v3_Basket_1-17.md",
+        "bytes": 3996,
+        "sha256": "e65c990765cd80565ec94c4962e89bdf939e3c8b0ac68b85149dca25a13f1aca"
+      },
+      {
+        "path": "formulas/records/AHS_EDT_Relational_Study_30mL_v3.json",
+        "bytes": 15247,
+        "sha256": "624d3d0f9599362a2904c1803869227a632132967e694a61a0c626991bf9f7ec"
+      },
+      {
+        "path": "inventory.txt",
+        "bytes": 21215,
+        "sha256": "d103b79508592f74bb368f27507874b9fd3493acc9e872150e768449b2a02ef7"
+      },
+      {
+        "path": "data/governance/inventory_user_authority_overlay_20260906.json",
+        "bytes": 3668,
+        "sha256": "b06024fdef65355c354a4c5a2618d482f215df42a21c2d56aed896bbfb8c305f"
+      },
+      {
+        "path": "formulas/AHS_UserBottle_DHM200_30mL_20260907.md",
+        "bytes": 6026,
+        "sha256": "0282fcbd980458a0bd297b88df6f0c6a048898f08e7038cad91252c4dcf5d50b"
+      },
+      {
+        "path": "formulas/AHS_UserBottle_Mayol60_AddOnly_20260907.md",
+        "bytes": 31796,
+        "sha256": "19b9424f3ec4ada39164b0f3bcdef6203ba43030d5a58ced6b60f64c5ee9ea51"
+      },
+      {
+        "path": "formulas/AHS_UserBottle_MuguetLayered_F240_N60_20260907.md",
+        "bytes": 33357,
+        "sha256": "dc85e2cc0d2c4d61a6eb6f5059007e8a05d312dd54caaaf19473e90b36e250a9"
+      },
+      {
+        "path": "formulas/AHS_MuguetLayered_AddOnly_CARD_20260907.md",
+        "bytes": 3324,
+        "sha256": "0ac3e7ef5b7e60f355201805046af10ad30acf8fa8d72be87de71ea21d1b5571"
+      },
+      {
+        "path": "formulas/records/AHS_UserBottle_MuguetLayered_20260907.json",
+        "bytes": 37952,
+        "sha256": "2fa44b779d7af3a4c4e1e3b8244d1f2e398fa4d0f17c533c91b9e94d577d7697"
+      },
+      {
+        "path": "docs/verification/AHS_MuguetLayered_20260907_pipeline.json.gz.b64",
+        "bytes": 124945,
+        "sha256": "26491ba6484a4b61fb17de321d17f5a509b5ef02a53f30f4416cb0b960072a73"
+      }
+    ],
+    "all_protected_sources_unchanged": true,
+    "all27existing_amounts_and_stocks_unchanged": true,
+    "full_record_rows_match": true,
+    "card_transfers_match": true,
+    "bound_artifact": {
+      "status": "CURRENT",
+      "artifact_binding_status": "CURRENT",
+      "issues": [],
+      "integrity_issues": [],
+      "stale_issues": [],
+      "artifact_sha256": "ea2db5e34737bd8672f8c1cf27d7ad6e96184ec03aca41a5df9ee067e583edb5",
+      "release_authority": null,
+      "quarantine_explicit": false
+    },
+    "decoded_pipeline_bytes": 961529,
+    "decoded_pipeline_sha256": "507a625a35fe2a75fe39c80192582137568b01de7ef7d78b254ac4f5f4f5d21f",
+    "stock_issues": [
+      {
+        "material": "Nympheal",
+        "reason": "inventory_stock_unavailable",
+        "statuses": [
+          "unresolved"
+        ],
+        "source_rows": [
+          185
+        ],
+        "execution_holds": []
+      },
+      {
+        "material": "Lavender EO High Altitude (angustifolia, France)",
+        "reason": "not_in_inventory"
+      },
+      {
+        "material": "Coumarin",
+        "reason": "stock_carrier_mismatch",
+        "formula_basis": "unspecified",
+        "inventory_bases": [],
+        "formula_carrier": "dep",
+        "inventory_carriers": [
+          "dpg"
+        ]
+      },
+      {
+        "material": "Vanillin",
+        "reason": "inventory_stock_metadata_incomplete",
+        "statuses": [
+          "owned"
+        ],
+        "source_rows": [
+          239
+        ],
+        "execution_holds": []
+      },
+      {
+        "material": "Aldehyde C10",
+        "reason": "inventory_stock_metadata_incomplete",
+        "statuses": [
+          "owned"
+        ],
+        "source_rows": [
+          9,
+          10
+        ],
+        "execution_holds": []
+      },
+      {
+        "material": "Aldehyde C12 MNA",
+        "reason": "inventory_stock_metadata_incomplete",
+        "statuses": [
+          "owned"
+        ],
+        "source_rows": [
+          13,
+          14
+        ],
+        "execution_holds": []
+      }
+    ]
+  },
+  "focused_tests": {
+    "command": ".venv/Scripts/python.exe -m pytest tests/test_pre_mix_guard.py -q",
+    "passed": 10,
+    "failed": 0,
+    "duration_seconds": 0.4,
+    "warnings": 400,
+    "warning_type": "pytest_asyncio iscoroutinefunction deprecation",
+    "full_repository_suite_run": false
+  },
+  "addition": {
+    "ratio_basis": "4:1 supplied-stock volume; not mass, active purity, OAV, or perceived contribution",
+    "untreated_30_ml": {
+      "florol_ul": 240,
+      "nympheal_ul": 60,
+      "nominal_final_ml": 30.3
+    },
+    "separate_5_ml": {
+      "florol_ul": 40,
+      "nympheal_ul": 10,
+      "nominal_final_ml": 5.05
+    },
+    "conditional_25_ml_remainder": {
+      "florol_ul": 200,
+      "nympheal_ul": 50,
+      "nominal_final_ml": 25.25
+    },
+    "minimum_raw_transfer_ul": 10,
+    "successive_addition": false,
+    "dose_selection": "Parent-selected exploratory architecture hypothesis; not recovered commercial formula or validated optimum."
+  },
+  "selected_model_frames": [
+    {
+      "label": "opening",
+      "seconds": 0,
+      "rows": [
+        {
+          "name": "Benzyl Salicylate",
+          "oav": 1.2283286807318967,
+          "vapor_ppm": 0.012283286807318968
+        },
+        {
+          "name": "Dihydromyrcenol",
+          "oav": 15856.957347063539,
+          "vapor_ppm": 15.856957347063538
+        },
+        {
+          "name": "Florol",
+          "oav": 1.0397922348410642,
+          "vapor_ppm": 0.010397922348410643
+        },
+        {
+          "name": "Hedione",
+          "oav": 4918.005439582357,
+          "vapor_ppm": 0.24590027197911787
+        },
+        {
+          "name": "Helional",
+          "oav": 58.87478990794267,
+          "vapor_ppm": 0.005887478990794268
+        },
+        {
+          "name": "Nympheal",
+          "oav": 1.3846958664104967,
+          "vapor_ppm": 0.0027693917328209935
+        }
+      ]
+    },
+    {
+      "label": "top",
+      "seconds": 300,
+      "rows": [
+        {
+          "name": "Benzyl Salicylate",
+          "oav": 1.3024862787037652,
+          "vapor_ppm": 0.013024862787037652
+        },
+        {
+          "name": "Dihydromyrcenol",
+          "oav": 16580.341118944834,
+          "vapor_ppm": 16.580341118944833
+        },
+        {
+          "name": "Florol",
+          "oav": 1.1024876343938737,
+          "vapor_ppm": 0.011024876343938736
+        },
+        {
+          "name": "Hedione",
+          "oav": 5214.21450483513,
+          "vapor_ppm": 0.26071072524175654
+        },
+        {
+          "name": "Helional",
+          "oav": 62.42446487380911,
+          "vapor_ppm": 0.006242446487380911
+        },
+        {
+          "name": "Nympheal",
+          "oav": 1.46818509120902,
+          "vapor_ppm": 0.00293637018241804
+        }
+      ]
+    },
+    {
+      "label": "heart",
+      "seconds": 1800,
+      "rows": [
+        {
+          "name": "Benzyl Salicylate",
+          "oav": 1.4737313984287082,
+          "vapor_ppm": 0.01473731398428708
+        },
+        {
+          "name": "Dihydromyrcenol",
+          "oav": 17494.800559079744,
+          "vapor_ppm": 17.494800559079746
+        },
+        {
+          "name": "Florol",
+          "oav": 1.2472601052608177,
+          "vapor_ppm": 0.012472601052608176
+        },
+        {
+          "name": "Hedione",
+          "oav": 5897.15202717498,
+          "vapor_ppm": 0.294857601358749
+        },
+        {
+          "name": "Helional",
+          "oav": 70.62031241953312,
+          "vapor_ppm": 0.007062031241953313
+        },
+        {
+          "name": "Nympheal",
+          "oav": 1.6609646790850592,
+          "vapor_ppm": 0.0033219293581701185
+        }
+      ]
+    },
+    {
+      "label": "late_heart",
+      "seconds": 7200,
+      "rows": [
+        {
+          "name": "Benzyl Salicylate",
+          "oav": 1.5795267757799467,
+          "vapor_ppm": 0.015795267757799467
+        },
+        {
+          "name": "Dihydromyrcenol",
+          "oav": 14590.42372492319,
+          "vapor_ppm": 14.590423724923191
+        },
+        {
+          "name": "Florol",
+          "oav": 1.3368414742681358,
+          "vapor_ppm": 0.013368414742681358
+        },
+        {
+          "name": "Hedione",
+          "oav": 6313.909848865715,
+          "vapor_ppm": 0.31569549244328576
+        },
+        {
+          "name": "Helional",
+          "oav": 75.6871098793239,
+          "vapor_ppm": 0.007568710987932391
+        },
+        {
+          "name": "Nympheal",
+          "oav": 1.7802045075624666,
+          "vapor_ppm": 0.0035604090151249335
+        }
+      ]
+    },
+    {
+      "label": "drydown",
+      "seconds": 14400,
+      "rows": [
+        {
+          "name": "Benzyl Salicylate",
+          "oav": 1.6523419306895524,
+          "vapor_ppm": 0.016523419306895524
+        },
+        {
+          "name": "Dihydromyrcenol",
+          "oav": 10924.359505680939,
+          "vapor_ppm": 10.92435950568094
+        },
+        {
+          "name": "Florol",
+          "oav": 1.39859922801671,
+          "vapor_ppm": 0.0139859922801671
+        },
+        {
+          "name": "Hedione",
+          "oav": 6595.832234861218,
+          "vapor_ppm": 0.32979161174306093
+        },
+        {
+          "name": "Helional",
+          "oav": 79.17617300073009,
+          "vapor_ppm": 0.00791761730007301
+        },
+        {
+          "name": "Nympheal",
+          "oav": 1.862367694645396,
+          "vapor_ppm": 0.003724735389290792
+        }
+      ]
+    }
+  ],
+  "stock_adjudication": {
+    "nympheal_source_row": 185,
+    "nympheal_source_status": "HAVE",
+    "nympheal_source_stock": "as supplied; product basis",
+    "nympheal_prior_active_fraction": 1,
+    "nympheal_gate_status": "unresolved",
+    "interpretation": "A product-basis resolution failure is not evidence of absent ownership; no inventory metadata was changed to force acceptance."
+  },
+  "limitations": [
+    "All 27 existing rows and stock descriptions are preserved; no Mayol or other correction is assumed previously added.",
+    "User-reported parent volume is 30 mL; recorded component sum is 29.9 mL. The 0.1 mL discrepancy is retained, not silently topped up.",
+    "Mass, current-lot stock purity and density do not establish exact ppm w/w; supplier ranges and fallback density are not measurement.",
+    "Florol local MW 154.25 conflicts with supplier SDS 172.26. Its quantitative model requires adjudication.",
+    "New-material ODT values are unverified; low modeled Florol/Nympheal OAV does not establish or disprove real muguet punch.",
+    "Matrix was omitted and concentration bracket defaulted to EdP; this is not finished EDT bottle headspace.",
+    "Named AHS reference contract is unresolved. Similarity, main-note identity, liking, performance and effective sensory layering remain untested.",
+    "Alpha Isomethyl Ionone alias resolution remains an inherited identity limitation; original parent bytes were not rewritten.",
+    "Supplier descriptions support role hypotheses, not proprietary ratios, synergy, safety approval or observed efficacy.",
+    "G15 PASS concerns dose lineage and screening only; new materials have no finite parent fold baseline.",
+    "Full diagnostic FAIL and stock/quantitative issues remain. No full release verifier, commit or push was performed."
+  ],
+  "sources": [
+    {
+      "url": "https://studio.dsm-firmenich.com/product/florolr-pe-966458",
+      "use": "Florol soft fresh muguet/floral role; physical-property cross-check"
+    },
+    {
+      "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/nympheal",
+      "use": "Nympheal watery green cyclamen/muguet density and diffusion role; not dose validation"
+    },
+    {
+      "url": "https://www.perfumersworld.com/document-list.php?ifra=defaultOpen3&pro_id=3ML00192",
+      "use": "Florol SDS identity and hazards; not current-lot density or mixture clearance"
+    },
+    {
+      "url": "https://www.perfumersworld.com/document-list.php?ifra=defaultOpen3&pro_id=3MA22553",
+      "use": "Nympheal SDS identity and hazards; legacy certificate not promoted to current mixture clearance"
+    }
+  ],
+  "worker_review": {
+    "task": "/root/ahs_mayol_manifest_audit",
+    "scope": "Read-only independent row, stock, basket-order and sample/remainder arithmetic review",
+    "parent_independent_verification": true,
+    "worker_file_edits": false
+  },
+  "delivery": {
+    "full_analysis_appended_to_formula": true,
+    "full_analysis_presented_verbatim_in_chat": true,
+    "short_card": "formulas/AHS_MuguetLayered_AddOnly_CARD_20260907.md"
+  },
+  "authority": {
+    "physical_event": "NOT_EXECUTED_OR_REPORTED",
+    "exact_mass": "UNAVAILABLE",
+    "sensory": "NOT_TESTED",
+    "safety": "HOLD",
+    "stability": "NOT_TESTED",
+    "similarity": "NOT_TESTED",
+    "release": "HOLD"
+  }
+}

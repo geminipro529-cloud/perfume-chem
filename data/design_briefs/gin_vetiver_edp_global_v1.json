@@ -1,0 +1,270 @@
+{
+  "formula_sha256": "426857f85ad9cd666e6cc55cdb9391de8cd6b5858bbc6f06e8d0d1a239aa3fc3",
+  "inventory_sha256": "d6f7ff5389fbd5e807b98fee3ce6a87ce2c70dd6253b26a82f49a0872da42369",
+  "inventory_authority": {
+    "source_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+    "overlay_sha256": "7265242bd4136333d592004b4ddb9382cd0cd8a1ad364b75085e98290f1a98d8"
+  },
+  "target": {
+    "required": [
+      "Juniper Berry EO",
+      "Vetiver EO (India)",
+      "Cypress EO",
+      "Grapefruit FCF oil Sicilian"
+    ]
+  },
+  "bounds": {
+    "Iso E Super": [
+      0,
+      5400
+    ],
+    "Hedione": [
+      0,
+      5400
+    ],
+    "Ambrox Super": [
+      400,
+      400
+    ],
+    "Benzyl Benzoate": [
+      0,
+      5400
+    ],
+    "Vetival": [
+      0,
+      5400
+    ],
+    "Vetiver EO (India)": [
+      0,
+      5400
+    ],
+    "Cedarwood Virginia": [
+      0,
+      5400
+    ],
+    "Cypress EO": [
+      10,
+      50
+    ],
+    "Clearwood": [
+      0,
+      5400
+    ],
+    "Timberol": [
+      0,
+      5400
+    ],
+    "Vetikon": [
+      0,
+      5400
+    ],
+    "Ambrettolide": [
+      250,
+      250
+    ],
+    "Habanolide": [
+      0,
+      5400
+    ],
+    "Juniper Berry EO": [
+      0,
+      5400
+    ],
+    "Coriander Seed EO": [
+      0,
+      5400
+    ],
+    "Grapefruit FCF oil Sicilian": [
+      0,
+      5400
+    ],
+    "Petitgrain EO Paraguay": [
+      0,
+      5400
+    ],
+    "Terpinyl Acetate": [
+      0,
+      5400
+    ]
+  },
+  "schema": "global_design_portfolio_v1",
+  "evaluator_version": "gin-vetiver-full-formula-response-NOT-AVAILABLE",
+  "criteria": [
+    "body",
+    "richness",
+    "layering"
+  ],
+  "scenarios": [
+    "nominal_stock_design"
+  ],
+  "max_workers": 3,
+  "scope": "Same 18 exact stocks, constant 5400 raw microlitres; computational search only. No full-formula numerical evaluator is currently admitted. This plan must fail explicitly, not select the baseline.",
+  "profiles": {
+    "Iso E Super": {
+      "roles": [
+        "smooth woody fullness"
+      ],
+      "sources": [
+        "https://www.iff.com/scent/ingredients-compendium/iso-e-super/"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Hedione": {
+      "roles": [
+        "transparent presence and diffusion"
+      ],
+      "sources": [
+        "https://studio.dsm-firmenich.com/product/hedioner-pe-964898"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Ambrox Super": {
+      "roles": [
+        "Restrained mineral-amber persistence beneath the vetiver and dry wood structure."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Benzyl Benzoate": {
+      "roles": [
+        "Restrained balsamic mass and fixation without constructing a floral cushion."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Vetival": {
+      "roles": [
+        "Suede-dry, rougher vetiver texture in the lower body."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Vetiver EO (India)": {
+      "roles": [
+        "Defining natural root, earth and wood subject."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Cedarwood Virginia": {
+      "roles": [
+        "Small natural cedar grain; subordinate to vetiver and not a main wood subject."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Cypress EO": {
+      "roles": [
+        "Identifiable dry-green conifer accent kept proportionally light."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Clearwood": {
+      "roles": [
+        "soft patchouli and woody amber warmth"
+      ],
+      "sources": [
+        "https://studio.dsm-firmenich.com/product/clearwoodr-pe-970953"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Timberol": {
+      "roles": [
+        "powerful substantive woody amber modification"
+      ],
+      "sources": [
+        "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Timberol.pdf"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Vetikon": {
+      "roles": [
+        "vetiver and grapefruit opening bridge"
+      ],
+      "sources": [
+        "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Vetikon.pdf"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Ambrettolide": {
+      "roles": [
+        "Low-active close-skin warmth underneath the more outward Habanolide plane."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Habanolide": {
+      "roles": [
+        "Outward clean-mineral musk polish around the dry woods."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Juniper Berry EO": {
+      "roles": [
+        "Principal gin-botanical identity."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Coriander Seed EO": {
+      "roles": [
+        "aromatic peppery seed spice with lemon and wood aspects"
+      ],
+      "sources": [
+        "https://studio.dsm-firmenich.com/product/coriander-seed-eo-pe-928143"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Grapefruit FCF oil Sicilian": {
+      "roles": [
+        "Furocoumarin-free bitter-peel opening character. The regional qualifier belongs to the bound inventory record, not the formula's design label."
+      ],
+      "sources": [
+        "formulas/records/Gin_Vetiver_Cypress_Air_30mL_v4_EDP.json"
+      ],
+      "evidence_kind": "baseline_design_intent_not_measured_effect"
+    },
+    "Petitgrain EO Paraguay": {
+      "roles": [
+        "green floral citrus-leaf character"
+      ],
+      "sources": [
+        "https://matieres-premieres.robertet.com/petitgrain-oil"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    },
+    "Terpinyl Acetate": {
+      "roles": [
+        "herbal citrus lavender woody support"
+      ],
+      "sources": [
+        "https://www.sigmaaldrich.com/deepweb/assets/sigmaaldrich/marketing/global/documents/295/364/application-guide-9-scents-of-fall-and-winter-ms.pdf"
+      ],
+      "evidence_kind": "supplier_qualitative_role_not_mixture_prediction"
+    }
+  },
+  "budget": 128,
+  "seed": 20260909,
+  "bound_rationale": "Neat/as-supplied dimensions span zero to available composition volume, independent of baseline proportions. Existing non-neat/fixed stock rows stay frozen because active mass/stock basis is unresolved. Cypress retains a 10-50 raw microlitre exploratory accent range (design limit, not an empirically established perceptual threshold). No numerical gin/vetiver recognizer guarantee is inferred from these raw-volume bounds."
+}

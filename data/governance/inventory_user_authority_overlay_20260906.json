@@ -1,0 +1,92 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v3",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-06",
+  "predecessor": {
+    "kind": "USER_AUTHORITY_OVERLAY",
+    "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+    "effective_date": "2026-09-05",
+    "path": "data/governance/inventory_user_authority_overlay_20260905.json",
+    "normalized_text_sha256": "08d0f0e41f90741200b3e915789ddd044cbbf7b0ce1b1aa266053452781bb17f"
+  },
+  "source": {
+    "kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+    "asserted_date": "2026-09-06",
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 20904,
+    "inventory_text_sha256": "214b2ef6bc84a04ae2e3318088a8d5d0f559bdee3dcd7afcc95ff272ff480243"
+  },
+  "policy": {
+    "inherit_predecessor_policy": true,
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "raw_volume_transfer_does_not_establish_exact_mass_or_volume_conversion": true
+  },
+  "records": [
+    {
+      "record_id": "INV-USER-20260906-001",
+      "canonical_name": "Neroli EO",
+      "aliases": [
+        "Neroli EO (neat)",
+        "neroli essential oil"
+      ],
+      "state": "OWNED",
+      "category": "air_floral",
+      "stock": {
+        "fraction": 1,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "EXPLICIT_USER_CURRENT_STOCK_CORRECTION",
+        "execution_ready": true,
+        "execution_scope": "STOCK_IDENTITY_AND_FRACTION_BINDING_ONLY",
+        "execution_hold_reason": ""
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 180,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 180,
+          "disposition": "OWNED",
+          "status": "HAVE - USER-CONFIRMED NEROLI EO NEAT ONLY",
+          "actual_stock_text": "Neroli EO neat / as supplied; prior 10% in DPG stock no longer owned",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-06",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CORRECTION",
+      "source_quote": "I only have neroli EO neat",
+      "preceding_source_quote": "I do not have the neroli EO in 10% anymore.",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "stock_fraction_known": true,
+        "fraction_basis_known": true,
+        "carrier_known": true,
+        "stock_solution_density_asserted": false,
+        "exact_active_mass_from_raw_volume_authorized": false,
+        "chemical_purity_assay_asserted": false,
+        "formula_rebase_authorized": false,
+        "formula_compounding_authorized": false,
+        "safety_asserted": false,
+        "stability_asserted": false,
+        "sensory_equivalence_asserted": false,
+        "release_success_asserted": false
+      },
+      "superseded_stock_declaration": {
+        "stock_id": "inventory:v5:ea88f93dcf37406d817c",
+        "source_row": 180,
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "historical_only": true
+      },
+      "note": "The user owns only neat/as-supplied Neroli EO. The previous 10% in DPG stock is retired from current availability, not deleted from history. Neat describes the supplied natural oil, not a pure single molecule or an assayed lot. Historical formula amounts and diagnostics remain unchanged. This stock correction alone does not prove an exact active-mass or sensory-equivalent formula conversion."
+    }
+  ]
+}

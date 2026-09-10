@@ -223,6 +223,8 @@ _FAMILY_TOKEN_MAP: dict[str, str] = {
     "woody_amber": "woody_amber",
     "iris amber woody": "iris_amber_woody",
     "iris_amber_woody": "iris_amber_woody",
+    "iris coumarin amber": "iris_amber_woody",
+    "iris_coumarin_amber": "iris_amber_woody",
     "iris leather amber": "iris_leather_amber",
     "iris_leather_amber": "iris_leather_amber",
     "aromatic": "aromatic_fougere",

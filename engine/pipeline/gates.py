@@ -23,13 +23,13 @@ from engine.chemical_data_validator import blocked_reason
 from engine.chemistry.photochem import photolysis_remaining_fraction
 from engine.confidence import ConfidenceScorer
 from engine.evidence.unsupported_science import AgingClaim, assess_aging_claim
-from engine.fuckups.pre_mix_guard import evaluate_pre_mix_guard
 from engine.families.registry import (
     evaluate_family_archetype,
     get_archetype,
     infer_archetype,
     novelty_assessment,
 )
+from engine.fuckups.pre_mix_guard import evaluate_pre_mix_guard
 from engine.ifra_safety import IFRA_CAT4_LIMITS, score_ifra_compliance
 from engine.knowledge.literature_rules import (
     _LITERATURE_DB_LOADED,
@@ -52,6 +52,7 @@ from engine.pipeline.oav_intelligence import (
     analyze_oav_intelligence,
 )
 from engine.pipeline.preflight import (
+    build_formula_dose_receipt,
     resolve_inventory_stock_contract,
     resolved_stock_specs_for_state,
     run_release_preflight,
@@ -251,13 +252,34 @@ HARD_BLOCKING_GATES = frozenset(
         "natural_composite_coverage",
         "reference_claim_contract",
         "g15_oav_firewall",
+        "mode_protection",
+        "chassis_integrity",
+        "concentration_basis",
+        "headspace_scope",
+        "authority_vector",
+        "solvent_matrix",
+        "safety_phototoxic",
     }
 )
 
 
+ADVISORY_FAILURE_GATES = frozenset({
+    "literature_compliance", "perfumer_logic", "family_drift_detector",
+    "perfume_knowledge", "novelty_vs_reference", "carles_pyramid",
+    "carles_material_count", "carles_accord_ratio", "beaux_registres",
+    "oav_legibility", "ellena_legibility", "roudnitska_transparence",
+    "synergy_conflicts", "accord_compliance", "construction_compliance",
+    "performance_prediction", "balance_axes", "character_shifts",
+    "family_hedonic", "iconic_formulas", "niche_construction",
+    "jellinek_psychology", "edwards_wheel_coherence", "oav_intelligence",
+    "olfactory_fatigue", "master_perfumer", "master_perfumer_gate",
+    "mass_market_tier_check",
+})
+
+
 def _apply_guideline_policy(gate: GateResult) -> GateResult:
     """Keep safety/data/math failures blocking; treat perfumery gates as advice."""
-    if gate.status != "FAIL" or gate.gate in HARD_BLOCKING_GATES:
+    if gate.status != "FAIL" or gate.gate not in ADVISORY_FAILURE_GATES:
         return gate
 
     data = dict(gate.data or {})
@@ -276,7 +298,7 @@ def _safe_gate(gate_fn, gate_name: str) -> GateResult:
         tb = traceback.format_exc()
         return _result(
             gate_name,
-            "FAIL" if gate_name in HARD_BLOCKING_GATES else "WARN",
+            "WARN" if gate_name in ADVISORY_FAILURE_GATES else "FAIL",
             f"Gate skipped (API mismatch): {e}",
             data={"error": str(e), "traceback": tb},
         )
@@ -284,7 +306,7 @@ def _safe_gate(gate_fn, gate_name: str) -> GateResult:
         tb = traceback.format_exc()
         return _result(
             gate_name,
-            "FAIL" if gate_name in HARD_BLOCKING_GATES else "WARN",
+            "WARN" if gate_name in ADVISORY_FAILURE_GATES else "FAIL",
             f"Gate skipped ({type(e).__name__}): {e}",
             data={"error": str(e), "traceback": tb},
         )
@@ -396,13 +418,13 @@ def _gate_data_coverage(state: FormulaState) -> GateResult:
     composite_authority = {
         m.name: [field for field in required if field in m.missing_fields]
         for m in state.materials
-        if m.sources.get("oav_model") == "literature:natural_composite_gc_o"
+        if m.sources.get("oav_model") == "modeled:natural_constituent_composite"
         and any(field in m.missing_fields for field in required)
     }
     missing = {
         m.name: [field for field in required if field in m.missing_fields]
         for m in state.materials
-        if m.sources.get("oav_model") != "literature:natural_composite_gc_o"
+        if m.sources.get("oav_model") != "modeled:natural_constituent_composite"
         if any(field in m.missing_fields for field in required)
     }
     if missing:
@@ -424,8 +446,7 @@ def _gate_odt_coverage(state: FormulaState) -> GateResult:
     missing = sorted(
         m.name
         for m in state.materials
-        if m.odt_air_ppm is None
-        and m.sources.get("oav_model") != "literature:natural_composite_gc_o"
+        if not m.has_odt_authority
     )
     if missing:
         return _result("odt_coverage", "FAIL", ", ".join(missing), {"missing": missing})
@@ -1312,10 +1333,14 @@ def _gate_g15_oav_firewall(
 def _gate_odt_sanity(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
     """WARN if any material has a suspicious ODT value (0.0, sentinel defaults, 1.0)."""
     suspicious = []
+    composite_exemptions = []
     for m in state.materials:
         odt = m.odt_air_ppm
         if odt is None:
-            suspicious.append(f"{m.name}=None")
+            if m.has_odt_authority:
+                composite_exemptions.append(m.name)
+            else:
+                suspicious.append(f"{m.name}=None")
         elif odt == 0.0:
             suspicious.append(f"{m.name}=0.0ppm")
         elif odt == 1.0:
@@ -1342,19 +1367,30 @@ def _gate_odt_sanity(state: FormulaState, config: ReleaseGateConfig) -> GateResu
             "; ".join(details),
             {
                 "suspect_odts": suspicious,
+                "natural_composite_exemptions": composite_exemptions,
                 "cross_source_conflicts": odt_conflicts,
                 "release_authority": False,
             },
         )
-    return _result("odt_sanity", "PASS", "all ODT values pass sanity check")
+    return _result(
+        "odt_sanity",
+        "PASS",
+        "all bulk or constituent-resolved ODT values pass sanity check",
+        {"natural_composite_exemptions": composite_exemptions},
+    )
 
 
 def _gate_vp_cross_source(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
     """Audit VP origin, temperature model, and cross-source consistency."""
+    composite_vp_exemptions = sorted(
+        m.name
+        for m in state.materials
+        if (m.vp_pure_pa is None or m.vp_pure_pa == 0.0) and m.has_vp_authority
+    )
     no_vp = [
         (m.name, m.vp_pure_pa)
         for m in state.materials
-        if m.vp_pure_pa is None or m.vp_pure_pa == 0.0
+        if (m.vp_pure_pa is None or m.vp_pure_pa == 0.0) and not m.has_vp_authority
     ]
     fallback_sources = [
         m.name for m in state.materials if "fallback" in str(m.sources.get("vp", "")).lower()
@@ -1391,6 +1427,7 @@ def _gate_vp_cross_source(state: FormulaState, config: ReleaseGateConfig) -> Gat
             "; ".join(issues),
             {
                 "no_vp": no_vp,
+                "natural_composite_exemptions": composite_vp_exemptions,
                 "fallback_vp_sources": fallback_sources,
                 "temperature_models": temperature_models,
                 "inferred_dhvap_materials": inferred_dhvap_materials,
@@ -1405,6 +1442,7 @@ def _gate_vp_cross_source(state: FormulaState, config: ReleaseGateConfig) -> Gat
         {
             "temperature_models": temperature_models,
             "inferred_dhvap_materials": [],
+            "natural_composite_exemptions": composite_vp_exemptions,
             "release_authority": False,
         },
     )
@@ -1428,7 +1466,12 @@ def _gate_dilution_consistency(state: FormulaState, config: ReleaseGateConfig) -
 
 def _gate_odt_completeness(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
     """WARN if any formula material lacks ODT data entirely."""
-    missing = [(m.name, m.missing_fields) for m in state.materials if m.odt_air_ppm is None]
+    composite_exemptions = sorted(
+        m.name for m in state.materials if m.odt_air_ppm is None and m.has_odt_authority
+    )
+    missing = [
+        (m.name, m.missing_fields) for m in state.materials if not m.has_odt_authority
+    ]
     if missing:
         names = [n for n, _ in missing[:10]]
         oav_share = sum((m.oav or 0.0) for m in state.materials if m.odt_air_ppm is None) / max(
@@ -1440,7 +1483,12 @@ def _gate_odt_completeness(state: FormulaState, config: ReleaseGateConfig) -> Ga
             f"{len(missing)} material(s) lack ODT data; {oav_share:.0%} OAV share affected",
             {"missing_odt": names},
         )
-    return _result("odt_completeness", "PASS", "all materials have ODT data")
+    return _result(
+        "odt_completeness",
+        "PASS",
+        "all materials have bulk or constituent-resolved ODT authority",
+        {"natural_composite_exemptions": composite_exemptions},
+    )
 
 
 def _gate_oav_intelligence(
@@ -3155,9 +3203,19 @@ _SKELETONS: dict[str, tuple[list[str], dict[str, str], int, str]] = {
     ),
     "dior_homme_intense": (
         ["floral", "iris", "sweet", "amber", "dior"],
-        {"irone": "irone", "vanillin": "vanillin", "leather": "isobutyl quinoline"},
-        2,
-        "Dior Homme Intense (2007)",
+        {
+            "iris": "ionone",
+            "lavender": "lavender",
+            "ambrette_proxy": "ambrettolide",
+            "pear_body": "verdox",
+            "talc_cushion": "ethylene brassylate",
+            "coumarinic_shadow": "tonkarome",
+            "vanillic_shadow": "isobutavan",
+            "virginia_cedar": "cedarwood",
+            "vetiver": "vetiver",
+        },
+        9,
+        "Dior Homme Intense 2011 architecture, formula-code scope 05443/A",
     ),
     "dior_homme_cologne": (
         ["fresh", "citrus", "transparent", "dior"],
@@ -3359,7 +3417,12 @@ def _check_skeleton(name: str, state: FormulaState, config: ReleaseGateConfig) -
     archetype = str(config.family_archetype or config.brief or "").lower()
     requested_token = archetype.replace("_", " ").replace(".", " ").strip()
     skeleton_token = name.replace("_", " ").strip()
-    if requested_token and requested_token == skeleton_token:
+    dotted_archetype_skeletons = {
+        "iris_coumarin_amber.dhi2011": "dior_homme_intense",
+    }
+    if dotted_archetype_skeletons.get(raw_archetype.lower()) == name:
+        should_check = True
+    elif requested_token and requested_token == skeleton_token:
         should_check = True
     elif requested_token and requested_token in {
         key.replace("_", " ").strip() for key in _SKELETONS
@@ -4245,80 +4308,27 @@ def _gate_eu_allergen_declaration(state: FormulaState, config: ReleaseGateConfig
 
 
 def _gate_phototoxic_furanocoumarin(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
-    """A.3: Check phototoxic furanocoumarin safety (WARN only per user)."""
-    import json as _json
-    from pathlib import Path as _Path
-
-    db_path = (
-        _Path(__file__).resolve().parent.parent.parent
-        / ".opencode"
-        / "library"
-        / "phototoxic_oils.json"
+    """Expose an unsupported assessment without inventing an exposure verdict."""
+    # The legacy calculation below mixes concentrate v/v with finished-product
+    # limits and matches oils by substring, including incompatible FCF grades.
+    # A product-bound mass assessment must replace that invalid calculation.
+    return GateResult(
+        gate="safety_phototoxic",
+        status="FAIL" if config.commercial_mode or config.mode == "RELEASE_REVIEW" else "WARN",
+        detail="Phototoxicity assessment unavailable: product/grade-bound restrictions and finished-product mass exposure are required.",
+        data={"assessment": "NOT_EVALUATED", "release_authority": False,
+              "legacy_rule_quarantined": True,
+              "reason": "Substring oil identity and concentrate-volume percentages do not establish finished-product compliance."},
     )
-    try:
-        oils_db = _json.loads(db_path.read_text(encoding="utf-8"))
-    except (FileNotFoundError, _json.JSONDecodeError):
-        return _result("safety_phototoxic", "PASS", "Phototoxic oil database not available")
-
-    findings = []
-    total_bgtene_ppm = 0.0
-    total_active_ul = state.total_active_ul or 1.0
-    for m in state.materials:
-        for oil in oils_db:
-            if oil.get("name", "").lower() in m.name.lower():
-                bgtene_ppm = oil.get("bergaptene_ppm", 0)
-                ifra_max = oil.get("ifra_max_leaveon_pct", 1.0)
-                active_pct = (m.active_ul / total_active_ul) * 100.0
-                if active_pct > ifra_max:
-                    findings.append(
-                        f"{m.name}: {active_pct:.2f}% > IFRA max {ifra_max}% (bergaptene {bgtene_ppm} ppm)"
-                    )
-                total_bgtene_ppm += active_pct * bgtene_ppm / 100.0
-    if total_bgtene_ppm > 15:
-        findings.append(f"Combined bergaptene {total_bgtene_ppm:.1f} ppm > 15 ppm limit")
-    if findings:
-        return _result("safety_phototoxic", "WARN", "; ".join(findings))
-    return _result("safety_phototoxic", "PASS", "No phototoxic furocoumarin issues")
 
 
 def _gate_receptor_saturation(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
-    """A.4: Check olfactory receptor saturation limits (WARN only)."""
-    ionone_total = 0.0
-    macro_ketone_musk = 0.0
-    polycyclic_musk = 0.0
-    cedarwood_virginia = 0.0
-
-    from engine.name_utils import normalize_name as _nn
-
-    total_active_ul = state.total_active_ul or 1.0
-
-    for m in state.materials:
-        n = _nn(m.name)
-        active_pct = (m.active_ul / total_active_ul) * 100.0
-        if any(tag in n for tag in ("ionone", "irone", "irones")):
-            ionone_total += active_pct
-        if any(tag in n for tag in ("exaltolide", "ambrettolide", "muscone", "civettone")):
-            macro_ketone_musk += active_pct
-        if any(tag in n for tag in ("galaxolide", "tonalide", "habanolide")):
-            polycyclic_musk += active_pct
-        if "cedarwood" in n and "virginia" in n:
-            cedarwood_virginia += active_pct
-
-    findings = []
-    if ionone_total > 5.0:
-        findings.append(f"Ionone total {ionone_total:.1f}% > 5% cap (OR5A1 saturation, F6)")
-    if macro_ketone_musk > 10.0:
-        findings.append(f"Macrocyclic ketone musks {macro_ketone_musk:.1f}% > 10% cap (OR5AN1)")
-    if polycyclic_musk > 5.0:
-        findings.append(f"Polycyclic musks {polycyclic_musk:.1f}% > 5% cap (OR5A2)")
-    if cedarwood_virginia > 2.0:
-        findings.append(
-            f"Cedarwood Virginia {cedarwood_virginia:.1f}% > 2% cap (OR10J5 + cedrol sedative)"
-        )
-
-    if findings:
-        return _result("safety_receptor_saturation", "WARN", "; ".join(findings))
-    return _result("safety_receptor_saturation", "PASS", "Receptor dosing within guideline caps")
+    """No validated dose-to-receptor safety model is available."""
+    return GateResult(
+        gate="safety_receptor_saturation", status="SKIP",
+        detail="Legacy receptor percentage caps retired: no validated exposure-to-receptor or safety threshold model.",
+        data={"assessment": "UNSUPPORTED_HEURISTIC", "release_authority": False},
+    )
 
 
 def _gate_natural_compatibility(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
@@ -4781,7 +4791,15 @@ def _gate_confidence(state: FormulaState, config: ReleaseGateConfig) -> tuple[Ga
         diagnostic_reference = bool(
             spec is not None and spec.role == "reference_control" and not config.commercial_mode
         )
-        advisory_low_confidence = diagnostic_reference or config.is_commercial_trial()
+        # The combined score is an aggregate diagnostic, not an authority
+        # dimension. In non-commercial pre-mix design it can warn about weak
+        # evidence but must not override passing stock, arithmetic, and other
+        # hard-authority gates. Strict commercial release remains blocking.
+        advisory_low_confidence = (
+            not config.commercial_mode
+            or diagnostic_reference
+            or config.is_commercial_trial()
+        )
         status = "WARN" if advisory_low_confidence else "FAIL"
         detail = f"combined confidence {combined:.1f} below {threshold:.1f}"
         if diagnostic_reference:
@@ -4861,7 +4879,11 @@ def _apply_preflight_confidence_penalty(
         spec is not None and spec.role == "reference_control" and not config.commercial_mode
     )
     if adjusted < threshold:
-        advisory_low_confidence = diagnostic_reference or config.is_commercial_trial()
+        advisory_low_confidence = (
+            not config.commercial_mode
+            or diagnostic_reference
+            or config.is_commercial_trial()
+        )
         status = "WARN" if advisory_low_confidence else "FAIL"
         detail = (
             f"combined confidence {adjusted:.1f} below {threshold:.1f} after "
@@ -5157,17 +5179,20 @@ def _gate_authority_vector(state, config):
     - release: only passes if all critical dimensions >= 0.5
     """
     from engine.reconstruction.authority import derive_authority_from_evidence
-    from engine.target.formula import AuthorityVector
-
-    # Try to derive from target + evidence if available
-    authority = AuthorityVector()
-    try:
-        target = getattr(state, "_target_formula", None)
-        evidence = getattr(state, "_evidence_ledger", None)
-        if target is not None and evidence is not None:
-            authority = derive_authority_from_evidence(target, evidence)
-    except Exception:
-        pass
+    target = getattr(state, "_target_formula", None)
+    evidence = getattr(state, "_evidence_ledger", None)
+    if target is None or evidence is None:
+        required = config.commercial_mode or config.quantitative_claim or config.mode == "RELEASE_REVIEW"
+        return GateResult(
+            gate="authority_vector",
+            status="FAIL" if required else "WARN",
+            detail="Target/evidence ledger is absent; authority dimensions are unknown."
+            + (" Release authority cannot be established." if required else " Diagnostic report only."),
+            data={"assessment": "NOT_EVALUATED", "release_authority": False,
+                  "missing": [name for name, value in (("target_formula", target), ("evidence_ledger", evidence)) if value is None]},
+        )
+    # Derivation errors must reach _safe_gate and fail closed, not become zeros.
+    authority = derive_authority_from_evidence(target, evidence)
 
     # FAIL conditions
     failures = []
@@ -5199,25 +5224,24 @@ def _gate_authority_vector(state, config):
 
 
 def _gate_concentration_basis(state, config):
-    """FAIL if any material has unspecified concentration basis or if carriers lack explicit basis."""
+    """FAIL if any material lacks a supported, explicit concentration basis."""
+    allowed_bases = {"neat", "mass_fraction", "volume_fraction", "mass_per_volume"}
     violations = []
     for m in state.materials:
-        basis = getattr(m, "concentration_basis", "unspecified")
-        if basis == "unspecified":
-            violations.append(f"{m.name}: concentration basis not specified (use w/w, v/v, or w/v)")
-
-    # Check for carriers without explicit basis
-    from engine.units.concentration import is_carrier
-
-    for m in state.materials:
-        if is_carrier(m.name) and getattr(m, "concentration_basis", "unspecified") == "unspecified":
-            violations.append(f"{m.name}: carrier material without explicit concentration basis")
+        basis = str(
+            getattr(m, "stock_fraction_basis", "unspecified") or "unspecified"
+        ).strip().lower()
+        if basis not in allowed_bases:
+            violations.append(
+                f"{m.name}: unsupported or unspecified concentration basis {basis!r} "
+                "(use neat, w/w, v/v, or w/v)"
+            )
 
     if violations:
         return GateResult(
             gate="concentration_basis",
             status="FAIL",
-            detail=f"{len(violations)} material(s) with unspecified concentration basis: {'; '.join(violations[:5])}{'...' if len(violations) > 5 else ''}",
+            detail=f"{len(violations)} material(s) with invalid concentration basis: {'; '.join(violations[:5])}{'...' if len(violations) > 5 else ''}",
             data={"violations": violations},
         )
 
@@ -5278,12 +5302,19 @@ def gate_formula(
         matrix_mass_g=config.matrix_mass_g,
         matrix_source=config.matrix_source,
     )
+    dose_receipt = build_formula_dose_receipt(formula, stock_contract)
+    state = replace(
+        state,
+        dose_receipt_sha256=dose_receipt.receipt_sha256,
+        dose_receipt_status=dose_receipt.status,
+    )
     preflight = run_release_preflight(
         formula,
         state,
         require_exact_ppm=config.requires_exact_quantitation(),
         require_exact_finished_product_ppm=(config.requires_exact_finished_product_quantitation()),
         stock_contract=stock_contract,
+        dose_receipt=dose_receipt,
     ).as_dict()
     simulation = tuple(
         simulate_formula(

@@ -297,7 +297,7 @@ ODT_DATA: dict[str, dict] = {
         "odt_air": 1.0,
         "odt_eth": 1.5,
         "char": "jasmine, narcotic, indolic",
-    },  # jasmine sambac resolves via _ALIASES: jasmine sambac -> jasmine sambac absolute -> jasmine absolute
+    },
     "champaca flower eo": {
         "odt_air": 8.0,
         "odt_eth": 1.5,
@@ -412,7 +412,7 @@ ODT_DATA: dict[str, dict] = {
     "nympheal": {"odt_air": 2.0, "odt_eth": 0.4, "char": "muguet, creamy-green"},
     "florol": {"odt_air": 10.0, "odt_eth": 2.0, "char": "muguet, soft-floral"},
     "freesia hdi": {"odt_air": 3.0, "odt_eth": 0.5, "char": "freesia, green-floral"},
-    "florhydral": {"odt_air": 0.3, "odt_eth": 0.2, "char": "watery-floral, marine"},
+    "florhydral": {"odt_air": 0.3, "odt_eth": 0.2, "char": "floral, green, muguet, fresh"},
     # ── Additional florals ──
     "dbca": {"odt_air": 3.0, "odt_eth": 0.1, "char": "gardenia-rose, cosmetic"},
     "peonile": {"odt_air": 5.0, "odt_eth": 1.0, "char": "peony, rose-green"},
@@ -2031,9 +2031,9 @@ ODT_VERIFICATION: dict[str, dict] = {
         "note": "Auto-tagged by audit 2026-05-11",
     },
     "florhydral": {
-        "vfy": "PEER_SINGLE",
-        "sources": ["Givaudan product page; Scentspiracy; Vigon — 0.01-0.1% usage implies 0.3 ppb"],
-        "note": "Tier B — supplier sensory data",
+        "vfy": "DERIVED",
+        "sources": ["Givaudan product page; retailer descriptions — use-level inference only"],
+        "note": "Legacy 0.3 ppb screen retained; not a measured air-threshold result.",
     },
     "florol": {
         "vfy": "UNVERIFIED",
@@ -3025,9 +3025,21 @@ def _raise_on_normalized_odt_collisions() -> None:
     )
 
 
+_ODT_QUERY_ALIASES = {
+    # ODT evidence may be shared without collapsing distinct material and stock
+    # identities in the central name normalizer.
+    "jasmine sambac absolute": "jasmine absolute",
+}
+
+
+def _odt_query_key(material_name: str) -> str:
+    normalized = normalize_name(material_name)
+    return _ODT_QUERY_ALIASES.get(normalized, normalized)
+
+
 def lookup_odt_entry(material_name: str) -> Optional[dict]:
     """Return the authoritative ODT_DATA entry for a material via normalized lookup."""
-    hit = _ODT_BY_NORMALIZED_NAME.get(normalize_name(material_name))
+    hit = _ODT_BY_NORMALIZED_NAME.get(_odt_query_key(material_name))
     if hit is None:
         return None
     return hit[1]
@@ -3035,7 +3047,7 @@ def lookup_odt_entry(material_name: str) -> Optional[dict]:
 
 def lookup_odt_raw_name(material_name: str) -> Optional[str]:
     """Return the raw ODT_DATA key selected by normalized lookup."""
-    hit = _ODT_BY_NORMALIZED_NAME.get(normalize_name(material_name))
+    hit = _ODT_BY_NORMALIZED_NAME.get(_odt_query_key(material_name))
     if hit is None:
         return None
     return hit[0]
@@ -3047,22 +3059,50 @@ def odt_collision_names(material_name: str) -> tuple[str, ...]:
 
 
 def verify_odt(material_name: str) -> Optional[dict]:
-    """Return verification metadata for a material, or None if not in DB."""
+    """Return identity-bound evidence, never a similar-name material's evidence.
+
+    Conflicting historical evidence is retained, not rewritten to endorse the
+    active numeric value. This function does not mutate either source dictionary.
+    """
     key = normalize_name(material_name)
-    exact = _ODT_VERIFICATION_BY_NORMALIZED_NAME.get(key)
-    if exact is not None:
-        return exact
-    raw_key = material_name.lower().strip()
-    if raw_key in ODT_VERIFICATION:
-        return ODT_VERIFICATION[raw_key]
-    if key in ODT_VERIFICATION:
-        return ODT_VERIFICATION[key]
-    # fuzzy match
-    for k in ODT_VERIFICATION:
-        nk = normalize_name(k)
-        if key[:8] in nk or nk in key[:8]:
-            return ODT_VERIFICATION[k]
-    return None
+    raw_key = lookup_odt_raw_name(material_name) or material_name.lower().strip()
+    source = ODT_VERIFICATION.get(raw_key)
+    if source is None:
+        source = _ODT_VERIFICATION_BY_NORMALIZED_NAME.get(key)
+    if source is None:
+        return None
+    metadata = dict(source)
+    declared = str(metadata.get("vfy") or "UNVERIFIED").upper()
+    metadata["declared_vfy"] = declared
+    metadata["vfy"] = declared if declared in {
+        "PEER_CROSS", "PEER_SINGLE", "PEER_EST", "DERIVED",
+        "UNVERIFIED", "MULTI_SOURCE_LITERATURE",
+    } else "UNVERIFIED"
+    data = lookup_odt_entry(material_name) or {}
+    conflicts = {
+        field: {"runtime_value": data[field], "verification_value": metadata[field]}
+        for field in ("odt_air", "odt_eth")
+        if field in data and field in metadata and data[field] != metadata[field]
+    }
+    if conflicts:
+        metadata["numeric_conflicts"] = conflicts
+        metadata["vfy"] = "UNVERIFIED"
+    if key == normalize_name("linalool"):
+        metadata["vfy"] = "UNVERIFIED"
+        metadata["evidence_conflict"] = (
+            "Legacy source prose cites 0.51 ppb; active late patch is 1.5 ppb. "
+            "Neither source is silently replaced or promoted."
+        )
+    elif key in {normalize_name("hedione"), normalize_name("iso e super")} and not conflicts:
+        metadata["vfy"] = "PEER_EST"
+        metadata["scope"] = "Commercial-grade estimate from isolated-isomer evidence"
+    elif key == normalize_name("heliotropin fleuressence"):
+        metadata["vfy"] = "UNVERIFIED"
+        metadata["scope"] = "Opaque blend; pure piperonal evidence is not blend evidence"
+    elif key == normalize_name("geranium eo"):
+        metadata["vfy"] = "DERIVED"
+        metadata["scope"] = "Historical constituent surrogate, not a lot measurement"
+    return metadata
 
 
 def flag_unverified(material_names: list[str]) -> list[str]:
@@ -3076,8 +3116,8 @@ def flag_unverified(material_names: list[str]) -> list[str]:
     flagged = []
     for name in material_names:
         meta = verify_odt(name)
-        if meta and meta["vfy"] in ("UNVERIFIED", "DERIVED"):
-            flagged.append(f"{name} [{meta['vfy']}]")
+        if meta and meta.get("vfy", "UNVERIFIED") in ("UNVERIFIED", "DERIVED", "PEER_EST"):
+            flagged.append(f"{name} [{meta.get('vfy', 'UNVERIFIED')}]")
         elif not meta:
             flagged.append(f"{name} [NOT IN DB]")
     return flagged
@@ -3088,7 +3128,7 @@ def oav_reliability(material_name: str) -> str:
     meta = verify_odt(material_name)
     if not meta:
         return "UNKNOWN — material not in ODT database"
-    vfy = meta["vfy"]
+    vfy = meta.get("vfy", "UNVERIFIED")
     if vfy == "PEER_CROSS":
         return "HIGH — cross-verified by 2+ independent peer-reviewed sources"
     if vfy == "PEER_SINGLE":
@@ -3097,7 +3137,7 @@ def oav_reliability(material_name: str) -> str:
         return "MODERATE-LOW — peer-reviewed for isomer, estimated for commercial grade"
     if vfy == "DERIVED":
         return "LOW — estimated from water-phase or constituent data"
-    return "UNRELIABLE — no peer-reviewed data exists"
+    return "UNRELIABLE — current threshold lacks verified compatible evidence"
 
 
 # Mixture suppression factor: in a complex formula, effective threshold

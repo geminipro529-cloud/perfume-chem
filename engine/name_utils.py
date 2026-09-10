@@ -76,14 +76,20 @@ _ALIASES: dict[str, str] = {
     "cedrat fcf": "cedrat fcf sicilian",
     "blood orange oil sicilian": "blood orange sicilian",
     "bergamot fcf oil sicilian": "bergamot fcf sicilian",
+    "pink pepper eo (schinus molle)": "pink pepper eo",
+    "pink pepper eo schinus molle": "pink pepper eo",
+    "schinus molle eo": "pink pepper eo",
+    "schinus molle eo (neat / as supplied)": "pink pepper eo",
     "methyl ionone pure": "methyl ionone",
     "ylang comoros complete eo": "ylang comoros complete eo f3255",
     "ylang ylang eo (extra grade)": "ylang",
-    # Jasmine sambac is a subspecies of jasmine absolute — share ODT data
-    "jasmine sambac absolute": "jasmine absolute",
-    "jasmine sambac abs": "jasmine absolute",
-    "jasminum sambac absolute": "jasmine absolute",
-    "jasminum sambac abs": "jasmine absolute",
+    # Preserve Sambac and Grandiflorum as distinct material identities. They may
+    # share an ODT proxy, but identity normalization must not merge two physical
+    # stocks or two different natural-composition profiles.
+    "jasmine sambac absolute": "jasmine sambac absolute",
+    "jasmine sambac abs": "jasmine sambac absolute",
+    "jasminum sambac absolute": "jasmine sambac absolute",
+    "jasminum sambac abs": "jasmine sambac absolute",
     # Ethanol / solvent normalisation
     "ethanol 96%": "ethanol",
     # Myristic acid
@@ -137,6 +143,7 @@ _ALIASES: dict[str, str] = {
     "adoxal 10% in dpg": "adoxal",
     "champignol 10% in dpg": "champignol",
     "coriander eo": "coriander essential oil",
+    "coriander seed eo": "coriander essential oil",
     "coriander seed oil": "coriander essential oil",
     "2-acetyl pyrazine 1% in dpg": "2-acetyl pyrazine",
     "safraleine neat": "safraleine",

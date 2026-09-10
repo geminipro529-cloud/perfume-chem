@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from typing import Callable, Mapping, Sequence
 
 from engine.ifra_safety import IFRA_CAT4_LIMITS
-from engine.inventory_parser import parse_inventory
+from engine.inventory_parser import parse_current_inventory
 from engine.name_utils import normalize_name
 from engine.pipeline.audit_log import append_event, gate_report_event
 from engine.pipeline.gates import GateReport, ReleaseGateConfig, gate_formula
@@ -103,6 +103,813 @@ class GateAwareOptimizationResult:
         }
 
 
+def optimize_hedonic_design(
+    baseline: Mapping[str, float], *,
+    evaluate: Callable[[dict[str, float], str], Mapping[str, float]],
+    criteria: Sequence[str], scenarios: Sequence[str],
+    transfers: Sequence[tuple[str, str]], step_sizes: Sequence[float],
+    bounds: Mapping[str, tuple[float, float]],
+    feasible: Callable[[dict[str, float]], bool] | None = None,
+    max_rounds: int = 24, min_improvement: float = 1e-6,
+) -> dict:
+    """Bounded computer-only pattern search, independent of release repair.
+
+    The evaluator supplies nonnegative, comparably scaled target *losses*:
+    zero means the specified design criterion is met, not proven liking.
+    Each criterion in each fixed scenario is protected against regression.
+    No sensory input, release gate, or aggregate release score is consumed.
+    Values retain the caller's units; transfers preserve their total. Callers
+    must bind exact stock forms and enforce active/carrier constraints through
+    ``feasible``. This function does not create a physical mixing authorization.
+    """
+    import math
+
+    criteria, scenarios = tuple(criteria), tuple(scenarios)
+    transfers, step_sizes = tuple(transfers), tuple(step_sizes)
+    bounds = dict(bounds)
+    current = {k: float(v) for k, v in baseline.items()}
+    if (not current or not criteria or not scenarios or not step_sizes
+            or len(set(criteria)) != len(criteria)
+            or len(set(scenarios)) != len(scenarios)
+            or type(max_rounds) is not int or max_rounds < 1
+            or not math.isfinite(min_improvement)
+            or min_improvement <= 0
+            or any(not math.isfinite(v) or v < 0 for v in current.values())
+            or sum(current.values()) <= 0
+            or any(not math.isfinite(s) or s <= 0 for s in step_sizes)):
+        raise ValueError("Invalid search configuration")
+    if set(bounds) != set(current):
+        raise ValueError("Explicit bounds required for every stock")
+    for name, (low, high) in bounds.items():
+        if not (math.isfinite(low) and math.isfinite(high)
+                and 0 <= low <= current[name] <= high):
+            raise ValueError("Baseline outside finite nonnegative bounds")
+    if any(a == b or a not in current or b not in current for a, b in transfers):
+        raise ValueError("Transfers must name two distinct existing stocks")
+    if feasible is not None and not feasible(dict(current)):
+        raise ValueError("Baseline violates composition constraints")
+
+    cache, history = {}, []
+    rounds = 0
+
+    def assess(formula):
+        key = tuple(sorted(formula.items()))
+        if key not in cache:
+            try:
+                losses = {}
+                for scenario in scenarios:
+                    result = evaluate(dict(formula), scenario)
+                    values = {c: float(result[c]) for c in criteria}
+                    if any(not math.isfinite(v) or v < 0 for v in values.values()):
+                        raise ValueError("Losses must be finite and nonnegative")
+                    losses[scenario] = values
+                cache[key] = (losses, None)
+            except Exception as exc:
+                cache[key] = (None, f"{type(exc).__name__}: {exc}")
+        return cache[key]
+
+    def total(losses):
+        return sum(sum(row.values()) for row in losses.values())
+
+    def finish(status, losses, error=None):
+        return {
+            "status": status, "selected": dict(current),
+            "baseline": dict(baseline), "losses": losses,
+            "criteria": list(criteria), "scenarios": list(scenarios),
+            "bounds": bounds, "transfers": list(transfers),
+            "step_sizes": list(step_sizes), "rounds": rounds,
+            "evaluated_candidates": len(cache), "history": history,
+            "error": error, "sensory_validated": False,
+            "requires_premix_trial": False,
+            "claim_scope": "COMPUTATIONAL_DESIGN_ONLY",
+        }
+
+    losses, error = assess(current)
+    if losses is None:
+        return finish("EVALUATION_UNAVAILABLE", losses, error)
+    step_index = 0
+    for rounds in range(1, max_rounds + 1):
+        if total(losses) == 0:
+            return finish("COMPUTATIONAL_TARGET_MET", losses)
+        best, best_losses, chosen = current, losses, None
+        unavailable = False
+        step = step_sizes[step_index]
+        for donor, receiver in transfers:
+            candidate = dict(current)
+            candidate[donor] -= step
+            candidate[receiver] += step
+            entry = {"round": rounds, "donor": donor, "receiver": receiver,
+                     "amount": step, "candidate": candidate, "accepted": False}
+            history.append(entry)
+            if any(not bounds[k][0] <= v <= bounds[k][1] for k, v in candidate.items()):
+                entry["reason"] = "stock_bounds"
+                continue
+            if feasible is not None and not feasible(dict(candidate)):
+                entry["reason"] = "composition_constraint"
+                continue
+            candidate_losses, error = assess(candidate)
+            entry["losses"] = candidate_losses
+            if candidate_losses is None:
+                entry.update(reason="evaluation_unavailable", error=error)
+                unavailable = True
+                continue
+            if any(candidate_losses[s][c] > losses[s][c] + 1e-12
+                   for s in scenarios for c in criteria):
+                entry["reason"] = "criterion_regression"
+            elif total(best_losses) - total(candidate_losses) >= min_improvement:
+                if chosen is not None:
+                    chosen["reason"] = "outperformed_in_round"
+                best, best_losses, chosen = candidate, candidate_losses, entry
+                entry["reason"] = "improvement"
+            else:
+                entry["reason"] = "no_robust_improvement"
+        if chosen is not None:
+            chosen["accepted"] = True
+            current, losses = best, best_losses
+            step_index = 0
+        elif unavailable:
+            return finish("EVALUATION_UNAVAILABLE", losses)
+        elif step_index + 1 < len(step_sizes):
+            step_index += 1
+        else:
+            return finish("PLATEAU", losses)
+    return finish("COMPUTATIONAL_TARGET_MET" if total(losses) == 0
+                  else "BUDGET_EXHAUSTED", losses)
+
+
+def optimize_concurrent_hedonic_design(
+    baseline: Mapping[str, float], *, evaluate: Callable,
+    evaluator_version: str, criteria: Sequence[str], scenarios: Sequence[str],
+    lanes: Mapping[str, Sequence[tuple[str, str]]],
+    step_sizes: Sequence[float], bounds: Mapping[str, tuple[float, float]],
+    feasible: Callable | None = None, max_rounds: int = 12,
+    max_workers: int = 4, min_improvement: float = 1e-6,
+    revisions: Sequence[tuple[str, Callable]] = (),
+    admission_cases: Sequence[tuple[Mapping, str, Mapping]] = (),
+) -> dict:
+    """Concurrent structural search with round-boundary evaluator admission.
+
+    Callbacks must be pure, thread-safe and bounded. Losses are explicit design
+    proxies, not liking probabilities. Revisions are supplied implementations,
+    never self-written code or automatically weakened thresholds. Fixed admission
+    cases map criteria to acceptable loss intervals. Parent selection protects
+    every criterion/scenario; independent lane winners are NEVER added together.
+    """
+    import math
+    from concurrent.futures import Future, ThreadPoolExecutor
+    from copy import deepcopy
+    from threading import Lock
+
+    criteria, scenarios = tuple(criteria), tuple(scenarios)
+    lanes = {name: tuple(transfers) for name, transfers in lanes.items()}
+    bounds, baseline = dict(bounds), dict(baseline)
+    step_sizes, revisions = tuple(step_sizes), tuple(revisions)
+    admission_cases = deepcopy(tuple(admission_cases))
+    versions = [evaluator_version, *(v for v, _ in revisions)]
+    if (not lanes or type(max_rounds) is not int or max_rounds < 1
+            or type(max_workers) is not int or max_workers < 1
+            or any(not isinstance(v, str) or not v.strip() for v in versions)
+            or len(set(versions)) != len(versions)
+            or (revisions and not admission_cases)):
+        raise ValueError("Invalid concurrent search or evaluator admission configuration")
+    for _, scenario, expected in admission_cases:
+        if scenario not in scenarios or set(expected) != set(criteria):
+            raise ValueError("Admission cases must cover all criteria in a declared scenario")
+        for low, high in expected.values():
+            if not (math.isfinite(low) and math.isfinite(high) and 0 <= low <= high):
+                raise ValueError("Invalid fixed admission interval")
+
+    def cached(callback):
+        cache, lock = {}, Lock()
+
+        def call(formula, scenario):
+            key = (scenario, tuple(sorted(formula.items())))
+            with lock:
+                owner = key not in cache
+                if owner:
+                    cache[key] = Future()
+                future = cache[key]
+            if owner:
+                try:
+                    values = callback(dict(formula), scenario)
+                    values = {c: float(values[c]) for c in criteria}
+                    if any(not math.isfinite(v) or v < 0 for v in values.values()):
+                        raise ValueError("Invalid structural loss")
+                    future.set_result(values)
+                except Exception as exc:
+                    future.set_exception(exc)
+            return dict(future.result())
+
+        return call
+
+    active = cached(evaluate)
+    current = dict(baseline)
+    history, revision_history = [], []
+    shortlist = {tuple(sorted(current.items())): dict(current)}
+
+    def assess(callback, formula):
+        return {s: callback(dict(formula), s) for s in scenarios}
+
+    def total(losses):
+        return sum(v for row in losses.values() for v in row.values())
+
+    def nonregressing(candidate, incumbent):
+        return all(candidate[s][c] <= incumbent[s][c] + 1e-12
+                   for s in scenarios for c in criteria)
+
+    def admit(callback):
+        try:
+            for formula, scenario, expected in admission_cases:
+                actual = callback(dict(formula), scenario)
+                if any(not low <= actual[c] <= high for c, (low, high) in expected.items()):
+                    return False, "fixed_regression_case_failed"
+            return True, None
+        except Exception as exc:
+            return False, f"{type(exc).__name__}: {exc}"
+
+    def lane_search(transfers):
+        return optimize_hedonic_design(
+            current, evaluate=active, criteria=criteria, scenarios=scenarios,
+            transfers=transfers, step_sizes=step_sizes, bounds=bounds,
+            feasible=feasible, max_rounds=len(step_sizes),
+            min_improvement=min_improvement,
+        )
+
+    # Validate through the existing controller before starting any workers.
+    initial = optimize_hedonic_design(
+        current, evaluate=active, criteria=criteria, scenarios=scenarios,
+        transfers=(), step_sizes=step_sizes, bounds=bounds, feasible=feasible,
+        max_rounds=1, min_improvement=min_improvement,
+    )
+    losses = initial["losses"]
+    status, error = "BUDGET_EXHAUSTED", initial["error"]
+    while losses is None and revisions:
+        new_version, callback = revisions[0]
+        revisions = revisions[1:]
+        proposed = cached(callback)
+        accepted, reason = admit(proposed)
+        record = {"version": new_version, "accepted": accepted,
+                  "reason": reason, "rescored_candidates": 0}
+        if accepted:
+            try:
+                replacement_losses = assess(proposed, current)
+                active, evaluator_version = proposed, new_version
+                losses, error = replacement_losses, None
+                record["rescored_candidates"] = 1
+            except Exception as exc:
+                record.update(accepted=False, reason=f"rescore_failed: {exc}")
+        revision_history.append(record)
+    if losses is None:
+        status = "EVALUATION_UNAVAILABLE"
+    else:
+        with ThreadPoolExecutor(max_workers=max_workers) as pool:
+            for round_number in range(1, max_rounds + 1):
+                before = dict(current)
+                frozen_version = evaluator_version
+                jobs = {name: pool.submit(lane_search, transfers)
+                        for name, transfers in lanes.items()}
+                revision_job = None
+                if round_number <= len(revisions):
+                    new_version, callback = revisions[round_number - 1]
+                    proposed = cached(callback)
+                    revision_job = pool.submit(admit, proposed)
+                lane_results = {name: job.result() for name, job in jobs.items()}
+                for result in lane_results.values():
+                    candidate = result["selected"]
+                    shortlist[tuple(sorted(candidate.items()))] = dict(candidate)
+                if revision_job is not None:
+                    accepted, reason = revision_job.result()
+                    record = {"version": new_version, "accepted": accepted,
+                              "reason": reason, "rescored_candidates": 0}
+                    if accepted:
+                        try:
+                            rescored = {key: assess(proposed, f)
+                                        for key, f in shortlist.items()}
+                            record["rescored_candidates"] = len(rescored)
+                            active, evaluator_version = proposed, new_version
+                            losses = rescored[tuple(sorted(current.items()))]
+                        except Exception as exc:
+                            record.update(accepted=False, reason=f"rescore_failed: {exc}")
+                    revision_history.append(record)
+                selected_lane = None
+                incumbent_losses = deepcopy(losses)
+                candidates = [(name, result["selected"]) for name, result in lane_results.items()
+                              if result["losses"] is not None]
+                if evaluator_version != frozen_version:
+                    candidates.extend(("retained_shortlist", f) for f in shortlist.values())
+                for name, candidate in candidates:
+                    candidate_losses = assess(active, candidate)
+                    if (nonregressing(candidate_losses, incumbent_losses)
+                            and total(losses) - total(candidate_losses) >= min_improvement):
+                        current, losses = dict(candidate), candidate_losses
+                        selected_lane = name
+                history.append({"round": round_number, "search_version": frozen_version,
+                                "selection_version": evaluator_version,
+                                "selected_lane": selected_lane, "selected": dict(current),
+                                "losses": deepcopy(losses), "lanes": lane_results})
+                pending_revision = round_number < len(revisions)
+                if total(losses) == 0 and not pending_revision:
+                    status = "COMPUTATIONAL_TARGET_MET"
+                    break
+                if current == before and not pending_revision and evaluator_version == frozen_version:
+                    status = ("EVALUATION_UNAVAILABLE" if any(
+                        r["status"] == "EVALUATION_UNAVAILABLE" for r in lane_results.values()
+                    ) else "PLATEAU")
+                    break
+    return {"status": status, "selected": current, "baseline": baseline,
+            "losses": losses, "evaluator_version": evaluator_version,
+            "history": history, "revision_history": revision_history,
+            "predicted_liking": None, "sensory_validated": False,
+            "requires_premix_trial": False, "error": error,
+            "claim_scope": "EXPERIMENTAL_STRUCTURAL_DESIGN_ONLY"}
+
+
+def optimize_evidence_portfolio(
+    baseline: Mapping[str, float], *, evaluate: Callable,
+    evaluator_version: str, criteria: Sequence[str], scenarios: Sequence[str],
+    lanes: Mapping[str, Sequence[tuple[str, str]]],
+    step_sizes: Sequence[float], bounds: Mapping[str, tuple[float, float]],
+    feasible: Callable | None = None, max_rounds: int = 12,
+    max_candidates: int = 512, max_workers: int = 4,
+    min_improvement: float = 1e-6,
+) -> dict:
+    """Enumerate, retain and refine an uncertainty-aware design portfolio.
+
+    Evaluations contain ``loss_intervals`` (all criteria, lower-is-better),
+    ``sources``, ``context`` equal to the scenario, and ``basis``. Explicit
+    qualitative hypotheses have null intervals and cannot select a winner.
+    Intervals are caller-supplied uncertainty bounds, NOT inferred confidence
+    intervals. Equal interval bounds do not establish a sensory equivalence.
+    Every criterion/scenario must be robustly nonregressing for advancement.
+    Non-dominated alternatives survive; traversal chooses the smallest change,
+    never an undocumented sum of unlike objectives. Callbacks are pure/bounded.
+    This mode deliberately enumerates even when baseline losses are all zero.
+    """
+    import math
+    from collections import Counter
+    from concurrent.futures import ThreadPoolExecutor
+    from copy import deepcopy
+
+    current = {k: float(v) for k, v in baseline.items()}
+    baseline, bounds = dict(current), dict(bounds)
+    criteria, scenarios = tuple(criteria), tuple(scenarios)
+    steps = tuple(float(s) for s in step_sizes)
+    transfers = [(lane, a, b) for lane, pairs in lanes.items() for a, b in pairs]
+    if (not evaluator_version or not isinstance(evaluator_version, str)
+            or not evaluator_version.strip() or not lanes or not transfers
+            or type(max_candidates) is not int or max_candidates < 1
+            or type(max_workers) is not int or max_workers < 1):
+        raise ValueError("Invalid portfolio configuration")
+    # Reuse configuration/stock validation without running the real evaluator.
+    optimize_hedonic_design(
+        baseline, evaluate=lambda f, s: {c: 1. for c in criteria},
+        criteria=criteria, scenarios=scenarios, transfers=[(a, b) for _, a, b in transfers],
+        step_sizes=steps, bounds=bounds, feasible=feasible, max_rounds=max_rounds,
+        min_improvement=min_improvement,
+    )
+    archive, history, rejected = {}, [], Counter()
+    proposal_ledger = []
+
+    def key(formula):
+        return tuple(sorted(formula.items()))
+
+    def assess(formula):
+        evaluations, error, complete = {}, None, True
+        for scenario in scenarios:
+            row = {}
+            try:
+                row = deepcopy(evaluate(dict(formula), scenario))
+                sources = row.get("sources")
+                if (not isinstance(sources, (list, tuple)) or not sources
+                        or any(not isinstance(s, str) or not s.strip() for s in sources)
+                        or row.get("context") != scenario):
+                    raise ValueError("Source provenance and exact scenario context required")
+                intervals = row.get("loss_intervals")
+                if intervals is None:
+                    if row.get("basis") != "qualitative_hypothesis":
+                        raise ValueError("Missing intervals require qualitative_hypothesis basis")
+                    complete = False
+                else:
+                    if (row.get("basis") not in ("design_proxy", "validated_prediction")
+                            or set(intervals) != set(criteria)):
+                        raise ValueError("All declared criteria and quantitative basis required")
+                    normalized = {}
+                    for c in criteria:
+                        low, high = map(float, intervals[c])
+                        if not (math.isfinite(low) and math.isfinite(high) and 0 <= low <= high):
+                            raise ValueError("Invalid loss interval")
+                        normalized[c] = [low, high]
+                    row["loss_intervals"] = normalized
+                evaluations[scenario] = row
+            except Exception as exc:
+                complete = False
+                error = f"{type(exc).__name__}: {exc}"
+                evaluations[scenario] = {**(row if isinstance(row, dict) else {}),
+                                         "loss_intervals": None, "error": error}
+        return {"formula": dict(formula), "evaluations": evaluations,
+                "quantitative_complete": complete, "error": error}
+
+    def dominates(left, right):
+        if not (left["quantitative_complete"] and right["quantitative_complete"]):
+            return False
+        strictly_better = False
+        for s in scenarios:
+            for c in criteria:
+                lo, hi = left["evaluations"][s]["loss_intervals"][c]
+                rlo, rhi = right["evaluations"][s]["loss_intervals"][c]
+                if hi > rlo:
+                    return False
+                strictly_better |= rlo - hi >= min_improvement
+        return strictly_better
+
+    archive[key(current)] = assess(current)
+    archive[key(current)]["origin"] = {"kind": "baseline"}
+    status, exhausted = "BUDGET_EXHAUSTED", False
+    with ThreadPoolExecutor(max_workers=max_workers) as pool:
+        for round_number in range(1, max_rounds + 1):
+            pending, budget_hit = {}, False
+            for lane, donor, receiver in transfers:
+                for step in steps:
+                    candidate = dict(current)
+                    candidate[donor] -= step
+                    candidate[receiver] += step
+                    origin = dict(lane=lane, donor=donor, receiver=receiver,
+                                  amount=step, round=round_number, parent=dict(current))
+                    event = {"proposal_id": len(proposal_ledger) + 1,
+                             "candidate": candidate, "origin": origin,
+                             "disposition": "QUEUED", "archive_index": None}
+                    proposal_ledger.append(event)
+                    if any(not bounds[n][0] <= v <= bounds[n][1] for n, v in candidate.items()):
+                        event["disposition"] = "STOCK_BOUNDS"
+                        rejected["stock_bounds"] += 1
+                        continue
+                    if feasible is not None and not feasible(dict(candidate)):
+                        event["disposition"] = "COMPOSITION_CONSTRAINT"
+                        rejected["composition_constraint"] += 1
+                        continue
+                    candidate_key = key(candidate)
+                    if candidate_key in archive or candidate_key in pending:
+                        event["disposition"] = ("DUPLICATE_ARCHIVE" if candidate_key in archive
+                                                else "DUPLICATE_PENDING")
+                        continue
+                    if len(archive) + len(pending) >= max_candidates:
+                        event["disposition"] = "BUDGET_LIMIT"
+                        budget_hit = True
+                        continue
+                    pending[candidate_key] = (candidate, origin)
+            records = pool.map(assess, (f for f, _ in pending.values()))
+            for (candidate_key, (_, origin)), record in zip(pending.items(), records):
+                record["origin"] = origin
+                archive[candidate_key] = record
+            incumbent = archive[key(current)]
+            improving = [r for r in archive.values() if dominates(r, incumbent)]
+            before = dict(current)
+            if improving:
+                chosen = min(improving, key=lambda r: (
+                    sum(abs(r["formula"][n] - current[n]) for n in current),
+                    key(r["formula"])))
+                current = dict(chosen["formula"])
+            history.append({"round": round_number, "before": before,
+                            "selected": dict(current), "advanced": current != before,
+                            "new_candidates": len(pending)})
+            if budget_hit:
+                status = "BUDGET_EXHAUSTED"
+                break
+            if current == before:
+                exhausted = True
+                if any(not r["quantitative_complete"] for r in archive.values()):
+                    status = "EVIDENCE_BOUNDARY"
+                elif any(r["formula"] != current and not dominates(incumbent, r)
+                         for r in archive.values()):
+                    status = "UNRESOLVED_COMPARISONS"
+                else:
+                    status = "LOCAL_PARETO_PLATEAU"
+                break
+    numeric = [r for r in archive.values() if r["quantitative_complete"]]
+    frontier = [r for r in numeric if not any(dominates(other, r) for other in numeric)]
+    indices = {k: i for i, k in enumerate(archive)}
+    for event in proposal_ledger:
+        if event["disposition"] in {"QUEUED", "DUPLICATE_ARCHIVE", "DUPLICATE_PENDING"}:
+            candidate_key = key(event["candidate"])
+            record = archive[candidate_key]
+            event["archive_index"] = indices[candidate_key]
+            event["evaluation_status"] = ("EVALUATION_FAILED" if record["error"] else
+                                          "QUANTITATIVE" if record["quantitative_complete"]
+                                          else "EVIDENCE_INCOMPLETE")
+            if event["disposition"] == "QUEUED":
+                event["disposition"] = "EVALUATED"
+    return {"status": status, "baseline": baseline, "selected": current,
+            "archive": list(archive.values()), "frontier": frontier, "history": history,
+            "proposal_ledger": proposal_ledger,
+            "proposal_counts": dict(Counter(e["disposition"] for e in proposal_ledger)),
+            "pending_proposals": sum(e["disposition"] == "QUEUED" for e in proposal_ledger),
+            "rejected_counts": dict(rejected), "neighborhood_exhausted": exhausted,
+            "evaluator_version": evaluator_version, "criteria": list(criteria),
+            "scenarios": list(scenarios), "evaluated_candidates": len(archive),
+            "unavailable_candidates": sum(not r["quantitative_complete"] for r in archive.values()),
+            "selection_authority": "DETERMINISTIC_SEARCH_REPRESENTATIVE",
+            "predicted_liking": None, "sensory_validated": False,
+            "requires_premix_trial": False, "claim_scope": "COMPUTATIONAL_DESIGN_ONLY"}
+
+
+def optimize_global_design(
+    baseline: Mapping[str, float], *, evaluate: Callable,
+    bounds: Mapping[str, tuple[float, float]], feasible: Callable | None = None,
+    budget: int = 64, seed: int = 17, max_workers: int = 4,
+) -> dict:
+    """Bounded global proposal search and an equal-cost random comparator.
+
+    The evaluator returns ``losses`` and a declared quantitative ``basis``.
+    Ranking sums caller-scaled losses; neither normalization nor sensory
+    calibration is inferred. Baseline is evaluated separately and never seeds
+    candidate generation. Sorted-key bounded simplex allocation is a proposal
+    distribution, not a claim of uniform sampling. Half the budget explores
+    globally, then multiple best seeds undergo bounded pair-transfer refinement.
+    Pure, bounded, thread-safe callbacks are required. No release gate runs.
+    """
+    import math
+    import random
+    from concurrent.futures import ThreadPoolExecutor
+    from copy import deepcopy
+
+    if (not baseline or set(baseline) != set(bounds)
+            or any(not isinstance(n, str) or not n for n in baseline)
+            or type(budget) is not int or budget < 1
+            or type(seed) is not int or type(max_workers) is not int or max_workers < 1):
+        raise ValueError("Exact stock keys and positive integer search budgets required")
+    names = tuple(sorted(baseline))
+    parent = {n: float(baseline[n]) for n in names}
+    limits = {n: tuple(map(float, bounds[n])) for n in names}
+    for n in names:
+        low, high = limits[n]
+        if (not all(math.isfinite(v) for v in (low, high, parent[n]))
+                or not 0 <= low <= parent[n] <= high):
+            raise ValueError("Baseline outside finite nonnegative stock bounds")
+    total = math.fsum(parent.values())
+    if not math.isfinite(total) or total <= 0:
+        raise ValueError("Finite positive total required")
+    if feasible is not None and not feasible(dict(parent)):
+        raise ValueError("Baseline violates composition constraints")
+    movable = tuple(n for n in names if limits[n][0] < limits[n][1])
+    rng, control_rng = random.Random(seed), random.Random(seed ^ 0x5DEECE66D)
+    attempt_limit = max(200, budget * 200)
+    attempts = {"optimizer": 0, "random": 0}
+    rejections = {arm: {"duplicate": 0, "infeasible": 0, "bounds": 0}
+                  for arm in attempts}
+
+    def key(formula):
+        return tuple(formula[n] for n in names)
+
+    def global_point(generator):
+        order = list(movable)
+        generator.shuffle(order)
+        point = {n: limits[n][0] for n in names}
+        remaining = total - math.fsum(point.values())
+        for index, n in enumerate(order):
+            capacity = limits[n][1] - limits[n][0]
+            rest_capacity = math.fsum(limits[m][1] - limits[m][0]
+                                      for m in order[index + 1:])
+            low = max(0., remaining - rest_capacity)
+            high = min(capacity, remaining)
+            addition = low if low >= high else generator.uniform(low, high)
+            point[n] += addition
+            remaining -= addition
+        # Repair floating summation residual on a movable stock only.
+        residual = total - math.fsum(point.values())
+        for n in reversed(order):
+            if limits[n][0] <= point[n] + residual <= limits[n][1]:
+                point[n] += residual
+                break
+        return {n: point[n] for n in names}
+
+    def admit(point, seen, arm):
+        if (any(not limits[n][0] <= point[n] <= limits[n][1] for n in names)
+                or not math.isclose(math.fsum(point.values()), total,
+                                    rel_tol=1e-12, abs_tol=1e-10)):
+            rejections[arm]["bounds"] += 1
+            return False
+        if key(point) in seen:
+            rejections[arm]["duplicate"] += 1
+            return False
+        if feasible is not None and not feasible(dict(point)):
+            rejections[arm]["infeasible"] += 1
+            return False
+        seen.add(key(point))
+        return True
+
+    def safe_diagnostics(value):
+        if isinstance(value, float) and not math.isfinite(value):
+            return None
+        if isinstance(value, Mapping):
+            return {str(k): safe_diagnostics(v) for k, v in value.items()}
+        if isinstance(value, (list, tuple)):
+            return [safe_diagnostics(v) for v in value]
+        return value
+
+    def assess(proposal):
+        point, source = proposal
+        row, losses, score, error = {}, None, None, None
+        try:
+            row = deepcopy(evaluate(dict(point)))
+            if (not isinstance(row, Mapping) or row.get("basis") not in {
+                    "experimental_design_proxy", "measured_model_prediction"}):
+                raise ValueError("Declared numerical evaluator basis required")
+            raw = row.get("losses")
+            if (not isinstance(raw, Mapping) or not raw
+                    or any(not isinstance(n, str) or not n for n in raw)
+                    or any(isinstance(v, bool) or not isinstance(v, (int, float))
+                           or not math.isfinite(v) or v < 0 for v in raw.values())):
+                raise ValueError("Finite nonnegative numerical component losses required")
+            losses = {n: float(raw[n]) for n in sorted(raw)}
+            score = math.fsum(losses.values())
+            if not math.isfinite(score):
+                raise ValueError("Finite aggregate loss required")
+        except Exception as exc:
+            losses, score, error = None, None, f"{type(exc).__name__}: {exc}"
+        return {"formula": dict(point), "source": source, "losses": losses,
+                "score": score, "evaluation": safe_diagnostics(row),
+                "valid": error is None, "error": error}
+
+    reference = assess((parent, "baseline"))
+    expected_components = tuple(reference["losses"]) if reference["valid"] else None
+
+    def consistent(records):
+        nonlocal expected_components
+        for record in records:
+            if not record["valid"]:
+                continue
+            if expected_components is None:
+                expected_components = tuple(record["losses"])
+            if tuple(record["losses"]) != expected_components:
+                record.update(valid=False, score=None, losses=None,
+                              error="ValueError: Evaluator component schema changed")
+        return records
+
+    def ranked(records):
+        return sorted((r for r in records if r["valid"]),
+                      key=lambda r: (r["score"], key(r["formula"])))
+
+    # Pre-generate the independent comparator domain before adapting any search
+    # proposals. Evaluate only the matching actual count, never duplicate-fill.
+    control_points, control_seen = [], set()
+    while len(control_points) < budget and attempts["random"] < attempt_limit:
+        attempts["random"] += 1
+        point = global_point(control_rng)
+        if admit(point, control_seen, "random"):
+            control_points.append((point, "random"))
+    target = len(control_points)
+    initial_target = min(target, max(1, (budget + 1) // 2))
+    archive, seen = [], set()
+    with ThreadPoolExecutor(max_workers=max_workers) as pool:
+        proposals = []
+        while len(proposals) < initial_target and attempts["optimizer"] < attempt_limit:
+            attempts["optimizer"] += 1
+            point = global_point(rng)
+            if admit(point, seen, "optimizer"):
+                proposals.append((point, "global"))
+        archive.extend(consistent(list(pool.map(assess, proposals))))
+        wave = 0
+        while len(archive) < target and attempts["optimizer"] < attempt_limit:
+            seeds = ranked(archive)[:4]
+            proposals = []
+            # Fixed batch size makes adaptation independent of worker count.
+            while (len(proposals) < min(8, target - len(archive))
+                   and attempts["optimizer"] < attempt_limit):
+                attempts["optimizer"] += 1
+                source = "global"
+                if seeds and len(movable) >= 2 and attempts["optimizer"] % 5:
+                    point = dict(seeds[len(proposals) % len(seeds)]["formula"])
+                    donor, receiver = rng.sample(movable, 2)
+                    available = min(point[donor] - limits[donor][0],
+                                    limits[receiver][1] - point[receiver])
+                    amount = available * rng.uniform(.05, .5) / (1 + wave * .25)
+                    point[donor] -= amount
+                    point[receiver] += amount
+                    source = "refinement"
+                else:
+                    point = global_point(rng)
+                if admit(point, seen, "optimizer"):
+                    proposals.append((point, source))
+            archive.extend(consistent(list(pool.map(assess, proposals))))
+            wave += 1
+        control = consistent(list(pool.map(assess, control_points[:len(archive)])))
+    ranking, control_ranking = ranked(archive), ranked(control)
+    errors = sum(not r["valid"] for r in [reference, *archive, *control])
+    complete = len(archive) == len(control) == budget and errors == 0
+    best = ranking[0]["score"] if ranking else None
+    control_best = control_ranking[0]["score"] if control_ranking else None
+    return {
+        "status": ("EVALUATION_ERROR" if errors else "FINITE_BUDGET_COMPLETE" if complete
+                   else "DOMAIN_OR_ATTEMPT_LIMIT"),
+        "search_complete": complete, "baseline": reference, "archive": archive,
+        "ranked_candidates": ranking,
+        "best_observed_candidate": deepcopy(ranking[0]) if ranking else None,
+        "experimental_recommendation": deepcopy(ranking[0]) if complete and ranking else None,
+        "baseline_included_in_ranking": False,
+        "optimizer_minus_baseline_best": (best - reference["score"]
+            if best is not None and reference["valid"] else None),
+        "improves_baseline_proxy": (best < reference["score"]
+            if best is not None and reference["valid"] else None),
+        "comparator": {"archive": control, "ranked_candidates": control_ranking,
+                       "best_score": control_best, "evaluated_candidates": len(control),
+                       "seed": seed ^ 0x5DEECE66D,
+                       "optimizer_minus_random_best": (best - control_best
+                           if best is not None and control_best is not None else None)},
+        "evaluation_counts": {"baseline": 1, "optimizer": len(archive),
+                              "random": len(control), "total": 1 + len(archive) + len(control)},
+        "benchmark_equal_budget": len(archive) == len(control),
+        "requested_budget_per_arm": budget, "attempts": attempts,
+        "attempt_limit_per_arm": attempt_limit, "rejections": rejections,
+        "evaluation_error_count": errors, "seed": seed,
+        "aggregation": "SUM_OF_CALLER_SCALED_LOSSES",
+        "selection_authority": "EXPERIMENTAL_NUMERICAL_PROXY_RANKING",
+        "global_optimum_proven": False, "sensory_validated": False,
+        "release_authorized": False, "predicted_liking": None,
+        "claim_scope": "FINITE_BUDGET_COMPUTATIONAL_DESIGN_ONLY",
+    }
+
+
+def finalize_design_portfolio(result: Mapping, *, review: Mapping) -> dict:
+    """Close a reviewed bounded run, not the scientific optimization problem.
+
+    Review dispositions are parent adjudications; the CLI binds their evidence
+    bytes. This function never trains/adopts a model or converts unknowns to
+    losses. Budgets, evaluator errors and unreviewed proposals stay unfinished.
+    """
+    from copy import deepcopy
+
+    expected, proposals = review.get("expected_proposals"), review.get("proposals")
+    allowed = {"EXCLUDED", "QUALITATIVE_ONLY", "ADMITTED_NUMERIC", "PENDING"}
+    if (not isinstance(expected, list) or not expected
+            or any(not isinstance(x, str) or not x.strip() for x in expected)
+            or len(set(expected)) != len(expected) or not isinstance(proposals, list)):
+        raise ValueError("Complete evaluator proposal inventory required")
+    ids = []
+    for proposal in proposals:
+        if (not isinstance(proposal, dict)
+                or proposal.get("disposition") not in allowed
+                or not isinstance(proposal.get("reason"), str) or not proposal["reason"].strip()
+                or not isinstance(proposal.get("evidence"), list) or not proposal["evidence"]
+                or any(not isinstance(x, str) or not x.strip() for x in proposal["evidence"])
+                or not isinstance(proposal.get("id"), str)):
+            raise ValueError("Every evaluator needs a disposition, reason and evidence")
+        ids.append(proposal["id"])
+    if len(set(ids)) != len(ids) or set(ids) != set(expected):
+        raise ValueError("Evaluator proposal review is missing, duplicated or unexpected")
+
+    from collections import Counter
+
+    ledger = result.get("proposal_ledger")
+    ledger_complete = (
+        isinstance(ledger, list) and result.get("pending_proposals") == 0
+        and [e.get("proposal_id") for e in ledger] == list(range(1, len(ledger) + 1))
+        and all(e.get("disposition") in {
+            "EVALUATED", "STOCK_BOUNDS", "COMPOSITION_CONSTRAINT",
+            "DUPLICATE_ARCHIVE", "DUPLICATE_PENDING", "BUDGET_LIMIT"
+        } for e in ledger)
+        and dict(Counter(e["disposition"] for e in ledger)) == result.get("proposal_counts")
+    )
+    archive = result["archive"]
+    errors = [r for r in archive if r.get("error") or any(
+        e.get("error") or e.get("missing_profiles") for e in r["evaluations"].values())]
+    active = [p for p in proposals if p.get("evaluator_version") == result["evaluator_version"]]
+    numeric = any(r["quantitative_complete"] for r in archive)
+    required_authority = "ADMITTED_NUMERIC" if numeric else "QUALITATIVE_ONLY"
+    pending = [p["id"] for p in proposals if p["disposition"] == "PENDING"]
+    reviewed = not pending and any(p["disposition"] == required_authority for p in active)
+    if errors or not archive:
+        disposition = "EVALUATION_ERROR"
+    elif not ledger_complete:
+        disposition = "INCOMPLETE_SEARCH"
+    elif (result["status"] == "BUDGET_EXHAUSTED" or not result["neighborhood_exhausted"]
+          or any(e["disposition"] == "BUDGET_LIMIT" for e in ledger)):
+        disposition = "INCOMPLETE_BUDGET"
+    elif not reviewed:
+        disposition = "INCOMPLETE_REVIEW"
+    elif result["status"] not in {
+        "EVIDENCE_BOUNDARY", "LOCAL_PARETO_PLATEAU", "UNRESOLVED_COMPARISONS"
+    }:
+        disposition = "EVALUATION_ERROR"
+    elif result["selected"] != result["baseline"]:
+        disposition = "SUPPORTED_COMPUTATIONAL_CHANGE"
+    else:
+        disposition = "NO_SUPPORTED_CHANGE"
+    complete = disposition in {"NO_SUPPORTED_CHANGE", "SUPPORTED_COMPUTATIONAL_CHANGE"}
+    return {
+        "disposition": disposition, "bounded_run_complete": complete,
+        "search_status": result["status"],
+        "selected_formula": deepcopy(result["selected"] if complete else result["baseline"]),
+        "formula_action": "PROPOSE_ONLY" if complete and result["selected"] != result["baseline"]
+                          else "RETAIN_BASELINE",
+        "evaluator_review": deepcopy(proposals), "pending_reviews": pending,
+        "evaluation_error_count": len(errors),
+        "scope": "REVIEWED_EVALUATORS_AND_VISITED_NEIGHBORHOODS_ONLY",
+        "global_optimum_proven": False, "hedonic_optimization_achieved": False,
+        "sensory_validated": False, "requires_premix_trial": False,
+        "reopen_condition": "Changed brief, stock, candidate domain, or new applicable validated evidence",
+    }
+
+
 def normalize_raw_pct(raw_pct: RawPct) -> dict[str, float]:
     """Normalize positive raw concentrate percentages to exactly 100%."""
     positive = {
@@ -126,7 +933,7 @@ def _inventory_stock_dilutions(
     """Fill optimizer stock fractions from live, identity-matched inventory."""
 
     resolved = {str(name): float(value) for name, value in explicit.items()}
-    records = parse_inventory(
+    records = parse_current_inventory(
         unique=False,
         include_solvents=True,
         include_unavailable=False,
@@ -546,7 +1353,7 @@ def _nonrepairable_actions(report: GateReport, pass_index: int) -> list[GateRepa
             continue
         action = "block_unknown_or_forbidden_material"
         effect = "BLOCKED"
-        if gate.gate == "perfumer_logic":
+        if gate.gate in {"perfumer_logic", "fougere_skeleton", "chypre_skeleton"}:
             action = "rerun_with_tighter_brief_grammar"
             effect = "BRIEF_FIT"
         elif gate.gate in {"material_spine_coverage", "physics_data_coverage", "odt_coverage"}:

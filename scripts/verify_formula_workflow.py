@@ -2180,6 +2180,424 @@ def write_bundle(bundle: dict, source_file: Path) -> Path:
     return output_dir
 
 
+def _bound_partial_mixture_evaluator(formula: dict, plan: dict):
+    """Load one explicit numerical JSON model; never deserialize arbitrary code.
+
+    Only a mapped molecular subcomposition is predicted. Frozen omitted stocks
+    remain outside the model, not zero-intensity ingredients or known context.
+    """
+    import hashlib
+    import math
+
+    from scripts.train_odor_predictor import predict_dream_mixture
+
+    spec = plan["numerical_model"]
+    if spec.get("kind") != "dream2025_partial_support_v1":
+        raise ValueError("Unsupported bound numerical model")
+
+    def bound_bytes(path_string, expected):
+        path = (PROJECT_ROOT / path_string).resolve()
+        if not path.is_relative_to(PROJECT_ROOT.resolve()) or not path.is_file():
+            raise ValueError("Numerical model source missing or outside project")
+        content = path.read_bytes()
+        if hashlib.sha256(content).hexdigest() != expected:
+            raise ValueError(f"Numerical model source hash drift: {path_string}")
+        return content
+
+    receipt = json.loads(bound_bytes(spec["path"], spec["sha256"]))
+    model = receipt["fitted_model"]
+    for path, digest in model["source_hashes"].items():
+        bound_bytes(path, digest)
+    mapped = spec["structures"]
+    ingredients = {row["material"]: row for row in formula["ingredients"]}
+    if not mapped or not set(mapped) <= set(ingredients):
+        raise ValueError("Model structure map must match actual formula stocks")
+    for name, ingredient in ingredients.items():
+        low, high = plan["bounds"][name]
+        if name not in mapped and (low != high or low != ingredient["raw_ul"]):
+            raise ValueError("Every unmodeled stock must remain frozen")
+        if name in mapped:
+            if ingredient["stock_fraction_basis"] != "neat" or ingredient["carrier"]:
+                raise ValueError("Partial molecular model requires neat mapped stocks")
+            source = mapped[name]
+            data = json.loads(bound_bytes(source["path"], source["sha256"]))
+            record = data["PropertyTable"]["Properties"][0]
+            if record["ConnectivitySMILES"] != source["smiles"]:
+                raise ValueError("Molecular structure differs from bound PubChem record")
+    volume = float(spec["nominal_finished_volume_ul"])
+    if not math.isfinite(volume) or volume <= sum(r["raw_ul"] for r in ingredients.values()):
+        raise ValueError("Explicit positive nominal finished volume required")
+
+    def evaluate(candidate):
+        prediction = predict_dream_mixture(model, [
+            {"smiles": row["smiles"], "nominal_fraction": candidate[name] / volume}
+            for name, row in sorted(mapped.items())])
+        value = prediction["predictions"]["Pleasantness"]
+        if not math.isfinite(value):
+            raise ValueError("Nonfinite partial-mixture prediction")
+        # Monotone loss, not a normalized hedonic score or calibrated probability.
+        loss = max(-value, 0.) + math.log1p(math.exp(-abs(value)))
+        return {
+            "basis": "measured_model_prediction", "losses": {"partial_pleasantness": loss},
+            "partial_mixture_prediction": prediction,
+            "predicted_full_perfume_liking": None, "perceived_richness": None,
+            "perceived_layering": None,
+            "sources": [spec["sha256"]],
+            "scope": "EXPLORATORY_ISOLATED_MOLECULAR_SUBCOMPOSITION_NOT_FULL_PERFUME",
+        }
+
+    return evaluate, {"model_sha256": spec["sha256"], "source_hashes": model["source_hashes"],
+                      "mapped_materials": sorted(mapped),
+                      "unmodeled_frozen_materials": sorted(set(ingredients) - set(mapped)),
+                      "mapped_raw_stock_ul": sum(ingredients[n]["raw_ul"] for n in mapped),
+                      "nominal_finished_volume_ul": volume,
+                      "matrix_transfer_validated": False, "full_formula_prediction": False}
+
+
+def _verify_engineering_lineage(proposal):
+    """Verify a declared 10-uL rounding lineage without granting model authority."""
+    import hashlib
+
+    lineage = proposal.get('lineage')
+    if not lineage:
+        return {'verified': False, 'status': 'NO_LINEAGE_CLAIM'}
+    path = (PROJECT_ROOT / lineage['path']).resolve()
+    if not path.is_relative_to(PROJECT_ROOT.resolve()) or not path.is_file():
+        raise ValueError('Engineering lineage receipt missing or outside project')
+    content = path.read_bytes()
+    if hashlib.sha256(content).hexdigest() != lineage['sha256']:
+        raise ValueError('Engineering lineage receipt hash drift')
+    receipt = json.loads(content)
+    front = receipt.get('design_envelope_fronts', {}).get(lineage['envelope'], {}).get('pareto', [])
+    matches = [r for r in front if r.get('source') == lineage['source']
+               and {n: round(v / 10) * 10 for n, v in r['formula'].items()} == proposal['formula']]
+    if not matches:
+        raise ValueError('Engineering candidate does not match cited source/front and 10-uL rounding')
+    return {**lineage, 'verified': True, 'rounding_grid_raw_ul': 10,
+            'scope': 'HISTORICAL_SEARCH_POINT_LINEAGE_NOT_SENSORY_OR_CURRENT_MODEL_VALIDATION'}
+
+
+def _validate_engineering_candidate(candidate, baseline, bounds):
+    """Parent-selected computational proposal must obey the same stock domain."""
+    import math
+
+    if (set(candidate) != set(baseline)
+            or any(isinstance(v, bool) or not isinstance(v, (int, float))
+                   or not math.isfinite(v) or not bounds[n][0] <= v <= bounds[n][1]
+                   for n, v in candidate.items())
+            or not math.isclose(math.fsum(candidate.values()), math.fsum(baseline.values()),
+                                rel_tol=1e-12, abs_tol=1e-9)):
+        raise ValueError('Engineering candidate violates stock keys, total or bounds')
+    return dict(candidate)
+
+
+def _natural_design_envelopes(candidate):
+    """Engineer-declared raw allocation relationships, NOT perceptual laws."""
+    c = candidate
+    gin = c['Juniper Berry EO'] + c['Coriander Seed EO'] + c['Grapefruit FCF oil Sicilian']
+    root = c['Vetiver EO (India)'] + c['Vetikon'] + c['Vetival']
+    wood = c['Iso E Super'] + c['Cedarwood Virginia'] + c['Clearwood'] + c['Timberol']
+    modifiers = c['Petitgrain EO Paraguay'] + c['Terpinyl Acetate']
+    if (c['Cypress EO'] > .10 * c['Juniper Berry EO'] or gin < modifiers
+            or c['Vetiver EO (India)'] < .5 * c['Iso E Super']):
+        return []
+    envelopes = []
+    if root >= wood and gin >= .5 * root:
+        envelopes.append('vetiver_bodied')
+    if gin >= root and root + wood >= 1.5 * gin:
+        envelopes.append('gin_forward_developed_base')
+    if .75 * wood <= root <= 1.25 * wood and root + wood >= 2 * gin:
+        envelopes.append('rounded_woody_vetiver')
+    return envelopes
+
+
+def _bound_natural_mixture_evaluator(formula, plan):
+    """Source-bound representative natural expansion, not a whole-perfume model."""
+    import hashlib
+    import math
+
+    from engine.hedonic_model import expand_natural_scenario
+    from scripts.train_odor_predictor import predict_dream_mixture
+
+    spec = plan['numerical_model']
+    if spec.get('kind') != 'dream2025_natural_scenarios_v1':
+        raise ValueError('Unsupported natural numerical model')
+
+    def bound(path_string, expected):
+        path = (PROJECT_ROOT / path_string).resolve()
+        if not path.is_relative_to(PROJECT_ROOT.resolve()) or not path.is_file():
+            raise ValueError('Natural model source missing or outside project')
+        content = path.read_bytes()
+        if hashlib.sha256(content).hexdigest() != expected:
+            raise ValueError(f'Natural model source hash drift: {path_string}')
+        return json.loads(content) if path.suffix == '.json' else content
+
+    manifest = bound(spec['natural_manifest']['path'], spec['natural_manifest']['sha256'])
+    profile_source = manifest['source_hashes']['natural_profile_source']
+    bound(profile_source['path'], profile_source['sha256'])
+    for path, digest in manifest['source_hashes']['primary_records'].items():
+        bound(path, digest)
+    model = bound(spec['path'], spec['sha256'])['fitted_model']
+    for path, digest in model['source_hashes'].items():
+        bound(path, digest)
+    natural = manifest['natural_profiles']
+    structures = spec['structures']
+    ingredients = {r['material']: r for r in formula['ingredients']}
+    mapped = set(natural) | set(structures)
+    if not mapped or not mapped <= set(ingredients) or set(natural) & set(structures):
+        raise ValueError('Natural structure map must match disjoint formula stocks')
+    for source in list(structures.values()) + [r for rows in natural.values() for r in rows if r.get('smiles')]:
+        record = bound(source['path'], source['sha256'])['PropertyTable']['Properties'][0]
+        property_name = source.get('smiles_property', 'ConnectivitySMILES')
+        if property_name not in {'ConnectivitySMILES', 'SMILES', 'IsomericSMILES'}:
+            raise ValueError('Unsupported source SMILES property')
+        if record.get(property_name) != source['smiles']:
+            raise ValueError('Natural molecular structure differs from bound record')
+    for name, ingredient in ingredients.items():
+        low, high = plan['bounds'][name]
+        if name not in mapped and (low != high or low != ingredient['raw_ul']):
+            raise ValueError('Every unmodeled stock must remain frozen')
+        if name in mapped and (ingredient['stock_fraction_basis'] != 'neat' or ingredient['carrier']):
+            raise ValueError('Natural molecular model requires neat mapped stocks')
+    volume = float(spec['nominal_finished_volume_ul'])
+    if not math.isfinite(volume) or volume <= sum(r['raw_ul'] for r in ingredients.values()):
+        raise ValueError('Explicit positive nominal finished volume required')
+    scenarios = spec['composition_scenarios']
+    if not scenarios or len({s['name'] for s in scenarios}) != len(scenarios):
+        raise ValueError('Unique named composition scenarios required')
+
+    def evaluate(candidate):
+        predictions, losses = {}, {}
+        for scenario in scenarios:
+            expanded = expand_natural_scenario(candidate,
+                {n: r['smiles'] for n, r in structures.items()}, natural, volume,
+                multipliers=scenario.get('multipliers'))
+            prediction = predict_dream_mixture(model, expanded['components'])
+            value = prediction['predictions']['Pleasantness']
+            loss = max(-value, 0.) + math.log1p(math.exp(-abs(value)))
+            losses[scenario['name']] = loss
+            predictions[scenario['name']] = {'prediction': prediction, 'coverage': expanded}
+        return {'basis': 'measured_model_prediction', 'losses': losses,
+                'scenario_predictions': predictions,
+                'design_envelopes': _natural_design_envelopes(candidate),
+                'predicted_full_perfume_liking': None, 'perceived_richness': None,
+                'perceived_layering': None,
+                'scope': 'REPRESENTATIVE_PARTIAL_COMPOSITION_EXPLORATION'}
+
+    return evaluate, {'model_sha256': spec['sha256'],
+        'natural_manifest': spec['natural_manifest'], 'mapped_materials': sorted(mapped),
+        'unmodeled_frozen_materials': sorted(set(ingredients) - mapped),
+        'composition_scenarios': scenarios, 'matrix_transfer_validated': False,
+        'full_formula_prediction': False, 'nominal_finished_volume_ul': volume}
+
+
+def run_design_portfolio(
+    formula_path: Path, plan_path: Path, *, review_path: Path | None = None,
+    numerical_evaluator=None, numerical_evaluator_version: str | None = None,
+) -> dict:
+    """Stock-bound research mode; no release pipeline, scoring bundle or mixing card."""
+    import hashlib
+    import math
+
+    from engine.hedonic_model import evaluate_design_roles, evaluate_targeted_hedonics
+    from engine.inventory_parser import materialize_current_inventory
+    from engine.optimizer.gate_aware import finalize_design_portfolio, optimize_evidence_portfolio
+
+    formula_bytes, plan_bytes = formula_path.read_bytes(), plan_path.read_bytes()
+    formula, plan = json.loads(formula_bytes), json.loads(plan_bytes)
+    global_mode = plan.get("schema") == "global_design_portfolio_v1"
+    if numerical_evaluator is not None or numerical_evaluator_version is not None:
+        raise ValueError("Unbound numerical callbacks are not accepted by the global stock runner")
+    if global_mode and review_path is not None:
+        raise ValueError("Legacy neighbourhood reviews cannot finalize a global design run")
+    formula_hash = hashlib.sha256(formula_bytes).hexdigest()
+    inventory_hash = hashlib.sha256((PROJECT_ROOT / "inventory.txt").read_bytes()).hexdigest()
+    materialized = materialize_current_inventory()
+    inventory_authority = {key: getattr(materialized, key) for key in (
+        "source_workbook_sha256", "snapshot_sha256", "overlay_sha256")}
+    if (plan.get("schema") not in {"evidence_design_portfolio_v1", "global_design_portfolio_v1"}
+            or plan.get("formula_sha256") != formula_hash
+            or plan.get("inventory_sha256") != inventory_hash
+            or plan.get("inventory_authority") != inventory_authority):
+        raise ValueError("Design plan source drift: rebind against current formula/inventory")
+    review, review_bytes = None, None
+    evidence_hashes = {}
+    if review_path is not None:
+        review_bytes = review_path.read_bytes()
+        review = json.loads(review_bytes)
+        if (review.get("schema") != "design_evaluator_review_v1"
+                or review.get("formula_sha256") != formula_hash
+                or review.get("plan_sha256") != hashlib.sha256(plan_bytes).hexdigest()):
+            raise ValueError("Evaluator review source drift: formula/plan mismatch")
+        evidence = review.get("evidence_files")
+        if not isinstance(evidence, dict) or not evidence:
+            raise ValueError("Evaluator review requires evidence files")
+        for key, item in evidence.items():
+            path = (PROJECT_ROOT / item["path"]).resolve()
+            if not path.is_relative_to(PROJECT_ROOT.resolve()) or not path.is_file():
+                raise ValueError("Evaluator review evidence drift: missing/outside project")
+            digest = hashlib.sha256(path.read_bytes()).hexdigest()
+            if digest != item["sha256"]:
+                raise ValueError(f"Evaluator review evidence drift: {key}")
+            evidence_hashes[key] = digest
+        for proposal in review["proposals"]:
+            if not set(proposal.get("evidence", [])) <= set(evidence):
+                raise ValueError("Evaluator review cites unbound evidence")
+    stocks = materialized.stocks
+    by_id = {}
+    for stock in stocks:
+        by_id.setdefault(stock.stock_id, []).append(stock)
+    baseline = {}
+    for ingredient in formula["ingredients"]:
+        name = ingredient["material"]
+        if name in baseline:
+            raise ValueError("Duplicate formula material")
+        matches = by_id.get(ingredient["stock_id"], [])
+        if len(matches) != 1:
+            raise ValueError(f"Exact stock identity unresolved: {name}")
+        stock = matches[0]
+        if (stock.status != "owned" or not stock.execution_ready
+                or stock.identity_name != ingredient["inventory_identity"]
+                or stock.fraction_basis != ingredient["stock_fraction_basis"]
+                or stock.carrier != ingredient["carrier"]
+                or not math.isclose(stock.dilution, ingredient["stock_fraction"], rel_tol=1e-12)):
+            raise ValueError(f"Current stock form mismatch: {name}")
+        baseline[name] = float(ingredient["raw_ul"])
+        low, high = plan["bounds"][name]
+        if (low != high and (stock.fraction_basis != "neat" or stock.carrier)):
+            raise ValueError(f"Design search cannot change carrier/active-dose basis: {name}")
+    if not math.isclose(sum(baseline.values()), formula["nominal_fragrance_stock_subtotal_ul"]):
+        raise ValueError("Formula stock subtotal mismatch")
+
+    def feasible(candidate):
+        report = evaluate_targeted_hedonics(candidate, target=plan["target"])
+        return not report["target_identity"]["violations"]
+
+    def evaluate(candidate, scenario):
+        return evaluate_design_roles(candidate, baseline=baseline,
+                                     profiles=plan["profiles"], context=scenario)
+
+    if global_mode:
+        model_binding = None
+        if plan.get("numerical_model"):
+            binder = (_bound_natural_mixture_evaluator
+                      if plan['numerical_model'].get('kind') == 'dream2025_natural_scenarios_v1'
+                      else _bound_partial_mixture_evaluator)
+            numerical_evaluator, model_binding = binder(formula, plan)
+        if numerical_evaluator is None:
+            # A completed qualitative review is not a numerical response model.
+            # Do not burn the search budget evaluating the same absent endpoint.
+            result = {
+                "status": "FAIL_NUMERICAL_EVALUATOR_UNAVAILABLE",
+                "search_complete": False, "evaluated_candidates": 0,
+                "archive": [], "ranked_candidates": [], "proposal_ledger": [],
+                "experimental_recommendation": None, "predicted_liking": None,
+                "hedonic_optimization_achieved": False, "sensory_validated": False,
+                "release_authorized": False, "requires_premix_trial": False,
+                "proposal_counts": {}, "pending_proposals": 0,
+                "failure": {
+                    "kind": "MISSING_FORMULA_INPUT_TO_ENDPOINT_MODEL",
+                    "message": "Material roles and isolated intensity curves do not predict "
+                               "full-formula liking, richness or layering. Supply a numerical "
+                               "evaluator with supported inputs; do not substitute starting "
+                               "ratios, OAV sums or generic pleasantness constants.",
+                    "original_recipe_is_winner": False,
+                },
+            }
+        else:
+            from engine.optimizer.gate_aware import optimize_global_design
+            result = optimize_global_design(
+                baseline, evaluate=numerical_evaluator, bounds=plan["bounds"],
+                feasible=feasible, budget=plan["budget"], seed=plan["seed"],
+                max_workers=plan["max_workers"],
+            )
+            result.update(
+                evaluated_candidates=result["evaluation_counts"]["optimizer"],
+                proposal_ledger=[], proposal_counts={}, pending_proposals=0,
+                predicted_liking=None, hedonic_optimization_achieved=False,
+                requires_premix_trial=False,
+                numerical_model_binding=model_binding,
+            )
+            # Completion of an isolated support-mixture experiment is not a
+            # recommendation for the 18-stock gin/vetiver perfume.
+            result["partial_model_best_observed"] = result["best_observed_candidate"]
+            result["experimental_recommendation"] = None
+            result["full_perfume_gate"] = "FAIL_TARGET_AND_MIXTURE_COVERAGE"
+            if plan['numerical_model']['kind'] == 'dream2025_natural_scenarios_v1':
+                from engine.hedonic_model import pareto_minimize
+                records = [r for r in result['archive'] + result['comparator']['archive'] if r['valid']]
+                for r in records:
+                    r['loss_vector'] = [r['losses'][s['name']]
+                                        for s in plan['numerical_model']['composition_scenarios']]
+                result['design_envelope_fronts'] = {}
+                for name in ('vetiver_bodied', 'gin_forward_developed_base', 'rounded_woody_vetiver'):
+                    members = [r for r in records if name in r['evaluation']['design_envelopes']]
+                    result['design_envelope_fronts'][name] = {
+                        'candidate_count': len(members),
+                        'optimizer_count': sum(r['source'] != 'random' for r in members),
+                        'random_count': sum(r['source'] == 'random' for r in members),
+                        'pareto': pareto_minimize(members),
+                    }
+                result['engineering_selection_required'] = True
+                result['envelope_sampling'] = 'Common broad-domain search; post-filtered allocations, not equal per-envelope budgets'
+                if plan.get('engineering_candidate'):
+                    proposal = plan['engineering_candidate']
+                    if not isinstance(proposal.get('rationale'), str) or not proposal['rationale'].strip():
+                        raise ValueError('Explicit engineering selection rationale required')
+                    candidate = _validate_engineering_candidate(proposal['formula'], baseline, plan['bounds'])
+                    if not _natural_design_envelopes(candidate):
+                        raise ValueError('Engineering candidate is outside all declared envelopes')
+                    lineage = _verify_engineering_lineage(proposal)
+                    result['engineering_candidate'] = {
+                        'status': 'ENGINEER_SELECTED_COMPUTATIONAL_CANDIDATE',
+                        'formula': candidate, 'rationale': proposal['rationale'],
+                        'lineage': lineage,
+                        'evaluation': numerical_evaluator(candidate),
+                        'mix_ready': False, 'sensory_validated': False,
+                        'requires_premix_trial': False, 'release_authorized': False,
+                        'exact_active_ppm_ww': None,
+                    }
+                    result['engineering_candidate_evaluations'] = 1
+    else:
+        result = optimize_evidence_portfolio(
+            baseline, evaluate=evaluate, evaluator_version=plan["evaluator_version"],
+            criteria=plan["criteria"], scenarios=plan["scenarios"], lanes=plan["lanes"],
+            step_sizes=plan["step_sizes"], bounds=plan["bounds"], feasible=feasible,
+            max_rounds=plan["max_rounds"], max_candidates=plan["max_candidates"],
+            max_workers=plan["max_workers"],
+        )
+    groups = []
+    for hypothesis in ([] if global_mode else plan.get("priority_hypotheses", [])):
+        candidates = [r for r in result["archive"]
+                      if r["origin"].get("donor") == hypothesis["donor"]
+                      and r["origin"].get("receiver") == hypothesis["receiver"]]
+        groups.append({**hypothesis, "amounts_ul_unranked": [
+            r["origin"]["amount"] for r in candidates], "candidate_count": len(candidates),
+            "proposals": [e for e in result["proposal_ledger"]
+                          if e["origin"].get("donor") == hypothesis["donor"]
+                          and e["origin"].get("receiver") == hypothesis["receiver"]]})
+    result.update(
+        formula_sha256=formula_hash, inventory_sha256=inventory_hash,
+        inventory_authority=inventory_authority,
+        plan_sha256=hashlib.sha256(plan_bytes).hexdigest(),
+        source_hashes={path: hashlib.sha256((PROJECT_ROOT / path).read_bytes()).hexdigest()
+                       for path in ("engine/optimizer/gate_aware.py", "engine/hedonic_model.py",
+                                    "scripts/verify_formula_workflow.py", "engine/inventory_parser.py")},
+        stock_checks_passed=len(baseline), priority_hypotheses=groups,
+        profiles=plan["profiles"], design_plan=plan, exact_active_ppm_ww=None,
+        release_pipeline_run=False, formula_modified=False,
+        scope=plan["scope"],
+        evaluator_version=plan["evaluator_version"],
+    )
+    if review is not None:
+        result.update(
+            final_decision=finalize_design_portfolio(result, review=review),
+            review_sha256=hashlib.sha256(review_bytes).hexdigest(),
+            review_evidence_hashes=evidence_hashes,
+        )
+    return result
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Standalone formula verification harness")
     parser.add_argument(
@@ -2189,13 +2607,51 @@ def main() -> int:
     )
     parser.add_argument("--formula", type=int, help="Formula number to verify")
     parser.add_argument("--name", help="Partial formula name to verify")
+    parser.add_argument("--design-plan", type=Path,
+                        help="Run source-bound evidence portfolio on a JSON formula record; no mixing bundle")
+    parser.add_argument("--evaluator-review", type=Path,
+                        help="Finalize a bounded design run against a hash-bound evaluator review")
     args = parser.parse_args()
+    if args.evaluator_review and not args.design_plan:
+        parser.error("--evaluator-review requires --design-plan")
 
     formula_path = Path(args.formula_file)
     if not formula_path.is_absolute():
         formula_path = PROJECT_ROOT / formula_path
     if not formula_path.exists():
         raise FileNotFoundError(f"Formula file not found: {formula_path}")
+
+    if args.design_plan:
+        if args.formula is not None or args.name:
+            parser.error("--design-plan uses one JSON record, not --formula/--name")
+        plan_path = args.design_plan
+        if not plan_path.is_absolute():
+            plan_path = PROJECT_ROOT / plan_path
+        review_path = args.evaluator_review
+        if review_path is not None and not review_path.is_absolute():
+            review_path = PROJECT_ROOT / review_path
+        result = run_design_portfolio(formula_path, plan_path, review_path=review_path)
+        output_dir = PROJECT_ROOT / "output" / "design_portfolios"
+        output_dir.mkdir(parents=True, exist_ok=True)
+        output = output_dir / (datetime.now().strftime("%Y%m%d_%H%M%S_%f") + ".json")
+        output.write_text(json.dumps(result, indent=2, allow_nan=False), encoding="utf-8")
+        print(json.dumps({k: result[k] for k in (
+            "status", "evaluated_candidates", "stock_checks_passed", "formula_modified",
+            "predicted_liking", "proposal_counts", "pending_proposals")}, indent=2))
+        print(f"Receipt: {output}")
+        if result["design_plan"]["schema"] == "global_design_portfolio_v1":
+            print(json.dumps({key: result.get(key) for key in (
+                "search_complete", "experimental_recommendation", "evaluation_counts",
+                "benchmark_equal_budget", "full_perfume_gate", "failure")}, indent=2))
+            return 0 if (result["search_complete"]
+                         and not str(result.get("full_perfume_gate", "")).startswith("FAIL")) else 2
+        if "final_decision" in result:
+            print(json.dumps({key: result["final_decision"][key] for key in (
+                "disposition", "bounded_run_complete", "formula_action",
+                "hedonic_optimization_achieved", "pending_reviews", "evaluation_error_count"
+            )}, indent=2))
+            return 0 if result["final_decision"]["bounded_run_complete"] else 2
+        return 0
 
     formulas = parse_formula_markdown(formula_path)
     if not formulas:

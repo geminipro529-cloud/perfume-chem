@@ -17,6 +17,7 @@ Also provides pipeline_preflight_guard() — hard blocks + warns before gate run
 import re
 from collections.abc import Callable
 from dataclasses import dataclass, field
+from pathlib import Path
 
 
 def _normalize_fallback(name: str) -> str:
@@ -221,16 +222,36 @@ def _extract_material_names(formula_path: str) -> list[str]:
 
 
 def _load_inventory_names(inventory_path: str = "inventory.txt") -> set[str]:
-    """Load normalized material names from inventory.txt."""
+    """Load material identities from the authoritative current inventory.
+
+    The default release path must use the pinned inventory materialization,
+    because parsing the prose form of ``inventory.txt`` loses successor-overlay
+    identities and stock corrections.  Explicit alternate inventory files keep
+    the lightweight text behavior for isolated tests and legacy callers.
+    """
+    requested_path = Path(inventory_path).resolve()
+    default_path = Path("inventory.txt").resolve()
+    if requested_path == default_path:
+        from engine.inventory_parser import materialize_current_inventory
+
+        materialized = materialize_current_inventory()
+        return {
+            name
+            for stock in materialized.stocks
+            for name in (stock.name, stock.identity_name)
+            if name
+        }
+
     names: set[str] = set()
     try:
-        with open(inventory_path, encoding="utf-8") as fh:
+        with requested_path.open(encoding="utf-8") as fh:
             for line in fh:
                 stripped = line.strip()
                 if stripped.startswith("- "):
                     material = stripped[2:].strip()
+                    material = re.sub(r"\s*#.*$", "", material).strip()
                     material = re.sub(r"\s*\(\d+%[^)]*\)", "", material).strip()
-                    names.add(material.lower())
+                    names.add(material)
     except FileNotFoundError:
         pass
     return names
@@ -262,15 +283,15 @@ def pipeline_preflight_guard(
     except ImportError:
         _normalize = _normalize_fallback
 
+    normalized_inventory_names = {
+        normalized
+        for name in inventory_names
+        if (normalized := _normalize(name))
+    }
     missing = []
     for fm in formula_materials:
-        fm_lower = fm.lower().strip()
-        fm_resolved = _normalize(fm_lower)
-        matched = any(
-            fm_lower in inv or inv in fm_lower or fm_resolved in inv or inv in fm_resolved
-            for inv in inventory_names
-        )
-        if fm_lower and not matched:
+        fm_resolved = _normalize(fm)
+        if fm_resolved and fm_resolved not in normalized_inventory_names:
             missing.append(fm)
     if missing:
         # Suggest replacements from inventory for each missing material

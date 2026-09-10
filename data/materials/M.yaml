@@ -1084,7 +1084,7 @@
   cas:
   smiles:
   inchikey:
-  mw_g_mol: 166.3
+  mw_g_mol: 156.26
   density_25c_g_ml:
   logp:
   functional_groups: []
@@ -1115,7 +1115,7 @@
   character:
   notes:
   provenance:
-    mw_g_mol: engine.diffusion_model
+    mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
@@ -2500,7 +2500,7 @@
 - canonical_name: Musk Ketone
   aliases:
   - musk ketone
-  cas:
+  cas: 94201-19-1
   smiles:
   inchikey:
   mw_g_mol: 294.3
@@ -2522,11 +2522,11 @@
   hedonic_valence: 0.65
   ifra_max_pct_edp:
   user_stock_dilution: pure powder
-  user_in_inventory: true
+  user_in_inventory: false
   supplier:
     perfumersworld_sku: 1XU00308
     perfumersworld_price_usd_per_g: 0.2
-    perfumersworld_form: neat
+    perfumersworld_form: 10% in DPG
     perfumersworld_snapshot_date: '2026-04-11'
     other:
       pw_alternate_forms:
@@ -2582,12 +2582,18 @@
     perfumersworld_price_usd_per_g: 0.3
     perfumersworld_form: neat
     perfumersworld_snapshot_date: '2026-04-11'
-    other: {}
-  families: []
-  character:
-  notes:
+    other:
+      product_name: METHYL LAITONE 10% DPG
+      active_identity: 8-methyl-1-oxaspiro(4.5)decan-2-one
+      active_cas: 94201-19-1
+      carrier: DPG
+  families: [lactonic, creamy, fruity, floral]
+  character: Powerful lactonic coconut-milk and creamy-fruity body material supplied at 10% in DPG.
+  notes: Exact PerfumersWorld catalog product SKU 5VD10871. It is not authority for the basis or carrier of the user's separate 20% stock.
   provenance:
-    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: https://www.perfumersworld.com/view.php?pro_id=5VD10871
+    character: https://www.perfumersworld.com/view.php?pro_id=5VD10871
+    supplier.perfumersworld: https://www.perfumersworld.com/view.php?pro_id=5VD10871
 - canonical_name: Musk Xylol REP
   aliases: []
   cas:
@@ -2896,3 +2902,20 @@
   trp_targets: null
   user_stock_dilution: 10.0
   user_in_inventory: true
+- canonical_name: Methyl Laitone
+  aliases: [methyl laitone]
+  mw_g_mol: 168.23
+  cas: null
+  vp_25c_pa: null
+  logp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  user_stock_dilution: "20%; fraction basis and carrier unspecified"
+  user_in_inventory: true
+  families: [lactonic, floral]
+  character: Creamy lactonic fruity modifier; white-flower body and sandalwood milkiness.
+  notes: The exact PerfumersWorld product is SKU 5VD10871, Methyl Laitone 10% DPG, active CAS 94201-19-1. The user's 20% stock is not proven to be that catalog product; its basis and carrier remain a quantitative HOLD.
+  provenance:
+    mw_g_mol: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-laitone-10dpg
+    supplier_product_comparison: https://www.perfumersworld.com/view.php?pro_id=5VD10871
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20260907.json

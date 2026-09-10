@@ -146,6 +146,37 @@ class MaterialState:
     sources: dict[str, str] = field(default_factory=dict)
     missing_fields: tuple[str, ...] = ()
     active_finished_product_ppm_w_w: float | None = None
+    natural_composite_metadata: dict[str, object] = field(default_factory=dict)
+
+    @property
+    def has_constituent_resolved_oav(self) -> bool:
+        """Whether an actual constituent model, rather than bulk proxy data, produced OAV."""
+
+        return (
+            self.sources.get("oav_model") == "modeled:natural_constituent_composite"
+            and bool(self.natural_composite_metadata)
+            and self.oav is not None
+        )
+
+    @property
+    def has_odt_authority(self) -> bool:
+        """True for a bulk ODT or a constituent-resolved natural ODT model."""
+
+        return self.odt_air_ppm is not None or (
+            self.has_constituent_resolved_oav
+            and self.sources.get("odt") == "modeled:natural_composite_constituent_odt"
+        )
+
+    @property
+    def has_vp_authority(self) -> bool:
+        """True for bulk VP or constituent-resolved natural headspace physics."""
+
+        return (
+            self.vp_pure_pa is not None and self.vp_pure_pa > 0.0
+        ) or (
+            self.has_constituent_resolved_oav
+            and self.sources.get("vp") == "literature:natural_composite_constituent_vp"
+        )
 
     def as_dict(self) -> dict:
         return {
@@ -191,6 +222,7 @@ class MaterialState:
             "hsp_source": self.hsp_source,
             "sources": dict(self.sources),
             "missing_fields": list(self.missing_fields),
+            "natural_composite_metadata": dict(self.natural_composite_metadata),
         }
 
 
@@ -207,6 +239,8 @@ class FormulaState:
     matrix_components_moles: tuple[tuple[str, float], ...] = ()
     matrix_mass_g: float = 0.0
     matrix_source: str = "omitted"
+    dose_receipt_sha256: str | None = None
+    dose_receipt_status: str | None = None
 
     @property
     def material_count(self) -> int:
@@ -406,8 +440,8 @@ class FormulaState:
 
             # RULE 1b — Natural Absolute Decomposition:
             # For known natural absolutes, replace the monomolecular OAV
-            # with a composite OAV computed from published GC-O constituents.
-            # The monomolecular model understates natural OAV by 100-1000x.
+            # with modeled contributions from the available constituent profile.
+            # Profile metadata retains incomplete coverage and input authority.
             composite_result, composite_metadata, composite_lookup_name = (
                 _lookup_composite_headspace(
                     m.canonical_name,
@@ -496,6 +530,9 @@ class FormulaState:
                     hsp_source=m.hsp_source,
                     sources=sources,
                     missing_fields=m.missing_fields,
+                    natural_composite_metadata=(
+                        composite_metadata.as_dict() if composite_metadata else {}
+                    ),
                     active_finished_product_ppm_w_w=(
                         1e6 * float(authoritative_active_g or 0.0) / finished_mass_g
                         if all_active_masses_authoritative
@@ -530,6 +567,8 @@ class FormulaState:
             "matrix_moles": self.matrix_moles,
             "matrix_mass_g": self.matrix_mass_g,
             "matrix_source": self.matrix_source,
+            "dose_receipt_sha256": self.dose_receipt_sha256,
+            "dose_receipt_status": self.dose_receipt_status,
             "headspace_basis": self.headspace_basis,
             "total_vapor_ppm": round(self.total_vapor_ppm, 6),
             "quantitative_authority": self.quantitative_authority,
@@ -545,15 +584,19 @@ class FormulaState:
 
 def _odt_source_label(data: dict) -> str:
     vfy = str(data.get("vfy", "")).upper().strip()
+    if not data.get("sources"):
+        return "unverified:odor_thresholds.odt_air"
     if vfy == "DERIVED":
         return "derived:odor_thresholds.odt_air"
     if vfy == "UNVERIFIED":
         return "unverified:odor_thresholds.odt_air"
     if vfy == "PEER_EST":
         return "estimated:odor_thresholds.odt_air"
-    if vfy.startswith("PEER"):
+    if vfy in {"PEER_CROSS", "PEER_SINGLE"}:
         return "literature:peer_reviewed.odt_air"
-    return "literature:odor_thresholds.odt_air"
+    if vfy == "MULTI_SOURCE_LITERATURE":
+        return "literature:odor_thresholds.odt_air"
+    return "unverified:odor_thresholds.odt_air"
 
 
 def _lookup_odt(
@@ -577,6 +620,9 @@ def _lookup_odt(
 
 
 def _is_opaque_preblend(name: str, profile: MaterialProfile | None) -> bool:
+    # A declared mixture remains opaque even when its trade name lacks "base".
+    if profile is not None and profile.material_kind == "OPAQUE_PREBLEND":
+        return True
     low = f" {name.lower()} "
     if any(token in low for token in OPAQUE_PREBLEND_TOKENS):
         return True
@@ -594,7 +640,7 @@ def _is_natural_mixture(name: str) -> bool:
 
 def _oav_model_source(composite: object | None, requires_composite: bool) -> str:
     if composite is not None:
-        return "literature:natural_composite_gc_o"
+        return "modeled:natural_constituent_composite"
     if requires_composite:
         return "unknown:composite_decomposition_missing"
     return "heuristic:monomolecular_headspace"
@@ -1149,6 +1195,9 @@ def _build_formula_state_cached(
                 hsp_source=hsp_source,
                 sources=sources,
                 missing_fields=missing,
+                natural_composite_metadata=(
+                    composite_metadata.as_dict() if composite_metadata else {}
+                ),
                 active_finished_product_ppm_w_w=(
                     1e6 * float(authoritative_active_g or 0.0) / finished_mass_g
                     if all_active_masses_authoritative

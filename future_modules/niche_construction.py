@@ -167,7 +167,7 @@ class DiffusionPlatform:
     """A 3-material diffusion platform as used by luxury/niche houses."""
     name: str
     materials: tuple[str, str, str]
-    total_formula_pct: float           # approximate % of total formula weight
+    total_formula_pct: float | None    # approximate % when supported; otherwise unknown
     character: str
     example_formulas: tuple[str, ...]
     construction_note: str
@@ -185,10 +185,16 @@ DIFFUSION_PLATFORMS: tuple[DiffusionPlatform, ...] = (
     DiffusionPlatform(
         "Aventus Platform",
         ("Helvetolide", "Hedione", "Iso E Super"),
-        51.0,  # 14% + 23% + 14%
-        "Transparent fruity-musk cloud + radiance + woody sillage — the identity of Aventus IS its platform",
+        None,
+        (
+            "Source-derived transparent musk/radiance/dry-wood scaffold hypothesis beneath "
+            "the official bergamot-blackcurrant head and birch-patchouli-musk architecture"
+        ),
         ("Creed Aventus",),
-        "Helvetolide at 14% reads as fruity-transparent atmosphere, not musk. This is the highest musk loading of any famous fragrance.",
+        (
+            "Helvetolide is a candidate platform material, not an established percentage or the "
+            "perfume's sole identity. Exact commercial ratios and sensory contribution are unknown."
+        ),
     ),
     DiffusionPlatform(
         "Black Orchid Platform",

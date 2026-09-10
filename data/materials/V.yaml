@@ -752,13 +752,13 @@
   trp_targets:
   hedonic_valence: 0.5
   ifra_max_pct_edp:
-  user_stock_dilution: neat
-  user_in_inventory: true
+  user_stock_dilution: null
+  user_in_inventory: false
   supplier:
   families:
   - woods / amber / structure
   character: Earthy, smoky, rooty, dark, slightly green; the most prized origin for vetiver with deep woody-earthy complexity and superior tenacity compared to Haitian or Javanese varieties.
-  notes: Indian ruh khus vetiver (Chrysopogon zizanioides); deeper and more complex than standard Vetiver EO; excellent fixative properties for woody-amber structures.
+  notes: Historical Indian-origin identity retained for old formula lineage only. The current physical stock was corrected by the user to Haitian vetiver on 2026-09-10.
   provenance:
     mw_g_mol: manual:2026-05-08 vetiver essential oil approximation
     density_25c_g_ml: manual:2026-05-08 vetiver essential oil typical density
@@ -766,9 +766,47 @@
     vp_25c_pa: manual:2026-05-08 optimizer physics override
     odt_air_ppb: manual:2026-05-08 optimizer ODT override
     hedonic_valence: engine.hedonic_model
-    user_stock_dilution: inventory.txt
-    user_in_inventory: inventory.txt
+    user_stock_dilution: superseded-by:data/governance/inventory_user_confirmation_20260910_stock_clarifications.json
+    user_in_inventory: superseded-by:data/governance/inventory_user_confirmation_20260910_stock_clarifications.json
     character: docs/dosing_reference.md
+- canonical_name: Vetiver EO (Haiti)
+  aliases:
+  - Haitian Vetiver EO
+  - Vetiver EO Haiti
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups:
+  - natural_mixture
+  - sesquiterpenoid_rich
+  chirality: null
+  vp_25c_pa: null
+  vp_source: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: neat
+  user_in_inventory: true
+  supplier: null
+  families:
+  - woods / amber / structure
+  character: null
+  notes: Current neat/as-supplied physical stock; Haitian origin is direct user authority. Supplier, botanical lot composition, density, and origin-specific headspace parameters are not asserted.
+  provenance:
+    user_stock_dilution: data/governance/inventory_user_confirmation_20260910_stock_clarifications.json
+    user_in_inventory: data/governance/inventory_user_confirmation_20260910_stock_clarifications.json
+    origin: data/governance/inventory_user_confirmation_20260910_stock_clarifications.json
 - canonical_name: Vetiver Essential Oil
   aliases: []
   cas:
@@ -904,8 +942,8 @@
   trp_targets:
   hedonic_valence:
   ifra_max_pct_edp:
-  user_stock_dilution:
-  user_in_inventory: false
+  user_stock_dilution: "10% w/w in DEP"
+  user_in_inventory: true
   supplier:
     perfumersworld_sku: 3WY00468
     perfumersworld_price_usd_per_g: 2.72

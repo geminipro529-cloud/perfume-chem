@@ -88,6 +88,7 @@ class FormulaDoseLineReceipt:
     inventory_authority: str | None
     source_rows: tuple[int, ...]
     status: str
+    source_ref: str = ""
     blockers: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
@@ -114,6 +115,7 @@ class FormulaDoseLineReceipt:
             raise ValueError(f"{name}: dose receipt line status is invalid")
         blockers = tuple(sorted({str(item).strip() for item in self.blockers if str(item).strip()}))
         source_rows = tuple(sorted({int(value) for value in self.source_rows}))
+        source_ref = str(self.source_ref or "").strip()
         if status == "BOUND":
             required = (
                 fraction,
@@ -122,7 +124,9 @@ class FormulaDoseLineReceipt:
                 str(self.stock_authority or "").strip(),
                 str(self.inventory_authority or "").strip(),
             )
-            if any(value in {None, ""} for value in required) or not source_rows:
+            if any(value in {None, ""} for value in required) or not (
+                source_rows or source_ref
+            ):
                 raise ValueError(f"{name}: bound dose receipt line lacks stock lineage")
             if blockers:
                 raise ValueError(f"{name}: bound dose receipt line cannot carry blockers")
@@ -153,6 +157,7 @@ class FormulaDoseLineReceipt:
             str(self.inventory_authority).strip() if self.inventory_authority else None,
         )
         object.__setattr__(self, "source_rows", source_rows)
+        object.__setattr__(self, "source_ref", source_ref)
         object.__setattr__(self, "status", status)
         object.__setattr__(self, "blockers", blockers)
 
@@ -168,6 +173,7 @@ class FormulaDoseLineReceipt:
             "stock_authority": self.stock_authority,
             "inventory_authority": self.inventory_authority,
             "source_rows": list(self.source_rows),
+            "source_ref": self.source_ref,
             "status": self.status,
             "blockers": list(self.blockers),
         }
@@ -371,18 +377,25 @@ def _literature_check() -> PreflightCheck:
     return PreflightCheck("literature_rule_contract", status, detail, contract)
 
 
-def _knowledge_rule_quality_check() -> tuple[PreflightCheck, float]:
-    contract = build_knowledge_rule_quality_contract().as_dict()
+def _knowledge_rule_quality_check(state: FormulaState) -> tuple[PreflightCheck, float]:
+    # Use precisely the ingredient keys supplied by _gate_confidence to its
+    # FormulaVector/ConfidenceScorer, including any zero rows the scorer sees.
+    contract = build_knowledge_rule_quality_contract(
+        formula_material_names=state.raw_percentages(),
+    ).as_dict()
+    contract["scope"] = contract["details"]["scope"]
+    contract["catalogue_context"] = contract["details"].pop("catalogue_context")
     status = contract["status"]
     if status == "FAIL":
-        detail = "Structured runtime rules are not usable."
+        detail = "Structured rule evidence is not usable; see scoped findings."
     elif status == "WARN":
-        detail = "Structured runtime rules include degraded or orphan references."
+        detail = "Structured rule evidence needs review; see consumption and catalog findings."
     else:
-        detail = "Structured runtime rules passed viability screening."
+        detail = "Consumed formula rule evidence passed viability screening."
     penalty = 0.0
     penalty += min(4.0, float(contract.get("invalid_entries", 0) or 0) * 0.25)
     penalty += min(2.0, float(contract.get("generic_material_refs", 0) or 0) * 0.01)
+    contract["confidence_penalty"] = round(penalty, 3)
     return (
         PreflightCheck("knowledge_rule_quality", status, detail, contract),
         round(penalty, 3),
@@ -853,6 +866,7 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
             "authority": "formula_row+inventory_snapshot",
             "inventory_authority": record.authority,
             "source_rows": list(record.source_rows),
+            "source_ref": record.source_ref,
             "identity_crosswalk_contract_id": (
                 alias_contract.contract_id if alias_contract else None
             ),
@@ -1022,6 +1036,7 @@ def build_formula_dose_receipt(
         stock_authority = str(resolved.get("authority", "")).strip() or None
         inventory_authority = str(resolved.get("inventory_authority", "")).strip() or None
         source_rows = tuple(int(value) for value in list(resolved.get("source_rows", []) or []))
+        source_ref = str(resolved.get("source_ref", "")).strip()
         declared = bool(resolved.get("declared", False))
         for condition, reason in (
             (fraction is None, "stock_fraction_not_bound"),
@@ -1032,7 +1047,10 @@ def build_formula_dose_receipt(
                 "stock_authority_not_bound",
             ),
             (not inventory_authority, "inventory_authority_not_bound"),
-            (not source_rows, "inventory_source_rows_not_bound"),
+            (
+                not source_rows and not source_ref,
+                "inventory_source_lineage_not_bound",
+            ),
         ):
             if condition:
                 blockers.append(reason)
@@ -1059,6 +1077,7 @@ def build_formula_dose_receipt(
                 inventory_authority=inventory_authority,
                 source_rows=source_rows,
                 status=line_status,
+                source_ref=source_ref,
                 blockers=tuple(blockers),
             )
         )
@@ -1137,12 +1156,18 @@ def _dose_receipt_binding_check(
             mismatches.append(f"{line.material_name}:stock_fraction")
         if not isclose(material.active_ul, line.active_ul, rel_tol=0.0, abs_tol=1e-12):
             mismatches.append(f"{line.material_name}:active_ul")
+        if material.stock_fraction_basis.strip().casefold() != line.fraction_basis.strip().casefold():
+            mismatches.append(f"{line.material_name}:stock_fraction_basis")
+        if material.stock_carrier.strip().casefold() != line.carrier.strip().casefold():
+            mismatches.append(f"{line.material_name}:stock_carrier")
+        if material.stock_declared is not True:
+            mismatches.append(f"{line.material_name}:stock_declared")
     if mismatches:
         data["state_mismatches"] = mismatches
         return PreflightCheck(
             "formula_dose_receipt",
             "FAIL",
-            "Formula state dose quantities do not replay from the bound receipt.",
+            "Formula state dose quantities and stock semantics do not replay from the bound receipt.",
             data,
         )
     return PreflightCheck(
@@ -1240,20 +1265,51 @@ def _natural_composite_coverage_check(state: FormulaState) -> PreflightCheck:
         return PreflightCheck(
             "natural_composite_coverage",
             "FAIL",
-            "Natural mixtures lack required composite GC-O decomposition: "
+            "Natural mixtures lack a required constituent decomposition: "
             + ", ".join(missing),
             {"materials": missing},
+        )
+    partial_profiles = [
+        {"material": material.name, **material.natural_composite_metadata}
+        for material in state.materials
+        if material.natural_composite_metadata.get("quantitative_evaluability")
+        == "PARTIAL_INPUT_COVERAGE"
+    ]
+    if partial_profiles:
+        return PreflightCheck(
+            "natural_composite_coverage",
+            "WARN",
+            "Partial literature constituent models have unresolved odor contributions; "
+            "full quantitative evaluability is not established. "
+            + "; ".join(
+                f"{profile['material']}: "
+                f"{profile['characterized_fraction']:.1%} nominal input coverage"
+                + (
+                    ", unresolved "
+                    + ", ".join(row["name"] for row in profile["unresolved_constituents"])
+                    if profile["unresolved_constituents"] else ""
+                )
+                for profile in partial_profiles
+            ),
+            {"partial_profiles": partial_profiles, "full_quantitative_evaluability": False},
         )
     return PreflightCheck(
         "natural_composite_coverage",
         "PASS",
-        "Every natural mixture uses the composite OAV model.",
+        "Constituent models are present for all naturals; complete quantitative coverage is not established by this check.",
     )
 
 
 def _state_sanity_check(state: FormulaState) -> PreflightCheck:
     unknown = sorted(material.name for material in state.materials if not material.is_known)
-    missing_odt = sorted(material.name for material in state.materials if material.odt_air_ppm is None)
+    composite_odt_authority = sorted(
+        material.name
+        for material in state.materials
+        if material.odt_air_ppm is None and material.has_odt_authority
+    )
+    missing_odt = sorted(
+        material.name for material in state.materials if not material.has_odt_authority
+    )
     missing_physics = {
         material.name: sorted(material.missing_fields)
         for material in state.materials
@@ -1269,19 +1325,28 @@ def _state_sanity_check(state: FormulaState) -> PreflightCheck:
             "material_identity_and_physics",
             "FAIL",
             "; ".join(detail),
-            {"unknown_materials": unknown, "missing_odt": missing_odt, "missing_fields": missing_physics},
+            {
+                "unknown_materials": unknown,
+                "missing_odt": missing_odt,
+                "missing_fields": missing_physics,
+                "natural_composite_odt_authority": composite_odt_authority,
+            },
         )
     if missing_physics:
         return PreflightCheck(
             "material_identity_and_physics",
             "WARN",
             f"{len(missing_physics)} materials have non-critical missing fields.",
-            {"missing_fields": missing_physics},
+            {
+                "missing_fields": missing_physics,
+                "natural_composite_odt_authority": composite_odt_authority,
+            },
         )
     return PreflightCheck(
         "material_identity_and_physics",
         "PASS",
-        f"{len(state.materials)} materials resolved with ODT and core physics data.",
+        f"{len(state.materials)} materials resolved with bulk or constituent ODT authority and core physics data.",
+        {"natural_composite_odt_authority": composite_odt_authority},
     )
 
 
@@ -1301,7 +1366,7 @@ def run_release_preflight(
     checks.append(_dose_receipt_binding_check(state, dose_receipt))
     checks.append(_schema_check())
     checks.append(_literature_check())
-    knowledge_check, knowledge_penalty = _knowledge_rule_quality_check()
+    knowledge_check, knowledge_penalty = _knowledge_rule_quality_check(state)
     checks.append(knowledge_check)
     total_penalty += knowledge_penalty
     odt_check, odt_penalty = _odt_authority_check(state)

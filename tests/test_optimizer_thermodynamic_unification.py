@@ -613,7 +613,7 @@ def test_supported_natural_uses_constituent_headspace_and_is_known():
     )
 
     assert geranium.is_known is True
-    assert geranium.sources["oav_model"] == "literature:natural_composite_gc_o"
+    assert geranium.sources["oav_model"] == "modeled:natural_constituent_composite"
     assert geranium.sources["vp"] == "literature:natural_composite_constituent_vp"
     assert geranium.vapor_ppm > 0
     assert geranium.partial_pressure_pa > 0

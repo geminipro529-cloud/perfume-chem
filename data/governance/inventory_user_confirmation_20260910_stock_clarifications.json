@@ -1,0 +1,114 @@
+{
+  "schema_version": "perfume_chem_direct_stock_clarifications_v1",
+  "effective_date": "2026-09-10",
+  "source_kind": "DIRECT_USER_MESSAGES",
+  "verbatim_user_messages": [
+    "All tinctures soaked one week in ground resin, mryyh from commiphora myrrh from kenya, benzoin from styrax tonkinesnsis from vietnam, liquidambar orientalis resin storax from turkey, and Oman Frankincense, all crushed and prepared w/w with alcohol and filtered after a week or so after agitation everyday and filter on last day after saturation of alcohol.",
+    "Anisaldehyde 10%, Ethyl Maltol 1% - in ethanol v/v. Hexyl Acetate 1% v/v in DPG",
+    "Helional 10% can inherit Helional’s chemical data after the stock carrier is confirmed. Stock carrier is ethanol",
+    "also coriander seed EO is actually coriander EO from PW.",
+    "it is actually haitian vetiver",
+    "Also, incllude Cinnamyl Alcohol in 50% DPG w/w into inventory."
+  ],
+  "identity_corrections": [
+    {
+      "canonical_name": "Coriander Essential Oil",
+      "supplier": "PerfumersWorld",
+      "supplier_product_name": "Coriander Essential Oil",
+      "supplier_sku": "7SL00125",
+      "stock_form": "neat / as supplied",
+      "retired_formula_label": "Coriander Seed EO",
+      "identity_note": "PerfumersWorld lists Coriander Seed Oil as a synonym, but the exact supplier product name is Coriander Essential Oil."
+    },
+    {
+      "canonical_name": "Vetiver EO (Haiti)",
+      "stock_form": "neat / as supplied",
+      "retired_inventory_label": "Vetiver EO (India)",
+      "identity_note": "Haitian origin is direct user authority; supplier and lot composition were not stated."
+    }
+  ],
+  "working_stocks": [
+    {
+      "canonical_name": "Anisaldehyde 10%",
+      "fraction": 0.1,
+      "fraction_basis": "volume_fraction",
+      "carrier": "ethanol"
+    },
+    {
+      "canonical_name": "Ethyl Maltol 1%",
+      "fraction": 0.01,
+      "fraction_basis": "volume_fraction",
+      "carrier": "ethanol"
+    },
+    {
+      "canonical_name": "Hexyl Acetate 1%",
+      "fraction": 0.01,
+      "fraction_basis": "volume_fraction",
+      "carrier": "dpg"
+    },
+    {
+      "canonical_name": "Helional 10%",
+      "fraction": 0.1,
+      "fraction_basis": "volume_fraction",
+      "carrier": "ethanol"
+    },
+    {
+      "canonical_name": "Cinnamyl Alcohol",
+      "fraction": 0.5,
+      "fraction_basis": "mass_fraction",
+      "carrier": "dpg"
+    }
+  ],
+  "tincture_process": {
+    "starting_charge_fraction_basis": "mass_fraction",
+    "carrier": "ethanol",
+    "resin_preparation": "ground or crushed resin",
+    "extraction_duration": "about one week",
+    "agitation": "daily",
+    "final_step": "filtered at the end of extraction",
+    "final_dissolved_solids_fraction_assayed": false
+  },
+  "tinctures": [
+    {
+      "canonical_name": "Turkish Storax Tincture",
+      "starting_charge_fraction": 0.2,
+      "resin_identity": "Liquidambar orientalis",
+      "origin": "Turkey"
+    },
+    {
+      "canonical_name": "Vietnamese Benzoin Tincture",
+      "starting_charge_fraction": 0.4,
+      "resin_identity": "Styrax tonkinensis",
+      "origin": "Vietnam"
+    },
+    {
+      "canonical_name": "Kenyan Myrrh Ethanol Tincture",
+      "starting_charge_fraction": 0.2,
+      "resin_identity": "Commiphora myrrh",
+      "origin": "Kenya",
+      "identity_authority": "USER_WORDING_PRESERVED; TAXONOMIC_NORMALIZATION_NOT_ASSERTED"
+    },
+    {
+      "canonical_name": "Oman Frankincense Ethanol Tincture",
+      "starting_charge_fraction": 0.33,
+      "resin_identity": "Boswellia species unstated",
+      "origin": "Oman"
+    }
+  ],
+  "authority_limits": {
+    "working_stock_fraction_basis_and_carrier_confirmed": true,
+    "working_stock_density_asserted": false,
+    "tincture_starting_charge_mass_fraction_confirmed": true,
+    "tincture_final_dissolved_solids_fraction_confirmed": false,
+    "tincture_quantitative_active_dosing_ready": false,
+    "oman_frankincense_species_confirmed": false,
+    "kenyan_myrrh_taxonomic_normalization_confirmed": false,
+    "coriander_supplier_product_identity_confirmed": true,
+    "haitian_vetiver_origin_confirmed": true,
+    "haitian_vetiver_supplier_confirmed": false,
+    "haitian_vetiver_lot_composition_confirmed": false,
+    "formula_rebase_authorized": false,
+    "physical_compounding_performed": false,
+    "safety_or_release_asserted": false
+  }
+}

@@ -50,15 +50,15 @@ def test_gate_aware_optimizer_caps_evernyl_below_cat4_limit():
     )
 
 
-def test_wrong_brief_advisory_does_not_trigger_automatic_rerun():
+def test_missing_family_architecture_triggers_rerun_despite_advisories():
     bad_raw_pct = {
         "Iso E Super": 25.0,
         "Ambrox Super": 20.0,
         "Hedione": 20.0,
-        "Zenolide": 15.0,
-        "Vanillin": 10.0,
-        "Ethyl Vanillin": 3.0,
-        "Lemon FCF oil Sicilian": 7.0,
+        "Ambrettolide": 15.0,
+        "Tonkarome": 10.0,
+        "Alpha Ionone": 3.0,
+        "Linalyl Acetate": 7.0,
     }
     repaired_raw_pct = {
         "Bergamot FCF": 20.0,
@@ -86,12 +86,16 @@ def test_wrong_brief_advisory_does_not_trigger_automatic_rerun():
     )
     gates = {gate.gate: gate for gate in result.gate_report.gates}
 
-    assert calls == []
-    assert not any(action.gate == "optimizer_rerun" for action in result.repair_actions)
-    assert gates["perfumer_logic"].status == "WARN"
-    assert gates["perfumer_logic"].data["original_status"] == "FAIL"
-    assert gates["family_drift_detector"].status == "WARN"
-    assert gates["family_drift_detector"].data["original_status"] == "FAIL"
+    assert calls
+    assert any(action.gate == "optimizer_rerun" for action in result.repair_actions)
+    assert any(action.gate == "fougere_skeleton"
+               and action.action == "rerun_with_tighter_brief_grammar"
+               and action.effect == "BRIEF_FIT" for action in calls[0])
+    # The callback supplies a different, structurally closer formula. Its
+    # final report must not be mistaken for the rejected starting formula.
+    assert gates["perfumer_logic"].status == "PASS"
+    assert not any(action.gate in {"perfumer_logic", "family_drift_detector"}
+                   for action in calls[0])
 
 
 def test_optimized_markdown_requires_embedded_gate_audit():

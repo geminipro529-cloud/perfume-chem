@@ -266,11 +266,11 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Damascone Beta
   aliases: []
-  cas:
+  cas: "23726-91-2"
   smiles:
   inchikey:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 192.3, corrected to 190.3)
-  mw_g_mol: 190.3
+  # 2026-09-07 IFF C13H20O entity identity: 192.30 g/mol.
+  mw_g_mol: 192.3
   density_25c_g_ml:
   logp:
   functional_groups: []

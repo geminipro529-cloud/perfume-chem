@@ -13,7 +13,8 @@ Perfumery Supplement (Gap 1). Each formula is analyzed for:
 Formulas covered:
   1. Dior Sauvage (2015, François Demachy) — Ambroxan-dominant aromatic fougère
   2. Chanel No.5 (1921, Ernest Beaux) — Aldehydic floral, three-layer depth
-  3. Creed Aventus (2010, Hérault & Creed) — Fruity chypre, Helvetolide platform
+  3. Creed Aventus (2010, Hérault & Creed) — Dry-woods architecture with a
+     bergamot/blackcurrant head and secondary pineapple heart accent
   4. PDM Layton — Ultra-high Iso E Super woody-amber gourmand
   5. Tom Ford Black Orchid (2006) — Negative-space oriental floral
   6. Amouage Interlude Man (2012) — Dramatic arc, incense platform
@@ -43,11 +44,69 @@ class FormulaSkeleton:
     concentration: ConcentrationBracket
     structural_insight: str  # The one-sentence architectural takeaway
     three_pillar_platform: tuple[str, str, str] | None  # The 3-material diffusion core
-    materials: tuple[tuple[str, float, str], ...]  # (name, pct_in_conc, role)
+    materials: tuple[tuple[str, float | None, str], ...]  # (name, pct_in_conc, role)
     construction_method: str  # e.g., "platform-first", "dramatic arc", "abstract overlay"
     tropical_notes: str
     anosmia_warnings: str
     data_confidence: str = "_RECONSTRUCTED"
+
+
+@dataclass(frozen=True, slots=True)
+class ArchitectureLayer:
+    """One evidence-bounded layer in a named-reference architecture."""
+
+    layer: str
+    prominence: str
+    function: str
+    markers: tuple[str, ...]
+    evidence_class: str
+
+
+@dataclass(frozen=True, slots=True)
+class InventoryRoleMapping:
+    """Map one ideal function to current stock without asserting equivalence."""
+
+    target_function: str
+    stock_materials: tuple[str, ...]
+    status: str
+    equivalence: bool
+    note: str
+
+
+@dataclass(frozen=True, slots=True)
+class ArchitectureRelation:
+    """A falsifiable relation between layers in the intended perfume."""
+
+    relation: str
+    target_link: str
+    omission_loss: str
+    failure_mode: str
+    temporal_windows: tuple[str, ...]
+    controlled_comparison: str
+
+
+@dataclass(frozen=True, slots=True)
+class AventusArchitectureModule:
+    """Keep the Aventus target separate from a current-inventory projection."""
+
+    target_ideal: tuple[ArchitectureLayer, ...]
+    current_inventory_build: tuple[InventoryRoleMapping, ...]
+    primary_rule: str
+    head_priority: tuple[str, ...]
+    secondary_fruit: tuple[str, ...]
+    source_url: str
+    build_status: str
+    relations: tuple[ArchitectureRelation, ...]
+    next_comparison: str
+    component_count_used_as_complexity: bool = False
+    predicted_oav_used_as_perception: bool = False
+    composition_score_used_as_hedonic: bool = False
+    quantitative_authority: str = "UNKNOWN"
+    sensory_authority: str = "NOT_TESTED"
+    formula_authority: bool = False
+    physical_authority: bool = False
+    safety_authority: bool = False
+    release_authority: bool = False
 
 
 # ---------------------------------------------------------------------------
@@ -181,51 +240,277 @@ CHANEL_NO5_SKELETON = FormulaSkeleton(
 # 3. Creed Aventus
 # ---------------------------------------------------------------------------
 
+AVENTUS_ARCHITECTURE = AventusArchitectureModule(
+    target_ideal=(
+        ArchitectureLayer(
+            layer="cross_layer_spine",
+            prominence="primary",
+            function=(
+                "Transparent diffusion, dry-wood continuity, and persistent musk carry the "
+                "head through the smoky drydown; this is a design hypothesis, not an official formula."
+            ),
+            markers=(
+                "transparent diffusion",
+                "dry woody continuity",
+                "persistent musk",
+            ),
+            evidence_class="SOURCE_DERIVED_DESIGN_HYPOTHESIS",
+        ),
+        ArchitectureLayer(
+            layer="head",
+            prominence="primary",
+            function="Bergamot-led citrus with a distinct green-terpenic blackcurrant identity.",
+            markers=(
+                "Calabrian Bergamot",
+                "Sicilian Lemon",
+                "Blackcurrant Leaf Accord",
+            ),
+            evidence_class="OFFICIAL_BRAND_NOTE_ARCHITECTURE",
+        ),
+        ArchitectureLayer(
+            layer="heart",
+            prominence="secondary",
+            function=(
+                "A restrained pineapple accent crosses the bergamot/blackcurrant head into "
+                "pink-pepper and jasmine radiance; fruit does not define the whole perfume."
+            ),
+            markers=("Pineapple Accord", "Pink Pepper", "Jasmine Accord"),
+            evidence_class="OFFICIAL_BRAND_NOTE_ARCHITECTURE",
+        ),
+        ArchitectureLayer(
+            layer="base",
+            prominence="primary",
+            function="Smoky-leathery birch, earthy patchouli, and musk form the lasting structure.",
+            markers=("Birch", "Patchouli", "Musk Accord"),
+            evidence_class="OFFICIAL_BRAND_NOTE_ARCHITECTURE",
+        ),
+    ),
+    current_inventory_build=(
+        InventoryRoleMapping(
+            target_function="cross_layer_spine",
+            stock_materials=(
+                "Hedione",
+                "Iso E Super",
+                (
+                    "Ambrox Super (25% w/w; 3.0 g Ambrox Super + 7.0 g DPG + "
+                    "0.5 g IPM + 1.5 g ethanol; 12.0 g total; clear and homogeneous)"
+                ),
+            ),
+            status="OWNED_FUNCTIONAL_MAPPING",
+            equivalence=False,
+            note=(
+                "Candidate structural scaffold only; exact ratios and OAV-per-time remain uncalibrated."
+            ),
+        ),
+        InventoryRoleMapping(
+            target_function="bergamot_head",
+            stock_materials=("Bergamot FCF oil Sicilian",),
+            status="OWNED_FUNCTIONAL_PROXY",
+            equivalence=False,
+            note="Owned Sicilian FCF stock is not proven equivalent to Creed's Calabrian material.",
+        ),
+        InventoryRoleMapping(
+            target_function="blackcurrant_head",
+            stock_materials=("Blackcurrant Absolute (10% in DPG)",),
+            status="OWNED_FUNCTIONAL_PROXY_COMPOSITE_OAV_REQUIRED",
+            equivalence=False,
+            note=(
+                "The owned absolute is a rational cassis proxy, not Creed's proprietary leaf accord."
+            ),
+        ),
+        InventoryRoleMapping(
+            target_function="pineapple_heart_accent",
+            stock_materials=("Allyl Amyl Glycolate (10%)",),
+            status="OWNED_SECONDARY_ACCENT",
+            equivalence=False,
+            note=(
+                "Use only after bergamot and blackcurrant are established; green-galbanum drift is the "
+                "principal failure mode."
+            ),
+        ),
+        InventoryRoleMapping(
+            target_function="pink_pepper_bridge",
+            stock_materials=("Pink Pepper EO (Schinus molle; neat / as supplied)",),
+            status="OWNED_IN_LEGACY_INVENTORY_TEXT_COMPOSITE_PROFILE_OVERLAY_SYNC_HOLD",
+            equivalence=False,
+            note=(
+                "User-confirmed neat Schinus molle EO is the authoritative physical stock and is "
+                "now recorded in inventory.txt with a literature-partial natural-mixture composite. "
+                "The pinned current-inventory overlay is not synchronized, so execution remains on "
+                "authority HOLD. Keep the older Pink Pepper EO / CO2 requirement as a separate GAP; "
+                "Black Pepper EO is not equivalent."
+            ),
+        ),
+        InventoryRoleMapping(
+            target_function="jasmine_radiance_bridge",
+            stock_materials=("Hedione", "Dihydrojasmone"),
+            status="OWNED_FUNCTIONAL_MAPPING",
+            equivalence=False,
+            note="Radiance support, not proof of Creed's jasmine accord composition.",
+        ),
+        InventoryRoleMapping(
+            target_function="smoky_birch_effect",
+            stock_materials=("Cade Oil Rectified (1% in DPG)", "Suederal (10%)"),
+            status="OWNED_NON_EQUIVALENT_EFFECT_MAPPING",
+            equivalence=False,
+            note=(
+                "Birch Tar Rectified is excluded from this current-stock projection because the live "
+                "inventory marks it IFRA prohibited; smoke and suede remain separate functions."
+            ),
+        ),
+        InventoryRoleMapping(
+            target_function="patchouli_earth_wood_bridge",
+            stock_materials=("Patchouli EO",),
+            status="OWNED_DIRECT_ROLE",
+            equivalence=False,
+            note="Exact origin, batch, and reference equivalence remain unproven.",
+        ),
+        InventoryRoleMapping(
+            target_function="persistent_musk_projection",
+            stock_materials=("Romandolide",),
+            status="OWNED_SINGLE_MUSK_MAPPING",
+            equivalence=False,
+            note=(
+                "Chosen as a single outward-diffusion musk; it is not Helvetolide and does not prove "
+                "reference equivalence."
+            ),
+        ),
+    ),
+    primary_rule=(
+        "The perfume architecture is primary: dry woody-musk continuity, a bergamot/blackcurrant "
+        "head, a controlled aromatic-floral bridge, and a smoky patchouli drydown. Pineapple and "
+        "other fruit are secondary accents."
+    ),
+    head_priority=("Bergamot FCF oil Sicilian", "Blackcurrant Absolute (10% in DPG)"),
+    secondary_fruit=("Allyl Amyl Glycolate (10%)",),
+    source_url="https://creedboutique.com/products/aventus",
+    build_status=(
+        "DESIGN_MAPPING_ONLY_SCHINUS_PINNED_OVERLAY_AUTHORITY_HOLD_"
+        "PPM_ODT_OAV_SAFETY_AND_SENSORY_GATES_NOT_RUN"
+    ),
+    relations=(
+        ArchitectureRelation(
+            relation=(
+                "Bergamot brightness and blackcurrant's green-terpenic contrast state the "
+                "opening before pineapple supplies a short secondary fruit flash."
+            ),
+            target_link=(
+                "Preserves the official head-versus-heart order and the requested hierarchy."
+            ),
+            omission_loss=(
+                "Without the bergamot/blackcurrant lead, the opening loses the named reference's "
+                "citrus-cassis articulation; without the restrained pineapple accent, it loses a "
+                "recognizable but non-dominant transition cue."
+            ),
+            failure_mode=(
+                "Pineapple or generic fruit becomes the subject, or blackcurrant is mistaken for "
+                "a pineapple substitute."
+            ),
+            temporal_windows=("opening", "opening_to_heart"),
+            controlled_comparison=(
+                "At formula stage, compare an architecture-first head with a pineapple-forward "
+                "head at constant concentrate total and matched carrier, holding the structural "
+                "spine and base fixed; calculate stock-specific ppm, ODT, composite-natural OAV, "
+                "and OAV-per-time before compounding."
+            ),
+        ),
+        ArchitectureRelation(
+            relation=(
+                "Transparent diffusion and dry-wood continuity carry the citrus-cassis opening "
+                "through the pepper-jasmine heart without becoming a separate amberwood perfume."
+            ),
+            target_link=(
+                "Makes architecture, continuity, and smell primary rather than a list of fruit notes."
+            ),
+            omission_loss=(
+                "The top, heart, and base read as disconnected accords rather than one evolving object."
+            ),
+            failure_mode=(
+                "The scaffold becomes a generic loud woody-amber cloud or masks the named head and base."
+            ),
+            temporal_windows=("opening", "heart", "late_heart", "drydown"),
+            controlled_comparison=(
+                "At formula stage, compare the smallest viable scaffold with a scaffold omission at "
+                "constant total and matched carrier while preserving the same character-note active doses."
+            ),
+        ),
+        ArchitectureRelation(
+            relation=(
+                "The pepper-jasmine bridge and restrained fruit hand off into smoky birch effect, "
+                "patchouli earth, and persistent musk."
+            ),
+            target_link=(
+                "Returns the perfume to its dry, smoky, earthy structure after the recognizable fruit cue."
+            ),
+            omission_loss=(
+                "The perfume either collapses after the opening or dries down as an unrelated clean musk."
+            ),
+            failure_mode=(
+                "Smoke/leather takes over, patchouli becomes muddy, or the base remains a generic musk-amber."
+            ),
+            temporal_windows=("heart", "late_heart", "drydown"),
+            controlled_comparison=(
+                "At formula stage, use separate constant-total, carrier-matched smoke-effect and "
+                "patchouli-bridge omissions; do not infer their interaction from pairwise chemistry alone."
+            ),
+        ),
+    ),
+    next_comparison=(
+        "Architecture-first versus pineapple-forward opening, constant concentrate total and matched "
+        "carrier, with identical dry-wood/musk spine and birch/patchouli/musk base; evaluate blind at "
+        "opening, 5 minutes, 30 minutes, 2 hours, and 4 hours only after ppm/ODT/OAV preflight."
+    ),
+)
+
+
 AVENTUS_SKELETON = FormulaSkeleton(
     name="Aventus (Eau de Parfum)",
     house="Creed",
     year=2010,
     perfumers="Jean-Christophe Hérault & Erwin Creed",
-    family=FragranceFamily.CHYPRE,  # Chypre Fruity
+    family=FragranceFamily.CHYPRE,  # Dry Woods / Fruity Chypre neighborhood
     concentration=ConcentrationBracket.EDP,
     structural_insight=(
-        "Helvetolide at ~14% is NOT perceived as 'musk' — it reads as a transparent "
-        "fruity-amber atmospheric cloud in which pineapple and smoky notes float. "
-        "This is the highest-concentration musk deployment of any famous fragrance. "
-        "The diffusion platform (Hedione + Iso E Super + Helvetolide + Ambroxan) = 60% "
-        "of formula weight — the identity of Aventus is its platform, not its notes."
+        "Aventus is treated here as an architecture, not a pineapple accord: a transparent "
+        "dry-wood/musk spine carries a bergamot-and-blackcurrant head through a restrained "
+        "pineapple, pepper, and jasmine heart into smoky birch, patchouli, and musk."
     ),
-    three_pillar_platform=("Helvetolide", "Hedione", "Iso E Super"),
+    three_pillar_platform=None,
     materials=(
-        ("Hedione", 23.0, "Radiance platform — VN1R1 activation, transparent jasmine diffusion"),
-        ("Iso E Super", 14.0, "Woody sillage platform"),
-        ("Helvetolide", 14.0, "Transparent fruity-musk cloud — pear/apple/ambrette atmosphere"),
-        ("Ambroxan", 10.0, "Amber-skin anchor, OR7A17 activation"),
-        ("Allyl Amyl Glycolate", 1.4, "Green-tropical pineapple character (~14 parts)"),
-        ("Bergamot FCF", 5.0, "Hesperidic top note"),
-        ("Alpha-Damascone (10%)", 0.3, "Apple-rose depth that makes pineapple photorealistic (~3 parts 10%)"),
-        ("Cypriol EO (Nagarmotha)", 0.5, "Woody-spicy-earthy-smoky — PRIMARY smoke source, not birch tar"),
-        ("Butyl Quinoline Secondary (10%)", 0.6, "Leather-smoky edge (~6 parts 10%)"),
-        ("Patchouli EO", 1.0, "Earthy grounding (~10 parts)"),
-        ("Coranol", 2.0, "Rosy-woody nuance"),
-        ("Evernyl (Veramoss)", 0.5, "Post-IFRA mossy element"),
-        ("Ambrettolide", 2.0, "Second musk layer (~20 parts/1000)"),
-        ("Birch Tar (10%)", 0.1, "Trace smoky accent — NOT the primary smoke source"),
-        ("Octyl Salicylate", 0.2, "UV absorber / stabilizer"),
-        ("Cyclamen Aldehyde", 0.5, "Diffusion amplifier, radiant soapy-fresh projection"),
+        (
+            "Transparent diffusion platform",
+            None,
+            "Primary cross-layer function; a Helvetolide/Ambroxan-style platform is a hypothesis.",
+        ),
+        ("Dry woody continuity", None, "Primary cross-layer structural function."),
+        ("Birch accord", None, "Primary smoky-leathery depth and transition into the base."),
+        ("Patchouli", None, "Primary earthy wood bridge."),
+        ("Musk accord", None, "Primary persistence and spatial continuity."),
+        ("Bergamot", None, "Primary head material and citrus identity."),
+        ("Blackcurrant leaf accord", None, "Primary head contrast; green-terpenic cassis identity."),
+        ("Sicilian lemon", None, "Supporting head citrus."),
+        ("Pink pepper", None, "Supporting aromatic-spice heart bridge."),
+        ("Jasmine accord", None, "Supporting radiant heart bridge."),
+        ("Pineapple accord", None, "Secondary heart-reaching fruit accent, never the architecture."),
     ),
-    construction_method="platform-first (60% diffusion platform + 25% character + 15% accents)",
+    construction_method=(
+        "architecture-first (cross-layer dry-wood/musk spine + bergamot/blackcurrant head + "
+        "restrained pineapple heart accent + birch/patchouli/musk drydown)"
+    ),
     tropical_notes=(
-        "Helvetolide at 14% in concentrate → transparent fruity cloud. VP moderate (~0.003 Pa) "
-        "but high loading compensates at 35°C. Ambroxan blossoms in heat. "
-        "Cypriol (Nagarmotha) smoke character is climate-stable."
+        "No fixed Bangkok rebasing is authorized from note architecture alone. A concrete build "
+        "must be evaluated with stock-specific ppm, ODT, composite-natural OAV, and OAV-per-time "
+        "at the requested temperature."
     ),
     anosmia_warnings=(
-        "Helvetolide is universally perceived (<5% anosmia) — major advantage over Galaxolide. "
-        "Ambroxan OR7A17 risk (~20% East Asian) partially compensated by Helvetolide + Hedione platform. "
-        "Iso E Super anosmia (~22%) — but at 14% loading, even partial perception is significant."
+        "No exact commercial formula or OAV distribution is established, so population coverage "
+        "cannot be inferred from this architecture record. Validate the chosen musk/amber/wood "
+        "scaffold in controlled smelling rather than assuming universal perception."
     ),
-    data_confidence="_RECONSTRUCTED from Basenotes community GCMS analysis and reverse-engineering",
+    data_confidence=(
+        "OFFICIAL_BRAND_NOTE_ARCHITECTURE_ONLY + SOURCE_DERIVED_PLATFORM_HYPOTHESIS; "
+        "QUANTITATIVE_FORMULA_UNKNOWN; SENSORY_SIMILARITY_NOT_TESTED"
+    ),
 )
 
 
@@ -468,6 +753,12 @@ def get_aldehyde_quartet() -> AldehydeQuartet:
     return AldehydeQuartet()
 
 
+def get_aventus_architecture_module() -> AventusArchitectureModule:
+    """Return the architecture-first Aventus target and stock projection."""
+
+    return AVENTUS_ARCHITECTURE
+
+
 # ---------------------------------------------------------------------------
 # Construction wisdom distilled from the 6 formulas
 # ---------------------------------------------------------------------------
@@ -477,7 +768,10 @@ FIVE_LUXURY_PRINCIPLES: tuple[tuple[str, str, str], ...] = (
         "Platform thinking",
         "Great luxury formulas are built on a 3-material diffusion platform "
         "(Hedione + Iso E Super/Norlimbanol + Ambroxan/musk), not individual notes.",
-        "Sauvage: Ambroxan + Iso E Super + Hedione; Aventus: Helvetolide + Hedione + Iso E Super",
+        (
+            "Sauvage: Ambroxan + Iso E Super + Hedione; Aventus: a source-derived "
+            "Helvetolide/Ambroxan-style hypothesis carried below the official note architecture"
+        ),
     ),
     (
         "Temporal drama",

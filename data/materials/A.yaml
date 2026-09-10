@@ -1017,7 +1017,8 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Aldehyde C-18 Gamma Nonalactone
-  aliases: []
+  aliases:
+  - "Aldehyde C-18"
   cas: null
   smiles: null
   inchikey: null
@@ -1550,7 +1551,7 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 158.2
+  mw_g_mol: 186.25
   density_25c_g_ml: null
   logp: 1.0
   functional_groups: []
@@ -1590,7 +1591,7 @@
   character: null
   notes: null
   provenance:
-    mw_g_mol: engine.diffusion_model
+    mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
@@ -1934,7 +1935,9 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Alpha Isomethyl Ionone
-  aliases: []
+  aliases:
+  - Alpha Isomethyl Ionone (Methyl Ionone Pure)
+  - Givaudan AIMI
   cas: 127-51-5
   smiles: CC1=CCCC(C1/C=C(/C)\C(=O)C)(C)C
   inchikey: JRJBVWJSTHECJK-LUAWRHEFSA-N
@@ -2862,7 +2865,7 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: 10% in DPG
+  user_stock_dilution: 10% w/w in DPG
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 4XU00034
@@ -3420,6 +3423,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Anisaldehyde
   aliases:
+  - "Anisaldehyde 10%"
   - anisaldehyde
   cas: null
   smiles: null
@@ -3873,7 +3877,7 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 178.27
+  mw_g_mol: 220.35
   density_25c_g_ml: null
   logp: null
   functional_groups: []
@@ -3904,6 +3908,7 @@
   character: null
   notes: null
   provenance:
+    mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
@@ -4372,3 +4377,14 @@
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+- canonical_name: Amber Xtreme
+  aliases: [amber xtreme]
+  cas: 476332-65-7
+  mw_g_mol: 264.4
+  vp_25c_pa: null
+  logp: null
+  user_stock_dilution: "1% (legacy declaration; current stock authority governs)"
+  user_in_inventory: true
+  notes: C18H32O entity mass, manufacturer rounded MW264. Source VP at23C not promoted to25C.
+  provenance:
+    mw_g_mol: https://www.iff.com/scent/ingredients-compendium/amber-xtreme-2/

@@ -213,6 +213,16 @@ def test_randomized_formula_states_preserve_physical_invariants() -> None:
 def test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate() -> None:
     audit = build_inventory_oav_coverage_audit()
 
+    for name, unresolved_fraction in (("Cypress EO", 0.308), ("Peppermint Essential Oil", 0.580)):
+        assert name in audit["natural_literature_proxies"]
+        state = build_formula_state({name: 100.0, "Hedione": 900.0})
+        material = next(row for row in state.materials if row.name == name)
+        metadata = material.natural_composite_metadata
+        assert metadata["quantitative_evaluability"] == "PARTIAL_INPUT_COVERAGE"
+        assert metadata["unresolved_fraction"] == pytest.approx(unresolved_fraction)
+        assert metadata["unresolved_odor_contribution"] == "UNKNOWN_NOT_ZERO"
+        assert _natural_composite_coverage_check(state).status == "WARN"
+
     assert set(audit["categories"]["naturals_missing_composite_evidence"]) == {
         "Anise EO",
         "Basil EO",
@@ -222,7 +232,6 @@ def test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate() 
         "Himalayan Cedarwood EO",
         "Magnolia EO",
         "Opoponax Resinoid",
-        "Peppermint Essential Oil",
         "Peru Balsam Resinoid",
         "Pine EO",
         "Spike Lavender EO",

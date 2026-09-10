@@ -1390,6 +1390,8 @@
 - canonical_name: Orris Liquid
   aliases:
   - Orris Liquid (30%)
+  - Orris Liquid (9% w/w in DEP)
+  - Orris Liquid — PerfumersWorld product basis
   cas: 8002-73-1
   smiles:
   inchikey:
@@ -1414,7 +1416,7 @@
   trp_targets:
   hedonic_valence: 0.78
   ifra_max_pct_edp:
-  user_stock_dilution: 30% w/w  # orris resinoid; solvent not recorded (schema requires str: "neat" | "10% in DPG" | "1% in TEC" | ...)
+  user_stock_dilution: 9% w/w in DEP  # direct user correction 2026-09-05; product-basis mass fraction, not pure irone assay
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 8IQ24653
@@ -1422,7 +1424,7 @@
     perfumersworld_form: pale yellow 80-85% irone liquid
     perfumersworld_snapshot_date: '2026-07-16'
     other:
-      user_dilution_solvent: not recorded
+      user_dilution_solvent: DEP
   families:
   - iris / violet
   - natural mixture
@@ -1432,6 +1434,7 @@
   notes: Supplier-specific 80-85% irone mixture. MW, logP, VP and ODT use an
     alpha-irone-equivalent fallback only; formula-state OAV must use the 82.5%
     composite irone pool. Supplier usage guidance is not an IFRA maximum.
+    The listed supplier-material density is not the density of the user's 9% DEP stock.
   provenance:
     cas: https://www.perfumersworld.com/view.php?pro_id=8IQ24653
     mw_g_mol: alpha-irone-equivalent fallback for mixture transport
@@ -1440,7 +1443,8 @@
     vp_25c_pa: alpha-irone-equivalent fallback for mixture transport
     odt_air_ppb: engine.odor_thresholds (DERIVED fallback; composite OAV authoritative)
     odt_eth_ppm: engine.odor_thresholds (DERIVED fallback; composite OAV authoritative)
-    user_in_inventory: inventory.txt (30% stock added 2026-07-16)
+    user_in_inventory: inventory.txt (9% w/w in DEP confirmed 2026-09-05)
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20260905.json#INV-USER-20260905-001
     supplier.perfumersworld: https://www.perfumersworld.com/view.php?pro_id=8IQ24653
 - canonical_name: Osmanthus Absolute
   aliases: []

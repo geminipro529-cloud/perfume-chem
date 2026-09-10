@@ -1,0 +1,388 @@
+{
+  "receipt_id": "AHS-EDT-RELATIONAL-V3-20260906",
+  "schema": "scoped_formula_design_verification_v1",
+  "date": "2026-09-06",
+  "scope": "New AHS experimental candidate artifacts only; not a full project or perfume release",
+  "result": "ARTIFACTS_COMPLETED_SCOPED_CHECKS_PASS_DIAGNOSTIC_FAIL_EXECUTION_HOLD",
+  "owner": "parent coordinator /root",
+  "workers": [
+    {
+      "task": "ahs_v3_stock_audit",
+      "scope": "read-only stock authority",
+      "acceptance": "Parent checked inventory, overlay and source bytes; no write lease"
+    },
+    {
+      "task": "ahs_complexity_astra",
+      "scope": "read-only experimental design critique",
+      "acceptance": "Parent accepted v2 preservation and unselected v3 evidence ceilings; no write lease"
+    }
+  ],
+  "repository": {
+    "cwd": "D:/chatbots/perfume-chem",
+    "branch": "codex/astra",
+    "head": "e7002d4dacde0ae4c6b92db454fa4034c830e8f4",
+    "already_dirty": true,
+    "git_mutation": false
+  },
+  "checks": {
+    "canonical_json_matches_full_and_compact_views": true,
+    "all_27_stock_declarations_equal_parent": true,
+    "fragrance_material_count": 26,
+    "separate_carrier_rows": 1,
+    "total_raw_ul": 5000,
+    "minimum_raw_ul": 10,
+    "basket_count": 17,
+    "basket_descending_and_name_tiebreaks": true,
+    "intentional_changes": [
+      {
+        "material": "Dihydromyrcenol",
+        "parent_raw_ul": 350,
+        "child_raw_ul": 300,
+        "delta_raw_ul": -50,
+        "stock_changed": false
+      },
+      {
+        "material": "Helional",
+        "parent_raw_ul": 50,
+        "child_raw_ul": 100,
+        "delta_raw_ul": 50,
+        "stock_changed": false
+      }
+    ],
+    "all_other_25_rows_unchanged": true,
+    "parent_and_old_card_unchanged": true,
+    "inventory_and_overlay_unchanged": true,
+    "literal_ODT_DATA_duplicate_keys": []
+  },
+  "tests": [
+    {
+      "command": ".venv/Scripts/python.exe -m pytest tests/test_pre_mix_guard.py -q",
+      "passed": 10,
+      "failed": 0
+    },
+    {
+      "command": ".venv/Scripts/python.exe -m pytest tests/test_verify_formula_workflow_parser.py -q",
+      "passed": 9,
+      "failed": 1,
+      "failing_test": "test_chemical_life_graph_does_not_claim_uncalibrated_longevity",
+      "error": "AttributeError: 'str' object has no attribute 'get'",
+      "location": "engine/chemical_life_graph.py:543",
+      "diagnosis": "get_all_profiles exposes 15 MaterialProfile.character string values while consumer expects dict; direct read-only probe reproduced type mismatch",
+      "shared_code_changed": false
+    }
+  ],
+  "runtime_precheck": "repository .venv / build 1.5.0",
+  "pipeline": {
+    "command": ".venv/Scripts/python.exe scripts/formula_release_gate.py --formula-file formulas/AHS_EDT_Relational_Study_30mL_v3.md --parent-formula-file formulas/AHS_2004_Reference_First_From_Zero_30mL_EDT_v2_Neat_Neroli.md --expected-concentrate-ul 5000 --batch-volume-ml 30 --temperature-k 305 --brief auto --no-audit --no-append-analysis --json",
+    "exit_code": 1,
+    "overall": "FAIL",
+    "gate_counts": {
+      "PASS": 103,
+      "WARN": 35,
+      "FAIL": 9,
+      "SKIP": 1
+    },
+    "g15": {
+      "gate": "g15_oav_firewall",
+      "status": "PASS",
+      "detail": "Dose lineage is continuous and no modeled OAV anomaly crossed the G15 review thresholds.",
+      "data": {
+        "gate_id": "G15",
+        "evidence_class": "DETERMINISTIC_DOSE_INTEGRITY_PLUS_MODELED_OAV_SCREENING",
+        "hard_gate_authority": "DOSE_LINEAGE_AND_REVISION_DISCONTINUITY_ONLY",
+        "oav_release_authority": false,
+        "child_formula_hash": "93cd66b7e4c9fa55840a05954ad7092cf90aa1f6add1ddc5de37aec0b42e2c79",
+        "oav_interpretation": "Modeled OAV is a time-resolved screening signal, not percent perceived contribution, beauty, similarity, preference, or measured headspace.",
+        "declared_parent_formula_uid": null,
+        "authorized_active_dose_changes": {},
+        "supplied_parent_formula_uid": null,
+        "parent_formula_hash": "1453e641d93e2247c5d684d84fe0b816112ce7a126ca122cbca60c2c106d1d75",
+        "parent_g15_dilutions": {
+          "Iso E Super": 1,
+          "Hedione": 1,
+          "Benzyl Salicylate": 1,
+          "Patchouli EO": 1,
+          "Sandalore": 1,
+          "Cedarwood oil Virginia": 1,
+          "Vertofix": 1,
+          "Galaxolide": 0.5,
+          "Romandolide": 1,
+          "Dihydromyrcenol": 1,
+          "Linalyl Acetate": 1,
+          "Linalool": 1,
+          "Helional": 1,
+          "Lavender EO High Altitude (angustifolia, France)": 1,
+          "DPG": 1,
+          "Neroli EO": 1,
+          "Geranium EO": 1,
+          "Alpha Isomethyl Ionone": 1,
+          "Coumarin": 0.2,
+          "Vanillin": 0.1,
+          "Black Pepper EO": 1,
+          "Red Mandarin EO": 1,
+          "Bergamot FCF oil Sicilian": 1,
+          "Petitgrain EO Paraguay": 1,
+          "Aldehyde C10": 0.01,
+          "Aldehyde C12 MNA": 0.01,
+          "Calone": 0.01
+        },
+        "child_g15_dilutions": {
+          "Iso E Super": 1,
+          "Hedione": 1,
+          "Benzyl Salicylate": 1,
+          "Patchouli EO": 1,
+          "Sandalore": 1,
+          "Cedarwood oil Virginia": 1,
+          "Vertofix": 1,
+          "Galaxolide": 0.5,
+          "Romandolide": 1,
+          "Dihydromyrcenol": 1,
+          "Linalyl Acetate": 1,
+          "Helional": 1,
+          "Linalool": 1,
+          "Lavender EO High Altitude (angustifolia, France)": 1,
+          "DPG": 1,
+          "Neroli EO": 1,
+          "Geranium EO": 1,
+          "Alpha Isomethyl Ionone": 1,
+          "Coumarin": 0.2,
+          "Vanillin": 0.1,
+          "Black Pepper EO": 1,
+          "Red Mandarin EO": 1,
+          "Bergamot FCF oil Sicilian": 1,
+          "Petitgrain EO Paraguay": 1,
+          "Aldehyde C10": 0.01,
+          "Aldehyde C12 MNA": 0.01,
+          "Calone": 0.01
+        },
+        "pre_mix_guard": {
+          "status": "PASS",
+          "parent_comparison_available": true,
+          "temporal_comparison_available": true,
+          "findings": [],
+          "limitations": [
+            "Active-dose continuity is the hard invariant for stock rebases.",
+            "Temporal OAV is screening only and is not percent perceived contribution.",
+            "Static OAV dominance alone never hard-fails a formula.",
+            "No target-similarity, pleasantness, or consumer-preference claim is made."
+          ]
+        }
+      }
+    },
+    "failures": [
+      {
+        "gate": "pipeline_preflight",
+        "status": "FAIL",
+        "detail": "13 checks; 7 warnings"
+      },
+      {
+        "gate": "inventory_stock_contract",
+        "status": "FAIL",
+        "detail": "5 material stock contract failure(s): Aldehyde C10, Aldehyde C12 MNA, Coumarin, Lavender EO High Altitude (angustifolia, France), Vanillin"
+      },
+      {
+        "gate": "quantitative_authority",
+        "status": "FAIL",
+        "detail": "Exact active concentrate ppm w/w is unavailable; quantitative/release claims are blocked."
+      },
+      {
+        "gate": "natural_composite_coverage",
+        "status": "FAIL",
+        "detail": "Natural mixtures lack required composite GC-O decomposition: Lavender EO High Altitude (angustifolia, France)"
+      },
+      {
+        "gate": "reference_claim_contract",
+        "status": "FAIL",
+        "detail": "Unknown reference contract(s): chanel_allure_homme_sport_edt_reference_pending"
+      },
+      {
+        "gate": "material_spine_coverage",
+        "status": "FAIL",
+        "detail": "Lavender EO High Altitude (angustifolia, France)"
+      },
+      {
+        "gate": "physics_data_coverage",
+        "status": "FAIL",
+        "detail": "{\"Lavender EO High Altitude (angustifolia, France)\": [\"mw\", \"logp\", \"vp\", \"odt_air_ppm\"]}"
+      },
+      {
+        "gate": "odt_coverage",
+        "status": "FAIL",
+        "detail": "Lavender EO High Altitude (angustifolia, France)"
+      },
+      {
+        "gate": "confidence_minimum",
+        "status": "FAIL",
+        "detail": "combined confidence 9.8 below 25.0 after preflight evidence penalty 16.0"
+      }
+    ],
+    "manifest": {
+      "schema": "perfume_pipeline_run_evidence_v1",
+      "binding_schema": "formula-artifact-binding-v1",
+      "renderer_version": "formula-release-gate-v1",
+      "analysis_input_sha256": "d1bca58c5031d03d3dbcd8ae82fa15aaef2255db65f5649606961c92b5e23676",
+      "repository_commit": "e7002d4dacde0ae4c6b92db454fa4034c830e8f4",
+      "canonical_records": [
+        {
+          "record_id": "formula:1:allure-homme-sport-edt-relational-study-v3-30-ml",
+          "record_version": 1,
+          "canonical_content_sha256": "b4017d5642cba84dc204bce245679a3b87b3d2bc447b6a4390f100db14c64ff9"
+        }
+      ],
+      "formula_definitions": [
+        {
+          "number": 1,
+          "name": "Allure Homme Sport EDT — Relational Study v3 — 30 mL",
+          "sha256": "b4017d5642cba84dc204bce245679a3b87b3d2bc447b6a4390f100db14c64ff9"
+        }
+      ],
+      "g15_parent_formula_definitions": [
+        {
+          "number": 1,
+          "name": "AHS-2004 Reference-First — From-Zero 30 mL EDT Study v2 — Neat Neroli",
+          "sha256": "24a55d353461f0d85958d2b0de4f802a8fb7d795f15645c4eb9931f09ef442ff"
+        }
+      ],
+      "semantic_config": {
+        "requested": {
+          "expected_concentrate_ul": 5000,
+          "min_neat_trace_ul": 5,
+          "batch_volume_ml": 30,
+          "temperature_K": 305,
+          "brief": "auto",
+          "family_archetype": "",
+          "concentration_bracket": "EdP",
+          "allow_preblends": false,
+          "min_confidence_score": 25,
+          "min_perceptible_materials": 3,
+          "max_perceptible_channels": 30,
+          "ifra_headroom": 1,
+          "commercial_mode": false,
+          "commercial_confidence_policy": "block",
+          "quantitative_claim": true,
+          "matrix_components_moles": [],
+          "matrix_mass_g": 0,
+          "matrix_source": "omitted",
+          "batch_scaling_targets_ml": [],
+          "expected_retail_price_thb": 1500,
+          "price_tier": "auto",
+          "effective_ifra_headroom": 1
+        },
+        "formula_family_archetypes": [
+          ""
+        ],
+        "g15_authorized_active_dose_changes": {}
+      },
+      "config_sha256": "978e2bfa850e2a7d6e4a6b17071229a8504dc89639817087a91486e6dd25e017",
+      "inventory_sha256": "d103b79508592f74bb368f27507874b9fd3493acc9e872150e768449b2a02ef7",
+      "scientific_inputs_sha256": "09596a0dda1034ad31061a9e3118af30260c4bfa9cfec2f520e999f1d0746b02",
+      "pipeline_source_sha256": "c0dd00b636cfe122919f778baf427bedc2ec9c2e537a5f5a556cc0e8ebf099cc",
+      "legacy_formula_hashes_v1": [
+        {
+          "number": 1,
+          "name": "Allure Homme Sport EDT — Relational Study v3 — 30 mL",
+          "sha256": "93cd66b7e4c9fa55840a05954ad7092cf90aa1f6add1ddc5de37aec0b42e2c79"
+        }
+      ],
+      "overall": "FAIL",
+      "generated_at_utc": "2026-09-06T16:04:50.233256+00:00",
+      "authorities": {
+        "stock": [
+          "FAIL"
+        ],
+        "quantitative": [
+          "FAIL"
+        ],
+        "claim": [
+          "FAIL"
+        ],
+        "headspace_oav": [
+          "MODELED_ACTIVE_CONCENTRATE_SCREEN"
+        ]
+      },
+      "provenance": {
+        "entities": [
+          "formula_definition",
+          "release_config",
+          "inventory_snapshot",
+          "scientific_inputs",
+          "pipeline_source",
+          "analysis_artifact"
+        ],
+        "activity": "formula_release_gate",
+        "agent": "perfume-chem pipeline",
+        "derivation": "analysis_artifact wasDerivedFrom all input entities"
+      },
+      "analysis_sha256": "55f2af507eac58a38dd9b9a163fc81ba071c799e7714f4b2946166decd892cf9",
+      "artifact_sha256": "9d13ae660677795349a2079d04cf3388ceb690d76372c2e2ae17fff4a7bbac7b"
+    },
+    "formatting": "Complete engine analysis uses scripts/format_pipeline_analysis.py builders through engine.pipeline.analysis.render_pipeline_analysis; preserved without data changes in the new detailed formula",
+    "artifact_append": "apply_patch of intact rendered analysis and bound manifest; validated independently afterward",
+    "artifact_validation": {
+      "status": "CURRENT",
+      "issues": [],
+      "artifact_sha256": "9d13ae660677795349a2079d04cf3388ceb690d76372c2e2ae17fff4a7bbac7b"
+    },
+    "transport": "Full raw report exceeded tool output limit. Only the verified complete prefix containing manifest, full analysis and checks was retained; no complete raw pipeline JSON is claimed."
+  },
+  "files": [
+    {
+      "path": "formulas/records/AHS_EDT_Relational_Study_30mL_v3.json",
+      "bytes": 15247,
+      "sha256": "624d3d0f9599362a2904c1803869227a632132967e694a61a0c626991bf9f7ec"
+    },
+    {
+      "path": "formulas/AHS_EDT_Relational_Study_30mL_v3.md",
+      "bytes": 37631,
+      "sha256": "d4e09922a6f7cee2ed95e028e813361a41014f41dd863650727e052fb93b309b"
+    },
+    {
+      "path": "formulas/AHS_EDT_Relational_Study_30mL_v3_Basket_1-17.md",
+      "bytes": 3996,
+      "sha256": "e65c990765cd80565ec94c4962e89bdf939e3c8b0ac68b85149dca25a13f1aca"
+    },
+    {
+      "path": "docs/research/AHS_EDT_RELATIONAL_V3_DECISION_20260906.md",
+      "bytes": 14341,
+      "sha256": "94c01c5b1c8aa22c6e29e4d3271e14b37bc77fb3b4d16ce69ea22f09a2e6b723"
+    }
+  ],
+  "protected_files": [
+    {
+      "path": "formulas/AHS_2004_Reference_First_From_Zero_30mL_EDT_v2_Neat_Neroli.md",
+      "bytes": 58823,
+      "sha256": "9cd46ef547c5f7f1f62c10a60a355f6100b4eb58a1c8aa1e1e2457bf3b0f3f67"
+    },
+    {
+      "path": "formulas/AHS_2004_30mL_EDT_Basket_1-17_Neat_Neroli.md",
+      "bytes": 4966,
+      "sha256": "f5af267b821f91d167b3087965c16a0de51c45974ccb84a11cbf59e4428ee3bc"
+    },
+    {
+      "path": "inventory.txt",
+      "bytes": 21215,
+      "sha256": "d103b79508592f74bb368f27507874b9fd3493acc9e872150e768449b2a02ef7"
+    },
+    {
+      "path": "data/governance/inventory_user_authority_overlay_20260906.json",
+      "bytes": 3668,
+      "sha256": "b06024fdef65355c354a4c5a2618d482f215df42a21c2d56aed896bbfb8c305f"
+    }
+  ],
+  "remaining_holds": [
+    "No authenticated reference bottle/batch or measured comparative sensory evidence",
+    "Six selected stocks have unspecified fraction basis; four also have unspecified carrier",
+    "Coumarin20%DEP user ownership is authoritative but canonical stock binding remains stale",
+    "Exact Lavender material/composite/physics/ODT mapping missing",
+    "Vertofix identity and physics unresolved; DHM and Helional supplier/local physics differ",
+    "Finished solvent matrix omitted; automatic EdP bracket and quantitative-text detection limitations remain",
+    "Related chemical_life_graph test failure remains unresolved",
+    "Safety, stability, performance, liking, integration, depth, richness and release not established"
+  ],
+  "selected_baseline": "formulas/AHS_2004_Reference_First_From_Zero_30mL_EDT_v2_Neat_Neroli.md",
+  "v3_selection": "UNSELECTED_EXPERIMENTAL_ALTERNATIVE",
+  "full_project_verifier_run": false,
+  "physical_operations_performed": false,
+  "release_authorized": false,
+  "next_action": "Reconcile needed stock/identity metadata and safety conditions, then use the documented blinded v2/v3 comparison; require authenticated EDT for reference-fidelity evaluation."
+}

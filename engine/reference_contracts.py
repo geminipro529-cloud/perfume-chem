@@ -29,6 +29,8 @@ NAMED_REFERENCE = "named_reference"
 class ReferenceMarkerGroup:
     name: str
     alternatives: tuple[str, ...]
+    layer: str = "unspecified"
+    prominence: str = "required"
 
 
 @dataclass(frozen=True, slots=True)
@@ -80,7 +82,8 @@ MONTBLANC_EXPLORER_OFFICIAL_NOTES_V1 = ReferenceContract(
 CREED_AVENTUS_OFFICIAL_NOTES_V1 = ReferenceContract(
     contract_id="creed_aventus_official_notes_v1",
     display_name="Creed Aventus",
-    target_aliases=("creed aventus", "aventus"),
+    # Retained for explicit historical receipts only. Current aliases resolve to V2.
+    target_aliases=(),
     allowed_scopes=(ARCHITECTURE,),
     marker_groups=(
         ReferenceMarkerGroup("citrus", ("bergamot", "lemon")),
@@ -126,6 +129,90 @@ CREED_AVENTUS_OFFICIAL_NOTES_V1 = ReferenceContract(
     ),
     source_url="https://creedboutique.com/products/aventus",
     evidence_class="official_brand_note_architecture_only",
+)
+
+
+CREED_AVENTUS_OFFICIAL_NOTES_V2 = ReferenceContract(
+    contract_id="creed_aventus_official_notes_v2",
+    display_name="Creed Aventus",
+    target_aliases=("creed aventus", "aventus"),
+    allowed_scopes=(ARCHITECTURE,),
+    marker_groups=(
+        ReferenceMarkerGroup(
+            "bergamot",
+            ("bergamot", "bergamot fcf", "bergamot fcf oil sicilian"),
+            layer="head",
+            prominence="primary",
+        ),
+        ReferenceMarkerGroup(
+            "blackcurrant",
+            ("blackcurrant", "cassis"),
+            layer="head",
+            prominence="primary",
+        ),
+        ReferenceMarkerGroup(
+            "pineapple",
+            (
+                "pineapple",
+                "allyl amyl glycolate",
+                "allyl cyclohexyl propionate",
+                "dynascone",
+            ),
+            layer="heart",
+            prominence="secondary",
+        ),
+        ReferenceMarkerGroup(
+            "pink_pepper",
+            ("pink pepper", "schinus molle"),
+            layer="heart",
+            prominence="supporting",
+        ),
+        ReferenceMarkerGroup(
+            "jasmine_radiance",
+            ("jasmine", "hedione", "jasmone", "dihydrojasmone"),
+            layer="heart",
+            prominence="supporting",
+        ),
+        ReferenceMarkerGroup(
+            "smoky_birch",
+            (
+                "birch tar",
+                "birch",
+                "cypriol",
+                "nagarmotha",
+                "isobutyl quinoline",
+                "leather",
+                "cade oil rectified",
+                "suederal",
+            ),
+            layer="base",
+            prominence="primary",
+        ),
+        ReferenceMarkerGroup(
+            "patchouli",
+            ("patchouli", "clearwood"),
+            layer="base",
+            prominence="primary",
+        ),
+        ReferenceMarkerGroup(
+            "musk",
+            (
+                "musk",
+                "ethylene brassylate",
+                "romandolide",
+                "habanolide",
+                "zenolide",
+                "ambrettolide",
+                "exaltolide",
+                "helvetolide",
+            ),
+            layer="base",
+            prominence="primary",
+        ),
+    ),
+    source_url="https://creedboutique.com/products/aventus",
+    evidence_class="official_brand_note_architecture_only_current_us_page_2026_09_04",
+    version=2,
 )
 
 
@@ -176,6 +263,115 @@ PRADA_LHOMME_OFFICIAL_NOTES_V1 = ReferenceContract(
 )
 
 
+DIOR_HOMME_INTENSE_2011_05443A_ARCHITECTURE_V1 = ReferenceContract(
+    contract_id="dior_homme_intense_2011_05443a_architecture_v1",
+    display_name="Dior Homme Intense 2011 (05443/A)",
+    target_aliases=(
+        "dior homme intense",
+        "dior homme intense 2011",
+        "dhi 2011",
+        "dhi-2011",
+    ),
+    allowed_scopes=(ARCHITECTURE,),
+    marker_groups=(
+        ReferenceMarkerGroup(
+            "lavender_opening",
+            ("lavender", "linalool", "linalyl acetate"),
+            layer="head",
+            prominence="supporting",
+        ),
+        ReferenceMarkerGroup(
+            "iris_or_orris_heart",
+            (
+                "iris",
+                "orris",
+                "irone",
+                "ionone",
+                "orivone",
+                "irotyl",
+            ),
+            layer="heart",
+            prominence="primary",
+        ),
+        ReferenceMarkerGroup(
+            "ambrette_musk_mediator",
+            (
+                "ambrette",
+                "ambrettolide",
+                "musk mallow",
+            ),
+            layer="heart_to_base",
+            prominence="primary",
+        ),
+        ReferenceMarkerGroup(
+            "pear_liqueur_facet",
+            (
+                "pear",
+                "ethyl 2-methylbutyrate",
+                "verdox",
+                "hexyl acetate",
+                "benzyl acetate",
+                "osmanthus",
+                "allyl cyclohexyl propionate",
+            ),
+            layer="heart",
+            prominence="supporting",
+        ),
+        ReferenceMarkerGroup(
+            "talc_textile_cushion",
+            (
+                "talc",
+                "ethylene brassylate",
+                "benzyl salicylate",
+                "mimosa",
+                "heliotropal",
+                "piperonal",
+            ),
+            layer="heart_to_base",
+            prominence="supporting",
+        ),
+        ReferenceMarkerGroup(
+            "coumarinic_tonka_shadow",
+            (
+                "coumarin",
+                "tonka",
+                "tonkarome",
+            ),
+            layer="heart_to_base",
+            prominence="supporting",
+        ),
+        ReferenceMarkerGroup(
+            "vanillic_amber_shadow",
+            (
+                "vanilla",
+                "vanillin",
+                "isobutavan",
+                "benzoin",
+            ),
+            layer="heart_to_base",
+            prominence="supporting",
+        ),
+        ReferenceMarkerGroup(
+            "virginia_cedar",
+            ("cedarwood oil virginia", "virginia cedar", "juniperus virginiana"),
+            layer="base",
+            prominence="primary",
+        ),
+        ReferenceMarkerGroup(
+            "vetiver",
+            ("vetiver", "vetival", "vetikon"),
+            layer="base",
+            prominence="primary",
+        ),
+    ),
+    source_url="https://www.dior.com/en_ch/beauty/products/dior-homme-intense-Y0479201.html",
+    evidence_class=(
+        "bounded_2011_architecture_official_house_plus_contemporaneous_launch_"
+        "no_formula_ratios_or_sensory_equivalence"
+    ),
+)
+
+
 YSL_LA_NUIT_DE_LHOMME_V1 = ReferenceContract(
     contract_id="ysl_la_nuit_de_lhomme_architecture",
     display_name="YSL La Nuit de L'Homme",
@@ -194,13 +390,56 @@ YSL_LA_NUIT_DE_LHOMME_V1 = ReferenceContract(
 )
 
 
+CHANEL_AHSEE_OFFICIAL_ARCHITECTURE_V1 = ReferenceContract(
+    contract_id="chanel_allure_homme_sport_eau_extreme_edp_official_architecture_v1",
+    display_name="Chanel Allure Homme Sport Eau Extreme EDP",
+    # Do not capture the original EDT, Sport Cologne, or other Allure products.
+    target_aliases=(
+        "chanel allure homme sport eau extreme",
+        "chanel allure homme sport eau extrême",
+        "allure homme sport eau extreme",
+        "allure homme sport eau extrême",
+        "ahsee",
+    ),
+    allowed_scopes=(ARCHITECTURE,),
+    # These are local functional name candidates, not Chanel ingredient aliases.
+    # The official description gives no complete temporal hierarchy or amounts.
+    marker_groups=(
+        ReferenceMarkerGroup("mandarin", ("mandarin",)),
+        ReferenceMarkerGroup("cypress", ("cypress",)),
+        ReferenceMarkerGroup(
+            "white_musk",
+            (
+                "white musk",
+                "galaxolide",
+                "romandolide",
+                "ethylene brassylate",
+                "habanolide",
+                "zenolide",
+                "exaltolide",
+                "ambrettolide",
+            ),
+        ),
+        ReferenceMarkerGroup("almond_tonka", ("tonka", "coumarin")),
+    ),
+    source_url=(
+        "https://www.chanel.com/gb/fragrance/p/123560/"
+        "allure-homme-sport-eau-extreme-eau-de-parfum-spray/"
+    ),
+    evidence_class="official_brand_four_facet_name_coverage_only_2026_09_08",
+)
+
+
 REFERENCE_CONTRACTS: dict[str, ReferenceContract] = {
     contract.contract_id: contract
     for contract in (
         YSL_LA_NUIT_DE_LHOMME_V1,
         MONTBLANC_EXPLORER_OFFICIAL_NOTES_V1,
         CREED_AVENTUS_OFFICIAL_NOTES_V1,
+        CREED_AVENTUS_OFFICIAL_NOTES_V2,
         PRADA_LHOMME_OFFICIAL_NOTES_V1,
+        DIOR_HOMME_INTENSE_2011_05443A_ARCHITECTURE_V1,
+        CHANEL_AHSEE_OFFICIAL_ARCHITECTURE_V1,
     )
 }
 
@@ -456,12 +695,83 @@ def detect_reference_claim(formula: Mapping) -> ReferenceClaimDetection:
     )
 
 
+def _ahsee_coverage_metadata(material_names: set[str]) -> dict[str, object]:
+    """Keep four-facet name coverage separate from source identity and performance."""
+    spearmint_names = sorted(
+        material
+        for material in material_names
+        if "spearmint" in material or "mentha viridis" in material
+    )
+    peppermint_names = sorted(
+        material
+        for material in material_names
+        if "peppermint" in material or "mentha piperita" in material
+    )
+    return {
+        "coverage_basis": "NAME_FACET_COVERAGE_ONLY",
+        "material_mapping_basis": "LOCAL_FUNCTIONAL_NAME_CANDIDATES_NOT_CHANEL_COMPOSITION",
+        "relational_performance": "NOT_TESTED",
+        "sensory_performance": "NOT_TESTED",
+        "authority": {
+            "source_ingredient_identity": False,
+            "source_formula_proportions": False,
+            "dose": False,
+            "quantitative_similarity": False,
+            "sensory_similarity": False,
+            "relational_performance": False,
+            "physical_compounding": False,
+            "safety": False,
+        },
+        "ingredient_declarations": [
+            {
+                "inci_name": "MENTHA VIRIDIS LEAF OIL",
+                "source_url": CHANEL_AHSEE_OFFICIAL_ARCHITECTURE_V1.source_url,
+                "source_checked_on": "2026-09-08",
+                "label_code": "PS000069A",
+                "evidence_class": "OFFICIAL_INGREDIENT_DECLARATION_ONLY",
+                "required_architecture_facet": False,
+                "matched_materials": spearmint_names,
+                "claim_ceiling": (
+                    "Name presence does not verify botanical grade, source lot, "
+                    "concentration, salience, or sensory equivalence."
+                ),
+            }
+        ],
+        "non_equivalent_mappings": (
+            [
+                {
+                    "source_target": "MENTHA VIRIDIS LEAF OIL",
+                    "build_materials": peppermint_names,
+                    "status": "NON_EQUIVALENT_FUNCTIONAL_SUBSTITUTION_UNTESTED",
+                    "identity_equivalent": False,
+                    "sensory_equivalent": False,
+                    "detail": (
+                        "Peppermint / Mentha piperita is a separate build material; "
+                        "it does not satisfy the source's spearmint identity."
+                    ),
+                }
+            ]
+            if peppermint_names
+            else []
+        ),
+    }
+
+
 def _evaluate_contract_groups(
     contract: ReferenceContract,
     material_names: set[str],
     scope: str,
 ) -> dict[str, object]:
     """Evaluate a single contract's marker groups against formula materials."""
+    group_metadata = {
+        group.name: {"layer": group.layer, "prominence": group.prominence}
+        for group in contract.marker_groups
+    }
+    coverage_metadata = (
+        _ahsee_coverage_metadata(material_names)
+        if contract.contract_id == CHANEL_AHSEE_OFFICIAL_ARCHITECTURE_V1.contract_id
+        else {}
+    )
     if scope not in contract.allowed_scopes:
         return {
             "contract_id": contract.contract_id,
@@ -476,6 +786,8 @@ def _evaluate_contract_groups(
             "matched_groups": {},
             "missing_groups": [g.name for g in contract.marker_groups],
             "all_group_names": [g.name for g in contract.marker_groups],
+            "group_metadata": group_metadata,
+            **coverage_metadata,
         }
 
     matched_groups: dict[str, list[str]] = {}
@@ -500,6 +812,8 @@ def _evaluate_contract_groups(
         "matched_groups": matched_groups,
         "missing_groups": missing_groups,
         "all_group_names": [g.name for g in contract.marker_groups],
+        "group_metadata": group_metadata,
+        **coverage_metadata,
     }
 
 
@@ -633,6 +947,16 @@ def evaluate_reference_contract(formula: Mapping, state: FormulaState) -> dict[s
     data["evaluations"] = evaluations
     if failures:
         return {"status": "FAIL", "detail": "; ".join(failures), "data": data}
+    if any(item.get("coverage_basis") == "NAME_FACET_COVERAGE_ONLY" for item in evaluations):
+        return {
+            "status": "PASS",
+            "detail": (
+                "Declared reference marker checks passed; AHSEE is name/facet coverage only. "
+                "Sensory and relational performance are untested; this grants no dose "
+                "or proprietary formula likeness authority."
+            ),
+            "data": data,
+        }
     return {
         "status": "PASS",
         "detail": "All declared architecture-only reference contracts are satisfied.",

@@ -573,7 +573,9 @@ def analyze_oav_authority(
     scaling_risk = _result_payload(scaling_gate)
     robustness = robustness_report.as_dict()
 
-    missing_odt_materials = tuple(sorted(m.name for m in state.materials if m.odt_air_ppm is None))
+    missing_odt_materials = tuple(
+        sorted(m.name for m in state.materials if not m.has_odt_authority)
+    )
     perceptible_count = _perceptible_count(state)
     subliminal_ratio = _subliminal_mass_ratio(state)
     top_family_drift = _max_family_drift(frames)

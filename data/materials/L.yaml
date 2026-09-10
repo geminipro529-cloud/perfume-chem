@@ -120,7 +120,7 @@
   logp: 4.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 1e-05
+  vp_25c_pa: 1.0e-05  # numeric notation, unchanged magnitude
   vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
@@ -143,7 +143,7 @@
   - Labdanum Resinoid
   mw_g_mol: 300.0
   logp: 4.5
-  vp_25c_pa: 1e-05
+  vp_25c_pa: 1.0e-05  # numeric notation, unchanged magnitude
   vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   odt_air_ppb: 5.0
   odt_eth_ppm: 0.05
@@ -155,7 +155,7 @@
   - Labdanum Resinoid 10
   mw_g_mol: 300.0
   logp: 4.5
-  vp_25c_pa: 1e-05
+  vp_25c_pa: 1.0e-05  # numeric notation, unchanged magnitude
   vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   odt_air_ppb: 5.0
   odt_eth_ppm: 0.05
@@ -177,7 +177,7 @@
   logp: 3.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 1e-05
+  vp_25c_pa: 1.0e-05  # numeric notation, unchanged magnitude
   vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
@@ -1453,8 +1453,11 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Liffarome
-  aliases: []
-  cas: null
+  aliases:
+  - cis-3-Hexenyl Methyl Carbonate
+  - cis-3-Hexenyl methyl carbonate
+  - (Z)-3-Hexenyl methyl carbonate
+  cas: 67633-96-9
   smiles: null
   inchikey: null
   mw_g_mol: null
@@ -1475,19 +1478,29 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  user_stock_dilution: "10% w/w; carrier unspecified"
+  user_in_inventory: true
   supplier:
     perfumersworld_sku: 4GI24147
     perfumersworld_price_usd_per_g: 0.95
     perfumersworld_form: neat
     perfumersworld_snapshot_date: '2026-04-11'
-    other: {}
-  families: []
-  character: null
-  notes: null
+    other:
+      product_name: Liffarome
+      active_identity: cis-3-hexenyl methyl carbonate
+      physical_state: colorless clear liquid
+      specific_gravity_supplier_value: 0.965
+      refractive_index_supplier_value: 1.426
+      boiling_point_c_supplier_value: 184
+      flash_point_c_supplier_value: 76.67
+  families: [green, fruity, violet, muguet]
+  character: Intense transparent green leafy-fruity material with iris, violet, pear, and muguet facets.
+  notes: PerfumersWorld SKU 4GI24147 is the undiluted supplier product. This identifies the active material but does not establish the carrier used in the user's separate 10% w/w stock.
   provenance:
-    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: https://www.perfumersworld.com/view.php?pro_id=4GI24147
+    character: https://www.perfumersworld.com/view.php?pro_id=4GI24147
+    supplier.perfumersworld: https://www.perfumersworld.com/view.php?pro_id=4GI24147
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20260907.json
 - canonical_name: LIGHT AND AIRY F-TEC
   aliases: []
   cas: null

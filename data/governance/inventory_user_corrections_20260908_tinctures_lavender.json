@@ -1,0 +1,77 @@
+{
+  "schema_version": "direct_user_inventory_correction_receipt_v3",
+  "effective_date": "2026-09-08",
+  "source_kind": "DIRECT_USER_REALTIME_STATEMENTS",
+  "source_thread_id": "01a07c8a-442c-7852-94c3-a3fda10f3c73",
+  "inventory_path": "inventory.txt",
+  "prior_inventory_raw_sha256": "2846cbb59e2a1d55ec9cab011c9b84e631f964a77aaf53e4795910e26de87d10",
+  "prior_inventory_normalized_sha256": "d2c2c405625aa01b2d77069a7907222db40a6156e3971844376100b58c300066",
+  "successor": "data/governance/inventory_user_authority_overlay_20260908.json",
+  "corrections": [
+    {
+      "material": "Turkish Storax Tincture",
+      "state": "OWNED",
+      "stock": {
+        "fraction": 0.2,
+        "fraction_basis": "unspecified",
+        "carrier": "ethanol",
+        "fraction_authority": "DIRECT_USER_DECLARED_TINCTURE_PERCENTAGE_BASIS_UNSPECIFIED",
+        "execution_ready": false,
+        "execution_scope": "AVAILABILITY_AND_DECLARED_LABEL_ONLY",
+        "execution_hold_reason": "TINCTURE_PERCENTAGE_BASIS_AND_EXTRACTED_SOLIDS_UNSPECIFIED"
+      },
+      "source_summary": "Turkish Storax ethanol tincture 20% is owned; no percentage basis or extracted-solids assay supplied."
+    },
+    {
+      "material": "Vietnamese Benzoin Tincture",
+      "state": "OWNED",
+      "stock": {
+        "fraction": 0.4,
+        "fraction_basis": "unspecified",
+        "carrier": "ethanol",
+        "fraction_authority": "DIRECT_USER_DECLARED_TINCTURE_PERCENTAGE_BASIS_UNSPECIFIED",
+        "execution_ready": false,
+        "execution_scope": "AVAILABILITY_AND_DECLARED_LABEL_ONLY",
+        "execution_hold_reason": "TINCTURE_PERCENTAGE_BASIS_AND_EXTRACTED_SOLIDS_UNSPECIFIED"
+      },
+      "source_summary": "Vietnamese Benzoin ethanol tincture 40% is owned; no percentage basis or extracted-solids assay supplied."
+    },
+    {
+      "material": "Kenyan Myrrh Ethanol Tincture",
+      "state": "OWNED",
+      "stock": {
+        "fraction": 0.2,
+        "fraction_basis": "unspecified",
+        "carrier": "ethanol",
+        "fraction_authority": "DIRECT_USER_DECLARED_TINCTURE_PERCENTAGE_BASIS_UNSPECIFIED",
+        "execution_ready": false,
+        "execution_scope": "AVAILABILITY_AND_DECLARED_LABEL_ONLY",
+        "execution_hold_reason": "TINCTURE_PERCENTAGE_BASIS_AND_EXTRACTED_SOLIDS_UNSPECIFIED"
+      },
+      "source_summary": "Kenyan Myrrh ethanol tincture 20% is owned; no percentage basis or extracted-solids assay supplied."
+    },
+    {
+      "material": "Oman Frankincense Ethanol Tincture",
+      "state": "OWNED",
+      "stock": {
+        "fraction": 0.33,
+        "fraction_basis": "unspecified",
+        "carrier": "ethanol",
+        "fraction_authority": "DIRECT_USER_DECLARED_TINCTURE_PERCENTAGE_BASIS_UNSPECIFIED",
+        "execution_ready": false,
+        "execution_scope": "AVAILABILITY_AND_DECLARED_LABEL_ONLY",
+        "execution_hold_reason": "TINCTURE_PERCENTAGE_BASIS_AND_EXTRACTED_SOLIDS_UNSPECIFIED"
+      },
+      "source_summary": "Oman Frankincense ethanol tincture 33% is owned; no percentage basis or extracted-solids assay supplied."
+    },
+    {
+      "material": "Lavender EO High Altitude",
+      "state": "NOT_OWNED",
+      "stock": null,
+      "source_summary": "User requested removal of Lavender High Altitude from the Perfume-Chem inventory. Other lavender labels are outside this correction."
+    }
+  ],
+  "historical_note": "The earlier Vietnamese Benzoin 20% lost stock remains unavailable. Restored tinctures are separate current declarations; prior mass bases and resin extraction recoveries are not inherited. All historical overlays and formula files remain unchanged.",
+  "percentage_interpretation": "Declared tincture percentages only; do not interpret as extracted odorant mass fraction, volume fraction, or extraction yield.",
+  "stock_list_row_count": 285
+}

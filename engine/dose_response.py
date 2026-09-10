@@ -34,8 +34,160 @@ Sources:
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from typing import Any
+
+
+def air_ppm_to_ug_l(
+    gas_ppm_vv: float, *, mw_g_mol: float, temperature_k: float = 298.15,
+    pressure_pa: float = 101325.0,
+) -> float:
+    """Ideal-gas conversion; never pass liquid ppm or a mass stock fraction here."""
+    values = (gas_ppm_vv, mw_g_mol, temperature_k, pressure_pa)
+    if (not all(math.isfinite(x) for x in values) or gas_ppm_vv < 0
+            or min(mw_g_mol, temperature_k, pressure_pa) <= 0):
+        raise ValueError("Finite nonnegative gas ppm and positive MW/T/P required")
+    return gas_ppm_vv * pressure_pa * mw_g_mol / (8.31446261815324 * temperature_k) * .001
+
+
+def measured_intensity_curve(
+    gas_ug_l: float, *, imax: float, midpoint_log10_ug_l: float, slope: float,
+) -> float:
+    """Wakayama 2019 OISC, reconstructed against Table S3 (DOI 9b01225).
+
+    Input is gas mass concentration in micrograms/litre air, NOT liquid dose.
+    Coefficients are human-fitted intensity curves, not pleasantness or ODT.
+    Zero printed slopes cannot be resolved from rounded source coefficients.
+    """
+    values = (gas_ug_l, imax, midpoint_log10_ug_l, slope)
+    if not all(math.isfinite(x) for x in values) or gas_ug_l < 0 or imax <= 0 or slope <= 0:
+        raise ValueError("Finite nonnegative gas concentration and positive Imax/slope required")
+    if gas_ug_l == 0:
+        return 0.0
+    z = (math.log10(gas_ug_l) - midpoint_log10_ug_l) / slope
+    if z >= 0:
+        return imax / (1.0 + math.exp(-z))
+    ez = math.exp(z)
+    return imax * ez / (1.0 + ez)
+
+
+def parse_measured_intensity_parameters(rows) -> dict:
+    """Parse the Pyrfume transcription without silently repairing source defects.
+
+    Caller owns source-hash/license binding and exact CAS/stock mapping.
+    This opt-in component does not replace existing production Hill parameters.
+    """
+    curves, excluded, seen = {}, [], set()
+    for row in rows:
+        cas = str(row["CAS"]).strip()
+        if not cas or cas in seen:
+            raise ValueError(f"Duplicate or empty CAS: {cas}")
+        seen.add(cas)
+        coefficients = dict(imax=float(row["I_max"]),
+                            midpoint_log10_ug_l=float(row["C"]), slope=float(row["D"]))
+        if not all(math.isfinite(x) for x in coefficients.values()):
+            raise ValueError(f"Nonfinite source parameters: {cas}")
+        reason = "NONPOSITIVE_SLOPE" if coefficients["slope"] <= 0 else (
+            "NONPOSITIVE_MAXIMUM" if coefficients["imax"] <= 0 else None)
+        if reason:
+            excluded.append({"cas": cas, "name": row["Name"], "reason": reason})
+        else:
+            curves[cas] = coefficients
+    return {"curves": curves, "excluded": excluded, "source_rows": len(seen)}
+
+
+def measured_mixture_intensity(gas_ug_l_by_cas: dict, curves: dict, *, method: str) -> dict:
+    """Opt-in intensity hypotheses, not a formula-quality objective.
+
+    strongest_component: Wakayama 2019 Table S5.
+    primacy: Pellegrino 2025 DOI 10.1101/2025.08.08.668954 Eq8,
+    logsumexp at 20% ambient concentration, without an undocumented /N.
+    Applying primacy to Wakayama curves is an external transfer experiment.
+    Even with active components only, its low-dose limit depends on count;
+    callers must retain this model discrepancy, not interpret it as richness.
+    """
+    if method not in {"strongest_component", "primacy"}:
+        raise ValueError("Unknown measured mixture model")
+    if any(not math.isfinite(v) or v < 0 for v in gas_ug_l_by_cas.values()):
+        raise ValueError("Finite nonnegative gas concentrations required")
+    active = {cas: value for cas, value in gas_ug_l_by_cas.items() if value > 0}
+    missing = sorted(set(active) - set(curves))
+    result = {"method": method, "intensity": None, "component_intensities": {},
+              "missing_calibrations": missing, "predicted_liking": None,
+              "formula_optimization_authority": False,
+              "model_domain_warning": "Intensity only; mixture suppression and study transfer unvalidated"}
+    if missing:
+        return result
+    intensities = {cas: measured_intensity_curve(
+        value * (.2 if method == "primacy" else 1.), **curves[cas])
+        for cas, value in active.items()}
+    if not intensities:
+        prediction = 0.
+    else:
+        maximum = max(intensities.values())
+        prediction = maximum if method == "strongest_component" else maximum + math.log(
+            sum(math.exp(value - maximum) for value in intensities.values()))
+    result.update(intensity=prediction, component_intensities=intensities)
+    return result
+
+
+def benchmark_measured_intensity(curves: dict, observations: dict) -> dict:
+    """Published-curve reconstruction and transfer comparison; no fitting here.
+
+    Source training/observation overlap is not established. This is not a
+    held-out validation claim for the source coefficients.
+    """
+    def summarize(rows):
+        if not rows:
+            raise ValueError("Benchmark groups must contain observations")
+        if not all(math.isfinite(r[key]) for r in rows
+                   for key in ("predicted", "observed", "published_prediction")):
+            raise ValueError("Benchmark observations and predictions must be finite")
+        groups = sorted({r["group"] for r in rows})
+        errors = [(r["predicted"] - r["observed"]) ** 2 for r in rows]
+        per_group = {group: math.sqrt(sum(
+            (r["predicted"] - r["observed"]) ** 2 for r in rows if r["group"] == group
+        ) / sum(r["group"] == group for r in rows)) for group in groups}
+        return {"n": len(rows), "pooled_rmse": math.sqrt(sum(errors) / len(errors)),
+                "mean_group_rmse": sum(per_group.values()) / len(per_group),
+                "per_group_rmse": per_group, "rows": rows,
+                "published_prediction_max_abs_difference": max(
+                    abs(r["predicted"] - r["published_prediction"]) for r in rows)}
+
+    singles = []
+    for series in observations["single_component_series"]:
+        for log_g, observed, published in zip(
+            series["log_g"], series["observed"], series["published_prediction"], strict=True
+        ):
+            singles.append({"group": series["name"], "log_g": log_g, "observed": observed,
+                            "published_prediction": published,
+                            "predicted": measured_intensity_curve(10 ** log_g, **curves[series["cas"]])})
+    methods = {}
+    for method in ("strongest_component", "primacy"):
+        rows = []
+        for series in observations["mixture_series"]:
+            if not series["cas"] or len(set(series["cas"])) != len(series["cas"]):
+                raise ValueError("Mixture CAS must be nonempty and unique")
+            for offset, observed, published in zip(
+                series["log_dilution_offsets"], series["observed"],
+                series["published_prediction"], strict=True
+            ):
+                gas = {cas: 10 ** (log_g + offset) for cas, log_g in zip(
+                    series["cas"], series["highest_log_g"], strict=True)}
+                prediction = measured_mixture_intensity(gas, curves, method=method)
+                if prediction["intensity"] is None:
+                    raise ValueError(f"Missing benchmark curves: {prediction['missing_calibrations']}")
+                rows.append({"group": series["id"], "log_offset": offset, "observed": observed,
+                             "published_prediction": published, "predicted": prediction["intensity"]})
+        methods[method] = summarize(rows)
+        methods[method]["published_reference_method"] = "strongest_component"
+    return {"single": summarize(singles), "mixtures": methods,
+            "parameters_fitted": False, "sensory_endpoint": "INTENSITY_ONLY",
+            "parameters_fitted_in_this_run": False,
+            "benchmark_scope": "PUBLISHED_CURVE_RECONSTRUCTION_AND_MIXTURE_TRANSFER_COMPARISON",
+            "source_training_observation_overlap": "NOT_ESTABLISHED",
+            "formula_changed": False, "full_perfume_validated": False}
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Character Shift Data

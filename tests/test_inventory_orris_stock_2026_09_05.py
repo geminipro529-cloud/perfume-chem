@@ -1,0 +1,175 @@
+"""User-confirmed Orris stock correction; no fragrance-release assertions."""
+
+from __future__ import annotations
+
+import copy
+import hashlib
+from dataclasses import asdict
+from decimal import Decimal
+
+import pytest
+import yaml
+
+import engine.inventory_parser as inventory_parser
+from engine.pipeline.preflight import _dilution_consistency_check
+
+
+def _stock_check(fraction=0.09, basis="mass_fraction", carrier="dep"):
+    return _dilution_consistency_check(
+        {
+            "ingredients_ul": {"Orris Liquid": 100.0},
+            "dilutions": {"Orris Liquid": fraction},
+            "stock_specs": {
+                "Orris Liquid": {
+                    "fraction": fraction,
+                    "fraction_basis": basis,
+                    "carrier": carrier,
+                    "declared": True,
+                }
+            },
+        }
+    )
+
+
+def test_orris_current_stock_is_unique_nine_percent_mass_fraction_in_dep():
+    materialized = inventory_parser.materialize_current_inventory()
+    stocks = [s for s in materialized.stocks if s.identity_name == "Orris Liquid"]
+    assert len(stocks) == 1
+    stock = stocks[0]
+    assert (stock.dilution, stock.fraction_basis, stock.carrier) == (
+        0.09, "mass_fraction", "dep"
+    )
+    assert stock.source_rows == (195,)
+    assert stock.stock_id.startswith("inventory:user-20260905:")
+    assert stock.source_ref.endswith(
+        "inventory_user_authority_overlay_20260905.json#INV-USER-20260905-001"
+    )
+    assert stock.execution_ready is True
+    assert len(materialized.requirements) == 280
+    requirement = next(r for r in materialized.requirements if r.source_row == 195)
+    assert requirement.disposition == "OWNED"
+    assert requirement.requested_fraction is None
+    assert requirement.fraction_basis == "unspecified"
+    assert requirement.carrier == ""
+
+
+def test_orris_current_text_and_yaml_agree_without_rewriting_material_density():
+    parsed = inventory_parser.parse_inventory()
+    stock = next(s for s in parsed if s.name == "Orris Liquid")
+    assert (stock.dilution, stock.fraction_basis, stock.carrier) == (
+        0.09, "mass_fraction", "dep"
+    )
+    path = inventory_parser.PROJECT_ROOT / "data/materials/O.yaml"
+    payload = yaml.safe_load(path.read_text(encoding="utf-8"))
+    records = payload if isinstance(payload, list) else payload["materials"]
+    record = next(r for r in records if r["canonical_name"] == "Orris Liquid")
+    assert record["user_stock_dilution"] == "9% w/w in DEP"
+    assert record["supplier"]["other"]["user_dilution_solvent"] == "DEP"
+    assert record["density_25c_g_ml"] == 0.93
+    assert "Orris Liquid (30%)" in record["aliases"]
+    assert "Orris Liquid (9% w/w in DEP)" in record["aliases"]
+
+
+def test_orris_exact_stock_resolves_without_asserting_volume_to_mass_conversion():
+    check = _stock_check()
+    assert check.status == "PASS"
+    stock = check.data["resolved_stock_specs"]["Orris Liquid"]
+    assert stock["fraction_basis"] == "mass_fraction"
+    assert stock["carrier"] == "dep"
+    payload = inventory_parser.load_current_user_inventory_overlay()
+    record = next(r for r in payload["records"] if r["canonical_name"] == "Orris Liquid")
+    # This check binds a declared stock; it does not validate a volume-to-mass
+    # conversion or impose a weighed-only restriction on downstream consumers.
+    assert record["stock"]["execution_scope"] == "STOCK_IDENTITY_AND_FRACTION_BINDING_ONLY"
+    limits = record["authority_limits"]
+    assert limits["product_mass_from_weighed_stock_known"] is True
+    for key in (
+        "stock_solution_density_asserted",
+        "exact_active_mass_from_raw_volume_authorized",
+        "literal_active_volume_asserted",
+        "carrier_displacement_volume_authorized",
+        "pure_irone_assay_asserted",
+        "formula_rebase_authorized",
+        "formula_compounding_authorized",
+        "safety_asserted",
+        "stability_asserted",
+        "sensory_equivalence_asserted",
+        "release_success_asserted",
+    ):
+        assert limits[key] is False
+    assert Decimal("1.000") * Decimal(str(record["stock"]["fraction"])) == Decimal("0.090")
+    assert Decimal("1.000") * (1 - Decimal("0.09")) == Decimal("0.910")
+
+
+@pytest.mark.parametrize(
+    ("fraction", "basis", "carrier"),
+    [
+        (0.30, "mass_fraction", "dep"),
+        (0.09, "volume_fraction", "dep"),
+        (0.09, "mass_fraction", "dpg"),
+    ],
+)
+def test_orris_old_strength_wrong_basis_and_wrong_carrier_are_rejected(
+    fraction, basis, carrier
+):
+    check = _stock_check(fraction, basis, carrier)
+    assert check.status == "FAIL"
+    assert "Orris Liquid" not in check.data.get("resolved_stock_specs", {})
+
+
+def test_successor_preserves_all_inherited_stock_ids_and_quantities():
+    parent = inventory_parser.materialize_current_inventory(apply_user_overlay=False)
+    previous = inventory_parser.load_current_user_inventory_overlay(
+        inventory_parser.PREVIOUS_USER_INVENTORY_OVERLAY_PATH
+    )
+    before = inventory_parser._apply_current_user_inventory_overlay(parent, previous)
+    successor = inventory_parser.load_current_user_inventory_overlay(
+        inventory_parser.ORRIS_USER_INVENTORY_OVERLAY_PATH
+    )
+    after = inventory_parser._apply_current_user_inventory_overlay(parent, successor)
+    old_stocks = {s.stock_id: asdict(s) for s in before.stocks}
+    inherited = {s.stock_id: asdict(s) for s in after.stocks if s.name != "Orris Liquid"}
+    assert inherited == old_stocks
+    assert len(after.stocks) == len(before.stocks) + 1
+    old_requirements = {r.source_row: asdict(r) for r in before.requirements if r.source_row != 195}
+    new_requirements = {r.source_row: asdict(r) for r in after.requirements if r.source_row != 195}
+    assert new_requirements == old_requirements
+    assert next(s for s in after.stocks if s.name == "Irotyl").dilution == 1.0
+
+
+def test_historical_predecessor_keeps_frozen_text_receipt_and_bytes():
+    path = inventory_parser.PREVIOUS_USER_INVENTORY_OVERLAY_PATH
+    digest = hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+    assert digest == inventory_parser.PREVIOUS_USER_INVENTORY_OVERLAY_SHA256
+    payload = inventory_parser.load_current_user_inventory_overlay(path)
+    assert payload["effective_date"] == "2026-09-04"
+    assert payload["source"]["inventory_text_size_bytes"] == 20906
+    assert payload["source"]["inventory_text_sha256"] == (
+        "f5c1c046f4654c76c94e0aa77c39976cae6b7bba263f9654e20b92881ecdfb14"
+    )
+
+
+@pytest.mark.parametrize("field", ["predecessor", "source", "stock"])
+def test_successor_rejects_pin_source_or_stock_drift(field):
+    payload = copy.deepcopy(inventory_parser.load_current_user_inventory_overlay(
+        inventory_parser.ORRIS_USER_INVENTORY_OVERLAY_PATH
+    ))
+    payload["records"] = payload["delta_records"]
+    payload["policy"] = payload["head_policy"]
+    if field == "predecessor":
+        payload["predecessor"]["normalized_text_sha256"] = "0" * 64
+    elif field == "source":
+        payload["source"]["inventory_text_sha256"] = "0" * 64
+    else:
+        payload["records"][0]["stock"]["fraction"] = 0.30
+    with pytest.raises(inventory_parser.InventoryAuthorityError):
+        inventory_parser._load_20260905_user_inventory_successor(payload)
+
+
+def test_successor_rejects_changed_predecessor_bytes(tmp_path, monkeypatch):
+    original = inventory_parser.PREVIOUS_USER_INVENTORY_OVERLAY_PATH
+    altered = tmp_path / original.name
+    altered.write_bytes(original.read_bytes() + b" ")
+    monkeypatch.setattr(inventory_parser, "PREVIOUS_USER_INVENTORY_OVERLAY_PATH", altered)
+    with pytest.raises(inventory_parser.InventoryAuthorityError, match="hash drift"):
+        inventory_parser.load_current_user_inventory_overlay()

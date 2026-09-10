@@ -1,0 +1,104 @@
+{
+  "schema": "design_evaluator_review_v1",
+  "review_scope": "Final numerical admission for the existing 18-stock Gin Vetiver Cypress Air EDP search; not a universal rejection of research datasets.",
+  "review_authority": "Parent Codex evidence adjudication; manifest is an audit record, not learned validation.",
+  "formula_sha256": "426857f85ad9cd666e6cc55cdb9391de8cd6b5858bbc6f06e8d0d1a239aa3fc3",
+  "plan_sha256": "3bf53cc8b8f7860325a361e534669704d8c6b8d2f4defeb4838379da42f2e9f6",
+  "expected_proposals": [
+    "material_roles", "raw_group_retention", "generic_hedonic_prior",
+    "dream_task2_identity_gnn", "dream_task1_simple_translation",
+    "dream_task1_author_model", "dream_task2_raw_concentration_groups",
+    "ma2021_binary_model", "oav_as_hedonic_score"
+  ],
+  "evidence_files": {
+    "protocol_closure": {
+      "path": "docs/research/DREAM_2025_PROTOCOL_CLOSURE_20260909.md",
+      "sha256": "0a8129de5d879c0f6546e5845708229f3c144b2fb470b5d38cc92e7a22295841"
+    },
+    "role_research": {
+      "path": "docs/research/GIN_VETIVER_RICHNESS_LAYERING_EVIDENCE_20260909.md",
+      "sha256": "35d34357d72fa39a6bb04a8be6935c3cd59bd6923e978b8ec89ce8d6fbc22a67"
+    },
+    "dream_audit": {
+      "path": "docs/research/DREAM_2025_LOCAL_ADMISSION_20260909.md",
+      "sha256": "7db43336e79cbb72902bfc23b0d0c4c5cef10b6b763fe57ed5d1b648739c3ee2"
+    },
+    "task1_holdout": {
+      "path": "output/dataset_suitability_20260909/task1_grouped_baseline_result.json",
+      "sha256": "c0389fce68a3fd00fd952657e57a432cf9fc1fd8f0bdd3af08499670d2779dc1"
+    },
+    "task2_variants": {
+      "path": "output/dataset_suitability_20260909/task2_concentration_variant_audit.json",
+      "sha256": "e4034a9de1a8802d9c0ff678ea00da6b4e7390d676a5521576d4ef26d00e9f6a"
+    },
+    "official_data_definitions": {
+      "path": "output/dataset_suitability_20260909/synapse_data_wiki_632380.json",
+      "sha256": "3a54a59a4760ce4cf76d062ece5a57ce56d551d33545dd75d76e8e7a1d0c8330"
+    },
+    "ma2021_benchmark": {
+      "path": "docs/research/PERFUME_CHEM_MA2021_BINARY_MIXTURE_BASELINE_BENCHMARK_2026-08-12.md",
+      "sha256": "350c8a23a347017ef692bda1525bdb6084f5c4ae2398e2640da893f8b4249a34"
+    },
+    "current_hedonic_engine": {
+      "path": "engine/hedonic_model.py",
+      "sha256": "70cb8d62715171caaa50fe179453d0be8b7c1e8aa0dc2761bf3390cc3452bd05"
+    }
+  },
+  "proposals": [
+    {
+      "id": "material_roles",
+      "evaluator_version": "gin-vetiver-material-role-hypotheses-v1",
+      "disposition": "QUALITATIVE_ONLY",
+      "reason": "Sources describe material functions and intended design roles. Admit for proposal explanation only, not dose-response, numerical richness, layering or liking.",
+      "evidence": ["role_research", "current_hedonic_engine"]
+    },
+    {
+      "id": "raw_group_retention",
+      "disposition": "EXCLUDED",
+      "reason": "Within-group transfers preserve the scored sum algebraically. Identical scores do not discriminate the proposed ratios.",
+      "evidence": ["role_research"]
+    },
+    {
+      "id": "generic_hedonic_prior",
+      "disposition": "EXCLUDED",
+      "reason": "Mass-weighted individual-material valence priors are not a held-out validated predictor of this mixture's liking or target fit.",
+      "evidence": ["current_hedonic_engine", "role_research"]
+    },
+    {
+      "id": "dream_task2_identity_gnn",
+      "disposition": "EXCLUDED",
+      "reason": "Graph input omits amounts and training drops intensity/pleasantness. It cannot distinguish same-palette dose transfers or validate body/richness/layering. Notebook split/head bugs are consequently not prerequisites for this final run.",
+      "evidence": ["dream_audit"]
+    },
+    {
+      "id": "dream_task1_simple_translation",
+      "disposition": "EXCLUDED",
+      "reason": "Frozen grouped holdout RMSE 0.289364 is worse than unchanged-profile 0.263070; additionally requires measured source profiles and has single-molecule descriptor endpoints, not full-perfume liking.",
+      "evidence": ["task1_holdout", "dream_audit"]
+    },
+    {
+      "id": "dream_task1_author_model",
+      "disposition": "EXCLUDED",
+      "reason": "Input prerequisite is a measured odor profile at another concentration. Exact natural-stock mixture profiles are unavailable here. The supplied single-molecule task does not cover this 18-stock perfume; further tuning cannot resolve that input/domain mismatch.",
+      "evidence": ["dream_audit"]
+    },
+    {
+      "id": "dream_task2_raw_concentration_groups",
+      "disposition": "EXCLUDED",
+      "reason": "Equal-volume combination of prepared component solutions is confirmed by the official discussion. Exact active mass fractions and delivery conditions remain unresolved. Eight solvent-matched identity groups do not establish a validated formula-only model for these natural mixtures in an ethanol EDP or for richness/layering. Excluded from numerical selection in this version, not discarded.",
+      "evidence": ["task2_variants", "official_data_definitions", "dream_audit", "protocol_closure"]
+    },
+    {
+      "id": "ma2021_binary_model",
+      "disposition": "EXCLUDED",
+      "reason": "Binary-mixture baselines require human component intensity/pleasantness inputs. They do not provide a concentration-to-perception bridge or validated transport to this 18-stock EDP.",
+      "evidence": ["ma2021_benchmark", "role_research"]
+    },
+    {
+      "id": "oav_as_hedonic_score",
+      "disposition": "EXCLUDED",
+      "reason": "OAV is a threshold/physics screen, not liking, richness, layering or perceived contribution. Physics remains separately available; no OAV or safety gate is weakened to obtain an aesthetic pass.",
+      "evidence": ["role_research", "current_hedonic_engine"]
+    }
+  ]
+}

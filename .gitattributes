@@ -1,3 +1,8 @@
 # C0 fixture bytes are a canonical SHA-locked regression artifact.
 /tests/fixtures/c0_legacy_physical_model_cases.json text eol=lf
 /tests/fixtures/c0_legacy_physical_model_cases.sha256 text eol=lf
+# Keep the reviewed, hash-bound AHSEE authority records stable on Windows.
+/data/governance/inventory_user_confirmation_20260908_ahsee_stocks.json text eol=lf
+/data/governance/inventory_user_authority_overlay_20260908_ahsee.json text eol=lf
+/data/governance/inventory_user_confirmation_20260908_romandolide_depleted.json text eol=lf
+/data/governance/inventory_user_authority_overlay_20260908_romandolide.json text eol=lf

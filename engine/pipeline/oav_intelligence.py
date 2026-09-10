@@ -171,6 +171,8 @@ _FAMILY_ALIASES: dict[str, FragranceFamily] = {
     "woody_amber": FragranceFamily.WOODY_AMBER,
     "woody amber": FragranceFamily.WOODY_AMBER,
     "woody floral musk": FragranceFamily.WOODY_AMBER,
+    "iris coumarin amber": FragranceFamily.WOODY_AMBER,
+    "iris_coumarin_amber": FragranceFamily.WOODY_AMBER,
     "woody": FragranceFamily.WOODY_AMBER,
     "gourmand": FragranceFamily.GOURMAND,
     "marine_aquatic": FragranceFamily.MARINE_AQUATIC,
@@ -222,6 +224,8 @@ def _map_family(archetype: str) -> FragranceFamily | None:
     token = _normalize_token(archetype)
     if token in _FAMILY_ALIASES:
         return _FAMILY_ALIASES[token]
+    if token.startswith("iris coumarin amber"):
+        return FragranceFamily.WOODY_AMBER
     if "woody" in token and any(
         qualifier in token for qualifier in ("amber", "floral", "musk")
     ):

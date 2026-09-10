@@ -99,7 +99,7 @@ def test_golden_formula_invariants(case):
 
     for material_name in case.get("expected_composite_materials", []):
         row = next(row for row in payload["material_oav_table"] if row["name"] == material_name)
-        assert row["sources"]["oav_model"] == "literature:natural_composite_gc_o"
+        assert row["sources"]["oav_model"] == "modeled:natural_constituent_composite"
         assert row["oav"] is not None
 
     if "expected_regulatory_status" in case:

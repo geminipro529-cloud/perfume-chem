@@ -1719,7 +1719,6 @@
 - canonical_name: Geranium EO
   aliases:
   - geranium eo
-  - geranium flower eo
   - pelargonium graveolens flower oil
   cas: null
   smiles: null
@@ -1749,7 +1748,7 @@
   - floral
   - green
   character: null
-  notes: null
+  notes: "Supplier Bontoux, user-confirmed 2026-09-07; origin, grade, lot and composition unspecified. Geranium Flower EO is a separate inventory identity."
   provenance:
     mw_g_mol: estimated
     vp_25c_pa: estimated
@@ -2510,3 +2509,19 @@
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+- canonical_name: Guaiacwood EO
+  aliases: [guaiacwood eo]
+  mw_g_mol: null
+  cas: null
+  vp_25c_pa: null
+  logp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  user_stock_dilution: "exactly 1/3 w/w; equal thirds oil, ethanol, DEP by mass"
+  user_in_inventory: true
+  families: [woody, natural]
+  character: Woody smoky balsamic floral bridge.
+  notes: NATURAL_COMPOSITE_REQUIRED_UNBOUND. No invented monomolecular physics or constituent thresholds. Distinct from Guaiacol.
+  provenance:
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20260828.json
+    role: engine/formulation_intelligence/wood_registry.py

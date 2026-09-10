@@ -1,0 +1,85 @@
+{
+  "schema": "direct_user_inventory_correction_receipt_v2",
+  "date": "2026-09-07",
+  "source_kind": "DIRECT_USER_STATEMENTS_IN_CURRENT_TASK",
+  "records": [
+    {
+      "record_id": "INV-CORRECTION-20260907-COUMARIN",
+      "material": "Coumarin",
+      "state": "OWNED",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "display": "10% w/w in DPG"
+      },
+      "source_quotes": [
+        "my coumarin is now in 10% DPG",
+        "the percentage is by weight"
+      ],
+      "supersedes_current_working_solution_declarations": [
+        "20% in DEP, basis unspecified",
+        "20% in DPG, basis unspecified",
+        "DPG-saturated approximately 25–30%"
+      ],
+      "does_not_assert_absence_of_separate_powder_stock": true,
+      "authority_limits": {
+        "current_stock_concentration_confirmed": true,
+        "current_stock_carrier_confirmed": true,
+        "fraction_basis_confirmed": true,
+        "density_asserted": false,
+        "exact_active_mass_from_raw_volume_authorized": false,
+        "exact_active_volume_authorized": false,
+        "formula_rebase_authorized": false,
+        "safety_or_release_asserted": false
+      }
+    },
+    {
+      "record_id": "INV-CORRECTION-20260907-GERANIUM",
+      "material": "Geranium EO",
+      "supplier_or_manufacturer_name": "Bontoux",
+      "source_quote": "geranium EO is bontoux",
+      "correction_scope": "SUPPLIER_IDENTITY_ONLY",
+      "limits": [
+        "Does not identify exact Bontoux grade, origin, chemotype, lot or analytical composition.",
+        "Does not replace or merge the separate Geranium Flower EO label without stock identity adjudication.",
+        "Does not verify any existing ODT or physical property."
+      ]
+    },
+    {
+      "record_id": "INV-CORRECTION-20260907-HYDROXYCITRONELLAL",
+      "material": "Hydroxycitronellal",
+      "source_quote": "hydroxycitronellal is the muguet chemical that is the most used for muguet character",
+      "accepted_scope": "USER_CONFIRMED_OWNED_BOTTLE_IDENTITY_CORRECTION",
+      "ownership_correction": "CONFIRMED",
+      "no_alias_to": "Hydroxycitronellol",
+      "literature_role": "Primary manufacturer describes hydroxycitronellal as a major material for fresh floral muguet compositions. Global most-used ranking not independently established.",
+      "literature_source": "https://aroma-ingredients.basf.com/global/en/our-portfolio/muguet/hydroxycitronellal",
+      "state": "OWNED",
+      "confirmation_question": "Is the physically owned bottle Hydroxycitronellal rather than Hydroxycitronellol?",
+      "confirmation_quote": "it is the muguet material that is used the most, yes",
+      "corrects_prior_bottle_label": "Hydroxycitronellol",
+      "stock_concentration_not_newly_confirmed": true,
+      "preserves_historical_formula_ingredient_labels": true,
+      "authority_limits": {
+        "owned_identity_confirmed": true,
+        "independent_chemical_assay_performed": false,
+        "stock_fraction_newly_confirmed": false,
+        "stock_density_asserted": false,
+        "formula_substitution_authorized": false,
+        "physical_addition_authorized": false,
+        "safety_or_release_asserted": false
+      }
+    }
+  ],
+  "canonical_inventory_sync": "PENDING_SUPPORTED_SUCCESSOR_UPDATE",
+  "integration_boundary": "This successor records the user's confirmed Hydroxycitronellal bottle identity, Coumarin 10% w/w in DPG, and Bontoux Geranium EO. The pending identity question in the predecessor is superseded. This is not a loaded/pinned engine overlay; inventory text, engine pins, scientific properties and historical formulas remain unchanged.",
+  "current_overlay_at_capture": "data/governance/inventory_user_authority_overlay_20260906.json",
+  "pending_identity_question": null,
+  "predecessor": {
+    "path": "data/governance/inventory_user_correction_20260907_coumarin_geranium_pending.json",
+    "sha256": "c7c7d4ff670d37bbd4571af6e8e42527f68d4a1cf469595e62dc14c372cbedc0",
+    "preserve_unchanged": true
+  },
+  "identity_clarification_status": "RESOLVED"
+}

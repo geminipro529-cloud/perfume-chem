@@ -112,8 +112,8 @@ MATERIAL_RULES: tuple[MaterialRule, ...] = (
         reason=(
             "Juniper Berry EO is a powerful aromatic-coniferous material (VP=65 Pa). "
             "At >30 µL it creates a gin-juniper opening that dominates the top note. "
-            "This is appropriate for aromatic fougères but collides with fruity chypre / "
-            "Aventus-style compositions where the top should be bright-fruity, not coniferous-green. "
+            "This is appropriate for aromatic fougères but can collide with Aventus-style "
+            "architecture where bergamot and blackcurrant must remain the opening articulation. "
             "At 50 µL neat, it produced OAV 1,936 — the third-strongest material in the formula."
         ),
     ),
@@ -136,7 +136,7 @@ MATERIAL_RULES: tuple[MaterialRule, ...] = (
         reason=(
             "Petitgrain at >60 µL adds bitter-green-neroli character. Combined with juniper "
             "or other aromatic materials, it creates an aromatic-chypre opening (fougère-era style) "
-            "instead of the bright-fruity opening expected in Aventus-style compositions."
+            "instead of the bergamot-blackcurrant opening expected in this Aventus architecture."
         ),
     ),
     MaterialRule(
@@ -217,15 +217,15 @@ COMBINATION_RULES: tuple[CombinationRule, ...] = (
         context="in fruity chypre / Aventus-adjacent formula",
         effect=(
             "Two or more aromatic-green materials (juniper, petitgrain, cardamom, galbanum) "
-            "in the top create an aromatic-fougère opening, not a fruity one. This combination "
-            "is excellent for aromatic fougères (Fougère Royale, 1882) but contradicts the "
-            "bright-fruity opening expected in Aventus-style compositions."
+            "in the top create an aromatic-fougère opening. This combination is excellent for "
+            "aromatic fougères (Fougère Royale, 1882) but can obscure the bergamot-blackcurrant "
+            "opening and the dry-wood/smoky-base continuity required here."
         ),
         severity="catastrophic",
         recommendation=(
-            "For Aventus-style top: Bergamot + Pineapple accord (Allyl Amyl Glycolate 10% at 40-60 µL, "
-            "or Dynascone 10% at 30 µL) + Blackcurrant (Cassis Base 345B at 30 µL max, or Paradisamide). "
-            "Remove juniper and reduce petitgrain to ≤20 µL."
+            "For this Aventus target, make Bergamot and Blackcurrant the primary head. If pineapple "
+            "is used, keep it a secondary heart-reaching accent. Set raw doses only after stock-specific "
+            "ppm, ODT, composite-natural OAV, and OAV-per-time preflight."
         ),
         fuckup_reference="cassis_iris_smoke_2026-07-05",
     ),
@@ -270,16 +270,16 @@ COMBINATION_RULES: tuple[CombinationRule, ...] = (
         min_count=0,
         context="when formula design brief mentions Aventus",
         effect=(
-            "The formula claims Aventus DNA but lacks the core materials that define it: "
-            "pineapple accord, birch tar smoke, patchouli earth, and ambrox-musk base. "
-            "Without these, any substitute materials will create a different fragrance entirely."
+            "The formula claims Aventus DNA but lacks a coherent architecture: a primary "
+            "bergamot-blackcurrant head, controlled pepper-jasmine and secondary pineapple bridge, "
+            "cross-layer dry-wood/musk continuity, and smoky-birch/patchouli/musk base."
         ),
         severity="high",
         recommendation=(
-            "Must-have Aventus markers: pineapple accord (Allyl Amyl Glycolate 10% 40-60 µL "
-            "OR Dynascone 10% 30 µL), birch tar rectified (10% at 20-30 µL for smoky-leather), "
-            "patchouli or Clearwood (for earthy bridge), Ambrofix 30% (300-400 µL), "
-            "and a transparent musk scaffold (Romandolide + Habanolide)."
+            "Preserve the role hierarchy rather than forcing fixed materials or doses. In the "
+            "current inventory, Birch Tar is excluded because its live row is marked prohibited; "
+            "any Cade/Suederal smoke-leather mapping is explicitly non-equivalent. Use one precise "
+            "musk by default and require a distinct role plus an omission test for any second musk."
         ),
         fuckup_reference="cassis_iris_smoke_2026-07-05",
     ),
@@ -295,9 +295,9 @@ COMBINATION_RULES: tuple[CombinationRule, ...] = (
         ),
         severity="moderate",
         recommendation=(
-            "For Aventus-style smoke: Birch Tar Rectified 10% at 20-30 µL. "
-            "For a cleaner smoke: Cade Oil Rectified 1% at 30-50 µL + trace Guaiacol 10% at 20 µL. "
-            "Avoid Nagarmotha entirely in non-oud/non-classical contexts."
+            "For the current-inventory projection, do not use Birch Tar because the live inventory "
+            "marks it prohibited. Treat Cade Oil Rectified 1% and Suederal as separate, non-equivalent "
+            "smoke and suede hypotheses; determine any dose only through the pre-mix/OAV/safety gates."
         ),
         fuckup_reference="cassis_iris_smoke_2026-07-05",
     ),

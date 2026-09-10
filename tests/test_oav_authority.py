@@ -236,7 +236,7 @@ def test_uncovered_naturals_and_opaque_preblends_never_use_monomolecular_oav():
 
     assert rows["Lavender EO"].oav is not None
     assert rows["Lavender EO"].sources["oav_model"] == (
-        "literature:natural_composite_gc_o"
+        "modeled:natural_constituent_composite"
     )
 
 
@@ -255,13 +255,13 @@ def test_natural_oav_models_keep_absolute_and_co2_extract_distinct_and_resolved(
     assert rows["Lime Distilled EO"].oav is not None
     assert rows["Lime Distilled EO"].oav > 0
     assert rows["Lime Distilled EO"].sources["oav_model"] == (
-        "literature:natural_composite_gc_o"
+        "modeled:natural_constituent_composite"
     )
     for name in ("Cocoa Absolute", "Cocoa CO2 Extract"):
         assert rows[name].oav is not None
         assert rows[name].oav > 0
         assert rows[name].sources["oav_model"] == (
-            "literature:natural_composite_gc_o"
+            "modeled:natural_constituent_composite"
         )
     assert rows["Cocoa Absolute"].oav > rows["Cocoa CO2 Extract"].oav
     assert rows["Cocoa Absolute"].canonical_name == "cocoa absolute"

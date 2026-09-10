@@ -11,24 +11,24 @@ Phase 5 — Print coverage / divergence report.
 import json
 import sys
 import time
-from pathlib import Path
 from collections import OrderedDict
+from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import requests
 
-from engine.ingredient_intelligence import _PROFILES
-from engine.odor_thresholds import ODT_DATA
-from engine.dose_response import HILL_PARAMS, CHARACTER_SHIFT_DATA
+from engine.dose_response import CHARACTER_SHIFT_DATA, HILL_PARAMS
 from engine.ifra_safety import (
-    IFRA_CAT4_LIMITS,
     BANNED_MATERIALS,
-    RESTRICTED_MATERIALS,
+    IFRA_CAT4_LIMITS,
     IFRA_SPECIFICATION_ONLY,
+    RESTRICTED_MATERIALS,
 )
+from engine.ingredient_intelligence import _PROFILES
 from engine.inventory_parser import parse_inventory
 from engine.name_utils import normalize_name
+from engine.odor_thresholds import ODT_DATA
 
 # ═══════════════════════════════════════════════════════════════════════
 # Phase 1 — Indexes from internal modules
@@ -520,321 +520,53 @@ def infer_odor_profile(profile: dict | None, odt_char: str | None, name: str) ->
 # Load existing material_properties.json (preserve hand-crafted narrative)
 # ═══════════════════════════════════════════════════════════════════════
 
-MP_PATH = Path("data/knowledge_graph/material_properties.json")
-existing_index: dict[str, dict] = {}
-if MP_PATH.exists():
-    with open(MP_PATH, "r", encoding="utf-8") as f:
-        for m in json.load(f):
-            existing_index[normalize_name(m["name"])] = m
+def legacy_main():
+    """Historical online implementation; retained for source provenance only."""
+    MP_PATH = Path("data/knowledge_graph/material_properties.json")
+    existing_index: dict[str, dict] = {}
+    if MP_PATH.exists():
+        with open(MP_PATH, "r", encoding="utf-8") as f:
+            for m in json.load(f):
+                existing_index[normalize_name(m["name"])] = m
 
-# ═══════════════════════════════════════════════════════════════════════
-# Build all entries
-# ═══════════════════════════════════════════════════════════════════════
+    # ═══════════════════════════════════════════════════════════════════════
+    # Build all entries
+    # ═══════════════════════════════════════════════════════════════════════
 
-inventory = parse_inventory(Path("inventory.txt"))
-inventory_dilutions = {m.name: m.dilution for m in inventory}
-inventory_records = {m.name: m for m in inventory}
-inventory_names = [m.name for m in inventory]
-output = []
-audit_flags: list[dict] = []
-seen_names: set[str] = set()
-seen_dedup: set[str] = set()  # prevents duplicate entries by lowercase name
+    inventory = parse_inventory(Path("inventory.txt"))
+    inventory_dilutions = {m.name: m.dilution for m in inventory}
+    inventory_records = {m.name: m for m in inventory}
+    inventory_names = [m.name for m in inventory]
+    output = []
+    audit_flags: list[dict] = []
+    seen_names: set[str] = set()
+    seen_dedup: set[str] = set()  # prevents duplicate entries by lowercase name
 
-for inv_name in sorted(inventory_names):
-    norm = normalize_name(inv_name)
-    canonical = ALIASES.get(norm, None)
-    canonical_norm = normalize_name(canonical) if canonical else norm
+    for inv_name in sorted(inventory_names):
+        norm = normalize_name(inv_name)
+        canonical = ALIASES.get(norm, None)
+        canonical_norm = normalize_name(canonical) if canonical else norm
 
-    # Preserve existing rich entries, enriching with computed fields
-    existing = existing_index.get(canonical_norm) or existing_index.get(norm)
-    if existing:
-        entry = OrderedDict(existing)
-        seen_names.add(normalize_name(existing.get("name", "")))
-    else:
-        entry = OrderedDict()
-        entry["name"] = inv_name
-        entry["alt_name"] = canonical if canonical else None
-
-    # ── Physical properties ─ ALWAYS override from profile (authoritative) ─
-    profile = None
-    for key in [canonical_norm, norm]:
-        if key in profile_index:
-            _, profile = profile_index[key]
-            break
-
-    if profile:
-        # Physical chemistry: profile values are authoritative, always overwrite
-        for src_field, dst_field in [
-            ("mw", "mw"),
-            ("vp", "vp"),
-            ("clogp", "clp"),
-            ("note", "note"),
-            ("role", "role"),
-            ("texture", "texture"),
-        ]:
-            val = profile.get(src_field)
-            if val is not None:
-                entry[dst_field] = val
-        # Synergies / or_family: prefer existing if non-empty, else fill
-        if profile.get("synergies") and not entry.get("synergies"):
-            entry["synergies"] = profile["synergies"]
-        if profile.get("or_family") and not entry.get("or_family"):
-            entry["or_family"] = profile["or_family"]
-        if profile.get("activity_coef") and not entry.get("activity_coef"):
-            entry["activity_coef"] = profile["activity_coef"]
-        if profile.get("hedonic") and not entry.get("hedonic"):
-            entry["hedonic"] = profile["hedonic"]
-        if profile.get("cas") and not entry.get("cas"):
-            entry["cas"] = profile["cas"]
-
-    # ── ODT ─ profile odt/odt_ppm already enriched from ODT_DATA, override ──
-    if profile:
-        if profile.get("odt") is not None:
-            entry["odt"] = profile["odt"]
-        if profile.get("odt_ppm") is not None:
-            entry["odt_ethanol_ppm"] = profile["odt_ppm"]
-
-    odt_air = entry.get("odt")
-    odt_eth = entry.get("odt_ethanol_ppm")
-    # Fallback: ODT_DATA lookup for entries without profiles
-    if odt_air is None:
-        odt_air = odt_air_index.get(canonical_norm) or odt_air_index.get(norm)
-        if odt_air is not None:
-            entry["odt"] = odt_air
-    if odt_eth is None:
-        odt_eth = odt_eth_index.get(canonical_norm) or odt_eth_index.get(norm)
-        if odt_eth is not None:
-            entry["odt_ethanol_ppm"] = odt_eth
-
-    odt_char = odt_char_index.get(canonical_norm) or odt_char_index.get(norm)
-
-    # ── OAV / smell strength / anosmic ───────────────────────────
-    mw_val = entry.get("mw")
-    role_val = entry.get("role")
-    or_family_val = entry.get("or_family")
-    dose_pct = typical_dose_pct(norm, role_val, odt_eth or entry.get("odt_ethanol_ppm"))
-    dose_ppm = dose_pct * 10000
-    oav = (
-        dose_ppm / (odt_eth or entry.get("odt_ethanol_ppm") or 1)
-        if (odt_eth or entry.get("odt_ethanol_ppm"))
-        else None
-    )
-    entry["oav_typical"] = round(oav, 1) if oav else None
-    entry["oav_dose_pct"] = dose_pct
-    entry["smell_strength"] = smell_strength(odt_eth or entry.get("odt_ethanol_ppm"))
-    entry["anosmic_risk"] = anosmic_risk(mw_val, odt_air, or_family_val)
-
-    # ── Odor family / profile ────────────────────────────────────
-    entry.setdefault("odor_family", infer_odor_family(profile, norm))
-    if not entry.get("odor_profile"):
-        entry["odor_profile"] = infer_odor_profile(profile, odt_char, inv_name)
-
-    # ── IFRA ─────────────────────────────────────────────────────
-    ifra_limit = ifra_index.get(norm) or ifra_index.get(canonical_norm)
-    entry["ifra_cat4_limit_pct"] = ifra_limit
-    entry["ifra_banned"] = inv_name in BANNED_MATERIALS or (canonical or "") in BANNED_MATERIALS
-    entry["ifra_restricted"] = (
-        inv_name in RESTRICTED_MATERIALS or (canonical or "") in RESTRICTED_MATERIALS
-    )
-    # IFRA 51st — specification-only standards (not concentration limits)
-    entry["ifra_standard_type"] = (
-        "specification" if inv_name in IFRA_SPECIFICATION_ONLY else "restriction"
-    )
-
-    # ── Activity coefficients (UNIFAC estimates for headspace corrections) ─
-    ACTIVITY_COEF_OVERRIDES = {
-        "limonene": 3.2,
-        "beta-pinene": 3.0,
-        "d-limonene": 3.2,
-        "linalool": 1.8,
-        "linalyl acetate": 2.1,
-        "citronellol": 1.7,
-        "geraniol": 1.6,
-        "benzyl acetate": 1.2,
-        "hedione": 1.3,
-        "calone": 1.1,
-        "alpha irone": 1.5,
-        "polysantol": 0.7,
-        "benzyl salicylate": 0.8,
-        "galaxolide": 0.7,
-        "ambrox super": 0.6,
-        "vanillin": 0.5,
-        "coumarin": 0.7,
-    }
-    # Override activity_coef with UNIFAC estimate (always trust UNIFAC over II defaults)
-    for key in [canonical_norm, norm]:
-        if key in ACTIVITY_COEF_OVERRIDES:
-            entry["activity_coef"] = ACTIVITY_COEF_OVERRIDES[key]
-            break
-
-    # ── Hill params ──────────────────────────────────────────────
-    hill = hill_index.get(norm) or hill_index.get(canonical_norm)
-    entry["hill_ec50"] = hill.get("EC50") if hill else None
-    entry["hill_n"] = hill.get("n") if hill else None
-    entry["hill_rmax"] = hill.get("Rmax", 1.0) if hill else None
-
-    # ── Character shift ──────────────────────────────────────────
-    cs = charshift_index.get(norm) or charshift_index.get(canonical_norm)
-    entry["character_shift"] = []
-    if cs:
-        entry["character_shift"] = [
-            {
-                "max_conc_pct": z.max_conc_pct,
-                "character": z.character,
-                "quality": z.quality,
-            }
-            for z in cs
-        ]
-
-    # ── Dilution ─────────────────────────────────────────────────
-    entry["dilution_pct"] = inventory_dilutions.get(inv_name)
-    entry["in_inventory"] = True
-    inventory_record = inventory_records[inv_name]
-    if inventory_record.dilution >= 0.999:
-        entry["stock_form"] = "neat"
-    else:
-        stock_pct = f"{inventory_record.dilution * 100:g}%"
-        carrier = inventory_record.carrier.upper()
-        entry["stock_form"] = f"{stock_pct} in {carrier}" if carrier else f"{stock_pct} dilution"
-
-    # ── Remaining fields (null if empty) ─────────────────────────
-    for null_field in [
-        "cas",
-        "formula_str",
-        "bp",
-        "sar_class",
-        "olfactophore",
-        "arctander_character",
-        "arctander_tenacity",
-        "carles_position",
-        "carles_pairing_rule",
-        "roudnitska_function",
-        "roudnitska_craft_note",
-        "jellinek_axis",
-        "jellinek_quadrant",
-        "jellinek_effect",
-        "max_safe_pct",
-        "stock_form",
-        "handle_as",
-        "avoid",
-    ]:
-        entry.setdefault(null_field, None)
-
-    # Entries from existing have best_with; auto-fill from synergies if missing
-    if not entry.get("best_with") and entry.get("synergies"):
-        entry["best_with"] = entry["synergies"]
-    elif not entry.get("best_with"):
-        entry["best_with"] = []
-
-    if not entry.get("typical_pct_range") and dose_pct > 0:
-        entry["typical_pct_range"] = (
-            f"{max(0.01, dose_pct * 0.3):g}–{dose_pct * 2:g}% of concentrate"
-        )
-    elif not entry.get("typical_pct_range"):
-        entry["typical_pct_range"] = None
-
-    # ── CAS (try profile, then CAS_MAP, then existing) ────────
-    if not entry.get("cas"):
-        for key in [canonical_norm, norm]:
-            if key in CAS_MAP:
-                entry["cas"] = CAS_MAP[key]
-                break
-
-    # ── Phase 2: PubChem verification + auto-override ────────────
-    entry_flags: list[dict] = []
-    pc_warnings: list[str] = []
-    cas_val = entry.get("cas")
-    if cas_val and cas_val not in (
-        "N/A (proprietary blend)",
-        "Proprietary",
-        "Proprietary mixture",
-        "proprietary",
-        None,
-    ):
-        # Detect useless CAS (generic proprietaries often have bogus CAS)
-        if cas_val.lower().startswith("proprietary"):
-            pc_warnings.append(f"CAS '{cas_val}' is proprietary — PubChem lookup skipped")
+        # Preserve existing rich entries, enriching with computed fields
+        existing = existing_index.get(canonical_norm) or existing_index.get(norm)
+        if existing:
+            entry = OrderedDict(existing)
+            seen_names.add(normalize_name(existing.get("name", "")))
         else:
-            pub = fetch_pubchem(cas_val)
-            if pub:
-                entry["pubchem_cid"] = pub.get("cid")
-                if not entry.get("formula_str"):
-                    entry["formula_str"] = pub.get("formula_pubchem")
+            entry = OrderedDict()
+            entry["name"] = inv_name
+            entry["alt_name"] = canonical if canonical else None
 
-                # ── Auto-override MW from PubChem when divergence > 2% ──
-                pc_mw = pub.get("mw_pubchem")
-                db_mw = entry.get("mw")
-                if pc_mw and db_mw and pc_mw > 0 and abs(pc_mw - db_mw) / pc_mw > 0.02:
-                    flag = check_divergence("mw", db_mw, pc_mw)
-                    if flag:
-                        flag["name"] = inv_name
-                        flag["action"] = "AUTO-OVERRIDE: PubChem trusted"
-                        entry_flags.append(flag)
-                    entry["mw"] = round(pc_mw, 2)
-
-                # ── Auto-override cLogP from PubChem when divergence > 0.5 ──
-                pc_logp = pub.get("logp_pubchem")
-                db_logp = entry.get("clp")
-                if pc_logp is not None and db_logp is not None and abs(db_logp - pc_logp) > 0.5:
-                    flag = check_divergence("logp", db_logp, pc_logp)
-                    if flag:
-                        flag["name"] = inv_name
-                        flag["action"] = "AUTO-OVERRIDE: PubChem trusted"
-                        entry_flags.append(flag)
-                    entry["clp"] = round(pc_logp, 2)
-            else:
-                # PubChem returned nothing for this CAS — log as warning
-                pc_warnings.append(f"PubChem returned null for CAS {cas_val}")
-
-    if pc_warnings:
-        entry["pubchem_warnings"] = pc_warnings
-    else:
-        entry["pubchem_warnings"] = []
-    if entry_flags:
-        audit_flags.append({"name": inv_name, "flags": entry_flags})
-    entry["audit_flags"] = entry_flags
-
-    # ── Dedup guard ─────────────────────────────────────────────
-    entry_lower = entry.get("name", "").lower()
-    if entry_lower in seen_dedup:
-        continue  # skip duplicate (same name already written)
-    seen_dedup.add(entry_lower)
-
-    output.append(entry)
-
-
-# ═══════════════════════════════════════════════════════════════════════
-# Preserve materials in existing knowledge graph not in inventory
-# ═══════════════════════════════════════════════════════════════════════
-inventory_norms = set()
-for inv_name in inventory_names:
-    n = normalize_name(inv_name)
-    c = ALIASES.get(n)
-    inventory_norms.add(n)
-    if c:
-        inventory_norms.add(normalize_name(c))
-
-for norm_key, mp_entry in existing_index.items():
-    if (
-        norm_key not in inventory_norms
-        and normalize_name(mp_entry.get("name", "")) not in seen_names
-    ):
-        entry = mp_entry.copy()
-        entry["in_inventory"] = False
-
-        # ── Enrich non-inventory legacy entries with profile data ──
-        _norm = normalize_name(entry.get("name", ""))
-        _canonical = ALIASES.get(_norm)
-        _canonical_norm = normalize_name(_canonical) if _canonical else _norm
-        _profile = None
-        for _key in [_canonical_norm, _norm]:
-            if _key in profile_index:
-                _, _profile = profile_index[_key]
+        # ── Physical properties ─ ALWAYS override from profile (authoritative) ─
+        profile = None
+        for key in [canonical_norm, norm]:
+            if key in profile_index:
+                _, profile = profile_index[key]
                 break
 
-        if _profile:
+        if profile:
             # Physical chemistry: profile values are authoritative, always overwrite
-            for _src, _dst in [
+            for src_field, dst_field in [
                 ("mw", "mw"),
                 ("vp", "vp"),
                 ("clogp", "clp"),
@@ -842,135 +574,418 @@ for norm_key, mp_entry in existing_index.items():
                 ("role", "role"),
                 ("texture", "texture"),
             ]:
-                if _profile.get(_src) is not None:
-                    entry[_dst] = _profile[_src]
-            if _profile.get("activity_coef") and entry.get("activity_coef") is None:
-                entry["activity_coef"] = _profile["activity_coef"]
-            if _profile.get("or_family") and entry.get("or_family") is None:
-                entry["or_family"] = _profile["or_family"]
-            if _profile.get("hedonic") and entry.get("hedonic") is None:
-                entry["hedonic"] = _profile["hedonic"]
-            if _profile.get("synergies") and not entry.get("synergies"):
-                entry["synergies"] = _profile["synergies"]
-            # ODT: profile values (enriched from ODT_DATA) override existing
-            if _profile.get("odt") is not None:
-                entry["odt"] = _profile["odt"]
-            if _profile.get("odt_ppm") is not None:
-                entry["odt_ethanol_ppm"] = _profile["odt_ppm"]
+                val = profile.get(src_field)
+                if val is not None:
+                    entry[dst_field] = val
+            # Synergies / or_family: prefer existing if non-empty, else fill
+            if profile.get("synergies") and not entry.get("synergies"):
+                entry["synergies"] = profile["synergies"]
+            if profile.get("or_family") and not entry.get("or_family"):
+                entry["or_family"] = profile["or_family"]
+            if profile.get("activity_coef") and not entry.get("activity_coef"):
+                entry["activity_coef"] = profile["activity_coef"]
+            if profile.get("hedonic") and not entry.get("hedonic"):
+                entry["hedonic"] = profile["hedonic"]
+            if profile.get("cas") and not entry.get("cas"):
+                entry["cas"] = profile["cas"]
 
-        # Recompute OAV / smell strength / anosmic risk if missing
-        _odt_eth = entry.get("odt_ethanol_ppm")
-        _role = entry.get("role")
-        _mw = entry.get("mw")
-        _or_fam = entry.get("or_family")
-        if entry.get("oav_typical") is None and _odt_eth is not None and float(_odt_eth) > 0:
-            _dose = typical_dose_pct(_norm, _role, _odt_eth)
-            entry["oav_dose_pct"] = _dose
-            entry["oav_typical"] = round(_dose * 10000 / _odt_eth, 1)
-        if entry.get("smell_strength") is None:
-            entry["smell_strength"] = smell_strength(_odt_eth)
-        if entry.get("anosmic_risk") is None:
-            entry["anosmic_risk"] = anosmic_risk(_mw, entry.get("odt"), _or_fam)
-        if entry.get("odor_family") is None:
-            entry["odor_family"] = infer_odor_family(_profile, _norm)
+        # ── ODT ─ profile odt/odt_ppm already enriched from ODT_DATA, override ──
+        if profile:
+            if profile.get("odt") is not None:
+                entry["odt"] = profile["odt"]
+            if profile.get("odt_ppm") is not None:
+                entry["odt_ethanol_ppm"] = profile["odt_ppm"]
+
+        odt_air = entry.get("odt")
+        odt_eth = entry.get("odt_ethanol_ppm")
+        # Fallback: ODT_DATA lookup for entries without profiles
+        if odt_air is None:
+            odt_air = odt_air_index.get(canonical_norm) or odt_air_index.get(norm)
+            if odt_air is not None:
+                entry["odt"] = odt_air
+        if odt_eth is None:
+            odt_eth = odt_eth_index.get(canonical_norm) or odt_eth_index.get(norm)
+            if odt_eth is not None:
+                entry["odt_ethanol_ppm"] = odt_eth
+
+        odt_char = odt_char_index.get(canonical_norm) or odt_char_index.get(norm)
+
+        # ── OAV / smell strength / anosmic ───────────────────────────
+        mw_val = entry.get("mw")
+        role_val = entry.get("role")
+        or_family_val = entry.get("or_family")
+        dose_pct = typical_dose_pct(norm, role_val, odt_eth or entry.get("odt_ethanol_ppm"))
+        dose_ppm = dose_pct * 10000
+        oav = (
+            dose_ppm / (odt_eth or entry.get("odt_ethanol_ppm") or 1)
+            if (odt_eth or entry.get("odt_ethanol_ppm"))
+            else None
+        )
+        entry["oav_typical"] = round(oav, 1) if oav else None
+        entry["oav_dose_pct"] = dose_pct
+        entry["smell_strength"] = smell_strength(odt_eth or entry.get("odt_ethanol_ppm"))
+        entry["anosmic_risk"] = anosmic_risk(mw_val, odt_air, or_family_val)
+
+        # ── Odor family / profile ────────────────────────────────────
+        entry.setdefault("odor_family", infer_odor_family(profile, norm))
         if not entry.get("odor_profile"):
-            _char = odt_char_index.get(_norm)
-            entry["odor_profile"] = infer_odor_profile(_profile, _char, entry.get("name", ""))
+            entry["odor_profile"] = infer_odor_profile(profile, odt_char, inv_name)
 
-        # IFRA standard type
-        if entry.get("ifra_standard_type") is None:
-            _ifra_limit = ifra_index.get(_norm)
-            entry["ifra_cat4_limit_pct"] = _ifra_limit
-            entry["ifra_standard_type"] = (
-                "specification"
-                if entry.get("name", "") in IFRA_SPECIFICATION_ONLY
-                else "restriction"
-            )
+        # ── IFRA ─────────────────────────────────────────────────────
+        ifra_limit = ifra_index.get(norm) or ifra_index.get(canonical_norm)
+        entry["ifra_cat4_limit_pct"] = ifra_limit
+        entry["ifra_banned"] = inv_name in BANNED_MATERIALS or (canonical or "") in BANNED_MATERIALS
+        entry["ifra_restricted"] = (
+            inv_name in RESTRICTED_MATERIALS or (canonical or "") in RESTRICTED_MATERIALS
+        )
+        # IFRA 51st — specification-only standards (not concentration limits)
+        entry["ifra_standard_type"] = (
+            "specification" if inv_name in IFRA_SPECIFICATION_ONLY else "restriction"
+        )
 
-        # Hill params / character shift
-        _hill = hill_index.get(_norm)
-        if _hill and entry.get("hill_ec50") is None:
-            entry["hill_ec50"] = _hill.get("EC50")
-            entry["hill_n"] = _hill.get("n")
-            entry["hill_rmax"] = _hill.get("Rmax", 1.0)
-        _cs = charshift_index.get(_norm)
-        if _cs and not entry.get("character_shift"):
+        # ── Activity coefficients (UNIFAC estimates for headspace corrections) ─
+        ACTIVITY_COEF_OVERRIDES = {
+            "limonene": 3.2,
+            "beta-pinene": 3.0,
+            "d-limonene": 3.2,
+            "linalool": 1.8,
+            "linalyl acetate": 2.1,
+            "citronellol": 1.7,
+            "geraniol": 1.6,
+            "benzyl acetate": 1.2,
+            "hedione": 1.3,
+            "calone": 1.1,
+            "alpha irone": 1.5,
+            "polysantol": 0.7,
+            "benzyl salicylate": 0.8,
+            "galaxolide": 0.7,
+            "ambrox super": 0.6,
+            "vanillin": 0.5,
+            "coumarin": 0.7,
+        }
+        # Override activity_coef with UNIFAC estimate (always trust UNIFAC over II defaults)
+        for key in [canonical_norm, norm]:
+            if key in ACTIVITY_COEF_OVERRIDES:
+                entry["activity_coef"] = ACTIVITY_COEF_OVERRIDES[key]
+                break
+
+        # ── Hill params ──────────────────────────────────────────────
+        hill = hill_index.get(norm) or hill_index.get(canonical_norm)
+        entry["hill_ec50"] = hill.get("EC50") if hill else None
+        entry["hill_n"] = hill.get("n") if hill else None
+        entry["hill_rmax"] = hill.get("Rmax", 1.0) if hill else None
+
+        # ── Character shift ──────────────────────────────────────────
+        cs = charshift_index.get(norm) or charshift_index.get(canonical_norm)
+        entry["character_shift"] = []
+        if cs:
             entry["character_shift"] = [
                 {
                     "max_conc_pct": z.max_conc_pct,
                     "character": z.character,
                     "quality": z.quality,
                 }
-                for z in _cs
+                for z in cs
             ]
 
-        seen_dedup.discard(entry.get("name", "").lower())  # allow non-inventory entries
+        # ── Dilution ─────────────────────────────────────────────────
+        entry["dilution_pct"] = inventory_dilutions.get(inv_name)
+        entry["in_inventory"] = True
+        inventory_record = inventory_records[inv_name]
+        if inventory_record.dilution >= 0.999:
+            entry["stock_form"] = "neat"
+        else:
+            stock_pct = f"{inventory_record.dilution * 100:g}%"
+            carrier = inventory_record.carrier.upper()
+            entry["stock_form"] = f"{stock_pct} in {carrier}" if carrier else f"{stock_pct} dilution"
+
+        # ── Remaining fields (null if empty) ─────────────────────────
+        for null_field in [
+            "cas",
+            "formula_str",
+            "bp",
+            "sar_class",
+            "olfactophore",
+            "arctander_character",
+            "arctander_tenacity",
+            "carles_position",
+            "carles_pairing_rule",
+            "roudnitska_function",
+            "roudnitska_craft_note",
+            "jellinek_axis",
+            "jellinek_quadrant",
+            "jellinek_effect",
+            "max_safe_pct",
+            "stock_form",
+            "handle_as",
+            "avoid",
+        ]:
+            entry.setdefault(null_field, None)
+
+        # Entries from existing have best_with; auto-fill from synergies if missing
+        if not entry.get("best_with") and entry.get("synergies"):
+            entry["best_with"] = entry["synergies"]
+        elif not entry.get("best_with"):
+            entry["best_with"] = []
+
+        if not entry.get("typical_pct_range") and dose_pct > 0:
+            entry["typical_pct_range"] = (
+                f"{max(0.01, dose_pct * 0.3):g}–{dose_pct * 2:g}% of concentrate"
+            )
+        elif not entry.get("typical_pct_range"):
+            entry["typical_pct_range"] = None
+
+        # ── CAS (try profile, then CAS_MAP, then existing) ────────
+        if not entry.get("cas"):
+            for key in [canonical_norm, norm]:
+                if key in CAS_MAP:
+                    entry["cas"] = CAS_MAP[key]
+                    break
+
+        # ── Phase 2: PubChem verification + auto-override ────────────
+        entry_flags: list[dict] = []
+        pc_warnings: list[str] = []
+        cas_val = entry.get("cas")
+        if cas_val and cas_val not in (
+            "N/A (proprietary blend)",
+            "Proprietary",
+            "Proprietary mixture",
+            "proprietary",
+            None,
+        ):
+            # Detect useless CAS (generic proprietaries often have bogus CAS)
+            if cas_val.lower().startswith("proprietary"):
+                pc_warnings.append(f"CAS '{cas_val}' is proprietary — PubChem lookup skipped")
+            else:
+                pub = fetch_pubchem(cas_val)
+                if pub:
+                    entry["pubchem_cid"] = pub.get("cid")
+                    if not entry.get("formula_str"):
+                        entry["formula_str"] = pub.get("formula_pubchem")
+
+                    # ── Auto-override MW from PubChem when divergence > 2% ──
+                    pc_mw = pub.get("mw_pubchem")
+                    db_mw = entry.get("mw")
+                    if pc_mw and db_mw and pc_mw > 0 and abs(pc_mw - db_mw) / pc_mw > 0.02:
+                        flag = check_divergence("mw", db_mw, pc_mw)
+                        if flag:
+                            flag["name"] = inv_name
+                            flag["action"] = "AUTO-OVERRIDE: PubChem trusted"
+                            entry_flags.append(flag)
+                        entry["mw"] = round(pc_mw, 2)
+
+                    # ── Auto-override cLogP from PubChem when divergence > 0.5 ──
+                    pc_logp = pub.get("logp_pubchem")
+                    db_logp = entry.get("clp")
+                    if pc_logp is not None and db_logp is not None and abs(db_logp - pc_logp) > 0.5:
+                        flag = check_divergence("logp", db_logp, pc_logp)
+                        if flag:
+                            flag["name"] = inv_name
+                            flag["action"] = "AUTO-OVERRIDE: PubChem trusted"
+                            entry_flags.append(flag)
+                        entry["clp"] = round(pc_logp, 2)
+                else:
+                    # PubChem returned nothing for this CAS — log as warning
+                    pc_warnings.append(f"PubChem returned null for CAS {cas_val}")
+
+        if pc_warnings:
+            entry["pubchem_warnings"] = pc_warnings
+        else:
+            entry["pubchem_warnings"] = []
+        if entry_flags:
+            audit_flags.append({"name": inv_name, "flags": entry_flags})
+        entry["audit_flags"] = entry_flags
+
+        # ── Dedup guard ─────────────────────────────────────────────
+        entry_lower = entry.get("name", "").lower()
+        if entry_lower in seen_dedup:
+            continue  # skip duplicate (same name already written)
+        seen_dedup.add(entry_lower)
+
         output.append(entry)
 
-# ═══════════════════════════════════════════════════════════════════════
-# Write output files
-# ═══════════════════════════════════════════════════════════════════════
 
-with open(MP_PATH, "w", encoding="utf-8") as f:
-    json.dump(output, f, indent=2, ensure_ascii=False)
+    # ═══════════════════════════════════════════════════════════════════════
+    # Preserve materials in existing knowledge graph not in inventory
+    # ═══════════════════════════════════════════════════════════════════════
+    inventory_norms = set()
+    for inv_name in inventory_names:
+        n = normalize_name(inv_name)
+        c = ALIASES.get(n)
+        inventory_norms.add(n)
+        if c:
+            inventory_norms.add(normalize_name(c))
 
-with open("data/knowledge_graph/audit_flags.json", "w", encoding="utf-8") as f:
-    json.dump(audit_flags, f, indent=2, ensure_ascii=False)
+    for norm_key, mp_entry in existing_index.items():
+        if (
+            norm_key not in inventory_norms
+            and normalize_name(mp_entry.get("name", "")) not in seen_names
+        ):
+            entry = mp_entry.copy()
+            entry["in_inventory"] = False
 
-# ═══════════════════════════════════════════════════════════════════════
-# Phase 5 — Report
-# ═══════════════════════════════════════════════════════════════════════
+            # ── Enrich non-inventory legacy entries with profile data ──
+            _norm = normalize_name(entry.get("name", ""))
+            _canonical = ALIASES.get(_norm)
+            _canonical_norm = normalize_name(_canonical) if _canonical else _norm
+            _profile = None
+            for _key in [_canonical_norm, _norm]:
+                if _key in profile_index:
+                    _, _profile = profile_index[_key]
+                    break
 
-total = len(output)
-print(f"\n{'=' * 60}")
-print(f"  material_properties.json  —  {total} entries written")
-print(f"  audit_flags.json          —  {len(audit_flags)} entries flagged")
-print(f"{'=' * 60}")
+            if _profile:
+                # Physical chemistry: profile values are authoritative, always overwrite
+                for _src, _dst in [
+                    ("mw", "mw"),
+                    ("vp", "vp"),
+                    ("clogp", "clp"),
+                    ("note", "note"),
+                    ("role", "role"),
+                    ("texture", "texture"),
+                ]:
+                    if _profile.get(_src) is not None:
+                        entry[_dst] = _profile[_src]
+                if _profile.get("activity_coef") and entry.get("activity_coef") is None:
+                    entry["activity_coef"] = _profile["activity_coef"]
+                if _profile.get("or_family") and entry.get("or_family") is None:
+                    entry["or_family"] = _profile["or_family"]
+                if _profile.get("hedonic") and entry.get("hedonic") is None:
+                    entry["hedonic"] = _profile["hedonic"]
+                if _profile.get("synergies") and not entry.get("synergies"):
+                    entry["synergies"] = _profile["synergies"]
+                # ODT: profile values (enriched from ODT_DATA) override existing
+                if _profile.get("odt") is not None:
+                    entry["odt"] = _profile["odt"]
+                if _profile.get("odt_ppm") is not None:
+                    entry["odt_ethanol_ppm"] = _profile["odt_ppm"]
 
-FIELDS = [
-    ("odt", "ODT air (ppb)"),
-    ("odt_ethanol_ppm", "ODT ethanol (ppm)"),
-    ("oav_typical", "OAV (typical dose)"),
-    ("smell_strength", "Smell strength"),
-    ("anosmic_risk", "Anosmic risk"),
-    ("mw", "Molecular weight"),
-    ("vp", "Vapor pressure (Pa)"),
-    ("clp", "cLogP"),
-    ("synergies", "Synergies"),
-    ("note", "Volatility note"),
-    ("role", "Perfumery role"),
-    ("texture", "Texture"),
-    ("or_family", "Odor family (Raoult)"),
-    ("activity_coef", "Activity coeff"),
-    ("hedonic", "Hedonic score"),
-    ("ifra_cat4_limit_pct", "IFRA Cat4 limit"),
-    ("ifra_banned", "IFRA banned"),
-    ("dilution_pct", "Inventory dilution"),
-    ("hill_ec50", "Hill EC50"),
-    ("character_shift", "Character shift zones"),
-    ("cas", "CAS number"),
-    ("formula_str", "Molecular formula"),
-    ("pubchem_cid", "PubChem CID"),
-    ("sar_class", "SAR class"),
-    ("carles_position", "Carles position"),
-    ("arctander_character", "Arctander char"),
-]
-print(f"\n{'Field':<25} {'Coverage':>10}  {'Status'}")
-print("-" * 60)
-for f, label in FIELDS:
-    count = sum(
-        1
-        for m in output
-        if m.get(f) is not None and m.get(f) != [] and m.get(f) != "" and m.get(f) != False
-    )
-    pct = round(count / total * 100) if total else 0
-    bar = "█" * (pct // 5) + "░" * (20 - pct // 5)
-    print(f"  {label:<23} {count:>4}/{total} {bar} {pct}%")
+            # Recompute OAV / smell strength / anosmic risk if missing
+            _odt_eth = entry.get("odt_ethanol_ppm")
+            _role = entry.get("role")
+            _mw = entry.get("mw")
+            _or_fam = entry.get("or_family")
+            if entry.get("oav_typical") is None and _odt_eth is not None and float(_odt_eth) > 0:
+                _dose = typical_dose_pct(_norm, _role, _odt_eth)
+                entry["oav_dose_pct"] = _dose
+                entry["oav_typical"] = round(_dose * 10000 / _odt_eth, 1)
+            if entry.get("smell_strength") is None:
+                entry["smell_strength"] = smell_strength(_odt_eth)
+            if entry.get("anosmic_risk") is None:
+                entry["anosmic_risk"] = anosmic_risk(_mw, entry.get("odt"), _or_fam)
+            if entry.get("odor_family") is None:
+                entry["odor_family"] = infer_odor_family(_profile, _norm)
+            if not entry.get("odor_profile"):
+                _char = odt_char_index.get(_norm)
+                entry["odor_profile"] = infer_odor_profile(_profile, _char, entry.get("name", ""))
 
-if audit_flags:
-    print(f"\n  ⚠ {len(audit_flags)} entries have PubChem divergences → audit_flags.json")
-    for a in audit_flags[:5]:
-        for f in a["flags"]:
-            print(f"    {a['name']}: {f['field']} db={f['db_value']} pubchem={f['pubchem_value']}")
-    if len(audit_flags) > 5:
-        print(f"    ... and {len(audit_flags) - 5} more")
+            # IFRA standard type
+            if entry.get("ifra_standard_type") is None:
+                _ifra_limit = ifra_index.get(_norm)
+                entry["ifra_cat4_limit_pct"] = _ifra_limit
+                entry["ifra_standard_type"] = (
+                    "specification"
+                    if entry.get("name", "") in IFRA_SPECIFICATION_ONLY
+                    else "restriction"
+                )
+
+            # Hill params / character shift
+            _hill = hill_index.get(_norm)
+            if _hill and entry.get("hill_ec50") is None:
+                entry["hill_ec50"] = _hill.get("EC50")
+                entry["hill_n"] = _hill.get("n")
+                entry["hill_rmax"] = _hill.get("Rmax", 1.0)
+            _cs = charshift_index.get(_norm)
+            if _cs and not entry.get("character_shift"):
+                entry["character_shift"] = [
+                    {
+                        "max_conc_pct": z.max_conc_pct,
+                        "character": z.character,
+                        "quality": z.quality,
+                    }
+                    for z in _cs
+                ]
+
+            seen_dedup.discard(entry.get("name", "").lower())  # allow non-inventory entries
+            output.append(entry)
+
+    # ═══════════════════════════════════════════════════════════════════════
+    # Write output files
+    # ═══════════════════════════════════════════════════════════════════════
+
+    with open(MP_PATH, "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
+
+    with open("data/knowledge_graph/audit_flags.json", "w", encoding="utf-8") as f:
+        json.dump(audit_flags, f, indent=2, ensure_ascii=False)
+
+    # ═══════════════════════════════════════════════════════════════════════
+    # Phase 5 — Report
+    # ═══════════════════════════════════════════════════════════════════════
+
+    total = len(output)
+    print(f"\n{'=' * 60}")
+    print(f"  material_properties.json  —  {total} entries written")
+    print(f"  audit_flags.json          —  {len(audit_flags)} entries flagged")
+    print(f"{'=' * 60}")
+
+    FIELDS = [
+        ("odt", "ODT air (ppb)"),
+        ("odt_ethanol_ppm", "ODT ethanol (ppm)"),
+        ("oav_typical", "OAV (typical dose)"),
+        ("smell_strength", "Smell strength"),
+        ("anosmic_risk", "Anosmic risk"),
+        ("mw", "Molecular weight"),
+        ("vp", "Vapor pressure (Pa)"),
+        ("clp", "cLogP"),
+        ("synergies", "Synergies"),
+        ("note", "Volatility note"),
+        ("role", "Perfumery role"),
+        ("texture", "Texture"),
+        ("or_family", "Odor family (Raoult)"),
+        ("activity_coef", "Activity coeff"),
+        ("hedonic", "Hedonic score"),
+        ("ifra_cat4_limit_pct", "IFRA Cat4 limit"),
+        ("ifra_banned", "IFRA banned"),
+        ("dilution_pct", "Inventory dilution"),
+        ("hill_ec50", "Hill EC50"),
+        ("character_shift", "Character shift zones"),
+        ("cas", "CAS number"),
+        ("formula_str", "Molecular formula"),
+        ("pubchem_cid", "PubChem CID"),
+        ("sar_class", "SAR class"),
+        ("carles_position", "Carles position"),
+        ("arctander_character", "Arctander char"),
+    ]
+    print(f"\n{'Field':<25} {'Coverage':>10}  {'Status'}")
+    print("-" * 60)
+    for f, label in FIELDS:
+        count = sum(
+            1
+            for m in output
+            if m.get(f) is not None and m.get(f) != [] and m.get(f) != "" and m.get(f) != False
+        )
+        pct = round(count / total * 100) if total else 0
+        bar = "█" * (pct // 5) + "░" * (20 - pct // 5)
+        print(f"  {label:<23} {count:>4}/{total} {bar} {pct}%")
+
+    if audit_flags:
+        print(f"\n  ⚠ {len(audit_flags)} entries have PubChem divergences → audit_flags.json")
+        for a in audit_flags[:5]:
+            for f in a["flags"]:
+                print(f"    {a['name']}: {f['field']} db={f['db_value']} pubchem={f['pubchem_value']}")
+        if len(audit_flags) > 5:
+            print(f"    ... and {len(audit_flags) - 5} more")
+
+
+def main():
+    """Offline default: preserve narrative and bind current stocks and evidence."""
+    from engine.data_spine.reconciliation import generate
+
+    report = generate()
+    print(json.dumps(report["counts"], indent=2))
+    print("Authority: computational reconciliation only; unresolved evidence remains HOLD.")
+
+
+if __name__ == "__main__":
+    main()
