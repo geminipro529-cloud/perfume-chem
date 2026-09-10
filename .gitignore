@@ -112,3 +112,6 @@ key.pub
 
 # Large executables
 incoming_review/*.exe
+
+# Key material must never be tracked.
+/incoming_review/openai-api-key*.txt
