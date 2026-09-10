@@ -11,6 +11,37 @@ Decision recorded by the repository owner on 2026-09-11: the seven STALE artifac
 classified historical/inactive with no successor artifacts.
 
 ---
+
+## Appendix — Guaiacwood EO knowledge-base identity row (2026-09-11)
+
+`tests/test_kb_migration.py::test_every_inventory_material_exists` failed because the owned stock
+`Guaiacwood EO` (inventory.txt row 200) had no entry in `materials` or `material_aliases`, while
+`Guaiacol` — a different material — already existed. The migration was completing the inventory
+contract but not the identity contract.
+
+`engine/kb_migrate.py` now has an explicit inventory-identity reconciliation stage that runs after
+the YAML, profile-only and ODT-only inserts and before `name_to_id` is returned. It inserts a
+declared identity-only material with every physical and ODT field NULL, so the knowledge base can
+resolve the identity without asserting unmeasured chemistry:
+
+```
+INSERT OR REPLACE INTO materials (
+    canonical_name, cas, smiles, inchikey, mw_g_mol, density_25c_g_ml, logp, vp_25c_pa,
+    odt_air_ppb, odt_eth_ppm, note, role, texture, character_json, synergies_json,
+    activity_coef, hedonic, odor_family, ifra_cat4_limit_pct, user_stock_dilution,
+    user_in_inventory, stevens_n, vp_source, vp_flag
+) VALUES ('Guaiacwood EO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+          NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL)
+```
+
+Verified on a disposable database: `Guaiacwood EO` id 1295 carries NULL `mw_g_mol`, `odt_air_ppb`
+and `vp_25c_pa` with `user_in_inventory = 1`, and `Guaiacol` id 527 keeps its own measured values —
+the two identities stay distinct rows.
+
+The exact one-third w/w Guaiacwood EO / ethanol / DEP preparation is **not** expressed here; it is
+carried by the inventory stock-authority contract in `engine/inventory_parser.py`, which validates
+the fraction, mass-fraction basis, `ethanol + dep` carrier and execution readiness from the
+inventory rows themselves.
 # L14 — Formula artifact disposition review
 
 Lane: `D:\chatbots\.lanes2-20260910\14-formula-artifacts` (detached worktree of the integration repo at `cc2693eb7b76ddac9b0c208c0507b13b7be4ba7f`).

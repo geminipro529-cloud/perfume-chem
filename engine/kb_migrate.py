@@ -25,6 +25,19 @@ import yaml
 from engine.kb_schema import create_database
 from engine.name_utils import normalize_name
 
+# ── Inventory-identity reconciliation ────────────────────────────────
+# Owned stocks whose inventory label is a real, user-confirmed material but
+# which have no catalogue entry in data/materials/*.yaml, engine._PROFILES or
+# ODT_DATA. They receive an identity row with every physical and ODT field left
+# NULL: the knowledge base must be able to resolve the identity without
+# asserting chemistry nobody has measured.
+#
+# Guaiacwood EO (inventory.txt row 200) is a distinct material from the molecule
+# Guaiacol; the exact one-third w/w Guaiacwood EO / ethanol / DEP preparation is
+# carried by the inventory stock-authority contract in engine/inventory_parser.py,
+# not by this row.
+_INVENTORY_IDENTITY_ONLY_MATERIALS: tuple[str, ...] = ("Guaiacwood EO",)
+
 # ── Low-level helpers ────────────────────────────────────────────────
 
 
@@ -433,6 +446,53 @@ def _populate_materials(conn: sqlite3.Connection) -> dict[str, int]:
             "SELECT id FROM materials WHERE canonical_name = ?", (rcname,)
         ).fetchone()[0]
         inserted_names.add(odt_key)
+
+    # Inventory-identity reconciliation stage. Runs last so a real catalogue
+    # entry always wins over the identity-only fallback.
+    for identity_name in _INVENTORY_IDENTITY_ONLY_MATERIALS:
+        identity_norm = normalize_name(identity_name)
+        if identity_norm in inserted_names:
+            continue
+        row = _merge_material(
+            identity_name, {}, profiles, odt_norm, props, ifra_limits
+        )
+        if normalize_name(str(row.get("canonical_name") or identity_name)) != identity_norm:
+            # A catalogue entry resolved this label to a different identity;
+            # keep the catalogue result rather than duplicating it.
+            continue
+        conn.execute(
+            insert_sql,
+            (
+                identity_name,
+                None,  # cas
+                None,  # smiles
+                None,  # inchikey
+                None,  # mw_g_mol
+                None,  # density_25c_g_ml
+                None,  # logp
+                None,  # vp_25c_pa
+                None,  # odt_air_ppb
+                None,  # odt_eth_ppm
+                None,  # note
+                None,  # role
+                None,  # texture
+                None,  # character_json
+                None,  # synergies_json
+                None,  # activity_coef
+                None,  # hedonic
+                None,  # odor_family
+                None,  # ifra_cat4_limit_pct
+                None,  # user_stock_dilution
+                1,  # user_in_inventory: confirmed owned in inventory.txt row 200
+                None,  # stevens_n
+                None,  # vp_source
+                None,  # vp_flag
+            ),
+        )
+        name_to_id[identity_name] = conn.execute(
+            "SELECT id FROM materials WHERE canonical_name = ?", (identity_name,)
+        ).fetchone()[0]
+        inserted_names.add(identity_norm)
 
     conn.commit()
     return name_to_id
