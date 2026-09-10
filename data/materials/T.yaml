@@ -3989,30 +3989,29 @@
   trp_targets:
   hedonic_valence:
   ifra_max_pct_edp:
-    user_stock_dilution: 0.1
-    user_in_inventory: true
-    supplier:
-      perfumersworld_sku:
-      perfumersworld_price_usd_per_g:
-      perfumersworld_form: neat
-      perfumersworld_snapshot_date:
-      other: {}
-    families:
-    - floral
-    - natural
-    character:
-    notes:
-    provenance:
-      mw_g_mol: pubchem (estimated)
-      vp_25c_pa: estimated
-      odt_air_ppb: estimated
-      odt_eth_ppm: estimated
-      user_in_inventory: inventory.txt
+  user_stock_dilution: 0.1
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku:
+    perfumersworld_price_usd_per_g:
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date:
+    other: {}
+  families:
+  - floral
+  - natural
+  character:
+  notes:
+  provenance:
+    mw_g_mol: pubchem (estimated)
+    vp_25c_pa: estimated
+    odt_air_ppb: estimated
+    odt_eth_ppm: estimated
+    user_in_inventory: inventory.txt
 - canonical_name: Tuberose Absolute (India)
   aliases:
   - tuberose absolute (india)
   - tuberose absolute india
-  - tuberose eo
   cas: 8024-05-3
   smiles: null
   inchikey: null
