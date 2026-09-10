@@ -83,11 +83,13 @@ _ALIASES: dict[str, str] = {
     "methyl ionone pure": "methyl ionone",
     "ylang comoros complete eo": "ylang comoros complete eo f3255",
     "ylang ylang eo (extra grade)": "ylang",
-    # Jasmine sambac is a subspecies of jasmine absolute — share ODT data
-    "jasmine sambac absolute": "jasmine absolute",
-    "jasmine sambac abs": "jasmine absolute",
-    "jasminum sambac absolute": "jasmine absolute",
-    "jasminum sambac abs": "jasmine absolute",
+    # Preserve Sambac and Grandiflorum as distinct material identities. They may
+    # share an ODT proxy, but identity normalization must not merge two physical
+    # stocks or two different natural-composition profiles.
+    "jasmine sambac absolute": "jasmine sambac absolute",
+    "jasmine sambac abs": "jasmine sambac absolute",
+    "jasminum sambac absolute": "jasmine sambac absolute",
+    "jasminum sambac abs": "jasmine sambac absolute",
     # Ethanol / solvent normalisation
     "ethanol 96%": "ethanol",
     # Myristic acid

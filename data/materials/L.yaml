@@ -1453,8 +1453,11 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Liffarome
-  aliases: []
-  cas: null
+  aliases:
+  - cis-3-Hexenyl Methyl Carbonate
+  - cis-3-Hexenyl methyl carbonate
+  - (Z)-3-Hexenyl methyl carbonate
+  cas: 67633-96-9
   smiles: null
   inchikey: null
   mw_g_mol: null
@@ -1476,18 +1479,24 @@
   hedonic_valence: null
   ifra_max_pct_edp: null
   user_stock_dilution: null
-  user_in_inventory: false
+  user_in_inventory: true
   supplier:
     perfumersworld_sku: 4GI24147
     perfumersworld_price_usd_per_g: 0.95
     perfumersworld_form: neat
     perfumersworld_snapshot_date: '2026-04-11'
-    other: {}
-  families: []
-  character: null
-  notes: null
+    other:
+      product_name: Liffarome
+      active_identity: cis-3-hexenyl methyl carbonate
+      product_form: neat / undiluted raw liquid
+  families: [green, fruity, violet, muguet]
+  character: Intense transparent green leafy-fruity material with iris, violet, pear, and muguet facets.
+  notes: PerfumersWorld SKU 4GI24147 identifies the neat supplier product. The user's separate 10% w/w stock has an unknown carrier and remains quantitatively non-executable.
   provenance:
-    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: https://www.perfumersworld.com/view.php?pro_id=4GI24147
+    character: https://www.perfumersworld.com/view.php?pro_id=4GI24147
+    supplier.perfumersworld: https://www.perfumersworld.com/view.php?pro_id=4GI24147
+    user_stock: data/governance/inventory_supplier_product_resolution_20260910_liffarome_methyl_laitone.json
 - canonical_name: LIGHT AND AIRY F-TEC
   aliases: []
   cas: null

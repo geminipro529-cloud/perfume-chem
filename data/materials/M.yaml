@@ -1794,7 +1794,7 @@
 - canonical_name: Methyl Laitone 10% DPG
   aliases:
   - METHYL LAITONE 10% DPG
-  cas:
+  cas: 94201-19-1
   smiles:
   inchikey:
   mw_g_mol:
@@ -1820,14 +1820,20 @@
   supplier:
     perfumersworld_sku: 5VD10871
     perfumersworld_price_usd_per_g: 0.55
-    perfumersworld_form: neat
+    perfumersworld_form: 10% in DPG
     perfumersworld_snapshot_date: '2026-04-11'
-    other: {}
-  families: []
-  character:
-  notes:
+    other:
+      product_name: METHYL LAITONE 10% DPG
+      active_identity: 8-methyl-1-oxaspiro(4.5)decan-2-one
+      active_cas: 94201-19-1
+      carrier: DPG
+  families: [lactonic, creamy, fruity, floral]
+  character: Powerful lactonic coconut-milk and creamy-fruity body material supplied at 10% in DPG.
+  notes: Exact PerfumersWorld catalog product SKU 5VD10871. It is not authority for the basis or carrier of the user's separate 20% stock.
   provenance:
-    supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: https://www.perfumersworld.com/view.php?pro_id=5VD10871
+    character: https://www.perfumersworld.com/view.php?pro_id=5VD10871
+    supplier.perfumersworld: https://www.perfumersworld.com/view.php?pro_id=5VD10871
 - canonical_name: Methyl Nonyl Ketone
   aliases: []
   cas:

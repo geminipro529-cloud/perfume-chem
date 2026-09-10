@@ -8,21 +8,29 @@ import pytest
 import engine.inventory_parser as inventory
 
 
-@pytest.mark.parametrize("name,fraction", [
+@pytest.mark.parametrize("name,starting_charge_fraction", [
     ("Turkish Storax Tincture", 0.20),
     ("Vietnamese Benzoin Tincture", 0.40),
     ("Kenyan Myrrh Ethanol Tincture", 0.20),
     ("Oman Frankincense Ethanol Tincture", 0.33),
 ])
-def test_owned_tinctures_keep_exact_declared_strength_and_unknown_basis(name, fraction):
+def test_current_tinctures_keep_starting_charge_separate_from_unknown_active_fraction(
+    name, starting_charge_fraction
+):
+    overlay = inventory.load_current_user_inventory_overlay()
+    record = next(row for row in overlay["delta_records"] if row["canonical_name"] == name)
+    assert record["stock"]["starting_charge_fraction"] == starting_charge_fraction
+    assert record["stock"]["starting_charge_fraction_basis"] == "mass_fraction"
+    assert record["stock"]["fraction"] is None
+
     stocks = [s for s in inventory.materialize_current_inventory().stocks if s.name == name]
     assert len(stocks) == 1
     stock = stocks[0]
-    assert stock.dilution == fraction
-    assert stock.fraction_basis == "unspecified"
+    assert stock.dilution == 0.0
+    assert stock.fraction_basis == "unknown_final_dissolved_solids"
     assert stock.carrier == "ethanol"
     assert not stock.execution_ready
-    assert stock.execution_hold_reason == "TINCTURE_PERCENTAGE_BASIS_AND_EXTRACTED_SOLIDS_UNSPECIFIED"
+    assert stock.execution_hold_reason == "FINAL_DISSOLVED_SOLIDS_FRACTION_UNASSAYED"
 
 
 def test_high_altitude_lavender_is_removed_without_removing_other_lavenders():
@@ -55,7 +63,7 @@ def test_latest_successor_rejects_live_text_drift(tmp_path, monkeypatch):
     changed = tmp_path / "inventory.txt"
     changed.write_text(inventory.INVENTORY_PATH.read_text(encoding="utf-8") + "\n# drift\n", encoding="utf-8")
     monkeypatch.setattr(inventory, "INVENTORY_PATH", changed)
-    with pytest.raises(inventory.InventoryAuthorityError, match="bound to live inventory"):
+    with pytest.raises(inventory.InventoryAuthorityError, match="source binding drift"):
         inventory.load_current_user_inventory_overlay()
 
 

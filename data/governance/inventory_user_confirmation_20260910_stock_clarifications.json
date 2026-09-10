@@ -1,0 +1,38 @@
+{
+  "schema_version": "perfume_chem_direct_stock_clarifications_v1",
+  "effective_date": "2026-09-10",
+  "source_kind": "DIRECT_USER_MESSAGES",
+  "working_stocks": [
+    {"canonical_name": "Anisaldehyde", "fraction": 0.1, "fraction_basis": "volume_fraction", "carrier": "ethanol"},
+    {"canonical_name": "Ethyl Maltol", "fraction": 0.01, "fraction_basis": "volume_fraction", "carrier": "ethanol"},
+    {"canonical_name": "Hexyl Acetate", "fraction": 0.01, "fraction_basis": "volume_fraction", "carrier": "dpg"},
+    {"canonical_name": "Helional", "fraction": 0.1, "fraction_basis": "volume_fraction", "carrier": "ethanol"}
+  ],
+  "tincture_process": {
+    "starting_charge_fraction_basis": "mass_fraction",
+    "carrier": "ethanol",
+    "resin_preparation": "ground or crushed resin",
+    "extraction_duration": "about one week",
+    "agitation": "daily",
+    "final_step": "filtered at the end of extraction",
+    "final_dissolved_solids_fraction_assayed": false
+  },
+  "tinctures": [
+    {"canonical_name": "Turkish Storax Tincture", "starting_charge_fraction": 0.2, "resin_identity": "Liquidambar orientalis", "origin": "Turkey"},
+    {"canonical_name": "Vietnamese Benzoin Tincture", "starting_charge_fraction": 0.4, "resin_identity": "Styrax tonkinensis", "origin": "Vietnam"},
+    {"canonical_name": "Kenyan Myrrh Ethanol Tincture", "starting_charge_fraction": 0.2, "resin_identity": "Commiphora myrrh", "origin": "Kenya", "identity_authority": "USER_WORDING_PRESERVED; TAXONOMIC_NORMALIZATION_NOT_ASSERTED"},
+    {"canonical_name": "Oman Frankincense Ethanol Tincture", "starting_charge_fraction": 0.33, "resin_identity": "Boswellia species unstated", "origin": "Oman"}
+  ],
+  "authority_limits": {
+    "working_stock_fraction_basis_and_carrier_confirmed": true,
+    "working_stock_density_asserted": false,
+    "tincture_starting_charge_mass_fraction_confirmed": true,
+    "tincture_final_dissolved_solids_fraction_confirmed": false,
+    "tincture_quantitative_active_dosing_ready": false,
+    "oman_frankincense_species_confirmed": false,
+    "kenyan_myrrh_taxonomic_normalization_confirmed": false,
+    "formula_rebase_authorized": false,
+    "physical_compounding_performed": false,
+    "safety_or_release_asserted": false
+  }
+}

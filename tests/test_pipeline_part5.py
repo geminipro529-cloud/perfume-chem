@@ -207,6 +207,23 @@ def test_commercial_trial_low_confidence_warns_not_blocks(monkeypatch):
     assert report.commercial_readiness == "COMMERCIAL_TRIAL_READY_LOW_CONFIDENCE"
 
 
+def test_noncommercial_low_confidence_is_diagnostic_not_blocking(monkeypatch):
+    monkeypatch.setattr(gates_module, "ConfidenceScorer", lambda: _LowConfidence())
+    report = gate_formula(
+        _trial_fougere(),
+        ReleaseGateConfig(
+            brief="aromatic_fougere",
+            min_confidence_score=50.0,
+            commercial_mode=False,
+            audit_enabled=False,
+        ),
+    )
+    gate_map = {gate.gate: gate for gate in report.gates}
+
+    assert gate_map["confidence_minimum"].status == "WARN"
+    assert "below 50.0" in gate_map["confidence_minimum"].detail
+
+
 def test_strict_commercial_low_confidence_blocks(monkeypatch):
     monkeypatch.setattr(gates_module, "ConfidenceScorer", lambda: _LowConfidence())
     report = gate_formula(

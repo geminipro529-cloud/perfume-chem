@@ -29,7 +29,9 @@ def _check(name: str, stock_id: str = ""):
 
 
 def _raw_head():
-    return json.loads(inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8"))
+    return json.loads(
+        inventory.ROMANDOLIDE_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8")
+    )
 
 
 def test_depleted_stock_fails_as_inventory_gap_and_cannot_bind_retired_id():
@@ -46,7 +48,12 @@ def test_successor_removes_only_romandolide_and_preserves_other_stock_objects():
     previous = inventory._apply_current_user_inventory_overlay(
         base, inventory.load_current_user_inventory_overlay(inventory.AHSEE_USER_INVENTORY_OVERLAY_PATH),
     )
-    current = inventory.materialize_current_inventory()
+    current = inventory._apply_current_user_inventory_overlay(
+        base,
+        inventory.load_current_user_inventory_overlay(
+            inventory.ROMANDOLIDE_USER_INVENTORY_OVERLAY_PATH
+        ),
+    )
     prior = {s.stock_id: asdict(s) for s in previous.stocks}
     assert prior[ROMANDOLIDE_STOCK_ID]["source_rows"] == (211,)
     assert {s.stock_id: asdict(s) for s in current.stocks} == {
@@ -92,7 +99,9 @@ def test_historical_ahsee_bytes_and_origins_remain_loadable_after_depletion():
     path = inventory.AHSEE_USER_INVENTORY_OVERLAY_PATH
     assert hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest() == AHSEE_SHA256
     previous = inventory.load_current_user_inventory_overlay(path)
-    current = inventory.load_current_user_inventory_overlay()
+    current = inventory.load_current_user_inventory_overlay(
+        inventory.ROMANDOLIDE_USER_INVENTORY_OVERLAY_PATH
+    )
     assert previous["source"]["inventory_text_size_bytes"] == 23705
     assert previous["source"]["inventory_text_sha256"] == "216bd300c709b453d9e9786bf8cfff1c6a62aca65203013b47782891d9f3269c"
     assert current["records"][:-1] == previous["records"]
@@ -130,7 +139,7 @@ def test_successor_rejects_live_text_and_outer_overlay_byte_drift(tmp_path, monk
     altered.write_bytes(inventory.INVENTORY_PATH.read_bytes() + b" ")
     with monkeypatch.context() as patch:
         patch.setattr(inventory, "INVENTORY_PATH", altered)
-        with pytest.raises(inventory.InventoryAuthorityError, match="bound to live inventory"):
+        with pytest.raises(inventory.InventoryAuthorityError, match="source binding drift"):
             inventory.load_current_user_inventory_overlay()
     altered_head = tmp_path / "overlay.json"
     altered_head.write_bytes(inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH.read_bytes() + b" ")

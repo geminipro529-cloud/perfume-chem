@@ -1,0 +1,42 @@
+{
+  "schema": "perfume-chem-post-cutoff-disposition-supplement-v1",
+  "integration_base_head": "3844dc5bb34ad65e522467608157e7a32de85b1f",
+  "source_root": "D:\\chatbots\\perfume-chem",
+  "source_head_at_capture": "e7002d4dacde0ae4c6b92db454fa4034c830e8f4",
+  "capture_time_utc": "2026-09-10T10:59:00Z",
+  "source_status_sha256": "bd2e887d1ed82d70af536f01fe725d8f81807b52f3670e624074f4aa07376749",
+  "private_capture": {
+    "path": "D:\\codex-preservation\\perfume-chem-20260909\\post-cutoff-supplement-20260910T105900Z",
+    "manifest_sha256": "d0ece689f3c82cc697edc149e0959264c7b3200af129e447bd536bf3a0a5a261",
+    "hash_verified": true,
+    "source_files_modified": false
+  },
+  "governing_limits": {
+    "whole_dirty_files_imported": false,
+    "historical_ledger_modified": false,
+    "formula_rebase_authorized": false,
+    "physical_compounding_performed": false,
+    "release_authorized": false
+  },
+  "entries": [
+    {"path": "engine/name_utils.py", "captured_sha256": "b9a517f47a7fda3a5852983475494b955ddc19bfd1bc2266c31ae43ab67aa1ad", "integration_before_sha256": "cefad3093f8d374f58f54a83377599552ccda5f293717709d5bd3b91129cc1e7", "disposition": "RECONCILED", "scope": "Sambac identity aliases only", "destination": "engine/name_utils.py"},
+    {"path": "engine/odor_thresholds.py", "captured_sha256": "357b7362d908c8e02234831c8d991facd9ffbfad12be26708c61a7fd9050d3f8", "integration_before_sha256": "76cc5ea1514f817c13231a26ac4fd4f9a19b81fa37cd33cdc024688c0f5027bd", "disposition": "RECONCILED", "scope": "Explicit ODT-query proxy only; threshold value unchanged", "destination": "engine/odor_thresholds.py"},
+    {"path": "engine/pipeline/natural_absolute_decomposition.py", "captured_sha256": "93b49d62d963eeeb249b8b90087e8a42d0d8d8ff1777bab4b0b175b688588e9a", "integration_before_sha256": "6698477afdf4572c5a5b9a6c24ae5114c2d4ab392d9272a384ce75d5abb66b85", "disposition": "RECONCILED", "scope": "Removed generic-Jasmine collapse; retained distinct existing profiles", "destination": "engine/pipeline/natural_absolute_decomposition.py"},
+    {"path": "tests/test_pre_mix_guard.py", "captured_sha256": "2742e67647694a71118a2b9f62303844405ee7249cb04ab91c17011283963ae7", "integration_before_sha256": "3b961d079576299d706f960cfbdbdbcfce15673675c41c9bdb4e98265c236f04", "disposition": "RECONCILED", "scope": "Identity, proxy, composite, and premix regression", "destination": "tests/test_pre_mix_guard.py"},
+    {"path": "engine/pipeline/gates.py", "captured_sha256": "17e2be2991111efe7c17f30f89168f6aba12c55533d37115d2a58cd762d50b56", "integration_before_sha256": "1a53001ef979a30be6c45f0ef8031d4640b7f4c0df947af8d8f087f187f2ad69", "disposition": "RECONCILED", "scope": "Low confidence WARN outside commercial mode; independent hard gates unchanged", "destination": "engine/pipeline/gates.py"},
+    {"path": "tests/test_pipeline_part5.py", "captured_sha256": "87d17a61d49583455841eaab566a30caed1ed6392e2faa67e0951bf13da0debb", "integration_before_sha256": "d15b81673ef3d0ec21ee62551405086050815d5047702172590af1d80fd6354e", "disposition": "RECONCILED", "scope": "Non-commercial confidence policy regression only", "destination": "tests/test_pipeline_part5.py"},
+    {"path": "data/materials/L.yaml", "captured_sha256": "02c47efbdfe406a511c364f7be66b93501edba1a1a14ab8f2dd06e9a5ef90136", "integration_before_sha256": "2602e241c2ea45d0a2c3c88368a64f16ae734ab04968994d01347c7f2a53271d", "disposition": "RECONCILED", "scope": "Liffarome supplier identity only; user-stock carrier remains unknown", "destination": "data/materials/L.yaml"},
+    {"path": "data/materials/M.yaml", "captured_sha256": "9a08b2fb071542df6d3c9126b94ea9e609d791dfe9fd675cbcb16baa2c1c2148", "integration_before_sha256": "8267aedb2ff8d15ffc24c59d8a622ea4d9d432e5d2becc1b765da6178f464f15", "disposition": "RECONCILED", "scope": "PerfumersWorld 10% DPG product identity only; user 20% stock remains separate", "destination": "data/materials/M.yaml"},
+    {"path": "data/governance/inventory_supplier_product_resolution_20260910_liffarome_methyl_laitone.json", "captured_sha256": "4d47136d7a5acd06fec963f5e1ced6601b227efde5de86b5f83d36af52d8d5d7", "integration_before_sha256": "NEW_AFTER_CUTOFF", "disposition": "RECONCILED", "scope": "Narrow official-supplier successor with authority limits", "destination": "data/governance/inventory_supplier_product_resolution_20260910_liffarome_methyl_laitone.json"},
+    {"path": "data/governance/inventory_user_confirmation_20260910_stock_clarifications.json", "captured_sha256": "151a15e775b0de3d8cc9c6f958508dcc563dc8b864391d14b49e5081f77caa66", "integration_before_sha256": "NEW_AFTER_CUTOFF", "disposition": "RECONCILED", "scope": "Four reviewed working stocks plus four tincture-process records; unrelated identity notes excluded", "destination": "data/governance/inventory_user_confirmation_20260910_stock_clarifications.json"},
+    {"path": "inventory.txt", "captured_sha256": "f33c7ecb092fd56fe2a8e8c8ea77eb4673e5e36b4b55f2c2536517943cbd309b", "integration_before_sha256": "4b75a24608bd2f99fa68b760ee67223ac35062122133bd1a8ec0c5996cb8c3af", "disposition": "RECONCILED", "scope": "Reviewed carrier, supplier, and tincture-process hunks only", "destination": "inventory.txt"},
+    {"path": "formulas/Jasmine_Sambac_Vivante_30mL_V4_Realistic_Hedonic.md", "captured_sha256": "cc17eafd192bd44b5155b3fd837e2a0e83333fd733c07126908d477120a0c723", "integration_before_sha256": "NEW_AFTER_CUTOFF", "disposition": "PRESERVED_DISABLED", "scope": "Design record only; no current parent, receipt, active-dose, or OAV-time acceptance", "destination": "PRIVATE_CAPTURE_ONLY"},
+    {"path": "data/pipeline_audit/events.jsonl", "captured_sha256": "5c15705592804f5184e38261caa8f079fe8aa6c734a02b7d39a5c8aca258bd72", "integration_before_sha256": "00cf7bc9ae51d677f90e0061e8cce69463b0952ba01ac9bcf60643e560fc14fb", "disposition": "EXCLUDED_GENERATED", "scope": "Expanded generated log retained only in private capture", "destination": "PRIVATE_CAPTURE_ONLY"},
+    {"path": "data/materials/K.yaml", "captured_sha256": "1d939af4fca36eb800ddbfa5cdc7d90d64187a7361cff15ce2758178a01af865", "integration_before_sha256": "109080b6970be4e381cefc58f94c533bd1b75b1813a36cab71afa6e4663c9515", "disposition": "EXCLUDED_MECHANICAL", "scope": "Line-ending-only difference; integration bytes unchanged", "destination": "data/materials/K.yaml"}
+  ],
+  "implementation_additions": [
+    "data/governance/inventory_user_authority_overlay_20260910_stock_clarifications.json",
+    "engine/inventory_parser.py",
+    "tests/test_inventory_stock_clarifications_2026_09_10.py"
+  ]
+}

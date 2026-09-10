@@ -1,0 +1,52 @@
+{
+  "schema_version": "perfume_chem_supplier_product_identity_resolution_v1",
+  "effective_date": "2026-09-10",
+  "source_kind": "OFFICIAL_SUPPLIER_PRODUCT_PAGES",
+  "supplier": "PerfumersWorld",
+  "products": [
+    {
+      "inventory_name": "Liffarome",
+      "supplier_product_name": "Liffarome",
+      "sku": "4GI24147",
+      "product_url": "https://www.perfumersworld.com/view.php?pro_id=4GI24147",
+      "supplier_product_form": "neat / undiluted raw liquid",
+      "active_identity": "cis-3-hexenyl methyl carbonate",
+      "active_cas": "67633-96-9",
+      "user_stock_binding": {
+        "declared_fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "",
+        "execution_ready": false,
+        "execution_hold_reason": "USER_10_PERCENT_STOCK_CARRIER_UNSPECIFIED"
+      },
+      "authority_limit": "The supplier's neat catalog product identifies the active material but does not identify the carrier used to prepare the user's separate 10% w/w stock."
+    },
+    {
+      "inventory_name": "Methyl Laitone",
+      "supplier_product_name": "METHYL LAITONE 10% DPG",
+      "sku": "5VD10871",
+      "product_url": "https://www.perfumersworld.com/view.php?pro_id=5VD10871",
+      "supplier_product_form": "10% in DPG",
+      "active_identity": "8-methyl-1-oxaspiro(4.5)decan-2-one",
+      "active_cas": "94201-19-1",
+      "user_stock_binding": {
+        "declared_fraction": 0.2,
+        "fraction_basis": "unspecified",
+        "carrier": "",
+        "execution_ready": false,
+        "execution_hold_reason": "USER_20_PERCENT_STOCK_BASIS_AND_CARRIER_UNSPECIFIED"
+      },
+      "authority_limit": "The PerfumersWorld carrier applies only to SKU 5VD10871 at 10% in DPG. It cannot be inherited by the user's separately declared 20% stock."
+    }
+  ],
+  "authority_limits": {
+    "supplier_product_identity_resolved": true,
+    "supplier_catalog_form_resolved": true,
+    "user_liffarome_stock_carrier_resolved": false,
+    "user_methyl_laitone_stock_basis_resolved": false,
+    "user_methyl_laitone_stock_carrier_resolved": false,
+    "supplier_specific_gravity_used_as_user_stock_density": false,
+    "physical_compounding_performed": false,
+    "safety_or_release_asserted": false
+  }
+}

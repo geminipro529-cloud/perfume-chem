@@ -862,7 +862,6 @@ _PROFILE_ALIASES = {
     "cedarwood virginia": "cedarwood eo",
     "benzoin sumatra resinoid": "benzoin resinoid",
     "lavender eo high altitude": "lavender eo",
-    "jasmine absolute": "jasmine sambac",
     "geranium eo (pelargonium graveolens flower oil)": "geranium eo",
     "galbanum resinoid": "galbanum eo",
     "tonka bean absolute": "tonka bean solvent extract literature profile",

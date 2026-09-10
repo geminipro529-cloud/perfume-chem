@@ -1,0 +1,149 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v8",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-10",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260908_romandolide.json",
+    "normalized_text_sha256": "7265242bd4136333d592004b4ddb9382cd0cd8a1ad364b75085e98290f1a98d8"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 24284,
+    "inventory_text_sha256": "270a47be538694b72ffcfb3806e0874ce5cc9b8fcf0a2111247dac7e0c0b2d24",
+    "confirmed_receipt": "data/governance/inventory_user_confirmation_20260910_stock_clarifications.json",
+    "confirmed_receipt_sha256": "4ef7b89d179841a9d071fd64ec9f4dd67553978af8e2ae47adc41b445f3ce4db",
+    "supplier_receipt": "data/governance/inventory_supplier_product_resolution_20260910_liffarome_methyl_laitone.json",
+    "supplier_receipt_sha256": "d6ed056a6169a8bd5f80652abcf9e83165a80458650e1079946464b35df11f56"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "bind_only_source_declared_stock_facts": true,
+    "stock_solution_density_assumed": false,
+    "tincture_starting_charge_is_active_fraction": false,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [
+    "INV-USER-20260908-001",
+    "INV-USER-20260908-002",
+    "INV-USER-20260908-003",
+    "INV-USER-20260908-004"
+  ],
+  "records": [
+    {
+      "record_id": "INV-USER-20260910-001",
+      "canonical_name": "Anisaldehyde",
+      "aliases": ["Anisaldehyde 10%"],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {"fraction": 0.1, "fraction_basis": "volume_fraction", "carrier": "ethanol", "fraction_authority": "DIRECT_USER_PREPARED_STOCK_CONFIRMATION", "density_g_ml": null, "execution_ready": true, "execution_scope": "DECLARED_RAW_STOCK_TRANSFER_BINDING_ONLY", "execution_hold_reason": ""},
+      "supersedes_parent_stocks": [{"source_row": 32}],
+      "requirement_overrides": [{"source_row": 32, "disposition": "OWNED", "status": "HAVE - USER-CONFIRMED STOCK 2026-09-10", "actual_stock_text": "10% v/v in ethanol", "can_prepare": ""}],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_PREPARED_STOCK_CONFIRMATION",
+      "evidence_refs": ["STOCK_CLARIFICATIONS_20260910"],
+      "authority_limits": {"density_asserted": false, "assay_asserted": false, "exact_active_mass_from_raw_volume_authorized": false, "formula_rebase_authorized": false, "physical_dose_performed": false, "safety_or_release_asserted": false}
+    },
+    {
+      "record_id": "INV-USER-20260910-002",
+      "canonical_name": "Ethyl Maltol",
+      "aliases": ["Ethyl Maltol 1%"],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {"fraction": 0.01, "fraction_basis": "volume_fraction", "carrier": "ethanol", "fraction_authority": "DIRECT_USER_PREPARED_STOCK_CONFIRMATION", "density_g_ml": null, "execution_ready": true, "execution_scope": "DECLARED_RAW_STOCK_TRANSFER_BINDING_ONLY", "execution_hold_reason": ""},
+      "supersedes_parent_stocks": [{"source_row": 266, "fraction": 0.01}],
+      "requirement_overrides": [{"source_row": 266, "disposition": "OWNED", "status": "HAVE - USER-CONFIRMED STOCK 2026-09-10", "actual_stock_text": "1% v/v in ethanol; separate 10% stock unchanged", "can_prepare": ""}],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_PREPARED_STOCK_CONFIRMATION",
+      "evidence_refs": ["STOCK_CLARIFICATIONS_20260910"],
+      "authority_limits": {"density_asserted": false, "assay_asserted": false, "exact_active_mass_from_raw_volume_authorized": false, "formula_rebase_authorized": false, "physical_dose_performed": false, "safety_or_release_asserted": false}
+    },
+    {
+      "record_id": "INV-USER-20260910-003",
+      "canonical_name": "Hexyl Acetate",
+      "aliases": ["Hexyl Acetate 1%"],
+      "state": "OWNED",
+      "category": "citrus_top",
+      "stock": {"fraction": 0.01, "fraction_basis": "volume_fraction", "carrier": "dpg", "fraction_authority": "DIRECT_USER_PREPARED_STOCK_CONFIRMATION", "density_g_ml": null, "execution_ready": true, "execution_scope": "DECLARED_RAW_STOCK_TRANSFER_BINDING_ONLY", "execution_hold_reason": ""},
+      "supersedes_parent_stocks": [{"source_row": 274}],
+      "requirement_overrides": [{"source_row": 274, "disposition": "OWNED", "status": "HAVE - USER-CONFIRMED STOCK 2026-09-10", "actual_stock_text": "1% v/v in DPG", "can_prepare": ""}],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_PREPARED_STOCK_CONFIRMATION",
+      "evidence_refs": ["STOCK_CLARIFICATIONS_20260910"],
+      "authority_limits": {"density_asserted": false, "assay_asserted": false, "exact_active_mass_from_raw_volume_authorized": false, "formula_rebase_authorized": false, "physical_dose_performed": false, "safety_or_release_asserted": false}
+    },
+    {
+      "record_id": "INV-USER-20260910-004",
+      "canonical_name": "Helional",
+      "aliases": ["Helional 10%"],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {"fraction": 0.1, "fraction_basis": "volume_fraction", "carrier": "ethanol", "fraction_authority": "DIRECT_USER_PREPARED_STOCK_CONFIRMATION", "density_g_ml": null, "execution_ready": true, "execution_scope": "DECLARED_RAW_STOCK_TRANSFER_BINDING_ONLY", "execution_hold_reason": ""},
+      "supersedes_parent_stocks": [{"source_row": 130, "fraction": 0.1}],
+      "requirement_overrides": [{"source_row": 130, "disposition": "OWNED", "status": "HAVE - USER-CONFIRMED STOCK 2026-09-10", "actual_stock_text": "neat stock retained; 10% v/v stock in ethanol", "can_prepare": ""}],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_PREPARED_STOCK_CONFIRMATION",
+      "evidence_refs": ["STOCK_CLARIFICATIONS_20260910"],
+      "authority_limits": {"density_asserted": false, "assay_asserted": false, "exact_active_mass_from_raw_volume_authorized": false, "formula_rebase_authorized": false, "physical_dose_performed": false, "safety_or_release_asserted": false}
+    },
+    {
+      "record_id": "INV-USER-20260910-005",
+      "canonical_name": "Turkish Storax Tincture",
+      "aliases": ["Turkish Storax Liquidambar orientalis resin ethanol tincture"],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {"fraction": null, "fraction_basis": "unknown_final_dissolved_solids", "carrier": "ethanol", "starting_charge_fraction": 0.2, "starting_charge_fraction_basis": "mass_fraction", "fraction_authority": "DIRECT_USER_STARTING_RESIN_CHARGE_CONFIRMATION", "density_g_ml": null, "execution_ready": false, "execution_scope": "AVAILABILITY_AND_PROCESS_RECORD_ONLY", "execution_hold_reason": "FINAL_DISSOLVED_SOLIDS_FRACTION_UNASSAYED"},
+      "supersedes_parent_stocks": [{"source_row": 236}],
+      "requirement_overrides": [{"source_row": 236, "disposition": "OWNED", "status": "HAVE - USER-CONFIRMED TINCTURE 2026-09-10", "actual_stock_text": "20% starting resin charge w/w in ethanol; final dissolved solids unassayed", "can_prepare": ""}],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_TINCTURE_PROCESS_CONFIRMATION",
+      "evidence_refs": ["STOCK_CLARIFICATIONS_20260910"],
+      "authority_limits": {"starting_charge_fraction_confirmed": true, "active_fraction_confirmed": false, "density_asserted": false, "formula_rebase_authorized": false, "physical_dose_performed": false, "safety_or_release_asserted": false}
+    },
+    {
+      "record_id": "INV-USER-20260910-006",
+      "canonical_name": "Vietnamese Benzoin Tincture",
+      "aliases": ["Vietnamese Benzoin resin ethanol tincture"],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {"fraction": null, "fraction_basis": "unknown_final_dissolved_solids", "carrier": "ethanol", "starting_charge_fraction": 0.4, "starting_charge_fraction_basis": "mass_fraction", "fraction_authority": "DIRECT_USER_STARTING_RESIN_CHARGE_CONFIRMATION", "density_g_ml": null, "execution_ready": false, "execution_scope": "AVAILABILITY_AND_PROCESS_RECORD_ONLY", "execution_hold_reason": "FINAL_DISSOLVED_SOLIDS_FRACTION_UNASSAYED"},
+      "supersedes_parent_stocks": [{"source_row": 222, "fraction": 0.2}, {"source_row": 246}],
+      "requirement_overrides": [{"source_row": 246, "disposition": "OWNED", "status": "HAVE - USER-CONFIRMED TINCTURE 2026-09-10", "actual_stock_text": "40% starting resin charge w/w in ethanol; final dissolved solids unassayed", "can_prepare": ""}],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_TINCTURE_PROCESS_CONFIRMATION",
+      "evidence_refs": ["STOCK_CLARIFICATIONS_20260910"],
+      "authority_limits": {"starting_charge_fraction_confirmed": true, "active_fraction_confirmed": false, "density_asserted": false, "formula_rebase_authorized": false, "physical_dose_performed": false, "safety_or_release_asserted": false}
+    },
+    {
+      "record_id": "INV-USER-20260910-007",
+      "canonical_name": "Kenyan Myrrh Ethanol Tincture",
+      "aliases": ["Kenyan Myrrh resin ethanol tincture"],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {"fraction": null, "fraction_basis": "unknown_final_dissolved_solids", "carrier": "ethanol", "starting_charge_fraction": 0.2, "starting_charge_fraction_basis": "mass_fraction", "fraction_authority": "DIRECT_USER_STARTING_RESIN_CHARGE_CONFIRMATION", "density_g_ml": null, "execution_ready": false, "execution_scope": "AVAILABILITY_AND_PROCESS_RECORD_ONLY", "execution_hold_reason": "FINAL_DISSOLVED_SOLIDS_FRACTION_UNASSAYED"},
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_TINCTURE_PROCESS_CONFIRMATION",
+      "evidence_refs": ["STOCK_CLARIFICATIONS_20260910"],
+      "authority_limits": {"starting_charge_fraction_confirmed": true, "active_fraction_confirmed": false, "taxonomic_normalization_confirmed": false, "density_asserted": false, "formula_rebase_authorized": false, "physical_dose_performed": false, "safety_or_release_asserted": false}
+    },
+    {
+      "record_id": "INV-USER-20260910-008",
+      "canonical_name": "Oman Frankincense Ethanol Tincture",
+      "aliases": ["Oman Frankincense resin ethanol tincture"],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {"fraction": null, "fraction_basis": "unknown_final_dissolved_solids", "carrier": "ethanol", "starting_charge_fraction": 0.33, "starting_charge_fraction_basis": "mass_fraction", "fraction_authority": "DIRECT_USER_STARTING_RESIN_CHARGE_CONFIRMATION", "density_g_ml": null, "execution_ready": false, "execution_scope": "AVAILABILITY_AND_PROCESS_RECORD_ONLY", "execution_hold_reason": "FINAL_DISSOLVED_SOLIDS_FRACTION_UNASSAYED"},
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-10",
+      "source_kind": "DIRECT_USER_TINCTURE_PROCESS_CONFIRMATION",
+      "evidence_refs": ["STOCK_CLARIFICATIONS_20260910"],
+      "authority_limits": {"starting_charge_fraction_confirmed": true, "active_fraction_confirmed": false, "species_confirmed": false, "density_asserted": false, "formula_rebase_authorized": false, "physical_dose_performed": false, "safety_or_release_asserted": false}
+    }
+  ]
+}

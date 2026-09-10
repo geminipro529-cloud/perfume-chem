@@ -179,7 +179,7 @@ def test_successor_rejects_live_inventory_byte_drift(tmp_path, monkeypatch):
     path = tmp_path / "inventory.txt"
     path.write_bytes(inventory.INVENTORY_PATH.read_bytes() + b" ")
     monkeypatch.setattr(inventory, "INVENTORY_PATH", path)
-    with pytest.raises(inventory.InventoryAuthorityError, match="live inventory"):
+    with pytest.raises(inventory.InventoryAuthorityError, match="source binding drift"):
         inventory.load_current_user_inventory_overlay()
 
 

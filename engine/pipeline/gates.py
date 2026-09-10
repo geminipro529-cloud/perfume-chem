@@ -4875,7 +4875,11 @@ def _gate_confidence(state: FormulaState, config: ReleaseGateConfig) -> tuple[Ga
         diagnostic_reference = bool(
             spec is not None and spec.role == "reference_control" and not config.commercial_mode
         )
-        advisory_low_confidence = diagnostic_reference or config.is_commercial_trial()
+        advisory_low_confidence = (
+            not config.commercial_mode
+            or diagnostic_reference
+            or config.is_commercial_trial()
+        )
         status = "WARN" if advisory_low_confidence else "FAIL"
         detail = f"combined confidence {combined:.1f} below {threshold:.1f}"
         if diagnostic_reference:
@@ -4955,7 +4959,11 @@ def _apply_preflight_confidence_penalty(
         spec is not None and spec.role == "reference_control" and not config.commercial_mode
     )
     if adjusted < threshold:
-        advisory_low_confidence = diagnostic_reference or config.is_commercial_trial()
+        advisory_low_confidence = (
+            not config.commercial_mode
+            or diagnostic_reference
+            or config.is_commercial_trial()
+        )
         status = "WARN" if advisory_low_confidence else "FAIL"
         detail = (
             f"combined confidence {adjusted:.1f} below {threshold:.1f} after "

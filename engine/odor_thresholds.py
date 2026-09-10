@@ -297,7 +297,7 @@ ODT_DATA: dict[str, dict] = {
         "odt_air": 1.0,
         "odt_eth": 1.5,
         "char": "jasmine, narcotic, indolic",
-    },  # jasmine sambac resolves via _ALIASES: jasmine sambac -> jasmine sambac absolute -> jasmine absolute
+    },
     "champaca flower eo": {
         "odt_air": 8.0,
         "odt_eth": 1.5,
@@ -3025,17 +3025,38 @@ def _raise_on_normalized_odt_collisions() -> None:
     )
 
 
+_ODT_QUERY_ALIASES = {
+    # ODT evidence may be shared without collapsing distinct material and stock
+    # identities in the central name normalizer.
+    "jasmine sambac absolute": "jasmine absolute",
+}
+
+
+def _odt_query_key(material_name: str) -> str:
+    normalized = normalize_name(material_name)
+    return _ODT_QUERY_ALIASES.get(normalized, normalized)
+
+
 def lookup_odt_entry(material_name: str) -> Optional[dict]:
     """Return the authoritative ODT_DATA entry for a material via normalized lookup."""
-    hit = _ODT_BY_NORMALIZED_NAME.get(normalize_name(material_name))
+    normalized = normalize_name(material_name)
+    query_key = _odt_query_key(material_name)
+    hit = _ODT_BY_NORMALIZED_NAME.get(query_key)
     if hit is None:
         return None
-    return hit[1]
+    if query_key == normalized:
+        return hit[1]
+    return {
+        **hit[1],
+        "evidence_status": "ESTIMATED_PROXY",
+        "proxy_source_name": hit[0],
+        "proxy_query_name": normalized,
+    }
 
 
 def lookup_odt_raw_name(material_name: str) -> Optional[str]:
     """Return the raw ODT_DATA key selected by normalized lookup."""
-    hit = _ODT_BY_NORMALIZED_NAME.get(normalize_name(material_name))
+    hit = _ODT_BY_NORMALIZED_NAME.get(_odt_query_key(material_name))
     if hit is None:
         return None
     return hit[0]
