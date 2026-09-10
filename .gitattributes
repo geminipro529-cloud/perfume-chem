@@ -58,3 +58,19 @@
 /future_modules/family_hedonic_optimizer.py -text
 # Inert candidate source versions retain their original bytes, including EOLs.
 /incoming_review/worktree_candidates/payloads/*.payload -text
+# Governance receipts are raw-byte pinned (sha256 over LF bytes); without an
+# explicit attribute a core.autocrlf=true checkout materialises CRLF and every
+# fresh worktree fails inventory authority validation.
+/data/governance/complexity_decision_card_candidate_freeze_20260823_v3.json text eol=lf
+/data/governance/complexity_native_module_admission_20260822.json text eol=lf
+/data/governance/complexity_replacement_candidate_status_20260824.json text eol=lf
+/data/governance/complexity_xhigh_benchmark_CXB-20260822T123757Z-809d0e73.json text eol=lf
+/data/governance/complexity_xhigh_blocked_freeze_20260823_v1.json text eol=lf
+/data/governance/inventory_document_delegate_receipt_20260830.json text eol=lf
+/data/governance/inventory_identity_reconciliation_20260809.json text eol=lf
+/data/governance/inventory_supplier_document_census_20260830.json text eol=lf
+/data/governance/inventory_supplier_product_resolution_20260910_liffarome_methyl_laitone.json text eol=lf
+/data/governance/inventory_user_authority_overlay_20260910_stock_clarifications.json text eol=lf
+/data/governance/inventory_user_confirmation_20260910_stock_clarifications.json text eol=lf
+/data/governance/inventory_v7_recovered_manifest_20260830.json text eol=lf
+/data/governance/inventory_worktree_sync_20260830.json text eol=lf
