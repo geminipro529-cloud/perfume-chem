@@ -24,6 +24,12 @@
 /formulas/records/AHS_UserBottle_L360_HCA120_P60_CONFIRMED_20260907.json text eol=lf
 /formulas/AHS_2004_Reference_First_From_Zero_30mL_EDT_v1.md text eol=lf
 /formulas/AHS_2004_Reference_First_From_Zero_30mL_EDT_v2_Neat_Neroli.md text eol=lf
+# D0 claim-matrix controls are raw-byte pinned (EXPECTED_*_SHA256 in
+# scripts/verify_d0_claim_matrix.py hashes the working file). Without an
+# explicit attribute a core.autocrlf=true checkout materialises CRLF and the
+# gate raises "control formula binding changed".
+/formulas/Prada_LHomme_Architecture_Control_30mL_EdT.md text eol=lf
+/formulas/Prada_LHomme_Luxury_Orris_30mL_EdT.md text eol=lf
 
 # Existing frozen receipts match these exact LF bytes; pins are not regenerated.
 /tests/fixtures/formulation_intelligence_benchmark_v1.json text eol=lf
