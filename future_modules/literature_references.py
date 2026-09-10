@@ -129,6 +129,34 @@ TIER_A: tuple[Reference, ...] = (
         "RIFM safety assessment methodology example",
         "https://pubmed.ncbi.nlm.nih.gov/39236864/",
     ),
+    Reference(
+        "Arshamian et al. 2022",
+        "The perception of odor pleasantness is shared across cultures. Current Biology 32",
+        ReferenceTier.A_PEER_REVIEWED,
+        "Culture explains only 6% of pleasantness variance; individual taste 54%; molecular identity 41% — quantifies the universal vs personal hedonic split",
+        "https://pubmed.ncbi.nlm.nih.gov/35381183/",
+    ),
+    Reference(
+        "Khan et al. 2007",
+        "Predicting odor pleasantness from odorant structure. J Neurosci 27(37):10015-10023",
+        ReferenceTier.A_PEER_REVIEWED,
+        "Structural hedonic model (R^2 ~ 0.55) from molecular features; predictor for materials without direct ratings",
+        None,
+    ),
+    Reference(
+        "Zarzo 2011",
+        "Relevant psychological dimensions in the perception of odorants. Sensors 11(5):5296-5322",
+        ReferenceTier.A_PEER_REVIEWED,
+        "Molecular descriptors mapped to pleasantness; cross-check for hedonic valence values",
+        None,
+    ),
+    Reference(
+        "Yeshurun & Sobel 2010",
+        "An odor is not worth a thousand words: from multidimensional odors to unidimensional odor objects. Annual Review of Psychology",
+        ReferenceTier.A_PEER_REVIEWED,
+        "Review of olfactory perception; valence and intensity as primary dimensions",
+        None,
+    ),
 )
 
 
@@ -191,6 +219,13 @@ TIER_B: tuple[Reference, ...] = (
         "Perfume: The Alchemy of Scent",
         ReferenceTier.B_CLASSICAL_TEXT,
         "Minimalism; texture-first construction; transparency; the Hermès approach",
+        None,
+    ),
+    Reference(
+        "Dravnieks 1985",
+        "Atlas of Odor Character Profiles",
+        ReferenceTier.B_CLASSICAL_TEXT,
+        "146 odorant character profiles; standard descriptor dataset for hedonic and character mapping",
         None,
     ),
 )
@@ -256,6 +291,27 @@ TIER_C: tuple[Reference, ...] = (
         ReferenceTier.C_PRACTITIONER,
         "Narcotic jasmine zone < 0.1% indole; fecal cliff > 1%; dilution guidance",
         "https://premierepeau.com/",
+    ),
+    Reference(
+        "Dowthwaite 1999",
+        "The ABCs of Perfumery. Perfumer & Flavorist, May/June 1999",
+        ReferenceTier.C_PRACTITIONER,
+        "A-Z odour classification (top A-H, heart I-S, base T-Y, solvents Z); facet profiles; relative impact vs Linalool; odour life on strip; Heart/Modifier/Blender/Fixative/X-Factor function layer",
+        "https://www.perfumersworld.com/abcs-perfumery.php",
+    ),
+    Reference(
+        "Dowthwaite 2004",
+        "The Grammar of Perfumery",
+        ReferenceTier.C_PRACTITIONER,
+        "Linguistic framework for composition: subject (heart), modifiers, blenders, fixatives; balance diagnostic",
+        None,
+    ),
+    Reference(
+        "PerfumersWorld catalogue",
+        "PerfumersWorld material catalogue and product data sheets",
+        ReferenceTier.C_PRACTITIONER,
+        "Per-material ABC class, odour profile, relative impact, odour life, IFRA/safety data for PW-supplied materials; direct mapping to this inventory",
+        "https://www.perfumersworld.com/",
     ),
 )
 
@@ -362,6 +418,12 @@ TOPIC_REFERENCES: dict[str, tuple[str, ...]] = {
     "receptor_science": (
         "Takase et al. 2025", "Turin 2006", "Cosmetics Business 2020",
         "Wallrabenstein et al. 2015", "Menashe et al. 2007",
+    ),
+    "hedonics_and_architecture": (
+        "Arshamian et al. 2022", "Khan et al. 2007", "Zarzo 2011",
+        "Yeshurun & Sobel 2010", "Dravnieks 1985", "Jellinek 1997",
+        "Dowthwaite 1999", "Dowthwaite 2004", "PerfumersWorld catalogue",
+        "Carles 1961", "Roudnitska", "Ellena 2011",
     ),
 }
 
