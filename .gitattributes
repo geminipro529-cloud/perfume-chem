@@ -1,6 +1,20 @@
 # C0 fixture bytes are a canonical SHA-locked regression artifact.
 /tests/fixtures/c0_legacy_physical_model_cases.json text eol=lf
 /tests/fixtures/c0_legacy_physical_model_cases.sha256 text eol=lf
+# C0 inventory pins hash raw working-tree bytes
+# (scripts/verify_c0_physical_model_inventory.py keeps no EOL normalisation in
+# front of _sha256_file). Without an explicit attribute a core.autocrlf=true
+# checkout materialises CRLF and the gate raises "stale source hash" for a pin
+# whose committed blob is byte-identical. This pins the checkout EOL only; no
+# pinned constant is changed.
+/engine/pipeline/release_scoring.py text eol=lf
+/engine/property_estimator.py text eol=lf
+/engine/reconstruction/natural_lots.py text eol=lf
+/engine/science_kb.py text eol=lf
+/engine/solvent_matrix.py text eol=lf
+/engine/thermo/activity.py text eol=lf
+/scripts/formula_simulator.py text eol=lf
+/scripts/oav_headspace_analyze.py text eol=lf
 # Keep the reviewed, hash-bound AHSEE authority records stable on Windows.
 /data/governance/inventory_user_confirmation_20260908_ahsee_stocks.json text eol=lf
 /data/governance/inventory_user_authority_overlay_20260908_ahsee.json text eol=lf
