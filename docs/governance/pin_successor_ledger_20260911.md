@@ -145,3 +145,17 @@ One consequence worth recording: adding the successor mechanism to the verifier 
 a C0 call edge pins, and the verifier failed honest rather than passing stale. That is the intended
 behaviour — but it is also why the remaining symbol/line and call-edge metadata is deferred to a
 deliberate human pass instead of an automatic rewrite.
+
+## C0 re-baseline and C0-LH-005 freeze — owner decision 2026-09-11
+
+The repository owner approved two decisions on 2026-09-11.
+
+**1. 21 owner re-baseline receipts** (7 distinct paths). The superseded
+digests match no reachable revision, LF or CRLF form (rule R1), so these are recorded as
+`owner_rebaseline` successors with no continuity claim. Paths: `engine/calibration.py`, `engine/diffusion_model.py`, `engine/optimizer/scoring.py`, `engine/pipeline/oav_intelligence.py`, `engine/pipeline/simulator.py`, `engine/thermo/antoine.py`, `engine/workbench.py`.
+
+**2. `C0-LH-005` frozen as C0 v2.** The post-migration dHvap fallback models one fewer
+constituent (9 -> 8) and moves OAV 6789.897320595568 -> 7906.955757087607; 23 of 24 frozen
+cases replay identically. The owner accepted the new behaviour into the frozen fixture store
+rather than reverting the migration. The case carries a `c0_v2_freeze` receipt and the fixture
+lock was regenerated.

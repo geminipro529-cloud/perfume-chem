@@ -26,6 +26,18 @@
       "approved_at": "2026-09-11"
     },
     {
+      "record_id": "C0-PM-005",
+      "target": "engine/pipeline/simulator.py",
+      "superseded_sha256": "5f779145856c3d273bd188761f970f6282aaf74fe1a84b6937b07e0fe17fe8c5",
+      "successor_sha256": "b5a961a8669a416e19cd17821ff57c3151a0114ef39cbc77ecc22c0b66180697",
+      "kind": "owner_rebaseline",
+      "commit": "8414de16f07d5775b2bd50804b48d8410d6b8e78",
+      "reason": "Owner re-baseline, not a continuity claim (rule R1): the frozen pin matches no reachable revision, LF or CRLF form. The module legitimately changed after the freeze (numeric-character migration 8916c30b / receipt binding cc2693eb). The repository owner accepted the current committed LF bytes as the C0 authority on 2026-09-11.",
+      "evidence": "docs/governance/pin_successor_ledger_20260911.md",
+      "approved_by": "repository owner (2026-09-11 C0 re-baseline decision)",
+      "approved_at": "2026-09-11"
+    },
+    {
       "record_id": "C0-PM-006",
       "target": "engine/thermo/trajectory.py",
       "superseded_sha256": "b6ddc2d5bb51f1ec1f3b72c32299bf65f5184593b19862b6853e6a6e92e60b11",
@@ -71,6 +83,66 @@
       "reason": "Frozen pin equals the CRLF materialisation of the current committed bytes: the source content never changed; the pin was generated from an un-normalised checkout and the committed representation is LF.",
       "evidence": "docs/governance/pin_successor_ledger_20260911.md",
       "approved_by": "repository owner (2026-09-11 engine-fix directive)",
+      "approved_at": "2026-09-11"
+    },
+    {
+      "record_id": "C0-PM-010",
+      "target": "engine/thermo/antoine.py",
+      "superseded_sha256": "b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29",
+      "successor_sha256": "70b32a28a97f6c04b50e5509138b492b50839888d61f8b712b9484d051622a17",
+      "kind": "owner_rebaseline",
+      "commit": "dd567b474fbbb506020c408013b64c6669cc36cc",
+      "reason": "Owner re-baseline, not a continuity claim (rule R1): the frozen pin matches no reachable revision, LF or CRLF form. The module legitimately changed after the freeze (numeric-character migration 8916c30b / receipt binding cc2693eb). The repository owner accepted the current committed LF bytes as the C0 authority on 2026-09-11.",
+      "evidence": "docs/governance/pin_successor_ledger_20260911.md",
+      "approved_by": "repository owner (2026-09-11 C0 re-baseline decision)",
+      "approved_at": "2026-09-11"
+    },
+    {
+      "record_id": "C0-PM-011",
+      "target": "engine/thermo/antoine.py",
+      "superseded_sha256": "b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29",
+      "successor_sha256": "70b32a28a97f6c04b50e5509138b492b50839888d61f8b712b9484d051622a17",
+      "kind": "owner_rebaseline",
+      "commit": "dd567b474fbbb506020c408013b64c6669cc36cc",
+      "reason": "Owner re-baseline, not a continuity claim (rule R1): the frozen pin matches no reachable revision, LF or CRLF form. The module legitimately changed after the freeze (numeric-character migration 8916c30b / receipt binding cc2693eb). The repository owner accepted the current committed LF bytes as the C0 authority on 2026-09-11.",
+      "evidence": "docs/governance/pin_successor_ledger_20260911.md",
+      "approved_by": "repository owner (2026-09-11 C0 re-baseline decision)",
+      "approved_at": "2026-09-11"
+    },
+    {
+      "record_id": "C0-PM-012",
+      "target": "engine/thermo/antoine.py",
+      "superseded_sha256": "b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29",
+      "successor_sha256": "70b32a28a97f6c04b50e5509138b492b50839888d61f8b712b9484d051622a17",
+      "kind": "owner_rebaseline",
+      "commit": "dd567b474fbbb506020c408013b64c6669cc36cc",
+      "reason": "Owner re-baseline, not a continuity claim (rule R1): the frozen pin matches no reachable revision, LF or CRLF form. The module legitimately changed after the freeze (numeric-character migration 8916c30b / receipt binding cc2693eb). The repository owner accepted the current committed LF bytes as the C0 authority on 2026-09-11.",
+      "evidence": "docs/governance/pin_successor_ledger_20260911.md",
+      "approved_by": "repository owner (2026-09-11 C0 re-baseline decision)",
+      "approved_at": "2026-09-11"
+    },
+    {
+      "record_id": "C0-PM-013",
+      "target": "engine/thermo/antoine.py",
+      "superseded_sha256": "b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29",
+      "successor_sha256": "70b32a28a97f6c04b50e5509138b492b50839888d61f8b712b9484d051622a17",
+      "kind": "owner_rebaseline",
+      "commit": "dd567b474fbbb506020c408013b64c6669cc36cc",
+      "reason": "Owner re-baseline, not a continuity claim (rule R1): the frozen pin matches no reachable revision, LF or CRLF form. The module legitimately changed after the freeze (numeric-character migration 8916c30b / receipt binding cc2693eb). The repository owner accepted the current committed LF bytes as the C0 authority on 2026-09-11.",
+      "evidence": "docs/governance/pin_successor_ledger_20260911.md",
+      "approved_by": "repository owner (2026-09-11 C0 re-baseline decision)",
+      "approved_at": "2026-09-11"
+    },
+    {
+      "record_id": "C0-PM-014",
+      "target": "engine/thermo/antoine.py",
+      "superseded_sha256": "b17c30b42a2ef51c3ea7b79a794a670c59da52844113dd0e1075a6107d848b29",
+      "successor_sha256": "70b32a28a97f6c04b50e5509138b492b50839888d61f8b712b9484d051622a17",
+      "kind": "owner_rebaseline",
+      "commit": "dd567b474fbbb506020c408013b64c6669cc36cc",
+      "reason": "Owner re-baseline, not a continuity claim (rule R1): the frozen pin matches no reachable revision, LF or CRLF form. The module legitimately changed after the freeze (numeric-character migration 8916c30b / receipt binding cc2693eb). The repository owner accepted the current committed LF bytes as the C0 authority on 2026-09-11.",
+      "evidence": "docs/governance/pin_successor_ledger_20260911.md",
+      "approved_by": "repository owner (2026-09-11 C0 re-baseline decision)",
       "approved_at": "2026-09-11"
     },
     {
@@ -155,6 +227,18 @@
       "reason": "Frozen pin equals the CRLF materialisation of the current committed bytes: the source content never changed; the pin was generated from an un-normalised checkout and the committed representation is LF.",
       "evidence": "docs/governance/pin_successor_ledger_20260911.md",
       "approved_by": "repository owner (2026-09-11 engine-fix directive)",
+      "approved_at": "2026-09-11"
+    },
+    {
+      "record_id": "C0-PM-029",
+      "target": "engine/pipeline/oav_intelligence.py",
+      "superseded_sha256": "d68b15d0e4700c154ddc825ff0409756f14ab5285b9b3b412d1e9fc3e5cc3ae4",
+      "successor_sha256": "06f4a1cac8c6092b5f21845c13093d0dc1e4c6072e81d682b593956c753fc21f",
+      "kind": "owner_rebaseline",
+      "commit": "dd567b474fbbb506020c408013b64c6669cc36cc",
+      "reason": "Owner re-baseline, not a continuity claim (rule R1): the frozen pin matches no reachable revision, LF or CRLF form. The module legitimately changed after the freeze (numeric-character migration 8916c30b / receipt binding cc2693eb). The repository owner accepted the current committed LF bytes as the C0 authority on 2026-09-11.",
+      "evidence": "docs/governance/pin_successor_ledger_20260911.md",
+      "approved_by": "repository owner (2026-09-11 C0 re-baseline decision)",
       "approved_at": "2026-09-11"
     },
     {
@@ -254,6 +338,18 @@
       "approved_at": "2026-09-11"
     },
     {
+      "record_id": "C0-PM-039",
+      "target": "engine/diffusion_model.py",
+      "superseded_sha256": "6b892dd665cc4b97f0e2bb4cb2e47eb9b55db3a0b5337ea07574ea2ccdb1bdf5",
+      "successor_sha256": "8006769930ecebf81cd431410d71d0a1a87bd4189ae9637af2ff74e1228fe0d0",
+      "kind": "owner_rebaseline",
+      "commit": "dd567b474fbbb506020c408013b64c6669cc36cc",
+      "reason": "Owner re-baseline, not a continuity claim (rule R1): the frozen pin matches no reachable revision, LF or CRLF form. The module legitimately changed after the freeze (numeric-character migration 8916c30b / receipt binding cc2693eb). The repository owner accepted the current committed LF bytes as the C0 authority on 2026-09-11.",
+      "evidence": "docs/governance/pin_successor_ledger_20260911.md",
+      "approved_by": "repository owner (2026-09-11 C0 re-baseline decision)",
+      "approved_at": "2026-09-11"
+    },
+    {
       "record_id": "C0-PM-040",
       "target": "engine/skin_interaction.py",
       "superseded_sha256": "2598f73297290a36ed7c54f13f5df47d38244080c4fd6c27f943e27294da44c6",
@@ -299,6 +395,42 @@
       "reason": "Frozen pin equals the CRLF materialisation of the current committed bytes: the source content never changed; the pin was generated from an un-normalised checkout and the committed representation is LF.",
       "evidence": "docs/governance/pin_successor_ledger_20260911.md",
       "approved_by": "repository owner (2026-09-11 engine-fix directive)",
+      "approved_at": "2026-09-11"
+    },
+    {
+      "record_id": "C0-PM-044",
+      "target": "engine/workbench.py",
+      "superseded_sha256": "910bebce3afd1d37018196105caf88982976df1611e50b66946fd518a477f75b",
+      "successor_sha256": "4b5507f0e4b2f311a221602cc8abac61e9352d8fd005cd3d52912e04fe5a2bde",
+      "kind": "owner_rebaseline",
+      "commit": "228de57bf19ee46f471c655a1e63b30fd189f5b5",
+      "reason": "Owner re-baseline, not a continuity claim (rule R1): the frozen pin matches no reachable revision, LF or CRLF form. The module legitimately changed after the freeze (numeric-character migration 8916c30b / receipt binding cc2693eb). The repository owner accepted the current committed LF bytes as the C0 authority on 2026-09-11.",
+      "evidence": "docs/governance/pin_successor_ledger_20260911.md",
+      "approved_by": "repository owner (2026-09-11 C0 re-baseline decision)",
+      "approved_at": "2026-09-11"
+    },
+    {
+      "record_id": "C0-PM-046",
+      "target": "engine/calibration.py",
+      "superseded_sha256": "d581e0e72879ef1678b2873f40b43b4d4ba6803e4fc28ed067266959adb38c26",
+      "successor_sha256": "65758dd2f3d9190fb66e436cc97945e4b6e64b2133dadc8165cec39b65ae9895",
+      "kind": "owner_rebaseline",
+      "commit": "cbe3984a5016a5f12eaee1b02ee3a76019f32485",
+      "reason": "Owner re-baseline, not a continuity claim (rule R1): the frozen pin matches no reachable revision, LF or CRLF form. The module legitimately changed after the freeze (numeric-character migration 8916c30b / receipt binding cc2693eb). The repository owner accepted the current committed LF bytes as the C0 authority on 2026-09-11.",
+      "evidence": "docs/governance/pin_successor_ledger_20260911.md",
+      "approved_by": "repository owner (2026-09-11 C0 re-baseline decision)",
+      "approved_at": "2026-09-11"
+    },
+    {
+      "record_id": "C0-PM-048",
+      "target": "engine/optimizer/scoring.py",
+      "superseded_sha256": "8b22f7a15d913ca6219ef007cec28b031b6ee43563f25ad9898803792e6dc1f8",
+      "successor_sha256": "78e588a88e250bcc4ff01ed6e092fd2c3e7010d5de04a0ee4b09ee3430b831bb",
+      "kind": "owner_rebaseline",
+      "commit": "8916c30bda979a74b60d3006aaf3200ceaf10bf2",
+      "reason": "Owner re-baseline, not a continuity claim (rule R1): the frozen pin matches no reachable revision, LF or CRLF form. The module legitimately changed after the freeze (numeric-character migration 8916c30b / receipt binding cc2693eb). The repository owner accepted the current committed LF bytes as the C0 authority on 2026-09-11.",
+      "evidence": "docs/governance/pin_successor_ledger_20260911.md",
+      "approved_by": "repository owner (2026-09-11 C0 re-baseline decision)",
       "approved_at": "2026-09-11"
     }
   ]
