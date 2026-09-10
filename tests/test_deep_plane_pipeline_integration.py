@@ -55,8 +55,12 @@ def test_pipeline_connection_is_disabled_by_default(monkeypatch):
     report = gates.gate_formula(_formula(), gates.ReleaseGateConfig(audit_enabled=False))
     assert not any(g.gate == "deep_plane_diagnostics" for g in report.gates)
     assert report.config_summary["deep_plane_diagnostics_enabled"] is False
-    assert report.formula_state.dose_receipt_status == "UNBOUND"
-    assert all("provenance" not in f.as_dict() for f in report.simulation)
+    # The stock/dose receipt identity is bound by default (accepted-pipeline
+    # behaviour); only the Deep Plane diagnostic itself stays opt-in. Frames
+    # carry provenance whenever the state is bound, so the exact OAV replay in
+    # engine/pipeline/oav_authority.py reproduces them bit-for-bit.
+    assert report.formula_state.dose_receipt_status == "BOUND"
+    assert all("provenance" in f.as_dict() for f in report.simulation)
 
 
 def test_opt_in_pipeline_passes_receipt_and_existing_child_calculations(monkeypatch):

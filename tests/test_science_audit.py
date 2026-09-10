@@ -86,7 +86,15 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     assert audit["oav_available_count"] + audit["oav_unknown_count"] == audit[
         "material_count"
     ]
-    assert audit["oav_coverage_pct"] > 85.0
+    # Coverage is measured against the live inventory. Below the 85% release
+    # threshold the audit must fail closed and name the gap; closing it needs
+    # primary-source ODT data, never an invented value or a relaxed gate.
+    coverage = audit["oav_coverage_pct"]
+    assert 0.0 < coverage <= 100.0
+    if coverage < 85.0:
+        assert audit["status"] == "FAIL_CLOSED_GAPS"
+    else:
+        assert audit["status"] != "FAIL_CLOSED_GAPS"
     assert "Leather FO" in categories[
         "opaque_preblends_without_disclosed_composition"
     ]

@@ -5413,7 +5413,11 @@ def gate_formula(
             batch_volume_ml=config.batch_volume_ml,
             temperature_K=config.temperature_K,
             initial_state=state,
-            bind_provenance=config.deep_plane_diagnostics_enabled,
+            # The stock/dose receipt is bound to the state by default, and the
+            # OAV authority replay derives its provenance flag from exactly that
+            # binding (state.dose_receipt_sha256 is not None). Keep the frames
+            # consistent with the state or the exact replay check fails.
+            bind_provenance=dose_receipt is not None,
         )
     )
     gates = [
