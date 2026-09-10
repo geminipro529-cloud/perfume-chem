@@ -94,3 +94,51 @@
 /data/governance/inventory_user_confirmation_20260910_stock_clarifications.json text eol=lf
 /data/governance/inventory_v7_recovered_manifest_20260830.json text eol=lf
 /data/governance/inventory_worktree_sync_20260830.json text eol=lf
+# Raw-byte-pinned source and evidence paths must materialise as LF in every
+# checkout, otherwise core.autocrlf=true hands the verifier CRLF and the pin
+# fails on content that never changed. Census: docs/governance/... in this
+# commit; each path below appears in at least one stored sha256 pin.
+/backend/app/domain/ingredients/chemistry.py text eol=lf
+/backend/tests/fixtures/b4_identity_resolution_baseline.json text eol=lf
+/data/knowledge_graph/pairing_rules.json text eol=lf
+/data/knowledge_graph/pairing_rules_discovered.json text eol=lf
+/data/knowledge_graph/synergy_matrix.json text eol=lf
+/data/knowledge_graph/theory_rules.json text eol=lf
+/data/source_manifests/perfumersworld_inventory_documents_20260830.json text eol=lf
+/docs/research/INVENTORY_273_MATERIAL_DOCUMENT_REGISTER_20260830.md text eol=lf
+/docs/research/INVENTORY_STOCK_AUTHORITY_2026-08-30.md text eol=lf
+/engine/calibration.py text eol=lf
+/engine/chemistry/maturation.py text eol=lf
+/engine/diffusion_model.py text eol=lf
+/engine/dose_response.py text eol=lf
+/engine/formulation_intelligence/admission.py text eol=lf
+/engine/formulation_intelligence/hedonic_platform.py text eol=lf
+/engine/formulation_intelligence/temporal_architecture.py text eol=lf
+/engine/hedonic_model.py text eol=lf
+/engine/optimizer/models.py text eol=lf
+/engine/optimizer/scoring.py text eol=lf
+/engine/pipeline/formula_state.py text eol=lf
+/engine/pipeline/natural_absolute_decomposition.py text eol=lf
+/engine/pipeline/oav_authority.py text eol=lf
+/engine/pipeline/oav_intelligence.py text eol=lf
+/engine/pipeline/simulator.py text eol=lf
+/engine/psychophysics.py text eol=lf
+/engine/receptor/adaptation.py text eol=lf
+/engine/receptor/binding.py text eol=lf
+/engine/receptor/bulb.py text eol=lf
+/engine/science_data.py text eol=lf
+/engine/skin_compartments.py text eol=lf
+/engine/skin_interaction.py text eol=lf
+/engine/temporal_graph.py text eol=lf
+/engine/temporal_volatility.py text eol=lf
+/engine/thermo/antoine.py text eol=lf
+/engine/thermo/headspace.py text eol=lf
+/engine/thermo/phase.py text eol=lf
+/engine/thermo/trajectory.py text eol=lf
+/engine/vapor_pressure_modeling.py text eol=lf
+/engine/workbench.py text eol=lf
+/future_modules/advanced_musk_intelligence.py text eol=lf
+/incoming_review/Meaningful_Complexity_Audit_v2.md text eol=lf
+/inventory.txt text eol=lf
+# Binary hash pins must keep their exact bytes.
+/Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx -text
