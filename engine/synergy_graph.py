@@ -31,6 +31,7 @@ from engine.fingerprint import (
 )
 from engine.ingredient_intelligence import (
     DIMENSIONS,
+    CharacterEvidenceStatus,
     get_all_profiles,
     get_profile,
 )
@@ -256,7 +257,15 @@ class SynergyGraph:
     def _add_fingerprint_synergies(self, names: list[str]) -> None:
         """Infer synergies from fingerprint similarity (complementary, not identical)."""
         fps = {name: fingerprint_material(name) for name in names}
-        fps = {k: v for k, v in fps.items() if v is not None}
+        # Character dimensions are zero-filled when numeric evidence is absent,
+        # so similarity claims require AVAILABLE evidence - matching
+        # material_similarity() and find_similar_materials().
+        fps = {
+            k: v
+            for k, v in fps.items()
+            if v is not None
+            and v.character_status is CharacterEvidenceStatus.AVAILABLE
+        }
 
         for i, (name_a, fp_a) in enumerate(list(fps.items())):
             for name_b, fp_b in list(fps.items())[i + 1:]:

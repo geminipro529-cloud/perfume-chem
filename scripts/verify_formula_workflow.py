@@ -1242,6 +1242,16 @@ def _format_material_signature_lines(fp: dict, inventory_names: set[str], formul
         for dim, value in dominant:
             lines.append(f"- {dim}: {value:.2f}")
         lines.append("")
+    else:
+        missing = fp.get("character_missing_materials") or []
+        detail = f": {', '.join(str(name) for name in missing)}" if missing else ""
+        lines.extend(
+            [
+                "### Fingerprint Radar",
+                f"- UNKNOWN (incomplete numeric character evidence{detail})",
+                "",
+            ]
+        )
 
     top_materials = fp.get("materials", [])[:8]
     if top_materials:
@@ -1338,6 +1348,16 @@ def _format_life_graph_lines(life_graph: dict) -> list[str]:
             lines.append(f"- Underweight: {dim} (-{delta:.1f})")
         lines.append(f"- Balance score: {weight.get('balance_score', 0):.1f}/100")
         lines.append("")
+    else:
+        missing = life_graph.get("character_missing_materials") or []
+        detail = f": {', '.join(str(name) for name in missing)}" if missing else ""
+        lines.extend(
+            [
+                "#### Weight Diagnosis",
+                f"- UNKNOWN (incomplete numeric character evidence{detail})",
+                "",
+            ]
+        )
 
     gaps = life_graph.get("structural_gaps") or []
     if gaps:
