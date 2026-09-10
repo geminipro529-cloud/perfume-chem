@@ -866,6 +866,14 @@ _PROFILE_ALIASES = {
     "galbanum resinoid": "galbanum eo",
     "tonka bean absolute": "tonka bean solvent extract literature profile",
     "coffee absolute grasse": "roasted coffee oil literature profile",
+    # normalize_name() collapses "Jasmine Sambac", "Jasmine Sambac Absolute" and
+    # "Jasmine Sambac (10% in DPG)" to one key. All three share the same published
+    # Sambac profile, so the shared lookup is declared here explicitly instead of
+    # letting the normalizer pick whichever index entry happened to win. The
+    # stock-form difference (neat vs 10% in DPG) is carried by the inventory
+    # stock contract, not by this composition profile. Generic Jasmine Absolute
+    # is deliberately NOT aliased here and stays a separate identity.
+    "jasmine sambac absolute": "jasmine sambac",
 }
 
 _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
@@ -878,6 +886,10 @@ _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
     "coffee absolute grasse": (
         "Composition source is a quantified supercritical-CO2 coffee-oil volatile subset, not the supplier-batch Grasse absolute.",
         "Only constituents with compatible air-ODT model inputs are included.",
+    ),
+    "jasmine sambac absolute": (
+        "Composition source is the published Jasminum sambac profile, not a supplier-batch GC-MS or GC-O assay of the user's absolute.",
+        "The neat material and the 10% in DPG working stock share this composition profile; only the inventory stock contract distinguishes them.",
     ),
 }
 
