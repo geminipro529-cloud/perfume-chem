@@ -42,6 +42,30 @@ The exact one-third w/w Guaiacwood EO / ethanol / DEP preparation is **not** exp
 carried by the inventory stock-authority contract in `engine/inventory_parser.py`, which validates
 the fraction, mass-fraction basis, `ethanol + dep` carrier and execution readiness from the
 inventory rows themselves.
+
+## Appendix — quarantine action taken (2026-09-11)
+
+The seven STALE artifacts were quarantined in place by replacing each formula's header status line
+with the validator's fail-closed lifecycle marker `**Status**: QUARANTINED — do not mix or release.`
+plus the reason and the previous status text. The embedded stale analysis blocks were left intact as
+historical record; no formula arithmetic, dilution, or inventory row changed. Files:
+
+- `formulas/AHS_2004_Reference_First_From_Zero_30mL_EDT_v2_Neat_Neroli.md`
+- `formulas/DPP_01_Mandarin_Ember_Sandalwood_30mL_EDP.md` and `..._R2.md`
+- `formulas/DPP_02_Tuberose_Sandal_Cream_30mL_EDP.md` and `..._R2.md`
+- `formulas/DPP_03_Tobacco_Resin_Amber_Reserve_30mL_EDP.md` and `..._R2.md`
+
+Measured result of `scripts/pipeline_audit.py artifact-verify --json` after the change: exit code 0,
+status WARN, `NONE 456`, `QUARANTINED 21` (14 + 7), `UNBOUND_LEGACY 49`, and **zero STALE or
+TAMPERED** rows, against the blocking policy `[STALE, TAMPERED]`. Raw output:
+`_state/artifact_verify_post_quarantine.json` in the audit workspace.
+
+Unrelated pre-existing hold observed while verifying this step, recorded here rather than silently
+absorbed: `scripts/verify_d0_claim_matrix.py::build_gate_payload` raises
+`ValueError: control formula binding changed` (line 120) because
+`formulas/Prada_LHomme_Architecture_Control_30mL_EdT.md` does not match `EXPECTED_CONTROL_SHA256`.
+It reproduces with this step's formula edits stashed, so it is independent of the quarantine, and it
+is not part of the quick-verifier groups.
 # L14 — Formula artifact disposition review
 
 Lane: `D:\chatbots\.lanes2-20260910\14-formula-artifacts` (detached worktree of the integration repo at `cc2693eb7b76ddac9b0c208c0507b13b7be4ba7f`).

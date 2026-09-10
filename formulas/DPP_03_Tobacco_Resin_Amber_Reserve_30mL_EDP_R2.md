@@ -11,7 +11,7 @@
 **Official source:** none  
 **Concentration:** 6,000 µL concentrate + ethanol 96% q.s. to 30.00 mL; nominal 20% v/v EDP  
 **Presentation order:** physical basket category order first from `docs/basket_order_preference.md`; within each basket, raw `Amount (µL)` descends from highest to lowest; the DPP-plane column preserves olfactive architecture  
-**Status:** R2 formula complete; pending bench; safety, stability, and sensory performance NOT TESTED  
+**Status**: QUARANTINED — do not mix or release. Previous status: R2 formula complete; pending bench; safety, stability, and sensory performance NOT TESTED. Retired to historical/inactive on 2026-09-11: the persisted pipeline analysis is STALE against current inventory, scientific and pipeline evidence (lane-14 artifact review); no successor artifact was generated pending an owner decision to revive the line.  
 
 ## R2 Concept Lock
 

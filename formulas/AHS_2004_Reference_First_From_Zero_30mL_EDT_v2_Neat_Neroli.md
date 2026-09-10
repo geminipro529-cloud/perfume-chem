@@ -9,7 +9,7 @@
 **Batch target:** nominal 30.00 mL  
 **Stock-blend target:** exactly 5,000 µL as-stock volume  
 **Nominal stock-blend load:** 16.667% v/v before volume contraction; this is not exact active fragrance % w/w  
-**Status:** USER-CONFIRMED-STOCK DESIGN CANDIDATE / CANONICAL INVENTORY SYNC HOLD / NOT COMPOUNDED / NOT TESTED / RELEASE HOLD  
+**Status**: QUARANTINED — do not mix or release. Previous status: USER-CONFIRMED-STOCK DESIGN CANDIDATE / CANONICAL INVENTORY SYNC HOLD / NOT COMPOUNDED / NOT TESTED / RELEASE HOLD. Retired to historical/inactive on 2026-09-11: the persisted pipeline analysis is STALE against current inventory, scientific and pipeline evidence (lane-14 artifact review), and the line already declares a canonical inventory sync hold, so no successor artifact was generated.  
 **Observed sensory similarity:** false — no authenticated reference comparison has been run  
 **Safety / stability / liking / performance / release:** NOT TESTED / HOLD  
 **Research record:** docs/research/AHS_EDT_REFERENCE_RECONSTRUCTION_RESEARCH_20260905.md
