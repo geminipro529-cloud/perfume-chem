@@ -1,0 +1,433 @@
+{
+  "cache_dir": "data/external/perfumersworld",
+  "evidence_class": "SUPPLIER_TECHNICAL",
+  "generated_at": "2026-09-11T05:56:12+0700",
+  "materials": [
+    {
+      "docs": {
+        "coa": {
+          "bytes": 167114,
+          "pdf": true,
+          "sha256": "2fa6a9b6976b3a5463f907fc631711216ba6f923e9d029cc1fd7df19ab2a57d6",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/4IN10857.pdf"
+        },
+        "ifra": {
+          "bytes": 51541,
+          "pdf": true,
+          "sha256": "4ce17643c793d090ac3369197d7ea09a431ec021cad36b2e37d7c1fdb73e3241",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_4IN10857.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25440,
+          "sha256": "3354e6ddd7d74bc7fc4dcee4b47aa3812c053bd8abcf6291e749cbb45810dcc6",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=4IN10857&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 174419,
+          "pdf": true,
+          "sha256": "ec90a4faacad38d26411a5df656892068f7f59251b934bd425c70a0382e7d53f",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/4IN10857.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "79-78-7",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "80",
+        "physical_state": "Colourless-pale straw oily liqu",
+        "relative_impact": "140",
+        "title": "Allyl Ionone Cetone V"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Allyl Ionone (Ketone V)",
+      "product_status": 200,
+      "pw_name": "Allyl Ionone Cetone V",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4IN10857",
+      "resolution": "alias",
+      "retrieved_at": "2026-09-11T05:46:48+0700",
+      "sku": "4IN10857",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 215211,
+          "pdf": true,
+          "sha256": "ed8708259d23159e9587895b763d55820ac16e38f326496af10c9949610ec72a",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/3WI03465.pdf"
+        },
+        "ifra": {
+          "bytes": 147366,
+          "pdf": true,
+          "sha256": "9e2f57db24a78e88fdc5c910e46705b62a99066d229c3a990faddbfa4795fb7c",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_3WI03465.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25323,
+          "sha256": "0b7bf49f6952dbd55fef4820bafe3882146a0235b3cbf83bc2b376f00fd233fb",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=3WI03465&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 36681,
+          "pdf": true,
+          "sha256": "1b622f6bc3f031a417318c27f5606436264f19c771e1e8da7a2f940ab2774b3e",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/3WI03465.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "32214-91-8",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "96",
+        "physical_state": null,
+        "relative_impact": "100",
+        "title": "Caryophyllene Acetate"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Caryophyllene Acetate",
+      "product_status": 200,
+      "pw_name": "Caryophyllene Acetate",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3WI03465",
+      "resolution": "alias",
+      "retrieved_at": "2026-09-11T05:47:21+0700",
+      "sku": "3WI03465",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 164119,
+          "pdf": true,
+          "sha256": "c42bcdaeb7ccead9475186d6772e298491f054e906da20545b9f270d6927140e",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/6LC07501.pdf"
+        },
+        "ifra": {
+          "bytes": 147364,
+          "pdf": true,
+          "sha256": "de5cda6ce77485fa05864da9e054d5e6454bfa8836ce63ef1e69c66f465a340f",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_6LC07501.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25293,
+          "sha256": "e927ca9bf48273b23a2529af6377ebe56e7341a5cacf5522074e67c559ce4089",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=6LC07501&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 170025,
+          "pdf": true,
+          "sha256": "f62d01039e7a85f2b31f37acebee8901df1e7226c079de29c25c103c055630f3",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/6LC07501.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": null,
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "14.7",
+        "physical_state": "C-LESS OILY LIQUID- Specific Gr",
+        "relative_impact": "188",
+        "title": "Freesia HDL"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Freesia HDI",
+      "product_status": 200,
+      "pw_name": "Freesia HDL",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=6LC07501",
+      "resolution": "alias",
+      "retrieved_at": "2026-09-11T05:46:37+0700",
+      "sku": "6LC07501",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 166554,
+          "pdf": true,
+          "sha256": "a3d3150b31d04d3a177b2b68967533d1fc2ecf99fc54f7d7280d5b53b2690aca",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/7WY00466.pdf"
+        },
+        "ifra": {
+          "bytes": 41195,
+          "pdf": true,
+          "sha256": "391a6f4bf9e2a531e936d553d6a038dcb43e8a88f021726656892ba2bb7a302a",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_7WY00466.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25420,
+          "sha256": "7442334f2c25d11684025c9cd84dedaa4f7365ef31005e2b75ba5fa5c598a025",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=7WY00466&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 172205,
+          "pdf": true,
+          "sha256": "940183039b6c32c359beae78af1f3a3c3b836590f8a65923d4212e124afe9294",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/7WY00466.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "8016-96-4",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "320",
+        "physical_state": "Amber to dark amber viscous oil",
+        "relative_impact": "105",
+        "title": "Vetiver Essential Oil"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Indian Vetiver EO",
+      "product_status": 200,
+      "pw_name": "Vetiver Essential Oil",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=7WY00466",
+      "resolution": "alias",
+      "retrieved_at": "2026-09-11T05:46:59+0700",
+      "sku": "7WY00466",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 164842,
+          "pdf": true,
+          "sha256": "0c840517a766400a4404c96f006a9d2959fbe022a499350f44a0f9a4806cf582",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/7NJ07740.pdf"
+        },
+        "ifra": {
+          "bytes": 53815,
+          "pdf": true,
+          "sha256": "082428725b0ff0676b350b2246cdd5537632c864d2fec49e212ee250abf01c88",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_7NJ07740.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25471,
+          "sha256": "4259cf1b2ed1478c909fef06fcfce873d9685ce075e7a8e15d22bb5f4b8fdfab",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=7NJ07740&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 171149,
+          "pdf": true,
+          "sha256": "47f7eabf0235068e85f10a7073daf338cab54ad5f331ff68cf99cc1bd2c9e287",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/7NJ07740.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "94333-99-0",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "60",
+        "physical_state": "PALE YELLOW LIQUID Specific Gra",
+        "relative_impact": "200",
+        "title": "Champaca Flower Essential Oil"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Magnolia EO",
+      "product_status": 200,
+      "pw_name": "Champaca Flower Essential Oil",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=7NJ07740",
+      "resolution": "alias",
+      "retrieved_at": "2026-09-11T05:47:11+0700",
+      "sku": "7NJ07740",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 166571,
+          "pdf": true,
+          "sha256": "5c746be3300b128c2a67685bb9e9dcea7c55b8c5d3d9a3ba12d5555ce71d63eb",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/8ND00346.pdf"
+        },
+        "ifra": {
+          "bytes": 199653,
+          "pdf": true,
+          "sha256": "70c7e588524b1b67bda4c921d69f9955cbf418dbee91cf644ef214f2e7b2d2af",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_8ND00346.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25318,
+          "sha256": "8ed78de14a26dc06df9cbeff36db019ef26ef0efe0b3bae542908f63176c7662",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=8ND00346&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 172207,
+          "pdf": true,
+          "sha256": "87f5d73d8624bf82ca201d4e92567020bee273bc4f93534233e81be96092b7db",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/8ND00346.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "68917-05-5",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "39",
+        "physical_state": "dark orange viscous liquid Spec",
+        "relative_impact": "120",
+        "title": "Osmanthus Absolute"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Osmanthus Absolute (volume grade)",
+      "product_status": 200,
+      "pw_name": "Osmanthus Absolute",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=8ND00346",
+      "resolution": "alias",
+      "retrieved_at": "2026-09-11T05:47:10+0700",
+      "sku": "8ND00346",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/COA/7NJ23636.pdf"
+        },
+        "ifra": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_7NJ23636.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25735,
+          "sha256": "56da4f463de51c2673020f8a69f8d40f0e4b1cea47d007f6b19b6f14a7894622",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=7NJ23636&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/7NJ23636.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "8006-81-3",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "20",
+        "physical_state": "pale yellow clear liquid Specif",
+        "relative_impact": "120",
+        "title": "Ylang Comoros Complete Essential Oil"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Ylang Comoros Complete EO F3255",
+      "product_status": 200,
+      "pw_name": "Ylang Comoros Complete Essential Oil",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=7NJ23636",
+      "resolution": "alias",
+      "retrieved_at": "2026-09-11T05:55:54+0700",
+      "sku": "7NJ23636",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/COA/7NJ17821.pdf"
+        },
+        "ifra": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_7NJ17821.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25895,
+          "sha256": "d07b54181e0e9db3c2bf6b0a5c0ac6d4238482cbdf77d71ea6ec4402a75ed67e",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=7NJ17821&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/7NJ17821.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "8006-81-3",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "20",
+        "physical_state": "pale yellow clear liquid Specif",
+        "relative_impact": "120",
+        "title": "Ylang Comoros III essential oil"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Ylang Comoros III EO F3295",
+      "product_status": 200,
+      "pw_name": "Ylang Comoros III essential oil",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=7NJ17821",
+      "resolution": "alias",
+      "retrieved_at": "2026-09-11T05:56:03+0700",
+      "sku": "7NJ17821",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    }
+  ],
+  "schema_version": "pw-material-data-v1",
+  "source": "https://www.perfumersworld.com"
+}

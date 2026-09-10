@@ -1,0 +1,25 @@
+{
+  "schema_version": "bontoux-material-data-v1",
+  "source": "https://bontoux.com/site2021/en/our-offer/our-products-2/",
+  "evidence_class": "SUPPLIER_TECHNICAL",
+  "note": "Bontoux product catalogue table. The owner assigned Geranium Flower EO to BONTOUX (eo_source_map.json). Per-product TDS/SDS files are only published for some rows (e.g. vanilla); the Geranium row has no downloadable spec, so only the supplier identity is recorded. Do not OCR or invent analytical values.",
+  "catalogue_retrieved_at": "2026-09-11",
+  "materials": [
+    {
+      "inventory_name": "Geranium Flower EO",
+      "source": "BONTOUX SAS",
+      "bontoux_product_id": 53,
+      "bontoux_name_en": "Geranium",
+      "bontoux_name_fr": "Géranium",
+      "standard": "CONVENTIONNEL",
+      "use_class": "AROME, GENERAL",
+      "product_type": "HUILE ESSENTIELLE",
+      "also_available": [
+        {"bontoux_product_id": 54, "bontoux_name_en": "Geranium Bourbon", "bontoux_name_fr": "Géranium Bourbon"}
+      ],
+      "tds_available": false,
+      "sds_available": false,
+      "note": "Catalogue row carries no product-file link, so no public TDS/SDS to fetch. Supplier identity only; analytical/IFRA data remains UNKNOWN."
+    }
+  ]
+}

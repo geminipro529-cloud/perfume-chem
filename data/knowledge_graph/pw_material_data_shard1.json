@@ -1,0 +1,1541 @@
+{
+  "cache_dir": "data/external/pw_shards/shard1",
+  "evidence_class": "SUPPLIER_TECHNICAL",
+  "generated_at": "2026-09-11T05:28:04+0700",
+  "materials": [
+    {
+      "docs": {
+        "coa": {
+          "bytes": 167227,
+          "pdf": true,
+          "sha256": "281d069f7d7e539c99091cfe605c33c34cd9e75829250f38c1726585fbed424d",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/1EN13109.pdf"
+        },
+        "ifra": {
+          "bytes": 51592,
+          "pdf": true,
+          "sha256": "bab2456cc47ab80b0f366ec18612ff75ac0403838b59bf83cbac9eb0fc16ef4b",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_1EN13109.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25338,
+          "sha256": "b6d6e37518a9b9ce09a98c7fc4020c0af2b9e6c6b8a2e15deede7e014853ce4f",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=1EN13109&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 172033,
+          "pdf": true,
+          "sha256": "4fad7e2ea7552b6d26002e7675d41a52b3515ee627aee99b9c7d818ed5926617",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/1EN13109.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "22047-25-2",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "6",
+        "physical_state": "White crystalline powder",
+        "relative_impact": "2000",
+        "title": "2-Acetyl Pyrazine"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "2-Acetyl Pyrazine",
+      "product_status": 200,
+      "pw_name": "2-Acetyl Pyrazine",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=1EN13109",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:27:07+0700",
+      "sku": "1EN13109",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 194427,
+          "pdf": true,
+          "sha256": "323c20fb454619a235699dd6307dce5e5f895a42055c2398b1c296f59a16b9e9",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/4FG00029.pdf"
+        },
+        "ifra": {
+          "bytes": 52051,
+          "pdf": true,
+          "sha256": "584772afbfc8080905feddfe7f028b9ab2e1f3feb2866fbd74307c698e73223e",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_4FG00029.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25387,
+          "sha256": "c1202f90d7d8cabd18976076e6234efa9f144fae404e2af1f1f4553a2be03952",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=4FG00029&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 36725,
+          "pdf": true,
+          "sha256": "7635690315f23d9c1616f9aa3a28bea08094694b69b5b6b5d34a0b1cf14f19b1",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/4FG00029.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "67634-00-8",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "10",
+        "physical_state": "Colourless liquid Specific Grav",
+        "relative_impact": "170",
+        "title": "Allyl Amyl Glycolate"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Allyl Amyl Glycolate",
+      "product_status": 200,
+      "pw_name": "Allyl Amyl Glycolate",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4FG00029",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:27:07+0700",
+      "sku": "4FG00029",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 166552,
+          "pdf": true,
+          "sha256": "ef6d3a4a23919292c8135fdc17dc93cd7150f2d15fa33fe784aad8d043585b28",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/8II00243.pdf"
+        },
+        "ifra": {
+          "bytes": 147361,
+          "pdf": true,
+          "sha256": "e17c551e964bbdb13a01882fdbd23ff83d27c1cae383ab6ca3beff3131d3422a",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_8II00243.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25355,
+          "sha256": "b5050230f53de158a9baddc85aebb58aa7738a7b245d9b77747ea6cbc72bb599",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=8II00243&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 172204,
+          "pdf": true,
+          "sha256": "92206796ae053cc1396c7371dea67f81570a78a3a1d6f53a73f0117f446f0044",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/8II00243.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "79-69-6",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "170",
+        "physical_state": null,
+        "relative_impact": "100",
+        "title": "Alpha Irone"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Alpha Irone",
+      "product_status": 200,
+      "pw_name": "Alpha Irone",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=8II00243",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:27:01+0700",
+      "sku": "8II00243",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Ambrofix Crystals",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Anise EO (China)",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Aurantiol",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 144100,
+          "pdf": true,
+          "sha256": "b26a0325a95d3bb0d3b07de502c695bdc61ae6b2d63fde7a1769a44ed10698ca",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/4FN00049.pdf"
+        },
+        "ifra": {
+          "bytes": 194606,
+          "pdf": true,
+          "sha256": "029f264b6f3a03d16b05629ad66eebada0300115a255b78a0e7951860cfaaf76",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_4FN00049.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25397,
+          "sha256": "f5413ce0a704e66419f5c180d5cbd5a4043c71ea45fa140208c9220db39f0ac8",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=4FN00049&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 36633,
+          "pdf": true,
+          "sha256": "95e836f92bc9c27300350c88a45bd428324dcaa7466b398eec3e814d82e9a82d",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/4FN00049.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "100-52-7",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "1.5",
+        "physical_state": "Colourless- to pale yellow mobi",
+        "relative_impact": "500",
+        "title": "Benzaldehyde"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Benzaldehyde",
+      "product_status": 200,
+      "pw_name": "Benzaldehyde",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4FN00049",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:26:58+0700",
+      "sku": "4FN00049",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 173902,
+          "pdf": true,
+          "sha256": "01b0ed2f2a4d359b62e52f137c146ef679f74586fea3797c0a46fd0c51b99c00",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/2QV08253.pdf"
+        },
+        "ifra": {
+          "bytes": 53627,
+          "pdf": true,
+          "sha256": "a922c881900644875ed506d9b7aaa16fb3710db90f2da194ccefcfceafd2379f",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_2QV08253.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25397,
+          "sha256": "6c29dbcb7e77006ac9f70b2dbc4640980c0593ed702e52273e537afcefac066f",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=2QV08253&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 36736,
+          "pdf": true,
+          "sha256": "d9bb7b541aa4c40b298d302c8b373b7bec1125cb09477469193112a8a38ed98c",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/2QV08253.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "9000-05-9",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "84",
+        "physical_state": "Brown to dark brown viscous flu",
+        "relative_impact": "100",
+        "title": "Benzoin Sumatra Resinoid"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Benzoin Sumatra Resinoid",
+      "product_status": 200,
+      "pw_name": "Benzoin Sumatra Resinoid",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=2QV08253",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:27:07+0700",
+      "sku": "2QV08253",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 194491,
+          "pdf": true,
+          "sha256": "e57aee63086b79742571477d18581f637cbab4e246ad8ea0987b64274dbb0103",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/6WU07708.pdf"
+        },
+        "ifra": {
+          "bytes": 205927,
+          "pdf": true,
+          "sha256": "74bfe47fa5c0c96eb809bdc11cebad29ee30e7e1ef4aaf4262ec4ad4bfaab318",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_6WU07708.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25566,
+          "sha256": "9850a103617dade05c62e6b57468389fb294fbf661febe6b2eaab6e998b0506f",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=6WU07708&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 31852,
+          "pdf": true,
+          "sha256": "8631623f9bc421a1cfc34ad55dd5d04e437a51a8fae54e438bc2e2d155e6179c",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/6WU07708.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": null,
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "300",
+        "physical_state": "YELLOW ORANGE LIQUID Specific G",
+        "relative_impact": "120",
+        "title": "Black Agarwood Artificial"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Black Agarwood Artificial",
+      "product_status": 200,
+      "pw_name": "Black Agarwood Artificial",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=6WU07708",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:27:01+0700",
+      "sku": "6WU07708",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 167221,
+          "pdf": true,
+          "sha256": "c0f1c2bb0b7ab6b791674e0524ce68c9b5ecc779c94c4eaee3c77337bca5674d",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/1YG00077.pdf"
+        },
+        "ifra": {
+          "bytes": 183027,
+          "pdf": true,
+          "sha256": "57c64f8d6e462fb0e167a9da7508697d2f34a710ad9ea38d2b78925fc55b14ad",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_1YG00077.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25249,
+          "sha256": "74cc871fb86d793cde27522b8621a1e68dc7d8bc4ba48bf45297e008236ce763",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=1YG00077&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 172015,
+          "pdf": true,
+          "sha256": "e7c89a2dce57574b62cc78a327b7c31facdd362f697682cb8f71432bb836ce6b",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/1YG00077.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "28940-11-6",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "300",
+        "physical_state": "White crystals Specific Gravity",
+        "relative_impact": "800",
+        "title": "Calone"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Calone",
+      "product_status": 200,
+      "pw_name": "Calone",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=1YG00077",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:26:57+0700",
+      "sku": "1YG00077",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Cardamom EO",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Cassia Essential Oil (Cinnamomum cassia",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Cassis Base 345B",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Cedarwood oil Virginia",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 158891,
+          "pdf": true,
+          "sha256": "740e3f8c8ea931bc482399b2147d216155f8b224afe96ced69a0ed9f2a09df4f",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/3WW00097.pdf"
+        },
+        "ifra": {
+          "bytes": 190117,
+          "pdf": true,
+          "sha256": "4a10e25b768f9ea52d4d0a28ad256e8d58ebf71fc32ba36d18a5a8ac700d501b",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_3WW00097.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25274,
+          "sha256": "addbd8f571b14fbfcae26cb04924f903ca6e5299a65dc1adf5976b9f9ab3a054",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=3WW00097&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 31859,
+          "pdf": true,
+          "sha256": "84d380f67a11a8831064f833da7dada88e010969a35018371fd548383396f116",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/3WW00097.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "19870-74-7",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "80",
+        "physical_state": "C-LESS - PALE STRAW OILY LIQUID",
+        "relative_impact": "120",
+        "title": "Cedramber"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Cedramber",
+      "product_status": 200,
+      "pw_name": "Cedramber",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3WW00097",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:27:01+0700",
+      "sku": "3WW00097",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Cis-3-Hexenyl Salicylate (20% w/w) [OWNED \u0e42\u20ac\u201d V7 USER STOCK 2026-08-30; CARRIER UNSPECIFIED; QUANTITATIVE DOSING HOLD]",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 215182,
+          "pdf": true,
+          "sha256": "2c2fb0ec9f716541d72e8e540bce611b0ce43458504174b9633c706cf4d4ab44",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/3WB13402.pdf"
+        },
+        "ifra": {
+          "bytes": 52239,
+          "pdf": true,
+          "sha256": "dee2b5ac8a22bddfb042cee6498a91c41832fe487a2ccf6d388ffcda756655d5",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_3WB13402.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25398,
+          "sha256": "a64b95ebd0991b600f9c1011fdf1b9be2049de3e535cc36588e48699d3ff89f0",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=3WB13402&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 36753,
+          "pdf": true,
+          "sha256": "544b4c0470a3c446729c6c606dc334e3fdd24f79089493a672a168c21e2937bb",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/3WB13402.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "84238-39-1",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "24",
+        "physical_state": "Colourless to yellow oily liqui",
+        "relative_impact": "80",
+        "title": "Clearwood"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Clearwood",
+      "product_status": 200,
+      "pw_name": "Clearwood",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3WB13402",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:27:04+0700",
+      "sku": "3WB13402",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/COA/1VT23924.pdf"
+        },
+        "ifra": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_1VT23924.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25198,
+          "sha256": "9ef9cf030952e0b11674454f416016d9b7faeac0aa52e5d99cc3e19bca794ab8",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=1VT23924&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/1VT23924.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "84649-99-0",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": null,
+        "physical_state": "brown to dark brown liquid Spec",
+        "relative_impact": null,
+        "title": "Cocoa CO2 Extract"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Cocoa CO2 Extract",
+      "product_status": 200,
+      "pw_name": "Cocoa CO2 Extract",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=1VT23924",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:27:07+0700",
+      "sku": "1VT23924",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Damascone Beta",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Ethanol",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Eucalyptus Essential Oil (Eucalyptus globulus",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "France) [NOT OWNED \u0e42\u20ac\u201d removed from current available inventory by user 2026-09-08; historical identity retained]",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 178706,
+          "pdf": true,
+          "sha256": "447f7c35f0be424fe1e19ae82be3072d92c3667fcf2394777ee7151509b68948",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/9PT00213.pdf"
+        },
+        "ifra": {
+          "bytes": 203358,
+          "pdf": true,
+          "sha256": "1d595d92a6a660f3ed71189c4bede9c595ad905768d2608ed6572092c4f531ca",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_9PT00213.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25388,
+          "sha256": "9615ab78aa9879ee2688b2e3f171e6f9f42f9c5f04b92bcc66fb099023fc3524",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=9PT00213&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 36955,
+          "pdf": true,
+          "sha256": "04e2e7bf28a536a06937e7014d595e81aa6555127e05bd63796cb5e8c0e98418",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/9PT00213.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "90-05-1",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "48",
+        "physical_state": "PALE STRAW OILY LIQUID Specific",
+        "relative_impact": "1250",
+        "title": "Guaiacol"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Guaiacol",
+      "product_status": 200,
+      "pw_name": "Guaiacol",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=9PT00213",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:27:11+0700",
+      "sku": "9PT00213",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 166542,
+          "pdf": true,
+          "sha256": "7c9a1055fdab50b49ebc91cb4fc29cf0179f6c4d11b63ab4c6238b6a59d067f5",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/8NY00523.pdf"
+        },
+        "ifra": {
+          "bytes": 52547,
+          "pdf": true,
+          "sha256": "3ecc42b06b00f5a8aea9b7b4f42adba658b6fbe45bd977f076cb16e1b67235f3",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_8NY00523.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25238,
+          "sha256": "6bdddea6fa32570753cd74049c29dc5a6ec28f511e5e9505009872ab8466bfd5",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=8NY00523&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 172196,
+          "pdf": true,
+          "sha256": "638f18821a2ef24776bb934efe2ff9488f20fc629e5f27c547941f140f6b2038",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/8NY00523.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "8031-00-3",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "24",
+        "physical_state": "dark brown viscous liquid Speci",
+        "relative_impact": "200",
+        "title": "Hay Absolute"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Hay Absolute",
+      "product_status": 200,
+      "pw_name": "Hay Absolute",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=8NY00523",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:27:07+0700",
+      "sku": "8NY00523",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Helichrysum EO",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 215190,
+          "pdf": true,
+          "sha256": "6a56b30150c83bc75223eccbfc51a678b78629fb8564989510b37bf748292000",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/3MC00233.pdf"
+        },
+        "ifra": {
+          "bytes": 194893,
+          "pdf": true,
+          "sha256": "2c53eacf3d0b1688ceee945121cba5aa3fd778d3cfd919e9c4dafe99d0251412",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_3MC00233.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25457,
+          "sha256": "4910789a699586f6b649ab8830b635924de77778a4c7c1ba46d2c4de8553af30",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=3MC00233&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 31682,
+          "pdf": true,
+          "sha256": "aa2fe0be5efac0b7fe6c5f4c5b3d58ee5e16d190c5aa1501f428afd34ca07401",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/3MC00233.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "107-75-5",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "40",
+        "physical_state": "Colourless to pale straw oily l",
+        "relative_impact": "25",
+        "title": "Hydroxycitronellal"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Hydroxycitronellal",
+      "product_status": 200,
+      "pw_name": "Hydroxycitronellal",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3MC00233",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:26:58+0700",
+      "sku": "3MC00233",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "India)",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Juniper Berry EO",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Lavender EO High Altitude (angustifolia",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 165176,
+          "pdf": true,
+          "sha256": "b59dd0f01ef5bab7f02f125b13c5598132fd61e6f5da01a2e8d3f19e9c68df51",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/4GI15439.pdf"
+        },
+        "ifra": {
+          "bytes": 183361,
+          "pdf": true,
+          "sha256": "cb3f71bd51e66f40573f2e8708f44e62ef92b6504c88d0710a9535ce3724e6a0",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_4GI15439.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25285,
+          "sha256": "1c1cf9ad0a17c01b97d63e9f3724774508645b05b7164195502872b30ba897f1",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=4GI15439&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 169820,
+          "pdf": true,
+          "sha256": "873cc21c9da369bc222e5256500002c087254ba3c8bcb227d1c45b674094523c",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/4GI15439.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "67633-96-9",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "12",
+        "physical_state": "colorless clear liquid Specific",
+        "relative_impact": "100",
+        "title": "Leafovert"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Leafovert",
+      "product_status": 200,
+      "pw_name": "Leafovert",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4GI15439",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:26:57+0700",
+      "sku": "4GI15439",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Leather FO",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/COA/6MG22777.pdf"
+        },
+        "ifra": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_6MG22777.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25454,
+          "sha256": "9706c89f0eb9569a802b5048054eab4aeedeb615e1bc1348f7ac0d4c0b75434c",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=6MG22777&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/6MG22777.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": null,
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "300",
+        "physical_state": "Colourless slightly viscous liq",
+        "relative_impact": "50",
+        "title": "Lilyreal ND"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Lilyreal ND",
+      "product_status": 200,
+      "pw_name": "Lilyreal ND",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=6MG22777",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:26:58+0700",
+      "sku": "6MG22777",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 194334,
+          "pdf": true,
+          "sha256": "d3ca6c33fb41307b956c7c9d72083c3eb8dc556acca2b1cfe267f4f296494ae1",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/8NG00307.pdf"
+        },
+        "ifra": {
+          "bytes": 53383,
+          "pdf": true,
+          "sha256": "f662278d15c8efde4bcf4a3bbbe9d0b4d0444ecc585f906d6e55b2e487bfa37d",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_8NG00307.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25291,
+          "sha256": "261095a601d8a72a533e03b7b2dc64d4d378279539484783098a75ce007432b5",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=8NG00307&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 41759,
+          "pdf": true,
+          "sha256": "716348dbbb1b5d8d07bc45d0bb2bb085a82b6aee2f4aaeae060345e63ad722a1",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/8NG00307.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "8031-03-6",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "42",
+        "physical_state": "AMBER VISCOUS LIQUID Specific G",
+        "relative_impact": "300",
+        "title": "Mimosa Absolute"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Mimosa Absolute",
+      "product_status": 200,
+      "pw_name": "Mimosa Absolute",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=8NG00307",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:27:01+0700",
+      "sku": "8NG00307",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Neroli EO",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 167259,
+          "pdf": true,
+          "sha256": "e6e19b9c015d353d68d07536b766aa3b4dc38017bd7ebd3f0c5dc6fd632594c2",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/1CN00320.pdf"
+        },
+        "ifra": {
+          "bytes": 183099,
+          "pdf": true,
+          "sha256": "21258087ccc6e1b91d9e360a8e1722753842cbb6d28c8a407b3b30190f031960",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_1CN00320.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25386,
+          "sha256": "c42f6cf314d04ee34a5481fc3745ca4da98291593dffc99ed61bab017235ed99",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=1CN00320&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 172041,
+          "pdf": true,
+          "sha256": "6c52ee1317a81d1bb0d23dbb02099d1077a59aabfe2bddcaa5d821dd4277a33e",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/1CN00320.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "93-18-5",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "45",
+        "physical_state": "C-LESS - WHITE TO PALE YELLOW C",
+        "relative_impact": "80",
+        "title": "Nerolin Bromelia"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Nerolin Bromelia",
+      "product_status": 200,
+      "pw_name": "Nerolin Bromelia",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=1CN00320",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:27:01+0700",
+      "sku": "1CN00320",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/COA/4WU22432.pdf"
+        },
+        "ifra": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_4WU22432.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25606,
+          "sha256": "4de56d452ec381ebda5a5bddcba60980cd1a99c7bdfbf33c228171494959aa3b",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=4WU22432&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/4WU22432.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "70788-30-6",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "300",
+        "physical_state": "TBA Specific Gravity",
+        "relative_impact": "1000",
+        "title": "Norlimbanol Dextro"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Norlimbanol Dextro",
+      "product_status": 200,
+      "pw_name": "Norlimbanol Dextro",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4WU22432",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:27:01+0700",
+      "sku": "4WU22432",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 172810,
+          "pdf": true,
+          "sha256": "ddc6ba2120dffccc548eff47074aa15144e5ddbedf1dc1e7ef5ae75e34415225",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/4GF14127.pdf"
+        },
+        "ifra": {
+          "bytes": 183386,
+          "pdf": true,
+          "sha256": "6b774fe1bca9180dc6fde12b49897fa65d1c7dfdc9f29ec5bf10cfa0c0956351",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_4GF14127.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25316,
+          "sha256": "91b09770a8c34b1de8358df8a29d93bed7528ba4f5143c977d88969856c32bfd",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=4GF14127&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 36676,
+          "pdf": true,
+          "sha256": "30da82d2eceb17bdfb5e43be7b42e064dff53969f54dab8a8423ef25e3c33e5e",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/4GF14127.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "406488-30-0",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "150",
+        "physical_state": "Mobile oily liquid Specific Gra",
+        "relative_impact": "150",
+        "title": "Paradisamide"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Paradisamide",
+      "product_status": 200,
+      "pw_name": "Paradisamide",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4GF14127",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:27:01+0700",
+      "sku": "4GF14127",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 215332,
+          "pdf": true,
+          "sha256": "9b6e9bfb21da3047ad1d45b5005ddabbfaf0e36887c925034951c42f94937346",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/3RP00371.pdf"
+        },
+        "ifra": {
+          "bytes": 183768,
+          "pdf": true,
+          "sha256": "ffdcd8968bf3dca2d88ea5b27f29391f618a3945b7c550a283090afaf7fabe82",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_3RP00371.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25395,
+          "sha256": "f9f92fb476ba14d251dc11e742acf1b2d0ae3f9bb8e4179393d1398483a4e0ea",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=3RP00371&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 36704,
+          "pdf": true,
+          "sha256": "398f9a3c62eb44ad62bb28a20aa535f5373431663ed3053b5195bbf0b270c09f",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/3RP00371.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "103-45-7",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "7",
+        "physical_state": "Colourless mobile liquid Specif",
+        "relative_impact": "90",
+        "title": "Phenyl Ethyl Acetate"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Phenyl Ethyl Acetate",
+      "product_status": 200,
+      "pw_name": "Phenyl Ethyl Acetate",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3RP00371",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:27:01+0700",
+      "sku": "3RP00371",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Phenyl Ethyl Dimethyl Carbinol (PEDMC)",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/COA/3XU22379.pdf"
+        },
+        "ifra": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_3XU22379.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25163,
+          "sha256": "f9668aa0e2f2d515b73b617b1f2c7ec1c36a56941b83cb1e5815ca35c3b63ad4",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=3XU22379&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/3XU22379.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "236391-76-7",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "400",
+        "physical_state": "TBA Specific Gravity",
+        "relative_impact": "100",
+        "title": "Romandolide"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Romandolide",
+      "product_status": 200,
+      "pw_name": "Romandolide",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=3XU22379",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:27:04+0700",
+      "sku": "3XU22379",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 167082,
+          "pdf": true,
+          "sha256": "5e44c90e154ee4479119b145a9c0f903079ffe9b91dda62701c334537116a30a",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/4RL00399.pdf"
+        },
+        "ifra": {
+          "bytes": 188712,
+          "pdf": true,
+          "sha256": "627a954b823aa4728cfa65439c80ed7ce2308d326045a15f223e95cadcc4d695",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_4RL00399.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25268,
+          "sha256": "ec2cebb4dabf3167157e604c90af932565cbaf5bd5d63a3df1da0d9e8080cb61",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=4RL00399&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 172406,
+          "pdf": true,
+          "sha256": "223dc31feab7b941a72f353075ff59a79fc0ba3b9fdd0578587a645b4a651bb1",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/4RL00399.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "16409-43-1",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "1",
+        "physical_state": "Colourless mobile liquid Specif",
+        "relative_impact": "700",
+        "title": "Rose Oxide"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Rose Oxide",
+      "product_status": 200,
+      "pw_name": "Rose Oxide",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4RL00399",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:26:58+0700",
+      "sku": "4RL00399",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/COA/4ES11978.pdf"
+        },
+        "ifra": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_4ES11978.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25132,
+          "sha256": "0ff0998dafa219d6f0867e047082840486132206eb5c13773377777eea088875",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=4ES11978&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 0,
+          "pdf": false,
+          "sha256": null,
+          "status": 404,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/4ES11978.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "54440-17-4",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "168",
+        "physical_state": "colorless to pale yellow clear",
+        "relative_impact": "250",
+        "title": "Safraleine"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Safraleine",
+      "product_status": 200,
+      "pw_name": "Safraleine",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=4ES11978",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:27:11+0700",
+      "sku": "4ES11978",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Stralyl Acetate",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 166590,
+          "pdf": true,
+          "sha256": "d8547e4f3888ec4628eb3e5dcb62456e4270e462367c970aaccb8ad7374ef488",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/8TH08212.pdf"
+        },
+        "ifra": {
+          "bytes": 52424,
+          "pdf": true,
+          "sha256": "5d5a5b3b2935912002ff3e5ba74889dafe28c28de67ec77698c2868631e956c0",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_8TH08212.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25447,
+          "sha256": "5e05e51cf2f2bc23db0e85529860dc522e9b10ecace9fcc65dad7eb05d2a12c1",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=8TH08212&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 172223,
+          "pdf": true,
+          "sha256": "749e92f4dcf00291f69c1156a9e648d3dab46b1c08834e3148f6e04123822231",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/8TH08212.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "8037-19-2",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "36",
+        "physical_state": "Brown to Dark brown Oily liquid",
+        "relative_impact": "400",
+        "title": "Tobacco Absolute"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Tobacco Absolute",
+      "product_status": 200,
+      "pw_name": "Tobacco Absolute",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=8TH08212",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:27:11+0700",
+      "sku": "8TH08212",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "docs": {
+        "coa": {
+          "bytes": 164092,
+          "pdf": true,
+          "sha256": "f290f263287c65a53f6e6f163d806d40d293b68667759778cc1f5914d5f6bc14",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/COA/6II13551.pdf"
+        },
+        "ifra": {
+          "bytes": 147353,
+          "pdf": true,
+          "sha256": "2b605cbdba07493468a2b14041231be9c5df67a7458c34efa18c485b53f30fa0",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/IFRA/IFRA_6II13551.pdf"
+        },
+        "ifra_page": {
+          "bytes": 25249,
+          "sha256": "2503a4e315f19f0fbd6074582f79c20e956611353dbaa3bf041940d91da0c499",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/view-page.php?pro_id=6II13551&ifra=defaultOpen"
+        },
+        "msds": {
+          "bytes": 170003,
+          "pdf": true,
+          "sha256": "8d196c18024e62480751e47b890f2f95f7eb77ab17cb0373954ac6eb18beb16d",
+          "status": 200,
+          "url": "https://www.perfumersworld.com/ifra/MSDS/6II13551.pdf"
+        }
+      },
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "fields": {
+        "cas": "1335-46-2",
+        "notes_pyramid_raw": null,
+        "odour_life_hrs": "184",
+        "physical_state": "yellow clear liquid Specific Gr",
+        "relative_impact": "100",
+        "title": "Ultralia"
+      },
+      "ifra": {
+        "class_maxima": [],
+        "standard": null
+      },
+      "inventory_name": "Ultralia",
+      "product_status": 200,
+      "pw_name": "Ultralia",
+      "pw_url": "https://www.perfumersworld.com/view.php?pro_id=6II13551",
+      "resolution": "exact",
+      "retrieved_at": "2026-09-11T05:27:01+0700",
+      "sku": "6II13551",
+      "source": "perfumersworld.com",
+      "status": "OK"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Vertofix",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Vietnamese Benzoin resin ethanol tincture (40% starting resin charge w/w) [OWNED \u0e42\u20ac\u201d USER-CONFIRMED 2026-09-08; FINAL DISSOLVED-SOLIDS FRACTION UNKNOWN; QUANTITATIVE DOSING HOLD]",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    },
+    {
+      "evidence_class": "SUPPLIER_TECHNICAL",
+      "inventory_name": "Ylang Comoros III EO F3295",
+      "resolution": "containment",
+      "retrieved_at": "2026-09-11T05:28:04+0700",
+      "sku": null,
+      "source": "perfumersworld.com",
+      "status": "UNRESOLVED"
+    }
+  ],
+  "schema_version": "pw-material-data-v1",
+  "source": "https://www.perfumersworld.com"
+}

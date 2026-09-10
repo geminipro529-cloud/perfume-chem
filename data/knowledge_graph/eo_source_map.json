@@ -1,0 +1,25 @@
+{
+  "schema_version": "eo-source-map-v1",
+  "note": "Owner-assigned sources for the unresolved inventory EOs (2026-09-11). Shopee suppliers are not scrapable; their data is treated as generic unless a lot/CoA is supplied. BONTAUX is a French house (data on the web). PW items resolve to PerfumersWorld.",
+  "materials": [
+    {"inventory_name": "Orange Peel EO", "source": "generic", "action": "engine_generic"},
+    {"inventory_name": "Peppermint Essential Oil (Mentha piperita, India)", "source": "HERBATORIES (Shopee)", "action": "generic_pending"},
+    {"inventory_name": "Eucalyptus Essential Oil (Eucalyptus globulus, India)", "source": "HERBATORIES (Shopee)", "action": "generic_pending"},
+    {"inventory_name": "Tuberose EO (volume level grade)", "source": "Krungthep Chemi", "action": "generic_pending"},
+    {"inventory_name": "Helichrysum EO", "source": "generic", "action": "engine_generic"},
+    {"inventory_name": "Geranium EO (Pelargonium graveolens flower oil)", "source": "HERBATORIES (Shopee)", "action": "generic_pending"},
+    {"inventory_name": "Geranium Flower EO", "source": "BONTAUX", "action": "web_lookup"},
+    {"inventory_name": "Ylang Comoros Complete EO F3255", "source": "PerfumersWorld", "action": "pw_resolve"},
+    {"inventory_name": "Ylang Comoros III EO F3295", "source": "PerfumersWorld", "action": "pw_resolve"},
+    {"inventory_name": "Rose Essential Oil (Rosa Damascena, India)", "source": "HERBATORIES (Shopee)", "action": "generic_pending"},
+    {"inventory_name": "Himalayan Cedarwood EO", "source": "generic", "action": "engine_generic"},
+    {"inventory_name": "Indian Vetiver EO (volume grade)", "source": "Krungthep Chemi", "action": "generic_pending"},
+    {"inventory_name": "Clove EO (India)", "source": "True Industries", "action": "pw_or_generic"},
+    {"inventory_name": "Cinnamon Bark EO - Telvada USDA Organic", "source": "Telvada (Shopee)", "action": "generic_pending"},
+    {"inventory_name": "Lavender EO High Altitude (angustifolia, France)", "source": "not owned", "action": "drop"},
+    {"inventory_name": "Lavender EO (BONTAUX SAS)", "source": "BONTAUX", "action": "web_lookup"},
+    {"inventory_name": "Rosemary EO (French Rosmarinus Officinalis leaf oil)", "source": "HERBATORIES (Shopee)", "action": "generic_pending"},
+    {"inventory_name": "Basil EO (India, Ocimum Basilicum)", "source": "True Industries", "action": "pw_or_generic"},
+    {"inventory_name": "Cassia Essential Oil (Cinnamomum cassia, India)", "source": "HERBATORIES (Shopee)", "action": "generic_pending"}
+  ]
+}

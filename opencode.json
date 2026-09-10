@@ -77,7 +77,8 @@
   "codex"
  ],
  "instructions": [
-  ".github/copilot-instructions.md"
+  ".github/copilot-instructions.md",
+  "docs/governance/session_handoff_20260911.md"
  ],
  "plugin": [
   "@plannotator/opencode",

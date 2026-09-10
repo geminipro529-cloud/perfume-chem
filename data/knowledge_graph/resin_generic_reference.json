@@ -1,0 +1,68 @@
+{
+  "schema_version": "resin-generic-reference-v1",
+  "note": "These inventory items are ETHANOL TINCTURES: alcohol extracts of the raw resin/botanical, NOT steam-distilled EOs and NOT resinoids. The odorant is the ethanol-soluble resin fraction at the declared charge, so this file records (a) the botanical identity and (b) which constituents ethanol actually dissolves. Do NOT model the tincture as the raw resin or as the distillate EO - the composition differs. The stock's active fraction stays ASSAY_STATUS=HOLD until the dry-residue measurement in prepared_stocks.json.",
+  "evidence_class": "REFERENCE_TEXT",
+  "stock_form": "ethanol tincture",
+  "resins": {
+    "benzoin_siam": {
+      "botanical": "Styrax tonkinensis",
+      "common": ["Siam benzoin", "gum benzoin", "benjamin"],
+      "cas": "9000-72-0",
+      "cas_source": "perfumersworld CAS map (Siam Benzoin)",
+      "alcohol_soluble": "benzoic acid + resin esters (coniferyl benzoate, benzyl benzoate, cinnamyl benzoate) and free balsamic acids; the gum is largely insoluble in ethanol",
+      "odour": "sweet, vanilla, balsamic, woody, powdery",
+      "perfumery_role": "balsamic fixative; slows dispersion of other volatiles",
+      "contrast_with_eo": "There is no true benzoin EO; the commercial odorant is the resinoid/tincture, so EO data does not apply.",
+      "source": "https://en.wikipedia.org/wiki/Benzoin_resin"
+    },
+    "benzoin_sumatra": {
+      "botanical": "Styrax paralleloneurus / Styrax benzoin",
+      "common": ["Sumatra benzoin"],
+      "cas": "9000-05-9",
+      "cas_source": "perfumersworld CAS map (Benzoin Sumatra Resinoid)",
+      "alcohol_soluble": "benzoic acid + cinnamic acid + resin esters",
+      "odour": "sweet, spicy, vanilla, balsamic",
+      "source": "https://en.wikipedia.org/wiki/Benzoin_resin"
+    },
+    "myrrh": {
+      "botanical": "Commiphora myrrha (and other Commiphora spp.)",
+      "common": ["myrrh", "oleo-gum-resin"],
+      "cas": "8016-37-3",
+      "cas_source": "perfumersworld CAS map (Myrrh EO)",
+      "alcohol_soluble": "resin acids and furanosesquiterpenes (e.g. furanoeudesma-1,3-diene, curzerene); the gum fraction is water-soluble and does NOT extract into the ethanol tincture",
+      "odour": "balsamic, resinous, slightly bitter",
+      "perfumery_role": "resinous base / fixative",
+      "contrast_with_eo": "The distilled EO is sesquiterpenoid and volatile; the tincture carries the heavier alcohol-soluble resin acids that the EO leaves behind.",
+      "source": "https://en.wikipedia.org/wiki/Myrrh"
+    },
+    "olibanum": {
+      "botanical": "Boswellia spp. (B. sacra = Oman; B. frereana = Somalia; B. papyrifera = Ethiopia; B. serrata = India)",
+      "common": ["frankincense", "olibanum"],
+      "cas": "8016-26-0",
+      "cas_source": "perfumersworld CAS map (Olibanum Resinoid)",
+      "alcohol_soluble": "boswellic acids (triterpenoids) and resin acids, plus incensole/incensole acetate and a minor monoterpene fraction; these resin acids are exactly what the ethanol tincture extracts",
+      "odour": "terpenic, incense, peppery, spicy, old wood, woody, pine, resinous, green",
+      "perfumery_role": "incense/resinous base",
+      "contrast_with_eo": "The steam-distilled EO is ~75% monoterpenes (alpha-pinene, limonene, alpha-thujene, beta-pinene) and contains NO boswellic acids. The tincture is boswellic-acid/resin-rich and much heavier than the EO - EO constituents are a poor stand-in.",
+      "source": "https://en.wikipedia.org/wiki/Frankincense"
+    },
+    "storax": {
+      "botanical": "Liquidambar orientalis (Asia Minor); Liquidambar styraciflua (US/Mexico/C. America)",
+      "common": ["storax", "styrax (commercial)"],
+      "cas": null,
+      "cas_source": null,
+      "alcohol_soluble": "storesin (alcoholic resin, ~33-50% of purified balsam) with cinnamyl cinnamate, ethyl cinnamate, benzyl cinnamate, phenylpropyl cinnamate, cinnamic acid; traces vanillin and styrene. All of these are ethanol-extractable",
+      "odour": "balsamic, floral/lilac, leathery",
+      "perfumery_role": "balsamic fixative",
+      "contrast_with_eo": "Distinguished from benzoin (also historically called 'storax'); styrene is a tincture/oxidation marker, not a distilled-EO component.",
+      "safety": "GRAS at low levels",
+      "source": "https://en.wikipedia.org/wiki/Storax_balsam"
+    }
+  },
+  "link_to_prepared_stocks": {
+    "Vietnamese Benzoin (Styrax tonkinensis) 40% / 20%": "benzoin_siam",
+    "Turkish Storax (Liquidambar orientalis) 20%": "storax",
+    "Kenyan Myrrh (Commiphora myrrha) 20%": "myrrh",
+    "Oman Frankincense (Boswellia sp.) 33%": "olibanum"
+  }
+}

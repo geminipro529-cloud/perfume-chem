@@ -1,0 +1,24 @@
+{
+  "schema_version": "material-source-overrides-v1",
+  "note": "Materials not carried by PerfumersWorld. Supplier of record is recorded here so the intake never force-binds them to a PW or SSD product.",
+  "overrides": {
+    "Indian Vetiver EO": {
+      "source": "Shopee",
+      "pw_sku": null,
+      "ssd_url": null,
+      "note": "Owner-confirmed 2026-09-11: Indian vetiver purchased on Shopee; the only PerfumersWorld vetiver (7WY00466) is Haitian."
+    },
+    "Indian Vetiver EO (volume grade)": {
+      "source": "Shopee",
+      "pw_sku": null,
+      "ssd_url": null,
+      "note": "Owner-confirmed 2026-09-11: same Shopee Indian vetiver, volume grade."
+    },
+    "Cassis Base 345B": {
+      "source": "Simple Scents DIY (ssdiy)",
+      "pw_sku": null,
+      "ssd_url": null,
+      "note": "Owner-confirmed 2026-09-11: Cassis Base 345B is a Simple Scents DIY purchase, not PerfumersWorld."
+    }
+  }
+}

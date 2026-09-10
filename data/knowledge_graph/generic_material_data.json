@@ -1,0 +1,764 @@
+{
+  "materials": [
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "ethanol",
+      "generic_profile": "Ethanol",
+      "inventory_name": "Ethanol",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "transparency": 5
+      },
+      "odt_air_ppb": 100000.0,
+      "odt_eth_ppm": 20000.0,
+      "role": "solvent",
+      "source": "engine_generic",
+      "vp_pa": 5900.0
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "orange peel eo",
+      "generic_profile": "Orange Peel EO",
+      "inventory_name": "Orange Peel EO",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "freshness": 8,
+        "green": 1,
+        "sweetness": 3
+      },
+      "odt_air_ppb": 10.0,
+      "odt_eth_ppm": 2.0,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 1.9
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "peppermint essential oil",
+      "generic_profile": "Peppermint Essential Oil",
+      "inventory_name": "Peppermint Essential Oil (Mentha piperita, India)",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "fresh": 5,
+        "green": 2,
+        "herbal": 8,
+        "sweet": 3
+      },
+      "odt_air_ppb": 20.0,
+      "odt_eth_ppm": 4.0,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 12.0
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "eucalyptus essential oil",
+      "generic_profile": "Eucalyptus Essential Oil",
+      "inventory_name": "Eucalyptus Essential Oil (Eucalyptus globulus, India)",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "camphoraceous": 5,
+        "fresh": 7,
+        "green": 3,
+        "herbal": 7
+      },
+      "odt_air_ppb": 80.0,
+      "odt_eth_ppm": 12.0,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 210.0
+    },
+    {
+      "covered": false,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": null,
+      "generic_profile": null,
+      "inventory_name": "Liffarome (10% w/w) [OWNED \u2014 V7 USER STOCK 2026-08-30; PW SKU 4GI24147 = CIS-3-HEXENYL METHYL CARBONATE, CAS 67633-96-9; USER-STOCK CARRIER UNSPECIFIED; QUANTITATIVE DOSING HOLD]",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "source": "engine_generic"
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "stralyl acetate",
+      "generic_profile": "stralyl acetate",
+      "inventory_name": "Stralyl Acetate",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": "green-sweet gardenia-floral ester",
+      "odt_air_ppb": 40.0,
+      "odt_eth_ppm": 1.0,
+      "role": "heart",
+      "source": "engine_generic",
+      "vp_pa": 7.0
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "padma",
+      "generic_profile": "padma",
+      "inventory_name": "PADMA (Phenylacetaldehyde Dimethyl Acetal)",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": "green-hyacinth floral acetal",
+      "odt_air_ppb": 200.0,
+      "odt_eth_ppm": 0.5,
+      "role": "heart",
+      "source": "engine_generic",
+      "vp_pa": 20.0
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "tuberlia base",
+      "generic_profile": "tuberlia base",
+      "inventory_name": "Tuberlia Base",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": "tuberose-creamy captive base",
+      "odt_air_ppb": 10.0,
+      "odt_eth_ppm": 0.02,
+      "role": "heart",
+      "source": "engine_generic",
+      "vp_pa": 0.1
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "tuberose eo (volume level grade)",
+      "generic_profile": "tuberose eo (volume level grade)",
+      "inventory_name": "Tuberose EO (volume level grade)",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": "tuberose green-creamy natural",
+      "odt_air_ppb": 20.0,
+      "odt_eth_ppm": 0.05,
+      "role": "heart",
+      "source": "engine_generic",
+      "vp_pa": 0.1
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "helichrysum eo",
+      "generic_profile": "helichrysum eo",
+      "inventory_name": "Helichrysum EO",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": "immortelle hay-curry-floral natural",
+      "odt_air_ppb": 5.0,
+      "odt_eth_ppm": 0.01,
+      "role": "heart",
+      "source": "engine_generic",
+      "vp_pa": 0.5
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "geranium eo",
+      "generic_profile": null,
+      "inventory_name": "Geranium EO (Pelargonium graveolens flower oil)",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "odt_air_ppb": 0.3,
+      "odt_eth_ppm": 1.0,
+      "source": "engine_generic"
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "phenethyl alcohol",
+      "generic_profile": "Phenethyl Alcohol",
+      "inventory_name": "Phenethyl Alcohol (PEA)",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "floral": 8,
+        "freshness": 2,
+        "green": 1,
+        "sweetness": 3,
+        "transparency": 6
+      },
+      "odt_air_ppb": 26.0,
+      "odt_eth_ppm": 0.026,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 0.116
+    },
+    {
+      "covered": false,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": null,
+      "generic_profile": null,
+      "inventory_name": "Geranium Flower EO",
+      "note": "Supplier of record is BONTAUX SAS (eo_source_map.json); BONTAUX publishes no per-product TDS/SDS for Geranium, so only the supplier identity is recorded (see bontoux_material_data.json). Falls back to the engine generic Geranium profile. Not a PerfumersWorld or SSD product.",
+      "source": "engine_generic"
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "ylang comoros complete eo f3255",
+      "generic_profile": "Ylang Comoros Complete EO F3255",
+      "inventory_name": "Ylang Comoros Complete EO F3255",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "creamy": 3,
+        "floral": 8,
+        "sweetness": 5,
+        "warmth": 4
+      },
+      "odt_air_ppb": 30.0,
+      "odt_eth_ppm": 6.0,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 0.05
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "ylang comoros iii eo f3295",
+      "generic_profile": "Ylang Comoros III EO F3295",
+      "inventory_name": "Ylang Comoros III EO F3295",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "creamy": 2,
+        "floral": 7,
+        "sweetness": 4,
+        "warmth": 3
+      },
+      "odt_air_ppb": 40.0,
+      "odt_eth_ppm": 8.0,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 0.03
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "p-cresyl methyl ether",
+      "generic_profile": "p-Cresyl Methyl Ether",
+      "inventory_name": "p-Cresyl Methyl Ether (PCME)",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "animalic": 4,
+        "floral": 5,
+        "smoky": 2,
+        "sweetness": 3,
+        "transparency": 3
+      },
+      "odt_air_ppb": 0.5,
+      "odt_eth_ppm": 0.1,
+      "role": "trace",
+      "source": "engine_generic",
+      "vp_pa": 270.0
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "heliotropal",
+      "generic_profile": "Heliotropal",
+      "inventory_name": "Heliotropal (Piperonal)",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "creamy": 3,
+        "floral": 4,
+        "powdery": 6,
+        "sweetness": 5,
+        "warmth": 4
+      },
+      "odt_air_ppb": 0.006,
+      "odt_eth_ppm": 5.0,
+      "role": "modifier",
+      "source": "engine_generic",
+      "vp_pa": 1.41322
+    },
+    {
+      "covered": false,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": null,
+      "generic_profile": null,
+      "inventory_name": "Phenyl Ethyl Dimethyl Carbinol (PEDMC)",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "source": "engine_generic"
+    },
+    {
+      "covered": false,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": null,
+      "generic_profile": null,
+      "inventory_name": "Tuberose Base",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "source": "engine_generic"
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "rose essential oil",
+      "generic_profile": "Rose Essential Oil",
+      "inventory_name": "Rose Essential Oil (Rosa Damascena, India)",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "floral": 8,
+        "green": 2,
+        "spicy": 2,
+        "sweet": 4
+      },
+      "odt_air_ppb": 3.0,
+      "odt_eth_ppm": 0.5,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 1.0
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "tuberose absolute",
+      "generic_profile": "Tuberose Absolute",
+      "inventory_name": "Tuberose Absolute (volume grade)",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "animalic": 3,
+        "floral": 9,
+        "green": 2,
+        "sweet": 4
+      },
+      "odt_air_ppb": 1.0,
+      "odt_eth_ppm": 0.01,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 0.005
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "cis-3-hexenyl salicylate",
+      "generic_profile": null,
+      "inventory_name": "Cis-3-Hexenyl Salicylate (20% w/w) [OWNED \u2014 V7 USER STOCK 2026-08-30; CARRIER UNSPECIFIED; QUANTITATIVE DOSING HOLD]",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "odt_air_ppb": 25.0,
+      "odt_eth_ppm": 0.3,
+      "source": "engine_generic"
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "black agarwood artificial",
+      "generic_profile": "Black Agarwood Artificial",
+      "inventory_name": "Black Agarwood Artificial [DON'T HAVE \u2014 neat stock is not owned; erroneous duplicate corrected 2026-08-30]",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "animalic": 3,
+        "smoky": 6,
+        "warmth": 4,
+        "woody": 8
+      },
+      "odt_air_ppb": 0.5,
+      "odt_eth_ppm": 0.05,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 0.001
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "amberwood f",
+      "generic_profile": "Amberwood F",
+      "inventory_name": "Amberwood F",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "sweetness": 2,
+        "transparency": 8,
+        "warmth": 5,
+        "woody": 6
+      },
+      "odt_air_ppb": 1.0,
+      "odt_eth_ppm": 0.3,
+      "role": "modifier",
+      "source": "engine_generic",
+      "vp_pa": 0.001
+    },
+    {
+      "covered": false,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": null,
+      "generic_profile": null,
+      "inventory_name": "Ambrofix Crystals",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "source": "engine_generic"
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "himalayan cedarwood eo",
+      "generic_profile": "Himalayan Cedarwood EO",
+      "inventory_name": "Himalayan Cedarwood EO",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "balsamic": 2,
+        "smoky": 1,
+        "warmth": 3,
+        "woody": 8
+      },
+      "odt_air_ppb": 15.0,
+      "odt_eth_ppm": 3.0,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 0.02
+    },
+    {
+      "covered": false,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": null,
+      "generic_profile": null,
+      "inventory_name": "Indian Vetiver EO (volume grade)",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "source": "engine_generic"
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "nagarmortha oil",
+      "generic_profile": "Nagarmortha Oil",
+      "inventory_name": "Nagarmortha Oil",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "earthy": 4,
+        "smoky": 5,
+        "spicy": 3,
+        "woody": 6
+      },
+      "odt_air_ppb": 8.0,
+      "odt_eth_ppm": 1.0,
+      "role": "modifier",
+      "source": "engine_generic",
+      "vp_pa": 0.01
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "vetikon",
+      "generic_profile": "Vetikon",
+      "inventory_name": "Vetikon (7403-42-1)",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "freshness": 3,
+        "green": 2,
+        "powdery": 2,
+        "transparency": 5,
+        "woody": 7
+      },
+      "odt_air_ppb": 5.0,
+      "odt_eth_ppm": 1.0,
+      "role": "volume",
+      "source": "engine_generic",
+      "vp_pa": 4.16
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "kephalis",
+      "generic_profile": "Kephalis",
+      "inventory_name": "Kephalis [NOT OWNED]",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "radiance": 3,
+        "transparency": 4,
+        "warmth": 5,
+        "woody": 9
+      },
+      "odt_air_ppb": 50.0,
+      "odt_eth_ppm": 0.1,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 0.46
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "amber xtreme",
+      "generic_profile": "Amber Xtreme",
+      "inventory_name": "Amber Xtreme",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "radiance": 3,
+        "sweetness": 3,
+        "warmth": 8,
+        "woody": 4
+      },
+      "odt_air_ppb": 0.05,
+      "odt_eth_ppm": 0.15,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 0.001
+    },
+    {
+      "covered": false,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": null,
+      "generic_profile": null,
+      "inventory_name": "Givaudan AIMI",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "source": "engine_generic"
+    },
+    {
+      "covered": false,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": null,
+      "generic_profile": null,
+      "inventory_name": "Vietnamese Benzoin Styrax Tonkinensis resin ethanol tincture (20%) [OUT OF STOCK 2026-08-28 \u2014 historical lost stock; distinct from the current 40% tincture]",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "source": "engine_generic"
+    },
+    {
+      "covered": false,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": null,
+      "generic_profile": null,
+      "inventory_name": "Vietnamese Benzoin resin ethanol tincture (40% starting resin charge w/w) [OWNED \u2014 USER-CONFIRMED 2026-09-08; FINAL DISSOLVED-SOLIDS FRACTION UNKNOWN; QUANTITATIVE DOSING HOLD]",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "source": "engine_generic"
+    },
+    {
+      "covered": false,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": null,
+      "generic_profile": null,
+      "inventory_name": "Turkish Storax Liquidambar orientalis resin ethanol tincture (20% starting resin charge w/w) [OWNED \u2014 USER-CONFIRMED 2026-09-08; FINAL DISSOLVED-SOLIDS FRACTION UNKNOWN; QUANTITATIVE DOSING HOLD; botanical identity inherited from the label]",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "source": "engine_generic"
+    },
+    {
+      "covered": false,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": null,
+      "generic_profile": null,
+      "inventory_name": "Kenyan Myrrh resin ethanol tincture (20% starting resin charge w/w) [OWNED \u2014 USER-CONFIRMED 2026-09-08; USER WORDING COMMIPHORA MYRRH PRESERVED; FINAL DISSOLVED-SOLIDS FRACTION UNKNOWN; QUANTITATIVE DOSING HOLD]",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "source": "engine_generic"
+    },
+    {
+      "covered": false,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": null,
+      "generic_profile": null,
+      "inventory_name": "Oman Frankincense resin ethanol tincture (33% starting resin charge w/w) [OWNED \u2014 USER-CONFIRMED 2026-09-08; BOSWELLIA SPECIES UNKNOWN; FINAL DISSOLVED-SOLIDS FRACTION UNKNOWN; QUANTITATIVE DOSING HOLD]",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "source": "engine_generic"
+    },
+    {
+      "covered": false,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": null,
+      "generic_profile": null,
+      "inventory_name": "Methyl Laitone (20%) [OWNED \u2014 FRACTION BASIS AND CARRIER UNSPECIFIED; QUANTITATIVE EXECUTION HOLD]",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "source": "engine_generic"
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "clove eo (india)",
+      "generic_profile": "Clove EO (India)",
+      "inventory_name": "Clove EO (India)",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "smoky": 2,
+        "spicy": 8,
+        "sweetness": 2,
+        "warmth": 5
+      },
+      "odt_air_ppb": 3.0,
+      "odt_eth_ppm": 0.5,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 2.5
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "cinnamaldehyde",
+      "generic_profile": "Cinnamaldehyde",
+      "inventory_name": "Cinnamaldehyde",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "spicy": 9,
+        "sweetness": 3,
+        "warmth": 6
+      },
+      "odt_air_ppb": 62.0,
+      "odt_eth_ppm": 0.05,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 0.05
+    },
+    {
+      "covered": false,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": null,
+      "generic_profile": null,
+      "inventory_name": "Cinnamon Bark EO - Telvada USDA Organic",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "source": "engine_generic"
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "lavender eo high altitude",
+      "generic_profile": null,
+      "inventory_name": "Lavender EO High Altitude (angustifolia, France) [NOT OWNED \u2014 removed from current available inventory by user 2026-09-08; historical identity retained]",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "odt_air_ppb": 2.0,
+      "odt_eth_ppm": 5.0,
+      "source": "engine_generic"
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "lavender eo",
+      "generic_profile": "Lavender EO",
+      "inventory_name": "Lavender EO (BONTAUX SAS)",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "floral": 5,
+        "freshness": 6,
+        "green": 4,
+        "spicy": 1,
+        "transparency": 6,
+        "woody": 2
+      },
+      "odt_air_ppb": 2.0,
+      "odt_eth_ppm": 5.0,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 3.5
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "rosemary eo",
+      "generic_profile": "Rosemary EO (French Rosmarinus Officinalis leaf oil)",
+      "inventory_name": "Rosemary EO (French Rosmarinus Officinalis leaf oil)",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "freshness": 6,
+        "green": 5,
+        "spicy": 4,
+        "transparency": 5,
+        "woody": 2
+      },
+      "odt_air_ppb": 7.0,
+      "odt_eth_ppm": 5.0,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 0.3
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "basil eo (india, ocimum basilicum)",
+      "generic_profile": "Basil EO (India, Ocimum Basilicum)",
+      "inventory_name": "Basil EO (India, Ocimum Basilicum)",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "freshness": 4,
+        "green": 5,
+        "herbal": 7,
+        "spicy": 3,
+        "sweetness": 2
+      },
+      "odt_air_ppb": 5.0,
+      "odt_eth_ppm": 1.0,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 8.0
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "cassia essential oil",
+      "generic_profile": "Cassia Essential Oil",
+      "inventory_name": "Cassia Essential Oil (Cinnamomum cassia, India)",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "balsamic": 3,
+        "spicy": 8,
+        "sweet": 4,
+        "woody": 2
+      },
+      "odt_air_ppb": 1.5,
+      "odt_eth_ppm": 0.2,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 2.5
+    },
+    {
+      "covered": false,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": null,
+      "generic_profile": null,
+      "inventory_name": "Caryophyllene Acetate (20% w/w) [OWNED \u2014 V7 USER STOCK 2026-08-30; CARRIER UNSPECIFIED; QUANTITATIVE DOSING HOLD]",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "source": "engine_generic"
+    },
+    {
+      "covered": false,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": null,
+      "generic_profile": null,
+      "inventory_name": "Dimethyl Benzyl Carbinyl Acetate (DBCA)",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "source": "engine_generic"
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "cassis base 345b",
+      "generic_profile": "Cassis Base 345B",
+      "inventory_name": "Cassis Base 345B",
+      "note": "Not resolvable at PerfumersWorld or Simple Scents DIY; bound to the engine's own generic profile/threshold data.",
+      "note_field": {
+        "freshness": 3,
+        "fruity": 7,
+        "green": 5,
+        "sulfury": 2
+      },
+      "odt_air_ppb": 0.5,
+      "odt_eth_ppm": 0.1,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 0.5
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "ethanol",
+      "generic_profile": "Ethanol",
+      "inventory_name": "Ethanol 96%",
+      "note": "Carrier/solvent, same generic engine profile as Ethanol. Not resolvable at PerfumersWorld or Simple Scents DIY.",
+      "role": "solvent",
+      "odt_air_ppb": 100000.0,
+      "odt_eth_ppm": 20000.0,
+      "source": "engine_generic",
+      "vp_pa": 5900.0
+    },
+    {
+      "covered": true,
+      "evidence_class": "GENERIC_REFERENCE",
+      "generic_odt_key": "cinnamon bark essential oil",
+      "generic_profile": "Cinnamon Bark Essential Oil",
+      "inventory_name": "Cinnamon Bark EO - Telvada USDA Organic",
+      "note": "Shopee-sourced (Telvada, USDA Organic). PW is not the supplier of record for this exact product; bound to a generic cinnamon-bark profile. Generic estimate, not measured.",
+      "note_field": {
+        "balsamic": 2,
+        "spicy": 8,
+        "sweetness": 3,
+        "warmth": 5,
+        "woody": 2
+      },
+      "odt_air_ppb": 1.5,
+      "odt_eth_ppm": 0.2,
+      "role": "character",
+      "source": "engine_generic",
+      "vp_pa": 2.5
+    }
+  ],
+  "note": "Generic engine-data fallback for materials with no supplier match.",
+  "schema_version": "generic-material-data-v1"
+}

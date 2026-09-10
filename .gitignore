@@ -112,3 +112,7 @@ key.pub
 
 # Key material must never be tracked.
 /incoming_review/openai-api-key*.txt
+
+# PerfumersWorld intake raw cache (re-fetchable; hashes recorded in cache_index.json)
+data/external/perfumersworld/raw/
+data/external/pw_shards/**/raw/

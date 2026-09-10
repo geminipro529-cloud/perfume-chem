@@ -1,0 +1,61 @@
+{
+  "schema_version": "prepared-stocks-v1",
+  "note": "User-prepared resin tinctures. These are not supplier products: identity anchors on the raw resin/botanical source, and the only unknown is the final dissolved-solids fraction, which stays fail-closed until assayed. Active fraction must never be defaulted.",
+  "evidence_class": "USER_OBSERVATION",
+  "stock_form": "ethanol tincture (alcohol extract of the raw resin)",
+  "carrier": "ethanol 96%",
+  "generic_reference": "resin_generic_reference.json",
+  "required_measurement": {
+    "name": "dry_residue_assay",
+    "method": "Weigh a known aliquot (~1.000 g), evaporate at 60-80 C to constant mass, weigh the residue; dissolved-solids % w/w = residue / aliquot x 100.",
+    "effect": "Replaces ASSAY_STATUS=HOLD with a measured active fraction; active_uL = raw_uL x measured_fraction."
+  },
+  "stocks": [
+    {
+      "inventory_name": "Vietnamese Benzoin resin ethanol tincture",
+      "base_identity": "Styrax tonkinensis (Siam benzoin)",
+      "resin_class": "benzoin_resinoid",
+      "declared_starting_charge_pct": 40,
+      "assay_status": "HOLD",
+      "active_fraction": null,
+      "generic_reference_sought": "benzoin siam / styrax tonkinensis resinoid CAS, ODT, constituents"
+    },
+    {
+      "inventory_name": "Vietnamese Benzoin Styrax Tonkinensis resin ethanol tincture",
+      "base_identity": "Styrax tonkinensis (Siam benzoin)",
+      "resin_class": "benzoin_resinoid",
+      "declared_starting_charge_pct": 20,
+      "assay_status": "HOLD",
+      "active_fraction": null,
+      "note": "Historical lost stock (out of stock 2026-08-28); distinct from the 40% tincture.",
+      "generic_reference_sought": "benzoin siam / styrax tonkinensis resinoid CAS, ODT, constituents"
+    },
+    {
+      "inventory_name": "Turkish Storax Liquidambar orientalis resin ethanol tincture",
+      "base_identity": "Liquidambar orientalis (storax)",
+      "resin_class": "storax_resinoid",
+      "declared_starting_charge_pct": 20,
+      "assay_status": "HOLD",
+      "active_fraction": null,
+      "generic_reference_sought": "storax / liquidambar orientalis CAS, ODT, constituents"
+    },
+    {
+      "inventory_name": "Kenyan Myrrh resin ethanol tincture",
+      "base_identity": "Commiphora myrrha (myrrh)",
+      "resin_class": "myrrh_resinoid",
+      "declared_starting_charge_pct": 20,
+      "assay_status": "HOLD",
+      "active_fraction": null,
+      "generic_reference_sought": "myrrh / commiphora myrrha resinoid CAS, ODT, constituents"
+    },
+    {
+      "inventory_name": "Oman Frankincense resin ethanol tincture",
+      "base_identity": "Boswellia sp. (frankincense/olibanum; species unknown)",
+      "resin_class": "olibanum_resinoid",
+      "declared_starting_charge_pct": 33,
+      "assay_status": "HOLD",
+      "active_fraction": null,
+      "generic_reference_sought": "olibanum / boswellia resinoid CAS, ODT, constituents"
+    }
+  ]
+}
