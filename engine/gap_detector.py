@@ -235,6 +235,11 @@ class GapDetector:
         Uses ingredient_intelligence synergy lists to find materials
         that both fill an olfactive gap and have declared synergies
         with materials already in the formula.
+
+        Every suggestion carries ``gap_family_basis``. A basis of
+        ``"character_evidence_unavailable"`` marks an unknown family
+        question (no numeric character vector), not a negative verdict;
+        ``"character"``/``"note"`` mark the evidence that matched.
         """
         existing_lower = {m.lower().strip() for m in current_materials}
         all_profiles = get_all_profiles()
@@ -254,18 +259,32 @@ class GapDetector:
             if not synergy_hits:
                 continue
 
-            # Check if this material fills a gap family
+            # Check if this material fills a gap family. Unavailable numeric
+            # character evidence is unknown, never a negative judgment.
             family_match = True
+            family_basis = "not_evaluated"
             if gap_families:
-                mat_dims = set()
-                if profile.character:
-                    for dim, val in profile.character.items():
-                        if val >= 0.5:
-                            mat_dims.add(dim.lower())
-                family_match = any(
-                    f.lower() in mat_dims or f.lower() in (profile.note or "").lower()
-                    for f in gap_families
-                )
+                numeric_character = profile.numeric_character
+                character_available = numeric_character is not None
+                mat_dims = {
+                    dim.lower()
+                    for dim, val in (numeric_character or {}).items()
+                    if val >= 0.5
+                }
+                note_lower = (profile.note or "").lower()
+                dim_match = any(f.lower() in mat_dims for f in gap_families)
+                note_match = any(f.lower() in note_lower for f in gap_families)
+                if dim_match:
+                    family_match, family_basis = True, "character"
+                elif note_match:
+                    family_match, family_basis = True, "note"
+                elif not character_available:
+                    # No numeric vector: the family question is undecidable.
+                    # Keep the candidate and label it unknown instead of
+                    # silently treating it as a non-match.
+                    family_match, family_basis = True, "character_evidence_unavailable"
+                else:
+                    family_match, family_basis = False, "no_evidence"
 
             if family_match:
                 suggestions.append({
@@ -274,6 +293,8 @@ class GapDetector:
                     "synergy_count": len(synergy_hits),
                     "role": profile.role,
                     "note": profile.note,
+                    "gap_family_basis": family_basis,
+                    "character_evidence_status": profile.character_status.value,
                 })
 
         suggestions.sort(key=lambda s: s["synergy_count"], reverse=True)
