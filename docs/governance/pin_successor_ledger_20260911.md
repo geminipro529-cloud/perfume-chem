@@ -105,3 +105,43 @@ unreproducible ones, and the record says so.
   recorded as open work.
 - It does not decide `C0-LH-005`, where the model genuinely diverged after the freeze
   (ΔHvap fallback, 9 → 8 modelled constituents, OAV 6789.897320595568 → 7906.955757087607).
+
+## C0 successor overlay — applied 2026-09-11
+
+The C0 stores received the same mechanism in
+`scripts/verify_c0_physical_model_inventory.py`, through two optional overlays:
+
+- `docs/verification/c0/physical_model_inventory_successors.json` (the 48-record inventory);
+- `tests/fixtures/c0_legacy_physical_model_cases_successors.json` (the 24-case legacy fixture set).
+
+Each record is closed to `record_id`, `target`, `superseded_sha256`, `successor_sha256`, `kind`,
+`commit`, `reason`, `evidence`, `approved_by`, `approved_at`. The frozen stores are unchanged; a
+record is rejected unless its anchor equals the stored pin, its successor equals the current LF
+digest, and — for `eol_only` — the superseded digest is provably the CRLF materialisation of the
+current LF bytes. Owner re-baselines carry no continuity claim by design (R1).
+
+Measured effect on `scripts/verify_c0_physical_model_inventory.py`: **103 errors → 49**.
+47 pins were re-bound across the two stores:
+
+| Store | EOL-only | Committed-revision | Re-bound |
+|---|---|---|---|
+| C0 inventory (`C0-PM-*`) | 19 | 6 | 25 |
+| C0 legacy fixtures (`C0-LH-*`) | 15 | 7 | 22 |
+
+Still open, with measured counts:
+
+1. **21 owner re-baseline rows (7 distinct paths).** The superseded digests are not reproducible as
+   successors under R1. Affected paths: `engine/pipeline/simulator.py`, `engine/thermo/antoine.py`
+   (7 rows), `engine/diffusion_model.py`, `engine/optimizer/scoring.py` (4 rows),
+   `engine/pipeline/oav_intelligence.py`, `engine/workbench.py`, `engine/calibration.py`. These need
+   an owner re-baseline receipt, not a successor.
+2. **8 symbol/line drifts and 20 call-edge tokens.** Metadata describing where code moved; each
+   needs a human read of the new location. One edge was corrected in this change because the
+   verifier edit itself moved it (`call_edges[22]`,
+   `scripts/verify_c0_physical_model_inventory.py:594 → 772`).
+3. **`C0-LH-005` replay divergence** (the ΔHvap behaviour change) remains an owner decision.
+
+One consequence worth recording: adding the successor mechanism to the verifier shifted a line that
+a C0 call edge pins, and the verifier failed honest rather than passing stale. That is the intended
+behaviour — but it is also why the remaining symbol/line and call-edge metadata is deferred to a
+deliberate human pass instead of an automatic rewrite.

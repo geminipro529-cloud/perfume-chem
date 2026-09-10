@@ -77,6 +77,29 @@ REQUIRED_ADR_STATEMENTS = (
     "LEGACY_HEURISTIC",
 )
 
+# A successor record is the only sanctioned way to move a frozen C0 pin
+# forward. It never edits the frozen store: it is anchored to the exact value
+# it supersedes, and it must carry the commit, reason, evidence file and
+# approving authority that justify the change.
+SUCCESSOR_SCHEMA_VERSION = "c0-pin-successors-v1"
+SUCCESSOR_KINDS = frozenset({"eol_only", "committed_revision", "owner_rebaseline"})
+SUCCESSOR_FIELDS = frozenset(
+    {
+        "record_id",
+        "target",
+        "superseded_sha256",
+        "successor_sha256",
+        "kind",
+        "commit",
+        "reason",
+        "evidence",
+        "approved_by",
+        "approved_at",
+    }
+)
+_SHA256 = re.compile(r"^[0-9a-f]{64}$")
+_COMMIT_SHA = re.compile(r"^[0-9a-f]{40}$")
+
 
 def canonical_json_bytes(payload: Any, *, trailing_newline: bool = False) -> bytes:
     """Return deterministic UTF-8 JSON bytes for hashes and fixture locks."""
@@ -122,6 +145,128 @@ def _sha256_file(path: Path) -> str:
         for block in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def _lf_sha256_file(path: Path) -> str:
+    """Hash the LF representation of the file, independent of checkout EOL."""
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+
+
+def _crlf_sha256_file(path: Path) -> str:
+    """Hash the CRLF materialisation of the file's LF representation."""
+    data = path.read_bytes().replace(b"\r\n", b"\n").replace(b"\n", b"\r\n")
+    return hashlib.sha256(data).hexdigest()
+
+
+def _nonblank(value: Any, field: str) -> str:
+    text = value if isinstance(value, str) else ""
+    if not text.strip():
+        raise ValueError(f"successor {field} must be a non-empty string")
+    return text.strip()
+
+
+def load_pin_successors(path: str | Path, *, root: Path = REPO_ROOT) -> list[dict[str, Any]]:
+    """Load the optional anchored successor overlay for a frozen pin store.
+
+    Returns an empty list when the overlay file does not exist. Raises
+    ValueError when the overlay is malformed, so the caller refuses to load it
+    rather than silently accepting an unanchored re-bind.
+    """
+    overlay_path = Path(path)
+    if not overlay_path.is_file():
+        return []
+    payload = _load_json(overlay_path)
+    if set(payload) != {"schema_version", "successors"}:
+        raise ValueError("successor overlay keys are closed")
+    if payload["schema_version"] != SUCCESSOR_SCHEMA_VERSION:
+        raise ValueError(f"successor overlay schema_version must be {SUCCESSOR_SCHEMA_VERSION}")
+    records = payload["successors"]
+    if not isinstance(records, list) or not records:
+        raise ValueError("successor overlay must carry a nonempty successors list")
+    loaded: list[dict[str, Any]] = []
+    seen: set[tuple[str, str]] = set()
+    for record in records:
+        if not isinstance(record, dict) or set(record) != SUCCESSOR_FIELDS:
+            raise ValueError("successor record keys are closed")
+        record_id = _nonblank(record["record_id"], "record_id")
+        target = _nonblank(record["target"], "target")
+        key = (record_id, target)
+        if key in seen:
+            raise ValueError("successor overlay must not repeat a (record_id, target)")
+        seen.add(key)
+        superseded = _nonblank(record["superseded_sha256"], "superseded_sha256")
+        successor = _nonblank(record["successor_sha256"], "successor_sha256")
+        for digest in (superseded, successor):
+            if not _SHA256.fullmatch(digest):
+                raise ValueError("successor digests must be sha256 hex digests")
+        if superseded == successor:
+            raise ValueError("successor must change the pin")
+        kind = _nonblank(record["kind"], "kind")
+        if kind not in SUCCESSOR_KINDS:
+            raise ValueError(f"unknown successor kind {kind!r}")
+        if not _COMMIT_SHA.fullmatch(_nonblank(record["commit"], "commit")):
+            raise ValueError("successor commit must be a full commit sha")
+        _nonblank(record["reason"], "reason")
+        _nonblank(record["approved_by"], "approved_by")
+        _nonblank(record["approved_at"], "approved_at")
+        evidence = _repo_path(root, _nonblank(record["evidence"], "evidence"))
+        if not evidence.is_file():
+            raise ValueError("successor evidence must be an existing file")
+        loaded.append(dict(record))
+    return loaded
+
+
+def bind_pin_successors(
+    records: Sequence[Mapping[str, Any]],
+    stored_pins: Mapping[tuple[str, str], str],
+    *,
+    root: Path,
+    label: str,
+) -> tuple[dict[tuple[str, str], str], list[str]]:
+    """Anchor-check successors against the stored pins and return the re-binds.
+
+    Every record must name an existing (record_id, target) pin and carry the
+    exact stored digest as its anchor. An eol_only successor additionally has
+    to prove that the superseded digest is the CRLF materialisation of the
+    current LF bytes, and every successor must equal the current LF digest
+    (never a CRLF preference).
+    """
+    records = list(records)
+    errors: list[str] = []
+    bound: dict[tuple[str, str], str] = {}
+    for record in records:
+        key = (str(record["record_id"]), str(record["target"]))
+        prefix = f"successor {key[0]}:{key[1]}"
+        stored = stored_pins.get(key)
+        if stored is None:
+            errors.append(f"{prefix}: targets a pin that is not declared in {label}")
+            continue
+        if stored != record["superseded_sha256"]:
+            errors.append(f"{prefix}: anchor does not match the stored pin")
+            continue
+        successor = str(record["successor_sha256"])
+        try:
+            path = _repo_path(root, key[1])
+        except ValueError as exc:
+            errors.append(f"{prefix}: {exc}")
+            continue
+        if not path.is_file():
+            errors.append(f"{prefix}: source file is missing")
+            continue
+        actual_lf = _lf_sha256_file(path)
+        if actual_lf != successor:
+            errors.append(
+                f"{prefix}: successor is stale: expected {successor}, actual {actual_lf}"
+            )
+            continue
+        if record["kind"] == "eol_only" and _crlf_sha256_file(path) != record["superseded_sha256"]:
+            errors.append(
+                f"{prefix}: eol_only successor is not provable: the superseded digest "
+                "is not the CRLF materialisation of the current LF bytes"
+            )
+            continue
+        bound[key] = successor
+    return bound, errors
 
 
 def _python_symbols(path: Path) -> dict[str, int]:
@@ -180,6 +325,7 @@ def validate_inventory(
     *,
     root: Path = REPO_ROOT,
     adr_path: str | Path | None = None,
+    successors: Sequence[Mapping[str, Any]] | None = None,
 ) -> list[str]:
     """Return all fail-closed inventory errors without mutating the repository."""
 
@@ -196,6 +342,29 @@ def validate_inventory(
     records = inventory.get("implementations")
     if not isinstance(records, list) or not records:
         return errors + ["implementations must be a non-empty list"]
+
+    stored_pins: dict[tuple[str, str], str] = {}
+    for record in records:
+        if not isinstance(record, Mapping):
+            continue
+        record_id = str(record.get("id", "<missing-id>"))
+        source_hashes = record.get("source_sha256")
+        if isinstance(source_hashes, Mapping):
+            for relative, digest in source_hashes.items():
+                stored_pins[(record_id, str(relative))] = str(digest)
+    if successors is None:
+        try:
+            successors = load_pin_successors(
+                root / "docs" / "verification" / "c0" / "physical_model_inventory_successors.json",
+                root=root,
+            )
+        except (OSError, ValueError, json.JSONDecodeError) as exc:
+            errors.append(f"cannot load successor overlay: {exc}")
+            successors = []
+    rebound, bind_errors = bind_pin_successors(
+        successors, stored_pins, root=root, label="the C0 inventory"
+    )
+    errors.extend(bind_errors)
 
     identifiers: set[str] = set()
     represented: set[str] = set()
@@ -259,12 +428,21 @@ def validate_inventory(
                 errors.append(f"{record_id}: missing source file {relative}")
                 continue
             expected_hash = str(source_hashes.get(relative, ""))
-            actual_hash = _sha256_file(path)
-            if expected_hash != actual_hash:
-                errors.append(
-                    f"{record_id}: stale source hash for {relative}: "
-                    f"expected {expected_hash or '<missing>'}, actual {actual_hash}"
-                )
+            successor = rebound.get((record_id, relative))
+            if successor is not None:
+                actual_hash = _lf_sha256_file(path)
+                if actual_hash != successor:
+                    errors.append(
+                        f"{record_id}: successor is stale for {relative}: "
+                        f"expected {successor}, actual {actual_hash}"
+                    )
+            else:
+                actual_hash = _sha256_file(path)
+                if expected_hash != actual_hash:
+                    errors.append(
+                        f"{record_id}: stale source hash for {relative}: "
+                        f"expected {expected_hash or '<missing>'}, actual {actual_hash}"
+                    )
             if path.suffix == ".py":
                 try:
                     symbols = symbol_cache.setdefault(path, _python_symbols(path))
@@ -891,6 +1069,7 @@ def validate_legacy_fixtures(
     root: Path = REPO_ROOT,
     fixture_path: str | Path,
     fixture_sha_path: str | Path,
+    successors: Sequence[Mapping[str, Any]] | None = None,
 ) -> list[str]:
     errors: list[str] = []
     if fixtures.get("schema_version") != "c0-legacy-physical-model-fixtures-v1":
@@ -898,6 +1077,28 @@ def validate_legacy_fixtures(
     cases = fixtures.get("cases")
     if not isinstance(cases, list) or not cases:
         return errors + ["fixture cases must be a non-empty list"]
+    stored_pins: dict[tuple[str, str], str] = {}
+    for case in cases:
+        if not isinstance(case, Mapping):
+            continue
+        case_id = str(case.get("id", "<missing-id>"))
+        source_hashes = case.get("source_sha256")
+        if isinstance(source_hashes, Mapping):
+            for relative, digest in source_hashes.items():
+                stored_pins[(case_id, str(relative))] = str(digest)
+    if successors is None:
+        try:
+            successors = load_pin_successors(
+                root / "tests" / "fixtures" / "c0_legacy_physical_model_cases_successors.json",
+                root=root,
+            )
+        except (OSError, ValueError, json.JSONDecodeError) as exc:
+            errors.append(f"cannot load successor overlay: {exc}")
+            successors = []
+    rebound, bind_errors = bind_pin_successors(
+        successors, stored_pins, root=root, label="the C0 legacy fixtures"
+    )
+    errors.extend(bind_errors)
     implementations = {
         record.get("id"): record
         for record in inventory.get("implementations", [])
@@ -954,9 +1155,15 @@ def validate_legacy_fixtures(
             for relative, expected_hash in source_hashes.items():
                 try:
                     path = _repo_path(root, str(relative))
-                    actual_hash = _sha256_file(path)
-                    if actual_hash != expected_hash:
-                        errors.append(f"{case_id}: stale source hash for {relative}")
+                    successor = rebound.get((case_id, str(relative)))
+                    if successor is not None:
+                        actual_hash = _lf_sha256_file(path)
+                        if actual_hash != successor:
+                            errors.append(f"{case_id}: successor is stale for {relative}")
+                    else:
+                        actual_hash = _sha256_file(path)
+                        if actual_hash != expected_hash:
+                            errors.append(f"{case_id}: stale source hash for {relative}")
                 except (OSError, ValueError) as exc:
                     errors.append(f"{case_id}: invalid source path {relative}: {exc}")
         if "output" not in case:
@@ -1016,19 +1223,53 @@ def _parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         type=Path,
         default=REPO_ROOT / "tests" / "fixtures" / "c0_legacy_physical_model_cases.sha256",
     )
+    parser.add_argument(
+        "--inventory-successors",
+        type=Path,
+        default=REPO_ROOT
+        / "docs"
+        / "verification"
+        / "c0"
+        / "physical_model_inventory_successors.json",
+    )
+    parser.add_argument(
+        "--fixture-successors",
+        type=Path,
+        default=REPO_ROOT
+        / "tests"
+        / "fixtures"
+        / "c0_legacy_physical_model_cases_successors.json",
+    )
     return parser.parse_args(argv)
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parse_args(argv)
     inventory = load_inventory(args.inventory)
-    errors = validate_inventory(inventory, root=REPO_ROOT, adr_path=args.adr)
+    errors: list[str] = []
+    inventory_successors: Sequence[Mapping[str, Any]] | None = None
+    try:
+        inventory_successors = load_pin_successors(args.inventory_successors, root=REPO_ROOT)
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        errors.append(f"cannot load inventory successor overlay: {exc}")
+        inventory_successors = []
+    errors.extend(
+        validate_inventory(
+            inventory, root=REPO_ROOT, adr_path=args.adr, successors=inventory_successors
+        )
+    )
     try:
         fixtures = load_legacy_fixtures(args.fixtures)
     except (OSError, ValueError, json.JSONDecodeError) as exc:
         errors.append(f"cannot load legacy fixtures: {exc}")
         fixtures = None
     if fixtures is not None:
+        fixture_successors: Sequence[Mapping[str, Any]] | None = None
+        try:
+            fixture_successors = load_pin_successors(args.fixture_successors, root=REPO_ROOT)
+        except (OSError, ValueError, json.JSONDecodeError) as exc:
+            errors.append(f"cannot load fixture successor overlay: {exc}")
+            fixture_successors = []
         errors.extend(
             validate_legacy_fixtures(
                 fixtures,
@@ -1036,6 +1277,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 root=REPO_ROOT,
                 fixture_path=args.fixtures,
                 fixture_sha_path=args.fixture_sha,
+                successors=fixture_successors,
             )
         )
     if errors:
