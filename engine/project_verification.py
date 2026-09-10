@@ -144,6 +144,7 @@ _ENGINE_TEST_SHARDS = {
         "tests/test_safety_assessment.py",
         "tests/test_scientific_contract.py",
         "tests/test_tracing.py",
+        "tests/test_verification_invariants.py",
         "tests/test_workbench.py",
     ),
     "data-knowledge": (
