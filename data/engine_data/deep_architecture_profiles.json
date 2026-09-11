@@ -1,0 +1,431 @@
+{
+ "schema_version": "deep_architecture_profiles_v1",
+ "evidence_class": "STRUCTURAL_ARCHITECTURE",
+ "authority_note": "Per-family/subfamily/archetype deep-architecture targets. These are structural design targets derived from the literature registry, not measured sensory claims. spatial_projection is PREDICTED_PHYSICAL only.",
+ "dimensions": [
+  "texture",
+  "depth_stacking",
+  "temporal_layering",
+  "spatial_projection",
+  "integration_capacity",
+  "function_balance",
+  "legibility_coherence"
+ ],
+ "scale": {
+  "min": 0,
+  "max": 100
+ },
+ "families": {
+  "citrus": {
+   "texture": 68.2,
+   "depth_stacking": 100.0,
+   "temporal_layering": 58.5,
+   "spatial_projection": 76.6,
+   "integration_capacity": 18.5,
+   "function_balance": 71.7,
+   "legibility_coherence": 82.9
+  },
+  "fougere": {
+   "texture": 81.0,
+   "depth_stacking": 100.0,
+   "temporal_layering": 64.7,
+   "spatial_projection": 94.8,
+   "integration_capacity": 0.0,
+   "function_balance": 65.5,
+   "legibility_coherence": 77.2
+  },
+  "floral": {
+   "texture": 69.0,
+   "depth_stacking": 100.0,
+   "temporal_layering": 81.2,
+   "spatial_projection": 90.4,
+   "integration_capacity": 0.0,
+   "function_balance": 72.5,
+   "legibility_coherence": 82.6
+  },
+  "chypre": {
+   "texture": 69.0,
+   "depth_stacking": 100.0,
+   "temporal_layering": 71.4,
+   "spatial_projection": 80.6,
+   "integration_capacity": 0.0,
+   "function_balance": 74.2,
+   "legibility_coherence": 71.5
+  },
+  "oriental": {
+   "texture": 69.2,
+   "depth_stacking": 100.0,
+   "temporal_layering": 86.5,
+   "spatial_projection": 92.3,
+   "integration_capacity": 0.0,
+   "function_balance": 67.2,
+   "legibility_coherence": 72.9
+  },
+  "woody": {
+   "texture": 78.5,
+   "depth_stacking": 100.0,
+   "temporal_layering": 87.7,
+   "spatial_projection": 97.5,
+   "integration_capacity": 0.0,
+   "function_balance": 79.2,
+   "legibility_coherence": 75.6
+  },
+  "leather": {
+   "texture": 65,
+   "depth_stacking": 80,
+   "temporal_layering": 75,
+   "spatial_projection": 50,
+   "integration_capacity": 50,
+   "function_balance": 70,
+   "legibility_coherence": 55
+  },
+  "marine_aquatic": {
+   "texture": 50,
+   "depth_stacking": 45,
+   "temporal_layering": 45,
+   "spatial_projection": 80,
+   "integration_capacity": 60,
+   "function_balance": 50,
+   "legibility_coherence": 80
+  },
+  "gourmand": {
+   "texture": 80,
+   "depth_stacking": 65,
+   "temporal_layering": 65,
+   "spatial_projection": 55,
+   "integration_capacity": 45,
+   "function_balance": 60,
+   "legibility_coherence": 60
+  },
+  "musk": {
+   "texture": 70,
+   "depth_stacking": 65,
+   "temporal_layering": 80,
+   "spatial_projection": 65,
+   "integration_capacity": 65,
+   "function_balance": 55,
+   "legibility_coherence": 75
+  },
+  "green": {
+   "texture": 55,
+   "depth_stacking": 50,
+   "temporal_layering": 50,
+   "spatial_projection": 65,
+   "integration_capacity": 60,
+   "function_balance": 55,
+   "legibility_coherence": 80
+  },
+  "aldehydic": {
+   "texture": 65,
+   "depth_stacking": 55,
+   "temporal_layering": 55,
+   "spatial_projection": 60,
+   "integration_capacity": 50,
+   "function_balance": 60,
+   "legibility_coherence": 60
+  },
+  "aromatic": {
+   "texture": 55,
+   "depth_stacking": 60,
+   "temporal_layering": 60,
+   "spatial_projection": 60,
+   "integration_capacity": 60,
+   "function_balance": 65,
+   "legibility_coherence": 75
+  },
+  "clean": {
+   "texture": 79.1,
+   "depth_stacking": 100.0,
+   "temporal_layering": 85.7,
+   "spatial_projection": 100.0,
+   "integration_capacity": 0.0,
+   "function_balance": 70.2,
+   "legibility_coherence": 43.0
+  }
+ },
+ "tolerance": {
+  "minus": 25,
+  "plus": 15
+ },
+ "archetype_overrides": {
+  "aromatic_fougere.classic_reference": {
+   "family": "fougere"
+  },
+  "aromatic_fougere.modern_mineral": {
+   "family": "fougere",
+   "texture": 60,
+   "legibility_coherence": 75
+  },
+  "aromatic_fougere.modern_tonka_mass": {
+   "family": "fougere",
+   "texture": 65,
+   "depth_stacking": 65
+  },
+  "layton_dna.fresh_thai": {
+   "family": "gourmand",
+   "texture": 70,
+   "depth_stacking": 65,
+   "legibility_coherence": 70
+  },
+  "layton_dna.indoor_amber": {
+   "family": "oriental",
+   "texture": 75,
+   "depth_stacking": 70
+  },
+  "layton_dna.night_intense": {
+   "family": "oriental",
+   "texture": 78,
+   "depth_stacking": 75
+  },
+  "woody.vetiver_classical": {
+   "family": "woody",
+   "depth_stacking": 80,
+   "legibility_coherence": 70
+  },
+  "floral_aldehydic_amber.classic": {
+   "family": "aldehydic",
+   "texture": 70,
+   "depth_stacking": 65,
+   "legibility_coherence": 65
+  },
+  "iris_amber_woody.classic": {
+   "family": "woody",
+   "texture": 72,
+   "depth_stacking": 80
+  },
+  "iris_amber_woody.prada_lhomme_reference": {
+   "family": "woody",
+   "texture": 74,
+   "depth_stacking": 82,
+   "legibility_coherence": 72
+  },
+  "iris_coumarin_amber.dhi2011": {
+   "family": "woody",
+   "texture": 75,
+   "depth_stacking": 85,
+   "temporal_layering": 75
+  },
+  "iris_ambrox_amber.dhi2025": {
+   "family": "woody",
+   "texture": 75,
+   "depth_stacking": 85,
+   "spatial_projection": 62
+  },
+  "iris_sandalwood.dhp2025": {
+   "family": "woody",
+   "texture": 76,
+   "depth_stacking": 86,
+   "temporal_layering": 78
+  },
+  "leather_iris_amber.dhp2014": {
+   "family": "leather",
+   "texture": 70,
+   "depth_stacking": 86,
+   "temporal_layering": 78
+  },
+  "woody_floral_musk.classic": {
+   "family": "woody",
+   "texture": 72,
+   "depth_stacking": 75,
+   "legibility_coherence": 72
+  },
+  "gourmand_floral.classic_reference": {
+   "family": "gourmand",
+   "texture": 80,
+   "depth_stacking": 68
+  },
+  "prada_clean_iris": {
+   "family": "woody",
+   "texture": 74,
+   "depth_stacking": 78,
+   "legibility_coherence": 74
+  }
+ },
+ "family_ranges": {
+  "citrus": {
+   "texture": [
+    63.2,
+    73.1
+   ],
+   "depth_stacking": [
+    100.0,
+    100.0
+   ],
+   "temporal_layering": [
+    55.2,
+    61.9
+   ],
+   "spatial_projection": [
+    73.9,
+    79.3
+   ],
+   "integration_capacity": [
+    3.7,
+    33.3
+   ],
+   "function_balance": [
+    68.8,
+    74.6
+   ],
+   "legibility_coherence": [
+    76.3,
+    89.5
+   ]
+  },
+  "floral": {
+   "texture": [
+    65.5,
+    80.5
+   ],
+   "depth_stacking": [
+    100.0,
+    100.0
+   ],
+   "temporal_layering": [
+    69.6,
+    86.6
+   ],
+   "spatial_projection": [
+    77.0,
+    96.4
+   ],
+   "integration_capacity": [
+    0.0,
+    30.6
+   ],
+   "function_balance": [
+    61.9,
+    77.6
+   ],
+   "legibility_coherence": [
+    64.9,
+    89.0
+   ]
+  },
+  "fougere": {
+   "texture": [
+    80.2,
+    81.0
+   ],
+   "depth_stacking": [
+    98.0,
+    100.0
+   ],
+   "temporal_layering": [
+    58.4,
+    78.3
+   ],
+   "spatial_projection": [
+    86.5,
+    99.9
+   ],
+   "integration_capacity": [
+    0.0,
+    14.7
+   ],
+   "function_balance": [
+    58.4,
+    80.5
+   ],
+   "legibility_coherence": [
+    71.1,
+    84.9
+   ]
+  },
+  "chypre": {
+   "texture": [
+    64.8,
+    76.5
+   ],
+   "depth_stacking": [
+    100.0,
+    100.0
+   ],
+   "temporal_layering": [
+    59.2,
+    75.6
+   ],
+   "spatial_projection": [
+    73.4,
+    87.6
+   ],
+   "integration_capacity": [
+    0.0,
+    3.0
+   ],
+   "function_balance": [
+    66.6,
+    76.9
+   ],
+   "legibility_coherence": [
+    63.2,
+    74.4
+   ]
+  },
+  "oriental": {
+   "texture": [
+    68.4,
+    80.5
+   ],
+   "depth_stacking": [
+    100.0,
+    100.0
+   ],
+   "temporal_layering": [
+    64.0,
+    88.9
+   ],
+   "spatial_projection": [
+    84.1,
+    96.3
+   ],
+   "integration_capacity": [
+    0.0,
+    0.0
+   ],
+   "function_balance": [
+    64.3,
+    75.4
+   ],
+   "legibility_coherence": [
+    56.8,
+    73.8
+   ]
+  },
+  "woody": {
+   "texture": [
+    77.0,
+    80.1
+   ],
+   "depth_stacking": [
+    100.0,
+    100.0
+   ],
+   "temporal_layering": [
+    74.6,
+    90.1
+   ],
+   "spatial_projection": [
+    94.1,
+    100.0
+   ],
+   "integration_capacity": [
+    0.0,
+    0.0
+   ],
+   "function_balance": [
+    72.9,
+    79.9
+   ],
+   "legibility_coherence": [
+    52.3,
+    78.6
+   ]
+  }
+ },
+ "calibration": {
+  "method": "median target + padded [p10,p90] range from labeled classical_study corpus",
+  "corpus_files": 33,
+  "leave_one_out_auc": 0.709
+ }
+}

@@ -1,3 +1,5 @@
+# QUARANTINED 2026-09-11 - no runtime references; do not develop.
+# See docs/governance/engine_quarantine_manifest_20260911.md
 """
 CRITICAL: This file patches ODT_DATA and _PROFILES with verified values.
 Loaded AFTER auto-generated entries to prevent VFY overwrite bug.

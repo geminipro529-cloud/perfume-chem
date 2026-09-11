@@ -151,6 +151,8 @@ class ReleaseGateConfig:
     chassis_core_ul: float | None = None
     chassis_module_ul: float | None = None
     deep_plane_diagnostics_enabled: bool = False
+    function_balance_enabled: bool = False
+    deep_architecture_enabled: bool = False
 
     def effective_ifra_headroom(self) -> float:
         """Return the active IFRA multiplier for this gate run."""
@@ -319,6 +321,8 @@ def _config_summary(config: ReleaseGateConfig) -> dict:
         "batch_scaling_targets_ml": list(config.batch_scaling_targets_ml),
         "audit_source": config.audit_source,
         "deep_plane_diagnostics_enabled": config.deep_plane_diagnostics_enabled,
+        "function_balance_enabled": config.function_balance_enabled,
+        "deep_architecture_enabled": config.deep_architecture_enabled,
     }
 
 
@@ -429,6 +433,48 @@ def _gate_deep_plane_diagnostics(
         "Opt-in diagnostic candidate; runtime admission and release remain withheld.",
         dict(assessment),
     )
+
+
+def _gate_function_balance(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+    """Opt-in Heart/Modifier/Blender/Fixative/X-Factor balance diagnostic.
+
+    Evidence-classed literature model (see
+    ``engine.knowledge.performance_engineering``); advisory, never release-blocking.
+    """
+    from engine.knowledge.performance_engineering import evaluate_function_balance
+
+    report = evaluate_function_balance(state.materials)
+    return _result("function_balance", report.status, report.detail, report.as_dict())
+
+
+def _gate_deep_architecture(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+    """Opt-in Deep Architecture diagnostic (texture/depth/layering/...).
+
+    Validated against the labeled classical-study corpus (LOO AUC >= 0.70).
+    Advisory only: structural + predicted-physical axes, never observed sensory
+    or release authority. See ``engine.knowledge.deep_architecture``.
+    """
+    from engine.knowledge.deep_architecture import DeepArchitectureConfig
+    from engine.optimizer.scoring import FormulaScorer
+
+    profile_key = config.family_archetype or config.brief or "auto"
+    fv = _formula_vector_from_state(state)
+    scorer = FormulaScorer()
+    scorer._material_oavs = {m.name: (m.oav or 0.0) for m in state.materials}
+    scores = scorer.score(
+        fv, deep_architecture=DeepArchitectureConfig(enabled=True, profile=profile_key)
+    )
+    block = scores.get("deep_architecture") or {}
+    dimensions = block.get("dimensions", {})
+    outside = [dim for dim, entry in dimensions.items() if not entry.get("within")]
+    status = "PASS" if not outside else "WARN"
+    detail = (
+        f"{len(dimensions) - len(outside)}/{len(dimensions)} dimensions within "
+        f"profile '{block.get('profile', {}).get('key', profile_key)}'"
+    )
+    if outside:
+        detail += f"; outside: {', '.join(outside)}"
+    return _result("deep_architecture", status, detail, dict(block))
 
 
 def _formula_vector_from_state(state: FormulaState) -> FormulaVector:
@@ -5796,6 +5842,16 @@ def gate_formula(
                 formula, state, simulation, dose_receipt, config, parent_formula=parent_formula
             ),
             "deep_plane_diagnostics",
+        ))
+    if config.function_balance_enabled:
+        gates.append(_safe_gate(
+            lambda: _gate_function_balance(state, config),
+            "function_balance",
+        ))
+    if config.deep_architecture_enabled:
+        gates.append(_safe_gate(
+            lambda: _gate_deep_architecture(state, config),
+            "deep_architecture",
         ))
     gates.append(robustness_gate)
     confidence_gate, confidence = _gate_confidence(state, config)

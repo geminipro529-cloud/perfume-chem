@@ -1,3 +1,5 @@
+# QUARANTINED 2026-09-11 - no runtime references; do not develop.
+# See docs/governance/engine_quarantine_manifest_20260911.md
 """Natural lot profile schema.
 
 Stub — real lot data requires actual GC-MS runs. Provides the dataclass
@@ -7,7 +9,6 @@ structure for storing lot-specific constituent composition.
 from __future__ import annotations
 
 from dataclasses import dataclass
-
 
 _LOT_POOL: dict[str, NaturalLotProfile] = {}
 

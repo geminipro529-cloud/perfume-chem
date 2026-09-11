@@ -7,6 +7,7 @@ import statistics
 from dataclasses import dataclass
 from typing import Any, Mapping
 
+from engine.knowledge.deep_architecture import DeepArchitectureConfig
 from engine.optimizer.models import FormulaVector, ObjectiveWeights
 from engine.optimizer.scoring import FormulaScorer
 
@@ -103,14 +104,18 @@ def compute_unified_release_scores(
     gate_report: Mapping[str, Any],
     *,
     scorer: FormulaScorer | None = None,
+    deep_architecture: "DeepArchitectureConfig | None" = None,
 ) -> UnifiedScorePayload:
     scorer = scorer or FormulaScorer(ObjectiveWeights())
     fv = _build_formula_vector(formula, formula.get("dilutions", {}) or {})
     scorer._material_oavs = {
         row.name: (row.oav or 0.0) for row in oav_result.material_rows
     }
-    raw_scores = scorer.score(fv, formula_state=oav_result.state)
+    raw_scores = scorer.score(
+        fv, formula_state=oav_result.state, deep_architecture=deep_architecture
+    )
     scores = _numeric_scores_only(raw_scores)
+    deep_architecture_block = raw_scores.get("deep_architecture") if isinstance(raw_scores, Mapping) else None
 
     percept = [row for row in oav_result.material_rows if (row.oav or 0.0) >= 1.0]
     len(percept)
@@ -340,6 +345,11 @@ def compute_unified_release_scores(
             ),
         },
     }
+    if deep_architecture_block:
+        provenance["deep_architecture"] = deep_architecture_block
+        provenance.setdefault("advisory_sources", []).append(
+            "engine.knowledge.deep_architecture"
+        )
     return UnifiedScorePayload(
         scores=scores,
         industry_10=industry_10,

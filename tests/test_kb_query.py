@@ -26,11 +26,12 @@ class TestGetMaterial:
     """Tests for ``knowledge_base.get_material``."""
 
     def test_get_material_hedione(self) -> None:
-        """Hedione must exist with correct VP."""
+        """Hedione must exist with the source-backed VP from the data spine."""
         mat = kb.get_material("Hedione")
         assert mat is not None
         assert mat["canonical_name"] == "Hedione"
-        assert mat["vp_25c_pa"] == 0.21
+        # data/materials/H.yaml: 0.000710 Torr @ 25C (EP 3141239 B1) = 0.09466 Pa
+        assert mat["vp_25c_pa"] == 0.09466
 
     def test_get_material_none(self) -> None:
         """Unknown material returns None."""
@@ -76,9 +77,9 @@ class TestGetMaterialVp:
     """Tests for ``knowledge_base.get_material_vp``."""
 
     def test_hedione_vp(self) -> None:
-        """Hedione VP must be 0.21."""
+        """Hedione VP must match the data spine (0.09466 Pa, EP 3141239 B1)."""
         vp = kb.get_material_vp("Hedione")
-        assert vp == 0.21
+        assert vp == 0.09466
 
     def test_unknown_returns_none(self) -> None:
         """Unknown material returns None."""

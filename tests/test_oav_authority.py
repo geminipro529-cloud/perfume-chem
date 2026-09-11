@@ -1,5 +1,4 @@
 import json
-import re
 import subprocess
 import sys
 from collections import Counter
@@ -344,34 +343,24 @@ def test_oav_authority_json_serialization_is_deterministic():
     assert first == second
 
 
-def test_odt_source_sections_have_no_duplicate_textual_keys():
-    text = Path("engine/odor_thresholds.py").read_text(encoding="utf-8")
-    odt_data_start = text.index("ODT_DATA: dict[str, dict] = ")
-    odt_verification_start = text.index("ODT_VERIFICATION: dict[str, dict] = ")
+def test_odt_data_sources_have_no_duplicate_keys():
+    """ODT data now lives in data/engine_data/*.json; guard against duplicate keys."""
+    from engine.material_data_loader import engine_data_path
 
-    def extract_dict_literal(source: str, assignment_start: int) -> str:
-        brace_start = source.index("{", assignment_start)
-        depth = 0
-        for idx in range(brace_start, len(source)):
-            char = source[idx]
-            if char == "{":
-                depth += 1
-            elif char == "}":
-                depth -= 1
-                if depth == 0:
-                    return source[brace_start : idx + 1]
-        raise AssertionError("Unclosed dict literal in odor_thresholds.py")
+    duplicates: dict[str, int] = {}
 
-    odt_data_block = extract_dict_literal(text, odt_data_start)
-    odt_verification_block = extract_dict_literal(text, odt_verification_start)
+    def _collect_duplicates(pairs):
+        counts = Counter(key for key, _ in pairs)
+        for key, count in counts.items():
+            if count > 1:
+                duplicates[key] = count
+        return dict(pairs)
 
-    def duplicate_keys(block: str) -> dict[str, int]:
-        keys = re.findall(r'^\s*"([^"]+)"\s*:\s*\{', block, flags=re.M)
-        counts = Counter(keys)
-        return {key: count for key, count in counts.items() if count > 1}
-
-    assert duplicate_keys(odt_data_block) == {}
-    assert duplicate_keys(odt_verification_block) == {}
+    json.loads(
+        engine_data_path("odor_thresholds").read_text(encoding="utf-8"),
+        object_pairs_hook=_collect_duplicates,
+    )
+    assert duplicates == {}
 
 
 def test_uncovered_naturals_and_opaque_preblends_never_use_monomolecular_oav():

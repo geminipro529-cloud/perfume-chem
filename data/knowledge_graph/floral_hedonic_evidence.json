@@ -1,0 +1,1565 @@
+{
+  "schema_version": "floral_hedonic_evidence_v1",
+  "evidence_class": "PEER_REVIEWED_LITERATURE",
+  "description": "Per-flower peer-reviewed evidence layer for the soliflore structures: odor/volatile chemistry (GC-MS/GC-O), hedonic perception, and bloom/release architecture. Companion to engine/knowledge/soliflore_structures.py. Every URL was resolved (Crossref/HTTP 2xx) at build time.",
+  "flowers": {
+    "rose": [
+      {
+        "title": "Aroma release regularities of Rosa damascena from Xuancheng via HS-GC-IMS and P&T-GC-MS",
+        "authors": "Wang H.; Yao L.; et al.",
+        "journal": "Flavour and Fragrance Journal",
+        "year": 2024,
+        "url": "https://doi.org/10.1002/ffj.3776",
+        "category": "odor_chemistry",
+        "used_for": "Headspace GC-IMS/MS identifies 68 volatiles across aroma release stages."
+      },
+      {
+        "title": "Identification of Odor-Active Trace Compounds in Blooming Flower of Damask Rose (Rosa damascena)",
+        "authors": "Ohashi T.; Miyazawa Y.; et al.",
+        "journal": "Journal of Agricultural and Food Chemistry",
+        "year": 2019,
+        "url": "https://doi.org/10.1021/acs.jafc.9b03391",
+        "category": "odor_chemistry",
+        "used_for": "MD-GC-MS-O finds trace odor-active compounds in blooming rose."
+      },
+      {
+        "title": "The volatile and sensorial profiles of processed Damask rose (Rosa damascena Mill.) products cultivated in China under different process treatments",
+        "authors": "He Z.; Wang H.; et al.",
+        "journal": "Industrial Crops and Products",
+        "year": 2024,
+        "url": "https://doi.org/10.1016/j.indcrop.2024.119716",
+        "category": "hedonics",
+        "used_for": "GC-MS/GC-O linked to sensorial profiles of rose products."
+      },
+      {
+        "title": "Chemical profile and sensory evaluation of Bulgarian rose (Rosa damascena Mill.) aroma products, isolated by different techniques",
+        "authors": "Antonova D.V.; Medarska Y.N.; et al.",
+        "journal": "Journal of Essential Oil Research",
+        "year": 2021,
+        "url": "https://doi.org/10.1080/10412905.2020.1839583",
+        "category": "hedonics",
+        "used_for": "Sensory evaluation plus chemical profile of Bulgarian rose aroma."
+      },
+      {
+        "title": "Solid phase microextraction/gas chromatographic and olfactory analysis of the scent and fixative properties of the essential oil of Rosa damascena L. from China",
+        "authors": "Jirovetz L.; Buchbauer G.; et al.",
+        "journal": "Flavour and Fragrance Journal",
+        "year": 2005,
+        "url": "https://doi.org/10.1002/ffj.1375",
+        "category": "odor_chemistry",
+        "used_for": "SPME-GC-MS and olfaction of Chinese rose oil odorants."
+      },
+      {
+        "title": "Rhythmic emission of floral volatiles from Rosa damascena semperflorens cv. 'Quatre Saisons'",
+        "authors": "Picone J.M.; Clery R.A.; et al.",
+        "journal": "Planta",
+        "year": 2004,
+        "url": "https://doi.org/10.1007/s00425-004-1250-5",
+        "category": "architecture",
+        "used_for": "Documents rhythmic volatile emission across flower development."
+      },
+      {
+        "title": "Diurnal regulation of scent emission in rose flowers",
+        "authors": "Hendel-Rahmanim K.; Masci T.; et al.",
+        "journal": "Planta",
+        "year": 2007,
+        "url": "https://doi.org/10.1007/s00425-007-0582-3",
+        "category": "architecture",
+        "used_for": "Shows diurnal/circadian control of rose scent emission."
+      },
+      {
+        "title": "Chemical Profile of Floral Scent at Different Flower Developmental Stages of rose de rescht (Rosa damascena Mill.) Cultivated in Beijing",
+        "authors": "Ren J.; Yang L.; et al.",
+        "journal": "Journal of Essential Oil Bearing Plants",
+        "year": 2016,
+        "url": "https://doi.org/10.1080/0972060X.2014.890081",
+        "category": "architecture",
+        "used_for": "Volatile accumulation profiled across rose flower developmental stages."
+      },
+      {
+        "title": "The Contribution of Volatile Organic Compounds (VOCs) Emitted by Petals and Pollen to the Scent of Garden Roses",
+        "authors": "Caser M.; Scariot V.",
+        "journal": "Horticulturae",
+        "year": 2022,
+        "url": "https://doi.org/10.3390/horticulturae8111049",
+        "category": "odor_chemistry",
+        "used_for": "Attributes rose scent to petal and pollen VOC emissions."
+      },
+      {
+        "title": "Traditional Rosa damascena flower harvesting practices evaluated through GC/MS metabolite profiling of flower volatiles",
+        "authors": "Rusanov K.; Kovacheva N.; et al.",
+        "journal": "Food Chemistry",
+        "year": 2011,
+        "url": "https://doi.org/10.1016/j.foodchem.2011.05.132",
+        "category": "architecture",
+        "used_for": "Links harvest timing and diurnal rhythm to flower volatiles."
+      }
+    ],
+    "jasmine": [
+      {
+        "title": "Chemical Composition, Olfactory Evaluation and Antimicrobial Activities of Jasminum grandiflorum L. Absolute from India",
+        "authors": "Jirovetz L.; Buchbauer G.; et al.",
+        "journal": "Natural Product Communications",
+        "year": 2007,
+        "url": "https://doi.org/10.1177/1934578X0700200411",
+        "category": "odor_chemistry",
+        "used_for": "GC/GC-MS plus olfactory evaluation of jasmine absolute."
+      },
+      {
+        "title": "Scent from Jasminum grandiflorum flowers: Investigation of the change in linalool enantiomers at various developmental stages using chemical and molecular methods",
+        "authors": "Pragadheesh V.S.; Chanotiya C.S.; et al.",
+        "journal": "Phytochemistry",
+        "year": 2017,
+        "url": "https://doi.org/10.1016/j.phytochem.2017.04.018",
+        "category": "odor_chemistry",
+        "used_for": "Chiral SPME tracks linalool enantiomers during flower development."
+      },
+      {
+        "title": "Volatiles distribution in jasmine flowers taxa grown in Egypt and its commercial products as analyzed via solid-phase microextraction (SPME) coupled to chemometrics",
+        "authors": "Issa M.Y.; Mohsen E.; et al.",
+        "journal": "Industrial Crops and Products",
+        "year": 2020,
+        "url": "https://doi.org/10.1016/j.indcrop.2019.112002",
+        "category": "odor_chemistry",
+        "used_for": "HS-SPME-GC-MS profiling of jasmine taxa and products."
+      },
+      {
+        "title": "Inter-specific variation in headspace scent volatiles composition of four commercially cultivated jasmine flowers",
+        "authors": "Bera P.; Kotamreddy J.N.R.; et al.",
+        "journal": "Natural Product Research",
+        "year": 2015,
+        "url": "https://doi.org/10.1080/14786419.2014.1000319",
+        "category": "odor_chemistry",
+        "used_for": "Compares headspace VOC blends across four jasmine species."
+      },
+      {
+        "title": "Identification of Potent Odorants in Chinese Jasmine Green Tea Scented with Flowers of Jasminum sambac",
+        "authors": "Ito Y.; Sugimoto A.; et al.",
+        "journal": "Journal of Agricultural and Food Chemistry",
+        "year": 2002,
+        "url": "https://doi.org/10.1021/jf020282h",
+        "category": "odor_chemistry",
+        "used_for": "AEDA determines potent jasmine flower odorants."
+      },
+      {
+        "title": "Characterization of aroma-active compounds in Jasminum sambac concrete by aroma extract dilution analysis and odour activity value",
+        "authors": "Zhang J.; Li J.; et al.",
+        "journal": "Flavour and Fragrance Journal",
+        "year": 2021,
+        "url": "https://doi.org/10.1002/ffj.3631",
+        "category": "odor_chemistry",
+        "used_for": "AEDA and OAV identify sambac concrete key odorants."
+      },
+      {
+        "title": "Volatiles Emitted at Different Flowering Stages of Jasminum sambac and Expression of Genes Related to alpha-Farnesene Biosynthesis",
+        "authors": "Yu Y.; Lyu S.; et al.",
+        "journal": "Molecules",
+        "year": 2017,
+        "url": "https://doi.org/10.3390/molecules22040546",
+        "category": "architecture",
+        "used_for": "Tracks volatiles and biosynthesis genes across flowering stages."
+      },
+      {
+        "title": "Temporal relationship between emitted and endogenous floral scent volatiles in summer- and winter-blooming Jasminum species",
+        "authors": "Barman M.; Mitra A.",
+        "journal": "Physiologia Plantarum",
+        "year": 2019,
+        "url": "https://doi.org/10.1111/ppl.12849",
+        "category": "architecture",
+        "used_for": "Relates emission rhythms to endogenous volatile pools in jasmine."
+      },
+      {
+        "title": "The Jasmine (Jasminum sambac) Genome Provides Insight into the Biosynthesis of Flower Fragrances and Jasmonates",
+        "authors": "Chen G.; Mostafa S.; et al.",
+        "journal": "Genomics, Proteomics & Bioinformatics",
+        "year": 2023,
+        "url": "https://doi.org/10.1016/j.gpb.2022.12.005",
+        "category": "architecture",
+        "used_for": "Genome basis of jasmine flower fragrance biosynthesis."
+      },
+      {
+        "title": "Understanding the underlying dimensions in perfumers' odor perception space as a basis for developing meaningful odor maps",
+        "authors": "Zarzo M.; Stanton D.T.",
+        "journal": "Attention, Perception & Psychophysics",
+        "year": 2009,
+        "url": "https://doi.org/10.3758/APP.71.2.225",
+        "category": "hedonics",
+        "used_for": "Models hedonic dimensions; jasmine absolute among key materials."
+      }
+    ],
+    "tuberose": [
+      {
+        "title": "Morphological, Physiological and Ultrastructural Changes in Flowers Explain the Spatio-Temporal Emission of Scent Volatiles in Polianthes tuberosa L.",
+        "authors": "Maiti S.; Mitra A.",
+        "journal": "Plant and Cell Physiology",
+        "year": 2017,
+        "url": "https://doi.org/10.1093/pcp/pcx143",
+        "category": "architecture",
+        "used_for": "Flower anatomy explains spatio-temporal tuberose scent emission."
+      },
+      {
+        "title": "Profiling of volatile and non-volatile metabolites in Polianthes tuberosa L. flowers reveals intraspecific variation among cultivars",
+        "authors": "Kutty N.N.; Mitra A.",
+        "journal": "Phytochemistry",
+        "year": 2019,
+        "url": "https://doi.org/10.1016/j.phytochem.2019.02.006",
+        "category": "odor_chemistry",
+        "used_for": "Volatile/non-volatile metabolite variation among tuberose cultivars."
+      },
+      {
+        "title": "Transcriptome analysis of Polianthes tuberosa during floral scent formation",
+        "authors": "Fan R.; Chen Y.; et al.",
+        "journal": "PLOS ONE",
+        "year": 2018,
+        "url": "https://doi.org/10.1371/journal.pone.0199261",
+        "category": "architecture",
+        "used_for": "Scent formation and benzenoid biosynthesis across flower stages."
+      },
+      {
+        "title": "Effect of Supercritical Fluid Extraction Process on Chemical Composition of Polianthes tuberosa Flower Extracts",
+        "authors": "Fragoso-Jimenez J.C.; Tapia-Campos E.; et al.",
+        "journal": "Processes",
+        "year": 2019,
+        "url": "https://doi.org/10.3390/pr7020060",
+        "category": "odor_chemistry",
+        "used_for": "Extraction method alters tuberose flower volatile composition."
+      },
+      {
+        "title": "Elucidation of headspace volatilome in Polianthes tuberosa flower for identifying non-invasive biomarkers",
+        "authors": "Maiti S.; Mitra A.",
+        "journal": "Horticulture, Environment, and Biotechnology",
+        "year": 2019,
+        "url": "https://doi.org/10.1007/s13580-018-0116-x",
+        "category": "odor_chemistry",
+        "used_for": "Headspace volatilome yields six tuberose scent biomarkers."
+      },
+      {
+        "title": "Intense Floral Scent Emission in Polianthes tuberosa L. (Tuberose) Variants Sprouted from gamma-Irradiated Tubers",
+        "authors": "Kutty N.N.; Ghissing U.; et al.",
+        "journal": "Journal of Plant Growth Regulation",
+        "year": 2020,
+        "url": "https://doi.org/10.1007/s00344-019-09967-0",
+        "category": "architecture",
+        "used_for": "Variants show intense floral scent emission after irradiation."
+      },
+      {
+        "title": "Revealing floral metabolite network in tuberose that underpins scent volatiles synthesis, storage and emission",
+        "authors": "Kutty N.N.; Ghissing U.; et al.",
+        "journal": "Plant Molecular Biology",
+        "year": 2021,
+        "url": "https://doi.org/10.1007/s11103-021-01171-7",
+        "category": "architecture",
+        "used_for": "Metabolite network for tuberose scent synthesis, storage, emission."
+      },
+      {
+        "title": "Sequential ultrasound-microwave-assisted extraction of tuberose (Polianthes tuberosa L.) concrete",
+        "authors": "Yadav R.; Mohapatra D.; et al.",
+        "journal": "Biomass Conversion and Biorefinery",
+        "year": 2025,
+        "url": "https://doi.org/10.1007/s13399-023-04097-w",
+        "category": "odor_chemistry",
+        "used_for": "Processing parameters change tuberose concrete volatile profile."
+      },
+      {
+        "title": "Aromatherapy oil massage formulation from essential oil: tuberose flower (Polianthes tuberosa) and lime oil (Citrus aurantifolia)",
+        "authors": "Rusdianto A.S.; Wiyono A.E.; Fiana F.H.",
+        "journal": "International Journal on Food, Agriculture and Natural Resources",
+        "year": 2020,
+        "url": "https://doi.org/10.46676/ij-fanres.v1i2.12",
+        "category": "hedonics",
+        "used_for": "Hedonic (preference) test of tuberose-flower aromatherapy formulations."
+      }
+    ],
+    "gardenia": [
+      {
+        "title": "Benefits of Gardenia jasminoides Ellis's floral volatile components on human emotions and moods",
+        "authors": "Cai Y.; Chen H.; et al.",
+        "journal": "Scientific Reports",
+        "year": 2025,
+        "url": "https://doi.org/10.1038/s41598-024-84190-w",
+        "category": "hedonics",
+        "used_for": "Floral volatiles shown to improve human emotions and moods."
+      },
+      {
+        "title": "Exploring aroma profiles of Gardenia jasminoides flowers and leaves by HS-GC-MS",
+        "authors": "Guo X.",
+        "journal": "Natural Product Research",
+        "year": 2025,
+        "url": "https://doi.org/10.1080/14786419.2025.2570892",
+        "category": "odor_chemistry",
+        "used_for": "HS-GC-MS with rOAV identifies gardenia aroma-active compounds."
+      },
+      {
+        "title": "Identification, quantitative and bioactivity analyses of aroma and alcohol-soluble components in flowers of Gardenia jasminoides and its variety during different drying processes",
+        "authors": "Yu R.; Li Y.; et al.",
+        "journal": "Food Chemistry",
+        "year": 2023,
+        "url": "https://doi.org/10.1016/j.foodchem.2023.135846",
+        "category": "odor_chemistry",
+        "used_for": "Quantifies aroma components across gardenia flower drying stages."
+      },
+      {
+        "title": "Behavioral Responses of Thrips hawaiiensis to Volatile Compounds Identified from Gardenia jasminoides Ellis",
+        "authors": "Cao Y.; Wang J.; et al.",
+        "journal": "Insects",
+        "year": 2020,
+        "url": "https://doi.org/10.3390/insects11070408",
+        "category": "odor_chemistry",
+        "used_for": "Identifies Gardenia jasminoides floral volatile compounds."
+      },
+      {
+        "title": "An Exploratory Study on the Rapid Detection of Volatile Organic Compounds in Gardenia Fruit Using the Heracles NEO Ultra-Fast Gas Phase Electronic Nose",
+        "authors": "Cai W.; Zhou W.; et al.",
+        "journal": "Metabolites",
+        "year": 2024,
+        "url": "https://doi.org/10.3390/metabo14080445",
+        "category": "odor_chemistry",
+        "used_for": "Rapid VOC/odour profiling of Gardenia jasminoides fruit."
+      },
+      {
+        "title": "Chemical Profiling, Antioxidant and Antimicrobial Activities, and In Silico Evaluation of Gardenia jasminoides Essential Oil",
+        "authors": "Kara M.; Haoudi N.; et al.",
+        "journal": "Plants",
+        "year": 2025,
+        "url": "https://doi.org/10.3390/plants14071055",
+        "category": "odor_chemistry",
+        "used_for": "Chemical profiling of Gardenia jasminoides essential oil."
+      }
+    ],
+    "muguet": [
+      {
+        "title": "Lily-of-the-valley fragrances",
+        "authors": "Ramachanderan R.; Schaefer B.",
+        "journal": "ChemTexts",
+        "year": 2019,
+        "url": "https://doi.org/10.1007/s40828-019-0081-8",
+        "category": "odor_chemistry",
+        "used_for": "Reviews natural muguet scent and synthetic lily-of-the-valley odorants."
+      },
+      {
+        "title": "Provenancing Flower Bulbs by Analytical Fingerprinting: Convallaria Majalis",
+        "authors": "Van Ruth S.; De Visser R.",
+        "journal": "Agriculture",
+        "year": 2015,
+        "url": "https://doi.org/10.3390/agriculture5010017",
+        "category": "odor_chemistry",
+        "used_for": "VOC/isotope fingerprinting of Convallaria majalis bulbs."
+      },
+      {
+        "title": "Comparative Analysis and Identification of Terpene Synthase Genes in Convallaria keiskei Leaf, Flower and Root Using RNA-Sequencing Profiling",
+        "authors": "Claude S.J.; Raman G.; et al.",
+        "journal": "Plants",
+        "year": 2023,
+        "url": "https://doi.org/10.3390/plants12152797",
+        "category": "architecture",
+        "used_for": "Flower-enriched terpene synthases underlying muguet-type volatiles."
+      },
+      {
+        "title": "Structure-Odor Relationships",
+        "authors": "Rossiter K.J.",
+        "journal": "Chemical Reviews",
+        "year": 1996,
+        "url": "https://doi.org/10.1021/cr950068a",
+        "category": "hedonics",
+        "used_for": "Structure-odor basis of muguet odorant perception and intensity."
+      },
+      {
+        "title": "What's Hot, What's Not: The Trends of the Past 20 Years in the Chemistry of Odorants",
+        "authors": "Armanino N.; Charpentier J.; et al.",
+        "journal": "Angewandte Chemie International Edition",
+        "year": 2020,
+        "url": "https://doi.org/10.1002/anie.202005719",
+        "category": "odor_chemistry",
+        "used_for": "Reviews hydroxycitronellal and modern muguet odorant chemistry."
+      },
+      {
+        "title": "Predicting Odor Pleasantness from Odorant Structure: Pleasantness as a Reflection of the Physical World",
+        "authors": "Khan R.M.; Luk C.H.; et al.",
+        "journal": "The Journal of Neuroscience",
+        "year": 2007,
+        "url": "https://doi.org/10.1523/jneurosci.1158-07.2007",
+        "category": "hedonics",
+        "used_for": "Predicts odour pleasantness, including floral/muguet-type odorants."
+      },
+      {
+        "title": "Floral scents - a checklist of volatile compounds isolated by head-space techniques",
+        "authors": "Knudsen J.T.; Tollsten L.; et al.",
+        "journal": "Phytochemistry",
+        "year": 1993,
+        "url": "https://doi.org/10.1016/0031-9422(93)85502-I",
+        "category": "odor_chemistry",
+        "used_for": "Compiles floral headspace volatiles including muguet-type flowers."
+      },
+      {
+        "title": "Determination of Some Bioactivities of Convallaria majalis L. (Lily of the Valley), Isolation Pharmaceutical Active Ingredient and Investigation Its Industrial Usage",
+        "authors": "Demir N.; Dasdemir S.N.; et al.",
+        "journal": "Middle East Journal of Science",
+        "year": 2022,
+        "url": "https://doi.org/10.51477/mejs.1196088",
+        "category": "odor_chemistry",
+        "used_for": "Headspace volatile and bioactivity analysis of C. majalis flowers."
+      }
+    ],
+    "neroli": [
+      {
+        "title": "Volatile Constituents and Antioxidant Activity of Peel, Flowers and Leaf Oils of Citrus aurantium L. Growing in Greece",
+        "authors": "Sarrou E.; Chatzopoulou P.; Dimassi-Theriou K.; et al.",
+        "journal": "Molecules",
+        "year": 2013,
+        "url": "https://doi.org/10.3390/molecules180910639",
+        "category": "odor_chemistry",
+        "used_for": "GC-MS profiling of Greek neroli flower oil"
+      },
+      {
+        "title": "Quantification and determination of chemical composition of the essential oil extracted from natural orange blossom water (Citrus aurantium L. ssp. aurantium)",
+        "authors": "Jeannot V.; Chahboun J.; Russell D.; et al.",
+        "journal": "International Journal of Aromatherapy",
+        "year": 2005,
+        "url": "https://doi.org/10.1016/j.ijat.2005.03.012",
+        "category": "odor_chemistry",
+        "used_for": "GC/MS composition of orange blossom water versus neroli"
+      },
+      {
+        "title": "Variations in chemical compositions of essential oil from sour orange (Citrus aurantium L.) blossoms by different isolation methods",
+        "authors": "Mohagheghniapour A.; Saharkhiz M.J.; Golmakani M.T.; et al.",
+        "journal": "Sustainable Chemistry and Pharmacy",
+        "year": 2018,
+        "url": "https://doi.org/10.1016/j.scp.2018.10.008",
+        "category": "odor_chemistry",
+        "used_for": "Extraction method effects on sour orange blossom oil"
+      },
+      {
+        "title": "Structure-Odor Relationship Study on Geraniol, Nerol, and Their Synthesized Oxygenated Derivatives",
+        "authors": "Elsharif S.A.; Buettner A.",
+        "journal": "Journal of Agricultural and Food Chemistry",
+        "year": 2016,
+        "url": "https://doi.org/10.1021/acs.jafc.6b04534",
+        "category": "odor_chemistry",
+        "used_for": "Odor structure relations of key neroli monoterpenols"
+      },
+      {
+        "title": "Type and magnitude of non-compliance and adulteration in neroli, mandarin and bergamot essential oils purchased on-line: potential consumer vulnerability",
+        "authors": "Pierson M.; Fernandez X.; Antoniotti S.",
+        "journal": "Scientific Reports",
+        "year": 2021,
+        "url": "https://doi.org/10.1038/s41598-021-90307-2",
+        "category": "odor_chemistry",
+        "used_for": "Authenticity and adulteration markers in neroli oil"
+      },
+      {
+        "title": "Citrus aurantium Aroma for Anxiety in Patients with Acute Coronary Syndrome: A Double-Blind Placebo-Controlled Trial",
+        "authors": "Moslemi F.; Alijaniha F.; Naseri M.; et al.",
+        "journal": "The Journal of Alternative and Complementary Medicine",
+        "year": 2019,
+        "url": "https://doi.org/10.1089/acm.2019.0061",
+        "category": "hedonics",
+        "used_for": "Neroli aroma reduces anxiety in cardiac patients"
+      },
+      {
+        "title": "Citrus aurantium Flowers: Overview of Chemistry, Functionality, and Technological Applications",
+        "authors": "Seyyedi-Mansour S.; Donn P.; Barciela P.; et al.",
+        "journal": "Molecules",
+        "year": 2025,
+        "url": "https://doi.org/10.3390/molecules30040930",
+        "category": "odor_chemistry",
+        "used_for": "Review of bitter orange flower chemistry and uses"
+      }
+    ],
+    "orange_blossom": [
+      {
+        "title": "Volatile Compounds in Citrus Essential Oils: A Comprehensive Review",
+        "authors": "Gonzalez-Mas M.C.; Rambla J.L.; Lopez-Gresa M.P.; et al.",
+        "journal": "Frontiers in Plant Science",
+        "year": 2019,
+        "url": "https://doi.org/10.3389/fpls.2019.00012",
+        "category": "odor_chemistry",
+        "used_for": "Review of citrus flower volatile chemistry"
+      },
+      {
+        "title": "Comparative Analysis of Flower Volatiles from Nine Citrus at Three Blooming Stages",
+        "authors": "Azam M.; Song M.; Fan F.; et al.",
+        "journal": "International Journal of Molecular Sciences",
+        "year": 2013,
+        "url": "https://doi.org/10.3390/ijms141122346",
+        "category": "architecture",
+        "used_for": "Flower volatiles across citrus blooming stages"
+      },
+      {
+        "title": "Transcriptomic and metabolomic analyses provide insight into the volatile compounds of citrus leaves and flowers",
+        "authors": "Zhang H.; Chen M.; Wen H.; et al.",
+        "journal": "BMC Plant Biology",
+        "year": 2020,
+        "url": "https://doi.org/10.1186/s12870-019-2222-z",
+        "category": "odor_chemistry",
+        "used_for": "Genes and metabolites underlying citrus flower volatiles"
+      },
+      {
+        "title": "Comparative Analysis of Hydrosol Volatile Components of Citrus x Aurantium 'Daidai' and Citrus x Aurantium L. Dried Buds Using HS-SPME-GC-MS",
+        "authors": "Xie X.; Xue H.; Ma B.; et al.",
+        "journal": "Molecules",
+        "year": 2024,
+        "url": "https://doi.org/10.3390/molecules29153498",
+        "category": "odor_chemistry",
+        "used_for": "HS-SPME-GC-MS of bitter orange bud hydrosol"
+      },
+      {
+        "title": "Headspace Analyses of Leaf and Flower of Citrus limetta, Citrus maxima, Citrus sinensis, and Citrus medica for Volatile Compounds by CombiPAL System Technique",
+        "authors": "Rowshan V.; Najafian S.",
+        "journal": "Journal of Herbs, Spices & Medicinal Plants",
+        "year": 2013,
+        "url": "https://doi.org/10.1080/10496475.2013.818605",
+        "category": "odor_chemistry",
+        "used_for": "Headspace flower volatiles including sweet orange"
+      },
+      {
+        "title": "A comparison of citrus blossom volatiles",
+        "authors": "Jabalpurwala F.A.; Smoot J.M.; Rouseff R.L.",
+        "journal": "Phytochemistry",
+        "year": 2009,
+        "url": "https://doi.org/10.1016/j.phytochem.2009.07.031",
+        "category": "architecture",
+        "used_for": "Emitted blossom volatiles compared across 15 citrus cultivars"
+      },
+      {
+        "title": "Effect of bitter orange blossom distillate on anxiety and sleep disorder in mothers with infants admitted to neonatal intensive care unit: A randomized controlled clinical trial",
+        "authors": "Dehghan Z.; Jafarian Amiri S.R.; Mozaffarpur S.A.; Shirafkan H.; Arzani A.",
+        "journal": "PLoS One",
+        "year": 2024,
+        "url": "https://doi.org/10.1371/journal.pone.0306887",
+        "category": "hedonics",
+        "used_for": "RCT: bitter orange blossom distillate reduced anxiety and improved sleep."
+      },
+      {
+        "title": "Heart rate variability sensing can reveal characteristic autonomic modulation via aromatherapy in relation to the effects on feeling: A study on Citrus aurantium oil and rose water",
+        "authors": "Shinba T.; Asahi E.; Sakuragawa S.",
+        "journal": "Sensors (Basel)",
+        "year": 2025,
+        "url": "https://doi.org/10.3390/s25226906",
+        "category": "hedonics",
+        "used_for": "HRV shows Citrus aurantium flower oil alters autonomic state linked to feeling."
+      },
+      {
+        "title": "Vetiver and orange blossom aid in lowering blood pressure and heart rate and improving sleep quality",
+        "authors": "Chang K.M.; Whu S.W.; Shen T.S.; Lai Y.J.",
+        "journal": "Holistic Nursing Practice",
+        "year": 2026,
+        "url": "https://doi.org/10.1097/HNP.0000000000000738",
+        "category": "hedonics",
+        "used_for": "Orange blossom lowered blood pressure/heart rate and improved sleep quality."
+      }
+    ],
+    "ylang": [
+      {
+        "title": "Volatile Organic Compound Emissions from Different Stages of Cananga odorata Flower Development",
+        "authors": "Qin X.-W.; Hao C.-Y.; He S.-Z.; et al.",
+        "journal": "Molecules",
+        "year": 2014,
+        "url": "https://doi.org/10.3390/molecules19078965",
+        "category": "architecture",
+        "used_for": "VOC emission dynamics across ylang flower development"
+      },
+      {
+        "title": "Effect of Flower Development Stages on the Dynamics of Volatile Compounds in Ylang-Ylang (Cananga odorata) Essential Oil",
+        "authors": "Chakira A.; Garcia C.; Soria C.; et al.",
+        "journal": "Horticulturae",
+        "year": 2022,
+        "url": "https://doi.org/10.3390/horticulturae8110986",
+        "category": "architecture",
+        "used_for": "Developmental stage effects on ylang oil composition"
+      },
+      {
+        "title": "Profiling of Aroma-Active Compounds in Ylang-Ylang Essential Oils by Aroma Extract Dilution Analysis (AEDA) and Chemometric Methods",
+        "authors": "Ng F.; Thong A.; Basri N.; et al.",
+        "journal": "Journal of Agricultural and Food Chemistry",
+        "year": 2021,
+        "url": "https://doi.org/10.1021/acs.jafc.1c05492",
+        "category": "odor_chemistry",
+        "used_for": "AEDA/GC-O identification of ylang key odorants"
+      },
+      {
+        "title": "The floral transcriptome of ylang ylang (Cananga odorata var. fruticosa) uncovers biosynthetic pathways for volatile organic compounds and a multifunctional and novel sesquiterpene synthase",
+        "authors": "Jin J.; Kim M.J.; Dhandapani S.; et al.",
+        "journal": "Journal of Experimental Botany",
+        "year": 2015,
+        "url": "https://doi.org/10.1093/jxb/erv196",
+        "category": "architecture",
+        "used_for": "Floral transcriptome and VOC biosynthesis in ylang"
+      },
+      {
+        "title": "A study of the compositional variation of the essential oil of ylang-ylang (Cananga odorata forma genuina) during flower development",
+        "authors": "Stashenko E.E.; Torres W.; Morales J.R.M.",
+        "journal": "Journal of High Resolution Chromatography",
+        "year": 1995,
+        "url": "https://doi.org/10.1002/jhrc.1240180206",
+        "category": "architecture",
+        "used_for": "Oil composition changes during ylang flower development"
+      },
+      {
+        "title": "Traditional Uses, Phytochemistry, and Bioactivities of Cananga odorata (Ylang-Ylang)",
+        "authors": "Tan L.T.H.; Lee L.H.; Yin W.F.; et al.",
+        "journal": "Evidence-Based Complementary and Alternative Medicine",
+        "year": 2015,
+        "url": "https://doi.org/10.1155/2015/896314",
+        "category": "odor_chemistry",
+        "used_for": "Review of ylang-ylang phytochemistry and volatiles"
+      },
+      {
+        "title": "Fragrance preference of essential oil blends for reducing stress and sleep problems in adult women",
+        "authors": "Sathirachawan K.; Chansiri K.; Sirikate D.; et al.",
+        "journal": "Universa Medicina",
+        "year": 2025,
+        "url": "https://doi.org/10.18051/univmed.2025.v44.162-171",
+        "category": "hedonics",
+        "used_for": "Hedonic preference for ylang-containing relaxation blends"
+      }
+    ],
+    "champaca": [
+      {
+        "title": "Volatiles from Michelia champaca Flower: Comparative analysis by Simultaneous Distillation-Extraction and Solid Phase Microextraction",
+        "authors": "Baez D.; Morales D.; Pino J.A.",
+        "journal": "Natural Product Communications",
+        "year": 2012,
+        "url": "https://doi.org/10.1177/1934578X1200700529",
+        "category": "odor_chemistry",
+        "used_for": "SDE versus SPME champaca volatile profiles"
+      },
+      {
+        "title": "Integrated metabolome and transcriptome analysis of Magnolia champaca identifies biosynthetic pathways for floral volatile organic compounds",
+        "authors": "Dhandapani S.; Jin J.; Sridhar V.; et al.",
+        "journal": "BMC Genomics",
+        "year": 2017,
+        "url": "https://doi.org/10.1186/s12864-017-3846-8",
+        "category": "odor_chemistry",
+        "used_for": "Biosynthesis pathways of champaca floral volatiles"
+      },
+      {
+        "title": "Chemical Divergence in Floral Scents of Magnolia and Allied Genera (Magnoliaceae)",
+        "authors": "Azuma H.; Toyota M.; Asakawa Y.; et al.",
+        "journal": "Plant Species Biology",
+        "year": 1997,
+        "url": "https://doi.org/10.1111/j.1442-1984.1997.tb00159.x",
+        "category": "odor_chemistry",
+        "used_for": "GC-MS floral scent comparison across Magnoliaceae"
+      },
+      {
+        "title": "Identification of elite chemotypes of industrially important Magnolia champaca through an integrated approach using GC-MS and chemometric analysis",
+        "authors": "Sahoo C.; Nayak A.; Das P.K.; et al.",
+        "journal": "Journal of Essential Oil Bearing Plants",
+        "year": 2025,
+        "url": "https://doi.org/10.1080/0972060X.2025.2604122",
+        "category": "odor_chemistry",
+        "used_for": "GC-MS chemotypes of Magnolia champaca flowers"
+      },
+      {
+        "title": "Phytochemical Analysis and Specific Activities of Bark and Flower Extracts from Four Magnolia Plant Species",
+        "authors": "Cristea R.M.; Sava C.; Capatana C.; et al.",
+        "journal": "Horticulturae",
+        "year": 2024,
+        "url": "https://doi.org/10.3390/horticulturae10020141",
+        "category": "odor_chemistry",
+        "used_for": "GC-MS volatiles of Magnolia champaca flower extracts"
+      },
+      {
+        "title": "Reproductive and Pollination Biology of Magnolia and its Allied Genera (Magnoliaceae). I. Floral Volatiles of Several Magnolia and Michelia Species",
+        "authors": "Yasukawa S.; Kato H.; Yamaoka R.; et al.",
+        "journal": "Plant Species Biology",
+        "year": 1992,
+        "url": "https://doi.org/10.1111/j.1442-1984.1992.tb00225.x",
+        "category": "architecture",
+        "used_for": "Floral volatiles and insect attraction in Michelia"
+      },
+      {
+        "title": "Floral scents, leaf volatiles and thermogenic flowers in Magnoliaceae",
+        "authors": "Azuma H.; Thien L.B.; Kawano S.",
+        "journal": "Plant Species Biology",
+        "year": 1999,
+        "url": "https://doi.org/10.1046/j.1442-1984.1999.00015.x",
+        "category": "architecture",
+        "used_for": "Floral scent emission and thermogenic flowering in Magnoliaceae"
+      }
+    ],
+    "osmanthus": [
+      {
+        "title": "Edible Osmanthus fragrans flowers: aroma and functional components, beneficial functions, and applications",
+        "authors": "Yang J.; Gu T.; Lu Y.; et al.",
+        "journal": "Critical Reviews in Food Science and Nutrition",
+        "year": 2023,
+        "url": "https://doi.org/10.1080/10408398.2023.2220130",
+        "category": "odor_chemistry",
+        "used_for": "Review of osmanthus aroma and functional components"
+      },
+      {
+        "title": "Analysis of aroma-active compounds in three sweet osmanthus (Osmanthus fragrans) cultivars by GC-olfactometry and GC-MS",
+        "authors": "Cai X.; Mai R.-Z.; Zou J.-J.; et al.",
+        "journal": "Journal of Zhejiang University-SCIENCE B",
+        "year": 2014,
+        "url": "https://doi.org/10.1631/jzus.B1400058",
+        "category": "odor_chemistry",
+        "used_for": "GC-O and GC-MS aroma-active osmanthus compounds"
+      },
+      {
+        "title": "Identification of floral aromatic volatile compounds in 29 cultivars from four groups of Osmanthus fragrans by gas chromatography-mass spectrometry",
+        "authors": "Fu J.; Hou D.; Wang Y.; et al.",
+        "journal": "Horticulture, Environment, and Biotechnology",
+        "year": 2019,
+        "url": "https://doi.org/10.1007/s13580-019-00153-5",
+        "category": "odor_chemistry",
+        "used_for": "SPME-GC-MS floral volatiles across 29 cultivars"
+      },
+      {
+        "title": "The Emission of the Floral Scent of Four Osmanthus fragrans Cultivars in Response to Different Temperatures",
+        "authors": "Fu J.; Hou D.; Zhang C.; et al.",
+        "journal": "Molecules",
+        "year": 2017,
+        "url": "https://doi.org/10.3390/molecules22030430",
+        "category": "architecture",
+        "used_for": "Temperature effects on osmanthus scent emission"
+      },
+      {
+        "title": "Genomic, metabonomic and transcriptomic analyses of sweet osmanthus varieties provide insights into floral aroma formation",
+        "authors": "Yue Y.; Shi T.; Liu J.; et al.",
+        "journal": "Scientia Horticulturae",
+        "year": 2022,
+        "url": "https://doi.org/10.1016/j.scienta.2022.111442",
+        "category": "architecture",
+        "used_for": "Genomic and metabolic basis of osmanthus aroma"
+      },
+      {
+        "title": "Characterization of volatile compounds in flowers from four groups of sweet osmanthus (Osmanthus fragrans) cultivars",
+        "authors": "Xin H.; Wu B.; Zhang H.; et al.",
+        "journal": "Canadian Journal of Plant Science",
+        "year": 2013,
+        "url": "https://doi.org/10.4141/cjps2012-333",
+        "category": "odor_chemistry",
+        "used_for": "Volatile compounds in four osmanthus cultivar groups"
+      },
+      {
+        "title": "Application of HS-SPME and GC-MS to Characterization of Volatile Compounds Emitted from Osmanthus Flowers",
+        "authors": "Deng C.; Song G.; Hu Y.",
+        "journal": "Annali di Chimica",
+        "year": 2004,
+        "url": "https://doi.org/10.1002/adic.200490114",
+        "category": "odor_chemistry",
+        "used_for": "HS-SPME/GC-MS of volatiles emitted by osmanthus flowers"
+      },
+      {
+        "title": "Neurophysiological responses to inhalation of Osmanthus fragrans volatiles: A combined electronic nose and electroencephalogram (EEG) study on concentration-dependent effects",
+        "authors": "Hong S.J.; Park H.; Ban Y.; et al.",
+        "journal": "Plants (Basel)",
+        "year": 2026,
+        "url": "https://doi.org/10.3390/plants15132006",
+        "category": "hedonics",
+        "used_for": "Human EEG/e-nose: concentration-dependent relaxing responses to osmanthus."
+      },
+      {
+        "title": "Physiological effects of a garden plant smellscape from the perspective of perceptual interaction",
+        "authors": "Zhang X.; Guo J.; Zhang X.; Zhang Q.",
+        "journal": "International Journal of Environmental Research and Public Health",
+        "year": 2023,
+        "url": "https://doi.org/10.3390/ijerph20065004",
+        "category": "hedonics",
+        "used_for": "RCT: osmanthus odor (with visuals) relaxed autonomic/CNS measures."
+      },
+      {
+        "title": "Investigation of volatile profiles and odor-active compounds in Osmanthus fragrans var. aurantiacus using GC/MS, GC-olfactometry and electronic-nose",
+        "authors": "Hong S.J.; Cho J.J.; Jeong H.; et al.",
+        "journal": "Food Science and Biotechnology",
+        "year": 2024,
+        "url": "https://doi.org/10.1007/s10068-023-01455-2",
+        "category": "hedonics",
+        "used_for": "GC-olfactometry and e-nose sensory identification of osmanthus odorants."
+      }
+    ],
+    "violet": [
+      {
+        "title": "Temporal, Developmental, and Comparative Characterization of the Floral Volatile Emissions of the Famously Scented Violet Species, Viola odorata",
+        "authors": "Keene S.A.; Sims M.; Kim J.Y.; Colquhoun T.A.; et al.",
+        "journal": "HortScience",
+        "year": 2024,
+        "url": "https://doi.org/10.21273/hortsci17847-24",
+        "category": "architecture",
+        "used_for": "Developmental/temporal floral volatile emission incl. ionones"
+      },
+      {
+        "title": "Deciphering the phylogeny of violets based on multiplexed genetic and metabolomic approaches",
+        "authors": "Chervin J.; Talou T.; Audonnet M.; Dumas B.; et al.",
+        "journal": "Phytochemistry",
+        "year": 2019,
+        "url": "https://doi.org/10.1016/j.phytochem.2019.04.001",
+        "category": "odor_chemistry",
+        "used_for": "HS-SPME/GC-MS violet floral volatiles and ionone derivatives"
+      },
+      {
+        "title": "Volatile Compounds of Viola odorata Absolutes: Identification of Odorant Active Markers to Distinguish Plants Originating from France and Egypt",
+        "authors": "Saint-Lary L.; Roy C.; Paris J.P.; et al.",
+        "journal": "Chemistry & Biodiversity",
+        "year": 2014,
+        "url": "https://doi.org/10.1002/cbdv.201300387",
+        "category": "odor_chemistry",
+        "used_for": "GC-MS and GC-O odorant-active markers in violet absolutes"
+      },
+      {
+        "title": "A new derivative of ionone from aerial parts of Viola odorata Linn. and its antibacterial role against respiratory pathogens",
+        "authors": "Gautam S.S.; Bithel N.; Kumar S.; Painuly D.; Singh J.",
+        "journal": "Clinical Phytoscience",
+        "year": 2016,
+        "url": "https://doi.org/10.1186/s40816-016-0018-3",
+        "category": "odor_chemistry",
+        "used_for": "GC-MS characterization of a violet ionone derivative"
+      },
+      {
+        "title": "Commercially Available Viola odorata Oil, Chemical Variability and Antimicrobial Activity",
+        "authors": "Orchard A.; Moosa T.; Motala N.; Kamatou G.; Viljoen A.; et al.",
+        "journal": "Molecules",
+        "year": 2023,
+        "url": "https://doi.org/10.3390/molecules28041676",
+        "category": "odor_chemistry",
+        "used_for": "GC-MS chemical variability of commercial violet oils"
+      },
+      {
+        "title": "Can nectar be a disadvantage? Contrasting pollination natural histories of two woody Violaceae from the Neotropics",
+        "authors": "Braun M.; Dotterl S.; Schlindwein C.; et al.",
+        "journal": "International Journal of Plant Sciences",
+        "year": 2012,
+        "url": "https://doi.org/10.1086/663167",
+        "category": "architecture",
+        "used_for": "Floral scent and pollination biology in Violaceae incl. V. odorata"
+      },
+      {
+        "title": "Understanding the underlying dimensions in perfumers' odor perception space as a basis for developing meaningful odor maps",
+        "authors": "Zarzo M.; Stanton D.T.",
+        "journal": "Attention, Perception, & Psychophysics",
+        "year": 2009,
+        "url": "https://doi.org/10.3758/APP.71.2.225",
+        "category": "hedonics",
+        "used_for": "Perfumers' odor perception space; pleasantness and violet-leaf absolute"
+      }
+    ],
+    "iris": [
+      {
+        "title": "A comprehensive review on essential oils and extracts from Iris rhizomes",
+        "authors": "Bicchi C.; Joulain D.",
+        "journal": "Phytochemistry Reviews",
+        "year": 2025,
+        "url": "https://doi.org/10.1007/s11101-024-09981-5",
+        "category": "odor_chemistry",
+        "used_for": "Review of orris oils, irones and their precursors"
+      },
+      {
+        "title": "Gas Chromatography-Mass Spectrometry Analysis of Volatile Organic Compounds from Three Endemic Iris Taxa: Headspace Solid-Phase Microextraction",
+        "authors": "Friscic M.; Males Z.; Males I.; Duka I.; Radonic A.; Mitic B.; et al.",
+        "journal": "Molecules",
+        "year": 2024,
+        "url": "https://doi.org/10.3390/molecules29174107",
+        "category": "odor_chemistry",
+        "used_for": "HS-SPME GC-MS volatiles of endemic Iris taxa; irones"
+      },
+      {
+        "title": "Composition of Volatiles from Three Iris Species of Turkey",
+        "authors": "Baser K.H.C.; Demirci B.; Orhan I.E.; Kartal M.; et al.",
+        "journal": "Journal of Essential Oil Research",
+        "year": 2011,
+        "url": "https://doi.org/10.1080/10412905.2011.9700471",
+        "category": "odor_chemistry",
+        "used_for": "Volatile composition of Iris species; irone-type terpenes"
+      },
+      {
+        "title": "The Genus Iris Tourn. ex L.: Updates on Botany, Cultivation, Novel Niches and Impactful Applications",
+        "authors": "Crisan I.",
+        "journal": "Plants",
+        "year": 2025,
+        "url": "https://doi.org/10.3390/plants14182870",
+        "category": "architecture",
+        "used_for": "Review of Iris botany, cultivation and orris production"
+      },
+      {
+        "title": "Influence of pedo-climatic conditions on the quality of Iris pallida rhizomes",
+        "authors": "Pezzarossa B.; Borghesi E.; Pini R.; Bretzel F.; et al.",
+        "journal": "European Journal of Horticultural Science",
+        "year": 2020,
+        "url": "https://doi.org/10.17660/ejhs.2020/85.2.4",
+        "category": "architecture",
+        "used_for": "Pedo-climatic effects on Iris pallida orris rhizome quality"
+      },
+      {
+        "title": "Anti-aging potential of Illyrian iris rhizome extract: preliminary chemical and biological profiling and chemosensor analysis via GC/MS and UHPLC-DAD-MS",
+        "authors": "Stojiljkovic I.; Ivkovic D.; Stanojevic J.; Zvezdanovic J.; et al.",
+        "journal": "Chemosensors",
+        "year": 2025,
+        "url": "https://doi.org/10.3390/chemosensors13090319",
+        "category": "odor_chemistry",
+        "used_for": "GC/MS volatile profile incl. alpha-irone of iris rhizome"
+      },
+      {
+        "title": "From commercial racemic fragrances to odour active enantiopure compounds: the ten isomers of irone",
+        "authors": "Brenna E.; Fuganti C.; Serra S.",
+        "journal": "Comptes Rendus Chimie",
+        "year": 2003,
+        "url": "https://doi.org/10.1016/S1631-0748(03)00087-0",
+        "category": "hedonics",
+        "used_for": "Odour activity and perception of the ten irone isomers"
+      }
+    ],
+    "lavender": [
+      {
+        "title": "Aroma Characteristics of Lavender Extract and Essential Oil from Lavandula angustifolia Mill.",
+        "authors": "Guo X.; Wang P.",
+        "journal": "Molecules",
+        "year": 2020,
+        "url": "https://doi.org/10.3390/molecules25235541",
+        "category": "odor_chemistry",
+        "used_for": "GC-MS and GC-O aroma characteristics of lavender oil/extract"
+      },
+      {
+        "title": "Comparison between the Chemical Composition of Essential Oil from Commercial Products and Biocultivated Lavandula angustifolia Mill.",
+        "authors": "Todorova V.; Ivanov K.; Georgieva Y.; et al.",
+        "journal": "International Journal of Analytical Chemistry",
+        "year": 2023,
+        "url": "https://doi.org/10.1155/2023/1997157",
+        "category": "odor_chemistry",
+        "used_for": "GC-MS comparison of biocultivated vs commercial lavender oils"
+      },
+      {
+        "title": "Exploring the Chemical Composition of Bulgarian Lavender Absolute (Lavandula angustifolia Mill.) by GC/MS and GC-FID",
+        "authors": "Nedeltcheva-Antonova D.; Gechovska K.; Bozhanov S.; et al.",
+        "journal": "Plants",
+        "year": 2022,
+        "url": "https://doi.org/10.3390/plants11223150",
+        "category": "odor_chemistry",
+        "used_for": "GC/MS and GC-FID composition of lavender absolute"
+      },
+      {
+        "title": "Essential Oil Composition of Lavender (Lavandula angustifolia Mill.) at Various Plantation Ages and Growth Stages in the Mediterranean Region",
+        "authors": "Barut M.; Tansi L.S.; Karaman S.",
+        "journal": "Turkish Journal of Agriculture - Food Science and Technology",
+        "year": 2022,
+        "url": "https://doi.org/10.24925/turjaf.v10i4.746-753.5051",
+        "category": "architecture",
+        "used_for": "Oil composition across plantation ages and growth stages"
+      },
+      {
+        "title": "The effects of lavender oil inhalation on emotional states, autonomic nervous system, and brain electrical activity",
+        "authors": "Sayorwan W.; Siripornpanich V.; Piriyapunyaporn T.; et al.",
+        "journal": "Journal of the Medical Association of Thailand",
+        "year": 2012,
+        "url": "https://pubmed.ncbi.nlm.nih.gov/22612017/",
+        "category": "hedonics",
+        "used_for": "Odor pleasantness and emotional/autonomic effects of lavender"
+      },
+      {
+        "title": "Odor hedonics: connection with emotional response estimated by autonomic parameters",
+        "authors": "Alaoui-Ismaili O.; Vernet-Maury E.; Dittmar A.; et al.",
+        "journal": "Chemical Senses",
+        "year": 1997,
+        "url": "https://doi.org/10.1093/chemse/22.3.237",
+        "category": "hedonics",
+        "used_for": "Hedonic ratings of pleasant odors linked to autonomic response"
+      },
+      {
+        "title": "The influence of stimulus concentration and odor intensity on relaxing and stimulating perceived properties of odors",
+        "authors": "Baccarani A.; Brand G.; Dacremont C.; Valentin D.; Brochard R.",
+        "journal": "Food Quality and Preference",
+        "year": 2021,
+        "url": "https://doi.org/10.1016/j.foodqual.2020.104030",
+        "category": "hedonics",
+        "used_for": "Concentration/intensity effects on pleasantness of lavender odor"
+      },
+      {
+        "title": "Exploring Pharmacological Mechanisms of Lavender (Lavandula angustifolia) Essential Oil on Central Nervous System Targets",
+        "authors": "Lopez V.; Nielsen B.; Solas M.; Ramirez M.J.; et al.",
+        "journal": "Frontiers in Pharmacology",
+        "year": 2017,
+        "url": "https://doi.org/10.3389/fphar.2017.00280",
+        "category": "odor_chemistry",
+        "used_for": "GC-MS characterization of lavender oil chemistry"
+      }
+    ],
+    "mimosa": [
+      {
+        "title": "Chemical composition of French mimosa absolute oil",
+        "authors": "Perriot R.; Breme K.; Meierhenrich U.J.; et al.",
+        "journal": "Journal of Agricultural and Food Chemistry",
+        "year": 2010,
+        "url": "https://doi.org/10.1021/jf903264n",
+        "category": "odor_chemistry",
+        "used_for": "Composition and odor profile of Acacia dealbata mimosa absolute"
+      },
+      {
+        "title": "Ambient has Become Strained. Identification of Acacia dealbata Link Volatiles Interfering with Germination and Early Growth of Native Species",
+        "authors": "Souza-Alonso P.; Gonzalez L.; Cavaleiro C.",
+        "journal": "Journal of Chemical Ecology",
+        "year": 2014,
+        "url": "https://doi.org/10.1007/s10886-014-0498-x",
+        "category": "odor_chemistry",
+        "used_for": "GC/MS of Acacia dealbata flower VOCs and emission"
+      },
+      {
+        "title": "Supercritical CO2 extracts from Acacia dealbata flowers",
+        "authors": "Casas M.P.; Lopez-Hortas L.; Diaz-Reinoso B.; Moure A.; Dominguez H.",
+        "journal": "The Journal of Supercritical Fluids",
+        "year": 2021,
+        "url": "https://doi.org/10.1016/j.supflu.2021.105223",
+        "category": "odor_chemistry",
+        "used_for": "Supercritical CO2 extracts and volatiles of A. dealbata flowers"
+      },
+      {
+        "title": "Grouped SPME comparison of floral scent as a method of unlocking phylogenetic patterns in volatiles",
+        "authors": "Latinovic A.; Nichols D.S.; Adams V.M.; et al.",
+        "journal": "Frontiers in Ecology and Evolution",
+        "year": 2022,
+        "url": "https://doi.org/10.3389/fevo.2022.795122",
+        "category": "architecture",
+        "used_for": "SPME/GC-MS floral scent profiling incl. Acacia dealbata"
+      },
+      {
+        "title": "Effects and identification of chemical compounds released from the invasive Acacia dealbata Link",
+        "authors": "Aguilera N.; Becerra J.; Villasenor-Parada C.; et al.",
+        "journal": "Chemistry and Ecology",
+        "year": 2015,
+        "url": "https://doi.org/10.1080/02757540.2015.1050004",
+        "category": "architecture",
+        "used_for": "VOC release from A. dealbata flowers across phenology"
+      },
+      {
+        "title": "Volatiles associated with different flower stages and leaves of Acacia cyclops and their potential role as host attractants",
+        "authors": "Kotze M.J.; Jurgens A.; Johnson S.D.; Hoffmann J.H.",
+        "journal": "South African Journal of Botany",
+        "year": 2010,
+        "url": "https://doi.org/10.1016/j.sajb.2010.07.024",
+        "category": "architecture",
+        "used_for": "Volatiles across flower developmental stages in Acacia"
+      }
+    ],
+    "peony": [
+      {
+        "title": "Volatile Composition and Classification of Paeonia lactiflora Flower Aroma Types and Identification of the Fragrance-Related Genes",
+        "authors": "Zhao Q.; Gu L.; Li Y.; Zhi H.; Luo J.; Zhang Y.",
+        "journal": "International Journal of Molecular Sciences",
+        "year": 2023,
+        "url": "https://doi.org/10.3390/ijms24119410",
+        "category": "odor_chemistry",
+        "used_for": "SPME-GC/MS aroma types; sensory perception in P. lactiflora"
+      },
+      {
+        "title": "Transcriptome and volatile compounds analyses of floral development provide insight into floral scent formation in Paeonia lactiflora 'Wu Hua Long Yu'",
+        "authors": "Zhao Q.; Zhang M.; Gu L.; Yang Z.; Li Y.; Luo J.; et al.",
+        "journal": "Frontiers in Plant Science",
+        "year": 2024,
+        "url": "https://doi.org/10.3389/fpls.2024.1303156",
+        "category": "architecture",
+        "used_for": "Volatile dynamics across floral development; monoterpene biosynthesis"
+      },
+      {
+        "title": "Identification of floral fragrances in tree peony cultivars by gas chromatography-mass spectrometry",
+        "authors": "Li S.; Chen L.; Xu Y.; Wang L.; Wang L.",
+        "journal": "Scientia Horticulturae",
+        "year": 2012,
+        "url": "https://doi.org/10.1016/j.scienta.2012.05.015",
+        "category": "odor_chemistry",
+        "used_for": "HS-SPME GC-MS floral fragrances of tree peony cultivars"
+      },
+      {
+        "title": "Identification of Floral Fragrances and Analysis of Fragrance Patterns in Herbaceous Peony Cultivars",
+        "authors": "Song C.; Wang Q.; Teixeira da Silva J.A.; Yu X.",
+        "journal": "Journal of the American Society for Horticultural Science",
+        "year": 2018,
+        "url": "https://doi.org/10.21273/jashs04420-18",
+        "category": "hedonics",
+        "used_for": "Sensory fragrance scores and patterns in peony cultivars"
+      },
+      {
+        "title": "Analysis of the Volatile Components in Flowers of Paeonia lactiflora Pall. and Paeonia lactiflora Pall. var. Trichocarpa",
+        "authors": "Wang T.; Xie A.; Zhang D.; Liu Z.; Li X.; Li Y.; Sun X.",
+        "journal": "American Journal of Plant Sciences",
+        "year": 2021,
+        "url": "https://doi.org/10.4236/ajps.2021.121009",
+        "category": "odor_chemistry",
+        "used_for": "GC-MS volatile components of P. lactiflora flowers"
+      },
+      {
+        "title": "Comparative analysis of the volatile components of six herbaceous peony cultivars under ground-planted and vase-inserted conditions",
+        "authors": "Wang S.; Luo Y.; Niu T.; Prijic Z.; Markovic T.; Guo D.; et al.",
+        "journal": "Scientia Horticulturae",
+        "year": 2024,
+        "url": "https://doi.org/10.1016/j.scienta.2024.113320",
+        "category": "architecture",
+        "used_for": "Volatiles across flowering stages under two cultivation conditions"
+      },
+      {
+        "title": "Identification of Floral Volatile Components and Expression Analysis of Controlling Gene in Paeonia ostii 'Fengdan' under Different Cultivation Conditions",
+        "authors": "Ma H.; Zhang C.; Niu T.; Chen M.; Guo L.; Hou X.",
+        "journal": "Plants",
+        "year": 2023,
+        "url": "https://doi.org/10.3390/plants12132453",
+        "category": "architecture",
+        "used_for": "Diurnal and developmental variation of peony floral volatiles"
+      },
+      {
+        "title": "Flower morphology, flower color, flowering and floral fragrance in Paeonia L.",
+        "authors": "Fan Y.; Jin X.; Wang M.; Liu H.; Tian W.; Xue Y.; et al.",
+        "journal": "Frontiers in Plant Science",
+        "year": 2024,
+        "url": "https://doi.org/10.3389/fpls.2024.1467596",
+        "category": "architecture",
+        "used_for": "Review of peony flowering and floral fragrance traits"
+      },
+      {
+        "title": "Application of scientific measures to demonstrate the relaxing properties of Peony fragrance in hair care products",
+        "authors": "Painchault T.; Perrin L.; Loijens L.W.S.; et al.",
+        "journal": "Journal of Sensory Studies",
+        "year": 2020,
+        "url": "https://doi.org/10.1111/joss.12560",
+        "category": "hedonics",
+        "used_for": "Consumer perception and relaxing effect of peony fragrance"
+      }
+    ],
+    "lilac": [
+      {
+        "title": "Rapid determination of floral aroma compounds of lilac blossom by fast gas chromatography combined with surface acoustic wave sensor",
+        "authors": "Oh S.Y.; Shin H.D.; Kim S.J.; et al.",
+        "journal": "Journal of Chromatography A",
+        "year": 2008,
+        "url": "https://doi.org/10.1016/j.chroma.2008.01.024",
+        "category": "odor_chemistry",
+        "used_for": "Fast GC plus SAW sensor profiling of lilac aroma compounds"
+      },
+      {
+        "title": "Analysis of volatile compounds emitted from fresh Syringa oblata flowers in different florescence by headspace solid-phase microextraction-gas chromatography-mass spectrometry",
+        "authors": "Li Z.-G.; Lee M.-R.; Shen D.-L.; et al.",
+        "journal": "Analytica Chimica Acta",
+        "year": 2006,
+        "url": "https://doi.org/10.1016/j.aca.2006.01.074",
+        "category": "odor_chemistry",
+        "used_for": "HS-SPME-GC-MS of lilac VOCs across flowering stages"
+      },
+      {
+        "title": "Volatile secondary metabolome and transcriptome analysis reveals distinct regulation mechanism of aroma biosynthesis in Syringa oblata and S. vulgaris",
+        "authors": "Yang Z.; Zhu Y.; Zhang X.; et al.",
+        "journal": "Plant Physiology and Biochemistry",
+        "year": 2023,
+        "url": "https://doi.org/10.1016/j.plaphy.2023.03.003",
+        "category": "odor_chemistry",
+        "used_for": "Volatile metabolome and transcriptome of lilac aroma biosynthesis"
+      },
+      {
+        "title": "Performance assessment of solvent extraction coupled with gas chromatography-mass spectrometry for the analysis of volatile components from Syringa flowers",
+        "authors": "Zheng W.; Li F.; Yu Z.; et al.",
+        "journal": "Analytical Methods",
+        "year": 2016,
+        "url": "https://doi.org/10.1039/c5ay03156g",
+        "category": "odor_chemistry",
+        "used_for": "Solvent-extraction GC-MS of Syringa flower volatiles"
+      },
+      {
+        "title": "Effect of a fragrant tree on the perception of traffic noise",
+        "authors": "Ba M.; Kang J.",
+        "journal": "Building and Environment",
+        "year": 2019,
+        "url": "https://doi.org/10.1016/j.buildenv.2019.04.022",
+        "category": "hedonics",
+        "used_for": "Lilac fragrance alters pleasantness of traffic noise"
+      },
+      {
+        "title": "Study on smellscape perception and landscape application of fragrant plants",
+        "authors": "Song X.; Wu Q.",
+        "journal": "Urban Forestry & Urban Greening",
+        "year": 2022,
+        "url": "https://doi.org/10.1016/j.ufug.2021.127429",
+        "category": "hedonics",
+        "used_for": "Human smellscape perception of fragrant plants including lilac"
+      },
+      {
+        "title": "Comparison of floral ontogeny in wild-type and double-flowered phenotypes of Syringa vulgaris L. (Oleaceae)",
+        "authors": "Dadpour M.R.; Naghiloo S.; Peighambardoust S.H.; et al.",
+        "journal": "Scientia Horticulturae",
+        "year": 2011,
+        "url": "https://doi.org/10.1016/j.scienta.2010.12.004",
+        "category": "architecture",
+        "used_for": "Floral ontogeny of wild-type versus double-flowered lilac"
+      },
+      {
+        "title": "Physiological and Molecular Insights into the Development of Single and Double Flowers in Syringa vulgaris L.",
+        "authors": "Wang Z.; Li J.; Qi Y.; et al.",
+        "journal": "Forests",
+        "year": 2025,
+        "url": "https://doi.org/10.3390/f16030409",
+        "category": "architecture",
+        "used_for": "Single versus double flower development in lilac"
+      },
+      {
+        "title": "Comparative study of inflorescence development in Oleaceae",
+        "authors": "Naghiloo S.; Dadpour M.R.; Gohari G.; et al.",
+        "journal": "American Journal of Botany",
+        "year": 2013,
+        "url": "https://doi.org/10.3732/ajb.1200171",
+        "category": "architecture",
+        "used_for": "Inflorescence architecture and development including Syringa"
+      }
+    ],
+    "narcissus": [
+      {
+        "title": "New Organoleptically Important Constituents of Narcissus Absolute (Narcissus poeticus L.)",
+        "authors": "Ehret C.; Maupetit P.; Petrzilka M.",
+        "journal": "Journal of Essential Oil Research",
+        "year": 1992,
+        "url": "https://doi.org/10.1080/10412905.1992.9698008",
+        "category": "odor_chemistry",
+        "used_for": "Organoleptically key constituents of narcissus absolute"
+      },
+      {
+        "title": "Narcissus trevithian and Narcissus geranium: Analysis and synthesis of compounds",
+        "authors": "van Dort H.M.; Jagers P.P.; ter Heide R.; et al.",
+        "journal": "Journal of Agricultural and Food Chemistry",
+        "year": 1993,
+        "url": "https://doi.org/10.1021/jf00035a047",
+        "category": "odor_chemistry",
+        "used_for": "GC-MS analysis of two narcissus cultivar extracts"
+      },
+      {
+        "title": "Interspecific variation in floral fragrances within the genus Narcissus (Amaryllidaceae)",
+        "authors": "Dobson H.E.M.; Arroyo J.; Bergstrom G.; et al.",
+        "journal": "Biochemical Systematics and Ecology",
+        "year": 1997,
+        "url": "https://doi.org/10.1016/S0305-1978(97)00059-8",
+        "category": "odor_chemistry",
+        "used_for": "Headspace GC-MS fragrance comparison across Narcissus species"
+      },
+      {
+        "title": "Evaluation of floral volatile patterns in the genus Narcissus using gas chromatography-coupled ion mobility spectrometry",
+        "authors": "Losch F.; Liedtke S.; Vautz W.; et al.",
+        "journal": "Applications in Plant Sciences",
+        "year": 2023,
+        "url": "https://doi.org/10.1002/aps3.11506",
+        "category": "odor_chemistry",
+        "used_for": "GC-IMS profiling of floral volatiles across Narcissus"
+      },
+      {
+        "title": "Fragrance and color production from corona and perianth of Iranian narcissus (Narcissus tazetta L.)",
+        "authors": "Haghshenas A.; Jowkar A.; Chehrazi M.; et al.",
+        "journal": "Industrial Crops and Products",
+        "year": 2024,
+        "url": "https://doi.org/10.1016/j.indcrop.2024.118368",
+        "category": "odor_chemistry",
+        "used_for": "Corona versus perianth VOC emission in N. tazetta"
+      },
+      {
+        "title": "Optimization of fragrance extraction: Daytime and flower age affect scent emission in simple and double narcissi",
+        "authors": "Ruiz-Ramon F.; Aguila D.J.; Egea-Cortines M.; et al.",
+        "journal": "Industrial Crops and Products",
+        "year": 2014,
+        "url": "https://doi.org/10.1016/j.indcrop.2013.11.034",
+        "category": "architecture",
+        "used_for": "Daytime and flower-age effects on narcissus scent emission"
+      },
+      {
+        "title": "Diurnal patterns of floral volatile emissions in three species of Narcissus",
+        "authors": "Losch F.; Weigend M.",
+        "journal": "American Journal of Botany",
+        "year": 2024,
+        "url": "https://doi.org/10.1002/ajb2.16408",
+        "category": "architecture",
+        "used_for": "Time-resolved emission dynamics and flower architecture in Narcissus"
+      },
+      {
+        "title": "The function of the floral corona in the pollination of a Mediterranean style dimorphic daffodil",
+        "authors": "Perez-Barrales R.; Abarca C.A.; Santos-Gally R.; et al.",
+        "journal": "Plant Biology",
+        "year": 2017,
+        "url": "https://doi.org/10.1111/plb.12657",
+        "category": "architecture",
+        "used_for": "Corona function in daffodil flower architecture and VOC emission"
+      },
+      {
+        "title": "Floral Fragrance. New Inroads into an Old Commodity",
+        "authors": "Vainstein A.; Lewinsohn E.; Pichersky E.; et al.",
+        "journal": "Plant Physiology",
+        "year": 2001,
+        "url": "https://doi.org/10.1104/pp.010706",
+        "category": "hedonics",
+        "used_for": "Review noting Narcissus tazetta pleasant perceived scent"
+      }
+    ],
+    "hyacinth": [
+      {
+        "title": "Headspace analysis of hyacinth flowers",
+        "authors": "Brunke E.J.; Hammerschmidt F.J.; Schmaus G.",
+        "journal": "Flavour and Fragrance Journal",
+        "year": 1994,
+        "url": "https://doi.org/10.1002/ffj.2730090205",
+        "category": "odor_chemistry",
+        "used_for": "Dynamic headspace GC-MS of white hyacinth volatiles"
+      },
+      {
+        "title": "Detection of Volatile Compounds of Hyacinth Flowers (Hyacinthus orientalis L.) from Turkey",
+        "authors": "Zarifikhosroshahi M.; Ergun Z.; Alp S.; et al.",
+        "journal": "Proceedings of the Bulgarian Academy of Sciences",
+        "year": 2022,
+        "url": "https://doi.org/10.7546/crabs.2022.10.06",
+        "category": "odor_chemistry",
+        "used_for": "HS-SPME-GC-MS of Hyacinthus orientalis flower volatiles"
+      },
+      {
+        "title": "Production of essential oils by flowers of Hyacinthus orientalis L. regenerated in vitro",
+        "authors": "Hosokawa K.; Fukunaga Y.; et al.",
+        "journal": "Plant Cell Reports",
+        "year": 1995,
+        "url": "https://doi.org/10.1007/BF00231941",
+        "category": "odor_chemistry",
+        "used_for": "Essential oil/volatile emission from hyacinth flowers in vitro"
+      },
+      {
+        "title": "Variations among Anthocyanins in the Floral Organs of Seven Cultivars of Hyacinthus orientalis",
+        "authors": "Hosokawa K.; et al.",
+        "journal": "Journal of Plant Physiology",
+        "year": 1999,
+        "url": "https://doi.org/10.1016/S0176-1617(99)80021-2",
+        "category": "architecture",
+        "used_for": "Floral organ pigment composition across hyacinth cultivars"
+      },
+      {
+        "title": "Isolation of HAG1 and its regulation by plant hormones during in vitro floral organogenesis in Hyacinthus orientalis L.",
+        "authors": "Li Q.; Li X.; Bai S.; et al.",
+        "journal": "Planta",
+        "year": 2002,
+        "url": "https://doi.org/10.1007/s00425-002-0796-3",
+        "category": "architecture",
+        "used_for": "HAG1 regulation during hyacinth floral organogenesis"
+      },
+      {
+        "title": "Nectar secretion and pollen production in Hyacinthus orientalis 'Sky Jacket' (Asparagaceae)",
+        "authors": "Bozek M.",
+        "journal": "Acta Agrobotanica",
+        "year": 2019,
+        "url": "https://doi.org/10.5586/aa.1796",
+        "category": "architecture",
+        "used_for": "Inflorescence morphology, nectar and pollen production in hyacinth"
+      },
+      {
+        "title": "Optimization of Morphogenesis and In Vitro Production of Five Hyacinthus orientalis Cultivars",
+        "authors": "El-Naggar H.M.; Shehata A.M.; Moubarak M.; et al.",
+        "journal": "Horticulturae",
+        "year": 2023,
+        "url": "https://doi.org/10.3390/horticulturae9020176",
+        "category": "architecture",
+        "used_for": "Inflorescence architecture and in vitro regeneration of hyacinth"
+      },
+      {
+        "title": "Characterisation of the Complete Chloroplast Genomes of Seven Hyacinthus orientalis L. Cultivars: Insights into Cultivar Phylogeny",
+        "authors": "Wong K.H.; Wu H.Y.; Kong B.L.H.; et al.",
+        "journal": "Horticulturae",
+        "year": 2022,
+        "url": "https://doi.org/10.3390/horticulturae8050453",
+        "category": "architecture",
+        "used_for": "Cultivar phylogeny and morphological differentiation of hyacinth"
+      }
+    ],
+    "linden": [
+      {
+        "title": "Comparison of key floral components between two Tilia species and among different processing technologies as revealed by widely targeted metabolomic profiling",
+        "authors": "Yuan X.; Wang H.; Yan L.; et al.",
+        "journal": "Journal of the Science of Food and Agriculture",
+        "year": 2025,
+        "url": "https://doi.org/10.1002/jsfa.14190",
+        "category": "odor_chemistry",
+        "used_for": "HS-SPME-GC-MS floral components of Tilia cordata and T. platyphyllos"
+      },
+      {
+        "title": "Essential Oil Composition of Tilia cordata Flowers",
+        "authors": "Kowalski R.; Baj T.; Kalwa K.; et al.",
+        "journal": "Journal of Essential Oil Bearing Plants",
+        "year": 2017,
+        "url": "https://doi.org/10.1080/0972060X.2017.1359681",
+        "category": "odor_chemistry",
+        "used_for": "GC-MS/GC-FID essential oil composition of linden flowers"
+      },
+      {
+        "title": "Characterization of volatile compounds in linden blossoms Tilia cordata Mill",
+        "authors": "Vidal J.P.; Richard H.",
+        "journal": "Flavour and Fragrance Journal",
+        "year": 1986,
+        "url": "https://doi.org/10.1002/ffj.2730010204",
+        "category": "odor_chemistry",
+        "used_for": "Early characterization of linden blossom volatiles"
+      },
+      {
+        "title": "Comparative headspace analysis of living and fresh cut lime tree flowers (Tiliae flores)",
+        "authors": "Buchbauer G.; Remberg B.; Jirovetz L.; et al.",
+        "journal": "Flavour and Fragrance Journal",
+        "year": 1995,
+        "url": "https://doi.org/10.1002/ffj.2730100316",
+        "category": "odor_chemistry",
+        "used_for": "Headspace GC of living versus cut linden flowers"
+      },
+      {
+        "title": "Volatile Constituents and Antimicrobial Activity of Tilia tomentosa Moench and Tilia cordata Miller Oils",
+        "authors": "Fitsiou I.; Tzakou O.; Hancianu M.; et al.",
+        "journal": "Journal of Essential Oil Research",
+        "year": 2007,
+        "url": "https://doi.org/10.1080/10412905.2007.9699255",
+        "category": "odor_chemistry",
+        "used_for": "Volatile constituent profiles of Tilia cordata and T. tomentosa"
+      },
+      {
+        "title": "Dynamic Changes on Floral Aroma Composition of the Three Species from Tilia at Different Flowering Stages",
+        "authors": "Bao W.; Shen Y.",
+        "journal": "Horticulturae",
+        "year": 2022,
+        "url": "https://doi.org/10.3390/horticulturae8080719",
+        "category": "architecture",
+        "used_for": "Aroma emission dynamics across Tilia flowering stages"
+      },
+      {
+        "title": "The pollination biology of Tilia",
+        "authors": "Anderson G.J.",
+        "journal": "American Journal of Botany",
+        "year": 1976,
+        "url": "https://doi.org/10.1002/j.1537-2197.1976.tb13205.x",
+        "category": "architecture",
+        "used_for": "Flowering phenology and inflorescence development in Tilia"
+      },
+      {
+        "title": "Flowering Phenology of Selected Linden (Tilia L.) Taxa in Relation to Pollen Seasons",
+        "authors": "Dabrowska A.; Piotrowska-Weryszko K.; Weryszko-Chmielewska E.; et al.",
+        "journal": "Journal of Apicultural Science",
+        "year": 2016,
+        "url": "https://doi.org/10.1515/jas-2016-0030",
+        "category": "architecture",
+        "used_for": "Bloom timing of Tilia cordata and other linden taxa"
+      },
+      {
+        "title": "A Review of the Characteristics of Small-Leaved Lime (Tilia cordata Mill.) and Their Implications for Silviculture in a Changing Climate",
+        "authors": "De Jaegere T.; Hein S.; Claessens H.",
+        "journal": "Forests",
+        "year": 2016,
+        "url": "https://doi.org/10.3390/f7030056",
+        "category": "architecture",
+        "used_for": "Inflorescence structure and flowering of Tilia cordata"
+      },
+      {
+        "title": "Flowering phenological pattern in crowns of four temperate deciduous tree species and its reproductive implications",
+        "authors": "Tal O.",
+        "journal": "Plant Biology",
+        "year": 2010,
+        "url": "https://doi.org/10.1111/j.1438-8677.2010.00386.x",
+        "category": "architecture",
+        "used_for": "Within-crown flowering sequence and gender overlap in Tilia"
+      }
+    ],
+    "mixed_florals": [
+      {
+        "title": "Perceptual convergence of multi-component mixtures in olfaction implies an olfactory white",
+        "authors": "Weiss T.; Snitz K.; Yablonka A.; Khan R.M.; et al.",
+        "journal": "Proceedings of the National Academy of Sciences USA",
+        "year": 2012,
+        "url": "https://doi.org/10.1073/pnas.1208110109",
+        "category": "olfactory_white",
+        "used_for": "Many-component odor mixtures converge to a common olfactory-white percept."
+      },
+      {
+        "title": "The perception of odor objects in everyday life: a review on the processing of odor mixtures",
+        "authors": "Thomas-Danguin T.; Sinding C.; Romagny S.; et al.",
+        "journal": "Frontiers in Psychology",
+        "year": 2014,
+        "url": "https://doi.org/10.3389/fpsyg.2014.00504",
+        "category": "mixture_perception",
+        "used_for": "Elemental vs configural processing and odor-object formation in mixtures."
+      },
+      {
+        "title": "Configural and elemental coding of natural odor mixture components in the human brain",
+        "authors": "Howard J.D.; Gottfried J.A.",
+        "journal": "Neuron",
+        "year": 2014,
+        "url": "https://doi.org/10.1016/j.neuron.2014.10.012",
+        "category": "architecture",
+        "used_for": "Neural dissociation of elemental vs configural whole-mixture representation."
+      },
+      {
+        "title": "The analysis of odor mixtures by humans: evidence for a configurational process",
+        "authors": "Jinks A.; Laing D.G.",
+        "journal": "Physiology & Behavior",
+        "year": 2001,
+        "url": "https://doi.org/10.1016/S0031-9384(00)00407-8",
+        "category": "mixture_perception",
+        "used_for": "Component identity loss in mixtures reflects configurational processing."
+      },
+      {
+        "title": "How pleasant and unpleasant stimuli combine in different brain regions: odor mixtures",
+        "authors": "Grabenhorst F.; Rolls E.T.; Margot C.; et al.",
+        "journal": "Journal of Neuroscience",
+        "year": 2007,
+        "url": "https://doi.org/10.1523/JNEUROSCI.3337-07.2007",
+        "category": "hedonics",
+        "used_for": "How pleasantness of odor mixtures combines; OFC representation."
+      },
+      {
+        "title": "Why do we like so much the smell of roses: The recipe for the perfect flower",
+        "authors": "Adrar I.; Herve M.; Mantel M.; et al.",
+        "journal": "iScience",
+        "year": 2025,
+        "url": "https://doi.org/10.1016/j.isci.2024.111635",
+        "category": "hedonics",
+        "used_for": "Links floral volatile composition of blends to human pleasantness."
+      },
+      {
+        "title": "A Comparison Analysis of Four Different Drying Treatments on the Volatile Organic Compounds of Gardenia Flowers",
+        "authors": "Peng J.; Ai W.; Yin X.; Huang D.; Li S.",
+        "journal": "Molecules",
+        "year": 2024,
+        "url": "https://doi.org/10.3390/molecules29184300",
+        "category": "bouquet_chemistry",
+        "used_for": "Volatile bouquet profiling of gardenia for white-floral accord chemistry."
+      },
+      {
+        "title": "Differences in perception of everyday odors: a Japanese-German cross-cultural study",
+        "authors": "Ayabe-Kanamura S.; Schicker I.; Laska M.; et al.",
+        "journal": "Chemical Senses",
+        "year": 1998,
+        "url": "https://doi.org/10.1093/chemse/23.1.31",
+        "category": "hedonics",
+        "used_for": "Cross-cultural comparison of odor pleasantness and intensity ratings."
+      },
+      {
+        "title": "Variability of affective responses to odors: culture, gender, and olfactory knowledge",
+        "authors": "Ferdenzi C.; Roberts S.C.; Schirmer A.; et al.",
+        "journal": "Chemical Senses",
+        "year": 2013,
+        "url": "https://doi.org/10.1093/chemse/bjs083",
+        "category": "hedonics",
+        "used_for": "Population/cultural variation in hedonic responses to floral odors."
+      },
+      {
+        "title": "Odor mixtures of opposing valence unveil inter-glomerular crosstalk in the Drosophila antennal lobe",
+        "authors": "Mohamed A.A.M.; Retzke T.; et al.",
+        "journal": "Nature Communications",
+        "year": 2019,
+        "url": "https://doi.org/10.1038/s41467-019-09069-1",
+        "category": "mixture_perception",
+        "used_for": "Neural mechanism of mixture interaction for opposing-valence components."
+      },
+      {
+        "title": "The capacity of humans to identify odors in mixtures",
+        "authors": "Laing D.G.; Francis G.W.",
+        "journal": "Physiology & Behavior",
+        "year": 1989,
+        "url": "https://doi.org/10.1016/0031-9384(89)90041-3",
+        "category": "mixture_perception",
+        "used_for": "Foundational 3-4 component identification limit in odor mixtures."
+      },
+      {
+        "title": "Hedonic judgments of chemical compounds are correlated with molecular size",
+        "authors": "Zarzo M.",
+        "journal": "Sensors",
+        "year": 2011,
+        "url": "https://doi.org/10.3390/s110403667",
+        "category": "hedonics",
+        "used_for": "Molecular correlates of hedonic valence across odor classes."
+      }
+    ]
+  },
+  "hedonics_gaps": {
+    "champaca": "No dedicated peer-reviewed hedonic/sensory study of Magnolia (Michelia) champaca fragrance found; indexed work is volatile profiling and non-olfactive extract studies.",
+    "mimosa": "No dedicated peer-reviewed hedonic study of Acacia dealbata (mimosa) absolute/fragrance found; indexed work is composition only.",
+    "hyacinth": "No dedicated peer-reviewed human hedonic study of Hyacinthus orientalis fragrance found; indexed work is volatile profiling/architecture.",
+    "linden": "No dedicated peer-reviewed olfactive hedonic study of Tilia blossom found; Tilia relaxation evidence is via oral extracts, not inhalation."
+  }
+}

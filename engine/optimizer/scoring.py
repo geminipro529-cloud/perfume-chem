@@ -38,6 +38,15 @@ from ..ingredient_intelligence import (
     DIMENSIONS,
     get_profile,
 )
+from ..knowledge.deep_architecture import (
+    DIMENSIONS as DEEP_ARCHITECTURE_DIMENSIONS,
+)
+from ..knowledge.deep_architecture import (
+    DeepArchitectureConfig,
+    dimension_authority,
+    dimension_citations,
+    resolve_profile,
+)
 from ..material_resolver import unknown_materials
 from ..psychophysics import CROSS_ADAPTATION_GROUPS, score_psychophysics
 from ..skin_interaction import score_skin_interaction
@@ -2509,6 +2518,211 @@ class FormulaScorer:
         score = stack_count_score + spread_score + role_score + quality_bonus
         return round(max(0, min(score, 100)), 1)
 
+    # ── Deep Architecture dimensions (opt-in, advisory) ──
+    # Evidence: engine.knowledge.deep_architecture (peer-reviewed registry).
+    # These never enter the geometric mean and grant no sensory authority.
+
+    def score_temporal_layering(self, fv: FormulaVector) -> float:
+        """Release-order architecture across the five Carles evaporation windows."""
+        materials = self._thermodynamic_material_map(fv)
+        if not materials:
+            return 40.0
+        windows = {"1h_top": 0.0, "3h_top_heart": 0.0, "6h_heart": 0.0,
+                   "12h_heart_base": 0.0, "24h_base": 0.0}
+        rows: list[tuple[float, float]] = []
+        total = 0.0
+        for m in materials.values():
+            share = float(getattr(m, "active_g", 0.0) or 0.0)
+            if share <= 0:
+                share = float(getattr(m, "active_ul", 0.0) or 0.0)
+            vp = float(getattr(m, "vp_pure_pa", 0.0) or 0.0)
+            rows.append((vp, share))
+            total += share
+        if total <= 0:
+            return 40.0
+        for vp, share in rows:
+            pct = 100.0 * share / total
+            if vp > 2.0:
+                windows["1h_top"] += pct
+            elif vp > 0.5:
+                windows["3h_top_heart"] += pct
+            elif vp > 0.1:
+                windows["6h_heart"] += pct
+            elif vp > 0.02:
+                windows["12h_heart_base"] += pct
+            else:
+                windows["24h_base"] += pct
+        empty = [k for k, v in windows.items() if v < 2.0]
+        score = 100.0 - 16.0 * len(empty)
+        if windows["1h_top"] > 70.0:
+            score -= (windows["1h_top"] - 70.0) * 0.5
+        return round(max(0.0, min(score, 100.0)), 1)
+
+    def score_integration_capacity(self, fv: FormulaVector) -> float:
+        """Cognitive integration load: perceptible channels vs the ~5 limit."""
+        oav_map = self._thermodynamic_oav_map(fv)
+        channels = [float(v or 0.0) for v in oav_map.values() if float(v or 0.0) >= 10.0]
+        n = len(channels)
+        score = 85.0 + (5 - n) * 2.5 if n <= 5 else 85.0 - (n - 5) * 8.0
+        total = sum(max(float(v or 0.0), 0.0) for v in oav_map.values())
+        if total > 0 and n >= 6 and (max(channels) / total) < 0.2:
+            score -= 20.0  # olfactory-white convergence risk
+        return round(max(0.0, min(score, 100.0)), 1)
+
+    def score_function_balance(self, fv: FormulaVector) -> float:
+        """Continuous Heart/Modifier/Blender/Fixative/X-Factor balance score."""
+        try:
+            from ..knowledge.performance_engineering import evaluate_function_balance
+
+            state = self._thermodynamic_state(fv)
+            report = evaluate_function_balance(state.materials)
+        except Exception:
+            return 50.0
+        present = report.present
+        score = 15.0
+        score += 15.0 * sum(1 for role in ("heart", "blender", "fixative") if present.get(role))
+        score += 10.0 * bool(present.get("modifier"))
+        score += 8.0 * bool(present.get("x_factor"))
+        heart_oav = float(report.role_oav_share.get("heart", 0.0))
+        score += max(0.0, 12.0 - abs(heart_oav - 45.0) / 4.0)
+        mass = report.role_mass_share
+        if mass.get("heart", 0.0) > 0 and mass.get("modifier", 0.0) >= mass.get("heart", 0.0):
+            score -= 12.0
+        heart_count = len(report.heart_components)
+        if heart_count > 4:
+            score -= min(12.0, (heart_count - 4) * 3.0)
+        return round(max(0.0, min(score, 100.0)), 1)
+
+    def score_legibility_coherence(self, fv: FormulaVector) -> float:
+        """Perceptual clarity penalized only when large AND subject-diffuse."""
+        clarity = float(self.score_perceptual_clarity(fv))
+        oav_map = self._thermodynamic_oav_map(fv)
+        total = sum(max(float(v or 0.0), 0.0) for v in oav_map.values())
+        top = max((float(v or 0.0) for v in oav_map.values()), default=0.0)
+        dominance = (top / total) if total > 0 else 0.0
+        n_materials = len(fv.ingredient_list())
+        penalty = max(0, n_materials - 15) * max(0.0, 1.0 - dominance * 2.0)
+        return round(max(0.0, min(clarity - penalty, 100.0)), 1)
+
+    def score_spatial_projection(self, fv: FormulaVector) -> float:
+        """PREDICTED-PHYSICAL diffusion proxy. Never observed sillage."""
+        return round(float(self._score_sillage_heuristic(fv)), 1)
+
+    def _deep_depth_stacking(self, fv: FormulaVector) -> float:
+        """Deep-architecture depth: same-family / cross-adaptation stacks with VP spread.
+
+        Independent of the golden-locked composite `score_stacking_depth`.
+        Grouping hierarchy: cross-adaptation groups + knowledge-graph odor family
+        + MaterialState.family.
+        """
+        from engine.name_utils import normalize_name
+
+        material_map = self._thermodynamic_material_map(fv)
+        vp_by_name = {
+            name: float(getattr(m, "vp_pure_pa", 0.0) or 0.0)
+            for name, m in material_map.items()
+        }
+        groups: dict[str, list[str]] = {}
+
+        def add(group: str, name: str) -> None:
+            members = groups.setdefault(group, [])
+            if name not in members:
+                members.append(name)
+
+        for name, state in material_map.items():
+            norm = normalize_name(name)
+            for group_name, members in CROSS_ADAPTATION_GROUPS.items():
+                if norm in {normalize_name(m) for m in members}:
+                    add("xa:" + str(group_name), name)
+            fam = ""
+            mat = _lookup_material(name)
+            if mat and mat.get("odor_family"):
+                tokens = str(mat["odor_family"]).lower().split()
+                fam = tokens[0] if tokens else ""
+            if not fam:
+                fam = str(getattr(state, "family", "") or "").strip().lower()
+            if fam:
+                add("fam:" + fam, name)
+
+        stacks = [members for members in groups.values() if len(members) >= 2]
+        if not stacks:
+            return 25.0
+
+        def tier(vp: float) -> int:
+            if vp > 2.0:
+                return 0
+            if vp > 0.1:
+                return 1
+            return 2
+
+        spread_frac = 0.0
+        for members in stacks:
+            spread_frac += len({tier(vp_by_name.get(m, 0.0)) for m in members}) / 3.0
+        spread_frac /= len(stacks)
+        score = min(100.0, 22.0 * len(stacks) + 22.0 * spread_frac)
+        return round(score, 1)
+
+    def _deep_temporal_layering(self, fv: FormulaVector) -> float:
+        """Balance-weighted release architecture (less count-coupled than coverage)."""
+        materials = self._thermodynamic_material_map(fv)
+        if not materials:
+            return 40.0
+        windows = [0.0] * 5
+        total = 0.0
+        for m in materials.values():
+            share = float(getattr(m, "active_g", 0.0) or 0.0) or float(
+                getattr(m, "active_ul", 0.0) or 0.0
+            )
+            vp = float(getattr(m, "vp_pure_pa", 0.0) or 0.0)
+            total += share
+            idx = 0 if vp > 2.0 else 1 if vp > 0.5 else 2 if vp > 0.1 else 3 if vp > 0.02 else 4
+            windows[idx] += share
+        if total <= 0:
+            return 40.0
+        shares = [100.0 * w / total for w in windows]
+        coverage = sum(1 for s in shares if s >= 2.0) / 5.0
+        max_share = max(shares) / 100.0
+        score = 100.0 * (0.6 * coverage + 0.4 * (1.0 - max_share))
+        return round(max(0.0, min(score, 100.0)), 1)
+
+    def _deep_architecture_block(self, fv: FormulaVector, config: DeepArchitectureConfig) -> dict:
+        profile_key = str(config.profile or "").strip()
+        if not profile_key or profile_key == "auto":
+            profile_key = self.detect_style(fv)
+        profile = resolve_profile(profile_key)
+        values = {
+            "texture": self.score_texture(fv),
+            "depth_stacking": self._deep_depth_stacking(fv),
+            "temporal_layering": self._deep_temporal_layering(fv),
+            "spatial_projection": self.score_spatial_projection(fv),
+            "integration_capacity": self.score_integration_capacity(fv),
+            "function_balance": self.score_function_balance(fv),
+            "legibility_coherence": self.score_legibility_coherence(fv),
+        }
+        dimensions: dict[str, dict] = {}
+        for dim in DEEP_ARCHITECTURE_DIMENSIONS:
+            value = float(values[dim])
+            spec = profile.target(dim)
+            entry: dict[str, object] = {
+                "score": round(value, 1),
+                "target": spec.target,
+                "min": spec.minimum,
+                "max": spec.maximum,
+                "within": profile.within(dim, value),
+                "authority": dimension_authority(dim),
+            }
+            if config.include_evidence_counts:
+                entry["evidence_refs"] = len(dimension_citations(dim))
+            dimensions[dim] = entry
+        return {
+            "profile": profile.as_dict(),
+            "dimensions": dimensions,
+            "authority_note": (
+                "Advisory structural architecture; spatial_projection is predicted physical "
+                "only. No sensory, sillage, longevity, safety, or release authority."
+            ),
+        }
+
     def formula_character_radar(self, fv: FormulaVector) -> dict[str, float]:
         """Compute the weighted-average character radar for a formula.
         Returns {dimension_name: 0-10 score}."""
@@ -3065,6 +3279,12 @@ class FormulaScorer:
         "hedonic": "score_hedonic",
         "perceptual_clarity": "score_perceptual_clarity",
         "photorealism": "score_photorealism",
+        # Deep Architecture dimensions (opt-in advisory axes; see deep_architecture.py)
+        "temporal_layering": "score_temporal_layering",
+        "integration_capacity": "score_integration_capacity",
+        "function_balance": "score_function_balance",
+        "legibility_coherence": "score_legibility_coherence",
+        "spatial_projection": "score_spatial_projection",
     }
 
     def score_axis(self, fv: FormulaVector, axis: str) -> float:
@@ -3082,6 +3302,7 @@ class FormulaScorer:
         fv: FormulaVector,
         *,
         formula_state: FormulaState | None = None,
+        deep_architecture: DeepArchitectureConfig | None = None,
     ) -> dict[str, object]:
         """Compute all scores with axis-specific synergy pre-multipliers.
 
@@ -3335,5 +3556,9 @@ class FormulaScorer:
             scores["arithmetic_total"] = min(float(scores.get("arithmetic_total", 0.0)), 5.0)
             scores["geometric_total"] = min(float(scores.get("geometric_total", 0.0)), 5.0)
             scores["total"] = scores["geometric_total"]
+
+        # Opt-in Deep Architecture block (advisory; never changes the composite).
+        if deep_architecture is not None and deep_architecture.enabled:
+            scores["deep_architecture"] = self._deep_architecture_block(fv, deep_architecture)
 
         return scores

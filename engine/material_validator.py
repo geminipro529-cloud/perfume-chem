@@ -1,3 +1,5 @@
+# QUARANTINED 2026-09-11 - no runtime references; do not develop.
+# See docs/governance/engine_quarantine_manifest_20260911.md
 """material_validator.py — Unified material data validation.
 
 **RULE 1: All perfume calculations must use ppm, ODT, and OAV.**

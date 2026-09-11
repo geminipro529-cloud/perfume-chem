@@ -1,3 +1,5 @@
+# QUARANTINED 2026-09-11 - no runtime references; do not develop.
+# See docs/governance/engine_quarantine_manifest_20260911.md
 """ifra_checker.py — IFRA Cat4 compliance checker with graceful degradation.
 
 **RULE 1: All perfume calculations must use ppm, ODT, and OAV.**

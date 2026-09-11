@@ -1,0 +1,76 @@
+{
+  "schema_version": "engine_quarantine_manifest_v1",
+  "created": "2026-09-11",
+  "policy": "Quarantined modules are preserved source. They must not be developed, imported by runtime code, or promoted without an explicit owner un-quarantine decision recorded here.",
+  "quarantined": [
+    {
+      "module": "engine.corrections_patch",
+      "path": "engine/corrections_patch.py",
+      "disposition": "QUARANTINED_DEAD_CODE",
+      "reason": "Ad-hoc correction patch helper with zero inbound references anywhere (runtime or tests).",
+      "evidence": "reachability scan 2026-09-11: 0 references",
+      "do_not_develop": true
+    },
+    {
+      "module": "engine.ifra_checker",
+      "path": "engine/ifra_checker.py",
+      "disposition": "QUARANTINED_SUPERSEDED",
+      "reason": "Superseded by engine.ifra_safety / engine.ifra_constraints; zero runtime references.",
+      "evidence": "reachability scan 2026-09-11: 0 references",
+      "do_not_develop": true
+    },
+    {
+      "module": "engine.material_validator",
+      "path": "engine/material_validator.py",
+      "disposition": "QUARANTINED_SUPERSEDED",
+      "reason": "Superseded by engine.chemical_data_validator and the material-data-validation pipeline; zero runtime references.",
+      "evidence": "reachability scan 2026-09-11: 0 references",
+      "do_not_develop": true
+    },
+    {
+      "module": "engine.calibration.state_diff",
+      "path": "engine/calibration/state_diff.py",
+      "disposition": "QUARANTINED_DEAD_CODE",
+      "reason": "Canonical state diff helper not imported by the calibration package or any runtime module.",
+      "evidence": "reachability scan 2026-09-11: 0 references",
+      "do_not_develop": true
+    },
+    {
+      "module": "engine.reconstruction.natural_lots",
+      "path": "engine/reconstruction/natural_lots.py",
+      "disposition": "QUARANTINED_DUPLICATE",
+      "reason": "Duplicate of the in-use engine.physics.natural_lots (imported by engine.physics.__init__); the reconstruction copy has zero references.",
+      "evidence": "reachability scan 2026-09-11: 0 references; engine.physics.natural_lots is the live module",
+      "do_not_develop": true
+    },
+    {
+      "module": "engine.ingestion.__main__",
+      "path": "engine/ingestion/__main__.py",
+      "disposition": "QUARANTINED_UNREFERENCED_CLI",
+      "reason": "Unreferenced CLI entry for the test-only engine.ingestion adapter; no runtime or test references.",
+      "evidence": "reachability scan 2026-09-11: 0 references",
+      "do_not_develop": true
+    }
+  ],
+  "already_retired": [
+    {"module_id": "construction-profile", "path": "engine/perception/construction_complexity.py", "state": "RETIRED_BENCHMARK_UNDERPERFORMER", "registry": "configs/complexity/complexity_module_registry_v1.json", "do_not_develop": true},
+    {"module_id": "complexity-expansion-frontier", "path": "engine/perception/complexity_expansion.py", "state": "RETIRED_BENCHMARK_UNDERPERFORMER", "registry": "configs/complexity/complexity_module_registry_v1.json", "do_not_develop": true},
+    {"module_id": "musk-design-restraint", "path": "engine/perception/musk_design.py", "state": "RETIRED_BENCHMARK_UNDERPERFORMER", "registry": "configs/complexity/complexity_module_registry_v1.json", "do_not_develop": true},
+    {"module_id": "complexity-model-admission", "path": "engine/scientific_validation/complexity_model_admission.py", "state": "RETIRED_BENCHMARK_UNDERPERFORMER", "registry": "configs/complexity/complexity_module_registry_v1.json", "do_not_develop": true},
+    {"module_id": "complexity-model-lifecycle", "path": "engine/physics/model_lifecycle.py", "state": "RETIRED_BENCHMARK_UNDERPERFORMER", "registry": "configs/complexity/complexity_module_registry_v1.json", "do_not_develop": true},
+    {"module_id": "within-sniff-observation-contract", "path": "engine/sensory/within_sniff.py", "state": "RETIRED_BENCHMARK_UNDERPERFORMER", "registry": "configs/complexity/complexity_module_registry_v1.json", "do_not_develop": true},
+    {"module_id": "temporal-observation-contract", "path": "engine/sensory/temporal_observations.py", "state": "RETIRED_BENCHMARK_UNDERPERFORMER", "registry": "configs/complexity/complexity_module_registry_v1.json", "do_not_develop": true},
+    {"module_id": "order-balance-contract", "path": "engine/sensory/order_balance.py", "state": "RETIRED_BENCHMARK_UNDERPERFORMER", "registry": "configs/complexity/complexity_module_registry_v1.json", "do_not_develop": true},
+    {"module_id": "sensory-panel-contract", "path": "engine/sensory/panel_contract.py", "state": "RETIRED_BENCHMARK_UNDERPERFORMER", "registry": "configs/complexity/complexity_module_registry_v1.json", "do_not_develop": true},
+    {"module_id": "citrus-architecture-selector", "path": "engine/perception/citrus_selection.py", "state": "RETIRED_BENCHMARK_UNDERPERFORMER (root registry v2; FUTURE in integration v1)", "registry": "configs/complexity/complexity_module_registry_v2.json (root perfume-chem)", "integration_v1_state": "FUTURE_CANDIDATE_NOT_VALIDATED", "do_not_develop": true}
+  ],
+  "frozen_research_not_runtime": [
+    {"path": "engine/formulation_intelligence/", "note": "NOT_RELEASE_READY deep-plane runtime; reachable only via ReleaseGateConfig.deep_plane_diagnostics_enabled=True (default False). Do not promote without a fresh blinded benchmark."},
+    {"path": "engine/receptor/", "note": "Advisory-only (C0 verifier + pipeline_audit mark advisory_until_coverage)."},
+    {"path": "engine/experiments/", "note": "Probe-only (reconstruct.py reports 'not yet implemented')."},
+    {"path": "engine/delivery/", "note": "Zero external references; delivery research."},
+    {"path": "engine/orchestration/", "note": "Zero external references; superseded by engine/pipeline + engine/reconstruction."},
+    {"path": "engine/interaction_registry/", "note": "Zero external references; dismissed infra."},
+    {"path": "future_modules/", "note": "Feature-detected research; keep frozen (no new development)."}
+  ]
+}

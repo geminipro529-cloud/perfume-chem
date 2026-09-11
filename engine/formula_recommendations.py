@@ -1209,6 +1209,12 @@ def generate_recommendations(
         "perceptual_clarity": [],  # adding materials hurts clarity
         "luxury": [],  # usually high; no addition helps
         "safety": [],  # handled by dose-reduction below
+        # Deep Architecture dimensions (opt-in; see engine.knowledge.deep_architecture)
+        "temporal_layering": ["longevity"],
+        "spatial_projection": ["sillage"],
+        "function_balance": ["character_balance"],
+        "integration_capacity": [],  # more channels worsen overload
+        "legibility_coherence": [],  # additions hurt clarity
     }
 
     candidates: list[Recommendation] = []

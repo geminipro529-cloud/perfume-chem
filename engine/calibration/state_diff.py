@@ -1,3 +1,5 @@
+# QUARANTINED 2026-09-11 - no runtime references; do not develop.
+# See docs/governance/engine_quarantine_manifest_20260911.md
 """Canonical state diff for target/inventory/build/bottle comparison.
 
 Never directly compare volume (uL) to mass (g) without density. Preserve raw
@@ -7,7 +9,7 @@ vs active basis and units throughout.
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
-from typing import Any, TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     try:

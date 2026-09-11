@@ -1,3 +1,5 @@
+# QUARANTINED 2026-09-11 - no runtime references; do not develop.
+# See docs/governance/engine_quarantine_manifest_20260911.md
 """CLI entrypoint for the ingestion adapter: `python -m engine.ingestion`.
 
 Importable-library invocation via existing command infrastructure — NOT a new
@@ -8,7 +10,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import sys
 
 
