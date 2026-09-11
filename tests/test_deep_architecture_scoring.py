@@ -73,6 +73,73 @@ def test_auto_profile_resolves():
     assert profile["level"] in {"family", "subfamily", "archetype", "generic"}
 
 
+def test_flatten_promotes_deep_architecture_dimensions():
+    from engine.formula_recommendations import (
+        flatten_deep_architecture_scores,
+        identify_weak_axes,
+    )
+
+    base = {"geometric_total": 50.0, "longevity": 70.0}
+    assert flatten_deep_architecture_scores(base) == base  # no-op without the block
+
+    tagged = {
+        **base,
+        "deep_architecture": {
+            "dimensions": {
+                "temporal_layering": {"score": 12.0},
+                "function_balance": {"score": 90.0},
+            }
+        },
+    }
+    flat = flatten_deep_architecture_scores(tagged)
+    assert flat["temporal_layering"] == 12.0
+    assert flat["function_balance"] == 90.0
+    weakest = identify_weak_axes(flat, n=2)
+    assert ("temporal_layering", 12.0) in weakest
+
+
+def test_score_axis_supports_deep_dimensions():
+    scorer = FormulaScorer()
+    for axis in (
+        "depth_stacking",
+        "temporal_layering",
+        "spatial_projection",
+        "integration_capacity",
+        "function_balance",
+        "legibility_coherence",
+    ):
+        value = scorer.score_axis(_fv(), axis)
+        assert 0.0 <= value <= 100.0, axis
+    assert scorer.score_axis(_fv(), "depth_stacking") > 0.0
+
+
+def test_deep_axis_recommendations_fire_when_opt_in():
+    from engine.formula_recommendations import generate_recommendations
+
+    # Heart-only chassis: no blender/fixative stack — depth/structure axes are weak.
+    fv = FormulaVector(
+        ingredients={"Alpha Isomethyl Ionone": 70.0, "Coumarin": 20.0, "Birch Tar": 10.0}
+    )
+    scores = FormulaScorer().score(
+        fv, deep_architecture=DeepArchitectureConfig(enabled=True, profile="woody")
+    )
+    recommendations = generate_recommendations(
+        fv, scores, inventory=None, top_n=6, mode="pre_mix"
+    )
+    deep_axes = {
+        "depth_stacking",
+        "temporal_layering",
+        "spatial_projection",
+        "integration_capacity",
+        "function_balance",
+        "legibility_coherence",
+    }
+    assert any(r.target_axis in deep_axes for r in recommendations)
+    # And default-off scores expose no deep axes to the recommender.
+    plain = FormulaScorer().score(_fv())
+    assert "deep_architecture" not in plain
+
+
 def _gate_formula():
     from engine.pipeline.gates import ReleaseGateConfig, gate_formula
 

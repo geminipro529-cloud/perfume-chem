@@ -3280,7 +3280,8 @@ class FormulaScorer:
         "perceptual_clarity": "score_perceptual_clarity",
         "photorealism": "score_photorealism",
         # Deep Architecture dimensions (opt-in advisory axes; see deep_architecture.py)
-        "temporal_layering": "score_temporal_layering",
+        "temporal_layering": "_deep_temporal_layering",
+        "depth_stacking": "_deep_depth_stacking",
         "integration_capacity": "score_integration_capacity",
         "function_balance": "score_function_balance",
         "legibility_coherence": "score_legibility_coherence",

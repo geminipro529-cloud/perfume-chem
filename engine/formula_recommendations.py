@@ -1027,6 +1027,34 @@ class Recommendation:
 # Excluded keys from axis ranking
 _NON_AXES = {"arithmetic_total", "geometric_total", "total", "_radar", "detected_style"}
 
+# Deep-architecture dimensions that only appear when the caller enabled the
+# opt-in Deep Architecture block (engine.knowledge.deep_architecture).
+_DEEP_ARCH_AXES = frozenset({
+    "texture",
+    "depth_stacking",
+    "temporal_layering",
+    "spatial_projection",
+    "integration_capacity",
+    "function_balance",
+    "legibility_coherence",
+})
+
+
+def flatten_deep_architecture_scores(scores: Mapping[str, Any]) -> dict:
+    """Promote the nested ``deep_architecture`` block to top-level axis scores.
+
+    Returns a copy; the original mapping is unchanged. No-op when the block is
+    absent (the default), so behaviour is preserved unless a caller opted in.
+    """
+    flat = dict(scores)
+    block = scores.get("deep_architecture")
+    if not isinstance(block, Mapping):
+        return flat
+    for dim, entry in (block.get("dimensions") or {}).items():
+        if isinstance(entry, Mapping) and isinstance(entry.get("score"), (int, float)):
+            flat.setdefault(str(dim), float(entry["score"]))
+    return flat
+
 
 def identify_weak_axes(scores: dict, n: int = 4) -> list[tuple[str, float]]:
     """Return the n weakest scoring axes, sorted ascending."""
@@ -1160,7 +1188,7 @@ def generate_recommendations(
     if scorer is None:
         scorer = FormulaScorer()
     weak_axes = _rank_axes_for_mode(
-        scores,
+        flatten_deep_architecture_scores(scores),
         normalized_mode,
         observations=observations,
         intent_tags=intent_tags,
@@ -1210,9 +1238,10 @@ def generate_recommendations(
         "luxury": [],  # usually high; no addition helps
         "safety": [],  # handled by dose-reduction below
         # Deep Architecture dimensions (opt-in; see engine.knowledge.deep_architecture)
-        "temporal_layering": ["longevity"],
-        "spatial_projection": ["sillage"],
-        "function_balance": ["character_balance"],
+        "depth_stacking": ["complexity"],
+        "temporal_layering": ["longevity", "radiance"],
+        "spatial_projection": ["sillage", "radiance"],
+        "function_balance": ["character_balance", "longevity", "texture"],
         "integration_capacity": [],  # more channels worsen overload
         "legibility_coherence": [],  # additions hurt clarity
     }
@@ -1292,7 +1321,12 @@ def generate_recommendations(
             _cfg_sc = _mode_config(normalized_mode)
             if delta <= 0:
                 continue
-            if _cfg_sc.get("require_composite_gain", True) and composite_delta <= 0:
+            deep_axis_opt_in = "deep_architecture" in scores and axis in _DEEP_ARCH_AXES
+            if (
+                _cfg_sc.get("require_composite_gain", True)
+                and composite_delta <= 0
+                and not deep_axis_opt_in
+            ):
                 continue
 
             # Stage 3: Identity preservation (most expensive, only for survivors)
