@@ -23,7 +23,10 @@
    "spatial_projection": 76.6,
    "integration_capacity": 18.5,
    "function_balance": 71.7,
-   "legibility_coherence": 82.9
+   "legibility_coherence": 82.9,
+   "contrast_negative_space": 74.8,
+   "linearity_consistency": 55.0,
+   "hedonic_contrast": 100.0
   },
   "fougere": {
    "texture": 81.0,
@@ -32,7 +35,10 @@
    "spatial_projection": 94.8,
    "integration_capacity": 0.0,
    "function_balance": 65.5,
-   "legibility_coherence": 77.2
+   "legibility_coherence": 77.2,
+   "contrast_negative_space": 80.5,
+   "linearity_consistency": 55.9,
+   "hedonic_contrast": 94.1
   },
   "floral": {
    "texture": 69.0,
@@ -41,7 +47,10 @@
    "spatial_projection": 90.4,
    "integration_capacity": 0.0,
    "function_balance": 72.5,
-   "legibility_coherence": 82.6
+   "legibility_coherence": 82.6,
+   "contrast_negative_space": 72.5,
+   "linearity_consistency": 55.0,
+   "hedonic_contrast": 100.0
   },
   "chypre": {
    "texture": 69.0,
@@ -50,7 +59,10 @@
    "spatial_projection": 80.6,
    "integration_capacity": 0.0,
    "function_balance": 74.2,
-   "legibility_coherence": 71.5
+   "legibility_coherence": 71.5,
+   "contrast_negative_space": 72.5,
+   "linearity_consistency": 55.0,
+   "hedonic_contrast": 100.0
   },
   "oriental": {
    "texture": 69.2,
@@ -59,7 +71,10 @@
    "spatial_projection": 92.3,
    "integration_capacity": 0.0,
    "function_balance": 67.2,
-   "legibility_coherence": 72.9
+   "legibility_coherence": 72.9,
+   "contrast_negative_space": 75.0,
+   "linearity_consistency": 55.0,
+   "hedonic_contrast": 88.8
   },
   "woody": {
    "texture": 78.5,
@@ -68,7 +83,10 @@
    "spatial_projection": 97.5,
    "integration_capacity": 0.0,
    "function_balance": 79.2,
-   "legibility_coherence": 75.6
+   "legibility_coherence": 75.6,
+   "contrast_negative_space": 78.8,
+   "linearity_consistency": 57.4,
+   "hedonic_contrast": 85.1
   },
   "leather": {
    "texture": 65,
@@ -270,6 +288,18 @@
    "legibility_coherence": [
     76.3,
     89.5
+   ],
+   "contrast_negative_space": [
+    72.5,
+    77.0
+   ],
+   "linearity_consistency": [
+    55.0,
+    55.0
+   ],
+   "hedonic_contrast": [
+    100.0,
+    100.0
    ]
   },
   "floral": {
@@ -300,6 +330,18 @@
    "legibility_coherence": [
     64.9,
     89.0
+   ],
+   "contrast_negative_space": [
+    70.0,
+    75.2
+   ],
+   "linearity_consistency": [
+    55.0,
+    64.5
+   ],
+   "hedonic_contrast": [
+    85.3,
+    100.0
    ]
   },
   "fougere": {
@@ -330,6 +372,18 @@
    "legibility_coherence": [
     71.1,
     84.9
+   ],
+   "contrast_negative_space": [
+    78.2,
+    82.1
+   ],
+   "linearity_consistency": [
+    55.0,
+    58.2
+   ],
+   "hedonic_contrast": [
+    77.3,
+    100.0
    ]
   },
   "chypre": {
@@ -360,6 +414,18 @@
    "legibility_coherence": [
     63.2,
     74.4
+   ],
+   "contrast_negative_space": [
+    71.0,
+    76.5
+   ],
+   "linearity_consistency": [
+    55.0,
+    55.0
+   ],
+   "hedonic_contrast": [
+    81.9,
+    100.0
    ]
   },
   "oriental": {
@@ -390,6 +456,18 @@
    "legibility_coherence": [
     56.8,
     73.8
+   ],
+   "contrast_negative_space": [
+    71.0,
+    75.8
+   ],
+   "linearity_consistency": [
+    55.0,
+    55.0
+   ],
+   "hedonic_contrast": [
+    86.8,
+    100.0
    ]
   },
   "woody": {
@@ -420,12 +498,28 @@
    "legibility_coherence": [
     52.3,
     78.6
+   ],
+   "contrast_negative_space": [
+    65.2,
+    81.5
+   ],
+   "linearity_consistency": [
+    56.0,
+    65.9
+   ],
+   "hedonic_contrast": [
+    81.9,
+    85.7
    ]
   }
  },
  "calibration": {
-  "method": "median target + padded [p10,p90] range from labeled classical_study corpus",
+  "method": "median target + [p10,p90] range from labeled archetype corpus",
   "corpus_files": 33,
-  "leave_one_out_auc": 0.709
+  "external_holdout_files": 8,
+  "leave_one_out_auc": 0.712,
+  "holdout_classical_to_other_auc": 0.583,
+  "holdout_other_to_classical_auc": 0.385,
+  "external_holdout_auc": 0.425
  }
 }

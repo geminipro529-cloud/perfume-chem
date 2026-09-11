@@ -1,7 +1,7 @@
 """Deep Architecture — literature-backed texture/depth/layering knowledge surface.
 
 This module is the *knowledge* side of the Deep Architecture capability. It owns:
-  * the seven structural dimensions and their authority labels;
+  * the ten structural dimensions and their authority labels;
   * the peer-reviewed evidence registry (collected via Europe PMC/Crossref,
     merged with the curated registries in ``performance_engineering`` and
     ``floral_hedonic_evidence``);
@@ -30,6 +30,9 @@ DIMENSIONS: tuple[str, ...] = (
     "integration_capacity",
     "function_balance",
     "legibility_coherence",
+    "contrast_negative_space",
+    "linearity_consistency",
+    "hedonic_contrast",
 )
 
 
@@ -65,10 +68,12 @@ PROFILES_PATH = _DATA_DIR / "deep_architecture_profiles.json"
 # Curated peer-reviewed refs already verified in this project, mapped onto the
 # deep-architecture dimensions.
 _DOMAIN_TO_DIMENSIONS: dict[str, tuple[str, ...]] = {
-    "theory": ("depth_stacking", "legibility_coherence", "function_balance", "integration_capacity"),
-    "neuroscience": ("integration_capacity", "temporal_layering"),
-    "hedonism": ("legibility_coherence",),
-    "architecture": ("depth_stacking", "integration_capacity", "legibility_coherence"),
+    "theory": ("depth_stacking", "legibility_coherence", "function_balance", "integration_capacity",
+               "contrast_negative_space", "linearity_consistency", "hedonic_contrast"),
+    "neuroscience": ("integration_capacity", "temporal_layering", "linearity_consistency"),
+    "hedonism": ("legibility_coherence", "hedonic_contrast"),
+    "architecture": ("depth_stacking", "integration_capacity", "legibility_coherence",
+                     "contrast_negative_space"),
     "function": ("depth_stacking", "temporal_layering", "spatial_projection",
                  "integration_capacity", "function_balance"),
 }

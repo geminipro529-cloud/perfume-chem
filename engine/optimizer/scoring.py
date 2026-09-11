@@ -2608,6 +2608,79 @@ class FormulaScorer:
         """PREDICTED-PHYSICAL diffusion proxy. Never observed sillage."""
         return round(float(self._score_sillage_heuristic(fv)), 1)
 
+    def score_contrast_negative_space(self, fv: FormulaVector) -> float:
+        """Deliberate contrast with a populated bridge; dormant mass penalized.
+
+        Evidence: mixture suppression and configural processing (Lawless 1986;
+        Ma 2021; Thomas-Danguin 2014).
+        """
+        oavs = [max(float(v or 0.0), 0.0) for v in self._thermodynamic_oav_map(fv).values()]
+        oavs = [v for v in oavs if v > 0]
+        if len(oavs) < 2:
+            return 40.0
+        perceptible = [v for v in oavs if v >= 1.0]
+        dormant = [v for v in oavs if v < 1.0]
+        bridge = [v for v in oavs if 10.0 <= v <= 500.0]
+        spread = math.log10(max(oavs)) - math.log10(min(oavs))
+        score = 50.0 + min(20.0, len(bridge) * 4.0) + min(15.0, spread * 3.0)
+        score -= min(25.0, len(dormant) * 2.5)
+        if not perceptible:
+            score -= 10.0
+        return round(max(0.0, min(score, 100.0)), 1)
+
+    def score_linearity_consistency(self, fv: FormulaVector) -> float:
+        """Smooth temporal evolution: few transitions, long half-life, mid VP spread.
+
+        Evidence: adaptation/habituation time course (Pellegrino 2017;
+        Sinding 2017) and evaporation/persistence (Teixeira 2009/2013).
+        """
+        tp = self.temporal_profile
+        if tp is not None:
+            transitions = len(getattr(tp, "transitions", ()) or ())
+            half_life = float(getattr(tp, "perceptual_half_life_hr", 0.0) or 0.0)
+            score = 80.0 - min(40.0, transitions * 6.0) + min(20.0, half_life * 2.0)
+            return round(max(0.0, min(score, 100.0)), 1)
+        logs = []
+        for m in self._thermodynamic_material_map(fv).values():
+            vp = float(getattr(m, "vp_pure_pa", 0.0) or 0.0)
+            if vp > 0:
+                logs.append(math.log10(vp))
+        if len(logs) < 2:
+            return 55.0
+        spread = max(logs) - min(logs)
+        return round(max(0.0, 100.0 - min(45.0, spread * 8.0)), 1)
+
+    def score_hedonic_contrast(self, fv: FormulaVector) -> float:
+        """Intentional hedonic contrast; clash when low-valence mass dominates.
+
+        Evidence: how pleasant/unpleasant mixture components combine
+        (Grabenhorst 2007; Lawless 1986; Khan 2007).
+        """
+        from ..hedonic_model import HEDONIC_VALENCE
+
+        vals: list[float] = []
+        weights: list[float] = []
+        for name, m in self._thermodynamic_material_map(fv).items():
+            weight = max(float(getattr(m, "oav", 0.0) or 0.0), 0.0)
+            if weight <= 0:
+                continue
+            value = HEDONIC_VALENCE.get(name)
+            if value is None:
+                mat = _lookup_material(name)
+                value = (mat or {}).get("hedonic")
+            if value is None:
+                continue
+            vals.append(float(value))
+            weights.append(weight)
+        if not vals or sum(weights) <= 0:
+            return 50.0
+        weighted = sum(v * w for v, w in zip(vals, weights)) / sum(weights)
+        spread = max(vals) - min(vals)
+        score = 30.0 + 50.0 * weighted + 20.0 * min(spread, 1.0)
+        if weighted < 0.4:
+            score -= 15.0
+        return round(max(0.0, min(score, 100.0)), 1)
+
     def _deep_depth_stacking(self, fv: FormulaVector) -> float:
         """Deep-architecture depth: same-family / cross-adaptation stacks with VP spread.
 
@@ -2698,6 +2771,9 @@ class FormulaScorer:
             "integration_capacity": self.score_integration_capacity(fv),
             "function_balance": self.score_function_balance(fv),
             "legibility_coherence": self.score_legibility_coherence(fv),
+            "contrast_negative_space": self.score_contrast_negative_space(fv),
+            "linearity_consistency": self.score_linearity_consistency(fv),
+            "hedonic_contrast": self.score_hedonic_contrast(fv),
         }
         dimensions: dict[str, dict] = {}
         for dim in DEEP_ARCHITECTURE_DIMENSIONS:
@@ -2891,12 +2967,21 @@ class FormulaScorer:
         override = getattr(self, "_formula_state_override", None)
         if self._formula_state_override_matches(fv):
             return override
+        cache_key = (
+            self._formula_vector_fingerprint(fv),
+            float(self.batch_volume_ml),
+        )
+        cached = getattr(self, "_thermo_state_cache", None)
+        if cached is not None and cached[0] == cache_key:
+            return cached[1]
         ingredients, dilutions = self._science_ingredients(fv)
-        return build_formula_state(
+        state = build_formula_state(
             ingredients,
             dilutions,
             batch_volume_ml=self.batch_volume_ml,
         )
+        self._thermo_state_cache = (cache_key, state)
+        return state
 
     def _thermodynamic_material_map(self, fv: FormulaVector) -> dict[str, MaterialState]:
         """Index canonical state rows by the exact formula label."""
@@ -3286,6 +3371,9 @@ class FormulaScorer:
         "function_balance": "score_function_balance",
         "legibility_coherence": "score_legibility_coherence",
         "spatial_projection": "score_spatial_projection",
+        "contrast_negative_space": "score_contrast_negative_space",
+        "linearity_consistency": "score_linearity_consistency",
+        "hedonic_contrast": "score_hedonic_contrast",
     }
 
     def score_axis(self, fv: FormulaVector, axis: str) -> float:

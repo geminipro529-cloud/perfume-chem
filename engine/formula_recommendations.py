@@ -1037,6 +1037,9 @@ _DEEP_ARCH_AXES = frozenset({
     "integration_capacity",
     "function_balance",
     "legibility_coherence",
+    "contrast_negative_space",
+    "linearity_consistency",
+    "hedonic_contrast",
 })
 
 
@@ -1244,6 +1247,9 @@ def generate_recommendations(
         "function_balance": ["character_balance", "longevity", "texture"],
         "integration_capacity": [],  # more channels worsen overload
         "legibility_coherence": [],  # additions hurt clarity
+        "contrast_negative_space": ["character_balance", "complexity"],
+        "linearity_consistency": ["longevity"],
+        "hedonic_contrast": ["character_balance"],
     }
 
     candidates: list[Recommendation] = []
