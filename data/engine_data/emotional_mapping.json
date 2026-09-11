@@ -1,0 +1,724 @@
+{
+ "EMOTIONAL_PROFILES": {
+  "Linalool": {
+   "calming": 0.8,
+   "energizing": 0.0,
+   "sensual": 0.1,
+   "comforting": 0.3,
+   "grounding": 0.1,
+   "uplifting": 0.2
+  },
+  "Lavender EO": {
+   "calming": 0.85,
+   "energizing": 0.0,
+   "sensual": 0.05,
+   "comforting": 0.4,
+   "grounding": 0.2,
+   "uplifting": 0.1
+  },
+  "Lavender EO (BONTAUX SAS)": {
+   "calming": 0.8,
+   "energizing": 0.0,
+   "sensual": 0.1,
+   "comforting": 0.45,
+   "grounding": 0.15,
+   "uplifting": 0.15
+  },
+  "Clary Sage EO": {
+   "calming": 0.6,
+   "energizing": 0.0,
+   "sensual": 0.15,
+   "comforting": 0.2,
+   "grounding": 0.3,
+   "uplifting": 0.1
+  },
+  "Benzoin Resinoid": {
+   "calming": 0.5,
+   "energizing": 0.0,
+   "sensual": 0.3,
+   "comforting": 0.7,
+   "grounding": 0.3,
+   "uplifting": 0.0
+  },
+  "Coumarin": {
+   "calming": 0.4,
+   "energizing": 0.0,
+   "sensual": 0.2,
+   "comforting": 0.6,
+   "grounding": 0.15,
+   "uplifting": 0.0
+  },
+  "Linalyl Acetate": {
+   "calming": 0.55,
+   "energizing": 0.0,
+   "sensual": 0.1,
+   "comforting": 0.25,
+   "grounding": 0.05,
+   "uplifting": 0.15
+  },
+  "D-Limonene": {
+   "calming": 0.0,
+   "energizing": 0.7,
+   "sensual": 0.0,
+   "comforting": 0.1,
+   "grounding": 0.0,
+   "uplifting": 0.6
+  },
+  "Bergamot FCF": {
+   "calming": 0.2,
+   "energizing": 0.55,
+   "sensual": 0.1,
+   "comforting": 0.1,
+   "grounding": 0.0,
+   "uplifting": 0.65
+  },
+  "Bergamot FCF Sicilian": {
+   "calming": 0.2,
+   "energizing": 0.55,
+   "sensual": 0.1,
+   "comforting": 0.1,
+   "grounding": 0.0,
+   "uplifting": 0.65
+  },
+  "Cedrat FCF Sicilian": {
+   "calming": 0.05,
+   "energizing": 0.6,
+   "sensual": 0.05,
+   "comforting": 0.0,
+   "grounding": 0.0,
+   "uplifting": 0.55
+  },
+  "Blood Orange Sicilian": {
+   "calming": 0.05,
+   "energizing": 0.65,
+   "sensual": 0.0,
+   "comforting": 0.2,
+   "grounding": 0.0,
+   "uplifting": 0.7
+  },
+  "Grapefruit FCF": {
+   "calming": 0.0,
+   "energizing": 0.65,
+   "sensual": 0.0,
+   "comforting": 0.0,
+   "grounding": 0.0,
+   "uplifting": 0.6
+  },
+  "Red Mandarin EO": {
+   "calming": 0.1,
+   "energizing": 0.5,
+   "sensual": 0.1,
+   "comforting": 0.3,
+   "grounding": 0.0,
+   "uplifting": 0.55
+  },
+  "Dihydromyrcenol": {
+   "calming": 0.1,
+   "energizing": 0.55,
+   "sensual": 0.0,
+   "comforting": 0.0,
+   "grounding": 0.0,
+   "uplifting": 0.4
+  },
+  "Methyl Pamplemousse": {
+   "calming": 0.0,
+   "energizing": 0.55,
+   "sensual": 0.0,
+   "comforting": 0.0,
+   "grounding": 0.0,
+   "uplifting": 0.45
+  },
+  "Terpinyl Acetate": {
+   "calming": 0.15,
+   "energizing": 0.45,
+   "sensual": 0.0,
+   "comforting": 0.05,
+   "grounding": 0.15,
+   "uplifting": 0.3
+  },
+  "Allyl Amyl Glycolate": {
+   "calming": 0.0,
+   "energizing": 0.4,
+   "sensual": 0.0,
+   "comforting": 0.0,
+   "grounding": 0.0,
+   "uplifting": 0.3
+  },
+  "Galaxolide": {
+   "calming": 0.15,
+   "energizing": 0.0,
+   "sensual": 0.65,
+   "comforting": 0.3,
+   "grounding": 0.0,
+   "uplifting": 0.0
+  },
+  "Habanolide": {
+   "calming": 0.1,
+   "energizing": 0.0,
+   "sensual": 0.7,
+   "comforting": 0.25,
+   "grounding": 0.0,
+   "uplifting": 0.0
+  },
+  "Ethylene Brassylate": {
+   "calming": 0.1,
+   "energizing": 0.0,
+   "sensual": 0.6,
+   "comforting": 0.3,
+   "grounding": 0.0,
+   "uplifting": 0.0
+  },
+  "Exaltolide": {
+   "calming": 0.1,
+   "energizing": 0.0,
+   "sensual": 0.75,
+   "comforting": 0.2,
+   "grounding": 0.0,
+   "uplifting": 0.0
+  },
+  "Ambretone": {
+   "calming": 0.05,
+   "energizing": 0.0,
+   "sensual": 0.65,
+   "comforting": 0.15,
+   "grounding": 0.0,
+   "uplifting": 0.0
+  },
+  "Musk Ketone": {
+   "calming": 0.15,
+   "energizing": 0.0,
+   "sensual": 0.55,
+   "comforting": 0.4,
+   "grounding": 0.0,
+   "uplifting": 0.0
+  },
+  "Javanol": {
+   "calming": 0.2,
+   "energizing": 0.0,
+   "sensual": 0.75,
+   "comforting": 0.15,
+   "grounding": 0.1,
+   "uplifting": 0.0
+  },
+  "Ebanol": {
+   "calming": 0.15,
+   "energizing": 0.0,
+   "sensual": 0.65,
+   "comforting": 0.2,
+   "grounding": 0.1,
+   "uplifting": 0.0
+  },
+  "Indole": {
+   "calming": 0.0,
+   "energizing": 0.0,
+   "sensual": 0.7,
+   "comforting": 0.0,
+   "grounding": 0.0,
+   "uplifting": 0.0
+  },
+  "Ambrox Super": {
+   "calming": 0.1,
+   "energizing": 0.1,
+   "sensual": 0.55,
+   "comforting": 0.2,
+   "grounding": 0.2,
+   "uplifting": 0.15
+  },
+  "Isobutyl Quinoline": {
+   "calming": 0.0,
+   "energizing": 0.0,
+   "sensual": 0.4,
+   "comforting": 0.0,
+   "grounding": 0.05,
+   "uplifting": 0.0
+  },
+  "Vanillin": {
+   "calming": 0.3,
+   "energizing": 0.0,
+   "sensual": 0.3,
+   "comforting": 0.9,
+   "grounding": 0.1,
+   "uplifting": 0.05
+  },
+  "Ethyl Vanillin": {
+   "calming": 0.25,
+   "energizing": 0.0,
+   "sensual": 0.3,
+   "comforting": 0.85,
+   "grounding": 0.1,
+   "uplifting": 0.05
+  },
+  "Heliotropal": {
+   "calming": 0.3,
+   "energizing": 0.0,
+   "sensual": 0.2,
+   "comforting": 0.75,
+   "grounding": 0.1,
+   "uplifting": 0.0
+  },
+  "Maple Lactone": {
+   "calming": 0.15,
+   "energizing": 0.0,
+   "sensual": 0.1,
+   "comforting": 0.8,
+   "grounding": 0.0,
+   "uplifting": 0.1
+  },
+  "Gamma Decalactone": {
+   "calming": 0.1,
+   "energizing": 0.0,
+   "sensual": 0.3,
+   "comforting": 0.6,
+   "grounding": 0.0,
+   "uplifting": 0.1
+  },
+  "Raspberry Ketone": {
+   "calming": 0.1,
+   "energizing": 0.05,
+   "sensual": 0.15,
+   "comforting": 0.55,
+   "grounding": 0.0,
+   "uplifting": 0.2
+  },
+  "Tonka Bean FO": {
+   "calming": 0.3,
+   "energizing": 0.0,
+   "sensual": 0.2,
+   "comforting": 0.8,
+   "grounding": 0.15,
+   "uplifting": 0.0
+  },
+  "Vetiver EO": {
+   "calming": 0.3,
+   "energizing": 0.0,
+   "sensual": 0.15,
+   "comforting": 0.1,
+   "grounding": 0.85,
+   "uplifting": 0.0
+  },
+  "Vetiver EO (India)": {
+   "calming": 0.35,
+   "energizing": 0.0,
+   "sensual": 0.2,
+   "comforting": 0.15,
+   "grounding": 0.9,
+   "uplifting": 0.0
+  },
+  "Patchouli EO": {
+   "calming": 0.2,
+   "energizing": 0.0,
+   "sensual": 0.25,
+   "comforting": 0.1,
+   "grounding": 0.8,
+   "uplifting": 0.0
+  },
+  "Cedarwood EO": {
+   "calming": 0.25,
+   "energizing": 0.0,
+   "sensual": 0.1,
+   "comforting": 0.15,
+   "grounding": 0.75,
+   "uplifting": 0.0
+  },
+  "Labdanum Absolute": {
+   "calming": 0.15,
+   "energizing": 0.0,
+   "sensual": 0.35,
+   "comforting": 0.25,
+   "grounding": 0.65,
+   "uplifting": 0.0
+  },
+  "Iso E Super": {
+   "calming": 0.1,
+   "energizing": 0.0,
+   "sensual": 0.4,
+   "comforting": 0.15,
+   "grounding": 0.5,
+   "uplifting": 0.0
+  },
+  "Cashmeran": {
+   "calming": 0.2,
+   "energizing": 0.0,
+   "sensual": 0.35,
+   "comforting": 0.3,
+   "grounding": 0.5,
+   "uplifting": 0.0
+  },
+  "Vertofix Coeur": {
+   "calming": 0.1,
+   "energizing": 0.0,
+   "sensual": 0.1,
+   "comforting": 0.1,
+   "grounding": 0.65,
+   "uplifting": 0.0
+  },
+  "Timberol": {
+   "calming": 0.1,
+   "energizing": 0.0,
+   "sensual": 0.05,
+   "comforting": 0.05,
+   "grounding": 0.6,
+   "uplifting": 0.0
+  },
+  "Kephalis": {
+   "calming": 0.05,
+   "energizing": 0.0,
+   "sensual": 0.1,
+   "comforting": 0.05,
+   "grounding": 0.55,
+   "uplifting": 0.0
+  },
+  "Evernyl": {
+   "calming": 0.05,
+   "energizing": 0.0,
+   "sensual": 0.15,
+   "comforting": 0.1,
+   "grounding": 0.7,
+   "uplifting": 0.0
+  },
+  "Myrrh EO": {
+   "calming": 0.25,
+   "energizing": 0.0,
+   "sensual": 0.2,
+   "comforting": 0.2,
+   "grounding": 0.6,
+   "uplifting": 0.0
+  },
+  "Olibanum Resinoid": {
+   "calming": 0.3,
+   "energizing": 0.0,
+   "sensual": 0.15,
+   "comforting": 0.15,
+   "grounding": 0.6,
+   "uplifting": 0.15
+  },
+  "Vetival": {
+   "calming": 0.15,
+   "energizing": 0.0,
+   "sensual": 0.2,
+   "comforting": 0.05,
+   "grounding": 0.65,
+   "uplifting": 0.0
+  },
+  "Suederal": {
+   "calming": 0.05,
+   "energizing": 0.0,
+   "sensual": 0.3,
+   "comforting": 0.05,
+   "grounding": 0.55,
+   "uplifting": 0.0
+  },
+  "Birch Tar Rectified": {
+   "calming": 0.0,
+   "energizing": 0.0,
+   "sensual": 0.15,
+   "comforting": 0.05,
+   "grounding": 0.5,
+   "uplifting": 0.0
+  },
+  "Carrot Seed EO": {
+   "calming": 0.15,
+   "energizing": 0.0,
+   "sensual": 0.05,
+   "comforting": 0.1,
+   "grounding": 0.55,
+   "uplifting": 0.0
+  },
+  "Neroli EO": {
+   "calming": 0.2,
+   "energizing": 0.3,
+   "sensual": 0.15,
+   "comforting": 0.15,
+   "grounding": 0.0,
+   "uplifting": 0.75
+  },
+  "Hedione": {
+   "calming": 0.1,
+   "energizing": 0.15,
+   "sensual": 0.2,
+   "comforting": 0.05,
+   "grounding": 0.0,
+   "uplifting": 0.7
+  },
+  "DBCA": {
+   "calming": 0.1,
+   "energizing": 0.1,
+   "sensual": 0.15,
+   "comforting": 0.1,
+   "grounding": 0.0,
+   "uplifting": 0.5
+  },
+  "Champaca Flower EO": {
+   "calming": 0.15,
+   "energizing": 0.15,
+   "sensual": 0.3,
+   "comforting": 0.1,
+   "grounding": 0.0,
+   "uplifting": 0.55
+  },
+  "Ylang Comoros Complete EO": {
+   "calming": 0.2,
+   "energizing": 0.1,
+   "sensual": 0.5,
+   "comforting": 0.1,
+   "grounding": 0.0,
+   "uplifting": 0.45
+  },
+  "Petitgrain EO": {
+   "calming": 0.2,
+   "energizing": 0.35,
+   "sensual": 0.05,
+   "comforting": 0.1,
+   "grounding": 0.05,
+   "uplifting": 0.5
+  },
+  "Phenethyl Alcohol": {
+   "calming": 0.15,
+   "energizing": 0.05,
+   "sensual": 0.2,
+   "comforting": 0.15,
+   "grounding": 0.0,
+   "uplifting": 0.45
+  },
+  "Freesia HDI": {
+   "calming": 0.1,
+   "energizing": 0.15,
+   "sensual": 0.1,
+   "comforting": 0.1,
+   "grounding": 0.0,
+   "uplifting": 0.4
+  },
+  "Lilyreal ND": {
+   "calming": 0.15,
+   "energizing": 0.1,
+   "sensual": 0.1,
+   "comforting": 0.2,
+   "grounding": 0.0,
+   "uplifting": 0.3
+  },
+  "Nympheal": {
+   "calming": 0.1,
+   "energizing": 0.1,
+   "sensual": 0.1,
+   "comforting": 0.15,
+   "grounding": 0.0,
+   "uplifting": 0.3
+  },
+  "Florol": {
+   "calming": 0.15,
+   "energizing": 0.1,
+   "sensual": 0.1,
+   "comforting": 0.2,
+   "grounding": 0.0,
+   "uplifting": 0.35
+  },
+  "Bourgeonal": {
+   "calming": 0.05,
+   "energizing": 0.1,
+   "sensual": 0.1,
+   "comforting": 0.15,
+   "grounding": 0.0,
+   "uplifting": 0.3
+  },
+  "Hydroxycitronellal": {
+   "calming": 0.15,
+   "energizing": 0.05,
+   "sensual": 0.05,
+   "comforting": 0.3,
+   "grounding": 0.0,
+   "uplifting": 0.25
+  },
+  "Orivone": {
+   "calming": 0.2,
+   "energizing": 0.0,
+   "sensual": 0.15,
+   "comforting": 0.2,
+   "grounding": 0.1,
+   "uplifting": 0.1
+  },
+  "cis-3-Hexenol": {
+   "calming": 0.05,
+   "energizing": 0.3,
+   "sensual": 0.0,
+   "comforting": 0.0,
+   "grounding": 0.1,
+   "uplifting": 0.35
+  },
+  "Dynascone": {
+   "calming": 0.0,
+   "energizing": 0.35,
+   "sensual": 0.0,
+   "comforting": 0.0,
+   "grounding": 0.1,
+   "uplifting": 0.25
+  },
+  "Scentenal": {
+   "calming": 0.0,
+   "energizing": 0.25,
+   "sensual": 0.0,
+   "comforting": 0.0,
+   "grounding": 0.05,
+   "uplifting": 0.15
+  },
+  "Calone": {
+   "calming": 0.15,
+   "energizing": 0.2,
+   "sensual": 0.0,
+   "comforting": 0.0,
+   "grounding": 0.0,
+   "uplifting": 0.3
+  },
+  "Alpha Ionone": {
+   "calming": 0.15,
+   "energizing": 0.0,
+   "sensual": 0.15,
+   "comforting": 0.2,
+   "grounding": 0.05,
+   "uplifting": 0.1
+  },
+  "Beta Ionone": {
+   "calming": 0.2,
+   "energizing": 0.0,
+   "sensual": 0.15,
+   "comforting": 0.25,
+   "grounding": 0.1,
+   "uplifting": 0.08
+  },
+  "Methyl Ionone Pure": {
+   "calming": 0.15,
+   "energizing": 0.0,
+   "sensual": 0.1,
+   "comforting": 0.15,
+   "grounding": 0.1,
+   "uplifting": 0.1
+  },
+  "Ultralia": {
+   "calming": 0.15,
+   "energizing": 0.0,
+   "sensual": 0.1,
+   "comforting": 0.15,
+   "grounding": 0.05,
+   "uplifting": 0.1
+  },
+  "Eugenol": {
+   "calming": 0.2,
+   "energizing": 0.15,
+   "sensual": 0.2,
+   "comforting": 0.3,
+   "grounding": 0.2,
+   "uplifting": 0.0
+  },
+  "Ethyl Safranate": {
+   "calming": 0.1,
+   "energizing": 0.1,
+   "sensual": 0.25,
+   "comforting": 0.2,
+   "grounding": 0.15,
+   "uplifting": 0.05
+  },
+  "Cardamom EO": {
+   "calming": 0.05,
+   "energizing": 0.35,
+   "sensual": 0.15,
+   "comforting": 0.1,
+   "grounding": 0.05,
+   "uplifting": 0.25
+  },
+  "Hexyl Salicylate": {
+   "calming": 0.15,
+   "energizing": 0.0,
+   "sensual": 0.2,
+   "comforting": 0.15,
+   "grounding": 0.05,
+   "uplifting": 0.1
+  },
+  "Benzyl Salicylate": {
+   "calming": 0.15,
+   "energizing": 0.0,
+   "sensual": 0.2,
+   "comforting": 0.15,
+   "grounding": 0.1,
+   "uplifting": 0.05
+  },
+  "Aldehyde C10": {
+   "calming": 0.0,
+   "energizing": 0.2,
+   "sensual": 0.0,
+   "comforting": 0.0,
+   "grounding": 0.0,
+   "uplifting": 0.3
+  },
+  "Aldehyde C11": {
+   "calming": 0.0,
+   "energizing": 0.15,
+   "sensual": 0.0,
+   "comforting": 0.0,
+   "grounding": 0.0,
+   "uplifting": 0.25
+  },
+  "Aldehyde C12 MNA": {
+   "calming": 0.05,
+   "energizing": 0.15,
+   "sensual": 0.05,
+   "comforting": 0.05,
+   "grounding": 0.0,
+   "uplifting": 0.2
+  },
+  "Cyclamen Aldehyde": {
+   "calming": 0.0,
+   "energizing": 0.15,
+   "sensual": 0.0,
+   "comforting": 0.0,
+   "grounding": 0.0,
+   "uplifting": 0.2
+  },
+  "Paradisamide": {
+   "calming": 0.0,
+   "energizing": 0.25,
+   "sensual": 0.15,
+   "comforting": 0.1,
+   "grounding": 0.0,
+   "uplifting": 0.45
+  },
+  "Guaiacol": {
+   "calming": 0.05,
+   "energizing": 0.0,
+   "sensual": 0.1,
+   "comforting": 0.1,
+   "grounding": 0.3,
+   "uplifting": 0.0
+  },
+  "Styrax FTEC": {
+   "calming": 0.05,
+   "energizing": 0.0,
+   "sensual": 0.2,
+   "comforting": 0.15,
+   "grounding": 0.4,
+   "uplifting": 0.0
+  },
+  "Amberwood F": {
+   "calming": 0.1,
+   "energizing": 0.0,
+   "sensual": 0.15,
+   "comforting": 0.15,
+   "grounding": 0.5,
+   "uplifting": 0.0
+  },
+  "Koavone": {
+   "calming": 0.1,
+   "energizing": 0.0,
+   "sensual": 0.05,
+   "comforting": 0.1,
+   "grounding": 0.45,
+   "uplifting": 0.0
+  },
+  "Cedroxyde": {
+   "calming": 0.1,
+   "energizing": 0.0,
+   "sensual": 0.05,
+   "comforting": 0.1,
+   "grounding": 0.5,
+   "uplifting": 0.0
+  }
+ }
+}

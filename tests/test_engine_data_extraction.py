@@ -16,6 +16,37 @@ ODOR_THRESHOLDS_SIZES = {
     "_VERIFIED_ODT": 102,
     "NOTE_TO_MATERIALS": 15,
 }
+
+# Second extraction wave (#3): runtime + research data moved out of code.
+ADDITIONAL_DATASETS = {
+    "pyramid_targets": {"OAV_TARGETS_BY_FAMILY": 54},
+    "temporal_graph": {"_ODT_LITERATURE": 174},
+    "hedonic_model": {"HEDONIC_VALENCE": 124},
+    "emotional_mapping": {"EMOTIONAL_PROFILES": 90},
+}
+
+
+def test_additional_datasets_extracted_with_expected_size():
+    from engine.material_data_loader import engine_data_path, load_engine_data
+
+    for module, sizes in ADDITIONAL_DATASETS.items():
+        assert engine_data_path(module).exists(), module
+        for key, size in sizes.items():
+            data = load_engine_data(module, key)
+            assert isinstance(data, dict)
+            assert len(data) == size, (module, key)
+
+
+def test_extracted_modules_expose_datasets():
+    import engine.emotional_mapping as em
+    import engine.hedonic_model as hm
+    import engine.temporal_graph as tg
+    from engine.knowledge import pyramid_targets as pt
+
+    assert len(pt.OAV_TARGETS_BY_FAMILY) == 54
+    assert len(tg._ODT_LITERATURE) == 174
+    assert len(hm.HEDONIC_VALENCE) == 124
+    assert len(em.EMOTIONAL_PROFILES) == 90
 INGREDIENT_INTELLIGENCE_SIZES = {
     "_PROFILES": 267,
     "_ALIASES": 110,

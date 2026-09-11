@@ -116,3 +116,9 @@ key.pub
 # PerfumersWorld intake raw cache (re-fetchable; hashes recorded in cache_index.json)
 data/external/perfumersworld/raw/
 data/external/pw_shards/**/raw/
+
+# PerfumersWorld intake transient run logs
+/data/external/perfumersworld/_pw_run*.log
+/data/external/perfumersworld/_pw_run*.pid
+*.db-shm
+*.db-wal

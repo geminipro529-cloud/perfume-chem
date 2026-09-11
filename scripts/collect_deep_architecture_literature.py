@@ -33,6 +33,27 @@ HEADERS = {"User-Agent": "perfume-chem-deep-architecture/1.0 (mailto:research@ex
 OLFACTORY_CONTEXT = ["odor", "odour", "aroma", "olfact", "smell", "scent",
                      "fragrance", "perfume", "volatile", "gc-ms", "gc-o", "aed"]
 
+# Precision control: drop non-perfumery venues unless the title is explicitly
+# olfactory. Keeps the registry on-topic (see remediation note in git history).
+_EXCLUDE_JOURNAL_TOKENS = (
+    "environment", "toxicolog", "pollut", "sediment", "hazardous", "waste",
+    "microbiolog", "pediatric", "dermat", "allerg", "medicine", "jama",
+    "lancet", "clinical", "pharmacolog", "proteom", "genomic", "genetics",
+    "aquatic toxicology", "ecolog", "foodborne",
+)
+_OLFACTORY_TITLE_TOKENS = (
+    "odour", "odor", "aroma", "olfact", "smell", "scent", "fragrance",
+    "perfume", "volatile", "gc-ms", "gc-o", "aed", "headspace", "sensory",
+)
+
+
+def _journal_precision_ok(journal: str, title: str) -> bool:
+    low_journal = str(journal or "").lower()
+    low_title = str(title or "").lower()
+    if any(token in low_journal for token in _EXCLUDE_JOURNAL_TOKENS):
+        return any(token in low_title for token in _OLFACTORY_TITLE_TOKENS)
+    return True
+
 # ---------------------------------------------------------------------------
 # Discovery specs:  must = required topical terms,  context = domain terms
 # ---------------------------------------------------------------------------
@@ -64,6 +85,18 @@ DIMENSION_SPECS: dict[str, dict[str, list[str]]] = {
     },
     "legibility_coherence": {
         "must": ["congruence", "congruency", "valence", "pleasantness", "suppression", "clarity"],
+        "context": OLFACTORY_CONTEXT,
+    },
+    "contrast_negative_space": {
+        "must": ["contrast", "negative space", "mixture suppression", "masking", "configural", "suppression"],
+        "context": OLFACTORY_CONTEXT,
+    },
+    "linearity_consistency": {
+        "must": ["adaptation", "habituation", "persistence", "evaporation", "release", "half-life"],
+        "context": OLFACTORY_CONTEXT,
+    },
+    "hedonic_contrast": {
+        "must": ["pleasantness", "valence", "hedonic", "preference", "congruence"],
         "context": OLFACTORY_CONTEXT,
     },
 }
@@ -245,9 +278,12 @@ def _to_ref(item: dict, *, category: str, used_for: str) -> dict | None:
     ).strip()
     if not journal:
         return None
+    title = re.sub(r"<[^>]+>", "", str(item.get("title") or "")).strip()
+    if not _journal_precision_ok(journal, title):
+        return None
     return {
         "key": "doi:" + doi,
-        "title": re.sub(r"<[^>]+>", "", str(item.get("title") or "")).strip(),
+        "title": title,
         "authors": str(item.get("authorString") or "").strip(),
         "journal": journal,
         "year": int(year),
@@ -364,6 +400,17 @@ def main(argv: list[str] | None = None) -> int:
     payload["gaps"] = {
         g: sorted(set(specs) - set(payload[g]))
         for g, specs in (("dimensions", dims), ("families", fams), ("subfamilies", subs), ("archetypes", archs))
+    }
+    payload["gap_policy"] = {
+        "archetypes": (
+            "Peer-reviewed GC-MS of specific commercial perfumes is not indexed by "
+            "Europe PMC/Crossref; a listed archetype is a design target, not an "
+            "evidence-backed record. Gaps are intentional and must not be fabricated."
+        ),
+        "subfamilies": (
+            "Many subfamily names are practitioner/marketing constructs without "
+            "peer-reviewed coverage; gaps are reported rather than filled heuristically."
+        ),
     }
 
     verified: dict[str, bool] = {}

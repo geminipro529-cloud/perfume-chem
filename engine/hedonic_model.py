@@ -31,6 +31,8 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 
+from engine.material_data_loader import load_engine_data as _load_engine_data
+
 # ═══════════════════════════════════════════════════════════════════════════════
 # Hedonic Valence Data
 # Scale: -1.0 (maximally unpleasant) to +1.0 (maximally pleasant)
@@ -38,146 +40,7 @@ from dataclasses import dataclass
 # and Arctander (1969) subjective descriptors cross-referenced
 # ═══════════════════════════════════════════════════════════════════════════════
 
-HEDONIC_VALENCE: dict[str, float] = {
-    # ── Universally pleasant (vanillic, floral, fruity) ──
-    "Vanillin":               0.90,
-    "Ethyl Vanillin":         0.88,
-    "Heliotropal": 0.85,  # neat piperonal
-    "Linalool":               0.82,
-    "Linalyl Acetate":        0.80,
-    "Hedione":                0.78,
-    "Phenethyl Alcohol":      0.82,
-    "Benzyl Acetate":         0.75,
-    "Jessemal":              0.45,
-    "Coumarin":               0.80,
-    "Maple Lactone":          0.85,
-    "Gamma Decalactone":      0.83,
-    "Gamma Undecalactone":    0.80,
-    "Delta Decalactone":      0.78,
-    "Raspberry Ketone":       0.80,
-    # ── Pleasant florals ──
-    "DBCA":                   0.75,
-    "Lilyreal ND":            0.70,
-    "Bourgeonal":             0.68,
-    "Hydroxycitronellal":     0.72,
-    "Nympheal":               0.70,
-    "Florol":                 0.72,
-    "Freesia HDI":            0.70,
-    "Orivone":                0.65,
-    "Ultralia":               0.60,
-    "Methyl Ionone Pure":     0.72,
-    "Alpha Ionone":           0.68,
-    "Beta Ionone":            0.70,
-    "Alpha Irone":            0.65,
-    "Cis Jasmone":            0.65,
-    # ── Pleasant woody/amber ──
-    "Iso E Super":            0.55,
-    "Javanol":                0.72,
-    "Ebanol":                 0.68,
-    "Ambrox Super":           0.60,
-    "Cashmeran":              0.65,
-    "Vertofix Coeur":         0.55,
-    "Amberwood F":            0.60,
-    "Timberol":               0.50,
-    "Kephalis":               0.45,  # powerful, but less intrinsically pleasant
-    "Koavone":                0.55,
-    "Cedroxyde":              0.50,
-    # ── Pleasant musks ──
-    "Galaxolide":             0.70,
-    "Habanolide":             0.72,
-    "Ethylene Brassylate":    0.70,
-    "Exaltolide":             0.75,
-    "Musk Ketone":            0.65,
-    "Ambretone":              0.68,
-    # ── Pleasant citrus ──
-    "D-Limonene":             0.75,
-    "Bergamot FCF":           0.78,
-    "Bergamot FCF Sicilian":  0.80,
-    "Cedrat FCF Sicilian":    0.72,
-    "Blood Orange Sicilian":  0.80,
-    "Grapefruit FCF":         0.73,
-    "Red Mandarin EO":        0.82,
-    "Methyl Pamplemousse":    0.68,
-    "Neroli EO":              0.80,
-    "Petitgrain EO":          0.72,
-    "Aldehyde C10":           0.40,  # pleasant in context, raw = waxy
-    "Aldehyde C11":           0.38,
-    "Aldehyde C11 Undecylenic": 0.35,
-    "Aldehyde C12 MNA":       0.42,
-    "Cyclamen Aldehyde":      0.45,
-    "Scentenal":              0.30,  # metallic — polarizing
-    "Calone":                 0.35,  # marine — polarizing
-    "Floralozone":            0.40,
-    "Dihydromyrcenol":        0.55,
-    # ── Green (fresh but sharp) ──
-    "cis-3-Hexenol":          0.50,
-    "Parmavert":              0.55,
-    "Leafovert":              0.45,
-    "Dynascone":              0.30,  # powerful green bomb, unpleasant neat
-    "Allyl Amyl Glycolate":   0.50,
-    # ── Spice (context-dependent) ──
-    "Eugenol":                0.45,
-    "Ethyl Safranate":        0.55,
-        "Cardamom EO":            0.65,  # natural EO, more aromatic complexity than FTEC
-    "Terpinyl Acetate":       0.55,
-    # ── Leather / smoke (acquired taste) ──
-    "Suederal":               0.30,
-    "Evernyl":                0.35,
-    "Birch Tar Rectified":    0.10,  # smoky — divisive
-    "Guaiacol":               0.15,  # medicinal neat, beautiful in traces
-    "Isobutyl Quinoline":     0.05,  # dirty leather — negative neat
-    "Styrax FTEC":            0.25,
-    # ── Animalic (negative neat, positive in traces) ──
-    "Indole":                -0.20,  # fecal neat, jasmine in traces
-    # ── Balsamic ──
-    "Benzoin Resinoid":       0.70,
-    "Labdanum Absolute":      0.50,
-    "Olibanum Resinoid":      0.55,
-    "Myrrh EO":               0.45,
-    # ── EOs ──
-    "Lavender EO":            0.75,
-    "Lavender EO (BONTAUX SAS)": 0.78,  # premium French angustifolia, less camphoraceous
-    "Clary Sage EO":          0.50,
-    "Rosemary EO (French Rosmarinus Officinalis leaf oil)": 0.55,
-    "Vetiver EO":             0.45,
-    "Vetiver EO (India)":     0.50,  # deeper, richer ruh khus character
-    "Patchouli EO":           0.42,
-    "Cedarwood EO":           0.55,
-    "Champaca Flower EO":     0.60,
-    "Ylang Comoros Complete EO": 0.65,
-    "Ylang Comoros III EO":   0.68,
-    "Carrot Seed EO":         0.30,
-    # ── Fruity ──
-    "Paradisamide":           0.65,
-    # ── Misc ──
-    "Hexyl Salicylate":       0.60,
-    "Benzyl Salicylate":      0.55,
-    "Vetival":                0.40,
-    "Salicylate FTEC":        0.55,
-    # ── Coverage additions (Perfume A materials) ──
-    "Romandolide":            0.68,  # clean woody-musk, pleasant
-    "Benzyl Benzoate":        0.35,  # near-odorless fixative, faint balsamic
-    "Hedione HC":             0.78,  # same hedonic as Hedione, high-cis variant
-    "Dihydro Beta Ionone":    0.62,  # soft woody-violet, pleasant
-    "Sandalore":              0.70,  # fresh-creamy sandalwood
-    "Clearwood":              0.50,  # clean patchouli replacement, earthy
-    "Zenolide":               0.65,  # clean citrusy-fresh musk
-    "Vertofix":               0.55,  # woody-musky, amber-cedarwood fixative
-    "Bacdanol":               0.70,  # milky round sandalwood
-    "Dihydrojasmone":         0.60,  # creamy jasmine-fruity
-    "Methyl Nonyl Ketone":    0.30,  # waxy, green-fatty
-    "Helional":               0.62,  # green-floral aquatic, heliotrope facet
-    "Norlimbanol Dextro":     0.50,  # powerful transparent woody
-    "Ambrofix":               0.60,  # smooth ambergris-amber
-    "Ambermax":               0.65,  # warm rounded amber
-    "Aurantiol":              0.72,  # orange-blossom hydroxycitronellal type
-    "Anisaldehyde":           0.60,  # sweet aniseed-hawthorn
-    "Macrolide":              0.65,  # soft clean musk
-    "Ylang III":              0.65,  # heavy floral, balsamic ylang
-    "Ethyl Maltol":           0.85,  # sweet cotton-candy caramel
-    "Rose Oxide":             0.72,  # rose-lychee, pleasant floral
-    "Damascenone":            0.75,  # rose-ketone, powerful pleasant
-}
+HEDONIC_VALENCE = _load_engine_data("hedonic_model", "HEDONIC_VALENCE")
 
 
 # ═══════════════════════════════════════════════════════════════════════════════

@@ -294,7 +294,13 @@ def _load_theory_from_db() -> dict:
 
 
 def _use_db() -> bool:
-    """Check if the SQLite database exists and has data."""
+    """Check if the SQLite database exists and has data.
+
+    The database is optional: ``perfume_chem.db`` is a gitignored generated
+    artifact (``scripts/init_db.py``). When it is absent — e.g. on a fresh clone
+    — callers fall back to the JSON knowledge graph, so this returning ``False``
+    is a supported state, not an error.
+    """
     if not DB_PATH.exists():
         return False
     try:

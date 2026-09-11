@@ -63,6 +63,16 @@ def root_family(family: str) -> str:
     return text.split("_")[0] or text
 
 
+# Archetype keys present in formula metadata but absent from
+# engine.families.registry.ARCHETYPES; mapped to a root family so they can join
+# the held-out (non-classical) corpus.
+_NON_REGISTRY_ARCHETYPE_FAMILIES = {
+    "dior_homme_cologne": "citrus",
+    "ysl_la_nuit": "oriental",
+    "ysl_lhomme": "woody",
+}
+
+
 def percentile(values: list[float], q: float) -> float:
     if not values:
         return 50.0
@@ -90,12 +100,19 @@ def load_corpus() -> list[dict]:
         formula = formulas[0]
         archetype = str(formula.get("family_archetype") or "").strip()
         spec = get_archetype(archetype) if archetype else None
-        if spec is None:
+        if spec is not None:
+            family = root_family(spec.family)
+            source = "classical" if path.parent.name == "classical_study" else "other"
+        elif archetype in _NON_REGISTRY_ARCHETYPE_FAMILIES:
+            family = _NON_REGISTRY_ARCHETYPE_FAMILIES[archetype]
+            source = "external"  # report-only holdout; excluded from fitting/gate
+        else:
             continue
         rows.append({
             "file": path.name,
             "archetype": archetype,
-            "family": root_family(spec.family),
+            "family": family,
+            "source": source,
             "ingredients": dict(formula.get("ingredients_ul") or {}),
             "dilutions": dict(formula.get("dilutions") or {}),
         })
@@ -160,6 +177,26 @@ def auc_loo(rows: list[dict]) -> tuple[float, int, int]:
     return (correct / pairs if pairs else 0.0), pairs, skipped
 
 
+def auc_holdout(train: list[dict], test: list[dict]) -> tuple[float, int, int]:
+    """Fit profiles on ``train`` and discriminate held-out ``test`` rows."""
+    profiles = fit(train)
+    train_families = {row["family"] for row in train}
+    correct, pairs, skipped = 0.0, 0, 0
+    for row in test:
+        if row["family"] not in profiles:
+            skipped += 1
+            continue
+        own = fit_score(row["dims"], profiles[row["family"]])
+        for other in train_families - {row["family"]}:
+            reference = fit_score(row["dims"], profiles[other])
+            if own > reference:
+                correct += 1.0
+            elif own == reference:
+                correct += 0.5
+            pairs += 1
+    return (correct / pairs if pairs else 0.0), pairs, skipped
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--write", action="store_true", help="write fitted profiles if AUC passes")
@@ -168,15 +205,33 @@ def main(argv: list[str] | None = None) -> int:
 
     rows = load_corpus()
     score_rows(rows)
-    auc, pairs, skipped = auc_loo(rows)
-    fitted = fit(rows)
+    internal = [r for r in rows if r.get("source") != "external"]
+    external = [r for r in rows if r.get("source") == "external"]
+    auc, pairs, skipped = auc_loo(internal)
+    fitted = fit(internal)
+
+    classical = [r for r in internal if r.get("source") == "classical"]
+    nonclassical = [r for r in internal if r.get("source") == "other"]
+    holdout_c2n, c2n_pairs, c2n_skipped = auc_holdout(classical, nonclassical)
+    holdout_n2c, n2c_pairs, n2c_skipped = auc_holdout(nonclassical, classical)
+    external_auc, ext_pairs, ext_skipped = auc_holdout(internal, external)
 
     summary = {
         "corpus_files": len(rows),
-        "families": {f: sum(1 for r in rows if r["family"] == f) for f in sorted({r["family"] for r in rows})},
+        "internal_files": len(internal),
+        "external_holdout_files": len(external),
+        "families": {f: sum(1 for r in internal if r["family"] == f) for f in sorted({r["family"] for r in internal})},
         "leave_one_out_auc": round(auc, 3),
         "comparison_pairs": pairs,
         "skipped_singleton_folds": skipped,
+        "holdout_classical_to_other_auc": round(holdout_c2n, 3),
+        "holdout_other_to_classical_auc": round(holdout_n2c, 3),
+        "external_holdout_auc": round(external_auc, 3),
+        "holdout_pairs": {
+            "classical_to_other": c2n_pairs,
+            "other_to_classical": n2c_pairs,
+            "external": ext_pairs,
+        },
         "pass": auc >= MIN_AUC,
     }
 
@@ -186,9 +241,13 @@ def main(argv: list[str] | None = None) -> int:
             payload["families"][family] = fitdata["targets"]
         payload["family_ranges"] = {f: fitdata["ranges"] for f, fitdata in fitted.items()}
         payload["calibration"] = {
-            "method": "median target + padded [p10,p90] range from labeled classical_study corpus",
-            "corpus_files": len(rows),
+            "method": "median target + [p10,p90] range from labeled archetype corpus",
+            "corpus_files": len(internal),
+            "external_holdout_files": len(external),
             "leave_one_out_auc": round(auc, 3),
+            "holdout_classical_to_other_auc": round(holdout_c2n, 3),
+            "holdout_other_to_classical_auc": round(holdout_n2c, 3),
+            "external_holdout_auc": round(external_auc, 3),
         }
         Path(PROFILES_PATH).write_text(json.dumps(payload, indent=1, ensure_ascii=False), encoding="utf-8")
         summary["written"] = str(PROFILES_PATH)
@@ -196,8 +255,12 @@ def main(argv: list[str] | None = None) -> int:
     if args.json:
         print(json.dumps(summary, indent=1))
     else:
-        print(f"corpus files: {len(rows)}  families: {summary['families']}")
+        print(f"corpus files: {len(rows)} (internal {len(internal)}, external {len(external)})")
+        print(f"families: {summary['families']}")
         print(f"leave-one-out AUC: {summary['leave_one_out_auc']} (pairs={pairs}, skipped={skipped})  pass={summary['pass']}")
+        print(f"holdout AUC classical->other: {summary['holdout_classical_to_other_auc']} (pairs={c2n_pairs})")
+        print(f"holdout AUC other->classical: {summary['holdout_other_to_classical_auc']} (pairs={n2c_pairs})")
+        print(f"external holdout AUC: {summary['external_holdout_auc']} (pairs={ext_pairs})")
         if summary.get("written"):
             print("wrote", summary["written"])
     return 0 if auc >= MIN_AUC else 1

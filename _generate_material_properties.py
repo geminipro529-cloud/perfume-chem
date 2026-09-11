@@ -28,6 +28,7 @@ from engine.ifra_safety import (
     IFRA_SPECIFICATION_ONLY,
 )
 from engine.inventory_parser import parse_inventory
+from engine.knowledge.pw_supplier import merge_pw_supplier_fields
 from engine.name_utils import normalize_name
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -911,6 +912,14 @@ for norm_key, mp_entry in existing_index.items():
 # Write output files
 # ═══════════════════════════════════════════════════════════════════════
 
+# Attach PerfumersWorld supplier fields (SUPPLIER_TECHNICAL evidence class) so a
+# full regeneration preserves relative impact / odour life / ABC class.
+_pw_merge_stats = merge_pw_supplier_fields(output)
+print(
+    f"  PW supplier merge: {_pw_merge_stats['matched']}/{_pw_merge_stats['entries']} entries "
+    f"matched against {_pw_merge_stats['pw_records']} PW records"
+)
+
 with open(MP_PATH, "w", encoding="utf-8") as f:
     json.dump(output, f, indent=2, ensure_ascii=False)
 
@@ -954,6 +963,9 @@ FIELDS = [
     ("sar_class", "SAR class"),
     ("carles_position", "Carles position"),
     ("arctander_character", "Arctander char"),
+    ("pw_relative_impact", "PW relative impact"),
+    ("pw_odour_life_hrs", "PW odour life (h)"),
+    ("pw_class", "PW ABC class"),
 ]
 print(f"\n{'Field':<25} {'Coverage':>10}  {'Status'}")
 print("-" * 60)

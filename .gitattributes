@@ -140,5 +140,7 @@
 /future_modules/advanced_musk_intelligence.py text eol=lf
 /incoming_review/Meaningful_Complexity_Audit_v2.md text eol=lf
 /inventory.txt text eol=lf
+# The parser participates in the inventory authority chain; keep its checkout LF.
+/engine/inventory_parser.py text eol=lf
 # Binary hash pins must keep their exact bytes.
 /Kenny_Current_Perfumery_Inventory_Master_Aug2026_v5.xlsx -text
