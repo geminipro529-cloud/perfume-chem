@@ -534,7 +534,7 @@
   families:
   - musks
   character: null
-  notes: null
+  notes: Current restocked bottle user-confirmed neat/as supplied 2026-09-15; the previously depleted bottle remains historical.
   provenance:
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
@@ -545,6 +545,7 @@
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Root Fleuressence
   aliases: []

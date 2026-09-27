@@ -1,0 +1,228 @@
+{
+  "schema_version": "lavande-ambre-profond-r6-cp6-physical-lineage-intake-v1",
+  "protocol_id": "lavande-ambre-profond-r6-cp6-documentary-intake-20260926",
+  "recorded_date": "2026-09-26",
+  "state": "FROZEN_NONEXECUTING_DOCUMENTARY_INTAKE_CONTRACT",
+  "inputs": {
+    "checkpoint5_protocol_path": "data/governance/lavande_ambre_profond_r6_cp5_execution_input_protocol_20260926.json",
+    "checkpoint5_protocol_sha256": "508b80587063f874f61a5077a3603c2b63a7f7d6390610a009e818ae7933853f",
+    "checkpoint5_evaluator_path": "engine/experiments/checkpoint5_readiness.py",
+    "checkpoint5_evaluator_sha256": "2a4633f8303cce62c8642e9ca7e3fba0060c2a6cf9ec0edb1ededb5df51a559f",
+    "checkpoint5_report_sha256": "0c3716c889c2f84827b16597865ef63ef462fc9e2dae4d701d303c9d11a54111",
+    "r6_successor_rows_sha256": "40889e8a43a780bf60d35a10fe4861a56f20d1a2a66e72141a5ceb8b8000eb4b",
+    "inventory_text_sha256": "1b4324da5a35cebe8c59959e58276d84ac8f2f0e0e6f3239fdef0a4250d8df71",
+    "inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+    "inventory_overlay_sha256": "0bccf890ee05487b20daca94d02c65103c2a22ed4c6435ba8cb311cd041575fb"
+  },
+  "implementation_surface": {
+    "physical_lineage_service": {
+      "path": "backend/app/services/physical_lineage.py",
+      "sha256": "cea211a2577125602c243d670117a6d7229a1cbf2efe91a071a713933718f84e"
+    },
+    "physical_lineage_schema": {
+      "path": "backend/app/schemas/physical_lineage.py",
+      "sha256": "f125a7e959bb506b8a35e3eb5d6724b6871aeaae30ca006a23c80d4fa938d02c"
+    },
+    "physical_lineage_model": {
+      "path": "backend/app/models/lab_cp2_physical.py",
+      "sha256": "ba7b626f35608fbc1937c66726d5b0427745ed37e17034ad4ff04eebf33e1c0c"
+    },
+    "physical_lineage_migration": {
+      "path": "backend/alembic/versions/20260923_0017_cp2_physical_lineage.py",
+      "sha256": "2eb904cee756a30033a749df223f60ea64608e542f199f83145bf329af39f22b"
+    }
+  },
+  "checkpoint5_prerequisite": {
+    "required_state": "PASS_CP5_INPUTS_FROZEN_NONEXECUTABLE",
+    "observed_state": "HOLD_CP5_INPUTS_INCOMPLETE",
+    "satisfied": false,
+    "bypass_allowed": false
+  },
+  "candidate_identity_boundary": {
+    "candidate_field": "intended_stock_id",
+    "candidate_is_backend_stock_solution_id": false,
+    "candidate_is_bottle_lot_receipt": false,
+    "candidate_is_preparation_receipt": false,
+    "candidate_is_physical_binding": false,
+    "required_bridge": "ADJUDICATED_INVENTORY_CANDIDATE_TO_BACKEND_STOCK_MAPPING_RECEIPT",
+    "automatic_namespace_translation_allowed": false
+  },
+  "documentary_evidence_schema": {
+    "required_source_row_count": 63,
+    "bottle_lot_receipt_required_for_every_row": true,
+    "backend_stock_mapping_required_for_every_row": true,
+    "liquid_conversion_evidence_required_row_count": 62,
+    "solid_direct_mass_row_count": 1,
+    "allowed_liquid_conversion_routes": [
+      "LOT_SPECIFIC_DENSITY_WITH_IMMUTABLE_PROVENANCE",
+      "EXACT_TARGET_WEIGHED_STOCK_MASS"
+    ],
+    "generic_density_allowed": false,
+    "mass_volume_never_summed": true,
+    "required_bottle_lot_fields": [
+      "source_row",
+      "candidate_stock_id",
+      "bottle_id",
+      "lot_or_batch_id",
+      "label_evidence_sha256",
+      "supplier_or_preparer",
+      "captured_at",
+      "reviewer",
+      "admission_receipt_id"
+    ],
+    "required_backend_stock_mapping_fields": [
+      "source_row",
+      "candidate_stock_id",
+      "backend_stock_solution_id",
+      "identity_evidence_sha256",
+      "admission_receipt_id"
+    ],
+    "required_density_fields": [
+      "source_row",
+      "candidate_stock_id",
+      "density_g_ml_decimal",
+      "temperature_c_decimal",
+      "method",
+      "standard_uncertainty_decimal",
+      "provenance_sha256",
+      "admission_receipt_id"
+    ],
+    "required_weighed_mass_fields": [
+      "source_row",
+      "candidate_stock_id",
+      "target_weighed_stock_mass_g_decimal",
+      "method",
+      "standard_uncertainty_g_decimal",
+      "measurement_receipt_sha256",
+      "admission_receipt_id"
+    ],
+    "missing_values_are_never_imputed": true,
+    "documentary_completion_is_not_execution_authority": true
+  },
+  "required_child_stock_preparations": [
+    {
+      "source_row": 31,
+      "material": "Heliotropal / piperonal",
+      "parent_candidate_stock_id": "inventory:v5:593f575b080f30401f9b",
+      "target_fraction_decimal": "0.1",
+      "target_basis": "W_W",
+      "target_carrier": "DPG",
+      "receipt_state": "MISSING"
+    },
+    {
+      "source_row": 59,
+      "material": "Black Pepper EO",
+      "parent_candidate_stock_id": "inventory:v5:4bb69da9b62fe8fbd8bb",
+      "target_fraction_decimal": "0.1",
+      "target_basis": "V_V",
+      "target_carrier": "ethanol",
+      "receipt_state": "MISSING"
+    },
+    {
+      "source_row": 63,
+      "material": "Nutmeg EO",
+      "parent_candidate_stock_id": "inventory:user-20260830:caa7c7f7418d43c86660",
+      "target_fraction_decimal": "0.1",
+      "target_basis": "V_V",
+      "target_carrier": "ethanol",
+      "receipt_state": "MISSING"
+    }
+  ],
+  "required_sub_10_ul_routes": [
+    {
+      "source_row": 20,
+      "material": "Haitian Vetiver EO",
+      "nominal_amount_ul": "5",
+      "route_receipt_state": "MISSING"
+    },
+    {
+      "source_row": 43,
+      "material": "Linalool Oxide",
+      "nominal_amount_ul": "5",
+      "route_receipt_state": "MISSING"
+    },
+    {
+      "source_row": 68,
+      "material": "Rosemary EO",
+      "nominal_amount_ul": "5",
+      "route_receipt_state": "MISSING"
+    }
+  ],
+  "canonical_current_evidence": {
+    "bottle_lot_receipts": [],
+    "backend_stock_mapping_receipts": [],
+    "liquid_conversion_receipts": [],
+    "child_stock_preparation_receipts": [],
+    "sub_10_ul_route_receipts": [],
+    "build_plan_bindings": [],
+    "inventory_reservations": []
+  },
+  "operational_interface_audit": {
+    "supported_invariants": [
+      "FINITE_DECIMAL_QUANTITIES",
+      "W_W_REQUIRES_MASS",
+      "V_V_REQUIRES_VOLUME",
+      "PREPARATION_CONSERVATION",
+      "EXACT_STOCK_FRACTION_AND_BASIS_MATCH",
+      "DENSITY_AND_PROVENANCE_REQUIRED_FOR_VOLUME_BINDING",
+      "EXACT_FORMULA_COMPONENT_MASS_MATCH",
+      "COMPLETE_ALL_LINE_BINDING",
+      "BASKET_FIRST_DESCENDING_LIQUID_ORDER",
+      "APPEND_ONLY_FALSE_AUTHORITY_RECORDS"
+    ],
+    "admission_gaps": [
+      "INVENTORY_CANDIDATE_TO_BACKEND_STOCK_MAPPING_UNRESOLVED",
+      "PLAN_LEVEL_LINEAGE_RECEIPTS_ARE_UNVERIFIED_STRINGS",
+      "PREPARATION_RECEIPT_OPTIONAL_AT_BINDER_BOUNDARY",
+      "PER_ROW_BOTTLE_LOT_RECEIPT_NOT_REPRESENTED",
+      "CARRIER_PROVENANCE_NOT_CANONICALLY_RESOLVED",
+      "DENSITY_PROVENANCE_IS_TEXT_NOT_RECEIPT_BOUND",
+      "EXACT_TARGET_WEIGHED_MASS_ROUTE_NOT_ACCEPTED_BY_VOLUME_BINDER",
+      "NEXT_COMMAND_IS_STATE_CHANGING_NOT_DOCUMENTARY"
+    ],
+    "operational_service_calls_allowed_in_checkpoint6": false,
+    "persistent_api_changes_allowed_in_checkpoint6": false
+  },
+  "checkpoint6_blockers": [
+    "HOLD_ALL_BUILD_PLAN_STOCK_BINDINGS_MISSING",
+    "HOLD_REQUIRED_WORKING_STOCKS_NOT_PREPARED",
+    "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING"
+  ],
+  "checkpoint6_contract": {
+    "state": "SOFTWARE_COMPLETE_DOCUMENTARY_INTAKE_HOLD",
+    "hold_state": "HOLD_CP6_PHYSICAL_LINEAGE_INPUTS_INCOMPLETE",
+    "future_pass_state": "PASS_CP6_PHYSICAL_READINESS_BOUND_NOT_COMPOUNDED",
+    "formula_action": "DESIGN_SUCCESSOR_UNCHANGED",
+    "all_line_documentary_preconditions_complete": false,
+    "physical_binding_state": "NOT_CREATED",
+    "reservation_state": "NOT_CREATED",
+    "compounding_state": "NOT_STARTED",
+    "formula_modified": false,
+    "inventory_modified": false
+  },
+  "authority": {
+    "checkpoint6_intake_contract_record_authorized": true,
+    "evidence_admission_authorized": false,
+    "stock_preparation_authorized": false,
+    "reservation_authorized": false,
+    "physical_experiment_authorized": false,
+    "compounding_authorized": false,
+    "purchase_authorized": false,
+    "inventory_mutation_authorized": false,
+    "physical_formula_mutation_authorized": false,
+    "safety_authorized": false,
+    "release_authorized": false
+  },
+  "side_effects": {
+    "backend_record_created": false,
+    "build_plan_created": false,
+    "physical_binding_created": false,
+    "prepared_stock_receipt_created": false,
+    "reservation_created": false,
+    "compounding_run_created": false,
+    "mixer_command_created": false,
+    "transfer_record_created": false,
+    "inventory_modified": false,
+    "physical_formula_modified": false
+  }
+}

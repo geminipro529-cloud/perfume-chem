@@ -1,8 +1,17 @@
 # C0 fixture bytes are a canonical SHA-locked regression artifact.
 /tests/fixtures/c0_legacy_physical_model_cases.json text eol=lf
 /tests/fixtures/c0_legacy_physical_model_cases.sha256 text eol=lf
+/tests/fixtures/c0_lab_persistence_projection_v1.json text eol=lf
+/tests/fixtures/c0_lab_persistence_projection_v1.sha256 text eol=lf
 # Keep the reviewed, hash-bound AHSEE authority records stable on Windows.
 /data/governance/inventory_user_confirmation_20260908_ahsee_stocks.json text eol=lf
 /data/governance/inventory_user_authority_overlay_20260908_ahsee.json text eol=lf
 /data/governance/inventory_user_confirmation_20260908_romandolide_depleted.json text eol=lf
 /data/governance/inventory_user_authority_overlay_20260908_romandolide.json text eol=lf
+# Hash-pinned inventory authority artifacts must keep LF bytes on every platform.
+/data/governance/*.json text eol=lf
+/formulas/records/*.json text eol=lf
+# Governed noncommercial research inputs: text is LF-stable; the PDF is binary.
+/output/optimizer_research_20260909/wakayama_2019/README.md text eol=lf
+/output/optimizer_research_20260909/wakayama_2019/wakayama-intensity.txt text eol=lf
+/output/optimizer_research_20260909/wakayama_2019/ie9b01225_si_001.pdf binary

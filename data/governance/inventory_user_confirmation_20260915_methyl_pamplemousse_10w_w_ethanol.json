@@ -1,0 +1,23 @@
+{
+  "schema_version": "perfume_chem_direct_methyl_pamplemousse_stock_confirmation_v1",
+  "effective_date": "2026-09-15",
+  "source_kind": "DIRECT_USER_MESSAGE",
+  "message": "It is in W/W",
+  "context": "Methyl Pamplemousse 10% in ethanol percentage basis",
+  "normalized_stock_fact": {
+    "canonical_name": "Methyl Pamplemousse",
+    "fraction": 0.1,
+    "fraction_basis": "mass_fraction",
+    "carrier": "ethanol",
+    "execution_ready": true,
+    "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+  },
+  "authority_limits": {
+    "physical_stock_fraction_basis_confirmed": true,
+    "physical_stock_carrier_confirmed": true,
+    "stock_solution_density_measured": false,
+    "exact_active_mass_from_volume_asserted": false,
+    "formula_rebase_authorized": false,
+    "safety_or_release_asserted": false
+  }
+}

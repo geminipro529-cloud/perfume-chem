@@ -39,6 +39,11 @@ async def test_lab_api_runs_material_bottle_formula_and_experiment_workflow(clie
         },
     )
     assert addition_response.status_code == 201
+    assert addition_response.json()["execution_scope"] == (
+        "FREEFORM_UNBOUND_QUARANTINE"
+    )
+    assert addition_response.json()["formula_execution_authority"] is False
+    assert addition_response.json()["build_plan_fulfillment_authority"] is False
     state_response = await client.get(f"/api/v1/lab/bottles/{bottle_id}")
     assert state_response.status_code == 200
     assert state_response.json()["stream_sequence"] == 2
@@ -232,10 +237,9 @@ async def test_lab_api_exposes_analysis_interventions_and_stable_assistant(clien
         "unmapped_bottle_note"
     ]
     assert hypothesis_payload["hypotheses"]
-    assert all(
-        "Hydroxycitronellal" not in item["materials"]
-        for item in hypothesis_payload["hypotheses"]
-    )
+    # Hydroxycitronellal was corrected to a current, available bottle on
+    # 2026-09-07.  The endpoint must honor the current inventory rather than a
+    # stale fixture assumption; only the request's explicit exclusion applies.
     assert all("Peonile" not in item["materials"] for item in hypothesis_payload["hypotheses"])
     assert all(
         set(item) == {
@@ -289,7 +293,7 @@ async def test_lab_api_exposes_analysis_interventions_and_stable_assistant(clien
         "/api/v1/lab/intervention-trials/plan",
         json={
             "brief_name": "Muguet Study",
-            "material": "Hydroxycitronellal",
+            "material": "Methyl Ionone Gamma Coeur",
             "bottle_total_mass_g": 10.0,
             "stock_active_mass_fraction": 0.1,
             "target_active_ppm_w_w": 100.0,

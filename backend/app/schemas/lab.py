@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from decimal import Decimal
 from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -62,10 +63,54 @@ class BottleCreate(LabRequest):
 
 class BottleAdditionCreate(LabRequest):
     stock_solution_id: str
-    mass_g: float = Field(gt=0)
+    mass_g: Decimal = Field(gt=0)
     expected_sequence: int = Field(ge=0)
     command_id: str = Field(min_length=1)
-    measured_volume_ul: float | None = Field(default=None, gt=0)
+    measured_volume_ul: Decimal | None = Field(default=None, gt=0)
+    standard_uncertainty: Decimal | None = Field(default=None, ge=0)
+    volume_standard_uncertainty_ul: Decimal | None = Field(default=None, ge=0)
+    volume_measurement_method: str | None = Field(default=None, min_length=1)
+    volume_device_id: str | None = Field(default=None, min_length=1)
+    volume_device_calibration_sha256: str | None = Field(
+        default=None,
+        min_length=64,
+        max_length=64,
+    )
+    volume_reference_temperature_c: Decimal | None = None
+    volume_reference_conditions: dict[str, Any] | None = None
+    actor: str = Field(default="system", min_length=1)
+    role: Literal["material", "solvent"] = "material"
+
+
+class BottleCloseCreate(LabRequest):
+    expected_sequence: int = Field(ge=0)
+    command_id: str = Field(min_length=1)
+    actor: str = Field(min_length=1)
+
+
+class StockPreparationFinalizeCreate(LabRequest):
+    bottle_id: str = Field(min_length=1)
+    material_id: str = Field(min_length=1)
+    parent_event_id: str = Field(min_length=1)
+    carrier_event_id: str = Field(min_length=1)
+    parent_identity_evidence_id: str = Field(min_length=1)
+    carrier_identity_evidence_id: str = Field(min_length=1)
+    child_label: str = Field(min_length=1, max_length=255)
+    child_lot_number: str = Field(min_length=1, max_length=100)
+    preparation_sop_sha256: str = Field(min_length=64, max_length=64)
+    balance_calibration_sha256: str = Field(min_length=64, max_length=64)
+    source_design_sha256: str | None = Field(
+        default=None,
+        min_length=64,
+        max_length=64,
+    )
+    source_target_volume_fraction: Decimal | None = Field(
+        default=None,
+        gt=0,
+        lt=1,
+    )
+    command_id: str = Field(min_length=1)
+    actor: str = Field(min_length=1)
 
 
 class BottleTransferCreate(LabRequest):

@@ -15,6 +15,16 @@ from typing import Any, Iterable, Mapping
 from uuid import UUID
 
 CANONICAL_HASH_ALGORITHM = "sha256-rfc8785-profile-v1"
+PORTABLE_FILE_HASH_MATCH_ALGORITHM = (
+    "sha256-exact-or-utf8-text-eol-equivalent-v1"
+)
+UTF8_TEXT_FILE_HASH_ALGORITHM = "sha256-utf8-lf-normalized-v1"
+PORTABLE_ARTIFACT_HASH_ALGORITHM = (
+    "sha256-binary-exact-or-utf8-lf-normalized-v1"
+)
+_PORTABLE_TEXT_SUFFIXES = frozenset(
+    {".json", ".md", ".py", ".txt", ".toml", ".yaml", ".yml"}
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -162,6 +172,122 @@ def stable_json_hash(payload: Any) -> str:
     return hashlib.sha256(canonical_json_bytes(payload)).hexdigest()
 
 
+_RESULT_VOLATILE_KEYS = frozenset(
+    {
+        "completed_at",
+        "duration_seconds",
+        "elapsed_seconds",
+        "generated_at",
+        "generated_at_utc",
+        "request_id",
+        "run_id",
+        "runtime_seconds",
+        "started_at",
+        "timestamp",
+    }
+)
+
+
+def _scientific_result_payload(
+    value: Any,
+    path: tuple[str, ...] = (),
+) -> Any:
+    """Remove execution-only fields from one formula-gate result.
+
+    This intentionally preserves scientific time axes and every authority
+    field.  The batch runner uses it only to prove serial/parallel result
+    equivalence; it does not promote the result's scientific authority.
+    """
+
+    if isinstance(value, Mapping):
+        return {
+            str(key): _scientific_result_payload(item, (*path, str(key)))
+            for key, item in sorted(value.items(), key=lambda pair: str(pair[0]))
+            if str(key) not in _RESULT_VOLATILE_KEYS
+            and str(key) != "runtime_observability"
+            and not (
+                path
+                and path[-1] == "run_evidence_contract"
+                and str(key) == "artifact_sha256"
+            )
+        }
+    if isinstance(value, (list, tuple)):
+        return [
+            _scientific_result_payload(item, (*path, str(index)))
+            for index, item in enumerate(value)
+        ]
+    return value
+
+
+def _result_json_bytes(value: Any) -> bytes:
+    """Keep the established batch-result hash encoding byte-compatible."""
+
+    return json.dumps(
+        value,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+        default=str,
+    ).encode("utf-8")
+
+
+def scientific_and_authority_payload_hashes(
+    gate_output: Mapping[str, Any],
+) -> tuple[str, str]:
+    """Return both deterministic batch-result hashes from one normalization.
+
+    Formula results are large.  Normalizing the same nested payload separately
+    for the scientific and authority hashes made the parent batch process a
+    serial CPU bottleneck.  Reusing the normalized object preserves the prior
+    hash contract while allowing a persistent worker to calculate both hashes
+    before returning its receipt.
+    """
+
+    normalized = _scientific_result_payload(gate_output)
+    scientific_hash = hashlib.sha256(_result_json_bytes(normalized)).hexdigest()
+    authority_fields: list[dict[str, Any]] = []
+
+    def visit(value: Any, path: tuple[str, ...] = ()) -> None:
+        if isinstance(value, Mapping):
+            for key, item in sorted(value.items(), key=lambda pair: str(pair[0])):
+                text_key = str(key)
+                child_path = (*path, text_key)
+                lowered = text_key.lower()
+                if (
+                    "authority" in lowered
+                    or lowered.endswith("_state")
+                    or lowered in {"status", "selection_status", "validation_state"}
+                ):
+                    authority_fields.append(
+                        {
+                            "path": ".".join(child_path),
+                            "value": item,
+                        }
+                    )
+                visit(item, child_path)
+        elif isinstance(value, (list, tuple)):
+            for index, item in enumerate(value):
+                visit(item, (*path, str(index)))
+
+    visit(normalized)
+    authority_hash = hashlib.sha256(
+        _result_json_bytes(authority_fields)
+    ).hexdigest()
+    return scientific_hash, authority_hash
+
+
+def scientific_payload_sha256(gate_output: Mapping[str, Any]) -> str:
+    """Return the deterministic scientific result digest."""
+
+    return scientific_and_authority_payload_hashes(gate_output)[0]
+
+
+def authority_payload_sha256(gate_output: Mapping[str, Any]) -> str:
+    """Return the deterministic authority-state result digest."""
+
+    return scientific_and_authority_payload_hashes(gate_output)[1]
+
+
 def canonical_hash_record(
     payload: Any,
     *,
@@ -234,11 +360,73 @@ def stable_text_hash(value: str) -> str:
 
 def stable_file_hash(path: str | Path) -> str:
     in_path = Path(path)
-    digest = hashlib.sha256()
     with in_path.open("rb") as handle:
+        file_digest = getattr(hashlib, "file_digest", None)
+        if file_digest is not None:
+            return file_digest(handle, "sha256").hexdigest()
+        digest = hashlib.sha256()
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
-    return digest.hexdigest()
+        return digest.hexdigest()
+
+
+def stable_utf8_text_file_hash(path: str | Path) -> str:
+    """Hash UTF-8 text after normalizing CRLF materialization to LF.
+
+    This is for versioned text-source manifests that must reproduce across Git
+    checkouts. Bare carriage returns and invalid UTF-8 fail closed; all other
+    bytes, including spaces and the final-newline state, remain significant.
+    """
+
+    payload = Path(path).read_bytes()
+    try:
+        payload.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise ValueError("text hash input must be valid UTF-8") from exc
+    normalized_lf = payload.replace(b"\r\n", b"\n")
+    if b"\r" in normalized_lf:
+        raise ValueError("text hash input contains a bare carriage return")
+    return hashlib.sha256(normalized_lf).hexdigest()
+
+
+def stable_portable_file_hash(path: str | Path) -> str:
+    """Hash governed artifacts reproducibly across Git text checkouts."""
+
+    in_path = Path(path)
+    if in_path.suffix.lower() in _PORTABLE_TEXT_SUFFIXES:
+        return stable_utf8_text_file_hash(in_path)
+    return stable_file_hash(in_path)
+
+
+def portable_file_hash_matches(path: str | Path, expected_sha256: str) -> bool:
+    """Match exact bytes, allowing only LF/CRLF equivalence for text files.
+
+    Git may materialize the same normalized text blob with LF or CRLF depending
+    on checkout settings. Authority manifests should remain clone-reproducible
+    without treating whitespace, encoding, or content changes as equivalent.
+    Binary files therefore receive exact-byte matching only; recognized UTF-8
+    text extensions additionally accept the LF- and CRLF-materialized digests.
+    """
+
+    expected = str(expected_sha256).strip().lower()
+    if not re.fullmatch(r"[0-9a-f]{64}", expected):
+        return False
+    in_path = Path(path)
+    payload = in_path.read_bytes()
+    candidates = {hashlib.sha256(payload).hexdigest()}
+    if in_path.suffix.lower() in _PORTABLE_TEXT_SUFFIXES:
+        try:
+            payload.decode("utf-8")
+        except UnicodeDecodeError:
+            return expected in candidates
+        normalized_lf = payload.replace(b"\r\n", b"\n")
+        if b"\r" in normalized_lf:
+            return expected in candidates
+        candidates.add(hashlib.sha256(normalized_lf).hexdigest())
+        candidates.add(
+            hashlib.sha256(normalized_lf.replace(b"\n", b"\r\n")).hexdigest()
+        )
+    return expected in candidates
 
 
 def stable_files_hash(paths: Iterable[str | Path], *, root: str | Path) -> str:

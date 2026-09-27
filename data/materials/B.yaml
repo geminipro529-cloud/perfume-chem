@@ -2936,7 +2936,7 @@
   user_in_inventory: true
 # MATERIAL_INTAKE_BATCH_2026_08_07 additions
 - canonical_name: 'Vietnamese Benzoin Styrax Tonkinensis Tincture 20%'
-  aliases: ['benzoin styrax tonkinensis tincture', 'vietnamese benzoin tincture']
+  aliases: ['benzoin styrax tonkinensis tincture', 'vietnamese benzoin tincture', 'Vietnamese Benzoin Tincture']
   cas: null  # legacy literal None was not a CAS identity
   smiles: null
   inchikey: null
@@ -2947,7 +2947,7 @@
   vp_source: "est/literature"
   odt_air_ppb: 3.0
   odt_eth_ppm: 0.01
-  user_stock_dilution: 0.2
+  user_stock_dilution: 0.4
   user_in_inventory: true
   character: 'benzoin-balsamic sweet resin tincture (Styrax tonkinensis = Siam/tonkin grade)'
-  notes: "material intake batch 2026-08-07"
+  notes: "Current tincture is a 40% w/w starting-charge preparation. User authorizes 40% as a nominal property-model fraction after complete extraction and funnel draining; final dissolved-solids fraction remains unassayed."

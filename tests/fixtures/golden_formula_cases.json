@@ -54,7 +54,7 @@
       "expected_ppm_status": "unavailable",
       "modeled_output_relative_tolerance": 1e-8,
       "expected_material_outputs": {
-        "Leather FO": {"vapor_ppm": 0.01931643575331118, "oav": null},
+        "Leather FO": {"vapor_ppm": null, "oav": null},
         "Iso E Super": {"vapor_ppm": 4.010755087198542, "oav": 80215.10174397084}
       }
     },
@@ -95,7 +95,7 @@
       "expected_ppm_status": "unavailable",
       "modeled_output_relative_tolerance": 1e-8,
       "expected_material_outputs": {
-        "Phase Zero Unknown Material": {"vapor_ppm": 0.0, "oav": null}
+        "Phase Zero Unknown Material": {"vapor_ppm": null, "oav": null}
       }
     },
     {

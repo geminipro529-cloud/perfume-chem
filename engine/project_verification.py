@@ -11,6 +11,7 @@ import sys
 import tempfile
 import time
 import venv
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from hashlib import sha256
 from pathlib import Path
@@ -148,6 +149,24 @@ _ENGINE_TEST_SHARDS = {
     ),
 }
 
+# These focused checks repeat test paths already owned by the canonical engine
+# shards or the complete backend suite.  They stay available to ``--quick``
+# and explicit selection, while the canonical full run executes each test once.
+_FULL_SCOPE_DUPLICATE_CHECKS = frozenset(
+    {
+        "scientific-audit",
+        "material-data-validation",
+        "knowledge-rule-validation",
+        "golden-formula-regression",
+        "golden-api-regression",
+    }
+)
+
+_QUICK_FAIL_FAST_CHECKS = frozenset(
+    {"engine-compile", "engine-lint", "engine-typecheck"}
+)
+_MAX_PARALLEL_CHECKS = 4
+
 
 @dataclass(frozen=True, slots=True)
 class CheckSpec:
@@ -243,10 +262,20 @@ class ProjectVerificationReport:
 
 
 def engine_test_shards(project_root: Path = PROJECT_ROOT) -> dict[str, tuple[str, ...]]:
-    """Return the explicit shard manifest, using repository-relative paths."""
+    """Preserve named shards and include newly discovered root engine tests."""
 
-    del project_root
-    return {name: tuple(paths) for name, paths in _ENGINE_TEST_SHARDS.items()}
+    shards = {name: tuple(paths) for name, paths in _ENGINE_TEST_SHARDS.items()}
+    assigned = {path for paths in shards.values() for path in paths}
+    additional = tuple(
+        sorted(
+            path.relative_to(project_root).as_posix()
+            for path in (project_root / "tests").glob("test_*.py")
+            if path.is_file() and path.relative_to(project_root).as_posix() not in assigned
+        )
+    )
+    if additional:
+        shards["additional"] = additional
+    return shards
 
 
 def _local_tool(project_root: Path, tool: str) -> tuple[str, ...]:
@@ -416,7 +445,9 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
         ),
     ]
 
-    for shard_name, paths in _ENGINE_TEST_SHARDS.items():
+    for shard_name, paths in engine_test_shards(project_root).items():
+        if not paths:
+            continue
         checks.append(
             CheckSpec(
                 f"engine-tests-{shard_name}",
@@ -455,7 +486,6 @@ def build_check_specs(project_root: Path = PROJECT_ROOT) -> tuple[CheckSpec, ...
                     "run",
                     "pytest",
                     "-q",
-                    "--basetemp=../output/verification-temp/backend-pytest",
                     "--junitxml=../verification_runs/backend.xml",
                 ),
                 cwd="backend",
@@ -571,24 +601,94 @@ def _tail(value: str, line_count: int = 30) -> str:
     return "\n".join(value.splitlines()[-line_count:])
 
 
+def _is_pytest_command(command: Sequence[str]) -> bool:
+    """Return whether *command* launches pytest directly or through a tool."""
+
+    for index, argument in enumerate(command):
+        executable = Path(argument).name.lower()
+        if executable in {"pytest", "pytest.exe"}:
+            return True
+        if argument == "-m" and index + 1 < len(command) and command[index + 1] == "pytest":
+            return True
+    return False
+
+
+def _isolated_pytest_command(
+    command: Sequence[str],
+    *,
+    spec_name: str,
+    command_temp: Path,
+    run_output: Path,
+) -> tuple[str, ...]:
+    """Bind pytest scratch and JUnit output to this verifier invocation."""
+
+    if not _is_pytest_command(command):
+        return tuple(command)
+
+    filtered: list[str] = []
+    junit_requested = False
+    index = 0
+    while index < len(command):
+        argument = command[index]
+        if argument == "--basetemp":
+            index += 2
+            continue
+        if argument in {"--junitxml", "--junit-xml"}:
+            junit_requested = True
+            index += 2
+            continue
+        if argument.startswith("--basetemp="):
+            index += 1
+            continue
+        if argument.startswith(("--junitxml=", "--junit-xml=")):
+            junit_requested = True
+            index += 1
+            continue
+        filtered.append(argument)
+        index += 1
+
+    safe_name = "".join(
+        character if character.isalnum() or character in "-_" else "_"
+        for character in spec_name
+    )
+    junit_path = (run_output / f"{safe_name}-{command_temp.name}.xml").resolve()
+    basetemp = (command_temp / "pytest").resolve()
+    filtered.append(f"--basetemp={basetemp}")
+    if junit_requested:
+        filtered.append(f"--junitxml={junit_path}")
+    return tuple(filtered)
+
+
 def _default_runner(project_root: Path) -> Callable[[CheckSpec], CommandOutcome]:
-    verification_temp = project_root / "output" / "verification-temp"
+    verification_temp = (project_root / "output" / "verification-temp").resolve()
     verification_temp.mkdir(parents=True, exist_ok=True)
-    pip_cache = project_root / "output" / "verification-pip-cache"
-    pip_cache.mkdir(parents=True, exist_ok=True)
+    verification_runs = (project_root / "verification_runs").resolve()
+    verification_runs.mkdir(parents=True, exist_ok=True)
+    run_output = Path(tempfile.mkdtemp(prefix="run-", dir=verification_runs))
 
     def run(spec: CheckSpec) -> CommandOutcome:
         started = time.monotonic()
+        command_temp = Path(tempfile.mkdtemp(prefix="check-", dir=verification_temp))
+        command = _isolated_pytest_command(
+            spec.command,
+            spec_name=spec.name,
+            command_temp=command_temp,
+            run_output=run_output,
+        )
         env = dict(os.environ)
-        env["TEMP"] = str(verification_temp)
-        env["TMP"] = str(verification_temp)
-        env["PIP_CACHE_DIR"] = str(pip_cache)
+        env["TEMP"] = str(command_temp)
+        env["TMP"] = str(command_temp)
+        env["PERFUME_PIPELINE_AUDIT_PATH"] = str(
+            command_temp / "pipeline_audit.jsonl"
+        )
+        if "PIP_CACHE_DIR" not in env and "PIP_NO_CACHE_DIR" not in env:
+            env["PIP_NO_CACHE_DIR"] = "true"
         if spec.cwd == "backend":
             env.setdefault("OPENAI_API_KEY", "test-key")
             env.setdefault("SECRET_KEY", "test-secret-key-for-ci")
         try:
             completed = subprocess.run(
-                spec.command,
+                command,
                 cwd=project_root / spec.cwd,
                 capture_output=True,
                 text=True,
@@ -598,24 +698,34 @@ def _default_runner(project_root: Path) -> Callable[[CheckSpec], CommandOutcome]
                 env=env,
                 check=False,
             )
+            stderr = completed.stderr
+            if completed.returncode == 0:
+                try:
+                    if command_temp.resolve().parent != verification_temp.resolve():
+                        raise OSError("Scratch directory no longer belongs to this check")
+                    shutil.rmtree(command_temp)
+                except OSError as exc:
+                    stderr += f"\nCould not clean successful-check scratch {command_temp}: {exc}"
+            else:
+                stderr += f"\nFailed-check scratch retained at {command_temp}"
             return CommandOutcome(
                 returncode=completed.returncode,
                 stdout=completed.stdout,
-                stderr=completed.stderr,
+                stderr=stderr,
                 duration_seconds=time.monotonic() - started,
             )
         except subprocess.TimeoutExpired as exc:
             return CommandOutcome(
                 returncode=124,
                 stdout=str(exc.stdout or ""),
-                stderr=f"Timed out after {spec.timeout_seconds} seconds.",
+                stderr=f"Timed out after {spec.timeout_seconds} seconds. Scratch retained at {command_temp}",
                 duration_seconds=time.monotonic() - started,
             )
         except OSError as exc:
             return CommandOutcome(
                 returncode=127,
                 stdout="",
-                stderr=f"Executable not found or could not start: {exc}",
+                stderr=f"Executable not found or could not start: {exc}. Scratch retained at {command_temp}",
                 duration_seconds=time.monotonic() - started,
             )
 
@@ -666,7 +776,11 @@ def _golden_output_changes(project_root: Path) -> dict:
 
 
 def _select_checks(
-    checks: Sequence[CheckSpec], selected: Iterable[str] | None, quick: bool
+    checks: Sequence[CheckSpec],
+    selected: Iterable[str] | None,
+    quick: bool,
+    *,
+    deduplicate_full: bool = True,
 ) -> tuple[CheckSpec, ...]:
     by_name = {check.name: check for check in checks}
     if selected:
@@ -688,7 +802,246 @@ def _select_checks(
             "golden-api-regression",
         )
         return tuple(by_name[name] for name in quick_names)
+    if deduplicate_full:
+        return tuple(
+            check
+            for check in checks
+            if check.name not in _FULL_SCOPE_DUPLICATE_CHECKS
+        )
     return tuple(checks)
+
+
+def _skipped_check(spec: CheckSpec, reason: str) -> CheckResult:
+    return CheckResult(
+        name=spec.name,
+        status="SKIPPED",
+        required=spec.required,
+        command=spec.command,
+        reason=reason,
+    )
+
+
+def _run_runnable_check(
+    spec: CheckSpec,
+    *,
+    execute: Callable[[CheckSpec], CommandOutcome],
+    include_docker: bool,
+) -> CheckResult:
+    """Execute one check and convert runner failures to structured evidence."""
+
+    if spec.environment == "docker" and not include_docker:
+        return _skipped_check(spec, "Docker checks require --include-docker.")
+    if spec.environment == "docker" and shutil.which("docker") is None:
+        return _skipped_check(spec, "Docker executable is unavailable.")
+
+    started = time.monotonic()
+    try:
+        outcome = execute(spec)
+        return CheckResult(
+            name=spec.name,
+            status="PASS" if outcome.returncode == 0 else "FAIL",
+            required=spec.required,
+            command=spec.command,
+            duration_seconds=outcome.duration_seconds,
+            stdout_tail=_tail(outcome.stdout),
+            stderr_tail=_tail(outcome.stderr),
+        )
+    except Exception as exc:  # pragma: no cover - concrete cases exercise this path
+        return CheckResult(
+            name=spec.name,
+            status="FAIL",
+            required=spec.required,
+            command=spec.command,
+            duration_seconds=time.monotonic() - started,
+            stderr_tail=_tail(
+                f"Verification runner raised {type(exc).__name__}: {exc}"
+            ),
+            reason="Verification runner raised an exception.",
+        )
+
+
+def _run_parallel_phase(
+    specs: Sequence[CheckSpec],
+    *,
+    execute: Callable[[CheckSpec], CommandOutcome],
+    include_docker: bool,
+) -> tuple[CheckResult, ...]:
+    if not specs:
+        return ()
+    worker_count = min(_MAX_PARALLEL_CHECKS, len(specs))
+    with ThreadPoolExecutor(max_workers=worker_count) as pool:
+        return tuple(
+            pool.map(
+                lambda spec: _run_runnable_check(
+                    spec,
+                    execute=execute,
+                    include_docker=include_docker,
+                ),
+                specs,
+            )
+        )
+
+
+def _run_canonical_full_checks(
+    selected_checks: Sequence[CheckSpec],
+    *,
+    execute: Callable[[CheckSpec], CommandOutcome],
+    include_docker: bool,
+) -> tuple[CheckResult, ...]:
+    """Run independent canonical checks concurrently and dependencies in order."""
+
+    by_name = {spec.name: spec for spec in selected_checks}
+    results: dict[str, CheckResult] = {}
+    grouped_names: set[str] = set()
+
+    parallel_groups = (
+        (
+            "engine-compile",
+            "engine-lint",
+            "engine-typecheck",
+            "formula-artifact-validation",
+        ),
+        tuple(spec.name for spec in selected_checks if spec.name.startswith("engine-tests-")),
+        ("backend-lint", "backend-typecheck", "backend-tests"),
+    )
+    for names in parallel_groups:
+        specs = tuple(by_name[name] for name in names if name in by_name)
+        grouped_names.update(spec.name for spec in specs)
+        for result in _run_parallel_phase(
+            specs,
+            execute=execute,
+            include_docker=include_docker,
+        ):
+            results[result.name] = result
+
+    dependent_names = {
+        "package-build",
+        "package-wheel-smoke",
+        "docker-build",
+        "docker-smoke-test",
+    }
+    grouped_names.update(dependent_names.intersection(by_name))
+    for spec in selected_checks:
+        if spec.name in grouped_names:
+            continue
+        results[spec.name] = _run_runnable_check(
+            spec,
+            execute=execute,
+            include_docker=include_docker,
+        )
+
+    for producer_name, consumer_name in (
+        ("package-build", "package-wheel-smoke"),
+        ("docker-build", "docker-smoke-test"),
+    ):
+        producer = by_name.get(producer_name)
+        consumer = by_name.get(consumer_name)
+        if producer is None:
+            if consumer is not None:
+                results[consumer.name] = _run_runnable_check(
+                    consumer,
+                    execute=execute,
+                    include_docker=include_docker,
+                )
+            continue
+
+        producer_result = _run_runnable_check(
+            producer,
+            execute=execute,
+            include_docker=include_docker,
+        )
+        results[producer.name] = producer_result
+        if consumer is None:
+            continue
+        if producer_result.status == "PASS":
+            results[consumer.name] = _run_runnable_check(
+                consumer,
+                execute=execute,
+                include_docker=include_docker,
+            )
+        elif producer_result.status == "SKIPPED" and consumer.environment == "docker":
+            results[consumer.name] = _run_runnable_check(
+                consumer,
+                execute=execute,
+                include_docker=include_docker,
+            )
+        else:
+            results[consumer.name] = _skipped_check(
+                consumer,
+                f"Skipped because {producer.name} did not pass.",
+            )
+
+    return tuple(results[spec.name] for spec in selected_checks)
+
+
+def _run_sequential_checks(
+    selected_checks: Sequence[CheckSpec],
+    *,
+    execute: Callable[[CheckSpec], CommandOutcome],
+    include_docker: bool,
+    quick: bool,
+) -> tuple[CheckResult, ...]:
+    results: list[CheckResult] = []
+    results_by_name: dict[str, CheckResult] = {}
+    deferred_results: dict[str, CheckResult] = {}
+    selected_by_name = {spec.name: spec for spec in selected_checks}
+    dependencies = {
+        "package-wheel-smoke": "package-build",
+        "docker-smoke-test": "docker-build",
+    }
+    for index, spec in enumerate(selected_checks):
+        if spec.name in deferred_results:
+            result = deferred_results.pop(spec.name)
+            results.append(result)
+            results_by_name[result.name] = result
+            continue
+
+        producer_name = dependencies.get(spec.name)
+        producer_result = results_by_name.get(producer_name or "")
+        if producer_name and producer_result is None and producer_name in selected_by_name:
+            producer_result = _run_runnable_check(
+                selected_by_name[producer_name],
+                execute=execute,
+                include_docker=include_docker,
+            )
+            results_by_name[producer_name] = producer_result
+            deferred_results[producer_name] = producer_result
+
+        if producer_result is not None and producer_result.status == "FAIL":
+            result = _skipped_check(
+                spec,
+                f"Skipped because {producer_name} did not pass.",
+            )
+        elif (
+            producer_result is not None
+            and producer_result.status == "SKIPPED"
+            and spec.environment != "docker"
+        ):
+            result = _skipped_check(
+                spec,
+                f"Skipped because {producer_name} did not pass.",
+            )
+        else:
+            result = _run_runnable_check(
+                spec,
+                execute=execute,
+                include_docker=include_docker,
+            )
+        results.append(result)
+        results_by_name[result.name] = result
+        if (
+            quick
+            and spec.required
+            and spec.name in _QUICK_FAIL_FAST_CHECKS
+            and result.status == "FAIL"
+        ):
+            reason = f"Quick verification stopped after required {spec.name} failure."
+            results.extend(
+                _skipped_check(skipped_spec, reason)
+                for skipped_spec in selected_checks[index + 1 :]
+            )
+            break
+    return tuple(results)
 
 
 def run_project_verification(
@@ -706,57 +1059,51 @@ def run_project_verification(
     (project_root / "verification_runs").mkdir(parents=True, exist_ok=True)
     custom_checks = checks is not None
     available_checks = tuple(checks) if checks is not None else build_check_specs(project_root)
-    selected_checks = _select_checks(available_checks, selected, quick)
+    requested_checks = tuple(selected) if selected is not None else ()
+    explicit_selection = bool(requested_checks)
+    canonical_full = not custom_checks and not quick and not explicit_selection
+    selected_checks = _select_checks(
+        available_checks,
+        requested_checks,
+        quick,
+        deduplicate_full=canonical_full,
+    )
     selected_names = tuple(spec.name for spec in selected_checks)
     omitted_names = tuple(spec.name for spec in available_checks if spec.name not in selected_names)
-    if selected or quick:
+    if explicit_selection or quick:
         verification_scope = "partial"
     elif custom_checks:
         verification_scope = "custom"
     else:
         verification_scope = "full"
     execute = runner or _default_runner(project_root)
-    results: list[CheckResult] = []
-
-    for spec in selected_checks:
-        if spec.environment == "docker" and not include_docker:
-            results.append(
-                CheckResult(
-                    name=spec.name,
-                    status="SKIPPED",
-                    required=spec.required,
-                    command=spec.command,
-                    reason="Docker checks require --include-docker.",
-                )
+    if canonical_full:
+        results = list(
+            _run_canonical_full_checks(
+                selected_checks,
+                execute=execute,
+                include_docker=include_docker,
             )
-            continue
-        if spec.environment == "docker" and shutil.which("docker") is None:
-            results.append(
-                CheckResult(
-                    name=spec.name,
-                    status="SKIPPED",
-                    required=spec.required,
-                    command=spec.command,
-                    reason="Docker executable is unavailable.",
-                )
-            )
-            continue
-
-        outcome = execute(spec)
-        results.append(
-            CheckResult(
-                name=spec.name,
-                status="PASS" if outcome.returncode == 0 else "FAIL",
-                required=spec.required,
-                command=spec.command,
-                duration_seconds=outcome.duration_seconds,
-                stdout_tail=_tail(outcome.stdout),
-                stderr_tail=_tail(outcome.stderr),
+        )
+    else:
+        results = list(
+            _run_sequential_checks(
+                selected_checks,
+                execute=execute,
+                include_docker=include_docker,
+                quick=quick,
             )
         )
 
     golden_changes = _golden_output_changes(project_root)
-    if "golden-formula-regression" in selected_names:
+    available_names = {spec.name for spec in available_checks}
+    golden_regression_ran = any(
+        result.name == "golden-formula-regression" and result.status != "SKIPPED"
+        for result in results
+    )
+    if golden_regression_ran or (
+        canonical_full and "golden-formula-regression" in available_names
+    ):
         lock_matches = golden_changes["status"] == "unchanged"
         results.append(
             CheckResult(

@@ -2,7 +2,9 @@
 
 import asyncio
 import os
+import shutil
 import tempfile
+import warnings
 from pathlib import Path
 from typing import AsyncGenerator
 
@@ -20,15 +22,54 @@ from app.models.base import Base
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PYTEST_TEMP_ROOT = REPO_ROOT / "output" / "pytest-temp-backend"
 PYTEST_TEMP_ROOT.mkdir(parents=True, exist_ok=True)
-PIP_CACHE_ROOT = REPO_ROOT / "output" / "verification-pip-cache"
-PIP_CACHE_ROOT.mkdir(parents=True, exist_ok=True)
 os.environ["TEMP"] = str(PYTEST_TEMP_ROOT)
 os.environ["TMP"] = str(PYTEST_TEMP_ROOT)
-os.environ["PIP_CACHE_DIR"] = str(PIP_CACHE_ROOT)
 tempfile.tempdir = str(PYTEST_TEMP_ROOT)
 
 # Test database URL
 TEST_DATABASE_URL = "sqlite+aiosqlite:///./test_perfume_chem.db"
+_SESSION_SCRATCH = None
+
+
+@pytest.fixture(scope="session", autouse=True)
+def managed_test_scratch(tmp_path_factory):
+    """Let pytest retain failed scratch and discard successful-session scratch."""
+    global _SESSION_SCRATCH
+    session_temp = tmp_path_factory.getbasetemp()
+    _SESSION_SCRATCH = session_temp
+    previous = {key: os.environ.get(key) for key in ("TEMP", "TMP")}
+    previous_tempdir = tempfile.tempdir
+    os.environ["TEMP"] = os.environ["TMP"] = str(session_temp)
+    tempfile.tempdir = str(session_temp)
+    try:
+        yield
+    finally:
+        tempfile.tempdir = previous_tempdir
+        for key, value in previous.items():
+            if value is None:
+                os.environ.pop(key, None)
+            else:
+                os.environ[key] = value
+
+
+@pytest.hookimpl(trylast=True)
+def pytest_sessionfinish(session, exitstatus):
+    """Only a wholly successful session may discard its owned scratch directory."""
+    if exitstatus != 0 or _SESSION_SCRATCH is None:
+        return
+    scratch = _SESSION_SCRATCH.resolve()
+    if scratch != _SESSION_SCRATCH.absolute():
+        return
+    if scratch == PYTEST_TEMP_ROOT.resolve() or not scratch.is_relative_to(
+        PYTEST_TEMP_ROOT.resolve()
+    ):
+        return
+    try:
+        shutil.rmtree(scratch)
+    except OSError as exc:
+        warnings.warn(
+            pytest.PytestWarning(f"Test scratch retained at {scratch}: {exc}"), stacklevel=1
+        )
 
 
 @pytest.fixture(scope="session")
@@ -72,11 +113,7 @@ async def test_engine():
 @pytest_asyncio.fixture
 async def db_session(test_engine) -> AsyncGenerator[AsyncSession, None]:
     """Create database session for tests"""
-    async_session = sessionmaker(
-        test_engine,
-        class_=AsyncSession,
-        expire_on_commit=False
-    )
+    async_session = sessionmaker(test_engine, class_=AsyncSession, expire_on_commit=False)
 
     async with async_session() as session:
         yield session
@@ -86,6 +123,7 @@ async def db_session(test_engine) -> AsyncGenerator[AsyncSession, None]:
 @pytest_asyncio.fixture
 async def client(db_session) -> AsyncGenerator[AsyncClient, None]:
     """Create test client"""
+
     async def override_get_db():
         yield db_session
 
@@ -107,7 +145,7 @@ def sample_ingredient():
         "odor_description": "floral, woody, lavender",
         "volatility": "top-heart",
         "ifra_max_level": 100.0,
-        "allergen": True
+        "allergen": True,
     }
 
 
@@ -119,29 +157,9 @@ def sample_formula():
         "version": "1.0",
         "concentration_percent": 15.0,
         "ingredients": [
-            {
-                "name": "Linalool",
-                "percentage": 10.0,
-                "role": "heart",
-                "volatility": "top-heart"
-            },
-            {
-                "name": "Iso E Super",
-                "percentage": 8.0,
-                "role": "base",
-                "volatility": "base"
-            },
-            {
-                "name": "Ethanol",
-                "percentage": 80.0,
-                "role": "solvent",
-                "volatility": "top"
-            },
-            {
-                "name": "Water",
-                "percentage": 2.0,
-                "role": "solvent",
-                "volatility": "top"
-            }
-        ]
+            {"name": "Linalool", "percentage": 10.0, "role": "heart", "volatility": "top-heart"},
+            {"name": "Iso E Super", "percentage": 8.0, "role": "base", "volatility": "base"},
+            {"name": "Ethanol", "percentage": 80.0, "role": "solvent", "volatility": "top"},
+            {"name": "Water", "percentage": 2.0, "role": "solvent", "volatility": "top"},
+        ],
     }

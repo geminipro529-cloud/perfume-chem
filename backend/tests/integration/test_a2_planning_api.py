@@ -105,7 +105,7 @@ async def test_a2_planning_api_exposes_thin_versioned_workflow(
         f"/api/v1/lab/v2/formula-versions/{child.id}/parents",
         json={
             "parent_version_id": parent.id,
-            "relationship_kind": "DERIVED_FROM",
+            "relationship_kind": "DESIGN_REVISION",
             "change": {"kind": "REBALANCE"},
             "rationale": "API immutable revision",
         },

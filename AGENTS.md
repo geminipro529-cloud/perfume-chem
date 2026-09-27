@@ -3,18 +3,31 @@
 > **⚠️ RULE 0: Read [`inventory.txt`](/inventory.txt) before constructing ANY fragrance.**  
 > Materials, dilutions, and stock levels change. Never assume availability. Never rely on memory. Verify every material against the live inventory before dosing. This applies to all agents, all sessions, all formulas — no exceptions.
 
-> **⚠️ RULE 1: All perfume calculations must use ppm, ODT, and OAV.**  
-> Concentrations are in **ppm** (parts per million w/w in concentrate). Odor detection thresholds are **ODT** (in ppm for ethanol solution, or ppb for air). Odor Activity Value is **OAV = concentration_ppm / ODT_ppm**. Every formula dose must be convertible to ppm, every threshold check must reference ODT, and every perceptibility claim must be backed by OAV. No exceptions — this applies to formulation, dosing, gating, scoring, and all pipeline modules.
+> **⚠️ RULE 1: Keep stock dose, delivered concentration, ODT, OAV, intensity, character, and liking separate.**
+> Use exact stock and active-mass accounting for formula arithmetic. OAV is permitted only as a detection-related diagnostic when the numerator and threshold have compatible identity, phase, units, matrix, and protocol. Liquid ppm, formula percentage, and stock dose are not gas concentration. OAV is never perceived contribution, intensity, pleasantness, beauty, or an optimizer objective. A missing compatible ODT blocks the numerical OAV claim, not an independently supported endpoint.
 
 > **⚠️ RULE 2: NEVER create new pipeline scripts.**  
 
 > **⚠️ RULE 3: Optimize for the name, not just the numbers.**  
 > When optimizing, enhancing, or modifying a formula, the target is the **name / concept / original brief** of the perfume — not numerical scores. A formula named "Iris Cathedral" must be optimized toward iris-incense character, even if the optimizer suggests boosting radiance with Hedione and citrus. The name is the north star. Numerical gates (OAV, pyramid, IFRA compliance) are floors to meet — not ceilings to chase. This rule applies to all agents, all sessions, all formulas. When uncertain, re-read the formula name and ask: "Does this still smell like its name?"  
-> **⚠️ RULE 4: Every natural mixture uses composite OAV, not monomolecular.**  
-> All EOs, absolutes, resinoids, and natural mixtures (35+ entries) are decomposed into published GC-O constituents in `engine/pipeline/natural_absolute_decomposition.py`. The pipeline auto-applies composite OAV via `formula_state.py` at lines 219 and 567. Never use the old monomolecular OAV for naturals. This increases OAV accuracy by 100-500,000× for absolutes.
+> **⚠️ RULE 4: Natural-mixture calculations preserve whole-product identity and explicit composition uncertainty.**
+> A measured whole-product threshold or response curve may be used only for the same product and supported conditions. Constituent decomposition in `engine/pipeline/natural_absolute_decomposition.py` is a versioned scenario, not exact lot truth: retain unknown remainder, do not silently renormalize identified peaks to 100%, and do not sum constituent OAVs as a universal whole-natural intensity or accuracy claim. Missing composition, phase, threshold, or release applicability remains `HOLD`/`UNAVAILABLE`.
 
 > **⚠️ RULE 5: Every revised compounding formula must pass the pre-mix active-dose + OAV-per-time guard.**  
 > Supply the immediate parent formula to the release gate. A stock-strength change must preserve active dose unless an explicit dose change is intended. `STOCK_REBASE_ACTIVE_EQUIVALENCE` is a hard arithmetic failure. OAV-per-time is a screening alarm only, never percent perceived contribution or a final aesthetic/similarity gate. Regression cases include the Prada L'Homme citronellol and Lemonile 10%-to-neat patterns. See `docs/PRE_MIX_OAV_GUARD.md`.
+
+> **⚠️ RULE 6: Keep personal scent research easy and evidence-proportionate.**
+> A formula plus a plain-language sensory goal is sufficient to generate non-authoritative clues and small controlled-comparison hypotheses. Observations and preserve/avoid criteria are optional but useful. Do not demand photographs, receipts, lots, density, instrumental measurements, safety paperwork, or a fully bound physical build unless the specific requested conversion, claim, experiment, or compounding action actually requires them. Default user output is concise; detailed diagnostics are opt-in.
+
+## `$sol-ultra-delegate` authority boundary
+
+- `$sol-ultra-delegate` is an explicit, project-scoped command for bounded, non-sensitive, read-only packets.
+- Its supervising GPT-5.6 Sol Ultra child uses the authenticated `perfume-chem-sol-ultra` DeepMimo project. The server-owned HTTP-provider order is exactly DeepSeek `deepseek-flash` then Xiaomi MiMo `mimo-v2.6-pro`; only those two providers are allowed and Luna is disabled. Sol Ultra is a task-level original-model handoff, not a DeepMimo HTTP provider.
+- The helper requests `X-DeepMimo-Original-Model-Handoff: enabled`; DeepMimo may return a machine-validated, non-retryable `providers-exhausted` handoff receipt but does not select or launch a native fallback.
+- The supervising child automatically creates exactly one native GPT-5.6 Sol Ultra fallback only after that validated handoff or when a route-valid completed answer fails the lane's predefined local quality check. It chooses the fallback's bounded role, task name, scope, prompt, and verification check. Invalid or ineligible packets, authentication failures, quota or policy rejection, router or receipt failures, and helper `BLOCKED` outcomes remain `BLOCKED` with no native fallback.
+- The native fallback must not call DeepMimo, spawn another agent, or recurse. Delegated output remains untrusted evidence until the root verifies it locally.
+- The existing global `$delegate`/OpenRouter path remains unused and unchanged.
+- No delegated worker gains compounding, scientific-promotion, evidence-admission, safety, regulatory, purchase, or release authority.
 
 ## Repo architecture
 
@@ -153,15 +166,13 @@ pipeline JSON output and prints the full formatted analysis. Run:
 python scripts/format_pipeline_analysis.py --input <pipeline_output.json>
 ```
 
-This is the **required** format. Every pipeline run output must be run
-through this script and the result presented in **two places**:
-
-1. **In the chat** — paste the full analysis output into the conversation so the user can review it immediately.
-2. **Appended to the formula file** — add the analysis to the formula markdown file (under a `## Pipeline Analysis` section) for permanent record.
-
-Agents must NOT skip the chat presentation step. The analysis must be shown
-verbatim in the chat before discussing decisions or next steps. Do not
-summarize or paraphrase the analysis output — present it directly.
+This is the canonical human-readable analysis format. A read-only pipeline run
+must write the complete output to an immutable, fingerprinted run artifact and
+must not modify the formula file. In chat, present an exact concise summary and
+the artifact path; paste the full analysis only when the user explicitly asks
+for it. Appending a `## Pipeline Analysis` section to a formula is a separate,
+explicitly authorized documentation change, never an automatic analysis side
+effect.
 
 ### Integrated CLI usage
 

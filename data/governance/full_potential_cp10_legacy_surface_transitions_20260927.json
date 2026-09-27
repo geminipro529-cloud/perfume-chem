@@ -1,0 +1,44 @@
+{
+  "schema_version": "full-potential-cp10-legacy-surface-transitions-v1",
+  "state": "ADDITIVE_COMPATIBILITY_TRANSITION_NOT_HISTORICAL_REWRITE",
+  "transitions": [
+    {
+      "path": "engine/dose_response.py",
+      "frozen_sha256": "d6d788877cf7a873b41482ff37f07ba705be0199d349512ffde531ed0fec2338",
+      "current_sha256": "de356bb83f2276e5c33938efba27a3b897bd7046891a8da8ad2279e563e220d7",
+      "change_scope": "MODULE_AUTHORITY_DOCUMENTATION_ONLY",
+      "executable_curve_semantics_changed": false,
+      "historical_protocol_rewritten": false
+    },
+    {
+      "path": "backend/app/services/physical_lineage.py",
+      "frozen_sha256": "d81d59841b983a16c63fea705079f8e83988116828fe416d49d9496a79494d78",
+      "current_sha256": "cea211a2577125602c243d670117a6d7229a1cbf2efe91a071a713933718f84e",
+      "change_scope": "ADDITIVE_PHYSICAL_LINEAGE_EXTENSION",
+      "checkpoint6_contract_semantics_preserved": true,
+      "historical_protocol_rewritten": false
+    },
+    {
+      "path": "backend/app/schemas/physical_lineage.py",
+      "frozen_sha256": "6e8249289051fb1fa29d1c1f8cfa471b18c72094a04a74640967918334090feb",
+      "current_sha256": "f125a7e959bb506b8a35e3eb5d6724b6871aeaae30ca006a23c80d4fa938d02c",
+      "change_scope": "ADDITIVE_PHYSICAL_LINEAGE_EXTENSION",
+      "checkpoint6_contract_semantics_preserved": true,
+      "historical_protocol_rewritten": false
+    },
+    {
+      "path": "backend/app/models/lab_cp2_physical.py",
+      "frozen_sha256": "001fb55240ff4ec243b3251b41cb244d980daa269d666264da14c2ab5095fba9",
+      "current_sha256": "ba7b626f35608fbc1937c66726d5b0427745ed37e17034ad4ff04eebf33e1c0c",
+      "change_scope": "ADDITIVE_PHYSICAL_LINEAGE_EXTENSION",
+      "checkpoint6_contract_semantics_preserved": true,
+      "historical_protocol_rewritten": false
+    }
+  ],
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

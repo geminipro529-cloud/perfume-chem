@@ -40,17 +40,30 @@ class SimulationFrame:
 
     def dominant_oav(self, limit: int = 8) -> list[dict]:
         rows = sorted(
-            self.state.materials,
-            key=lambda m: m.oav or 0.0,
+            (
+                material
+                for material in self.state.materials
+                if material.screening_oav is not None
+            ),
+            key=lambda m: float(m.screening_oav or 0.0),
             reverse=True,
         )
         return [
             {
                 "material": m.name,
-                "oav": round(m.oav or 0.0, 3),
-                "ppm": round(m.vapor_ppm, 6),
-                "intensity": round(m.intensity or 0.0, 3),
+                "oav": round(float(m.screening_oav), 3),
+                "ppm": (
+                    None
+                    if m.screening_vapor_ppm is None
+                    else round(float(m.screening_vapor_ppm), 6)
+                ),
+                "intensity": (
+                    None
+                    if m.screening_intensity is None
+                    else round(float(m.screening_intensity), 3)
+                ),
                 "family": m.family,
+                "physics_status": m.physics_status,
             }
             for m in rows[:limit]
         ]
@@ -80,6 +93,8 @@ def _effective_escaping_tendency_pa(material) -> float:
     natural mixtures use their constituent-resolved composite headspace rather
     than falling back to a missing or fictitious parent vapor pressure.
     """
+    if material.physics_status == "WITHHELD":
+        return 0.0
     if material.partial_pressure_pa > 0.0 and material.mole_fraction > 0.0:
         return material.partial_pressure_pa / material.mole_fraction
     if material.vp_pure_pa is None or material.vp_pure_pa <= 0.0:

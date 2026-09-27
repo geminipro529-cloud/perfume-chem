@@ -3,11 +3,15 @@
 from typing import Any, Dict, Optional
 
 from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.deps import get_ai_service, get_model_selector_dep
+from app.api.deps import get_ai_service, get_db, get_model_selector_dep
 from app.core.exceptions import AIServiceError
 from app.schemas.perfume import AIAnalysisRequest, AIModificationRequest, AIPairingRequest
 from app.services.ai.base import BaseAIService
+from app.services.engine_job_compatibility import (
+    enqueue_formula_analysis_compatibility,
+)
 from app.services.validation_pipeline import (
     attach_validation,
     validate_formula,
@@ -30,11 +34,18 @@ async def analyze_perfume(
     request: AIAnalysisRequest,
     model: Optional[str] = None,
     force_provider: Optional[str] = None,
-    ai_service: BaseAIService = Depends(get_ai_service)
+    ai_service: BaseAIService = Depends(get_ai_service),
+    session: AsyncSession = Depends(get_db),
 ) -> Dict[str, Any]:
     """Analyze a perfume composition using AI"""
     ingredients_dict = {ing.name: ing.percentage for ing in request.ingredients}
-    report = validate_formula(ingredients_dict)
+    report = await enqueue_formula_analysis_compatibility(
+        session,
+        validate_formula(ingredients_dict),
+        ingredients_dict,
+        scope="ai.analyze-perfume",
+        formula_name=request.name,
+    )
     try:
         result = await ai_service.analyze_perfume(
             name=request.name,
@@ -51,12 +62,22 @@ async def suggest_modifications(
     request: AIModificationRequest,
     model: Optional[str] = None,
     force_provider: Optional[str] = None,
-    ai_service: BaseAIService = Depends(get_ai_service)
+    ai_service: BaseAIService = Depends(get_ai_service),
+    session: AsyncSession = Depends(get_db),
 ) -> Dict[str, Any]:
     """Get AI suggestions for formula modifications"""
     # Validate formula if it contains numeric ingredient percentages
     formula_nums = {k: v for k, v in request.formula.items() if isinstance(v, (int, float))}
-    report = validate_formula(formula_nums) if formula_nums else None
+    report = (
+        await enqueue_formula_analysis_compatibility(
+            session,
+            validate_formula(formula_nums),
+            formula_nums,
+            scope="ai.suggest-modifications",
+        )
+        if formula_nums
+        else None
+    )
     validate_search_query(request.goal)
     try:
         result = await ai_service.suggest_modifications(

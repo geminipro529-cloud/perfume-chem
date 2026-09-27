@@ -154,6 +154,35 @@ class ReleaseReviewCreate(LifecycleRequest):
     parent_version_id: NonBlank | None = None
 
 
+class ClaimAuthoritySupportCreate(LifecycleRequest):
+    support_kind: Literal[
+        "PROPERTY_ASSERTION",
+        "OAV_ASSESSMENT",
+        "KNOWLEDGE_RULE",
+        "ANALYTICAL_ASSESSMENT",
+        "COMPOSITION_PROFILE",
+        "REGULATORY_SNAPSHOT",
+    ]
+    record_id: NonBlank
+    role: Literal["SUPPORTING", "CONTRADICTING", "LIMITATION"] = (
+        "SUPPORTING"
+    )
+
+
+class ClaimAuthorityReviewCreate(LifecycleRequest):
+    """Strict B7 request; every authority-bearing field is server-owned."""
+
+    schema_version: Literal["lab-claim-authority-request-v1"]
+    legacy_claim_assessment_version_id: NonBlank
+    claim_payload: dict
+    identity_scope: dict
+    condition_scope: dict
+    supports: tuple[ClaimAuthoritySupportCreate, ...]
+    reviewer_pseudonym: NonBlank
+    reviewed_at: AwareDatetime
+    parent_version_id: NonBlank | None = None
+
+
 class LifecycleResponse(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -301,6 +330,51 @@ class ReleaseReviewResponse(LifecycleResponse):
     content_sha256: str
     parent_sha256: str | None
     created_at: datetime
+
+
+class ClaimAuthorityReviewResponse(LifecycleResponse):
+    id: str
+    authority_id: str
+    version_number: int
+    parent_version_id: str | None
+    legacy_claim_assessment_version_id: str
+    schema_version: str
+    policy_version: str
+    policy_sha256: str
+    policy: dict
+    claim_type: str
+    subject_type: str
+    subject_id: str
+    claim_payload: dict
+    identity_scope: dict
+    identity_scope_sha256: str
+    condition_scope: dict
+    condition_scope_sha256: str
+    claim_scope_sha256: str
+    decision: str
+    dimension_results: dict
+    supporting_observations: list[dict]
+    conflicts: list[str]
+    missing_requirements: list[str]
+    source_references: list[dict]
+    uncertainty: dict
+    permitted_wording: str
+    forbidden_wording: str
+    blocker_count: int
+    conflict_count: int
+    missing_requirement_count: int
+    critical_unknown_count: int
+    support_count: int
+    source_reference_count: int
+    upstream_hashes: dict
+    reviewer_pseudonym: str
+    reviewed_at: datetime
+    content_sha256: str
+    parent_sha256: str | None
+    authority_scope: Literal["SCIENTIFIC_CLAIM_ONLY"]
+    release_authority: Literal[False]
+    safety_authority: Literal[False]
+    compounding_authority: Literal[False]
 
 
 __all__ = [name for name in globals() if name.endswith(("Create", "Response"))]

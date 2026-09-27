@@ -40,9 +40,13 @@ print()
 print(f"{BOLD}{'OAV RANKING':─^50}{RESET}")
 print(f"  {'#':>2s} {'Material':<30s} {'OAV':>8s} {'Percept':>16s}")
 print(f"  {'─' * 2} {'─' * 30} {'─' * 8} {'─' * 16}")
-ranked = sorted(ms, key=lambda m: m["oav"] or 0, reverse=True)
+ranked = sorted(
+    (m for m in ms if m.get("oav") is not None),
+    key=lambda m: float(m["oav"]),
+    reverse=True,
+)
 for i, m in enumerate(ranked, 1):
-    oav = m["oav"] or 0
+    oav = float(m["oav"])
     if oav < 1:
         break
     name = m["name"][:29]
@@ -79,13 +83,20 @@ for w in ts:
     print(f"  {label:12s} ({mins:>4s})  {names}")
 
 # ── Sub-threshold ──
-sub = [m for m in ms if (m["oav"] or 0) < 1]
+sub = [m for m in ms if m.get("oav") is not None and float(m["oav"]) < 1]
 if sub:
     print(f"\n{BOLD}{'SUB-THRESHOLD':─^50}{RESET}")
     for m in sub:
         role = m.get("role", "")
         status = "(structural — OK)" if role in ("fixative", "modifier") else "(check dosing)"
         print(f"  {m['name'][:30]:30s} OAV={m['oav']:.1f}  {status}")
+
+unknown = [m for m in ms if m.get("oav") is None]
+if unknown:
+    print(f"\n{BOLD}{'UNKNOWN OAV (NOT SUB-THRESHOLD)':─^50}{RESET}")
+    for m in unknown:
+        blockers = ", ".join(m.get("physics_blockers", []) or []) or "UNSPECIFIED"
+        print(f"  {m['name'][:30]:30s} OAV=UNKNOWN  blockers={blockers}")
 
 # ── Gates FAIL/WARN ──
 fail = [g for g in f["gates"] if g["status"] == "FAIL"]

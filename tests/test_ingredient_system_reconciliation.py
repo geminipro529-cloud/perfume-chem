@@ -45,7 +45,7 @@ def test_successor_preserves_unaffected_stock_bytes_and_all_requirement_rows():
     [
         ("Coumarin", 0.1, "mass_fraction", "dpg", True),
         ("Vetiveryl Acetate", 0.1, "mass_fraction", "dep", True),
-        ("Methyl Laitone", 0.2, "unspecified", "", False),
+        ("Methyl Laitone", 0.2, "volume_fraction", "ethanol", True),
         ("Guaiacwood EO", 1 / 3, "mass_fraction", "ethanol + dep", True),
         ("Bacdanol", 1, "neat", "", True),
     ],
@@ -84,13 +84,13 @@ def test_bottle_identity_is_not_a_chemical_alias():
 
 def test_legacy_parser_keeps_rows_and_prefers_owned_stock():
     rows = inventory.parse_inventory(unique=False)
-    assert len(rows) == 285
+    assert len(rows) == 287
     assert all(s.source_rows and s.stock_id for s in rows)
     agar = next(s for s in inventory.parse_inventory() if s.name == "Black Agarwood Artificial")
     assert agar.status == "owned" and agar.dilution == 0.1
     kephalis = next(s for s in inventory.parse_inventory() if s.name == "Kephalis")
     assert kephalis.status == "not_owned"
-    assert next(s for s in rows if s.name == "Methyl Laitone").execution_ready is False
+    assert next(s for s in rows if s.name == "Methyl Laitone").execution_ready is True
 
 
 @pytest.mark.parametrize("name", ["tuberose abs", "jasmine blossoms", "galbanum EO"])
@@ -167,7 +167,7 @@ def test_offline_rebuild_is_lossless_and_idempotent(monkeypatch):
         and first[0]["bespoke"] == old[0]["bespoke"]
     )
     assert first[2]["oav_typical"] is None  # unresolved product class is not a pure-entity proof
-    assert report["counts"]["inventory_text_rows"] == 285
+    assert report["counts"]["inventory_text_rows"] == 287
 
 
 def test_physical_stock_identity_and_mixture_firewall():

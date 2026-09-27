@@ -214,9 +214,64 @@ class GateReport:
         }
 
 
+SCREENING_OAV_DIAGNOSTIC_GATES = frozenset(
+    {
+        "perfume_knowledge",
+        "oav_legibility",
+        "oav_overdose_blocker",
+        "odt_completeness",
+        "oav_intelligence",
+        "olfactory_fatigue",
+        "literature_compliance",
+        "balance_axes",
+        "ellena_legibility",
+        "jellinek_psychology",
+        "edwards_wheel_coherence",
+        "guerlain_nature_synthetic",
+        "weber_fechner_contrast",
+        "adaptation_timing",
+        "guerlain_vanillin_coumarin",
+        "stevens_power_law",
+        "guerlain_rose_jasmine_balance",
+        "stevens_n_efficiency",
+        "jnd_redundancy",
+        "adaptation_overlap",
+        "mixture_suppression",
+        "oav_physics_gamma",
+        "hedonic_neuroscience",
+    }
+)
+
+
+def _is_screening_oav_diagnostic_gate(gate_name: str) -> bool:
+    return gate_name in SCREENING_OAV_DIAGNOSTIC_GATES or gate_name.endswith("_skeleton")
+
+
+def _screening_oav_claim_ceiling(data: dict | None) -> dict:
+    bounded = dict(data or {})
+    bounded["evidence_role"] = "HEURISTIC_SCREENING_ONLY"
+    bounded[
+        "claim_ceiling"
+    ] = "NOT_PHYSICS_SENSORY_LIKING_RELEASE_OR_RECOMPOUNDING_AUTHORITY"
+    bounded["formula_optimization_authority"] = False
+    bounded["compounding_action_authority"] = False
+    bounded["repair_authority"] = False
+    bounded["release_authority"] = False
+    bounded["sensory_endpoint_authority"] = False
+    return bounded
+
+
 def _result(gate: str, status: str, detail: str = "", data: dict | None = None) -> GateResult:
     if status not in ("PASS", "WARN", "FAIL"):
         raise ValueError(f"Invalid gate status '{status}' for gate '{gate}'")
+    if _is_screening_oav_diagnostic_gate(gate):
+        data = _screening_oav_claim_ceiling(data)
+        if status == "FAIL":
+            data.setdefault("original_status", "FAIL")
+            data.setdefault("gate_policy", "screening_oav_failures_demoted_to_warn")
+            detail = detail or "Screening OAV diagnostic raised a flag"
+            detail = f"{detail} [screening diagnostic; not release or recompounding authority]"
+            status = "WARN"
     return GateResult(gate=gate, status=status, detail=detail, data=data or {})
 
 
@@ -279,6 +334,16 @@ ADVISORY_FAILURE_GATES = frozenset({
 
 def _apply_guideline_policy(gate: GateResult) -> GateResult:
     """Keep safety/data/math failures blocking; treat perfumery gates as advice."""
+    if _is_screening_oav_diagnostic_gate(gate.gate):
+        data = _screening_oav_claim_ceiling(gate.data)
+        if gate.status == "FAIL":
+            data.setdefault("original_status", "FAIL")
+            data.setdefault("gate_policy", "screening_oav_failures_demoted_to_warn")
+            detail = gate.detail or "Screening OAV diagnostic raised a flag"
+            detail = f"{detail} [screening diagnostic; not release or recompounding authority]"
+            return GateResult(gate=gate.gate, status="WARN", detail=detail, data=data)
+        return GateResult(gate=gate.gate, status=gate.status, detail=gate.detail, data=data)
+
     if gate.status != "FAIL" or gate.gate not in ADVISORY_FAILURE_GATES:
         return gate
 
@@ -518,9 +583,6 @@ def _science_profile_for_material(material) -> tuple[object, str]:
 
 
 def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
-    active_pct = state.active_percentages()
-    total_active_g = sum(m.active_g for m in state.materials) or 1.0
-    active_mass_pct = {m.name: 100.0 * m.active_g / total_active_g for m in state.materials}
     functional_groups = {
         m.name: set(m.functional_groups) for m in state.materials if m.functional_groups
     }
@@ -530,17 +592,14 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
     amines = sorted(
         m.name for m in state.materials if "amine" in functional_groups.get(m.name, set())
     )
-    aldehyde_pct = sum(active_pct.get(name, 0.0) for name in aldehydes)
-    amine_pct = sum(active_pct.get(name, 0.0) for name in amines)
-    # Ignore trace aldehydes below the explicit contact-risk screening threshold.
-    if aldehyde_pct < 0.05:
-        aldehydes = []
-        aldehyde_pct = 0.0
-    schiff_pairs: list[dict] = []
-    if aldehydes and amines:
+
+    def _schiff_pair_rows(aldehyde_names: list[str]) -> list[dict]:
+        if not aldehyde_names or not amines:
+            return []
         amine_lookup = {normalize_name(name): name for name in amines}
+        rows: list[dict] = []
         for material in state.materials:
-            if material.name not in aldehydes:
+            if material.name not in aldehyde_names:
                 continue
             science_profile, science_source = _science_profile_for_material(material)
             partners = []
@@ -549,24 +608,77 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
                 if matched and matched not in partners:
                     partners.append(matched)
             if partners:
-                schiff_pairs.append(
+                rows.append(
                     {
                         "aldehyde": material.name,
                         "amines": partners,
                         "science_source": science_source,
                     }
                 )
-        if not schiff_pairs:
-            schiff_pairs = [
-                {"aldehyde": aldehyde, "amines": list(amines)} for aldehyde in aldehydes
+        if not rows:
+            rows = [
+                {"aldehyde": aldehyde, "amines": list(amines)}
+                for aldehyde in aldehyde_names
             ]
+        return rows
+
     aging_claim = assess_aging_claim(AgingClaim.SHELF_LIFE)
 
-    oxidation_rows: list[dict] = []
-    photolabile_rows: list[dict] = []
+    risk_profiles: list[tuple[object, object, str]] = []
     flagged_materials: set[str] = set()
     for material in state.materials:
         science_profile, science_source = _science_profile_for_material(material)
+        if science_profile.stability_class == StabilityRisk.OXIDATION_PRONE:
+            flagged_materials.add(material.name)
+        if science_profile.photostability in {"moderate", "labile"}:
+            flagged_materials.add(material.name)
+        if (
+            science_profile.stability_class == StabilityRisk.OXIDATION_PRONE
+            or science_profile.photostability in {"moderate", "labile"}
+        ):
+            risk_profiles.append((material, science_profile, science_source))
+
+    active_mass_pct = state.active_mass_percentages()
+    mass_dependent_assessment = bool((aldehydes and amines) or flagged_materials)
+    if mass_dependent_assessment and active_mass_pct is None:
+        missing = sorted(
+            material.name
+            for material in state.materials
+            if material.authoritative_active_g is None
+        )
+        unknown_scope = []
+        if aldehydes and amines:
+            unknown_scope.append("Schiff-base risk")
+        if flagged_materials:
+            unknown_scope.append("oxidation/photolability burden")
+        return _result(
+            "chemistry_stability",
+            "FAIL",
+            f"{' and '.join(unknown_scope)} assessment UNKNOWN: authoritative active mass is unavailable",
+            {
+                "assessment": "UNKNOWN",
+                "claim_ceiling": "AUTHORITATIVE_ACTIVE_MASS_REQUIRED",
+                "active_mass_basis": "authoritative_active_g",
+                "proxy_active_g_ignored": True,
+                "missing_authoritative_active_mass_materials": missing,
+                "aging_claim": aging_claim.as_mapping(),
+                "candidate_schiff_base_pairs": _schiff_pair_rows(aldehydes),
+                "candidate_oxidation_or_photolability_materials": sorted(flagged_materials),
+            },
+        )
+
+    active_mass_pct = active_mass_pct or {}
+    aldehyde_pct = sum(active_mass_pct.get(name, 0.0) for name in aldehydes)
+    amine_pct = sum(active_mass_pct.get(name, 0.0) for name in amines)
+    # Ignore trace aldehydes below the explicit contact-risk screening threshold.
+    if aldehyde_pct < 0.05:
+        aldehydes = []
+        aldehyde_pct = 0.0
+    schiff_pairs = _schiff_pair_rows(aldehydes)
+
+    oxidation_rows: list[dict] = []
+    photolabile_rows: list[dict] = []
+    for material, science_profile, science_source in risk_profiles:
         pct_mass = active_mass_pct.get(material.name, 0.0)
         if science_profile.stability_class == StabilityRisk.OXIDATION_PRONE:
             oxidation_rows.append(
@@ -577,7 +689,6 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
                     "science_source": science_source,
                 }
             )
-            flagged_materials.add(material.name)
         if science_profile.photostability in {"moderate", "labile"}:
             photolabile_rows.append(
                 {
@@ -591,7 +702,6 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
                     "science_source": science_source,
                 }
             )
-            flagged_materials.add(material.name)
 
     reactive_mass_pct = sum(active_mass_pct.get(name, 0.0) for name in flagged_materials)
     fail_reasons: list[str] = []
@@ -625,6 +735,9 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
         "oxidation_prone_materials": oxidation_rows,
         "photolabile_materials": photolabile_rows,
         "reactive_material_active_mass_pct": round(reactive_mass_pct, 3),
+        "active_mass_basis": "authoritative_active_g",
+        "proxy_active_g_ignored": True,
+        "assessment": "EVALUATED",
     }
     if fail_reasons:
         return _result("chemistry_stability", "FAIL", "; ".join(fail_reasons), data)
@@ -640,14 +753,56 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
 
 
 def _gate_phase_compatibility(state: FormulaState) -> GateResult:
-    total_active_g = sum(m.active_g for m in state.materials) or 1.0
-    covered = [m for m in state.materials if m.hsp is not None and m.active_g > 0]
-    covered_mass_pct = 100.0 * sum(m.active_g for m in covered) / total_active_g
+    missing = sorted(
+        material.name
+        for material in state.materials
+        if material.authoritative_active_g is None
+    )
+    if missing:
+        return _result(
+            "phase_compatibility",
+            "FAIL",
+            "Phase compatibility assessment UNKNOWN: authoritative active mass is unavailable",
+            {
+                "assessment": "UNKNOWN",
+                "claim_ceiling": "AUTHORITATIVE_ACTIVE_MASS_REQUIRED",
+                "active_mass_basis": "authoritative_active_g",
+                "proxy_active_g_ignored": True,
+                "missing_authoritative_active_mass_materials": missing,
+            },
+        )
+
+    total_active_g = sum(float(m.authoritative_active_g or 0.0) for m in state.materials)
+    if total_active_g <= 0.0:
+        return _result(
+            "phase_compatibility",
+            "FAIL",
+            "Phase compatibility assessment UNKNOWN: authoritative active mass total is zero",
+            {
+                "assessment": "UNKNOWN",
+                "claim_ceiling": "POSITIVE_AUTHORITATIVE_ACTIVE_MASS_REQUIRED",
+                "active_mass_basis": "authoritative_active_g",
+                "proxy_active_g_ignored": True,
+            },
+        )
+    covered = [
+        m
+        for m in state.materials
+        if m.hsp is not None and float(m.authoritative_active_g or 0.0) > 0.0
+    ]
+    covered_mass_pct = (
+        100.0
+        * sum(float(m.authoritative_active_g or 0.0) for m in covered)
+        / total_active_g
+    )
     hard_fail_supported = covered_mass_pct >= 80.0 and len(covered) >= 4
     data = {
         "hsp_covered_materials": [m.name for m in covered],
         "hsp_coverage_active_mass_pct": round(covered_mass_pct, 3),
         "hard_fail_supported": hard_fail_supported,
+        "assessment": "EVALUATED",
+        "active_mass_basis": "authoritative_active_g",
+        "proxy_active_g_ignored": True,
     }
     if len(covered) < 3 or covered_mass_pct < 40.0:
         detail = (
@@ -656,9 +811,12 @@ def _gate_phase_compatibility(state: FormulaState) -> GateResult:
         )
         return _result("phase_compatibility", "WARN", detail, data)
 
-    composition = {m.name: m.active_g for m in covered}
+    composition = {m.name: float(m.authoritative_active_g or 0.0) for m in covered}
     hsp_table = {m.name: m.hsp for m in covered if m.hsp is not None}
-    active_mass_pct = {m.name: 100.0 * m.active_g / total_active_g for m in covered}
+    active_mass_pct = {
+        m.name: 100.0 * float(m.authoritative_active_g or 0.0) / total_active_g
+        for m in covered
+    }
     source_lookup = {m.name: m.hsp_source for m in covered}
     risks: list[dict] = []
     fail_rows: list[dict] = []
@@ -1574,7 +1732,7 @@ def _gate_olfactory_fatigue(state: FormulaState, config: ReleaseGateConfig) -> G
     critical: list[str] = []
     warnings: list[str] = []
     for m in state.materials:
-        oav = float(m.oav or 0.0)
+        oav = float(m.screening_oav or 0.0)
         if oav <= 0.0:
             continue
         norm = normalize_name(m.canonical_name or m.name)
@@ -2493,10 +2651,16 @@ def _gate_balance_axes(state: FormulaState, config: ReleaseGateConfig) -> GateRe
         from engine.name_utils import normalize_name
         from future_modules.balance_axes import ConcentrationBracket, MarketSegment
 
-        # Compute OAV totals per note tier
-        top_oav = sum((m.oav or 0.0) for m in state.materials if m.note == "top")
-        heart_oav = sum((m.oav or 0.0) for m in state.materials if m.note == "heart")
-        base_oav = sum((m.oav or 0.0) for m in state.materials if m.note == "base")
+        # Screening OAV remains diagnostic and is never a hedonic endpoint.
+        top_oav = sum(
+            (m.screening_oav or 0.0) for m in state.materials if m.note == "top"
+        )
+        heart_oav = sum(
+            (m.screening_oav or 0.0) for m in state.materials if m.note == "heart"
+        )
+        base_oav = sum(
+            (m.screening_oav or 0.0) for m in state.materials if m.note == "base"
+        )
 
         # Bracket from config
         bracket_map = {
@@ -2507,20 +2671,28 @@ def _gate_balance_axes(state: FormulaState, config: ReleaseGateConfig) -> GateRe
         }
         bracket = bracket_map.get(config.concentration_bracket, ConcentrationBracket.EDP)
 
-        # Hedonic data: {name: (hedonic_score, oav)}
-        hedonic_data = {}
-        for m in state.materials:
-            name = normalize_name(m.canonical_name or m.name)
-            hedonic_data[name] = (m.oav or 0.0, 0.0)  # hedonic score default 0
+        # No concentration-specific, observed hedonic endpoint is bound here.
+        # Passing screening OAV in this tuple previously made it look like hedonic
+        # evidence and could influence two balance axes.
+        hedonic_data: dict[str, tuple[float, float]] = {}
 
         # Segment
         segment = MarketSegment.MAINSTREAM
 
         # OAV values and material masses
-        oav_values = [m.oav for m in state.materials if m.oav is not None]
-        material_masses = {
-            normalize_name(m.canonical_name or m.name): m.active_g for m in state.materials
-        }
+        oav_values = [
+            m.screening_oav for m in state.materials if m.screening_oav is not None
+        ]
+        material_masses = (
+            {
+                normalize_name(m.canonical_name or m.name): float(
+                    m.authoritative_active_g or 0.0
+                )
+                for m in state.materials
+            }
+            if state.exact_mass_ppm_available
+            else {}
+        )
 
         # Family
         from future_modules.balance_axes import FragranceFamily as BAFragranceFamily
@@ -2564,7 +2736,17 @@ def _gate_balance_axes(state: FormulaState, config: ReleaseGateConfig) -> GateRe
             f"{len(results)} axes evaluated",
             data={
                 "axes": axes_data,
-                "unknown_oav_materials": [m.name for m in state.materials if m.oav is None],
+                "unknown_oav_materials": [
+                    m.name for m in state.materials if m.screening_oav is None
+                ],
+                "oav_basis": "screening_oav",
+                "hedonic_evaluation_status": "NOT_EVALUATED",
+                "hedonic_endpoint_authority": False,
+                "active_mass_basis": (
+                    "authoritative_active_g"
+                    if state.exact_mass_ppm_available
+                    else "UNAVAILABLE"
+                ),
             },
         )
     except Exception as e:
@@ -2922,7 +3104,7 @@ def _gate_fougere_skeleton(state: FormulaState, config: ReleaseGateConfig) -> Ga
     has_lavender = has_coumarin = has_moss = False
     for m in state.materials:
         n = normalize_name(m.canonical_name or m.name)
-        oav = float(m.oav or 0.0)
+        oav = float(m.screening_oav or 0.0)
         if (
             n in ("lavender", "lavender eo", "lavender eo high altitude", "lavandin")
             or "lavender" in n
@@ -2961,7 +3143,7 @@ def _gate_chypre_skeleton(state: FormulaState, config: ReleaseGateConfig) -> Gat
     has_bergamot = has_labdanum = has_moss = False
     for m in state.materials:
         n = normalize_name(m.canonical_name or m.name)
-        oav = float(m.oav or 0.0)
+        oav = float(m.screening_oav or 0.0)
         if "bergamot" in n:
             has_bergamot = has_bergamot or oav >= 1.0
         if n in ("labdanum", "labdanum absolute") or "labdanum" in n:
@@ -3440,7 +3622,7 @@ def _check_skeleton(name: str, state: FormulaState, config: ReleaseGateConfig) -
     for marker_key, marker_note in markers.items():
         for m in state.materials:
             n = normalize_name(m.canonical_name or m.name)
-            oav = float(m.oav or 0.0)
+            oav = float(m.screening_oav or 0.0)
             if oav >= 1.0 and marker_note in n:
                 found += 1
                 used_markers.append(marker_key)
@@ -3605,7 +3787,11 @@ def _gate_weber_fechner_contrast(state: FormulaState, config: ReleaseGateConfig)
     """Weber-Fechner: OAV should follow log-normal distribution for good contrast."""
     import math
 
-    oavs = [float(m.oav or 0.0) for m in state.materials if (m.oav or 0.0) > 0.0]
+    oavs = [
+        float(m.screening_oav or 0.0)
+        for m in state.materials
+        if (m.screening_oav or 0.0) > 0.0
+    ]
     if len(oavs) < 3:
         return _result("weber_fechner_contrast", "PASS", "too few materials to assess")
     logs = [math.log10(o) for o in oavs]
@@ -3642,7 +3828,7 @@ def _gate_adaptation_timing(state: FormulaState, config: ReleaseGateConfig) -> G
     }
     total = 0.0
     for m in state.materials:
-        oav = float(m.oav or 0.0)
+        oav = float(m.screening_oav or 0.0)
         if oav <= 0.0:
             continue
         tier = _adaptation_tier(m)
@@ -3681,7 +3867,7 @@ def _gate_guerlain_vanillin_coumarin(state: FormulaState, config: ReleaseGateCon
     vanillin_oav = coumarin_oav = 0.0
     for m in state.materials:
         n = normalize_name(m.canonical_name or m.name)
-        oav = float(m.oav or 0.0)
+        oav = float(m.screening_oav or 0.0)
         if n == "vanillin" or n == "ethyl vanillin":
             vanillin_oav += oav
         if n == "coumarin":
@@ -3718,7 +3904,7 @@ def _gate_stevens_power_law(state: FormulaState, config: ReleaseGateConfig) -> G
     total_perceived = 0.0
     materials_data: list[tuple[str, float, float]] = []
     for m in state.materials:
-        oav = float(m.oav or 0.0)
+        oav = float(m.screening_oav or 0.0)
         if oav <= 0.0:
             continue
         perceived = math.pow(oav, 0.5)  # n=0.5 compressive
@@ -3841,7 +4027,7 @@ def _gate_guerlain_rose_jasmine_balance(
     }
     for m in state.materials:
         n = normalize_name(m.canonical_name or m.name)
-        oav = float(m.oav or 0.0)
+        oav = float(m.screening_oav or 0.0)
         if n in rose_kw or any(k in n for k in ("rose", "geraniol", "citronellol", "nerol")):
             rose_oav += oav
         if n in jasmine_kw or any(k in n for k in ("hedione", "jasmone", "jasmine")):
@@ -3944,7 +4130,7 @@ def _gate_stevens_n_efficiency(state: FormulaState, config: ReleaseGateConfig) -
         )
     issues = []
     for m in state.materials:
-        oav = float(m.oav or 0.0)
+        oav = float(m.screening_oav or 0.0)
         active_pct = mass_percentages.get(m.name, 0.0)
         if oav > 0 and active_pct > 30.0:
             perceived = math.pow(oav, 0.5) if oav > 0 else 0
@@ -4076,7 +4262,7 @@ def _gate_oriental_skeleton(state: FormulaState, config: ReleaseGateConfig) -> G
     checks = {"labdanum": 0.0, "benzoin": 0.0, "vanillin": 0.0, "musk": 0.0}
     for m in state.materials:
         n = normalize_name(m.canonical_name or m.name)
-        oav = float(m.oav or 0.0)
+        oav = float(m.screening_oav or 0.0)
         if "labdanum" in n:
             checks["labdanum"] += oav
         if "benzoin" in n:
@@ -4113,7 +4299,7 @@ def _gate_aquatic_skeleton(state: FormulaState, config: ReleaseGateConfig) -> Ga
     has_aquatic = False
     for m in state.materials:
         n = normalize_name(m.canonical_name or m.name)
-        oav = float(m.oav or 0.0)
+        oav = float(m.screening_oav or 0.0)
         if oav >= 1.0 and any(
             k in n for k in ("calone", "dihydromyrcenol", "helional", "floralozone")
         ):
@@ -4137,7 +4323,7 @@ def _gate_gourmand_skeleton(state: FormulaState, config: ReleaseGateConfig) -> G
     checks = {"ethyl maltol": 0.0, "vanillin": 0.0, "patchouli": 0.0}
     for m in state.materials:
         n = normalize_name(m.canonical_name or m.name)
-        oav = float(m.oav or 0.0)
+        oav = float(m.screening_oav or 0.0)
         if "ethyl maltol" in n:
             checks["ethyl maltol"] += oav
         if n in ("vanillin", "ethyl vanillin"):
@@ -4287,24 +4473,91 @@ def _gate_eu_allergen_declaration(state: FormulaState, config: ReleaseGateConfig
 
     from engine.name_utils import normalize_name
 
-    declarations = []
+    leave_on_threshold_ppm_w_w = 10.0
+    declarations: list[dict[str, object]] = []
+    below_threshold: list[dict[str, object]] = []
+    unknown_concentration: list[dict[str, object]] = []
+    seen: set[tuple[str, str]] = set()
     for m in state.materials:
         n = normalize_name(m.canonical_name or m.name)
-        if n in eu_allergens and (m.oav or 0.0) >= 1.0:
-            declarations.append(m.canonical_name or m.name)
-        # Check if material name contains an allergen as substring
-        for allergen in eu_allergens:
-            if len(allergen) > 4 and allergen in n and n != allergen:
-                if (m.oav or 0.0) >= 1.0:
-                    declarations.append(f"{m.canonical_name or m.name} (contains {allergen})")
+        matched_allergens = {n} if n in eu_allergens else set()
+        matched_allergens.update(
+            allergen
+            for allergen in eu_allergens
+            if len(allergen) > 4 and allergen in n and n != allergen
+        )
+        for allergen in sorted(matched_allergens):
+            key = (m.name, allergen)
+            if key in seen:
+                continue
+            seen.add(key)
+            ppm = m.active_finished_product_ppm_w_w
+            row: dict[str, object] = {
+                "material": m.canonical_name or m.name,
+                "allergen": allergen,
+                "identity_match": "exact" if n == allergen else "name_contains",
+                "active_finished_product_ppm_w_w": (
+                    None if ppm is None else round(float(ppm), 6)
+                ),
+            }
+            if ppm is None:
+                unknown_concentration.append(row)
+            elif float(ppm) > leave_on_threshold_ppm_w_w:
+                declarations.append(row)
+            else:
+                below_threshold.append(row)
+
+    data = {
+        "regulation": "Commission Regulation (EU) 2023/1545",
+        "source_url": "https://eur-lex.europa.eu/eli/reg/2023/1545/oj/eng",
+        "product_scope": "leave-on fine fragrance",
+        "declaration_threshold_ppm_w_w": leave_on_threshold_ppm_w_w,
+        "concentration_basis": "active_finished_product_ppm_w_w",
+        "perceptibility_filter_applied": False,
+        "oav_used": False,
+        "declaration_candidates": declarations,
+        "below_threshold": below_threshold,
+        "unknown_concentration": unknown_concentration,
+        "assessment": "PARTIAL_UNKNOWN" if unknown_concentration else "EVALUATED",
+        "release_authority": False,
+        "scope_note": (
+            "Named-material screen only; constituent-level supplier disclosure remains required "
+            "for mixtures and naturals."
+        ),
+    }
     if declarations:
+        labels = [
+            str(row["material"])
+            if row["identity_match"] == "exact"
+            else f"{row['material']} (contains {row['allergen']})"
+            for row in declarations
+        ]
+        unknown_suffix = (
+            f"; {len(unknown_concentration)} matched material(s) have UNKNOWN finished-product concentration"
+            if unknown_concentration
+            else ""
+        )
         return _result(
             "eu_allergen_declaration",
             "WARN",
-            f"EU allergens requiring label: {', '.join(declarations[:10])}"
-            + (f" +{len(declarations) - 10} more" if len(declarations) > 10 else ""),
+            f"EU allergens above the 10 ppm w/w leave-on declaration threshold: {', '.join(labels[:10])}"
+            + (f" +{len(labels) - 10} more" if len(labels) > 10 else "")
+            + unknown_suffix,
+            data,
         )
-    return _result("eu_allergen_declaration", "PASS", "No EU allergens to declare")
+    if unknown_concentration:
+        return _result(
+            "eu_allergen_declaration",
+            "WARN",
+            "EU allergen declaration assessment UNKNOWN for matched material(s): exact finished-product mass concentration is unavailable",
+            data,
+        )
+    return _result(
+        "eu_allergen_declaration",
+        "PASS",
+        "No named EU allergen exceeds the 10 ppm w/w leave-on declaration threshold",
+        data,
+    )
 
 
 def _gate_phototoxic_furanocoumarin(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
@@ -4736,9 +4989,18 @@ def _gate_master_perfumer(state: FormulaState, config: ReleaseGateConfig) -> Gat
 
 
 def _gate_robustness(
-    formula: Mapping, config: ReleaseGateConfig
+    formula: Mapping,
+    config: ReleaseGateConfig,
+    *,
+    state: FormulaState,
+    simulation: tuple[SimulationFrame, ...],
 ) -> tuple[GateResult, RobustnessReport]:
-    report = audit_formula_robustness(formula, config)
+    report = audit_formula_robustness(
+        formula,
+        config,
+        gate_state=state,
+        gate_simulation=simulation,
+    )
     if report.status == "WARN":
         examples = "; ".join(
             f"{issue.material} {issue.direction}: {issue.detail}" for issue in report.issues[:3]
@@ -5694,7 +5956,12 @@ def gate_formula(
         _safe_gate(lambda: _gate_authority_vector(state, config), "authority_vector"),
         _safe_gate(lambda: _gate_concentration_basis(state, config), "concentration_basis"),
     ]
-    robustness_gate, _robustness = _gate_robustness(formula, config)
+    robustness_gate, _robustness = _gate_robustness(
+        formula,
+        config,
+        state=state,
+        simulation=simulation,
+    )
     gates.append(robustness_gate)
     confidence_gate, confidence = _gate_confidence(state, config)
     confidence_gate, confidence = _apply_preflight_confidence_penalty(

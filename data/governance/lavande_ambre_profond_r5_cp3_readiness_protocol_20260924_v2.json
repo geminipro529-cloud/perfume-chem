@@ -1,0 +1,184 @@
+{
+  "schema_version": "lavande-ambre-profond-r5-cp3-readiness-protocol-successor-v2",
+  "protocol_id": "lavande-ambre-profond-r5-cp3-readiness-20260924-v2",
+  "recorded_date": "2026-09-24",
+  "state": "FROZEN_NONEXECUTABLE_CONTRACT",
+  "predecessor": {
+    "path": "data/governance/lavande_ambre_profond_r5_cp3_readiness_protocol_20260924.json",
+    "sha256": "d11e6cc22688c9249a9799073eb58817d4b24a9c3519d408949984208538c274"
+  },
+  "inputs": {
+    "design_comparator_manifest_sha256": "d7f5904bd9437cb61589a1a535423eedb6786641ccc70f109d3e1516bc222f86",
+    "source_workbook_sha256": "027ec1cf8712c6aaac123d896942eee308efa18bea9056da975566e095bc3e67",
+    "canonical_formula_rows_sha256": "28284674560179b536f2e797a3b1a50ef0421e61435132f47704cda590ead15e",
+    "inventory_text_sha256": "83f9289de98ed0d0fa72a71b474663b475a518c665a155a09711a7c8bf3e3c34",
+    "inventory_source_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+    "inventory_overlay_sha256": "3f4ef634e2bd299a8463559364a03a7805b1198e14396567dce3e7f8caaf4df5",
+    "stock_confirmation_receipt": "data/governance/inventory_user_confirmation_20260924_r5_stock_clarifications.json",
+    "stock_confirmation_receipt_sha256": "cd993a027e2c164028dda77a048b3abc5cd1f36cbf8fb7f6712367f9a2bcc273",
+    "aroma_more_product_resolution": "data/governance/inventory_supplier_product_resolution_20260924_aroma_more_lavender_4042.json",
+    "aroma_more_product_resolution_sha256": "3a725f2337e992015878924a8a87ab1af2f846e711c615da1b70b04f4a95e435",
+    "expected_parent_sha256": "5b0a012b88ca5c1cea45ea8a704cf3b9e5d799d66e9f9d28b2a5d21efa9f4129"
+  },
+  "parent_search": {
+    "state": "HOLD_PARENT_BYTES_MISSING",
+    "bytes_present": false,
+    "reconstruction_allowed": false
+  },
+  "stock_binding_review": {
+    "state": "HOLD_STOCK_BINDING",
+    "required_row_count": 63,
+    "build_plan_bound_row_count": 0,
+    "binding_candidates_are_execution_authority": false
+  },
+  "measurement_protocol_contract": {
+    "state": "FROZEN_SCHEMA_HOLD_EXECUTION_PARAMETERS",
+    "execution_ready": false
+  },
+  "stock_binding_revision": {
+    "retired_blocker_codes": [
+      "AMBROX_FORM_CONFLICT",
+      "VETIVERYL_STRENGTH_CONFLICT",
+      "NORLIMBANOL_CARRIER_BASIS_CONFLICT",
+      "AROMA_AND_MORE_STOCK_NOT_BOUND"
+    ],
+    "resolved_facts": [
+      {
+        "code": "AMBROX_CRYSTAL_STOCK_CONFIRMED",
+        "material": "Ambrox Super",
+        "stock_id": "inventory:user-20260924:36e0e28366f34673a242",
+        "physical_form": "crystals",
+        "fraction_basis": "neat",
+        "execution_scope": "WEIGHED_SOLID_TRANSFER_ONLY"
+      },
+      {
+        "code": "VETIVERYL_NEAT_STOCK_CONFIRMED",
+        "material": "Vetiveryl Acetate",
+        "stock_id": "inventory:user-20260924:8f5c0f689593807bc537",
+        "physical_form": "as_supplied",
+        "fraction_basis": "neat",
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      {
+        "code": "NORLIMBANOL_DPG_CARRIER_CONFIRMED",
+        "material": "Norlimbanol Dextro",
+        "stock_id": "inventory:user-20260924:e1c6b77362f74bd1fb53",
+        "carrier": "dpg",
+        "fraction_basis": "unspecified",
+        "execution_ready": false
+      },
+      {
+        "code": "HAY_10_PERCENT_DPG_CONFIRMED",
+        "material": "Hay Absolute",
+        "stock_id": "inventory:user-20260924:68806cefb26521675e3a",
+        "carrier": "dpg",
+        "fraction_basis": "unspecified",
+        "execution_ready": false
+      },
+      {
+        "code": "AROMA_MORE_EXACT_PRODUCT_IDENTIFIED",
+        "material": "Lavender 40/42, Aroma&More",
+        "product_reference": "Lav420811P",
+        "physical_ownership_confirmed": false
+      }
+    ],
+    "conflicts": [
+      {
+        "code": "NORLIMBANOL_BASIS_AND_DESIGN_CARRIER_MISMATCH",
+        "source_row": 16,
+        "material": "Norlimbanol Dextro",
+        "required_stock": "R5 design evidence says 10% v/v in ethanol; current stock is 10% in DPG with basis unconfirmed",
+        "expected_stock_id": "inventory:user-20260924:e1c6b77362f74bd1fb53",
+        "expected_live_stock": {
+          "dilution_decimal": "0.1",
+          "fraction_basis": "unspecified",
+          "carrier": "dpg",
+          "physical_form": "solution",
+          "execution_ready": false,
+          "density_state": "MISSING"
+        }
+      },
+      {
+        "code": "AROMA_AND_MORE_PRODUCT_IDENTIFIED_PHYSICAL_STOCK_UNBOUND",
+        "source_row": 36,
+        "material": "Lavender 40/42, Aroma&More",
+        "required_stock": "Aroma & More Lavender 40/42 Essential Oil, France; reference Lav420811P; undiluted supplied product",
+        "expected_stock_id": null,
+        "expected_live_stock": null,
+        "product_evidence": "data/governance/inventory_supplier_product_resolution_20260924_aroma_more_lavender_4042.json"
+      },
+      {
+        "code": "HAY_STOCK_BASIS_UNRESOLVED",
+        "source_row": 30,
+        "material": "Hay Absolute",
+        "required_stock": "Existing Hay Absolute 10% in DPG; w/w versus v/v and homogeneity require confirmation",
+        "expected_stock_id": "inventory:user-20260924:68806cefb26521675e3a",
+        "expected_live_stock": {
+          "dilution_decimal": "0.1",
+          "fraction_basis": "unspecified",
+          "carrier": "dpg",
+          "physical_form": "solution",
+          "execution_ready": false,
+          "density_state": "MISSING"
+        }
+      }
+    ],
+    "row_candidate_overrides": [
+      {
+        "source_row": 9,
+        "material": "Vetiveryl Acetate",
+        "candidate_stock_id": "inventory:user-20260924:8f5c0f689593807bc537",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 16,
+        "material": "Norlimbanol Dextro",
+        "candidate_stock_id": "inventory:user-20260924:e1c6b77362f74bd1fb53",
+        "state": "CANDIDATE_FORM_CONFLICT"
+      },
+      {
+        "source_row": 30,
+        "material": "Hay Absolute",
+        "candidate_stock_id": "inventory:user-20260924:68806cefb26521675e3a",
+        "state": "CANDIDATE_BASIS_UNRESOLVED"
+      },
+      {
+        "source_row": 36,
+        "material": "Lavender 40/42, Aroma&More",
+        "candidate_stock_id": null,
+        "state": "PRODUCT_IDENTIFIED_NO_PHYSICAL_STOCK",
+        "evidence_ref": "data/governance/inventory_supplier_product_resolution_20260924_aroma_more_lavender_4042.json"
+      },
+      {
+        "source_row": 69,
+        "material": "Ambrox Super",
+        "candidate_stock_id": "inventory:user-20260924:36e0e28366f34673a242",
+        "state": "CANDIDATE_FORM_MATCH"
+      }
+    ]
+  },
+  "blocker_order": [
+    "HOLD_PARENT_BYTES_MISSING",
+    "HOLD_ALL_BUILD_PLAN_STOCK_BINDINGS_MISSING",
+    "NORLIMBANOL_BASIS_AND_DESIGN_CARRIER_MISMATCH",
+    "AROMA_AND_MORE_PRODUCT_IDENTIFIED_PHYSICAL_STOCK_UNBOUND",
+    "HAY_STOCK_BASIS_UNRESOLVED",
+    "BOTTLE_LOT_AND_HOMOGENEITY_RECEIPTS_MISSING",
+    "HOLD_CONSTANT_TOTAL_BASIS_UNRESOLVED",
+    "HOLD_EXACT_CURVE_APPLICABILITY",
+    "HOLD_MEASUREMENT_PROTOCOL_EXECUTION_PARAMETERS_UNRESOLVED",
+    "PLEASANTNESS_NOT_ESTABLISHED",
+    "PHYSICAL_LIKING_NOT_TESTED"
+  ],
+  "authority": {
+    "evidence_admission_authorized": false,
+    "physical_experiment_authorized": false,
+    "compounding_authorized": false,
+    "purchase_authorized": false,
+    "inventory_mutation_authorized": false,
+    "formula_mutation_authorized": false,
+    "safety_authorized": false,
+    "release_authorized": false
+  }
+}

@@ -37,6 +37,12 @@ _SUGGESTION_CONTEXTS = {
     "between mix": "between_mix",
 }
 
+_NO_CHANGE_WITHHELD = (
+    "NO_CHANGE: no applicable held-out formula-quality, pleasantness, or liking "
+    "endpoint has been admitted. Legacy diagnostic scores cannot rank candidates, "
+    "mutate a formula, or authorize recompounding."
+)
+
 _STYLE_ADDITIONS = {
     "classical": {
         "top": ("Bergamot FCF oil Sicilian", "Cedrat FCF oil Sicilian", "Aldehyde C10"),
@@ -166,16 +172,19 @@ class FormulaOptimizer:
 
     def carles_grid_search(self, star_material: str,
                            n_results: int = 5) -> list[OptimizationResult]:
-        """Carles method: trial the star material against library accords.
+        """Generate bounded Carles candidates without claiming a best formula.
 
         Follows Jean Carles' method steps (theory_rules.json):
         1. Choose a characterizing material (star)
         2. Build from accord library (perfume_accord_library.txt)
         3. Trial star against each available accord
         4. Add note modifiers to fill pyramid gaps
-        5. Rank by theory-first scoring
+        5. Retain legacy scores as diagnostic annotations only
 
-        Returns the top N formula candidates.
+        Returns up to ``n_results`` deterministic, unranked candidates. The
+        legacy composite total is retained for backwards-compatible inspection,
+        but it is not an admitted beauty, pleasantness, liking, or selection
+        endpoint and never determines candidate order.
         """
         # Classify available materials by note
         tops, hearts, bases = [], [], []
@@ -236,11 +245,14 @@ class FormulaOptimizer:
                 scores=scores,
                 total_score=scores["total"],
                 suggestions=[],
-                reasoning=[f"Carles grid: {star_material} × {accord_name}"],
+                reasoning=[
+                    f"Carles grid: {star_material} × {accord_name}",
+                    "UNRANKED_DIAGNOSTIC_CANDIDATE: legacy total retained for inspection only.",
+                ],
             ))
 
-        # Sort by total score descending
-        results.sort(key=lambda r: r.total_score, reverse=True)
+        # Preserve deterministic generation order. Sorting by the legacy total
+        # would silently promote a heuristic diagnostic into a beauty objective.
         return results[:n_results]
 
     def _load_library_accords(self) -> list[tuple[str, dict[str, float]]]:
@@ -313,53 +325,26 @@ class FormulaOptimizer:
     # ── Stage 2: Optimize existing formula ──
 
     def optimize(self, formula: FormulaVector) -> OptimizationResult:
-        """Optimize an existing formula by iteratively trying improvements."""
+        """Fail closed until an applicable optimization endpoint is admitted.
+
+        The historical implementation changed percentages and added materials
+        whenever the generic composite ``scores['total']`` increased. That
+        total includes heuristic OAV, performance, character, and hedonic axes
+        and has no validated formula-selection authority. Preserve the input
+        formula and expose the diagnostic score without performing the costly
+        mutation search.
+        """
         best_fv = FormulaVector(
             ingredients=dict(formula.ingredients),
             dilutions=dict(formula.dilutions),
         )
         best_scores = self.scorer.score(best_fv)
         best_total = best_scores["total"]
-        reasoning = ["Starting optimization from provided formula"]
-
-        # Try adjusting percentages
-        for name in list(best_fv.ingredients.keys()):
-            for delta in [2.0, -2.0, 5.0, -3.0]:
-                test_fv = FormulaVector(
-                    ingredients=dict(best_fv.ingredients),
-                    dilutions=dict(best_fv.dilutions),
-                )
-                new_pct = test_fv.ingredients[name] + delta
-                if 0.5 <= new_pct <= 40.0:
-                    test_fv.ingredients[name] = new_pct
-                    test_scores = self.scorer.score(test_fv)
-                    if test_scores["total"] > best_total:
-                        best_fv = test_fv
-                        best_scores = test_scores
-                        best_total = test_scores["total"]
-                        reasoning.append(
-                            f"Adjusted {name}: {delta:+.1f}% → total {best_total:.1f}"
-                        )
-
-        # Try adding materials from inventory that aren't in formula
-        for candidate in self.inventory:
-            if candidate in best_fv.ingredients:
-                continue
-            if len(best_fv.ingredients) >= self.constraints.max_ingredients:
-                break
-            test_fv = FormulaVector(
-                ingredients=dict(best_fv.ingredients),
-                dilutions=dict(best_fv.dilutions),
-            )
-            test_fv.ingredients[candidate] = 3.0
-            test_scores = self.scorer.score(test_fv)
-            if test_scores["total"] > best_total + 1.0:  # meaningful improvement
-                best_fv = test_fv
-                best_scores = test_scores
-                best_total = test_scores["total"]
-                reasoning.append(f"Added {candidate} at 3% → total {best_total:.1f}")
-
-        suggestions = self.suggest(best_fv)
+        reasoning = [
+            _NO_CHANGE_WITHHELD,
+            f"Legacy diagnostic total retained without selection authority: {best_total:.1f}",
+        ]
+        suggestions = [_NO_CHANGE_WITHHELD]
 
         return OptimizationResult(
             formula=best_fv,
@@ -376,18 +361,29 @@ class FormulaOptimizer:
         fv: FormulaVector,
         context: str = "pre_mix",
         observations: dict | None = None,
+        *,
+        include_diagnostic_hypotheses: bool = False,
     ) -> list[str]:
-        """Generate improvement suggestions for a formula.
+        """Return no-change by default; optionally expose bounded hypotheses.
 
-        Backward compatible with the legacy pre-mix behavior when no context
-        is supplied. Use `context=` for post-mix or between-mix routing.
+        Diagnostic hypotheses never gain compounding or formula-optimization
+        authority. They are explicitly prefixed so direct callers cannot
+        mistake legacy structural/score rules for measured improvements.
         """
+        if not include_diagnostic_hypotheses:
+            return [_NO_CHANGE_WITHHELD]
+
         mode = _normalize_suggestion_context(context)
         if mode == "post_mix":
-            return self._suggest_post_mix(fv, observations=observations)
-        if mode == "between_mix":
-            return self._suggest_between_mix(fv, observations=observations)
-        return self._suggest_pre_mix(fv, observations=observations)
+            suggestions = self._suggest_post_mix(fv, observations=observations)
+        elif mode == "between_mix":
+            suggestions = self._suggest_between_mix(fv, observations=observations)
+        else:
+            suggestions = self._suggest_pre_mix(fv, observations=observations)
+        return [
+            "Controlled-comparison hypothesis only; do not auto-recompound: " + suggestion
+            for suggestion in suggestions
+        ]
 
     def _suggest_pre_mix(
         self,

@@ -3,10 +3,16 @@
 Inputs at the user-facing layer are wt% / µL. Internally we convert to
 mole fractions, compute γᵢ, evaluate VP via Antoine, return partial pressures
 and vapor-phase concentrations (Pa, mol/m³, ppm, µg/m³).
+
+This standalone legacy model requires an explicit molecular weight and either
+an Antoine tuple or a positive vapor pressure for every positive-weight
+component. Missing physical inputs are unknown: they must not be converted to
+a typical molecular weight or zero emission.
 """
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from typing import Mapping
 
@@ -26,9 +32,46 @@ class HeadspaceComponent:
     vapor_ppm: float
 
 
+class HeadspaceInputError(ValueError):
+    """Raised when the standalone headspace model lacks required physics."""
+
+
+def _is_positive_finite(value: object) -> bool:
+    try:
+        parsed = float(value)
+    except (TypeError, ValueError):
+        return False
+    return math.isfinite(parsed) and parsed > 0.0
+
+
 def _mw(name: str, mw_table: Mapping[str, float]) -> float:
-    """Best-effort MW lookup; default 200 g/mol if unknown (typical fragrance)."""
-    return mw_table.get(name) or 200.0
+    """Return an explicit positive molecular weight or fail closed."""
+    value = mw_table.get(name)
+    if not _is_positive_finite(value):
+        raise HeadspaceInputError(f"missing or invalid molecular weight for {name!r}")
+    return float(value)
+
+
+def _has_vapor_pressure_input(
+    name: str,
+    *,
+    vp_table: Mapping[str, float],
+    antoine_table: Mapping[str, tuple[float, float, float]],
+) -> bool:
+    ant = antoine_table.get(name)
+    if ant is not None:
+        try:
+            return len(ant) == 3 and all(math.isfinite(float(value)) for value in ant)
+        except (TypeError, ValueError):
+            return False
+    value = vp_table.get(name)
+    return _is_positive_finite(value)
+
+
+def _format_missing(label: str, names: list[str]) -> str | None:
+    if not names:
+        return None
+    return f"{label}: {', '.join(sorted(names, key=str.casefold))}"
 
 
 def headspace_from_wt_pct(
@@ -46,6 +89,10 @@ def headspace_from_wt_pct(
 
     `wt_pct` may sum to anything — we normalise to fraction (sum=1) then
     convert to mole fraction with `mw_table`. Default T_K = 305 K (skin).
+
+    Every positive-weight component requires an explicit positive MW and an
+    explicit VP input. The function raises :class:`HeadspaceInputError` rather
+    than fabricating a physical prediction when either prerequisite is absent.
     """
     mw_table = mw_table or {}
     vp_table = vp_table or {}
@@ -53,11 +100,41 @@ def headspace_from_wt_pct(
     dhvap_table = dhvap_table or {}
     hsp_table = hsp_table or {}
 
+    if not _is_positive_finite(T_K):
+        raise HeadspaceInputError("temperature must be finite and positive")
+    if not _is_positive_finite(P_atm):
+        raise HeadspaceInputError("atmospheric pressure must be finite and positive")
+
     # Normalise wt fraction
     total_w = sum(v for v in wt_pct.values() if v > 0)
     if total_w <= 0:
         return {}
     w = {k: v / total_w for k, v in wt_pct.items() if v > 0}
+
+    missing_mw = [
+        name
+        for name in w
+        if not _is_positive_finite(mw_table.get(name))
+    ]
+    missing_vp = [
+        name
+        for name in w
+        if not _has_vapor_pressure_input(
+            name,
+            vp_table=vp_table,
+            antoine_table=antoine_table,
+        )
+    ]
+    blockers = [
+        blocker
+        for blocker in (
+            _format_missing("missing or invalid molecular weight", missing_mw),
+            _format_missing("missing or invalid vapor pressure", missing_vp),
+        )
+        if blocker is not None
+    ]
+    if blockers:
+        raise HeadspaceInputError("; ".join(blockers))
 
     # Convert to mole fraction
     moles = {k: w[k] / _mw(k, mw_table) for k in w}
@@ -68,18 +145,21 @@ def headspace_from_wt_pct(
     out: dict[str, HeadspaceComponent] = {}
     for k, xk in x.items():
         ant = antoine_table.get(k)
-        if ant is not None:
-            P_pure = vp_pa(T_K, A=ant[0], B=ant[1], C=ant[2])  # noqa: N806
-        else:
-            P_pure = (  # noqa: N806
-                vp_pa(
+        try:
+            if ant is not None:
+                P_pure = vp_pa(T_K, A=ant[0], B=ant[1], C=ant[2])  # noqa: N806
+            else:
+                P_pure = vp_pa(  # noqa: N806
                     T_K,
-                    vp_25c_pa=vp_table.get(k),
+                    vp_25c_pa=vp_table[k],
                     dhvap_kj_mol=dhvap_table.get(k),
                 )
-                if vp_table.get(k)
-                else 0.0
-            )
+        except (ArithmeticError, TypeError, ValueError) as exc:
+            raise HeadspaceInputError(
+                f"could not evaluate vapor pressure for {k!r}"
+            ) from exc
+        if not math.isfinite(P_pure) or P_pure <= 0.0:
+            raise HeadspaceInputError(f"invalid evaluated vapor pressure for {k!r}")
         gk = gamma(k, x, T_K, hsp_table=hsp_table)
         p_partial = gk * xk * P_pure
         # Ideal gas: c = P / (R T)

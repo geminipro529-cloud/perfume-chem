@@ -89,7 +89,11 @@ def reconcile(existing):
     registry = load_registry()
     stocks = {}
     for stock in current.stocks:
-        stocks.setdefault(stock_key(stock.identity_name), []).append(asdict(stock))
+        stock_record = asdict(stock)
+        if not stock.nominal_property_model_ready:
+            stock_record.pop("nominal_property_model_ready", None)
+            stock_record.pop("nominal_property_model_limit", None)
+        stocks.setdefault(stock_key(stock.identity_name), []).append(stock_record)
     text_by_identity = {}
     for row in inventory:
         text_by_identity.setdefault(stock_key(row.identity_name or row.name), []).append(

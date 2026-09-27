@@ -137,7 +137,7 @@ async def _science_graph(session):
             subject_type="REGULATORY_ASSESSMENT",
             subject_id=regulatory.id,
             policy_version="policy-v1",
-            decision="ALLOW_EXACT",
+            decision="ADVISORY_ONLY",
             authority={"scope": "named test standard state"},
             missing_evidence=(),
             conflicts=(),

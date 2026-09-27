@@ -16,6 +16,7 @@ raw uL -> active uL -> mass -> moles -> mole fraction -> headspace ppm -> OAV.
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, field
 from functools import lru_cache
 from typing import Mapping
@@ -34,7 +35,7 @@ from engine.pipeline.natural_absolute_decomposition import (
     get_composite_metadata,
 )
 from engine.science_data import get_science_profile
-from engine.thermo.activity import gamma
+from engine.thermo.activity import gamma, mixture_hsp
 from engine.thermo.antoine import (
     DEFAULT_DHVAP_ESTIMATE_KJ_MOL,
     VP25_DHVAP_CORRELATION_SOURCE,
@@ -76,6 +77,7 @@ NATURAL_MIXTURE_TOKENS = (
     " balsam",
     " extract",
     " co2",
+    " tincture",
 )
 
 
@@ -100,6 +102,72 @@ def _authoritative_active_mass(
     if fraction_basis == "mass_fraction":
         return None, "unavailable:stock_solution_density_for_w_w"
     return None, "unavailable:stock_fraction_basis_unspecified"
+
+
+def _physics_projection_authority(
+    *,
+    formula_mass_chain_complete: bool,
+    formula_mw_chain_complete: bool,
+    vp_available: bool,
+    odt_available: bool,
+    composite_available: bool,
+    composite_canonical_complete: bool,
+    requires_composite: bool,
+    gamma_source: str,
+    screening_partial_pressure_pa: float | None,
+    screening_vapor_ppm: float | None,
+    screening_oav: float | None,
+    screening_intensity: float | None,
+) -> dict[str, object]:
+    """Separate diagnostic sensitivity values from input-complete model values.
+
+    The current headspace model remains heuristic even when every input is
+    present.  ``canonical_*`` here therefore means an input-complete modeled
+    result, never a measured sensory or release-authoritative endpoint.
+    """
+
+    headspace_blockers: list[str] = []
+    if not formula_mass_chain_complete:
+        headspace_blockers.append("ACTIVE_MASS_CHAIN_INCOMPLETE")
+    if not formula_mw_chain_complete:
+        headspace_blockers.append("MOLECULAR_WEIGHT_CHAIN_INCOMPLETE")
+    if requires_composite and not composite_available:
+        headspace_blockers.append("NATURAL_COMPOSITE_UNAVAILABLE")
+    if composite_available and not composite_canonical_complete:
+        # A characterized constituent subtotal remains useful as a screening
+        # sensitivity result, but unresolved material and non-batch-specific
+        # literature profiles cannot become a complete whole-natural result.
+        headspace_blockers.append("NATURAL_COMPOSITE_PARTIAL")
+    if not vp_available and not composite_available:
+        headspace_blockers.append("VAPOR_PRESSURE_UNAVAILABLE")
+    if gamma_source.startswith("fallback:") and not composite_available:
+        headspace_blockers.append("ACTIVITY_COEFFICIENT_FALLBACK")
+
+    oav_blockers = list(headspace_blockers)
+    if not odt_available and not composite_available:
+        oav_blockers.append("COMPATIBLE_AIR_ODT_UNAVAILABLE")
+
+    if screening_vapor_ppm is None:
+        status = "WITHHELD"
+    elif headspace_blockers or oav_blockers:
+        status = "SCREENING_SENSITIVITY_ONLY"
+    else:
+        status = "MODELED_INPUT_COMPLETE"
+
+    return {
+        "physics_status": status,
+        "physics_blockers": tuple(dict.fromkeys(oav_blockers)),
+        "screening_partial_pressure_pa": screening_partial_pressure_pa,
+        "screening_vapor_ppm": screening_vapor_ppm,
+        "screening_oav": screening_oav,
+        "screening_intensity": screening_intensity,
+        "canonical_partial_pressure_pa": (
+            screening_partial_pressure_pa if not headspace_blockers else None
+        ),
+        "canonical_vapor_ppm": screening_vapor_ppm if not headspace_blockers else None,
+        "canonical_oav": screening_oav if not oav_blockers else None,
+        "canonical_intensity": screening_intensity if not oav_blockers else None,
+    }
 
 
 @dataclass(frozen=True, slots=True)
@@ -147,6 +215,17 @@ class MaterialState:
     missing_fields: tuple[str, ...] = ()
     active_finished_product_ppm_w_w: float | None = None
     natural_composite_metadata: dict[str, object] = field(default_factory=dict)
+    physics_status: str = "SCREENING_SENSITIVITY_ONLY"
+    physics_blockers: tuple[str, ...] = ()
+    screening_partial_pressure_pa: float | None = None
+    screening_vapor_ppm: float | None = None
+    screening_oav: float | None = None
+    screening_intensity: float | None = None
+    canonical_partial_pressure_pa: float | None = None
+    canonical_vapor_ppm: float | None = None
+    canonical_oav: float | None = None
+    canonical_intensity: float | None = None
+    formula_optimization_authority: bool = field(default=False, init=False)
 
     @property
     def has_constituent_resolved_oav(self) -> bool:
@@ -188,6 +267,11 @@ class MaterialState:
             "density_g_ml": self.density_g_ml,
             "density_source": self.density_source,
             "active_g": round(self.active_g, 8),
+            "active_g_role": (
+                "AUTHORITATIVE"
+                if self.authoritative_active_g is not None
+                else "MODELED_SENSITIVITY_PROXY"
+            ),
             "authoritative_active_g": self.authoritative_active_g,
             "active_mass_authority": self.active_mass_authority,
             "stock_fraction_basis": self.stock_fraction_basis,
@@ -203,11 +287,22 @@ class MaterialState:
             "vp_temperature_factor": self.vp_temperature_factor,
             "gamma": self.gamma,
             "gamma_source": self.gamma_source,
-            "partial_pressure_pa": self.partial_pressure_pa,
-            "vapor_ppm": self.vapor_ppm,
+            "partial_pressure_pa": self.screening_partial_pressure_pa,
+            "vapor_ppm": self.screening_vapor_ppm,
             "odt_air_ppm": self.odt_air_ppm,
-            "oav": self.oav,
-            "intensity": self.intensity,
+            "oav": self.screening_oav,
+            "intensity": self.screening_intensity,
+            "physics_status": self.physics_status,
+            "physics_blockers": list(self.physics_blockers),
+            "screening_partial_pressure_pa": self.screening_partial_pressure_pa,
+            "screening_vapor_ppm": self.screening_vapor_ppm,
+            "screening_oav": self.screening_oav,
+            "screening_intensity": self.screening_intensity,
+            "canonical_partial_pressure_pa": self.canonical_partial_pressure_pa,
+            "canonical_vapor_ppm": self.canonical_vapor_ppm,
+            "canonical_oav": self.canonical_oav,
+            "canonical_intensity": self.canonical_intensity,
+            "formula_optimization_authority": self.formula_optimization_authority,
             "family": self.family,
             "note": self.note,
             "role": self.role,
@@ -253,6 +348,22 @@ class FormulaState:
     @property
     def total_vapor_ppm(self) -> float:
         return sum(m.vapor_ppm for m in self.materials)
+
+    @property
+    def screening_total_vapor_ppm(self) -> float | None:
+        """Return a total only when every row has a supported screening value."""
+
+        values = [material.screening_vapor_ppm for material in self.materials]
+        if not values or any(value is None for value in values):
+            return None
+        return sum(float(value) for value in values if value is not None)
+
+    @property
+    def canonical_total_vapor_ppm(self) -> float | None:
+        values = [material.canonical_vapor_ppm for material in self.materials]
+        if not values or any(value is None for value in values):
+            return None
+        return sum(float(value) for value in values if value is not None)
 
     @property
     def exact_mass_ppm_available(self) -> bool:
@@ -305,6 +416,20 @@ class FormulaState:
             if material.density_source == "fallback:default_1_g_ml"
             and material.authoritative_active_g is None
         ]
+        physics_blockers = sorted(
+            {
+                blocker
+                for material in self.materials
+                for blocker in material.physics_blockers
+            }
+        )
+        physics_statuses = {material.physics_status for material in self.materials}
+        if "WITHHELD" in physics_statuses:
+            headspace_input_status = "WITHHELD"
+        elif "SCREENING_SENSITIVITY_ONLY" in physics_statuses:
+            headspace_input_status = "SCREENING_SENSITIVITY_ONLY"
+        else:
+            headspace_input_status = "MODELED_INPUT_COMPLETE"
         return {
             "active_concentrate_ppm_w_w": (
                 "EXACT_INPUT_CHAIN" if self.exact_mass_ppm_available else "UNAVAILABLE"
@@ -314,6 +439,19 @@ class FormulaState:
             ),
             "headspace_oav": self.headspace_basis,
             "headspace_model_class": "HEURISTIC_NOT_MEASURED",
+            "headspace_input_status": headspace_input_status,
+            "headspace_input_blockers": physics_blockers,
+            "screening_total_vapor_ppm": self.screening_total_vapor_ppm,
+            "canonical_total_vapor_ppm": self.canonical_total_vapor_ppm,
+            "formula_optimization_authority": False,
+            "sensory_endpoint_authority": {
+                "character": False,
+                "measured_intensity": False,
+                "pleasantness": False,
+                "liking": False,
+            },
+            "measured_curve_input_authority": False,
+            "modeled_delivery_status": "MODELED_HEADSPACE_NOT_MEASURED_DELIVERY",
             "matrix_source": self.matrix_source,
             "stock_carrier_inclusion": self.stock_carrier_inclusion,
             "unavailable_active_mass_materials": unavailable,
@@ -389,12 +527,24 @@ class FormulaState:
             composite_rows.append((canonical, m.name, active_g, moles))
 
         total_moles = sum(mole_inputs.values())
-        composite_total_moles = _composite_formula_total_moles(
+        composite_replacements = tuple(
+            _composite_replacement_moles_for_row(*row) for row in composite_rows
+        )
+        composite_total_moles = _composite_formula_total_moles_from_replacements(
             total_moles,
             tuple(composite_rows),
+            composite_replacements,
         )
         all_active_masses_authoritative = all(
             mass is not None for mass, _authority in authoritative_masses.values()
+        )
+        formula_mw_chain_complete = all(
+            material.mw_g_mol is not None or replacement is not None
+            for material, replacement in zip(
+                base.materials,
+                composite_replacements,
+                strict=True,
+            )
         )
         total_authoritative_active_g = sum(
             float(mass or 0.0) for mass, _authority in authoritative_masses.values()
@@ -405,6 +555,7 @@ class FormulaState:
             for name, moles in mole_inputs.items()
         }
         hsp_table = {m.canonical_name: m.hsp for m in base.materials if m.hsp is not None}
+        mixture_hsp_value = mixture_hsp(mole_fractions, hsp_table=hsp_table)
 
         for m in base.materials:
             raw_ul = new_raw_ul.get(m.name, 0.0)
@@ -430,13 +581,18 @@ class FormulaState:
                         mole_fractions,
                         base.temperature_K,
                         hsp_table=hsp_table,
+                        mixture_hsp_override=mixture_hsp_value,
                     )
                     gamma_source = "heuristic:hansen_distance"
                 except Exception:
                     gamma_value = m.gamma
             partial_pressure = gamma_value * x_i * m.vp_pure_pa if m.vp_pure_pa is not None else 0.0
             vapor_ppm = 1e6 * partial_pressure / P_ATM_PA
-            oav_value = oav(vapor_ppm, m.odt_air_ppm) if m.odt_air_ppm is not None else None
+            oav_value = (
+                oav(vapor_ppm, m.odt_air_ppm)
+                if m.vp_pure_pa is not None and m.odt_air_ppm is not None
+                else None
+            )
 
             # RULE 1b — Natural Absolute Decomposition:
             # For known natural absolutes, replace the monomolecular OAV
@@ -462,6 +618,29 @@ class FormulaState:
                 oav_value = None
             intensity = (
                 perceived_intensity_stevens(oav_value, m.family) if oav_value is not None else None
+            )
+            screening_headspace_available = composite_result is not None or (
+                not requires_composite and m.vp_pure_pa is not None
+            )
+            projection = _physics_projection_authority(
+                formula_mass_chain_complete=all_active_masses_authoritative,
+                formula_mw_chain_complete=formula_mw_chain_complete,
+                vp_available=m.vp_pure_pa is not None,
+                odt_available=m.odt_air_ppm is not None,
+                composite_available=composite_result is not None,
+                composite_canonical_complete=_composite_supports_canonical_projection(
+                    composite_metadata
+                ),
+                requires_composite=requires_composite,
+                gamma_source=gamma_source,
+                screening_partial_pressure_pa=(
+                    float(partial_pressure) if screening_headspace_available else None
+                ),
+                screening_vapor_ppm=(
+                    float(vapor_ppm) if screening_headspace_available else None
+                ),
+                screening_oav=oav_value,
+                screening_intensity=intensity,
             )
 
             sources = dict(m.sources)
@@ -540,13 +719,27 @@ class FormulaState:
                         and finished_mass_g > 0
                         else None
                     ),
+                    **projection,
                 )
             )
 
+        from engine.units.concentration import classify_material_category
+
+        original_raw_ul = {material.name: material.raw_ul for material in base.materials}
+        dose_receipt_unchanged = original_raw_ul == {
+            str(name): float(value or 0.0)
+            for name, value in new_raw_ul.items()
+            if float(value or 0.0) > 0.0
+        }
         return cls(
             materials=tuple(materials),
             total_raw_ul=total_raw,
             total_active_ul=sum(m.active_ul for m in materials),
+            odorant_active_ul=sum(
+                material.active_ul
+                for material in materials
+                if classify_material_category(material.name) == "odorant"
+            ),
             batch_volume_ml=base.batch_volume_ml,
             temperature_K=base.temperature_K,
             context=base.context,
@@ -554,6 +747,12 @@ class FormulaState:
             matrix_components_moles=base.matrix_components_moles,
             matrix_mass_g=base.matrix_mass_g,
             matrix_source=base.matrix_source,
+            dose_receipt_sha256=base.dose_receipt_sha256,
+            dose_receipt_status=(
+                base.dose_receipt_status
+                if dose_receipt_unchanged
+                else "INVALIDATED_BY_RECOMPUTE"
+            ),
         )
 
     def as_dict(self) -> dict:
@@ -570,7 +769,12 @@ class FormulaState:
             "dose_receipt_sha256": self.dose_receipt_sha256,
             "dose_receipt_status": self.dose_receipt_status,
             "headspace_basis": self.headspace_basis,
-            "total_vapor_ppm": round(self.total_vapor_ppm, 6),
+            "total_vapor_ppm": (
+                None
+                if self.screening_total_vapor_ppm is None
+                else round(self.screening_total_vapor_ppm, 6)
+            ),
+            "legacy_numeric_total_vapor_ppm": round(self.total_vapor_ppm, 6),
             "quantitative_authority": self.quantitative_authority,
             "note_distribution": self.note_distribution(),
             "uncertainty": {
@@ -682,28 +886,77 @@ def _lookup_composite_headspace(
     return None, None, ""
 
 
+def _composite_supports_canonical_projection(
+    metadata: NaturalCompositeMetadata | None,
+) -> bool:
+    """Require explicit complete, batch-specific composition authority."""
+
+    if metadata is None:
+        return False
+    return (
+        metadata.batch_specific
+        and metadata.quantitative_evaluability == "COMPLETE_INPUT_COVERAGE"
+        and metadata.unresolved_fraction <= 1e-9
+        and not metadata.unresolved_constituents
+        and metadata.composition_authority
+        in {"MEASURED_BATCH_SPECIFIC", "MEASURED_WHOLE_PRODUCT"}
+    )
+
+
 def _composite_formula_total_moles(
     total_moles: float,
     material_rows: tuple[tuple[str, str, float, float], ...],
 ) -> float:
     """Replace every modeled natural parent in one shared formula mole pool."""
+    replacements = tuple(
+        _composite_replacement_moles_for_row(*row) for row in material_rows
+    )
+    return _composite_formula_total_moles_from_replacements(
+        total_moles,
+        material_rows,
+        replacements,
+    )
+
+
+def _composite_formula_total_moles_from_replacements(
+    total_moles: float,
+    material_rows: tuple[tuple[str, str, float, float], ...],
+    replacements: tuple[float | None, ...],
+) -> float:
+    """Apply pre-resolved natural constituent mole replacements once."""
+
     effective_total = float(total_moles)
-    for canonical_name, stock_label, active_g, parent_moles in material_rows:
-        candidates = tuple(
-            dict.fromkeys(
-                value for value in (canonical_name, stock_label) if str(value or "").strip()
-            )
-        )
-        for candidate in candidates:
-            replacement = composite_replacement_moles(
-                candidate,
-                active_g,
-                parent_moles,
-            )
-            if replacement is not None:
-                effective_total += replacement - max(0.0, parent_moles)
-                break
+    for row, replacement in zip(material_rows, replacements, strict=True):
+        parent_moles = row[3]
+        if replacement is not None:
+            effective_total += replacement - max(0.0, parent_moles)
     return max(0.0, effective_total)
+
+
+def _composite_replacement_moles_for_row(
+    canonical_name: str,
+    stock_label: str,
+    active_g: float,
+    parent_moles: float,
+) -> float | None:
+    """Return a real constituent mole replacement, never a family proxy."""
+
+    candidates = tuple(
+        dict.fromkeys(
+            value
+            for value in (canonical_name, stock_label)
+            if str(value or "").strip()
+        )
+    )
+    for candidate in candidates:
+        replacement = composite_replacement_moles(
+            candidate,
+            active_g,
+            parent_moles,
+        )
+        if replacement is not None:
+            return float(replacement)
+    return None
 
 
 def _first_present(*values):
@@ -938,21 +1191,31 @@ def _build_formula_state_cached(
         name: (moles / total_moles if total_moles > 0 else 0.0)
         for name, moles in mole_inputs.items()
     }
-    composite_total_moles = _composite_formula_total_moles(
+    composite_rows = tuple(
+        (
+            row[13].canonical_name,
+            row[0],
+            row[4],
+            row[12],
+        )
+        for row in raw_rows
+    )
+    composite_replacements = tuple(
+        _composite_replacement_moles_for_row(*row) for row in composite_rows
+    )
+    composite_total_moles = _composite_formula_total_moles_from_replacements(
         total_moles,
-        tuple(
-            (
-                row[13].canonical_name,
-                row[0],
-                row[4],
-                row[12],
-            )
-            for row in raw_rows
-        ),
+        composite_rows,
+        composite_replacements,
     )
     all_active_masses_authoritative = all(row[5] is not None for row in raw_rows)
+    formula_mw_chain_complete = all(
+        row[16] is not None or replacement is not None
+        for row, replacement in zip(raw_rows, composite_replacements, strict=True)
+    )
     total_authoritative_active_g = sum(float(row[5] or 0.0) for row in raw_rows)
     finished_mass_g = total_authoritative_active_g + matrix_mass_g
+    mixture_hsp_value = mixture_hsp(mole_fractions, hsp_table=hsp_table)
 
     materials: list[MaterialState] = []
     for (
@@ -1045,7 +1308,13 @@ def _build_formula_state_cached(
             gamma_source = "profile:ingredient_intelligence.activity_coef"
         else:
             try:
-                gamma_value = gamma(canonical, mole_fractions, temperature_K, hsp_table=hsp_table)
+                gamma_value = gamma(
+                    canonical,
+                    mole_fractions,
+                    temperature_K,
+                    hsp_table=hsp_table,
+                    mixture_hsp_override=mixture_hsp_value,
+                )
             except Exception:
                 gamma_value = 1.0
                 gamma_source = "fallback:ideal_gamma"
@@ -1053,7 +1322,7 @@ def _build_formula_state_cached(
         partial_pressure = (gamma_value * x_i * vp) if vp is not None else 0.0
         vapor_ppm = 1e6 * partial_pressure / P_ATM_PA
         odt_air_ppm, odt_source = _lookup_odt(name, profile, reg_mat)
-        oav_value = oav(vapor_ppm, odt_air_ppm) if odt_air_ppm else None
+        oav_value = oav(vapor_ppm, odt_air_ppm) if vp is not None and odt_air_ppm else None
 
         # RULE 1b — Natural Absolute Decomposition
         composite_result, composite_metadata, composite_lookup_name = _lookup_composite_headspace(
@@ -1087,6 +1356,29 @@ def _build_formula_state_cached(
         family = getattr(profile, "or_family", None) if profile else None
         intensity = (
             perceived_intensity_stevens(oav_value, family) if oav_value is not None else None
+        )
+        screening_headspace_available = composite_result is not None or (
+            not requires_composite and vp is not None
+        )
+        projection = _physics_projection_authority(
+            formula_mass_chain_complete=all_active_masses_authoritative,
+            formula_mw_chain_complete=formula_mw_chain_complete,
+            vp_available=vp is not None,
+            odt_available=odt_air_ppm is not None,
+            composite_available=composite_result is not None,
+            composite_canonical_complete=_composite_supports_canonical_projection(
+                composite_metadata
+            ),
+            requires_composite=requires_composite,
+            gamma_source=gamma_source,
+            screening_partial_pressure_pa=(
+                float(partial_pressure) if screening_headspace_available else None
+            ),
+            screening_vapor_ppm=(
+                float(vapor_ppm) if screening_headspace_available else None
+            ),
+            screening_oav=oav_value,
+            screening_intensity=intensity,
         )
         note = getattr(profile, "note", None) or "heart"
         role = getattr(profile, "role", None) or "modifier"
@@ -1205,6 +1497,7 @@ def _build_formula_state_cached(
                     and finished_mass_g > 0
                     else None
                 ),
+                **projection,
             )
         )
 
@@ -1243,10 +1536,25 @@ def build_formula_state(
     matrix_source: str = "omitted",
 ) -> FormulaState:
     """Build a canonical physical state from a raw uL formula table."""
-    if matrix_mass_g < 0:
-        raise ValueError("matrix_mass_g must be nonnegative")
-    if matrix_moles and any(value < 0 for value in matrix_moles.values()):
-        raise ValueError("matrix moles must be nonnegative")
+    matrix_source_value = str(matrix_source).strip()
+    if not matrix_source_value:
+        raise ValueError("matrix_source must be a non-empty authority label")
+    matrix_mass_value = float(matrix_mass_g)
+    if not math.isfinite(matrix_mass_value) or matrix_mass_value < 0:
+        raise ValueError("matrix_mass_g must be finite and nonnegative")
+    matrix_values = {
+        str(name).strip(): float(value)
+        for name, value in (matrix_moles or {}).items()
+    }
+    if any(not name for name in matrix_values):
+        raise ValueError("matrix component identities must be non-empty")
+    if any(not math.isfinite(value) or value < 0 for value in matrix_values.values()):
+        raise ValueError("matrix moles must be finite and nonnegative")
+    if matrix_source_value.casefold() == "explicit":
+        if matrix_mass_value <= 0.0 or sum(matrix_values.values()) <= 0.0:
+            raise ValueError(
+                "explicit matrix authority requires positive matrix mass and component moles"
+            )
     return _build_formula_state_cached(
         _freeze_mapping(ingredients_ul, 0.0),
         _freeze_mapping(dilutions, 1.0),
@@ -1254,9 +1562,9 @@ def build_formula_state(
         float(batch_volume_ml),
         float(temperature_K),
         str(context),
-        _freeze_mapping(matrix_moles, 0.0),
-        float(matrix_mass_g),
-        str(matrix_source),
+        _freeze_mapping(matrix_values, 0.0),
+        matrix_mass_value,
+        matrix_source_value,
     )
 
 

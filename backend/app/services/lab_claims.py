@@ -28,6 +28,8 @@ if TYPE_CHECKING:
 class ClaimAuthorityError(ValueError):
     """Raised when B7 input cannot satisfy the declared contract."""
 
+    code = "CLAIM_AUTHORITY_ERROR"
+
 
 class ClaimAuthorityConflictError(ClaimAuthorityError):
     """Raised when canonical state cannot support a B7 command."""

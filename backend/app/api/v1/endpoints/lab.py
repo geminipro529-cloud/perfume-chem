@@ -44,6 +44,7 @@ from app.schemas.lab import (
     AssistantPacketCreate,
     BackupCreate,
     BottleAdditionCreate,
+    BottleCloseCreate,
     BottleCompensationCreate,
     BottleCreate,
     BottleTransferCreate,
@@ -61,10 +62,14 @@ from app.schemas.lab import (
     RestoreSnapshotCreate,
     SampleCreate,
     StockCreate,
+    StockPreparationFinalizeCreate,
     StockUpdateRemaining,
 )
 from app.schemas.perfume import FormulaCreate
 from app.services.backup_service import BackupService, RestoreSafetyError
+from app.services.engine_job_compatibility import (
+    enqueue_formula_analysis_compatibility,
+)
 from app.services.lab_assistant import AssistantRequest, build_assistant_packet
 from app.services.lab_export import ImportConflictError, LabExportService
 from app.services.lab_service import (
@@ -72,6 +77,7 @@ from app.services.lab_service import (
     LabService,
     LabTransactionError,
 )
+from app.services.validation_pipeline import attach_validation, validate_formula
 
 router = APIRouter()
 workbench = PerfumeWorkbench()
@@ -221,10 +227,48 @@ async def add_to_bottle(
     request: BottleAdditionCreate,
     session: AsyncSession = Depends(get_db),
 ) -> dict[str, Any]:
-    row = await _service_call(
-        LabService(session).add_stock_to_bottle(bottle_id=bottle_id, **request.model_dump())
+    payload = request.model_dump(exclude={"role"})
+    operation = (
+        LabService(session).add_solvent_to_bottle
+        if request.role == "solvent"
+        else LabService(session).add_stock_to_bottle
     )
-    return _record(row, "bottle_id", "stream_sequence", "event_type", "transaction_id")
+    row = await _service_call(
+        operation(bottle_id=bottle_id, **payload)
+    )
+    record = _record(row, "bottle_id", "stream_sequence", "event_type", "transaction_id")
+    record["execution_scope"] = row.payload_json.get(
+        "execution_scope",
+        "LEGACY_FREEFORM_UNBOUND_QUARANTINE",
+    )
+    record["formula_execution_authority"] = bool(
+        row.payload_json.get("formula_execution_authority", False)
+    )
+    record["build_plan_fulfillment_authority"] = bool(
+        row.payload_json.get("build_plan_fulfillment_authority", False)
+    )
+    return record
+
+
+@router.post("/bottles/{bottle_id}/close", status_code=status.HTTP_201_CREATED)
+async def close_bottle(
+    bottle_id: str,
+    request: BottleCloseCreate,
+    session: AsyncSession = Depends(get_db),
+) -> dict[str, Any]:
+    row = await _service_call(
+        LabService(session).close_bottle(
+            bottle_id=bottle_id,
+            **request.model_dump(),
+        )
+    )
+    return _record(
+        row,
+        "bottle_id",
+        "stream_sequence",
+        "event_type",
+        "transaction_id",
+    )
 
 
 @router.post("/transfers", status_code=status.HTTP_201_CREATED)
@@ -366,12 +410,28 @@ async def record_outcome(
 
 
 @router.post("/analysis")
-async def analyze(request: FormulaCreate) -> dict[str, Any]:
+async def analyze(
+    request: FormulaCreate,
+    session: AsyncSession = Depends(get_db),
+) -> dict[str, Any]:
+    percentages: dict[str, float] = {}
+    for ingredient in request.ingredients:
+        percentages[ingredient.name] = (
+            percentages.get(ingredient.name, 0.0) + ingredient.percentage
+        )
+    validation = await enqueue_formula_analysis_compatibility(
+        session,
+        validate_formula(percentages),
+        percentages,
+        scope="lab.analysis",
+        formula_name=request.name,
+    )
     try:
-        return cast(
+        payload = cast(
             dict[str, Any],
             workbench.analyze(_to_workbench_request(request)).as_dict(),
         )
+        return attach_validation(payload, validation)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
@@ -526,6 +586,30 @@ async def stage_restore(
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
+@router.post("/stocks/preparations/finalize", status_code=status.HTTP_201_CREATED)
+async def finalize_stock_preparation(
+    request: StockPreparationFinalizeCreate,
+    session: AsyncSession = Depends(get_db),
+) -> dict[str, Any]:
+    row = await _service_call(
+        LabService(session).finalize_stock_preparation(**request.model_dump())
+    )
+    return _record(
+        row,
+        "material_id",
+        "supplier",
+        "lot_number",
+        "active_fraction",
+        "active_fraction_decimal_text",
+        "fraction_basis",
+        "density_g_ml",
+        "solvent_name",
+        "initial_mass_g",
+        "remaining_mass_g",
+        "source_json",
+    )
+
+
 @router.get("/stocks/{stock_id}")
 async def get_stock(stock_id: str, session: AsyncSession = Depends(get_db)) -> dict[str, Any]:
     service = LabService(session)
@@ -533,11 +617,16 @@ async def get_stock(stock_id: str, session: AsyncSession = Depends(get_db)) -> d
     payload = _record(
         row,
         "material_id",
+        "supplier",
+        "lot_number",
         "active_fraction",
+        "active_fraction_decimal_text",
         "fraction_basis",
         "initial_mass_g",
         "density_g_ml",
+        "solvent_name",
         "remaining_mass_g",
+        "source_json",
     )
     payload["remaining_mass_g"] = await _service_call(service.stock_balance_g(stock_id))
     return payload

@@ -1,0 +1,603 @@
+{
+  "schema_version": "lavande-ambre-profond-r5-cp3-readiness-protocol-v1",
+  "protocol_id": "lavande-ambre-profond-r5-cp3-readiness-20260924",
+  "recorded_date": "2026-09-24",
+  "state": "FROZEN_NONEXECUTABLE_CONTRACT",
+  "authority_scope": "READ_ONLY_PHYSICAL_READINESS_AUDIT",
+  "inputs": {
+    "design_comparator_path": "data/governance/lavande_ambre_profond_r5_design_comparator_20260923.json",
+    "design_comparator_manifest_sha256": "d7f5904bd9437cb61589a1a535423eedb6786641ccc70f109d3e1516bc222f86",
+    "source_workbook_sha256": "027ec1cf8712c6aaac123d896942eee308efa18bea9056da975566e095bc3e67",
+    "canonical_formula_rows_sha256": "28284674560179b536f2e797a3b1a50ef0421e61435132f47704cda590ead15e",
+    "expected_parent_sha256": "5b0a012b88ca5c1cea45ea8a704cf3b9e5d799d66e9f9d28b2a5d21efa9f4129",
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_sha256": "0b5642c9489678ddc8a077bc1e347123c94d90a1075b901f2c6de954bb737d81",
+    "inventory_source_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+    "inventory_overlay_sha256": "d0ee1d77b015152c4ffc76a351a693067bf61475eb71a9bf60aecf3fcb9842a2"
+  },
+  "comparator_contract": {
+    "comparator_id": "lavande-ambre-profond-r5-30ml-20260923",
+    "design_only": true,
+    "row_count": 63,
+    "liquid_row_count": 62,
+    "liquid_total_ul": "5600",
+    "solid_row_count": 1,
+    "solid_material": "Ambrox Super",
+    "solid_total_mg": "300",
+    "mass_volume_never_summed": true,
+    "lavender_design_ratio": "70:30",
+    "formula_action": "NO_CHANGE"
+  },
+  "parent_search": {
+    "state": "HOLD_PARENT_BYTES_MISSING",
+    "bytes_present": false,
+    "reconstruction_allowed": false,
+    "searched_locations": [
+      "repository_worktree",
+      "repository_git_history",
+      "C:/Users/ASUS/Downloads",
+      "C:/Users/ASUS/Documents",
+      "C:/Users/ASUS/.codex/attachments"
+    ],
+    "search_date": "2026-09-24"
+  },
+  "stock_binding_review": {
+    "state": "HOLD_STOCK_BINDING",
+    "build_plan_bound_row_count": 0,
+    "required_row_count": 63,
+    "binding_candidates_are_execution_authority": false,
+    "conflicts": [
+      {
+        "code": "AMBROX_FORM_CONFLICT",
+        "source_row": 69,
+        "material": "Ambrox Super",
+        "required_stock": "UNDILUTED CRYSTALS / POWDER; 300 mg",
+        "expected_stock_id": "inventory:user-20260902:9e69f9db20c45cfe37e6",
+        "expected_live_stock": {
+          "dilution_decimal": "0.25",
+          "fraction_basis": "mass_fraction",
+          "carrier": "dpg + ipm + ethanol",
+          "execution_ready": true,
+          "density_state": "MISSING"
+        }
+      },
+      {
+        "code": "VETIVERYL_STRENGTH_CONFLICT",
+        "source_row": 9,
+        "material": "Vetiveryl Acetate",
+        "required_stock": "NEAT / undiluted supplied product",
+        "expected_stock_id": "inventory:user-20260907:26fac72444655c175fca",
+        "expected_live_stock": {
+          "dilution_decimal": "0.1",
+          "fraction_basis": "mass_fraction",
+          "carrier": "dep",
+          "execution_ready": true,
+          "density_state": "MISSING"
+        }
+      },
+      {
+        "code": "NORLIMBANOL_CARRIER_BASIS_CONFLICT",
+        "source_row": 16,
+        "material": "Norlimbanol Dextro",
+        "required_stock": "10% v/v in ethanol; PREP P1",
+        "expected_stock_id": "inventory:v5:c3d96978021554df778d",
+        "expected_live_stock": {
+          "dilution_decimal": "0.1",
+          "fraction_basis": "unspecified",
+          "carrier": "dep",
+          "execution_ready": true,
+          "density_state": "MISSING"
+        }
+      },
+      {
+        "code": "AROMA_AND_MORE_STOCK_NOT_BOUND",
+        "source_row": 36,
+        "material": "Lavender 40/42, Aroma&More",
+        "required_stock": "Undiluted French supplied blend; not a 40% working dilution",
+        "expected_stock_id": null,
+        "expected_live_stock": null
+      },
+      {
+        "code": "HAY_STOCK_BASIS_UNRESOLVED",
+        "source_row": 30,
+        "material": "Hay Absolute",
+        "required_stock": "Existing Hay Absolute 10%; carrier/basis re-confirmation required",
+        "expected_stock_id": "inventory:v5:00c0dc3aa194b9e54ae0",
+        "expected_live_stock": {
+          "dilution_decimal": "0.1",
+          "fraction_basis": "unspecified",
+          "carrier": "",
+          "execution_ready": false,
+          "density_state": "MISSING"
+        }
+      }
+    ],
+    "row_candidate_audit": [
+      {
+        "source_row": 7,
+        "material": "Iso E Super",
+        "candidate_stock_id": "inventory:v5:66c8443970c7354dd89a",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 8,
+        "material": "Sandalore",
+        "candidate_stock_id": "inventory:v5:6cb04089c27e0a91ee15",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 9,
+        "material": "Vetiveryl Acetate",
+        "candidate_stock_id": "inventory:user-20260907:26fac72444655c175fca",
+        "state": "CANDIDATE_FORM_CONFLICT"
+      },
+      {
+        "source_row": 10,
+        "material": "Bacdanol",
+        "candidate_stock_id": "inventory:user-20260901:331a8959cf8ecec77e13",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 11,
+        "material": "Clearwood",
+        "candidate_stock_id": "inventory:user-20260828:87cddb712623b1182eaa",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 12,
+        "material": "Cashmeran",
+        "candidate_stock_id": "inventory:v5:0b5d75dffb251876ec11",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 13,
+        "material": "Vertofix",
+        "candidate_stock_id": "inventory:v5:956f2505d56f3a21b129",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 14,
+        "material": "Cedarwood Virginia EO",
+        "candidate_stock_id": "inventory:v5:61deb2ebba56d82eb870",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 15,
+        "material": "Ebanol",
+        "candidate_stock_id": "inventory:v5:9a6c54f0b9b8183e51d9",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 16,
+        "material": "Norlimbanol Dextro",
+        "candidate_stock_id": "inventory:v5:c3d96978021554df778d",
+        "state": "CANDIDATE_FORM_CONFLICT"
+      },
+      {
+        "source_row": 17,
+        "material": "Cedramber",
+        "candidate_stock_id": "inventory:v5:6e227ac1d6e71afcbfdf",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 18,
+        "material": "Guaiacwood EO",
+        "candidate_stock_id": "inventory:user-20260901:f68cc41e59396c05afa5",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 19,
+        "material": "Patchouli EO",
+        "candidate_stock_id": "inventory:user-20260830:c84084216d3a15ca7271",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 20,
+        "material": "Haitian Vetiver EO",
+        "candidate_stock_id": "inventory:user-20260910:bf2d1cd8189ba8e0e01a",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 21,
+        "material": "Ethylene Brassylate",
+        "candidate_stock_id": "inventory:user-20260828:a630859c1c0f0553ddde",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 22,
+        "material": "Habanolide",
+        "candidate_stock_id": "inventory:v5:1bd4a222c53bc7aadc0e",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 23,
+        "material": "Ambrettolide",
+        "candidate_stock_id": "inventory:user-20260904:5c67f5a97c7fc590d2e6",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 24,
+        "material": "Exaltolide",
+        "candidate_stock_id": "inventory:v5:c17c932da02ecafc0c44",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 25,
+        "material": "Coumarin",
+        "candidate_stock_id": "inventory:user-20260907:f398c094444c12a7e0cf",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 26,
+        "material": "Labdanum Resinoid",
+        "candidate_stock_id": "inventory:v5:4a60b3cdb2c51c92b097",
+        "state": "CANDIDATE_BASIS_UNRESOLVED"
+      },
+      {
+        "source_row": 27,
+        "material": "Tonka Bean Absolute",
+        "candidate_stock_id": "inventory:user-20260908:e5b2ec85d0d20547f54e",
+        "state": "CANDIDATE_BASIS_UNRESOLVED"
+      },
+      {
+        "source_row": 28,
+        "material": "Siam Benzoin",
+        "candidate_stock_id": "inventory:user-20260915:f835f8448a93bcb22c59",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 29,
+        "material": "Olibanum Resinoid",
+        "candidate_stock_id": "inventory:v5:6f272948ea81f85d769f",
+        "state": "CANDIDATE_BASIS_UNRESOLVED"
+      },
+      {
+        "source_row": 30,
+        "material": "Hay Absolute",
+        "candidate_stock_id": "inventory:v5:00c0dc3aa194b9e54ae0",
+        "state": "CANDIDATE_BASIS_UNRESOLVED"
+      },
+      {
+        "source_row": 31,
+        "material": "Heliotropal / piperonal",
+        "candidate_stock_id": "inventory:v5:593f575b080f30401f9b",
+        "state": "CANDIDATE_PREPARATION_REQUIRED"
+      },
+      {
+        "source_row": 32,
+        "material": "Opoponax Resinoid",
+        "candidate_stock_id": "inventory:user-20260828:498c6b51ae372e2d8e54",
+        "state": "CANDIDATE_BASIS_UNRESOLVED"
+      },
+      {
+        "source_row": 33,
+        "material": "Tobacco Absolute",
+        "candidate_stock_id": "inventory:v5:e0fbf5a84fd0feb76599",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 34,
+        "material": "Lavender EO, Bontoux",
+        "candidate_stock_id": "inventory:user-20260908:ebe5a09b777bacf43d5f",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 35,
+        "material": "Linalyl Acetate",
+        "candidate_stock_id": "inventory:v5:f63a1c7f33cb38c4cb9a",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 36,
+        "material": "Lavender 40/42, Aroma&More",
+        "candidate_stock_id": null,
+        "state": "NO_AUTHORITY_STOCK"
+      },
+      {
+        "source_row": 37,
+        "material": "Ethyl Linalool",
+        "candidate_stock_id": null,
+        "state": "NO_AUTHORITY_STOCK"
+      },
+      {
+        "source_row": 38,
+        "material": "Linalool",
+        "candidate_stock_id": "inventory:v5:56bb8be9477cf345183e",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 39,
+        "material": "Clary Sage EO",
+        "candidate_stock_id": "inventory:v5:d91143d66b5dd9538a79",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 40,
+        "material": "Geranyl Acetate",
+        "candidate_stock_id": null,
+        "state": "NO_AUTHORITY_STOCK"
+      },
+      {
+        "source_row": 41,
+        "material": "Terpinyl Acetate",
+        "candidate_stock_id": "inventory:v5:55c623b91171ed1c5fd3",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 42,
+        "material": "Spike Lavender EO",
+        "candidate_stock_id": null,
+        "state": "CURRENT_TEXT_ONLY_NOT_MATERIALIZED",
+        "evidence_ref": "inventory.txt:305"
+      },
+      {
+        "source_row": 43,
+        "material": "Linalool Oxide",
+        "candidate_stock_id": null,
+        "state": "NO_AUTHORITY_STOCK"
+      },
+      {
+        "source_row": 44,
+        "material": "Hedione, regular",
+        "candidate_stock_id": "inventory:v5:0f9d7e0971aad1594be4",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 45,
+        "material": "Hedione HC",
+        "candidate_stock_id": null,
+        "state": "NO_AUTHORITY_STOCK"
+      },
+      {
+        "source_row": 46,
+        "material": "Hexyl Salicylate",
+        "candidate_stock_id": "inventory:v5:d5eea53855ea318ab957",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 47,
+        "material": "Methyl Ionone Gamma Coeur",
+        "candidate_stock_id": null,
+        "state": "NO_AUTHORITY_STOCK"
+      },
+      {
+        "source_row": 48,
+        "material": "Nerolidol",
+        "candidate_stock_id": "inventory:v5:26a68ef5e1c2ebd41ece",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 49,
+        "material": "Phenyl Ethyl Dimethyl Carbinol (PEDMC)",
+        "candidate_stock_id": "inventory:user-20260908:9ce23faef6cecbe236b2",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 50,
+        "material": "Mimosa Absolute",
+        "candidate_stock_id": "inventory:v5:903a78b03b169cc4d577",
+        "state": "CANDIDATE_BASIS_UNRESOLVED"
+      },
+      {
+        "source_row": 51,
+        "material": "Dimethyl Benzyl Carbinyl Acetate (DBCA)",
+        "candidate_stock_id": "inventory:v5:ff300fcacfaeb4cea3d2",
+        "state": "CANDIDATE_FORM_MATCH",
+        "evidence_ref": "data/governance/inventory_v5_authority_delta_20260811.json#INV-V5-DELTA-DBCA-IDENTITY"
+      },
+      {
+        "source_row": 52,
+        "material": "Florol",
+        "candidate_stock_id": "inventory:v5:9f1fee283f31fe598eca",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 53,
+        "material": "Alpha Ionone",
+        "candidate_stock_id": "inventory:v5:948e98d704540c4db323",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 54,
+        "material": "Benzyl Acetate",
+        "candidate_stock_id": "inventory:v5:1a249065fb9030019b59",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 55,
+        "material": "Phenethyl Alcohol (PEA)",
+        "candidate_stock_id": "inventory:v5:5704ef66666ee777850f",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 56,
+        "material": "Bergamot FCF Sicilian",
+        "candidate_stock_id": "inventory:v5:e21b17adeb4b1fe1f12d",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 57,
+        "material": "Petitgrain Paraguay EO",
+        "candidate_stock_id": "inventory:user-20260830:58a38808d9e8d907730c",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 58,
+        "material": "Cedrat FCF Sicilian",
+        "candidate_stock_id": null,
+        "state": "CURRENT_TEXT_SNAPSHOT_CONFLICT",
+        "evidence_ref": "inventory.txt:43; Current Inventory Master row 66"
+      },
+      {
+        "source_row": 59,
+        "material": "Black Pepper EO",
+        "candidate_stock_id": "inventory:v5:4bb69da9b62fe8fbd8bb",
+        "state": "CANDIDATE_PREPARATION_REQUIRED"
+      },
+      {
+        "source_row": 60,
+        "material": "Cardamom EO",
+        "candidate_stock_id": "inventory:v5:03d094cea44bdba448a8",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 61,
+        "material": "Coriander EO, PW",
+        "candidate_stock_id": "inventory:user-20260910:5ab478d7bee9ca3ff42b",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 62,
+        "material": "Juniper Berry EO",
+        "candidate_stock_id": "inventory:v5:44479b1b43ba8def3143",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 63,
+        "material": "Nutmeg EO",
+        "candidate_stock_id": "inventory:user-20260830:caa7c7f7418d43c86660",
+        "state": "CANDIDATE_PREPARATION_REQUIRED"
+      },
+      {
+        "source_row": 64,
+        "material": "Pink Pepper EO, Schinus molle",
+        "candidate_stock_id": "inventory:user-20260903:a50b240d09fdf63fd697",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 65,
+        "material": "Cypress EO",
+        "candidate_stock_id": "inventory:user-20260830:6db445a212d6344de07c",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 66,
+        "material": "Elemi EO",
+        "candidate_stock_id": "inventory:v5:a7f1444b4e03133a1344",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 67,
+        "material": "Dihydromyrcenol (DHM)",
+        "candidate_stock_id": "inventory:v5:8012a10ed95b616ac15a",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 68,
+        "material": "Rosemary EO",
+        "candidate_stock_id": "inventory:v5:3e047f92d50b4354d1c1",
+        "state": "CANDIDATE_FORM_MATCH"
+      },
+      {
+        "source_row": 69,
+        "material": "Ambrox Super",
+        "candidate_stock_id": "inventory:user-20260902:9e69f9db20c45cfe37e6",
+        "state": "CANDIDATE_FORM_CONFLICT"
+      }
+    ]
+  },
+  "measurement_protocol_contract": {
+    "state": "FROZEN_SCHEMA_HOLD_EXECUTION_PARAMETERS",
+    "execution_ready": false,
+    "sample_roles": [
+      "R5_BASELINE",
+      "R5_INDEPENDENT_PREPARATION_REPLICATE",
+      "CARRIER_OR_MATRIX_BLANK",
+      "JUSTIFIED_REFERENCE_STANDARD"
+    ],
+    "domains_must_remain_separate": [
+      "BLOTTER",
+      "SKIN"
+    ],
+    "required_physical_parameters": [
+      "application_mass_or_volume",
+      "application_basis",
+      "surface_area",
+      "substrate_identity",
+      "temperature_c",
+      "relative_humidity_percent",
+      "airflow",
+      "enclosure_geometry",
+      "sampling_times",
+      "headspace_collection_method",
+      "instrument_calibration",
+      "matrix_calibration",
+      "replicate_structure",
+      "aging_conditions",
+      "storage_conditions"
+    ],
+    "required_sensory_controls": [
+      "randomized_sample_codes",
+      "blinding",
+      "presentation_order_balance",
+      "predeclared_scales",
+      "rest_intervals",
+      "session_identity",
+      "missingness_retention"
+    ],
+    "endpoints": {
+      "physical_release": "SEPARATE_ENDPOINT",
+      "sensory_intensity": "SEPARATE_ENDPOINT",
+      "character": "SEPARATE_ENDPOINT",
+      "pleasantness": "NOT_ESTABLISHED",
+      "personal_liking": "NOT_TESTED",
+      "population_liking": "NOT_TESTED",
+      "beauty": "PROHIBITED_DERIVED_ENDPOINT"
+    },
+    "unresolved_execution_parameters": [
+      "authorized_sample_scale",
+      "application_mass_or_volume",
+      "substrate_selection",
+      "sampling_schedule",
+      "available_instrument_method",
+      "qualified_sensory_panel_or_reviewer_scope",
+      "physical_experiment_authority"
+    ]
+  },
+  "blocker_order": [
+    "HOLD_PARENT_BYTES_MISSING",
+    "HOLD_ALL_BUILD_PLAN_STOCK_BINDINGS_MISSING",
+    "AMBROX_FORM_CONFLICT",
+    "VETIVERYL_STRENGTH_CONFLICT",
+    "NORLIMBANOL_CARRIER_BASIS_CONFLICT",
+    "AROMA_AND_MORE_STOCK_NOT_BOUND",
+    "HAY_STOCK_BASIS_UNRESOLVED",
+    "BOTTLE_LOT_AND_HOMOGENEITY_RECEIPTS_MISSING",
+    "HOLD_CONSTANT_TOTAL_BASIS_UNRESOLVED",
+    "HOLD_EXACT_CURVE_APPLICABILITY",
+    "HOLD_MEASUREMENT_PROTOCOL_EXECUTION_PARAMETERS_UNRESOLVED",
+    "PLEASANTNESS_NOT_ESTABLISHED",
+    "PHYSICAL_LIKING_NOT_TESTED"
+  ],
+  "allowed_outputs": [
+    "readiness_report",
+    "exact_blocker_list",
+    "input_fingerprints",
+    "read_only_stock_binding_candidates",
+    "measurement_protocol_contract"
+  ],
+  "forbidden_outputs": [
+    "inventory_mutation",
+    "formula_mutation",
+    "reservation",
+    "mixer_command",
+    "transfer_record",
+    "prepared_stock_receipt",
+    "physical_build_instruction",
+    "physical_experiment_authorization",
+    "compounding_authority",
+    "safety_authority",
+    "release_authority"
+  ],
+  "authority": {
+    "evidence_admission_authorized": false,
+    "physical_experiment_authorized": false,
+    "compounding_authorized": false,
+    "purchase_authorized": false,
+    "inventory_mutation_authorized": false,
+    "formula_mutation_authorized": false,
+    "safety_authorized": false,
+    "release_authorized": false
+  }
+}

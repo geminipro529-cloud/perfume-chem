@@ -39,7 +39,7 @@ def _records(*, include_unavailable: bool = True):
 
 
 def test_consolidated_inventory_has_declared_stock_row_count():
-    assert inventory_counts(INVENTORY)["raw_entries"] == 280
+    assert inventory_counts(INVENTORY)["raw_entries"] == 287
 
 
 @pytest.mark.parametrize(
@@ -65,22 +65,37 @@ def test_reconfirmed_stocks_are_present_and_owned(name, dilution):
 def test_evernyl_keeps_owned_and_unprepared_stocks_distinct():
     evernyl = [record for record in _records() if record.name == "Evernyl"]
     crystals = next(row for row in evernyl if row.raw_name.startswith("Evernyl (crystals)"))
-    working = next(row for row in evernyl if row.raw_name.startswith("Evernyl (20% w/w in DPG)"))
+    working = next(row for row in evernyl if row.raw_name.startswith("Evernyl (10% w/w in DPG)"))
     planned = next(row for row in evernyl if row.raw_name.startswith("Evernyl (10% w/w in DEP)"))
 
     assert (crystals.status, crystals.dilution) == ("owned", pytest.approx(1.0))
     assert (working.status, working.dilution, working.fraction_basis, working.carrier) == (
         "owned",
-        pytest.approx(0.20),
+        pytest.approx(0.10),
         "mass_fraction",
         "dpg",
     )
+    assert working.execution_ready is True
+    assert working.execution_hold_reason == ""
     assert planned.status == "planned_preparation"
     assert planned.execution_ready is False
     assert planned.execution_hold_reason == "NOT_YET_PREPARED"
     assert planned.raw_name not in {
         row.raw_name for row in _records(include_unavailable=False)
     }
+
+
+def test_methyl_pamplemousse_mass_fraction_stock_is_current_and_ready():
+    row = next(
+        record
+        for record in _records()
+        if record.raw_name.startswith("Methyl Pamplemousse (10% w/w in ethanol)")
+    )
+    assert row.dilution == pytest.approx(0.10)
+    assert row.fraction_basis == "mass_fraction"
+    assert row.carrier == "ethanol"
+    assert row.execution_ready is True
+    assert row.execution_hold_reason == ""
 
 
 @pytest.mark.parametrize(
@@ -105,7 +120,7 @@ def test_benzyl_salicylate_current_text_records_return_to_stock():
     assert row.execution_ready is True
 
 
-def test_v7_recovered_working_stocks_remain_w_w_and_carrier_held():
+def test_v7_recovered_working_stocks_preserve_current_carrier_authority():
     expected = {
         "Liffarome": 0.10,
         "Cis-3-Hexenyl Salicylate": 0.20,
@@ -116,12 +131,17 @@ def test_v7_recovered_working_stocks_remain_w_w_and_carrier_held():
         assert row.status == "owned"
         assert row.dilution == pytest.approx(fraction)
         assert row.fraction_basis == "mass_fraction"
-        assert row.execution_ready is False
-        assert row.execution_hold_reason == "CARRIER_UNSPECIFIED"
+        if name == "Liffarome":
+            assert row.carrier == "dep"
+            assert row.execution_ready is True
+            assert row.execution_hold_reason == ""
+        else:
+            assert row.execution_ready is False
+            assert row.execution_hold_reason == "CARRIER_UNSPECIFIED"
 
 
 def test_aliases_do_not_collapse_telvada_into_other_cinnamon_stocks():
-    assert normalize_name("Evernyl (20% w/w in DPG)") == "evernyl"
+    assert normalize_name("Evernyl (10% in DPG)") == "evernyl"
     assert normalize_name("Evernyl (10% w/w in DEP)") == "evernyl"
     assert normalize_name("Cinnamon Bark EO (Telvada)") == (
         "cinnamon bark eo - telvada usda organic"

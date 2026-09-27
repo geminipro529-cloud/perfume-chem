@@ -2735,7 +2735,11 @@ class FormulaScorer:
         return report.score
 
     def score_hedonic(self, fv: FormulaVector) -> float:
-        """Intrinsic pleasantness / hedonic valence (0-100)."""
+        """Return the legacy fixed-valence diagnostic (0-100).
+
+        Coverage and authority remain available on ``_last_hedonic_report``;
+        the scalar is not measured full-formula pleasantness or liking.
+        """
         ingredients, dilutions = self._science_ingredients(fv)
         report = score_hedonic(ingredients, dilutions)
         self._last_hedonic_report = report
@@ -3068,7 +3072,10 @@ class FormulaScorer:
     def score_axis(self, fv: FormulaVector, axis: str) -> float:
         """Score a single axis without running enhancers or temporal.
 
-        Used for fast pre-screening in the recommendation engine.
+        Used for fast diagnostic pre-screening in the recommendation engine.
+        The returned scalar has ``HEURISTIC_DIAGNOSTIC_INDEX`` classification,
+        with ranking and formula-optimization authority withheld.  Call
+        :meth:`score` when the machine-readable authority envelope is needed.
         """
         method_name = self._AXIS_DISPATCH.get(axis)
         if method_name is None:
@@ -3280,6 +3287,22 @@ class FormulaScorer:
                 and self._last_hedonic_report.weighted_valence,
                 "pleasantness": getattr(self, "_last_hedonic_report", None)
                 and self._last_hedonic_report.pleasantness_class,
+                "pleasantness_scope": getattr(self, "_last_hedonic_report", None)
+                and self._last_hedonic_report.pleasantness_class_scope,
+                "coverage_status": getattr(self, "_last_hedonic_report", None)
+                and self._last_hedonic_report.coverage_status,
+                "rated_active_fraction": getattr(self, "_last_hedonic_report", None)
+                and self._last_hedonic_report.rated_active_fraction,
+                "unrated_active_fraction": getattr(self, "_last_hedonic_report", None)
+                and self._last_hedonic_report.unrated_active_fraction,
+                "full_formula_pleasantness_status": (
+                    getattr(self, "_last_hedonic_report", None)
+                    and self._last_hedonic_report.full_formula_pleasantness_status
+                ),
+                "classification": "HEURISTIC_DIAGNOSTIC_INDEX",
+                "ranking_status": "WITHHELD",
+                "formula_optimization_authority": False,
+                "sensory_validation_status": "NOT_ESTABLISHED",
                 "diagnostics": getattr(self, "_last_hedonic_report", None)
                 and self._last_hedonic_report.diagnostics,
             },
@@ -3333,5 +3356,42 @@ class FormulaScorer:
             scores["arithmetic_total"] = min(float(scores.get("arithmetic_total", 0.0)), 5.0)
             scores["geometric_total"] = min(float(scores.get("geometric_total", 0.0)), 5.0)
             scores["total"] = scores["geometric_total"]
+
+        hedonic_report = getattr(self, "_last_hedonic_report", None)
+        if hedonic_report is not None:
+            scores["_hedonic_coverage"] = {
+                "coverage_status": hedonic_report.coverage_status,
+                "rated_active_fraction": hedonic_report.rated_active_fraction,
+                "unrated_active_fraction": hedonic_report.unrated_active_fraction,
+                "rated_materials": list(hedonic_report.rated_materials),
+                "unrated_materials": list(hedonic_report.unrated_materials),
+                "pleasantness_class_scope": hedonic_report.pleasantness_class_scope,
+                "full_formula_pleasantness_status": (
+                    hedonic_report.full_formula_pleasantness_status
+                ),
+                "classification": hedonic_report.classification,
+                "ranking_status": hedonic_report.ranking_status,
+                "formula_optimization_authority": (
+                    hedonic_report.formula_optimization_authority
+                ),
+                "sensory_validation_status": hedonic_report.sensory_validation_status,
+            }
+
+        public_numeric_keys = sorted(
+            key
+            for key, value in scores.items()
+            if not key.startswith("_") and isinstance(value, (int, float))
+        )
+        scores["_score_authority"] = {
+            "classification": "HEURISTIC_DIAGNOSTIC_INDEX",
+            "scope": "ALL_NUMERIC_OUTPUTS_IN_THIS_RESULT",
+            "axis_authority": {
+                key: "HEURISTIC_DIAGNOSTIC_INDEX" for key in public_numeric_keys
+            },
+            "ranking_status": "WITHHELD",
+            "formula_optimization_authority": False,
+            "sensory_validation_status": "NOT_ESTABLISHED",
+            "diagnostic_total": scores.get("total"),
+        }
 
         return scores

@@ -36,7 +36,7 @@ from tests.unit.test_b6_regulatory_service import (
 )
 
 BACKEND_ROOT = Path(__file__).resolve().parents[2]
-B6_HEAD = "20260731_0010"
+B6_HEAD = "head"
 
 
 def _config(database_path: Path) -> Config:

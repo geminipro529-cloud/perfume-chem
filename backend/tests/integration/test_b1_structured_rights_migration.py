@@ -1,5 +1,6 @@
 import json
 import sqlite3
+from contextlib import closing
 
 import pytest
 
@@ -36,13 +37,13 @@ def test_structured_rights_migration_backfills_unknown_and_preserves_guards(
     database = tmp_path / "b1-structured-rights.db"
     config = _config(database)
     command.upgrade(config, PRIOR_HEAD)
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         connection.execute("PRAGMA foreign_keys=ON")
         _insert_b1_rows(connection)
 
     command.upgrade(config, RIGHTS_HEAD)
 
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         connection.execute("PRAGMA foreign_keys=ON")
         assert "rights_json" in _columns(
             connection,
@@ -128,7 +129,7 @@ def test_structured_rights_migration_downgrades_and_reupgrades_empty_database(
     command.upgrade(config, RIGHTS_HEAD)
 
     command.downgrade(config, PRIOR_HEAD)
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         assert "rights_json" not in _columns(
             connection,
             "lab_source_document_versions",
@@ -148,7 +149,7 @@ def test_structured_rights_migration_downgrades_and_reupgrades_empty_database(
     assert _integrity(database) == "ok"
 
     command.upgrade(config, RIGHTS_HEAD)
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         assert json.loads(
             connection.execute(
                 "SELECT rights_json FROM lab_source_document_versions "

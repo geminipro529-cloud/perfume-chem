@@ -1,0 +1,78 @@
+{
+  "schema_version": "perfume_chem_direct_r5_stock_clarifications_confirmation_v1",
+  "effective_date": "2026-09-24",
+  "source_kind": "DIRECT_USER_MESSAGE",
+  "context": "Checkpoint 3 R5 stock-form blocker reconciliation",
+  "message_facts": [
+    {
+      "blocker": "AMBROX_FORM_CONFLICT",
+      "message": "Ambrox Super crystals"
+    },
+    {
+      "blocker": "VETIVERYL_STRENGTH_CONFLICT",
+      "message": "neat"
+    },
+    {
+      "blocker": "NORLIMBANOL_CARRIER_BASIS_CONFLICT",
+      "message": "DPG"
+    },
+    {
+      "blocker": "HAY_STOCK_BASIS_UNRESOLVED",
+      "message": "10% in DPG"
+    }
+  ],
+  "normalized_stock_facts": [
+    {
+      "canonical_name": "Ambrox Super",
+      "physical_form": "crystals",
+      "fraction": 1.0,
+      "fraction_basis": "neat",
+      "carrier": "",
+      "execution_ready": true,
+      "execution_scope": "WEIGHED_SOLID_TRANSFER_ONLY"
+    },
+    {
+      "canonical_name": "Vetiveryl Acetate",
+      "physical_form": "as_supplied",
+      "fraction": 1.0,
+      "fraction_basis": "neat",
+      "carrier": "",
+      "execution_ready": true,
+      "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+    },
+    {
+      "canonical_name": "Norlimbanol Dextro",
+      "physical_form": "solution",
+      "fraction": 0.1,
+      "fraction_basis": "unspecified",
+      "carrier": "dpg",
+      "execution_ready": false,
+      "execution_scope": "STOCK_IDENTITY_FRACTION_AND_CARRIER_ONLY",
+      "execution_hold_reason": "FRACTION_BASIS_AND_HOMOGENEITY_NOT_CONFIRMED"
+    },
+    {
+      "canonical_name": "Hay Absolute",
+      "physical_form": "solution",
+      "fraction": 0.1,
+      "fraction_basis": "unspecified",
+      "carrier": "dpg",
+      "execution_ready": false,
+      "execution_scope": "STOCK_IDENTITY_FRACTION_AND_CARRIER_ONLY",
+      "execution_hold_reason": "FRACTION_BASIS_AND_HOMOGENEITY_NOT_CONFIRMED"
+    }
+  ],
+  "authority_limits": {
+    "ambrox_crystal_stock_confirmed": true,
+    "vetiveryl_neat_stock_confirmed": true,
+    "norlimbanol_carrier_confirmed": true,
+    "norlimbanol_fraction_basis_confirmed": false,
+    "hay_strength_and_carrier_confirmed": true,
+    "hay_fraction_basis_confirmed": false,
+    "stock_solution_density_measured": false,
+    "bottle_lot_receipts_supplied": false,
+    "homogeneity_confirmed_for_solutions": false,
+    "formula_rebase_authorized": false,
+    "physical_compounding_authorized": false,
+    "safety_or_release_asserted": false
+  }
+}

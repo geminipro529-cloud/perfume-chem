@@ -10,6 +10,8 @@ build/
 dist/
 .mypy_cache/
 .pytest_cache/
+# Named pytest basetemp directories used by focused acceptance runs.
+/.pytest-*/
 
 # Virtual envs
 venv/
@@ -31,10 +33,25 @@ venv/
 coverage.xml
 htmlcov/
 output.txt
-output/
+# Generated output remains ignored except for the governed Wakayama source
+# bundle required to reproduce the admitted 314-row capability manifest.
+/output/*
+!/output/optimizer_research_20260909/
+/output/optimizer_research_20260909/*
+!/output/optimizer_research_20260909/wakayama_2019/
+/output/optimizer_research_20260909/wakayama_2019/*
+!/output/optimizer_research_20260909/wakayama_2019/README.md
+!/output/optimizer_research_20260909/wakayama_2019/ie9b01225_si_001.pdf
+!/output/optimizer_research_20260909/wakayama_2019/wakayama-intensity.txt
 verification_runs/
 debug_*.log
 temporal_test_*.png
+# Process-isolated batch-run scratch; reviewed manifests live under docs/data.
+/.omo/evidence/batch_results/run-*/
+# Clean-source replay embeds disposable pytest projects beneath retained logs.
+/docs/verification/c10/logs/**/pytest-temp-project/
+# Focused backend verification roots created outside pytest's default cache.
+/backend/cp*-*/
 
 # LLM response cache (engine.llm_cache) — local cache + savings ledger.
 # Never commit: contains model responses and per-call usage logs.
@@ -95,6 +112,7 @@ id_ed25519
 tmp/
 *.tmp
 *.crdownload
+*.bak
 
 
 # Scratch backups (codex test-time isolation)

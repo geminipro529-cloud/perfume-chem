@@ -1,0 +1,41 @@
+{
+  "schema_version": "perfume_chem_r6_aimi_substitution_decision_v1",
+  "effective_date": "2026-09-26",
+  "source_kind": "DIRECT_USER_MESSAGE",
+  "context": "Checkpoint 4 successor selection for the depleted R5 Methyl Ionone Gamma Coeur row",
+  "message_fact": {
+    "request": "Use AIMI instead, get to checkpoint 4.",
+    "normalized_decision": "USE_OWNED_GIVAUDAN_AIMI_IN_A_SEPARATELY_IDENTIFIED_R5_SUCCESSOR"
+  },
+  "selected_stock": {
+    "label": "Givaudan AIMI",
+    "stock_id": "inventory:user-20260904:a45ff6250b56cec5bbad",
+    "fraction": 1.0,
+    "fraction_basis": "neat",
+    "carrier": "",
+    "availability_state": "OWNED",
+    "physical_stock_label_authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907"
+  },
+  "decision_scope": {
+    "parent_baseline": "lavande-ambre-profond-r5-design-comparator-20260923",
+    "source_row": 47,
+    "replaced_material": "Methyl Ionone Gamma Coeur",
+    "replacement_material": "Givaudan AIMI",
+    "successor_identity_required": true,
+    "exact_r5_build_claim_allowed": false,
+    "chemical_equivalence_asserted": false,
+    "sensory_equivalence_asserted": false,
+    "dose_equivalence_asserted": false
+  },
+  "implementation_boundary": {
+    "nominal_transfer_preservation_is_engineering_choice": true,
+    "specific_transfer_selected_by_user": false,
+    "optimizer_selection_authorized": false,
+    "formula_design_successor_authorized": true,
+    "physical_compounding_authorized": false,
+    "purchase_authorized": false,
+    "inventory_mutation_authorized": false,
+    "measurement_execution_authorized": false,
+    "safety_or_release_asserted": false
+  }
+}

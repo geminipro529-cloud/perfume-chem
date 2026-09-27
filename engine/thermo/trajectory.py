@@ -14,7 +14,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Mapping
 
-from .headspace import R_GAS, HeadspaceComponent, headspace_from_wt_pct
+from .headspace import R_GAS, HeadspaceComponent, _mw, headspace_from_wt_pct
 
 
 @dataclass(slots=True)
@@ -53,7 +53,7 @@ def evaporate(
         if v <= 0:
             continue
         mass_g = initial_mass_g * (v / total_w)
-        mw = mw_table.get(k) or 200.0
+        mw = _mw(k, mw_table)
         moles[k] = mass_g / mw  # g / (g/mol) = mol
 
     dt = duration_s / n_steps
@@ -63,7 +63,7 @@ def evaporate(
     for step in range(n_steps + 1):
         t = step * dt
         # Current wt% from current moles
-        cur_mass = {k: moles[k] * (mw_table.get(k) or 200.0) for k in moles if moles[k] > 0}
+        cur_mass = {k: moles[k] * _mw(k, mw_table) for k in moles if moles[k] > 0}
         if not cur_mass:
             break
         total_m = sum(cur_mass.values())

@@ -784,6 +784,10 @@ def _claim_type(value: ClaimType | str) -> ClaimType:
     aliases = {
         "FORMULA_IDENTITY": ClaimType.IDENTITY,
         "ANALYTICAL_IDENTITY": ClaimType.IDENTITY,
+        # A4 analytical quantity claims use the active-concentration
+        # dimensional contract, then remain additionally bound to the exact B5
+        # run assessment in the backend service.
+        "ANALYTICAL_QUANTITY": ClaimType.ACTIVE_CONCENTRATION,
         "RELEASE_REVIEW": ClaimType.RELEASE,
     }
     if isinstance(value, ClaimType):

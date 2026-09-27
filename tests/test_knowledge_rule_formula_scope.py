@@ -192,6 +192,25 @@ def test_footprint_deduplicates_rule_penalty_without_changing_score_contribution
     assert len(coverage["consumed_rules"][0]["consumed_bindings"]) == 2
 
 
+def test_consumption_footprint_is_invariant_to_formula_row_order(catalog):
+    catalog(
+        [
+            _rule("Hedione", "Iso E Super"),
+            _rule("Hedione", "Linalool"),
+            _rule("Iso E Super", "Linalool"),
+        ]
+    )
+
+    forward = models.analyze_formula_rule_coverage(
+        ["Hedione", "Iso E Super", "Linalool"]
+    )
+    reverse = models.analyze_formula_rule_coverage(
+        ["Linalool", "Iso E Super", "Hedione"]
+    )
+
+    assert forward == reverse
+
+
 def test_global_quality_contract_remains_available_without_formula_scope(catalog):
     catalog([_rule("Hedione", UNKNOWN), _rule("florals", "musks")])
     contract = literature_rules.build_knowledge_rule_quality_contract().as_dict()

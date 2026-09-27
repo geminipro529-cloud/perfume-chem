@@ -11,7 +11,7 @@ from app.services.lab_export import (
 
 
 @pytest.mark.asyncio
-async def test_every_supported_export_migrates_explicitly_to_current_v4(
+async def test_every_supported_export_migrates_explicitly_to_current_v5(
     db_session,
 ):
     exporter = LabExportService(db_session)
@@ -20,6 +20,7 @@ async def test_every_supported_export_migrates_explicitly_to_current_v4(
         await exporter.export_workspace(format_revision="lab-export-v2"),
         await exporter.export_workspace(format_revision="lab-export-v3"),
         await exporter.export_workspace(format_revision="lab-export-v4"),
+        await exporter.export_workspace(format_revision="lab-export-v5"),
     )
     for packet in packets:
         packet["extensions"] = {
@@ -32,6 +33,9 @@ async def test_every_supported_export_migrates_explicitly_to_current_v4(
         assert "lab_analytical_runs" in migrated["tables"]
         assert "lab_bottle_action_proposals" in migrated["tables"]
         assert "lab_bottle_action_commits" in migrated["tables"]
+        assert "lab_build_plan_physical_bindings" in migrated["tables"]
+        assert "lab_engine_jobs" in migrated["tables"]
+        assert "lab_external_validation_records" in migrated["tables"]
 
 
 def test_export_migration_rejects_future_version_and_unscoped_fields():
@@ -57,6 +61,7 @@ def test_supported_export_golden_fixtures_migrate_without_extension_loss():
         "lab-export-v2",
         "lab-export-v3",
         "lab-export-v4",
+        "lab-export-v5",
     }
     for revision, packet in fixtures.items():
         assert packet["format_revision"] == revision

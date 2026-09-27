@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, replace
+from dataclasses import fields as dataclass_fields
 from datetime import date, datetime
 from math import isfinite
 from typing import TYPE_CHECKING, Any
@@ -1258,6 +1259,31 @@ class LabScienceServiceMixin:
         *,
         parent_version_id: str | None = None,
     ) -> LabClaimAssessmentVersion:
+        # Exhaustive dispatch is deliberately performed before any lookup or
+        # persistence.  Historical rows remain readable, but new writes may
+        # use only the two reviewed contracts.
+        if command.schema_version not in {"a2-claim-v1", "a4-claim-v1"}:
+            raise ScienceAuthorityConflictError(
+                "CLAIM_SCHEMA_UNSUPPORTED",
+                f"Unsupported claim schema: {command.schema_version}.",
+            )
+        if command.schema_version == "a2-claim-v1" and command.decision not in {
+            "ADVISORY_ONLY",
+            "WITHHOLD_UNKNOWN",
+        }:
+            raise ScienceAuthorityConflictError(
+                "CLAIM_LEGACY_DECISION_EXCEEDS_CEILING",
+                "New A2 claim writes are limited to ADVISORY_ONLY or "
+                "WITHHOLD_UNKNOWN.",
+            )
+        if (
+            command.schema_version == "a4-claim-v1"
+            and command.policy_version != "a4-policy-v1"
+        ):
+            raise ScienceAuthorityConflictError(
+                "CLAIM_POLICY_UNSUPPORTED",
+                "A4 claims require the server-owned a4-policy-v1 path.",
+            )
         async with self._transaction():
             if not await self._science_subject_exists(
                 command.subject_type,
@@ -1270,6 +1296,26 @@ class LabScienceServiceMixin:
             for link in command.evidence_links:
                 await self._require_evidence(link.evidence_record_id)
             authority_payload = dict(command.authority)
+            permitted_wording = command.permitted_wording
+            forbidden_wording = command.forbidden_wording
+            if command.schema_version == "a2-claim-v1":
+                authority_payload = {
+                    "authority_scope": "LEGACY_ADVISORY_ONLY",
+                    "release_authority": False,
+                    "safety_authority": False,
+                    "compounding_authority": False,
+                    "caller_authority_discarded": True,
+                }
+                permitted_wording = (
+                    "Advisory evidence only; no release, safety, or "
+                    "compounding authority."
+                    if command.decision == "ADVISORY_ONLY"
+                    else None
+                )
+                forbidden_wording = (
+                    "Do not describe this legacy assessment as validated, "
+                    "safe, compliant, executable, or release-authorized."
+                )
             if command.schema_version == "a4-claim-v1":
                 try:
                     authority_input = ClaimAuthorityInput.from_mapping(
@@ -1319,15 +1365,19 @@ class LabScienceServiceMixin:
                         f"authority {maximum_decision.value}: "
                         + ", ".join(reason.value for reason in reasons),
                     )
+                authority_payload = {
+                    field.name: getattr(authority_input, field.name)
+                    for field in dataclass_fields(ClaimAuthorityInput)
+                    if field.name != "claim_type"
+                }
                 authority_payload.update(
                     {
                         "gate_schema": "a4-claim-authority-v1",
-                        "computed_maximum_decision": (
-                            maximum_decision.value
-                        ),
-                        "computed_reasons": [
-                            reason.value for reason in reasons
-                        ],
+                        "computed_maximum_decision": maximum_decision.value,
+                        "computed_reasons": [reason.value for reason in reasons],
+                        "release_authority": False,
+                        "safety_authority": False,
+                        "compounding_authority": False,
                     }
                 )
             if command.decision == "ALLOW_EXACT":
@@ -1375,13 +1425,23 @@ class LabScienceServiceMixin:
                         "ANALYTICAL_IDENTITY": "IDENTITY",
                         "ANALYTICAL_QUANTITY": "QUANTITY",
                     }.get(command.claim_type)
+                    # A4 is the server-owned claim policy.  B5 remains the
+                    # analytical assessment policy that produced the bound
+                    # run-level support; requiring both objects to share one
+                    # policy identifier would make the reviewed A4 exact path
+                    # impossible by construction.
+                    expected_b5_policy_version = (
+                        "b5-analytical-claim-v1"
+                        if command.schema_version == "a4-claim-v1"
+                        else command.policy_version
+                    )
                     if (
                         b5_assessment is None
                         or b5_assessment.analytical_run_id != command.subject_id
                         or b5_assessment.decision != "SUPPORTED_FOR_SCOPE"
                         or b5_assessment.claim_type != expected_b5_claim_type
                         or b5_assessment.policy_version
-                        != command.policy_version
+                        != expected_b5_policy_version
                         or b5_assessment.evidence_record_id
                         not in direct_evidence_ids
                     ):
@@ -1390,6 +1450,9 @@ class LabScienceServiceMixin:
                             "Exact analytical authority requires a matching "
                             "supported B5 assessment.",
                         )
+                    authority_payload[
+                        "analytical_authority_assessment_id"
+                    ] = str(assessment_id)
             parent = None
             if parent_version_id is None:
                 claim_id = str(uuid4())
@@ -1436,8 +1499,8 @@ class LabScienceServiceMixin:
                 "authority": authority_payload,
                 "missing_evidence": command.missing_evidence,
                 "conflicts": command.conflicts,
-                "permitted_wording": command.permitted_wording,
-                "forbidden_wording": command.forbidden_wording,
+                "permitted_wording": permitted_wording,
+                "forbidden_wording": forbidden_wording,
                 "human_review_state": command.human_review_state,
                 "reviewer_pseudonym": command.reviewer_pseudonym,
                 "reviewed_at": _dated(command.reviewed_at),
@@ -1458,8 +1521,8 @@ class LabScienceServiceMixin:
                     authority_json=authority_payload,
                     missing_evidence_json=list(command.missing_evidence),
                     conflicts_json=list(command.conflicts),
-                    permitted_wording=command.permitted_wording,
-                    forbidden_wording=command.forbidden_wording,
+                    permitted_wording=permitted_wording,
+                    forbidden_wording=forbidden_wording,
                     human_review_state=command.human_review_state,
                     reviewer_pseudonym=command.reviewer_pseudonym,
                     reviewed_at=command.reviewed_at,

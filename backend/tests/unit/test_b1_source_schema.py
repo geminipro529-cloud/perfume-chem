@@ -8,12 +8,16 @@ from app.models.lab_sources import (
     SOURCE_AUTHORITY_TABLE_NAMES,
     SOURCE_DERIVATION_RELATIONS,
     SOURCE_TYPES,
+    SOURCE_USE_ACTIONS,
+    SOURCE_USE_ARTIFACT_SCOPES,
+    SOURCE_USE_DECISIONS,
     WORKFLOW_SUBJECT_TYPES,
 )
 
 REQUIRED_SOURCE_TYPES = {
     "AUTHENTICATED_FORMULA_OR_DOSSIER",
     "PRIMARY_PEER_REVIEWED_PAPER",
+    "PRIMARY_RESEARCH_DATASET",
     "REVIEW_PAPER",
     "STANDARD",
     "REGULATION_OR_OFFICIAL_GUIDANCE",
@@ -46,6 +50,7 @@ REQUIRED_WORKFLOW_STATES = {
 B1_TABLES = {
     "lab_source_document_versions",
     "lab_source_derivation_links",
+    "lab_source_use_constraint_versions",
     "lab_source_extraction_records",
     "lab_evidence_workflow_events",
 }
@@ -71,6 +76,14 @@ def test_b1_tables_are_canonical_append_only_and_complete():
     assert set(WORKFLOW_SUBJECT_TYPES) == {
         "SOURCE_VERSION",
         "EXTRACTION_RECORD",
+    }
+    assert "EXTERNAL_TRANSMISSION" in SOURCE_USE_ACTIONS
+    assert "DATASET" in SOURCE_USE_ARTIFACT_SCOPES
+    assert set(SOURCE_USE_DECISIONS) == {
+        "DECLARED_ALLOWED",
+        "DECLARED_PROHIBITED",
+        "UNRESOLVED",
+        "CONFLICT",
     }
     assert SOURCE_AUTHORITY_TABLE_NAMES == B1_TABLES
     assert B1_TABLES <= LAB_TABLE_NAMES
@@ -102,6 +115,7 @@ def test_b1_tables_expose_the_required_source_and_extraction_fields():
         "default_locator_json",
         "artifact_sha256",
         "license_or_reuse_restriction",
+        "rights_json",
         "language",
         "original_unit",
         "original_terminology",
@@ -135,6 +149,38 @@ def test_b1_tables_expose_the_required_source_and_extraction_fields():
         "record_sha256",
     } <= extraction_columns
 
+    derivation_columns = set(
+        Base.metadata.tables["lab_source_derivation_links"].columns.keys()
+    )
+    assert "relation_scopes_json" in derivation_columns
+
+    source_use_columns = set(
+        Base.metadata.tables[
+            "lab_source_use_constraint_versions"
+        ].columns.keys()
+    )
+    assert {
+        "constraint_id",
+        "version_number",
+        "subject_source_version_id",
+        "terms_source_version_id",
+        "artifact_scope",
+        "artifact_locator_json",
+        "channel",
+        "intended_action",
+        "purpose_context",
+        "decision",
+        "constraints_json",
+        "terms_effective_date",
+        "terms_retrieval_date",
+        "reviewer_pseudonym",
+        "review_state",
+        "legal_review_required",
+        "supersedes_version_id",
+        "parent_record_sha256",
+        "record_sha256",
+    } <= source_use_columns
+
 
 def test_b1_tables_declare_named_checks_uniqueness_and_foreign_keys():
     expected = {
@@ -154,6 +200,18 @@ def test_b1_tables_declare_named_checks_uniqueness_and_foreign_keys():
             "ck_lab_source_derivation_relation",
             "ck_lab_source_derivation_not_self",
             "ck_lab_source_derivation_record_sha256",
+        },
+        "lab_source_use_constraint_versions": {
+            "uq_lab_source_use_constraint_version",
+            "uq_lab_source_use_constraint_record_sha256",
+            "ck_lab_source_use_constraint_version_positive",
+            "ck_lab_source_use_artifact_scope",
+            "ck_lab_source_use_action",
+            "ck_lab_source_use_decision",
+            "ck_lab_source_use_review_state",
+            "ck_lab_source_use_reviewed_by",
+            "ck_lab_source_use_record_sha256",
+            "ck_lab_source_use_version_chain",
         },
         "lab_source_extraction_records": {
             "uq_lab_source_extraction_record_sha256",
@@ -199,3 +257,13 @@ def test_b1_tables_declare_named_checks_uniqueness_and_foreign_keys():
         ForeignKeyConstraint,
     )
     assert "fk_lab_source_extraction_source" in extraction_fks
+
+    source_use_fks = _named_constraints(
+        "lab_source_use_constraint_versions",
+        ForeignKeyConstraint,
+    )
+    assert {
+        "fk_lab_source_use_subject_source",
+        "fk_lab_source_use_terms_source",
+        "fk_lab_source_use_supersedes",
+    } <= source_use_fks

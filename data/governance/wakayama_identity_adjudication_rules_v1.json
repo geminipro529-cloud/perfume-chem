@@ -1,0 +1,23 @@
+{
+  "schema_version": "wakayama-identity-adjudication-rules-v1",
+  "source_manifest_id": "wakayama-2019-governed-curves-20260923",
+  "automatic_exact_binding_rule": "VALID_CAS_AND_EXACT_NORMALIZED_LOCAL_NAME_OR_ALIAS",
+  "automatic_stock_binding_authorized": false,
+  "whole_natural_transfer_authorized": false,
+  "commercial_product_transfer_authorized": false,
+  "manual_exact_bindings": [],
+  "manual_conflicts": [
+    {
+      "source_cas": "140-88-5",
+      "source_name": "2,6-nonadienal",
+      "state": "CAS_NAME_CONFLICT",
+      "reason": "The published name and CAS identify different chemicals; automatic mapping is forbidden."
+    }
+  ],
+  "action_authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

@@ -16,6 +16,7 @@ import json
 import re
 import sys
 from dataclasses import dataclass, replace
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -346,7 +347,7 @@ def _note_from_resolved(resolved) -> str:
     return str(getattr(profile, "note", "heart") or "heart").lower()
 
 
-def build_knowledge_rule_quality_contract(
+def _build_knowledge_rule_quality_contract_uncached(
     *, formula_material_names: Iterable[str] | None = None,
 ) -> KnowledgeRuleQualityContract:
     """Audit catalog health, or the actual confidence scorer's consumed rules.
@@ -574,6 +575,46 @@ def build_knowledge_rule_quality_contract(
         generic_material_refs=generic_material_refs,
         warnings=tuple(warnings),
         details=details,
+    )
+
+
+def _structured_rule_source_fingerprint() -> tuple[tuple[str, str, int, int], ...]:
+    """Bind catalogue reuse to the exact local files visible to this process."""
+
+    records: list[tuple[str, str, int, int]] = []
+    for label, path in sorted(STRUCTURED_RULE_FILES.items()):
+        try:
+            stat = path.stat()
+        except OSError:
+            records.append((label, str(path.resolve()), -1, -1))
+        else:
+            records.append(
+                (label, str(path.resolve()), int(stat.st_mtime_ns), int(stat.st_size))
+            )
+    return tuple(records)
+
+
+@lru_cache(maxsize=8)
+def _cached_catalogue_rule_quality_contract(
+    source_fingerprint: tuple[tuple[str, str, int, int], ...],
+) -> KnowledgeRuleQualityContract:
+    # ``source_fingerprint`` is deliberately consumed by the cache key. The
+    # uncached builder still performs all existing parsing and validation.
+    del source_fingerprint
+    return _build_knowledge_rule_quality_contract_uncached()
+
+
+def build_knowledge_rule_quality_contract(
+    *, formula_material_names: Iterable[str] | None = None,
+) -> KnowledgeRuleQualityContract:
+    """Audit rule quality while reusing only source-bound catalogue results."""
+
+    if formula_material_names is None:
+        return _cached_catalogue_rule_quality_contract(
+            _structured_rule_source_fingerprint()
+        )
+    return _build_knowledge_rule_quality_contract_uncached(
+        formula_material_names=formula_material_names
     )
 
 

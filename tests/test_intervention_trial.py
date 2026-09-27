@@ -36,7 +36,8 @@ def test_trial_plan_uses_rounded_mass_balance_ppm_odt_and_oav():
     assert result.odt_ethanol_ppm == 0.01
     assert result.oav == pytest.approx(9990.00999)
     assert result.safety_status.value == "unverified"
-    assert result.evidence["odt_oav"].classification.value == "LITERATURE_DERIVED"
+    assert result.evidence["odt_oav"].classification.value == "HEURISTIC"
+    assert "ODT verification=PEER_EST" in result.evidence["odt_oav"].basis
     assert result.evaluation_protocol.design == "paired_directional_comparison"
     assert result.evaluation_protocol.attribute == "iris clarity"
     assert result.evaluation_protocol.times_seconds[-1] == 14400

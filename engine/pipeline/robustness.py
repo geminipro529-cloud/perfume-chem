@@ -3,11 +3,20 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Mapping
+from typing import Mapping, Sequence
 
-from engine.ifra_safety import IFRA_CAT4_LIMITS, score_ifra_compliance
+from engine.ifra_safety import BANNED_MATERIALS, IFRA_CAT4_LIMITS
 from engine.optimizer.perfumer_logic import evaluate_perfumer_logic
-from engine.pipeline.simulator import simulate_formula
+from engine.pipeline.formula_state import FormulaState, build_formula_state
+from engine.pipeline.simulator import (
+    DEFAULT_WINDOWS,
+    REMAINING_QUANTITY_BASIS,
+    TEMPORAL_AUTHORITY,
+    TEMPORAL_MODEL,
+    SimulationFrame,
+    _remaining_raw_ul,
+    simulate_formula,
+)
 
 DRIFT_WARN_THRESHOLD = 0.25
 
@@ -56,7 +65,13 @@ class RobustnessReport:
         }
 
 
-def audit_formula_robustness(formula: Mapping, config) -> RobustnessReport:
+def audit_formula_robustness(
+    formula: Mapping,
+    config,
+    *,
+    gate_state: FormulaState | None = None,
+    gate_simulation: Sequence[SimulationFrame] | None = None,
+) -> RobustnessReport:
     """Perturb every row up/down and detect fragile safety, brief, or OAV behavior.
 
     This audit intentionally does not call `gate_formula`, so it can be embedded
@@ -87,11 +102,35 @@ def audit_formula_robustness(formula: Mapping, config) -> RobustnessReport:
         str(material): float(value or 1.0)
         for material, value in (formula.get("dilutions", {}) or {}).items()
     }
-    base_top_envelope, base_top_leader = _top_envelope_and_leader(
-        ingredients_ul,
-        dilutions,
-        config,
-    )
+    try:
+        reusable_baseline = _bound_gate_baseline(
+            ingredients_ul,
+            dilutions,
+            config,
+            gate_state=gate_state,
+            gate_simulation=gate_simulation,
+        )
+    except Exception:
+        # Optional reuse may never turn malformed handoff data into a weaker or
+        # unavailable robustness gate. Re-enter the established fresh path;
+        # errors from that authoritative calculation still propagate normally.
+        reusable_baseline = None
+    if reusable_baseline is None:
+        base_state = build_formula_state(
+            ingredients_ul,
+            dilutions,
+            batch_volume_ml=float(config.batch_volume_ml),
+            temperature_K=float(config.temperature_K),
+        )
+        base_top_envelope, base_top_leader = _top_envelope_and_leader(
+            ingredients_ul,
+            dilutions,
+            config,
+            initial_state=base_state,
+        )
+    else:
+        base_state, top_frame = reusable_baseline
+        base_top_envelope, base_top_leader = _envelope_and_leader(top_frame.state)
     perturbations: list[PerturbationResult] = []
     skipped = 0
 
@@ -102,6 +141,10 @@ def audit_formula_robustness(formula: Mapping, config) -> RobustnessReport:
             if perturbed is None:
                 skipped += 1
                 continue
+            perturbed_state = FormulaState.from_base(
+                base_state,
+                new_raw_ul=perturbed,
+            )
             perturbations.append(
                 _evaluate_perturbation(
                     formula,
@@ -113,6 +156,7 @@ def audit_formula_robustness(formula: Mapping, config) -> RobustnessReport:
                     base_top_envelope,
                     base_top_leader,
                     config,
+                    initial_state=perturbed_state,
                 )
             )
 
@@ -165,16 +209,16 @@ def _evaluate_perturbation(
     base_top_envelope: Mapping[str, float],
     base_top_leader: str | None,
     config,
+    *,
+    initial_state: FormulaState,
 ) -> PerturbationResult:
     top_envelope, top_leader = _top_envelope_and_leader(
-        ingredients_ul, dilutions, config
+        ingredients_ul,
+        dilutions,
+        config,
+        initial_state=initial_state,
     )
     drift = _envelope_drift(base_top_envelope, top_envelope)
-    safety = score_ifra_compliance(
-        dict(ingredients_ul),
-        dict(dilutions),
-        total_volume_ml=float(config.batch_volume_ml),
-    )
     formula = _formula_for_logic(original_formula, ingredients_ul, dilutions)
     logic = evaluate_perfumer_logic(
         formula,
@@ -186,9 +230,11 @@ def _evaluate_perturbation(
     )
 
     headroom_violations = _headroom_violations(ingredients_ul, dilutions, config)
-    safety_failed = bool(
-        safety.ifra_violations or safety.banned_flags or headroom_violations
-    )
+    safety_failed = _has_ifra_or_banned_failure(
+        ingredients_ul,
+        dilutions,
+        config,
+    ) or bool(headroom_violations)
     brief_failed = logic.status == "FAIL"
     leader_changed = bool(
         base_top_leader and top_leader and base_top_leader != top_leader
@@ -226,6 +272,94 @@ def _evaluate_perturbation(
     )
 
 
+def _bound_gate_baseline(
+    ingredients_ul: Mapping[str, float],
+    dilutions: Mapping[str, float],
+    config,
+    *,
+    gate_state: FormulaState | None,
+    gate_simulation: Sequence[SimulationFrame] | None,
+) -> tuple[FormulaState, SimulationFrame] | None:
+    """Return the gate's baseline only when every reusable input binds exactly.
+
+    The gate state and temporal frames are an optimization, never an alternate
+    source of truth. Any missing or mismatched binding falls back to the
+    established fresh robustness calculation in ``audit_formula_robustness``.
+    """
+
+    if not isinstance(gate_state, FormulaState) or gate_simulation is None:
+        return None
+
+    expected_doses = {
+        str(material): float(amount or 0.0)
+        for material, amount in ingredients_ul.items()
+        if float(amount or 0.0) > 0.0
+    }
+    actual_doses = {material.name: material.raw_ul for material in gate_state.materials}
+    if actual_doses != expected_doses:
+        return None
+
+    expected_dilutions = {
+        material: float(dilutions.get(material, 1.0) or 1.0)
+        for material in expected_doses
+    }
+    actual_dilutions = {
+        material.name: material.dilution for material in gate_state.materials
+    }
+    if actual_dilutions != expected_dilutions:
+        return None
+
+    expected_matrix = tuple(
+        sorted(
+            (
+                (str(name), float(value))
+                for name, value in dict(
+                    getattr(config, "matrix_components_moles", ()) or ()
+                ).items()
+                if float(value) >= 0.0
+            ),
+            key=lambda row: row[0].casefold(),
+        )
+    )
+    if (
+        gate_state.batch_volume_ml != float(config.batch_volume_ml)
+        or gate_state.temperature_K != float(config.temperature_K)
+        or gate_state.context != "skin"
+        or gate_state.matrix_components_moles != expected_matrix
+        or gate_state.matrix_mass_g
+        != float(getattr(config, "matrix_mass_g", 0.0) or 0.0)
+        or gate_state.matrix_source
+        != str(getattr(config, "matrix_source", "omitted") or "omitted")
+    ):
+        return None
+
+    frames = tuple(gate_simulation)
+    if not all(isinstance(frame, SimulationFrame) for frame in frames):
+        return None
+    actual_windows = tuple((frame.label, frame.t_seconds) for frame in frames)
+    if actual_windows != DEFAULT_WINDOWS:
+        return None
+    if any(
+        frame.temporal_model != TEMPORAL_MODEL
+        or frame.temporal_authority != TEMPORAL_AUTHORITY
+        or frame.remaining_quantity_basis != REMAINING_QUANTITY_BASIS
+        for frame in frames
+    ):
+        return None
+    if frames[0].state is not gate_state:
+        return None
+
+    top_frame = frames[1]
+    expected_top_raw_ul = _remaining_raw_ul(gate_state, top_frame.t_seconds)
+    expected_top_state = FormulaState.from_base(
+        gate_state,
+        new_raw_ul=expected_top_raw_ul,
+    )
+    if top_frame.state != expected_top_state:
+        return None
+    return gate_state, top_frame
+
+
 def _headroom_violations(
     ingredients_ul: Mapping[str, float],
     dilutions: Mapping[str, float],
@@ -257,10 +391,43 @@ def _headroom_violations(
     return violations
 
 
+def _has_ifra_or_banned_failure(
+    ingredients_ul: Mapping[str, float],
+    dilutions: Mapping[str, float],
+    config,
+) -> bool:
+    """Evaluate only the two safety fields consumed by this perturbation gate.
+
+    The former call to ``score_ifra_compliance`` also resolved physicochemical
+    data, estimated skin partitioning, assembled allergen declarations, and
+    scored unrelated diagnostic fields for every row of every perturbation.
+    Robustness used none of those outputs.  This exact narrow check preserves
+    the existing IFRA-limit and banned-name semantics while keeping the full
+    safety report on the ordinary formula gate where it belongs.
+    """
+
+    batch_volume_ml = float(getattr(config, "batch_volume_ml", 30.0) or 30.0)
+    for material, amount_ul in ingredients_ul.items():
+        if material in BANNED_MATERIALS:
+            return True
+        limit = IFRA_CAT4_LIMITS.get(material)
+        if limit is None:
+            continue
+        active_ul = float(amount_ul or 0.0) * float(
+            dilutions.get(material, 1.0) or 1.0
+        )
+        pct_in_product = (active_ul / 1000.0) / batch_volume_ml * 100.0
+        if pct_in_product > limit:
+            return True
+    return False
+
+
 def _top_envelope_and_leader(
     ingredients_ul: Mapping[str, float],
     dilutions: Mapping[str, float],
     config,
+    *,
+    initial_state: FormulaState | None = None,
 ) -> tuple[dict[str, float], str | None]:
     frames = simulate_formula(
         ingredients_ul,
@@ -268,8 +435,14 @@ def _top_envelope_and_leader(
         batch_volume_ml=float(config.batch_volume_ml),
         temperature_K=float(config.temperature_K),
         windows=(("top", 300.0),),
+        initial_state=initial_state,
     )
-    state = frames[0].state
+    return _envelope_and_leader(frames[0].state)
+
+
+def _envelope_and_leader(
+    state: FormulaState,
+) -> tuple[dict[str, float], str | None]:
     envelope: dict[str, float] = {}
     leader = None
     leader_oav = -1.0

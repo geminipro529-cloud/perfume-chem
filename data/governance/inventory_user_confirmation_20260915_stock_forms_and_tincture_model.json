@@ -1,0 +1,143 @@
+{
+  "schema_version": "perfume_chem_direct_stock_forms_and_tincture_model_v1",
+  "effective_date": "2026-09-15",
+  "recorded_date": "2026-09-15",
+  "source_kind": "DIRECT_USER_MESSAGE",
+  "verbatim_user_message": "Romandolide neat Liffarome in DEP\nmethyl laitone 20% v/v in wthanol evernyl 10% in DPG, 2-acetyl-pyrazine in DPG, skatole in DPG, no maple lactone, castorerum w/w, Siam benzoin w/w, Peru balsam DEP, methyl pamplemousse etOH, gamma nonalactone etOH, \n\nThe percentage that it was built is to be used to construct the tincture properties, the rest was to be dripped off in a funnel so all extraction was complete and made the alcohol contain maximum amount of dissolvable resin.",
+  "normalization_notes": {
+    "wthanol": "ethanol",
+    "castorerum": "Castoreum Synthetic",
+    "etOH": "ethanol",
+    "stock_percentages_not_repeated_in_message": "Preserve the exact current percentage already bound to the named stock; this receipt changes only the facts explicitly stated by the user."
+  },
+  "stock_clarifications": [
+    {
+      "canonical_name": "Romandolide",
+      "fraction": 1.0,
+      "fraction_basis": "neat",
+      "carrier": ""
+    },
+    {
+      "canonical_name": "Liffarome",
+      "fraction": 0.1,
+      "fraction_basis": "mass_fraction",
+      "carrier": "dep",
+      "fraction_and_basis_authority": "PRESERVED_FROM_CURRENT_USER_AUTHORITY"
+    },
+    {
+      "canonical_name": "Methyl Laitone",
+      "fraction": 0.2,
+      "fraction_basis": "volume_fraction",
+      "carrier": "ethanol"
+    },
+    {
+      "canonical_name": "Evernyl",
+      "fraction": 0.1,
+      "fraction_basis": "unspecified",
+      "carrier": "dpg",
+      "execution_ready": false,
+      "execution_hold_reason": "FRACTION_BASIS_AND_HOMOGENEITY_NOT_CONFIRMED"
+    },
+    {
+      "canonical_name": "2-Acetyl Pyrazine",
+      "fraction": 0.01,
+      "fraction_basis": "unspecified",
+      "carrier": "dpg",
+      "execution_ready": false,
+      "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+    },
+    {
+      "canonical_name": "Skatole",
+      "fraction": 0.01,
+      "fraction_basis": "unspecified",
+      "carrier": "dpg",
+      "execution_ready": false,
+      "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+    },
+    {
+      "canonical_name": "Maple Lactone",
+      "state": "NOT_OWNED"
+    },
+    {
+      "canonical_name": "Castoreum Synthetic",
+      "fraction": 0.1,
+      "fraction_basis": "mass_fraction",
+      "carrier": "dep"
+    },
+    {
+      "canonical_name": "Siam Benzoin",
+      "fraction": 0.5,
+      "fraction_basis": "mass_fraction",
+      "carrier": "dpg"
+    },
+    {
+      "canonical_name": "Peru Balsam Resinoid",
+      "fraction": 0.5,
+      "fraction_basis": "mass_fraction",
+      "carrier": "dep",
+      "fraction_and_basis_authority": "PRESERVED_FROM_CURRENT_INVENTORY_MASTER_V5"
+    },
+    {
+      "canonical_name": "Methyl Pamplemousse",
+      "fraction": 0.1,
+      "fraction_basis": "unspecified",
+      "carrier": "ethanol",
+      "execution_ready": false,
+      "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+    },
+    {
+      "canonical_name": "Gamma Nonalactone",
+      "fraction": 0.1,
+      "fraction_basis": "unspecified",
+      "carrier": "ethanol",
+      "execution_ready": false,
+      "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+    }
+  ],
+  "tincture_property_model": {
+    "permission": "USE_LISTED_STARTING_CHARGE_PERCENTAGE_AS_NOMINAL_PROPERTY_MODEL_FRACTION",
+    "process_statement": "User states extraction was complete and the residual material was allowed to drip in a funnel, leaving the alcohol at the maximum amount of dissolvable resin for that preparation.",
+    "stocks": [
+      {
+        "canonical_name": "Turkish Storax Tincture",
+        "nominal_fraction": 0.2,
+        "basis": "mass_fraction_starting_charge",
+        "carrier": "ethanol"
+      },
+      {
+        "canonical_name": "Vietnamese Benzoin Tincture",
+        "nominal_fraction": 0.4,
+        "basis": "mass_fraction_starting_charge",
+        "carrier": "ethanol"
+      },
+      {
+        "canonical_name": "Kenyan Myrrh Ethanol Tincture",
+        "nominal_fraction": 0.2,
+        "basis": "mass_fraction_starting_charge",
+        "carrier": "ethanol"
+      },
+      {
+        "canonical_name": "Oman Frankincense Ethanol Tincture",
+        "nominal_fraction": 0.33,
+        "basis": "mass_fraction_starting_charge",
+        "carrier": "ethanol"
+      }
+    ],
+    "nominal_property_model_ready": true,
+    "final_dissolved_solids_fraction_measured": false,
+    "quantitative_active_mass_ready": false
+  },
+  "authority_limits": {
+    "physical_stock_forms_confirmed_as_listed": true,
+    "maple_lactone_current_ownership": false,
+    "unstated_fraction_bases_inferred": false,
+    "unstated_stock_density_inferred": false,
+    "tincture_nominal_property_model_authorized": true,
+    "tincture_final_dissolved_fraction_assayed": false,
+    "tincture_exact_active_mass_asserted": false,
+    "formula_rebase_authorized": false,
+    "physical_compounding_performed": false,
+    "safety_or_release_asserted": false,
+    "sensory_equivalence_or_liking_asserted": false
+  }
+}

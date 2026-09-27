@@ -29,6 +29,10 @@ class Settings(BaseSettings):
     DB_MAX_OVERFLOW: int = 10
     DB_ECHO: bool = False
 
+    # Durable engine worker (database leases; no Redis dependency)
+    ENGINE_JOB_WORKER_CONCURRENCY: int = 4
+    ENGINE_JOB_WORKER_POLL_SECONDS: float = 0.5
+
     # Redis Cache
     REDIS_URL: Optional[str] = None
     CACHE_TTL: int = 3600  # 1 hour default
@@ -139,6 +143,20 @@ class Settings(BaseSettings):
                 resolved = prefix + path.resolve().as_posix()
                 return resolved + (separator + query if separator else "")
         return text
+
+    @field_validator("ENGINE_JOB_WORKER_CONCURRENCY")
+    @classmethod
+    def validate_engine_worker_concurrency(cls, value: int) -> int:
+        if not 1 <= value <= 8:
+            raise ValueError("ENGINE_JOB_WORKER_CONCURRENCY must be from 1 to 8")
+        return value
+
+    @field_validator("ENGINE_JOB_WORKER_POLL_SECONDS")
+    @classmethod
+    def validate_engine_worker_poll_seconds(cls, value: float) -> float:
+        if not 0.05 <= value <= 60:
+            raise ValueError("ENGINE_JOB_WORKER_POLL_SECONDS must be 0.05 to 60")
+        return value
 
     class Config:
         env_file = ".env"

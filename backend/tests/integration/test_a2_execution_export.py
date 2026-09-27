@@ -58,7 +58,7 @@ async def test_v4_export_is_complete_deterministic_and_idempotent(db_session):
         proposal.id,
         BottleActionMeasurementInput(
             quantity_kind="mass",
-            value=0.96,
+            value=1.0,
             unit="g",
             standard_uncertainty=0.002,
             method="gravimetric",

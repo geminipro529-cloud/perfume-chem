@@ -184,6 +184,7 @@ class LabStockSolution(LabRecord):
     supplier: Mapped[str | None] = mapped_column(String(255))
     lot_number: Mapped[str | None] = mapped_column(String(100))
     active_fraction: Mapped[float] = mapped_column(Float, nullable=False)
+    active_fraction_decimal_text: Mapped[str | None] = mapped_column(String(128))
     fraction_basis: Mapped[str] = mapped_column(String(80), nullable=False)
     density_g_ml: Mapped[float | None] = mapped_column(Float)
     solvent_name: Mapped[str | None] = mapped_column(String(255))
@@ -237,6 +238,7 @@ class LabFormulaComponent(LabRecord):
     )
     position: Mapped[int] = mapped_column(Integer, nullable=False)
     requested_mass_g: Mapped[float] = mapped_column(Float, nullable=False)
+    requested_mass_g_decimal_text: Mapped[str | None] = mapped_column(String(128))
     requested_volume_ul: Mapped[float | None] = mapped_column(Float)
     role: Mapped[str | None] = mapped_column(String(40))
     unit: Mapped[str | None] = mapped_column(String(20))
@@ -551,11 +553,46 @@ from app.models.lab_claims import (  # noqa: E402,F401
     LabClaimAuthoritySupportLink,
     LabClaimAuthorityVersion,
 )
+from app.models.lab_cp2_physical import (  # noqa: E402,F401
+    CP2_PHYSICAL_TABLE_NAMES,
+    PHYSICAL_LINEAGE_TABLE_NAMES,
+    LabBuildPlanLinePhysicalBinding,
+    LabBuildPlanPhysicalBinding,
+    LabCompoundingCommandReceipt,
+    LabCompoundingRun,
+    LabStockLotPhysicalReceipt,
+    LabStockPreparationReceipt,
+)
+from app.models.lab_engine_jobs import (  # noqa: E402,F401
+    CP2_ENGINE_JOB_TABLE_NAMES,
+    LabEngineJob,
+    LabEngineJobEvent,
+    LabEngineJobResult,
+)
 from app.models.lab_execution import (  # noqa: E402,F401
     EXECUTION_TABLE_NAMES,
     LabBottleActionCommit,
     LabBottleActionConfirmation,
     LabBottleActionProposal,
+)
+from app.models.lab_external_studies import (  # noqa: E402,F401
+    EXTERNAL_STUDY_TABLE_NAMES,
+    LabExternalCondition,
+    LabExternalExperimentalUnit,
+    LabExternalIdentityCrosswalk,
+    LabExternalObservation,
+    LabExternalStimulusComponent,
+    LabExternalStimulusVersion,
+    LabExternalStudyConflict,
+    LabExternalStudyVersion,
+)
+from app.models.lab_external_validation import (  # noqa: E402,F401
+    EXTERNAL_VALIDATION_TABLE_NAMES,
+    LabExternalValidationRecord,
+)
+from app.models.lab_instrumental_observations import (  # noqa: E402,F401
+    INSTRUMENTAL_OBSERVATION_TABLE_NAMES,
+    LabInstrumentalObservation,
 )
 from app.models.lab_planning import (  # noqa: E402,F401
     PLANNING_TABLE_NAMES,
@@ -617,6 +654,7 @@ from app.models.lab_sources import (  # noqa: E402,F401
     LabSourceDerivationLink,
     LabSourceDocumentVersion,
     LabSourceExtractionRecord,
+    LabSourceUseConstraintVersion,
 )
 from app.models.lab_thresholds import (  # noqa: E402,F401
     THRESHOLD_AUTHORITY_TABLE_NAMES,
@@ -653,6 +691,11 @@ APPEND_ONLY_TABLES = {
     *BACKFILL_TABLE_NAMES,
     *CLAIM_AUTHORITY_TABLE_NAMES,
     *EXECUTION_TABLE_NAMES,
+    *EXTERNAL_STUDY_TABLE_NAMES,
+    *EXTERNAL_VALIDATION_TABLE_NAMES,
+    *INSTRUMENTAL_OBSERVATION_TABLE_NAMES,
+    *PHYSICAL_LINEAGE_TABLE_NAMES,
+    *CP2_ENGINE_JOB_TABLE_NAMES,
 }
 
 

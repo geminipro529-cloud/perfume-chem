@@ -9,7 +9,6 @@ missing source hash). No domain-model mutation; runs read-only.
 import json
 import os
 import sys
-import tempfile
 
 import pytest
 
@@ -117,8 +116,8 @@ def make_candidate(overrides=None):
     return cand
 
 
-def run(cand, expected_total=None, out_dir=None, alias_map=None):
-    d = str(out_dir) if out_dir is not None else tempfile.mkdtemp(prefix="ingest_test_")
+def run(cand, expected_total=None, *, out_dir, alias_map=None):
+    d = str(out_dir)
     res = ingest_external_candidate(
         cand,
         expected_total=expected_total,
@@ -130,8 +129,8 @@ def run(cand, expected_total=None, out_dir=None, alias_map=None):
     return res, written, d
 
 
-def test_happy_path_accepted():
-    res, written, _ = run(make_candidate(), expected_total=1000.0)
+def test_happy_path_accepted(tmp_path):
+    res, written, _ = run(make_candidate(), expected_total=1000.0, out_dir=tmp_path)
     assert res.accepted is True
     for name in [
         "validated_candidate.json",
@@ -167,17 +166,17 @@ def test_deterministic_hash_replay():
     assert deterministic_hash({**cand2, "schema_version": "external_candidate_v1"}) != h1
 
 
-def test_reject_bad_totals():
-    res, written, _ = run(make_candidate(), expected_total=999.0)
+def test_reject_bad_totals(tmp_path):
+    res, written, _ = run(make_candidate(), expected_total=999.0, out_dir=tmp_path)
     assert res.accepted is False
     assert any(r.code == "INVALID_FORMULA_TOTALS" for r in res.rejections)
     assert "rejection.json" in written
 
 
-def test_reject_unresolved_stock():
+def test_reject_unresolved_stock(tmp_path):
     cand = make_candidate()
     cand["formula_rows"][0]["exact_supplied_stock"] = "jasmine"
-    res, written, _ = run(cand)
+    res, written, _ = run(cand, out_dir=tmp_path)
     assert res.accepted is False
     codes = {r.code for r in res.rejections}
     assert "UNRESOLVED_EXACT_STOCK" in codes
@@ -199,47 +198,47 @@ def test_reject_ambiguous_alias(tmp_path):
     assert any(r.code == "AMBIGUOUS_ALIAS" for r in res.rejections)
 
 
-def test_reject_invented_active_fraction():
+def test_reject_invented_active_fraction(tmp_path):
     cand = make_candidate()
     cand["formula_rows"][0]["active_fraction_or_PRODUCT_BASIS"] = 1.5
-    res, _, _ = run(cand, expected_total=1000.0)
+    res, _, _ = run(cand, expected_total=1000.0, out_dir=tmp_path)
     assert res.accepted is False
     assert any(r.code == "INVENTED_ACTIVE_FRACTION" for r in res.rejections)
 
 
-def test_reject_formula_empirical_conflation():
+def test_reject_formula_empirical_conflation(tmp_path):
     cand = make_candidate()
     cand["empirical_state"] = cand["formula_state"]
-    res, _, _ = run(cand)
+    res, _, _ = run(cand, out_dir=tmp_path)
     assert res.accepted is False
     assert any(r.code == "FORMULA_EMPIRICAL_CONFLATED" for r in res.rejections)
 
 
-def test_reject_note_name_to_material():
+def test_reject_note_name_to_material(tmp_path):
     cand = make_candidate()
     row = dict(cand["formula_rows"][0])
     row["canonical_material_name"] = "jasmine"
     row["raw_material_name"] = "jasmine"
     row["exact_supplied_stock"] = "jasmine"
     cand["formula_rows"] = cand["formula_rows"] + [row]
-    res, _, _ = run(cand, expected_total=1000.0)
+    res, _, _ = run(cand, expected_total=1000.0, out_dir=tmp_path)
     assert res.accepted is False
     assert any(r.code == "NOTE_NAME_TO_MATERIAL" for r in res.rejections)
 
 
-def test_reject_missing_inventory_snapshot():
+def test_reject_missing_inventory_snapshot(tmp_path):
     cand = make_candidate()
     cand["inventory_snapshot_id"] = None
     cand["inventory_snapshot_hash"] = None
-    res, _, _ = run(cand)
+    res, _, _ = run(cand, out_dir=tmp_path)
     assert res.accepted is False
     assert any(r.code == "ABSENT_INVENTORY_SNAPSHOT" for r in res.rejections)
 
 
-def test_reject_missing_source_hash():
+def test_reject_missing_source_hash(tmp_path):
     cand = make_candidate()
     cand["source_artifact_hashes"] = []
-    res, _, _ = run(cand)
+    res, _, _ = run(cand, out_dir=tmp_path)
     assert res.accepted is False
     assert any(r.code == "MISSING_SOURCE_ARTIFACT_HASH" for r in res.rejections)
 

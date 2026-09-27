@@ -5,6 +5,16 @@ from dataclasses import replace
 import pytest
 from sqlalchemy import func, select
 
+from app.models.lab_external_studies import (
+    LabExternalCondition,
+    LabExternalExperimentalUnit,
+    LabExternalIdentityCrosswalk,
+    LabExternalObservation,
+    LabExternalStimulusComponent,
+    LabExternalStimulusVersion,
+    LabExternalStudyConflict,
+    LabExternalStudyVersion,
+)
 from app.models.lab_properties import LabPropertyObservation
 from app.models.lab_sources import (
     LabSourceDocumentVersion,
@@ -17,6 +27,7 @@ from tests.unit.test_b1_source_service import (
     _source_input,
 )
 from tests.unit.test_b2_property_service import _observation_input
+from tests.unit.test_external_study_service import _valid_command
 
 
 def _section(payload: dict, key: str) -> dict:
@@ -55,7 +66,7 @@ async def test_b9_empty_api_and_markdown_have_closed_nonpromoting_contract(clien
     assert exploratory.status_code == 200
     assert invalid.status_code == 422
     strict_payload = strict.json()
-    assert strict_payload["schema_version"] == "lab-science-authority-report-v1"
+    assert strict_payload["schema_version"] == "lab-science-authority-report-v2"
     assert strict_payload["view"] == "strict"
     assert strict_payload["authority_state"] == "READ_ONLY_NON_PROMOTING"
     assert strict_payload["evidence_classes"] == [
@@ -68,9 +79,9 @@ async def test_b9_empty_api_and_markdown_have_closed_nonpromoting_contract(clien
         "SPECULATIVE",
         "UNKNOWN",
     ]
-    assert len(strict_payload["sections"]) == 20
+    assert len(strict_payload["sections"]) == 22
     assert strict_payload["totals"] == {
-        "section_count": 20,
+        "section_count": 22,
         "total_records": 0,
         "included_records": 0,
         "withheld_records": 0,
@@ -251,4 +262,87 @@ async def test_b9_api_round_trips_provenance_and_keeps_weak_evidence_visible(
     assert heuristic.id in markdown.text
     assert '"page":12' in markdown.text
     assert "HEURISTIC" in markdown.text
+    assert counts_after == counts_before
+
+
+@pytest.mark.asyncio
+async def test_b9_external_study_http_summary_preserves_grain_without_private_rows(
+    client,
+    db_session,
+):
+    service = LabService(db_session)
+    admitted = await service.register_external_study(
+        await _valid_command(service)
+    )
+    models = (
+        LabSourceDocumentVersion,
+        LabSourceExtractionRecord,
+        LabExternalStudyVersion,
+        LabExternalStimulusVersion,
+        LabExternalStimulusComponent,
+        LabExternalCondition,
+        LabExternalExperimentalUnit,
+        LabExternalObservation,
+        LabExternalIdentityCrosswalk,
+        LabExternalStudyConflict,
+    )
+    counts_before = [
+        int(await db_session.scalar(select(func.count()).select_from(model)) or 0)
+        for model in models
+    ]
+
+    strict_response = await client.get(
+        "/api/v1/lab/science/authority?view=strict",
+    )
+    exploratory_response = await client.get(
+        "/api/v1/lab/science/authority?view=exploratory",
+    )
+    counts_after = [
+        int(await db_session.scalar(select(func.count()).select_from(model)) or 0)
+        for model in models
+    ]
+
+    strict_section = _section(strict_response.json(), "external_study_versions")
+    exploratory_section = _section(
+        exploratory_response.json(),
+        "external_study_versions",
+    )
+    assert strict_section["included"] == []
+    assert strict_section["withheld"][0]["strict_reason_codes"] == [
+        "SOURCE_REPORTED_ONLY"
+    ]
+    summary = exploratory_section["included"][0]
+    assert summary["id"] == admitted.study.id
+    assert summary["authority"] == {
+        "authority_state": "SOURCE_REPORTED_ONLY",
+        "execution_authorized": False,
+        "promotion_authorized": False,
+        "release_authority": False,
+    }
+    assert summary["facts"]["child_counts"] == {
+        "conditions": 1,
+        "conflicts": 0,
+        "experimental_units": 1,
+        "identity_crosswalks": 1,
+        "observations": 1,
+        "stimuli": 1,
+        "stimulus_components": 1,
+    }
+    assert summary["facts"]["unit_grains"] == ["PARTICIPANT"]
+    assert summary["facts"]["observation_grains"] == ["INDIVIDUAL"]
+    assert summary["facts"]["endpoint_keys"] == ["intensity"]
+    assert summary["facts"]["missingness_counts"] == {"OBSERVED": 1}
+    assert summary["facts"]["aggregation_statistic_counts"] == {"RAW": 1}
+    assert summary["facts"]["crosswalk_status_counts"] == {
+        "EXACT_EXTERNAL_IDENTITY_ONLY": 1
+    }
+    encoded = exploratory_response.text
+    for private_value in (
+        "participant-001",
+        "trial-001",
+        "session-1",
+        '"presentation"',
+        '"value"',
+    ):
+        assert private_value not in encoded
     assert counts_after == counts_before

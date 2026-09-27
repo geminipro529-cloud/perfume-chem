@@ -79,6 +79,10 @@ def test_bootstrap_intervals_ties_heterogeneity_and_next_pair_are_deterministic(
     assert first.next_comparison == second.next_comparison
     assert first.next_comparison is not None
     assert first.bootstrap_method == "ASSESSOR_CLUSTER"
+    assert first.formula_optimization_authority is False
+    assert first.sensory_authority is False
+    assert first.compounding_authority is False
+    assert first.release_authority is False
 
 
 def _balanced_training() -> tuple[PairwisePreference, ...]:

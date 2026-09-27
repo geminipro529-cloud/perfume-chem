@@ -16,8 +16,10 @@ from engine.mixture import (
 )
 from engine.quantities import Density, MolarMass, Volume
 from engine.workbench import CalculationMode, PerfumeWorkbench, WorkbenchFormulaRequest
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.api.deps import get_db
 from app.core.exceptions import DilutionCalculationError
 from app.domain.ingredients.chemistry import (
     calculate_dilution,
@@ -30,6 +32,9 @@ from app.schemas.chemical import (
     DilutionResult,
 )
 from app.schemas.perfume import FormulaCreate
+from app.services.engine_job_compatibility import (
+    enqueue_formula_analysis_compatibility,
+)
 from app.services.validation_pipeline import attach_validation, validate_formula
 
 router = APIRouter()
@@ -69,14 +74,23 @@ async def ml_to_drops(
 
 
 @router.post("/analyze-formula")
-async def analyze_formula(formula: FormulaCreate) -> Dict[str, Any]:
+async def analyze_formula(
+    formula: FormulaCreate,
+    session: AsyncSession = Depends(get_db),
+) -> Dict[str, Any]:
     """Analyze a formula through the canonical evidence-labeled workbench."""
     percentage_by_name: dict[str, float] = {}
     for ingredient in formula.ingredients:
         percentage_by_name[ingredient.name] = (
             percentage_by_name.get(ingredient.name, 0.0) + ingredient.percentage
         )
-    report = validate_formula(percentage_by_name)
+    report = await enqueue_formula_analysis_compatibility(
+        session,
+        validate_formula(percentage_by_name),
+        percentage_by_name,
+        scope="formulas.analyze-formula",
+        formula_name=formula.name,
+    )
     try:
         request = _to_workbench_request(formula)
         payload = workbench.analyze(request).as_dict()

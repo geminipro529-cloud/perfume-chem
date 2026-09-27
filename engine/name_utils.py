@@ -14,8 +14,6 @@ Usage:
 
 from __future__ import annotations
 
-import re
-
 # Canonical aliases – map common spelling variants to a single form.
 # All keys **must** already be lowercase-stripped.
 _ALIASES: dict[str, str] = {
@@ -77,6 +75,7 @@ _ALIASES: dict[str, str] = {
     "blood orange oil sicilian": "blood orange sicilian",
     "bergamot fcf oil sicilian": "bergamot fcf sicilian",
     "pink pepper eo (schinus molle)": "pink pepper eo",
+    "pink pepper eo (schinus molle; neat / as supplied)": "pink pepper eo",
     "pink pepper eo schinus molle": "pink pepper eo",
     "schinus molle eo": "pink pepper eo",
     "schinus molle eo (neat / as supplied)": "pink pepper eo",
@@ -146,6 +145,12 @@ _ALIASES: dict[str, str] = {
     "coriander seed eo": "coriander essential oil",
     "coriander seed oil": "coriander essential oil",
     "2-acetyl pyrazine 1% in dpg": "2-acetyl pyrazine",
+    "2-acetyl pyrazine 1%": "2-acetyl pyrazine",
+    "anisaldehyde 10% v/v in ethanol": "anisaldehyde",
+    "ethyl maltol 1% v/v in ethanol": "ethyl maltol",
+    "helional 10% v/v in ethanol": "helional",
+    "hexyl acetate 1% v/v in dpg": "hexyl acetate",
+    "cinnamyl alcohol 50% w/w in dpg": "cinnamyl alcohol",
     "safraleine neat": "safraleine",
     "blackcurrent absolute": "blackcurrant absolute",
     "blackcurrant absolute 10% in dpg": "blackcurrant absolute",
@@ -155,7 +160,13 @@ _ALIASES: dict[str, str] = {
     "oakmoss absolute (10% in dpg)": "oakmoss absolute",
     "evernyl (50% in dpg)": "evernyl",  # historical formula spelling only
     "evernyl (20% w/w in dpg)": "evernyl",
+    "evernyl (10% in dpg)": "evernyl",
     "evernyl (10% w/w in dep)": "evernyl",
+    "peru balsam 50%": "peru balsam resinoid",
+    "methyl pamplemousse 10%": "methyl pamplemousse",
+    "skatole 1%": "skatole",
+    "gamma nonalactone 10%": "gamma nonalactone",
+    "aldehyde c-18 10%": "gamma nonalactone",
     "cinnamon bark eo - telvada usda organic (neat)": "cinnamon bark eo - telvada usda organic",
     "cinnamon bark eo (telvada)": "cinnamon bark eo - telvada usda organic",
     # ── EO Aliases ──
@@ -209,7 +220,9 @@ def normalize_name(name: str) -> str:
     """
     if not name:
         return ""
-    n = re.sub(r"\s+", " ", name.strip()).lower()
+    # split() handles the same Unicode whitespace as regex \s, including
+    # leading/trailing runs, without regex dispatch on every material lookup.
+    n = " ".join(name.split()).lower()
     return _ALIASES.get(n, n)
 
 

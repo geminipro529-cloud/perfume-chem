@@ -1,0 +1,123 @@
+{
+  "schema_version": "perfume_chem_direct_r5_stock_clarifications_confirmation_v2",
+  "effective_date": "2026-09-24",
+  "source_kind": "DIRECT_USER_MESSAGE",
+  "context": "Checkpoint 3 R5 stock basis, ownership, and common-basis clarification",
+  "predecessor": {
+    "path": "data/governance/inventory_user_confirmation_20260924_r5_stock_clarifications.json",
+    "sha256": "cd993a027e2c164028dda77a048b3abc5cd1f36cbf8fb7f6712367f9a2bcc273"
+  },
+  "message_facts": [
+    {
+      "subject": "Norlimbanol Dextro stock",
+      "message": "10% w/w in DPG; homogeneous"
+    },
+    {
+      "subject": "R5 Norlimbanol carrier decision",
+      "message": "DPG"
+    },
+    {
+      "subject": "Aroma & More Lavender 40/42 stock",
+      "message": "physically owned; 10 mL; undiluted; homogeneous"
+    },
+    {
+      "subject": "Hay Absolute stock",
+      "message": "10% w/w in DPG; homogeneous"
+    },
+    {
+      "subject": "Common total basis",
+      "message": "w/w, older stocks w/v"
+    },
+    {
+      "subject": "Measurement protocol",
+      "message": "none"
+    }
+  ],
+  "normalized_stock_facts": [
+    {
+      "canonical_name": "Norlimbanol Dextro",
+      "physical_form": "solution",
+      "fraction": 0.1,
+      "fraction_basis": "mass_fraction",
+      "carrier": "dpg",
+      "homogeneous": true,
+      "execution_ready": false,
+      "execution_scope": "CALCULATION_READY_PHYSICAL_LINEAGE_INCOMPLETE",
+      "execution_hold_reason": "PREPARATION_QUANTITIES_DATE_AND_LOTS_MISSING"
+    },
+    {
+      "canonical_name": "Hay Absolute",
+      "physical_form": "solution",
+      "fraction": 0.1,
+      "fraction_basis": "mass_fraction",
+      "carrier": "dpg",
+      "homogeneous": true,
+      "execution_ready": false,
+      "execution_scope": "CALCULATION_READY_PHYSICAL_LINEAGE_INCOMPLETE",
+      "execution_hold_reason": "PREPARATION_QUANTITIES_DATE_AND_LOTS_MISSING"
+    },
+    {
+      "canonical_name": "Lavender 40/42, Aroma&More",
+      "physical_form": "as_supplied",
+      "fraction": 1.0,
+      "fraction_basis": "neat",
+      "carrier": "",
+      "quantity": {
+        "value_decimal": "10",
+        "unit": "mL"
+      },
+      "homogeneous": true,
+      "execution_ready": false,
+      "execution_scope": "OWNED_PRODUCT_PHYSICAL_LINEAGE_INCOMPLETE",
+      "execution_hold_reason": "LOT_PURCHASE_SOURCE_AND_LABEL_RECEIPT_MISSING"
+    }
+  ],
+  "r5_design_decisions": {
+    "norlimbanol_dpg_carrier_accepted": true,
+    "norlimbanol_active_fraction": 0.1,
+    "norlimbanol_fraction_basis": "mass_fraction",
+    "dose_change_authorized": false,
+    "common_total_basis_selected": "active_mass_g",
+    "common_total_basis_interpretation": "ACTIVE_ODORANT_MASS_W_W",
+    "legacy_stock_basis_present": "mass_per_volume_w_v",
+    "common_total_amount_supplied": false,
+    "conversion_inputs_complete": false
+  },
+  "unresolved_receipt_fields": {
+    "norlimbanol": [
+      "exact_parent_mass",
+      "exact_dpg_mass",
+      "preparation_date",
+      "parent_lot",
+      "carrier_lot"
+    ],
+    "hay_absolute": [
+      "exact_parent_mass",
+      "exact_dpg_mass",
+      "preparation_date",
+      "parent_lot",
+      "carrier_lot"
+    ],
+    "aroma_more_lavender_4042": [
+      "lot_or_batch",
+      "purchase_source",
+      "label_receipt"
+    ]
+  },
+  "scientific_state": {
+    "exact_headspace_or_intensity_evidence_supplied": false,
+    "measurement_protocol_execution_parameters_supplied": false,
+    "pleasantness_target_supplied": false,
+    "physical_liking_evidence_supplied": false
+  },
+  "authority_limits": {
+    "inventory_fact_update_authorized": true,
+    "r5_norlimbanol_dpg_requirement_update_authorized": true,
+    "physical_compounding_authorized": false,
+    "build_plan_binding_authorized": false,
+    "formula_dose_change_authorized": false,
+    "measurement_execution_authorized": false,
+    "scientific_promotion_authorized": false,
+    "safety_or_release_asserted": false
+  }
+}

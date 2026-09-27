@@ -56,13 +56,15 @@ def test_current_overlay_is_pinned_to_live_inventory_and_receipts() -> None:
     normalized = overlay_path.read_bytes().replace(b"\r\n", b"\n")
     assert hashlib.sha256(normalized).hexdigest() == inventory.CURRENT_USER_INVENTORY_OVERLAY_SHA256
     payload = inventory.load_current_user_inventory_overlay()
-    assert payload["schema_version"].endswith("_v10")
-    assert len(payload["delta_records"]) == 11
+    assert payload["schema_version"].endswith("_v17")
+    assert len(payload["delta_records"]) == 12
 
 
 def test_stock_clarification_internal_loader_rejects_any_record_mutation() -> None:
     payload = json.loads(
-        inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8")
+        inventory.STOCK_CLARIFICATIONS_USER_INVENTORY_OVERLAY_PATH.read_text(
+            encoding="utf-8"
+        )
     )
     candidate = copy.deepcopy(payload)
     candidate["records"][0]["aliases"].append("unverified alias")
@@ -73,17 +75,17 @@ def test_stock_clarification_internal_loader_rejects_any_record_mutation() -> No
         )
 
 
-def test_supplier_identity_does_not_invent_user_stock_carriers() -> None:
+def test_current_user_stock_forms_supersede_the_older_supplier_only_holds() -> None:
     registry = load_registry()
     liffarome = registry.get("Liffarome")
     methyl_laitone = registry.get("Methyl Laitone")
     assert liffarome is not None
     assert liffarome.cas == "67633-96-9"
-    assert liffarome.user_stock_dilution == "10% w/w; carrier unspecified"
-    assert "does not establish the carrier" in (liffarome.notes or "")
+    assert liffarome.user_stock_dilution == "10% w/w in DEP"
+    assert "stock-solution density" in (liffarome.notes or "")
     assert methyl_laitone is not None
-    assert methyl_laitone.user_stock_dilution == "20%; fraction basis and carrier unspecified"
-    assert "quantitative HOLD" in (methyl_laitone.notes or "")
+    assert methyl_laitone.user_stock_dilution == "20% v/v in ethanol"
+    assert "separate current stock" in (methyl_laitone.notes or "")
 
 
 def test_exact_coriander_supplier_product_and_haitian_registry_identity_exist() -> None:

@@ -23,7 +23,7 @@ from app.services.lab_science import (
 )
 from app.services.lab_service import LabService
 from tests.unit.test_b5_analytical_service import (
-    _a2_exact_analytical_claim,
+    _a4_exact_analytical_claim,
     _claim_request,
     _complete_peak_authority_graph,
     _method_configuration,
@@ -31,7 +31,7 @@ from tests.unit.test_b5_analytical_service import (
 )
 
 BACKEND_ROOT = Path(__file__).resolve().parents[2]
-B5_HEAD = "20260731_0009"
+B5_HEAD = "head"
 
 
 def _config(database_path: Path) -> Config:
@@ -67,7 +67,7 @@ async def _migrated_service(database_path: Path):
 
 
 @pytest.mark.asyncio
-async def test_b5_supported_chain_persists_exact_authority_and_a2_claim(
+async def test_b5_supported_chain_persists_exact_authority_and_a4_claim(
     tmp_path,
 ):
     async with _migrated_service(tmp_path / "b5-supported.db") as (
@@ -85,7 +85,7 @@ async def test_b5_supported_chain_persists_exact_authority_and_a2_claim(
             _claim_request(graph)
         )
         exact_claim = await service.create_claim_assessment_version(
-            _a2_exact_analytical_claim(
+            _a4_exact_analytical_claim(
                 graph["run"].id,
                 graph["method"].evidence_record_id,
                 assessment_id=assessment.id,
@@ -177,7 +177,7 @@ async def test_b5_supported_chain_persists_exact_authority_and_a2_claim(
 
 
 @pytest.mark.asyncio
-async def test_b5_blocking_qc_twin_withholds_and_cannot_authorize_a2_exact(
+async def test_b5_blocking_qc_twin_withholds_and_cannot_authorize_a4_exact(
     tmp_path,
 ):
     async with _migrated_service(tmp_path / "b5-blocked.db") as (
@@ -205,7 +205,7 @@ async def test_b5_blocking_qc_twin_withholds_and_cannot_authorize_a2_exact(
 
         with pytest.raises(ScienceAuthorityConflictError) as rejected:
             await service.create_claim_assessment_version(
-                _a2_exact_analytical_claim(
+                _a4_exact_analytical_claim(
                     graph["run"].id,
                     graph["method"].evidence_record_id,
                     assessment_id=assessment.id,
@@ -268,7 +268,7 @@ async def test_b5_qualifying_qc_twin_is_advisory_and_cannot_authorize_exact(
 
         with pytest.raises(ScienceAuthorityConflictError) as rejected:
             await service.create_claim_assessment_version(
-                _a2_exact_analytical_claim(
+                _a4_exact_analytical_claim(
                     graph["run"].id,
                     evidence_id,
                     assessment_id=assessment.id,

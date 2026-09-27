@@ -328,15 +328,36 @@ def _normalize_carrier(carrier: str) -> str:
     return mapping.get(c, c)
 
 
+def _material_base_name(material_name: str) -> str:
+    """Remove known formulation annotations before category classification.
+
+    Parenthesized stock annotations are common in formula tables (for
+    example ``technical additive (10% in DPG)``).  They describe the stock row and must not
+    turn a carrier or technical additive into an odorant.  Only discard the
+    annotation when the text before it is already a known canonical category;
+    this keeps identity-bearing names such as natural parentheticals intact.
+    """
+    name = _CONC_STRIP_RE.sub("", material_name.strip().lower()).strip()
+    if "(" in name:
+        base = name.split("(", 1)[0].strip()
+        if (
+            base in SOLVENT_MATERIALS
+            or base in CARRIER_MATERIALS
+            or base in TECHNICAL_MATERIALS
+        ):
+            return base
+    return name
+
+
 def is_carrier(material_name: str) -> bool:
     """Return True if the material is a carrier/solvent, not an odorant."""
-    name = material_name.strip().lower()
+    name = _material_base_name(material_name)
     return name in CARRIER_MATERIALS
 
 
 def is_technical(material_name: str) -> bool:
     """Return True if the material is a technical additive, not an odorant."""
-    name = material_name.strip().lower()
+    name = _material_base_name(material_name)
     return name in TECHNICAL_MATERIALS
 
 
@@ -346,11 +367,10 @@ def classify_material_category(
     """Classify a material as odorant, technical, or carrier.
 
     Concentration suffixes are stripped before classification so that
-    ``"BHT 10%"`` matches ``TECHNICAL_MATERIALS`` and ``"DPG"``
-    matches ``CARRIER_MATERIALS`` regardless of appended dilution text.
+    Technical additives and carriers match their canonical sets regardless of
+    appended dilution text.
     """
-    name = material_name.strip().lower()
-    name = _CONC_STRIP_RE.sub("", name).strip()
+    name = _material_base_name(material_name)
     if name in SOLVENT_MATERIALS:
         return "solvent"
     if name in CARRIER_MATERIALS:
@@ -488,6 +508,11 @@ def compute_active_accounting(
             raise ReconstructionInputError(
                 "active accounting requires unit/basis consistency across declared stocks"
             )
+        if bases != {ConcentrationBasis.VOLUME_VOLUME}:
+            raise ReconstructionInputError(
+                "volume-only ActiveAccounting cannot represent w/w or w/v stocks; "
+                "use basis-aware mass accounting with the required stock density"
+            )
 
         odorant_active_ul = 0.0
         technical_active_ul = 0.0
@@ -610,6 +635,7 @@ __all__ = [
     "StockComponentRole",
     "TECHNICAL_MATERIALS",
     "_infer_diluent_category",
+    "_material_base_name",
     "classify_material_category",
     "compute_active_accounting",
     "is_carrier",

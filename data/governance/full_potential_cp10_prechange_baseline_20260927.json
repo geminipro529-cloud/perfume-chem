@@ -1,0 +1,66 @@
+{
+  "schema_version": "full-potential-cp10-prechange-baseline-v1",
+  "captured_at": "2026-09-27T00:00:00+07:00",
+  "repository": {
+    "branch": "master",
+    "head": "c35289af48d7e8b1cc81273f9506fb3eab941254",
+    "worktree_status_counts": {
+      "total": 344,
+      "modified": 181,
+      "added": 0,
+      "deleted": 23,
+      "untracked": 140
+    },
+    "worktree_preserved": true,
+    "broad_diff_hash_status": "PARTIAL_PERMISSION_ERRORS_RECORDED",
+    "readable_diff_git_hash_object": "691cca440bbc7eda42361853a70abb3bf4f12058",
+    "readable_untracked_manifest_git_hash_object": "50bc2719dbbd7c8b855f629aa2b91c9ec42e816d",
+    "permission_anomalies": [
+      "legacy pytest scratch trees under docs/verification/c10/logs",
+      "legacy scratch trees under .omo/evidence/batch_results",
+      "legacy pytest scratch roots"
+    ]
+  },
+  "runtime": {
+    "root_python": "3.14.6",
+    "backend_python": "3.11.15",
+    "database": "SQLite",
+    "alembic_head": "20260927_0019",
+    "formula_documents_discovered": 521,
+    "formula_documents_gate_eligible": 369
+  },
+  "prechange_sha256": {
+    "AGENTS.md": "633a80053db26fadbde27cd092fbd7bebe46169986fbf1c57e216f11ab2c3f7b",
+    "inventory.txt": "0546ab83862557a4e604536f6282f3978bf24351a29848e0e91292c71d90bdf4",
+    "backend/app/services/engine_job_registry.py": "a7f323d6eefb5c6cd4e50be6c424f206b16b72625dae6a98c69e9cac28f7cec4",
+    "backend/app/services/engine_job_executor.py": "4d0b3d5517b20c7062c70dc86454a44aacd704d7beac7eb91a36f56d35f082a8",
+    "backend/app/services/engine_jobs.py": "2174cf0db7a67e090e63050aa0d8d65080c68bc8aae541213db53e102b318957",
+    "engine/optimizer/gate_aware.py": "a11be18e60bec2faf3f66e9758956a6a2bec50b484f4003dd680bbd12f6294b5",
+    "engine/optimizer/optimizer.py": "d4e4ffda5dfea8b9152456410ba1f81c8923553ddee4c2de48e063574bf24b6f",
+    "engine/dose_response.py": "d6d788877cf7a873b41482ff37f07ba705be0199d349512ffde531ed0fec2338",
+    "engine/thermo/trajectory.py": "bc17c0e51a72e29e587824bdb08dc5b9ce06f4d5e6cc8caa822f83c3ea61c5fe",
+    "backend/app/services/physical_lineage.py": "d81d59841b983a16c63fea705079f8e83988116828fe416d49d9496a79494d78",
+    "data/governance/measured_intensity_capabilities_20260923.json": "fee99f21290212cc0c46df0c464130117eb5c41b8a5dc89db75270d71bfbc464"
+  },
+  "focused_verification": {
+    "root_scientific_optimizer_tests": {
+      "status": "PASS",
+      "passed": 102,
+      "duration_seconds": 2.56
+    },
+    "backend_authority_jobs_lineage_external_validation_tests": {
+      "status": "PASS_WITH_ISOLATED_BASETEMP",
+      "passed": 37,
+      "duration_seconds": 53.38,
+      "default_basetemp_result": "BLOCKED_BY_PREEXISTING_ACL_LOCKED_SCRATCH"
+    }
+  },
+  "authority": {
+    "formula_modified": false,
+    "inventory_modified": false,
+    "physical_experiment_authorized": false,
+    "compounding_authorized": false,
+    "safety_authorized": false,
+    "release_authorized": false
+  }
+}

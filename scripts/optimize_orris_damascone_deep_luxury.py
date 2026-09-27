@@ -1,3 +1,5 @@
+"""Historical diagnostic search; not admitted to select or write a formula."""
+
 from __future__ import annotations
 
 import re
@@ -412,11 +414,11 @@ def render_markdown(results: list[OptimizationResult]) -> str:
 
 
 def main() -> None:
-    prototypes = parse_prototypes(SOURCE_PATH)
-    results = [optimize_prototype(prototype) for prototype in prototypes]
-    output = render_markdown(results)
-    OUTPUT_PATH.write_text(output, encoding="utf-8")
-    print(f"Wrote {OUTPUT_PATH}")
+    raise SystemExit(
+        "BLOCKED: legacy heuristic totals are diagnostic only and cannot select "
+        "or write a recompounding formula. Use the evidence-bounded optimizer "
+        "with an admitted endpoint and controlled-comparison review."
+    )
 
 
 if __name__ == "__main__":

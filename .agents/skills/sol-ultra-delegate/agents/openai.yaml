@@ -1,0 +1,7 @@
+interface:
+  display_name: "Sol Ultra Delegate"
+  short_description: "Bounded Sol Ultra delegation through DeepMimo"
+  default_prompt: "Use $sol-ultra-delegate for a bounded read-only task with local verification."
+
+policy:
+  allow_implicit_invocation: false

@@ -56,11 +56,17 @@ from engine.intervention_context import (
     ObservationProfile,
 )
 from engine.optimizer.models import FormulaVector, _lookup_material
-from engine.optimizer.optimizer import FormulaOptimizer
-from engine.optimizer.scoring import FormulaScorer
+from engine.research.goal_analysis import (
+    GoalAnalysisRequestV1,
+    GoalFormulaRowV1,
+    analyze_formula_for_goal,
+)
 
 MODES = ("pre_mix", "post_mix", "between_mix")
 DEFAULT_BATCH_ML = 30.0
+UNVALIDATED_ADVISORY = "UNVALIDATED_ADVISORY"
+LEGACY_DIAGNOSTIC_SELECTION_BASIS = "LEGACY_DIAGNOSTIC_TOTAL_NOT_ADMITTED"
+APPROX_ADD_UL_HYPOTHESIS_LABEL = "HYPOTHESIS_ONLY_NOT_A_COMPOUNDING_INSTRUCTION"
 
 LOCAL_MODE_PROFILES: dict[str, dict[str, Any]] = {
     "pre_mix": {
@@ -94,6 +100,7 @@ class SourceFormula:
     source_kind: str = "formula_markdown"
     source_path: str = ""
     bundle_dir: str = ""
+    raw_rows: tuple[dict[str, Any], ...] = ()
 
 
 def _parse_recorded_addition(value: str) -> BottleAddition:
@@ -180,6 +187,135 @@ def _parse_dilution(raw: str) -> float:
     return 1.0
 
 
+def _table_cells(line: str) -> list[str]:
+    if not line.lstrip().startswith("|"):
+        return []
+    return [cell.strip().replace("**", "") for cell in line.strip().strip("|").split("|")]
+
+
+def _header_key(value: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "_", value.casefold()).strip("_")
+
+
+def _parse_amount_cell(value: str, header: str) -> tuple[float, str] | None:
+    cleaned = value.replace("`", "").replace(",", "").strip()
+    match = re.fullmatch(r"([0-9]+(?:\.[0-9]+)?)\s*(uL|µL|mL|mg|g)?", cleaned, re.I)
+    if not match:
+        return None
+    amount = float(match.group(1))
+    explicit = (match.group(2) or "").casefold()
+    header_key = _header_key(header)
+    if explicit in {"ul", "µl"} or "ul" in header_key:
+        return amount, "uL"
+    if explicit == "ml" or re.search(r"(?:^|_)ml(?:_|$)", header_key):
+        return amount, "mL"
+    if explicit == "mg" or "mg" in header_key:
+        return amount, "mg"
+    if explicit == "g" or re.search(r"(?:^|_)g(?:_|$)", header_key):
+        return amount, "g"
+    return None
+
+
+def _parse_formula_tables(text: str) -> tuple[dict[str, float], dict[str, float], tuple[dict[str, Any], ...]]:
+    """Parse formula tables by column names, including separate solid rows."""
+
+    ingredients_ul: dict[str, float] = {}
+    dilutions: dict[str, float] = {}
+    raw_rows: list[dict[str, Any]] = []
+    header: list[str] | None = None
+    header_keys: list[str] = []
+
+    for line in text.splitlines():
+        cells = _table_cells(line)
+        if not cells:
+            header = None
+            header_keys = []
+            continue
+        keys = [_header_key(cell) for cell in cells]
+        if "ingredient" in keys and any(key.startswith("amount") for key in keys):
+            header = cells
+            header_keys = keys
+            continue
+        if header is None:
+            continue
+        if all(re.fullmatch(r":?-{2,}:?", cell.replace(" ", "")) for cell in cells):
+            continue
+        if len(cells) < len(header):
+            cells.extend([""] * (len(header) - len(cells)))
+        try:
+            ingredient_index = header_keys.index("ingredient")
+        except ValueError:
+            continue
+        ingredient = cells[ingredient_index].strip()
+        if (
+            not ingredient
+            or "total" in ingredient.casefold()
+            or "ethanol" in ingredient.casefold()
+        ):
+            continue
+        number_index = next(
+            (index for index, key in enumerate(header_keys) if key in {"", "number", "no"}),
+            0,
+        )
+        row_number = cells[number_index].strip() if number_index < len(cells) else ""
+        if row_number and not row_number.isdigit():
+            continue
+        amount_index = next(
+            (
+                index
+                for index, key in enumerate(header_keys)
+                if key.startswith("amount") and index < len(cells) and cells[index].strip()
+            ),
+            None,
+        )
+        if amount_index is None:
+            continue
+        parsed_amount = _parse_amount_cell(cells[amount_index], header[amount_index])
+        if parsed_amount is None:
+            continue
+        amount, unit = parsed_amount
+        if amount <= 0:
+            continue
+        dilution_index = next(
+            (
+                index
+                for index, key in enumerate(header_keys)
+                if "dilution" in key or key in {"form", "stock"}
+            ),
+            None,
+        )
+        dilution_raw = cells[dilution_index] if dilution_index is not None else "neat"
+        basket_index = next(
+            (index for index, key in enumerate(header_keys) if key == "basket"),
+            None,
+        )
+        role_index = next(
+            (index for index, key in enumerate(header_keys) if key.endswith("role")),
+            None,
+        )
+        raw_rows.append(
+            {
+                "row_id": f"formula-row-{len(raw_rows) + 1:03d}",
+                "source_row": row_number or str(len(raw_rows) + 1),
+                "material": ingredient,
+                "amount_decimal": str(amount),
+                "unit": unit,
+                "dilution_text": dilution_raw,
+                "stock_fraction_decimal": str(_parse_dilution(dilution_raw)),
+                "basket": cells[basket_index] if basket_index is not None else None,
+                "role": cells[role_index] if role_index is not None else None,
+            }
+        )
+        if unit == "uL":
+            ingredients_ul[ingredient] = ingredients_ul.get(ingredient, 0.0) + amount
+            dilutions[ingredient] = _parse_dilution(dilution_raw)
+        elif unit == "mL":
+            ingredients_ul[ingredient] = ingredients_ul.get(ingredient, 0.0) + amount * 1000.0
+            dilutions[ingredient] = _parse_dilution(dilution_raw)
+
+    return ingredients_ul, dilutions, tuple(raw_rows)
+
+
 def _parse_formula_markdown(path: Path) -> list[SourceFormula]:
     text = path.read_text(encoding="utf-8")
     sections = re.split(r"^##\s+(\d+)\.\s+(.+?)$", text, flags=re.MULTILINE)
@@ -189,26 +325,7 @@ def _parse_formula_markdown(path: Path) -> list[SourceFormula]:
         number = int(sections[idx])
         name = sections[idx + 1].strip()
         body = sections[idx + 2]
-        ingredients_ul: dict[str, float] = {}
-        dilutions: dict[str, float] = {}
-
-        for line in body.splitlines():
-            match = re.match(
-                r"\|\s*(\d+)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|",
-                line,
-            )
-            if not match:
-                continue
-
-            ingredient = match.group(2).replace("**", "").strip()
-            dilution_raw = match.group(3).strip()
-            amount_ul = float(match.group(4))
-
-            if "ethanol" in ingredient.lower() or "total" in ingredient.lower():
-                continue
-
-            ingredients_ul[ingredient] = amount_ul
-            dilutions[ingredient] = _parse_dilution(dilution_raw)
+        ingredients_ul, dilutions, raw_rows = _parse_formula_tables(body)
 
         if not ingredients_ul:
             continue
@@ -228,28 +345,14 @@ def _parse_formula_markdown(path: Path) -> list[SourceFormula]:
                 body=body,
                 source_kind="formula_markdown",
                 source_path=str(path),
+                raw_rows=raw_rows,
             )
         )
 
     if formulas:
         return formulas
 
-    ingredients_ul: dict[str, float] = {}
-    dilutions: dict[str, float] = {}
-    for line in text.splitlines():
-        match = re.match(
-            r"\|\s*(\d+)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*([\d.]+)\s*\|\s*([\d.]+)\s*\|",
-            line,
-        )
-        if not match:
-            continue
-        ingredient = match.group(2).replace("**", "").strip()
-        dilution_raw = match.group(3).strip()
-        amount_ul = float(match.group(4))
-        if "ethanol" in ingredient.lower() or "total" in ingredient.lower():
-            continue
-        ingredients_ul[ingredient] = amount_ul
-        dilutions[ingredient] = _parse_dilution(dilution_raw)
+    ingredients_ul, dilutions, raw_rows = _parse_formula_tables(text)
 
     if not ingredients_ul:
         return []
@@ -270,6 +373,7 @@ def _parse_formula_markdown(path: Path) -> list[SourceFormula]:
             body=text,
             source_kind="single_formula_markdown",
             source_path=str(path),
+            raw_rows=raw_rows,
         )
     ]
 
@@ -524,7 +628,11 @@ def _call_shared_recommendations(
     batch_ml: float,
     top_n: int,
     context: InterventionContext | None = None,
+    include_unvalidated_advisory: bool = False,
 ) -> list[Any]:
+    if include_unvalidated_advisory is not True:
+        return []
+
     inventory = _load_inventory_records()
     func = generate_intervention_recommendations
     if func is None:  # pragma: no cover - fallback for future refactors
@@ -541,6 +649,7 @@ def _call_shared_recommendations(
         "category_hint": category_hint,
         "target_style": target_style,
         "context": context,
+        "include_unvalidated_advisory": True,
     }
     return _maybe_call(func, fv, scores, **kwargs)
 
@@ -551,6 +660,8 @@ def _call_optimizer_notes(
     mode: str,
     observations: dict[str, Any] | None,
 ) -> list[str]:
+    from engine.optimizer.optimizer import FormulaOptimizer
+
     optimizer = FormulaOptimizer()
     suggest = optimizer.suggest
     try:
@@ -640,6 +751,194 @@ def _derive_style_hints(fingerprint: dict[str, Any]) -> tuple[str | None, str | 
     return category_hint, target_style
 
 
+def _build_goal_analysis(
+    *,
+    source: SourceFormula,
+    goals: Sequence[str],
+    observation_profile: ObservationProfile,
+    style_fingerprint: dict[str, Any],
+    mode: str,
+    family: str | None,
+    target_style: str | None,
+    max_hypotheses: int,
+    endpoint_results: Sequence[Mapping[str, Any]] = (),
+) -> dict[str, Any]:
+    """Build the concise scientific clue layer without physical-document gates."""
+
+    inferred_family, inferred_style = _derive_style_hints(style_fingerprint)
+    selected_family = family or inferred_family
+    selected_style = target_style or inferred_style
+    if source.raw_rows:
+        rows = tuple(
+            GoalFormulaRowV1(
+                row_id=str(row["row_id"]),
+                material=str(row["material"]),
+                amount_decimal=str(row["amount_decimal"]),
+                unit=str(row["unit"]),
+                stock_fraction_decimal=(
+                    str(row["stock_fraction_decimal"])
+                    if row.get("stock_fraction_decimal") is not None
+                    else None
+                ),
+                stock_basis="NOMINAL_FORMULA_STOCK",
+                basket=(str(row["basket"]) if row.get("basket") else None),
+                role=(str(row["role"]) if row.get("role") else None),
+            )
+            for row in source.raw_rows
+        )
+    else:
+        rows = tuple(
+            GoalFormulaRowV1(
+                row_id=f"formula-row-{index:03d}",
+                material=material,
+                amount_decimal=str(amount),
+                unit="percent_concentrate",
+                stock_fraction_decimal=str(source.dilutions.get(material, 1.0)),
+                stock_basis="NOMINAL_FORMULA_STOCK",
+            )
+            for index, (material, amount) in enumerate(source.ingredients_pct.items(), start=1)
+            if float(amount) > 0
+        )
+    inventory = _load_inventory_records()
+    available = tuple(
+        str(row.get("name", "")).strip()
+        for row in inventory
+        if str(row.get("name", "")).strip()
+    )
+    formula_id = (
+        f"{source.source_kind}:{source.source_path or source.bundle_dir or 'inline'}:"
+        f"{source.number if source.number is not None else 1}:{source.name}"
+    )
+    request = GoalAnalysisRequestV1(
+        formula_id=formula_id,
+        formula_name=source.name,
+        rows=rows,
+        goals=tuple(goals),
+        observations=tuple(
+            [*observation_profile.issue_tags, *observation_profile.notes]
+        ),
+        must_preserve=tuple(observation_profile.must_preserve),
+        must_avoid=tuple(observation_profile.must_avoid),
+        family=selected_family,
+        profile=selected_style,
+        mode=mode,
+        available_materials=available,
+        endpoint_results=tuple(endpoint_results),
+        max_hypotheses=max_hypotheses,
+    )
+    return analyze_formula_for_goal(request)
+
+
+def _trial_line(trial: Mapping[str, Any], key: str) -> str:
+    value = trial.get(key)
+    if isinstance(value, Mapping):
+        relative = value.get("relative_block_change_percent")
+        current = value.get("current_block_total_decimal")
+        target = value.get("target_block_total_decimal")
+        unit = value.get("unit")
+        parts = []
+        if relative is not None:
+            parts.append(f"{relative}% relative block change")
+        if current is not None and unit:
+            parts.append(f"from current {current} {unit}")
+        if target is not None and unit:
+            parts.append(f"target {target} {unit}")
+        return ", ".join(parts) if parts else json.dumps(dict(value), ensure_ascii=False)
+    return str(value or "not specified")
+
+
+def _render_goal_markdown(
+    *,
+    source: SourceFormula,
+    goal_analysis: Mapping[str, Any],
+) -> str:
+    """Render the useful decision surface; keep optional evidence collapsed."""
+
+    lines = ["# Goal-Directed Perfume Analysis", ""]
+    lines.append(f"- Formula: {source.name}")
+    lines.append(f"- Goal: {'; '.join(goal_analysis.get('goals', []))}")
+    lines.append(f"- Analysis state: {goal_analysis.get('status')}")
+    lines.append(
+        "- Authority: research clues and controlled-comparison design only; "
+        "the formula was not modified"
+    )
+    lines.append("")
+    windows = list(goal_analysis.get("evaluation_windows", []))
+    if windows:
+        labels = ", ".join(
+            str(window.get("label", "")).replace("_", " ").lower()
+            for window in windows
+        )
+        lines.append(f"- Evaluate at: {labels}")
+        lines.append("")
+
+    lines.append("## Most useful clues")
+    useful = [
+        clue
+        for clue in goal_analysis.get("clues", [])
+        if clue.get("evidence_class")
+        in {
+            "APPLICABLE_ENDPOINT_ESTIMATE",
+            "USER_OBSERVATION",
+            "FORMULA_COMPOSITION_FACT",
+            "DATA_GAP",
+        }
+    ]
+    for clue in useful[:6]:
+        lines.append(
+            f"- [{clue.get('evidence_class')}] {clue.get('statement')}"
+        )
+    if not useful:
+        lines.append("- No goal-linked clue could be resolved from the supplied formula and goal.")
+    lines.append("")
+
+    lines.append("## Controlled changes worth testing")
+    hypotheses = list(goal_analysis.get("modification_hypotheses", []))
+    if not hypotheses:
+        lines.append("- No controlled modification was emitted. Give one more concrete sensory direction.")
+    for index, hypothesis in enumerate(hypotheses, start=1):
+        trial = hypothesis.get("trial", {})
+        lines.append(f"### {index}. {hypothesis.get('material_or_block')}")
+        lines.append(f"- Action: {hypothesis.get('action')}")
+        lines.append(f"- Why: {hypothesis.get('rationale')}")
+        lines.append(f"- Low variant: {_trial_line(trial, 'low_variant')}")
+        lines.append(f"- High variant: {_trial_line(trial, 'high_variant')}")
+        low_variant = trial.get("low_variant", {})
+        if isinstance(low_variant, Mapping):
+            row_targets = low_variant.get("row_targets", [])
+            if row_targets:
+                rendered_targets = "; ".join(
+                    f"{row.get('material')} {row.get('target_amount_decimal')} {row.get('unit')}"
+                    for row in row_targets
+                )
+                lines.append(
+                    "- Low design targets (unrounded; not mixer commands): "
+                    + rendered_targets
+                )
+        lines.append(
+            f"- Evidence class: {hypothesis.get('evidence_class')}"
+        )
+        preserve = hypothesis.get("success_criteria", {}).get("must_preserve", [])
+        avoid = hypothesis.get("success_criteria", {}).get("must_avoid", [])
+        if preserve:
+            lines.append(f"- Must preserve: {', '.join(preserve)}")
+        if avoid:
+            lines.append(f"- Must avoid: {', '.join(avoid)}")
+        lines.append("- Compare against: unchanged control")
+        lines.append("")
+
+    lines.append("## Next step")
+    lines.append(f"- {goal_analysis.get('minimum_next_evidence')}")
+    lines.append(
+        "- Photos, purchase receipts, exact lots, and research-grade measurements "
+        "were not required to generate these hypotheses."
+    )
+    lines.append(
+        "- No pleasantness, personal-liking, beauty, safety, or release conclusion was inferred."
+    )
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def _recommendation_to_dict(rec: Any, batch_ml: float) -> dict[str, Any]:
     if isinstance(rec, Mapping):
         data = dict(rec)
@@ -651,6 +950,14 @@ def _recommendation_to_dict(rec: Any, batch_ml: float) -> dict[str, Any]:
     if approx_add_ul in (None, ""):
         approx_add_ul = round(batch_ml * 10.0 * dose_pct, 1)
     data["approx_add_ul"] = approx_add_ul
+    data["approx_add_ul_is_hypothesis"] = True
+    data["approx_add_ul_label"] = APPROX_ADD_UL_HYPOTHESIS_LABEL
+    data["authority_state"] = UNVALIDATED_ADVISORY
+    data["proposal_status"] = UNVALIDATED_ADVISORY
+    data["formula_optimization_authority"] = False
+    data["compounding_action_authority"] = False
+    data["requires_controlled_comparison"] = True
+    data["selection_basis"] = LEGACY_DIAGNOSTIC_SELECTION_BASIS
     return data
 
 
@@ -764,6 +1071,12 @@ def _format_provenance_block(rec: Any) -> list[str]:
 def _format_recommendation_block(rec: Any, batch_ml: float, index: int) -> list[str]:
     data = _recommendation_to_dict(rec, batch_ml=batch_ml)
     lines = [f"### {index}. {data.get('material', 'Recommendation')}"]
+    lines.append(f"- Authority state: {data['authority_state']}")
+    lines.append(f"- Proposal status: {data['proposal_status']}")
+    lines.append("- Formula optimization authority: false")
+    lines.append("- Compounding action authority: false")
+    lines.append("- Requires controlled comparison: true")
+    lines.append(f"- Selection basis: {data['selection_basis']}")
     action = data.get("action")
     if action:
         lines.append(f"- Action: {action}")
@@ -781,9 +1094,13 @@ def _format_recommendation_block(rec: Any, batch_ml: float, index: int) -> list[
     approx_add_ul = data.get("approx_add_ul")
     if dose_pct is not None:
         if approx_add_ul is not None:
-            lines.append(f"- Dose: {dose_pct:.4f}% (~{approx_add_ul:.1f} uL)")
+            lines.append(
+                "- Dose hypothesis only: "
+                f"{dose_pct:.4f}% (~{approx_add_ul:.1f} uL; "
+                "not a compounding instruction)"
+            )
         else:
-            lines.append(f"- Dose: {dose_pct:.4f}%")
+            lines.append(f"- Dose hypothesis only: {dose_pct:.4f}%")
     rationale = data.get("rationale")
     if rationale:
         lines.append(f"- Rationale: {rationale}")
@@ -827,8 +1144,20 @@ def _render_markdown(
     inventory_count: int,
     bottle_state: BottleState | None,
     observation_profile: ObservationProfile,
+    goal_analysis: Mapping[str, Any] | None = None,
+    show_details: bool = False,
 ) -> str:
+    if goal_analysis is not None and not show_details:
+        return _render_goal_markdown(source=source, goal_analysis=goal_analysis)
+
     lines: list[str] = []
+    if goal_analysis is not None:
+        lines.append(_render_goal_markdown(source=source, goal_analysis=goal_analysis).rstrip())
+        lines.append("")
+        lines.append("---")
+        lines.append("")
+        lines.append("# Detailed Legacy Diagnostics")
+        lines.append("")
     lines.append("# Intervention Recommendations")
     lines.append("")
     lines.append(f"- Formula: {source.name}")
@@ -870,6 +1199,7 @@ def _render_markdown(
         payload = mode_payloads[mode]
         lines.append(f"## {mode}")
         lines.append(f"- Purpose: {payload['mode_profile'].get('purpose', '')}")
+        lines.append(f"- Advisory recommendation status: {payload['advisory_status']}")
         note = payload["mode_profile"].get("note")
         if note:
             lines.append(f"- Mode note: {note}")
@@ -916,6 +1246,7 @@ def _render_json(
     inventory_count: int,
     bottle_state: BottleState | None,
     observation_profile: ObservationProfile,
+    goal_analysis: Mapping[str, Any] | None = None,
 ) -> str:
     payload = {
         "source": asdict(source),
@@ -925,6 +1256,7 @@ def _render_json(
         "observation_profile": asdict(observation_profile),
         "style_fingerprint": style_fingerprint,
         "scores": scores,
+        "goal_analysis": dict(goal_analysis) if goal_analysis is not None else None,
         "modes": {},
     }
     for mode in modes:
@@ -932,6 +1264,8 @@ def _render_json(
         payload["modes"][mode] = {
             "mode_profile": mode_payload["mode_profile"],
             "observations_summary": mode_payload.get("observations_summary"),
+            "advisory_status": mode_payload["advisory_status"],
+            "advisory_requested": mode_payload["advisory_requested"],
             "recommendations": mode_payload["recommendations"],
             "engine_notes": mode_payload.get("engine_notes", []),
         }
@@ -953,6 +1287,7 @@ def _build_mode_payload(
     observation_profile: ObservationProfile,
     bottle_state: BottleState | None,
     top_n: int,
+    include_unvalidated_advisory: bool = False,
 ) -> dict[str, Any]:
     mode_profile = _load_mode_profile(mode)
 
@@ -987,6 +1322,7 @@ def _build_mode_payload(
         batch_ml=batch_ml,
         top_n=top_n,
         context=context,
+        include_unvalidated_advisory=include_unvalidated_advisory,
     )
     engine_notes = _call_optimizer_notes(
         fv,
@@ -1019,6 +1355,12 @@ def _build_mode_payload(
         "engine_notes": engine_notes,
         "batch_ml": batch_ml,
         "context_payload": asdict(context),
+        "advisory_status": (
+            "COMPUTED_EXPLICITLY_REQUESTED"
+            if include_unvalidated_advisory is True
+            else "SKIPPED_NOT_EXPLICITLY_REQUESTED"
+        ),
+        "advisory_requested": include_unvalidated_advisory is True,
     }
 
 
@@ -1038,13 +1380,19 @@ def build_report(
     bottle_state: BottleState | None = None,
     top_n: int = 5,
     output_format: str = "markdown",
+    include_unvalidated_advisory: bool = False,
+    goals: list[str] | None = None,
+    family: str | None = None,
+    target_style: str | None = None,
+    show_details: bool = False,
 ) -> str:
     _patch_volatility_helper()
-    fv = _build_formula_vector(source)
-    scorer = FormulaScorer()
-
     extra_observations = extra_observations or []
     intent_tags = intent_tags or []
+    normalized_goals = [str(goal).strip() for goal in (goals or []) if str(goal).strip()]
+    concise_goal_only = bool(
+        normalized_goals and not show_details and output_format == "markdown"
+    )
     observation_profile = _build_observation_profile(
         extra_observations=extra_observations,
         intent_tags=intent_tags,
@@ -1053,36 +1401,70 @@ def build_report(
         must_preserve=must_preserve or [],
         must_avoid=must_avoid or [],
     )
-    if bottle_state is not None:
-        if bottle_state.batch_volume_ml is None:
-            bottle_state.batch_volume_ml = batch_ml
-        fv = bottle_state.apply_to_formula(fv)
+    scores: dict[str, Any] = {}
+    style_fingerprint: dict[str, Any] = {}
+    fv: FormulaVector | None = None
+    if not concise_goal_only:
+        from engine.optimizer.scoring import FormulaScorer
 
-    raw_scores = summary.get("scores") if summary and bottle_state is None else None
-    scores = dict(raw_scores) if isinstance(raw_scores, Mapping) else {}
-    if not scores:
-        scores = scorer.score(fv)
+        fv = _build_formula_vector(source)
+        scorer = FormulaScorer()
+        if bottle_state is not None:
+            if bottle_state.batch_volume_ml is None:
+                bottle_state.batch_volume_ml = batch_ml
+            fv = bottle_state.apply_to_formula(fv)
+        raw_scores = summary.get("scores") if summary and bottle_state is None else None
+        scores = dict(raw_scores) if isinstance(raw_scores, Mapping) else {}
+        if not scores:
+            scores = scorer.score(fv)
+        style_fingerprint = scorer.style_fingerprint(fv)
 
-    style_fingerprint = scorer.style_fingerprint(fv)
     inventory_count = len(_load_inventory_records())
 
-    mode_payloads: dict[str, dict[str, Any]] = {}
-    for mode in modes:
-        mode_payloads[mode] = _build_mode_payload(
-            fv=fv,
-            scores=scores,
+    endpoint_results: list[Mapping[str, Any]] = []
+    if summary and isinstance(summary.get("endpoint_results"), Sequence):
+        endpoint_results = [
+            row for row in summary["endpoint_results"] if isinstance(row, Mapping)
+        ]
+    goal_analysis = (
+        _build_goal_analysis(
             source=source,
-            summary=summary,
-            bundle_rows=bundle_rows,
-            mode=mode,
-            batch_ml=batch_ml,
-            style_fingerprint=style_fingerprint,
-            extra_observations=extra_observations,
-            intent_tags=intent_tags,
+            goals=normalized_goals,
             observation_profile=observation_profile,
-            bottle_state=bottle_state,
-            top_n=top_n,
+            style_fingerprint=style_fingerprint,
+            mode=(modes[0] if modes else "pre_mix"),
+            family=family,
+            target_style=target_style,
+            max_hypotheses=top_n,
+            endpoint_results=endpoint_results,
         )
+        if normalized_goals
+        else None
+    )
+
+    mode_payloads: dict[str, dict[str, Any]] = {}
+    # Goal-first Markdown does not need to run or print the legacy advisory
+    # machinery.  JSON and explicit --show-details retain the complete surface.
+    if goal_analysis is None or show_details or output_format == "json":
+        if fv is None:
+            fv = _build_formula_vector(source)
+        for mode in modes:
+            mode_payloads[mode] = _build_mode_payload(
+                fv=fv,
+                scores=scores,
+                source=source,
+                summary=summary,
+                bundle_rows=bundle_rows,
+                mode=mode,
+                batch_ml=batch_ml,
+                style_fingerprint=style_fingerprint,
+                extra_observations=extra_observations,
+                intent_tags=intent_tags,
+                observation_profile=observation_profile,
+                bottle_state=bottle_state,
+                top_n=top_n,
+                include_unvalidated_advisory=include_unvalidated_advisory,
+            )
 
     if output_format == "json":
         return _render_json(
@@ -1095,6 +1477,7 @@ def build_report(
             inventory_count=inventory_count,
             bottle_state=bottle_state,
             observation_profile=observation_profile,
+            goal_analysis=goal_analysis,
         )
 
     return _render_markdown(
@@ -1107,6 +1490,8 @@ def build_report(
         inventory_count=inventory_count,
         bottle_state=bottle_state,
         observation_profile=observation_profile,
+        goal_analysis=goal_analysis,
+        show_details=show_details,
     )
 
 
@@ -1147,6 +1532,14 @@ def main() -> int:
         help="Maximum recommendations per mode",
     )
     parser.add_argument(
+        "--include-unvalidated-advisory",
+        action="store_true",
+        help=(
+            "Explicitly generate legacy diagnostic hypotheses. Results have no formula-"
+            "optimization or compounding authority and require controlled comparison."
+        ),
+    )
+    parser.add_argument(
         "--intent-tag",
         action="append",
         default=[],
@@ -1169,6 +1562,28 @@ def main() -> int:
         action="append",
         default=[],
         help="Structured desired effect such as more sophisticated or more lift",
+    )
+    parser.add_argument(
+        "--goal",
+        action="append",
+        default=[],
+        help=(
+            "Plain-language modification goal. Supplying a goal makes Markdown output "
+            "concise and goal-first unless --show-details is also used."
+        ),
+    )
+    parser.add_argument(
+        "--family",
+        help="Optional fragrance-family boundary for goal-directed hypotheses",
+    )
+    parser.add_argument(
+        "--target-style",
+        help="Optional named creative direction or profile to preserve",
+    )
+    parser.add_argument(
+        "--show-details",
+        action="store_true",
+        help="Include legacy scores, modes, and diagnostic detail after the concise goal analysis",
     )
     parser.add_argument(
         "--must-preserve",
@@ -1212,6 +1627,7 @@ def main() -> int:
     intent_tags = list(args.intent_tag or [])
     issue_tags = list(args.issue_tag or [])
     desired_effects = list(args.desired_effect or [])
+    goals = list(args.goal or [])
     must_preserve = list(args.must_preserve or [])
     must_avoid = list(args.must_avoid or [])
     recorded_additions = [_parse_recorded_addition(item) for item in (args.record_addition or [])]
@@ -1281,6 +1697,11 @@ def main() -> int:
         bottle_state=bottle_state,
         top_n=args.top_n,
         output_format=args.format,
+        include_unvalidated_advisory=args.include_unvalidated_advisory,
+        goals=goals,
+        family=args.family,
+        target_style=args.target_style,
+        show_details=args.show_details,
     )
 
     if args.output:

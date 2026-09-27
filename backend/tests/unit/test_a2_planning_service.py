@@ -106,7 +106,7 @@ async def test_formula_lineage_rejects_self_edge_and_cycle(db_session):
     edge = await service.link_formula_version(
         child.id,
         parent.id,
-        relationship_kind="DERIVED_FROM",
+        relationship_kind="DESIGN_REVISION",
         change={"kind": "REBALANCE"},
         rationale="Immutable revision",
     )
@@ -115,7 +115,7 @@ async def test_formula_lineage_rejects_self_edge_and_cycle(db_session):
         await service.link_formula_version(
             parent.id,
             parent.id,
-            relationship_kind="DERIVED_FROM",
+            relationship_kind="DESIGN_REVISION",
             change={},
             rationale="Self",
         )
@@ -124,7 +124,7 @@ async def test_formula_lineage_rejects_self_edge_and_cycle(db_session):
         await service.link_formula_version(
             parent.id,
             child.id,
-            relationship_kind="DERIVED_FROM",
+            relationship_kind="DESIGN_REVISION",
             change={"kind": "REBALANCE"},
             rationale="Cycle",
         )

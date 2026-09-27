@@ -1,0 +1,263 @@
+{
+  "schema_version": "full-potential-cp10-code-classification-v1",
+  "artifact_hash_semantics": "sha256-exact-or-utf8-text-eol-equivalent-v1",
+  "recorded_date": "2026-09-27",
+  "classification_basis": "Current source bytes and bounded call-surface review; no file is deleted or declared dead by this artifact.",
+  "categories": {
+    "REUSABLE_PRODUCTION_INFRASTRUCTURE": [
+      {
+        "path": "backend/app/services/engine_jobs.py",
+        "sha256": "0ed2c149432426ec9b12c885b3d9f7021387cc0531e71c6b857768a3c1fc81aa",
+        "scope": "durable identity, idempotency, fingerprint, event and result chains"
+      },
+      {
+        "path": "backend/app/services/engine_job_executor.py",
+        "sha256": "7dbe28d582c72a3c802151ecc9ad88c4851fb8eaf6016a55421ecb62b20d41e5",
+        "scope": "closed-registry job execution"
+      },
+      {
+        "path": "backend/app/services/engine_job_worker.py",
+        "sha256": "b022f3ed7f4137c944b34ed199dcfc9a396157be1a516a14bf6ac502702c0440",
+        "scope": "database-leased worker lifecycle"
+      },
+      {
+        "path": "backend/app/services/physical_lineage.py",
+        "sha256": "cea211a2577125602c243d670117a6d7229a1cbf2efe91a071a713933718f84e",
+        "scope": "Decimal physical lineage, readiness and replay safety"
+      },
+      {
+        "path": "backend/app/services/instrumental_observations.py",
+        "sha256": "732f78546d80d5512d30099115344a2080d76ccc2caef66bae5fa0eb4061d76e",
+        "scope": "immutable instrumental observation intake and idempotent evidence identity"
+      },
+      {
+        "path": "backend/app/services/validation_pipeline.py",
+        "sha256": "c6d61fdf71b3b5a10ff20ab9509d4a10335addfa2f15860140eb75bf6bbfcd84",
+        "scope": "authority-safe advisory validation envelope"
+      },
+      {
+        "path": "scripts/batch_gate_all_formulas.py",
+        "sha256": "43eac3c1de9b7a102720ee3342fed7f3c1aba0830f0402a95f71f7cc6cc0aaa3",
+        "scope": "deterministic process-isolated batch surface with worker-side result hashing"
+      },
+      {
+        "path": "scripts/formula_release_gate.py",
+        "sha256": "cb8e8d4b83d861207d5d8788764ac0073f6c066b0831f9eabc4cf64514c50216",
+        "scope": "closed formula analysis entry point and source-bound persistent worker protocol"
+      },
+      {
+        "path": "engine/calibration/hashing.py",
+        "sha256": "f3d54fdc5423a0dcec912d8746dccb061b88e7f5d2ddfd0c2a1b6bfc7b4b9211",
+        "scope": "canonical identities plus byte-compatible scientific and authority result hashing"
+      },
+      {
+        "path": "scripts/intervention_recommend.py",
+        "sha256": "ab76c401b3f498ad4528137a0ce8dd63b859bcf402fe34d564498a84e5c53abe",
+        "scope": "concise goal-first research CLI with opt-in legacy diagnostics"
+      },
+      {
+        "path": "engine/inventory_parser.py",
+        "sha256": "3bfbe44c4c3d5a8189a6bf56484b5aba86f08a485e25fd589212958f3368d5e8",
+        "scope": "source-bound current-inventory materialization and stock truth"
+      },
+      {
+        "path": "engine/knowledge/literature_rules.py",
+        "sha256": "e602ff568bf9600d3d5dfa06edebd3dc627408d361c5be1b38fa14fe598e7832",
+        "scope": "source-bound literature catalogue validation with formula-local coverage"
+      },
+      {
+        "path": "engine/pipeline/preflight.py",
+        "sha256": "6303e94afea4678e7cf3dae0e44fdaed9fa68e666a19bc571e19b6f9f6f2723b",
+        "scope": "source-bound schema preflight with uncached formula-specific findings"
+      },
+      {
+        "path": "engine/research/contracts.py",
+        "sha256": "5f4b971e3b4f9504d5a88116ede3082dd1a40e02d63f1877568c8736ed0bc716",
+        "scope": "versioned identity, stock, snapshot, scenario and endpoint contracts"
+      },
+      {
+        "path": "engine/research/accounting.py",
+        "sha256": "8cded3ca41bb020330f47d9f3ca2284270fb5e26ad3770bf46ca213636bab5cd",
+        "scope": "exact active-mass and carrier accounting"
+      },
+      {
+        "path": "engine/research/release.py",
+        "sha256": "328d9a1940873144f562564acc7e78cb040f93e453835a6ef0ec4aaa2a96dbf9",
+        "scope": "finite scenario-specific release challenger"
+      },
+      {
+        "path": "engine/research/perception.py",
+        "sha256": "80738bcd23a0893df7486c62bce0e84054c1aaf27f617b4e4fceead60264af12",
+        "scope": "endpoint-separated detection, intensity and character"
+      },
+      {
+        "path": "engine/research/preference.py",
+        "sha256": "08760c34c7448adcbd5c1bb3682425917561499bca0a1c4b7b7efdf9249f21fa",
+        "scope": "low-capacity personal pairwise preference challenger"
+      },
+      {
+        "path": "engine/research/capabilities.py",
+        "sha256": "4c78bf40eaf1482879361e1bf1e78bf11e238c474fa7dd2875c8af9f426bfb66",
+        "scope": "scientific capability adjudication"
+      },
+      {
+        "path": "engine/research/protocols.py",
+        "sha256": "6937baa588f855c0576dc95f8e72766ded3cb1b53c7f505804e9cf6a36940917",
+        "scope": "instrumental and blinded sensory protocol metadata"
+      },
+      {
+        "path": "engine/research/selection.py",
+        "sha256": "ead81e986f9ead2f220c9b572e507f36034d71c02ed2b3312f0675aead71b9de",
+        "scope": "equal-budget conservative selection"
+      },
+      {
+        "path": "engine/research/comparison.py",
+        "sha256": "9ef86fb2026677d30d20c0b02d1fc9cb854ee3c93702e709f22ae7cded286742",
+        "scope": "coverage-aware comparator and completion contracts"
+      },
+      {
+        "path": "engine/research/safety_policy.py",
+        "sha256": "e2596e9f25c91a651fd30399211bad2aec8a5dc47bd8521ac264e253fd12d040",
+        "scope": "versioned effective-versus-pending IFRA policy boundary"
+      },
+      {
+        "path": "engine/research/snapshots.py",
+        "sha256": "6bc13bf10c4a3ada5f961f0d51aad977f489d20ed20e60697dda1c1c8b91094d",
+        "scope": "generic immutable R5, R6 delta and Markdown snapshot adapters"
+      },
+      {
+        "path": "engine/research/goal_analysis.py",
+        "sha256": "ef1d15c2205c5b174df3319edc847406b0a1b5e3520b0d000190358e70a7fe5f",
+        "scope": "goal-linked formula clues and controlled modification hypotheses"
+      }
+    ],
+    "COMPATIBILITY_ONLY": [
+      {
+        "path": "backend/app/services/engine_job_compatibility.py",
+        "sha256": "b4dc5843c6e0b41c7b6794a6ac4e3cd01542d76c60d1b1f6466f15be62adf2c0",
+        "scope": "one-release synchronous wrappers over durable jobs"
+      },
+      {
+        "path": "backend/app/services/engine_job_registry.py",
+        "sha256": "090394a02de4d45e6efaa7865403ee66a317721b278dcfe96e0e534de10daca6",
+        "scope": "v1 request payload models only; v2 registry remains production"
+      },
+      {
+        "path": "backend/app/services/engine_job_executor.py",
+        "sha256": "7dbe28d582c72a3c802151ecc9ad88c4851fb8eaf6016a55421ecb62b20d41e5",
+        "scope": "R5/R6 checkpoint adapters only; generic v2 executors remain production"
+      }
+    ],
+    "CHECKPOINT_SPECIFIC_GOVERNANCE": [
+      {
+        "path": "engine/experiments/checkpoint3_readiness.py",
+        "sha256": "56c0518e102fe626813944e0a6fc72ffb9256e1713d108c6b585e3a51bd34126"
+      },
+      {
+        "path": "engine/experiments/checkpoint4_readiness.py",
+        "sha256": "c885c7fa06976784f6505768ff96943e663f555de962ca962e03ba3a3db0bcb3"
+      },
+      {
+        "path": "engine/experiments/checkpoint5_readiness.py",
+        "sha256": "2a4633f8303cce62c8642e9ca7e3fba0060c2a6cf9ec0edb1ededb5df51a559f"
+      },
+      {
+        "path": "engine/experiments/checkpoint6_readiness.py",
+        "sha256": "84123e75cc822bf56127cb84c10a2cdb79e0175d9c67c0b43e8eaeddcf3b4b42"
+      },
+      {
+        "path": "engine/experiments/checkpoint7_readiness.py",
+        "sha256": "48620d99ea8057d6a9b582140b17cd1950abd75787ae3461652a76095a0e87cf"
+      },
+      {
+        "path": "engine/experiments/checkpoint8_readiness.py",
+        "sha256": "f31932c2570e82113d2f2f812a567105835c57d7ff35ce8aea1f04cb068a4ba3"
+      },
+      {
+        "path": "engine/experiments/checkpoint19_comparison.py",
+        "sha256": "133da7bebfee5586614295266b518129195fd3f086dad7f3434b40b6e8ad1c56",
+        "scope": "current three-comparator boundary adapter; not a sensory ranking"
+      },
+      {
+        "path": "data/governance/lavande_ambre_profond_r5_design_comparator_20260923.json",
+        "sha256": "d7f5904bd9437cb61589a1a535423eedb6786641ccc70f109d3e1516bc222f86"
+      },
+      {
+        "path": "data/governance/lavande_ambre_profond_r6_aimi_design_successor_20260926.json",
+        "sha256": "0380fd88d38f7c8deda4a15d458ca36fd90609805940943509c2e11c0daf7984"
+      },
+      {
+        "path": "data/governance/lavande_ambre_profond_r5_cp3_readiness_protocol_20260926_v5.json",
+        "sha256": "cbcad3ba085106b37832f14d5cd80f03251c18677f4b82956986c2cb60cc9bb4"
+      },
+      {
+        "path": "data/governance/lavande_ambre_profond_r6_cp5_execution_input_protocol_20260926.json",
+        "sha256": "508b80587063f874f61a5077a3603c2b63a7f7d6390610a009e818ae7933853f"
+      },
+      {
+        "path": "data/governance/lavande_ambre_profond_r6_cp6_physical_lineage_intake_20260926.json",
+        "sha256": "62e80d1c527f5e94ea24d75e7587a44f1107c9869ed0921d570cf8b321acdebb"
+      },
+      {
+        "path": "data/governance/lavande_ambre_profond_r6_cp7_research_applicability_intake_20260926.json",
+        "sha256": "a6e1462593a67424ae0f02bbd23de7f06e9c9494228b04e0315633c9d93a6c44"
+      },
+      {
+        "path": "data/governance/lavande_ambre_profond_r6_cp8_sensory_evidence_intake_20260926.json",
+        "sha256": "992ee5b8b1e499d81bd5f4d45f38cfe2bc0d5921005dc8f49553cae6ba3c81bb"
+      }
+    ],
+    "SCIENTIFIC_HEURISTIC": [
+      {
+        "path": "engine/thermo/activity.py",
+        "sha256": "99d5110b88748066803c2fa4910dbed6ff03bec09406f87fa62a0c0c2dcb90b9",
+        "scope": "Hansen-distance regular-solution-inspired sensitivity heuristic; not UNIFAC"
+      },
+      {
+        "path": "engine/thermo/headspace.py",
+        "sha256": "25954f59cd1e90c051b7a5a52c1692474ccbe14e3f3677fbcc50299ee27a7bb9",
+        "scope": "legacy equilibrium/headspace path; exact call-path guards must remain visible"
+      },
+      {
+        "path": "engine/optimizer/scoring.py",
+        "sha256": "288465277f14f0125e6dc0049203b9135167edca710c37240cdc9fb50f4893b5",
+        "scope": "explicit legacy diagnostic scores; prohibited as beauty or personal-liking authority"
+      },
+      {
+        "path": "engine/hedonic_model.py",
+        "sha256": "e213465333f728462f0fac10f7c57a8a6a9730e7a1f13175786452c84b83fefc",
+        "scope": "legacy generic-valence diagnostic; never an admitted pleasantness endpoint"
+      },
+      {
+        "path": "engine/pipeline/natural_absolute_decomposition.py",
+        "sha256": "3c36d64b8e8062a148b21467a7039693fa9cd3edb44e743e60092ec0f5fe64dd",
+        "scope": "versioned partial-composition sensitivity scenarios; not whole-lot measurement"
+      },
+      {
+        "path": "engine/pipeline/robustness.py",
+        "sha256": "2412f92beb23f38dde4e8e6d0dccca357540518f94ec54fe02a4e7b91e01d85b",
+        "scope": "deterministic perturbation diagnostic; not sensory or safety release authority"
+      }
+    ],
+    "RETIREMENT_REVIEW_CANDIDATE_NOT_DEAD": [
+      {
+        "path": "engine/optimizer/oav_objective.py",
+        "sha256": "a485fc81d731bbdaeb7ebe8c876d0f6559c441656b62a06998fbdab16cd27186",
+        "reachability": "exported by engine.optimizer; quarantine or migration required before retirement"
+      },
+      {
+        "path": "engine/ifra_checker.py",
+        "sha256": "a51cd0b0b5294194ee57745ad09c1230a4e2f97c5c4d5439ff5e764a0618f276",
+        "reachability": "legacy public import surface; no deletion without downstream call audit"
+      }
+    ]
+  },
+  "confirmed_dead_paths": [],
+  "authority": {
+    "deletion_authorized": false,
+    "scientific_promotion_authorized": false,
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false
+  }
+}

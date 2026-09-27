@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import asyncio
+import json
 from collections.abc import Sequence
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
 from datetime import datetime
+from decimal import Decimal, InvalidOperation
 from hashlib import sha256
 from math import isfinite
 from uuid import uuid4
@@ -16,6 +18,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.lab import (
     LabApplication,
+    LabBatch,
     LabBottle,
     LabBottleEvent,
     LabBottleEventEffect,
@@ -34,10 +37,16 @@ from app.models.lab import (
     LabStockSolution,
 )
 from app.repositories.lab import BottleLedgerState, LabRepository
+from app.services.engine_jobs import LabEngineJobServiceMixin
+from app.services.external_validation import LabExternalValidationServiceMixin
+from app.services.instrumental_observations import (
+    LabInstrumentalObservationServiceMixin,
+)
 from app.services.lab_analytical import LabAnalyticalAuthorityServiceMixin
 from app.services.lab_backfill import LabBackfillServiceMixin
 from app.services.lab_claims import LabClaimAuthorityServiceMixin
 from app.services.lab_execution import LabExecutionServiceMixin
+from app.services.lab_external_studies import LabExternalStudyServiceMixin
 from app.services.lab_planning import LabPlanningServiceMixin
 from app.services.lab_properties import LabPropertyServiceMixin
 from app.services.lab_regulatory import LabRegulatoryAuthorityServiceMixin
@@ -45,6 +54,73 @@ from app.services.lab_rules import LabRuleServiceMixin
 from app.services.lab_science import LabScienceServiceMixin
 from app.services.lab_sources import LabSourceServiceMixin
 from app.services.lab_thresholds import LabThresholdServiceMixin
+from app.services.physical_lineage import LabPhysicalLineageServiceMixin
+from app.services.stock_lineage import (
+    StockLineageError,
+    validate_formula_version_physical_lineage,
+)
+
+_EXACT_DECIMAL_TEXT_MAX_LENGTH = 128
+
+
+def _canonical_decimal_text(value: Decimal) -> str:
+    if value == 0:
+        return "0"
+    text = format(value, "f")
+    if "." in text:
+        text = text.rstrip("0").rstrip(".")
+    return text
+
+
+def _exact_decimal(value: object, field_name: str) -> tuple[Decimal, str]:
+    try:
+        decimal_value = Decimal(str(value))
+    except (InvalidOperation, TypeError, ValueError) as error:
+        raise ValueError(f"{field_name} must be a finite decimal quantity") from error
+    if not decimal_value.is_finite():
+        raise ValueError(f"{field_name} must be a finite decimal quantity")
+    text_value = _canonical_decimal_text(decimal_value)
+    if len(text_value) > _EXACT_DECIMAL_TEXT_MAX_LENGTH:
+        raise ValueError(
+            f"{field_name} exceeds the exact-decimal persistence limit"
+        )
+    try:
+        projection = float(decimal_value)
+    except (OverflowError, ValueError) as error:
+        raise ValueError(f"{field_name} cannot be projected to legacy float") from error
+    if not isfinite(projection):
+        raise ValueError(f"{field_name} cannot be projected to legacy float")
+    return decimal_value, text_value
+
+
+def _submitted_decimal_text(value: object, field_name: str) -> str:
+    """Return the caller's finite decimal spelling for immutable receipts."""
+
+    text_value = str(value).strip()
+    if not text_value or len(text_value) > _EXACT_DECIMAL_TEXT_MAX_LENGTH:
+        raise ValueError(f"{field_name} exceeds the exact-decimal persistence limit")
+    _exact_decimal(value, field_name)
+    return text_value
+
+
+def _semantic_sha256(payload: object) -> str:
+    return sha256(
+        json.dumps(
+            payload,
+            sort_keys=True,
+            separators=(",", ":"),
+            ensure_ascii=False,
+        ).encode("utf-8")
+    ).hexdigest()
+
+
+def _require_sha256(value: str, field_name: str) -> str:
+    normalized = value.strip().casefold()
+    if len(normalized) != 64 or any(
+        character not in "0123456789abcdef" for character in normalized
+    ):
+        raise ValueError(f"{field_name} must be a 64-character hexadecimal digest")
+    return normalized
 
 
 @dataclass(frozen=True, slots=True)
@@ -52,14 +128,17 @@ class FormulaComponentInput:
     """One explicitly based stock dose in an immutable formula version."""
 
     stock_solution_id: str
-    requested_mass_g: float
+    requested_mass_g: Decimal
     requested_volume_ul: float | None = None
     role: str | None = None
     unit: str = "g"
 
     def __post_init__(self) -> None:
         stock_solution_id = self.stock_solution_id.strip()
-        mass = float(self.requested_mass_g)
+        mass, _mass_text = _exact_decimal(
+            self.requested_mass_g,
+            "requested_mass_g",
+        )
         volume = (
             float(self.requested_volume_ul)
             if self.requested_volume_ul is not None
@@ -68,7 +147,7 @@ class FormulaComponentInput:
         role = self.role.strip() if self.role else None
         if not stock_solution_id:
             raise ValueError("stock_solution_id must not be empty")
-        if not isfinite(mass) or mass <= 0:
+        if mass <= 0:
             raise ValueError("requested_mass_g must be finite and greater than zero")
         if volume is not None and (not isfinite(volume) or volume <= 0):
             raise ValueError("requested_volume_ul must be finite and greater than zero")
@@ -112,7 +191,12 @@ _LAB_WRITE_LOCK = asyncio.Lock()
 
 
 class LabService(
+    LabEngineJobServiceMixin,
+    LabInstrumentalObservationServiceMixin,
+    LabExternalValidationServiceMixin,
+    LabPhysicalLineageServiceMixin,
     LabExecutionServiceMixin,
+    LabExternalStudyServiceMixin,
     LabBackfillServiceMixin,
     LabRuleServiceMixin,
     LabThresholdServiceMixin,
@@ -185,7 +269,7 @@ class LabService(
         self,
         *,
         material_id: str,
-        active_fraction: float,
+        active_fraction: Decimal | int | float | str,
         fraction_basis: str,
         initial_mass_g: float,
         density_g_ml: float | None = None,
@@ -193,7 +277,11 @@ class LabService(
         lot_number: str | None = None,
         solvent_name: str | None = None,
     ) -> LabStockSolution:
-        if not 0 < active_fraction <= 1:
+        active_fraction_decimal, active_fraction_text = _exact_decimal(
+            active_fraction,
+            "active_fraction",
+        )
+        if not Decimal("0") < active_fraction_decimal <= Decimal("1"):
             raise ValueError("active_fraction must be greater than zero and at most one")
         if fraction_basis not in {"mass_fraction", "volume_fraction", "amount_fraction"}:
             raise ValueError("fraction_basis must be explicit")
@@ -207,7 +295,8 @@ class LabService(
             return await self.repository.add(
                 LabStockSolution(
                     material_id=material_id,
-                    active_fraction=active_fraction,
+                    active_fraction=float(active_fraction_decimal),
+                    active_fraction_decimal_text=active_fraction_text,
                     fraction_basis=fraction_basis,
                     initial_mass_g=initial_mass_g,
                     remaining_mass_g=initial_mass_g,
@@ -264,7 +353,10 @@ class LabService(
                         formula_version_id=version.id,
                         stock_solution_id=component.stock_solution_id,
                         position=position,
-                        requested_mass_g=component.requested_mass_g,
+                        requested_mass_g=float(component.requested_mass_g),
+                        requested_mass_g_decimal_text=_canonical_decimal_text(
+                            component.requested_mass_g
+                        ),
                         requested_volume_ul=component.requested_volume_ul,
                         role=component.role,
                         unit=component.unit,
@@ -311,11 +403,17 @@ class LabService(
         *,
         bottle_id: str,
         stock_solution_id: str,
-        mass_g: float,
+        mass_g: Decimal | int | float | str,
         expected_sequence: int,
         command_id: str,
-        measured_volume_ul: float | None = None,
-        standard_uncertainty: float | None = None,
+        measured_volume_ul: Decimal | int | float | str | None = None,
+        standard_uncertainty: Decimal | int | float | str | None = None,
+        volume_standard_uncertainty_ul: Decimal | int | float | str | None = None,
+        volume_measurement_method: str | None = None,
+        volume_device_id: str | None = None,
+        volume_device_calibration_sha256: str | None = None,
+        volume_reference_temperature_c: Decimal | int | float | str | None = None,
+        volume_reference_conditions: dict | None = None,
         actor: str = "system",
     ) -> LabBottleEvent:
         async with self._transaction():
@@ -327,6 +425,12 @@ class LabService(
                 command_id=command_id,
                 measured_volume_ul=measured_volume_ul,
                 standard_uncertainty=standard_uncertainty,
+                volume_standard_uncertainty_ul=volume_standard_uncertainty_ul,
+                volume_measurement_method=volume_measurement_method,
+                volume_device_id=volume_device_id,
+                volume_device_calibration_sha256=volume_device_calibration_sha256,
+                volume_reference_temperature_c=volume_reference_temperature_c,
+                volume_reference_conditions=volume_reference_conditions,
                 actor=actor,
             )
 
@@ -335,11 +439,17 @@ class LabService(
         *,
         bottle_id: str,
         stock_solution_id: str,
-        mass_g: float,
+        mass_g: Decimal | int | float | str,
         expected_sequence: int,
         command_id: str,
-        measured_volume_ul: float | None = None,
-        standard_uncertainty: float | None = None,
+        measured_volume_ul: Decimal | int | float | str | None = None,
+        standard_uncertainty: Decimal | int | float | str | None = None,
+        volume_standard_uncertainty_ul: Decimal | int | float | str | None = None,
+        volume_measurement_method: str | None = None,
+        volume_device_id: str | None = None,
+        volume_device_calibration_sha256: str | None = None,
+        volume_reference_temperature_c: Decimal | int | float | str | None = None,
+        volume_reference_conditions: dict | None = None,
         actor: str = "system",
         build_plan_line_id: str | None = None,
         reservation_event_id: str | None = None,
@@ -347,27 +457,156 @@ class LabService(
     ) -> LabBottleEvent:
         """Apply one stock addition inside the caller's canonical transaction."""
 
-        if mass_g <= 0:
+        mass_decimal, mass_canonical = _exact_decimal(mass_g, "mass_g")
+        mass_submitted = _submitted_decimal_text(mass_g, "mass_g")
+        mass_projection = float(mass_decimal)
+        if mass_decimal <= 0:
             raise ValueError("mass_g must be greater than zero")
-        if standard_uncertainty is not None and standard_uncertainty < 0:
-            raise ValueError("standard_uncertainty must be nonnegative")
+
+        measured_volume_projection: float | None = None
+        measured_volume_submitted: str | None = None
+        measured_volume_canonical: str | None = None
+        if measured_volume_ul is not None:
+            measured_volume_decimal, measured_volume_canonical = _exact_decimal(
+                measured_volume_ul,
+                "measured_volume_ul",
+            )
+            measured_volume_submitted = _submitted_decimal_text(
+                measured_volume_ul,
+                "measured_volume_ul",
+            )
+            if measured_volume_decimal <= 0:
+                raise ValueError("measured_volume_ul must be greater than zero")
+            measured_volume_projection = float(measured_volume_decimal)
+
+        uncertainty_projection: float | None = None
+        uncertainty_submitted: str | None = None
+        uncertainty_canonical: str | None = None
+        if standard_uncertainty is not None:
+            uncertainty_decimal, uncertainty_canonical = _exact_decimal(
+                standard_uncertainty,
+                "standard_uncertainty",
+            )
+            uncertainty_submitted = _submitted_decimal_text(
+                standard_uncertainty,
+                "standard_uncertainty",
+            )
+            if uncertainty_decimal < 0:
+                raise ValueError("standard_uncertainty must be nonnegative")
+            uncertainty_projection = float(uncertainty_decimal)
+
+        volume_uncertainty_projection: float | None = None
+        volume_uncertainty_submitted: str | None = None
+        volume_uncertainty_canonical: str | None = None
+        if volume_standard_uncertainty_ul is not None:
+            volume_uncertainty_decimal, volume_uncertainty_canonical = _exact_decimal(
+                volume_standard_uncertainty_ul,
+                "volume_standard_uncertainty_ul",
+            )
+            volume_uncertainty_submitted = _submitted_decimal_text(
+                volume_standard_uncertainty_ul,
+                "volume_standard_uncertainty_ul",
+            )
+            if volume_uncertainty_decimal < 0:
+                raise ValueError("volume_standard_uncertainty_ul must be nonnegative")
+            volume_uncertainty_projection = float(volume_uncertainty_decimal)
+
+        temperature_projection: float | None = None
+        temperature_submitted: str | None = None
+        temperature_canonical: str | None = None
+        if volume_reference_temperature_c is not None:
+            temperature_decimal, temperature_canonical = _exact_decimal(
+                volume_reference_temperature_c,
+                "volume_reference_temperature_c",
+            )
+            temperature_submitted = _submitted_decimal_text(
+                volume_reference_temperature_c,
+                "volume_reference_temperature_c",
+            )
+            temperature_projection = float(temperature_decimal)
+
+        calibration_hash = (
+            _require_sha256(
+                volume_device_calibration_sha256,
+                "volume_device_calibration_sha256",
+            )
+            if volume_device_calibration_sha256 is not None
+            else None
+        )
         actor = actor.strip()
         if not actor:
             raise ValueError("actor must not be empty")
         if event_type not in {"ADD_MATERIAL", "ADD_SOLVENT"}:
             raise ValueError(f"unsupported addition event_type: {event_type}")
+        if (build_plan_line_id is None) != (reservation_event_id is None):
+            raise LabTransactionError(
+                "planned execution requires both build-plan line and reservation lineage"
+            )
+        planned_lifecycle = (
+            build_plan_line_id is not None and reservation_event_id is not None
+        )
         token = _command_token("add-stock", command_id)
-        request_payload = {
+        legacy_request_payload = {
             "stock_solution_id": stock_solution_id,
-            "mass_g": mass_g,
-            "measured_volume_ul": measured_volume_ul,
-            "standard_uncertainty": standard_uncertainty,
+            "mass_g": mass_projection,
+            "measured_volume_ul": measured_volume_projection,
+            "standard_uncertainty": uncertainty_projection,
             "expected_sequence": expected_sequence,
             "event_type": event_type,
         }
+        request_payload = {
+            **legacy_request_payload,
+            "mass_g_decimal_text": mass_canonical,
+            "mass_g_submitted_decimal_text": mass_submitted,
+            "measured_volume_ul_decimal_text": measured_volume_submitted,
+            "measured_volume_ul_submitted_decimal_text": measured_volume_submitted,
+            "measured_volume_ul_canonical_decimal_text": measured_volume_canonical,
+            "standard_uncertainty_decimal_text": uncertainty_canonical,
+            "standard_uncertainty_submitted_decimal_text": uncertainty_submitted,
+            "volume_standard_uncertainty_ul": volume_uncertainty_projection,
+            "volume_standard_uncertainty_ul_decimal_text": volume_uncertainty_submitted,
+            "volume_standard_uncertainty_ul_submitted_decimal_text": (
+                volume_uncertainty_submitted
+            ),
+            "volume_standard_uncertainty_ul_canonical_decimal_text": (
+                volume_uncertainty_canonical
+            ),
+            "volume_measurement_method": (
+                volume_measurement_method.strip()
+                if volume_measurement_method is not None
+                else None
+            ),
+            "volume_device_id": (
+                volume_device_id.strip() if volume_device_id is not None else None
+            ),
+            "volume_device_calibration_sha256": calibration_hash,
+            "volume_reference_temperature_c": temperature_projection,
+            "volume_reference_temperature_c_decimal_text": temperature_submitted,
+            "volume_reference_temperature_c_submitted_decimal_text": (
+                temperature_submitted
+            ),
+            "volume_reference_temperature_c_canonical_decimal_text": (
+                temperature_canonical
+            ),
+            "volume_reference_conditions": (
+                dict(volume_reference_conditions)
+                if volume_reference_conditions is not None
+                else None
+            ),
+            "execution_scope": (
+                "PLANNED_PROPOSAL_CONFIRM_MEASURE_COMMIT"
+                if planned_lifecycle
+                else "FREEFORM_UNBOUND_QUARANTINE"
+            ),
+            "formula_execution_authority": False,
+            "build_plan_fulfillment_authority": planned_lifecycle,
+        }
         existing = await self.repository.event_for_command(bottle_id, token)
         if existing is not None:
-            if existing.payload_json != request_payload:
+            if existing.payload_json not in (
+                request_payload,
+                legacy_request_payload,
+            ):
                 raise IdempotencyConflictError(
                     "command identifier was already used for a different request"
                 )
@@ -378,6 +617,25 @@ class LabService(
             raise KeyError(f"Unknown bottle: {bottle_id}")
         if stock is None:
             raise KeyError(f"Unknown stock solution: {stock_solution_id}")
+        if bottle.batch_id is not None and (
+            build_plan_line_id is None or reservation_event_id is None
+        ):
+            raise LabTransactionError(
+                "formula/batch-bound bottles require proposal-confirm-measure-commit execution"
+            )
+        if bottle.batch_id is not None:
+            batch = await self.session.get(LabBatch, bottle.batch_id)
+            if batch is None:
+                raise LabTransactionError("batch-bound bottle references a missing batch")
+            try:
+                await validate_formula_version_physical_lineage(
+                    self.session,
+                    batch.formula_version_id,
+                )
+            except StockLineageError as error:
+                raise LabTransactionError(
+                    f"{error.code}: {error}"
+                ) from error
         if await self.repository.bottle_is_closed(bottle_id):
             raise LabTransactionError("bottle is closed")
         current_sequence = await self.repository.latest_sequence(bottle_id)
@@ -385,10 +643,17 @@ class LabService(
             raise StaleBottleStreamError(
                 f"expected sequence {expected_sequence}, current sequence is {current_sequence}"
             )
-        available_g = await self.repository.stock_balance_g(stock_solution_id)
-        if mass_g > available_g + 1e-12:
+        physical_balance_g = await self.repository.stock_balance_g(
+            stock_solution_id
+        )
+        available_g = physical_balance_g
+        if not planned_lifecycle:
+            available_g -= await self.repository.active_reserved_mass_g(
+                stock_solution_id
+            )
+        if mass_projection > available_g + 1e-12:
             raise InsufficientStockError(
-                f"requested {mass_g:g} g but only {available_g:g} g is available"
+                f"requested {mass_projection:g} g but only {available_g:g} g is available"
             )
 
         event = await self.repository.add(
@@ -408,30 +673,30 @@ class LabService(
                 bottle_id=bottle_id,
                 stock_solution_id=stock_solution_id,
                 material_id=stock.material_id,
-                mass_delta_g=mass_g,
-                measured_volume_ul=measured_volume_ul,
+                mass_delta_g=mass_projection,
+                measured_volume_ul=measured_volume_projection,
                 density_g_ml=stock.density_g_ml,
             )
         )
         await self._append_inventory_movement(
             stock=stock,
             movement_type="CONSUMPTION",
-            raw_quantity=mass_g,
-            balance_before=available_g,
-            balance_after=available_g - mass_g,
+            raw_quantity=mass_projection,
+            balance_before=physical_balance_g,
+            balance_after=physical_balance_g - mass_projection,
             actor=actor,
             transaction_id=event.transaction_id,
             idempotency_key=f"movement:{event.id}",
             reason="bottle_addition",
-            mass_delta_g=-mass_g,
+            mass_delta_g=-mass_projection,
             event_effect_id=effect.id,
             bottle_event_id=event.id,
             build_plan_line_id=build_plan_line_id,
             reservation_event_id=reservation_event_id,
-            measured_volume_ul=measured_volume_ul,
-            standard_uncertainty=standard_uncertainty,
+            measured_volume_ul=measured_volume_projection,
+            standard_uncertainty=uncertainty_projection,
         )
-        stock.remaining_mass_g = available_g - mass_g
+        stock.remaining_mass_g = physical_balance_g - mass_projection
         return event
 
     async def add_solvent_to_bottle(
@@ -439,11 +704,17 @@ class LabService(
         *,
         bottle_id: str,
         stock_solution_id: str,
-        mass_g: float,
+        mass_g: Decimal | int | float | str,
         expected_sequence: int,
         command_id: str,
-        measured_volume_ul: float | None = None,
-        standard_uncertainty: float | None = None,
+        measured_volume_ul: Decimal | int | float | str | None = None,
+        standard_uncertainty: Decimal | int | float | str | None = None,
+        volume_standard_uncertainty_ul: Decimal | int | float | str | None = None,
+        volume_measurement_method: str | None = None,
+        volume_device_id: str | None = None,
+        volume_device_calibration_sha256: str | None = None,
+        volume_reference_temperature_c: Decimal | int | float | str | None = None,
+        volume_reference_conditions: dict | None = None,
         actor: str = "system",
     ) -> LabBottleEvent:
         """Append a solvent addition without classifying it as odorant mass."""
@@ -457,8 +728,508 @@ class LabService(
                 command_id=command_id,
                 measured_volume_ul=measured_volume_ul,
                 standard_uncertainty=standard_uncertainty,
+                volume_standard_uncertainty_ul=volume_standard_uncertainty_ul,
+                volume_measurement_method=volume_measurement_method,
+                volume_device_id=volume_device_id,
+                volume_device_calibration_sha256=volume_device_calibration_sha256,
+                volume_reference_temperature_c=volume_reference_temperature_c,
+                volume_reference_conditions=volume_reference_conditions,
                 actor=actor,
                 event_type="ADD_SOLVENT",
+            )
+
+    async def finalize_stock_preparation(
+        self,
+        *,
+        bottle_id: str,
+        material_id: str,
+        parent_event_id: str,
+        carrier_event_id: str,
+        parent_identity_evidence_id: str,
+        carrier_identity_evidence_id: str,
+        child_label: str,
+        child_lot_number: str,
+        preparation_sop_sha256: str,
+        balance_calibration_sha256: str,
+        command_id: str,
+        actor: str,
+        source_design_sha256: str | None = None,
+        source_target_volume_fraction: Decimal | int | float | str | None = None,
+    ) -> LabStockSolution:
+        """Create one mass-authoritative child stock from a closed bottle.
+
+        Component delivery volumes are retained only as source-intent metadata.
+        They never change committed mass, inventory balances, the canonical
+        mass-fraction basis, or any action authority.
+        """
+
+        label = child_label.strip()
+        lot = child_lot_number.strip()
+        operator = actor.strip()
+        if not label or not lot or not operator:
+            raise ValueError("child_label, child_lot_number, and actor must not be empty")
+        sop_hash = _require_sha256(preparation_sop_sha256, "preparation_sop_sha256")
+        balance_hash = _require_sha256(
+            balance_calibration_sha256,
+            "balance_calibration_sha256",
+        )
+        design_hash = (
+            _require_sha256(source_design_sha256, "source_design_sha256")
+            if source_design_sha256 is not None
+            else None
+        )
+        if (design_hash is None) != (source_target_volume_fraction is None):
+            raise ValueError(
+                "source_design_sha256 and source_target_volume_fraction must be supplied together"
+            )
+
+        target_volume_fraction: Decimal | None = None
+        target_volume_fraction_submitted: str | None = None
+        target_volume_fraction_canonical: str | None = None
+        if source_target_volume_fraction is not None:
+            (
+                target_volume_fraction,
+                target_volume_fraction_canonical,
+            ) = _exact_decimal(
+                source_target_volume_fraction,
+                "source_target_volume_fraction",
+            )
+            target_volume_fraction_submitted = _submitted_decimal_text(
+                source_target_volume_fraction,
+                "source_target_volume_fraction",
+            )
+            if not Decimal("0") < target_volume_fraction < Decimal("1"):
+                raise ValueError(
+                    "source_target_volume_fraction must be greater than zero and less than one"
+                )
+
+        command_token = _command_token("finalize-stock-preparation", command_id)
+        command_payload = {
+            "bottle_id": bottle_id,
+            "material_id": material_id,
+            "parent_event_id": parent_event_id,
+            "carrier_event_id": carrier_event_id,
+            "parent_identity_evidence_id": parent_identity_evidence_id,
+            "carrier_identity_evidence_id": carrier_identity_evidence_id,
+            "child_label": label,
+            "child_lot_number": lot,
+            "preparation_sop_sha256": sop_hash,
+            "balance_calibration_sha256": balance_hash,
+            "source_design_sha256": design_hash,
+            "source_target_volume_fraction": target_volume_fraction_submitted,
+            "canonical_source_target_volume_fraction": (
+                target_volume_fraction_canonical
+            ),
+            "actor": operator,
+        }
+        command_sha256 = _semantic_sha256(command_payload)
+
+        async with self._transaction():
+            replay = await self.repository.stock_preparation_for_command(command_token)
+            if replay is not None:
+                receipt = dict(replay.source_json or {}).get(
+                    "stock_preparation_receipt",
+                    {},
+                )
+                if receipt.get("command_sha256") != command_sha256:
+                    raise IdempotencyConflictError(
+                        "command identifier was already used for a different request"
+                    )
+                return replay
+            prior_bottle_result = await self.repository.stock_preparation_for_bottle(
+                bottle_id
+            )
+            if prior_bottle_result is not None:
+                raise IdempotencyConflictError(
+                    "preparation bottle was already finalized under another command"
+                )
+
+            bottle = await self.repository.get_bottle(bottle_id)
+            if bottle is None:
+                raise KeyError(f"Unknown bottle: {bottle_id}")
+            material = await self.repository.get_material(material_id)
+            if material is None:
+                raise KeyError(f"Unknown material: {material_id}")
+            events = await self.repository.events_for_bottle(bottle_id)
+            if not events or events[-1].event_type != "CLOSE_BATCH":
+                raise LabTransactionError(
+                    "stock preparation requires a terminal close event"
+                )
+            close_event = events[-1]
+            addition_events = [
+                event
+                for event in events
+                if event.event_type in {"ADD_MATERIAL", "ADD_SOLVENT"}
+            ]
+            if len(addition_events) != 2 or {
+                event.id for event in addition_events
+            } != {parent_event_id, carrier_event_id}:
+                raise LabTransactionError(
+                    "stock preparation requires exactly one parent and one carrier addition"
+                )
+
+            parent_event = await self.repository.get_event(parent_event_id)
+            carrier_event = await self.repository.get_event(carrier_event_id)
+            if (
+                parent_event is None
+                or carrier_event is None
+                or parent_event.bottle_id != bottle_id
+                or carrier_event.bottle_id != bottle_id
+                or parent_event.event_type != "ADD_MATERIAL"
+                or carrier_event.event_type != "ADD_SOLVENT"
+            ):
+                raise LabTransactionError(
+                    "stock preparation parent/carrier events do not match the closed bottle"
+                )
+            if (
+                await self.repository.correction_for_event(parent_event_id) is not None
+                or await self.repository.correction_for_event(carrier_event_id) is not None
+            ):
+                raise LabTransactionError(
+                    "corrected or reversed preparation input history is not admissible"
+                )
+
+            parent_effects = await self.repository.effects_for_event(parent_event_id)
+            carrier_effects = await self.repository.effects_for_event(carrier_event_id)
+            if len(parent_effects) != 1 or len(carrier_effects) != 1:
+                raise LabTransactionError(
+                    "stock preparation inputs require exactly one committed effect each"
+                )
+            parent_effect = parent_effects[0]
+            carrier_effect = carrier_effects[0]
+            if (
+                parent_effect.stock_solution_id is None
+                or carrier_effect.stock_solution_id is None
+            ):
+                raise LabTransactionError(
+                    "stock preparation input effects must bind exact stock solutions"
+                )
+            parent_stock = await self.repository.get_stock(parent_effect.stock_solution_id)
+            carrier_stock = await self.repository.get_stock(carrier_effect.stock_solution_id)
+            if parent_stock is None or carrier_stock is None:
+                raise LabTransactionError(
+                    "stock preparation input stock solution is unavailable"
+                )
+            if parent_stock.material_id != material_id:
+                raise LabTransactionError(
+                    "prepared-stock material must match the parent stock material"
+                )
+            if (
+                parent_stock.fraction_basis != "mass_fraction"
+                or carrier_stock.fraction_basis != "mass_fraction"
+            ):
+                raise LabTransactionError(
+                    "executed stock preparation requires mass_fraction input authority"
+                )
+
+            parent_evidence = await self.repository.get_evidence_record(
+                parent_identity_evidence_id
+            )
+            carrier_evidence = await self.repository.get_evidence_record(
+                carrier_identity_evidence_id
+            )
+            if parent_evidence is None or carrier_evidence is None:
+                raise LabTransactionError(
+                    "stock preparation identity evidence record is unavailable"
+                )
+            if (
+                parent_evidence.classification != "EXACT"
+                or carrier_evidence.classification != "EXACT"
+            ):
+                raise LabTransactionError(
+                    "stock preparation identity evidence must be classified EXACT"
+                )
+
+            def event_decimal(
+                event: LabBottleEvent,
+                field: str,
+                *,
+                required: bool = True,
+            ) -> tuple[Decimal | None, str | None, str | None]:
+                payload = event.payload_json
+                submitted = payload.get(f"{field}_submitted_decimal_text")
+                canonical = payload.get(f"{field}_decimal_text")
+                if field == "measured_volume_ul":
+                    canonical = payload.get(
+                        "measured_volume_ul_canonical_decimal_text",
+                        canonical,
+                    )
+                if field == "volume_standard_uncertainty_ul":
+                    canonical = payload.get(
+                        "volume_standard_uncertainty_ul_canonical_decimal_text",
+                        canonical,
+                    )
+                if field == "volume_reference_temperature_c":
+                    canonical = payload.get(
+                        "volume_reference_temperature_c_canonical_decimal_text",
+                        canonical,
+                    )
+                raw_value = payload.get(field)
+                if canonical is None and raw_value is not None:
+                    value, canonical = _exact_decimal(raw_value, field)
+                    submitted = submitted or str(raw_value)
+                    return value, submitted, canonical
+                if canonical is None:
+                    if required:
+                        raise LabTransactionError(
+                            f"stock preparation requires {field} authority"
+                        )
+                    return None, None, None
+                value, normalized = _exact_decimal(canonical, field)
+                return value, submitted or str(canonical), normalized
+
+            parent_mass, _parent_mass_submitted, parent_mass_text = event_decimal(
+                parent_event,
+                "mass_g",
+            )
+            carrier_mass, _carrier_mass_submitted, carrier_mass_text = event_decimal(
+                carrier_event,
+                "mass_g",
+            )
+            parent_uncertainty, _unused, parent_uncertainty_text = event_decimal(
+                parent_event,
+                "standard_uncertainty",
+                required=False,
+            )
+            carrier_uncertainty, _unused, carrier_uncertainty_text = event_decimal(
+                carrier_event,
+                "standard_uncertainty",
+                required=False,
+            )
+            if parent_uncertainty is None or carrier_uncertainty is None:
+                raise LabTransactionError(
+                    "stock preparation requires standard uncertainty for both mass inputs"
+                )
+            assert parent_mass is not None and carrier_mass is not None
+            total_mass = parent_mass + carrier_mass
+            if total_mass <= 0:
+                raise LabTransactionError(
+                    "stock preparation child mass must be greater than zero"
+                )
+            parent_fraction, _fraction_text = _exact_decimal(
+                parent_stock.active_fraction_decimal_text
+                or parent_stock.active_fraction,
+                "parent_active_fraction",
+            )
+            active_mass = parent_mass * parent_fraction
+            child_fraction = active_mass / total_mass
+            total_mass_text = _canonical_decimal_text(total_mass)
+            active_mass_text = _canonical_decimal_text(active_mass)
+            child_fraction_text = _canonical_decimal_text(child_fraction)
+
+            carrier_material = await self.repository.get_material(
+                carrier_stock.material_id
+            )
+            if carrier_material is None:
+                raise LabTransactionError(
+                    "stock preparation carrier material is unavailable"
+                )
+
+            def volume_delivery(event: LabBottleEvent) -> dict:
+                volume, submitted_volume, canonical_volume = event_decimal(
+                    event,
+                    "measured_volume_ul",
+                )
+                uncertainty, submitted_uncertainty, canonical_uncertainty = event_decimal(
+                    event,
+                    "volume_standard_uncertainty_ul",
+                    required=False,
+                )
+                if uncertainty is None:
+                    raise LabTransactionError(
+                        "source v/v intent requires volume_standard_uncertainty_ul authority"
+                    )
+                temperature, submitted_temperature, canonical_temperature = event_decimal(
+                    event,
+                    "volume_reference_temperature_c",
+                    required=False,
+                )
+                payload = event.payload_json
+                conditions = payload.get("volume_reference_conditions")
+                if temperature is None or not isinstance(conditions, dict) or not conditions:
+                    raise LabTransactionError(
+                        "source v/v intent requires volume_reference_conditions authority"
+                    )
+                method = payload.get("volume_measurement_method")
+                device_id = payload.get("volume_device_id")
+                calibration = payload.get("volume_device_calibration_sha256")
+                if not method or not device_id or not calibration:
+                    raise LabTransactionError(
+                        "source v/v intent requires complete volume measurement provenance"
+                    )
+                assert volume is not None
+                return {
+                    "measured_volume_ul": submitted_volume,
+                    "canonical_measured_volume_ul": canonical_volume,
+                    "standard_uncertainty_ul": submitted_uncertainty,
+                    "canonical_standard_uncertainty_ul": canonical_uncertainty,
+                    "unit": "uL",
+                    "measurement_method": method,
+                    "device_id": device_id,
+                    "device_calibration_sha256": calibration,
+                    "reference_temperature_c": submitted_temperature,
+                    "canonical_reference_temperature_c": canonical_temperature,
+                    "reference_conditions": dict(conditions),
+                }
+
+            parent_record: dict[str, object] = {
+                "event_id": parent_event.id,
+                "stock_solution_id": parent_stock.id,
+                "material_id": parent_stock.material_id,
+                "identity_evidence_id": parent_identity_evidence_id,
+                "measured_mass_g": parent_mass_text,
+                "standard_uncertainty_g": parent_uncertainty_text,
+                "active_fraction": _canonical_decimal_text(parent_fraction),
+                "fraction_basis": parent_stock.fraction_basis,
+            }
+            carrier_record: dict[str, object] = {
+                "event_id": carrier_event.id,
+                "stock_solution_id": carrier_stock.id,
+                "material_id": carrier_stock.material_id,
+                "identity_evidence_id": carrier_identity_evidence_id,
+                "measured_mass_g": carrier_mass_text,
+                "standard_uncertainty_g": carrier_uncertainty_text,
+                "fraction_basis": carrier_stock.fraction_basis,
+            }
+
+            source_volume_intent: dict | None = None
+            schema_version = "lab-stock-preparation-receipt-v1"
+            if target_volume_fraction is not None:
+                schema_version = "lab-stock-preparation-receipt-v2"
+                parent_delivery = volume_delivery(parent_event)
+                carrier_delivery = volume_delivery(carrier_event)
+                parent_record["volume_delivery"] = parent_delivery
+                carrier_record["volume_delivery"] = carrier_delivery
+                parent_volume = Decimal(parent_delivery["canonical_measured_volume_ul"])
+                carrier_volume = Decimal(carrier_delivery["canonical_measured_volume_ul"])
+                total_volume = parent_volume + carrier_volume
+                if total_volume <= 0:
+                    raise LabTransactionError(
+                        "source v/v intent requires positive component delivery volume"
+                    )
+                observed_fraction = parent_volume / total_volume
+                conditions_compatible = (
+                    parent_delivery["canonical_reference_temperature_c"]
+                    == carrier_delivery["canonical_reference_temperature_c"]
+                    and parent_delivery["reference_conditions"]
+                    == carrier_delivery["reference_conditions"]
+                )
+                if not conditions_compatible:
+                    alignment_state = "HOLD_INCOMPATIBLE_VOLUME_CONDITIONS"
+                elif observed_fraction != target_volume_fraction:
+                    alignment_state = "HOLD_VOLUME_RATIO_MISMATCH"
+                else:
+                    alignment_state = "NOMINAL_SOURCE_RATIO_MATCH_ONLY"
+                source_volume_intent = {
+                    "authority": (
+                        "NONAUTHORITATIVE_PREPARATION_INTENT_AND_MEASUREMENT_METADATA"
+                    ),
+                    "source_target_grain": "PLANNED",
+                    "observed_volume_grain": "MEASURED_COMPONENT_DELIVERIES",
+                    "inventory_movement_grain": "COMMITTED_MASS_ONLY",
+                    "correction_policy": (
+                        "CORRECTED_OR_REVERSED_INPUT_HISTORY_REJECTED"
+                    ),
+                    "source_design_sha256": design_hash,
+                    "definition": (
+                        "IUPAC_VOLUME_FRACTION_COMPONENT_VOLUMES_BEFORE_MIXING"
+                    ),
+                    "denominator": (
+                        "SUM_OF_SEPARATELY_MEASURED_COMPONENT_DELIVERY_VOLUMES_BEFORE_MIXING"
+                    ),
+                    "target_parent_input_volume_fraction": (
+                        target_volume_fraction_submitted
+                    ),
+                    "canonical_target_parent_input_volume_fraction": (
+                        target_volume_fraction_canonical
+                    ),
+                    "fraction_unit": "1",
+                    "observed_parent_input_volume_fraction": (
+                        _canonical_decimal_text(observed_fraction)
+                    ),
+                    "total_pre_mix_component_volume_ul": (
+                        _canonical_decimal_text(total_volume)
+                    ),
+                    "alignment_state": alignment_state,
+                    "conditions_compatible": conditions_compatible,
+                    "final_mixed_solution_volume_used": False,
+                    "canonical_stock_fraction_basis": "mass_fraction",
+                    "inventory_authority": False,
+                    "formula_dose_authority": False,
+                    "mass_volume_conversion_authority": False,
+                    "active_mass_or_dose_authority": False,
+                    "volume_fraction_stock_created": False,
+                    "exact_stock_ref_gate_satisfied": False,
+                    "preparation_gate_satisfied": False,
+                    "safety_authority": False,
+                    "execution_authority": False,
+                    "scientific_authority": False,
+                    "release_authority": False,
+                }
+
+            unsigned_receipt = {
+                "schema_version": schema_version,
+                "state": "EXECUTED_PREPARATION_RECORDED",
+                "command_token": command_token,
+                "command_sha256": command_sha256,
+                "command": command_payload,
+                "preparation_bottle": {
+                    "bottle_id": bottle_id,
+                    "label": bottle.label,
+                    "close_event_id": close_event.id,
+                    "close_stream_sequence": close_event.stream_sequence,
+                },
+                "parent": parent_record,
+                "carrier": carrier_record,
+                "child": {
+                    "material_id": material_id,
+                    "label": label,
+                    "lot_number": lot,
+                    "initial_mass_g": total_mass_text,
+                    "active_mass_g": active_mass_text,
+                    "active_fraction": child_fraction_text,
+                    "fraction_basis": "mass_fraction",
+                    "carrier_material_id": carrier_material.id,
+                    "carrier_name": carrier_material.canonical_name,
+                },
+                "inventory_conservation": {
+                    "parent_consumed_mass_g": parent_mass_text,
+                    "carrier_consumed_mass_g": carrier_mass_text,
+                    "child_initial_mass_g": total_mass_text,
+                    "mass_delta_g": "0",
+                },
+                "preparation_provenance": {
+                    "preparation_sop_sha256": sop_hash,
+                    "balance_calibration_sha256": balance_hash,
+                    "operator": operator,
+                },
+                "authority": {
+                    "formula_authority": False,
+                    "safety_authority": False,
+                    "scientific_authority": False,
+                    "sensory_authority": False,
+                    "release_authority": False,
+                },
+            }
+            if source_volume_intent is not None:
+                unsigned_receipt["source_volume_intent"] = source_volume_intent
+            receipt = {
+                **unsigned_receipt,
+                "receipt_sha256": _semantic_sha256(unsigned_receipt),
+            }
+            return await self.repository.add(
+                LabStockSolution(
+                    material_id=material_id,
+                    supplier="IN_HOUSE_PREPARATION",
+                    lot_number=lot,
+                    active_fraction=float(child_fraction),
+                    active_fraction_decimal_text=child_fraction_text,
+                    fraction_basis="mass_fraction",
+                    solvent_name=carrier_material.canonical_name,
+                    initial_mass_g=float(total_mass),
+                    remaining_mass_g=float(total_mass),
+                    source_json={"stock_preparation_receipt": receipt},
+                )
             )
 
     async def _append_inventory_movement(
@@ -484,6 +1255,10 @@ class LabService(
         measured_volume_ul: float | None = None,
         standard_uncertainty: float | None = None,
     ) -> LabInventoryMovement:
+        if movement_type in {"CONSUMPTION", "RESERVATION"} and stock.fraction_basis != "mass_fraction":
+            raise LabTransactionError(
+                "mass-governed physical inventory movements require mass_fraction stock authority"
+            )
         return await self.repository.add(
             LabInventoryMovement(
                 stock_solution_id=stock.id,
@@ -650,6 +1425,17 @@ class LabService(
                 return existing_source, existing_destination
             if existing_source is not None or existing_destination is not None:
                 raise ConcurrentWriteError("partial transfer command already exists")
+
+            source_bottle = await self.repository.get_bottle(source_bottle_id)
+            destination_bottle = await self.repository.get_bottle(destination_bottle_id)
+            if source_bottle is None:
+                raise KeyError(f"Unknown bottle: {source_bottle_id}")
+            if destination_bottle is None:
+                raise KeyError(f"Unknown bottle: {destination_bottle_id}")
+            if source_bottle.batch_id is not None or destination_bottle.batch_id is not None:
+                raise LabTransactionError(
+                    "formula/batch-bound bottles cannot use freeform bottle transfers"
+                )
 
             source_sequence = await self.repository.latest_sequence(source_bottle_id)
             destination_sequence = await self.repository.latest_sequence(destination_bottle_id)

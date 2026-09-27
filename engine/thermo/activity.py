@@ -72,26 +72,21 @@ def _gamma_heuristic(
     return math.exp(calibration_prefactor * distance_sq * 298.15 / T_K)
 
 
-def gamma(
-    name: str,
+def mixture_hsp(
     composition: Mapping[str, float],
-    T_K: float = 298.15,  # noqa: N803
     *,
     hsp_table: Mapping[str, tuple[float, float, float]] | None = None,
-    smiles_table: Mapping[str, str] | None = None,
-) -> float:
-    """Estimate gamma for ``name`` in a mole-fraction composition.
+) -> tuple[float, float, float] | None:
+    """Return the composition-weighted Hansen vector used by ``gamma``.
 
-    ``smiles_table`` is retained for API compatibility and future, explicitly
-    versioned UNIFAC work. It has no effect while UNIFAC is unimplemented.
+    The vector depends only on the mixture, not on the solute being evaluated.
+    Exposing the exact existing calculation lets a formula evaluation compute
+    it once and reuse it for every row without changing the heuristic or its
+    authority boundary.  ``None`` preserves the prior empty/non-positive
+    composition behavior.
     """
-    del smiles_table
-    if not composition or name not in composition:
-        return 1.0
 
     hsp = hsp_table or {}
-    solute_hsp = hsp.get(name) or _HSP_DEFAULT_FRAGRANCE
-
     positive_components = {
         component: fraction
         for component, fraction in composition.items()
@@ -99,7 +94,7 @@ def gamma(
     }
     total = sum(positive_components.values())
     if total <= 0:
-        return 1.0
+        return None
 
     average_hsp = [0.0, 0.0, 0.0]
     for component, fraction in positive_components.items():
@@ -114,6 +109,37 @@ def gamma(
                 component_hsp = _HSP_DEFAULT_FRAGRANCE
         for index in range(3):
             average_hsp[index] += fraction / total * component_hsp[index]
+
+    return tuple(average_hsp)
+
+
+def gamma(
+    name: str,
+    composition: Mapping[str, float],
+    T_K: float = 298.15,  # noqa: N803
+    *,
+    hsp_table: Mapping[str, tuple[float, float, float]] | None = None,
+    smiles_table: Mapping[str, str] | None = None,
+    mixture_hsp_override: tuple[float, float, float] | None = None,
+) -> float:
+    """Estimate gamma for ``name`` in a mole-fraction composition.
+
+    ``smiles_table`` is retained for API compatibility and future, explicitly
+    versioned UNIFAC work. It has no effect while UNIFAC is unimplemented.
+    """
+    del smiles_table
+    if not composition or name not in composition:
+        return 1.0
+
+    hsp = hsp_table or {}
+    solute_hsp = hsp.get(name) or _HSP_DEFAULT_FRAGRANCE
+
+    average_hsp = mixture_hsp_override or mixture_hsp(
+        composition,
+        hsp_table=hsp,
+    )
+    if average_hsp is None:
+        return 1.0
 
     return _gamma_heuristic(tuple(solute_hsp), tuple(average_hsp), T_K)
 

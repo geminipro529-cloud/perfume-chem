@@ -1,0 +1,100 @@
+{
+  "schema_version": "lavande-ambre-profond-r5-cp3-readiness-protocol-successor-v5",
+  "protocol_id": "lavande-ambre-profond-r5-cp3-readiness-20260926-v5",
+  "recorded_date": "2026-09-26",
+  "state": "FROZEN_NONEXECUTABLE_CONTRACT",
+  "predecessor": {
+    "path": "data/governance/lavande_ambre_profond_r5_cp3_readiness_protocol_20260924_v4.json",
+    "sha256": "f5087e2a575d0ac642cd8617071ff590af82aa56a124c524eb489a7b5838181c"
+  },
+  "inputs": {
+    "design_comparator_manifest_sha256": "d7f5904bd9437cb61589a1a535423eedb6786641ccc70f109d3e1516bc222f86",
+    "source_workbook_sha256": "027ec1cf8712c6aaac123d896942eee308efa18bea9056da975566e095bc3e67",
+    "canonical_formula_rows_sha256": "28284674560179b536f2e797a3b1a50ef0421e61435132f47704cda590ead15e",
+    "inventory_text_sha256": "1b4324da5a35cebe8c59959e58276d84ac8f2f0e0e6f3239fdef0a4250d8df71",
+    "inventory_source_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+    "inventory_overlay_sha256": "0bccf890ee05487b20daca94d02c65103c2a22ed4c6435ba8cb311cd041575fb",
+    "stock_confirmation_receipt": "data/governance/inventory_user_confirmation_20260924_r5_remaining_stock_forms_v3.json",
+    "stock_confirmation_receipt_sha256": "0b76c0480f43ae355c74abd9803850218efcc14773046102f15eab43c63f6178",
+    "aroma_more_product_resolution": "data/governance/inventory_supplier_product_resolution_20260924_aroma_more_lavender_4042.json",
+    "aroma_more_product_resolution_sha256": "3a725f2337e992015878924a8a87ab1af2f846e711c615da1b70b04f4a95e435",
+    "baseline_decision_receipt": "data/governance/lavande_ambre_profond_r5_standalone_baseline_decision_20260926.json",
+    "baseline_decision_receipt_sha256": "ede92d7c1c9b496ec5da9834493117fdcdd1197bc9ade746b25d3d931bef644d",
+    "expected_parent_sha256": "5b0a012b88ca5c1cea45ea8a704cf3b9e5d799d66e9f9d28b2a5d21efa9f4129"
+  },
+  "baseline_decision_contract": {
+    "state": "R5_STANDALONE_BASELINE_ACCEPTED",
+    "baseline_id": "lavande-ambre-profond-r5-design-comparator-20260923",
+    "parent_bytes_required_for_baseline": false,
+    "parent_equivalence_state": "NOT_CLAIMED_STANDALONE_BASELINE",
+    "r4_equivalence_claimed": false,
+    "r4_improvement_claimed": false,
+    "r4_reference_disposition": "HISTORICAL_REFERENCE_ONLY_BYTES_UNAVAILABLE"
+  },
+  "parent_search": {
+    "state": "NOT_CLAIMED_STANDALONE_BASELINE",
+    "historical_search_state": "HOLD_PARENT_BYTES_MISSING",
+    "bytes_present": false,
+    "reconstruction_allowed": false,
+    "required_for_standalone_baseline": false,
+    "equivalence_claimed": false,
+    "improvement_claimed": false
+  },
+  "revision_decision_contract": {
+    "state": "REVISED_SUCCESSOR_REQUIRED_SPECIFIC_CHANGE_UNRESOLVED",
+    "material": "Methyl Ionone Gamma Coeur",
+    "current_stock_state": "DEPLETED",
+    "specific_substitute_selected": false,
+    "omission_selected": false,
+    "successor_formula_id_assigned": false,
+    "formula_mutation_authorized": false,
+    "exact_r5_build_claim_allowed": false
+  },
+  "stock_binding_review": {
+    "state": "HOLD_STOCK_BINDING",
+    "required_row_count": 63,
+    "build_plan_bound_row_count": 0,
+    "binding_candidates_are_execution_authority": false
+  },
+  "constant_total_basis_contract": {
+    "state": "HOLD_CONSTANT_TOTAL_AMOUNT_AND_CONVERSION_INPUTS_MISSING",
+    "selected_basis": "active_mass_g",
+    "interpretation": "ACTIVE_ODORANT_MASS_W_W",
+    "newly_clarified_percentage_stocks_basis": "mass_fraction_w_w",
+    "legacy_stock_basis_present": "mass_per_volume_w_v",
+    "constant_total_amount_supplied": false,
+    "conversion_inputs_complete": false,
+    "missing_inputs": [
+      "constant_active_mass_total",
+      "weighed_transfer_mass_or_density_for_volume-dosed_w_w_stocks",
+      "complete_preparation_receipts_for_legacy_w_v_stocks"
+    ],
+    "mass_volume_never_summed": true
+  },
+  "measurement_protocol_contract": {
+    "state": "FROZEN_SCHEMA_HOLD_EXECUTION_PARAMETERS",
+    "execution_ready": false
+  },
+  "blocker_order": [
+    "HOLD_ALL_BUILD_PLAN_STOCK_BINDINGS_MISSING",
+    "HOLD_REQUIRED_STOCK_DEPLETED_METHYL_IONONE_GAMMA_COEUR",
+    "HOLD_REQUIRED_WORKING_STOCKS_NOT_PREPARED",
+    "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING",
+    "HOLD_CONSTANT_TOTAL_AMOUNT_AND_CONVERSION_INPUTS_MISSING",
+    "HOLD_EXACT_CURVE_APPLICABILITY",
+    "HOLD_MEASUREMENT_PROTOCOL_EXECUTION_PARAMETERS_UNRESOLVED",
+    "PLEASANTNESS_NOT_ESTABLISHED",
+    "PHYSICAL_LIKING_NOT_TESTED"
+  ],
+  "authority": {
+    "evidence_admission_authorized": false,
+    "physical_experiment_authorized": false,
+    "compounding_authorized": false,
+    "purchase_authorized": false,
+    "inventory_mutation_authorized": false,
+    "formula_mutation_authorized": false,
+    "safety_authorized": false,
+    "release_authorized": false
+  }
+}

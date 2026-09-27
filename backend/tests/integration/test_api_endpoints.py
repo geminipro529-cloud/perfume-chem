@@ -179,3 +179,170 @@ async def test_calculate_addition_rejects_target_below_current_fraction(client: 
 
     assert response.status_code == 400
     assert "below current" in response.json()["detail"]
+
+
+@pytest.mark.asyncio
+async def test_mixer_legacy_sequence_exposes_non_authoritative_contract(
+    client: AsyncClient,
+):
+    response = await client.post(
+        "/api/v1/mixer/sequence",
+        json={"ingredients": {"Hedione": 50.0, "Iso E Super": 50.0}},
+    )
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["compounding_authority"] == "LEGACY_OLFACTIVE_PHASE_SUGGESTION"
+    assert data["authority_blockers"] == [
+        "RAW_UL_ROWS_AND_EXPLICIT_BASKET_ASSIGNMENTS_REQUIRED"
+    ]
+    assert data["ordering_contract"] == "LEGACY_NOTE_PHASE_CLP_MW"
+    assert data["mixing_timing"]["optimized_rest_minutes"] == 0
+
+
+@pytest.mark.asyncio
+async def test_mixer_structured_sequence_preserves_physical_rows_and_receipt(
+    client: AsyncClient,
+):
+    response = await client.post(
+        "/api/v1/mixer/sequence",
+        json={
+            "name": "Basket API",
+            "rows": [
+                {
+                    "row_id": "hedione-lot-a",
+                    "material": "Hedione",
+                    "physical_stock_label": "Hedione lot A neat",
+                    "raw_ul": 100.0,
+                    "basket": 7,
+                    "operation": "DIRECT_ADD",
+                },
+                {
+                    "row_id": "iso-e-lot-b",
+                    "material": "Iso E Super",
+                    "physical_stock_label": "Iso E Super lot B neat",
+                    "raw_ul": 200.0,
+                    "basket": 3,
+                    "operation": "DIRECT_ADD",
+                },
+            ],
+        },
+    )
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["compounding_authority"] == "WITHHELD"
+    assert (
+        "VERIFIED_PHYSICAL_AUTHORITY_RECEIPTS_REQUIRED"
+        in data["authority_blockers"]
+    )
+    assert [step["row_id"] for step in data["steps"]] == [
+        "iso-e-lot-b",
+        "hedione-lot-a",
+    ]
+    assert data["steps"][0]["physical_stock_label"] == "Iso E Super lot B neat"
+    assert data["steps"][0]["raw_ul"] == 200.0
+    assert data["raw_total_ul"] == data["ordered_raw_total_ul"] == 300.0
+    assert len(data["basket_checkpoints"]) == 17
+    assert data["elapsed_time_scope"]["automatic_phase_rest_minutes"] == 0
+
+
+@pytest.mark.asyncio
+async def test_mixer_structured_instructions_expose_raw_ul_and_authority(
+    client: AsyncClient,
+):
+    response = await client.post(
+        "/api/v1/mixer/instructions",
+        json={
+            "name": "Prepared trace",
+            "rows": [
+                {
+                    "row_id": "trace-row",
+                    "material": "Hedione",
+                    "physical_stock_label": "Hedione trace dilution lot A",
+                    "prepared_dilution_id": "PD-HED-001",
+                    "raw_ul": 5.0,
+                    "basket": 7,
+                    "operation": "DIRECT_ADD",
+                }
+            ],
+        },
+    )
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["compounding_authority"] == "WITHHELD"
+    assert (
+        "VERIFIED_PHYSICAL_AUTHORITY_RECEIPTS_REQUIRED"
+        in data["authority_blockers"]
+    )
+    assert data["total_pct"] is None
+    assert data["raw_total_ul"] == data["ordered_raw_total_ul"] == 5.0
+    assert "5 µL raw stock" in data["full_text"]
+    assert "PD-HED-001" in data["full_text"]
+    assert data["full_text"].count("Final concentrate homogenization") == 1
+
+
+@pytest.mark.asyncio
+async def test_mixer_missing_basket_returns_withheld_not_inferred(client: AsyncClient):
+    response = await client.post(
+        "/api/v1/mixer/sequence",
+        json={
+            "rows": [
+                {
+                    "row_id": "unassigned",
+                    "material": "Hedione",
+                    "raw_ul": 100.0,
+                    "basket": None,
+                    "operation": "DIRECT_ADD",
+                }
+            ]
+        },
+    )
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["compounding_authority"] == "WITHHELD"
+    assert data["authority_blockers"] == [
+        "VERIFIED_PHYSICAL_AUTHORITY_RECEIPTS_REQUIRED",
+        "UNASSIGNED_BASKET:unassigned",
+    ]
+    assert data["raw_total_ul"] == data["ordered_raw_total_ul"] == 100.0
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {},
+        {"ingredients": {"Hedione": 100.0}, "rows": [
+            {"row_id": "one", "material": "Hedione", "raw_ul": 100.0, "basket": 7}
+        ]},
+        {"rows": [
+            {"row_id": "dup", "material": "Hedione", "raw_ul": 50.0, "basket": 7},
+            {"row_id": "dup", "material": "Iso E Super", "raw_ul": 50.0, "basket": 3},
+        ]},
+        {"rows": [
+            {"row_id": "bad", "material": "Hedione", "raw_ul": 100.0, "basket": 18}
+        ]},
+        {"rows": [
+            {"row_id": "bad", "material": "Hedione", "raw_ul": 0.0, "basket": 7}
+        ]},
+        {"rows": [
+            {
+                "row_id": "bad",
+                "material": "Hedione",
+                "raw_ul": 100.0,
+                "basket": 7,
+                "operation": "MAYBE",
+            }
+        ]},
+    ],
+)
+async def test_mixer_rejects_malformed_input_contract(
+    client: AsyncClient,
+    payload: dict,
+):
+    response = await client.post("/api/v1/mixer/sequence", json=payload)
+
+    assert response.status_code == 422

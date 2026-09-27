@@ -1,0 +1,152 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v15",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-24",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260915_methyl_pamplemousse_10w_w_ethanol.json",
+    "normalized_text_sha256": "d0ee1d77b015152c4ffc76a351a693067bf61475eb71a9bf60aecf3fcb9842a2"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 26533,
+    "inventory_text_sha256": "b9b245148011cefafc926d617d9f7559ca3d7a01901491c1f7de2fb3d43dce51",
+    "confirmed_receipt": "data/governance/inventory_user_confirmation_20260924_r5_stock_clarifications.json",
+    "confirmed_receipt_sha256": "cd993a027e2c164028dda77a048b3abc5cd1f36cbf8fb7f6712367f9a2bcc273",
+    "supplier_product_resolution": "data/governance/inventory_supplier_product_resolution_20260924_aroma_more_lavender_4042.json",
+    "supplier_product_resolution_sha256": "3a725f2337e992015878924a8a87ab1af2f846e711c615da1b70b04f4a95e435"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "bind_only_source_declared_stock_facts": true,
+    "stock_solution_density_assumed": false,
+    "tincture_nominal_property_model_is_not_assay": true,
+    "supplier_identity_does_not_prove_physical_ownership": true,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [
+    "INV-USER-20260907-002"
+  ],
+  "records": [
+    {
+      "record_id": "INV-USER-20260924-R5-001",
+      "canonical_name": "Ambrox Super",
+      "aliases": [
+        "Ambrox Super Crystals",
+        "Ambrox Super crystals"
+      ],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "physical_form": "crystals",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "DIRECT_USER_CURRENT_STOCK_FORM_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "WEIGHED_SOLID_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-24",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_FORM_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260924-R5-002",
+      "canonical_name": "Vetiveryl Acetate",
+      "aliases": [
+        "Vetiveryl Acetate neat"
+      ],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "DIRECT_USER_CURRENT_STOCK_FORM_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-24",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_FORM_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260924-R5-003",
+      "canonical_name": "Norlimbanol Dextro",
+      "aliases": [
+        "Norlimbanol Dextro 10% in DPG"
+      ],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "fraction_authority": "PRIOR_STRENGTH_PLUS_DIRECT_USER_CARRIER_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "STOCK_IDENTITY_FRACTION_AND_CARRIER_ONLY",
+        "execution_hold_reason": "FRACTION_BASIS_AND_HOMOGENEITY_NOT_CONFIRMED"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 183,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 183,
+          "disposition": "OWNED",
+          "status": "HAVE - 10% IN DPG; BASIS AND HOMOGENEITY UNCONFIRMED",
+          "actual_stock_text": "Norlimbanol Dextro 10% in DPG; percentage basis and homogeneity not stated",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-24",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CARRIER_CORRECTION"
+    },
+    {
+      "record_id": "INV-USER-20260924-R5-004",
+      "canonical_name": "Hay Absolute",
+      "aliases": [
+        "Hay Absolute 10% in DPG"
+      ],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "fraction_authority": "DIRECT_USER_STRENGTH_AND_CARRIER_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "STOCK_IDENTITY_FRACTION_AND_CARRIER_ONLY",
+        "execution_hold_reason": "FRACTION_BASIS_AND_HOMOGENEITY_NOT_CONFIRMED"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 127,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 127,
+          "disposition": "OWNED",
+          "status": "HAVE - 10% IN DPG; BASIS AND HOMOGENEITY UNCONFIRMED",
+          "actual_stock_text": "Hay Absolute 10% in DPG; percentage basis and homogeneity not stated",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-24",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_STRENGTH_AND_CARRIER_CONFIRMATION"
+    }
+  ]
+}

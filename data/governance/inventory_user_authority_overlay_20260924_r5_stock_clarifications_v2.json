@@ -1,0 +1,143 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v16",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-24",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260924_r5_stock_clarifications.json",
+    "normalized_text_sha256": "3f4ef634e2bd299a8463559364a03a7805b1198e14396567dce3e7f8caaf4df5"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 26830,
+    "inventory_text_sha256": "f71ae446e081e1132b5226796ec596e1a376c31f7d96f34f25db49dd89caae36",
+    "confirmed_receipt": "data/governance/inventory_user_confirmation_20260924_r5_stock_clarifications_v2.json",
+    "confirmed_receipt_sha256": "5179974ec3c64a4c48be310b530b9670b08fa07099f663f5c480f446b0290992",
+    "supplier_product_resolution": "data/governance/inventory_supplier_product_resolution_20260924_aroma_more_lavender_4042.json",
+    "supplier_product_resolution_sha256": "3a725f2337e992015878924a8a87ab1af2f846e711c615da1b70b04f4a95e435"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "bind_only_source_declared_stock_facts": true,
+    "stock_solution_density_assumed": false,
+    "tincture_nominal_property_model_is_not_assay": true,
+    "supplier_identity_alone_does_not_prove_physical_ownership": true,
+    "direct_user_ownership_can_bind_catalog_identity": true,
+    "physical_lineage_receipt_required_for_build_execution": true,
+    "r5_norlimbanol_dpg_requirement_update_authorized": true,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [
+    "INV-USER-20260924-R5-003",
+    "INV-USER-20260924-R5-004"
+  ],
+  "records": [
+    {
+      "record_id": "INV-USER-20260924-R5-005",
+      "canonical_name": "Norlimbanol Dextro",
+      "aliases": [
+        "Norlimbanol Dextro 10% w/w in DPG"
+      ],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "homogeneous": true,
+        "fraction_authority": "DIRECT_USER_CURRENT_STOCK_BASIS_CARRIER_HOMOGENEITY_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "CALCULATION_READY_PHYSICAL_LINEAGE_INCOMPLETE",
+        "execution_hold_reason": "PREPARATION_QUANTITIES_DATE_AND_LOTS_MISSING"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 183,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 183,
+          "disposition": "OWNED",
+          "status": "HAVE - 10% W/W IN DPG; HOMOGENEOUS; PHYSICAL LINEAGE INCOMPLETE",
+          "actual_stock_text": "Norlimbanol Dextro 10% w/w in DPG; homogeneous; exact preparation quantities/date and lots not recorded",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-24",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_BASIS_CARRIER_HOMOGENEITY_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260924-R5-006",
+      "canonical_name": "Hay Absolute",
+      "aliases": [
+        "Hay Absolute 10% w/w in DPG"
+      ],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "homogeneous": true,
+        "fraction_authority": "DIRECT_USER_CURRENT_STOCK_BASIS_CARRIER_HOMOGENEITY_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "CALCULATION_READY_PHYSICAL_LINEAGE_INCOMPLETE",
+        "execution_hold_reason": "PREPARATION_QUANTITIES_DATE_AND_LOTS_MISSING"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 127,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 127,
+          "disposition": "OWNED",
+          "status": "HAVE - 10% W/W IN DPG; HOMOGENEOUS; PHYSICAL LINEAGE INCOMPLETE",
+          "actual_stock_text": "Hay Absolute 10% w/w in DPG; homogeneous; exact preparation quantities/date and lots not recorded",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-24",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_BASIS_CARRIER_HOMOGENEITY_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260924-R5-007",
+      "canonical_name": "Lavender 40/42, Aroma&More",
+      "aliases": [
+        "Aroma & More Lavender 40/42 Essential Oil, France",
+        "Lavender 40/42 Essential Oil, France"
+      ],
+      "state": "OWNED",
+      "category": "spice_aromatic",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "quantity": {
+          "value_decimal": "10",
+          "unit": "mL"
+        },
+        "homogeneous": true,
+        "supplier_reference": "Lav420811P",
+        "fraction_authority": "DIRECT_USER_UNDILUTED_PHYSICAL_OWNERSHIP_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "OWNED_PRODUCT_PHYSICAL_LINEAGE_INCOMPLETE",
+        "execution_hold_reason": "LOT_PURCHASE_SOURCE_AND_LABEL_RECEIPT_MISSING"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-24",
+      "source_kind": "DIRECT_USER_PHYSICAL_OWNERSHIP_AND_STOCK_FORM_CONFIRMATION"
+    }
+  ]
+}

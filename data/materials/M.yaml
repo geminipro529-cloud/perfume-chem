@@ -1010,8 +1010,8 @@
   trp_targets:
   hedonic_valence: 0.85
   ifra_max_pct_edp:
-  user_stock_dilution: 20%
-  user_in_inventory: true
+  user_stock_dilution: null
+  user_in_inventory: false
   supplier:
     perfumersworld_sku: 1VE00286
     perfumersworld_price_usd_per_g: 0.71
@@ -1025,7 +1025,7 @@
   families:
   - sweet / gourmand / balsamic
   character:
-  notes:
+  notes: No current physical stock; user-confirmed 2026-09-15. Supplier and historical material data remain catalog knowledge only.
   provenance:
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
@@ -1976,7 +1976,7 @@
     nasal_pungency:
   hedonic_valence: 0.68
   ifra_max_pct_edp:
-  user_stock_dilution: 10% in TEC
+  user_stock_dilution: "10% w/w in ethanol"
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 5FC19406
@@ -1987,7 +1987,7 @@
   families:
   - citrus / top
   character:
-  notes:
+  notes: Current user stock is 10% w/w in ethanol. Exact active mass from a volume dose requires stock-solution density.
   provenance:
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
@@ -2001,6 +2001,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
+    current_working_stock: data/governance/inventory_user_authority_overlay_20260915_methyl_pamplemousse_10w_w_ethanol.json
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Methyl Salicylate
   aliases:
@@ -2910,12 +2911,12 @@
   logp: null
   odt_air_ppb: null
   odt_eth_ppm: null
-  user_stock_dilution: "20%; fraction basis and carrier unspecified"
+  user_stock_dilution: "20% v/v in ethanol"
   user_in_inventory: true
   families: [lactonic, floral]
   character: Creamy lactonic fruity modifier; white-flower body and sandalwood milkiness.
-  notes: The exact PerfumersWorld product is SKU 5VD10871, Methyl Laitone 10% DPG, active CAS 94201-19-1. The user's 20% stock is not proven to be that catalog product; its basis and carrier remain a quantitative HOLD.
+  notes: The exact PerfumersWorld product is SKU 5VD10871, Methyl Laitone 10% DPG, active CAS 94201-19-1. The user's separate current stock is user-confirmed 20% v/v in ethanol.
   provenance:
     mw_g_mol: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-laitone-10dpg
     supplier_product_comparison: https://www.perfumersworld.com/view.php?pro_id=5VD10871
-    user_stock_dilution: data/governance/inventory_user_authority_overlay_20260907.json
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json

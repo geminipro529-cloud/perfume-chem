@@ -1,0 +1,274 @@
+{
+  "schema_version": "lavande-ambre-profond-r5-cp3-readiness-protocol-successor-v4",
+  "protocol_id": "lavande-ambre-profond-r5-cp3-readiness-20260924-v4",
+  "recorded_date": "2026-09-24",
+  "state": "FROZEN_NONEXECUTABLE_CONTRACT",
+  "predecessor": {
+    "path": "data/governance/lavande_ambre_profond_r5_cp3_readiness_protocol_20260924_v3.json",
+    "sha256": "f83b8af0bb1a2bd4bc28a90b247e35bc91e5c518319b75dd5771940014b6dbbe"
+  },
+  "inputs": {
+    "design_comparator_manifest_sha256": "d7f5904bd9437cb61589a1a535423eedb6786641ccc70f109d3e1516bc222f86",
+    "source_workbook_sha256": "027ec1cf8712c6aaac123d896942eee308efa18bea9056da975566e095bc3e67",
+    "canonical_formula_rows_sha256": "28284674560179b536f2e797a3b1a50ef0421e61435132f47704cda590ead15e",
+    "inventory_text_sha256": "0546ab83862557a4e604536f6282f3978bf24351a29848e0e91292c71d90bdf4",
+    "inventory_source_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+    "inventory_overlay_sha256": "0bccf890ee05487b20daca94d02c65103c2a22ed4c6435ba8cb311cd041575fb",
+    "stock_confirmation_receipt": "data/governance/inventory_user_confirmation_20260924_r5_remaining_stock_forms_v3.json",
+    "stock_confirmation_receipt_sha256": "0b76c0480f43ae355c74abd9803850218efcc14773046102f15eab43c63f6178",
+    "aroma_more_product_resolution": "data/governance/inventory_supplier_product_resolution_20260924_aroma_more_lavender_4042.json",
+    "aroma_more_product_resolution_sha256": "3a725f2337e992015878924a8a87ab1af2f846e711c615da1b70b04f4a95e435",
+    "expected_parent_sha256": "5b0a012b88ca5c1cea45ea8a704cf3b9e5d799d66e9f9d28b2a5d21efa9f4129"
+  },
+  "parent_search": {
+    "state": "HOLD_PARENT_BYTES_MISSING",
+    "bytes_present": false,
+    "reconstruction_allowed": false
+  },
+  "stock_binding_review": {
+    "state": "HOLD_STOCK_BINDING",
+    "required_row_count": 63,
+    "build_plan_bound_row_count": 0,
+    "binding_candidates_are_execution_authority": false
+  },
+  "constant_total_basis_contract": {
+    "state": "HOLD_CONSTANT_TOTAL_AMOUNT_AND_CONVERSION_INPUTS_MISSING",
+    "selected_basis": "active_mass_g",
+    "interpretation": "ACTIVE_ODORANT_MASS_W_W",
+    "newly_clarified_percentage_stocks_basis": "mass_fraction_w_w",
+    "legacy_stock_basis_present": "mass_per_volume_w_v",
+    "constant_total_amount_supplied": false,
+    "conversion_inputs_complete": false,
+    "missing_inputs": [
+      "constant_active_mass_total",
+      "weighed_transfer_mass_or_density_for_volume-dosed_w_w_stocks",
+      "complete_preparation_receipts_for_legacy_w_v_stocks"
+    ],
+    "mass_volume_never_summed": true
+  },
+  "measurement_protocol_contract": {
+    "state": "FROZEN_SCHEMA_HOLD_EXECUTION_PARAMETERS",
+    "execution_ready": false
+  },
+  "stock_binding_revision": {
+    "retired_blocker_codes": [
+      "LABDANUM_FRACTION_BASIS_UNRESOLVED",
+      "TONKA_FRACTION_BASIS_UNRESOLVED",
+      "OLIBANUM_FRACTION_BASIS_UNRESOLVED",
+      "OPOPONAX_FRACTION_BASIS_UNRESOLVED",
+      "MIMOSA_FRACTION_BASIS_UNRESOLVED",
+      "ETHYL_LINALOOL_NO_AUTHORITY_STOCK",
+      "GERANYL_ACETATE_NO_AUTHORITY_STOCK",
+      "SPIKE_LAVENDER_CURRENT_TEXT_ONLY_NOT_MATERIALIZED",
+      "LINALOOL_OXIDE_NO_AUTHORITY_STOCK",
+      "HEDIONE_HC_NO_AUTHORITY_STOCK",
+      "CEDRAT_CURRENT_TEXT_SNAPSHOT_CONFLICT"
+    ],
+    "resolved_facts": [
+      {
+        "code": "FIVE_PERCENTAGE_STOCKS_W_W_CONFIRMED",
+        "materials": [
+          "Labdanum Resinoid",
+          "Tonka Bean Absolute",
+          "Olibanum Resinoid",
+          "Opoponax Resinoid",
+          "Mimosa Absolute"
+        ],
+        "fraction_basis": "mass_fraction"
+      },
+      {
+        "code": "R5_EXACT_NEAT_PRODUCTS_PHYSICALLY_REPORTED_READY",
+        "materials": [
+          "Ethyl Linalool",
+          "Geranyl Acetate",
+          "Spike Lavender EO",
+          "Linalool Oxide",
+          "Hedione HC",
+          "Cedrat FCF Sicilian"
+        ],
+        "physical_lineage_receipts_complete": false
+      },
+      {
+        "code": "R5_NEAT_PARENT_PRODUCTS_REQUIRE_SEPARATE_WORKING_STOCK_PREPARATION",
+        "materials": [
+          "Heliotropal / piperonal",
+          "Black Pepper EO",
+          "Nutmeg EO"
+        ],
+        "working_stock_preparation_authorized": false
+      },
+      {
+        "code": "METHYL_IONONE_GAMMA_COEUR_DEPLETED",
+        "material": "Methyl Ionone Gamma Coeur",
+        "substitution_authorized": false
+      }
+    ],
+    "remaining_receipt_gaps": [
+      {
+        "materials": [
+          "Labdanum Resinoid",
+          "Tonka Bean Absolute",
+          "Olibanum Resinoid",
+          "Opoponax Resinoid",
+          "Mimosa Absolute"
+        ],
+        "missing": [
+          "bottle_or_parent_lot",
+          "preparation_receipt",
+          "prepared_date",
+          "measured_parent_and_carrier_masses"
+        ]
+      },
+      {
+        "materials": [
+          "Ethyl Linalool",
+          "Geranyl Acetate",
+          "Spike Lavender EO",
+          "Linalool Oxide",
+          "Hedione HC",
+          "Cedrat FCF Sicilian"
+        ],
+        "missing": [
+          "bottle_lot",
+          "label_or_purchase_receipt"
+        ]
+      },
+      {
+        "materials": [
+          "Heliotropal / piperonal",
+          "Black Pepper EO",
+          "Nutmeg EO"
+        ],
+        "missing": [
+          "required_working_stock_preparation",
+          "preparation_receipt"
+        ]
+      }
+    ],
+    "conflicts": [
+      {
+        "code": "METHYL_IONONE_GAMMA_COEUR_DEPLETED",
+        "source_row": 47,
+        "material": "Methyl Ionone Gamma Coeur",
+        "required_stock": "Exact Methyl Ionone Gamma Coeur product",
+        "expected_stock_id": null,
+        "expected_live_stock": null
+      }
+    ],
+    "row_candidate_overrides": [
+      {
+        "source_row": 26,
+        "material": "Labdanum Resinoid",
+        "candidate_stock_id": "inventory:user-20260924:a3e72be4ac201abcdeee",
+        "state": "CANDIDATE_RECEIPT_INCOMPLETE"
+      },
+      {
+        "source_row": 27,
+        "material": "Tonka Bean Absolute",
+        "candidate_stock_id": "inventory:user-20260924:bff88c520fc6e6587020",
+        "state": "CANDIDATE_RECEIPT_INCOMPLETE"
+      },
+      {
+        "source_row": 29,
+        "material": "Olibanum Resinoid",
+        "candidate_stock_id": "inventory:user-20260924:76025c30d2287ff6d369",
+        "state": "CANDIDATE_RECEIPT_INCOMPLETE"
+      },
+      {
+        "source_row": 31,
+        "material": "Heliotropal / piperonal",
+        "candidate_stock_id": "inventory:v5:593f575b080f30401f9b",
+        "state": "CANDIDATE_PREPARATION_REQUIRED"
+      },
+      {
+        "source_row": 32,
+        "material": "Opoponax Resinoid",
+        "candidate_stock_id": "inventory:user-20260924:7859e2e45b4677162652",
+        "state": "CANDIDATE_RECEIPT_INCOMPLETE"
+      },
+      {
+        "source_row": 37,
+        "material": "Ethyl Linalool",
+        "candidate_stock_id": "inventory:user-20260924:48eed88c6570dc078ed9",
+        "state": "CANDIDATE_RECEIPT_INCOMPLETE"
+      },
+      {
+        "source_row": 40,
+        "material": "Geranyl Acetate",
+        "candidate_stock_id": "inventory:user-20260924:470b5e150f7072bb02f0",
+        "state": "CANDIDATE_RECEIPT_INCOMPLETE"
+      },
+      {
+        "source_row": 42,
+        "material": "Spike Lavender EO",
+        "candidate_stock_id": "inventory:user-20260924:e657446e5b54416d653f",
+        "state": "CANDIDATE_RECEIPT_INCOMPLETE"
+      },
+      {
+        "source_row": 43,
+        "material": "Linalool Oxide",
+        "candidate_stock_id": "inventory:user-20260924:e4d0b22ca86b86be0c02",
+        "state": "CANDIDATE_RECEIPT_INCOMPLETE"
+      },
+      {
+        "source_row": 45,
+        "material": "Hedione HC",
+        "candidate_stock_id": "inventory:user-20260924:6df0b2003b4aa4a06c43",
+        "state": "CANDIDATE_RECEIPT_INCOMPLETE"
+      },
+      {
+        "source_row": 47,
+        "material": "Methyl Ionone Gamma Coeur",
+        "candidate_stock_id": null,
+        "state": "REQUIRED_STOCK_DEPLETED"
+      },
+      {
+        "source_row": 50,
+        "material": "Mimosa Absolute",
+        "candidate_stock_id": "inventory:user-20260924:d3619b00e532e2c3bd57",
+        "state": "CANDIDATE_RECEIPT_INCOMPLETE"
+      },
+      {
+        "source_row": 58,
+        "material": "Cedrat FCF Sicilian",
+        "candidate_stock_id": "inventory:user-20260924:fa31179fd1cac60ed050",
+        "state": "CANDIDATE_RECEIPT_INCOMPLETE"
+      },
+      {
+        "source_row": 59,
+        "material": "Black Pepper EO",
+        "candidate_stock_id": "inventory:v5:4bb69da9b62fe8fbd8bb",
+        "state": "CANDIDATE_PREPARATION_REQUIRED"
+      },
+      {
+        "source_row": 63,
+        "material": "Nutmeg EO",
+        "candidate_stock_id": "inventory:user-20260830:caa7c7f7418d43c86660",
+        "state": "CANDIDATE_PREPARATION_REQUIRED"
+      }
+    ]
+  },
+  "blocker_order": [
+    "HOLD_PARENT_BYTES_MISSING",
+    "HOLD_ALL_BUILD_PLAN_STOCK_BINDINGS_MISSING",
+    "HOLD_REQUIRED_STOCK_DEPLETED_METHYL_IONONE_GAMMA_COEUR",
+    "HOLD_REQUIRED_WORKING_STOCKS_NOT_PREPARED",
+    "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING",
+    "HOLD_CONSTANT_TOTAL_AMOUNT_AND_CONVERSION_INPUTS_MISSING",
+    "HOLD_EXACT_CURVE_APPLICABILITY",
+    "HOLD_MEASUREMENT_PROTOCOL_EXECUTION_PARAMETERS_UNRESOLVED",
+    "PLEASANTNESS_NOT_ESTABLISHED",
+    "PHYSICAL_LIKING_NOT_TESTED"
+  ],
+  "authority": {
+    "evidence_admission_authorized": false,
+    "physical_experiment_authorized": false,
+    "compounding_authorized": false,
+    "purchase_authorized": false,
+    "inventory_mutation_authorized": false,
+    "formula_mutation_authorized": false,
+    "safety_authorized": false,
+    "release_authorized": false
+  }
+}

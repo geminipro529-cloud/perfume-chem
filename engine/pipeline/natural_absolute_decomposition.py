@@ -33,6 +33,7 @@ inputs are proxies, not measured mass fractions; subsets are never rescaled.
 
 from copy import deepcopy
 from dataclasses import asdict, dataclass, field
+from functools import lru_cache
 
 from engine.name_utils import normalize_name
 from engine.thermo.antoine import (
@@ -626,6 +627,39 @@ _BENZOIN_SIAM_CONSTITUENTS = [
     ("benzyl alcohol", 0.02, 108.14, 8.0, 5.0, 1.5),
 ]
 
+# Generic resin-tincture screening proxies. These profiles deliberately retain
+# only constituents for which this module already has compatible headspace
+# inputs. Fractions are never renormalized, and the user's starting-charge
+# stock fraction is applied separately by formula_state.
+_TURKISH_STORAX_TINCTURE_GENERIC_CONSTITUENTS = [
+    # Liquidambar orientalis Styrax GC-TOF-MS area percentages reported by
+    # Wang et al. (2023), doi:10.1093/jpp/rgad093. Major cinnamate esters are
+    # omitted because compatible air-ODT inputs are not established here.
+    ("cinnamyl alcohol", 0.1117, 134.18, 0.03, 3.0, 0.8),
+    ("beta caryophyllene", 0.0247, 204.35, 1.0, 10.0, 1.2),
+    ("cinnamaldehyde", 0.0202, 132.16, 3.0, 62.0, 2.0),
+]
+
+_VIETNAMESE_BENZOIN_TINCTURE_GENERIC_CONSTITUENTS = list(
+    _BENZOIN_SIAM_CONSTITUENTS
+)
+
+_KENYAN_MYRRH_TINCTURE_GENERIC_CONSTITUENTS = [
+    # Direct ethanol extraction of Commiphora myrrha resin reported 0.13%
+    # limonene by GC-MS area (Ahamad et al., 2017). The many identified
+    # sesquiterpenoids remain uncomputed because compatible air ODTs are absent.
+    ("limonene", 0.0013, 136.24, 200.0, 20.0, 3.0),
+]
+
+# Reviews of Boswellia sacra report 5-9% volatile oil in whole gum resin. Use
+# the 5% lower bound to scale the existing partial frankincense-oil fingerprint.
+# This is a genus-level screening proxy because the user's Oman resin species
+# and the actual ethanol recovery of its volatile fraction are unmeasured.
+_OMAN_FRANKINCENSE_TINCTURE_GENERIC_CONSTITUENTS = [
+    (name, fraction * 0.05, mw, vp, odt, gamma)
+    for name, fraction, mw, vp, odt, gamma in _FRANKINCENSE_EO_CONSTITUENTS
+]
+
 _TONKA_BEAN_ABSOLUTE_CONSTITUENTS = [
     # Ehlers 1995, Bruneton 1999. Dipteryx odorata absolute.
     # Extraction: ethanol -> absolute. Dominant: coumarin 40-70%.
@@ -853,6 +887,18 @@ _ABSOLUTE_CONSTITUENTS = {
     "benzoin resinoid (50% in dpg)": _BENZOIN_RESINOID_CONSTITUENTS,
     "benzoin siam resinoid": _BENZOIN_SIAM_CONSTITUENTS,
     "benzoin sumatra resinoid": _BENZOIN_SIAM_CONSTITUENTS,
+    "liquidambar orientalis resin ethanol tincture generic profile": (
+        _TURKISH_STORAX_TINCTURE_GENERIC_CONSTITUENTS
+    ),
+    "styrax tonkinensis resin ethanol tincture generic profile": (
+        _VIETNAMESE_BENZOIN_TINCTURE_GENERIC_CONSTITUENTS
+    ),
+    "commiphora myrrha resin ethanol tincture generic profile": (
+        _KENYAN_MYRRH_TINCTURE_GENERIC_CONSTITUENTS
+    ),
+    "oman boswellia resin ethanol tincture generic profile": (
+        _OMAN_FRANKINCENSE_TINCTURE_GENERIC_CONSTITUENTS
+    ),
     "tonka bean absolute": _TONKA_BEAN_ABSOLUTE_CONSTITUENTS,
     "vanilla absolute": _VANILLA_ABSOLUTE_CONSTITUENTS,
     "blackcurrant absolute": _BLACKCURRANT_ABSOLUTE_CONSTITUENTS,
@@ -920,6 +966,37 @@ _PROFILE_ALIASES = {
     "cypress eo": "cupressus sempervirens leaf oil literature profile",
     "cypress essential oil": "cupressus sempervirens leaf oil literature profile",
     "peppermint essential oil": "mentha piperita lk literature profile",
+    "olibanum": "olibanum resinoid",
+    "turkish storax tincture": (
+        "liquidambar orientalis resin ethanol tincture generic profile"
+    ),
+    "turkish storax": (
+        "liquidambar orientalis resin ethanol tincture generic profile"
+    ),
+    "turkish storax liquidambar orientalis resin ethanol tincture": (
+        "liquidambar orientalis resin ethanol tincture generic profile"
+    ),
+    "vietnamese benzoin tincture": (
+        "styrax tonkinensis resin ethanol tincture generic profile"
+    ),
+    "benzoin styrax tonkinensis tincture": (
+        "styrax tonkinensis resin ethanol tincture generic profile"
+    ),
+    "vietnamese benzoin styrax tonkinensis resin ethanol tincture": (
+        "styrax tonkinensis resin ethanol tincture generic profile"
+    ),
+    "kenyan myrrh ethanol tincture": (
+        "commiphora myrrha resin ethanol tincture generic profile"
+    ),
+    "kenyan myrrh resin ethanol tincture": (
+        "commiphora myrrha resin ethanol tincture generic profile"
+    ),
+    "oman frankincense ethanol tincture": (
+        "oman boswellia resin ethanol tincture generic profile"
+    ),
+    "oman frankincense resin ethanol tincture": (
+        "oman boswellia resin ethanol tincture generic profile"
+    ),
 }
 
 _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
@@ -949,7 +1026,49 @@ _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
     ),
 }
 
+
+_PROFILE_KEY_LIMITATIONS: dict[str, tuple[str, ...]] = {
+    "liquidambar orientalis resin ethanol tincture generic profile": (
+        "Generic published Liquidambar orientalis Styrax composition, not an analysis of the user's Turkish tincture or resin lot.",
+        "GC-TOF-MS area percentages are nominal model fractions, not measured mass fractions in the final filtrate.",
+        "Only 15.66% of reported chromatographic area has compatible headspace inputs; major cinnamate esters remain uncomputed, not odorless.",
+        "The user's 20% starting charge scales the screen but is not an assay of ethanol extraction recovery.",
+    ),
+    "styrax tonkinensis resin ethanol tincture generic profile": (
+        "Generic Siam benzoin literature profile for Styrax tonkinensis, not an analysis of the user's Vietnamese resin lot or tincture.",
+        "The existing resin/resinoid fingerprint is reused as a tincture screening proxy; extraction recovery and final dissolved-solids fraction remain unmeasured.",
+        "The user's 40% starting charge scales the screen but does not establish exact active mass in the filtrate.",
+    ),
+    "commiphora myrrha resin ethanol tincture generic profile": (
+        "Generic Arabian Commiphora myrrha ethanol-extract composition, not an analysis of the user's Kenya-origin resin lot.",
+        "The exact botanical normalization of the user's Commiphora label remains unresolved.",
+        "Only the reported 0.13% limonene area has compatible headspace inputs; all other reported extract constituents remain uncomputed, not odorless.",
+        "The user's 20% starting charge scales the screen but is not an assay of ethanol extraction recovery.",
+    ),
+    "oman boswellia resin ethanol tincture generic profile": (
+        "Generic Boswellia resin proxy; the botanical species of the user's Oman frankincense remains unresolved.",
+        "The profile scales a partial frankincense-oil fingerprint by the published 5% lower bound for volatile oil in whole resin; it is not a measurement of ethanol recovery.",
+        "Only 2.1485% of resin mass is represented by modeled volatile constituents; the remaining odor contribution is uncomputed, not zero.",
+        "The user's 33% starting charge scales the screen but does not establish exact active mass in the filtrate.",
+    ),
+}
+
+
 _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
+    "liquidambar orientalis resin ethanol tincture generic profile": (
+        "https://doi.org/10.1093/jpp/rgad093",
+    ),
+    "styrax tonkinensis resin ethanol tincture generic profile": (
+        "https://doi.org/10.1016/j.foodchem.2016.05.015",
+        "https://doi.org/10.1002/pca.1048",
+    ),
+    "commiphora myrrha resin ethanol tincture generic profile": (
+        "https://doi.org/10.1016/j.jsps.2016.10.011",
+    ),
+    "oman boswellia resin ethanol tincture generic profile": (
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC8881160/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10603989/",
+    ),
     "cupressus sempervirens leaf oil literature profile": (
         "https://doi.org/10.3390/plants12051097",
         "https://aromaandmore.com/en/essential-oil-100-pure-/42-cypress-essential-oil-france.html",
@@ -1075,6 +1194,79 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "This peppermint proxy does not cover spearmint or Mentha spicata.",
         ),
     },
+    "liquidambar orientalis resin ethanol tincture generic profile": {
+        "analytical_method": "GC_TOF_MS",
+        "composition_basis": "AREA_NORMALIZATION_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://doi.org/10.1093/jpp/rgad093",
+                "published_botanical_name": "Liquidambar orientalis",
+                "published_material": "Styrax resin extract",
+                "quantitation": "GC_TOF_MS_AREA_NORMALIZATION",
+                "owned_lot_match": "GENERIC_PROXY_ONLY",
+            },
+            **{
+                name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+                for name in (
+                    "cinnamyl alcohol",
+                    "beta caryophyllene",
+                    "cinnamaldehyde",
+                )
+            },
+        },
+    },
+    "styrax tonkinensis resin ethanol tincture generic profile": {
+        "analytical_method": "GC_MS_AND_HPLC_LITERATURE_COMPOSITE",
+        "composition_basis": "GENERIC_RESIN_PROFILE_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://doi.org/10.1016/j.foodchem.2016.05.015",
+                "published_botanical_name": "Styrax tonkinensis",
+                "published_material": "Siam benzoin balsam",
+                "owned_lot_match": "GENERIC_PROXY_ONLY",
+            },
+            **{
+                name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+                for name, *_rest in _VIETNAMESE_BENZOIN_TINCTURE_GENERIC_CONSTITUENTS
+            },
+        },
+    },
+    "commiphora myrrha resin ethanol tincture generic profile": {
+        "analytical_method": "GC_MS",
+        "composition_basis": "GC_MS_AREA_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://doi.org/10.1016/j.jsps.2016.10.011",
+                "table": "Table 3",
+                "published_botanical_name": "Commiphora myrrha",
+                "published_extraction": "48-hour room-temperature ethanol extraction",
+                "quantitation": "GC_MS_RELATIVE_AREA",
+                "owned_lot_match": "GENERIC_PROXY_ONLY",
+            },
+            "limonene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+        },
+    },
+    "oman boswellia resin ethanol tincture generic profile": {
+        "analytical_method": "DERIVED_GENERIC_RESIN_AND_GC_MS_OIL_PROFILE",
+        "composition_basis": "LOWER_BOUND_VOLATILE_OIL_SCALED_NOMINAL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8881160/",
+                "published_material": "Boswellia sacra gum resin and volatile oil",
+                "resin_volatile_oil_fraction": 0.05,
+                "fraction_policy": "PUBLISHED_RANGE_LOWER_BOUND",
+                "owned_species_match": "UNRESOLVED_GENERIC_PROXY",
+            },
+            **{
+                name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+                for name, *_rest in _OMAN_FRANKINCENSE_TINCTURE_GENERIC_CONSTITUENTS
+            },
+        },
+    },
 }
 
 
@@ -1184,6 +1376,7 @@ def audit_constituent_completeness() -> dict[str, dict]:
     return results
 
 
+@lru_cache(maxsize=1024)
 def _resolve_profile_key(material_name: str) -> tuple[str | None, str]:
     raw_key = str(material_name or "").strip().casefold()
     normalized = normalize_name(material_name)
@@ -1211,6 +1404,7 @@ def get_composite_metadata(material_name: str) -> NaturalCompositeMetadata | Non
         return None
     constituents = _ABSOLUTE_CONSTITUENTS[key]
     proxy_limitations = _PROFILE_PROXY_LIMITATIONS.get(normalize_name(material_name), ())
+    profile_limitations = _PROFILE_KEY_LIMITATIONS.get(key, ())
     evidence = _PARTIAL_PROFILE_EVIDENCE.get(key, {})
     characterized_fraction = round(sum(float(row[1]) for row in constituents), 9)
     return NaturalCompositeMetadata(
@@ -1218,13 +1412,29 @@ def get_composite_metadata(material_name: str) -> NaturalCompositeMetadata | Non
         resolution=resolution,
         characterized_fraction=characterized_fraction,
         unresolved_fraction=max(0.0, round(1.0 - characterized_fraction, 9)),
-        analytical_method=("GC_FID_AND_GC_MS" if evidence else "UNSPECIFIED_LEGACY_METHOD"),
+        analytical_method=str(
+            evidence.get(
+                "analytical_method",
+                "GC_FID_AND_GC_MS" if evidence else "UNSPECIFIED_LEGACY_METHOD",
+            )
+        ),
         composition_basis=(
-            "GC_FID_AREA_NOMINAL_MODEL_PROXY_NOT_MASS_FRACTION"
-            if evidence else "UNSPECIFIED_LEGACY_BASIS"
+            str(evidence["composition_basis"])
+            if evidence.get("composition_basis")
+            else (
+                "GC_FID_AREA_NOMINAL_MODEL_PROXY_NOT_MASS_FRACTION"
+                if evidence
+                else "UNSPECIFIED_LEGACY_BASIS"
+            )
         ),
         quantitative_evaluability=(
-            "PARTIAL_INPUT_COVERAGE" if evidence else "UNASSESSED_LEGACY_PROFILE"
+            str(evidence["quantitative_evaluability"])
+            if evidence.get("quantitative_evaluability")
+            else (
+                "PARTIAL_INPUT_COVERAGE"
+                if evidence
+                else "UNASSESSED_LEGACY_PROFILE"
+            )
         ),
         unresolved_constituents=deepcopy(evidence.get("unresolved_constituents", ())),
         input_authority=deepcopy(evidence.get("input_authority", {})),
@@ -1245,6 +1455,7 @@ def get_composite_metadata(material_name: str) -> NaturalCompositeMetadata | Non
             "VP-derived ambient-temperature enthalpy correlation when measured "
             "data are unavailable; this is not batch-specific thermodynamic data.",
         )
+        + profile_limitations
         + proxy_limitations
         + evidence.get("limitations", ()),
     )
@@ -1292,6 +1503,56 @@ def composite_replacement_moles(
     return residual_parent_moles + resolved_constituent_moles
 
 
+@lru_cache(maxsize=4096)
+def _temperature_adjusted_constituent_rows(
+    constituents: tuple[tuple, ...],
+    temperature_K: float,  # noqa: N803
+    gamma_estimate: float,
+    dhvap_estimate_kj_mol: float | None,
+) -> tuple[tuple[tuple, ...], bool]:
+    """Bind immutable profile rows to one temperature without changing math.
+
+    Robustness and temporal audits evaluate the same natural profile many
+    times at one temperature while only dose and formula mole totals change.
+    Vapor-pressure correction is independent of those changing quantities, so
+    cache that exact deterministic work.  The constituent tuple itself is part
+    of the key, which keeps monkeypatched/test profiles and future source edits
+    from reusing stale values.
+    """
+
+    adjusted: list[tuple] = []
+    used_shared_fallback = False
+    for name, fraction, mw, vp_25c_pa, odt_ppb, constituent_gamma in constituents:
+        gamma_value = (
+            float(constituent_gamma)
+            if constituent_gamma is not None
+            else float(gamma_estimate)
+        )
+        effective_dhvap = dhvap_estimate_kj_mol
+        if effective_dhvap is None:
+            try:
+                effective_dhvap = estimate_dhvap_from_vp_25c(float(vp_25c_pa))
+            except ValueError:
+                effective_dhvap = DEFAULT_DHVAP_ESTIMATE_KJ_MOL
+                used_shared_fallback = True
+        constituent_vp_pa = vp_pa(
+            float(temperature_K),
+            vp_25c_pa=float(vp_25c_pa),
+            dhvap_kj_mol=float(effective_dhvap),
+        )
+        adjusted.append(
+            (
+                name,
+                fraction,
+                mw,
+                constituent_vp_pa,
+                odt_ppb,
+                gamma_value,
+            )
+        )
+    return tuple(adjusted), used_shared_fallback
+
+
 def composite_headspace(
     material_name: str,
     active_g: float,
@@ -1326,24 +1587,29 @@ def composite_headspace(
     Returns:
         NaturalCompositeHeadspace, or None if material not known.
     """
-    constituents = get_constituents(material_name)
-    if constituents is None:
+    raw_constituents = get_constituents(material_name)
+    if raw_constituents is None:
         return None
+    constituents, used_shared_fallback = _temperature_adjusted_constituent_rows(
+        tuple(tuple(row) for row in raw_constituents),
+        float(temperature_K),
+        float(gamma_estimate),
+        None if dhvap_estimate_kj_mol is None else float(dhvap_estimate_kj_mol),
+    )
 
     P_ATM = 101_325.0  # Pa  # noqa: N806
     total_oav = 0.0
     total_vapor_ppm = 0.0
     total_partial_pressure_pa = 0.0
-    constituent_rows: list[tuple[str, float, float, float, float, float | None]] = []
+    constituent_rows: list[tuple[str, float, float, float, float, float]] = []
     resolved_constituent_moles = 0.0
-    used_shared_fallback = False
 
-    for name, fraction, mw, vp_25c_pa, odt_ppb, constituent_gamma in constituents:
+    for name, fraction, mw, constituent_vp_pa, odt_ppb, gamma_value in constituents:
         constituent_mass_g = active_g * fraction
         moles = constituent_mass_g / mw if constituent_mass_g > 0 else 0.0
         resolved_constituent_moles += moles
         constituent_rows.append(
-            (name, moles, vp_25c_pa, odt_ppb, fraction, constituent_gamma)
+            (name, moles, constituent_vp_pa, odt_ppb, fraction, gamma_value)
         )
 
     effective_total_moles = float(total_moles_in_formula)
@@ -1363,28 +1629,11 @@ def composite_headspace(
         return None
 
     contributing_constituents = 0
-    for _name, moles, vp_25c_pa, odt_ppb, _fraction, constituent_gamma in constituent_rows:
+    for _name, moles, constituent_vp_pa, odt_ppb, _fraction, gamma_value in constituent_rows:
         if moles <= 0:
             continue
         contributing_constituents += 1
         x_i = moles / effective_total_moles
-        gamma_value = (
-            float(constituent_gamma)
-            if constituent_gamma is not None
-            else float(gamma_estimate)
-        )
-        effective_dhvap = dhvap_estimate_kj_mol
-        if effective_dhvap is None:
-            try:
-                effective_dhvap = estimate_dhvap_from_vp_25c(float(vp_25c_pa))
-            except ValueError:
-                effective_dhvap = DEFAULT_DHVAP_ESTIMATE_KJ_MOL
-                used_shared_fallback = True
-        constituent_vp_pa = vp_pa(
-            float(temperature_K),
-            vp_25c_pa=float(vp_25c_pa),
-            dhvap_kj_mol=float(effective_dhvap),
-        )
         partial_pressure = gamma_value * x_i * constituent_vp_pa
         vapor_ppm = 1e6 * partial_pressure / P_ATM
         odt_ppm = odt_ppb / 1000.0

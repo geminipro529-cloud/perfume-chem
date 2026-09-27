@@ -4,7 +4,9 @@ from fastapi import APIRouter
 
 from app.api.v1.endpoints import (
     ai,
+    engine_jobs,
     enhancements,
+    external_validation,
     formulas,
     knowledge,
     lab,
@@ -14,10 +16,29 @@ from app.api.v1.endpoints import (
     mixer,
     optimizer,
     outcomes,
+    physical_lineage,
     reference,
 )
 
 api_router = APIRouter()
+
+api_router.include_router(
+    engine_jobs.router,
+    prefix="/lab/v2",
+    tags=["laboratory-engine-jobs"],
+)
+
+api_router.include_router(
+    external_validation.router,
+    prefix="/lab/v2",
+    tags=["laboratory-external-validation"],
+)
+
+api_router.include_router(
+    physical_lineage.router,
+    prefix="/lab/v2",
+    tags=["laboratory-physical-lineage"],
+)
 
 api_router.include_router(
     lab_reporting.router,

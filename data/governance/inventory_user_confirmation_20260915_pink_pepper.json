@@ -1,0 +1,49 @@
+{
+  "schema_version": "perfume_chem_direct_pink_pepper_stock_confirmation_v1",
+  "effective_date": "2026-09-03",
+  "recorded_date": "2026-09-15",
+  "source_kind": "DIRECT_USER_MESSAGES_AND_SUPPLIER_PRODUCT_LISTING",
+  "source_thread_id": "01a06205-e164-7620-9774-836590cecea0",
+  "verbatim_user_messages": [
+    "I have shinus molle",
+    "i have the EO",
+    "check it from aroma&more",
+    "neat"
+  ],
+  "supplier_product": {
+    "supplier": "Aroma&More",
+    "product_name": "Pink Pepper Essential oil, Peru",
+    "reference": "PinPP0324P",
+    "url": "https://aromaandmore.com/en/essential-oil-100-pure-/879-pink-pepper-essential-oil-peru.html",
+    "botanical_name": "Schinus molle",
+    "origin": "Peru",
+    "extraction_method": "steam distillation",
+    "plant_part": "fruit/berries",
+    "listing_category": "Essential oil 100% Pure",
+    "retrieved_date": "2026-09-15"
+  },
+  "stock_binding": {
+    "canonical_name": "Pink Pepper EO",
+    "physical_stock_owned": true,
+    "fraction": 1.0,
+    "fraction_basis": "neat",
+    "carrier": "",
+    "execution_ready": true,
+    "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+    "identity_distinction": "This Schinus molle essential oil is distinct from any Pink Pepper CO2 extract requirement."
+  },
+  "authority_limits": {
+    "physical_stock_ownership_confirmed": true,
+    "stock_strength_confirmed": true,
+    "stock_carrier_required": false,
+    "supplier_product_identity_confirmed": true,
+    "supplier_lot_gc_ms_or_gc_o_confirmed": false,
+    "supplier_lot_purity_assayed": false,
+    "density_confirmed": false,
+    "co2_extract_ownership_confirmed": false,
+    "formula_rebase_authorized": false,
+    "physical_compounding_performed": false,
+    "safety_or_release_asserted": false,
+    "sensory_equivalence_or_liking_asserted": false
+  }
+}

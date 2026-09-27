@@ -38,11 +38,26 @@ Read:
 - [Fragrance family reference](docs/fragrance_families_reference.md)
 - [Laboratory Beta operations](docs/laboratory_beta.md)
 
+## Current Completion Boundary
+
+As of 2026-09-27, the personal-research software platform is complete: formula
+and stock accounting, authority-safe durable jobs, endpoint-separated analysis,
+goal-directed modification clues, controlled candidate design, observation
+records, and replay-safe compounding lineage are implemented. The primary
+scientific workflow starts with only a formula and a plain-language scent goal.
+
+Empirical completion is deliberately separate. R6 complete-comparator evidence,
+blinded personal selection, and commercial release readiness remain false until
+their respective measurements and qualified reviews exist. See the
+[CP10–CP19 acceptance receipt](docs/verification/FULL_POTENTIAL_CP10_CP19_ACCEPTANCE_20260927.md)
+for the exact boundary, performance results, hashes, and residual limitations.
+
 ## Quick Start
 
-Two Python environments share one venv. Engine = deterministic analysis core
-(`pyproject.toml`, setuptools). Backend = FastAPI + SQLite Poetry app
-(`backend/`). Full setup below.
+Use two separate Python environments. The engine uses the root `.venv`
+(`pyproject.toml`, setuptools); the FastAPI backend uses its Poetry-managed
+environment (`backend/`). Never copy `site-packages` between environments or
+Python versions: compiled extensions must match the interpreter that loads them.
 
 **Engine + workbench** (repo root):
 ```powershell
@@ -54,11 +69,21 @@ python -m venv .venv
 **Backend** (FastAPI; UI at `http://localhost:8000/app`, docs at `/docs`):
 ```powershell
 cd backend
-..\.venv\Scripts\python.exe -m poetry env use ..\.venv\Scripts\python.exe
+..\.venv\Scripts\python.exe -m poetry env use (uv python find 3.11)
 ..\.venv\Scripts\python.exe -m poetry install --with dev
 ..\.venv\Scripts\python.exe -m poetry run python -c "from app.db_bootstrap import upgrade_database; from alembic.config import Config; print(upgrade_database(Config('alembic.ini')))"
 ..\.venv\Scripts\python.exe -m poetry run uvicorn app.main:app --reload
 ```
+
+**Temporary files and disk usage:** pytest removes successful-run scratch and
+retains the three most recent failed temporary-directory generations. Raw test
+temporary files and default test audit logs live inside the managed session
+directory. An explicitly supplied audit-log destination is preserved. Verification
+commands clean only their own successful scratch directory; failed or timed-out
+checks report the retained path for diagnosis. Keep one reusable type-check cache
+per environment instead of creating task-specific cache directories. Create
+one-off verification environments with a `TemporaryDirectory` lifecycle; keep
+the root engine environment and the backend Poetry environment reusable.
 
 **Formula release gate** (canonical workflow):
 ```powershell
@@ -68,7 +93,36 @@ cd backend
 .venv\Scripts\python.exe scripts\format_pipeline_analysis.py --input output.json
 ```
 
+**Goal-directed scent analysis** (fast personal-research workflow):
+
+```powershell
+.venv\Scripts\python.exe scripts\intervention_recommend.py `
+  --formula-file formulas\My_Formula_30mL_EDP.md `
+  --goal "make the lavender clearer at two hours" `
+  --must-preserve "dry amber" `
+  --must-avoid "sweeter" `
+  --mode between_mix
+```
+
+The minimum input is a formula and a plain-language goal. Observations,
+preserve/avoid criteria, family, and target style improve the analysis but are
+optional. The default output is intentionally short: goal-linked formula facts,
+evidence-labeled scent hypotheses, and one-variable control/low/high comparisons.
+Use `--show-details` only when the legacy diagnostic tables are wanted, or
+`--format json` for the complete machine-readable record.
+
+Photographs, purchase receipts, bottle/lot records, density, and instrumental
+headspace data are not required to generate research hypotheses. They are
+requested only when a later physical conversion, stock binding, scientific
+claim, safety decision, or compounding action actually depends on them. The
+analysis does not mutate the formula and does not assign beauty, pleasantness,
+safety, release, or compounding authority.
+
 ## Phase 0 Verification
+
+The verifier preserves the named engine test groups and automatically includes
+new top-level `tests/test_*.py` files in an `additional` group. Backend tests
+remain in their separate environment and verification step.
 
 Hosted GitHub Actions are intentionally not used. Install the repository-owned
 pre-push gate once in each clone:
@@ -134,12 +188,15 @@ hosted attestation, and it never substitutes for held-out sensory evidence.
 
 1. Read [`inventory.txt`](inventory.txt) before constructing or modifying any
    fragrance. Stock, dilution, and availability are live data.
-2. Preserve raw dose, active dose, ppm, ODT, and OAV. Perceptibility claims
-   require OAV support.
-3. Natural mixtures use composite constituent OAV where covered by the natural
-   decomposition model.
-   Composite OAV is an olfactory headspace model, not constituent composition
-   for IFRA or allergen assessment.
+2. Preserve raw dose, active dose, delivered gas concentration, ODT, OAV,
+   intensity, character, and liking as separate quantities. OAV is a
+   compatibility-qualified detection diagnostic, not an intensity, contribution,
+   pleasantness, or beauty score. An independently applicable measured intensity
+   curve can support intensity without a separate ODT.
+3. Natural-mixture decomposition is a versioned composition scenario. Preserve
+   whole-product identity, analytical provenance, and unknown remainder; do not
+   silently renormalize identified constituents or sum constituent OAVs as a
+   universal whole-product intensity or accuracy claim.
 4. Optimize for the perfume name and brief. Numerical gates are floors, not the
    creative target.
 5. Missing density, physical data, calibration, or assay evidence remains
@@ -152,6 +209,8 @@ hosted attestation, and it never substitutes for held-out sensory evidence.
 | Formula physical state and OAV table | `engine/pipeline/formula_state.py` |
 | Temporal diagnostic frames | `engine/pipeline/simulator.py` |
 | Evidence-labeled application service | `engine/workbench.py` |
+| Goal-directed scent clues and controlled variants | `engine/research/goal_analysis.py` |
+| Goal-analysis CLI | `scripts/intervention_recommend.py` |
 | Typed quantity and stock-basis conversion | `engine/quantities.py` |
 | Exact mixture reconstruction | `engine/mixture.py` |
 | Conservative safety assessment | `engine/safety_assessment.py` |

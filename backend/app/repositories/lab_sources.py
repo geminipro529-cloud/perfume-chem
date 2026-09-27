@@ -11,6 +11,7 @@ from app.models.lab_sources import (
     LabSourceDerivationLink,
     LabSourceDocumentVersion,
     LabSourceExtractionRecord,
+    LabSourceUseConstraintVersion,
 )
 
 if TYPE_CHECKING:
@@ -54,6 +55,56 @@ class LabSourceRepositoryMixin:
             .limit(1)
         )
         return result.scalar_one_or_none()
+
+    async def get_source_use_constraint_version(
+        self,
+        version_id: str,
+    ) -> LabSourceUseConstraintVersion | None:
+        return await self.session.get(LabSourceUseConstraintVersion, version_id)
+
+    async def latest_source_use_constraint_version(
+        self,
+        constraint_id: str,
+    ) -> LabSourceUseConstraintVersion | None:
+        result = await self.session.execute(
+            select(LabSourceUseConstraintVersion)
+            .where(LabSourceUseConstraintVersion.constraint_id == constraint_id)
+            .order_by(
+                LabSourceUseConstraintVersion.version_number.desc(),
+                LabSourceUseConstraintVersion.id,
+            )
+            .limit(1)
+        )
+        return result.scalar_one_or_none()
+
+    async def source_use_constraint_record_by_hash(
+        self,
+        record_sha256: str,
+    ) -> LabSourceUseConstraintVersion | None:
+        result = await self.session.execute(
+            select(LabSourceUseConstraintVersion)
+            .where(LabSourceUseConstraintVersion.record_sha256 == record_sha256)
+            .limit(1)
+        )
+        return result.scalar_one_or_none()
+
+    async def source_use_constraints(
+        self,
+        subject_source_version_id: str,
+    ) -> list[LabSourceUseConstraintVersion]:
+        result = await self.session.execute(
+            select(LabSourceUseConstraintVersion)
+            .where(
+                LabSourceUseConstraintVersion.subject_source_version_id
+                == subject_source_version_id
+            )
+            .order_by(
+                LabSourceUseConstraintVersion.constraint_id,
+                LabSourceUseConstraintVersion.version_number.desc(),
+                LabSourceUseConstraintVersion.id,
+            )
+        )
+        return list(result.scalars())
 
     async def get_source_extraction(
         self,

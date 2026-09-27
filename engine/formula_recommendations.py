@@ -79,6 +79,9 @@ _INTERVENTION_MODES = {"pre_mix", "post_mix", "between_mix"}
 _DEFAULT_MODE = "pre_mix"
 _BASE_AXIS_COUNT = 4
 
+UNVALIDATED_ADVISORY = "UNVALIDATED_ADVISORY"
+LEGACY_DIAGNOSTIC_SELECTION_BASIS = "LEGACY_DIAGNOSTIC_TOTAL_NOT_ADMITTED"
+
 _MODE_CONFIG: dict[str, dict[str, Any]] = {
     "pre_mix": {
         "axis_count": 4,
@@ -1018,6 +1021,15 @@ class Recommendation:
     identity_drift: float | None = None
     provenance: dict[str, list[str]] = field(default_factory=dict)
     warnings: list[str] = field(default_factory=list)
+    authority_state: str = field(default=UNVALIDATED_ADVISORY, init=False)
+    proposal_status: str = field(default=UNVALIDATED_ADVISORY, init=False)
+    formula_optimization_authority: bool = field(default=False, init=False)
+    compounding_action_authority: bool = field(default=False, init=False)
+    requires_controlled_comparison: bool = field(default=True, init=False)
+    selection_basis: str = field(
+        default=LEGACY_DIAGNOSTIC_SELECTION_BASIS,
+        init=False,
+    )
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -1135,15 +1147,24 @@ def generate_recommendations(
     target_style: str | None = None,
     context: InterventionContext | None = None,
     scorer: FormulaScorer | None = None,
+    include_unvalidated_advisory: bool = False,
 ) -> list[Recommendation]:
-    """Generate scored optimization recommendations for a formula.
+    """Generate legacy diagnostic hypotheses only after explicit opt-in.
 
     1. Identify weakest axes
     2. Apply intervention-mode constraints and observation hints
     3. For each selected axis, try candidate materials from inventory
     4. Rescore modified formula, compute delta
     5. Rank by composite improvement, return top N
+
+    The legacy diagnostic totals used here are not admitted formula-selection
+    evidence. Public callers therefore fail closed unless they pass the literal
+    boolean ``include_unvalidated_advisory=True``. Any returned candidates are
+    non-authoritative controlled-comparison hypotheses.
     """
+    if include_unvalidated_advisory is not True:
+        return []
+
     if inventory is None:
         inventory = load_inventory()
 
@@ -1381,8 +1402,13 @@ def generate_intervention_recommendations(
     category_hint: str | None = None,
     target_style: str | None = None,
     context: InterventionContext | None = None,
+    scorer: FormulaScorer | None = None,
+    include_unvalidated_advisory: bool = False,
 ) -> list[Recommendation]:
-    """Mode-aware wrapper for recommendation generation."""
+    """Mode-aware wrapper that preserves the explicit advisory firewall."""
+    if include_unvalidated_advisory is not True:
+        return []
+
     return generate_recommendations(
         fv,
         scores,
@@ -1395,6 +1421,8 @@ def generate_intervention_recommendations(
         category_hint=category_hint,
         target_style=target_style,
         context=context,
+        scorer=scorer,
+        include_unvalidated_advisory=True,
     )
 
 
@@ -1423,18 +1451,26 @@ def format_recommendations(
     *,
     mode: str = _DEFAULT_MODE,
 ) -> str:
-    """Format recommendations as a text block for the detailed report."""
+    """Format non-authoritative recommendation hypotheses for review."""
     normalized_mode = _normalize_mode(mode)
     lines = []
     lines.append("")
-    title = "  ◆ OPTIMIZATION RECOMMENDATIONS"
+    title = "  ◆ UNVALIDATED ADVISORY HYPOTHESES"
     if normalized_mode != _DEFAULT_MODE:
         title += f" [{normalized_mode.replace('_', '-').upper()}]"
     lines.append(title)
     lines.append("  " + "─" * 100)
+    lines.append(
+        f"    Authority state: {UNVALIDATED_ADVISORY} | "
+        "formula optimization authority: false | compounding action authority: false"
+    )
+    lines.append(
+        "    Controlled comparison required: true | "
+        f"selection basis: {LEGACY_DIAGNOSTIC_SELECTION_BASIS}"
+    )
 
     if not recs:
-        lines.append("    No high-impact optimizations identified — formula is well-balanced.")
+        lines.append("    No unvalidated advisory hypotheses emitted.")
         return "\n".join(lines)
 
     # Header
@@ -1453,7 +1489,10 @@ def format_recommendations(
         stars = _stars_for_delta(r.composite_delta)
         rationale = r.rationale
         if normalized_mode == "post_mix" and r.dose_ul is not None:
-            rationale = f"{rationale} (~{r.dose_ul} uL / bottle)"
+            rationale = (
+                f"{rationale} (~{r.dose_ul} uL hypothesis only; "
+                "not a compounding instruction)"
+            )
         lines.append(
             f"    {axis_display:<18s} {r.action:<9s} {r.material:<30s} "
             f"{r.dose_pct:5.1f}  {delta_display:>7s}  {comp_display:>7s}  {stars:<9s} {rationale}"

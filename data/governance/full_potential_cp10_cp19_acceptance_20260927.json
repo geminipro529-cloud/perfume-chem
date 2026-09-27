@@ -1,0 +1,301 @@
+{
+  "schema_version": "full-potential-cp10-cp19-acceptance-v2",
+  "artifact_hash_semantics": "sha256-exact-or-utf8-text-eol-equivalent-v1",
+  "recorded_date": "2026-09-27",
+  "final_software_closure_date": "2026-09-28",
+  "scope": "Authority-safe software, scientific capability, execution, comparison, and physical-lineage implementation for Checkpoints 10 through 19.",
+  "implementation_mode": {
+    "root_codex_only": true,
+    "delegated_models_used": false,
+    "deepmimo_used": false,
+    "physical_compounding_performed": false,
+    "sensory_session_performed": false,
+    "inventory_mutated_by_acceptance": false,
+    "formula_released": false
+  },
+  "repository_baseline": {
+    "branch": "master",
+    "head": "c35289af48d7e8b1cc81273f9506fb3eab941254",
+    "baseline_manifest_sha256": "db35ea3fcf60f3ed89d5769eb318957f8bdc0e7675ae1310769fbdab42bc1055",
+    "dirty_worktree_preserved": true,
+    "inventory_sha256": "0546ab83862557a4e604536f6282f3978bf24351a29848e0e91292c71d90bdf4",
+    "inventory_matches_cp10_baseline": true,
+    "alembic_head": "20260927_0022"
+  },
+  "checkpoint_results": {
+    "CP10": "IMPLEMENTED_CURRENT_FAILURES_CATALOGUED",
+    "CP11": "IMPLEMENTED_GENERIC_IDENTITY_STOCK_UNIT_AUTHORITY_CONTRACTS",
+    "CP12": "IMPLEMENTED_DURABLE_JOB_V2_AND_COMPATIBILITY_QUEUEING",
+    "CP13": "IMPLEMENTED_GOVERNED_CAPABILITIES_EMPIRICAL_ADMISSION_HELD",
+    "CP14": "IMPLEMENTED_FINITE_RELEASE_SENSITIVITY_CONTRACTS_UNCALIBRATED",
+    "CP15": "IMPLEMENTED_ENDPOINT_SEPARATION_AND_MIXTURE_CHALLENGERS",
+    "CP16": "IMPLEMENTED_OBSERVATION_AND_PROTOCOL_SOFTWARE_NO_PHYSICAL_EXECUTION",
+    "CP17": "IMPLEMENTED_CONSERVATIVE_SELECTION_R5_R6_SEARCH_HELD",
+    "CP18": "IMPLEMENTED_EXACT_LINEAGE_RESUME_AND_RECOMPOUNDING_PREVENTION",
+    "CP19": "IMPLEMENTED_PLATFORM_BOUNDARY_ACCEPTED_EMPIRICAL_COMPLETION_WITHHELD"
+  },
+  "completion_states": {
+    "PLATFORM_SOFTWARE_COMPLETE": true,
+    "R6_COMPUTATIONAL_EVIDENCE_COMPLETE": false,
+    "PERSONAL_SELECTION_COMPLETE": false,
+    "COMMERCIAL_RELEASE_READY": false,
+    "platform_completion_basis": [
+      "Generic identity, authority, durable-job, release, endpoint-separated perception, conservative-selection, sensory-record, goal-analysis, and physical-lineage contracts are implemented.",
+      "The concise goal-directed workflow requires only a formula and a plain-language goal for hypothesis generation.",
+      "Warm and cold single-formula latency, four-worker absolute corpus time, memory, source-drift, and deterministic-result gates pass."
+    ],
+    "remaining_false_state_reasons": [
+      "Exact stock-lot, release-scenario, curve-range, matrix-applicability, and personal-observation evidence is incomplete.",
+      "Historical stale and explicitly quarantined formula artifacts remain fail-closed and were not silently rebound.",
+      "Docker is unavailable in the current environment; this optional smoke is not treated as scientific or platform evidence.",
+      "Commercial release remains outside Perfume-Chem automatic authority."
+    ]
+  },
+  "goal_directed_analysis": {
+    "status": "SOFTWARE_COMPLETE_RESEARCH_HYPOTHESES_ONLY",
+    "minimum_required_inputs": [
+      "formula",
+      "plain_language_goal"
+    ],
+    "optional_inputs": [
+      "observations",
+      "must_preserve",
+      "must_avoid",
+      "family",
+      "target_style"
+    ],
+    "documentary_inputs_not_required_for_hypothesis_generation": [
+      "photographs",
+      "purchase_receipts",
+      "bottle_or_lot_records",
+      "density",
+      "instrumental_headspace_data"
+    ],
+    "live_lavender_goal_smoke": {
+      "formula": "formulas/Lavande_Ambre_Profond_Parallel_A_30mL_EDP.md",
+      "goal": "make the lavender clearer at two hours",
+      "status": "GOAL_DIRECTED_HYPOTHESES_READY",
+      "matched_block_rows": 2,
+      "matched_block_amount_ul": "1600",
+      "control_low_high_trial_percent": "7.5",
+      "wall_time_seconds": 0.64,
+      "formula_modified": false
+    },
+    "pleasantness_authority": false,
+    "personal_liking_authority": false,
+    "beauty_authority": false,
+    "safety_authority": false,
+    "release_authority": false,
+    "compounding_authority": false
+  },
+  "verification": {
+    "final_platform_closure_slice": {
+      "status": "PASS",
+      "engine_scientific_batch_and_classification_tests": 102,
+      "durable_job_and_api_tests": 14,
+      "batch_hashing_and_run_evidence_tests": 66,
+      "backend_ruff": "PASS",
+      "backend_mypy_source_files": 148,
+      "python_compile": "PASS",
+      "scoped_git_diff_check": "PASS_WITH_EOL_WARNINGS_ONLY"
+    },
+    "backend_full_suite": {
+      "status": "PASS",
+      "passed": 797,
+      "coverage_percent": 80,
+      "duration_seconds": 1131.87
+    },
+    "backend_ruff": "PASS",
+    "backend_mypy": {
+      "status": "PASS",
+      "source_files": 148
+    },
+    "focused_engine_governance_suite": {
+      "status": "PASS_AFTER_HASH_MANIFEST_REFRESH",
+      "unique_tests": 285
+    },
+    "focused_migration_backup_suite": {
+      "status": "PASS",
+      "passed": 12
+    },
+    "executed_stock_preparation_suite": {
+      "status": "PASS",
+      "passed": 12
+    },
+    "compileall": "PASS",
+    "quick_project_verifier": {
+      "status": "FAIL_CLOSED",
+      "passed_checks": [
+        "engine-compile",
+        "engine-lint",
+        "engine-typecheck",
+        "scientific-audit",
+        "material-data-validation",
+        "knowledge-rule-validation",
+        "golden-formula-regression",
+        "golden-api-regression",
+        "golden-fixture-lock"
+      ],
+      "failed_checks": [
+        "formula-artifact-validation"
+      ],
+      "failed_check_disposition": "PRESERVED_STALE_AND_QUARANTINED_ARTIFACTS_NOT_AUTO_REBOUND"
+    },
+    "git_diff_check": {
+      "scoped_implementation_and_governance": "PASS_WITH_EOL_WARNINGS_ONLY",
+      "repository_wide": "BLOCKED_BY_PREEXISTING_PERMISSION_DENIED_CLEAN_SOURCE_REPLAY_ARTIFACTS"
+    },
+    "docker_smoke": "NOT_RUN_DOCKER_COMMAND_UNAVAILABLE",
+    "full_project_verifier": "NOT_RUN_MERGE_READINESS_NOT_CLAIMED"
+  },
+  "final_executable_source_performance_matrix": {
+    "source_snapshot_sha256": "5f53dbd9ceaab7a945a5bfa5a9f4eb52d9c94eca92c7d79125e13004353de822",
+    "formula_count": 369,
+    "formula_level_fail_decisions_are_runner_errors": false,
+    "runner_errors": 0,
+    "source_drift": false,
+    "serial_parallel_scientific_authority_status_mismatches": 0,
+    "post_run_change_scope": "NON_EXECUTABLE_ACCEPTANCE_CLASSIFICATION_DOCUMENTATION_AND_TEST_METADATA_ONLY",
+    "numerical_threads_per_worker": 1,
+    "result_hashing": "NORMALIZED_ONCE_AND_COMPUTED_INSIDE_PERSISTENT_WORKER_LANE",
+    "runs": [
+      {
+        "workers": 1,
+        "run_directory": "run-4hv8zwg5",
+        "elapsed_seconds": 221.2,
+        "peak_rss_mib": 392.176,
+        "speedup_vs_serial": 1.0,
+        "summary_sha256": "29ecd09cd01c8a2ae7a47339d8f2a5f4fa536deac1439618fa31bea5404b4b9b",
+        "result_manifest_sha256": "35d88c1acf639e5ca3262a31ddbe76c4f4864d6e046c4c1461071dd60864a7be"
+      },
+      {
+        "workers": 2,
+        "run_directory": "run-zdtpr9kw",
+        "elapsed_seconds": 130.5,
+        "peak_rss_mib": 597.074,
+        "speedup_vs_serial": 1.695,
+        "summary_sha256": "3ce62f76b09bf500d50fba17cc1b023c16eb5f70d85e0246e24f60f2d874eacf",
+        "result_manifest_sha256": "4e51515dae09cc86a965789979d4b2b063d60601edc8aea4c8bf5ccec5083462"
+      },
+      {
+        "workers": 4,
+        "run_directory": "run-qyjp3v0c",
+        "elapsed_seconds": 89.4,
+        "peak_rss_mib": 818.203,
+        "speedup_vs_serial": 2.474,
+        "summary_sha256": "56bee23f2efac970ed208cbd79db35249402e9a445b837bdca9fc082cc7cb90a",
+        "result_manifest_sha256": "9229a0be30e75ce2ac778ca4af7f8830b76ff96d4f607e10ec266d180f94f36a"
+      },
+      {
+        "workers": 8,
+        "run_directory": "run-bkkjxa2h",
+        "elapsed_seconds": 78.0,
+        "peak_rss_mib": 1293.875,
+        "speedup_vs_serial": 2.836,
+        "summary_sha256": "55145ec2e62ea544ce84b2428663d35b119e9a81a89493f82e994d5682a12de8",
+        "result_manifest_sha256": "a476e68c652167b967e52ee84b969a8120fc40adab99c4af0c54b96958eec6db"
+      }
+    ],
+    "warm_latency_p95_seconds": 1.3,
+    "cold_single_formula": {
+      "run_directory": "run-_cluc5yi",
+      "batch_completion_seconds": 2.0,
+      "formula_elapsed_seconds": 1.9,
+      "runner_errors": 0,
+      "summary_sha256": "143f0d60ecb46f51b3fd8a8951be64f274ac15d8a4d704ea66eef481875a1100",
+      "result_manifest_sha256": "8bffe3d409f5c08713b19a576651da353dccceff9cccd1c5f8ba4e25d892598d"
+    },
+    "absolute_time_gate": "PASS",
+    "memory_gate": {
+      "status": "PASS",
+      "four_worker_vs_serial": 2.086,
+      "eight_worker_vs_serial": 3.299
+    },
+    "four_worker_speedup_gate": "STRETCH_TARGET_NOT_MET_2.474_LT_3.0",
+    "eight_worker_tail_speedup_gate": "PASS_2.836_GTE_2.5",
+    "platform_latency_contract": "PASS",
+    "authority": "CURRENT_EXECUTABLE_SOURCE_PERFORMANCE_EVIDENCE"
+  },
+  "wakayama_capability": {
+    "source_rows": 314,
+    "positive_curves": 313,
+    "adjudication_counts": {
+      "EXACT_IDENTITY_BOUND": 11,
+      "NO_LOCAL_IDENTITY": 299,
+      "CAS_NAME_CONFLICT": 1,
+      "PRODUCT_OR_GRADE_AMBIGUOUS": 2,
+      "NOT_APPLICABLE": 1
+    },
+    "exact_stock_binding_count": 0,
+    "observed_range_bound_count": 0,
+    "admission_state": "HOLD_EXACT_STOCK_RANGE_MATRIX_BINDING"
+  },
+  "checkpoint19_comparison": {
+    "report_sha256": "0e9b7a4a95ca457b72c49021dc70228ad26cf89d1897d5d07f6040136bc2d0f3",
+    "classifications": [
+      "COMPUTATIONALLY_DIFFERENT",
+      "NONDISCRIMINATING_EVIDENCE",
+      "NOT_PHYSICALLY_TESTED",
+      "OUT_OF_DOMAIN"
+    ],
+    "selection_status": "HOLD_CONSTANT_TOTAL_BASIS_UNRESOLVED",
+    "ranked_candidates": [],
+    "best_observed_candidate": null,
+    "experimental_recommendation": null,
+    "formula_action": "NO_CHANGE"
+  },
+  "policy_state": {
+    "effective_ifra_policy": "IFRA_51ST_AMENDMENT",
+    "ifra_52nd_amendment": "PENDING_NOTIFICATION",
+    "runtime_dataset_coverage": "NON_EXHAUSTIVE_SCREENING_SUBSET",
+    "regulatory_compliance_determination": false
+  },
+  "artifact_sha256": {
+    "AGENTS.md": "7f4d286d6eaca5b5b4ea05a1cfe907d607fe3393a40d8dac84818dcd62fdc3f9",
+    "README.md": "1780726b5314cba24e4172045d4c3aa0b89d8d216483080113d63e4b258f5288",
+    "docs/verification/FULL_POTENTIAL_CP10_CP19_ACCEPTANCE_20260927.md": "1a4058ae87d66577ba011ef894b049fa5c29342d704ab0de32fde749914102b3",
+    "data/governance/full_potential_cp10_code_classification_20260927.json": "1d7f49a43079b349b0272faee98f80ebd4f02516b1ef98ef108afd9fafed9979",
+    "data/governance/ifra_policy_status_20260927.json": "f700d086f1a2af2f1b2fa9f21d325c14c40e9b47f7607b94776cc4c13a1e1c66",
+    "data/governance/measured_intensity_capabilities_20260923.json": "fee99f21290212cc0c46df0c464130117eb5c41b8a5dc89db75270d71bfbc464",
+    "data/governance/wakayama_identity_adjudication_summary_20260927.json": "6f18e519b99b7f6555fd60581fba2f4f330961578377629b867e6edc894a8db4",
+    "output/optimizer_research_20260909/wakayama_2019/README.md": "d0be9c3fc38730eb24c1083fb10133a8056b10284407e0433bf400146d232758",
+    "output/optimizer_research_20260909/wakayama_2019/wakayama-intensity.txt": "739243c505187b5384ddacbbe2ab674b53fb8cd0b58e25733bd6bae5547c23eb",
+    "output/optimizer_research_20260909/wakayama_2019/ie9b01225_si_001.pdf": "b62f567840ddcc8b1b305784aa8245f2b5c53b07a820c42613482134cd567104",
+    "data/governance/lavande_ambre_profond_r5_design_comparator_20260923.json": "d7f5904bd9437cb61589a1a535423eedb6786641ccc70f109d3e1516bc222f86",
+    "data/governance/lavande_ambre_profond_r6_aimi_design_successor_20260926.json": "0380fd88d38f7c8deda4a15d458ca36fd90609805940943509c2e11c0daf7984",
+    "formulas/Lavande_Ambre_Profond_Parallel_A_30mL_EDP.md": "88696bbcfe3dd840f9aa6b320a569c43b579c820585d3d8b5d82cdc757e47103",
+    "engine/experiments/checkpoint19_comparison.py": "133da7bebfee5586614295266b518129195fd3f086dad7f3434b40b6e8ad1c56",
+    "engine/research/contracts.py": "5f4b971e3b4f9504d5a88116ede3082dd1a40e02d63f1877568c8736ed0bc716",
+    "engine/research/accounting.py": "8cded3ca41bb020330f47d9f3ca2284270fb5e26ad3770bf46ca213636bab5cd",
+    "engine/research/capabilities.py": "4c78bf40eaf1482879361e1bf1e78bf11e238c474fa7dd2875c8af9f426bfb66",
+    "engine/research/release.py": "328d9a1940873144f562564acc7e78cb040f93e453835a6ef0ec4aaa2a96dbf9",
+    "engine/research/perception.py": "80738bcd23a0893df7486c62bce0e84054c1aaf27f617b4e4fceead60264af12",
+    "engine/research/preference.py": "08760c34c7448adcbd5c1bb3682425917561499bca0a1c4b7b7efdf9249f21fa",
+    "engine/research/protocols.py": "6937baa588f855c0576dc95f8e72766ded3cb1b53c7f505804e9cf6a36940917",
+    "engine/research/selection.py": "ead81e986f9ead2f220c9b572e507f36034d71c02ed2b3312f0675aead71b9de",
+    "engine/research/comparison.py": "9ef86fb2026677d30d20c0b02d1fc9cb854ee3c93702e709f22ae7cded286742",
+    "engine/research/snapshots.py": "6bc13bf10c4a3ada5f961f0d51aad977f489d20ed20e60697dda1c1c8b91094d",
+    "engine/research/goal_analysis.py": "ef1d15c2205c5b174df3319edc847406b0a1b5e3520b0d000190358e70a7fe5f",
+    "scripts/intervention_recommend.py": "ab76c401b3f498ad4528137a0ce8dd63b859bcf402fe34d564498a84e5c53abe",
+    "scripts/batch_gate_all_formulas.py": "43eac3c1de9b7a102720ee3342fed7f3c1aba0830f0402a95f71f7cc6cc0aaa3",
+    "scripts/formula_release_gate.py": "cb8e8d4b83d861207d5d8788764ac0073f6c066b0831f9eabc4cf64514c50216",
+    "engine/calibration/hashing.py": "f3d54fdc5423a0dcec912d8746dccb061b88e7f5d2ddfd0c2a1b6bfc7b4b9211",
+    "tests/test_goal_directed_analysis.py": "d9d5fa5f3d4bc02a56765e41805094b88fe498e32dd7cb0d2ee28a2a11bbde4d",
+    "tests/test_batch_gate_all_formulas.py": "565f5143d4eb703922e33ab49560e359506a26cc5fed351a3f5f2eb90e65b00a",
+    "tests/test_full_potential_checkpoint19_boundary.py": "7a645428e3604e102200efddb2e4096d7c8e63f466467a0415dec24787784e64",
+    "backend/app/services/engine_job_registry.py": "090394a02de4d45e6efaa7865403ee66a317721b278dcfe96e0e534de10daca6",
+    "backend/app/services/engine_job_executor.py": "7dbe28d582c72a3c802151ecc9ad88c4851fb8eaf6016a55421ecb62b20d41e5",
+    "backend/app/services/engine_jobs.py": "0ed2c149432426ec9b12c885b3d9f7021387cc0531e71c6b857768a3c1fc81aa",
+    "backend/app/services/physical_lineage.py": "cea211a2577125602c243d670117a6d7229a1cbf2efe91a071a713933718f84e",
+    "backend/app/services/lab_service.py": "d82d07382083dfa4c1a50c4706e1fabe88708b9019f509681a2aabb8e882fd6b",
+    "backend/alembic/versions/20260927_0020_full_potential_engine_job_v2.py": "bd3e177dc43340055d71f354b7a08b2b7ce4ed53b9646a2af0795513d8cc3181",
+    "backend/alembic/versions/20260927_0021_cp18_stock_lot_receipts.py": "cad90155eabf06249600a2b7c5af9eb0857dc24a8bc00d30b9b2b29ee94a6c71",
+    "backend/alembic/versions/20260927_0022_instrumental_observations.py": "1f3210aba4837ad687be91feb9b8b72ba275ec53bf172336fcd96ba88666269d"
+  },
+  "authority": {
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

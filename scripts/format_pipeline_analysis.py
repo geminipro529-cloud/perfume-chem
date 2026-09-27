@@ -130,6 +130,17 @@ def _number_text(value, precision: int = 3) -> str:
     return f"{float(value):.{precision}f}"
 
 
+def _complete_numeric_sum(rows: list[dict], key: str) -> float | None:
+    values = [row.get(key) for row in rows]
+    if not values or any(value is None for value in values):
+        return None
+    return sum(float(value) for value in values)
+
+
+def _ppm_text(value, precision: int = 1) -> str:
+    return "UNKNOWN" if value is None else f"{float(value):.{precision}f} ppm"
+
+
 def _functional_role(material: dict) -> str:
     return str(material.get("role") or "unspecified")
 
@@ -373,7 +384,7 @@ def build_oav_headspace_table(materials):
             f"{material.get('note', 'UNKNOWN')} |"
         )
 
-    total_ppm = sum(material.get("vapor_ppm", 0) or 0 for material in mats)
+    total_ppm = _complete_numeric_sum(mats, "vapor_ppm")
     ntop = sum(1 for material in mats if material.get("note") == "top")
     nheart = sum(1 for material in mats if material.get("note") == "heart")
     nbase = sum(1 for material in mats if material.get("note") == "base")
@@ -381,7 +392,7 @@ def build_oav_headspace_table(materials):
         [
             "",
             f"**Materials:** {len(mats)} total ({ntop} top, {nheart} heart, {nbase} base)",
-            f"**Total vapor:** {total_ppm:.2f} ppm",
+            f"**Total vapor:** {_ppm_text(total_ppm, 2)}",
         ]
     )
     return lines
@@ -480,9 +491,10 @@ def build_temporal(formula):
         doms = w.get("dominant_oav", [])
         ldrs = ", ".join(f"{d['material'][:12]}({d['oav']:.0f})" for d in doms[:3])
         remaining_index = 100 * s.get("total_raw_ul", 0) / first_ul
+        vapor_text = _ppm_text(s.get("total_vapor_ppm"), 2)
         lines.append(
             f"| {w['label'][:12]:12s} | {w['t_seconds']:>6.0f}s | {nd.get('top', 0):>4.1f}/{nd.get('heart', 0):>3.1f}/{nd.get('base', 0):>4.1f}"
-            f" | {s.get('total_vapor_ppm', 0):>6.2f}ppm | {remaining_index:>6.1f}% | {ldrs:>40s}"
+            f" | {vapor_text:>12s} | {remaining_index:>6.1f}% | {ldrs:>40s}"
         )
     lines.append("")
     if ts:
@@ -507,7 +519,9 @@ def build_temporal(formula):
             f"— Uncalibrated loss index:{loss_index:.0f}%"
         )
         lines.append(
-            f"  T:{nd.get('top', 0):.1f}% H:{nd.get('heart', 0):.1f}% B:{nd.get('base', 0):.1f}%  Vapor:{s.get('total_vapor_ppm', 0):.2f}ppm"
+            f"  T:{nd.get('top', 0):.1f}% H:{nd.get('heart', 0):.1f}% "
+            f"B:{nd.get('base', 0):.1f}%  "
+            f"Vapor:{_ppm_text(s.get('total_vapor_ppm'), 2)}"
         )
         if doms:
             lines.append(
@@ -539,7 +553,7 @@ def build_perfumer(formula):
 
     # Opening
     lines.append("### 2. Opening (0-5min)")
-    total_vapor = sum(m.get("vapor_ppm", 0) or 0 for m in mats)
+    total_vapor = _complete_numeric_sum(mats, "vapor_ppm")
     if top_m:
         lead = top_m[0]
         lines.append(
@@ -551,7 +565,7 @@ def build_perfumer(formula):
             lines.append(
                 f"  - {m['name']} OAV={_oav_text(o, 0)} VP={vp:.1f}Pa ({m.get('family', '?')})"
             )
-    lines.append(f"  Total vapor: {total_vapor:.1f} ppm")
+    lines.append(f"  Total vapor: {_ppm_text(total_vapor, 1)}")
     lines.append("")
 
     # Heart
@@ -567,7 +581,9 @@ def build_perfumer(formula):
         lines.append(
             f"  T:{hnd.get('top', 0):.1f}% H:{hnd.get('heart', 0):.1f}% B:{hnd.get('base', 0):.1f}%"
         )
-        lines.append(f"  Vapor: {hw['state'].get('total_vapor_ppm', 0):.1f} ppm")
+        lines.append(
+            f"  Vapor: {_ppm_text(hw['state'].get('total_vapor_ppm'), 1)}"
+        )
     lines.append("")
 
     # Drydown
@@ -581,7 +597,9 @@ def build_perfumer(formula):
             o = m.get("oav")
             if o is not None and o >= 1:
                 lines.append(f"  - {m['name']} OAV={o:.0f}")
-        lines.append(f"  Vapor: {dw['state'].get('total_vapor_ppm', 0):.1f} ppm")
+        lines.append(
+            f"  Vapor: {_ppm_text(dw['state'].get('total_vapor_ppm'), 1)}"
+        )
     lines.append("")
 
     # Sillage
@@ -616,7 +634,9 @@ def build_perfumer(formula):
         persist = last_state.get("note_distribution", {}).get("base", 0)
         lines.append(f"  Uncalibrated loss index: {loss_index:.0f}% over modeled window")
         lines.append(
-            f"  Vapor: {f.get('total_vapor_ppm', 0):.1f} > {last_state.get('total_vapor_ppm', 0):.1f} ppm"
+            "  Vapor: "
+            f"{_ppm_text(f.get('total_vapor_ppm'), 1)} > "
+            f"{_ppm_text(last_state.get('total_vapor_ppm'), 1)}"
         )
         lines.append(f"  Base @ drydown: {persist:.0f}%")
         lines.append(
@@ -746,7 +766,7 @@ def build_oav_structural(materials: list[dict], formula: dict) -> list[str]:
         "sub": [],
         "unknown": [],
     }
-    total_vapor = sum(float(m.get("vapor_ppm", 0) or 0) for m in materials)
+    total_vapor = _complete_numeric_sum(materials, "vapor_ppm")
     active = sum(float(m.get("active_ul", 0) or 0) for m in materials)
     batch = float(formula.get("formula_state", {}).get("batch_volume_ml", 30))
     bottle_pct = active / max(batch * 1000, 1) * 100
@@ -775,7 +795,7 @@ def build_oav_structural(materials: list[dict], formula: dict) -> list[str]:
     total_mats = len(materials)
     perceptible = sum(len(tiers[name]) for name in tiers if name not in {"sub", "unknown"})
     lines.append(
-        f"**Vapor:** {total_vapor:.0f} ppm  |  **Active:** {bottle_pct:.1f}%  |  **Perceptible:** {perceptible}/{total_mats}  |  **Unknown:** {len(tiers['unknown'])}"
+        f"**Vapor:** {_ppm_text(total_vapor, 0)}  |  **Active:** {bottle_pct:.1f}%  |  **Perceptible:** {perceptible}/{total_mats}  |  **Unknown:** {len(tiers['unknown'])}"
     )
 
     lines.append("")

@@ -1,7 +1,9 @@
 from datetime import datetime, timezone
 
 import pytest
+from sqlalchemy import func, select
 
+from app.models.lab_science import LabClaimAssessmentVersion
 from app.services.lab_service import LabService
 from tests.a2_planning_fixtures import _approved_plan
 from tests.unit.test_a2_science_service import (
@@ -69,7 +71,7 @@ async def test_versioned_execution_api_exposes_confirm_measure_commit_replay_dif
         f"/api/v1/lab/v2/actions/{proposal['id']}/measurements",
         json={
             "quantity_kind": "mass",
-            "value": 0.97,
+            "value": 1.0,
             "unit": "g",
             "standard_uncertainty": 0.002,
             "method": "gravimetric",
@@ -78,7 +80,7 @@ async def test_versioned_execution_api_exposes_confirm_measure_commit_replay_dif
         },
     )
     assert measured.status_code == 201
-    assert measured.json()["value"] == pytest.approx(0.97)
+    assert measured.json()["value"] == pytest.approx(1.0)
 
     committed = await client.post(
         f"/api/v1/lab/v2/actions/{proposal['id']}/commit",
@@ -89,7 +91,7 @@ async def test_versioned_execution_api_exposes_confirm_measure_commit_replay_dif
     )
     assert committed.status_code == 201
     assert committed.json()["state_diff"]["total_mass_delta_g"] == pytest.approx(
-        0.97
+        1.0
     )
 
     replay = await client.get(
@@ -97,7 +99,7 @@ async def test_versioned_execution_api_exposes_confirm_measure_commit_replay_dif
     )
     assert replay.status_code == 200
     assert replay.json()["stream_sequence"] == 2
-    assert replay.json()["total_mass_g"] == pytest.approx(0.97)
+    assert replay.json()["total_mass_g"] == pytest.approx(1.0)
 
     diff = await client.get(
         f"/api/v1/lab/v2/actions/{proposal['id']}/diff"
@@ -107,7 +109,7 @@ async def test_versioned_execution_api_exposes_confirm_measure_commit_replay_dif
 
 
 @pytest.mark.asyncio
-async def test_versioned_science_api_exposes_results_and_release_review(
+async def test_versioned_science_api_retires_caller_controlled_release_review(
     client,
     db_session,
 ):
@@ -190,6 +192,9 @@ async def test_versioned_science_api_exposes_results_and_release_review(
     assert regulatory.status_code == 201
     assert regulatory.json()["result_state"] == "PASS"
 
+    before = await db_session.scalar(
+        select(func.count()).select_from(LabClaimAssessmentVersion)
+    )
     review = await client.post(
         "/api/v1/lab/v2/release-reviews",
         json={
@@ -215,6 +220,11 @@ async def test_versioned_science_api_exposes_results_and_release_review(
             ],
         },
     )
-    assert review.status_code == 201
-    assert review.json()["decision"] == "ADVISORY_ONLY"
-    assert review.json()["human_review_state"] == "PENDING"
+    assert review.status_code == 410
+    assert review.json()["error"]["code"] == (
+        "LEGACY_RELEASE_REVIEW_AUTHORITY_RETIRED"
+    )
+    after = await db_session.scalar(
+        select(func.count()).select_from(LabClaimAssessmentVersion)
+    )
+    assert after == before

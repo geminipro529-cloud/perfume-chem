@@ -21,6 +21,16 @@ from app.models.lab_claims import (
     LabClaimAuthoritySupportLink,
     LabClaimAuthorityVersion,
 )
+from app.models.lab_external_studies import (
+    LabExternalCondition,
+    LabExternalExperimentalUnit,
+    LabExternalIdentityCrosswalk,
+    LabExternalObservation,
+    LabExternalStimulusComponent,
+    LabExternalStimulusVersion,
+    LabExternalStudyConflict,
+    LabExternalStudyVersion,
+)
 from app.models.lab_properties import (
     LabPropertyConflictMember,
     LabPropertyConflictSet,
@@ -41,6 +51,7 @@ from app.models.lab_sources import (
     LabEvidenceWorkflowEvent,
     LabSourceDocumentVersion,
     LabSourceExtractionRecord,
+    LabSourceUseConstraintVersion,
 )
 from app.models.lab_thresholds import (
     LabOAVAssessment,
@@ -49,6 +60,7 @@ from app.models.lab_thresholds import (
 
 REPORT_MODEL_COLLECTIONS: dict[str, type[Any]] = {
     "source_documents": LabSourceDocumentVersion,
+    "source_use_constraints": LabSourceUseConstraintVersion,
     "source_extractions": LabSourceExtractionRecord,
     "property_observations": LabPropertyObservation,
     "selected_assertions": LabSelectedAssertion,
@@ -68,11 +80,19 @@ REPORT_MODEL_COLLECTIONS: dict[str, type[Any]] = {
     "regulatory_findings": LabRegulatoryAuthorityFinding,
     "claim_authority_decisions": LabClaimAuthorityVersion,
     "claim_authority_support": LabClaimAuthoritySupportLink,
+    "external_study_versions": LabExternalStudyVersion,
     "source_workflow_events": LabEvidenceWorkflowEvent,
     "property_conflict_members": LabPropertyConflictMember,
     "selected_assertion_candidates": LabSelectedAssertionCandidate,
     "rule_support_evidence": LabRuleSupportEvidence,
     "analytical_sequence_entries": LabAnalyticalSequenceEntry,
+    "external_stimuli": LabExternalStimulusVersion,
+    "external_stimulus_components": LabExternalStimulusComponent,
+    "external_conditions": LabExternalCondition,
+    "external_experimental_units": LabExternalExperimentalUnit,
+    "external_observations": LabExternalObservation,
+    "external_identity_crosswalks": LabExternalIdentityCrosswalk,
+    "external_study_conflicts": LabExternalStudyConflict,
 }
 
 

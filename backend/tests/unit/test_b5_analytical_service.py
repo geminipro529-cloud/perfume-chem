@@ -1797,26 +1797,36 @@ async def test_qualifying_failed_qc_caps_claim_at_advisory(db_session):
     assert assessment.details_json["qualifying_qc_types"] == ["DUPLICATE"]
 
 
-def _a2_exact_analytical_claim(
+def _a4_exact_analytical_claim(
     run_id: str,
     evidence_id: str,
     *,
     assessment_id: str | None,
     claim_type: str = "ANALYTICAL_QUANTITY",
-    policy_version: str = "b5-analytical-claim-v1",
     direct_evidence_id: str | None = None,
 ) -> ClaimAssessmentInput:
-    authority = (
-        {"analytical_authority_assessment_id": assessment_id}
-        if assessment_id is not None
-        else {}
-    )
+    authority = {
+        "target_row_coverage_complete": True,
+        "source_coverage_complete": True,
+        "source_independence": True,
+        "identity_resolved": True,
+        "quantity_basis_complete": True,
+        "uncertainty_bounded": True,
+        "contradiction_present": False,
+        "method_validated": True,
+        "analytical_support": True,
+        "scope_defined": True,
+        "exact_evidence": True,
+        "documentary_support": True,
+    }
+    if assessment_id is not None:
+        authority["analytical_authority_assessment_id"] = assessment_id
     return ClaimAssessmentInput(
-        schema_version="a2-claim-v1",
+        schema_version="a4-claim-v1",
         claim_type=claim_type,
         subject_type="ANALYTICAL_RUN",
         subject_id=run_id,
-        policy_version=policy_version,
+        policy_version="a4-policy-v1",
         decision="ALLOW_EXACT",
         authority=authority,
         missing_evidence=(),
@@ -1847,7 +1857,7 @@ async def test_legacy_all_pass_qc_cannot_bypass_b5_assessment(db_session):
 
     with pytest.raises(ScienceAuthorityConflictError) as missing:
         await service.create_claim_assessment_version(
-            _a2_exact_analytical_claim(
+            _a4_exact_analytical_claim(
                 run_id,
                 evidence_id,
                 assessment_id=None,
@@ -1856,7 +1866,7 @@ async def test_legacy_all_pass_qc_cannot_bypass_b5_assessment(db_session):
     assert missing.value.code == "ANALYTICAL_B5_AUTHORITY_REQUIRED"
 
     claim = await service.create_claim_assessment_version(
-        _a2_exact_analytical_claim(
+        _a4_exact_analytical_claim(
             run_id,
             evidence_id,
             assessment_id=supported_id,
@@ -1867,10 +1877,10 @@ async def test_legacy_all_pass_qc_cannot_bypass_b5_assessment(db_session):
 
 @pytest.mark.parametrize(
     "mismatch",
-    ["claim_type", "policy_version", "direct_evidence"],
+    ["claim_type", "assessment_policy", "direct_evidence"],
 )
 @pytest.mark.asyncio
-async def test_a2_exact_claim_requires_the_exact_matching_b5_assessment(
+async def test_a4_exact_claim_requires_the_exact_matching_b5_assessment(
     db_session,
     mismatch,
 ):
@@ -1883,8 +1893,9 @@ async def test_a2_exact_claim_requires_the_exact_matching_b5_assessment(
     overrides = {}
     if mismatch == "claim_type":
         overrides["claim_type"] = "ANALYTICAL_IDENTITY"
-    elif mismatch == "policy_version":
-        overrides["policy_version"] = "b5-analytical-claim-v2"
+    elif mismatch == "assessment_policy":
+        supported.policy_version = "b5-analytical-claim-v2"
+        await db_session.flush()
     else:
         other_evidence = await service.record_evidence(
             claim_key="b5:unrelated-direct-evidence",
@@ -1900,7 +1911,7 @@ async def test_a2_exact_claim_requires_the_exact_matching_b5_assessment(
 
     with pytest.raises(ScienceAuthorityConflictError) as error:
         await service.create_claim_assessment_version(
-            _a2_exact_analytical_claim(
+            _a4_exact_analytical_claim(
                 run_id,
                 evidence_id,
                 assessment_id=supported.id,

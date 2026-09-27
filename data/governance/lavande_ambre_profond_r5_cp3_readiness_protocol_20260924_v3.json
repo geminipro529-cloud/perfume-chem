@@ -1,0 +1,167 @@
+{
+  "schema_version": "lavande-ambre-profond-r5-cp3-readiness-protocol-successor-v3",
+  "protocol_id": "lavande-ambre-profond-r5-cp3-readiness-20260924-v3",
+  "recorded_date": "2026-09-24",
+  "state": "FROZEN_NONEXECUTABLE_CONTRACT",
+  "predecessor": {
+    "path": "data/governance/lavande_ambre_profond_r5_cp3_readiness_protocol_20260924_v2.json",
+    "sha256": "d8da68003d99439dd17d3236cf61411d1822c4c8d3c14ff3af800be1c523199e"
+  },
+  "inputs": {
+    "design_comparator_manifest_sha256": "d7f5904bd9437cb61589a1a535423eedb6786641ccc70f109d3e1516bc222f86",
+    "source_workbook_sha256": "027ec1cf8712c6aaac123d896942eee308efa18bea9056da975566e095bc3e67",
+    "canonical_formula_rows_sha256": "28284674560179b536f2e797a3b1a50ef0421e61435132f47704cda590ead15e",
+    "inventory_text_sha256": "6f8de068a71893d6be13815b5ca468ff6f4d2b9436b91930c41c0a3173e9b89a",
+    "inventory_source_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
+    "inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+    "inventory_overlay_sha256": "9a10cd2f99af1c960a77bd0a7270c25daa24657b790707ecb76c365898b747df",
+    "stock_confirmation_receipt": "data/governance/inventory_user_confirmation_20260924_r5_stock_clarifications_v2.json",
+    "stock_confirmation_receipt_sha256": "5179974ec3c64a4c48be310b530b9670b08fa07099f663f5c480f446b0290992",
+    "aroma_more_product_resolution": "data/governance/inventory_supplier_product_resolution_20260924_aroma_more_lavender_4042.json",
+    "aroma_more_product_resolution_sha256": "3a725f2337e992015878924a8a87ab1af2f846e711c615da1b70b04f4a95e435",
+    "expected_parent_sha256": "5b0a012b88ca5c1cea45ea8a704cf3b9e5d799d66e9f9d28b2a5d21efa9f4129"
+  },
+  "parent_search": {
+    "state": "HOLD_PARENT_BYTES_MISSING",
+    "bytes_present": false,
+    "reconstruction_allowed": false
+  },
+  "stock_binding_review": {
+    "state": "HOLD_STOCK_BINDING",
+    "required_row_count": 63,
+    "build_plan_bound_row_count": 0,
+    "binding_candidates_are_execution_authority": false
+  },
+  "constant_total_basis_contract": {
+    "state": "HOLD_CONSTANT_TOTAL_AMOUNT_AND_CONVERSION_INPUTS_MISSING",
+    "selected_basis": "active_mass_g",
+    "interpretation": "ACTIVE_ODORANT_MASS_W_W",
+    "legacy_stock_basis_present": "mass_per_volume_w_v",
+    "constant_total_amount_supplied": false,
+    "conversion_inputs_complete": false,
+    "missing_inputs": [
+      "constant_active_mass_total",
+      "weighed_transfer_mass_or_density_for_volume-dosed_w_w_stocks",
+      "complete_preparation_receipts_for_legacy_w_v_stocks"
+    ],
+    "mass_volume_never_summed": true
+  },
+  "measurement_protocol_contract": {
+    "state": "FROZEN_SCHEMA_HOLD_EXECUTION_PARAMETERS",
+    "execution_ready": false
+  },
+  "stock_binding_revision": {
+    "retired_blocker_codes": [
+      "NORLIMBANOL_BASIS_AND_DESIGN_CARRIER_MISMATCH",
+      "AROMA_AND_MORE_PRODUCT_IDENTIFIED_PHYSICAL_STOCK_UNBOUND",
+      "HAY_STOCK_BASIS_UNRESOLVED",
+      "BOTTLE_LOT_AND_HOMOGENEITY_RECEIPTS_MISSING",
+      "HOLD_CONSTANT_TOTAL_BASIS_UNRESOLVED"
+    ],
+    "resolved_facts": [
+      {
+        "code": "NORLIMBANOL_10_PERCENT_W_W_DPG_HOMOGENEOUS_CONFIRMED",
+        "material": "Norlimbanol Dextro",
+        "stock_id": "inventory:user-20260924:571e42bc68ae8b3de5ec",
+        "carrier": "dpg",
+        "fraction_basis": "mass_fraction",
+        "r5_dpg_requirement_accepted": true
+      },
+      {
+        "code": "HAY_10_PERCENT_W_W_DPG_HOMOGENEOUS_CONFIRMED",
+        "material": "Hay Absolute",
+        "stock_id": "inventory:user-20260924:32d522588baeb5a0d0cd",
+        "carrier": "dpg",
+        "fraction_basis": "mass_fraction"
+      },
+      {
+        "code": "AROMA_MORE_PHYSICAL_STOCK_CONFIRMED",
+        "material": "Lavender 40/42, Aroma&More",
+        "stock_id": "inventory:user-20260924:38a9eff2ae4d6803f3ba",
+        "product_reference": "Lav420811P",
+        "quantity_decimal": "10",
+        "quantity_unit": "mL",
+        "fraction_basis": "neat",
+        "physical_ownership_confirmed": true
+      },
+      {
+        "code": "COMMON_TOTAL_BASIS_SELECTED",
+        "selected_basis": "active_mass_g",
+        "interpretation": "ACTIVE_ODORANT_MASS_W_W",
+        "legacy_stock_basis_present": "mass_per_volume_w_v"
+      }
+    ],
+    "remaining_receipt_gaps": [
+      {
+        "material": "Norlimbanol Dextro",
+        "missing": [
+          "exact_parent_mass",
+          "exact_dpg_mass",
+          "preparation_date",
+          "parent_lot",
+          "carrier_lot"
+        ]
+      },
+      {
+        "material": "Hay Absolute",
+        "missing": [
+          "exact_parent_mass",
+          "exact_dpg_mass",
+          "preparation_date",
+          "parent_lot",
+          "carrier_lot"
+        ]
+      },
+      {
+        "material": "Lavender 40/42, Aroma&More",
+        "missing": [
+          "lot_or_batch",
+          "purchase_source",
+          "label_receipt"
+        ]
+      }
+    ],
+    "conflicts": [],
+    "row_candidate_overrides": [
+      {
+        "source_row": 16,
+        "material": "Norlimbanol Dextro",
+        "candidate_stock_id": "inventory:user-20260924:571e42bc68ae8b3de5ec",
+        "state": "CANDIDATE_RECEIPT_INCOMPLETE"
+      },
+      {
+        "source_row": 30,
+        "material": "Hay Absolute",
+        "candidate_stock_id": "inventory:user-20260924:32d522588baeb5a0d0cd",
+        "state": "CANDIDATE_RECEIPT_INCOMPLETE"
+      },
+      {
+        "source_row": 36,
+        "material": "Lavender 40/42, Aroma&More",
+        "candidate_stock_id": "inventory:user-20260924:38a9eff2ae4d6803f3ba",
+        "state": "CANDIDATE_RECEIPT_INCOMPLETE",
+        "evidence_ref": "data/governance/inventory_supplier_product_resolution_20260924_aroma_more_lavender_4042.json"
+      }
+    ]
+  },
+  "blocker_order": [
+    "HOLD_PARENT_BYTES_MISSING",
+    "HOLD_ALL_BUILD_PLAN_STOCK_BINDINGS_MISSING",
+    "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING",
+    "HOLD_CONSTANT_TOTAL_AMOUNT_AND_CONVERSION_INPUTS_MISSING",
+    "HOLD_EXACT_CURVE_APPLICABILITY",
+    "HOLD_MEASUREMENT_PROTOCOL_EXECUTION_PARAMETERS_UNRESOLVED",
+    "PLEASANTNESS_NOT_ESTABLISHED",
+    "PHYSICAL_LIKING_NOT_TESTED"
+  ],
+  "authority": {
+    "evidence_admission_authorized": false,
+    "physical_experiment_authorized": false,
+    "compounding_authorized": false,
+    "purchase_authorized": false,
+    "inventory_mutation_authorized": false,
+    "formula_mutation_authorized": false,
+    "safety_authorized": false,
+    "release_authorized": false
+  }
+}

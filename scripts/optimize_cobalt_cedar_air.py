@@ -1,8 +1,8 @@
-"""Constrained optimizer for Cobalt Cedar Air (Bleu de Chanel-class).
+"""Historical diagnostic search for Cobalt Cedar Air.
 
-Optimizes along 6 user-requested axes — mass-market (hedonic proxy), luxury,
-depth (stacking_depth), texture, longevity, projection (sillage) — while
-keeping total drift < 0.25 mL so the smell character is preserved.
+The legacy score surfaces in this file are not calibrated human pleasantness,
+character, longevity, or projection endpoints.  They may be inspected as
+historical diagnostics, but they are not admitted to select or write a formula.
 """
 from __future__ import annotations
 
@@ -381,14 +381,11 @@ def render_markdown(result: OptimizationResult) -> str:
 
 
 def main() -> None:
-    amounts = parse_formula(SOURCE_PATH)
-    print(f"Parsed {len(amounts)} materials, total {sum(amounts.values())*1000:.0f} µL")
-    result = optimize(amounts)
-    md = render_markdown(result)
-    OUTPUT_PATH.write_text(md, encoding="utf-8")
-    print(f"Wrote {OUTPUT_PATH}")
-    print(f"Original total: {result.original_scores['total']:.1f}")
-    print(f"Optimized total: {result.optimized_scores['total']:.1f}")
+    raise SystemExit(
+        "BLOCKED: legacy heuristic totals are diagnostic only and cannot select "
+        "or write a recompounding formula. Use the evidence-bounded optimizer "
+        "with an admitted endpoint and controlled-comparison review."
+    )
 
 
 if __name__ == "__main__":

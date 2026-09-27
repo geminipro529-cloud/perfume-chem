@@ -1,0 +1,67 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v14",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-15",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260915_evernyl_10w_w_dpg.json",
+    "normalized_text_sha256": "f4cbe12919b2917fa0b5d968e0933ad884d50bd7c0cf64aa3340fa26f0ac4f42"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 26015,
+    "inventory_text_sha256": "80bba680df969c0ca9d51bb74e81c417ff6b9734357c58ed5321b9b4d847060e",
+    "confirmed_receipt": "data/governance/inventory_user_confirmation_20260915_methyl_pamplemousse_10w_w_ethanol.json",
+    "confirmed_receipt_sha256": "3ab135684a91fdf740c07f7775420a4105d2ba795a1b8a0f8cc3be4f4c9b6925"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "bind_only_source_declared_stock_facts": true,
+    "stock_solution_density_assumed": false,
+    "tincture_nominal_property_model_is_not_assay": true,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [
+    "INV-USER-20260915-STOCK-011"
+  ],
+  "records": [
+    {
+      "record_id": "INV-USER-20260915-METHYL-PAMPLEMOUSSE-10WW-001",
+      "canonical_name": "Methyl Pamplemousse",
+      "aliases": [
+        "Methyl Pamplemousse 10% w/w in ethanol"
+      ],
+      "state": "OWNED",
+      "category": "citrus_grapefruit",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "ethanol",
+        "fraction_authority": "DIRECT_USER_BASIS_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_limit": "EXACT_ACTIVE_MASS_FROM_VOLUME_REQUIRES_STOCK_DENSITY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 259,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 259,
+          "disposition": "OWNED",
+          "status": "HAVE - 10% W/W IN ETHANOL",
+          "actual_stock_text": "Methyl Pamplemousse 10% w/w in ethanol",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-15",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_BASIS_CONFIRMATION"
+    }
+  ]
+}

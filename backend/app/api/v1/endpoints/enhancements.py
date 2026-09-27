@@ -7,8 +7,9 @@ that were added to the engine layer.
 import sys
 from pathlib import Path
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel, Field
+from sqlalchemy.ext.asyncio import AsyncSession
 
 # Add project root to path so engine module is importable
 _project_root = str(Path(__file__).resolve().parent.parent.parent.parent.parent)
@@ -21,6 +22,10 @@ from engine.gap_detector import GapDetector
 from engine.odor_ontology import OdorOntology
 from engine.volatility import VolatilityCurveSimulator
 
+from app.api.deps import get_db
+from app.services.engine_job_compatibility import (
+    enqueue_formula_analysis_compatibility,
+)
 from app.services.validation_pipeline import (
     attach_validation,
     validate_formula,
@@ -89,9 +94,17 @@ class CalibrateResponse(BaseModel):
 # ── Confidence ──
 
 @router.post("/confidence")
-async def formula_confidence(body: FormulaInput):
+async def formula_confidence(
+    body: FormulaInput,
+    session: AsyncSession = Depends(get_db),
+):
     """Compute confidence bands for a formula's predicted scores."""
-    report = validate_formula(body.ingredients)
+    report = await enqueue_formula_analysis_compatibility(
+        session,
+        validate_formula(body.ingredients),
+        body.ingredients,
+        scope="enhancements.confidence",
+    )
     scorer = ConfidenceScorer()
     result = scorer.score(body.ingredients)
     return attach_validation(result, report)
@@ -100,9 +113,17 @@ async def formula_confidence(body: FormulaInput):
 # ── Volatility ──
 
 @router.post("/volatility")
-async def volatility_simulation(body: FormulaInput):
+async def volatility_simulation(
+    body: FormulaInput,
+    session: AsyncSession = Depends(get_db),
+):
     """Simulate fragrance evolution over time (headspace concentration curves)."""
-    report = validate_formula(body.ingredients)
+    report = await enqueue_formula_analysis_compatibility(
+        session,
+        validate_formula(body.ingredients),
+        body.ingredients,
+        scope="enhancements.volatility",
+    )
     sim = VolatilityCurveSimulator()
     profile = sim.simulate(body.ingredients)
     return attach_validation({
@@ -117,9 +138,17 @@ async def volatility_simulation(body: FormulaInput):
 # ── Odor Ontology ──
 
 @router.post("/classify")
-async def classify_materials(body: FormulaInput):
+async def classify_materials(
+    body: FormulaInput,
+    session: AsyncSession = Depends(get_db),
+):
     """Classify formula ingredients into the odor ontology."""
-    report = validate_formula(body.ingredients)
+    report = await enqueue_formula_analysis_compatibility(
+        session,
+        validate_formula(body.ingredients),
+        body.ingredients,
+        scope="enhancements.classify",
+    )
     ontology = OdorOntology()
     classifications = {}
     for name in body.ingredients:
@@ -131,10 +160,12 @@ async def classify_materials(body: FormulaInput):
 @router.post("/similar")
 async def find_similar_materials(body: SimilarRequest):
     """Find materials with similar odor profiles."""
-    validate_search_query(body.material)
+    report = validate_search_query(body.material)
     ontology = OdorOntology()
     similar = ontology.find_similar(body.material, max_results=body.max_results)
-    return {"query_material": body.material, "similar": similar}
+    return attach_validation(
+        {"query_material": body.material, "similar": similar}, report
+    )
 
 
 @router.get("/taxonomy")

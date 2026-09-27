@@ -1,0 +1,196 @@
+{
+  "schema_version": "lavande-ambre-profond-r6-cp5-execution-input-protocol-v1",
+  "protocol_id": "lavande-ambre-profond-r6-cp5-execution-input-freeze-20260926",
+  "recorded_date": "2026-09-26",
+  "state": "FROZEN_NONEXECUTABLE_INPUT_COLLECTION_CONTRACT",
+  "inputs": {
+    "r6_successor_path": "data/governance/lavande_ambre_profond_r6_aimi_design_successor_20260926.json",
+    "r6_successor_sha256": "0380fd88d38f7c8deda4a15d458ca36fd90609805940943509c2e11c0daf7984",
+    "r6_successor_rows_sha256": "40889e8a43a780bf60d35a10fe4861a56f20d1a2a66e72141a5ceb8b8000eb4b",
+    "checkpoint3_protocol_path": "data/governance/lavande_ambre_profond_r5_cp3_readiness_protocol_20260926_v5.json",
+    "checkpoint3_protocol_sha256": "cbcad3ba085106b37832f14d5cd80f03251c18677f4b82956986c2cb60cc9bb4",
+    "measurement_schema_path": "data/governance/lavande_ambre_profond_r5_cp3_readiness_protocol_20260924.json",
+    "measurement_schema_sha256": "d11e6cc22688c9249a9799073eb58817d4b24a9c3519d408949984208538c274",
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_sha256": "1b4324da5a35cebe8c59959e58276d84ac8f2f0e0e6f3239fdef0a4250d8df71",
+    "inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+    "inventory_overlay_sha256": "0bccf890ee05487b20daca94d02c65103c2a22ed4c6435ba8cb311cd041575fb"
+  },
+  "gap_matrix_contract": {
+    "required_row_count": 63,
+    "required_fields": [
+      "source_row",
+      "basket",
+      "material",
+      "amount_decimal",
+      "amount_unit",
+      "intended_stock_id",
+      "candidate_state",
+      "concentration_fraction_decimal",
+      "concentration_basis",
+      "carrier",
+      "physical_form",
+      "bottle_lot_evidence_state",
+      "preparation_receipt_state",
+      "density_or_weighed_mass_state",
+      "dimensional_conversion_state",
+      "sub_10_ul_route_state",
+      "physical_binding_eligible",
+      "row_holds"
+    ],
+    "binding_candidates_are_execution_authority": false,
+    "missing_values_are_never_imputed": true,
+    "mass_volume_never_summed": true
+  },
+  "aimi_scope_contract": {
+    "stock_id": "inventory:user-20260904:a45ff6250b56cec5bbad",
+    "stock_label": "Givaudan AIMI",
+    "scope_state": "BOTTLE_SPECIFIC_EMPIRICAL_REQUIRED",
+    "reference_disposition": "REFERENCE_NOT_USED_FOR_QUANTITATIVE_APPLICABILITY",
+    "reference_linked_properties_allowed": false,
+    "family_or_description_equivalence_allowed": false,
+    "supplier_reference_proves_owned_bottle_identity": false,
+    "exact_curve_applicability_state": "HOLD_BOTTLE_SPECIFIC_MEASUREMENTS_MISSING"
+  },
+  "constant_total_basis_contract": {
+    "state": "HOLD_ROW_CONVERSION_INPUTS_AND_DERIVED_TOTAL_MISSING",
+    "selected_basis": "active_mass_g",
+    "interpretation": "ACTIVE_ODORANT_MASS_W_W",
+    "total_derivation": "DERIVE_FROM_VERIFIED_ROW_INPUTS_NOT_USER_ROUND_NUMBER",
+    "constant_total_amount_decimal": null,
+    "conversion_inputs_complete": false,
+    "allowed_volume_to_mass_routes": [
+      "LOT_SPECIFIC_DENSITY_WITH_PROVENANCE",
+      "EXACT_TARGET_WEIGHED_STOCK_MASS"
+    ],
+    "generic_density_allowed": false,
+    "solid_mass_kept_separate": true,
+    "mass_volume_never_summed": true
+  },
+  "sub_10_ul_contract": {
+    "state": "HOLD_SUB_10_UL_ROUTES_UNRESOLVED",
+    "minimum_direct_raw_transfer_ul": "10",
+    "allowed_routes": [
+      "GOVERNED_PREPARED_CHILD_DILUTION_ACTIVE_DOSE_PRESERVED",
+      "QUALIFIED_DIRECT_MEASUREMENT_WITH_CALIBRATION_AND_UNCERTAINTY"
+    ],
+    "rows": [
+      {
+        "source_row": 20,
+        "material": "Haitian Vetiver EO",
+        "nominal_amount_ul": "5",
+        "route_state": "UNRESOLVED"
+      },
+      {
+        "source_row": 43,
+        "material": "Linalool Oxide",
+        "nominal_amount_ul": "5",
+        "route_state": "UNRESOLVED"
+      },
+      {
+        "source_row": 68,
+        "material": "Rosemary EO",
+        "nominal_amount_ul": "5",
+        "route_state": "UNRESOLVED"
+      }
+    ],
+    "working_stock_preparation_authorized": false,
+    "direct_measurement_authorized": false
+  },
+  "measurement_protocol_contract": {
+    "state": "R6_SCHEMA_FROZEN_EXECUTION_PARAMETERS_UNRESOLVED",
+    "execution_ready": false,
+    "sample_roles": [
+      "R6_PRIMARY_RESEARCH_SAMPLE",
+      "R6_INDEPENDENT_PREPARATION_REPLICATE",
+      "CARRIER_OR_MATRIX_BLANK",
+      "JUSTIFIED_REFERENCE_IF_PHYSICALLY_AVAILABLE"
+    ],
+    "documentary_r5_is_physical_comparator": false,
+    "domains_must_remain_separate": [
+      "BLOTTER",
+      "SKIN"
+    ],
+    "required_physical_parameters": [
+      "authorized_sample_scale",
+      "application_mass_or_volume",
+      "application_basis",
+      "surface_area",
+      "substrate_selection",
+      "temperature_c",
+      "relative_humidity_percent",
+      "airflow",
+      "enclosure_geometry",
+      "sampling_schedule",
+      "headspace_collection_method",
+      "available_instrument_method",
+      "instrument_calibration",
+      "matrix_calibration",
+      "replicate_structure",
+      "aging_conditions",
+      "storage_conditions"
+    ],
+    "required_sensory_controls": [
+      "qualified_sensory_panel_or_reviewer_scope",
+      "randomized_sample_codes",
+      "blinding",
+      "presentation_order_balance",
+      "predeclared_scales",
+      "rest_intervals",
+      "session_identity",
+      "missingness_retention"
+    ],
+    "resolved_execution_parameters": {},
+    "endpoints": {
+      "physical_release": "SEPARATE_ENDPOINT",
+      "sensory_intensity": "SEPARATE_ENDPOINT",
+      "character": "SEPARATE_ENDPOINT",
+      "pleasantness": "NOT_ESTABLISHED",
+      "personal_liking": "NOT_TESTED",
+      "population_liking": "NOT_TESTED",
+      "beauty": "PROHIBITED_DERIVED_ENDPOINT"
+    }
+  },
+  "blocker_ownership": {
+    "checkpoint5": [
+      "HOLD_AIMI_BOTTLE_TO_REFERENCE_IDENTITY_UNVERIFIED",
+      "HOLD_CONSTANT_TOTAL_AMOUNT_AND_CONVERSION_INPUTS_MISSING",
+      "HOLD_MEASUREMENT_PROTOCOL_EXECUTION_PARAMETERS_UNRESOLVED"
+    ],
+    "checkpoint6": [
+      "HOLD_ALL_BUILD_PLAN_STOCK_BINDINGS_MISSING",
+      "HOLD_REQUIRED_WORKING_STOCKS_NOT_PREPARED",
+      "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING"
+    ],
+    "checkpoint7": [
+      "HOLD_EXACT_CURVE_APPLICABILITY"
+    ],
+    "checkpoint8": [
+      "PLEASANTNESS_NOT_ESTABLISHED",
+      "PHYSICAL_LIKING_NOT_TESTED"
+    ]
+  },
+  "checkpoint5_contract": {
+    "state": "SOFTWARE_COMPLETE_INPUT_COLLECTION_HOLD",
+    "pass_state": "PASS_CP5_INPUTS_FROZEN_NONEXECUTABLE",
+    "hold_state": "HOLD_CP5_INPUTS_INCOMPLETE",
+    "formula_action": "DESIGN_SUCCESSOR_UNCHANGED",
+    "physical_build_state": "HOLD_NO_BUILD_PLAN_BINDING",
+    "aimi_reference_identity_blocker_disposition": "REFRAMED_REFERENCE_NOT_USED_BOTTLE_SPECIFIC_SCOPE",
+    "physical_formula_modified": false,
+    "inventory_modified": false
+  },
+  "authority": {
+    "checkpoint5_input_contract_record_authorized": true,
+    "evidence_admission_authorized": false,
+    "stock_preparation_authorized": false,
+    "reservation_authorized": false,
+    "physical_experiment_authorized": false,
+    "compounding_authorized": false,
+    "purchase_authorized": false,
+    "inventory_mutation_authorized": false,
+    "physical_formula_mutation_authorized": false,
+    "safety_authorized": false,
+    "release_authorized": false
+  }
+}

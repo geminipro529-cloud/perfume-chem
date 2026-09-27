@@ -34,5 +34,14 @@
     },
     "format_revision": "lab-export-v4",
     "tables": {}
+  },
+  "lab-export-v5": {
+    "extensions": {
+      "org.perfumechem.fixture": {
+        "source": "lab-export-v5"
+      }
+    },
+    "format_revision": "lab-export-v5",
+    "tables": {}
   }
 }

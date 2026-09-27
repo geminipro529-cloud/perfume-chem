@@ -1,0 +1,256 @@
+{
+  "schema_version": "lavande-ambre-profond-r6-cp7-research-applicability-intake-v1",
+  "protocol_id": "lavande-ambre-profond-r6-cp7-research-applicability-intake-20260926",
+  "recorded_date": "2026-09-26",
+  "state": "FROZEN_NONEXECUTING_RESEARCH_APPLICABILITY_INTAKE_CONTRACT",
+  "inputs": {
+    "checkpoint6_protocol_path": "data/governance/lavande_ambre_profond_r6_cp6_physical_lineage_intake_20260926.json",
+    "checkpoint6_protocol_sha256": "62e80d1c527f5e94ea24d75e7587a44f1107c9869ed0921d570cf8b321acdebb",
+    "checkpoint6_evaluator_path": "engine/experiments/checkpoint6_readiness.py",
+    "checkpoint6_evaluator_sha256": "84123e75cc822bf56127cb84c10a2cdb79e0175d9c67c0b43e8eaeddcf3b4b42",
+    "checkpoint6_report_sha256": "d3475d086589da88ee0c615889b0130dcd7f3c0617a0dfb60c8042b2dcfe5400",
+    "checkpoint5_protocol_path": "data/governance/lavande_ambre_profond_r6_cp5_execution_input_protocol_20260926.json",
+    "checkpoint5_protocol_sha256": "508b80587063f874f61a5077a3603c2b63a7f7d6390610a009e818ae7933853f",
+    "r6_successor_rows_sha256": "40889e8a43a780bf60d35a10fe4861a56f20d1a2a66e72141a5ceb8b8000eb4b",
+    "inventory_text_sha256": "1b4324da5a35cebe8c59959e58276d84ac8f2f0e0e6f3239fdef0a4250d8df71",
+    "inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+    "inventory_overlay_sha256": "0bccf890ee05487b20daca94d02c65103c2a22ed4c6435ba8cb311cd041575fb"
+  },
+  "scientific_surface": {
+    "measured_intensity_manifest": {
+      "path": "data/governance/measured_intensity_capabilities_20260923.json",
+      "sha256": "fee99f21290212cc0c46df0c464130117eb5c41b8a5dc89db75270d71bfbc464"
+    },
+    "source_manifest": {
+      "path": "data/source_manifests/optimizer_sensory_research_20260909.json",
+      "sha256": "e120208e05342638fb5aaf689c7a9b08397d171c2bcbdaba39763a280ec1c770"
+    },
+    "dose_response_implementation": {
+      "path": "engine/dose_response.py",
+      "sha256": "ad039b79690744fa30e1109a33f7f1a4459f58017aa0cb7bd12b957372307ed8"
+    },
+    "dynamic_release_implementation": {
+      "path": "engine/physics/dynamic_release.py",
+      "sha256": "d9603eb2bf426379aad46757811e473267d289ffda8f0cf12c5867b5994b4b2f"
+    },
+    "headspace_oav_implementation": {
+      "path": "engine/physics/headspace_oav.py",
+      "sha256": "8cab711492f9cff7cd7c53cae8bc176fc045e35cabc2e6bd80c6bcb8dcfe42e1"
+    },
+    "source_artifact": {
+      "path": "output/optimizer_research_20260909/wakayama_2019/ie9b01225_si_001.pdf",
+      "sha256": "b62f567840ddcc8b1b305784aa8245f2b5c53b07a820c42613482134cd567104"
+    },
+    "transcription_artifact": {
+      "path": "output/optimizer_research_20260909/wakayama_2019/wakayama-intensity.txt",
+      "sha256": "739243c505187b5384ddacbbe2ab674b53fb8cd0b58e25733bd6bae5547c23eb"
+    }
+  },
+  "checkpoint6_prerequisite": {
+    "required_state": "PASS_CP6_PHYSICAL_READINESS_BOUND_NOT_COMPOUNDED",
+    "observed_state": "HOLD_CP6_PHYSICAL_LINEAGE_INPUTS_INCOMPLETE",
+    "satisfied": false,
+    "bypass_allowed": false
+  },
+  "literature_source_contract": {
+    "source": "Wakayama et al. 2019 perfumery raw-material intensity curves",
+    "doi": "10.1021/acs.iecr.9b01225",
+    "correction_doi": "10.1021/acs.iecr.0c05822",
+    "license": "CC BY-NC 4.0",
+    "permitted_use": "attributed noncommercial research only",
+    "commercial_use_authorized": false,
+    "source_fit_overlap": "UNKNOWN",
+    "threshold_equation_revision": "WAKAYAMA_DECEMBER_2020_CORRECTION",
+    "threshold_roundtrip_criterion": 1.4,
+    "threshold_output_unit": "ng/L_air"
+  },
+  "curve_inventory_contract": {
+    "source_parameter_row_count": 314,
+    "positive_evaluable_curve_count": 313,
+    "nonpositive_slope_curve_count": 1,
+    "nonpositive_slope_identity": "121-33-5",
+    "identity_exact_count": 0,
+    "identity_unadjudicated_count": 313,
+    "identity_conflict_count": 1,
+    "observed_range_bound_count": 0,
+    "exact_material_binding_count": 0,
+    "current_admission_state": "HOLD_EXACT_IDENTITY_RANGE_MATRIX_BINDING"
+  },
+  "curve_input_contract": {
+    "physical_quantity": "GAS_MASS_CONCENTRATION",
+    "phase": "AIR",
+    "unit": "ug/L_air",
+    "liquid_dose_allowed": false,
+    "stock_fraction_allowed": false,
+    "oav_allowed": false,
+    "modeled_unvalidated_release_as_measured_input_allowed": false,
+    "extrapolation_authorized": false
+  },
+  "release_model_boundary": {
+    "dynamic_release_authority": "SIMULATION_ONLY_UNCALIBRATED",
+    "dynamic_release_is_measured_headspace": false,
+    "dynamic_release_is_calibrated_release": false,
+    "dynamic_release_may_establish_curve_input": false,
+    "headspace_oav_is_intensity": false,
+    "headspace_oav_is_pleasantness": false,
+    "headspace_oav_is_formula_quality": false
+  },
+  "research_sample_contract": {
+    "required_sample_roles": [
+      "R6_PRIMARY_RESEARCH_SAMPLE",
+      "R6_INDEPENDENT_PREPARATION_REPLICATE",
+      "CARRIER_OR_MATRIX_BLANK",
+      "JUSTIFIED_REFERENCE_IF_PHYSICALLY_AVAILABLE"
+    ],
+    "documentary_r5_is_physical_comparator": false,
+    "complete_cp6_binding_required": true,
+    "compounding_run_required": true,
+    "complete_transfer_receipt_chain_required": true,
+    "aging_and_storage_receipts_required": true,
+    "sample_identity_receipts_required": true,
+    "research_sample_compounded": false,
+    "physical_formula_modified": false
+  },
+  "measurement_protocol_contract": {
+    "state": "R6_SCHEMA_FROZEN_EXECUTION_PARAMETERS_UNRESOLVED",
+    "execution_ready": false,
+    "domains_must_remain_separate": [
+      "BLOTTER",
+      "SKIN"
+    ],
+    "required_physical_parameters": [
+      "authorized_sample_scale",
+      "application_mass_or_volume",
+      "application_basis",
+      "surface_area",
+      "substrate_selection",
+      "temperature_c",
+      "relative_humidity_percent",
+      "airflow",
+      "enclosure_geometry",
+      "sampling_schedule",
+      "headspace_collection_method",
+      "available_instrument_method",
+      "instrument_calibration",
+      "matrix_calibration",
+      "replicate_structure",
+      "aging_conditions",
+      "storage_conditions"
+    ],
+    "required_sensory_controls": [
+      "qualified_sensory_panel_or_reviewer_scope",
+      "randomized_sample_codes",
+      "blinding",
+      "presentation_order_balance",
+      "predeclared_scales",
+      "rest_intervals",
+      "session_identity",
+      "missingness_retention"
+    ],
+    "resolved_execution_parameters": {},
+    "unresolved_execution_parameter_count": 25
+  },
+  "applicability_contract": {
+    "exact_stock_identity_required": true,
+    "per_curve_observed_range_required": true,
+    "exact_matrix_required": true,
+    "exact_delivery_required": true,
+    "exact_scenario_required": true,
+    "measured_gas_concentration_required": true,
+    "whole_natural_transfer_authorized": false,
+    "commercial_product_transfer_authorized": false,
+    "full_perfume_transfer_authorized": false,
+    "family_similarity_may_bind_curve": false,
+    "constituent_similarity_may_bind_whole_product_curve": false,
+    "proxy_curve_may_clear_checkpoint7": false,
+    "current_exact_curve_applicable_row_count": 0,
+    "current_full_formula_curve_applicable": false
+  },
+  "mixture_challenger_contract": {
+    "models": [
+      "STRONGEST_COMPONENT",
+      "FITTED_PARTIAL_ADDITION",
+      "PRIMACY_TRANSFER"
+    ],
+    "models_remain_separate": true,
+    "averaging_authorized": false,
+    "missing_component_calibration_abstains_whole_mixture": true,
+    "current_execution_authorized": false,
+    "partial_addition_empirical_admission_state": "HOLD",
+    "formula_optimization_authority": false
+  },
+  "endpoint_contract": {
+    "physical_release": "NOT_MEASURED",
+    "sensory_intensity": "NOT_ESTABLISHED",
+    "character": "NOT_ESTABLISHED",
+    "pleasantness": "NOT_ESTABLISHED",
+    "personal_liking": "NOT_TESTED",
+    "population_liking": "NOT_TESTED",
+    "beauty": "PROHIBITED_DERIVED_ENDPOINT"
+  },
+  "canonical_current_evidence": {
+    "physical_build_bindings": [],
+    "compounding_run_receipts": [],
+    "transfer_receipts": [],
+    "research_sample_receipts": [],
+    "independent_preparation_receipts": [],
+    "carrier_or_matrix_blank_receipts": [],
+    "reference_sample_receipts": [],
+    "aging_storage_receipts": [],
+    "instrument_calibration_receipts": [],
+    "matrix_calibration_receipts": [],
+    "measured_gas_observations": [],
+    "exact_curve_binding_receipts": []
+  },
+  "checkpoint7_blockers": [
+    "HOLD_CP7_CP6_PHYSICAL_READINESS_INCOMPLETE",
+    "HOLD_CP7_RESEARCH_SAMPLE_NOT_COMPOUNDED",
+    "HOLD_CP7_MEASUREMENT_EXECUTION_PARAMETERS_UNRESOLVED",
+    "HOLD_CP7_MEASURED_GAS_INPUTS_UNAVAILABLE",
+    "HOLD_EXACT_CURVE_APPLICABILITY"
+  ],
+  "checkpoint7_contract": {
+    "state": "SOFTWARE_COMPLETE_RESEARCH_APPLICABILITY_INTAKE_HOLD",
+    "hold_state": "HOLD_CP7_BUILD_MEASUREMENT_OR_APPLICABILITY_INCOMPLETE",
+    "future_pass_state": "PASS_CP7_R6_RESEARCH_SAMPLE_CHARACTERIZED",
+    "formula_action": "DESIGN_SUCCESSOR_UNCHANGED",
+    "physical_build_state": "NOT_BOUND",
+    "research_sample_state": "NOT_COMPOUNDED",
+    "measurement_execution_state": "NOT_STARTED",
+    "exact_curve_applicability_state": "HOLD_EXACT_CURVE_APPLICABILITY",
+    "formula_modified": false,
+    "inventory_modified": false
+  },
+  "authority": {
+    "checkpoint7_intake_contract_record_authorized": true,
+    "evidence_admission_authorized": false,
+    "stock_preparation_authorized": false,
+    "physical_binding_authorized": false,
+    "reservation_authorized": false,
+    "compounding_authorized": false,
+    "physical_experiment_authorized": false,
+    "measurement_execution_authorized": false,
+    "sensory_evaluation_authorized": false,
+    "formula_optimization_authorized": false,
+    "purchase_authorized": false,
+    "inventory_mutation_authorized": false,
+    "physical_formula_mutation_authorized": false,
+    "safety_authorized": false,
+    "release_authorized": false
+  },
+  "side_effects": {
+    "backend_record_created": false,
+    "build_plan_created": false,
+    "physical_binding_created": false,
+    "prepared_stock_receipt_created": false,
+    "reservation_created": false,
+    "compounding_run_created": false,
+    "mixer_command_created": false,
+    "transfer_record_created": false,
+    "research_sample_created": false,
+    "measurement_executed": false,
+    "sensory_evaluation_executed": false,
+    "inventory_modified": false,
+    "physical_formula_modified": false
+  }
+}

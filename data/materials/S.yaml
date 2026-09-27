@@ -1920,13 +1920,13 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: 50% in DPG
+  user_stock_dilution: "50% w/w in DPG"
   user_in_inventory: true
   supplier: null
   families:
   - sweet / gourmand / balsamic
   character: null
-  notes: null
+  notes: Current user stock is 50% w/w in DPG; exact active mass from volume requires stock-solution density.
   provenance:
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
@@ -1954,7 +1954,7 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: 1%
+  user_stock_dilution: "1% in DPG; fraction basis unspecified"
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 9UU00413
@@ -1969,7 +1969,7 @@
   families:
   - leather / smoky / phenolic
   character: null
-  notes: null
+  notes: Current 1% stock carrier is DPG. Fraction basis remains unspecified, so quantitative execution is held.
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds

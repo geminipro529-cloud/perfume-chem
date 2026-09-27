@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from dataclasses import replace
 from pathlib import Path
 
@@ -157,7 +158,7 @@ def test_osmanthus_stock_substitution_is_hard_failed_and_reports_5_5x_impact(
         ),
     ]
     monkeypatch.setattr(
-        "engine.pipeline.preflight.parse_inventory",
+        "engine.pipeline.preflight.parse_current_inventory",
         lambda **_kwargs: inventory,
     )
     formula = {
@@ -223,7 +224,7 @@ def test_incident_contracts_are_wired_into_the_release_gate(monkeypatch):
         ),
     ]
     monkeypatch.setattr(
-        "engine.pipeline.preflight.parse_inventory",
+        "engine.pipeline.preflight.parse_current_inventory",
         lambda **_kwargs: inventory,
     )
     formula = {
@@ -281,7 +282,7 @@ def test_missing_osmanthus_eo_cannot_be_satisfied_by_an_absolute(monkeypatch):
         )
     ]
     monkeypatch.setattr(
-        "engine.pipeline.preflight.parse_inventory",
+        "engine.pipeline.preflight.parse_current_inventory",
         lambda **_kwargs: inventory,
     )
     formula = {
@@ -765,11 +766,48 @@ def test_failed_post_write_verification_rolls_formula_back(tmp_path, monkeypatch
     manifest["artifact_sha256"] = stable_json_hash(manifest)
     monkeypatch.setattr(
         "scripts.formula_release_gate.validate_pipeline_analysis_artifact",
-        lambda _path: {"status": "STALE", "issues": ["forced"]},
+        lambda _path, **_kwargs: {"status": "STALE", "issues": ["forced"]},
     )
 
     with pytest.raises(RuntimeError, match="not current"):
         _append_pipeline_analysis(path, "diagnostic analysis", manifest)
+
+    assert path.read_text(encoding="utf-8") == original
+
+
+def test_closing_repository_hash_drift_rolls_formula_back(tmp_path, monkeypatch):
+    path = tmp_path / "closing-drift.md"
+    _write_formula(path)
+    original = path.read_text(encoding="utf-8")
+    formulas = parse_formula_markdown(path)
+    manifest = {
+        "schema": "perfume_pipeline_run_evidence_v1",
+        **_run_input_hashes(formulas, ReleaseGateConfig(audit_enabled=False)),
+        "analysis_sha256": stable_text_hash("diagnostic analysis"),
+    }
+    manifest["artifact_sha256"] = stable_json_hash(manifest)
+    opening_hashes = {
+        key: str(manifest[key])
+        for key in (
+            "inventory_sha256",
+            "scientific_inputs_sha256",
+            "pipeline_source_sha256",
+        )
+    }
+    closing_hashes = dict(opening_hashes)
+    closing_hashes["pipeline_source_sha256"] = "0" * 64
+    monkeypatch.setattr(
+        "scripts.formula_release_gate.current_repository_evidence_hashes",
+        lambda: dict(closing_hashes),
+    )
+
+    with pytest.raises(RuntimeError, match="Repository evidence changed"):
+        _append_pipeline_analysis(
+            path,
+            "diagnostic analysis",
+            manifest,
+            repository_hashes=opening_hashes,
+        )
 
     assert path.read_text(encoding="utf-8") == original
 
@@ -798,7 +836,8 @@ def test_release_cli_persists_a_verified_artifact_by_default(tmp_path, capsys):
             "--json",
         ]
     )
-    capsys.readouterr()
+    captured = capsys.readouterr()
+    payload = json.loads(captured.out)
 
     assert rc in {0, 1}
     validation = validate_pipeline_analysis_artifact(path)
@@ -813,3 +852,8 @@ def test_release_cli_persists_a_verified_artifact_by_default(tmp_path, capsys):
     assert len(manifest["analysis_input_sha256"]) == 64
     assert manifest["repository_commit"]
     assert manifest["canonical_records"][0]["canonical_content_sha256"]
+    assert "runtime_observability" not in manifest
+    runtime = payload["runtime_observability"]
+    assert runtime["stage_ms"]["artifact_persist_validate"] >= 0
+    assert runtime["included_in_run_evidence_contract"] is False
+    assert runtime["included_in_analysis_artifact"] is False

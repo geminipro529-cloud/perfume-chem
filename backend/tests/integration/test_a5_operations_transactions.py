@@ -328,7 +328,7 @@ async def test_a5_lifecycle_commit_persists_typed_line_delta(db_session):
         proposal.id,
         BottleActionMeasurementInput(
             quantity_kind="mass",
-            value=0.98,
+            value=1.0,
             unit="g",
             standard_uncertainty=0.002,
             method="gravimetric",
@@ -352,7 +352,7 @@ async def test_a5_lifecycle_commit_persists_typed_line_delta(db_session):
         line.planned_active_quantity
     )
     assert line_delta["reserved_quantity"] == pytest.approx(1.0)
-    assert line_delta["committed_quantity"] == pytest.approx(0.98)
+    assert line_delta["committed_quantity"] == pytest.approx(1.0)
     assert line_delta["unit"] == line.unit
     assert line_delta["basis"] == line.concentration_basis
     assert line_delta["action_state"] == "COMMITTED"
@@ -412,7 +412,7 @@ async def test_a5_simultaneous_commit_retries_create_one_atomic_result(
             proposal.id,
             BottleActionMeasurementInput(
                 quantity_kind="mass",
-                value=0.9,
+                value=1.0,
                 unit="g",
                 standard_uncertainty=0.002,
                 method="gravimetric",

@@ -294,7 +294,7 @@ async def test_regulatory_pass_requires_current_sourced_resolved_authority(
 
 
 @pytest.mark.asyncio
-async def test_claim_exact_requires_direct_evidence_no_conflicts_and_review(
+async def test_new_a2_claim_writes_are_capped_below_exact_authority(
     db_session,
 ):
     service = LabService(db_session)
@@ -319,25 +319,15 @@ async def test_claim_exact_requires_direct_evidence_no_conflicts_and_review(
             ClaimEvidenceInput(evidence_record_id=evidence.id, role="DIRECT"),
         ),
     )
-    assessment = await service.create_claim_assessment_version(command)
-    assert assessment.decision == "ALLOW_EXACT"
+    with pytest.raises(ScienceAuthorityConflictError) as error:
+        await service.create_claim_assessment_version(command)
+    assert error.value.code == "CLAIM_LEGACY_DECISION_EXCEEDS_CEILING"
     assert (
         await db_session.scalar(
             select(func.count()).select_from(LabClaimAssessmentEvidenceLink)
         )
-        == 1
+        == 0
     )
-
-    invalid_commands = (
-        replace(command, evidence_links=()),
-        replace(command, missing_evidence=("held-out comparison",)),
-        replace(command, conflicts=("source disagreement",)),
-        replace(command, human_review_state="PENDING"),
-    )
-    for invalid in invalid_commands:
-        with pytest.raises(ScienceAuthorityConflictError) as error:
-            await service.create_claim_assessment_version(invalid)
-        assert error.value.code == "CLAIM_EXACT_NOT_SUPPORTED"
 
 
 @pytest.mark.asyncio
@@ -436,7 +426,7 @@ async def test_a4_claim_persists_scoped_identity_with_complete_dimensions(
 
 
 @pytest.mark.asyncio
-async def test_claim_exact_for_analytical_run_requires_passing_qc(db_session):
+async def test_legacy_a2_claim_cannot_request_exact_even_before_qc(db_session):
     service = LabService(db_session)
     evidence = await _evidence(service, "analytical-claim:test")
     formula_version = await _formula_version(service)
@@ -478,7 +468,7 @@ async def test_claim_exact_for_analytical_run_requires_passing_qc(db_session):
     )
     with pytest.raises(ScienceAuthorityConflictError) as error:
         await service.create_claim_assessment_version(command)
-    assert error.value.code == "ANALYTICAL_QC_NOT_ACCEPTED"
+    assert error.value.code == "CLAIM_LEGACY_DECISION_EXCEEDS_CEILING"
 
 
 @pytest.mark.asyncio
@@ -515,3 +505,13 @@ async def test_claim_assessment_never_persists_legacy_authority_vector_fields(
     assert not hasattr(assessment, "documentary")
     assert not hasattr(assessment, "experimental")
     assert not hasattr(assessment, "sensory")
+    assert assessment.authority_json == {
+        "authority_scope": "LEGACY_ADVISORY_ONLY",
+        "release_authority": False,
+        "safety_authority": False,
+        "compounding_authority": False,
+        "caller_authority_discarded": True,
+    }
+    assert assessment.permitted_wording == (
+        "Advisory evidence only; no release, safety, or compounding authority."
+    )

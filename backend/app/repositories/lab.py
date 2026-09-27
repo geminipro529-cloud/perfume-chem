@@ -30,6 +30,13 @@ from app.repositories.lab_analytical import (
 from app.repositories.lab_backfill import LabBackfillRepositoryMixin
 from app.repositories.lab_claims import LabClaimAuthorityRepositoryMixin
 from app.repositories.lab_execution import LabExecutionRepositoryMixin
+from app.repositories.lab_external_studies import LabExternalStudyRepositoryMixin
+from app.repositories.lab_external_validation import (
+    LabExternalValidationRepositoryMixin,
+)
+from app.repositories.lab_instrumental_observations import (
+    LabInstrumentalObservationRepositoryMixin,
+)
 from app.repositories.lab_planning import LabPlanningRepositoryMixin
 from app.repositories.lab_properties import LabPropertyRepositoryMixin
 from app.repositories.lab_regulatory import (
@@ -55,6 +62,9 @@ class BottleLedgerState:
 
 
 class LabRepository(
+    LabInstrumentalObservationRepositoryMixin,
+    LabExternalValidationRepositoryMixin,
+    LabExternalStudyRepositoryMixin,
     LabExecutionRepositoryMixin,
     LabBackfillRepositoryMixin,
     LabRuleRepositoryMixin,
@@ -88,6 +98,55 @@ class LabRepository(
 
     async def get_stock(self, stock_id: str) -> LabStockSolution | None:
         return await self.session.get(LabStockSolution, stock_id)
+
+    async def stock_preparation_for_command(
+        self,
+        command_token: str,
+    ) -> LabStockSolution | None:
+        """Find a finalized child stock by its immutable command token.
+
+        JSON path expressions differ across supported databases. Finalized
+        preparation receipts are sparse, so a deterministic ordered read is
+        preferable to a dialect-specific query until the token gets a dedicated
+        indexed column in a later schema revision.
+        """
+
+        rows = list(
+            (
+                await self.session.execute(
+                    select(LabStockSolution).order_by(
+                        LabStockSolution.created_at,
+                        LabStockSolution.id,
+                    )
+                )
+            ).scalars()
+        )
+        for row in rows:
+            receipt = dict(row.source_json or {}).get("stock_preparation_receipt")
+            if isinstance(receipt, dict) and receipt.get("command_token") == command_token:
+                return row
+        return None
+
+    async def stock_preparation_for_bottle(
+        self,
+        bottle_id: str,
+    ) -> LabStockSolution | None:
+        rows = list(
+            (
+                await self.session.execute(
+                    select(LabStockSolution).order_by(
+                        LabStockSolution.created_at,
+                        LabStockSolution.id,
+                    )
+                )
+            ).scalars()
+        )
+        for row in rows:
+            receipt = dict(row.source_json or {}).get("stock_preparation_receipt")
+            preparation = receipt.get("preparation_bottle") if isinstance(receipt, dict) else None
+            if isinstance(preparation, dict) and preparation.get("bottle_id") == bottle_id:
+                return row
+        return None
 
     async def get_bottle(self, bottle_id: str) -> LabBottle | None:
         return await self.session.get(LabBottle, bottle_id)

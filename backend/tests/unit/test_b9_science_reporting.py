@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from hashlib import sha256
 from types import SimpleNamespace
 
 import pytest
@@ -82,6 +83,7 @@ def test_b9_empty_report_has_exact_vocabulary_and_no_aggregate_score():
     )
     assert SCIENCE_SECTION_KEYS == (
         "source_documents",
+        "source_use_constraints",
         "source_extractions",
         "property_observations",
         "selected_assertions",
@@ -101,9 +103,10 @@ def test_b9_empty_report_has_exact_vocabulary_and_no_aggregate_score():
         "regulatory_findings",
         "claim_authority_decisions",
         "claim_authority_support",
+        "external_study_versions",
     )
     assert tuple(section.key for section in report.sections) == SCIENCE_SECTION_KEYS
-    assert report.schema_version == "lab-science-authority-report-v1"
+    assert report.schema_version == "lab-science-authority-report-v2"
     assert report.authority_state == "READ_ONLY_NON_PROMOTING"
     assert report.policy.numeric_aggregation_forbidden is True
     assert report.policy.strict_unknowns_visible is True
@@ -122,6 +125,128 @@ def test_b9_empty_report_has_exact_vocabulary_and_no_aggregate_score():
         "overall_score",
     }
     assert _keys(payload).isdisjoint(banned)
+
+
+def test_b9_external_study_summary_is_source_only_and_excludes_private_rows():
+    source = _row(
+        "source-v1",
+        source_type="PRIMARY_RESEARCH_DATASET",
+        review_state="REVIEWED",
+        default_locator_json={"dataset": "V2"},
+    )
+    extraction = _row("extraction-v1", source_version_id=source.id)
+    study = _row(
+        "study-v1",
+        study_id="ma-2021",
+        version_number=1,
+        source_version_id=source.id,
+        source_extraction_id=extraction.id,
+        source_family="MA_2021_V2",
+        study_key="ma-2021-v2",
+        title="Odor mixture study",
+        study_domain="OLFACTION_PSYCHOPHYSICS",
+        source_use_request_sha256="a" * 64,
+        source_use_assessment_sha256="b" * 64,
+        source_use_constraint_version_ids_json=["constraint-v1"],
+        source_use_constraint_record_sha256s_json=["c" * 64],
+        adapter_name="ma_2021",
+        adapter_version="1",
+        adapter_config_json={"sheet": "participants"},
+        authority_state="SOURCE_REPORTED_ONLY",
+        supersedes_version_id=None,
+        parent_record_sha256=None,
+        record_sha256="d" * 64,
+    )
+    stimulus = _row("stimulus-v1", study_version_id=study.id)
+    component = _row("component-v1", stimulus_version_id=stimulus.id)
+    condition = _row("condition-v1", study_version_id=study.id)
+    unit = _row(
+        "unit-v1",
+        study_version_id=study.id,
+        unit_grain="PARTICIPANT",
+        pseudonymous_token="PRIVATE-SUBJECT-47",
+    )
+    observation = _row(
+        "observation-v1",
+        study_version_id=study.id,
+        observation_grain="INDIVIDUAL",
+        endpoint_key="MA2021_PARTICIPANT_TRIAL_VECTOR",
+        missingness="OBSERVED",
+        aggregation_statistic="RAW",
+        trial_key="trial-1",
+        session_key="session-private",
+        presentation_json=[{"blind_label": "A"}],
+        value_json={"IA": "5.0"},
+    )
+    crosswalk = _row(
+        "crosswalk-v1",
+        component_id=component.id,
+        resolution_status="CONFLICT",
+    )
+    conflict = _row(
+        "conflict-v1",
+        study_version_id=study.id,
+        conflict_state="OPEN",
+    )
+    snapshot = _snapshot(
+        source_documents=(source,),
+        source_extractions=(extraction,),
+        external_study_versions=(study,),
+        external_stimuli=(stimulus,),
+        external_stimulus_components=(component,),
+        external_conditions=(condition,),
+        external_experimental_units=(unit,),
+        external_observations=(observation,),
+        external_identity_crosswalks=(crosswalk,),
+        external_study_conflicts=(conflict,),
+    )
+
+    strict = build_science_report(snapshot, ScienceView.STRICT)
+    exploratory = build_science_report(snapshot, ScienceView.EXPLORATORY)
+    strict_section = _section(strict, "external_study_versions")
+    exploratory_record = _section(
+        exploratory, "external_study_versions"
+    ).included[0]
+
+    assert strict_section.included == ()
+    assert strict_section.withheld[0].strict_reason_codes == (
+        "SOURCE_REPORTED_ONLY",
+    )
+    assert exploratory_record.evidence_class == "LITERATURE_DERIVED"
+    assert exploratory_record.facts["child_counts"] == {
+        "conditions": 1,
+        "conflicts": 1,
+        "experimental_units": 1,
+        "identity_crosswalks": 1,
+        "observations": 1,
+        "stimuli": 1,
+        "stimulus_components": 1,
+    }
+    assert exploratory_record.facts["unit_grains"] == ["PARTICIPANT"]
+    assert exploratory_record.facts["observation_grains"] == ["INDIVIDUAL"]
+    assert exploratory_record.facts["missingness_counts"] == {"OBSERVED": 1}
+    assert exploratory_record.facts["crosswalk_status_counts"] == {
+        "CONFLICT": 1
+    }
+    assert exploratory_record.facts["conflict_state_counts"] == {"OPEN": 1}
+    assert exploratory_record.facts["adapter_config_sha256"] == sha256(
+        b'{"sheet":"participants"}'
+    ).hexdigest()
+    assert exploratory_record.authority == {
+        "authority_state": "SOURCE_REPORTED_ONLY",
+        "execution_authorized": False,
+        "promotion_authorized": False,
+        "release_authority": False,
+    }
+    serialized = exploratory.model_dump_json()
+    for private_value in (
+        "PRIVATE-SUBJECT-47",
+        "trial-1",
+        "session-private",
+        '"blind_label"',
+        '"IA"',
+    ):
+        assert private_value not in serialized
 
 
 def test_b9_strict_separates_unknowns_but_exploratory_preserves_labels():
@@ -422,9 +547,115 @@ def test_b9_report_and_markdown_are_deterministic_and_preserve_locators():
     assert "%" not in markdown_a
 
 
+def test_b9_source_use_constraints_are_explicit_and_nonpromoting():
+    subject = _row(
+        "source-subject",
+        source_id="subject",
+        version_number=1,
+        schema_version="lab-source-document-v2",
+        source_type="PRIMARY_RESEARCH_DATASET",
+        title="Study dataset",
+        authors_json=["Researcher"],
+        issuing_organization=None,
+        container_title=None,
+        publisher_or_authority="Repository",
+        identifiers_json={"doi": "10.1000/dataset"},
+        publication_date=None,
+        revision_date=None,
+        effective_date=None,
+        retrieval_date=None,
+        edition_or_amendment=None,
+        default_locator_json={"artifact_id": "dataset-v2"},
+        artifact_sha256="1" * 64,
+        license_or_reuse_restriction="dataset terms",
+        rights_json={},
+        language="en",
+        original_unit=None,
+        original_terminology=None,
+        reviewer_pseudonym="reviewer",
+        review_state="REVIEWED",
+        supersedes_version_id=None,
+        independence_group="dataset",
+        parent_record_sha256=None,
+        record_sha256="2" * 64,
+    )
+    terms = _clone(
+        subject,
+        "source-terms",
+        source_id="terms",
+        source_type="REGULATION_OR_OFFICIAL_GUIDANCE",
+        title="Dataset terms",
+        identifiers_json={"url": "https://example.test/terms"},
+        default_locator_json={"section": "reuse"},
+        artifact_sha256="3" * 64,
+        independence_group="terms",
+        record_sha256="4" * 64,
+    )
+    allowed = _row(
+        "source-use-allowed",
+        constraint_id="constraint-allowed",
+        version_number=1,
+        subject_source_version_id=subject.id,
+        terms_source_version_id=terms.id,
+        artifact_scope="DATASET",
+        artifact_locator_json={"artifact_id": "dataset-v2"},
+        channel="official-data-repository",
+        intended_action="INTERNAL_ANALYSIS",
+        purpose_context="method-development",
+        decision="DECLARED_ALLOWED",
+        constraints_json={"attribution_required": True},
+        terms_effective_date=None,
+        terms_retrieval_date=None,
+        reviewer_pseudonym="rights-reviewer",
+        review_state="REVIEWED",
+        legal_review_required=False,
+        supersedes_version_id=None,
+        parent_record_sha256=None,
+        record_sha256="5" * 64,
+    )
+    held = _clone(
+        allowed,
+        "source-use-held",
+        constraint_id="constraint-held",
+        decision="UNRESOLVED",
+        legal_review_required=True,
+        record_sha256="6" * 64,
+    )
+
+    report = build_science_report(
+        _snapshot(
+            source_documents=(subject, terms),
+            source_use_constraints=(held, allowed),
+        ),
+        ScienceView.STRICT,
+    )
+    section = _section(report, "source_use_constraints")
+    assert [record.id for record in section.included] == [allowed.id]
+    assert [record.id for record in section.withheld] == [held.id]
+    projected = section.included[0]
+    assert projected.evidence_class == "LITERATURE_DERIVED"
+    assert projected.authority == {
+        "decision": "DECLARED_ALLOWED",
+        "review_state": "REVIEWED",
+        "legal_review_required": False,
+        "authority_state": (
+            "SOURCE_DECLARATION_ONLY_NOT_LEGAL_CONCLUSION"
+        ),
+    }
+    assert projected.facts["intended_action"] == "INTERNAL_ANALYSIS"
+    assert projected.provenance["artifact_locator"] == {
+        "artifact_id": "dataset-v2"
+    }
+    assert set(section.withheld[0].strict_reason_codes) == {
+        "LEGAL_REVIEW_REQUIRED",
+        "SOURCE_USE_DECISION_UNRESOLVED",
+    }
+    assert "integration_allowed" not in _keys(report.model_dump(mode="json"))
+
+
 def test_b9_repository_has_exact_read_only_collection_map():
     assert tuple(REPORT_MODEL_COLLECTIONS) == REPORT_COLLECTION_KEYS
-    assert len(REPORT_MODEL_COLLECTIONS) == 25
+    assert len(REPORT_MODEL_COLLECTIONS) == 34
     assert not hasattr(ScienceReportRepository, "add")
     assert not hasattr(ScienceReportRepository, "delete")
     assert not hasattr(ScienceReportRepository, "commit")

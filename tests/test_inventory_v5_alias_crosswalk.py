@@ -128,6 +128,7 @@ def test_crosswalk_semantic_drift_aborts(
     ("material", "fraction", "carrier", "contract_id", "source_row", "stock_prefix"),
     [
         ("Bergamot FCF EO", 1.0, "", "IDCL-005", 42, "inventory:v5:"),
+        ("Blood Orange EO", 1.0, "", "IDCL-006", 50, "inventory:v5:"),
         ("Coffee Absolute 10%", 0.10, "dpg", "IDCL-010", 80, "inventory:v5:"),
         ("Grapefruit FCF EO", 1.0, "", "IDCL-012", 123, "inventory:v5:"),
         ("Himalayan Cedarwood EO", 1.0, "", "IDCL-013", 63, "inventory:v5:"),
@@ -155,17 +156,33 @@ def test_execution_ready_aliases_bind_only_to_exact_native_stock(
     assert matched[0]["stock_id"].startswith(stock_prefix)
 
 
+def test_neat_2_acetyl_pyrazine_binds_while_one_percent_remains_held() -> None:
+    neat = _dilution_consistency_check(_formula("2-Acetyl Pyrazine", 1.0))
+    held = _dilution_consistency_check(_formula("2-Acetyl Pyrazine 1%", 0.01))
+
+    assert neat.status == "PASS"
+    assert neat.data["matched_stocks"][0]["source_rows"] == [6]
+    assert neat.data["matched_stocks"][0]["fraction"] == pytest.approx(1.0)
+    assert neat.data["matched_stocks"][0]["fraction_basis"] == "neat"
+    assert neat.data["matched_stocks"][0]["carrier"] == ""
+
+    assert held.status == "FAIL"
+    issue = held.data["issues"][0]
+    assert issue["reason"] == "inventory_stock_non_executable"
+    assert issue["identity_crosswalk_contract_id"] == "IDCL-001"
+    assert 6 in issue["source_rows"]
+
+
 @pytest.mark.parametrize(
     ("material", "fraction", "reason", "contract_id", "source_row"),
     [
-        ("2-Acetyl Pyrazine 1%", 0.01, "inventory_stock_metadata_incomplete", "IDCL-001", 6),
+        ("2-Acetyl Pyrazine 1%", 0.01, "inventory_stock_non_executable", "IDCL-001", 6),
         ("AAG 10%", 0.10, "preparation_required", "IDCL-002", 7),
         ("Allyl Amyl Glycolate 10%", 0.10, "preparation_required", "IDCL-003", 7),
-        ("Blood Orange EO", 1.0, "inventory_stock_metadata_incomplete", "IDCL-006", 50),
         ("Cedrat FCF EO", 1.0, "inventory_gap", "IDCL-007", 66),
         ("Cocoa CO2 7.7%", 0.077, "inventory_stock_metadata_incomplete", "IDCL-009", 79),
         ("Ethyl Maltol 10%", 0.10, "inventory_stock_metadata_incomplete", "IDCL-011", 266),
-        ("Peru Balsam 50%", 0.50, "inventory_stock_metadata_incomplete", "IDCL-016", 201),
+        ("Peru Balsam 50%", 0.50, None, "IDCL-016", 201),
         ("Ylang Complete EO", 1.0, "inventory_stock_unavailable", "IDCL-018", 251),
     ],
 )
@@ -177,6 +194,13 @@ def test_aliases_preserve_native_hold_preparation_gap_and_abstention(
     source_row: int,
 ) -> None:
     check = _dilution_consistency_check(_formula(material, fraction))
+
+    if reason is None:
+        assert check.status == "PASS", check.data.get("issues")
+        matched = check.data["matched_stocks"][0]
+        assert matched["source_rows"] == [source_row]
+        assert matched["identity_crosswalk_contract_id"] == contract_id
+        return
 
     assert check.status == "FAIL"
     issue = check.data["issues"][0]

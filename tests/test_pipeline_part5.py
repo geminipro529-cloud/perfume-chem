@@ -6,7 +6,7 @@ from engine.optimizer.oav_guard import OAVCheck
 from engine.optimizer.scoring import FormulaScorer
 from engine.pipeline.formula_state import build_formula_state
 from engine.pipeline.gates import ReleaseGateConfig, gate_formula
-from future_modules.edge_cases import MUSK_CLASS_COVERAGE
+from future_modules.edge_cases import MUSK_CLASS_COVERAGE, check_musk_class_coverage
 from scripts.formula_release_gate import main as release_gate_main
 from scripts.verify_formula_workflow import parse_formula_markdown
 
@@ -53,6 +53,36 @@ def test_future_module_gates_accept_unknown_oav_and_current_api_contracts():
     assert "api mismatch" not in musk.detail.lower()
 
 
+def test_balance_axes_does_not_route_screening_oav_as_hedonic_evidence(monkeypatch):
+    import future_modules.balance_axes as balance_axes
+
+    captured = {}
+    original = balance_axes.evaluate_all_balances
+
+    def capture_evaluate_all_balances(*args, **kwargs):
+        captured["hedonic_data"] = args[4]
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(
+        balance_axes,
+        "evaluate_all_balances",
+        capture_evaluate_all_balances,
+    )
+    state = build_formula_state(
+        {"Hedione": 350.0, "Iso E Super": 250.0},
+        batch_volume_ml=30.0,
+    )
+
+    result = gates_module._gate_balance_axes(
+        state, ReleaseGateConfig(audit_enabled=False)
+    )
+
+    assert result.status == "PASS"
+    assert captured["hedonic_data"] == {}
+    assert result.data["hedonic_evaluation_status"] == "NOT_EVALUATED"
+    assert result.data["hedonic_endpoint_authority"] is False
+
+
 def test_edge_case_gate_uses_formula_specific_temperature_factors():
     state = build_formula_state(
         {
@@ -89,6 +119,13 @@ def test_musk_structural_classes_match_supplier_and_chemical_families():
     assert "Exaltolide" in MUSK_CLASS_COVERAGE["macrocyclic"]
     assert "Romandolide" in MUSK_CLASS_COVERAGE["alicyclic"]
     assert "Romandolide" not in MUSK_CLASS_COVERAGE["macrocyclic"]
+
+
+def test_missing_musk_classes_have_deterministic_order():
+    adequate, missing = check_musk_class_coverage(["Ambrox Super"])
+
+    assert adequate is False
+    assert missing == ["macrocyclic", "polycyclic"]
 
 
 def test_low_hedione_is_not_mislabeled_as_olfactory_fatigue():

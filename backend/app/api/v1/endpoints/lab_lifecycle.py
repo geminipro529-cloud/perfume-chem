@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Awaitable, Callable
 from typing import Any
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Body, Depends, status
 from fastapi.responses import JSONResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -22,12 +22,18 @@ from app.schemas.lab_lifecycle import (
     BottleActionProposalCreate,
     BottleActionProposalResponse,
     BottleReplayResponse,
+    ClaimAuthorityReviewCreate,
+    ClaimAuthorityReviewResponse,
     RegulatoryAssessmentCreate,
     RegulatoryAssessmentResponse,
-    ReleaseReviewCreate,
-    ReleaseReviewResponse,
     SensoryResultCreate,
     SensoryResultResponse,
+)
+from app.services.lab_claims import (
+    ClaimAuthorityConflictError,
+    ClaimAuthorityError,
+    ClaimAuthorityEvaluationInput,
+    ClaimAuthoritySupportInput,
 )
 from app.services.lab_execution import (
     BottleActionConfirmationInput,
@@ -39,8 +45,6 @@ from app.services.lab_execution import (
 )
 from app.services.lab_science import (
     AnalyticalRunInput,
-    ClaimAssessmentInput,
-    ClaimEvidenceInput,
     RegulatoryAssessmentInput,
     ScienceAuthorityConflictError,
     ScienceAuthorityError,
@@ -52,14 +56,21 @@ ResponsePayload = dict[str, Any] | JSONResponse
 
 
 def _error_response(error: Exception) -> JSONResponse:
-    if isinstance(error, (ExecutionDomainError, ScienceAuthorityError)):
+    if isinstance(
+        error,
+        (ExecutionDomainError, ScienceAuthorityError, ClaimAuthorityError),
+    ):
         code = error.code
         message = str(error)
         if code.endswith("_NOT_FOUND"):
             status_code = status.HTTP_404_NOT_FOUND
         elif isinstance(
             error,
-            (ExecutionConflictError, ScienceAuthorityConflictError),
+            (
+                ExecutionConflictError,
+                ScienceAuthorityConflictError,
+                ClaimAuthorityConflictError,
+            ),
         ):
             status_code = status.HTTP_409_CONFLICT
         else:
@@ -87,6 +98,7 @@ async def _run(
     except (
         ExecutionDomainError,
         ScienceAuthorityError,
+        ClaimAuthorityError,
         KeyError,
         ValueError,
     ) as error:
@@ -222,57 +234,75 @@ def _regulatory_record(record: Any) -> dict[str, Any]:
     }
 
 
-def _release_review_record(record: Any) -> dict[str, Any]:
+def _claim_authority_record(record: Any) -> dict[str, Any]:
     return {
         "id": record.id,
-        "claim_id": record.claim_id,
+        "authority_id": record.authority_id,
         "version_number": record.version_number,
+        "parent_version_id": record.parent_version_id,
+        "legacy_claim_assessment_version_id": (
+            record.legacy_claim_assessment_version_id
+        ),
         "schema_version": record.schema_version,
+        "policy_version": record.policy_version,
+        "policy_sha256": record.policy_sha256,
+        "policy": dict(record.policy_json),
         "claim_type": record.claim_type,
         "subject_type": record.subject_type,
         "subject_id": record.subject_id,
-        "parent_version_id": record.parent_version_id,
-        "policy_version": record.policy_version,
+        "claim_payload": dict(record.claim_payload_json),
+        "identity_scope": dict(record.identity_scope_json),
+        "identity_scope_sha256": record.identity_scope_sha256,
+        "condition_scope": dict(record.condition_scope_json),
+        "condition_scope_sha256": record.condition_scope_sha256,
+        "claim_scope_sha256": record.claim_scope_sha256,
         "decision": record.decision,
-        "authority": dict(record.authority_json),
-        "missing_evidence": list(record.missing_evidence_json),
+        "dimension_results": dict(record.dimension_results_json),
+        "supporting_observations": list(record.supporting_observations_json),
         "conflicts": list(record.conflicts_json),
+        "missing_requirements": list(record.missing_requirements_json),
+        "source_references": list(record.source_references_json),
+        "uncertainty": dict(record.uncertainty_json),
         "permitted_wording": record.permitted_wording,
         "forbidden_wording": record.forbidden_wording,
-        "human_review_state": record.human_review_state,
+        "blocker_count": record.blocker_count,
+        "conflict_count": record.conflict_count,
+        "missing_requirement_count": record.missing_requirement_count,
+        "critical_unknown_count": record.critical_unknown_count,
+        "support_count": record.support_count,
+        "source_reference_count": record.source_reference_count,
+        "upstream_hashes": dict(record.upstream_hashes_json),
         "reviewer_pseudonym": record.reviewer_pseudonym,
         "reviewed_at": record.reviewed_at,
         "content_sha256": record.content_sha256,
         "parent_sha256": record.parent_sha256,
-        "created_at": record.created_at,
+        "authority_scope": "SCIENTIFIC_CLAIM_ONLY",
+        "release_authority": False,
+        "safety_authority": False,
+        "compounding_authority": False,
     }
 
 
-def _release_review_command(
-    request: ReleaseReviewCreate,
-) -> ClaimAssessmentInput:
-    return ClaimAssessmentInput(
-        schema_version=request.schema_version,
-        claim_type=request.claim_type,
-        subject_type=request.subject_type,
-        subject_id=request.subject_id,
-        policy_version=request.policy_version,
-        decision=request.decision,
-        authority=dict(request.authority),
-        missing_evidence=tuple(request.missing_evidence),
-        conflicts=tuple(request.conflicts),
-        permitted_wording=request.permitted_wording,
-        forbidden_wording=request.forbidden_wording,
-        human_review_state=request.human_review_state,
+def _claim_authority_command(
+    request: ClaimAuthorityReviewCreate,
+) -> ClaimAuthorityEvaluationInput:
+    return ClaimAuthorityEvaluationInput(
+        legacy_claim_assessment_version_id=(
+            request.legacy_claim_assessment_version_id
+        ),
+        claim_payload=dict(request.claim_payload),
+        identity_scope=dict(request.identity_scope),
+        condition_scope=dict(request.condition_scope),
+        supports=tuple(
+            ClaimAuthoritySupportInput(
+                support_kind=support.support_kind,
+                record_id=support.record_id,
+                role=support.role,
+            )
+            for support in request.supports
+        ),
         reviewer_pseudonym=request.reviewer_pseudonym,
         reviewed_at=request.reviewed_at,
-        evidence_links=tuple(
-            ClaimEvidenceInput(
-                evidence_record_id=link.evidence_record_id,
-                role=link.role,
-            )
-            for link in request.evidence_links
-        ),
     )
 
 
@@ -435,20 +465,42 @@ async def create_regulatory_assessment(
 
 @router.post(
     "/release-reviews",
-    status_code=status.HTTP_201_CREATED,
-    response_model=ReleaseReviewResponse,
+    status_code=status.HTTP_410_GONE,
 )
 async def create_release_review(
-    request: ReleaseReviewCreate,
+    request: dict[str, Any] | None = Body(default=None),
+) -> JSONResponse:
+    del request
+    return JSONResponse(
+        status_code=status.HTTP_410_GONE,
+        content={
+            "error": {
+                "code": "LEGACY_RELEASE_REVIEW_AUTHORITY_RETIRED",
+                "message": (
+                    "Caller-controlled release reviews are retired; use "
+                    "POST /api/v1/lab/v2/claim-authority-reviews."
+                ),
+            }
+        },
+    )
+
+
+@router.post(
+    "/claim-authority-reviews",
+    status_code=status.HTTP_201_CREATED,
+    response_model=ClaimAuthorityReviewResponse,
+)
+async def create_claim_authority_review(
+    request: ClaimAuthorityReviewCreate,
     session: AsyncSession = Depends(get_db),
 ) -> ResponsePayload:
     service = LabService(session)
     return await _run(
-        lambda: service.create_claim_assessment_version(
-            _release_review_command(request),
+        lambda: service.create_claim_authority_version(
+            _claim_authority_command(request),
             parent_version_id=request.parent_version_id,
         ),
-        _release_review_record,
+        _claim_authority_record,
     )
 
 

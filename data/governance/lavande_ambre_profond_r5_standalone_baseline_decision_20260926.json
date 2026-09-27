@@ -1,0 +1,56 @@
+{
+  "schema_version": "perfume_chem_r5_standalone_baseline_decision_v1",
+  "effective_date": "2026-09-26",
+  "source_kind": "DIRECT_USER_MESSAGE",
+  "context": "R5 baseline ancestry and depleted Methyl Ionone Gamma Coeur resolution path",
+  "message_facts": [
+    {
+      "subject": "Methyl Ionone Gamma Coeur resolution path",
+      "message": "Use a revised-formula path rather than treating exact R5 as physically buildable with the depleted stock."
+    },
+    {
+      "subject": "R5 baseline ancestry",
+      "message": "Treat R5 as the standalone baseline; do not require R4 bytes and do not claim equivalence or improvement over R4."
+    }
+  ],
+  "baseline_decision": {
+    "baseline_id": "lavande-ambre-profond-r5-design-comparator-20260923",
+    "state": "R5_STANDALONE_BASELINE_ACCEPTED",
+    "r4_bytes_required_for_baseline": false,
+    "r4_bytes_available": false,
+    "r4_equivalence_claimed": false,
+    "r4_improvement_claimed": false,
+    "r4_reference_disposition": "HISTORICAL_REFERENCE_ONLY_BYTES_UNAVAILABLE",
+    "parent_equivalence_state": "NOT_CLAIMED_STANDALONE_BASELINE"
+  },
+  "revision_decision": {
+    "source_material": "Methyl Ionone Gamma Coeur",
+    "source_stock_state": "DEPLETED",
+    "resolution_mode": "REVISED_SUCCESSOR_REQUIRED",
+    "specific_substitute_selected": false,
+    "omission_selected": false,
+    "successor_formula_id_assigned": false,
+    "formula_dose_change_authorized": false,
+    "exact_r5_build_claim_allowed": false
+  },
+  "preserved_unknowns": [
+    "exact_r4_parent_bytes",
+    "r4_to_r5_equivalence",
+    "r4_to_r5_improvement",
+    "methyl_ionone_gamma_coeur_substitute_or_omission",
+    "successor_formula_doses",
+    "physical_build_readiness",
+    "sensory_outcome"
+  ],
+  "authority_limits": {
+    "baseline_governance_update_authorized": true,
+    "parent_reconstruction_authorized": false,
+    "formula_mutation_authorized": false,
+    "substitution_authorized": false,
+    "physical_compounding_authorized": false,
+    "purchase_authorized": false,
+    "measurement_execution_authorized": false,
+    "scientific_promotion_authorized": false,
+    "safety_or_release_asserted": false
+  }
+}

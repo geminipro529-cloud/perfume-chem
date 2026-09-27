@@ -6,6 +6,7 @@ from datetime import date
 
 from sqlalchemy import (
     JSON,
+    Boolean,
     CheckConstraint,
     Date,
     ForeignKeyConstraint,
@@ -22,6 +23,7 @@ from app.models.lab import LabRecord
 SOURCE_TYPES = (
     "AUTHENTICATED_FORMULA_OR_DOSSIER",
     "PRIMARY_PEER_REVIEWED_PAPER",
+    "PRIMARY_RESEARCH_DATASET",
     "REVIEW_PAPER",
     "STANDARD",
     "REGULATION_OR_OFFICIAL_GUIDANCE",
@@ -58,6 +60,51 @@ SOURCE_DERIVATION_RELATIONS = (
     "CITES",
     "INCORPORATES",
 )
+SOURCE_USE_ARTIFACT_SCOPES = (
+    "SOURCE_RECORD",
+    "METADATA",
+    "ABSTRACT",
+    "FULL_TEXT",
+    "DATASET",
+    "API_RESPONSE",
+    "SOFTWARE",
+    "USER_GENERATED_CONTENT",
+    "DERIVATIVE_OUTPUT",
+    "OTHER",
+)
+SOURCE_USE_ACTIONS = (
+    "DISCOVERY_METADATA",
+    "API_FETCH",
+    "LOCAL_CACHE",
+    "ARCHIVE_SOURCE_BYTES",
+    "INTERNAL_ANALYSIS",
+    "ML_TRAIN_OR_EVALUATE",
+    "PUBLISH_DERIVATIVE",
+    "REDISTRIBUTE_RAW",
+    "COMMERCIAL_RUNTIME",
+    "EXTERNAL_TRANSMISSION",
+)
+SOURCE_USE_DECISIONS = (
+    "DECLARED_ALLOWED",
+    "DECLARED_PROHIBITED",
+    "UNRESOLVED",
+    "CONFLICT",
+)
+
+
+def _legacy_unknown_rights() -> dict[str, object]:
+    """Fail-closed structured rights for rows predating the v2 contract."""
+
+    return {
+        "reuse_status": "UNKNOWN",
+        "license_or_reuse_restriction": "UNVERIFIED_LEGACY_ROW",
+        "license_url": None,
+        "redistribution_allowed": False,
+        "spdx_identifier": None,
+        "notes": "Legacy row requires explicit manifest rebind.",
+    }
+
+
 WORKFLOW_SUBJECT_TYPES = ("SOURCE_VERSION", "EXTRACTION_RECORD")
 
 
@@ -145,6 +192,18 @@ class LabSourceDocumentVersion(LabRecord):
     )
     artifact_sha256: Mapped[str] = mapped_column(String(64), nullable=False)
     license_or_reuse_restriction: Mapped[str | None] = mapped_column(Text)
+    rights_json: Mapped[dict] = mapped_column(
+        JSON,
+        default=_legacy_unknown_rights,
+        server_default=(
+            "{\"reuse_status\":\"UNKNOWN\","
+            "\"license_or_reuse_restriction\":\"UNVERIFIED_LEGACY_ROW\","
+            "\"license_url\":null,\"redistribution_allowed\":false,"
+            "\"spdx_identifier\":null,"
+            "\"notes\":\"Legacy row requires explicit manifest rebind.\"}"
+        ),
+        nullable=False,
+    )
     language: Mapped[str] = mapped_column(String(40), nullable=False)
     original_unit: Mapped[str | None] = mapped_column(Text)
     original_terminology: Mapped[str | None] = mapped_column(Text)
@@ -211,6 +270,129 @@ class LabSourceDerivationLink(LabRecord):
         index=True,
     )
     relation: Mapped[str] = mapped_column(String(40), nullable=False)
+    relation_scopes_json: Mapped[list] = mapped_column(
+        JSON,
+        default=list,
+        server_default=text("'[]'"),
+        nullable=False,
+    )
+    record_sha256: Mapped[str] = mapped_column(String(64), nullable=False)
+
+
+class LabSourceUseConstraintVersion(LabRecord):
+    """One immutable, operation-scoped source-declared use assertion."""
+
+    __tablename__ = "lab_source_use_constraint_versions"
+    __table_args__ = (
+        UniqueConstraint(
+            "constraint_id",
+            "version_number",
+            name="uq_lab_source_use_constraint_version",
+        ),
+        UniqueConstraint(
+            "record_sha256",
+            name="uq_lab_source_use_constraint_record_sha256",
+        ),
+        CheckConstraint(
+            "version_number >= 1",
+            name="ck_lab_source_use_constraint_version_positive",
+        ),
+        CheckConstraint(
+            f"artifact_scope IN ({_quoted(SOURCE_USE_ARTIFACT_SCOPES)})",
+            name="ck_lab_source_use_artifact_scope",
+        ),
+        CheckConstraint(
+            f"intended_action IN ({_quoted(SOURCE_USE_ACTIONS)})",
+            name="ck_lab_source_use_action",
+        ),
+        CheckConstraint(
+            f"decision IN ({_quoted(SOURCE_USE_DECISIONS)})",
+            name="ck_lab_source_use_decision",
+        ),
+        CheckConstraint(
+            f"review_state IN ({_quoted(SOURCE_REVIEW_STATES)})",
+            name="ck_lab_source_use_review_state",
+        ),
+        CheckConstraint(
+            "review_state <> 'REVIEWED' OR reviewer_pseudonym IS NOT NULL",
+            name="ck_lab_source_use_reviewed_by",
+        ),
+        CheckConstraint(
+            "length(record_sha256) = 64",
+            name="ck_lab_source_use_record_sha256",
+        ),
+        CheckConstraint(
+            "(version_number = 1 AND supersedes_version_id IS NULL "
+            "AND parent_record_sha256 IS NULL) OR "
+            "(version_number > 1 AND supersedes_version_id IS NOT NULL "
+            "AND length(parent_record_sha256) = 64)",
+            name="ck_lab_source_use_version_chain",
+        ),
+        ForeignKeyConstraint(
+            ["subject_source_version_id"],
+            ["lab_source_document_versions.id"],
+            ondelete="RESTRICT",
+            name="fk_lab_source_use_subject_source",
+        ),
+        ForeignKeyConstraint(
+            ["terms_source_version_id"],
+            ["lab_source_document_versions.id"],
+            ondelete="RESTRICT",
+            name="fk_lab_source_use_terms_source",
+        ),
+        ForeignKeyConstraint(
+            ["supersedes_version_id"],
+            ["lab_source_use_constraint_versions.id"],
+            ondelete="RESTRICT",
+            name="fk_lab_source_use_supersedes",
+        ),
+    )
+
+    constraint_id: Mapped[str] = mapped_column(
+        String(36),
+        nullable=False,
+        index=True,
+    )
+    version_number: Mapped[int] = mapped_column(Integer, nullable=False)
+    subject_source_version_id: Mapped[str] = mapped_column(
+        String(36),
+        nullable=False,
+        index=True,
+    )
+    terms_source_version_id: Mapped[str] = mapped_column(
+        String(36),
+        nullable=False,
+        index=True,
+    )
+    artifact_scope: Mapped[str] = mapped_column(String(40), nullable=False)
+    artifact_locator_json: Mapped[dict] = mapped_column(
+        JSON,
+        default=dict,
+        server_default=text("'{}'"),
+        nullable=False,
+    )
+    channel: Mapped[str] = mapped_column(String(120), nullable=False)
+    intended_action: Mapped[str] = mapped_column(String(60), nullable=False)
+    purpose_context: Mapped[str] = mapped_column(String(160), nullable=False)
+    decision: Mapped[str] = mapped_column(String(40), nullable=False)
+    constraints_json: Mapped[dict] = mapped_column(
+        JSON,
+        default=dict,
+        server_default=text("'{}'"),
+        nullable=False,
+    )
+    terms_effective_date: Mapped[date | None] = mapped_column(Date)
+    terms_retrieval_date: Mapped[date] = mapped_column(Date, nullable=False)
+    reviewer_pseudonym: Mapped[str | None] = mapped_column(String(255))
+    review_state: Mapped[str] = mapped_column(String(40), nullable=False)
+    legal_review_required: Mapped[bool] = mapped_column(
+        Boolean,
+        default=True,
+        server_default=text("1"),
+        nullable=False,
+    )
+    supersedes_version_id: Mapped[str | None] = mapped_column(String(36))
+    parent_record_sha256: Mapped[str | None] = mapped_column(String(64))
     record_sha256: Mapped[str] = mapped_column(String(64), nullable=False)
 
 
@@ -355,6 +537,7 @@ class LabEvidenceWorkflowEvent(LabRecord):
 SOURCE_AUTHORITY_TABLE_NAMES = {
     "lab_source_document_versions",
     "lab_source_derivation_links",
+    "lab_source_use_constraint_versions",
     "lab_source_extraction_records",
     "lab_evidence_workflow_events",
 }
@@ -363,6 +546,9 @@ __all__ = [
     "EVIDENCE_WORKFLOW_STATES",
     "SOURCE_AUTHORITY_TABLE_NAMES",
     "SOURCE_DERIVATION_RELATIONS",
+    "SOURCE_USE_ACTIONS",
+    "SOURCE_USE_ARTIFACT_SCOPES",
+    "SOURCE_USE_DECISIONS",
     "SOURCE_REVIEW_STATES",
     "SOURCE_TYPES",
     "WORKFLOW_SUBJECT_TYPES",
@@ -370,4 +556,5 @@ __all__ = [
     "LabSourceDerivationLink",
     "LabSourceDocumentVersion",
     "LabSourceExtractionRecord",
+    "LabSourceUseConstraintVersion",
 ]

@@ -55,7 +55,7 @@ def test_aventus_current_build_uses_live_stock_and_keeps_gaps_explicit() -> None
 
     pepper = mappings["pink_pepper_bridge"]
     assert pepper.stock_materials == ("Pink Pepper EO (Schinus molle; neat / as supplied)",)
-    assert pepper.status == "OWNED_IN_LEGACY_INVENTORY_TEXT_COMPOSITE_PROFILE_OVERLAY_SYNC_HOLD"
+    assert pepper.status == "OWNED_CURRENT_INVENTORY_EXECUTION_READY_RAW_VOLUME_ONLY"
     assert "Pink Pepper EO / CO2 requirement as a separate GAP" in pepper.note
     assert "Black Pepper EO is not equivalent" in pepper.note
     assert pepper.stock_materials[0] in inventory

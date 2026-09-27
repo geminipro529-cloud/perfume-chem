@@ -1,0 +1,85 @@
+{
+  "schema_version": "perfume_chem_supplier_product_resolution_v1",
+  "recorded_date": "2026-09-24",
+  "resolution_id": "AROMA-MORE-LAVENDER-4042-20260924",
+  "query_target": "Lavender 40/42, Aroma&More",
+  "resolution_state": "EXACT_CATALOG_PRODUCT_IDENTIFIED_PHYSICAL_STOCK_UNBOUND",
+  "product": {
+    "brand": "AROMA & MORE",
+    "supplier_product_name": "Lavender 40/42 Essential Oil, France",
+    "supplier_reference": "Lav420811P",
+    "supplier_claimed_product_class": "100% Natural Essential Oil",
+    "supplier_claimed_botanical_name": "Lavandula angustifolia",
+    "supplier_claimed_origin": "France",
+    "supplier_claimed_extraction": "Steam Distilled",
+    "supplier_claimed_plant_part": "Flowers",
+    "supplier_listed_cas": "8000-28-0",
+    "listed_sizes_ml": [
+      10,
+      30,
+      100
+    ],
+    "dilution_interpretation": "UNDILUTED_SUPPLIED_ESSENTIAL_OIL; 40/42 IS A COMPOSITIONAL_GRADE_LABEL, NOT A 40_PERCENT_DILUTION",
+    "composition_qualification": "Supplier describes a standardized multi-lavender/lavandin blend and states that high-altitude lavender is added; do not treat it as a universal single-lot Lavandula angustifolia composition.",
+    "independent_composition_verification": false
+  },
+  "sources": [
+    {
+      "source_kind": "SUPPLIER_OFFICIAL_PRODUCT_PAGE_EN",
+      "url": "https://aromaandmore.com/en/essential-oil-100-pure-/67-lavender-4042-essential-oil-france.html",
+      "retrieved_date": "2026-09-24",
+      "supports": [
+        "brand",
+        "product_name",
+        "supplier_reference",
+        "claimed_100_percent_natural_essential_oil",
+        "40_42_not_dilution",
+        "origin",
+        "botanical_name",
+        "extraction",
+        "plant_part",
+        "cas",
+        "standardized_blend_qualification"
+      ]
+    },
+    {
+      "source_kind": "SUPPLIER_OFFICIAL_PRODUCT_PAGE_TH",
+      "url": "https://aromaandmore.com/th/-100-/67-lavender-4042-4042-.html",
+      "retrieved_date": "2026-09-24",
+      "supports": [
+        "brand",
+        "product_name",
+        "supplier_reference",
+        "origin",
+        "botanical_name",
+        "extraction",
+        "plant_part",
+        "standardized_blend_qualification"
+      ]
+    },
+    {
+      "source_kind": "SUPPLIER_SHOPEE_LISTING",
+      "url": "https://shopee.co.th/Aroma-more-Lavender-40-42-Essential-Oil-100-%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%E0%B8%AB%E0%B8%AD%E0%B8%A1%E0%B8%A3%E0%B8%B0%E0%B9%80%E0%B8%AB%E0%B8%A2%E0%B8%A5%E0%B8%B2%E0%B9%80%E0%B8%A7%E0%B8%99%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%A3%E0%B9%8C-40-42-France-100ML-i.98481748.4436402372",
+      "retrieved_date": "2026-09-24",
+      "supports": [
+        "supplier_store_listing",
+        "product_name",
+        "100_ml_variant"
+      ]
+    }
+  ],
+  "authority_limits": {
+    "catalog_identity_resolved": true,
+    "physical_ownership_confirmed": false,
+    "bottle_size_confirmed": false,
+    "supplier_lot_confirmed": false,
+    "bottle_label_confirmed": false,
+    "coa_or_gc_profile_confirmed": false,
+    "homogeneity_confirmed": false,
+    "inventory_mutation_authorized": false,
+    "purchase_authorized": false,
+    "formula_rebase_authorized": false,
+    "physical_compounding_authorized": false,
+    "safety_or_release_asserted": false
+  }
+}

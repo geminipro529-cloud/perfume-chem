@@ -137,6 +137,9 @@ def test_v5_current_inventory_master_is_the_pinned_physical_authority() -> None:
     assert {record.authority for record in materialized.stocks} == {
         CURRENT_INVENTORY_AUTHORITY,
         CURRENT_USER_INVENTORY_AUTHORITY,
+        "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260907",
+        "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260910",
+        "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260903",
     }
 
 
@@ -593,6 +596,59 @@ def test_legacy_inventory_text_matches_user_overlay_availability() -> None:
     assert available["Myrrh EO"].carrier == "dep"
     assert available["Red Mandarin EO"].dilution == pytest.approx(1.0)
     assert not any("tincture" in name.casefold() for name in available)
+
+
+def test_v5_2_acetyl_pyrazine_scopes_carrier_hold_to_working_stock() -> None:
+    stocks = [
+        stock
+        for stock in materialize_current_inventory(apply_user_overlay=False).stocks
+        if stock.identity_name == "2-Acetyl Pyrazine"
+    ]
+
+    assert {stock.dilution for stock in stocks} == {1.0, 0.01}
+    neat = next(stock for stock in stocks if stock.dilution == pytest.approx(1.0))
+    working = next(stock for stock in stocks if stock.dilution == pytest.approx(0.01))
+    assert (neat.fraction_basis, neat.carrier, neat.execution_ready) == (
+        "neat",
+        "",
+        True,
+    )
+    assert (
+        working.fraction_basis,
+        working.carrier,
+        working.execution_ready,
+    ) == ("unspecified", "", False)
+    assert neat.stock_id != working.stock_id
+    assert neat.source_rows == working.source_rows == (6,)
+
+
+def test_v5_neat_naturals_with_open_lot_details_remain_raw_volume_ready() -> None:
+    expected = {
+        "Blood Orange Oil Sicilian",
+        "Blue Chamomile EO",
+        "Elemi EO",
+        "Lime Distilled EO",
+        "Orange Peel EO",
+        "Pine EO",
+        "Helichrysum EO",
+    }
+    rows = [
+        stock
+        for stock in materialize_current_inventory(apply_user_overlay=False).stocks
+        if stock.identity_name in expected
+    ]
+
+    assert {stock.identity_name for stock in rows} == expected
+    assert all(stock.dilution == pytest.approx(1.0) for stock in rows)
+    assert all(stock.fraction_basis == "neat" for stock in rows)
+    assert all(stock.carrier == "" for stock in rows)
+    assert all(stock.execution_ready is True for stock in rows)
+    requirements = {
+        row.identity_name: row
+        for row in materialize_current_inventory(apply_user_overlay=False).requirements
+        if row.identity_name in expected
+    }
+    assert all("LOT DETAIL OPEN" in row.status for row in requirements.values())
 
 
 def test_v5_preserves_beta_ionone_multiple_stocks_and_preparation_state() -> None:

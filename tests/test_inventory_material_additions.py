@@ -33,8 +33,8 @@ _JULY_2026_MATERIAL_ADDITIONS = {
         0.10,
         True,
     ),
-    "Black Agarwood Artificial": ("Black Agarwood Artificial", 1.0, False),
-    "Castoreum Synthetic": ("Castoreum Synthetic", 1.0, False),
+    "Black Agarwood Artificial": ("Black Agarwood Artificial", 0.10, False),
+    "Castoreum Synthetic": ("Castoreum Synthetic", 0.10, False),
     "Jasmine Absolute 10% in DPG": ("Jasmine Absolute", 0.10, True),
     "Coffee Absolute Grasse 10% in DPG": (
         "Coffee Absolute Grasse",
@@ -88,7 +88,9 @@ def test_new_coriander_and_coffee_naturals_have_evidence_bounded_profiles() -> N
     coffee = get_composite_metadata("Coffee Absolute Grasse")
 
     assert coriander is not None
-    assert coriander.resolution == "direct_identity"
+    assert coriander.resolution == "literature_proxy"
+    assert coriander.composition_authority == "LITERATURE_PARTIAL_PROXY"
+    assert coriander.batch_specific is False
     assert coriander.characterized_fraction == pytest.approx(0.7975)
     assert coriander.sources == ("https://pmc.ncbi.nlm.nih.gov/articles/PMC3512302/",)
 
@@ -108,11 +110,30 @@ def test_july_2026_additions_are_synced_to_legacy_material_properties() -> None:
     )
     by_name = {material["name"].casefold(): material for material in materials}
 
-    for canonical_name, expected_dilution, _is_natural in _JULY_2026_MATERIAL_ADDITIONS.values():
+    stock_expectations = {
+        "Adoxal": (True, 0.10),
+        "Champignol": (False, None),
+        "Coriander Essential Oil": (True, 1.0),
+        "2-Acetyl Pyrazine": (True, None),
+        "Safraleine": (True, 0.10),
+        "Blackcurrant Absolute": (True, 0.10),
+        "Violet Leaf Absolute": (True, 0.10),
+        "Black Agarwood Artificial": (True, 0.10),
+        "Castoreum Synthetic": (True, 0.10),
+        "Jasmine Absolute": (True, None),
+        "Coffee Absolute Grasse": (True, 0.10),
+    }
+
+    for canonical_name, _expected_dilution, _is_natural in _JULY_2026_MATERIAL_ADDITIONS.values():
         material = by_name[canonical_name.casefold()]
-        assert material["in_inventory"] is True
-        assert material["dilution_pct"] == pytest.approx(expected_dilution)
-        assert material["stock_form"]
+        expected_owned, expected_dilution = stock_expectations[canonical_name]
+        assert material["in_inventory"] is expected_owned
+        if expected_dilution is None:
+            assert material["dilution_pct"] is None
+        else:
+            assert material["dilution_pct"] == pytest.approx(expected_dilution)
+        if expected_owned:
+            assert material["stock_form"]
         for field in (
             "mw",
             "vp",
@@ -126,6 +147,11 @@ def test_july_2026_additions_are_synced_to_legacy_material_properties() -> None:
         ):
             assert material[field] is not None
 
+    assert by_name["champignol"]["inventory_status"] == "TEXT_ONLY_UNBOUND"
+    for ambiguous in ("2-acetyl pyrazine", "jasmine absolute"):
+        assert by_name[ambiguous]["stock_selection_status"] == "AMBIGUOUS_SELECT_STOCK_ID"
+        assert len(by_name[ambiguous]["current_stocks"]) > 1
+
 
 def test_violet_leaf_profile_does_not_recommend_itself_as_a_synergy() -> None:
     profile = get_profile("Violet Leaf Absolute")
@@ -137,14 +163,14 @@ def test_violet_leaf_profile_does_not_recommend_itself_as_a_synergy() -> None:
 def test_requested_stock_is_available_at_recorded_dilutions() -> None:
     available = {item.name: item for item in parse_inventory(include_unavailable=False)}
 
-    assert available["Alpha Irone"].dilution == pytest.approx(0.30)
-    assert available["Orris Liquid"].dilution == pytest.approx(0.30)
+    assert available["Alpha Irone"].dilution == pytest.approx(0.10)
+    assert available["Orris Liquid"].dilution == pytest.approx(0.09)
     assert available["Orris Liquid"].fraction_basis == "mass_fraction"
-    assert available["Hydroxycitronellol"].dilution == pytest.approx(1.0)
+    assert available["Hydroxycitronellal"].dilution == pytest.approx(1.0)
     assert available["Olibanum Resinoid"].dilution == pytest.approx(0.5)
     assert available["Cocoa Absolute"].dilution == pytest.approx(1.0)
     assert available["Cocoa CO2 Extract"].dilution == pytest.approx(0.077)
-    assert "Hydroxycitronellal" not in available
+    assert "Hydroxycitronellol" not in available
     assert "Olibanum Resinoid Absolute" not in available
     assert "Cocoa CO2 Absolute" not in available
 
@@ -179,11 +205,11 @@ def test_requested_materials_have_runtime_data() -> None:
     assert hydroxycitronellol.cas == "107-74-4"
     assert hydroxycitronellol.mw_g_mol == pytest.approx(174.28)
     assert hydroxycitronellol.vp_25c_pa == pytest.approx(0.0736)
-    assert hydroxycitronellol.user_in_inventory is True
+    assert hydroxycitronellol.user_in_inventory is False
 
     assert orris_liquid is not None
     assert orris_liquid.user_stock_dilution is not None
-    assert orris_liquid.user_stock_dilution.startswith("30%")
+    assert orris_liquid.user_stock_dilution.startswith("9%")
     assert orris_liquid.user_in_inventory is True
 
     assert olibanum is not None
@@ -293,23 +319,27 @@ def test_legacy_material_properties_mirror_live_stock_and_thresholds() -> None:
     by_name = {material["name"].casefold(): material for material in materials}
 
     expected = {
-        "alpha irone": ("79-69-6", 0.30, 0.9, 0.16),
-        "hydroxycitronellol": ("107-74-4", 1.0, 100.0, 20.0),
-        "olibanum resinoid": ("8016-36-2", 0.5, 10.0, 3.0),
-        "orris liquid": ("8002-73-1", 0.30, 0.9, 0.16),
+        "alpha irone": ("79-69-6", True, 0.10, 0.9, 0.16),
+        "hydroxycitronellol": ("107-74-4", False, None, 100.0, 20.0),
+        "olibanum resinoid": ("8016-36-2", False, None, 10.0, 3.0),
+        "orris liquid": ("8002-73-1", True, 0.09, 0.9, 0.16),
     }
-    for name, (cas, dilution, odt_air, odt_eth) in expected.items():
+    for name, (cas, owned, dilution, odt_air, odt_eth) in expected.items():
         material = by_name[name]
         assert material["cas"] == cas
-        assert material["in_inventory"] is True
-        assert material["dilution_pct"] == pytest.approx(dilution)
+        assert material["in_inventory"] is owned
+        if dilution is None:
+            assert material["dilution_pct"] is None
+        else:
+            assert material["dilution_pct"] == pytest.approx(dilution)
         assert material["odt"] == pytest.approx(odt_air)
         assert material["odt_ethanol_ppm"] == pytest.approx(odt_eth)
 
     cocoa_absolute = by_name["cocoa absolute"]
     cocoa_co2 = by_name["cocoa co2 extract"]
-    assert cocoa_absolute["in_inventory"] is True
-    assert cocoa_absolute["dilution_pct"] == pytest.approx(1.0)
+    assert cocoa_absolute["in_inventory"] is False
+    assert cocoa_absolute["inventory_status"] == "TEXT_ONLY_UNBOUND"
+    assert cocoa_absolute["dilution_pct"] is None
     assert cocoa_co2["in_inventory"] is True
     assert cocoa_co2["dilution_pct"] == pytest.approx(0.077)
 
@@ -385,8 +415,12 @@ def test_defensible_natural_aliases_resolve_to_explicit_proxy_metadata(
 
     assert get_constituents(inventory_name)
     assert metadata is not None
-    assert metadata.resolution == "literature_proxy"
-    assert metadata.composition_authority == "LITERATURE_PARTIAL_PROXY"
+    if inventory_name == "Jasmine Sambac Absolute":
+        assert metadata.resolution == "normalized_identity"
+        assert metadata.composition_authority == "LITERATURE_PARTIAL_PROFILE"
+    else:
+        assert metadata.resolution == "literature_proxy"
+        assert metadata.composition_authority == "LITERATURE_PARTIAL_PROXY"
     assert metadata.batch_specific is False
     assert 0.0 < metadata.characterized_fraction <= 1.0
 

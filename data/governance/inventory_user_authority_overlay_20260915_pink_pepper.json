@@ -1,0 +1,52 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v11",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-15",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260910_stock_clarifications.json",
+    "normalized_text_sha256": "fd7a66eb6cd921be810c0b9138c22bae404e7ad81ffc715767c0b203d3fcaab8"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 25316,
+    "inventory_text_sha256": "575f0b2832683341bb5759720f2a1a566eb20bd23cd62cf9e1cc08b4edf0f327",
+    "confirmed_receipt": "data/governance/inventory_user_confirmation_20260915_pink_pepper.json",
+    "confirmed_receipt_sha256": "f15b8765f18fa49f3b4174dbb6d4f52d7c0934134d4798e74750322e68aa5d9e"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "bind_only_source_declared_stock_facts": true,
+    "stock_solution_density_assumed": false,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [],
+  "records": [
+    {
+      "record_id": "INV-USER-20260903-001",
+      "canonical_name": "Pink Pepper EO",
+      "aliases": [
+        "Pink Pepper EO (Schinus molle)",
+        "Pink Pepper EO (Schinus molle; neat / as supplied)",
+        "Schinus molle EO"
+      ],
+      "state": "OWNED",
+      "category": "spice",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "DIRECT_USER_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-03",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_ADDITION_WITH_SUPPLIER_IDENTITY"
+    }
+  ]
+}

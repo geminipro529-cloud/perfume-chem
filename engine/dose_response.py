@@ -1,10 +1,10 @@
-"""Dose-response modelling and character shift detection.
+"""Dose-response modelling and character-shift diagnostics.
 
-**RULE 1: All perfume calculations must use ppm, ODT, and OAV.**
-- Concentrations in ppm (parts per million w/w in concentrate).
-- ODT in ppm for ethanol solution, ppb for air.
-- OAV = concentration_ppm / ODT_ppm (dimensionless).
-- Every perceptibility claim must be backed by OAV.
+Stock dose, liquid concentration, delivered gas concentration, ODT, OAV,
+intensity, character, pleasantness, and liking are separate endpoints. OAV is
+only a detection-related diagnostic when numerator and threshold share a
+compatible identity, phase, unit, matrix, and protocol. It is never an
+intensity, perceived-contribution, pleasantness, beauty, or selection score.
 
 Most aroma chemicals change their olfactive character at different
 concentrations. This is NOT just intensity — it's qualitative shift:
@@ -34,9 +34,13 @@ Sources:
 
 from __future__ import annotations
 
+import csv
+import json
 import math
 from dataclasses import dataclass
-from typing import Any
+from hashlib import sha256
+from pathlib import Path
+from typing import Any, Mapping, Sequence
 
 
 def air_ppm_to_ug_l(
@@ -70,6 +74,43 @@ def measured_intensity_curve(
         return imax / (1.0 + math.exp(-z))
     ez = math.exp(z)
     return imax * ez / (1.0 + ez)
+
+
+def corrected_wakayama_threshold_ng_l(
+    *,
+    imax: float,
+    midpoint_log10_ug_l: float,
+    slope: float,
+    criterion_intensity: float = 1.4,
+) -> float:
+    """Return the corrected Wakayama threshold in ng/L air.
+
+    This implements the December 2020 correction to Equation 3 of Wakayama
+    et al.  The source curve uses micrograms per litre inside ``log10``; the
+    leading ``3`` converts the solved concentration to nanograms per litre.
+    The default 1.4 is the paper's LMS "barely detectable" criterion, not a
+    receptor EC50 or a universal detection probability.
+    """
+
+    values = (imax, midpoint_log10_ug_l, slope, criterion_intensity)
+    if not all(math.isfinite(value) for value in values):
+        raise ValueError("Finite curve parameters and criterion are required")
+    if slope <= 0.0 or criterion_intensity <= 0.0 or imax <= criterion_intensity:
+        raise ValueError(
+            "Positive slope/criterion and Imax greater than the criterion are required"
+        )
+    exponent = 3.0 + midpoint_log10_ug_l - slope * math.log(
+        (imax - criterion_intensity) / criterion_intensity
+    )
+    try:
+        threshold = 10.0 ** exponent
+    except OverflowError as exc:
+        raise ValueError(
+            "Corrected threshold is outside the finite positive domain"
+        ) from exc
+    if not math.isfinite(threshold) or threshold <= 0.0:
+        raise ValueError("Corrected threshold is outside the finite positive domain")
+    return threshold
 
 
 def parse_measured_intensity_parameters(rows) -> dict:
@@ -188,6 +229,950 @@ def benchmark_measured_intensity(curves: dict, observations: dict) -> dict:
             "benchmark_scope": "PUBLISHED_CURVE_RECONSTRUCTION_AND_MIXTURE_TRANSFER_COMPARISON",
             "source_training_observation_overlap": "NOT_ESTABLISHED",
             "formula_changed": False, "full_perfume_validated": False}
+
+
+# ── Governed measured-intensity capabilities (Checkpoint 2) ────────────────
+
+MEASURED_INTENSITY_MANIFEST = (
+    Path(__file__).resolve().parents[1]
+    / "data"
+    / "governance"
+    / "measured_intensity_capabilities_20260923.json"
+)
+
+MEASURED_INTENSITY_FALSE_AUTHORITIES = {
+    "character_authorized": False,
+    "pleasantness_authorized": False,
+    "personal_liking_authorized": False,
+    "population_liking_authorized": False,
+    "beauty_authorized": False,
+    "formula_optimization_authority": False,
+    "evidence_admission_authorized": False,
+    "physical_experiment_authorized": False,
+    "compounding_authorized": False,
+    "purchase_authorized": False,
+    "inventory_mutation_authorized": False,
+    "safety_authorized": False,
+    "release_authorized": False,
+}
+
+
+def _file_sha256(path: Path) -> str | None:
+    if not path.is_file():
+        return None
+    digest = sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def load_measured_intensity_capabilities(
+    manifest_path: str | Path = MEASURED_INTENSITY_MANIFEST,
+) -> dict[str, Any]:
+    """Load source parameters without promoting any unadjudicated identity.
+
+    The source and transcription byte hashes are verified before a curve row is
+    returned.  Rows remain ``UNADJUDICATED`` unless an independent capability
+    record supplies exact canonical identity and applicability bindings.
+    """
+
+    manifest_file = Path(manifest_path).resolve()
+    manifest = json.loads(manifest_file.read_text(encoding="utf-8"))
+    root = Path(__file__).resolve().parents[1]
+    source = manifest["source"]
+    source_path = root / source["source_artifact_path"]
+    transcription_path = root / source["transcription_artifact_path"]
+    reasons: list[str] = []
+    if _file_sha256(source_path) != source["source_artifact_sha256"]:
+        reasons.append("SOURCE_ARTIFACT_HASH_MISMATCH")
+    if _file_sha256(transcription_path) != source["transcription_artifact_sha256"]:
+        reasons.append("TRANSCRIPTION_ARTIFACT_HASH_MISMATCH")
+    if not str(source.get("license", "")).strip():
+        reasons.append("LICENSE_MISSING")
+    conflicts = {
+        row["source_cas"]: row
+        for row in manifest["identity_adjudication"]["known_conflicts"]
+    }
+    curves: dict[str, dict[str, Any]] = {}
+    if not reasons:
+        with transcription_path.open("r", encoding="utf-8", newline="") as handle:
+            for row in csv.DictReader(handle, delimiter="\t"):
+                cas = str(row["CAS"]).strip()
+                name = str(row["Name"]).strip()
+                curve = {
+                    "imax": float(row["I_max"]),
+                    "midpoint_log10_ug_l": float(row["C"]),
+                    "slope": float(row["D"]),
+                }
+                state = "CONFLICT" if cas in conflicts else "UNADJUDICATED"
+                curves[cas] = {
+                    "capability_id": f"{manifest['manifest_id']}:{cas}",
+                    "manifest_id": manifest["manifest_id"],
+                    "source_artifact_sha256": source["source_artifact_sha256"],
+                    "transcription_artifact_sha256": source[
+                        "transcription_artifact_sha256"
+                    ],
+                    "license": source["license"],
+                    "permitted_use": source["permitted_use"],
+                    "commercial_use_authorized": source[
+                        "commercial_use_authorized"
+                    ],
+                    "source_fit_overlap": source["source_fit_overlap"],
+                    "chemical_identity": {
+                        "source_name": name,
+                        "source_cas": cas,
+                        "canonical_name": None,
+                        "canonical_cas": None,
+                        "identity_status": state,
+                        "exact_stock_match_required": True,
+                        "conflict_description": (
+                            conflicts[cas]["reason"] if cas in conflicts else None
+                        ),
+                    },
+                    "input_contract": dict(manifest["input_contract"]),
+                    "curve": {
+                        **curve,
+                        **manifest["curve_contract"],
+                    },
+                    "applicability": {
+                        **manifest["applicability"],
+                        "observed_range_ug_l_air": None,
+                        "exact_material_ids": [],
+                    },
+                    "uncertainty": dict(manifest["uncertainty"]),
+                    "endpoint_authority": dict(manifest["endpoint_authority"]),
+                    "action_authority": dict(manifest["action_authority"]),
+                }
+    return {
+        "manifest": manifest,
+        "manifest_sha256": _file_sha256(manifest_file),
+        "status": "HOLD" if reasons or manifest["admission_state"].startswith("HOLD") else "AVAILABLE",
+        "reasons": reasons or [manifest["admission_state"]],
+        "curves": curves,
+    }
+
+
+def validate_measured_intensity_capability(
+    record: Mapping[str, Any], requested_context: Mapping[str, Any]
+) -> dict[str, Any]:
+    """Fail closed unless identity, gas units, range, matrix and use all match."""
+
+    reasons: list[str] = []
+    caveats: list[str] = []
+    try:
+        governed = json.loads(MEASURED_INTENSITY_MANIFEST.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError, TypeError):
+        governed = {}
+    governed_source = governed.get("source", {}) if isinstance(governed, Mapping) else {}
+    for field, reason in (
+        ("source_artifact_sha256", "SOURCE_ARTIFACT_HASH_MISMATCH"),
+        ("transcription_artifact_sha256", "TRANSCRIPTION_ARTIFACT_HASH_MISMATCH"),
+    ):
+        value = record.get(field)
+        if (
+            not isinstance(value, str)
+            or len(value) != 64
+            or any(character not in "0123456789abcdef" for character in value)
+        ):
+            reasons.append(reason)
+    if record.get("manifest_id") != governed.get("manifest_id"):
+        reasons.append("SOURCE_ARTIFACT_HASH_MISMATCH")
+    if record.get("source_artifact_sha256") != governed_source.get(
+        "source_artifact_sha256"
+    ):
+        reasons.append("SOURCE_ARTIFACT_HASH_MISMATCH")
+    if record.get("transcription_artifact_sha256") != governed_source.get(
+        "transcription_artifact_sha256"
+    ):
+        reasons.append("TRANSCRIPTION_ARTIFACT_HASH_MISMATCH")
+    license_name = str(record.get("license", "")).strip()
+    if not license_name:
+        reasons.append("LICENSE_MISSING")
+    if requested_context.get("commercial_use") and not record.get(
+        "commercial_use_authorized", False
+    ):
+        reasons.append("LICENSE_SCOPE_INCOMPATIBLE")
+    identity = record.get("chemical_identity")
+    if not isinstance(identity, Mapping):
+        reasons.append("SOURCE_IDENTITY_CONFLICT")
+        identity = {}
+    if identity.get("identity_status") == "CONFLICT":
+        reasons.extend(["SOURCE_IDENTITY_CONFLICT", "CAS_NAME_CONFLICT"])
+    elif identity.get("identity_status") != "EXACT":
+        reasons.append("STOCK_IDENTITY_NOT_EXACT")
+    if (
+        identity.get("canonical_name") != requested_context.get("canonical_name")
+        or identity.get("canonical_cas") != requested_context.get("canonical_cas")
+        or requested_context.get("material_id")
+        not in record.get("applicability", {}).get("exact_material_ids", [])
+    ):
+        reasons.append("STOCK_IDENTITY_NOT_EXACT")
+    input_contract = record.get("input_contract")
+    if not isinstance(input_contract, Mapping) or (
+        input_contract.get("physical_quantity") != "GAS_MASS_CONCENTRATION"
+        or input_contract.get("phase") != "AIR"
+        or input_contract.get("unit") != "ug/L_air"
+        or input_contract.get("log_base") != 10
+        or input_contract.get("extrapolation_authorized") is not False
+    ):
+        reasons.append("UNIT_NOT_GAS_UG_L_AIR")
+    if requested_context.get("physical_quantity") != "GAS_MASS_CONCENTRATION" or (
+        requested_context.get("phase") != "AIR"
+        or requested_context.get("unit") != "ug/L_air"
+    ):
+        reasons.append("UNIT_NOT_GAS_UG_L_AIR")
+    curve = record.get("curve")
+    if not isinstance(curve, Mapping):
+        reasons.append("CURVE_PARAMETERS_MISSING")
+        curve = {}
+    try:
+        imax = float(curve.get("imax"))
+        midpoint = float(curve.get("midpoint_log10_ug_l"))
+        slope = float(curve.get("slope"))
+    except (TypeError, ValueError):
+        imax = midpoint = slope = math.nan
+    if not all(math.isfinite(value) for value in (imax, midpoint, slope)):
+        reasons.append("CURVE_PARAMETERS_NONFINITE")
+    else:
+        if slope <= 0:
+            reasons.append("NONPOSITIVE_SLOPE")
+        if imax <= 0:
+            reasons.append("NONPOSITIVE_MAXIMUM")
+        if imax <= 1.4:
+            reasons.append("IMAX_NOT_ABOVE_LMS_1_4")
+        if slope > 0 and imax > 1.4:
+            threshold_ng_l = corrected_wakayama_threshold_ng_l(
+                imax=imax,
+                midpoint_log10_ug_l=midpoint,
+                slope=slope,
+            )
+            roundtrip = measured_intensity_curve(
+                threshold_ng_l / 1000.0,
+                imax=imax,
+                midpoint_log10_ug_l=midpoint,
+                slope=slope,
+            )
+            if not math.isclose(roundtrip, 1.4, rel_tol=0.0, abs_tol=1e-12):
+                reasons.append("CORRECTED_THRESHOLD_ROUNDTRIP_FAILED")
+    if (
+        curve.get("threshold_equation_revision")
+        != "WAKAYAMA_DECEMBER_2020_CORRECTION"
+        or curve.get("threshold_output_unit") != "ng/L_air"
+        or curve.get("threshold_roundtrip_criterion") != 1.4
+        or curve.get("threshold_roundtrip_tolerance") != 1e-12
+    ):
+        reasons.append("CORRECTED_THRESHOLD_CONTRACT_MISSING")
+    applicability = record.get("applicability")
+    if not isinstance(applicability, Mapping):
+        reasons.append("APPLICABILITY_MISSING")
+        applicability = {}
+    concentration = requested_context.get("gas_ug_l_air")
+    observed_range = applicability.get("observed_range_ug_l_air")
+    if (
+        isinstance(concentration, bool)
+        or not isinstance(concentration, (int, float))
+        or not math.isfinite(float(concentration))
+        or float(concentration) < 0
+    ):
+        reasons.append("UNIT_NOT_GAS_UG_L_AIR")
+    if (
+        not isinstance(observed_range, (list, tuple))
+        or len(observed_range) != 2
+        or any(
+            isinstance(value, bool)
+            or not isinstance(value, (int, float))
+            or not math.isfinite(float(value))
+            or float(value) <= 0
+            for value in observed_range
+        )
+    ):
+        reasons.append("CONCENTRATION_OUTSIDE_SOURCE_RANGE")
+    elif float(observed_range[0]) > float(observed_range[1]):
+        reasons.append("CONCENTRATION_OUTSIDE_SOURCE_RANGE")
+    elif concentration is not None and not (
+        float(observed_range[0]) <= float(concentration) <= float(observed_range[1])
+    ):
+        reasons.append("CONCENTRATION_OUTSIDE_SOURCE_RANGE")
+    for context_key, applicability_key, reason in (
+        ("matrix", "matrices", "MATRIX_OUT_OF_DOMAIN"),
+        ("delivery", "delivery_modes", "DELIVERY_OUT_OF_DOMAIN"),
+        ("scenario", "scenarios", "SCENARIO_OUT_OF_DOMAIN"),
+    ):
+        admitted = applicability.get(applicability_key)
+        if not isinstance(admitted, (list, tuple)) or requested_context.get(
+            context_key
+        ) not in admitted:
+            reasons.append(reason)
+    if requested_context.get("whole_natural") and not applicability.get(
+        "whole_natural_transfer_authorized", False
+    ):
+        reasons.append("WHOLE_NATURAL_CALIBRATION_ABSENT")
+    if requested_context.get("commercial_product") and not applicability.get(
+        "commercial_product_transfer_authorized", False
+    ):
+        reasons.append("STOCK_IDENTITY_NOT_EXACT")
+    if requested_context.get("full_perfume") and not applicability.get(
+        "full_perfume_transfer_authorized", False
+    ):
+        reasons.append("FULL_FORMULA_TRANSFER_NOT_ESTABLISHED")
+    uncertainty = record.get("uncertainty")
+    if not isinstance(uncertainty, Mapping):
+        reasons.append("UNCERTAINTY_METHOD_UNAVAILABLE")
+        uncertainty = {}
+    else:
+        if uncertainty.get("coefficient_rounding_known"):
+            caveats.append("ROUNDED_SOURCE_COEFFICIENTS")
+        if str(uncertainty.get("prediction_interval_method", "")).upper() in {
+            "",
+            "UNAVAILABLE",
+            "UNKNOWN",
+        }:
+            caveats.append("UNCERTAINTY_METHOD_UNAVAILABLE")
+    if record.get("source_fit_overlap") == "UNKNOWN":
+        caveats.append("SOURCE_FIT_OVERLAP_UNKNOWN")
+    endpoint_authority = record.get("endpoint_authority")
+    required_endpoint_flags = {
+        "character",
+        "intensity",
+        "pleasantness",
+        "personal_liking",
+        "population_liking",
+        "beauty",
+        "formula_optimization_authority",
+    }
+    if not isinstance(endpoint_authority, Mapping) or not required_endpoint_flags.issubset(
+        endpoint_authority
+    ):
+        reasons.append("ENDPOINT_AUTHORITY_MISSING")
+    elif (
+        endpoint_authority.get("character") is not False
+        or endpoint_authority.get("pleasantness") is not False
+        or endpoint_authority.get("personal_liking") is not False
+        or endpoint_authority.get("population_liking") is not False
+        or endpoint_authority.get("beauty") is not False
+        or endpoint_authority.get("formula_optimization_authority") is not False
+        or not (
+            endpoint_authority.get("intensity") is True
+            or endpoint_authority.get("intensity")
+            == "CONDITIONAL_EXACT_SOURCE_DOMAIN_ONLY"
+        )
+    ):
+        reasons.append("ENDPOINT_AUTHORITY_INVALID")
+    action_authority = record.get("action_authority")
+    if not isinstance(action_authority, Mapping) or any(
+        action_authority.get(flag) is not False
+        for flag in (
+            "evidence_admission_authorized",
+            "physical_experiment_authorized",
+            "compounding_authorized",
+            "purchase_authorized",
+            "inventory_mutation_authorized",
+            "safety_authorized",
+            "release_authorized",
+        )
+    ):
+        reasons.append("ACTION_AUTHORITY_NOT_FALSE")
+    return {
+        "status": "ADMITTED_INTENSITY_CURVE" if not reasons else "HOLD",
+        "usable": not reasons,
+        "reason_codes": sorted(set(reasons)),
+        "caveat_codes": sorted(set(caveats)),
+        "optimizer_selection_usable": not reasons
+        and "UNCERTAINTY_METHOD_UNAVAILABLE" not in caveats
+        and "SOURCE_FIT_OVERLAP_UNKNOWN" not in caveats,
+        **MEASURED_INTENSITY_FALSE_AUTHORITIES,
+    }
+
+
+def resolve_measured_curve(
+    capability: Mapping[str, Any],
+    *,
+    gas_ug_l_air: float,
+    context: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Evaluate a capability only after the complete gas-domain admission."""
+
+    request = {
+        **dict(context),
+        "physical_quantity": "GAS_MASS_CONCENTRATION",
+        "phase": "AIR",
+        "unit": "ug/L_air",
+        "gas_ug_l_air": gas_ug_l_air,
+    }
+    admission = validate_measured_intensity_capability(capability, request)
+    if not admission["usable"]:
+        return {"intensity": None, "admission": admission}
+    curve = capability["curve"]
+    return {
+        "intensity": measured_intensity_curve(
+            gas_ug_l_air,
+            imax=float(curve["imax"]),
+            midpoint_log10_ug_l=float(curve["midpoint_log10_ug_l"]),
+            slope=float(curve["slope"]),
+        ),
+        "admission": admission,
+    }
+
+
+def partial_addition_intensity(
+    component_intensities: Sequence[float], *, lambda_: float, upper_bound: float
+) -> float:
+    """Strongest component plus a fitted fraction of remaining intensity."""
+
+    values = tuple(float(value) for value in component_intensities)
+    if (
+        not values
+        or any(not math.isfinite(value) or value < 0 for value in values)
+        or not math.isfinite(lambda_)
+        or not 0 <= lambda_ <= 1
+        or not math.isfinite(upper_bound)
+        or upper_bound <= 0
+    ):
+        raise ValueError("Finite intensities, lambda in [0,1], and upper bound required")
+    maximum = max(values)
+    return min(upper_bound, maximum + lambda_ * (math.fsum(values) - maximum))
+
+
+def fit_partial_addition_lambda(training_rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    """Fit only lambda using equal mixture-group weighting.
+
+    No held-out labels or curve parameters are accepted by this function.  The
+    convex piecewise-quadratic objective is solved deterministically; equal
+    minima choose the smaller lambda.
+    """
+
+    rows = []
+    for row in training_rows:
+        intensities = tuple(float(value) for value in row["component_intensities"])
+        observed = float(row["observed"])
+        upper = float(row["upper_bound"])
+        group = str(row["group_id"])
+        if (
+            not group
+            or not intensities
+            or any(not math.isfinite(value) or value < 0 for value in intensities)
+            or not math.isfinite(observed)
+            or not math.isfinite(upper)
+            or upper <= 0
+        ):
+            raise ValueError("Invalid partial-addition training row")
+        maximum = max(intensities)
+        remainder = math.fsum(intensities) - maximum
+        rows.append((group, maximum, remainder, upper, observed))
+    group_ids = sorted({row[0] for row in rows})
+    positive_remainders = {round(row[2], 12) for row in rows if row[2] > 0}
+    if len(group_ids) < 3 or len(positive_remainders) < 2:
+        return {
+            "status": "HOLD_PARTIAL_ADDITION_IDENTIFIABILITY",
+            "lambda": None,
+            "training_groups": group_ids,
+            "reason": "INSUFFICIENT_GROUPS_OR_ADDITIVE_POTENTIAL_VARIATION",
+        }
+    counts = {group: sum(row[0] == group for row in rows) for group in group_ids}
+
+    def objective(lambda_value: float) -> float:
+        return math.fsum(
+            (
+                min(upper, maximum + lambda_value * remainder) - observed
+            )
+            ** 2
+            / (len(group_ids) * counts[group])
+            for group, maximum, remainder, upper, observed in rows
+        )
+
+    breakpoints = {0.0, 1.0}
+    for _, maximum, remainder, upper, _ in rows:
+        if remainder > 0:
+            breakpoints.add(max(0.0, min(1.0, (upper - maximum) / remainder)))
+    ordered = sorted(breakpoints)
+    candidates = set(ordered)
+    for low, high in zip(ordered, ordered[1:]):
+        midpoint = (low + high) / 2
+        numerator = denominator = 0.0
+        for group, maximum, remainder, upper, observed in rows:
+            weight = 1.0 / (len(group_ids) * counts[group])
+            if maximum + midpoint * remainder < upper and remainder > 0:
+                numerator += weight * remainder * (observed - maximum)
+                denominator += weight * remainder * remainder
+        if denominator > 0:
+            candidates.add(max(low, min(high, numerator / denominator)))
+    scored = sorted((objective(value), value) for value in candidates)
+    best_objective = scored[0][0]
+    best_lambda = min(
+        value
+        for score, value in scored
+        if math.isclose(score, best_objective, rel_tol=0.0, abs_tol=1e-15)
+    )
+    return {
+        "status": "FITTED_DEVELOPMENT_ONLY",
+        "lambda": best_lambda,
+        "training_macro_group_mse": best_objective,
+        "training_groups": group_ids,
+        "empirical_admission": "HOLD",
+        **MEASURED_INTENSITY_FALSE_AUTHORITIES,
+    }
+
+
+def measured_mixture_intensity_challengers(
+    gas_ug_l_by_cas: Mapping[str, float],
+    curves: Mapping[str, Mapping[str, float]],
+    *,
+    partial_addition_lambda: float | None,
+    upper_bound: float,
+) -> dict[str, Any]:
+    """Return separate SC, partial-addition and primacy predictions."""
+
+    active = {cas: float(value) for cas, value in gas_ug_l_by_cas.items() if value > 0}
+    missing = sorted(set(active) - set(curves))
+    base = {
+        "missing_calibrations": missing,
+        "models_averaged": False,
+        "predicted_liking": None,
+        **MEASURED_INTENSITY_FALSE_AUTHORITIES,
+    }
+    if missing:
+        return {
+            **base,
+            "status": "HOLD_MISSING_COMPONENT_CALIBRATION",
+            "strongest_component": None,
+            "partial_addition": None,
+            "primacy_transfer": None,
+        }
+    component_intensities = {
+        cas: measured_intensity_curve(value, **curves[cas])
+        for cas, value in active.items()
+    }
+    strongest = max(component_intensities.values(), default=0.0)
+    partial = (
+        partial_addition_intensity(
+            tuple(component_intensities.values()),
+            lambda_=partial_addition_lambda,
+            upper_bound=upper_bound,
+        )
+        if partial_addition_lambda is not None
+        else None
+    )
+    primacy = measured_mixture_intensity(
+        dict(active), dict(curves), method="primacy"
+    )
+    return {
+        **base,
+        "status": "DIAGNOSTIC_MODELS_SEPARATE",
+        "component_intensities": component_intensities,
+        "strongest_component": {
+            "intensity": strongest,
+            "fit_parameters": 0,
+        },
+        "partial_addition": (
+            {
+                "intensity": partial,
+                "lambda": partial_addition_lambda,
+                "empirical_admission": "HOLD",
+            }
+            if partial is not None
+            else {
+                "intensity": None,
+                "status": "HOLD_PARTIAL_ADDITION_NOT_FITTED",
+            }
+        ),
+        "primacy_transfer": {
+            "intensity": primacy["intensity"],
+            "status": "EXTERNAL_TRANSFER",
+        },
+    }
+
+
+def molecule_connected_mixture_groups(
+    mixtures: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Join every mixture sharing a molecule into one leakage-safe component."""
+
+    identifiers = [str(row["mixture_id"]) for row in mixtures]
+    if len(identifiers) != len(set(identifiers)) or any(not item for item in identifiers):
+        raise ValueError("mixture_id values must be non-empty and unique")
+    parent = {identifier: identifier for identifier in identifiers}
+
+    def find(item: str) -> str:
+        while parent[item] != item:
+            parent[item] = parent[parent[item]]
+            item = parent[item]
+        return item
+
+    def union(left: str, right: str) -> None:
+        left_root, right_root = find(left), find(right)
+        if left_root != right_root:
+            parent[max(left_root, right_root)] = min(left_root, right_root)
+
+    molecule_owner: dict[str, str] = {}
+    for row in mixtures:
+        mixture_id = str(row["mixture_id"])
+        molecules = tuple(sorted({str(value).strip() for value in row["molecule_ids"]}))
+        if not molecules or any(not molecule for molecule in molecules):
+            raise ValueError("Every mixture requires non-empty molecule identities")
+        for molecule in molecules:
+            if molecule in molecule_owner:
+                union(mixture_id, molecule_owner[molecule])
+            else:
+                molecule_owner[molecule] = mixture_id
+    components: dict[str, list[str]] = {}
+    for identifier in identifiers:
+        components.setdefault(find(identifier), []).append(identifier)
+    ordered = sorted(tuple(sorted(values)) for values in components.values())
+    groups = {
+        mixture_id: f"mcg-{index:03d}"
+        for index, values in enumerate(ordered, start=1)
+        for mixture_id in values
+    }
+    status = (
+        "LEAKAGE_SAFE_GROUPS_AVAILABLE"
+        if len(ordered) >= 3
+        else "HOLD_INSUFFICIENT_LEAKAGE_SAFE_GROUPS"
+    )
+    return {
+        "status": status,
+        "group_count": len(ordered),
+        "groups": groups,
+        "components": [list(values) for values in ordered],
+    }
+
+
+def _rank_values(values: Sequence[float]) -> list[float]:
+    order = sorted(range(len(values)), key=lambda index: (values[index], index))
+    ranks = [0.0] * len(values)
+    cursor = 0
+    while cursor < len(order):
+        end = cursor + 1
+        while end < len(order) and values[order[end]] == values[order[cursor]]:
+            end += 1
+        rank = (cursor + 1 + end) / 2
+        for position in order[cursor:end]:
+            ranks[position] = rank
+        cursor = end
+    return ranks
+
+
+def _spearman(observed: Sequence[float], predicted: Sequence[float]) -> float | None:
+    if len(observed) < 2 or len(observed) != len(predicted):
+        return None
+    left, right = _rank_values(observed), _rank_values(predicted)
+    left_mean = math.fsum(left) / len(left)
+    right_mean = math.fsum(right) / len(right)
+    numerator = math.fsum(
+        (a - left_mean) * (b - right_mean) for a, b in zip(left, right)
+    )
+    denominator = math.sqrt(
+        math.fsum((value - left_mean) ** 2 for value in left)
+        * math.fsum((value - right_mean) ** 2 for value in right)
+    )
+    return None if denominator == 0 else numerator / denominator
+
+
+def _grouped_metrics(rows: Sequence[Mapping[str, Any]], model: str) -> dict[str, Any]:
+    usable = [row for row in rows if row.get(model) is not None]
+    grouped: dict[str, list[tuple[float, float]]] = {}
+    for row in usable:
+        grouped.setdefault(str(row["connected_group_id"]), []).append(
+            (float(row["observed"]), float(row[model]))
+        )
+    group_rmse = {
+        group: math.sqrt(
+            math.fsum((prediction - observed) ** 2 for observed, prediction in pairs)
+            / len(pairs)
+        )
+        for group, pairs in grouped.items()
+    }
+    errors = [
+        prediction - observed
+        for row in usable
+        for observed, prediction in [(float(row["observed"]), float(row[model]))]
+    ]
+    absolute = sorted(abs(value) for value in errors)
+    median = (
+        None
+        if not absolute
+        else absolute[len(absolute) // 2]
+        if len(absolute) % 2
+        else (absolute[len(absolute) // 2 - 1] + absolute[len(absolute) // 2]) / 2
+    )
+    observed = [float(row["observed"]) for row in usable]
+    predicted = [float(row[model]) for row in usable]
+    return {
+        "macro_group_weighted_rmse": (
+            math.fsum(group_rmse.values()) / len(group_rmse) if group_rmse else None
+        ),
+        "pooled_rmse": (
+            math.sqrt(math.fsum(value * value for value in errors) / len(errors))
+            if errors
+            else None
+        ),
+        "mae": (
+            math.fsum(abs(value) for value in errors) / len(errors) if errors else None
+        ),
+        "median_absolute_error": median,
+        "bias": math.fsum(errors) / len(errors) if errors else None,
+        "per_group_rmse": group_rmse,
+        "worst_group_rmse": max(group_rmse.values()) if group_rmse else None,
+        "spearman_rank_correlation": _spearman(observed, predicted),
+        "valid_prediction_count": len(usable),
+        "observation_count": len(rows),
+        "valid_prediction_coverage": len(usable) / len(rows) if rows else 0.0,
+        "independent_group_count": len(group_rmse),
+    }
+
+
+def _percentile(values: Sequence[float], probability: float) -> float:
+    ordered = sorted(float(value) for value in values)
+    if not ordered:
+        raise ValueError("Cannot calculate a percentile of an empty sample")
+    position = probability * (len(ordered) - 1)
+    low = int(math.floor(position))
+    high = int(math.ceil(position))
+    if low == high:
+        return ordered[low]
+    fraction = position - low
+    return ordered[low] * (1 - fraction) + ordered[high] * fraction
+
+
+def benchmark_grouped_mixture_intensity_challengers(
+    rows: Sequence[Mapping[str, Any]],
+    curves: Mapping[str, Mapping[str, float]],
+    *,
+    upper_bound: float,
+    bootstrap_draws: int = 20_000,
+    bootstrap_seed: int = 20260923,
+) -> dict[str, Any]:
+    """Leakage-safe, offline comparison of the three separate mixture rules.
+
+    Rows sharing a molecule are held out together. Partial addition fits one
+    lambda inside each training fold. The routine reports comparison evidence
+    but deliberately leaves empirical admission on HOLD.
+    """
+
+    import random
+
+    if (
+        not rows
+        or isinstance(bootstrap_draws, bool)
+        or bootstrap_draws < 1
+        or not math.isfinite(float(upper_bound))
+        or upper_bound <= 0
+    ):
+        raise ValueError("Rows, positive upper bound, and bootstrap draws required")
+    series: dict[str, tuple[str, ...]] = {}
+    normalized_rows: list[dict[str, Any]] = []
+    for index, source in enumerate(rows):
+        mixture_id = str(source["mixture_id"]).strip()
+        molecules = tuple(sorted({str(value).strip() for value in source["molecule_ids"]}))
+        gases = {str(key): float(value) for key, value in source["gas_ug_l_by_cas"].items()}
+        observed = float(source["observed"])
+        if (
+            not mixture_id
+            or not molecules
+            or any(not molecule for molecule in molecules)
+            or set(gases) != set(molecules)
+            or any(not math.isfinite(value) or value < 0 for value in gases.values())
+            or not any(value > 0 for value in gases.values())
+            or not math.isfinite(observed)
+        ):
+            raise ValueError("Invalid grouped mixture-intensity row")
+        if mixture_id in series and series[mixture_id] != molecules:
+            raise ValueError("One mixture series cannot change chemical identity")
+        series[mixture_id] = molecules
+        normalized_rows.append(
+            {
+                "row_id": str(source.get("row_id", f"row-{index + 1}")),
+                "mixture_id": mixture_id,
+                "molecule_ids": molecules,
+                "gas_ug_l_by_cas": gases,
+                "observed": observed,
+            }
+        )
+    grouping = molecule_connected_mixture_groups(
+        [
+            {"mixture_id": mixture_id, "molecule_ids": molecules}
+            for mixture_id, molecules in sorted(series.items())
+        ]
+    )
+    split_key = sha256(
+        json.dumps(
+            {
+                "schema": "molecule-connected-mixture-split-v1",
+                "series": sorted((key, list(value)) for key, value in series.items()),
+                "groups": grouping["groups"],
+            },
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+    if grouping["status"] != "LEAKAGE_SAFE_GROUPS_AVAILABLE":
+        return {
+            "status": "HOLD_INSUFFICIENT_LEAKAGE_SAFE_GROUPS",
+            "split_key_sha256": split_key,
+            "grouping": grouping,
+            "winner": None,
+            "empirical_admission": "HOLD",
+            **MEASURED_INTENSITY_FALSE_AUTHORITIES,
+        }
+    missing = sorted(
+        {
+            molecule
+            for row in normalized_rows
+            for molecule, gas in row["gas_ug_l_by_cas"].items()
+            if gas > 0 and molecule not in curves
+        }
+    )
+    if missing:
+        return {
+            "status": "HOLD_MISSING_COMPONENT_CALIBRATION",
+            "missing_calibrations": missing,
+            "split_key_sha256": split_key,
+            "grouping": grouping,
+            "winner": None,
+            "empirical_admission": "HOLD",
+            **MEASURED_INTENSITY_FALSE_AUTHORITIES,
+        }
+    for row in normalized_rows:
+        row["connected_group_id"] = grouping["groups"][row["mixture_id"]]
+        row["component_intensities"] = [
+            measured_intensity_curve(row["gas_ug_l_by_cas"][molecule], **curves[molecule])
+            for molecule in row["molecule_ids"]
+        ]
+    connected_groups = sorted(set(grouping["groups"].values()))
+    fold_receipts = []
+    predictions = []
+    for held_out in connected_groups:
+        training = [row for row in normalized_rows if row["connected_group_id"] != held_out]
+        fit = fit_partial_addition_lambda(
+            [
+                {
+                    "group_id": row["connected_group_id"],
+                    "component_intensities": row["component_intensities"],
+                    "observed": row["observed"],
+                    "upper_bound": upper_bound,
+                }
+                for row in training
+            ]
+        )
+        fold_receipts.append(
+            {
+                "held_out_group": held_out,
+                "training_groups": sorted(
+                    {row["connected_group_id"] for row in training}
+                ),
+                "lambda_fit": fit,
+            }
+        )
+        for row in normalized_rows:
+            if row["connected_group_id"] != held_out:
+                continue
+            comparison = measured_mixture_intensity_challengers(
+                row["gas_ug_l_by_cas"],
+                curves,
+                partial_addition_lambda=fit.get("lambda"),
+                upper_bound=upper_bound,
+            )
+            predictions.append(
+                {
+                    "row_id": row["row_id"],
+                    "mixture_id": row["mixture_id"],
+                    "connected_group_id": held_out,
+                    "observed": row["observed"],
+                    "strongest_component": comparison["strongest_component"]["intensity"],
+                    "partial_addition": comparison["partial_addition"].get("intensity"),
+                    "primacy_transfer": comparison["primacy_transfer"]["intensity"],
+                }
+            )
+    models = ("strongest_component", "partial_addition", "primacy_transfer")
+    metrics = {model: _grouped_metrics(predictions, model) for model in models}
+    equal_coverage = len(
+        {metrics[model]["valid_prediction_count"] for model in models}
+    ) == 1
+    rng = random.Random(bootstrap_seed)
+    group_losses = {
+        model: metrics[model]["per_group_rmse"] for model in models
+    }
+    pairwise = {}
+    for left_index, left in enumerate(models):
+        for right in models[left_index + 1 :]:
+            common_groups = sorted(
+                set(group_losses[left]) & set(group_losses[right])
+            )
+            if set(common_groups) != set(connected_groups):
+                pairwise[f"{left}_minus_{right}"] = {
+                    "clustered_group_bootstrap_draws": 0,
+                    "seed": bootstrap_seed,
+                    "interval_95": None,
+                    "status": "UNEQUAL_VALID_COVERAGE",
+                }
+                continue
+            draws = []
+            for _ in range(bootstrap_draws):
+                sampled = [rng.choice(common_groups) for _ in common_groups]
+                draws.append(
+                    math.fsum(
+                        group_losses[left][group] - group_losses[right][group]
+                        for group in sampled
+                    )
+                    / len(sampled)
+                )
+            pairwise[f"{left}_minus_{right}"] = {
+                "clustered_group_bootstrap_draws": bootstrap_draws,
+                "seed": bootstrap_seed,
+                "interval_95": [_percentile(draws, 0.025), _percentile(draws, 0.975)],
+            }
+    lambda_draws = []
+    by_group = {
+        group: [row for row in normalized_rows if row["connected_group_id"] == group]
+        for group in connected_groups
+    }
+    for _ in range(bootstrap_draws):
+        sampled_groups = [rng.choice(connected_groups) for _ in connected_groups]
+        sampled_rows = []
+        for occurrence, group in enumerate(sampled_groups):
+            for row in by_group[group]:
+                sampled_rows.append(
+                    {
+                        "group_id": f"bootstrap-{occurrence}-{group}",
+                        "component_intensities": row["component_intensities"],
+                        "observed": row["observed"],
+                        "upper_bound": upper_bound,
+                    }
+                )
+        fit = fit_partial_addition_lambda(sampled_rows)
+        if fit.get("lambda") is not None:
+            lambda_draws.append(float(fit["lambda"]))
+    identifiable = all(
+        fold["lambda_fit"].get("lambda") is not None for fold in fold_receipts
+    )
+    status = (
+        "MODEL_COMPARISON_UNRESOLVED"
+        if not equal_coverage or not identifiable
+        else "MODEL_COMPARISON_EVALUATED_ADMISSION_HOLD"
+    )
+    return {
+        "status": status,
+        "primary_metric": "macro_group_weighted_rmse",
+        "split_key_sha256": split_key,
+        "grouping": grouping,
+        "folds": fold_receipts,
+        "predictions": predictions,
+        "metrics": metrics,
+        "pairwise_clustered_uncertainty": pairwise,
+        "partial_addition_lambda_bootstrap": {
+            "draws_requested": bootstrap_draws,
+            "identifiable_draws": len(lambda_draws),
+            "interval_95": (
+                [_percentile(lambda_draws, 0.025), _percentile(lambda_draws, 0.975)]
+                if lambda_draws
+                else None
+            ),
+        },
+        "identical_held_out_rows": equal_coverage,
+        "winner": None,
+        "empirical_admission": "HOLD",
+        **MEASURED_INTENSITY_FALSE_AUTHORITIES,
+    }
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Character Shift Data

@@ -66,10 +66,17 @@ def test_classify_solvent():
 
 def test_classify_carrier():
     assert classify_material_category("DPG") == "carrier"
+    assert classify_material_category("Dipropylene Glycol (DPG)") == "carrier"
+    assert classify_material_category("Isopropyl Myristate (IPM)") == "carrier"
 
 
 def test_classify_odorant():
     assert classify_material_category("Bergamot FCF") == "odorant"
+    assert classify_material_category("Bergamot FCF (10% in DPG)") == "odorant"
+
+
+def test_classify_annotated_technical_material_as_technical():
+    assert classify_material_category("EDTA (10% in DPG)") == "technical"
 
 
 def test_active_accounting():
@@ -84,3 +91,28 @@ def test_active_accounting():
     # "BHT 10%" → technical, but its diluent is unspecified → inactive → unallocated
     # Mass conservation uses classified_total (includes unallocated)
     assert acct.classified_total == acct.total_raw_ul
+
+
+@pytest.mark.parametrize(
+    "basis",
+    [ConcentrationBasis.WEIGHT_WEIGHT, ConcentrationBasis.WEIGHT_VOLUME],
+)
+def test_volume_only_active_accounting_rejects_mass_based_stocks(basis):
+    from engine.units.concentration import DeclaredStock, StockComponent
+
+    stock = DeclaredStock(
+        name="Mass-based stock",
+        raw_amount=100.0,
+        unit="uL",
+        basis=basis,
+        components=(
+            StockComponent("odorant_active", 0.25, "odorant"),
+            StockComponent("carrier", 0.75, "carrier"),
+        ),
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="volume-only ActiveAccounting cannot represent w/w or w/v stocks",
+    ):
+        compute_active_accounting([stock])

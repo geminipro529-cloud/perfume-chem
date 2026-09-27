@@ -1,13 +1,12 @@
 """Inspect pipeline audit logs and scan historical formula outputs."""
 
-# ruff: noqa: E402 - repository root must be registered before engine imports
-
 from __future__ import annotations
 
 import argparse
 import glob
 import json
 import sys
+from importlib import import_module
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -17,33 +16,86 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from engine.knowledge.literature_rules import (
-    build_knowledge_rule_quality_contract,
-    build_literature_rule_contract,
+# These names intentionally remain module attributes for compatibility with the
+# existing tests and callers that monkeypatch command dependencies. The imports
+# are inside each resolver so importing this CLI does not construct the
+# release-gate, formula-parser, complexity, or audit-log dependency graphs.
+
+
+def _lazy_dependency(module_name, symbol_name):
+    def call(*args, **kwargs):
+        symbol = getattr(import_module(module_name), symbol_name)
+        return symbol(*args, **kwargs)
+
+    call.__name__ = symbol_name
+    return call
+
+
+build_knowledge_rule_quality_contract = _lazy_dependency(
+    "engine.knowledge.literature_rules", "build_knowledge_rule_quality_contract"
 )
-from engine.odor_thresholds import ODT_VERIFICATION
-from engine.perception.complexity_benchmark import (
-    prepare_complexity_benchmark,
-    prepare_relevant_ablations,
-    run_complexity_census,
-    score_complexity_run,
-    validate_complexity_run,
-    write_complexity_benchmark_receipt,
+build_literature_rule_contract = _lazy_dependency(
+    "engine.knowledge.literature_rules", "build_literature_rule_contract"
 )
-from engine.pipeline.audit_log import load_events, suggest_repairs, summarize_events
-from engine.pipeline.gates import ReleaseGateConfig, gate_formula
-from engine.project_verification import (
-    default_verification_report_path,
-    run_project_verification,
-    write_verification_report,
+
+
+ODT_VERIFICATION = None
+
+
+def _odt_verification():
+    global ODT_VERIFICATION
+    if ODT_VERIFICATION is None:
+        from engine.odor_thresholds import ODT_VERIFICATION as _ODT_VERIFICATION_DATA
+
+        ODT_VERIFICATION = _ODT_VERIFICATION_DATA
+    return ODT_VERIFICATION
+
+
+prepare_complexity_benchmark = _lazy_dependency(
+    "engine.perception.complexity_benchmark", "prepare_complexity_benchmark"
 )
-from engine.schema_validator import SchemaValidator
-from engine.science_audit import build_science_audit_contract
-from scripts.formula_release_gate import (
-    current_repository_evidence_hashes,
-    validate_pipeline_analysis_artifact,
+prepare_relevant_ablations = _lazy_dependency(
+    "engine.perception.complexity_benchmark", "prepare_relevant_ablations"
 )
-from scripts.verify_formula_workflow import parse_formula_markdown
+run_complexity_census = _lazy_dependency(
+    "engine.perception.complexity_benchmark", "run_complexity_census"
+)
+score_complexity_run = _lazy_dependency(
+    "engine.perception.complexity_benchmark", "score_complexity_run"
+)
+validate_complexity_run = _lazy_dependency(
+    "engine.perception.complexity_benchmark", "validate_complexity_run"
+)
+write_complexity_benchmark_receipt = _lazy_dependency(
+    "engine.perception.complexity_benchmark", "write_complexity_benchmark_receipt"
+)
+load_events = _lazy_dependency("engine.pipeline.audit_log", "load_events")
+suggest_repairs = _lazy_dependency("engine.pipeline.audit_log", "suggest_repairs")
+summarize_events = _lazy_dependency("engine.pipeline.audit_log", "summarize_events")
+ReleaseGateConfig = _lazy_dependency("engine.pipeline.gates", "ReleaseGateConfig")
+gate_formula = _lazy_dependency("engine.pipeline.gates", "gate_formula")
+default_verification_report_path = _lazy_dependency(
+    "engine.project_verification", "default_verification_report_path"
+)
+run_project_verification = _lazy_dependency(
+    "engine.project_verification", "run_project_verification"
+)
+write_verification_report = _lazy_dependency(
+    "engine.project_verification", "write_verification_report"
+)
+SchemaValidator = _lazy_dependency("engine.schema_validator", "SchemaValidator")
+build_science_audit_contract = _lazy_dependency(
+    "engine.science_audit", "build_science_audit_contract"
+)
+current_repository_evidence_hashes = _lazy_dependency(
+    "scripts.formula_release_gate", "current_repository_evidence_hashes"
+)
+validate_pipeline_analysis_artifact = _lazy_dependency(
+    "scripts.formula_release_gate", "validate_pipeline_analysis_artifact"
+)
+parse_formula_markdown = _lazy_dependency(
+    "scripts.verify_formula_workflow", "parse_formula_markdown"
+)
 
 DISCONNECTED_MODULE_STATUS = {
     "engine.optimizer.gate_aware": "promote",
@@ -64,13 +116,14 @@ DISCONNECTED_MODULE_STATUS = {
 }
 
 
-def _data_authority_coverage_report() -> dict:
+def _data_authority_coverage_report(*, science: dict | None = None) -> dict:
     by_vfy: dict[str, int] = {}
-    for meta in ODT_VERIFICATION.values():
+    for meta in _odt_verification().values():
         vfy = str((meta or {}).get("vfy", "UNKNOWN"))
         by_vfy[vfy] = by_vfy.get(vfy, 0) + 1
     total = sum(by_vfy.values()) or 1
-    science = build_science_audit_contract()
+    if science is None:
+        science = build_science_audit_contract()
     return {
         "odt_verification_counts": by_vfy,
         "odt_authoritative_pct": round(
@@ -262,7 +315,7 @@ def _cmd_verify(args: argparse.Namespace) -> int:
     literature = build_literature_rule_contract().as_dict()
     knowledge_rule_quality = build_knowledge_rule_quality_contract().as_dict()
     science = build_science_audit_contract()
-    data_authority = _data_authority_coverage_report()
+    data_authority = _data_authority_coverage_report(science=science)
     disconnected_modules = _disconnected_module_status_report()
     evidence_posture = _evidence_posture_report()
 

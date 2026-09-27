@@ -2,6 +2,7 @@
 
 import copy
 import hashlib
+
 import pytest
 
 import engine.inventory_parser as inventory
@@ -13,7 +14,7 @@ import engine.inventory_parser as inventory
     ("Kenyan Myrrh Ethanol Tincture", 0.20),
     ("Oman Frankincense Ethanol Tincture", 0.33),
 ])
-def test_owned_tinctures_keep_starting_charge_basis_and_unknown_final_strength(name, fraction):
+def test_owned_tinctures_keep_nominal_model_and_unknown_final_strength(name, fraction):
     stocks = [s for s in inventory.materialize_current_inventory().stocks if s.name == name]
     assert len(stocks) == 1
     stock = stocks[0]
@@ -21,7 +22,9 @@ def test_owned_tinctures_keep_starting_charge_basis_and_unknown_final_strength(n
     assert stock.fraction_basis == "mass_fraction_starting_charge"
     assert stock.carrier == "ethanol"
     assert not stock.execution_ready
-    assert stock.execution_hold_reason == "FILTERED_TINCTURE_FINAL_DISSOLVED_FRACTION_UNKNOWN"
+    assert stock.execution_hold_reason == "FINAL_DISSOLVED_FRACTION_UNMEASURED"
+    assert stock.approximate is True
+    assert stock.nominal_property_model_ready is True
 
 
 def test_high_altitude_lavender_is_removed_without_removing_other_lavenders():

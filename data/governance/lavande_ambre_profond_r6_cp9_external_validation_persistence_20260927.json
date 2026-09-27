@@ -1,0 +1,137 @@
+{
+  "schema_version": "lavande-ambre-profond-r6-cp9-external-validation-persistence-v1",
+  "checkpoint_id": "lavande-ambre-profond-r6-cp9-external-validation-persistence-20260927",
+  "state": "SOFTWARE_COMPLETE_CANONICAL_EXTERNAL_VALIDATION_PERSISTENCE_HOLD",
+  "predecessor": {
+    "checkpoint8_manifest_path": "data/governance/lavande_ambre_profond_r6_cp8_sensory_evidence_intake_20260926.json",
+    "checkpoint8_manifest_sha256": "992ee5b8b1e499d81bd5f4d45f38cfe2bc0d5921005dc8f49553cae6ba3c81bb",
+    "checkpoint8_repair_report_path": "docs/verification/CHECKPOINT8_EXTERNAL_VALIDATION_INTAKE_REPAIR_20260926.md",
+    "checkpoint8_repair_report_sha256": "0942b62a6e24f523d64e6a8759b735b7b4fd2296a64192cb0ff76f90ff007a07",
+    "panel_contract_path": "docs/research/PERFUME_CHEM_C0_SENSORY_PANEL_CONTRACT_2026-08-09.md",
+    "panel_contract_sha256": "fd3ca3c693e60d6315dc55c190592264e81e1fea8ee2d87c1de23f0486f79e1b"
+  },
+  "implementation": {
+    "model": {
+      "path": "backend/app/models/lab_external_validation.py",
+      "sha256": "6d9f4d0d35191bae7fed7e8f7bf224e2432f4de3e2c5f233e79a1f7d26ac3fed"
+    },
+    "repository": {
+      "path": "backend/app/repositories/lab_external_validation.py",
+      "sha256": "034b9e6612f96cf0c1d3bbf76969c0cd5a823c02d44901a3c9dcb46ac8976906"
+    },
+    "schema": {
+      "path": "backend/app/schemas/external_validation.py",
+      "sha256": "f5f98807095d62316a0a33f1d69428a1e81e9095215605567f8532c1343f354b"
+    },
+    "service": {
+      "path": "backend/app/services/external_validation.py",
+      "sha256": "ca1c5ead4055a8ba15e2142e674798c74ae2514dc82115b97214ed4eff103c6d"
+    },
+    "api": {
+      "path": "backend/app/api/v1/endpoints/external_validation.py",
+      "sha256": "84d5c1dbe9ea7793fa37edd1c1b6357ebf416edc8d471e1344f05f1dd6eb8272"
+    },
+    "migration": {
+      "path": "backend/alembic/versions/20260927_0019_cp9_external_validation_intake.py",
+      "sha256": "276070c54f1d51b81f9a7d9a3b1159abaff88cf24a9a39582145356cc99e73db",
+      "revision": "20260927_0019",
+      "down_revision": "20260923_0018"
+    },
+    "logical_export": {
+      "path": "backend/app/services/lab_export.py",
+      "sha256": "9cfbe18d1b94f902f95cc0ba278552334c5c2232deee26b658c0b5eb6dcc17be",
+      "format_revision": "lab-export-v5"
+    }
+  },
+  "public_interfaces": {
+    "temporal_observation": "POST /api/v1/lab/v2/external-validation/temporal-observations",
+    "pairwise_preference": "POST /api/v1/lab/v2/external-validation/pairwise-preferences",
+    "record_receipt": "GET /api/v1/lab/v2/external-validation/records/{record_id}"
+  },
+  "intake_contract": {
+    "protocol_schema": "lab-external-validation-protocol-v1",
+    "protocol_locked_required": true,
+    "required_binding_count": 9,
+    "canonical_binding_order_required": true,
+    "predeclared_temporal_cells_required": true,
+    "predeclared_pairwise_cells_required": true,
+    "exact_endpoint_scale_required": true,
+    "canonical_decimal_strings_required": true,
+    "negative_zero_rejected": true,
+    "explicit_missingness_required": true,
+    "pairwise_ties_preserved": true,
+    "raw_assessor_identity_prohibited": true,
+    "server_derived_scope_hashes": true,
+    "immutable_idempotent_replay": true,
+    "conflicting_replay_state": "HTTP_409",
+    "append_only_database_triggers": true
+  },
+  "scope_bindings": [
+    "protocol",
+    "sample",
+    "condition_and_dose",
+    "presentation_order",
+    "assessor_pseudonym_and_qualification",
+    "session",
+    "repeat",
+    "timepoint_and_endpoint",
+    "provenance_receipt"
+  ],
+  "checkpoint_decision": {
+    "canonical_persistence_state": "PASS_SOFTWARE_CONTRACT",
+    "external_validation_records_created_outside_ephemeral_tests": 0,
+    "physical_validation_state": "NOT_PERFORMED",
+    "human_observation_state": "NOT_COLLECTED",
+    "pleasantness_state": "NOT_ESTABLISHED",
+    "physical_liking_state": "NOT_TESTED",
+    "formula_action": "NO_CHANGE",
+    "formula_modified": false,
+    "inventory_modified": false
+  },
+  "verification": {
+    "focused_cp9_tests": "15_passed",
+    "existing_sensory_and_checkpoint8_regressions": "102_passed",
+    "broader_backend_regression": "58_passed_1_unrelated_stale_inventory_expectation_failed",
+    "focused_ruff": "PASS",
+    "focused_mypy": "PASS",
+    "quick_project_verification": "9_passed_1_preexisting_formula_artifact_validation_failed",
+    "golden_fixture_sha256": "9cf31e92d3c8e814f3bc2654ffba6f3fbd766de8c705630ae78fb5c24a1dfc61",
+    "golden_fixture_state": "UNCHANGED"
+  },
+  "authority": {
+    "processing_allowed": false,
+    "scientific_authority": false,
+    "sensory_authority": false,
+    "model_calibration_authority": false,
+    "evidence_admission_authorized": false,
+    "human_study_authorized": false,
+    "physical_experiment_authorized": false,
+    "formula_optimization_authorized": false,
+    "compounding_authorized": false,
+    "purchase_authorized": false,
+    "inventory_mutation_authorized": false,
+    "safety_authorized": false,
+    "release_authorized": false
+  },
+  "side_effects": {
+    "canonical_backend_record_created": false,
+    "physical_sample_created": false,
+    "participant_contacted": false,
+    "human_observation_created": false,
+    "sensory_evaluation_executed": false,
+    "model_trained": false,
+    "model_calibrated": false,
+    "formula_ranked": false,
+    "formula_modified": false,
+    "inventory_modified": false
+  },
+  "remaining_blockers": [
+    "HOLD_CP5_EXACT_PHYSICAL_BUILD_AND_LINEAGE_RECEIPTS_INCOMPLETE",
+    "HOLD_CP6_AGING_STORAGE_AND_STABILITY_EXECUTION_INCOMPLETE",
+    "HOLD_CP7_APPLICABLE_MEASUREMENT_AND_CURVE_EVIDENCE_INCOMPLETE",
+    "HOLD_CP8_LOCKED_HUMAN_PROTOCOL_AND_PHYSICAL_SAMPLES_UNAVAILABLE",
+    "HOLD_CP9_EXTERNAL_VALIDATION_ROWS_NOT_COLLECTED_OR_ADMITTED",
+    "PLEASANTNESS_NOT_ESTABLISHED",
+    "PHYSICAL_LIKING_NOT_TESTED"
+  ]
+}

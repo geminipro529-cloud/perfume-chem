@@ -80,9 +80,12 @@ def test_golden_formula_invariants(case):
     rows = {row["name"]: row for row in payload["material_oav_table"]}
     for material_name, expected in case["expected_material_outputs"].items():
         row = rows[material_name]
-        assert row["vapor_ppm"] == pytest.approx(
-            expected["vapor_ppm"], rel=case["modeled_output_relative_tolerance"]
-        )
+        if expected["vapor_ppm"] is None:
+            assert row["vapor_ppm"] is None
+        else:
+            assert row["vapor_ppm"] == pytest.approx(
+                expected["vapor_ppm"], rel=case["modeled_output_relative_tolerance"]
+            )
         if expected["oav"] is None:
             assert row["oav"] is None
         else:

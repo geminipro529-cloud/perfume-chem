@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import pytest
+
 from engine.sensory.ledger import (
     ObservationCellKey,
     SensoryProtocolScope,
@@ -219,3 +221,69 @@ def test_temporal_cell_round_trips_through_existing_context_json_shape() -> None
     restored = TemporalObservationCell.from_dict(original.as_dict())
 
     assert restored == original
+
+
+@pytest.mark.parametrize(
+    ("field", "invalid_value", "message"),
+    (
+        ("time_seconds", True, "time_seconds"),
+        ("value", float("nan"), "value must be finite"),
+        ("presentation_position", 1.5, "positive integer"),
+    ),
+)
+def test_temporal_cell_context_rejects_invalid_numeric_shapes(
+    field: str,
+    invalid_value: object,
+    message: str,
+) -> None:
+    payload = _cell("sample-a", 300, 4.25).as_dict()
+    payload[field] = invalid_value
+
+    with pytest.raises(ValueError, match=message):
+        TemporalObservationCell.from_dict(payload)
+
+
+def test_out_of_scope_observation_holds_without_entering_summaries() -> None:
+    scope, schedule = _scope()
+    outside = TemporalObservationCell(
+        key=ObservationCellKey(
+            protocol_id=scope.protocol_id,
+            sample_id="sample-c",
+            assessor_id="assessor-1",
+            repeat_id="repeat-1",
+            time_seconds=0,
+            endpoint_id="depth",
+        ),
+        observation_id="obs-sample-c-0",
+        value=5.0,
+        presentation_sequence_id="sequence-1",
+        presentation_position=3,
+    )
+
+    result = analyze_temporal_evidence(
+        TemporalEvidenceRequest(scope=scope, schedule=schedule, cells=(outside,))
+    )
+
+    assert result.state is TemporalEvidenceState.HOLD
+    assert result.summaries == ()
+    assert any("outside the declared protocol scope" in item for item in result.blockers)
+
+
+def test_schedule_hash_mismatch_holds_the_evidence_grid() -> None:
+    scope, schedule = _scope()
+    mismatched_scope = SensoryProtocolScope(
+        protocol_id=scope.protocol_id,
+        sample_ids=scope.sample_ids,
+        assessor_ids=scope.assessor_ids,
+        repeat_ids=scope.repeat_ids,
+        timepoints_seconds=scope.timepoints_seconds,
+        endpoint_ids=scope.endpoint_ids,
+        schedule_sha256="0" * 64,
+    )
+
+    result = analyze_temporal_evidence(
+        TemporalEvidenceRequest(scope=mismatched_scope, schedule=schedule, cells=())
+    )
+
+    assert result.state is TemporalEvidenceState.HOLD
+    assert any("schedule hash" in item for item in result.blockers)

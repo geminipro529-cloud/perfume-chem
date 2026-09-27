@@ -30,12 +30,14 @@ class ImportResult:
 _PLANNING_FORMAT_REVISION = "lab-export-v2"
 _SCIENCE_FORMAT_REVISION = "lab-export-v3"
 _FORMAT_REVISION = "lab-export-v4"
-CURRENT_WRITE_REVISION = _FORMAT_REVISION
+_EXTERNAL_VALIDATION_FORMAT_REVISION = "lab-export-v5"
+CURRENT_WRITE_REVISION = _EXTERNAL_VALIDATION_FORMAT_REVISION
 _SUPPORTED_REVISIONS = {
     "lab-export-v1",
     _PLANNING_FORMAT_REVISION,
     _SCIENCE_FORMAT_REVISION,
     _FORMAT_REVISION,
+    _EXTERNAL_VALIDATION_FORMAT_REVISION,
 }
 _V1_TABLE_ORDER = (
     "lab_evidence_records",
@@ -106,16 +108,30 @@ _V4_TABLE_ORDER = (
     + _EXECUTION_SUFFIX_TABLE_ORDER
     + _SCIENCE_AUTHORITY_TABLE_ORDER
 )
+_POST_V4_DURABILITY_TABLE_ORDER = (
+    "lab_build_plan_physical_bindings",
+    "lab_stock_preparation_receipts",
+    "lab_build_plan_line_physical_bindings",
+    "lab_compounding_runs",
+    "lab_compounding_command_receipts",
+    "lab_engine_jobs",
+    "lab_engine_job_events",
+    "lab_engine_job_results",
+    "lab_external_validation_records",
+)
+_V5_TABLE_ORDER = _V4_TABLE_ORDER + _POST_V4_DURABILITY_TABLE_ORDER
 _TABLES_BY_REVISION = {
     "lab-export-v1": _V1_TABLE_ORDER,
     _PLANNING_FORMAT_REVISION: _V2_TABLE_ORDER,
     _SCIENCE_FORMAT_REVISION: _V3_TABLE_ORDER,
     _FORMAT_REVISION: _V4_TABLE_ORDER,
+    _EXTERNAL_VALIDATION_FORMAT_REVISION: _V5_TABLE_ORDER,
 }
 _NEXT_REVISION = {
     "lab-export-v1": _PLANNING_FORMAT_REVISION,
     _PLANNING_FORMAT_REVISION: _SCIENCE_FORMAT_REVISION,
     _SCIENCE_FORMAT_REVISION: _FORMAT_REVISION,
+    _FORMAT_REVISION: _EXTERNAL_VALIDATION_FORMAT_REVISION,
 }
 _ALLOWED_TOP_LEVEL_FIELDS = {
     "format_revision",
@@ -159,7 +175,7 @@ def migrate_export_packet(packet: Mapping[str, Any]) -> dict[str, Any]:
         migrated["format_revision"] = revision
     migrated["tables"] = {
         table_name: migrated["tables"].get(table_name, [])
-        for table_name in _V4_TABLE_ORDER
+        for table_name in _V5_TABLE_ORDER
     }
     return migrated
 
@@ -182,8 +198,10 @@ class LabExportService:
             table_order = _V2_TABLE_ORDER
         elif format_revision == _SCIENCE_FORMAT_REVISION:
             table_order = _V3_TABLE_ORDER
-        else:
+        elif format_revision == _FORMAT_REVISION:
             table_order = _V4_TABLE_ORDER
+        else:
+            table_order = _V5_TABLE_ORDER
         tables: dict[str, list[dict[str, Any]]] = {}
         for table_name in table_order:
             table = Base.metadata.tables[table_name]
@@ -191,7 +209,8 @@ class LabExportService:
             statement = select(table)
             if (
                 table_name == "lab_bottle_measurements"
-                and format_revision != _FORMAT_REVISION
+                and format_revision
+                not in {_FORMAT_REVISION, _EXTERNAL_VALIDATION_FORMAT_REVISION}
             ):
                 statement = statement.where(table.c.proposal_id.is_(None))
             result = await self.session.execute(
@@ -200,7 +219,8 @@ class LabExportService:
             rows = [_serialize_row(dict(row._mapping)) for row in result]
             if (
                 table_name == "lab_bottle_measurements"
-                and format_revision != _FORMAT_REVISION
+                and format_revision
+                not in {_FORMAT_REVISION, _EXTERNAL_VALIDATION_FORMAT_REVISION}
             ):
                 for row in rows:
                     for field in (
@@ -237,6 +257,7 @@ class LabExportService:
             _PLANNING_FORMAT_REVISION,
             _SCIENCE_FORMAT_REVISION,
             _FORMAT_REVISION,
+            _EXTERNAL_VALIDATION_FORMAT_REVISION,
         }:
             packet["ordering_contract"].update(
                 {
@@ -298,6 +319,7 @@ class LabExportService:
         if format_revision in {
             _SCIENCE_FORMAT_REVISION,
             _FORMAT_REVISION,
+            _EXTERNAL_VALIDATION_FORMAT_REVISION,
         }:
             packet["ordering_contract"].update(
                 {
@@ -375,7 +397,10 @@ class LabExportService:
                     "legacy_authority_vector": "not_canonical_not_exported",
                 }
             )
-        if format_revision == _FORMAT_REVISION:
+        if format_revision in {
+            _FORMAT_REVISION,
+            _EXTERNAL_VALIDATION_FORMAT_REVISION,
+        }:
             packet["ordering_contract"].update(
                 {
                     "bottle_action_proposals": [
@@ -403,6 +428,65 @@ class LabExportService:
                     "atomic_commit": "lab_bottle_action_commits",
                 }
             )
+        if format_revision == _EXTERNAL_VALIDATION_FORMAT_REVISION:
+            packet["ordering_contract"].update(
+                {
+                    "physical_bindings": ["build_plan_version_id", "id"],
+                    "stock_preparation_receipts": [
+                        "build_plan_version_id",
+                        "created_at",
+                        "id",
+                    ],
+                    "physical_line_bindings": [
+                        "build_plan_physical_binding_id",
+                        "command_sequence",
+                        "id",
+                    ],
+                    "compounding_runs": [
+                        "build_plan_version_id",
+                        "created_at",
+                        "id",
+                    ],
+                    "compounding_command_receipts": [
+                        "compounding_run_id",
+                        "sequence",
+                        "id",
+                    ],
+                    "engine_jobs": ["created_at", "job_type", "id"],
+                    "engine_job_events": ["job_id", "sequence", "id"],
+                    "engine_job_results": ["job_id", "id"],
+                    "external_validation_records": [
+                        "experiment_id",
+                        "record_kind",
+                        "created_at",
+                        "id",
+                    ],
+                }
+            )
+            packet["unit_contract"].update(
+                {
+                    "exact_physical_quantities": "canonical_decimal_strings",
+                    "external_validation_time_seconds": (
+                        "canonical_plain_decimal_seconds"
+                    ),
+                    "external_validation_value": (
+                        "canonical_plain_decimal_on_locked_endpoint_scale"
+                    ),
+                }
+            )
+            packet["provenance_contract"].update(
+                {
+                    "physical_lineage": (
+                        "lab_build_plan_physical_bindings_and_receipts"
+                    ),
+                    "durable_engine_jobs": (
+                        "fingerprinted_append_only_job_event_result_chain"
+                    ),
+                    "external_validation": (
+                        "immutable_scope_snapshots_with_false_authority"
+                    ),
+                }
+            )
         return packet
 
     async def export_planning_workspace(self) -> dict[str, Any]:
@@ -424,6 +508,13 @@ class LabExportService:
 
         return await self.export_workspace(format_revision=_FORMAT_REVISION)
 
+    async def export_external_validation_workspace(self) -> dict[str, Any]:
+        """Write the complete v5 durable laboratory and validation graph."""
+
+        return await self.export_workspace(
+            format_revision=_EXTERNAL_VALIDATION_FORMAT_REVISION
+        )
+
     async def canonical_bytes(self) -> bytes:
         """Preserve the v3 byte contract for existing callers."""
 
@@ -444,6 +535,15 @@ class LabExportService:
             separators=(",", ":"),
         ).encode("utf-8")
 
+    async def canonical_external_validation_bytes(self) -> bytes:
+        return json.dumps(
+            await self.export_external_validation_workspace(),
+            ensure_ascii=False,
+            allow_nan=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+
     async def import_workspace(self, packet: Mapping[str, Any]) -> ImportResult:
         format_revision = packet.get("format_revision")
         if format_revision not in _SUPPORTED_REVISIONS:
@@ -458,8 +558,10 @@ class LabExportService:
             allowed_tables = _V2_TABLE_ORDER
         elif format_revision == _SCIENCE_FORMAT_REVISION:
             allowed_tables = _V3_TABLE_ORDER
-        else:
+        elif format_revision == _FORMAT_REVISION:
             allowed_tables = _V4_TABLE_ORDER
+        else:
+            allowed_tables = _V5_TABLE_ORDER
         unknown = set(incoming_tables).difference(allowed_tables)
         if unknown:
             raise ValueError("laboratory export contains unknown tables")
@@ -470,7 +572,7 @@ class LabExportService:
         inserted = 0
         skipped = 0
         try:
-            for table_name in _V4_TABLE_ORDER:
+            for table_name in allowed_tables:
                 rows = incoming_tables.get(table_name, [])
                 if not isinstance(rows, list):
                     raise ValueError(f"export table {table_name} must be an array")
@@ -603,6 +705,33 @@ def _ordering_columns(table_name: str, table):
             table.c.claim_assessment_version_id,
             table.c.role,
             table.c.evidence_record_id,
+            table.c.id,
+        )
+    if table_name == "lab_build_plan_physical_bindings":
+        return (table.c.build_plan_version_id, table.c.id)
+    if table_name == "lab_stock_preparation_receipts":
+        return (table.c.build_plan_version_id, table.c.created_at, table.c.id)
+    if table_name == "lab_build_plan_line_physical_bindings":
+        return (
+            table.c.build_plan_physical_binding_id,
+            table.c.command_sequence,
+            table.c.id,
+        )
+    if table_name == "lab_compounding_runs":
+        return (table.c.build_plan_version_id, table.c.created_at, table.c.id)
+    if table_name == "lab_compounding_command_receipts":
+        return (table.c.compounding_run_id, table.c.sequence, table.c.id)
+    if table_name == "lab_engine_jobs":
+        return (table.c.created_at, table.c.job_type, table.c.id)
+    if table_name == "lab_engine_job_events":
+        return (table.c.job_id, table.c.sequence, table.c.id)
+    if table_name == "lab_engine_job_results":
+        return (table.c.job_id, table.c.id)
+    if table_name == "lab_external_validation_records":
+        return (
+            table.c.experiment_id,
+            table.c.record_kind,
+            table.c.created_at,
             table.c.id,
         )
     return (table.c.id,)

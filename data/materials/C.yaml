@@ -1459,7 +1459,7 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: 1.0
+  user_stock_dilution: "10% w/w in DEP"
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 6UP07515
@@ -1473,11 +1473,12 @@
   - leather
   - smoky
   character: Animalic castoreum, leathery, smoky and warm; a synthetic reconstruction.
-  notes: Neat user stock. Supplier composition is undisclosed; all physical/OAV fields are conservative blend proxies.
+  notes: Current user stock is 10% w/w in DEP. Supplier composition is undisclosed; all physical/OAV fields are conservative blend proxies. Exact active mass from volume requires stock-solution density.
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     composition: supplier_undisclosed
     physical_fields: conservative_blend_proxy
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json
     user_in_inventory: inventory.txt
 - canonical_name: Cedarwood Chinese Essential Oil
   aliases: []

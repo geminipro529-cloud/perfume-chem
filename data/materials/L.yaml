@@ -1478,7 +1478,7 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: "10% w/w; carrier unspecified"
+  user_stock_dilution: "10% w/w in DEP"
   user_in_inventory: true
   supplier:
     perfumersworld_sku: 4GI24147
@@ -1495,12 +1495,12 @@
       flash_point_c_supplier_value: 76.67
   families: [green, fruity, violet, muguet]
   character: Intense transparent green leafy-fruity material with iris, violet, pear, and muguet facets.
-  notes: PerfumersWorld SKU 4GI24147 is the undiluted supplier product. This identifies the active material but does not establish the carrier used in the user's separate 10% w/w stock.
+  notes: PerfumersWorld SKU 4GI24147 identifies the active material. The user's separate current stock is 10% w/w in DEP; exact active mass from a volume dose requires the stock-solution density.
   provenance:
     cas: https://www.perfumersworld.com/view.php?pro_id=4GI24147
     character: https://www.perfumersworld.com/view.php?pro_id=4GI24147
     supplier.perfumersworld: https://www.perfumersworld.com/view.php?pro_id=4GI24147
-    user_stock_dilution: data/governance/inventory_user_authority_overlay_20260907.json
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json
 - canonical_name: LIGHT AND AIRY F-TEC
   aliases: []
   cas: null

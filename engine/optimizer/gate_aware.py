@@ -8,7 +8,7 @@ blocked rerun requirements for gates that need a new optimization pass.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from typing import Callable, Mapping, Sequence
 
 from engine.ifra_safety import IFRA_CAT4_LIMITS
@@ -616,16 +616,21 @@ def optimize_global_design(
     baseline: Mapping[str, float], *, evaluate: Callable,
     bounds: Mapping[str, tuple[float, float]], feasible: Callable | None = None,
     budget: int = 64, seed: int = 17, max_workers: int = 4,
+    evaluator_authority: Mapping | None = None,
 ) -> dict:
     """Bounded global proposal search and an equal-cost random comparator.
 
-    The evaluator returns ``losses`` and a declared quantitative ``basis``.
-    Ranking sums caller-scaled losses; neither normalization nor sensory
-    calibration is inferred. Baseline is evaluated separately and never seeds
+    Numerical losses are admitted for ordering only when ``evaluator_authority``
+    (or the same record in an evaluation's ``evaluator_authority`` field) binds
+    an endpoint capability, model and source identities, the exact material and
+    scenario domain, per-loss uncertainty intervals, and an explicit non-release
+    scope. A basis string alone produces an unordered diagnostic frontier and a
+    ``NO_CHANGE`` result. Baseline is evaluated separately and never seeds
     candidate generation. Sorted-key bounded simplex allocation is a proposal
     distribution, not a claim of uniform sampling. Half the budget explores
-    globally, then multiple best seeds undergo bounded pair-transfer refinement.
-    Pure, bounded, thread-safe callbacks are required. No release gate runs.
+    globally, then multiple diagnostic seeds undergo bounded pair-transfer
+    refinement. Pure, bounded, thread-safe callbacks are required. No release
+    gate runs.
     """
     import math
     import random
@@ -706,6 +711,109 @@ def optimize_global_design(
             return [safe_diagnostics(v) for v in value]
         return value
 
+    def identity_present(value):
+        if isinstance(value, str):
+            return bool(value.strip())
+        if isinstance(value, Mapping):
+            return bool(value) and all(identity_present(k) and identity_present(v)
+                                       for k, v in value.items())
+        if isinstance(value, (list, tuple)):
+            return bool(value) and all(identity_present(item) for item in value)
+        return value is not None and not isinstance(value, bool)
+
+    def authority_for(row, loss_names):
+        raw = row.get("evaluator_authority", evaluator_authority)
+        reasons = []
+        if not isinstance(raw, Mapping):
+            return None, ("STRUCTURED_EVALUATOR_AUTHORITY_MISSING",)
+        raw = dict(raw)
+        identity = raw.get("identity") if isinstance(raw.get("identity"), Mapping) else {}
+        applicability = (raw.get("applicability")
+                         if isinstance(raw.get("applicability"), Mapping) else {})
+        flags = (raw.get("authority_flags")
+                 if isinstance(raw.get("authority_flags"), Mapping) else raw)
+        endpoint = str(raw.get("endpoint_capability", "") or "").strip()
+        model_identity = raw.get("model_identity", identity.get("model"))
+        source_identity = raw.get("source_identity", identity.get("sources"))
+        materials = raw.get("applicable_materials", applicability.get("materials"))
+        scenarios = raw.get("applicable_scenarios", applicability.get("scenarios"))
+        intervals = raw.get("uncertainty_intervals")
+        scope_value = raw.get("non_release_scope", raw.get("scope", ""))
+        if isinstance(scope_value, Mapping):
+            scope_value = scope_value.get("claim_scope", "")
+        scope = str(scope_value or "").strip()
+
+        if not endpoint:
+            reasons.append("ENDPOINT_CAPABILITY_MISSING")
+        if not identity_present(model_identity):
+            reasons.append("MODEL_IDENTITY_MISSING")
+        if not identity_present(source_identity):
+            reasons.append("SOURCE_IDENTITY_MISSING")
+        if (not isinstance(materials, (list, tuple))
+                or any(not isinstance(value, str) or not value.strip()
+                       for value in materials)
+                or len(materials) != len(set(materials))
+                or set(materials) != set(names)):
+            reasons.append("MATERIAL_APPLICABILITY_NOT_EXACT")
+        if (not isinstance(scenarios, (list, tuple)) or not scenarios
+                or any(not isinstance(value, str) or not value.strip()
+                       or value.strip().lower() in {"*", "all", "any", "generic"}
+                       for value in scenarios)
+                or len(scenarios) != len(set(scenarios))):
+            reasons.append("SCENARIO_APPLICABILITY_NOT_EXACT")
+        if not isinstance(intervals, Mapping) or set(intervals) != set(loss_names):
+            reasons.append("UNCERTAINTY_INTERVALS_NOT_EXACT")
+        else:
+            for loss_name, interval in intervals.items():
+                if isinstance(interval, Mapping):
+                    low, high = interval.get("low"), interval.get("high")
+                elif isinstance(interval, (list, tuple)) and len(interval) == 2:
+                    low, high = interval
+                else:
+                    low = high = None
+                if (isinstance(low, bool) or isinstance(high, bool)
+                        or not isinstance(low, (int, float))
+                        or not isinstance(high, (int, float))
+                        or not math.isfinite(low) or not math.isfinite(high)
+                        or low > high):
+                    reasons.append(f"UNCERTAINTY_INTERVAL_INVALID:{loss_name}")
+        if "NON_RELEASE" not in scope.upper():
+            reasons.append("NON_RELEASE_SCOPE_MISSING")
+        for flag in ("release_authorized", "compounding_authorized", "safety_authorized"):
+            if flags.get(flag) is not False:
+                reasons.append(f"{flag.upper()}_MUST_BE_FALSE")
+        feature_lineage = row.get("feature_lineage", raw.get("feature_lineage", []))
+        normalized_features = {
+            str(value).strip().upper().replace("-", "_").replace(" ", "_")
+            for value in feature_lineage
+        } if isinstance(feature_lineage, (list, tuple, set)) else set()
+        prohibited = normalized_features & PROHIBITED_SELECTION_FEATURES
+        if prohibited:
+            reasons.extend(
+                f"PROHIBITED_SELECTION_FEATURE:{value}"
+                for value in sorted(prohibited)
+            )
+        endpoint_kind = ENDPOINT_AUTHORITY_MATRIX.get(endpoint)
+        if endpoint_kind is None:
+            reasons.append("ENDPOINT_NOT_IN_AUTHORITY_MATRIX")
+        intensity_only = endpoint_kind == "INTENSITY"
+        if intensity_only:
+            for flag in ("pleasantness_authorized", "liking_authorized"):
+                if flags.get(flag) is not False:
+                    reasons.append(f"MEASURED_INTENSITY_{flag.upper()}_MUST_BE_FALSE")
+        if reasons:
+            return None, tuple(reasons)
+        binding = {
+            "endpoint_capability": endpoint,
+            "model_identity": safe_diagnostics(model_identity),
+            "source_identity": safe_diagnostics(source_identity),
+            "applicable_materials": sorted(materials),
+            "applicable_scenarios": list(scenarios),
+            "non_release_scope": scope,
+            "intensity_comparison_only": intensity_only,
+        }
+        return binding, ()
+
     def assess(proposal):
         point, source = proposal
         row, losses, score, error = {}, None, None, None
@@ -726,9 +834,13 @@ def optimize_global_design(
                 raise ValueError("Finite aggregate loss required")
         except Exception as exc:
             losses, score, error = None, None, f"{type(exc).__name__}: {exc}"
+        authority, authority_reasons = authority_for(row, tuple(losses or ()))
         return {"formula": dict(point), "source": source, "losses": losses,
                 "score": score, "evaluation": safe_diagnostics(row),
-                "valid": error is None, "error": error}
+                "valid": error is None, "error": error,
+                "authority_admitted": error is None and authority is not None,
+                "evaluator_authority": authority,
+                "authority_reasons": list(authority_reasons)}
 
     reference = assess((parent, "baseline"))
     expected_components = tuple(reference["losses"]) if reference["valid"] else None
@@ -745,9 +857,28 @@ def optimize_global_design(
                               error="ValueError: Evaluator component schema changed")
         return records
 
-    def ranked(records):
+    def diagnostic_ranked(records):
         return sorted((r for r in records if r["valid"]),
                       key=lambda r: (r["score"], key(r["formula"])))
+
+    def ranked(records):
+        return [r for r in diagnostic_ranked(records) if r["authority_admitted"]]
+
+    def diagnostic_frontier(records):
+        numeric = [r for r in records if r["valid"]]
+        frontier = []
+        for record in numeric:
+            if any(
+                other is not record
+                and all(other["losses"][name] <= record["losses"][name]
+                        for name in record["losses"])
+                and any(other["losses"][name] < record["losses"][name]
+                        for name in record["losses"])
+                for other in numeric
+            ):
+                continue
+            frontier.append(record)
+        return sorted(frontier, key=lambda row: key(row["formula"]))
 
     # Pre-generate the independent comparator domain before adapting any search
     # proposals. Evaluate only the matching actual count, never duplicate-fill.
@@ -770,7 +901,9 @@ def optimize_global_design(
         archive.extend(consistent(list(pool.map(assess, proposals))))
         wave = 0
         while len(archive) < target and attempts["optimizer"] < attempt_limit:
-            seeds = ranked(archive)[:4]
+            # Diagnostic values may guide coverage, but only authority-admitted
+            # values may appear in an ordered public ranking or recommendation.
+            seeds = diagnostic_ranked(archive)[:4]
             proposals = []
             # Fixed batch size makes adaptation independent of worker count.
             while (len(proposals) < min(8, target - len(archive))
@@ -794,23 +927,59 @@ def optimize_global_design(
             wave += 1
         control = consistent(list(pool.map(assess, control_points[:len(archive)])))
     ranking, control_ranking = ranked(archive), ranked(control)
+    diagnostic, control_diagnostic = (diagnostic_frontier(archive),
+                                      diagnostic_frontier(control))
     errors = sum(not r["valid"] for r in [reference, *archive, *control])
     complete = len(archive) == len(control) == budget and errors == 0
+    authority_complete = complete and all(
+        row["authority_admitted"] for row in [reference, *archive, *control]
+    )
+    authority_bindings = {
+        repr(row["evaluator_authority"])
+        for row in [reference, *archive, *control]
+        if row["authority_admitted"]
+    }
+    authority_consistent = authority_complete and len(authority_bindings) == 1
+    if not authority_consistent:
+        ranking, control_ranking = [], []
     best = ranking[0]["score"] if ranking else None
     control_best = control_ranking[0]["score"] if control_ranking else None
+    intensity_only = bool(
+        authority_consistent
+        and ranking
+        and ranking[0]["evaluator_authority"]["intensity_comparison_only"]
+    )
+    recommendation = deepcopy(ranking[0]) if authority_consistent and ranking else None
+    if recommendation is not None and intensity_only:
+        recommendation.update(
+            authorized_use="INTENSITY_COMPARISON_ONLY",
+            pleasantness_authorized=False,
+            liking_authorized=False,
+            compounding_authorized=False,
+            safety_authorized=False,
+            release_authorized=False,
+        )
     return {
-        "status": ("EVALUATION_ERROR" if errors else "FINITE_BUDGET_COMPLETE" if complete
+        "status": ("EVALUATION_ERROR" if errors
+                   else "FINITE_BUDGET_COMPLETE" if authority_consistent
+                   else "DIAGNOSTIC_ONLY_NO_CHANGE" if complete
                    else "DOMAIN_OR_ATTEMPT_LIMIT"),
         "search_complete": complete, "baseline": reference, "archive": archive,
         "ranked_candidates": ranking,
-        "best_observed_candidate": deepcopy(ranking[0]) if ranking else None,
-        "experimental_recommendation": deepcopy(ranking[0]) if complete and ranking else None,
+        "diagnostic_frontier": diagnostic,
+        "diagnostic_frontier_ordering": "UNORDERED_PARETO_SET",
+        "best_observed_candidate": deepcopy(ranking[0]) if authority_consistent and ranking else None,
+        "experimental_recommendation": recommendation,
+        "formula_action": ("COMPARE_INTENSITY_ONLY" if intensity_only
+                           else "PROPOSE_ONLY" if authority_consistent and ranking
+                           else "NO_CHANGE"),
         "baseline_included_in_ranking": False,
         "optimizer_minus_baseline_best": (best - reference["score"]
             if best is not None and reference["valid"] else None),
         "improves_baseline_proxy": (best < reference["score"]
             if best is not None and reference["valid"] else None),
         "comparator": {"archive": control, "ranked_candidates": control_ranking,
+                       "diagnostic_frontier": control_diagnostic,
                        "best_score": control_best, "evaluated_candidates": len(control),
                        "seed": seed ^ 0x5DEECE66D,
                        "optimizer_minus_random_best": (best - control_best
@@ -821,11 +990,645 @@ def optimize_global_design(
         "requested_budget_per_arm": budget, "attempts": attempts,
         "attempt_limit_per_arm": attempt_limit, "rejections": rejections,
         "evaluation_error_count": errors, "seed": seed,
-        "aggregation": "SUM_OF_CALLER_SCALED_LOSSES",
-        "selection_authority": "EXPERIMENTAL_NUMERICAL_PROXY_RANKING",
+        "aggregation": ("SUM_OF_AUTHORITY_BOUND_CALLER_SCALED_LOSSES"
+                        if authority_consistent else
+                        "DIAGNOSTIC_COMPONENTS_ONLY_NO_AUTHORIZED_AGGREGATE"),
+        "selection_authority": ("MEASURED_INTENSITY_COMPARISON_ONLY"
+                                if intensity_only else
+                                "STRUCTURED_NON_RELEASE_NUMERICAL_ENDPOINT"
+                                if authority_consistent else
+                                "WITHHELD_MISSING_OR_INVALID_EVALUATOR_AUTHORITY"),
+        "evaluator_authority_admitted": authority_consistent,
+        "evaluator_authority_reasons": sorted({
+            reason for row in [reference, *archive, *control]
+            for reason in row["authority_reasons"]
+        }),
         "global_optimum_proven": False, "sensory_validated": False,
-        "release_authorized": False, "predicted_liking": None,
-        "claim_scope": "FINITE_BUDGET_COMPUTATIONAL_DESIGN_ONLY",
+        "release_authorized": False, "compounding_authorized": False,
+        "safety_authorized": False, "pleasantness_authorized": False,
+        "liking_authorized": False, "predicted_liking": None,
+        "claim_scope": ("FINITE_BUDGET_MEASURED_INTENSITY_COMPARISON_ONLY"
+                        if intensity_only else
+                        "FINITE_BUDGET_NON_RELEASE_NUMERICAL_ENDPOINT_ONLY"
+                        if authority_consistent else
+                        "UNORDERED_DIAGNOSTIC_FRONTIER_ONLY"),
+    }
+
+
+PROHIBITED_SELECTION_FEATURES = {
+    "OAV",
+    "RAW_OAV",
+    "LOG_OAV",
+    "OAV_DERIVED_STEVENS_INTENSITY",
+    "HAND_ASSIGNED_VALENCE",
+    "SEMANTIC_DISTANCE",
+    "DESCRIPTOR_DISTANCE",
+    "CONFIDENCE_SCORE",
+    "RELEASE_SCORE",
+    "INGREDIENT_COUNT",
+    "MATERIAL_COUNT",
+}
+
+ENDPOINT_AUTHORITY_MATRIX = {
+    "calibrated_numerical_endpoint": "LEGACY_SYNTHETIC_TEST_ONLY",
+    "measured_intensity_comparison": "INTENSITY",
+    "measured_character_comparison": "CHARACTER",
+    "measured_pleasantness_comparison": "PLEASANTNESS",
+    "measured_population_liking_comparison": "POPULATION_LIKING",
+    "measured_personal_liking_comparison": "PERSONAL_LIKING",
+}
+
+
+def _checkpoint2_authority(
+    authority: Mapping | None,
+    *,
+    endpoint_id: str,
+    material_ids: Sequence[str],
+    scenario: str,
+) -> tuple[dict | None, list[str]]:
+    """Validate the strict single-endpoint Checkpoint-2 search authority."""
+
+    reasons = []
+    if not isinstance(authority, Mapping):
+        return None, ["STRUCTURED_EVALUATOR_AUTHORITY_MISSING"]
+    authority = dict(authority)
+    if authority.get("contract_version") != "checkpoint2-endpoint-authority-v1":
+        reasons.append("CHECKPOINT2_AUTHORITY_CONTRACT_MISSING")
+    if endpoint_id not in ENDPOINT_AUTHORITY_MATRIX:
+        reasons.append("ENDPOINT_NOT_IN_AUTHORITY_MATRIX")
+    if authority.get("endpoint_id") != endpoint_id:
+        reasons.append("ENDPOINT_ID_MISMATCH")
+    for key in ("model_id", "interval_method", "input_unit"):
+        if not isinstance(authority.get(key), str) or not authority[key].strip():
+            reasons.append(f"{key.upper()}_MISSING")
+    for key in ("capability_ids", "source_ids"):
+        value = authority.get(key)
+        if (
+            not isinstance(value, (list, tuple))
+            or not value
+            or any(not isinstance(item, str) or not item.strip() for item in value)
+        ):
+            reasons.append(f"{key.upper()}_MISSING")
+    if set(authority.get("applicable_material_ids", [])) != set(material_ids):
+        reasons.append("MATERIAL_APPLICABILITY_NOT_EXACT")
+    if authority.get("applicable_scenario") != scenario:
+        reasons.append("SCENARIO_APPLICABILITY_NOT_EXACT")
+    if authority.get("source_range_status") != "IN_RANGE":
+        reasons.append("SOURCE_RANGE_NOT_APPLICABLE")
+    lineage = authority.get("feature_lineage")
+    if (
+        not isinstance(lineage, (list, tuple))
+        or not lineage
+        or any(not isinstance(value, str) or not value.strip() for value in lineage)
+    ):
+        reasons.append("FEATURE_LINEAGE_MISSING")
+        lineage = []
+    normalized = {
+        str(value).strip().upper().replace("-", "_").replace(" ", "_")
+        for value in lineage
+    }
+    for feature in sorted(normalized & PROHIBITED_SELECTION_FEATURES):
+        reasons.append(f"PROHIBITED_SELECTION_FEATURE:{feature}")
+    required_false = (
+        "evidence_admission_authorized",
+        "physical_experiment_authorized",
+        "compounding_authorized",
+        "purchase_authorized",
+        "inventory_mutation_authorized",
+        "safety_authorized",
+        "release_authorized",
+        "formula_optimization_authority",
+        "beauty_authorized",
+    )
+    if any(authority.get(flag) is not False for flag in required_false):
+        reasons.append("ACTION_OR_BEAUTY_AUTHORITY_MUST_BE_FALSE")
+    endpoint_kind = ENDPOINT_AUTHORITY_MATRIX.get(endpoint_id)
+    endpoint_flags = authority.get("endpoint_authority")
+    if not isinstance(endpoint_flags, Mapping):
+        reasons.append("ENDPOINT_AUTHORITY_MATRIX_MISSING")
+    else:
+        permitted_key = {
+            "INTENSITY": "intensity",
+            "CHARACTER": "character",
+            "PLEASANTNESS": "pleasantness",
+            "POPULATION_LIKING": "population_liking",
+            "PERSONAL_LIKING": "personal_liking",
+        }.get(endpoint_kind)
+        for key in (
+            "character",
+            "intensity",
+            "pleasantness",
+            "population_liking",
+            "personal_liking",
+        ):
+            expected = key == permitted_key
+            if endpoint_flags.get(key) is not expected:
+                reasons.append(f"ENDPOINT_AUTHORITY_INVALID:{key}")
+    return (dict(authority), []) if not reasons else (None, sorted(set(reasons)))
+
+
+def optimize_checkpoint2_design(
+    baseline: Mapping[str, float],
+    *,
+    evaluate: Callable,
+    bounds: Mapping[str, tuple[float, float]],
+    endpoint_id: str,
+    scenario: str,
+    evaluator_authority: Mapping | None,
+    budget_per_arm: int = 32,
+    seeds: Sequence[int] = (17, 71, 1701),
+    feasible: Callable | None = None,
+    local_step_schedule: Sequence[float] = (0.1, 0.05, 0.02, 0.01),
+) -> dict:
+    """Strict three-arm, single-endpoint, uncertainty-aware CP2 search.
+
+    The function never turns an endpoint leader into a perfume recommendation.
+    Candidate-specific intervals are mandatory; any overlap, model-sign
+    disagreement, coverage mismatch or applicability failure yields an
+    unordered diverse set and ``NO_CHANGE``.
+    """
+
+    import math
+    import random
+    from copy import deepcopy
+
+    if (
+        not baseline
+        or set(baseline) != set(bounds)
+        or type(budget_per_arm) is not int
+        or budget_per_arm < 1
+        or not seeds
+        or len(set(seeds)) != len(seeds)
+        or any(type(seed) is not int for seed in seeds)
+    ):
+        raise ValueError("Invalid strict Checkpoint-2 search configuration")
+    names = tuple(sorted(baseline))
+    parent = {name: float(baseline[name]) for name in names}
+    limits = {name: tuple(map(float, bounds[name])) for name in names}
+    for name in names:
+        low, high = limits[name]
+        if not all(math.isfinite(value) for value in (low, high, parent[name])) or not (
+            0 <= low <= parent[name] <= high
+        ):
+            raise ValueError("Baseline outside finite non-negative bounds")
+    total = math.fsum(parent.values())
+    if total <= 0 or not math.isfinite(total):
+        raise ValueError("Finite positive constant total required")
+    if feasible is not None and not feasible(dict(parent)):
+        raise ValueError("Baseline violates feasibility")
+    authority, authority_reasons = _checkpoint2_authority(
+        evaluator_authority,
+        endpoint_id=endpoint_id,
+        material_ids=names,
+        scenario=scenario,
+    )
+
+    def key(formula):
+        return tuple(round(float(formula[name]), 12) for name in names)
+
+    def valid_formula(formula):
+        return (
+            all(limits[name][0] <= formula[name] <= limits[name][1] for name in names)
+            and math.isclose(
+                math.fsum(formula.values()), total, rel_tol=1e-12, abs_tol=1e-10
+            )
+            and (feasible is None or feasible(dict(formula)))
+        )
+
+    def global_point(rng):
+        movable = [name for name in names if limits[name][0] < limits[name][1]]
+        rng.shuffle(movable)
+        point = {name: limits[name][0] for name in names}
+        remaining = total - math.fsum(point.values())
+        for index, name in enumerate(movable):
+            capacity = limits[name][1] - limits[name][0]
+            later = math.fsum(
+                limits[item][1] - limits[item][0] for item in movable[index + 1 :]
+            )
+            low = max(0.0, remaining - later)
+            high = min(capacity, remaining)
+            addition = low if low >= high else rng.uniform(low, high)
+            point[name] += addition
+            remaining -= addition
+        residual = total - math.fsum(point.values())
+        for name in reversed(movable):
+            if limits[name][0] <= point[name] + residual <= limits[name][1]:
+                point[name] += residual
+                break
+        return point
+
+    def assess(formula, arm):
+        row = deepcopy(evaluate(dict(formula)))
+        if not isinstance(row, Mapping):
+            raise ValueError("Evaluator must return a mapping")
+        if row.get("endpoint_id") != endpoint_id:
+            raise ValueError("Evaluator endpoint does not match ordered endpoint")
+        loss = row.get("loss")
+        interval = row.get("prediction_interval")
+        coverage = row.get("coverage")
+        lineage = row.get("feature_lineage")
+        if (
+            isinstance(loss, bool)
+            or not isinstance(loss, (int, float))
+            or not math.isfinite(float(loss))
+            or float(loss) < 0
+        ):
+            raise ValueError("Finite non-negative endpoint loss required")
+        if (
+            not isinstance(interval, (list, tuple))
+            or len(interval) != 2
+            or any(
+                isinstance(value, bool)
+                or not isinstance(value, (int, float))
+                or not math.isfinite(float(value))
+                for value in interval
+            )
+            or float(interval[0]) > float(interval[1])
+        ):
+            raise ValueError("Candidate-specific prediction interval required")
+        if coverage is None:
+            raise ValueError("Candidate-specific applicability coverage required")
+        if (
+            not isinstance(lineage, (list, tuple))
+            or not lineage
+            or any(not isinstance(value, str) or not value.strip() for value in lineage)
+        ):
+            raise ValueError("Candidate feature lineage required")
+        normalized_lineage = {
+            str(value).strip().upper().replace("-", "_").replace(" ", "_")
+            for value in lineage
+        }
+        prohibited = normalized_lineage & PROHIBITED_SELECTION_FEATURES
+        if prohibited:
+            raise ValueError(
+                "Prohibited selection feature: " + ",".join(sorted(prohibited))
+            )
+        if authority is not None:
+            authority_lineage = {
+                str(value).strip().upper().replace("-", "_").replace(" ", "_")
+                for value in authority.get("feature_lineage", [])
+            }
+            if normalized_lineage != authority_lineage:
+                raise ValueError("Candidate feature lineage differs from authority")
+        signs = row.get("model_signs", {})
+        model_disagreement = (
+            isinstance(signs, Mapping)
+            and len({int(value) for value in signs.values() if int(value) != 0}) > 1
+        )
+        return {
+            "formula": dict(formula),
+            "arm": arm,
+            "endpoint_id": endpoint_id,
+            "loss": float(loss),
+            "prediction_interval": [float(interval[0]), float(interval[1])],
+            "coverage": deepcopy(coverage),
+            "model_signs": deepcopy(signs),
+            "model_disagreement": model_disagreement,
+            "evaluation": deepcopy(dict(row)),
+        }
+
+    try:
+        baseline_record = assess(parent, "baseline")
+    except Exception as error:
+        baseline_record = {"formula": parent, "error": f"{type(error).__name__}: {error}"}
+        authority_reasons = sorted(
+            set([*authority_reasons, "BASELINE_EVALUATION_INVALID"])
+        )
+
+    all_seed_runs = []
+    aggregate_arms = {"adaptive": [], "random": [], "simple_local": []}
+    attempt_counts = {"adaptive": 0, "random": 0, "simple_local": 0}
+    domain_exhaustion = {"adaptive": False, "random": False, "simple_local": False}
+    for seed in seeds:
+        seed_arms = {"adaptive": [], "random": [], "simple_local": []}
+        global_seen = {key(parent)}
+        rngs = {
+            "adaptive": random.Random(seed),
+            "random": random.Random(seed ^ 0x5DEECE66D),
+        }
+        for arm in ("random", "adaptive"):
+            attempts = 0
+            while len(seed_arms[arm]) < budget_per_arm and attempts < budget_per_arm * 500:
+                attempts += 1
+                attempt_counts[arm] += 1
+                point = global_point(rngs[arm])
+                if key(point) in global_seen or not valid_formula(point):
+                    continue
+                global_seen.add(key(point))
+                try:
+                    record = assess(point, arm)
+                except Exception as error:
+                    record = {
+                        "formula": point,
+                        "arm": arm,
+                        "error": f"{type(error).__name__}: {error}",
+                    }
+                seed_arms[arm].append(record)
+                if arm == "adaptive" and record.get("loss") is not None:
+                    # Deterministic bounded refinement around the best observed
+                    # point changes proposal generation but never bypasses the
+                    # same authority and interval checks.
+                    best = min(
+                        (
+                            item
+                            for item in seed_arms[arm]
+                            if item.get("loss") is not None
+                        ),
+                        key=lambda item: (item["loss"], key(item["formula"])),
+                    )
+                    if len(names) >= 2 and len(seed_arms[arm]) < budget_per_arm:
+                        donor, receiver = names[0], names[1]
+                        amount = min(
+                            best["formula"][donor] - limits[donor][0],
+                            limits[receiver][1] - best["formula"][receiver],
+                        ) * 0.25
+                        refined = dict(best["formula"])
+                        refined[donor] -= amount
+                        refined[receiver] += amount
+                        if (
+                            amount > 0
+                            and key(refined) not in global_seen
+                            and valid_formula(refined)
+                        ):
+                            global_seen.add(key(refined))
+                            try:
+                                seed_arms[arm].append(assess(refined, arm))
+                            except Exception as error:
+                                seed_arms[arm].append(
+                                    {
+                                        "formula": refined,
+                                        "arm": arm,
+                                        "error": f"{type(error).__name__}: {error}",
+                                    }
+                                )
+            seed_arms[arm] = seed_arms[arm][:budget_per_arm]
+            domain_exhaustion[arm] |= len(seed_arms[arm]) < budget_per_arm
+
+        current = dict(parent)
+        current_record = baseline_record
+        pairs = [
+            (left, right)
+            for left in names
+            for right in names
+            if left != right
+            and limits[left][0] < limits[left][1]
+            and limits[right][0] < limits[right][1]
+        ]
+        pair_index = 0
+        step_index = 0
+        while (
+            len(seed_arms["simple_local"]) < budget_per_arm
+            and pair_index < len(pairs) * len(local_step_schedule)
+        ):
+            donor, receiver = pairs[pair_index % len(pairs)] if pairs else (None, None)
+            step = float(local_step_schedule[step_index % len(local_step_schedule)])
+            pair_index += 1
+            if pairs and pair_index % len(pairs) == 0:
+                step_index += 1
+            attempt_counts["simple_local"] += 1
+            if donor is None:
+                break
+            amount = total * step
+            point = dict(current)
+            point[donor] -= amount
+            point[receiver] += amount
+            if key(point) in global_seen or not valid_formula(point):
+                continue
+            global_seen.add(key(point))
+            try:
+                record = assess(point, "simple_local")
+            except Exception as error:
+                record = {
+                    "formula": point,
+                    "arm": "simple_local",
+                    "error": f"{type(error).__name__}: {error}",
+                }
+            seed_arms["simple_local"].append(record)
+            if (
+                record.get("prediction_interval")
+                and current_record.get("prediction_interval")
+                and record["prediction_interval"][1]
+                < current_record["prediction_interval"][0]
+            ):
+                current = point
+                current_record = record
+        domain_exhaustion["simple_local"] |= (
+            len(seed_arms["simple_local"]) < budget_per_arm
+        )
+        for arm in aggregate_arms:
+            aggregate_arms[arm].extend(seed_arms[arm])
+        all_seed_runs.append({"seed": seed, "arms": seed_arms})
+
+    expected_per_arm = budget_per_arm * len(seeds)
+    counts = {arm: len(rows) for arm, rows in aggregate_arms.items()}
+    equal_budget = all(count == expected_per_arm for count in counts.values())
+    valid_records = [
+        row
+        for rows in aggregate_arms.values()
+        for row in rows
+        if "error" not in row
+    ]
+    coverage_values = {repr(row.get("coverage")) for row in valid_records}
+    intervals_overlap = True
+    robust_chain = False
+    ordered = []
+    if valid_records:
+        diagnostic_order = sorted(
+            valid_records,
+            key=lambda row: (row["prediction_interval"][1], key(row["formula"])),
+        )
+        leader = diagnostic_order[0]
+        intervals_overlap = any(
+            leader["prediction_interval"][1] >= other["prediction_interval"][0]
+            for other in diagnostic_order[1:]
+        )
+        robust_chain = all(
+            left["prediction_interval"][1] < right["prediction_interval"][0]
+            for left, right in zip(diagnostic_order, diagnostic_order[1:])
+        )
+        if not intervals_overlap and robust_chain:
+            ordered = diagnostic_order
+    nondiscriminating = (
+        authority is None
+        or not equal_budget
+        or len(coverage_values) != 1
+        or intervals_overlap
+        or not robust_chain
+        or any(row.get("model_disagreement") for row in valid_records)
+        or any("error" in row for rows in aggregate_arms.values() for row in rows)
+    )
+    if nondiscriminating:
+        ordered = []
+    return {
+        "status": (
+            "WITHHELD_NONDISCRIMINATING_EVIDENCE"
+            if nondiscriminating
+            else "ADMITTED_ENDPOINT_COMPARISON_ONLY"
+        ),
+        "selection_status": (
+            "WITHHELD_NONDISCRIMINATING_EVIDENCE"
+            if nondiscriminating
+            else "ADMITTED_ENDPOINT_COMPARISON_ONLY"
+        ),
+        "endpoint_id": endpoint_id,
+        "baseline": baseline_record,
+        "ranked_candidates": ordered,
+        "best_observed_candidate": ordered[0] if ordered else None,
+        "experimental_recommendation": None,
+        "shortlist_ordering": (
+            "UNORDERED_DIVERSE_SET" if nondiscriminating else "ENDPOINT_ONLY"
+        ),
+        "formula_action": "NO_CHANGE",
+        "evaluation_counts": {
+            "baseline": 1,
+            **counts,
+            "total": 1 + sum(counts.values()),
+        },
+        "requested_budget_per_arm_per_seed": budget_per_arm,
+        "benchmark_equal_budget": equal_budget,
+        "domain_exhaustion_by_arm": domain_exhaustion,
+        "attempts": attempt_counts,
+        "seeds": list(seeds),
+        "runs": all_seed_runs,
+        "comparators": {
+            "random": aggregate_arms["random"],
+            "simple_local": aggregate_arms["simple_local"],
+        },
+        "adaptive": aggregate_arms["adaptive"],
+        "evaluator_authority_admitted": authority is not None,
+        "evaluator_authority_reasons": authority_reasons,
+        "predicted_liking": None,
+        "formula_modified": False,
+        "inventory_modified": False,
+        **{
+            flag: False
+            for flag in (
+                "evidence_admission_authorized",
+                "physical_experiment_authorized",
+                "compounding_authorized",
+                "purchase_authorized",
+                "inventory_mutation_authorized",
+                "safety_authorized",
+                "release_authorized",
+                "formula_optimization_authority",
+                "beauty_authorized",
+            )
+        },
+    }
+
+
+def lavender_ambrox_shortlist(
+    *,
+    lavender_stock_id: str,
+    ambrox_stock_id: str,
+    constant_total_basis: str,
+    constant_total_decimal: str | None,
+    candidate_shares: Sequence[float] = (),
+    requested_size: int = 5,
+) -> dict:
+    """Produce only a basis-safe diverse design set; never a formula winner."""
+
+    from decimal import Decimal, InvalidOperation
+
+    false_flags = {
+        "evidence_admission_authorized": False,
+        "physical_experiment_authorized": False,
+        "compounding_authorized": False,
+        "purchase_authorized": False,
+        "inventory_mutation_authorized": False,
+        "safety_authorized": False,
+        "release_authorized": False,
+        "formula_optimization_authority": False,
+        "beauty_authorized": False,
+    }
+    if (
+        not lavender_stock_id
+        or not ambrox_stock_id
+        or constant_total_basis not in {
+            "active_mass_g",
+            "stock_mass_g",
+            "stock_volume_uL",
+        }
+        or constant_total_decimal is None
+    ):
+        return {
+            "selection_status": "HOLD_CONSTANT_TOTAL_BASIS_UNRESOLVED",
+            "ranked_candidates": [],
+            "candidates": [],
+            "best_observed_candidate": None,
+            "experimental_recommendation": None,
+            "shortlist_ordering": "UNORDERED_DIVERSE_SET",
+            "formula_action": "NO_CHANGE",
+            "predicted_liking": None,
+            "formula_modified": False,
+            "inventory_modified": False,
+            **false_flags,
+        }
+    try:
+        total = Decimal(str(constant_total_decimal))
+    except (InvalidOperation, ValueError) as error:
+        raise ValueError("constant total must be a decimal") from error
+    if not total.is_finite() or total <= 0 or not 3 <= requested_size <= 5:
+        raise ValueError("positive total and shortlist size from three to five required")
+    shares = sorted(
+        {
+            float(value)
+            for value in candidate_shares
+            if 0 <= float(value) <= 1
+        }
+    )
+    if not shares:
+        shares = [index / (requested_size - 1) for index in range(requested_size)]
+    selected = [shares[0]]
+    while len(selected) < requested_size and len(selected) < len(shares):
+        remaining = [value for value in shares if value not in selected]
+        selected.append(
+            max(
+                remaining,
+                key=lambda value: (
+                    min(abs(value - chosen) for chosen in selected),
+                    -value,
+                ),
+            )
+        )
+    selected.sort()
+    separation = 1 / (2 * (len(selected) - 1)) if len(selected) > 1 else 1
+    while len(selected) >= 3 and any(
+        right - left < separation
+        for left, right in zip(selected, selected[1:])
+    ):
+        selected.pop(-2)
+        separation = 1 / (2 * (len(selected) - 1))
+    if len(selected) < 3:
+        status = "HOLD_SHORTLIST_DIVERSITY_UNACHIEVABLE"
+        candidates = []
+    else:
+        status = "ADMITTED_UNRANKED_DESIGN_SHORTLIST"
+        candidates = [
+            {
+                "candidate_id": f"lavender-share-{share:.6f}",
+                "lavender_stock_id": lavender_stock_id,
+                "ambrox_stock_id": ambrox_stock_id,
+                "lavender_share": share,
+                "ambrox_share": 1 - share,
+                "constant_total_basis": constant_total_basis,
+                "constant_total_decimal": str(total),
+                "preference_order": None,
+            }
+            for share in selected
+        ]
+    return {
+        "selection_status": status,
+        "ranked_candidates": [],
+        "candidates": candidates,
+        "best_observed_candidate": None,
+        "experimental_recommendation": None,
+        "shortlist_ordering": "UNORDERED_DIVERSE_SET",
+        "formula_action": "NO_CHANGE",
+        "predicted_liking": None,
+        "formula_modified": False,
+        "inventory_modified": False,
+        **false_flags,
     }
 
 
@@ -950,6 +1753,11 @@ def _inventory_stock_dilutions(
             continue
         normalized = normalize_name(material)
         candidates = exact.get(normalized) or legacy.get(normalized) or []
+        candidates = [
+            record
+            for record in candidates
+            if record.execution_ready or record.nominal_property_model_ready
+        ]
         if candidates:
             resolved[material] = max(record.dilution for record in candidates)
     return resolved
@@ -1379,6 +2187,37 @@ def _nonrepairable_actions(report: GateReport, pass_index: int) -> list[GateRepa
     return actions
 
 
+def _freeze_gate_binding(value):
+    """Return a deterministic equality key for one release-gate input."""
+    if isinstance(value, Mapping):
+        return tuple(sorted((str(key), _freeze_gate_binding(item))
+                            for key, item in value.items()))
+    if isinstance(value, (list, tuple)):
+        return tuple(_freeze_gate_binding(item) for item in value)
+    return value
+
+
+def _release_gate_binding_key(
+    formula: Mapping,
+    stock_dilutions: Mapping[str, float],
+    parent_formula: Mapping | None,
+    config: ReleaseGateConfig,
+):
+    """Bind formula, relevant stocks, parent, matrix and complete gate config."""
+    materials = tuple(dict(formula.get("ingredients_ul", {})))
+    formula_dilutions = dict(formula.get("dilutions", {}))
+    relevant_stocks = {
+        material: float(stock_dilutions.get(material, formula_dilutions.get(material, 1.0)))
+        for material in materials
+    }
+    return _freeze_gate_binding({
+        "formula": dict(formula),
+        "stocks": relevant_stocks,
+        "parent_formula": None if parent_formula is None else dict(parent_formula),
+        "config": asdict(config),
+    })
+
+
 def optimize_until_release_ready(
     name: str,
     raw_concentrate_pct: RawPct,
@@ -1406,6 +2245,9 @@ def optimize_until_release_ready(
     constraints: dict[str, tuple[float | None, float | None]] = {}
     report: GateReport | None = None
     parent_formula_for_g15: Mapping | None = None
+    last_gated_formula: Mapping | None = None
+    last_report_parent: Mapping | None = None
+    last_report_binding = None
 
     for pass_index in range(1, max_passes + 1):
         stock_dilutions = _inventory_stock_dilutions(
@@ -1421,11 +2263,18 @@ def optimize_until_release_ready(
             body=body,
             family_archetype=family_archetype,
         )
+        gate_parent = parent_formula_for_g15
+        report_binding = _release_gate_binding_key(
+            formula, stock_dilutions, gate_parent, config
+        )
         report = gate_formula(
             formula,
             config,
-            parent_formula=parent_formula_for_g15,
+            parent_formula=gate_parent,
         )
+        last_gated_formula = formula
+        last_report_parent = gate_parent
+        last_report_binding = report_binding
         parent_formula_for_g15 = formula
         failed = _failed_gates(report)
         if not failed:
@@ -1525,20 +2374,51 @@ def optimize_until_release_ready(
         body=body,
         family_archetype=family_archetype,
     )
-    final_report = gate_formula(
-        formula,
-        config,
-        parent_formula=parent_formula_for_g15,
+    final_binding = _release_gate_binding_key(
+        formula, stock_dilutions, last_report_parent, config
+    )
+    if report is not None and final_binding == last_report_binding:
+        final_report = report
+    else:
+        final_report = gate_formula(
+            formula,
+            config,
+            parent_formula=last_gated_formula,
+        )
+    # A deterministic repair may consume the final allowed pass and expose a
+    # different blocking condition in the exact final report.  Preserve that
+    # terminal condition in the audit trail even though no further pass is
+    # available.  This is reporting only: it neither applies another repair nor
+    # grants an advisory/screening gate optimization authority.
+    recorded_blockers = {(action.gate, action.action) for action in actions}
+    for action in _nonrepairable_actions(
+        final_report,
+        pass_index if "pass_index" in locals() else 0,
+    ):
+        identity = (action.gate, action.action)
+        if identity not in recorded_blockers:
+            actions.append(action)
+            recorded_blockers.add(identity)
+    effective_family = str(
+        final_report.config_summary.get("family_archetype", family_archetype) or ""
     )
     authority = analyze_oav_authority(
         OAVAuthorityRequest(
             formula_name=name,
             ingredients_ul=formula["ingredients_ul"],
             dilutions=formula["dilutions"],
+            stock_specs=formula.get("stock_specs", {}),
             batch_volume_ml=config.batch_volume_ml,
             temperature_K=config.temperature_K,
-            family_archetype=family_archetype,
-        )
+            family_archetype=effective_family,
+            batch_scaling_targets_ml=config.batch_scaling_targets_ml,
+            min_perceptible_materials=config.min_perceptible_materials,
+            max_perceptible_channels=config.max_perceptible_channels,
+            matrix_moles=dict(config.matrix_components_moles),
+            matrix_mass_g=config.matrix_mass_g,
+            matrix_source=config.matrix_source,
+        ),
+        gate_report=final_report,
     )
     unified_scores = compute_unified_release_scores(formula, authority, final_report.as_dict()).as_dict()
     optimizer_report = {
@@ -1564,6 +2444,7 @@ def optimize_until_release_ready(
         formula,
         optimizer_report,
         batch_volume_ml=config.batch_volume_ml,
+        include_advisory_recommendations=False,
     )
     iterations = pass_index if "pass_index" in locals() else 0
     audit_event_id = None

@@ -29,7 +29,7 @@ Sources:
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # Hedonic Valence Data
@@ -518,25 +518,44 @@ def targeted_hedonic_losses(report: dict, *, allow_experimental: bool = False) -
 
 @dataclass
 class HedonicReport:
-    """Hedonic valence analysis of a formula."""
+    """Legacy fixed-valence diagnostic for a formula.
+
+    ``score`` and ``pleasantness_class`` are retained for backwards
+    compatibility.  They describe only the exact-name materials represented
+    in :data:`HEDONIC_VALENCE`; they are not measured full-formula
+    pleasantness or liking endpoints.  The coverage and authority fields make
+    that ceiling explicit for every caller, including zero- and partial-table
+    coverage.
+    """
     score: float                      # 0-100 hedonic score
     weighted_valence: float           # -1.0 to 1.0 weighted mean
     pleasantness_class: str           # "highly_pleasant", "pleasant", etc.
     hedonic_contrast: float           # 0-1 how much contrast between materials
-    pleasant_fraction: float          # 0-1 fraction of mass that is pleasant
+    pleasant_fraction: float          # 0-1 fraction of rated active mass that is pleasant
     unpleasant_materials: list[dict]  # materials with negative valence
     most_pleasant: list[dict]         # top 5 by hedonic contribution
     diagnostics: list[str]
+    rated_active_fraction: float = 0.0
+    unrated_active_fraction: float = 0.0
+    rated_materials: list[str] = field(default_factory=list)
+    unrated_materials: list[str] = field(default_factory=list)
+    coverage_status: str = "ZERO_TABLE_COVERAGE"
+    classification: str = "HEURISTIC_DIAGNOSTIC_INDEX"
+    ranking_status: str = "WITHHELD"
+    formula_optimization_authority: bool = False
+    sensory_validation_status: str = "NOT_ESTABLISHED"
+    full_formula_pleasantness_status: str = "NOT_ESTABLISHED"
+    pleasantness_class_scope: str = "FIXED_VALENCE_TABLE_SUBSET_ONLY"
 
 
 def score_hedonic(
     ingredients: dict[str, float],
     dilutions: dict[str, float] | None = None,
 ) -> HedonicReport:
-    """Score the hedonic (pleasantness) profile of a formula.
+    """Compute the legacy fixed-valence diagnostic for a formula.
 
-    High score = formula materials converge on pleasant valence.
-    Low score  = dominant unpleasant materials OR high hedonic conflict.
+    High score = rated table labels converge on pleasant valence.
+    Low score  = rated negative-valence labels OR high table contrast.
 
     Moderate hedonic contrast is artistically valid (chypre, leather,
     animalic accords) but reduces the hedonic score.
@@ -551,6 +570,8 @@ def score_hedonic(
     unpleasant_mats: list[dict] = []
     material_scores: list[dict] = []
     diagnostics: list[str] = []
+    rated_materials: list[str] = []
+    unrated_materials: list[str] = []
 
     for name, amount in ingredients.items():
         dil = dilutions.get(name, 1.0)
@@ -559,8 +580,12 @@ def score_hedonic(
 
         valence = HEDONIC_VALENCE.get(name)
         if valence is None:
+            if active > 0:
+                unrated_materials.append(name)
             continue
 
+        if active > 0:
+            rated_materials.append(name)
         rated_active += active
         weighted_sum += valence * active
         valence_list.append(valence)
@@ -582,12 +607,35 @@ def score_hedonic(
                 "amount_uL": round(active, 1),
             })
 
-    if total_active == 0 or not valence_list:
+    rated_active_fraction = rated_active / total_active if total_active > 0 else 0.0
+    unrated_active_fraction = (
+        (total_active - rated_active) / total_active if total_active > 0 else 0.0
+    )
+    if total_active <= 0:
+        coverage_status = "NO_ACTIVE_MATERIALS"
+    elif rated_active <= 0:
+        coverage_status = "ZERO_TABLE_COVERAGE"
+    elif math.isclose(rated_active, total_active, rel_tol=1e-12, abs_tol=1e-12):
+        coverage_status = "FULL_TABLE_COVERAGE"
+    else:
+        coverage_status = "PARTIAL_TABLE_COVERAGE"
+
+    if total_active <= 0 or rated_active <= 0:
+        missing = ", ".join(unrated_materials) if unrated_materials else "none"
         return HedonicReport(
             score=50, weighted_valence=0, pleasantness_class="unknown",
             hedonic_contrast=0, pleasant_fraction=0,
             unpleasant_materials=[], most_pleasant=[],
-            diagnostics=["No hedonic data"],
+            diagnostics=[
+                "No hedonic data",
+                f"Hedonic table coverage: {coverage_status}; unrated labels: {missing}",
+                "HEURISTIC_DIAGNOSTIC_INDEX only: the legacy score=50 fallback is not measured full-formula pleasantness or liking.",
+            ],
+            rated_active_fraction=rated_active_fraction,
+            unrated_active_fraction=unrated_active_fraction,
+            rated_materials=rated_materials,
+            unrated_materials=unrated_materials,
+            coverage_status=coverage_status,
         )
 
     # Weighted mean valence (over rated materials only — unrated are excluded,
@@ -637,7 +685,14 @@ def score_hedonic(
         names = [f"{m['material']} ({m['valence']:+.2f})" for m in unpleasant_mats]
         diagnostics.append(f"Hedonically negative: {', '.join(names)}")
     if pleas_frac > 0.8:
-        diagnostics.append("✓ >80% of formula mass is hedonically pleasant")
+        diagnostics.append("✓ >80% of rated active mass has positive table valence")
+    if coverage_status == "PARTIAL_TABLE_COVERAGE":
+        diagnostics.append(
+            "Hedonic table coverage is partial: score, class, and pleasant fraction apply only to rated labels; full-formula pleasantness is NOT_ESTABLISHED."
+        )
+    diagnostics.append(
+        "HEURISTIC_DIAGNOSTIC_INDEX only: fixed material valences are not measured full-formula pleasantness or liking."
+    )
 
     return HedonicReport(
         score=round(score, 1),
@@ -648,4 +703,9 @@ def score_hedonic(
         unpleasant_materials=unpleasant_mats,
         most_pleasant=material_scores[:5],
         diagnostics=diagnostics,
+        rated_active_fraction=rated_active_fraction,
+        unrated_active_fraction=unrated_active_fraction,
+        rated_materials=rated_materials,
+        unrated_materials=unrated_materials,
+        coverage_status=coverage_status,
     )

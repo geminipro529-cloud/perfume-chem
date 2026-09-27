@@ -1,0 +1,123 @@
+{
+  "schema_version": "lavande-ambre-profond-r6-personal-project-closeout-v1",
+  "closeout_id": "lavande-ambre-profond-r6-personal-project-closeout-20260927",
+  "recorded_date": "2026-09-27",
+  "state": "PROJECT_IMPLEMENTATION_COMPLETE_EXTERNAL_PHYSICAL_OUTCOMES_PENDING",
+  "frozen_inputs": {
+    "r6_design_successor": {
+      "path": "data/governance/lavande_ambre_profond_r6_aimi_design_successor_20260926.json",
+      "sha256": "0380fd88d38f7c8deda4a15d458ca36fd90609805940943509c2e11c0daf7984",
+      "canonical_rows_sha256": "40889e8a43a780bf60d35a10fe4861a56f20d1a2a66e72141a5ceb8b8000eb4b"
+    },
+    "practical_readiness_predecessor": {
+      "path": "data/governance/lavande_ambre_profond_r6_practical_readiness_successor_20260927.json",
+      "sha256": "a4c3c8c393659c297e9486c464ebd3a12ad1ab89a207aa2b304e93d85200f482"
+    },
+    "preparation_completion_confirmation": {
+      "path": "data/governance/lavande_ambre_profond_r6_preparation_completion_user_confirmation_20260927.json",
+      "sha256": "237112fd64b88dc6fb7155d55eb2212db1894d075ebac6e675a458ff5a2f2e5f"
+    },
+    "source_workbook_sha256": "027ec1cf8712c6aaac123d896942eee308efa18bea9056da975566e095bc3e67",
+    "inventory_path": "inventory.txt",
+    "inventory_sha256": "1b4324da5a35cebe8c59959e58276d84ac8f2f0e0e6f3239fdef0a4250d8df71"
+  },
+  "final_artifacts": {
+    "personal_build_card": {
+      "path": "docs/verification/LAVANDE_AMBRE_PROFOND_R6_PERSONAL_BUILD_CARD_20260927.md",
+      "sha256": "97d7fc1ab96ebe765cd570feb7c2008a1f9e6c3000d96d3d665e9427c1ad0e33",
+      "row_count": 63,
+      "execution_state": "COMPLETE_WITH_AT_USE_CHILD_ROUTE_LABEL_CHECKS"
+    },
+    "personal_sensory_protocol": {
+      "path": "docs/verification/LAVANDE_AMBRE_PROFOND_R6_PERSONAL_SENSORY_PROTOCOL_DRAFT_20260927.md",
+      "sha256": "51a5c5c2ef4da6ecb0c503560635bdb0a287e6063901f58c985a1efe4bf15435",
+      "execution_authorized": false
+    },
+    "human_readable_closeout": {
+      "path": "docs/verification/LAVANDE_AMBRE_PROFOND_R6_PERSONAL_PROJECT_CLOSEOUT_20260927.md",
+      "sha256": "c527b273d184773661a350a3d89fc8022e6d504b486c353489a26878b158a7cc"
+    }
+  },
+  "sequence_correction": {
+    "superseded_artifact": "docs/verification/LAVANDE_AMBRE_PROFOND_R6_NONEXECUTING_BUILD_PLAN_PREVIEW_20260927.md",
+    "superseded_artifact_sha256": "fc3a8a56a9aa6af369fe7d35bbd48fdb415528237d3f2f75bc0a38c7724bef80",
+    "withdrawn_statement": "B1_TO_B2_TO_B3_TO_B4_TO_B5_TO_B6_OPERATION_ORDER",
+    "authoritative_source_order": [
+      "B5",
+      "B1",
+      "B2",
+      "B3",
+      "W0",
+      "B4",
+      "B6"
+    ],
+    "formula_identity_or_dose_changed": false,
+    "correction_implemented_in_final_build_card": true
+  },
+  "formula_accounting": {
+    "row_count": 63,
+    "liquid_row_count": 62,
+    "nominal_liquid_design_total_ul": "5600",
+    "solid_row_count": 1,
+    "ambrox_target_mg": "300",
+    "mass_volume_never_summed": true,
+    "sub_10_ul_rows_use_user_reported_completed_routes": [20, 43, 68],
+    "unprepared_required_working_stock_count": 0,
+    "formula_action": "NO_CHANGE"
+  },
+  "completion_boundary": {
+    "repository_implementation_complete": true,
+    "documentary_lineage_complete_for_personal_scope": true,
+    "personal_build_packet_complete": true,
+    "current_user_input_required": false,
+    "physical_compounding_state": "NOT_RECORDED",
+    "physical_sample_state": "NOT_ESTABLISHED",
+    "clarity_and_stability_state": "NOT_TESTED",
+    "personal_sensory_state": "NOT_TESTED",
+    "instrumental_release_state": "NOT_MEASURED",
+    "exact_ppm_odt_oav_state": "WITHHELD_NO_COMPLETE_MASS_OR_APPLICABLE_GAS_CHAIN",
+    "pleasantness_state": "NOT_ESTABLISHED",
+    "population_liking_state": "NOT_ESTABLISHED",
+    "safety_and_regulatory_state": "NOT_ESTABLISHED",
+    "commercial_release_state": "NOT_AUTHORIZED",
+    "external_physical_outcomes_are_not_unfinished_software": true
+  },
+  "verification": {
+    "json_parse": "PASS",
+    "pinned_hashes": "PASS",
+    "build_card_row_count": "63_PASS",
+    "build_card_unique_source_rows": "63_PASS",
+    "build_card_identity_match": "PASS",
+    "build_card_dose_match": "PASS",
+    "build_card_source_order": "B5_B1_B2_B3_W0_B4_B6_PASS",
+    "whitespace_check": "PASS",
+    "full_project_verifier": "NOT_RUN_DOCUMENTARY_ONLY_NO_RELEASE_CLAIM"
+  },
+  "authority": {
+    "documentary_closeout_authorized": true,
+    "physical_compounding_performed_or_authorized_by_this_record": false,
+    "stock_preparation_performed_by_this_record": false,
+    "inventory_reservation_authorized": false,
+    "formula_mutation_authorized": false,
+    "inventory_mutation_authorized": false,
+    "skin_application_authorized": false,
+    "participant_recruitment_authorized": false,
+    "model_training_authorized": false,
+    "model_calibration_authorized": false,
+    "evidence_admission_authorized": false,
+    "safety_authorized": false,
+    "regulatory_authorized": false,
+    "release_or_sale_authorized": false
+  },
+  "side_effects": {
+    "formula_modified": false,
+    "inventory_modified": false,
+    "backend_record_created": false,
+    "reservation_created": false,
+    "mixer_command_created": false,
+    "transfer_record_created": false,
+    "physical_sample_created_by_system": false,
+    "sensory_observation_created": false,
+    "model_trained": false
+  }
+}

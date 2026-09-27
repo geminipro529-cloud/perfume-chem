@@ -42,9 +42,16 @@ def _stable_hash(value: object) -> str:
 
 def _load_projection() -> dict[str, object]:
     raw = _FIXTURE.read_bytes()
+    # Preserve the semantic fixture hash across Git's Windows checkout mode.
+    # .gitattributes pins LF for new checkouts; this normalization also keeps
+    # an already-materialized CRLF worktree from invalidating the fixture.
+    canonical_raw = raw.replace(b"\r\n", b"\n")
+    assert b"\r" not in canonical_raw
     sidecar = _FIXTURE.with_suffix(".sha256").read_text(encoding="utf-8")
-    assert sidecar == f"{hashlib.sha256(raw).hexdigest()}  {_FIXTURE.name}\n"
-    value = json.loads(raw)
+    assert sidecar == (
+        f"{hashlib.sha256(canonical_raw).hexdigest()}  {_FIXTURE.name}\n"
+    )
+    value = json.loads(canonical_raw)
     assert isinstance(value, dict)
     return value
 

@@ -1,0 +1,297 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v17",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-24",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260924_r5_stock_clarifications_v2.json",
+    "normalized_text_sha256": "9a10cd2f99af1c960a77bd0a7270c25daa24657b790707ecb76c365898b747df"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 28251,
+    "inventory_text_sha256": "1b4324da5a35cebe8c59959e58276d84ac8f2f0e0e6f3239fdef0a4250d8df71",
+    "confirmed_receipt": "data/governance/inventory_user_confirmation_20260924_r5_remaining_stock_forms_v3.json",
+    "confirmed_receipt_sha256": "0b76c0480f43ae355c74abd9803850218efcc14773046102f15eab43c63f6178"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "bind_only_source_declared_stock_facts": true,
+    "stock_solution_density_assumed": false,
+    "user_reported_ready_does_not_supply_fraction_basis": true,
+    "user_reported_ready_does_not_supply_physical_lineage": true,
+    "neat_parent_does_not_equal_required_working_dilution": true,
+    "depleted_stock_not_substitutable": true,
+    "physical_lineage_receipt_required_for_build_execution": true,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [
+    "INV-USER-20260828-004",
+    "INV-USER-20260908-AHSEE-007"
+  ],
+  "records": [
+    {
+      "record_id": "INV-USER-20260924-R5-008",
+      "canonical_name": "Labdanum Resinoid",
+      "aliases": ["Labdanum 10%", "Labdanum Resinoid 10% in DPG"],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "user_reported_ready": true,
+        "fraction_authority": "DIRECT_USER_CURRENT_STOCK_BASIS_AND_CARRIER_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "CALCULATION_READY_PHYSICAL_LINEAGE_INCOMPLETE",
+        "execution_hold_reason": "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING"
+      },
+      "supersedes_parent_stocks": [{"source_row": 155, "fraction": 0.1}],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-24",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_BASIS_AND_READINESS_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260924-R5-019",
+      "canonical_name": "Tonka Bean Absolute",
+      "aliases": ["Tonka Bean Absolute 10% in DPG"],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "user_reported_ready": true,
+        "fraction_authority": "DIRECT_USER_CURRENT_STOCK_BASIS_AND_CARRIER_CORRECTION",
+        "execution_ready": false,
+        "execution_scope": "CALCULATION_READY_PHYSICAL_LINEAGE_INCOMPLETE",
+        "execution_hold_reason": "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING"
+      },
+      "supersedes_parent_stocks": [{"source_row": 232, "fraction": 0.1}],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-24",
+      "source_kind": "DIRECT_USER_CURRENT_MASS_FRACTION_CORRECTION"
+    },
+    {
+      "record_id": "INV-USER-20260924-R5-009",
+      "canonical_name": "Olibanum Resinoid",
+      "aliases": ["Olibanum 50%", "Olibanum Resinoid 50% w/w in DPG"],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.5,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "user_reported_ready": true,
+        "fraction_authority": "DIRECT_USER_CURRENT_STOCK_BASIS_AND_CARRIER_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "CALCULATION_READY_PHYSICAL_LINEAGE_INCOMPLETE",
+        "execution_hold_reason": "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING"
+      },
+      "supersedes_parent_stocks": [{"source_row": 188, "fraction": 0.5}],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-24",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_BASIS_AND_READINESS_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260924-R5-010",
+      "canonical_name": "Opoponax Resinoid",
+      "aliases": ["Opoponax Resinoid 50% in DEP"],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.5,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "user_reported_ready": true,
+        "fraction_authority": "DIRECT_USER_CURRENT_STOCK_BASIS_AND_CARRIER_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "CALCULATION_READY_PHYSICAL_LINEAGE_INCOMPLETE",
+        "execution_hold_reason": "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING"
+      },
+      "supersedes_parent_stocks": [{"source_row": 189, "fraction": 0.5}],
+      "requirement_overrides": [{
+        "source_row": 189,
+        "disposition": "OWNED",
+        "status": "HAVE - 50% W/W IN DEP; USER REPORTS READY",
+        "actual_stock_text": "Opoponax Resinoid 50% w/w in DEP; physical-lineage receipt missing",
+        "can_prepare": ""
+      }],
+      "effective_date": "2026-09-24",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_BASIS_AND_READINESS_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260924-R5-011",
+      "canonical_name": "Mimosa Absolute",
+      "aliases": ["Mimosa Absolute 10%", "Mimosa Absolute 10% in DPG"],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "user_reported_ready": true,
+        "fraction_authority": "DIRECT_USER_CURRENT_STOCK_BASIS_AND_CARRIER_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "CALCULATION_READY_PHYSICAL_LINEAGE_INCOMPLETE",
+        "execution_hold_reason": "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING"
+      },
+      "supersedes_parent_stocks": [{"source_row": 175, "fraction": 0.1}],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-24",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_BASIS_AND_READINESS_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260924-R5-012",
+      "canonical_name": "Ethyl Linalool",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "user_reported_ready": true,
+        "fraction_authority": "DIRECT_USER_CORRECT_FORM_AND_READINESS_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "OWNED_PRODUCT_PHYSICAL_LINEAGE_INCOMPLETE",
+        "execution_hold_reason": "BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-24",
+      "source_kind": "DIRECT_USER_CORRECT_FORM_AND_READINESS_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260924-R5-013",
+      "canonical_name": "Geranyl Acetate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "user_reported_ready": true,
+        "fraction_authority": "DIRECT_USER_CORRECT_FORM_AND_READINESS_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "OWNED_PRODUCT_PHYSICAL_LINEAGE_INCOMPLETE",
+        "execution_hold_reason": "BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-24",
+      "source_kind": "DIRECT_USER_CORRECT_FORM_AND_READINESS_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260924-R5-014",
+      "canonical_name": "Spike Lavender EO",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "spice_aromatic",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "user_reported_ready": true,
+        "fraction_authority": "DIRECT_USER_CORRECT_FORM_AND_READINESS_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "OWNED_PRODUCT_PHYSICAL_LINEAGE_INCOMPLETE",
+        "execution_hold_reason": "BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-24",
+      "source_kind": "DIRECT_USER_CORRECT_FORM_AND_READINESS_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260924-R5-015",
+      "canonical_name": "Linalool Oxide",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "as_supplied_product",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "user_reported_ready": true,
+        "fraction_authority": "DIRECT_USER_CORRECT_PRODUCT_FORM_AND_READINESS_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "OWNED_PRODUCT_PHYSICAL_LINEAGE_INCOMPLETE",
+        "execution_hold_reason": "BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-24",
+      "source_kind": "DIRECT_USER_CORRECT_PRODUCT_FORM_AND_READINESS_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260924-R5-016",
+      "canonical_name": "Hedione HC",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "user_reported_ready": true,
+        "fraction_authority": "DIRECT_USER_CORRECT_FORM_AND_READINESS_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "OWNED_PRODUCT_PHYSICAL_LINEAGE_INCOMPLETE",
+        "execution_hold_reason": "BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-24",
+      "source_kind": "DIRECT_USER_CORRECT_FORM_AND_READINESS_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260924-R5-017",
+      "canonical_name": "Methyl Ionone Gamma Coeur",
+      "aliases": [],
+      "state": "NOT_OWNED",
+      "category": "iris_violet",
+      "stock": null,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-24",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_DEPLETION"
+    },
+    {
+      "record_id": "INV-USER-20260924-R5-018",
+      "canonical_name": "Cedrat FCF Sicilian",
+      "aliases": ["Cedrat FCF oil Sicilian"],
+      "state": "OWNED",
+      "category": "citrus_top",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "user_reported_ready": true,
+        "fraction_authority": "DIRECT_USER_CORRECT_FORM_AND_READINESS_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "OWNED_PRODUCT_PHYSICAL_LINEAGE_INCOMPLETE",
+        "execution_hold_reason": "BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-24",
+      "source_kind": "DIRECT_USER_CORRECT_FORM_AND_READINESS_CONFIRMATION"
+    }
+  ]
+}

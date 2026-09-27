@@ -1,0 +1,170 @@
+{
+  "schema_version": "lavande-ambre-profond-r6-practical-readiness-successor-v1",
+  "successor_id": "lavande-ambre-profond-r6-practical-readiness-successor-20260927",
+  "recorded_date": "2026-09-27",
+  "state": "SOFTWARE_DOCUMENTARY_PERSONAL_PLANNING_COMPLETE_PHYSICAL_ACTION_HOLD",
+  "predecessors": {
+    "r6_design_successor": {
+      "path": "data/governance/lavande_ambre_profond_r6_aimi_design_successor_20260926.json",
+      "sha256": "0380fd88d38f7c8deda4a15d458ca36fd90609805940943509c2e11c0daf7984",
+      "canonical_rows_sha256": "40889e8a43a780bf60d35a10fe4861a56f20d1a2a66e72141a5ceb8b8000eb4b"
+    },
+    "checkpoint5_input_protocol": {
+      "path": "data/governance/lavande_ambre_profond_r6_cp5_execution_input_protocol_20260926.json",
+      "sha256": "508b80587063f874f61a5077a3603c2b63a7f7d6390610a009e818ae7933853f"
+    },
+    "checkpoint6_lineage_intake": {
+      "path": "data/governance/lavande_ambre_profond_r6_cp6_physical_lineage_intake_20260926.json",
+      "sha256": "62e80d1c527f5e94ea24d75e7587a44f1107c9869ed0921d570cf8b321acdebb"
+    },
+    "checkpoint7_research_intake": {
+      "path": "data/governance/lavande_ambre_profond_r6_cp7_research_applicability_intake_20260926.json",
+      "sha256": "a6e1462593a67424ae0f02bbd23de7f06e9c9494228b04e0315633c9d93a6c44"
+    },
+    "checkpoint8_sensory_intake": {
+      "path": "data/governance/lavande_ambre_profond_r6_cp8_sensory_evidence_intake_20260926.json",
+      "sha256": "992ee5b8b1e499d81bd5f4d45f38cfe2bc0d5921005dc8f49553cae6ba3c81bb"
+    },
+    "checkpoint9_persistence": {
+      "path": "data/governance/lavande_ambre_profond_r6_cp9_external_validation_persistence_20260927.json",
+      "sha256": "6593fc20ded81d82c94a82628d8f403929bbbd46711d34bea5fbe897b444dfe4"
+    }
+  },
+  "new_authority_receipt": {
+    "path": "data/governance/lavande_ambre_profond_r6_personal_readiness_authority_receipt_20260927.json",
+    "sha256": "c4c1c4a0ffe17c46863586b78749a06a980c94a06416b87885f03b5b402e6247",
+    "source_attachment_sha256": "b451405af97ed35a76e4aba2d69fcc4536cfb46914f710755a83f1d1b505c95c"
+  },
+  "created_artifacts": {
+    "nonexecuting_build_plan_preview": {
+      "path": "docs/verification/LAVANDE_AMBRE_PROFOND_R6_NONEXECUTING_BUILD_PLAN_PREVIEW_20260927.md",
+      "sha256": "fc3a8a56a9aa6af369fe7d35bbd48fdb415528237d3f2f75bc0a38c7724bef80",
+      "execution_authority": false
+    },
+    "personal_sensory_protocol_draft": {
+      "path": "docs/verification/LAVANDE_AMBRE_PROFOND_R6_PERSONAL_SENSORY_PROTOCOL_DRAFT_20260927.md",
+      "sha256": "51a5c5c2ef4da6ecb0c503560635bdb0a287e6063901f58c985a1efe4bf15435",
+      "execution_authority": false
+    }
+  },
+  "scope_separation": {
+    "personal_nonexecuting_formula_planning": "PASS",
+    "physical_compounding_execution": "HOLD_NOT_AUTHORIZED_AND_TARGETED_ROUTES_INCOMPLETE",
+    "exact_active_mass_comparison": "HOLD_DENSITY_OR_WEIGHED_TRANSFER_ROUTE_UNAVAILABLE",
+    "scientific_model_applicability": "HOLD_EXACT_CURVE_AND_RELEASE_APPLICABILITY",
+    "personal_sensory_protocol_design": "PASS_DRAFT_ONLY",
+    "skin_application": "HOLD_NOT_AUTHORIZED",
+    "personal_liking": "NOT_TESTED",
+    "population_liking": "NOT_ESTABLISHED",
+    "commercial_direction": "NOT_SELECTED",
+    "safety_and_regulatory": "NOT_ESTABLISHED",
+    "release_or_sale": "NOT_AUTHORIZED"
+  },
+  "row_accounting": {
+    "total_rows": 63,
+    "ordinary_liquid_plan_reference_ready_rows": 56,
+    "unprepared_required_child_stock_rows": 3,
+    "sub_10_ul_child_route_required_rows": 3,
+    "separate_solid_mass_rows": 1,
+    "liquid_total_ul": "5600",
+    "solid_total_mg": "300",
+    "mass_volume_never_summed": true,
+    "formula_rows_modified": false
+  },
+  "targeted_physical_holds": {
+    "unprepared_child_stocks": [
+      {
+        "source_row": 31,
+        "material": "Heliotropal / piperonal",
+        "required_stock": "10% w/w in DPG"
+      },
+      {
+        "source_row": 59,
+        "material": "Black Pepper EO",
+        "required_stock": "10% v/v in ethanol"
+      },
+      {
+        "source_row": 63,
+        "material": "Nutmeg EO",
+        "required_stock": "10% v/v in ethanol"
+      }
+    ],
+    "sub_10_ul_rows": [
+      {
+        "source_row": 20,
+        "material": "Haitian Vetiver EO",
+        "nominal_ul": "5"
+      },
+      {
+        "source_row": 43,
+        "material": "Linalool Oxide",
+        "nominal_ul": "5"
+      },
+      {
+        "source_row": 68,
+        "material": "Rosemary EO",
+        "nominal_ul": "5"
+      }
+    ],
+    "solid_metering": "BALANCE_DISPLAY_RESOLUTION_NOT_ESTABLISHED",
+    "constant_total_basis": "NO_EXACT_ACTIVE_MASS_TOTAL_WITHOUT_DENSITY_OR_WEIGHED_LIQUID_TRANSFERS",
+    "physical_sample_state": "R5_AND_R6_EXISTENCE_UNKNOWN"
+  },
+  "sufficiency_decision": {
+    "unknown_lots_block_personal_nonexecuting_plan": false,
+    "unknown_lots_block_lot_specific_scientific_or_commercial_claims": true,
+    "user_confirmed_stock_form_is_accepted_for_personal_plan_preview": true,
+    "unavailable_exact_details_are_reasked_automatically": false,
+    "future_questions_must_be_triggered_by_a_specific_requested_action": true,
+    "current_user_input_required": false
+  },
+  "scientific_endpoint_state": {
+    "oav": "DIAGNOSTIC_ONLY_WHERE_DIMENSIONALLY_AND_CONTEXTUALLY_SUPPORTED",
+    "intensity": "HOLD_EXACT_CURVE_APPLICABILITY",
+    "character": "TARGET_LINKED_HYPOTHESIS_ONLY",
+    "pleasantness": "NOT_ESTABLISHED",
+    "personal_liking": "NOT_TESTED",
+    "population_mass_appeal": "NOT_ESTABLISHED",
+    "beauty_or_overall_quality": "PROHIBITED_DERIVED_ENDPOINT"
+  },
+  "decision": {
+    "personal_plan_state": "PASS_PERSONAL_NONEXECUTING_PLAN_DRAFT_WITH_TARGETED_HOLDS",
+    "physical_build_state": "HOLD_TARGETED_PREPARATION_TRANSFER_AND_AUTHORITY",
+    "sensory_protocol_state": "DRAFT_COMPLETE_EXECUTION_NOT_AUTHORIZED",
+    "formula_action": "NO_CHANGE",
+    "formula_modified": false,
+    "inventory_modified": false
+  },
+  "authority": {
+    "documentary_successor_record_authorized": true,
+    "read_only_gap_analysis_authorized": true,
+    "nonexecuting_build_plan_draft_authorized": true,
+    "personal_sensory_protocol_draft_authorized": true,
+    "stock_preparation_authorized": false,
+    "inventory_reservation_authorized": false,
+    "physical_compounding_authorized": false,
+    "skin_application_authorized": false,
+    "participant_recruitment_authorized": false,
+    "purchase_authorized": false,
+    "formula_mutation_authorized": false,
+    "inventory_mutation_authorized": false,
+    "model_training_authorized": false,
+    "evidence_admission_authorized": false,
+    "safety_authorized": false,
+    "regulatory_authorized": false,
+    "release_or_sale_authorized": false
+  },
+  "side_effects": {
+    "existing_governance_record_rewritten": false,
+    "formula_modified": false,
+    "inventory_modified": false,
+    "backend_record_created": false,
+    "build_plan_created": false,
+    "reservation_created": false,
+    "stock_prepared": false,
+    "physical_sample_created": false,
+    "skin_application_performed": false,
+    "sensory_observation_created": false,
+    "model_trained": false
+  }
+}

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
+from functools import lru_cache
 from math import isclose, isfinite
 from typing import Any, Mapping
 
@@ -32,7 +33,7 @@ from engine.knowledge.literature_rules import (
 from engine.name_utils import normalize_name
 from engine.odt_verifier import verify_entry
 from engine.pipeline.formula_state import FormulaState
-from engine.schema_validator import SchemaValidator
+from engine.schema_validator import KG_DIR, SchemaValidator
 
 
 @dataclass(frozen=True, slots=True)
@@ -345,9 +346,35 @@ def _input_normalization_check(formula: Mapping[str, Any]) -> PreflightCheck:
     return PreflightCheck("input_normalization", "PASS", f"{len(ingredients)} ingredients parsed.")
 
 
+def _schema_source_fingerprint() -> tuple[tuple[str, int, int], ...]:
+    records: list[tuple[str, int, int]] = []
+    for name in (
+        "material_properties.json",
+        "pairing_rules.json",
+        "synergy_matrix.json",
+        "theory_rules.json",
+    ):
+        path = KG_DIR / name
+        try:
+            stat = path.stat()
+        except OSError:
+            records.append((name, -1, -1))
+        else:
+            records.append((name, int(stat.st_mtime_ns), int(stat.st_size)))
+    return tuple(records)
+
+
+@lru_cache(maxsize=8)
+def _cached_schema_summary(
+    source_fingerprint: tuple[tuple[str, int, int], ...],
+) -> dict[str, Any]:
+    del source_fingerprint
+    return SchemaValidator().validate_all().summary()
+
+
 def _schema_check() -> PreflightCheck:
-    report = SchemaValidator().validate_all()
-    summary = report.summary()
+    cached = _cached_schema_summary(_schema_source_fingerprint())
+    summary = {**cached, "stats": dict(cached.get("stats", {}))}
     if summary["errors"] > 0:
         return PreflightCheck(
             "knowledge_graph_schema",
@@ -618,15 +645,26 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
     grouped_active_impact: dict[str, dict[str, Any]] = {}
     alias_evidence_by_material: dict[str, dict[str, Any]] = {}
     for name in ingredients:
-        alias_contract = alias_crosswalk.resolve(str(name))
-        lookup_name = alias_contract.destination if alias_contract else str(name)
+        formula_label = str(name)
+        alias_contract = alias_crosswalk.resolve(formula_label)
+        direct_norm = normalize_name(formula_label)
+        direct_candidates = (
+            exact_identity.get(direct_norm) or legacy_identity.get(direct_norm) or []
+        )
+        lookup_name = (
+            formula_label
+            if direct_candidates
+            else alias_contract.destination
+            if alias_contract
+            else formula_label
+        )
         if alias_contract:
-            alias_evidence_by_material[str(name)] = {
+            alias_evidence_by_material[formula_label] = {
                 "inventory_lookup_label": lookup_name,
                 "identity_crosswalk_contract_id": alias_contract.contract_id,
             }
         norm = normalize_name(lookup_name)
-        candidates = exact_identity.get(norm) or legacy_identity.get(norm) or []
+        candidates = direct_candidates or exact_identity.get(norm) or legacy_identity.get(norm) or []
         if len(candidates) > 1:
             literal_candidates = literal_identity.get(_literal_inventory_key(lookup_name))
             if literal_candidates:
@@ -704,6 +742,17 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
             },
         )
         group["declared_active_ul"] += raw_ul * formula_dil
+        physical_fraction_matches = [
+            record
+            for record in physical_owned
+            if abs(formula_dil - record.dilution) <= 0.005
+        ]
+        fraction_matches = [
+            record for record in physical_fraction_matches if record.execution_ready
+        ]
+        held_fraction_matches = [
+            record for record in physical_fraction_matches if not record.execution_ready
+        ]
         if not owned:
             matching_requirements = [
                 record
@@ -752,9 +801,52 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
             )
             continue
 
-        fraction_matches = [
-            record for record in owned if abs(formula_dil - record.dilution) <= 0.005
-        ]
+        if held_fraction_matches and not fraction_matches:
+            matching_requirements = [
+                record
+                for record in requirements
+                if abs(record.dilution - formula_dil) <= 0.005
+            ]
+            requirement_states = {
+                record.requirement_state for record in matching_requirements
+            }
+            if "PREPARATION_REQUIRED" in requirement_states:
+                reason = "preparation_required"
+            elif "GAP" in requirement_states:
+                reason = "inventory_gap"
+            elif any(record.execution_hold_reason for record in held_fraction_matches):
+                reason = "inventory_stock_non_executable"
+            else:
+                reason = "inventory_stock_metadata_incomplete"
+            if len(owned) == 1:
+                projected_live_active_ul += raw_ul * owned[0].dilution
+                group["projected_live_active_ul"] += raw_ul * owned[0].dilution
+            else:
+                live_projection_complete = False
+                group["live_projection_complete"] = False
+            issues.append(
+                {
+                    "material": name,
+                    "reason": reason,
+                    "statuses": sorted({record.status for record in candidates}),
+                    "source_rows": sorted(
+                        {
+                            row
+                            for record in matching_requirements or held_fraction_matches
+                            for row in record.source_rows
+                        }
+                    ),
+                    "execution_holds": sorted(
+                        {
+                            record.execution_hold_reason
+                            for record in held_fraction_matches
+                            if record.execution_hold_reason
+                        }
+                    ),
+                }
+            )
+            continue
+
         if not fraction_matches:
             matching_requirements = [
                 record

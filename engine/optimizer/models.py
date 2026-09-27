@@ -1111,7 +1111,7 @@ def _build_rule_index(rules: list[dict]) -> dict[str, list[dict]]:
             traced_rule,
             {**traced_rule, "material_a": rule["material_b"], "material_b": rule["material_a"]},
         ):
-            for key in material_match_keys(entry["material_a"]):
+            for key in sorted(material_match_keys(entry["material_a"])):
                 index.setdefault(key, []).append(entry)
     return index
 
@@ -1133,14 +1133,20 @@ def get_synergy_index() -> dict[str, list[dict]]:
 def _matching_rules_for_material(name: str, index: dict[str, list[dict]]) -> list[dict]:
     matches: list[dict] = []
     seen: set[tuple[str, str, str, str]] = set()
-    for key in material_match_keys(name):
+    for key in sorted(material_match_keys(name)):
         for rule in index.get(key, []):
             signature = _rule_signature(rule)
             if signature in seen:
                 continue
             seen.add(signature)
             matches.append(rule)
-    return matches
+    return sorted(
+        matches,
+        key=lambda rule: (
+            str(rule.get("_runtime_rule_id") or ""),
+            _rule_signature(rule),
+        ),
+    )
 
 
 def analyze_formula_rule_coverage(ingredient_names: list[str]) -> dict[str, object]:
@@ -1148,7 +1154,10 @@ def analyze_formula_rule_coverage(ingredient_names: list[str]) -> dict[str, obje
 
     Now includes per-axis magnitude-weighted scoring.
     Every rule has 'axis' and 'magnitude' fields."""
-    unique_names = [name for name in dict.fromkeys(ingredient_names) if name]
+    unique_names = sorted(
+        (name for name in dict.fromkeys(ingredient_names) if name),
+        key=lambda name: (material_identity_key(name), name.casefold(), name),
+    )
     identities = {name: material_identity_key(name) for name in unique_names}
     positive_pairs: set[tuple[str, str]] = set()
     conflict_pairs: set[tuple[str, str]] = set()
@@ -1224,7 +1233,24 @@ def analyze_formula_rule_coverage(ingredient_names: list[str]) -> dict[str, obje
         "raw_axis_magnitudes": {k: round(v, 4) for k, v in axis_magnitudes.items()},
         "total_axis_magnitude": sum(axis_magnitudes.values()),
         "consumed_rules_complete": footprint_complete,
-        "consumed_rules": list(consumed_rules.values()),
+        "consumed_rules": [
+            {
+                **record,
+                "consumed_bindings": sorted(
+                    record["consumed_bindings"],
+                    key=lambda binding: tuple(
+                        str(binding.get(field, ""))
+                        for field in (
+                            "formula_material_a",
+                            "formula_material_b",
+                            "rule_material_a",
+                            "rule_material_b",
+                        )
+                    ),
+                ),
+            }
+            for _rule_id, record in sorted(consumed_rules.items())
+        ],
     }
 
 
@@ -1509,7 +1535,10 @@ class OptimizationConstraints:
 class OptimizationResult:
     """Result from the optimizer."""
     formula: FormulaVector
-    scores: dict[str, float]
+    scores: dict[str, object]
     total_score: float
     suggestions: list[str]
     reasoning: list[str]
+    ranking_status: str = "WITHHELD"
+    formula_optimization_authority: bool = False
+    selection_basis: str = "LEGACY_DIAGNOSTIC_TOTAL_NOT_ADMITTED"

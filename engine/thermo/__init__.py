@@ -4,13 +4,14 @@ All physical units in SI: Pa, K, mol, m³. Wt%/µL stays at the user-facing laye
 """
 from .activity import gamma
 from .antoine import antoine_from_dhvap, vp_pa
-from .headspace import headspace_from_wt_pct, partial_pressures
+from .headspace import HeadspaceInputError, headspace_from_wt_pct, partial_pressures
 from .trajectory import evaporate
 
 __all__ = [
     "vp_pa",
     "antoine_from_dhvap",
     "gamma",
+    "HeadspaceInputError",
     "headspace_from_wt_pct",
     "partial_pressures",
     "evaporate",

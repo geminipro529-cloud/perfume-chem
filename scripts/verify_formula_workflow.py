@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import math
 import re
 import sys
 import unicodedata
@@ -40,7 +41,7 @@ from engine.formula_recommendations import (
     load_inventory,
 )
 from engine.inventory_parser import parse_stock_specification
-from engine.mixer.instructions import InstructionGenerator
+from engine.mixer.instructions import build_formula_compounding_protocol
 from engine.mixer.prebonding import PreBondingAnalyzer
 from engine.optimizer.models import FormulaVector
 from engine.optimizer.scoring import FormulaScorer
@@ -129,9 +130,14 @@ def _parse_dilution(raw: str) -> float:
 
 
 def _serialize_recommendation(rec: object) -> dict:
-    if isinstance(rec, dict):
-        return dict(rec)
-    return asdict(rec)
+    payload = dict(rec) if isinstance(rec, dict) else asdict(rec)
+    payload["authority_state"] = "UNVALIDATED_ADVISORY"
+    payload["proposal_status"] = "UNVALIDATED_ADVISORY"
+    payload["formula_optimization_authority"] = False
+    payload["compounding_action_authority"] = False
+    payload["requires_controlled_comparison"] = True
+    payload["selection_basis"] = "LEGACY_DIAGNOSTIC_TOTAL_NOT_ADMITTED"
+    return payload
 
 
 def _stringify_value(value: object) -> str:
@@ -425,9 +431,15 @@ def _parse_formula_rows(
     Handles section headers (**Top**, **Heart**, **Base**) and inline dilutions
     like "(10% in DPG)" or "10%".
     """
-    ingredients_ul: dict[str, float] = {}
     dilutions: dict[str, float] = {}
     stock_specs: dict[str, dict[str, object]] = {}
+    # Keep percentage rows separate from volume rows.  A value below 100 is
+    # not evidence that a table is expressed as percentages: many valid
+    # recipes contain small explicit uL transfers.  Percentages are converted
+    # only when the amount column itself is explicitly a percent column.
+    volume_amounts_ul: dict[str, float] = {}
+    percentage_amounts: dict[str, float] = {}
+    ingredient_order: list[str] = []
     total_ul_val: float | None = None
 
     def _split_row(line: str) -> list[str]:
@@ -466,6 +478,105 @@ def _parse_formula_rows(
             return float(token)
         except ValueError:
             return None
+
+    def _is_diagnostic_percent_context(headers: list[str]) -> bool:
+        """Identify report columns that describe a result rather than a dose."""
+
+        diagnostic_tokens = (
+            "active",
+            "air",
+            "analysis",
+            "bottle",
+            "concentration",
+            "delta",
+            "efficiency",
+            "edp",
+            "finished",
+            "gc-ms",
+            "gcms",
+            "headspace",
+            "ifra",
+            "intensity",
+            "in stock",
+            "margin",
+            "oav",
+            "odt",
+            "percept",
+            "rank",
+            "score",
+            "share",
+            "signal",
+            "smell",
+            "status",
+            "target",
+            "typical",
+            "vapor",
+            "verified",
+        )
+        return any(
+            token in header
+            for header in headers
+            for token in diagnostic_tokens
+        )
+
+    def _is_formula_context(section: str, headers: list[str]) -> bool:
+        """Return whether a table is labelled as a formula or dosing table."""
+
+        section_text = section.lower().strip()
+        if any(
+            token in section_text
+            for token in (
+                "accord",
+                "composition",
+                "concentrate",
+                "dose",
+                "formula",
+                "ingredient",
+                "mix",
+                "recipe",
+                "stock",
+            )
+        ):
+            return True
+        return any(
+            token in header
+            for header in headers
+            for token in ("dilution", "stock")
+        )
+
+    def _is_formula_percent_header(
+        header: str,
+        *,
+        section: str,
+        headers: list[str],
+    ) -> bool:
+        """Recognize composition columns without consuming diagnostic percentages.
+
+        A bare ``%``/``percent``/``percentage`` column is the documented
+        formula-table form. Longer composition labels are accepted only when
+        the table is visibly a formula/dosing table. ``% of total`` is kept
+        out of this grammar because it is the common OAV/share report form;
+        formula tables should use an explicit concentrate/formula label.
+        """
+
+        if _is_diagnostic_percent_context(headers):
+            return False
+        if header in {"%", "percent", "percentage"}:
+            return _is_formula_context(section, headers)
+        if not _is_formula_context(section, headers):
+            return False
+        return any(
+            marker in header
+            for marker in (
+                "formula",
+                "of concentrate",
+                "of accord",
+                "of conc",
+                "raw %",
+                "dose (% conc",
+                "parts %",
+            )
+        )
 
     def _parse_dil(v: str) -> float:
         clean = v.strip().replace("**", "").replace("`", "")
@@ -518,6 +629,10 @@ def _parse_formula_rows(
             "gate time-series oav leaders",
             "family oav envelope",
             "vapor ppm / odt / oav leaders",
+            "headspace",
+            "oav",
+            "diagnostic",
+            "report",
             "mixing order",
             "accord architecture",
             "material selection rationale",
@@ -529,43 +644,57 @@ def _parse_formula_rows(
         return any(token in low for token in blocked_tokens)
 
     def _extract_total_concentrate_ul(text: str) -> float | None:
-        patterns = (
-            (r"composition of bottle:[^\n]*?([0-9][0-9,\s]*(?:\.\d+)?)\s*ml\s+concentrate", "ml"),
-            (r"concentrate target:[^\n]*?([0-9][0-9,\s]*(?:\.\d+)?)\s*u?l", "ul"),
-            (r"concentrate total[^\n]*?([0-9][0-9,\s]*(?:\.\d+)?)\s*u?l", "ul"),
-            (r"concentrate total[^\n]*?([0-9][0-9,\s]*(?:\.\d+)?)\s*ml", "ml"),
+        """Extract only an explicit, unit-bearing concentrate or batch total."""
+
+        number = r"[+-]?(?:\d{1,3}(?:[,\s]\d{3})+|\d+)(?:\.\d+)?"
+        volume_unit = r"(?:mL|[uµμ]L)"
+        label_unit_patterns = (
+            rf"\bconcentrate\s+(?:target|total|volume)\s*\(\s*({volume_unit})\s*\)[^\n]*?({number})\b",
+            rf"\b(?:target|total)\s+concentrate\s*\(\s*({volume_unit})\s*\)[^\n]*?({number})\b",
         )
-        for pattern, unit in patterns:
+        for pattern in label_unit_patterns:
+            match = re.search(pattern, text, flags=re.IGNORECASE)
+            if not match:
+                continue
+            value = _parse_amount(match.group(2))
+            if value is None:
+                continue
+            unit = match.group(1).lower()
+            total_ul = value * 1000.0 if unit == "ml" else value
+            if total_ul <= 0.0:
+                raise ValueError(
+                    "explicit concentrate/batch total volume must be positive"
+                )
+            return total_ul
+        patterns = (
+            rf"composition of bottle:[^\n]*?({number})\s*({volume_unit})\s+concentrate\b",
+            rf"\bconcentrate\s+(?:target|total|volume)\b[^\n]*?({number})\s*({volume_unit})\b",
+            rf"\b(?:target|total)\s+concentrate\b[^\n]*?({number})\s*({volume_unit})\b",
+            rf"\bbatch\s+(?:target|total|volume)\b[^\n]*?({number})\s*({volume_unit})\b",
+        )
+        for pattern in patterns:
             match = re.search(pattern, text, flags=re.IGNORECASE)
             if not match:
                 continue
             value = _parse_amount(match.group(1))
             if value is None:
                 continue
-            if unit == "ml":
-                return value * 1000.0
-            return value
+            unit = match.group(2).lower()
+            total_ul = value * 1000.0 if unit == "ml" else value
+            if total_ul <= 0.0:
+                raise ValueError(
+                    "explicit concentrate/batch total volume must be positive"
+                )
+            return total_ul
         return None
 
     lines = body.splitlines()
     total_ul_val = _extract_total_concentrate_ul(body)
 
-    # First pass: find total concentrate volume
-    if total_ul_val is None:
-        for line in lines:
-            clean = line.strip().lower()
-            if "**total**" in clean or "concentrate" in clean:
-                for token in clean.split("|"):
-                    val = _parse_amount(token)
-                    if val is not None and val >= 100:
-                        total_ul_val = val
-                        break
-                if total_ul_val is not None:
-                    break
-
-    # Second pass: parse ingredient rows from markdown tables with usable headers.
+    # Parse ingredient rows from markdown tables with usable headers.
     current_headers: list[str] | None = None
-    current_section = ""
+    title_match = re.search(r"^#\s+(.+?)\s*$", body, flags=re.MULTILINE)
+    current_section = title_match.group(1).strip() if title_match else ""
     for idx, line in enumerate(lines):
         raw = line.strip()
         heading_match = re.match(r"^#{2,6}\s+(.+?)\s*$", raw)
@@ -602,7 +731,11 @@ def _parse_formula_rows(
                 amount_ml_idx = i
                 break
         for i, header in enumerate(current_headers):
-            if header == "%" or "percent" in header:
+            if _is_formula_percent_header(
+                header,
+                section=current_section,
+                headers=current_headers,
+            ):
                 percent_idx = i
                 break
 
@@ -618,10 +751,16 @@ def _parse_formula_rows(
             continue
 
         amount_ul: float | None = None
+        amount_is_percentage = False
         if amount_ul_idx is not None and amount_ul_idx < len(parts):
             amount_ul = _parse_amount(parts[amount_ul_idx])
         if amount_ul is None and percent_idx is not None and percent_idx < len(parts):
             amount_ul = _parse_amount(parts[percent_idx])
+            amount_is_percentage = amount_ul is not None
+        # If both cells are present, the explicit physical volume remains
+        # authoritative. Percentage columns in these tables are derived
+        # diagnostics; retaining this precedence avoids double-counting the
+        # same row while keeping the historical parser contract stable.
         if amount_ul is None and amount_ml_idx is not None and amount_ml_idx < len(parts):
             amount_ml = _parse_amount(parts[amount_ml_idx])
             if amount_ml is not None:
@@ -635,7 +774,17 @@ def _parse_formula_rows(
         stock = parse_stock_specification(dilution_cell)
         dilution = stock.fraction if stock.declared else _parse_dil(dilution_cell)
 
-        ingredients_ul[ingredient] = ingredients_ul.get(ingredient, 0.0) + amount_ul
+        if ingredient not in ingredient_order:
+            ingredient_order.append(ingredient)
+
+        if amount_is_percentage:
+            percentage_amounts[ingredient] = (
+                percentage_amounts.get(ingredient, 0.0) + amount_ul
+            )
+        else:
+            volume_amounts_ul[ingredient] = (
+                volume_amounts_ul.get(ingredient, 0.0) + amount_ul
+            )
         if ingredient not in dilutions or dilution != 1.0:
             dilutions[ingredient] = dilution
         spec = stock.as_dict()
@@ -648,11 +797,20 @@ def _parse_formula_rows(
             spec["variants"] = [previous, stock.as_dict()]
         stock_specs[ingredient] = spec
 
-    # Convert percentages to µL if total_ul is known and values look like pcts
-    vals = list(ingredients_ul.values())
-    if vals and total_ul_val and all(v < 100 for v in vals):
-        for name in list(ingredients_ul):
-            ingredients_ul[name] = ingredients_ul[name] * total_ul_val / 100.0
+    if percentage_amounts and total_ul_val is None:
+        raise ValueError(
+            "formula percentage amount rows require an explicit total "
+            "concentrate volume before conversion to uL"
+        )
+
+    # Convert only rows whose amount header was explicitly '%' (and preserve
+    # any independently declared uL/mL rows for the same material).
+    ingredients_ul = {}
+    for name in ingredient_order:
+        ingredients_ul[name] = volume_amounts_ul.get(name, 0.0) + (
+            percentage_amounts.get(name, 0.0)
+            * (float(total_ul_val) / 100.0 if total_ul_val is not None else 0.0)
+        )
 
     return ingredients_ul, dilutions, stock_specs
 
@@ -844,6 +1002,246 @@ def _parse_finished_matrix(
     }
 
 
+def _parse_compounding_rows(
+    body: str,
+    ingredients_ul: dict[str, float],
+) -> dict[str, object]:
+    """Read only explicitly basket-bound physical transfer rows.
+
+    The formula parser accepts several historical dose-table formats.  That is
+    appropriate for chemical analysis, but it is not enough authority for a
+    physical compounding card: physical rows must retain their raw transfer,
+    basket, stock label, and any prepared-dilution identity.  This parser is
+    deliberately narrower.  It never infers a basket from note, volatility,
+    name, or table order.
+    """
+
+    def split_row(line: str) -> list[str]:
+        cells = [cell.strip().replace("**", "") for cell in line.split("|")]
+        if cells and not cells[0]:
+            cells = cells[1:]
+        if cells and not cells[-1]:
+            cells = cells[:-1]
+        return cells
+
+    def normalize(value: str) -> str:
+        value = value.strip().replace("**", "").replace("`", "")
+        value = value.replace("µ", "u").replace("μ", "u")
+        return re.sub(r"\s+", " ", value.casefold())
+
+    def separator(line: str) -> bool:
+        stripped = line.strip()
+        return bool(
+            stripped.startswith("|")
+            and re.fullmatch(r"\|[\s:\-|]+\|?", stripped)
+        )
+
+    def parse_amount(value: str) -> float | None:
+        clean = value.strip().replace("**", "").replace("`", "")
+        if clean.casefold() in {"", "-", "--", "---", "—", "–", "na", "n/a"}:
+            return None
+        match = re.search(r"[-+]?\d[\d,\s]*(?:\.\d+)?", clean)
+        if not match:
+            return None
+        try:
+            return float(match.group(0).replace(",", "").replace(" ", ""))
+        except ValueError:
+            return None
+
+    def find_column(headers: list[str], *phrases: str) -> int | None:
+        for index, header in enumerate(headers):
+            if any(phrase in header for phrase in phrases):
+                return index
+        return None
+
+    def cell(cells: list[str], index: int | None) -> str:
+        return cells[index].strip() if index is not None and index < len(cells) else ""
+
+    def parse_operation(raw: str) -> tuple[str, str | None]:
+        value = normalize(raw)
+        if not value or value in {"direct", "direct add", "add"}:
+            return "DIRECT_ADD", None
+        if value in {"precharge", "pre-charge", "carrier precharge", "pre charge"}:
+            return "PRECHARGE", None
+        if value in {
+            "postcharge",
+            "post-charge",
+            "post charge",
+            "final make-up",
+            "final makeup",
+            "make-up",
+            "makeup",
+        }:
+            return "POSTCHARGE", None
+        return "DIRECT_ADD", f"UNRECOGNIZED_COMPOUNDING_OPERATION:{raw.strip()}"
+
+    lines = body.splitlines()
+    current_basket: int | None = None
+    headers: list[str] | None = None
+    rows: list[dict[str, object]] = []
+    blockers: list[str] = []
+    explicit_context_seen = False
+
+    for line_index, line in enumerate(lines, 1):
+        raw = line.strip()
+        heading = re.match(r"^#{1,6}\s+(.+?)\s*$", raw)
+        if heading:
+            basket_match = re.search(
+                r"\bbasket\s+([0-9]{1,2})\b",
+                heading.group(1),
+                flags=re.IGNORECASE,
+            )
+            if basket_match:
+                explicit_context_seen = True
+                parsed_basket = int(basket_match.group(1))
+                if 1 <= parsed_basket <= 17:
+                    current_basket = parsed_basket
+                else:
+                    current_basket = None
+                    blockers.append(
+                        f"INVALID_BASKET_AT_SOURCE_LINE:{line_index}:{parsed_basket}"
+                    )
+            else:
+                current_basket = None
+            headers = None
+            continue
+
+        if not raw.startswith("|"):
+            headers = None
+            continue
+        if separator(raw):
+            continue
+        if line_index < len(lines) and separator(lines[line_index]):
+            headers = [normalize(value) for value in split_row(raw)]
+            if find_column(headers, "basket") is not None:
+                explicit_context_seen = True
+            continue
+        if headers is None:
+            continue
+
+        cells = split_row(raw)
+        name_index = find_column(headers, "ingredient", "material")
+        ul_index = find_column(headers, "amount (ul", "amount ul", "raw ul", "transfer ul", "dose ul")
+        ml_index = find_column(headers, "amount (ml", "amount ml", "raw ml", "transfer ml", "dose ml")
+        basket_index = find_column(headers, "basket")
+        if name_index is None or (ul_index is None and ml_index is None):
+            continue
+        if basket_index is None and current_basket is None:
+            continue
+
+        material = cell(cells, name_index).replace("`", "").strip()
+        material_key = normalize(material)
+        if (
+            not material
+            or material_key in {"total", "subtotal", "fragrance sub-total", "final bottle total"}
+            or "~~" in cell(cells, name_index)
+        ):
+            continue
+
+        raw_ul = parse_amount(cell(cells, ul_index))
+        if raw_ul is None:
+            raw_ml = parse_amount(cell(cells, ml_index))
+            raw_ul = raw_ml * 1000.0 if raw_ml is not None else None
+        if raw_ul is None or raw_ul <= 0.0:
+            continue
+
+        basket = current_basket
+        basket_cell = cell(cells, basket_index)
+        if basket_cell:
+            basket_match = re.search(r"\d{1,2}", basket_cell)
+            if basket_match:
+                parsed_basket = int(basket_match.group(0))
+                if 1 <= parsed_basket <= 17:
+                    basket = parsed_basket
+                else:
+                    basket = None
+                    blockers.append(
+                        f"INVALID_BASKET_AT_SOURCE_LINE:{line_index}:{parsed_basket}"
+                    )
+            else:
+                basket = None
+                blockers.append(f"INVALID_BASKET_AT_SOURCE_LINE:{line_index}")
+
+        operation_index = find_column(headers, "operation", "addition method")
+        operation, operation_blocker = parse_operation(cell(cells, operation_index))
+        if operation_blocker:
+            blockers.append(f"{operation_blocker}:SOURCE_LINE_{line_index}")
+
+        stock_label_index = find_column(headers, "physical stock", "stock label", "bottle label")
+        dilution_index = find_column(headers, "dilution", "stock strength")
+        stock_label = cell(cells, stock_label_index)
+        dilution_label = cell(cells, dilution_index)
+        if not stock_label:
+            stock_label = (
+                f"{material} [{dilution_label}]" if dilution_label else material
+            )
+
+        prepared_index = find_column(
+            headers,
+            "prepared dilution id",
+            "prepared dilution",
+            "dilution id",
+        )
+        prepared_dilution_id = cell(cells, prepared_index) or None
+        row_id_index = find_column(headers, "row id", "transfer id")
+        row_id = cell(cells, row_id_index) or f"source-line-{line_index:04d}"
+        rows.append(
+            {
+                "row_id": row_id,
+                "material": material,
+                "physical_stock_label": stock_label,
+                "raw_ul": float(raw_ul),
+                "basket": basket,
+                "operation": operation,
+                "prepared_dilution_id": prepared_dilution_id,
+            }
+        )
+
+    if not explicit_context_seen:
+        return {
+            "compounding_rows": [],
+            "compounding_row_status": "UNAVAILABLE",
+            "compounding_row_blockers": [
+                "EXPLICIT_BASKET_ASSIGNMENTS_NOT_DECLARED"
+            ],
+        }
+
+    if not rows:
+        blockers.append("NO_POSITIVE_PHYSICAL_TRANSFER_ROWS_IN_BASKET_CONTEXT")
+    else:
+        row_ids = [str(row["row_id"]) for row in rows]
+        if len(row_ids) != len(set(row_ids)):
+            blockers.append("DUPLICATE_PHYSICAL_TRANSFER_ROW_ID")
+
+        parsed_totals: dict[str, float] = {}
+        for row in rows:
+            if row["operation"] != "DIRECT_ADD":
+                continue
+            material = str(row["material"])
+            parsed_totals[material] = parsed_totals.get(material, 0.0) + float(
+                row["raw_ul"]
+            )
+        for material, expected_ul in ingredients_ul.items():
+            actual_ul = parsed_totals.get(material)
+            if actual_ul is None or not math.isclose(
+                actual_ul,
+                float(expected_ul),
+                rel_tol=0.0,
+                abs_tol=1e-6,
+            ):
+                blockers.append(f"FORMULA_TO_PHYSICAL_ROW_MISMATCH:{material}")
+        for material in parsed_totals:
+            if material not in ingredients_ul:
+                blockers.append(f"PHYSICAL_ROW_NOT_IN_FORMULA:{material}")
+
+    blockers = list(dict.fromkeys(blockers))
+    return {
+        "compounding_rows": rows,
+        "compounding_row_status": "COMPLETE" if not blockers else "WITHHELD",
+        "compounding_row_blockers": blockers,
+    }
+
+
 def _build_formula_record(
     number: int,
     name: str,
@@ -860,6 +1258,7 @@ def _build_formula_record(
     }
     concentrate_ml = round(total_ul / 1000.0, 3)
     matrix = _parse_finished_matrix(body, dilutions)
+    compounding_contract = _parse_compounding_rows(body, ingredients_ul)
     return {
         "number": number,
         "name": name,
@@ -867,6 +1266,7 @@ def _build_formula_record(
         "ingredients_pct": ingredients_pct,
         "dilutions": dilutions,
         "stock_specs": stock_specs,
+        **compounding_contract,
         "concentrate_ml": concentrate_ml,
         "body": body,
         "family_archetype": _infer_family_archetype(body),
@@ -1014,7 +1414,11 @@ def select_formula(formulas: list[dict], formula_number: int | None, formula_nam
     raise ValueError("Provide --formula or --name when the file contains multiple formulas.")
 
 
-def build_verification_bundle(formula: dict) -> dict:
+def build_verification_bundle(
+    formula: dict,
+    *,
+    include_advisory_recommendations: bool = False,
+) -> dict:
     fv = FormulaVector(
         ingredients=dict(formula["ingredients_pct"]),
         dilutions=dict(formula["dilutions"]),
@@ -1027,35 +1431,54 @@ def build_verification_bundle(formula: dict) -> dict:
     scores = _normalize_legacy_score_axes(fv, scores, radar)
     stars = compute_star_ratings(fv, scores, radar)
     confidence = ConfidenceScorer().score(fv.ingredients)
-    inventory = load_inventory()
-    recommendations = generate_recommendations(fv, scores, inventory=inventory, top_n=5)
-    pre_mix_engine = generate_intervention_recommendations(
-        fv,
-        scores,
-        inventory=inventory,
-        top_n=5,
-        mode="pre_mix",
-    )
-    between_mix_engine = generate_intervention_recommendations(
-        fv,
-        scores,
-        inventory=inventory,
-        top_n=5,
-        mode="between_mix",
-    )
-    post_mix_engine = generate_intervention_recommendations(
-        fv,
-        scores,
-        inventory=inventory,
-        top_n=5,
-        mode="post_mix",
-        batch_volume_ml=30.0,
-    )
+    if include_advisory_recommendations:
+        inventory = load_inventory()
+        recommendations = generate_recommendations(
+            fv,
+            scores,
+            inventory=inventory,
+            top_n=5,
+            scorer=scorer,
+            include_unvalidated_advisory=True,
+        )
+        # The public generate_recommendations default is pre_mix, so retain
+        # that exact result for the pre-mix intervention section. This avoids
+        # a second equivalent candidate search.
+        pre_mix_engine = recommendations
+        between_mix_engine = generate_intervention_recommendations(
+            fv,
+            scores,
+            inventory=inventory,
+            top_n=5,
+            mode="between_mix",
+            scorer=scorer,
+            include_unvalidated_advisory=True,
+        )
+        post_mix_engine = generate_intervention_recommendations(
+            fv,
+            scores,
+            inventory=inventory,
+            top_n=5,
+            mode="post_mix",
+            batch_volume_ml=30.0,
+            scorer=scorer,
+            include_unvalidated_advisory=True,
+        )
+        advisory_status = "COMPUTED_EXPLICITLY_REQUESTED"
+    else:
+        # Candidate search is optimization work, not a prerequisite for a
+        # verification/compounding bundle. Routine runs remain diagnostic and
+        # deterministic without spending time on three independent searches.
+        recommendations = []
+        pre_mix_engine = []
+        between_mix_engine = []
+        post_mix_engine = []
+        advisory_status = "SKIPPED_NOT_REQUESTED"
 
     prebond = PreBondingAnalyzer().analyze_formula(fv.ingredients)
-    instructions = InstructionGenerator().generate(
-        ingredients=fv.ingredients,
-        formula_name=formula["name"],
+    instructions = build_formula_compounding_protocol(
+        formula,
+        prebond_analysis=prebond,
     )
     blocked_materials = {
         ingredient: blocked_reason(ingredient)
@@ -1157,7 +1580,21 @@ def build_verification_bundle(formula: dict) -> dict:
         "star_ratings": star_scores,
         "star_average": round(stars.average(), 2),
         "confidence": confidence,
-        "recommendations": [asdict(rec) for rec in recommendations],
+        "recommendations": [
+            _serialize_recommendation(rec) for rec in recommendations
+        ],
+        "ranking": {
+            "status": "WITHHELD",
+            "value": None,
+            "formula_optimization_authority": False,
+            "diagnostic_total": scores.get("total"),
+            "blockers": [
+                "Legacy verification scores are heuristic diagnostics, not a validated formula-quality endpoint.",
+                "Any advisory candidate requires a controlled comparison before recompounding authority.",
+            ],
+        },
+        "advisory_recommendation_status": advisory_status,
+        "advisory_recommendations_requested": include_advisory_recommendations,
         "recommendation_sections": recommendation_sections,
         "intervention_phases": [phase["key"] for phase in INTERVENTION_PHASES],
         "comparison": comparison,
@@ -1788,6 +2225,7 @@ def write_intervention_recommendations(path: Path, bundle: dict) -> None:
         "",
         "This file is the standalone intervention surface for the verification bundle.",
         "It keeps the current flat recommendations intact while also exposing explicit pre_mix, between_mix, and post_mix sections.",
+        "All model-generated dose changes are unvalidated advisory proposals. They do not authorize recompounding; use a controlled comparison.",
         "",
     ]
 
@@ -1906,6 +2344,8 @@ def write_predicted_report(path: Path, bundle: dict) -> None:
 
     lines = [
         f"# Verification Report - {formula['name']}",
+        "",
+        "**Ranking authority:** WITHHELD. Scores below are heuristic diagnostics, not a beauty, liking, or recompounding objective.",
         "",
         "## Formula",
         "",
@@ -2607,6 +3047,14 @@ def main() -> int:
     )
     parser.add_argument("--formula", type=int, help="Formula number to verify")
     parser.add_argument("--name", help="Partial formula name to verify")
+    parser.add_argument(
+        "--include-advisory-recommendations",
+        action="store_true",
+        help=(
+            "Opt into the slower pre-mix, between-mix, and post-mix candidate "
+            "search. Routine verification skips this optimizer work."
+        ),
+    )
     parser.add_argument("--design-plan", type=Path,
                         help="Run source-bound evidence portfolio on a JSON formula record; no mixing bundle")
     parser.add_argument("--evaluator-review", type=Path,
@@ -2658,7 +3106,10 @@ def main() -> int:
         raise ValueError(f"No parseable formulas found in {formula_path}")
 
     formula = select_formula(formulas, args.formula, args.name)
-    bundle = build_verification_bundle(formula)
+    bundle = build_verification_bundle(
+        formula,
+        include_advisory_recommendations=args.include_advisory_recommendations,
+    )
     output_dir = write_bundle(bundle, formula_path)
 
     print("Verification bundle created")

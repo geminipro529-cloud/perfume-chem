@@ -1,6 +1,28 @@
 import json
+import subprocess
+import sys
+from types import SimpleNamespace
 
 from scripts import pipeline_audit
+
+
+def test_import_does_not_load_command_specific_dependency_stacks():
+    probe = (
+        "import sys; import scripts.pipeline_audit; "
+        "targets = ('engine.pipeline.gates', 'scripts.formula_release_gate', "
+        "'scripts.verify_formula_workflow', "
+        "'engine.perception.complexity_benchmark', 'engine.pipeline.audit_log'); "
+        "print([name for name in targets if name in sys.modules])"
+    )
+    result = subprocess.run(
+        [sys.executable, "-c", probe],
+        cwd=pipeline_audit.PROJECT_ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+
+    assert result.stdout.strip() == "[]"
 
 
 def test_matching_formula_paths_excludes_scratch_by_default(tmp_path, monkeypatch):
@@ -28,6 +50,55 @@ def test_pipeline_audit_verify_json_runs_for_small_sample(capsys):
     assert "knowledge_rule_quality" in captured
     assert "data_authority_coverage" in captured
     assert "disconnected_module_status" in captured
+
+
+def test_verify_reuses_science_audit_contract(monkeypatch, capsys):
+    calls = 0
+
+    def build_science_contract():
+        nonlocal calls
+        calls += 1
+        return {"data_coverage_pct": {"total": 100.0}}
+
+    monkeypatch.setattr(
+        pipeline_audit,
+        "SchemaValidator",
+        lambda: SimpleNamespace(
+            validate_all=lambda: SimpleNamespace(summary=lambda: {})
+        ),
+    )
+    monkeypatch.setattr(
+        pipeline_audit,
+        "build_literature_rule_contract",
+        lambda: SimpleNamespace(as_dict=lambda: {}),
+    )
+    monkeypatch.setattr(
+        pipeline_audit,
+        "build_knowledge_rule_quality_contract",
+        lambda: SimpleNamespace(as_dict=lambda: {}),
+    )
+    monkeypatch.setattr(
+        pipeline_audit,
+        "build_science_audit_contract",
+        build_science_contract,
+    )
+    monkeypatch.setattr(
+        pipeline_audit,
+        "_matching_formula_paths",
+        lambda *args, **kwargs: [],
+    )
+    monkeypatch.setattr(pipeline_audit, "_disconnected_module_status_report", lambda: {})
+    monkeypatch.setattr(pipeline_audit, "_evidence_posture_report", lambda: {})
+
+    rc = pipeline_audit.main(["verify", "--json", "--no-audit"])
+
+    payload = json.loads(capsys.readouterr().out)
+    assert rc == 0
+    assert calls == 1
+    assert payload["science_audit"]["data_coverage_pct"] == {"total": 100.0}
+    assert payload["data_authority_coverage"]["science_coverage_pct"] == {
+        "total": 100.0
+    }
 
 
 def test_complexity_benchmark_census_json(capsys) -> None:

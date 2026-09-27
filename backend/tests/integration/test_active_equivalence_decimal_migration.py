@@ -1,4 +1,5 @@
 import sqlite3
+from contextlib import closing
 
 import pytest
 
@@ -69,13 +70,13 @@ def test_decimal_migration_preserves_legacy_unknown_and_append_only_guard(tmp_pa
     database = tmp_path / "active-equivalence-decimal.db"
     config = _config(database)
     command.upgrade(config, PRIOR_HEAD)
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         connection.execute("PRAGMA foreign_keys=ON")
         _insert_legacy_formula_rows(connection)
 
     command.upgrade(config, DECIMAL_HEAD)
 
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         connection.execute("PRAGMA foreign_keys=ON")
         assert "active_fraction_decimal_text" in _columns(
             connection,
@@ -110,12 +111,12 @@ def test_decimal_migration_downgrades_and_reupgrades_without_inference(tmp_path)
     database = tmp_path / "active-equivalence-decimal-roundtrip.db"
     config = _config(database)
     command.upgrade(config, PRIOR_HEAD)
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         _insert_legacy_formula_rows(connection)
     command.upgrade(config, DECIMAL_HEAD)
 
     command.downgrade(config, PRIOR_HEAD)
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         assert "active_fraction_decimal_text" not in _columns(
             connection,
             "lab_stock_solutions",
@@ -132,7 +133,7 @@ def test_decimal_migration_downgrades_and_reupgrades_without_inference(tmp_path)
         connection.rollback()
 
     command.upgrade(config, DECIMAL_HEAD)
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         assert connection.execute(
             "SELECT active_fraction_decimal_text FROM lab_stock_solutions "
             "WHERE id='stock-decimal-legacy'"

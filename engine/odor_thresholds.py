@@ -3029,6 +3029,8 @@ _ODT_QUERY_ALIASES = {
     # ODT evidence may be shared without collapsing distinct material and stock
     # identities in the central name normalizer.
     "jasmine sambac absolute": "jasmine absolute",
+    "evernyl crystals": "evernyl",
+    "olibanum": "olibanum resinoid",
 }
 
 

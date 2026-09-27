@@ -6,7 +6,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=sqlite+aiosqlite:///./perfume_chem.db
+      - DATABASE_URL=sqlite+aiosqlite:////app/backend/runtime/perfume_chem.db
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - SECRET_KEY=${SECRET_KEY:-change-this-secret-key}
       - DEBUG=True
@@ -18,9 +18,30 @@ services:
       - ./backend/config:/app/backend/config:ro
       - ./engine:/app/engine
       - ./data:/app/data:ro
+      - engine_job_db:/app/backend/runtime
     depends_on:
       - redis
       - jaeger
+
+  engine-worker:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    command: ["python", "-m", "app.services.engine_job_worker"]
+    environment:
+      - DATABASE_URL=sqlite+aiosqlite:////app/backend/runtime/perfume_chem.db
+      - ENGINE_JOB_WORKER_CONCURRENCY=${ENGINE_JOB_WORKER_CONCURRENCY:-4}
+      - ENGINE_JOB_WORKER_POLL_SECONDS=${ENGINE_JOB_WORKER_POLL_SECONDS:-0.5}
+      - SECRET_KEY=${SECRET_KEY:-change-this-secret-key}
+    volumes:
+      - ./backend/data:/app/backend/data
+      - ./backend/app:/app/backend/app
+      - ./backend/config:/app/backend/config:ro
+      - ./engine:/app/engine
+      - ./data:/app/data:ro
+      - engine_job_db:/app/backend/runtime
+    depends_on:
+      - api
 
   redis:
     image: redis:7-alpine
@@ -40,3 +61,4 @@ services:
 
 volumes:
   redis_data:
+  engine_job_db:

@@ -30,10 +30,20 @@ REPORT_COLLECTION_KEYS = (
     "selected_assertion_candidates",
     "rule_support_evidence",
     "analytical_sequence_entries",
+    "external_stimuli",
+    "external_stimulus_components",
+    "external_conditions",
+    "external_experimental_units",
+    "external_observations",
+    "external_identity_crosswalks",
+    "external_study_conflicts",
 )
 
 _SECTION_LABELS: dict[str, str] = {
     "source_documents": "Source documents",
+    "source_use_constraints": (
+        "Source-declared operation constraints (not legal conclusions)"
+    ),
     "source_extractions": "Source extractions and exact locators",
     "property_observations": "Property observations",
     "selected_assertions": "Selected assertions",
@@ -53,6 +63,9 @@ _SECTION_LABELS: dict[str, str] = {
     "regulatory_findings": "Regulatory findings",
     "claim_authority_decisions": "Claim-authority decisions",
     "claim_authority_support": "Claim-authority support",
+    "external_study_versions": (
+        "External studies (source-reported summaries only)"
+    ),
 }
 
 _BLOCKED_OUTPUT_KEYS = {
@@ -65,6 +78,14 @@ _BLOCKED_OUTPUT_KEYS = {
     "secret",
     "api_key",
     "access_token",
+    "participant_token",
+    "pseudonymous_token",
+    "blind_label",
+    "blind_code",
+    "trial_key",
+    "session_key",
+    "presentation",
+    "presentation_json",
 }
 _BANNED_AGGREGATE_KEYS = {
     "confidence",
@@ -107,12 +128,39 @@ _SOURCE_PROVENANCE = (
     "default_locator_json",
     "artifact_sha256",
     "license_or_reuse_restriction",
+    "rights_json",
     "reviewer_pseudonym",
     "supersedes_version_id",
     "parent_record_sha256",
     "record_sha256",
 )
 _SOURCE_AUTHORITY = ("review_state",)
+
+_SOURCE_USE_FACTS = (
+    "version_number",
+    "artifact_scope",
+    "channel",
+    "intended_action",
+    "purpose_context",
+    "constraints_json",
+    "terms_effective_date",
+    "terms_retrieval_date",
+)
+_SOURCE_USE_PROVENANCE = (
+    "constraint_id",
+    "subject_source_version_id",
+    "terms_source_version_id",
+    "artifact_locator_json",
+    "reviewer_pseudonym",
+    "supersedes_version_id",
+    "parent_record_sha256",
+    "record_sha256",
+)
+_SOURCE_USE_AUTHORITY = (
+    "decision",
+    "review_state",
+    "legal_review_required",
+)
 
 _EXTRACTION_FACTS = (
     "structure_context_json",
@@ -553,8 +601,36 @@ _CLAIM_SUPPORT_PROVENANCE = (
     "content_sha256",
 )
 
+_EXTERNAL_STUDY_FACTS = (
+    "study_id",
+    "version_number",
+    "source_family",
+    "study_key",
+    "title",
+    "study_domain",
+    "adapter_name",
+    "adapter_version",
+)
+_EXTERNAL_STUDY_PROVENANCE = (
+    "source_version_id",
+    "source_extraction_id",
+    "source_use_request_sha256",
+    "source_use_assessment_sha256",
+    "source_use_constraint_version_ids_json",
+    "source_use_constraint_record_sha256s_json",
+    "supersedes_version_id",
+    "parent_record_sha256",
+    "record_sha256",
+)
+_EXTERNAL_STUDY_AUTHORITY = ("authority_state",)
+
 _SECTION_FIELDS: dict[str, tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]] = {
     "source_documents": (_SOURCE_FACTS, _SOURCE_PROVENANCE, _SOURCE_AUTHORITY),
+    "source_use_constraints": (
+        _SOURCE_USE_FACTS,
+        _SOURCE_USE_PROVENANCE,
+        _SOURCE_USE_AUTHORITY,
+    ),
     "source_extractions": (_EXTRACTION_FACTS, _EXTRACTION_PROVENANCE, ()),
     "property_observations": (
         _OBSERVATION_FACTS,
@@ -618,12 +694,18 @@ _SECTION_FIELDS: dict[str, tuple[tuple[str, ...], tuple[str, ...], tuple[str, ..
         _CLAIM_SUPPORT_PROVENANCE,
         (),
     ),
+    "external_study_versions": (
+        _EXTERNAL_STUDY_FACTS,
+        _EXTERNAL_STUDY_PROVENANCE,
+        _EXTERNAL_STUDY_AUTHORITY,
+    ),
 }
 
 
 @dataclass(frozen=True)
 class _ProjectionContext:
     source_by_id: dict[str, object]
+    source_extraction_by_id: dict[str, object]
     workflow_state_by_subject: dict[str, str]
     observation_by_id: dict[str, object]
     assertion_by_id: dict[str, object]
@@ -635,6 +717,7 @@ class _ProjectionContext:
     sequence_entries: dict[str, tuple[dict[str, object], ...]]
     regulatory_snapshot_by_id: dict[str, object]
     claim_by_id: dict[str, object]
+    external_study_summary_by_id: dict[str, dict[str, object]]
 
 
 class ScienceSnapshotRepository(Protocol):
@@ -688,6 +771,146 @@ def _fields(row: object, names: Sequence[str]) -> dict[str, object]:
 
 def _identifier_map(rows: Sequence[object]) -> dict[str, object]:
     return {_record_id(row): row for row in rows}
+
+
+@dataclass
+class _ExternalStudySummaryBuilder:
+    child_counts: dict[str, int]
+    unit_grains: set[str]
+    observation_grains: set[str]
+    endpoint_keys: set[str]
+    missingness_counts: dict[str, int]
+    aggregation_statistic_counts: dict[str, int]
+    crosswalk_status_counts: dict[str, int]
+    conflict_state_counts: dict[str, int]
+
+    @classmethod
+    def empty(cls) -> _ExternalStudySummaryBuilder:
+        return cls(
+            child_counts={
+                "stimuli": 0,
+                "stimulus_components": 0,
+                "conditions": 0,
+                "experimental_units": 0,
+                "observations": 0,
+                "identity_crosswalks": 0,
+                "conflicts": 0,
+            },
+            unit_grains=set(),
+            observation_grains=set(),
+            endpoint_keys=set(),
+            missingness_counts={},
+            aggregation_statistic_counts={},
+            crosswalk_status_counts={},
+            conflict_state_counts={},
+        )
+
+    def increment(self, collection: str) -> None:
+        self.child_counts[collection] += 1
+
+    @staticmethod
+    def increment_value(counter: dict[str, int], value: object) -> None:
+        key = str(value or "UNKNOWN")
+        counter[key] = counter.get(key, 0) + 1
+
+    def as_dict(self) -> dict[str, object]:
+        return {
+            "child_counts": dict(sorted(self.child_counts.items())),
+            "unit_grains": sorted(self.unit_grains),
+            "observation_grains": sorted(self.observation_grains),
+            "endpoint_keys": sorted(self.endpoint_keys),
+            "missingness_counts": dict(sorted(self.missingness_counts.items())),
+            "aggregation_statistic_counts": dict(
+                sorted(self.aggregation_statistic_counts.items())
+            ),
+            "crosswalk_status_counts": dict(
+                sorted(self.crosswalk_status_counts.items())
+            ),
+            "conflict_state_counts": dict(
+                sorted(self.conflict_state_counts.items())
+            ),
+        }
+
+
+def _external_study_summaries(
+    snapshot: Mapping[str, Sequence[object]],
+) -> dict[str, dict[str, object]]:
+    builders = {
+        _record_id(row): _ExternalStudySummaryBuilder.empty()
+        for row in snapshot.get("external_study_versions", ())
+    }
+    stimulus_study: dict[str, str] = {}
+    component_study: dict[str, str] = {}
+
+    for row in snapshot.get("external_stimuli", ()):
+        study_id = str(getattr(row, "study_version_id", ""))
+        stimulus_study[_record_id(row)] = study_id
+        if study_id in builders:
+            builders[study_id].increment("stimuli")
+
+    for row in snapshot.get("external_stimulus_components", ()):
+        study_id = stimulus_study.get(
+            str(getattr(row, "stimulus_version_id", "")),
+            "",
+        )
+        component_study[_record_id(row)] = study_id
+        if study_id in builders:
+            builders[study_id].increment("stimulus_components")
+
+    for row in snapshot.get("external_conditions", ()):
+        study_id = str(getattr(row, "study_version_id", ""))
+        if study_id in builders:
+            builders[study_id].increment("conditions")
+
+    for row in snapshot.get("external_experimental_units", ()):
+        study_id = str(getattr(row, "study_version_id", ""))
+        if study_id in builders:
+            builder = builders[study_id]
+            builder.increment("experimental_units")
+            builder.unit_grains.add(str(getattr(row, "unit_grain", "UNKNOWN")))
+
+    for row in snapshot.get("external_observations", ()):
+        study_id = str(getattr(row, "study_version_id", ""))
+        if study_id in builders:
+            builder = builders[study_id]
+            builder.increment("observations")
+            builder.observation_grains.add(
+                str(getattr(row, "observation_grain", "UNKNOWN"))
+            )
+            builder.endpoint_keys.add(str(getattr(row, "endpoint_key", "UNKNOWN")))
+            builder.increment_value(
+                builder.missingness_counts,
+                getattr(row, "missingness", None),
+            )
+            builder.increment_value(
+                builder.aggregation_statistic_counts,
+                getattr(row, "aggregation_statistic", None),
+            )
+
+    for row in snapshot.get("external_identity_crosswalks", ()):
+        study_id = component_study.get(str(getattr(row, "component_id", "")), "")
+        if study_id in builders:
+            builder = builders[study_id]
+            builder.increment("identity_crosswalks")
+            builder.increment_value(
+                builder.crosswalk_status_counts,
+                getattr(row, "resolution_status", None),
+            )
+
+    for row in snapshot.get("external_study_conflicts", ()):
+        study_id = str(getattr(row, "study_version_id", ""))
+        if study_id in builders:
+            builder = builders[study_id]
+            builder.increment("conflicts")
+            builder.increment_value(
+                builder.conflict_state_counts,
+                getattr(row, "conflict_state", None),
+            )
+
+    return {
+        study_id: builder.as_dict()
+        for study_id, builder in builders.items()
+    }
 
 
 def _projection_context(
@@ -754,6 +977,9 @@ def _projection_context(
 
     return _ProjectionContext(
         source_by_id=_identifier_map(snapshot.get("source_documents", ())),
+        source_extraction_by_id=_identifier_map(
+            snapshot.get("source_extractions", ())
+        ),
         workflow_state_by_subject={
             subject_id: value[1] for subject_id, value in workflow.items()
         },
@@ -781,6 +1007,7 @@ def _projection_context(
         claim_by_id=_identifier_map(
             snapshot.get("claim_authority_decisions", ())
         ),
+        external_study_summary_by_id=_external_study_summaries(snapshot),
     )
 
 
@@ -825,6 +1052,7 @@ def _source_evidence_class(row: object) -> EvidenceClass:
     if source_type in {
         "AUTHENTICATED_FORMULA_OR_DOSSIER",
         "PRIMARY_PEER_REVIEWED_PAPER",
+        "PRIMARY_RESEARCH_DATASET",
         "REVIEW_PAPER",
         "STANDARD",
         "REGULATION_OR_OFFICIAL_GUIDANCE",
@@ -842,6 +1070,20 @@ def _evidence_class(
 ) -> EvidenceClass:
     if section == "source_documents":
         return _source_evidence_class(row)
+    if section == "external_study_versions":
+        source = context.source_by_id.get(
+            str(getattr(row, "source_version_id", ""))
+        )
+        return _source_evidence_class(source) if source is not None else "UNKNOWN"
+    if section == "source_use_constraints":
+        terms_source = context.source_by_id.get(
+            str(getattr(row, "terms_source_version_id", ""))
+        )
+        return (
+            _source_evidence_class(terms_source)
+            if terms_source is not None
+            else "UNKNOWN"
+        )
     if section == "source_extractions":
         source = context.source_by_id.get(
             str(getattr(row, "source_version_id", ""))
@@ -958,6 +1200,31 @@ def _strict_reasons(
             reasons.append("SOURCE_NOT_REVIEWED")
         if not _has_locator(getattr(row, "default_locator_json", None)):
             reasons.append("MISSING_EXACT_LOCATOR")
+    elif section == "source_use_constraints":
+        if str(getattr(row, "review_state", "")) != "REVIEWED":
+            reasons.append("SOURCE_USE_ASSERTION_NOT_REVIEWED")
+        if bool(getattr(row, "legal_review_required", True)):
+            reasons.append("LEGAL_REVIEW_REQUIRED")
+        if str(getattr(row, "decision", "")) in {"UNRESOLVED", "CONFLICT"}:
+            reasons.append("SOURCE_USE_DECISION_UNRESOLVED")
+        subject_source = context.source_by_id.get(
+            str(getattr(row, "subject_source_version_id", ""))
+        )
+        if subject_source is None:
+            reasons.append("SUBJECT_SOURCE_LINK_MISSING")
+        elif str(getattr(subject_source, "review_state", "")) != "REVIEWED":
+            reasons.append("SUBJECT_SOURCE_NOT_REVIEWED")
+        terms_source = context.source_by_id.get(
+            str(getattr(row, "terms_source_version_id", ""))
+        )
+        if terms_source is None:
+            reasons.append("TERMS_SOURCE_LINK_MISSING")
+        elif str(getattr(terms_source, "review_state", "")) != "REVIEWED":
+            reasons.append("TERMS_SOURCE_NOT_REVIEWED")
+        if not _has_locator(getattr(row, "artifact_locator_json", None)):
+            reasons.append("MISSING_EXACT_ARTIFACT_LOCATOR")
+        if not isinstance(getattr(row, "constraints_json", None), Mapping):
+            reasons.append("SOURCE_USE_CONSTRAINTS_MALFORMED")
     elif section == "source_extractions":
         source = context.source_by_id.get(
             str(getattr(row, "source_version_id", ""))
@@ -1080,6 +1347,20 @@ def _strict_reasons(
             reasons.append("CLAIM_PARENT_MISSING")
         elif str(getattr(claim, "decision", "")) not in _STRICT_CLAIM_DECISIONS:
             reasons.append("CLAIM_PARENT_NOT_STRICT")
+    elif section == "external_study_versions":
+        reasons.append("SOURCE_REPORTED_ONLY")
+        source = context.source_by_id.get(
+            str(getattr(row, "source_version_id", ""))
+        )
+        if source is None:
+            reasons.append("SOURCE_LINK_MISSING")
+        elif str(getattr(source, "review_state", "")) != "REVIEWED":
+            reasons.append("SOURCE_NOT_REVIEWED")
+        extraction_id = str(getattr(row, "source_extraction_id", ""))
+        if extraction_id not in context.source_extraction_by_id:
+            reasons.append("SOURCE_EXTRACTION_LINK_MISSING")
+        if str(getattr(row, "authority_state", "")) != "SOURCE_REPORTED_ONLY":
+            reasons.append("EXTERNAL_STUDY_AUTHORITY_STATE_INVALID")
     else:
         reasons.append("NO_STRICT_AUTHORITY_RULE")
     return tuple(reasons)
@@ -1093,7 +1374,11 @@ def _augment_fields(
     context: _ProjectionContext,
 ) -> None:
     record_id = _record_id(row)
-    if section == "source_extractions":
+    if section == "source_use_constraints":
+        authority["authority_state"] = (
+            "SOURCE_DECLARATION_ONLY_NOT_LEGAL_CONCLUSION"
+        )
+    elif section == "source_extractions":
         authority["workflow_state"] = context.workflow_state_by_subject.get(
             record_id,
             "UNKNOWN",
@@ -1115,6 +1400,19 @@ def _augment_fields(
         )
     elif section == "analytical_sequences":
         facts["entries"] = list(context.sequence_entries.get(record_id, ()))
+    elif section == "external_study_versions":
+        facts.update(context.external_study_summary_by_id.get(record_id, {}))
+        adapter_config = _json_safe(getattr(row, "adapter_config_json", {}))
+        facts["adapter_config_sha256"] = sha256(
+            _canonical_json(adapter_config).encode("utf-8")
+        ).hexdigest()
+        authority.update(
+            {
+                "execution_authorized": False,
+                "promotion_authorized": False,
+                "release_authority": False,
+            }
+        )
 
 
 def _project_record(
@@ -1211,7 +1509,7 @@ def build_science_report(
         withheld_records=sum(section.withheld_count for section in sections),
     )
     unsigned = ScienceAuthorityReport(
-        schema_version="lab-science-authority-report-v1",
+        schema_version="lab-science-authority-report-v2",
         view=view,
         authority_state="READ_ONLY_NON_PROMOTING",
         evidence_classes=SCIENCE_EVIDENCE_CLASSES,  # type: ignore[arg-type]

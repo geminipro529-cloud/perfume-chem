@@ -1300,6 +1300,7 @@
 - canonical_name: Evernyl
   aliases:
   - evernyl
+  - Evernyl Crystals
   cas:
   smiles:
   inchikey:
@@ -1336,7 +1337,7 @@
   families:
   - leather / smoky / phenolic
   character:
-  notes:
+  notes: Neat crystals remain current. The separate working stock is 10% w/w in DPG and user-confirmed fully dissolved. Exact active mass from a volume dose requires stock-solution density.
   provenance:
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
@@ -1347,6 +1348,7 @@
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    current_working_stock: data/governance/inventory_user_authority_overlay_20260915_evernyl_10w_w_dpg.json
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Exaltolide
   aliases:

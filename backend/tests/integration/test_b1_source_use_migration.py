@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
+from contextlib import closing
 
 import pytest
 
@@ -76,13 +77,13 @@ def test_source_use_migration_installs_exact_fields_fks_and_append_only_guard(
     database = tmp_path / "b1-source-use.db"
     config = _config(database)
     command.upgrade(config, PRIOR_HEAD)
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         connection.execute("PRAGMA foreign_keys=ON")
         _insert_b1_rows(connection)
 
     command.upgrade(config, SOURCE_USE_HEAD)
 
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         connection.execute("PRAGMA foreign_keys=ON")
         assert {
             "constraint_id",
@@ -157,7 +158,7 @@ def test_source_use_migration_downgrades_and_reupgrades_cleanly(tmp_path):
     command.upgrade(config, SOURCE_USE_HEAD)
 
     command.downgrade(config, PRIOR_HEAD)
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         tables = {
             str(row[0])
             for row in connection.execute(
@@ -169,7 +170,7 @@ def test_source_use_migration_downgrades_and_reupgrades_cleanly(tmp_path):
     assert _revision(database) == PRIOR_HEAD
 
     command.upgrade(config, SOURCE_USE_HEAD)
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         assert TABLE_NAME in {
             str(row[0])
             for row in connection.execute(

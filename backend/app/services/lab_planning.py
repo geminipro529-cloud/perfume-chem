@@ -25,6 +25,11 @@ from app.models.lab_planning import (
     LabTargetHypothesisVersion,
     LabTargetLine,
 )
+from app.services.stock_lineage import (
+    FORMULA_TRANSITION_CLASSES,
+    StockLineageError,
+    validate_formula_version_transition,
+)
 
 if TYPE_CHECKING:
     from contextlib import AbstractAsyncContextManager
@@ -799,8 +804,16 @@ class LabPlanningServiceMixin:
     ) -> LabFormulaVersionEdge:
         child_version_id = _text(child_version_id, "child_version_id")
         parent_version_id = _text(parent_version_id, "parent_version_id")
-        relationship_kind = _text(relationship_kind, "relationship_kind")
+        relationship_kind = _text(
+            relationship_kind,
+            "relationship_kind",
+        ).upper()
         rationale = _text(rationale, "rationale")
+        if relationship_kind not in FORMULA_TRANSITION_CLASSES:
+            raise PlanningConflictError(
+                "FORMULA_TRANSITION_CLASS_REQUIRED",
+                "Formula-version edges must be classified as STOCK_NORMALIZATION or DESIGN_REVISION.",
+            )
         if child_version_id == parent_version_id:
             raise PlanningConflictError(
                 "FORMULA_VERSION_SELF_EDGE",
@@ -831,12 +844,24 @@ class LabPlanningServiceMixin:
                     "FORMULA_VERSION_CYCLE",
                     "The formula-version lineage edge would create a cycle.",
                 )
+            try:
+                stock_lineage_receipt = await validate_formula_version_transition(
+                    self.session,
+                    parent_version_id=parent_version_id,
+                    child_version_id=child_version_id,
+                    transition_class=relationship_kind,
+                )
+            except StockLineageError as error:
+                raise PlanningConflictError(error.code, str(error)) from error
+            change_payload = dict(change)
+            change_payload.pop("stock_lineage_receipt", None)
+            change_payload["stock_lineage_receipt"] = stock_lineage_receipt
             payload = {
                 "schema": "a2-formula-version-edge-v1",
                 "child_version_id": child_version_id,
                 "parent_version_id": parent_version_id,
                 "relationship_kind": relationship_kind,
-                "change": dict(change),
+                "change": change_payload,
                 "rationale": rationale,
             }
             return await self.repository.add(
@@ -844,7 +869,7 @@ class LabPlanningServiceMixin:
                     child_version_id=child_version_id,
                     parent_version_id=parent_version_id,
                     relationship_kind=relationship_kind,
-                    change_json=dict(change),
+                    change_json=change_payload,
                     rationale=rationale,
                     content_sha256=stable_json_hash(payload),
                 )

@@ -39,14 +39,21 @@ def _load_quarantine() -> dict[str, Any]:
             "STOCK_STRENGTH_QUARANTINE_AUTHORITY_UNAVAILABLE",
             "V5 stock-strength quarantine authority is unavailable or invalid.",
         ) from error
+    if not isinstance(payload, dict):
+        raise StockStrengthQuarantineError(
+            "STOCK_STRENGTH_QUARANTINE_AUTHORITY_INVALID",
+            "V5 stock-strength quarantine authority must be a JSON object.",
+        )
     source = payload.get("source_triage", {})
+    authority = payload.get("inventory_authority", {})
     if (
-        payload.get("state") != "QUARANTINED_UNTIL_LINEAGE_RECEIPTS_CLEAR"
+        not isinstance(source, dict)
+        or not isinstance(authority, dict)
+        or payload.get("state") != "QUARANTINED_UNTIL_LINEAGE_RECEIPTS_CLEAR"
         or source.get("rows") != 261
         or source.get("targets") != 104
         or source.get("compounding_authorized_rows") != 0
-        or payload.get("inventory_authority", {}).get("sha256")
-        != CURRENT_INVENTORY_AUTHORITY.sha256
+        or authority.get("sha256") != CURRENT_INVENTORY_AUTHORITY.sha256
     ):
         raise StockStrengthQuarantineError(
             "STOCK_STRENGTH_QUARANTINE_AUTHORITY_INVALID",

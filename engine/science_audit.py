@@ -286,10 +286,12 @@ def _build_inventory_oav_coverage_audit_cached(
             composite_profiles.append(material.name)
             if "LITERATURE_PARTIAL_PROXY" in natural_source:
                 literature_proxies.append(material.name)
-        if material.oav is not None:
-            available.append(material.name)
-        elif not material.is_known:
+        # A numeric placeholder from an unresolved material is not OAV
+        # coverage. Identity and physics must resolve before the value counts.
+        if not material.is_known:
             identity_unknown.append(material.name)
+        elif material.oav is not None:
+            available.append(material.name)
         elif material.is_opaque_preblend:
             opaque_unknown.append(material.name)
         elif material.sources.get("oav_model") == (

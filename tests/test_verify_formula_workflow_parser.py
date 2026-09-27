@@ -3,6 +3,7 @@ import pytest
 
 from engine.chemical_life_graph import build_chemical_life_graph
 from engine.formula_metadata import _extract_material_names
+from engine.mixer.instructions import build_formula_compounding_protocol
 from scripts.format_pipeline_analysis import cli_transport_text
 from scripts.verify_formula_workflow import (
     _format_life_graph_lines,
@@ -184,6 +185,231 @@ Concentrate target: 6000 uL
     assert formula["dilutions"]["Hedione"] == 1.0
 
 
+def test_parser_keeps_small_explicit_ul_rows_when_total_is_known(tmp_path):
+    formula_path = tmp_path / "small_volume_table.md"
+    formula_path.write_text(
+        """# Small Volume Formula
+
+Concentrate target: 1000 uL
+
+| Ingredient | Dilution | Amount (uL) |
+|---|---|---:|
+| Trace material | neat | 80 |
+| Another trace | neat | 5 |
+""",
+        encoding="utf-8",
+    )
+
+    formula = parse_formula_markdown(formula_path)[0]
+
+    assert formula["ingredients_ul"] == {
+        "Trace material": 80.0,
+        "Another trace": 5.0,
+    }
+
+
+def test_parser_keeps_volume_only_rows_when_total_is_absent(tmp_path):
+    formula_path = tmp_path / "volume_only_table.md"
+    formula_path.write_text(
+        """# Volume Only Formula
+
+| Ingredient | Dilution | Amount (uL) |
+|---|---|---:|
+| Trace material | neat | 80 |
+""",
+        encoding="utf-8",
+    )
+
+    formula = parse_formula_markdown(formula_path)[0]
+
+    assert formula["ingredients_ul"] == {"Trace material": 80.0}
+
+
+def test_parser_requires_total_for_explicit_percent_amount_rows(tmp_path):
+    formula_path = tmp_path / "percent_without_total.md"
+    formula_path.write_text(
+        """# Formula Percent Without Total
+
+| Ingredient | % |
+|---|---:|
+| Hedione | 50 |
+""",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="percentage amount rows require"):
+        parse_formula_markdown(formula_path)
+
+
+def test_parser_does_not_treat_percentage_total_row_as_volume(tmp_path):
+    formula_path = tmp_path / "percent_total_without_volume.md"
+    formula_path.write_text(
+        """# Formula Percentage Total Without Volume
+
+| Ingredient | % |
+|---|---:|
+| Hedione | 50 |
+| Iso E Super | 50 |
+| **Total** | **100** |
+""",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="percentage amount rows require"):
+        parse_formula_markdown(formula_path)
+
+
+@pytest.mark.parametrize(
+    ("label", "expected_ul"),
+    [
+        ("Concentrate target: 6 mL", 6000.0),
+        ("Concentrate total: 6 mL", 6000.0),
+        ("Concentrate total: 6000 uL", 6000.0),
+        ("Concentrate target: 6000 µL", 6000.0),
+        ("Concentrate Volume: 6 mL", 6000.0),
+        ("Total Concentrate: 6000 uL", 6000.0),
+        ("Target Concentrate: 6 mL", 6000.0),
+        ("Concentrate Volume (µL): 6000", 6000.0),
+        ("Concentrate Volume (mL): 6", 6000.0),
+        ("Total Concentrate (µL): 6000", 6000.0),
+        ("Target Concentrate (mL): 6", 6000.0),
+        ("Batch total: 6 mL", 6000.0),
+    ],
+)
+def test_parser_accepts_explicit_unit_bearing_concentrate_totals(label, expected_ul):
+    body = f"""# Explicit Total Formula
+
+{label}
+
+| Ingredient | % |
+|---|---:|
+| Hedione | 10 |
+"""
+
+    from scripts.verify_formula_workflow import _parse_formula_rows
+
+    ingredients_ul, _, _ = _parse_formula_rows(body)
+
+    assert ingredients_ul == {"Hedione": expected_ul / 10.0}
+
+
+@pytest.mark.parametrize("label", [
+    "Concentrate target: 0 uL",
+    "Concentrate total: 0 mL",
+    "Concentrate target: -100 uL",
+    "Batch total: -1 mL",
+])
+def test_parser_rejects_nonpositive_explicit_concentrate_totals(label):
+    body = f"""# Invalid Total Formula
+
+{label}
+
+| Ingredient | % |
+|---|---:|
+| Hedione | 10 |
+"""
+
+    from scripts.verify_formula_workflow import _parse_formula_rows
+
+    with pytest.raises(ValueError, match="total volume must be positive"):
+        _parse_formula_rows(body)
+
+
+def test_parser_ignores_oav_share_table_even_when_volume_target_exists(tmp_path):
+    formula_path = tmp_path / "oav_share_report.md"
+    formula_path.write_text(
+        """# OAV Share Report
+
+Concentrate target: 1000 uL
+
+## Headspace OAV
+
+| Material | OAV | % of Total |
+|---|---:|---:|
+| Hedione | 999 | 50 |
+""",
+        encoding="utf-8",
+    )
+
+    assert parse_formula_markdown(formula_path) == []
+
+
+def test_parser_recombines_mixed_explicit_volume_and_percent_rows(tmp_path):
+    formula_path = tmp_path / "mixed_amount_table.md"
+    formula_path.write_text(
+        """# Mixed Amount Formula
+
+Concentrate target: 1000 uL
+
+| Ingredient | Dilution | Amount (uL) | Percent |
+|---|---|---:|---:|
+| Hedione | neat | 5 | |
+| Iso E Super | neat | | 10 |
+""",
+        encoding="utf-8",
+    )
+
+    formula = parse_formula_markdown(formula_path)[0]
+
+    assert formula["ingredients_ul"] == {
+        "Hedione": 5.0,
+        "Iso E Super": 100.0,
+    }
+
+
+def test_parser_documents_volume_precedence_when_both_amount_columns_are_populated(tmp_path):
+    formula_path = tmp_path / "volume_precedence.md"
+    formula_path.write_text(
+        """# Volume Precedence Formula
+
+Concentrate target: 1000 uL
+
+| Ingredient | Amount (uL) | Percent |
+|---|---:|---:|
+| Hedione | 5 | 10 |
+""",
+        encoding="utf-8",
+    )
+
+    formula = parse_formula_markdown(formula_path)[0]
+
+    assert formula["ingredients_ul"] == {"Hedione": 5.0}
+
+
+def test_parser_ignores_diagnostic_percent_columns(tmp_path):
+    formula_path = tmp_path / "diagnostic_percent_table.md"
+    formula_path.write_text(
+        """# Diagnostic Percent Table
+
+| Material | Active Percent | Concentration |
+|---|---:|---:|
+| Hedione | 50 | 10%
+""",
+        encoding="utf-8",
+    )
+
+    assert parse_formula_markdown(formula_path) == []
+
+
+def test_parser_ignores_percent_table_without_formula_dosing_context(tmp_path):
+    formula_path = tmp_path / "parts_percent_report.md"
+    formula_path.write_text(
+        """# GC-MS Report
+
+Concentrate target: 6000 uL
+
+## Solvents
+
+| Material | Parts | % | Note |
+|---|---:|---:|---|
+| DPG | 72.8 | 7.28% | Carrier solvent |
+""",
+        encoding="utf-8",
+    )
+
+    assert parse_formula_markdown(formula_path) == []
+
+
 def test_parse_formula_markdown_extracts_family_archetype(tmp_path):
     formula_path = tmp_path / "study_formula.md"
     formula_path.write_text(
@@ -206,6 +432,101 @@ def test_parse_formula_markdown_extracts_family_archetype(tmp_path):
 
     assert len(formulas) == 1
     assert formulas[0]["family_archetype"] == "chypre_classical.coty_reference"
+
+
+def test_parser_preserves_explicit_physical_rows_and_basket_contract(tmp_path):
+    formula_path = tmp_path / "basket_formula.md"
+    formula_path.write_text(
+        """# Basket Formula
+
+| Row ID | Ingredient | Dilution | Amount (uL) | Basket | Operation | Prepared Dilution ID |
+|---|---|---|---:|---:|---|---|
+| h1 | Hedione | neat | 60 | 7 | direct add | |
+| h2 | Hedione | neat | 40 | 7 | direct add | |
+| i1 | Iso E Super | neat | 200 | 3 | direct add | |
+""",
+        encoding="utf-8",
+    )
+
+    formula = parse_formula_markdown(formula_path)[0]
+
+    assert formula["ingredients_ul"] == {"Hedione": 100.0, "Iso E Super": 200.0}
+    assert formula["compounding_row_status"] == "COMPLETE"
+    assert formula["compounding_row_blockers"] == []
+    assert [row["row_id"] for row in formula["compounding_rows"]] == [
+        "h1",
+        "h2",
+        "i1",
+    ]
+    assert [row["basket"] for row in formula["compounding_rows"]] == [7, 7, 3]
+    assert formula["compounding_rows"][0]["physical_stock_label"] == "Hedione [neat]"
+    protocol = build_formula_compounding_protocol(
+        formula,
+        prebond_analysis={
+            "must_prebond": [],
+            "benefits": [],
+            "keep_separate": [],
+            "crystalline": [],
+        },
+    )
+    assert protocol["compounding_authority"] == "WITHHELD"
+    assert (
+        "VERIFIED_PHYSICAL_AUTHORITY_RECEIPTS_REQUIRED"
+        in protocol["authority_blockers"]
+    )
+    assert [
+        instruction.split(" [row ", 1)[1].split("]", 1)[0]
+        for phase in protocol["phases"]
+        for instruction in phase["instructions"]
+        if " [row " in instruction
+    ] == ["i1", "h1", "h2"]
+
+
+def test_parser_accepts_explicit_basket_heading_without_inference(tmp_path):
+    formula_path = tmp_path / "basket_heading_formula.md"
+    formula_path.write_text(
+        """# Heading Basket Formula
+
+## Basket 7 - Muguet and lavender
+
+| Ingredient | Dilution | Amount (uL) |
+|---|---|---:|
+| Hedione | neat | 100 |
+
+## Basket 3 - Woods
+
+| Ingredient | Dilution | Amount (uL) |
+|---|---|---:|
+| Iso E Super | neat | 200 |
+""",
+        encoding="utf-8",
+    )
+
+    formula = parse_formula_markdown(formula_path)[0]
+
+    assert formula["compounding_row_status"] == "COMPLETE"
+    assert [row["basket"] for row in formula["compounding_rows"]] == [7, 3]
+
+
+def test_parser_withholds_compounding_authority_without_explicit_baskets(tmp_path):
+    formula_path = tmp_path / "unassigned_formula.md"
+    formula_path.write_text(
+        """# Unassigned Formula
+
+| Ingredient | Dilution | Amount (uL) |
+|---|---|---:|
+| Hedione | neat | 100 |
+""",
+        encoding="utf-8",
+    )
+
+    formula = parse_formula_markdown(formula_path)[0]
+
+    assert formula["compounding_rows"] == []
+    assert formula["compounding_row_status"] == "UNAVAILABLE"
+    assert formula["compounding_row_blockers"] == [
+        "EXPLICIT_BASKET_ASSIGNMENTS_NOT_DECLARED"
+    ]
 
 
 def test_parse_formula_markdown_ignores_historical_and_aggregate_rows(tmp_path):

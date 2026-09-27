@@ -1,0 +1,482 @@
+{
+  "schema_version": "perfume_chem_user_inventory_authority_successor_overlay_v12",
+  "authority": "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY",
+  "effective_date": "2026-09-15",
+  "predecessor": {
+    "path": "data/governance/inventory_user_authority_overlay_20260915_pink_pepper.json",
+    "normalized_text_sha256": "815aa21b826aa9cf6665314d3338cf68a027e4c7aaa5982f2575b10d6303d843"
+  },
+  "source": {
+    "inventory_text_path": "inventory.txt",
+    "inventory_text_size_bytes": 26001,
+    "inventory_text_sha256": "0107c74bec904092b19a751765203ac6108921a739820eb3dc7e29417a7d5914",
+    "confirmed_receipt": "data/governance/inventory_user_confirmation_20260915_stock_forms_and_tincture_model.json",
+    "confirmed_receipt_sha256": "e0a2a1da95fe1d80bcdb9560efc219d5610ff2938a5b3694734743e1ef9484f1"
+  },
+  "policy": {
+    "predecessor_overlay_immutable": true,
+    "preserve_inherited_stock_ids": true,
+    "formula_rebase_authorized": false,
+    "general_substitution_authorized": false,
+    "unknown_metadata_fails_closed": true,
+    "bind_only_source_declared_stock_facts": true,
+    "stock_solution_density_assumed": false,
+    "tincture_nominal_property_model_is_not_assay": true,
+    "safety_or_release_asserted": false
+  },
+  "superseded_record_ids": [
+    "INV-USER-20260830-008",
+    "INV-USER-20260830-011",
+    "INV-USER-20260907-003",
+    "INV-USER-20260907-004",
+    "INV-USER-20260907-006",
+    "INV-USER-20260910-ROMANDOLIDE-RESTOCK-001",
+    "INV-USER-20260910-CLARIFY-005",
+    "INV-USER-20260910-CLARIFY-006",
+    "INV-USER-20260910-CLARIFY-007",
+    "INV-USER-20260910-CLARIFY-008"
+  ],
+  "records": [
+    {
+      "record_id": "INV-USER-20260915-STOCK-001",
+      "canonical_name": "Romandolide",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "musk",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "DIRECT_USER_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {"source_row": 211, "fraction": 1.0}
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 211,
+          "disposition": "OWNED",
+          "status": "HAVE - RESTOCKED NEAT/AS SUPPLIED",
+          "actual_stock_text": "Romandolide current bottle neat/as supplied",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-15",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_FORM_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260915-STOCK-002",
+      "canonical_name": "Liffarome",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "green_fresh_marine",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "fraction_authority": "PRIOR_USER_FRACTION_AND_BASIS_PLUS_CURRENT_USER_CARRIER_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_limit": "EXACT_ACTIVE_MASS_FROM_VOLUME_REQUIRES_STOCK_DENSITY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-15",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CARRIER_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260915-STOCK-003",
+      "canonical_name": "Methyl Laitone",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {
+        "fraction": 0.2,
+        "fraction_basis": "volume_fraction",
+        "carrier": "ethanol",
+        "fraction_authority": "DIRECT_USER_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-15",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_BASIS_AND_CARRIER_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260915-STOCK-004",
+      "canonical_name": "Evernyl",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "moss",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "fraction_authority": "DIRECT_USER_STRENGTH_AND_CARRIER_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "STOCK_IDENTITY_STRENGTH_AND_CARRIER_ONLY",
+        "execution_hold_reason": "FRACTION_BASIS_AND_HOMOGENEITY_NOT_CONFIRMED"
+      },
+      "supersedes_parent_stocks": [
+        {"source_row": 105, "fraction": 0.2}
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 105,
+          "disposition": "PREPARATION_REQUIRED",
+          "status": "HAVE - 10% IN DPG PLUS NEAT CRYSTALS; 20% STOCK SUPERSEDED",
+          "actual_stock_text": "Evernyl 10% in DPG; percentage basis and current homogeneity not stated; separate neat crystals owned",
+          "can_prepare": "Prepare a labeled 20% stock from the neat crystals only if required."
+        }
+      ],
+      "effective_date": "2026-09-15",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_STRENGTH_AND_CARRIER_CORRECTION"
+    },
+    {
+      "record_id": "INV-USER-20260915-STOCK-005",
+      "canonical_name": "2-Acetyl Pyrazine",
+      "aliases": ["2-Acetyl Pyrazine 1% in DPG"],
+      "state": "OWNED",
+      "category": "roasted_nutty",
+      "stock": {
+        "fraction": 0.01,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "fraction_authority": "CURRENT_INVENTORY_FRACTION_PLUS_DIRECT_USER_CARRIER_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "STOCK_IDENTITY_FRACTION_AND_CARRIER_ONLY",
+        "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+      },
+      "supersedes_parent_stocks": [
+        {"source_row": 6, "fraction": 0.01}
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 6,
+          "disposition": "OWNED",
+          "status": "HAVE - NEAT PLUS 1% IN DPG",
+          "actual_stock_text": "2-Acetyl Pyrazine neat/as supplied and 1% working stock in DPG",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-15",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CARRIER_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260915-STOCK-006",
+      "canonical_name": "Skatole",
+      "aliases": ["Skatole 1%", "Skatole 1% in DPG"],
+      "state": "OWNED",
+      "category": "animalic_indolic",
+      "stock": {
+        "fraction": 0.01,
+        "fraction_basis": "unspecified",
+        "carrier": "dpg",
+        "fraction_authority": "CURRENT_INVENTORY_FRACTION_PLUS_DIRECT_USER_CARRIER_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "STOCK_IDENTITY_FRACTION_AND_CARRIER_ONLY",
+        "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+      },
+      "supersedes_parent_stocks": [
+        {"source_row": 263, "fraction": 0.01}
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 263,
+          "disposition": "OWNED",
+          "status": "HAVE - 1% IN DPG",
+          "actual_stock_text": "Skatole 1% in DPG",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-15",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CARRIER_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260915-STOCK-007",
+      "canonical_name": "Maple Lactone",
+      "aliases": ["Maple Lactone 20%"],
+      "state": "NOT_OWNED",
+      "category": "gourmand_maple",
+      "stock": null,
+      "supersedes_parent_stocks": [
+        {"source_row": 271, "fraction": 0.2}
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 271,
+          "disposition": "GAP",
+          "status": "OUT OF STOCK - USER CONFIRMED NO MAPLE LACTONE",
+          "actual_stock_text": "No current Maple Lactone stock",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-15",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_REMOVAL"
+    },
+    {
+      "record_id": "INV-USER-20260915-STOCK-008",
+      "canonical_name": "Castoreum Synthetic",
+      "aliases": ["PerfumersWorld Castoreum Synthetic", "Castoreum Synthetic 6UP07515"],
+      "state": "OWNED",
+      "category": "leather_smoky_phenolic",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "fraction_authority": "PRIOR_USER_FRACTION_AND_CARRIER_PLUS_CURRENT_USER_BASIS_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_limit": "EXACT_ACTIVE_MASS_FROM_VOLUME_REQUIRES_STOCK_DENSITY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 60,
+          "disposition": "OWNED",
+          "status": "HAVE - 10% W/W IN DEP",
+          "actual_stock_text": "Castoreum Synthetic 10% w/w in DEP",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-15",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_BASIS_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260915-STOCK-009",
+      "canonical_name": "Siam Benzoin",
+      "aliases": ["Siam Benzoin 50%", "Siam Benzoin 50% w/w in DPG"],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {
+        "fraction": 0.5,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "PRIOR_USER_FRACTION_AND_CARRIER_PLUS_CURRENT_USER_BASIS_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_limit": "EXACT_ACTIVE_MASS_FROM_VOLUME_REQUIRES_STOCK_DENSITY"
+      },
+      "supersedes_parent_stocks": [
+        {"source_row": 222, "fraction": 0.5}
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 222,
+          "disposition": "OWNED",
+          "status": "HAVE - 50% W/W IN DPG",
+          "actual_stock_text": "Siam Benzoin 50% w/w in DPG; ethanol belongs to a separate tincture",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-15",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_BASIS_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260915-STOCK-010",
+      "canonical_name": "Peru Balsam Resinoid",
+      "aliases": ["Peru Balsam 50%", "Peru Balsam Resinoid 50% w/w in DEP"],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {
+        "fraction": 0.5,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "fraction_authority": "CURRENT_INVENTORY_FRACTION_AND_BASIS_PLUS_DIRECT_USER_CARRIER_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_limit": "EXACT_ACTIVE_MASS_FROM_VOLUME_REQUIRES_STOCK_DENSITY"
+      },
+      "supersedes_parent_stocks": [
+        {"source_row": 201, "fraction": 0.5}
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 201,
+          "disposition": "PREPARATION_REQUIRED",
+          "status": "HAVE - 50% W/W IN DEP; 10% STOCK NOT PREPARED",
+          "actual_stock_text": "Peru Balsam Resinoid 50% w/w in DEP",
+          "can_prepare": "Prepare and label a 10% stock from the current 50% stock if required."
+        }
+      ],
+      "effective_date": "2026-09-15",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CARRIER_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260915-STOCK-011",
+      "canonical_name": "Methyl Pamplemousse",
+      "aliases": ["Methyl Pamplemousse 10%", "Methyl Pamplemousse 10% in ethanol"],
+      "state": "OWNED",
+      "category": "citrus_grapefruit",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "ethanol",
+        "fraction_authority": "CURRENT_INVENTORY_FRACTION_PLUS_DIRECT_USER_CARRIER_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "STOCK_IDENTITY_FRACTION_AND_CARRIER_ONLY",
+        "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+      },
+      "supersedes_parent_stocks": [
+        {"source_row": 259, "fraction": 0.1}
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 259,
+          "disposition": "OWNED",
+          "status": "HAVE - 10% IN ETHANOL",
+          "actual_stock_text": "Methyl Pamplemousse 10% in ethanol",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-15",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CARRIER_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260915-STOCK-012",
+      "canonical_name": "Gamma Nonalactone",
+      "aliases": ["Gamma Nonalactone 10%", "Aldehyde C-18 10%", "Aldehyde C-18 (Gamma Nonalactone, 10% in ethanol)"],
+      "state": "OWNED",
+      "category": "lactone_fruit",
+      "stock": {
+        "fraction": 0.1,
+        "fraction_basis": "unspecified",
+        "carrier": "ethanol",
+        "fraction_authority": "CURRENT_INVENTORY_FRACTION_PLUS_DIRECT_USER_CARRIER_CONFIRMATION",
+        "execution_ready": false,
+        "execution_scope": "STOCK_IDENTITY_FRACTION_AND_CARRIER_ONLY",
+        "execution_hold_reason": "FRACTION_BASIS_UNSPECIFIED"
+      },
+      "supersedes_parent_stocks": [
+        {"source_row": 282, "fraction": 0.1}
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 282,
+          "disposition": "OWNED",
+          "status": "HAVE - 10% IN ETHANOL",
+          "actual_stock_text": "Gamma Nonalactone 10% in ethanol",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-15",
+      "source_kind": "DIRECT_USER_CURRENT_STOCK_CARRIER_CONFIRMATION"
+    },
+    {
+      "record_id": "INV-USER-20260915-STOCK-013",
+      "canonical_name": "Turkish Storax Tincture",
+      "aliases": ["Turkish Storax Liquidambar orientalis resin ethanol tincture"],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {
+        "fraction": 0.2,
+        "fraction_basis": "mass_fraction_starting_charge",
+        "carrier": "ethanol",
+        "fraction_authority": "DIRECT_USER_NOMINAL_PROPERTY_MODEL_AUTHORIZATION",
+        "approximate": true,
+        "execution_ready": false,
+        "execution_scope": "NOMINAL_PROPERTY_MODEL_ONLY",
+        "execution_hold_reason": "FINAL_DISSOLVED_FRACTION_UNMEASURED",
+        "nominal_property_model_ready": true,
+        "nominal_property_model_limit": "STARTING_CHARGE_FRACTION_IS_NOT_A_FINAL_FILTRATE_ASSAY"
+      },
+      "supersedes_parent_stocks": [
+        {"source_row": 236}
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 236,
+          "disposition": "OWNED",
+          "status": "HAVE - 20% W/W STARTING CHARGE; NOMINAL PROPERTY MODEL AUTHORIZED; FINAL FILTRATE UNASSAYED",
+          "actual_stock_text": "Liquidambar orientalis resin from Turkey; complete ethanol extraction then funnel-drained; 20% starting charge used only as nominal property-model fraction",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-15",
+      "source_kind": "DIRECT_USER_TINCTURE_NOMINAL_PROPERTY_MODEL_AUTHORIZATION"
+    },
+    {
+      "record_id": "INV-USER-20260915-STOCK-014",
+      "canonical_name": "Vietnamese Benzoin Tincture",
+      "aliases": ["Vietnamese Benzoin Styrax tonkinensis resin ethanol tincture"],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {
+        "fraction": 0.4,
+        "fraction_basis": "mass_fraction_starting_charge",
+        "carrier": "ethanol",
+        "fraction_authority": "DIRECT_USER_NOMINAL_PROPERTY_MODEL_AUTHORIZATION",
+        "approximate": true,
+        "execution_ready": false,
+        "execution_scope": "NOMINAL_PROPERTY_MODEL_ONLY",
+        "execution_hold_reason": "FINAL_DISSOLVED_FRACTION_UNMEASURED",
+        "nominal_property_model_ready": true,
+        "nominal_property_model_limit": "STARTING_CHARGE_FRACTION_IS_NOT_A_FINAL_FILTRATE_ASSAY"
+      },
+      "supersedes_parent_stocks": [
+        {"source_row": 222, "fraction": 0.2},
+        {"source_row": 246}
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 246,
+          "disposition": "OWNED",
+          "status": "HAVE - 40% W/W STARTING CHARGE; NOMINAL PROPERTY MODEL AUTHORIZED; FINAL FILTRATE UNASSAYED",
+          "actual_stock_text": "Styrax tonkinensis resin from Vietnam; complete ethanol extraction then funnel-drained; 40% starting charge used only as nominal property-model fraction",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-09-15",
+      "source_kind": "DIRECT_USER_TINCTURE_NOMINAL_PROPERTY_MODEL_AUTHORIZATION"
+    },
+    {
+      "record_id": "INV-USER-20260915-STOCK-015",
+      "canonical_name": "Kenyan Myrrh Ethanol Tincture",
+      "aliases": ["Kenyan Myrrh resin ethanol tincture"],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {
+        "fraction": 0.2,
+        "fraction_basis": "mass_fraction_starting_charge",
+        "carrier": "ethanol",
+        "fraction_authority": "DIRECT_USER_NOMINAL_PROPERTY_MODEL_AUTHORIZATION",
+        "approximate": true,
+        "execution_ready": false,
+        "execution_scope": "NOMINAL_PROPERTY_MODEL_ONLY",
+        "execution_hold_reason": "FINAL_DISSOLVED_FRACTION_UNMEASURED",
+        "nominal_property_model_ready": true,
+        "nominal_property_model_limit": "STARTING_CHARGE_FRACTION_IS_NOT_A_FINAL_FILTRATE_ASSAY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-15",
+      "source_kind": "DIRECT_USER_TINCTURE_NOMINAL_PROPERTY_MODEL_AUTHORIZATION"
+    },
+    {
+      "record_id": "INV-USER-20260915-STOCK-016",
+      "canonical_name": "Oman Frankincense Ethanol Tincture",
+      "aliases": ["Oman Frankincense resin ethanol tincture"],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {
+        "fraction": 0.33,
+        "fraction_basis": "mass_fraction_starting_charge",
+        "carrier": "ethanol",
+        "fraction_authority": "DIRECT_USER_NOMINAL_PROPERTY_MODEL_AUTHORIZATION",
+        "approximate": true,
+        "execution_ready": false,
+        "execution_scope": "NOMINAL_PROPERTY_MODEL_ONLY",
+        "execution_hold_reason": "FINAL_DISSOLVED_FRACTION_UNMEASURED",
+        "nominal_property_model_ready": true,
+        "nominal_property_model_limit": "STARTING_CHARGE_FRACTION_IS_NOT_A_FINAL_FILTRATE_ASSAY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-09-15",
+      "source_kind": "DIRECT_USER_TINCTURE_NOMINAL_PROPERTY_MODEL_AUTHORIZATION"
+    }
+  ]
+}

@@ -2,9 +2,11 @@
 
 import json
 import logging
+import math
 import re
 from dataclasses import dataclass
 from enum import Enum
+from hashlib import sha256
 from pathlib import Path
 from typing import Any, Optional, cast
 
@@ -15,6 +17,31 @@ BACKEND_DATA_DIR = Path(__file__).parent.parent.parent / "data"
 DATA_DIR = Path(__file__).parent.parent.parent.parent / "data"
 
 JsonObject = dict[str, Any]
+
+
+class ReferenceDatasetStatus(str, Enum):
+    AVAILABLE = "AVAILABLE"
+    MISSING = "MISSING"
+    INVALID = "INVALID"
+    EMPTY_INVALID = "EMPTY_INVALID"
+
+
+@dataclass(frozen=True, slots=True)
+class ReferenceDatasetState:
+    dataset_id: str
+    status: ReferenceDatasetStatus
+    sha256: str | None
+    record_count: int
+    reason: str | None
+
+    def to_dict(self) -> JsonObject:
+        return {
+            "dataset_id": self.dataset_id,
+            "status": self.status.value,
+            "sha256": self.sha256,
+            "record_count": self.record_count,
+            "reason": self.reason,
+        }
 
 
 class ValidationSeverity(Enum):
@@ -49,48 +76,213 @@ class ValidationIssue:
 class ChemistryValidator:
     """Validates perfume formulations against chemistry rules and safety limits"""
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        *,
+        potency_path: Path | None = None,
+        compounds_path: Path | None = None,
+        ifra_aliases: dict[str, str] | None = None,
+    ) -> None:
         self.potency_data: JsonObject = {}
         self.compounds_data: dict[str, JsonObject] = {}
+        self._potency_path = potency_path or (
+            BACKEND_DATA_DIR / "reference" / "chemicals_potency.json"
+        )
+        self._compounds_path = compounds_path or (DATA_DIR / "compounds.json")
+        self._ifra_aliases = {
+            self._identity_key(alias): self._identity_key(target)
+            for alias, target in (ifra_aliases or {}).items()
+        }
+        self.reference_states: dict[str, ReferenceDatasetState] = {}
         self._load_potency_data()
         self._load_compounds_data()
 
+    @staticmethod
+    def _identity_key(name: str) -> str:
+        """Normalize spelling only; never perform substring identity borrowing."""
+
+        return " ".join(str(name).strip().casefold().split())
+
+    @staticmethod
+    def _finite_number(value: object) -> bool:
+        return (
+            isinstance(value, (int, float))
+            and not isinstance(value, bool)
+            and math.isfinite(float(value))
+        )
+
+    @staticmethod
+    def _read_json_bytes(path: Path) -> tuple[bytes | None, object | None, str | None]:
+        if not path.exists():
+            return None, None, "REFERENCE_FILE_MISSING"
+        try:
+            raw = path.read_bytes()
+        except OSError:
+            return None, None, "REFERENCE_FILE_UNREADABLE"
+        try:
+            return raw, json.loads(raw.decode("utf-8")), None
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            return raw, None, "REFERENCE_JSON_INVALID"
+
     def _load_potency_data(self) -> None:
         """Load chemicals potency database"""
-        potency_file = BACKEND_DATA_DIR / "reference" / "chemicals_potency.json"
-        try:
-            if potency_file.exists():
-                with open(potency_file, 'r', encoding='utf-8') as f:
-                    self.potency_data = cast(JsonObject, json.load(f))
-                logger.info(f"Loaded potency data for {len(self.potency_data.get('chemicals', {}))} chemicals")
-            else:
-                logger.warning(f"Potency data file not found: {potency_file}")
-                self.potency_data = {"chemicals": {}, "potency_categories": {}}
-        except Exception as e:
-            logger.error(f"Failed to load potency data: {e}")
+        raw, decoded, load_error = self._read_json_bytes(self._potency_path)
+        digest = sha256(raw).hexdigest() if raw is not None else None
+        if load_error is not None:
+            status = (
+                ReferenceDatasetStatus.MISSING
+                if load_error == "REFERENCE_FILE_MISSING"
+                else ReferenceDatasetStatus.INVALID
+            )
             self.potency_data = {"chemicals": {}, "potency_categories": {}}
+            self.reference_states["potency"] = ReferenceDatasetState(
+                "potency", status, digest, 0, load_error
+            )
+            logger.warning("Potency reference unavailable: %s", load_error)
+            return
+        if not isinstance(decoded, dict):
+            self.potency_data = {"chemicals": {}, "potency_categories": {}}
+            self.reference_states["potency"] = ReferenceDatasetState(
+                "potency",
+                ReferenceDatasetStatus.INVALID,
+                digest,
+                0,
+                "POTENCY_TOP_LEVEL_NOT_OBJECT",
+            )
+            return
+        chemicals = decoded.get("chemicals")
+        categories = decoded.get("potency_categories")
+        if not isinstance(chemicals, dict) or not isinstance(categories, dict):
+            self.potency_data = {"chemicals": {}, "potency_categories": {}}
+            self.reference_states["potency"] = ReferenceDatasetState(
+                "potency",
+                ReferenceDatasetStatus.INVALID,
+                digest,
+                0,
+                "POTENCY_REQUIRED_COLLECTION_INVALID",
+            )
+            return
+        if not chemicals:
+            self.potency_data = {"chemicals": {}, "potency_categories": categories}
+            self.reference_states["potency"] = ReferenceDatasetState(
+                "potency",
+                ReferenceDatasetStatus.EMPTY_INVALID,
+                digest,
+                0,
+                "POTENCY_CHEMICALS_EMPTY",
+            )
+            return
+        normalized_names: set[str] = set()
+        invalid = False
+        for name, record in chemicals.items():
+            key = self._identity_key(name)
+            if not key or key in normalized_names or not isinstance(record, dict):
+                invalid = True
+                break
+            normalized_names.add(key)
+            for field in ("min_percent", "max_percent", "typical_percent"):
+                if field in record and not self._finite_number(record[field]):
+                    invalid = True
+                    break
+            if invalid:
+                break
+        if invalid:
+            self.potency_data = {"chemicals": {}, "potency_categories": {}}
+            self.reference_states["potency"] = ReferenceDatasetState(
+                "potency",
+                ReferenceDatasetStatus.INVALID,
+                digest,
+                0,
+                "POTENCY_RECORD_INVALID_OR_DUPLICATE",
+            )
+            return
+        self.potency_data = cast(JsonObject, decoded)
+        self.reference_states["potency"] = ReferenceDatasetState(
+            "potency",
+            ReferenceDatasetStatus.AVAILABLE,
+            digest,
+            len(chemicals),
+            None,
+        )
+        logger.info("Loaded potency data for %d chemicals", len(chemicals))
 
     def _load_compounds_data(self) -> None:
         """Load compounds database for IFRA limits"""
-        compounds_file = DATA_DIR / "compounds.json"
-        try:
-            if compounds_file.exists():
-                with open(compounds_file, 'r', encoding='utf-8') as f:
-                    data = cast(JsonObject, json.load(f))
-                    # Index by name for faster lookup
-                    self.compounds_data = {
-                        compound["name"].lower(): compound
-                        for compound in cast(
-                            list[JsonObject], data.get("compounds", [])
-                        )
-                    }
-                logger.info(f"Loaded IFRA data for {len(self.compounds_data)} compounds")
-            else:
-                logger.warning(f"Compounds data file not found: {compounds_file}")
-                self.compounds_data = {}
-        except Exception as e:
-            logger.error(f"Failed to load compounds data: {e}")
+        raw, decoded, load_error = self._read_json_bytes(self._compounds_path)
+        digest = sha256(raw).hexdigest() if raw is not None else None
+        if load_error is not None:
+            status = (
+                ReferenceDatasetStatus.MISSING
+                if load_error == "REFERENCE_FILE_MISSING"
+                else ReferenceDatasetStatus.INVALID
+            )
             self.compounds_data = {}
+            self.reference_states["ifra_compounds"] = ReferenceDatasetState(
+                "ifra_compounds", status, digest, 0, load_error
+            )
+            logger.warning("IFRA screening reference unavailable: %s", load_error)
+            return
+        if not isinstance(decoded, dict) or not isinstance(
+            decoded.get("compounds"), list
+        ):
+            self.compounds_data = {}
+            self.reference_states["ifra_compounds"] = ReferenceDatasetState(
+                "ifra_compounds",
+                ReferenceDatasetStatus.INVALID,
+                digest,
+                0,
+                "COMPOUNDS_COLLECTION_INVALID",
+            )
+            return
+        compounds = decoded["compounds"]
+        if not compounds:
+            self.compounds_data = {}
+            self.reference_states["ifra_compounds"] = ReferenceDatasetState(
+                "ifra_compounds",
+                ReferenceDatasetStatus.EMPTY_INVALID,
+                digest,
+                0,
+                "COMPOUNDS_COLLECTION_EMPTY",
+            )
+            return
+        indexed: dict[str, JsonObject] = {}
+        invalid = False
+        for compound in compounds:
+            if not isinstance(compound, dict) or not isinstance(
+                compound.get("name"), str
+            ):
+                invalid = True
+                break
+            key = self._identity_key(compound["name"])
+            if not key or key in indexed:
+                invalid = True
+                break
+            if "ifra_limit" in compound and compound["ifra_limit"] is not None:
+                if not self._finite_number(compound["ifra_limit"]) or float(
+                    compound["ifra_limit"]
+                ) < 0:
+                    invalid = True
+                    break
+            indexed[key] = cast(JsonObject, compound)
+        if invalid:
+            self.compounds_data = {}
+            self.reference_states["ifra_compounds"] = ReferenceDatasetState(
+                "ifra_compounds",
+                ReferenceDatasetStatus.INVALID,
+                digest,
+                0,
+                "COMPOUND_RECORD_INVALID_OR_DUPLICATE",
+            )
+            return
+        self.compounds_data = indexed
+        self.reference_states["ifra_compounds"] = ReferenceDatasetState(
+            "ifra_compounds",
+            ReferenceDatasetStatus.AVAILABLE,
+            digest,
+            len(indexed),
+            None,
+        )
+        logger.info("Loaded IFRA screening data for %d compounds", len(indexed))
 
     def _chemicals(self) -> dict[str, JsonObject]:
         """Return the typed chemical mapping from the JSON data boundary."""
@@ -125,19 +317,83 @@ class ChemistryValidator:
         normalized = self._normalize_chemical_name(name)
         return self._chemicals().get(normalized)
 
+    def _get_ifra_record(self, name: str) -> tuple[str, Optional[JsonObject]]:
+        """Return an exact/admitted-alias IFRA record and its coverage state."""
+
+        key = self._identity_key(name)
+        key = self._ifra_aliases.get(key, key)
+        compound = self.compounds_data.get(key)
+        if compound is None:
+            return "NO_MATCHING_RECORD", None
+        if self._finite_number(compound.get("ifra_limit")):
+            return "APPLICABLE_LIMIT", compound
+        if compound.get("ifra_status") in {
+            "DOCUMENTED_NOT_RESTRICTED",
+            "NOT_RESTRICTED",
+        }:
+            return "DOCUMENTED_NOT_RESTRICTED", compound
+        return "MATCHED_RECORD_INCOMPLETE", compound
+
     def _get_ifra_limit(self, name: str) -> Optional[float]:
-        """Get IFRA limit for a chemical from compounds database"""
-        normalized = name.lower().strip()
-        compound = self.compounds_data.get(normalized)
-        if compound:
-            return cast(Optional[float], compound.get("ifra_limit"))
+        status, compound = self._get_ifra_record(name)
+        if status != "APPLICABLE_LIMIT" or compound is None:
+            return None
+        return float(compound["ifra_limit"])
 
-        # Try partial matching
-        for key, compound in self.compounds_data.items():
-            if key in normalized or normalized in key:
-                return cast(Optional[float], compound.get("ifra_limit"))
+    def reference_snapshot(self) -> dict[str, JsonObject]:
+        return {
+            key: state.to_dict()
+            for key, state in sorted(self.reference_states.items())
+        }
 
-        return None
+    def reference_bundle_sha256(self) -> str:
+        payload = json.dumps(
+            self.reference_snapshot(),
+            sort_keys=True,
+            separators=(",", ":"),
+            ensure_ascii=True,
+        ).encode("utf-8")
+        return sha256(payload).hexdigest()
+
+    def coverage_report(self, ingredients: list[JsonObject]) -> JsonObject:
+        positive = [
+            str(item.get("name", "Unknown"))
+            for item in ingredients
+            if float(item.get("percentage", 0)) > 0
+        ]
+        total = len(positive)
+        potency_missing = [
+            name for name in positive if self._get_chemical_data(name) is None
+        ]
+        note_missing = [
+            name
+            for name in positive
+            if (
+                (record := self._get_chemical_data(name)) is None
+                or record.get("note") not in {"top", "heart", "base"}
+            )
+        ]
+        ifra_missing = [
+            name
+            for name in positive
+            if self._get_ifra_record(name)[0]
+            not in {"APPLICABLE_LIMIT", "DOCUMENTED_NOT_RESTRICTED"}
+        ]
+
+        def entry(missing: list[str]) -> JsonObject:
+            covered = total - len(missing)
+            return {
+                "positive_dose_total": total,
+                "covered_count": covered,
+                "coverage_fraction": (covered / total if total else 1.0),
+                "missing_materials": sorted(set(missing), key=str.casefold),
+            }
+
+        return {
+            "potency": entry(potency_missing),
+            "ifra": entry(ifra_missing),
+            "note": entry(note_missing),
+        }
 
     def validate_formula(self, ingredients: list[JsonObject]) -> list[ValidationIssue]:
         """
@@ -235,8 +491,8 @@ class ChemistryValidator:
                 issues.append(ValidationIssue(
                     severity=ValidationSeverity.ERROR,
                     chemical=name,
-                    message=f"'{name}' at {percentage:.1f}% exceeds maximum safe limit of {max_percent:.1f}%. Potency: {potency}.",
-                    suggested_fix=f"Reduce to {max_percent:.1f}% or less. Typical usage: {typical_percent:.1f}%.",
+                    message=f"'{name}' at {percentage:.1f}% exceeds the legacy advisory potency maximum of {max_percent:.1f}%. Potency: {potency}.",
+                    suggested_fix=f"Review the dose against authoritative, applicable evidence; the legacy screen suggests {max_percent:.1f}% or less and does not establish safety.",
                     current_value=percentage,
                     recommended_value=typical_percent
                 ))
@@ -282,16 +538,17 @@ class ChemistryValidator:
             name = ing.get("name", "Unknown")
             percentage = ing.get("percentage", 0)
 
-            ifra_limit = self._get_ifra_limit(name)
-            if ifra_limit is None:
+            match_state, compound = self._get_ifra_record(name)
+            if match_state != "APPLICABLE_LIMIT" or compound is None:
                 continue
+            ifra_limit = float(compound["ifra_limit"])
 
             if percentage > ifra_limit:
                 issues.append(ValidationIssue(
                     severity=ValidationSeverity.ERROR,
                     chemical=name,
-                    message=f"IFRA VIOLATION: '{name}' at {percentage:.1f}% exceeds IFRA limit of {ifra_limit:.1f}%.",
-                    suggested_fix=f"MUST reduce to {ifra_limit:.1f}% or below for safety compliance.",
+                    message=f"LEGACY IFRA-SCREEN FINDING: '{name}' at {percentage:.1f}% exceeds the matched reference value of {ifra_limit:.1f}%.",
+                    suggested_fix="Withhold compliance conclusions and review the exact material, product category, amendment, and concentration basis against the canonical regulatory record.",
                     current_value=percentage,
                     recommended_value=ifra_limit * 0.8  # Suggest 80% of limit for safety margin
                 ))
@@ -299,8 +556,8 @@ class ChemistryValidator:
                 issues.append(ValidationIssue(
                     severity=ValidationSeverity.WARNING,
                     chemical=name,
-                    message=f"IFRA WARNING: '{name}' at {percentage:.1f}% is very close to IFRA limit of {ifra_limit:.1f}%.",
-                    suggested_fix=f"Consider reducing to {ifra_limit * 0.8:.1f}% for safety margin.",
+                    message=f"LEGACY IFRA-SCREEN WARNING: '{name}' at {percentage:.1f}% is close to the matched reference value of {ifra_limit:.1f}%.",
+                    suggested_fix="Review the exact applicable canonical regulatory record; this advisory screen is not a compliance determination.",
                     current_value=percentage,
                     recommended_value=ifra_limit * 0.8
                 ))
@@ -407,7 +664,7 @@ class ChemistryValidator:
                     new_percentage = max_percent
                     changes.append(
                         f"Reduced '{name}' from {percentage:.1f}% to {max_percent:.1f}% "
-                        f"(exceeded maximum safe limit)"
+                        f"(exceeded the legacy advisory potency maximum)"
                     )
                     total_reduction += (percentage - max_percent)
 
@@ -418,7 +675,7 @@ class ChemistryValidator:
                 new_percentage = ifra_limit * 0.9  # Set to 90% of IFRA limit
                 changes.append(
                     f"Reduced '{name}' from {old_pct:.1f}% to {new_percentage:.1f}% "
-                    f"(IFRA compliance: max {ifra_limit:.1f}%)"
+                    f"(legacy IFRA-screen reference: {ifra_limit:.1f}%; not a compliance determination)"
                 )
                 total_reduction += (old_pct - new_percentage)
 

@@ -1,0 +1,81 @@
+{
+  "schema_version": "measured-intensity-capability-manifest-v1",
+  "manifest_id": "wakayama-2019-governed-curves-20260923",
+  "admission_state": "HOLD_EXACT_IDENTITY_RANGE_MATRIX_BINDING",
+  "source": {
+    "name": "Wakayama et al. 2019 perfumery raw-material intensity curves",
+    "doi": "10.1021/acs.iecr.9b01225",
+    "correction_doi": "10.1021/acs.iecr.0c05822",
+    "source_artifact_path": "output/optimizer_research_20260909/wakayama_2019/ie9b01225_si_001.pdf",
+    "source_artifact_sha256": "b62f567840ddcc8b1b305784aa8245f2b5c53b07a820c42613482134cd567104",
+    "transcription_artifact_path": "output/optimizer_research_20260909/wakayama_2019/wakayama-intensity.txt",
+    "transcription_artifact_sha256": "739243c505187b5384ddacbbe2ab674b53fb8cd0b58e25733bd6bae5547c23eb",
+    "source_parameter_rows": 314,
+    "license": "CC BY-NC 4.0",
+    "permitted_use": "attributed noncommercial research only",
+    "commercial_use_authorized": false,
+    "source_fit_overlap": "UNKNOWN"
+  },
+  "input_contract": {
+    "physical_quantity": "GAS_MASS_CONCENTRATION",
+    "phase": "AIR",
+    "unit": "ug/L_air",
+    "log_base": 10,
+    "liquid_dose_allowed": false,
+    "stock_fraction_allowed": false,
+    "oav_allowed": false,
+    "extrapolation_authorized": false
+  },
+  "curve_contract": {
+    "form": "WAKAYAMA_LOG10_SIGMOID",
+    "parameters": ["imax", "midpoint_log10_ug_l", "slope"],
+    "threshold_equation_revision": "WAKAYAMA_DECEMBER_2020_CORRECTION",
+    "threshold_output_unit": "ng/L_air",
+    "threshold_roundtrip_criterion": 1.4,
+    "threshold_roundtrip_tolerance": 1e-12
+  },
+  "applicability": {
+    "observed_range_status": "NOT_TRANSCRIBED_PER_CURVE",
+    "matrix": "SOURCE_GAS_DELIVERY_PROTOCOL_ONLY",
+    "delivery": "SOURCE_PROTOCOL_ONLY",
+    "scenario": "SOURCE_RAW_MATERIAL_INTENSITY_ONLY",
+    "whole_natural_transfer_authorized": false,
+    "commercial_product_transfer_authorized": false,
+    "full_perfume_transfer_authorized": false
+  },
+  "identity_adjudication": {
+    "default_state": "UNADJUDICATED",
+    "known_conflicts": [
+      {
+        "source_cas": "140-88-5",
+        "source_name": "2,6-nonadienal",
+        "state": "CONFLICT",
+        "reason": "The source name and CAS identity conflict; automatic mapping is forbidden."
+      }
+    ]
+  },
+  "uncertainty": {
+    "coefficient_rounding_known": true,
+    "coefficient_covariance_available": false,
+    "prediction_interval_method": "UNAVAILABLE",
+    "clustered_model_comparison_required": true
+  },
+  "endpoint_authority": {
+    "character": false,
+    "intensity": "CONDITIONAL_EXACT_SOURCE_DOMAIN_ONLY",
+    "pleasantness": false,
+    "personal_liking": false,
+    "population_liking": false,
+    "beauty": false,
+    "formula_optimization_authority": false
+  },
+  "action_authority": {
+    "evidence_admission_authorized": false,
+    "physical_experiment_authorized": false,
+    "compounding_authorized": false,
+    "purchase_authorized": false,
+    "inventory_mutation_authorized": false,
+    "safety_authorized": false,
+    "release_authorized": false
+  }
+}

@@ -338,6 +338,19 @@ class LabExecutionServiceMixin:
                     "BOTTLE_NOT_FOUND",
                     f"Bottle not found: {command.bottle_id}.",
                 )
+            bottle_events = await self.repository.events_for_bottle(
+                command.bottle_id
+            )
+            if any(
+                event.event_type in {"ADD_MATERIAL", "ADD_SOLVENT"}
+                and event.payload_json.get("execution_scope")
+                != "PLANNED_PROPOSAL_CONFIRM_MEASURE_COMMIT"
+                for event in bottle_events
+            ):
+                raise ExecutionConflictError(
+                    "BOTTLE_FREEFORM_QUARANTINED",
+                    "A bottle with freeform additions cannot enter planned formula execution.",
+                )
             sequence = await self.repository.latest_sequence(command.bottle_id)
             if sequence != command.expected_sequence:
                 raise ExecutionConflictError(
@@ -547,6 +560,40 @@ class LabExecutionServiceMixin:
                     "BUILD_PLAN_LINE_NOT_FOUND",
                     "Reserved build-plan line no longer exists.",
                 )
+            if str(line.unit).strip().casefold() not in {"g", "gram", "grams"}:
+                raise ExecutionConflictError(
+                    "BUILD_PLAN_UNIT_NOT_GRAVIMETRIC",
+                    "Bottle-action completion requires a mass-based build-plan line.",
+                )
+            # Resolution is the only immutable line field that is an explicit
+            # completion granularity. Expected transfer loss and measurement
+            # uncertainty are evidence to retain, not permission to silently
+            # turn a short dose into a fully satisfied reservation.
+            completion_tolerance_g = max(float(line.resolution), 1e-12)
+            if (
+                abs(line.planned_raw_quantity - reservation.reserved_mass_g)
+                > completion_tolerance_g
+            ):
+                raise ExecutionConflictError(
+                    "RESERVATION_PLAN_QUANTITY_MISMATCH",
+                    "Active reservation does not match the immutable build-plan quantity within tolerance.",
+                )
+            if (
+                abs(proposal.planned_mass_g - reservation.reserved_mass_g)
+                > completion_tolerance_g
+            ):
+                raise ExecutionConflictError(
+                    "PROPOSAL_RESERVATION_QUANTITY_MISMATCH",
+                    "Action proposal does not cover the active reservation within tolerance.",
+                )
+            completion_delta_g = abs(
+                measurement.value - reservation.reserved_mass_g
+            )
+            if completion_delta_g > completion_tolerance_g:
+                raise ExecutionConflictError(
+                    "MEASUREMENT_OUTSIDE_COMPLETION_TOLERANCE",
+                    "Measured mass cannot fulfill the reservation outside the immutable completion tolerance.",
+                )
             before = await self.repository.reconstruct_bottle(
                 proposal.bottle_id
             )
@@ -598,6 +645,8 @@ class LabExecutionServiceMixin:
                     ),
                     "reserved_quantity": reservation.reserved_mass_g,
                     "committed_quantity": measurement.value,
+                    "completion_tolerance_g": completion_tolerance_g,
+                    "completion_delta_g": completion_delta_g,
                     "unit": line.unit,
                     "basis": line.concentration_basis,
                     "standard_uncertainty": (

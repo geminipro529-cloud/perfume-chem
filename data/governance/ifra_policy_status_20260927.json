@@ -1,0 +1,60 @@
+{
+  "schema_version": "ifra-policy-status-v1",
+  "as_of_date": "2026-09-27",
+  "effective_policy_id": "IFRA_51ST_AMENDMENT",
+  "policies": [
+    {
+      "policy_id": "IFRA_51ST_AMENDMENT",
+      "amendment": 51,
+      "status": "EFFECTIVE_BUILT_IN_POLICY",
+      "notification_date": "2023-06-30",
+      "official_sources": [
+        {
+          "title": "IFRA Standards documentation",
+          "url": "https://ifrafragrance.org/initiatives-positions/safe-use-fragrance-science/ifra-standards/ifra-standards-documentation"
+        },
+        {
+          "title": "Notification of the 51st Amendment to the IFRA Standards",
+          "url": "https://ifrafragrance.org/latest-updates/press-releases/notification-of-the-51st-amendment-to-the-ifra-standards"
+        }
+      ],
+      "notification_required_before_activation": false
+    },
+    {
+      "policy_id": "IFRA_52ND_AMENDMENT",
+      "amendment": 52,
+      "status": "PENDING_NOTIFICATION",
+      "notification_date": null,
+      "expected_notification_window": "2027-01",
+      "official_sources": [
+        {
+          "title": "IFRA publishes End of Consultation Letter for the 52nd Amendment",
+          "url": "https://ifrafragrance.org/latest-updates/ifra-news/ifra-publishes-end-of-consultation-letter-for-the-52nd-amendment-to-the-ifra-standards"
+        }
+      ],
+      "notification_required_before_activation": true
+    }
+  ],
+  "runtime_dataset": {
+    "dataset_id": "legacy-ifra-cat4-screening-subset-v1",
+    "source_path": "engine/ifra_safety.py",
+    "source_sha256": "0d61c522589c0cfc7c2a736306ed2fe390f880b3a703882c2ac0368ca3757a57",
+    "table_symbol": "IFRA_CAT4_LIMITS",
+    "policy_id": "IFRA_51ST_AMENDMENT",
+    "coverage_state": "NON_EXHAUSTIVE_SCREENING_SUBSET",
+    "value_scope": "CATEGORY_4_FINISHED_PRODUCT_PERCENT_SCREENING",
+    "exact_identity_only": true,
+    "admitted_aliases": {
+      "alpha isomethyl ionone": "Alpha Isomethyl Ionone"
+    },
+    "documented_not_restricted": [],
+    "review_required_for_complete_policy_claim": true
+  },
+  "authority": {
+    "regulatory_compliance_determination": false,
+    "release_authority": false,
+    "safety_authority": false,
+    "compounding_authority": false,
+    "evidence_admission_authorized": false
+  }
+}

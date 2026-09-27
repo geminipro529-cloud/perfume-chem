@@ -1,4 +1,5 @@
 import sqlite3
+from contextlib import closing
 from pathlib import Path
 
 import pytest
@@ -20,14 +21,14 @@ def _config(database: Path) -> Config:
 
 
 def _revision(database: Path) -> str:
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         return str(
             connection.execute("SELECT version_num FROM alembic_version").fetchone()[0]
         )
 
 
 def _tables(database: Path) -> set[str]:
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         return {
             str(row[0])
             for row in connection.execute(
@@ -37,12 +38,12 @@ def _tables(database: Path) -> set[str]:
 
 
 def _integrity(database: Path) -> str:
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         return str(connection.execute("PRAGMA integrity_check").fetchone()[0])
 
 
 def _insert_representative_lab_rows(database: Path) -> None:
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         connection.execute(
             "INSERT INTO lab_materials (id, canonical_name, created_at) VALUES (?, ?, ?)",
             ("released-material", "Released iris", "2026-07-30T00:00:00+00:00"),
@@ -69,7 +70,7 @@ def _insert_representative_lab_rows(database: Path) -> None:
 
 
 def _representative_rows(database: Path) -> list[tuple]:
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         return list(
             connection.execute(
                 """
@@ -83,14 +84,14 @@ def _representative_rows(database: Path) -> list[tuple]:
 
 
 def _create_legacy_material(database: Path, name: str) -> None:
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         connection.execute("CREATE TABLE materials (id INTEGER PRIMARY KEY, name TEXT)")
         connection.execute("INSERT INTO materials (name) VALUES (?)", (name,))
         connection.commit()
 
 
 def _legacy_material(database: Path) -> str:
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         return str(connection.execute("SELECT name FROM materials").fetchone()[0])
 
 
@@ -336,7 +337,7 @@ def test_a2_planning_migration_preserves_legacy_tables(tmp_path):
 def test_a2_planning_migration_installs_append_only_guards(tmp_path):
     database = tmp_path / "append-only.db"
     command.upgrade(_config(database), A2_HEAD)
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         connection.execute("PRAGMA foreign_keys=ON")
         _minimum_rows(connection)
         connection.commit()
@@ -358,7 +359,7 @@ def test_a2_planning_migration_installs_append_only_guards(tmp_path):
 def test_a2_planning_database_constraints_reject_invalid_rows(tmp_path):
     database = tmp_path / "constraints.db"
     command.upgrade(_config(database), A2_HEAD)
-    with sqlite3.connect(database) as connection:
+    with closing(sqlite3.connect(database)) as connection, connection:
         connection.execute("PRAGMA foreign_keys=ON")
         _minimum_rows(connection)
         connection.commit()

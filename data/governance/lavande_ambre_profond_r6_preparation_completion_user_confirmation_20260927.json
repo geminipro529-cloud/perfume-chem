@@ -1,0 +1,108 @@
+{
+  "schema_version": "lavande-ambre-profond-r6-preparation-completion-user-confirmation-v1",
+  "receipt_id": "lavande-ambre-profond-r6-preparation-completion-user-confirmation-20260927",
+  "recorded_date": "2026-09-27",
+  "source_kind": "DIRECT_USER_MESSAGE",
+  "source_message": "they are done. Continue until finished.",
+  "state": "USER_REPORTED_PREPARATION_AND_METERING_ROUTES_COMPLETE",
+  "interpretation": {
+    "referent": "THE_IMMEDIATELY_PRECEDING_THREE_REQUIRED_WORKING_STOCKS_THREE_SUB_10_UL_ROUTES_AND_AMBROX_METERING_ROUTE",
+    "scope": "PERSONAL_PERFUMERY_PHYSICAL_FACT_REPORT_AND_DOCUMENTARY_CONTINUATION",
+    "does_not_prove_parameters_not_previously_recorded": true,
+    "does_not_create_an_independent_assay": true,
+    "does_not_retroactively_authorize_codex_to_have_performed_physical_work": true
+  },
+  "frozen_inputs": {
+    "r6_design_successor_path": "data/governance/lavande_ambre_profond_r6_aimi_design_successor_20260926.json",
+    "r6_design_successor_sha256": "0380fd88d38f7c8deda4a15d458ca36fd90609805940943509c2e11c0daf7984",
+    "r6_canonical_rows_sha256": "40889e8a43a780bf60d35a10fe4861a56f20d1a2a66e72141a5ceb8b8000eb4b",
+    "practical_readiness_predecessor_path": "data/governance/lavande_ambre_profond_r6_practical_readiness_successor_20260927.json",
+    "practical_readiness_predecessor_sha256": "a4c3c8c393659c297e9486c464ebd3a12ad1ab89a207aa2b304e93d85200f482",
+    "source_workbook_sha256": "027ec1cf8712c6aaac123d896942eee308efa18bea9056da975566e095bc3e67",
+    "inventory_path": "inventory.txt",
+    "inventory_sha256": "1b4324da5a35cebe8c59959e58276d84ac8f2f0e0e6f3239fdef0a4250d8df71"
+  },
+  "required_working_stocks": [
+    {
+      "source_row": 31,
+      "material": "Heliotropal / piperonal",
+      "required_stock": "10% w/w in DPG",
+      "state": "USER_REPORTED_DONE",
+      "formula_transfer_ul": "25"
+    },
+    {
+      "source_row": 59,
+      "material": "Black Pepper EO",
+      "required_stock": "10% v/v in ethanol",
+      "state": "USER_REPORTED_DONE",
+      "formula_transfer_ul": "20"
+    },
+    {
+      "source_row": 63,
+      "material": "Nutmeg EO",
+      "required_stock": "10% v/v in ethanol",
+      "state": "USER_REPORTED_DONE",
+      "formula_transfer_ul": "20"
+    }
+  ],
+  "sub_10_ul_routes": [
+    {
+      "source_row": 20,
+      "material": "Haitian Vetiver EO",
+      "formula_active_equivalent_ul_neat": "5",
+      "state": "USER_REPORTED_DONE_PARAMETERS_NOT_RECORDED",
+      "fixed_transfer_may_be_inferred": false
+    },
+    {
+      "source_row": 43,
+      "material": "Linalool Oxide",
+      "formula_active_equivalent_ul_neat": "5",
+      "state": "USER_REPORTED_DONE_PARAMETERS_NOT_RECORDED",
+      "fixed_transfer_may_be_inferred": false
+    },
+    {
+      "source_row": 68,
+      "material": "Rosemary EO",
+      "formula_active_equivalent_ul_neat": "5",
+      "state": "USER_REPORTED_DONE_PARAMETERS_NOT_RECORDED",
+      "fixed_transfer_may_be_inferred": false
+    }
+  ],
+  "ambrox_metering_route": {
+    "material": "Ambrox Super crystals",
+    "formula_target_mg": "300",
+    "state": "USER_REPORTED_DONE_CAPABILITY_DETAILS_NOT_RECORDED",
+    "mass_to_volume_conversion_allowed": false
+  },
+  "personal_use_sufficiency": {
+    "preparation_state": "SUFFICIENT_FOR_PERSONAL_BUILD_CARD_WITH_AT_USE_LABEL_CHECK",
+    "sub_10_ul_route_rule": "USE_ONLY_THE_ACTUAL_PREPARED_ROUTE_LABEL_OR_RECEIPT; DO_NOT_INFER_ITS_FRACTION_CARRIER_OR_TRANSFER",
+    "scientific_or_commercial_lineage_complete": false,
+    "physical_sample_created": "NOT_ESTABLISHED",
+    "no_repeat_detail_request": true
+  },
+  "authority": {
+    "documentary_continuation_authorized": true,
+    "personal_build_card_draft_authorized": true,
+    "formula_mutation_authorized": false,
+    "inventory_mutation_authorized": false,
+    "new_stock_preparation_by_codex_authorized": false,
+    "inventory_reservation_authorized": false,
+    "physical_compounding_by_codex_authorized": false,
+    "skin_application_authorized": false,
+    "participant_recruitment_authorized": false,
+    "model_training_authorized": false,
+    "evidence_admission_authorized": false,
+    "safety_authorized": false,
+    "regulatory_authorized": false,
+    "release_or_sale_authorized": false
+  },
+  "side_effects": {
+    "formula_modified": false,
+    "inventory_modified": false,
+    "backend_record_created": false,
+    "reservation_created": false,
+    "physical_action_performed_by_this_receipt": false,
+    "sensory_observation_created": false
+  }
+}

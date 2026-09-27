@@ -19,6 +19,7 @@ SCIENCE_EVIDENCE_CLASSES = (
 )
 SCIENCE_SECTION_KEYS = (
     "source_documents",
+    "source_use_constraints",
     "source_extractions",
     "property_observations",
     "selected_assertions",
@@ -38,6 +39,7 @@ SCIENCE_SECTION_KEYS = (
     "regulatory_findings",
     "claim_authority_decisions",
     "claim_authority_support",
+    "external_study_versions",
 )
 
 EvidenceClass = Literal[
@@ -52,6 +54,7 @@ EvidenceClass = Literal[
 ]
 ScienceSectionKey = Literal[
     "source_documents",
+    "source_use_constraints",
     "source_extractions",
     "property_observations",
     "selected_assertions",
@@ -71,6 +74,7 @@ ScienceSectionKey = Literal[
     "regulatory_findings",
     "claim_authority_decisions",
     "claim_authority_support",
+    "external_study_versions",
 ]
 
 
@@ -134,7 +138,7 @@ class ScienceReportTotals(ScienceReportModel):
 class ScienceAuthorityReport(ScienceReportModel):
     """Canonical B9 read-only report."""
 
-    schema_version: Literal["lab-science-authority-report-v1"]
+    schema_version: Literal["lab-science-authority-report-v2"]
     view: ScienceView
     authority_state: Literal["READ_ONLY_NON_PROMOTING"]
     evidence_classes: tuple[EvidenceClass, ...]

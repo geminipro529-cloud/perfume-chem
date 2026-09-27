@@ -1,0 +1,138 @@
+{
+  "schema_version": "lavande-ambre-profond-design-successor-delta-v1",
+  "successor_id": "lavande-ambre-profond-r6-aimi-design-successor-20260926",
+  "title": "Lavande Ambre Profond R6 — AIMI design successor",
+  "recorded_date": "2026-09-26",
+  "state": "ADMITTED_DESIGN_SUCCESSOR_ONLY",
+  "parent": {
+    "comparator_id": "lavande-ambre-profond-r5-design-comparator-20260923",
+    "path": "data/governance/lavande_ambre_profond_r5_design_comparator_20260923.json",
+    "sha256": "d7f5904bd9437cb61589a1a535423eedb6786641ccc70f109d3e1516bc222f86",
+    "canonical_rows_sha256": "28284674560179b536f2e797a3b1a50ef0421e61435132f47704cda590ead15e",
+    "relationship": "EXACT_R5_STANDALONE_BASELINE"
+  },
+  "checkpoint3_protocol": {
+    "path": "data/governance/lavande_ambre_profond_r5_cp3_readiness_protocol_20260926_v5.json",
+    "sha256": "cbcad3ba085106b37832f14d5cd80f03251c18677f4b82956986c2cb60cc9bb4"
+  },
+  "user_decision": {
+    "path": "data/governance/lavande_ambre_profond_r6_aimi_user_decision_20260926.json",
+    "sha256": "d65af483aaaaad6beebfb5d827fc3e569ee15123b98e7bc2e4277c3a8390c944"
+  },
+  "inventory_binding_candidate": {
+    "inventory_text_sha256": "1b4324da5a35cebe8c59959e58276d84ac8f2f0e0e6f3239fdef0a4250d8df71",
+    "materialized_inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
+    "materialized_inventory_overlay_sha256": "0bccf890ee05487b20daca94d02c65103c2a22ed4c6435ba8cb311cd041575fb",
+    "authority_record_path": "data/governance/inventory_user_authority_overlay_20260904.json",
+    "authority_record_sha256": "e2fe66cb8077da38142913a73b0d77acd14b6e4953f6155bb2011e1e2bb851a4",
+    "authority_record_id": "INV-USER-20260904-003",
+    "stock_id": "inventory:user-20260904:a45ff6250b56cec5bbad",
+    "stock_label": "Givaudan AIMI",
+    "fraction_decimal": "1",
+    "fraction_basis": "neat",
+    "carrier": "",
+    "physical_stock_state": "OWNED_QUANTITATIVE_DOSING_READY",
+    "build_plan_binding_authority": false
+  },
+  "nominal_product_reference": {
+    "scope": "REFERENCE_COMPATIBLE_NOT_BOTTLE_MATCHED",
+    "supplier": "PerfumersWorld",
+    "product_name": "Alpha Isomethyl Ionone",
+    "sku": "3IW00300",
+    "cas": "127-51-5",
+    "product_page_path": "data/external/perfumersworld/3IW00300/product.html",
+    "product_page_sha256": "d095f0fa3664201e3fc5830e27789fceaa583e8bc094fb265aae03d641fe4cf6",
+    "coa_path": "data/external/perfumersworld/3IW00300/coa.pdf",
+    "coa_sha256": "76b49b238518c5daa4678e9ed553f5182046a54c45498f1ae2e264b12568136e",
+    "supplier_character_scope": [
+      "violet",
+      "orris",
+      "powdery",
+      "floral",
+      "woody"
+    ],
+    "owned_bottle_identity_proven_by_reference": false
+  },
+  "row_replacement": {
+    "change_kind": "INTENDED_MATERIAL_SUBSTITUTION_NOMINAL_TRANSFER_PRESERVED",
+    "source_row": 47,
+    "parent_row": {
+      "source_row": 47,
+      "basket": "B5",
+      "material": "Methyl Ionone Gamma Coeur",
+      "required_stock": "Same neat IFF stock used in the iris formula",
+      "dose": 50,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    "successor_row": {
+      "source_row": 47,
+      "basket": "B5",
+      "material": "Givaudan AIMI",
+      "required_stock": "Owned Givaudan AIMI, neat / as supplied",
+      "dose": 50,
+      "unit": "µL",
+      "evidence": "USER-R6-AIMI-20260926"
+    },
+    "nominal_transfer_preserved": true,
+    "stock_fraction_preserved": true,
+    "chemical_active_equivalence_claimed": false,
+    "sensory_equivalence_claimed": false,
+    "oav_equivalence_claimed": false,
+    "dose_selection_authority": "ENGINEERING_MINIMUM_CHANGE_USER_SELECTED_MATERIAL"
+  },
+  "successor_invariants": {
+    "changed_source_rows": [47],
+    "all_other_parent_rows_byte_equivalent": true,
+    "row_count": 63,
+    "liquid_row_count": 62,
+    "liquid_total_ul": "5600",
+    "solid_row_count": 1,
+    "solid_total_mg": "300",
+    "mass_volume_never_summed": true,
+    "lavender_block_unchanged": true,
+    "lavender_bontoux_to_aroma_more_ratio": "70:30",
+    "parent_unchanged_rows_sha256": "aea0cccfa35804758cb8a1325173d963d4e50345d48f34d2efd396550a1324bc",
+    "successor_canonical_rows_sha256": "40889e8a43a780bf60d35a10fe4861a56f20d1a2a66e72141a5ceb8b8000eb4b"
+  },
+  "model_applicability": {
+    "owned_stock_label_state": "EXACT_LABEL_AND_STOCK_ID_BOUND",
+    "chemical_identity_state": "HOLD_BOTTLE_TO_REFERENCE_IDENTITY_UNVERIFIED",
+    "headspace_state": "HOLD_EXACT_PRODUCT_RELEASE_APPLICABILITY",
+    "odt_oav_state": "HOLD_EXACT_PRODUCT_THRESHOLD_APPLICABILITY",
+    "intensity_state": "HOLD_EXACT_CURVE_APPLICABILITY",
+    "character_state": "TARGET_LINKED_HYPOTHESIS_ONLY",
+    "pleasantness_state": "NOT_ESTABLISHED",
+    "physical_liking_state": "NOT_TESTED"
+  },
+  "checkpoint4_contract": {
+    "state": "SOFTWARE_COMPLETE_DESIGN_SUCCESSOR_ADMITTED_PHYSICAL_READINESS_HOLD",
+    "formula_action": "DESIGN_SUCCESSOR_RECORDED",
+    "physical_build_state": "HOLD_STOCK_BINDING_AND_PREPARATION_LINEAGE",
+    "shortlist_state": "NOT_REQUESTED_SINGLE_USER_SELECTED_SUCCESSOR",
+    "physical_formula_modified": false,
+    "inventory_modified": false
+  },
+  "blocker_order": [
+    "HOLD_ALL_BUILD_PLAN_STOCK_BINDINGS_MISSING",
+    "HOLD_REQUIRED_WORKING_STOCKS_NOT_PREPARED",
+    "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING",
+    "HOLD_AIMI_BOTTLE_TO_REFERENCE_IDENTITY_UNVERIFIED",
+    "HOLD_CONSTANT_TOTAL_AMOUNT_AND_CONVERSION_INPUTS_MISSING",
+    "HOLD_EXACT_CURVE_APPLICABILITY",
+    "HOLD_MEASUREMENT_PROTOCOL_EXECUTION_PARAMETERS_UNRESOLVED",
+    "PLEASANTNESS_NOT_ESTABLISHED",
+    "PHYSICAL_LIKING_NOT_TESTED"
+  ],
+  "authority": {
+    "design_successor_record_authorized": true,
+    "evidence_admission_authorized": false,
+    "physical_experiment_authorized": false,
+    "compounding_authorized": false,
+    "purchase_authorized": false,
+    "inventory_mutation_authorized": false,
+    "physical_formula_mutation_authorized": false,
+    "safety_authorized": false,
+    "release_authorized": false
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "schema_version": "lavande-ambre-profond-r6-personal-readiness-authority-receipt-v1",
+  "receipt_id": "lavande-ambre-profond-r6-personal-readiness-authority-20260927",
+  "recorded_date": "2026-09-27",
+  "state": "USER_INPUT_NORMALIZED_DOCUMENTARY_ACTIONS_AUTHORIZED",
+  "source": {
+    "kind": "USER_ATTACHMENT",
+    "attachment_id": "d48e9c31-8499-482e-9f5b-bec62b04d91e",
+    "filename": "Pasted text.txt",
+    "sha256": "b451405af97ed35a76e4aba2d69fcc4536cfb46914f710755a83f1d1b505c95c",
+    "completed_by": null,
+    "completed_date": null,
+    "interpretation_rule": "USER_ANSWERS_ARE_FACTS_OR_AUTHORIZATIONS; TEMPLATE_INSTRUCTIONS_ARE_NOT_NEW_USER_AUTHORITY"
+  },
+  "frozen_inputs": {
+    "r6_design_successor_path": "data/governance/lavande_ambre_profond_r6_aimi_design_successor_20260926.json",
+    "r6_design_successor_sha256": "1a0ce117fa67f98c854b4d849131abcea0f836f16092c1e4eefb1a9dfa5e2fd1",
+    "r6_canonical_rows_sha256": "40889e8a43a780bf60d35a10fe4861a56f20d1a2a66e72141a5ceb8b8000eb4b",
+    "inventory_path": "inventory.txt",
+    "inventory_sha256": "0546ab83862557a4e604536f6282f3978bf24351a29848e0e91292c71d90bdf4",
+    "stock_clarifications_path": "data/governance/inventory_user_confirmation_20260924_r5_stock_clarifications_v2.json",
+    "stock_clarifications_sha256": "5179974ec3c64a4c48be310b530b9670b08fa07099f663f5c480f446b0290992",
+    "remaining_stock_forms_path": "data/governance/inventory_user_confirmation_20260924_r5_remaining_stock_forms_v3.json",
+    "remaining_stock_forms_sha256": "0b76c0480f43ae355c74abd9803850218efcc14773046102f15eab43c63f6178"
+  },
+  "intended_finish": {
+    "current_scope": "PRACTICAL_PERSONAL_PERFUMER_FORMULATION",
+    "possible_future_scope": "COMMERCIAL_PRODUCT_DIRECTION_NOT_SELECTED",
+    "jurisdiction_if_later_relevant": "Thailand",
+    "current_commercial_claim_authority": false,
+    "requested_personal_endpoints": [
+      "personal_hedonic_response",
+      "architecture",
+      "structure",
+      "performance",
+      "personal_mass_appeal_impression",
+      "reasoned_complexity"
+    ],
+    "population_mass_appeal_claimed": false,
+    "initial_desired_substrate": "skin",
+    "skin_application_authorized": false,
+    "instrument_access": "NONE"
+  },
+  "existing_physical_samples": {
+    "r5": "UNKNOWN_NOT_REASKED_IN_THIS_CHECKPOINT",
+    "r6": "UNKNOWN_NOT_REASKED_IN_THIS_CHECKPOINT",
+    "interpretation": "THE_RESPONSE_DID_NOT_ESTABLISH THAT EITHER SAMPLE EXISTS"
+  },
+  "equipment": {
+    "balance": {
+      "maximum_capacity_g": "500",
+      "user_description": "2 significant digits",
+      "display_resolution_g": null,
+      "small_transfer_mass_qualification": "NOT_ESTABLISHED"
+    },
+    "pipette": {
+      "minimum_ul": "10",
+      "maximum_ul": "1000",
+      "direct_5_ul_transfer_supported": false
+    },
+    "containers": [
+      "15 mL bottle",
+      "30 mL bottle",
+      "30 mL perfume spray bottle"
+    ],
+    "environmental_measurement_equipment": "NONE_REPORTED",
+    "weigh_each_liquid_transfer_supported": false,
+    "lot_specific_density_measurement_supported": false,
+    "lot_specific_density_records": []
+  },
+  "new_documentary_evidence": {
+    "givaudan_aimi": {
+      "owned_quantity": "4 g",
+      "owned_bottle_supplier": null,
+      "lot_or_batch": null,
+      "label_or_photo": null,
+      "reference_named_by_user": "PerfumersWorld Alpha Methyl Ionone",
+      "reference_scope": "PRODUCT_REFERENCE_ONLY_NOT_OWNED_BOTTLE_MATCH",
+      "homogeneity_or_as_supplied_state": "UNKNOWN"
+    },
+    "aroma_more_lavender_40_42": {
+      "lot_or_batch": null,
+      "label_or_photo": null,
+      "supplier_receipt_or_page": null,
+      "existing_project_stock_fact_scope": "OWNED_NEAT_10_ML_HOMOGENEOUS_USER_REPORTED_PREVIOUSLY"
+    },
+    "ambrox_super_crystals": {
+      "supplier": "PerfumersWorld",
+      "lot_or_batch": null,
+      "label_or_photo": null,
+      "remaining_mass": null
+    },
+    "norlimbanol_10_percent_w_w_dpg": {
+      "parent_supplier_or_lot": null,
+      "preparation_quantities": null,
+      "preparation_date": null,
+      "label_or_photo": null,
+      "existing_project_stock_fact_scope": "10_PERCENT_W_W_DPG_HOMOGENEOUS_USER_REPORTED_PREVIOUSLY"
+    },
+    "hay_absolute_10_percent_w_w_dpg": {
+      "parent_material": "Hay Absolute",
+      "parent_supplier_or_lot": null,
+      "preparation_quantities": null,
+      "preparation_date": null,
+      "label_or_photo": null,
+      "existing_project_stock_fact_scope": "10_PERCENT_W_W_DPG_HOMOGENEOUS_USER_REPORTED_PREVIOUSLY"
+    }
+  },
+  "required_child_working_stocks": [
+    {
+      "source_row": 31,
+      "material": "Heliotropal / piperonal",
+      "required_stock": "10% w/w in DPG",
+      "state": "NOT_PREPARED"
+    },
+    {
+      "source_row": 59,
+      "material": "Black Pepper EO",
+      "required_stock": "10% v/v in ethanol",
+      "state": "NOT_PREPARED"
+    },
+    {
+      "source_row": 63,
+      "material": "Nutmeg EO",
+      "required_stock": "10% v/v in ethanol",
+      "state": "NOT_PREPARED",
+      "normalization_note": "NEAT_AND_AROMA_AND_MORE_DESCRIBE_THE_PARENT_STOCK_NOT_A_PREPARED_CHILD_STOCK"
+    }
+  ],
+  "five_microlitre_route": {
+    "direct_route_state": "UNSUPPORTED_BY_REPORTED_10_UL_MINIMUM_PIPETTE",
+    "affected_source_rows": [20, 43, 68],
+    "next_route_class": "GOVERNED_CHILD_DILUTION_REQUIRED_RECIPE_NOT_SELECTED",
+    "stock_preparation_authorized": false
+  },
+  "practical_sufficiency_policy": {
+    "personal_nonexecuting_plan": "USER_CONFIRMED_LABEL_FORM_AND_CURRENT_INVENTORY_ARE_SUFFICIENT_UNLESS_A_ROW_NEEDS_A_MISSING_CHILD_STOCK_OR_UNSUPPORTED_TRANSFER_ROUTE",
+    "scientific_or_commercial_claim": "LOT_IDENTITY_PREPARATION_RECEIPTS_DENSITY_AND_APPLICABILITY_REMAIN_REQUIRED_WHERE_MATERIAL",
+    "unknowns": "PRESERVE_AS_UNKNOWN_WITHOUT_REPEATEDLY_REQUESTING_THEM_UNLESS_A_NEWLY_REQUESTED_ACTION_DEPENDS_ON_THEM",
+    "files": "NO_EXISTING_FORMULA_INVENTORY_OR_FROZEN_MANIFEST_IS_TO_BE_REWRITTEN_FROM_THIS_RECEIPT"
+  },
+  "documentary_authorizations": {
+    "create_successor_documentary_records": true,
+    "update_read_only_stock_lot_preparation_gap_analysis": true,
+    "draft_nonexecuting_r6_build_plan_when_rows_are_sufficiently_bound": true,
+    "draft_personal_blinded_sensory_protocol": true,
+    "hash_and_reference_supplied_documents_without_assay_status": true
+  },
+  "authority_limits": {
+    "stock_preparation_authorized": false,
+    "inventory_reservation_authorized": false,
+    "physical_compounding_authorized": false,
+    "skin_application_authorized": false,
+    "participant_recruitment_authorized": false,
+    "purchase_authorized": false,
+    "formula_mutation_authorized": false,
+    "inventory_mutation_authorized": false,
+    "model_training_authorized": false,
+    "evidence_admission_authorized": false,
+    "safety_authorized": false,
+    "regulatory_authorized": false,
+    "release_or_sale_authorized": false
+  },
+  "side_effects": {
+    "formula_modified": false,
+    "inventory_modified": false,
+    "build_plan_created": false,
+    "reservation_created": false,
+    "stock_prepared": false,
+    "physical_sample_created": false,
+    "skin_application_performed": false,
+    "sensory_observation_created": false
+  }
+}

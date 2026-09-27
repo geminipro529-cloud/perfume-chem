@@ -12,7 +12,6 @@ import pytest
 import engine.inventory_parser as inventory
 from engine.pipeline.preflight import resolve_inventory_stock_contract
 
-
 ROMANDOLIDE_STOCK_ID = "inventory:v5:caba57d5d5c78d414d5c"
 ZENOLIDE_STOCK_ID = "inventory:v5:3fec3fbd1ff43a62aac7"
 AHSEE_SHA256 = "dd779bd93e1e9191988b67aeb637f8362dfefb9e4696f86354ef6a371b85ee5d"
@@ -33,10 +32,9 @@ def _raw_head():
     return json.loads(inventory.ROMANDOLIDE_USER_INVENTORY_OVERLAY_PATH.read_text(encoding="utf-8"))
 
 
-def test_restocked_unknown_form_fails_closed_and_cannot_bind_retired_id():
+def test_current_restock_is_neat_and_cannot_bind_the_retired_id():
     check = _check("Romandolide")
-    assert check.status == "FAIL"
-    assert check.data["issues"][0]["reason"] == "inventory_stock_non_executable"
+    assert check.status == "PASS", check.data.get("issues")
     exact = _check("Romandolide", ROMANDOLIDE_STOCK_ID)
     assert exact.status == "FAIL"
     assert exact.data["issues"][0]["reason"] == "stock_id_not_in_current_inventory"
@@ -73,22 +71,22 @@ def test_successor_removes_only_romandolide_and_preserves_other_stock_objects():
     assert row.disposition == "GAP" and "DEPLETED" in row.status
 
 
-def test_legacy_and_native_views_expose_restock_but_keep_quantitative_hold():
+def test_legacy_and_native_views_expose_current_neat_restock():
     legacy = inventory.parse_inventory(unique=False, include_unavailable=True)
     row = next(r for r in legacy if r.identity_name == "Romandolide")
-    assert row.status == "owned" and not row.execution_ready
-    assert row.execution_hold_reason == "STOCK_FRACTION_UNSPECIFIED"
+    assert row.status == "owned" and row.execution_ready
     for parser in (inventory.parse_inventory, inventory.parse_current_inventory):
         rows = [r for r in parser(unique=False, include_unavailable=False)
                 if r.identity_name == "Romandolide"]
         assert len(rows) == 1
-        assert rows[0].status == "owned" and not rows[0].execution_ready
+        assert rows[0].status == "owned" and rows[0].execution_ready
     native = [r for r in inventory.parse_current_inventory(unique=False, include_unavailable=True)
               if r.identity_name == "Romandolide"]
     assert len(native) == 1
-    assert native[0].status == "owned" and not native[0].execution_ready
-    assert native[0].dilution == 0.0
-    assert native[0].execution_hold_reason == "RESTOCKED_BOTTLE_STRENGTH_AND_CARRIER_NOT_STATED"
+    assert native[0].status == "owned" and native[0].execution_ready
+    assert native[0].dilution == 1.0
+    assert native[0].fraction_basis == "neat"
+    assert native[0].execution_hold_reason == ""
 
 
 def test_zenolide_neat_keeps_its_exact_current_stock_binding():

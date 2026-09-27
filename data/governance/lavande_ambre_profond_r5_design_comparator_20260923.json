@@ -1,0 +1,643 @@
+{
+  "schema_version": "lavande-ambre-profond-r5-design-comparator-v1",
+  "comparator_id": "lavande-ambre-profond-r5-30ml-20260923",
+  "title": "Lavande Ambre Profond R5 30 mL",
+  "recorded_date": "2026-09-23",
+  "design_only": true,
+  "source_artifact": {
+    "filename": "Lavande_Ambre_Profond_R5_30mL_Mixing_Workbook.xlsx",
+    "sha256": "027ec1cf8712c6aaac123d896942eee308efa18bea9056da975566e095bc3e67",
+    "binary_committed": false
+  },
+  "canonical_formula_rows_sha256": "28284674560179b536f2e797a3b1a50ef0421e61435132f47704cda590ead15e",
+  "parent_reference": {
+    "filename": "Lavande_Ambre_Profond_R4_30mL_Fixed_Doses.json",
+    "sha256": "5b0a012b88ca5c1cea45ea8a704cf3b9e5d799d66e9f9d28b2a5d21efa9f4129",
+    "verification_state": "PARENT_BYTES_NOT_AVAILABLE"
+  },
+  "summary": {
+    "row_count": 63,
+    "liquid_row_count": 62,
+    "solid_row_count": 1,
+    "liquid_total_ul": "5600",
+    "solid_total_mg": "300",
+    "minimum_liquid_dose_ul": "5",
+    "final_perfume_volume_ml": "30",
+    "measured_compound_endpoint_ml": "6",
+    "basket_liquid_totals_ul": {
+      "B1": "890",
+      "B2": "700",
+      "B3": "655",
+      "B4": "1895",
+      "B5": "1010",
+      "B6": "450"
+    }
+  },
+  "lavender_design_block": {
+    "state": "FIXED_DESIGN_RATIO_ONLY",
+    "bontoux_ul": "700",
+    "aroma_and_more_ul": "300",
+    "ratio": "70:30",
+    "active_mass_basis_state": "HOLD_DENSITY_AND_STOCK_BINDING"
+  },
+  "checkpoint_2_state": {
+    "design_comparator_state": "ADMITTED_DESIGN_ONLY",
+    "physical_build_state": "HOLD_STOCK_BINDING",
+    "parent_equivalence_state": "HOLD_PARENT_BYTES_MISSING",
+    "intensity_state": "HOLD_EXACT_CURVE_APPLICABILITY",
+    "shortlist_state": "HOLD_CONSTANT_TOTAL_BASIS_UNRESOLVED",
+    "pleasantness_state": "NOT_ESTABLISHED",
+    "physical_liking_state": "NOT_TESTED",
+    "formula_action": "NO_CHANGE",
+    "formula_modified": false,
+    "inventory_modified": false
+  },
+  "known_stock_conflicts": [
+    "AMBROX_FORM_CONFLICT",
+    "VETIVERYL_STRENGTH_CONFLICT",
+    "NORLIMBANOL_CARRIER_BASIS_CONFLICT",
+    "AROMA_AND_MORE_STOCK_NOT_BOUND",
+    "HAY_STOCK_BASIS_UNRESOLVED",
+    "BOTTLE_LOT_AND_HOMOGENEITY_RECEIPTS_MISSING"
+  ],
+  "authority": {
+    "evidence_admission_authorized": false,
+    "physical_experiment_authorized": false,
+    "compounding_authorized": false,
+    "purchase_authorized": false,
+    "inventory_mutation_authorized": false,
+    "safety_authorized": false,
+    "release_authorized": false,
+    "formula_optimization_authority": false,
+    "beauty_authorized": false
+  },
+  "rows": [
+    {
+      "source_row": 7,
+      "basket": "B1",
+      "material": "Iso E Super",
+      "required_stock": "Neat/as supplied",
+      "dose": 450,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 8,
+      "basket": "B1",
+      "material": "Sandalore",
+      "required_stock": "Neat/as supplied",
+      "dose": 80,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 9,
+      "basket": "B1",
+      "material": "Vetiveryl Acetate",
+      "required_stock": "NEAT / undiluted supplied product",
+      "dose": 80,
+      "unit": "µL",
+      "evidence": "S02; S07"
+    },
+    {
+      "source_row": 10,
+      "basket": "B1",
+      "material": "Bacdanol",
+      "required_stock": "Neat/as supplied",
+      "dose": 60,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 11,
+      "basket": "B1",
+      "material": "Clearwood",
+      "required_stock": "Neat/as supplied",
+      "dose": 50,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 12,
+      "basket": "B1",
+      "material": "Cashmeran",
+      "required_stock": "Neat, not the 20% stock",
+      "dose": 45,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 13,
+      "basket": "B1",
+      "material": "Vertofix",
+      "required_stock": "Neat/as supplied",
+      "dose": 30,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 14,
+      "basket": "B1",
+      "material": "Cedarwood Virginia EO",
+      "required_stock": "Neat/as supplied",
+      "dose": 20,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 15,
+      "basket": "B1",
+      "material": "Ebanol",
+      "required_stock": "Neat/as supplied",
+      "dose": 20,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 16,
+      "basket": "B1",
+      "material": "Norlimbanol Dextro",
+      "required_stock": "10% v/v in ethanol; PREP P1",
+      "dose": 20,
+      "unit": "µL",
+      "evidence": "S01; S08"
+    },
+    {
+      "source_row": 17,
+      "basket": "B1",
+      "material": "Cedramber",
+      "required_stock": "Neat/as supplied",
+      "dose": 10,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 18,
+      "basket": "B1",
+      "material": "Guaiacwood EO",
+      "required_stock": "1/3 w/w oil + 1/3 ethanol + 1/3 DEP",
+      "dose": 10,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 19,
+      "basket": "B1",
+      "material": "Patchouli EO",
+      "required_stock": "Neat/as supplied",
+      "dose": 10,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 20,
+      "basket": "B1",
+      "material": "Haitian Vetiver EO",
+      "required_stock": "Neat/as supplied",
+      "dose": 5,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 21,
+      "basket": "B2",
+      "material": "Ethylene Brassylate",
+      "required_stock": "Undiluted supplied product required",
+      "dose": 350,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 22,
+      "basket": "B2",
+      "material": "Habanolide",
+      "required_stock": "Neat/as supplied",
+      "dose": 150,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 23,
+      "basket": "B2",
+      "material": "Ambrettolide",
+      "required_stock": "10% w/w in DPG",
+      "dose": 120,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 24,
+      "basket": "B2",
+      "material": "Exaltolide",
+      "required_stock": "Existing 10% in DPG stock",
+      "dose": 80,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 25,
+      "basket": "B3",
+      "material": "Coumarin",
+      "required_stock": "10% w/w in DPG",
+      "dose": 280,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 26,
+      "basket": "B3",
+      "material": "Labdanum Resinoid",
+      "required_stock": "Existing 10% in DPG stock",
+      "dose": 140,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 27,
+      "basket": "B3",
+      "material": "Tonka Bean Absolute",
+      "required_stock": "Existing 10% in DPG stock",
+      "dose": 70,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 28,
+      "basket": "B3",
+      "material": "Siam Benzoin",
+      "required_stock": "Existing 50% in DPG stock",
+      "dose": 50,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 29,
+      "basket": "B3",
+      "material": "Olibanum Resinoid",
+      "required_stock": "50% w/w in DPG",
+      "dose": 40,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 30,
+      "basket": "B3",
+      "material": "Hay Absolute",
+      "required_stock": "Existing Hay Absolute 10%; carrier/basis not re-confirmed",
+      "dose": 30,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 31,
+      "basket": "B3",
+      "material": "Heliotropal / piperonal",
+      "required_stock": "10% w/w in DPG; PREP P4",
+      "dose": 25,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 32,
+      "basket": "B3",
+      "material": "Opoponax Resinoid",
+      "required_stock": "Existing 50% in DEP stock",
+      "dose": 10,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 33,
+      "basket": "B3",
+      "material": "Tobacco Absolute",
+      "required_stock": "Existing 10% in DPG stock",
+      "dose": 10,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 34,
+      "basket": "B4",
+      "material": "Lavender EO, Bontoux",
+      "required_stock": "Undiluted supplied oil; not High Altitude",
+      "dose": 700,
+      "unit": "µL",
+      "evidence": "S01; S02"
+    },
+    {
+      "source_row": 35,
+      "basket": "B4",
+      "material": "Linalyl Acetate",
+      "required_stock": "Neat/as supplied",
+      "dose": 460,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 36,
+      "basket": "B4",
+      "material": "Lavender 40/42, Aroma&More",
+      "required_stock": "Undiluted French supplied blend; not a 40% working dilution",
+      "dose": 300,
+      "unit": "µL",
+      "evidence": "S02; S03"
+    },
+    {
+      "source_row": 37,
+      "basket": "B4",
+      "material": "Ethyl Linalool",
+      "required_stock": "Undiluted supplied product required",
+      "dose": 200,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 38,
+      "basket": "B4",
+      "material": "Linalool",
+      "required_stock": "Neat/as supplied",
+      "dose": 100,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 39,
+      "basket": "B4",
+      "material": "Clary Sage EO",
+      "required_stock": "Neat/as supplied",
+      "dose": 45,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 40,
+      "basket": "B4",
+      "material": "Geranyl Acetate",
+      "required_stock": "Undiluted supplied product required",
+      "dose": 30,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 41,
+      "basket": "B4",
+      "material": "Terpinyl Acetate",
+      "required_stock": "Neat/as supplied",
+      "dose": 30,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 42,
+      "basket": "B4",
+      "material": "Spike Lavender EO",
+      "required_stock": "Neat/as supplied",
+      "dose": 25,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 43,
+      "basket": "B4",
+      "material": "Linalool Oxide",
+      "required_stock": "Undiluted PW product required; product, not single-isomer, basis",
+      "dose": 5,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 44,
+      "basket": "B5",
+      "material": "Hedione, regular",
+      "required_stock": "Undiluted supplied product; fixed dose, not a balancing ingredient",
+      "dose": 600,
+      "unit": "µL",
+      "evidence": "S01; S04"
+    },
+    {
+      "source_row": 45,
+      "basket": "B5",
+      "material": "Hedione HC",
+      "required_stock": "Undiluted supplied product required",
+      "dose": 150,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 46,
+      "basket": "B5",
+      "material": "Hexyl Salicylate",
+      "required_stock": "Neat/as supplied",
+      "dose": 50,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 47,
+      "basket": "B5",
+      "material": "Methyl Ionone Gamma Coeur",
+      "required_stock": "Same neat IFF stock used in the iris formula",
+      "dose": 50,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 48,
+      "basket": "B5",
+      "material": "Nerolidol",
+      "required_stock": "Neat/as supplied",
+      "dose": 40,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 49,
+      "basket": "B5",
+      "material": "Phenyl Ethyl Dimethyl Carbinol (PEDMC)",
+      "required_stock": "Neat; clear homogeneous liquid",
+      "dose": 30,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 50,
+      "basket": "B5",
+      "material": "Mimosa Absolute",
+      "required_stock": "Existing 10% in DPG stock",
+      "dose": 25,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 51,
+      "basket": "B5",
+      "material": "Dimethyl Benzyl Carbinyl Acetate (DBCA)",
+      "required_stock": "Undiluted supplied product required",
+      "dose": 20,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 52,
+      "basket": "B5",
+      "material": "Florol",
+      "required_stock": "Neat/as supplied",
+      "dose": 15,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 53,
+      "basket": "B5",
+      "material": "Alpha Ionone",
+      "required_stock": "Neat/as supplied",
+      "dose": 10,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 54,
+      "basket": "B5",
+      "material": "Benzyl Acetate",
+      "required_stock": "Neat/as supplied",
+      "dose": 10,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 55,
+      "basket": "B5",
+      "material": "Phenethyl Alcohol (PEA)",
+      "required_stock": "Neat/as supplied",
+      "dose": 10,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 56,
+      "basket": "B6",
+      "material": "Bergamot FCF Sicilian",
+      "required_stock": "Neat/as supplied",
+      "dose": 200,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 57,
+      "basket": "B6",
+      "material": "Petitgrain Paraguay EO",
+      "required_stock": "Neat/as supplied",
+      "dose": 50,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 58,
+      "basket": "B6",
+      "material": "Cedrat FCF Sicilian",
+      "required_stock": "Neat/as supplied",
+      "dose": 35,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 59,
+      "basket": "B6",
+      "material": "Black Pepper EO",
+      "required_stock": "10% v/v in ethanol; PREP P2",
+      "dose": 20,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 60,
+      "basket": "B6",
+      "material": "Cardamom EO",
+      "required_stock": "Neat/as supplied",
+      "dose": 20,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 61,
+      "basket": "B6",
+      "material": "Coriander EO, PW",
+      "required_stock": "Neat/as supplied",
+      "dose": 20,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 62,
+      "basket": "B6",
+      "material": "Juniper Berry EO",
+      "required_stock": "Neat/as supplied",
+      "dose": 20,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 63,
+      "basket": "B6",
+      "material": "Nutmeg EO",
+      "required_stock": "10% v/v in ethanol; PREP P3",
+      "dose": 20,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 64,
+      "basket": "B6",
+      "material": "Pink Pepper EO, Schinus molle",
+      "required_stock": "Neat/as supplied",
+      "dose": 20,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 65,
+      "basket": "B6",
+      "material": "Cypress EO",
+      "required_stock": "Neat/as supplied",
+      "dose": 15,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 66,
+      "basket": "B6",
+      "material": "Elemi EO",
+      "required_stock": "Neat/as supplied",
+      "dose": 15,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 67,
+      "basket": "B6",
+      "material": "Dihydromyrcenol (DHM)",
+      "required_stock": "Neat/as supplied",
+      "dose": 10,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 68,
+      "basket": "B6",
+      "material": "Rosemary EO",
+      "required_stock": "Neat/as supplied",
+      "dose": 5,
+      "unit": "µL",
+      "evidence": "S01"
+    },
+    {
+      "source_row": 69,
+      "basket": "W0",
+      "material": "Ambrox Super",
+      "required_stock": "UNDILUTED CRYSTALS / POWDER",
+      "dose": 300,
+      "unit": "mg",
+      "evidence": "S01; S02; S06"
+    }
+  ]
+}

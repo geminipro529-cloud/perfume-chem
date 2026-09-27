@@ -619,16 +619,17 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  user_stock_dilution: "10% in ethanol; fraction basis unspecified"
+  user_in_inventory: true
   supplier: null
   families: []
   character: null
-  notes: null
+  notes: Current 10% stock carrier is ethanol. Fraction basis remains unspecified, so quantitative execution is held. A separate neat text entry is not bound as current physical authority.
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json
 - canonical_name: Gamma Octalactone
   aliases: []
   cas: null

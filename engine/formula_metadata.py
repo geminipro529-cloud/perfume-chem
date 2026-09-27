@@ -261,8 +261,16 @@ def pipeline_preflight_guard(
     formula_path: str,
     brief: str | None = None,
     inventory_path: str = "inventory.txt",
+    *,
+    check_inventory_membership: bool = True,
 ) -> PreflightResult:
-    """Run all preflight checks before a gate run. Returns HARD_BLOCKs and WARNs."""
+    """Run all preflight checks before a gate run. Returns HARD_BLOCKs and WARNs.
+
+    ``check_inventory_membership`` controls only the legacy advisory warning
+    that compares formula table names with a materialized inventory.  The
+    authoritative inventory stock contract remains in the release gate and
+    is unaffected by this option.
+    """
     result = PreflightResult()
 
     # Block 1: Metadata required
@@ -276,40 +284,41 @@ def pipeline_preflight_guard(
 
     # Block 2: Inventory stock contract
     formula_materials = _extract_material_names(formula_path)
-    inventory_names = _load_inventory_names(inventory_path)
-    _normalize: Callable[[str], str]
-    try:
-        from engine.name_utils import normalize_name as _normalize
-    except ImportError:
-        _normalize = _normalize_fallback
-
-    normalized_inventory_names = {
-        normalized
-        for name in inventory_names
-        if (normalized := _normalize(name))
-    }
-    missing = []
-    for fm in formula_materials:
-        fm_resolved = _normalize(fm)
-        if fm_resolved and fm_resolved not in normalized_inventory_names:
-            missing.append(fm)
-    if missing:
-        # Suggest replacements from inventory for each missing material
-        suggestions = []
-        _suggest: Callable[[str, set[str]], str]
+    if check_inventory_membership:
+        inventory_names = _load_inventory_names(inventory_path)
+        _normalize: Callable[[str], str]
         try:
-            from engine.ingredient_intelligence import suggest_replacement as _suggest
+            from engine.name_utils import normalize_name as _normalize
         except ImportError:
-            _suggest = _suggest_fallback
+            _normalize = _normalize_fallback
 
-        for m in missing[:5]:
-            alt = _suggest(m, inventory_names) if callable(_suggest) else "check inventory"
-            suggestions.append(f"{m} → try {alt}")
-        result.warnings.append(
-            f"INVENTORY_MISSING: {len(missing)} materials not in inventory. "
-            + f"Replacements: {'; '.join(suggestions)}"
-            + ("..." if len(missing) > 5 else "")
-        )
+        normalized_inventory_names = {
+            normalized
+            for name in inventory_names
+            if (normalized := _normalize(name))
+        }
+        missing = []
+        for fm in formula_materials:
+            fm_resolved = _normalize(fm)
+            if fm_resolved and fm_resolved not in normalized_inventory_names:
+                missing.append(fm)
+        if missing:
+            # Suggest replacements from inventory for each missing material
+            suggestions = []
+            _suggest: Callable[[str, set[str]], str]
+            try:
+                from engine.ingredient_intelligence import suggest_replacement as _suggest
+            except ImportError:
+                _suggest = _suggest_fallback
+
+            for m in missing[:5]:
+                alt = _suggest(m, inventory_names) if callable(_suggest) else "check inventory"
+                suggestions.append(f"{m} → try {alt}")
+            result.warnings.append(
+                f"INVENTORY_MISSING: {len(missing)} materials not in inventory. "
+                + f"Replacements: {'; '.join(suggestions)}"
+                + ("..." if len(missing) > 5 else "")
+            )
 
     # Block 3: Quantitative authority
     if meta.is_claimed() and meta.is_quantitative():

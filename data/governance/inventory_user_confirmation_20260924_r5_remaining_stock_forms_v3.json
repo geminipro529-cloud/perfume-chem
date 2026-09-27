@@ -1,0 +1,141 @@
+{
+  "schema_version": "perfume_chem_direct_r5_remaining_stock_forms_confirmation_v3",
+  "effective_date": "2026-09-24",
+  "source_kind": "DIRECT_USER_MESSAGE",
+  "context": "Checkpoint 3 R5 remaining stock-form and availability reconciliation",
+  "predecessor": {
+    "path": "data/governance/inventory_user_confirmation_20260924_r5_stock_clarifications_v2.json",
+    "sha256": "5179974ec3c64a4c48be310b530b9670b08fa07099f663f5c480f446b0290992"
+  },
+  "message_facts": [
+    {"material": "Labdanum Resinoid", "message": "10% w/w in DPG"},
+    {"material": "Tonka Bean Absolute", "message": "10% w/w in DPG"},
+    {"material": "Olibanum Resinoid", "message": "50% w/w in DPG"},
+    {"material": "Opoponax Resinoid", "message": "50% w/w in DEP"},
+    {"material": "Mimosa Absolute", "message": "10% w/w in DPG"},
+    {"material": "Ethyl Linalool", "message": "correct form and ready"},
+    {"material": "Geranyl Acetate", "message": "correct form and ready"},
+    {"material": "Spike Lavender EO", "message": "correct form and ready"},
+    {"material": "Linalool Oxide", "message": "correct form and ready"},
+    {"material": "Hedione HC", "message": "correct form and ready"},
+    {"material": "Methyl Ionone Gamma Coeur", "message": "depleted"},
+    {"material": "Cedrat FCF Sicilian", "message": "correct form and ready"},
+    {"material": "Heliotropal / piperonal", "message": "neat"},
+    {"material": "Black Pepper EO", "message": "neat"},
+    {"material": "Nutmeg EO", "message": "neat"}
+  ],
+  "normalization_rules": {
+    "correct_form_and_ready_scope": "PHYSICAL_STOCK_FORM_AND_RAW_TRANSFER_READINESS_ONLY",
+    "correct_form_and_ready_does_not_supply_missing_fraction_basis": true,
+    "correct_form_and_ready_does_not_supply_lot_or_preparation_receipts": true,
+    "neat_parent_stock_does_not_equal_required_working_dilution": true,
+    "depleted_stock_cannot_be_replaced_by_family_or_alias": true
+  },
+  "normalized_stock_facts": [
+    {
+      "canonical_name": "Labdanum Resinoid",
+      "fraction": 0.1,
+      "fraction_basis": "mass_fraction",
+      "carrier": "dpg",
+      "user_reported_correct_form_and_ready": true,
+      "quantitative_active_mass_ready": true,
+      "hold_reason": "PHYSICAL_LINEAGE_MISSING"
+    },
+    {
+      "canonical_name": "Tonka Bean Absolute",
+      "fraction": 0.1,
+      "fraction_basis": "mass_fraction",
+      "carrier": "dpg",
+      "user_reported_correct_form_and_ready": true,
+      "basis_source": "DIRECT_USER_CURRENT_MASS_FRACTION_CORRECTION"
+    },
+    {
+      "canonical_name": "Olibanum Resinoid",
+      "fraction": 0.5,
+      "fraction_basis": "mass_fraction",
+      "carrier": "dpg",
+      "user_reported_correct_form_and_ready": true,
+      "quantitative_active_mass_ready": true
+    },
+    {
+      "canonical_name": "Opoponax Resinoid",
+      "fraction": 0.5,
+      "fraction_basis": "mass_fraction",
+      "carrier": "dep",
+      "user_reported_correct_form_and_ready": true,
+      "quantitative_active_mass_ready": true,
+      "hold_reason": "PHYSICAL_LINEAGE_MISSING"
+    },
+    {
+      "canonical_name": "Mimosa Absolute",
+      "fraction": 0.1,
+      "fraction_basis": "mass_fraction",
+      "carrier": "dpg",
+      "user_reported_correct_form_and_ready": true,
+      "quantitative_active_mass_ready": true,
+      "hold_reason": "PHYSICAL_LINEAGE_MISSING"
+    },
+    {
+      "canonical_names": [
+        "Ethyl Linalool",
+        "Geranyl Acetate",
+        "Spike Lavender EO",
+        "Linalool Oxide",
+        "Hedione HC",
+        "Cedrat FCF Sicilian"
+      ],
+      "fraction": 1.0,
+      "fraction_basis": "neat",
+      "carrier": "",
+      "user_reported_correct_form_and_ready": true,
+      "physical_lineage_receipts_complete": false
+    },
+    {
+      "canonical_name": "Methyl Ionone Gamma Coeur",
+      "state": "DEPLETED",
+      "substitution_authorized": false
+    },
+    {
+      "canonical_names": [
+        "Heliotropal / piperonal",
+        "Black Pepper EO",
+        "Nutmeg EO"
+      ],
+      "fraction": 1.0,
+      "fraction_basis": "neat",
+      "carrier": "",
+      "user_reported_correct_form_and_ready": true,
+      "r5_required_working_stocks_prepared": false
+    }
+  ],
+  "r5_working_stock_requirements": [
+    {
+      "material": "Heliotropal / piperonal",
+      "owned_parent": "neat",
+      "required_working_stock": "10% w/w in DPG",
+      "state": "PREPARATION_REQUIRED"
+    },
+    {
+      "material": "Black Pepper EO",
+      "owned_parent": "neat",
+      "required_working_stock": "10% v/v in ethanol",
+      "state": "PREPARATION_REQUIRED"
+    },
+    {
+      "material": "Nutmeg EO",
+      "owned_parent": "neat",
+      "required_working_stock": "10% v/v in ethanol",
+      "state": "PREPARATION_REQUIRED"
+    }
+  ],
+  "authority_limits": {
+    "inventory_fact_update_authorized": true,
+    "physical_compounding_authorized": false,
+    "working_stock_preparation_authorized": false,
+    "build_plan_binding_authorized": false,
+    "formula_substitution_authorized": false,
+    "formula_dose_change_authorized": false,
+    "scientific_promotion_authorized": false,
+    "safety_or_release_asserted": false
+  }
+}
